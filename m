@@ -4,60 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E42C77B7D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B981C77B7C
 	for <amd-gfx@archiver.kernel.org>; Wed, 10 May 2023 12:20:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD71E10E487;
-	Wed, 10 May 2023 12:20:40 +0000 (UTC)
-Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
- [IPv6:2607:f8b0:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0692510E459;
- Wed, 10 May 2023 08:27:04 +0000 (UTC)
-Received: by mail-pf1-x42a.google.com with SMTP id
- d2e1a72fcca58-643bb9cdd6eso4500504b3a.1; 
- Wed, 10 May 2023 01:27:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683707224; x=1686299224;
- h=content-transfer-encoding:subject:from:cc:to:content-language
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fGI6Lm0AtHzSQXtW9u+HWh/q47GLCgh6RMnfXKjtk10=;
- b=YnwK0D3uKISsnbmkLu/Sz2qEaUpF/rrJT6uvrOoLYwds3FdiFRlmjeK476qnd3MGE9
- AJdtQgkElfru8rnQ2nKkw1UTf/5MfGgd9GnsCVqvHrkuD+Emyu2IBMWaIJmUVRi5RxG4
- sMisuF/kJ4orfSI6BK56uzDEOAjgthG/g/oY/TWl+MN49yBtsIIca3n8+bwT67POXErD
- embuMk0HH8YV1SA0WHY4yqOoYeh4r5EBo24AxQcTR65mDc6KIrAC0MvG6pQ9pXRD57PT
- F/hWGRPfhJP6LE/bSa6zVUUxJ/pd7L/60Lw1VYq80XAovRMRZz+kJ7zuqngQnWOr6snr
- iYug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683707224; x=1686299224;
- h=content-transfer-encoding:subject:from:cc:to:content-language
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=fGI6Lm0AtHzSQXtW9u+HWh/q47GLCgh6RMnfXKjtk10=;
- b=NZK5W3CyCs8fcwZp45sgwxMPz+EEDPr/AfplbXAmvip4RvN8KL79NRBtISeJzIduaY
- X/LVxfZUwTbft/rqBXhJDKlAbot51bXuhpo9RoHq8Xu7vpWeGlukDvSkpAxJUB24h9xO
- 3oT5+jkKXXLe64odiM7N7fOupdng/f2L7Kasu2e5CRT9Mdjnn4kVUF34NTn5ZO/f4prq
- 66nheaxf3zeAOz1rji8ynFq53W+fpfICGcKjPWtHVq6umoc0j/ICdX0a/mWwa7RRN5UY
- 7nvk+l8tYZlUC3n79WPfDlOpgdBxKhW9hyhYFYdK6qOxHCz9dP9srFh1vLjKbwxt7nSJ
- PidA==
-X-Gm-Message-State: AC+VfDzMl9WORbvm8X8laC0c28CzOEhMra+BtYXAC++1XucZjUjheN1i
- IWcU2HAAzhheLhayZubVQOg=
-X-Google-Smtp-Source: ACHHUZ7G4coGPv/o20Pt3xAf2wqBDv9uLRjifxHDFgKM8gjudvDiKaJ8QVkC6VJLFijHhAiDaiMFGg==
-X-Received: by 2002:a05:6a20:6a14:b0:d9:250:665c with SMTP id
- p20-20020a056a206a1400b000d90250665cmr20275025pzk.15.1683707224082; 
- Wed, 10 May 2023 01:27:04 -0700 (PDT)
-Received: from [192.168.43.80] (subs03-180-214-233-68.three.co.id.
- [180.214.233.68]) by smtp.gmail.com with ESMTPSA id
- p15-20020a63fe0f000000b00514256c05c2sm2671485pgh.7.2023.05.10.01.26.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 May 2023 01:27:03 -0700 (PDT)
-Message-ID: <c2168e4f-4d47-0d5d-a1b7-d237f0760df8@gmail.com>
-Date: Wed, 10 May 2023 15:26:56 +0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 105A610E489;
+	Wed, 10 May 2023 12:20:41 +0000 (UTC)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5006610E1D2;
+ Wed, 10 May 2023 09:51:07 +0000 (UTC)
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1pwgTP-0000gz-7f; Wed, 10 May 2023 11:51:03 +0200
+Message-ID: <9cf29c20-5b82-89bb-0927-e6f66b3bd8d5@leemhuis.info>
+Date: Wed, 10 May 2023 11:51:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>,
+Subject: Re: Fwd: Kernel 5.11 crashes when it boots, it produces black screen.
+Content-Language: en-US, de-DE
+To: Bagas Sanjaya <bagasdotme@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
  "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
@@ -69,10 +37,15 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  Linux DRI Development <dri-devel@lists.freedesktop.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux Regressions <regressions@lists.linux.dev>
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-Subject: Fwd: Kernel 5.11 crashes when it boots, it produces black screen.
+References: <c2168e4f-4d47-0d5d-a1b7-d237f0760df8@gmail.com>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <c2168e4f-4d47-0d5d-a1b7-d237f0760df8@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1683712267;
+ 44f10e44; 
+X-HE-SMSGID: 1pwgTP-0000gz-7f
 X-Mailman-Approved-At: Wed, 10 May 2023 12:20:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,33 +58,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 Cc: "Azamat S. Kalimoulline" <turtle@bazon.ru>,
  max <kernel-ODwfxu5zp4@maxxor.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Hi!
 
-I noticed a regression report on Bugzilla ([1]). As many developers don't
-have a look on it, I decided to forward it by email. See the report
-for the full thread.
-
-Quoting from the report:
-
->  Azamat S. Kalimoulline 2021-04-06 15:45:08 UTC
+On 10.05.23 10:26, Bagas Sanjaya wrote:
 > 
-> Same as in https://bugzilla.kernel.org/show_bug.cgi?id=212133, but not StoneyRidge related. I have same issue in 5.11.9 kernel, but on Renoir architecture. I have AMD Ryzen 5 PRO 4650U with Radeon Graphics. Same stuck on loading initial ramdisk. modprobe.blacklist=amdgpu 3` didn't help to boot. Same stuck. Also iommu=off and acpi=off too. 5.10.26 boots fine. I boot via efi and I have no option boot without it.
+> I noticed a regression report on Bugzilla ([1]). As many developers don't
+> have a look on it, I decided to forward it by email. See the report
+> for the full thread.
+> 
+> Quoting from the report:
+> 
+>>  Azamat S. Kalimoulline 2021-04-06 15:45:08 UTC
+>>
+>> Same as in https://bugzilla.kernel.org/show_bug.cgi?id=212133, but not StoneyRidge related. I have same issue in 5.11.9 kernel, but on Renoir architecture. I have AMD Ryzen 5 PRO 4650U with Radeon Graphics. Same stuck on loading initial ramdisk. modprobe.blacklist=amdgpu 3` didn't help to boot. Same stuck. Also iommu=off and acpi=off too. 5.10.26 boots fine. I boot via efi and I have no option boot without it.
+> 
+> Azamat, can you try reproducing this issue on latest mainline?
+>
+> [1]: https://bugzilla.kernel.org/show_bug.cgi?id=212579
 
-Azamat, can you try reproducing this issue on latest mainline?
+Bagas, thx for all your help with regression tracking, much appreciated
+(side note, as I'm curious for a while already: what is your motivation?
+Just want to help? But whatever, any help is great!).
 
-Anyway, let me add this regression to regzbot:
+That being said: I'm not sure if I like what you did in this particular
+case, as developers might start getting annoyed by regression tracking
+if we throw too many bug reports of lesser quality before their feet --
+and then they might start to ignore us, which we really need to prevent.
 
-#regzbot introduced: v5.10..v5.11 https://bugzilla.kernel.org/show_bug.cgi?id=212579
-#regzbot title: Booting kernel on AMD Ryzen 5 PRO stucks in loading initrd
+That's why I would not have forwarded that report at this point of time,
+mainly for these reasons:
 
-Thanks.
+ * The initial report is quite old already, as it fall through the
+cracks (not good, but happens; sorry Azamat!). Hence in this case it
+would definitely be better to *first* ask the reporter to check if the
+problem still happens with latest mainline (or at least latest stable)
+before involving the kernel developers, as it might have been fixed
+already.
 
-[1]: https://bugzilla.kernel.org/show_bug.cgi?id=212579
+ * This might not be a amdgpu bug at all; in fact the other bug the
+reporter mentioned was an iommu thing. Hence this might be one of those
+regressions where a bisection is the only way to get down to the
+problem. Sure, sending a few developers a quick inquiry along the lines
+of "do you maybe have an idea what's up there" is fine, but that's not
+what you did in your mail. Your list of recipients is also quite long;
+that's risky: if you do that too often, as then they might start
+ignoring mail from you.
 
--- 
-An old man doll... just what I always wanted! - Clara
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+If I did something stupid, please tell me, as explained on that page.
