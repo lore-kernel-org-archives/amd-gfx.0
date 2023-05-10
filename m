@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5FCCC77B7C
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 May 2023 21:24:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57714C7EE25
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 May 2023 21:24:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 357BE10E541;
-	Wed, 10 May 2023 21:24:14 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9009F10E53F
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 May 2023 21:24:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE97B10E542;
+	Wed, 10 May 2023 21:24:15 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2078.outbound.protection.outlook.com [40.107.102.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 113AE10E53F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 May 2023 21:24:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WtIXY0Qrcxk5N9BtlUnOAp+4XXqvm6xy2Wp8Im0m8WEBLmPsboQKJlo9N4P/n22E3CELonOUxFhdhkPRRUDNZ1Gy28EgWJ9hWA3aL5kLrPXT0U1/THygHmx3fw6tl/o+Vz5L/14LBrZUx5qjaWcQFtMrUNBryW5P2uVJmR0ojfxDdNdUZcMHpoemxcXZKniOC9yzJBFAn+Bo+kg0qtjACiIWSZ0Yg9mk7q7AeS9Yly6LPO+H4zoj0dBDpBX18lRX6tV8lcVReVzCAz0Mv0ru8XU3TL0xksIDh/FW1gL8JCmmnIm9Y7F5wV1aZwMvICP/rFQMQjf9/6FWrxwED2pa1w==
+ b=HnGuTCYDsXO98TIvscfgWRPuOwQgVamJRy8FFJ984nc05gyOPuh2ToPSfUhjjq4Wh6c5spGlWuHJFnyv8N7C/bPK6KkkIlR1jBd5ASrrGkUumtv8pOy3rwxzaD5C9M+xxnb3+ufTPELvsLznpOfX1x7UxIDWGv/Xy9APefX+uFlYIDJD8llPFIZSpVPAyvqBs0aMOhStn5HqC2Lky2dCLHFA9gqnll4wG0YTDfLcnit0Rhu1eoqwB/t4K4zwxu0fce9kAT9DnxR32LSInmyCtTK9BSsTBFiSUhslAX/OLyC8JHBE+grgNF8xqh8Ih+XJCjCefPAl1dBAvBSY+rK+4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AD5cJZiX2nf6DX0oNxpBTpGCV45Bl04KNQsBRlxW9pg=;
- b=Fb4q0tF3OpVmCGRZXv6tsTCQudjHFH5nlw6iHRT760vt/QRzT/PiZV8juKu6oqi6ei6gyWE7a62iuW/oDr8pt3sizXJ2cMkFTbMHJkLCkGCSkv7ZHE5zgTD/AfUBPDv8st9IKKmRHAss3IesgpzMia7jqjbthgEWV1h22pflucZ6A5gwf0U3e7Wvqv7a8AY5itg0UVKxvpNoo0Dcw9uu0mvqKx81Mt3NKZV68h2Ode+4cTEfh43w/GgtsA/YTKza9StTw9rQALe3Rw0sdzK2TM+FF9h+sTX45D7VU1uRBEXTmm2zuH73KvXgBOsV+hY82xO0pW1kUA+TdEnmMEmc6Q==
+ bh=43KQDsNwT8UP8r6ajWo5t6JaNgq6+UNoQffKIcAEqVY=;
+ b=f9vammvqcI8xNJFgs/hjXog9jXYwd1noi1f9lIhYSZQ89gMXpgOiasWh7f1Xj2r7oh+NSX35aA66PD/wiaVnq9xzeZG4JoFaMI1ItMw5lfuhDUZc4VDlxC2oMOCaSXDdbJnQ510e6T0iCALd80UCz4KU8LjOn2V6PXEhPKuXihIFPkF+0VJYgJe8pdq3YILP0hOJQxAgaMmHwrWkWrVUIjEaIOxIVjGWv81Ao1icMyhKgn04+OxrIuLdze7lB9bB0e5bjb8prM2Vgo6wRUV1wLzDnNh8NBt0deMzwD//hshve+nbrZ/oNBOmg3F/99h2W2Qh6MhuSq/A1U+KMjaF7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AD5cJZiX2nf6DX0oNxpBTpGCV45Bl04KNQsBRlxW9pg=;
- b=N38Sg9ot6hxz7HnwaJj0sZaomI1UZfkdgVED4EVgY9ZBbSy3ZW/sSDPX3EBRYRKy3W3Q/HL2Eruq26OLgGUkkfiMvWwJmGdYpLw3Sdx5UIdRW1ahaQ1pDuivgY+Ny4y2DMgOLrLEL8iwZ8bv0m6qkUHeNWKjpBUhw+72DGUSXAw=
-Received: from MW4PR04CA0356.namprd04.prod.outlook.com (2603:10b6:303:8a::31)
- by PH7PR12MB7380.namprd12.prod.outlook.com (2603:10b6:510:20f::20)
+ bh=43KQDsNwT8UP8r6ajWo5t6JaNgq6+UNoQffKIcAEqVY=;
+ b=Nmitj1aEIBswdgkrGh/IUdjB5Zdda+4zxZzt7rls0oLe9pACB6tSPmoMKStGjDPpcARAo+XABPCqldytizQ014RmeZ274STlOzyM5IZqHcwC7DJs4Vb8o3JFisrzXdbgmX6EZ0QGH35noH8SeNlncCKyiV1ZxfFGs7KR1Il1zfg=
+Received: from MW4PR04CA0342.namprd04.prod.outlook.com (2603:10b6:303:8a::17)
+ by CH3PR12MB8547.namprd12.prod.outlook.com (2603:10b6:610:164::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.20; Wed, 10 May
- 2023 21:24:04 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33; Wed, 10 May
+ 2023 21:24:00 +0000
 Received: from CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8a:cafe::ad) by MW4PR04CA0356.outlook.office365.com
- (2603:10b6:303:8a::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.18 via Frontend
- Transport; Wed, 10 May 2023 21:24:04 +0000
+ (2603:10b6:303:8a::4) by MW4PR04CA0342.outlook.office365.com
+ (2603:10b6:303:8a::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.20 via Frontend
+ Transport; Wed, 10 May 2023 21:24:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT033.mail.protection.outlook.com (10.13.174.247) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6387.21 via Frontend Transport; Wed, 10 May 2023 21:24:03 +0000
+ 15.20.6387.21 via Frontend Transport; Wed, 10 May 2023 21:23:59 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 10 May
- 2023 16:24:01 -0500
+ 2023 16:23:56 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 26/29] drm/amdkfd: APU mode set max svm range pages
-Date: Wed, 10 May 2023 17:23:30 -0400
-Message-ID: <20230510212333.2071373-26-alexander.deucher@amd.com>
+Subject: [PATCH 17/29] drm/amdgpu: dGPU mode placement support memory partition
+Date: Wed, 10 May 2023 17:23:21 -0400
+Message-ID: <20230510212333.2071373-17-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230510212333.2071373-1-alexander.deucher@amd.com>
 References: <20230510212333.2071373-1-alexander.deucher@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT033:EE_|PH7PR12MB7380:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58c33164-e35c-421a-3564-08db519ce13f
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT033:EE_|CH3PR12MB8547:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2510ee9b-8e56-40ef-d037-08db519cdf07
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vdX5Ax60JgqkBKTihbMPxVOePJr/Xj+SccVYaVEEfKHSL5py8CfyJE+5hbjCsPGzAUn3XMlFl0F/yrm9WDKPUKbvtD8SsmetNMViVfSzhURKIsCmQ++J6sAIU7vPzG69LdaEgtCBEReCHtpWPDR82DrSEcWdMQh9mcRTaLjbDEVNlLOOuMdE3xLNQvD6qf9Ac59isRe3Owwqh1VJwJHA7g2puelDnFckx6UA2bml7D3KaG6jWvfM0o9BsgPyO/8rXjHyCdv6hGGUxI+4TGS9REv5+0diGGNcz46vowNnMDaGOabwjue5aIHmaziVOJc1HS871cvWwuDsZLX/PU3scI2aDa1h8OvHJv53XqvvmJSd7ofgKMdnxH6y2jMch1JOQb+Hiqa3EtVt46/NCxuGMlvtxt8gb4/jInOiOmrGLlzEufG9UOQhZFVFzEZiZe/B4+7YtEvZkF4mhg2aFzlj3VwIc4l1r23FjN+PqSKn1QIbs/tlIZlBCo52yfNoh+onAhrnjrYFRkmVp3KLFvqIZmHhPVGI9bGwVHrAP7oRBljq+rwFe8YyWsIB4okwkAVQyKk3hDS867uGo6hzToP1KB0A8Z7KOf+2TN+0VAscxR1dm23DrqMfvlCfsx6YWr336B7ulIneVBV61wKXWqM/mhAJI9X0xqg8Xe3mdPYWZfn4AP3DRvFgg0w+RRECu1tIpbX/gJV+1FobDmutrjs3eM/qZ31hsGUyFYOxvhqNhaK2sf0TtrhWW/K26M1ioNsahK9XDTUav+V5ICWDwSB5Tg==
+X-Microsoft-Antispam-Message-Info: 5ykYmDSF70dcnePLafSRqigAtw6BkCSlw0CJbBAnrMaKfGEMRLTjd/ope9RAC6eHLbesP33oyDNGJ8zEjlKOQBRyatbn3K9KRD0d61RBHVkMxVxe3j+T/Lp338c7K0lQPOTowZTWzfejEzUlvx5HRPuGQCWC0JQSfa2PoyQEGG54dKKnchk4uaZtqehB4uXyclLnwr+iyclfQAdVWB6yTQZFKScyufysBLKIL0XFroJxj8RCJrzRz1y4ja1l9IWAW0BwJlQZNhxVMlZ2TaTfHvUf0iFGocD4YVOtIHlgGGPWq5iIy4dssZvHFRJbActnI+rsybzKXsuDL4NPZD6mELVFDIlkhC9LlI2JiH6JP9bmXLbE79ee0eH07nFVEorpatz/+Rp2U8OiwYqa6tAy8zzGtnGXQa/npiKwMWb7HT+sNMU1WEqhfPs63F5ZvGVQMJCuruC5figGlbyXD+NJ3iSqmC00L+zq/G2cP7M/F3ab0MKyXX1I4uDQtxBOKPnSSgzG4j0v1oRZjejyaRfrjwU/Y3W3yV5cx0U7jnwh1AVgn4Qwv/Imqx9K+LxxuIVchP4Xdfi6LJCt7JeTRrVxRjOfbXyAVyJi9pIltUHj00j+HXIIkCU1lgbARYmk0gxonTGf963LrTwHQQWJd+R24iyYC269/EA9BSKvXbFEA1o+pQZXhfBIGBimN5XYKEegzVvn1QYeHivH4jDxWFKxjlJcwbPNqgsZNIXsGM1yPy4=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(39860400002)(396003)(136003)(346002)(451199021)(46966006)(40470700004)(36840700001)(82740400003)(356005)(81166007)(82310400005)(36756003)(86362001)(40460700003)(7696005)(8676002)(8936002)(5660300002)(26005)(1076003)(40480700001)(478600001)(186003)(16526019)(83380400001)(2616005)(336012)(316002)(2906002)(47076005)(426003)(41300700001)(70206006)(6916009)(54906003)(70586007)(36860700001)(6666004)(4326008)(36900700001);
+ SFS:(13230028)(4636009)(396003)(376002)(39860400002)(136003)(346002)(451199021)(36840700001)(40470700004)(46966006)(4326008)(316002)(6916009)(8936002)(40460700003)(5660300002)(2906002)(8676002)(41300700001)(40480700001)(36756003)(82310400005)(16526019)(1076003)(26005)(336012)(2616005)(6666004)(426003)(7696005)(186003)(47076005)(81166007)(83380400001)(82740400003)(356005)(36860700001)(54906003)(86362001)(70586007)(478600001)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2023 21:24:03.7102 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58c33164-e35c-421a-3564-08db519ce13f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2023 21:23:59.9917 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2510ee9b-8e56-40ef-d037-08db519cdf07
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7380
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8547
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,97 +106,42 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Philip Yang <Philip.Yang@amd.com>
 
-svm_migrate_init set the max svm range pages based on the KFD nodes
-partition size. APU mode don't init pgmap because there is no migration.
-
-kgd2kfd_device_init calls svm_migrate_init after KFD nodes allocation
-and initialization.
+dGPU mode uses VRAM manager to validate bo, amdgpu bo placement use the
+mem_id  to get the allocation range first, last page frame number
+from xcp manager, pass to drm buddy allocator as the allowed range.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c  |  5 ++---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |  7 +++++--
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 15 ++++++++++-----
- 3 files changed, 17 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index d41da964d2f5..882ff86bba08 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -724,9 +724,6 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 155b62971a33..cfa14b56c419 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -132,13 +132,18 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
+ 	if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
+ 		unsigned visible_pfn = adev->gmc.visible_vram_size >> PAGE_SHIFT;
  
- 	kfd_cwsr_init(kfd);
+-		places[c].fpfn = 0;
+-		places[c].lpfn = 0;
++		if (adev->gmc.mem_partitions && abo->mem_id >= 0) {
++			places[c].fpfn = adev->gmc.mem_partitions[abo->mem_id].range.fpfn;
++			places[c].lpfn = adev->gmc.mem_partitions[abo->mem_id].range.lpfn;
++		} else {
++			places[c].fpfn = 0;
++			places[c].lpfn = 0;
++		}
+ 		places[c].mem_type = TTM_PL_VRAM;
+ 		places[c].flags = 0;
  
--	svm_migrate_init(kfd->adev);
--
--
- 	dev_info(kfd_device, "Total number of KFD nodes to be created: %d\n",
- 				kfd->num_nodes);
- 
-@@ -794,6 +791,8 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
- 		kfd->nodes[i] = node;
- 	}
- 
-+	svm_migrate_init(kfd->adev);
-+
- 	if (kfd_resume_iommu(kfd))
- 		goto kfd_resume_iommu_error;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 199d32c7c289..2512bf681112 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -1000,6 +1000,11 @@ int svm_migrate_init(struct amdgpu_device *adev)
- 	if (!KFD_IS_SOC15(kfddev->dev))
- 		return -EINVAL;
- 
-+	svm_range_set_max_pages(adev);
-+
-+	if (adev->gmc.is_app_apu)
-+		return 0;
-+
- 	pgmap = &kfddev->pgmap;
- 	memset(pgmap, 0, sizeof(*pgmap));
- 
-@@ -1042,8 +1047,6 @@ int svm_migrate_init(struct amdgpu_device *adev)
- 
- 	amdgpu_amdkfd_reserve_system_mem(SVM_HMM_PAGE_STRUCT_SIZE(size));
- 
--	svm_range_set_max_pages(adev);
--
- 	pr_info("HMM registered %ldMB device memory\n", size >> 20);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 2dbbdad3f392..41dacc015983 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1937,14 +1937,19 @@ void svm_range_set_max_pages(struct amdgpu_device *adev)
- {
- 	uint64_t max_pages;
- 	uint64_t pages, _pages;
-+	uint64_t min_pages = 0;
-+	int i;
-+
-+	for (i = 0; i < adev->kfd.dev->num_nodes; i++) {
-+		pages = KFD_XCP_MEMORY_SIZE(adev, adev->kfd.dev->nodes[i]->xcp->id) >> 17;
-+		pages = clamp(pages, 1ULL << 9, 1ULL << 18);
-+		pages = rounddown_pow_of_two(pages);
-+		min_pages = min_not_zero(min_pages, pages);
-+	}
- 
--	/* 1/32 VRAM size in pages */
--	pages = adev->gmc.real_vram_size >> 17;
--	pages = clamp(pages, 1ULL << 9, 1ULL << 18);
--	pages = rounddown_pow_of_two(pages);
- 	do {
- 		max_pages = READ_ONCE(max_svm_range_pages);
--		_pages = min_not_zero(max_pages, pages);
-+		_pages = min_not_zero(max_pages, min_pages);
- 	} while (cmpxchg(&max_svm_range_pages, max_pages, _pages) != max_pages);
- }
+ 		if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
+-			places[c].lpfn = visible_pfn;
++			places[c].lpfn = min_not_zero(places[c].lpfn, visible_pfn);
+ 		else if (adev->gmc.real_vram_size != adev->gmc.visible_vram_size)
+ 			places[c].flags |= TTM_PL_FLAG_TOPDOWN;
  
 -- 
 2.40.1
