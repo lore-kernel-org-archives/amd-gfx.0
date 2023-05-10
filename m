@@ -4,59 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C114C7EE22
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 May 2023 02:33:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4FF6C7EE22
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 May 2023 06:58:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D0E210E588;
-	Thu, 11 May 2023 02:33:43 +0000 (UTC)
-Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
- [IPv6:2607:f8b0:4864:20::c2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 563C710E588
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 May 2023 02:33:41 +0000 (UTC)
-Received: by mail-oo1-xc2f.google.com with SMTP id
- 006d021491bc7-54fd5aae4e7so1448501eaf.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 May 2023 19:33:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8933510E5AC;
+	Thu, 11 May 2023 06:58:59 +0000 (UTC)
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 573CE10E496;
+ Wed, 10 May 2023 13:29:56 +0000 (UTC)
+Received: by mail-pf1-x42c.google.com with SMTP id
+ d2e1a72fcca58-6434e263962so5435033b3a.2; 
+ Wed, 10 May 2023 06:29:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683772419; x=1686364419;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/pQAf81EzyS4XpYqyhhqkA7QaovNS9VTfmfTqVDEAuw=;
- b=Akbesd3Voq6LonNsh97LC6tgbbXG9iWrhtjMXuIrhw3YaFbvgLuWcg6KCv5gfFoWrA
- HHv5Bj7IO4gKDWtk95UYKEoAn6WruhjazJw6V10Pka8lVYQ+r84M2iBp6Gv0JyPcjQd+
- 395lHFEMQ4Thf58BnlS5PjRpl/vjPUg7LFbDJF3dczhpInSlpkqeJKgXKhMQs7mjt7g/
- lgr1x7ew3eE9ESF6rIHlvQviBCSVt2sabXo3xUNMlShxzG1jwP0X34wZR5Pct167lLbH
- DB1dbpRnK4NoDCLZ2pNhwgZ+Qi4eN8v4EkS4+53nV3EZv+mAjyunoXx25f8FWA+UFsoE
- s+eg==
+ d=gmail.com; s=20221208; t=1683725395; x=1686317395;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=OrTJVzC+N9h0nc4ZEduLU/NeM+jyxDAulMwnlFxtxlY=;
+ b=kcGS4d9Ff2Pu8W5Olf1KJebhCAujWewMOB6b0tIuJLOPlgbGAi0+EHQL06R/FR2b4l
+ 7Q+TwEvxESLbJQSotuf0OAMuigufp3algJowPWUKPD0aFpKy6GG2HVUc32f8hQgC8h4k
+ 6Tgx7e0YVqZLcxIYq2lBBO4Jww+ybjKvmz0ZV5exuG0oytodCIFo++EYDNC6LULe16Gq
+ W7B/S9rvB1M1H0+1nrr0zadgBkqQ6PgGuNWZpB5k19HOM70VgqSaNaT0nnsoRt/LhYIA
+ JJtE+KHDYYND+ke9umBSAxYlCC2F9z96tPVFciQG4K4mtF1qbUZQR9+uYfY46rC7dbyH
+ FJeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683772419; x=1686364419;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/pQAf81EzyS4XpYqyhhqkA7QaovNS9VTfmfTqVDEAuw=;
- b=cQbXtV0wsRS17pTHTvVXyiRCX0R1oq9GKvkIT7WGo2aun8Bk7OJKq7RqWbk/xuTmMX
- 0ivUP6kbCQmIZWpG75Wlt5R5d1yTeLobeKvaPcMWPfJlkHkQ1mkzU2HDVEvyAjt4SL0Z
- I28ZF7hI4qBO2shpYgBF0Pvk4kSZCTM/il3FmXrF/Fsk9JqjwgobE7nGq3Qpz0lQT1zW
- QPu4pqbF67RmDf5p5WW1T/3oTmlJacKBFf3r2JXc7jZ0H+V779zeEUhTw4akFknNaA4P
- YEjnNLbNZFGW1YC1VV5AfFeZoD3UgrmTU8LCQ1B+DNsCuMXsT9TTQZSACxjmeOjpvOPu
- mZiA==
-X-Gm-Message-State: AC+VfDy4mqTCQZ29delxgW33Kcx+XVbahR6USHYyVNjgc4gbJbxjxxmR
- 6l5/7G/mHLr5+HxntDtYoy+1ayhXwZgg+O5gtBY=
-X-Google-Smtp-Source: ACHHUZ6sfYi1W/OyiPQMwOGxHJNmQIZ8LFuuL4v67ToKiR1D0ZJpvTT41Z14Z0cOvKskayzGzm3eIByhNIQF2fZ9Un0=
-X-Received: by 2002:aca:180f:0:b0:38e:c2a4:3530 with SMTP id
- h15-20020aca180f000000b0038ec2a43530mr3620806oih.9.1683772419411; Wed, 10 May
- 2023 19:33:39 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1683725395; x=1686317395;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OrTJVzC+N9h0nc4ZEduLU/NeM+jyxDAulMwnlFxtxlY=;
+ b=M27D0CHqeaaS3r8OKYOXTl2kYQe+6nlls/aOt9miNWYBiL8hU1cVjRQiFUW++3vhMv
+ /nxtl45m/HIfTFLwFzt7bdjGhfvf8g1xCAfHoNopqmWGN6Y5t848phZzQ5IMjVcQI3pl
+ r2Mxtzo3jlVmFgAxH4+u9OrP73sO0flGURf/5P1H3TkNNDrvJWosdTqmKfjTmmoQw2lE
+ /6pjvNPVNWVYB+uc8QRCU+1AeB5DxolpoUwss/UbiL70aXaEfcqNLUkzOuk05D3AQXSS
+ UcTj5R4WtYpVIrSzp/upqZifjrcBLlL6tDnGIY4vasMcZbj9NBgCZwuvnUC1SWHKJNWQ
+ w3/Q==
+X-Gm-Message-State: AC+VfDxZIXf57sxDfrvULkW3hr6kRg+P9oSm003lffQb2V3WaIs1cIow
+ QTwCB8kFp6LgxGUSgND/en0=
+X-Google-Smtp-Source: ACHHUZ7GzCWcQ4sO6wa/oMA7dIBZeJ9MBwS332ZFkL0WO3bHNFgWW4AFCg5oMkj7bOXj98w5QLwlfg==
+X-Received: by 2002:a05:6a00:2289:b0:625:fe95:f120 with SMTP id
+ f9-20020a056a00228900b00625fe95f120mr23709634pfe.8.1683725395276; 
+ Wed, 10 May 2023 06:29:55 -0700 (PDT)
+Received: from [192.168.43.80] (subs32-116-206-28-53.three.co.id.
+ [116.206.28.53]) by smtp.gmail.com with ESMTPSA id
+ x9-20020aa784c9000000b006475f831838sm2524832pfn.30.2023.05.10.06.29.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 May 2023 06:29:54 -0700 (PDT)
+Message-ID: <cfb6bcf7-a6c2-7e52-d7dd-3e054574942e@gmail.com>
+Date: Wed, 10 May 2023 20:29:44 +0700
 MIME-Version: 1.0
-References: <75e5d2a6-9be4-4530-b8f8-c98d1bd96b03@kili.mountain>
-In-Reply-To: <75e5d2a6-9be4-4530-b8f8-c98d1bd96b03@kili.mountain>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 10 May 2023 22:33:28 -0400
-Message-ID: <CADnq5_O-BU5aku753wJvQ9GO5smQPS-ZheO25G3wwEL3CTEXgw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: release correct lock in
- amdgpu_gfx_enable_kgq()
-To: Dan Carpenter <dan.carpenter@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: Fwd: Kernel 5.11 crashes when it boots, it produces black screen.
+To: Linux regressions mailing list <regressions@lists.linux.dev>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Le Ma <le.ma@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>, "Jiadong.Zhu" <Jiadong.Zhu@amd.com>,
+ Yang Wang <KevinYang.Wang@amd.com>, Candice Li <candice.li@amd.com>,
+ Xiaojian Du <Xiaojian.Du@amd.com>, Likun Gao <Likun.Gao@amd.com>,
+ Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
+ Linux DRI Development <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+References: <c2168e4f-4d47-0d5d-a1b7-d237f0760df8@gmail.com>
+ <9cf29c20-5b82-89bb-0927-e6f66b3bd8d5@leemhuis.info>
+Content-Language: en-US
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+In-Reply-To: <9cf29c20-5b82-89bb-0927-e6f66b3bd8d5@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 11 May 2023 06:58:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,52 +88,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- David Airlie <airlied@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Le Ma <le.ma@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Likun Gao <Likun.Gao@amd.com>, Lang Yu <Lang.Yu@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "Azamat S. Kalimoulline" <turtle@bazon.ru>,
+ max <kernel-ODwfxu5zp4@maxxor.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On 5/10/23 16:51, Linux regression tracking (Thorsten Leemhuis) wrote:
+> Bagas, thx for all your help with regression tracking, much appreciated
+> (side note, as I'm curious for a while already: what is your motivation?
+> Just want to help? But whatever, any help is great!).
+> 
 
-Alex
+I did this when I was on "gabut" (an Indonesian slang term that means
+doing nothing but get rewarded). In other words, I was finding a task
+when there is no documentation review or issues that needs to be worked
+on.
 
-On Tue, May 9, 2023 at 10:32=E2=80=AFAM Dan Carpenter <dan.carpenter@linaro=
-.org> wrote:
->
-> This function was releasing the incorrect lock on the error path.
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Fixes: 9bfa241d1289 ("drm/amdgpu: add [en/dis]able_kgq() functions")
-> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
-> ---
-> The LKP robot sent me an email about this after I had already written
-> the patch.  (I review LKP Smatch emails and hit forward).
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index 969f256aa003..7d2f119d9223 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -644,7 +644,7 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev,=
- int xcc_id)
->                                                 adev->gfx.num_gfx_rings);
->                 if (r) {
->                         DRM_ERROR("Failed to lock KIQ (%d).\n", r);
-> -                       spin_unlock(&adev->gfx.kiq[0].ring_lock);
-> +                       spin_unlock(&kiq->ring_lock);
->                         return r;
->                 }
->
-> --
-> 2.39.2
->
+> That being said: I'm not sure if I like what you did in this particular
+> case, as developers might start getting annoyed by regression tracking
+> if we throw too many bug reports of lesser quality before their feet --
+> and then they might start to ignore us, which we really need to prevent.
+> 
+> That's why I would not have forwarded that report at this point of time,
+> mainly for these reasons:
+> 
+>  * The initial report is quite old already, as it fall through the
+> cracks (not good, but happens; sorry Azamat!). Hence in this case it
+> would definitely be better to *first* ask the reporter to check if the
+> problem still happens with latest mainline (or at least latest stable)
+> before involving the kernel developers, as it might have been fixed
+> already.
+> 
+
+Oh dear, I have already seen the bug age (two years old, from Reported
+date).
+
+>  * This might not be a amdgpu bug at all; in fact the other bug the
+> reporter mentioned was an iommu thing. Hence this might be one of those
+> regressions where a bisection is the only way to get down to the
+> problem. Sure, sending a few developers a quick inquiry along the lines
+> of "do you maybe have an idea what's up there" is fine, but that's not
+> what you did in your mail. Your list of recipients is also quite long;
+> that's risky: if you do that too often, as then they might start
+> ignoring mail from you.
+> 
+
+Oops, I was blindly copy-paste get_maintainer.pl list at that time.
+
+Anyway, thanks for the reminder!
+
+-- 
+An old man doll... just what I always wanted! - Clara
+
