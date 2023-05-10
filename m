@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 848CBC7EE25
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 May 2023 21:24:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55723C77B7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 May 2023 21:24:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D451710E546;
-	Wed, 10 May 2023 21:24:18 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7E3610E53E
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 May 2023 21:24:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13D5410E54A;
+	Wed, 10 May 2023 21:24:22 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2061.outbound.protection.outlook.com [40.107.94.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB3010E52C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 May 2023 21:24:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q5a8zl8u14CGJVV8uzQrXqp5PiiFauYaF1753g4jafVMp3LCeTxmJDharb6fj8qs1JuiHFrUflj9CADcN5zDhdrftdZcAAgbYOeiEQnf2lnLw0IGKZ4oG4naPzAFpfpK45Nkw3jMHzH61OrhqqdRlIQd1So6KgvIIvQ+AvHR7oqHKnfOYkpzo6eAqn0Sn/L2yVy2B2/ZdkwyeJHhTK4tKrg6Bvs5OE6SeRYKPZvKcYZHu7E1Vxa+SEjRukzhhCp0QskfWe32CpagURWI80xVNHBb3Wp8NStirN+zmSAxGvwkgrtpy1tHxYiAoR4nrfUdoFEH1JLu0XJKdeFuBis8DQ==
+ b=kf6HM2CZZ++PwVB8yuKzHJ51c8z/ktlKahRLi32CcNadnqvgwXImAyfL8mXohQ9sjanqabr75bcqaD7dEwHm73oxAvgi1hhWrmE4nEXF+Br5q31OQjtuOf3XiezQXT4y5+vnqzGI+i5jdn822otuBrcQTEa8SwrIfPzlyBA44TWlPEAnZTe6TP1ZiFP61vYX04Kqm4Mmbw9QcMY/6lnU8tt9naTnYulfP5lhLZN4+6FKZJPmAFk6lqoeLqieIY1rMGCwX13AE5yO02dbo9hal2B6Fj27y+GtobZm/D3oxkKfS4qU6CB2bnav1H6noPc3p9fT1FLoHvt+vF0qUkNfag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LfCZ/5WBJ2kfa8kaGIpSMcu9TGbdHlwCuUWL5nvlqm4=;
- b=DdQ5eeWjJwkkCB8zfTnHVEcSEwzcFRN6tZbHmsduyUFwNvJkPD5QYIYhjbFY6svdpz+A4Tkmo1Xx+qPcA/ia5N/3nCUgQwwTi07RSRBgsH1X1Ed0pzNmwupXlhPKStiH1gv6235QF+nWoYGOtWD99QZuYnjYVkRhIXG3eBD2yPxhzDWWDNBdlOz0FzjCXkGQH4PFghf1NM0lQ8ue5rJyJ0Kc5kz1LbRBLo69iF6Q2L0AckL0MN73Y1Uu7RGKrz1MK5spkguYGXxULcDFV/SQm1QvsmE8Ux3b3hJorMKiBO6ZUvZILkwuqvA8ironuFfuZGWlm1qlx5cpLSioflLy9g==
+ bh=H4fFo0wmo8KIPV5xTKqX+UUUBcZHfGjUjZak6W+K32w=;
+ b=l3puiTEyFffPwlcWIFzNv/DFg/dHriEWFFNhzeBHtIleufRaoHWIiGP2/w5j4cUrfxGjjXgZGuKYtbjBNlrd7RhilogxYN6y9pezkgskfm9AzQpClGWZddapJ/CO836jqyUy9WLn4GtXqFuYBiEkdxARCf2yqhPJ+vXF1JY0CDkmE27jOfiH4QV7FI8z6/gP3txRC73TJnwiT1SYU7ZiKRu3pw/lBqkbcEni8iF2q5NsNlF5BaC+inQiqUBJu3ReKw6GjUutmDPxlwFv2Syu8XAk1Abm5g6qR53smcGui0K2vDjaYhaBCJSFcF7GeN9D2BFVu0IvTdOGFF6iXWnmZA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LfCZ/5WBJ2kfa8kaGIpSMcu9TGbdHlwCuUWL5nvlqm4=;
- b=yrnwLljgiDLn0LiOuKrXkwa3k7MTPfrjOjMUkhMwbXP5vakvnW/CXcNEiVo8Aj7lkOiGDHxvxPgZAnf/F5zd5qTIf5TymOaHhQqY1jpYEytD9P6EHTAd8W3j7J5vf1I1gpq1ANyEwyt5rZ4VmKjQbzJgVWxow9cB6X36jmb7FrA=
-Received: from MW4PR04CA0354.namprd04.prod.outlook.com (2603:10b6:303:8a::29)
- by PH7PR12MB6884.namprd12.prod.outlook.com (2603:10b6:510:1ba::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33; Wed, 10 May
- 2023 21:24:02 +0000
-Received: from CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8a:cafe::7e) by MW4PR04CA0354.outlook.office365.com
- (2603:10b6:303:8a::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.20 via Frontend
- Transport; Wed, 10 May 2023 21:24:01 +0000
+ bh=H4fFo0wmo8KIPV5xTKqX+UUUBcZHfGjUjZak6W+K32w=;
+ b=EbKQUuIFSI/MqT6xPfRgK7HTYt56VqHzHnkkMLzuoj+Z0X0JU17qQuwThoAOAajrYanSBhkpyIOs+6rxpVVJsdRVX0iKmv2xqxeFzTuPt7ly2tWgDzZEo6ycQT+L5XSKKIyTS5cWUzZWaRCCA30B5z0looG91Mnx1kr/YirGMqA=
+Received: from MW4PR03CA0208.namprd03.prod.outlook.com (2603:10b6:303:b8::33)
+ by DS0PR12MB9059.namprd12.prod.outlook.com (2603:10b6:8:c5::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.18; Wed, 10 May
+ 2023 21:23:58 +0000
+Received: from CO1NAM11FT014.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b8:cafe::10) by MW4PR03CA0208.outlook.office365.com
+ (2603:10b6:303:b8::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.18 via Frontend
+ Transport; Wed, 10 May 2023 21:23:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT033.mail.protection.outlook.com (10.13.174.247) with Microsoft SMTP
+ CO1NAM11FT014.mail.protection.outlook.com (10.13.175.99) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6387.21 via Frontend Transport; Wed, 10 May 2023 21:24:01 +0000
+ 15.20.6387.21 via Frontend Transport; Wed, 10 May 2023 21:23:58 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 10 May
- 2023 16:23:59 -0500
+ 2023 16:23:55 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 22/29] drm/amdgpu: KFD graphics interop support compute
- partition
-Date: Wed, 10 May 2023 17:23:26 -0400
-Message-ID: <20230510212333.2071373-22-alexander.deucher@amd.com>
+Subject: [PATCH 15/29] drm/amdkfd: Alloc memory of GPU support memory partition
+Date: Wed, 10 May 2023 17:23:19 -0400
+Message-ID: <20230510212333.2071373-15-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230510212333.2071373-1-alexander.deucher@amd.com>
 References: <20230510212333.2071373-1-alexander.deucher@amd.com>
@@ -70,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT033:EE_|PH7PR12MB6884:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f16606c-8566-4a81-8507-08db519ce004
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT014:EE_|DS0PR12MB9059:EE_
+X-MS-Office365-Filtering-Correlation-Id: 869a0879-c618-43d7-8897-08db519cddd6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4jhW2LElD6rdrOMNdredupUOTBURCL76AsXSSPLtqHyxQsowkkrt1yp3rQLrNcc8LkMqkNnmu825QTm356i5rm3XdUikD2BzbkRirYuEJ2K/0iCZpyum/bg+uNlq0EojuEB7oI59ZoDuNVoSlNqGTMGvwI7PQH0WkzJBmd6KC6PKC59I6nxuONSLNPzrxKOwFpR1yIEEcrP52ap3+X4OyLV731mNQF64zLrn40Ci4yhimH7SW5e/5ItVnC9gKnL08cuAIDa/GOYUEZQ/0nh5pnl9ew0hrnB5h0nTkYHLXTI0Puvh1UD279p9DcnG2sV9aG6QGdMJo8wELWuIVDt9pd3W9ELlp+qcvL84jXLh7nieInIrbBikTxA/b1g9lNjVTeAqj10TE8FzLV3YdqNJ7Q7BVujzVG36TOtIEi59vrjhTntbIKh/svgVDEm/FBOq82/IL7NNotRvrgduQpsovA7fSQ5VFnXdCIjoqdizNSVFKDTyknIzPrSRMooX9MjZr60hd2iMKEpXhei54BqVQyl+2/r/SajiEFhqphdahPYw268qoqVafX7TfKhteu4iLHaSZGAKIWsBosoAyXBYspQQcuFP4DeULr3mVPB4ElWRAQVZtvbm9XW8VcoDhfnx1oMA8Qy+q7PdQh6hcwrRESloIIU089DHqZOCc5dVeivnZwEg342LqIDPNF3Xj5Gjsi1kLRjy8QoXsoP6fjWpOtBwvddhCRgcqiCFHzcAqSE=
+X-Microsoft-Antispam-Message-Info: 4E9m9ENHmQVh4670ZC1/VwVYItWr0NciklZWDBhuNIfjt7jJ5wDUsKczOO5/m80IowIgCDW7+29Cd2xgTc31MffBQnWDnvs+5OAZGnH1GSwX/Ogi/PdArMtFaCE9MUuRvPZ+SlA2ZJAegWLLSOK4XaVXKz/5H/KLe+8P8N6uPJmq7LutC7poAlp6jCQcrZzBQwDR9CNhlOfPTr0koDyHtS52VPfv5HmiM3LYh3RuXjailYYXH2fu32jJ6ocMHN23vK9CVFoXJGasGwM+JVNBMVWlRwZMoqagodGNvORKke385DZKz2IVVfdaFyoAUaofrvmOCAlnLsi0If7PJyJZDctg2bf/vujrzPYp9RAGrwGEA47ZZgd+mQK9Qu55CZu6pnX2BEBbwND4Ta713FeCQtvIjlfITkwOATtbRtMxqz7LwtFSDXBQ2dbGyct/py92ngTMQKLw3oH7KGniWZvx675NerSXPBb17IVNt6UrVli1XoApiTHy7RUDxhs+hKeVfNF6WArB1StW8zwYS2UEGVckXUPBkctnp5oFwXtM69Jzf4V3RAVOr5kAJYYfsBwopTp0QKSMQoxBcoKOThG39wDCYe+waWhOwU05e0a6am48rxadA/MK6jy72dh8GpZzQTCnsO/q25BWCIFMM22wuXB+mUmYLzOPpDWbD3xXXzUajsrQQ50p1fAHXvAcoZe1iepFty2Ti+HWLZVdr+8eWpqVjwed8be7nE5g7AXTah07JWK5e/ZEiwjUlspo4tNyomTSjJ/SvhrDb+9cbWmbcw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(376002)(451199021)(46966006)(40470700004)(36840700001)(86362001)(81166007)(356005)(316002)(41300700001)(40480700001)(40460700003)(2906002)(36756003)(36860700001)(186003)(8936002)(8676002)(26005)(16526019)(5660300002)(478600001)(82740400003)(1076003)(426003)(336012)(54906003)(7696005)(6666004)(83380400001)(70586007)(4326008)(70206006)(82310400005)(6916009)(47076005)(2616005)(36900700001);
+ SFS:(13230028)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199021)(40470700004)(36840700001)(46966006)(82740400003)(86362001)(6666004)(7696005)(356005)(40480700001)(336012)(426003)(2616005)(36860700001)(47076005)(83380400001)(81166007)(36756003)(70586007)(1076003)(186003)(40460700003)(4326008)(6916009)(70206006)(82310400005)(26005)(8676002)(8936002)(54906003)(478600001)(316002)(16526019)(2906002)(41300700001)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2023 21:24:01.6479 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f16606c-8566-4a81-8507-08db519ce004
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2023 21:23:58.0067 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 869a0879-c618-43d7-8897-08db519cddd6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT014.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6884
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9059
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,135 +106,151 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Philip Yang <Philip.Yang@amd.com>
 
-kfd_ioctl_get_dmabuf use the amdgpu bo xcp_id to get the gpu_id of the
-KFD node from the exported dmabuf_adev, and then create kfd bo on the
-correct adev and KFD node when importing the amdgpu bo to KFD.
+For dGPU mode VRAM allocation, create amdgpu_bo from amdgpu_vm->mem_id,
+to alloc from the correct memory range.
 
-Remove function kfd_device_by_adev, it is not needed as it is the same
-result as dmabuf_adev->kfd.dev->nodes[0]->id.
+For APU mode VRAM allocation, set alloc domain to GTT, and set
+bp->mem_id_plus1 from amdgpu_vm->mem_id + 1 to create amdgpu_bo, to
+allocate system memory from correct NUMA node.
+
+For GTT allocation, use mem_id -1 to allocate system memory from any
+NUMA nodes.
+
+Remove amdgpu_ttm_tt_set_mem_pool, to avoid the confusion that memory
+maybe allocated from different mem_id.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  4 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   | 14 ++++++--------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  1 -
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c  | 18 ------------------
- 5 files changed, 10 insertions(+), 29 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 24 ++++++-------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 20 +---------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  1 -
+ 3 files changed, 8 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index bbbfe9ec4adf..00edb13d2124 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -498,7 +498,7 @@ int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_device *adev, int dma_buf_fd,
- 				  struct amdgpu_device **dmabuf_adev,
- 				  uint64_t *bo_size, void *metadata_buffer,
- 				  size_t buffer_size, uint32_t *metadata_size,
--				  uint32_t *flags)
-+				  uint32_t *flags, int8_t *xcp_id)
- {
- 	struct dma_buf *dma_buf;
- 	struct drm_gem_object *obj;
-@@ -542,6 +542,8 @@ int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_device *adev, int dma_buf_fd,
- 		if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
- 			*flags |= KFD_IOC_ALLOC_MEM_FLAGS_PUBLIC;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 6d0c25e34af1..71b22d61dd27 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1640,9 +1640,9 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 	struct drm_gem_object *gobj = NULL;
+ 	u32 domain, alloc_domain;
+ 	uint64_t aligned_size;
++	int8_t mem_id = -1;
+ 	u64 alloc_flags;
+ 	int ret;
+-	int mem_id = 0; /* Fixme : to be changed when mem_id support patch lands, until then NPS1, SPX only */
+ 
+ 	/*
+ 	 * Check on which domain to allocate BO
+@@ -1652,13 +1652,14 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 
+ 		if (adev->gmc.is_app_apu) {
+ 			domain = AMDGPU_GEM_DOMAIN_GTT;
+-			alloc_domain = AMDGPU_GEM_DOMAIN_CPU;
++			alloc_domain = AMDGPU_GEM_DOMAIN_GTT;
+ 			alloc_flags = 0;
+ 		} else {
+ 			alloc_flags = AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
+ 			alloc_flags |= (flags & KFD_IOC_ALLOC_MEM_FLAGS_PUBLIC) ?
+ 			AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED : 0;
+ 		}
++		mem_id = avm->mem_id;
+ 	} else if (flags & KFD_IOC_ALLOC_MEM_FLAGS_GTT) {
+ 		domain = alloc_domain = AMDGPU_GEM_DOMAIN_GTT;
+ 		alloc_flags = 0;
+@@ -1716,11 +1717,12 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 		goto err_reserve_limit;
  	}
-+	if (xcp_id)
-+		*xcp_id = bo->xcp_id;
  
- out_put:
- 	dma_buf_put(dma_buf);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 05c54776951b..4e6221bccffe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -241,7 +241,7 @@ int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_device *adev, int dma_buf_fd,
- 				  struct amdgpu_device **dmabuf_adev,
- 				  uint64_t *bo_size, void *metadata_buffer,
- 				  size_t buffer_size, uint32_t *metadata_size,
--				  uint32_t *flags);
-+				  uint32_t *flags, int8_t *xcp_id);
- uint8_t amdgpu_amdkfd_get_xgmi_hops_count(struct amdgpu_device *dst,
- 					  struct amdgpu_device *src);
- int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct amdgpu_device *dst,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 8c86d69938ea..344b238d6771 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1499,6 +1499,7 @@ static int kfd_ioctl_get_dmabuf_info(struct file *filep,
- 	struct amdgpu_device *dmabuf_adev;
- 	void *metadata_buffer = NULL;
- 	uint32_t flags;
-+	int8_t xcp_id;
- 	unsigned int i;
- 	int r;
+-	pr_debug("\tcreate BO VA 0x%llx size 0x%llx domain %s\n",
+-			va, (*mem)->aql_queue ? size << 1 : size, domain_string(alloc_domain));
++	pr_debug("\tcreate BO VA 0x%llx size 0x%llx domain %s mem_id %d\n",
++		 va, (*mem)->aql_queue ? size << 1 : size,
++		 domain_string(alloc_domain), mem_id);
  
-@@ -1519,17 +1520,14 @@ static int kfd_ioctl_get_dmabuf_info(struct file *filep,
- 	r = amdgpu_amdkfd_get_dmabuf_info(dev->adev, args->dmabuf_fd,
- 					  &dmabuf_adev, &args->size,
- 					  metadata_buffer, args->metadata_size,
--					  &args->metadata_size, &flags);
-+					  &args->metadata_size, &flags, &xcp_id);
- 	if (r)
- 		goto exit;
+ 	ret = amdgpu_gem_object_create(adev, aligned_size, 1, alloc_domain, alloc_flags,
+-				       bo_type, NULL, &gobj, 0);
++				       bo_type, NULL, &gobj, mem_id + 1);
+ 	if (ret) {
+ 		pr_debug("Failed to create BO on domain %s. ret %d\n",
+ 			 domain_string(alloc_domain), ret);
+@@ -1746,17 +1748,6 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 	(*mem)->mapped_to_gpu_memory = 0;
+ 	(*mem)->process_info = avm->process_info;
  
--	/* Reverse-lookup gpu_id from kgd pointer */
--	dev = kfd_device_by_adev(dmabuf_adev);
--	if (!dev) {
--		r = -EINVAL;
--		goto exit;
+-	if (adev->gmc.is_app_apu &&
+-	    ((*mem)->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)) {
+-		bo->allowed_domains = AMDGPU_GEM_DOMAIN_GTT;
+-		bo->preferred_domains = AMDGPU_GEM_DOMAIN_GTT;
+-		ret = amdgpu_ttm_tt_set_mem_pool(&bo->tbo, mem_id);
+-		if (ret) {
+-			pr_debug("failed to set ttm mem pool %d\n", ret);
+-			goto err_set_mem_partition;
+-		}
 -	}
--	args->gpu_id = dev->id;
-+	if (xcp_id >= 0)
-+		args->gpu_id = dmabuf_adev->kfd.dev->nodes[xcp_id]->id;
-+	else
-+		args->gpu_id = dmabuf_adev->kfd.dev->nodes[0]->id;
- 	args->flags = flags;
+-
+ 	add_kgd_mem_to_kfd_bo_list(*mem, avm->process_info, user_addr);
  
- 	/* Copy metadata buffer to user mode */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 214d950f948e..44f4d5509db6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1068,7 +1068,6 @@ struct kfd_topology_device *kfd_topology_device_by_proximity_domain_no_lock(
- struct kfd_topology_device *kfd_topology_device_by_id(uint32_t gpu_id);
- struct kfd_node *kfd_device_by_id(uint32_t gpu_id);
- struct kfd_node *kfd_device_by_pci_dev(const struct pci_dev *pdev);
--struct kfd_node *kfd_device_by_adev(const struct amdgpu_device *adev);
- static inline bool kfd_irq_is_from_node(struct kfd_node *node, uint32_t node_id,
- 					uint32_t vmid)
- {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index a8e25aecf839..dbb6159344b3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -125,24 +125,6 @@ struct kfd_node *kfd_device_by_pci_dev(const struct pci_dev *pdev)
- 	return device;
+ 	if (user_addr) {
+@@ -1783,7 +1774,6 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ allocate_init_user_pages_failed:
+ err_pin_bo:
+ 	remove_kgd_mem_from_kfd_bo_list(*mem, avm->process_info);
+-err_set_mem_partition:
+ 	drm_vma_node_revoke(&gobj->vma_node, drm_priv);
+ err_node_allow:
+ 	/* Don't unreserve system mem limit twice */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 254927c596ba..395edca3b7f9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1064,7 +1064,7 @@ static struct ttm_tt *amdgpu_ttm_tt_create(struct ttm_buffer_object *bo,
+ 		return NULL;
+ 	}
+ 	gtt->gobj = &bo->base;
+-	gtt->pool_id = NUMA_NO_NODE;
++	gtt->pool_id = abo->mem_id;
+ 
+ 	if (abo->flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC)
+ 		caching = ttm_write_combined;
+@@ -1159,24 +1159,6 @@ static void amdgpu_ttm_tt_unpopulate(struct ttm_device *bdev,
+ 	return ttm_pool_free(pool, ttm);
  }
  
--struct kfd_node *kfd_device_by_adev(const struct amdgpu_device *adev)
+-/**
+- * amdgpu_ttm_tt_set_mem_pool - Set the TTM memory pool for the TTM BO
+- * @tbo: The ttm_buffer_object that backs the VRAM bo
+- * @mem_id: to select the initialized ttm pool corresponding to the memory partition
+- */
+-int amdgpu_ttm_tt_set_mem_pool(struct ttm_buffer_object *tbo, int mem_id)
 -{
--	struct kfd_topology_device *top_dev;
--	struct kfd_node *device = NULL;
+-	struct ttm_tt *ttm = tbo->ttm;
+-	struct amdgpu_ttm_tt *gtt;
 -
--	down_read(&topology_lock);
+-	if (!ttm && !ttm_tt_is_populated(ttm))
+-		return -EINVAL;
 -
--	list_for_each_entry(top_dev, &topology_device_list, list)
--		if (top_dev->gpu && top_dev->gpu->adev == adev) {
--			device = top_dev->gpu;
--			break;
--		}
--
--	up_read(&topology_lock);
--
--	return device;
+-	gtt = ttm_to_amdgpu_ttm_tt(ttm);
+-	gtt->pool_id = mem_id;
+-	return 0;
 -}
 -
- /* Called with write topology_lock acquired */
- static void kfd_release_topology_device(struct kfd_topology_device *dev)
- {
+ /**
+  * amdgpu_ttm_tt_get_userptr - Return the userptr GTT ttm_tt for the current
+  * task
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index fe32de1bf4d5..8ef048a0a33e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -192,7 +192,6 @@ bool amdgpu_ttm_tt_has_userptr(struct ttm_tt *ttm);
+ struct mm_struct *amdgpu_ttm_tt_get_usermm(struct ttm_tt *ttm);
+ bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
+ 				  unsigned long end, unsigned long *userptr);
+-int amdgpu_ttm_tt_set_mem_pool(struct ttm_buffer_object *tbo, int mem_id);
+ bool amdgpu_ttm_tt_userptr_invalidated(struct ttm_tt *ttm,
+ 				       int *last_invalidated);
+ bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm);
 -- 
 2.40.1
 
