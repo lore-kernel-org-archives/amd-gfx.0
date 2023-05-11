@@ -4,88 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B0C4C7EE22
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 May 2023 02:24:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69DA6C77B7C
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 May 2023 02:24:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0102A10E2D6;
-	Thu, 11 May 2023 02:24:25 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2056.outbound.protection.outlook.com [40.107.93.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1758F10E2D6
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 May 2023 02:24:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P+c1GdVBYRW61g41ZFI9rkyHbzcGR7UAMfTl0kih2oGqhmIGzam1Rk30EycIvtMwPe3DjQ4LXxIKPLASc84ZsKkZjQRLWj2iFNnqC35Bg2w4TBWSyHM8+qNi32y6KlK+Zv9pZZ7RrSp7b1/D+KNC0cWzecDozbiCLFDYJyGiJMr9MkuMIssTRtg5OAc9wLlj4Zn40xuD5C7R33LQESGpKRxhDaE8wm2kVedJyuQlPWxkPKZwFK1CWdVRrbY0xOj0De3SjAg2FrSjt5pFjoCR7/w/DeGzlYZTR39ThGc5q+0CaR8sapfnHhioCFeZqxNLv2+mHOX821KqIzyCbmt2WQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XQ5bt4SO0efLz5sH/v9OO18wvelf5vXM72QU7HyDK/w=;
- b=O2E65wY9Bx0h9WVFikpjo+4uN0W1KpgX7l+9KhJcOpB/8mbWxTXXQPU9bf3ogbPNnZHu41YBKiCIaWgQ1LLSSyGyUcknp+ZJNIJVJbeYwIEftlmkXf339v3OHqO/2pYl793HD/9QxPn1fR2R70CWq8Dy2Xn3jdasheu6jKv0zqsw5Ubl8FSSqoNE9K7O/J+IiGwyG53+yyREaFWuQyOsta1ACukoWAlyB9TeUyY5Vi9RGytiuj5z2IDqtxFixJ6inI4wkEeaEAkF8F0rq6hntqx0sfUN/N4rDJ7HmtZSzXSDp6ebQRQz2v/wHHZeSsZBBQeJcF6tS6d8F55JURwWwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XQ5bt4SO0efLz5sH/v9OO18wvelf5vXM72QU7HyDK/w=;
- b=1IUWjOJ+DY9+u8GNuYx/ZYnCYdzBvam9ApQlgUDq2rEv8d281uOSDLNcgd3X9gkay2VYg3sqcLODhauBydmhvhkZhCr73X2H/jRWORRpvGHM0DXOFvV7cyUGF7aRdLZtx/zU0N1libdjw0v75R6Dg5Dhr4rCA1U6qOKuZw+Ko20=
-Received: from BN8PR04CA0022.namprd04.prod.outlook.com (2603:10b6:408:70::35)
- by SN7PR12MB8769.namprd12.prod.outlook.com (2603:10b6:806:34b::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.21; Thu, 11 May
- 2023 02:24:19 +0000
-Received: from BL02EPF000145B8.namprd05.prod.outlook.com
- (2603:10b6:408:70:cafe::12) by BN8PR04CA0022.outlook.office365.com
- (2603:10b6:408:70::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.20 via Frontend
- Transport; Thu, 11 May 2023 02:24:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF000145B8.mail.protection.outlook.com (10.167.241.208) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6387.21 via Frontend Transport; Thu, 11 May 2023 02:24:19 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 10 May
- 2023 21:24:15 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: change gfx 11.0.4 external_id range
-Date: Thu, 11 May 2023 10:23:33 +0800
-Message-ID: <20230511022333.1977681-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.37.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8BEE10E585;
+	Thu, 11 May 2023 02:24:58 +0000 (UTC)
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
+ [IPv6:2607:f8b0:4864:20::c36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B33F110E585
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 May 2023 02:24:57 +0000 (UTC)
+Received: by mail-oo1-xc36.google.com with SMTP id
+ 006d021491bc7-54feb6cb568so620134eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 May 2023 19:24:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1683771896; x=1686363896;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=yw7+7DfMAN/H8KOV3HF4FojTDXYgpqYspoX44aYHQX4=;
+ b=L+ACE9YysrGs8lw5RHjeMqCio3/rGUO00KW0HfASbU16bD1SAPaElqUyqyBWfIXN3b
+ rtgoxIFrnfY74u1cHyMowQG/cea6WTTA+HquvF37h8CxujQ2msSovqBrx08hUGw1cDsw
+ 6OjnXq1F+TOgcqjCYxf0lJKqF+NpjpYDMe5y/lVgEuMiL4OXCLq6dEetScMiUTqYJBoa
+ O2dMSk5AJHdIw/Gg+EzZz5a68Bd7WgDRhjdNTPIU97GwQvHui4SBb7/E0R3goPvx/Qrt
+ b4Jz8ECLlXkjcByuHPk/Mimp5K5lZRJ+QI0d4tks3AvsQ26Q2IZmm53FQHCwF7vXJP1z
+ 0oew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683771896; x=1686363896;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=yw7+7DfMAN/H8KOV3HF4FojTDXYgpqYspoX44aYHQX4=;
+ b=i78ppzBkL64818EkXtKpjFGEkkYJybfrbGJbE9BxBWsnXaTOyAfqlwld3El1EBkWYE
+ VhtcqJho3aex1xqrTxqKzY8urysiyNUTI/Td/1rHp/mccspchzz4A9sbGeAm/u0XkNrm
+ opjEgj3km+fq4FZ9WPGV+cOs7wTVQT+hrsRjgdGr0a+g4Us93mAjkOWULwSTfoT0Kc8q
+ iecXkzGMFsP682PUb293fWcQOpkCnVgcXAD9isLnbzC+ovO6Zz3HWngJEeXNOAW/Nb2z
+ aa7Rvhqp+38GXpzZAy/lb4q7OS+hUbmyF9FHT0TMOxJp3rcHVYTsm3TjRJz/A8SiVyYO
+ e/0Q==
+X-Gm-Message-State: AC+VfDwF0LRWPyTrLFXwd8iPEionl7mYaPcsDjMCcjCxPfgVIs4oLYJ5
+ aSkIUWGGxp5m8Ovv3RcUkSGvvXXgSP8n7d/Rh8YkN1TM
+X-Google-Smtp-Source: ACHHUZ4StSHBQFz86LNJwUOOU1qvTsJDB8Pvy5aRKzjStANqn1oMWkav1RkzYIfmPETV+8IRLOQkTF78u9dNWoYydRY=
+X-Received: by 2002:a05:6808:3b7:b0:38e:4ff:8142 with SMTP id
+ n23-20020a05680803b700b0038e04ff8142mr4247401oie.47.1683771896370; Wed, 10
+ May 2023 19:24:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF000145B8:EE_|SN7PR12MB8769:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe853044-714d-437e-1be5-08db51c6d337
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: O7ZK88LjzV9ORIbuFnO8/EhjJApKVSAjhd4VzmJ8fly1Ok3cVhpyWzypnF+3qEFZKRsf2eGgGMdmcNkU5oJdS1yVDfJWezL+U/lnq0UCM4mPpeq/N/xpnjj7Dy20WjZkFGjoWE3Czw/PRTieB+7o7qp3qEsgy6Ib0n9tH4v3rcX8qijZGr76oPPWDUcJdG6rhLnsJVGByW8bEOo0Dq06+ROJBZ+HXHyBdEA+qNxZ/MiFM4ixr9Qm8m7GA5CAhsje/ROZjAiCanww2LDLI0ie2uXWJ56xMT53Vcu0InjPIcDZ6rjktIusiRdrsx+YdOgbdTb7kcfPl/N2fcrFudgzaPvKdlrWxUaWtoc0LcJ/2Io0mde8rYrgmtf/74UOgqtBku3bT7s/4Ltjsz0JsZr2FEmRXF4QSpLtJem5Tkxjhb79gnyOqO1wWaaVZcy8NX+ZvXX99wLdqZH7xScSrRBEii/ysQFBXNdCO5Hvf7U9GwctXczwkva9fYYIXQgUtPphxQCcZr8GuERXX8qSRf5xhFJsyOtlgo+krUpdhFf6sHWnUZTh4l7mkRu2GPcWcSaNVEszjficZ9Nb2bRdd+oQVxjImwZEbO/EC19sIATtemXKp+IghPRtC4KRnYpzEd7mKU1UaZ+jqRGcgyb0CiZMSoR2dDCWAslJ2mxeSL/aI3vl0M6r+Ggh+r3Pib0baR78nW5ER+5UUdLRRIGqNCNRRz7nGUux/YqY2EMW+PjL07wb+V+OUALe4JzULghtsMz1McI4CSwYi/ePzLGyjFlvRA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(396003)(136003)(376002)(39860400002)(451199021)(46966006)(36840700001)(40470700004)(4744005)(356005)(81166007)(82740400003)(36860700001)(47076005)(2616005)(1076003)(336012)(186003)(426003)(26005)(83380400001)(16526019)(2906002)(5660300002)(8676002)(8936002)(40480700001)(478600001)(36756003)(316002)(54906003)(6916009)(40460700003)(4326008)(41300700001)(86362001)(70206006)(6666004)(82310400005)(70586007)(7696005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2023 02:24:19.1567 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe853044-714d-437e-1be5-08db51c6d337
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000145B8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8769
+References: <20230508152929.1114091-1-srinivasan.shanmugam@amd.com>
+ <CADnq5_OfvZbUCiiOw1CHs2DkfjnmTwWedvDvnVgZUif7NBtUyg@mail.gmail.com>
+ <MN2PR12MB41289C3850B0CEF7E2D0687390769@MN2PR12MB4128.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB41289C3850B0CEF7E2D0687390769@MN2PR12MB4128.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 10 May 2023 22:24:45 -0400
+Message-ID: <CADnq5_OSa_8DzrP=vwbQPUof=DgfDMeSm=kAM01rYyY0PVmAdw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: Remove redundant else branch in
+ amdgpu_encoders.c
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,38 +70,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yifan Zhang <yifan1.zhang@amd.com>, Tim Huang <Tim.Huang@amd.com>,
- stable@vger.kernel.org, Yogesh Mohan
- Marimuthu <Yogesh.Mohanmarimuthu@amd.com>, mario.limonciello@amd.com,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-gfx 11.0.4 range starts from 0x80.
+On Tue, May 9, 2023 at 1:17=E2=80=AFAM SHANMUGAM, SRINIVASAN
+<SRINIVASAN.SHANMUGAM@amd.com> wrote:
+>
+> [AMD Official Use Only - General]
+>
+>
+>
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Monday, May 8, 2023 9:27 PM
+> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
+> Cc: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Ale=
+xander.Deucher@amd.com>; amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH] drm/amd/amdgpu: Remove redundant else branch in amdg=
+pu_encoders.c
+>
+> On Mon, May 8, 2023 at 11:29=E2=80=AFAM Srinivasan Shanmugam <srinivasan.=
+shanmugam@amd.com> wrote:
+> >
+> > Adhere to Linux kernel coding style.
+> >
+> > Reported by checkpatch:
+> >
+> > WARNING: else is not generally useful after a break or return
+> >
+>
+> What about the else in the previous case statement?
+>
+> Alex
+>
+> Hi Alex,
+>
+> Thanks a lot for your feedbacks,
+>
+> the else in the previous case ie., is binded to if statement ie., "if (am=
+dgpu_connector->use_digital) {", am I correct please?, please correct me, i=
+f my understanding is wrong? & the best solution with your tips pls, so tha=
+t I can edit & resend the patch please?
+>
 
-Fixes: 311d52367d0a ("drm/amdgpu: add soc21 common ip block support for GC 11.0.4")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-Reported-by: Yogesh Mohan Marimuthu <Yogesh.Mohanmarimuthu@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Tim Huang <Tim.Huang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/soc21.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yes that one.  It follows a similar pattern to the case you changed.
+Shouldn't checkpatch warn on both?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 0f82b8e83acb..6bff936a6e55 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -711,7 +711,7 @@ static int soc21_common_early_init(void *handle)
- 			AMD_PG_SUPPORT_VCN_DPG |
- 			AMD_PG_SUPPORT_GFX_PG |
- 			AMD_PG_SUPPORT_JPEG;
--		adev->external_rev_id = adev->rev_id + 0x1;
-+		adev->external_rev_id = adev->rev_id + 0x80;
- 		break;
- 
- 	default:
--- 
-2.37.3
+Alex
 
+> Much appreciate for your help in advance,
+>
+> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c | 26
+> > ++++++++++----------
+> >  1 file changed, 13 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c
+> > index c96e458ed088..049e9976ff34 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c
+> > @@ -242,19 +242,18 @@ bool amdgpu_dig_monitor_is_duallink(struct drm_en=
+coder *encoder,
+> >                 if ((dig_connector->dp_sink_type =3D=3D CONNECTOR_OBJEC=
+T_ID_DISPLAYPORT) ||
+> >                     (dig_connector->dp_sink_type =3D=3D CONNECTOR_OBJEC=
+T_ID_eDP))
+> >                         return false;
+> > -               else {
+> > -                       /* HDMI 1.3 supports up to 340 Mhz over single =
+link */
+> > -                       if (connector->display_info.is_hdmi) {
+> > -                               if (pixel_clock > 340000)
+> > -                                       return true;
+> > -                               else
+> > -                                       return false;
+> > -                       } else {
+> > -                               if (pixel_clock > 165000)
+> > -                                       return true;
+> > -                               else
+> > -                                       return false;
+> > -                       }
+> > +
+> > +               /* HDMI 1.3 supports up to 340 Mhz over single link */
+> > +               if (connector->display_info.is_hdmi) {
+> > +                       if (pixel_clock > 340000)
+> > +                               return true;
+> > +                       else
+> > +                               return false;
+> > +               } else {
+> > +                       if (pixel_clock > 165000)
+> > +                               return true;
+> > +                       else
+> > +                               return false;
+> >                 }
+> >         default:
+> >                 return false;
+> > --
+> > 2.25.1
+> >
