@@ -4,89 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D3C3C7EE22
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 May 2023 14:18:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31C9AC7EE22
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 May 2023 14:27:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F41A610E25D;
-	Thu, 11 May 2023 14:18:14 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2068.outbound.protection.outlook.com [40.107.237.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10E2710E259;
- Thu, 11 May 2023 14:18:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Zk5+lvq+HaSZ8n8lJIa+jW2fCjmFXfoiE38Gr0BK/hX04REE4XxNesiGkcXTCyyaiPnuMV7TL5STWU6GdyrgUD4Cd5UKJbjPSbyjM2RsM0OAXg2Hl1WIYVIB0P4Z7A5SeHBcuAt7BGRKuQaSu2pY6wXTbDEQFx6FVI5djCjBm0J+U4DllAq48w+gEZC2iMWUazfflNfFnGqFp/1gTPZ3UUnVDyxD3Dl8QngCe3z0KKQHKjuxArv80g5LOAo1Fl3+W+Dir8Y7oGwrllpEOXSvmggZ8/8CIpal/MiwjPYp2W8u9lPuRiDUqnIK/LQf4ekZFn4SV3ohxNAZG4iCFVn69Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zhLvi8DWP8MGfc9ZcprvecLF37eKfASrNuMmur/Gzjw=;
- b=XKvwPzDCxm09yXXTcGU68ifWQFOl5p5xfqaYq+WVilU8k4qGad79nIBFVTWcNv04SkN31k9EEmzGdVndebQU0bltmd6uyakFowyhHqvojYvTbJhwbNxXCo/9RdrvAUQ8A/RmE62xTB925jNaTHNuNAX5UzSOJ6s2OW4jhWhqoBqyojHA01etVzjIfoNqA+HBGWq+kBMYP8oOisRaweM+MR5HzzLquI12Sn/7KARoofNg9lh0voCwtVvEmlUCj6Ca1ugY7xzYUY2Q322TQGdGhGJFbidrO5fiZyWm0arsgqxzUBhgF9kaSQ2OIp3NYi/PeGNVVu5qW5gFLhygf/IfkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zhLvi8DWP8MGfc9ZcprvecLF37eKfASrNuMmur/Gzjw=;
- b=W60n16rSHKcM15eNefU7PX/2v4vdxGK/4bYHMOhRuOtV0v4mWCiEBT9D7pLsbRwGlMjG6kjCEQ31j3OJCgR9+q75UyDuuaR9b+begV669gjUrTKJ/04PjYgoWv0AaAASN1R63uSrQ9ft4o9IcXxif1zSRVOuhUtsk7V65s92uX4=
-Received: from DS7PR06CA0042.namprd06.prod.outlook.com (2603:10b6:8:54::23) by
- PH7PR12MB8124.namprd12.prod.outlook.com (2603:10b6:510:2ba::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.18; Thu, 11 May
- 2023 14:18:10 +0000
-Received: from DM6NAM11FT112.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:54:cafe::66) by DS7PR06CA0042.outlook.office365.com
- (2603:10b6:8:54::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.22 via Frontend
- Transport; Thu, 11 May 2023 14:18:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT112.mail.protection.outlook.com (10.13.173.77) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6387.22 via Frontend Transport; Thu, 11 May 2023 14:18:10 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 11 May
- 2023 09:18:09 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu drm-fixes-6.4
-Date: Thu, 11 May 2023 10:17:55 -0400
-Message-ID: <20230511141755.7896-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD73910E277;
+	Thu, 11 May 2023 14:27:26 +0000 (UTC)
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4720610E271;
+ Thu, 11 May 2023 14:26:39 +0000 (UTC)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-50bc1612940so15770743a12.2; 
+ Thu, 11 May 2023 07:26:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=googlemail.com; s=20221208; t=1683815197; x=1686407197;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NuRohinkfnfKmQ5A0D+/nPSG9lRUGHQe+yhHKcHJQxc=;
+ b=LtK1dCAhlTv//hzdt2MS3tcXcqmmZZ8Uq+ljdJNnuuCglgmhmm9NuHsu73nfpcQlSJ
+ Oe1i6sin4+SziCfaxmajG9Mop1DS3VAV89W3M9GwqfL2NqFBqcZRlnBK7rAoWVLECKju
+ QGLD6uMlpZNvfWHqc4hYTnnbHRI14zXMNpVgR3YjZSl8eED7DDP48pupvBdwHhlEzDjG
+ dGIUFk34vfcb+AN0naBTlDjc46KrhjdmBFRxdbe2hO6F0EgKmzkvTETHjHMcwwMCMk2q
+ R7pJ+d5SeSJeDn75IkxGfZ4fKQP589sMALN7ukmg6zahdU4e3DmKP7/1Or8+YvChH745
+ uW7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683815197; x=1686407197;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NuRohinkfnfKmQ5A0D+/nPSG9lRUGHQe+yhHKcHJQxc=;
+ b=k7FWPt1J9FljNOIlD9QKbPiJgy/NgxG0xoG1D5PqIbl9ba9qCbYMeUMgAnmCYUObzo
+ +7AlUBxdr5DrlmIWk3DJdYDbykVYw7lQ2PfZmnk9dSW+6vHS2C8ubEEFYgFqovrRQFCc
+ 8dd54RJlVTjSWP1PQ+fN7GCZLmVcy8vN2lbhbEORuxUFpbW7kYsgAHHaBuAgz4/TfmJ9
+ tY29p2aSM6FCZLrkKnQpXPSxoBsu6VU/2bTxvP/AtypKvSUDzfw7DUaXn7Iogka8sT0q
+ mO3Yj2U95ONG2dsM14AYUUOICSbZO9eDU9HwGu9sQhf85s+8hMS+vs3CNcuf/+PcWw8E
+ 38ZQ==
+X-Gm-Message-State: AC+VfDyCG/du1P/K6Co3gP29OhqoPzmaa/lhF7cdDjPkqrenA4ySBYt7
+ fIQopk543G+yrFy6lB+AVjg=
+X-Google-Smtp-Source: ACHHUZ5GOLDQBV2a4yxrRPw74HHNTnjeXEf7+OrzQ2aRfK6fL6kLzU37PHBUAbvQ3LzW53EJgy3gcg==
+X-Received: by 2002:a17:907:720e:b0:966:5a6c:752d with SMTP id
+ dr14-20020a170907720e00b009665a6c752dmr13444473ejc.20.1683815197050; 
+ Thu, 11 May 2023 07:26:37 -0700 (PDT)
+Received: from debianHome.localdomain
+ (dynamic-077-008-180-228.77.8.pool.telefonica.de. [77.8.180.228])
+ by smtp.gmail.com with ESMTPSA id
+ hf15-20020a1709072c4f00b0094f58a85bc5sm4056647ejc.180.2023.05.11.07.26.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 May 2023 07:26:35 -0700 (PDT)
+From: =?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>
+To: selinux@vger.kernel.org
+Subject: [PATCH v4 5/9] drivers: use new capable_any functionality
+Date: Thu, 11 May 2023 16:25:28 +0200
+Message-Id: <20230511142535.732324-5-cgzones@googlemail.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230511142535.732324-1-cgzones@googlemail.com>
+References: <20230511142535.732324-1-cgzones@googlemail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT112:EE_|PH7PR12MB8124:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7fa3bf96-3a01-48d0-7aba-08db522a8c7a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ByfD4P35phWvfeTxm9wQrPAmzNzosTjHQq1AY17PvB41yV+lU17wyOhs+YglzvOTMvndkfmFIESV3mmyF0GUkrBBq1tiPxP9Cy2uKyNvj8soWPYJiaaNrkYXjLVCT5mFKdWP9QSiPoFp/tIhQWiO0I0uagH5iOM89t6nG+94MlK9EHaS19JpNxA/8401j2qh/oHcLO8E0OdNwalrBTtimQmrj7TgFJ5J/0E7X8hsPGOU3cf3M7iaS5CXlwGXRZByMk4Ykm8k6Cd+gQ8eACdv1vtag1y9fAyT2zIS53rkRkkFRxwRWc2sjauvSqPt52egct0lasYDJye/wsOaWZ0q3INbz+olwxHMDGdaiWvCehhKsL7GbtGIaLfcY+494aM8w7a4hLhjlGDFBN94kHURdpHKOyVBP26SaZLu0nrQYxgUZbYcn8fIha3txgnJ3vkdOzKeXImZ6VjmPmOf4p/+YxPi43LHaUSn/Gx2VwIeBC4qk82TE4LhRaS8KlugSJcEmwypEyKW8jLEmN4UWiIwGSdwnC1B279WbNPOZ7PHnbCuas0N00eRPocSBdWIVwJiuGbLOyo3+c6D38tGgDYdeJg7RSxnSYckIut6oWJBDuQrpQGBldSNOFIS1K0k3jHFalJxZhxIuQBVdyiVgFY3XyXdLw5lUpaqjMS+HDs+UQzrYfRSnoiGoPEoVjBq8RxrtNvBPmpMHTD62no0om1edZ8RnxOShEkmfO7TbUehqoc=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(376002)(136003)(39860400002)(396003)(451199021)(46966006)(40470700004)(36840700001)(7696005)(356005)(16526019)(82740400003)(1076003)(26005)(336012)(86362001)(426003)(40480700001)(41300700001)(2616005)(6666004)(47076005)(36756003)(82310400005)(186003)(966005)(83380400001)(81166007)(36860700001)(70206006)(70586007)(110136005)(478600001)(40460700003)(4326008)(8936002)(316002)(8676002)(5660300002)(2906002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2023 14:18:10.1217 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7fa3bf96-3a01-48d0-7aba-08db522a8c7a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT112.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8124
+X-Mailman-Approved-At: Thu, 11 May 2023 14:27:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,78 +75,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Jan Hoeppner <hoeppner@linux.ibm.com>, dri-devel@lists.freedesktop.org,
+ Eric Dumazet <edumazet@google.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
+ David Airlie <airlied@gmail.com>, linux-s390@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Jakub Kicinski <kuba@kernel.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+ Stefan Haberland <sth@linux.ibm.com>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, bpf@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+Use the new added capable_any function in appropriate cases, where a
+task is required to have any of two capabilities.
 
-Fixes for 6.4.
+Reorder CAP_SYS_ADMIN last.
 
-The following changes since commit ac9a78681b921877518763ba0e89202254349d1b:
+Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+---
+v4:
+   Additional usage in kfd_ioctl()
+v3:
+   rename to capable_any()
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +--
+ drivers/net/caif/caif_serial.c           | 2 +-
+ drivers/s390/block/dasd_eckd.c           | 2 +-
+ 3 files changed, 3 insertions(+), 4 deletions(-)
 
-  Linux 6.4-rc1 (2023-05-07 13:34:35 -0700)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 1b54a9aaae70..d21fb9d1556b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -2896,8 +2896,7 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+ 	 * more priviledged access.
+ 	 */
+ 	if (unlikely(ioctl->flags & KFD_IOC_FLAG_CHECKPOINT_RESTORE)) {
+-		if (!capable(CAP_CHECKPOINT_RESTORE) &&
+-						!capable(CAP_SYS_ADMIN)) {
++		if (!capable_any(CAP_CHECKPOINT_RESTORE, CAP_SYS_ADMIN)) {
+ 			retcode = -EACCES;
+ 			goto err_i1;
+ 		}
+diff --git a/drivers/net/caif/caif_serial.c b/drivers/net/caif/caif_serial.c
+index 688075859ae4..ca3f82a0e3a6 100644
+--- a/drivers/net/caif/caif_serial.c
++++ b/drivers/net/caif/caif_serial.c
+@@ -326,7 +326,7 @@ static int ldisc_open(struct tty_struct *tty)
+ 	/* No write no play */
+ 	if (tty->ops->write == NULL)
+ 		return -EOPNOTSUPP;
+-	if (!capable(CAP_SYS_ADMIN) && !capable(CAP_SYS_TTY_CONFIG))
++	if (!capable_any(CAP_SYS_TTY_CONFIG, CAP_SYS_ADMIN))
+ 		return -EPERM;
+ 
+ 	/* release devices to avoid name collision */
+diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
+index ade1369fe5ed..67d1058bce1b 100644
+--- a/drivers/s390/block/dasd_eckd.c
++++ b/drivers/s390/block/dasd_eckd.c
+@@ -5370,7 +5370,7 @@ static int dasd_symm_io(struct dasd_device *device, void __user *argp)
+ 	char psf0, psf1;
+ 	int rc;
+ 
+-	if (!capable(CAP_SYS_ADMIN) && !capable(CAP_SYS_RAWIO))
++	if (!capable_any(CAP_SYS_RAWIO, CAP_SYS_ADMIN))
+ 		return -EACCES;
+ 	psf0 = psf1 = 0;
+ 
+-- 
+2.40.1
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.4-2023-05-11
-
-for you to fetch changes up to 996e93a3fe74dcf9d467ae3020aea42cc3ff65e3:
-
-  drm/amdgpu: change gfx 11.0.4 external_id range (2023-05-11 09:11:14 -0400)
-
-----------------------------------------------------------------
-amdgpu:
-- VCN3 fixes
-- APUs always support PCI atomics
-- Legacy power management fixes
-- DCN 3.1.4 fix
-- DCFCLK fix
-- Fix several RAS irq refcount mismatches
-- GPU Reset fix
-- GFX 11.0.4 fix
-
-----------------------------------------------------------------
-Alvin Lee (1):
-      drm/amd/display: Enforce 60us prefetch for 200Mhz DCFCLK modes
-
-Guchun Chen (4):
-      drm/amd/pm: parse pp_handle under appropriate conditions
-      drm/amdgpu: disable sdma ecc irq only when sdma RAS is enabled in suspend
-      drm/amd/pm: avoid potential UBSAN issue on legacy asics
-      drm/amdgpu/gfx: disable gfx9 cp_ecc_error_irq only when enabling legacy gfx ras
-
-Horatio Zhang (1):
-      drm/amdgpu: drop gfx_v11_0_cp_ecc_error_irq_funcs
-
-Leo Chen (1):
-      drm/amd/display: Add symclk workaround during disable link output
-
-Lin.Cao (1):
-      drm/amdgpu: Fix vram recover doesn't work after whole GPU reset (v2)
-
-Saleemkhan Jamadar (1):
-      drm/amdgpu/jpeg: Remove harvest checking for JPEG3
-
-Thong Thai (1):
-      drm/amdgpu/nv: update VCN 3 max HEVC encoding resolution
-
-Yifan Zhang (2):
-      drm/amdgpu: set gfx9 onwards APU atomics support to be true
-      drm/amdgpu: change gfx 11.0.4 external_id range
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 12 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |  8 ++-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             | 46 ---------------
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  3 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c             |  1 +
- drivers/gpu/drm/amd/amdgpu/nv.c                    | 22 ++++++--
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |  8 ++-
- drivers/gpu/drm/amd/amdgpu/soc21.c                 |  2 +-
- .../gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c   | 65 ++++++++++++++++++++++
- .../gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.h   |  2 +
- .../gpu/drm/amd/display/dc/dcn314/dcn314_init.c    |  2 +-
- .../amd/display/dc/dml/dcn32/display_mode_vba_32.c |  5 +-
- .../amd/display/dc/dml/dcn32/display_mode_vba_32.h |  1 +
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c                | 25 ++++++---
- 14 files changed, 131 insertions(+), 71 deletions(-)
