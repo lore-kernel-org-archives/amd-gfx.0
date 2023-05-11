@@ -4,58 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF5B6C7EE24
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 May 2023 08:42:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72F3CC77B7F
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 May 2023 08:59:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA2C10E668;
-	Fri, 12 May 2023 08:42:09 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47ADA10E626;
- Fri, 12 May 2023 08:41:59 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1973C20439;
- Fri, 12 May 2023 08:41:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1683880916; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=txJMPZPrX+cezG81MFeFiAbDpsCYTcij5lftNUBYvCQ=;
- b=1N9EdwfkKq135vmw7b1hlgw5mO7fWmQi8f3XDy9/DR2L4e7zsS3tsUU1xQqJsiNlVwknBz
- DZ6FxeqM17ykBSmrwO7mqdwST0Fs+znj2OXbtCTBHecnd/KSW+NJ6gM2T8htDCQEkJZllG
- nztaCrh4ubXdF5ysJm+68UtpBaMfniM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1683880916;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=txJMPZPrX+cezG81MFeFiAbDpsCYTcij5lftNUBYvCQ=;
- b=0wTTlT3fZqFbTdyXVBjZFB9hKMlSTMC5yhkrCP6Qgk2OV6I1mPymkMW8ec/6zuh7Uu4KgZ
- 3p4gyyXNaUEbOQAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C92B713A0A;
- Fri, 12 May 2023 08:41:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id uHdFMNP7XWQZKQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Fri, 12 May 2023 08:41:55 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, javierm@redhat.com
-Subject: [PATCH 05/11] drm/fbdev-dma: Use regular fbdev I/O helpers
-Date: Fri, 12 May 2023 10:41:46 +0200
-Message-Id: <20230512084152.31233-6-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230512084152.31233-1-tzimmermann@suse.de>
-References: <20230512084152.31233-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10F6010E116;
+	Fri, 12 May 2023 08:59:11 +0000 (UTC)
+X-Greylist: delayed 507 seconds by postgrey-1.36 at gabe;
+ Fri, 12 May 2023 08:59:09 UTC
+Received: from mail.linuxsystems.it (mail.linuxsystems.it [79.7.78.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3034610E116
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 May 2023 08:59:09 +0000 (UTC)
+Received: by mail.linuxsystems.it (Postfix, from userid 33)
+ id 8FE56215913; Thu, 11 May 2023 19:25:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxsystems.it;
+ s=linuxsystems.it; t=1683825926;
+ bh=yhp7v3luRGJ6mq7f7i4QZFLveEgF64yIuE8ANbdh7GA=;
+ h=To:Subject:Date:From:Cc:In-Reply-To:References:From;
+ b=l1b8aQpTATQR13/g/283QB5g1vVSF33CfqUnpPF7R0RUk2S+daOGymYtQIpZjIh1u
+ 06SQLvNI2ryQZzryPHkJm2WDq6ccI50rSgLnWQWuxz339kF+r8ty1Z9w/m97zX6SXM
+ UFYKxruaQcQvqqcNG2kKtcaod6rVcMDLGEsqhMOA=
+To: Bagas Sanjaya <bagasdotme@gmail.com>
+Subject: Re: Fwd: Linux 6.3.1 + AMD RX 570 on ppc64le 4K: Kernel attempted to
+ read user page (1128) - exploit attempt? (uid: 0)
+X-PHP-Originating-Script: 0:rcube.php
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Thu, 11 May 2023 19:25:26 +0200
+From: =?UTF-8?Q?Niccol=C3=B2_Belli?= <darkbasic@linuxsystems.it>
+In-Reply-To: <3e5548e4-5a3e-9346-ec58-3617e1947186@gmail.com>
+References: <588c1a66-9976-c96f-dcdd-beec8b7410f0@gmail.com>
+ <3e5548e4-5a3e-9346-ec58-3617e1947186@gmail.com>
+Message-ID: <a50537d1f1af34104793218acb954a61@linuxsystems.it>
+X-Sender: darkbasic@linuxsystems.it
+User-Agent: Roundcube Webmail/1.1.5
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,112 +50,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+Cc: Linux Regressions <regressions@lists.linux.dev>,
+ Michael Ellerman <mpe@ellerman.id.au>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
+ Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Linux for PowerPC <linuxppc-dev@lists.ozlabs.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the regular fbdev helpers for framebuffer I/O instead of DRM's
-helpers. Fbdev-dma does not use damage handling, so DRM's fbdev helpers
-are mere wrappers around the fbdev code.
+Il 2023-05-12 10:32 Bagas Sanjaya ha scritto:
+> #regzbot introduced: f4f3b7dedbe849
+> #regzbot link: https://gitlab.freedesktop.org/drm/amd/-/issues/2553
 
-Add CONFIG_DRM_FBDEV_DMA_EMULATION to select the necessary
-Kconfig options automatically. Make fbdev emulation depend on
-the new config option.
+It doesn't look like the aforementioned patch made its way into 6.3 yet:
 
-By using fbdev helpers directly within each DRM fbdev emulation,
-we can eventually remove DRM's wrapper functions entirely.
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/Kconfig         |  9 +++++++++
- drivers/gpu/drm/Makefile        |  2 +-
- drivers/gpu/drm/drm_fbdev_dma.c | 12 +++++++-----
- include/drm/drm_fbdev_dma.h     |  2 +-
- 4 files changed, 18 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index ba3fb04bb691..c007cb75715e 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -223,9 +223,18 @@ config DRM_TTM_HELPER
- config DRM_GEM_DMA_HELPER
- 	tristate
- 	depends on DRM
-+	select DRM_FBDEV_DMA_EMULATION if DRM_FBDEV_EMULATION
- 	help
- 	  Choose this if you need the GEM DMA helper functions
- 
-+config DRM_FBDEV_DMA_EMULATION
-+	bool
-+	depends on DRM_GEM_DMA_HELPER
-+	select FB_SYS_COPYAREA
-+	select FB_SYS_FILLRECT
-+	select FB_SYS_FOPS
-+	select FB_SYS_IMAGEBLIT
-+
- config DRM_GEM_SHMEM_HELPER
- 	tristate
- 	depends on DRM && MMU
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index a33257d2bc7f..d94821d37c2d 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -82,7 +82,7 @@ obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) += drm_panel_orientation_quirks.o
- obj-$(CONFIG_DRM_BUDDY) += drm_buddy.o
- 
- drm_dma_helper-y := drm_gem_dma_helper.o
--drm_dma_helper-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fbdev_dma.o
-+drm_dma_helper-$(CONFIG_DRM_FBDEV_DMA_EMULATION) += drm_fbdev_dma.o
- drm_dma_helper-$(CONFIG_DRM_KMS_HELPER) += drm_fb_dma_helper.o
- obj-$(CONFIG_DRM_GEM_DMA_HELPER) += drm_dma_helper.o
- 
-diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbdev_dma.c
-index 728deffcc0d9..09a36dc38c43 100644
---- a/drivers/gpu/drm/drm_fbdev_dma.c
-+++ b/drivers/gpu/drm/drm_fbdev_dma.c
-@@ -1,5 +1,7 @@
- // SPDX-License-Identifier: MIT
- 
-+#include <linux/fb.h>
-+
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_fb_helper.h>
-@@ -64,12 +66,12 @@ static const struct fb_ops drm_fbdev_dma_fb_ops = {
- 	.owner = THIS_MODULE,
- 	.fb_open = drm_fbdev_dma_fb_open,
- 	.fb_release = drm_fbdev_dma_fb_release,
--	.fb_read = drm_fb_helper_sys_read,
--	.fb_write = drm_fb_helper_sys_write,
-+	.fb_read = fb_sys_read,
-+	.fb_write = fb_sys_write,
- 	DRM_FB_HELPER_DEFAULT_OPS,
--	.fb_fillrect = drm_fb_helper_sys_fillrect,
--	.fb_copyarea = drm_fb_helper_sys_copyarea,
--	.fb_imageblit = drm_fb_helper_sys_imageblit,
-+	.fb_fillrect = sys_fillrect,
-+	.fb_copyarea = sys_copyarea,
-+	.fb_imageblit = sys_imageblit,
- 	.fb_destroy = drm_fbdev_dma_fb_destroy,
- 	.fb_mmap = drm_fbdev_dma_fb_mmap,
- };
-diff --git a/include/drm/drm_fbdev_dma.h b/include/drm/drm_fbdev_dma.h
-index 2da7ee784133..3e96ad069136 100644
---- a/include/drm/drm_fbdev_dma.h
-+++ b/include/drm/drm_fbdev_dma.h
-@@ -5,7 +5,7 @@
- 
- struct drm_device;
- 
--#ifdef CONFIG_DRM_FBDEV_EMULATION
-+#if defined(CONFIG_DRM_FBDEV_DMA_EMULATION)
- void drm_fbdev_dma_setup(struct drm_device *dev, unsigned int preferred_bpp);
- #else
- static inline void drm_fbdev_dma_setup(struct drm_device *dev, unsigned int preferred_bpp)
--- 
-2.40.1
-
+niko@talos2 ~/devel/linux-stable $ git branch
+* linux-6.3.y
+   master
+niko@talos2 ~/devel/linux-stable $ git show f4f3b7dedbe8 | patch -p1
+patching file 
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+Hunk #1 succeeded at 227 (offset 15 lines).
+Hunk #2 succeeded at 269 with fuzz 2 (offset 19 lines).
+patching file 
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+Hunk #1 succeeded at 49 with fuzz 2 (offset 15 lines).
