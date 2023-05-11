@@ -4,115 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6154C77B7C
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 May 2023 17:51:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93C60C77B7C
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 May 2023 17:52:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5423910E0B7;
-	Thu, 11 May 2023 17:51:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FBD410E5A3;
+	Thu, 11 May 2023 17:52:30 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2078.outbound.protection.outlook.com [40.107.223.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A12910E0B7
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 May 2023 17:51:12 +0000 (UTC)
+ (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC7AC10E599
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 May 2023 17:52:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=THuBGw4QnNJ8Yjj9ZC1re+z3ZgxeuQmMBk54GdQmXl1BgJfMwIvrcBzGdMdepj+mmBmGeTMuecYOiTa20ZpQZkS5Yv/yYkiYJ6oHCagxStBojFBBokeBN/aVe8VRKhlxMOWWu1JSY9KuI9ggk4uVXcVZGxwzNwbXyey8iXntWU0+ssqW194N/KF+klgqQMVdqe/+f/cYGQSwl3e+ScBbvrWcIrZ5bKzQYwtcio1XJIM20KZflC1//Sd/aToykFaNGv4RjQvn2+x/ZLKjIeLbG/UMxcbUAI7hO+m6JOyBo7cFQ2oys6QEJxFcDZ6xtTymOjw5jDbQsuiJ1crUCIqEpA==
+ b=c0BfBl/THIx3vSXQ11BgYCnqY2dFB0O30YrDRIG47l1fxGEUTNy20SfE+29Oek1TvVu4RzYFe+fWvKSv+TD4kwXTy3kji5sczgmInXs+cqN1efirIpJPzOgF7+ucgkJVeIzR8dkv6Cf3xxJh5y9WAPf38I+k6NvGMPCgnVNP8YjHTep5kWZlOZltXtxrxGqy1xiDZh12OrIELZl6kuLk60gKkwD8dka4Z4h5bd3DAGQktC9RiIgydT6792QDNx6P9SCs1TVpeefPL7xdZI3ijkDsc8NfQfpfv4hp015yOX++TdHWe1jQyg4y4GCrRwHRGfkuZtkjklmFvC029pk3aQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bVMPOsiO1budrp3MdCIeGBKPTDXFB1muEw3Cc4y3Xfg=;
- b=mrmVeEG5elPrDDJbaMLehC/LbpBczS06GiKqlTQZxC8l/E/a7EKSOPzfvGtyLmYr5hMY1bLIoNx/RmGG290cbtlhSn4ONpD033Lj8GXiB3iiRIE31QvGH6QQBmPQNlp1OfNTOHOS95bzbDzPW1S4KRvva1vr7Xbz4CqR8dkXyiPPg2rexFVUH9vyDv7WPbKjdDG9/mO9Cgvmc4U2FKiKpoLokXbCGpJg/X76RwP7ZMaDLRHX+PlDkvcfLMURmiA+vW56O3DUuecgcPYHTGoC2QzhiUGtAUm09sF56R58GbjyxTGdspSet2mgD89QeyuSM6DH7cyKNyZI+4JSSA9RmA==
+ bh=eBdDQ7c53WT9GtRhNQj3Ckw2A11zIaKUbVhFxdP4Apw=;
+ b=hoQpbEKoAfh7eFQUH923MOCc3S2Hyjwr7Tzs21QuvAOy74Dj1fmrimgKXpAbQceeSJNiqEQPcZo23UttWrdwxYlwvZG5OLixaJPNyTS+EWCjMCm+Bbwc4NVDswTSJ8UA58/XrVsE03WyTbmgl4lsM7EFVcit+AyznnIxfk+GtowmxmG7Bk0tp9ny3vU5jVBz0oKX7cPs/pNbUtdcRX5SYAvbjLEO5vNGz7Y94O5+6PUDi7kWzeE5hYj29a3045Y6QXkbRfVVgZoaCGNNNNIfRDG+rYYtgIOgNRHl3J0M8r7JeNGvV+IW2PQ8osMIimlj1z+tAvYhAGeW8Dp6LX4mOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bVMPOsiO1budrp3MdCIeGBKPTDXFB1muEw3Cc4y3Xfg=;
- b=lhaaDbtdxLUwkizA4lPpv6D8RZ80umLivdn4XdwXPATCUfsaXqt4gRivNK41my16Qh8B0GXjjizpTD4ufYE5CazM9OCFWy/AsEEGaBs4zqJ2uWBvEgDoF3QOH2VQ7REh6eRUku170xtlWldGid1x2vTi2tTOLrclkVMnsHh0fKw=
+ bh=eBdDQ7c53WT9GtRhNQj3Ckw2A11zIaKUbVhFxdP4Apw=;
+ b=WQks2ugLmDiZ++0f/aEU8wxxPvaD99RkG9RqNpCqaB8RBsD33VRxCJ2bcvVSi6lLd0pOG6dGQxoydpjYk6gAv+2Ei3a0e0ryoawzJr7TrDUFgBYFQU0B9n57Lf6hKRTPGjhPIE+iDISuZgZJrqtfdLHXbLAFUjYyQEBa741lo7A=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by SN7PR12MB6689.namprd12.prod.outlook.com (2603:10b6:806:273::17)
+ by PH0PR12MB7093.namprd12.prod.outlook.com (2603:10b6:510:21d::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33; Thu, 11 May
- 2023 17:51:08 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.20; Thu, 11 May
+ 2023 17:52:25 +0000
 Received: from MN2PR12MB2941.namprd12.prod.outlook.com
  ([fe80::3d88:4b4e:e0aa:3c36]) by MN2PR12MB2941.namprd12.prod.outlook.com
  ([fe80::3d88:4b4e:e0aa:3c36%4]) with mapi id 15.20.6387.019; Thu, 11 May 2023
- 17:51:08 +0000
-Message-ID: <68baa20e-8983-e941-d617-04663c65f808@amd.com>
-Date: Thu, 11 May 2023 11:51:06 -0600
+ 17:52:24 +0000
+Message-ID: <9d9e4c90-13e5-4b32-a079-9a7bac3e166b@amd.com>
+Date: Thu, 11 May 2023 11:52:22 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
-Subject: Re: [PATCH 1/3] drm/amd/display: Add some missing register definitions
+Subject: Re: [PATCH 3/3] drm/amd/display: formatting fixes for dcn30_hwseq.c
 Content-Language: en-US
 To: Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20230511153807.1154612-1-aurabindo.pillai@amd.com>
+ <20230511153807.1154612-3-aurabindo.pillai@amd.com>
 From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20230511153807.1154612-1-aurabindo.pillai@amd.com>
+In-Reply-To: <20230511153807.1154612-3-aurabindo.pillai@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN0PR04CA0012.namprd04.prod.outlook.com
- (2603:10b6:408:ee::17) To MN2PR12MB2941.namprd12.prod.outlook.com
+X-ClientProxiedBy: BN0PR04CA0014.namprd04.prod.outlook.com
+ (2603:10b6:408:ee::19) To MN2PR12MB2941.namprd12.prod.outlook.com
  (2603:10b6:208:a9::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|SN7PR12MB6689:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10cc3a89-4e1f-4c5d-5dad-08db52484cc4
+X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|PH0PR12MB7093:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c527d8d-5130-48b4-d922-08db52487a44
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MVT1MgC777GM8AtmpZcb1MJBNQ05ZVoX2syO52cbFHM88yHGBqQOTpZURg6AGv892dQHMHiJg3vsdtrLVkomCY3hKm77Tq7NKyZ+f3jNIWekBFKMpHQPbmAoOAg8vpveEu9vJL5X1Gfr6aMU3NDGl24SLEAbR2GTNi9ggUcDKqQgY6yTNKpGOEFvf4HNv6BFnIol+NUkh8H8LPBPDyLEB9KW2iftjXP8FC9fsSL7E4SpJ3i6N/WxGC2c4vHJsipzssYKFxFqsOPiXlzOYzX8a/6RlG3Da+F57jiPc0gFe9GwHq4xJSaLq1lEwZ29qdbphVvs7StvJYUmJXlATpAejhJLxUkSNukd+Q5i/fkqZeRD6L4tSBbkVyiYtEQxVkvx6/L3pDXgmUOAaSCL6nVm2gJh6ZllNKUAKO+xEeQWpvOS8Yodx3ky28rulKOLg+mibMSXZjudhf1yOWyaD3lrWCfyzRXVckQXi/XCmdrNkPkK1KHkVVBSB72lhxGVoLpXfvk7k3hLxlBk4WZA56M4K/nuvnerp56d/NbOuII9f1MihRVKgm0YPybp8sfXA5zjS+nMUllYYmr+RINXf5/EoBlLuENeBGzKiVOmpsUsXMRs6ZIcKV96CXAG1cTuNqeYVnoLHPfLgcwPvuBNVlc6yg==
+X-Microsoft-Antispam-Message-Info: ZHNViLQHCUDb1LPdcl5mD3uPurrQxXGCfoUY7VV8QGEADUZYabrHJbfc/c2dVdsXDsmNP1pIAuz641J244IeGEjFAguOdBxMOz145bbFlsv8j0O/RDfHFRvTrpeHnyA11YZCylsBOvS3CgEcmSgbBBp2whI5NluLVHvYX0Qzv4jyc+sM8VTkhm2S6fJDLIBnWK3lbRZs7DxKXfCnN9xXdbPa83j9vo5KMqgvb07n4iJHYeu1uNzqGMhjXjg9RsS+CScqWZSrbah8x/zEDTR9UWJUq/w9z1wiQCVOUfghT5+82HQY0qNvgAdDEDrG31fLE0kpSkuomnVuZEZHEYF+O8IJ4s5hJXgC+9vFdRUfnJF6E8xONH5reV95WXL5Q64Vw8gFVJO4Nf5ceRkh+OYkwvYB/MuUDlC30Y8u8WR+kKHlkI89jqIyo7HPz9JkHs1WksOEcEeaYJPkEeKdknrLWXj7iBQwql1CfZIiohdRvFWv9zNC2jkXPxJfmjGTkl3b4You7i4zJ08fDV+ugyn/p1vepBKEzkXzZdkFpmviT5hjXsWE/P85sYt0P1Xi6f0nK6Bt+2Ivf+Kkie2CTnNAkAjnHUyr1oELvCcMSETT8vqaw3heFK+uXBMVcVelwjEFSDwd3DoysetjEPPSunCPww==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(376002)(346002)(136003)(366004)(396003)(451199021)(36756003)(478600001)(6486002)(2616005)(83380400001)(41300700001)(6512007)(6506007)(66476007)(66946007)(53546011)(86362001)(38100700002)(66556008)(4326008)(5660300002)(316002)(31686004)(8676002)(186003)(31696002)(8936002)(2906002)(45980500001)(43740500002);
+ SFS:(13230028)(4636009)(39860400002)(366004)(136003)(376002)(396003)(346002)(451199021)(6486002)(2616005)(31696002)(86362001)(8936002)(8676002)(38100700002)(53546011)(36756003)(186003)(2906002)(5660300002)(6512007)(478600001)(6506007)(316002)(66946007)(31686004)(83380400001)(66556008)(66476007)(4326008)(41300700001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eSsrY2RvQWFiMGVxbzduTk55SmdYVVMzRWZ1aGh1Y1krYVFybUx4YjdXSDhq?=
- =?utf-8?B?VGE2NEZvcUpTSFgzaFFpL2IxUEpZYWUwV3IyUDlPL2VLN2pHbThYZFlnMTFk?=
- =?utf-8?B?YmF1YU1YNms3Q1pad1RMVXNoVTh1S0lnZkFaUGkyN3QwL3lOV0xRZjdMZllO?=
- =?utf-8?B?S3c5Qy8wY1dtWlhoYkJ5bk1hcXBJV3VYMTVoNGw2UWZCbWMvYjh0M1U0U3Zx?=
- =?utf-8?B?T2dkZVRMV1R2VmJqWFBtaUNQWSt6aFFLMGlTMFVEQWhDcVpYcnlrYjBMU0VP?=
- =?utf-8?B?bWNsTktYV3lMdEtobmZ3L0ppK3RLeHZTWlorS2ZJQXJHTUw3TGVCaHNwQ2Ny?=
- =?utf-8?B?NllYT29KWVJTVlY1WUhUNzdsRFp1QU9taXFoWElNTmN5a05CWk1NL05OaXRj?=
- =?utf-8?B?VHdnTWxtQXJvdkZyczY2a1RhNFg1Skt0NlpKaXRKR2F4Ulp3U21YOXRNS2ZB?=
- =?utf-8?B?QkdJOGwwcHFKQWx3RmMxalJDdDVBSmxlQnFIZGErdTc4NkxRQXorSmlVeWwz?=
- =?utf-8?B?b2JmZEpuOVNuR1V5ZVpYdFdTY2tRY09nTTE4M2poOS9KMFVMK1VsakViUW9t?=
- =?utf-8?B?Y2VqMGEwSFdTT3l4WVR3dFpSeHIvYmlyWDNTMWdhMzFrbWVRR0RSbUhITEpj?=
- =?utf-8?B?VWVMVkNILzhMemplNnN2enV2V2N6SklxYVZiKzYyRzh4Rmozdi9ZYUljVU9L?=
- =?utf-8?B?cm1lQ2ZIY05sZyt4RnY2NEp6NFg3RUl5SjlSeVFBYzExcVJLRkk3akc3cldj?=
- =?utf-8?B?Snp1ZXdQRHZQVzRVTW0wMk03b3J2djVENkFvdmx0R3BWV0U1ZlU1M3BESzk0?=
- =?utf-8?B?TVRVbC9rcGhRWkVvMW02NnprQXZZT2VpTllXYi9iU1dGakMram5hRzFOYVVZ?=
- =?utf-8?B?OXhBTEV0cVF6OXJEYzR0U0doS1dwdHgxZGJrRk9PTG1IVVBNc3Zod0FPNStV?=
- =?utf-8?B?cjdTclpqaGg3UHh6MTQ0TW15NGdTT2dJd1pJK1ZOWndOb2dzZHJIRHhqd1cv?=
- =?utf-8?B?ZTBoU3RzZS9wWGFINnRYS05PNkJ4aEEyWVJiMmJhV25oajBjbThhd21QTVNo?=
- =?utf-8?B?MGMvVk9aREFRU245b1V3SndxekVISjdrZXhkeDNpQXNraFZaUTgxUm5GVXdN?=
- =?utf-8?B?TEc3UllWTjdGTGt1dVJFVzBRZGpZczk3NHVtQ2FhcXE4WjFtSjVxQ0tBdDNs?=
- =?utf-8?B?MjhkTnJTenZ0RWYzV1VvSENVMllkT3lnQ1lGWHB6d3JPVllrU3k2TW03QnZa?=
- =?utf-8?B?U3E0SFhSYXJiV0x6Z0VjMndaR0hkWFNWV0V6Qk1tM3pnSGxiZ05MWjZkZU5V?=
- =?utf-8?B?T24zVDlmRjd4cGxJb0xvMGxmQ205MVlpdDd2VDdiWU00dEhZVlMwVDZqczNX?=
- =?utf-8?B?T05yR1RXUU9ZNTlDYVpqOE9nU1VVZlREM3c0dEZISTRKRGVCb1lBZWRnVTRO?=
- =?utf-8?B?NUpYS0hOSE5RbGN3OUh1QWQ3OExWN25jRk10bkRRMWo5WVk4RC9hU1FHYk85?=
- =?utf-8?B?eWp2MXhqWmFMbkhTU3ErWkV3akdPWU55UU41aEtDWW44M1B1Vnlkc0R0UlVy?=
- =?utf-8?B?ZElhTk9kTm9GZ25MSC9xYU5oNnArVVNPZFlGWDFOaHJ3bW5HNHFjYmtxSU5C?=
- =?utf-8?B?cXllZnZVc2JvcEpnVG5EVUI0MGZTcjlhQkF1bnhmdTNrMnYzb2gwTG84bTJK?=
- =?utf-8?B?UFg1RlFVclR5VHdPVVJ4M0pYZ1FWYkVoMjI0eEZ6SGF2SllXSFpROG54dnQw?=
- =?utf-8?B?aFlmVkhFTmZrUk84ZzVpelB1S3dqQVVVdEhrSHNPRDl0MmRHSVB4VUI0YVI2?=
- =?utf-8?B?RGdhU0REWGszQmpQR290Ynp1aXpwWXlIRituOGNBSGw0YUJOaUxDRFk2Nm1r?=
- =?utf-8?B?RTloY1EwbmJsRE9ZaW9ySW9Ed1JZUDQyK1QrWXRNWUpEak93Q3hFSjJ0Rkl2?=
- =?utf-8?B?OHhyNWZpelpiWm1CWVhTc0VKbUUrbUM0MjFiV3ovZ2dQdVZuTHlndTd3TlU5?=
- =?utf-8?B?MmRWSXlDNmhVdkpnRmdnK1g4NWRGU2hSV0EwWGY5amVmMkYvYXhKQmo2c3Nn?=
- =?utf-8?B?cHNGRnZpUWFrSGppTUNtU0hiTy9RWnJETU4wM09GaHpDRVB3ckRrTktXSkE0?=
- =?utf-8?B?OENGenp5ZnJYZjJaRWFUNGxOVmtUbG5aUVBTMm5nUjQ3dFpxK3Mvd3c2SE1T?=
- =?utf-8?Q?jBDU4zkqwPKNqMN/1TrwYXVf6fSpW30cPdIw02MV/CoV?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y043cUpHMGxxcmVBMWdFMldEMXpRZlFsQlJ0ZU1NeTRGdGpGYzVFaUVCbjd0?=
+ =?utf-8?B?L3RjdHUzQTZwTGxoalFoSVV2WStzVnhnamt2citudndBMDNJZjB6dWZqdFBu?=
+ =?utf-8?B?b1JadHlvVDBaM0NSNlNTZ2cvaG5Sa3Mzem9XaUgzNXBFN293NzJnZG12N2dN?=
+ =?utf-8?B?QzJMNW1FaGg4NHR5dGpZTU1LOUpVWm1URzUvbU1DdUNkNCtLeE8raG51NWtx?=
+ =?utf-8?B?WitaWXJXNWdSYzB1SHJuUHd0YThKd05CTWprcnFRU1A2Zld5b0pQSmEvTkVX?=
+ =?utf-8?B?bkFNQmw4eThMWDZha3VjQit0akV5ZDJWbnMwWERjMzA5RlZNL2ZVbE1VYllt?=
+ =?utf-8?B?V0E1VGt6cGRhN3BGYXBXS2t3M0Q3WTBYWUVNc0RlT1lmT1dUVlJiWm1wVzQw?=
+ =?utf-8?B?R3NnL292TTdVRXpDRmoxV1c4WktnYlI3Y01SSGtRT2c2YkpKd25PSFdCTS8r?=
+ =?utf-8?B?bEpLQ2Y3MEZTNTZkaWFwR21ycTdYMlcwak9LWkhpZTRxK3F3S2tLY0QvcE9I?=
+ =?utf-8?B?OUV1R2lWV011Q3FIdG85VFZpZjhxeGZ5bHdDWitDV3FZNEpUc0FLRm45eGdK?=
+ =?utf-8?B?THZVdEI0NUtlWExHVHdQQ1B6eWphYTA1MWI5ZzF6THN0NFliQ2pUbHFVUEZN?=
+ =?utf-8?B?TGJLemdqMHVnUkh3VHNWako3MmswM2FiT3VEUmtNTVpxck9Mc1poanE2ai9D?=
+ =?utf-8?B?dFlsVlp2MDEyOGpqa2xnNENuVkF1VmJHUUtnZk9pOSswV25rdlY5MEJGY214?=
+ =?utf-8?B?bkhjTFdTS1pibjc5SEpKWHBzcDErYzFmaUhqS1kyNW1BUGp6MDRLUTBHSEJa?=
+ =?utf-8?B?d0VkQktRMEI2TDBkaUU5dFg2MjBlQzM5NjR0eXNqZmcyMkUyLzllNk4vTVpt?=
+ =?utf-8?B?NmkwVi9rZFVzTHRjRGE5YVRkVEtmVHgra3JpdmNlZURrR2R3TUQvVEQ2Z1Z4?=
+ =?utf-8?B?RFIxU2JHNnlJeWtUMkNYMkdjYkJZcHBRc0JGcnR3R0R4ZnlyU0VKOThuQmtY?=
+ =?utf-8?B?dUduUDhwaVpDSW9FdEZFOWIydEtYd0FtMDcxb3plV0k1UWZCZHVqMWhWbUcz?=
+ =?utf-8?B?Q0tEVk9ZcjJwV2lkMnEzZ1ZlaHVBT3owb0JkbWZBcUlkbzNLNlE1bmRaanBl?=
+ =?utf-8?B?Skc2NHNmU1Y1Q01CZFNhMStZZWxjeHZXVUsxeDFLQitRa1pCbGRrOWxOMW5q?=
+ =?utf-8?B?WURDVkVRclpMZ1JjR25jbVUrYWlsQWd5WHA3NnZFbE4wV3QxSTdWZlBOTGNS?=
+ =?utf-8?B?K1ZtZy9LK0svT0g2azB4b3QxVnpFN2NhakRhY1Evai96V1FqM2didWk3d2sr?=
+ =?utf-8?B?NkZEVzY2dFgveXRXcElCTm5YZTFaNEE2MXV3K3hyczhMREpRbGRZTlhlTW5X?=
+ =?utf-8?B?bkt1MFBGSFB6ZFBxTnJhY2FIaXVFbXozcGx1anYrdXh0ZlMzUUsxTVY2MkVi?=
+ =?utf-8?B?d0NFYnZ3WENiMzBxUE9neUdxcVp1UGZRL2hWcVdpcEJ2QXVVUlZheUdZbVB1?=
+ =?utf-8?B?bXNnQkN6OFRjNkkzYzg2VEVqeWNyWHF2UkVMMDYwN0J3WnVwMWNFVjl0NE54?=
+ =?utf-8?B?YXVwdzlORlRyYkJQdHJRYk9iWU43ZW1PUFNaVWtrcUVMT1d5T0d3Yi9IbU1Y?=
+ =?utf-8?B?UitPam1pQXIzekwyQVJnTXYrMSt6eng1Nk1xUXpDK29xem1Remw0MmpOZGdR?=
+ =?utf-8?B?VnhxWlNoaGdMaE9PcWx2My91KzhaU2xZZjN6b0haQ2pLQmJXaENYb0FOV3R3?=
+ =?utf-8?B?RHYxV1pGRlFxUkt6TkZtMEYvWjJKTTlJWkNmY0JWOXBUYncxRitJWkJPdEp3?=
+ =?utf-8?B?OWlJWjdENW5TdTBSSHJhcjhiTC9qS0U1THhhV1dOVzNWb2QvQ09SeFhralZT?=
+ =?utf-8?B?cEN6SjJoUnF2WjdVUDJzOXpJdGl5Rm1ZZDJ1UHNjRUlyRENqcEhRZU52K1ZQ?=
+ =?utf-8?B?QXc3MmJzOEpIc28yTzNXVzExN3BsbGdrMWFhWWRPU0oydXBDc0Z1aTQ0L3Rs?=
+ =?utf-8?B?TkNqd0tYdHA4cGhRSFJTcU1sQk1ZajBUNHR1NzdOdzVveFgrRk8rZmJqNWpl?=
+ =?utf-8?B?WGlJQ3VUekNGb0ZoSHFESGZqMVA2cnIzQm5KY2tqWlkzVGdaNWhYdWpoOWx5?=
+ =?utf-8?B?NXlkbWtWK0hqdlRBY1M1TC9FL0U2YUFRQ2IxWC9tNCsyUDY3ZjdXZ3FHYTRo?=
+ =?utf-8?Q?xz/Y98cP8aJGg20MpNcZm4d+wlpUMZOAuE8MUTvZiIr2?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10cc3a89-4e1f-4c5d-5dad-08db52484cc4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c527d8d-5130-48b4-d922-08db52487a44
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2023 17:51:08.4485 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2023 17:52:24.7248 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w95325ZYJ05hVqjYEr5oP0tLKxcBc93J9xWvFkEaRXS5DL9SidHoPK8IVboezZcPIKWUVOVBCztT4ImQ1sRa9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6689
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5M8si5KQeVO4uvvA+hbp+CNQPFSZyjVfh7nv0KUZ2ONPnAsTgyTbl9ltcuDeZ3nIJdltS8qWiww0ejyCyi1Ztg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7093
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,209 +132,91 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 5/11/23 09:38, Aurabindo Pillai wrote:
-> [Why&How]
-> Add some missing register definitions and rearrange some others to
-> maintain consistency with related definitions.
+> Fix whitespace issues and other trivial formatting fixes
 > 
 > Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 > ---
->   .../gpu/drm/amd/display/dc/dce/dce_hwseq.h    | 69 +++++++++++--------
->   .../include/asic_reg/dcn/dcn_3_0_0_offset.h   |  5 ++
->   .../include/asic_reg/dcn/dcn_3_0_0_sh_mask.h  |  5 ++
->   .../include/asic_reg/dcn/dcn_3_0_2_offset.h   |  4 ++
->   .../include/asic_reg/dcn/dcn_3_0_2_sh_mask.h  |  5 +-
->   5 files changed, 58 insertions(+), 30 deletions(-)
+>   .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 27 ++++++++-----------
+>   1 file changed, 11 insertions(+), 16 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_hwseq.h b/drivers/gpu/drm/amd/display/dc/dce/dce_hwseq.h
-> index a3fee929cd12..86233f94db4a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_hwseq.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_hwseq.h
-> @@ -98,6 +98,29 @@
->   	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 4), \
->   	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 5)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> index c9ec158c5aa7..287b9a2bfde4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> @@ -90,8 +90,7 @@ bool dcn30_set_blend_lut(
+>   	return result;
+>   }
 >   
-> +#define HWSEQ_PIXEL_RATE_REG_LIST_302(blk) \
-> +	SRII(PIXEL_RATE_CNTL, blk, 0), \
-> +	SRII(PIXEL_RATE_CNTL, blk, 1),\
-> +	SRII(PIXEL_RATE_CNTL, blk, 2),\
-> +	SRII(PIXEL_RATE_CNTL, blk, 3), \
-> +	SRII(PIXEL_RATE_CNTL, blk, 4)
+> -static bool dcn30_set_mpc_shaper_3dlut(struct pipe_ctx *pipe_ctx,
+> -				       const struct dc_stream_state *stream)
+> +static bool dcn30_set_mpc_shaper_3dlut(struct pipe_ctx *pipe_ctx, const struct dc_stream_state *stream)
+>   {
+>   	struct dpp *dpp_base = pipe_ctx->plane_res.dpp;
+>   	int mpcc_id = pipe_ctx->plane_res.hubp->inst;
+> @@ -106,14 +105,13 @@ static bool dcn30_set_mpc_shaper_3dlut(struct pipe_ctx *pipe_ctx,
+>   		if (stream->func_shaper->type == TF_TYPE_HWPWL) {
+>   			shaper_lut = &stream->func_shaper->pwl;
+>   		} else if (stream->func_shaper->type == TF_TYPE_DISTRIBUTED_POINTS) {
+> -			cm_helper_translate_curve_to_hw_format(stream->func_shaper,
+> -							       &dpp_base->shaper_params, true);
+> +			cm_helper_translate_curve_to_hw_format(stream->func_shaper, &dpp_base->shaper_params, true);
+>   			shaper_lut = &dpp_base->shaper_params;
+>   		}
+>   	}
+>   
+>   	if (stream->lut3d_func &&
+> -	    stream->lut3d_func->state.bits.initialized == 1 &&
+> +		stream->lut3d_func->state.bits.initialized == 1 &&
+>   	    stream->lut3d_func->state.bits.rmu_idx_valid == 1) {
+>   		if (stream->lut3d_func->state.bits.rmu_mux_num == 0)
+>   			mpcc_id_projected = stream->lut3d_func->state.bits.mpc_rmu0_mux;
+> @@ -121,20 +119,18 @@ static bool dcn30_set_mpc_shaper_3dlut(struct pipe_ctx *pipe_ctx,
+>   			mpcc_id_projected = stream->lut3d_func->state.bits.mpc_rmu1_mux;
+>   		else if (stream->lut3d_func->state.bits.rmu_mux_num == 2)
+>   			mpcc_id_projected = stream->lut3d_func->state.bits.mpc_rmu2_mux;
 > +
-> +#define HWSEQ_PHYPLL_REG_LIST_302(blk) \
-> +	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 0), \
-> +	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 1),\
-> +	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 2),\
-> +	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 3), \
-> +	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 4)
-> +
-> +#define HWSEQ_PIXEL_RATE_REG_LIST_303(blk) \
-> +	SRII(PIXEL_RATE_CNTL, blk, 0), \
-> +	SRII(PIXEL_RATE_CNTL, blk, 1)
-> +
-> +#define HWSEQ_PHYPLL_REG_LIST_303(blk) \
-> +	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 0), \
-> +	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 1)
-> +
-> +
->   #define HWSEQ_PHYPLL_REG_LIST_201(blk) \
->   	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 0), \
->   	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 1)
-> @@ -387,7 +410,11 @@
->   	SR(MPC_CRC_RESULT_C), \
->   	SR(MPC_CRC_RESULT_AR), \
->   	SR(AZALIA_AUDIO_DTO), \
-> -	SR(AZALIA_CONTROLLER_CLOCK_GATING)
-> +	SR(AZALIA_CONTROLLER_CLOCK_GATING), \
-> +	SR(HPO_TOP_CLOCK_CONTROL), \
-> +	SR(ODM_MEM_PWR_CTRL3), \
-> +	SR(DMU_MEM_PWR_CNTL), \
-> +	SR(MMHUBBUB_MEM_PWR_CNTL)
+>   		if (mpcc_id_projected != mpcc_id)
+>   			BREAK_TO_DEBUGGER();
+>   		/* find the reason why logical layer assigned a different
+>   		 * mpcc_id into acquire_post_bldn_3dlut
+>   		 */
+> -		acquired_rmu = mpc->funcs->acquire_rmu(mpc, mpcc_id,
+> -						       stream->lut3d_func->state.bits.rmu_mux_num);
+> +		acquired_rmu = mpc->funcs->acquire_rmu(mpc, mpcc_id, stream->lut3d_func->state.bits.rmu_mux_num);
+>   		if (acquired_rmu != stream->lut3d_func->state.bits.rmu_mux_num)
+>   			BREAK_TO_DEBUGGER();
 >   
->   #define HWSEQ_DCN301_REG_LIST()\
->   	SR(REFCLK_CNTL), \
-> @@ -508,8 +535,11 @@
->   	SR(D5VGA_CONTROL), \
->   	SR(D6VGA_CONTROL), \
->   	SR(DC_IP_REQUEST_CNTL), \
-> +	HWSEQ_PIXEL_RATE_REG_LIST_302(OTG), \
-> +	HWSEQ_PHYPLL_REG_LIST_302(OTG), \
->   	SR(AZALIA_AUDIO_DTO), \
-> -	SR(AZALIA_CONTROLLER_CLOCK_GATING)
-> +	SR(AZALIA_CONTROLLER_CLOCK_GATING), \
-> +	SR(HPO_TOP_CLOCK_CONTROL)
+> -		result = mpc->funcs->program_3dlut(mpc, &stream->lut3d_func->lut_3d,
+> -						   stream->lut3d_func->state.bits.rmu_mux_num);
+> -		result = mpc->funcs->program_shaper(mpc, shaper_lut,
+> -						    stream->lut3d_func->state.bits.rmu_mux_num);
+> +		result = mpc->funcs->program_3dlut(mpc, &stream->lut3d_func->lut_3d,stream->lut3d_func->state.bits.rmu_mux_num);
+> +		result = mpc->funcs->program_shaper(mpc, shaper_lut, stream->lut3d_func->state.bits.rmu_mux_num);
+>   	} else {
+>   		// loop through the available mux and release the requested mpcc_id
+>   		mpc->funcs->release_rmu(mpc, mpcc_id);
+> @@ -208,9 +204,9 @@ bool dcn30_set_output_transfer_func(struct dc *dc,
+>   					stream->out_transfer_func,
+>   					&mpc->blender_params, false))
+>   				params = &mpc->blender_params;
+> -			 /* there are no ROM LUTs in OUTGAM */
+> -			if (stream->out_transfer_func->type == TF_TYPE_PREDEFINED)
+> -				BREAK_TO_DEBUGGER();
+> +		/* there are no ROM LUTs in OUTGAM */
+> +		if (stream->out_transfer_func->type == TF_TYPE_PREDEFINED)
+> +			BREAK_TO_DEBUGGER();
+>   		}
+>   	}
 >   
->   #define HWSEQ_DCN303_REG_LIST() \
->   	HWSEQ_DCN_REG_LIST(), \
-> @@ -540,28 +570,6 @@
->   	SR(AZALIA_CONTROLLER_CLOCK_GATING), \
->   	SR(HPO_TOP_CLOCK_CONTROL)
+> @@ -893,8 +889,7 @@ bool dcn30_apply_idle_power_optimizations(struct dc *dc, bool enable)
+>   	memset(&cmd, 0, sizeof(cmd));
+>   	cmd.mall.header.type = DMUB_CMD__MALL;
+>   	cmd.mall.header.sub_type = DMUB_CMD__MALL_ACTION_DISALLOW;
+> -	cmd.mall.header.payload_bytes =
+> -		sizeof(cmd.mall) - sizeof(cmd.mall.header);
+> +	cmd.mall.header.payload_bytes = sizeof(cmd.mall) - sizeof(cmd.mall.header);
 >   
-> -#define HWSEQ_PIXEL_RATE_REG_LIST_302(blk) \
-> -	SRII(PIXEL_RATE_CNTL, blk, 0), \
-> -	SRII(PIXEL_RATE_CNTL, blk, 1),\
-> -	SRII(PIXEL_RATE_CNTL, blk, 2),\
-> -	SRII(PIXEL_RATE_CNTL, blk, 3), \
-> -	SRII(PIXEL_RATE_CNTL, blk, 4)
-> -
-> -#define HWSEQ_PHYPLL_REG_LIST_302(blk) \
-> -	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 0), \
-> -	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 1),\
-> -	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 2),\
-> -	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 3), \
-> -	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 4)
-> -
-> -#define HWSEQ_PIXEL_RATE_REG_LIST_303(blk) \
-> -	SRII(PIXEL_RATE_CNTL, blk, 0), \
-> -	SRII(PIXEL_RATE_CNTL, blk, 1)
-> -
-> -#define HWSEQ_PHYPLL_REG_LIST_303(blk) \
-> -	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 0), \
-> -	SRII(PHYPLL_PIXEL_RATE_CNTL, blk, 1)
-> -
->   struct dce_hwseq_registers {
->   	uint32_t DCFE_CLOCK_CONTROL[6];
->   	uint32_t DCFEV_CLOCK_CONTROL;
-> @@ -663,14 +671,15 @@ struct dce_hwseq_registers {
->   	uint32_t MC_VM_XGMI_LFB_CNTL;
->   	uint32_t AZALIA_AUDIO_DTO;
->   	uint32_t AZALIA_CONTROLLER_CLOCK_GATING;
-> +	/* MMHUB VM */
-> +	uint32_t MC_VM_FB_LOCATION_BASE;
-> +	uint32_t MC_VM_FB_LOCATION_TOP;
-> +	uint32_t MC_VM_FB_OFFSET;
-> +	uint32_t MMHUBBUB_MEM_PWR_CNTL;
->   	uint32_t HPO_TOP_CLOCK_CONTROL;
->   	uint32_t ODM_MEM_PWR_CTRL3;
->   	uint32_t DMU_MEM_PWR_CNTL;
-> -	uint32_t MMHUBBUB_MEM_PWR_CNTL;
->   	uint32_t DCHUBBUB_ARB_HOSTVM_CNTL;
-> -	uint32_t MC_VM_FB_LOCATION_BASE;
-> -	uint32_t MC_VM_FB_LOCATION_TOP;
-> -	uint32_t MC_VM_FB_OFFSET;
->   	uint32_t HPO_TOP_HW_CONTROL;
->   };
->    /* set field name */
-> @@ -915,6 +924,7 @@ struct dce_hwseq_registers {
->   #define HWSEQ_DCN30_MASK_SH_LIST(mask_sh)\
->   	HWSEQ_DCN2_MASK_SH_LIST(mask_sh), \
->   	HWS_SF(, AZALIA_AUDIO_DTO, AZALIA_AUDIO_DTO_MODULE, mask_sh), \
-> +	HWS_SF(, HPO_TOP_CLOCK_CONTROL, HPO_HDMISTREAMCLK_GATE_DIS, mask_sh), \
->   	HWS_SF(, ODM_MEM_PWR_CTRL3, ODM_MEM_UNASSIGNED_PWR_MODE, mask_sh), \
->   	HWS_SF(, ODM_MEM_PWR_CTRL3, ODM_MEM_VBLANK_PWR_MODE, mask_sh), \
->   	HWS_SF(, DMU_MEM_PWR_CNTL, DMCU_ERAM_MEM_PWR_FORCE, mask_sh), \
-> @@ -1012,7 +1022,8 @@ struct dce_hwseq_registers {
->   	HWS_SF(, DOMAIN19_PG_STATUS, DOMAIN19_PGFSM_PWR_STATUS, mask_sh), \
->   	HWS_SF(, DOMAIN20_PG_STATUS, DOMAIN20_PGFSM_PWR_STATUS, mask_sh), \
->   	HWS_SF(, DC_IP_REQUEST_CNTL, IP_REQUEST_EN, mask_sh), \
-> -	HWS_SF(, AZALIA_AUDIO_DTO, AZALIA_AUDIO_DTO_MODULE, mask_sh)
-> +	HWS_SF(, AZALIA_AUDIO_DTO, AZALIA_AUDIO_DTO_MODULE, mask_sh), \
-> +	HWS_SF(, HPO_TOP_CLOCK_CONTROL, HPO_HDMISTREAMCLK_GATE_DIS, mask_sh)
+>   	dm_execute_dmub_cmd(dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
 >   
->   #define HWSEQ_DCN303_MASK_SH_LIST(mask_sh) \
->   	HWSEQ_DCN_MASK_SH_LIST(mask_sh), \
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h
-> index 537aee0536d3..f2f8f9b39c6b 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h
-> @@ -15805,6 +15805,11 @@
->   #define mmDME6_DME_MEMORY_CONTROL                                                                      0x093d
->   #define mmDME6_DME_MEMORY_CONTROL_BASE_IDX                                                             3
->   
-> +// addressBlock: dce_dc_hpo_hpo_top_dispdec
-> +// base address: 0x0
-> +#define mmHPO_TOP_CLOCK_CONTROL                                                                        0x0e43
-> +#define mmHPO_TOP_CLOCK_CONTROL_BASE_IDX                                                               3
-> +
->   // base address: 0x1a698
->   #define mmDC_PERFMON29_PERFCOUNTER_CNTL                                                                0x0e66
->   #define mmDC_PERFMON29_PERFCOUNTER_CNTL_BASE_IDX                                                       3
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h
-> index f9d90b098519..e0a447351623 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h
-> @@ -60666,7 +60666,12 @@
->   #define DME6_DME_MEMORY_CONTROL__DME_MEM_PWR_STATE_MASK                                                       0x00000300L
->   #define DME6_DME_MEMORY_CONTROL__DME_MEM_DEFAULT_MEM_LOW_POWER_STATE_MASK                                     0x00003000L
->   
-> +// addressBlock: dce_dc_hpo_hpo_top_dispdec
-> +//HPO_TOP_CLOCK_CONTROL
-> +#define HPO_TOP_CLOCK_CONTROL__HPO_HDMISTREAMCLK_GATE_DIS__SHIFT                                              0x9
-> +#define HPO_TOP_CLOCK_CONTROL__HPO_HDMISTREAMCLK_GATE_DIS_MASK                                                0x00000200L
->   
-> +// addressBlock: dce_dc_hpo_hpo_dcperfmon_dc_perfmon_dispdec
->   //DC_PERFMON29_PERFCOUNTER_CNTL
->   #define DC_PERFMON29_PERFCOUNTER_CNTL__PERFCOUNTER_EVENT_SEL__SHIFT                                           0x0
->   #define DC_PERFMON29_PERFCOUNTER_CNTL__PERFCOUNTER_CVALUE_SEL__SHIFT                                          0x9
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_2_offset.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_2_offset.h
-> index 476469d41d73..b45a35aae241 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_2_offset.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_2_offset.h
-> @@ -14205,6 +14205,10 @@
->   
->   
->   
-> +// addressBlock: dce_dc_hpo_hpo_top_dispdec
-> +// base address: 0x0
-> +#define mmHPO_TOP_CLOCK_CONTROL                                                                        0x0e43
-> +#define mmHPO_TOP_CLOCK_CONTROL_BASE_IDX                                                               3
->   
->   // base address: 0x1a698
->   #define mmDC_PERFMON26_PERFCOUNTER_CNTL                                                                0x0e66
-> diff --git a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_2_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_2_sh_mask.h
-> index b9de0ebc8b03..3dae29f9581e 100644
-> --- a/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_2_sh_mask.h
-> +++ b/drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_2_sh_mask.h
-> @@ -52401,7 +52401,10 @@
->   #define DC_PERFMON25_PERFMON_LOW__PERFMON_LOW__SHIFT                                                          0x0
->   #define DC_PERFMON25_PERFMON_LOW__PERFMON_LOW_MASK                                                            0xFFFFFFFFL
->   
-> -
-> +// addressBlock: dce_dc_hpo_hpo_top_dispdec
-> +//HPO_TOP_CLOCK_CONTROL
-> +#define HPO_TOP_CLOCK_CONTROL__HPO_HDMISTREAMCLK_GATE_DIS__SHIFT                                              0x9
-> +#define HPO_TOP_CLOCK_CONTROL__HPO_HDMISTREAMCLK_GATE_DIS_MASK                                                0x00000200L
->   
->   // addressBlock: dce_dc_hpo_hpo_dcperfmon_dc_perfmon_dispdec
->   //DC_PERFMON26_PERFCOUNTER_CNTL
 
 Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
