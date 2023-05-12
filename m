@@ -4,60 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF983C77B7C
-	for <amd-gfx@archiver.kernel.org>; Sat, 13 May 2023 12:54:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBC35C77B7A
+	for <amd-gfx@archiver.kernel.org>; Sat, 13 May 2023 16:11:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25C6E10E0A7;
-	Sat, 13 May 2023 12:54:01 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D866710E0A7
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 May 2023 12:53:59 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-50bcd46bf47so2492596a12.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 May 2023 05:53:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google; t=1683982437; x=1686574437;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=De8kzaBXLnyvN9Z09P0jq9T3apHCPHjjeL0qbnMu42M=;
- b=dsq9RK5+6/mtCUqZu6pWifpA7Md81jlBnBHHUsBNU1h27pgtOWGPXQboFttYdAXyrs
- L0cHA7I4ScHCIjvuBU+VUwOPeooELJUH9kGJ9lQ5kys0SWi5OZTRNdTRbNGg1de8rI2Z
- qzagRXCqCIOgnXoIkJkZawVHugWxKVY+acvjfxEyFpmWu88RhSgoZuijHkIIXp3QFGw1
- x1imfnQRp5V37Foag6L0ga5Hf0JqorJbI8o2dDcz63/kzbCjR2uynRo4cX1pZvfrY/h4
- pao3cMMnXhZiZD25xBMzvbLxH3fXc8h1CuPPJ4VpmOIJXBW0bAV1OuOpsPZeBHHVO7hb
- U03Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683982437; x=1686574437;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=De8kzaBXLnyvN9Z09P0jq9T3apHCPHjjeL0qbnMu42M=;
- b=FlqwUG5Pp3c3FCVBTaZTHU5OC86Ep00N/MNpfUeIcSmET4Mer56Ma0+2Ikm5mpENk5
- V1I0l204eNUl9XY7L8FySvTzXN9EYhInSaDux61rZmAGBhcQ0Ixp3ohkpqcIVXEfuCos
- YWB7cimTqpW7TwEHpXyQFE44BM8EODyYvnxvre9D0OdwogXWkFRVfbhGHKHmKg+ReZH1
- OHBMEZVOJc8E1ZCxZND/9yfjcArj5N+aMm8yZR52ib7BYt0nX0NjxU0ecM1i/Ar4lv+q
- hBMPX0/+54AM8ijH+BBTrsmeN6ErKevkYc6bd9uwxBN7tdJv0gklBSl3yGTiPkOU3D4Z
- 9uEA==
-X-Gm-Message-State: AC+VfDygrHy9f2MEmGXLuFKmnXb7GtPORgzHhfVm9A4O73oewJJy/uZP
- 8VWGnTg6dNj9NDRrUGIuSwv+v5jVN+qpq9udXag=
-X-Google-Smtp-Source: ACHHUZ4sqz5UnpBoPwNpWAZxEjfCKAN+7CzILystFLfdHZoGGmK4EP+qwwZhMDLiBpnwgyHOoXbsVw==
-X-Received: by 2002:a05:6402:2710:b0:50d:9ba4:52df with SMTP id
- y16-20020a056402271000b0050d9ba452dfmr21966741edd.3.1683982437055; 
- Sat, 13 May 2023 05:53:57 -0700 (PDT)
-Received: from bas-workstation.. ([2a02:aa12:a781:180::a8])
- by smtp.gmail.com with ESMTPSA id
- z19-20020aa7c653000000b0050bd2f16ef5sm4905613edr.84.2023.05.13.05.53.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 13 May 2023 05:53:56 -0700 (PDT)
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: Validate VM ioctl flags.
-Date: Sat, 13 May 2023 14:51:00 +0200
-Message-Id: <20230513125100.1287549-1-bas@basnieuwenhuizen.nl>
-X-Mailer: git-send-email 2.40.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA6FF10E0CB;
+	Sat, 13 May 2023 16:11:19 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E7BB89D4D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 May 2023 22:34:40 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0481E63C85;
+ Fri, 12 May 2023 22:34:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10813C433D2;
+ Fri, 12 May 2023 22:34:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1683930879;
+ bh=C4/3tftPmfjnwOxJgXC4WqCyGzMl5SxDSvLNREcRE9M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=oorJa7oUTKyw2EhCfdYhAIFDMoM4ghO+MDH8Gsb+nOziXzc0Oxf7uYS5n6T/nDThX
+ JQedPLG3e+9PfjlaEW6IvPMP9XrOpylCEn1PCXGSu/DM57iFFLX7U7HxFEDb0jlz84
+ lIyFCWq5nRQ7C68CMnuK+MideTCwqc0KQpUuExUE=
+Date: Sat, 13 May 2023 07:34:33 +0900
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Christophe Leroy <christophe.leroy@csgroup.eu>
+Subject: Re: Fwd: Linux 6.3.1 + AMD RX 570 on ppc64le 4K: Kernel attempted to
+ read user page (1128) - exploit attempt? (uid: 0)
+Message-ID: <2023051353-epiphany-retorted-4ad1@gregkh>
+References: <588c1a66-9976-c96f-dcdd-beec8b7410f0@gmail.com>
+ <3e5548e4-5a3e-9346-ec58-3617e1947186@gmail.com>
+ <a50537d1f1af34104793218acb954a61@linuxsystems.it>
+ <3383ba6e-e62b-cd9b-8a61-39b0de8af579@csgroup.eu>
+ <57100be6-d379-0bc7-6d45-228cd46f9c81@csgroup.eu>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <57100be6-d379-0bc7-6d45-228cd46f9c81@csgroup.eu>
+X-Mailman-Approved-At: Sat, 13 May 2023 16:11:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,34 +54,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Linux Regressions <regressions@lists.linux.dev>,
+ Michael Ellerman <mpe@ellerman.id.au>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
+ =?iso-8859-1?Q?Niccol=F2?= Belli <darkbasic@linuxsystems.it>,
+ Hersen Wu <hersenxs.wu@amd.com>, Bagas Sanjaya <bagasdotme@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Linux for PowerPC <linuxppc-dev@lists.ozlabs.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-None have been defined yet, so reject anybody setting any. Mesa sets
-it to 0 anyway.
+On Fri, May 12, 2023 at 03:25:47PM +0000, Christophe Leroy wrote:
+> 
+> 
+> Le 12/05/2023 à 17:16, Christophe Leroy a écrit :
+> > 
+> > 
+> > Le 11/05/2023 à 19:25, Niccolò Belli a écrit :
+> >> [Vous ne recevez pas souvent de courriers de 
+> >> darkbasic@linuxsystems.it. D?couvrez pourquoi ceci est important ? 
+> >> https://aka.ms/LearnAboutSenderIdentification ]
+> >>
+> >> Il 2023-05-12 10:32 Bagas Sanjaya ha scritto:
+> >>> #regzbot introduced: f4f3b7dedbe849
+> >>> #regzbot link: https://gitlab.freedesktop.org/drm/amd/-/issues/2553
+> >>
+> >> It doesn't look like the aforementioned patch made its way into 6.3 yet:
+> >>
+> >> niko@talos2 ~/devel/linux-stable $ git branch
+> >> * linux-6.3.y
+> >>    master
+> >> niko@talos2 ~/devel/linux-stable $ git show f4f3b7dedbe8 | patch -p1
+> >> patching file
+> >> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> >> Hunk #1 succeeded at 227 (offset 15 lines).
+> >> Hunk #2 succeeded at 269 with fuzz 2 (offset 19 lines).
+> >> patching file
+> >> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+> >> Hunk #1 succeeded at 49 with fuzz 2 (offset 15 lines).
+> > 
+> > As far as I can see that patch has no Fixes: tag, so it will unlikely be 
+> > automatically merged into stable.
+> > 
+> > Has anybody requested greg/sasha to get it into 6.3 ?
+> > 
+> 
+> In fact, it seems that patch is already part of 6.3:
+> 
+> $ git tag --contains f4f3b7dedbe8
+> v6.3
+> v6.3-rc5
+> v6.3-rc6
+> v6.3-rc7
+> v6.3.1
+> v6.3.2
+> v6.4-rc1
 
-Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++++
- 1 file changed, 4 insertions(+)
+And that commit is already in the following releases:
+	5.10.177 5.15.106 6.1.23 6.2.10 6.3
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 158176b2f47e..62922a795312 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2442,6 +2442,10 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 	struct amdgpu_fpriv *fpriv = filp->driver_priv;
- 	int r;
- 
-+	/* No valid flags defined yet */
-+	if (args->in.flags)
-+		return -EINVAL;
-+
- 	switch (args->in.op) {
- 	case AMDGPU_VM_OP_RESERVE_VMID:
- 		/* We only have requirement to reserve vmid from gfxhub */
--- 
-2.40.1
+So what needs to be done here?
 
+confused,
+
+greg k-h
