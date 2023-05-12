@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBAE9C7EE23
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 May 2023 13:13:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1251BC77B7F
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 May 2023 13:19:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 644D210E6A9;
-	Fri, 12 May 2023 13:13:17 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07A2010E6A9
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 May 2023 13:13:14 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-18f4a6d2822so57340266fac.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 May 2023 06:13:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A494410E153;
+	Fri, 12 May 2023 13:19:07 +0000 (UTC)
+Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
+ [IPv6:2607:f8b0:4864:20::112c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A357E10E65D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 May 2023 09:45:45 +0000 (UTC)
+Received: by mail-yw1-x112c.google.com with SMTP id
+ 00721157ae682-55a00da4e53so172000037b3.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 May 2023 02:45:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683897193; x=1686489193;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CngAmmFuRqIswlP+CfD/veCE+5BJl/MKvsCecVSZMnQ=;
- b=WXmA5DI7O+5sY9N1cqvEy96CcmdacZK9X7zZihv6GhgGcLVU0JoLdvBlXqn3Y8dT5k
- g2hzj6I0nrCrMgg+SE4FQTPN6jWF3j7gk+JEK5QxO+UUQycdt3AQVBBymYTdfCvt+8Q0
- +9Wz8IH8a+kPJc/aKYay50vLqSzZYuHlvufqEBLgjWO2O9zDmV01pVgJjeglnA0gEaB8
- gzL+qA8MuzJ9iw+a4aICc9B7dPSV/F1ZnSjzA75PsZzUD7xK3jklc5I1+PJnnuvliLhs
- 2ZqwaTdCX0rR7CECTX/OZCXVMBFU/8ZphFHPeht8E220Bob3f9wFlngTrpFwf/gM7vY5
- hmuA==
+ d=linaro.org; s=google; t=1683884744; x=1686476744;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=SeNDNqSbKtT4juprQIPOMJ5pas9h2iCUoYs/y7tb/+s=;
+ b=GtZrqROkH4ZfxGqVx3hrHf4l23PetZ6CMy4woniilPGVWRB8G4rBVVXin8SU4uHEVE
+ wtZY3W1oMghoYi0guVodFnlz+uaCahv0XpFAQuvWhtuOwpHYzDzLdczdRUBnyFe0UMnY
+ ztzXOPBi7FwwlScghGzKcZOUHy28qYMiHNbWYDdhvyVDU1bi+zqLAaW30ayjTfc5VAix
+ MdfGcZ9GWL8VrtC6wj/+gnSAsIGxP/u4QEo67j1tEoedMw500PsRi70JcBCPSeS4tVaz
+ wItCQ8APNkxcAOsobVaDsVv67krITCKIYm9EhKTCjpaneEn6E6xTcNKaC8nPgAFpqcIo
+ aE5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683897193; x=1686489193;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CngAmmFuRqIswlP+CfD/veCE+5BJl/MKvsCecVSZMnQ=;
- b=jyv390k+RZrmU0vW62wNagTmII8uQQnECZ9B9bxiP+oX0dtZ/eP9UVnyEkr2a+TuTG
- 80KCnnZBL7x+7OPrTNM7DmzXTe7EDTgoR3dFvu+/Ti2CGCWSwMuNyd81v/9ufPJb0eMr
- YUeSLV71oKcEASkdhNsh/hyuwplnpSA4ME+1Gs6SWMthjVAMr53qcfG+m8zORqy6idqE
- mmFtMe2iKsIZQ0KkAfArw1PWDcsLp/QSdReA2eUxN4quBVPJkze2mxXrFYWMkvj3bWwi
- LcABboJDR519ENXyH62ZsmQKccLs5MDCA2SJ40XLjII+ZvelRLyJ4xq7M45x+pYYpdJj
- 5pZw==
-X-Gm-Message-State: AC+VfDzDhfcT2qAqN/mfbGEzscZTWNEugI/Lme5evTTnaaaSmueX28uy
- fmicWwSWn4N+DY7HkqVKUBIuAI3hBGv9TohIUsMMHnGG
-X-Google-Smtp-Source: ACHHUZ6wEzEoDk24x+Dz9K9LTog4VZTwghCdh604I3V/BWzi4CX6EBqR7c8yDztTdI+MEefKYolU8Ind7nXvtdl3sYY=
-X-Received: by 2002:aca:b98a:0:b0:394:3d94:b165 with SMTP id
- j132-20020acab98a000000b003943d94b165mr3981512oif.19.1683897191726; Fri, 12
- May 2023 06:13:11 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1683884744; x=1686476744;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=SeNDNqSbKtT4juprQIPOMJ5pas9h2iCUoYs/y7tb/+s=;
+ b=U+KdY938gEIwcCuC+5OFweQaR6Wy7s2CjobdwJHt34s+cs0hP3gokMcEXsHSxMMNn6
+ 9QO7o7UmGlxixhLSO1zmC7gcCOa7ckWSsZPmKD7RoDHAsHBDm2sYUyKfUXJc4X1eACDC
+ kJDHiNteS8J7UbgX5hn70ILZPpmyUfBUHMYpJal2HKWlN3VLDxhBhr4bBIuJO/ZlL+1P
+ yjKBaifLZ9qohqJfJuiq9tLHRNR1Dtq49lxrasp+V8aZktOnsRMU4TpNejRZ0+Ne2A5l
+ O8uCqTGXSgj+mIgHbUDWIkNbwlcDcNZONLcXqJF23t3MMX3qzZIpjiIdmQhm/4e5OmeA
+ NgJA==
+X-Gm-Message-State: AC+VfDzuiMRiAbqf+0RH7b0q8VumAMpUBEaHFC3FcaWQ7AY8QG/OOU4w
+ 77EwJlIUyjBl85XXmXYiGyqi1+pcgDyCwsit1w56qw==
+X-Google-Smtp-Source: ACHHUZ6lutSExTqyZsU/hQjFKIAv55bPUWGU0TtTWdM/WQJARaWIZ1aV+bmHH/6SrdqtE4Nhmy+pjSm4iiG39PZWMJU=
+X-Received: by 2002:a0d:d691:0:b0:539:1b13:3d64 with SMTP id
+ y139-20020a0dd691000000b005391b133d64mr23654781ywd.48.1683884744449; Fri, 12
+ May 2023 02:45:44 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230512081547.1006052-1-Jack.Xiao@amd.com>
-In-Reply-To: <20230512081547.1006052-1-Jack.Xiao@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 12 May 2023 09:13:00 -0400
-Message-ID: <CADnq5_PGQG4vu+DBUmMZwK=A-v1AgTemy1Z15=GSqep5_ymvgA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix S3 issue if MQD in VRAM
-To: Jack Xiao <Jack.Xiao@amd.com>
+References: <20230512084152.31233-1-tzimmermann@suse.de>
+ <20230512084152.31233-7-tzimmermann@suse.de>
+In-Reply-To: <20230512084152.31233-7-tzimmermann@suse.de>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Fri, 12 May 2023 12:45:33 +0300
+Message-ID: <CAA8EJpr8oGfmZ0f49W6C23K=EOWW0a-E4tzyn+U23sYkPeaArQ@mail.gmail.com>
+Subject: Re: [PATCH 06/11] drm/msm: Use regular fbdev I/O helpers
+To: Thomas Zimmermann <tzimmermann@suse.de>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Fri, 12 May 2023 13:19:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,108 +67,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, freedreno@lists.freedesktop.org,
+ linux-samsung-soc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, javierm@redhat.com,
+ dri-devel@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Rob Clark <robdclark@gmail.com>, mripard@kernel.org, daniel@ffwll.ch,
+ linux-tegra@vger.kernel.org, airlied@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 12, 2023 at 4:16=E2=80=AFAM Jack Xiao <Jack.Xiao@amd.com> wrote=
-:
+On Fri, 12 May 2023 at 11:41, Thomas Zimmermann <tzimmermann@suse.de> wrote:
 >
-> Make the preemption optimization effect only for SRIOV,
-> for it caused failure to resume from S3.
-
-Can you elaborate?  We ultimately want MQDs in VRAM for performance
-reasons even for bare metal.
-
-Alex
-
+> Use the regular fbdev helpers for framebuffer I/O instead of DRM's
+> helpers. Msm does not use damage handling, so DRM's fbdev helpers
+> are mere wrappers around the fbdev code.
 >
-> Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+> Add CONFIG_DRM_MSM_FBDEV_EMULATION to select the necessary
+> Kconfig options automatically. Make fbdev emulation depend on
+> the new config option.
+>
+> By using fbdev helpers directly within each DRM fbdev emulation,
+> we can eventually remove DRM's wrapper functions entirely.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Sean Paul <sean@poorly.run>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 3 ++-
->  drivers/gpu/drm/amd/amdgpu/mes_v10_1.c  | 7 +++++--
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 7 +++++--
->  3 files changed, 12 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index a22d88a4178a..1b795b7bbf38 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -385,7 +385,8 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev=
-,
->         u32 domain =3D AMDGPU_GEM_DOMAIN_GTT;
->
->         /* Only enable on gfx10 and 11 for now to avoid changing behavior=
- on older chips */
-> -       if (adev->ip_versions[GC_HWIP][0] >=3D IP_VERSION(10, 0, 0))
-> +       if (adev->ip_versions[GC_HWIP][0] >=3D IP_VERSION(10, 0, 0) &&
-> +           amdgpu_sriov_vf(adev))
->                 domain |=3D AMDGPU_GEM_DOMAIN_VRAM;
->
->         /* create MQD for KIQ */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v10_1.c
-> index 4560476c7c31..5c3d3f6c7ebd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-> @@ -889,6 +889,7 @@ static int mes_v10_1_mqd_sw_init(struct amdgpu_device=
- *adev,
->  {
->         int r, mqd_size =3D sizeof(struct v10_compute_mqd);
->         struct amdgpu_ring *ring;
-> +       u32 domain =3D AMDGPU_GEM_DOMAIN_GTT;
->
->         if (pipe =3D=3D AMDGPU_MES_KIQ_PIPE)
->                 ring =3D &adev->gfx.kiq[0].ring;
-> @@ -900,9 +901,11 @@ static int mes_v10_1_mqd_sw_init(struct amdgpu_devic=
-e *adev,
->         if (ring->mqd_obj)
->                 return 0;
->
-> +       if (amdgpu_sriov_vf(adev))
-> +               domain |=3D AMDGPU_GEM_DOMAIN_VRAM;
-> +
->         r =3D amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
-> -                                   AMDGPU_GEM_DOMAIN_VRAM |
-> -                                   AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj=
-,
-> +                                   domain, &ring->mqd_obj,
->                                     &ring->mqd_gpu_addr, &ring->mqd_ptr);
->         if (r) {
->                 dev_warn(adev->dev, "failed to create ring mqd bo (%d)", =
-r);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index 3adb450eec07..79a4d2bfd94a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -987,6 +987,7 @@ static int mes_v11_0_mqd_sw_init(struct amdgpu_device=
- *adev,
->  {
->         int r, mqd_size =3D sizeof(struct v11_compute_mqd);
->         struct amdgpu_ring *ring;
-> +       u32 domain =3D AMDGPU_GEM_DOMAIN_GTT;
->
->         if (pipe =3D=3D AMDGPU_MES_KIQ_PIPE)
->                 ring =3D &adev->gfx.kiq[0].ring;
-> @@ -998,9 +999,11 @@ static int mes_v11_0_mqd_sw_init(struct amdgpu_devic=
-e *adev,
->         if (ring->mqd_obj)
->                 return 0;
->
-> +       if (amdgpu_sriov_vf(adev))
-> +               domain |=3D AMDGPU_GEM_DOMAIN_VRAM;
-> +
->         r =3D amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
-> -                                   AMDGPU_GEM_DOMAIN_VRAM |
-> -                                   AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj=
-,
-> +                                   domain, &ring->mqd_obj,
->                                     &ring->mqd_gpu_addr, &ring->mqd_ptr);
->         if (r) {
->                 dev_warn(adev->dev, "failed to create ring mqd bo (%d)", =
-r);
-> --
-> 2.37.3
->
+>  drivers/gpu/drm/msm/Kconfig     |  9 +++++++++
+>  drivers/gpu/drm/msm/Makefile    |  2 +-
+>  drivers/gpu/drm/msm/msm_drv.h   |  2 +-
+>  drivers/gpu/drm/msm/msm_fbdev.c | 12 +++++++-----
+>  4 files changed, 18 insertions(+), 7 deletions(-)
+
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+-- 
+With best wishes
+Dmitry
