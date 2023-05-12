@@ -4,127 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD012C7EE23
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 May 2023 15:29:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43802C7EE2D
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 May 2023 16:21:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26ED410E6E7;
-	Fri, 12 May 2023 15:29:40 +0000 (UTC)
-Received: from FRA01-MR2-obe.outbound.protection.outlook.com
- (mail-mr2fra01on2049.outbound.protection.outlook.com [40.107.9.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FCE510E19B
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 May 2023 15:25:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A+kXmdQhpJhduaCPG6iIP+3OkEVoT78hcGlSvoeJugWMEaMB9el1ffaEkLqXu1JEhklD3Wc8w9D5kihGPBllM3lNrhgBKwQIrhEGCCCdb0CdB05D0eUjgIdUotRTukzZgnT6EwFrOpqbQkAmhBx05k4s6pEpEb4BV0Vp0V1VSn2d0oSimHPlP3497kjtDtJYetdiyDZDjLG8mi3EcUbaS5VL+YyIK9ZKy1uc3NMgllDi6BTmk0TxBA536bmS9Lyot5rtLy3eaKQ6pTeiCM3ze414c6Nk3g3s2M6+BdGG9B6WBOm35VpbXRoOAujkZUBFj0yBoiod7st5Q6Zik8frVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/4I7xwuXz4P7BIkIxvOoPX9iHtWI6iHPfMPkjM2QUVk=;
- b=aILLmNbHt3KZ2IDlb37k8ByUETnQJwRb5+/83QhPJEkAP091A6cpCAWaS/BlGPF1lCQRo7J0MvGB1eLcyXHMnuSP0aeeRqiTcdSPBHrSUVfMAxMMfJNifxoOE12Kj2tRzT8bi5fzZTMvdCmrv7EGOi2Z5bIQeMHpXBATdIDrMd3Eag8zhISvpHzJNcqE9sERaDwpnpr0o8++awvN7Qomdo/P0dPs7mADDwxsDnserW1lJ5eqm12VFd3J3DIHt7j1r0wbJLDVGLBqDMKdGQUSrb5kUsEu5lHSdXDQf7RxgWYTgU1WQkd82owAQ0g3Yw+1JO+QTubWhB/B/zTvMHvjBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=csgroup.eu; dmarc=pass action=none header.from=csgroup.eu;
- dkim=pass header.d=csgroup.eu; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=csgroup.eu;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/4I7xwuXz4P7BIkIxvOoPX9iHtWI6iHPfMPkjM2QUVk=;
- b=P/R4KHfQBeH9HorTQswFRZDYYiXt31rfP9KboH3h8qDYqiLKHRz8ftg0qwpa17lPaMwNQeAb0+WUplteBEaRDDNHzWvDAe8etQP19zyp9wTlPaLEIbt+rafZeXirQDqfgb+32po2sAi5QG81d1WMmd0UaRxfZaM+DrC9iy1YJcKElsY7/wnlTS8g1jIr33EDHGF0QZA79NDcNlQ959bnie9YAaxtO4ANFIFoxq58mybXrxtuIDacS84scRTFF5dnGBEDy0JJvSApOn+UENZcM66O5m0ePnx9X6Evt6SDuHTCugraj3vkeSUcbwBqbWx10HmuUTdP+j3l1Ux3/9w0fg==
-Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:31::15)
- by PR0P264MB2309.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1e0::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.23; Fri, 12 May
- 2023 15:25:48 +0000
-Received: from MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
- ([fe80::447b:6135:3337:d243]) by MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
- ([fe80::447b:6135:3337:d243%3]) with mapi id 15.20.6387.021; Fri, 12 May 2023
- 15:25:47 +0000
-From: Christophe Leroy <christophe.leroy@csgroup.eu>
-To: =?utf-8?B?TmljY29sw7IgQmVsbGk=?= <darkbasic@linuxsystems.it>, Bagas
- Sanjaya <bagasdotme@gmail.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>
-Subject: Re: Fwd: Linux 6.3.1 + AMD RX 570 on ppc64le 4K: Kernel attempted to
- read user page (1128) - exploit attempt? (uid: 0)
-Thread-Topic: Fwd: Linux 6.3.1 + AMD RX 570 on ppc64le 4K: Kernel attempted to
- read user page (1128) - exploit attempt? (uid: 0)
-Thread-Index: AQHZhOSpng5dBy/g3U+hblP7H6tff69WwkOA
-Date: Fri, 12 May 2023 15:25:47 +0000
-Message-ID: <57100be6-d379-0bc7-6d45-228cd46f9c81@csgroup.eu>
-References: <588c1a66-9976-c96f-dcdd-beec8b7410f0@gmail.com>
- <3e5548e4-5a3e-9346-ec58-3617e1947186@gmail.com>
- <a50537d1f1af34104793218acb954a61@linuxsystems.it>
- <3383ba6e-e62b-cd9b-8a61-39b0de8af579@csgroup.eu>
-In-Reply-To: <3383ba6e-e62b-cd9b-8a61-39b0de8af579@csgroup.eu>
-Accept-Language: fr-FR, en-US
-Content-Language: fr-FR
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=csgroup.eu;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MRZP264MB2988:EE_|PR0P264MB2309:EE_
-x-ms-office365-filtering-correlation-id: d57f7b11-2bc3-489c-6a2b-08db52fd297b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: YfyvLpfvJ7ThJSEV8gTIJX1aYSMmu0BrYK9JiPe6zLC7VoYMGk4REePaD6eUTiXNu/9prQkBgkRKjQnpT5jL3F2B9eZFO8vX7ncBF8uYOscAWuDsoESpxO687VTn0BiUR4hwi5SkWNPnfjz2SwVBVkPR8p7WkpfklWzkVdNVPdp8EYicGV+HQ/MKSzf6ShaQS6M/GgtozM7XjX5eElTFcm/xL+ZDe7wumlbQ/Nb1+6G8oVPtZLtBaawMtRfq97zi4fDcWyjFth3unxMxIyrYGQ2yqMfU0o4XoUFChMLv+ucIXnToPDQ09jvq63IiH7ijAb+Fxhm7oZ4T4vZScBNJ9piY6R+SXZZ3Ojq8K7zJSeNEPs8O4tOjMscZaKLJTHEVYEsypP1D3HQ5pcE4wwRKCfBxN0W0TJMTIwTA17zBDBKyOrWKZARHZRDtRqI2hNJJGw38xPGOsQFxb9sFg5bdCOG+9FU1RzphAXaX4LoJt50SNbveYNIk+O5tRmqx8BaohOaVpD8PqtGeiBaxF8iWroB4z+ahfvfJBdbpj1JaghT5DXvk8LZTKsYs0E3d3ezWybVNzrCyIhGmIe/w5ApBHWgH3qEJktMdMs6hbYnaq+Gjlcv2/vgPwHhFeNhXkIPL
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(396003)(39850400004)(366004)(376002)(136003)(451199021)(86362001)(31696002)(36756003)(966005)(316002)(110136005)(54906003)(66446008)(66556008)(4326008)(76116006)(66946007)(66476007)(64756008)(91956017)(478600001)(6486002)(41300700001)(71200400001)(2906002)(8936002)(5660300002)(8676002)(44832011)(7416002)(38070700005)(122000001)(38100700002)(26005)(2616005)(186003)(6506007)(6512007)(66574015)(83380400001)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZmFIZWtDc0FzR0cxejlBMGgrQ2FSSW90SmU1TUNCcEpPM3hXZktCZEczQlJ5?=
- =?utf-8?B?djM1Z0xMWng1ZENYUE5IVzNIT3Uzc2x5MHRrRENtTmFMVkhNK1pINTdoVWRh?=
- =?utf-8?B?WXBLYklGc2s1dTNRMEZjNEhzNm1FTmRwSzZMNzhHMW9lWjZZLy83L1R6QSsx?=
- =?utf-8?B?M1ZmV3ZtL1hkajd6MTR2WEFUTFVINjNQOTdObmtBVE1UamJqd3B1T05YMHJX?=
- =?utf-8?B?YzVkL08wZmpIVXU1V0JQZE9qa3NQRXM3RG0rem5KdHY0MjNZM3NxTHZTUVVP?=
- =?utf-8?B?TDJEWUNUUHlNSUtkY1FvSXE0ZXR5THMwa09zNit2OENGSGw0N1Q2aHBOM0RN?=
- =?utf-8?B?OENzZnJFUVAzMXE1R1pkeHNRS1JLZ08vaEozVjNzTk1yY0FJZzRJRmYwTVNX?=
- =?utf-8?B?MHI4U2d4c1ZqL1FjVVJmNW5rVkx4cHFuUmpRK1hXNDVYdFJzRGhlVjJyL0hk?=
- =?utf-8?B?OE5PWUh1UThJTjVOTldWc2hqdDk0Skh4UmFIVU5XdG1FUzRuYzlxZ2dPdXY1?=
- =?utf-8?B?aTRQTkFhS1RSVVpBWnA4SzZEOWRsZm9vM2xQdmR2dWRXb1ZDS3RKd1lkbjlu?=
- =?utf-8?B?RGtqYWZoR0JHSFdlU1FXNnBqQi92b0t0MU9CT3dPWEdpWmlVbFJHT3hYOCtF?=
- =?utf-8?B?d3F3NnF3bkpnVmp1TnVWbHg3c0lQQzBKNzRONmFvNy9oTW5NZWJVTDZXMmsv?=
- =?utf-8?B?ZEQxRnNYMEI3ak95NVczMXNCV0RGWmw2cGVhRkhQblhZRjAxaUZTSkZVa3Bm?=
- =?utf-8?B?Z08ydEtOVHNISTQxOXBRSjFoMGZ5MGpwdGtZUEdnVGFqcE9GVmY0V084TXF1?=
- =?utf-8?B?ckwzL0xWM1k1aXhnMU9XRzExbHZzVnBCL1hKZmx3U0dLS3JIN3BvR21TTVZT?=
- =?utf-8?B?K1FaNXB1WVhONk9EODYrTFVTRGZMZVhxRVFINHgydVNrOS82WFlJTTF6T0ow?=
- =?utf-8?B?YlB0U0VUc2svY2I2eVFFb0VwUCtKTjBBTkhjdDJyUnAxaXBOSEYzZjdCRHc0?=
- =?utf-8?B?L2R2dTNQbENRbGhsRUxnMS9Kc20rQXJvaW44WGNKOWFoRXJFN0M3MmJyUkFT?=
- =?utf-8?B?d3pRQlBNT01ZNVcyTDh5SE5Vb003cDEveHpDUXRwOXlDdmk3ZHBXYlYwOUJv?=
- =?utf-8?B?Z2hJbTBSNXNvQXEzQ0tFRnBmMVJqYnY1L3ozSHFibGRCZVBUbzJGbjhsZDk2?=
- =?utf-8?B?b0YyVzlwU2FTL3pNanUvWUlJb2oxVGdUaWZVQnBmNU9haWwwUjdRb1VuVHJh?=
- =?utf-8?B?MXdWN2Y4SnZPeUlQdUtnS0c5d0VnYnFnY00wODlpNDh5UzNCcFRVTklhU0Ju?=
- =?utf-8?B?c1BuRUFrZERydm5vMnIyMWhWSGtYSnpsQU5hdzVSbFNRS1dzODczZzVjUzNH?=
- =?utf-8?B?WTF6Mk5MSFVKS1ZEaWVRRDFINzM5eGFiblgvY2NtRnFBWFJiVG9lY1ZBR2hR?=
- =?utf-8?B?WVc4OGp1MGNhTEp1RlZEc0ZHM0Jad1BpcE1IME9EazFHUkduZWRTWjR2V1Vm?=
- =?utf-8?B?K3kvM1JhRlMrNGhXV0NTc0lNck9zNnhEUlkrS09GVHE4QWcwZnpXQXg0bVNj?=
- =?utf-8?B?OTBteUJtcE54bVpRZWZIMjgwQm92VTE3dFdSTGw1WHdwOC9VV1ZnYW9aR0F2?=
- =?utf-8?B?blZDdVEySm1lcDd4MW5Fc2tnV2R6UXhjOTZLUWR2OWpzQ3M4d3FsbWd4VlBU?=
- =?utf-8?B?YXJVSXgrQkwzOXoyMkxaU2Urb1ppSE9XREljOUZQdytSVnNvVkJuRWJvcWtp?=
- =?utf-8?B?N2ZkT2xQbDUxTm5vZzhra3M2R0cwek8vNXZUNTRpdHc1LzBxSEp6NWhueGtP?=
- =?utf-8?B?RTRzVjlFdVhRL05GSXJMYi9YOUxMUklGOVhYTzVUSXFRSkR4S1FvK0Y4MUcr?=
- =?utf-8?B?eVAyM0dienBpWXQ5aEJMbGhobWRMekoxV1M2SEh2VE8vTDVxOHArOFBrUTFJ?=
- =?utf-8?B?VklPbVBEc0Fja0FHYUQ4MmZUVkp2QWd5UFpYb1hpVkF5ZnFyekt6bWtCeEd4?=
- =?utf-8?B?bnMvTGs0T0M3T3ZQOVFQYzlLT1NuSEZtbDJPam1uSWkzL1ZnZ2l4c0hKd2hF?=
- =?utf-8?B?dm5QY1hLVkJEMWpaZk5OKzVEbVMyNWJYbWxXTnhTZzJNdjhWdFQ1VzI0bDZI?=
- =?utf-8?B?Kzk2N01MVmZweUs4cUc2QkZ4UzJlZGhmc1V1bFdQQlp3S3hJMVNyZjhUYzJE?=
- =?utf-8?B?aHc9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <E6EDC31093FEAF439CE530AE2726C0B4@FRAP264.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BC6810E6E1;
+	Fri, 12 May 2023 16:20:58 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 353B610E6DA;
+ Fri, 12 May 2023 16:20:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1683908456; x=1715444456;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=6JMhlSI8AcK3kUbPJJDnaUnKRbv4q1hmlIrs1v8cDOE=;
+ b=ii4uAWHUUQ751wxQmLA5UUsHNKSG5A6PFI3EU3gO3xb53Ym/N4wmvSbH
+ YUYPZderL3Sc3AZde87ePdV5EhFI0lgielsnPAfQgP5gtCdqnRz0kkgqP
+ +4NczElbrdRfys0Hap7ui3+r8Tzoo7XJjuQIrpf6EH9hjVxhj0JOLl86z
+ gEsKSvQ/eOIfDto8m3OuncWYMu7XHRzRosm/ytVpHBJ7wt7p3hT2+55Og
+ FgW5MRXUHPdqYHQfF0iwX5kUU01U4cSIsfvr4dJ6rxXx4unxXksaWRlVW
+ DiJuIqBA1e1X+fNIcY/VGiKs85r6dHNCEqwiCG+GgNTnz6HX2bZ3/02hI w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="353077823"
+X-IronPort-AV: E=Sophos;i="5.99,269,1677571200"; d="scan'208";a="353077823"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2023 09:20:54 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="765219552"
+X-IronPort-AV: E=Sophos;i="5.99,269,1677571200"; d="scan'208";a="765219552"
+Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
+ by fmsmga008.fm.intel.com with ESMTP; 12 May 2023 09:20:51 -0700
+Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pxVVi-0004y2-2B;
+ Fri, 12 May 2023 16:20:50 +0000
+Date: Sat, 13 May 2023 00:20:28 +0800
+From: kernel test robot <lkp@intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, javierm@redhat.com
+Subject: Re: [Intel-gfx] [PATCH 07/11] drm/omapdrm: Use regular fbdev I/O
+ helpers
+Message-ID: <202305130058.VuW3nBPS-lkp@intel.com>
+References: <20230512084152.31233-8-tzimmermann@suse.de>
 MIME-Version: 1.0
-X-OriginatorOrg: csgroup.eu
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MRZP264MB2988.FRAP264.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: d57f7b11-2bc3-489c-6a2b-08db52fd297b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 May 2023 15:25:47.8734 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 9914def7-b676-4fda-8815-5d49fb3b45c8
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: U9G690q/mcV5Jux31bI593/p5M2EpNZR7FeXXfIxoVA5F45CFAbsirdiP2h2uYkV+y7Eu+mjqGopMDAAa6Hca98QqVO1GiUgWmPiynAgX00=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR0P264MB2309
-X-Mailman-Approved-At: Fri, 12 May 2023 15:29:38 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230512084152.31233-8-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,37 +61,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Regressions <regressions@lists.linux.dev>,
- Michael Ellerman <mpe@ellerman.id.au>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Linux for PowerPC <linuxppc-dev@lists.ozlabs.org>
+Cc: linux-samsung-soc@vger.kernel.org, Tomi Valkeinen <tomba@kernel.org>,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, oe-kbuild-all@lists.linux.dev,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DQoNCkxlIDEyLzA1LzIwMjMgw6AgMTc6MTYsIENocmlzdG9waGUgTGVyb3kgYSDDqWNyaXTCoDoN
-Cj4gDQo+IA0KPiBMZSAxMS8wNS8yMDIzIMOgIDE5OjI1LCBOaWNjb2zDsiBCZWxsaSBhIMOpY3Jp
-dMKgOg0KPj4gW1ZvdXMgbmUgcmVjZXZleiBwYXMgc291dmVudCBkZSBjb3VycmllcnMgZGUgDQo+
-PiBkYXJrYmFzaWNAbGludXhzeXN0ZW1zLml0LiBEP2NvdXZyZXogcG91cnF1b2kgY2VjaSBlc3Qg
-aW1wb3J0YW50ID8gDQo+PiBodHRwczovL2FrYS5tcy9MZWFybkFib3V0U2VuZGVySWRlbnRpZmlj
-YXRpb24gXQ0KPj4NCj4+IElsIDIwMjMtMDUtMTIgMTA6MzIgQmFnYXMgU2FuamF5YSBoYSBzY3Jp
-dHRvOg0KPj4+ICNyZWd6Ym90IGludHJvZHVjZWQ6IGY0ZjNiN2RlZGJlODQ5DQo+Pj4gI3JlZ3pi
-b3QgbGluazogaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9hbWQvLS9pc3N1ZXMv
-MjU1Mw0KPj4NCj4+IEl0IGRvZXNuJ3QgbG9vayBsaWtlIHRoZSBhZm9yZW1lbnRpb25lZCBwYXRj
-aCBtYWRlIGl0cyB3YXkgaW50byA2LjMgeWV0Og0KPj4NCj4+IG5pa29AdGFsb3MyIH4vZGV2ZWwv
-bGludXgtc3RhYmxlICQgZ2l0IGJyYW5jaA0KPj4gKiBsaW51eC02LjMueQ0KPj4gwqDCoCBtYXN0
-ZXINCj4+IG5pa29AdGFsb3MyIH4vZGV2ZWwvbGludXgtc3RhYmxlICQgZ2l0IHNob3cgZjRmM2I3
-ZGVkYmU4IHwgcGF0Y2ggLXAxDQo+PiBwYXRjaGluZyBmaWxlDQo+PiBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMuYw0KPj4gSHVuayAjMSBz
-dWNjZWVkZWQgYXQgMjI3IChvZmZzZXQgMTUgbGluZXMpLg0KPj4gSHVuayAjMiBzdWNjZWVkZWQg
-YXQgMjY5IHdpdGggZnV6eiAyIChvZmZzZXQgMTkgbGluZXMpLg0KPj4gcGF0Y2hpbmcgZmlsZQ0K
-Pj4gZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5
-cGVzLmgNCj4+IEh1bmsgIzEgc3VjY2VlZGVkIGF0IDQ5IHdpdGggZnV6eiAyIChvZmZzZXQgMTUg
-bGluZXMpLg0KPiANCj4gQXMgZmFyIGFzIEkgY2FuIHNlZSB0aGF0IHBhdGNoIGhhcyBubyBGaXhl
-czogdGFnLCBzbyBpdCB3aWxsIHVubGlrZWx5IGJlIA0KPiBhdXRvbWF0aWNhbGx5IG1lcmdlZCBp
-bnRvIHN0YWJsZS4NCj4gDQo+IEhhcyBhbnlib2R5IHJlcXVlc3RlZCBncmVnL3Nhc2hhIHRvIGdl
-dCBpdCBpbnRvIDYuMyA/DQo+IA0KDQpJbiBmYWN0LCBpdCBzZWVtcyB0aGF0IHBhdGNoIGlzIGFs
-cmVhZHkgcGFydCBvZiA2LjM6DQoNCiQgZ2l0IHRhZyAtLWNvbnRhaW5zIGY0ZjNiN2RlZGJlOA0K
-djYuMw0KdjYuMy1yYzUNCnY2LjMtcmM2DQp2Ni4zLXJjNw0KdjYuMy4xDQp2Ni4zLjINCnY2LjQt
-cmMxDQo=
+Hi Thomas,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on 451e49cfbaa90720149e63f4fa9c7824013c783d]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Zimmermann/drm-armada-Use-regular-fbdev-I-O-helpers/20230512-164432
+base:   451e49cfbaa90720149e63f4fa9c7824013c783d
+patch link:    https://lore.kernel.org/r/20230512084152.31233-8-tzimmermann%40suse.de
+patch subject: [Intel-gfx] [PATCH 07/11] drm/omapdrm: Use regular fbdev I/O helpers
+config: arm-allmodconfig (https://download.01.org/0day-ci/archive/20230513/202305130058.VuW3nBPS-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/f9113ec6815b748d0b917f78527582b8b08deb40
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Thomas-Zimmermann/drm-armada-Use-regular-fbdev-I-O-helpers/20230512-164432
+        git checkout f9113ec6815b748d0b917f78527582b8b08deb40
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arm SHELL=/bin/bash drivers/gpu/drm/omapdrm/
+
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202305130058.VuW3nBPS-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/omapdrm/omap_fbdev.c:306:6: error: redefinition of 'omap_fbdev_setup'
+     306 | void omap_fbdev_setup(struct drm_device *dev)
+         |      ^~~~~~~~~~~~~~~~
+   In file included from drivers/gpu/drm/omapdrm/omap_fbdev.c:19:
+   drivers/gpu/drm/omapdrm/omap_fbdev.h:17:20: note: previous definition of 'omap_fbdev_setup' with type 'void(struct drm_device *)'
+      17 | static inline void omap_fbdev_setup(struct drm_device *dev)
+         |                    ^~~~~~~~~~~~~~~~
+
+
+vim +/omap_fbdev_setup +306 drivers/gpu/drm/omapdrm/omap_fbdev.c
+
+9e69bcd88e4593 Thomas Zimmermann 2023-04-03  305  
+9e69bcd88e4593 Thomas Zimmermann 2023-04-03 @306  void omap_fbdev_setup(struct drm_device *dev)
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
