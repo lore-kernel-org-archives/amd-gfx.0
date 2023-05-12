@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A01CC7EE25
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 May 2023 08:42:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98BBCC77B75
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 May 2023 08:42:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C047110E650;
-	Fri, 12 May 2023 08:42:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B83710E654;
+	Fri, 12 May 2023 08:42:06 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A41010E629;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44A0C10E1AC;
  Fri, 12 May 2023 08:41:59 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2836C20437;
- Fri, 12 May 2023 08:41:55 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0C8202043A;
+ Fri, 12 May 2023 08:41:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1683880915; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1683880917; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PJqEG/CeqhUYorQ9LHu5G5OfhEtg1W9GXaMXtW0UJIE=;
- b=H3suTdauheUg1rxZJzibqHwNSavfFJaxC6qeuZORkZoAC7n192hkknlrHTyMwAMv8hOTlG
- IsB3dDVmABydUDWJWPbBx8Ucb5dysP6t3SZFhJKJ+igFK1gOg7zEcILXbEiQwjh0+7M2T+
- GUVr/HEx6T4wTG/kka3ild9F9EdLsMA=
+ bh=aDapZGq3snIdNViE9zp5XIjmGvfoCzJuG8gNtaD7oZ0=;
+ b=c1YePbQL6JnHEDj2KjK7YJco5DUwpIxOK5+DePlL8YZzzru7SeijpQAdU4Ql7ZrfNtLw6S
+ OKFP373wjNIoZMWgzHaYWNTMv96pPko5Pmw++laTm56nxPbgjaD003DUcj7J6+n34Ty7Mz
+ a88fg1iuN3ISvEKKg3OuWv5CwCmyE4I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1683880915;
+ s=susede2_ed25519; t=1683880917;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=PJqEG/CeqhUYorQ9LHu5G5OfhEtg1W9GXaMXtW0UJIE=;
- b=s3GiwHlmChHPrfB10tKjWu/CN0UtpQBH7O0vfJ2jCOBdk65nxtQgTNSjWFlQnUee9jvzQc
- AxtRi6m3Rv4Le0AA==
+ bh=aDapZGq3snIdNViE9zp5XIjmGvfoCzJuG8gNtaD7oZ0=;
+ b=QvPsrF7e3YQDOeqg+LLHX0sk8fcAfGA4j2MmE28pPSZ2jccf4nmOnwDkuzsAxbvtR3cf1W
+ U7YY4veYenYuQUDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CBF1913466;
- Fri, 12 May 2023 08:41:54 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B8F7E13466;
+ Fri, 12 May 2023 08:41:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QBEAMdL7XWQZKQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Fri, 12 May 2023 08:41:54 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id iPZeLNT7XWQZKQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Fri, 12 May 2023 08:41:56 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, javierm@redhat.com
-Subject: [PATCH 02/11] drm/exynos: Use regular fbdev I/O helpers
-Date: Fri, 12 May 2023 10:41:43 +0200
-Message-Id: <20230512084152.31233-3-tzimmermann@suse.de>
+Subject: [PATCH 08/11] drm/tegra: Use regular fbdev I/O helpers
+Date: Fri, 12 May 2023 10:41:49 +0200
+Message-Id: <20230512084152.31233-9-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230512084152.31233-1-tzimmermann@suse.de>
 References: <20230512084152.31233-1-tzimmermann@suse.de>
@@ -67,22 +67,21 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, Alim Akhtar <alim.akhtar@samsung.com>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- dri-devel@lists.freedesktop.org, Inki Dae <inki.dae@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, amd-gfx@lists.freedesktop.org,
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>, amd-gfx@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+ Jonathan Hunter <jonathanh@nvidia.com>, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Use the regular fbdev helpers for framebuffer I/O instead of DRM's
-helpers. Exynos does not use damage handling, so DRM's fbdev helpers
+helpers. Tegra does not use damage handling, so DRM's fbdev helpers
 are mere wrappers around the fbdev code.
 
-Add CONFIG_DRM_EXYNOS_FBDEV_EMULATION to select the necessary
+Add CONFIG_DRM_TEGRA_FBDEV_EMULATION to select the necessary
 Kconfig options automatically. Make fbdev emulation depend on
 the new config option.
 
@@ -90,98 +89,94 @@ By using fbdev helpers directly within each DRM fbdev emulation,
 we can eventually remove DRM's wrapper functions entirely.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Inki Dae <inki.dae@samsung.com>
-Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
-Cc: Kyungmin Park <kyungmin.park@samsung.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>
 ---
- drivers/gpu/drm/exynos/Kconfig            |  8 ++++++++
- drivers/gpu/drm/exynos/Makefile           |  2 +-
- drivers/gpu/drm/exynos/exynos_drm_fbdev.c | 10 +++++-----
- drivers/gpu/drm/exynos/exynos_drm_fbdev.h |  2 +-
- 4 files changed, 15 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/tegra/Kconfig  |  9 +++++++++
+ drivers/gpu/drm/tegra/Makefile |  2 +-
+ drivers/gpu/drm/tegra/drm.h    |  2 +-
+ drivers/gpu/drm/tegra/fbdev.c  | 11 ++++++-----
+ 4 files changed, 17 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/exynos/Kconfig b/drivers/gpu/drm/exynos/Kconfig
-index 0cb92d651ff1..c7ac07220e26 100644
---- a/drivers/gpu/drm/exynos/Kconfig
-+++ b/drivers/gpu/drm/exynos/Kconfig
-@@ -5,6 +5,7 @@ config DRM_EXYNOS
- 	depends on ARCH_S3C64XX || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
- 	depends on MMU
- 	select DRM_DISPLAY_HELPER if DRM_EXYNOS_DP
-+	select DRM_EXYNOS_FBDEV_EMULATION if DRM_FBDEV_EMULATION
+diff --git a/drivers/gpu/drm/tegra/Kconfig b/drivers/gpu/drm/tegra/Kconfig
+index 56453ca277c2..8d04549ad671 100644
+--- a/drivers/gpu/drm/tegra/Kconfig
++++ b/drivers/gpu/drm/tegra/Kconfig
+@@ -12,6 +12,7 @@ config DRM_TEGRA
  	select DRM_KMS_HELPER
- 	select VIDEOMODE_HELPERS
- 	select SND_SOC_HDMI_CODEC if SND_SOC
-@@ -12,6 +13,13 @@ config DRM_EXYNOS
- 	  Choose this option if you have a Samsung SoC Exynos chipset.
- 	  If M is selected the module will be called exynosdrm.
+ 	select DRM_MIPI_DSI
+ 	select DRM_PANEL
++	select DRM_TEGRA_FBDEV_EMULATION if DRM_FBDEV_EMULATION
+ 	select TEGRA_HOST1X
+ 	select INTERCONNECT
+ 	select IOMMU_IOVA
+@@ -41,3 +42,11 @@ config DRM_TEGRA_STAGING
+ 	  If unsure, choose N.
  
-+config DRM_EXYNOS_FBDEV_EMULATION
+ endif
++
++config DRM_TEGRA_FBDEV_EMULATION
 +	bool
-+	depends on DRM_EXYNOS
-+	select FB_CFB_COPYAREA
-+	select FB_CFB_FILLRECT
-+	select FB_CFB_IMAGEBLIT
-+
- if DRM_EXYNOS
++	depends on DRM_TEGRA
++	select FB_SYS_COPYAREA
++	select FB_SYS_FILLRECT
++	select FB_SYS_FOPS
++	select FB_SYS_IMAGEBLIT
+diff --git a/drivers/gpu/drm/tegra/Makefile b/drivers/gpu/drm/tegra/Makefile
+index 6fc4b504e786..2ae9fb5d9213 100644
+--- a/drivers/gpu/drm/tegra/Makefile
++++ b/drivers/gpu/drm/tegra/Makefile
+@@ -29,6 +29,6 @@ tegra-drm-y := \
  
- comment "CRTCs"
-diff --git a/drivers/gpu/drm/exynos/Makefile b/drivers/gpu/drm/exynos/Makefile
-index 2fd2f3ee4fcf..a9278be4daf3 100644
---- a/drivers/gpu/drm/exynos/Makefile
-+++ b/drivers/gpu/drm/exynos/Makefile
-@@ -6,7 +6,7 @@
- exynosdrm-y := exynos_drm_drv.o exynos_drm_crtc.o exynos_drm_fb.o \
- 		exynos_drm_gem.o exynos_drm_plane.o exynos_drm_dma.o
+ tegra-drm-y += trace.o
  
--exynosdrm-$(CONFIG_DRM_FBDEV_EMULATION) += exynos_drm_fbdev.o
-+exynosdrm-$(CONFIG_DRM_EXYNOS_FBDEV_EMULATION)	+= exynos_drm_fbdev.o
- exynosdrm-$(CONFIG_DRM_EXYNOS_FIMD)	+= exynos_drm_fimd.o
- exynosdrm-$(CONFIG_DRM_EXYNOS5433_DECON)	+= exynos5433_drm_decon.o
- exynosdrm-$(CONFIG_DRM_EXYNOS7_DECON)	+= exynos7_drm_decon.o
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-index ea4b3d248aac..b3333dd1d087 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-@@ -8,6 +8,8 @@
-  *	Seung-Woo Kim <sw0312.kim@samsung.com>
-  */
+-tegra-drm-$(CONFIG_DRM_FBDEV_EMULATION) += fbdev.o
++tegra-drm-$(CONFIG_DRM_TEGRA_FBDEV_EMULATION) += fbdev.o
  
-+#include <linux/fb.h>
-+
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_fb_helper.h>
-@@ -49,11 +51,9 @@ static const struct fb_ops exynos_drm_fb_ops = {
- 	.owner		= THIS_MODULE,
- 	DRM_FB_HELPER_DEFAULT_OPS,
- 	.fb_mmap        = exynos_drm_fb_mmap,
--	.fb_read	= drm_fb_helper_cfb_read,
--	.fb_write	= drm_fb_helper_cfb_write,
--	.fb_fillrect	= drm_fb_helper_cfb_fillrect,
--	.fb_copyarea	= drm_fb_helper_cfb_copyarea,
--	.fb_imageblit	= drm_fb_helper_cfb_imageblit,
-+	.fb_fillrect	= cfb_fillrect,
-+	.fb_copyarea	= cfb_copyarea,
-+	.fb_imageblit	= cfb_imageblit,
- 	.fb_destroy	= exynos_drm_fb_destroy,
- };
- 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.h b/drivers/gpu/drm/exynos/exynos_drm_fbdev.h
-index 1e1dea627cd9..9a8425881ff1 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.h
-+++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.h
-@@ -11,7 +11,7 @@
- #ifndef _EXYNOS_DRM_FBDEV_H_
- #define _EXYNOS_DRM_FBDEV_H_
+ obj-$(CONFIG_DRM_TEGRA) += tegra-drm.o
+diff --git a/drivers/gpu/drm/tegra/drm.h b/drivers/gpu/drm/tegra/drm.h
+index f9d18e8cf6ab..874e93ef4e47 100644
+--- a/drivers/gpu/drm/tegra/drm.h
++++ b/drivers/gpu/drm/tegra/drm.h
+@@ -192,7 +192,7 @@ struct drm_framebuffer *tegra_fb_create(struct drm_device *drm,
+ 					struct drm_file *file,
+ 					const struct drm_mode_fb_cmd2 *cmd);
  
 -#ifdef CONFIG_DRM_FBDEV_EMULATION
-+#if defined(CONFIG_DRM_EXYNOS_FBDEV_EMULATION)
- void exynos_drm_fbdev_setup(struct drm_device *dev);
++#if defined(CONFIG_DRM_TEGRA_FBDEV_EMULATION)
+ void tegra_fbdev_setup(struct drm_device *drm);
  #else
- static inline void exynos_drm_fbdev_setup(struct drm_device *dev)
+ static inline void tegra_fbdev_setup(struct drm_device *drm)
+diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.c
+index dca9eccae466..144d851e566f 100644
+--- a/drivers/gpu/drm/tegra/fbdev.c
++++ b/drivers/gpu/drm/tegra/fbdev.c
+@@ -8,6 +8,7 @@
+  */
+ 
+ #include <linux/console.h>
++#include <linux/fb.h>
+ #include <linux/vmalloc.h>
+ 
+ #include <drm/drm_drv.h>
+@@ -59,11 +60,11 @@ static void tegra_fbdev_fb_destroy(struct fb_info *info)
+ static const struct fb_ops tegra_fb_ops = {
+ 	.owner = THIS_MODULE,
+ 	DRM_FB_HELPER_DEFAULT_OPS,
+-	.fb_read = drm_fb_helper_sys_read,
+-	.fb_write = drm_fb_helper_sys_write,
+-	.fb_fillrect = drm_fb_helper_sys_fillrect,
+-	.fb_copyarea = drm_fb_helper_sys_copyarea,
+-	.fb_imageblit = drm_fb_helper_sys_imageblit,
++	.fb_read = fb_sys_read,
++	.fb_write = fb_sys_write,
++	.fb_fillrect = sys_fillrect,
++	.fb_copyarea = sys_copyarea,
++	.fb_imageblit = sys_imageblit,
+ 	.fb_mmap = tegra_fb_mmap,
+ 	.fb_destroy = tegra_fbdev_fb_destroy,
+ };
 -- 
 2.40.1
 
