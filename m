@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5E0BC7EE2C
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 May 2023 21:39:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CB27C7EE22
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 May 2023 22:27:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5759F10E296;
-	Mon, 15 May 2023 21:39:22 +0000 (UTC)
-Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
- [IPv6:2607:f8b0:4864:20::c30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2163710E296
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 May 2023 21:39:20 +0000 (UTC)
-Received: by mail-oo1-xc30.google.com with SMTP id
- 006d021491bc7-55239f43426so2049226eaf.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 May 2023 14:39:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684186759; x=1686778759;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dI/NZTv30xWYvuAe/G62vAm/Uhf84bN1JRbCpqmykhw=;
- b=aCAM3tB0p+rpgaC1LJpwAtz26NLIFkE6N1X5hyYfElkjbxJonYS2kjPnrZIXPejbSl
- /FjOWlX7la8GewrcJhukM7JM+w12Ce+kSHyD2w9GcTt82KtUu5BAE0P10o+LvDv3e3i2
- 1Ro+99DR1BvSp6WdobD9xPE/BXy9f363lvofPJuxHY6XrBX8pOtvWXLJdLw7ekGvVmFO
- XpgzYN1aX68KYls2EdVL6clccGBVnKaFRI/oc/Blpj6uvC+rVcgwtq4STaCSAn3ijOAx
- z9ulEnerx3xsTaGstr7fIb6NWjRy/H1N/WWB0WhJpqFbzN+4a+0bsj9qh2Pr3iMvAKto
- EUtg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CA2510E2B0;
+	Mon, 15 May 2023 22:27:37 +0000 (UTC)
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
+ [209.85.215.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9980210E2AD;
+ Mon, 15 May 2023 22:27:35 +0000 (UTC)
+Received: by mail-pg1-f169.google.com with SMTP id
+ 41be03b00d2f7-51b33c72686so9261332a12.1; 
+ Mon, 15 May 2023 15:27:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684186759; x=1686778759;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dI/NZTv30xWYvuAe/G62vAm/Uhf84bN1JRbCpqmykhw=;
- b=G0bTuadDOh8K+W+hPRN4kCMxJD8w0YhodRoY9e8o4CNryWmCa+0z+w72A/8yFKAokQ
- LPLycpIzpsWiP+0+/8Vi92ZIiFX6HoYGzd48kJPojbFcYEHX7Mx9JrRZehYkUzO9BgTt
- wWQ9RaNTl7dmpwxkH8JZtzqWEmQ4hxHLS+mfF8+Ix7M+3kZsPD79XxVDYbSbtilpjyLk
- yzpQp4e/Go07u+ovTtcibQdn0Rqi6mJ53ZrH97Ad3g42NGFWFd6N07BvHEJlIkrlcUdp
- cdme4H1y1xfvy3QiKHukm0V1LDmUMArqrv6uMcVIcEndArIqLbu1CdMYX+kVlYNvJ5QX
- SK2A==
-X-Gm-Message-State: AC+VfDwAU0e0HSGSXZMiknf+gn0dWBrQ1B/R5IeTLB4zv2jQ0Waf85/g
- 2IPYwCvk3MATy42a75B6zBT83IZHwyRc18kOKkw=
-X-Google-Smtp-Source: ACHHUZ7wT7W3woP+7sDXgPe5KxBPXrzVXNIY3ZyO5TYxU4tpVjQFVTWkoOVabmjPEdhFzaGoqQTXeiNDvfDVvzzGcYU=
-X-Received: by 2002:a05:6808:b14:b0:394:3771:2781 with SMTP id
- s20-20020a0568080b1400b0039437712781mr8707147oij.51.1684186759012; Mon, 15
- May 2023 14:39:19 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1684189655; x=1686781655;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=c63nnhTmzNCcDDPrXmodqbHJR7oOiORNS/8H1q+iK6g=;
+ b=GYI58VNxjemFw6YIPeQ95YRFBqCxJo12Fqc/Sr7wf0Zz0bd+TcuVn4Xx2k8XTK6AJn
+ 0/Rv4TqrHoFSwNURAPDIafARYcNA1woYbasq2mTHX5Mvb68kzDUj5hHSaGtqFh9zttF2
+ rMZxg2A2M8+h1R7lEE4YnhUUNyOnJBjOkkjG+zfQmCdxTSFHyJfUH/uCyc1qv/hVoA26
+ WMwK/GDfo8ToNLdP/pZmSAe9+8iiYgKUH38lxDS4z/iJA5SROvUwvyAmiu476riCZVxh
+ LZvjHxbDLuTWwxeAVnX1d/sSJcnUy1nDBkeE72lHePCOp3eZnizBkPVSA7SsZVHL/8zc
+ WPww==
+X-Gm-Message-State: AC+VfDzg+Ny9uYoX9CZp6lSXZBOstjvWhkdRCL6Q6LzNZgBWFW0LKQLu
+ CSKMls12Xx76/+r5I4dC2jI=
+X-Google-Smtp-Source: ACHHUZ654Qpgl50uQ0TTsz+Sm+yXhr0g/S0spaoX5NDpQanCAD2nDXcpydjHPB8lZdE6LMp1HwPPLA==
+X-Received: by 2002:a05:6a20:54a4:b0:101:1951:d491 with SMTP id
+ i36-20020a056a2054a400b001011951d491mr32720818pzk.6.1684189654681; 
+ Mon, 15 May 2023 15:27:34 -0700 (PDT)
+Received: from [192.168.86.26] (cpe-70-95-21-110.san.res.rr.com.
+ [70.95.21.110]) by smtp.gmail.com with ESMTPSA id
+ l23-20020a62be17000000b006460751222asm8024272pff.38.2023.05.15.15.27.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 May 2023 15:27:34 -0700 (PDT)
+Message-ID: <0df418ad-3492-4241-1837-55ed89b77e10@linux.com>
+Date: Mon, 15 May 2023 15:27:31 -0700
 MIME-Version: 1.0
-References: <20230513125100.1287549-1-bas@basnieuwenhuizen.nl>
-In-Reply-To: <20230513125100.1287549-1-bas@basnieuwenhuizen.nl>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 15 May 2023 17:39:08 -0400
-Message-ID: <CADnq5_Mc3eLNE1y2uDdugbTf5s+UQy8gEVawiGicu9XTvR_Eew@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Validate VM ioctl flags.
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH] drm:amd:amdgpu: Fix missing buffer object unlock in
+ failure path
+Content-Language: en-US
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, Xinhui.Pan@amd.com
+References: <20230503231507.279172-1-sukrut.bellary@linux.com>
+From: Sukrut Bellary <sukrut.bellary@linux.com>
+In-Reply-To: <20230503231507.279172-1-sukrut.bellary@linux.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,44 +65,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, ray.huang@amd.com,
+ amd-gfx@lists.freedesktop.org, Jiadong.Zhu@amd.com, sumit.semwal@linaro.org,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
 
-Alex
-
-On Sat, May 13, 2023 at 8:54=E2=80=AFAM Bas Nieuwenhuizen
-<bas@basnieuwenhuizen.nl> wrote:
->
-> None have been defined yet, so reject anybody setting any. Mesa sets
-> it to 0 anyway.
->
-> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+On 5/3/23 16:15, Sukrut Bellary wrote:
+> smatch warning -
+> 1) drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c:3615 gfx_v9_0_kiq_resume()
+> warn: inconsistent returns 'ring->mqd_obj->tbo.base.resv'.
+> 
+> 2) drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:6901 gfx_v10_0_kiq_resume()
+> warn: inconsistent returns 'ring->mqd_obj->tbo.base.resv'.
+> 
+> Signed-off-by: Sukrut Bellary <sukrut.bellary@linux.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index 158176b2f47e..62922a795312 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2442,6 +2442,10 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *=
-data, struct drm_file *filp)
->         struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
->         int r;
->
-> +       /* No valid flags defined yet */
-> +       if (args->in.flags)
-> +               return -EINVAL;
-> +
->         switch (args->in.op) {
->         case AMDGPU_VM_OP_RESERVE_VMID:
->                 /* We only have requirement to reserve vmid from gfxhub *=
-/
-> --
-> 2.40.1
->
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 4 +++-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 4 +++-
+>  2 files changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index 8bd07ff59671..66d5c5d68454 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -6891,8 +6891,10 @@ static int gfx_v10_0_kiq_resume(struct amdgpu_device *adev)
+>  		return r;
+>  
+>  	r = amdgpu_bo_kmap(ring->mqd_obj, (void **)&ring->mqd_ptr);
+> -	if (unlikely(r != 0))
+> +	if (unlikely(r != 0)) {
+> +		amdgpu_bo_unreserve(ring->mqd_obj);
+>  		return r;
+> +	}
+>  
+>  	gfx_v10_0_kiq_init_queue(ring);
+>  	amdgpu_bo_kunmap(ring->mqd_obj);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index bce6919d666a..d5715d8a4128 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -3617,8 +3617,10 @@ static int gfx_v9_0_kiq_resume(struct amdgpu_device *adev)
+>  		return r;
+>  
+>  	r = amdgpu_bo_kmap(ring->mqd_obj, (void **)&ring->mqd_ptr);
+> -	if (unlikely(r != 0))
+> +	if (unlikely(r != 0)) {
+> +		amdgpu_bo_unreserve(ring->mqd_obj);
+>  		return r;
+> +	}
+>  
+>  	gfx_v9_0_kiq_init_queue(ring);
+>  	amdgpu_bo_kunmap(ring->mqd_obj);
+
+Follow-up.
+Could you please review this patch?
+
+
+--
+Regards,
+Sukrut
