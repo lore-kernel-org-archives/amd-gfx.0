@@ -4,64 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0FE6C77B7D
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 May 2023 14:31:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BD42C7EE23
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 May 2023 14:42:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0C8910E1FE;
-	Mon, 15 May 2023 14:30:59 +0000 (UTC)
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [IPv6:2607:f8b0:4864:20::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C551610E1F5;
- Mon, 15 May 2023 14:30:57 +0000 (UTC)
-Received: by mail-pl1-x62d.google.com with SMTP id
- d9443c01a7336-1aaea3909d1so120036815ad.2; 
- Mon, 15 May 2023 07:30:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B46F610E1FA;
+	Mon, 15 May 2023 14:42:42 +0000 (UTC)
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE1810E1FA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 May 2023 14:42:40 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-1925ad4953dso6019035fac.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 May 2023 07:42:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684161057; x=1686753057;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20221208; t=1684161759; x=1686753759;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=J+eFaAuv5DwnuMYT4MLpA+IW5y413fK5e+lMgmHpaqM=;
- b=bLYk0iTRvozgHkHd57YIP5u30BVW3qkKKsSYng6dMI2zSNSuvZ0hd5Z7GmUhqUzfYc
- 6sqINwqp8IQkBjx0HU4Iwve9ZRKyu+7rAchvR48XmE9OS/sp3Rz5yUcZ0/bbsymk3Ju1
- y37nZ35DM3V8U2+uGGCk4itjv/wHKGRxj/nJjyJz1dEZv/K0sAmH5Ry/KGN/ATCDJBu9
- kjuvxlSQtOJ+mzWV2rvAXPDUfbcxtrjrWoifs1r/tw8FpihTuJ3aK5rf8YlSvj5dGVPv
- BZ6oqv/3wDLmiBMojFiyZAZdZz6e7LzHy6MI8OvHwKWzs18rTEe4nHmFlSLF1AQwLzNv
- 4jZA==
+ bh=H89B/9HN4gmozC1Ely8aiFisGVL+cOJXLQAYdQDSG4U=;
+ b=HmRnMHGVaR/LFsul9zi4L7igZwOfd/vVGXsEzXu2OexIVEwbZdp71vgUSFEN7ZtWDh
+ RSAq7EILQYrKOFWkExZXZ+xp59/PCxepyBubTZ1Xf3SvMOp/3YCIRx7gKMHEM83vD6mb
+ y4Xj73sR/lQTqYGnC/hoCrRTFwYROKjjn7j5dXT7RJgQR+r+peoQxVXtwj6pY3sua6fV
+ siVnxmaDos7uNvI+I24KCR2stFAhN7+iOig74C+tqdNUHKh1WBDZ8E28bEP3nDPneR0a
+ b7CsPiO7stBzeL2WQUir+LcyUsVc6oomic4lCVaP6GRKIEKzyk8myz1i+vOizB+ihtid
+ SF1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684161057; x=1686753057;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20221208; t=1684161759; x=1686753759;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=J+eFaAuv5DwnuMYT4MLpA+IW5y413fK5e+lMgmHpaqM=;
- b=CfCAGcIEwcWBPDV6ybcvQyAP/Uo6w7kyU7j/H1W8WZiqsIeiBktpW6MlQhBflhOOcI
- UPWN4FmHC3sYW0m/MJU3ru0hAlxTZb54rAzan4wlxg4tJPULM1FnS1ZyYTmhZMhXS2LG
- qDvCc8gILhHgEqH7F/1HcO23/vopMWXep3LwVGgFrUGuGu5aJlN0CVgoYRYrKJNYyQXZ
- ie3PdZ9cyB1UDdKfeTotYpP7/8flJ2aUf9WGngv0ckViq5BdOjlRsEfkXXjnwvl5FKH/
- sr9Z7nKR8Ytv1ulVAJPt1H2vIv6DZ+R83F/XIiU23KsZqPdKnFZtbeP917tv+dPpiEF9
- ZSsw==
-X-Gm-Message-State: AC+VfDwvGd3pGs98QnXKMng0OAgfSIjSURh9hVZekDW872U4LTEtiYAc
- eQDH8yPZEeFiqB00VY8xG/Tq4Ijdr0k=
-X-Google-Smtp-Source: ACHHUZ5sGvx/oOWoGm1MaSZQQVu5CXoA43XI4IbEIKFtFr/c2N29+/r/jC2CaUXLxPqmI4mMDtAAIg==
-X-Received: by 2002:a17:902:da88:b0:1a6:d9de:1887 with SMTP id
- j8-20020a170902da8800b001a6d9de1887mr44100368plx.53.1684161057060; 
- Mon, 15 May 2023 07:30:57 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
- by smtp.gmail.com with ESMTPSA id
- m2-20020a1709026bc200b001a045f45d49sm13541803plt.281.2023.05.15.07.30.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 May 2023 07:30:56 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Subject: [PATCH v4 4/9] drm/amdgpu: Switch to fdinfo helper
-Date: Mon, 15 May 2023 07:30:11 -0700
-Message-Id: <20230515143023.801167-5-robdclark@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230515143023.801167-1-robdclark@gmail.com>
-References: <20230515143023.801167-1-robdclark@gmail.com>
+ bh=H89B/9HN4gmozC1Ely8aiFisGVL+cOJXLQAYdQDSG4U=;
+ b=NWsYjHWWOEpTxgFYDHvYCh+Z9O9AGxUHFOycGqFijeLu54rrEKPNhjc91XhNNOP/Y2
+ 5hgyIo+vP/xI/RvW6oGUyTXWXug2kyM11Su93FXOJthOGlZ2rstqeowsjicEv6OcB3vq
+ MS/lvBezGahGzb9uLeb2R5w1bgqMXD6lFtIDqLu6CT4nZm/03/N4GrFcDeRF7di41StQ
+ P1MidrHDBSqqOQaaA5F2ZywiRwyWtFyM8rEJ+8b5LI1sUhK3AD5Ox7/IdRAZzm+413af
+ yvb/28bXGBji8d7I7SX++YsgUDppntfxMmXXo+0zZDQE3i1cfzfl1yX6slhrRf9s51vV
+ g8qw==
+X-Gm-Message-State: AC+VfDzy5fGliycTjyovS1K4KJCKRQN89MF8d8J3tFh2tX9bVm2T38wH
+ anqxKGFdaB3fJ1G0z2I5+fWuRE6UQLQbf2zeMSmp9eOJ
+X-Google-Smtp-Source: ACHHUZ79NkgeebKXTQVEAHDXj0VZq+f/aMRiC9oPiXGzFEAxIVRsiscL60KzDKf2V8xWClu3RWmmNIvo3/ceRWWULYY=
+X-Received: by 2002:a05:6870:822b:b0:187:bda6:db2d with SMTP id
+ n43-20020a056870822b00b00187bda6db2dmr15482206oae.13.1684161759403; Mon, 15
+ May 2023 07:42:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <ZF2W8ZS7FUdKHSoh@sellars>
+In-Reply-To: <ZF2W8ZS7FUdKHSoh@sellars>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 May 2023 10:42:28 -0400
+Message-ID: <CADnq5_NFGrtQbFBopP6kmV6rTMWrQTuTzALyXSDPAT=7a9GPTg@mail.gmail.com>
+Subject: Re: No GTT->VRAM unswapping with amdgpu?
+To: =?UTF-8?Q?Linus_L=C3=BCssing?= <linus.luessing@c0d3.blue>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,166 +67,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- open list <linux-kernel@vger.kernel.org>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>, Rob Clark <robdclark@chromium.org>,
- Guchun Chen <guchun.chen@amd.com>, Shashank Sharma <shashank.sharma@amd.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>, Jim Cromie <jim.cromie@gmail.com>,
- Peter Maucher <bellosilicio@gmail.com>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Christopher Healy <healych@amazon.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+On Thu, May 11, 2023 at 9:38=E2=80=AFPM Linus L=C3=BCssing <linus.luessing@=
+c0d3.blue> wrote:
+>
+> Hi,
+>
+> Initially noticed this in some games, which seem to be a bit lazy
+> with their VRAM allocations + freeing, that performance would drop
+> dramatically / become unusable once the VRAM is full and GTT gets
+> used. For instance in No Man's Sky after jumping a solar system
+> or on DCS World on several maps and in multiplayer. I'm using an
+> ATI/AMD Radeon RX 6650 XT, 8GB VRAM with an eGPU enclosure
+> (Razer Core X Chroma, Thunderbolt 3), connected via a 40Gbit/s
+> USB4 port. Which usually has great performance, until I hit the
+> VRAM limit.
+>
+> I scripted some further tests and benchmarking around
+> memmtest_vulkan(*) and these were the results:
+>
+> https://github.com/T-X/linux-amdgpu-radeon-vram-swapping-test/
+>
+> I would have expected roughly the same speeds in all tests.
+> However tests 5) and 6) yielded significantly lower performance.
+>
+> Which leads me to the conclusion that anything that gets allocated
+> on GTT stays there and is never unswapped from GTT / system memory
+> back to VRAM?
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 16 ++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h |  2 +-
- 3 files changed, 9 insertions(+), 12 deletions(-)
+It will get swapped back to VRAM if it makes sense for performance.
+The driver throttles swapping if there is too much contention to avoid
+the overhead of swapping large amounts of memory back and forth
+between vram and gtt for every command submission.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index f5ffca24def4..6c0e0c614b94 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2745,21 +2745,21 @@ static const struct file_operations amdgpu_driver_kms_fops = {
- 	.flush = amdgpu_flush,
- 	.release = drm_release,
- 	.unlocked_ioctl = amdgpu_drm_ioctl,
- 	.mmap = drm_gem_mmap,
- 	.poll = drm_poll,
- 	.read = drm_read,
- #ifdef CONFIG_COMPAT
- 	.compat_ioctl = amdgpu_kms_compat_ioctl,
- #endif
- #ifdef CONFIG_PROC_FS
--	.show_fdinfo = amdgpu_show_fdinfo
-+	.show_fdinfo = drm_show_fdinfo,
- #endif
- };
- 
- int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv)
- {
- 	struct drm_file *file;
- 
- 	if (!filp)
- 		return -EINVAL;
- 
-@@ -2800,20 +2800,21 @@ static const struct drm_driver amdgpu_kms_driver = {
- 	    DRIVER_SYNCOBJ_TIMELINE,
- 	.open = amdgpu_driver_open_kms,
- 	.postclose = amdgpu_driver_postclose_kms,
- 	.lastclose = amdgpu_driver_lastclose_kms,
- 	.ioctls = amdgpu_ioctls_kms,
- 	.num_ioctls = ARRAY_SIZE(amdgpu_ioctls_kms),
- 	.dumb_create = amdgpu_mode_dumb_create,
- 	.dumb_map_offset = amdgpu_mode_dumb_mmap,
- 	.fops = &amdgpu_driver_kms_fops,
- 	.release = &amdgpu_driver_release_kms,
-+	.show_fdinfo = amdgpu_show_fdinfo,
- 
- 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
- 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
- 	.gem_prime_import = amdgpu_gem_prime_import,
- 	.gem_prime_mmap = drm_gem_prime_mmap,
- 
- 	.name = DRIVER_NAME,
- 	.desc = DRIVER_DESC,
- 	.date = DRIVER_DATE,
- 	.major = KMS_DRIVER_MAJOR,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-index 99a7855ab1bc..c2fdd5e448d1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-@@ -46,23 +46,22 @@ static const char *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
- 	[AMDGPU_HW_IP_COMPUTE]	=	"compute",
- 	[AMDGPU_HW_IP_DMA]	=	"dma",
- 	[AMDGPU_HW_IP_UVD]	=	"dec",
- 	[AMDGPU_HW_IP_VCE]	=	"enc",
- 	[AMDGPU_HW_IP_UVD_ENC]	=	"enc_1",
- 	[AMDGPU_HW_IP_VCN_DEC]	=	"dec",
- 	[AMDGPU_HW_IP_VCN_ENC]	=	"enc",
- 	[AMDGPU_HW_IP_VCN_JPEG]	=	"jpeg",
- };
- 
--void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
-+void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
- {
--	struct drm_file *file = f->private_data;
- 	struct amdgpu_device *adev = drm_to_adev(file->minor->dev);
- 	struct amdgpu_fpriv *fpriv = file->driver_priv;
- 	struct amdgpu_vm *vm = &fpriv->vm;
- 
- 	uint64_t vram_mem = 0, gtt_mem = 0, cpu_mem = 0;
- 	ktime_t usage[AMDGPU_HW_IP_NUM];
- 	uint32_t bus, dev, fn, domain;
- 	unsigned int hw_ip;
- 	int ret;
- 
-@@ -79,25 +78,22 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
- 	amdgpu_bo_unreserve(vm->root.bo);
- 
- 	amdgpu_ctx_mgr_usage(&fpriv->ctx_mgr, usage);
- 
- 	/*
- 	 * ******************************************************************
- 	 * For text output format description please see drm-usage-stats.rst!
- 	 * ******************************************************************
- 	 */
- 
--	seq_printf(m, "pasid:\t%u\n", fpriv->vm.pasid);
--	seq_printf(m, "drm-driver:\t%s\n", file->minor->dev->driver->name);
--	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n", domain, bus, dev, fn);
--	seq_printf(m, "drm-client-id:\t%Lu\n", vm->immediate.fence_context);
--	seq_printf(m, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
--	seq_printf(m, "drm-memory-gtt: \t%llu KiB\n", gtt_mem/1024UL);
--	seq_printf(m, "drm-memory-cpu: \t%llu KiB\n", cpu_mem/1024UL);
-+	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
-+	drm_printf(p, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
-+	drm_printf(p, "drm-memory-gtt: \t%llu KiB\n", gtt_mem/1024UL);
-+	drm_printf(p, "drm-memory-cpu: \t%llu KiB\n", cpu_mem/1024UL);
- 	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
- 		if (!usage[hw_ip])
- 			continue;
- 
--		seq_printf(m, "drm-engine-%s:\t%Ld ns\n", amdgpu_ip_name[hw_ip],
-+		drm_printf(p, "drm-engine-%s:\t%Ld ns\n", amdgpu_ip_name[hw_ip],
- 			   ktime_to_ns(usage[hw_ip]));
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
-index e86834bfea1d..0398f5a159ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
-@@ -30,13 +30,13 @@
- #include <linux/rbtree.h>
- #include <drm/gpu_scheduler.h>
- #include <drm/drm_file.h>
- #include <linux/sched/mm.h>
- 
- #include "amdgpu_sync.h"
- #include "amdgpu_ring.h"
- #include "amdgpu_ids.h"
- 
- uint32_t amdgpu_get_ip_count(struct amdgpu_device *adev, int id);
--void amdgpu_show_fdinfo(struct seq_file *m, struct file *f);
-+void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file);
- 
- #endif
--- 
-2.40.1
+Alex
 
+>
+> I also read that there was some rework with a new TTM allocator
+> in 2020. But dynamic (un)swapping via TTM seems currently unused?
+> Is this expected?
+>
+> Regards, Linus
+>
+> (*): https://github.com/GpuZelenograd/memtest_vulkan
