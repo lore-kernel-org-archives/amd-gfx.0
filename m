@@ -4,51 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46DBDC77B7D
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 May 2023 18:55:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5FA6C77B7D
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 May 2023 19:16:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF2B610E050;
-	Mon, 15 May 2023 18:55:10 +0000 (UTC)
-X-Greylist: delayed 502 seconds by postgrey-1.36 at gabe;
- Mon, 15 May 2023 18:13:29 UTC
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
- [IPv6:2001:4d48:ad52:32c8:5054:ff:fe00:142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC59A10E23C
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 May 2023 18:13:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=UptWDb0iV+o5z9X0WCR+BXDLg76JezuxOuI+dHBMTFQ=; b=Qy9A1xp6X5B+8V/DvHWTppHAwc
- SKkr6BUxJhjQuZ/c06v/6lU9OZqDrCGxI7X36o4YEMCUubNf4ydxEr5ijBPJx5CwDHgOal8epTBCK
- 66yrnn7h56UIpYVNeXkockpA5LcNknYNa991IzYY14MszuY7fsOzvhqZ8bfRTrIbdrQh8g0zTKoVi
- 5YzvMrjOahyBDT20+XOvujFnHsK9vY2cwD9XVm5IAgxuzpG8kbhAX6urQEi8uZYTicu5LVsdP1ot5
- mVq/jIgSUHCThI3dQfNKAPIupLSdKt78qRxS2ei1YrXoQh91aJi758yrgkJwOADZWXx265PEIsXF9
- A2F6Zcrw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58784)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@armlinux.org.uk>)
- id 1pycZ1-0004Or-Ra; Mon, 15 May 2023 19:04:51 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1pycYy-0008Oh-U4; Mon, 15 May 2023 19:04:48 +0100
-Date: Mon, 15 May 2023 19:04:48 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Sam Ravnborg <sam@ravnborg.org>
-Subject: Re: [PATCH v2 02/12] drm/armada: Use regular fbdev I/O helpers
-Message-ID: <ZGJ0QIQrF/a0Wkri@shell.armlinux.org.uk>
-References: <20230515094033.2133-1-tzimmermann@suse.de>
- <20230515094033.2133-3-tzimmermann@suse.de>
- <20230515175544.GB1745913@ravnborg.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230515175544.GB1745913@ravnborg.org>
-X-Mailman-Approved-At: Mon, 15 May 2023 18:55:09 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8671B10E23E;
+	Mon, 15 May 2023 19:16:19 +0000 (UTC)
+Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com
+ [IPv6:2607:f8b0:4864:20::54a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7473710E257
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 May 2023 19:07:35 +0000 (UTC)
+Received: by mail-pg1-x54a.google.com with SMTP id
+ 41be03b00d2f7-52c6c5dc988so6688069a12.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 May 2023 12:07:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20221208; t=1684177655; x=1686769655;
+ h=content-transfer-encoding:cc:to:from:subject:message-id:references
+ :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
+ :reply-to; bh=xFQ6BaKkjgdTBjpn34wxJVuNtEcQXtwUwEd7418PjqE=;
+ b=bUf1TskHyBcnd/ppkVGlIwf3u++R9bq7nfnPbJxzeyM0DCFyUq+qISpGOEjGXOpQhE
+ 4ycLpOSHX7rhTXkno3jP9LmxaFXGJrSwOo0L63Y8d7fD7cFioPJjCfzYB2x+K2z5tpN3
+ QcXnWejaHiHGMC0mXR56UiHlMxwnepmRaYTB4R88/0qAjroDV/3NgglcWB7vZhtn1fNZ
+ hH+n3hRa9n8w0WJRS1TNJMy5eChHBdjpYF+aXeJFPVKTBQUgxI9UpsYdu1gLrm+CwHMu
+ sPkGDxgwXJY/7janDrnjLC7fwOl1UDSKsQj+LfsqDzzTjY2DZs9ZTXcyvtO3XkJsr7Xd
+ DJIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684177655; x=1686769655;
+ h=content-transfer-encoding:cc:to:from:subject:message-id:references
+ :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=xFQ6BaKkjgdTBjpn34wxJVuNtEcQXtwUwEd7418PjqE=;
+ b=UqFRt1Y5Fqqmsml80UOE0GYL2feqwRrzG4ch88jUEciLK3ZbRoFvMn03BI9lZOfk0B
+ OLDSE38+naOfikoNw/yPNpiCDaAP47R84NXmVd+v0I5qADV7xOK/E2bRgt+mk082Upwb
+ RRpx01zuKGfc/B23bPd2aqtzBdMnoTrWJD2d1B2P16ZiEuvYGsL0jqATTir0cDV+vhxD
+ lEB1/xHacTMhOPndPpQ5tDDv47AEp3FMsxj1ZR9nm02gOZmQdzCmcQsGWVcggf/SdoYh
+ dT+zQc3B0vgN7GoA9H7jQ4tg3co71WjpbnICksEdZohE7n6rqSIEuFOkC8+GNI7R3su/
+ wDYA==
+X-Gm-Message-State: AC+VfDxOPub8KGRS1qZZQ45s3R8xbmY5tJn4e50ACyI8e0cG7ELps24z
+ r8oqFuCX7WHjtOZ+O+iH2AUrl+T+Bks=
+X-Google-Smtp-Source: ACHHUZ4P6L9nc0hf9pk7PqVX9406UpgOTZdsuzGyBat9IwfSmmaZ8nUqj18ulapGHZTegPpSzUo6g677OqY=
+X-Received: from zagreus.c.googlers.com
+ ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
+ (user=seanjc job=sendgmr) by 2002:a63:6b4a:0:b0:4fc:2058:fa29 with SMTP id
+ g71-20020a636b4a000000b004fc2058fa29mr9542105pgc.1.1684177654484; Mon, 15 May
+ 2023 12:07:34 -0700 (PDT)
+Date: Mon, 15 May 2023 12:07:33 -0700
+In-Reply-To: <b61d5999a4fc6d50b7e073cc3c3efa8fe79bbd94.1684097002.git.lstoakes@gmail.com>
+Mime-Version: 1.0
+References: <cover.1684097001.git.lstoakes@gmail.com>
+ <b61d5999a4fc6d50b7e073cc3c3efa8fe79bbd94.1684097002.git.lstoakes@gmail.com>
+Message-ID: <ZGKC9fHoE+kDs0ar@google.com>
+Subject: Re: [PATCH v5 1/6] mm/gup: remove unused vmas parameter from
+ get_user_pages()
+From: Sean Christopherson <seanjc@google.com>
+To: Lorenzo Stoakes <lstoakes@gmail.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 15 May 2023 19:16:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,114 +71,135 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- maarten.lankhorst@linux.intel.com, javierm@redhat.com, mripard@kernel.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, linux-tegra@vger.kernel.org,
- airlied@gmail.com, linux-arm-kernel@lists.infradead.org
+Cc: kvm@vger.kernel.org, David Hildenbrand <david@redhat.com>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ amd-gfx@lists.freedesktop.org, "H . Peter Anvin" <hpa@zytor.com>,
+ David Airlie <airlied@gmail.com>, x86@kernel.org,
+ Matthew Wilcox <willy@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Arnd Bergmann <arnd@arndb.de>, John Hubbard <jhubbard@nvidia.com>,
+ Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@linutronix.de>,
+ linux-sgx@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ Christian Konig <christian.koenig@amd.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Paolo Bonzini <pbonzini@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Pavel Begunkov <asml.silence@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 15, 2023 at 07:55:44PM +0200, Sam Ravnborg wrote:
-> Hi Thomas,
-> 
-> On Mon, May 15, 2023 at 11:40:23AM +0200, Thomas Zimmermann wrote:
-> > Use the regular fbdev helpers for framebuffer I/O instead of DRM's
-> > helpers. Armada does not use damage handling, so DRM's fbdev helpers
-> > are mere wrappers around the fbdev code.
-> > 
-> > By using fbdev helpers directly within each DRM fbdev emulation,
-> > we can eventually remove DRM's wrapper functions entirely.
-> > 
-> > v2:
-> > 	* use FB_IO_HELPERS option
-> > 
-> > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> > Cc: Russell King <linux@armlinux.org.uk>
-> > ---
-> >  drivers/gpu/drm/armada/Kconfig        | 1 +
-> >  drivers/gpu/drm/armada/armada_fbdev.c | 9 ++++-----
-> >  2 files changed, 5 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/armada/Kconfig b/drivers/gpu/drm/armada/Kconfig
-> > index f5c66d89ba99..5afade25e217 100644
-> > --- a/drivers/gpu/drm/armada/Kconfig
-> > +++ b/drivers/gpu/drm/armada/Kconfig
-> > @@ -3,6 +3,7 @@ config DRM_ARMADA
-> >  	tristate "DRM support for Marvell Armada SoCs"
-> >  	depends on DRM && HAVE_CLK && ARM && MMU
-> >  	select DRM_KMS_HELPER
-> > +	select FB_IO_HELPERS if DRM_FBDEV_EMULATION
-> >  	help
-> >  	  Support the "LCD" controllers found on the Marvell Armada 510
-> >  	  devices.  There are two controllers on the device, each controller
-> > diff --git a/drivers/gpu/drm/armada/armada_fbdev.c b/drivers/gpu/drm/armada/armada_fbdev.c
-> > index 0a5fd1aa86eb..6c3bbaf53569 100644
-> > --- a/drivers/gpu/drm/armada/armada_fbdev.c
-> > +++ b/drivers/gpu/drm/armada/armada_fbdev.c
-> > @@ -5,6 +5,7 @@
-> >   */
-> >  
-> >  #include <linux/errno.h>
-> > +#include <linux/fb.h>
-> >  #include <linux/kernel.h>
-> >  #include <linux/module.h>
-> >  
-> > @@ -34,11 +35,9 @@ static void armada_fbdev_fb_destroy(struct fb_info *info)
-> >  static const struct fb_ops armada_fb_ops = {
-> >  	.owner		= THIS_MODULE,
-> >  	DRM_FB_HELPER_DEFAULT_OPS,
-> > -	.fb_read	= drm_fb_helper_cfb_read,
-> > -	.fb_write	= drm_fb_helper_cfb_write,
-> I had expected to see
-> .fb_read = fb_io_read,
-> 
-> But maybe this only used when using damage handling?
-> 
-> Likewise for drm_fb_helper_cfb_write.
-> 
-> ??
-> 
-> > -	.fb_fillrect	= drm_fb_helper_cfb_fillrect,
-> > -	.fb_copyarea	= drm_fb_helper_cfb_copyarea,
-> > -	.fb_imageblit	= drm_fb_helper_cfb_imageblit,
-> > +	.fb_fillrect	= cfb_fillrect,
-> > +	.fb_copyarea	= cfb_copyarea,
-> > +	.fb_imageblit	= cfb_imageblit,
-> 
-> This part is as expected.
+On Sun, May 14, 2023, Lorenzo Stoakes wrote:
+> No invocation of get_user_pages() use the vmas parameter, so remove it.
+>=20
+> The GUP API is confusing and caveated. Recent changes have done much to
+> improve that, however there is more we can do. Exporting vmas is a prime
+> target as the caller has to be extremely careful to preclude their use
+> after the mmap_lock has expired or otherwise be left with dangling
+> pointers.
+>=20
+> Removing the vmas parameter focuses the GUP functions upon their primary
+> purpose - pinning (and outputting) pages as well as performing the action=
+s
+> implied by the input flags.
+>=20
+> This is part of a patch series aiming to remove the vmas parameter
+> altogether.
+>=20
+> Suggested-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Acked-by: David Hildenbrand <david@redhat.com>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Acked-by: Christian K=EF=BF=BDnig <christian.koenig@amd.com> (for radeon =
+parts)
+> Acked-by: Jarkko Sakkinen <jarkko@kernel.org>
+> Signed-off-by: Lorenzo Stoakes <lstoakes@gmail.com>
+> ---
+>  arch/x86/kernel/cpu/sgx/ioctl.c     | 2 +-
+>  drivers/gpu/drm/radeon/radeon_ttm.c | 2 +-
+>  drivers/misc/sgi-gru/grufault.c     | 2 +-
+>  include/linux/mm.h                  | 3 +--
+>  mm/gup.c                            | 9 +++------
+>  mm/gup_test.c                       | 5 ++---
+>  virt/kvm/kvm_main.c                 | 2 +-
+>  7 files changed, 10 insertions(+), 15 deletions(-)
 
-Well, to me it looks like this has gone through an entire circular set
-of revisions:
+Acked-by: Sean Christopherson <seanjc@google.com> (KVM)
 
-commit e8b70e4dd7b5dad7c2379de6e0851587bf86bfd6
-Author: Archit Taneja <architt@codeaurora.org>
-Date:   Wed Jul 22 14:58:04 2015 +0530
+> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+> index cb5c13eee193..eaa5bb8dbadc 100644
+> --- a/virt/kvm/kvm_main.c
+> +++ b/virt/kvm/kvm_main.c
+> @@ -2477,7 +2477,7 @@ static inline int check_user_page_hwpoison(unsigned=
+ long addr)
+>  {
+>  	int rc, flags =3D FOLL_HWPOISON | FOLL_WRITE;
+> =20
+> -	rc =3D get_user_pages(addr, 1, flags, NULL, NULL);
+> +	rc =3D get_user_pages(addr, 1, flags, NULL);
+>  	return rc =3D=3D -EHWPOISON;
 
-    drm/armada: Use new drm_fb_helper functions
+Unrelated to this patch, I think there's a pre-existing bug here.  If gup()=
+ returns
+a valid page, KVM will leak the refcount and unintentionally pin the page. =
+ That's
+highly unlikely as check_user_page_hwpoison() is called iff get_user_pages_=
+unlocked()
+fails (called by hva_to_pfn_slow()), but it's theoretically possible that u=
+serspace
+could change the VMAs between hva_to_pfn_slow() and check_user_page_hwpoiso=
+n() since
+KVM doesn't hold any relevant locks at this point.
 
--       .fb_fillrect    = cfb_fillrect,
--       .fb_copyarea    = cfb_copyarea,
--       .fb_imageblit   = cfb_imageblit,
-+       .fb_fillrect    = drm_fb_helper_cfb_fillrect,
-+       .fb_copyarea    = drm_fb_helper_cfb_copyarea,
-+       .fb_imageblit   = drm_fb_helper_cfb_imageblit,
+E.g. if there's no VMA during hva_to_pfn_{fast,slow}(), npages=3D=3D-EFAULT=
+ and KVM
+will invoke check_user_page_hwpoison().  If userspace installs a valid mapp=
+ing
+after hva_to_pfn_slow() but before KVM acquires mmap_lock, then gup() will =
+find
+a valid page.
 
-commit 983780918c759fdbbf0bf033e701bbff75d2af23
-Author: Thomas Zimmermann <tzimmermann@suse.de>
-Date:   Thu Nov 3 16:14:40 2022 +0100
+I _think_ the fix is to simply delete this code. The bug was introduced by =
+commit
+fafc3dbaac64 ("KVM: Replace is_hwpoison_address with __get_user_pages").  A=
+t that
+time, KVM didn't check for "npages =3D=3D -EHWPOISON" from the first call t=
+o
+get_user_pages_unlocked().  Later on, commit 0857b9e95c1a ("KVM: Enable asy=
+nc page
+fault processing") reworked the caller to be:
 
-    drm/fb-helper: Perform all fbdev I/O with the same implementation
+	mmap_read_lock(current->mm);
+	if (npages =3D=3D -EHWPOISON ||
+	      (!async && check_user_page_hwpoison(addr))) {
+		pfn =3D KVM_PFN_ERR_HWPOISON;
+		goto exit;
+	}
 
-+       .fb_read        = drm_fb_helper_cfb_read,
-+       .fb_write       = drm_fb_helper_cfb_write,
+where async really means NOWAIT, so that the hwpoison use of gup() didn't s=
+leep.
 
-and now effectively those two changes are being reverted, so we'd
-now be back to the pre-July 2015 state of affairs. As I believe
-the fbdev layer has been stable, this change merely reverts the
-driver back to what it once was.
+    KVM: Enable async page fault processing
+   =20
+    If asynchronous hva_to_pfn() is requested call GUP with FOLL_NOWAIT to
+    avoid sleeping on IO. Check for hwpoison is done at the same time,
+    otherwise check_user_page_hwpoison() will call GUP again and will put
+    vcpu to sleep.
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+There are other potential problems too, e.g. the hwpoison call doesn't hono=
+r
+the recently introduced @interruptible flag.
+
+I don't see any reason to keep check_user_page_hwpoison(), KVM can simply r=
+ely on
+the "npages =3D=3D -EHWPOISON" check.   get_user_pages_unlocked() is guaran=
+teed to be
+called with roughly equivalent flags, and the flags that aren't equivalent =
+are
+arguably bugs in check_user_page_hwpoison(), e.g. assuming FOLL_WRITE is wr=
+ong.
+
+TL;DR: Go ahead with this change, I'll submit a separate patch to delete th=
+e
+buggy KVM code.
