@@ -4,63 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDCD8C77B7A
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 May 2023 13:13:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FBD7C77B7F
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 May 2023 13:13:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8F2A10E1C2;
-	Tue, 16 May 2023 13:13:09 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7277E10E1C2;
- Tue, 16 May 2023 13:13:07 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 261CB1FE6D;
- Tue, 16 May 2023 13:13:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1684242785; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ogdt9jSbi0tvxD4d3F6VeNsH8BYjTttGkeT43PALy5E=;
- b=wYGJ6+OnghGS2a+yu/AjPwtJV17WnSvQQCiAnSED73wvJV7x0V5FddzCwSJryuKnOToMut
- cUWvNND+TVir4jApxrF4N4dFhQvfglinuNu0lbjcDS9jJNxFRmBHqe1gEBO4yoKD1tsDtq
- hxiePLzY8LITkzD+iySVZ3hYhjKhQgo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1684242785;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ogdt9jSbi0tvxD4d3F6VeNsH8BYjTttGkeT43PALy5E=;
- b=+R5i2rwoPF/2rMlRCY+3hyEXs0TvhAHXyIwKUnOtGJ+MIkPvnYpWXa8+/R+Hr2vtCBo/oZ
- Rs3QdcTwPZRcXeBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B3544138F5;
- Tue, 16 May 2023 13:13:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3RSvKmCBY2SzQAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 16 May 2023 13:13:04 +0000
-Message-ID: <297a1808-f36a-1bbb-8a7e-dd41c5ee2a7b@suse.de>
-Date: Tue, 16 May 2023 15:13:04 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id E839D10E1B9;
+	Tue, 16 May 2023 13:13:52 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8CE410E343;
+ Tue, 16 May 2023 10:34:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1684233269; x=1715769269;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=Q3xihOYSQDL7czm406p3wlVwChQlspeLAyw9yXtpvZk=;
+ b=RGQQWYvsQz/4L73U1/O/72Sx7qxRe/IWdq4YPEgGq+JPVmZjqlUnneWY
+ xLkB3gg6VBJLZbjqnWgmAe99Wx3m7vY613UA+8vSHhz2IYqm+9GpzqFZ+
+ mfgcj0U/V7PtPlDZuBHw7D8BE0DbD1limcgwEhhRbvqyw1q/muJcW+yaY
+ 4Jop9t6IJxdxSUaffzND9fz17SsHWFtRnDQIIoxdsBeSVdfoITX/aAOk2
+ YnuR8duSsVE5jH1UNPmB6awABAuFkCOrTzDAKsJqcl8dGNcSBDscIiUDX
+ idHxHsqAlZ3MHbElkRZGCpUaPhiJCmxpbCDJMQdC9t/AiY3aOEl75LUe9 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10711"; a="331803720"
+X-IronPort-AV: E=Sophos;i="5.99,278,1677571200"; d="scan'208";a="331803720"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 May 2023 03:34:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10711"; a="701304605"
+X-IronPort-AV: E=Sophos;i="5.99,278,1677571200"; d="scan'208";a="701304605"
+Received: from khach-mobl.ger.corp.intel.com (HELO localhost) ([10.252.49.69])
+ by orsmga002-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 May 2023 03:34:25 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Wayne Lin <Wayne.Lin@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v2] drm/dp_mst: Clear MSG_RDY flag before sending new
+ message
+In-Reply-To: <20230427072850.100887-1-Wayne.Lin@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230427072850.100887-1-Wayne.Lin@amd.com>
+Date: Tue, 16 May 2023 13:34:22 +0300
+Message-ID: <87zg64h8ep.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: Re: [PATCH v2 02/12] drm/armada: Use regular fbdev I/O helpers
-Content-Language: en-US
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>,
- Sam Ravnborg <sam@ravnborg.org>
-References: <20230515094033.2133-1-tzimmermann@suse.de>
- <20230515094033.2133-3-tzimmermann@suse.de>
- <20230515175544.GB1745913@ravnborg.org>
- <ZGJ0QIQrF/a0Wkri@shell.armlinux.org.uk>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <ZGJ0QIQrF/a0Wkri@shell.armlinux.org.uk>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------2T0MthFqqog40rzw0G3raXj4"
+Content-Type: text/plain
+X-Mailman-Approved-At: Tue, 16 May 2023 13:13:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,153 +59,225 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
- javierm@redhat.com, mripard@kernel.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, linux-tegra@vger.kernel.org, airlied@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Cc: imre.deak@intel.com, stable@vger.kernel.org, jerry.zuo@amd.com,
+ Wayne Lin <Wayne.Lin@amd.com>, harry.wentland@amd.com,
+ ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------2T0MthFqqog40rzw0G3raXj4
-Content-Type: multipart/mixed; boundary="------------VmgaSFKk8JQLm74FK1PaEpjV";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>,
- Sam Ravnborg <sam@ravnborg.org>
-Cc: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, javierm@redhat.com, linux-samsung-soc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
-Message-ID: <297a1808-f36a-1bbb-8a7e-dd41c5ee2a7b@suse.de>
-Subject: Re: [PATCH v2 02/12] drm/armada: Use regular fbdev I/O helpers
-References: <20230515094033.2133-1-tzimmermann@suse.de>
- <20230515094033.2133-3-tzimmermann@suse.de>
- <20230515175544.GB1745913@ravnborg.org>
- <ZGJ0QIQrF/a0Wkri@shell.armlinux.org.uk>
-In-Reply-To: <ZGJ0QIQrF/a0Wkri@shell.armlinux.org.uk>
+On Thu, 27 Apr 2023, Wayne Lin <Wayne.Lin@amd.com> wrote:
+> [Why]
+> The sequence for collecting down_reply from source perspective should
+> be:
+>
+> Request_n->repeat (get partial reply of Request_n->clear message ready
+> flag to ack DPRX that the message is received) till all partial
+> replies for Request_n are received->new Request_n+1.
+>
+> Now there is chance that drm_dp_mst_hpd_irq() will fire new down
+> request in the tx queue when the down reply is incomplete. Source is
+> restricted to generate interveleaved message transactions so we should
+> avoid it.
+>
+> Also, while assembling partial reply packets, reading out DPCD DOWN_REP
+> Sideband MSG buffer + clearing DOWN_REP_MSG_RDY flag should be
+> wrapped up as a complete operation for reading out a reply packet.
+> Kicking off a new request before clearing DOWN_REP_MSG_RDY flag might
+> be risky. e.g. If the reply of the new request has overwritten the
+> DPRX DOWN_REP Sideband MSG buffer before source writing one to clear
+> DOWN_REP_MSG_RDY flag, source then unintentionally flushes the reply
+> for the new request. Should handle the up request in the same way.
+>
+> [How]
+> Separete drm_dp_mst_hpd_irq() into 2 steps. After acking the MST IRQ
+> event, driver calls drm_dp_mst_hpd_irq_step2() and might trigger
+> drm_dp_mst_kick_tx() only when there is no on going message transaction.
+>
+> Changes since v1:
+> * Reworked on review comments received
+> -> Adjust the fix to let driver explicitly kick off new down request
+> when mst irq event is handled and acked
+> -> Adjust the commit message
+>
+> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++---
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c | 35 ++++++++++++++++---
+>  drivers/gpu/drm/i915/display/intel_dp.c       |  5 ++-
+>  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  5 ++-
+>  include/drm/display/drm_dp_mst_helper.h       |  4 +--
+>  5 files changed, 45 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 1ad67c2a697e..48bdcb2ee9b1 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -3259,10 +3259,9 @@ static void dm_handle_mst_sideband_msg(struct amdgpu_dm_connector *aconnector)
+>  		DRM_DEBUG_DRIVER("ESI %02x %02x %02x\n", esi[0], esi[1], esi[2]);
+>  		/* handle HPD short pulse irq */
+>  		if (aconnector->mst_mgr.mst_state)
+> -			drm_dp_mst_hpd_irq(
+> -				&aconnector->mst_mgr,
+> -				esi,
+> -				&new_irq_handled);
+> +			drm_dp_mst_hpd_irq_step1(&aconnector->mst_mgr,
+> +						 esi,
+> +						 &new_irq_handled);
+>  
+>  		if (new_irq_handled) {
+>  			/* ACK at DPCD to notify down stream */
+> @@ -3281,6 +3280,7 @@ static void dm_handle_mst_sideband_msg(struct amdgpu_dm_connector *aconnector)
+>  					break;
+>  			}
+>  
+> +			drm_dp_mst_hpd_irq_step2(&aconnector->mst_mgr);
+>  			/* check if there is new irq to be handled */
+>  			dret = drm_dp_dpcd_read(
+>  				&aconnector->dm_dp_aux.aux,
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> index 70df29fe92db..2e0a38a6509c 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -4045,7 +4045,7 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
+>  }
+>  
+>  /**
+> - * drm_dp_mst_hpd_irq() - MST hotplug IRQ notify
+> + * drm_dp_mst_hpd_irq_step1() - MST hotplug IRQ notify
+>   * @mgr: manager to notify irq for.
+>   * @esi: 4 bytes from SINK_COUNT_ESI
+>   * @handled: whether the hpd interrupt was consumed or not
+> @@ -4055,7 +4055,7 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
+>   * topology manager will process the sideband messages received as a result
+>   * of this.
+>   */
+> -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handled)
+> +int drm_dp_mst_hpd_irq_step1(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handled)
 
---------------VmgaSFKk8JQLm74FK1PaEpjV
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+If you're changing the signature of the function, I'd make esi "const u8
+*esi", and add a separate "u8 *ack" that you have to provide, where this
+function would |= the flags to ack. It would be useful at least in i915.
 
-SGkNCg0KQW0gMTUuMDUuMjMgdW0gMjA6MDQgc2NocmllYiBSdXNzZWxsIEtpbmcgKE9yYWNs
-ZSk6DQo+IE9uIE1vbiwgTWF5IDE1LCAyMDIzIGF0IDA3OjU1OjQ0UE0gKzAyMDAsIFNhbSBS
-YXZuYm9yZyB3cm90ZToNCj4+IEhpIFRob21hcywNCj4+DQo+PiBPbiBNb24sIE1heSAxNSwg
-MjAyMyBhdCAxMTo0MDoyM0FNICswMjAwLCBUaG9tYXMgWmltbWVybWFubiB3cm90ZToNCj4+
-PiBVc2UgdGhlIHJlZ3VsYXIgZmJkZXYgaGVscGVycyBmb3IgZnJhbWVidWZmZXIgSS9PIGlu
-c3RlYWQgb2YgRFJNJ3MNCj4+PiBoZWxwZXJzLiBBcm1hZGEgZG9lcyBub3QgdXNlIGRhbWFn
-ZSBoYW5kbGluZywgc28gRFJNJ3MgZmJkZXYgaGVscGVycw0KPj4+IGFyZSBtZXJlIHdyYXBw
-ZXJzIGFyb3VuZCB0aGUgZmJkZXYgY29kZS4NCj4+Pg0KPj4+IEJ5IHVzaW5nIGZiZGV2IGhl
-bHBlcnMgZGlyZWN0bHkgd2l0aGluIGVhY2ggRFJNIGZiZGV2IGVtdWxhdGlvbiwNCj4+PiB3
-ZSBjYW4gZXZlbnR1YWxseSByZW1vdmUgRFJNJ3Mgd3JhcHBlciBmdW5jdGlvbnMgZW50aXJl
-bHkuDQo+Pj4NCj4+PiB2MjoNCj4+PiAJKiB1c2UgRkJfSU9fSEVMUEVSUyBvcHRpb24NCj4+
-Pg0KPj4+IFNpZ25lZC1vZmYtYnk6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBz
-dXNlLmRlPg0KPj4+IENjOiBSdXNzZWxsIEtpbmcgPGxpbnV4QGFybWxpbnV4Lm9yZy51az4N
-Cj4+PiAtLS0NCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hcm1hZGEvS2NvbmZpZyAgICAgICAg
-fCAxICsNCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hcm1hZGEvYXJtYWRhX2ZiZGV2LmMgfCA5
-ICsrKystLS0tLQ0KPj4+ICAgMiBmaWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDUg
-ZGVsZXRpb25zKC0pDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Fy
-bWFkYS9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL2FybWFkYS9LY29uZmlnDQo+Pj4gaW5k
-ZXggZjVjNjZkODliYTk5Li41YWZhZGUyNWUyMTcgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FybWFkYS9LY29uZmlnDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Fy
-bWFkYS9LY29uZmlnDQo+Pj4gQEAgLTMsNiArMyw3IEBAIGNvbmZpZyBEUk1fQVJNQURBDQo+
-Pj4gICAJdHJpc3RhdGUgIkRSTSBzdXBwb3J0IGZvciBNYXJ2ZWxsIEFybWFkYSBTb0NzIg0K
-Pj4+ICAgCWRlcGVuZHMgb24gRFJNICYmIEhBVkVfQ0xLICYmIEFSTSAmJiBNTVUNCj4+PiAg
-IAlzZWxlY3QgRFJNX0tNU19IRUxQRVINCj4+PiArCXNlbGVjdCBGQl9JT19IRUxQRVJTIGlm
-IERSTV9GQkRFVl9FTVVMQVRJT04NCj4+PiAgIAloZWxwDQo+Pj4gICAJICBTdXBwb3J0IHRo
-ZSAiTENEIiBjb250cm9sbGVycyBmb3VuZCBvbiB0aGUgTWFydmVsbCBBcm1hZGEgNTEwDQo+
-Pj4gICAJICBkZXZpY2VzLiAgVGhlcmUgYXJlIHR3byBjb250cm9sbGVycyBvbiB0aGUgZGV2
-aWNlLCBlYWNoIGNvbnRyb2xsZXINCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FybWFkYS9hcm1hZGFfZmJkZXYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hcm1hZGEvYXJtYWRh
-X2ZiZGV2LmMNCj4+PiBpbmRleCAwYTVmZDFhYTg2ZWIuLjZjM2JiYWY1MzU2OSAxMDA2NDQN
-Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYXJtYWRhL2FybWFkYV9mYmRldi5jDQo+Pj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FybWFkYS9hcm1hZGFfZmJkZXYuYw0KPj4+IEBAIC01
-LDYgKzUsNyBAQA0KPj4+ICAgICovDQo+Pj4gICANCj4+PiAgICNpbmNsdWRlIDxsaW51eC9l
-cnJuby5oPg0KPj4+ICsjaW5jbHVkZSA8bGludXgvZmIuaD4NCj4+PiAgICNpbmNsdWRlIDxs
-aW51eC9rZXJuZWwuaD4NCj4+PiAgICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4NCj4+PiAg
-IA0KPj4+IEBAIC0zNCwxMSArMzUsOSBAQCBzdGF0aWMgdm9pZCBhcm1hZGFfZmJkZXZfZmJf
-ZGVzdHJveShzdHJ1Y3QgZmJfaW5mbyAqaW5mbykNCj4+PiAgIHN0YXRpYyBjb25zdCBzdHJ1
-Y3QgZmJfb3BzIGFybWFkYV9mYl9vcHMgPSB7DQo+Pj4gICAJLm93bmVyCQk9IFRISVNfTU9E
-VUxFLA0KPj4+ICAgCURSTV9GQl9IRUxQRVJfREVGQVVMVF9PUFMsDQo+Pj4gLQkuZmJfcmVh
-ZAk9IGRybV9mYl9oZWxwZXJfY2ZiX3JlYWQsDQo+Pj4gLQkuZmJfd3JpdGUJPSBkcm1fZmJf
-aGVscGVyX2NmYl93cml0ZSwNCj4+IEkgaGFkIGV4cGVjdGVkIHRvIHNlZQ0KPj4gLmZiX3Jl
-YWQgPSBmYl9pb19yZWFkLA0KPj4NCj4+IEJ1dCBtYXliZSB0aGlzIG9ubHkgdXNlZCB3aGVu
-IHVzaW5nIGRhbWFnZSBoYW5kbGluZz8NCj4+DQo+PiBMaWtld2lzZSBmb3IgZHJtX2ZiX2hl
-bHBlcl9jZmJfd3JpdGUuDQo+Pg0KPj4gPz8NCj4+DQo+Pj4gLQkuZmJfZmlsbHJlY3QJPSBk
-cm1fZmJfaGVscGVyX2NmYl9maWxscmVjdCwNCj4+PiAtCS5mYl9jb3B5YXJlYQk9IGRybV9m
-Yl9oZWxwZXJfY2ZiX2NvcHlhcmVhLA0KPj4+IC0JLmZiX2ltYWdlYmxpdAk9IGRybV9mYl9o
-ZWxwZXJfY2ZiX2ltYWdlYmxpdCwNCj4+PiArCS5mYl9maWxscmVjdAk9IGNmYl9maWxscmVj
-dCwNCj4+PiArCS5mYl9jb3B5YXJlYQk9IGNmYl9jb3B5YXJlYSwNCj4+PiArCS5mYl9pbWFn
-ZWJsaXQJPSBjZmJfaW1hZ2VibGl0LA0KPj4NCj4+IFRoaXMgcGFydCBpcyBhcyBleHBlY3Rl
-ZC4NCj4gDQo+IFdlbGwsIHRvIG1lIGl0IGxvb2tzIGxpa2UgdGhpcyBoYXMgZ29uZSB0aHJv
-dWdoIGFuIGVudGlyZSBjaXJjdWxhciBzZXQNCj4gb2YgcmV2aXNpb25zOg0KPiANCj4gY29t
-bWl0IGU4YjcwZTRkZDdiNWRhZDdjMjM3OWRlNmUwODUxNTg3YmY4NmJmZDYNCj4gQXV0aG9y
-OiBBcmNoaXQgVGFuZWphIDxhcmNoaXR0QGNvZGVhdXJvcmEub3JnPg0KPiBEYXRlOiAgIFdl
-ZCBKdWwgMjIgMTQ6NTg6MDQgMjAxNSArMDUzMA0KPiANCj4gICAgICBkcm0vYXJtYWRhOiBV
-c2UgbmV3IGRybV9mYl9oZWxwZXIgZnVuY3Rpb25zDQo+IA0KPiAtICAgICAgIC5mYl9maWxs
-cmVjdCAgICA9IGNmYl9maWxscmVjdCwNCj4gLSAgICAgICAuZmJfY29weWFyZWEgICAgPSBj
-ZmJfY29weWFyZWEsDQo+IC0gICAgICAgLmZiX2ltYWdlYmxpdCAgID0gY2ZiX2ltYWdlYmxp
-dCwNCj4gKyAgICAgICAuZmJfZmlsbHJlY3QgICAgPSBkcm1fZmJfaGVscGVyX2NmYl9maWxs
-cmVjdCwNCj4gKyAgICAgICAuZmJfY29weWFyZWEgICAgPSBkcm1fZmJfaGVscGVyX2NmYl9j
-b3B5YXJlYSwNCj4gKyAgICAgICAuZmJfaW1hZ2VibGl0ICAgPSBkcm1fZmJfaGVscGVyX2Nm
-Yl9pbWFnZWJsaXQsDQo+IA0KPiBjb21taXQgOTgzNzgwOTE4Yzc1OWZkYmJmMGJmMDMzZTcw
-MWJiZmY3NWQyYWYyMw0KPiBBdXRob3I6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFu
-bkBzdXNlLmRlPg0KPiBEYXRlOiAgIFRodSBOb3YgMyAxNjoxNDo0MCAyMDIyICswMTAwDQo+
-IA0KPiAgICAgIGRybS9mYi1oZWxwZXI6IFBlcmZvcm0gYWxsIGZiZGV2IEkvTyB3aXRoIHRo
-ZSBzYW1lIGltcGxlbWVudGF0aW9uDQo+IA0KPiArICAgICAgIC5mYl9yZWFkICAgICAgICA9
-IGRybV9mYl9oZWxwZXJfY2ZiX3JlYWQsDQo+ICsgICAgICAgLmZiX3dyaXRlICAgICAgID0g
-ZHJtX2ZiX2hlbHBlcl9jZmJfd3JpdGUsDQo+IA0KPiBhbmQgbm93IGVmZmVjdGl2ZWx5IHRo
-b3NlIHR3byBjaGFuZ2VzIGFyZSBiZWluZyByZXZlcnRlZCwgc28gd2UnZA0KPiBub3cgYmUg
-YmFjayB0byB0aGUgcHJlLUp1bHkgMjAxNSBzdGF0ZSBvZiBhZmZhaXJzLiBBcyBJIGJlbGll
-dmUNCj4gdGhlIGZiZGV2IGxheWVyIGhhcyBiZWVuIHN0YWJsZSwgdGhpcyBjaGFuZ2UgbWVy
-ZWx5IHJldmVydHMgdGhlDQo+IGRyaXZlciBiYWNrIHRvIHdoYXQgaXQgb25jZSB3YXMuDQoN
-Ck5vdCBxdWl0ZS4gT25lIGxvbmctc3RhbmRpbmcgcHJvYmxlbSBoYXMgYmVlbiB0aGF0IGZi
-ZGV2IGRvZXMgbm90IA0KcHJvdGVjdCBpdHMgcHVibGljIGludGVyZmFjZXMgd2l0aCBDT05G
-SUdfRkIuIElmIGZiZGV2IGhhZCBiZWVuIA0KZGlzYWJsZWQsIERSTSBkcml2ZXJzIGNvdWxk
-IG5vIGxvbmdlciBiZSBsaW5rZWQvbG9hZGVkLiBEUk0gd3JhcHBlcnMgDQpzb2x2ZWQgdGhp
-cy4gVGhlIGlzc3VlIGhhcyByZWNlbnRseSBiZWVuIGZpeGVkIGZvciBhbGwgb2YgRFJNLiBE
-Uk0gZG9lcyANCm5vdCBidWlsZCBpdCdzIGZiZGV2IGVtdWxhdGlvbiBpZiBDT05GSUdfRkIg
-aGFzIGJlZW4gZGlzYWJsZWQuDQoNCkFub3RoZXIgdGhpbmcgd2FzIHRoYXQgdGhlIG9yaWdp
-bmFsIERSTSB3cmFwcGVycyBtaWdodCBoYXZlIGJlZW4gDQpkaWZmZXJlbnQgZnJvbSBmYmRl
-didzIEkvTyBoZWxwZXJzIGluIHN1YnRsZSB3YXlzLiBCdXQgbm93IHRoZXkgYXJlIA0Kc2lt
-cGxlIHdyYXBwZXJzIGFyb3VuZCB0aGVpciBmYmRldiBjb3VudGVycGFydHM7IHBsdXMgdGhl
-IG9wdGlvbiBvZiANCmFkZGl0aW9uYWwgZGFtYWdlIGhhbmRsaW5nLiAgQnV0IHN1Y2ggZGFt
-YWdlIGhhbmRsaW5nIGlzIGJldHRlciANCmltcGxlbWVudGVkIGJ5IHRoZSBkcml2ZXIgaXRz
-ZWxmLiBUaGUgdHdvIGNhc2VzIHRoYXQgcmVxdWlyZSBpdCwgaTkxNSANCmFuZCBmYmRldi1n
-ZW5lcmljLCBhcmUgZGlmZmVyZW50IGVub3VnaCB0aGF0IGVhY2ggc2hvdWxkIHByb2JhYmx5
-IGhhdmUgDQppdCdzIG93biBjb2RlLg0KDQpCZXN0IHJlZ2FyZHMNClRob21hcw0KDQo+IA0K
-DQotLSANClRob21hcyBaaW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2ZWxvcGVyDQpT
-VVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgNCkZyYW5rZW5zdHJhc3NlIDE0
-NiwgOTA0NjEgTnVlcm5iZXJnLCBHZXJtYW55DQpHRjogSXZvIFRvdGV2LCBBbmRyZXcgTXll
-cnMsIEFuZHJldyBNY0RvbmFsZCwgQm91ZGllbiBNb2VybWFuDQpIUkIgMzY4MDkgKEFHIE51
-ZXJuYmVyZykNCg==
+As to naming, _step1 and _step2 are pretty vague.
 
---------------VmgaSFKk8JQLm74FK1PaEpjV--
+>  {
+>  	int ret = 0;
+>  	int sc;
+> @@ -4077,11 +4077,38 @@ int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handl
+>  		*handled = true;
+>  	}
+>  
+> -	drm_dp_mst_kick_tx(mgr);
+>  	return ret;
+>  }
+> -EXPORT_SYMBOL(drm_dp_mst_hpd_irq);
+> +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_step1);
+> +
+> +/**
+> + * drm_dp_mst_hpd_irq_step2() - MST hotplug IRQ 2nd part handling
+> + * @mgr: manager to notify irq for.
+> + *
+> + * This should be called from the driver when mst irq event is handled
+> + * and acked. Note that new down request should only be sent when
+> + * previous message transaction is done. Source is not supposed to generate
+> + * interleaved message transactions.
+> + */
+> +void drm_dp_mst_hpd_irq_step2(struct drm_dp_mst_topology_mgr *mgr)
 
---------------2T0MthFqqog40rzw0G3raXj4
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+_done, _finish, _complete?
 
------BEGIN PGP SIGNATURE-----
+> +{
+> +	struct drm_dp_sideband_msg_tx *txmsg;
+> +	bool skip = false;
+>  
+> +	mutex_lock(&mgr->qlock);
+> +	txmsg = list_first_entry_or_null(&mgr->tx_msg_downq,
+> +					 struct drm_dp_sideband_msg_tx, next);
+> +	/* If last transaction is not completed yet*/
+> +	if (!txmsg ||
+> +	    txmsg->state == DRM_DP_SIDEBAND_TX_START_SEND ||
+> +	    txmsg->state == DRM_DP_SIDEBAND_TX_SENT)
+> +		skip = true;
+> +	mutex_unlock(&mgr->qlock);
+> +
+> +	if (!skip)
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmRjgWAFAwAAAAAACgkQlh/E3EQov+AP
-jRAAwwKH9s/OU5FEOdFhofJdQds0AENMzHbfz4wwkve69TDD5BypitQp2nS84xFHvd7AZK2K2S/J
-ZQPOQQ5TJHpC1PfYRstQtN4l/Db0E3P3xFYhjgdIUxa/B/ICiB1zrLcl/N8gvrXm81DCiZonTJzP
-WPJGhQV+VQwjc06//ynbyeRtrxLUar6ZPBscBtmKo1vPmpbgeAj7AonyPKE7YuiHL5dmSgIdS0/h
-fr393sm9KwhdKHFpnQAcsrabAUCu4+T10EcYWeJXjNYQvi5ptbVMoyjV+1MySeOTne+IJ21LoTNP
-oXJ3v8BJd+w9xm6vdfnhIkhlXi5cAIZjAMA65984bERd3PygsKYLzYOtm7XsKE34ZGcUfOCyTBwu
-f4MMGt8toM22ToQJg29meHpceO7oWOY7HzpOrfnRXqkW+bdZdBkn3OJVWu5T1QhShnUKriyNN0zu
-GmiCTFZUSrRI75V+UHK8I86LZGbUwoLdHWizBWBh7ZFsTYyYSh375LmtV8Iplxl7+Y9viYcxkBO2
-USfeCw3mgNGcxtAeCX1KrkD0SvW24izC8/Wh8469Mfw/WD+gKgpQXPJSe4ot18mRzXcEQDUij34Z
-sAN3+oVetyb+9Qi5F303/SwUGkvhfTD2vIINJzUGvJxvqJOy4lDX8xdjDxjgEIY+6NCgf01diiYC
-qTE=
-=XZcT
------END PGP SIGNATURE-----
+Please avoid negatives like this. You could have bool kick = true instead.
 
---------------2T0MthFqqog40rzw0G3raXj4--
+> +		drm_dp_mst_kick_tx(mgr);
+> +}
+> +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_step2);
+>  /**
+>   * drm_dp_mst_detect_port() - get connection status for an MST port
+>   * @connector: DRM connector for this port
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 75070eb07d4b..9a9a5aec9534 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3803,7 +3803,7 @@ intel_dp_mst_hpd_irq(struct intel_dp *intel_dp, u8 *esi, u8 *ack)
+>  {
+>  	bool handled = false;
+>  
+> -	drm_dp_mst_hpd_irq(&intel_dp->mst_mgr, esi, &handled);
+> +	drm_dp_mst_hpd_irq_step1(&intel_dp->mst_mgr, esi, &handled);
+>  	if (handled)
+>  		ack[1] |= esi[1] & (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
+>  
+> @@ -3880,6 +3880,9 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
+>  
+>  		if (!intel_dp_ack_sink_irq_esi(intel_dp, ack))
+>  			drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
+> +
+> +		if (ack[1] & (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY))
+> +			drm_dp_mst_hpd_irq_step2(&intel_dp->mst_mgr);
+
+I'm getting confused about the division of responsibilities between the
+two functions to be called, and the caller. Why does i915 do things
+differently from nouveau and amd wrt this?
+
+>  	}
+>  
+>  	return link_ok;
+> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> index ed9d374147b8..00c36fcc8afd 100644
+> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> @@ -1332,12 +1332,15 @@ nv50_mstm_service(struct nouveau_drm *drm,
+>  			break;
+>  		}
+>  
+> -		drm_dp_mst_hpd_irq(&mstm->mgr, esi, &handled);
+> +		drm_dp_mst_hpd_irq_step1(&mstm->mgr, esi, &handled);
+>  		if (!handled)
+>  			break;
+>  
+>  		rc = drm_dp_dpcd_write(aux, DP_SINK_COUNT_ESI + 1, &esi[1],
+>  				       3);
+> +
+> +		drm_dp_mst_hpd_irq_step2(&mstm->mgr);
+> +
+
+Don't you think the return value should be checked first?
+
+>  		if (rc != 3) {
+>  			ret = false;
+>  			break;
+> diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+> index 32c764fb9cb5..6c08ba765d5a 100644
+> --- a/include/drm/display/drm_dp_mst_helper.h
+> +++ b/include/drm/display/drm_dp_mst_helper.h
+> @@ -815,8 +815,8 @@ void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mgr *mgr);
+>  bool drm_dp_read_mst_cap(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
+>  int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool mst_state);
+>  
+> -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handled);
+> -
+> +int drm_dp_mst_hpd_irq_step1(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handled);
+> +void drm_dp_mst_hpd_irq_step2(struct drm_dp_mst_topology_mgr *mgr);
+>  
+>  int
+>  drm_dp_mst_detect_port(struct drm_connector *connector,
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
