@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64A2BC77B75
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 May 2023 04:14:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 379BEC7EE22
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 May 2023 04:14:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD07610E398;
-	Wed, 17 May 2023 04:14:51 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20629.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2946910E397
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 May 2023 04:14:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0EDD10E399;
+	Wed, 17 May 2023 04:14:52 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6DB710E397
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 May 2023 04:14:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZgCSO8SfEkzAnZWxBqHuqAVqL/+EUja1TOYxJK70j4PQJp60siynh8WerZAAAFhTe0A30SkL+WdnfJbXAeTv5EmmG1Fye9cm7BiR5briaCzJ5KlYMdZdvPDpxMRnaJN4fzSvpO1j147zVAuvVKiKhnxW+5zapPE+UNv2jSfCov+OzFDt6DmZgJ8+j3anwP6EPHtp8+LBTefur+ciBnBqeFvqtmbXLsYw6x8P1uazfa+H6W4XI/sAlu8igyOGsyqM6MXAUjJx6dnK2PEnLPtuGBowgpqJSDjTzPHF/0EEdTWJAt63RebmtJECLQT4jzwDtOtqTVFNHydwWGvmjAMlsw==
+ b=K0JHQ3Z+UIf3c8BCGC3Ej/W6nqcUDxqIDjJmC0wOs+GHO7fTYlLRvWKbtxG0GHaPkmlwfOOq2PonLAzu0ALFlfzvf0bNd64Bn1ec2K7vsypV9CSqA7AJpy1UIuzuhaWIL0hht51H+vMhGyq+8KpVgr9iiK55CZlFQAaDIen8JKUzBPx334w/JWVN39ec3IlL3Nzz2Lm22Z1UVZG2RiXZBNhcF8UMtohzxP+e9t1Za8MKY0gr9XgGwvcgAw+uPkoZwiwWV2GHA/PtDXWVy/s7lyEv7IVKsmgM+6sSOMWOtyTJ09lbM1V9TmiZOleXbUR8PdHrcULxNXTxUjilThWizQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F97WKyFwa1OsdDWo4epHojqiIooW3lWRBHVraIvpoLo=;
- b=NHypKjHRyWWIgGxlbD/W/XaNd2HsDPHWIMnwafCWxSmV4QH1Bx4/vMEzUoJCTFJSKNyUris4vfTLkqs8pa0RXu7eXmiOAP9awfWpXwh4gxRpDGnh1AJBBAhrVvDCMfm1IukwDXYSpIUEanFlgLxZ5Q5m8esCueOkLGebmHImooj9KXv5fy/OQTdHhsZr2gXqPzhZvZ2OK/vlVz2aRMVlhjtyLQE3Ias627hHxqliPSdry3EQm2I53s6xpFKu5CspWjlXk2nfx3pBcNLPMV9sFsfVjRoVvpF/W6e9KAKy5gedyVfMINC5QVCNGv3IJGTTuzyviTIZLYkCMFUgmsJfxA==
+ bh=bA81naLuICSA0m7AQo1LBGMSbR6Kz/88bHpsDfiwa1E=;
+ b=SH0cUuBVrW5QDutuJ/Ip2XEtr2/SPH3u/HP6Y0F30R5h/BLbyv5LHEC5A1KmAcRV+Eoa7lH9Lx74RG2/tdYKIL/OCmBE3CMPR0YTVMsECwr13kXk2grmA6+RMmzMQPl1bui8EiO6RxF0H3yF1dKfC3AaElTuElCTh4LSLPFgi6HEvVqKH3KNjdy7cHZtvd7qMDd6wSnJZSMxVcuOfcBddnr1L+71vKO/japO6t9J/Wfwjbq3utyTCezqv3lF3km/g0/HjJBLQJwYI2YPM8C258FFtU3hKP7utIPnBgwoxEHZ/VEvzoIUz9icp8cAwQq0MUdK34IR0VpQoS/yoEC2Uw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F97WKyFwa1OsdDWo4epHojqiIooW3lWRBHVraIvpoLo=;
- b=gKWmcCnGKMiqtgpD7EruE/xipzE/G93Hl1+QNEsqpzdPshVTRuBxfYdu0/R9X94RHR/0IVFivd5Y5jPGOTq5gkvi0j5hMiW/MpnwpwF4+MfDbdFD16WsJEA8Xq2uKXnP6G/bVp9dOvwGzaPtYfO6xdojxzkBCUIZnee80H+xXt4=
-Received: from BN1PR12CA0017.namprd12.prod.outlook.com (2603:10b6:408:e1::22)
- by CH3PR12MB8996.namprd12.prod.outlook.com (2603:10b6:610:170::17)
+ bh=bA81naLuICSA0m7AQo1LBGMSbR6Kz/88bHpsDfiwa1E=;
+ b=v+EdFMyzpzkxOZ0fjfVObo5E8g5MNwx6NHXYffh+vbpoEaCbK3dti029+Q0LUaLuKaT2Wn7oewAnCrHzkhzupW6SMZYaWCezu0DqRqzbbS+8heTGhjbGNnGANOGCet0KE7E0McyKQYsaDNII+cVJFHli0o3Prbv7LCkhSJAzlRs=
+Received: from BN1PR12CA0005.namprd12.prod.outlook.com (2603:10b6:408:e1::10)
+ by CY8PR12MB8243.namprd12.prod.outlook.com (2603:10b6:930:78::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.33; Wed, 17 May
- 2023 04:14:47 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.30; Wed, 17 May
+ 2023 04:14:46 +0000
 Received: from BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e1:cafe::22) by BN1PR12CA0017.outlook.office365.com
- (2603:10b6:408:e1::22) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:e1:cafe::46) by BN1PR12CA0005.outlook.office365.com
+ (2603:10b6:408:e1::10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.33 via Frontend
- Transport; Wed, 17 May 2023 04:14:47 +0000
+ Transport; Wed, 17 May 2023 04:14:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT059.mail.protection.outlook.com (10.13.177.120) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6411.17 via Frontend Transport; Wed, 17 May 2023 04:14:47 +0000
+ 15.20.6411.17 via Frontend Transport; Wed, 17 May 2023 04:14:46 +0000
 Received: from SITE-L-T34-2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 16 May
- 2023 23:14:47 -0500
+ 2023 23:14:46 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 3/3] drm/amd: Skip RLC suspend for s0ix on PSP 13.0.4 and
- 13.0.11
-Date: Tue, 16 May 2023 18:34:20 -0500
-Message-ID: <20230516233420.2087-4-mario.limonciello@amd.com>
+Subject: [PATCH v2 0/3] Fix DCN 3.1.4 hangs on s2idle entry
+Date: Tue, 16 May 2023 18:34:17 -0500
+Message-ID: <20230516233420.2087-1-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230516233420.2087-1-mario.limonciello@amd.com>
-References: <20230516233420.2087-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -70,26 +66,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT059:EE_|CH3PR12MB8996:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29f19cc5-c036-467f-5af8-08db568d40a4
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT059:EE_|CY8PR12MB8243:EE_
+X-MS-Office365-Filtering-Correlation-Id: 09863351-433a-4406-b4fb-08db568d3ff8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HWZ6mHvOFr60VBfK39aBej9rvK4OG/4mI98sIeKfmLUNrBHLQoskg6g3k7VXmBlEKdIv4gRrcIcxX632tmvdt1W75YSQ9NyxFLdkUoqlFYc3Dog1QVV0hq8hq/AAgDOLfxIBqouDpmAeft7rlvJQAZFLx7g174zmAOTTeMakSa306x1LtG3qcewUd2C2Q9M6uhhC7i6hGR/r1GqXndpyYeEHUe4K/3giWwuf0B1HgvblOUiXL6GC0jL0dxhccpOLu8+0W5b08lhqJAxpQToh/njFRe6kdteCQY13CglvRE1w7H4CZggctVQuKDtcPnnt9d1XvI7/DUgPzxZoq6rjSojQiLPowAFzoAnJoA5fHWOnovyr0Q7nF88eb4y0GyiNz+9qncRZACRdcKW4KC4INszcl10VQVOPEIyPbtYNo3Y3WNHz/1CnO2F4pTepy74ISSFu+6ESoaaRIEugqEyFdb0wIFf8U0ZZSShLmPtx/BJpTArIKLFxyyXHgavm07YPGHloaChxRX+64bKq1iH4aWxT1d/L93z6cF/z4xONcrapwKtKvDN1zNZlihAYqWleFo+LJmfBY9IhlcMgsdTEDDJXm/KoUJ+eb2V7JNcNcgi1oiuVqt9u+5BpUdpTKsTR55ed5OwOs/y6y9HoYPh1SWVdD6IzVPUefNrMaiH7U5se0GF5w2HdfAmjUsiMELTVEAsN6dLUgPzaKvzJ3QlLgoY4Cjj9vfbBAFCvNG0nO3YfLg/n5GAvTbth/1Ig5IE8qMOKNU4EvzBqKFl6jS/mtooqPOlkwa+Nh78tBVkpFsg=
+X-Microsoft-Antispam-Message-Info: I1+ZxQs1FuWY1WrR131IUP8kkDMkNQJQfdq/oH8IQXYj1iOajDhxOxCKb8TRHnb2Fp51B57bNWg9wjRBXlFWgAOtnRKYc5MVQOLBYSntecroTYbIgFjBhlgSNIXkZlIlZhxOg38a2kZt4lhZkqfuOdb5iwWR8/Uii3dDfn6MRDqg+RFdjJpi8sftpcZOSeiNVT0pk7bpvN6FGQZmyus5NbfBbpFfJ9XSEV5vYdIIEH0/ifJUGSxGD9bivjiotXWDu3FcgEqBhEkd1DMeLonj1VOUGBOfd+utM2KRnhaTnn2xZlqh2tOdcMEHrMHe+lEyZM6ISaAKaarZvEK+VHbXiUb8zLYDKNcxc1P7654X8IODfwF2VS9JLudeS5zEJeQe88iDDpEgzuqiXgQyTV/ylkKOR/reE/bCRQi+gy0mibmFbBc9u190jkgjZAkUCTCRHWJY+SZNJFOawuML/fHtcVvdMgy5TvDg+2sqvyHaHlwI6/dj/gn13pyBCz+HHZRn6n+F8jJFf6yyVmH52kiuoJ5gALkHAIiypiPsezLUVBOK0CxI+/imsJ92yloPiCbaw6AcF00qpxuhy43cxjkhlDkV5qqIxbVmr6v611UzgpI9nyATw4/kUW0h6Fhv3HRhhITB1xKdOKPxHiCUtI+X4bYurDXz5AO0vP+qKSxMWt03uov3wmbJcIXu2oMt4hfNjiswql2g0kLdX5DZF6NyRYvS+hKlhnzkQQnlAESKBSmEmCPeTI7eyFzVc3+nV1fcKu8vCJ2UMVg2GB0vtJlIzg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(346002)(396003)(136003)(376002)(451199021)(46966006)(40470700004)(36840700001)(54906003)(6916009)(4326008)(70586007)(70206006)(478600001)(316002)(7696005)(2906002)(6666004)(40480700001)(82310400005)(8936002)(8676002)(44832011)(5660300002)(82740400003)(26005)(1076003)(81166007)(356005)(41300700001)(86362001)(36756003)(336012)(426003)(83380400001)(2616005)(16526019)(186003)(40460700003)(47076005)(36860700001)(15650500001)(32563001)(36900700001);
+ SFS:(13230028)(4636009)(396003)(346002)(39860400002)(136003)(376002)(451199021)(46966006)(40470700004)(36840700001)(478600001)(40460700003)(54906003)(81166007)(44832011)(5660300002)(8936002)(8676002)(36756003)(86362001)(82310400005)(2906002)(4326008)(40480700001)(82740400003)(6916009)(316002)(356005)(70586007)(70206006)(41300700001)(83380400001)(1076003)(26005)(2616005)(36860700001)(336012)(426003)(186003)(16526019)(7696005)(6666004)(47076005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2023 04:14:47.7478 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29f19cc5-c036-467f-5af8-08db568d40a4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2023 04:14:46.6386 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09863351-433a-4406-b4fb-08db568d3ff8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT059.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8996
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8243
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,40 +97,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tim Huang <tim.huang@amd.com>, richard.gong@amd.com, Juan.Martinez@amd.com,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alexander Deucher <Alexander.Deucher@amd.com>, anson.tsao@amd.com
+Cc: anson.tsao@amd.com, Tim Huang <tim.huang@amd.com>, Juan.Martinez@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>, richard.gong@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RLC suspend in s0ix is unncessary as the SMU and IMU jointly
-manages graphics power state.
+DCN 3.1.4 s2idle entry will hang
+occasionally on s2idle entry, but only if running Wayland and only
+when using `systemctl suspend`, not `echo mem | tee /sys/power/state`.
 
-Suggested-by: Alexander Deucher <Alexander.Deucher@amd.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
-v1->v2:
- * Skip RLC all the time instead of adding safety to it
----
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This happens because using `systemctl suspend` will cause the screen
+to lock right before writing mem into /sys/power/state.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 4dea79a0c5b5..f8510ce1c4f7 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1549,9 +1549,9 @@ static int smu_disable_dpms(struct smu_context *smu)
- 
- 	/*
- 	 * For SMU 13.0.4/11, PMFW will handle the features disablement properly
--	 * for gpu reset case. Driver involvement is unnecessary.
-+	 * for gpu reset and s0ix case. Driver involvement is unnecessary.
- 	 */
--	if (amdgpu_in_reset(adev)) {
-+	if (amdgpu_in_reset(adev) || adev->in_s0ix) {
- 		switch (adev->ip_versions[MP1_HWIP][0]) {
- 		case IP_VERSION(13, 0, 4):
- 		case IP_VERSION(13, 0, 11):
+This causes a delayed GFXOFF entry to be scheduled right before s2idle
+entry.  If the workqueue doesn't get processed before the RLC is turned
+off the system is hung. Even if the workqueue *does* get processed, there
+is a race between the APU microcontrollers and driver for whether GFX
+is actually powered off when RLC is turned off.
+
+To avoid this issue, flush the workqueue on s2idle entry and ensure that
+GFX is really in GFXOFF before any sensitive register accesses occur.
+
+Mario Limonciello (3):
+  drm/amd: Flush any delayed gfxoff on suspend entry
+  drm/amd: Poll for GFX core to be off
+  drm/amd: Skip RLC suspend for s0ix on PSP 13.0.4 and 13.0.11
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 25 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c     | 18 ++++++++++++++++
+ drivers/gpu/drm/amd/include/amd_shared.h   |  1 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c  |  4 ++--
+ 4 files changed, 46 insertions(+), 2 deletions(-)
+
 -- 
 2.34.1
 
