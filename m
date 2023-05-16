@@ -4,59 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B3FBC77B7F
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 May 2023 13:08:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDCD8C77B7A
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 May 2023 13:13:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3B3210E0EA;
-	Tue, 16 May 2023 13:08:11 +0000 (UTC)
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27B6D10E0EA
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 May 2023 13:08:09 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id
- 5614622812f47-38c35975545so9197740b6e.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 May 2023 06:08:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684242488; x=1686834488;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=HJHNd7bhq76oViGBMTkjpl95N0k1z7OPp4YBl+C87Us=;
- b=qmBLe+uH8dvCs29JY1IXue3ZtyXbco8Z7of3tCEwdOSEJdR4p12a40UNo6BNZv5Yzs
- at6E40druWqV2Fs/YtaAQkMAbLufbCjhAlXz3PXoyo6bnNyUlqAYCAvA7YEpDbVkn+11
- Md6kIyjzBnli6Hct05YIJkW6VnPFKxjjLbLsZ8VDd6VA8E9kIxWDcPRIuC7yz2NzQDcU
- TN7NM+jyKvT5zVQy+qnjbpEg+YJUD8i+8Ei8N/l/1O0ePbYolvfKMJ5d4daTx3ukGnnp
- qvDI95wH4meDTzbd6iHmRHjUzp2kgvdL/nviLXh04IunhfAeY/PslYgF93akUQc/v84g
- herQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684242488; x=1686834488;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=HJHNd7bhq76oViGBMTkjpl95N0k1z7OPp4YBl+C87Us=;
- b=WQ20qcI8v2GOIRoBcGcAemdPevMxsK9D/aF/542AyAoHhQa4s1aC2XQg4dYCpoMjiR
- w/YAU/7oStdB3i7taf/pD3jAvQR9ASPLTzzxCzvs3ImRSyvHDA2g0S86DJjmNIUkmzEd
- +rCMruyk8y9cHqkKdy83uexLEGqiOIuJM44WC+OXTZ+P+YpeEgfWhUAtxluXP/Aaj3/m
- OZkd8F1udztTBsM7QdMyU+mBESLNGutyHfV4bU+UAzqXbIkzB0+Rojv/778Huk81SuNc
- UMWQHf/jTsJaIOonXF98Vs+WdXcZnFAMqWFFynUAb04xpxyGjwVYGkF/gAoPxbdVkoiY
- HwJw==
-X-Gm-Message-State: AC+VfDy+BoRG1sIwUJ1Non5y0MX4Sk5nUyz6EIVnRHtS+DBzx3XSBI5I
- 2AsO4rBZhk709ayr4jrvFern5Ez0GpNF+SoGykP4jz3G
-X-Google-Smtp-Source: ACHHUZ5DykOsZ5BRf9OOCR6Cgnq+eFFzDg+rVXCqzXzIuegi57eVfigB/ZlA7+6vyG69ZLyfGXUZ/0q4ffaKoKqSPWk=
-X-Received: by 2002:a05:6808:23c2:b0:394:65f4:f146 with SMTP id
- bq2-20020a05680823c200b0039465f4f146mr9658934oib.5.1684242487655; Tue, 16 May
- 2023 06:08:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8F2A10E1C2;
+	Tue, 16 May 2023 13:13:09 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7277E10E1C2;
+ Tue, 16 May 2023 13:13:07 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 261CB1FE6D;
+ Tue, 16 May 2023 13:13:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1684242785; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ogdt9jSbi0tvxD4d3F6VeNsH8BYjTttGkeT43PALy5E=;
+ b=wYGJ6+OnghGS2a+yu/AjPwtJV17WnSvQQCiAnSED73wvJV7x0V5FddzCwSJryuKnOToMut
+ cUWvNND+TVir4jApxrF4N4dFhQvfglinuNu0lbjcDS9jJNxFRmBHqe1gEBO4yoKD1tsDtq
+ hxiePLzY8LITkzD+iySVZ3hYhjKhQgo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1684242785;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ogdt9jSbi0tvxD4d3F6VeNsH8BYjTttGkeT43PALy5E=;
+ b=+R5i2rwoPF/2rMlRCY+3hyEXs0TvhAHXyIwKUnOtGJ+MIkPvnYpWXa8+/R+Hr2vtCBo/oZ
+ Rs3QdcTwPZRcXeBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B3544138F5;
+ Tue, 16 May 2023 13:13:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 3RSvKmCBY2SzQAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 16 May 2023 13:13:04 +0000
+Message-ID: <297a1808-f36a-1bbb-8a7e-dd41c5ee2a7b@suse.de>
+Date: Tue, 16 May 2023 15:13:04 +0200
 MIME-Version: 1.0
-References: <20230516025105.795595-1-evan.quan@amd.com>
-In-Reply-To: <20230516025105.795595-1-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 May 2023 09:07:56 -0400
-Message-ID: <CADnq5_P6txuJ6aHQehxeH+y9iT7nbwuFXtHRDnbTcT9CWsWaVA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: add delay to avoid unintened shutdown due to
- hotspot temperature spark
-To: Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [PATCH v2 02/12] drm/armada: Use regular fbdev I/O helpers
+Content-Language: en-US
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>,
+ Sam Ravnborg <sam@ravnborg.org>
+References: <20230515094033.2133-1-tzimmermann@suse.de>
+ <20230515094033.2133-3-tzimmermann@suse.de>
+ <20230515175544.GB1745913@ravnborg.org>
+ <ZGJ0QIQrF/a0Wkri@shell.armlinux.org.uk>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <ZGJ0QIQrF/a0Wkri@shell.armlinux.org.uk>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------2T0MthFqqog40rzw0G3raXj4"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,234 +72,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
+ javierm@redhat.com, mripard@kernel.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, linux-tegra@vger.kernel.org, airlied@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 15, 2023 at 10:52=E2=80=AFPM Evan Quan <evan.quan@amd.com> wrot=
-e:
->
-> There will be a double check for the hotspot temperature on delay
-> expired. This can avoid unintended shutdown due to hotspot temperature
-> spark.
->
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> --
-> v1->v2:
->   - add the proper millidegree Celsius to degree Celsius transform
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 14 ++++++++
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 34 +++++++++++++++++++
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  2 ++
->  .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  9 ++---
->  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  9 ++---
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------2T0MthFqqog40rzw0G3raXj4
+Content-Type: multipart/mixed; boundary="------------VmgaSFKk8JQLm74FK1PaEpjV";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>,
+ Sam Ravnborg <sam@ravnborg.org>
+Cc: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, javierm@redhat.com, linux-samsung-soc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
+Message-ID: <297a1808-f36a-1bbb-8a7e-dd41c5ee2a7b@suse.de>
+Subject: Re: [PATCH v2 02/12] drm/armada: Use regular fbdev I/O helpers
+References: <20230515094033.2133-1-tzimmermann@suse.de>
+ <20230515094033.2133-3-tzimmermann@suse.de>
+ <20230515175544.GB1745913@ravnborg.org>
+ <ZGJ0QIQrF/a0Wkri@shell.armlinux.org.uk>
+In-Reply-To: <ZGJ0QIQrF/a0Wkri@shell.armlinux.org.uk>
 
-Can you extend this to the older powerplay code as well?
+--------------VmgaSFKk8JQLm74FK1PaEpjV
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
->  6 files changed, 55 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 39192eba3ff8..4cd873659365 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -243,6 +243,7 @@ extern int amdgpu_num_kcq;
->  #define AMDGPU_VCNFW_LOG_SIZE (32 * 1024)
->  extern int amdgpu_vcnfw_log;
->  extern int amdgpu_sg_display;
-> +extern uint amdgpu_ctf_delay;
->
->  #define AMDGPU_VM_MAX_NUM_CTX                  4096
->  #define AMDGPU_SG_THRESHOLD                    (256*1024*1024)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 749eeb9a2976..6c699fefdf92 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -198,6 +198,7 @@ int amdgpu_smartshift_bias;
->  int amdgpu_use_xgmi_p2p =3D 1;
->  int amdgpu_vcnfw_log;
->  int amdgpu_sg_display =3D -1; /* auto */
-> +uint amdgpu_ctf_delay =3D 50; /* in ms */
->
->  static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *wo=
-rk);
->
-> @@ -973,6 +974,19 @@ MODULE_PARM_DESC(smu_pptable_id,
->         "specify pptable id to be used (-1 =3D auto(default) value, 0 =3D=
- use pptable from vbios, > 0 =3D soft pptable id)");
->  module_param_named(smu_pptable_id, amdgpu_smu_pptable_id, int, 0444);
->
-> +/**
-> + * DOC: ctf_delay (uint)
-> + * On SW CTF triggerred, to protect the chip from over-heated and possib=
-le damage, we usually
-> + * trigger a system shutdown. However, considering there may be a hotspo=
-t temperature spark
-> + * momentarily hitting the SW CTF setting point, a delay is added to avo=
-id unintended shutdown.
-> + * On the delay expired, the shutdown will be performed if the hotspot t=
-emp is still
-> + * bigger than the SW CTF setting. Otherwise, nothing will be done.
-> + * The default setting for the delay is 50ms.
-> + */
-> +MODULE_PARM_DESC(ctf_delay,
-> +               "the delay(default 50ms) enforced before real action take=
-n on ctf triggerred");
-> +module_param_named(ctf_delay, amdgpu_ctf_delay, uint, 0444);
+SGkNCg0KQW0gMTUuMDUuMjMgdW0gMjA6MDQgc2NocmllYiBSdXNzZWxsIEtpbmcgKE9yYWNs
+ZSk6DQo+IE9uIE1vbiwgTWF5IDE1LCAyMDIzIGF0IDA3OjU1OjQ0UE0gKzAyMDAsIFNhbSBS
+YXZuYm9yZyB3cm90ZToNCj4+IEhpIFRob21hcywNCj4+DQo+PiBPbiBNb24sIE1heSAxNSwg
+MjAyMyBhdCAxMTo0MDoyM0FNICswMjAwLCBUaG9tYXMgWmltbWVybWFubiB3cm90ZToNCj4+
+PiBVc2UgdGhlIHJlZ3VsYXIgZmJkZXYgaGVscGVycyBmb3IgZnJhbWVidWZmZXIgSS9PIGlu
+c3RlYWQgb2YgRFJNJ3MNCj4+PiBoZWxwZXJzLiBBcm1hZGEgZG9lcyBub3QgdXNlIGRhbWFn
+ZSBoYW5kbGluZywgc28gRFJNJ3MgZmJkZXYgaGVscGVycw0KPj4+IGFyZSBtZXJlIHdyYXBw
+ZXJzIGFyb3VuZCB0aGUgZmJkZXYgY29kZS4NCj4+Pg0KPj4+IEJ5IHVzaW5nIGZiZGV2IGhl
+bHBlcnMgZGlyZWN0bHkgd2l0aGluIGVhY2ggRFJNIGZiZGV2IGVtdWxhdGlvbiwNCj4+PiB3
+ZSBjYW4gZXZlbnR1YWxseSByZW1vdmUgRFJNJ3Mgd3JhcHBlciBmdW5jdGlvbnMgZW50aXJl
+bHkuDQo+Pj4NCj4+PiB2MjoNCj4+PiAJKiB1c2UgRkJfSU9fSEVMUEVSUyBvcHRpb24NCj4+
+Pg0KPj4+IFNpZ25lZC1vZmYtYnk6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBz
+dXNlLmRlPg0KPj4+IENjOiBSdXNzZWxsIEtpbmcgPGxpbnV4QGFybWxpbnV4Lm9yZy51az4N
+Cj4+PiAtLS0NCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hcm1hZGEvS2NvbmZpZyAgICAgICAg
+fCAxICsNCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hcm1hZGEvYXJtYWRhX2ZiZGV2LmMgfCA5
+ICsrKystLS0tLQ0KPj4+ICAgMiBmaWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDUg
+ZGVsZXRpb25zKC0pDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Fy
+bWFkYS9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL2FybWFkYS9LY29uZmlnDQo+Pj4gaW5k
+ZXggZjVjNjZkODliYTk5Li41YWZhZGUyNWUyMTcgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FybWFkYS9LY29uZmlnDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Fy
+bWFkYS9LY29uZmlnDQo+Pj4gQEAgLTMsNiArMyw3IEBAIGNvbmZpZyBEUk1fQVJNQURBDQo+
+Pj4gICAJdHJpc3RhdGUgIkRSTSBzdXBwb3J0IGZvciBNYXJ2ZWxsIEFybWFkYSBTb0NzIg0K
+Pj4+ICAgCWRlcGVuZHMgb24gRFJNICYmIEhBVkVfQ0xLICYmIEFSTSAmJiBNTVUNCj4+PiAg
+IAlzZWxlY3QgRFJNX0tNU19IRUxQRVINCj4+PiArCXNlbGVjdCBGQl9JT19IRUxQRVJTIGlm
+IERSTV9GQkRFVl9FTVVMQVRJT04NCj4+PiAgIAloZWxwDQo+Pj4gICAJICBTdXBwb3J0IHRo
+ZSAiTENEIiBjb250cm9sbGVycyBmb3VuZCBvbiB0aGUgTWFydmVsbCBBcm1hZGEgNTEwDQo+
+Pj4gICAJICBkZXZpY2VzLiAgVGhlcmUgYXJlIHR3byBjb250cm9sbGVycyBvbiB0aGUgZGV2
+aWNlLCBlYWNoIGNvbnRyb2xsZXINCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FybWFkYS9hcm1hZGFfZmJkZXYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hcm1hZGEvYXJtYWRh
+X2ZiZGV2LmMNCj4+PiBpbmRleCAwYTVmZDFhYTg2ZWIuLjZjM2JiYWY1MzU2OSAxMDA2NDQN
+Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYXJtYWRhL2FybWFkYV9mYmRldi5jDQo+Pj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FybWFkYS9hcm1hZGFfZmJkZXYuYw0KPj4+IEBAIC01
+LDYgKzUsNyBAQA0KPj4+ICAgICovDQo+Pj4gICANCj4+PiAgICNpbmNsdWRlIDxsaW51eC9l
+cnJuby5oPg0KPj4+ICsjaW5jbHVkZSA8bGludXgvZmIuaD4NCj4+PiAgICNpbmNsdWRlIDxs
+aW51eC9rZXJuZWwuaD4NCj4+PiAgICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4NCj4+PiAg
+IA0KPj4+IEBAIC0zNCwxMSArMzUsOSBAQCBzdGF0aWMgdm9pZCBhcm1hZGFfZmJkZXZfZmJf
+ZGVzdHJveShzdHJ1Y3QgZmJfaW5mbyAqaW5mbykNCj4+PiAgIHN0YXRpYyBjb25zdCBzdHJ1
+Y3QgZmJfb3BzIGFybWFkYV9mYl9vcHMgPSB7DQo+Pj4gICAJLm93bmVyCQk9IFRISVNfTU9E
+VUxFLA0KPj4+ICAgCURSTV9GQl9IRUxQRVJfREVGQVVMVF9PUFMsDQo+Pj4gLQkuZmJfcmVh
+ZAk9IGRybV9mYl9oZWxwZXJfY2ZiX3JlYWQsDQo+Pj4gLQkuZmJfd3JpdGUJPSBkcm1fZmJf
+aGVscGVyX2NmYl93cml0ZSwNCj4+IEkgaGFkIGV4cGVjdGVkIHRvIHNlZQ0KPj4gLmZiX3Jl
+YWQgPSBmYl9pb19yZWFkLA0KPj4NCj4+IEJ1dCBtYXliZSB0aGlzIG9ubHkgdXNlZCB3aGVu
+IHVzaW5nIGRhbWFnZSBoYW5kbGluZz8NCj4+DQo+PiBMaWtld2lzZSBmb3IgZHJtX2ZiX2hl
+bHBlcl9jZmJfd3JpdGUuDQo+Pg0KPj4gPz8NCj4+DQo+Pj4gLQkuZmJfZmlsbHJlY3QJPSBk
+cm1fZmJfaGVscGVyX2NmYl9maWxscmVjdCwNCj4+PiAtCS5mYl9jb3B5YXJlYQk9IGRybV9m
+Yl9oZWxwZXJfY2ZiX2NvcHlhcmVhLA0KPj4+IC0JLmZiX2ltYWdlYmxpdAk9IGRybV9mYl9o
+ZWxwZXJfY2ZiX2ltYWdlYmxpdCwNCj4+PiArCS5mYl9maWxscmVjdAk9IGNmYl9maWxscmVj
+dCwNCj4+PiArCS5mYl9jb3B5YXJlYQk9IGNmYl9jb3B5YXJlYSwNCj4+PiArCS5mYl9pbWFn
+ZWJsaXQJPSBjZmJfaW1hZ2VibGl0LA0KPj4NCj4+IFRoaXMgcGFydCBpcyBhcyBleHBlY3Rl
+ZC4NCj4gDQo+IFdlbGwsIHRvIG1lIGl0IGxvb2tzIGxpa2UgdGhpcyBoYXMgZ29uZSB0aHJv
+dWdoIGFuIGVudGlyZSBjaXJjdWxhciBzZXQNCj4gb2YgcmV2aXNpb25zOg0KPiANCj4gY29t
+bWl0IGU4YjcwZTRkZDdiNWRhZDdjMjM3OWRlNmUwODUxNTg3YmY4NmJmZDYNCj4gQXV0aG9y
+OiBBcmNoaXQgVGFuZWphIDxhcmNoaXR0QGNvZGVhdXJvcmEub3JnPg0KPiBEYXRlOiAgIFdl
+ZCBKdWwgMjIgMTQ6NTg6MDQgMjAxNSArMDUzMA0KPiANCj4gICAgICBkcm0vYXJtYWRhOiBV
+c2UgbmV3IGRybV9mYl9oZWxwZXIgZnVuY3Rpb25zDQo+IA0KPiAtICAgICAgIC5mYl9maWxs
+cmVjdCAgICA9IGNmYl9maWxscmVjdCwNCj4gLSAgICAgICAuZmJfY29weWFyZWEgICAgPSBj
+ZmJfY29weWFyZWEsDQo+IC0gICAgICAgLmZiX2ltYWdlYmxpdCAgID0gY2ZiX2ltYWdlYmxp
+dCwNCj4gKyAgICAgICAuZmJfZmlsbHJlY3QgICAgPSBkcm1fZmJfaGVscGVyX2NmYl9maWxs
+cmVjdCwNCj4gKyAgICAgICAuZmJfY29weWFyZWEgICAgPSBkcm1fZmJfaGVscGVyX2NmYl9j
+b3B5YXJlYSwNCj4gKyAgICAgICAuZmJfaW1hZ2VibGl0ICAgPSBkcm1fZmJfaGVscGVyX2Nm
+Yl9pbWFnZWJsaXQsDQo+IA0KPiBjb21taXQgOTgzNzgwOTE4Yzc1OWZkYmJmMGJmMDMzZTcw
+MWJiZmY3NWQyYWYyMw0KPiBBdXRob3I6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFu
+bkBzdXNlLmRlPg0KPiBEYXRlOiAgIFRodSBOb3YgMyAxNjoxNDo0MCAyMDIyICswMTAwDQo+
+IA0KPiAgICAgIGRybS9mYi1oZWxwZXI6IFBlcmZvcm0gYWxsIGZiZGV2IEkvTyB3aXRoIHRo
+ZSBzYW1lIGltcGxlbWVudGF0aW9uDQo+IA0KPiArICAgICAgIC5mYl9yZWFkICAgICAgICA9
+IGRybV9mYl9oZWxwZXJfY2ZiX3JlYWQsDQo+ICsgICAgICAgLmZiX3dyaXRlICAgICAgID0g
+ZHJtX2ZiX2hlbHBlcl9jZmJfd3JpdGUsDQo+IA0KPiBhbmQgbm93IGVmZmVjdGl2ZWx5IHRo
+b3NlIHR3byBjaGFuZ2VzIGFyZSBiZWluZyByZXZlcnRlZCwgc28gd2UnZA0KPiBub3cgYmUg
+YmFjayB0byB0aGUgcHJlLUp1bHkgMjAxNSBzdGF0ZSBvZiBhZmZhaXJzLiBBcyBJIGJlbGll
+dmUNCj4gdGhlIGZiZGV2IGxheWVyIGhhcyBiZWVuIHN0YWJsZSwgdGhpcyBjaGFuZ2UgbWVy
+ZWx5IHJldmVydHMgdGhlDQo+IGRyaXZlciBiYWNrIHRvIHdoYXQgaXQgb25jZSB3YXMuDQoN
+Ck5vdCBxdWl0ZS4gT25lIGxvbmctc3RhbmRpbmcgcHJvYmxlbSBoYXMgYmVlbiB0aGF0IGZi
+ZGV2IGRvZXMgbm90IA0KcHJvdGVjdCBpdHMgcHVibGljIGludGVyZmFjZXMgd2l0aCBDT05G
+SUdfRkIuIElmIGZiZGV2IGhhZCBiZWVuIA0KZGlzYWJsZWQsIERSTSBkcml2ZXJzIGNvdWxk
+IG5vIGxvbmdlciBiZSBsaW5rZWQvbG9hZGVkLiBEUk0gd3JhcHBlcnMgDQpzb2x2ZWQgdGhp
+cy4gVGhlIGlzc3VlIGhhcyByZWNlbnRseSBiZWVuIGZpeGVkIGZvciBhbGwgb2YgRFJNLiBE
+Uk0gZG9lcyANCm5vdCBidWlsZCBpdCdzIGZiZGV2IGVtdWxhdGlvbiBpZiBDT05GSUdfRkIg
+aGFzIGJlZW4gZGlzYWJsZWQuDQoNCkFub3RoZXIgdGhpbmcgd2FzIHRoYXQgdGhlIG9yaWdp
+bmFsIERSTSB3cmFwcGVycyBtaWdodCBoYXZlIGJlZW4gDQpkaWZmZXJlbnQgZnJvbSBmYmRl
+didzIEkvTyBoZWxwZXJzIGluIHN1YnRsZSB3YXlzLiBCdXQgbm93IHRoZXkgYXJlIA0Kc2lt
+cGxlIHdyYXBwZXJzIGFyb3VuZCB0aGVpciBmYmRldiBjb3VudGVycGFydHM7IHBsdXMgdGhl
+IG9wdGlvbiBvZiANCmFkZGl0aW9uYWwgZGFtYWdlIGhhbmRsaW5nLiAgQnV0IHN1Y2ggZGFt
+YWdlIGhhbmRsaW5nIGlzIGJldHRlciANCmltcGxlbWVudGVkIGJ5IHRoZSBkcml2ZXIgaXRz
+ZWxmLiBUaGUgdHdvIGNhc2VzIHRoYXQgcmVxdWlyZSBpdCwgaTkxNSANCmFuZCBmYmRldi1n
+ZW5lcmljLCBhcmUgZGlmZmVyZW50IGVub3VnaCB0aGF0IGVhY2ggc2hvdWxkIHByb2JhYmx5
+IGhhdmUgDQppdCdzIG93biBjb2RlLg0KDQpCZXN0IHJlZ2FyZHMNClRob21hcw0KDQo+IA0K
+DQotLSANClRob21hcyBaaW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2ZWxvcGVyDQpT
+VVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgNCkZyYW5rZW5zdHJhc3NlIDE0
+NiwgOTA0NjEgTnVlcm5iZXJnLCBHZXJtYW55DQpHRjogSXZvIFRvdGV2LCBBbmRyZXcgTXll
+cnMsIEFuZHJldyBNY0RvbmFsZCwgQm91ZGllbiBNb2VybWFuDQpIUkIgMzY4MDkgKEFHIE51
+ZXJuYmVyZykNCg==
 
-I think we can probably drop this.  I don't see a need for users to
-adjust this and it could be bad for the hardware if it gets set too
-long.
+--------------VmgaSFKk8JQLm74FK1PaEpjV--
 
-> +
->  /* These devices are not supported by amdgpu.
->   * They are supported by the mach64, r128, radeon drivers
->   */
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
-amd/pm/swsmu/amdgpu_smu.c
-> index 3c860939031e..71153b335ad9 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -24,6 +24,7 @@
->
->  #include <linux/firmware.h>
->  #include <linux/pci.h>
-> +#include <linux/reboot.h>
->
->  #include "amdgpu.h"
->  #include "amdgpu_smu.h"
-> @@ -1070,6 +1071,34 @@ static void smu_interrupt_work_fn(struct work_stru=
-ct *work)
->                 smu->ppt_funcs->interrupt_work(smu);
->  }
->
-> +static void smu_swctf_delayed_work_handler(struct work_struct *work)
-> +{
-> +       struct smu_context *smu =3D
-> +               container_of(work, struct smu_context, swctf_delayed_work=
-.work);
-> +       struct smu_temperature_range *range =3D
-> +                               &smu->thermal_range;
-> +       struct amdgpu_device *adev =3D smu->adev;
-> +       uint32_t hotspot_tmp, size;
-> +
-> +       /*
-> +        * If the hotspot temperature is confirmed as below SW CTF settin=
-g point
-> +        * after the delay enforced, nothing will be done.
-> +        * Otherwise, a graceful shutdown will be performed to prevent fu=
-rther damage.
-> +        */
-> +       if (smu->ppt_funcs->read_sensor &&
-> +           !smu->ppt_funcs->read_sensor(smu,
-> +                                        AMDGPU_PP_SENSOR_HOTSPOT_TEMP,
-> +                                        &hotspot_tmp,
-> +                                        &size) &&
-> +           range->software_shutdown_temp &&
-> +           hotspot_tmp / 1000 < range->software_shutdown_temp)
-> +               return;
-> +
-> +       dev_emerg(adev->dev, "ERROR: GPU over temperature range(SW CTF) d=
-etected!\n");
-> +       dev_emerg(adev->dev, "ERROR: System is going to shutdown due to G=
-PU SW CTF!\n");
-> +       orderly_poweroff(true);
-> +}
-> +
->  static int smu_sw_init(void *handle)
->  {
->         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> @@ -1358,6 +1387,9 @@ static int smu_smc_hw_setup(struct smu_context *smu=
-)
->                 return ret;
->         }
->
-> +       INIT_DELAYED_WORK(&smu->swctf_delayed_work,
-> +                         smu_swctf_delayed_work_handler);
-> +
->         ret =3D smu_enable_thermal_alert(smu);
->         if (ret) {
->           dev_err(adev->dev, "Failed to enable thermal alert!\n");
-> @@ -1592,6 +1624,8 @@ static int smu_smc_hw_cleanup(struct smu_context *s=
-mu)
->                 return ret;
->         }
->
-> +       cancel_delayed_work_sync(&smu->swctf_delayed_work);
-> +
->         ret =3D smu_disable_dpms(smu);
->         if (ret) {
->                 dev_err(adev->dev, "Fail to disable dpm features!\n");
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/=
-drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index 4ce394903c07..18101ec0ae6e 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -573,6 +573,8 @@ struct smu_context
->         u32 debug_param_reg;
->         u32 debug_msg_reg;
->         u32 debug_resp_reg;
-> +
-> +       struct delayed_work             swctf_delayed_work;
->  };
->
->  struct i2c_adapter;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> index e1ef88ee1ed3..4c3c682bf7a0 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> @@ -1412,13 +1412,8 @@ static int smu_v11_0_irq_process(struct amdgpu_dev=
-ice *adev,
->         if (client_id =3D=3D SOC15_IH_CLIENTID_THM) {
->                 switch (src_id) {
->                 case THM_11_0__SRCID__THM_DIG_THERM_L2H:
-> -                       dev_emerg(adev->dev, "ERROR: GPU over temperature=
- range(SW CTF) detected!\n");
-> -                       /*
-> -                        * SW CTF just occurred.
-> -                        * Try to do a graceful shutdown to prevent furth=
-er damage.
-> -                        */
-> -                       dev_emerg(adev->dev, "ERROR: System is going to s=
-hutdown due to GPU SW CTF!\n");
-> -                       orderly_poweroff(true);
-> +                       schedule_delayed_work(&smu->swctf_delayed_work,
-> +                                             msecs_to_jiffies(amdgpu_ctf=
-_delay));
->                 break;
->                 case THM_11_0__SRCID__THM_DIG_THERM_H2L:
->                         dev_emerg(adev->dev, "ERROR: GPU under temperatur=
-e range detected\n");
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> index 0bc0a6e97b5a..a5447119d5f5 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> @@ -1377,13 +1377,8 @@ static int smu_v13_0_irq_process(struct amdgpu_dev=
-ice *adev,
->         if (client_id =3D=3D SOC15_IH_CLIENTID_THM) {
->                 switch (src_id) {
->                 case THM_11_0__SRCID__THM_DIG_THERM_L2H:
-> -                       dev_emerg(adev->dev, "ERROR: GPU over temperature=
- range(SW CTF) detected!\n");
-> -                       /*
-> -                        * SW CTF just occurred.
-> -                        * Try to do a graceful shutdown to prevent furth=
-er damage.
-> -                        */
-> -                       dev_emerg(adev->dev, "ERROR: System is going to s=
-hutdown due to GPU SW CTF!\n");
-> -                       orderly_poweroff(true);
-> +                       schedule_delayed_work(&smu->swctf_delayed_work,
-> +                                             msecs_to_jiffies(amdgpu_ctf=
-_delay));
->                         break;
->                 case THM_11_0__SRCID__THM_DIG_THERM_H2L:
->                         dev_emerg(adev->dev, "ERROR: GPU under temperatur=
-e range detected\n");
-> --
-> 2.34.1
->
+--------------2T0MthFqqog40rzw0G3raXj4
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmRjgWAFAwAAAAAACgkQlh/E3EQov+AP
+jRAAwwKH9s/OU5FEOdFhofJdQds0AENMzHbfz4wwkve69TDD5BypitQp2nS84xFHvd7AZK2K2S/J
+ZQPOQQ5TJHpC1PfYRstQtN4l/Db0E3P3xFYhjgdIUxa/B/ICiB1zrLcl/N8gvrXm81DCiZonTJzP
+WPJGhQV+VQwjc06//ynbyeRtrxLUar6ZPBscBtmKo1vPmpbgeAj7AonyPKE7YuiHL5dmSgIdS0/h
+fr393sm9KwhdKHFpnQAcsrabAUCu4+T10EcYWeJXjNYQvi5ptbVMoyjV+1MySeOTne+IJ21LoTNP
+oXJ3v8BJd+w9xm6vdfnhIkhlXi5cAIZjAMA65984bERd3PygsKYLzYOtm7XsKE34ZGcUfOCyTBwu
+f4MMGt8toM22ToQJg29meHpceO7oWOY7HzpOrfnRXqkW+bdZdBkn3OJVWu5T1QhShnUKriyNN0zu
+GmiCTFZUSrRI75V+UHK8I86LZGbUwoLdHWizBWBh7ZFsTYyYSh375LmtV8Iplxl7+Y9viYcxkBO2
+USfeCw3mgNGcxtAeCX1KrkD0SvW24izC8/Wh8469Mfw/WD+gKgpQXPJSe4ot18mRzXcEQDUij34Z
+sAN3+oVetyb+9Qi5F303/SwUGkvhfTD2vIINJzUGvJxvqJOy4lDX8xdjDxjgEIY+6NCgf01diiYC
+qTE=
+=XZcT
+-----END PGP SIGNATURE-----
+
+--------------2T0MthFqqog40rzw0G3raXj4--
