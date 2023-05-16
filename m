@@ -4,89 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FA9FC77B7F
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 May 2023 09:47:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F684C77B7A
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 May 2023 13:04:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90FC110E167;
-	Tue, 16 May 2023 09:47:46 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20628.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::628])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC5AE10E167
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 May 2023 09:47:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SfP7ha5ZarB9jECm1Q/TM+JneAOVkRPzpSy9FphDwF1c3kglBNMgC2ZWww/jtEMJ/PC/7keO6mlmtdZCTX9NcKawmgUOOKCba4Q8U9WiVWc/g/zCRWmw2t6aZ2h08Kt9wLmczsCyM1sVTNURm8p6Yw++hfwmP6gzz7AebAIHdScrYg6v96Pn6MUukeUqymVgVXKRgjOyA7/6Fp+jJnywlXWJekoCwIPYQbF9c2AtQwSugEea7BRr1TZtrl0nlRxpaNnxnUVzUsM5Tp0anJaUpIlTnsDLoRWD+Bu3jsEEz/JOmdgK/xfwAKN21PPym9iF5f/ij2G4ThT5ILJnKDn4VQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QI9HkVMNZ6GZu0v1YcoV3IPmQ7sBcbQ6+qF7XJJTvVg=;
- b=bbxev9Jmg1y/X8dLMneG8+ZtEvpmTcyEoaeeEpB5jj7L+RyM9ehTnnUhKk+Fhm1wKDlmIrTqV2rzRWLDfcGlnbfNpXA2RMyaFbUdE6obueyPIy7djqjfvMyFg9ORkks+nqHIja2MdDEEPP1bvQ+erbV+qP42hCGgAf0eeAd0OZbFOLK1UZ3MwmXmwfihBEmLn+b2J0A764SUvmuT4fGhVUs3jUi5doc1fKSZFIo3iTFz34sNy+gFV0D+pT/TG5tGu7e42fnifoZo220jkIO+GdvegKIcbW6Qp4dpu+peUsByRdztEzmAt7VY1ri+tocblnfzcNIne0qUcAH/niCOsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QI9HkVMNZ6GZu0v1YcoV3IPmQ7sBcbQ6+qF7XJJTvVg=;
- b=HKMvlLIP6GNaPn2KnvwgmAAzb18TVHoz5qhyo0It0Eno57WqFE9v3MKj2SHecee79mFH5gtCblGQktWPI2TLJ4AbzkpXnMD11W2O/k4jZDvAfYYo5muYZhfDLW/rkYdhXji35LjdQD++so9r9t/yUjeLgjiQLRRyBMoB755/EwA=
-Received: from MW4PR04CA0289.namprd04.prod.outlook.com (2603:10b6:303:89::24)
- by PH0PR12MB5631.namprd12.prod.outlook.com (2603:10b6:510:144::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.33; Tue, 16 May
- 2023 09:47:36 +0000
-Received: from CO1NAM11FT080.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:89:cafe::3f) by MW4PR04CA0289.outlook.office365.com
- (2603:10b6:303:89::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.33 via Frontend
- Transport; Tue, 16 May 2023 09:47:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT080.mail.protection.outlook.com (10.13.174.99) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6411.15 via Frontend Transport; Tue, 16 May 2023 09:47:34 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 16 May
- 2023 04:47:33 -0500
-Received: from amd-SYS-7048GR-TR.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Tue, 16 May 2023 04:47:30 -0500
-From: Tong Liu01 <Tong.Liu01@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: fix incorrect pcie_gen_mask in passthrough case
-Date: Tue, 16 May 2023 17:47:16 +0800
-Message-ID: <20230516094716.323715-1-Tong.Liu01@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B99410E12F;
+	Tue, 16 May 2023 13:04:02 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA89910E0C6;
+ Tue, 16 May 2023 13:03:57 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6A0A121CD4;
+ Tue, 16 May 2023 13:03:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1684242233; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7MYn1TIkHwneNzd3IUFWyvJO6ujcXL9z7oe8mMJjl9I=;
+ b=rIS29l2tl1/rMbpZezKb+W7BXqoiArjaYsN5ryXaIiA5rilS5d4S6hznjNZlz1sXUV+VFC
+ msk7yo4qSVRpee24pFWY575z6vxyKarUaLo1JWYVePf8+xE9NyZFqG44XtpW6ua3fG7gGS
+ qiXR1WEsjqP0O5bO4lEY+utWv0ykpLw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1684242233;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7MYn1TIkHwneNzd3IUFWyvJO6ujcXL9z7oe8mMJjl9I=;
+ b=78N1hjwcL7ApVsl7Ktj5ecxO0Vs4iwZZYGyfUz7ydDZT8pCXnR9/QqhdP4lVVNfisi7p6R
+ WNZjj49SATigS/DQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0ACE0138F9;
+ Tue, 16 May 2023 13:03:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id F0pMATl/Y2TuOwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 16 May 2023 13:03:53 +0000
+Message-ID: <72d1535b-45ee-1556-d97f-6d3dfdcd7ed4@suse.de>
+Date: Tue, 16 May 2023 15:03:52 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT080:EE_|PH0PR12MB5631:EE_
-X-MS-Office365-Filtering-Correlation-Id: efd60911-ff52-4e7b-4c2c-08db55f29359
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /QGuhKZ/b04HRAYpJwuba88TSic6opIwNnL0AFwrQ6fP874WNCpgXno92pnO3g+ToxfC8iMMIxgyQ0fWDaZLw5J7F/r4CdgcQIl6W11Djm+BELOrCuBjSI4fBElG7+7++QlGFu/Z8c/U/CePfEKoBJ5BOHaui9NjwYiEaeORjh3Qj6iaM3KPxfAH0k7js9WOCM281Ha2xP3TPZKS9TKLPeIxMKs54snk3Q6OwRuvC9tEf5uPXe0mJ6D7ukvdJ8gWi4etme5Jp06QtXc8+WK5zJYqDzns+LKcImIg0GZuTu9HZyqS3VUBs2+UbiooYMEoC+RV0fZwlQs8K3YKJT6ZWXsxD77WObPD65rLT1s9QhPCGAvFDQi7Ol3eK1IDQSDsWjG+rrLlATwRnZGzwftRHeH9NyqqFUa21XRBXr1ZtOnmDHlOOBT/vCl3W0voYZnNvSjhDliwL0ZYqqITKGMlo56loGPW7C2hxEYFzAQV7iky6UNti7NgWHXDGD5lH39/Sh4oCgw2VUoAKJtinwiwTAffQpRJXHERd+Y+jYFkqQiI5/SSQQGeBBbRiFMYRDbcxU2jbZdIU42BI0d85bSU2UrZSBHa0w/SqfPQOkuRNo1f1oKNkc8HmzGEEsAxaRDu2Trkrq+lyXyqyIazX6w6S8E1Kv1JyIF2L9Ew/7cdQ9oKaMsu2kY6BmZsVcHtys2H143upbDhzW7K2nrQh9YgM9zni8C7ytfTuresH3CcS9Z+EqWsZuuzm0DvH8xFJcwEzeudv8O8O0rkmy/sckwReQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(346002)(376002)(136003)(39860400002)(451199021)(46966006)(40470700004)(36840700001)(70586007)(70206006)(6916009)(5660300002)(8936002)(4326008)(8676002)(2906002)(478600001)(54906003)(7696005)(41300700001)(316002)(6666004)(40460700003)(26005)(1076003)(356005)(82740400003)(186003)(36860700001)(40480700001)(2616005)(426003)(336012)(83380400001)(47076005)(36756003)(82310400005)(86362001)(81166007)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2023 09:47:34.4044 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: efd60911-ff52-4e7b-4c2c-08db55f29359
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT080.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5631
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [PATCH v2 02/12] drm/armada: Use regular fbdev I/O helpers
+To: Sam Ravnborg <sam@ravnborg.org>
+References: <20230515094033.2133-1-tzimmermann@suse.de>
+ <20230515094033.2133-3-tzimmermann@suse.de>
+ <20230515175544.GB1745913@ravnborg.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <20230515175544.GB1745913@ravnborg.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------TF15ECY1lmCvOkLrbIq0MhSY"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,64 +70,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
- horace.chen@amd.com, Kevin Wang <Kevin1.Wang@amd.com>,
- Tong Liu01 <Tong.Liu01@amd.com>, haijun.chang@amd.com,
- Tuikov Luben <Luben.Tuikov@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Monk
- Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
+ javierm@redhat.com, mripard@kernel.org, Russell King <linux@armlinux.org.uk>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, linux-tegra@vger.kernel.org,
+ airlied@gmail.com, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[why]
-Passthrough case is treated as root bus and pcie_gen_mask is set as
-default value that does not support GEN 3 and GEN 4 for PCIe link
-speed. So PCIe link speed will be downgraded at smu hw init in
-passthrough condition
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------TF15ECY1lmCvOkLrbIq0MhSY
+Content-Type: multipart/mixed; boundary="------------x19kmCONrIOVY1mx13KTewaz";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Sam Ravnborg <sam@ravnborg.org>
+Cc: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, javierm@redhat.com, linux-samsung-soc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ Russell King <linux@armlinux.org.uk>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Message-ID: <72d1535b-45ee-1556-d97f-6d3dfdcd7ed4@suse.de>
+Subject: Re: [PATCH v2 02/12] drm/armada: Use regular fbdev I/O helpers
+References: <20230515094033.2133-1-tzimmermann@suse.de>
+ <20230515094033.2133-3-tzimmermann@suse.de>
+ <20230515175544.GB1745913@ravnborg.org>
+In-Reply-To: <20230515175544.GB1745913@ravnborg.org>
 
-[how]
-Move detect virtualization before get pcie info and check if it is
-passthrough case when set pcie_gen_mask
+--------------x19kmCONrIOVY1mx13KTewaz
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Tong Liu01 <Tong.Liu01@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+SGkNCg0KQW0gMTUuMDUuMjMgdW0gMTk6NTUgc2NocmllYiBTYW0gUmF2bmJvcmc6DQo+IEhp
+IFRob21hcywNCj4gDQo+IE9uIE1vbiwgTWF5IDE1LCAyMDIzIGF0IDExOjQwOjIzQU0gKzAy
+MDAsIFRob21hcyBaaW1tZXJtYW5uIHdyb3RlOg0KPj4gVXNlIHRoZSByZWd1bGFyIGZiZGV2
+IGhlbHBlcnMgZm9yIGZyYW1lYnVmZmVyIEkvTyBpbnN0ZWFkIG9mIERSTSdzDQo+PiBoZWxw
+ZXJzLiBBcm1hZGEgZG9lcyBub3QgdXNlIGRhbWFnZSBoYW5kbGluZywgc28gRFJNJ3MgZmJk
+ZXYgaGVscGVycw0KPj4gYXJlIG1lcmUgd3JhcHBlcnMgYXJvdW5kIHRoZSBmYmRldiBjb2Rl
+Lg0KPj4NCj4+IEJ5IHVzaW5nIGZiZGV2IGhlbHBlcnMgZGlyZWN0bHkgd2l0aGluIGVhY2gg
+RFJNIGZiZGV2IGVtdWxhdGlvbiwNCj4+IHdlIGNhbiBldmVudHVhbGx5IHJlbW92ZSBEUk0n
+cyB3cmFwcGVyIGZ1bmN0aW9ucyBlbnRpcmVseS4NCj4+DQo+PiB2MjoNCj4+IAkqIHVzZSBG
+Ql9JT19IRUxQRVJTIG9wdGlvbg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IFRob21hcyBaaW1t
+ZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPj4gQ2M6IFJ1c3NlbGwgS2luZyA8bGlu
+dXhAYXJtbGludXgub3JnLnVrPg0KPj4gLS0tDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hcm1h
+ZGEvS2NvbmZpZyAgICAgICAgfCAxICsNCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FybWFkYS9h
+cm1hZGFfZmJkZXYuYyB8IDkgKysrKy0tLS0tDQo+PiAgIDIgZmlsZXMgY2hhbmdlZCwgNSBp
+bnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYXJtYWRhL0tjb25maWcgYi9kcml2ZXJzL2dwdS9kcm0vYXJtYWRhL0tj
+b25maWcNCj4+IGluZGV4IGY1YzY2ZDg5YmE5OS4uNWFmYWRlMjVlMjE3IDEwMDY0NA0KPj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FybWFkYS9LY29uZmlnDQo+PiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYXJtYWRhL0tjb25maWcNCj4+IEBAIC0zLDYgKzMsNyBAQCBjb25maWcgRFJN
+X0FSTUFEQQ0KPj4gICAJdHJpc3RhdGUgIkRSTSBzdXBwb3J0IGZvciBNYXJ2ZWxsIEFybWFk
+YSBTb0NzIg0KPj4gICAJZGVwZW5kcyBvbiBEUk0gJiYgSEFWRV9DTEsgJiYgQVJNICYmIE1N
+VQ0KPj4gICAJc2VsZWN0IERSTV9LTVNfSEVMUEVSDQo+PiArCXNlbGVjdCBGQl9JT19IRUxQ
+RVJTIGlmIERSTV9GQkRFVl9FTVVMQVRJT04NCj4+ICAgCWhlbHANCj4+ICAgCSAgU3VwcG9y
+dCB0aGUgIkxDRCIgY29udHJvbGxlcnMgZm91bmQgb24gdGhlIE1hcnZlbGwgQXJtYWRhIDUx
+MA0KPj4gICAJICBkZXZpY2VzLiAgVGhlcmUgYXJlIHR3byBjb250cm9sbGVycyBvbiB0aGUg
+ZGV2aWNlLCBlYWNoIGNvbnRyb2xsZXINCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYXJtYWRhL2FybWFkYV9mYmRldi5jIGIvZHJpdmVycy9ncHUvZHJtL2FybWFkYS9hcm1h
+ZGFfZmJkZXYuYw0KPj4gaW5kZXggMGE1ZmQxYWE4NmViLi42YzNiYmFmNTM1NjkgMTAwNjQ0
+DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYXJtYWRhL2FybWFkYV9mYmRldi5jDQo+PiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYXJtYWRhL2FybWFkYV9mYmRldi5jDQo+PiBAQCAtNSw2
+ICs1LDcgQEANCj4+ICAgICovDQo+PiAgIA0KPj4gICAjaW5jbHVkZSA8bGludXgvZXJybm8u
+aD4NCj4+ICsjaW5jbHVkZSA8bGludXgvZmIuaD4NCj4+ICAgI2luY2x1ZGUgPGxpbnV4L2tl
+cm5lbC5oPg0KPj4gICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+DQo+PiAgIA0KPj4gQEAg
+LTM0LDExICszNSw5IEBAIHN0YXRpYyB2b2lkIGFybWFkYV9mYmRldl9mYl9kZXN0cm95KHN0
+cnVjdCBmYl9pbmZvICppbmZvKQ0KPj4gICBzdGF0aWMgY29uc3Qgc3RydWN0IGZiX29wcyBh
+cm1hZGFfZmJfb3BzID0gew0KPj4gICAJLm93bmVyCQk9IFRISVNfTU9EVUxFLA0KPj4gICAJ
+RFJNX0ZCX0hFTFBFUl9ERUZBVUxUX09QUywNCj4+IC0JLmZiX3JlYWQJPSBkcm1fZmJfaGVs
+cGVyX2NmYl9yZWFkLA0KPj4gLQkuZmJfd3JpdGUJPSBkcm1fZmJfaGVscGVyX2NmYl93cml0
+ZSwNCj4gSSBoYWQgZXhwZWN0ZWQgdG8gc2VlDQo+IC5mYl9yZWFkID0gZmJfaW9fcmVhZCwN
+Cj4gDQo+IEJ1dCBtYXliZSB0aGlzIG9ubHkgdXNlZCB3aGVuIHVzaW5nIGRhbWFnZSBoYW5k
+bGluZz8NCg0KZmJfaW9fcmVhZCgpIGFuZCBmYl9pb193cml0ZSgpIGFyZSB0aGUgZGVmYXVs
+dCBpbXBsZW1lbnRhdGlvbnMuIFRoZXkgYXJlIA0KY2FsbGVkIHdoZW4gbm8gY2FsbGJhY2sg
+aGFzIGJlZW4gc2V0LiAgQWxsIHRoZSBvdGhlciBmYmRldiBkcml2ZXJzIGxlYXZlIA0KdGhl
+bSBvdXQsIHNvIEkga2VwdCB0aGlzIHBhdHRlcm4gZm9yIHRoZSBEUk0gc2lkZSBhcyB3ZWxs
+Lg0KDQpCZXN0IHJlZ2FyZHMNClRob21hcw0KDQo+IA0KPiBMaWtld2lzZSBmb3IgZHJtX2Zi
+X2hlbHBlcl9jZmJfd3JpdGUuDQo+IA0KPiA/Pw0KPiANCj4+IC0JLmZiX2ZpbGxyZWN0CT0g
+ZHJtX2ZiX2hlbHBlcl9jZmJfZmlsbHJlY3QsDQo+PiAtCS5mYl9jb3B5YXJlYQk9IGRybV9m
+Yl9oZWxwZXJfY2ZiX2NvcHlhcmVhLA0KPj4gLQkuZmJfaW1hZ2VibGl0CT0gZHJtX2ZiX2hl
+bHBlcl9jZmJfaW1hZ2VibGl0LA0KPj4gKwkuZmJfZmlsbHJlY3QJPSBjZmJfZmlsbHJlY3Qs
+DQo+PiArCS5mYl9jb3B5YXJlYQk9IGNmYl9jb3B5YXJlYSwNCj4+ICsJLmZiX2ltYWdlYmxp
+dAk9IGNmYl9pbWFnZWJsaXQsDQo+IA0KPiBUaGlzIHBhcnQgaXMgYXMgZXhwZWN0ZWQuDQo+
+IA0KPiAJU2FtDQo+IA0KPj4gICAJLmZiX2Rlc3Ryb3kJPSBhcm1hZGFfZmJkZXZfZmJfZGVz
+dHJveSwNCj4+ICAgfTsNCj4+ICAgDQo+PiAtLSANCj4+IDIuNDAuMQ0KDQotLSANClRob21h
+cyBaaW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2ZWxvcGVyDQpTVVNFIFNvZnR3YXJl
+IFNvbHV0aW9ucyBHZXJtYW55IEdtYkgNCkZyYW5rZW5zdHJhc3NlIDE0NiwgOTA0NjEgTnVl
+cm5iZXJnLCBHZXJtYW55DQpHRjogSXZvIFRvdGV2LCBBbmRyZXcgTXllcnMsIEFuZHJldyBN
+Y0RvbmFsZCwgQm91ZGllbiBNb2VybWFuDQpIUkIgMzY4MDkgKEFHIE51ZXJuYmVyZykNCg==
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index a9d9bbe8586b..255b0014b6a3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3813,6 +3813,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	DRM_INFO("register mmio base: 0x%08X\n", (uint32_t)adev->rmmio_base);
- 	DRM_INFO("register mmio size: %u\n", (unsigned)adev->rmmio_size);
- 
-+	/* detect hw virtualization here */
-+	amdgpu_detect_virtualization(adev);
-+
- 	amdgpu_device_get_pcie_info(adev);
- 
- 	if (amdgpu_mcbp)
-@@ -3827,9 +3830,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	if (!adev->reset_domain)
- 		return -ENOMEM;
- 
--	/* detect hw virtualization here */
--	amdgpu_detect_virtualization(adev);
--
- 	r = amdgpu_device_get_job_timeout_settings(adev);
- 	if (r) {
- 		dev_err(adev->dev, "invalid lockup_timeout parameter syntax\n");
-@@ -5589,7 +5589,7 @@ static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev)
- 		adev->pm.pcie_mlw_mask = amdgpu_pcie_lane_cap;
- 
- 	/* covers APUs as well */
--	if (pci_is_root_bus(adev->pdev->bus)) {
-+	if (pci_is_root_bus(adev->pdev->bus) && !amdgpu_passthrough(adev)) {
- 		if (adev->pm.pcie_gen_mask == 0)
- 			adev->pm.pcie_gen_mask = AMDGPU_DEFAULT_PCIE_GEN_MASK;
- 		if (adev->pm.pcie_mlw_mask == 0)
--- 
-2.34.1
 
+--------------x19kmCONrIOVY1mx13KTewaz--
+
+--------------TF15ECY1lmCvOkLrbIq0MhSY
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmRjfzgFAwAAAAAACgkQlh/E3EQov+Bq
+dg//T0j2i9jbhRq04m2fkfiIt0eqsth1P5X3bkq7j9vcF0WEoiRSH9KNs0ZoDcgGyPVG9WKKbg9H
+/BJ4pBhHlw2H2TZjEvnnUDl7KXpXGwL789twD6P1ypBFXFm5zVuwjxcnnHxNEo5A0x8NzfqOnai0
+b29/fs3AnpcOjJx2tbztSdlmOWGI9UfygHCOVQgM9mtqzXyC779NJjfu90vttEZy22RvfebXDl6A
+2bdMz9fvtvq9oz/NT6NuKPNs7q2JnqdGcrjQlbJ8LnMZAs43mRAuLTuDQvCQ5uNTdcaHL0k5eA/p
+eW1rfs84MkiFIHw4WJ94hnfRQIIws0lt/RIbVEJLRNgc8RGP9LboMIP93K6+Y6rUMIrAw6IKnQAe
+jbXXluwuEjwyuGPwMqQWohH/Xs6RokSdD467EROMkjqa6XJGRiBGk7CLSkRIUU/bmbdEjCCLlzaq
+8P1gUsl7hzQaQoc72fROJoKHTEhhbNcYbXEuFL3SUflQaT+yWYRMSncco3+2+XMixJGNjhed7V1/
+MVjX6z6dNXShnpZ211j0KV7z+qAnxnHdArBWSGb/6bXN5c7IhMXvt1Iq+Gbe4mx9GFdYjcEriyUe
+Bj4O71YUHumZ9bl4YFWQumrLLT5IpT08/tLYCetynpz7mw7BNCdENjjCTNxq5XBHnhy0eLYxbZY5
+g1c=
+=6j7r
+-----END PGP SIGNATURE-----
+
+--------------TF15ECY1lmCvOkLrbIq0MhSY--
