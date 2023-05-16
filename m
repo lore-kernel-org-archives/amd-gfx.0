@@ -4,60 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41941C7EE2F
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 May 2023 13:43:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BEABC77B7A
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 May 2023 14:30:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B129210E21B;
-	Tue, 16 May 2023 13:43:41 +0000 (UTC)
-Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
- [IPv6:2607:f8b0:4864:20::c2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D6B010E21B;
- Tue, 16 May 2023 13:43:40 +0000 (UTC)
-Received: by mail-oo1-xc2d.google.com with SMTP id
- 006d021491bc7-54f812f77a7so5286284eaf.2; 
- Tue, 16 May 2023 06:43:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5DCB10E243;
+	Tue, 16 May 2023 14:30:34 +0000 (UTC)
+Received: from mail-yw1-x114a.google.com (mail-yw1-x114a.google.com
+ [IPv6:2607:f8b0:4864:20::114a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81B7510E242
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 May 2023 14:30:04 +0000 (UTC)
+Received: by mail-yw1-x114a.google.com with SMTP id
+ 00721157ae682-56183784dd3so12519277b3.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 May 2023 07:30:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684244619; x=1686836619;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MNDS3X2rHZf3sL9RvpDtqqqmEvoK2Fx0XI17YW4oQ6Y=;
- b=iC9Hof1RuzRecyJIDDdI0yOsOfQOhQRq2EBkhJMutXKM7rlWPTStfNC4LHCyafK9q0
- wYeIaINHKL3e3ZuSM2QrpNyRy448cwLou2QWUrZCCzjY7A8FY6TdKTVdnuYWhDjgL57h
- NDgJQyXPhScY7l8/wVM6gE6J9Qu0FUspuH6vm6oD+8tWyUsrDJxTypSRQng0NdL10L/9
- Sccwhf7uqcPiDI0UXYmvNlj50vZ6NRKOFdekSSi1TFwNzkQhDTO2abd4OnI7/qDWYPXF
- IhapqCoZV1J6uWInZH2cIXPuRGAHHnvWo2y54oTG2OVV/XOHLK3mQPcDW1/8fa3sQ8jP
- AYCQ==
+ d=google.com; s=20221208; t=1684247403; x=1686839403;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4YEPKrVR9zT024XK7Pjo91EG5vcxIVFCJtB9CTxRlDM=;
+ b=hqHcxjQbJBGZla48WsupFSE1qX/Q50O/tDR9HRispcTqhozzhNaDapI1iUI+nV5Dqa
+ +1YztNS7sMj7wiHDm0+uAOJXhAOMuPVrU6pHbFstZqhwb/IN4HRrOjpIO8eadjPxWAiv
+ 74ZKC4fPNkL7uHLKcrORbKVAL6lyxZVoThJRc2570yDONMDvXbttp+1WyG/KPEVI0Mbj
+ /NITT/iX9eusiaFbGu44753OhtSEHfnh4iDWqcOdXFdq/GRuHbEd3f6wqf1Ezyk3tHWu
+ lGLELXUKPIoHXEUyM1vl7ctdC6KLkFsE4Fe4uGvSVPO5JyNR6ut5eE1mOnGUTpwSdULf
+ SuMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684244619; x=1686836619;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MNDS3X2rHZf3sL9RvpDtqqqmEvoK2Fx0XI17YW4oQ6Y=;
- b=XVUHzbyj7Pal6KLjGx44kv3QsMjBkGAgsUKGnOjYd9tBNgOc8IucEUxM7QoWoI9sWG
- vYYakSvBtRzyy+Ky6Ubq6KdinhaXmyCsv1vRX1IC+pw+uDUQ28SxQEAcmfbXAG8Zq4nm
- fXM8MKkz3/5BJDiSrcpXyIIRn3PQMCiCJ5R6IeaU/5QvWEM+5FbsPx9hRJCjylKczrey
- Aj5PzQLGe1WfhzogJ+bF3ygWKeKLAEock4/34yrdUOMXMTv2OFwUEf6ue9qvyXrlvdn7
- ZKXPh/MGNT3YSHcmCwwGBN7dzSUbwlwROfm0TcMr6aDs8Zb3pGRkDxGoakFcb5N/Iy2z
- m/OA==
-X-Gm-Message-State: AC+VfDwwWgSB7f8Gg+HGpIYOfyjwDEdeEm3b2UqW7G1mIe6htBG9gQnM
- reTCUPVkFpvrOkVR+ut3ZuHCuf+HVlJ3pMZBaow=
-X-Google-Smtp-Source: ACHHUZ6RKrjDlM0Mb/+pcQN0RJSb4OCFLp9HAkUXJmi8j2zCPLht+6LlrLPl7FWnxnxj/+fMIY+zfqxmrIfzS39ZbXY=
-X-Received: by 2002:a4a:6c54:0:b0:54f:53f5:b1ea with SMTP id
- u20-20020a4a6c54000000b0054f53f5b1eamr11100353oof.8.1684244619385; Tue, 16
- May 2023 06:43:39 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230503231507.279172-1-sukrut.bellary@linux.com>
- <0df418ad-3492-4241-1837-55ed89b77e10@linux.com>
-In-Reply-To: <0df418ad-3492-4241-1837-55ed89b77e10@linux.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 May 2023 09:43:28 -0400
-Message-ID: <CADnq5_NVEZ5cC3JMtJu5MFWSL+3rApgKyC0XJKVEHvKSeDrB0w@mail.gmail.com>
-Subject: Re: [PATCH] drm:amd:amdgpu: Fix missing buffer object unlock in
- failure path
-To: Sukrut Bellary <sukrut.bellary@linux.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ d=1e100.net; s=20221208; t=1684247403; x=1686839403;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=4YEPKrVR9zT024XK7Pjo91EG5vcxIVFCJtB9CTxRlDM=;
+ b=ePm1oPuZt/VKxGrIuQfsLzAcdhoXOBdP7qbdJPw3svJvlGYsaF0MJ++3+iam2704xV
+ 4LG7XgSWHyVCRl+UVoOpG50P0RpU7o+/2MNu+APpUbA2/ZerbO2hKwuuKMVCe2cS/Jp5
+ R7IP6leH+43gaSfalJmM8b+ksKa1RV4FIDcwZGCvBxV0Y4kXney0nrK9+gPYvhWzqBvn
+ LSn82FiqIc+3ectfLrnL3Cnctcp2uOtIU4nmaxEbSeuhownxdqNMpS3KonlZTOXpz2ae
+ SKZJvBHvig5WzWeSFLXcMPq4OKowFagz6juHij8T+yc2foi2SLjAvWE5gTgdkL3yqIot
+ nwqA==
+X-Gm-Message-State: AC+VfDy+aOOZsUXg2kvdRWK9106iITpy34c/Xlseysf7Ns6vD+7bFAvL
+ qLxI3eJbzAsLrQYD2yRyMDhe0UjguEc=
+X-Google-Smtp-Source: ACHHUZ6nLWUlEK0uTVg2ClJoaxJ9mV14xuwTnG5GvNICmdUhSrCvtGUgZ3UVfCgP00Yml5lYnHv0fvo+YTM=
+X-Received: from zagreus.c.googlers.com
+ ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
+ (user=seanjc job=sendgmr) by 2002:a81:c903:0:b0:556:cacc:1f1d with SMTP id
+ o3-20020a81c903000000b00556cacc1f1dmr22415308ywi.8.1684247402987; Tue, 16 May
+ 2023 07:30:02 -0700 (PDT)
+Date: Tue, 16 May 2023 07:30:01 -0700
+In-Reply-To: <b97e8c2a-b629-f597-d011-395071011f1b@redhat.com>
+Mime-Version: 1.0
+References: <cover.1684097001.git.lstoakes@gmail.com>
+ <b61d5999a4fc6d50b7e073cc3c3efa8fe79bbd94.1684097002.git.lstoakes@gmail.com>
+ <ZGKC9fHoE+kDs0ar@google.com>
+ <b97e8c2a-b629-f597-d011-395071011f1b@redhat.com>
+Message-ID: <ZGOTadDG/b0904YI@google.com>
+Subject: Re: [PATCH v5 1/6] mm/gup: remove unused vmas parameter from
+ get_user_pages()
+From: Sean Christopherson <seanjc@google.com>
+To: David Hildenbrand <david@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
+X-Mailman-Approved-At: Tue, 16 May 2023 14:30:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,77 +71,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, dri-devel@lists.freedesktop.org,
- sumit.semwal@linaro.org, linaro-mm-sig@lists.linaro.org, ray.huang@amd.com,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- Hawking.Zhang@amd.com, Jiadong.Zhu@amd.com, airlied@gmail.com,
- christian.koenig@amd.com, linux-media@vger.kernel.org
+Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ amd-gfx@lists.freedesktop.org, "H . Peter Anvin" <hpa@zytor.com>,
+ David Airlie <airlied@gmail.com>, x86@kernel.org,
+ Matthew Wilcox <willy@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Arnd Bergmann <arnd@arndb.de>, John Hubbard <jhubbard@nvidia.com>,
+ Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@linutronix.de>,
+ linux-sgx@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>,
+ Lorenzo Stoakes <lstoakes@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ Christian Konig <christian.koenig@amd.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Paolo Bonzini <pbonzini@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Pavel Begunkov <asml.silence@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Tue, May 16, 2023, David Hildenbrand wrote:
+> On 15.05.23 21:07, Sean Christopherson wrote:
+> > On Sun, May 14, 2023, Lorenzo Stoakes wrote:
+> > > diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+> > > index cb5c13eee193..eaa5bb8dbadc 100644
+> > > --- a/virt/kvm/kvm_main.c
+> > > +++ b/virt/kvm/kvm_main.c
+> > > @@ -2477,7 +2477,7 @@ static inline int check_user_page_hwpoison(unsigned long addr)
+> > >   {
+> > >   	int rc, flags = FOLL_HWPOISON | FOLL_WRITE;
+> > > -	rc = get_user_pages(addr, 1, flags, NULL, NULL);
+> > > +	rc = get_user_pages(addr, 1, flags, NULL);
+> > >   	return rc == -EHWPOISON;
+> > 
+> > Unrelated to this patch, I think there's a pre-existing bug here.  If gup() returns
+> > a valid page, KVM will leak the refcount and unintentionally pin the page.  That's
+> 
+> When passing NULL as "pages" to get_user_pages(), __get_user_pages_locked()
+> won't set FOLL_GET. As FOLL_PIN is also not set, we won't be messing with
+> the mapcount of the page.
 
-Alex
+Ah, that's what I'm missing.
 
-On Mon, May 15, 2023 at 6:27=E2=80=AFPM Sukrut Bellary <sukrut.bellary@linu=
-x.com> wrote:
->
->
-> On 5/3/23 16:15, Sukrut Bellary wrote:
-> > smatch warning -
-> > 1) drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c:3615 gfx_v9_0_kiq_resume()
-> > warn: inconsistent returns 'ring->mqd_obj->tbo.base.resv'.
-> >
-> > 2) drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:6901 gfx_v10_0_kiq_resume()
-> > warn: inconsistent returns 'ring->mqd_obj->tbo.base.resv'.
-> >
-> > Signed-off-by: Sukrut Bellary <sukrut.bellary@linux.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 4 +++-
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 4 +++-
-> >  2 files changed, 6 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v10_0.c
-> > index 8bd07ff59671..66d5c5d68454 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > @@ -6891,8 +6891,10 @@ static int gfx_v10_0_kiq_resume(struct amdgpu_de=
-vice *adev)
-> >               return r;
-> >
-> >       r =3D amdgpu_bo_kmap(ring->mqd_obj, (void **)&ring->mqd_ptr);
-> > -     if (unlikely(r !=3D 0))
-> > +     if (unlikely(r !=3D 0)) {
-> > +             amdgpu_bo_unreserve(ring->mqd_obj);
-> >               return r;
-> > +     }
-> >
-> >       gfx_v10_0_kiq_init_queue(ring);
-> >       amdgpu_bo_kunmap(ring->mqd_obj);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v9_0.c
-> > index bce6919d666a..d5715d8a4128 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > @@ -3617,8 +3617,10 @@ static int gfx_v9_0_kiq_resume(struct amdgpu_dev=
-ice *adev)
-> >               return r;
-> >
-> >       r =3D amdgpu_bo_kmap(ring->mqd_obj, (void **)&ring->mqd_ptr);
-> > -     if (unlikely(r !=3D 0))
-> > +     if (unlikely(r !=3D 0)) {
-> > +             amdgpu_bo_unreserve(ring->mqd_obj);
-> >               return r;
-> > +     }
-> >
-> >       gfx_v9_0_kiq_init_queue(ring);
-> >       amdgpu_bo_kunmap(ring->mqd_obj);
->
-> Follow-up.
-> Could you please review this patch?
->
->
-> --
-> Regards,
-> Sukrut
+> So even if get_user_pages() returns "1", we should be fine.
+> 
+> 
+> Or am I misunderstanding your concern?
+
+Nope, you covered everything.  I do think we can drop the extra gup() though,
+AFAICT it's 100% redundant.  But it's not a bug.
+
+Thanks!
