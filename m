@@ -4,87 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E750FC77B75
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 May 2023 07:27:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4946C77B75
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 May 2023 09:29:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9343410E30E;
-	Tue, 16 May 2023 07:27:55 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF70E10E2EA;
- Tue, 16 May 2023 06:38:54 +0000 (UTC)
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34G6c1f8024124; Tue, 16 May 2023 06:38:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=date : from : to : cc :
- subject : message-id : references : mime-version : content-type :
- content-transfer-encoding : in-reply-to; s=pp1;
- bh=9DmXpqDg3O9x9sNFjmzLOnR7Rix1h8qN/8nG3xKpvRY=;
- b=UEsj2VKSJ1H9Xp0n1zHRNCf1ZNlcPgij2sZ94uPNQg1kjt8BJQWspIVdjmiD0L7iGvpJ
- YMilIL/ilwe1K1YSCHZxN6d5Cazwnd5+mzBh/nBAttSs74qTuvo+Qlr6YJBXQcfTiG1K
- Z5HTi3QPkat/739riWjX22ij51vvyUvOqMp1I/a9jlo1tOPQVjP8GUPbxfSKTjnj0uxO
- x1Nd0qf7c3RW4/drx+NMKH2Nvl48Dy/oWHlZCR4L83+D6iruAl2IZIliiMCXCAgygcPA
- T6M8cTEJyFwxOFdmJ+ThK6wfSw3p0KCJ25TyJ1Hz0Q7DvEBGqNM33kVts/tNUI1qyAsb nQ== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3qm3ms1qy9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 16 May 2023 06:38:47 +0000
-Received: from m0353729.ppops.net (m0353729.ppops.net [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 34G6cV4M027450;
- Tue, 16 May 2023 06:38:46 GMT
-Received: from ppma06ams.nl.ibm.com (66.31.33a9.ip4.static.sl-reverse.com
- [169.51.49.102])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3qm3ms1qvp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 16 May 2023 06:38:46 +0000
-Received: from pps.filterd (ppma06ams.nl.ibm.com [127.0.0.1])
- by ppma06ams.nl.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 34G3nLnr002047;
- Tue, 16 May 2023 06:33:43 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
- by ppma06ams.nl.ibm.com (PPS) with ESMTPS id 3qj1tdseb6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 16 May 2023 06:33:43 +0000
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
- [10.20.54.104])
- by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 34G6XdHJ62521808
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 16 May 2023 06:33:39 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9875D20040;
- Tue, 16 May 2023 06:33:39 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1CF7B20043;
- Tue, 16 May 2023 06:33:38 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.179.16.42]) by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Tue, 16 May 2023 06:33:38 +0000 (GMT)
-Date: Tue, 16 May 2023 08:33:36 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Christian =?iso-8859-1?Q?G=F6ttsche?= <cgzones@googlemail.com>
-Subject: Re: [PATCH v4 5/9] drivers: use new capable_any functionality
-Message-ID: <ZGMjwGTDgCGrfsC8@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
-References: <20230511142535.732324-1-cgzones@googlemail.com>
- <20230511142535.732324-5-cgzones@googlemail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4223910E06F;
+	Tue, 16 May 2023 09:29:34 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2069.outbound.protection.outlook.com [40.107.223.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73B0F10E06F;
+ Tue, 16 May 2023 09:29:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SJW5mmvoUP2rkleikZmMQdQ14Vzha6/fS4exd0Ihax/b6ZVX/FLWU/bHRFjXUN6Bgn4Pst03EoELD22OUXwUsCHENnghL5YZ14mmmEqkrfbettqoFN15Qjqta0GE1haX26CTJOeNwCWVDL7Vr8p5CyyQn2+9Cm57y9yBvR9aZiQX+G0jONR3eb1oLFGQdlHjAeXIN/0pcKDsqHQ0XNsdH9u9IOIMKmh7PXHl73EHbC8DV/YNuCzR8IzT3x7WkwaCm7C3Q1i+8X5TW4NU3u18H0xwqUakuVAxR0Px0WRaBntPNXPWLAw1fpWFTWBlfcqhrCB6mXvGamX8wJRzhjyrCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9P3smuNfpdFAIZPVhCTyuTil/urr9dMMinptibZCglY=;
+ b=McxXx1gLVGBOtC9Yah1cC6LTi4HXlAwb5HthVBfmo6v9hVg6lVvfP31rBsPs737J6GKCVOL4vLsBVniCEpn9Bs/WIc2iO4lJ/Fw/HvbSwpfzZgldzBNCXf8HeXtxDLxuWMy8gFzmX2te2DV8JmzNH/hjUJA6CVfa/Y6Bv/jQicGtEhqEV0Ped/m2gRKZ0C0AyUgLVgjbiCdu3dYtq8rE916WQ3gOxvZdWsfQiM4D2lImhpAaSDTKUQWneNG0+v/Bmlm5qh4hYojRiTX1fuTq1b1L8iYQ9ng3ERW+pO4J1alcWRbnaRKuzsdymynCSF2HOUDepW3sFFN64d4/Uc2oDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9P3smuNfpdFAIZPVhCTyuTil/urr9dMMinptibZCglY=;
+ b=frvCw8Lxuyqkh0Lj50dYuPxVyCEnD/4GLmRM/QGQSPH0uvD9l+YxcA0ylDdPV7RWveD3zA89XERyaeD7cr5PcaxZTeIYlYlkw5PnusdTM7ZX2cfxsyDNauR8iYNu23pa1ASOILZhug2p06BksDgRAxeRvnBO4F4DMy84sg+MVJw=
+Received: from CO6PR12MB5489.namprd12.prod.outlook.com (2603:10b6:303:139::18)
+ by SA1PR12MB5660.namprd12.prod.outlook.com (2603:10b6:806:238::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.30; Tue, 16 May
+ 2023 09:29:29 +0000
+Received: from CO6PR12MB5489.namprd12.prod.outlook.com
+ ([fe80::57e9:837f:f997:c02f]) by CO6PR12MB5489.namprd12.prod.outlook.com
+ ([fe80::57e9:837f:f997:c02f%6]) with mapi id 15.20.6387.033; Tue, 16 May 2023
+ 09:29:29 +0000
+From: "Lin, Wayne" <Wayne.Lin@amd.com>
+To: "lyude@redhat.com" <lyude@redhat.com>, "jani.nikula@intel.com"
+ <jani.nikula@intel.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2] drm/dp_mst: Clear MSG_RDY flag before sending new
+ message
+Thread-Topic: [PATCH v2] drm/dp_mst: Clear MSG_RDY flag before sending new
+ message
+Thread-Index: AQHZeNn8+E0QEEuY3UCLaVyy+/niaq9QMZbAgAyOGtA=
+Date: Tue, 16 May 2023 09:29:28 +0000
+Message-ID: <CO6PR12MB548978062CAB5F80C5CD9F52FC799@CO6PR12MB5489.namprd12.prod.outlook.com>
+References: <20230427072850.100887-1-Wayne.Lin@amd.com>
+ <CO6PR12MB5489A03BAAE9F84E39352767FC719@CO6PR12MB5489.namprd12.prod.outlook.com>
+In-Reply-To: <CO6PR12MB5489A03BAAE9F84E39352767FC719@CO6PR12MB5489.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-TW
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-05-16T09:28:38Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=46603542-923b-41d5-96e7-b32b82ceffa4;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO6PR12MB5489:EE_|SA1PR12MB5660:EE_
+x-ms-office365-filtering-correlation-id: 41f2c34e-79d8-491f-0a83-08db55f00c3e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Wa6zR5LZMp7NL17DSNMXiuP9H3P7u2yU4xR3OWNJPCAI7k7s2nILBIhKaB9F2PcZ25w7A8xITNAiVXWnI7WwnDBy6z2UVdXVVcxFFGF2McvGrS+hcxrzmPoVdV3agZMuntsaNRikfiWpx07P259AGPA/ipSDRF5/1TOCBHRe5ocB6QAEBOtLOGR7BK1XzXSJ8tpGVoIWp1byYPTbfgT1mMBgGaKcJt0a/TL1gMB6V5Hx/XO+PoBfzCfuLgX59o0G+v3sfcGwVRtKjZS+QrSNtxvlRyumX+538Rns9i2RC2jm1NeqYTXV/PPTgl1O9A2atZDYXtzeRn9oJnT4dw19kSRfmgZQK6wzp4ftpEOoMmbpWYMIsfX2oMk2a5TZUFljSKy2hhzytHe+4X3Si4pp2b8s7ZRWXcnBJzaC9fsqyF3a8x2Y+HfUfV5R99gBlI5uLrDru1KtuFFaPE/mgqo3JNXPy+WH6wPSIGe8iAeeER8pxryvnvko57BTlgKEIykQ1HYLM7lIg5J/456bbowROzG+9siDZDCNpQ5cvVQkhdyZxoAKgnd9Plx/uSwGA242uUlLfJ16Mm4zd7upbiMDUI0pApZ3jDqZgeU00suzbylrzQmmyrj+OPCpRNp/9a/S
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5489.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(346002)(136003)(39860400002)(396003)(376002)(451199021)(76116006)(66946007)(66556008)(66476007)(64756008)(4326008)(66446008)(15650500001)(71200400001)(33656002)(6506007)(26005)(41300700001)(7696005)(38100700002)(122000001)(316002)(38070700005)(52536014)(5660300002)(8676002)(2906002)(83380400001)(8936002)(478600001)(54906003)(86362001)(110136005)(55016003)(53546011)(9686003)(186003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KT9hGdiP/d6ACmMGskUhQ3m0DDuu4bVJ8Xt5qyekTleh5EHb56gGXMq9wn/B?=
+ =?us-ascii?Q?xrimppOxzCe0CDNb5Oa4TLaXvWxBXzK4SW6xw9j6/4uYxfGuD64IwSqjAhAG?=
+ =?us-ascii?Q?9VoyG1DVozX3nvCAX05AcAshr9BUDM2FYLwXK4zd9t0117D3N37vSem3MGJV?=
+ =?us-ascii?Q?kgmU0iBszOz8k+QIeztkL0AKCTvfymavhU9oUMFF31ALPRIQABYgUTZKztow?=
+ =?us-ascii?Q?l9+exBR9K9jD8tubRwNA4x21PY4DiN7vDPoaeuYKD7i13pveBfGk5GT4qgrr?=
+ =?us-ascii?Q?yeiQMmEKtrytmYTh3lh8SYY5X2E0w3+5ZynmuEpD+XDKnPogVn9Dt0Mqef/S?=
+ =?us-ascii?Q?9cRo66AT4nwc6GWdnHBHvYCTwkTOiYQ5PHhLh/46bxbuZRAD5NifxiPoKuWN?=
+ =?us-ascii?Q?CibENi2f5AuDi/5Ytcj0/mwqLbxJN2XiMnqP4H8NP8RrGVYCR+XrkIzYOnLy?=
+ =?us-ascii?Q?yBo9lt8SdgfWCjRxUFB4P4KmflujU59iA1NWLdP+dggFnopUH9Z/9jwgvK+n?=
+ =?us-ascii?Q?WWKEJwrRkbmFj49+hkt7/apu7rL5YaF/bKtvxn000hhshwLSCgVfQIDiakdG?=
+ =?us-ascii?Q?r6wu1BBnA2G9WEm3VWESHe1I15pc49tNf6QFAzAflYEzoltcnHYOxlHCVB14?=
+ =?us-ascii?Q?i3vLzgZwhp0HyfCqdZtqX9vmhSWQO5ZemJr9AjqciZRO0qwS1C2LrfCU/8x/?=
+ =?us-ascii?Q?J6SPJQxVkgQeeeFTV2Q4pDAPqOCJFa+nJuazlWhwoJToaaSWJqKnqJlwrEp+?=
+ =?us-ascii?Q?KMeGmeNqhckJbgwkQE4MNkUyvI90g7Q1GH6tJex9IkvXw/d8ITrMPvjNSQ9e?=
+ =?us-ascii?Q?MhbjiVKzSRUUEkZg6wSLD4AHr9O/Euqyrxb85QvuKVh0B/Bxod7Yu/fSSTAr?=
+ =?us-ascii?Q?eXwgY4v87uzk1tMj1GYRPRp0k3MJZkAflx/Uvt0I8sLhcZyAQq/9KKq3jwlL?=
+ =?us-ascii?Q?zJFiJBAAzbV3gcdDR6pBzCzzvNkZ5Mjoe0giRZgNkA6fvRTGM86HYbbFi8Xo?=
+ =?us-ascii?Q?tUYnyigPlXPU9NnDDXiVPmr9LOO/1OtS0lRN0x9NjnXb1S8GrIL3DhG90MfX?=
+ =?us-ascii?Q?F6o66veMOyxoTVj+AFwPElm6eIeCThwfFfJ97EiPbcGz71ISJFwEWQELwrjZ?=
+ =?us-ascii?Q?gtlK3ZaE9fgMHsrCjB4/4i1pXZisLbNjVujA43y/8YmlhRwlwZeyiWL0btUi?=
+ =?us-ascii?Q?8ykHBQ9FovUcGzASAc1fGhQBffp41cQ3eNJ9equM+xxtnmuYZHlibzIqhtYO?=
+ =?us-ascii?Q?dq48JgW2LY0fhfjs3S9rgUU8w77VN8NgKYO9tl0BUuF/dRnz3Ea+tXB7zGIO?=
+ =?us-ascii?Q?w2K1kxY1F3PQRlq6qJ0DzN/pRzoKH182pvGmdq2XCfXKa5ALd05UgtDfdvre?=
+ =?us-ascii?Q?Uv4HMCOc2XmkLSykgcvz2xeo/g/Z1U5qGPTeDxogoqPVcz7VEzK2A4KEEJNB?=
+ =?us-ascii?Q?6LHLGzv+wpr6BUEKmVz4zxQ9n113ScxnwtocOCj5bIxEUaTiJGpfHqEZsEAD?=
+ =?us-ascii?Q?0nhJaaFTvf3QsLksfCadpe3Nz1IxLYIpnmuAgLeqpzOwcxWDFNvxc2anAt3b?=
+ =?us-ascii?Q?otX2iEAjHTyoFDywtWQ=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230511142535.732324-5-cgzones@googlemail.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: xqf_N-JoXc2UVfYLwyAFExMe35oo7Cp0
-X-Proofpoint-ORIG-GUID: PZdVErVtm-1oMWtVtghhxQof6lFPLe0D
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-16_02,2023-05-05_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0
- priorityscore=1501 mlxlogscore=999 adultscore=0 malwarescore=0
- impostorscore=0 spamscore=0 mlxscore=0 lowpriorityscore=0 phishscore=0
- clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305160056
-X-Mailman-Approved-At: Tue, 16 May 2023 07:27:54 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5489.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41f2c34e-79d8-491f-0a83-08db55f00c3e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 May 2023 09:29:28.8607 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YV5xXBl8A+4yLeLsmfGurcUdoS61BtJKliZWbmyL9R2xWJ/QszkjBfUI/FNeMGbOP+50Pto8eFmjAM0CYSyW3Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5660
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,53 +127,279 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jan Hoeppner <hoeppner@linux.ibm.com>, dri-devel@lists.freedesktop.org,
- Eric Dumazet <edumazet@google.com>, David Airlie <airlied@gmail.com>,
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jakub Kicinski <kuba@kernel.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, selinux@vger.kernel.org,
- Heiko Carstens <hca@linux.ibm.com>, Stefan Haberland <sth@linux.ibm.com>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Sven Schnelle <svens@linux.ibm.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, bpf@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "imre.deak@intel.com" <imre.deak@intel.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>,
+ "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 11, 2023 at 04:25:28PM +0200, Christian Göttsche wrote:
-> Use the new added capable_any function in appropriate cases, where a
-> task is required to have any of two capabilities.
-> 
-> Reorder CAP_SYS_ADMIN last.
-> 
-> Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
-> ---
-> v4:
->    Additional usage in kfd_ioctl()
-> v3:
->    rename to capable_any()
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +--
->  drivers/net/caif/caif_serial.c           | 2 +-
->  drivers/s390/block/dasd_eckd.c           | 2 +-
->  3 files changed, 3 insertions(+), 4 deletions(-)
-...
-> diff --git a/drivers/s390/block/dasd_eckd.c b/drivers/s390/block/dasd_eckd.c
-> index ade1369fe5ed..67d1058bce1b 100644
-> --- a/drivers/s390/block/dasd_eckd.c
-> +++ b/drivers/s390/block/dasd_eckd.c
-> @@ -5370,7 +5370,7 @@ static int dasd_symm_io(struct dasd_device *device, void __user *argp)
->  	char psf0, psf1;
->  	int rc;
->  
-> -	if (!capable(CAP_SYS_ADMIN) && !capable(CAP_SYS_RAWIO))
-> +	if (!capable_any(CAP_SYS_RAWIO, CAP_SYS_ADMIN))
->  		return -EACCES;
->  	psf0 = psf1 = 0;
+[Public]
 
-For s390 part:
-Acked-by: Alexander Gordeev <agordeev@linux.ibm.com>
+Hi,
+
+Ping again for code review. Much appreciated!
+
+Regards,
+Wayne
+
+> -----Original Message-----
+> From: Lin, Wayne
+> Sent: Monday, May 8, 2023 5:49 PM
+> To: lyude@redhat.com; jani.nikula@intel.com; dri-
+> devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
+> Cc: ville.syrjala@linux.intel.com; imre.deak@intel.com; Wentland, Harry
+> <Harry.Wentland@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>;
+> stable@vger.kernel.org
+> Subject: RE: [PATCH v2] drm/dp_mst: Clear MSG_RDY flag before sending
+> new message
+>=20
+> [Public]
+>=20
+> Hi Lyude and Jani,
+>=20
+> Could you help to review please? Thanks for your time!
+>=20
+> Regards,
+> Wayne Lin
+> > -----Original Message-----
+> > From: Wayne Lin <Wayne.Lin@amd.com>
+> > Sent: Thursday, April 27, 2023 3:29 PM
+> > To: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
+> > Cc: lyude@redhat.com; ville.syrjala@linux.intel.com;
+> > jani.nikula@intel.com; imre.deak@intel.com; Wentland, Harry
+> > <Harry.Wentland@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>; Lin,
+> Wayne
+> > <Wayne.Lin@amd.com>; stable@vger.kernel.org
+> > Subject: [PATCH v2] drm/dp_mst: Clear MSG_RDY flag before sending new
+> > message
+> >
+> > [Why]
+> > The sequence for collecting down_reply from source perspective should
+> > be:
+> >
+> > Request_n->repeat (get partial reply of Request_n->clear message ready
+> > flag to ack DPRX that the message is received) till all partial
+> > replies for Request_n are received->new Request_n+1.
+> >
+> > Now there is chance that drm_dp_mst_hpd_irq() will fire new down
+> > request in the tx queue when the down reply is incomplete. Source is
+> > restricted to generate interveleaved message transactions so we should
+> avoid it.
+> >
+> > Also, while assembling partial reply packets, reading out DPCD
+> > DOWN_REP Sideband MSG buffer + clearing DOWN_REP_MSG_RDY flag
+> should
+> > be wrapped up as a complete operation for reading out a reply packet.
+> > Kicking off a new request before clearing DOWN_REP_MSG_RDY flag might
+> > be risky. e.g. If the reply of the new request has overwritten the
+> > DPRX DOWN_REP Sideband MSG buffer before source writing one to clear
+> > DOWN_REP_MSG_RDY flag, source then unintentionally flushes the reply
+> > for the new request. Should handle the up request in the same way.
+> >
+> > [How]
+> > Separete drm_dp_mst_hpd_irq() into 2 steps. After acking the MST IRQ
+> > event, driver calls drm_dp_mst_hpd_irq_step2() and might trigger
+> > drm_dp_mst_kick_tx() only when there is no on going message transaction=
+.
+> >
+> > Changes since v1:
+> > * Reworked on review comments received
+> > -> Adjust the fix to let driver explicitly kick off new down request
+> > when mst irq event is handled and acked
+> > -> Adjust the commit message
+> >
+> > Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+> > Cc: stable@vger.kernel.org
+> > ---
+> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++---
+> > drivers/gpu/drm/display/drm_dp_mst_topology.c | 35
+> > ++++++++++++++++---
+> >  drivers/gpu/drm/i915/display/intel_dp.c       |  5 ++-
+> >  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  5 ++-
+> >  include/drm/display/drm_dp_mst_helper.h       |  4 +--
+> >  5 files changed, 45 insertions(+), 12 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 1ad67c2a697e..48bdcb2ee9b1 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -3259,10 +3259,9 @@ static void
+> dm_handle_mst_sideband_msg(struct
+> > amdgpu_dm_connector *aconnector)
+> >  		DRM_DEBUG_DRIVER("ESI %02x %02x %02x\n", esi[0], esi[1],
+> esi[2]);
+> >  		/* handle HPD short pulse irq */
+> >  		if (aconnector->mst_mgr.mst_state)
+> > -			drm_dp_mst_hpd_irq(
+> > -				&aconnector->mst_mgr,
+> > -				esi,
+> > -				&new_irq_handled);
+> > +			drm_dp_mst_hpd_irq_step1(&aconnector-
+> > >mst_mgr,
+> > +						 esi,
+> > +						 &new_irq_handled);
+> >
+> >  		if (new_irq_handled) {
+> >  			/* ACK at DPCD to notify down stream */ @@ -3281,6
+> > +3280,7 @@ static void dm_handle_mst_sideband_msg(struct
+> > amdgpu_dm_connector *aconnector)
+> >  					break;
+> >  			}
+> >
+> > +			drm_dp_mst_hpd_irq_step2(&aconnector-
+> > >mst_mgr);
+> >  			/* check if there is new irq to be handled */
+> >  			dret =3D drm_dp_dpcd_read(
+> >  				&aconnector->dm_dp_aux.aux,
+> > diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > index 70df29fe92db..2e0a38a6509c 100644
+> > --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > @@ -4045,7 +4045,7 @@ static int drm_dp_mst_handle_up_req(struct
+> > drm_dp_mst_topology_mgr *mgr)  }
+> >
+> >  /**
+> > - * drm_dp_mst_hpd_irq() - MST hotplug IRQ notify
+> > + * drm_dp_mst_hpd_irq_step1() - MST hotplug IRQ notify
+> >   * @mgr: manager to notify irq for.
+> >   * @esi: 4 bytes from SINK_COUNT_ESI
+> >   * @handled: whether the hpd interrupt was consumed or not @@ -4055,7
+> > +4055,7 @@ static int drm_dp_mst_handle_up_req(struct
+> > drm_dp_mst_topology_mgr *mgr)
+> >   * topology manager will process the sideband messages received as a
+> result
+> >   * of this.
+> >   */
+> > -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8
+> *esi,
+> > bool *handled)
+> > +int drm_dp_mst_hpd_irq_step1(struct drm_dp_mst_topology_mgr *mgr,
+> > u8
+> > +*esi, bool *handled)
+> >  {
+> >  	int ret =3D 0;
+> >  	int sc;
+> > @@ -4077,11 +4077,38 @@ int drm_dp_mst_hpd_irq(struct
+> > drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handl
+> >  		*handled =3D true;
+> >  	}
+> >
+> > -	drm_dp_mst_kick_tx(mgr);
+> >  	return ret;
+> >  }
+> > -EXPORT_SYMBOL(drm_dp_mst_hpd_irq);
+> > +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_step1);
+> > +
+> > +/**
+> > + * drm_dp_mst_hpd_irq_step2() - MST hotplug IRQ 2nd part handling
+> > + * @mgr: manager to notify irq for.
+> > + *
+> > + * This should be called from the driver when mst irq event is
+> > +handled
+> > + * and acked. Note that new down request should only be sent when
+> > + * previous message transaction is done. Source is not supposed to
+> > +generate
+> > + * interleaved message transactions.
+> > + */
+> > +void drm_dp_mst_hpd_irq_step2(struct drm_dp_mst_topology_mgr
+> *mgr)
+> > {
+> > +	struct drm_dp_sideband_msg_tx *txmsg;
+> > +	bool skip =3D false;
+> >
+> > +	mutex_lock(&mgr->qlock);
+> > +	txmsg =3D list_first_entry_or_null(&mgr->tx_msg_downq,
+> > +					 struct drm_dp_sideband_msg_tx,
+> > next);
+> > +	/* If last transaction is not completed yet*/
+> > +	if (!txmsg ||
+> > +	    txmsg->state =3D=3D DRM_DP_SIDEBAND_TX_START_SEND ||
+> > +	    txmsg->state =3D=3D DRM_DP_SIDEBAND_TX_SENT)
+> > +		skip =3D true;
+> > +	mutex_unlock(&mgr->qlock);
+> > +
+> > +	if (!skip)
+> > +		drm_dp_mst_kick_tx(mgr);
+> > +}
+> > +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_step2);
+> >  /**
+> >   * drm_dp_mst_detect_port() - get connection status for an MST port
+> >   * @connector: DRM connector for this port diff --git
+> > a/drivers/gpu/drm/i915/display/intel_dp.c
+> > b/drivers/gpu/drm/i915/display/intel_dp.c
+> > index 75070eb07d4b..9a9a5aec9534 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > @@ -3803,7 +3803,7 @@ intel_dp_mst_hpd_irq(struct intel_dp *intel_dp,
+> > u8 *esi, u8 *ack)  {
+> >  	bool handled =3D false;
+> >
+> > -	drm_dp_mst_hpd_irq(&intel_dp->mst_mgr, esi, &handled);
+> > +	drm_dp_mst_hpd_irq_step1(&intel_dp->mst_mgr, esi, &handled);
+> >  	if (handled)
+> >  		ack[1] |=3D esi[1] & (DP_DOWN_REP_MSG_RDY |
+> DP_UP_REQ_MSG_RDY);
+> >
+> > @@ -3880,6 +3880,9 @@ intel_dp_check_mst_status(struct intel_dp
+> > *intel_dp)
+> >
+> >  		if (!intel_dp_ack_sink_irq_esi(intel_dp, ack))
+> >  			drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
+> > +
+> > +		if (ack[1] & (DP_DOWN_REP_MSG_RDY |
+> > DP_UP_REQ_MSG_RDY))
+> > +			drm_dp_mst_hpd_irq_step2(&intel_dp->mst_mgr);
+> >  	}
+> >
+> >  	return link_ok;
+> > diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> > b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> > index ed9d374147b8..00c36fcc8afd 100644
+> > --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> > +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> > @@ -1332,12 +1332,15 @@ nv50_mstm_service(struct nouveau_drm *drm,
+> >  			break;
+> >  		}
+> >
+> > -		drm_dp_mst_hpd_irq(&mstm->mgr, esi, &handled);
+> > +		drm_dp_mst_hpd_irq_step1(&mstm->mgr, esi, &handled);
+> >  		if (!handled)
+> >  			break;
+> >
+> >  		rc =3D drm_dp_dpcd_write(aux, DP_SINK_COUNT_ESI + 1,
+> &esi[1],
+> >  				       3);
+> > +
+> > +		drm_dp_mst_hpd_irq_step2(&mstm->mgr);
+> > +
+> >  		if (rc !=3D 3) {
+> >  			ret =3D false;
+> >  			break;
+> > diff --git a/include/drm/display/drm_dp_mst_helper.h
+> > b/include/drm/display/drm_dp_mst_helper.h
+> > index 32c764fb9cb5..6c08ba765d5a 100644
+> > --- a/include/drm/display/drm_dp_mst_helper.h
+> > +++ b/include/drm/display/drm_dp_mst_helper.h
+> > @@ -815,8 +815,8 @@ void drm_dp_mst_topology_mgr_destroy(struct
+> > drm_dp_mst_topology_mgr *mgr);  bool drm_dp_read_mst_cap(struct
+> > drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE]);  int
+> > drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr
+> *mgr,
+> > bool mst_state);
+> >
+> > -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8
+> *esi,
+> > bool *handled);
+> > -
+> > +int drm_dp_mst_hpd_irq_step1(struct drm_dp_mst_topology_mgr *mgr,
+> > u8
+> > +*esi, bool *handled); void drm_dp_mst_hpd_irq_step2(struct
+> > +drm_dp_mst_topology_mgr *mgr);
+> >
+> >  int
+> >  drm_dp_mst_detect_port(struct drm_connector *connector,
+> > --
+> > 2.37.3
