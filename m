@@ -4,49 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FBD7C77B7F
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 May 2023 13:13:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BFFBC77B7A
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 May 2023 13:13:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E839D10E1B9;
-	Tue, 16 May 2023 13:13:52 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8CE410E343;
- Tue, 16 May 2023 10:34:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684233269; x=1715769269;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Q3xihOYSQDL7czm406p3wlVwChQlspeLAyw9yXtpvZk=;
- b=RGQQWYvsQz/4L73U1/O/72Sx7qxRe/IWdq4YPEgGq+JPVmZjqlUnneWY
- xLkB3gg6VBJLZbjqnWgmAe99Wx3m7vY613UA+8vSHhz2IYqm+9GpzqFZ+
- mfgcj0U/V7PtPlDZuBHw7D8BE0DbD1limcgwEhhRbvqyw1q/muJcW+yaY
- 4Jop9t6IJxdxSUaffzND9fz17SsHWFtRnDQIIoxdsBeSVdfoITX/aAOk2
- YnuR8duSsVE5jH1UNPmB6awABAuFkCOrTzDAKsJqcl8dGNcSBDscIiUDX
- idHxHsqAlZ3MHbElkRZGCpUaPhiJCmxpbCDJMQdC9t/AiY3aOEl75LUe9 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10711"; a="331803720"
-X-IronPort-AV: E=Sophos;i="5.99,278,1677571200"; d="scan'208";a="331803720"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2023 03:34:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10711"; a="701304605"
-X-IronPort-AV: E=Sophos;i="5.99,278,1677571200"; d="scan'208";a="701304605"
-Received: from khach-mobl.ger.corp.intel.com (HELO localhost) ([10.252.49.69])
- by orsmga002-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 May 2023 03:34:25 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Wayne Lin <Wayne.Lin@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v2] drm/dp_mst: Clear MSG_RDY flag before sending new
- message
-In-Reply-To: <20230427072850.100887-1-Wayne.Lin@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230427072850.100887-1-Wayne.Lin@amd.com>
-Date: Tue, 16 May 2023 13:34:22 +0300
-Message-ID: <87zg64h8ep.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD9C910E1D7;
+	Tue, 16 May 2023 13:13:53 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBF4910E20B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 May 2023 10:21:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1684232516;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=DdwZekQhQhJYfD71ineBvZDWMF1v7qroVT5L1UXxv4Y=;
+ b=BJLmKJH/+DqLPoaghhFc3uDuMNe1iWdl6Z5VnoOsIyjD7ypWzdGOFt/lYPDua3+5sc3G2Y
+ uGl4QbTUvj0zM3bIhaVLwwLKip7EZvNQdI3CA49SOjkDWsZF1EViw1qIqNcpUpEh2je6KS
+ aRAH03hFn/6QNuCRQ/Y+PmQmHn9s2es=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-558-o14FozocO9CKFZw9OBTjvw-1; Tue, 16 May 2023 06:21:55 -0400
+X-MC-Unique: o14FozocO9CKFZw9OBTjvw-1
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-3f420742d40so38001425e9.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 16 May 2023 03:21:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684232514; x=1686824514;
+ h=content-transfer-encoding:in-reply-to:subject:organization:from
+ :references:cc:to:content-language:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=DdwZekQhQhJYfD71ineBvZDWMF1v7qroVT5L1UXxv4Y=;
+ b=GsADCjeA4hbgl1C7NcpREOxEBlTYc9XwVKbjWE82T1N82hsvNLR4xum06jTpjudqre
+ RRFL/C89Z1TI4k5DfPbsVvnV9OOaTYvVlJikgGjTRzRbCPtMf+GySitHelPmsY5SmtcS
+ J0fzj8N2RqyvS4hh9fjHt1zPV7ueS93iWHTI/DalNPSlND7WiYpLrx75FtJwkLz+KcGr
+ A/BKk6uXmx+CtmznV+gBU/zcsoF1zsWO+NMhBR0RKD04qHd/eJG82oZc8QS+NPZDkZNl
+ 8pttlSwz4PoyVOZYEIQ/3lGxBKRNhMiPKU0vqF0fdOL/3WNFUYPvDNqbfDe9YELJf6Am
+ PLdA==
+X-Gm-Message-State: AC+VfDyDsXAp+gUVsoEJG1fasb5rH//2QMlrEp0Ee5YFcN7+oov9UxR3
+ ytMPan136HPoi+7FLm5H3IQSM5yRwtdoeePhbIM6pKsjvpxsNW0TiEXtv63Uo/MqjGOa9FSEXEl
+ O72o5pip5mE7M6sX8rP+lGvaU+Q==
+X-Received: by 2002:a5d:6ad2:0:b0:306:3b39:9a3d with SMTP id
+ u18-20020a5d6ad2000000b003063b399a3dmr28037451wrw.15.1684232513859; 
+ Tue, 16 May 2023 03:21:53 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ6bdJSovfEtFVKVvmRsoufWG6M0qCFHLXRoPnSmKuTb+/8PzxuUbfsqia5+hKdAyzixUpyepw==
+X-Received: by 2002:a5d:6ad2:0:b0:306:3b39:9a3d with SMTP id
+ u18-20020a5d6ad2000000b003063b399a3dmr28037403wrw.15.1684232513432; 
+ Tue, 16 May 2023 03:21:53 -0700 (PDT)
+Received: from ?IPV6:2003:cb:c74f:2500:1e3a:9ee0:5180:cc13?
+ (p200300cbc74f25001e3a9ee05180cc13.dip0.t-ipconnect.de.
+ [2003:cb:c74f:2500:1e3a:9ee0:5180:cc13])
+ by smtp.gmail.com with ESMTPSA id
+ t1-20020a5d5341000000b002ff2c39d072sm2092106wrv.104.2023.05.16.03.21.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 May 2023 03:21:52 -0700 (PDT)
+Message-ID: <b97e8c2a-b629-f597-d011-395071011f1b@redhat.com>
+Date: Tue, 16 May 2023 12:21:51 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Sean Christopherson <seanjc@google.com>,
+ Lorenzo Stoakes <lstoakes@gmail.com>
+References: <cover.1684097001.git.lstoakes@gmail.com>
+ <b61d5999a4fc6d50b7e073cc3c3efa8fe79bbd94.1684097002.git.lstoakes@gmail.com>
+ <ZGKC9fHoE+kDs0ar@google.com>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+Subject: Re: [PATCH v5 1/6] mm/gup: remove unused vmas parameter from
+ get_user_pages()
+In-Reply-To: <ZGKC9fHoE+kDs0ar@google.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 16 May 2023 13:13:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,225 +93,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: imre.deak@intel.com, stable@vger.kernel.org, jerry.zuo@amd.com,
- Wayne Lin <Wayne.Lin@amd.com>, harry.wentland@amd.com,
- ville.syrjala@linux.intel.com
+Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ amd-gfx@lists.freedesktop.org, "H . Peter Anvin" <hpa@zytor.com>,
+ David Airlie <airlied@gmail.com>, x86@kernel.org,
+ Matthew Wilcox <willy@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Ingo Molnar <mingo@redhat.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Arnd Bergmann <arnd@arndb.de>, John Hubbard <jhubbard@nvidia.com>,
+ Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@linutronix.de>,
+ linux-sgx@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ Christian Konig <christian.koenig@amd.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Paolo Bonzini <pbonzini@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Pavel Begunkov <asml.silence@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 27 Apr 2023, Wayne Lin <Wayne.Lin@amd.com> wrote:
-> [Why]
-> The sequence for collecting down_reply from source perspective should
-> be:
->
-> Request_n->repeat (get partial reply of Request_n->clear message ready
-> flag to ack DPRX that the message is received) till all partial
-> replies for Request_n are received->new Request_n+1.
->
-> Now there is chance that drm_dp_mst_hpd_irq() will fire new down
-> request in the tx queue when the down reply is incomplete. Source is
-> restricted to generate interveleaved message transactions so we should
-> avoid it.
->
-> Also, while assembling partial reply packets, reading out DPCD DOWN_REP
-> Sideband MSG buffer + clearing DOWN_REP_MSG_RDY flag should be
-> wrapped up as a complete operation for reading out a reply packet.
-> Kicking off a new request before clearing DOWN_REP_MSG_RDY flag might
-> be risky. e.g. If the reply of the new request has overwritten the
-> DPRX DOWN_REP Sideband MSG buffer before source writing one to clear
-> DOWN_REP_MSG_RDY flag, source then unintentionally flushes the reply
-> for the new request. Should handle the up request in the same way.
->
-> [How]
-> Separete drm_dp_mst_hpd_irq() into 2 steps. After acking the MST IRQ
-> event, driver calls drm_dp_mst_hpd_irq_step2() and might trigger
-> drm_dp_mst_kick_tx() only when there is no on going message transaction.
->
-> Changes since v1:
-> * Reworked on review comments received
-> -> Adjust the fix to let driver explicitly kick off new down request
-> when mst irq event is handled and acked
-> -> Adjust the commit message
->
-> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-> Cc: stable@vger.kernel.org
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++---
->  drivers/gpu/drm/display/drm_dp_mst_topology.c | 35 ++++++++++++++++---
->  drivers/gpu/drm/i915/display/intel_dp.c       |  5 ++-
->  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  5 ++-
->  include/drm/display/drm_dp_mst_helper.h       |  4 +--
->  5 files changed, 45 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 1ad67c2a697e..48bdcb2ee9b1 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3259,10 +3259,9 @@ static void dm_handle_mst_sideband_msg(struct amdgpu_dm_connector *aconnector)
->  		DRM_DEBUG_DRIVER("ESI %02x %02x %02x\n", esi[0], esi[1], esi[2]);
->  		/* handle HPD short pulse irq */
->  		if (aconnector->mst_mgr.mst_state)
-> -			drm_dp_mst_hpd_irq(
-> -				&aconnector->mst_mgr,
-> -				esi,
-> -				&new_irq_handled);
-> +			drm_dp_mst_hpd_irq_step1(&aconnector->mst_mgr,
-> +						 esi,
-> +						 &new_irq_handled);
->  
->  		if (new_irq_handled) {
->  			/* ACK at DPCD to notify down stream */
-> @@ -3281,6 +3280,7 @@ static void dm_handle_mst_sideband_msg(struct amdgpu_dm_connector *aconnector)
->  					break;
->  			}
->  
-> +			drm_dp_mst_hpd_irq_step2(&aconnector->mst_mgr);
->  			/* check if there is new irq to be handled */
->  			dret = drm_dp_dpcd_read(
->  				&aconnector->dm_dp_aux.aux,
-> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> index 70df29fe92db..2e0a38a6509c 100644
-> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> @@ -4045,7 +4045,7 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
->  }
->  
->  /**
-> - * drm_dp_mst_hpd_irq() - MST hotplug IRQ notify
-> + * drm_dp_mst_hpd_irq_step1() - MST hotplug IRQ notify
->   * @mgr: manager to notify irq for.
->   * @esi: 4 bytes from SINK_COUNT_ESI
->   * @handled: whether the hpd interrupt was consumed or not
-> @@ -4055,7 +4055,7 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_mst_topology_mgr *mgr)
->   * topology manager will process the sideband messages received as a result
->   * of this.
->   */
-> -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handled)
-> +int drm_dp_mst_hpd_irq_step1(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handled)
+On 15.05.23 21:07, Sean Christopherson wrote:
+> On Sun, May 14, 2023, Lorenzo Stoakes wrote:
+>> No invocation of get_user_pages() use the vmas parameter, so remove it.
+>>
+>> The GUP API is confusing and caveated. Recent changes have done much to
+>> improve that, however there is more we can do. Exporting vmas is a prime
+>> target as the caller has to be extremely careful to preclude their use
+>> after the mmap_lock has expired or otherwise be left with dangling
+>> pointers.
+>>
+>> Removing the vmas parameter focuses the GUP functions upon their primary
+>> purpose - pinning (and outputting) pages as well as performing the actions
+>> implied by the input flags.
+>>
+>> This is part of a patch series aiming to remove the vmas parameter
+>> altogether.
+>>
+>> Suggested-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+>> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>> Acked-by: David Hildenbrand <david@redhat.com>
+>> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+>> Acked-by: Christian Kï¿½nig <christian.koenig@amd.com> (for radeon parts)
+>> Acked-by: Jarkko Sakkinen <jarkko@kernel.org>
+>> Signed-off-by: Lorenzo Stoakes <lstoakes@gmail.com>
+>> ---
+>>   arch/x86/kernel/cpu/sgx/ioctl.c     | 2 +-
+>>   drivers/gpu/drm/radeon/radeon_ttm.c | 2 +-
+>>   drivers/misc/sgi-gru/grufault.c     | 2 +-
+>>   include/linux/mm.h                  | 3 +--
+>>   mm/gup.c                            | 9 +++------
+>>   mm/gup_test.c                       | 5 ++---
+>>   virt/kvm/kvm_main.c                 | 2 +-
+>>   7 files changed, 10 insertions(+), 15 deletions(-)
+> 
+> Acked-by: Sean Christopherson <seanjc@google.com> (KVM)
+> 
+>> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+>> index cb5c13eee193..eaa5bb8dbadc 100644
+>> --- a/virt/kvm/kvm_main.c
+>> +++ b/virt/kvm/kvm_main.c
+>> @@ -2477,7 +2477,7 @@ static inline int check_user_page_hwpoison(unsigned long addr)
+>>   {
+>>   	int rc, flags = FOLL_HWPOISON | FOLL_WRITE;
+>>   
+>> -	rc = get_user_pages(addr, 1, flags, NULL, NULL);
+>> +	rc = get_user_pages(addr, 1, flags, NULL);
+>>   	return rc == -EHWPOISON;
+> 
+> Unrelated to this patch, I think there's a pre-existing bug here.  If gup() returns
+> a valid page, KVM will leak the refcount and unintentionally pin the page.  That's
 
-If you're changing the signature of the function, I'd make esi "const u8
-*esi", and add a separate "u8 *ack" that you have to provide, where this
-function would |= the flags to ack. It would be useful at least in i915.
+When passing NULL as "pages" to get_user_pages(), 
+__get_user_pages_locked() won't set FOLL_GET. As FOLL_PIN is also not 
+set, we won't be messing with the mapcount of the page.
 
-As to naming, _step1 and _step2 are pretty vague.
+So even if get_user_pages() returns "1", we should be fine.
 
->  {
->  	int ret = 0;
->  	int sc;
-> @@ -4077,11 +4077,38 @@ int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handl
->  		*handled = true;
->  	}
->  
-> -	drm_dp_mst_kick_tx(mgr);
->  	return ret;
->  }
-> -EXPORT_SYMBOL(drm_dp_mst_hpd_irq);
-> +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_step1);
-> +
-> +/**
-> + * drm_dp_mst_hpd_irq_step2() - MST hotplug IRQ 2nd part handling
-> + * @mgr: manager to notify irq for.
-> + *
-> + * This should be called from the driver when mst irq event is handled
-> + * and acked. Note that new down request should only be sent when
-> + * previous message transaction is done. Source is not supposed to generate
-> + * interleaved message transactions.
-> + */
-> +void drm_dp_mst_hpd_irq_step2(struct drm_dp_mst_topology_mgr *mgr)
 
-_done, _finish, _complete?
-
-> +{
-> +	struct drm_dp_sideband_msg_tx *txmsg;
-> +	bool skip = false;
->  
-> +	mutex_lock(&mgr->qlock);
-> +	txmsg = list_first_entry_or_null(&mgr->tx_msg_downq,
-> +					 struct drm_dp_sideband_msg_tx, next);
-> +	/* If last transaction is not completed yet*/
-> +	if (!txmsg ||
-> +	    txmsg->state == DRM_DP_SIDEBAND_TX_START_SEND ||
-> +	    txmsg->state == DRM_DP_SIDEBAND_TX_SENT)
-> +		skip = true;
-> +	mutex_unlock(&mgr->qlock);
-> +
-> +	if (!skip)
-
-Please avoid negatives like this. You could have bool kick = true instead.
-
-> +		drm_dp_mst_kick_tx(mgr);
-> +}
-> +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_step2);
->  /**
->   * drm_dp_mst_detect_port() - get connection status for an MST port
->   * @connector: DRM connector for this port
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 75070eb07d4b..9a9a5aec9534 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -3803,7 +3803,7 @@ intel_dp_mst_hpd_irq(struct intel_dp *intel_dp, u8 *esi, u8 *ack)
->  {
->  	bool handled = false;
->  
-> -	drm_dp_mst_hpd_irq(&intel_dp->mst_mgr, esi, &handled);
-> +	drm_dp_mst_hpd_irq_step1(&intel_dp->mst_mgr, esi, &handled);
->  	if (handled)
->  		ack[1] |= esi[1] & (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
->  
-> @@ -3880,6 +3880,9 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
->  
->  		if (!intel_dp_ack_sink_irq_esi(intel_dp, ack))
->  			drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
-> +
-> +		if (ack[1] & (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY))
-> +			drm_dp_mst_hpd_irq_step2(&intel_dp->mst_mgr);
-
-I'm getting confused about the division of responsibilities between the
-two functions to be called, and the caller. Why does i915 do things
-differently from nouveau and amd wrt this?
-
->  	}
->  
->  	return link_ok;
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> index ed9d374147b8..00c36fcc8afd 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> @@ -1332,12 +1332,15 @@ nv50_mstm_service(struct nouveau_drm *drm,
->  			break;
->  		}
->  
-> -		drm_dp_mst_hpd_irq(&mstm->mgr, esi, &handled);
-> +		drm_dp_mst_hpd_irq_step1(&mstm->mgr, esi, &handled);
->  		if (!handled)
->  			break;
->  
->  		rc = drm_dp_dpcd_write(aux, DP_SINK_COUNT_ESI + 1, &esi[1],
->  				       3);
-> +
-> +		drm_dp_mst_hpd_irq_step2(&mstm->mgr);
-> +
-
-Don't you think the return value should be checked first?
-
->  		if (rc != 3) {
->  			ret = false;
->  			break;
-> diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-> index 32c764fb9cb5..6c08ba765d5a 100644
-> --- a/include/drm/display/drm_dp_mst_helper.h
-> +++ b/include/drm/display/drm_dp_mst_helper.h
-> @@ -815,8 +815,8 @@ void drm_dp_mst_topology_mgr_destroy(struct drm_dp_mst_topology_mgr *mgr);
->  bool drm_dp_read_mst_cap(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE]);
->  int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool mst_state);
->  
-> -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handled);
-> -
-> +int drm_dp_mst_hpd_irq_step1(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handled);
-> +void drm_dp_mst_hpd_irq_step2(struct drm_dp_mst_topology_mgr *mgr);
->  
->  int
->  drm_dp_mst_detect_port(struct drm_connector *connector,
+Or am I misunderstanding your concern? At least hva_to_pfn_slow() most 
+certainly didn't return "1" if we end up calling 
+check_user_page_hwpoison(), so nothing would have been pinned there as well.
 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+Thanks,
+
+David / dhildenb
+
