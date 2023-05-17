@@ -4,63 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56ECAC77B7F
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 May 2023 11:38:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C73AC77B7F
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 May 2023 11:38:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07EDA10E3EB;
-	Wed, 17 May 2023 11:38:29 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::600])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8585D10E011
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 May 2023 11:38:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FD8E10E011;
+	Wed, 17 May 2023 11:38:35 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2066.outbound.protection.outlook.com [40.107.244.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 143A110E011
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 May 2023 11:38:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NIBBgxEWQTAzu/oPn9w3xpReukxKjqTkoTr653Hv7JLqutol0ksGPim7QOOLpzvt2izjI4H030/lhx8VGMY1dwx5m3IyIbjRJJwCjaPAY9sv7mZIGknHLjUqkpOkbeGLpivOGrtGyFMmQ8SA2OIRTefyBMVBtFoUKCYEJmasBqsArv1eHnsiFWiN+T4pdBNxDe9CnpbS6hFWHOzX2lJbpTtlvvvzMPvbmTvEHc0j8wOPmyc8yhPS42GTvEi4VnHO+6/nw8L9Y8AhagU2qeWWXCWxkqdgxq8EOM0tkujRWGk0G8Rn9J0139We/ROFCCLeOYT8oe20yXW4/waUh2EvXg==
+ b=gu1bSRYrgjxm1xsUH0z5tfsW3ydAf+YI7s/Ots7kULjAgiSyRIr6eLJnvh9XJS/6hSL7t2WuHkuCMjfFCWNIJ/KHheQvfLS7b3wBY9aB/y4VR+0rY1udfSAs9mt/mvVz90rZkImlPWluTDIWsx3+RpaYewS4bmTBQJg/bxGXDGbyMku2cDyhSTumFBCc3o+4XcjtjajSl+/5cWQzhE2wK9Bg9tdFN42Ju4j8dgj7ZlkRKcD1Z+/7D68uGu0bjGS+F1F+P71iwYMPiq8kJliv/X+H/KADeAewAGu4/scBXgw7f7dm44hbIlnmB4pgiYJqR0W99He6NrA9OOwYRCPZ+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nb9hRzm4IzraOgNFOSjUTVtuYdHlPYHfDCiH5aLZ14E=;
- b=IrvyICzNMiRkf7mvQP7sSIJ5NnKvG/+FX0ezuyF+lh9jp17Scvj+buHB4fKDHROQWZrlWK6w5Yxw+PFqQ+0X7MV7WDjpvjVKG4Tr0BV/nZ4LtvBL6eDWan4UXj2V/80z7YnVRJDldkb1LXLeQvR9XD/mn3YNp1KBR0n/3nUqXqc2dq82l2/I9i08vYFGEHOfYoIH1iAEvwKcoO+tztkYLoSJulqixmK/hIa7E2aDOTnsR1k0+YYqYHxcCaa/wjmzOatQGxqjt0kszwjDRLXndw9UIDqS7QgcfBHtjNxVsaIk6eNySLbesH16cR6WfGpq+qgDy8j208awA1VAfOPjBg==
+ bh=z4iQJFxu/MYqM7VykkYYB3eV7+UUpfrj95am4awJda4=;
+ b=GIO02oKWf5TfStJhEon/2vywddGSyJyU+btAYChKH2x46XFS22zoE+ucSLIsu9SCbs0V+0IxPrLFVMZgVEZ/eTXb2CFzrmuBZQtIncqet8C0N1LGoHtZ7Ds2LerirB+Rrt+V4bZL6BuUPjL+JJd9ng5JCoekWoYJz5oXZHhj0GQghyYWAK7dysdWf/S/gnhrzeJ7w0cfk4qVsDVmALZvAAecayAvQK6g1hzHTbJV+49T0KQZP4fkJP/x3M25JFYrukhkChw8KmvOXSghzcuAHM/Igskx0vZ/WxgIhg2Krm0ZFGWcJ3t7nektkY6POEL3YlJF3jkChqS0L2+0TXjsRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nb9hRzm4IzraOgNFOSjUTVtuYdHlPYHfDCiH5aLZ14E=;
- b=FXd0AvwEICk4kFn+bQu8qMeAN5CvXoquWHZOMwhhPzx6oKYPFRh/m8nCp2c/M3P9V+dxB7zBDujc8YU7p9JwL9eBTozEFbTMHjWZYH8mxuF/7LJ3sQ7nC+IW8/I1JJ5gIdkZO5UngHXcXJ9x4kOTfRI9Z0Kwtq2T3lpFfMT5oTM=
-Received: from BN0PR04CA0066.namprd04.prod.outlook.com (2603:10b6:408:ea::11)
- by DM4PR12MB5769.namprd12.prod.outlook.com (2603:10b6:8:60::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6411.17; Wed, 17 May 2023 11:38:23 +0000
-Received: from BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ea:cafe::d1) by BN0PR04CA0066.outlook.office365.com
- (2603:10b6:408:ea::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.18 via Frontend
- Transport; Wed, 17 May 2023 11:38:22 +0000
+ bh=z4iQJFxu/MYqM7VykkYYB3eV7+UUpfrj95am4awJda4=;
+ b=p/d52I2N2T6JsQXJt3Dkbg2MFjDe2PoEn/08vZk8rnNVcCKb52/dmMqEmrr9IF+L6xLoxcri9Sz0xN5nuWxgmirTbz8mtTdqcGPv8gbSnK8AdhuYVJWNn8EgcI1LHaFEPM4NACATLvOdciBnujLU9t6czuv7YNiuQI2EhQGBR+w=
+Received: from MW4PR04CA0272.namprd04.prod.outlook.com (2603:10b6:303:89::7)
+ by BN9PR12MB5068.namprd12.prod.outlook.com (2603:10b6:408:135::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.33; Wed, 17 May
+ 2023 11:38:29 +0000
+Received: from CO1NAM11FT073.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:89:cafe::7c) by MW4PR04CA0272.outlook.office365.com
+ (2603:10b6:303:89::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.17 via Frontend
+ Transport; Wed, 17 May 2023 11:38:29 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT007.mail.protection.outlook.com (10.13.177.109) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT073.mail.protection.outlook.com (10.13.174.196) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6411.18 via Frontend Transport; Wed, 17 May 2023 11:38:22 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6411.17 via Frontend Transport; Wed, 17 May 2023 11:38:28 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 17 May
- 2023 06:38:20 -0500
+ 2023 06:38:28 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 17 May
+ 2023 04:38:27 -0700
 Received: from tom-HP.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Wed, 17 May 2023 06:38:15 -0500
+ Transport; Wed, 17 May 2023 06:38:22 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 02/18] drm/amd/display: Fix DMUB debugging print issue
-Date: Wed, 17 May 2023 19:37:07 +0800
-Message-ID: <20230517113723.1757259-3-chiahsuan.chung@amd.com>
+Subject: [PATCH 03/18] drm/amd/display: disable dcn315 pixel rate crb when
+ scaling
+Date: Wed, 17 May 2023 19:37:08 +0800
+Message-ID: <20230517113723.1757259-4-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230517113723.1757259-1-chiahsuan.chung@amd.com>
 References: <20230517113723.1757259-1-chiahsuan.chung@amd.com>
@@ -69,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT007:EE_|DM4PR12MB5769:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a3f9dfb-daff-4064-84a5-08db56cb3874
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT073:EE_|BN9PR12MB5068:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4b4a99b-9b0d-410f-ea25-08db56cb3c15
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Xg3gQs3Ru/V07CYVDDj+nXzvoO6hCEVp7pHGPJqstZv0BjpyjcwmHbIGnfidW1ZghvH707YDt0NcQgzQAAsZ418ja9I79ypXhfazlQyjjnHGzBmxDCfznxADlDj/baDWQ9aaP8pyKiYyw5E/ULmTvCB2WlXmRHK1k5V6vWo6kKwrh6oxC1/Bzq7ccFOM8FTy1R7XqwepQZhcU2Kyglttq2ZecxzDd6qfVnRgr0bkRcHS5ci8gqMg/OrdxFM+t4JBXppQK1Es8pNcezD013Ts7DS2pGruGQ1Pbyevq7rOhuGJAE0qb34xmoQfjKpD7VrMaNZ7OWlTo4R1XNRc8Tp9fl1Z9XDNLXOaNeAz+rerSjLyXaziNjzQqtXUKngBKjuCr5gyU7J1v+GOnHD9xJIMM3fzslwBI0zmkvAaa9lmrtfOGcnJRoEotcgUm1kS1ow8IXa/VHngugZD0xazOrY87HG7Qa+lnfIXSn/QtbEajUpvcofL+5rpkiIwOJGMHlV51QE7zQIKGJcWah5kt7//i344yT1ANK5uXw/eMN7g7478acevRE9t7WoUc9C9LpNQomzkvlvoZ9OzyYOLuppXh740aYoxiumvZH1LYJJZmzlNWuzsqkfcngoGMpX93cwBOpZ36LRKYhqiBnZlbZXjLLZldgWBWTeFzhgNq1pG8uqhrXYrmTq0+f1x/NFbjQbnQc76L4oL/NL9Ubf35neufFSDxKcyGPYLgPBqZLiKiATiRvNKRLZ7JH1q5mNPyKJ0033EWSihr7puc7Fn3nOWxQ==
+X-Microsoft-Antispam-Message-Info: 4tY7FiZmIT3C/17UbODsYPQlKPuHkG6z52gAqaTtkLTlAXD3ApVAhZVlPjhhCh8YqnKJ9ZqoODqnhyG44/iIGeX7Cp9xggmxg+H6SZOFHcFiFINjNit3n/xv/162afHfws60vfJjl+Otd7dcDjmR6V9UEU9sg8twWp0zZh/vI4DJm4VXMc1vulm/LSH0OH2GD4KfIa9DAasYjByY6ZpdLTON0bOf200BNzPidKd9nUyeyJafnCFY+qJBOBo8EbO7FYUUBCln7Eo1hkdR+CImx3u5OdeU1DbugJTP+yTF2pHO90SDqSej1OXPDTARZP5C1RbqSIYWY/iT5IR5ArGeWUTwYDp0Cft7DDmSsOcSkDtjbOGN/E4rnIFz72+d35xmOLxQZVqxFch/mNnmWpddEDk6zYSdsuTeif7icu9Sv3s0PDO4Hzhf2pZxXMdzn7u77V6uXs1Owt+s5+Y/rt9oSF6AlXC10iHh+Ik+0CKcunDUlA6FuSvfcyALwb1ZO03BX5Tv1W0FBruYHr0If0wYNLw1uGnhT9mtxu0RtXLpmH6vJEPO59pyf5XeOgVvYbm0YraPrSEgNXiL3TTdvaKm0yucd8ehTgPdYbqaKeGX+E53cGCeRztiIXxs9BF5+yeaw1NhDIhg+CZjY+B7/Nm14hH0d5j8qCqKMWTIsI0Vd2E1sNmxkcYPan+Om3KOsxiXBcE7uUOsioER/OUdis1Qq8T7i7uaCtxLNJj4NRpdBJ+LByZN1hdQV+ouGMzCaC1/wYdCajK7FDiBMv9/f6g91Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(396003)(39860400002)(136003)(346002)(451199021)(40470700004)(46966006)(36840700001)(82310400005)(1076003)(2906002)(186003)(40460700003)(86362001)(26005)(83380400001)(40480700001)(2616005)(336012)(426003)(36860700001)(36756003)(47076005)(81166007)(356005)(82740400003)(6666004)(41300700001)(7696005)(4326008)(6916009)(70586007)(70206006)(316002)(54906003)(478600001)(5660300002)(8676002)(8936002)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(376002)(346002)(136003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(5660300002)(8676002)(8936002)(336012)(426003)(47076005)(54906003)(36860700001)(83380400001)(82310400005)(81166007)(82740400003)(1076003)(26005)(356005)(2616005)(186003)(40460700003)(41300700001)(478600001)(70206006)(7696005)(6666004)(86362001)(40480700001)(70586007)(6916009)(4326008)(36756003)(316002)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2023 11:38:22.8254 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a3f9dfb-daff-4064-84a5-08db56cb3874
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2023 11:38:28.7288 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4b4a99b-9b0d-410f-ea25-08db56cb3c15
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT073.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5769
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5068
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,190 +104,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Tom Chung <chiahsuan.chung@amd.com>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- Cruise Hung <cruise.hung@amd.com>, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>, Tom
+ Chung <chiahsuan.chung@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Ariel Bernstein <eric.bernstein@amd.com>, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Cruise Hung <cruise.hung@amd.com>
+From: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
 
-[Why]
-The DMUB diagnostic data was not printed out correctly.
+The rough calculation does not account for scaling. Also, make 2
+segments the minimum allowed per surface to avoid potential 0 detile
+with mpc/odm combine on such outputs.
 
-[How]
-Print the DMUB diagnostic data line by line.
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Ariel Bernstein <eric.bernstein@amd.com>
 Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Cruise Hung <cruise.hung@amd.com>
+Signed-off-by: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c     |  12 +++
- drivers/gpu/drm/amd/display/dc/dc.h          |   2 +
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 103 +++++++------------
- 3 files changed, 49 insertions(+), 68 deletions(-)
+ .../gpu/drm/amd/display/dc/dcn315/dcn315_resource.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index f864fd3b6f29..32bc268a7138 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -4853,6 +4853,18 @@ void dc_process_dmub_dpia_hpd_int_enable(const struct dc *dc,
- 	DC_LOG_DEBUG("%s: hpd_int_enable(%d)\n", __func__, hpd_int_enable);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+index 42a0157fd813..c6bc2d603ab8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+@@ -1666,6 +1666,14 @@ static bool allow_pixel_rate_crb(struct dc *dc, struct dc_state *context)
+ 		if (!res_ctx->pipe_ctx[i].stream)
+ 			continue;
  
-+/**
-+ * dc_print_dmub_diagnostic_data - Print DMUB diagnostic data for debugging
-+ *
-+ * @dc: [in] dc structure
-+ *
-+ *
-+ */
-+void dc_print_dmub_diagnostic_data(const struct dc *dc)
-+{
-+	dc_dmub_srv_log_diagnostic_data(dc->ctx->dmub_srv);
-+}
-+
- /**
-  * dc_disable_accelerated_mode - disable accelerated mode
-  * @dc: dc structure
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 2dff1a5cf3b1..7fc087f85d39 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2236,6 +2236,8 @@ enum dc_status dc_process_dmub_set_mst_slots(const struct dc *dc,
- void dc_process_dmub_dpia_hpd_int_enable(const struct dc *dc,
- 				uint32_t hpd_int_enable);
- 
-+void dc_print_dmub_diagnostic_data(const struct dc *dc);
-+
- /* DSC Interfaces */
- #include "dc_dsc.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index 0319a30f2d5c..c52c40b16387 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -169,6 +169,7 @@ bool dc_dmub_srv_cmd_run_list(struct dc_dmub_srv *dc_dmub_srv, unsigned int coun
- 
- 		if (status != DMUB_STATUS_OK) {
- 			DC_LOG_DEBUG("No reply for DMUB command: status=%d\n", status);
-+			dc_dmub_srv_log_diagnostic_data(dc_dmub_srv);
++		/*Don't apply if scaling*/
++		if (res_ctx->pipe_ctx[i].stream->src.width != res_ctx->pipe_ctx[i].stream->dst.width ||
++				res_ctx->pipe_ctx[i].stream->src.height != res_ctx->pipe_ctx[i].stream->dst.height ||
++				(res_ctx->pipe_ctx[i].top_pipe->plane_state && (res_ctx->pipe_ctx[i].top_pipe->plane_state->src_rect.width
++														!= res_ctx->pipe_ctx[i].top_pipe->plane_state->dst_rect.width ||
++					res_ctx->pipe_ctx[i].top_pipe->plane_state->src_rect.height
++														!= res_ctx->pipe_ctx[i].top_pipe->plane_state->dst_rect.height)))
++			return false;
+ 		/*Don't apply if MPO to avoid transition issues*/
+ 		if (res_ctx->pipe_ctx[i].top_pipe && res_ctx->pipe_ctx[i].top_pipe->plane_state != res_ctx->pipe_ctx[i].plane_state)
  			return false;
- 		}
- 
-@@ -797,74 +798,40 @@ void dc_dmub_srv_log_diagnostic_data(struct dc_dmub_srv *dc_dmub_srv)
- 		return;
- 	}
- 
--	DC_LOG_DEBUG(
--		"DMCUB STATE\n"
--		"    dmcub_version      : %08x\n"
--		"    scratch  [0]       : %08x\n"
--		"    scratch  [1]       : %08x\n"
--		"    scratch  [2]       : %08x\n"
--		"    scratch  [3]       : %08x\n"
--		"    scratch  [4]       : %08x\n"
--		"    scratch  [5]       : %08x\n"
--		"    scratch  [6]       : %08x\n"
--		"    scratch  [7]       : %08x\n"
--		"    scratch  [8]       : %08x\n"
--		"    scratch  [9]       : %08x\n"
--		"    scratch [10]       : %08x\n"
--		"    scratch [11]       : %08x\n"
--		"    scratch [12]       : %08x\n"
--		"    scratch [13]       : %08x\n"
--		"    scratch [14]       : %08x\n"
--		"    scratch [15]       : %08x\n"
--		"    pc                 : %08x\n"
--		"    unk_fault_addr     : %08x\n"
--		"    inst_fault_addr    : %08x\n"
--		"    data_fault_addr    : %08x\n"
--		"    inbox1_rptr        : %08x\n"
--		"    inbox1_wptr        : %08x\n"
--		"    inbox1_size        : %08x\n"
--		"    inbox0_rptr        : %08x\n"
--		"    inbox0_wptr        : %08x\n"
--		"    inbox0_size        : %08x\n"
--		"    is_enabled         : %d\n"
--		"    is_soft_reset      : %d\n"
--		"    is_secure_reset    : %d\n"
--		"    is_traceport_en    : %d\n"
--		"    is_cw0_en          : %d\n"
--		"    is_cw6_en          : %d\n",
--		diag_data.dmcub_version,
--		diag_data.scratch[0],
--		diag_data.scratch[1],
--		diag_data.scratch[2],
--		diag_data.scratch[3],
--		diag_data.scratch[4],
--		diag_data.scratch[5],
--		diag_data.scratch[6],
--		diag_data.scratch[7],
--		diag_data.scratch[8],
--		diag_data.scratch[9],
--		diag_data.scratch[10],
--		diag_data.scratch[11],
--		diag_data.scratch[12],
--		diag_data.scratch[13],
--		diag_data.scratch[14],
--		diag_data.scratch[15],
--		diag_data.pc,
--		diag_data.undefined_address_fault_addr,
--		diag_data.inst_fetch_fault_addr,
--		diag_data.data_write_fault_addr,
--		diag_data.inbox1_rptr,
--		diag_data.inbox1_wptr,
--		diag_data.inbox1_size,
--		diag_data.inbox0_rptr,
--		diag_data.inbox0_wptr,
--		diag_data.inbox0_size,
--		diag_data.is_dmcub_enabled,
--		diag_data.is_dmcub_soft_reset,
--		diag_data.is_dmcub_secure_reset,
--		diag_data.is_traceport_en,
--		diag_data.is_cw0_enabled,
--		diag_data.is_cw6_enabled);
-+	DC_LOG_DEBUG("DMCUB STATE:");
-+	DC_LOG_DEBUG("    dmcub_version      : %08x", diag_data.dmcub_version);
-+	DC_LOG_DEBUG("    scratch  [0]       : %08x", diag_data.scratch[0]);
-+	DC_LOG_DEBUG("    scratch  [1]       : %08x", diag_data.scratch[1]);
-+	DC_LOG_DEBUG("    scratch  [2]       : %08x", diag_data.scratch[2]);
-+	DC_LOG_DEBUG("    scratch  [3]       : %08x", diag_data.scratch[3]);
-+	DC_LOG_DEBUG("    scratch  [4]       : %08x", diag_data.scratch[4]);
-+	DC_LOG_DEBUG("    scratch  [5]       : %08x", diag_data.scratch[5]);
-+	DC_LOG_DEBUG("    scratch  [6]       : %08x", diag_data.scratch[6]);
-+	DC_LOG_DEBUG("    scratch  [7]       : %08x", diag_data.scratch[7]);
-+	DC_LOG_DEBUG("    scratch  [8]       : %08x", diag_data.scratch[8]);
-+	DC_LOG_DEBUG("    scratch  [9]       : %08x", diag_data.scratch[9]);
-+	DC_LOG_DEBUG("    scratch [10]       : %08x", diag_data.scratch[10]);
-+	DC_LOG_DEBUG("    scratch [11]       : %08x", diag_data.scratch[11]);
-+	DC_LOG_DEBUG("    scratch [12]       : %08x", diag_data.scratch[12]);
-+	DC_LOG_DEBUG("    scratch [13]       : %08x", diag_data.scratch[13]);
-+	DC_LOG_DEBUG("    scratch [14]       : %08x", diag_data.scratch[14]);
-+	DC_LOG_DEBUG("    scratch [15]       : %08x", diag_data.scratch[15]);
-+	DC_LOG_DEBUG("    pc                 : %08x", diag_data.pc);
-+	DC_LOG_DEBUG("    unk_fault_addr     : %08x", diag_data.undefined_address_fault_addr);
-+	DC_LOG_DEBUG("    inst_fault_addr    : %08x", diag_data.inst_fetch_fault_addr);
-+	DC_LOG_DEBUG("    data_fault_addr    : %08x", diag_data.data_write_fault_addr);
-+	DC_LOG_DEBUG("    inbox1_rptr        : %08x", diag_data.inbox1_rptr);
-+	DC_LOG_DEBUG("    inbox1_wptr        : %08x", diag_data.inbox1_wptr);
-+	DC_LOG_DEBUG("    inbox1_size        : %08x", diag_data.inbox1_size);
-+	DC_LOG_DEBUG("    inbox0_rptr        : %08x", diag_data.inbox0_rptr);
-+	DC_LOG_DEBUG("    inbox0_wptr        : %08x", diag_data.inbox0_wptr);
-+	DC_LOG_DEBUG("    inbox0_size        : %08x", diag_data.inbox0_size);
-+	DC_LOG_DEBUG("    is_enabled         : %d", diag_data.is_dmcub_enabled);
-+	DC_LOG_DEBUG("    is_soft_reset      : %d", diag_data.is_dmcub_soft_reset);
-+	DC_LOG_DEBUG("    is_secure_reset    : %d", diag_data.is_dmcub_secure_reset);
-+	DC_LOG_DEBUG("    is_traceport_en    : %d", diag_data.is_traceport_en);
-+	DC_LOG_DEBUG("    is_cw0_en          : %d", diag_data.is_cw0_enabled);
-+	DC_LOG_DEBUG("    is_cw6_en          : %d", diag_data.is_cw6_enabled);
- }
- 
- static bool dc_can_pipe_disable_cursor(struct pipe_ctx *pipe_ctx)
+@@ -1715,10 +1723,15 @@ static int dcn315_populate_dml_pipes_from_context(
+ 			/* Ceil to crb segment size */
+ 			int approx_det_segs_required_for_pstate = dcn_get_approx_det_segs_required_for_pstate(
+ 					&context->bw_ctx.dml.soc, timing->pix_clk_100hz, bpp, DCN3_15_CRB_SEGMENT_SIZE_KB);
++
+ 			if (approx_det_segs_required_for_pstate <= 2 * DCN3_15_MAX_DET_SEGS) {
+ 				bool split_required = approx_det_segs_required_for_pstate > DCN3_15_MAX_DET_SEGS;
+ 				split_required = split_required || timing->pix_clk_100hz >= dcn_get_max_non_odm_pix_rate_100hz(&dc->dml.soc);
+ 				split_required = split_required || (pipe->plane_state && pipe->plane_state->src_rect.width > 5120);
++
++				/* Minimum 2 segments to allow mpc/odm combine if its used later */
++				if (approx_det_segs_required_for_pstate < 2)
++					approx_det_segs_required_for_pstate = 2;
+ 				if (split_required)
+ 					approx_det_segs_required_for_pstate += approx_det_segs_required_for_pstate % 2;
+ 				pipes[pipe_cnt].pipe.src.det_size_override = approx_det_segs_required_for_pstate;
 -- 
 2.25.1
 
