@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E16BEC77B7A
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 May 2023 15:17:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0B09C77B75
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 May 2023 15:57:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A05710E440;
-	Wed, 17 May 2023 15:17:03 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2047.outbound.protection.outlook.com [40.107.243.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1539E10E440
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 May 2023 15:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 401A110E44B;
+	Wed, 17 May 2023 15:57:24 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::600])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A0DC10E44B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 May 2023 15:57:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=imY3TUYbxnB+Ak7JT+qsyuDH/E4610iu4eESG7Lk6KJ7sMN3e2TgcKc05QrGT4pQ/MvJgeXDbzh9wFOB0ZZFNpKOD0Wd8XgUEBp4q8ZizaKU56qKSBxx+PCgHnxZUBc+Z7DEb/ByGnOj57AVqT2oDzJ/k/e+UPqLHyt40v6u+aqK0IE1bWr0yD5+RQVwU/SdKDA8aRFLLSOmr+VDIxMgg2uNnxMJMTy06HBqdBiN0gctVMPpOiKkV6+zWNXFlj8si5VfnCYQh4udQT6R/I76VJ85E0nwv0v60OtRm58FyoqXULhkHX60/hIB4CGTMcRMlxPmHjfy5kVS5swzRwp0Sg==
+ b=PdDV5ASh6PR8tpxuIEneLZTynQQQhexoCQawCnuOdVrhme8JfiA0F2okKWrTLfGTgEgnCsB0kLepf9Xssu7pCwmTQe//LgRwYDsi/J5r3TZXPugBGvPRUTdjiLVv5o5KwNfS9OaillF3yOKzAwjouOEjy9wGM94iikBmmWfaiFIyNRAMdHsEbTjmxrO1OSf1UrOAjiZLKORErglsLqtHCsUXBCbLJnMIUcg/1ToN9q3qlbw1Cc8k+z3sYDgN2D/M1UHvx6Cd0ERolO9o4vrTncLDRhuvYZ7Jz+qAOnX7ybrHhq4GeClyqrpE/yIMPVq+5Jl3fU0M+hYS7goSr1UdzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XpAhapyZG35OfYlDQiXrCwg40hmo4aPhFXWQj1IanEY=;
- b=RIkpu5ARFipian0f0pzX6g6Y2bizx91f5RJLWK5uB5ng6cx4dvUGNAp9pBsaOGuDditLA0qcw2wTSN/lg39Z1GA1qx36CQimoQxaCZQDiM8/vigAF/1Q80tkKCUZiPy3lzrT23ThmMBuHhPxpiIa5U5r3Fo0ysh5IBKrfU4dy3ZkG8nBN3mzMdqJxxzNv1KyQ9RXW7bvcQnnAGf7qk/VFAlm8r4r304BW4XH5RO/Gntx5kebbONtLBdV3x9dHZ6KPdX4D0qfSTzD7wubrzHgsl32TzHzZrjrM9WPgoykK47esQsY+BhYOEXWZOWkj4kzWWR72+3yae7GDhzuicKNLw==
+ bh=ottBNw4vmraF8TAt4bhF2fBVbbY0jFnX6Yu8/fmx9JU=;
+ b=NKk51j/cmaloJS64xGGxpzOy61Leq/cBGof8MGEi5yeTiEPDEUzr1nDN51B57Thvb0CcfSiwNLAOez6q6OnuQPaMUkjvwYDmI6IN3IO0UxfJh9KQcvFaTlW7PV6NC9Zx0du7itobRrOG23iiE6JNhGheJayfeCl2RHduZTjyuLw/bCKyVPZXrHuEt1woBtx1fJPH1fPPbM6tCoQtommppRvhYjfnHWptvRCFlCEOLUuv3CxD7jVM0WrzbNg2efPhj8AbWSESIvbkhbYK8q67FmI2GDUlMixeLqqSW4XoYoqnO5MOpJ+aHUzh2044hehuWZRdRtsd4b9Wq1nwynL+bg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XpAhapyZG35OfYlDQiXrCwg40hmo4aPhFXWQj1IanEY=;
- b=1VTmQCnvcCTCWpmQ+Q3WnlN7LvaCmkgk71XN35+pQJXmyB/QZTNx2+8JwZX2YgbkggHxM+IzsDsgatZOsbIbdoJqPnbY7flBC6XxUy7ivU9NKouYRg8MoYOA5J5gGOV8nExEn8Q2sTQvOb9FnXS5bpM5UVAY5GmyWW/wYZYrzKk=
-Received: from BN8PR04CA0025.namprd04.prod.outlook.com (2603:10b6:408:70::38)
- by IA1PR12MB6553.namprd12.prod.outlook.com (2603:10b6:208:3a3::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.17; Wed, 17 May
- 2023 15:16:58 +0000
-Received: from BN8NAM11FT008.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:70:cafe::dd) by BN8PR04CA0025.outlook.office365.com
- (2603:10b6:408:70::38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.33 via Frontend
- Transport; Wed, 17 May 2023 15:16:58 +0000
+ bh=ottBNw4vmraF8TAt4bhF2fBVbbY0jFnX6Yu8/fmx9JU=;
+ b=yGW5edZuwrSoJVYWYQ8AsOOwUogLJN5RmobE4stYei4q3H8nbmvgcoISw9cBuWcX0mpgPhXruxs67Tx/G4FsI3D/cq3utreHT0wLQ0O0Zv9QnzQgRFn4gTiWbomLPBwN8yasEPwpvmJvitZBjlnDWV1OwXWDYp69lWKpgW5NnWQ=
+Received: from BN9P222CA0012.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::17)
+ by DS7PR12MB6312.namprd12.prod.outlook.com (2603:10b6:8:93::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6411.17; Wed, 17 May 2023 15:57:17 +0000
+Received: from BN8NAM11FT107.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10c:cafe::ab) by BN9P222CA0012.outlook.office365.com
+ (2603:10b6:408:10c::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.17 via Frontend
+ Transport; Wed, 17 May 2023 15:57:17 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +46,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT008.mail.protection.outlook.com (10.13.177.95) with Microsoft SMTP
+ BN8NAM11FT107.mail.protection.outlook.com (10.13.176.149) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6411.18 via Frontend Transport; Wed, 17 May 2023 15:16:58 +0000
+ 15.20.6411.18 via Frontend Transport; Wed, 17 May 2023 15:57:16 +0000
 Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 17 May
- 2023 10:16:54 -0500
+ 2023 10:57:10 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amd/amdgpu: Fix errors & warnings in amdgpu_vcn.c
-Date: Wed, 17 May 2023 20:43:46 +0530
-Message-ID: <20230517151346.2357528-1-srinivasan.shanmugam@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: Fix errors & warnings in amdgpu _uvd, _vce.c
+Date: Wed, 17 May 2023 21:26:42 +0530
+Message-ID: <20230517155642.2393980-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
@@ -67,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT008:EE_|IA1PR12MB6553:EE_
-X-MS-Office365-Filtering-Correlation-Id: 423c73dd-982e-48e2-eb07-08db56e9c1c3
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT107:EE_|DS7PR12MB6312:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2321951-323b-40aa-4ac2-08db56ef6382
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: f4EIl293W+VEh0+M4tK1BvKo6uEkVLMew+F4JGIo5y9gHA2JWUpEndWBtRq0aGlk0opj/Devh3MU00vXwKPCEr+kIdF3NQycfkcCLODdh6UfXE26nNbCD8XxQ0yIxz+VCzc2C7THHwQ4LWLxyglJc2VnM6xJlzXoK4MHIb+Ydpg9ExD0/JMwd4WASBN5vJ2UxSHydQD9Uwg+I8Vr9kZ1ohMwf7hJU9q3sbQf8TUBQo2Nnu9IPYzcogi0yFNK33C8SVqrvOkgy0CUmyb3aeas3r6oqU+SnYIOhEbcrnknMlqDjWxGictP4WyRP8Wm9bsUYkOtIzUc8A8g5nC0Zm9xTJK47Mr5u8yZCcryuSZVM02RO9pJWzLsVPnDo1UTXrpoYwftbNhqy0QT5KCpu9HaEiwFiuzNIfQFsfZvcyqwd45Ium/usutff5RMTPeECBKivbCN6v2Azf1KS4+VEetkiDj7XHIBy+RthX+CznYDtMKnfD7ehLfMpAR4G6D6zOVO1+5nIXEHgasV8+U8je/Q06qUJQjramHKygQPXwIkGZ2VieOSeB+V8c8Va19KdAqx4JDA0pXV9ilIkObQv8cH3xUFaBJ9jYnbn9k1jMnlv0aJsWRI2zbBEIStW6vADZ2MeQoMU2ts1YuM3EuP4fNLtyb3vroQXeDObSBgX9sQoGd1INIABckbo62ok8aY4W+0OunUawLN/t7S1A034ohx6oksb1oZ4Acbnp10vab/wiUJ5n6Z+n5uWSX063BsyukniO390OCGFNqsKVSDtMX7sg==
+X-Microsoft-Antispam-Message-Info: bZ2Cs8FHYPsCzZ3Dz0lNU+EsOWUDR9/x2+vclQ1QzMYyU2JKsUfJWVx8b3Rc2PrliQyPc0ibVGbPbRnShMNg7gKTeuWnLLKCPK0P42i60+iPhLUcLgjtR9iNOsTauDK9lL7ra70y0S2NmHuubGWHe6uNqycCRrU5U3lHS7iDOt8xoH7f8MjOAnsWc4YZ3TVDEwJy0+KM0BTu2C3Ogi4F3ZtKacRBjPs/dDQPVWjcikU0vE3zL4Ggvt7WshGhRX9XhNEfP2e8szG8GAoC9ceGN/W7+FbhDfrVrCc6tsPhL4nVoJYObXmzPG+OU+KSKHP9HuP560LcCmdo5B8VDuZyuLkIi08Dek0p9oCH4E4a4ShBxZdtMSiPQH26EKCnwNh3YafcpJHGHMs8A+d9zYxZ/3q7ZVLUhB1KcHKWximm4IjbX2UZqLWgN5WE3EfnnzF3fjUNMOnkaTmqZGStr0Xlr6xSMXdFG57cDuc3grwSJZKgoxGNJg3EpvS0gJ6tJKT9ynaD4D4w2eI7F00Ss28QdPaJ0XHtYaIyQDCYKSAfnKTu52+4K1C7mAH7vOCLo4JrBbtOg7kEyH6tKYMOftmbC6KIyAemcT4gqjbAtNW217BnrEaP/NmCiXsuaP1A+hbPdZLsfXqvhegLQrT8U5NOGFarh8AQVPcdHnQ96qHLqliiowb/J4wRvuH13kDNe+y7MKVgaZ5C0MDXOyDfS+v69wog+56Y1VtrP7+GdjZ7W9nheIwDfGKNbfBQyiF2jxuTaxkELefNCBTyS6Xz17gMYQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(376002)(136003)(396003)(346002)(451199021)(40470700004)(46966006)(36840700001)(40460700003)(41300700001)(7696005)(6666004)(82310400005)(86362001)(2616005)(66574015)(47076005)(336012)(83380400001)(426003)(82740400003)(44832011)(36756003)(186003)(26005)(1076003)(16526019)(2906002)(356005)(36860700001)(81166007)(40480700001)(5660300002)(8676002)(8936002)(54906003)(110136005)(70206006)(70586007)(4326008)(6636002)(316002)(478600001)(36900700001);
+ SFS:(13230028)(4636009)(39860400002)(136003)(376002)(396003)(346002)(451199021)(36840700001)(40470700004)(46966006)(36860700001)(83380400001)(40460700003)(356005)(82740400003)(81166007)(41300700001)(8676002)(5660300002)(30864003)(8936002)(36756003)(6636002)(86362001)(316002)(4326008)(40480700001)(82310400005)(70206006)(70586007)(2906002)(336012)(66574015)(426003)(47076005)(16526019)(26005)(186003)(1076003)(44832011)(478600001)(7696005)(2616005)(6666004)(110136005)(54906003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2023 15:16:58.0799 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 423c73dd-982e-48e2-eb07-08db56e9c1c3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2023 15:57:16.9244 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2321951-323b-40aa-4ac2-08db56ef6382
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT008.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT107.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6553
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6312
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,181 +104,495 @@ Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix below checkpatch insisted error & warnings:
+Fix below checkpatch errors & warnings:
 
-ERROR: space required before the open brace '{'
-WARNING: braces {} are not necessary for any arm of this statement
-+       if ((type == VCN_ENCODE_RING) && (vcn_config & VCN_BLOCK_ENCODE_DISABLE_MASK)) {
-[...]
-+       } else if ((type == VCN_DECODE_RING) && (vcn_config & VCN_BLOCK_DECODE_DISABLE_MASK)) {
-[...]
-+       } else if ((type == VCN_UNIFIED_RING) && (vcn_config & VCN_BLOCK_QUEUE_DISABLE_MASK)) {
-[...]
-ERROR: code indent should use tabs where possible
+In amdgpu_uvd.c:
+
 WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
-WARNING: braces {} are not necessary for single statement blocks
-+               for (i = 0; i < adev->vcn.num_enc_rings; ++i) {
-+                       fence[j] += amdgpu_fence_count_emitted(&adev->vcn.inst[j].ring_enc[i]);
-+
-ERROR: space required before the open parenthesis '('
+WARNING: Prefer 'unsigned int *' to bare use of 'unsigned *'
 WARNING: Missing a blank line after declarations
-WARNING: please, no spaces at the start of a line
-WARNING: Symbolic permissions 'S_IRUGO' are not preferred. Consider using octal permissions '0444'.
+WARNING: %Lx is non-standard C, use %llx
+ERROR: space required before the open parenthesis '('
+ERROR: space required before the open brace '{'
+WARNING: %LX is non-standard C, use %llX
+WARNING: Block comments use * on subsequent lines
++/* multiple fence commands without any stream commands in between can
++   crash the vcpu so just try to emmit a dummy create/destroy msg to
+
+WARNING: Block comments use a trailing */ on a separate line
++   avoid this */
+WARNING: braces {} are not necessary for single statement blocks
++               for (j = 0; j < adev->uvd.num_enc_rings; ++j) {
++                       fences += amdgpu_fence_count_emitted(&adev->uvd.inst[i].ring_enc[j]);
++               }
+
+In amdgpu_vce.c:
+
+WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
+WARNING: Missing a blank line after declarations
+WARNING: %Lx is non-standard C, use %llx
+WARNING: Possible repeated word: 'we'
+ERROR: space required before the open parenthesis '('
 
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Christian König <christian.koenig@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 35 ++++++++++++-------------
- 1 file changed, 17 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 83 +++++++++++++------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 39 ++++++------
+ 2 files changed, 63 insertions(+), 59 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 06ec2dc55857..c088111c2321 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -169,7 +169,7 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
- 	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP)
- 		bo_size += AMDGPU_GPU_PAGE_ALIGN(le32_to_cpu(hdr->ucode_size_bytes) + 8);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+index 6887109abb13..b7441654e6fa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -96,16 +96,16 @@
+  */
+ struct amdgpu_uvd_cs_ctx {
+ 	struct amdgpu_cs_parser *parser;
+-	unsigned reg, count;
+-	unsigned data0, data1;
+-	unsigned idx;
++	unsigned int reg, count;
++	unsigned int data0, data1;
++	unsigned int idx;
+ 	struct amdgpu_ib *ib;
  
--	if (adev->ip_versions[UVD_HWIP][0] >= IP_VERSION(4, 0, 0)){
-+	if (adev->ip_versions[UVD_HWIP][0] >= IP_VERSION(4, 0, 0)) {
- 		fw_shared_size = AMDGPU_GPU_PAGE_ALIGN(sizeof(struct amdgpu_vcn4_fw_shared));
- 		log_offset = offsetof(struct amdgpu_vcn4_fw_shared, fw_log);
- 	} else {
-@@ -276,20 +276,19 @@ bool amdgpu_vcn_is_disabled_vcn(struct amdgpu_device *adev, enum vcn_ring_type t
- 	bool ret = false;
- 	int vcn_config = adev->vcn.vcn_config[vcn_instance];
+ 	/* does the IB has a msg command */
+ 	bool has_msg_cmd;
  
--	if ((type == VCN_ENCODE_RING) && (vcn_config & VCN_BLOCK_ENCODE_DISABLE_MASK)) {
-+	if ((type == VCN_ENCODE_RING) && (vcn_config & VCN_BLOCK_ENCODE_DISABLE_MASK))
- 		ret = true;
--	} else if ((type == VCN_DECODE_RING) && (vcn_config & VCN_BLOCK_DECODE_DISABLE_MASK)) {
-+	else if ((type == VCN_DECODE_RING) && (vcn_config & VCN_BLOCK_DECODE_DISABLE_MASK))
- 		ret = true;
--	} else if ((type == VCN_UNIFIED_RING) && (vcn_config & VCN_BLOCK_QUEUE_DISABLE_MASK)) {
-+	else if ((type == VCN_UNIFIED_RING) && (vcn_config & VCN_BLOCK_QUEUE_DISABLE_MASK))
- 		ret = true;
--	}
+ 	/* minimum buffer sizes */
+-	unsigned *buf_sizes;
++	unsigned int *buf_sizes;
+ };
  
- 	return ret;
- }
+ #ifdef CONFIG_DRM_AMDGPU_SI
+@@ -186,7 +186,7 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
+ 	unsigned long bo_size;
+ 	const char *fw_name;
+ 	const struct common_firmware_header *hdr;
+-	unsigned family_id;
++	unsigned int family_id;
+ 	int i, j, r;
  
- int amdgpu_vcn_suspend(struct amdgpu_device *adev)
+ 	INIT_DELAYED_WORK(&adev->uvd.idle_work, amdgpu_uvd_idle_work_handler);
+@@ -275,7 +275,7 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
+ 	family_id = le32_to_cpu(hdr->ucode_version) & 0xff;
+ 
+ 	if (adev->asic_type < CHIP_VEGA20) {
+-		unsigned version_major, version_minor;
++		unsigned int version_major, version_minor;
+ 
+ 		version_major = (le32_to_cpu(hdr->ucode_version) >> 24) & 0xff;
+ 		version_minor = (le32_to_cpu(hdr->ucode_version) >> 8) & 0xff;
+@@ -420,7 +420,7 @@ int amdgpu_uvd_entity_init(struct amdgpu_device *adev)
+ 
+ int amdgpu_uvd_suspend(struct amdgpu_device *adev)
+ {
+-	unsigned size;
++	unsigned int size;
+ 	void *ptr;
+ 	int i, j, idx;
+ 	bool in_ras_intr = amdgpu_ras_intr_triggered();
+@@ -469,7 +469,7 @@ int amdgpu_uvd_suspend(struct amdgpu_device *adev)
+ 
+ int amdgpu_uvd_resume(struct amdgpu_device *adev)
  {
 -	unsigned size;
 +	unsigned int size;
  	void *ptr;
  	int i, idx;
  
-@@ -318,7 +317,7 @@ int amdgpu_vcn_suspend(struct amdgpu_device *adev)
- 
- int amdgpu_vcn_resume(struct amdgpu_device *adev)
- {
--	unsigned size;
-+	unsigned int size;
- 	void *ptr;
- 	int i, idx;
- 
-@@ -340,7 +339,7 @@ int amdgpu_vcn_resume(struct amdgpu_device *adev)
- 			adev->vcn.inst[i].saved_bo = NULL;
+@@ -491,7 +491,7 @@ int amdgpu_uvd_resume(struct amdgpu_device *adev)
+ 			adev->uvd.inst[i].saved_bo = NULL;
  		} else {
  			const struct common_firmware_header *hdr;
 -			unsigned offset;
 +			unsigned int offset;
  
- 			hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
+ 			hdr = (const struct common_firmware_header *)adev->uvd.fw->data;
  			if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
-@@ -371,9 +370,8 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
- 		if (adev->vcn.harvest_config & (1 << j))
- 			continue;
- 
--		for (i = 0; i < adev->vcn.num_enc_rings; ++i) {
-+		for (i = 0; i < adev->vcn.num_enc_rings; ++i)
- 			fence[j] += amdgpu_fence_count_emitted(&adev->vcn.inst[j].ring_enc[i]);
--		}
- 
- 		if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)	{
- 			struct dpg_pause_state new_state;
-@@ -460,7 +458,7 @@ int amdgpu_vcn_dec_ring_test_ring(struct amdgpu_ring *ring)
+@@ -542,6 +542,7 @@ void amdgpu_uvd_free_handles(struct amdgpu_device *adev, struct drm_file *filp)
+ static void amdgpu_uvd_force_into_uvd_segment(struct amdgpu_bo *abo)
  {
- 	struct amdgpu_device *adev = ring->adev;
- 	uint32_t tmp = 0;
+ 	int i;
++
+ 	for (i = 0; i < abo->placement.num_placement; ++i) {
+ 		abo->placements[i].fpfn = 0 >> PAGE_SHIFT;
+ 		abo->placements[i].lpfn = (256 * 1024 * 1024) >> PAGE_SHIFT;
+@@ -579,7 +580,7 @@ static int amdgpu_uvd_cs_pass1(struct amdgpu_uvd_cs_ctx *ctx)
+ 
+ 	r = amdgpu_cs_find_mapping(ctx->parser, addr, &bo, &mapping);
+ 	if (r) {
+-		DRM_ERROR("Can't find BO for addr 0x%08Lx\n", addr);
++		DRM_ERROR("Can't find BO for addr 0x%08llx\n", addr);
+ 		return r;
+ 	}
+ 
+@@ -589,6 +590,7 @@ static int amdgpu_uvd_cs_pass1(struct amdgpu_uvd_cs_ctx *ctx)
+ 		if (cmd == 0x0 || cmd == 0x3) {
+ 			/* yes, force it into VRAM */
+ 			uint32_t domain = AMDGPU_GEM_DOMAIN_VRAM;
++
+ 			amdgpu_bo_placement_from_domain(bo, domain);
+ 		}
+ 		amdgpu_uvd_force_into_uvd_segment(bo);
+@@ -609,21 +611,21 @@ static int amdgpu_uvd_cs_pass1(struct amdgpu_uvd_cs_ctx *ctx)
+  * Peek into the decode message and calculate the necessary buffer sizes.
+  */
+ static int amdgpu_uvd_cs_msg_decode(struct amdgpu_device *adev, uint32_t *msg,
+-	unsigned buf_sizes[])
++	unsigned int buf_sizes[])
+ {
+-	unsigned stream_type = msg[4];
+-	unsigned width = msg[6];
+-	unsigned height = msg[7];
+-	unsigned dpb_size = msg[9];
+-	unsigned pitch = msg[28];
+-	unsigned level = msg[57];
++	unsigned int stream_type = msg[4];
++	unsigned int width = msg[6];
++	unsigned int height = msg[7];
++	unsigned int dpb_size = msg[9];
++	unsigned int pitch = msg[28];
++	unsigned int level = msg[57];
+ 
+-	unsigned width_in_mb = width / 16;
+-	unsigned height_in_mb = ALIGN(height / 16, 2);
+-	unsigned fs_in_mb = width_in_mb * height_in_mb;
++	unsigned int width_in_mb = width / 16;
++	unsigned int height_in_mb = ALIGN(height / 16, 2);
++	unsigned int fs_in_mb = width_in_mb * height_in_mb;
+ 
+-	unsigned image_size, tmp, min_dpb_size, num_dpb_buffer;
+-	unsigned min_ctx_size = ~0;
++	unsigned int image_size, tmp, min_dpb_size, num_dpb_buffer;
++	unsigned int min_ctx_size = ~0;
+ 
+ 	image_size = width * height;
+ 	image_size += image_size / 2;
+@@ -631,7 +633,7 @@ static int amdgpu_uvd_cs_msg_decode(struct amdgpu_device *adev, uint32_t *msg,
+ 
+ 	switch (stream_type) {
+ 	case 0: /* H264 */
+-		switch(level) {
++		switch (level) {
+ 		case 30:
+ 			num_dpb_buffer = 8100 / fs_in_mb;
+ 			break;
+@@ -709,7 +711,7 @@ static int amdgpu_uvd_cs_msg_decode(struct amdgpu_device *adev, uint32_t *msg,
+ 		break;
+ 
+ 	case 7: /* H264 Perf */
+-		switch(level) {
++		switch (level) {
+ 		case 30:
+ 			num_dpb_buffer = 8100 / fs_in_mb;
+ 			break;
+@@ -742,7 +744,7 @@ static int amdgpu_uvd_cs_msg_decode(struct amdgpu_device *adev, uint32_t *msg,
+ 		/* reference picture buffer */
+ 		min_dpb_size = image_size * num_dpb_buffer;
+ 
+-		if (!adev->uvd.use_ctx_buf){
++		if (!adev->uvd.use_ctx_buf) {
+ 			/* macroblock context buffer */
+ 			min_dpb_size +=
+ 				width_in_mb * height_in_mb * num_dpb_buffer * 192;
+@@ -805,7 +807,7 @@ static int amdgpu_uvd_cs_msg_decode(struct amdgpu_device *adev, uint32_t *msg,
+  * Make sure that we don't open up to many sessions.
+  */
+ static int amdgpu_uvd_cs_msg(struct amdgpu_uvd_cs_ctx *ctx,
+-			     struct amdgpu_bo *bo, unsigned offset)
++			     struct amdgpu_bo *bo, unsigned int offset)
+ {
+ 	struct amdgpu_device *adev = ctx->parser->adev;
+ 	int32_t *msg, msg_type, handle;
+@@ -911,7 +913,7 @@ static int amdgpu_uvd_cs_pass2(struct amdgpu_uvd_cs_ctx *ctx)
+ 
+ 	r = amdgpu_cs_find_mapping(ctx->parser, addr, &bo, &mapping);
+ 	if (r) {
+-		DRM_ERROR("Can't find BO for addr 0x%08Lx\n", addr);
++		DRM_ERROR("Can't find BO for addr 0x%08llx\n", addr);
+ 		return r;
+ 	}
+ 
+@@ -930,7 +932,7 @@ static int amdgpu_uvd_cs_pass2(struct amdgpu_uvd_cs_ctx *ctx)
+ 	if (cmd < 0x4) {
+ 		if ((end - start) < ctx->buf_sizes[cmd]) {
+ 			DRM_ERROR("buffer (%d) to small (%d / %d)!\n", cmd,
+-				  (unsigned)(end - start),
++				  (unsigned int)(end - start),
+ 				  ctx->buf_sizes[cmd]);
+ 			return -EINVAL;
+ 		}
+@@ -938,7 +940,7 @@ static int amdgpu_uvd_cs_pass2(struct amdgpu_uvd_cs_ctx *ctx)
+ 	} else if (cmd == 0x206) {
+ 		if ((end - start) < ctx->buf_sizes[4]) {
+ 			DRM_ERROR("buffer (%d) to small (%d / %d)!\n", cmd,
+-					  (unsigned)(end - start),
++					  (unsigned int)(end - start),
+ 					  ctx->buf_sizes[4]);
+ 			return -EINVAL;
+ 		}
+@@ -949,14 +951,14 @@ static int amdgpu_uvd_cs_pass2(struct amdgpu_uvd_cs_ctx *ctx)
+ 
+ 	if (!ctx->parser->adev->uvd.address_64_bit) {
+ 		if ((start >> 28) != ((end - 1) >> 28)) {
+-			DRM_ERROR("reloc %LX-%LX crossing 256MB boundary!\n",
++			DRM_ERROR("reloc %llx-%llx crossing 256MB boundary!\n",
+ 				  start, end);
+ 			return -EINVAL;
+ 		}
+ 
+ 		if ((cmd == 0 || cmd == 0x3) &&
+ 		    (start >> 28) != (ctx->parser->adev->uvd.inst->gpu_addr >> 28)) {
+-			DRM_ERROR("msg/fb buffer %LX-%LX out of 256MB segment!\n",
++			DRM_ERROR("msg/fb buffer %llx-%llx out of 256MB segment!\n",
+ 				  start, end);
+ 			return -EINVAL;
+ 		}
+@@ -990,7 +992,7 @@ static int amdgpu_uvd_cs_reg(struct amdgpu_uvd_cs_ctx *ctx,
+ 
+ 	ctx->idx++;
+ 	for (i = 0; i <= ctx->count; ++i) {
+-		unsigned reg = ctx->reg + i;
++		unsigned int reg = ctx->reg + i;
+ 
+ 		if (ctx->idx >= ctx->ib->length_dw) {
+ 			DRM_ERROR("Register command after end of CS!\n");
+@@ -1036,7 +1038,8 @@ static int amdgpu_uvd_cs_packets(struct amdgpu_uvd_cs_ctx *ctx,
+ 
+ 	for (ctx->idx = 0 ; ctx->idx < ctx->ib->length_dw; ) {
+ 		uint32_t cmd = amdgpu_ib_get_value(ctx->ib, ctx->idx);
+-		unsigned type = CP_PACKET_GET_TYPE(cmd);
++		unsigned int type = CP_PACKET_GET_TYPE(cmd);
++
+ 		switch (type) {
+ 		case PACKET_TYPE0:
+ 			ctx->reg = CP_PACKET0_GET_REG(cmd);
+@@ -1070,7 +1073,7 @@ int amdgpu_uvd_ring_parse_cs(struct amdgpu_cs_parser *parser,
+ 			     struct amdgpu_ib *ib)
+ {
+ 	struct amdgpu_uvd_cs_ctx ctx = {};
+-	unsigned buf_sizes[] = {
++	unsigned int buf_sizes[] = {
+ 		[0x00000000]	=	2048,
+ 		[0x00000001]	=	0xFFFFFFFF,
+ 		[0x00000002]	=	0xFFFFFFFF,
+@@ -1185,8 +1188,9 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
+ }
+ 
+ /* multiple fence commands without any stream commands in between can
+-   crash the vcpu so just try to emmit a dummy create/destroy msg to
+-   avoid this */
++ * crash the vcpu so just try to emmit a dummy create/destroy msg to
++ * avoid this
++ */
+ int amdgpu_uvd_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
+ 			      struct dma_fence **fence)
+ {
+@@ -1252,15 +1256,14 @@ static void amdgpu_uvd_idle_work_handler(struct work_struct *work)
+ {
+ 	struct amdgpu_device *adev =
+ 		container_of(work, struct amdgpu_device, uvd.idle_work.work);
+-	unsigned fences = 0, i, j;
++	unsigned int fences = 0, i, j;
+ 
+ 	for (i = 0; i < adev->uvd.num_uvd_inst; ++i) {
+ 		if (adev->uvd.harvest_config & (1 << i))
+ 			continue;
+ 		fences += amdgpu_fence_count_emitted(&adev->uvd.inst[i].ring);
+-		for (j = 0; j < adev->uvd.num_enc_rings; ++j) {
++		for (j = 0; j < adev->uvd.num_enc_rings; ++j)
+ 			fences += amdgpu_fence_count_emitted(&adev->uvd.inst[i].ring_enc[j]);
+-		}
+ 	}
+ 
+ 	if (fences == 0) {
+@@ -1356,7 +1359,7 @@ int amdgpu_uvd_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+  */
+ uint32_t amdgpu_uvd_used_handles(struct amdgpu_device *adev)
+ {
 -	unsigned i;
 +	unsigned int i;
- 	int r;
+ 	uint32_t used_handles = 0;
  
- 	/* VCN in SRIOV does not support direct register read/write */
-@@ -797,7 +795,7 @@ int amdgpu_vcn_enc_ring_test_ring(struct amdgpu_ring *ring)
+ 	for (i = 0; i < adev->uvd.max_handles; ++i) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+index e2b7324a70cb..1904edf68407 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -99,7 +99,7 @@ int amdgpu_vce_sw_init(struct amdgpu_device *adev, unsigned long size)
+ {
+ 	const char *fw_name;
+ 	const struct common_firmware_header *hdr;
+-	unsigned ucode_version, version_major, version_minor, binary_id;
++	unsigned int ucode_version, version_major, version_minor, binary_id;
+ 	int i, r;
+ 
+ 	switch (adev->asic_type) {
+@@ -207,7 +207,7 @@ int amdgpu_vce_sw_init(struct amdgpu_device *adev, unsigned long size)
+  */
+ int amdgpu_vce_sw_fini(struct amdgpu_device *adev)
+ {
+-	unsigned i;
++	unsigned int i;
+ 
+ 	if (adev->vce.vcpu_bo == NULL)
+ 		return 0;
+@@ -286,7 +286,7 @@ int amdgpu_vce_resume(struct amdgpu_device *adev)
+ {
+ 	void *cpu_addr;
+ 	const struct common_firmware_header *hdr;
+-	unsigned offset;
++	unsigned int offset;
+ 	int r, idx;
+ 
+ 	if (adev->vce.vcpu_bo == NULL)
+@@ -332,7 +332,7 @@ static void amdgpu_vce_idle_work_handler(struct work_struct *work)
+ {
+ 	struct amdgpu_device *adev =
+ 		container_of(work, struct amdgpu_device, vce.idle_work.work);
+-	unsigned i, count = 0;
++	unsigned int i, count = 0;
+ 
+ 	for (i = 0; i < adev->vce.num_rings; i++)
+ 		count += amdgpu_fence_count_emitted(&adev->vce.ring[i]);
+@@ -409,6 +409,7 @@ void amdgpu_vce_free_handles(struct amdgpu_device *adev, struct drm_file *filp)
+ {
+ 	struct amdgpu_ring *ring = &adev->vce.ring[0];
+ 	int i, r;
++
+ 	for (i = 0; i < AMDGPU_MAX_VCE_HANDLES; ++i) {
+ 		uint32_t handle = atomic_read(&adev->vce.handles[i]);
+ 
+@@ -436,7 +437,7 @@ void amdgpu_vce_free_handles(struct amdgpu_device *adev, struct drm_file *filp)
+ static int amdgpu_vce_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
+ 				     struct dma_fence **fence)
+ {
+-	const unsigned ib_size_dw = 1024;
++	const unsigned int ib_size_dw = 1024;
+ 	struct amdgpu_job *job;
+ 	struct amdgpu_ib *ib;
+ 	struct amdgpu_ib ib_msg;
+@@ -528,7 +529,7 @@ static int amdgpu_vce_get_create_msg(struct amdgpu_ring *ring, uint32_t handle,
+ static int amdgpu_vce_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
+ 				      bool direct, struct dma_fence **fence)
+ {
+-	const unsigned ib_size_dw = 1024;
++	const unsigned int ib_size_dw = 1024;
+ 	struct amdgpu_job *job;
+ 	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+@@ -596,12 +597,12 @@ static int amdgpu_vce_get_destroy_msg(struct amdgpu_ring *ring, uint32_t handle,
+  */
+ static int amdgpu_vce_validate_bo(struct amdgpu_cs_parser *p,
+ 				  struct amdgpu_ib *ib, int lo, int hi,
+-				  unsigned size, int32_t index)
++				  unsigned int size, int32_t index)
+ {
+ 	int64_t offset = ((uint64_t)size) * ((int64_t)index);
+ 	struct ttm_operation_ctx ctx = { false, false };
+ 	struct amdgpu_bo_va_mapping *mapping;
+-	unsigned i, fpfn, lpfn;
++	unsigned int i, fpfn, lpfn;
+ 	struct amdgpu_bo *bo;
+ 	uint64_t addr;
+ 	int r;
+@@ -619,7 +620,7 @@ static int amdgpu_vce_validate_bo(struct amdgpu_cs_parser *p,
+ 
+ 	r = amdgpu_cs_find_mapping(p, addr, &bo, &mapping);
+ 	if (r) {
+-		DRM_ERROR("Can't find BO for addr 0x%010Lx %d %d %d %d\n",
++		DRM_ERROR("Can't find BO for addr 0x%010llx %d %d %d %d\n",
+ 			  addr, lo, hi, size, index);
+ 		return r;
+ 	}
+@@ -646,7 +647,7 @@ static int amdgpu_vce_validate_bo(struct amdgpu_cs_parser *p,
+  * Patch relocation inside command stream with real buffer address
+  */
+ static int amdgpu_vce_cs_reloc(struct amdgpu_cs_parser *p, struct amdgpu_ib *ib,
+-			       int lo, int hi, unsigned size, uint32_t index)
++			       int lo, int hi, unsigned int size, uint32_t index)
+ {
+ 	struct amdgpu_bo_va_mapping *mapping;
+ 	struct amdgpu_bo *bo;
+@@ -662,14 +663,14 @@ static int amdgpu_vce_cs_reloc(struct amdgpu_cs_parser *p, struct amdgpu_ib *ib,
+ 
+ 	r = amdgpu_cs_find_mapping(p, addr, &bo, &mapping);
+ 	if (r) {
+-		DRM_ERROR("Can't find BO for addr 0x%010Lx %d %d %d %d\n",
++		DRM_ERROR("Can't find BO for addr 0x%010llx %d %d %d %d\n",
+ 			  addr, lo, hi, size, index);
+ 		return r;
+ 	}
+ 
+ 	if ((addr + (uint64_t)size) >
+ 	    (mapping->last + 1) * AMDGPU_GPU_PAGE_SIZE) {
+-		DRM_ERROR("BO too small for addr 0x%010Lx %d %d\n",
++		DRM_ERROR("BO too small for addr 0x%010llx %d %d\n",
+ 			  addr, lo, hi);
+ 		return -EINVAL;
+ 	}
+@@ -692,12 +693,12 @@ static int amdgpu_vce_cs_reloc(struct amdgpu_cs_parser *p, struct amdgpu_ib *ib,
+  * @allocated: allocated a new handle?
+  *
+  * Validates the handle and return the found session index or -EINVAL
+- * we we don't have another free session index.
++ * we don't have another free session index.
+  */
+ static int amdgpu_vce_validate_handle(struct amdgpu_cs_parser *p,
+ 				      uint32_t handle, uint32_t *allocated)
+ {
+-	unsigned i;
++	unsigned int i;
+ 
+ 	/* validate the handle */
+ 	for (i = 0; i < AMDGPU_MAX_VCE_HANDLES; ++i) {
+@@ -735,14 +736,14 @@ int amdgpu_vce_ring_parse_cs(struct amdgpu_cs_parser *p,
+ 			     struct amdgpu_job *job,
+ 			     struct amdgpu_ib *ib)
+ {
+-	unsigned fb_idx = 0, bs_idx = 0;
++	unsigned int fb_idx = 0, bs_idx = 0;
+ 	int session_idx = -1;
+ 	uint32_t destroyed = 0;
+ 	uint32_t created = 0;
+ 	uint32_t allocated = 0;
+ 	uint32_t tmp, handle = 0;
+ 	uint32_t *size = &tmp;
+-	unsigned idx;
++	unsigned int idx;
+ 	int i, r = 0;
+ 
+ 	job->vm = NULL;
+@@ -1084,7 +1085,7 @@ void amdgpu_vce_ring_emit_ib(struct amdgpu_ring *ring,
+  *
+  */
+ void amdgpu_vce_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 seq,
+-				unsigned flags)
++				unsigned int flags)
+ {
+ 	WARN_ON(flags & AMDGPU_FENCE_FLAG_64BIT);
+ 
+@@ -1106,7 +1107,7 @@ int amdgpu_vce_ring_test_ring(struct amdgpu_ring *ring)
  {
  	struct amdgpu_device *adev = ring->adev;
  	uint32_t rptr;
 -	unsigned i;
 +	unsigned int i;
- 	int r;
+ 	int r, timeout = adev->usec_timeout;
  
- 	if (amdgpu_sriov_vf(adev))
-@@ -1012,7 +1010,7 @@ int amdgpu_vcn_unified_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	/* skip ring test for sriov*/
+@@ -1171,7 +1172,7 @@ int amdgpu_vce_ring_test_ib(struct amdgpu_ring *ring, long timeout)
  
- enum amdgpu_ring_priority_level amdgpu_vcn_get_enc_ring_prio(int ring)
+ enum amdgpu_ring_priority_level amdgpu_vce_get_ring_prio(int ring)
  {
 -	switch(ring) {
 +	switch (ring) {
  	case 0:
  		return AMDGPU_RING_PRIO_0;
  	case 1:
-@@ -1031,6 +1029,7 @@ void amdgpu_vcn_setup_ucode(struct amdgpu_device *adev)
- 
- 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
- 		const struct common_firmware_header *hdr;
-+
- 		hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
- 
- 		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-@@ -1059,7 +1058,7 @@ void amdgpu_vcn_setup_ucode(struct amdgpu_device *adev)
-  */
- #if defined(CONFIG_DEBUG_FS)
- static ssize_t amdgpu_debugfs_vcn_fwlog_read(struct file *f, char __user *buf,
--                                             size_t size, loff_t *pos)
-+					     size_t size, loff_t *pos)
- {
- 	struct amdgpu_vcn_inst *vcn;
- 	void *log_buf;
-@@ -1105,7 +1104,7 @@ static ssize_t amdgpu_debugfs_vcn_fwlog_read(struct file *f, char __user *buf,
- 			if (read_pos == AMDGPU_VCNFW_LOG_SIZE)
- 				read_pos = plog->header_size;
- 			if (read_num[i] == copy_to_user((buf + read_bytes),
--			                                (log_buf + read_pos), read_num[i]))
-+							(log_buf + read_pos), read_num[i]))
- 				return -EFAULT;
- 
- 			read_bytes += read_num[i];
-@@ -1126,7 +1125,7 @@ static const struct file_operations amdgpu_debugfs_vcnfwlog_fops = {
- #endif
- 
- void amdgpu_debugfs_vcn_fwlog_init(struct amdgpu_device *adev, uint8_t i,
--                                   struct amdgpu_vcn_inst *vcn)
-+				   struct amdgpu_vcn_inst *vcn)
- {
- #if defined(CONFIG_DEBUG_FS)
- 	struct drm_minor *minor = adev_to_drm(adev)->primary;
-@@ -1134,7 +1133,7 @@ void amdgpu_debugfs_vcn_fwlog_init(struct amdgpu_device *adev, uint8_t i,
- 	char name[32];
- 
- 	sprintf(name, "amdgpu_vcn_%d_fwlog", i);
--	debugfs_create_file_size(name, S_IFREG | S_IRUGO, root, vcn,
-+	debugfs_create_file_size(name, S_IFREG | 0444, root, vcn,
- 				 &amdgpu_debugfs_vcnfwlog_fops,
- 				 AMDGPU_VCNFW_LOG_SIZE);
- #endif
-@@ -1148,7 +1147,7 @@ void amdgpu_vcn_fwlog_init(struct amdgpu_vcn_inst *vcn)
- 	uint64_t fw_log_gpu_addr = vcn->fw_shared.gpu_addr + vcn->fw_shared.mem_size;
- 	volatile struct amdgpu_vcn_fwlog *log_buf = fw_log_cpu_addr;
- 	volatile struct amdgpu_fw_shared_fw_logging *fw_log = vcn->fw_shared.cpu_addr
--                                                         + vcn->fw_shared.log_offset;
-+							 + vcn->fw_shared.log_offset;
- 	*flag |= cpu_to_le32(AMDGPU_VCN_FW_LOGGING_FLAG);
- 	fw_log->is_enabled = 1;
- 	fw_log->addr_lo = cpu_to_le32(fw_log_gpu_addr & 0xFFFFFFFF);
 -- 
 2.25.1
 
