@@ -4,62 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B188C77B7F
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 May 2023 12:11:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEA07C77B7F
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 May 2023 12:24:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 171DA10E40B;
-	Wed, 17 May 2023 12:11:59 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC7C010E3E3;
- Wed, 17 May 2023 10:53:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684320801; x=1715856801;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=tCBTG6EshP8yDnY64rQPzjgjv41iMK/kEF3IhZM1+uU=;
- b=CquO31RidDLaWlFo1nEsVFJzOIvDpuKsNQsn/vXXP20qJoMqCrYaoBSl
- CrtC/OV/pJcq2CRPDK5QQX2qXRqUNtPn/LuH9vixl4Vm4npG645EHFlre
- U4eOZhdo6j2wkl+CQukGucjSY4DDskMeJ6Iz8ERFjoewL563XiY9sRnDS
- 3+sqOCHwuPIRr9mlU1d3acXnmXIi4qHuWLWm94lGLImF3dNLK3rE4eWj5
- jiD3rxdmMNyD+ql7nLD9NS05CxPJH9MKYHjfqNCpopU4VAeWQzuChBlQ2
- pufC3Xq2KyX5FyjzFzXBcFNc1EwjzmZqhHjpG8RZeQTopNWt0J8fhRNmk g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10712"; a="438071667"
-X-IronPort-AV: E=Sophos;i="5.99,281,1677571200"; d="scan'208";a="438071667"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2023 03:53:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10712"; a="734650965"
-X-IronPort-AV: E=Sophos;i="5.99,281,1677571200"; d="scan'208";a="734650965"
-Received: from lnstern-mobl1.amr.corp.intel.com (HELO
- ijarvine-MOBL2.ger.corp.intel.com) ([10.251.221.185])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2023 03:53:13 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Rob Herring <robh@kernel.org>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Heiner Kallweit <hkallweit1@gmail.com>, Lukas Wunner <lukas@wunner.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jammy Zhou <Jammy.Zhou@amd.com>,
- Ken Wang <Qingqing.Wang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/9] drm/amdgpu: Use RMW accessors for changing LNKCTL
-Date: Wed, 17 May 2023 13:52:30 +0300
-Message-Id: <20230517105235.29176-5-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230517105235.29176-1-ilpo.jarvinen@linux.intel.com>
-References: <20230517105235.29176-1-ilpo.jarvinen@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 805A110E135;
+	Wed, 17 May 2023 12:24:31 +0000 (UTC)
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
+ [IPv6:2607:f8b0:4864:20::c2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F110310E135
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 May 2023 12:24:28 +0000 (UTC)
+Received: by mail-oo1-xc2e.google.com with SMTP id
+ 006d021491bc7-552b65f527dso334443eaf.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 May 2023 05:24:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1684326267; x=1686918267;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vBsmQ3PKaQa8WpXcsh4hYcW8zy1CuUBpLxYXMdrkgj4=;
+ b=LaMcsVHWtOT8lQU64Z+1wIy6bW58sV9gyhhjGnR7PKTSqAP7r7X/o+a0ZrphunKzCs
+ rUqTh7juE5KIybsXqlB7BnZAFEQk1/zzb7zyr8pRYWJ2Wbbrw6Xifo1N9cVrAfbbEXyu
+ lnfWKAKATqsJdLunv/bt4wL2tLtOH6BuBo+aja0gpkNURqkLd6jpiW2Rt7TDG2I776RR
+ itUwFEEGPaa/JaBqO77PLKb2X9AwaTROf1OQu6IkCx98La74NBc9wMTLr9WmRkt+VlSK
+ t6cP6Io0LwGRk0btneEYbtTmKpKoMS0NP5tAEVRW0f7XzSGNial0LcfoKGZBp6OPn9fE
+ Mp4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684326267; x=1686918267;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=vBsmQ3PKaQa8WpXcsh4hYcW8zy1CuUBpLxYXMdrkgj4=;
+ b=Cn53U+rNEVCLK54wW8tQ0WcAlIQferQ7pzVbpU4GScGTO4dBCKW4lPBB3ZwcYEB/vo
+ BWoAKWBkaGTpOewIVGCBN3kLA8ByKGEVlKxYQheI6JrGh7sWsbQX9ni9Agqj43DesKwh
+ JrZTM3RdIRt/Dw0D2+W3Tkj94ITgFB5jwVJpQR4F2ikSpvfr3iHYeNp5Kf+31Xwhi9oa
+ JsgDh/L/UvXjEayGiTrFM36ylWKn06tF9PwWfxE/qDoKBFfZ8Pl5jc4MdofnpaBNgHVo
+ yQ3eQJCe//x7V08SNZ6C8z8whFbUOCKKX0BuadK9jZEw5lfocpk6OeMld4Vc0LGxgLid
+ Pwqg==
+X-Gm-Message-State: AC+VfDxxYYEsrNPP8+rZSEqnNCL9iTZvTW5rhifY/nZ/9pzoQ8yY00h2
+ PQ/WFIm9tptmme3qNJatq1bMc9y/NN6moRmJ/8NOPZVVkxE=
+X-Google-Smtp-Source: ACHHUZ7gkqFN4dGC+uk1j753eAmCWs5Dc0mzTWMcajo1NuzwolPIPCfwRC/8UnIx6ZPR7ZhbSLzkQuAheaaIlpFl9EQ=
+X-Received: by 2002:a05:6808:1289:b0:395:f6da:1b5a with SMTP id
+ a9-20020a056808128900b00395f6da1b5amr7012333oiw.39.1684326267683; Wed, 17 May
+ 2023 05:24:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 17 May 2023 12:11:57 +0000
+References: <20230516175214.3491-1-mario.limonciello@amd.com>
+ <20230516175214.3491-4-mario.limonciello@amd.com>
+ <CADnq5_OH5vRico9MuegyEAM2SfQchdiXVgCSRLdf6jYmhTYO+A@mail.gmail.com>
+ <fb607620-cbf4-e6fe-be24-aad12f530f66@amd.com>
+ <CADnq5_N0Z=HzGZA_wXaDrXjYRMOSneOkmbcRnvguOUdLjAinKQ@mail.gmail.com>
+ <207c617e-79b4-b5fe-c565-a9cd733b1bbf@amd.com>
+In-Reply-To: <207c617e-79b4-b5fe-c565-a9cd733b1bbf@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 17 May 2023 08:24:16 -0400
+Message-ID: <CADnq5_Pr5VNKKcg1avhn1PYCfcWE-tNF33rv5ozAdzMDrRmtgg@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amd: Add safety check to make sure RLC is only
+ turned off while in GFXOFF
+To: "Limonciello, Mario" <mlimonci@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,138 +73,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dean Luick <dean.luick@cornelisnetworks.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, stable@vger.kernel.org
+Cc: Tim Huang <tim.huang@amd.com>, richard.gong@amd.com, Juan.Martinez@amd.com,
+ amd-gfx@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>,
+ anson.tsao@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Don't assume that only the driver would be accessing LNKCTL. ASPM
-policy changes can trigger write to LNKCTL outside of driver's control.
-And in the case of upstream bridge, the driver does not even own the
-device it's changing the registers for.
+On Tue, May 16, 2023 at 10:23=E2=80=AFPM Limonciello, Mario <mlimonci@amd.c=
+om> wrote:
+>
+>
+> On 5/16/2023 4:57 PM, Alex Deucher wrote:
+> > On Tue, May 16, 2023 at 5:50=E2=80=AFPM Limonciello, Mario <mlimonci@am=
+d.com> wrote:
+> >>
+> >> On 5/16/2023 4:39 PM, Alex Deucher wrote:
+> >>> On Tue, May 16, 2023 at 2:15=E2=80=AFPM Mario Limonciello
+> >>> <mario.limonciello@amd.com> wrote:
+> >>>> On GFX11 if RLC is stopped when not in GFXOFF the system will hang.
+> >>>> Prevent this case from ever happening.
+> >>>>
+> >>>> Tested-by: Juan Martinez <Juan.Martinez@amd.com>
+> >>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> >>>> ---
+> >>>>    drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 4 ++++
+> >>>>    1 file changed, 4 insertions(+)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/dr=
+m/amd/amdgpu/gfx_v11_0.c
+> >>>> index dcbdb2641086..f1f879d9ed8d 100644
+> >>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> >>>> @@ -1766,6 +1766,10 @@ static void gfx_v11_0_rlc_stop(struct amdgpu_=
+device *adev)
+> >>>>    {
+> >>>>           u32 tmp =3D RREG32_SOC15(GC, 0, regRLC_CNTL);
+> >>>>
+> >>>> +       if (!adev->gfx.gfx_off_state) {
+> >>>> +               dev_err(adev->dev, "GFX is not in GFXOFF\n");
+> >>>> +               return;
+> >>>> +       }
+> >>> This should move up before the RREG above?  Also, I think it would be
+> >>> cleaner to just not mess with the RLC in S0i3.  Can we just return
+> >>> early in smu_disable_dpms() for the APU case?  All of the DPM feature=
+s
+> >>> are controlled by the SMU so that function is mostly a nop of APUs
+> >>> anyway.
+> >>>
+> >>> Alex
+> >> That was what the original attempt did when we first identified this i=
+ssue.
+> >> Unfortunately though just skipping RLC (without patches 1 and 2) means
+> >> that GFXOFF still either doesn't get toggled at suspend entry or isn't=
+ fully
+> >>
+> >> off at suspend entry.
+> >>
+> >> This leads to the graphics core behaving erratically upon resume.
+> >>
+> >> So if you're OK with patches 1 and 2, I'll adjust patch 3 to also skip
+> >> RLC for
+> >> APU.
+> > Sure.
+> OK, let me double check RLC skip and I'll send out a v2.
+> > I wonder if we need something similar as patch 2 for other APUs?
+> I expect patch 1 "alone" to help Renoir and Cezanne hitting a similar
+> circumstance.
+> For Rembrandt and Mendocino, they don't have IMU, so what would you poll?
 
-Use RMW capability accessors which do proper locking to avoid losing
-concurrent updates to the register value.
+For older chips, mmPWR_MISC_CNTL_STATUS (smu10), mmSMUIO_GFX_MISC_CNTL
+(smu12).  See smu_v12_0_gfx_off_control() and smu10_disable_gfx_off().
+It looks like smu_v13_0_gfx_off_control() doesn't wait for gfxoff like
+the other functions.
 
-Fixes: a2e73f56fa62 ("drm/amdgpu: Add support for CIK parts")
-Fixes: 62a37553414a ("drm/amdgpu: add si implementation v10")
-Suggested-by: Lukas Wunner <lukas@wunner.de>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/amdgpu/cik.c | 36 +++++++++-----------------------
- drivers/gpu/drm/amd/amdgpu/si.c  | 36 +++++++++-----------------------
- 2 files changed, 20 insertions(+), 52 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-index de6d10390ab2..9be6da37032a 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-@@ -1574,17 +1574,8 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
- 			u16 bridge_cfg2, gpu_cfg2;
- 			u32 max_lw, current_lw, tmp;
- 
--			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--						  &bridge_cfg);
--			pcie_capability_read_word(adev->pdev, PCI_EXP_LNKCTL,
--						  &gpu_cfg);
--
--			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
--
--			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(adev->pdev, PCI_EXP_LNKCTL,
--						   tmp16);
-+			pcie_capability_set_word(root, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
-+			pcie_capability_set_word(adev->pdev, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
- 
- 			tmp = RREG32_PCIE(ixPCIE_LC_STATUS1);
- 			max_lw = (tmp & PCIE_LC_STATUS1__LC_DETECTED_LINK_WIDTH_MASK) >>
-@@ -1637,21 +1628,14 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
- 				msleep(100);
- 
- 				/* linkctl */
--				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(root, PCI_EXP_LNKCTL,
--							   tmp16);
--
--				pcie_capability_read_word(adev->pdev,
--							  PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(adev->pdev,
--							   PCI_EXP_LNKCTL,
--							   tmp16);
-+				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   bridge_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
-+				pcie_capability_clear_and_set_word(adev->pdev, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   gpu_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
- 
- 				/* linkctl2 */
- 				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 7f99e130acd0..fd34c2100bd9 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -2276,17 +2276,8 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
- 			u16 bridge_cfg2, gpu_cfg2;
- 			u32 max_lw, current_lw, tmp;
- 
--			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--						  &bridge_cfg);
--			pcie_capability_read_word(adev->pdev, PCI_EXP_LNKCTL,
--						  &gpu_cfg);
--
--			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
--
--			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(adev->pdev, PCI_EXP_LNKCTL,
--						   tmp16);
-+			pcie_capability_set_word(root, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
-+			pcie_capability_set_word(adev->pdev, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
- 
- 			tmp = RREG32_PCIE(PCIE_LC_STATUS1);
- 			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
-@@ -2331,21 +2322,14 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
- 
- 				mdelay(100);
- 
--				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(root, PCI_EXP_LNKCTL,
--							   tmp16);
--
--				pcie_capability_read_word(adev->pdev,
--							  PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(adev->pdev,
--							   PCI_EXP_LNKCTL,
--							   tmp16);
-+				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   bridge_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
-+				pcie_capability_clear_and_set_word(adev->pdev, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   gpu_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
- 
- 				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
- 							  &tmp16);
--- 
-2.30.2
-
+> >
+> > Thinking out loud here, I wonder if we shouldn't just return early in
+> > the top level suspend/resume functions for S0i3.
+>
+> I think this can make sense for GFX10 and GFX11 maybe, but as it's alread=
+y
+> bifurcated I think it's probably better to do case by case basis.
+>
