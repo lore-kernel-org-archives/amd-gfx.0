@@ -4,89 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D457C77B7D
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 May 2023 16:19:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7A57C77B7D
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 May 2023 16:22:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B688A10E209;
-	Wed, 17 May 2023 16:19:35 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2062e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D73F10E209
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 May 2023 16:19:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C30110E44D;
+	Wed, 17 May 2023 16:22:55 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA7BF10E44D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 May 2023 16:22:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aL1qUn3Nt/jJo0xamdfZYPES1WykRZRQQzRghNH+jPOobKwg9U5LI7m87MLXPIFaIF+zhW++HdTmoEXqqAmMrZ7Vz/1SZHAFWWXaPAp10ehQeR5tlADRUmjbhvTF+s+gV1PLdsnpmyw/mOETGQ/yayZSTbMo2E/3dkSRSMUox5ndR7RIFbUGJ39opIiouftzuQciOoLmEMY/awi/y8nMKX1jRqlW+sCKpLu+78+jLA/1ex7gv9+QpDN3+fAuyj5Zk4+howln6+m4W0IQvJAXumq/qoyThxVHCgarDF+NojRERHp49QtzflzpiDlhyLbE4B63bYsMM2hJYv7bQMoEqA==
+ b=hwvMEjJbzaQu6vuhDwl9GynqkMn2BHX4aHma3F2eLktVc62hZv/EAYAxThFxfZuP4tld+fxPbSWREJr/5iJVkKuVMQJVzAcQWAL01qaX1tlzWIkMgyLT0fMiZ4UhRP7Wr2YLicnf7C2+Oe3TZB3QhCvj00CfHBbf5M29HuCGZU4T1H52ubLaJdRSUG7Oy3Ai0zqq5N+QSfRlq0Zs4ipb6UtJqfbnKmdec8lpQjLhXGizKq+rgbACAMMWnvMdzZRjBgSRY4nGM+iFZDkg9B8sfYSzPZMMMqGxTYEa2ZWrqBDwSN2ra4KcH7iQGD5cznwus4Pu8uZPm4rR6wQ2V2kdhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MBJO9k1++AmGTJQk5dBnkeLKGavN7NcsUqx/5qIzDIA=;
- b=FU6//ifBXulO91wMuLqdb+bNk3JzxB3sNFyD8PgSMWug1s4ldHhuavc+qVx14glHwRF0Ev9QDlH0PF6spkP63ibOKegI90xz1kBBvzKhGcWpEP7a98xsW/G0yU2WxfL2faNr86ycOnA0rt6ex351c03pXqBfgt12FH89IOfb0GRTj+dpsfjAY33sampAf9+YfcEEkiqgocbv45OmE7yYCzL9oD2Gk9AHMkJdtuwROKpUJnKEOIMICC6y888txmhVRrJEHrVT7/4e36wLoyliZaIgueznMpF/fYOvq0I9BCxDZ9eDeVnf/Da1ztzTFtnJEwyAH6LrOsDkonsHjlt8rg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=y7XYYIH16n+PQ8gzIRGizK2o7tIetQflHkUm9iTqqvI=;
+ b=f0iEZsf83UPC6MG+aN4wLcKcj+iuFNBjBFeHLZxpHY6mr3F3snyhgk925zfWpVdCnPdjo7bsALPhcp3vI8M0RwK5l1Et31zPJq1XZPiMnSAo3fskvD1pOiLZFKIJSf6a6Tt5kueolrRe5/LINtCW6BCIluRllPB30SBKdRn1bMJ8AuB5fLWWKOayW8WXP3wMaSoIZbFc66lXbofqoYD1hD95dzb/x+G1wgz2Y3VZ6nauT0hu3lBoshUTKFMGjlNVvKbYx20oiR3jMhHDn2o7wQGVFC+mYsYzlfPKCG368WH0tgc3AGSYrTqFRpMjnBMFbMl8KPqQ/pQ2dnGFnQf1RQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MBJO9k1++AmGTJQk5dBnkeLKGavN7NcsUqx/5qIzDIA=;
- b=wuyIKZDN+tR+C1a0fhAairUSOaB+y+5y2KibG8MJrZ/L45HfPMfhdptFrKYvaUbLVrAoNxMCe63uto4/jsDWWBuMUh5qeifSQV2TrofS07eJEXGzCNQ15Xb6v9ss2QJk+3ndhBtjERLHB94LhMoLep+/zMv3Hgce9IN/tR5XV2o=
-Received: from BN9PR03CA0904.namprd03.prod.outlook.com (2603:10b6:408:107::9)
- by IA1PR12MB6090.namprd12.prod.outlook.com (2603:10b6:208:3ee::19)
+ bh=y7XYYIH16n+PQ8gzIRGizK2o7tIetQflHkUm9iTqqvI=;
+ b=Fi+81GYctuV8M1LgydYU98tcYEEOtF8EcQ71HES82CnG4FTVU2e3lIpO1oEpGR7NmlF5Yoes8fTE3RW/enh94hMptzSvUKvm0hOiuV19Ie0Od/WvEhVcU9bcvJmLKhUQGr8p1djoviexGlOafT/op0TXqb0TetYHOOIeuCjieZw=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by SN7PR12MB6669.namprd12.prod.outlook.com (2603:10b6:806:26f::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.33; Wed, 17 May
- 2023 16:19:31 +0000
-Received: from BN8NAM11FT025.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:107:cafe::af) by BN9PR03CA0904.outlook.office365.com
- (2603:10b6:408:107::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.18 via Frontend
- Transport; Wed, 17 May 2023 16:19:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT025.mail.protection.outlook.com (10.13.177.136) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6411.18 via Frontend Transport; Wed, 17 May 2023 16:19:31 +0000
-Received: from mkgs-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 17 May
- 2023 11:19:28 -0500
-From: Graham Sider <Graham.Sider@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: disable extra gfx943 legacy flush on rev1+
-Date: Wed, 17 May 2023 12:19:09 -0400
-Message-ID: <20230517161909.359715-1-Graham.Sider@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT025:EE_|IA1PR12MB6090:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9296fc76-048c-4a57-eb21-08db56f27f24
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +wMX3g5Ts97WY458SaOI5pB5ch03MwTuKI3v6fUYd8Q0plBRC3vW23lL1mDiXojkPNNKvWSow9QdF74TLewY8RK1dCNiI5oG9seZe9F++lgPB+zT6F+0f+ohwRLgnDVgPIrnb/Wgqpwb9APKREiyJukD34WNx9HhZbAmGCZuIe592bdlBojuvFCqm94O0sUvhlTTAHsLK4f7atVNSisLQYKHWCBJ170KKJYjwunduVKfLP1sFdrCYUpek4uB4/+10jmSAU5pNM98mgZqt7xhigYTDJLRqxgvsAvPETtj3ZdtQuFgk3K9a5RixesELFhPihnGmSS9XGKdDAVmsA1GhEynYKrZHI9KteD0ko4uDAqtxz8n2qABrdb0gBbrZF+TYeDs2JcPSd5qR9IZyZt33f0wmt+cp+dH3nx+1NfdukKwgj64b0Zg4aZccqYJwarMA0Bx33xDJ9HbbeAHG0aG+h6dbya2vkAsBxtOZHAxg9i0qO7RYjpBaWKWEX26m38/ckrrscCWgHCH7v+e8KXYt4GFBXMH6s01hpODQcacbT7erdNaXt178L3NV0QaHD9P/Q6xOfreesG8ZzofwEcM1Y/EOHWn7gSfjZiy/AEkZZ9xiFH86MgpfrC6OeHtBR26GbX7MOTaGzxVEkiUfNCe/FGkGgR4b3kk1cC990SKVBulUSa0OXgIwMf033yCrfN00fEpxsF5HHzOc3/S0w7h3e/pEdFTF5sVOq0hGEqEhrLCREYBOF02aEz1S4GMhXdUJDB8/+JxN+8bwgFSq/lBtA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(39860400002)(136003)(396003)(376002)(451199021)(46966006)(36840700001)(40470700004)(40460700003)(5660300002)(36860700001)(8936002)(47076005)(16526019)(36756003)(83380400001)(82740400003)(81166007)(2906002)(2616005)(356005)(186003)(426003)(336012)(82310400005)(86362001)(8676002)(40480700001)(1076003)(26005)(6666004)(316002)(4326008)(6916009)(41300700001)(70586007)(70206006)(7696005)(478600001)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.29; Wed, 17 May
+ 2023 16:22:50 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::c549:4aeb:a02f:56b2]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::c549:4aeb:a02f:56b2%4]) with mapi id 15.20.6411.017; Wed, 17 May 2023
+ 16:22:50 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Sider, Graham" <Graham.Sider@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: disable extra gfx943 legacy flush on rev1+
+Thread-Topic: [PATCH] drm/amdgpu: disable extra gfx943 legacy flush on rev1+
+Thread-Index: AQHZiNthHrMIT3prJk274wgCDlAM2K9epdsd
+Date: Wed, 17 May 2023 16:22:50 +0000
+Message-ID: <BL1PR12MB5144DF8538CB9ABE2AEB13B4F77E9@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20230517161909.359715-1-Graham.Sider@amd.com>
+In-Reply-To: <20230517161909.359715-1-Graham.Sider@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-05-17T16:22:49.630Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SN7PR12MB6669:EE_
+x-ms-office365-filtering-correlation-id: 3aa2986a-4be0-435a-13e8-08db56f2f55d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: joaFVBM/yN/01gKbTAeKpEVfYS1wIEmj2tgMmWPctcTiENWM4m7L6R5a++TpVBQJVC9wvWRSqjqUCFXBF/0+Lb7TTJka229ZJ87tdUgDgd52xWkeLoE4MOQOTmZnIL4V3vjqauriAJ2FavBYSSLJ3iyNZCOjjx3hilYYcL5R2uUwonKa35PFtHpusd9iW64rMhmZlEflc3m0h3u4Ag0hCtNg14C6tnDJXFFEQZ5vsxZ24nyfSFMX6KhznE7bDuxMmKe4xoZ7Suq+gsRRY1c35+dkvci1A0ApIbL8LtmW6iAAjjsf2+cstT7NCSKdk4dnp8EzDB7VsdSzYQnnPgg7sAXHPTtI0DrMN5btVM0nCkb4wDsu2Pj+MBImklyuIuWrjC45RHWN5DqQYzoLFi5KBCZlUjcuiaEFsDqGmBYm7XLizwVYPL5UzZYB0T85K0n56wHqMybna6qtRrv4a0PBGHHuPyMo039CEJfoNkrWxr5stsQVNz4RkT4poNLTMwG0wxSWBzwxAAYa/xbhIyu3xfPndvnRL9fP30IJ9hsZIssXHC+wbS5Ck/nO41D5NLazYSOEGOYkw0AnwYiIZibJ6neHcI5TXIUgIP3VT43izu7zTgGDz66aEwOghZOx1xdj
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(346002)(136003)(366004)(396003)(376002)(451199021)(110136005)(66556008)(64756008)(66476007)(66946007)(66446008)(478600001)(76116006)(316002)(71200400001)(55016003)(41300700001)(8676002)(8936002)(2906002)(7696005)(52536014)(26005)(5660300002)(122000001)(33656002)(86362001)(38070700005)(38100700002)(6506007)(53546011)(186003)(83380400001)(9686003)(19627405001);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uYINlJgDI7mANWqQyE7pqEiaQsfN0ndcsrgu26Ne7dpp7Rnq52XB/dMB/ar7?=
+ =?us-ascii?Q?SXV8T2dFglV2upLDHWbxxGRbEty5k0ML/T5Ry/yWa6/QsIz6Hu06UB4NCejW?=
+ =?us-ascii?Q?lzqB/27WO4TeQJOuDVvmsY/08hZHyChzPEVW7vfSsaRcCLhnAxpGS6DxPCBD?=
+ =?us-ascii?Q?hhu1Yw1+Wwp9r60mWY536uqFb9kx7gxEZmGPYQsrULhkIQ0wYw186Pdu8Vvh?=
+ =?us-ascii?Q?VYmWM7fF5+qUKrvZOY0fTo3c02HmLfZWgO1gH5SCoc9US3bVLpUPsW2E4Lju?=
+ =?us-ascii?Q?2LY/lg5G7v/t9e7PnIymc7eKn3onXP3cPmnPkBKakg7oLbq+s4y0sWrIYUM1?=
+ =?us-ascii?Q?y4EoomdYgZPNX5FM1GF9mHBoay2XTL/i9Q84dICkP/74VGSb2s97xKS3Jgk4?=
+ =?us-ascii?Q?zmht3Op/Psa4OUS/eNv854LBC5kM4vY2/uGfErxZw6cmQ9Y8aXcX7DsIWrdE?=
+ =?us-ascii?Q?CGQJHgca2DBCUJAXTEGE3xvgsha3jTN2YYLL3XdPe0jYXSMxS2czhxACobGl?=
+ =?us-ascii?Q?dTJcs9cIRlxT02p4N9GigprXEmn13POyQs26SQE4kfvASOBFKNTwhsoaa4lh?=
+ =?us-ascii?Q?ogsk0wKnMx6MpLSrghm1ER6tizWpaatRRTCXz20XyqutJgQvP25PdCZtWbCB?=
+ =?us-ascii?Q?U/4d0fXMkli48ufHsgL8LstrpZG2ips3RrL5MUSeo0CVGXKpD/IljRl/TbTg?=
+ =?us-ascii?Q?wOdyVtqDsM2azF+Z4davkYVLOmlVQyDh7V/U4DC38REGQyfwOQaz3xFq0Ug9?=
+ =?us-ascii?Q?oL1GkGHK5HrMO/LYhZa1vb11PnBFaqaJFHB1rpTGPEK4m20N/wRqKN8z6SBD?=
+ =?us-ascii?Q?9TC82wGYW3YWTrCEkLXgYKyaEniWl5jmPwobgCRc6Emm4zDK0hglBOPX3sFu?=
+ =?us-ascii?Q?61ZKpA7BTdpCHMHG7Bvu6XgY4pOkzCZz1AYbLWhAS0gruPiLMT09cvgsgiA3?=
+ =?us-ascii?Q?1UGnvvm2FO1jUfaTKkd9opyQ/4D0oWn1hpoJwr/daq3sLzIjtnTQ2jA7200N?=
+ =?us-ascii?Q?5GS9omDLd+JDMeCrd1kT/7d13A3Ilv7j2dSSyMHLHKurVQSfHL1a+crNwh1P?=
+ =?us-ascii?Q?1VZWWMK80Tt+iuy++NleoNzJYl3nUZf6p+YhVea1+i2sZrRvPCskGKA4o0Cg?=
+ =?us-ascii?Q?1vHJ3kGXvP2390rfY9lpgmd3MZpyKMiqxZ0npqR9mZ9Yc9wGCLFScG5CKFXv?=
+ =?us-ascii?Q?2s+mGYAQBUdeDMoFYfvATUsPq5KQFYnx9hgIinHYkvF1Dl3w8+xaTXYk79NB?=
+ =?us-ascii?Q?LnwFI6sJGyU+d3h+qvQgw/QSn/3Ps1HPX8poFTwKUnRyor2mvmVKP+JVor/i?=
+ =?us-ascii?Q?t2Xp0KxAE+y6OlWfIjfbaknise8ak7RE1Qf59xRhdKr76khMoWfjiDDpW9Pt?=
+ =?us-ascii?Q?kNP9/HN0Dun7oLLvrXtD+s7L+Pg0Un2SL9Vffx1+9ZuxSjwdzm8wLLj3+bD6?=
+ =?us-ascii?Q?1vDhFL6E0EzQmaADK3vX/3MXjVIS8jsOXofDVTT+NoIsQQ7zO/uMVV/DbSqV?=
+ =?us-ascii?Q?iD84s0+tjkrzp57HAkmK38NDIBcAs4BeA7rgxjWlh9uvIqnH73s9BYMK1cns?=
+ =?us-ascii?Q?RoJm7DaQ4LPN8kR9SOk=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB5144DF8538CB9ABE2AEB13B4F77E9BL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2023 16:19:31.7788 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9296fc76-048c-4a57-eb21-08db56f27f24
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT025.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6090
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3aa2986a-4be0-435a-13e8-08db56f2f55d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 May 2023 16:22:50.1496 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3X7yCZg1Cc3hQDMn1VhZligsd1fG6Cfq4Wm9eq6f9E1O0PBsDgGoqgeqZRv8lIJdCuIwFItA1u3Tz9+gLqnT5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6669
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,9 +121,23 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Graham Sider <Graham.Sider@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+--_000_BL1PR12MB5144DF8538CB9ABE2AEB13B4F77E9BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - General]
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Graham S=
+ider <Graham.Sider@amd.com>
+Sent: Wednesday, May 17, 2023 12:19 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Sider, Graham <Graham.Sider@amd.com>
+Subject: [PATCH] drm/amdgpu: disable extra gfx943 legacy flush on rev1+
 
 The extra legacy TLB flush mitigation is only required on rev0.
 
@@ -109,39 +146,187 @@ Signed-off-by: Graham Sider <Graham.Sider@amd.com>
  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 15 +++++----------
  1 file changed, 5 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gmc_v9_0.c
 index 38e4828f574e..ba8251b6b279 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -844,11 +844,8 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 		inv_req = gmc_v9_0_get_invalidate_req(vmid, 2);
- 		inv_req2 = gmc_v9_0_get_invalidate_req(vmid, flush_type);
- 	} else if (flush_type == 2 &&
--		   adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3)) {
--		/* FIXME: Temporarily add a legacy flush (type 0) before heavyweight
--		 * flush for gfx943 to mitigate a bug which causes CPC UTCL1 to return
--		 * stale translations even after TLB heavyweight flush.
--		 */
-+		   adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3) &&
-+		   adev->rev_id == 0) {
- 		inv_req = gmc_v9_0_get_invalidate_req(vmid, 0);
- 		inv_req2 = gmc_v9_0_get_invalidate_req(vmid, flush_type);
- 	} else {
-@@ -993,11 +990,9 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- 			kiq->pmf->kiq_invalidate_tlbs(ring,
- 						      pasid, 2, all_hub);
- 
--		/* FIXME: Temporarily add a legacy flush (type 0) before heavyweight
--		 * flush for gfx943 to mitigate a bug which causes CPC UTCL1 to return
--		 * stale translations even after TLB heavyweight flush.
--		 */
--		if (flush_type == 2 && adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3))
-+		if (flush_type == 2 &&
-+		    adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3) &&
-+		    adev->rev_id == 0)
- 			kiq->pmf->kiq_invalidate_tlbs(ring,
- 						pasid, 0, all_hub);
- 
--- 
+@@ -844,11 +844,8 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devic=
+e *adev, uint32_t vmid,
+                 inv_req =3D gmc_v9_0_get_invalidate_req(vmid, 2);
+                 inv_req2 =3D gmc_v9_0_get_invalidate_req(vmid, flush_type)=
+;
+         } else if (flush_type =3D=3D 2 &&
+-                  adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(9, 4, 3)=
+) {
+-               /* FIXME: Temporarily add a legacy flush (type 0) before he=
+avyweight
+-                * flush for gfx943 to mitigate a bug which causes CPC UTCL=
+1 to return
+-                * stale translations even after TLB heavyweight flush.
+-                */
++                  adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(9, 4, 3)=
+ &&
++                  adev->rev_id =3D=3D 0) {
+                 inv_req =3D gmc_v9_0_get_invalidate_req(vmid, 0);
+                 inv_req2 =3D gmc_v9_0_get_invalidate_req(vmid, flush_type)=
+;
+         } else {
+@@ -993,11 +990,9 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_=
+device *adev,
+                         kiq->pmf->kiq_invalidate_tlbs(ring,
+                                                       pasid, 2, all_hub);
+
+-               /* FIXME: Temporarily add a legacy flush (type 0) before he=
+avyweight
+-                * flush for gfx943 to mitigate a bug which causes CPC UTCL=
+1 to return
+-                * stale translations even after TLB heavyweight flush.
+-                */
+-               if (flush_type =3D=3D 2 && adev->ip_versions[GC_HWIP][0] =
+=3D=3D IP_VERSION(9, 4, 3))
++               if (flush_type =3D=3D 2 &&
++                   adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(9, 4, 3=
+) &&
++                   adev->rev_id =3D=3D 0)
+                         kiq->pmf->kiq_invalidate_tlbs(ring,
+                                                 pasid, 0, all_hub);
+
+--
 2.25.1
 
+
+--_000_BL1PR12MB5144DF8538CB9ABE2AEB13B4F77E9BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Graham Sider &lt;Graham.Sider=
+@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, May 17, 2023 12:19 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Sider, Graham &lt;Graham.Sider@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: disable extra gfx943 legacy flush on re=
+v1+</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">The extra legacy TLB flush mitigation is only requ=
+ired on rev0.<br>
+<br>
+Signed-off-by: Graham Sider &lt;Graham.Sider@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 15 +++++----------<br>
+&nbsp;1 file changed, 5 insertions(+), 10 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gmc_v9_0.c<br>
+index 38e4828f574e..ba8251b6b279 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
+@@ -844,11 +844,8 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devic=
+e *adev, uint32_t vmid,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; inv_req =3D gmc_v9_0_get_invalidate_req(vmid, 2);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; inv_req2 =3D gmc_v9_0_get_invalidate_req(vmid, flush_=
+type);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (flush_type =3D=
+=3D 2 &amp;&amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_versions[GC_HWIP][0] =3D=3D IP_VER=
+SION(9, 4, 3)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* FIXME: Temporarily add a legacy flush (type 0) before heavywe=
+ight<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * flush for gfx943 to mitigate a bug which causes CPC UTCL=
+1 to return<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * stale translations even after TLB heavyweight flush.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_versions[GC_HWIP][0] =3D=3D IP_VER=
+SION(9, 4, 3) &amp;&amp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;rev_id =3D=3D 0) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; inv_req =3D gmc_v9_0_get_invalidate_req(vmid, 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; inv_req2 =3D gmc_v9_0_get_invalidate_req(vmid, flush_=
+type);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+@@ -993,11 +990,9 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_=
+device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kiq-&=
+gt;pmf-&gt;kiq_invalidate_tlbs(ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; pasid, 2, all_hub);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* FIXME: Temporarily add a legacy flush (type 0) before heavywe=
+ight<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * flush for gfx943 to mitigate a bug which causes CPC UTCL=
+1 to return<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * stale translations even after TLB heavyweight flush.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (flush_type =3D=3D 2 &amp;&amp; adev-&gt;ip_versions[GC_HWIP]=
+[0] =3D=3D IP_VERSION(9, 4, 3))<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (flush_type =3D=3D 2 &amp;&amp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_versions[GC_HWIP][0] =3D=3D =
+IP_VERSION(9, 4, 3) &amp;&amp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;rev_id =3D=3D 0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kiq-&=
+gt;pmf-&gt;kiq_invalidate_tlbs(ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pasid, 0, a=
+ll_hub);<br>
+&nbsp;<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB5144DF8538CB9ABE2AEB13B4F77E9BL1PR12MB5144namp_--
