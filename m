@@ -4,115 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 997A2C7EE23
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 May 2023 14:47:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FD4FC7EE25
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 May 2023 14:59:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 182D210E0E0;
-	Thu, 18 May 2023 14:47:24 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20606.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::606])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94EB110E0E0
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 May 2023 14:47:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5DD410E064;
+	Thu, 18 May 2023 14:59:13 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20628.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e83::628])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E00FA10E064
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 May 2023 14:59:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ShPzj0HTLUIHO1HLsciVk/YtTWI3nlDyaGt2st6V8Axi9qJJlAqV2SiaFKSYP8SjgUV+rsw5cSpPN4PCmpCHhhYcw6D1ZluxaMZ3NkJUk0ydyI5QWK7vvta3ByDYRvBztIQBlAAK2wUaLqgkHpftW05U5p0xcsX+lFWnwxSzRVJIvLI4fXCim993k9Rjo/OtmHmRzs7IyO2JDBJIlqtkrfEj8ERcILNJczrZEPdPM70tVX4SFsbb/lrkfFaIn05ni5MQLtk5igrOBkS3EnorVqwqh7LKHz6q+PsWWpJcBJ9NMy85bbRctx4MRbKlNncZiga6xKbX2T6KsrTaNn4mnw==
+ b=ZNoRWA4D3ftokfWk3k2oY4DKQGk/8d+QAXjGMoJds0JFXrvkEYnviFB/R+SFka60Q7I+osF6iDE/et9Ha5WfbFKRJ4Xs6Jbj9OYit8h6kxOJbhGvs3ebjGBkvAG8K7lLVp3IcYp4gOvyBIfPDbJvw6bf/7PW2ReGMuwPI2bNt5ucu7AI2MEsa+dIESa9yRHTtPb76L+EM5Vc5YITdyVm78b1fBqyKSOibYjZ6gzhVwFWU0S1bVi4GJ7RjE7MUo+6I+yoYEQr2sgqVGYY+WMEh8GaRnd05F3eQ6F3GkDpp/ZbRaejlYh7xWEZHDIEpXnqIQrjcC6sOTL52KIqRP7vUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ise/db3oK1uJmjfSFaAvg6hGdgG+6FqlcFOpJh6D3KA=;
- b=HN03MlXB3mhmW0V/czaZdpiTxvMiux4IbqzfONysRuzs5KEL3L/nEzYWLtT0E9nsrcsUPG645axoIGagcCld0ULX42KqnNEiV5cPTbhkLGIo5ioqIDftaO0s3rcCej2M4cd3j5PzSssxc4/hcB0rL7D1Esk+BrPwEcNkZnt5xUCByX3C+xtsUS65Np1CB2+j5PS9aBJzTJEjSvXp7FofakG5FjzOnKK9LCM6rTSvjUEY4Hp32eguszsmvbjX+HKsL+keS3W5CV0s0XP1d9WM9K9hnvzCjxxYix/afi7bPsK98/aMevYKnaOKZSVcIC2cCFGvweNTIkfAOaEFMKEVbg==
+ bh=0PfZxx6J35w8rUIm+kABh6YNr6iGOWhOh8/ppre5sEc=;
+ b=TGRwhhbC4rwtb205/orcuNWnAKR5u+z3ZdN1u4hVEFJabrkLmBpjIqMhNDuSdJVM7bRhHO+kl659EfaJohz8KDALjeG6wuv9UKKFshNcCLoW4sZ8yDjnxTbkwTrnl9OcYOFzzjWf5kNlckrto0l2HPNmOopmbXH3m+ZAPqn90+5RZXHEWtN786mdyduZtb+nl7rXLvuS3UmeN3ip07L7Pp7uBDZPc6LoF81hKbOm8dZZ1ieVp4hDlDmdM/4QepFwazncAa7yOTK1zaTo0oIXoDUYnz1oF3gWfI++pXgxu2EMq62zllx8cvsQQkqwaIDgNV/lZeqGOwm6mMXjqwXpOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ise/db3oK1uJmjfSFaAvg6hGdgG+6FqlcFOpJh6D3KA=;
- b=rtYVuc3pNtz1dFYHSL+19ZkzemlmOJJkX2BtAWk8p0Wv1iIKAGGGubG+SdA//9UabdPkej4U2oXuv8D445LWPWyBAvFf72uXDYzhr+k9+SQe8voCl/QwrMYIdzIHIVip/BTDoBcsBzfy9yX9XzWqfpvhfC5Opa7Yers0fSkALI4=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by SA1PR12MB8860.namprd12.prod.outlook.com (2603:10b6:806:38b::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.17; Thu, 18 May
- 2023 14:47:18 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::c549:4aeb:a02f:56b2]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::c549:4aeb:a02f:56b2%4]) with mapi id 15.20.6411.017; Thu, 18 May 2023
- 14:47:18 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>
-Subject: Re: [PATCH 0/3] cleanup abuse of sched.ready in each ring init
-Thread-Topic: [PATCH 0/3] cleanup abuse of sched.ready in each ring init
-Thread-Index: AQHZiVa5pfUabrNiNECY0SvPrxyydq9gHGeE
-Date: Thu, 18 May 2023 14:47:18 +0000
-Message-ID: <BL1PR12MB514476AAFB76CFD21C81BFD3F77F9@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20230518070215.3556653-1-guchun.chen@amd.com>
-In-Reply-To: <20230518070215.3556653-1-guchun.chen@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-05-18T14:47:17.739Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=0PfZxx6J35w8rUIm+kABh6YNr6iGOWhOh8/ppre5sEc=;
+ b=lrO2i1wdBL0ZamUnvNp6/w/zVsi3YJqZO9BEWkgEUHOwfxeVHc16gZuSRCmT0MyFV1KQgFni06txq3Xn2Sz6tRWRpXdC3enA3zIOr2Lb0HSJ4NaM+s14oblWBXMyqhTfLXou01rsdGGI4uL3mqC1tl2+gbFJsOaTbzduqENyElE=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SA1PR12MB8860:EE_
-x-ms-office365-filtering-correlation-id: 33039d14-7b02-48c4-479e-08db57aec73a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: LaPE+Jt0NM0+EDjmL2NGNIwpDJiixx7LWfXY3SnuzqfWkPyaYOaXFJNZYPEAJ5NJJm+Nt8tAJuSvCYoLjU7LvZvymsVkswoBbFJYmU52lxJj0cj6DJ5dsqmHT22fwEL/db5CvN16ZZVBSf4xwJKbiPWiLcNXcu2fD3fFPe1alGp6LDCeW8UdFlV/gmlYgUao5xSzIilpwLBaZkqUiNom9fgHqjmr0zoZj1uKcAjLfhB1znyaLDDFzTbA8QeOL9EwOM8cAleHHJC990eHfGKo1dBebKtyoIhYqcuts2PpRqm8L6+xJC9x70CP6rmNLDjhT8zhr9YQRPZ39uhLS7e7vYOj0AMrU7UurPwHBO4SL1dcFo7TnWfd6kc/UR98jsP5g2AsDOoEGxkyrDwm6qVA35ld9naPZImBLxbCfCGpT3VhP7wJh0eU4ZCoEv+Id1EMN2CyR2Md+m04csG6BowLcl4ANXpJKxMrtLUFDgvaot24Sfr1ectSF5FpcZNKGvMOIZxaYG3QPk3oMLJgCFIgTdwzRaep4xqooRDQa/nD8zCfBMr5p4MhQGOthN4wDiagI4g9IgYHU9i/jKt67RhOyBTQj3fVtgc2rYmleY5DKJs=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(39860400002)(396003)(376002)(366004)(346002)(451199021)(38100700002)(38070700005)(186003)(110136005)(478600001)(71200400001)(6506007)(9686003)(26005)(53546011)(83380400001)(2906002)(8676002)(5660300002)(52536014)(6636002)(8936002)(33656002)(41300700001)(122000001)(66446008)(76116006)(66476007)(66946007)(64756008)(66556008)(86362001)(55016003)(316002)(7696005)(19627405001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EpmY5uDMo7zTthQwfrRBSlFV8ecgykEI6tD2EbgMmXDBfnFMqLN2yBQ9IbUi?=
- =?us-ascii?Q?gLdYp9OkmHcXQbFzueJm0wCWFOUvM65n5BrW+6A4OAg6bxecf4g984e3AJ0R?=
- =?us-ascii?Q?Asb8KpmSSVV21dI3iBZj5WVMGQy697j8lGZLgxODVObUduOSVRI6kPxb8y8V?=
- =?us-ascii?Q?c1cnsRQUz/tz1UtUFt2DwaOXyJ3vnCFxTTPLK+IuBHdHHsdR3EfXhQxFEDGt?=
- =?us-ascii?Q?ngoU5RTl6PT/v0K+M+JQofhdwiXiSvASpU24G35SAmIG42Jx2EolxIdY7gKe?=
- =?us-ascii?Q?WY58XkoglB3y4u0gT0lxAantPS0QdkJWK5XBahOZDjhrq5lAKZKxc5Qkot/p?=
- =?us-ascii?Q?cg6L5jznLXGSS6tcqs4O7X6TcM/qEeGK7jo/t8ZEfJ5Lg0bY0lx/5u0bb0t6?=
- =?us-ascii?Q?XsmSnN/mbrDKKeCGAN6ZvzZ0/MC5gDC0WCimgNcIGPqjEzLyNaPXfRUu15iw?=
- =?us-ascii?Q?xC183mO71pB1lx7NOJFMWvLEAOkBl03a74/jUT1BCD1X8tpA5PeJqVrEDV8F?=
- =?us-ascii?Q?FDWB8dznr81MQJkrTh/J+nLOTL8D9V1bO5GRjTg7OIabu2exf18yhzPS0Lxe?=
- =?us-ascii?Q?WZqoIhtnZNVM0HIPQGSaoM45Xh+HqAW30V2/eL9NGQmA56gzCC99gPs/ziBM?=
- =?us-ascii?Q?YTng7fF9tTfqhaza3zAl+egHtjP+aVulYtULSmoqighTAIBmggDnwpSZp5l5?=
- =?us-ascii?Q?RVAOWzM4OIr/tF7vgVX5i7hqgDyApIhbVw/SkPmUVOQC4H1zi6LYDaEWNwp5?=
- =?us-ascii?Q?ewVEzbAJ5t61xBBRdleUBaZSTItzMjGziCALOkyzTDs1Suq5sBVbJ3Z62llQ?=
- =?us-ascii?Q?8uIruBFPoLJawotvI7KPQKwLil6zm++DIe2SNrBGcq0jlDMf0hBwNBJDEtxp?=
- =?us-ascii?Q?LNhl1nYdCFSKH+glmvWSibl8LGlYCCk7RV+BBPqjb+iIPF867BlMvUokT1I7?=
- =?us-ascii?Q?vQS42PfWYnYbxlvb/x4FOqhQE+Rd/3D5UQJJxF8m/1NvtQK/BGFy07f3ee1n?=
- =?us-ascii?Q?vyHjYCrUZz5LwpcJG1bV3saNenvhD24k7jVL1tPfPIHgvjDhuQfWX57WNPVe?=
- =?us-ascii?Q?hTZDAW4SVlXLY0XyJDO14UvYwKWOEwA0Vs3vxzznEH+UwFJSfeTqdJFqAC4i?=
- =?us-ascii?Q?CmxacpLQU8meFFibAmqRBHSb8dNFr1rqPL2Z7p7ENt9asLOl+TF/hoQHvSZP?=
- =?us-ascii?Q?JlPzN26nFQD4prGNXJ4d7SehgT8lKuUNj2iccXiArEiqFeFexmxwoEtFcp2+?=
- =?us-ascii?Q?pyMsQ4KNPbcLiFipuohEgBE9AOSIh/vwkMSkvXSypsf/8Xbh3yvtTM8hZMyz?=
- =?us-ascii?Q?mY+391A+pKSTwOm/ugSwr0o9j/TuhdwZhpcKngS1MLUIrXYizdVJKw3GAXDL?=
- =?us-ascii?Q?oOpKTvjuDAf+ICsmS4aTpkJT5kpAE3YtmbvL3fAKsquyS3vWIKRTWskWFeFE?=
- =?us-ascii?Q?eLZcK06rTIE0a4MtTHAHKiMlWh/1wUhu8xnP2/P44AovPq/wtQ6/yrHOLz9z?=
- =?us-ascii?Q?Z+6RdqdSQXZKZAPgl+LSwkLCNU1Gvd5la5KBNHU9B1OBv9bxvaX/jjRugysk?=
- =?us-ascii?Q?jIIiwrBr+Cdve3zrQjk=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB514476AAFB76CFD21C81BFD3F77F9BL1PR12MB5144namp_"
+Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
+ by CYYPR12MB8656.namprd12.prod.outlook.com (2603:10b6:930:c3::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.19; Thu, 18 May
+ 2023 14:59:09 +0000
+Received: from MN2PR12MB2941.namprd12.prod.outlook.com
+ ([fe80::3d88:4b4e:e0aa:3c36]) by MN2PR12MB2941.namprd12.prod.outlook.com
+ ([fe80::3d88:4b4e:e0aa:3c36%4]) with mapi id 15.20.6411.017; Thu, 18 May 2023
+ 14:59:09 +0000
+Message-ID: <dd62455b-add1-bb50-6ad0-f2d35b4656e8@amd.com>
+Date: Thu, 18 May 2023 08:59:06 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH] drm/amd/display: Fix artifacting on eDP panels when
+ engaging freesync video mode
+Content-Language: en-US
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>
+References: <20230517211006.311990-1-aurabindo.pillai@amd.com>
+From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20230517211006.311990-1-aurabindo.pillai@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0260.namprd13.prod.outlook.com
+ (2603:10b6:208:2ba::25) To MN2PR12MB2941.namprd12.prod.outlook.com
+ (2603:10b6:208:a9::12)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|CYYPR12MB8656:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63d86c78-03a6-43ef-0ebb-08db57b06f0b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: smZ3MQsMfrnGdlO+qs8WMi+BhyZ3bhAqymOKafasc1Vwjnjcmc0oKPEVVKWrq4CRWs3QH5NiU6yeCc9UGepg3WfZlgJBN2ZeoLoR6WohKFZ153SGeaGUXDOMATD+tPSIEUcTzom+IYMtr0W4zYf4kxYpzNtCHzncOSDYYKGp12UAPG4muLW9DIAGbfFnIbkgB5C8aDfzOA4Cj1sGRq5rb8Kw97OMef3Saa8SdZPfN+qfvtethKfhS7SL25ashDULGjZykgwSpuMfdXSOBlHEp9RZA/tVLVDB5uOiKt+SrmxuOIFgb/xkXosksBkzPxQWNYxmYg1304Bl32aEHyL9do5Jv7pIHyuv2RsZgDWx9QzpxL9WmhXqbqVpk+QT6ENHjptvRSaUXPHfs4uM4mhfpP4mWpN6byeXpKvp5ry8FUIGHZsq6A4l38vFDJT8uc030p+tnxqlkit1OaYqETKSj/pJ6627siBqrM3xhnQQCk271Za1Try01f2CLkch3YLh4hQxus8+fOcMpdPTzz4YPRXI9luWWPnaZf9Yol57uOUpooEjTXtreK5HcZUFv5VMamlodwmNjtbqvsWu6PKsyU+rOMl97ud7QQbbPSsFwtM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(39860400002)(396003)(376002)(366004)(136003)(451199021)(316002)(2906002)(478600001)(41300700001)(8936002)(8676002)(6636002)(6862004)(4326008)(31686004)(37006003)(6486002)(6666004)(66476007)(66946007)(66556008)(5660300002)(966005)(6512007)(6506007)(53546011)(38100700002)(186003)(83380400001)(2616005)(36756003)(86362001)(31696002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Nm1RaWlXMmdnckdEd0MraFA5bE9wWCtaZEFoVDkyRWlqdHZYMGw3dHFTOEtD?=
+ =?utf-8?B?Z25MczAwK01PS1c3SVp5ZzBvZGhwREc5ZUx3ZEtwM1k5N3pPK3pSdUh2eEhx?=
+ =?utf-8?B?ckwvUGFLdnNnZVNKZTNwbDVBcXdlV2FxZ1FDdEVKWnp2QmJ6d0sxZjU3Wld6?=
+ =?utf-8?B?K1J2cXAxbHd5SDNGdkNwZitYVTdDREFMVmNrcStscWhXemlpeC91WFI3T09B?=
+ =?utf-8?B?NmZxekVEbEE4WFVvTGE0eW5mTDh6d3ArZXYrdHhQeUFSdkpFMlo5M0l5Szls?=
+ =?utf-8?B?eDZWbHZ3aE1RS0xKRDNRVU9oc25tRFdWMW1BbmNpcEZka2FQZWZYeXN2bFVO?=
+ =?utf-8?B?ZmpXYWZLSFRkS1dMd01qKzd1MFBLQTdWYnprYTJ0cHhIWkxNcktpWHVxMTJZ?=
+ =?utf-8?B?ZFVRZ3l5aTBOTEpUUTFqOU5vd081NFE1ZGhYMHlFSW5sNVJnL2Z6Qlkxai9X?=
+ =?utf-8?B?cW8wYWFuZTVNYS9icVhUQ0RCbnlwd2FXSm1EeXJzejU4NWx0VThoL0g0ZFBx?=
+ =?utf-8?B?enVnMHlYalpEZmI0WE1QUFBwcHFpM0U0QVYvdXgzeit2TmV4SG5GdDlqSUx4?=
+ =?utf-8?B?aU9HejBnV3UwK2NwbkFnbFdvRjd2TnJsYXlZSGNzNkF1dUpLcEVhTFpaUEhN?=
+ =?utf-8?B?L2w3SERmVzNQZEF5K0pFdWltTUVmUmlveWJtQkpTRkVkRk9Od3NhNmlDemZ2?=
+ =?utf-8?B?WXFFUmlScVo5MUxkcDljVnk2eGU1SzhnWG42eUkwOFhXR1h0SmRBaVZNMnRU?=
+ =?utf-8?B?ejR3Tm1xZnVXK21DOGRMemVzYjFBVzRHVXU3dUhQVmI5aU8zYy9hZmpPcFRk?=
+ =?utf-8?B?Z3ZlUG1kUFczaTcvcThIL0N3Z25DUVhpem52bzg3MFpKdzlaRHI4QUFReFdm?=
+ =?utf-8?B?WU9ONEhNay9EVjZvN3R1Y1VjclYxRmwxaEVxTGdJL0h1dFY0cXRIN3BJV08y?=
+ =?utf-8?B?V0NGN2VEYi9Rd0pOanpISmdiTHdoRmlUZ2pGcU5SbEZLY2t0Nmc5TWJkcEt4?=
+ =?utf-8?B?N3BFRFIxZ0xrcDBxYXhnUXcrem5XWDYwV2V0QUV5dVB3ZWJnSFprZmlqT3J6?=
+ =?utf-8?B?UkJKTmN6dkRueEZIYTVoYU5tRGxZYktMVEdrZU00a01XL0Z2SllwVGxUMFBC?=
+ =?utf-8?B?VStId2ZHU1FZNFE5bzlkNjFjemdMQ2c5NEY3eUtUWWxTRi84MkV3TkpIbFFZ?=
+ =?utf-8?B?a1V2YkhBcktiK3ZVOFlHVW5iaHNheGY4M3huRXBDNlVUZWdjNU9aNk9wKzZ6?=
+ =?utf-8?B?YzU1RTVpa04xRU9EZEt5QWJjSlhNWkZ1WUdma3huaFBJNE1LV2p0bzdRcHF0?=
+ =?utf-8?B?WlBmMUVTMVhNdVd0WmVVV3lWWVEwbkpJV0pMTW1CYXFEcTE3S0Z4K0NtM0NE?=
+ =?utf-8?B?WE1FRXhxcm80QjV4SURwTFIwcU8vOFFEQVVmbWEyb1hsckg2S1FocXhpUHE2?=
+ =?utf-8?B?Q2NhVWV6TFFQODFaeE56cmhrSi95UXVYQ2gzWHMrNUJNZVNzeTIwNEVVOTdK?=
+ =?utf-8?B?ajZMOXd5M00rUWdSd0ppQm1kVVRtTlRHQzhxM053a1ozcDJqdm9NN3RtSjAx?=
+ =?utf-8?B?dGxZMmJCYVFKL0JqREFJSUFjNGdmMlZMYlU3RUJPc1JrQnpucHdvb1o0Z1Fx?=
+ =?utf-8?B?cGVUQ1Bxem9hL01ZVjF5QTJoaXJNa1lvY1BGMG1kbG9WY3MrY2RqdHFsTDVN?=
+ =?utf-8?B?eUhjUHdrSTBlTjFKTTByZHFLZWNzTjNPVDk3NmViNzBaUDNPd0hxb2RUMDBp?=
+ =?utf-8?B?TUpQVlBhNHlMeHFoQzNhOUJWVUFZcXNqa0ptOHNzRlo2c2xuaHFmNmJRekFy?=
+ =?utf-8?B?TE5Iak4yTjR3K1lTN3JvTVRoWjlucisvRS8yL2Q0MEIxSUplbWtyMHA2dEdS?=
+ =?utf-8?B?OUYvd3Y0YmVaWC91R3FyZFU3Uis2OHVqNEFXUmwrY1JhYURxYURzYUhraGVQ?=
+ =?utf-8?B?YlR4VXJwN2ZON0U2Um11U1lPUHBrcDlBek4zd2ZWeG1UV1lSb3FZUE5ELzFI?=
+ =?utf-8?B?WVR1QXZzemhrWC9NeVplQ3VlbENvVW9OZFd1cFpFYkJRbmQ2QTViK3ROK1JJ?=
+ =?utf-8?B?QWVqNzVuOXNlSE9lb0RjM3p6ajA3bm8vWGpjSG8zNW50VFEzeHZwQS9nSTV0?=
+ =?utf-8?B?QkMyY1BLRlFEeGo3dWYvcGFWU1ViTG85aU5wVWFGWWlGcE1TNlFlNm5uME1G?=
+ =?utf-8?Q?/LSp4xQaCVNZ1k936uZDspeCA1suQLlj19EjlxmzTWK/?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63d86c78-03a6-43ef-0ebb-08db57b06f0b
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33039d14-7b02-48c4-479e-08db57aec73a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2023 14:47:18.1391 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5XYxV+bHdhB80OKDKTwEhl01jtm0TDIFLkLy6w21+3M229C4wdLd8ZRmZUmvDW4R5QB1uF2tYJJEhXOFVPrOeA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8860
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2023 14:59:09.3640 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZleuyTVmp2JQKjoZNYe/AMYFtREIPthpllD93GtoU4785/p4E/Rq7xYOeiKSw8EbYtQBNJeKT5JBD/VQodN6MQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8656
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,159 +126,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB514476AAFB76CFD21C81BFD3F77F9BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - General]
-
-Threre are a lot of places in the code where we check sched.ready.  Will th=
-is break any of those?
-
-Alex
-
-________________________________
-From: Chen, Guchun <Guchun.Chen@amd.com>
-Sent: Thursday, May 18, 2023 3:02 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
- Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
-om>; Koenig, Christian <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@=
-amd.com>
-Cc: Chen, Guchun <Guchun.Chen@amd.com>
-Subject: [PATCH 0/3] cleanup abuse of sched.ready in each ring init
-
-This series intend to fix the abuse of flag sched.ready in
-each ring init process. Its status needs to be updated only after
-respective ring/IB test in init/resume.
-
-Guchun Chen (3):
-  drm/amdgpu/sdma: set sched.ready status after ring/IB test in sdma
-  drm/amdgpu/gfx: set sched.ready status after ring/IB test in gfx
-  drm/amdgpu: switch to unified amdgpu_ring_test_helper
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c  |  9 ++-------
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c    |  2 --
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 24 ++++-------------------
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 25 ++++--------------------
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c    |  2 --
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    |  2 --
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  |  1 -
- drivers/gpu/drm/amd/amdgpu/mes_v10_1.c   |  8 +-------
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c   |  7 +------
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   |  2 --
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   |  2 --
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   |  4 ----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c |  4 ----
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   |  2 --
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   |  8 ++------
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |  6 +-----
- drivers/gpu/drm/amd/amdgpu/si_dma.c      |  2 --
- 17 files changed, 15 insertions(+), 95 deletions(-)
-
---
-2.25.1
 
 
---_000_BL1PR12MB514476AAFB76CFD21C81BFD3F77F9BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 5/17/23 15:10, Aurabindo Pillai wrote:
+> Additional checks are necessary related to stream and scaling changes
+> before setting freesync video mode when an eDP panel is in use,
+> otherwise it can create artifacts on the panel.
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof ContentPasted0">
-Threre are a lot of places in the code where we check sched.ready.&nbsp; Wi=
-ll this break any of those?</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof ContentPasted0">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof ContentPasted0">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof ContentPasted0">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Chen, Guchun &lt;Guch=
-un.Chen@amd.com&gt;<br>
-<b>Sent:</b> Thursday, May 18, 2023 3:02 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Hawking &=
-lt;Hawking.Zhang@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.co=
-m&gt;; Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;<br>
-<b>Cc:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 0/3] cleanup abuse of sched.ready in each ring init<=
-/font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This series intend to fix the abuse of flag sched.=
-ready in<br>
-each ring init process. Its status needs to be updated only after<br>
-respective ring/IB test in init/resume.<br>
-<br>
-Guchun Chen (3):<br>
-&nbsp; drm/amdgpu/sdma: set sched.ready status after ring/IB test in sdma<b=
-r>
-&nbsp; drm/amdgpu/gfx: set sched.ready status after ring/IB test in gfx<br>
-&nbsp; drm/amdgpu: switch to unified amdgpu_ring_test_helper<br>
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c&nbsp; |&nbsp; 9 ++-------<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/cik_sdma.c&nbsp;&nbsp;&nbsp; |&nbsp; 2 --<=
-br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c&nbsp;&nbsp; | 24 ++++---------=
-----------<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c&nbsp;&nbsp; | 25 ++++---------=
------------<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 2 --<=
-br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 2 --<=
-br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c&nbsp; |&nbsp; 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v10_1.c&nbsp;&nbsp; |&nbsp; 8 +-------=
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v11_0.c&nbsp;&nbsp; |&nbsp; 7 +------<=
-br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c&nbsp;&nbsp; |&nbsp; 2 --<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c&nbsp;&nbsp; |&nbsp; 2 --<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c&nbsp;&nbsp; |&nbsp; 4 ----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c |&nbsp; 4 ----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c&nbsp;&nbsp; |&nbsp; 2 --<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c&nbsp;&nbsp; |&nbsp; 8 ++------=
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c&nbsp;&nbsp; |&nbsp; 6 +-----<b=
-r>
-&nbsp;drivers/gpu/drm/amd/amdgpu/si_dma.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&n=
-bsp; 2 --<br>
-&nbsp;17 files changed, 15 insertions(+), 95 deletions(-)<br>
-<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+Hi Jay,
 
---_000_BL1PR12MB514476AAFB76CFD21C81BFD3F77F9BL1PR12MB5144namp_--
+Could you expand the commit message to elaborate more about the bug 
+(when it happens and how it looks like) and describe why the extra DC 
+check is necessary?
+
+Thanks
+Siqueira
+
+> 
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2162
+> Fixes: 541d54055b75 ("drm/amd/display: Fix hang when skipping modeset")
+> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 14b296e1d0f6..7f322b18eda6 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -9285,6 +9285,8 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+>   
+>   		/* Now check if we should set freesync video mode */
+>   		if (amdgpu_freesync_vid_mode && dm_new_crtc_state->stream &&
+> +		    dc_is_stream_unchanged(new_stream, dm_old_crtc_state->stream) &&
+> +		    dc_is_stream_scaling_unchanged(new_stream, dm_old_crtc_state->stream) &&
+>   		    is_timing_unchanged_for_freesync(new_crtc_state,
+>   						     old_crtc_state)) {
+>   			new_crtc_state->mode_changed = false;
+
