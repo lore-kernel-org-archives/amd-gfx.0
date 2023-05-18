@@ -4,72 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D7B4C77B73
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 May 2023 20:31:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2E5BC77B7A
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 May 2023 23:35:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE60110E550;
-	Thu, 18 May 2023 20:31:22 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4974F10E550
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 May 2023 20:31:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1684441879;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=P47akq7ZT7Pn5w2xHGuZHnmybcYZqlS0WNbHxIryrp0=;
- b=NzHBzcg7ngS4fjLvcYJoxzl5hIs9p6DtpU6xg5+ZBwuUqswkiThPhEth7qn6IdeibMpJA7
- 4IpNHFKpG3DbGonKoTzuss9zGC5s/bGzQL6namdK4mNYnQzHvRG69+I0CDukumfVD7p/SZ
- j0oa2i+teIzHLjOXps16Lttv0FMmK6w=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-363-DC2KlQVpPtWlyGUK7rhpMg-1; Thu, 18 May 2023 16:31:17 -0400
-X-MC-Unique: DC2KlQVpPtWlyGUK7rhpMg-1
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-62391209acdso9270796d6.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 May 2023 13:31:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7796810E57C;
+	Thu, 18 May 2023 23:35:36 +0000 (UTC)
+Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
+ [IPv6:2607:f8b0:4864:20::732])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D96110E57C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 May 2023 23:35:35 +0000 (UTC)
+Received: by mail-qk1-x732.google.com with SMTP id
+ af79cd13be357-75778c1121aso30885585a.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 May 2023 16:35:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1684452933; x=1687044933;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=g+bBjc2pOJ6Uyq/nBco+oaTCPhBKha0MzdONm56qSxM=;
+ b=eGqkxBNa8fLPRzs2kydWg0Cmz1vo4RaRuNqVOyM1/Tny8uOhIAtF1+FiSVfQNU4qb5
+ M2hmsG7BzvCO1NYFir+QR+OW6VmULSg28X1+gPo06ghfJ6yMTk0tfP+eLUZpgnMh4eUF
+ Es/GiPB9OkLXSy+JRa45lOuvPb/OK/4v0PA4+xNpnNlB37qix3uVxKhFTVHRoAv57p2h
+ uSJJsZJEg/OSI61aC9ZQEI3LZvp8QWYVBT1sZb7Na2z0u+N1h0oQPOHaWGKp+a17RwZW
+ qrt1lmO7Xzov3JM9L0yO64xatoBdpmPMLVfQd4ZqXU6CD23H0pFZ8MS1883cfK3zmddL
+ KFjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684441877; x=1687033877;
- h=mime-version:user-agent:content-transfer-encoding:organization
- :references:in-reply-to:date:to:from:subject:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SGCbI3feKrV5y0C9Vz0t2l4w3d1XI35n5yHGkz/CWCo=;
- b=NRINNmHkkKUfR+RCwG3aXjfzr9t2RGaPdo8JqlRz4lvKpoHPFH+iXXC6VqS8MRiyFQ
- g0elRl3oqNsHA0jGlS5gcxWCA8Ffn0Vl8pmWXFEpqxICNaengQ/GbJuxO+h5r/DfhanX
- k2kFRsB/lNWRcqNYqbecjbEzLQjJBWNpkJA4E0e3feCK+xJT4ljvqnBrE3XqVVTP80FO
- 9A+/wG2ZMirtvbzczdya2axoK/d7Sl7Tv7Hb9DmhFssuy2+/baAKzWwsNXJIH5ZjSyNf
- psJGw8SlD3f8OmAzU+HinpeIHGR2wmT4Amn+JBxpD4u12ojsFOzm+DdPoTqRWRmLo7y4
- KuJQ==
-X-Gm-Message-State: AC+VfDyr452V1DqntXhToptBca96SNdsIfRbHjaR8J+nBc6/b+/85dph
- MS+b/wQeW0DSMHGgcoKxAhB4ZsrzBleUTm3Odu+Vaaa0RacS+uivi338ClJIhXE+ocdJRmwGdJd
- 55LlOxdpj/paxVtt3DIs+oFcNQDZnRQqD4w==
-X-Received: by 2002:a05:6214:1ccd:b0:621:1b73:52c9 with SMTP id
- g13-20020a0562141ccd00b006211b7352c9mr319056qvd.10.1684441877275; 
- Thu, 18 May 2023 13:31:17 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ5CES7hnIggC0LE8BJbYOWn5BC2s2m2vLZDwZes1j+6TMDsTt+v6nZcQFBip/qrHexTE3/kCQ==
-X-Received: by 2002:a05:6214:1ccd:b0:621:1b73:52c9 with SMTP id
- g13-20020a0562141ccd00b006211b7352c9mr319044qvd.10.1684441876964; 
- Thu, 18 May 2023 13:31:16 -0700 (PDT)
-Received: from ?IPv6:2600:4040:5c62:8200::feb? ([2600:4040:5c62:8200::feb])
- by smtp.gmail.com with ESMTPSA id
- m11-20020ad4448b000000b0061b7f6b5e15sm754517qvt.140.2023.05.18.13.31.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 May 2023 13:31:16 -0700 (PDT)
-Message-ID: <de5a5ca3cba4396e22fc517a84c968608644f215.camel@redhat.com>
-Subject: Re: [PATCH] drm/radeon: reintroduce radeon_dp_work_func content
-From: Lyude Paul <lyude@redhat.com>
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Date: Thu, 18 May 2023 16:31:16 -0400
-In-Reply-To: <20230518164811.1956522-1-alexander.deucher@amd.com>
-References: <20230518164811.1956522-1-alexander.deucher@amd.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.44.4 (3.44.4-3.fc36)
+ d=1e100.net; s=20221208; t=1684452933; x=1687044933;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=g+bBjc2pOJ6Uyq/nBco+oaTCPhBKha0MzdONm56qSxM=;
+ b=C7CNqU0fZuYQj/bwsTMBtpT3Jxr19DaV2l65Ybdas+1xiYx3QaT4RVs2Y1b0BrrFdc
+ l+kLGacR2+PRN/eoTHp1jrDVQiMhUpADjz5n3QpNEn9cx05dinMjOCjU2ZgI2KdKBmnJ
+ OtrI/c8ei2NBu5iOy0MBPnMs6lcU4ILNGvqt4F/gddod6v7T/yZDxk4Fv5bGRJyRqlSA
+ 0oEvUKD5NUu0Az9II+LGT461yFnJ5eRgIvhRGb4HI/0tcvhspTHENRV1Gi0iSwZ9YFyz
+ LQ/jpkdJaVNI3PaLrghCeQSsmmVeZ1hOixE/waqfR5ODf2Rz2qVN88hh+9ben0qYF2yc
+ RC9Q==
+X-Gm-Message-State: AC+VfDyyfyC2Ua2v/8gjAYo8KU4aA1IkoYqBz6zO1i7b8yR6yhhJTx0P
+ U83q13z02ykPMUeFjp79+zIsL75cswTXccqlbJI=
+X-Google-Smtp-Source: ACHHUZ60JZ5V4fp4GT0w+1msyOxlDt1MJPV/XmSWJhiARevOTYPUocbFvLN5qAhEwAr0l7MBemqN2IkoiDEvgUJMGfY=
+X-Received: by 2002:a05:6214:509b:b0:5df:55b5:b1a with SMTP id
+ kk27-20020a056214509b00b005df55b50b1amr1345397qvb.4.1684452933475; Thu, 18
+ May 2023 16:35:33 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+References: <CABXGCsPiR4Lwd0NTecp8GMN9YVLU4OXTiHm-z7Gsa_4-LEm1ZQ@mail.gmail.com>
+ <CABXGCsOWCp=KYFFvWA6ExUotUJe=YViZEsomqkCJb7dwNUFAwg@mail.gmail.com>
+In-Reply-To: <CABXGCsOWCp=KYFFvWA6ExUotUJe=YViZEsomqkCJb7dwNUFAwg@mail.gmail.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Fri, 19 May 2023 04:35:22 +0500
+Message-ID: <CABXGCsNECpnkt1LRTKuGcJdN=mPyFt1sW6c8tY86Ba_pUrCNvw@mail.gmail.com>
+Subject: Re: KASAN: null-ptr-deref in range
+ [0x0000000000000010-0x0000000000000017]
+ - RIP: 0010:amdgpu_bo_get_memory+0x80/0x360 [amdgpu]
+To: "Olsak, Marek" <Marek.Olsak@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,52 +78,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Whoops, sorry about that!
+On Mon, May 8, 2023 at 3:40=E2=80=AFPM Mikhail Gavrilov
+<mikhail.v.gavrilov@gmail.com> wrote:
+>
+> No one can reproduce this?
+> I prepared a video instruction which can helps:
+> https://youtu.be/0ipQnMpZG1Y
+>
+> 1. Run script which would calculate watchers:
+> $ for i in {1..99999}; do sudo curl -s
+> https://raw.githubusercontent.com/fatso83/dotfiles/master/utils/scripts/i=
+notify-consumers
+> | bash; done
+>
+> 2. Run the game "Devision 2"
+>
+> 3. Run 20 windows of Google Chrome with such script
+> $ for i in {1..20}; do google-chrome-unstable
+> --profile-directory=3D"Test-2" --new-window --start-maximized
+> "youtube.com" &; done
+>
+> I hope after it you see the desired backtrace.
+>
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+I found another way to reproduce the problem.
 
-On Thu, 2023-05-18 at 12:48 -0400, Alex Deucher wrote:
-> Put back the radeon_dp_work_func logic.  It seems that
-> handling DP RX interrupts is necessary to make some
-> panels work.  This was removed with the MST support,
-> but it regresses some systems so add it back.  While
-> we are here, add the proper mutex locking.
->=20
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2567
-> Fixes: 01ad1d9c2888 ("drm/radeon: Drop legacy MST support")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Lyude Paul <lyude@redhat.com>
-> ---
->  drivers/gpu/drm/radeon/radeon_irq_kms.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c b/drivers/gpu/drm/ra=
-deon/radeon_irq_kms.c
-> index 3377fbc71f65..c4dda908666c 100644
-> --- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
-> +++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-> @@ -99,6 +99,16 @@ static void radeon_hotplug_work_func(struct work_struc=
-t *work)
-> =20
->  static void radeon_dp_work_func(struct work_struct *work)
->  {
-> +=09struct radeon_device *rdev =3D container_of(work, struct radeon_devic=
-e,
-> +=09=09=09=09=09=09  dp_work);
-> +=09struct drm_device *dev =3D rdev->ddev;
-> +=09struct drm_mode_config *mode_config =3D &dev->mode_config;
-> +=09struct drm_connector *connector;
-> +
-> +=09mutex_lock(&mode_config->mutex);
-> +=09list_for_each_entry(connector, &mode_config->connector_list, head)
-> +=09=09radeon_connector_hotplug(connector);
-> +=09mutex_unlock(&mode_config->mutex);
->  }
-> =20
->  /**
+Demonstration: https://youtu.be/6cvs4cCMo4M
+
+1. Run the game "Devision 2"
+2. Run 20 windows of Google Chrome with such script $ for i in
+{1..20}; do google-chrome-unstable --profile-directory=3D"Test-2"
+--new-window --start-maximized "youtube.com" &; done
+3. Run "nvtop" and got kernel bug.
+
+After it "nvtop" stop working until reboot.
+
+Can anyone confirm it, please?
 
 --=20
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
-
+Best Regards,
+Mike Gavrilov.
