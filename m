@@ -4,61 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9216C77B7A
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 May 2023 17:48:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DE71C77B7D
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 May 2023 20:12:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0CE10E0FB;
-	Thu, 18 May 2023 17:48:27 +0000 (UTC)
-Received: from mail-vk1-xa2e.google.com (mail-vk1-xa2e.google.com
- [IPv6:2607:f8b0:4864:20::a2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E59610E0FB;
- Thu, 18 May 2023 17:48:25 +0000 (UTC)
-Received: by mail-vk1-xa2e.google.com with SMTP id
- 71dfb90a1353d-45700c4b74dso64978e0c.0; 
- Thu, 18 May 2023 10:48:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 360F410E54B;
+	Thu, 18 May 2023 20:12:20 +0000 (UTC)
+Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
+ [IPv6:2607:f8b0:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30F1A10E54B;
+ Thu, 18 May 2023 20:12:19 +0000 (UTC)
+Received: by mail-ot1-x332.google.com with SMTP id
+ 46e09a7af769-6ab113d8589so2145754a34.3; 
+ Thu, 18 May 2023 13:12:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684432104; x=1687024104;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=JTh5R9z4cB01EQbbTfSZ7cANfaD/KXruWBvLA5Na1Jg=;
- b=gHDXKx45lz9ER6hkJ4w5sqpncZz3JtWNrVX3OadqIKQJfHOmlY1IauvwpbpxHIQ4zc
- LpHC3GIqNOrh8y7ZuAL34/y8XyW8nYAPJEEGG+CoLju5CorIWI1WKUVvMNAk8Cn6ugMx
- pYWQzjMoMXJEOp2FqO+cYNQeqH47g2ymcLEKzSuMoRlCI+CuHvjxAiTkVCuuos1jw6r0
- siXhz0G+YrXcEI8GITE0e9Vr1pGWLAwES/CgK5q0/FT/k92FZ9tRHFdShsOMTZHoG7gL
- 2W0bMaUcw85d/4HbDat9hrwG4CFADe06ff4z/gSbINFtZR5crugUKjxpuCDigZGL0Pkg
- i3mg==
+ d=gmail.com; s=20221208; t=1684440738; x=1687032738;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Saf0zfqm07ePmwqK9Uni3ddlqu/Ais3Oc8azNzsCmaU=;
+ b=NuTPx45raB9XoRXKchJ0d6OY/wNzW8Cqnv82qSfn3TnsUYuRWkpoELQOjLVIvgErso
+ pMbU4AOOXdCupKcNQm5HNHXqKyfx6i1nNhgNIeTcQ9czZes9f8NMvaq0xr9KaUgziC4I
+ YCBt0ED6uw1wmusVVtMAmaF61rd6CnYtrDvinrurN8QRixN51qqgv/s955fhdzMR+F+8
+ kNTo73hMITJWI1UtdHsifXw/3Ns5U97hY1o9SgymvdT66tH12LZl1dHJxhnJDh3dF4pI
+ kpu/hi7NnsU3y9hcUbb2EiBnTX689XdttOa1h8ugR8JjH5IMOaNuAuZSO1lqHOwg1NKB
+ KuVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684432104; x=1687024104;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=JTh5R9z4cB01EQbbTfSZ7cANfaD/KXruWBvLA5Na1Jg=;
- b=c/w/OhF38GiyEHPE8h6KlaeJ0JcGafcJjo4RVLXmUKG3/jc8868r+K2XzB0ySyfDnm
- ARSTLwyuc53PpK4bKZUXBwJMKvz+Gy+KZjY1qc3rbrEG92GXNBsoItAUF/IJaR3qbimp
- x0+FyM1+xJ9QSyIFkIkMgzyIEqnq3tmpC8IabwYNuSHgCOeaiXFsDR0Pp5vbj9uMuCjb
- eMruhaoRUAFs6rEA1zyIl4RCwg8trtnzxVUAj5NU98NcTbmdSkfR37vc6EH7DzRa+h5f
- oahiJZhSdwCVKoHRogvmTBHeWvK9ca6LkCCkefiPG/UkCEpt/5dRBOPPjeivChjue/rq
- hPJQ==
-X-Gm-Message-State: AC+VfDx9ptRF5jXXWhsyiua2R4iBwssjcVWkO0Pwr0/qYC4irwz/aGyX
- c0fNYEIJSEeBR+5ZOKgPLha88oiZSCo=
-X-Google-Smtp-Source: ACHHUZ75YbTCQpoWo2SxJFCmNv6io2LMRwUIOrBqn+7zyeJ24KmmWezh1v7nlxPwNPip0jc1xXAbdg==
-X-Received: by 2002:a1f:4316:0:b0:43f:c650:acae with SMTP id
- q22-20020a1f4316000000b0043fc650acaemr1247694vka.16.1684432101289; 
- Thu, 18 May 2023 10:48:21 -0700 (PDT)
-Received: from tr4.. ([71.219.129.39]) by smtp.gmail.com with ESMTPSA id
- v14-20020a05620a122e00b007590aa4b115sm534707qkj.87.2023.05.18.10.48.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 May 2023 10:48:20 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniel.vetter@ffwll.ch
-Subject: [pull] amdgpu drm-fixes-6.4
-Date: Thu, 18 May 2023 13:48:11 -0400
-Message-Id: <20230518174811.3841-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.40.1
+ d=1e100.net; s=20221208; t=1684440738; x=1687032738;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Saf0zfqm07ePmwqK9Uni3ddlqu/Ais3Oc8azNzsCmaU=;
+ b=Lsiq+KjiZS8+q+rPbVhOPf6lq1Hyw6uh7Ozwf91V1Qh77zAtyfGXJtx1Bc0oqVfhl4
+ YG+Nm4ir9VmI/ZEjQa8etey/iUerSNZfgTbBMyCtO+Uqdts03B9882bFpfKTL0JyA2GF
+ 0iY2oc/ecqqlpqRxNq8XjaYasDRuT8XEiPzlGwv+QtUjCTWBFvAdfWmF3WoA6jqu/X1l
+ /7cLZU3MyEKD6TOPxDhFGWFp1jSEGfCh4H+e/dws9F86/xTjqisG/LEkHiO3uWQe/986
+ 6mxugLmTqfmB7wEc1ZvLIyKve9/MkTWZG9ETHG2WrQvMWAOsD2OkHc78c7UVJmCoHCPh
+ XSgg==
+X-Gm-Message-State: AC+VfDxgcoG8Bn/ri8Y/cY7T1tN1lxH78n5wc9/CLZvJqj1rz8W3/txH
+ yA1m88mA4qyC6c8NKQlvMhgGSwx4ARJdq8aq1bQ=
+X-Google-Smtp-Source: ACHHUZ6jAdZQT7MaeZBAPc1hOum2bkrZ9ZOaKkrXqG4BvsAtpzj+6/tE1JzA6oJxJWJqayseYKopP/RNfDTGCIBRyDY=
+X-Received: by 2002:a9d:638a:0:b0:6ad:ed25:3caf with SMTP id
+ w10-20020a9d638a000000b006aded253cafmr1940815otk.9.1684440737969; Thu, 18 May
+ 2023 13:12:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20230509183301.1745462-1-olvaffe@gmail.com>
+ <CAPaKu7TqUt1L-5RUuwEagr2UUs8maOO+FSoS2PEoP9eO1-JJSw@mail.gmail.com>
+In-Reply-To: <CAPaKu7TqUt1L-5RUuwEagr2UUs8maOO+FSoS2PEoP9eO1-JJSw@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 18 May 2023 16:12:06 -0400
+Message-ID: <CADnq5_OsGqg7CoNVgtgr91a+pyBtJzoUOBXHKmGMcOM9hLFkwQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] amdgpu: validate drm_amdgpu_gem_va addrs for all ops
+To: Chia-I Wu <olvaffe@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,68 +68,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Philip Yang <Philip.Yang@amd.com>, Kefeng Wang <wangkefeng.wang@huawei.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Danijel Slivka <danijel.slivka@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Mukul Joshi <mukul.joshi@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>, Yang Li <yang.lee@linux.alibaba.com>,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+On Wed, May 17, 2023 at 5:27=E2=80=AFPM Chia-I Wu <olvaffe@gmail.com> wrote=
+:
+>
+> On Tue, May 9, 2023 at 11:33=E2=80=AFAM Chia-I Wu <olvaffe@gmail.com> wro=
+te:
+> >
+> > Extend the address and size validations to AMDGPU_VA_OP_UNMAP and
+> > AMDGPU_VA_OP_CLEAR by moving the validations to amdgpu_gem_va_ioctl.
+> >
+> > Internal users of amdgpu_vm_bo_map are no longer validated but they
+> > should be fine.
+> >
+> > Userspace (radeonsi and radv) seems fine as well.
+> Does this series make sense?
 
-Fixes for 6.4.
+I think so, I haven't had a chance to go through this too closely yet,
+but amdgpu_vm_bo_map() is used by ROCm as well so we'd need to make
+sure that removing the checks in patch 1 wouldn't affect that path as
+well.  The changes in patch 2 look good.  Also, these patches are
+missing your SOB.
 
-The following changes since commit f1fcbaa18b28dec10281551dfe6ed3a3ed80e3d6:
+Thanks,
 
-  Linux 6.4-rc2 (2023-05-14 12:51:40 -0700)
+Alex
 
-are available in the Git repository at:
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.4-2023-05-18
-
-for you to fetch changes up to 6d600229df1ed06f46ba68ac706d9f44ba8c5fb4:
-
-  drm/amd/display: enable dpia validate (2023-05-18 09:58:35 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.4-2023-05-18:
-
-amdgpu:
-- update gfx11 clock counter logic
-- Fix a race when disabling gfxoff on gfx10/11 for profiling
-- Raven/Raven2/PCO clock counter fix
-- Add missing get_vbios_fb_size for GMC 11
-- Fix a spurious irq warning in the device remove case
-- Fix possible power mode mismatch between driver and PMFW
-- USB4 fix
-
-----------------------------------------------------------------
-Alex Deucher (2):
-      drm/amdgpu/gfx11: update gpu_clock_counter logic
-      drm/amdgpu/gmc11: implement get_vbios_fb_size()
-
-Bas Nieuwenhuizen (1):
-      drm/amdgpu/gfx10: Disable gfxoff before disabling powergating.
-
-Evan Quan (1):
-      drm/amd/pm: fix possible power mode mismatch between driver and PMFW
-
-Guchun Chen (1):
-      drm/amdgpu: skip disabling fence driver src_irqs when device is unplugged
-
-Guilherme G. Piccoli (1):
-      drm/amdgpu/gfx11: Adjust gfxoff before powergating on gfx11 as well
-
-Jesse Zhang (1):
-      drm/amdgpu: Differentiate between Raven2 and Raven/Picasso according to revision id
-
-Mustapha Ghaddar (1):
-      drm/amd/display: enable dpia validate
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c          |  3 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  8 +++++-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             | 19 +++++++++----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              | 33 +++++++++-------------
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c             | 21 +++++++++++++-
- .../gpu/drm/amd/display/dc/link/link_validation.c  |  3 ++
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          | 18 ++++++++++++
- drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    | 20 +------------
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |  1 +
- 9 files changed, 80 insertions(+), 46 deletions(-)
+Alex
