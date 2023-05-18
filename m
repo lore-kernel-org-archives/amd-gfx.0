@@ -4,93 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75058C77B7A
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 May 2023 15:45:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6EFFC77B7D
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 May 2023 15:50:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAE8810E0ED;
-	Thu, 18 May 2023 15:45:34 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2087.outbound.protection.outlook.com [40.107.93.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25AC310E0ED
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 May 2023 15:45:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=afJywykAp4iOzmcgiGVY8nL7T3WBcY5NAGphI6Nd2msoc8FiSwfTg+p/yC/QXXO/VqW9iBufHWqE7YGT1ReSAhkWut09O9Y+dqARw3HagSSEPRdeUkFr358L7WIpOEYLj/r0cUIhJ+vMZn20N0AoFjR4thUSQh+xyjMLQY/4npR4gu2Va2bfR4k/1dcW5qXjnsYjVkKh40+WfCyYn/NcIjnReeO1Q1qPAW0hEM7mzVVkDxd79MQPFQ4xgTH2YdF3U4PoPvzaJDka+4HB/1toJighxvujmi01n12oDEj6iCKl+RRd6LKTF901J2ME2rFXnhGABMGZ0LYPzqtG/r6ByA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ez3l/3Mc3B5ew2B9soxw11E65reFTBFUqkV6rnDKnmI=;
- b=FwjILGQ1sSMEQV9TkXXeAHAQd4lrRrygpeNsh/StXePqZbBc++saiRR3Knzj6CxwnuzwIoqbWfWGByv4AOVygA8eB52yqz9Ybsz3isJ3D8OcC82YLz7h2Y+W7A7zXjo6WERPbO4wmv6KoW0UcWeJunmBc21mZrM2s6pgjVCqXT/Hfo2/RVseIL/l+wureIQ8R8hphSQhmxQdC/EugFNindhX6dVJozFAhMi7hURIpG+OSikkoDarY2kAqO0f+HUXerqO5dPsiLRLKWPUmLYDz4isqrgll9HZK1AEJzxx9ZHFB+Gy/xz9TS6lcF+QVN3t75keTgiRlDKRFzE9hUIk/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ez3l/3Mc3B5ew2B9soxw11E65reFTBFUqkV6rnDKnmI=;
- b=vn7YjwiZd44xVVMi8cQ1TSEp2lqwEiLOaOfhs6LWVAl73VSDlpa9HogEDBObIAonf+SIHxA0jZQV4x5OHLirzOhrfOW2uOdMS/p+o0/azfrM0OE4vnzzxOz0E09jhOQSd5XKkrYqWhMl59z7W12bcOBQ3fiSA0z++UYu/h7Duqk=
-Received: from BN9PR03CA0571.namprd03.prod.outlook.com (2603:10b6:408:10d::6)
- by CH3PR12MB7569.namprd12.prod.outlook.com (2603:10b6:610:146::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.19; Thu, 18 May
- 2023 15:45:30 +0000
-Received: from BN8NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10d:cafe::1b) by BN9PR03CA0571.outlook.office365.com
- (2603:10b6:408:10d::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.19 via Frontend
- Transport; Thu, 18 May 2023 15:45:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT010.mail.protection.outlook.com (10.13.177.53) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6411.19 via Frontend Transport; Thu, 18 May 2023 15:45:29 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 18 May
- 2023 10:45:28 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 18 May
- 2023 08:45:28 -0700
-Received: from fedaura-ryzen.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 18 May 2023 10:45:28 -0500
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amd/display: Fix artifacting on eDP panels when
- engaging freesync video mode
-Date: Thu, 18 May 2023 11:45:28 -0400
-Message-ID: <20230518154528.345112-1-aurabindo.pillai@amd.com>
-X-Mailer: git-send-email 2.40.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4056810E253;
+	Thu, 18 May 2023 15:50:29 +0000 (UTC)
+Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
+ [IPv6:2607:f8b0:4864:20::c35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 198DD10E1F6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 May 2023 15:50:27 +0000 (UTC)
+Received: by mail-oo1-xc35.google.com with SMTP id
+ 006d021491bc7-5500d15d2f2so1275521eaf.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 May 2023 08:50:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1684425026; x=1687017026;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QBS6Zzxft6iUQ60892yYdCx4obcKvkag5gWzjdptpwk=;
+ b=JgVEbS3RtU0ua5IDChObrf+48c9SPyGCi6xv4njoB3KQCxn4VYK7fXn9OY5Nn/vEID
+ 6UYkQYg0CeG7ADXOhwqQw7lQwsfVZ+ivfmKiUscIH1K7xTTBHTEZmx+GK/0J2CNKUAvC
+ IS0KP/nDtRp7+sulp74R+M5tq9WyI1KPaf/cs66HqFJPtN7Inq3Nb/8liTMeAv4HP04v
+ ffz25ZQBXSS+QvOuO8pzVD2Ijz/doAJAsjTvl8LM/StEJ7st8zylhwD+9ZeDY/GlGsCm
+ 0IH4dxZGaSnu21gFf50L3sNmOEHK9HnW7mOj91Uwc9V5II1NnkU2LlosJiYCRYN8k5Ku
+ 4H7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684425026; x=1687017026;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QBS6Zzxft6iUQ60892yYdCx4obcKvkag5gWzjdptpwk=;
+ b=gE8ooHnjehD5ByneO2gvPJInKzqnXdpLbxjmkVP0FsqZc2g33myuYmLV27RIGvdlUu
+ LArFmELmZmHVixS97u0uBzNpyzxJjP9iAQ9Xv5BG7fY3y7hFl7eSXKb2VM+g2ZKeDbPI
+ 81NDbx3icBRS6DU1vdSAKiNVa8L6bwWExXPdWTeByWOR1jJA+6u7FhKTIyHgaqLCoVJT
+ vWABPJ7JKLi7UuWp14vEEAdFyLpX4AR3/SiVuqaGilhCjWEXD/lISH09gOeADhov5PdV
+ 5vw2IrH9kLQ8fnKTq/IDS1umgQoe3nEJMm0n3Hu49oDU+uxRINrYShGmeqIa40QsEP+H
+ iztA==
+X-Gm-Message-State: AC+VfDzHSpSVxEkmQs/F7gAogh+z9ZvB59Yp0X9/3tJmO2oS8LAsgpiG
+ Zun14j4PBuirt4TXuC5gA11wP5UKBme0PyI2B8OzZA3o
+X-Google-Smtp-Source: ACHHUZ4vupk7D2aBzccm74kvzLsNA0AV1AliJX0BsWx4sIKbiH9Oikd+S3tuUrdC3SWkr4qiaSL0eCKrzoOlEWlCI18=
+X-Received: by 2002:a4a:3442:0:b0:54f:6a7a:c6b with SMTP id
+ n2-20020a4a3442000000b0054f6a7a0c6bmr14755968oof.8.1684425025779; Thu, 18 May
+ 2023 08:50:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT010:EE_|CH3PR12MB7569:EE_
-X-MS-Office365-Filtering-Correlation-Id: abbd3f8d-24ec-4867-81a9-08db57b6e810
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bbNKty3VLkG3sMBmnK1A+/wJq0WzOYKxf2lpzf88VxmSxwSKyxcHlMRTe/1mJFfxjO0JlNpAstlb40Ny8pZ+KU0oAeGf3z9gDgfvqMxEWqzOl/OI0XfxyhkZ2FISF2TOqQSGd/t1C5E7kGCGhUfht+etSgly0g0XGOUMAe/AKbCNQiI2YLZYYjEKPronWsP5tu2Mw71PphKuJHXc5SADRtIKxPBh9aDAjydc7L6lXXJOBHGVs1h4SCsQhzai60kGVYO1fO7fLsH145X/QhZxf/zhoOYsUEGXRmbg9Sq8qPBX1ls31LK5sARZc/rjCy2gvSQ1rqwP+ZG9CAC0ARssSHECIedu7xePl4Bkrx2c3MQJkk8RYRLS78Lrwp1e+DiqNR2LCNSXuYZRpAnb+hBjZ7LEM4uKXpo9SF1DagwSt2NSseNuDUiFHX99umw2xHqku3A0FUzr/EqK9rCKs5DNrFHSCjq0etcZJiJmiDOckENkgKjK2zndQo1RiPnEqOAsafAJWUHZm4BLD96Ajrawuge3JjszDVpa5lxpPvOHrcfKTwtiMn4oTKIp5fUfFiX7FWh4B2q5XP1G5HOoH53eSe5f54f0UELg9Tb38cNdZQH65H3y5+XeuCYDV7hkQiqpfnqqf7930JMGEU8fmG5NDqgAEU9Lbl7S8qhD1KJI9dNyuNG9WGv6d413IVboxGxF/qqh8Yz7NFsXOaQeOgK4rRtV9ESkNDRDCuiuJk6UCZE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(346002)(39860400002)(376002)(136003)(451199021)(40470700004)(46966006)(36840700001)(26005)(40460700003)(1076003)(966005)(36756003)(36860700001)(47076005)(83380400001)(426003)(40480700001)(336012)(2616005)(81166007)(86362001)(82310400005)(82740400003)(356005)(186003)(54906003)(44832011)(478600001)(2906002)(8676002)(316002)(8936002)(41300700001)(5660300002)(70586007)(70206006)(4326008)(6916009)(7696005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2023 15:45:29.1648 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: abbd3f8d-24ec-4867-81a9-08db57b6e810
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT010.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7569
+References: <20230518150708.92286-1-mario.limonciello@amd.com>
+ <20230518150708.92286-3-mario.limonciello@amd.com>
+In-Reply-To: <20230518150708.92286-3-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 18 May 2023 11:50:14 -0400
+Message-ID: <CADnq5_NCn0TdXpREKOpQ2YgsyFK4TuFmDVS_pebZ6qPkzM_EAA@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amd: Update driver-misc.html for Rembrandt-R
+To: Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,41 +68,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: harry.wentland@amd.com, aurabindo.pillai@amd.com, rodrigo.siqueira@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-When freesync video mode is enabled, switching resolution from native
-mode to one of the freesync video compatible modes can trigger continous
-artifacts on some eDP panels when running under KDE. The articating can be seen in the
-attached bug report.
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-[How]
-Fix this by restricting updates that does not require full commit by using the
-same checks for stream and scaling changes in the the enable pass of dm_update_crtc_state()
-along with the check for compatible timings for freesync vide mode.
-
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2162
-Fixes: 541d54055b75 ("drm/amd/display: Fix hang when skipping modeset")
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 14b296e1d0f6..7f322b18eda6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9285,6 +9285,8 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- 
- 		/* Now check if we should set freesync video mode */
- 		if (amdgpu_freesync_vid_mode && dm_new_crtc_state->stream &&
-+		    dc_is_stream_unchanged(new_stream, dm_old_crtc_state->stream) &&
-+		    dc_is_stream_scaling_unchanged(new_stream, dm_old_crtc_state->stream) &&
- 		    is_timing_unchanged_for_freesync(new_crtc_state,
- 						     old_crtc_state)) {
- 			new_crtc_state->mode_changed = false;
--- 
-2.40.1
-
+On Thu, May 18, 2023 at 11:07=E2=80=AFAM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> AMD has added marketing information publicly for Rembrandt-R, so
+> update the APU table with matching versions.
+>
+> Link: https://www.amd.com/en/product/13086
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  Documentation/gpu/amdgpu/apu-asic-info-table.csv | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/Documentation/gpu/amdgpu/apu-asic-info-table.csv b/Documenta=
+tion/gpu/amdgpu/apu-asic-info-table.csv
+> index b5c67059e9be..2e76b427ba1e 100644
+> --- a/Documentation/gpu/amdgpu/apu-asic-info-table.csv
+> +++ b/Documentation/gpu/amdgpu/apu-asic-info-table.csv
+> @@ -5,7 +5,7 @@ Ryzen 4000 series, RENOIR, DCN 2.1, 9.3, VCN 2.2, 4.1.2, =
+11.0.3
+>  Ryzen 3000 series / AMD Ryzen Embedded V1*/R1* with Radeon Vega Gfx, RAV=
+EN2, DCN 1.0, 9.2.2, VCN 1.0.1, 4.1.1, 10.0.1
+>  SteamDeck, VANGOGH, DCN 3.0.1, 10.3.1, VCN 3.1.0, 5.2.1, 11.5.0
+>  Ryzen 5000 series / Ryzen 7x30 series, GREEN SARDINE / Cezanne / Barcelo=
+ / Barcelo-R, DCN 2.1, 9.3, VCN 2.2, 4.1.1, 12.0.1
+> -Ryzen 6000 series / Ryzen 7x35 series, YELLOW CARP / Rembrandt / Rembran=
+dt+, 3.1.2, 10.3.3, VCN 3.1.1, 5.2.3, 13.0.3
+> +Ryzen 6000 series / Ryzen 7x35 series / Ryzen 7x36 series, YELLOW CARP /=
+ Rembrandt / Rembrandt-R, 3.1.2, 10.3.3, VCN 3.1.1, 5.2.3, 13.0.3
+>  Ryzen 7000 series (AM5), Raphael, 3.1.5, 10.3.6, 3.1.2, 5.2.6, 13.0.5
+>  Ryzen 7x45 series (FL1), / Dragon Range, 3.1.5, 10.3.6, 3.1.2, 5.2.6, 13=
+.0.5
+>  Ryzen 7x20 series, Mendocino, 3.1.6, 10.3.7, 3.1.1, 5.2.7, 13.0.8
+> --
+> 2.34.1
+>
