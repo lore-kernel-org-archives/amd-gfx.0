@@ -4,57 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DE71C77B7D
-	for <amd-gfx@archiver.kernel.org>; Thu, 18 May 2023 20:12:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D7B4C77B73
+	for <amd-gfx@archiver.kernel.org>; Thu, 18 May 2023 20:31:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 360F410E54B;
-	Thu, 18 May 2023 20:12:20 +0000 (UTC)
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30F1A10E54B;
- Thu, 18 May 2023 20:12:19 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- 46e09a7af769-6ab113d8589so2145754a34.3; 
- Thu, 18 May 2023 13:12:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684440738; x=1687032738;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Saf0zfqm07ePmwqK9Uni3ddlqu/Ais3Oc8azNzsCmaU=;
- b=NuTPx45raB9XoRXKchJ0d6OY/wNzW8Cqnv82qSfn3TnsUYuRWkpoELQOjLVIvgErso
- pMbU4AOOXdCupKcNQm5HNHXqKyfx6i1nNhgNIeTcQ9czZes9f8NMvaq0xr9KaUgziC4I
- YCBt0ED6uw1wmusVVtMAmaF61rd6CnYtrDvinrurN8QRixN51qqgv/s955fhdzMR+F+8
- kNTo73hMITJWI1UtdHsifXw/3Ns5U97hY1o9SgymvdT66tH12LZl1dHJxhnJDh3dF4pI
- kpu/hi7NnsU3y9hcUbb2EiBnTX689XdttOa1h8ugR8JjH5IMOaNuAuZSO1lqHOwg1NKB
- KuVw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE60110E550;
+	Thu, 18 May 2023 20:31:22 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4974F10E550
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 May 2023 20:31:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1684441879;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=P47akq7ZT7Pn5w2xHGuZHnmybcYZqlS0WNbHxIryrp0=;
+ b=NzHBzcg7ngS4fjLvcYJoxzl5hIs9p6DtpU6xg5+ZBwuUqswkiThPhEth7qn6IdeibMpJA7
+ 4IpNHFKpG3DbGonKoTzuss9zGC5s/bGzQL6namdK4mNYnQzHvRG69+I0CDukumfVD7p/SZ
+ j0oa2i+teIzHLjOXps16Lttv0FMmK6w=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-363-DC2KlQVpPtWlyGUK7rhpMg-1; Thu, 18 May 2023 16:31:17 -0400
+X-MC-Unique: DC2KlQVpPtWlyGUK7rhpMg-1
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-62391209acdso9270796d6.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 18 May 2023 13:31:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684440738; x=1687032738;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Saf0zfqm07ePmwqK9Uni3ddlqu/Ais3Oc8azNzsCmaU=;
- b=Lsiq+KjiZS8+q+rPbVhOPf6lq1Hyw6uh7Ozwf91V1Qh77zAtyfGXJtx1Bc0oqVfhl4
- YG+Nm4ir9VmI/ZEjQa8etey/iUerSNZfgTbBMyCtO+Uqdts03B9882bFpfKTL0JyA2GF
- 0iY2oc/ecqqlpqRxNq8XjaYasDRuT8XEiPzlGwv+QtUjCTWBFvAdfWmF3WoA6jqu/X1l
- /7cLZU3MyEKD6TOPxDhFGWFp1jSEGfCh4H+e/dws9F86/xTjqisG/LEkHiO3uWQe/986
- 6mxugLmTqfmB7wEc1ZvLIyKve9/MkTWZG9ETHG2WrQvMWAOsD2OkHc78c7UVJmCoHCPh
- XSgg==
-X-Gm-Message-State: AC+VfDxgcoG8Bn/ri8Y/cY7T1tN1lxH78n5wc9/CLZvJqj1rz8W3/txH
- yA1m88mA4qyC6c8NKQlvMhgGSwx4ARJdq8aq1bQ=
-X-Google-Smtp-Source: ACHHUZ6jAdZQT7MaeZBAPc1hOum2bkrZ9ZOaKkrXqG4BvsAtpzj+6/tE1JzA6oJxJWJqayseYKopP/RNfDTGCIBRyDY=
-X-Received: by 2002:a9d:638a:0:b0:6ad:ed25:3caf with SMTP id
- w10-20020a9d638a000000b006aded253cafmr1940815otk.9.1684440737969; Thu, 18 May
- 2023 13:12:17 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1684441877; x=1687033877;
+ h=mime-version:user-agent:content-transfer-encoding:organization
+ :references:in-reply-to:date:to:from:subject:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=SGCbI3feKrV5y0C9Vz0t2l4w3d1XI35n5yHGkz/CWCo=;
+ b=NRINNmHkkKUfR+RCwG3aXjfzr9t2RGaPdo8JqlRz4lvKpoHPFH+iXXC6VqS8MRiyFQ
+ g0elRl3oqNsHA0jGlS5gcxWCA8Ffn0Vl8pmWXFEpqxICNaengQ/GbJuxO+h5r/DfhanX
+ k2kFRsB/lNWRcqNYqbecjbEzLQjJBWNpkJA4E0e3feCK+xJT4ljvqnBrE3XqVVTP80FO
+ 9A+/wG2ZMirtvbzczdya2axoK/d7Sl7Tv7Hb9DmhFssuy2+/baAKzWwsNXJIH5ZjSyNf
+ psJGw8SlD3f8OmAzU+HinpeIHGR2wmT4Amn+JBxpD4u12ojsFOzm+DdPoTqRWRmLo7y4
+ KuJQ==
+X-Gm-Message-State: AC+VfDyr452V1DqntXhToptBca96SNdsIfRbHjaR8J+nBc6/b+/85dph
+ MS+b/wQeW0DSMHGgcoKxAhB4ZsrzBleUTm3Odu+Vaaa0RacS+uivi338ClJIhXE+ocdJRmwGdJd
+ 55LlOxdpj/paxVtt3DIs+oFcNQDZnRQqD4w==
+X-Received: by 2002:a05:6214:1ccd:b0:621:1b73:52c9 with SMTP id
+ g13-20020a0562141ccd00b006211b7352c9mr319056qvd.10.1684441877275; 
+ Thu, 18 May 2023 13:31:17 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5CES7hnIggC0LE8BJbYOWn5BC2s2m2vLZDwZes1j+6TMDsTt+v6nZcQFBip/qrHexTE3/kCQ==
+X-Received: by 2002:a05:6214:1ccd:b0:621:1b73:52c9 with SMTP id
+ g13-20020a0562141ccd00b006211b7352c9mr319044qvd.10.1684441876964; 
+ Thu, 18 May 2023 13:31:16 -0700 (PDT)
+Received: from ?IPv6:2600:4040:5c62:8200::feb? ([2600:4040:5c62:8200::feb])
+ by smtp.gmail.com with ESMTPSA id
+ m11-20020ad4448b000000b0061b7f6b5e15sm754517qvt.140.2023.05.18.13.31.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 May 2023 13:31:16 -0700 (PDT)
+Message-ID: <de5a5ca3cba4396e22fc517a84c968608644f215.camel@redhat.com>
+Subject: Re: [PATCH] drm/radeon: reintroduce radeon_dp_work_func content
+From: Lyude Paul <lyude@redhat.com>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Thu, 18 May 2023 16:31:16 -0400
+In-Reply-To: <20230518164811.1956522-1-alexander.deucher@amd.com>
+References: <20230518164811.1956522-1-alexander.deucher@amd.com>
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.44.4 (3.44.4-3.fc36)
 MIME-Version: 1.0
-References: <20230509183301.1745462-1-olvaffe@gmail.com>
- <CAPaKu7TqUt1L-5RUuwEagr2UUs8maOO+FSoS2PEoP9eO1-JJSw@mail.gmail.com>
-In-Reply-To: <CAPaKu7TqUt1L-5RUuwEagr2UUs8maOO+FSoS2PEoP9eO1-JJSw@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 18 May 2023 16:12:06 -0400
-Message-ID: <CADnq5_OsGqg7CoNVgtgr91a+pyBtJzoUOBXHKmGMcOM9hLFkwQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] amdgpu: validate drm_amdgpu_gem_va addrs for all ops
-To: Chia-I Wu <olvaffe@gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,43 +83,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, Kefeng Wang <wangkefeng.wang@huawei.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Danijel Slivka <danijel.slivka@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Mukul Joshi <mukul.joshi@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>, Yang Li <yang.lee@linux.alibaba.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Suren Baghdasaryan <surenb@google.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 17, 2023 at 5:27=E2=80=AFPM Chia-I Wu <olvaffe@gmail.com> wrote=
-:
->
-> On Tue, May 9, 2023 at 11:33=E2=80=AFAM Chia-I Wu <olvaffe@gmail.com> wro=
-te:
-> >
-> > Extend the address and size validations to AMDGPU_VA_OP_UNMAP and
-> > AMDGPU_VA_OP_CLEAR by moving the validations to amdgpu_gem_va_ioctl.
-> >
-> > Internal users of amdgpu_vm_bo_map are no longer validated but they
-> > should be fine.
-> >
-> > Userspace (radeonsi and radv) seems fine as well.
-> Does this series make sense?
+Whoops, sorry about that!
 
-I think so, I haven't had a chance to go through this too closely yet,
-but amdgpu_vm_bo_map() is used by ROCm as well so we'd need to make
-sure that removing the checks in patch 1 wouldn't affect that path as
-well.  The changes in patch 2 look good.  Also, these patches are
-missing your SOB.
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-Thanks,
+On Thu, 2023-05-18 at 12:48 -0400, Alex Deucher wrote:
+> Put back the radeon_dp_work_func logic.  It seems that
+> handling DP RX interrupts is necessary to make some
+> panels work.  This was removed with the MST support,
+> but it regresses some systems so add it back.  While
+> we are here, add the proper mutex locking.
+>=20
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2567
+> Fixes: 01ad1d9c2888 ("drm/radeon: Drop legacy MST support")
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Lyude Paul <lyude@redhat.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon_irq_kms.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c b/drivers/gpu/drm/ra=
+deon/radeon_irq_kms.c
+> index 3377fbc71f65..c4dda908666c 100644
+> --- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
+> +++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
+> @@ -99,6 +99,16 @@ static void radeon_hotplug_work_func(struct work_struc=
+t *work)
+> =20
+>  static void radeon_dp_work_func(struct work_struct *work)
+>  {
+> +=09struct radeon_device *rdev =3D container_of(work, struct radeon_devic=
+e,
+> +=09=09=09=09=09=09  dp_work);
+> +=09struct drm_device *dev =3D rdev->ddev;
+> +=09struct drm_mode_config *mode_config =3D &dev->mode_config;
+> +=09struct drm_connector *connector;
+> +
+> +=09mutex_lock(&mode_config->mutex);
+> +=09list_for_each_entry(connector, &mode_config->connector_list, head)
+> +=09=09radeon_connector_hotplug(connector);
+> +=09mutex_unlock(&mode_config->mutex);
+>  }
+> =20
+>  /**
 
-Alex
+--=20
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
 
-
-Alex
