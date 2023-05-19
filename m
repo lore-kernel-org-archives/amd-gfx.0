@@ -4,59 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9110C77B75
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 07:12:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFE87C77B7A
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 07:53:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC37110E061;
-	Fri, 19 May 2023 07:12:12 +0000 (UTC)
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59AAB10E5D0
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 06:52:51 +0000 (UTC)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-3f41d087b3bso28758825e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 18 May 2023 23:52:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684479168; x=1687071168;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=U6j0HuL7/BsMUTdgO8ApRJZaLD86emsE3OvsZeTdmn4=;
- b=REdQRbjP6TBQ2+pE8hDr/krMFIDzIu99DJK3I5otAdGYJsJ43pJMCjgWgNg2EFvaQ/
- 9QjPoKG5wCSNui6SIv/YmBZKx+nz51dA7V2vTax7tdqFlXNxSYzIRJgzahIV/mEsLkOX
- flfJE3xkCpnFJDZZsdylrm6owTFJ+nEOdgm8wJCSY70JqpBlo0J/N0M8hU/PKcMAIxMW
- ccMw3+k4EwKSlpNhr0vEpO/rMDXeIpIItdVW22SlJrVRFkv1yK9KG7PtUBCLHaWBL/h1
- pE9J/kkmUeG3NoKrQv7Ow8XqsrBW6wn5p+Cspp0tT+43kLA0Bx5Vm2vLtZJ2DNrcaLhi
- 9M6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684479168; x=1687071168;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=U6j0HuL7/BsMUTdgO8ApRJZaLD86emsE3OvsZeTdmn4=;
- b=UQJWEa6M0H6p5R2WUDR7sBe1zu3JzqAuYeUaBBJVCPPTHJ8qqpiOb0NxlD4YwExLL8
- l9a/8aFLqQVJZq6voLrXQ8fPhrLZ/limMR/FETqaBYthDUWm7tsipahXBGmwa77OBalA
- 9x87RiL0Hsozjf18sKG/IMudnqwYNYTR2355h37QURJ33+pbZJbUJuRyfG+VzzOG3s+u
- 7gEdXen9QlI1xrByyOREYoKU8dAxPbKoK6uqLZL4fjCQa3aBypu2kJ8gyyU4SejLepUa
- R1L/3ETH+hqueTLrOSi8XVBYwSt0roKAE9+nDpNQIeYDv3Hon3uA89y5jZP7pRbnIyl+
- ZtMA==
-X-Gm-Message-State: AC+VfDz4VOJ3pieT2FmpEvHdqB1XQ68+t7XBiB02kpkAy4Kg/pEKwYjS
- QPksQviIqqeWdNh2ZK/+UZ5H25IaRnKpXrpMoVI=
-X-Google-Smtp-Source: ACHHUZ4aB/7KuW6gGLqSZAoEqzvIq8wx+Pzlow6IKLxD1oiuJhrPWGUVcL35rpSN1BjfkXqlaGpZ1Q==
-X-Received: by 2002:a7b:cc88:0:b0:3f1:8223:6683 with SMTP id
- p8-20020a7bcc88000000b003f182236683mr447514wma.40.1684479168517; 
- Thu, 18 May 2023 23:52:48 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- u8-20020a5d6ac8000000b003079ed1f0a0sm4281023wrw.44.2023.05.18.23.52.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 May 2023 23:52:45 -0700 (PDT)
-Date: Fri, 19 May 2023 09:52:42 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: eryk.brol@amd.com
-Subject: [bug report] drm/amd/display: Add connector HPD trigger debugfs entry
-Message-ID: <3e6fe012-1c2d-49af-ad3c-ecc89ab13254@kili.mountain>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C99B10E5E2;
+	Fri, 19 May 2023 07:53:40 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2058.outbound.protection.outlook.com [40.107.223.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D57C10E5DA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 07:53:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=j77bZquovB0ifsMmBNH7zM0lzlqaZ7mhZokF35DuQZlcvBwpZFrxevKmX9XrbIUqBtYHTol1we9fg4UiK5IhmmNUinNsXFxKiA4HHriVBMq4lH6YdaJdaWeNyP3EsfY6j4vFmrRQYrByJX0zxLIYGLX9+85OQFG+LSI1dncrGRBOvsFM9cQeh2FrF0mbtWtXGFtRC5Vhtgj+EMtl3vAUz7yCT4TW+sPmR6VvPhQPhvT0bIPHSa1vkV/VULg/Y4MjjNt3nOXFPvTR7X6Eu4dJzoTjxDjhtWp/D5Fv9aJyHvTP02qNT8O84BXeNAmHJmjDTPkPH38e1ikhuT+Ky/DIhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2BsIFhmR1CCiNa2CwpMWRv1IHoOdGOau+uvuu9gdKFM=;
+ b=nVuqM9QrMAG+S2R+p1QjZQC5ibg4zcNjAuF+eQzz/9REAGetm2yWhMJqkQxf3q6vwTdoBgqP6Os3NZJPZikXp2kILJAumbXKhkVpPFgTUeFiagl/63sO0DNUXz8ETJcbMcMRRueypQn4lu6WRexqLtWaxssfisgHhlUWJI66Kerprl2s03PQFGmcS8ltrgA/hktkQBr9eP1F14KOZe0vEl6XAbQdsmVIfMAcEXrRFX/uCq+3znuGC2xkwuqfkl43UZiFp9CSv9MUkM0OBqM0EvcUIlyXZvyQhZ1ewadyCud5D1eAJtiW68yOtNs0Q2I+fr9GQT65Ic87gvYb4c1COw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2BsIFhmR1CCiNa2CwpMWRv1IHoOdGOau+uvuu9gdKFM=;
+ b=XwXxwwA20pJ+/Q+Cx5AVEtRelBBGLSlHhFHrYZjJqB4X0JXPLn+sLP8vk3+UtiwqBXG6f+VH2XQCUT6gyBn42rYF66oMxi922xHVp+LL0uMdCmcVkdWL/+RtiJR6H2qCkY+fcnYE3tvpF8iHmR6JJxVpYj1PTQWaGNnJoRVVL4s=
+Received: from BN7PR06CA0044.namprd06.prod.outlook.com (2603:10b6:408:34::21)
+ by DM6PR12MB4281.namprd12.prod.outlook.com (2603:10b6:5:21e::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.21; Fri, 19 May
+ 2023 07:53:35 +0000
+Received: from BN8NAM11FT048.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:34:cafe::94) by BN7PR06CA0044.outlook.office365.com
+ (2603:10b6:408:34::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.21 via Frontend
+ Transport; Fri, 19 May 2023 07:53:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT048.mail.protection.outlook.com (10.13.177.117) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6411.21 via Frontend Transport; Fri, 19 May 2023 07:53:35 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 19 May
+ 2023 02:53:32 -0500
+From: Evan Quan <evan.quan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: add missing NotifyPowerSource message mapping for
+ SMU13.0.7
+Date: Fri, 19 May 2023 15:52:59 +0800
+Message-ID: <20230519075259.1650630-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailman-Approved-At: Fri, 19 May 2023 07:12:11 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT048:EE_|DM6PR12MB4281:EE_
+X-MS-Office365-Filtering-Correlation-Id: bafb2f96-f056-4a67-0c21-08db583e2637
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tDr51LGKCyoN6qSZHEAOiRZiKkIBJWWL+ToxSILmvE/EkwsvpbJfMxHHonjS5wKpZe9BcTvoV/MKzNJDLTHA8Upi7apn1Ffkmfzd3JkISU5u+NnYn3HLj1/u7CZGPPL85ln55GC3d0C/dXThLy1EsV5VZNQRvxIB7r56mkoaWjTaDhmJgHWz39hhsFGmlFxTi3E7k8blA5D/YyWgER4ZIuovzwC1iBHjXA6Cz+Dm7kWy/XyexhcKcfF4nN4714qSFsqpaiSuuyMydBUxSGS4h+s1MfWxuzLnXE2BkHXc+YDI79fXLhV4y0Dhjg/bqVYLC9rx7R2cIqwxcj1vg75c1jOmEANgXyBhoao9qiqi8+q2HPDNzRuayQuWX/RqccCOyaqqnIVWSckPK93qeKj7h4rNl5rG604cgKdBJmlQ2QxC8NTaORIAQXFRekc8kQKqWxNvEJVeHW0734TXC/RhLp5pE9T/dUadbg0TL3ope/Xu681tot2hxRbMF2DDsCmHieBcnNK2d+Cs64USIHFdQXX2rk7xlaa9mbbL7LxasNDh27/6+fABgOkhz3R+B6OZoTWmN7GPXt/S2ErvTL1tHKsZVRC5veY1d67loq5E64A1Q96HnWZD4MVqUTgS4NOUbmpDE5B9uFtCGEflcXyoEkSo70ur7WypnayFLOulUdoLI1tskQWT0DacBpncGfXodKhyuqKrlYUztMuxOMew3XlsyJL9CeTAi6zojo+phARNfmChPi8d1mmFkxx0t98jVN1pess84Ewd5wlX38zKyg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(346002)(136003)(39860400002)(396003)(451199021)(46966006)(36840700001)(40470700004)(40460700003)(6666004)(41300700001)(7696005)(44832011)(1076003)(26005)(15650500001)(36756003)(5660300002)(2616005)(36860700001)(82310400005)(47076005)(83380400001)(336012)(426003)(16526019)(186003)(2906002)(4744005)(86362001)(356005)(81166007)(8936002)(8676002)(40480700001)(82740400003)(478600001)(6916009)(70206006)(70586007)(4326008)(54906003)(316002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2023 07:53:35.4946 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bafb2f96-f056-4a67-0c21-08db583e2637
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT048.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4281
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,51 +98,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Eryk Brol,
+Otherwise, the power source switching will fail due to message
+unavailable.
 
-This is a semi-automatic email about new static checker warnings.
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-The patch 6f77b2ac6280: "drm/amd/display: Add connector HPD trigger
-debugfs entry" from Aug 10, 2020, leads to the following Smatch
-complaint:
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index 1b6116cf8b4c..cf6827179fd1 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -125,6 +125,7 @@ static struct cmn2asic_msg_mapping smu_v13_0_7_message_map[SMU_MSG_MAX_COUNT] =
+ 	MSG_MAP(ArmD3,				PPSMC_MSG_ArmD3,                       0),
+ 	MSG_MAP(AllowGpo,			PPSMC_MSG_SetGpoAllow,           0),
+ 	MSG_MAP(GetPptLimit,			PPSMC_MSG_GetPptLimit,                 0),
++	MSG_MAP(NotifyPowerSource,		PPSMC_MSG_NotifyPowerSource,           0),
+ };
+ 
+ static struct cmn2asic_mapping smu_v13_0_7_clk_map[SMU_CLK_COUNT] = {
+-- 
+2.34.1
 
-    drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:1220 trigger_hotplug()
-    warn: variable dereferenced before check 'aconnector' (see line 1210)
-
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c
-  1204  static ssize_t trigger_hotplug(struct file *f, const char __user *buf,
-  1205                                                          size_t size, loff_t *pos)
-  1206  {
-  1207          struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
-  1208          struct drm_connector *connector = &aconnector->base;
-                                                   ^^^^^^^^^^^^^^^^
-Not a dereference.
-
-  1209          struct dc_link *link = NULL;
-  1210          struct drm_device *dev = connector->dev;
-                                         ^^^^^^^^^^^^^^
-Argh... dereference.
-
-  1211          struct amdgpu_device *adev = drm_to_adev(dev);
-  1212          enum dc_connection_type new_connection_type = dc_connection_none;
-  1213          char *wr_buf = NULL;
-  1214          uint32_t wr_buf_size = 42;
-  1215          int max_param_num = 1;
-  1216          long param[1] = {0};
-  1217          uint8_t param_nums = 0;
-  1218          bool ret = false;
-  1219  
-  1220          if (!aconnector || !aconnector->dc_link)
-                    ^^^^^^^^^^^
-Too late.  Dead already.
-
-  1221                  return -EINVAL;
-  1222  
-  1223          if (size == 0)
-
-regards,
-dan carpenter
