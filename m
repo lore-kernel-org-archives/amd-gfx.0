@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ED0AC77B7A
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 21:04:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 480BBC77B7A
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 21:19:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6908810E5D7;
-	Fri, 19 May 2023 21:04:05 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54F6810E584
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 21:04:02 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id
- 5614622812f47-38ef6217221so2311915b6e.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 14:04:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B8A210E61C;
+	Fri, 19 May 2023 21:19:31 +0000 (UTC)
+Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
+ [IPv6:2607:f8b0:4864:20::c31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1511E10E61C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 21:19:27 +0000 (UTC)
+Received: by mail-oo1-xc31.google.com with SMTP id
+ 006d021491bc7-55517975c5fso99667eaf.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 14:19:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684530241; x=1687122241;
+ d=gmail.com; s=20221208; t=1684531167; x=1687123167;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Gdvfb9hdfbFjNqYQ1hqK4xbOeXFfvfWgssy7qY5DDWo=;
- b=hoUMYqyox6Qx+One59KY0qqmGydF35w2ytapU47GBzsR+lpJkQoYRoxVARrMM9IkTN
- hsREgFvrK3IUZtnAU/hY70rE5AU8ql/9/KK0KNjFu2+wyeYjY2VJM4CBzHmarVFJdKGl
- 4z2HtnjjvVV9VoH4BBJm3GLyeP6cCQ1W0wtbKqLmQ6EFRVrku5qZ11uNDTMmQNJ2hHly
- fyKj1diC+eusabKH8c/Xl6ktFAm3LaCh1JaK7PDUarZUv0GPPiKQvmhI/OQ1eefmm5GZ
- 2N6v27ufzTCVZU3PvHPkuhAjuJawmwAWgRKzbuiOuTxAuWM01xlQJLROqcwFzV4PKKfE
- d7ow==
+ bh=FaVvE3AxIupevneg7eYo5coKc8pgguhdwu8pZ8k7nC0=;
+ b=A3sYTT/gWSeScQVsPA65TAFzPXlhjhdarwCwGXgPecZ/W3/wZBmMzKF/l1o04EoeDw
+ TPcgd0pJAwZ1COie6AOVg5nnpYf0i3nD1lPx1AUKvbYHoP0u+TAJjfV2jJEnRrc6qhH0
+ IJzmzHxRp9xvr4a8hD4zM+Sb/mK3ehQMdygbLJ3bePCPOY3l/MwsZquuGAmD5BORFl1M
+ wPdKPN7ibQIgPnYxQK5BcjkmUTtTZK/xfsw9WU7M+E9O/eUF7VAEDmV7KC6HSKY2oMJ5
+ DGcwtRiOXOKOmiUs7987JQ704m2jLXxJ/s21FTD/dytGyNIZnfFUHxdvwPhE72e4DZ06
+ Xrzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684530241; x=1687122241;
+ d=1e100.net; s=20221208; t=1684531167; x=1687123167;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Gdvfb9hdfbFjNqYQ1hqK4xbOeXFfvfWgssy7qY5DDWo=;
- b=bS14zwKmyr6oaZdJw8dBYlGAJoYCfTWcLOJe5v1m8DCDk58v61ZyAN6kvNfcqTwQeH
- gZaqcXXAl4o5UqCJ36iDG83HeW6vziDyRoQ87NHOxaaKWLbzuV9ubOvtnLdYdZp/NgxY
- a2azDcAFKImcYlhwmvoZ0dWCbIgTkhQ289kcBQMTnKoRajDIh4hBlVWFdSRu9sd8OpQE
- eUxTq9bLwef9/mxh0+wEC2aUODCjH3UqSj34pvodTGkDgTwmaR2oWupdK84PAE7eiNrz
- oRdRParVpGsIgf3bNftYg+TFiwxJwPmGDR6M0CqigNnTkSxFShFP49UwQFS0tBvXLNkw
- iwow==
-X-Gm-Message-State: AC+VfDyQSjGvo/F4yXeInY3Lc//lw4hjw35yX85loLPXQdeO+EQpRE7p
- tKf2kQmtVGu1YgwV2eHqSEaDksuOrfgPgeuejl4=
-X-Google-Smtp-Source: ACHHUZ6sKqKU0LemkP+XWTTmxX+Cgi6D8LYGdpaWdZX+BICTyasgBXWlRxobJSpox/MQiZnPyAjLgwmro1kRfMHFcac=
-X-Received: by 2002:a05:6808:2d9:b0:396:3d0e:6401 with SMTP id
- a25-20020a05680802d900b003963d0e6401mr2028748oid.13.1684530240997; Fri, 19
- May 2023 14:04:00 -0700 (PDT)
+ bh=FaVvE3AxIupevneg7eYo5coKc8pgguhdwu8pZ8k7nC0=;
+ b=TVpYPfLCod+VpL5jG1E8s+DNdhsG3e4eMS9v0oKuoeGNzbMSI7gke8elpKMthovpak
+ sUDzwt7qD/78rgwVWPZpAqpwc7u8h+nZwkxCA1UmxN32cW2Om0aWRv30vSb2nqjE4cn0
+ Dkl3mAc5kN5FnX2m73tJTsyOR0gsCTB6Wohk2G77Nf4lgf2t9AZE4DVnez4jfzpbtTi7
+ X4V3D1MoHMt1M6vwPkr+vxTFTmEC0eAKA2Sng2y8QISfLVO6+/AcuDZDlLpZ5f5cdqiE
+ niLn5T6JwusljU+BYlCNlVPDGb8pldaATtD5irZgCEeTBlfl8AnUy20AG75Hnj0umcOO
+ VHfw==
+X-Gm-Message-State: AC+VfDyIwm99mort7yNuCwI96KEFqJINK5E2VmKLNtF1YzN3y9RoYk3V
+ 5odvtoFzluCmDyKgjhee9275c9n6rpX+KMNRbv5qxbbntRk=
+X-Google-Smtp-Source: ACHHUZ7tOZBZGtDKk6zG0jLAj6Eob7yGGNQqT7SrglFnvA61mR8IaYOY8kNrvI8Y96PUNE5rvQfYbAdA0c1ud0IBhys=
+X-Received: by 2002:a4a:2705:0:b0:545:2420:2a77 with SMTP id
+ l5-20020a4a2705000000b0054524202a77mr1258116oof.6.1684531167148; Fri, 19 May
+ 2023 14:19:27 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230424173836.1441-1-shashank.sharma@amd.com>
- <20230424173836.1441-2-shashank.sharma@amd.com>
-In-Reply-To: <20230424173836.1441-2-shashank.sharma@amd.com>
+ <20230424173836.1441-5-shashank.sharma@amd.com>
+In-Reply-To: <20230424173836.1441-5-shashank.sharma@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 19 May 2023 17:03:49 -0400
-Message-ID: <CADnq5_OxREJKeLwMiu_kkA4HjBBcyW_D6vOzeo=vUsMWM3ocLA@mail.gmail.com>
-Subject: Re: [PATCH v4 01/10] drm/amdgpu: UAPI for user queue management
+Date: Fri, 19 May 2023 17:19:16 -0400
+Message-ID: <CADnq5_NxpDhaqNaYX8dpQtHV7ULOXiv8=-kf1M9vnAyhprBbkw@mail.gmail.com>
+Subject: Re: [PATCH v4 04/10] drm/amdgpu: create GFX-gen11 MQD for userqueue
 To: Shashank Sharma <shashank.sharma@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -77,187 +77,228 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Mon, Apr 24, 2023 at 1:39=E2=80=AFPM Shashank Sharma <shashank.sharma@am=
 d.com> wrote:
 >
-> From: Alex Deucher <alexander.deucher@amd.com>
+> A Memory queue descriptor (MQD) of a userqueue defines it in
+> the hw's context. As MQD format can vary between different
+> graphics IPs, we need gfx GEN specific handlers to create MQDs.
 >
-> This patch intorduces new UAPI/IOCTL for usermode graphics
-> queue. The userspace app will fill this structure and request
-> the graphics driver to add a graphics work queue for it. The
-> output of this UAPI is a queue id.
+> This patch:
+> - Introduces MQD handler functions for the usermode queues.
+> - Adds new functions to create and destroy userqueue MQD for
+>   GFX-GEN-11 IP
 >
-> This UAPI maps the queue into GPU, so the graphics app can start
-> submitting work to the queue as soon as the call returns.
+> V1: Worked on review comments from Alex:
+>     - Make MQD functions GEN and IP specific
 >
-> V2: Addressed review comments from Alex and Christian
->     - Make the doorbell offset's comment clearer
->     - Change the output parameter name to queue_id
+> V2: Worked on review comments from Alex:
+>     - Reuse the existing adev->mqd[ip] for MQD creation
+>     - Formatting and arrangement of code
 >
-> V3: Integration with doorbell manager
+> V3:
+>     - Integration with doorbell manager
 >
-> V4:
->     - Updated the UAPI doc (Pierre-Eric)
->     - Created a Union for engine specific MQDs (Alex)
->     - Added Christian's R-B
+> V4: Review comments addressed:
+>     - Do not create a new file for userq, reuse gfx_v11_0.c (Alex)
+>     - Align name of structure members (Luben)
+>     - Don't break up the Cc tag list and the Sob tag list in commit
+>       message (Luben)
 >
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Christian Koenig <christian.koenig@amd.com>
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
 > ---
->  include/uapi/drm/amdgpu_drm.h | 95 +++++++++++++++++++++++++++++++++++
->  1 file changed, 95 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 25 ++++++++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 57 +++++++++++++++++++
+>  .../gpu/drm/amd/include/amdgpu_userqueue.h    |  7 +++
+>  3 files changed, 89 insertions(+)
 >
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index 4038abe8505a..083a1df8e8ef 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -54,6 +54,7 @@ extern "C" {
->  #define DRM_AMDGPU_VM                  0x13
->  #define DRM_AMDGPU_FENCE_TO_HANDLE     0x14
->  #define DRM_AMDGPU_SCHED               0x15
-> +#define DRM_AMDGPU_USERQ               0x16
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_userqueue.c
+> index 333f31efbe7b..e95fb35b0cb5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> @@ -81,6 +81,14 @@ static int amdgpu_userqueue_create_gfx(struct drm_file=
+ *filp, union drm_amdgpu_u
+>                 goto free_queue;
+>         }
 >
->  #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
->  #define DRM_IOCTL_AMDGPU_GEM_MMAP      DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-> @@ -71,6 +72,7 @@ extern "C" {
->  #define DRM_IOCTL_AMDGPU_VM            DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_VM, union drm_amdgpu_vm)
->  #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM=
-_AMDGPU_FENCE_TO_HANDLE, union drm_amdgpu_fence_to_handle)
->  #define DRM_IOCTL_AMDGPU_SCHED         DRM_IOW(DRM_COMMAND_BASE + DRM_AM=
-DGPU_SCHED, union drm_amdgpu_sched)
-> +#define DRM_IOCTL_AMDGPU_USERQ         DRM_IOW(DRM_COMMAND_BASE + DRM_AM=
-DGPU_USERQ, union drm_amdgpu_userq)
+> +       if (uq_mgr->userq_funcs[queue->queue_type]->mqd_create) {
+> +               r =3D uq_mgr->userq_funcs[queue->queue_type]->mqd_create(=
+uq_mgr, queue);
+> +               if (r) {
+> +                       DRM_ERROR("Failed to create/map userqueue MQD\n")=
+;
+> +                       goto free_queue;
+> +               }
+> +       }
+> +
+>         args->out.queue_id =3D queue->queue_id;
+>         args->out.flags =3D 0;
+>         mutex_unlock(&uq_mgr->userq_mutex);
+> @@ -119,6 +127,8 @@ static void amdgpu_userqueue_destroy(struct drm_file =
+*filp, int queue_id)
+>         }
 >
->  /**
->   * DOC: memory domains
-> @@ -302,6 +304,99 @@ union drm_amdgpu_ctx {
->         union drm_amdgpu_ctx_out out;
+>         mutex_lock(&uq_mgr->userq_mutex);
+> +       if (uq_mgr->userq_funcs[queue->queue_type]->mqd_destroy)
+> +               uq_mgr->userq_funcs[queue->queue_type]->mqd_destroy(uq_mg=
+r, queue);
+>         amdgpu_userqueue_free_index(uq_mgr, queue->queue_id);
+>         mutex_unlock(&uq_mgr->userq_mutex);
+>         kfree(queue);
+> @@ -149,6 +159,20 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void =
+*data,
+>         return r;
+>  }
+>
+> +extern const struct amdgpu_userq_funcs userq_gfx_v11_funcs;
+> +
+> +static void
+> +amdgpu_userqueue_setup_ip_funcs(struct amdgpu_userq_mgr *uq_mgr)
+> +{
+> +       int maj;
+> +       struct amdgpu_device *adev =3D uq_mgr->adev;
+> +       uint32_t version =3D adev->ip_versions[GC_HWIP][0];
+> +
+> +       /* We support usermode queue only for GFX IP as of now */
+> +       maj =3D IP_VERSION_MAJ(version);
+> +       if (maj =3D=3D 11)
+> +               uq_mgr->userq_funcs[AMDGPU_HW_IP_GFX] =3D &userq_gfx_v11_=
+funcs;
+
+Do we need to keep function pointers in uq_mgr?  It would be nice to
+keep the logic in the IPs directly.  E.g, in gfx_v11_0.c, we could set
+adev->userq_funcs[AMDGPU_HW_IP_GFX] =3D &userq_gfx_v11_funcs;
+then the userq code can just check
+
+       if (adev->userq_funcs[queue->queue_type]->mqd_destroy)
+               adev->userq_funcs[queue->queue_type]->mqd_destroy(adev, queu=
+e);
+
+etc.
+
+> +}
+>
+>  int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amd=
+gpu_device *adev)
+>  {
+> @@ -156,6 +180,7 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *us=
+erq_mgr, struct amdgpu_devi
+>         idr_init_base(&userq_mgr->userq_idr, 1);
+>         userq_mgr->adev =3D adev;
+>
+> +       amdgpu_userqueue_setup_ip_funcs(userq_mgr);
+>         return 0;
+>  }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index a56c6e106d00..9f7b14966ac8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -30,6 +30,7 @@
+>  #include "amdgpu_psp.h"
+>  #include "amdgpu_smu.h"
+>  #include "amdgpu_atomfirmware.h"
+> +#include "amdgpu_userqueue.h"
+>  #include "imu_v11_0.h"
+>  #include "soc21.h"
+>  #include "nvd.h"
+> @@ -6404,3 +6405,59 @@ const struct amdgpu_ip_block_version gfx_v11_0_ip_=
+block =3D
+>         .rev =3D 0,
+>         .funcs =3D &gfx_v11_0_ip_funcs,
+>  };
+> +
+> +static int
+> +gfx_v11_userq_mqd_create(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_=
+usermode_queue *queue)
+> +{
+> +       struct amdgpu_device *adev =3D uq_mgr->adev;
+> +       struct amdgpu_userq_ctx_space *mqd =3D &queue->mqd;
+> +       struct amdgpu_mqd *gfx_v11_mqd =3D &adev->mqds[queue->queue_type]=
+;
+> +       int size =3D gfx_v11_mqd->mqd_size;
+> +       int r;
+> +
+> +       r =3D amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
+> +                                   AMDGPU_GEM_DOMAIN_GTT,
+> +                                   &mqd->obj,
+> +                                   &mqd->gpu_addr,
+> +                                   &mqd->cpu_ptr);
+> +       if (r) {
+> +               DRM_ERROR("Failed to allocate bo for userqueue (%d)", r);
+> +               return r;
+> +       }
+> +
+> +       memset(mqd->cpu_ptr, 0, size);
+> +       r =3D amdgpu_bo_reserve(mqd->obj, false);
+> +       if (unlikely(r !=3D 0)) {
+> +               DRM_ERROR("Failed to reserve mqd for userqueue (%d)", r);
+> +               goto free_mqd;
+> +       }
+> +
+> +       queue->userq_prop.use_doorbell =3D true;
+> +       queue->userq_prop.mqd_gpu_addr =3D mqd->gpu_addr;
+> +       r =3D gfx_v11_mqd->init_mqd(adev, (void *)mqd->cpu_ptr, &queue->u=
+serq_prop);
+> +       amdgpu_bo_unreserve(mqd->obj);
+> +       if (r) {
+> +               DRM_ERROR("Failed to init MQD for queue\n");
+> +               goto free_mqd;
+> +       }
+> +
+> +       DRM_DEBUG_DRIVER("MQD for queue %d created\n", queue->queue_id);
+> +       return 0;
+> +
+> +free_mqd:
+> +       amdgpu_bo_free_kernel(&mqd->obj, &mqd->gpu_addr, &mqd->cpu_ptr);
+> +       return r;
+> +}
+> +
+> +static void
+> +gfx_v11_userq_mqd_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu=
+_usermode_queue *queue)
+> +{
+> +       struct amdgpu_userq_ctx_space *mqd =3D &queue->mqd;
+> +
+> +       amdgpu_bo_free_kernel(&mqd->obj, &mqd->gpu_addr, &mqd->cpu_ptr);
+> +}
+> +
+> +const struct amdgpu_userq_funcs userq_gfx_v11_funcs =3D {
+> +       .mqd_create =3D gfx_v11_userq_mqd_create,
+> +       .mqd_destroy =3D gfx_v11_userq_mqd_destroy,
+> +};
+
+These functions and structures should start with gfx_v11_0_ for consistency=
+.
+
+> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu=
+/drm/amd/include/amdgpu_userqueue.h
+> index 8d8f6b3bcda5..e7da27918bd2 100644
+> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> @@ -28,6 +28,12 @@
+>  #include "amdgpu.h"
+>  #define AMDGPU_MAX_USERQ 512
+>
+> +struct amdgpu_userq_ctx_space {
+> +       uint64_t         gpu_addr;
+> +       void             *cpu_ptr;
+> +       struct amdgpu_bo *obj;
+> +};
+> +
+>  struct amdgpu_usermode_queue {
+>         int                     queue_id;
+>         int                     queue_type;
+> @@ -36,6 +42,7 @@ struct amdgpu_usermode_queue {
+>         struct amdgpu_mqd_prop  userq_prop;
+>         struct amdgpu_userq_mgr *userq_mgr;
+>         struct amdgpu_vm        *vm;
+> +       struct amdgpu_userq_ctx_space mqd;
 >  };
 >
-> +/* user queue IOCTL */
-> +#define AMDGPU_USERQ_OP_CREATE 1
-> +#define AMDGPU_USERQ_OP_FREE   2
-> +
-> +#define AMDGPU_USERQ_MQD_FLAGS_SECURE  (1 << 0)
-> +#define AMDGPU_USERQ_MQD_FLAGS_AQL     (1 << 1)
-> +
-> +/*
-> + * MQD (memory queue descriptor) is a set of parameters which allow
-> + * the GPU to uniquely define and identify a usermode queue.
-> + */
-> +struct drm_amdgpu_userq_mqd_gfx {
-> +       /**
-> +        * @flags: flags to indicate special function for queue like secu=
-re
-> +        * buffer (TMZ). Unused for now.
-> +        */
-> +       __u32   flags;
-> +       /**
-> +        * @doorbell_handle: the handle of doorbell GEM object
-> +        * associated to this client.
-> +        */
-> +       __u32   doorbell_handle;
-> +       /**
-> +        * @doorbell_offset: 32-bit offset of the doorbell in the doorbel=
-l bo.
-> +        * Kernel will generate absolute doorbell offset using doorbell_h=
-andle
-> +        * and doorbell_offset in the doorbell bo.
-> +        */
-> +       __u32   doorbell_offset;
-> +       /**
-> +        * @queue_va: Virtual address of the GPU memory which holds the q=
-ueue
-> +        * object. The queue holds the workload packets.
-> +        */
-> +       __u64   queue_va;
-> +       /**
-> +        * @queue_size: Size of the queue in bytes, this needs to be 256-=
-byte
-> +        * aligned.
-> +        */
-> +       __u64   queue_size;
-> +       /**
-> +        * @rptr_va : Virtual address of the GPU memory which holds the r=
-ing RPTR.
-> +        * This object must be at least 8 byte in size and aligned to 8-b=
-yte offset.
-> +        */
-> +       __u64   rptr_va;
-> +       /**
-> +        * @wptr_va : Virtual address of the GPU memory which holds the r=
-ing WPTR.
-> +        * This object must be at least 8 byte in size and aligned to 8-b=
-yte offset.
-> +        *
-> +        * Queue, RPTR and WPTR can come from the same object, as long as=
- the size
-> +        * and alignment related requirements are met.
-> +        */
-> +       __u64   wptr_va;
-> +       /**
-> +        * @shadow_va: Virtual address of the GPU memory to hold the shad=
-ow buffer.
-> +        * This must be a from a separate GPU object, and must be at leas=
-t 4-page
-> +        * sized.
-> +        */
-> +       __u64   shadow_va;
-
-You were planning to add the other pointers here as well for gds and csa ri=
-ght?
-
-> +};
-> +
-> + /*
-> +  * MQD can be different for different GPU IP/engine. This union will
-> +  * contain structures of MQDs corresponding to different engines.
-> +  */
-> +union drm_amdgpu_userq_mqd {
-> +       struct drm_amdgpu_userq_mqd_gfx gfx;
-> +};
-> +
-> +struct drm_amdgpu_userq_in {
-> +       /** AMDGPU_USERQ_OP_* */
-> +       __u32   op;
-> +       /** Flags */
-> +       __u32   flags;
-> +       /** Queue handle for USERQ_OP_FREE */
-> +       __u32   queue_id;
-> +       /** the target GPU engine to execute workload (AMDGPU_HW_IP_*) */
-> +       __u32   ip_type;
-> +
-> +       /** Queue descriptor for USERQ_OP_CREATE */
-> +       union drm_amdgpu_userq_mqd mqd;
-
-Just thinking out loud here, I wonder if we should make this a
-pointer/size element so that we could make this variable sized in case
-some future MQD ends up being bigger.  I guess we could always add a
-AMDGPU_USERQ_OP_CREATE2 if we ever need to expand it.
-
-Alex
-
-> +};
-> +
-> +struct drm_amdgpu_userq_out {
-> +       /** Queue handle */
-> +       __u32   queue_id;
-> +       /** Flags */
-> +       __u32   flags;
-> +};
-> +
-> +union drm_amdgpu_userq {
-> +       struct drm_amdgpu_userq_in in;
-> +       struct drm_amdgpu_userq_out out;
-> +};
-> +
->  /* vm ioctl */
->  #define AMDGPU_VM_OP_RESERVE_VMID      1
->  #define AMDGPU_VM_OP_UNRESERVE_VMID    2
+>  struct amdgpu_userq_funcs {
 > --
 > 2.40.0
 >
