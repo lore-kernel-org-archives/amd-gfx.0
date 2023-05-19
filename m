@@ -4,117 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19AB1C77B73
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 01:07:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EDE0C77B7A
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 01:09:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1443A10E027;
-	Fri, 19 May 2023 01:07:03 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DC1310E027
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 01:07:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF96910E032;
+	Fri, 19 May 2023 01:09:08 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20624.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::624])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A423F10E032
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 01:09:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P2j8DmPz3/gyWSEPuFGdX28vgKUHQuVJj0ZEoWqr+ayPykPsgR8NDQ4i6XIGSs8QoFMfVPf8B29fErWgWAYeX3LWWPd7BogYqG9AIRnaIu/U6uJaSn7+DtSzweDPpL1Z2jQvR29zfxisP7+xwiYbN4Wmo5Ps6JEuvSW6Gpdg04EwSKXMAQE1pnWmS/aJ8U9cgiyWQ3sKAn4/M+QlQbpG4X8HSMZ6SlmDhT4s/4WohGiNjouPrMgqd8pQdanmkrR4wZDKcXY84tY2u8QJZZY6cuiAlmeWBV79JOwZFsBrcHcXfVQclM9vGg/YU1Ii4k4rpUcO1vB/jGdomjieAUe8tw==
+ b=nEvkBZCiZ3u13TvO8VR3cRNGdXXVMTSKhhi8BO4LJVtxo80ZTJBP62WxVnTy8JmR6fxotpCH3T98WQo1bQdXBNCCbGZwEH+VPQZyxxYVHSGjHaPknpNPFV12lEGRYOw5H/HysqrBIzHvvZU5dqcSSE3BSqR2KuLTaTGbv8Z7q4k4SDwFlXPcXAIJ1/36vA5lSjtrTHTrIInrT0PkobMOytuBLYXNQEQC+L0GSweKjncEFSZVZ4zSYVo1btBH/8A0GKk+wJWVoikvzJUlluCF5+MC+PyE07YNYvPZponP0Hnra1h7xa/ZNkLn2XvkE3ZSl3OuoEY39OF5/un5w9b+Mg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1AxlXwqBm4v/+NlvJft5QjtyER5+k+iwJSXRt941fvE=;
- b=Ft2dfgijSLPXewhoLcpj5p7UrC0NQWdKAUqRyBZudbvyZtxeDgwgxEx3fCQH/eEIw4L2PxFzlwzhDzX/Evej88hSNkzbtr+N+bDPdt80rORMJ5vWUkwlGkJsWPXcm485xr3IgKBtqALh8wK+RQT1YZwgvo1bVvLOZ7aZf0ZVFM0dWxLYLH70FbsW/VBjbbZ2U7FOnu/7T3YSYomYRExHs4xj+dPFMth3x7Xbd/UYZsbvdpYekd3F2iBxkoOtWBxgk72BP8ykmo3DedOmpsGKe4uD3VfCw70wqFjTRPovuiRJXCDCorkiYibxzgt+NjL2UnGScRGDH96t0d4wwM0AVA==
+ bh=yNADz1hX4WADyolytkytpNFEDQEXY5pdgJVvxH+gfKM=;
+ b=A9aM09QQ0pfmOgXZdzavsXGEZfD9XzSs2dypCtAht+bsBvHwCd23+wxkGKWmNgdoAqdTWaopU+z78hiqxkDe3vZ237k/7aRgiB9qe+Jnq1Ek0gG9lZVOy6rWkdOd6NXtKOia6xhJR+IO4yCdz/kjebcNFB2aAtoZ5xobB88Ge+Gxidr4zKTdz9RtcqWzJ5lKg89ycFzpNxUe2fZFKP+rr5YsFjNcezJZUyT9OSnNVrarBh8db+zumIbXubm55gNZZJ0leGB8/WlJV/0dR8YvygjBX2CM4uIOEvkD55K5p26E1AGquWWQzTAPASnym02c7UeFwIbn+8Y4it0gswVUnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1AxlXwqBm4v/+NlvJft5QjtyER5+k+iwJSXRt941fvE=;
- b=gpOOWo1i1suJg+ieEv9Mdd4gTe/DUP9fzQ16sX9kYM2gp+1UGR6hWG0AXzOcrtfijikdnRXZEutUWjpZMd5f3uFGmUu97ngy216yiFN/9qWIcW8++1eq924wVDDtZEY9HNxVP4uwwKx2WcX4JQBqL7RQLQ0TyLVgbGa9ux4PZi8=
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
- DM6PR12MB4435.namprd12.prod.outlook.com (2603:10b6:5:2a6::23) with
+ bh=yNADz1hX4WADyolytkytpNFEDQEXY5pdgJVvxH+gfKM=;
+ b=pOVr7IJLvVAD1+eAACbX2/pQPDS9G1kTEZBG5qa+qLsBX4GIu0PELJtBMn5eAdjfhmTYeTfigcC38Bsc7HwVsfSVQ7A+UtOMsfjN1Uoc1IsbAuJiG7wF/hINVuSCh+0I6RSsrwxSxIeu6s2L3RV06cCbj92PBA/ZzCetSED0Shc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) by
+ DM4PR12MB7600.namprd12.prod.outlook.com (2603:10b6:8:108::5) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6411.19; Fri, 19 May 2023 01:06:58 +0000
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::33d9:b6ae:36f1:e374]) by DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::33d9:b6ae:36f1:e374%3]) with mapi id 15.20.6411.020; Fri, 19 May 2023
- 01:06:58 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Subject: RE: [PATCH 0/3] cleanup abuse of sched.ready in each ring init
-Thread-Topic: [PATCH 0/3] cleanup abuse of sched.ready in each ring init
-Thread-Index: AQHZiVa5TpZeBzp3TE+2D1+Enmnga69gHJsAgACsG1A=
-Date: Fri, 19 May 2023 01:06:58 +0000
-Message-ID: <DM5PR12MB246930870A68C45FEBC585B3F17C9@DM5PR12MB2469.namprd12.prod.outlook.com>
-References: <20230518070215.3556653-1-guchun.chen@amd.com>
- <BL1PR12MB514476AAFB76CFD21C81BFD3F77F9@BL1PR12MB5144.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB514476AAFB76CFD21C81BFD3F77F9@BL1PR12MB5144.namprd12.prod.outlook.com>
-Accept-Language: en-US
+ 15.20.6411.17; Fri, 19 May 2023 01:09:04 +0000
+Received: from DM6PR12MB2602.namprd12.prod.outlook.com
+ ([fe80::2ef6:2d8d:4a0:3396]) by DM6PR12MB2602.namprd12.prod.outlook.com
+ ([fe80::2ef6:2d8d:4a0:3396%7]) with mapi id 15.20.6411.017; Fri, 19 May 2023
+ 01:09:03 +0000
+Message-ID: <d9a0013d-642a-afb5-27de-93d085a796f2@amd.com>
+Date: Thu, 18 May 2023 20:09:00 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH] drm/amdgpu: Add a low priority scheduler for VRAM clearing
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=4c7f0d95-7093-4c19-a02f-ae14fc73afe9;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-05-19T01:03:40Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM5PR12MB2469:EE_|DM6PR12MB4435:EE_
-x-ms-office365-filtering-correlation-id: 94f0d54c-1d66-485e-e2a8-08db58055836
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: VSk/ljRoxPCpHctp6h9M86kaEuBr0AuG3SuvRLNAH84yoRYxUnn/L6KnPIyccU2gdAH9zyMoDJC79fkNO3S0URXhwUIc7HOWcjQLjQpBlqwIqTEFRqub7T7UVOKkmA2iM/RQHg/qb+6RjHBtVx7MVtI0gmFgD9H9hlFAQ0I+cpZU4+aejTiwPSzKklVXhDJvaxSF61qAjj/ubukfocFjBxIGy9RhOsluKb35s3S1wIezvYr1Dkz735xywvy3E2Ca5bS4m0yNbVVS7zkNJlwqGXGVOHsulWUtxfrZiQg+pK9kQbrT0hcMyAWTWe2l+XSsAutDdIQP1L86OOolW76++wvFTptngBgIA2AfUVhtF+4HkfxsnyhHpX1pEgSLjUJd2vvwiyvz4Ie++gNpzHX1NRA8Lrv5mgKp+VPX01Sfk3MUI3tJDSu9gRLXJjuc28+71sVoOg9fbFSUwTamUXEitKevuufSldytTM4PZUvgwCZG8tBRdUYsBf/CluUO7aQgTFeO7t5wQX4eMsULAnprlVmvMQ40cdJiLI93YzRqsMZUP23kZa3Ua0C7rj5tL8YqSlVT/aBK90EN8PeqbDxsMxLseykoD9Pmql0GYJYPUzYkOuYvv5KQr5V4TETogp+6
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(376002)(39860400002)(396003)(366004)(136003)(451199021)(53546011)(6506007)(26005)(9686003)(7696005)(38070700005)(33656002)(122000001)(86362001)(83380400001)(38100700002)(55016003)(186003)(110136005)(478600001)(316002)(2906002)(6636002)(8676002)(8936002)(41300700001)(52536014)(5660300002)(64756008)(66476007)(66446008)(66946007)(66556008)(76116006)(71200400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KQTfyF1dq56DkHSLNcqLX1o3fg7cg+5+L1mUuCFwl585aUgByOk+7yZIcuML?=
- =?us-ascii?Q?F/gzm0CJ2qZd94O0TPmFn+BMoR1im1kgjNWJW5HmB37Y6IoHwmpvfX94LI/G?=
- =?us-ascii?Q?4ByH/oe7cFoTZlPBEozmUlWaAvwxjfmI9hMe/fRy4vjkO6W1uTRihwMjCYwV?=
- =?us-ascii?Q?AKpFuML3f5xt83bDdKP6k6h9VESvChYJjZnJjpdZdsZyUto85s35zouL/BY0?=
- =?us-ascii?Q?yeRMxLQeleHO6YhCB+YPvaO4VZwBL9DNAnMSg3iaU0dQkoe37LYOaugqQ4ig?=
- =?us-ascii?Q?RK25ctb+8sgFinw3WXmxhJf5jmF8HMyHcXBLmpPcYGztoJgIBPxIo8QtIoov?=
- =?us-ascii?Q?eVf/BUsYwkuXBH0T9stIjPMg+eJPIQINkVFN7xBYUIgaCcYaWHeH8VUWBKnq?=
- =?us-ascii?Q?el5mFrYFvj5vUjTIK+4N61PXgzVV8azdC2J5QU5rZ80BBCAsfhbjncoHxCVN?=
- =?us-ascii?Q?KuYnNrZLIl0SkQURSWmJR1YlVv8AwG+NVjWmoAPQDmrvCoB9lRchHYVSjD9v?=
- =?us-ascii?Q?y08K1CCK8L+IE/2IxRImPxswEuZKO930scY1zs8fat+mSxLRy6ar56ixP/LP?=
- =?us-ascii?Q?sQXAiLEQ5XNGeUn+5XS4cwVKIi+IFcHT5rczTHSER1hJkmhiDGeraIwH3cp1?=
- =?us-ascii?Q?hzNMadD/6PHxrnUMkyZT382iwXcshnN7/n2nCWMQ6ihKgQZBLUaiy9VH8wXX?=
- =?us-ascii?Q?Lu5cDTGPboxrQg2wbm9wcYpmZDurvsEoiDUQ6qE9Wij61LYpsSm8Jn4qHRIq?=
- =?us-ascii?Q?V60bqQLQw96NITdH5LzIFWIP/1o5TFLeZpBt37Uepphva9MJYao4ZcxuTZ4/?=
- =?us-ascii?Q?2u8ZmkocGWskJPTEjMDg8g1sEzodXGK6aC7XQQLIZlpYIzuEKCks93X01cNw?=
- =?us-ascii?Q?mzHVvXUf9ilAXzrcEAK0zUXR7S/vlcJAO3Rl5ewl+HOCHgTK024RGxXrGkxR?=
- =?us-ascii?Q?egSTVaBSxlHWUBWCo65xAD/uZFC9IZjXzYg0nmCBT7ZcAyV1IWDQC4A0uRNQ?=
- =?us-ascii?Q?VGFLnOCDyO59jrxUATZzG9ZEytBm0of6FgToMTGrMdOpR3VBLNs0Z03F+sM5?=
- =?us-ascii?Q?dKpaKPQOrGaxYa47xbOIJe1/GRJsU97bMZ7rC6qEXYYHEoynuYlPWXSblovR?=
- =?us-ascii?Q?lPkyiRdddztNnxzcmItqPaetGltKVFidIRzAsmTmCCVN5jKxxT2ZWeOSHN+B?=
- =?us-ascii?Q?7cFpHkdwFgW3oQq4jyyBDbdRC/wUBFTqg9y/gn1mCCvNL8fMi0mGPkvy/asz?=
- =?us-ascii?Q?DYRhDz/a4TYHhzbeYDUckg4aSGyWIYmtQGfpyqfhqDjnqzUa1UW2JujQ2q0z?=
- =?us-ascii?Q?YvkC5EzANzXFDSUJJfjYkdiExbKuM4qp52ntpxiEfAM5F/nsjDX2ufAcFfbw?=
- =?us-ascii?Q?LEzGmNDrKEsiaOueaqDBiUE3uG+1BufnHAim3XPZuWJJd8As0v7Xz3iKq+96?=
- =?us-ascii?Q?3YdUTinVSxrTPMfsr3On4FuEFG2iVgzXRjtre+cXjIhFs0tVILBVxHlcmMqf?=
- =?us-ascii?Q?ykEWU9Cihf2b2tGyJ9kKEHysrLr1AUhvn7dtN5zYbNMDpN5/+y5hfKPbdOWV?=
- =?us-ascii?Q?wnZlzFWIEixeBDwBRRQ=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DM5PR12MB246930870A68C45FEBC585B3F17C9DM5PR12MB2469namp_"
+To: Felix Kuehling <felix.kuehling@amd.com>, Mukul Joshi
+ <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230517214040.539342-1-mukul.joshi@amd.com>
+ <41e91d4b-7504-a431-d891-ac5e79c5b80e@amd.com>
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <41e91d4b-7504-a431-d891-ac5e79c5b80e@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DM5PR07CA0119.namprd07.prod.outlook.com
+ (2603:10b6:4:ae::48) To DM6PR12MB2602.namprd12.prod.outlook.com
+ (2603:10b6:5:4a::11)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2602:EE_|DM4PR12MB7600:EE_
+X-MS-Office365-Filtering-Correlation-Id: 534ff9a6-e757-40ac-4faf-08db5805a2f5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: QeJ96jauIqsaEsx0xwQhzkdb9HQdcTEQiugC5cWKJ9YZQ5X8GfkpKHbcI/3HBFsb0Vc5N0jI0Yn1S2MsLyWJ6+8SQduP4w6K4s0JQk94iUHr04nFZcIB4s9aKe+kqXIU3ZPNvHoAmMHXxgdgtn3bzzyRIIB+8/3jQvfqjOA2UR0JcjD4Z6uglsgGVzkYkLYbS45uruzt/WJgx19t9evotLQea0AaMZLq0jbuTK3e7Hs5rVfLP61zAtM71zXP782v/PlT0+ENH9WCwC010i+5OWHObRat+ZvepFiGz4GAEiISjOxttKE7wVO4rlbjESM96vuX/nnCL7+aOg1+e/WmcFlmpw6M6d1v+tBU6ke3jzxDgyRwEdvYQ4jp2yleK7REaFkD93REJtoin3JeLl4X/h9qiLJo45GLaHBcZjF0vHjv7D8xxqa9L3KsFGrYvPoqVwqwmxdi1Fa9Ol9u5PSliEj6oxDXIu3RICi6EwA2YVcWmToyyqWhuD0m+1g2lfTVO2a/82de9IlssHlW4B0W3a39ZzRIOv35EAdWwtzM9+X6PaduZd/snSHXlFAT2pRKovQ7IJPNbWo5DqnmBQfZTEeb1tBFaeuXq2Z9PGBWvCrPTknNvP3Y1+oE19q/oypyAmlM1Zl+r825nxJTuUCQ1g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2602.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(136003)(376002)(396003)(346002)(39860400002)(451199021)(31686004)(478600001)(6506007)(53546011)(6512007)(26005)(2616005)(186003)(83380400001)(8936002)(8676002)(316002)(36756003)(38100700002)(41300700001)(86362001)(66946007)(4326008)(6486002)(66556008)(66476007)(31696002)(110136005)(2906002)(5660300002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M3J1dGo0bFczcjdCSGl6bkVRWFFHQlYzckM1STVWSGx4Lzk1cHd1azRFRmN4?=
+ =?utf-8?B?TjU0SkROa09GTVV6cDcycVNDM2xUb3VqZkxCanVUSFZFbnlNcXRsRjQzRU9x?=
+ =?utf-8?B?ZTJQS0JBLzZ4d0h5c2hsNDQwWGxuRjk3aTRoR2UxNW1Pa1YxWTNVV2crQTBy?=
+ =?utf-8?B?SUFhUU9jZmNacmMxcE9lWVVibCtiZ1lyTnVCaWRjUGFIREE5ZUNZTS9xa2Fh?=
+ =?utf-8?B?NHluNmRVaW00Mk1ydTNjeUp0a2dyUjBmK0pQV3A2bWNucFFNUjhpNFRZcUNo?=
+ =?utf-8?B?Y3A0b2xHK056dmp5NXVKaHZFQXBVdjBGZWJFQ25UellRK1o4Z1hHUHR2WUNV?=
+ =?utf-8?B?V1ZQM1ZoNWhiSFl0WlhLdmlWcjBZN2htTmM5TklId29wZkxGSjZ0RjFVK1JX?=
+ =?utf-8?B?MiszbG9vZm1vdXdFSFMyNGtOTmFrR29rckZEK1BxcmZOYXhYclRwNlFyVzdH?=
+ =?utf-8?B?NHJnaE1oRzFORklZUUxRbk4wcHliWXJjcEhUaFJyZnhIQzI3QUl5bGhaTStB?=
+ =?utf-8?B?Z2UvdEd6UnBQU21PbnUxSHcrYU9TMmZSU2lCaFM0Z05vSi9jaGZEVTVTa0sv?=
+ =?utf-8?B?NXFCUjlFc2RscGZJdi9oNnVKQTF1ZmhhU09vVjRVK2Y2eHJST09JRGdqOG5P?=
+ =?utf-8?B?SXA3TEkrNTRBRkwvQ0VHTHpZZWpoT1ZpaHZBSnNaSVlzeC9zTnBIN053NmxI?=
+ =?utf-8?B?Nklab3JVOWJXdmlqZFZPOG92TDNmZjFScGh3NGRNdm5rcVcvUkVVdGR6aSti?=
+ =?utf-8?B?dm9NYkZWYnE5NUlBMWJYZEtuQndaN3BFaUh1OEwvQTVrR2xjdXJkNXJlNU9E?=
+ =?utf-8?B?V1dvS1plNnZYR1RROGt1NkRWWnpObzlxaEFxb3gwTFF6ZEFhNnBEQklmZGx3?=
+ =?utf-8?B?b3lIQzlFNUJwWjRoYjJ1SkN0YWVtZmhpc1RzUzR2Ni96QzE1dDFzdHdvWGcr?=
+ =?utf-8?B?R2NIc0pvUGl3dUxUQzNvNDhrdGhtNEw4Nk93RDI2cmdVUG4rbTlHMERkL25s?=
+ =?utf-8?B?WkRvbEtQUVF0SVdDaWdKdlFIM2YxQmZsYU8wQWhTaVNKalRCNk1VSVVEd1R5?=
+ =?utf-8?B?NHJ1dHgxSnJWS1FnQ2RDRkhFM2cyVGt4OE9QV0RwS1BrbUpsOWMwU1A5OWRr?=
+ =?utf-8?B?Vkxsc0dGVDg1dVJoVE9OdUx1dCtsNlZYa2ZCc1Z6alRJdTNQTEtKc21GZHVh?=
+ =?utf-8?B?L245WWo2dER0OElTSk90N1o2WEhiUUVSeFFpR3hZbHFXOVRKbHRMT3NkbW5H?=
+ =?utf-8?B?K1J3T005OUpVTERlSVhKamZuS0k1N1o5RVpzTXh0WWMveVpGQk51aGNEQnFN?=
+ =?utf-8?B?VGZST2pzbFQ4Y2pobTVKV1Nna1JneWFJK2tzeG1RNTdRSWRMb2ZITFpTOHFh?=
+ =?utf-8?B?WjdmaUtvR3d5WlBseExvdTI4SWxLd2p6SG1Uc2Rac3c0MGU1R0RDYzBnTUhF?=
+ =?utf-8?B?VWxNMVIva25VbVc2aEJvd2wwbEJHeUFISEtXZVZNZHFiVmxCYnFkd1JCS1dK?=
+ =?utf-8?B?a1JrcHN4dVEwcCtleFpUWUxhQWlNSlBkam9qZHBEdUo3dVU0eStnQXI1SWVn?=
+ =?utf-8?B?R0Q1UnQ0K0kwODR6NXdBUWx6ZHNJeW0wcEd5TG1vSzZUSHg2YjV6UXhJVEJv?=
+ =?utf-8?B?WTYyUEZIWkt0QktBZk1xU2FUSG5DZ1cwdTRBTUNVK3B2Sm5lNnZkUjdMakFR?=
+ =?utf-8?B?T0Qxdm5LMjhaenBYYlpqNmFTdWJKRFpjemdMQlB0ZlozYmtrdGhKOTVxWURH?=
+ =?utf-8?B?dkFRcGV6VG5RdDExeGdhQzloS05IZndSN0NIOVljQURwZFBjdzhxNEM3cTJO?=
+ =?utf-8?B?RzFhU2oyYk96UEt3aloxUzlFVDIwdFNlYTJSaGJWMUxjajJjelRodDQ0VEsv?=
+ =?utf-8?B?ZnhnNFBnNDl0NklYS2dMeGRveVJXV0lLdHNFbnJndWZWZ0lOeEFKK0k2OW8r?=
+ =?utf-8?B?emkyZ0poQ2JiM2JPQ2crQkQvZzJyMFgrZWsxSm4vUW1vRXd6WitaVlNTOFh6?=
+ =?utf-8?B?dHhJVlRiWDFnbW5IZitlNVNzUmJSR3NObFl6Rk9KREd0eVg2RW1pQStQc2pi?=
+ =?utf-8?B?Y0FiOHhYNzc3V0N2UjBaYzhLT2JFY0Z5OVBzVnN2RDhyNkxxaEdWcjhhdVU1?=
+ =?utf-8?Q?DvMs=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 534ff9a6-e757-40ac-4faf-08db5805a2f5
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2602.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94f0d54c-1d66-485e-e2a8-08db58055836
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2023 01:06:58.1073 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: f86cYZheXlKdjT3uv2K2KUyW6MiESBVykIeEn7cagYALMA8h61SMGJXHf3vxvl95ZQj7diZUYfPTZ9ISa5M2Gw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4435
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2023 01:09:03.8032 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z5KDhK3QmI73PR8xfJNY3fIilSzNqOjcAYGYBIkpfphodBGKVbLKrvIHHvcrmSei
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7600
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,281 +126,240 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM5PR12MB246930870A68C45FEBC585B3F17C9DM5PR12MB2469namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 
-[Public]
-
-Hello Alex,
-
-Should not. Almost original codes set sched.ready before amdgpu_ring_test_h=
-elper in each ring initialization. The new codes drop that and leave sched.=
-ready set in amdgpu_ring_test_helper.
-I tested it both on gfx10 and gfx11 chip.
-
-Regards,
-Guchun
-
-From: Deucher, Alexander <Alexander.Deucher@amd.com>
-Sent: Thursday, May 18, 2023 10:47 PM
-To: Chen, Guchun <Guchun.Chen@amd.com>; amd-gfx@lists.freedesktop.org; Zhan=
-g, Hawking <Hawking.Zhang@amd.com>; Koenig, Christian <Christian.Koenig@amd=
-.com>; Pan, Xinhui <Xinhui.Pan@amd.com>
-Subject: Re: [PATCH 0/3] cleanup abuse of sched.ready in each ring init
-
-
-[AMD Official Use Only - General]
-
-Threre are a lot of places in the code where we check sched.ready.  Will th=
-is break any of those?
-
-Alex
-
-________________________________
-From: Chen, Guchun <Guchun.Chen@amd.com<mailto:Guchun.Chen@amd.com>>
-Sent: Thursday, May 18, 2023 3:02 AM
-To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>; Deucher=
-, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@amd.com>>; =
-Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; Koeni=
-g, Christian <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd.com>>; P=
-an, Xinhui <Xinhui.Pan@amd.com<mailto:Xinhui.Pan@amd.com>>
-Cc: Chen, Guchun <Guchun.Chen@amd.com<mailto:Guchun.Chen@amd.com>>
-Subject: [PATCH 0/3] cleanup abuse of sched.ready in each ring init
-
-This series intend to fix the abuse of flag sched.ready in
-each ring init process. Its status needs to be updated only after
-respective ring/IB test in init/resume.
-
-Guchun Chen (3):
-  drm/amdgpu/sdma: set sched.ready status after ring/IB test in sdma
-  drm/amdgpu/gfx: set sched.ready status after ring/IB test in gfx
-  drm/amdgpu: switch to unified amdgpu_ring_test_helper
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c  |  9 ++-------
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c    |  2 --
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 24 ++++-------------------
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 25 ++++--------------------
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c    |  2 --
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    |  2 --
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  |  1 -
- drivers/gpu/drm/amd/amdgpu/mes_v10_1.c   |  8 +-------
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c   |  7 +------
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   |  2 --
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   |  2 --
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   |  4 ----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c |  4 ----
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   |  2 --
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   |  8 ++------
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |  6 +-----
- drivers/gpu/drm/amd/amdgpu/si_dma.c      |  2 --
- 17 files changed, 15 insertions(+), 95 deletions(-)
-
---
-2.25.1
-
---_000_DM5PR12MB246930870A68C45FEBC585B3F17C9DM5PR12MB2469namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On 5/17/2023 5:10 PM, Felix Kuehling wrote:
+> Caution: This message originated from an External Source. Use proper 
+> caution when opening attachments, clicking links, or responding.
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hello Alex,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Should not. Almost original codes set sched.ready be=
-fore amdgpu_ring_test_helper in each ring initialization. The new codes dro=
-p that and leave sched.ready set in amdgpu_ring_test_helper.<o:p></o:p></p>
-<p class=3D"MsoNormal">I tested it both on gfx10 and gfx11 chip.<o:p></o:p>=
-</p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Guchun<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Deucher, Alexander &lt;Alexander.Deuche=
-r@amd.com&gt; <br>
-<b>Sent:</b> Thursday, May 18, 2023 10:47 PM<br>
-<b>To:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;; amd-gfx@lists.freedesk=
-top.org; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Koenig, Christian &l=
-t;Christian.Koenig@amd.com&gt;; Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH 0/3] cleanup abuse of sched.ready in each ring i=
-nit<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
-;Arial&quot;,sans-serif;color:blue">[AMD Official Use Only - General]<o:p><=
-/o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Threre =
-are a lot of places in the code where we check sched.ready.&nbsp; Will this=
- break any of those?<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Alex<o:=
-p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> Chen, Guchun &lt;<a href=3D"mailto:Guchun.Chen@amd.=
-com">Guchun.Chen@amd.com</a>&gt;<br>
-<b>Sent:</b> Thursday, May 18, 2023 3:02 AM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
-reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
--gfx@lists.freedesktop.org</a>&gt;; Deucher, Alexander &lt;<a href=3D"mailt=
-o:Alexander.Deucher@amd.com">Alexander.Deucher@amd.com</a>&gt;;
- Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.com">Hawking.Zhang@=
-amd.com</a>&gt;; Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@a=
-md.com">Christian.Koenig@amd.com</a>&gt;; Pan, Xinhui &lt;<a href=3D"mailto=
-:Xinhui.Pan@amd.com">Xinhui.Pan@amd.com</a>&gt;<br>
-<b>Cc:</b> Chen, Guchun &lt;<a href=3D"mailto:Guchun.Chen@amd.com">Guchun.C=
-hen@amd.com</a>&gt;<br>
-<b>Subject:</b> [PATCH 0/3] cleanup abuse of sched.ready in each ring init<=
-/span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">This series intend to=
- fix the abuse of flag sched.ready in<br>
-each ring init process. Its status needs to be updated only after<br>
-respective ring/IB test in init/resume.<br>
-<br>
-Guchun Chen (3):<br>
-&nbsp; drm/amdgpu/sdma: set sched.ready status after ring/IB test in sdma<b=
-r>
-&nbsp; drm/amdgpu/gfx: set sched.ready status after ring/IB test in gfx<br>
-&nbsp; drm/amdgpu: switch to unified amdgpu_ring_test_helper<br>
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c&nbsp; |&nbsp; 9 ++-------<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/cik_sdma.c&nbsp;&nbsp;&nbsp; |&nbsp; 2 --<=
-br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c&nbsp;&nbsp; | 24 ++++---------=
-----------<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c&nbsp;&nbsp; | 25 ++++---------=
------------<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 2 --<=
-br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 2 --<=
-br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c&nbsp; |&nbsp; 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v10_1.c&nbsp;&nbsp; |&nbsp; 8 +-------=
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v11_0.c&nbsp;&nbsp; |&nbsp; 7 +------<=
-br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c&nbsp;&nbsp; |&nbsp; 2 --<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c&nbsp;&nbsp; |&nbsp; 2 --<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c&nbsp;&nbsp; |&nbsp; 4 ----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c |&nbsp; 4 ----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c&nbsp;&nbsp; |&nbsp; 2 --<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c&nbsp;&nbsp; |&nbsp; 8 ++------=
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c&nbsp;&nbsp; |&nbsp; 6 +-----<b=
-r>
-&nbsp;drivers/gpu/drm/amd/amdgpu/si_dma.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&n=
-bsp; 2 --<br>
-&nbsp;17 files changed, 15 insertions(+), 95 deletions(-)<br>
-<br>
--- <br>
-2.25.1<o:p></o:p></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
+>
+> On 2023-05-17 17:40, Mukul Joshi wrote:
+>> Add a low priority DRM scheduler for VRAM clearing instead of using
+>> the exisiting high priority scheduler. Use the high priority scheduler
+>> for migrations and evictions.
+>>
+>> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  4 +--
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 37 ++++++++++++++++------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  5 ++-
+>>   3 files changed, 34 insertions(+), 12 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> index 9924c8de57ab..46f249912b67 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>> @@ -627,7 +627,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+>>           bo->tbo.resource->mem_type == TTM_PL_VRAM) {
+>>               struct dma_fence *fence;
+>>
+>> -             r = amdgpu_fill_buffer(bo, 0, bo->tbo.base.resv, &fence);
+>> +             r = amdgpu_fill_buffer(bo, 0, bo->tbo.base.resv, 
+>> &fence, true);
+>>               if (unlikely(r))
+>>                       goto fail_unreserve;
+>>
+>> @@ -1354,7 +1354,7 @@ void amdgpu_bo_release_notify(struct 
+>> ttm_buffer_object *bo)
+>>       if (WARN_ON_ONCE(!dma_resv_trylock(bo->base.resv)))
+>>               return;
+>>
+>> -     r = amdgpu_fill_buffer(abo, AMDGPU_POISON, bo->base.resv, &fence);
+>> +     r = amdgpu_fill_buffer(abo, AMDGPU_POISON, bo->base.resv, 
+>> &fence, true);
+>>       if (!WARN_ON(r)) {
+>>               amdgpu_bo_fence(abo, fence, false);
+>>               dma_fence_put(fence);
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> index 34724b771ace..bbdad0dc1b07 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> @@ -384,7 +384,8 @@ static int amdgpu_move_blit(struct 
+>> ttm_buffer_object *bo,
+>>           (abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE)) {
+>>               struct dma_fence *wipe_fence = NULL;
+>>
+>> -             r = amdgpu_fill_buffer(abo, AMDGPU_POISON, NULL, 
+>> &wipe_fence);
+>> +             r = amdgpu_fill_buffer(abo, AMDGPU_POISON, NULL, 
+>> &wipe_fence,
+>> +                                     false);
+>>               if (r) {
+>>                       goto error;
+>>               } else if (wipe_fence) {
+>> @@ -2040,8 +2041,18 @@ void amdgpu_ttm_set_buffer_funcs_status(struct 
+>> amdgpu_device *adev, bool enable)
+>>                                 r);
+>>                       return;
+>>               }
+>> +
+>> +             r = drm_sched_entity_init(&adev->mman.delayed,
+>
+> I'm not a big fan of the "delayed" name. But I see the parallel with
+> "immediate" and "delayed" entities in amdgpu_vm. We may want to rename
+> adev->mman.entity to "immediate" as well to make the distinction clearer.
+>
+>
+>> + DRM_SCHED_PRIORITY_NORMAL, &sched,
+>
+> I wonder if this could even be DRM_SCHED_PRIORITY_MIN to minimize its
+> performance impact on page table updates and graphics user mode
+> submissions. Either way, the patch is
+>
+> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>
+> Thanks,
+>   Felix
+>
+I think you may make it more general: not jut two drm_sched_entity at 
+adev->mma:
 
---_000_DM5PR12MB246930870A68C45FEBC585B3F17C9DM5PR12MB2469namp_--
+struct amdgpu_mman {
+....
+  struct drm_sched_entity entity[DRM_SCHED_PRIORITY_COUNT];
+
+....
+
+}
+
+then drm_sched_entity_init each adev->mman.entity[i] at 
+amdgpu_ttm_set_buffer_funcs_status. So you can use adev->mma.entity[i] 
+for different usage, like adev->mma.entity[DRM_SCHED_PRIORITY_KERNEL] 
+for svm migration, adev->mma.entity[DRM_SCHED_PRIORITY_NORMAL] for 
+buffer cleaning during alloc/free,  
+adev->mma.entity[DRM_SCHED_PRIORITY_MIN] for page table update, etc. 
+That will handle different buffer copies with different priorities, led 
+to performance improvement.
+
+>
+>> +                                       1, NULL);
+>> +             if (r) {
+>> +                     DRM_ERROR("Failed setting up TTM BO move entity 
+>> (%d)\n",
+>> +                               r);
+>> +                     goto error_free_entity;
+>> +             }
+>>       } else {
+>> drm_sched_entity_destroy(&adev->mman.entity);
+>> + drm_sched_entity_destroy(&adev->mman.delayed);
+>>               dma_fence_put(man->move);
+>>               man->move = NULL;
+>>       }
+>> @@ -2053,6 +2064,11 @@ void amdgpu_ttm_set_buffer_funcs_status(struct 
+>> amdgpu_device *adev, bool enable)
+>>               size = adev->gmc.visible_vram_size;
+>>       man->size = size;
+>>       adev->mman.buffer_funcs_enabled = enable;
+>> +
+>> +     return;
+>> +
+>> +error_free_entity:
+>> +     drm_sched_entity_destroy(&adev->mman.entity);
+>>   }
+>>
+>>   static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
+>> @@ -2060,14 +2076,16 @@ static int amdgpu_ttm_prepare_job(struct 
+>> amdgpu_device *adev,
+>>                                 unsigned int num_dw,
+>>                                 struct dma_resv *resv,
+>>                                 bool vm_needs_flush,
+>> -                               struct amdgpu_job **job)
+>> +                               struct amdgpu_job **job,
+>> +                               bool delayed)
+>>   {
+>>       enum amdgpu_ib_pool_type pool = direct_submit ?
+>>               AMDGPU_IB_POOL_DIRECT :
+>>               AMDGPU_IB_POOL_DELAYED;
+>>       int r;
+>> -
+>> -     r = amdgpu_job_alloc_with_ib(adev, &adev->mman.entity,
+>> +     struct drm_sched_entity *entity = delayed ? &adev->mman.delayed :
+>> + &adev->mman.entity;
+>> +     r = amdgpu_job_alloc_with_ib(adev, entity,
+>>                                    AMDGPU_FENCE_OWNER_UNDEFINED,
+>>                                    num_dw * 4, pool, job);
+>>       if (r)
+>> @@ -2108,7 +2126,7 @@ int amdgpu_copy_buffer(struct amdgpu_ring 
+>> *ring, uint64_t src_offset,
+>>       num_loops = DIV_ROUND_UP(byte_count, max_bytes);
+>>       num_dw = ALIGN(num_loops * 
+>> adev->mman.buffer_funcs->copy_num_dw, 8);
+>>       r = amdgpu_ttm_prepare_job(adev, direct_submit, num_dw,
+>> -                                resv, vm_needs_flush, &job);
+>> +                                resv, vm_needs_flush, &job, false);
+>>       if (r)
+>>               return r;
+>>
+>> @@ -2144,7 +2162,7 @@ static int amdgpu_ttm_fill_mem(struct 
+>> amdgpu_ring *ring, uint32_t src_data,
+>>                              uint64_t dst_addr, uint32_t byte_count,
+>>                              struct dma_resv *resv,
+>>                              struct dma_fence **fence,
+>> -                            bool vm_needs_flush)
+>> +                            bool vm_needs_flush, bool delayed)
+>>   {
+>>       struct amdgpu_device *adev = ring->adev;
+>>       unsigned int num_loops, num_dw;
+>> @@ -2157,7 +2175,7 @@ static int amdgpu_ttm_fill_mem(struct 
+>> amdgpu_ring *ring, uint32_t src_data,
+>>       num_loops = DIV_ROUND_UP_ULL(byte_count, max_bytes);
+>>       num_dw = ALIGN(num_loops * 
+>> adev->mman.buffer_funcs->fill_num_dw, 8);
+>>       r = amdgpu_ttm_prepare_job(adev, false, num_dw, resv, 
+>> vm_needs_flush,
+>> -                                &job);
+>> +                                &job, delayed);
+>>       if (r)
+>>               return r;
+>>
+>> @@ -2180,7 +2198,8 @@ static int amdgpu_ttm_fill_mem(struct 
+>> amdgpu_ring *ring, uint32_t src_data,
+>>   int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>>                       uint32_t src_data,
+>>                       struct dma_resv *resv,
+>> -                     struct dma_fence **f)
+>> +                     struct dma_fence **f,
+>> +                     bool delayed)
+>>   {
+>>       struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+>>       struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
+>> @@ -2209,7 +2228,7 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>>                       goto error;
+>>
+>>               r = amdgpu_ttm_fill_mem(ring, src_data, to, cur_size, 
+>> resv,
+>> -                                     &next, true);
+>> +                                     &next, true, delayed);
+>>               if (r)
+>>                       goto error;
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> index 8ef048a0a33e..e82b1edee7a4 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> @@ -61,6 +61,8 @@ struct amdgpu_mman {
+>>       struct mutex                            gtt_window_lock;
+>>       /* Scheduler entity for buffer moves */
+>>       struct drm_sched_entity                 entity;
+>> +     /* Scheduler entity for VRAM clearing */
+>> +     struct drm_sched_entity                 delayed;
+>>
+>>       struct amdgpu_vram_mgr vram_mgr;
+>>       struct amdgpu_gtt_mgr gtt_mgr;
+>> @@ -152,7 +154,8 @@ int amdgpu_ttm_copy_mem_to_mem(struct 
+>> amdgpu_device *adev,
+>>   int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>>                       uint32_t src_data,
+>>                       struct dma_resv *resv,
+>> -                     struct dma_fence **fence);
+>> +                     struct dma_fence **fence,
+>> +                     bool delayed);
+>>
+>>   int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
+>>   void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
