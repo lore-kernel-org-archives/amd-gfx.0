@@ -4,115 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D7C5C77B75
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 20:37:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ED0AC77B7A
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 21:04:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1221910E0D2;
-	Fri, 19 May 2023 20:37:38 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2047.outbound.protection.outlook.com [40.107.244.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B331110E0D2
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 20:37:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ODQX1HWvgnlHh5W3md0Xwo0Lsj1p91RWF2uPQ5ZS6ly9nID/2RsgW9ClBcqrleUH3YhVMBpI85ok8HnuSnDLAcIqnF9ugsbq5tP9WY+KNOE/2oUpT/rGPHgQIhT8OJXD5tvYg0J03sbYhN8FZGFQFPaSfe/PTTOFXYU2u9eMggkxkXgVovl175qMWuWrMm8eIC/YPst/XBy+AXCe4E8jWgoQxGUMqOQOW/9g6XOnZj0PqAmfHX+OD/qUSmyAbjAW7Oqqu7md96DdhM65wuTO4jvIEMeLHmDCpxQcQmtppegwNQpkPmLVGEbD9BTlzW0Lp2HA2sAGFDRSttvalDwt0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AK4D2kFDTwdWBJbl3rLULoYACc1cLvr02VMmJkdWccg=;
- b=CCu1A4MHCfai7cAeTA0tjwGFRIFEsix0BfYU30ls1G/LTvZPTGn2lq7mlSnkD+BKvyUEPXNyLVtb4P49+i8ODXJVi+ZRhqD8JMUmkoFXHJXLPMoITKcJsxRBOrvSKAV2BsgpY8ZDJh7Ptfzwd3Qt7QU3+RV3huwSwVEKIQc5MpHePps9pMHAfwkuzbovu2MHYYzxGsYB3CCwRbI+7J0I/xhTLHoIBcIYeQiIlhHlRsOrZ4cR2GdZYyH+mOS+4QQPgjTbBDglIZjhOYODSQXzgK87eO5MyxBglxJZx6hgUDulZpPYcfPfvMzCNLMTa+Mv945mZ2Vuwp1rdX15zgp3JQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AK4D2kFDTwdWBJbl3rLULoYACc1cLvr02VMmJkdWccg=;
- b=YBsFIJzUS8s9eiFyWLQip6TYAeBsJ4Wp2G37sfeSGc9FUB/Cd9qK2+xYy4p6rjI+rFw0oRqvrQYC8XxeB4Be7OcQaAGdhA0AUa4dPrsBjfowfNvHLzpaS9b2YBsgIiGDUJnMNaFe11mh6UbRZmzoOLQzjTuVl9hrVi3qcN+d2m4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM6PR12MB4467.namprd12.prod.outlook.com (2603:10b6:5:2a8::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.21; Fri, 19 May
- 2023 20:37:33 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::f170:8d72:ca64:bb26]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::f170:8d72:ca64:bb26%7]) with mapi id 15.20.6411.019; Fri, 19 May 2023
- 20:37:33 +0000
-Message-ID: <d12db2ad-a2b3-8a90-a880-b749fc55fadf@amd.com>
-Date: Fri, 19 May 2023 16:37:31 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v2] drm/amdgpu: Fix the EPERM error when get user pages
-Content-Language: en-US
-To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230519120252.3383090-1-Jun.Ma2@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20230519120252.3383090-1-Jun.Ma2@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0040.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:2::12) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6908810E5D7;
+	Fri, 19 May 2023 21:04:05 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54F6810E584
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 21:04:02 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id
+ 5614622812f47-38ef6217221so2311915b6e.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 14:04:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1684530241; x=1687122241;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Gdvfb9hdfbFjNqYQ1hqK4xbOeXFfvfWgssy7qY5DDWo=;
+ b=hoUMYqyox6Qx+One59KY0qqmGydF35w2ytapU47GBzsR+lpJkQoYRoxVARrMM9IkTN
+ hsREgFvrK3IUZtnAU/hY70rE5AU8ql/9/KK0KNjFu2+wyeYjY2VJM4CBzHmarVFJdKGl
+ 4z2HtnjjvVV9VoH4BBJm3GLyeP6cCQ1W0wtbKqLmQ6EFRVrku5qZ11uNDTMmQNJ2hHly
+ fyKj1diC+eusabKH8c/Xl6ktFAm3LaCh1JaK7PDUarZUv0GPPiKQvmhI/OQ1eefmm5GZ
+ 2N6v27ufzTCVZU3PvHPkuhAjuJawmwAWgRKzbuiOuTxAuWM01xlQJLROqcwFzV4PKKfE
+ d7ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684530241; x=1687122241;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Gdvfb9hdfbFjNqYQ1hqK4xbOeXFfvfWgssy7qY5DDWo=;
+ b=bS14zwKmyr6oaZdJw8dBYlGAJoYCfTWcLOJe5v1m8DCDk58v61ZyAN6kvNfcqTwQeH
+ gZaqcXXAl4o5UqCJ36iDG83HeW6vziDyRoQ87NHOxaaKWLbzuV9ubOvtnLdYdZp/NgxY
+ a2azDcAFKImcYlhwmvoZ0dWCbIgTkhQ289kcBQMTnKoRajDIh4hBlVWFdSRu9sd8OpQE
+ eUxTq9bLwef9/mxh0+wEC2aUODCjH3UqSj34pvodTGkDgTwmaR2oWupdK84PAE7eiNrz
+ oRdRParVpGsIgf3bNftYg+TFiwxJwPmGDR6M0CqigNnTkSxFShFP49UwQFS0tBvXLNkw
+ iwow==
+X-Gm-Message-State: AC+VfDyQSjGvo/F4yXeInY3Lc//lw4hjw35yX85loLPXQdeO+EQpRE7p
+ tKf2kQmtVGu1YgwV2eHqSEaDksuOrfgPgeuejl4=
+X-Google-Smtp-Source: ACHHUZ6sKqKU0LemkP+XWTTmxX+Cgi6D8LYGdpaWdZX+BICTyasgBXWlRxobJSpox/MQiZnPyAjLgwmro1kRfMHFcac=
+X-Received: by 2002:a05:6808:2d9:b0:396:3d0e:6401 with SMTP id
+ a25-20020a05680802d900b003963d0e6401mr2028748oid.13.1684530240997; Fri, 19
+ May 2023 14:04:00 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM6PR12MB4467:EE_
-X-MS-Office365-Filtering-Correlation-Id: 799e20a9-f8f5-47e6-3157-08db58a8df9e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xeCF8f84GwjtGPeflOyXHArSS460fmjVMZ/qbK92GJ8lnFV5sYro6fh/RRFwVjx+aAvtFCKVkfDFjBPaGMBs9Zqy41BC6iEVjrPs/23B3PpTz0gzsuJMtl74iOtz9kobmqOHb8tONFnaDJYWRQHL1v6vVoGC/g4dQrpOazMwQbBcbVgROHRtl5A+o6gip4pBQbdvPch/pnsOdNfkUHQ98cAI7/ENzAEWFIB1+EDIJ9Au/cOWEgVgzxDm1DfsqzdkT/4sgM8X0jlqkbm8KldIuVx4aojC5rKU+EFK2JwDB67sXh/kfynsmP6IU7Li6phYMCLGy6+r5ERorDEMu9WclkpkEttXOv+ZoUGdiELjYopvj41mipLMe/3/oylWvFuXVEvAO0Mb1LJpHH7waRGYlvGbRbVknSr0+scfzuS9IeZOMo8wsLs8Ob4+1hzxXZRLP73sGhOBSOBB5qjOK+hfzSWnhv0lhNaqxa/rSE5xvzXSj0ee6D6HqYBM3TbPYj4xOCOFncrvUDcimlSN6heby4jYwYaXxWw/tRcamjEeoDDGnGXdF3MvADGmXlyCLRbw2ZAt4VuYRFvrsgBisZNv0Sc1DwC1mjzOfU7nau4pd08BblHUEcKh5qzkyAyo100LEfTcu9UZp+KenGUiKL/ulg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(396003)(136003)(39860400002)(366004)(376002)(451199021)(31686004)(4326008)(66476007)(478600001)(36916002)(66556008)(66946007)(316002)(31696002)(36756003)(86362001)(83380400001)(26005)(186003)(6512007)(6506007)(53546011)(2616005)(5660300002)(8676002)(2906002)(8936002)(44832011)(6486002)(41300700001)(38100700002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?anhFVm1CNUE0RmxKRG9JUElTOEpvUHJ1SWdUdzJQR3dtcURrM1JqMlZnSFAx?=
- =?utf-8?B?ejZRaWlXdTladE9FdzVOak0yRWwzVW9hUUJkZFI1M1VidVZRaFVabFJibFBu?=
- =?utf-8?B?czRaWWUvRVVmM3VEY1podWJNektkTzYrQ3c5ZTBRN0NKQkh5OGhIWXQwNmpt?=
- =?utf-8?B?NDRVdTdxeUxNVVQ2ODdtU1N2aERGZ2tNVkxJb1VXN01BR0w0eU9nMmRJaEJx?=
- =?utf-8?B?VlpEeEVEb1JHblA3dHNIbEMwc29WQ2Z4ZENlWitHOWJxK0d2cU5wRUp2OC9F?=
- =?utf-8?B?WEdySUEyb3pWRUJnUWNrUHh5a1FOaVppMHg2SWtGcnMyRnBhWklTamhEbGZj?=
- =?utf-8?B?dHZEUmJWUU5TRFdjWXdrZjVzV2RvQitwTDJBWXdPY3dyVitRMlEyN0kyUHk2?=
- =?utf-8?B?TjVxWU9SUmxOcUxNaWh6RmVJcWJseXczeTNhaDhJRk5ZdVZXSkNHUUo0NEQx?=
- =?utf-8?B?a01KQ0dhcU4rMTNhNnR6NHNyYks1cXlJY1JUWHYvVW94SEozdVV5WVNNQnha?=
- =?utf-8?B?ang0SE9DMUl3Q0V5RFc4S0FBaS9QdjEvcE1IKzBHUDN6ZjhDSjBjazZZZUVG?=
- =?utf-8?B?QlBLTHlPNXdPUlVhUGRjZERNNlZZektOeGFxakdpcVBaVTduRXRBL05LeURy?=
- =?utf-8?B?UXRiUUtmSGhZVnVWMHk2aWIwZFhSanRXWWNPS2lKMldYUGc4MHcra2tuRTF4?=
- =?utf-8?B?cFNiejRnczJVMWxkVTV1R2I4NnJ6U3AreWJwYnJHWCtJcHdGOGxoM2w2R2J6?=
- =?utf-8?B?Z0ozL1JBbC9EaXZuL0NXV1lqT3RHS0l6eXVvMVdlWThndjFwMFFRTGxoMnRB?=
- =?utf-8?B?R1lRWlF4REt6WEJuNkJTT0VyZmdtc3grMHJQUE9zVzJSeVVrc0NVbWlBMWQy?=
- =?utf-8?B?dGVjZjFzRGhLMXB2N1R2c2czWlJXblllSWxWTFBUN21uNklaeXVKQzlBLzBn?=
- =?utf-8?B?QWFPSzVMcjdUN0pYMXJWOEl1RHQwYWdkZGJ3dXhwWUo4dkRpblBHTGJCZ28v?=
- =?utf-8?B?UEU0WEUzUHNRMWxkbHZQN05ydEVVTDlrenhDZHB3UFBpN0dLbitTQk5rMkYz?=
- =?utf-8?B?QmZVWU9vSFpwM1l3N2tQY2xuRlJHWHhTWjNXWVA4WUhiQ0htUnZkU3pObkFk?=
- =?utf-8?B?VWZtbGxnSlVqbGQ5RDd3UXU2WHExOEwvSXdIZGJYVm9YN21veWhNUHVXZDVp?=
- =?utf-8?B?RDB1ZlJIVlJjWnNsN2NSaGNzN2VrZGZic05oUmM3U1F6ZXFhMUdJR0lTVmdo?=
- =?utf-8?B?UVU4OXF1RE0zZ2FnWWtucjNsTHk1VEtZaTJYdnFIdFVGSDRkeklZUlJZZmlE?=
- =?utf-8?B?cWZGN2FTUEdGeXI4d0FUWmtySE9jL2xmcXp6UnJyWGJpRFZQRTByL3VJSnRl?=
- =?utf-8?B?c05vQ3RTdnNkQlU4OTV1aWdacnpvWE9Ua0VJdFNIYnVYcUgvYkVGc3VQYzY5?=
- =?utf-8?B?eVczNDVVV3A1dTBLYkZyUWU1Nk5NMzFxOU9hb2RxNHFOckdYSHY4MVV0SXVU?=
- =?utf-8?B?QTVibXh2YVUrOXh1NEFEeUtMMWlPOEF1Wkp1MlIweTlCSDFTeW5jSi85RFZ2?=
- =?utf-8?B?L3AvZ3pYQk9odzl2OTZwb1hUb0FLb2dEdTJRcnd4V0JsbUZheFZ6QWVpOUtu?=
- =?utf-8?B?dGt0ZE5YRDA3N210TDdrbytMOERzRDBEY1BKL2Vva2J1ZEc4b29lUXVIYlVS?=
- =?utf-8?B?VVR1aXJJVEpRTHkxK0J3NURuZzZOcXZuOG5vQmJ6TWgrdW1MVUxsejd4SjFN?=
- =?utf-8?B?NHR4ZlVLanh5dFNBZmJEUGl5VzBkak5DQjdBemZYN1hCVkJhMWdZZTl1bGtx?=
- =?utf-8?B?bUY3SzhnWGJvZ29EaWQxakZuRlhnRDdNaUFuUHAyMWVReUNvdTJubzVYNDdu?=
- =?utf-8?B?alpzZjFUaHJuaS94K2ZMUDhTcS92dUlRenRDUlZRMlB1TUkwQVBUN2d3S3pS?=
- =?utf-8?B?LzFoUUxsVWxiQXBiM0V2NEVkTFh3TlJSeFNUcGJOeHZHOUpnQnZYemxiTFZn?=
- =?utf-8?B?Uis2VjhuNnpnMjdBOTE5OUJjeXN3bWFOekFyeG5iTTVPZlV1bE5zWTBadGQ5?=
- =?utf-8?B?Nk03N0p1WmdGVXIvWXgzWVdBYXNoallVZUZpd1puTlRwMHJTZW51ekowM1NQ?=
- =?utf-8?Q?yq469WUATdru9QAgV066gj0vb?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 799e20a9-f8f5-47e6-3157-08db58a8df9e
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2023 20:37:33.3974 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F2JudAm3Wc5q3gmSotOlYx5xIM8YrfR6MRtkDQOE+3oyNds7miW40vbgKepU8rKPUejRf+nB+2voknNm3PoFtw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4467
+References: <20230424173836.1441-1-shashank.sharma@amd.com>
+ <20230424173836.1441-2-shashank.sharma@amd.com>
+In-Reply-To: <20230424173836.1441-2-shashank.sharma@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 19 May 2023 17:03:49 -0400
+Message-ID: <CADnq5_OxREJKeLwMiu_kkA4HjBBcyW_D6vOzeo=vUsMWM3ocLA@mail.gmail.com>
+Subject: Re: [PATCH v4 01/10] drm/amdgpu: UAPI for user queue management
+To: Shashank Sharma <shashank.sharma@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,69 +68,196 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex.sierra@amd.com, Alexander.Deucher@amd.com, christian.koenig@amd.com
+Cc: pierre-eric.pelloux-prayer@amd.com, arvind.yadav@amd.com,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ contactshashanksharma@gmail.com, Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2023-05-19 08:02, Ma Jun wrote:
-> Check and pass the readonly flags when set amdgpu_ttm_tt flags
+On Mon, Apr 24, 2023 at 1:39=E2=80=AFPM Shashank Sharma <shashank.sharma@am=
+d.com> wrote:
 >
-> for readonly ptr pages. Otherwise, there is EPERM error returned
+> From: Alex Deucher <alexander.deucher@amd.com>
 >
-> during the KFDExceptionTest.PermissionFaultUserPointer test on
+> This patch intorduces new UAPI/IOCTL for usermode graphics
+> queue. The userspace app will fill this structure and request
+> the graphics driver to add a graphics work queue for it. The
+> output of this UAPI is a queue id.
 >
-> ploaris10.
-
-I remember you asked me about this maybe 2 weeks ago. I'm still not sure 
-how your test is supposed to work correctly. Someone needs to decide 
-whether to set KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE when registering the 
-userptr. How does this happen? I think you need some code that checks 
-that the VMA is read-only and then clears the WRITABLE flag from 
-mem->alloc_flags. But I don't see that anywhere. I don't think we ever 
-added proper support for read-only userptrs in KFD. Your patch is a 
-partial fix at best, and I don't see how this helps.
-
-Two more nit-picks inline.
-
-
+> This UAPI maps the queue into GPU, so the graphics app can start
+> submitting work to the queue as soon as the call returns.
 >
-> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> V2: Addressed review comments from Alex and Christian
+>     - Make the doorbell offset's comment clearer
+>     - Change the output parameter name to queue_id
+>
+> V3: Integration with doorbell manager
+>
+> V4:
+>     - Updated the UAPI doc (Pierre-Eric)
+>     - Created a Union for engine specific MQDs (Alex)
+>     - Added Christian's R-B
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 9 ++++++++-
->   1 file changed, 8 insertions(+), 1 deletion(-)
+>  include/uapi/drm/amdgpu_drm.h | 95 +++++++++++++++++++++++++++++++++++
+>  1 file changed, 95 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index d426333e865a..85d1087439c0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1036,10 +1036,17 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
->   	struct ttm_operation_ctx ctx = { true, false };
->   	struct hmm_range *range;
->   	int ret = 0;
-> +	uint32_t tt_flags = 0;
->   
->   	mutex_lock(&process_info->lock);
->   
-> -	ret = amdgpu_ttm_tt_set_userptr(&bo->tbo, user_addr, 0);
-> +	if (!(mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE))
-> +		tt_flags |= AMDGPU_GEM_USERPTR_READONLY;
-> +	else
-> +		tt_flags = 0;
-
-This else-branch is unnecessary because you initialized tt_flags to 0 above.
-
-
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
+h
+> index 4038abe8505a..083a1df8e8ef 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -54,6 +54,7 @@ extern "C" {
+>  #define DRM_AMDGPU_VM                  0x13
+>  #define DRM_AMDGPU_FENCE_TO_HANDLE     0x14
+>  #define DRM_AMDGPU_SCHED               0x15
+> +#define DRM_AMDGPU_USERQ               0x16
+>
+>  #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
+MDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>  #define DRM_IOCTL_AMDGPU_GEM_MMAP      DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
+MDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+> @@ -71,6 +72,7 @@ extern "C" {
+>  #define DRM_IOCTL_AMDGPU_VM            DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
+MDGPU_VM, union drm_amdgpu_vm)
+>  #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM=
+_AMDGPU_FENCE_TO_HANDLE, union drm_amdgpu_fence_to_handle)
+>  #define DRM_IOCTL_AMDGPU_SCHED         DRM_IOW(DRM_COMMAND_BASE + DRM_AM=
+DGPU_SCHED, union drm_amdgpu_sched)
+> +#define DRM_IOCTL_AMDGPU_USERQ         DRM_IOW(DRM_COMMAND_BASE + DRM_AM=
+DGPU_USERQ, union drm_amdgpu_userq)
+>
+>  /**
+>   * DOC: memory domains
+> @@ -302,6 +304,99 @@ union drm_amdgpu_ctx {
+>         union drm_amdgpu_ctx_out out;
+>  };
+>
+> +/* user queue IOCTL */
+> +#define AMDGPU_USERQ_OP_CREATE 1
+> +#define AMDGPU_USERQ_OP_FREE   2
 > +
+> +#define AMDGPU_USERQ_MQD_FLAGS_SECURE  (1 << 0)
+> +#define AMDGPU_USERQ_MQD_FLAGS_AQL     (1 << 1)
 > +
+> +/*
+> + * MQD (memory queue descriptor) is a set of parameters which allow
+> + * the GPU to uniquely define and identify a usermode queue.
+> + */
+> +struct drm_amdgpu_userq_mqd_gfx {
+> +       /**
+> +        * @flags: flags to indicate special function for queue like secu=
+re
+> +        * buffer (TMZ). Unused for now.
+> +        */
+> +       __u32   flags;
+> +       /**
+> +        * @doorbell_handle: the handle of doorbell GEM object
+> +        * associated to this client.
+> +        */
+> +       __u32   doorbell_handle;
+> +       /**
+> +        * @doorbell_offset: 32-bit offset of the doorbell in the doorbel=
+l bo.
+> +        * Kernel will generate absolute doorbell offset using doorbell_h=
+andle
+> +        * and doorbell_offset in the doorbell bo.
+> +        */
+> +       __u32   doorbell_offset;
+> +       /**
+> +        * @queue_va: Virtual address of the GPU memory which holds the q=
+ueue
+> +        * object. The queue holds the workload packets.
+> +        */
+> +       __u64   queue_va;
+> +       /**
+> +        * @queue_size: Size of the queue in bytes, this needs to be 256-=
+byte
+> +        * aligned.
+> +        */
+> +       __u64   queue_size;
+> +       /**
+> +        * @rptr_va : Virtual address of the GPU memory which holds the r=
+ing RPTR.
+> +        * This object must be at least 8 byte in size and aligned to 8-b=
+yte offset.
+> +        */
+> +       __u64   rptr_va;
+> +       /**
+> +        * @wptr_va : Virtual address of the GPU memory which holds the r=
+ing WPTR.
+> +        * This object must be at least 8 byte in size and aligned to 8-b=
+yte offset.
+> +        *
+> +        * Queue, RPTR and WPTR can come from the same object, as long as=
+ the size
+> +        * and alignment related requirements are met.
+> +        */
+> +       __u64   wptr_va;
+> +       /**
+> +        * @shadow_va: Virtual address of the GPU memory to hold the shad=
+ow buffer.
+> +        * This must be a from a separate GPU object, and must be at leas=
+t 4-page
+> +        * sized.
+> +        */
+> +       __u64   shadow_va;
 
-Double blank lines. One is enough.
+You were planning to add the other pointers here as well for gds and csa ri=
+ght?
 
-Regards,
-   Felix
+> +};
+> +
+> + /*
+> +  * MQD can be different for different GPU IP/engine. This union will
+> +  * contain structures of MQDs corresponding to different engines.
+> +  */
+> +union drm_amdgpu_userq_mqd {
+> +       struct drm_amdgpu_userq_mqd_gfx gfx;
+> +};
+> +
+> +struct drm_amdgpu_userq_in {
+> +       /** AMDGPU_USERQ_OP_* */
+> +       __u32   op;
+> +       /** Flags */
+> +       __u32   flags;
+> +       /** Queue handle for USERQ_OP_FREE */
+> +       __u32   queue_id;
+> +       /** the target GPU engine to execute workload (AMDGPU_HW_IP_*) */
+> +       __u32   ip_type;
+> +
+> +       /** Queue descriptor for USERQ_OP_CREATE */
+> +       union drm_amdgpu_userq_mqd mqd;
 
+Just thinking out loud here, I wonder if we should make this a
+pointer/size element so that we could make this variable sized in case
+some future MQD ends up being bigger.  I guess we could always add a
+AMDGPU_USERQ_OP_CREATE2 if we ever need to expand it.
 
-> +	ret = amdgpu_ttm_tt_set_userptr(&bo->tbo, user_addr, tt_flags);
->   	if (ret) {
->   		pr_err("%s: Failed to set userptr: %d\n", __func__, ret);
->   		goto out;
+Alex
+
+> +};
+> +
+> +struct drm_amdgpu_userq_out {
+> +       /** Queue handle */
+> +       __u32   queue_id;
+> +       /** Flags */
+> +       __u32   flags;
+> +};
+> +
+> +union drm_amdgpu_userq {
+> +       struct drm_amdgpu_userq_in in;
+> +       struct drm_amdgpu_userq_out out;
+> +};
+> +
+>  /* vm ioctl */
+>  #define AMDGPU_VM_OP_RESERVE_VMID      1
+>  #define AMDGPU_VM_OP_UNRESERVE_VMID    2
+> --
+> 2.40.0
+>
