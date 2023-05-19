@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C4ABC7EE29
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 17:01:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57B8AC77B7A
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 17:10:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5244F10E55F;
-	Fri, 19 May 2023 17:01:14 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20D0E10E55B;
- Fri, 19 May 2023 17:01:11 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-19a0988a925so1434571fac.0; 
- Fri, 19 May 2023 10:01:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7AC210E542;
+	Fri, 19 May 2023 17:10:31 +0000 (UTC)
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [IPv6:2001:4860:4864:20::2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBC5F10E5B8;
+ Fri, 19 May 2023 17:10:30 +0000 (UTC)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-19a1ac5e200so2531971fac.1; 
+ Fri, 19 May 2023 10:10:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684515670; x=1687107670;
+ d=gmail.com; s=20221208; t=1684516230; x=1687108230;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BscCUYhDrbbZeWwOY16G73CsQ2N1HXyllhvuAAh+zdk=;
- b=nNGsgocaW2gcBQg7oBg4bdChMCvmeKvbGw6RIiR2BYK8f9aVZ8srVGeiXX67n9KCJH
- PVckNM6PLUqhPsZPozMnWXhoRuT6AytrafdYrwzjqCfItafhx981hHkeKcWkJFX6oqtT
- 1ySf0PV5Gy0n0DARb71Uwx5wK8pnEFtji/3w8AV/bB7iaABbwSZTmmWWf1gOavAyg7m1
- /Zw4ZsTQkDmJesEgmFY4PVAWuwZ4buH8ZQVbxp8RKuZHrcuBBdWVzFVG5p4R2qqaBCRO
- mP+N/3TQwqFlJTue8LdMVFGlNyO/88PeABj6XCQOEPwrXaQSIoNl0AluinzAZ9CNxxkY
- LsRg==
+ bh=poNphkfZwNdP6GeKL2W2z8I4b6XaR+5+jgr9kWrFxz8=;
+ b=roESMr5O9UgQcD2w6NwXUF7WHCxMJSjcu8W1TdbscQ+GCF3tqbdSN/1THf0GSknwZ2
+ Wy4KVv/tUTz1rdC8vOgNlHKuSNeteUdhMmAGzSgoZjtsDgioJTns8PInOWfhuBjxmkqd
+ TK/zhMAomAg20E7i/rDz8l4sK2+T+kXBTGnucBuw2UzeF7ux3hoskXK1rqd7w6Z3JQNw
+ wMzMDMpfZws8mti7qOCmO0Y26W1xeFw6xBsJZ8supfUTn0e3tEKXb6/7IOyr1Ab5cY46
+ 1x+Vsls920AP2YsQo4tFVhAFLxbrtoK8B2wSLEwZwuHZPWMLBTmj6RVa2rwZAxlR9LAk
+ 37Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684515670; x=1687107670;
+ d=1e100.net; s=20221208; t=1684516230; x=1687108230;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=BscCUYhDrbbZeWwOY16G73CsQ2N1HXyllhvuAAh+zdk=;
- b=TMIJxOqjH7TixfQnac0K0pod29K7xc+PI4FHDg5ZZwQlykiL/J0nggcc4yarJ6L6aL
- Rvv8oDEgtFRkrpIRQutK3r1nts+/upQs3IPb/xrGDtQq7qxMp8qUNVlw09Zgwlz2pq89
- XP4e1TX6dNwg4DjvPWvJEfOvUjwL+iLRu6rneMIcTyqAV3eoIr7+q6cORIWJhBocFPGT
- JYsqGN9jhH60F6frlAe4SVb+EOXEd0ylil0QLNu98hfhQvdEzz1sbhWixRDXYvEl8lv2
- PL1vhYaQeD37p7bfGF5MbO9+ga9kyTMe3ZuAbFM/WwBuk7NMpRSsYnTM28Ci3YGth9+e
- lWrQ==
-X-Gm-Message-State: AC+VfDz7IMyRfTdljsQHV8D0PINWbnmdvGUoARW9UYJ9lf6Z5Af3yZ3C
- akQeiKM8I90aFAevk6Z1UtcI3cnU0qggV/dZt3Q=
-X-Google-Smtp-Source: ACHHUZ4JdyyWFR++dX6pa3JXiXVqqt9CDs4SPAzYIRtQkywKq6WavRq7f9aY3UIHbsx7soKiGSxMfGQWVQTLzox9pZw=
-X-Received: by 2002:a05:6870:5a98:b0:199:b01d:e9ab with SMTP id
- dt24-20020a0568705a9800b00199b01de9abmr1614938oab.2.1684515669965; Fri, 19
- May 2023 10:01:09 -0700 (PDT)
+ bh=poNphkfZwNdP6GeKL2W2z8I4b6XaR+5+jgr9kWrFxz8=;
+ b=SJFkYtpavCbwoixe4IDSyc829dKbpMfmJlslMD285v37FlKNULM0XptSs5M2XVdKAF
+ lsTEEC8hCY4RC5pWcvAc76h6bUnK6XE7SWx+HdfIPXTQHOg9mibDp7eagXGX0CgtFXbH
+ AlU+SyPvqEda1RfZ4mbxZWJVwzMZjxEdFIsWDLr069bw/qbjQECOiWE49pJBD1j9GT5n
+ jtk2e2jXVfTq6Hq9EgGSh+dB2wgtqGS+3o1ymGhCaqrrx6Sh19A1JLgkR+Ez2PC0mhCV
+ QdbLrLetp/YoGQCdurThgnrwZ63tb8QUsC6O7m+RppxfS83fbuntJbMFfmCnnV9oV6Uz
+ iQ7Q==
+X-Gm-Message-State: AC+VfDzvd8bhsINAEDLK2yobRYG5j3HYGOghq9MMWbIGzpSuzYzvlQ7N
+ lhpLv6FNmePmFTvoJ+Khd8b7pGtZ+wBhhCz+6ejkXWkQ
+X-Google-Smtp-Source: ACHHUZ7yTXOh02l/eiEu30G7cg1D3eXhmE7kPZzFc1iqb5D2Y8Ok17f72/u4+Pa3zHt+mAXCGrexBzGW+udtQm5wjek=
+X-Received: by 2002:a05:6808:24a:b0:396:3dc7:948c with SMTP id
+ m10-20020a056808024a00b003963dc7948cmr1432453oie.54.1684516229793; Fri, 19
+ May 2023 10:10:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230518135208.996214-1-hch@lst.de>
-In-Reply-To: <20230518135208.996214-1-hch@lst.de>
+References: <20230519153327.231806-1-n.zhandarovich@fintech.ru>
+In-Reply-To: <20230519153327.231806-1-n.zhandarovich@fintech.ru>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 19 May 2023 13:00:58 -0400
-Message-ID: <CADnq5_NcuBpY9piiefc1tt9obj_Wh1GbVW+rSykDhaLAQaFqbg@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: stop including swiotlb.h
-To: Christoph Hellwig <hch@lst.de>
+Date: Fri, 19 May 2023 13:10:18 -0400
+Message-ID: <CADnq5_MWD1p3Aej7Hawo_0sRM+5Og0i7cr1vgvcj=o=oxRujoA@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: fix possible division-by-zero errors
+To: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,37 +67,125 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org
+Cc: lvc-project@linuxtesting.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+In practice this should never happen.  Applied with some minor coding
+style fixes.
 
-On Thu, May 18, 2023 at 9:52=E2=80=AFAM Christoph Hellwig <hch@lst.de> wrot=
-e:
+Alex
+
+On Fri, May 19, 2023 at 11:33=E2=80=AFAM Nikita Zhandarovich
+<n.zhandarovich@fintech.ru> wrote:
 >
-> radeon does not need swiotlb.h, so stop including it.
+> Function rv740_get_decoded_reference_divider() may return 0 due to
+> unpredictable reference divider value calculated in
+> radeon_atom_get_clock_dividers(). This will lead to
+> division-by-zero error once that value is used as a divider
+> in calculating 'clk_s'.
+> While unlikely, this issue should nonetheless be prevented so add a
+> sanity check for such cases by testing 'decoded_ref' value against 0.
 >
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Found by Linux Verification Center (linuxtesting.org) with static
+> analysis tool SVACE.
+>
+> Fixes: 66229b200598 ("drm/radeon/kms: add dpm support for rv7xx (v4)")
+> Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+>
 > ---
->  drivers/gpu/drm/radeon/radeon_ttm.c | 1 -
->  1 file changed, 1 deletion(-)
+>  drivers/gpu/drm/radeon/cypress_dpm.c | 7 +++++--
+>  drivers/gpu/drm/radeon/ni_dpm.c      | 7 +++++--
+>  drivers/gpu/drm/radeon/rv740_dpm.c   | 7 +++++--
+>  3 files changed, 15 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon=
-/radeon_ttm.c
-> index 2220cdf6a3f680..04df08356d553f 100644
-> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
-> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-> @@ -36,7 +36,6 @@
->  #include <linux/seq_file.h>
->  #include <linux/slab.h>
->  #include <linux/swap.h>
-> -#include <linux/swiotlb.h>
+> diff --git a/drivers/gpu/drm/radeon/cypress_dpm.c b/drivers/gpu/drm/radeo=
+n/cypress_dpm.c
+> index fdddbbaecbb7..3678b7e384e1 100644
+> --- a/drivers/gpu/drm/radeon/cypress_dpm.c
+> +++ b/drivers/gpu/drm/radeon/cypress_dpm.c
+> @@ -555,10 +555,13 @@ static int cypress_populate_mclk_value(struct radeo=
+n_device *rdev,
 >
->  #include <drm/drm_device.h>
->  #include <drm/drm_file.h>
+>                 if (radeon_atombios_get_asic_ss_info(rdev, &ss,
+>                                                      ASIC_INTERNAL_MEMORY=
+_SS, vco_freq)) {
+> +                       u32 clk_s, clk_v;
+>                         u32 reference_clock =3D rdev->clock.mpll.referenc=
+e_freq;
+>                         u32 decoded_ref =3D rv740_get_decoded_reference_d=
+ivider(dividers.ref_div);
+> -                       u32 clk_s =3D reference_clock * 5 / (decoded_ref =
+* ss.rate);
+> -                       u32 clk_v =3D ss.percentage *
+> +                       if (!decoded_ref)
+> +                               return -EINVAL;
+> +                       clk_s =3D reference_clock * 5 / (decoded_ref * ss=
+.rate);
+> +                       clk_v =3D ss.percentage *
+>                                 (0x4000 * dividers.whole_fb_div + 0x800 *=
+ dividers.frac_fb_div) / (clk_s * 625);
+>
+>                         mpll_ss1 &=3D ~CLKV_MASK;
+> diff --git a/drivers/gpu/drm/radeon/ni_dpm.c b/drivers/gpu/drm/radeon/ni_=
+dpm.c
+> index 672d2239293e..9ce3e5635efc 100644
+> --- a/drivers/gpu/drm/radeon/ni_dpm.c
+> +++ b/drivers/gpu/drm/radeon/ni_dpm.c
+> @@ -2239,10 +2239,13 @@ static int ni_populate_mclk_value(struct radeon_d=
+evice *rdev,
+>
+>                 if (radeon_atombios_get_asic_ss_info(rdev, &ss,
+>                                                      ASIC_INTERNAL_MEMORY=
+_SS, vco_freq)) {
+> +                       u32 clk_s, clk_v;
+>                         u32 reference_clock =3D rdev->clock.mpll.referenc=
+e_freq;
+>                         u32 decoded_ref =3D rv740_get_decoded_reference_d=
+ivider(dividers.ref_div);
+> -                       u32 clk_s =3D reference_clock * 5 / (decoded_ref =
+* ss.rate);
+> -                       u32 clk_v =3D ss.percentage *
+> +                       if (!decoded_ref)
+> +                               return -EINVAL;
+> +                       clk_s =3D reference_clock * 5 / (decoded_ref * ss=
+.rate);
+> +                       clk_v =3D ss.percentage *
+>                                 (0x4000 * dividers.whole_fb_div + 0x800 *=
+ dividers.frac_fb_div) / (clk_s * 625);
+>
+>                         mpll_ss1 &=3D ~CLKV_MASK;
+> diff --git a/drivers/gpu/drm/radeon/rv740_dpm.c b/drivers/gpu/drm/radeon/=
+rv740_dpm.c
+> index d57a3e1df8d6..ca76efa0f59d 100644
+> --- a/drivers/gpu/drm/radeon/rv740_dpm.c
+> +++ b/drivers/gpu/drm/radeon/rv740_dpm.c
+> @@ -247,10 +247,13 @@ int rv740_populate_mclk_value(struct radeon_device =
+*rdev,
+>
+>                 if (radeon_atombios_get_asic_ss_info(rdev, &ss,
+>                                                      ASIC_INTERNAL_MEMORY=
+_SS, vco_freq)) {
+> +                       u32 clk_s, clk_v;
+>                         u32 reference_clock =3D rdev->clock.mpll.referenc=
+e_freq;
+>                         u32 decoded_ref =3D rv740_get_decoded_reference_d=
+ivider(dividers.ref_div);
+> -                       u32 clk_s =3D reference_clock * 5 / (decoded_ref =
+* ss.rate);
+> -                       u32 clk_v =3D 0x40000 * ss.percentage *
+> +                       if (!decoded_ref)
+> +                               return -EINVAL;
+> +                       clk_s =3D reference_clock * 5 / (decoded_ref * ss=
+.rate);
+> +                       clk_v =3D 0x40000 * ss.percentage *
+>                                 (dividers.whole_fb_div + (dividers.frac_f=
+b_div / 8)) / (clk_s * 10000);
+>
+>                         mpll_ss1 &=3D ~CLKV_MASK;
 > --
-> 2.39.2
+> 2.25.1
 >
