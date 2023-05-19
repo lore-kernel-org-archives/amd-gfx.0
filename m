@@ -4,45 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CABA7C77B7A
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 15:36:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C711C77B7A
+	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 15:46:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 347CB10E5B1;
-	Fri, 19 May 2023 15:36:19 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 251F010E4CD
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 15:36:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684510577; x=1716046577;
- h=date:from:to:cc:subject:message-id;
- bh=wp0CdaCiW7lepUrAk8H3BgfyExL/v+FCGa6ZdMYSprg=;
- b=SHxfB7KQfTaGjT0uUv5Tju8bevKuE7q9grz412QiEtk9IsKLsMJcetI3
- +xcup0023YEtUl33WWDvAQ3wgBytJauiIMD1jjpOGknLfLpjzXJ12j5Sz
- BcPjoPvdpn3oa5EdDwpGgqwiV0GSVkav+GsS/vLghlODuQup+2hqv0Bjr
- h/g4o6SnOhUv5exjItKizbvkWuOQ0gu5yty086QmkK9Z7PQb4CCorkopj
- M9TuwIffsm2R0Y3mruwvyPXFurplbpEb2SoxryJl2yM+k3jF57teEliQK
- d6CR/5c7HxfNb3j4FOayiPGjrX1UgJDyhLv9vMlUSM8PZIfKDxG4F3iL1 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10715"; a="336995500"
-X-IronPort-AV: E=Sophos;i="6.00,177,1681196400"; d="scan'208";a="336995500"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2023 08:36:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10715"; a="814776549"
-X-IronPort-AV: E=Sophos;i="6.00,177,1681196400"; d="scan'208";a="814776549"
-Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
- by fmsmga002.fm.intel.com with ESMTP; 19 May 2023 08:36:13 -0700
-Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1q029M-000AuI-2J;
- Fri, 19 May 2023 15:36:12 +0000
-Date: Fri, 19 May 2023 23:35:48 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD SUCCESS WITH WARNING
- dbd91ef4e91c1ce3a24429f5fb3876b7a0306733
-Message-ID: <20230519153548.XTWhe%lkp@intel.com>
-User-Agent: s-nail v14.9.24
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5259910E108;
+	Fri, 19 May 2023 15:46:11 +0000 (UTC)
+Received: from exchange.fintech.ru (e10edge.fintech.ru [195.54.195.159])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6C5A10E4CC;
+ Fri, 19 May 2023 15:33:42 +0000 (UTC)
+Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
+ (195.54.195.169) with Microsoft SMTP Server (TLS) id 14.3.498.0; Fri, 19 May
+ 2023 18:33:34 +0300
+Received: from localhost (10.0.253.138) by Ex16-01.fintech.ru (10.0.10.18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Fri, 19 May
+ 2023 18:33:34 +0300
+From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH] drm/radeon: fix possible division-by-zero errors
+Date: Fri, 19 May 2023 08:33:27 -0700
+Message-ID: <20230519153327.231806-1-n.zhandarovich@fintech.ru>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.0.253.138]
+X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
+ (10.0.10.18)
+X-Mailman-Approved-At: Fri, 19 May 2023 15:46:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,309 +44,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-xfs@vger.kernel.org, netdev@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-perf-users@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- amd-gfx@lists.freedesktop.org, linux-ext4@vger.kernel.org
+Cc: Nikita Zhandarovich <n.zhandarovich@fintech.ru>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ lvc-project@linuxtesting.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: INFO setup_repo_specs: /db/releases/20230519164737/lkp-src/repo/*/linux-next
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: dbd91ef4e91c1ce3a24429f5fb3876b7a0306733  Add linux-next specific files for 20230519
+Function rv740_get_decoded_reference_divider() may return 0 due to
+unpredictable reference divider value calculated in
+radeon_atom_get_clock_dividers(). This will lead to
+division-by-zero error once that value is used as a divider
+in calculating 'clk_s'.
+While unlikely, this issue should nonetheless be prevented so add a
+sanity check for such cases by testing 'decoded_ref' value against 0.
 
-Warning reports:
+Found by Linux Verification Center (linuxtesting.org) with static
+analysis tool SVACE.
 
-https://lore.kernel.org/oe-kbuild-all/202304220118.NYuW8ip0-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202305132244.DwzBUcUd-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202305182345.LTMlWG84-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202305190358.IEfJNraU-lkp@intel.com
+Fixes: 66229b200598 ("drm/radeon/kms: add dpm support for rv7xx (v4)")
+Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
 
-Warning: (recently discovered and may have been fixed)
+---
+ drivers/gpu/drm/radeon/cypress_dpm.c | 7 +++++--
+ drivers/gpu/drm/radeon/ni_dpm.c      | 7 +++++--
+ drivers/gpu/drm/radeon/rv740_dpm.c   | 7 +++++--
+ 3 files changed, 15 insertions(+), 6 deletions(-)
 
-drivers/base/regmap/regcache-maple.c:113:23: warning: 'lower_index' is used uninitialized [-Wuninitialized]
-drivers/base/regmap/regcache-maple.c:113:36: warning: 'lower_last' is used uninitialized [-Wuninitialized]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6396:21: warning: variable 'count' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:499:13: warning: variable 'j' set but not used [-Wunused-but-set-variable]
-drivers/net/arcnet/com20020.c:74:7: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-
-Unverified Warning (likely false positive, please contact us if interested):
-
-fs/ext4/verity.c:316 ext4_get_verity_descriptor_location() error: uninitialized symbol 'desc_size_disk'.
-fs/xfs/scrub/fscounters.c:459 xchk_fscounters() warn: ignoring unreachable code.
-kernel/events/uprobes.c:478 uprobe_write_opcode() warn: passing zero to 'PTR_ERR'
-
-Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- alpha-randconfig-r036-20230517
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_index-is-used-uninitialized
-|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_last-is-used-uninitialized
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- arc-vdk_hs38_defconfig
-|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_index-is-used-uninitialized
-|   `-- drivers-base-regmap-regcache-maple.c:warning:lower_last-is-used-uninitialized
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- arm64-randconfig-r015-20230517
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- i386-randconfig-m021
-|   |-- kernel-events-uprobes.c-uprobe_write_opcode()-warn:passing-zero-to-PTR_ERR
-|   `-- lib-stackdepot.c-stack_print()-warn:unsigned-stack-size-is-never-less-than-zero.
-|-- i386-randconfig-s001
-|   |-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_get-was-not-declared.-Should-it-be-static
-|   `-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_set-was-not-declared.-Should-it-be-static
-|-- i386-randconfig-s002
-|   |-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_get-was-not-declared.-Should-it-be-static
-|   `-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_set-was-not-declared.-Should-it-be-static
-|-- i386-randconfig-s003
-|   |-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_get-was-not-declared.-Should-it-be-static
-|   `-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_set-was-not-declared.-Should-it-be-static
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- ia64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- loongarch-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- loongarch-defconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- loongarch-randconfig-r034-20230517
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- microblaze-buildonly-randconfig-r002-20230517
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- microblaze-randconfig-s053-20230517
-|   |-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_get-was-not-declared.-Should-it-be-static
-|   `-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_set-was-not-declared.-Should-it-be-static
-|-- mips-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- mips-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- openrisc-randconfig-s051-20230517
-|   |-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_get-was-not-declared.-Should-it-be-static
-|   `-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_set-was-not-declared.-Should-it-be-static
-|-- parisc-randconfig-m041-20230519
-|   |-- fs-ext4-verity.c-ext4_get_verity_descriptor_location()-error:uninitialized-symbol-desc_size_disk-.
-|   |-- fs-xfs-scrub-fscounters.c-xchk_fscounters()-warn:ignoring-unreachable-code.
-|   `-- lib-stackdepot.c-stack_print()-warn:unsigned-stack-size-is-never-less-than-zero.
-|-- powerpc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- powerpc-randconfig-c034-20230517
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- riscv-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- riscv-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- riscv-randconfig-s031-20230517
-|   |-- mm-kfence-core.c:sparse:sparse:cast-to-restricted-__le64
-|   |-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_get-was-not-declared.-Should-it-be-static
-|   `-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_set-was-not-declared.-Should-it-be-static
-|-- s390-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- sparc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- sparc64-buildonly-randconfig-r004-20230517
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- x86_64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-|-- x86_64-randconfig-m001
-|   |-- kernel-events-uprobes.c-uprobe_write_opcode()-warn:passing-zero-to-PTR_ERR
-|   `-- lib-stackdepot.c-stack_print()-warn:unsigned-stack-size-is-never-less-than-zero.
-|-- x86_64-randconfig-s021
-|   |-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_get-was-not-declared.-Should-it-be-static
-|   `-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_set-was-not-declared.-Should-it-be-static
-|-- x86_64-randconfig-s022
-|   |-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_get-was-not-declared.-Should-it-be-static
-|   `-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_set-was-not-declared.-Should-it-be-static
-|-- x86_64-randconfig-s023
-|   |-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_get-was-not-declared.-Should-it-be-static
-|   `-- mm-page_owner.c:sparse:sparse:symbol-page_owner_threshold_set-was-not-declared.-Should-it-be-static
-`-- xtensa-randconfig-r001-20230517
-    |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
-    `-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
-clang_recent_errors
-`-- riscv-randconfig-r032-20230517
-    `-- drivers-net-arcnet-com20020.c:warning:performing-pointer-arithmetic-on-a-null-pointer-has-undefined-behavior
-
-elapsed time: 724m
-
-configs tested: 142
-configs skipped: 6
-
-tested configs:
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-alpha                randconfig-r033-20230517   gcc  
-alpha                randconfig-r036-20230517   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                         haps_hs_defconfig   gcc  
-arc                     haps_hs_smp_defconfig   gcc  
-arc                  randconfig-r043-20230517   gcc  
-arc                        vdk_hs38_defconfig   gcc  
-arm                              allmodconfig   gcc  
-arm                              allyesconfig   gcc  
-arm          buildonly-randconfig-r005-20230517   clang
-arm                                 defconfig   gcc  
-arm                      integrator_defconfig   gcc  
-arm                         lpc32xx_defconfig   clang
-arm                        mvebu_v7_defconfig   gcc  
-arm                         nhk8815_defconfig   gcc  
-arm                            qcom_defconfig   gcc  
-arm                  randconfig-r046-20230517   clang
-arm64                            allyesconfig   gcc  
-arm64                               defconfig   gcc  
-arm64                randconfig-r015-20230517   gcc  
-csky                                defconfig   gcc  
-hexagon              randconfig-r022-20230517   clang
-hexagon              randconfig-r035-20230517   clang
-hexagon              randconfig-r041-20230517   clang
-hexagon              randconfig-r045-20230517   clang
-i386                             allyesconfig   clang
-i386                             allyesconfig   gcc  
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                          randconfig-a001   gcc  
-i386                          randconfig-a002   clang
-i386                          randconfig-a003   gcc  
-i386                          randconfig-a004   clang
-i386                          randconfig-a005   gcc  
-i386                          randconfig-a006   clang
-i386                          randconfig-a011   clang
-i386                          randconfig-a012   gcc  
-i386                          randconfig-a013   clang
-i386                          randconfig-a014   gcc  
-i386                          randconfig-a015   clang
-i386                          randconfig-a016   gcc  
-ia64                             allmodconfig   gcc  
-ia64                             allyesconfig   gcc  
-ia64                                defconfig   gcc  
-ia64                        generic_defconfig   gcc  
-ia64                          tiger_defconfig   gcc  
-loongarch                        alldefconfig   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-loongarch            randconfig-r034-20230517   gcc  
-m68k                             allmodconfig   gcc  
-m68k                                defconfig   gcc  
-m68k                 randconfig-r014-20230517   gcc  
-m68k                 randconfig-r023-20230517   gcc  
-microblaze   buildonly-randconfig-r002-20230517   gcc  
-microblaze                          defconfig   gcc  
-mips                             allmodconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                  cavium_octeon_defconfig   clang
-mips                           gcw0_defconfig   gcc  
-mips                       lemote2f_defconfig   clang
-mips                     loongson1b_defconfig   gcc  
-mips                     loongson1c_defconfig   clang
-mips                     loongson2k_defconfig   clang
-mips                  maltasmvp_eva_defconfig   gcc  
-mips                        qi_lb60_defconfig   clang
-mips                 randconfig-r025-20230517   clang
-nios2                               defconfig   gcc  
-nios2                randconfig-r002-20230517   gcc  
-openrisc             randconfig-r026-20230517   gcc  
-parisc                              defconfig   gcc  
-parisc               randconfig-r011-20230517   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc                     ep8248e_defconfig   gcc  
-powerpc                      katmai_defconfig   clang
-powerpc                     ksi8560_defconfig   clang
-powerpc                      pcm030_defconfig   gcc  
-powerpc                      pmac32_defconfig   clang
-powerpc                    sam440ep_defconfig   gcc  
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   gcc  
-riscv                            allyesconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                randconfig-r003-20230517   clang
-riscv                randconfig-r005-20230517   clang
-riscv                randconfig-r032-20230517   clang
-riscv                randconfig-r042-20230517   gcc  
-riscv                          rv32_defconfig   gcc  
-s390                             allmodconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                 randconfig-r004-20230517   clang
-s390                 randconfig-r031-20230517   clang
-s390                 randconfig-r044-20230517   gcc  
-sh                               allmodconfig   gcc  
-sh                           se7721_defconfig   gcc  
-sh                           se7751_defconfig   gcc  
-sparc                             allnoconfig   gcc  
-sparc                               defconfig   gcc  
-sparc                randconfig-r016-20230517   gcc  
-sparc                randconfig-r024-20230517   gcc  
-sparc64      buildonly-randconfig-r004-20230517   gcc  
-sparc64              randconfig-r012-20230517   gcc  
-um                             i386_defconfig   gcc  
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64                              defconfig   gcc  
-x86_64                                  kexec   gcc  
-x86_64                        randconfig-a001   clang
-x86_64                        randconfig-a002   gcc  
-x86_64                        randconfig-a003   clang
-x86_64                        randconfig-a004   gcc  
-x86_64                        randconfig-a005   clang
-x86_64                        randconfig-a006   gcc  
-x86_64                        randconfig-a011   gcc  
-x86_64                        randconfig-a012   clang
-x86_64                        randconfig-a013   gcc  
-x86_64                        randconfig-a014   clang
-x86_64                        randconfig-a015   gcc  
-x86_64                        randconfig-a016   clang
-x86_64                        randconfig-x051   gcc  
-x86_64                        randconfig-x052   clang
-x86_64                        randconfig-x053   gcc  
-x86_64                        randconfig-x054   clang
-x86_64                        randconfig-x055   gcc  
-x86_64                        randconfig-x056   clang
-x86_64                        randconfig-x061   gcc  
-x86_64                        randconfig-x062   clang
-x86_64                        randconfig-x063   gcc  
-x86_64                        randconfig-x064   clang
-x86_64                        randconfig-x065   gcc  
-x86_64                        randconfig-x066   clang
-x86_64                               rhel-8.3   gcc  
-xtensa       buildonly-randconfig-r003-20230517   gcc  
-xtensa               randconfig-r001-20230517   gcc  
-xtensa               randconfig-r021-20230517   gcc  
-
+diff --git a/drivers/gpu/drm/radeon/cypress_dpm.c b/drivers/gpu/drm/radeon/cypress_dpm.c
+index fdddbbaecbb7..3678b7e384e1 100644
+--- a/drivers/gpu/drm/radeon/cypress_dpm.c
++++ b/drivers/gpu/drm/radeon/cypress_dpm.c
+@@ -555,10 +555,13 @@ static int cypress_populate_mclk_value(struct radeon_device *rdev,
+ 
+ 		if (radeon_atombios_get_asic_ss_info(rdev, &ss,
+ 						     ASIC_INTERNAL_MEMORY_SS, vco_freq)) {
++			u32 clk_s, clk_v;
+ 			u32 reference_clock = rdev->clock.mpll.reference_freq;
+ 			u32 decoded_ref = rv740_get_decoded_reference_divider(dividers.ref_div);
+-			u32 clk_s = reference_clock * 5 / (decoded_ref * ss.rate);
+-			u32 clk_v = ss.percentage *
++			if (!decoded_ref)
++				return -EINVAL;
++			clk_s = reference_clock * 5 / (decoded_ref * ss.rate);
++			clk_v = ss.percentage *
+ 				(0x4000 * dividers.whole_fb_div + 0x800 * dividers.frac_fb_div) / (clk_s * 625);
+ 
+ 			mpll_ss1 &= ~CLKV_MASK;
+diff --git a/drivers/gpu/drm/radeon/ni_dpm.c b/drivers/gpu/drm/radeon/ni_dpm.c
+index 672d2239293e..9ce3e5635efc 100644
+--- a/drivers/gpu/drm/radeon/ni_dpm.c
++++ b/drivers/gpu/drm/radeon/ni_dpm.c
+@@ -2239,10 +2239,13 @@ static int ni_populate_mclk_value(struct radeon_device *rdev,
+ 
+ 		if (radeon_atombios_get_asic_ss_info(rdev, &ss,
+ 						     ASIC_INTERNAL_MEMORY_SS, vco_freq)) {
++			u32 clk_s, clk_v;
+ 			u32 reference_clock = rdev->clock.mpll.reference_freq;
+ 			u32 decoded_ref = rv740_get_decoded_reference_divider(dividers.ref_div);
+-			u32 clk_s = reference_clock * 5 / (decoded_ref * ss.rate);
+-			u32 clk_v = ss.percentage *
++			if (!decoded_ref)
++				return -EINVAL;
++			clk_s = reference_clock * 5 / (decoded_ref * ss.rate);
++			clk_v = ss.percentage *
+ 				(0x4000 * dividers.whole_fb_div + 0x800 * dividers.frac_fb_div) / (clk_s * 625);
+ 
+ 			mpll_ss1 &= ~CLKV_MASK;
+diff --git a/drivers/gpu/drm/radeon/rv740_dpm.c b/drivers/gpu/drm/radeon/rv740_dpm.c
+index d57a3e1df8d6..ca76efa0f59d 100644
+--- a/drivers/gpu/drm/radeon/rv740_dpm.c
++++ b/drivers/gpu/drm/radeon/rv740_dpm.c
+@@ -247,10 +247,13 @@ int rv740_populate_mclk_value(struct radeon_device *rdev,
+ 
+ 		if (radeon_atombios_get_asic_ss_info(rdev, &ss,
+ 						     ASIC_INTERNAL_MEMORY_SS, vco_freq)) {
++			u32 clk_s, clk_v;
+ 			u32 reference_clock = rdev->clock.mpll.reference_freq;
+ 			u32 decoded_ref = rv740_get_decoded_reference_divider(dividers.ref_div);
+-			u32 clk_s = reference_clock * 5 / (decoded_ref * ss.rate);
+-			u32 clk_v = 0x40000 * ss.percentage *
++			if (!decoded_ref)
++				return -EINVAL;
++			clk_s = reference_clock * 5 / (decoded_ref * ss.rate);
++			clk_v = 0x40000 * ss.percentage *
+ 				(dividers.whole_fb_div + (dividers.frac_fb_div / 8)) / (clk_s * 10000);
+ 
+ 			mpll_ss1 &= ~CLKV_MASK;
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+2.25.1
+
