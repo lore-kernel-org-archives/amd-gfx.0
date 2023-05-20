@@ -4,59 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C85FC7EE23
-	for <amd-gfx@archiver.kernel.org>; Fri, 19 May 2023 21:23:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EB45C77B7A
+	for <amd-gfx@archiver.kernel.org>; Sat, 20 May 2023 05:34:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C31E10E61E;
-	Fri, 19 May 2023 21:23:15 +0000 (UTC)
-Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
- [IPv6:2607:f8b0:4864:20::c2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57D4410E61E
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 21:23:12 +0000 (UTC)
-Received: by mail-oo1-xc2d.google.com with SMTP id
- 006d021491bc7-54f5fdaa693so846007eaf.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 14:23:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF64F10E477;
+	Sat, 20 May 2023 05:34:27 +0000 (UTC)
+Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
+ [IPv6:2607:f8b0:4864:20::1134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53B8910E477
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 May 2023 05:34:26 +0000 (UTC)
+Received: by mail-yw1-x1134.google.com with SMTP id
+ 00721157ae682-5617d793160so54762547b3.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 19 May 2023 22:34:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684531391; x=1687123391;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cyDctQ7/G5TSsYoRM3BnceqaDCCnTJQUrOFokbPPxKM=;
- b=OBWwRy0RgB1kw1q/HtfBx5zPTauxFwc2SjwccbiQ/x1Brz2FfppL7EYCMMs+DDjfsL
- goktQoncXTJSBAMgYMFIC5KREHfkcpuUSkc1RmPGNywZGzbqoronqcVmbrob1ikqsuWk
- CRxTVAGzpQH1zhjma8mrU/G9hCrmNiimkwL4WWomR4eZ0RYioNyKqe3N+iJnqo0LBeRL
- NJu09Sc9YxIode5eq1GQrjxVqTIJ61XSeL9LGO3fSqePqxvlJomi7pVkWsf++bn7K5Xc
- fxD7Uo8n0i/0RvOSFrknYMg/mTWyy0u6i1BNTldjHYuFipd+cido31uIt3hjedNYOovJ
- 2LCQ==
+ d=gmail.com; s=20221208; t=1684560865; x=1687152865;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=gjCMIsUxnLWH4poT76UvO5RtAJR3pg0U5e/wbtdAXd0=;
+ b=lMLKQ0AlaBxR3YygwqX2L/7nGcJOcJ9ahiFV+iIlparoUPfecgPPhz8uj9DDSWCkvx
+ GREj/xB7AcqE04SmUjqbW//AH/vcmih/ZIKBInuj2UR4prSlj2dYFLX/1JR9L648YWYX
+ K6Y0lvztA9MK3ic7W51nhNP9a3iVk6Rr6Zzffpi+Gj+Xl0S/R1wEMPX2VqNMrfgU8c1j
+ QllKtUxqin1MHXxC/uTDOUC01JLB3rcgmw9Zcq+yD5MVcMS5yQA6tskjcF2bWfKPGCZ9
+ +yzyn4HYoSDtARbvwm8o5yiRS12Kulyd5wXUdzlUWi3UUD55SJzPuUWG5LshUuS91FZi
+ RCEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684531391; x=1687123391;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cyDctQ7/G5TSsYoRM3BnceqaDCCnTJQUrOFokbPPxKM=;
- b=FSQkDJUWfg7NVx5GBFvoB60aWlZny90ikWzQJUcpvNfHDKhE4wQEMP0TZKcEJh7hxM
- t/4KiwG+Cn9qBvmHeqVWv00VWjzwKaKY5137QeWh7RH0fMxTmdtlL2jgJcjagg2WyYaX
- VPMgiUwNeyxUrPl6na+4aPD7QdpsSkxY3WgR1G2AoU2YTUfpdZVtAVRAl4zLTJ+mWzpn
- o+p0YqORSSF0cCbFKKj9lYC9dX/fdRRZcvkxSeEOAUEjukBKRE9KTBj5HO318f5XAQgE
- 0pGfW4IU8zWT+PW/THbpntL/rQRGoAQkiaLyZeh6RG48U+/Dacvo8D8/3dxn4y9n3oUa
- DxNQ==
-X-Gm-Message-State: AC+VfDz6xyMIMJW9fFcyf7lBjb1b8xH3x3TptzOC4A84r82vZmRX2HZ9
- Eg8ijuXjfkRmOEVAC3zzzB5/uMajIBJbbRkuIZjPPdSfEXg=
-X-Google-Smtp-Source: ACHHUZ73NLKCQAakSCQyCTHycAQIQEHszkpQOo2INHM912Egh1NIYxxedPOyNGsNZqIBMpGPTW2oCoX7KjlqZmZhOfo=
-X-Received: by 2002:aca:d757:0:b0:394:3d94:b165 with SMTP id
- o84-20020acad757000000b003943d94b165mr3360088oig.19.1684531391022; Fri, 19
- May 2023 14:23:11 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1684560865; x=1687152865;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=gjCMIsUxnLWH4poT76UvO5RtAJR3pg0U5e/wbtdAXd0=;
+ b=XzR1mIf9oD9D/yG/FVZjMa/1B/vDfYqgb8L76aq6Amx2MY+hsuKr2UXMJRn92VEDVb
+ hDELRIJutTHeFgpOiCxEza/u5cZGxDjBCyZZ4p/z0H1M08CmF/wHkagubkuYy2chkqWS
+ 35ZjJxLJRfXeZhwQMMFUF8ZfGBTtcMNesdL32SzQWXIfyjT5lfb7Jc3FD05UVmAMpea8
+ okX3R6Pmc8jtkd2ijvCwvXQWbeC6OItb9p5pRDrfIlC2rYdDDMJ4dVBctkc5sHdE03ha
+ 5zGH7/Tmt6NBW4pBsc69B3BECj7vy4pZ4S58BOkTxNPaPdmzKqLNSPAKlcGfH6x7yXlM
+ dRkQ==
+X-Gm-Message-State: AC+VfDxKLb37M7zx45BGqoxwWcca/7gcpCEkfgwYwxxx50LSUnGuwuwE
+ d/T1Uga24glSwH4/H+y5OktSMiZZa+YXnZh2GB3Hs4MYdcen//S6q7M=
+X-Google-Smtp-Source: ACHHUZ6TmlPF0bpHpMB8PxUdFhsnVaH+xuGskEiZgUTOzS9d6LAFiYiF3lrCsj07PT49R9Si6NcQ20TUrHJUlMyt3gI=
+X-Received: by 2002:a81:4606:0:b0:561:c1ac:2877 with SMTP id
+ t6-20020a814606000000b00561c1ac2877mr3608676ywa.52.1684560864933; Fri, 19 May
+ 2023 22:34:24 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230424173836.1441-1-shashank.sharma@amd.com>
- <20230424173836.1441-8-shashank.sharma@amd.com>
-In-Reply-To: <20230424173836.1441-8-shashank.sharma@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 19 May 2023 17:22:59 -0400
-Message-ID: <CADnq5_OEBcYbks-fTq88+1CKxpfLwWG8gkjHSHO1DE3PLcV3jA@mail.gmail.com>
-Subject: Re: [PATCH v4 07/10] drm/amdgpu: map usermode queue into MES
-To: Shashank Sharma <shashank.sharma@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: Zibin Liu <ghostfly23333@gmail.com>
+Date: Sat, 20 May 2023 13:34:13 +0800
+Message-ID: <CABKykwm30UKMWmzPhN3DDsDa7L1x-DhP7rPMVMvqAwzPk2sDFg@mail.gmail.com>
+Subject: [QUESTION] gfvhub_v2_1 updates CNTL regs before initialize related
+ page table address
+To: amd-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="000000000000f4f95d05fc1963a8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,151 +63,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com, arvind.yadav@amd.com,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- contactshashanksharma@gmail.com, Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 24, 2023 at 1:39=E2=80=AFPM Shashank Sharma <shashank.sharma@am=
-d.com> wrote:
->
-> This patch adds new functions to map/unmap a usermode queue into
-> the FW, using the MES ring. As soon as this mapping is done, the
-> queue would  be considered ready to accept the workload.
->
-> V1: Addressed review comments from Alex on the RFC patch series
->     - Map/Unmap should be IP specific.
-> V2:
->     Addressed review comments from Christian:
->     - Fix the wptr_mc_addr calculation (moved into another patch)
->     Addressed review comments from Alex:
->     - Do not add fptrs for map/unmap
->
-> V3: Integration with doorbell manager
-> V4: Rebase
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 67 ++++++++++++++++++++++++++
->  1 file changed, 67 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index 86de35292f69..7a45d68091ec 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -31,6 +31,7 @@
->  #include "amdgpu_smu.h"
->  #include "amdgpu_atomfirmware.h"
->  #include "amdgpu_userqueue.h"
-> +#include "amdgpu_mes.h"
->  #include "imu_v11_0.h"
->  #include "soc21.h"
->  #include "nvd.h"
-> @@ -6411,6 +6412,64 @@ const struct amdgpu_ip_block_version gfx_v11_0_ip_=
-block =3D
->         .funcs =3D &gfx_v11_0_ip_funcs,
->  };
->
-> +static int gfx_v11_userq_map(struct amdgpu_userq_mgr *uq_mgr,
-> +                            struct amdgpu_usermode_queue *queue)
-> +{
-> +       struct amdgpu_device *adev =3D uq_mgr->adev;
-> +       struct mes_add_queue_input queue_input;
-> +       int r;
-> +
-> +       memset(&queue_input, 0x0, sizeof(struct mes_add_queue_input));
-> +
-> +       queue_input.process_va_start =3D 0;
-> +       queue_input.process_va_end =3D (adev->vm_manager.max_pfn - 1) << =
-AMDGPU_GPU_PAGE_SHIFT;
-> +       queue_input.process_quantum =3D 100000; /* 10ms */
-> +       queue_input.gang_quantum =3D 10000; /* 1ms */
-> +       queue_input.paging =3D false;
-> +
-> +       queue_input.gang_context_addr =3D queue->gang_ctx_gpu_addr;
-> +       queue_input.process_context_addr =3D queue->proc_ctx_gpu_addr;
-> +       queue_input.inprocess_gang_priority =3D AMDGPU_MES_PRIORITY_LEVEL=
-_NORMAL;
-> +       queue_input.gang_global_priority_level =3D AMDGPU_MES_PRIORITY_LE=
-VEL_NORMAL;
-> +
-> +       queue_input.process_id =3D queue->vm->pasid;
-> +       queue_input.queue_type =3D queue->queue_type;
-> +       queue_input.mqd_addr =3D queue->mqd.gpu_addr;
-> +       queue_input.wptr_addr =3D queue->userq_prop.wptr_gpu_addr;
-> +       queue_input.queue_size =3D queue->userq_prop.queue_size >> 2;
-> +       queue_input.doorbell_offset =3D queue->userq_prop.doorbell_index;
-> +       queue_input.page_table_base_addr =3D amdgpu_gmc_pd_addr(queue->vm=
-->root.bo);
-> +
-> +       amdgpu_mes_lock(&adev->mes);
-> +       r =3D adev->mes.funcs->add_hw_queue(&adev->mes, &queue_input);
-> +       amdgpu_mes_unlock(&adev->mes);
-> +       if (r) {
-> +               DRM_ERROR("Failed to map queue in HW, err (%d)\n", r);
-> +               return r;
-> +       }
-> +
-> +       DRM_DEBUG_DRIVER("Queue %d mapped successfully\n", queue->queue_i=
-d);
-> +       return 0;
-> +}
-> +
-> +static void gfx_v11_userq_unmap(struct amdgpu_userq_mgr *uq_mgr,
-> +                               struct amdgpu_usermode_queue *queue)
-> +{
-> +       struct amdgpu_device *adev =3D uq_mgr->adev;
-> +       struct mes_remove_queue_input queue_input;
-> +       int r;
-> +
-> +       memset(&queue_input, 0x0, sizeof(struct mes_remove_queue_input));
-> +       queue_input.doorbell_offset =3D queue->userq_prop.doorbell_index;
-> +       queue_input.gang_context_addr =3D queue->gang_ctx_gpu_addr;
-> +
-> +       amdgpu_mes_lock(&adev->mes);
-> +       r =3D adev->mes.funcs->remove_hw_queue(&adev->mes, &queue_input);
-> +       amdgpu_mes_unlock(&adev->mes);
-> +       if (r)
-> +               DRM_ERROR("Failed to unmap queue in HW, err (%d)\n", r);
-> +}
+--000000000000f4f95d05fc1963a8
+Content-Type: text/plain; charset="UTF-8"
 
-gfx_v11_0_ for consistency.
+Hi,
 
-Alex
+I'm looking at the initialization sequences in gfxhub_v2_1.c. I'm
+confused on whether the GCVM_CONTEXT1_CNTL CNTL reg can be written
+before the corresponding GCVM_CONTEXT1_PAGE_TABLE_START_ADDR and
+GCVM_CONTEXT1_PAGE_TABLE_END_ADDR reg is written.
 
-> +
->  static void gfx_v11_userq_set_ctx_space(struct amdgpu_userq_mgr *uq_mgr,
->                                         struct amdgpu_usermode_queue *que=
-ue)
->  {
-> @@ -6507,6 +6566,13 @@ gfx_v11_userq_mqd_create(struct amdgpu_userq_mgr *=
-uq_mgr, struct amdgpu_usermode
->
->         gfx_v11_userq_set_ctx_space(uq_mgr, queue);
->         amdgpu_bo_unreserve(mqd->obj);
-> +
-> +       /* Map the queue in HW using MES ring */
-> +       r =3D gfx_v11_userq_map(uq_mgr, queue);
-> +       if (r) {
-> +               DRM_ERROR("Failed to map userqueue (%d)\n", r);
-> +               goto free_ctx;
-> +       }
->         DRM_DEBUG_DRIVER("MQD for queue %d created\n", queue->queue_id);
->         return 0;
->
-> @@ -6523,6 +6589,7 @@ gfx_v11_userq_mqd_destroy(struct amdgpu_userq_mgr *=
-uq_mgr, struct amdgpu_usermod
->  {
->         struct amdgpu_userq_ctx_space *mqd =3D &queue->mqd;
->
-> +       gfx_v11_userq_unmap(uq_mgr, queue);
->         gfx_v11_userq_destroy_ctx_space(uq_mgr, queue);
->         amdgpu_bo_free_kernel(&mqd->obj, &mqd->gpu_addr, &mqd->cpu_ptr);
->  }
-> --
-> 2.40.0
->
+Here is the background:
+ * gfxhub_v2_1_setup_vmid_config() enables GPU clients to use GPUVM
+VMIDs to access memory.
+
+The code related to this questions is below:
+
+ 324               WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL,
+ 325                                   i * hub->ctx_distance, tmp);
+
+ 326               WREG32_SOC15_OFFSET(GC, 0,
+mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32,
+ 327                                   i * hub->ctx_addr_distance, 0);
+ 328               WREG32_SOC15_OFFSET(GC, 0,
+mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32,
+ 329                                   i * hub->ctx_addr_distance, 0);
+ 330               WREG32_SOC15_OFFSET(GC, 0,
+mmGCVM_CONTEXT1_PAGE_TABLE_END_ADDR_LO32,
+ 331                                   i * hub->ctx_addr_distance,
+ 332
+lower_32_bits(adev->vm_manager.max_pfn - 1));
+ 333               WREG32_SOC15_OFFSET(GC, 0,
+mmGCVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32,
+ 334                                   i * hub->ctx_addr_distance,
+ 335
+upper_32_bits(adev->vm_manager.max_pfn - 1));
+
+Just wondering, is the behavior expected or is it a bug?
+
+Thanks,
+Zibin Liu
+
+--000000000000f4f95d05fc1963a8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><pre style=3D"white-space:pre-wrap;color:rgb(0,0,0)">Hi,
+
+I&#39;m looking at the initialization sequences in gfxhub_v2_1.c. I&#39;m c=
+onfused on whether the GCVM_CONTEXT1_CNTL CNTL reg can be written before th=
+e corresponding GCVM_CONTEXT1_PAGE_TABLE_START_ADDR and GCVM_CONTEXT1_PAGE_=
+TABLE_END_ADDR reg is written.</pre><pre style=3D"white-space:pre-wrap;colo=
+r:rgb(0,0,0)"><pre style=3D"white-space:pre-wrap">Here is the background:
+ * gfxhub_v2_1_setup_vmid_config() enables GPU clients to use GPUVM VMIDs t=
+o access memory.</pre></pre><pre style=3D"white-space:pre-wrap;color:rgb(0,=
+0,0)">The code related to this questions is below:</pre><pre style=3D"white=
+-space:pre-wrap;color:rgb(0,0,0)">=C2=A0324 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL,<br>=C2=
+=A0325 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 i * hub-&gt;ctx_distan=
+ce, tmp);</pre><pre style=3D"white-space:pre-wrap;color:rgb(0,0,0)">=C2=A03=
+26 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 WREG32_SOC15_OFFSET(GC,=
+ 0, mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32,<br>=C2=A0327 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 i * hub-&gt;ctx_addr_distance, 0);<br>=C2=
+=A0328 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 WREG32_SOC15_OFFSET=
+(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32,<br>=C2=A0329 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 i * hub-&gt;ctx_addr_distance, 0);<br>=
+=C2=A0330 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 WREG32_SOC15_OFF=
+SET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_END_ADDR_LO32,<br>=C2=A0331 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 i * hub-&gt;ctx_addr_distance,<br>=
+=C2=A0332 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 lower_32_bits(adev-=
+&gt;vm_manager.max_pfn - 1));<br>=C2=A0333 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_END=
+_ADDR_HI32,<br>=C2=A0334 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 i * h=
+ub-&gt;ctx_addr_distance,<br>=C2=A0335 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 upper_32_bits(adev-&gt;vm_manager.max_pfn - 1));
+
+Just wondering, is the behavior expected or is it a bug?
+
+Thanks,
+Zibin Liu</pre><br></div>
+
+--000000000000f4f95d05fc1963a8--
