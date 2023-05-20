@@ -4,59 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20034C7EE23
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 07:20:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9E75C77B73
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 07:20:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EAE910E255;
-	Mon, 22 May 2023 07:20:21 +0000 (UTC)
-Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
- [IPv6:2607:f8b0:4864:20::b31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9258D10E1AE
- for <amd-gfx@lists.freedesktop.org>; Sun, 21 May 2023 04:15:41 +0000 (UTC)
-Received: by mail-yb1-xb31.google.com with SMTP id
- 3f1490d57ef6-ba6d024a196so4137312276.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 May 2023 21:15:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A43E10E250;
+	Mon, 22 May 2023 07:20:20 +0000 (UTC)
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6398B10E16E
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 May 2023 13:41:50 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id
+ 5614622812f47-38c35975545so3190871b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 20 May 2023 06:41:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684642540; x=1687234540;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cuy/ECGdaUtkYxS8w6j0LN3puMU4yYm7CZzTCAk5FCI=;
- b=Gfk9NN3FyHKdTuW0sqwk/nGRiV8kSdICC2zCzqI8ZBKixyFcYpXPZt+tlijrSB8jsj
- 35nU3m3b2OukhOJZZk6BD+tb1yo+t+s87ImZi2EEaHlmYkx+hx6trFYGDohXTwaOpmfw
- n95AsOuqBNTGWK3YgFIYu3VZiAsMLpkvxfp4V9lGoN1huhDpP2+49dhwcOH/AXGk/4WL
- k1jugUMj1fuOi51Om+Bwrkv86kH6wnkluase6gEpEdDWti9Hg7/uD3DlXn1TepH4m84G
- LKaNb4EJTK1XJ8/m4HZpr6xr7BtR0ngAN4htmLxlZN9q3OjYjS7FBF5M5ZyHDsx1fp7g
- b+4w==
+ d=gmail.com; s=20221208; t=1684590108; x=1687182108;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QDjL71PEC6Tb+XtxTyBLheXSk1UAk9Ru/+e5aEBaUME=;
+ b=jBrxFKg2cKrHx/DouwqP32x7wpJiJU9aigiEjHeTTqgp4UPiC/eAtJQllwFa5z6uC0
+ EdjiNsZrLqCKLeLd4alN4n/NLZGYw04QrKgaJNvV9YsCuRVGTJP3TAm4U1j3ZnvZDDKJ
+ zgL3SDSrjnD2/Il3oDnStv492zzBKHglXwWVi1SZmH2fjgaF3GA6ukEUn0Cv+k4rSQd3
+ 5DCqAj4syCcuaWfcQiihHBj58RFQh0DP7hwq77I9Gq1SRur5azsA+d0whoZyjwdBb6cu
+ VpRf+ctb2iHGWjTeCBeOLGfIZO6AdPqo1UDARxVfqmCkDemdBfC8AY8UOX26hgDWK+O0
+ lzzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684642540; x=1687234540;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cuy/ECGdaUtkYxS8w6j0LN3puMU4yYm7CZzTCAk5FCI=;
- b=KF4WH1QTzhOnMKdHBtAa1W5RyHckp/WMpboZDeK6cBYX4dFABC7arkwQjza6nQ2AQR
- F3D1+FO4IAPjHyKp4vdDqA7Pll2suvX9smShvCG/+qBieNVMf5VOW5hUuU+6uhb1FUxr
- WjggxOqiJRnrgZ7BvEN+qxAE2DG7EzhaD+cfYXB+gGQ/+t8Spv0TWBm3ETDcDkOBTlu1
- PCbOYfyGW/vw94KaH+Zr7okCMG7LjpT2LdR5h2hOxxjEexOskW7eJRJDbWv0+2oaO986
- vSpvAWwrvSD/V3Db4f11VJK0CHy2budIFj2x2ti/fds87xmO3E3RYAWbHNPbJYdeX6mH
- H1xQ==
-X-Gm-Message-State: AC+VfDxmiz5n6VxQkOkixV+8WP19CIhfsSp5eyMn9+2sP5+NLif6Edho
- hxjAsL0D/NqXz41sz5WYi/aBH5+2tOR/BJqNanZ6PXrfbAA=
-X-Google-Smtp-Source: ACHHUZ49QV/dAShKP/clk/nlxbFf6wHL8wEfxazjVx9pm41Y+U5gj2IQqcCl6KxlaBZf4JNsFlPOXk9pQ56EpmrnnFw=
-X-Received: by 2002:a0d:d890:0:b0:561:4bcc:464f with SMTP id
- a138-20020a0dd890000000b005614bcc464fmr7590775ywe.36.1684642539769; Sat, 20
- May 2023 21:15:39 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1684590108; x=1687182108;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QDjL71PEC6Tb+XtxTyBLheXSk1UAk9Ru/+e5aEBaUME=;
+ b=kW96UZSS7AubqCrFAgUOVN2Ic4GeRd3EScjXhJKsg5VtQ1BShSbuHNXW/WMTKu9D/f
+ 66p6csJ0e5NPr3uttM/Q4F01RHnsygKTLTwByX77P2IlmkTECACOR70aD9pIauHc2SGA
+ EZF3JrpodWDT4I4x26kMsShqsVmCBWI7919a02Phttl/jDjPgvk7Hm2qFcMr7RJ9T3Bc
+ wX7lJc78ufrQUvZBX/LTuMIAf4qsCew4+ZA8D7cCjZ6F0SCw3Z+BwYvN7rrRcrAP33rY
+ NM8/uF7+r838mQPIT/nJGO2p99eeRaMdSGTfKjDo9ORHzn6OdQ7ZLGPLKALkjG2oS9E0
+ bJWQ==
+X-Gm-Message-State: AC+VfDy4nTwi07bRYfGScKfoEODbmhxCG5MQB+I5+dcnpHPDuXBCEhuD
+ lljrwJBk5hGTNNWa6muNT97tt384Z90Lmw==
+X-Google-Smtp-Source: ACHHUZ71lN59Rpri09NQzDWxkLeu7s2m0KjQiJj18LqcT4nmmGRHukcZ+05VT7dEqLOuuPTXANe5hg==
+X-Received: by 2002:a05:6808:8dc:b0:38e:c2a4:3530 with SMTP id
+ k28-20020a05680808dc00b0038ec2a43530mr2704094oij.9.1684590108154; 
+ Sat, 20 May 2023 06:41:48 -0700 (PDT)
+Received: from toolbox.spo.virtua.com.br
+ ([2804:14c:1af:8457:4af4:4759:2c9e:18c9])
+ by smtp.gmail.com with ESMTPSA id
+ c14-20020a544e8e000000b0038cabdbe3a7sm617356oiy.3.2023.05.20.06.41.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 20 May 2023 06:41:47 -0700 (PDT)
+From: Jonatas Esteves <jntesteves@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/pm: Fix output of pp_od_clk_voltage
+Date: Sat, 20 May 2023 10:39:52 -0300
+Message-Id: <20230520133951.172823-1-jntesteves@gmail.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-References: <CAHPMNWdWaYyQs1u=r7wt=DudxoogCOe3GL2J1UC-Gcdroa=MaA@mail.gmail.com>
-In-Reply-To: <CAHPMNWdWaYyQs1u=r7wt=DudxoogCOe3GL2J1UC-Gcdroa=MaA@mail.gmail.com>
-From: Neil Sikka <neilsikka@gmail.com>
-Date: Sun, 21 May 2023 00:15:28 -0400
-Message-ID: <CAHPMNWeoNACjDh8AYWDvchXc8t9wHh3Gu+qriaWs0b9tHbxn1A@mail.gmail.com>
-Subject: Re: Radeon Driver Crash
-To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- christian.koenig@amd.com, Xinhui.Pan@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 22 May 2023 07:20:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,35 +71,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jonatas Esteves <jntesteves@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I also crossposted here upon request:
-https://gitlab.freedesktop.org/drm/amd/-/issues/2571
+Printing the other clock types should not be conditioned on being able
+to print OD_SCLK. Some GPUs currently have limited capability of only
+printing a subset of these.
 
-On Fri, May 19, 2023 at 6:36=E2=80=AFPM Neil Sikka <neilsikka@gmail.com> wr=
-ote:
->
-> Hello, I just filed a bug for the Radeon driver crashing:
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D217464
->
-> It looks similar to this bug
-> (https://bugzilla.kernel.org/show_bug.cgi?id=3D198669) because they are
-> both locking up the GPU and the page fault address is at the same page
-> offset of 0xffc, which might mean its the same structure member that
-> is being dereferenced (or an underflow), and the call stack is
-> similar.
->
-> Please let me know if you need any more information.
->
-> Thanks!
->
-> --
-> My Blog: http://www.neilscomputerblog.blogspot.com/
-> Twitter: @neilsikka
+Since this condition was introduced in v5.18-rc1, reading from
+`pp_od_clk_voltage` has been returning empty on the Asus ROG Strix G15
+(2021).
 
+Fixes: 79c65f3fcbb1 ("drm/amd/pm: do not expose power implementation details to amdgpu_pm.c")
+Signed-off-by: Jonatas Esteves <jntesteves@gmail.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 58c2246918fd..f4f40459f22b 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -871,13 +871,11 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
+ 	}
+ 	if (ret == -ENOENT) {
+ 		size = amdgpu_dpm_print_clock_levels(adev, OD_SCLK, buf);
+-		if (size > 0) {
+-			size += amdgpu_dpm_print_clock_levels(adev, OD_MCLK, buf + size);
+-			size += amdgpu_dpm_print_clock_levels(adev, OD_VDDC_CURVE, buf + size);
+-			size += amdgpu_dpm_print_clock_levels(adev, OD_VDDGFX_OFFSET, buf + size);
+-			size += amdgpu_dpm_print_clock_levels(adev, OD_RANGE, buf + size);
+-			size += amdgpu_dpm_print_clock_levels(adev, OD_CCLK, buf + size);
+-		}
++		size += amdgpu_dpm_print_clock_levels(adev, OD_MCLK, buf + size);
++		size += amdgpu_dpm_print_clock_levels(adev, OD_VDDC_CURVE, buf + size);
++		size += amdgpu_dpm_print_clock_levels(adev, OD_VDDGFX_OFFSET, buf + size);
++		size += amdgpu_dpm_print_clock_levels(adev, OD_RANGE, buf + size);
++		size += amdgpu_dpm_print_clock_levels(adev, OD_CCLK, buf + size);
+ 	}
+ 
+ 	if (size == 0)
+-- 
+2.40.1
 
---=20
-My Blog: http://www.neilscomputerblog.blogspot.com/
-Twitter: @neilsikka
