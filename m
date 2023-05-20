@@ -4,55 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D73AC77B7D
-	for <amd-gfx@archiver.kernel.org>; Sat, 20 May 2023 18:00:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8D43C77B7F
+	for <amd-gfx@archiver.kernel.org>; Sat, 20 May 2023 18:18:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C93D10E08A;
-	Sat, 20 May 2023 18:00:40 +0000 (UTC)
-Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
- [IPv6:2607:f8b0:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A96BF10E08A
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 May 2023 18:00:38 +0000 (UTC)
-Received: by mail-pg1-x52e.google.com with SMTP id
- 41be03b00d2f7-53482b44007so1786206a12.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 20 May 2023 11:00:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684605638; x=1687197638;
- h=cc:to:subject:date:from:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=n/w9xABIfUj6Dl4/qFa1pCSYIiL8B2Gh1Bv0+XJyaLg=;
- b=N8L1hdpmePzAhgQ+Ob47tLL3IRB6FCvBr4dMK8UEnsLU68O9eBsSuE2TGy/L4NdMse
- U65SMoxO73eAC1b4bEdEjjbP/2bc7Jh8rYkj8RVVA7o+FBboO4xeGFtSDCI/zgZv3YfH
- Hy7w6tUr3Z3efFxaoWi/tubjqPhO4hv/6uObSjPuFtOlnirpLc6rtthxmpruvOHG/oiS
- dEWDvUc28sEMf5eT/Wb3XniNldGaYAMEfZlt6qPsH/4kC6Gdgv4NG9bgbzrD0DVza+4K
- d/cQylSZ41Kdeg+H5lfbp+0IOLZTYn8oCbIrSMlSf9BeHr21ZlghjzPH6PWKBKzcp3iM
- Z6jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684605638; x=1687197638;
- h=cc:to:subject:date:from:message-id:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=n/w9xABIfUj6Dl4/qFa1pCSYIiL8B2Gh1Bv0+XJyaLg=;
- b=H3zkKFdliA1JTlE6wz0HnPKThwxei7eeXRWoppgq20aN9wfGA860aGY4LS7pqks5kT
- e6UnEOxvOQRuRVFMUjIDVrwilNtxnz0jNoS24m7H0VYT+TVD1Wp41MtdO0mbUuiQ4eAn
- bbdvt707aOGQ+Dl8Oaj/N2rwy4mQQcgCcA3yRbXmh++i40aqs8VzLFR750zZKf58+0tQ
- 0W1zyWWHlkhWe6Hg1Mi+GAo7gdh4F3g7C18ddGloMaVCgpOjdDZ/giwhqi7Iu6euYTQ6
- T1/ilzJtrbmwEP2Ea+5JHlg8hNk06qnrkNv24GQaHb2hjLQT71wf0MK344EoOAq6+5XM
- 1Buw==
-X-Gm-Message-State: AC+VfDzA/rF/MAFqf0zArDwz962rRGHrehBg6q2OD6bSsNQ0o7wRUArX
- 4a3qkWIZjbWnOBgWgXZi8+U=
-X-Google-Smtp-Source: ACHHUZ7VX15xvIk9IjlTdopKTebyozL9mjDmdwEDVDwn8YHkJZYF/JOTz2sNj9RspZm/0KavfCxOAQ==
-X-Received: by 2002:a17:902:c407:b0:1ac:451d:34b with SMTP id
- k7-20020a170902c40700b001ac451d034bmr8470317plk.9.1684605637889; 
- Sat, 20 May 2023 11:00:37 -0700 (PDT)
-Received: from localhost ([123.56.124.140]) by smtp.gmail.com with ESMTPSA id
- bj6-20020a170902850600b001a183ade911sm1800688plb.56.2023.05.20.11.00.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 20 May 2023 11:00:37 -0700 (PDT)
-Message-ID: <64690ac5.170a0220.92bb3.2e7a@mx.google.com>
-From: ghostfly233 <ghostfly23333@gmail.com>
-Date: Sat, 20 May 2023 19:59:40 +0800
-Subject: [PATCH] drm/amdgpu: Rearrange WREG32 operations in gfxhub_v2_1.c
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5171510E0CC;
+	Sat, 20 May 2023 18:18:59 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D384710E0CC;
+ Sat, 20 May 2023 18:18:57 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3442260AAD;
+ Sat, 20 May 2023 18:18:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA67C433D2;
+ Sat, 20 May 2023 18:18:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1684606736;
+ bh=9XuyVdHschitaFjv1IRmhakUiZ7udiWU8DqDINx/jd4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=c/j2ABdH0bNmn4avd7GYmY3ltuWN2xQ0eGHGjVfCjR4sH8Cov4on4Kq6rWFciBITv
+ Nn/2+CHYLDXSfPdSPEBQeiG3kJlQxIlaNmbda/a4ObRzE7lqX5kNfVnkiIOar2vXUv
+ Dv2g5E+5uttS5KQVcv6SX0jszoJpuG4/aFWUomsHj63SpxMNrSarEb7MRr83FHL/hd
+ XYmwaJ6QneyF0ODsYhjF3JfXOM24J185LL1cp2XVroKscTLq48cWoGdj+XWJZpsrnP
+ SJmmjNXIvUVsR9qHPt6ZTT3vzi5eAKAXSMd1wvX2W9Gob6HwZd6Xrsa4/XRUBsoEim
+ W+f7fmjGEVXfQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.3 12/18] drm/amdgpu/nv: update VCN 3 max HEVC
+ encoding resolution
+Date: Sat, 20 May 2023 14:17:44 -0400
+Message-Id: <20230520181750.823365-12-sashal@kernel.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230520181750.823365-1-sashal@kernel.org>
+References: <20230520181750.823365-1-sashal@kernel.org>
+MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,47 +55,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ghostfly23333@gmail.com, daniel@ffwll.ch, airlied@gmail.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: Sasha Levin <sashal@kernel.org>, Thong Thai <thong.thai@amd.com>,
+ veerabadhran.gopalakrishnan@amd.com, Xinhui.Pan@amd.com, shane.xiao@amd.com,
+ amd-gfx@lists.freedesktop.org, kai.heng.feng@canonical.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, Ruijing Dong <ruijing.dong@amd.com>,
+ Likun.Gao@amd.com, airlied@gmail.com, christian.koenig@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In gfxhub_v2_1_setup_vmid_config(), the GCVM_CONTEXT1_CNTL reg is
-written before related GCVM_CONTEXT1_PAGE_TABLE_START_ADDR and
-GCVM_CONTEXT1_PAGE_TABLE_END_ADDR regs are written, which may
-cause undefined behavior.
+From: Thong Thai <thong.thai@amd.com>
 
-This patch rearranges WREG32 operations in gfxhub_v2_1_setup_vmid_config(),
-so that it can ensure the addresses are initialized before CNTL is enabled
-and reduce the risk of encountering undefined behavior.
+[ Upstream commit 476ac50fc30540e29191615a26aaf5f9dee91c49 ]
 
-Signed-off-by: Zibin Liu <ghostfly23333@gmail.com>
+Update the maximum resolution reported for HEVC encoding on VCN 3
+devices to reflect its 8K encoding capability.
+
+v2: Also update the max height for H.264 encoding to match spec.
+(Ruijing)
+
+Signed-off-by: Thong Thai <thong.thai@amd.com>
+Reviewed-by: Ruijing Dong <ruijing.dong@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-index 4aacbbec31e2..6d094e7315eb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
-@@ -321,8 +321,6 @@ static void gfxhub_v2_1_setup_vmid_config(struct amdgpu_device *adev)
- 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
- 				    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
- 				    !adev->gmc.noretry);
--		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL,
--				    i * hub->ctx_distance, tmp);
- 		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32,
- 				    i * hub->ctx_addr_distance, 0);
- 		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32,
-@@ -333,6 +331,8 @@ static void gfxhub_v2_1_setup_vmid_config(struct amdgpu_device *adev)
- 		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32,
- 				    i * hub->ctx_addr_distance,
- 				    upper_32_bits(adev->vm_manager.max_pfn - 1));
-+		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL,
-+				    i * hub->ctx_distance, tmp);
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index ebe0e2d7dbd1b..aa7f82b3fd6a9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -98,6 +98,16 @@ static const struct amdgpu_video_codecs nv_video_codecs_decode =
+ };
  
- 	hub->vm_cntx_cntl = tmp;
+ /* Sienna Cichlid */
++static const struct amdgpu_video_codec_info sc_video_codecs_encode_array[] = {
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2160, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 7680, 4352, 0)},
++};
++
++static const struct amdgpu_video_codecs sc_video_codecs_encode = {
++	.codec_count = ARRAY_SIZE(sc_video_codecs_encode_array),
++	.codec_array = sc_video_codecs_encode_array,
++};
++
+ static const struct amdgpu_video_codec_info sc_video_codecs_decode_array_vcn0[] =
+ {
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2, 4096, 4096, 3)},
+@@ -136,8 +146,8 @@ static const struct amdgpu_video_codecs sc_video_codecs_decode_vcn1 =
+ /* SRIOV Sienna Cichlid, not const since data is controlled by host */
+ static struct amdgpu_video_codec_info sriov_sc_video_codecs_encode_array[] =
+ {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2160, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 7680, 4352, 0)},
+ };
+ 
+ static struct amdgpu_video_codec_info sriov_sc_video_codecs_decode_array_vcn0[] =
+@@ -237,12 +247,12 @@ static int nv_query_video_codecs(struct amdgpu_device *adev, bool encode,
+ 		} else {
+ 			if (adev->vcn.harvest_config & AMDGPU_VCN_HARVEST_VCN0) {
+ 				if (encode)
+-					*codecs = &nv_video_codecs_encode;
++					*codecs = &sc_video_codecs_encode;
+ 				else
+ 					*codecs = &sc_video_codecs_decode_vcn1;
+ 			} else {
+ 				if (encode)
+-					*codecs = &nv_video_codecs_encode;
++					*codecs = &sc_video_codecs_encode;
+ 				else
+ 					*codecs = &sc_video_codecs_decode_vcn0;
+ 			}
+@@ -251,14 +261,14 @@ static int nv_query_video_codecs(struct amdgpu_device *adev, bool encode,
+ 	case IP_VERSION(3, 0, 16):
+ 	case IP_VERSION(3, 0, 2):
+ 		if (encode)
+-			*codecs = &nv_video_codecs_encode;
++			*codecs = &sc_video_codecs_encode;
+ 		else
+ 			*codecs = &sc_video_codecs_decode_vcn0;
+ 		return 0;
+ 	case IP_VERSION(3, 1, 1):
+ 	case IP_VERSION(3, 1, 2):
+ 		if (encode)
+-			*codecs = &nv_video_codecs_encode;
++			*codecs = &sc_video_codecs_encode;
+ 		else
+ 			*codecs = &yc_video_codecs_decode;
+ 		return 0;
 -- 
-2.34.1
+2.39.2
 
