@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E71CC7EE23
-	for <amd-gfx@archiver.kernel.org>; Sat, 20 May 2023 18:19:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D78DC77B7F
+	for <amd-gfx@archiver.kernel.org>; Sat, 20 May 2023 18:21:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A565A10E0EC;
-	Sat, 20 May 2023 18:19:35 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D82910E0E6;
- Sat, 20 May 2023 18:19:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE18C10E10F;
+	Sat, 20 May 2023 18:21:43 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 490BA10E10F;
+ Sat, 20 May 2023 18:21:42 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B3E776009E;
- Sat, 20 May 2023 18:19:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55803C433D2;
- Sat, 20 May 2023 18:19:30 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9883060B51;
+ Sat, 20 May 2023 18:21:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11BACC4339B;
+ Sat, 20 May 2023 18:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1684606772;
- bh=5rn/qciF/tv9h8ztLn/cB6ntPJZT88ZGYYLG5le0pFs=;
+ s=k20201202; t=1684606901;
+ bh=Caj9Chv14WJIy5OSbKzEcAb/SOrNpcH0u4TKTyOodn8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ViEcJ6/z7UHUnfSdikg7AcuIJQvW2mSpi5Tza94zQkOfVvAcBWTOX1tQSZiDofaet
- R0+h62A0WRBFSFgeuZCkSvTh/3/KSGn36mJKGfcMuy1ICCbvEp+r/AxWj6QQCPj5Sm
- KqVFGR/chi9Jazx/NwS9Dd7EZpuxtiSBChlMHmPXs4JqClj+NDY7QJJlBfUKfjWtkq
- urbEqoBuWIINbSOI/GO+F9FxpJw8ut8R+QEGI0eQPPlHO1Ajz2o65E0w/Qs2hAIo52
- +AmMk76SPEhFgIfh7pnlrQytzfCH0XnU5ZCq5uILca3g35RvgwhglKonqt7HGAMJ0y
- mmdeR4SUSwgFg==
+ b=nHuQFJPzr0vbY4R/e1kvCF/7TUpp2fu6TI6jhAE7dQakIWpdCNe7i3qzaIrCF4q1H
+ dygU9rfaffRfDfhDQHmOrF49DBVI0DRfbI5ZUflI4Nf8Lf05nYXUtc5s41xDEzifFB
+ EgDunWHps/X48dDrSwuk0KKc7yHH/mZDToOYOYxMD4YSvV3R3bmKqEtrQUT8qbtUZ1
+ jDoFS8yj6fjJo/t/hn+SoDsRO3nxygu8m5r4N0tc3hrE5bqms8+2TA6sihXaNZaaK7
+ LOui5VwpENzFv0oDgbGi+v7hu0U9S4zMLlbB1rzj5J9etjfnSlFvuDk2vokq7n7m3I
+ eSJTrMMmzsHLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.3 13/18] drm/amdgpu: set gfx9 onwards APU atomics
+Subject: [PATCH AUTOSEL 6.1 09/14] drm/amdgpu: set gfx9 onwards APU atomics
  support to be true
-Date: Sat, 20 May 2023 14:17:45 -0400
-Message-Id: <20230520181750.823365-13-sashal@kernel.org>
+Date: Sat, 20 May 2023 14:20:37 -0400
+Message-Id: <20230520182044.836702-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230520181750.823365-1-sashal@kernel.org>
-References: <20230520181750.823365-1-sashal@kernel.org>
+In-Reply-To: <20230520182044.836702-1-sashal@kernel.org>
+References: <20230520182044.836702-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -84,10 +83,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 6 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index aa46726dfdb01..41f27de162d7d 100644
+index 011e4fbe27f10..646a211e1a964 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3738,6 +3738,12 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+@@ -3735,6 +3735,12 @@ int amdgpu_device_init(struct amdgpu_device *adev,
  		adev->have_atomics_support = ((struct amd_sriov_msg_pf2vf_info *)
  			adev->virt.fw_reserve.p_pf2vf)->pcie_atomic_ops_support_flags ==
  			(PCI_EXP_DEVCAP2_ATOMIC_COMP32 | PCI_EXP_DEVCAP2_ATOMIC_COMP64);
