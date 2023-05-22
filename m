@@ -4,77 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2521C7EE2D
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 13:06:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF277C77B75
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 13:08:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CCCE10E31E;
-	Mon, 22 May 2023 13:06:54 +0000 (UTC)
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5327610E25B;
- Mon, 22 May 2023 07:30:29 +0000 (UTC)
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34M00ooI011286; Mon, 22 May 2023 07:30:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding;
- s=corp-2023-03-30; bh=A5ZncwB04NjzcMemMMWye/LhgkT9LJyEStC1Nr1FzwI=;
- b=ceRFdvS6XD5HqLo3PdevQNl4QthpRYj6UIaBLjGU3PhxQqXGh2hOIzYSPOY8VdgtQGb4
- ipGli3qfNhAviNlAWCNrhED4qFtu0OoIs3H6S6sZzlen1ke2MdSiZJNJz9XWKGWfrrLo
- TZH3C5+AkB5hFU3K6WvdkyxrlwUsYBcHQnZtRFf1ehveAkccWWjz45nTMuZC/wqnyK9a
- zc4hVsKRPj2sYGUSBsCjAGjUFu7d04GLS5ZgSGMBX3Qpzvfoo5yW+uNEWGL86zBNLbRH
- u/ndrNQHVieq/VEkYlvNGFULnm36k0g/MVZ7OB0WPG/M96NZsCZNByuVWrIPLPQVUuPG UA== 
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3qpp3mj1u3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 22 May 2023 07:30:24 +0000
-Received: from pps.filterd
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
- with ESMTP id 34M6M7oP023566; Mon, 22 May 2023 07:30:22 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3qqk8skeds-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 22 May 2023 07:30:22 +0000
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 34M7OKLu026055;
- Mon, 22 May 2023 07:30:22 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 3qqk8skeat-1; Mon, 22 May 2023 07:30:21 +0000
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A02410E324;
+	Mon, 22 May 2023 13:08:29 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 846B910E327
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 May 2023 13:08:27 +0000 (UTC)
+Received: from kaveri ([213.144.156.170])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202305221508248273; Mon, 22 May 2023 15:08:24 +0200
+Received: from daenzer by kaveri with local (Exim 4.96)
+ (envelope-from <michel@daenzer.net>) id 1q15Gx-003E7I-0b;
+ Mon, 22 May 2023 15:08:23 +0200
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>
 To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Le Ma <le.ma@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Graham Sider <Graham.Sider@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH next] drm/amdgpu: Fix unsigned comparison with zero in
- gmc_v9_0_process_interrupt()
-Date: Mon, 22 May 2023 00:30:15 -0700
-Message-Id: <20230522073017.1782984-1-harshit.m.mogalapalli@oracle.com>
-X-Mailer: git-send-email 2.40.0
+ Aurabindo Pillai <Aurabindo.Pillai@amd.com>
+Subject: [PATCH 2/2] Revert "drm/amd/display: Do not set drr on pipe commit"
+Date: Mon, 22 May 2023 15:08:23 +0200
+Message-Id: <20230522130823.769236-2-michel@daenzer.net>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230522130823.769236-1-michel@daenzer.net>
+References: <20230522130823.769236-1-michel@daenzer.net>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-22_04,2023-05-17_02,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- phishscore=0 mlxscore=0
- mlxlogscore=999 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2304280000
- definitions=main-2305220063
-X-Proofpoint-ORIG-GUID: xoDToq4BCRbl3iSJI_dyjEWrldxaTQAv
-X-Proofpoint-GUID: xoDToq4BCRbl3iSJI_dyjEWrldxaTQAv
-X-Mailman-Approved-At: Mon, 22 May 2023 13:06:46 +0000
+X-CTCH: RefID="str=0001.0A782F24.646B6948.002F,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,41 +43,107 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dan.carpenter@linaro.org, kernel-janitors@vger.kernel.org,
- error27@gmail.com, harshit.m.mogalapalli@oracle.com
+Cc: Wesley Chalmers <Wesley.Chalmers@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Smatch warns:
-	drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c:579:
-	unsigned 'xcc_id' is never less than zero.
+From: Michel Dänzer <mdaenzer@redhat.com>
 
-gfx_v9_4_3_ih_to_xcc_inst() returns negative numbers as well.
-Fix this by changing type of xcc_id to int.
+This reverts commit 474f01015ffdb74e01c2eb3584a2822c64e7b2be.
 
-Fixes: faf96b9b602d ("drm/amdgpu: correct the vmhub index when page fault occurs")
-Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Caused a regression:
+
+Samsung Odyssey Neo G9, running at 5120x1440@240/VRR, connected to Navi
+21 via DisplayPort, blanks and the GPU hangs while starting the Steam
+game Assetto Corsa Competizione (via Proton 7.0).
+
+Example dmesg excerpt:
+
+ amdgpu 0000:0c:00.0: [drm] ERROR [CRTC:82:crtc-0] flip_done timed out
+ NMI watchdog: Watchdog detected hard LOCKUP on cpu 6
+ [...]
+ RIP: 0010:amdgpu_device_rreg.part.0+0x2f/0xf0 [amdgpu]
+ Code: 41 54 44 8d 24 b5 00 00 00 00 55 89 f5 53 48 89 fb 4c 3b a7 60 0b 00 00 73 6a 83 e2 02 74 29 4c 03 a3 68 0b 00 00 45 8b 24 24 <48> 8b 43 08 0f b7 70 3e 66 90 44 89 e0 5b 5d 41 5c 31 d2 31 c9 31
+ RSP: 0000:ffffb39a119dfb88 EFLAGS: 00000086
+ RAX: ffffffffc0eb96a0 RBX: ffff9e7963dc0000 RCX: 0000000000007fff
+ RDX: 0000000000000000 RSI: 0000000000004ff6 RDI: ffff9e7963dc0000
+ RBP: 0000000000004ff6 R08: ffffb39a119dfc40 R09: 0000000000000010
+ R10: ffffb39a119dfc40 R11: ffffb39a119dfc44 R12: 00000000000e05ae
+ R13: 0000000000000000 R14: ffff9e7963dc0010 R15: 0000000000000000
+ FS:  000000001012f6c0(0000) GS:ffff9e805eb80000(0000) knlGS:000000007fd40000
+ CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+ CR2: 00000000461ca000 CR3: 00000002a8a20000 CR4: 0000000000350ee0
+ Call Trace:
+  <TASK>
+  dm_read_reg_func+0x37/0xc0 [amdgpu]
+  generic_reg_get2+0x22/0x60 [amdgpu]
+  optc1_get_crtc_scanoutpos+0x6a/0xc0 [amdgpu]
+  dc_stream_get_scanoutpos+0x74/0x90 [amdgpu]
+  dm_crtc_get_scanoutpos+0x82/0xf0 [amdgpu]
+  amdgpu_display_get_crtc_scanoutpos+0x91/0x190 [amdgpu]
+  ? dm_read_reg_func+0x37/0xc0 [amdgpu]
+  amdgpu_get_vblank_counter_kms+0xb4/0x1a0 [amdgpu]
+  dm_pflip_high_irq+0x213/0x2f0 [amdgpu]
+  amdgpu_dm_irq_handler+0x8a/0x200 [amdgpu]
+  amdgpu_irq_dispatch+0xd4/0x220 [amdgpu]
+  amdgpu_ih_process+0x7f/0x110 [amdgpu]
+  amdgpu_irq_handler+0x1f/0x70 [amdgpu]
+  __handle_irq_event_percpu+0x46/0x1b0
+  handle_irq_event+0x34/0x80
+  handle_edge_irq+0x9f/0x240
+  __common_interrupt+0x66/0x110
+  common_interrupt+0x5c/0xd0
+  asm_common_interrupt+0x22/0x40
+
+Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
 ---
-This is from static analysis, only compile tested.
----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 6 ------
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 7 -------
+ 2 files changed, 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index f70e666cecf2..1e8b2aaa48c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -557,8 +557,8 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 	const char *hub_name;
- 	u64 addr;
- 	uint32_t cam_index = 0;
--	int ret;
--	uint32_t node_id, xcc_id = 0;
-+	int ret, xcc_id = 0;
-+	uint32_t node_id;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 6ce10fd4bb1a..5403e9399a46 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -2113,12 +2113,6 @@ void dcn20_optimize_bandwidth(
+ 	if (hubbub->funcs->program_compbuf_size)
+ 		hubbub->funcs->program_compbuf_size(hubbub, context->bw_ctx.bw.dcn.compbuf_size_kb, true);
  
- 	node_id = entry->node_id;
+-	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching) {
+-		dc_dmub_srv_p_state_delegate(dc,
+-			true, context);
+-		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
+-	}
+-
+ 	dc->clk_mgr->funcs->update_clocks(
+ 			dc->clk_mgr,
+ 			context,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index 0411867654dd..0e071fbc9154 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -985,18 +985,11 @@ void dcn30_set_disp_pattern_generator(const struct dc *dc,
+ void dcn30_prepare_bandwidth(struct dc *dc,
+  	struct dc_state *context)
+ {
+-	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching) {
+-		dc->optimized_required = true;
+-		context->bw_ctx.bw.dcn.clk.p_state_change_support = false;
+-	}
+-
+ 	if (dc->clk_mgr->dc_mode_softmax_enabled)
+ 		if (dc->clk_mgr->clks.dramclk_khz <= dc->clk_mgr->bw_params->dc_mode_softmax_memclk * 1000 &&
+ 				context->bw_ctx.bw.dcn.clk.dramclk_khz > dc->clk_mgr->bw_params->dc_mode_softmax_memclk * 1000)
+ 			dc->clk_mgr->funcs->set_max_memclk(dc->clk_mgr, dc->clk_mgr->bw_params->clk_table.entries[dc->clk_mgr->bw_params->clk_table.num_entries - 1].memclk_mhz);
+ 
+ 	dcn20_prepare_bandwidth(dc, context);
+-
+-	dc_dmub_srv_p_state_delegate(dc, false, context);
+ }
  
 -- 
-2.38.1
+2.40.1
 
