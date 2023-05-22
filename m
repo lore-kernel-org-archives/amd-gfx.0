@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 455F9C7EE23
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 14:57:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23174C7EE2E
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 15:01:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B54FD10E036;
-	Mon, 22 May 2023 14:57:04 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FA2610E036
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 May 2023 14:57:02 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- 46e09a7af769-6af873d1d8bso183090a34.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 May 2023 07:57:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEE4F10E34F;
+	Mon, 22 May 2023 15:01:34 +0000 (UTC)
+Received: from mail-oo1-xc2c.google.com (mail-oo1-xc2c.google.com
+ [IPv6:2607:f8b0:4864:20::c2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 282B610E34B;
+ Mon, 22 May 2023 15:01:32 +0000 (UTC)
+Received: by mail-oo1-xc2c.google.com with SMTP id
+ 006d021491bc7-54f92ee633bso2980671eaf.0; 
+ Mon, 22 May 2023 08:01:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684767421; x=1687359421;
+ d=gmail.com; s=20221208; t=1684767691; x=1687359691;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=K0PCjGWVeQYtK4cFjUGUH6AhhnD0uh+f8Aq4aegfQxE=;
- b=GgLSH+2jGJ3mxnH2pZ+5k64jvXIB7NjfIbT1PO3AhAolLyT+/9IsoVxSU3Oc2uNYJc
- KEw20q3YD1s/Yv6gD6ufadiXieqTVTaIcCGdruMP1iI908n1oumnq4gex1hYNvY4jKgU
- lDFyu9q161VyHEe12o1F8WHKOgEqHw+Ip5FfB0hyXhhMWGoCTCzbAOk19jtdgSR/TH4m
- cWd52AsNGMdFaY4O5P80yBThTYPo/cWVEY1YRqFwqZKZ7ZUBiB9yF6AIsIQoGf3hxO83
- mXZ/qq9UsMCuGFHgunZo+mGxxQNW8LAJ3oX8f5nRmuIgAfO+74pHpwLmEq0YJCdEMUta
- EABw==
+ bh=LskgHOf5lGt4WW6mhU+hd1LEcknlCNNiGlqCh79E5+g=;
+ b=eJzekwbN+X72DkwCy+MOL+AkfzJw7Ouu2/fbRJx9LwCWIVKelYH2d8MSf9QgxtSp6+
+ 90uO/nFEaG0ZiIddOXSJLoceP7eYcL122SdBLfmwHkvlUmArTt2kdZnhLCABvDe03kFS
+ fJaHkNd+pgUhfqdZdYAWkHDHfYJSDbyoR/yJ1OTGGGTe6RsecWWyQtPl4cMQQRnuzmTN
+ LPzCuRaHN8Sn78z1ALkb7vU6IpgMAOp0CGV/06AIuha/Fz7B5TB/oeZ53l1yRiasL28i
+ yeuXTEswRs3gfO/2VTu7UrF1LyfgDU7qlqR0Yf1JRiROTEeGhSr06JJuN5cxlhrAkX8m
+ qkqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684767421; x=1687359421;
+ d=1e100.net; s=20221208; t=1684767691; x=1687359691;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=K0PCjGWVeQYtK4cFjUGUH6AhhnD0uh+f8Aq4aegfQxE=;
- b=JluQ2Mz2aR5OOMwBAC83d14/sYD7VI01FYzE8SiQbEGbsOsxoqD8vu9DhodJmWdq9K
- tjmvCIbPndYV3VPsUEZbq1FdoNS97zGAbt6GauiwcgFyJV1gTIhlkCv+D45YIyDZGc74
- GSctzEbI/vhyzVPjFXGh2kXIdQSXDSqM3CQtseNWGstah3XYlHmBc+Y/zn8KTDJZRylN
- TIQ6o9mbBsO3Iv6IVmqGYdBlmpg/WWFWcvaZOLCLlpO2oO4YI7MbUU2+WN6jHvn39fLh
- ihvl+o9OO7wCozCS+ZFa3+2iXKZze2EQHXSUuo2vMsHzDRItSGwq980m8rfR/luxUG2P
- /RkQ==
-X-Gm-Message-State: AC+VfDwBVT+ZeoGTxHbGl8GkcjhqouvzCiCDbtveOYiCPtwpfpDv/jJc
- Uyqk2+fkJd6I8Zxe8Jon4lgRVlwdBBB1Lc8DU97a32KX
-X-Google-Smtp-Source: ACHHUZ7+5pKMkgYGPD2lh58NIKg4KwFiTzPGqit+RuQgZC0bAyBYEj18rhJMqWZBZZvCm5+JOchkVa/gYg4PQmInqQE=
-X-Received: by 2002:aca:1207:0:b0:394:3d96:8cf3 with SMTP id
- 7-20020aca1207000000b003943d968cf3mr5529193ois.25.1684767421119; Mon, 22 May
- 2023 07:57:01 -0700 (PDT)
+ bh=LskgHOf5lGt4WW6mhU+hd1LEcknlCNNiGlqCh79E5+g=;
+ b=fDjt0e5zdyIWpCGMIRXkZG+DG+KwZLmZwiPits1xH469Rq9KcToVCmEojCEM2QT93E
+ +/ZpvC8M+ap7z+QcqsTwAqr2KI6sfAWInOh7Z/sUMGXf6JeP6VzlGZNYm+vpDKFSSTSb
+ qZJ/RPUsg6RfVZhGzGMgkv4vTeDlvVAQUv5uXAoZL/8ZRmK9w95e0izxkdBd8TyRH3/N
+ w5CUHB6zcUWtfbIzcW4FG6Kh9sqXURbbLyvFfaqHX8/g6+0Wvw58xUXj1gSm0TrixR6O
+ NB1as1d2vUFmJ46qz0Wkkip6oeJi94vuJSEIRvVxxdp1lGCjOmJe93BAi6Q6ueDXzPFO
+ XvYQ==
+X-Gm-Message-State: AC+VfDw4RFoSvqd1GgSugw6LKipxDU0rUo4zeHJYQj5PmLDbea4Xo8dh
+ 5mV59pJqrFYTvxZTwqWh0MZE4prxnlZFzz3Snlc=
+X-Google-Smtp-Source: ACHHUZ75G0qJhT/m2qSgb9+WWMdeqH1Ah7M89gkxZtrFtqS2/ByNyxqosAJRpSfrrKPHtBuX0EyH1sTv0kdmIoQQWRE=
+X-Received: by 2002:a4a:6f45:0:b0:546:ecb3:f42 with SMTP id
+ i5-20020a4a6f45000000b00546ecb30f42mr4416072oof.8.1684767690994; Mon, 22 May
+ 2023 08:01:30 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230520133951.172823-1-jntesteves@gmail.com>
-In-Reply-To: <20230520133951.172823-1-jntesteves@gmail.com>
+References: <20230522090252.913910-1-colin.i.king@gmail.com>
+In-Reply-To: <20230522090252.913910-1-colin.i.king@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 22 May 2023 10:56:50 -0400
-Message-ID: <CADnq5_PkHnWbEzmELGvO5zgzf_-2auFMx-+D3VFnc1QrrKB=QA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: Fix output of pp_od_clk_voltage
-To: Jonatas Esteves <jntesteves@gmail.com>
+Date: Mon, 22 May 2023 11:01:20 -0400
+Message-ID: <CADnq5_NMdZWU0ES1aKfmr-8-5VOK_Gfve-12ieKwtABuNkzCfg@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amdgpu: Fix a couple of spelling mistakes in
+ info and debug messages
+To: Colin Ian King <colin.i.king@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,66 +68,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Xinhui.Pan@amd.com, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Mon, May 22, 2023 at 3:20=E2=80=AFAM Jonatas Esteves <jntesteves@gmail.c=
-om> wrote:
+On Mon, May 22, 2023 at 5:02=E2=80=AFAM Colin Ian King <colin.i.king@gmail.=
+com> wrote:
 >
-> Printing the other clock types should not be conditioned on being able
-> to print OD_SCLK. Some GPUs currently have limited capability of only
-> printing a subset of these.
+> There are a couple of spelling mistakes, one in a dev_info message
+> and the other in a dev_debug message. Fix them.
 >
-> Since this condition was introduced in v5.18-rc1, reading from
-> `pp_od_clk_voltage` has been returning empty on the Asus ROG Strix G15
-> (2021).
->
-> Fixes: 79c65f3fcbb1 ("drm/amd/pm: do not expose power implementation deta=
-ils to amdgpu_pm.c")
-> Signed-off-by: Jonatas Esteves <jntesteves@gmail.com>
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 > ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 12 +++++-------
->  1 file changed, 5 insertions(+), 7 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c
-> index 58c2246918fd..f4f40459f22b 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -871,13 +871,11 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct =
-device *dev,
->         }
->         if (ret =3D=3D -ENOENT) {
->                 size =3D amdgpu_dpm_print_clock_levels(adev, OD_SCLK, buf=
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_psp.c
+> index 59b8b26e2caf..789cc16e1be7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -1007,7 +1007,7 @@ int psp_spatial_partition(struct psp_context *psp, =
+int mode)
+>         cmd->cmd_id =3D GFX_CMD_ID_SRIOV_SPATIAL_PART;
+>         cmd->cmd.cmd_spatial_part.mode =3D mode;
+>
+> -       dev_info(psp->adev->dev, "Requesting %d paritions through PSP", m=
+ode);
+> +       dev_info(psp->adev->dev, "Requesting %d partitions through PSP", =
+mode);
+>         ret =3D psp_cmd_submit_buf(psp, NULL, cmd, psp->fence_buf_mc_addr=
 );
-> -               if (size > 0) {
-> -                       size +=3D amdgpu_dpm_print_clock_levels(adev, OD_=
-MCLK, buf + size);
-> -                       size +=3D amdgpu_dpm_print_clock_levels(adev, OD_=
-VDDC_CURVE, buf + size);
-> -                       size +=3D amdgpu_dpm_print_clock_levels(adev, OD_=
-VDDGFX_OFFSET, buf + size);
-> -                       size +=3D amdgpu_dpm_print_clock_levels(adev, OD_=
-RANGE, buf + size);
-> -                       size +=3D amdgpu_dpm_print_clock_levels(adev, OD_=
-CCLK, buf + size);
-> -               }
-> +               size +=3D amdgpu_dpm_print_clock_levels(adev, OD_MCLK, bu=
-f + size);
-> +               size +=3D amdgpu_dpm_print_clock_levels(adev, OD_VDDC_CUR=
-VE, buf + size);
-> +               size +=3D amdgpu_dpm_print_clock_levels(adev, OD_VDDGFX_O=
-FFSET, buf + size);
-> +               size +=3D amdgpu_dpm_print_clock_levels(adev, OD_RANGE, b=
-uf + size);
-> +               size +=3D amdgpu_dpm_print_clock_levels(adev, OD_CCLK, bu=
-f + size);
->         }
 >
->         if (size =3D=3D 0)
+>         release_psp_cmd_buf(psp);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_xcp.c
+> index daeb6bcc9245..e9586a0dc335 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> @@ -359,7 +359,7 @@ int amdgpu_xcp_open_device(struct amdgpu_device *adev=
+,
+>                                                 file_priv->minor->index, =
+i);
+>                                 return -ENOENT;
+>                         }
+> -                       dev_dbg(adev->dev, "renderD%d partition %d openne=
+d!",
+> +                       dev_dbg(adev->dev, "renderD%d partition %d opened=
+!",
+>                                         file_priv->minor->index, i);
+>                         fpriv->xcp_id =3D i;
+>                         break;
 > --
-> 2.40.1
+> 2.30.2
 >
