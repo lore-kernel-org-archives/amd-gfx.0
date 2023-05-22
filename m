@@ -4,73 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9953C77B73
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 13:06:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2521C7EE2D
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 13:06:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3220A10E31B;
-	Mon, 22 May 2023 13:06:49 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85DE910E111
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 May 2023 12:30:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1684758623;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=g9y4gjNLxaDEH24wDgPXKc3Vz5FcUbglHfFP6OwJ8o8=;
- b=e+8ABH2Hr6XRv01TWzWENYGo02ty0LL03ZBWAPlqIfpoodEtgqxFaTFBurJOOVLEvd258w
- fNmUdx9E1ypaSooqBh5G0v9mZLauFyMBE7QKTUe2P65oeGySmLCMksUyvsN7KArL02EPTx
- kvB870eB/eJDXlsLgW97ZadZ6AQqLL8=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-76-mOTus00rP2qN-tIAqiWafw-1; Mon, 22 May 2023 08:30:18 -0400
-X-MC-Unique: mOTus00rP2qN-tIAqiWafw-1
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-75935a16b8eso468644985a.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 May 2023 05:30:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684758618; x=1687350618;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=g9y4gjNLxaDEH24wDgPXKc3Vz5FcUbglHfFP6OwJ8o8=;
- b=brlo/sBt2Xd4yHllW+h3xCrrLP+V5vEIzUYHRKdgS3zRvxulPJIkdcizYL+VHRXE2Q
- uYNpx3XnTvkKmoGpyHpIlLXX1iAF5cYubj8oDTJ16JiH1t9upp5/U2nB0f0Kw1ccfS8P
- xrrlxLRl4jvV/dZjoKP+DbcGbHkSjr+sAJi/tWWIwcTPS2v624wVDErabb2Gi11pk1Qe
- wLwDBWg8Gwb47sK9av9IKOrEQJZU83sXk7A+0x4N12xpunqi5mV7zRsq8ZdCSoG9z304
- UC08Kun107XRPdzt3VlCUid4wWDg+EFbFIaqH0w1EiBwstpYxF8cqlYL5/FkPODTYLP3
- EHMw==
-X-Gm-Message-State: AC+VfDz8LlLYzEF+PYHWT/XSuC/GnLErHlUaMEeCV9d+obmU+jMJMdvR
- FAxj2+gxBjZZNKr/H/xAcplWVYEG+VE985Ah12lo3eEoi0DmsH1WALRqwyLVuN1f57mv53CcfbH
- MQeO9lLjUnwk/omLV3eUxhmyhmQ==
-X-Received: by 2002:a05:620a:a05:b0:75b:23a0:e7cc with SMTP id
- i5-20020a05620a0a0500b0075b23a0e7ccmr452019qka.45.1684758618194; 
- Mon, 22 May 2023 05:30:18 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ5UrjSsJpTeaszPdkFwHOjVAMcErGGwfWpKAhK1T9BLt1EUApD/wnEnOkzOo2gzy/Phl2q3lw==
-X-Received: by 2002:a05:620a:a05:b0:75b:23a0:e7cc with SMTP id
- i5-20020a05620a0a0500b0075b23a0e7ccmr451993qka.45.1684758617966; 
- Mon, 22 May 2023 05:30:17 -0700 (PDT)
-Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
- (nat-pool-bos-t.redhat.com. [66.187.233.206])
- by smtp.gmail.com with ESMTPSA id
- n26-20020a05620a153a00b0075785052e97sm1670399qkk.95.2023.05.22.05.30.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 May 2023 05:30:17 -0700 (PDT)
-From: Tom Rix <trix@redhat.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, Hawking.Zhang@amd.com, le.ma@amd.com,
- lijo.lazar@amd.com, tao.zhou1@amd.com, shiwu.zhang@amd.com
-Subject: [PATCH] drm/amdgpu: remove unused variable num_xcc
-Date: Mon, 22 May 2023 08:30:13 -0400
-Message-Id: <20230522123013.1065975-1-trix@redhat.com>
-X-Mailer: git-send-email 2.27.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CCCE10E31E;
+	Mon, 22 May 2023 13:06:54 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5327610E25B;
+ Mon, 22 May 2023 07:30:29 +0000 (UTC)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34M00ooI011286; Mon, 22 May 2023 07:30:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding;
+ s=corp-2023-03-30; bh=A5ZncwB04NjzcMemMMWye/LhgkT9LJyEStC1Nr1FzwI=;
+ b=ceRFdvS6XD5HqLo3PdevQNl4QthpRYj6UIaBLjGU3PhxQqXGh2hOIzYSPOY8VdgtQGb4
+ ipGli3qfNhAviNlAWCNrhED4qFtu0OoIs3H6S6sZzlen1ke2MdSiZJNJz9XWKGWfrrLo
+ TZH3C5+AkB5hFU3K6WvdkyxrlwUsYBcHQnZtRFf1ehveAkccWWjz45nTMuZC/wqnyK9a
+ zc4hVsKRPj2sYGUSBsCjAGjUFu7d04GLS5ZgSGMBX3Qpzvfoo5yW+uNEWGL86zBNLbRH
+ u/ndrNQHVieq/VEkYlvNGFULnm36k0g/MVZ7OB0WPG/M96NZsCZNByuVWrIPLPQVUuPG UA== 
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3qpp3mj1u3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 22 May 2023 07:30:24 +0000
+Received: from pps.filterd
+ (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
+ with ESMTP id 34M6M7oP023566; Mon, 22 May 2023 07:30:22 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3qqk8skeds-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 22 May 2023 07:30:22 +0000
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 34M7OKLu026055;
+ Mon, 22 May 2023 07:30:22 GMT
+Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
+ [10.129.136.47])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
+ 3qqk8skeat-1; Mon, 22 May 2023 07:30:21 +0000
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Le Ma <le.ma@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ Graham Sider <Graham.Sider@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH next] drm/amdgpu: Fix unsigned comparison with zero in
+ gmc_v9_0_process_interrupt()
+Date: Mon, 22 May 2023 00:30:15 -0700
+Message-Id: <20230522073017.1782984-1-harshit.m.mogalapalli@oracle.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-22_04,2023-05-17_02,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ phishscore=0 mlxscore=0
+ mlxlogscore=999 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2304280000
+ definitions=main-2305220063
+X-Proofpoint-ORIG-GUID: xoDToq4BCRbl3iSJI_dyjEWrldxaTQAv
+X-Proofpoint-GUID: xoDToq4BCRbl3iSJI_dyjEWrldxaTQAv
 X-Mailman-Approved-At: Mon, 22 May 2023 13:06:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,38 +86,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: dan.carpenter@linaro.org, kernel-janitors@vger.kernel.org,
+ error27@gmail.com, harshit.m.mogalapalli@oracle.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-gcc with W=1 reports
-drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c:2138:13: error: variable
-  ‘num_xcc’ set but not used [-Werror=unused-but-set-variable]
- 2138 |         int num_xcc;
-      |             ^~~~~~~
+Smatch warns:
+	drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c:579:
+	unsigned 'xcc_id' is never less than zero.
 
-This variable is not used so remove it.
+gfx_v9_4_3_ih_to_xcc_inst() returns negative numbers as well.
+Fix this by changing type of xcc_id to int.
 
-Signed-off-by: Tom Rix <trix@redhat.com>
+Fixes: faf96b9b602d ("drm/amdgpu: correct the vmhub index when page fault occurs")
+Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 3 ---
- 1 file changed, 3 deletions(-)
+This is from static analysis, only compile tested.
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index e5cfb3adb3b3..63718cf02aa1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -2135,9 +2135,6 @@ static void gfx_v9_4_3_ring_emit_gds_switch(struct amdgpu_ring *ring,
- static int gfx_v9_4_3_early_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	int num_xcc;
--
--	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index f70e666cecf2..1e8b2aaa48c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -557,8 +557,8 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
+ 	const char *hub_name;
+ 	u64 addr;
+ 	uint32_t cam_index = 0;
+-	int ret;
+-	uint32_t node_id, xcc_id = 0;
++	int ret, xcc_id = 0;
++	uint32_t node_id;
  
- 	adev->gfx.num_compute_rings = min(amdgpu_gfx_get_num_kcq(adev),
- 					  AMDGPU_MAX_COMPUTE_RINGS);
+ 	node_id = entry->node_id;
+ 
 -- 
-2.27.0
+2.38.1
 
