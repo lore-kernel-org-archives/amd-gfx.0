@@ -4,69 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF86FC7EE29
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 13:06:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9953C77B73
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 13:06:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE04310E317;
-	Mon, 22 May 2023 13:06:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3220A10E31B;
+	Mon, 22 May 2023 13:06:49 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D77AD10E310
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 May 2023 13:01:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85DE910E111
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 May 2023 12:30:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1684760463;
+ s=mimecast20190719; t=1684758623;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=5GS5iE0UNqVQ8KlXVjYhcfn3nzlvTGZU1mxp4La9+mc=;
- b=M21I7rp5InP2WlTtikqk9ghByu5/sIftBvgJUc0rvxeZcIhDSxPhEKGZZlCiV82d/SiT/d
- K21Mi+wFC9kDL73ZKKbZyBeYbhNq0TwyU3BZlLG3zgPWrqoe9o3peJFuLs7iwkAz6d/jRF
- muhhwc+a9KV6wTFnZ9LbHtafmydZTjI=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=g9y4gjNLxaDEH24wDgPXKc3Vz5FcUbglHfFP6OwJ8o8=;
+ b=e+8ABH2Hr6XRv01TWzWENYGo02ty0LL03ZBWAPlqIfpoodEtgqxFaTFBurJOOVLEvd258w
+ fNmUdx9E1ypaSooqBh5G0v9mZLauFyMBE7QKTUe2P65oeGySmLCMksUyvsN7KArL02EPTx
+ kvB870eB/eJDXlsLgW97ZadZ6AQqLL8=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-124-exPtdbO5MYSYSFQMNhdzTg-1; Mon, 22 May 2023 09:01:02 -0400
-X-MC-Unique: exPtdbO5MYSYSFQMNhdzTg-1
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-62387e4de2bso82919346d6.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 May 2023 06:01:02 -0700 (PDT)
+ us-mta-76-mOTus00rP2qN-tIAqiWafw-1; Mon, 22 May 2023 08:30:18 -0400
+X-MC-Unique: mOTus00rP2qN-tIAqiWafw-1
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-75935a16b8eso468644985a.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 May 2023 05:30:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684760461; x=1687352461;
+ d=1e100.net; s=20221208; t=1684758618; x=1687350618;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=5GS5iE0UNqVQ8KlXVjYhcfn3nzlvTGZU1mxp4La9+mc=;
- b=U6xsozf1St8qJvbBgKjzm9aDQULHt35hRqTZmQtexVbE9G9r/dYIAOriY09uwiuF40
- 5TUNbK3Yy4zh4shc+rHLd/e/CyruJzJcNVfHcFxGzSKVk/a0Mqq/pDF2c9Mi+p0IRYgi
- rJymXElsWPTwacfDPrAl9ro2o2i5Q3A7hA9TLu/pvj9pcLTPXxticCyf2B8TIYHeJcPO
- yaKoZNFcOlogRn/DxZW6EKn5/gCwXvgOuEyqNaJ0nsz7A5y4iNju9jlnzI+cVGIeIDWe
- F5nYKbsChGkK8semawoyXLi9t72g1aPrH27bRl7EmKjh0JtRQA8jcBP5g6jT1cxT2Ar1
- SRdg==
-X-Gm-Message-State: AC+VfDzLoGJjXe/OZYuA6ZSotIZpAsKaIzaKl3bmPPansowhQ/PBhaH3
- ZHBO4/ABu9mmM6p6XKYKakwWOk9ZdYoZAZ6bxhtXJ9EvCNR4ymznwHZyQAzAu6WrwkERMqYlAyy
- N32OT/t4O0manHDt3PGHN5iQhiA==
-X-Received: by 2002:a05:6214:d4b:b0:616:5c8b:582 with SMTP id
- 11-20020a0562140d4b00b006165c8b0582mr21098478qvr.37.1684760460922; 
- Mon, 22 May 2023 06:01:00 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ63Whwh0WVrdsRNMd+E6lr3sa4LBlkXrJV87h21RAe+9pE/lhzvsvDrelDpNH940vcQ+EvwJw==
-X-Received: by 2002:a05:6214:d4b:b0:616:5c8b:582 with SMTP id
- 11-20020a0562140d4b00b006165c8b0582mr21098447qvr.37.1684760460644; 
- Mon, 22 May 2023 06:01:00 -0700 (PDT)
+ bh=g9y4gjNLxaDEH24wDgPXKc3Vz5FcUbglHfFP6OwJ8o8=;
+ b=brlo/sBt2Xd4yHllW+h3xCrrLP+V5vEIzUYHRKdgS3zRvxulPJIkdcizYL+VHRXE2Q
+ uYNpx3XnTvkKmoGpyHpIlLXX1iAF5cYubj8oDTJ16JiH1t9upp5/U2nB0f0Kw1ccfS8P
+ xrrlxLRl4jvV/dZjoKP+DbcGbHkSjr+sAJi/tWWIwcTPS2v624wVDErabb2Gi11pk1Qe
+ wLwDBWg8Gwb47sK9av9IKOrEQJZU83sXk7A+0x4N12xpunqi5mV7zRsq8ZdCSoG9z304
+ UC08Kun107XRPdzt3VlCUid4wWDg+EFbFIaqH0w1EiBwstpYxF8cqlYL5/FkPODTYLP3
+ EHMw==
+X-Gm-Message-State: AC+VfDz8LlLYzEF+PYHWT/XSuC/GnLErHlUaMEeCV9d+obmU+jMJMdvR
+ FAxj2+gxBjZZNKr/H/xAcplWVYEG+VE985Ah12lo3eEoi0DmsH1WALRqwyLVuN1f57mv53CcfbH
+ MQeO9lLjUnwk/omLV3eUxhmyhmQ==
+X-Received: by 2002:a05:620a:a05:b0:75b:23a0:e7cc with SMTP id
+ i5-20020a05620a0a0500b0075b23a0e7ccmr452019qka.45.1684758618194; 
+ Mon, 22 May 2023 05:30:18 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5UrjSsJpTeaszPdkFwHOjVAMcErGGwfWpKAhK1T9BLt1EUApD/wnEnOkzOo2gzy/Phl2q3lw==
+X-Received: by 2002:a05:620a:a05:b0:75b:23a0:e7cc with SMTP id
+ i5-20020a05620a0a0500b0075b23a0e7ccmr451993qka.45.1684758617966; 
+ Mon, 22 May 2023 05:30:17 -0700 (PDT)
 Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
  (nat-pool-bos-t.redhat.com. [66.187.233.206])
  by smtp.gmail.com with ESMTPSA id
- u13-20020ae9c00d000000b0075783f6c2b4sm1678924qkk.128.2023.05.22.06.00.59
+ n26-20020a05620a153a00b0075785052e97sm1670399qkk.95.2023.05.22.05.30.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 May 2023 06:01:00 -0700 (PDT)
+ Mon, 22 May 2023 05:30:17 -0700 (PDT)
 From: Tom Rix <trix@redhat.com>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, Hawking.Zhang@amd.com,
- tao.zhou1@amd.com, le.ma@amd.com, Felix.Kuehling@amd.com,
- lijo.lazar@amd.com, Amber.Lin@amd.com
-Subject: [PATCH] drm/amdgpu: remove unused variable
- mmhub_v1_8_mmea_cgtt_clk_cntl_reg
-Date: Mon, 22 May 2023 09:00:57 -0400
-Message-Id: <20230522130057.1066607-1-trix@redhat.com>
+ airlied@gmail.com, daniel@ffwll.ch, Hawking.Zhang@amd.com, le.ma@amd.com,
+ lijo.lazar@amd.com, tao.zhou1@amd.com, shiwu.zhang@amd.com
+Subject: [PATCH] drm/amdgpu: remove unused variable num_xcc
+Date: Mon, 22 May 2023 08:30:13 -0400
+Message-Id: <20230522123013.1065975-1-trix@redhat.com>
 X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
@@ -91,37 +89,32 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 gcc with W=1 reports
-drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c:760:23: error:
-  ‘mmhub_v1_8_mmea_cgtt_clk_cntl_reg’ defined but not used [-Werror=unused-const-variable=]
-  760 | static const uint32_t mmhub_v1_8_mmea_cgtt_clk_cntl_reg[] = {
-      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c:2138:13: error: variable
+  ‘num_xcc’ set but not used [-Werror=unused-but-set-variable]
+ 2138 |         int num_xcc;
+      |             ^~~~~~~
 
 This variable is not used so remove it.
 
 Signed-off-by: Tom Rix <trix@redhat.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c | 8 --------
- 1 file changed, 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-index 3648994724c2..00e7e5db7c28 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-@@ -757,14 +757,6 @@ static void mmhub_v1_8_query_ras_error_status(struct amdgpu_device *adev)
- 		mmhub_v1_8_inst_query_ras_err_status(adev, i);
- }
- 
--static const uint32_t mmhub_v1_8_mmea_cgtt_clk_cntl_reg[] = {
--	regMMEA0_CGTT_CLK_CTRL,
--	regMMEA1_CGTT_CLK_CTRL,
--	regMMEA2_CGTT_CLK_CTRL,
--	regMMEA3_CGTT_CLK_CTRL,
--	regMMEA4_CGTT_CLK_CTRL,
--};
--
- static void mmhub_v1_8_inst_reset_ras_err_status(struct amdgpu_device *adev,
- 						 uint32_t mmhub_inst)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index e5cfb3adb3b3..63718cf02aa1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -2135,9 +2135,6 @@ static void gfx_v9_4_3_ring_emit_gds_switch(struct amdgpu_ring *ring,
+ static int gfx_v9_4_3_early_init(void *handle)
  {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	int num_xcc;
+-
+-	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+ 
+ 	adev->gfx.num_compute_rings = min(amdgpu_gfx_get_num_kcq(adev),
+ 					  AMDGPU_MAX_COMPUTE_RINGS);
 -- 
 2.27.0
 
