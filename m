@@ -4,121 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C654C7EE29
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 20:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CE9FC77B73
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 21:02:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC0ED10E387;
-	Mon, 22 May 2023 20:35:22 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2060.outbound.protection.outlook.com [40.107.95.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CAC810E387;
- Mon, 22 May 2023 20:35:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DlnEHzCGH4ZO+t5Htn+0x+CXQy4lKpHC/7PkhCSfyfVpFebSbWtj+T+JtfDHNRwtC3vhyiVFfLgYbgo0nfqayo6W1IdPhOGGgWutNjsgTNy6YndFHM1Jk59eaZDw6qZ7IRGqgU4dLNUh+IrCwJjr2VxFiqseolR3F4go0QtzpEnYHzNaycIcCwFNjzl+D2adVMf4d3QHYS1yn/Ny9TvSC/cEHxINvR9kS76KjeztFq1gOXpDPCf9BvgYnLLpyvHBxU+rktLL9rpMEsOy/1L88GpJ/Ar56BFfIAlEe3KAs13REpF8I15b/es/Xvllv0a2+8Lzgoxbg8V+YpJDEsGiRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RIvjw7evGQ4dvr2HCnF1F9P2M2E7jt4v7rzHukLw7KI=;
- b=IAdzvoPWv6kgESsaEh4xHPcIilsH1SXcw8WTfQW1OjGCJoTgcKSMQQsTPXpuHi4+wCyIb2MTCk2kaiiUbAsGz/VZ2YJF3KamgUKk7a/Djloidhd8Uhl4ive3AdcJBHwkumKoyZGr+Pk+nw0jp47CzqQa6FZt6tlsBI/EGiyex3l++EMFh5ifwqbAzn8k+5ZXf3zC32yg2aAsg+2SlRJY8PkvEo6g3bx5PoOWjr/36fVW2z9pqu7Qh6SDk5XLAXeUmtwkmlabvGGUerfbjroUd2ts8EuGrerk9chFHfzjzxhzMju+FQS0DVLUsh/DuGSy7gT3fTU96tMRiALYx3ipkw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RIvjw7evGQ4dvr2HCnF1F9P2M2E7jt4v7rzHukLw7KI=;
- b=eWqSs76JMWVIXfYf62Ai0lmoLTTkddOWw38RgLlmRUP63++yLZlB0Y2Vf6IshN8vnQ45sA4ABZ+3gwgQ7NI9kVsMEevTOrzlp9x7JIkHnzuWKfr2PD1yGlDwM4peqwbRaABMzL/EL8xtFDfp0r8LMmNZL4k6rzZ4Ijko2Y877uw=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by MW3PR12MB4395.namprd12.prod.outlook.com (2603:10b6:303:5c::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Mon, 22 May
- 2023 20:35:17 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::c549:4aeb:a02f:56b2]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::c549:4aeb:a02f:56b2%4]) with mapi id 15.20.6411.028; Mon, 22 May 2023
- 20:35:17 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Kees Cook <keescook@chromium.org>, Azeem Shaikh <azeemshaikh38@gmail.com>
-Subject: RE: [PATCH] drm/amd/pm: Replace all non-returning strlcpy with strscpy
-Thread-Topic: [PATCH] drm/amd/pm: Replace all non-returning strlcpy with
- strscpy
-Thread-Index: AQHZjMV2SJSB4UBHh0iQY89Y7BirD69muvCAgAAFQ8A=
-Date: Mon, 22 May 2023 20:35:17 +0000
-Message-ID: <BL1PR12MB51441977ABB724A43D4B54B7F7439@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20230522155245.2336818-1-azeemshaikh38@gmail.com>
- <202305221316.038CDF6B@keescook>
-In-Reply-To: <202305221316.038CDF6B@keescook>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-05-22T20:35:16Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=5e51233d-87c9-4d33-88d1-2579409638ef;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2023-05-22T20:35:16Z
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: ea73eb22-777a-4517-8c44-90f9ea095896
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|MW3PR12MB4395:EE_
-x-ms-office365-filtering-correlation-id: 7b7dd004-5e4c-46b5-6962-08db5b040df5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: jOtHm1ruDkRcLaayIcCe8a/2yjQNYE87YnfZ6/drq0OQDwRFJe0aCu/S3MXPCcUhbzO97jaQrFo0XuphpQGbY3puxF+bSCFJsyAHCm66xEH/a8BAYR6wej8/0OxXrZ0Pz/igDko/N9XRzyL+XitVfCoWUBFdeUb+CkTpVqLkTG4aYwy3bMxmSEsqKnnCFIOkq0M/SqAgnCvOltmX1he7wvXRS8kuYJZ6Encr+go5+4W1Z636VTdJxVXoXIfMUKmqdVhk7lIRZYRDf/RHEvsJjrgEKGFaMijit5RPV164ib65yuhvT/C8ZuOatIQ+i9F7Xizo3TqFJwlGvyiLY1fjidAxw7z4hyGCur1E1Mk+ztaU6K6mjoFWZAZvZauccC78uxYYUa+/GzPfYg4zQvj9rqSzoTw1Er/jupX+0Ori8jNx9Da3rbxlOgC5aj7s2lNalCmPJIJ9oOG8UmVl3fPmTpKYr6xsmxA9lJhw2ukqqohWtFjBPdBCnPGXVPaUV5AzEwsHqJxtomgqZIVbUZbhifygbuPJ3Tbpt1c/MpfnS0yTNP32PC5wbqNhtXB+nbgIiVQvuf8AMy0DOcOcI8CPqK4I4u2E4jrg6FOBWODLB3OgIcFO7uzLV1wWCgQMg45rG+1tHlyhE0GRvnovUkiV/1TgJzRZQSUmJ72wvpZoz1w=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(39860400002)(346002)(136003)(396003)(376002)(451199021)(8936002)(8676002)(5660300002)(52536014)(53546011)(186003)(83380400001)(6506007)(9686003)(26005)(86362001)(122000001)(38100700002)(38070700005)(41300700001)(7696005)(71200400001)(33656002)(966005)(55016003)(76116006)(66556008)(66476007)(66446008)(66946007)(64756008)(316002)(4326008)(478600001)(54906003)(110136005)(2906002)(156123004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?iZwf5WwmEuiho+wvhHDsQW6eneOD8gYFzZ/cXRLcP1dlsO+rjQpyZob+LApD?=
- =?us-ascii?Q?Qz9EKX/J3SXkvvahkbBzUuf45ctYu3vWaH+lZUoeH77RBRbhXyQTEzlhFyWl?=
- =?us-ascii?Q?sKiIFxPMdlWmKbn8r1uGPip0ZdY93ZKFYXNJRhRf73F0a4oqZ4yguXlGxSDW?=
- =?us-ascii?Q?m1mld8x3RO0N9PBB28dFxAMNu1l9rcI67XDUDIqpFDs+H6KedE56zAorz1Ea?=
- =?us-ascii?Q?myVKrnaSVkFYyLQ0S2KxQ0YkD2x0eniiVghjlDBQg2Basm2CZg3kt0Vj06Kc?=
- =?us-ascii?Q?tbwAxvLLnqbQB4f6B1h88fHEWddkv1AdnxxdJc9Mgr+XILoq+vXOh/HVNz/l?=
- =?us-ascii?Q?DfxKZ7TFxBGq5bRFvbwnVPfO1UuAfKbDJ5oK42oyUNaSwfcn1jaOHDE15tJh?=
- =?us-ascii?Q?deACO+9KNSaJsLgWuuHSrRAetOrKStQi/2D77OpcKh8888ZllNRq9Qwd7b9b?=
- =?us-ascii?Q?RKCUTryjsP5LKRk2wQ05ZvUT3UT3h+HMzwyVV+kfkyhXi68sjqfhU2L3IbPj?=
- =?us-ascii?Q?wsV14uXULR/foyrXbQKX6GSd/wXLGQoR7iR/yH7QhBDlUvDEpXyFxZ1SBxpV?=
- =?us-ascii?Q?KTUHNkcrFyujcbcieX9HkyNlgCw+99Y/Bu2g9acGnORhpO2x6m0fiTymDU/x?=
- =?us-ascii?Q?PYVyqxiqA2H5gDFfTGZ0Nsp65k5gnRyEjTGj6hq13D8ftBkNe0JmrxhugYeA?=
- =?us-ascii?Q?66JS9HhHLoeWEIUCDRTH0X8EspE6WQrkk/bqF9P+WedEHza0re9Hr7elwxxz?=
- =?us-ascii?Q?DLBW054aqekgGV1ab0lN9nMauShAmvv6zHJPGyrOXsfxR1WB4QgPyN3kr7Lu?=
- =?us-ascii?Q?XgYBZq6TWbMrb9+axJI31R3o7Zfglj9b+NM8K/Y0pPigi2ZSuGx6dABgatyX?=
- =?us-ascii?Q?rUHXKIff1EDbxlQDWWHYUZNz9go/8fWCO70rNy0p9SI6zo+aDjJs7c2Znbi6?=
- =?us-ascii?Q?I16fuZs99BxmEhoAVTePSdMWrmPIhKbrHI5J1u3/GWeCC/MSHrxPka59XeyP?=
- =?us-ascii?Q?QJvmv8SaD795Fh/MO6bKKEhZcEnQnK4P2JIbaBBhk2jYlFCO5MD+MW21e7ee?=
- =?us-ascii?Q?1lJr88E4DTGlbHRgxwk7wy4yPK/6pSwMbFTVFFwK2e7/H9cDG4qsXTna4RKl?=
- =?us-ascii?Q?83bqgmqi7ZM8bMXdHgHreYXvqFxKkgWS3iMjWKHbvCMEfXquAjrDW9emHRgZ?=
- =?us-ascii?Q?3SxKxVVtKwyGi0GcPHBRriQRhmZ4wyrxQQ2drT4fy8z2T6zfvGAQ3rADi17F?=
- =?us-ascii?Q?tVy11m08mzMSQ/2ZvodZajwFgfDFhCr0hfgG/tOSgqD5Ctcnn9zmptdwLIeT?=
- =?us-ascii?Q?l7bvlskYVyL0olEnj5opHWLw+0vh/6Vn0ljKUy46H6NgV6ap4bp9QHhAe9lU?=
- =?us-ascii?Q?1M1sTLLPZfFVEv2uTd1GHvSNpRM4zVsNyHQUTBG7Jqi7tKsKpc6trppVXkp6?=
- =?us-ascii?Q?Mb1R6mBJwikLC3Zc6H/8aK1Kztx/3Zmiaq1QGB9hEVtu8TWFW7SIKL0grCG7?=
- =?us-ascii?Q?eMtUaZYIMh2WkynmvrPlPnWezlkl+C3Y0f/J38p3nzFxZAC6ZYHhTHo4FuvS?=
- =?us-ascii?Q?XRAsiUJnpZgtwV8c9xg=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB03D10E393;
+	Mon, 22 May 2023 21:02:08 +0000 (UTC)
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB68D10E38E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 May 2023 20:54:51 +0000 (UTC)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ 98e67ed59e1d1-2555076e505so1804016a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 22 May 2023 13:54:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1684788891; x=1687380891;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ZuElaN/qDTwisrD4X6pHQNWgjgAbUbIATBdO1zpDRq4=;
+ b=MhuIchJoSP3VNW834mCsQH8QhVAtF7Te4uKXeNA+vCPR8uLVLXQlSOUUqmD3FnOyFq
+ wSE2ePdtuZfdxWOxnqhyyk5C3i51P5jAWLvfCTqGtZm/Hv6oG/eG7QO1GYOPLQn9IsUF
+ ukspP2HSGuGjgrmweUS3CD9/nlMyJ2RKTL4hg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684788891; x=1687380891;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ZuElaN/qDTwisrD4X6pHQNWgjgAbUbIATBdO1zpDRq4=;
+ b=Q3cMbACgaT6oe2GtzTQWVJvm9g/2RvtL7FJV8ZEm0fbU0nzQfOjn+5pRPujQCaT+ZA
+ F4k2531z0btuaCnNMM73GbKZ32hsedvN3q4N70TQyjTt3jyildAuv7rlRlKqk3dapLMM
+ WSL92XIrlhQy4sBmQ9dG4wRr7dIOYAJe2VbwS/10BeYa2yQbasC3oYxk6UjblRxflEyj
+ R1ZAdQGHAFkM1kVHFSUQ3FVRboDSi77E8YtywiBKL1t1dX35Phh4EY4AlgA2TYpVCGC2
+ TMA0vJefGa9Dht/HsQFAgLeVMffLqx6Mk0ZZiDUemcPMUhmusOlJ5znKQEnNdac3I6TR
+ WknQ==
+X-Gm-Message-State: AC+VfDzv/y9jyEKa1VEVmv1cwoXgudD+3mT/XL217uwQxxZZdnvxjPLt
+ F2cugp93Dl4iW7FnOQLYwfZctA==
+X-Google-Smtp-Source: ACHHUZ5RojlqCQM3TmsJ+Nx4QRDer9RPXkiS+1C8Bn4fPCBBrUhOW1RX7WMCawCYR7+Mqz7BmU1sxQ==
+X-Received: by 2002:a17:90b:3555:b0:253:3b2b:2a3 with SMTP id
+ lt21-20020a17090b355500b002533b2b02a3mr10962552pjb.43.1684788891123; 
+ Mon, 22 May 2023 13:54:51 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ j3-20020a17090a31c300b0024de39e8746sm6807748pjf.11.2023.05.22.13.54.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 May 2023 13:54:50 -0700 (PDT)
+From: Kees Cook <keescook@chromium.org>
+To: Xinhui.Pan@amd.com, azeemshaikh38@gmail.com, christian.koenig@amd.com,
+ alexander.deucher@amd.com
+Subject: Re: [PATCH] drm/radeon: Replace all non-returning strlcpy with strscpy
+Date: Mon, 22 May 2023 13:54:49 -0700
+Message-Id: <168478888725.1444594.8281276970110924816.b4-ty@chromium.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230522155032.2336283-1-azeemshaikh38@gmail.com>
+References: <20230522155032.2336283-1-azeemshaikh38@gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b7dd004-5e4c-46b5-6962-08db5b040df5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2023 20:35:17.5205 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0fYTsxkwveEvmhZyUfSWaJxnzn9mOXVTerGe3OZzttSGV8APJAF+nSA+83X0iahebXMih41b37yzu+V1H1kLRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4395
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 22 May 2023 21:02:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,54 +72,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Quan, Evan" <Evan.Quan@amd.com>,
- David Airlie <airlied@gmail.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: Kees Cook <keescook@chromium.org>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, airlied@gmail.com, linux-hardening@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On Mon, 22 May 2023 15:50:32 +0000, Azeem Shaikh wrote:
+> strlcpy() reads the entire source buffer first.
+> This read may exceed the destination size limit.
+> This is both inefficient and can lead to linear read
+> overflows if a source string is not NUL-terminated [1].
+> In an effort to remove strlcpy() completely [2], replace
+> strlcpy() here with strscpy().
+> No return values were used, so direct replacement is safe.
+> 
+> [...]
 
-> -----Original Message-----
-> From: Kees Cook <keescook@chromium.org>
-> Sent: Monday, May 22, 2023 4:16 PM
-> To: Azeem Shaikh <azeemshaikh38@gmail.com>
-> Cc: Quan, Evan <Evan.Quan@amd.com>; linux-hardening@vger.kernel.org;
-> amd-gfx@lists.freedesktop.org; linux-kernel@vger.kernel.org; Deucher,
-> Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David
-> Airlie <airlied@gmail.com>; Daniel Vetter <daniel@ffwll.ch>; dri-
-> devel@lists.freedesktop.org
-> Subject: Re: [PATCH] drm/amd/pm: Replace all non-returning strlcpy with
-> strscpy
->=20
-> On Mon, May 22, 2023 at 03:52:45PM +0000, Azeem Shaikh wrote:
-> > strlcpy() reads the entire source buffer first.
-> > This read may exceed the destination size limit.
-> > This is both inefficient and can lead to linear read overflows if a
-> > source string is not NUL-terminated [1].
-> > In an effort to remove strlcpy() completely [2], replace
-> > strlcpy() here with strscpy().
-> > No return values were used, so direct replacement is safe.
-> >
-> > [1]
-> >
-> https://www.kernel.org/doc/html/latest/process/deprecated.html#strlcpy
-> > [2] https://github.com/KSPP/linux/issues/89
-> >
-> > Signed-off-by: Azeem Shaikh <azeemshaikh38@gmail.com>
->=20
-> Reviewed-by: Kees Cook <keescook@chromium.org>
->=20
+Applied to for-next/hardening, thanks!
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+[1/1] drm/radeon: Replace all non-returning strlcpy with strscpy
+      https://git.kernel.org/kees/c/76ea3f6ef93f
 
-Ack to take this through whatever tree makes sense if you are trying to bat=
-ch all of these up.  Otherwise, I can pick them up.
+-- 
+Kees Cook
 
-Alex
