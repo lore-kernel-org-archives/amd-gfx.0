@@ -4,127 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8258C77B75
-	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 03:22:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FD13C7EE2D
+	for <amd-gfx@archiver.kernel.org>; Mon, 22 May 2023 07:11:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0028810E12C;
-	Mon, 22 May 2023 03:22:41 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20613.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::613])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62F7910E12C
- for <amd-gfx@lists.freedesktop.org>; Mon, 22 May 2023 03:22:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9E7A10E24C;
+	Mon, 22 May 2023 07:11:50 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99BD610E24A;
+ Mon, 22 May 2023 07:11:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ibB7znpitDaet3lxP48rMiWSXFEim6MC6ROy87IPg4Zgrp2JMWIYUGytyv7K397x8cJtEknL0FHKju/7IXW3zgdbJFpEntPIHG8sasQLpEtydNzIJZHIHE0FhSp8rStzufvKZpuK86J6gXGZ/t099elIHZcDOg0pUs0SlJ+mgr5HCWwneuh7g95ZM5Jd8w7e38y0ar8xvCG7V6lfNryDEFy465uucIcPKFJyAJageEEYLw+2sj8hGS6t6di4XB+no9TsfysF+JovA48mwzPY+fRkAWQ6zYp2e/lE+BT/E3x3ywDgFaSTzY91tMNU9h4YThPgEfh8fhjN70EZ7WVycQ==
+ b=b0n9ZqNTW/HtRy5qMVQirhO9+Pxa2YpHe/vLOS+bh3szyf3XhK/V5+fP1I8tPTEWwLylg/giTqywxzprr/ENWfbtZrSDPwAu3+tGlKYS/Kwnr3ANJr0HJLs0xQcnNxdj5js/7sq42kPSSmndD2n844qzPUwFXOqdGJbG8bGo+d5PNVtUB+VS2diYSf6K1+n84JFey5XP1mM5DRCA+Bii+/wchME7Yd5g7Xw0nDvXVYq8skH8efDLf8PFBX0wMyxy4EAwxB8MqFQrQFHjBjbvqUsv42paaftMpv32MWbnCTWodGKqd3QWY3YupsobvuttP111Yk3cSir7t3X27wh68Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nb5yb/Ay+knKzEK53X0WiAFE8m4k8SoaWLdKdbO6gK0=;
- b=DRQlMXe+IPZD5oAq/jVi8FVIQxCmNqwVOh31l6VLEdRbJyxkn34VFuUSa5IE6MpPbJwqPquaaqsuFdkDWrtIHh+WDsLzECnGo4Odmc81M+nkE2a9KfJz+FQPy3bI6D5hmCwDj1Psl1l1ReL8ZYZHyJdgpcHFdVu3O3uDaVqTOqxF5UTj4OJWpd6rr6D/BoC3aIKK/2bnysAAc/weyonYVvNbZSzhef37lrVynjtoRk76nFBP48TVgXsPcEp5TVtY9iT2alwT91eh1DjgCwk2DV2FwjnZuXlpVp2sPhrsOh5wSkburbPBtyL7vjPDK02wK5tcLvfsRoTcAMlZmNqrHg==
+ bh=JuRcMbXGLvSWQShZdM+YsFT7Hpo6RfZ/Q31WQSiCvAc=;
+ b=Y0qlvriHMqNOosrjMRdn0RMYBO1VqIcCkpeWtR6fAD45WIenZcoielzx5gaX2F4SCJLI0Oi8nnJfWutcumwSXMMTyJYZGaqpHjFOcU++75g46qN0w5ttKy3E4GZcX40rB6ifFVodmfRpyKFxWn4pItJZbro/Vn0KPNQcNCiweuJJR9fPS8Ji83IIoQLxHs3LsOZNv7qrPXpb1pCGTTYjB+ygkGaCN7Q7VhO6gJKajZejnjV53cBP/ZtyeZzjoCfsU852c563pAFGYMlgbE3XunZOXSs2wYrlq5WZ/Dic+mn5+F9WXmMt5fCUxtLmxKj2q0njI1kBM2LjwLPlVpxKqg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nb5yb/Ay+knKzEK53X0WiAFE8m4k8SoaWLdKdbO6gK0=;
- b=WK8s0aMxx7Xn5Cr/QexQR4+JSVIXrVRwKsZNwCAPt1mzJzIIxKghvsWNgdJdIgqfZ8W3RJTRSoYJmRdTqWSsYDEfiGBr4sH3QxSa4UKFvmXryLkg1iwNSjy1tA5OpP5O0MYA6ksIesy0UIQs20QqnlERtGYEWM+wFlzAHDMYziI=
-Received: from DM4PR12MB5261.namprd12.prod.outlook.com (2603:10b6:5:398::22)
- by IA1PR12MB7520.namprd12.prod.outlook.com (2603:10b6:208:42f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.27; Mon, 22 May
- 2023 03:22:37 +0000
-Received: from DM4PR12MB5261.namprd12.prod.outlook.com
- ([fe80::5cad:78df:6b83:6127]) by DM4PR12MB5261.namprd12.prod.outlook.com
- ([fe80::5cad:78df:6b83:6127%7]) with mapi id 15.20.6411.028; Mon, 22 May 2023
- 03:22:37 +0000
-From: "Xiao, Shane" <shane.xiao@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Paneer Selvam, Arunpravin"
- <Arunpravin.PaneerSelvam@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=JuRcMbXGLvSWQShZdM+YsFT7Hpo6RfZ/Q31WQSiCvAc=;
+ b=IvguX4FmgpH+s7U7ncMA9xDMtUakfPGlhBIolGgf2eLxpZZRYcDe+kp8ZMG0cNyO3e9TFs6hN3vVbi9tYfwlYeobMW8T90EPhGCJQvVF8YiFksVRK469AkNi8fJxsZBkNVfCZe2RFU0XVZOUbSzZC6gx4itWTySbAtWD6goUR9c=
+Received: from CO6PR12MB5489.namprd12.prod.outlook.com (2603:10b6:303:139::18)
+ by SN7PR12MB7788.namprd12.prod.outlook.com (2603:10b6:806:345::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.25; Mon, 22 May
+ 2023 07:11:45 +0000
+Received: from CO6PR12MB5489.namprd12.prod.outlook.com
+ ([fe80::4758:8922:780a:4d4b]) by CO6PR12MB5489.namprd12.prod.outlook.com
+ ([fe80::4758:8922:780a:4d4b%6]) with mapi id 15.20.6411.028; Mon, 22 May 2023
+ 07:11:45 +0000
+From: "Lin, Wayne" <Wayne.Lin@amd.com>
+To: Jani Nikula <jani.nikula@intel.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] Revert "drm/amdgpu: remove TOPDOWN flags when allocating
- VRAM in large bar system"
-Thread-Topic: [PATCH] Revert "drm/amdgpu: remove TOPDOWN flags when allocating
- VRAM in large bar system"
-Thread-Index: AQHZiv0QBXBJ6jL41ES+BKP5kfwQCq9jfsYAgAIHoSA=
-Date: Mon, 22 May 2023 03:22:36 +0000
-Message-ID: <DM4PR12MB5261EDA410B001ACCF0CDC289D439@DM4PR12MB5261.namprd12.prod.outlook.com>
-References: <20230520092518.1993-1-Arunpravin.PaneerSelvam@amd.com>
- <f03a448f-1ba3-5d4a-a2a5-baba97b3ec1f@amd.com>
-In-Reply-To: <f03a448f-1ba3-5d4a-a2a5-baba97b3ec1f@amd.com>
-Accept-Language: en-US
+Subject: RE: [PATCH v2] drm/dp_mst: Clear MSG_RDY flag before sending new
+ message
+Thread-Topic: [PATCH v2] drm/dp_mst: Clear MSG_RDY flag before sending new
+ message
+Thread-Index: AQHZeNn8+E0QEEuY3UCLaVyy+/niaq9c0kAAgAkv4uA=
+Date: Mon, 22 May 2023 07:11:44 +0000
+Message-ID: <CO6PR12MB54898B16634A0F4E9BECE643FC439@CO6PR12MB5489.namprd12.prod.outlook.com>
+References: <20230427072850.100887-1-Wayne.Lin@amd.com>
+ <87zg64h8ep.fsf@intel.com>
+In-Reply-To: <87zg64h8ep.fsf@intel.com>
+Accept-Language: en-US, zh-TW
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=aefde487-9fdf-4326-9588-dd0fa3bc6152;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-05-22T01:39:03Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=1d086bf5-ed63-4455-9ab9-a78d6b29b1d8;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-05-22T06:52:31Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5261:EE_|IA1PR12MB7520:EE_
-x-ms-office365-filtering-correlation-id: cda9cf6e-b9a2-4018-9abf-08db5a73ca91
+x-ms-traffictypediagnostic: CO6PR12MB5489:EE_|SN7PR12MB7788:EE_
+x-ms-office365-filtering-correlation-id: 616f13e6-f236-43e6-89af-08db5a93ccda
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: utmJh8BwWKB5eGZDZAqEYamuDJUFxlR2VhYJKNaIwBYJRfEMJjJBFZYxpugBOjv1Uhprofw5OngNcI8Raa5tTWXaPRS96rRmBeLEgvAhCZSjoA4/H8UNK+z0AFiAgApImcvkmUcsSZJw2Mfgzbq2OsGT7WnfQ3UymhCYh0SshlgS1YE/XthPhJtDkvtbAUFeGVPj32q1egBUfAeOiLXNUGJ4uv0A+rGSvAvu1y2iXAV1hktcBX5T2htQ6/9UD/a43xjtdS0ptRRR4kfTLxQXGXM3lV4ltFGmg7HFa7Xe/LrSJNHfkBpH7bL5kjoT0ciqL07sJVFDi4PQraUQQkpL47Hx4Rk26KSUqaUvQnD+oMhfmjrugt+aOPxfvjGqw9GFoxbPlFF3vIC7uUbv2ipWXAwDncOiWkEiy3J/x0QWAnBMxfPWOaU/WRICWeltjmWJBK24T1Esnq407B9vTADEG767rERVDzUXr17Oicr4V6c7fLTWFbu4jVIzKVZUjT7N1dOk7hmIA/VACVrSErHUAqHfbKOcLDxSHVMLKxpuaACz0z7llNKqgEMnESQwJB7N
+x-microsoft-antispam-message-info: zKVrkCZoqZaNF+zfN5elstPbmUevAa8AW6sFvBqy1OPcexyDaRtdARMmcP3nFrdAPTp/jMmKU8SEJkOznRU8LJa5qm4eqmOM2u3ANJaQoBFrc0ouSrkRo5W4YKn9sOFs+ldyS2QJsIj6gbOTZa9PRtJoKsGT8Pkj6y0GjFsegnNBndQqCL7gk191bg1RFGFVk37z6QL0OBniiG4+gdAZo2cmjvwRb18HVz6TA4W51Rs+6ALZOlEk8NhE0YtoFpIWt1ROKqvxYq69GPPbK2V4hEIGhibXJAOTdFQZ4GbD8xfZ4+Db5clP7rq5ztnCc31uGo5ROtrmK84TbHJEIvBFNCOnp4ymld/wfCR6kio+bkFbbNTvGIQ5cNLpkv2ypEDbU5ajW0F7fxXAecqc+Ya9SWqNXDJjOjqwr82PS3MNQoM/jFqWwxna3rPU4VuIiOG9nY6HlPzIA85CxbsZKRD9Tfbei23PhN8H2S/vlap1TJJO4Bzf3WmyESEpIbSJ7qPwARXVO827hZcxz5JVOGKRd/jpR7leaATSkogQj66g756fR/3YCYOwOyi077JKtMEzyZgiRfm2sXluM5h4utpJv2QihtazJmW2izeXtYwkEColuut03AKk37MG3YfB9tYr
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5261.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(39860400002)(136003)(396003)(366004)(346002)(451199021)(83380400001)(186003)(2906002)(4326008)(66446008)(66476007)(66946007)(66556008)(64756008)(76116006)(41300700001)(7696005)(316002)(71200400001)(110136005)(54906003)(478600001)(53546011)(5660300002)(26005)(6506007)(9686003)(52536014)(966005)(8676002)(8936002)(38070700005)(38100700002)(122000001)(86362001)(33656002)(55016003);
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5489.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(136003)(366004)(39860400002)(376002)(346002)(451199021)(38070700005)(86362001)(33656002)(55016003)(2906002)(30864003)(186003)(55236004)(53546011)(15650500001)(83380400001)(76116006)(71200400001)(316002)(66946007)(66446008)(66556008)(64756008)(66476007)(110136005)(4326008)(54906003)(5660300002)(7696005)(478600001)(52536014)(6506007)(41300700001)(26005)(8676002)(8936002)(9686003)(38100700002)(122000001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?R1NNYVhYUUZkTWFUUEpIM0VtQWxDVHh5RHlkcWtNRS9TM0l3TUJwMUc0WU5L?=
- =?utf-8?B?eVA4TDl1Z3NMUEkzZUh3ZkVJNHJ5YnRrZ2tkbFprL0lzcmxLcDNVRURxMGRD?=
- =?utf-8?B?NTlXK2x0RnJJME5iNnFlWDJRUEZtclNNQU9VZVdrZExad0xuTWY4K0Q5Qjd5?=
- =?utf-8?B?UE12RkI3V0FWWmZJTklwWUFyMGtrL1YyVGYrakNIcGU1QzhUblI4RXBmRmZN?=
- =?utf-8?B?VXhmNlRtSzNWUVZ3Q21sb0hDcGpPRXpEWDA1TndJZWk2Nmd4T2VuM0NrdnlX?=
- =?utf-8?B?NTFSV0FQU0dOV1crbi9wbllBUVdYRzZha1JSdFd4NFlQWmhRblJKYlpxN0pU?=
- =?utf-8?B?TVQrcmZJVUZTeUt1bjdKK3dvZXFzd1kwY3FUQVFmd1RGY1gwZ1N2dEdLeEtZ?=
- =?utf-8?B?ejRGSWRmUVMrRmxhOGhFOGhRa3dobmRGaGNpdUU4MHRJYXlXNUVnR2pQeEpQ?=
- =?utf-8?B?VzVQbk41aUtZZDZFR1lJazlBNVNsTjBMTS9NeURuVHpKbm9LQjFFTDFhc21y?=
- =?utf-8?B?UEZGUVZBaDg0dUlQV2F5QmY0ZTdCSWg3bnRUSFl6RVJTYm9PR3c2Vm1EY0lo?=
- =?utf-8?B?d2M3VVgyc1Fwa2RqbW9SM1ZGYnMvankvcVI3UnpVNmhoM0JVNk1tN254eG9z?=
- =?utf-8?B?enY0WlkraUl6by9hRE1qT1cyUURiR1YzbkJSVjhxSEdBK1R2OERERW5jSkpv?=
- =?utf-8?B?Mk4xMGExU0NhdXg2L2UrZ0lKbC9rQk9JV2s4eHNZOTRtU01JZzRGWlE3Qmpz?=
- =?utf-8?B?TkhDVlAxSW14RWd6YWsxS1lydUhLNjdSNEE1eW9SMnZ0OWExYjJWSU1RQk1z?=
- =?utf-8?B?a054M3E4clhZYkpWUWN5QWoraHhoNEVRN2VEZW0zcHNvRjVXLzA1L2R6Uy9t?=
- =?utf-8?B?M3hYalE3SmRnUXZudnlXOGlHVVphamMyS3VEMktyN2R6Rkw4UTV3QnRkN05n?=
- =?utf-8?B?MlJqQzNpOFc4WEczQTFYM3NCdnhJKzhKREFvbFRZcXlaL1h4YkFXUmptbnNz?=
- =?utf-8?B?aVhuak52SThKbGdMWGlMRFBzT1g2YWl6R3Q2bzRrRmFoaHU4dXA0b09FeE83?=
- =?utf-8?B?V2pWb2dhdVpwWXlHUXJEazA1aTBWMnI2Q1ltZHJ1alpENU5iZkNaU25XTGIr?=
- =?utf-8?B?WXRBeHdEOEprZmgyaE9mS3dFby9LbmkzYm9ITjc4aS9yT25NOHpGMUl5cWFG?=
- =?utf-8?B?cnZITzlEZmpZdjM0bk9ZME5HdW85RHRxOUZmZG1ZbTBpVTgySXEvMjloVUs4?=
- =?utf-8?B?VWxFQU4zdXFxVjFmOXVBWlNleU15Q3N0U2dXVDZaZm9xV2V2RlpscVV4dUt2?=
- =?utf-8?B?VTh3aUc3RGZCSWovNEI2SFZlQ284Q3FYMDNaemtUYjg5Tko1NjIrdUhneVd6?=
- =?utf-8?B?UGRnVWJ3Y1l1TGwySU5hcWFYelAvWE1kUEozSHBqZEZoV1pZM2Z3LzROR3dT?=
- =?utf-8?B?OHY1d0w4dEdOakNYaEVBWG1NcGVobGFmaDMyQ0pnN0xCSmdNdUY1Mk9ncUlJ?=
- =?utf-8?B?SFhnd2Q5aEJ6alN5a0NQSElOQ256Vkg3VU1tVzRWQU5VK2FLT2lDNENqUGp6?=
- =?utf-8?B?Mms1cjgwdWhMdjgxbzBoY01aWnNIckx5c25hdWg0dHQxSk9KSGlpNVlYOSt5?=
- =?utf-8?B?L1ZUd21keHk3U28wa2pZeFR3T29PWVl2RVE0eEk2aHhZS0p1a3RrTEZIZ3g0?=
- =?utf-8?B?RGZ2bGNZRUNBeEUrYWxMaDdMc2lGeWc4ZmpJY09DbnVqdU5Fd0hKZ0cxUkpn?=
- =?utf-8?B?c3owd1hqRXJLQVV1Z25PNVo3WklNODJyMWM5Vmw3UmlWMjhTbkJORzJ5VkN4?=
- =?utf-8?B?dkttVDJDeGR6alRNVitJQ2R4dCtENWJRaHBpYTB3MFQzS2tmZTlaZkdLU3po?=
- =?utf-8?B?YmFUUUExcUw4NHhWNDVsM1lOQnFCSHRxcnhPbkRXazI0WkY5Q2toNldIY3V2?=
- =?utf-8?B?SnEwMzd6WXNMN2N2MkxmTjgzbHFJVCtxWHkzbkFQVFZBajh5L2RGeWdNcUlC?=
- =?utf-8?B?cXQ2TXNyMk9CZVVJNVBQVXFPNnIwMktRKzd5VDI3enhhV0tyQ0l3WkRjcnND?=
- =?utf-8?B?QW00ejV3T3BJUUFUV1BZeUZ0MjEwdHFsYlJacHMwMTVpWkVMT254NkRXOWZo?=
- =?utf-8?Q?hSlc=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?m6D+N4QiHh97X7r6eIkfPssMoNPPwySUylwk2XvsUDd0kTrBSQyNFh2K99UJ?=
+ =?us-ascii?Q?iBfKlpKTawzYpdS/Rut6RU1J3jFIoiurDjJfZjGsIMOBwckGmGdt47nvkJcU?=
+ =?us-ascii?Q?s1bVFWZRhVfphC4lzyrcsM+QZ8wtvLIRP0nCzFuszbIJbjwkK/i1lMKhysJF?=
+ =?us-ascii?Q?ahgr+yMMdRERZWqenNjjiL1/zg6waQvEGnL/inxiHu59+hnoaiENbJ3stGD3?=
+ =?us-ascii?Q?f6NTXjDixQhrCu5N8ksk+IYVWGL4E6bn8BAfRFRZt1f53q9RHcPrqiVsr4kQ?=
+ =?us-ascii?Q?wkoumtsv5Z3/0L21RPcZJdm5hdx80TKOF9NtswCTVVhRjjYplZzk/3SdHu/j?=
+ =?us-ascii?Q?ggy7RY1lqMP6Ck4BFdZ1WHhNBCIQLZ+no0GyxIpDZvrsdFLoEJvVrWJbaZeo?=
+ =?us-ascii?Q?3JPDEsQl6trjSiJUc7JPlJfWaH9s79NzFQ1sppK/GifyMkvovOp+dgUYMuOB?=
+ =?us-ascii?Q?RU/Kouap9dAtneiOTY/h8spxyM+//CjqI1lG91s1/aF8V/s4LAtSl7bOWXNU?=
+ =?us-ascii?Q?hYThmwxSLO+Jgxi9mKHSOIHLziH6Lvf+/LCd/xEcRepRkavfy7mD8zBBK120?=
+ =?us-ascii?Q?EeHtuIT5io6TMaEh0HbDujFShHlKt1YrEhARTpa/GDc9Q83iflyA7zWFLQbE?=
+ =?us-ascii?Q?RGiw6kqSDtW2Ql/S8Ko1uMib8Gbmk3DpzT6/I1UNe+6cCxWrFApXf4MByDHE?=
+ =?us-ascii?Q?la05GMcb3wM8Wyhz1Vx+J3snlm+nKGXPh94UKDzbezpYQdRi5L4oumDkuEQH?=
+ =?us-ascii?Q?K5xSOjF2A0HuLCI3Iwmw8Sc8B9PF27RjMalErMVXNlx9m1mv00Sv3GyKX5GA?=
+ =?us-ascii?Q?tkzy6QPuA5Dhq/Skm7y5Lj2gXC+Hy/y0NfchQ4jlMy9PoFvnMIP91dQ46KUd?=
+ =?us-ascii?Q?FrNPuNsL4XpnR5WtQEHZvgq4KFymmPX8WjRdWWFiIaP3wPM11E8nWiUjB/3/?=
+ =?us-ascii?Q?1ZShSg234PKRoBZou7waac5tr6RELv/jMA3jqHIUZNbYXS/rL2s9N1RelAdX?=
+ =?us-ascii?Q?MfPuukwOz9iNltVc8b07NJIlIW+yKCe0IThebCfynToOxhrKeLjQKfyUIQDn?=
+ =?us-ascii?Q?p4urvlpgyHqMKojkdGOr7qdIlu0GcGOd2vjDRQRvSsD8iD7JC5yKdAXb78d/?=
+ =?us-ascii?Q?wuEJbYz09cp+bymCeocRgF556Dcjt5fltAeZ67yDj2n+OSKXxEmO3V6DbMLW?=
+ =?us-ascii?Q?0u2tON/h9J/KeZ6sjV9ILQoiUWKfqPQe90hJTAWA62GBS8sz/8rciMlvw3Vm?=
+ =?us-ascii?Q?Dxxgfjsj37qEtkqfuoqdHzbWaCg2/ZG7MQ60KTxA5FPysg3KpN1yzrXieLpP?=
+ =?us-ascii?Q?Ycg6keENfN9mPsb0SCtj+Q/5mlVDESkoL4TAMgpdjAe6Qy2CAyusTQ4JaeZU?=
+ =?us-ascii?Q?2TQmKcD+3N7rK2GAJmNyRyPrhzaofcc3RHtRZiH8nsP4ULv3GsxaYIyFKrNn?=
+ =?us-ascii?Q?s3TKcMdm6porGdAWeiO4OLGwS1+9NEKLzI1/jUVO/td5yCL1I2mqf5HThFRu?=
+ =?us-ascii?Q?M+cYQDMROXbwy5o0g7fP6ac8/kq5cLQKnkWLVv3kXwi1+UCllezod4rkVXH9?=
+ =?us-ascii?Q?D3Jj+SyW4fzqkM30VP0=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5261.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cda9cf6e-b9a2-4018-9abf-08db5a73ca91
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2023 03:22:36.9096 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5489.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 616f13e6-f236-43e6-89af-08db5a93ccda
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2023 07:11:44.6013 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 50JFGxHFDSpiwpXYC4l5cT60NSqxnTBIP/g9MBoaz/rZ/PgvuSlRoYX6m60XuuGQWDt2fKMmdB4HRPcwHLdAzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7520
+X-MS-Exchange-CrossTenant-userprincipalname: nD989BroE6GHu60FUrUsSQPu+fgFmPl/5fO+UuDh1qJyGRfPWkXSr45S4N0qhJWnEe8G9RwQEE+am6Gr4PFBcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7788
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,87 +127,317 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: "imre.deak@intel.com" <imre.deak@intel.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>, "Zuo,
+ Jerry" <Jerry.Zuo@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNz
-YWdlLS0tLS0NCj4gRnJvbTogS3VlaGxpbmcsIEZlbGl4IDxGZWxpeC5LdWVobGluZ0BhbWQuY29t
-Pg0KPiBTZW50OiBTdW5kYXksIE1heSAyMSwgMjAyMyAyOjM5IEFNDQo+IFRvOiBQYW5lZXIgU2Vs
-dmFtLCBBcnVucHJhdmluIDxBcnVucHJhdmluLlBhbmVlclNlbHZhbUBhbWQuY29tPjsgYW1kLQ0K
-PiBnZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFs
-ZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBLb2VuaWcsIENocmlzdGlhbg0KPiA8Q2hyaXN0aWFu
-LktvZW5pZ0BhbWQuY29tPjsgWGlhbywgU2hhbmUgPHNoYW5lLnhpYW9AYW1kLmNvbT4NCj4gU3Vi
-amVjdDogUmU6IFtQQVRDSF0gUmV2ZXJ0ICJkcm0vYW1kZ3B1OiByZW1vdmUgVE9QRE9XTiBmbGFn
-cyB3aGVuDQo+IGFsbG9jYXRpbmcgVlJBTSBpbiBsYXJnZSBiYXIgc3lzdGVtIg0KPg0KPiBBbSAy
-MDIzLTA1LTIwIHVtIDA1OjI1IHNjaHJpZWIgQXJ1bnByYXZpbiBQYW5lZXIgU2VsdmFtOg0KPiA+
-IFRoaXMgcmV2ZXJ0cyBjb21taXQgYzEwNTUxODY3OWI2ZTg3MjMyODc0ZmZjOTg5ZWM0MDNiZWU1
-OTY2NC4NCj4gPg0KPiA+IFRoaXMgcGF0Y2ggZGlzYWJsZXMgdGhlIFRPUERPV04gZmxhZyBmb3Ig
-QVBVIGFuZCBmZXcgZEdQVSBjYXJkcyB3aGljaA0KPiA+IGhhcyB0aGUgVlJBTSBzaXplIGVxdWFs
-IHRvIHRoZSBCQVIgc2l6ZS4NCj4NCj4gV2l0aCByZXNpemFibGUgQkFScyBpdCdzIG5vdCB0aGF0
-IHJhcmUuDQo+DQo+DQo+ID4NCj4gPiBXaGVuIHdlIGVuYWJsZSB0aGUgVE9QRE9XTiBmbGFnLCB3
-ZSBnZXQgdGhlIGZyZWUgYmxvY2tzIGF0IHRoZSBoaWdoZXN0DQo+ID4gYXZhaWxhYmxlIG1lbW9y
-eSByZWdpb24gYW5kIHdlIGRvbid0IHNwbGl0IHRoZSBsb3dlciBvcmRlciBibG9ja3MuDQo+ID4g
-VGhpcyBjaGFuZ2UgaXMgcmVxdWlyZWQgdG8ga2VlcCBvZmYgdGhlIGZyYWdtZW50YXRpb24gcmVs
-YXRlZCBpc3N1ZXMNCj4gPiBwYXJ0aWN1bGFybHkgaW4gQVNJQyB3aGljaCBoYXMgVlJBTSBzcGFj
-ZSA8PSA1MDBNaUINCg0KQXMgZmFyIGFzIEkgY2FuIHVuZGVyc3RhbmQgdGhhdCwgYm90aCB3YXlz
-IG1heSBjYXVzZSBmcmFnbWVudGF0aW9uIGlzc3Vlcy4NCg0KQXMgSSBjYW4gdW5kZXJzdGFuZCB0
-aGF0IHJlbW92ZSBUT1BET1dOIGZsYWdzIG1heSBnZXQgdHdvIHByb3M6DQoxKSBJdCBjYW4gcmVk
-dWNlIHRoZSByZXNlYXJjaCB0aW1lIHRvIE8oMSk7DQoyKSBSZWR1Y2UgdGhlIHJpc2sgb2Ygc3Bs
-aXR0aW5nIGhpZ2hlciBvcmRlciBpbnRvIGxvd2VyIG9yZGVycyB3aGVuIGFsbG9jYXRpbmcgYmxv
-Y2tzLg0KDQpCdXQgYXMgZm9yIHRoZSBzZWNvbmQgcG9pbnQsIFJlbW92aW5nIFRPUERPV04gZmxh
-Z3Mgc3RpbGwgY2FycmllcyB0aGUgcmlzayBvZiBjYXVzaW5nDQpmcmFnbWVudGF0aW9uIGlzc3Vl
-IG9uIHNvbWUgc2NlbmFyaW9zLg0KRm9yIGV4YW1wbGUsIHRoZSBhcHBzIG5lZWQgYWxsb2NhdGUg
-KDFNICsgNEspIFZSQU0gc2l6ZSwgd2hpY2ggaXMgbm90IGEgcG93ZXIgb2YgdHdvLg0KDQpDYXNl
-IDE6IElmIG5vdCB1c2luZyBUT1BET1dOIGZsYWcsIHdlIHdpbGwgYWxsb2NhdGUgMU0gb3JkZXIg
-c2l6ZSBhbmQgNEsgb3JkZXIgc2l6ZSBmcm9tIGRpZmZlcmVudCBvcmRlci4NCi0tQW5kIHRoZW4g
-aWYgdGhpcyA0SyBidWRkeSBhbmQgMU0gYnVkZHkgYXJlIGZyZWVkLCBpdCBtYXkgcHJldmVudCB0
-aGUgc3lzdGVtIGZyb20gbWVyZ2luZyA0SyhvciAxTSkgdG8gOEsoMk0pIG9yZGVyLg0KLS1JZiB0
-aGUgYXBwIGhhcyBtYW55IHN1Y2ggYWxsb2NhdGlvbiByZXF1aXJlbWVudHMsIGl0IG1heSBjYXVz
-ZSBmcmFnbWVudGF0aW9uIGlzc3VlIHVuZGVyIG1lbW9yeSBzdHJlc3MuDQoNCkNhc2UgMjogSWYg
-dXNpbmcgVE9QRE9XTiBmbGFnLCB3ZSB3aWxsIGZpbmQgdGhlIGhpZ2hlc3Qgb3JkZXIgd2hpY2gg
-aXMgc3VpdGFibGUgZm9yIDRLIGFuZCAxTSBuZWVkcy4NCi0tQXNzdW1pbmcgdGhlIGhpZ2hlc3Qg
-b3JkZXIgc2l6ZSBpcyA4TSwgdGhlbiB3ZSB3aWxsIHNwbGl0IHRoaXMgOE0gdG8gbG93ZXIgb3Jk
-ZXIgdG8gbWVldCB0aGUgbmVlZHMgb2YgMU0gYW5kIDRLIHNpemVzLCByZXNwZWN0aXZlbHkuDQot
-LUluIHN1Y2ggY2FzZSB0aGUgOE0gc2l6ZSB3aWxsIHNwbGl0IGludG8gZGlmZmVyZW50IGxvd2Vy
-IG9yZGVycy4NCi0tSWYgYW55IG90aGVyIHRocmVhZCBvciBwcm9jZXNzIG5lZWQgYWxsb2NhdGUg
-NEsgb3IgMU0gVlJBTSwgYW5kIHRoZXJlIGlzIGFsc28gYSBjaGFuY2UgdG8gcHJldmVudCB0aGUg
-c3lzdGVtIGZyb20gbWVyZ2luZyA0SyhvciAxTSkgdG8gOEsob3IgMk0pIG9yZGVyLg0KDQpJZiB0
-aGVyZSBhcmUgc28gbWFueSBuZWVkcyB0byBhbGxvY2F0ZSBub3QgcG93ZXIgb2YgdHdvIHBhZ2Vz
-IGZyb20gYXBwcywgICBvbmUgb2YgdGhlIGNob29zZSBpcyB0byB1c2Ugc3ViYWxsb2NhdG9yIGZy
-b20gVU1EIHN1Y2ggYXMgd2hhdCBST0NyIGRvZXMuDQpUaGF0IG1lYW5zIHN1YmFsbG9jYXRvciBj
-YW4gYWxsb2NhdGUgcG93ZXIgb2YgdHdvIHBhZ2VzKGZvciBleGFtcGxlIDJNIGJ5dGVzKSBmcm9t
-IGRyaXZlciwgYW5kIHRoZSBhcHAgY2FuIGFsbG9jYXRlIG1lbW9yeSBmcm9tIHN1YmFsbG9jYXRv
-ci4NCkluIHN1Y2ggd2F5LCBpdCBtYXkgcmVkdWNlIHRoZSByaXNrIG9mIGNhdXNpbmcgZnJhZ21l
-bnRhdGlvbiBpc3N1ZXMuICBCdXQgSSBhbSBub3Qgc3VyZSB0aGF0IHN1Y2ggYW4gb3B0aW9uIGlz
-IGZlYXNpYmxlLg0KDQpNYXliZSBjYXNlIDIgb2NjdXJzIGxlc3MgZnJlcXVlbnRseSB0aGFuIGNh
-c2Ugb25lLCB0aGVuIHdlIHNob3VsZCB1c2UgVE9QRE9XTiBmbGFncyB3aGV0aGVyIHRoZSBzeXN0
-ZW0gaXMgbGFyLWJhciBvciBub3QuDQoNCkJlc3QgUmVnYXJkcywNClNoYW5lDQoNCj4NCj4gSWYg
-VE9QRE9XTiBoYXMgdGhlc2UgZ2VuZXJhbCBiZW5lZml0cywgdGhlbiB3b3VsZCBpdCBtYWtlIHNl
-bnNlIHRvIGFsbG9jYXRlDQo+IHZpc2libGUgbWVtb3J5IFRPUERPV04gYXMgd2VsbCwgb24gbGFy
-Z2UtQkFSIEdQVXM/IFdpdGhvdXQga25vd2luZyB0b28NCj4gbXVjaCBhYm91dCB0aGUgaW50ZXJu
-YWxzIG9mIHRoZSBhbGxvY2F0b3IsIG15IGludHVpdGlvbiB0ZWxscyBtZSB0aGF0IHVzaW5nIG9u
-bHkNCj4gb25lIGFsbG9jYXRpb24gc3RyYXRlZ3kgaGFzIGEgYmV0dGVyIGNoYW5jZSBvZiBtaW5p
-bWl6aW5nIGZyYWdtZW50YXRpb24gdGhhbg0KPiBtaXhpbmcgdHdvIGFsbG9jYXRpb24gc3RyYXRl
-Z2llcyBmb3Igbm8gZ29vZCByZWFzb24uDQo+DQo+IFJlZ2FyZHMsDQo+ICAgIEZlbGl4DQo+DQo+
-DQo+ID4NCj4gPiBIZW5jZSwgd2UgYXJlIHJldmVydGluZyB0aGlzIHBhdGNoLg0KPiA+DQo+ID4g
-R2l0bGFiIGlzc3VlIGxpbmsgLQ0KPiA+IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9k
-cm0vYW1kLy0vaXNzdWVzLzIyNzANCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEFydW5wcmF2aW4g
-UGFuZWVyIFNlbHZhbQ0KPiA+IDxBcnVucHJhdmluLlBhbmVlclNlbHZhbUBhbWQuY29tPg0KPiA+
-IC0tLQ0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIHwg
-MiArLQ0KPiA+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0p
-DQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X29iamVjdC5jDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0
-LmMNCj4gPiBpbmRleCAyYmQxYTU0ZWU4NjYuLmNhNWZjMDdmYWY2YyAxMDA2NDQNCj4gPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMNCj4gPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMNCj4gPiBAQCAtMTM5LDcg
-KzEzOSw3IEBAIHZvaWQgYW1kZ3B1X2JvX3BsYWNlbWVudF9mcm9tX2RvbWFpbihzdHJ1Y3QNCj4g
-PiBhbWRncHVfYm8gKmFibywgdTMyIGRvbWFpbikNCj4gPg0KPiA+ICAgICAgICAgICAgIGlmIChm
-bGFncyAmIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQpDQo+ID4gICAgICAg
-ICAgICAgICAgICAgICBwbGFjZXNbY10ubHBmbiA9IHZpc2libGVfcGZuOw0KPiA+IC0gICAgICAg
-ICAgIGVsc2UgaWYgKGFkZXYtPmdtYy5yZWFsX3ZyYW1fc2l6ZSAhPSBhZGV2LQ0KPiA+Z21jLnZp
-c2libGVfdnJhbV9zaXplKQ0KPiA+ICsgICAgICAgICAgIGVsc2UNCj4gPiAgICAgICAgICAgICAg
-ICAgICAgIHBsYWNlc1tjXS5mbGFncyB8PSBUVE1fUExfRkxBR19UT1BET1dOOw0KPiA+DQo+ID4g
-ICAgICAgICAgICAgaWYgKGZsYWdzICYgQU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9DT05USUdVT1VT
-KQ0K
+[Public]
+
+Hi Jani,
+Thanks for your time!
+Comments inline.
+
+> -----Original Message-----
+> From: Jani Nikula <jani.nikula@intel.com>
+> Sent: Tuesday, May 16, 2023 6:34 PM
+> To: Lin, Wayne <Wayne.Lin@amd.com>; dri-devel@lists.freedesktop.org;
+> amd-gfx@lists.freedesktop.org
+> Cc: lyude@redhat.com; ville.syrjala@linux.intel.com; imre.deak@intel.com;
+> Wentland, Harry <Harry.Wentland@amd.com>; Zuo, Jerry
+> <Jerry.Zuo@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>;
+> stable@vger.kernel.org
+> Subject: Re: [PATCH v2] drm/dp_mst: Clear MSG_RDY flag before sending new
+> message
+>
+> On Thu, 27 Apr 2023, Wayne Lin <Wayne.Lin@amd.com> wrote:
+> > [Why]
+> > The sequence for collecting down_reply from source perspective should
+> > be:
+> >
+> > Request_n->repeat (get partial reply of Request_n->clear message ready
+> > flag to ack DPRX that the message is received) till all partial
+> > replies for Request_n are received->new Request_n+1.
+> >
+> > Now there is chance that drm_dp_mst_hpd_irq() will fire new down
+> > request in the tx queue when the down reply is incomplete. Source is
+> > restricted to generate interveleaved message transactions so we should
+> > avoid it.
+> >
+> > Also, while assembling partial reply packets, reading out DPCD
+> > DOWN_REP Sideband MSG buffer + clearing DOWN_REP_MSG_RDY flag
+> should
+> > be wrapped up as a complete operation for reading out a reply packet.
+> > Kicking off a new request before clearing DOWN_REP_MSG_RDY flag might
+> > be risky. e.g. If the reply of the new request has overwritten the
+> > DPRX DOWN_REP Sideband MSG buffer before source writing one to clear
+> > DOWN_REP_MSG_RDY flag, source then unintentionally flushes the reply
+> > for the new request. Should handle the up request in the same way.
+> >
+> > [How]
+> > Separete drm_dp_mst_hpd_irq() into 2 steps. After acking the MST IRQ
+> > event, driver calls drm_dp_mst_hpd_irq_step2() and might trigger
+> > drm_dp_mst_kick_tx() only when there is no on going message transaction=
+.
+> >
+> > Changes since v1:
+> > * Reworked on review comments received
+> > -> Adjust the fix to let driver explicitly kick off new down request
+> > when mst irq event is handled and acked
+> > -> Adjust the commit message
+> >
+> > Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+> > Cc: stable@vger.kernel.org
+> > ---
+> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++---
+> > drivers/gpu/drm/display/drm_dp_mst_topology.c | 35
+> ++++++++++++++++---
+> >  drivers/gpu/drm/i915/display/intel_dp.c       |  5 ++-
+> >  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  5 ++-
+> >  include/drm/display/drm_dp_mst_helper.h       |  4 +--
+> >  5 files changed, 45 insertions(+), 12 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 1ad67c2a697e..48bdcb2ee9b1 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -3259,10 +3259,9 @@ static void
+> dm_handle_mst_sideband_msg(struct amdgpu_dm_connector *aconnector)
+> >             DRM_DEBUG_DRIVER("ESI %02x %02x %02x\n", esi[0],
+> esi[1], esi[2]);
+> >             /* handle HPD short pulse irq */
+> >             if (aconnector->mst_mgr.mst_state)
+> > -                   drm_dp_mst_hpd_irq(
+> > -                           &aconnector->mst_mgr,
+> > -                           esi,
+> > -                           &new_irq_handled);
+> > +                   drm_dp_mst_hpd_irq_step1(&aconnector->mst_mgr,
+> > +                                            esi,
+> > +                                            &new_irq_handled);
+> >
+> >             if (new_irq_handled) {
+> >                     /* ACK at DPCD to notify down stream */ @@ -
+> 3281,6 +3280,7 @@
+> > static void dm_handle_mst_sideband_msg(struct amdgpu_dm_connector
+> *aconnector)
+> >                                     break;
+> >                     }
+> >
+> > +                   drm_dp_mst_hpd_irq_step2(&aconnector-
+> >mst_mgr);
+> >                     /* check if there is new irq to be handled */
+> >                     dret =3D drm_dp_dpcd_read(
+> >                             &aconnector->dm_dp_aux.aux,
+> > diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > index 70df29fe92db..2e0a38a6509c 100644
+> > --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > @@ -4045,7 +4045,7 @@ static int drm_dp_mst_handle_up_req(struct
+> > drm_dp_mst_topology_mgr *mgr)  }
+> >
+> >  /**
+> > - * drm_dp_mst_hpd_irq() - MST hotplug IRQ notify
+> > + * drm_dp_mst_hpd_irq_step1() - MST hotplug IRQ notify
+> >   * @mgr: manager to notify irq for.
+> >   * @esi: 4 bytes from SINK_COUNT_ESI
+> >   * @handled: whether the hpd interrupt was consumed or not @@ -4055,7
+> > +4055,7 @@ static int drm_dp_mst_handle_up_req(struct
+> drm_dp_mst_topology_mgr *mgr)
+> >   * topology manager will process the sideband messages received as a r=
+esult
+> >   * of this.
+> >   */
+> > -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi,
+> > bool *handled)
+> > +int drm_dp_mst_hpd_irq_step1(struct drm_dp_mst_topology_mgr *mgr,
+> u8
+> > +*esi, bool *handled)
+>
+> If you're changing the signature of the function, I'd make esi "const u8 =
+*esi",
+> and add a separate "u8 *ack" that you have to provide, where this functio=
+n
+> would |=3D the flags to ack. It would be useful at least in i915.
+
+Will adjust. Thanks.
+
+>
+> As to naming, _step1 and _step2 are pretty vague.
+
+Was trying to align the naming method we used for payload allocation/de-all=
+ocation.
+Anyway, I'll adjust the naming here.
+
+>
+> >  {
+> >     int ret =3D 0;
+> >     int sc;
+> > @@ -4077,11 +4077,38 @@ int drm_dp_mst_hpd_irq(struct
+> drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handl
+> >             *handled =3D true;
+> >     }
+> >
+> > -   drm_dp_mst_kick_tx(mgr);
+> >     return ret;
+> >  }
+> > -EXPORT_SYMBOL(drm_dp_mst_hpd_irq);
+> > +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_step1);
+> > +
+> > +/**
+> > + * drm_dp_mst_hpd_irq_step2() - MST hotplug IRQ 2nd part handling
+> > + * @mgr: manager to notify irq for.
+> > + *
+> > + * This should be called from the driver when mst irq event is
+> > +handled
+> > + * and acked. Note that new down request should only be sent when
+> > + * previous message transaction is done. Source is not supposed to
+> > +generate
+> > + * interleaved message transactions.
+> > + */
+> > +void drm_dp_mst_hpd_irq_step2(struct drm_dp_mst_topology_mgr
+> *mgr)
+>
+> _done, _finish, _complete?
+
+Will use "complete". Thanks.
+
+>
+> > +{
+> > +   struct drm_dp_sideband_msg_tx *txmsg;
+> > +   bool skip =3D false;
+> >
+> > +   mutex_lock(&mgr->qlock);
+> > +   txmsg =3D list_first_entry_or_null(&mgr->tx_msg_downq,
+> > +                                    struct drm_dp_sideband_msg_tx,
+> next);
+> > +   /* If last transaction is not completed yet*/
+> > +   if (!txmsg ||
+> > +       txmsg->state =3D=3D DRM_DP_SIDEBAND_TX_START_SEND ||
+> > +       txmsg->state =3D=3D DRM_DP_SIDEBAND_TX_SENT)
+> > +           skip =3D true;
+> > +   mutex_unlock(&mgr->qlock);
+> > +
+> > +   if (!skip)
+>
+> Please avoid negatives like this. You could have bool kick =3D true inste=
+ad.
+
+Thanks. Will modify it.
+
+>
+> > +           drm_dp_mst_kick_tx(mgr);
+> > +}
+> > +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_step2);
+> >  /**
+> >   * drm_dp_mst_detect_port() - get connection status for an MST port
+> >   * @connector: DRM connector for this port diff --git
+> > a/drivers/gpu/drm/i915/display/intel_dp.c
+> > b/drivers/gpu/drm/i915/display/intel_dp.c
+> > index 75070eb07d4b..9a9a5aec9534 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > @@ -3803,7 +3803,7 @@ intel_dp_mst_hpd_irq(struct intel_dp *intel_dp,
+> > u8 *esi, u8 *ack)  {
+> >     bool handled =3D false;
+> >
+> > -   drm_dp_mst_hpd_irq(&intel_dp->mst_mgr, esi, &handled);
+> > +   drm_dp_mst_hpd_irq_step1(&intel_dp->mst_mgr, esi, &handled);
+> >     if (handled)
+> >             ack[1] |=3D esi[1] & (DP_DOWN_REP_MSG_RDY |
+> DP_UP_REQ_MSG_RDY);
+> >
+> > @@ -3880,6 +3880,9 @@ intel_dp_check_mst_status(struct intel_dp
+> > *intel_dp)
+> >
+> >             if (!intel_dp_ack_sink_irq_esi(intel_dp, ack))
+> >                     drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
+> > +
+> > +           if (ack[1] & (DP_DOWN_REP_MSG_RDY |
+> DP_UP_REQ_MSG_RDY))
+> > +                   drm_dp_mst_hpd_irq_step2(&intel_dp->mst_mgr);
+>
+> I'm getting confused about the division of responsibilities between the t=
+wo
+> functions to be called, and the caller. Why does i915 do things different=
+ly from
+> nouveau and amd wrt this?
+
+The main idea is trying to ack the irq before sending a new request. We use=
+d to
+send a new request before acking the irq event which will cause message int=
+erleaving
+and that's not recommended by DP spec.
+
+amd and nouveau only handle mst up/down message irq events while calling
+drm_dp_mst_hpd_irq() but i915 also tries to handle content protection irq w=
+hile
+handling mst events. That's why it's a bit different between amd/nouveau an=
+d i915.
+
+>
+> >     }
+> >
+> >     return link_ok;
+> > diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> > b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> > index ed9d374147b8..00c36fcc8afd 100644
+> > --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> > +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> > @@ -1332,12 +1332,15 @@ nv50_mstm_service(struct nouveau_drm
+> *drm,
+> >                     break;
+> >             }
+> >
+> > -           drm_dp_mst_hpd_irq(&mstm->mgr, esi, &handled);
+> > +           drm_dp_mst_hpd_irq_step1(&mstm->mgr, esi, &handled);
+> >             if (!handled)
+> >                     break;
+> >
+> >             rc =3D drm_dp_dpcd_write(aux, DP_SINK_COUNT_ESI + 1,
+> &esi[1],
+> >                                    3);
+> > +
+> > +           drm_dp_mst_hpd_irq_step2(&mstm->mgr);
+> > +
+>
+> Don't you think the return value should be checked first?
+
+Sorry I missed it. Will adjust. Thanks!
+
+>
+> >             if (rc !=3D 3) {
+> >                     ret =3D false;
+> >                     break;
+> > diff --git a/include/drm/display/drm_dp_mst_helper.h
+> > b/include/drm/display/drm_dp_mst_helper.h
+> > index 32c764fb9cb5..6c08ba765d5a 100644
+> > --- a/include/drm/display/drm_dp_mst_helper.h
+> > +++ b/include/drm/display/drm_dp_mst_helper.h
+> > @@ -815,8 +815,8 @@ void drm_dp_mst_topology_mgr_destroy(struct
+> > drm_dp_mst_topology_mgr *mgr);  bool drm_dp_read_mst_cap(struct
+> > drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE]);  int
+> > drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr
+> *mgr,
+> > bool mst_state);
+> >
+> > -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi,
+> > bool *handled);
+> > -
+> > +int drm_dp_mst_hpd_irq_step1(struct drm_dp_mst_topology_mgr *mgr,
+> u8
+> > +*esi, bool *handled); void drm_dp_mst_hpd_irq_step2(struct
+> > +drm_dp_mst_topology_mgr *mgr);
+> >
+> >  int
+> >  drm_dp_mst_detect_port(struct drm_connector *connector,
+>
+> --
+> Jani Nikula, Intel Open Source Graphics Center
+
+--
+Regards,
+Wayne Lin
