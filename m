@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F952C7EE29
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAE1EC7EE26
 	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:16:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82B2110E534;
-	Tue, 23 May 2023 22:16:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC71410E504;
+	Tue, 23 May 2023 22:16:27 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78AB310E522;
- Tue, 23 May 2023 22:16:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC00910E52A;
+ Tue, 23 May 2023 22:16:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,25 +19,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=eKh03CpgDtI9Ramyo0I6E/Oh2Ho9sob/OTw1JFhirOc=; b=CNvGsPtpfOXIJ17PLMzf5jlcTB
- mEz7djGVuGug3iw4btVWvesiHG8wiAQ8j2IyvNzh1WpTlfng17Ls84Sgdq6IG4BaUMCPYOn95Z7pH
- Eey69gcKmsYsjwAV8Cc/o8QEOqR1UDJfJUZvi4JleApsnbavi5CRL8DrqY0tkW9L3byeBYA0xtJsE
- boVHJ4YW4NDlmnft/jp91uDjwW/rpYzMMtKhi5U84dDxJY4A+eEN1of5+fceUis2+YCSZYobS/GlX
- rmeL0I5XLbPNW/RRMKrougOlusSKjG9cosdpXDejvSJh++UxsV06XlGC/xa9D0lJyrv0gBhdYmvBh
- aMVVnKwQ==;
+ bh=B1E7WcmsTR28d9LrVCwUVkvm2fwEMjmRp45UNVhkV6U=; b=XML4D2TZOvH/jmnoRDEf6mO838
+ pnvZRkxR7YpwbyhXyV52Vs08TMgi3SvDPb6B6y/Aw3DDVRiO+8hMqWQal663rQZHyX8QmMfBWOB8V
+ DnzKy4A48Ui9ooSwLalofnzAS5KX58oxbkJfs3BkP8SEPV/E+8GW/xZdjwsCJfUUA5WEvJFctmd4S
+ WS1kkw7Ps1QEVvFZvMBP8FDpk4QlpP2RLxHZBL6V0VZ6u2CU3b/lxDKqi55e3OL66a/ww2GkoV++/
+ jimS2Lr2TSeBfs1b2uiW6/YCwCxUJvqX+U1uKM6Jn2fpYMiiol1dFah1FIwi+INJv3a1JJJpScnYr
+ taah/3eQ==;
 Received: from [38.44.72.37] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1q1aIb-00HEOv-FC; Wed, 24 May 2023 00:16:09 +0200
+ id 1q1aIe-00HEOv-I8; Wed, 24 May 2023 00:16:12 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH 30/36] drm/amd/display: add dc_fixpt_from_s3132 helper
-Date: Tue, 23 May 2023 21:15:14 -0100
-Message-Id: <20230523221520.3115570-31-mwen@igalia.com>
+Subject: [PATCH 32/36] drm/amd/display: program DPP shaper and 3D LUT if
+ updated
+Date: Tue, 23 May 2023 21:15:16 -0100
+Message-Id: <20230523221520.3115570-33-mwen@igalia.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230523221520.3115570-1-mwen@igalia.com>
 References: <20230523221520.3115570-1-mwen@igalia.com>
@@ -63,67 +64,31 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joshua Ashton <joshua@froggi.es>
+If shaper and 3D LUT data updates, lut_3d bit in update_flag is updated
+and we need to call set_input_transfer_func to program DPP shaper and 3D
+LUTs. Small cleanup of code style in the related if-condition.
 
-Detach value translation from CTM to reuse it for programming HDR
-multiplier property.
-
-Signed-off-by: Joshua Ashton <joshua@froggi.es>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c  |  8 +-------
- drivers/gpu/drm/amd/display/include/fixed31_32.h     | 12 ++++++++++++
- 2 files changed, 13 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 8452519cabe8..629ba10fbee9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -183,7 +183,6 @@ static void __drm_lut_to_dc_gamma(const struct drm_color_lut *lut,
- static void __drm_ctm_to_dc_matrix(const struct drm_color_ctm *ctm,
- 				   struct fixed31_32 *matrix)
- {
--	int64_t val;
- 	int i;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index e74c3ce561ab..e347316d0a5e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1764,8 +1764,9 @@ static void dcn20_program_pipe(
+ 		hws->funcs.set_hdr_multiplier(pipe_ctx);
  
- 	/*
-@@ -202,12 +201,7 @@ static void __drm_ctm_to_dc_matrix(const struct drm_color_ctm *ctm,
- 		}
+ 	if (pipe_ctx->update_flags.bits.enable ||
+-			pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change ||
+-			pipe_ctx->plane_state->update_flags.bits.gamma_change)
++	    pipe_ctx->plane_state->update_flags.bits.in_transfer_func_change ||
++	    pipe_ctx->plane_state->update_flags.bits.gamma_change ||
++	    pipe_ctx->plane_state->update_flags.bits.lut_3d)
+ 		hws->funcs.set_input_transfer_func(dc, pipe_ctx, pipe_ctx->plane_state);
  
- 		/* gamut_remap_matrix[i] = ctm[i - floor(i/4)] */
--		val = ctm->matrix[i - (i / 4)];
--		/* If negative, convert to 2's complement. */
--		if (val & (1ULL << 63))
--			val = -(val & ~(1ULL << 63));
--
--		matrix[i].value = val;
-+		matrix[i] = dc_fixpt_from_s3132(ctm->matrix[i - (i / 4)]);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/include/fixed31_32.h b/drivers/gpu/drm/amd/display/include/fixed31_32.h
-index ece97ae0e826..f4cc7f97329f 100644
---- a/drivers/gpu/drm/amd/display/include/fixed31_32.h
-+++ b/drivers/gpu/drm/amd/display/include/fixed31_32.h
-@@ -69,6 +69,18 @@ static const struct fixed31_32 dc_fixpt_epsilon = { 1LL };
- static const struct fixed31_32 dc_fixpt_half = { 0x80000000LL };
- static const struct fixed31_32 dc_fixpt_one = { 0x100000000LL };
- 
-+static inline struct fixed31_32 dc_fixpt_from_s3132(__u64 x)
-+{
-+	struct fixed31_32 val;
-+
-+	/* If negative, convert to 2's complement. */
-+	if (x & (1ULL << 63))
-+		x = -(x & ~(1ULL << 63));
-+
-+	val.value = x;
-+	return val;
-+}
-+
- /*
-  * @brief
-  * Initialization routines
+ 	/* dcn10_translate_regamma_to_hw_format takes 750us to finish
 -- 
 2.39.2
 
