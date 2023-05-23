@@ -4,46 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49D8AC77B75
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 08:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53CEFC77B75
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 09:25:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C673410E039;
-	Tue, 23 May 2023 08:34:49 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 499AE10E039;
- Tue, 23 May 2023 08:34:47 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 76E0A60C58;
- Tue, 23 May 2023 08:34:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E437C433EF;
- Tue, 23 May 2023 08:34:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1684830885;
- bh=uDeBCUkzcBHJ92URNdM9l1Brx4f2zSG2cwz+M+3kjvU=;
- h=From:To:Cc:Subject:Date:From;
- b=f5lHK/UaPZHvvrCbyx8U+aSfrFNlBZeuo6IrZ6le9c3sH92ANJkt14t08Prn4LoOy
- aIuvhhQi/1nO4uzPhjngpWtLDjNIAHBTnqJsqArO9m02ahkOfZ0o6x2n7EXxdnGV2m
- JArBQp54U8gqNVM7fhvgaESODqmOCagh+i9gpqABf4acdG1cHCMkgF5d47NS8GSaeH
- NuZcZuidG6dVplphDurX1sBEP1+zq6fmcbSyP0oLWbV3Ffgpy3H0dEYHU6y0VhTqIT
- pPewrt3Fi0vWXd5EnC+dlICVBF6bDoCqWw05jXwk2xE3JlzAcJYz/fVlZGSXfbPPdB
- M5gyAovdlDcdg==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Tom Chung <chiahsuan.chung@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Saaem Rizvi <syedsaaem.rizvi@amd.com>
-Subject: [PATCH] drm/amd/display: avoid calling missing .resync_fifo_dccg_dio()
-Date: Tue, 23 May 2023 10:34:30 +0200
-Message-Id: <20230523083437.986490-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE09110E403;
+	Tue, 23 May 2023 09:25:03 +0000 (UTC)
+Received: from out30-118.freemail.mail.aliyun.com
+ (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61B6310E3B5;
+ Tue, 23 May 2023 02:18:35 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R151e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046049;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
+ TI=SMTPD_---0VjI8heJ_1684808293; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0VjI8heJ_1684808293) by smtp.aliyun-inc.com;
+ Tue, 23 May 2023 10:18:29 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amdgpu: Remove duplicate include
+Date: Tue, 23 May 2023 10:18:11 +0800
+Message-Id: <20230523021811.122014-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 23 May 2023 09:25:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,45 +40,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Charlene Liu <Charlene.Liu@amd.com>, Jingwen Zhu <Jingwen.Zhu@amd.com>,
- Arnd Bergmann <arnd@arndb.de>, "Nagulendran,
- Iswara" <Iswara.Nagulendran@amd.com>, dri-devel@lists.freedesktop.org,
- Wenjing Liu <wenjing.liu@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Alvin Lee <Alvin.Lee2@amd.com>,
- Jun Lei <Jun.Lei@amd.com>, Mario Limonciello <mario.limonciello@amd.com>
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Xinhui.Pan@amd.com,
+ Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, airlied@gmail.com, christian.koenig@amd.com,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+./drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c: amdgpu_xcp.h is included more than once.
 
-The .resync_fifo_dccg_dio() callback pointer was added in an #ifdef block,
-but is called unconditionally:
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/dce110/dce110_hw_sequencer.c:2292:31: error: 'struct hwseq_private_funcs' has no member named 'resync_fifo_dccg_dio'
-
-Add the same #ifdef around the caller as well.
-
-Fixes: 6354b0dc3a7a ("drm/amd/display: Trigger DIO FIFO resync on commit streams")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=5281
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index c6fe2c00aedb..d4cacb8df631 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -2289,8 +2289,10 @@ enum dc_status dce110_apply_ctx_to_hw(
- 		if (DC_OK != status)
- 			return status;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index e5cfb3adb3b3..7fb2d38b010a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -23,7 +23,6 @@
+ #include <linux/firmware.h>
  
-+#ifdef CONFIG_DRM_AMD_DC_FP
- 		if (hws->funcs.resync_fifo_dccg_dio)
- 			hws->funcs.resync_fifo_dccg_dio(hws, dc, context);
-+#endif
- 	}
- 
- 	if (dc->fbc_compressor)
+ #include "amdgpu.h"
+-#include "amdgpu_xcp.h"
+ #include "amdgpu_gfx.h"
+ #include "soc15.h"
+ #include "soc15d.h"
 -- 
-2.39.2
+2.20.1.7.g153144c
 
