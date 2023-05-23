@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C824C77B75
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C782C7EE29
 	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:16:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B803010E50E;
-	Tue, 23 May 2023 22:15:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB87210E50C;
+	Tue, 23 May 2023 22:15:53 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D99A710E50E;
- Tue, 23 May 2023 22:15:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8738D10E50E;
+ Tue, 23 May 2023 22:15:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,26 +19,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=1pDv9ml0fMW1552wzaK0WkxguQ7efaI2g4W2c2iLaSQ=; b=KDsCb/VDx9qgz3JC0kTZ3s0z2x
- gzUxkCdFsODwGmtgYM2bEykfaqgnfqOUr1iOs4ks4uKlw0Q8L4L1KE4NgHilnWzQikY7afJHMs3LW
- u3Tzl23xms4n1EvfB+Az2eGaZD4iy+8S8zM8TXc5rZI0EH7SkVKzqyNUa3zoFQHgPyDXsGyy++ssK
- eIvUNlknVXD9PZVf8MMc7o6OIQiS1LDToxT0arLUAjBzTj5jcLZjPLQhq2pwBYV6plhni3qY+N40r
- 4BI+/bPZqRiZTb7zbSIzaCMs81qMb2QDXwsXnlWmQTOi3n6NSu2S1OLTll+N5XLyRvktujJtXzw8p
- shNcYaOg==;
+ bh=hN4T1sFxBmAxQtKV7UiftGk1OHePIMvHNfH5lC7wzkE=; b=Bd6KV+mrJEZxe2C9SMhl4vg483
+ WRI+wYCugg2LrjmqFVeh9EkvauIkVOORoODUXrrzb6v9QXlwuT2XNU0pyl3SfASUrkElY1io2EKNF
+ mT7UmvFVKPzTcd48PyRHSUrTVz69OkkyLKeaaJAqEbu6/km6x/F/vXqJlecGGq2s8ys3/kn68Z0Zb
+ wUuP2hqHmk+rsKhxeGWlptLidsLDT39ZMgA5BtgASjF6gZZv6esLrkh7OIksNQvGDknjM3Yl5iDaT
+ lmu8z2f0MHftCf3WytOGMTzs5SO+xYTqEVdVDpTZ8zHXqsHq+iBDPhhsPRfKLe/UjbrjaWwK0GpZy
+ 0Kykz/mw==;
 Received: from [38.44.72.37] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1q1aII-00HEOv-Sd; Wed, 24 May 2023 00:15:51 +0200
+ id 1q1aIH-00HEOv-BO; Wed, 24 May 2023 00:15:49 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH 18/36] drm/amd/display: allow BYPASS 3D LUT but keep shaper
- LUT settings
-Date: Tue, 23 May 2023 21:15:02 -0100
-Message-Id: <20230523221520.3115570-19-mwen@igalia.com>
+Subject: [PATCH 17/36] drm/amd/display: copy 3D LUT settings from crtc state
+ to stream_update
+Date: Tue, 23 May 2023 21:15:01 -0100
+Message-Id: <20230523221520.3115570-18-mwen@igalia.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230523221520.3115570-1-mwen@igalia.com>
 References: <20230523221520.3115570-1-mwen@igalia.com>
@@ -64,43 +64,33 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-HW allows us to program shaper LUT without 3D LUT settings and it is
-also good for testing shaper LUT behavior, therefore, DC driver should
-allow acquiring both 3D and shaper LUT, but programing shaper LUT
-without 3D LUT (not initialized).
+From: Joshua Ashton <joshua@froggi.es>
 
+When commiting planes, we copy color mgmt resources to the stream state.
+Do the same for shaper and 3D LUTs.
+
+Co-developed-by: Melissa Wen <mwen@igalia.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
 ---
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-index 3303c9aae068..bacb0a001d68 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-@@ -113,7 +113,6 @@ static bool dcn30_set_mpc_shaper_3dlut(struct pipe_ctx *pipe_ctx,
- 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 14b296e1d0f6..fc5b9a25e22f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8220,6 +8220,10 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 				&acrtc_state->stream->csc_color_matrix;
+ 			bundle->stream_update.out_transfer_func =
+ 				acrtc_state->stream->out_transfer_func;
++			bundle->stream_update.lut3d_func =
++				(struct dc_3dlut *) acrtc_state->stream->lut3d_func;
++			bundle->stream_update.func_shaper =
++				(struct dc_transfer_func *) acrtc_state->stream->func_shaper;
+ 		}
  
- 	if (stream->lut3d_func &&
--	    stream->lut3d_func->state.bits.initialized == 1 &&
- 	    stream->lut3d_func->state.bits.rmu_idx_valid == 1) {
- 		if (stream->lut3d_func->state.bits.rmu_mux_num == 0)
- 			mpcc_id_projected = stream->lut3d_func->state.bits.mpc_rmu0_mux;
-@@ -131,8 +130,12 @@ static bool dcn30_set_mpc_shaper_3dlut(struct pipe_ctx *pipe_ctx,
- 		if (acquired_rmu != stream->lut3d_func->state.bits.rmu_mux_num)
- 			BREAK_TO_DEBUGGER();
- 
--		result = mpc->funcs->program_3dlut(mpc, &stream->lut3d_func->lut_3d,
--						   stream->lut3d_func->state.bits.rmu_mux_num);
-+		if (stream->lut3d_func->state.bits.initialized == 1)
-+			result = mpc->funcs->program_3dlut(mpc, &stream->lut3d_func->lut_3d,
-+							   stream->lut3d_func->state.bits.rmu_mux_num);
-+		else
-+			result = mpc->funcs->program_3dlut(mpc, NULL,
-+							   stream->lut3d_func->state.bits.rmu_mux_num);
- 		result = mpc->funcs->program_shaper(mpc, shaper_lut,
- 						    stream->lut3d_func->state.bits.rmu_mux_num);
- 	} else {
+ 		acrtc_state->stream->abm_level = acrtc_state->abm_level;
 -- 
 2.39.2
 
