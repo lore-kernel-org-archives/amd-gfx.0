@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC7FC7EE29
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:16:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CB23C7EE2E
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:16:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FA0610E51A;
-	Tue, 23 May 2023 22:16:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45C7110E51B;
+	Tue, 23 May 2023 22:16:01 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B973C10E50D;
- Tue, 23 May 2023 22:15:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05A2710E510;
+ Tue, 23 May 2023 22:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,25 +19,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=a1P/4SS1llUWrC9rXM1+Q9ln8xr6omFKwtRilHuxGfE=; b=J6L1Q5fz1JXoisXCZy+sy5oQHz
- 2iN/Hq4jNGKTqnTAorBn1hBW2PzspLYzUJuZ9EMzdFwowdkupyiBDRR+Lg385vZ2DDQWdOej4YA/C
- ciR/gbvRxiQKRHLskVdq8V44UfjVKbNRDdwS11gfWsbWQj2jTSnoWPcJW4xYELE8J7siqBCHHC911
- a/rAvsNYb4lty7w1hl0Esna2K3KlAbiBipoITNHIzA4Fk85Uer5Vx+PFoK9FabVNqj2J09VMqIEwD
- 27TF9FZ6+UjYZmyB/RFZoEppGwHmBDBlh6k6o7N4g3GQ+f/YTkrNK2OrQNc34LE3MyzD/xWQ2u+Nm
- zhKSaRLQ==;
+ bh=7xMgvgp4s+MMNIL58uCUfKiYthomMYuXo5NXhxkwRkE=; b=Iomv5nk7NeO4oS2E2+i1WXOLax
+ +gqwI/Vetlr53CS1rplUIzIweR2jcGFnfE6BRbJxmTCX2Dp14fkj95OHYwM3FXZokgJzMcf0VUAOD
+ +whxtNyM8GKG3FmNlP43kA+xxx2MtkkHgy7QYjmbBPy9FaMKfLJ3smj9W5YDzNupIP6ZAyC7+L8VE
+ JLCqm+frrzDDNTBp0W1XslrNajiyHfCfR1Aixh2gBKjtYpnjG7qW4Rh75h3HQJWblX3BgV5fo5zMw
+ wQv5CK4chqCWUgxsDC6qiHXlvTu1/qMyTXxO+ay/VNUR7q5KVctllky3bVtD6JwguZfVBgxyWYFGq
+ Mw8SlEqQ==;
 Received: from [38.44.72.37] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1q1aIF-00HEOv-PS; Wed, 24 May 2023 00:15:47 +0200
+ id 1q1aIL-00HEOv-W8; Wed, 24 May 2023 00:15:54 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH 16/36] drm/amd/display: update lut3d and shaper lut to stream
-Date: Tue, 23 May 2023 21:15:00 -0100
-Message-Id: <20230523221520.3115570-17-mwen@igalia.com>
+Subject: [PATCH 20/36] drm/amd/display: dynamically acquire 3DLUT resources
+ for color changes
+Date: Tue, 23 May 2023 21:15:04 -0100
+Message-Id: <20230523221520.3115570-21-mwen@igalia.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230523221520.3115570-1-mwen@igalia.com>
 References: <20230523221520.3115570-1-mwen@igalia.com>
@@ -63,44 +64,188 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It follows the same path of out_transfer_func for stream updates, since
-shaper LUT and 3D LUT is programmed in funcs.set_output_transfer_func()
-and this function is called in the atomic commit_tail when
-update_flags.bits.out_tf is set.
+From: Joshua Ashton <joshua@froggi.es>
 
+dc_acquire_release_mpc_3dlut_for_ctx initializes the bits required to
+program 3DLUT in DC MPC hw block, applied in set_output_transfer_func().
+Since acquire/release can fail, we should check resources availability
+during atomic check considering the new context created. We dynamically
+acquire 3D LUT resources when we actually use them, so we don't limit
+ourselves with the stream count.
+
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
+Co-developed-by: Melissa Wen <mwen@igalia.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  7 ++-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  3 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 55 ++++++++++++++++++-
+ .../amd/display/dc/dcn301/dcn301_resource.c   | 26 ++++++++-
+ 4 files changed, 87 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index f864fd3b6f29..8e8da8c0f8cc 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2609,7 +2609,7 @@ static enum surface_update_type check_update_surfaces_for_stream(
- 			stream_update->integer_scaling_update)
- 			su_flags->bits.scaling = 1;
- 
--		if (stream_update->out_transfer_func)
-+		if (stream_update->out_transfer_func || stream_update->lut3d_func)
- 			su_flags->bits.out_tf = 1;
- 
- 		if (stream_update->abm_level)
-@@ -2961,6 +2961,14 @@ static void copy_stream_update_to_stream(struct dc *dc,
- 		       sizeof(struct dc_transfer_func_distributed_points));
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index fc5b9a25e22f..0be62fe436b0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9410,7 +9410,12 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	 */
+ 	if (dm_new_crtc_state->base.color_mgmt_changed ||
+ 	    drm_atomic_crtc_needs_modeset(new_crtc_state)) {
+-		ret = amdgpu_dm_update_crtc_color_mgmt(dm_new_crtc_state);
++		if (!dm_state) {
++			ret = dm_atomic_get_state(state, &dm_state);
++			if (ret)
++				goto fail;
++		}
++		ret = amdgpu_dm_update_crtc_color_mgmt(dm_new_crtc_state, dm_state->context);
+ 		if (ret)
+ 			goto fail;
  	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index ac430a23d3e1..e5f9db5a43f4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -875,7 +875,8 @@ void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
  
-+	if (update->func_shaper &&
-+	    stream->func_shaper != update->func_shaper)
-+		stream->func_shaper = update->func_shaper;
-+
-+	if (update->lut3d_func &&
-+	    stream->lut3d_func != update->lut3d_func)
-+		stream->lut3d_func = update->lut3d_func;
-+
- 	if (update->hdr_static_metadata)
- 		stream->hdr_static_metadata = *update->hdr_static_metadata;
+ void amdgpu_dm_init_color_mod(void);
+ int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
+-int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
++int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc,
++				     struct dc_state *ctx);
+ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ 				      struct dc_plane_state *dc_plane_state);
  
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index fe03f1ec326e..161807e19886 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -364,6 +364,49 @@ static int __set_input_tf(struct dc_transfer_func *func,
+ 	return res ? 0 : -ENOMEM;
+ }
+ 
++/* amdgpu_dm_atomic_shaper_lut3d - set DRM CRTC shaper LUT and 3D LUT to DC
++ * interface
++ * @dc: Display Core control structure
++ * @ctx: new DC state information
++ * @stream: DC stream state to set shaper LUT and 3D LUT
++ * @drm_shaper_lut: DRM CRTC (user) shaper LUT
++ * @drm_shaper_size: size of shaper LUT
++ * @drm_lut3d: DRM CRTC (user) 3D LUT
++ * @drm_lut3d_size: size of 3D LUT
++ *
++ * Returns:
++ * 0 on success.
++ */
++static int amdgpu_dm_atomic_shaper_lut3d(struct dc *dc,
++					 struct dc_state *ctx,
++					 struct dc_stream_state *stream,
++					 const struct drm_color_lut *drm_shaper_lut,
++					 uint32_t drm_shaper_size,
++					 const struct drm_color_lut *drm_lut3d,
++					 uint32_t drm_lut3d_size)
++{
++	struct dc_3dlut *lut3d_func;
++	struct dc_transfer_func *func_shaper;
++	bool acquire = drm_shaper_size || drm_lut3d_size;
++
++	lut3d_func = (struct dc_3dlut *)stream->lut3d_func;
++	func_shaper = (struct dc_transfer_func *)stream->func_shaper;
++
++	ASSERT((lut3d_func && func_shaper) || (!lut3d_func && !func_shaper));
++	if ((acquire && !lut3d_func && !func_shaper) ||
++	    (!acquire && lut3d_func && func_shaper))
++	{
++		if (!dc_acquire_release_mpc_3dlut_for_ctx(dc, acquire, ctx, stream,
++							  &lut3d_func, &func_shaper))
++			return DC_ERROR_UNEXPECTED;
++	}
++
++	stream->func_shaper = func_shaper;
++	stream->lut3d_func = lut3d_func;
++
++	return 0;
++}
++
+ /**
+  * amdgpu_dm_verify_lut_sizes - verifies if DRM luts match the hw supported sizes
+  * @crtc_state: the DRM CRTC state
+@@ -403,6 +446,7 @@ int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
+ /**
+  * amdgpu_dm_update_crtc_color_mgmt: Maps DRM color management to DC stream.
+  * @crtc: amdgpu_dm crtc state
++ * @ctx: new DC state information
+  *
+  * With no plane level color management properties we're free to use any
+  * of the HW blocks as long as the CRTC CTM always comes before the
+@@ -422,7 +466,8 @@ int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state)
+  * Returns:
+  * 0 on success. Error code if setup fails.
+  */
+-int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
++int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc,
++				     struct dc_state *ctx)
+ {
+ 	struct dc_stream_state *stream = crtc->stream;
+ 	struct amdgpu_device *adev = drm_to_adev(crtc->base.state->dev);
+@@ -481,6 +526,14 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+ 		if (r)
+ 			return r;
+ 	} else {
++		r = amdgpu_dm_atomic_shaper_lut3d(adev->dm.dc, ctx, stream,
++						  NULL, 0, NULL, 0);
++		if (r)
++			return r;
++		/* Note: OGAM is disabled if 3D LUT is successfully programmed.
++		 * See params and set_output_gamma in
++		 * dcn30_set_output_transfer_func()
++		 */
+ 		regamma_size = has_regamma ? regamma_size : 0;
+ 		r = amdgpu_dm_set_atomic_regamma(stream, regamma_lut,
+ 						 regamma_size, has_rom);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+index 5ac2a272c380..a6d6fcaaca1c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+@@ -1258,6 +1258,30 @@ static struct display_stream_compressor *dcn301_dsc_create(
+ 	return &dsc->base;
+ }
+ 
++static enum dc_status
++dcn301_remove_stream_from_ctx(struct dc *dc,
++			      struct dc_state *new_ctx,
++			      struct dc_stream_state *dc_stream)
++{
++	struct dc_3dlut *lut3d_func;
++	struct dc_transfer_func *func_shaper;
++
++	lut3d_func = (struct dc_3dlut *)dc_stream->lut3d_func;
++	func_shaper = (struct dc_transfer_func *)dc_stream->func_shaper;
++
++	ASSERT((lut3d_func && func_shaper) || (!lut3d_func && !func_shaper));
++	if (lut3d_func && func_shaper)
++	{
++		if (!dc_acquire_release_mpc_3dlut_for_ctx(dc, false, new_ctx, dc_stream,
++							&lut3d_func, &func_shaper))
++			return DC_ERROR_UNEXPECTED;
++	}
++
++	dc_stream->lut3d_func = lut3d_func;
++	dc_stream->func_shaper = func_shaper;
++
++	return dcn20_remove_stream_from_ctx(dc, new_ctx, dc_stream);
++}
+ 
+ static void dcn301_destroy_resource_pool(struct resource_pool **pool)
+ {
+@@ -1406,7 +1430,7 @@ static struct resource_funcs dcn301_res_pool_funcs = {
+ 	.acquire_idle_pipe_for_layer = dcn20_acquire_idle_pipe_for_layer,
+ 	.add_stream_to_ctx = dcn30_add_stream_to_ctx,
+ 	.add_dsc_to_stream_resource = dcn20_add_dsc_to_stream_resource,
+-	.remove_stream_from_ctx = dcn20_remove_stream_from_ctx,
++	.remove_stream_from_ctx = dcn301_remove_stream_from_ctx,
+ 	.populate_dml_writeback_from_context = dcn30_populate_dml_writeback_from_context,
+ 	.set_mcif_arb_params = dcn30_set_mcif_arb_params,
+ 	.find_first_free_match_stream_enc_for_link = dcn10_find_first_free_match_stream_enc_for_link,
 -- 
 2.39.2
 
