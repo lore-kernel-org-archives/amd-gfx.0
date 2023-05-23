@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C782C7EE29
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:16:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B53E1C7EE2E
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:16:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB87210E50C;
-	Tue, 23 May 2023 22:15:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34DBC10E519;
+	Tue, 23 May 2023 22:15:59 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8738D10E50E;
- Tue, 23 May 2023 22:15:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AC6C10E506;
+ Tue, 23 May 2023 22:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,26 +19,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=hN4T1sFxBmAxQtKV7UiftGk1OHePIMvHNfH5lC7wzkE=; b=Bd6KV+mrJEZxe2C9SMhl4vg483
- WRI+wYCugg2LrjmqFVeh9EkvauIkVOORoODUXrrzb6v9QXlwuT2XNU0pyl3SfASUrkElY1io2EKNF
- mT7UmvFVKPzTcd48PyRHSUrTVz69OkkyLKeaaJAqEbu6/km6x/F/vXqJlecGGq2s8ys3/kn68Z0Zb
- wUuP2hqHmk+rsKhxeGWlptLidsLDT39ZMgA5BtgASjF6gZZv6esLrkh7OIksNQvGDknjM3Yl5iDaT
- lmu8z2f0MHftCf3WytOGMTzs5SO+xYTqEVdVDpTZ8zHXqsHq+iBDPhhsPRfKLe/UjbrjaWwK0GpZy
- 0Kykz/mw==;
+ bh=WMVuZCPQaOHbNtlqNTLFsmNeF5leI2KGy7NUa3c5E+o=; b=shfxgaSA2B7sVXoz3XFdhuGkKh
+ N16J3cqmw/5JDK4P3udO4wTd1S9jbJfEj6zt1U4dVhRIrbCn5ZrFUB/Y+QvKbUpDiqPznzB/o1fAY
+ tdPObwFvx3wDDXzd1v/lyFLUSP2sTXo93qHZVc3NHIroT9rhZkpGMkjB0fzHYVfv01Zl40XBOYKCL
+ IJomTq83fMlGQBkEwQPN5ts3/4a2dSFw68+t9B/Lc/Af60pKnQvhhQMxUjbQMllCVjaJAY1aNfWef
+ EC4XEijQY1yHDmMBHKs5q+BifFcETGW48LncQS14NjLbHr4K6B4soASIY3YsI+oDXNgVv8YnjFv6B
+ /bZ63OsQ==;
 Received: from [38.44.72.37] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1q1aIH-00HEOv-BO; Wed, 24 May 2023 00:15:49 +0200
+ id 1q1aI9-00HEOv-Hx; Wed, 24 May 2023 00:15:41 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH 17/36] drm/amd/display: copy 3D LUT settings from crtc state
- to stream_update
-Date: Tue, 23 May 2023 21:15:01 -0100
-Message-Id: <20230523221520.3115570-18-mwen@igalia.com>
+Subject: [PATCH 12/36] drm/amd/display: add plane shaper TF driver-private
+ property
+Date: Tue, 23 May 2023 21:14:56 -0100
+Message-Id: <20230523221520.3115570-13-mwen@igalia.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230523221520.3115570-1-mwen@igalia.com>
 References: <20230523221520.3115570-1-mwen@igalia.com>
@@ -64,33 +64,123 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joshua Ashton <joshua@froggi.es>
+Add property to set predefined transfer function to enable delinearizing
+content with or without shaper LUT. Drivers should advertize this
+property acoording to HW caps.
 
-When commiting planes, we copy color mgmt resources to the stream state.
-Do the same for shaper and 3D LUTs.
-
-Co-developed-by: Melissa Wen <mwen@igalia.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
-Signed-off-by: Joshua Ashton <joshua@froggi.es>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c          |  9 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h             |  6 ++++++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h    |  6 ++++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c  | 12 ++++++++++++
+ 4 files changed, 33 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 14b296e1d0f6..fc5b9a25e22f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8220,6 +8220,10 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 				&acrtc_state->stream->csc_color_matrix;
- 			bundle->stream_update.out_transfer_func =
- 				acrtc_state->stream->out_transfer_func;
-+			bundle->stream_update.lut3d_func =
-+				(struct dc_3dlut *) acrtc_state->stream->lut3d_func;
-+			bundle->stream_update.func_shaper =
-+				(struct dc_transfer_func *) acrtc_state->stream->func_shaper;
- 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 258dfc66c2ac..d52bed00bbdb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -1318,6 +1318,15 @@ amdgpu_display_create_color_properties(struct amdgpu_device *adev)
+ 		return -ENOMEM;
+ 	adev->mode_info.plane_shaper_lut_size_property = prop;
  
- 		acrtc_state->stream->abm_level = acrtc_state->abm_level;
++	prop = drm_property_create_enum(adev_to_drm(adev),
++					DRM_MODE_PROP_ENUM,
++					"AMD_PLANE_SHAPER_TF",
++					drm_transfer_function_enum_list,
++					ARRAY_SIZE(drm_transfer_function_enum_list));
++	if (!prop)
++		return -ENOMEM;
++	adev->mode_info.plane_shaper_tf_property = prop;
++
+ 	prop = drm_property_create(adev_to_drm(adev),
+ 				   DRM_MODE_PROP_BLOB,
+ 				   "AMD_PLANE_LUT3D", 0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+index 44306557a905..a41c3a39c367 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+@@ -379,6 +379,12 @@ struct amdgpu_mode_info {
+ 	 * pre-blending shaper LUT as supported by the driver (read-only).
+ 	 */
+ 	struct drm_property *plane_shaper_lut_size_property;
++	/**
++	 * @plane_shaper_tf_property: Plane property to set a predefined
++	 * transfer function for pre-blending shaper (before applying 3D LUT)
++	 * with or without LUT.
++	 */
++	struct drm_property *plane_shaper_tf_property;
+ 	/**
+ 	 * @plane_lut3d_property: Plane property for gamma correction using a
+ 	 * 3D LUT (pre-blending).
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index fa0bb6a5c598..663ffc7d648e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -749,6 +749,12 @@ struct dm_plane_state {
+ 	 * array of &struct drm_color_lut.
+ 	 */
+ 	struct drm_property_blob *shaper_lut;
++	/**
++	 * @shaper_tf:
++	 *
++	 * Predefined transfer function to delinearize color space.
++	 */
++	enum drm_transfer_function shaper_tf;
+ 	/**
+ 	 * @lut3d: 3D lookup table blob. The blob (if not NULL) is an array of
+ 	 * &struct drm_color_lut.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index abc5b9a353a0..61e47bdecde4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1323,6 +1323,7 @@ static void dm_drm_plane_reset(struct drm_plane *plane)
+ 	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
+ 	amdgpu_state->degamma_tf = DRM_TRANSFER_FUNCTION_DEFAULT;
+ 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
++	amdgpu_state->shaper_tf = DRM_TRANSFER_FUNCTION_DEFAULT;
+ }
+ 
+ static struct drm_plane_state *
+@@ -1351,6 +1352,7 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
+ 
+ 	dm_plane_state->degamma_tf = old_dm_plane_state->degamma_tf;
+ 	dm_plane_state->hdr_mult = old_dm_plane_state->hdr_mult;
++	dm_plane_state->shaper_tf = old_dm_plane_state->shaper_tf;
+ 
+ 	return &dm_plane_state->base;
+ }
+@@ -1471,6 +1473,9 @@ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
+ 		drm_object_attach_property(&plane->base,
+ 					   dm->adev->mode_info.plane_shaper_lut_size_property,
+ 					   MAX_COLOR_LUT_ENTRIES);
++		drm_object_attach_property(&plane->base,
++					   dm->adev->mode_info.plane_shaper_tf_property,
++					   DRM_TRANSFER_FUNCTION_DEFAULT);
+ 		drm_object_attach_property(&plane->base,
+ 					   dm->adev->mode_info.plane_lut3d_property, 0);
+ 		drm_object_attach_property(&plane->base,
+@@ -1516,6 +1521,11 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
+ 							&replaced);
+ 		dm_plane_state->base.color_mgmt_changed |= replaced;
+ 		return ret;
++	} else if (property == adev->mode_info.plane_shaper_tf_property) {
++		if (dm_plane_state->shaper_tf != val) {
++			dm_plane_state->shaper_tf = val;
++			dm_plane_state->base.color_mgmt_changed = 1;
++		}
+ 	} else if (property == adev->mode_info.plane_lut3d_property) {
+ 		ret = drm_property_replace_blob_from_id(plane->dev,
+ 							&dm_plane_state->lut3d,
+@@ -1554,6 +1564,8 @@ dm_atomic_plane_get_property(struct drm_plane *plane,
+ 	} else 	if (property == adev->mode_info.plane_shaper_lut_property) {
+ 		*val = (dm_plane_state->shaper_lut) ?
+ 			dm_plane_state->shaper_lut->base.id : 0;
++	} else if (property == adev->mode_info.plane_shaper_tf_property) {
++		*val = dm_plane_state->shaper_tf;
+ 	} else 	if (property == adev->mode_info.plane_lut3d_property) {
+ 		*val = (dm_plane_state->lut3d) ?
+ 			dm_plane_state->lut3d->base.id : 0;
 -- 
 2.39.2
 
