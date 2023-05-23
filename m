@@ -4,58 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D00F6C77B75
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 19:56:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83095C7EE2E
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 20:22:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5383A10E4C3;
-	Tue, 23 May 2023 19:56:09 +0000 (UTC)
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFC0A10E4C3
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 May 2023 19:56:06 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- 46e09a7af769-6af812703b6so8253a34.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 May 2023 12:56:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684871765; x=1687463765;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+ob1TWqxeCXfkimA2g9CWRbIiYOVlfYN9r9JYa63C64=;
- b=cNWk9eYYyH22Ktgjpa02UMjfdU5mxPlLiRa6YYpBckZhpGPyerf6U4TKgejRrQ6fj5
- oCgwU4Bzwjx5Jz9O9Y1dE577PZxGv56ekwompZrc1EetyVspsdnd63Zmbm8KOUafUbXi
- Ug++R0j8u75uwSbZ1xTi9paI5WvjEjEwUUX0awi+oUq8ATFcmvpOrtV6flQtjml3aJHV
- b6WloF2dV1q4gP3OJ6rbbtECROU14dy2bnufMMJLfSSeK1cLKzhQaUTIKfK9UqrE9KnG
- hQRERaQNYMs+67JrN8SR4ka7Se1bZPRWQnD5kfRuf4RtKddewQEbOkIBCJX8+rCPARsD
- J1pA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684871765; x=1687463765;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+ob1TWqxeCXfkimA2g9CWRbIiYOVlfYN9r9JYa63C64=;
- b=bPn4+0LayFcEXji5ebBB+4rXG2jBK16xt2hpiJabwaD8dQRavGsxD+w/TMVzxuAICS
- vxEyog8URewreXYCEymLvnYdTEs+k3hVb66vUhZtP/GhM3ycBjDtMXcwxfHCRZLSLPfS
- qTbVOmN5XigzqFvS/MICCPmv6IOL2VO7xZxXMl6wSi7kadtVddxUAZx7crYIJGHD0K4y
- 0VA/4LILWx5U9IcCGr6gGnPWWbqs3uN1q48Us2r7Y8DuzlhIOFN9Zu944BgGARjJH9zF
- yhAS2Xr6ZBkpxCBf6jbNvniKGbzzl3HBXrPc3+BTBZFirTnEFhkxKT1+rF5AUk8fT71L
- lPEQ==
-X-Gm-Message-State: AC+VfDzVUZDS/jkbTu/m8/A+5tMQnklNQG57nQOdu8izNy+F1QdFSx62
- 456aNkbjgZdqhupLKLdOyEekewhFZodXI3Xd2eQEBeK5
-X-Google-Smtp-Source: ACHHUZ4v6ejZha5dv4d8P4yRjKf5e9arW6RnSRRLNZpB6j1VwhOPNPFJi0DPy0d9MvKGUUx0+y3p0azFGgI4JlYvZHQ=
-X-Received: by 2002:a54:4698:0:b0:397:f439:d416 with SMTP id
- k24-20020a544698000000b00397f439d416mr5280964oic.35.1684871765467; Tue, 23
- May 2023 12:56:05 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230523195037.3150894-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230523195037.3150894-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 23 May 2023 15:55:54 -0400
-Message-ID: <CADnq5_Nq3VENqDFWJdDx6Kz2E4t5choPXur21Zq_Xb+Mp8ip=A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Fix warnings in amdgpu_irq.c
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B8AC10E4C5;
+	Tue, 23 May 2023 20:22:34 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 282DF10E4C4;
+ Tue, 23 May 2023 20:22:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1684873352; x=1716409352;
+ h=date:from:to:cc:subject:message-id;
+ bh=Kf9f0OGRY9TQv3y2LLjfG1lbGjzUqIHYHeUp//V1xVU=;
+ b=QizNs5+ImjpxV+3d2Je6eYD6FwQ+h9DOI/9Xhr/DHFqVUrVFclRFqtx8
+ kuuD5BzvmaFPs+U5vAehExwxxPvjAopgscNDj0Hr16Waj4CAt2AD+eguF
+ 2L98L55ggoOP0p5DDwujdMv3fca9txwPrSN2t63xwUraYf2dFSiQ5ctaD
+ VvdqgIHPGG269hYz2fcQM6WLwK1C4t5//8ki4e2qGnV4YaGy3BKPSblDA
+ lVa3kO2/ZYL+k9rBSrkFBvStUhbc1pBzan+lV2kqgbQXv0MwQ4GD2YHWV
+ 1SzTwl7N9t2gdgTWsWHOvkKwT8LCP2G08NjUjDTYptUVpDr9u9ShD6fHj g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10719"; a="419064533"
+X-IronPort-AV: E=Sophos;i="6.00,187,1681196400"; d="scan'208";a="419064533"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2023 13:22:31 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10719"; a="707157550"
+X-IronPort-AV: E=Sophos;i="6.00,187,1681196400"; d="scan'208";a="707157550"
+Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
+ by fmsmga007.fm.intel.com with ESMTP; 23 May 2023 13:22:29 -0700
+Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1q1YWa-000E3x-2q;
+ Tue, 23 May 2023 20:22:28 +0000
+Date: Wed, 24 May 2023 04:21:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 9f925874281f7e8855855d6210d6e29d844e4307
+Message-ID: <20230523202157.Xwr6S%lkp@intel.com>
+User-Agent: s-nail v14.9.24
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,154 +54,308 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: linux-perf-users@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+tree/branch: INFO setup_repo_specs: /db/releases/20230524001904/lkp-src/repo/*/linux-next
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 9f925874281f7e8855855d6210d6e29d844e4307  Add linux-next specific files for 20230523
 
-On Tue, May 23, 2023 at 3:51=E2=80=AFPM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
-> WARNING: braces {} are not necessary for any arm of this statement
-> +               if (nvec <=3D 0) {
-> [...]
-> +               } else {
-> [...]
-> WARNING: Block comments use a trailing */ on a separate line
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 27 +++++++++++++------------
->  1 file changed, 14 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_irq.c
-> index ad5368e15114..00f2106c17b9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> @@ -125,7 +125,7 @@ const int node_id_to_phys_map[NODEID_MAX] =3D {
->  void amdgpu_irq_disable_all(struct amdgpu_device *adev)
->  {
->         unsigned long irqflags;
-> -       unsigned i, j, k;
-> +       unsigned int i, j, k;
->         int r;
->
->         spin_lock_irqsave(&adev->irq.lock, irqflags);
-> @@ -284,11 +284,11 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
->                 int nvec =3D pci_msix_vec_count(adev->pdev);
->                 unsigned int flags;
->
-> -               if (nvec <=3D 0) {
-> +               if (nvec <=3D 0)
->                         flags =3D PCI_IRQ_MSI;
-> -               } else {
-> +               else
->                         flags =3D PCI_IRQ_MSI | PCI_IRQ_MSIX;
-> -               }
-> +
->                 /* we only need one vector */
->                 nvec =3D pci_alloc_irq_vectors(adev->pdev, 1, 1, flags);
->                 if (nvec > 0) {
-> @@ -347,7 +347,7 @@ void amdgpu_irq_fini_hw(struct amdgpu_device *adev)
->   */
->  void amdgpu_irq_fini_sw(struct amdgpu_device *adev)
->  {
-> -       unsigned i, j;
-> +       unsigned int i, j;
->
->         for (i =3D 0; i < AMDGPU_IRQ_CLIENTID_MAX; ++i) {
->                 if (!adev->irq.client[i].sources)
-> @@ -381,7 +381,7 @@ void amdgpu_irq_fini_sw(struct amdgpu_device *adev)
->   * 0 on success or error code otherwise
->   */
->  int amdgpu_irq_add_id(struct amdgpu_device *adev,
-> -                     unsigned client_id, unsigned src_id,
-> +                     unsigned int client_id, unsigned int src_id,
->                       struct amdgpu_irq_src *source)
->  {
->         if (client_id >=3D AMDGPU_IRQ_CLIENTID_MAX)
-> @@ -433,7 +433,7 @@ void amdgpu_irq_dispatch(struct amdgpu_device *adev,
->  {
->         u32 ring_index =3D ih->rptr >> 2;
->         struct amdgpu_iv_entry entry;
-> -       unsigned client_id, src_id;
-> +       unsigned int client_id, src_id;
->         struct amdgpu_irq_src *src;
->         bool handled =3D false;
->         int r;
-> @@ -508,7 +508,7 @@ void amdgpu_irq_delegate(struct amdgpu_device *adev,
->   * Updates interrupt state for the specific source (all ASICs).
->   */
->  int amdgpu_irq_update(struct amdgpu_device *adev,
-> -                            struct amdgpu_irq_src *src, unsigned type)
-> +                            struct amdgpu_irq_src *src, unsigned int typ=
-e)
->  {
->         unsigned long irqflags;
->         enum amdgpu_interrupt_state state;
-> @@ -517,7 +517,8 @@ int amdgpu_irq_update(struct amdgpu_device *adev,
->         spin_lock_irqsave(&adev->irq.lock, irqflags);
->
->         /* We need to determine after taking the lock, otherwise
-> -          we might disable just enabled interrupts again */
-> +        * we might disable just enabled interrupts again
-> +        */
->         if (amdgpu_irq_enabled(adev, src, type))
->                 state =3D AMDGPU_IRQ_STATE_ENABLE;
->         else
-> @@ -571,7 +572,7 @@ void amdgpu_irq_gpu_reset_resume_helper(struct amdgpu=
-_device *adev)
->   * 0 on success or error code otherwise
->   */
->  int amdgpu_irq_get(struct amdgpu_device *adev, struct amdgpu_irq_src *sr=
-c,
-> -                  unsigned type)
-> +                  unsigned int type)
->  {
->         if (!adev->irq.installed)
->                 return -ENOENT;
-> @@ -601,7 +602,7 @@ int amdgpu_irq_get(struct amdgpu_device *adev, struct=
- amdgpu_irq_src *src,
->   * 0 on success or error code otherwise
->   */
->  int amdgpu_irq_put(struct amdgpu_device *adev, struct amdgpu_irq_src *sr=
-c,
-> -                  unsigned type)
-> +                  unsigned int type)
->  {
->         if (!adev->irq.installed)
->                 return -ENOENT;
-> @@ -635,7 +636,7 @@ int amdgpu_irq_put(struct amdgpu_device *adev, struct=
- amdgpu_irq_src *src,
->   * invalid parameters
->   */
->  bool amdgpu_irq_enabled(struct amdgpu_device *adev, struct amdgpu_irq_sr=
-c *src,
-> -                       unsigned type)
-> +                       unsigned int type)
->  {
->         if (!adev->irq.installed)
->                 return false;
-> @@ -748,7 +749,7 @@ void amdgpu_irq_remove_domain(struct amdgpu_device *a=
-dev)
->   * Returns:
->   * Linux IRQ
->   */
-> -unsigned amdgpu_irq_create_mapping(struct amdgpu_device *adev, unsigned =
-src_id)
-> +unsigned int amdgpu_irq_create_mapping(struct amdgpu_device *adev, unsig=
-ned int src_id)
->  {
->         adev->irq.virq[src_id] =3D irq_create_mapping(adev->irq.domain, s=
-rc_id);
->
-> --
-> 2.25.1
->
+Error/Warning reports:
+
+https://lore.kernel.org/oe-kbuild-all/202305230552.WOByQyYa-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202305231949.2mkdgZPN-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+drivers/base/regmap/regcache-maple.c:113:23: warning: 'lower_index' is used uninitialized [-Wuninitialized]
+drivers/base/regmap/regcache-maple.c:113:36: warning: 'lower_last' is used uninitialized [-Wuninitialized]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dce110/dce110_hw_sequencer.c:2292:31: error: 'struct hwseq_private_funcs' has no member named 'resync_fifo_dccg_dio'
+drivers/gpu/drm/amd/amdgpu/../display/dc/dce110/dce110_hw_sequencer.c:2295:31: error: 'struct hwseq_private_funcs' has no member named 'resync_fifo_dccg_dio'
+drivers/gpu/drm/i915/display/intel_display.c:6012:3: warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:540 amdgpu_debugfs_mqd_read() warn: ignoring unreachable code.
+drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c:68 amdgpu_xcp_run_transition() error: buffer overflow 'xcp_mgr->xcp' 8 <= 8
+kernel/events/uprobes.c:478 uprobe_write_opcode() warn: passing zero to 'PTR_ERR'
+kernel/watchdog.c:40:19: sparse: sparse: symbol 'watchdog_hardlockup_user_enabled' was not declared. Should it be static?
+kernel/watchdog.c:41:19: sparse: sparse: symbol 'watchdog_softlockup_user_enabled' was not declared. Should it be static?
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- arc-allyesconfig
+|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_index-is-used-uninitialized
+|   `-- drivers-base-regmap-regcache-maple.c:warning:lower_last-is-used-uninitialized
+|-- arc-axs103_smp_defconfig
+|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_index-is-used-uninitialized
+|   `-- drivers-base-regmap-regcache-maple.c:warning:lower_last-is-used-uninitialized
+|-- arc-randconfig-c44-20230523
+|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_index-is-used-uninitialized
+|   `-- drivers-base-regmap-regcache-maple.c:warning:lower_last-is-used-uninitialized
+|-- arc-randconfig-m041-20230521
+|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_index-is-used-uninitialized
+|   `-- drivers-base-regmap-regcache-maple.c:warning:lower_last-is-used-uninitialized
+|-- arm-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce110-dce110_hw_sequencer.c:error:struct-hwseq_private_funcs-has-no-member-named-resync_fifo_dccg_dio
+|-- arm-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce110-dce110_hw_sequencer.c:error:struct-hwseq_private_funcs-has-no-member-named-resync_fifo_dccg_dio
+|-- arm-randconfig-s031-20230521
+|   |-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_hardlockup_user_enabled-was-not-declared.-Should-it-be-static
+|   `-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_softlockup_user_enabled-was-not-declared.-Should-it-be-static
+|-- arm-randconfig-s041-20230521
+|   |-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_hardlockup_user_enabled-was-not-declared.-Should-it-be-static
+|   `-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_softlockup_user_enabled-was-not-declared.-Should-it-be-static
+|-- i386-randconfig-m021
+|   `-- kernel-events-uprobes.c-uprobe_write_opcode()-warn:passing-zero-to-PTR_ERR
+|-- i386-randconfig-s001
+|   |-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_hardlockup_user_enabled-was-not-declared.-Should-it-be-static
+|   `-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_softlockup_user_enabled-was-not-declared.-Should-it-be-static
+|-- i386-randconfig-s002
+|   |-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_hardlockup_user_enabled-was-not-declared.-Should-it-be-static
+|   `-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_softlockup_user_enabled-was-not-declared.-Should-it-be-static
+|-- i386-randconfig-s003
+|   |-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_hardlockup_user_enabled-was-not-declared.-Should-it-be-static
+|   `-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_softlockup_user_enabled-was-not-declared.-Should-it-be-static
+|-- ia64-randconfig-m041-20230522
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce110-dce110_hw_sequencer.c:error:struct-hwseq_private_funcs-has-no-member-named-resync_fifo_dccg_dio
+|-- ia64-randconfig-r026-20230522
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce110-dce110_hw_sequencer.c:error:struct-hwseq_private_funcs-has-no-member-named-resync_fifo_dccg_dio
+|-- m68k-randconfig-s042-20230521
+|   |-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_hardlockup_user_enabled-was-not-declared.-Should-it-be-static
+|   `-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_softlockup_user_enabled-was-not-declared.-Should-it-be-static
+|-- mips-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce110-dce110_hw_sequencer.c:error:struct-hwseq_private_funcs-has-no-member-named-resync_fifo_dccg_dio
+|-- mips-randconfig-c041-20230521
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce110-dce110_hw_sequencer.c:error:struct-hwseq_private_funcs-has-no-member-named-resync_fifo_dccg_dio
+|-- nios2-randconfig-s033-20230521
+|   |-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_hardlockup_user_enabled-was-not-declared.-Should-it-be-static
+|   `-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_softlockup_user_enabled-was-not-declared.-Should-it-be-static
+|-- powerpc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce110-dce110_hw_sequencer.c:error:struct-hwseq_private_funcs-has-no-member-named-resync_fifo_dccg_dio
+|-- riscv-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce110-dce110_hw_sequencer.c:error:struct-hwseq_private_funcs-has-no-member-named-resync_fifo_dccg_dio
+|-- s390-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce110-dce110_hw_sequencer.c:error:struct-hwseq_private_funcs-has-no-member-named-resync_fifo_dccg_dio
+|-- s390-randconfig-m031-20230522
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c-amdgpu_gfx_enable_kcq()-warn:inconsistent-indenting
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_ring.c-amdgpu_debugfs_mqd_read()-warn:ignoring-unreachable-code.
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_xcp.c-amdgpu_xcp_run_transition()-error:buffer-overflow-xcp_mgr-xcp
+|-- sparc64-randconfig-s032-20230521
+|   |-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_hardlockup_user_enabled-was-not-declared.-Should-it-be-static
+|   `-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_softlockup_user_enabled-was-not-declared.-Should-it-be-static
+|-- x86_64-randconfig-m001
+|   `-- kernel-events-uprobes.c-uprobe_write_opcode()-warn:passing-zero-to-PTR_ERR
+|-- x86_64-randconfig-s021
+|   |-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_hardlockup_user_enabled-was-not-declared.-Should-it-be-static
+|   `-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_softlockup_user_enabled-was-not-declared.-Should-it-be-static
+|-- x86_64-randconfig-s022
+|   |-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_hardlockup_user_enabled-was-not-declared.-Should-it-be-static
+|   `-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_softlockup_user_enabled-was-not-declared.-Should-it-be-static
+|-- x86_64-randconfig-s023
+|   |-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_hardlockup_user_enabled-was-not-declared.-Should-it-be-static
+|   `-- kernel-watchdog.c:sparse:sparse:symbol-watchdog_softlockup_user_enabled-was-not-declared.-Should-it-be-static
+`-- xtensa-randconfig-s051-20230521
+    `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce110-dce110_hw_sequencer.c:error:struct-hwseq_private_funcs-has-no-member-named-resync_fifo_dccg_dio
+clang_recent_errors
+`-- x86_64-randconfig-r025-20230522
+    `-- drivers-gpu-drm-i915-display-intel_display.c:warning:unannotated-fall-through-between-switch-labels
+
+elapsed time: 837m
+
+configs tested: 184
+configs skipped: 12
+
+tested configs:
+alpha                             allnoconfig   gcc  
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+alpha                randconfig-r001-20230522   gcc  
+alpha                randconfig-r006-20230522   gcc  
+arc                              allyesconfig   gcc  
+arc                      axs103_smp_defconfig   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r011-20230522   gcc  
+arc                  randconfig-r043-20230521   gcc  
+arc                  randconfig-r043-20230522   gcc  
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm          buildonly-randconfig-r004-20230522   gcc  
+arm          buildonly-randconfig-r005-20230521   clang
+arm                                 defconfig   gcc  
+arm                          pxa168_defconfig   clang
+arm                  randconfig-r004-20230521   gcc  
+arm                  randconfig-r005-20230521   gcc  
+arm                  randconfig-r015-20230521   clang
+arm                  randconfig-r016-20230522   gcc  
+arm                  randconfig-r046-20230521   clang
+arm                  randconfig-r046-20230522   gcc  
+arm                           sunxi_defconfig   gcc  
+arm                           u8500_defconfig   gcc  
+arm64                            allyesconfig   gcc  
+arm64        buildonly-randconfig-r006-20230521   clang
+arm64                               defconfig   gcc  
+arm64                randconfig-r021-20230521   gcc  
+arm64                randconfig-r024-20230522   clang
+csky         buildonly-randconfig-r003-20230522   gcc  
+csky                                defconfig   gcc  
+hexagon      buildonly-randconfig-r001-20230521   clang
+hexagon              randconfig-r004-20230522   clang
+hexagon              randconfig-r024-20230521   clang
+hexagon              randconfig-r041-20230521   clang
+hexagon              randconfig-r041-20230522   clang
+hexagon              randconfig-r045-20230521   clang
+hexagon              randconfig-r045-20230522   clang
+i386                              allnoconfig   clang
+i386                             allyesconfig   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                 randconfig-a001-20230522   gcc  
+i386                 randconfig-a002-20230522   gcc  
+i386                 randconfig-a003-20230522   gcc  
+i386                 randconfig-a004-20230522   gcc  
+i386                 randconfig-a005-20230522   gcc  
+i386                 randconfig-a006-20230522   gcc  
+i386                 randconfig-i051-20230523   clang
+i386                 randconfig-i052-20230523   clang
+i386                 randconfig-i053-20230523   clang
+i386                 randconfig-i054-20230523   clang
+i386                 randconfig-i055-20230523   clang
+i386                 randconfig-i056-20230523   clang
+i386                 randconfig-i061-20230523   clang
+i386                 randconfig-i062-20230523   clang
+i386                 randconfig-i063-20230523   clang
+i386                 randconfig-i064-20230523   clang
+i386                 randconfig-i065-20230523   clang
+i386                 randconfig-i066-20230523   clang
+i386                 randconfig-r036-20230522   gcc  
+ia64                             allmodconfig   gcc  
+ia64         buildonly-randconfig-r001-20230522   gcc  
+ia64                                defconfig   gcc  
+ia64                 randconfig-r026-20230522   gcc  
+ia64                          tiger_defconfig   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch            randconfig-r003-20230521   gcc  
+loongarch            randconfig-r005-20230522   gcc  
+m68k                             alldefconfig   gcc  
+m68k                             allmodconfig   gcc  
+m68k                                defconfig   gcc  
+m68k                       m5208evb_defconfig   gcc  
+m68k                       m5475evb_defconfig   gcc  
+m68k                 randconfig-r021-20230522   gcc  
+m68k                 randconfig-r022-20230521   gcc  
+microblaze           randconfig-r002-20230522   gcc  
+microblaze           randconfig-r011-20230521   gcc  
+microblaze           randconfig-r015-20230522   gcc  
+microblaze           randconfig-r034-20230521   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                        bcm47xx_defconfig   gcc  
+mips         buildonly-randconfig-r002-20230522   clang
+mips                     loongson2k_defconfig   clang
+mips                 randconfig-r016-20230521   clang
+mips                 randconfig-r031-20230521   gcc  
+mips                 randconfig-r032-20230521   gcc  
+nios2                               defconfig   gcc  
+nios2                randconfig-r003-20230522   gcc  
+nios2                randconfig-r023-20230522   gcc  
+nios2                randconfig-r032-20230522   gcc  
+openrisc             randconfig-r012-20230521   gcc  
+parisc                              defconfig   gcc  
+parisc               randconfig-r036-20230521   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc                 mpc834x_itx_defconfig   gcc  
+powerpc                      pcm030_defconfig   gcc  
+powerpc                      pmac32_defconfig   clang
+powerpc                      ppc40x_defconfig   gcc  
+powerpc              randconfig-r026-20230521   gcc  
+powerpc                    socrates_defconfig   clang
+powerpc                     tqm8540_defconfig   clang
+powerpc                         wii_defconfig   gcc  
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                randconfig-r013-20230522   clang
+riscv                randconfig-r025-20230522   clang
+riscv                randconfig-r035-20230521   clang
+riscv                randconfig-r042-20230521   gcc  
+riscv                randconfig-r042-20230522   clang
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r014-20230521   gcc  
+s390                 randconfig-r033-20230522   gcc  
+s390                 randconfig-r035-20230522   gcc  
+s390                 randconfig-r044-20230521   gcc  
+s390                 randconfig-r044-20230522   clang
+sh                               allmodconfig   gcc  
+sh           buildonly-randconfig-r004-20230521   gcc  
+sh           buildonly-randconfig-r005-20230522   gcc  
+sh                          polaris_defconfig   gcc  
+sh                   randconfig-r001-20230521   gcc  
+sh                          rsk7203_defconfig   gcc  
+sh                          sdk7786_defconfig   gcc  
+sh                            shmin_defconfig   gcc  
+sparc                               defconfig   gcc  
+sparc                randconfig-r012-20230522   gcc  
+sparc                randconfig-r034-20230522   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64               randconfig-a001-20230522   gcc  
+x86_64               randconfig-a002-20230522   gcc  
+x86_64               randconfig-a003-20230522   gcc  
+x86_64               randconfig-a004-20230522   gcc  
+x86_64               randconfig-a005-20230522   gcc  
+x86_64               randconfig-a006-20230522   gcc  
+x86_64               randconfig-a011-20230522   clang
+x86_64               randconfig-a012-20230522   clang
+x86_64               randconfig-a013-20230522   clang
+x86_64               randconfig-a014-20230522   clang
+x86_64               randconfig-a015-20230522   clang
+x86_64               randconfig-a016-20230522   clang
+x86_64               randconfig-r022-20230522   clang
+x86_64               randconfig-x051-20230522   clang
+x86_64               randconfig-x052-20230522   clang
+x86_64               randconfig-x053-20230522   clang
+x86_64               randconfig-x054-20230522   clang
+x86_64               randconfig-x055-20230522   clang
+x86_64               randconfig-x056-20230522   clang
+x86_64               randconfig-x061-20230522   clang
+x86_64               randconfig-x062-20230522   clang
+x86_64               randconfig-x063-20230522   clang
+x86_64               randconfig-x064-20230522   clang
+x86_64               randconfig-x065-20230522   clang
+x86_64               randconfig-x066-20230522   clang
+x86_64               randconfig-x071-20230522   gcc  
+x86_64               randconfig-x072-20230522   gcc  
+x86_64               randconfig-x073-20230522   gcc  
+x86_64               randconfig-x074-20230522   gcc  
+x86_64               randconfig-x075-20230522   gcc  
+x86_64               randconfig-x076-20230522   gcc  
+x86_64               randconfig-x081-20230522   gcc  
+x86_64               randconfig-x082-20230522   gcc  
+x86_64               randconfig-x083-20230522   gcc  
+x86_64               randconfig-x084-20230522   gcc  
+x86_64               randconfig-x085-20230522   gcc  
+x86_64               randconfig-x086-20230522   gcc  
+x86_64                               rhel-8.3   gcc  
+xtensa                          iss_defconfig   gcc  
+xtensa               randconfig-r002-20230521   gcc  
+xtensa               randconfig-r033-20230521   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
