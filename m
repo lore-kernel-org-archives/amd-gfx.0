@@ -4,60 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F2F1C7EE26
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 15:47:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D888AC7EE26
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 15:49:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD39510E2A1;
-	Tue, 23 May 2023 15:47:58 +0000 (UTC)
-Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
- [IPv6:2607:f8b0:4864:20::c31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3467C10E2A1
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 May 2023 15:47:57 +0000 (UTC)
-Received: by mail-oo1-xc31.google.com with SMTP id
- 006d021491bc7-55556745aefso999667eaf.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 May 2023 08:47:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63D8C10E459;
+	Tue, 23 May 2023 15:49:43 +0000 (UTC)
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD59010E459
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 May 2023 15:49:41 +0000 (UTC)
+Received: by mail-oi1-x234.google.com with SMTP id
+ 5614622812f47-3982f09df74so475125b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 May 2023 08:49:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684856876; x=1687448876;
+ d=gmail.com; s=20221208; t=1684856980; x=1687448980;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NAefWcmT04gBXGJTJrPInmd9E4w1/npv0tL/epftxzI=;
- b=euDlBwH3FulzkVc/xePHV9UnRbYyfkwJLpdx6cdGyObAxUeDGE9JFY0fl0fV0GjWTM
- KAficDFFuAxrdFEjTzWNPknepFITcKms0zqktJw/s3MpCYhWdumNMJz1DPw6Z9c9OUYF
- 6sslU7wP8/fz92vxYt/tmlStbGs+Kj1ECPyl+F8IkPSJaj8pvcvBYCF/arug3DcW5hyl
- p89ZYXpSk0LxhU5gD2aWhC3nWfrol2kc+IQI5Km5vUxCgBB9vW655uhtvzLjZ/1aerZf
- Zb1Obx/BBi7Lhj3GKBCuVb9Mry/hjDCWT07mF2xwwfKG9gnepG+ON+KQJUgq8EPQP7Ie
- iOIw==
+ bh=byzCPe+qmGeohaJWNZkhM3ida6LbG+uy43REJAAqA8M=;
+ b=LupvOE/I9c2NICrzmGx0sYsGcQm/KJGhl4b1wj3pIvoMXpdA4U+pF4OkM8W44BYTQO
+ 6+2OdY8s/Qyp5o+n79CUAUwmSOkKLZxdmMm5bcVew7+KRxS0l1tG3dL53uWnnvjV68nY
+ ChuobjmOZF8unS2NkpYWvf9hsTspuD89VbuYHHKXmQ+VjZaEAo4zkfjRNH8ts1EsbyKd
+ mZRyCM7zWnr1ywp1n7Jhcc4Kh8HMVGNtf+O2DStj8aYr9ht+fLVL3nmG8GhHCfOt8ad/
+ ZR0uWLYA4kGCb3OM5zQzYQM6JSeIIfL1C2hWLCjMoeF+vY1yoOnuXa0+DEJZ1pXvS4Fg
+ t9KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684856876; x=1687448876;
+ d=1e100.net; s=20221208; t=1684856980; x=1687448980;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=NAefWcmT04gBXGJTJrPInmd9E4w1/npv0tL/epftxzI=;
- b=ZdgXD3bcrtcbsiZzOz3sohcyUcmlpuxSsu4+eqKy6Ix3lnR56TUGIxXele88aJ4R+z
- JDFOROnxiTi7kJJu7CHDIlnNw93pkjNh88WsFs+RgoZgT+iWnXXggGNN44UdKMNGNt+a
- 2MaEn4Pw489JTMfXPtQypqtn+O/8MLPPYd+T3DjlZJYNmCeA6ou9zIYjdGCeQFlEWON1
- OD5IrebNa1RwtKzbbKWZ0XcFpezhW75Ejmo+RAA1uBQmgB4G66UrLcOv387GSCzElhKm
- JvpfmzfE33hzP5mrx4F39LoK0JfvNccw/wNym5i0mes9QMRzxBsHIg1kt+ozs2FI9FGK
- PlTg==
-X-Gm-Message-State: AC+VfDzuKORn/1hiYSrDbXNxwEAYy3VwZRnzjqc5lAo9XalkirPURUfb
- 5FSkStv9xmfocILa1LDfq8vMlBigrjZM+vFM7okf0nVx
-X-Google-Smtp-Source: ACHHUZ519H846CzdCE4wrLxchrUlVrzOS+qw16ab5gSR7yQEwNuQPjiUmkmM1Zwgz7af1c0Caf8K5XYoDvItuw+3UkA=
-X-Received: by 2002:aca:1103:0:b0:398:1157:91a9 with SMTP id
- 3-20020aca1103000000b00398115791a9mr3361593oir.26.1684856875879; Tue, 23 May
- 2023 08:47:55 -0700 (PDT)
+ bh=byzCPe+qmGeohaJWNZkhM3ida6LbG+uy43REJAAqA8M=;
+ b=Lv+AXYkE2S0mSX+poojwC3tvvDgTYjOHaBZkFwcwHnj+6+tV/TsjDp4yNcAy40+UGB
+ fe/YisN8zn/PJbJQEymZ1eDSAFjfYPVNClPy03dsWe4NivjOqHo4TMylIGC6vInXKI3Y
+ I19hFPMjMZWWlpGY7jfr3CafdFsEaYPjx6mLz+V3Fi4vEq08PBjcWj1u9gdvGAWdU7Jp
+ 7dgAtBZmH81N/d64c9bAS/5v1HwJpekz8k6ygqhfzRzqVlLTEQtn0YyFUIuBLDN/MH7u
+ 3jK4HDfrIkz6/08/kkYBlNzFuGYwEbYmHxjJQhBmwIrs3bXxxYlm3Iv45eIOPeFSsj04
+ WQmw==
+X-Gm-Message-State: AC+VfDzoLEZIMoYD3+GdtsOj3TGFz992P0qdjjxhPUWmqz+HdTUgDa+s
+ UHt4+kWAYYlTCkIVkPGzHDAFfmAWVqK+IRYZM7Q=
+X-Google-Smtp-Source: ACHHUZ68GK9wsKpRkq0cqYzSFAHH++9sl/J9yeH53hOZbMdwsGNIhFFnZPMtt0Ire649A4w/WJKbdVevj65vZNOlP+M=
+X-Received: by 2002:aca:1b07:0:b0:396:20fd:7362 with SMTP id
+ b7-20020aca1b07000000b0039620fd7362mr7522519oib.28.1684856980591; Tue, 23 May
+ 2023 08:49:40 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230522130823.769236-1-michel@daenzer.net>
- <20230522130823.769236-2-michel@daenzer.net>
- <cff1d185-4cd6-f7df-e79c-03515d6cbd60@amd.com>
-In-Reply-To: <cff1d185-4cd6-f7df-e79c-03515d6cbd60@amd.com>
+References: <20230523132914.3144843-1-James.Zhu@amd.com>
+ <20230523132914.3144843-3-James.Zhu@amd.com>
+In-Reply-To: <20230523132914.3144843-3-James.Zhu@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 23 May 2023 11:47:44 -0400
-Message-ID: <CADnq5_P7FGVWXQa7a+2TujD8ivg0z7E2ZXH1pz1R7ZSWceSKdA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] Revert "drm/amd/display: Do not set drr on pipe
- commit"
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>, "Mahfooz,
- Hamza" <Hamza.Mahfooz@amd.com>
+Date: Tue, 23 May 2023 11:49:29 -0400
+Message-ID: <CADnq5_NMkAq_KCUtG9Y_VjePH7EqMa4LFxMHLD=s-wt4FwQuYg@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu: use amdxcp platform device as spatial
+ partition
+To: James Zhu <James.Zhu@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,133 +69,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wesley Chalmers <Wesley.Chalmers@amd.com>, Leo Li <sunpeng.li@amd.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>
+Cc: Alexander.Deucher@amd.com, jamesz@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Series is:
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
-for the series.
 
-Jay, I assume you or Hamza will pick these up?
-
-Thanks,
-
-Alex
-
-On Tue, May 23, 2023 at 11:31=E2=80=AFAM Aurabindo Pillai
-<aurabindo.pillai@amd.com> wrote:
+On Tue, May 23, 2023 at 9:29=E2=80=AFAM James Zhu <James.Zhu@amd.com> wrote=
+:
 >
-> Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Use amdxcp platform device as spatial partition device.
 >
-> On 5/22/23 09:08, Michel D=C3=A4nzer wrote:
-> > From: Michel D=C3=A4nzer <mdaenzer@redhat.com>
-> >
-> > This reverts commit 474f01015ffdb74e01c2eb3584a2822c64e7b2be.
-> >
-> > Caused a regression:
-> >
-> > Samsung Odyssey Neo G9, running at 5120x1440@240/VRR, connected to Navi
-> > 21 via DisplayPort, blanks and the GPU hangs while starting the Steam
-> > game Assetto Corsa Competizione (via Proton 7.0).
-> >
-> > Example dmesg excerpt:
-> >
-> >  amdgpu 0000:0c:00.0: [drm] ERROR [CRTC:82:crtc-0] flip_done timed out
-> >  NMI watchdog: Watchdog detected hard LOCKUP on cpu 6
-> >  [...]
-> >  RIP: 0010:amdgpu_device_rreg.part.0+0x2f/0xf0 [amdgpu]
-> >  Code: 41 54 44 8d 24 b5 00 00 00 00 55 89 f5 53 48 89 fb 4c 3b a7 60 0=
-b 00 00 73 6a 83 e2 02 74 29 4c 03 a3 68 0b 00 00 45 8b 24 24 <48> 8b 43 08=
- 0f b7 70 3e 66 90 44 89 e0 5b 5d 41 5c 31 d2 31 c9 31
-> >  RSP: 0000:ffffb39a119dfb88 EFLAGS: 00000086
-> >  RAX: ffffffffc0eb96a0 RBX: ffff9e7963dc0000 RCX: 0000000000007fff
-> >  RDX: 0000000000000000 RSI: 0000000000004ff6 RDI: ffff9e7963dc0000
-> >  RBP: 0000000000004ff6 R08: ffffb39a119dfc40 R09: 0000000000000010
-> >  R10: ffffb39a119dfc40 R11: ffffb39a119dfc44 R12: 00000000000e05ae
-> >  R13: 0000000000000000 R14: ffff9e7963dc0010 R15: 0000000000000000
-> >  FS:  000000001012f6c0(0000) GS:ffff9e805eb80000(0000) knlGS:000000007f=
-d40000
-> >  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> >  CR2: 00000000461ca000 CR3: 00000002a8a20000 CR4: 0000000000350ee0
-> >  Call Trace:
-> >   <TASK>
-> >   dm_read_reg_func+0x37/0xc0 [amdgpu]
-> >   generic_reg_get2+0x22/0x60 [amdgpu]
-> >   optc1_get_crtc_scanoutpos+0x6a/0xc0 [amdgpu]
-> >   dc_stream_get_scanoutpos+0x74/0x90 [amdgpu]
-> >   dm_crtc_get_scanoutpos+0x82/0xf0 [amdgpu]
-> >   amdgpu_display_get_crtc_scanoutpos+0x91/0x190 [amdgpu]
-> >   ? dm_read_reg_func+0x37/0xc0 [amdgpu]
-> >   amdgpu_get_vblank_counter_kms+0xb4/0x1a0 [amdgpu]
-> >   dm_pflip_high_irq+0x213/0x2f0 [amdgpu]
-> >   amdgpu_dm_irq_handler+0x8a/0x200 [amdgpu]
-> >   amdgpu_irq_dispatch+0xd4/0x220 [amdgpu]
-> >   amdgpu_ih_process+0x7f/0x110 [amdgpu]
-> >   amdgpu_irq_handler+0x1f/0x70 [amdgpu]
-> >   __handle_irq_event_percpu+0x46/0x1b0
-> >   handle_irq_event+0x34/0x80
-> >   handle_edge_irq+0x9f/0x240
-> >   __common_interrupt+0x66/0x110
-> >   common_interrupt+0x5c/0xd0
-> >   asm_common_interrupt+0x22/0x40
-> >
-> > Signed-off-by: Michel D=C3=A4nzer <mdaenzer@redhat.com>
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 6 ------
-> >  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 7 -------
-> >  2 files changed, 13 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drive=
-rs/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-> > index 6ce10fd4bb1a..5403e9399a46 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-> > @@ -2113,12 +2113,6 @@ void dcn20_optimize_bandwidth(
-> >       if (hubbub->funcs->program_compbuf_size)
-> >               hubbub->funcs->program_compbuf_size(hubbub, context->bw_c=
-tx.bw.dcn.compbuf_size_kb, true);
-> >
-> > -     if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching) {
-> > -             dc_dmub_srv_p_state_delegate(dc,
-> > -                     true, context);
-> > -             context->bw_ctx.bw.dcn.clk.p_state_change_support =3D tru=
-e;
-> > -     }
-> > -
-> >       dc->clk_mgr->funcs->update_clocks(
-> >                       dc->clk_mgr,
-> >                       context,
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drive=
-rs/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-> > index 0411867654dd..0e071fbc9154 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-> > @@ -985,18 +985,11 @@ void dcn30_set_disp_pattern_generator(const struc=
-t dc *dc,
-> >  void dcn30_prepare_bandwidth(struct dc *dc,
-> >       struct dc_state *context)
-> >  {
-> > -     if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching) {
-> > -             dc->optimized_required =3D true;
-> > -             context->bw_ctx.bw.dcn.clk.p_state_change_support =3D fal=
-se;
-> > -     }
-> > -
-> >       if (dc->clk_mgr->dc_mode_softmax_enabled)
-> >               if (dc->clk_mgr->clks.dramclk_khz <=3D dc->clk_mgr->bw_pa=
-rams->dc_mode_softmax_memclk * 1000 &&
-> >                               context->bw_ctx.bw.dcn.clk.dramclk_khz > =
-dc->clk_mgr->bw_params->dc_mode_softmax_memclk * 1000)
-> >                       dc->clk_mgr->funcs->set_max_memclk(dc->clk_mgr, d=
-c->clk_mgr->bw_params->clk_table.entries[dc->clk_mgr->bw_params->clk_table.=
-num_entries - 1].memclk_mhz);
-> >
-> >       dcn20_prepare_bandwidth(dc, context);
-> > -
-> > -     dc_dmub_srv_p_state_delegate(dc, false, context);
-> >  }
-> >
+> Signed-off-by: James Zhu <James.Zhu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c | 12 ++++++------
+>  2 files changed, 8 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 3d91e123f9bd..852c98dd40ea 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -51,6 +51,7 @@
+>  #include "amdgpu_ras.h"
+>  #include "amdgpu_xgmi.h"
+>  #include "amdgpu_reset.h"
+> +#include "../amdxcp/amdgpu_xcp_drv.h"
+>
+>  /*
+>   * KMS wrapper.
+> @@ -2944,6 +2945,7 @@ static void __exit amdgpu_exit(void)
+>         amdgpu_sync_fini();
+>         amdgpu_fence_slab_fini();
+>         mmu_notifier_synchronize();
+> +       amdgpu_xcp_drv_release();
+>  }
+>
+>  module_init(amdgpu_init);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_xcp.c
+> index 6ab5713ff741..9e3a7efaf584 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> @@ -25,6 +25,7 @@
+>  #include "amdgpu_drv.h"
+>
+>  #include <drm/drm_drv.h>
+> +#include "../amdxcp/amdgpu_xcp_drv.h"
+>
+>  static int __amdgpu_xcp_run(struct amdgpu_xcp_mgr *xcp_mgr,
+>                             struct amdgpu_xcp_ip *xcp_ip, int xcp_state)
+> @@ -228,21 +229,20 @@ static int amdgpu_xcp_dev_alloc(struct amdgpu_devic=
+e *adev)
+>         struct drm_device *p_ddev;
+>         struct pci_dev *pdev;
+>         struct drm_device *ddev;
+> -       int i;
+> +       int i, ret;
+>
+>         pdev =3D adev->pdev;
+>         ddev =3D adev_to_drm(adev);
+>
+>         for (i =3D 0; i < MAX_XCP; i++) {
+> -               p_ddev =3D drm_dev_alloc(&amdgpu_partition_driver,
+> -                       &pci_upstream_bridge(pdev)->dev);
+> -               if (IS_ERR(p_ddev))
+> -                       return PTR_ERR(p_ddev);
+> +               ret =3D amdgpu_xcp_drm_dev_alloc(&p_ddev);
+> +               if (ret)
+> +                       return ret;
+>
+>                 /* Redirect all IOCTLs to the primary device */
+>                 adev->xcp_mgr->xcp[i].rdev =3D p_ddev->render->dev;
+>                 adev->xcp_mgr->xcp[i].pdev =3D p_ddev->primary->dev;
+> -               adev->xcp_mgr->xcp[i].driver =3D p_ddev->driver;
+> +               adev->xcp_mgr->xcp[i].driver =3D (struct drm_driver *)p_d=
+dev->driver;
+>                 adev->xcp_mgr->xcp[i].vma_offset_manager =3D p_ddev->vma_=
+offset_manager;
+>                 p_ddev->render->dev =3D ddev;
+>                 p_ddev->primary->dev =3D ddev;
+> --
+> 2.34.1
+>
