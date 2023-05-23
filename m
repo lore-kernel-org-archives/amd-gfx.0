@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB88BC7EE2E
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:16:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2188FC7EE2E
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:16:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C687710E507;
-	Tue, 23 May 2023 22:15:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CCC310E505;
+	Tue, 23 May 2023 22:15:48 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 299CB10E4F4;
- Tue, 23 May 2023 22:15:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDA4310E4FD;
+ Tue, 23 May 2023 22:15:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,26 +19,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=QyEh3O9RM++Y6y9sPln2GfMYP2hRx5HbMp1Jy1t+bdA=; b=GbDRvDEZLUjgr8b7ICnov2mXhT
- k2fgHj6iqXbIOuTRERJ20fbHUWdtoq8QMfcYX9awWmvc6vOhnadPpYzXZ3LsmFi2gjtG6lEKam8WI
- JoZfKO73StCDKyr19lmNFnXRmPJBuSgdC0fdX/qgxfLHbdx3aFD3pSpbX4FXa2z3TX3yvm9GaQQo6
- lgJleRVprEEKJbKq+W3g2iN/koKg8fEDuI/6enfmqAo/OAbxY2wKQwakSCtdIfk/GG/2ZK6+81Avw
- DFKkUkhu11KA7yqcVruuKQRe/+CZdpqFmLgsW+RrkurMLLn8mIFaff50T2JgB9ob4PQPZqkOuQZZt
- BmKU86tQ==;
+ bh=ZnLZbxJjbI0/YfYzeogW8t0+tedK7XDsAnT9WUtN8Tw=; b=mNy6+btBxvcd5bpaWmRmaOakTO
+ ZSNHEh8p82TOX3bStaG8OGhua+AtSUSqGYZ6OCVLVDh01WS1b5hlkoifgWWb0bJcQzjzvYgD2Q2Rl
+ ZZyL4OBtGc25OgV0GJU1iJhfUDRD5gAXaz+utUJLW/MAPHvtYL678GxGoZ/OTeOOXYh5Lla+GPTyX
+ 98h0Q2yDC+bRD3e4QeqgwYLpWCEAfr01nm5B2NV58UCJE4YDpOC0Hj/QEUD/rLLriQcrRvox/0UEQ
+ sP1CIrQlbc3+avNYh/lu/TlWnp0ovnv2ubJ+C20yU2AWDhmh+ePDInByuJ4AqPKjdQbwJD9Qm7XfL
+ 4rTqpyFg==;
 Received: from [38.44.72.37] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1q1aI8-00HEOv-0M; Wed, 24 May 2023 00:15:40 +0200
+ id 1q1aI1-00HEOv-Q1; Wed, 24 May 2023 00:15:33 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH 11/36] drm/amd/display: add plane shaper LUT driver-specific
- properties
-Date: Tue, 23 May 2023 21:14:55 -0100
-Message-Id: <20230523221520.3115570-12-mwen@igalia.com>
+Subject: [PATCH 07/36] drm/amd/display: add plane driver-specific properties
+ for degamma LUT
+Date: Tue, 23 May 2023 21:14:51 -0100
+Message-Id: <20230523221520.3115570-8-mwen@igalia.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230523221520.3115570-1-mwen@igalia.com>
 References: <20230523221520.3115570-1-mwen@igalia.com>
@@ -64,139 +64,201 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On AMD HW, 3D LUT always assumes a preceding shaper 1D LUT used for
-delinearizing and/or normalizing the color space before applying a 3D
-LUT.
+Create and attach driver-private properties for plane color management.
+First add plane degamma LUT properties that means user-blob and its
+size. We will add more plane color properties in the next commits. In
+addition, we keep these driver-private plane properties limited by
+defining AMD_PRIVATE_COLOR.
 
+Co-developed-by: Joshua Ashton <joshua@froggi.es>
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 14 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      | 10 ++++++++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  5 +++++
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 20 +++++++++++++++++++
- 4 files changed, 49 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 14 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  8 ++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  9 +++
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 77 +++++++++++++++++++
+ 4 files changed, 108 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 9954643cb928..258dfc66c2ac 100644
+index 88af075e6c18..fa67c84f5994 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1304,6 +1304,20 @@ amdgpu_display_create_color_properties(struct amdgpu_device *adev)
+@@ -1275,6 +1275,20 @@ amdgpu_display_create_color_properties(struct amdgpu_device *adev)
  		return -ENOMEM;
- 	adev->mode_info.plane_hdr_mult_property = prop;
+ 	adev->mode_info.regamma_tf_property = prop;
  
 +	prop = drm_property_create(adev_to_drm(adev),
 +				   DRM_MODE_PROP_BLOB,
-+				   "AMD_PLANE_SHAPER_LUT", 0);
++				   "AMD_PLANE_DEGAMMA_LUT", 0);
 +	if (!prop)
 +		return -ENOMEM;
-+	adev->mode_info.plane_shaper_lut_property = prop;
++	adev->mode_info.plane_degamma_lut_property = prop;
 +
 +	prop = drm_property_create_range(adev_to_drm(adev),
 +					 DRM_MODE_PROP_IMMUTABLE,
-+					 "AMD_PLANE_SHAPER_LUT_SIZE", 0, UINT_MAX);
++					 "AMD_PLANE_DEGAMMA_LUT_SIZE", 0, UINT_MAX);
 +	if (!prop)
 +		return -ENOMEM;
-+	adev->mode_info.plane_shaper_lut_size_property = prop;
++	adev->mode_info.plane_degamma_lut_size_property = prop;
 +
- 	prop = drm_property_create(adev_to_drm(adev),
- 				   DRM_MODE_PROP_BLOB,
- 				   "AMD_PLANE_LUT3D", 0);
+ 	return 0;
+ }
+ #endif
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index 93ec4a60f6e9..44306557a905 100644
+index 881446c51b36..6c165ad9bdf0 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -369,6 +369,16 @@ struct amdgpu_mode_info {
- 	 * @plane_hdr_mult_property:
+@@ -352,6 +352,14 @@ struct amdgpu_mode_info {
+ 	 * drm_transfer_function`.
  	 */
- 	struct drm_property *plane_hdr_mult_property;
-+	/**
-+	 * @shaper_lut_property: Plane property to set pre-blending shaper LUT
-+	 * that converts color content before 3D LUT.
+ 	struct drm_property *regamma_tf_property;
++	/* @plane_degamma_lut_property: Plane property to set a degamma LUT to
++	 * convert color space before blending.
 +	 */
-+	struct drm_property *plane_shaper_lut_property;
-+	/**
-+	 * @shaper_lut_size_property: Plane property for the size of
-+	 * pre-blending shaper LUT as supported by the driver (read-only).
++	struct drm_property *plane_degamma_lut_property;
++	/* @plane_degamma_lut_size_property: Plane property to define the max
++	 * size of degamma LUT as supported by the driver (read-only).
 +	 */
-+	struct drm_property *plane_shaper_lut_size_property;
- 	/**
- 	 * @plane_lut3d_property: Plane property for gamma correction using a
- 	 * 3D LUT (pre-blending).
++	struct drm_property *plane_degamma_lut_size_property;
+ };
+ 
+ #define AMDGPU_MAX_BL_LEVEL 0xFF
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 7e4978c2f253..fa0bb6a5c598 100644
+index ad5ee28b83dc..22e126654767 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -744,6 +744,11 @@ struct dm_plane_state {
- 	 * S31.32 sign-magnitude.
- 	 */
- 	__u64 hdr_mult;
+@@ -716,6 +716,15 @@ enum drm_transfer_function {
+ struct dm_plane_state {
+ 	struct drm_plane_state base;
+ 	struct dc_plane_state *dc_state;
++
++	/* Plane color mgmt */
 +	/**
-+	 * @shaper_lut: shaper lookup table blob. The blob (if not NULL) is an
-+	 * array of &struct drm_color_lut.
++	 * @degamma_lut:
++	 *
++	 * LUT for converting plane pixel data before going into plane merger.
++	 * The blob (if not NULL) is an array of &struct drm_color_lut.
 +	 */
-+	struct drm_property_blob *shaper_lut;
- 	/**
- 	 * @lut3d: 3D lookup table blob. The blob (if not NULL) is an array of
- 	 * &struct drm_color_lut.
++	struct drm_property_blob *degamma_lut;
+ };
+ 
+ struct dm_crtc_state {
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 5fc3855448d0..abc5b9a353a0 100644
+index 322668973747..e9cedc4068f1 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1344,6 +1344,8 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
+@@ -1338,6 +1338,9 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
+ 		dc_plane_state_retain(dm_plane_state->dc_state);
+ 	}
  
- 	if (dm_plane_state->degamma_lut)
- 		drm_property_blob_get(dm_plane_state->degamma_lut);
-+	if (dm_plane_state->shaper_lut)
-+		drm_property_blob_get(dm_plane_state->shaper_lut);
- 	if (dm_plane_state->lut3d)
- 		drm_property_blob_get(dm_plane_state->lut3d);
++	if (dm_plane_state->degamma_lut)
++		drm_property_blob_get(dm_plane_state->degamma_lut);
++
+ 	return &dm_plane_state->base;
+ }
  
-@@ -1421,6 +1423,8 @@ static void dm_drm_plane_destroy_state(struct drm_plane *plane,
- 		drm_property_blob_put(dm_plane_state->degamma_lut);
- 	if (dm_plane_state->lut3d)
- 		drm_property_blob_put(dm_plane_state->lut3d);
-+	if (dm_plane_state->shaper_lut)
-+		drm_property_blob_put(dm_plane_state->shaper_lut);
+@@ -1405,12 +1408,79 @@ static void dm_drm_plane_destroy_state(struct drm_plane *plane,
+ {
+ 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(state);
  
++	if (dm_plane_state->degamma_lut)
++		drm_property_blob_put(dm_plane_state->degamma_lut);
++
  	if (dm_plane_state->dc_state)
  		dc_plane_state_release(dm_plane_state->dc_state);
-@@ -1462,6 +1466,11 @@ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
- 				   AMDGPU_HDR_MULT_DEFAULT);
  
- 	if (dm->dc->caps.color.dpp.hw_3d_lut) {
+ 	drm_atomic_helper_plane_destroy_state(plane, state);
+ }
+ 
++#ifdef AMD_PRIVATE_COLOR
++static void
++dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
++					     struct drm_plane *plane)
++{
++	if (dm->dc->caps.color.dpp.dgam_ram || dm->dc->caps.color.dpp.gamma_corr ) {
 +		drm_object_attach_property(&plane->base,
-+					   dm->adev->mode_info.plane_shaper_lut_property, 0);
++					   dm->adev->mode_info.plane_degamma_lut_property, 0);
 +		drm_object_attach_property(&plane->base,
-+					   dm->adev->mode_info.plane_shaper_lut_size_property,
++					   dm->adev->mode_info.plane_degamma_lut_size_property,
 +					   MAX_COLOR_LUT_ENTRIES);
- 		drm_object_attach_property(&plane->base,
- 					   dm->adev->mode_info.plane_lut3d_property, 0);
- 		drm_object_attach_property(&plane->base,
-@@ -1499,6 +1508,14 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
- 			dm_plane_state->hdr_mult = val;
- 			dm_plane_state->base.color_mgmt_changed = 1;
- 		}
-+	} else if (property == adev->mode_info.plane_shaper_lut_property) {
++	}
++}
++
++static int
++dm_atomic_plane_set_property(struct drm_plane *plane,
++			     struct drm_plane_state *state,
++			     struct drm_property *property,
++			     uint64_t val)
++{
++	struct dm_plane_state *dm_plane_state = to_dm_plane_state(state);
++	struct amdgpu_device *adev = drm_to_adev(plane->dev);
++	bool replaced = false;
++	int ret;
++
++	if (property == adev->mode_info.plane_degamma_lut_property) {
 +		ret = drm_property_replace_blob_from_id(plane->dev,
-+							&dm_plane_state->shaper_lut,
-+							val, -1,
-+							sizeof(struct drm_color_lut),
++							&dm_plane_state->degamma_lut,
++							val,
++							-1, sizeof(struct drm_color_lut),
 +							&replaced);
 +		dm_plane_state->base.color_mgmt_changed |= replaced;
 +		return ret;
- 	} else if (property == adev->mode_info.plane_lut3d_property) {
- 		ret = drm_property_replace_blob_from_id(plane->dev,
- 							&dm_plane_state->lut3d,
-@@ -1534,6 +1551,9 @@ dm_atomic_plane_get_property(struct drm_plane *plane,
- 		*val = dm_plane_state->degamma_tf;
- 	} else if (property == adev->mode_info.plane_hdr_mult_property) {
- 		*val = dm_plane_state->hdr_mult;
-+	} else 	if (property == adev->mode_info.plane_shaper_lut_property) {
-+		*val = (dm_plane_state->shaper_lut) ?
-+			dm_plane_state->shaper_lut->base.id : 0;
- 	} else 	if (property == adev->mode_info.plane_lut3d_property) {
- 		*val = (dm_plane_state->lut3d) ?
- 			dm_plane_state->lut3d->base.id : 0;
++	} else {
++		drm_dbg_atomic(plane->dev,
++			       "[PLANE:%d:%s] unknown property [PROP:%d:%s]]\n",
++			       plane->base.id, plane->name,
++			       property->base.id, property->name);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int
++dm_atomic_plane_get_property(struct drm_plane *plane,
++			     const struct drm_plane_state *state,
++			     struct drm_property *property,
++			     uint64_t *val)
++{
++	struct dm_plane_state *dm_plane_state = to_dm_plane_state(state);
++	struct amdgpu_device *adev = drm_to_adev(plane->dev);
++
++	if (property == adev->mode_info.plane_degamma_lut_property) {
++		*val = (dm_plane_state->degamma_lut) ?
++			dm_plane_state->degamma_lut->base.id : 0;
++	} else {
++		return -EINVAL;
++	}
++
++	return 0;
++}
++#endif
++
+ static const struct drm_plane_funcs dm_plane_funcs = {
+ 	.update_plane	= drm_atomic_helper_update_plane,
+ 	.disable_plane	= drm_atomic_helper_disable_plane,
+@@ -1419,6 +1489,10 @@ static const struct drm_plane_funcs dm_plane_funcs = {
+ 	.atomic_duplicate_state = dm_drm_plane_duplicate_state,
+ 	.atomic_destroy_state = dm_drm_plane_destroy_state,
+ 	.format_mod_supported = dm_plane_format_mod_supported,
++#ifdef AMD_PRIVATE_COLOR
++	.atomic_set_property = dm_atomic_plane_set_property,
++	.atomic_get_property = dm_atomic_plane_get_property,
++#endif
+ };
+ 
+ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+@@ -1489,6 +1563,9 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+ 
+ 	drm_plane_helper_add(plane, &dm_plane_helper_funcs);
+ 
++#ifdef AMD_PRIVATE_COLOR
++	dm_atomic_plane_attach_color_mgmt_properties(dm, plane);
++#endif
+ 	/* Create (reset) the plane state */
+ 	if (plane->funcs->reset)
+ 		plane->funcs->reset(plane);
 -- 
 2.39.2
 
