@@ -4,113 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8EA6C77B75
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 15:02:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C423AC7EE26
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 15:31:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77BF210E354;
-	Tue, 23 May 2023 15:02:26 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03E5A10E44F
- for <amd-gfx@lists.freedesktop.org>; Tue, 23 May 2023 15:02:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AB1210E21D;
+	Tue, 23 May 2023 15:31:44 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA5C210E21D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 May 2023 15:31:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YCDrVhSvtjx7xF/6T152G2q978h01BZnDyavuTlvlDflNgS8PWm0xugfZ6H9dPMeSQo5OIpTDlFsE1FHISEDxFsgwlIQnEbi8j63oAZViOkM/Rc0D32L9pGTS/p46+ZoYWLQdy1pXFsSQkd7H+viZlTzGMgiIM9DDyVr41474gB99mpTd1zOu8x42AiWIjg/vsIB6JvWt5ibeNhiQ0UOCCFya31kFH2gAP/qkhRrDYMpTsvp1LC/1Etl/34Rz0B/vI8NkjRr9mfguJr8O6lBQS+AYclm1ELCqVg9IXwFSH/g7+io4CzSNxnyy6c2jwnXLsFIqT0saYQozsxrVTWisQ==
+ b=Mtjq1jlGdILd6C/oYlY2wLLTsiQY7DNlYGD2A+8xDzNNrlYXRN8L/7pPNuvRBxpwI4WpO/OR70f6sEP38rsQBc3bg9sXCBTw3H3UZJ3qD+GeLghEwDfBT5/pqAhxFK/lS28x8Frr7eIDxOXtgJUzpnXEMh9seVXRsmBRsctkRPH36Gtc4qBFFePvmhNSbE4SXBBeCIMFcmKgWRBRU3RvJ+ncxZhx9sIMwTu4YjOXM+6PrQkNlKQDoDnfWVzmunAauJqGmKe32Wl17cSkqzgEAXGycNLStoBMNqJ/+1vGKtJss/rorRRWID84H7BAwKRS9ceEOG9oiq5JriECZdW31A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YPtctamLN7h8vT9rgwH7gX0ny5mtBhPEolVPRRt5rbI=;
- b=l/6Vls0chktWmAJn/TML0bCcNqoifAvpPAqULPR4DelBpqqKhIpzqO9iQA58v+nmWfKrb8+rVBcteDkiYQv+N0KaNXX7CZVGLkz7KMpujYJgkL6aGrcl5Q0yd4RhVP/wby+8NBjYDpjaD6WLRTU9oCDmZVtqKC342NflupYsWrD5DEavCteKekGeLFTwPgLLylyKvpzw7XFQbbeXk+JOPy51REUQQTkacyQetJRp9+jG6kyKq6eOcu2EEj+YM38OYSDwWrKhR3SozAVf3H9ltbdQbjgER4GTZkPT1DwmvWSP2/IJEcPAAhJgqF3abJ24wZeC0HWF28+f3WG/b90YWg==
+ bh=8FFBVJYQTd8KAVtxR8iZvIGXV6+fzFUiQdjer2ilSWg=;
+ b=VqeKgor66Zt/v5pkeNjK+4gtVm/6mpDnAaL17QnG4Ln3DrGx7e3tHCdxD97IKi/LSxvD4FwnqD4QQQBD4bkCfAY9ZWpYYCcywldM8lUUvopObNlAR9+I4621xkiyl0ghJ24cF61qaIXbzsfPDEI/g/xlHmbmXdEbWw8R33bGQXNEtamfkFcWaURwC4t9SkI25VPkGHHHp8RciOCCkGLM5Gl/8P9Hw9ymcHpjI8rgQx06zfwWf778NV6Y0gvg7XjQB+mSmwLtKI0MUXOopnJDHbNGn7fK/iWa5zLX3yQiWupk4xqSXV5j6GT0Fb0rEmwABke0ZxG6oWD6bh+ADbxP3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YPtctamLN7h8vT9rgwH7gX0ny5mtBhPEolVPRRt5rbI=;
- b=QND2kt52ZHmQl83cTlGbzwUCVBikK10nAN0Gdc9gmRNXwD3spXs6tYQA3vDQ5HbmMBuVSI1erJ5FukPXg8S1Y022CTrt9pVw1hn1f44Dho9rE1wUEhBAUhzDd0wF9HRzV9NnAfLr112IbEAflPQqtNJNmHmxDi4zAgCZT5vL210=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by SJ2PR12MB7845.namprd12.prod.outlook.com (2603:10b6:a03:4ce::18)
+ bh=8FFBVJYQTd8KAVtxR8iZvIGXV6+fzFUiQdjer2ilSWg=;
+ b=ayrue35VSR1TDX6Ohk8/MOe4yAFMoAB3EzR5qDLrUSWsASY5rwNrUIGi6xZwVLCZwoRynWid4Y0ArgCQEfLmSFcQT2LQn26a2aWW71J6k+NMj6pyy2blFFxb3IZaa+x2exTl9wmxs5YD+3+EzxDUWouAtV4MY9tLGehYFEgv6ZY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by CO6PR12MB5443.namprd12.prod.outlook.com (2603:10b6:303:13a::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Tue, 23 May
- 2023 15:02:21 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::c549:4aeb:a02f:56b2]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::c549:4aeb:a02f:56b2%4]) with mapi id 15.20.6411.028; Tue, 23 May 2023
- 15:02:21 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Huang, Tim" <Tim.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/pm: reverse mclk and fclk clocks levels for renoir
-Thread-Topic: [PATCH] drm/amd/pm: reverse mclk and fclk clocks levels for
- renoir
-Thread-Index: AQHZjTPiCB+aMgUr2E+NSpuSpWtHJK9n9Kk4
-Date: Tue, 23 May 2023 15:02:21 +0000
-Message-ID: <BL1PR12MB5144AFD5ED7D7A6F62FF8707F7409@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20230523050230.2564839-1-Tim.Huang@amd.com>
-In-Reply-To: <20230523050230.2564839-1-Tim.Huang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-05-23T15:02:21.051Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SJ2PR12MB7845:EE_
-x-ms-office365-filtering-correlation-id: 6e292958-7b34-432a-1fb5-08db5b9eb5b7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: naDw3I3IcQPKcQga9uAK6doWazRlVeYhm8qijzHASbbm3CtDUE6+Z4B3LmduJTQKQg1HzNNoyrPCvHtP7tbkRVuaCTKGkX8g2zl+CoXDo7zcgcKoPjdhN2Bk5mh4i1xBFlxKJ1HrRpDVrcGOC8cvLxWFgReG4coUMGxR/1/GJOFwezO0NNMxkeXzCfj6kxSGcYcs6fWQrGOD0Yxdtp27/ovgIgZiwnzoQLEH3ycwpKxqGCHRAlMAvefsw/QAKRT76iL5T5pufrhCUvLF7tassqnfR7P0qZPpmFFXMN9LPp9oIkgV7m3IwnxdRZN1y4wNN4oVwmWSNW+LIq9jGU06dDkyIV3dx8mc5X6Bwx/hAzLiS4tSbcKJY4KvhiG7XylEASFAct1HrAb2rsJnBEIXElfMyfd5gwSRc4DFWd8PxOQEfc3vj3dZE+Rx5aLXApOMKW1Gc5lPv7UPAx3Nn0iUP57RwyBA3nGkc3X6YLuna+OKGy0sOD1tAjgHs1ZzpRrBqK18/oPDaB1cfK3V2oLaHQXSV5cSgyPVxzze7OEUr640P1O5fgn0XVbleHeGDNZI1GKyOX8GlQWqmkx7g5b5ondmcNviXWVuYBz6qnraK0OX4wQcAa1XolRlw+96wyYk
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(136003)(396003)(346002)(376002)(366004)(451199021)(316002)(71200400001)(38070700005)(66556008)(64756008)(66476007)(4326008)(66446008)(66946007)(76116006)(478600001)(19627405001)(110136005)(8676002)(8936002)(7696005)(86362001)(41300700001)(52536014)(5660300002)(38100700002)(26005)(6506007)(33656002)(83380400001)(122000001)(9686003)(53546011)(55016003)(186003)(2906002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mzlCgWzuY0OWm+7cHwiwd9abimCzGRkZ1NdAqgzgcTir6gqkRBljPpSNJNPc?=
- =?us-ascii?Q?T/Z0zTIN1hL2QUGkgMOlWld/LNGZO+GwHVS8Anox0q5V49fKHZvUEMI6ERu2?=
- =?us-ascii?Q?FyjE0Dj8XsV4vhhFdkwjIf+qn1GuzoC+d7zTgVYD5ibZnic0M3HbXkw1cAHt?=
- =?us-ascii?Q?oFkKfTpXikMvQ8ejtJkQd9FECX+xtFyNzGBtYD36HpECrFuYa8PEGDUrpLrC?=
- =?us-ascii?Q?dX6u+cebXuCcreToIXXBjGT3LOuAeL9xpXPkbOOGWUNgjOSESeGq+NC9qJbL?=
- =?us-ascii?Q?ZJuaKp/MA2VNB88qittX1OABOx0s715caHwCX4nDF/9YnAdBr1EBjGIgDhFi?=
- =?us-ascii?Q?FYviKup2uSXR3/nJ9ywldZNUE+XeyObIUNBqpodWT2TokBnfeAsAMnuLVaPh?=
- =?us-ascii?Q?VE3oJQF+WPHcyl86ZvZrnfB2fUy26FOrsxJar82ic5seua4DLwxNFmQNaRIq?=
- =?us-ascii?Q?Qy1Se1x0nLJdsI6f0n1O6SCg+nwPl+RWd6S/vC8y7ycxfLMNnV2hkTaCtWDq?=
- =?us-ascii?Q?dfv7jnm9ftB6PfjQMq/7nooqkcLh4J1frrByS0B9gbxphiffi+fULbv6lay3?=
- =?us-ascii?Q?g3YHw4KWaa7LAPNnO1RLYUmvijLUTnInJ9eDbMcXL3a3PS1ki47SCe/pkMwO?=
- =?us-ascii?Q?oABpG9ZmxFRqiOQDhhcZuVMs4VdSMcqk2ExgAiXpNdSMsKpdBqSI3VEpU7At?=
- =?us-ascii?Q?Sd9iATxq09WbVp9HDaZUpKdLfgWUkrbqsvN97h6n956HO+mmi1CVbMSulVkf?=
- =?us-ascii?Q?WLNuRX1VCykmFoxskO2j3bZYmdeqHmJcmb0Io2y1m126dRclYEkBXk0PLQGP?=
- =?us-ascii?Q?aT2zRxUaUOqB//FI7oIohDATox2lOJ6Fm57uW9ilJ5kQpNGMrhhP13mecNhh?=
- =?us-ascii?Q?8AJHlJ9YzytQCPBwkH4ht3tSj/sZh/OsXMzjRa7ZDjAQh96+qOQuLHjxBBdX?=
- =?us-ascii?Q?TEO8bE+RBc2FdC9RVhLjDEf+R9fH9vPSNpErM9bsAaeklgarObwF0uHiYTwt?=
- =?us-ascii?Q?R9gTWno+ANB51c7et4qRP02OWyMpioZE5iIyJ0h0ue/C8uEqxj2uNDE5ViVD?=
- =?us-ascii?Q?spzMbCJJ7385NyR4RlvzkBGecMFILPMGt4c4hoiopK8lAsgR8u1eyFahtQe6?=
- =?us-ascii?Q?W39T0hmz6QSaVcvJ1yhQfbZHfm+GygRlJiwfsPdXUYQKsU3BY89p1DCvAE7A?=
- =?us-ascii?Q?fhcj2g3PsMgnwK1P5rjFdN1H24+abU2hdjurqIidpCjHyFydicC6Y52kJZbR?=
- =?us-ascii?Q?GSNQ223Ow27o/ZqXkql1pXioKrq513ThEvhPGvalu3L6LPRQ48ZN+vdHyV+1?=
- =?us-ascii?Q?ie8TS2vg7c53+qflOdbraouh7KWL+K10La2yoZtupr2jXMy+72GL13oWmmrC?=
- =?us-ascii?Q?t+DzDMQzOt8jO8YcVozWalTcM/YiJeA/DQYqNWmlb6aAPFBhq67w0ZnuqS6o?=
- =?us-ascii?Q?ww8Qpwxlg9BgKhwGS9Ycd2+N5+k4YeAzAWpoE0g4UxPEomPeq2HYz9a8Y4Xu?=
- =?us-ascii?Q?4SaVWvTp6lN6HHJjnQ42htQsPy3Czjg9O5Rd5I7/9pG4ZN2oZfbxhFT+lH00?=
- =?us-ascii?Q?kl5zgW6Fe15WbpsnPuU=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144AFD5ED7D7A6F62FF8707F7409BL1PR12MB5144namp_"
+ 2023 15:31:39 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::4d3e:94ab:56ef:6e11]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::4d3e:94ab:56ef:6e11%3]) with mapi id 15.20.6411.028; Tue, 23 May 2023
+ 15:31:39 +0000
+Message-ID: <cff1d185-4cd6-f7df-e79c-03515d6cbd60@amd.com>
+Date: Tue, 23 May 2023 11:31:36 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 2/2] Revert "drm/amd/display: Do not set drr on pipe
+ commit"
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20230522130823.769236-1-michel@daenzer.net>
+ <20230522130823.769236-2-michel@daenzer.net>
+Content-Language: en-US, en-CA
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+In-Reply-To: <20230522130823.769236-2-michel@daenzer.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0229.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:66::35) To CH0PR12MB5284.namprd12.prod.outlook.com
+ (2603:10b6:610:d7::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5284:EE_|CO6PR12MB5443:EE_
+X-MS-Office365-Filtering-Correlation-Id: dcc2410b-7666-499d-bf9f-08db5ba2cd42
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: L2E6FPt6mKAvO07wLPcEQOOIhVd9d4JouXxxevIXSznTBdmF7D5TUqDWBTW7pbdSjkvEVZTqi96EoC+f6omgSq6yqcEh/ekBsDKibmay4EYInMGQhV/JFt4q3R1RlTk/rX+Qaap3XhFNsjU54X/W7vhUBtBq8i5Mm5ZKV8gSDUHEBY/Ea8p1m3AG5phjy7V1D5BRRnXjROt1l4HoCwC50ztxZtEbtruLVdHuK71B3okPuFgZvlbNdmZNKD8Qd/TV30A8yEz7zUERZk4D/h4uRhM9A+Lqr5/OzHIhg47nbsOc/Xhdw4F6Rs66WoMeeGtRkkEqJC4lpFLaJN7knovbvJ6CDd7gQqhue3tRcjRF/cGPUTOg9s36MFM6zjZ09jo7e1gBcnnqbsRxFEKqwwX/vPmrBuldYjo4uBQSF44J/Mv4aQKhjDubTq+QBTQD3MDPrn4SoJylZT1t/q0IWTwNnhYLmo+o6b+LX+GS6ZQkb8az92mXxwtImyQ8cJ+ZgkYK3ZhxplP4nauuvMWvJcF65Trh3fdCIolEfSb1KXkJRPiYMKQJraonrWelErG10hHkmUQLSzVRQyCLP0RZO2SK8QidKHsfrgs/0T7m7czRNOsukY1aF6g9fv7/YWvS5bxXbE16d5Ay/y+tOUKzmq9KCg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(396003)(366004)(376002)(39860400002)(346002)(451199021)(478600001)(66476007)(66946007)(66556008)(6636002)(4326008)(31686004)(31696002)(6486002)(41300700001)(110136005)(6666004)(316002)(54906003)(5660300002)(8936002)(8676002)(86362001)(38100700002)(44832011)(6506007)(6512007)(26005)(186003)(53546011)(83380400001)(2906002)(2616005)(36756003)(66574015)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UW9nZnFQb1AzZVNWQkdISm9lc3VtL0x4VEFuWDhzVUFBMTI1WVZ5ZkdGTm55?=
+ =?utf-8?B?anpFMDJMZlAzSk1uV1dSUEE1ZkRJUWh6Y3Q0TkJQU3d2cS96cDA2cElLUXVM?=
+ =?utf-8?B?R2ZzOXZrdU9wc3h3Vyt0NmNOYzRpcU1ZTW9ENk1MNWhpRW9Kb3RlSkNDT3E4?=
+ =?utf-8?B?Q3ZCSThUZEI4b1d6TXFRY1Z4S3c3Z2psb0dBZmJzY0Z1SDlnWGZPZm53K2th?=
+ =?utf-8?B?ZnFSOCsrNHN0M2NueVNpZ0JFNEc2K05yK3VkRGNMalk2NkI4bktRQnlnVGxB?=
+ =?utf-8?B?QUZPQUdaQUtuMFJDcEh4Z0RaQjdzWExlODcrSzBZMkt5MSt5SXRlcks0Qkpr?=
+ =?utf-8?B?UmV5a1lpNHA2UEExQncyYU5TS2ZOWDBzWmJSYmlzQ3NRcHc1ZkNYWkZjUGlp?=
+ =?utf-8?B?blJVSmU1RXY4dlk5NzVxMnJmS1psQkpnb0V5YmhIdU9MNmE1Skt4eEhkZHVx?=
+ =?utf-8?B?UjFHR3BZbFc5UWVQakFwQlZBU1RnNWp5aTRwQ2dOY2lBTHF3aFpmZ1kyUnRE?=
+ =?utf-8?B?QjNQSVU2QWtxNEFpTlRNczF2VFpiNDI1VHVNNXpSM1FpNGJLR0x1Z1dQbWFt?=
+ =?utf-8?B?bjRLL2d2b2Vic1BQK0pDSWZ1MDU2SU9IUlJlcVR6SUhlaDVtZnpvcWN0RW96?=
+ =?utf-8?B?d3JpcFJiRlFFZDNiWWsrSHlMSXRvc3VySWpEcHpKM2lqS3huTFBUWWtHWkFJ?=
+ =?utf-8?B?SW4wdDZZczRham5XSVdyYkpPajNBWTVLUjRQN0hza3NqdmpLMDJqYTAwcUdD?=
+ =?utf-8?B?V3c5SlFoanZCUWFjK0Z1NUw3dE5xSmVNZ0pYcHg3U1l2dk1STmxrY2pXZzJj?=
+ =?utf-8?B?Qk5uby95b1VCYWRmdFZ2d0RUK0EzUDhtR0Z5RkpZK1lwNlh4S2pDY0MxaHBB?=
+ =?utf-8?B?dTUrekxVWnZ1TlRXVzdDUVVDZGsvaEx1Tm94dXRiOUo5TzlGU3kydHFqMkdp?=
+ =?utf-8?B?YnF1ZG9hemdiZXUvN0s4YUlGam5WVUVNQ2hxM2dzdU9IK3V0cTNwS2oxQW9I?=
+ =?utf-8?B?TjQ2WkxTR0RUVjAzREFUaE9xNnIwQnVqZ3FjcWpMRlpWUjhneGdVY1BLOXB4?=
+ =?utf-8?B?SGo2bVlTRE5NTTNLOS8wMk9rN3djT1A5ZlptN0ZRY2lNa1IwckErQ0o3UUh6?=
+ =?utf-8?B?dUNudWNmM3IxVng5a1M0UGp0Wm4rcWcwcG5Ta0RUQXdpQnY5RHJzWHlkRWlL?=
+ =?utf-8?B?ZHAyc3p4bHFTMTg3VnpjVlhhR1c0MHVQT1g3YmR4L3NIM205d3pxeHBaRjFX?=
+ =?utf-8?B?MzAvRzNuRXZWZkdXTVpST0o3dmdlc1E2SVJLUmMvMjVVKzZtNVR5RVhZKy9G?=
+ =?utf-8?B?Nmh3K0xxaW8wMnZXejRUQm0xZWxIRHdsRlNsMUVFOFlKRmg1SUJ1bHRDcG9u?=
+ =?utf-8?B?U0JnSTZpQzlWQjJvK3FseUlpMnBOWDZqZzRldDJGZlJiZFc2eWpOejJnWUxP?=
+ =?utf-8?B?TXRaaUQ3blI5K2RkMVpHVWxKa080U3FpOVpBRlpzM0NteUh3ZDkxcnZXbHdM?=
+ =?utf-8?B?WmtxUWRiYWJiT1VyaXozZzB0NjFtV2dRMy9jY21zQzlzOEhVR3U3bys1azlH?=
+ =?utf-8?B?Skk1dHpuemIvOUZNN0p5WWJUTDFCVU1odys5aU5ZOUxlRFl2QkdWQy91Nm9h?=
+ =?utf-8?B?dkxlRWtnMHRKblN0YnkybTJmTmlUVmJhRFlBbWIwMnpVSHEycWRaaGpHZDI3?=
+ =?utf-8?B?bVdRM095WUdPUzlLT0wyNWUzd1FMUzl5bXkzMW14amIxNGtqLzFUajFmdlUr?=
+ =?utf-8?B?OHhYNlZzVjdTaTFFNkMydktYbTByNTd2dHVJZGJZc3ZPYzh4SUpaOU5DdGNL?=
+ =?utf-8?B?bmt0SUM1VjVOTEFZRWFjcldPMC80K1U4OXpXRTNjWTNqZG9ncnRmN3Jtbzc0?=
+ =?utf-8?B?TmdlVHpBQ3B3OUhiNXRReXRNMTVTTlFwdU1ycUhmOXRVeUdva0dudG04L3Ri?=
+ =?utf-8?B?R0lFZUNORUUreVVVR2lBTHFsNnVwaFRCWkZjdzZjalJrMW9KQmFqbHFITEZ4?=
+ =?utf-8?B?NGwrUDMvQkllZ1dsa2QzTmZ4eFh4VStnYlRHUDR2YytudWl2QXdaaFFkMmU2?=
+ =?utf-8?B?OWRkdUNrY25JU3BZM0cxNm9yemp2dk1jdWJpajZBWTVYTEtreTdyNUJLMElR?=
+ =?utf-8?Q?75vY6P7I4ZVu4dIX6rmaRbc/5?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcc2410b-7666-499d-bf9f-08db5ba2cd42
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e292958-7b34-432a-1fb5-08db5b9eb5b7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 May 2023 15:02:21.4216 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YOuqlPX9nwJJ9665GC6qCWB7I/e0GlghM7UhNq6XhDsfNzD6SxSgtz/lEhU91Jhh5w236q2SXcq2YDAeNi0O1w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7845
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2023 15:31:39.2074 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iBb9s4a3zrJBLAf3JvFrqD+rZTmRfJVvH0V6Fs+bT4Ozn+GdhcHJyuoVEHz5ATModcGyhqFeeB9cLlYPDhYE1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5443
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,189 +126,107 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+Cc: Wesley Chalmers <Wesley.Chalmers@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Qingqing Zhuo <Qingqing.Zhuo@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144AFD5ED7D7A6F62FF8707F7409BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-[AMD Official Use Only - General]
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Huang, Tim <Tim.Huang@amd.com>
-Sent: Tuesday, May 23, 2023 1:02 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zh=
-ang@amd.com>; Huang, Tim <Tim.Huang@amd.com>
-Subject: [PATCH] drm/amd/pm: reverse mclk and fclk clocks levels for renoir
-
-This patch reverses the DPM clocks levels output of pp_dpm_mclk
-and pp_dpm_fclk for renoir.
-
-On dGPUs and older APUs we expose the levels from lowest clocks
-to highest clocks. But for some APUs, the clocks levels are
-given the reversed orders by PMFW. Like the memory DPM clocks
-that are exposed by pp_dpm_mclk.
-
-It's not intuitive that they are reversed on these APUs. All tools
-and software that talks to the driver then has to know different ways
-to interpret the data depending on the asic.
-
-So we need to reverse them to expose the clocks levels from the
-driver consistently.
-
-Signed-off-by: Tim Huang <Tim.Huang@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/=
-drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index 5cdc07165480..8a8ba25c9ad7 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -494,7 +494,7 @@ static int renoir_set_fine_grain_gfx_freq_parameters(st=
-ruct smu_context *smu)
- static int renoir_print_clk_levels(struct smu_context *smu,
-                         enum smu_clk_type clk_type, char *buf)
- {
--       int i, size =3D 0, ret =3D 0;
-+       int i, idx, size =3D 0, ret =3D 0;
-         uint32_t cur_value =3D 0, value =3D 0, count =3D 0, min =3D 0, max=
- =3D 0;
-         SmuMetrics_t metrics;
-         struct smu_dpm_context *smu_dpm_ctx =3D &(smu->smu_dpm);
-@@ -594,7 +594,8 @@ static int renoir_print_clk_levels(struct smu_context *=
-smu,
-         case SMU_VCLK:
-         case SMU_DCLK:
-                 for (i =3D 0; i < count; i++) {
--                       ret =3D renoir_get_dpm_clk_limited(smu, clk_type, i=
-, &value);
-+                       idx =3D (clk_type =3D=3D SMU_FCLK || clk_type =3D=
-=3D SMU_MCLK) ? (count - i - 1) : i;
-+                       ret =3D renoir_get_dpm_clk_limited(smu, clk_type, i=
-dx, &value);
-                         if (ret)
-                                 return ret;
-                         if (!value)
---
-2.34.1
-
-
---_000_BL1PR12MB5144AFD5ED7D7A6F62FF8707F7409BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Huang, Tim &lt;Tim.Hu=
-ang@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, May 23, 2023 1:02 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Yif=
-an &lt;Yifan1.Zhang@amd.com&gt;; Huang, Tim &lt;Tim.Huang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/pm: reverse mclk and fclk clocks levels for=
- renoir</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This patch reverses the DPM clocks levels output o=
-f pp_dpm_mclk<br>
-and pp_dpm_fclk for renoir.<br>
-<br>
-On dGPUs and older APUs we expose the levels from lowest clocks<br>
-to highest clocks. But for some APUs, the clocks levels are<br>
-given the reversed orders by PMFW. Like the memory DPM clocks<br>
-that are exposed by pp_dpm_mclk.<br>
-<br>
-It's not intuitive that they are reversed on these APUs. All tools<br>
-and software that talks to the driver then has to know different ways<br>
-to interpret the data depending on the asic.<br>
-<br>
-So we need to reverse them to expose the clocks levels from the<br>
-driver consistently.<br>
-<br>
-Signed-off-by: Tim Huang &lt;Tim.Huang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c | 5 +++--<br>
-&nbsp;1 file changed, 3 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/=
-drm/amd/pm/swsmu/smu12/renoir_ppt.c<br>
-index 5cdc07165480..8a8ba25c9ad7 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c<br>
-@@ -494,7 +494,7 @@ static int renoir_set_fine_grain_gfx_freq_parameters(st=
-ruct smu_context *smu)<br>
-&nbsp;static int renoir_print_clk_levels(struct smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum =
-smu_clk_type clk_type, char *buf)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, size =3D 0, ret =3D 0;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, idx, size =3D 0, ret =3D 0;<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t cur_value =3D 0, =
-value =3D 0, count =3D 0, min =3D 0, max =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t metrics;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_dpm_context *sm=
-u_dpm_ctx =3D &amp;(smu-&gt;smu_dpm);<br>
-@@ -594,7 +594,8 @@ static int renoir_print_clk_levels(struct smu_context *=
-smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_VCLK:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_DCLK:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; count; i++) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D renoir_g=
-et_dpm_clk_limited(smu, clk_type, i, &amp;value);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; idx =3D (clk_typ=
-e =3D=3D SMU_FCLK || clk_type =3D=3D SMU_MCLK) ? (count - i - 1) : i;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D renoir_g=
-et_dpm_clk_limited(smu, clk_type, idx, &amp;value);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r=
-et)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!=
-value)<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB5144AFD5ED7D7A6F62FF8707F7409BL1PR12MB5144namp_--
+On 5/22/23 09:08, Michel Dänzer wrote:
+> From: Michel Dänzer <mdaenzer@redhat.com>
+> 
+> This reverts commit 474f01015ffdb74e01c2eb3584a2822c64e7b2be.
+> 
+> Caused a regression:
+> 
+> Samsung Odyssey Neo G9, running at 5120x1440@240/VRR, connected to Navi
+> 21 via DisplayPort, blanks and the GPU hangs while starting the Steam
+> game Assetto Corsa Competizione (via Proton 7.0).
+> 
+> Example dmesg excerpt:
+> 
+>  amdgpu 0000:0c:00.0: [drm] ERROR [CRTC:82:crtc-0] flip_done timed out
+>  NMI watchdog: Watchdog detected hard LOCKUP on cpu 6
+>  [...]
+>  RIP: 0010:amdgpu_device_rreg.part.0+0x2f/0xf0 [amdgpu]
+>  Code: 41 54 44 8d 24 b5 00 00 00 00 55 89 f5 53 48 89 fb 4c 3b a7 60 0b 00 00 73 6a 83 e2 02 74 29 4c 03 a3 68 0b 00 00 45 8b 24 24 <48> 8b 43 08 0f b7 70 3e 66 90 44 89 e0 5b 5d 41 5c 31 d2 31 c9 31
+>  RSP: 0000:ffffb39a119dfb88 EFLAGS: 00000086
+>  RAX: ffffffffc0eb96a0 RBX: ffff9e7963dc0000 RCX: 0000000000007fff
+>  RDX: 0000000000000000 RSI: 0000000000004ff6 RDI: ffff9e7963dc0000
+>  RBP: 0000000000004ff6 R08: ffffb39a119dfc40 R09: 0000000000000010
+>  R10: ffffb39a119dfc40 R11: ffffb39a119dfc44 R12: 00000000000e05ae
+>  R13: 0000000000000000 R14: ffff9e7963dc0010 R15: 0000000000000000
+>  FS:  000000001012f6c0(0000) GS:ffff9e805eb80000(0000) knlGS:000000007fd40000
+>  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>  CR2: 00000000461ca000 CR3: 00000002a8a20000 CR4: 0000000000350ee0
+>  Call Trace:
+>   <TASK>
+>   dm_read_reg_func+0x37/0xc0 [amdgpu]
+>   generic_reg_get2+0x22/0x60 [amdgpu]
+>   optc1_get_crtc_scanoutpos+0x6a/0xc0 [amdgpu]
+>   dc_stream_get_scanoutpos+0x74/0x90 [amdgpu]
+>   dm_crtc_get_scanoutpos+0x82/0xf0 [amdgpu]
+>   amdgpu_display_get_crtc_scanoutpos+0x91/0x190 [amdgpu]
+>   ? dm_read_reg_func+0x37/0xc0 [amdgpu]
+>   amdgpu_get_vblank_counter_kms+0xb4/0x1a0 [amdgpu]
+>   dm_pflip_high_irq+0x213/0x2f0 [amdgpu]
+>   amdgpu_dm_irq_handler+0x8a/0x200 [amdgpu]
+>   amdgpu_irq_dispatch+0xd4/0x220 [amdgpu]
+>   amdgpu_ih_process+0x7f/0x110 [amdgpu]
+>   amdgpu_irq_handler+0x1f/0x70 [amdgpu]
+>   __handle_irq_event_percpu+0x46/0x1b0
+>   handle_irq_event+0x34/0x80
+>   handle_edge_irq+0x9f/0x240
+>   __common_interrupt+0x66/0x110
+>   common_interrupt+0x5c/0xd0
+>   asm_common_interrupt+0x22/0x40
+> 
+> Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 6 ------
+>  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 7 -------
+>  2 files changed, 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> index 6ce10fd4bb1a..5403e9399a46 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> @@ -2113,12 +2113,6 @@ void dcn20_optimize_bandwidth(
+>  	if (hubbub->funcs->program_compbuf_size)
+>  		hubbub->funcs->program_compbuf_size(hubbub, context->bw_ctx.bw.dcn.compbuf_size_kb, true);
+>  
+> -	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching) {
+> -		dc_dmub_srv_p_state_delegate(dc,
+> -			true, context);
+> -		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
+> -	}
+> -
+>  	dc->clk_mgr->funcs->update_clocks(
+>  			dc->clk_mgr,
+>  			context,
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> index 0411867654dd..0e071fbc9154 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> @@ -985,18 +985,11 @@ void dcn30_set_disp_pattern_generator(const struct dc *dc,
+>  void dcn30_prepare_bandwidth(struct dc *dc,
+>   	struct dc_state *context)
+>  {
+> -	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching) {
+> -		dc->optimized_required = true;
+> -		context->bw_ctx.bw.dcn.clk.p_state_change_support = false;
+> -	}
+> -
+>  	if (dc->clk_mgr->dc_mode_softmax_enabled)
+>  		if (dc->clk_mgr->clks.dramclk_khz <= dc->clk_mgr->bw_params->dc_mode_softmax_memclk * 1000 &&
+>  				context->bw_ctx.bw.dcn.clk.dramclk_khz > dc->clk_mgr->bw_params->dc_mode_softmax_memclk * 1000)
+>  			dc->clk_mgr->funcs->set_max_memclk(dc->clk_mgr, dc->clk_mgr->bw_params->clk_table.entries[dc->clk_mgr->bw_params->clk_table.num_entries - 1].memclk_mhz);
+>  
+>  	dcn20_prepare_bandwidth(dc, context);
+> -
+> -	dc_dmub_srv_p_state_delegate(dc, false, context);
+>  }
+>  
