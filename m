@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53CEFC77B75
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 09:25:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AAF2C7EE23
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 09:25:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE09110E403;
-	Tue, 23 May 2023 09:25:03 +0000 (UTC)
-Received: from out30-118.freemail.mail.aliyun.com
- (out30-118.freemail.mail.aliyun.com [115.124.30.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61B6310E3B5;
- Tue, 23 May 2023 02:18:35 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R151e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046049;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=13; SR=0;
- TI=SMTPD_---0VjI8heJ_1684808293; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C68110E414;
+	Tue, 23 May 2023 09:25:04 +0000 (UTC)
+Received: from out30-112.freemail.mail.aliyun.com
+ (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E835C10E09E;
+ Tue, 23 May 2023 03:32:16 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R921e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046056;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
+ TI=SMTPD_---0VjIH3CS_1684812723; 
 Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VjI8heJ_1684808293) by smtp.aliyun-inc.com;
- Tue, 23 May 2023 10:18:29 +0800
+ fp:SMTPD_---0VjIH3CS_1684812723) by smtp.aliyun-inc.com;
+ Tue, 23 May 2023 11:32:11 +0800
 From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: Remove duplicate include
-Date: Tue, 23 May 2023 10:18:11 +0800
-Message-Id: <20230523021811.122014-1-jiapeng.chong@linux.alibaba.com>
+To: christian.koenig@amd.com
+Subject: [PATCH] drm/amdgpu/vcn: Modify mismatched function name
+Date: Tue, 23 May 2023 11:32:02 +0800
+Message-Id: <20230523033202.109828-1-jiapeng.chong@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -42,34 +42,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Xinhui.Pan@amd.com,
  Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, airlied@gmail.com, christian.koenig@amd.com,
- linux-media@vger.kernel.org
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, airlied@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-./drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c: amdgpu_xcp.h is included more than once.
+No functional modification involved.
+
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c:374: warning: expecting prototype for vcn_v4_0_mc_resume_dpg_mode(). Prototype was for vcn_v4_0_3_mc_resume_dpg_mode() instead.
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c:631: warning: expecting prototype for vcn_v4_0_enable_clock_gating(). Prototype was for vcn_v4_0_3_enable_clock_gating() instead.
 
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=5281
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=5284
 Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index e5cfb3adb3b3..7fb2d38b010a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -23,7 +23,6 @@
- #include <linux/firmware.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+index 339842382a1e..5d67b8b8a3d6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+@@ -362,7 +362,7 @@ static void vcn_v4_0_3_mc_resume(struct amdgpu_device *adev, int inst_idx)
+ }
  
- #include "amdgpu.h"
--#include "amdgpu_xcp.h"
- #include "amdgpu_gfx.h"
- #include "soc15.h"
- #include "soc15d.h"
+ /**
+- * vcn_v4_0_mc_resume_dpg_mode - memory controller programming for dpg mode
++ * vcn_v4_0_3_mc_resume_dpg_mode - memory controller programming for dpg mode
+  *
+  * @adev: amdgpu_device pointer
+  * @inst_idx: instance number index
+@@ -620,7 +620,7 @@ static void vcn_v4_0_3_disable_clock_gating_dpg_mode(struct amdgpu_device *adev,
+ }
+ 
+ /**
+- * vcn_v4_0_enable_clock_gating - enable VCN clock gating
++ * vcn_v4_0_3_enable_clock_gating - enable VCN clock gating
+  *
+  * @adev: amdgpu_device pointer
+  * @inst_idx: instance number
 -- 
 2.20.1.7.g153144c
 
