@@ -4,46 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04717C7EE29
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:16:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B62E8C77B75
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:21:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB2C910E53C;
-	Tue, 23 May 2023 22:16:35 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B0A910E51D;
- Tue, 23 May 2023 22:16:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=af94/euIO17GZwRLpMh7aUNx8dFTRDM58jRBr36yITE=; b=HFywAbswW3Gcg9r1jV+72Nlhd2
- eRoJaQYXEInxXwWr/vN8uVaVuvaVuDzVvWoyUSt7jYCvr75oqr2rmyNMF2HVTExNXzt7b8VXqScfo
- bQiU1Q1il77PN0zQ0drpOX94kxYU+7nfvKv1ahsZeO7jaMv8BtJ8MS6P3Z/NUblLSQuHiw4pgIRGC
- ufhMv93aG7zdPG29kw11xkbeB7AGzM7i8yKjvT3fPOvSvtxC/ej9En4hacH0L+Pr/lXzuXip2s5Hn
- npjdM9V7Nm0VDYlY7lQR5QF/4W0xDZAzccdsG2BB/PJ+2UzJfdvY4ezRMjx/3qw0ODpacmrPTR3qs
- E/Y7SYLA==;
-Received: from [38.44.72.37] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1q1aIV-00HEOv-9L; Wed, 24 May 2023 00:16:03 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-Subject: [PATCH 26/36] drm/amd/display: mark plane as needing reset if plane
- color mgmt changes
-Date: Tue, 23 May 2023 21:15:10 -0100
-Message-Id: <20230523221520.3115570-27-mwen@igalia.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230523221520.3115570-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65E3E10E535;
+	Tue, 23 May 2023 22:21:29 +0000 (UTC)
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9381210E535
+ for <amd-gfx@lists.freedesktop.org>; Tue, 23 May 2023 22:21:28 +0000 (UTC)
+Date: Tue, 23 May 2023 22:21:02 +0000
+Authentication-Results: mail-4321.protonmail.ch;
+ dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
+ header.b="Q1e7QkDV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail; t=1684880464; x=1685139664;
+ bh=zRwWsMDd5Kf2yQpedEA3Ka2dLpgNvYvwuOL0uYq4mxY=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=Q1e7QkDV5Zacu07sYQ6VrJy6cddZnmEZQWUwJlA0IkQ2Dp+cc63CuXDJKddL4dmzg
+ FRTg0R/s5sPxJYRKUgVSG7MEcskIAhZEj3e/jMGLeNN2fPmAepkvu8EQY4Y2l4vvUj
+ ywSQ0w3psCVuNM1w1mlS95faA50I6N8DTnS3JesReu3qKKHRRPB1bxKj65iTAi2aoG
+ KTXSUckbouWzTtewuw4YlKHYLb5DX+4CUN33vafnrFiP6LptMufPOIvPgq4vdPQ7gp
+ kcrxOaz8lyC+kn41DXaJ2XRK68+YUr1AdDfjS6oQ8e5KrJT+oLh6r+KSWOWjDtVeQx
+ hyCkUxZ+59GwQ==
+To: Melissa Wen <mwen@igalia.com>
+From: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH 01/36] drm/drm_mode_object: increase max objects to
+ accommodate new color props
+Message-ID: <V7P7Qs7O1XEpNUGXDkkpL6rV2Y2jJ60PhjEL7-qetMKUv6YF2C1leKhKS5zAj1qG8tkBcTqoHFhN_gW1SWaI9FwsQn1uzuvyZcreV6MwGPY=@emersion.fr>
+In-Reply-To: <20230523221520.3115570-2-mwen@igalia.com>
 References: <20230523221520.3115570-1-mwen@igalia.com>
+ <20230523221520.3115570-2-mwen@igalia.com>
+Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,41 +51,18 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
- Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
- kernel-dev@igalia.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+Cc: mripard@kernel.org, kernel-dev@igalia.com,
+ Sebastian Wick <sebastian.wick@redhat.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, daniel@ffwll.ch,
+ Shashank Sharma <Shashank.Sharma@amd.com>, sunpeng.li@amd.com,
+ maarten.lankhorst@linux.intel.com, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org,
+ Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org,
+ tzimmermann@suse.de, Alex Deucher <alexander.deucher@amd.com>,
+ airlied@gmail.com, Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
  Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We took a similar path for CRTC color mgmt changes, since we remap CRTC
-degamma to plane/DPP block. Here we can use the status of
-`plane->color_mgmt_changed` to detect when a plane color property
-changed and recreate the plane accordingly.
-
-Co-developed-by: Joshua Ashton <joshua@froggi.es>
-Signed-off-by: Joshua Ashton <joshua@froggi.es>
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a6dd982d7e77..b048c0267670 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9471,6 +9471,9 @@ static bool should_reset_plane(struct drm_atomic_state *state,
- 	if (drm_atomic_crtc_needs_modeset(new_crtc_state))
- 		return true;
- 
-+	if (new_plane_state->color_mgmt_changed)
-+		return true;
-+
- 	/*
- 	 * If there are any new primary or overlay planes being added or
- 	 * removed then the z-order can potentially change. To ensure
--- 
-2.39.2
-
+Reviewed-by: Simon Ser <contact@emersion.fr>
