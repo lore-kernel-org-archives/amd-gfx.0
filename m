@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 325BFC77B75
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:16:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC7FC7EE29
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:16:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A221310E51E;
-	Tue, 23 May 2023 22:15:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FA0610E51A;
+	Tue, 23 May 2023 22:16:00 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 951D310E50E;
- Tue, 23 May 2023 22:15:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B973C10E50D;
+ Tue, 23 May 2023 22:15:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,26 +19,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=eKdsGw8gsNuCvESmWYB83mfrbAbOlPlV0OoQb9gBGYg=; b=cJvWao2tEVZ088+Y2FtaiCLXcC
- ciOIC71/F+gsAxGdFxgkygwHZjeebh/IOmekxKYDYTfe9V8+wFQ78A3L3+/IrNimH3OtL7ulcgJaZ
- MlOTEaOFifpynP6+wpJwAN6O7BjUpbHZ2ka69c0Bz6Uj2mIm+T/5TsBP22WbwDqnsEJVvUnY8u9HF
- D/q+BnFSw+VcCLpSsD9ckyeFHVbsm5kQFLjUK47+sVY2yEkuOhRgEoHzQroQHIHziqsuXkODYvS6+
- ImAQw27eO+Z/lytTL4lHxoAQy3WnXPP6iQDBYnraZejGSwhriWhbi0hg3NvhDQKq2plD9f3yw7JWk
- v5D/Qw1Q==;
+ bh=a1P/4SS1llUWrC9rXM1+Q9ln8xr6omFKwtRilHuxGfE=; b=J6L1Q5fz1JXoisXCZy+sy5oQHz
+ 2iN/Hq4jNGKTqnTAorBn1hBW2PzspLYzUJuZ9EMzdFwowdkupyiBDRR+Lg385vZ2DDQWdOej4YA/C
+ ciR/gbvRxiQKRHLskVdq8V44UfjVKbNRDdwS11gfWsbWQj2jTSnoWPcJW4xYELE8J7siqBCHHC911
+ a/rAvsNYb4lty7w1hl0Esna2K3KlAbiBipoITNHIzA4Fk85Uer5Vx+PFoK9FabVNqj2J09VMqIEwD
+ 27TF9FZ6+UjYZmyB/RFZoEppGwHmBDBlh6k6o7N4g3GQ+f/YTkrNK2OrQNc34LE3MyzD/xWQ2u+Nm
+ zhKSaRLQ==;
 Received: from [38.44.72.37] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1q1aIK-00HEOv-EL; Wed, 24 May 2023 00:15:52 +0200
+ id 1q1aIF-00HEOv-PS; Wed, 24 May 2023 00:15:47 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH 19/36] drm/amd/display: handle MPC 3D LUT resources for a
- given context
-Date: Tue, 23 May 2023 21:15:03 -0100
-Message-Id: <20230523221520.3115570-20-mwen@igalia.com>
+Subject: [PATCH 16/36] drm/amd/display: update lut3d and shaper lut to stream
+Date: Tue, 23 May 2023 21:15:00 -0100
+Message-Id: <20230523221520.3115570-17-mwen@igalia.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230523221520.3115570-1-mwen@igalia.com>
 References: <20230523221520.3115570-1-mwen@igalia.com>
@@ -64,87 +63,44 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In the original dc_acquire_release_mpc_3dlut(), only current ctx is
-considered, which doesn't fit the steps for atomic checking new ctx.
-Therefore, create a function to handle 3D LUT resource for a given
-context, so that we can check resources availability in atomic_check
-time and handle failures properly.
+It follows the same path of out_transfer_func for stream updates, since
+shaper LUT and 3D LUT is programmed in funcs.set_output_transfer_func()
+and this function is called in the atomic commit_tail when
+update_flags.bits.out_tf is set.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 39 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h      |  8 +++++
- 2 files changed, 47 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 8e8da8c0f8cc..542a8fb26c24 100644
+index f864fd3b6f29..8e8da8c0f8cc 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2129,6 +2129,45 @@ bool dc_acquire_release_mpc_3dlut(
- 	return ret;
- }
+@@ -2609,7 +2609,7 @@ static enum surface_update_type check_update_surfaces_for_stream(
+ 			stream_update->integer_scaling_update)
+ 			su_flags->bits.scaling = 1;
  
-+bool
-+dc_acquire_release_mpc_3dlut_for_ctx(struct dc *dc,
-+				     bool acquire,
-+				     struct dc_state *state,
-+				     struct dc_stream_state *stream,
-+				     struct dc_3dlut **lut,
-+				     struct dc_transfer_func **shaper)
-+{
-+	int pipe_idx;
-+	bool ret = false;
-+	bool found_pipe_idx = false;
-+	const struct resource_pool *pool = dc->res_pool;
-+	struct resource_context *res_ctx = &state->res_ctx;
-+	int mpcc_id = 0;
-+
-+	if (pool && res_ctx) {
-+		if (acquire) {
-+			/*find pipe idx for the given stream*/
-+			for (pipe_idx = 0; pipe_idx < pool->pipe_count; pipe_idx++) {
-+				if (res_ctx->pipe_ctx[pipe_idx].stream == stream) {
-+					found_pipe_idx = true;
-+					mpcc_id = res_ctx->pipe_ctx[pipe_idx].plane_res.hubp->inst;
-+					break;
-+				}
-+			}
-+		} else
-+			found_pipe_idx = true;/*for release pipe_idx is not required*/
-+
-+		if (found_pipe_idx) {
-+			if (acquire && pool->funcs->acquire_post_bldn_3dlut)
-+				ret = pool->funcs->acquire_post_bldn_3dlut(res_ctx, pool, mpcc_id, lut, shaper);
-+			else if (!acquire && pool->funcs->release_post_bldn_3dlut)
-+				ret = pool->funcs->release_post_bldn_3dlut(res_ctx, pool, lut, shaper);
-+		}
-+	}
-+	return ret;
-+}
-+
-+
- static bool is_flip_pending_in_pipes(struct dc *dc, struct dc_state *context)
- {
- 	int i;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 2dff1a5cf3b1..b307d95f5dd4 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1365,6 +1365,14 @@ bool dc_acquire_release_mpc_3dlut(
- 		struct dc_3dlut **lut,
- 		struct dc_transfer_func **shaper);
+-		if (stream_update->out_transfer_func)
++		if (stream_update->out_transfer_func || stream_update->lut3d_func)
+ 			su_flags->bits.out_tf = 1;
  
-+bool
-+dc_acquire_release_mpc_3dlut_for_ctx(struct dc *dc,
-+				     bool acquire,
-+				     struct dc_state *state,
-+				     struct dc_stream_state *stream,
-+				     struct dc_3dlut **lut,
-+				     struct dc_transfer_func **shaper);
+ 		if (stream_update->abm_level)
+@@ -2961,6 +2961,14 @@ static void copy_stream_update_to_stream(struct dc *dc,
+ 		       sizeof(struct dc_transfer_func_distributed_points));
+ 	}
+ 
++	if (update->func_shaper &&
++	    stream->func_shaper != update->func_shaper)
++		stream->func_shaper = update->func_shaper;
 +
- void dc_resource_state_copy_construct(
- 		const struct dc_state *src_ctx,
- 		struct dc_state *dst_ctx);
++	if (update->lut3d_func &&
++	    stream->lut3d_func != update->lut3d_func)
++		stream->lut3d_func = update->lut3d_func;
++
+ 	if (update->hdr_static_metadata)
+ 		stream->hdr_static_metadata = *update->hdr_static_metadata;
+ 
 -- 
 2.39.2
 
