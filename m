@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF5DEC7EE2D
-	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 15:56:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8CC4C7EE26
+	for <amd-gfx@archiver.kernel.org>; Tue, 23 May 2023 15:57:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BF4610E45D;
-	Tue, 23 May 2023 15:56:05 +0000 (UTC)
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6FFC10E05B;
- Tue, 23 May 2023 15:56:03 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id
- 5614622812f47-3980f2df1e7so1413181b6e.1; 
- Tue, 23 May 2023 08:56:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3332610E464;
+	Tue, 23 May 2023 15:57:17 +0000 (UTC)
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDC0210E464;
+ Tue, 23 May 2023 15:57:15 +0000 (UTC)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-1962e7284baso5455917fac.3; 
+ Tue, 23 May 2023 08:57:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684857362; x=1687449362;
+ d=gmail.com; s=20221208; t=1684857434; x=1687449434;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=feR7RDbEdLIuOxFRuDJ8YtvTuElIb6gfqh0e2jlKlZ4=;
- b=BQ/BwtssHhbZ5SXgrL5qqcG4DxAtKpPixF+jH7TZmPAC6I3vktKSEdVhZDZ+ztF5Up
- X3wixHyR4QgoCizXCGPnprd+j9fKQZ8YfRCxcOPlVvd+/TIHG2uLsCxwd83ztdxm/2hq
- w0SwwSU2mAxn5+9WETXaqT7JLlyeES6GGGpGJGNb7kyYSW32dRzDMH8YQNjcENmueK5H
- CyukFJtQHtcLKhQn1KZhezhSsFaC0FzrGS6Wy24v5tKB2mfal6IUZwXkXTDl60M9X/re
- YjrqAi5wA6nuB5HYA4yMhgYBJDsvCPiZz7Tzu9q1ibzAWEX1acOd3gdM2kJpcci6tghO
- +VEQ==
+ bh=eRQKQx8o7pYZMBO/dPIhBa/weTc59LxA8RBQRRvbAww=;
+ b=nIEgy4xsmB+3hYy0CDH3MPkPWE5BrLDU5tN7cSIz3IzgJBvUH63E7oD9+J8dFGHW9L
+ FBZbFIgKNh8FcUIK+6hwQfqH84IMyWxuYNPVjHn+W1EB9utNHces2xfBTPye8n7jt8Tq
+ 0M8B3LQCzG2nX5FKJV/Tgx3TrxVg+uNFPJ6ZBLP0xSSdPeXhuv+JU9S7B+REPf7DKtFJ
+ KEvlWJocc0Ml50bYDpWW+Qn4erdWJqgeHE9UPd/j4CCJUhgFIZzzEVhqh5p3fCV+rOIV
+ uwSe4xyITKa9BhftK4hXho1frTE+zqE820is8Ci3xzkG9ZEEVVaL4jV5XuDAqCDQDU5x
+ kxnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684857362; x=1687449362;
+ d=1e100.net; s=20221208; t=1684857434; x=1687449434;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=feR7RDbEdLIuOxFRuDJ8YtvTuElIb6gfqh0e2jlKlZ4=;
- b=UYA9fgfWJ5csMn6FlfYnlWkP0kGYELe5y+JMfTnIyRFK5Qz7S1kERTbX0G4q40fMe1
- YAkMtL3WTxnfkeL2Yzz/1ZJyJsUNAIo52rT+vBX3JCvhM0WBwFu/2y6CvQYsBAy/Jntd
- 8EsCnGsWH57PCWoULMoGmMU2F3S6Z8imDtr3CcJnF3HuWFvUGrOciLdv7hzPHQTiwA+C
- HznJDNC0GsMMvvmddsafaiCUKRCENnvvTmcEwelM0kAPkQowhlh+ALlHAfA6km2TlBhQ
- 6pNCXyz2qWU6KrYzlqSg8Fm5KNFSW6LE3V6cycXphA6S108ijMIrXfz3iEgpDQZVz9bA
- qOJw==
-X-Gm-Message-State: AC+VfDz8KC0lgnAENl5+Dgq2HgNtyD0uwrj+bnbga76QFxV6B0LUsaZP
- Gka+M98qm62wPJLLDq5q7v4Sf1z4OPKI0ByL1qA=
-X-Google-Smtp-Source: ACHHUZ4ZyUpdVtXyIatHPpZHmnxoVWfMnEnl1OVupErapn37R44kVZgKLmbC5muGz5Am7Mmro0S57dh0vvs0jDarnnk=
-X-Received: by 2002:aca:1109:0:b0:383:ca99:c70e with SMTP id
- 9-20020aca1109000000b00383ca99c70emr6905361oir.59.1684857362565; Tue, 23 May
- 2023 08:56:02 -0700 (PDT)
+ bh=eRQKQx8o7pYZMBO/dPIhBa/weTc59LxA8RBQRRvbAww=;
+ b=HnmJv+QmTfuUQ7Sut/NC82KoRy3H4CiVivcoG0AQBYGqlIAkqcM5vTU7zC3jstWMyX
+ 41eXB2bVNVUogOQQqXppZXPArghaRfCRMlG6KWejPTbw0YGTYIh2Ga59WXxecPB+vW+7
+ Ak8cPk0RcZ0Lu7eXMNFwbBkrFS13PtIXs7xoQzBEBjJASerMUyM0H5Cz5fBP7japXktS
+ CnFEoPXkjsarmjC8CcrK68L9f0a1wZFkjKEOL6ffV+bHchaFTFoDja8F67TMEPPbbXk+
+ LcfmpYXfw8oOE7mf9phYLUAOcpNyzGUU7eYtZt065aXM67ysw0s8/W8evzaWmeMeln8j
+ zQCg==
+X-Gm-Message-State: AC+VfDyielh8rrfX+JUEUhNptw7DNmEl3Agh8OowzkeC1Wc8sLJ9WB2d
+ MGxoksmFJYso1zfxJ+5S8dtVduScfwwCKtE9N30=
+X-Google-Smtp-Source: ACHHUZ7DHxeQXuGbDyGY66H9cdMMYdFh6mTJpvChsFzqktlYAXoSFaO4ugdpNPumCfSnl1H7T26HF1Xrnt8cWO29BAg=
+X-Received: by 2002:a05:6808:6393:b0:398:af5:a18a with SMTP id
+ ec19-20020a056808639300b003980af5a18amr3200495oib.59.1684857434503; Tue, 23
+ May 2023 08:57:14 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230523021811.122014-1-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <20230523021811.122014-1-jiapeng.chong@linux.alibaba.com>
+References: <20230523031709.19673-1-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <20230523031709.19673-1-jiapeng.chong@linux.alibaba.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 23 May 2023 11:55:51 -0400
-Message-ID: <CADnq5_OxXz7TSvkarQxC8-342SxO+YE4PU_4mSADYtr0urofvg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Remove duplicate include
+Date: Tue, 23 May 2023 11:57:03 -0400
+Message-ID: <CADnq5_NKuq8ZO0mBMmogwTesr1gWa=aXO9BJFp0bnfWhYj7X7A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Modify mismatched function name
 To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -67,9 +67,10 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, linaro-mm-sig@lists.linaro.org,
+Cc: nathan@kernel.org, Xinhui.Pan@amd.com, trix@redhat.com,
+ llvm@lists.linux.dev, ndesaulniers@google.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ linaro-mm-sig@lists.linaro.org, Abaci Robot <abaci@linux.alibaba.com>,
  dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
  sumit.semwal@linaro.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -77,32 +78,117 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Mon, May 22, 2023 at 10:18=E2=80=AFPM Jiapeng Chong
+On Mon, May 22, 2023 at 11:17=E2=80=AFPM Jiapeng Chong
 <jiapeng.chong@linux.alibaba.com> wrote:
 >
-> ./drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c: amdgpu_xcp.h is included more =
-than once.
+> No functional modification involved.
+>
+> drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c:426: warning: expecting prototyp=
+e for sdma_v4_4_2_gfx_stop(). Prototype was for sdma_v4_4_2_inst_gfx_stop()=
+ instead.
+> drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c:457: warning: expecting prototyp=
+e for sdma_v4_4_2_rlc_stop(). Prototype was for sdma_v4_4_2_inst_rlc_stop()=
+ instead.
+> drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c:470: warning: expecting prototyp=
+e for sdma_v4_4_2_page_stop(). Prototype was for sdma_v4_4_2_inst_page_stop=
+() instead.
+> drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c:506: warning: expecting prototyp=
+e for sdma_v4_4_2_ctx_switch_enable(). Prototype was for sdma_v4_4_2_inst_c=
+tx_switch_enable() instead.
+> drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c:561: warning: expecting prototyp=
+e for sdma_v4_4_2_enable(). Prototype was for sdma_v4_4_2_inst_enable() ins=
+tead.
+> drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c:798: warning: expecting prototyp=
+e for sdma_v4_4_2_rlc_resume(). Prototype was for sdma_v4_4_2_inst_rlc_resu=
+me() instead.
+> drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c:814: warning: expecting prototyp=
+e for sdma_v4_4_2_load_microcode(). Prototype was for sdma_v4_4_2_inst_load=
+_microcode() instead.
 >
 > Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3D5281
+> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3D5283
 > Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 1 -
->  1 file changed, 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v9_4_3.c
-> index e5cfb3adb3b3..7fb2d38b010a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -23,7 +23,6 @@
->  #include <linux/firmware.h>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/a=
+md/amdgpu/sdma_v4_4_2.c
+> index bf47eb33c12e..590b08585901 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> @@ -415,7 +415,7 @@ static void sdma_v4_4_2_ring_emit_fence(struct amdgpu=
+_ring *ring, u64 addr, u64
 >
->  #include "amdgpu.h"
-> -#include "amdgpu_xcp.h"
->  #include "amdgpu_gfx.h"
->  #include "soc15.h"
->  #include "soc15d.h"
+>
+>  /**
+> - * sdma_v4_4_2_gfx_stop - stop the gfx async dma engines
+> + * sdma_v4_4_2_inst_gfx_stop - stop the gfx async dma engines
+>   *
+>   * @adev: amdgpu_device pointer
+>   *
+> @@ -446,7 +446,7 @@ static void sdma_v4_4_2_inst_gfx_stop(struct amdgpu_d=
+evice *adev,
+>  }
+>
+>  /**
+> - * sdma_v4_4_2_rlc_stop - stop the compute async dma engines
+> + * sdma_v4_4_2_inst_rlc_stop - stop the compute async dma engines
+>   *
+>   * @adev: amdgpu_device pointer
+>   *
+> @@ -459,7 +459,7 @@ static void sdma_v4_4_2_inst_rlc_stop(struct amdgpu_d=
+evice *adev,
+>  }
+>
+>  /**
+> - * sdma_v4_4_2_page_stop - stop the page async dma engines
+> + * sdma_v4_4_2_inst_page_stop - stop the page async dma engines
+>   *
+>   * @adev: amdgpu_device pointer
+>   *
+> @@ -494,7 +494,7 @@ static void sdma_v4_4_2_inst_page_stop(struct amdgpu_=
+device *adev,
+>  }
+>
+>  /**
+> - * sdma_v4_4_2_ctx_switch_enable - stop the async dma engines context sw=
+itch
+> + * sdma_v4_4_2_inst_ctx_switch_enable - stop the async dma engines conte=
+xt switch
+>   *
+>   * @adev: amdgpu_device pointer
+>   * @enable: enable/disable the DMA MEs context switch.
+> @@ -548,7 +548,7 @@ static void sdma_v4_4_2_inst_ctx_switch_enable(struct=
+ amdgpu_device *adev,
+>  }
+>
+>  /**
+> - * sdma_v4_4_2_enable - stop the async dma engines
+> + * sdma_v4_4_2_inst_enable - stop the async dma engines
+>   *
+>   * @adev: amdgpu_device pointer
+>   * @enable: enable/disable the DMA MEs.
+> @@ -786,7 +786,7 @@ static void sdma_v4_4_2_init_pg(struct amdgpu_device =
+*adev)
+>  }
+>
+>  /**
+> - * sdma_v4_4_2_rlc_resume - setup and start the async dma engines
+> + * sdma_v4_4_2_inst_rlc_resume - setup and start the async dma engines
+>   *
+>   * @adev: amdgpu_device pointer
+>   *
+> @@ -802,7 +802,7 @@ static int sdma_v4_4_2_inst_rlc_resume(struct amdgpu_=
+device *adev,
+>  }
+>
+>  /**
+> - * sdma_v4_4_2_load_microcode - load the sDMA ME ucode
+> + * sdma_v4_4_2_inst_load_microcode - load the sDMA ME ucode
+>   *
+>   * @adev: amdgpu_device pointer
+>   *
 > --
 > 2.20.1.7.g153144c
 >
