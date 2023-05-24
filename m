@@ -4,43 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5443EC77B73
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 20:57:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D82EC77B7A
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 21:13:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 500B210E617;
-	Wed, 24 May 2023 20:57:28 +0000 (UTC)
-Received: from 189.cn (ptr.189.cn [183.61.185.103])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3529610E078;
- Wed, 24 May 2023 20:57:25 +0000 (UTC)
-HMM_SOURCE_IP: 10.64.8.41:58142.1244876690
-HMM_ATTACHE_NUM: 0000
-HMM_SOURCE_TYPE: SMTP
-Received: from clientip-114.242.206.180 (unknown [10.64.8.41])
- by 189.cn (HERMES) with SMTP id 51D8A100213;
- Thu, 25 May 2023 04:57:21 +0800 (CST)
-Received: from  ([114.242.206.180])
- by gateway-151646-dep-75648544bd-xwndj with ESMTP id
- e61342de702a4626938f836262ec9ff2 for tzimmermann@suse.de; 
- Thu, 25 May 2023 04:57:23 CST
-X-Transaction-ID: e61342de702a4626938f836262ec9ff2
-X-Real-From: 15330273260@189.cn
-X-Receive-IP: 114.242.206.180
-X-MEDUSA-Status: 0
-Message-ID: <07e6077f-8a5c-54b9-29d0-57f1bc868fef@189.cn>
-Date: Thu, 25 May 2023 04:57:21 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7662A10E694;
+	Wed, 24 May 2023 21:13:01 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2051.outbound.protection.outlook.com [40.107.244.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4BF810E694;
+ Wed, 24 May 2023 21:12:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oRzBxPqne0ora9snYsdCRXUJE/GKpFIKjjBZe6jJL2QxJd5i3vlSnwrbFNoTZjcrmisFXqo6tSN3IjDcKBaVkhHO8TXBhCeKUGEwVkT/WVmF1OhTwwG//M+Cl5mFgkaDXQg76bhff/8HqmZBpHqpSqT8AVYsJmci1VVWckpEAiQ/PeHhyide3Wv4EqccLuSNR+CdH0VMSepzuD2I7E5jX5RoaBOaq9ftuL26D5oB+k9CFvN1DhNpOG/sEZA0jrPn3EmBI15Hc9t8otzsuxGFPWoxTnJ0zEC+EW2T+eO6+OJzEKaNToP6Rbf5lXwDL5VMVjouADMs408Gxl5LtRaxdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hvyE/tr8G6vgii0dhS5O20oOzVET7kru4nS2PAdyp5Q=;
+ b=BMyA2FUFzY1Z579D1EiLSSM77CJeVICKfKK8TAMsV+t/d9+f8kNItmlhhIcSLyeSJEKajmrbdXsBXY4UMq/HizuLl8scXbJRhETN52HXQND53uJHnh9dPlrlfsqZtX4ut8X4iXExbozauGiwboMTSkyvHPSNHpHP9o79S7G/iF/bksN5zLoQ9PtxXVSyLPW3tk6GB8+JxN3pqye5D3BQB+62DB+SZNW2p90hpbk2dlctlPPm5QHnjw7GMP//ZYZeEXIiKoX/H3DwzGFh+g0O/rJmy3jfA3uc8bqTd27yzvSiiiSlExkNg7ewv8kcZI//2Ck9qduGhH9b2AWuKH8xFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hvyE/tr8G6vgii0dhS5O20oOzVET7kru4nS2PAdyp5Q=;
+ b=d6GQ39ZV/WLfjv/s2IMV1D6I6TctYfTLR002Kg5gdC5G2RsQHLBDPoFnD/+F1TQOSauFeOe7hvvbrRVC0omC04Ae5KhQoRzSey6EwZJjZYBAs9vvae9Ggt5tvvmQli0d8vgpvGYQVjQ6xUUALY3ibaAgQpnva2CQ4N78Y9jVUHo=
+Received: from BN9PR03CA0790.namprd03.prod.outlook.com (2603:10b6:408:13f::15)
+ by DS7PR12MB6335.namprd12.prod.outlook.com (2603:10b6:8:94::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Wed, 24 May
+ 2023 21:12:55 +0000
+Received: from BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13f:cafe::e9) by BN9PR03CA0790.outlook.office365.com
+ (2603:10b6:408:13f::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.15 via Frontend
+ Transport; Wed, 24 May 2023 21:12:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT032.mail.protection.outlook.com (10.13.177.88) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6411.30 via Frontend Transport; Wed, 24 May 2023 21:12:54 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 24 May
+ 2023 16:12:50 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu, radeon drm-fixes-6.4
+Date: Wed, 24 May 2023 17:12:38 -0400
+Message-ID: <20230524211238.7749-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [v4,02/13] fbdev: Add initializer macros for struct fb_ops
-Content-Language: en-US
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- javierm@redhat.com, sam@ravnborg.org
-References: <20230524092150.11776-3-tzimmermann@suse.de>
-From: Sui Jingfeng <15330273260@189.cn>
-In-Reply-To: <20230524092150.11776-3-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT032:EE_|DS7PR12MB6335:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2eeed473-132a-4a5c-f93a-08db5c9ba447
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EALl2QHlAscXY+lLc11uCISgBMswVyVP8S9z9f3OKSaw2r1sOPmjumD/pUWQJKnDp01ssUcJvJPVUUJPuO8+1gFBbkYbrx6wD6uOlk8K0G3GD4IIRED4gaATml6csocOCEaZdMkpVKyBDAG6xIQwfWXKZ+D1juYq7lNboG5Q+mLnn2h28miA7k/QguLir5kkEeIXuZMzkJ0IGLroMbKAaINRANC1xFxngcTzIZZ2dJIuazm8AjX5WkDhU4DVIPjUAhozzFf3OuTf5EV3KUE+oicf3ldKbw1yNBSg8xgOTCiWeVz/DsOweMDqAMsKHGnEA5uPmHIZxGUmhyeaZsh2dfGW4XIK/0rjfTyWIQ74osAoabCTbxeUeTgj9mb5JrOT4x5Tij9SunnkuFoY/VTX/VivxNnZzXgtR9+FSsvIBCgG2X+hzngurjt6ssE7UUcs0VNHha5b74Uk5E3SsOzbAxs5bbuWtp2tvaFvu7g97f+espJJ+GmLk+MTBxFg+Rz8nflzhAexEPnmsTAql3Z/jpJI/yMnGIqPuIoCdiy/yCG77saCRWvRFXY3lFTtauUJWQacnq2jJW8yrFJP599jLE4iQV2lmjK4ARClGLWtX3xlCW5nJgl0Sfj0+B75r03jcuTwYdF1DgI8O8+ZNP/b1w0dxVA5JvFtWiIHoPqR109MDQR1+hkP3Cle5C1OkGCCeP24RvaP3/855zjIpy2S5ZzP/IAEdcZ0GMC8Ube0wNA=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199021)(46966006)(36840700001)(40470700004)(2906002)(36860700001)(47076005)(83380400001)(86362001)(186003)(2616005)(40480700001)(336012)(426003)(16526019)(81166007)(82740400003)(7696005)(5660300002)(8676002)(316002)(36756003)(8936002)(356005)(41300700001)(40460700003)(966005)(1076003)(6666004)(26005)(478600001)(70586007)(70206006)(4326008)(110136005)(82310400005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2023 21:12:54.8454 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2eeed473-132a-4a5c-f93a-08db5c9ba447
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6335
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,186 +98,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Dave, Daniel,
 
+Fixes for 6.4.
 
-we love your patch:
+The following changes since commit 79ef1c9d14c65a5c3f7eec47389d8c2a33be8e8d:
 
+  Merge tag 'amd-drm-fixes-6.4-2023-05-18' of https://gitlab.freedesktop.org/agd5f/linux into drm-fixes (2023-05-19 11:26:21 +1000)
 
-On 2023/5/24 17:21, Thomas Zimmermann wrote:
-> For framebuffers in I/O and system memory, add macros that set
-> struct fb_ops to the respective callback functions.
->
-> For deferred I/O, add macros that generate callback functions with
-> damage handling. Add initializer macros that set struct fb_ops to
-> the generated callbacks.
->
-> These macros can remove a lot boilerplate code from fbdev drivers.
-> The drivers are supposed to use the macro that is required for its
-> framebuffer. Each macro is split into smaller helpers, so that
-> drivers with non-standard callbacks can pick and customize callbacks
-> as needed. There are individual helper macros for read/write, mmap
-> and drawing.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->   include/linux/fb.h | 112 +++++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 112 insertions(+)
->
-> diff --git a/include/linux/fb.h b/include/linux/fb.h
-> index 2cf8efcb9e32..731472a2bb62 100644
-> --- a/include/linux/fb.h
-> +++ b/include/linux/fb.h
-> @@ -538,9 +538,31 @@ extern ssize_t fb_io_read(struct fb_info *info, char __user *buf,
->   extern ssize_t fb_io_write(struct fb_info *info, const char __user *buf,
->   			   size_t count, loff_t *ppos);
->   
-> +/*
-> + * Initializes struct fb_ops for framebuffers in I/O memory.
-> + */
-> +
-> +#define __FB_DEFAULT_IO_OPS_RDWR \
-> +	.fb_read	= fb_io_read, \
-> +	.fb_write	= fb_io_write
-> +
-> +#define __FB_DEFAULT_IO_OPS_DRAW \
-> +        .fb_fillrect	= cfb_fillrect, \
-> +        .fb_copyarea	= cfb_copyarea, \
-> +        .fb_imageblit	= cfb_imageblit
+are available in the Git repository at:
 
-Here,  it seems that your text editor replace the tap with space, but 
-I'm OK.
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.4-2023-05-24
 
-I'm asking because I see other __FB__DEFAULT_* macro begin with tabs.
+for you to fetch changes up to 482e6ad9adde69d9da08864b4ccf4dfd53edb2f0:
 
-> +#define __FB_DEFAULT_IO_OPS_MMAP \
-> +	.fb_mmap	= NULL // default implementation
-> +
-> +#define FB_DEFAULT_IO_OPS \
-> +	__FB_DEFAULT_IO_OPS_RDWR, \
-> +	__FB_DEFAULT_IO_OPS_DRAW, \
-> +	__FB_DEFAULT_IO_OPS_MMAP
-> +
->   /*
->    * Drawing operations where framebuffer is in system RAM
->    */
-> +
->   extern void sys_fillrect(struct fb_info *info, const struct fb_fillrect *rect);
->   extern void sys_copyarea(struct fb_info *info, const struct fb_copyarea *area);
->   extern void sys_imageblit(struct fb_info *info, const struct fb_image *image);
-> @@ -549,6 +571,27 @@ extern ssize_t fb_sys_read(struct fb_info *info, char __user *buf,
->   extern ssize_t fb_sys_write(struct fb_info *info, const char __user *buf,
->   			    size_t count, loff_t *ppos);
->   
-> +/*
-> + * Initializes struct fb_ops for framebuffers in system memory.
-> + */
-> +
-> +#define __FB_DEFAULT_SYS_OPS_RDWR \
-> +	.fb_read	= fb_sys_read, \
-> +	.fb_write	= fb_sys_write
-> +
-> +#define __FB_DEFAULT_SYS_OPS_DRAW \
-> +        .fb_fillrect	= sys_fillrect, \
-> +        .fb_copyarea	= sys_copyarea, \
-> +        .fb_imageblit	= sys_imageblit
-> +
-> +#define __FB_DEFAULT_SYS_OPS_MMAP \
-> +	.fb_mmap	= NULL // default implementation
-> +
-> +#define FB_DEFAULT_SYS_OPS \
-> +	__FB_DEFAULT_SYS_OPS_RDWR, \
-> +	__FB_DEFAULT_SYS_OPS_DRAW, \
-> +	__FB_DEFAULT_SYS_OPS_MMAP
-> +
->   /* drivers/video/fbmem.c */
->   extern int register_framebuffer(struct fb_info *fb_info);
->   extern void unregister_framebuffer(struct fb_info *fb_info);
-> @@ -604,6 +647,75 @@ extern void fb_deferred_io_cleanup(struct fb_info *info);
->   extern int fb_deferred_io_fsync(struct file *file, loff_t start,
->   				loff_t end, int datasync);
->   
-> +/*
-> + * Generate callbacks for deferred I/O
-> + */
-> +
-> +#define __FB_GEN_DEFAULT_DEFERRED_OPS_RDWR(__prefix, __damage_range, __mode) \
-> +	static ssize_t __prefix ## _defio_read(struct fb_info *info, char __user *buf, \
-> +					       size_t count, loff_t *ppos) \
-> +	{ \
-> +		return fb_ ## __mode ## _read(info, buf, count, ppos); \
-> +	} \
-> +	static ssize_t __prefix ## _defio_write(struct fb_info *info, const char __user *buf, \
-> +						size_t count, loff_t *ppos) \
-> +	{ \
-> +		unsigned long offset = *ppos; \
-> +		ssize_t ret = fb_ ## __mode ## _write(info, buf, count, ppos); \
-> +		if (ret > 0) \
-> +			__damage_range(info, offset, ret); \
-> +		return ret; \
-> +	}
-> +
-> +#define __FB_GEN_DEFAULT_DEFERRED_OPS_DRAW(__prefix, __damage_area, __mode) \
-> +	static void __prefix ## _defio_fillrect(struct fb_info *info, \
-> +						const struct fb_fillrect *rect) \
-> +	{ \
-> +		__mode ## _fillrect(info, rect); \
-> +		__damage_area(info, rect->dx, rect->dy, rect->width, rect->height); \
-> +	} \
-> +	static void __prefix ## _defio_copyarea(struct fb_info *info, \
-> +						const struct fb_copyarea *area) \
-> +	{ \
-> +		__mode ## _copyarea(info, area); \
-> +		__damage_area(info, area->dx, area->dy, area->width, area->height); \
-> +	} \
-> +	static void __prefix ## _defio_imageblit(struct fb_info *info, \
-> +						 const struct fb_image *image) \
-> +	{ \
-> +		__mode ## _imageblit(info, image); \
-> +		__damage_area(info, image->dx, image->dy, image->width, image->height); \
-> +	}
-> +
-> +#define FB_GEN_DEFAULT_DEFERRED_IO_OPS(__prefix, __damage_range, __damage_area) \
-> +	__FB_GEN_DEFAULT_DEFERRED_OPS_RDWR(__prefix, __damage_range, io) \
-> +	__FB_GEN_DEFAULT_DEFERRED_OPS_DRAW(__prefix, __damage_area, cfb)
-> +
-> +#define FB_GEN_DEFAULT_DEFERRED_SYS_OPS(__prefix, __damage_range, __damage_area) \
-> +	__FB_GEN_DEFAULT_DEFERRED_OPS_RDWR(__prefix, __damage_range, sys) \
-> +	__FB_GEN_DEFAULT_DEFERRED_OPS_DRAW(__prefix, __damage_area, sys)
-> +
-> +/*
-> + * Initializes struct fb_ops for deferred I/O.
-> + */
-> +
-> +#define __FB_DEFAULT_DEFERRED_OPS_RDWR(__prefix) \
-> +	.fb_read	= __prefix ## _defio_read, \
-> +	.fb_write	= __prefix ## _defio_write
-> +
-> +#define __FB_DEFAULT_DEFERRED_OPS_DRAW(__prefix) \
-> +        .fb_fillrect	= __prefix ## _defio_fillrect, \
-> +        .fb_copyarea	= __prefix ## _defio_copyarea, \
-> +        .fb_imageblit	= __prefix ## _defio_imageblit
+  drm/amd/display: Have Payload Properly Created After Resume (2023-05-24 16:37:00 -0400)
 
-Here also,  '.fb_fillrect', '.fb_copyarea' and '.fb_imageblit' begin 
-with space, but I'm OK.
+----------------------------------------------------------------
+amd-drm-fixes-6.4-2023-05-24:
 
-I'm asking because I see other __FB__DEFAULT_* macro begin with tabs.
+amdgpu:
+- Fix missing BO unlocking in KIQ error path
+- Avoid spurious secure display error messages
+- SMU13 fix
+- Fix an OD regression
+- GPU reset display IRQ warning fix
+- MST fix
 
-> +#define __FB_DEFAULT_DEFERRED_OPS_MMAP(__prefix) \
-> +	.fb_mmap	= fb_deferred_io_mmap
-> +
-> +#define FB_DEFAULT_DEFERRED_OPS(__prefix) \
-> +	__FB_DEFAULT_DEFERRED_OPS_RDWR(__prefix), \
-> +	__FB_DEFAULT_DEFERRED_OPS_DRAW(__prefix), \
-> +	__FB_DEFAULT_DEFERRED_OPS_MMAP(__prefix)
-> +
->   static inline bool fb_be_math(struct fb_info *info)
->   {
->   #ifdef CONFIG_FB_FOREIGN_ENDIAN
+radeon:
+- Fix a DP regression
+
+----------------------------------------------------------------
+Alan Liu (1):
+      drm/amd/display: Fix warning in disabling vblank irq
+
+Alex Deucher (1):
+      drm/radeon: reintroduce radeon_dp_work_func content
+
+Evan Quan (1):
+      drm/amd/pm: add missing NotifyPowerSource message mapping for SMU13.0.7
+
+Fangzhi Zuo (1):
+      drm/amd/display: Have Payload Properly Created After Resume
+
+Jesse Zhang (1):
+      drm/amdgpu: don't enable secure display on incompatible platforms
+
+Jonatas Esteves (1):
+      drm/amd/pm: Fix output of pp_od_clk_voltage
+
+Sukrut Bellary (1):
+      drm:amd:amdgpu: Fix missing buffer object unlock in failure path
+
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  4 +++-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  4 +++-
+ drivers/gpu/drm/amd/amdgpu/psp_v10_0.c             |  8 ++++++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 25 +++++++++++++---------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 16 +++-----------
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 | 12 +++++------
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |  1 +
+ drivers/gpu/drm/radeon/radeon_irq_kms.c            | 10 +++++++++
+ 8 files changed, 47 insertions(+), 33 deletions(-)
