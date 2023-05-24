@@ -4,117 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 061FFC77B7A
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 17:01:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5256C77B7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 17:02:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79D0610E48F;
-	Wed, 24 May 2023 17:01:36 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 543AD10E48F;
- Wed, 24 May 2023 17:01:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 592A210E686;
+	Wed, 24 May 2023 17:02:15 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2066.outbound.protection.outlook.com [40.107.96.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 307C310E4E3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 17:02:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=coGWBHBzWFIiP11f4KeCrix99FgSzm44V6c3/iY0VQq02mIr74sL4TnwHo88je19r2mQCy2zMcO4mZsSmzKS51jtD2qe3Sg9LKyGIniv2EYLKnrZi1PsJeGr9ydnHeAe1iHxFcK6nav1rb7ALcGjX0V7FpENlqVkMpBlz0ssZ+nU4WKV0Qxny16Cm+cnuNv/GY0s4iOjh8cjA7sBajGlyngPxSVfUwkHeqcThBnGIBdUp/wU+MGUuDlwS8HZo4rpbPOAaavaunMqQGNIBA5bpID6J9HeGSvmWX82svVeWSwMqtGfJW9YFvOSqAs92exIoX6JKXvMErxTYFcF24PhgQ==
+ b=ogdByuBFJ7mZ/k3dF3iZxtpUJQ/jI5egLKYPPBO3tI7Vb2mMOD9CagaI9h1QUga1hY/IvqzkoIsqGWoBgCXSUMT/m/t51dnPkDh2VcCVpNEm4Gh1mghJ1tX+F0++Dzb+Jw5KgO6GUqKtL5OhQ4V/OOLG5oKSIJksL3Ak7aPbIK1IIS64e5/lQBg1V4NLofx15rSRHlgldXD+S8xJFAieqjZZ0ZjBJP+eruUmIl1+Mfe0aDmaD6mlIC3IJS5qvSWV0FR+ompdEhzwHsSCblJF6Lc7gV9Dholm4+T7u/IhfHhw77atDkeaP4cTAfIlssW+Q38/p1ClfG1kiqk8CiEjbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O7D9qifNQkvcmmkQi0Nzj/8r8KPm9neBC6IR2aXhLfg=;
- b=AFN2ofQqgD+JLLVdp+tKChmTM57EDDmuptnCUkDxZHI4/zYoINBFXYNy/5VRYW6lZh7WaiqI6gdEuwGCQy22wvgG2KNhUQJBVO1ovwlnmgcVMrxfm1Rrjeph1HGgqDrYmBcIun/e9qjdg0gKiM4SZ+pUjWIKfqAtWjH1C0E92ZWa+vqQdosLcKywMd3emcaxd4alHqf3wGtuEGt6QSz8ohd7ao0DtTcYZedpsFdci3fbO5MyVUHK4UIswVvi9OUGWIEvQhs3fPoqlfEaEVS8PcOI2FwqspkTc3e9cPIZ7DVsMiy33bpelYOT6nn49VgvVlWw3q/0iTnJaVhASuEQKg==
+ bh=J64yYv9KWT8klVDlj58G97GLG1RKimGXf1ULNjXC+kY=;
+ b=SaHJkYEoCs+DgfbzCN1dZAAKcfKyR4TFQjcjCLDkI6hFBNDHWlaEmHJIOu20CZwBRvIEiAdllt6Lxj7nnQev/uVyqoXU0SmgunP3rRLmuud1cQocNur04BJLMiwN9oP+L03N7bu7qTFOfz15Aqot5l13LjMEpb2wGILCkK4cmFodFIVgbW3+ZO6cwO1ZpRwMdeyhqd5mPFKeDP0dcSvRWXzUNxzHm30vZzrgE7VyQREOcBW9Zk9jzJOub7w+NhCvq+UlpD1jsid9wWd9jI3DfG+2rMkcWhbwbEGtrmixU40FQhuaD/XiPGDPx/FXrV3cCuInWep/ddhM1+0EhPSBZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O7D9qifNQkvcmmkQi0Nzj/8r8KPm9neBC6IR2aXhLfg=;
- b=uJ4nqNl6g6zqSqOS8gQH7cJ71SDnCOFeoksclnPvMolZkraTrAqD35U/iWPfLIv1yGIyreq9CDwGDEKoH3ikg1nIEo1s0h/Dhv1xrdB6BgLvocFc3nmL5GOAOmmrU6llnCETwr5F9ewP6a7aYUK95EDlALmYqkPne4nYNtL5gls=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by IA0PR12MB7675.namprd12.prod.outlook.com (2603:10b6:208:433::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Wed, 24 May
- 2023 17:01:31 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::4666:2db3:db1e:810c]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::4666:2db3:db1e:810c%7]) with mapi id 15.20.6411.028; Wed, 24 May 2023
- 17:01:31 +0000
-Message-ID: <116534d2-9d6b-2ba6-48b0-0e733c1862ce@amd.com>
-Date: Wed, 24 May 2023 13:01:27 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v3 03/17] drm/connector: Deprecate split for BT.2020 in
- drm_colorspace enum
+ bh=J64yYv9KWT8klVDlj58G97GLG1RKimGXf1ULNjXC+kY=;
+ b=YLjMP65bW9auUQu6+lSiR0yAVOqzwbqssxv/7cC0b+BG5NqJKW0yVHIjCq0F0q4O+rLMcb7NiNWDgVtFQUIstmr08IpHFZtYHxh/P3taGxbE2WbRqtjd/FgHbCBo0nxzvdI/1pSdbetyh4HuH3j1tf7YqUAwicfcZ5BR7hSrYpg=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by PH7PR12MB5710.namprd12.prod.outlook.com (2603:10b6:510:1e1::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.29; Wed, 24 May
+ 2023 17:02:10 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::c549:4aeb:a02f:56b2]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::c549:4aeb:a02f:56b2%4]) with mapi id 15.20.6433.015; Wed, 24 May 2023
+ 17:02:10 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Reset CP_VMID_PREEMPT after trailing fence
+ signaled
+Thread-Topic: [PATCH] drm/amdgpu: Reset CP_VMID_PREEMPT after trailing fence
+ signaled
+Thread-Index: AQHZjfk98E9Te8JnZUahOxJDmJ/aYK9ppu+L
+Date: Wed, 24 May 2023 17:02:10 +0000
+Message-ID: <BL1PR12MB5144B33E00E0639548FD53B0F7419@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20230524043527.2807962-1-jiadong.zhu@amd.com>
+In-Reply-To: <20230524043527.2807962-1-jiadong.zhu@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Pekka Paalanen <ppaalanen@gmail.com>
-References: <20230307151107.49649-1-harry.wentland@amd.com>
- <20230307151107.49649-4-harry.wentland@amd.com>
- <20230308110943.4dbb6afc@eldfell>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20230308110943.4dbb6afc@eldfell>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0152.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:e::25) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|IA0PR12MB7675:EE_
-X-MS-Office365-Filtering-Correlation-Id: cafb04da-d3a1-43af-abd0-08db5c7885c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tpD6Nal1hHh9vxDRU9YJMNeb8gLXtvrGixwBicJmtHPOhK3v3RXwroNJjdBUwtB0SW1JfwB1k69TDhXCExZmna9WXTWyxRLHcMs2+qesUDVdbZ4gvMNkFrIzeg5UUegkHxBoQ8ixaLrkEpe5NBkqaofKQOqqjWLM3ul97qddGX92zYMg+k9vY7ACgF5cwfACAzZ2Z+1j0GRG7IIz2kSXaGQqkrBbQpqkBU+qYv/XTGdX50jqXmurRowNmrsMIK7JHNeFOnwwOiM68UOold2uNd41SIVqO8o4JFYUFMmyqs+pB7BKPJVMuLft5+PWFe3TrESh1TFJ473SBt+zwdnYJ8o3mGcOBs3vGlVpvzCJ8/sNkvdNxTBxjNT+/suq3H4oSZmrMTGYo6w7EsRr9TyP1FmplWbyrDNRWwZjd33zoubQtdkJh7hRfXRhRl82wPn1o5J6O4VV5sUFpNDy/K9D5dMdpxeOg0kE5EekqmF8b6VnlikuxBT23fKjyDmnBccGJ2L9aktvlTLsGIpBAK1hEjsHYah7vudmzNlciEQDWN/UcJo5iVMjXJzLvp6Je+Hk98mo/mXlTdXAg6HRo5RepZPJGdCFiaL/bMS6jK/exy0jDPUDGIJfTjHoRoondH4PXiLVHhGlFiuLTymkJJGK3Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(376002)(39860400002)(136003)(346002)(366004)(451199021)(31696002)(31686004)(6916009)(66946007)(66556008)(66476007)(4326008)(6486002)(41300700001)(6666004)(316002)(54906003)(5660300002)(8936002)(66899021)(8676002)(478600001)(86362001)(38100700002)(44832011)(26005)(6506007)(6512007)(186003)(53546011)(83380400001)(2906002)(2616005)(36756003)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-05-24T17:02:10.088Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|PH7PR12MB5710:EE_
+x-ms-office365-filtering-correlation-id: 23b64d00-8792-4956-24af-08db5c789d1a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: /Pue4dLeK6cFfQOzheeGOmjCjV1ziIRyh+Ful66XZKBWMJnoNRFascNh/ZkD4BQrLFM7aHcONrgbUycqn5/nAhXaBob91R15EjeRBwVpwtO6uROOaK92+XoU+yFCZiebguFKdzNHIyHr/QDkSHwFxjuMATd2QUvkEAJfKLyeqeWvWngORQ9Xv919T3Qty+kek4Dcajo3eXlCfJRwxBC7gnEbFoUYr8kgip5Bar+XFdwrf/nZxX1mafwikEwUajifb8j2Brdz/e4mgbdVeU3TiSxj1aOquavOLEhgPnhS1s7D9sF/uStIFWIgAZ8hWWSdR9iNFu0gq8ArLX9Yof/oMHoRRSdmaRIGUi/pqhgtM6Tl55ZNVY6aiB7rqmEBk6kbS7U4861bKPEIrUc9QSZZzJasIn94FzF93skjMmbxDS+iQDLP8ES3KJ2mechk4dLZMgmM53s/RKIO4RxRgTTVyIBMd1tLT4RlZfJx2SpBENK3JaIV/jRbyIbz6FyudXsQtTmh+VHilrG/zeazXcLIr2WYTSQ18uwapf3ssLOlU8geTRiJvE4+EcAFQe3ZHf7IKS61pS4H7HnxhtsljHnSB0anfKOivumE+WAhAOCIM4P+q43RWZ/3s4HJODRA4Sp0
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(376002)(366004)(451199021)(55016003)(33656002)(6506007)(9686003)(26005)(122000001)(53546011)(38100700002)(186003)(83380400001)(2906002)(316002)(66556008)(66446008)(71200400001)(76116006)(66946007)(66476007)(64756008)(7696005)(41300700001)(86362001)(110136005)(478600001)(19627405001)(38070700005)(8676002)(8936002)(5660300002)(52536014);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ODhRTmppaVpJQmV1TWpIZlBzUkhBR3JrUGdEOG5JSTAzanMyODdvVUQ4ZTR4?=
- =?utf-8?B?cFEyT2d6M1BnSmxLaEJwSVMvOTZnUWh3NDJWN0Vra29iYURNNkRINmlPNzBL?=
- =?utf-8?B?dkhDV2VmeXd2WU0zcmloZ0VyajNZb3pPeUtxeVpRNUpJY3YrT0x2ZjhVM1NC?=
- =?utf-8?B?aW14Y0wvL0cwY3dHTWVHZmJuRkkwbWZPMS84TjVZem93dHZTUFVSc3JxN1Nw?=
- =?utf-8?B?d3dzRUJLS3hLZG1EZng2UU1LN0NQOURjeVdja0c0MUdnMnJKZGozQWJaeTlx?=
- =?utf-8?B?OGczMWcwSFBwdnZlTktFaTFHdTFBUkhzM2V4MTEyamZJRnNPWjBhVEZEWE1N?=
- =?utf-8?B?RkVScVhoZjRkV0ZsTC9sM2VoTENPa2RETTRBSldqNlpuYTE5c0hic0htWDFY?=
- =?utf-8?B?UmJ3Y2RkQnl5Qm51TEdVeERreHA4Ylhud3g4Vm9PUWRjOVNpNFRDYmQ4SkNO?=
- =?utf-8?B?WTZyd3B6M1hhR2dTSzBiZUU5aHp3dXJlZ2JKVEV2VHpEWWxKYnNwNkxIMFJE?=
- =?utf-8?B?dDZ1eGV0VkptV1NhTjhIMG8vekpNam1MNVBSVDV0RlMyR0Yvc1luQTZTdXJM?=
- =?utf-8?B?SWtNRFowTjlqcW1iWngveGhJM2duNG5VVStaQTU2VlB0MkliLzY1VXh1QzJ4?=
- =?utf-8?B?QWRIaHIvYWpjRkNOM1FtRE94L05CYWsveERXNURaUkpTVmxmQ3d0SXQxemxN?=
- =?utf-8?B?MHpXOW9hREZ4dXVtQWNkME5mUUsxWStRRnVQcHEwbXpRNExtZ2JFQU5pblg1?=
- =?utf-8?B?M3JIRm5XSXU4STN0RFFpMVpUOTVGTEViaVcvU0RYUittMVd4aGJub2NTWkY3?=
- =?utf-8?B?ZkhvV1dUZGZVRnBET2txaGU2cktnbkloTjZ5cHNqT3NvNG4vUXRCVXBRTk1p?=
- =?utf-8?B?UnhYd2x2Zm82VGxJaEJpaktVSks2cVV0V3g0VHNaRFBaZ2p5QVFXSGdjY1lK?=
- =?utf-8?B?ZEJGQ0VGRXFOWUJvVmJNS0M3K3FaNUNleDNwZGExTk0zbXd0MTVGMUMzWi9N?=
- =?utf-8?B?M0JuK3B0eXBBdkhVZDRVbmplUlFsS2wzdEhvaGJCaTVPN0VCNzd1eEgwZkNt?=
- =?utf-8?B?TWx1SVA5V0w4ejQ3U1dRRWkxRWY5Z2c4Q1JuMWJYS282dXpydDB5ekNsYitz?=
- =?utf-8?B?VG5zMm1wNVJQMThHQ1d5N21ZeExDVEJlYkgrL1lMOUZ4Q0JXdnUwNk1IV1l4?=
- =?utf-8?B?bjhjL2JxREtCbVNBMWgrc1Q0dHRtZDRFcTY3WnBQRmY0emRnQThnd3hXYWlu?=
- =?utf-8?B?TG5QemVmR1ZIRXErcU9UWUNtN3ZQOTVpc1NsMXdJVm5yaHpVdHpnQlRibUhC?=
- =?utf-8?B?SStwa3YwUUx0d0pWSGk1MEpMRC8yNGdJdXdYQnFydVZXU3lMaC8rdENGRlJB?=
- =?utf-8?B?TmszcGF6U1ZQZ2R5ZCtvMm9zazFlSFhNcmduclkvQ3QxWG4rZUtKMGVVU2hE?=
- =?utf-8?B?NmpxbjNwRFZYNmQ3WHQzRk1jU1dLaUZ6MUZLdWZFZ21udWswc0daRjR2amhI?=
- =?utf-8?B?cnJUaGpVSHFhRnZGdjNZdHhOM0pTS3ZZVGtyWEJJWldoQzZLRW5UaEZPSDVJ?=
- =?utf-8?B?cTFmbWlIV0RsU0t1OUwyVVdlQ3JNWEFpYkEwdTRoNjUvL2pjWUQ5dVl5a0dD?=
- =?utf-8?B?QjdhZjBFa00yVzFwVkFwenJObGEwL2lyd0ZUWVVXSlUxcE9aM1owMlhya2Mw?=
- =?utf-8?B?R2d3Sm8zcU80VlhIVTNIdU9pQ3MwcGJsZFZlRElUWWFkejFvZEFoYmpKd2xT?=
- =?utf-8?B?dHlGVFc2d0lNeEl2eEpLY1BJK1Zub1phTUxFUE5HOEhJaGg3NEZBTEFyeFg4?=
- =?utf-8?B?cEpJTlJONFI1eFp1TjFWeHRhcmN4TVJ6eUsxRjZEY2F0RysvS1gwSmNDOE43?=
- =?utf-8?B?eVBuNnRuNjhqc3RyOHJXMjJkaTV4MUVuMjdMaTd2RlFPZHJpR2VkNnpvM1Ax?=
- =?utf-8?B?VEw1UXVlTmFVc2Y1R2ovam9uTWlEMW5PZXpkYTJ2cnJEZFZQMDFFMWpyR1du?=
- =?utf-8?B?cGVqaEVxRy9FTFpQQk9jU0NPS3B2QXlCNzRDMHkrbXlMN1BpbzBMeUx3bUZt?=
- =?utf-8?B?T3dwbUFodGtadDdtQ0dMN2QyOHFicXVONTRsS01zbTcwVW5ERTRHeURTN2xR?=
- =?utf-8?Q?q+bU1AsDwEI52F9Oc0JU8X441?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?xbw+A72FpTtHL1wcy/XJ21jExZEjiUhZj7YuUxGT3XZgygMjM1kXlpfyKtWf?=
+ =?us-ascii?Q?hvyUJXPGmKKDQ7+c1nVACXLACiVCj6iUpHrw7OyxCuFvuV75i/LE1YErY5uw?=
+ =?us-ascii?Q?lofFDiN3OzgxMrlKugP2157LW3XSuwKaQjJgNYjamCoRxnAJur3LzBhdEYy2?=
+ =?us-ascii?Q?mA6yufDq+9gc3iYNrLxZbVowU/NYg6ttpHkJlVbRnrac3HP5BP2ZrTE4Joq1?=
+ =?us-ascii?Q?1gZxj5UNto7nLU4gwFardJHIjJ45lI3T+zjYaNPdbGFMcZ9vavBz0070xTOZ?=
+ =?us-ascii?Q?BW3b3oqsPw1JI1zWEbNEnuSwyvyQ/jCY3K6yd1p2gXw/8+/5la5PqNtUzc0a?=
+ =?us-ascii?Q?yvKnm5nlGu/bLwd+J/llCz0Kb5jIEdxN2L7TYwJiz714B9s+0c+vkVCXm1ne?=
+ =?us-ascii?Q?WtpzmCKzI8g6W4GPmKIlrEFw4X6dqlgFoWAQf5Es3FzEwk8DyF04Y+793QXJ?=
+ =?us-ascii?Q?HrECafvdeD+fEfpIk/+SLcFlMVKXFmghZCGJ5gcnKnYuxrSfqmyrsqsDgS+j?=
+ =?us-ascii?Q?HJVeMkSyMU2GzoIm8h4T1fnIfgmwE7ahVX72xSGUZC0Y9XjmW4Zf9Z6sZcSy?=
+ =?us-ascii?Q?dT0sDCNywL0EfWRE7R0ZSCYWbOoAdoLVz5gFPASh7mW2O2Ez2HNwwV827xg6?=
+ =?us-ascii?Q?Rv3AeX7O/GxisCTY7GVQCmhv/9E/hQT7JnNPR/lGTSuGiYpcyBRJAxmorBA2?=
+ =?us-ascii?Q?81LzZA8m1m3KdwmionKqGea6x27CsY6qUpo6AA0/9sx1fESJBWFDoGuthao3?=
+ =?us-ascii?Q?PgA60uffqIK9eeP4jcICCLXLdd+pOmce+4RIIQ9MvPAuSoAAOTY9eKOI3kS7?=
+ =?us-ascii?Q?LA3PQoEkbWqg+cLYQ6r/0iCSrNSq4wLohapKUds/wNsM8B6zTNFEaYSDoWFM?=
+ =?us-ascii?Q?2325gDE7DiHj6h/SHBrLmGDEVJxhkApDrla3vWGuIEktyyrgABVhRj0d++ej?=
+ =?us-ascii?Q?INubT80f7QdQYF2W88/Wfv3kLgluIzbf7IcCTBD9A9Dh8Gjqa47kT+lnqHQk?=
+ =?us-ascii?Q?XL8dpldI3JWRozXEqMntmUDfUAGEZff4pbDj7BVtrlZzW9t16Ble3Bqofb5f?=
+ =?us-ascii?Q?jCNPqGEIVo7DzupQ2qUbQKHxqLsdO75tREy2EhbVbSC0f42NVcLkTFpTFQtx?=
+ =?us-ascii?Q?mUn+LCCaDgxTH80HiDUaJvqodEevCVCs3xPBThzgO61FguBqSnY6hdA9hFDd?=
+ =?us-ascii?Q?tDfYAxxks3B7RimcRN2Byuwi5/TChmDDYAdLeCTP2iW2NV8AxMJIOCNjt3Yd?=
+ =?us-ascii?Q?9b5omQE0M42wwvaOZpTHQUrEae+D0iJcRCw71FemXNXVgNmyPvr04MGU/kQD?=
+ =?us-ascii?Q?XsYgMPkjGc5USo7H3DDk/Es57sI7FVXk8PQKkZqEPoGY/UNFlmBwe+C7Kyh3?=
+ =?us-ascii?Q?r/ULC7KnjiJ8hKlYfR04Yb9f6+KDCpNqMY0tQtHqE0kkKtREELwWXxf+5CCr?=
+ =?us-ascii?Q?uJiyzFVXHScl4mSZpwlqXfZzGUZthoWDOjVjZrqOWoDla0On5vzBdEhUUV44?=
+ =?us-ascii?Q?DEWXrJTxYsFmUx5tgLkCfMkLnOtCgrQR1p8qzuGAnwJofjNY67MuTyDdd2NG?=
+ =?us-ascii?Q?O8jL+6DiUdoJrMkLEz8=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB5144B33E00E0639548FD53B0F7419BL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cafb04da-d3a1-43af-abd0-08db5c7885c7
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2023 17:01:31.5147 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R/1n3YUtrg3zFQDFHVoOLtNCJ6qHAL2mDGABzFhRLCyqu6XxjMTchEvWjpf64k8j9JwjZ27SsRWokZKZ03hXiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7675
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23b64d00-8792-4956-24af-08db5c789d1a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 May 2023 17:02:10.4512 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MB0CO+sULxG3xjOVXbj12Lv19S6jCCeCz8zlwWwKjvIrJyFg1ShTWU4vPocZEFxhLZ3b+3YnoDm06zfOrxoN7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5710
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,200 +123,194 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
- Joshua Ashton <joshua@froggi.es>, Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_BL1PR12MB5144B33E00E0639548FD53B0F7419BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - General]
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of jiadong.=
+zhu@amd.com <jiadong.zhu@amd.com>
+Sent: Wednesday, May 24, 2023 12:35 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Zhu, Jiadong <Jiadong.Zhu@amd.com>
+Subject: [PATCH] drm/amdgpu: Reset CP_VMID_PREEMPT after trailing fence sig=
+naled
+
+From: Jiadong Zhu <Jiadong.Zhu@amd.com>
+
+When MEC executes unmap_queue for mid command buffer preemption, it will
+kick the write pointer of the gfx ring, set CP_VMID_PREEMPT to trigger the
+preemption and wait for CP_VMID_PREEMPT becomes zero after the preemption
+done. There is a race condition that PFP may excute the resetting command
+before MEC set CP_VMID_PREEMPT. As a result, hang happens as
+CP_VMID_PREEMPT is always 0xffff.
+
+To avoid this, we send resetting CP_VMID_PREEMPT command after the trailing
+fence is siganled and update gfx write pointer explicitly.
+
+Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_0.c
+index 8bf95a6b0767..cbdd9918b3e7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -5402,10 +5402,6 @@ static int gfx_v9_0_ring_preempt_ib(struct amdgpu_ri=
+ng *ring)
+         amdgpu_ring_alloc(ring, 13);
+         gfx_v9_0_ring_emit_fence(ring, ring->trail_fence_gpu_addr,
+                                  ring->trail_seq, AMDGPU_FENCE_FLAG_EXEC |=
+ AMDGPU_FENCE_FLAG_INT);
+-       /*reset the CP_VMID_PREEMPT after trailing fence*/
+-       amdgpu_ring_emit_wreg(ring,
+-                             SOC15_REG_OFFSET(GC, 0, mmCP_VMID_PREEMPT),
+-                             0x0);
+
+         /* assert IB preemption, emit the trailing fence */
+         kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP=
+,
+@@ -5428,6 +5424,10 @@ static int gfx_v9_0_ring_preempt_ib(struct amdgpu_ri=
+ng *ring)
+                 DRM_WARN("ring %d timeout to preempt ib\n", ring->idx);
+         }
+
++       /*reset the CP_VMID_PREEMPT after trailing fence*/
++       amdgpu_ring_emit_wreg(ring,
++                             SOC15_REG_OFFSET(GC, 0, mmCP_VMID_PREEMPT),
++                             0x0);
+         amdgpu_ring_commit(ring);
+
+         /* deassert preemption condition */
+--
+2.25.1
 
 
-On 3/8/23 04:09, Pekka Paalanen wrote:
-> On Tue, 7 Mar 2023 10:10:53 -0500
-> Harry Wentland <harry.wentland@amd.com> wrote:
-> 
->> From: Joshua Ashton <joshua@froggi.es>
->>
->> Userspace has no way of controlling or knowing the pixel encoding
->> currently, so there is no way for it to ever get the right values here.
->>
->> When we do add pixel_encoding control from userspace,we can pick the
->> right value for the colorimetry packet based on the
->> pixel_encoding + the colorspace.
->>
->> Let's deprecate these values, and have one BT.2020 colorspace entry
->> that userspace can use.
->>
->> v2:
->>  - leave CYCC alone for now; it serves a purpose
->>  - leave BT2020_RGB the new default BT2020
->>
->> Signed-off-by: Joshua Ashton <joshua@froggi.es>
->> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
->> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->>
->> Cc: Pekka Paalanen <ppaalanen@gmail.com>
->> Cc: Sebastian Wick <sebastian.wick@redhat.com>
->> Cc: Vitaly.Prosyak@amd.com
->> Cc: Uma Shankar <uma.shankar@intel.com>
->> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
->> Cc: Joshua Ashton <joshua@froggi.es>
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: amd-gfx@lists.freedesktop.org
->> ---
->>  drivers/gpu/drm/display/drm_hdmi_helper.c |  7 +++----
->>  drivers/gpu/drm/drm_connector.c           |  8 ++++----
->>  drivers/gpu/drm/i915/display/intel_dp.c   | 14 +++++++-------
->>  include/drm/drm_connector.h               | 15 +++++++++------
->>  4 files changed, 23 insertions(+), 21 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
->> index faf5e9efa7d3..05a0d03ffcda 100644
->> --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
->> +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
->> @@ -97,8 +97,7 @@ EXPORT_SYMBOL(drm_hdmi_infoframe_set_hdr_metadata);
->>  #define HDMI_COLORIMETRY_OPYCC_601		(C(3) | EC(3) | ACE(0))
->>  #define HDMI_COLORIMETRY_OPRGB			(C(3) | EC(4) | ACE(0))
->>  #define HDMI_COLORIMETRY_BT2020_CYCC		(C(3) | EC(5) | ACE(0))
->> -#define HDMI_COLORIMETRY_BT2020_RGB		(C(3) | EC(6) | ACE(0))
->> -#define HDMI_COLORIMETRY_BT2020_YCC		(C(3) | EC(6) | ACE(0))
->> +#define HDMI_COLORIMETRY_BT2020			(C(3) | EC(6) | ACE(0))
->>  #define HDMI_COLORIMETRY_DCI_P3_RGB_D65		(C(3) | EC(7) | ACE(0))
->>  #define HDMI_COLORIMETRY_DCI_P3_RGB_THEATER	(C(3) | EC(7) | ACE(1))
->>  
->> @@ -112,8 +111,8 @@ static const u32 hdmi_colorimetry_val[] = {
->>  	[DRM_MODE_COLORIMETRY_OPYCC_601] = HDMI_COLORIMETRY_OPYCC_601,
->>  	[DRM_MODE_COLORIMETRY_OPRGB] = HDMI_COLORIMETRY_OPRGB,
->>  	[DRM_MODE_COLORIMETRY_BT2020_CYCC] = HDMI_COLORIMETRY_BT2020_CYCC,
->> -	[DRM_MODE_COLORIMETRY_BT2020_RGB] = HDMI_COLORIMETRY_BT2020_RGB,
->> -	[DRM_MODE_COLORIMETRY_BT2020_YCC] = HDMI_COLORIMETRY_BT2020_YCC,
->> +	[DRM_MODE_COLORIMETRY_BT2020_DEPRECATED] = HDMI_COLORIMETRY_BT2020,
->> +	[DRM_MODE_COLORIMETRY_BT2020] = HDMI_COLORIMETRY_BT2020,
->>  };
->>  
->>  #undef C
->> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
->> index 61c29ce74b03..fe7eab15f727 100644
->> --- a/drivers/gpu/drm/drm_connector.c
->> +++ b/drivers/gpu/drm/drm_connector.c
->> @@ -1031,9 +1031,9 @@ static const struct drm_prop_enum_list hdmi_colorspaces[] = {
->>  	/* Colorimetry based on ITU-R BT.2020 */
->>  	{ DRM_MODE_COLORIMETRY_BT2020_CYCC, "BT2020_CYCC" },
->>  	/* Colorimetry based on ITU-R BT.2020 */
->> -	{ DRM_MODE_COLORIMETRY_BT2020_RGB, "BT2020_RGB" },
->> +	{ DRM_MODE_COLORIMETRY_BT2020, "BT2020" },
->>  	/* Colorimetry based on ITU-R BT.2020 */
->> -	{ DRM_MODE_COLORIMETRY_BT2020_YCC, "BT2020_YCC" },
->> +	{ DRM_MODE_COLORIMETRY_BT2020_DEPRECATED, "BT2020_DEPRECATED" },
->>  	/* Added as part of Additional Colorimetry Extension in 861.G */
->>  	{ DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65, "DCI-P3_RGB_D65" },
->>  	{ DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER, "DCI-P3_RGB_Theater" },
->> @@ -1054,7 +1054,7 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
->>  	/* Colorimetry based on SMPTE RP 431-2 */
->>  	{ DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65, "DCI-P3_RGB_D65" },
->>  	/* Colorimetry based on ITU-R BT.2020 */
->> -	{ DRM_MODE_COLORIMETRY_BT2020_RGB, "BT2020_RGB" },
->> +	{ DRM_MODE_COLORIMETRY_BT2020, "BT2020" },
->>  	{ DRM_MODE_COLORIMETRY_BT601_YCC, "BT601_YCC" },
->>  	{ DRM_MODE_COLORIMETRY_BT709_YCC, "BT709_YCC" },
->>  	/* Standard Definition Colorimetry based on IEC 61966-2-4 */
->> @@ -1068,7 +1068,7 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
->>  	/* Colorimetry based on ITU-R BT.2020 */
->>  	{ DRM_MODE_COLORIMETRY_BT2020_CYCC, "BT2020_CYCC" },
->>  	/* Colorimetry based on ITU-R BT.2020 */
->> -	{ DRM_MODE_COLORIMETRY_BT2020_YCC, "BT2020_YCC" },
->> +	{ DRM_MODE_COLORIMETRY_BT2020_DEPRECATED, "BT2020_DEPRECATED" },
-> 
-> Let's hope no-one complains about missing the old string names in UABI. :-)
-> 
+--_000_BL1PR12MB5144B33E00E0639548FD53B0F7419BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-As discussed at the hackfest, I'll drop this patch.
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of jiadong.zhu@amd.com &lt;jiado=
+ng.zhu@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, May 24, 2023 12:35 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Zhu, Jiadong &lt;Jiadong.Zhu@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Reset CP_VMID_PREEMPT after trailing fe=
+nce signaled</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Jiadong Zhu &lt;Jiadong.Zhu@amd.com&gt;<br>
+<br>
+When MEC executes unmap_queue for mid command buffer preemption, it will<br=
+>
+kick the write pointer of the gfx ring, set CP_VMID_PREEMPT to trigger the<=
+br>
+preemption and wait for CP_VMID_PREEMPT becomes zero after the preemption<b=
+r>
+done. There is a race condition that PFP may excute the resetting command<b=
+r>
+before MEC set CP_VMID_PREEMPT. As a result, hang happens as<br>
+CP_VMID_PREEMPT is always 0xffff.<br>
+<br>
+To avoid this, we send resetting CP_VMID_PREEMPT command after the trailing=
+<br>
+fence is siganled and update gfx write pointer explicitly.<br>
+<br>
+Signed-off-by: Jiadong Zhu &lt;Jiadong.Zhu@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 8 ++++----<br>
+&nbsp;1 file changed, 4 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_0.c<br>
+index 8bf95a6b0767..cbdd9918b3e7 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+@@ -5402,10 +5402,6 @@ static int gfx_v9_0_ring_preempt_ib(struct amdgpu_ri=
+ng *ring)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_alloc(ring, 13=
+);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_ring_emit_fence(r=
+ing, ring-&gt;trail_fence_gpu_addr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;trail_seq, AMDGPU=
+_FENCE_FLAG_EXEC | AMDGPU_FENCE_FLAG_INT);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*reset the CP_VMID_PREEMPT after tra=
+iling fence*/<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_emit_wreg(ring,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; SOC15_REG_OFFSET(GC, 0, mmCP_VMID_PREEMPT),<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; 0x0);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* assert IB preemption, e=
+mit the trailing fence */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kiq-&gt;pmf-&gt;kiq_unmap_=
+queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,<br>
+@@ -5428,6 +5424,10 @@ static int gfx_v9_0_ring_preempt_ib(struct amdgpu_ri=
+ng *ring)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; DRM_WARN(&quot;ring %d timeout to preempt ib\n&quot;,=
+ ring-&gt;idx);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*reset the CP_VMID_PREEMPT after tra=
+iling fence*/<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_emit_wreg(ring,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; SOC15_REG_OFFSET(GC, 0, mmCP_VMID_PREEMPT),<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; 0x0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_commit(ring);<=
+br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* deassert preemption con=
+dition */<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-Harry
-
-> Actually, you should write in the commit message why removing old names
-> is fine.
-> 
->>  };
->>  
->>  /**
->> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
->> index c9be61d2348e..be100a193bf5 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dp.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
->> @@ -1766,11 +1766,11 @@ static void intel_dp_compute_vsc_colorimetry(const struct intel_crtc_state *crtc
->>  	case DRM_MODE_COLORIMETRY_BT2020_CYCC:
->>  		vsc->colorimetry = DP_COLORIMETRY_BT2020_CYCC;
->>  		break;
->> -	case DRM_MODE_COLORIMETRY_BT2020_RGB:
->> -		vsc->colorimetry = DP_COLORIMETRY_BT2020_RGB;
->> -		break;
->> -	case DRM_MODE_COLORIMETRY_BT2020_YCC:
->> -		vsc->colorimetry = DP_COLORIMETRY_BT2020_YCC;
->> +	case DRM_MODE_COLORIMETRY_BT2020_DEPRECATED:
->> +	case DRM_MODE_COLORIMETRY_BT2020:
->> +		vsc->colorimetry = vsc->pixelformat == DP_PIXELFORMAT_RGB
->> +			? DP_COLORIMETRY_BT2020_RGB
->> +			: DP_COLORIMETRY_BT2020_YCC;
->>  		break;
->>  	case DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
->>  	case DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
->> @@ -3043,9 +3043,9 @@ intel_dp_needs_vsc_sdp(const struct intel_crtc_state *crtc_state,
->>  	switch (conn_state->colorspace) {
->>  	case DRM_MODE_COLORIMETRY_SYCC_601:
->>  	case DRM_MODE_COLORIMETRY_OPYCC_601:
->> -	case DRM_MODE_COLORIMETRY_BT2020_YCC:
->> -	case DRM_MODE_COLORIMETRY_BT2020_RGB:
->>  	case DRM_MODE_COLORIMETRY_BT2020_CYCC:
->> +	case DRM_MODE_COLORIMETRY_BT2020_DEPRECATED:
->> +	case DRM_MODE_COLORIMETRY_BT2020:
->>  		return true;
->>  	default:
->>  		break;
->> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
->> index bb078666dc34..3e2e1bc7aa04 100644
->> --- a/include/drm/drm_connector.h
->> +++ b/include/drm/drm_connector.h
->> @@ -409,12 +409,15 @@ enum drm_privacy_screen_status {
->>   * @DRM_MODE_COLORIMETRY_BT2020_CYCC:
->>   *   (HDMI, DP)
->>   *   ITU-R BT.2020 Y'c C'bc C'rc (constant luminance) colorimetry format
->> - * @DRM_MODE_COLORIMETRY_BT2020_RGB:
->> + * @DRM_MODE_COLORIMETRY_BT2020:
->>   *   (HDMI, DP)
->> - *   ITU-R BT.2020 R' G' B' colorimetry format
->> - * @DRM_MODE_COLORIMETRY_BT2020_YCC:
->> + *   ITU-R BT.2020 [R' G' B'] or
->> + * 	 ITU-R BT.2020 [Y' C'b C'r] or
->> + *   ITU-R BT.2020 [Y'c C'bc C'rc] (linear)
-> 
-> Drop the constant luminance variant from this value's doc.
-> 
->> + *   colorimetry format
->> + * @DRM_MODE_COLORIMETRY_BT2020_DEPRECATED:
->>   *   (HDMI, DP)
->> - *   ITU-R BT.2020 Y' C'b C'r colorimetry format
->> + *   deprecated; same as DRM_MODE_COLORIMETRY_BT2020
->>   * @DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
->>   *   (HDMI)
->>   *   SMPTE ST 2113 P3D65 colorimetry format
->> @@ -448,8 +451,8 @@ enum drm_colorspace {
->>  	DRM_MODE_COLORIMETRY_OPYCC_601		= 6,
->>  	DRM_MODE_COLORIMETRY_OPRGB		= 7,
->>  	DRM_MODE_COLORIMETRY_BT2020_CYCC	= 8,
->> -	DRM_MODE_COLORIMETRY_BT2020_RGB		= 9,
->> -	DRM_MODE_COLORIMETRY_BT2020_YCC		= 10,
->> +	DRM_MODE_COLORIMETRY_BT2020		= 9,
->> +	DRM_MODE_COLORIMETRY_BT2020_DEPRECATED	= 10,
->>  	/* Additional Colorimetry extension added as part of CTA 861.G */
->>  	DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65	= 11,
->>  	DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER	= 12,
-> 
-> With the caveat noted and nitpick fixed:
-> Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-> 
-> 
-> Thanks,
-> pq
-
+--_000_BL1PR12MB5144B33E00E0639548FD53B0F7419BL1PR12MB5144namp_--
