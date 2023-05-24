@@ -4,113 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E77A0C77B7C
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 21:19:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD624C7EE31
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 21:25:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 781B310E079;
-	Wed, 24 May 2023 21:19:56 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2083.outbound.protection.outlook.com [40.107.94.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A005C10E079
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 21:19:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GQomkvO8BcAr/l956P+vhXU56aaNtYARiksh7bytefbBbbtl7pZinZAEbjwXAawVI3Dt0YHXbJcOl0+3cRvs+g/rVmfW5hDdH50BeawRcZTtvCMOab0QUydry7vR/HpyzsDKa4feoaPkfwR9oYSmyAlSdgw+XXNNWAmrboy7tIsbtpswX6yrTn7rjZtDY6DiOdXk5/6zf6UGlInl972DN4JOnuVmLQr1y1GZvQMzYb6F/Wayao7uBvs++BeTHmqn5vhePES1AAb6BHAqpW268TNt3y1wCYeihQcn65+/auN2hEgnD6PvTBomz0eGrR9qv/whdtEHnUkTT/iLxdVSCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p0wb3vqu3S2T9SeOhWGJjdt995MOwcLjhZKKEwsaBqk=;
- b=cZEUdeKv5t4QsIuNCV3fP/Vlc9DDpsXypBq4MUNDcV0B2EZ06meA6ZMEC6eG4okxwz0kwWuBZ5px1YnSjoe7ReLUYB3cPoaK+6R2RWmHulE5UrOqPTUoiK87CFUuO6j/ojWTvz+YaXLqcLS08jcrMbNaY7whqVN0uhap1xGCupAuJrws6JQoH7dAvvatJb2iznDecm+cjVjiPC8ybRRVCB6ry7ZYDhpOAlH6b7pbkQA9droF3jQCF9RdsFWx5h/8H2gKpm6SToWrYwfom2ARQBht6+iZv8C0XFQMMwBy73ghCmCJk0reMjvvB2wyCX9U7dO50FU/W7o9ZS5YJeerEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p0wb3vqu3S2T9SeOhWGJjdt995MOwcLjhZKKEwsaBqk=;
- b=fG7N1huC2v1QnK78C57B7rwq7ADgmPqb86wsrCK2fABof0DyiAGCB5vUrUu19odk1C52+AapMHtDgICHtKmsF5JJ7q+U/EDNo6Iv0qPRAKUc+hj1e3KbI+yrGXZIxgBM3q3fmAXI9+dGP2gqAEVKfZc5KykUsP2fsKV6mZfuGdk=
-Received: from DM6PR12MB5518.namprd12.prod.outlook.com (2603:10b6:5:1b9::21)
- by MN2PR12MB4062.namprd12.prod.outlook.com (2603:10b6:208:1d0::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Wed, 24 May
- 2023 21:19:52 +0000
-Received: from DM6PR12MB5518.namprd12.prod.outlook.com
- ([fe80::a5d:b360:b6e5:c3b8]) by DM6PR12MB5518.namprd12.prod.outlook.com
- ([fe80::a5d:b360:b6e5:c3b8%4]) with mapi id 15.20.6411.028; Wed, 24 May 2023
- 21:19:52 +0000
-From: "Li, Ying" <YING.LI@amd.com>
-To: "Zhu, James" <James.Zhu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/jpeg: add init value for num_jpeg_rings
-Thread-Topic: [PATCH] drm/jpeg: add init value for num_jpeg_rings
-Thread-Index: AQHZjn9B/r61jOJJCE+AZJhABeYUHq9p7bYg
-Date: Wed, 24 May 2023 21:19:52 +0000
-Message-ID: <DM6PR12MB55189AE865B09F04F50C3086EF419@DM6PR12MB5518.namprd12.prod.outlook.com>
-References: <20230524203504.3568374-1-James.Zhu@amd.com>
-In-Reply-To: <20230524203504.3568374-1-James.Zhu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=53e4ae42-8903-4224-9754-2890ef62f794;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-05-24T21:18:58Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB5518:EE_|MN2PR12MB4062:EE_
-x-ms-office365-filtering-correlation-id: b921b99f-85b6-4703-3d48-08db5c9c9d11
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 8BJBMG1ricGFwro4xMyJ7M6NXDcGZ3KdXwKxXRxoul1YEJ5Xf94BAqIo1ox2l7xkA3d3hPLFsSRZ7TghnpgRFR3Q6EuVEikF07dSK1dpnPcorYYZ4Q0UZ/p+yFfqui4iF4epUU2pfGpvTKPMRQHA2DIggEkIUy9QiIPWVHPTCbGD5/EuCXWIy097lt/5oH3rqxI7b4BZVLo4U4w/msYwNJLu2L9N/GU5If0c1sigDem2A/P1useCw2mX8eMj/Ho8IOV/+MpWLaPbWDioh8NPcX4iEnip0tktiOyJNpS5UL3fAt2QJqYIhZha2bjOOlYGJnUP1Vt39X4YLffsPSQbzwotzZsEPVq5HtEEbC71d7UF7bVwjq48GyAdgCo135G10IwyKmSkth0ZpfSuD3HhClI9xjR5yZbk88B7X7o4ohYxBRGf99JZ7RAdqY8JXCEE91cR5aoy+KpKWGAxEYy442G3JCn6OabRk4xNdArvntKScWT9CJQVT+GqPJCxs29WBgfQlWk6xIZaIvuWCty8hhVIJZdTqvHMtWgp+iYGLh6vmM+c1bbh9YtC0SlTZc8wFEHYrg7qkQVSFRywZDMt01iDhbGA2rjBsh1ZOAJ19+2xpyks/OSthIgtBCDb3reF
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB5518.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(366004)(396003)(136003)(39860400002)(346002)(451199021)(8936002)(8676002)(52536014)(5660300002)(83380400001)(186003)(53546011)(9686003)(6506007)(86362001)(26005)(122000001)(38100700002)(76116006)(66476007)(316002)(71200400001)(55016003)(7696005)(478600001)(66946007)(41300700001)(66556008)(4326008)(66446008)(54906003)(64756008)(110136005)(33656002)(38070700005)(2906002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JQ+/c1+NCjlL3v8YyeCAWvHc0eQaPwbWZPDWz1kA2N4j8zMtJm41t939aPu3?=
- =?us-ascii?Q?mlzr1yvwXNYO4QO//Lc0mXL2cxgDlheXXKnP5weQAWqKuidrlq/h2unSgMF0?=
- =?us-ascii?Q?pG0UJnFixewcjeYxEfsuNfXLA9O6OjYRbz51w0bJzyoitxeDFFBE7Pxe9wUf?=
- =?us-ascii?Q?/PqgxYNUfBlC/1jbwbIb6+dbRK1Zk4N6LcwDSlj/zM0rOVVJyhUSk2YVJ6GM?=
- =?us-ascii?Q?t5Ojvrrspf/IQW4Ednoa4e3aA4mH3EP9rTeU+4fOxqF9abgWejmZa25QYyB6?=
- =?us-ascii?Q?CWm994uFkBA3K+xT3okL8nMkR3srqsoJroSkC8womqWbbMVqgucq6NLmzxkm?=
- =?us-ascii?Q?Ts4Pe2F8tS+ph64mP3R5zobEXQcd9HTlDstmMqwpXroD1Dczh88S2dj3QnxL?=
- =?us-ascii?Q?3SYZuV82CmUXYj1RjAz9Du3rY09jSQ6momHVuVw88BFhx4uZUL5ivgZQ3jvv?=
- =?us-ascii?Q?Qyy6k15ySo9dGZ3OLSIM5/1n9JicsUF0/7O//DbVvtld7YRuQGW7D+EAwMMM?=
- =?us-ascii?Q?ZQV0PjTrGxygkScU+9Rxa2A2XOnf0qIyAQC+rAw6Ye0yP6DxS7EEU654e9IB?=
- =?us-ascii?Q?30uPwR7JiE1B8RKXcFTt3mlxjnI96yWoCvt1zt9VRUOV24eMRFdiY57WWUIY?=
- =?us-ascii?Q?RC41uPrMEHoNQW6SQ5rR+tZnfgC1BuLLee7vUNkuoIbYRjNnfFVyKg3CVFDE?=
- =?us-ascii?Q?52pbKDkI2juVdCgqbZL2iRXTRvwMh+Jlm9pT7gq5G/ITB24LIApuoMCBCdXG?=
- =?us-ascii?Q?6k5NBHEZFYdGw3PyAy6ko+7x9FEhkKy65W3YV+O1fkT03TWV6WarB6UHGikZ?=
- =?us-ascii?Q?AFbpvdYgR3tJ/05Qea/shiREBvNb+LP1/OHRgfO+NA0NF/rEwEcR6bPTdB72?=
- =?us-ascii?Q?tPHqur2tcTcNTIvL4ZvI21bl6BhvnIPXYs5X+JpkoLRVw+DksaTJfos+kUn4?=
- =?us-ascii?Q?DvVjsbtJQinNbt8Z3daBDSq/6E7ZQfbZhllEJ4qZChBAi9AZ3UD7uc9T+g7J?=
- =?us-ascii?Q?kKy8KEzBwUn66DrTpgmjmzhumAaQzbUy6qBeo5OpVYdMu/8hFvkbBf63iwte?=
- =?us-ascii?Q?VYHaoyqXA6ZPvnjcXIse2Ss3NxNqkXevIfEOj+w61IcEVTrZo0aYQSebfMhQ?=
- =?us-ascii?Q?dvLJrCikPfbcymST6+Pnwjx90CqfwyN1fqE2HLEm+v6rSAQS3tMlTMeOxBze?=
- =?us-ascii?Q?ch06QkRSFW+HfHTQCyCTPLBJ++jdL8gijbb82cGs0vFI2ffBAde6Jh3fV/gr?=
- =?us-ascii?Q?gc2ZHC+fOPVPBklPYpYh2gDk70YsXok9UtbnyxTReEA3At+G4ht2uvWpV0F5?=
- =?us-ascii?Q?xviaw6PI46VXolW2cspkbMTmj44dgB9xeVdQtRmviiwpkMHKiDv9my2bxxSu?=
- =?us-ascii?Q?7dBGiMgVO7IWzoTfYXVI3fBqcsceME8rcwLqhbbc4+fYbsxh1bEKhq6tQpsg?=
- =?us-ascii?Q?q++T2QNo9y4Sg+bfqhdKfhzR7/TJBZGjgqyE/AY+nkHmMjKeycKhUXMXwoDm?=
- =?us-ascii?Q?gLiR4AGLWIk9AtHPci/KxrLX0XPLY/MCukLhS0yNlWyALBBk9o8sLSt/41oA?=
- =?us-ascii?Q?75iPNDZF0dgYZbUgc4s=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F86A10E585;
+	Wed, 24 May 2023 21:25:52 +0000 (UTC)
+Received: from 189.cn (ptr.189.cn [183.61.185.101])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 264B910E585;
+ Wed, 24 May 2023 21:25:49 +0000 (UTC)
+HMM_SOURCE_IP: 10.64.8.43:60750.2065150534
+HMM_ATTACHE_NUM: 0000
+HMM_SOURCE_TYPE: SMTP
+Received: from clientip-114.242.206.180 (unknown [10.64.8.43])
+ by 189.cn (HERMES) with SMTP id 0DB1A1001E9;
+ Thu, 25 May 2023 05:25:44 +0800 (CST)
+Received: from  ([114.242.206.180])
+ by gateway-151646-dep-75648544bd-7vx9t with ESMTP id
+ 2a16eb5e949146d3b81ea9ab1574803f for tzimmermann@suse.de; 
+ Thu, 25 May 2023 05:25:46 CST
+X-Transaction-ID: 2a16eb5e949146d3b81ea9ab1574803f
+X-Real-From: 15330273260@189.cn
+X-Receive-IP: 114.242.206.180
+X-MEDUSA-Status: 0
+Message-ID: <9a7e0db2-6dc1-5e48-6344-b941726df5ba@189.cn>
+Date: Thu, 25 May 2023 05:25:43 +0800
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB5518.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b921b99f-85b6-4703-3d48-08db5c9c9d11
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 May 2023 21:19:52.2762 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qTldGMHPweckBBbku8xt2R82kkQYIuekakbK9HZP0WV6qSF8+u19Re2NALguuyVHXZN/wFHkPWuHHwsEjc8ADg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4062
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [v4,13/13] drm/i915: Implement dedicated fbdev I/O helpers
+Content-Language: en-US
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ javierm@redhat.com, sam@ravnborg.org
+References: <20230524092150.11776-14-tzimmermann@suse.de>
+From: Sui Jingfeng <15330273260@189.cn>
+In-Reply-To: <20230524092150.11776-14-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,98 +52,334 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deng, Bonnie" <Bonnie.Deng@amd.com>, "Liang,
- Richard qi" <Richardqi.Liang@amd.com>, "Wu, Jason" <Jason.Wu2@amd.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
-
-Tested-by: Ying Li <Ying.Li@amd.com> for the patch
-
------Original Message-----
-From: Zhu, James <James.Zhu@amd.com>
-Sent: Wednesday, May 24, 2023 4:35 PM
-To: amd-gfx@lists.freedesktop.org; Li, Ying <YING.LI@amd.com>
-Cc: Wu, Jason <Jason.Wu2@amd.com>; Deng, Bonnie <Bonnie.Deng@amd.com>; Lian=
-g, Richard qi <Richardqi.Liang@amd.com>
-Subject: [PATCH] drm/jpeg: add init value for num_jpeg_rings
-
-Need init new num_jpeg_rings to 1 on jpeg.
-
-Signed-off-by: James Zhu <James.Zhu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c | 1 +  drivers/gpu/drm/amd/amdgpu/j=
-peg_v2_0.c | 1 +  drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c | 1 +  drivers/gpu=
-/drm/amd/amdgpu/jpeg_v3_0.c | 1 +  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c |=
- 1 +
- 5 files changed, 5 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/jpeg_v1_0.c
-index 1c5b60604a19..77595e9622da 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
-@@ -460,6 +460,7 @@ int jpeg_v1_0_early_init(void *handle)
-        struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-
-        adev->jpeg.num_jpeg_inst =3D 1;
-+       adev->jpeg.num_jpeg_rings =3D 1;
-
-        jpeg_v1_0_set_dec_ring_funcs(adev);
-        jpeg_v1_0_set_irq_funcs(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/jpeg_v2_0.c
-index 3aeeceae34a5..c25d4a07350b 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
-@@ -49,6 +49,7 @@ static int jpeg_v2_0_early_init(void *handle)
-        struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-
-        adev->jpeg.num_jpeg_inst =3D 1;
-+       adev->jpeg.num_jpeg_rings =3D 1;
-
-        jpeg_v2_0_set_dec_ring_funcs(adev);
-        jpeg_v2_0_set_irq_funcs(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/a=
-mdgpu/jpeg_v2_5.c
-index f533ede484d4..aadb74de52bc 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-@@ -60,6 +60,7 @@ static int jpeg_v2_5_early_init(void *handle)
-        u32 harvest;
-        int i;
-
-+       adev->jpeg.num_jpeg_rings =3D 1;
-        adev->jpeg.num_jpeg_inst =3D JPEG25_MAX_HW_INSTANCES_ARCTURUS;
-        for (i =3D 0; i < adev->jpeg.num_jpeg_inst; i++) {
-                harvest =3D RREG32_SOC15(JPEG, i, mmCC_UVD_HARVESTING); dif=
-f --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdg=
-pu/jpeg_v3_0.c
-index cb5494effc0f..79791379fc2b 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-@@ -64,6 +64,7 @@ static int jpeg_v3_0_early_init(void *handle)
-        }
-
-        adev->jpeg.num_jpeg_inst =3D 1;
-+       adev->jpeg.num_jpeg_rings =3D 1;
-
-        jpeg_v3_0_set_dec_ring_funcs(adev);
-        jpeg_v3_0_set_irq_funcs(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/jpeg_v4_0.c
-index 86383fbf9358..a707d407fbd0 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-@@ -58,6 +58,7 @@ static int jpeg_v4_0_early_init(void *handle)
+Hi,
 
 
-        adev->jpeg.num_jpeg_inst =3D 1;
-+       adev->jpeg.num_jpeg_rings =3D 1;
+I have just tested this patch on my i3-8100@3.6Ghz cpu + h110 
+motherboard with fbtest:
 
-        jpeg_v4_0_set_dec_ring_funcs(adev);
-        jpeg_v4_0_set_irq_funcs(adev);
---
-2.34.1
 
+Benchmarking... 10x10 squares: 26.44 Mpixels/s
+Benchmarking... 20x20 squares: 52.54 Mpixels/s
+Benchmarking... 50x50 squares: 128.13 Mpixels/s
+Benchmarking... 100x100 squares: 252.21 Mpixels/s
+Benchmarking... 200x200 squares: 489.48 Mpixels/s
+Benchmarking... 500x500 squares: 1073.42 Mpixels/s
+Benchmarking... 1000x1000 squares: 1823.72 Mpixels/s
+Benchmarking... R5 circles: 18.73 Mpixels/s
+Benchmarking... R10 circles: 39.05 Mpixels/s
+Benchmarking... R25 circles: 98.60 Mpixels/s
+Benchmarking... R50 circles: 196.31 Mpixels/s
+Benchmarking... R100 circles: 382.81 Mpixels/s
+Benchmarking... R250 circles: 872.09 Mpixels/s
+Benchmarking... R500 circles: 1511.50 Mpixels/s
+
+
+Then I mount ast2400 card on the same motherboard:
+
+
+Benchmarking... 10x10 squares: 261.75 Mpixels/s
+Benchmarking... 20x20 squares: 539.37 Mpixels/s
+Benchmarking... 50x50 squares: 1161.53 Mpixels/s
+Benchmarking... 100x100 squares: 1624.30 Mpixels/s
+Benchmarking... 200x200 squares: 2089.74 Mpixels/s
+Benchmarking... 500x500 squares: 2779.27 Mpixels/s
+Benchmarking... 1000x1000 squares: 2382.28 Mpixels/s
+Benchmarking... R5 circles: 151.03 Mpixels/s
+Benchmarking... R10 circles: 311.34 Mpixels/s
+Benchmarking... R25 circles: 698.63 Mpixels/s
+Benchmarking... R50 circles: 1184.14 Mpixels/s
+Benchmarking... R100 circles: 1791.60 Mpixels/s
+Benchmarking... R250 circles: 2641.76 Mpixels/s
+Benchmarking... R500 circles: 2669.38 Mpixels/s
+
+
+The logs of fbtest and fbdev of IGT say passed.
+
+
+On 2023/5/24 17:21, Thomas Zimmermann wrote:
+> Implement dedicated fbdev helpers for framebuffer I/O instead
+> of using DRM's helpers. Use an fbdev generator macro for
+> deferred I/O to create the fbdev callbacks. i915 was the only
+> caller of the DRM helpers, so remove them from the helper module.
+>
+> i915's fbdev emulation is still incomplete as it doesn't implement
+> deferred I/O and damage handling for mmaped pages.
+>
+> v4:
+> 	* generate deferred-I/O helpers
+> 	* use initializer macros for fb_ops
+> v2:
+> 	* use FB_IO_HELPERS options
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> Cc: "Ville Syrjälä" <ville.syrjala@linux.intel.com>
+> ---
+>   drivers/gpu/drm/Kconfig                    |   3 -
+>   drivers/gpu/drm/drm_fb_helper.c            | 107 ---------------------
+>   drivers/gpu/drm/i915/Kconfig               |   1 +
+>   drivers/gpu/drm/i915/display/intel_fbdev.c |  14 +--
+>   include/drm/drm_fb_helper.h                |  39 --------
+>   5 files changed, 9 insertions(+), 155 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 92a782827b7b..bb2e48cc6cd6 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -133,9 +133,6 @@ config DRM_FBDEV_EMULATION
+>   	bool "Enable legacy fbdev support for your modesetting driver"
+>   	depends on DRM_KMS_HELPER
+>   	depends on FB=y || FB=DRM_KMS_HELPER
+> -	select FB_CFB_FILLRECT
+> -	select FB_CFB_COPYAREA
+> -	select FB_CFB_IMAGEBLIT
+>   	select FRAMEBUFFER_CONSOLE if !EXPERT
+>   	select FRAMEBUFFER_CONSOLE_DETECT_PRIMARY if FRAMEBUFFER_CONSOLE
+>   	default y
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+> index bab6b252f02a..9978147bbc8a 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -736,113 +736,6 @@ void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagerefli
+>   }
+>   EXPORT_SYMBOL(drm_fb_helper_deferred_io);
+>   
+> -/**
+> - * drm_fb_helper_cfb_read - Implements struct &fb_ops.fb_read for I/O memory
+> - * @info: fb_info struct pointer
+> - * @buf: userspace buffer to read from framebuffer memory
+> - * @count: number of bytes to read from framebuffer memory
+> - * @ppos: read offset within framebuffer memory
+> - *
+> - * Returns:
+> - * The number of bytes read on success, or an error code otherwise.
+> - */
+> -ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
+> -			       size_t count, loff_t *ppos)
+> -{
+> -	return fb_io_read(info, buf, count, ppos);
+> -}
+> -EXPORT_SYMBOL(drm_fb_helper_cfb_read);
+> -
+> -/**
+> - * drm_fb_helper_cfb_write - Implements struct &fb_ops.fb_write for I/O memory
+> - * @info: fb_info struct pointer
+> - * @buf: userspace buffer to write to framebuffer memory
+> - * @count: number of bytes to write to framebuffer memory
+> - * @ppos: write offset within framebuffer memory
+> - *
+> - * Returns:
+> - * The number of bytes written on success, or an error code otherwise.
+> - */
+> -ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
+> -				size_t count, loff_t *ppos)
+> -{
+> -	struct drm_fb_helper *helper = info->par;
+> -	loff_t pos = *ppos;
+> -	ssize_t ret;
+> -	struct drm_rect damage_area;
+> -
+> -	ret = fb_io_write(info, buf, count, ppos);
+> -	if (ret <= 0)
+> -		return ret;
+> -
+> -	if (helper->funcs->fb_dirty) {
+> -		drm_fb_helper_memory_range_to_clip(info, pos, ret, &damage_area);
+> -		drm_fb_helper_damage(helper, damage_area.x1, damage_area.y1,
+> -				     drm_rect_width(&damage_area),
+> -				     drm_rect_height(&damage_area));
+> -	}
+> -
+> -	return ret;
+> -}
+> -EXPORT_SYMBOL(drm_fb_helper_cfb_write);
+> -
+> -/**
+> - * drm_fb_helper_cfb_fillrect - wrapper around cfb_fillrect
+> - * @info: fbdev registered by the helper
+> - * @rect: info about rectangle to fill
+> - *
+> - * A wrapper around cfb_fillrect implemented by fbdev core
+> - */
+> -void drm_fb_helper_cfb_fillrect(struct fb_info *info,
+> -				const struct fb_fillrect *rect)
+> -{
+> -	struct drm_fb_helper *helper = info->par;
+> -
+> -	cfb_fillrect(info, rect);
+> -
+> -	if (helper->funcs->fb_dirty)
+> -		drm_fb_helper_damage(helper, rect->dx, rect->dy, rect->width, rect->height);
+> -}
+> -EXPORT_SYMBOL(drm_fb_helper_cfb_fillrect);
+> -
+> -/**
+> - * drm_fb_helper_cfb_copyarea - wrapper around cfb_copyarea
+> - * @info: fbdev registered by the helper
+> - * @area: info about area to copy
+> - *
+> - * A wrapper around cfb_copyarea implemented by fbdev core
+> - */
+> -void drm_fb_helper_cfb_copyarea(struct fb_info *info,
+> -				const struct fb_copyarea *area)
+> -{
+> -	struct drm_fb_helper *helper = info->par;
+> -
+> -	cfb_copyarea(info, area);
+> -
+> -	if (helper->funcs->fb_dirty)
+> -		drm_fb_helper_damage(helper, area->dx, area->dy, area->width, area->height);
+> -}
+> -EXPORT_SYMBOL(drm_fb_helper_cfb_copyarea);
+> -
+> -/**
+> - * drm_fb_helper_cfb_imageblit - wrapper around cfb_imageblit
+> - * @info: fbdev registered by the helper
+> - * @image: info about image to blit
+> - *
+> - * A wrapper around cfb_imageblit implemented by fbdev core
+> - */
+> -void drm_fb_helper_cfb_imageblit(struct fb_info *info,
+> -				 const struct fb_image *image)
+> -{
+> -	struct drm_fb_helper *helper = info->par;
+> -
+> -	cfb_imageblit(info, image);
+> -
+> -	if (helper->funcs->fb_dirty)
+> -		drm_fb_helper_damage(helper, image->dx, image->dy, image->width, image->height);
+> -}
+> -EXPORT_SYMBOL(drm_fb_helper_cfb_imageblit);
+> -
+>   /**
+>    * drm_fb_helper_set_suspend - wrapper around fb_set_suspend
+>    * @fb_helper: driver-allocated fbdev helper, can be NULL
+> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+> index e4f4d2e3fdfe..01b5a8272a27 100644
+> --- a/drivers/gpu/drm/i915/Kconfig
+> +++ b/drivers/gpu/drm/i915/Kconfig
+> @@ -17,6 +17,7 @@ config DRM_I915
+>   	select DRM_KMS_HELPER
+>   	select DRM_PANEL
+>   	select DRM_MIPI_DSI
+> +	select FB_IO_HELPERS if DRM_FBDEV_EMULATION
+>   	select RELAY
+>   	select I2C
+>   	select I2C_ALGOBIT
+> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+> index aab1ae74a8f7..eccaceaf8b9d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+> @@ -28,6 +28,7 @@
+>   #include <linux/console.h>
+>   #include <linux/delay.h>
+>   #include <linux/errno.h>
+> +#include <linux/fb.h>
+>   #include <linux/init.h>
+>   #include <linux/kernel.h>
+>   #include <linux/mm.h>
+> @@ -84,6 +85,10 @@ static void intel_fbdev_invalidate(struct intel_fbdev *ifbdev)
+>   	intel_frontbuffer_invalidate(to_frontbuffer(ifbdev), ORIGIN_CPU);
+>   }
+>   
+> +FB_GEN_DEFAULT_DEFERRED_IO_OPS(intel_fbdev,
+> +			       drm_fb_helper_damage_range,
+> +			       drm_fb_helper_damage_area)
+> +
+>   static int intel_fbdev_set_par(struct fb_info *info)
+>   {
+>   	struct intel_fbdev *ifbdev = to_intel_fbdev(info->par);
+> @@ -132,15 +137,12 @@ static int intel_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma)
+>   
+>   static const struct fb_ops intelfb_ops = {
+>   	.owner = THIS_MODULE,
+> +	__FB_DEFAULT_DEFERRED_OPS_RDWR(intel_fbdev),
+>   	DRM_FB_HELPER_DEFAULT_OPS,
+>   	.fb_set_par = intel_fbdev_set_par,
+> -	.fb_read = drm_fb_helper_cfb_read,
+> -	.fb_write = drm_fb_helper_cfb_write,
+> -	.fb_fillrect = drm_fb_helper_cfb_fillrect,
+> -	.fb_copyarea = drm_fb_helper_cfb_copyarea,
+> -	.fb_imageblit = drm_fb_helper_cfb_imageblit,
+> -	.fb_pan_display = intel_fbdev_pan_display,
+>   	.fb_blank = intel_fbdev_blank,
+> +	.fb_pan_display = intel_fbdev_pan_display,
+This override the default implements(drm_fb_helper_blank, 
+drm_fb_helper_pan_display and drm_fb_helper_set_par) defined in
+
+DRM_FB_HELPER_DEFAULT_OPS, but I think this intended.
+
+> +	__FB_DEFAULT_DEFERRED_OPS_DRAW(intel_fbdev),
+>   	.fb_mmap = intel_fbdev_mmap,
+>   };
+>   
+> diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
+> index b50fd0c0b713..4863b0f8299e 100644
+> --- a/include/drm/drm_fb_helper.h
+> +++ b/include/drm/drm_fb_helper.h
+> @@ -258,18 +258,6 @@ void drm_fb_helper_damage_area(struct fb_info *info, u32 x, u32 y, u32 width, u3
+>   
+>   void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagereflist);
+>   
+> -ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
+> -			       size_t count, loff_t *ppos);
+> -ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
+> -				size_t count, loff_t *ppos);
+> -
+> -void drm_fb_helper_cfb_fillrect(struct fb_info *info,
+> -				const struct fb_fillrect *rect);
+> -void drm_fb_helper_cfb_copyarea(struct fb_info *info,
+> -				const struct fb_copyarea *area);
+> -void drm_fb_helper_cfb_imageblit(struct fb_info *info,
+> -				 const struct fb_image *image);
+> -
+>   void drm_fb_helper_set_suspend(struct drm_fb_helper *fb_helper, bool suspend);
+>   void drm_fb_helper_set_suspend_unlocked(struct drm_fb_helper *fb_helper,
+>   					bool suspend);
+> @@ -385,33 +373,6 @@ static inline int drm_fb_helper_defio_init(struct drm_fb_helper *fb_helper)
+>   	return -ENODEV;
+>   }
+>   
+> -static inline ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
+> -					     size_t count, loff_t *ppos)
+> -{
+> -	return -ENODEV;
+> -}
+> -
+> -static inline ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
+> -					      size_t count, loff_t *ppos)
+> -{
+> -	return -ENODEV;
+> -}
+> -
+> -static inline void drm_fb_helper_cfb_fillrect(struct fb_info *info,
+> -					      const struct fb_fillrect *rect)
+> -{
+> -}
+> -
+> -static inline void drm_fb_helper_cfb_copyarea(struct fb_info *info,
+> -					      const struct fb_copyarea *area)
+> -{
+> -}
+> -
+> -static inline void drm_fb_helper_cfb_imageblit(struct fb_info *info,
+> -					       const struct fb_image *image)
+> -{
+> -}
+> -
+>   static inline void drm_fb_helper_set_suspend(struct drm_fb_helper *fb_helper,
+>   					     bool suspend)
+>   {
