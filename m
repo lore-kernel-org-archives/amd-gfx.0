@@ -4,89 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CA0BC77B73
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 16:20:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C405C77B7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 16:30:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE13210E108;
-	Wed, 24 May 2023 16:20:39 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D99C410E108
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 16:20:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FC3C10E375;
+	Wed, 24 May 2023 16:30:42 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2062e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e83::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66F2910E375
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 16:30:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NxS2pyDO+GDnXTq+PiotsWh6+C3zVO6h7eF473poaMK2nt0sJV+o5XXspv5KCIh8P3CkLqfGoJVAi0khM6jcvsMD87P515zIuWW7o63wiAMKFLiDUOuaowwGWTm42+FAUt1WfEdAec/aIYG6/WhDkR2WC3/kxt/adFoms+QMikgcHWhXhx5TaD0XWUD8gA4uzJjgUVYYLFZtOwqYKquWJkBnNvGNDb0dFySpconyXP2FMPHvq+zIRubsGnECx8kPMb0coGrLtMKIwZKZNtXzwkLwPYyHKmA0upStFH3PEDCfajIPzvW11n33VXHAFS4Rx3X48mHPFEA6AknJi/EGWw==
+ b=gqVvRZ//+Ko3qfiKG3uQG74YN7SN7tI1Rsq1RpiOQajtvsH/y+ogJiwUf6VOlGu4LhiNnqTJg9HE0uiPH2wB9nje4lUiPQzP0nfxFTV/0zcJRR4uAr3k2LHAp2r8sVyTEfIMtBV7rX6yf6F4NIqe4Oep6S2/RXZVTjiuNOxnJCgtQLj9PAH6AlreFh9rGfs8aOhxai94QgZJNb5MeuEQ6pkAKZf1CRxD19i96o7Oo4nlqNHwOqObyMaAvaERjFDqoKA84yr0uPdEdkM6eDXWlgLxd5nHI4xlY2wNImsG96JaLjbrMks7Ff1pGTkhVve7mUAhLczI2JbdIMqtSHLiNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UmSPC02rqIvJ2ZECTaAA1hWS37Ii5o9FPHpRhSTzcwY=;
- b=KJjMhG4YV2fNhzn84HPCoIf9nK+/QW8peQXxiG/ex5XBSFY+sKVJ2t5ct2k1YOJwwXycT3h7PY8vvAiHUS0L6QDn45C3pLTNDdUemGBTrej37GsFouo/xgHzqwuHFUslSHwkV3LED8WCqkePfjmF3mrt0IZWvLfuaxb91orVjVHx6j7V2VQK8QWFd01x+3qVVbPEF97JcbCciuKT5/WKG4vXF0k+xRcD0QxsOBXKZB67hItvrnWEREK0jzSDk8QOih5HdGPbfHSE1thFf+WJncR+kBveNjv7/CsnmR1ccuKeZuUaPjqkCPu6HEKbpXsLWi+i1MeubRuFdaQNtJBQ2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=g4nvpIsLVwCmAy97KuhyXjOAUX1AzWCj5Qwkwd/piAQ=;
+ b=Yyd8t1FRU0peC61gfatU/l2h83eBlYf5zFTXZHfbxRhz53VJYBccbqtYSr5E50eoE3rT786VW4rimbaGYo3xALD+l8c5ybV5sAExSWgIUXKtPFcKLvpmYMfsi4lGC6nt9vK+b60pCoJl1MjM7Q6dQHAwEHvqObG3I2WOMiikXK6CM2RSiuoDYmZPhnkFQOG4WXPgszpQh+h/psioCdufTA98aXmAVsvJhnNpe0sG33MHSkBt3g3alJ+BlYiK8n+pa8yqD3ahnG+kf5VUGspuUHqkJKGOHyKa0WPowtyzFMvIaO5Ok5HS6TGHIkToXnn+FrGz/5//90l0W0aLxsAoLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UmSPC02rqIvJ2ZECTaAA1hWS37Ii5o9FPHpRhSTzcwY=;
- b=2YDvQeNX9Z+H3LXA9a+0IIGsUS/llhjVPnp2AN97cG8WdzbBr4+9YLK5gJnkuETBdhNgf31eZ1ijpJSgibv27qBXfGzQBx/CZc+xiiq7+UfIc7UDWbFi449UW8H627NUn3ZyluT4YCsRbOJQ/crm5eTWHPGwJl+hemGKDzHjILo=
-Received: from DM6PR06CA0030.namprd06.prod.outlook.com (2603:10b6:5:120::43)
- by SN7PR12MB7836.namprd12.prod.outlook.com (2603:10b6:806:34e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Wed, 24 May
- 2023 16:20:36 +0000
-Received: from CY4PEPF0000E9D9.namprd05.prod.outlook.com
- (2603:10b6:5:120:cafe::d) by DM6PR06CA0030.outlook.office365.com
- (2603:10b6:5:120::43) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.16 via Frontend
- Transport; Wed, 24 May 2023 16:20:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D9.mail.protection.outlook.com (10.167.241.77) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6433.12 via Frontend Transport; Wed, 24 May 2023 16:20:36 +0000
-Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 24 May
- 2023 11:20:34 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Subject: [PATCH] drm/amd/display: Drop unused res_create_maximus_funcs &
+ bh=g4nvpIsLVwCmAy97KuhyXjOAUX1AzWCj5Qwkwd/piAQ=;
+ b=W9LPy5VH8eE7b3RY3GFI57H11LMR/xHttEcXe6HLAkI0WDpH7vuXc9sQK7B7XC3fi0O3kaIMplJMTCvVLCzOlIoNNU8tsfsknEVZSUqxHh+rGCFHvDUXPW6J1FLfqzM3cEaj6nNAJCaBBXUdW9qNZCQPT29Wfro0mhYawyBh7kA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
+ CH0PR12MB5283.namprd12.prod.outlook.com (2603:10b6:610:d6::12) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6433.15; Wed, 24 May 2023 16:30:34 +0000
+Received: from DM4PR12MB6280.namprd12.prod.outlook.com
+ ([fe80::fe53:2742:10f9:b8f1]) by DM4PR12MB6280.namprd12.prod.outlook.com
+ ([fe80::fe53:2742:10f9:b8f1%7]) with mapi id 15.20.6411.028; Wed, 24 May 2023
+ 16:30:34 +0000
+Message-ID: <a41a5f77-2f7e-8af1-d445-8f5a1ac94837@amd.com>
+Date: Wed, 24 May 2023 12:30:30 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/amd/display: Drop unused res_create_maximus_funcs &
  debug_defaults_diags variables
-Date: Wed, 24 May 2023 21:49:57 +0530
-Message-ID: <20230524161957.3672412-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
+References: <20230524161957.3672412-1-srinivasan.shanmugam@amd.com>
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+In-Reply-To: <20230524161957.3672412-1-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YQZPR01CA0130.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:87::15) To DM4PR12MB6280.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::11)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|SN7PR12MB7836:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6908bdd-75c3-4154-5bf5-08db5c72ce88
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|CH0PR12MB5283:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ed877b1-5806-4b8a-f3b5-08db5c743296
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3REv/rKJn+gWiOP/STFXhSvYZuq7rmvlCeCdLxLl0i7dn6gmxRAYioHArPDtxFflRVQgHRaNHLTL1auzjpeb3fTNplTaJhW0J1eM6rLfaG/TkMjnGz+y5JESepokS7csWKPEZt24K63L3dbkc8FEPmH5dxqvIzOL22xninDgoMLWBImaBzvQL+bz1WoZVF2IIQoIQG1hicsJgFrg1o4ToVxXxwbnnc8oxeb5yLDF1kSOApNRijmDs4CEOhMtwdsH67DOA1iJgS7Y3EQHv4KGSdfWQPR8Zl7vur642MXArrGoEoovk4xn7sOSsmnfCQSW9j4ogB19ul4lp+v80A1ZDq/JZU2UyLDyXJ21bwZMUjJmUzSLmvng1COpcG1tpUOb3FU4AV/+ClhLwLv+i8b2N3TDOQR+iOtGfNmNOiOSdfSP7+w0DUEF/yL7axzmV9zepo6AE2CzOPTUTIF85DSwS0ISrwClsFNbxu7yMpwK5BMDeGA7wKah/ulYx1owWI/9zXJb4jSO2ibP3Z0iJMgIkcnVvKeV6RtJhU4sk1lQOvTM7/lb0vzNyBXYAWnmsaGgNSEIFZ05an8EO5FYIG+NjGqVZduiWdEt7PoCO8Yd24qhFgUfdniIvjb1jYmBYbdJT4wil0XteOMFium1psLwRj9+jUpQxPe4vLbIp/z4VnWlE17KagwxeSnYa5l+PrWFlnx8DellEStpBrwVo4kj4Xx3cgnKj+e6oxm8ok/QR8SZ4Ctg9uVtSDs6Q1pMeLvxl7RWw22cIWDswqaqcZJT4w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(136003)(39860400002)(376002)(396003)(451199021)(36840700001)(40470700004)(46966006)(356005)(82740400003)(1076003)(26005)(16526019)(40460700003)(186003)(81166007)(44832011)(2616005)(36860700001)(47076005)(36756003)(83380400001)(426003)(336012)(2906002)(40480700001)(7696005)(41300700001)(316002)(54906003)(6666004)(37006003)(82310400005)(70206006)(70586007)(6636002)(4326008)(86362001)(8936002)(6862004)(5660300002)(478600001)(8676002)(36900700001);
+X-Microsoft-Antispam-Message-Info: xs8S0zAkEddUXe+0V4pX4TH5UhXT1zItoXzabphFap9j9qUDMYc+jfzES4BP0Vh68vTQnYNd94AY2XiY+bKyX6smUQsFfF7gsBQv3A+zE9cwPovO1PV4BmfBbd79L5OcSR70L+3Ix9cCbEAgNHc9QCntfyKZpoOILfkRXvdxLkkEyBluA5wyHpiMdLCjNWJSXN3yPbGG/3tIPxp4i36SPSPGyK2oTq/XoAkE+IVaoyInoHcmYlyK4GhcZI/NkRQ/nzKBbAJGT22j1sIlW2cezFIeEQRW0M5a+8oyGVpFP8me+ajKaVJ/iMCs0HbcVDtYc2mT/AUiGTRdUWfEp7N7uvqBrQRNVsaO3VG7eEFllHjDbfgkabR8v+X1s49bl3Vy1bwCKUk8b/3pnD7XN99Mhd/FTLwnnVb1XrnjTyXuNPwlrPvJa4OVuLs3hHJRqGA0Cf26/uSVF7l/ZGsYNIML7r/g/Jme2kdF1B1tgFKTnDq/nYTYyrULOILeOm0LyfH0rJRcYCMxBb9/ITlyx8HBmvdQyGDwQKszE+iaQ3UM5X9RAfLuzIUf4SfO8Is74I3Ru5qEzRDRltNy2w5cdHQaRL5LYaNCw63cNGD9R6sY+mVQcCubaLXCKF8eluxy06ZVFxezzXKAHV+Bt8mMmhi7yw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(346002)(39860400002)(366004)(136003)(376002)(451199021)(6666004)(4326008)(478600001)(53546011)(110136005)(316002)(41300700001)(66476007)(66556008)(6636002)(31686004)(66946007)(6486002)(38100700002)(5660300002)(8936002)(8676002)(83380400001)(2616005)(26005)(44832011)(6506007)(6512007)(2906002)(186003)(36756003)(31696002)(86362001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZjUvdGRSRGZISCtTaXFxUFB2SDYwSTVmazdIUmFxdlRtWjhOL081eE9NNy96?=
+ =?utf-8?B?NkFDSlRqNndtRmpsa3E5Z245T3h1NXRISmdMKzE3WkZKOW14dGpDL2ZNa0d4?=
+ =?utf-8?B?R04xOGhNcERLV1laMkY2amx5S1A1M1owdjNFdmc0bjR2bElTUGxzYWZSbkpP?=
+ =?utf-8?B?MFdQdDZmbm4xQ2syem5PTmI4cG9nU1BLL1ZBRWF6UmNjMnE0QlgzV3RpYTRr?=
+ =?utf-8?B?UytGTDNqUE9KSEF3NkppVnJWSnI2cXNrc2xlNlhwMmtlRG0rb3lxS3M3emdm?=
+ =?utf-8?B?VkJka0U1ZFphV0EyVzNDUlFNamhRMVN6TFJlaU5xcXpvblNLejlQa1o4blQz?=
+ =?utf-8?B?Q1BNTU1Od3dTb3cvNys3NGJvdld0Wmd5dnN6akhFVFlzQ1pVSUtVMzJGZHhi?=
+ =?utf-8?B?TzZDS3FaM1FIY1psTFpjempCNnBsdkxiS2dyTVQ2a1JhY3JCUDFLY1FlUnly?=
+ =?utf-8?B?eXh3SnFDcyt3M29YcFQreDZYZFNiZ0RFSVNTaUo1ak5ac3BoZi9nK01ya3pB?=
+ =?utf-8?B?L1RpdEk4VWk0MVNJcEhWTU50RnJTSjV3Q2piZk5qWkxEbjhHdi82REFqeTY0?=
+ =?utf-8?B?clNhSGdZYlhPWC94eFRaRDk3SnNLR1JkcEZaYkdqMzY5MTFiM21PaU9KWlc0?=
+ =?utf-8?B?bzlLT0o0QzI2OHBpRTFhYThtNlkveDNlQy9DYVdMZS9XblBXeXAxZkd2V1Mz?=
+ =?utf-8?B?dEpnNW9IVXMwQlZGTmgwdHlveTBJVmFJS3FraklNYlZqNjdMTFFNSk1qTHdD?=
+ =?utf-8?B?VnA1VVMrK25UeDdYV3JXSE1kb09CVURXREhmWVJpemowZkJzTlo1K3l4VnZz?=
+ =?utf-8?B?eVRLZU1ydGlrdkQ3SndnYlJ0eFdFU0RRejZPV0lXK2NnKzhvZ2lIMEZOanh3?=
+ =?utf-8?B?Rjc1M1VEclhpVGZSME1rRjZmWWczTlhCUkUrNC9OaFJIdmx1a0x4OG8yTUpK?=
+ =?utf-8?B?VE5CRmo1UXBzTGRQMk50cUk2YWdwQmEvKzdGOENNQlRnZ0psQVVSUWlONEJJ?=
+ =?utf-8?B?VnhLNUE3MFdHclFWUDZ4OUxWMGMrVTFVRDJHR3NidE1ldmswRWxlYXhUeGhC?=
+ =?utf-8?B?ZDRwK0RWenlFeHVYeTB1d2V6dEd4ZWkvUUh2Zm8vODZuR3BPdGF5d2VUWWZJ?=
+ =?utf-8?B?UDlUZXU4aXpuK1AyRFFKZjB6NVp4OFV4aUNwbHZsMis1T3NkRnlUZ1kxejVJ?=
+ =?utf-8?B?RWhlbjR4d0ROQ1M0TzVXbFZFYXFVVi92cGh0eENwSUJEOU0rMW5OM2tlNXk5?=
+ =?utf-8?B?UHh3QTZ3bzlXem11RDlvOVdCczl1VThkRzBqQkZTdkJjU0owY3o0RExDaU5V?=
+ =?utf-8?B?VzZLVU5aT1l1U1gxWkdTOUFNQk8yLzhrRDUreDN0Y045V0NNMWM0SmQrVzZD?=
+ =?utf-8?B?SjlJVDFRRzdEODhrMkMvMUhERUNXcXZhOVlTZjI5SkxWZ2xSd0JtMGltZHA0?=
+ =?utf-8?B?amJuNnBscXBhdjU5MTZsc05WM0RoSllaV0tuelk4VmVxd1R6T3R3QzQ4KzEr?=
+ =?utf-8?B?QWNNelRJeEx2OE5GYjRBajUrL2x5N1RoeDMwU3BucTg0QTlnbFIzcmJucEMz?=
+ =?utf-8?B?SzJxaURlUTRQOGRJdzlNSTBUZDVBcjlIZjRHZk0yVElzV005T0tJdEtEWGQ4?=
+ =?utf-8?B?NFNuWXpsajloMVdYbTd1L0M2MXZUNzlJT3BOaHQzSjBqd2JqVnRmOTI2T1BP?=
+ =?utf-8?B?dE5oTzFzSG53eDdFZ2NTVEJIL0JoOFJtNkpCWEJDU2JxRGsrVkk3dkpTVHg1?=
+ =?utf-8?B?dTRIMDEyOXdLUCs3T3hGb3NqUm1UNkMwbEUxNEdQdjhjeU1wT1BmcVIxT2Nz?=
+ =?utf-8?B?V01OZzQ0b3RHVXQyYlFwTVVDUVdCU2o1RXk4M3I0RzlWQTFKbW9nWnlFd0F4?=
+ =?utf-8?B?RHdxc0VhbUtFZE1oRUtOdENQQ2I2ajRhRGFuNWtFejMvZ1FJODh2Q0g3Vm1P?=
+ =?utf-8?B?YXE5SFpsVlUvOU1QOWJyT25TNmlkTU1McU1jbDF5M1lMNUFWRTlMU2M0b1BT?=
+ =?utf-8?B?QWpjdjdlNUlSUForNS9Sc1hURWNkRm9jWEZaZmd5a1MzMklnUCt4T1hoTllB?=
+ =?utf-8?B?QlRoRmk0RStRU2g5ZEZhRUpQOUhYajRQOTNWQ0RkTlI4ZG1SeHhTL01DelRv?=
+ =?utf-8?Q?YcmApJF8NILox98L7xWj6EuQd?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2023 16:20:36.3189 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6908bdd-75c3-4154-5bf5-08db5c72ce88
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ed877b1-5806-4b8a-f3b5-08db5c743296
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2023 16:30:33.9707 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D9.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7836
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rWgeqZKe7NfdtTSRYsJJWVFQhIvfirRJqY9yGXGRyKncpAUwVKY1VgjtCIr/r3eR8JUSMCB1OgAJ9VW6myo3sw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5283
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,129 +126,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-gcc with W=1
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn321/dcn321_resource.c:1346:43: warning: ‘res_create_maximus_funcs’ defined but not used [-Wunused-const-variable=]
- 1346 | static const struct resource_create_funcs res_create_maximus_funcs = {
-      |                                           ^~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn321/dcn321_resource.c:735:38: warning: ‘debug_defaults_diags’ defined but not used [-Wunused-const-variable=]
-  735 | static const struct dc_debug_options debug_defaults_diags = {
-      |                                      ^~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c:1360:43: warning: ‘res_create_maximus_funcs’ defined but not used [-Wunused-const-variable=]
- 1360 | static const struct resource_create_funcs res_create_maximus_funcs = {
-      |                                           ^~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c:737:38: warning: ‘debug_defaults_diags’ defined but not used [-Wunused-const-variable=]
-  737 | static const struct dc_debug_options debug_defaults_diags = {
-      |
+On 5/24/23 12:19, Srinivasan Shanmugam wrote:
+> gcc with W=1
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn321/dcn321_resource.c:1346:43: warning: ‘res_create_maximus_funcs’ defined but not used [-Wunused-const-variable=]
+>   1346 | static const struct resource_create_funcs res_create_maximus_funcs = {
+>        |                                           ^~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn321/dcn321_resource.c:735:38: warning: ‘debug_defaults_diags’ defined but not used [-Wunused-const-variable=]
+>    735 | static const struct dc_debug_options debug_defaults_diags = {
+>        |                                      ^~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c:1360:43: warning: ‘res_create_maximus_funcs’ defined but not used [-Wunused-const-variable=]
+>   1360 | static const struct resource_create_funcs res_create_maximus_funcs = {
+>        |                                           ^~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c:737:38: warning: ‘debug_defaults_diags’ defined but not used [-Wunused-const-variable=]
+>    737 | static const struct dc_debug_options debug_defaults_diags = {
+>        |
+> 
+> These variables are not used so removed them.
+> 
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-These variables are not used so removed them.
+There is already a series queued that addresses this issue.
 
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- .../drm/amd/display/dc/dcn32/dcn32_resource.c | 29 ------------------
- .../amd/display/dc/dcn321/dcn321_resource.c   | 30 -------------------
- 2 files changed, 59 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index 33abc8c9d4be..2e6b39fe2613 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -734,26 +734,6 @@ static const struct dc_debug_options debug_defaults_drv = {
- 	.fpo_vactive_max_blank_us = 1000,
- };
- 
--static const struct dc_debug_options debug_defaults_diags = {
--	.disable_dmcu = true,
--	.force_abm_enable = false,
--	.timing_trace = true,
--	.clock_trace = true,
--	.disable_dpp_power_gate = true,
--	.disable_hubp_power_gate = true,
--	.disable_dsc_power_gate = true,
--	.disable_clock_gate = true,
--	.disable_pplib_clock_request = true,
--	.disable_pplib_wm_range = true,
--	.disable_stutter = false,
--	.scl_reset_length10 = true,
--	.dwb_fi_phase = -1, // -1 = disable
--	.dmub_command_table = true,
--	.enable_tri_buf = true,
--	.use_max_lb = true,
--	.force_disable_subvp = true
--};
--
- static struct dce_aux *dcn32_aux_engine_create(
- 	struct dc_context *ctx,
- 	uint32_t inst)
-@@ -1357,15 +1337,6 @@ static const struct resource_create_funcs res_create_funcs = {
- 	.create_hwseq = dcn32_hwseq_create,
- };
- 
--static const struct resource_create_funcs res_create_maximus_funcs = {
--	.read_dce_straps = NULL,
--	.create_audio = NULL,
--	.create_stream_encoder = NULL,
--	.create_hpo_dp_stream_encoder = dcn32_hpo_dp_stream_encoder_create,
--	.create_hpo_dp_link_encoder = dcn32_hpo_dp_link_encoder_create,
--	.create_hwseq = dcn32_hwseq_create,
--};
--
- static void dcn32_resource_destruct(struct dcn32_resource_pool *pool)
- {
- 	unsigned int i;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
-index af0bb3e94250..bbcd3579fea6 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
-@@ -732,27 +732,6 @@ static const struct dc_debug_options debug_defaults_drv = {
- 	.fpo_vactive_max_blank_us = 1000,
- };
- 
--static const struct dc_debug_options debug_defaults_diags = {
--	.disable_dmcu = true,
--	.force_abm_enable = false,
--	.timing_trace = true,
--	.clock_trace = true,
--	.disable_dpp_power_gate = true,
--	.disable_hubp_power_gate = true,
--	.disable_dsc_power_gate = true,
--	.disable_clock_gate = true,
--	.disable_pplib_clock_request = true,
--	.disable_pplib_wm_range = true,
--	.disable_stutter = false,
--	.scl_reset_length10 = true,
--	.dwb_fi_phase = -1, // -1 = disable
--	.dmub_command_table = true,
--	.enable_tri_buf = true,
--	.use_max_lb = true,
--	.force_disable_subvp = true,
--};
--
--
- static struct dce_aux *dcn321_aux_engine_create(
- 	struct dc_context *ctx,
- 	uint32_t inst)
-@@ -1343,15 +1322,6 @@ static const struct resource_create_funcs res_create_funcs = {
- 	.create_hwseq = dcn321_hwseq_create,
- };
- 
--static const struct resource_create_funcs res_create_maximus_funcs = {
--	.read_dce_straps = NULL,
--	.create_audio = NULL,
--	.create_stream_encoder = NULL,
--	.create_hpo_dp_stream_encoder = dcn321_hpo_dp_stream_encoder_create,
--	.create_hpo_dp_link_encoder = dcn321_hpo_dp_link_encoder_create,
--	.create_hwseq = dcn321_hwseq_create,
--};
--
- static void dcn321_resource_destruct(struct dcn321_resource_pool *pool)
- {
- 	unsigned int i;
+> ---
+>   .../drm/amd/display/dc/dcn32/dcn32_resource.c | 29 ------------------
+>   .../amd/display/dc/dcn321/dcn321_resource.c   | 30 -------------------
+>   2 files changed, 59 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+> index 33abc8c9d4be..2e6b39fe2613 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+> @@ -734,26 +734,6 @@ static const struct dc_debug_options debug_defaults_drv = {
+>   	.fpo_vactive_max_blank_us = 1000,
+>   };
+>   
+> -static const struct dc_debug_options debug_defaults_diags = {
+> -	.disable_dmcu = true,
+> -	.force_abm_enable = false,
+> -	.timing_trace = true,
+> -	.clock_trace = true,
+> -	.disable_dpp_power_gate = true,
+> -	.disable_hubp_power_gate = true,
+> -	.disable_dsc_power_gate = true,
+> -	.disable_clock_gate = true,
+> -	.disable_pplib_clock_request = true,
+> -	.disable_pplib_wm_range = true,
+> -	.disable_stutter = false,
+> -	.scl_reset_length10 = true,
+> -	.dwb_fi_phase = -1, // -1 = disable
+> -	.dmub_command_table = true,
+> -	.enable_tri_buf = true,
+> -	.use_max_lb = true,
+> -	.force_disable_subvp = true
+> -};
+> -
+>   static struct dce_aux *dcn32_aux_engine_create(
+>   	struct dc_context *ctx,
+>   	uint32_t inst)
+> @@ -1357,15 +1337,6 @@ static const struct resource_create_funcs res_create_funcs = {
+>   	.create_hwseq = dcn32_hwseq_create,
+>   };
+>   
+> -static const struct resource_create_funcs res_create_maximus_funcs = {
+> -	.read_dce_straps = NULL,
+> -	.create_audio = NULL,
+> -	.create_stream_encoder = NULL,
+> -	.create_hpo_dp_stream_encoder = dcn32_hpo_dp_stream_encoder_create,
+> -	.create_hpo_dp_link_encoder = dcn32_hpo_dp_link_encoder_create,
+> -	.create_hwseq = dcn32_hwseq_create,
+> -};
+> -
+>   static void dcn32_resource_destruct(struct dcn32_resource_pool *pool)
+>   {
+>   	unsigned int i;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+> index af0bb3e94250..bbcd3579fea6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+> @@ -732,27 +732,6 @@ static const struct dc_debug_options debug_defaults_drv = {
+>   	.fpo_vactive_max_blank_us = 1000,
+>   };
+>   
+> -static const struct dc_debug_options debug_defaults_diags = {
+> -	.disable_dmcu = true,
+> -	.force_abm_enable = false,
+> -	.timing_trace = true,
+> -	.clock_trace = true,
+> -	.disable_dpp_power_gate = true,
+> -	.disable_hubp_power_gate = true,
+> -	.disable_dsc_power_gate = true,
+> -	.disable_clock_gate = true,
+> -	.disable_pplib_clock_request = true,
+> -	.disable_pplib_wm_range = true,
+> -	.disable_stutter = false,
+> -	.scl_reset_length10 = true,
+> -	.dwb_fi_phase = -1, // -1 = disable
+> -	.dmub_command_table = true,
+> -	.enable_tri_buf = true,
+> -	.use_max_lb = true,
+> -	.force_disable_subvp = true,
+> -};
+> -
+> -
+>   static struct dce_aux *dcn321_aux_engine_create(
+>   	struct dc_context *ctx,
+>   	uint32_t inst)
+> @@ -1343,15 +1322,6 @@ static const struct resource_create_funcs res_create_funcs = {
+>   	.create_hwseq = dcn321_hwseq_create,
+>   };
+>   
+> -static const struct resource_create_funcs res_create_maximus_funcs = {
+> -	.read_dce_straps = NULL,
+> -	.create_audio = NULL,
+> -	.create_stream_encoder = NULL,
+> -	.create_hpo_dp_stream_encoder = dcn321_hpo_dp_stream_encoder_create,
+> -	.create_hpo_dp_link_encoder = dcn321_hpo_dp_link_encoder_create,
+> -	.create_hwseq = dcn321_hwseq_create,
+> -};
+> -
+>   static void dcn321_resource_destruct(struct dcn321_resource_pool *pool)
+>   {
+>   	unsigned int i;
 -- 
-2.25.1
+Hamza
 
