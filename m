@@ -4,58 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 029E5C77B7A
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 18:51:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1980C77B7A
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 19:14:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54B8910E24E;
-	Wed, 24 May 2023 18:51:05 +0000 (UTC)
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC92210E0A5;
- Wed, 24 May 2023 18:51:03 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-19ad6baf96dso508059fac.0; 
- Wed, 24 May 2023 11:51:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684954263; x=1687546263;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Fh+vsCfQhWMTg601LSuJ7dosZCBsyljcCI/FGdQ7IFo=;
- b=N+2xxIX5+s0dqsPU37iciIjhPlC28VKz/AYi1eSQJUbEAUSmQhU+qLYsJOWj34NyiD
- ZvL3M5fuHUgaTKU0sFRBDPXyivvJOPQXzCPA2Higv5SGOrCUykNZz6atWnuJdEyM3/SS
- qge9WM7LugfKyLWwuRNXxs+efsYid9+w4S57tr3s5QS18IUUDUAlItF3QzQmvdmey861
- uEUxcJpoyUZRHmGENebnb9bdwhhktKNqd8ykkL0C6hWKauw/fU9TEnfd9nH6DXLjMxDu
- Blj28lcCCd8BT8adBmFV5yFzX3sjTYO++Tvo8/PGIP57vNJpz0Yv8mdk7PiCciDuN/wH
- 7psg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684954263; x=1687546263;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Fh+vsCfQhWMTg601LSuJ7dosZCBsyljcCI/FGdQ7IFo=;
- b=O9YR8oPOR4RmiklutmU06mSh3jSdWwe61Bz+gvGAWC4iIQ6eiSjAuYL8/Nl76pWDB/
- +kHZtWOiSMDuPi50sUvFuDYiiTJWqsQvtv6ZuB+u+P92uuiyTy/a2jP258JBt2WNwTJh
- Fb7iNRbL5E7Q+CXDo6ZhknQCi1vGYZNha/+yytvmoyc7y190nOdLi2NAM6KA+jTp1S3D
- YSZPV5VtYzrrkmFR5+iW0lBppcxVjL1v+JDuPN/n7SRAMupA9odccshqatkJeldNy1n0
- yPzI/9C9o1NMIjkTZiss6HPZBstDus8VRQk2mcZCrZo8tne7P7LhGfBqm1JV7hFd7MpO
- Bk2A==
-X-Gm-Message-State: AC+VfDxlqn/E4susZ38wByLB8cYvoKax+7q9J79BCvnnC+wUttdC3rqQ
- CxCEulSNeD1lIEtJCAi94kZu2jY5+MoLO7l/Nzs=
-X-Google-Smtp-Source: ACHHUZ56MBkHwuJZUxtHdnEmW+CctVr/y6MwOU/WfTd0k8F+Qa4utnXsYUMxDo2Ul/b6ay1xTR7WpL7PVVLtW7k7um4=
-X-Received: by 2002:a05:6870:d413:b0:19b:9835:a2cc with SMTP id
- i19-20020a056870d41300b0019b9835a2ccmr382637oag.30.1684954262854; Wed, 24 May
- 2023 11:51:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB44910E5B8;
+	Wed, 24 May 2023 19:14:51 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2062.outbound.protection.outlook.com [40.107.102.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4812910E591;
+ Wed, 24 May 2023 19:14:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=juIsngSoVoziQN8itJJCReqSin6D28h6WfVf49WqNIOAx/nwVYGV331/rGmJoKxzSfbN0YsiwBP1mlZeoEQ5v35TdikVe9GavZwEYb95vzGBSx1wvMoSHR3ioQ6Owon7l1TLckMsaGPBNQUztORJgRwRkmlKT9MnzvE1Fd8dfVJp7+I9RbVLiaM95lmALPwZDNAFN3GemxvYkvKoEFhuZrLDjfjDvW0+4R/NIB1OxJX/DM7+Xt7cpNZWaMDdvCIUjf3SkvlyXBiCeE2xEAAEUe6+OS9dp2Y2Fy/bNAbg4SgAGUDB5vz2DV6X0IHaNJzR1+jNNsvm46/kFhBYBwsMXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mQBAyPGXFsVGQUphORVfyEPjDfdDcNUK5WVsgDFJNfg=;
+ b=F3L0abHI4ZNYzM3adAWUTD0OfEvn6k+OaTUs0QjFH8VQVDTx9NuxS/yAJHRdOuVM252db4FRMjobnqnfJXXT4zmV3eHFHH7B8uPusNTvPkN/yxjLL3vRgJAg+bM09panTF7hCcnUz4zEEJwPYLUBdwjvDBowkoJ4hC9Voge+HQC4nqeynQWpuBt1xI2QO+Ldww7bVxNdvX26kyJvv4rQR7o3J2bSO1uh/fzRN4hdx7Vv0gWLMldGnB1nnxII9jqaPNa4jCiSvtjBapXg8+Mw+Cl0qUVolmPhSHAro8yTqwcY9DuCJ/MJMlavX7X/9F0eeK8dntBsQHPyvh0AC7RCig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mQBAyPGXFsVGQUphORVfyEPjDfdDcNUK5WVsgDFJNfg=;
+ b=fYJQotjiwIw7xv+5uMuxTL34nE8qVS2JhQpZCe8e3yyIuCT7AwKiC2LWMAbRiy5dpogFc7gWuvHWY9ynCgcL9xiKT8bIChe5r7SmtvFTIdcRCMzT7l9ilDs6gf/AWPEa+gWiuHt0i3v4aWr5TnyT2BgjCSGnnAkgm+oft8VVKoQ=
+Received: from SJ0PR05CA0081.namprd05.prod.outlook.com (2603:10b6:a03:332::26)
+ by CH3PR12MB9022.namprd12.prod.outlook.com (2603:10b6:610:171::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.15; Wed, 24 May
+ 2023 19:14:46 +0000
+Received: from DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:a03:332:cafe::8e) by SJ0PR05CA0081.outlook.office365.com
+ (2603:10b6:a03:332::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.15 via Frontend
+ Transport; Wed, 24 May 2023 19:14:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT014.mail.protection.outlook.com (10.13.173.132) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6433.16 via Frontend Transport; Wed, 24 May 2023 19:14:45 +0000
+Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 24 May
+ 2023 14:14:43 -0500
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: enable more strict compile checks
+Date: Wed, 24 May 2023 15:14:21 -0400
+Message-ID: <20230524191421.251221-1-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-References: <20230524-nbio_v7_9-wincompatible-function-pointer-types-strict-v1-1-da17e01907cf@kernel.org>
-In-Reply-To: <20230524-nbio_v7_9-wincompatible-function-pointer-types-strict-v1-1-da17e01907cf@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 24 May 2023 14:50:51 -0400
-Message-ID: <CADnq5_OXzN3_9r8_X9ESx_axvGw-sNdGfPbU0NZuwQ+gFzZEag@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix return types of certain NBIOv7.9 callbacks
-To: Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT014:EE_|CH3PR12MB9022:EE_
+X-MS-Office365-Filtering-Correlation-Id: edf958ff-f2a9-4a3a-59e8-08db5c8b228c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aLCdj336PKaK+fueoqgRfKdSQmF3p3HPvPmrqqz2LLp4S7cGw2acbIgIQDGwx3G8xdC7Pb6Hp5m3GUO2jajIk6c1KcerAa/iFOW1FGNCvKDbWoRDT+IZo5I0od1vPIb7pios8uHOom2HiDM47lNLw9GVf/Xz2+vj0xZyzr4amMgUAHlzOaq007ElTbN+rDr6vJEkMzWluO8xJ1eJJy7WEEXWUm0vroqht4Nptex2EZxHKgRV7UVHbAgveRCQtwn3ugmaue/l5Xn9t0H7Gz6jagies2DP0tpDnkioEiluCMQL+n3gwJTtDtxzYuknNBNkDLx3B28Y50ifli4KlyHqFlxKAzI7Q9e5abSDDHDlBeIjBSvsdd4SVWzP3LlBVjVy1bf0gFm0IXob/P/B254p42OzKqOBNFADgRwmL4fOyQiG1DpqeSXYHGRH4s0CARKxn0zqbw0EWzgXw+ZM/a8wWG/vTJaP0VHL9SOhQXuwT8juUDqWoaf09J6PkD7YgujLwhBsSssLgktnaJBfzYDP65BPOXFHxRnlHATxmWLUQYRnYIHIee+mrmLRh2+c0hMV92mutEas5GnUCoCODdiL5pe+Cl3wLLBfyRG8On9CgTxzQCgezbVTDy8Jx6tMWvZjEQXNopS0G+hBpv7RHQLc8GcHS3+M9629MBD43pblB3yV1MN/c0SyH4c99cRXZk/QTMys4v2MUa5xiSiLEMYuwIJrPTT1i0JNeLiXmBI6kck15hj94GtCdVqjNul1xzxWplcMMDnBD8xbam8O3ghmfYj6tUDo+eiFHoXzEkqhrUseqV4p0UyLCsENST81mWVd
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(396003)(136003)(346002)(376002)(451199021)(46966006)(40470700004)(36840700001)(54906003)(2906002)(36860700001)(47076005)(82310400005)(5660300002)(8936002)(8676002)(44832011)(6666004)(40460700003)(41300700001)(4326008)(316002)(70206006)(478600001)(36756003)(70586007)(6916009)(40480700001)(81166007)(86362001)(2616005)(26005)(1076003)(83380400001)(186003)(16526019)(336012)(426003)(356005)(82740400003)(36900700001)(16060500005);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2023 19:14:45.2108 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: edf958ff-f2a9-4a3a-59e8-08db5c8b228c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9022
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,98 +97,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, trix@redhat.com, Xinhui.Pan@amd.com,
- ndesaulniers@google.com, patches@lists.linux.dev,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: Leo Li <sunpeng.li@amd.com>, Kenny
+ Ho <kenny.ho@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Currently, there are quite a number of issues that are quite easy for
+the CI to catch, that slip through the cracks. Among them, there unused
+variable and indentation issues. Also, we should consider all warnings
+to be compile errors, since the community will eventually end up
+complaining about them. So, enable -Werror, -Wunused and
+-Wmisleading-indentation for all kernel builds.
 
-On Wed, May 24, 2023 at 12:44=E2=80=AFPM Nathan Chancellor <nathan@kernel.o=
-rg> wrote:
->
-> When building with clang's -Wincompatible-function-pointer-types-strict,
-> which ensures that function pointer signatures match exactly to avoid
-> tripping clang's Control Flow Integrity (kCFI) checks at run time and
-> will eventually be turned on for the kernel, the following instances
-> appear in the NBIOv7.9 code:
->
->   drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c:465:32: error: incompatible func=
-tion pointer types initializing 'int (*)(struct amdgpu_device *)' with an e=
-xpression of type 'enum amdgpu_gfx_partition (struct amdgpu_device *)' [-We=
-rror,-Wincompatible-function-pointer-types-strict]
->           .get_compute_partition_mode =3D nbio_v7_9_get_compute_partition=
-_mode,
->                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
-~~~
->   drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c:467:31: error: incompatible func=
-tion pointer types initializing 'u32 (*)(struct amdgpu_device *, u32 *)' (a=
-ka 'unsigned int (*)(struct amdgpu_device *, unsigned int *)') with an expr=
-ession of type 'enum amdgpu_memory_partition (struct amdgpu_device *, u32 *=
-)' (aka 'enum amdgpu_memory_partition (struct amdgpu_device *, unsigned int=
- *)') [-Werror,-Wincompatible-function-pointer-types-strict]
->           .get_memory_partition_mode =3D nbio_v7_9_get_memory_partition_m=
-ode,
->                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
-~
->   2 errors generated.
->
-> Change the return types of these callbacks to match the prototypes to
-> clear up the warning and avoid tripping kCFI at run time. Both functions
-> return a value from ffs(), which is an integer that can fit into either
-> int or unsigned int.
->
-> Fixes: 11f64eb1472f ("drm/amdgpu: add sysfs node for compute partition mo=
-de")
-> Fixes: 41a717ea8afc ("drm/amdgpu: detect current GPU memory partition mod=
-e")
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd=
-/amdgpu/nbio_v7_9.c
-> index e082f6343d20..d19325476752 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-> @@ -382,7 +382,7 @@ static void nbio_v7_9_enable_doorbell_interrupt(struc=
-t amdgpu_device *adev,
->                               DOORBELL_INTERRUPT_DISABLE, enable ? 0 : 1)=
-;
->  }
->
-> -static enum amdgpu_gfx_partition nbio_v7_9_get_compute_partition_mode(st=
-ruct amdgpu_device *adev)
-> +static int nbio_v7_9_get_compute_partition_mode(struct amdgpu_device *ad=
-ev)
->  {
->         u32 tmp, px;
->
-> @@ -408,8 +408,8 @@ static void nbio_v7_9_set_compute_partition_mode(stru=
-ct amdgpu_device *adev,
->         WREG32_SOC15(NBIO, 0, regBIF_BX_PF0_PARTITION_COMPUTE_STATUS, tmp=
-);
->  }
->
-> -static enum amdgpu_memory_partition
-> -nbio_v7_9_get_memory_partition_mode(struct amdgpu_device *adev, u32 *sup=
-p_modes)
-> +static u32 nbio_v7_9_get_memory_partition_mode(struct amdgpu_device *ade=
-v,
-> +                                              u32 *supp_modes)
->  {
->         u32 tmp;
->
->
-> ---
-> base-commit: fd8f7bb391fa9c1979232cb5ab5bedb08abc855d
-> change-id: 20230524-nbio_v7_9-wincompatible-function-pointer-types-strict=
--c894636ce146
->
-> Best regards,
-> --
-> Nathan Chancellor <nathan@kernel.org>
->
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Kenny Ho <kenny.ho@amd.com>
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+ drivers/gpu/drm/amd/display/Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/Makefile b/drivers/gpu/drm/amd/display/Makefile
+index 0d610cb376bb..3c44162ebe21 100644
+--- a/drivers/gpu/drm/amd/display/Makefile
++++ b/drivers/gpu/drm/amd/display/Makefile
+@@ -26,6 +26,8 @@
+ 
+ AMDDALPATH = $(RELATIVE_AMD_DISPLAY_PATH)
+ 
++subdir-ccflags-y += -Werror -Wunused -Wmisleading-indentation
++
+ subdir-ccflags-y += -I$(FULL_AMD_DISPLAY_PATH)/dc/inc/
+ subdir-ccflags-y += -I$(FULL_AMD_DISPLAY_PATH)/dc/inc/hw
+ subdir-ccflags-y += -I$(FULL_AMD_DISPLAY_PATH)/dc/clk_mgr
+-- 
+2.40.1
+
