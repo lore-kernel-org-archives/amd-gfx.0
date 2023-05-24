@@ -4,70 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3ABAC77B7C
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 16:12:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CA0BC77B73
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 16:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 418D110E590;
-	Wed, 24 May 2023 16:12:02 +0000 (UTC)
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F2DD10E4DD
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 16:12:00 +0000 (UTC)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-307d58b3efbso760061f8f.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 09:11:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684944718; x=1687536718;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :from:content-language:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=k72tOLHNx9m56BXts73JUfuZbFrbujBUrTnehtgDexQ=;
- b=EtUy1cT338QhJ12TcFnp4j/CEuWv4Yt8jNNXowheZkIKoGi9WlZzNh0xDPDTWoMoZF
- AXBqX7soBwzGywtMChbffgU6DKKeKQCq+EBqimBte3QJLQV8wawUdTFpAB4rAVPJxYGM
- IIvm3K3uaJjas73TUnERcMICPokNky1JbBvie2mjaTh6TtIC2qeR9Fohgh1563uI84ff
- CQo1kKdnhAuyAHong+zSvjmeNs/mtplC7GQlK36bX/Ffi1mEdl22qrqH2wVGGC/N8fut
- Si0wa9LslXA//MwsEhc2/0vfkOxC47LHpN4S8MReA6rN+WtPTta11s/kPgqTjHQiBAuC
- DXvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684944718; x=1687536718;
- h=content-transfer-encoding:in-reply-to:organization:references:cc:to
- :from:content-language:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=k72tOLHNx9m56BXts73JUfuZbFrbujBUrTnehtgDexQ=;
- b=hB3eMH6vI6P3ekxVZUAhx5fFBDZKn9lYIDTqZi8J7UgdAsiA+MqQcPHYzLgJcPXbNC
- nz1YGd24qIt2MYScP/B8CkBtAVOvtxIYCHAX1UdM1bwG3ww+uZk4RGKiYSGPHUeVZU1Z
- ph1MF6jfL4feN8yTeC4gSmGD+byWQIVb4s/AURaKILoIfNp8ozdcGotdTWjHCAjaWsML
- k/ptLhJqrIy2BlC5prvGvQDojkng/r7WYC0g1NELBnqwYQ4Dwf8cU272r70QaKsbBUOC
- hdbJij+xofzMLdiiVgIIqgbDZCfwrFS0/EU+uMp2nE66DrsR56Uejgtuj/sadK0NCu1t
- ow1g==
-X-Gm-Message-State: AC+VfDwRgDJvOW6O5Xa7KH8HrmxZns9OYJqkAy2mtSIf49yTMbVK5n0o
- l0Xr7W97K4Vw+swccE9xB0NbJw==
-X-Google-Smtp-Source: ACHHUZ7yzSRYJcrJoJX1pJvtfP6AqsaU7Xxlwr8toSEa+a55GzhttWpC2GloIzGWvYf5g3l7Wu+/rg==
-X-Received: by 2002:a5d:604f:0:b0:309:e24:57aa with SMTP id
- j15-20020a5d604f000000b003090e2457aamr209929wrt.19.1684944718139; 
- Wed, 24 May 2023 09:11:58 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:982:cbb0:39c7:394c:5a3:4047?
- ([2a01:e0a:982:cbb0:39c7:394c:5a3:4047])
- by smtp.gmail.com with ESMTPSA id
- c14-20020a056000104e00b00307b5376b2csm14807613wrx.90.2023.05.24.09.11.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 May 2023 09:11:57 -0700 (PDT)
-Message-ID: <9a489856-436f-0c7b-9bfc-2336d26ad403@linaro.org>
-Date: Wed, 24 May 2023 18:11:56 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE13210E108;
+	Wed, 24 May 2023 16:20:39 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D99C410E108
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 16:20:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NxS2pyDO+GDnXTq+PiotsWh6+C3zVO6h7eF473poaMK2nt0sJV+o5XXspv5KCIh8P3CkLqfGoJVAi0khM6jcvsMD87P515zIuWW7o63wiAMKFLiDUOuaowwGWTm42+FAUt1WfEdAec/aIYG6/WhDkR2WC3/kxt/adFoms+QMikgcHWhXhx5TaD0XWUD8gA4uzJjgUVYYLFZtOwqYKquWJkBnNvGNDb0dFySpconyXP2FMPHvq+zIRubsGnECx8kPMb0coGrLtMKIwZKZNtXzwkLwPYyHKmA0upStFH3PEDCfajIPzvW11n33VXHAFS4Rx3X48mHPFEA6AknJi/EGWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UmSPC02rqIvJ2ZECTaAA1hWS37Ii5o9FPHpRhSTzcwY=;
+ b=KJjMhG4YV2fNhzn84HPCoIf9nK+/QW8peQXxiG/ex5XBSFY+sKVJ2t5ct2k1YOJwwXycT3h7PY8vvAiHUS0L6QDn45C3pLTNDdUemGBTrej37GsFouo/xgHzqwuHFUslSHwkV3LED8WCqkePfjmF3mrt0IZWvLfuaxb91orVjVHx6j7V2VQK8QWFd01x+3qVVbPEF97JcbCciuKT5/WKG4vXF0k+xRcD0QxsOBXKZB67hItvrnWEREK0jzSDk8QOih5HdGPbfHSE1thFf+WJncR+kBveNjv7/CsnmR1ccuKeZuUaPjqkCPu6HEKbpXsLWi+i1MeubRuFdaQNtJBQ2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UmSPC02rqIvJ2ZECTaAA1hWS37Ii5o9FPHpRhSTzcwY=;
+ b=2YDvQeNX9Z+H3LXA9a+0IIGsUS/llhjVPnp2AN97cG8WdzbBr4+9YLK5gJnkuETBdhNgf31eZ1ijpJSgibv27qBXfGzQBx/CZc+xiiq7+UfIc7UDWbFi449UW8H627NUn3ZyluT4YCsRbOJQ/crm5eTWHPGwJl+hemGKDzHjILo=
+Received: from DM6PR06CA0030.namprd06.prod.outlook.com (2603:10b6:5:120::43)
+ by SN7PR12MB7836.namprd12.prod.outlook.com (2603:10b6:806:34e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Wed, 24 May
+ 2023 16:20:36 +0000
+Received: from CY4PEPF0000E9D9.namprd05.prod.outlook.com
+ (2603:10b6:5:120:cafe::d) by DM6PR06CA0030.outlook.office365.com
+ (2603:10b6:5:120::43) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.16 via Frontend
+ Transport; Wed, 24 May 2023 16:20:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D9.mail.protection.outlook.com (10.167.241.77) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6433.12 via Frontend Transport; Wed, 24 May 2023 16:20:36 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 24 May
+ 2023 11:20:34 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Subject: [PATCH] drm/amd/display: Drop unused res_create_maximus_funcs &
+ debug_defaults_diags variables
+Date: Wed, 24 May 2023 21:49:57 +0530
+Message-ID: <20230524161957.3672412-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: Re: (subset) [PATCH v4 0/9] drm: fdinfo memory stats
-Content-Language: en-US
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: dri-devel@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>
-References: <20230515143023.801167-1-robdclark@gmail.com>
- <168494461551.3403386.4095735722928777312.b4-ty@linaro.org>
-Organization: Linaro Developer Services
-In-Reply-To: <168494461551.3403386.4095735722928777312.b4-ty@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|SN7PR12MB7836:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6908bdd-75c3-4154-5bf5-08db5c72ce88
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 3REv/rKJn+gWiOP/STFXhSvYZuq7rmvlCeCdLxLl0i7dn6gmxRAYioHArPDtxFflRVQgHRaNHLTL1auzjpeb3fTNplTaJhW0J1eM6rLfaG/TkMjnGz+y5JESepokS7csWKPEZt24K63L3dbkc8FEPmH5dxqvIzOL22xninDgoMLWBImaBzvQL+bz1WoZVF2IIQoIQG1hicsJgFrg1o4ToVxXxwbnnc8oxeb5yLDF1kSOApNRijmDs4CEOhMtwdsH67DOA1iJgS7Y3EQHv4KGSdfWQPR8Zl7vur642MXArrGoEoovk4xn7sOSsmnfCQSW9j4ogB19ul4lp+v80A1ZDq/JZU2UyLDyXJ21bwZMUjJmUzSLmvng1COpcG1tpUOb3FU4AV/+ClhLwLv+i8b2N3TDOQR+iOtGfNmNOiOSdfSP7+w0DUEF/yL7axzmV9zepo6AE2CzOPTUTIF85DSwS0ISrwClsFNbxu7yMpwK5BMDeGA7wKah/ulYx1owWI/9zXJb4jSO2ibP3Z0iJMgIkcnVvKeV6RtJhU4sk1lQOvTM7/lb0vzNyBXYAWnmsaGgNSEIFZ05an8EO5FYIG+NjGqVZduiWdEt7PoCO8Yd24qhFgUfdniIvjb1jYmBYbdJT4wil0XteOMFium1psLwRj9+jUpQxPe4vLbIp/z4VnWlE17KagwxeSnYa5l+PrWFlnx8DellEStpBrwVo4kj4Xx3cgnKj+e6oxm8ok/QR8SZ4Ctg9uVtSDs6Q1pMeLvxl7RWw22cIWDswqaqcZJT4w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(136003)(39860400002)(376002)(396003)(451199021)(36840700001)(40470700004)(46966006)(356005)(82740400003)(1076003)(26005)(16526019)(40460700003)(186003)(81166007)(44832011)(2616005)(36860700001)(47076005)(36756003)(83380400001)(426003)(336012)(2906002)(40480700001)(7696005)(41300700001)(316002)(54906003)(6666004)(37006003)(82310400005)(70206006)(70586007)(6636002)(4326008)(86362001)(8936002)(6862004)(5660300002)(478600001)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2023 16:20:36.3189 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6908bdd-75c3-4154-5bf5-08db5c72ce88
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7836
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,65 +98,129 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, Akhil P Oommen <quic_akhilpo@quicinc.com>,
- Lijo Lazar <lijo.lazar@amd.com>, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <mdaenzer@redhat.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Rob Clark <robdclark@chromium.org>, Guchun Chen <guchun.chen@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org,
- Chia-I Wu <olvaffe@gmail.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- linux-arm-msm@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- Sean Paul <sean@poorly.run>, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Elliot Berman <quic_eberman@quicinc.com>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>, Jim Cromie <jim.cromie@gmail.com>,
- Maximilian Luz <luzmaximilian@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, Peter Maucher <bellosilicio@gmail.com>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Christopher Healy <healych@amazon.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 24/05/2023 18:10, Neil Armstrong wrote:
-> Hi,
-> 
-> On Mon, 15 May 2023 07:30:07 -0700, Rob Clark wrote:
->> Similar motivation to other similar recent attempt[1].  But with an
->> attempt to have some shared code for this.  As well as documentation.
->>
->> It is probably a bit UMA-centric, I guess devices with VRAM might want
->> some placement stats as well.  But this seems like a reasonable start.
->>
->> Basic gputop support: https://patchwork.freedesktop.org/series/116236/
->> And already nvtop support: https://github.com/Syllo/nvtop/pull/204
->>
->> [...]
-> 
-> Thanks, Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
-> 
-> [1/9] drm/docs: Fix usage stats typos
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=0020582a8afe9a8570f80ec503c59bf049a616de
-> [2/9] drm: Add common fdinfo helper
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=3f09a0cd4ea3b9d34495450d686227d48e7ec648
-> [3/9] drm/msm: Switch to fdinfo helper
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=51d86ee5e07ccef85af04ee9850b0baa107999b6
-> [4/9] drm/amdgpu: Switch to fdinfo helper
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=376c25f8ca47084c4f0aff0f14684780756ccef4
-> [5/9] drm: Add fdinfo memory stats
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=686b21b5f6ca2f8a716f9a4ade07246dbfb2713e
-> [6/9] drm/msm: Add memory stats to fdinfo
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=3e9757f5ddb98238226ad68a1609aa313de35adb
-> [7/9] drm/doc: Relax fdinfo string constraints
->        https://cgit.freedesktop.org/drm/drm-misc/commit/?id=90d63a150b85fd1debb9c01237fb78faee02746a
-> 
+gcc with W=1
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn321/dcn321_resource.c:1346:43: warning: ‘res_create_maximus_funcs’ defined but not used [-Wunused-const-variable=]
+ 1346 | static const struct resource_create_funcs res_create_maximus_funcs = {
+      |                                           ^~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn321/dcn321_resource.c:735:38: warning: ‘debug_defaults_diags’ defined but not used [-Wunused-const-variable=]
+  735 | static const struct dc_debug_options debug_defaults_diags = {
+      |                                      ^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c:1360:43: warning: ‘res_create_maximus_funcs’ defined but not used [-Wunused-const-variable=]
+ 1360 | static const struct resource_create_funcs res_create_maximus_funcs = {
+      |                                           ^~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c:737:38: warning: ‘debug_defaults_diags’ defined but not used [-Wunused-const-variable=]
+  737 | static const struct dc_debug_options debug_defaults_diags = {
+      |
 
-Hmm no idea what happened, but I really applied v5 !
+These variables are not used so removed them.
 
-Neil
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c | 29 ------------------
+ .../amd/display/dc/dcn321/dcn321_resource.c   | 30 -------------------
+ 2 files changed, 59 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+index 33abc8c9d4be..2e6b39fe2613 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+@@ -734,26 +734,6 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.fpo_vactive_max_blank_us = 1000,
+ };
+ 
+-static const struct dc_debug_options debug_defaults_diags = {
+-	.disable_dmcu = true,
+-	.force_abm_enable = false,
+-	.timing_trace = true,
+-	.clock_trace = true,
+-	.disable_dpp_power_gate = true,
+-	.disable_hubp_power_gate = true,
+-	.disable_dsc_power_gate = true,
+-	.disable_clock_gate = true,
+-	.disable_pplib_clock_request = true,
+-	.disable_pplib_wm_range = true,
+-	.disable_stutter = false,
+-	.scl_reset_length10 = true,
+-	.dwb_fi_phase = -1, // -1 = disable
+-	.dmub_command_table = true,
+-	.enable_tri_buf = true,
+-	.use_max_lb = true,
+-	.force_disable_subvp = true
+-};
+-
+ static struct dce_aux *dcn32_aux_engine_create(
+ 	struct dc_context *ctx,
+ 	uint32_t inst)
+@@ -1357,15 +1337,6 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.create_hwseq = dcn32_hwseq_create,
+ };
+ 
+-static const struct resource_create_funcs res_create_maximus_funcs = {
+-	.read_dce_straps = NULL,
+-	.create_audio = NULL,
+-	.create_stream_encoder = NULL,
+-	.create_hpo_dp_stream_encoder = dcn32_hpo_dp_stream_encoder_create,
+-	.create_hpo_dp_link_encoder = dcn32_hpo_dp_link_encoder_create,
+-	.create_hwseq = dcn32_hwseq_create,
+-};
+-
+ static void dcn32_resource_destruct(struct dcn32_resource_pool *pool)
+ {
+ 	unsigned int i;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+index af0bb3e94250..bbcd3579fea6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+@@ -732,27 +732,6 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.fpo_vactive_max_blank_us = 1000,
+ };
+ 
+-static const struct dc_debug_options debug_defaults_diags = {
+-	.disable_dmcu = true,
+-	.force_abm_enable = false,
+-	.timing_trace = true,
+-	.clock_trace = true,
+-	.disable_dpp_power_gate = true,
+-	.disable_hubp_power_gate = true,
+-	.disable_dsc_power_gate = true,
+-	.disable_clock_gate = true,
+-	.disable_pplib_clock_request = true,
+-	.disable_pplib_wm_range = true,
+-	.disable_stutter = false,
+-	.scl_reset_length10 = true,
+-	.dwb_fi_phase = -1, // -1 = disable
+-	.dmub_command_table = true,
+-	.enable_tri_buf = true,
+-	.use_max_lb = true,
+-	.force_disable_subvp = true,
+-};
+-
+-
+ static struct dce_aux *dcn321_aux_engine_create(
+ 	struct dc_context *ctx,
+ 	uint32_t inst)
+@@ -1343,15 +1322,6 @@ static const struct resource_create_funcs res_create_funcs = {
+ 	.create_hwseq = dcn321_hwseq_create,
+ };
+ 
+-static const struct resource_create_funcs res_create_maximus_funcs = {
+-	.read_dce_straps = NULL,
+-	.create_audio = NULL,
+-	.create_stream_encoder = NULL,
+-	.create_hpo_dp_stream_encoder = dcn321_hpo_dp_stream_encoder_create,
+-	.create_hpo_dp_link_encoder = dcn321_hpo_dp_link_encoder_create,
+-	.create_hwseq = dcn321_hwseq_create,
+-};
+-
+ static void dcn321_resource_destruct(struct dcn321_resource_pool *pool)
+ {
+ 	unsigned int i;
+-- 
+2.25.1
+
