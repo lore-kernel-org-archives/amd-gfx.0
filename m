@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F0D4C7EE23
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:46:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F2B3C7EE2C
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5498C10E659;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A205C10E65F;
 	Wed, 24 May 2023 09:46:52 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B9CA10E046
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 06:00:19 +0000 (UTC)
-X-UUID: d119969646664d0aae26f9e80ada1e56-20230524
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10C9110E578
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 06:00:20 +0000 (UTC)
+X-UUID: 53f7a4945f384dff97b0d3adb9348bc5-20230524
 X-CID-O-RULE: Release_Ham
 X-CID-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.22, REQID:b7d418e8-1cfc-4d53-a853-fea6099fcc50, IP:5,
+X-CID-O-INFO: VERSION:1.1.22, REQID:4e05aba1-8c35-4caa-ab5f-02798e7dc794, IP:5,
  U
- RL:0,TC:0,Content:0,EDM:25,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:15
-X-CID-INFO: VERSION:1.1.22, REQID:b7d418e8-1cfc-4d53-a853-fea6099fcc50, IP:5,
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-10
+X-CID-INFO: VERSION:1.1.22, REQID:4e05aba1-8c35-4caa-ab5f-02798e7dc794, IP:5,
  URL
- :0,TC:0,Content:0,EDM:25,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:15
-X-CID-META: VersionHash:120426c, CLOUDID:7b1ed36c-2f20-4998-991c-3b78627e4938,
+ :0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:-10
+X-CID-META: VersionHash:120426c, CLOUDID:946fdac1-e32c-4c97-918d-fbb3fc224d4e,
  B
- ulkID:230524140012K2BTKNIZ,BulkQuantity:0,Recheck:0,SF:44|24|17|19|102,TC:
- nil,Content:0,EDM:5,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI
+ ulkID:230524140012K2BTKNIZ,BulkQuantity:1,Recheck:0,SF:24|17|19|44|102,TC:
+ nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:41,QS:nil,BEC:nil,COL:0,OSI
  :0,OSA:0,AV:0
 X-CID-BVR: 0,NGT
 X-CID-BAS: 0,NGT,0,_
-X-UUID: d119969646664d0aae26f9e80ada1e56-20230524
+X-UUID: 53f7a4945f384dff97b0d3adb9348bc5-20230524
 X-User: lizhenneng@kylinos.cn
 Received: from localhost.localdomain [(116.128.244.169)] by mailgw
  (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
- with ESMTP id 779692171; Wed, 24 May 2023 14:00:09 +0800
+ with ESMTP id 1902945008; Wed, 24 May 2023 14:00:10 +0800
 From: Zhenneng Li <lizhenneng@kylinos.cn>
 To: Chen Guchun <Guchun.Chen@amd.com>
-Subject: [PATCH] drm/amdgpu: resove reboot exception for si oland
-Date: Wed, 24 May 2023 13:59:58 +0800
-Message-Id: <20230524055959.327329-1-lizhenneng@kylinos.cn>
+Subject: [PATCH v4] drm/amdgpu: resove reboot exception for si oland
+Date: Wed, 24 May 2023 13:59:59 +0800
+Message-Id: <20230524055959.327329-2-lizhenneng@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230524055959.327329-1-lizhenneng@kylinos.cn>
+References: <20230524055959.327329-1-lizhenneng@kylinos.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 24 May 2023 09:46:48 +0000
