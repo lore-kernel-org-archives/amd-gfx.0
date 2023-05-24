@@ -4,28 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF114C7EE2E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F0D4C7EE23
 	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:46:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 959EA10E65E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5498C10E659;
 	Wed, 24 May 2023 09:46:52 +0000 (UTC)
-Received: from out30-100.freemail.mail.aliyun.com
- (out30-100.freemail.mail.aliyun.com [115.124.30.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77C0D10E574
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 04:05:08 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046056;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
- TI=SMTPD_---0VjMWC9b_1684900794; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VjMWC9b_1684900794) by smtp.aliyun-inc.com;
- Wed, 24 May 2023 11:59:55 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH -next 01/13] drm/amd/display: remove unused definition
-Date: Wed, 24 May 2023 11:59:40 +0800
-Message-Id: <20230524035952.123590-1-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B9CA10E046
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 06:00:19 +0000 (UTC)
+X-UUID: d119969646664d0aae26f9e80ada1e56-20230524
+X-CID-O-RULE: Release_Ham
+X-CID-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.22, REQID:b7d418e8-1cfc-4d53-a853-fea6099fcc50, IP:5,
+ U
+ RL:0,TC:0,Content:0,EDM:25,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+ ON:release,TS:15
+X-CID-INFO: VERSION:1.1.22, REQID:b7d418e8-1cfc-4d53-a853-fea6099fcc50, IP:5,
+ URL
+ :0,TC:0,Content:0,EDM:25,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:15
+X-CID-META: VersionHash:120426c, CLOUDID:7b1ed36c-2f20-4998-991c-3b78627e4938,
+ B
+ ulkID:230524140012K2BTKNIZ,BulkQuantity:0,Recheck:0,SF:44|24|17|19|102,TC:
+ nil,Content:0,EDM:5,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI
+ :0,OSA:0,AV:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-UUID: d119969646664d0aae26f9e80ada1e56-20230524
+X-User: lizhenneng@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.169)] by mailgw
+ (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
+ with ESMTP id 779692171; Wed, 24 May 2023 14:00:09 +0800
+From: Zhenneng Li <lizhenneng@kylinos.cn>
+To: Chen Guchun <Guchun.Chen@amd.com>
+Subject: [PATCH] drm/amdgpu: resove reboot exception for si oland
+Date: Wed, 24 May 2023 13:59:58 +0800
+Message-Id: <20230524055959.327329-1-lizhenneng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 24 May 2023 09:46:48 +0000
@@ -40,43 +55,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, harry.wentland@amd.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Abaci Robot <abaci@linux.alibaba.com>,
- Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, airlied@gmail.com
+Cc: David Airlie <airlied@linux.ie>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ Zhenneng Li <lizhenneng@kylinos.cn>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Eliminate the following warning:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_resource.c:889:43: warning: unused variable 'res_create_maximus_funcs'
+During reboot test on arm64 platform, it may failure
+on boot.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=5296
-Fixes: 00df97e1df57 ("drm/amd/display: Clean FPGA code in dc")
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+The error message are as follows:
+[    1.706570][ 3] [  T273] [drm:si_thermal_enable_alert [amdgpu]] *ERROR* Could not enable thermal interrupts.
+[    1.716547][ 3] [  T273] [drm:amdgpu_device_ip_late_init [amdgpu]] *ERROR* late_init of IP block <si_dpm> failed -22
+[    1.727064][ 3] [  T273] amdgpu 0000:02:00.0: amdgpu_device_ip_late_init failed
+[    1.734367][ 3] [  T273] amdgpu 0000:02:00.0: Fatal error during GPU init
+
+Signed-off-by: Zhenneng Li <lizhenneng@kylinos.cn>
 ---
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-index a0625209c86d..26ddf73fd5b1 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
-@@ -886,13 +886,6 @@ static const struct resource_create_funcs res_create_funcs = {
- 	.create_hwseq = dcn10_hwseq_create,
- };
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index d6d9e3b1b2c0..ca9bce895dbe 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -7626,18 +7626,6 @@ static int si_dpm_process_interrupt(struct amdgpu_device *adev,
  
--static const struct resource_create_funcs res_create_maximus_funcs = {
--	.read_dce_straps = NULL,
--	.create_audio = NULL,
--	.create_stream_encoder = NULL,
--	.create_hwseq = dcn10_hwseq_create,
--};
--
- static void dcn10_clock_source_destroy(struct clock_source **clk_src)
+ static int si_dpm_late_init(void *handle)
  {
- 	kfree(TO_DCE110_CLK_SRC(*clk_src));
+-	int ret;
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-
+-	if (!adev->pm.dpm_enabled)
+-		return 0;
+-
+-	ret = si_set_temperature_range(adev);
+-	if (ret)
+-		return ret;
+-#if 0 //TODO ?
+-	si_dpm_powergate_uvd(adev, true);
+-#endif
+ 	return 0;
+ }
+ 
 -- 
-2.20.1.7.g153144c
+2.25.1
 
+
+No virus found
+		Checked by Hillstone Network AntiVirus
