@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9787FC7EE2C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0147FC77B73
 	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:22:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13D6010E645;
-	Wed, 24 May 2023 09:22:03 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D652C10E5C6;
- Wed, 24 May 2023 09:21:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D538F10E642;
+	Wed, 24 May 2023 09:22:02 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C17610E5C4;
+ Wed, 24 May 2023 09:21:58 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9107C22498;
- Wed, 24 May 2023 09:21:56 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3E5C21FE24;
+ Wed, 24 May 2023 09:21:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1684920116; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1684920117; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Oj2iRP6pMo4vDxNswIvtR3QKGnI5kEeFw2PfgIFRgBs=;
- b=NFGtqcWf+kR1+9XuBtmK5g4jw/b/cKBsucrTQYr4JtOznGE5idxK8p3e7lA/p0EsGyYaYz
- lO1Enum4+7EVeqi3r57ppA2wUY/T9e8ZWCMZuk7o59A6SgzuvxVC1fMxF+EYlP2jrzTdyK
- gzzGxFS4biFixrDBDqed+spj8wt095A=
+ bh=SJ2zRdSISjXxkznRIjUJwZryXZxJdxu9+Ef1+QciFH0=;
+ b=1lupMwtHLWZkoMESvrn/VtY9tZ0bgUtAuZDJcIPDWWN1poYoPux2I3mBvVtFqpezfM30MV
+ djI835QccjYWA6Mwl+NPNnZ1JHyn5OcZTyIeQK+6+A90O9Pvw4eFe7RybIj/z6eBFQ0q7f
+ QDpBDl/j0uxWMLHIuugy2CrH+3BgjE8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1684920116;
+ s=susede2_ed25519; t=1684920117;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Oj2iRP6pMo4vDxNswIvtR3QKGnI5kEeFw2PfgIFRgBs=;
- b=vTx9MiQcb0Oc//KTM/MISv+8HVX4/muXP8Onapsy8Wf0GzktWfGfRt0gLCGfbyCCj1iPBl
- y8b4jw7tygg7l6CA==
+ bh=SJ2zRdSISjXxkznRIjUJwZryXZxJdxu9+Ef1+QciFH0=;
+ b=SxBSaTFPRqIhmGEm2vUzXW8SCainn9rhwv3dGXZpN9Mf446w+IULZ2QFGfbX7Srto6sUwb
+ nmI3YZUJvDdcIuDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4914513A10;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ED8E613A10;
  Wed, 24 May 2023 09:21:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mM8TETTXbWTHewAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id qKgqOTTXbWTHewAAMHmgww
  (envelope-from <tzimmermann@suse.de>); Wed, 24 May 2023 09:21:56 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, javierm@redhat.com, sam@ravnborg.org
-Subject: [PATCH v4 09/13] drm/omapdrm: Use regular fbdev I/O helpers
-Date: Wed, 24 May 2023 11:21:46 +0200
-Message-Id: <20230524092150.11776-10-tzimmermann@suse.de>
+Subject: [PATCH v4 11/13] drm/fb-helper: Export helpers for marking damage
+ areas
+Date: Wed, 24 May 2023 11:21:48 +0200
+Message-Id: <20230524092150.11776-12-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230524092150.11776-1-tzimmermann@suse.de>
 References: <20230524092150.11776-1-tzimmermann@suse.de>
@@ -67,80 +68,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, Tomi Valkeinen <tomba@kernel.org>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the regular fbdev helpers for framebuffer I/O instead of DRM's
-helpers. Omapdrm does not use damage handling, so DRM's fbdev helpers
-are mere wrappers around the fbdev code.
-
-By using fbdev helpers directly within each DRM fbdev emulation,
-we can eventually remove DRM's wrapper functions entirely.
+Export drm_fb_helper_damage() and drm_fb_helper_damage_range(), which
+handle damage areas for fbdev emulation. This is a temporary export
+that allows to move the DRM I/O helpers for fbdev into drivers. Only
+fbdev-generic and i915 need them. Both will be updated to implement
+damage handling by themselves and the exported functions will be removed.
 
 v4:
-	* use initializer macros for struct fb_ops
-v2:
-	* use FB_SYS_HELPERS option
+	* update interfaces
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Tomi Valkeinen <tomba@kernel.org>
 ---
- drivers/gpu/drm/omapdrm/Kconfig      |  1 +
- drivers/gpu/drm/omapdrm/omap_fbdev.c | 11 +++--------
- 2 files changed, 4 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/drm_fb_helper.c | 22 ++++++++++++++++++++++
+ include/drm/drm_fb_helper.h     |  3 +++
+ 2 files changed, 25 insertions(+)
 
-diff --git a/drivers/gpu/drm/omapdrm/Kconfig b/drivers/gpu/drm/omapdrm/Kconfig
-index 76ded1568bd0..b4ac76c9f31b 100644
---- a/drivers/gpu/drm/omapdrm/Kconfig
-+++ b/drivers/gpu/drm/omapdrm/Kconfig
-@@ -4,6 +4,7 @@ config DRM_OMAP
- 	depends on DRM && OF
- 	depends on ARCH_OMAP2PLUS
- 	select DRM_KMS_HELPER
-+	select FB_SYS_HELPERS if DRM_FBDEV_EMULATION
- 	select VIDEOMODE_HELPERS
- 	select HDMI
- 	default n
-diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-index b950e93b3846..b7ccce0704a3 100644
---- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
-+++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-@@ -4,6 +4,8 @@
-  * Author: Rob Clark <rob@ti.com>
-  */
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index f0e9549b6bd7..cb03099fd2e3 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -670,6 +670,28 @@ static void drm_fb_helper_memory_range_to_clip(struct fb_info *info, off_t off,
+ 	drm_rect_init(clip, x1, y1, x2 - x1, y2 - y1);
+ }
  
-+#include <linux/fb.h>
++/* Don't use in new code. */
++void drm_fb_helper_damage_range(struct fb_info *info, off_t off, size_t len)
++{
++	struct drm_fb_helper *fb_helper = info->par;
++	struct drm_rect damage_area;
 +
- #include <drm/drm_drv.h>
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_fb_helper.h>
-@@ -95,20 +97,13 @@ static void omap_fbdev_fb_destroy(struct fb_info *info)
++	drm_fb_helper_memory_range_to_clip(info, off, len, &damage_area);
++	drm_fb_helper_damage(fb_helper, damage_area.x1, damage_area.y1,
++			     drm_rect_width(&damage_area),
++			     drm_rect_height(&damage_area));
++}
++EXPORT_SYMBOL(drm_fb_helper_damage_range);
++
++/* Don't use in new code. */
++void drm_fb_helper_damage_area(struct fb_info *info, u32 x, u32 y, u32 width, u32 height)
++{
++	struct drm_fb_helper *fb_helper = info->par;
++
++	drm_fb_helper_damage(fb_helper, x, y, width, height);
++}
++EXPORT_SYMBOL(drm_fb_helper_damage_area);
++
+ /**
+  * drm_fb_helper_deferred_io() - fbdev deferred_io callback function
+  * @info: fb_info struct pointer
+diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
+index 72032c354a30..7d5804882be7 100644
+--- a/include/drm/drm_fb_helper.h
++++ b/include/drm/drm_fb_helper.h
+@@ -253,6 +253,9 @@ void drm_fb_helper_fill_info(struct fb_info *info,
+ 			     struct drm_fb_helper *fb_helper,
+ 			     struct drm_fb_helper_surface_size *sizes);
  
- static const struct fb_ops omap_fb_ops = {
- 	.owner = THIS_MODULE,
--
-+	FB_DEFAULT_SYS_OPS,
- 	.fb_check_var	= drm_fb_helper_check_var,
- 	.fb_set_par	= drm_fb_helper_set_par,
- 	.fb_setcmap	= drm_fb_helper_setcmap,
- 	.fb_blank	= drm_fb_helper_blank,
- 	.fb_pan_display = omap_fbdev_pan_display,
- 	.fb_ioctl	= drm_fb_helper_ioctl,
--
--	.fb_read = drm_fb_helper_sys_read,
--	.fb_write = drm_fb_helper_sys_write,
--	.fb_fillrect = drm_fb_helper_sys_fillrect,
--	.fb_copyarea = drm_fb_helper_sys_copyarea,
--	.fb_imageblit = drm_fb_helper_sys_imageblit,
--
- 	.fb_destroy = omap_fbdev_fb_destroy,
- };
++void drm_fb_helper_damage_range(struct fb_info *info, off_t off, size_t len);
++void drm_fb_helper_damage_area(struct fb_info *info, u32 x, u32 y, u32 width, u32 height);
++
+ void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagereflist);
  
+ ssize_t drm_fb_helper_sys_read(struct fb_info *info, char __user *buf,
 -- 
 2.40.1
 
