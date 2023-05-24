@@ -4,30 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DF30C77B73
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:46:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15351C7EE23
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0740910E5F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 762E210E5F4;
 	Wed, 24 May 2023 09:46:49 +0000 (UTC)
-Received: from out30-130.freemail.mail.aliyun.com
- (out30-130.freemail.mail.aliyun.com [115.124.30.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 427EC10E577
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 04:05:27 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046059;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
- TI=SMTPD_---0VjMZ3QC_1684900817; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VjMZ3QC_1684900817) by smtp.aliyun-inc.com;
- Wed, 24 May 2023 12:00:18 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH -next 13/13] drm/amd/display: remove unused definition
-Date: Wed, 24 May 2023 11:59:52 +0800
-Message-Id: <20230524035952.123590-13-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
-In-Reply-To: <20230524035952.123590-1-yang.lee@linux.alibaba.com>
-References: <20230524035952.123590-1-yang.lee@linux.alibaba.com>
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Wed, 24 May 2023 01:15:38 UTC
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9659510E562
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 01:15:37 +0000 (UTC)
+X-UUID: 42865e7f142a40779ecd2f5dc098071f-20230524
+X-CID-O-RULE: Release_Ham
+X-CID-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.22, REQID:802614f6-8286-4692-86b8-8c6d4b4ce47c, IP:5,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-10
+X-CID-INFO: VERSION:1.1.22, REQID:802614f6-8286-4692-86b8-8c6d4b4ce47c, IP:5,
+ URL
+ :0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:-10
+X-CID-META: VersionHash:120426c, CLOUDID:d799d0c1-e32c-4c97-918d-fbb3fc224d4e,
+ B
+ ulkID:2305240910296516PF9R,BulkQuantity:0,Recheck:0,SF:24|17|19|44|102,TC:
+ nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
+ I:0,OSA:0,AV:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-UUID: 42865e7f142a40779ecd2f5dc098071f-20230524
+X-User: lizhenneng@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.169)] by mailgw
+ (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1727280270; Wed, 24 May 2023 09:10:28 +0800
+From: Zhenneng Li <lizhenneng@kylinos.cn>
+To: Chen Guchun <Guchun.Chen@amd.com>
+Subject: [PATCH v2] drm/amdgpu: resove reboot exception for si oland
+Date: Wed, 24 May 2023 09:09:50 +0800
+Message-Id: <20230524010951.236634-1-lizhenneng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 24 May 2023 09:46:48 +0000
@@ -42,43 +57,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, harry.wentland@amd.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Abaci Robot <abaci@linux.alibaba.com>,
- Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, airlied@gmail.com
+Cc: David Airlie <airlied@linux.ie>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ Zhenneng Li <lizhenneng@kylinos.cn>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Eliminate the following warning:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_resource.c:899:43: warning: unused variable 'res_create_maximus_funcs'
+During reboot test on arm64 platform, it may failure
+on boot.
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=5296
-Fixes: 00df97e1df57 ("drm/amd/display: Clean FPGA code in dc")
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+The error message are as follows:
+[    1.706570][ 3] [  T273] [drm:si_thermal_enable_alert [amdgpu]] *ERROR* Could not enable thermal interrupts.
+[    1.716547][ 3] [  T273] [drm:amdgpu_device_ip_late_init [amdgpu]] *ERROR* late_init of IP block <si_dpm> failed -22
+[    1.727064][ 3] [  T273] amdgpu 0000:02:00.0: amdgpu_device_ip_late_init failed
+[    1.734367][ 3] [  T273] amdgpu 0000:02:00.0: Fatal error during GPU init
+
 ---
- drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-index 212c475d95cb..5ff09bf4bc30 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-@@ -896,13 +896,6 @@ static const struct resource_create_funcs res_create_funcs = {
- 	.create_hwseq = dcn201_hwseq_create,
- };
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index d6d9e3b1b2c0..ca9bce895dbe 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -7626,18 +7626,6 @@ static int si_dpm_process_interrupt(struct amdgpu_device *adev,
  
--static const struct resource_create_funcs res_create_maximus_funcs = {
--	.read_dce_straps = NULL,
--	.create_audio = NULL,
--	.create_stream_encoder = NULL,
--	.create_hwseq = dcn201_hwseq_create,
--};
--
- static void dcn201_clock_source_destroy(struct clock_source **clk_src)
+ static int si_dpm_late_init(void *handle)
  {
- 	kfree(TO_DCE110_CLK_SRC(*clk_src));
+-	int ret;
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-
+-	if (!adev->pm.dpm_enabled)
+-		return 0;
+-
+-	ret = si_set_temperature_range(adev);
+-	if (ret)
+-		return ret;
+-#if 0 //TODO ?
+-	si_dpm_powergate_uvd(adev, true);
+-#endif
+ 	return 0;
+ }
+ 
 -- 
-2.20.1.7.g153144c
+2.25.1
 
+
+No virus found
+		Checked by Hillstone Network AntiVirus
