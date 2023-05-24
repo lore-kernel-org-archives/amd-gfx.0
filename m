@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 605E4C7EE2E
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:22:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64E67C7EE2E
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:22:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3409010E646;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F097310E64C;
 	Wed, 24 May 2023 09:22:03 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E8AB10E5C8;
- Wed, 24 May 2023 09:21:57 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0598E10E5C6;
+ Wed, 24 May 2023 09:21:56 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8DA361FDE6;
- Wed, 24 May 2023 09:21:55 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3E2B622491;
+ Wed, 24 May 2023 09:21:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1684920115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1684920114; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VboR6P5Y8v7anRwiGC6Dqkjcqx1w/oYRokA4I/cAkvQ=;
- b=qLtKgSF4GMEkW9IkcCsr1ssuXygdfVzt7JkAy16m5UaPoWyO2EsUNwlIubBg5ujXy2tLti
- kIlNbZ+LSZsARlJmpULaxdE4qRhS25wjpi9Tc9Nq0fXb1/JdmCLi2v1e51r0/k7GlmiVEu
- EwP9tEGqaFest+t4D+Fx4lEeuW3MHiY=
+ bh=z5kiyGDwqDo020YahfyOJGt+MN/6MDzrJM3X/W/LovY=;
+ b=fXG4GUZhwxsuvEqbkx3DZS+J4ncEUBp2txQVCbljxePbvhAC4apRt8SGAOp3EUxT5ey/gI
+ T7NSbwlE/u8YirXPqubPFCgJ3igjcfP4Ka/I+km4Qlu3RYtrk+uR+1hUnNgdGeZq5K0rnr
+ pry9Pbhulb14eJnbCCrofZ4aTkc04dI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1684920115;
+ s=susede2_ed25519; t=1684920114;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VboR6P5Y8v7anRwiGC6Dqkjcqx1w/oYRokA4I/cAkvQ=;
- b=TdVQov4MztWlJ0vA8hM02dpiljW/eiZnFOlqgTWF1PSkwuX1SYuOCYTC9Lww30D92lvG+D
- MK49GCo4QS0P0pDQ==
+ bh=z5kiyGDwqDo020YahfyOJGt+MN/6MDzrJM3X/W/LovY=;
+ b=2zTnpsvogtWMyPnbBRdX42ml7s9oTA83atbV4Ew05N/+FyIM7ibgS4c/lbIH7ovjqbhqTn
+ 6oBc5isscTW3DMDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3DB3B13425;
- Wed, 24 May 2023 09:21:55 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E9F1D13425;
+ Wed, 24 May 2023 09:21:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id WLs4DjPXbWTHewAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 24 May 2023 09:21:55 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0MRGODHXbWTHewAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 24 May 2023 09:21:53 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, javierm@redhat.com, sam@ravnborg.org
-Subject: [PATCH v4 06/13] drm/radeon: Use regular fbdev I/O helpers
-Date: Wed, 24 May 2023 11:21:43 +0200
-Message-Id: <20230524092150.11776-7-tzimmermann@suse.de>
+Subject: [PATCH v4 02/13] fbdev: Add initializer macros for struct fb_ops
+Date: Wed, 24 May 2023 11:21:39 +0200
+Message-Id: <20230524092150.11776-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230524092150.11776-1-tzimmermann@suse.de>
 References: <20230524092150.11776-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,78 +68,172 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
  linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the regular fbdev helpers for framebuffer I/O instead of DRM's
-helpers. Radeon does not use damage handling, so DRM's fbdev helpers
-are mere wrappers around the fbdev code.
+For framebuffers in I/O and system memory, add macros that set
+struct fb_ops to the respective callback functions.
 
-By using fbdev helpers directly within each DRM fbdev emulation,
-we can eventually remove DRM's wrapper functions entirely.
+For deferred I/O, add macros that generate callback functions with
+damage handling. Add initializer macros that set struct fb_ops to
+the generated callbacks.
 
-v4:
-	* use initializer macros for struct fb_ops
-v2:
-	* use FB_IO_HELPERS option
+These macros can remove a lot boilerplate code from fbdev drivers.
+The drivers are supposed to use the macro that is required for its
+framebuffer. Each macro is split into smaller helpers, so that
+drivers with non-standard callbacks can pick and customize callbacks
+as needed. There are individual helper macros for read/write, mmap
+and drawing.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
 ---
- drivers/gpu/drm/radeon/Kconfig        | 1 +
- drivers/gpu/drm/radeon/radeon_fbdev.c | 9 +++------
- 2 files changed, 4 insertions(+), 6 deletions(-)
+ include/linux/fb.h | 112 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 112 insertions(+)
 
-diff --git a/drivers/gpu/drm/radeon/Kconfig b/drivers/gpu/drm/radeon/Kconfig
-index e19d77d58810..fe498c8af1bb 100644
---- a/drivers/gpu/drm/radeon/Kconfig
-+++ b/drivers/gpu/drm/radeon/Kconfig
-@@ -11,6 +11,7 @@ config DRM_RADEON
- 	select DRM_SUBALLOC_HELPER
-         select DRM_TTM
- 	select DRM_TTM_HELPER
-+	select FB_IO_HELPERS if DRM_FBDEV_EMULATION
- 	select SND_HDA_COMPONENT if SND_HDA_CORE
- 	select POWER_SUPPLY
- 	select HWMON
-diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
-index fe76e29910ef..28212c2d6c98 100644
---- a/drivers/gpu/drm/radeon/radeon_fbdev.c
-+++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
-@@ -24,6 +24,7 @@
-  *     David Airlie
+diff --git a/include/linux/fb.h b/include/linux/fb.h
+index 2cf8efcb9e32..731472a2bb62 100644
+--- a/include/linux/fb.h
++++ b/include/linux/fb.h
+@@ -538,9 +538,31 @@ extern ssize_t fb_io_read(struct fb_info *info, char __user *buf,
+ extern ssize_t fb_io_write(struct fb_info *info, const char __user *buf,
+ 			   size_t count, loff_t *ppos);
+ 
++/*
++ * Initializes struct fb_ops for framebuffers in I/O memory.
++ */
++
++#define __FB_DEFAULT_IO_OPS_RDWR \
++	.fb_read	= fb_io_read, \
++	.fb_write	= fb_io_write
++
++#define __FB_DEFAULT_IO_OPS_DRAW \
++        .fb_fillrect	= cfb_fillrect, \
++        .fb_copyarea	= cfb_copyarea, \
++        .fb_imageblit	= cfb_imageblit
++
++#define __FB_DEFAULT_IO_OPS_MMAP \
++	.fb_mmap	= NULL // default implementation
++
++#define FB_DEFAULT_IO_OPS \
++	__FB_DEFAULT_IO_OPS_RDWR, \
++	__FB_DEFAULT_IO_OPS_DRAW, \
++	__FB_DEFAULT_IO_OPS_MMAP
++
+ /*
+  * Drawing operations where framebuffer is in system RAM
   */
++
+ extern void sys_fillrect(struct fb_info *info, const struct fb_fillrect *rect);
+ extern void sys_copyarea(struct fb_info *info, const struct fb_copyarea *area);
+ extern void sys_imageblit(struct fb_info *info, const struct fb_image *image);
+@@ -549,6 +571,27 @@ extern ssize_t fb_sys_read(struct fb_info *info, char __user *buf,
+ extern ssize_t fb_sys_write(struct fb_info *info, const char __user *buf,
+ 			    size_t count, loff_t *ppos);
  
-+#include <linux/fb.h>
- #include <linux/pci.h>
- #include <linux/pm_runtime.h>
- #include <linux/vga_switcheroo.h>
-@@ -190,14 +191,10 @@ static void radeon_fbdev_fb_destroy(struct fb_info *info)
++/*
++ * Initializes struct fb_ops for framebuffers in system memory.
++ */
++
++#define __FB_DEFAULT_SYS_OPS_RDWR \
++	.fb_read	= fb_sys_read, \
++	.fb_write	= fb_sys_write
++
++#define __FB_DEFAULT_SYS_OPS_DRAW \
++        .fb_fillrect	= sys_fillrect, \
++        .fb_copyarea	= sys_copyarea, \
++        .fb_imageblit	= sys_imageblit
++
++#define __FB_DEFAULT_SYS_OPS_MMAP \
++	.fb_mmap	= NULL // default implementation
++
++#define FB_DEFAULT_SYS_OPS \
++	__FB_DEFAULT_SYS_OPS_RDWR, \
++	__FB_DEFAULT_SYS_OPS_DRAW, \
++	__FB_DEFAULT_SYS_OPS_MMAP
++
+ /* drivers/video/fbmem.c */
+ extern int register_framebuffer(struct fb_info *fb_info);
+ extern void unregister_framebuffer(struct fb_info *fb_info);
+@@ -604,6 +647,75 @@ extern void fb_deferred_io_cleanup(struct fb_info *info);
+ extern int fb_deferred_io_fsync(struct file *file, loff_t start,
+ 				loff_t end, int datasync);
  
- static const struct fb_ops radeon_fbdev_fb_ops = {
- 	.owner = THIS_MODULE,
--	DRM_FB_HELPER_DEFAULT_OPS,
- 	.fb_open = radeon_fbdev_fb_open,
- 	.fb_release = radeon_fbdev_fb_release,
--	.fb_read = drm_fb_helper_cfb_read,
--	.fb_write = drm_fb_helper_cfb_write,
--	.fb_fillrect = drm_fb_helper_cfb_fillrect,
--	.fb_copyarea = drm_fb_helper_cfb_copyarea,
--	.fb_imageblit = drm_fb_helper_cfb_imageblit,
-+	FB_DEFAULT_IO_OPS,
-+	DRM_FB_HELPER_DEFAULT_OPS,
- 	.fb_destroy = radeon_fbdev_fb_destroy,
- };
- 
++/*
++ * Generate callbacks for deferred I/O
++ */
++
++#define __FB_GEN_DEFAULT_DEFERRED_OPS_RDWR(__prefix, __damage_range, __mode) \
++	static ssize_t __prefix ## _defio_read(struct fb_info *info, char __user *buf, \
++					       size_t count, loff_t *ppos) \
++	{ \
++		return fb_ ## __mode ## _read(info, buf, count, ppos); \
++	} \
++	static ssize_t __prefix ## _defio_write(struct fb_info *info, const char __user *buf, \
++						size_t count, loff_t *ppos) \
++	{ \
++		unsigned long offset = *ppos; \
++		ssize_t ret = fb_ ## __mode ## _write(info, buf, count, ppos); \
++		if (ret > 0) \
++			__damage_range(info, offset, ret); \
++		return ret; \
++	}
++
++#define __FB_GEN_DEFAULT_DEFERRED_OPS_DRAW(__prefix, __damage_area, __mode) \
++	static void __prefix ## _defio_fillrect(struct fb_info *info, \
++						const struct fb_fillrect *rect) \
++	{ \
++		__mode ## _fillrect(info, rect); \
++		__damage_area(info, rect->dx, rect->dy, rect->width, rect->height); \
++	} \
++	static void __prefix ## _defio_copyarea(struct fb_info *info, \
++						const struct fb_copyarea *area) \
++	{ \
++		__mode ## _copyarea(info, area); \
++		__damage_area(info, area->dx, area->dy, area->width, area->height); \
++	} \
++	static void __prefix ## _defio_imageblit(struct fb_info *info, \
++						 const struct fb_image *image) \
++	{ \
++		__mode ## _imageblit(info, image); \
++		__damage_area(info, image->dx, image->dy, image->width, image->height); \
++	}
++
++#define FB_GEN_DEFAULT_DEFERRED_IO_OPS(__prefix, __damage_range, __damage_area) \
++	__FB_GEN_DEFAULT_DEFERRED_OPS_RDWR(__prefix, __damage_range, io) \
++	__FB_GEN_DEFAULT_DEFERRED_OPS_DRAW(__prefix, __damage_area, cfb)
++
++#define FB_GEN_DEFAULT_DEFERRED_SYS_OPS(__prefix, __damage_range, __damage_area) \
++	__FB_GEN_DEFAULT_DEFERRED_OPS_RDWR(__prefix, __damage_range, sys) \
++	__FB_GEN_DEFAULT_DEFERRED_OPS_DRAW(__prefix, __damage_area, sys)
++
++/*
++ * Initializes struct fb_ops for deferred I/O.
++ */
++
++#define __FB_DEFAULT_DEFERRED_OPS_RDWR(__prefix) \
++	.fb_read	= __prefix ## _defio_read, \
++	.fb_write	= __prefix ## _defio_write
++
++#define __FB_DEFAULT_DEFERRED_OPS_DRAW(__prefix) \
++        .fb_fillrect	= __prefix ## _defio_fillrect, \
++        .fb_copyarea	= __prefix ## _defio_copyarea, \
++        .fb_imageblit	= __prefix ## _defio_imageblit
++
++#define __FB_DEFAULT_DEFERRED_OPS_MMAP(__prefix) \
++	.fb_mmap	= fb_deferred_io_mmap
++
++#define FB_DEFAULT_DEFERRED_OPS(__prefix) \
++	__FB_DEFAULT_DEFERRED_OPS_RDWR(__prefix), \
++	__FB_DEFAULT_DEFERRED_OPS_DRAW(__prefix), \
++	__FB_DEFAULT_DEFERRED_OPS_MMAP(__prefix)
++
+ static inline bool fb_be_math(struct fb_info *info)
+ {
+ #ifdef CONFIG_FB_FOREIGN_ENDIAN
 -- 
 2.40.1
 
