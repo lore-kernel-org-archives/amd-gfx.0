@@ -4,59 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60368C77B7C
-	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 15:24:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A11FC77B7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 24 May 2023 15:25:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3AE310E22D;
-	Wed, 24 May 2023 15:24:57 +0000 (UTC)
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBD610E226
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 15:24:54 +0000 (UTC)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-19eb96bffd4so319222fac.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 08:24:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8874E10E226;
+	Wed, 24 May 2023 15:25:15 +0000 (UTC)
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
+ [IPv6:2607:f8b0:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D323F10E226
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 15:25:13 +0000 (UTC)
+Received: by mail-pg1-x534.google.com with SMTP id
+ 41be03b00d2f7-53eee18a192so390486a12.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 24 May 2023 08:25:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1684941893; x=1687533893;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20221208; t=1684941913; x=1687533913;
+ h=cc:to:subject:date:from:message-id:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QAC9tdMb00S7yd2Qf7Jaa3NnA2f8JU7AOomtKdITQvI=;
- b=rHVRhWiVNo8Ptid8T7AyT84Kwm/PoclvEJSwzlMRGPv73iACRkBbKnpWVrKW4lW77i
- ak/xvQ0QTXv/m7uml8G319NPKHDembanuyDjvDXRIGhqp5FkCilQYzZ0uzcIqfb9TYub
- USoO0Og31mtUG3LwBhs+xiTQEqR16yOFgbaBWHQpufUI30leldT86hBjL4lfUFo4QzV3
- w9ny2NwIz55zaJftqkw+uLciFkwBWu00Dz+MDZbsY6vwXZhnddYQ+U0g9lngbdbBGQ9z
- ctPGb3hRLUCr8kJHi6SgvJ/mAKNOsrY7s1R+mdlcFbei0Bx0Ar5Uc5JCIq3gRXvAX29x
- 2yMg==
+ bh=clsLU15GLcIOQSvBcrogvQDw08garrGLWVkzeYz/uDY=;
+ b=E+/BC4CAkdnIoLdlv8nl03nfngRBjJKkXSLe7oynmVh8HPexKV+2BCd2QaCVos7wbC
+ 12O6t0wOZJgY0UF//E14cimf4E5OqwVxwCfN5f8ZR1NyXQ6z8PWz1kbuHDKWa10BjGjm
+ /6aZd9a88LF6JitKfy7iNBY8sxPGyLxB3sZp1WTwl/vuaq0JdZNXcmGMzDIbdjCNl027
+ Ef3EP4s7hxI3iAEi+urjJHVhpEuhSjwQP5OSYp5KUQ3W26HUSeIXnyRAoAkMHMYyUJqz
+ X/TWTtvQVgb3HJPK700F+GJkA2akvz9hp/jMdmPPGosDgQPrTY7TrRmwxdZ/Cw3lYUiv
+ p63Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684941893; x=1687533893;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20221208; t=1684941913; x=1687533913;
+ h=cc:to:subject:date:from:message-id:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=QAC9tdMb00S7yd2Qf7Jaa3NnA2f8JU7AOomtKdITQvI=;
- b=bKlQcFdHVCI7eO4plvvZ3CmXFA3I6XveIUTWbZJak51cT/FvPEnuhrVIjLGIomI0El
- /31nmR8bxbV5mrW33G3NUPQSx+uDFQUlxw/MXEKak7wc48r55LC65dPuDJHuGpKOAAL0
- 7S61O0JE/OD3u1qYsaSPl+RHTnNtxVaylLJFKvqlIkOF1I78JsMASoddX6WMrms+bTxJ
- NR62n96iT7yM/ndp1wvGNMaMlRLP6tP/UxNQuHS0KNGDnAUF112xh8M0VDgMquYzScIC
- ByftasFgd3sTvFfeQUQBPovPrVvpXtP0ELDZN95b/11Aqsvee0ZpDUGQg/qEGAMKuDWt
- Qi2g==
-X-Gm-Message-State: AC+VfDxCYr4Lmd3uvoipwFST2CqRL6QLXC3PIJJ4r8x0Uw2HIu/whYSt
- yiC5PaY1DeW//4jcUCiPFar1bAkEAJBrn2u095kkNhrK
-X-Google-Smtp-Source: ACHHUZ43talidFo06wpMjTULiZc21dEndO1R63o15NTGsrzHdFvkCIOmWsphvWQvtEH7HB46+0G4MZLBt2c54z7jWDc=
-X-Received: by 2002:a05:6870:b7af:b0:196:5925:24cc with SMTP id
- ed47-20020a056870b7af00b00196592524ccmr91629oab.21.1684941893207; Wed, 24 May
- 2023 08:24:53 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230524152138.3631037-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230524152138.3631037-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 24 May 2023 11:24:41 -0400
-Message-ID: <CADnq5_P-K2C2WaNKTfmCxRSKcKRw4Ttr+a7ey0Rn3N5oaCGwZA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix defined but not used gfx9_cs_data in
- gfx_v9_4_3.c
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ bh=clsLU15GLcIOQSvBcrogvQDw08garrGLWVkzeYz/uDY=;
+ b=hakkME4uCIZAk79sWmeXznAfKraEwgvnqRGzP3WF4X0T5V3tfsXmkP7vMQK7C0fFZ+
+ jePuIbk6gPO0BhNEOdbeP8R6xroJYSSZt88jPsO5UtLsHBsVsKyhNPhmB0EcO542CqFl
+ sn2EdJhnqbHdtaZuKM5CXZRPZ0LwZBIqPKN4cmnBvtQfcGB+HEhTW+Iz+25aqknPLgg9
+ rfU9zrmbzSwlC/8Ld676pAnyiW7MpigVEILxvqZsombAH10Wmi7nvAunc7VYaH0lO+Cx
+ z4wXsidoLGII1lhqhkAfbm3DE8w+nxp5N5BO+h4cZj6Bsjd0/L6/cT9rEeXR8ZCVNTH+
+ Mx6A==
+X-Gm-Message-State: AC+VfDyL1+R7I5NhcbOctFpdeYRr62bzLJoH0gSljolUQpTeOvOKYP7a
+ Rhubdjyer5wNHEhKVdRqke4=
+X-Google-Smtp-Source: ACHHUZ47CIz21wZp5Ttvdc1bRln55OtCgtRpYza6UsIR7M+htz0bEb2QV7vPpW0lvnftuE8t5GSrVQ==
+X-Received: by 2002:a05:6a20:6a0b:b0:10b:189e:c1de with SMTP id
+ p11-20020a056a206a0b00b0010b189ec1demr13884707pzk.10.1684941912945; 
+ Wed, 24 May 2023 08:25:12 -0700 (PDT)
+Received: from localhost ([123.56.124.140]) by smtp.gmail.com with ESMTPSA id
+ 17-20020a17090a19d100b0024bcad691d4sm1580623pjj.14.2023.05.24.08.25.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 May 2023 08:25:12 -0700 (PDT)
+Message-ID: <646e2c58.170a0220.4f979.2ba7@mx.google.com>
+From: ghostfly233 <ghostfly23333@gmail.com>
+Date: Wed, 24 May 2023 23:02:15 +0800
+Subject: [PATCH] drm/amdgpu: Enable GCVM_CONTEXT1_CNTL after page table addr
+ is set.
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,48 +65,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: ghostfly23333@gmail.com, daniel@ffwll.ch, airlied@gmail.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 24, 2023 at 11:22=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> gcc with W=3D1
-> In file included from drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c:33:
-> drivers/gpu/drm/amd/amdgpu/clearstate_gfx9.h:939:36: warning: =E2=80=98gf=
-x9_cs_data=E2=80=99 defined but not used [-Wunused-const-variable=3D]
->   939 | static const struct cs_section_def gfx9_cs_data[] =3D {
->       |
->
-> gfx9_cs_data is not used in gfx_v9_4_3.c, hence remove its
-> include in gfx_v9_4_3.c
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+In gfxhub_v2_1_setup_vmid_config(), the GCVM_CONTEXT1_CNTL reg is
+enabled before related GCVM_CONTEXT1_PAGE_TABLE_START_ADDR and
+GCVM_CONTEXT1_PAGE_TABLE_END_ADDR regs are written, which may
+cause undefined behavior.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+This patch enable GCVM_CONNTEXT1_CNTL after page table addresses are set,
+so that it can ensure no undefined behavior will happen.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v9_4_3.c
-> index ed41a7862d9f..bdaea50cafe7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -29,7 +29,6 @@
->  #include "soc15_common.h"
->  #include "vega10_enum.h"
->
-> -#include "clearstate_gfx9.h"
->  #include "v9_structs.h"
->
->  #include "ivsrcid/gfx/irqsrcs_gfx_9_0.h"
-> --
-> 2.25.1
->
+Signed-off-by: Zibin Liu <ghostfly23333@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+index 4aacbbec31e2..791afc8e9e85 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+@@ -297,7 +297,7 @@ static void gfxhub_v2_1_setup_vmid_config(struct amdgpu_device *adev)
+ 
+ 	for (i = 0; i <= 14; i++) {
+ 		tmp = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL, i);
+-		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 0);
+ 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
+ 				    adev->vm_manager.num_level);
+ 		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
+@@ -333,6 +333,9 @@ static void gfxhub_v2_1_setup_vmid_config(struct amdgpu_device *adev)
+ 		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32,
+ 				    i * hub->ctx_addr_distance,
+ 				    upper_32_bits(adev->vm_manager.max_pfn - 1));
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL,
++				    i * hub->ctx_distance, tmp);
+ 	}
+ 
+ 	hub->vm_cntx_cntl = tmp;
+-- 
+2.34.1
+
