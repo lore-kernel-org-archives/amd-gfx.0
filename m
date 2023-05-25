@@ -4,91 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D43B0C7EE2C
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 19:19:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D3CAC7EE2F
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 19:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E85610E73E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC83210E745;
 	Thu, 25 May 2023 19:18:56 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2054.outbound.protection.outlook.com [40.107.100.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D16EB10E110;
- Thu, 25 May 2023 19:18:35 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2073.outbound.protection.outlook.com [40.107.94.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40D2410E198;
+ Thu, 25 May 2023 19:18:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nXR3yym/NzE402Qv3zc+q+iFcel2H2cl93LXHdocv34XH8PzdjiPdw73R0RgWtALbx6PSYwx1Wg12Qphek5xBD7JZ588lGGV8aBgZYZx2B2Ger7g0q7dol9Odv+BA9l/nBUfTClS0vYnyQPqu8dEvEVENl50sjTiFkwIb93UlCwVN8PFDnutoLLiGQsLl56Z5X84/4vCDeliz5O86Mh75X2NZYdGaF2ZVV2oco+T+X4q+kx4kkvNxuWgod5E+Et+fijmY/Rip2RoyFNswEFowP3D5Oqt7RvF2EvP9mDIGxyJiJ23wZylN5OEgVOKPRr9xhlVhIBQwQDiAi2nvqRATg==
+ b=knVbVjl8bdhgcntWoa0pKFiKTEBG9fjabT0UmUC3uNpraXDJmsqxrIBmhv/3mpmtEucmEM75nJtL63u1l5kJfy0vBD0g+EPLPXnJy9FBk6TigxqX2TIkZqVi0tGTCa25ERvE6mum4Sdc8ocnktumlHsd/D+TP4SWaCP+7kjSRjyO4d2+FdBu5ahfZ7rGGv4Q6fstOZrxGPt8jZZ47W1YEPlIc5BFaLKZiv7i6OZJTUnlUaWIS7SeOpf6xM6K5XE/KQs/0dALYzlzFt2bmZI7w72TTU16KjkpC2g7NpPCYL3lSmNJegsbjwbEP8Bxg0E5yOlGtEcZ3rtkYEzo5Ea9aw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k7poHcbsHTBQNqHvSfSaKY9q0F/ODq1J0sQ0wn7WT5Y=;
- b=YoT1LgEJ7mJFdvj+0ghBBYtMm1xaE4QpNcr51oZbB/zDcpqDa9Rp+enUZaKmaxnzbFwlPd1iHThars7iY7pgz6Ful3ahd6aGS1neVmtI17RwLBo0lyn0yo4eWAaXwj8Rwd23BqaTrZIX3knJzoFizMcwm4YX9geIAFLb1YeOtxVnsjDil7zCRv5UrYblzJnuMveoCrSLobJbnKLxunaG78I/suG5Uj3cq5+UmyPkFWIiMrwlLmeEf/OHEvajQdhAOg66OzjIgbXVw3EwlNmhm5GJJWTljHURImne2kh7kubTcStecRnbfjsRbr9/TEDoG1Vxht40JRKFRj7g0h0EGQ==
+ bh=Mnd+lqY4iPtExegXG4xgCzFilvq0CDTJj12ri14AR0Y=;
+ b=Xh2aXyIw0LU5XSabc4C70k0WFN9w3ipjWA7ixQCmevQ5uFUfd6qauazX0gOaHI7wkpJJ8TUg9FC5UGvOyKFspy0YbYK6zf8eQpkrVz7DcDR8eKAOpUji0p+xziMPofPtlBxwhLU9Fmj6KrG7oi9n9KZ8oUGV83ModWsiifUON9m/v1jjUE7NQYNURuh+cojHJAiomvMx8THAo6lIdH+/PZyMuKlpsrTL41oSNWdRlKjvWCm+o6ibWjlUiccMIOXqIqQ3D2j7SibpPWzhjEmME/DpW2zignJb0f1NKD4hwu2tpQxEqTvzQNhM2CmPe8LXF2oxCEsMhgyLQA3/AHtWdA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k7poHcbsHTBQNqHvSfSaKY9q0F/ODq1J0sQ0wn7WT5Y=;
- b=V4v/CVYBgDrR98BDp17PMAbzQJ9UvV7Pwo04x8zWU/vRFY1habeEc2S7N40pkcGLov+7EkMcascdgzsJL6wAHKVMcPPWSNLks6MR8Tfo5roqN2Gw1gQjIfeOZcD8aqWAUpQB/5PqvMKm6xCQ7EIMcLYK9/lTMn9pNVhuqf8fwQQ=
-Received: from SJ0PR03CA0210.namprd03.prod.outlook.com (2603:10b6:a03:2ef::35)
- by DM6PR12MB4330.namprd12.prod.outlook.com (2603:10b6:5:21d::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.15; Thu, 25 May
- 2023 19:18:33 +0000
-Received: from DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
- (2603:10b6:a03:2ef:cafe::3a) by SJ0PR03CA0210.outlook.office365.com
- (2603:10b6:a03:2ef::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.17 via Frontend
- Transport; Thu, 25 May 2023 19:18:32 +0000
+ bh=Mnd+lqY4iPtExegXG4xgCzFilvq0CDTJj12ri14AR0Y=;
+ b=4P3ExYCSm1ehQRtlYixhmnyQRh51+FyDbxHDO2g2psdqRHkUBa+Q13KaHuHPpq2Gtps0gmKT53FDQEBCM86ailCF9WisZ3YgKrs8Pl+bAbUVHyJlOXfGYRtvEkoeiRztGzfbRDJCudB0Jmwd7kapY7TjBA9N8NKsrBKXchM8tHw=
+Received: from DS7PR05CA0045.namprd05.prod.outlook.com (2603:10b6:8:2f::7) by
+ DM4PR12MB5309.namprd12.prod.outlook.com (2603:10b6:5:390::17) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6433.15; Thu, 25 May 2023 19:18:46 +0000
+Received: from DM6NAM11FT107.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2f:cafe::79) by DS7PR05CA0045.outlook.office365.com
+ (2603:10b6:8:2f::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.15 via Frontend
+ Transport; Thu, 25 May 2023 19:18:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT014.mail.protection.outlook.com (10.13.173.132) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT107.mail.protection.outlook.com (10.13.172.142) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6433.16 via Frontend Transport; Thu, 25 May 2023 19:18:32 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6433.16 via Frontend Transport; Thu, 25 May 2023 19:18:46 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 25 May
- 2023 14:18:31 -0500
+ 2023 14:18:44 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 25 May
+ 2023 14:18:43 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 25 May 2023 14:18:30 -0500
+ Transport; Thu, 25 May 2023 14:18:42 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v4 05/13] drm/connector: Print connector colorspace in state
- debugfs
-Date: Thu, 25 May 2023 15:18:01 -0400
-Message-ID: <20230525191809.3524-6-harry.wentland@amd.com>
+Subject: [PATCH v4 11/13] drm/amd/display: Always set crtcinfo from
+ create_stream_for_sink
+Date: Thu, 25 May 2023 15:18:07 -0400
+Message-ID: <20230525191809.3524-12-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230525191809.3524-1-harry.wentland@amd.com>
 References: <20230525191809.3524-1-harry.wentland@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT014:EE_|DM6PR12MB4330:EE_
-X-MS-Office365-Filtering-Correlation-Id: b0860c27-d755-4df8-a6e0-08db5d54d49a
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT107:EE_|DM4PR12MB5309:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7848b3df-ef5d-4fd1-e3c0-08db5d54dcbb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: W+k6dlHLopg5nDW6erROA3DbJZ+ufDd12wi5TOQHR73Iwbmxo8sleS1cHMQ7zonQ1vyEc+3w9enaoBe2jH4YfWFdbuMp9kx85nQIx6db6VtBUpz/i2vmcOHYRHJh5kWu8swAgttMcrm5F2vBUxahXxgYxRojWYQO3qVdnPCBuS9+e/ttCW2cX71AftDifFlFd65PYf2Oa/2oCSMtle1HgdJFkR0lo+z5FsjH/iNmO3oU1c69fVzpD7a5M8x2k5BTpB+8CEZeiQ2hZ7rdeoUw/IVyw4MLLcC41zPV0wi0Xiw33lYoBzFBkSd+xVwdw0uWzV5QGOOs3ITdx98L1kGBiAwnfu6sBLclz5QWCRvboPatwC2SMhYCNc9vOb5sNQpb3OYNsY8xXovc9Ps8Jghu5b2K28TYupf4ZZZy3AxNUmdDsrv0/NEnE3be9pnTZAd6uYntYsackffrqO6OSWl92Q0Wv1Jv3o2b1/ho7kX/VqlrDq/JBxCk1cQMrcZwhCJSm1bJbz0y9V97DxaqcFDJ5nJy5BxUTRdWl2AWC/If3AiKjOYRnZd/hBS+UJDiTLWc6vZ+Pz9kRg9JWrU0aq0gA+UnydDWisPZFT0GDOIC8Qla3FbHeOkwNjGWZSAFyVkSLxXF2wvhCbd/Ok81fjGhNgywmIq+a0v/cC65Gzib72ncF25iGv6sD1rZvB6T0/Bl0MTPccoDPXOwxFpjwG9+5i5k79ygMBqbAosgtgVjhfz8rjPtYrP/f3nd/ry8GB//6u9FNG9QQXwPwwLM1Be6Ew==
+X-Microsoft-Antispam-Message-Info: 2OJuI+IAucuY0fMg3B81UoJa16Zk4uA+fIK4LGddZSIZGe1t/hDtWMIphGjR0gXWPK44pq3ms6gRDPEInfZpB9wfSNATRNTALnpjX5N3Xl8bHmrQHlJ2CpLjHj71EMPFeNvKSEJP6QyXLh5pj2DW7vnH8mwWj0PoqYPCcP7vAj3pjwDGlz+zvFw46k/nq00AYz9qY9H6pySKGrwI4d1rFkLvYp3lBnG0/+H9V0ykX0f6N4Wcbb8GvuoafxDwgxcwO+cM44IcGoF/stecCr24b37NfXjqdX/gP1rduQ6+8g51g5/NvqpHtPmZSGqlEqHfIKeqtzUDKfF3vkjj8/dbKZ+uZf/uXcW5H6w0EFkcGBIFey41Dxe82jMgR7aOREIuVmSe9b4ki8IT34Mkx60A1ofAvvHcqP7Vi3QFZ373PSIteLByuF5DhPqlKCjNB4SdfAi1bqz0b2OJ+C64etauXNMQnqBQrMEXmRTpQN51MsJEfu2dJs1SYyGjY1AXuTlDbenUi9ByUnK0hc1FpMgH+LHLaRTIMdNYke8xIbCX8J8cWb7Zo8IIbCNVGnOahBHgSARouFQRZZVD9ts4rPoC8zkAZM7x6dLf7ZOpK7dDEtBx0PD6XJEwRZz3QbLrpKZHwUPbFW9vrM8zKl9FvqGOTRt3ytXhv8FXj3MVIZjJpEvwog5DdS/3sgNbEUC8hf0CWuoQ90NR+a4G9IkKfuP0DY8S4IBfsgWNbHW+xQjwoAcT41V4uF11X7WWklENYTe9qtTwUpuqFKw4WF0Lqpt6Ww==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(376002)(39860400002)(396003)(451199021)(40470700004)(36840700001)(46966006)(1076003)(26005)(40460700003)(5660300002)(44832011)(7416002)(40480700001)(8936002)(8676002)(478600001)(86362001)(36860700001)(81166007)(356005)(54906003)(82310400005)(6666004)(110136005)(82740400003)(70206006)(2616005)(41300700001)(36756003)(426003)(83380400001)(4326008)(70586007)(336012)(2906002)(186003)(316002)(47076005)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(39860400002)(136003)(346002)(376002)(451199021)(40470700004)(36840700001)(46966006)(8676002)(6666004)(478600001)(110136005)(40460700003)(83380400001)(47076005)(2616005)(426003)(40480700001)(36860700001)(86362001)(82740400003)(356005)(1076003)(26005)(36756003)(186003)(336012)(41300700001)(81166007)(8936002)(316002)(82310400005)(5660300002)(44832011)(2906002)(54906003)(4326008)(70586007)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2023 19:18:32.7817 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0860c27-d755-4df8-a6e0-08db5d54d49a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2023 19:18:46.4213 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7848b3df-ef5d-4fd1-e3c0-08db5d54dcbb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT014.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT107.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4330
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5309
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,87 +105,48 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
- Jani Nikula <jani.nikula@linux.intel.com>, Melissa Wen <mwen@igalia.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
- Vitaly.Prosyak@amd.com, Joshua Ashton <joshua@froggi.es>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+ Melissa Wen <mwen@igalia.com>, Pekka Paalanen <ppaalanen@gmail.com>,
+ Vitaly.Prosyak@amd.com, Harry Wentland <harry.wentland@amd.com>,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-v3: Fix kerneldocs (kernel test robot)
+From: Joshua Ashton <joshua@froggi.es>
 
-v4: Avoid returning NULL from drm_get_colorspace_name
+Given that we always pass dm_state into here now, this won't ever
+trigger anymore.
 
+This is needed for we will always fail mode validation with invalid
+clocks or link bandwidth errors.
+
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 Cc: Pekka Paalanen <ppaalanen@gmail.com>
 Cc: Sebastian Wick <sebastian.wick@redhat.com>
 Cc: Vitaly.Prosyak@amd.com
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: Joshua Ashton <joshua@froggi.es>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Simon Ser <contact@emersion.fr>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: Melissa Wen <mwen@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org
+Reviewed-By: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/drm_atomic.c    |  1 +
- drivers/gpu/drm/drm_connector.c | 15 +++++++++++++++
- include/drm/drm_connector.h     |  1 +
- 3 files changed, 17 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index c0dc5858a723..d6d04c4ccfc0 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1071,6 +1071,7 @@ static void drm_atomic_connector_print_state(struct drm_printer *p,
- 	drm_printf(p, "\tcrtc=%s\n", state->crtc ? state->crtc->name : "(null)");
- 	drm_printf(p, "\tself_refresh_aware=%d\n", state->self_refresh_aware);
- 	drm_printf(p, "\tmax_requested_bpc=%d\n", state->max_requested_bpc);
-+	drm_printf(p, "\tcolorspace=%s\n", drm_get_colorspace_name(state->colorspace));
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a8de26f09806..4e96a34148cc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6046,7 +6046,7 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
  
- 	if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
- 		if (state->writeback_job && state->writeback_job->fb)
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 8d24a5da4076..69480385eaf3 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1048,6 +1048,21 @@ static const char * const colorspace_names[] = {
- 	[DRM_MODE_COLORIMETRY_BT601_YCC] = "BT601_YCC",
- };
- 
-+/**
-+ * drm_get_colorspace_name - return a string for color encoding
-+ * @colorspace: color space to compute name of
-+ *
-+ * In contrast to the other drm_get_*_name functions this one here returns a
-+ * const pointer and hence is threadsafe.
-+ */
-+const char *drm_get_colorspace_name(enum drm_colorspace colorspace)
-+{
-+	if (colorspace < ARRAY_SIZE(colorspace_names) && colorspace_names[colorspace])
-+		return colorspace_names[colorspace];
+ 	if (recalculate_timing)
+ 		drm_mode_set_crtcinfo(&saved_mode, 0);
+-	else if (!dm_state)
 +	else
-+		return "(null)";
-+}
-+
- static const u32 hdmi_colorspaces =
- 	BIT(DRM_MODE_COLORIMETRY_SMPTE_170M_YCC) |
- 	BIT(DRM_MODE_COLORIMETRY_BT709_YCC) |
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 565311e194da..ae0b1ee5b99a 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1980,6 +1980,7 @@ void drm_connector_list_iter_end(struct drm_connector_list_iter *iter);
+ 		drm_mode_set_crtcinfo(&mode, 0);
  
- bool drm_connector_has_possible_encoder(struct drm_connector *connector,
- 					struct drm_encoder *encoder);
-+const char *drm_get_colorspace_name(enum drm_colorspace colorspace);
- 
- /**
-  * drm_for_each_connector_iter - connector_list iterator macro
+ 	/*
 -- 
 2.40.1
 
