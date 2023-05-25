@@ -4,56 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F876C7EE2C
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 07:49:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ACEAC77B7A
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 08:03:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C28D710E831;
-	Thu, 25 May 2023 07:49:06 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40DAB10E82A;
- Thu, 25 May 2023 07:49:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685000945; x=1716536945;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=6G8Gb9zH+qb300fPynJh7/Zt/u1U7ytUL6LE4sF3tPo=;
- b=HXGV1WnD5/qRUqb9FJdCdk4VpwrLOX26ChrZl763D9S4OUIkJvi2DkOL
- dQJA3jkScYTPiLhEYOxNfDZMUlS1Uf7ohu9xuWlsHh4dbJugcj+hjN6DL
- WzPJntnwySeenO6Y0keeQqhk7d/Q/SMOlTACsAKHHgQ42P4RsxiQSCdCb
- 6wUqG42U40kmV2vCNrwOkaEPdHgt0RN5usnIhOilPFGhw1bB79oyzGHCm
- 6v5sl9j3SZMaBOW5UjHhfKeWuFlVHfK+mqnLfjyKfnusdEUkTglzg2bqY
- Nj+kgcqhfN9yBq7uHzYljQeT2eioPccRr2198ROInvUb3U0b2zpNiPyMV g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="353841977"
-X-IronPort-AV: E=Sophos;i="6.00,190,1681196400"; d="scan'208";a="353841977"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2023 00:49:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="707902556"
-X-IronPort-AV: E=Sophos;i="6.00,190,1681196400"; d="scan'208";a="707902556"
-Received: from emontau-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.252.42.201])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2023 00:48:58 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>, Alex Deucher
- <alexdeucher@gmail.com>, Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH v2] drm/amd/display: enable more strict compile checks
-In-Reply-To: <e26351ed-ba64-b7e1-5165-de40622e0d30@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230524191955.252212-1-hamza.mahfooz@amd.com>
- <CADnq5_Mz6aPFYGnr8J8C8UeTpbo7JDg+uvjqAxo7o4vmTGej2A@mail.gmail.com>
- <DM6PR12MB3996C4248CBC968A7B08341583419@DM6PR12MB3996.namprd12.prod.outlook.com>
- <BL1PR12MB589849F37FBE98A3A06A316185419@BL1PR12MB5898.namprd12.prod.outlook.com>
- <3fefc712-913a-a391-bc7b-c0c75eff1c3d@amd.com>
- <CADnq5_OdWbg6zKjPrRwd2QSDnHgFuThF+OQHM=tVWj-2ySCu_A@mail.gmail.com>
- <e26351ed-ba64-b7e1-5165-de40622e0d30@amd.com>
-Date: Thu, 25 May 2023 10:48:56 +0300
-Message-ID: <87fs7kkg0n.fsf@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id C269C10E7E5;
+	Thu, 25 May 2023 08:03:01 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8640410E7E7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 May 2023 08:02:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Qm6iWw9aGsJ5pkQZx7DMBVSE8/O658b7dPXaDHUlt7Zb2z5r9IrTgw5cS5LFuM/FvGWP/JEfrY3nm2rg8vQo9HyWgx+EDwYEcALjtIpB6GPqfWR98ruJsPDUTYnkzBQA7iruMptwpIBFTHylornLKgVdXg0gu85VtWS/0/iVpqTRlvBl/98svcU/CFHtMKFMfFo83iwZ1Nih05WdzzRt60DnQifD5/Q/zkV1YQoPnp3QlqWn6fuecV1s5lAF8iVXzxr7AwFo55hjvUshJwCgo1vmFOWNdo9w5JTbe/lj9TXvFbcNlrygzIPcTRSR9ViypXpB47xZOxRV7wF6h2+7cQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Lbz4fwjAiOArD0d9Qoy1EPcr+I01bT5kBbHgRdkLkgQ=;
+ b=FBezG8yebZgN0rD85kZSKA589wfQZpKlvhmaNsY72cTdY0t2tOYyUqf2pKx/bixkMedsk1Kqpjz1nE+NNLcnnQX15RoqSPMHVz2w6tXWfrQlCyEUr4YNwtX5k4kTJ/RII35rLfAzK7jo4AdZcHrDzQhF/Dm/le572ubGk8BXK7jwDqO7Aa4dP16Tu1Hl9wrJH9FdoRsIuEL2vbyLs5N1qSZJVAFb+8YoJO9GMpZQE4vimy3QW+2pYbmvGs5la1rAG18XMdVl/0sNNx2ESN+oXD2efh5y9M4BaOkgUIeWcmgOokja/U6Stjdfpnbouh45HX2u+5ekvnvSiPG32SH7bw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Lbz4fwjAiOArD0d9Qoy1EPcr+I01bT5kBbHgRdkLkgQ=;
+ b=oY4XJ23Lr1ZJAnfGqbCRob5tqTnff6g0Erz1XI1tAqxkMnLs9SIaZmEF6bdHAmCCj+yFDLEPAFzofJNUpiwG7cIV3qhOWmSuTCw6RmvgmVyVxxekNdhNSEw3L14NWch9rRyQSUspXV4AIKuDeJPVGHOLBgzarm1WCPiiFq49PsQ=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by LV3PR12MB9167.namprd12.prod.outlook.com (2603:10b6:408:196::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.15; Thu, 25 May
+ 2023 08:02:57 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::9c90:4cbc:7d12:fb99]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::9c90:4cbc:7d12:fb99%3]) with mapi id 15.20.6433.016; Thu, 25 May 2023
+ 08:02:57 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Zhang, Morris" <Shiwu.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 3/3] drm/amdgpu: set the APU flag based on package type
+Thread-Topic: [PATCH 3/3] drm/amdgpu: set the APU flag based on package type
+Thread-Index: AQHZjt0Wqkr7m+s2hUugGNKPXMzFmK9qoMzg
+Date: Thu, 25 May 2023 08:02:57 +0000
+Message-ID: <BN9PR12MB525748536E1E0AE81BA1174FFC469@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20230525074545.24166-1-shiwu.zhang@amd.com>
+ <20230525074545.24166-3-shiwu.zhang@amd.com>
+In-Reply-To: <20230525074545.24166-3-shiwu.zhang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-05-25T08:02:54Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=e588b793-1f32-42f3-8734-d61a7fdd57b3;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|LV3PR12MB9167:EE_
+x-ms-office365-filtering-correlation-id: 41e373c2-ad50-4d8f-757a-08db5cf6737b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 42AnNz/bYNLMPZCAQ7lqcRulAp+nFwDvJm3yRnomzBPYL6sM0Sqo7bKpCvt3iVAaH3F4l5QAm9afpZe6F0qU+8uxGeAEBY4QTXj+rPc01cbL42fO0BlCS2Lf+ZZVyhG9IWl+/apqrDlx+h+Q25lZ0vqadEuw5djcmLJQ3sVSiVDs7HbJRHd56vTLKQI1vOg0XBGWbk/CC+mgN4wAfcvvJFKzDMVMCPJSfhWTa9GoLvfNjUomkxh4b/Oyxo1CLGTUvRd8WWvig05a/peBWurCSzHQEVjLVrge7pHc8WKV+WD5Q1jy46IWHQVO4WJAQ1PF9LGt+GTHQhCIPvFb2Z3xPpDbJ4vvHbuYQVFgLgB7Clwx4Q9JQhXS74ksRaAAQLZ62hw12nLq9OBwpMS0DXX6rSlHBg0ad3d9r6N8gr5WBkSnX8i1WldoOXpeMWxupHlZ5vwFjM2IGEhCP+ci6O+9IZhOHSaYwaUfdfgvR3j/1c6Ri6WzyUCZ9ghK3FogVSvi+oEvnjIWJwYFpqs41w5Q78lVPd46SJiaAySEBtv+Vt1NgisYc2CgMo5+gY0s6l4p3mY9ufx+Nzu6Vw1md46aqhKNJD8Uqg4tynYCTZPupKfVcnT7AcZ8cw9DUbA6LC1u
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(396003)(366004)(376002)(39860400002)(136003)(451199021)(110136005)(38100700002)(38070700005)(122000001)(66446008)(66946007)(66476007)(66556008)(76116006)(478600001)(86362001)(64756008)(71200400001)(33656002)(7696005)(83380400001)(41300700001)(316002)(186003)(2906002)(9686003)(53546011)(26005)(6506007)(52536014)(5660300002)(8936002)(8676002)(55016003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YLgHjrved9q666CivmN45XVbP+FpHa7nY7AwlhmQMgY/0IMWyaI3fFFB1Sbm?=
+ =?us-ascii?Q?eud0OyO5SFAz9j03wsAXoXcjIu/PRZAYnKXvogXUEgZkVtwcC8Phwmz2oGDZ?=
+ =?us-ascii?Q?RHcWzz8suDIOBh978DJuP4NDE/mMvD8HIPI7rpNjjGQuAeJsni2ELJR3lhM7?=
+ =?us-ascii?Q?9efbo+4QHvVDyPraB7lbP1hfVdGn6bba2px/S5NdxQNsHFZcN7cLnsrlPIje?=
+ =?us-ascii?Q?iutF4aU06fPNYI93sRvnK+sBf9bYURNq8Y2138EfqsuEHZt3vPRDGMyzmx8B?=
+ =?us-ascii?Q?6v2OcfiLyr1kX0UFiz6xjR0Ixuv+QXclBpNkXuzYuKWyH/CszdRXFruXWNGf?=
+ =?us-ascii?Q?n5264gkCXzF5qBgtqDS+vskP+Efl92/VIAsXnxXmSKd5Lf1ZvUzwseCrbkDa?=
+ =?us-ascii?Q?5xDsuqwYms8oYf6t30JHNNvTFYUaoM49Ec6+4jePBjq3QBZA6d+S4rwtnb0o?=
+ =?us-ascii?Q?7eG76ZqVlLwLFcOE52A5ifiue9ZUAOO0jHzempWVBo8IVQ0Wxqo3rdwCqPSV?=
+ =?us-ascii?Q?aX9uDFUEFgZqqRfLoqYpjCwZZqx9QAuacFfouhJqafCxE/F3WBzfdmXOLLDt?=
+ =?us-ascii?Q?BvjEauWglnBNMY38j8IWH1pzD385a6MJIyVlvH2mUpJ4hWoUNtVaXdDK7dnk?=
+ =?us-ascii?Q?UPncFHZOkYXsAa43ym7fvyA6q9R7eS2HMcgbxcg3ECF2v+HYVFcVhD0BOvdI?=
+ =?us-ascii?Q?zlQqjXXGlPxn2EuyYmdFz118guI3KIvBuVORKAgC5CfRC1vD91HmLWx+cg7G?=
+ =?us-ascii?Q?yTeVHov9fb/asSEeT75rtMCVGFx3KcG9Zp79NTHwSKYNpENnJyGQ2N5hu+Cv?=
+ =?us-ascii?Q?IropZwc6KcVMMwWumsuQrUi97Z8VVb9phcUyspJ5Tom+kZqTyewQA4VS/R6m?=
+ =?us-ascii?Q?qESUzrB2tFjr+PDY3PVGwGJN84GojgNfqDIL5KuDGzXQ0X/OCa5wrTuCgMDo?=
+ =?us-ascii?Q?lgyY1PoKZI9Gwxlsam2q5Wkzg5FH7t2k+/w3VnTq0XO+FKCWj1RLxoaFh6xC?=
+ =?us-ascii?Q?SJQzCp1qigxyJPZb2jtFMPslcm4C0ZhMcEoJFcir7uynjC9TGlPaCFqDV8LK?=
+ =?us-ascii?Q?B16aw8inxwIq5ZqICRWZUQvcGaqowfZNB3GDDHMYVrFZQotFp0zPysxJ/QhR?=
+ =?us-ascii?Q?Ry+J148tEyAarTOBIqULyC0MqlMlQbwI43OELIl6A2S8M+SNBqNbIxGk49Ld?=
+ =?us-ascii?Q?gjcEMIANZo68vGLOcD+DjcDrX/d6USxNtIH/qBtXyFTwvoWP2euNybuVEFwO?=
+ =?us-ascii?Q?tT/VDMPJM0x4+J9zXwBVO8yZBSy0KdTfMdtNZ+jiCzxQfA/+GBd2+YXzUHpy?=
+ =?us-ascii?Q?5eygwRNORnAnbGZcQ79q3SBdZ5+I8FeqkzV59OD2IiJXVTNg6M+4jkEF8xKE?=
+ =?us-ascii?Q?oVwoU58BvTkUsYbANOiYRg5UT3ax2K76SFonlvwy1fmaF2b0XFUroQq5vDZ3?=
+ =?us-ascii?Q?WU2aQWq7FxB3DakTeRkKbRNMW+FPuEoD0dlbdaXtMoKvGVbAaMudeH46cAfq?=
+ =?us-ascii?Q?DVzP0Gut/j4TFarPoRZWSe8Omf+S+aeHEpjCnYOQk8QKd0YzpAY1XDpvn11x?=
+ =?us-ascii?Q?V+MY1Qcu4WNfVo+prmxF6OVvhE2pzDGiNmw8ibE7?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41e373c2-ad50-4d8f-757a-08db5cf6737b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 May 2023 08:02:57.1645 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1U37BSqD9ZAv0xDT1oykzakHuMHJNeJiVLyolQubWrmugntqgdl00hmXRqb6s+637COIH7LWntHp6YO0TFNRnA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9167
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,170 +123,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kees Cook <keescook@chromium.org>, "Li,
- Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Ho, Kenny" <Kenny.Ho@amd.com>,
- Masahiro Yamada <masahiroy@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Russell, Kent" <Kent.Russell@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 24 May 2023, Hamza Mahfooz <hamza.mahfooz@amd.com> wrote:
-> + Kees
->
-> On 5/24/23 15:50, Alex Deucher wrote:
->> On Wed, May 24, 2023 at 3:46=E2=80=AFPM Felix Kuehling <felix.kuehling@a=
-md.com> wrote:
->>>
->>> Sure, I think we tried enabling warnings as errors before and had to
->>> revert it because of weird compiler quirks or the variety of compiler
->>> versions that need to be supported.
->>>
->>> Alex, are you planning to upstream this, or is this only to enforce more
->>> internal discipline about not ignoring warnings?
->>=20
->> I'd like to upstream it.  Upstream already has CONFIG_WERROR as a
->> config option, but it's been problematic to enable in CI because of
->> various breakages outside of the driver and in different compilers.
->> That said, I don't know how much trouble enabling it will cause with
->> various compilers in the wild.
+[AMD Official Use Only - General]
 
-FWIW, I think it's a bit scary to enable -Werror unconditionally. You'll
-then need to take into account *all* compilers the kernel build
-supports. I'd hate to fail the build for someone trying out a new
-compiler that has some new warnings.
+Series is
 
-In i915, we've added our own kconfig for this that we tell our
-developers to use and have enabled in our CI. It also depends on
-!COMPILE_TEST to not get enabled by allmodconfig/allyesconfig configs.
-The Makefile then has:
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-subdir-ccflags-$(CONFIG_DRM_I915_WERROR) +=3D -Werror
+Regards,
+Hawking
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Shiwu Zh=
+ang
+Sent: Thursday, May 25, 2023 15:46
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 3/3] drm/amdgpu: set the APU flag based on package type
 
-On a somewhat related side note, it would be great to be able to enable
-the equivalent of W=3D1 on a subdir level. Now we need to add basically
-the same stuff one by one. Cc: Masahiro.
+Since currently APU and dGPU share the same pcie class while gmc init needs=
+ the flag to set up correctly for upcomming memory allocations
 
-BR,
-Jani.
+v2: call get_pkg_type in smuio 13_0_3 is enough (hawking)
 
+Signed-off-by: Shiwu Zhang <shiwu.zhang@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
->>=20
->> Alex
->>=20
->>>
->>> Regards,
->>>     Felix
->>>
->>>
->>> On 2023-05-24 15:41, Russell, Kent wrote:
->>>>
->>>> [AMD Official Use Only - General]
->>>>
->>>>
->>>> (Adding Felix in CC)
->>>>
->>>> I=E2=80=99m a fan of adding it to KFD as well. Felix, can you foresee =
-any
->>>> issues here?
->>>>
->>>> Kent
->>>>
->>>> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> *On Behalf Of
->>>> *Ho, Kenny
->>>> *Sent:* Wednesday, May 24, 2023 3:23 PM
->>>> *To:* Alex Deucher <alexdeucher@gmail.com>; Mahfooz, Hamza
->>>> <Hamza.Mahfooz@amd.com>
->>>> *Cc:* Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Wentland, Harry
->>>> <Harry.Wentland@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Siqueira,
->>>> Rodrigo <Rodrigo.Siqueira@amd.com>; linux-kernel@vger.kernel.org;
->>>> dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Daniel
->>>> Vetter <daniel@ffwll.ch>; Deucher, Alexander
->>>> <Alexander.Deucher@amd.com>; David Airlie <airlied@gmail.com>; Koenig,
->>>> Christian <Christian.Koenig@amd.com>
->>>> *Subject:* Re: [PATCH v2] drm/amd/display: enable more strict compile
->>>> checks
->>>>
->>>> [AMD Official Use Only - General]
->>>>
->>>> [AMD Official Use Only - General]
->>>>
->>>> (+ Felix)
->>>>
->>>> Should we do the same for other modules under amd (amdkfd)?  I was
->>>> going to enable full kernel werror in the kconfig used by my CI but
->>>> this is probably better.
->>>>
->>>> Kenny
->>>>
->>>> ----------------------------------------------------------------------=
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_discovery.c
+index a0685a5ebda6..859882109f55 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -2500,6 +2500,9 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_devi=
+ce *adev)
+ 		break;
+ 	case IP_VERSION(13, 0, 3):
+ 		adev->smuio.funcs =3D &smuio_v13_0_3_funcs;
++		if (adev->smuio.funcs->get_pkg_type(adev) =3D=3D AMDGPU_PKG_TYPE_APU) {
++			adev->flags |=3D AMD_IS_APU;
++		}
+ 		break;
+ 	case IP_VERSION(13, 0, 6):
+ 	case IP_VERSION(13, 0, 8):
 --
->>>>
->>>> *From:*Alex Deucher <alexdeucher@gmail.com>
->>>> *Sent:* Wednesday, May 24, 2023 3:22 PM
->>>> *To:* Mahfooz, Hamza <Hamza.Mahfooz@amd.com>
->>>> *Cc:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>;
->>>> Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Ho, Kenny <Kenny.Ho@amd.com>;
->>>> Pan, Xinhui <Xinhui.Pan@amd.com>; Siqueira, Rodrigo
->>>> <Rodrigo.Siqueira@amd.com>; linux-kernel@vger.kernel.org
->>>> <linux-kernel@vger.kernel.org>; dri-devel@lists.freedesktop.org
->>>> <dri-devel@lists.freedesktop.org>; Daniel Vetter <daniel@ffwll.ch>;
->>>> Deucher, Alexander <Alexander.Deucher@amd.com>; David Airlie
->>>> <airlied@gmail.com>; Wentland, Harry <Harry.Wentland@amd.com>; Koenig,
->>>> Christian <Christian.Koenig@amd.com>
->>>> *Subject:* Re: [PATCH v2] drm/amd/display: enable more strict compile
->>>> checks
->>>>
->>>> On Wed, May 24, 2023 at 3:20=E2=80=AFPM Hamza Mahfooz <hamza.mahfooz@a=
-md.com>
->>>> wrote:
->>>>>
->>>>> Currently, there are quite a number of issues that are quite easy for
->>>>> the CI to catch, that slip through the cracks. Among them, there are
->>>>> unused variable and indentation issues. Also, we should consider all
->>>>> warnings to be compile errors, since the community will eventually end
->>>>> up complaining about them. So, enable -Werror, -Wunused and
->>>>> -Wmisleading-indentation for all kernel builds.
->>>>>
->>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>>> Cc: Harry Wentland <harry.wentland@amd.com>
->>>>> Cc: Kenny Ho <kenny.ho@amd.com>
->>>>> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
->>>>> ---
->>>>> v2: fix grammatical error
->>>>> ---
->>>>>   drivers/gpu/drm/amd/display/Makefile | 2 ++
->>>>>   1 file changed, 2 insertions(+)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/display/Makefile
->>>> b/drivers/gpu/drm/amd/display/Makefile
->>>>> index 0d610cb376bb..3c44162ebe21 100644
->>>>> --- a/drivers/gpu/drm/amd/display/Makefile
->>>>> +++ b/drivers/gpu/drm/amd/display/Makefile
->>>>> @@ -26,6 +26,8 @@
->>>>>
->>>>>   AMDDALPATH =3D $(RELATIVE_AMD_DISPLAY_PATH)
->>>>>
->>>>> +subdir-ccflags-y +=3D -Werror -Wunused -Wmisleading-indentation
->>>>> +
->>>>
->>>> Care to enable this for the rest of amdgpu as well?  Or send out an
->>>> additional patch to do that?  Either way:
->>>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->>>>
->>>> Alex
->>>>
->>>>>   subdir-ccflags-y +=3D -I$(FULL_AMD_DISPLAY_PATH)/dc/inc/
->>>>>   subdir-ccflags-y +=3D -I$(FULL_AMD_DISPLAY_PATH)/dc/inc/hw
->>>>>   subdir-ccflags-y +=3D -I$(FULL_AMD_DISPLAY_PATH)/dc/clk_mgr
->>>>> --
->>>>> 2.40.1
->>>>>
->>>>
-
---=20
-Jani Nikula, Intel Open Source Graphics Center
+2.17.1
