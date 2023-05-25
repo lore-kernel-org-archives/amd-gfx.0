@@ -4,40 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 234CEC77B7A
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 15:52:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB111C77B7E
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 15:52:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3754410E188;
-	Thu, 25 May 2023 15:52:06 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A545E10E87B;
- Thu, 25 May 2023 09:43:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=GTCv05NKX7fYVfcWA9mF9yBEXPLxaqPCHQmLNCv1ZJQ=; b=TJQ/U68WU/s2VYiJ/03J7kmoh+
- YblMToMJpjlLY+OOjtRXYhlbHukydmw3PUftGnI27aU1oJMzLVXvU3OYxSMvMHmhEtzU0tY9KhA/K
- mMDtIgHzw0Us/B5mctq1KmB0zDiCzIW8QQl2oo8eWAlFZnvsVmRgQWnbRpEkwzys0xhzTWdTEzcsR
- CJ/kw8rEjWcpI1k4GxbDPAuQDGGSTcR62w2b3jTFlXr+17TQyG7fVzVmJ5ur1bFaa/RL0UA8MRnYC
- 8KZaYVgF8Fb5kNlHNEvEHQ8QlrrZM88RmzzNDbkzeYR6tJsKXJ0twKVQXskmpLGw6kXepWjIlJFX4
- UWb9YshA==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1q27V6-00GBCU-2n; Thu, 25 May 2023 09:43:16 +0000
-Date: Thu, 25 May 2023 02:43:16 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Subject: Re: [PATCH v2] drm/amd/display: enable more strict compile checks
-Message-ID: <ZG8ttJ7VFrJCk8tB@infradead.org>
-References: <20230524191955.252212-1-hamza.mahfooz@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DEF910E4A5;
+	Thu, 25 May 2023 15:52:39 +0000 (UTC)
+Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
+ [IPv6:2607:f8b0:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55DBA10E185;
+ Thu, 25 May 2023 15:52:36 +0000 (UTC)
+Received: by mail-pf1-x436.google.com with SMTP id
+ d2e1a72fcca58-64d426e63baso2622737b3a.0; 
+ Thu, 25 May 2023 08:52:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1685029954; x=1687621954;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=B028AMgHgIkluZU0zuRGNx2AL7YCJmhMQ1JhCo1iuVI=;
+ b=aNjbFnxBXnxByFTRM8dPMKH30Q/RAItyAVPrx2g23rtM7K5RWxj+jmeY6jXFFznBG8
+ pZqa5Xzxd1RRC2cPJg3QGgjGxOjLvyujqb9O9tcPfbR593fGXpYl3mOh5ZMS70oGFBGx
+ /kODJQcTOcwHEpMnyoc86lxFHBYsH/DD5AKNjW9UO2OsMqqQ2MWgTe01bSRUdSQhsbPO
+ HwPjvWfdCJ2EOfQB47cDxADCc6pqDUoGCx5AXuAzBnna+gSSbl1TzveMRSHPcwsOMc9C
+ wHzrhMVQZe5ZakVsucQjfNI9Kib8KYriF/UaUAqKAv8sC9wrGskiyYSbQvyoaQHzfDNc
+ wOTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685029954; x=1687621954;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=B028AMgHgIkluZU0zuRGNx2AL7YCJmhMQ1JhCo1iuVI=;
+ b=dz+k+WltfBc5t4c0cdN6RQqLM+T7ywUDTyZYMBrtqzgnILK2DrUFeV9l0NoKkusJ8m
+ mhwiwH85SczPFrGjgQEHwpcdKyw3qkIDYS0DQSe6/Xaok7PM7EW+EX2pAU2LDSJxIpVF
+ gRVVVg8CXf9/ZaQw+i3yoPQQDIWdkroR1dfIKvDLfcsklOO6jB/im5PTeNnyD2bfzGmX
+ hLeut/AmGixbqtepfGhNmhhIvTtMYsOL8EtcTDRlMK7pd/DY4l7+sbcvKU68o4mmZizE
+ tAsH4SwGIMBBbm4Z9IWxkjcKYpPM+dj5XTS43Rbns2lghWtzg71t7P3n5frtmrV6yMIU
+ NWCg==
+X-Gm-Message-State: AC+VfDyDg0sVznLdh4urIh4OjsgoJBumlCt5wrbyf2h5XYGwElcJL05K
+ yU0ysmaUnul7Xx4scsF/htoINkEa2aA=
+X-Google-Smtp-Source: ACHHUZ7BKQyzScKNxtc9uAdkTbbH9pyva2m8zTt95GYPrMvfBGWVRwI16fpeyUdAfC7gPDigiNmWcw==
+X-Received: by 2002:a05:6a00:10c4:b0:646:6cc3:4a52 with SMTP id
+ d4-20020a056a0010c400b006466cc34a52mr8951192pfu.3.1685029954365; 
+ Thu, 25 May 2023 08:52:34 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
+ by smtp.gmail.com with ESMTPSA id
+ a17-20020a62bd11000000b0063b6bd2216dsm1335974pff.187.2023.05.25.08.52.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 May 2023 08:52:33 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu: Fix no-procfs build
+Date: Thu, 25 May 2023 08:52:24 -0700
+Message-Id: <20230525155227.560094-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230524191955.252212-1-hamza.mahfooz@amd.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Mailman-Approved-At: Thu, 25 May 2023 15:52:00 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,18 +69,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Kenny Ho <kenny.ho@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Rob Clark <robdclark@chromium.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Lijo Lazar <lijo.lazar@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ kernel test robot <lkp@intel.com>, Guchun Chen <guchun.chen@amd.com>,
+ Jim Cromie <jim.cromie@gmail.com>,
+ =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, open list <linux-kernel@vger.kernel.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> +subdir-ccflags-y += -Werror -Wunused -Wmisleading-indentation
+From: Rob Clark <robdclark@chromium.org>
 
-We have a config option for -Werror.  Blindly adding this will create
-problems with too new (or sometimes too old, or just too weird)
-compilers all the time.  Don't do this.
+Fixes undefined symbol when PROC_FS is not enabled.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202305251510.U0R2as7k-lkp@intel.com/
+Fixes: 376c25f8ca47 ("drm/amdgpu: Switch to fdinfo helper")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 1b46e7ac7cb0..c9a41c997c6c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2795,21 +2795,23 @@ static const struct drm_driver amdgpu_kms_driver = {
+ 	    DRIVER_SYNCOBJ_TIMELINE,
+ 	.open = amdgpu_driver_open_kms,
+ 	.postclose = amdgpu_driver_postclose_kms,
+ 	.lastclose = amdgpu_driver_lastclose_kms,
+ 	.ioctls = amdgpu_ioctls_kms,
+ 	.num_ioctls = ARRAY_SIZE(amdgpu_ioctls_kms),
+ 	.dumb_create = amdgpu_mode_dumb_create,
+ 	.dumb_map_offset = amdgpu_mode_dumb_mmap,
+ 	.fops = &amdgpu_driver_kms_fops,
+ 	.release = &amdgpu_driver_release_kms,
++#ifdef CONFIG_PROC_FS
+ 	.show_fdinfo = amdgpu_show_fdinfo,
++#endif
+ 
+ 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+ 	.gem_prime_import = amdgpu_gem_prime_import,
+ 	.gem_prime_mmap = drm_gem_prime_mmap,
+ 
+ 	.name = DRIVER_NAME,
+ 	.desc = DRIVER_DESC,
+ 	.date = DRIVER_DATE,
+ 	.major = KMS_DRIVER_MAJOR,
+-- 
+2.40.1
+
