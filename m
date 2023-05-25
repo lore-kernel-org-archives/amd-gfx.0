@@ -4,89 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06980C7EE29
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 16:15:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E96C77B7A
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 16:26:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EAB210E18A;
-	Thu, 25 May 2023 16:15:15 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2080.outbound.protection.outlook.com [40.107.243.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 629CF10E18A
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 May 2023 16:15:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GDSpdSBB1bD273KuXK9qvT8fDhfWhv+IDLlroTiHZE1H3lNasIzHf11Mdo8m3nKyNZgjThxZMuVzXLxczfMmrKSaZ/lV4FIadjY1rp0n1RLLqfEXAzCCeWL6ET/6hbGJVoNCunW8+42jH35RDViH0jx5oyQFI2+ULRRSluh3cSDj3vRlld3wbO0zbVywBkQvMITuobaGgj7twewdnnUmkJfT+CfloCw7pEwX+Dcsbrr1ZFF+8HMhcekMYmvnP8eVkbGKYM10fc7jOE/QSRl/qLcSp23X1SRWwVArcNXYpH91XtJjvjhLxgGz732d6TpSQJOnnJ3M0APrUajeFlBkxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yZnfxN7PAobJ3ExTfrFNIXo/bWQEWVm7ilrkTgxyQ9Y=;
- b=YsZ9Pfpw67QZu6mpZT5WZ2XsH9Ft8GDJvvFcs3ZLtomXPaFodZMQ3O3YrguoG8fk8CXldoPLblnVRMlz/eXecUpPdkr5wprBumlpWEeb8mM5M5UbaZ7OsvE5osvLHdzex3vIhQL/4SRaILrkYNuOW/n3baB3bZJEu7wMVIIGejIfNP5uFA5fpeh9cdGH3Akmiwcx6RLVscd5joOnCQXFrENHq5Xx67GM/63q5OJPgDMdPHG4Q8maPmbcg6492jO8vT08EM1SqurLNMidBsNWBe+wAb/wSeAv9LcpNXMGTt1ahzENXoTyz5WwxYfe7SU1RTQ+HjjmIQtuLO8uhVxYpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yZnfxN7PAobJ3ExTfrFNIXo/bWQEWVm7ilrkTgxyQ9Y=;
- b=naVOm7SF8d7qFdECiY3/OScuqRBKAlEWYMgPW2qrBYbTSnOy0p9goVNBAplZZUaxj1H+LdUWs27bpA7OQcbBv7wswucytNTY3NPvRMBgKJl5bOCVaYhVHJy2rRV9nPIKTMbuXmR8aJ/nl5mZuNMM08Y614N/eNtoDF99A8DrU8U=
-Received: from SJ0PR05CA0099.namprd05.prod.outlook.com (2603:10b6:a03:334::14)
- by BL1PR12MB5706.namprd12.prod.outlook.com (2603:10b6:208:385::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Thu, 25 May
- 2023 16:15:11 +0000
-Received: from CO1NAM11FT082.eop-nam11.prod.protection.outlook.com
- (2603:10b6:a03:334:cafe::c2) by SJ0PR05CA0099.outlook.office365.com
- (2603:10b6:a03:334::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.15 via Frontend
- Transport; Thu, 25 May 2023 16:15:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT082.mail.protection.outlook.com (10.13.175.224) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6411.31 via Frontend Transport; Thu, 25 May 2023 16:15:10 +0000
-Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 25 May
- 2023 11:15:08 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix up missing kdoc in sdma_v6_0.c
-Date: Thu, 25 May 2023 21:44:55 +0530
-Message-ID: <20230525161455.750526-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id D93D510E6C6;
+	Thu, 25 May 2023 16:26:13 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8BC510E6C6;
+ Thu, 25 May 2023 16:26:11 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0F97861943;
+ Thu, 25 May 2023 16:26:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D93CC433D2;
+ Thu, 25 May 2023 16:26:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1685031970;
+ bh=9r0jbBR7McMF/0ZzdVdV9BfHGtbNUDijnKKHIwO5/SY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kNUFM1i9s3rgYgosQSKJAdpoSN1Oe9VctXVEKJSNXhhKiWx2MV/5LnMcHe4Zg1HNW
+ k+h/SbNfjW0VNAFL5gPWWWVlSdPsPChVp+Tffrw5ZcioNvQB6pSMJxyCVU1yjSDLFu
+ KgQYBkFZM+FuA+I7VVVTN0EfhnKY/496zbB4IR5lR3nQ512+cYvqM5oLxVPDaEHI1W
+ 9IeoE9jbqZTfJhpjLtAZHZLdfeJBep5plsD5bnZrncnQfDDC6wgG2mCRPRicnXhZ6C
+ SMu2+gwvEz3mr0rLPmTgheekWF7odzrLeyT7nTUSVXc2CX7gx+RYEYQaa52wJ4peJx
+ ylYLVWXkIdzmw==
+Date: Thu, 25 May 2023 09:26:07 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH v2] drm/amd/display: enable more strict compile checks
+Message-ID: <20230525162607.GA550162@dev-arch.thelio-3990X>
+References: <20230524191955.252212-1-hamza.mahfooz@amd.com>
+ <CADnq5_Mz6aPFYGnr8J8C8UeTpbo7JDg+uvjqAxo7o4vmTGej2A@mail.gmail.com>
+ <DM6PR12MB3996C4248CBC968A7B08341583419@DM6PR12MB3996.namprd12.prod.outlook.com>
+ <BL1PR12MB589849F37FBE98A3A06A316185419@BL1PR12MB5898.namprd12.prod.outlook.com>
+ <3fefc712-913a-a391-bc7b-c0c75eff1c3d@amd.com>
+ <CADnq5_OdWbg6zKjPrRwd2QSDnHgFuThF+OQHM=tVWj-2ySCu_A@mail.gmail.com>
+ <e26351ed-ba64-b7e1-5165-de40622e0d30@amd.com>
+ <202305250832.0127ABAC@keescook>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT082:EE_|BL1PR12MB5706:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95ca9dd1-9dca-4d49-b0f1-08db5d3b36d6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yOgAL4w31EleFyNns2m6758RMNXTBe9GL4WYPkivdSDjF44151pwozed3gOpHioBPT9HRpD18f39zx8c1Ywyma29lBY+jGOgfiGxXi8OJ9de2esL06368W4pnp7X+IPnotlcI6Az0vvA3/rzoxBup5J8n8vSYdlzH0R0z++meCLDtDA6UVd7a4GvJBwlHfQymtq2yz3rA0zTu3CXSA2+VLnQ8Cee+3iwRGszNzewdJw9ySka4qlFmfl3duMg3EMwsH0WlZ0f2Q6bHgdv0hx/Wr0bTek11ZXqswEZ35NjBAhl+ArGSqizMz5vuPOz6i7mVffzE47DXr2cw9zv0nC84bn/gRw1DEj8twlzscrKJFEZytH753GNKar4FHc11vZKYrtChquNPg8zBEg2SWL9iRaxdQjVw7BPMUtALV5jojgxvYzfvM5mXIC0KftS1+nXffA2AE1F+8TClMTdIvY34o4OFL8R5Eh6cR9r9VupYikbpCjSXqkjVrfXt/uK1LThdT948k+lU2gGrdt9Ijs89t8G8DghRNYZZkNDZ+rZ6cOyl+kCWGhGwyvawKEzMBu0H1jj3YzWMCehmQp9W2eK7D6MQLW7I+z7bR2lj7/7qO+xdNeKNS+fFREvFLnrWEkJQtpuymogHTONkYeuTt53TmiLKOJPfRNFlQCEhYvRipzu1h6ZnKymCo6V8Au4bGPp+1sWmwX/qpLTY1xHcUHKLeji858Ws7ipHmfpfzAwEwMCm8Xi0s/U39Q9ijxK0lcWv1swC/TgdnsoB3xU44PTJg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(396003)(136003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(110136005)(5660300002)(41300700001)(4326008)(6636002)(70206006)(70586007)(7696005)(40480700001)(8936002)(54906003)(8676002)(44832011)(478600001)(316002)(6666004)(26005)(1076003)(186003)(16526019)(40460700003)(83380400001)(47076005)(2616005)(66574015)(2906002)(426003)(336012)(36860700001)(81166007)(356005)(82740400003)(82310400005)(86362001)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2023 16:15:10.6144 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95ca9dd1-9dca-4d49-b0f1-08db5d3b36d6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT082.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5706
+In-Reply-To: <202305250832.0127ABAC@keescook>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,58 +58,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Li,
+ Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Ho, Kenny" <Kenny.Ho@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexdeucher@gmail.com>,
+ David Airlie <airlied@gmail.com>, "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Russell,
+ Kent" <Kent.Russell@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Address a bunch of kdoc warnings:
+On Thu, May 25, 2023 at 08:37:07AM -0700, Kees Cook wrote:
+> Hi!
+> 
+> On Wed, May 24, 2023 at 04:27:31PM -0400, Hamza Mahfooz wrote:
+> > + Kees
+> > 
+> > On 5/24/23 15:50, Alex Deucher wrote:
+> > > On Wed, May 24, 2023 at 3:46 PM Felix Kuehling <felix.kuehling@amd.com> wrote:
+> > > > 
+> > > > Sure, I think we tried enabling warnings as errors before and had to
+> > > > revert it because of weird compiler quirks or the variety of compiler
+> > > > versions that need to be supported.
+> > > > 
+> > > > Alex, are you planning to upstream this, or is this only to enforce more
+> > > > internal discipline about not ignoring warnings?
+> > > 
+> > > I'd like to upstream it.  Upstream already has CONFIG_WERROR as a
+> > > config option, but it's been problematic to enable in CI because of
+> > > various breakages outside of the driver and in different compilers.
+> > > That said, I don't know how much trouble enabling it will cause with
+> > > various compilers in the wild.
+> 
+> -Wmisleading-indentation is already part of -Wall, so this is globally
+> enabled already.
+> 
+> -Wunused is enabled under W=1, and it's pretty noisy still. If you can
+> get builds clean in drm, that'll be a good step towards getting it
+> enabled globally. (A middle ground with less to clean up might be
+> -Wunused-but-set-variable)
+> 
+> I agree about -Werror: just stick with CONFIG_WERROR instead.
 
-gcc with W=1
-drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:248: warning: Function parameter or member 'job' not described in 'sdma_v6_0_ring_emit_ib'
-drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:248: warning: Function parameter or member 'flags' not described in 'sdma_v6_0_ring_emit_ib'
-drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:946: warning: Function parameter or member 'timeout' not described in 'sdma_v6_0_ring_test_ib'
-drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:1125: warning: Function parameter or member 'ring' not described in 'sdma_v6_0_ring_pad_ib'
-drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:1176: warning: Function parameter or member 'vmid' not described in 'sdma_v6_0_ring_emit_vm_flush'
-drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:1176: warning: Function parameter or member 'pd_addr' not described in 'sdma_v6_0_ring_emit_vm_flush'
+There is also W=e, added by commit c77d06e70d59 ("kbuild: support W=e
+to make build abort in case of warning") in 5.19, which works well for
+building with configurations that do not have CONFIG_WERROR enabled and
+avoiding dipping into menuconfig.
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Unconditionally enabling -Werror with no way to turn it off is just
+asking for problems over time with new compiler versions, either due to
+new warnings in -Wall or warnings that have been improved or changed.
+Should that still be desired, consider doing what i915 and PowerPC have
+done and add a Kconfig option that can be disabled.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index 1c90b5c661fb..967849c59ebe 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -238,6 +238,8 @@ static void sdma_v6_0_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
-  *
-  * @ring: amdgpu ring pointer
-  * @ib: IB object to schedule
-+ * @flags: unused
-+ * @job: job to retrieve vmid from
-  *
-  * Schedule an IB in the DMA ring.
-  */
-@@ -938,6 +940,7 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_ring *ring)
-  * sdma_v6_0_ring_test_ib - test an IB on the DMA engine
-  *
-  * @ring: amdgpu_ring structure holding ring information
-+ * @timeout: timeout value in jiffies, or MAX_SCHEDULE_TIMEOUT
-  *
-  * Test a simple IB in the DMA ring.
-  * Returns 0 on success, error on failure.
-@@ -1167,6 +1170,8 @@ static void sdma_v6_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
-  * sdma_v6_0_ring_emit_vm_flush - vm flush using sDMA
-  *
-  * @ring: amdgpu_ring pointer
-+ * @vmid: vmid number to use
-+ * @pd_addr: address
-  *
-  * Update the page table base and flush the VM TLB
-  * using sDMA.
--- 
-2.25.1
-
+Cheers,
+Nathan
