@@ -4,67 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A742CC7EE2D
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 15:52:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A478C77B7E
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 15:52:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D024210E189;
-	Thu, 25 May 2023 15:52:01 +0000 (UTC)
-Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
- [IPv6:2607:f8b0:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99F4089117
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 May 2023 15:37:09 +0000 (UTC)
-Received: by mail-pf1-x42d.google.com with SMTP id
- d2e1a72fcca58-64f47448aeaso1775055b3a.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 May 2023 08:37:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91EB210E193;
+	Thu, 25 May 2023 15:52:05 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A27D110E7B0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 May 2023 08:05:00 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-3f50020e0f8so1809625e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 May 2023 01:05:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1685029029; x=1687621029;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=WqkV3Ised6qPUj0IUXWS1rMcCw5ypfMdkirIeeecQyA=;
- b=hq/GsZj1vX7ahRVOXRYxEbQv5QqDWy/5/4fqAndh2UeMlDK2u1LPc+HfY5qmxBEldm
- 9LbilrKqRhW1IMUjlKg9uI7MxmmuojIyjOJs2qaZb/nGtvuTz9SNpU940kTU9GDa4zki
- b0RoJUgEXHnB1N8fjZEhD/j0YOn0qy+xqYeDs=
+ d=linaro.org; s=google; t=1685001897; x=1687593897;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=X9umes8XISbIusyvA0kgjtSvDb/BpqYd/IdRr2QRP+U=;
+ b=LBoXwcKwwosXKjASUGjXThGnq4/uabFkaVvjc2ybnlwL7IfetKEolw8aOAzAJXnOJC
+ vyyurtXYn+3HtvsGReWUQ2NuxcbR6V0MsgX2x2Fise5PadAlWSFzV8Vb0lmtAtVoT478
+ 8xu/JEmD1K5apoDkFQLQ3K9wZk0ti5YW9XqBw+UusB4JaYm0byM/626xs+qC0jfodzUu
+ HehNFznp9qP51fvHVnsAtUHwZOQ7mZugzGomcpUZFM9DpcwWy9lRe0OKTyXCTelGSCgV
+ s6K+LFzRgkgkfy+JpKPnb4VIiYhBLScbKIpBUAZaP48rik050xyLZJ5c68Yl5OVo9txY
+ DIIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685029029; x=1687621029;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
+ d=1e100.net; s=20221208; t=1685001897; x=1687593897;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WqkV3Ised6qPUj0IUXWS1rMcCw5ypfMdkirIeeecQyA=;
- b=IrMx708ilroAbXeAw3kRrlf3QEi+eFbA9/FklwfaUUYpfRdaxO0bMlgwxUuIe2GumD
- Y/9Capcj8/nUASF+CmI1VH823SL9RX20LsOmPc9Fi8WAziAZjoSyIDM7LyQzPW9WeNd4
- XznmcmQqcWDLDC0fNu1J4InDAiWPmq6+yQs7wf/0jgGhC8r6WsblMjPIlcBZrK5hhtIS
- 9r80qvB4GX+Ry60tAvF0RsLHwccJ0XCYkD2G+o++n4zE54HXkU5Zub6i0C1mA0TgoOq0
- TbFKrwg16KeCi2y95v2sOKHeMDtmgx2qBogoS5Pg6c02rXViGO/baeeqRjotlE7QDdB6
- HnQw==
-X-Gm-Message-State: AC+VfDylDEahNfEg2W+/YuiLhQjOxgV6YnVJ23wKs/kr5fwbVOYe5ax+
- qz3nsfEiMyTHrVJJBDA08IrAyw==
-X-Google-Smtp-Source: ACHHUZ7bXnRAGuRKthd2+1NcJsj/KXMZ/vOwewd1hvIggUIH1Dhz1QJuOVCzcVj/gn07mx09sMaViw==
-X-Received: by 2002:a05:6a20:8215:b0:10a:f8d3:2cf3 with SMTP id
- w21-20020a056a20821500b0010af8d32cf3mr13858750pzb.7.1685029028760; 
- Thu, 25 May 2023 08:37:08 -0700 (PDT)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- r18-20020a62e412000000b0064afdc88465sm1307623pfh.213.2023.05.25.08.37.07
+ bh=X9umes8XISbIusyvA0kgjtSvDb/BpqYd/IdRr2QRP+U=;
+ b=W+AYQTPi4HvyT0Kaf3Vb0K90L4vijj00RO6zG7CjjQesb2f08m1z5eYMI6SV1UXY4y
+ cbmlcaODNfUOtUWoa2BWhbCJD/u5ZCpE6LpGYcWqWip7ru7cN5T9wB/jWqFU++0EBkGn
+ P/l0dtJtulwojbvrEF97qwjn1lQv2KBtgxFxLByWalGZc0KKoUnUDflZsNG5vz6F7x0F
+ YPuQZeDOHvh7zieUea7o0k9O5uheswOKsPWTnF7+6WgTHh/BPubminszxqyaqoyEqz1B
+ k7/EPl2c4M/Yos5FhAR0LUNMRp/MbcJ5V/tHBrXPYKQiNhVoV5kaaiunQ6bZIJzs4iPR
+ Pv3g==
+X-Gm-Message-State: AC+VfDzT6qugPnY0QVwYFKRAwU+bXXOB0i3FwOqudmPPF6ZKcLCThVCw
+ 44WdyV0e2mSELpM2dtuz37K0QA==
+X-Google-Smtp-Source: ACHHUZ4jvFv2dvB/8oIkBX3T35h24vm5rz4vxKJzmZmi2frn0oX3g2PZrOcndOeytuhkyXa+v1fyqQ==
+X-Received: by 2002:a05:600c:35c7:b0:3f6:557:6893 with SMTP id
+ r7-20020a05600c35c700b003f605576893mr1290274wmq.19.1685001897163; 
+ Thu, 25 May 2023 01:04:57 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ 24-20020a05600c22d800b003f4e47c6504sm4875434wmg.21.2023.05.25.01.04.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 May 2023 08:37:08 -0700 (PDT)
-Date: Thu, 25 May 2023 08:37:07 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Subject: Re: [PATCH v2] drm/amd/display: enable more strict compile checks
-Message-ID: <202305250832.0127ABAC@keescook>
-References: <20230524191955.252212-1-hamza.mahfooz@amd.com>
- <CADnq5_Mz6aPFYGnr8J8C8UeTpbo7JDg+uvjqAxo7o4vmTGej2A@mail.gmail.com>
- <DM6PR12MB3996C4248CBC968A7B08341583419@DM6PR12MB3996.namprd12.prod.outlook.com>
- <BL1PR12MB589849F37FBE98A3A06A316185419@BL1PR12MB5898.namprd12.prod.outlook.com>
- <3fefc712-913a-a391-bc7b-c0c75eff1c3d@amd.com>
- <CADnq5_OdWbg6zKjPrRwd2QSDnHgFuThF+OQHM=tVWj-2ySCu_A@mail.gmail.com>
- <e26351ed-ba64-b7e1-5165-de40622e0d30@amd.com>
+ Thu, 25 May 2023 01:04:55 -0700 (PDT)
+Date: Thu, 25 May 2023 11:04:51 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Tom St Denis <tom.stdenis@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: Fix up locking etc in
+ amdgpu_debugfs_gprwave_ioctl()
+Message-ID: <bd6a37e2-438d-4292-81e8-5a8f0b10d647@kili.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e26351ed-ba64-b7e1-5165-de40622e0d30@amd.com>
+X-Mailer: git-send-email haha only kidding
 X-Mailman-Approved-At: Thu, 25 May 2023 15:52:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,164 +70,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Li,
- Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Ho, Kenny" <Kenny.Ho@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Russell, Kent" <Kent.Russell@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexdeucher@gmail.com>,
- David Airlie <airlied@gmail.com>, "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Victor Zhao <Victor.Zhao@amd.com>,
+ =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+ kernel-janitors@vger.kernel.org, Sebin Sebastian <mailmesebin00@gmail.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
+ amd-gfx@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>,
+ Le Ma <le.ma@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi!
+There are two bugs here.
+1) Drop the lock if copy_from_user() fails.
+2) If the copy fails then the correct error code is -EFAULT instead of
+   -EINVAL.
 
-On Wed, May 24, 2023 at 04:27:31PM -0400, Hamza Mahfooz wrote:
-> + Kees
-> 
-> On 5/24/23 15:50, Alex Deucher wrote:
-> > On Wed, May 24, 2023 at 3:46 PM Felix Kuehling <felix.kuehling@amd.com> wrote:
-> > > 
-> > > Sure, I think we tried enabling warnings as errors before and had to
-> > > revert it because of weird compiler quirks or the variety of compiler
-> > > versions that need to be supported.
-> > > 
-> > > Alex, are you planning to upstream this, or is this only to enforce more
-> > > internal discipline about not ignoring warnings?
-> > 
-> > I'd like to upstream it.  Upstream already has CONFIG_WERROR as a
-> > config option, but it's been problematic to enable in CI because of
-> > various breakages outside of the driver and in different compilers.
-> > That said, I don't know how much trouble enabling it will cause with
-> > various compilers in the wild.
+I also broke up the long line and changed "sizeof rd->id" to
+"sizeof(rd->id)".
 
--Wmisleading-indentation is already part of -Wall, so this is globally
-enabled already.
+Fixes: 164fb2940933 ("drm/amd/amdgpu: Update debugfs for XCC support (v3)")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
--Wunused is enabled under W=1, and it's pretty noisy still. If you can
-get builds clean in drm, that'll be a good step towards getting it
-enabled globally. (A middle ground with less to clean up might be
--Wunused-but-set-variable)
-
-I agree about -Werror: just stick with CONFIG_WERROR instead.
-
--Kees
-
-> > 
-> > Alex
-> > 
-> > > 
-> > > Regards,
-> > >     Felix
-> > > 
-> > > 
-> > > On 2023-05-24 15:41, Russell, Kent wrote:
-> > > > 
-> > > > [AMD Official Use Only - General]
-> > > > 
-> > > > 
-> > > > (Adding Felix in CC)
-> > > > 
-> > > > I’m a fan of adding it to KFD as well. Felix, can you foresee any
-> > > > issues here?
-> > > > 
-> > > > Kent
-> > > > 
-> > > > *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> *On Behalf Of
-> > > > *Ho, Kenny
-> > > > *Sent:* Wednesday, May 24, 2023 3:23 PM
-> > > > *To:* Alex Deucher <alexdeucher@gmail.com>; Mahfooz, Hamza
-> > > > <Hamza.Mahfooz@amd.com>
-> > > > *Cc:* Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Wentland, Harry
-> > > > <Harry.Wentland@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Siqueira,
-> > > > Rodrigo <Rodrigo.Siqueira@amd.com>; linux-kernel@vger.kernel.org;
-> > > > dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Daniel
-> > > > Vetter <daniel@ffwll.ch>; Deucher, Alexander
-> > > > <Alexander.Deucher@amd.com>; David Airlie <airlied@gmail.com>; Koenig,
-> > > > Christian <Christian.Koenig@amd.com>
-> > > > *Subject:* Re: [PATCH v2] drm/amd/display: enable more strict compile
-> > > > checks
-> > > > 
-> > > > [AMD Official Use Only - General]
-> > > > 
-> > > > [AMD Official Use Only - General]
-> > > > 
-> > > > (+ Felix)
-> > > > 
-> > > > Should we do the same for other modules under amd (amdkfd)?  I was
-> > > > going to enable full kernel werror in the kconfig used by my CI but
-> > > > this is probably better.
-> > > > 
-> > > > Kenny
-> > > > 
-> > > > ------------------------------------------------------------------------
-> > > > 
-> > > > *From:*Alex Deucher <alexdeucher@gmail.com>
-> > > > *Sent:* Wednesday, May 24, 2023 3:22 PM
-> > > > *To:* Mahfooz, Hamza <Hamza.Mahfooz@amd.com>
-> > > > *Cc:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>;
-> > > > Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Ho, Kenny <Kenny.Ho@amd.com>;
-> > > > Pan, Xinhui <Xinhui.Pan@amd.com>; Siqueira, Rodrigo
-> > > > <Rodrigo.Siqueira@amd.com>; linux-kernel@vger.kernel.org
-> > > > <linux-kernel@vger.kernel.org>; dri-devel@lists.freedesktop.org
-> > > > <dri-devel@lists.freedesktop.org>; Daniel Vetter <daniel@ffwll.ch>;
-> > > > Deucher, Alexander <Alexander.Deucher@amd.com>; David Airlie
-> > > > <airlied@gmail.com>; Wentland, Harry <Harry.Wentland@amd.com>; Koenig,
-> > > > Christian <Christian.Koenig@amd.com>
-> > > > *Subject:* Re: [PATCH v2] drm/amd/display: enable more strict compile
-> > > > checks
-> > > > 
-> > > > On Wed, May 24, 2023 at 3:20 PM Hamza Mahfooz <hamza.mahfooz@amd.com>
-> > > > wrote:
-> > > > > 
-> > > > > Currently, there are quite a number of issues that are quite easy for
-> > > > > the CI to catch, that slip through the cracks. Among them, there are
-> > > > > unused variable and indentation issues. Also, we should consider all
-> > > > > warnings to be compile errors, since the community will eventually end
-> > > > > up complaining about them. So, enable -Werror, -Wunused and
-> > > > > -Wmisleading-indentation for all kernel builds.
-> > > > > 
-> > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > > > Cc: Harry Wentland <harry.wentland@amd.com>
-> > > > > Cc: Kenny Ho <kenny.ho@amd.com>
-> > > > > Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> > > > > ---
-> > > > > v2: fix grammatical error
-> > > > > ---
-> > > > >   drivers/gpu/drm/amd/display/Makefile | 2 ++
-> > > > >   1 file changed, 2 insertions(+)
-> > > > > 
-> > > > > diff --git a/drivers/gpu/drm/amd/display/Makefile
-> > > > b/drivers/gpu/drm/amd/display/Makefile
-> > > > > index 0d610cb376bb..3c44162ebe21 100644
-> > > > > --- a/drivers/gpu/drm/amd/display/Makefile
-> > > > > +++ b/drivers/gpu/drm/amd/display/Makefile
-> > > > > @@ -26,6 +26,8 @@
-> > > > > 
-> > > > >   AMDDALPATH = $(RELATIVE_AMD_DISPLAY_PATH)
-> > > > > 
-> > > > > +subdir-ccflags-y += -Werror -Wunused -Wmisleading-indentation
-> > > > > +
-> > > > 
-> > > > Care to enable this for the rest of amdgpu as well?  Or send out an
-> > > > additional patch to do that?  Either way:
-> > > > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> > > > 
-> > > > Alex
-> > > > 
-> > > > >   subdir-ccflags-y += -I$(FULL_AMD_DISPLAY_PATH)/dc/inc/
-> > > > >   subdir-ccflags-y += -I$(FULL_AMD_DISPLAY_PATH)/dc/inc/hw
-> > > > >   subdir-ccflags-y += -I$(FULL_AMD_DISPLAY_PATH)/dc/clk_mgr
-> > > > > --
-> > > > > 2.40.1
-> > > > > 
-> > > > 
-> -- 
-> Hamza
-> 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index c657bed350ac..56e89e76ff17 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -478,15 +478,16 @@ static ssize_t amdgpu_debugfs_gprwave_read(struct file *f, char __user *buf, siz
+ static long amdgpu_debugfs_gprwave_ioctl(struct file *f, unsigned int cmd, unsigned long data)
+ {
+ 	struct amdgpu_debugfs_gprwave_data *rd = f->private_data;
+-	int r;
++	int r = 0;
+ 
+ 	mutex_lock(&rd->lock);
+ 
+ 	switch (cmd) {
+ 	case AMDGPU_DEBUGFS_GPRWAVE_IOC_SET_STATE:
+-		r = copy_from_user(&rd->id, (struct amdgpu_debugfs_gprwave_iocdata *)data, sizeof rd->id);
+-		if (r)
+-			return r ? -EINVAL : 0;
++		if (copy_from_user(&rd->id,
++				   (struct amdgpu_debugfs_gprwave_iocdata *)data,
++				   sizeof(rd->id)))
++			r = -EFAULT;
+ 		goto done;
+ 	default:
+ 		r = -EINVAL;
 -- 
-Kees Cook
+2.39.2
+
