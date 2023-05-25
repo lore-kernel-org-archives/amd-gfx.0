@@ -4,42 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 009A1C77B7E
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 20:14:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED35DC77B7E
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 20:26:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97AF110E755;
-	Thu, 25 May 2023 20:14:44 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BDAF10E755;
- Thu, 25 May 2023 20:14:43 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AA19B6435F;
- Thu, 25 May 2023 20:14:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6894CC433D2;
- Thu, 25 May 2023 20:14:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1685045682;
- bh=c9RYj0+T+0idw1Qy78csQBqrvbedfd4wjKYCGYBBYrg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=q1esTd0qvQJc7TabmbiYhEBwa0xNKAeKW7a84pfVHnWhu/iA29rxP1T9hxs59SbsX
- eUk+QNURpIP86mhVgJ4oEo0KOALxuVfwQjbVXuzv0VEILEnClglckuNPQlH4U89aQr
- KNRuq/zeefVuy3pkin9GdjC4JvGbRuPulhBLk+u25Xzfr7xveS4YsIgknyTVIHJjew
- EYr3l206f7r3O/V+3LaWNHJQfIX6j7CiMn4L3D/nrGJ3UDeWG9Qzw38YxudMhoF90W
- EMOPCgOC+stBd2u4eMe4LVwNqTNF6uH+2IuI2Lk1sZwoCsZ8aySOoW2/sOLKv0rK0z
- J+4mVPPhfua3A==
-Date: Thu, 25 May 2023 13:14:39 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Tom Rix <trix@redhat.com>
-Subject: Re: [PATCH] drm/amdkfd: remove unused function
- get_reserved_sdma_queues_bitmap
-Message-ID: <20230525201439.GA2741545@dev-arch.thelio-3990X>
-References: <20230525200759.3214525-1-trix@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E5B710E1A3;
+	Thu, 25 May 2023 20:26:36 +0000 (UTC)
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [IPv6:2607:f8b0:4864:20::c30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A198B10E1A3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 May 2023 20:26:35 +0000 (UTC)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ 006d021491bc7-5559cd68b67so33203eaf.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 May 2023 13:26:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1685046394; x=1687638394;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SsAwZ6MlQd1i6BvSMv+ZEkDU4RWS+Q6FS0WsiS3bZkI=;
+ b=qsYPbqhB2kAXQZL2IrYIFdPRM2Ds1UqGWA716jFwtb/KrV2z1TlScvsxqST8Bvqtz7
+ Afbegl00x0MaN4QAupBlxQuXiIHNXEonVcn9sxNsK7CIh2fNfzaEKs/RAdrgcEIA0Qru
+ 7G6hlWivg6Zrrsr4/Gs5brZaasAUVYtSLj2NKe9AxYl/zPWipjsC0V31pxaCYY07KuJq
+ pGRrA/1+nFIuyzZBpJloEWSJgTJjmaAfjTarhFtRFlaCsvN2ZnCCQy97BGnvSCKY3EfX
+ kPr309CGrSwNsjhfH6MDTmJBWx+AEZwENruIFE5trbJszzCEBd72PShUDIMpH67CmOQr
+ p3aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685046394; x=1687638394;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=SsAwZ6MlQd1i6BvSMv+ZEkDU4RWS+Q6FS0WsiS3bZkI=;
+ b=Aq3SXvzxUMvfp4J3gU0V/Sxza0ot1i+tsJZL9bz+A4SfGrmg+nr7SdOvosUObZJfRy
+ MZnpqG7xC9Azf5qhvE4ZuUqEOUom5FgDO/NPAnTzc0k2f8ZxnVxGfswy4V6nw3YIYq7d
+ nqZnze0At8gVRXMM3m7hip5AYPlRsMqbOggelsBQKnA+hJWUT0lmloAtgV6/LyeqEBzE
+ mGnAbkwkwxq5ATnxi4Mov1Pnpfw3IzqXq565OiIwA2yIQ0tzTIBrVLHz9QUBdWmTv1kr
+ M99HkOju/cYwf/Lwq+EAH43VfRTMy2ltlMxWdJASrFEcetlnpiCHG4V/cwuq0Lkj9dwM
+ EvNw==
+X-Gm-Message-State: AC+VfDwCtl8eVHAtAjLnCibQMI8VyyAUS5Axj3ObX691af6eCh55NcU3
+ df0tg2BJb7Cmoa+wTMKpHIM6W+O3S9g3741JAnw=
+X-Google-Smtp-Source: ACHHUZ6ftDcsxTtKxLfADhOzZqIpgZ4Z5SGZAPm/xWdjj9fi9BX6gtk/XsGYdjAO6zWZVqe2Jd/X+nOf2BzEsVPfA0s=
+X-Received: by 2002:a4a:d28a:0:b0:555:722e:3ce with SMTP id
+ h10-20020a4ad28a000000b00555722e03cemr6108124oos.9.1685046394150; Thu, 25 May
+ 2023 13:26:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230525200759.3214525-1-trix@redhat.com>
+References: <20230525180253.831726-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230525180253.831726-1-srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 25 May 2023 16:26:23 -0400
+Message-ID: <CADnq5_MVCbfo6933-4XLGT5UzFNVC3EnDo0MtZ2LQCihh5=08Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix up kdoc in amdgpu_acpi.c
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,58 +67,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
- ndesaulniers@google.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 25, 2023 at 04:07:59PM -0400, Tom Rix wrote:
-> clang with W=1 reports
-> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:122:24: error:
->   unused function 'get_reserved_sdma_queues_bitmap' [-Werror,-Wunused-function]
-> static inline uint64_t get_reserved_sdma_queues_bitmap(struct device_queue_manager *dqm)
->                        ^
-> This function is not used so remove it.
-> 
-> Signed-off-by: Tom Rix <trix@redhat.com>
+On Thu, May 25, 2023 at 2:03=E2=80=AFPM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
+>
+> Fix these warnings by adding & deleting the deviant arguments.
+>
+> gcc with W=3D1
+> drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:906: warning: Function parameter=
+ or member 'numa_info' not described in 'amdgpu_acpi_get_node_id'
+> drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:906: warning: Excess function pa=
+rameter 'nid' description in 'amdgpu_acpi_get_node_id'
+>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-Caused by commit 09a95a85cf3e ("drm/amdkfd: Update SDMA queue management
-for GFX9.4.3") it seems.
-
-You can actually go a step farther and remove the
-reserved_sdma_queues_bitmap member from 'struct kfd_device_info' because
-it is now only assigned, never read.
-
-$ git grep reserved_sdma_queues_bitmap next-20230525
-next:20230525:drivers/gpu/drm/amd/amdkfd/kfd_device.c:        kfd->device_info.reserved_sdma_queues_bitmap = 0xFULL;
-next:20230525:drivers/gpu/drm/amd/amdkfd/kfd_device.c:        kfd->device_info.reserved_sdma_queues_bitmap = 0x3ULL;
-next:20230525:drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:static inline uint64_t get_reserved_sdma_queues_bitmap(struct device_queue_manager *dqm)
-next:20230525:drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:    return dqm->dev->kfd->device_info.reserved_sdma_queues_bitmap;
-next:20230525:drivers/gpu/drm/amd/amdkfd/kfd_priv.h:    uint64_t reserved_sdma_queues_bitmap;
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 5 -----
->  1 file changed, 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 493b4b66f180..2fbd0a96424f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -119,11 +119,6 @@ unsigned int get_num_xgmi_sdma_queues(struct device_queue_manager *dqm)
->  		dqm->dev->kfd->device_info.num_sdma_queues_per_engine;
->  }
->  
-> -static inline uint64_t get_reserved_sdma_queues_bitmap(struct device_queue_manager *dqm)
-> -{
-> -	return dqm->dev->kfd->device_info.reserved_sdma_queues_bitmap;
-> -}
-> -
->  static void init_sdma_bitmaps(struct device_queue_manager *dqm)
->  {
->  	bitmap_zero(dqm->sdma_bitmap, KFD_MAX_SDMA_QUEUES);
-> -- 
-> 2.27.0
-> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_acpi.c
+> index b050d462b2f3..3a6b2e2089f6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -894,7 +894,7 @@ static struct amdgpu_numa_info *amdgpu_acpi_get_numa_=
+info(uint32_t pxm)
+>   * acpi device handle
+>   *
+>   * @handle: acpi handle
+> - * @nid: NUMA Node id returned by the platform firmware
+> + * @numa_info: amdgpu_numa_info structure holding numa information
+>   *
+>   * Queries the ACPI interface to fetch the corresponding NUMA Node ID fo=
+r a
+>   * given amdgpu acpi device.
+> --
+> 2.25.1
+>
