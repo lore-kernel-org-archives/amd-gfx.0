@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12025C7EE2F
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 18:38:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 942F9C7EE37
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 18:41:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 917BB10E0CD;
-	Thu, 25 May 2023 18:38:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 203FD10E10F;
+	Thu, 25 May 2023 18:41:02 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EA9410E0CD;
- Thu, 25 May 2023 18:38:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1DA110E0FE;
+ Thu, 25 May 2023 18:40:59 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 89ACC6493D;
- Thu, 25 May 2023 18:38:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34770C433D2;
- Thu, 25 May 2023 18:38:47 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 53B1B60BBD;
+ Thu, 25 May 2023 18:40:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 751F2C433D2;
+ Thu, 25 May 2023 18:40:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1685039929;
- bh=86r+xkKIRhYgUF7Bq+La4YvxxcG5eH8HiqlRcq7Fy5c=;
+ s=k20201202; t=1685040059;
+ bh=UalBq8EHTRQO0sfdCOeYR0aOw8rCB9WfOBfiTN0/Nw8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dIitHQyZ/JIgQe9Rw7KuBFcq1ca/MKLH6Vl5rtjWqtCd7TE3TEu+Ue3TquF/tOTdI
- OIlnsdoDuNHpC1ewXSe9fonf7KS6YcTomeci8K/G2+yIkl8pCb1R0JbYA4vpDgQbf+
- SZhgf189N2DjWpBEeU1l31gzWO7fzjaBTJWVW9erzjfdai/fnbeQUJeXkD+f0ccN7s
- 0ZCU1ishCvlO9o7lIsYu5PCk4JBK/M5/JYToi2rOEHKFlbfUKYhlCFvHTFkDoXIvbw
- 9nY2BlnqH/xCn2OxRlFftCdZ2I4f0a0aVuffmK2/2iMsp+b/bnRyMgWmC5P0XoUKI3
- ZvYZ6EgVBC0JA==
+ b=DKJc/CUt+q7iE8N+6dlI6UvbjcPj2v5JMI1R7xz2XbMFC/ydo3ReGHRiaQcwV8cMW
+ 6IDuyw27X6Ge3iiiF2ridkpwdeG3K3bRIhaZWBBlnSyAkmwrPkpJUf6yGOcnm8EY9I
+ JPJM8322/13sspMm0jenax2b3Gf/uQ0iaR4asyRUih12+RgOYSkz2ni+lQE1xb75ys
+ mnRMCAVA6/+n312ftriBnm4eHGWFmgf+1/RIAILWqBf/1LP/bdDcw79Fv0KNwhLg8u
+ myUNzvGJgGsBzzhS2zbQDkxPRPHLvYzcQrrTq8wLWXkek8t/jUf/bd9dNxDQbnuzDW
+ GWGWicqofsJ9w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 54/57] drm/amdgpu: skip disabling fence driver
+Subject: [PATCH AUTOSEL 5.15 42/43] drm/amdgpu: skip disabling fence driver
  src_irqs when device is unplugged
-Date: Thu, 25 May 2023 14:36:04 -0400
-Message-Id: <20230525183607.1793983-54-sashal@kernel.org>
+Date: Thu, 25 May 2023 14:38:53 -0400
+Message-Id: <20230525183854.1855431-42-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230525183607.1793983-1-sashal@kernel.org>
-References: <20230525183607.1793983-1-sashal@kernel.org>
+In-Reply-To: <20230525183854.1855431-1-sashal@kernel.org>
+References: <20230525183854.1855431-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -94,10 +94,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 3cc1929285fc0..ed6878d5b3ce3 100644
+index bbd6f7a123033..8599e0ffa8292 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -528,7 +528,8 @@ void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev)
+@@ -561,7 +561,8 @@ void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev)
  		if (r)
  			amdgpu_fence_driver_force_completion(ring);
  
