@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8AC2C77B7A
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 16:52:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC934C77B7A
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 16:52:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5312E10E453;
-	Thu, 25 May 2023 16:52:47 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C98510E453
- for <amd-gfx@lists.freedesktop.org>; Thu, 25 May 2023 16:52:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41F9E10E6D0;
+	Thu, 25 May 2023 16:52:48 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2054.outbound.protection.outlook.com [40.107.220.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C247210E453
+ for <amd-gfx@lists.freedesktop.org>; Thu, 25 May 2023 16:52:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BRBvDKBImWHFt84hvugeVIlrHzcjTQgTONiFlYZILQo7DinSv0mRwmkSSkzhfJdnR8Pfc/2vIgmoLlmPyidjWXPkYgcuObIDCNJWq5VdbWouRmq0U7t/eTrMcMCI1ewbO6OIadAwEr+/fC6MfIedGH/tUPzvuHBvaF1Nf6oTHoXgWdauGmjQ5+taDe51PyvIriX3mmwiXducEcXvfMJnKRrIbjZw3Jg2qFNcPT/+om84qLwPdPqYs69JcxarDgr48hggcGSLgy5nJnH5IzPiHQ5WWhF3+XZ0vG86FLM1ZwHCDkSy2CiWSv3cuFySIHFvwKfa8gMCJarFBgQrzTZCKQ==
+ b=fbd72uFIA6+9iLNOj8xNOPeErTdAHPcLPPj5+1Gvm/YNWrxt65uaS3klT2nBuLqWBdUUYg4Od8LZaMVo1KUuYH8p3eKylcs8YTmkQA7o31eh5G28n4CDfhrf4H61ktCUsp9nrPHFWOyT1Dx0FaiR0ZzY6whm2jd/FCxEWK9YwohBAEfYXQAYp9tmQuh3rS9CUR4TL4VWeDv8r5oc8ziLAB3GbgxFpD6tckNJXbckkDXphMTAxuxiQdjg3qp67Ik6xkQbFydyM/kGngV02TW48B0STjj7QZq+okaCNAaZ5oVp1oHBrRC/MlP7QUlq587lNMWfyIx0gtEG3ES/BclYTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=69e151XkdI9SRcvUvHkS5oG+737uI1xW6rHJq4otgvs=;
- b=FOPATDFEdnN7xeBDIQzDKa3vXAuRqB+MkMI/y5e7tA+G4KSdFIkroSj/gnbzxn0azkp+uRZMX0v8IzOSro5D6ld3f5fjo1YDj5zzm5qXzrv1gnC8lIg0xBPR/+qbDwYjy7WbUAuJAwbuOgt03FCjWCdFJoSfvvTvs6jE1s8GknMR9cGak3odisDvzjZQu2hkvb0FmQ7AWS96rAegV57dcqT+Jq9nwxc+1Qu6Lu/zfF44IC0R+WDxHdwp8e5m/dhHcK8f2F5GI/KLgm4PIaUIPQwK63cvCf389eJMHC9WIWod4cRsSVZGEGK2SzkwZMKe9HZSIfQ6txhYnC2Y30Q8+g==
+ bh=HuQ+FpOwDS2kXgcQKAImYM3YWcDfMk9eGg47YKch29s=;
+ b=k+0++wEF9vQok2dk9K0LQtcZ4UPmECpBgIIL5VHiHuGY4QigB9DCE7x8+AhCWIoR7Jt3yibyY9rPu1a55JJUcJ2ydVIhNOHU8lPt8lC2mghskpFv7kAY9zaaEiRaasO/I89fBTVOqxL2ngT29bwuXo77YCiIFsALI83ty1MTMZfzlVRllCc1HMJ7W+WRL0iGWop6MwgNicLphcSo5UIqw79p2P3b9qkt0UsOs4LKV7UHYKpzT+/2tj+jMl6gXRl6ThtWg5oR8SYLcQXO3YqhNQ/xezavDrR0pzjkHqMljddj7jRTond+kiEWSnKNAqJYYF/LUstKfU0PZfUDvm5oQw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=69e151XkdI9SRcvUvHkS5oG+737uI1xW6rHJq4otgvs=;
- b=5QYRvJETGpLYggiGbvjini6BQHpRIqUO7S6Qtk6Xlv3lq5LlSZ930Hqd0LGS/1rRsVETVWxOyZyqA7laQ7XwXs9Q5yWWu4F8k7mzu/tRZPnei+gm4PLYVn7SpCIxXqVSsdnD6E+wlTsnCUwmb/QabRHXhKuoPyzGMKJ7N6jcnD8=
+ bh=HuQ+FpOwDS2kXgcQKAImYM3YWcDfMk9eGg47YKch29s=;
+ b=uHbv2TPSbvYJW+sdw4zhMfeKgfbfMUbn5yxBIEuCqxa25G44BYcSQm1Lo7NkpCLz09X1AyZCanWoyw+Qh4PV6m7GmONs3bdXa46Ml2Gcq+dNfLq6cQFJ0iE1plbSmjFrRZxLnrwPQDSqDANCzjfnSAU3TTTWvcEZ2x1h0ilXxK8=
 Received: from BN9PR03CA0283.namprd03.prod.outlook.com (2603:10b6:408:f5::18)
- by BN9PR12MB5225.namprd12.prod.outlook.com (2603:10b6:408:11e::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.16; Thu, 25 May
+ by DM4PR12MB5325.namprd12.prod.outlook.com (2603:10b6:5:390::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Thu, 25 May
  2023 16:52:41 +0000
 Received: from BN8NAM11FT101.eop-nam11.prod.protection.outlook.com
  (2603:10b6:408:f5:cafe::5b) by BN9PR03CA0283.outlook.office365.com
@@ -54,9 +54,9 @@ Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  2023 11:52:39 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/3] drm/amdgpu: cache gpuvm fault information for gmc7+
-Date: Thu, 25 May 2023 12:52:18 -0400
-Message-ID: <20230525165219.544671-3-alexander.deucher@amd.com>
+Subject: [PATCH 1/3] drm/amdgpu: add cached GPU fault structure to vm struct
+Date: Thu, 25 May 2023 12:52:17 -0400
+Message-ID: <20230525165219.544671-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230525165219.544671-1-alexander.deucher@amd.com>
 References: <20230525165219.544671-1-alexander.deucher@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT101:EE_|BN9PR12MB5225:EE_
-X-MS-Office365-Filtering-Correlation-Id: b75e3cc4-cf4c-477e-74f5-08db5d407485
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT101:EE_|DM4PR12MB5325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 893a4046-9744-4db8-c8bb-08db5d407436
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gT2Q5AsZRRtLIR3oJ6rrpLTAWpf6n5LqulUz4a5DTwQBF4wWU+Oe6ZnzEtK9PG3o8WCGAPkxV4LJxRaothbwjc/TKjMoEAqs8/NlHF8kBfErdobvLxk50iAT1UjHRGAF4qM8wRAuiOsq7GX8fFuJAI3zs63FjJuGqVlqqq+x4jrZspWxLcgDNV9ZjuVX/8uhSRZZNlqp4FqLwYJ5ikTpO9P6M64Yb0NHTB1LmQlkdDZ3fiTJA7TShd7sItpkbF734twhVCrVcreNTI5Px2kEbsEPLH5QGR4LSBr6ugfSgJvs7v9saiDVQR3HVfC6TGnVLr3ss7jYs4pcOTpxlIzaddnS/FyEW0cTLNzQDStuSdwQCS2dRzeTkd9l5EN5gfThyz8qwieaWbV0vsqaTl4zFXFal5eMsC+tDEUYEt+xA4aaVNdaNAq05Q51D7zaHsuwmU8ttn0/rthmVZQSkFZ2rjVI21UKWLKePsupN+PPR5wTymxqe+74QhDa/0/zPhdiFhzf8O4fq0vOr5pYYvg8VAsQ4hrAjwfnhkQS6XjhKS+/QZmRl73ZABm92eLzNEaBVCdpxYczwBBsG5SUQBCe/L4Dh+JzDtlUJAYpxTJ4wPjI1a6AW3bQu5V4lboN3AqBcW+ZhE0lrVZCd1KL6qGataM1pcfxQ49wALZWdIG8F5WjZV0R3teEQz94vAkvmvNTeiR42j6Cmm/fgJ0t0hGQdoLsESmV9gDd6Z6eGlQA1URVHcAkd2BQ9gYk9I+ii29jxfEEsDySf2SrRNHC2KAGyA==
+X-Microsoft-Antispam-Message-Info: jqX43qwtEOKIctes3AR2l6AK2p+RiTDFNXrBWFFzVoT6A1XYNq48gkV42WmMb2eX4LnyQyb5bqkkhC6mLHj7dPUJ7N9o75zJH+Qp2/s74i8SPZa/P8h+tMhNX7HlLmpHbmsX8PxQJK4TV1oXt7j7BJUArzz1so29pNaV/PQ1MFQZThpnQxuOJOGUpQ2YUuytJeFCg45h11TycBFEj8gVcaWG0QouYayKS3aLxQrXBF/2RaQAF6iSg8mL/Q+fQLAMrEu1q/BmY+IidcoN5tTTkbRITGjzgLGp8HvLzYr6UwzfQj04AwDxq6oLP/S7fiqQ6ZsFuVStjGRNjhLYtN/+K5qpzdig6O/fLo/nqmIypz+j+BgOi0P+e1uGQ0qP1T1Bvt3KrqwGOrNAXQglF1pjD6Pmfs8N4JN672Az1b7B3En1jecYtvifdaxPusWtAYe8+Umkj1BCWYJAQQpfDWH0mfHYjJenZhCJEKmwnZy2bJ7THAh5yUFbUovboECrDgGOKTvcUGHhsMIdpxfQB2R7yKY3ZBtXKbShgmpbp+eXTDGtE+4I8pqbDWn+eYVc+BK2KU105C69NFcRKP4HuDesvF4d6jKyklwAmJfHphkqUJC7uTQOWY3+YFaMZqgOFUfslJXDGmjPskNCt7DPPKqiZSc6Og5pgdycQYQASMHg1/l9swgS47NHYA9K3ta9j2J/ZiVWh2PxOSPhOeSV0U76wCf3lnjs43I1dZiABoOsI2j55XnYjcFq9rFQTAKKZVWAVeuOlLuPqqen+uvDt+AO9g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(376002)(346002)(39860400002)(451199021)(40470700004)(46966006)(36840700001)(40460700003)(6916009)(70206006)(70586007)(478600001)(54906003)(316002)(4326008)(86362001)(36756003)(47076005)(83380400001)(2616005)(26005)(426003)(36860700001)(16526019)(1076003)(186003)(336012)(5660300002)(41300700001)(8676002)(8936002)(2906002)(40480700001)(7696005)(6666004)(82310400005)(82740400003)(81166007)(356005)(36900700001);
+ SFS:(13230028)(4636009)(39860400002)(376002)(136003)(346002)(396003)(451199021)(40470700004)(36840700001)(46966006)(82310400005)(2906002)(4326008)(7696005)(6666004)(41300700001)(82740400003)(478600001)(70206006)(54906003)(70586007)(40480700001)(2616005)(336012)(81166007)(356005)(47076005)(8676002)(40460700003)(316002)(8936002)(36756003)(86362001)(16526019)(6916009)(186003)(426003)(83380400001)(26005)(5660300002)(1076003)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2023 16:52:41.6938 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b75e3cc4-cf4c-477e-74f5-08db5d407485
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2023 16:52:41.1625 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 893a4046-9744-4db8-c8bb-08db5d407436
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT101.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5225
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5325
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,128 +103,96 @@ Cc: Alex Deucher <alexander.deucher@amd.com>, samuel.pitoiset@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Cache the current fault info in the vm struct.  This can be queried
-by userspace later to help debug UMDs.
+When we get a GPU pge fault, cache the fault for later
+analysis.
 
 Cc: samuel.pitoiset@gmail.com
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c |  3 +++
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c |  3 +++
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c  |  3 +++
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c  |  3 +++
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 11 +++++++----
- 5 files changed, 19 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 31 ++++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 18 +++++++++++++++
+ 2 files changed, 49 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 01bd45651382..5f88db5432b6 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -155,6 +155,9 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
- 
- 		status = RREG32(hub->vm_l2_pro_fault_status);
- 		WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 22f9a65ca0fc..73e022f3daa4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2631,3 +2631,34 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
+ 		   total_done_objs);
+ }
+ #endif
 +
-+		amdgpu_vm_update_fault_cache(adev, entry->pasid, addr, status,
-+					     entry->vmid_src ? AMDGPU_MMHUB0(0) : AMDGPU_GFXHUB(0));
- 	}
- 
- 	if (!printk_ratelimit())
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 4bf807d825c0..087f1ec3cf54 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -115,6 +115,9 @@ static int gmc_v11_0_process_interrupt(struct amdgpu_device *adev,
- 
- 		status = RREG32(hub->vm_l2_pro_fault_status);
- 		WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
++/**
++ * amdgpu_vm_update_fault_cache - update cached fault into.
++ * @adev: amdgpu device pointer
++ * @pasid: PASID of the VM
++ * @addr: Address of the fault
++ * @status: fault status register
++ * @vmhub: which vmhub got the fault
++ *
++ * Cache the fault info for later use by userspace in debuggging.
++ */
++void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
++				  unsigned int pasid,
++				  uint64_t addr,
++				  uint32_t status,
++				  unsigned int vmhub)
++{
++	struct amdgpu_vm *vm;
++	unsigned long flags;
 +
-+		amdgpu_vm_update_fault_cache(adev, entry->pasid, addr, status,
-+					     entry->vmid_src ? AMDGPU_MMHUB0(0) : AMDGPU_GFXHUB(0));
- 	}
- 
- 	if (printk_ratelimit()) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index 6f53049619cd..1386e2b2e773 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -1272,6 +1272,9 @@ static int gmc_v7_0_process_interrupt(struct amdgpu_device *adev,
- 	if (!addr && !status)
- 		return 0;
- 
-+	amdgpu_vm_update_fault_cache(adev, entry->pasid,
-+				     ((u64)addr) << AMDGPU_GPU_PAGE_SHIFT, status, AMDGPU_GFXHUB(0));
++	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
 +
- 	if (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_FIRST)
- 		gmc_v7_0_set_fault_enable_default(adev, false);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 48475077ca92..6d46390ee9e3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1447,6 +1447,9 @@ static int gmc_v8_0_process_interrupt(struct amdgpu_device *adev,
- 	if (!addr && !status)
- 		return 0;
- 
-+	amdgpu_vm_update_fault_cache(adev, entry->pasid,
-+				     ((u64)addr) << AMDGPU_GPU_PAGE_SHIFT, status, AMDGPU_GFXHUB(0));
++	vm = xa_load(&adev->vm_manager.pasids, pasid);
++	if (vm) {
++		vm->fault_info.addr = addr;
++		vm->fault_info.status = status;
++		vm->fault_info.vmhub = vmhub;
++	}
++	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
++}
 +
- 	if (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_FIRST)
- 		gmc_v8_0_set_fault_enable_default(adev, false);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index 14f9a2bf3acb..fb66a413110c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -244,6 +244,15 @@ struct amdgpu_vm_update_funcs {
+ 		      struct dma_fence **fence);
+ };
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 1e8b2aaa48c1..28a66aa377f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -555,6 +555,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 	struct amdgpu_vmhub *hub;
- 	const char *mmhub_cid;
- 	const char *hub_name;
-+	unsigned int vmhub;
- 	u64 addr;
- 	uint32_t cam_index = 0;
- 	int ret, xcc_id = 0;
-@@ -567,10 +568,10 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 
- 	if (entry->client_id == SOC15_IH_CLIENTID_VMC) {
- 		hub_name = "mmhub0";
--		hub = &adev->vmhub[AMDGPU_MMHUB0(node_id / 4)];
-+		vmhub = AMDGPU_MMHUB0(node_id / 4);
- 	} else if (entry->client_id == SOC15_IH_CLIENTID_VMC1) {
- 		hub_name = "mmhub1";
--		hub = &adev->vmhub[AMDGPU_MMHUB1(0)];
-+		vmhub = AMDGPU_MMHUB1(0);
- 	} else {
- 		hub_name = "gfxhub0";
- 		if (adev->gfx.funcs->ih_node_to_logical_xcc) {
-@@ -579,8 +580,9 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 			if (xcc_id < 0)
- 				xcc_id = 0;
- 		}
--		hub = &adev->vmhub[xcc_id];
-+		vmhub = xcc_id;
- 	}
-+	hub = &adev->vmhub[vmhub];
- 
- 	if (retry_fault) {
- 		if (adev->irq.retry_cam_enabled) {
-@@ -626,7 +628,6 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 	if (!printk_ratelimit())
- 		return 0;
- 
--
- 	memset(&task_info, 0, sizeof(struct amdgpu_task_info));
- 	amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
- 
-@@ -663,6 +664,8 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 	rw = REG_GET_FIELD(status, VM_L2_PROTECTION_FAULT_STATUS, RW);
- 	WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
- 
-+	amdgpu_vm_update_fault_cache(adev, entry->pasid, addr, status, vmhub);
++struct amdgpu_vm_fault_info {
++	/* fault address */
++	uint64_t	addr;
++	/* fault status register */
++	uint32_t	status;
++	/* which vmhub? gfxhub, mmhub, etc. */
++	unsigned int	vmhub;
++};
 +
- 	dev_err(adev->dev,
- 		"VM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
- 		status);
+ struct amdgpu_vm {
+ 	/* tree of virtual addresses mapped */
+ 	struct rb_root_cached	va;
+@@ -332,6 +341,9 @@ struct amdgpu_vm {
+ 
+ 	/* Memory partition number, -1 means any partition */
+ 	int8_t			mem_id;
++
++	/* cached fault info */
++	struct amdgpu_vm_fault_info fault_info;
+ };
+ 
+ struct amdgpu_vm_manager {
+@@ -540,4 +552,10 @@ static inline void amdgpu_vm_eviction_unlock(struct amdgpu_vm *vm)
+ 	mutex_unlock(&vm->eviction_lock);
+ }
+ 
++void amdgpu_vm_update_fault_cache(struct amdgpu_device *adev,
++				  unsigned int pasid,
++				  uint64_t addr,
++				  uint32_t status,
++				  unsigned int vmhub);
++
+ #endif
 -- 
 2.40.1
 
