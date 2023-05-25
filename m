@@ -4,54 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAA44C77B7A
-	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 01:13:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC617C7EE23
+	for <amd-gfx@archiver.kernel.org>; Thu, 25 May 2023 02:46:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 423CE10E488;
-	Thu, 25 May 2023 01:13:35 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 399A410E488;
- Thu, 25 May 2023 01:13:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684977214; x=1716513214;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=J6PiiNN65SAkxEE9Kw6L/fdlPaOlqkkPzRVNGIcSzos=;
- b=lsgFZ28L6tNJJOp1nphOrFM3ZMRgZcPQv6bPpeZwSScH3EZiScgUuwcM
- T1kt9rfvnFsT/xnv71Dvyz5Fdjul66qonORJdcZE9LOus38YCDkI2j+Nj
- k+whtttQl6pHo3VjFXrOjqFfUmwO0XhbWx2WP0WX3x5H4ydfxAf2gz9gT
- Rkq+3YNFxrRpQbfu0j253sgkjQwZy8qJHYPFoiuq+JY7ZyjjG6kzBCIQ+
- Zwf67R8hWp18ppTymTpwLrJSb3din7ptIekWp/bljfk0c4srAgCykZ2zj
- /FIW4ThpaLhrkEk7DE5ttLlCTJo1dURtLWqynY6lmAefZTGlQ9eORD8KC w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="356974931"
-X-IronPort-AV: E=Sophos;i="6.00,190,1681196400"; d="scan'208";a="356974931"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2023 18:13:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="655010263"
-X-IronPort-AV: E=Sophos;i="6.00,190,1681196400"; d="scan'208";a="655010263"
-Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
- by orsmga003.jf.intel.com with ESMTP; 24 May 2023 18:13:28 -0700
-Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1q1zXk-000FKj-01;
- Thu, 25 May 2023 01:13:28 +0000
-Date: Thu, 25 May 2023 09:13:22 +0800
-From: kernel test robot <lkp@intel.com>
-To: Melissa Wen <mwen@igalia.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
- Alex Deucher <alexander.deucher@amd.com>,
- dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch
-Subject: Re: [PATCH 21/36] drm/amd/display: add CRTC 3D LUT support
-Message-ID: <202305250946.OXXF7YXr-lkp@intel.com>
-References: <20230523221520.3115570-22-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4524110E624;
+	Thu, 25 May 2023 02:46:48 +0000 (UTC)
+Received: from 189.cn (ptr.189.cn [183.61.185.102])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9B5C610E115;
+ Thu, 25 May 2023 02:46:44 +0000 (UTC)
+HMM_SOURCE_IP: 10.64.8.43:46928.396511249
+HMM_ATTACHE_NUM: 0000
+HMM_SOURCE_TYPE: SMTP
+Received: from clientip-114.242.206.180 (unknown [10.64.8.43])
+ by 189.cn (HERMES) with SMTP id 8581D10019D;
+ Thu, 25 May 2023 10:46:38 +0800 (CST)
+Received: from  ([114.242.206.180])
+ by gateway-151646-dep-75648544bd-7vx9t with ESMTP id
+ 9709e195ba63476a998a9e94ccfb8749 for tzimmermann@suse.de; 
+ Thu, 25 May 2023 10:46:40 CST
+X-Transaction-ID: 9709e195ba63476a998a9e94ccfb8749
+X-Real-From: 15330273260@189.cn
+X-Receive-IP: 114.242.206.180
+X-MEDUSA-Status: 0
+Message-ID: <b07609eb-8093-47c8-2368-8dd9ad7a71cd@189.cn>
+Date: Thu, 25 May 2023 10:46:37 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230523221520.3115570-22-mwen@igalia.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [v4,12/13] drm/fbdev-generic: Implement dedicated fbdev I/O
+ helpers
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ javierm@redhat.com, sam@ravnborg.org
+References: <20230524092150.11776-13-tzimmermann@suse.de>
+Content-Language: en-US
+From: Sui Jingfeng <15330273260@189.cn>
+In-Reply-To: <20230524092150.11776-13-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,72 +53,265 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
- Xaver Hugl <xaver.hugl@gmail.com>, kernel-dev@igalia.com,
- oe-kbuild-all@lists.linux.dev,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Melissa,
-
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v6.4-rc3 next-20230524]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Melissa-Wen/drm-drm_mode_object-increase-max-objects-to-accommodate-new-color-props/20230524-062917
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230523221520.3115570-22-mwen%40igalia.com
-patch subject: [PATCH 21/36] drm/amd/display: add CRTC 3D LUT support
-config: sparc-allyesconfig (https://download.01.org/0day-ci/archive/20230525/202305250946.OXXF7YXr-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        mkdir -p ~/bin
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/be212490fea8837eece5d56fa4a4963c0a21626f
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Melissa-Wen/drm-drm_mode_object-increase-max-objects-to-accommodate-new-color-props/20230524-062917
-        git checkout be212490fea8837eece5d56fa4a4963c0a21626f
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 ~/bin/make.cross W=1 O=build_dir ARCH=sparc olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 ~/bin/make.cross W=1 O=build_dir ARCH=sparc SHELL=/bin/bash drivers/gpu/drm/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202305250946.OXXF7YXr-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_color.c:515: warning: expecting prototype for amdgpu_dm_lut3d_size(). Prototype was for amdgpu_dm_get_lut3d_size() instead
+Reviewed-by: Sui Jingfeng <suijingfeng@loongson.cn>
 
 
-vim +515 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_color.c
-
-   504	
-   505	/**
-   506	 * amdgpu_dm_lut3d_size - get expected size according to hw color caps
-   507	 * @adev: amdgpu device
-   508	 * @lut_size: default size
-   509	 *
-   510	 * Return:
-   511	 * lut_size if DC 3D LUT is supported, zero otherwise.
-   512	 */
-   513	static uint32_t amdgpu_dm_get_lut3d_size(struct amdgpu_device *adev,
-   514						 uint32_t lut_size)
- > 515	{
-   516		return adev->dm.dc->caps.color.mpc.num_3dluts ? lut_size : 0;
-   517	}
-   518	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+On 2023/5/24 17:21, Thomas Zimmermann wrote:
+> Implement dedicated fbdev helpers for framebuffer I/O instead
+> of using DRM's helpers. Use an fbdev generator macro for
+> deferred I/O to create the callbacks. Fbdev-generic was the
+> only caller of the DRM helpers, so remove them from the helper
+> module.
+>
+> v4:
+> 	* generate deferred-I/O helpers
+> 	* use initializer macros for fb_ops
+> v2:
+> 	* use FB_SYS_HELPERS_DEFERRED option
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>   drivers/gpu/drm/Kconfig             |   6 +-
+>   drivers/gpu/drm/drm_fb_helper.c     | 107 ----------------------------
+>   drivers/gpu/drm/drm_fbdev_generic.c |  11 ++-
+>   include/drm/drm_fb_helper.h         |  41 -----------
+>   4 files changed, 6 insertions(+), 159 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 77fb10ddd8a2..92a782827b7b 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -95,6 +95,7 @@ config DRM_KUNIT_TEST
+>   config DRM_KMS_HELPER
+>   	tristate
+>   	depends on DRM
+> +	select FB_SYS_HELPERS_DEFERRED if DRM_FBDEV_EMULATION
+>   	help
+>   	  CRTC helpers for KMS drivers.
+>   
+> @@ -135,11 +136,6 @@ config DRM_FBDEV_EMULATION
+>   	select FB_CFB_FILLRECT
+>   	select FB_CFB_COPYAREA
+>   	select FB_CFB_IMAGEBLIT
+> -	select FB_DEFERRED_IO
+> -	select FB_SYS_FOPS
+> -	select FB_SYS_FILLRECT
+> -	select FB_SYS_COPYAREA
+> -	select FB_SYS_IMAGEBLIT
+>   	select FRAMEBUFFER_CONSOLE if !EXPERT
+>   	select FRAMEBUFFER_CONSOLE_DETECT_PRIMARY if FRAMEBUFFER_CONSOLE
+>   	default y
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+> index cb03099fd2e3..bab6b252f02a 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -736,113 +736,6 @@ void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagerefli
+>   }
+>   EXPORT_SYMBOL(drm_fb_helper_deferred_io);
+>   
+> -/**
+> - * drm_fb_helper_sys_read - Implements struct &fb_ops.fb_read for system memory
+> - * @info: fb_info struct pointer
+> - * @buf: userspace buffer to read from framebuffer memory
+> - * @count: number of bytes to read from framebuffer memory
+> - * @ppos: read offset within framebuffer memory
+> - *
+> - * Returns:
+> - * The number of bytes read on success, or an error code otherwise.
+> - */
+> -ssize_t drm_fb_helper_sys_read(struct fb_info *info, char __user *buf,
+> -			       size_t count, loff_t *ppos)
+> -{
+> -	return fb_sys_read(info, buf, count, ppos);
+> -}
+> -EXPORT_SYMBOL(drm_fb_helper_sys_read);
+> -
+> -/**
+> - * drm_fb_helper_sys_write - Implements struct &fb_ops.fb_write for system memory
+> - * @info: fb_info struct pointer
+> - * @buf: userspace buffer to write to framebuffer memory
+> - * @count: number of bytes to write to framebuffer memory
+> - * @ppos: write offset within framebuffer memory
+> - *
+> - * Returns:
+> - * The number of bytes written on success, or an error code otherwise.
+> - */
+> -ssize_t drm_fb_helper_sys_write(struct fb_info *info, const char __user *buf,
+> -				size_t count, loff_t *ppos)
+> -{
+> -	struct drm_fb_helper *helper = info->par;
+> -	loff_t pos = *ppos;
+> -	ssize_t ret;
+> -	struct drm_rect damage_area;
+> -
+> -	ret = fb_sys_write(info, buf, count, ppos);
+> -	if (ret <= 0)
+> -		return ret;
+> -
+> -	if (helper->funcs->fb_dirty) {
+> -		drm_fb_helper_memory_range_to_clip(info, pos, ret, &damage_area);
+> -		drm_fb_helper_damage(helper, damage_area.x1, damage_area.y1,
+> -				     drm_rect_width(&damage_area),
+> -				     drm_rect_height(&damage_area));
+> -	}
+> -
+> -	return ret;
+> -}
+> -EXPORT_SYMBOL(drm_fb_helper_sys_write);
+> -
+> -/**
+> - * drm_fb_helper_sys_fillrect - wrapper around sys_fillrect
+> - * @info: fbdev registered by the helper
+> - * @rect: info about rectangle to fill
+> - *
+> - * A wrapper around sys_fillrect implemented by fbdev core
+> - */
+> -void drm_fb_helper_sys_fillrect(struct fb_info *info,
+> -				const struct fb_fillrect *rect)
+> -{
+> -	struct drm_fb_helper *helper = info->par;
+> -
+> -	sys_fillrect(info, rect);
+> -
+> -	if (helper->funcs->fb_dirty)
+> -		drm_fb_helper_damage(helper, rect->dx, rect->dy, rect->width, rect->height);
+> -}
+> -EXPORT_SYMBOL(drm_fb_helper_sys_fillrect);
+> -
+> -/**
+> - * drm_fb_helper_sys_copyarea - wrapper around sys_copyarea
+> - * @info: fbdev registered by the helper
+> - * @area: info about area to copy
+> - *
+> - * A wrapper around sys_copyarea implemented by fbdev core
+> - */
+> -void drm_fb_helper_sys_copyarea(struct fb_info *info,
+> -				const struct fb_copyarea *area)
+> -{
+> -	struct drm_fb_helper *helper = info->par;
+> -
+> -	sys_copyarea(info, area);
+> -
+> -	if (helper->funcs->fb_dirty)
+> -		drm_fb_helper_damage(helper, area->dx, area->dy, area->width, area->height);
+> -}
+> -EXPORT_SYMBOL(drm_fb_helper_sys_copyarea);
+> -
+> -/**
+> - * drm_fb_helper_sys_imageblit - wrapper around sys_imageblit
+> - * @info: fbdev registered by the helper
+> - * @image: info about image to blit
+> - *
+> - * A wrapper around sys_imageblit implemented by fbdev core
+> - */
+> -void drm_fb_helper_sys_imageblit(struct fb_info *info,
+> -				 const struct fb_image *image)
+> -{
+> -	struct drm_fb_helper *helper = info->par;
+> -
+> -	sys_imageblit(info, image);
+> -
+> -	if (helper->funcs->fb_dirty)
+> -		drm_fb_helper_damage(helper, image->dx, image->dy, image->width, image->height);
+> -}
+> -EXPORT_SYMBOL(drm_fb_helper_sys_imageblit);
+> -
+>   /**
+>    * drm_fb_helper_cfb_read - Implements struct &fb_ops.fb_read for I/O memory
+>    * @info: fb_info struct pointer
+> diff --git a/drivers/gpu/drm/drm_fbdev_generic.c b/drivers/gpu/drm/drm_fbdev_generic.c
+> index 8e5148bf40bb..98ae703848a0 100644
+> --- a/drivers/gpu/drm/drm_fbdev_generic.c
+> +++ b/drivers/gpu/drm/drm_fbdev_generic.c
+> @@ -34,6 +34,10 @@ static int drm_fbdev_generic_fb_release(struct fb_info *info, int user)
+>   	return 0;
+>   }
+>   
+> +FB_GEN_DEFAULT_DEFERRED_SYS_OPS(drm_fbdev_generic,
+> +				drm_fb_helper_damage_range,
+> +				drm_fb_helper_damage_area);
+> +
+>   static void drm_fbdev_generic_fb_destroy(struct fb_info *info)
+>   {
+>   	struct drm_fb_helper *fb_helper = info->par;
+> @@ -56,13 +60,8 @@ static const struct fb_ops drm_fbdev_generic_fb_ops = {
+>   	.owner		= THIS_MODULE,
+>   	.fb_open	= drm_fbdev_generic_fb_open,
+>   	.fb_release	= drm_fbdev_generic_fb_release,
+> -	.fb_read	= drm_fb_helper_sys_read,
+> -	.fb_write	= drm_fb_helper_sys_write,
+> +	FB_DEFAULT_DEFERRED_OPS(drm_fbdev_generic),
+>   	DRM_FB_HELPER_DEFAULT_OPS,
+> -	.fb_fillrect	= drm_fb_helper_sys_fillrect,
+> -	.fb_copyarea	= drm_fb_helper_sys_copyarea,
+> -	.fb_imageblit	= drm_fb_helper_sys_imageblit,
+> -	.fb_mmap	= fb_deferred_io_mmap,
+>   	.fb_destroy	= drm_fbdev_generic_fb_destroy,
+>   };
+>   
+> diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
+> index 7d5804882be7..b50fd0c0b713 100644
+> --- a/include/drm/drm_fb_helper.h
+> +++ b/include/drm/drm_fb_helper.h
+> @@ -258,18 +258,6 @@ void drm_fb_helper_damage_area(struct fb_info *info, u32 x, u32 y, u32 width, u3
+>   
+>   void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagereflist);
+>   
+> -ssize_t drm_fb_helper_sys_read(struct fb_info *info, char __user *buf,
+> -			       size_t count, loff_t *ppos);
+> -ssize_t drm_fb_helper_sys_write(struct fb_info *info, const char __user *buf,
+> -				size_t count, loff_t *ppos);
+> -
+> -void drm_fb_helper_sys_fillrect(struct fb_info *info,
+> -				const struct fb_fillrect *rect);
+> -void drm_fb_helper_sys_copyarea(struct fb_info *info,
+> -				const struct fb_copyarea *area);
+> -void drm_fb_helper_sys_imageblit(struct fb_info *info,
+> -				 const struct fb_image *image);
+> -
+>   ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
+>   			       size_t count, loff_t *ppos);
+>   ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
+> @@ -397,35 +385,6 @@ static inline int drm_fb_helper_defio_init(struct drm_fb_helper *fb_helper)
+>   	return -ENODEV;
+>   }
+>   
+> -static inline ssize_t drm_fb_helper_sys_read(struct fb_info *info,
+> -					     char __user *buf, size_t count,
+> -					     loff_t *ppos)
+> -{
+> -	return -ENODEV;
+> -}
+> -
+> -static inline ssize_t drm_fb_helper_sys_write(struct fb_info *info,
+> -					      const char __user *buf,
+> -					      size_t count, loff_t *ppos)
+> -{
+> -	return -ENODEV;
+> -}
+> -
+> -static inline void drm_fb_helper_sys_fillrect(struct fb_info *info,
+> -					      const struct fb_fillrect *rect)
+> -{
+> -}
+> -
+> -static inline void drm_fb_helper_sys_copyarea(struct fb_info *info,
+> -					      const struct fb_copyarea *area)
+> -{
+> -}
+> -
+> -static inline void drm_fb_helper_sys_imageblit(struct fb_info *info,
+> -					       const struct fb_image *image)
+> -{
+> -}
+> -
+>   static inline ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
+>   					     size_t count, loff_t *ppos)
+>   {
