@@ -4,124 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3EAFC77B7C
-	for <amd-gfx@archiver.kernel.org>; Fri, 26 May 2023 07:27:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C495C77B7A
+	for <amd-gfx@archiver.kernel.org>; Fri, 26 May 2023 07:36:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE17310E7B3;
-	Fri, 26 May 2023 07:27:42 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2056.outbound.protection.outlook.com [40.107.92.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B12810E7AD;
- Fri, 26 May 2023 07:27:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aYv+db9IVNJduRE6Y0eJbLOqOtpmESvj9wCvCONA0Er9rh1DpgEolEGpEdnwVHL+oWkrdULh1VnMWeNN3FnB0UhF1HO5qfMwQXNwwI+wcryJtc/kg+6tpvPHdcWAPPMDZINtcQXuBeblx7HkgaevXI5rTsu44iAl/GSVFaBS/90wzV3V6dxLR7YQ6sjWOPkeifoVxOzfbaPZsUstD1APySYxel9/zssyT7YrPZ8RWxIfyY0ZaDciy1ykYIXpSpwF9zVm1wLH9wFx/uUIAr9LYOcHB1T4SWhJDh3eg36if1hXJTRLExpCE3tSg6o/sMsbAnD/x7bTfOMprIJg6a07Mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qlqCrwIS9z+twgOjkjcWlXPoO26XC6+w2JI/l8UDRRY=;
- b=HNj9zQshwu8y//0KPQhruMarHdxawPDtHaWm5al+t873fOYNuc3qy7om0qysu0Xe2DvgLttf2Y9cBg4kZZjsBspjE504Do5cpD30BqmH6pACdt0L0I4phvyMFuyMQnZBdmkw8okmQxSnv3J4q+QDClakb7PTG4HCp3lZiftkqgeOzr8xsULfomno/7rUe4FT9xDwAerB6DKIPsqswTx9Ra8Myf8tZultyNOYYFECuS6W4MazjumhENvtaqnBYHJ3e484y1okfYFuZg7u6YRjbEZ4G6Ex5gkOdKYga/BMqFimXDomx+mU3BToJ1P/A+Lb5aygIdkzttGz2YuMDTwpvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qlqCrwIS9z+twgOjkjcWlXPoO26XC6+w2JI/l8UDRRY=;
- b=e1xK9Uqh+k1tAfdq0964bwPLsuedDJLeQiCkbsZUxBSYGRBNMoNx0PrsQfNb77zZDsPx1svnHEa/J1o6o1eMyjqWkA1K4AVYBNt3Hc+Trc+O29G2oSPLtA0mFagkl2MpBaX+oIQU0VaFYvTdzNkUpSkFCH1pZ4E2gPqe34LMqXc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM4PR12MB6615.namprd12.prod.outlook.com (2603:10b6:8:8d::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6433.15; Fri, 26 May 2023 07:27:32 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e566:9ca5:28e0:a42b]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e566:9ca5:28e0:a42b%4]) with mapi id 15.20.6433.018; Fri, 26 May 2023
- 07:27:32 +0000
-Message-ID: <5b5c7b06-ef99-d275-3693-b2e3d114cac9@amd.com>
-Date: Fri, 26 May 2023 09:27:24 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12ACD10E186;
+	Fri, 26 May 2023 07:36:28 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BCFD10E186
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 May 2023 07:36:26 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-30a1fdde3d6so356977f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 26 May 2023 00:36:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1685086584; x=1687678584;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=urPBCDCBgOCMa6PsFgFh/szt7StOPYkBEfy3mW7fKfE=;
+ b=qOHkOljrSwNLVFym89LbvQ9+SPRrlH4bSNyJvbjsjd431lTMmtp4CfW8CFtmwZmslI
+ GaPQFR4hVxcxKbl0rxxC/RrMkQWvsPPzxv0BsqLbWEdJWOWSM1vIXQxDnY3kreCd3eQH
+ GjZBsgiZHadXFhlZXr7igUnSaCa7XXumZ/5loU4vTx9wadxA8a7jHAj/0nwIyMQrHvF0
+ 8wO+m7TnWaY7+KiwY28DpG+zlSpuJeCgt8XxXzywv/7O+P80A4TPZ6PbSgP4CZKqG8bw
+ 7K0KERL8NB+oXpV04DsFKYfvBUEL1SNhn203bW1hJ+9PB7pfoqgls9Gl1JmmwQLrWjsH
+ PmpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685086584; x=1687678584;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=urPBCDCBgOCMa6PsFgFh/szt7StOPYkBEfy3mW7fKfE=;
+ b=TbwgwL60NujbaDy2Dobij3zVNK53HiJFwAUMv59tF4riVBL11hGfLgH2yb9qmRrfVK
+ rzmg0Qx2sAhIiGHZyXLxBaByQQL0PjE1mCsb3eAzPDzKGaso7Rq3pTaTTPdh4xgUh4Y4
+ eulZ6NIwxnm0R3u5eAmU6q852F7L++gqzUOQpHEfu1yY4ars5yNDelE7Td4L4JS9H8Yk
+ P6yBGv/sHMtSPY44T+CfGI35CQrOOc5qi04wuOmFieT43ZNH/kAcsUgBnlTJJdUrgovm
+ GBnSguC/QAF+Ajb2u1TRZaXgig9G/XEhwnikDeIJ4OBjYSDtmILa/jHLpfWCbZrs+coB
+ xOiQ==
+X-Gm-Message-State: AC+VfDyb4rO6a3X7hN1awcRsGoGX8qHqMBIAlsh68NEP5FgxDGNoTy+w
+ mRMUdmQVHKK0vGbwSwEwoS8dPYcblY0=
+X-Google-Smtp-Source: ACHHUZ774pqOgzC2RD/qiha+17tm4m+0lacdnw242Lwh3K217zMQWfynmsxO9R/4+w22tVjKbDpxtg==
+X-Received: by 2002:adf:f0c5:0:b0:309:4100:7dde with SMTP id
+ x5-20020adff0c5000000b0030941007ddemr562514wro.28.1685086583761; 
+ Fri, 26 May 2023 00:36:23 -0700 (PDT)
+Received: from ?IPV6:2a00:e180:15f5:d00:c60a:fb98:931:83c4?
+ ([2a00:e180:15f5:d00:c60a:fb98:931:83c4])
+ by smtp.gmail.com with ESMTPSA id
+ t6-20020adff606000000b0030632833e74sm4175199wrp.11.2023.05.26.00.36.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 26 May 2023 00:36:23 -0700 (PDT)
+Message-ID: <4ec70816-e10d-1668-e3f4-cbf76f09506e@gmail.com>
+Date: Fri, 26 May 2023 09:36:22 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH] drm: Remove unnecessary (void*) conversions
+Subject: Re: [PATCH] drm/amdgpu: add a flag to indicate if a VM is attached to
+ fpriv
 Content-Language: en-US
-To: Su Hui <suhui@nfschina.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, evan.quan@amd.com,
- l.stach@pengutronix.de, linux+etnaviv@armlinux.org.uk,
- christian.gmeiner@gmail.com, bskeggs@redhat.com, kherbst@redhat.com,
- lyude@redhat.com, tomba@kernel.org, emma@anholt.net, airlied@redhat.com,
- kraxel@redhat.com, abrodkin@synopsys.com, ray.huang@amd.com,
- gurchetansingh@chromium.org, olvaffe@gmail.com, zackr@vmware.com,
- linux-graphics-maintainer@vmware.com, sumit.semwal@linaro.org
-References: <20230526033225.1310824-1-suhui@nfschina.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230526033225.1310824-1-suhui@nfschina.com>
+To: Guchun Chen <guchun.chen@amd.com>, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com, hawking.zhang@amd.com, lijo.lazar@amd.com,
+ Philip.Yang@amd.com, Felix.Kuehling@amd.com
+References: <20230524092326.1941139-1-guchun.chen@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230524092326.1941139-1-guchun.chen@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0186.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::13) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM4PR12MB6615:EE_
-X-MS-Office365-Filtering-Correlation-Id: 91c78d7a-0db9-491f-92b8-08db5dbaab28
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cntyKeaf0LUylv9dUiN4pVghtl3sjFllDigJFxLpMJdopBTXH/yxZFBfyo3Gub47ZeIplFgjeYbj3mMTZcMzoTw98+qjC0g+fTl54Q2pGLdUOUnSS/ss05Rtt2vP44V5F2x0KaPgQarZN3FK4Tn53TDzNS0iUE/Tls3AlCJ9E3w/wwbu+PQh9N02IF/Ja234FLJxUOL7fnNKeiQwB8rbaU7Cs0qxbEq7Xl9nwskA9f5YaDLG4gfAcKgB83+wxN19v7al60FZBkXslno/2OvUQgWW7z9r9dxEK64omcD7pwB+0N62StpVyOE22xE8LfzsLNzE+Q+UdHNbBsMXildt99COaalliRNhUSHryd8rci509LEqtkxGCazCeQ2nR4nXyZceg66pLW+Sv6keVrCT0yATtP8ADFodc7eadpGx2LCOardnTsIRFXvLZ1cj/lI8jV9yy7h1CS84aN1hX9kHCOw+/VoVsFzBltnSJt4+f4Zzhkzmun9S6tb4SedPy20EUPPfNyWrDMzHJGKxClPjBwJNnawBQ6OGji0zHLKppowlR/LPZqDs6NiXwhYmLQiU2eb9rfw4dAerqwGaxX9hM0iXqHvgSW1nqQGQwubNfqpH3jK7bltKRb541vlaaNj+oORkkDbWk1z0obU5p3Zu+yetaTiHkBSjlWLOw0WzjqY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(396003)(39860400002)(366004)(136003)(451199021)(4326008)(7416002)(36756003)(8676002)(5660300002)(8936002)(66556008)(66946007)(66476007)(316002)(478600001)(31686004)(110136005)(6486002)(41300700001)(6666004)(38100700002)(921005)(2906002)(6512007)(186003)(30864003)(83380400001)(6506007)(2616005)(31696002)(86362001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZU9tMzNpbyt2Q2ZOR094UTQ5bThzdmhXaVVrOW51c2UrSFRHQ0pOYm1DM3h5?=
- =?utf-8?B?MU5QUjJYcHNJZkRLcm56bERRNC9td3JiMlRjbG9ETGFZYjZLemFJanEwUG9U?=
- =?utf-8?B?cktWOXA4a1J5RVNSQmNkZ0t0eHZqM0QwZ29ENWwrbmVYMzh0VGxhSVYyOFBW?=
- =?utf-8?B?U2FqVEpna1RoNDhnUGdOcUdreHZaRlpBdEJrK2hQc1JpMTNQMFVXWlBoSmdV?=
- =?utf-8?B?VkNPVHY0QmE5WlFKQUxtODdnVWNQMmdEZGNKTUFSb0pqUVFUcEwrN2Z6WEZj?=
- =?utf-8?B?bmd5L1FvbHBlajREaWhlL0krSVNtSXdnSEpYeWxkeXBINXIvREQxMGlITHEz?=
- =?utf-8?B?Qzh0NTg4VHNuZU1RY01BNDBFTlFxOVJLeDFDdjZWWHJ0b25CSFArUkdUeU9h?=
- =?utf-8?B?M01hUnZnVkQwTkhKeSs4L1gyZ2NIVUZlbTBZYUg5WG9TdnJ3MFZxNlVFTHhv?=
- =?utf-8?B?czVEdlJBT0dFNU5SaHFqV1V2MGh2Vnd5QmJKclVoRXdtRVM1R1cremY0RXdF?=
- =?utf-8?B?ZDhRek5IUzQ0ak5md1lqY3JjMzVlbmtwWlFmczRuZENlUXRJRE1SQlk0VUZI?=
- =?utf-8?B?K2IzRldEWmRONTdTQjE0VXFjVUQxa1kyckExVFAydnhiWjQrUTBRTGZNdlpW?=
- =?utf-8?B?Nkt6UlUrd2sybDRjanU1NmtwQlBHSW10UEZma21OYnhmV2w4dDhqMmF1M04r?=
- =?utf-8?B?TTg5cVYzUzNMODM0cytGakhoY1ZDc3FQbFRiOVN5NjRkOXl1ZURhdGV2ZlhC?=
- =?utf-8?B?d21pWjI4Z1o3NzZTOWVSMGtHZDlXVDNoMXdtNzQyZldjR0pOTVV1YTFZN3E5?=
- =?utf-8?B?ajRJV1NndEd5N3psNk9rUFgrRHBtZ2JoUmJkOSt1bVVJSU5qUmVYaGhlVGY4?=
- =?utf-8?B?ZEhTRC9GM1NOSjNncG15UzN1Qi9GRjM0L1RubGRvdXE1M2hrTndEdVFDK2w0?=
- =?utf-8?B?TzhBYXJWWHBjRFRXaDNhcXN0OC9OMnFjLzY1K0crOEpkNTRWQTNhUTVxaFYz?=
- =?utf-8?B?elF0WFU3REEvZlhlQ0dJdzg5RWlpT3Y0bnpCSVVvWnR1S0xzcUNWRFZCRklH?=
- =?utf-8?B?Ni9mTjdOQ1hISzh2MnI4cFMvOHdWanNCd1R1VnhDS0JHM0JKeHI0djVyeVhh?=
- =?utf-8?B?cHR5ajFjMXkzd04rV1MzVGNCQnhhQ0h2WlVKK2d6ZldpQTNMT1k5RVN5VDR3?=
- =?utf-8?B?SGsyV1BHV3JPVVk4RmtMNU55cUZYRVVGMktYVUY4eDd1Z2RDMHlUT3k5MDlm?=
- =?utf-8?B?SW4vTmh5cTVaMnppbGdPWXEzYzVxdUxhb1NOdHdFQSttNUY3Vi83amR1bGFr?=
- =?utf-8?B?Z3R6UTlwSWxVZGRLZWpWM1B1UWovK2t3VFVEdng4ai9vbmhUR0Y4bG9Qc25v?=
- =?utf-8?B?QWdjQUdNSE11dXZrNXFlRUk0Sk1tbFc4NU9maFZ5V3ZON2xYT3BDSGJhcjhT?=
- =?utf-8?B?bFpyMHUzSDh0ajRxVXJudlR6eUFnczNSOEVSRGpzMkpDTmRsL2dienF3OVFQ?=
- =?utf-8?B?T1poenN1K1JCRWs2Nmd3ZDhXa3QwUDhIV0doMUhKSU8reDhvMDNBeVdiZGdz?=
- =?utf-8?B?T2lFRHhqSmxSbHRZWThpc2xjOXpwcWlNTWttcm5yVmlVVU9Vb3NJTkRRaVNJ?=
- =?utf-8?B?S2oyRGNtcis4T1lBTUFxT0ttUStRN2Z5VkN4ZktsdzhOaXBDNEsrb08rWkJE?=
- =?utf-8?B?SmJZQlIxWXNGbHFpdWZpUFF4ZmNXWmM5TzdQZWg4b1UxbWM5NTg3Q0NMek9n?=
- =?utf-8?B?QXhTTktHR3RhdklpazdrUm5aTGFrZmRKbEZOeE1wVjg1N0JYNVZ6eDNVRkp0?=
- =?utf-8?B?SGh6N3RkeWJaYXREbWFzTFRUNHFkZk9ROXdkL3F2M1dHY3gzZUIvQ1BDak9B?=
- =?utf-8?B?UXppSCtONmtUeDNSYzA3MUFOZENlb3RLeU1qekRXdndCdXdKOXRzVXNnZ2JW?=
- =?utf-8?B?TnN0R1VwWjZiNmZXYXZFdHdzNlhUdlFDREZ4bHM0WTlseEhBUFpteTNlS0Q2?=
- =?utf-8?B?NlQ4T1EzaWtmSmNWZVBjTFZCc1kwV0lxOEZneXVvcklIVUlKSjd6RHRNamVO?=
- =?utf-8?B?TnBmYzRSeHIyR3JBd3pjY2hQNDAwTVhuM0xXNEJwTlk3cjZ0dW95QmpIUXlS?=
- =?utf-8?B?bHhtRFVXVUQ3RE5lbE9YZVBNM1R5TlpPL2tJRU5qK2FPUzFWTzlvZ0ZVenZT?=
- =?utf-8?Q?Tns36qVVX5qwUwl5/eDi2zujO/UfuihOvOrh+Kbo16ls?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91c78d7a-0db9-491f-92b8-08db5dbaab28
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2023 07:27:32.2476 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l8jyQr1zHk7Y5ehS67v5Ju8wlz/8amvecN3eo4KVd1O85TLDdXh8nvkG+VVjyWcD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6615
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,259 +79,173 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linaro-mm-sig@lists.linaro.org,
- amd-gfx@lists.freedesktop.org, spice-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 26.05.23 um 05:32 schrieb Su Hui:
-> Pointer variables of (void*) type do not require type cast.
+Am 24.05.23 um 11:23 schrieb Guchun Chen:
+> Recent code stores xcp_id to amdgpu bo for accounting memory
+> usage or find correct KFD node, and this xcp_id is from file
+> private data after opening device. However, not all VMs are
+> attached to this fpriv structure like the case in amdgpu_mes_self_test.
+> So add a flag to differentiate the cases. Otherwise, KASAN will
+> complain out of bound access.
 
-Please split that up by subsystem/driver. Taking it through the misc 
-tree might just cause merge conflicts.
+The VM code shouldn't touch the fpriv in any way possible in the first 
+place.
+
+Instead we should provide the xcp_id during amdgpu_vm_init() and use it 
+to allocate the root PD. All other PDs/PTs should then just use the 
+xcp_id from the root PD.
 
 Christian.
 
 >
-> Signed-off-by: Su Hui <suhui@nfschina.com>
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 2 +-
->   drivers/gpu/drm/amd/pm/amdgpu_pm.c                        | 2 +-
->   drivers/gpu/drm/etnaviv/etnaviv_drv.c                     | 4 ++--
->   drivers/gpu/drm/nouveau/nouveau_debugfs.c                 | 2 +-
->   drivers/gpu/drm/omapdrm/omap_debugfs.c                    | 6 +++---
->   drivers/gpu/drm/pl111/pl111_debugfs.c                     | 2 +-
->   drivers/gpu/drm/qxl/qxl_debugfs.c                         | 4 ++--
->   drivers/gpu/drm/tiny/arcpgu.c                             | 2 +-
->   drivers/gpu/drm/ttm/ttm_resource.c                        | 3 +--
->   drivers/gpu/drm/virtio/virtgpu_debugfs.c                  | 6 +++---
->   drivers/gpu/drm/vmwgfx/ttm_object.c                       | 5 ++---
->   drivers/gpu/drm/vmwgfx/vmwgfx_gem.c                       | 2 +-
->   12 files changed, 19 insertions(+), 21 deletions(-)
+> [   77.292314] BUG: KASAN: slab-out-of-bounds in amdgpu_vm_pt_create+0x17e/0x4b0 [amdgpu]
+> [   77.293845] Read of size 4 at addr ffff888102c48a48 by task modprobe/1069
+> [   77.294146] Call Trace:
+> [   77.294178]  <TASK>
+> [   77.294208]  dump_stack_lvl+0x49/0x63
+> [   77.294260]  print_report+0x16f/0x4a6
+> [   77.294307]  ? amdgpu_vm_pt_create+0x17e/0x4b0 [amdgpu]
+> [   77.295979]  ? kasan_complete_mode_report_info+0x3c/0x200
+> [   77.296057]  ? amdgpu_vm_pt_create+0x17e/0x4b0 [amdgpu]
+> [   77.297556]  kasan_report+0xb4/0x130
+> [   77.297609]  ? amdgpu_vm_pt_create+0x17e/0x4b0 [amdgpu]
+> [   77.299202]  __asan_load4+0x6f/0x90
+> [   77.299272]  amdgpu_vm_pt_create+0x17e/0x4b0 [amdgpu]
+> [   77.300796]  ? amdgpu_init+0x6e/0x1000 [amdgpu]
+> [   77.302222]  ? amdgpu_vm_pt_clear+0x750/0x750 [amdgpu]
+> [   77.303721]  ? preempt_count_sub+0x18/0xc0
+> [   77.303786]  amdgpu_vm_init+0x39e/0x870 [amdgpu]
+> [   77.305186]  ? amdgpu_vm_wait_idle+0x90/0x90 [amdgpu]
+> [   77.306683]  ? kasan_set_track+0x25/0x30
+> [   77.306737]  ? kasan_save_alloc_info+0x1b/0x30
+> [   77.306795]  ? __kasan_kmalloc+0x87/0xa0
+> [   77.306852]  amdgpu_mes_self_test+0x169/0x620 [amdgpu]
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> index 827fcb4fb3b3..8a2c39927167 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> @@ -3312,7 +3312,7 @@ static ssize_t dtn_log_write(
+> Fixes: ffc6deb773f7("drm/amdkfd: Store xcp partition id to amdgpu bo")
+> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c   |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c   |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  5 ++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  5 ++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 12 +++++++++---
+>   5 files changed, 19 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 41d047e5de69..79b80f9233db 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -1229,7 +1229,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+>   		pasid = 0;
+>   	}
 >   
->   static int mst_topo_show(struct seq_file *m, void *unused)
->   {
-> -	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
-> +	struct amdgpu_device *adev = m->private;
->   	struct drm_device *dev = adev_to_drm(adev);
->   	struct drm_connector *connector;
->   	struct drm_connector_list_iter conn_iter;
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> index 58c2246918fd..e6c870bd307b 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -3671,7 +3671,7 @@ static void amdgpu_parse_cg_state(struct seq_file *m, u64 flags)
+> -	r = amdgpu_vm_init(adev, &fpriv->vm);
+> +	r = amdgpu_vm_init(adev, &fpriv->vm, true);
+>   	if (r)
+>   		goto error_pasid;
 >   
->   static int amdgpu_debugfs_pm_info_show(struct seq_file *m, void *unused)
->   {
-> -	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
-> +	struct amdgpu_device *adev = m->private;
->   	struct drm_device *dev = adev_to_drm(adev);
->   	u64 flags = 0;
->   	int r;
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> index 31a7f59ccb49..dd57f7164e9a 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-> @@ -198,7 +198,7 @@ static int etnaviv_ring_show(struct etnaviv_gpu *gpu, struct seq_file *m)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> index 49bb6c03d606..3be5219edf88 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -1345,7 +1345,7 @@ int amdgpu_mes_self_test(struct amdgpu_device *adev)
+>   		goto error_pasid;
+>   	}
 >   
->   static int show_unlocked(struct seq_file *m, void *arg)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *) m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct drm_device *dev = node->minor->dev;
->   	int (*show)(struct drm_device *dev, struct seq_file *m) =
->   			node->info_ent->data;
-> @@ -208,7 +208,7 @@ static int show_unlocked(struct seq_file *m, void *arg)
->   
->   static int show_each_gpu(struct seq_file *m, void *arg)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *) m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct drm_device *dev = node->minor->dev;
->   	struct etnaviv_drm_private *priv = dev->dev_private;
->   	struct etnaviv_gpu *gpu;
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_debugfs.c b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> index 2a36d1ca8fda..96b59d5d68ed 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
-> @@ -37,7 +37,7 @@
->   static int
->   nouveau_debugfs_vbios_image(struct seq_file *m, void *data)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *) m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct nouveau_drm *drm = nouveau_drm(node->minor->dev);
->   	int i;
->   
-> diff --git a/drivers/gpu/drm/omapdrm/omap_debugfs.c b/drivers/gpu/drm/omapdrm/omap_debugfs.c
-> index a3d470468e5b..a94ce502e152 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_debugfs.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_debugfs.c
-> @@ -19,7 +19,7 @@
->   
->   static int gem_show(struct seq_file *m, void *arg)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *) m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct drm_device *dev = node->minor->dev;
->   	struct omap_drm_private *priv = dev->dev_private;
->   
-> @@ -33,7 +33,7 @@ static int gem_show(struct seq_file *m, void *arg)
->   
->   static int mm_show(struct seq_file *m, void *arg)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *) m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct drm_device *dev = node->minor->dev;
->   	struct drm_printer p = drm_seq_file_printer(m);
->   
-> @@ -45,7 +45,7 @@ static int mm_show(struct seq_file *m, void *arg)
->   #ifdef CONFIG_DRM_FBDEV_EMULATION
->   static int fb_show(struct seq_file *m, void *arg)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *) m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct drm_device *dev = node->minor->dev;
->   	struct drm_fb_helper *helper = dev->fb_helper;
->   	struct drm_framebuffer *fb;
-> diff --git a/drivers/gpu/drm/pl111/pl111_debugfs.c b/drivers/gpu/drm/pl111/pl111_debugfs.c
-> index 6744fa16f464..4df03ec5d368 100644
-> --- a/drivers/gpu/drm/pl111/pl111_debugfs.c
-> +++ b/drivers/gpu/drm/pl111/pl111_debugfs.c
-> @@ -32,7 +32,7 @@ static const struct {
->   
->   static int pl111_debugfs_regs(struct seq_file *m, void *unused)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *)m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct drm_device *dev = node->minor->dev;
->   	struct pl111_drm_dev_private *priv = dev->dev_private;
->   	int i;
-> diff --git a/drivers/gpu/drm/qxl/qxl_debugfs.c b/drivers/gpu/drm/qxl/qxl_debugfs.c
-> index 2d9ed3b94574..5b4fe3049529 100644
-> --- a/drivers/gpu/drm/qxl/qxl_debugfs.c
-> +++ b/drivers/gpu/drm/qxl/qxl_debugfs.c
-> @@ -38,7 +38,7 @@
->   static int
->   qxl_debugfs_irq_received(struct seq_file *m, void *data)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *) m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct qxl_device *qdev = to_qxl(node->minor->dev);
->   
->   	seq_printf(m, "%d\n", atomic_read(&qdev->irq_received));
-> @@ -52,7 +52,7 @@ qxl_debugfs_irq_received(struct seq_file *m, void *data)
->   static int
->   qxl_debugfs_buffers_info(struct seq_file *m, void *data)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *) m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct qxl_device *qdev = to_qxl(node->minor->dev);
->   	struct qxl_bo *bo;
->   
-> diff --git a/drivers/gpu/drm/tiny/arcpgu.c b/drivers/gpu/drm/tiny/arcpgu.c
-> index e5b10e41554a..09f728355aba 100644
-> --- a/drivers/gpu/drm/tiny/arcpgu.c
-> +++ b/drivers/gpu/drm/tiny/arcpgu.c
-> @@ -338,7 +338,7 @@ static int arcpgu_unload(struct drm_device *drm)
->   #ifdef CONFIG_DEBUG_FS
->   static int arcpgu_show_pxlclock(struct seq_file *m, void *arg)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *)m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct drm_device *drm = node->minor->dev;
->   	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(drm);
->   	unsigned long clkrate = clk_get_rate(arcpgu->clk);
-> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-> index 7333f7a87a2f..540faabcf8a4 100644
-> --- a/drivers/gpu/drm/ttm/ttm_resource.c
-> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
-> @@ -727,9 +727,8 @@ ttm_kmap_iter_linear_io_fini(struct ttm_kmap_iter_linear_io *iter_io,
->   
->   static int ttm_resource_manager_show(struct seq_file *m, void *unused)
->   {
-> -	struct ttm_resource_manager *man =
-> -		(struct ttm_resource_manager *)m->private;
->   	struct drm_printer p = drm_seq_file_printer(m);
-> +	struct ttm_resource_manager *man = m->private;
->   	ttm_resource_manager_debug(man, &p);
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_debugfs.c b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-> index 853dd9aa397e..577691af9707 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_debugfs.c
-> @@ -43,7 +43,7 @@ static void virtio_gpu_add_int(struct seq_file *m, const char *name, int value)
->   
->   static int virtio_gpu_features(struct seq_file *m, void *data)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *)m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct virtio_gpu_device *vgdev = node->minor->dev->dev_private;
->   
->   	virtio_gpu_add_bool(m, "virgl", vgdev->has_virgl_3d);
-> @@ -68,7 +68,7 @@ static int virtio_gpu_features(struct seq_file *m, void *data)
->   static int
->   virtio_gpu_debugfs_irq_info(struct seq_file *m, void *data)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *) m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct virtio_gpu_device *vgdev = node->minor->dev->dev_private;
->   
->   	seq_printf(m, "fence %llu %lld\n",
-> @@ -80,7 +80,7 @@ virtio_gpu_debugfs_irq_info(struct seq_file *m, void *data)
->   static int
->   virtio_gpu_debugfs_host_visible_mm(struct seq_file *m, void *data)
->   {
-> -	struct drm_info_node *node = (struct drm_info_node *)m->private;
-> +	struct drm_info_node *node = m->private;
->   	struct virtio_gpu_device *vgdev = node->minor->dev->dev_private;
->   	struct drm_printer p;
->   
-> diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx/ttm_object.c
-> index ddf8373c1d77..e9e3cc8f5b49 100644
-> --- a/drivers/gpu/drm/vmwgfx/ttm_object.c
-> +++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
-> @@ -513,8 +513,7 @@ static void ttm_prime_refcount_release(struct ttm_base_object **p_base)
+> -	r = amdgpu_vm_init(adev, vm);
+> +	r = amdgpu_vm_init(adev, vm, false);
+>   	if (r) {
+>   		DRM_ERROR("failed to initialize vm\n");
+>   		goto error_pasid;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 37b9d8a8dbec..47ffaa1526a0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2099,13 +2099,15 @@ long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout)
+>    *
+>    * @adev: amdgpu_device pointer
+>    * @vm: requested vm
+> + * @vm_attach_to_fpriv: flag to tell if vm is attached to file private data
+>    *
+>    * Init @vm fields.
+>    *
+>    * Returns:
+>    * 0 for success, error for failure.
 >    */
->   static void ttm_prime_dmabuf_release(struct dma_buf *dma_buf)
+> -int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+> +int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+> +		   bool vm_attach_to_fpriv)
 >   {
-> -	struct ttm_prime_object *prime =
-> -		(struct ttm_prime_object *) dma_buf->priv;
-> +	struct ttm_prime_object *prime = dma_buf->priv;
->   	struct ttm_base_object *base = &prime->base;
->   	struct ttm_object_device *tdev = base->tfile->tdev;
+>   	struct amdgpu_bo *root_bo;
+>   	struct amdgpu_bo_vm *root;
+> @@ -2131,6 +2133,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm)
 >   
-> @@ -554,7 +553,7 @@ int ttm_prime_fd_to_handle(struct ttm_object_file *tfile,
->   	if (dma_buf->ops != &tdev->ops)
->   		return -ENOSYS;
+>   	vm->pte_support_ats = false;
+>   	vm->is_compute_context = false;
+> +	vm->vm_attach_to_fpriv = vm_attach_to_fpriv;
 >   
-> -	prime = (struct ttm_prime_object *) dma_buf->priv;
-> +	prime = dma_buf->priv;
->   	base = &prime->base;
->   	*handle = base->handle;
->   	ret = ttm_ref_object_add(tfile, base, NULL, false);
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> index c0da89e16e6f..3267a4e61382 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> @@ -220,7 +220,7 @@ static void vmw_bo_print_info(int id, struct vmw_bo *bo, struct seq_file *m)
+>   	vm->use_cpu_for_update = !!(adev->vm_manager.vm_update_mode &
+>   				    AMDGPU_VM_USE_CPU_FOR_GFX);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index d551fca1780e..62ed14b1fc16 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -333,6 +333,9 @@ struct amdgpu_vm {
+>   	/* Flag to indicate if VM is used for compute */
+>   	bool			is_compute_context;
 >   
->   static int vmw_debugfs_gem_info_show(struct seq_file *m, void *unused)
+> +	/* Flag to tell if VM is attached to file private data */
+> +	bool vm_attach_to_fpriv;
+> +
+>   	/* Memory partition number, -1 means any partition */
+>   	int8_t			mem_id;
+>   };
+> @@ -392,7 +395,7 @@ int amdgpu_vm_set_pasid(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   			u32 pasid);
+>   
+>   long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout);
+> -int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+> +int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm, bool vm_attach_to_fpriv);
+>   int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+>   void amdgpu_vm_release_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+>   void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index cc3b1b596e56..16b3350aa896 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -502,7 +502,7 @@ int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   			int level, bool immediate, struct amdgpu_bo_vm **vmbo)
 >   {
-> -	struct vmw_private *vdev = (struct vmw_private *)m->private;
-> +	struct vmw_private *vdev = m->private;
->   	struct drm_device *dev = &vdev->drm;
->   	struct drm_file *file;
->   	int r;
+> -	struct amdgpu_fpriv *fpriv = container_of(vm, struct amdgpu_fpriv, vm);
+> +	struct amdgpu_fpriv *fpriv;
+>   	struct amdgpu_bo_param bp;
+>   	struct amdgpu_bo *bo;
+>   	struct dma_resv *resv;
+> @@ -535,7 +535,10 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   
+>   	bp.type = ttm_bo_type_kernel;
+>   	bp.no_wait_gpu = immediate;
+> -	bp.xcp_id_plus1 = fpriv->xcp_id == ~0 ? 0 : fpriv->xcp_id + 1;
+> +	if (vm->vm_attach_to_fpriv) {
+> +		fpriv = container_of(vm, struct amdgpu_fpriv, vm);
+> +		bp.xcp_id_plus1 = fpriv->xcp_id == ~0 ? 0 : fpriv->xcp_id + 1;
+> +	}
+>   
+>   	if (vm->root.bo)
+>   		bp.resv = vm->root.bo->tbo.base.resv;
+> @@ -561,7 +564,10 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	bp.type = ttm_bo_type_kernel;
+>   	bp.resv = bo->tbo.base.resv;
+>   	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
+> -	bp.xcp_id_plus1 = fpriv->xcp_id == ~0 ? 0 : fpriv->xcp_id + 1;
+> +	if (vm->vm_attach_to_fpriv) {
+> +		fpriv = container_of(vm, struct amdgpu_fpriv, vm);
+> +		bp.xcp_id_plus1 = fpriv->xcp_id == ~0 ? 0 : fpriv->xcp_id + 1;
+> +	}
+>   
+>   	r = amdgpu_bo_create(adev, &bp, &(*vmbo)->shadow);
+>   
 
