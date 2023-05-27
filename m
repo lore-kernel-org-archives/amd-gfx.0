@@ -4,51 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B83EC77B73
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 May 2023 16:13:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88F14C77B73
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 May 2023 16:42:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD7C610E243;
-	Sat, 27 May 2023 16:13:13 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 256EA10E164;
- Sat, 27 May 2023 16:13:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685203991; x=1716739991;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=HRz+uuIx0+xElN7wrpO41PLA0XnkoBsOOVf57+jeZVs=;
- b=XJnoatpkjlBO2Zpnjhn7zf2JbsYOJJgIvKrLmN0a2ThehJ3G4efDu75S
- VkGKRuX9nH6ni8RCTdmGFWuhvhViKD9QaCcxuft9AbQudm2A751C7zeob
- wZcaqIb9HxlIrqNRmJ2uk2Q1RBRc0eRSX/NfZPoUIn1i+v/pJnIMZi3/6
- wuUyK2GAz5mH9tZy/xWIRuJEfKOlHL/MGfFuM5mkzJg1KKKjePDhUPQYx
- eJ6twblxteXZOYGqO8W5/pqM4J5I1oTagoC8a080uYsABlT3IXMUx6099
- jPg2VYlkg5ljBQ85YH1peDbTCDBN+E5eHJnUamebaMkc+1uUN5cL+3ozb A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10723"; a="356796435"
-X-IronPort-AV: E=Sophos;i="6.00,197,1681196400"; d="scan'208";a="356796435"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2023 09:13:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10723"; a="1035682343"
-X-IronPort-AV: E=Sophos;i="6.00,197,1681196400"; d="scan'208";a="1035682343"
-Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
- by fmsmga005.fm.intel.com with ESMTP; 27 May 2023 09:13:06 -0700
-Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1q2wXS-000K3U-0t;
- Sat, 27 May 2023 16:13:06 +0000
-Date: Sun, 28 May 2023 00:12:32 +0800
-From: kernel test robot <lkp@intel.com>
-To: Min Li <lm0963hack@gmail.com>, alexander.deucher@amd.com
-Subject: Re: [PATCH] drm/radeon: fix race condition UAF in
- radeon_gem_set_domain_ioctl
-Message-ID: <202305272311.JHzuoUJZ-lkp@intel.com>
-References: <20230526123753.16160-1-lm0963hack@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BA6110E247;
+	Sat, 27 May 2023 16:42:33 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6820610E247
+ for <amd-gfx@lists.freedesktop.org>; Sat, 27 May 2023 16:42:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kyulSJ3lqPoC3ucnLeCtdWo/32tuaStcQliPezUfruJGLxzoRCvaeVMKMm20BUWEyTsRIX5E9JnjjcIzIs0GsNBeV+usewnZUBcH3XJdsGaW8KbaUSYb/32uyfkSQSIi8CV0+ePDbok4RiNyGYkuQtno7nyt0emk9LW7sqPL58G1G5apH438k4V02Q6nDY4kO0y+/cIsWpwY+tIyn9ADnzFcrUhbhXhdYkmAUnGoMjKVjmfdM+hY46+A6HKGPVf7dLuxtjniENNG5z39qx7Vwum6ObrK81X3MAKKnYGXA+ejfmtV02sB4W4OpFCIPbgJc88dQp2A/TUjRf//Y584ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kbEMUiipncUW6IK/uaqJd0xNtgmRNsqTJed+qREZKzc=;
+ b=mS7CE/2me54L/vATuc7w3BldMOSWZNBSNiz5LVIy3q8utWvQ3pcFXEhcH6PysaZOw1ijya5QZkXNsTu7I5HYM5ojLwqUpfobHZWI8cpzzCRr/z2cwE6HWqBLWzQp9tTWv5N5IP5MR5SCLrdQT1XNR1UgXqeOLMLUMs73aPJv+cxvGvhFReqcfRaOwI4AHPEGd7drc6/PKnSuScXcCopDBlccqv1lPVLwe1EAIaxUfn2c7dnLGa6iVFSOY/80i35xobfw2gWHNtWZvmftHmNgvozVjy661C6Ke2Dg0RqyTDSm16nWZUkwOkNdbqgiKKRcXI5Q9ULDs5Qvlq60h+AVLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kbEMUiipncUW6IK/uaqJd0xNtgmRNsqTJed+qREZKzc=;
+ b=x7zjSdeXXm3cV88+44YG/xVwwfYAUVfep871yUEB2AlY1ujiZcQ9TwNdXWjTF7ezt/CiMjzV5jS02c5dohqCdkUdrb26USJEPaujjkxyK2xk9HteRByLLIMTxAY5gC5HTmF5XI6vKxZlSNta7rCXhFLdXuMcJnAjnO8+teewCI8=
+Received: from MW4PR04CA0130.namprd04.prod.outlook.com (2603:10b6:303:84::15)
+ by SA0PR12MB4400.namprd12.prod.outlook.com (2603:10b6:806:95::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.19; Sat, 27 May
+ 2023 16:42:27 +0000
+Received: from CO1NAM11FT096.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:84:cafe::73) by MW4PR04CA0130.outlook.office365.com
+ (2603:10b6:303:84::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.19 via Frontend
+ Transport; Sat, 27 May 2023 16:42:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT096.mail.protection.outlook.com (10.13.175.84) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6433.18 via Frontend Transport; Sat, 27 May 2023 16:42:27 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sat, 27 May
+ 2023 11:42:23 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, Harry Wentland <Harry.Wentland@amd.com>
+Subject: [PATCH] drm/amd/display: Fix up kdoc formats in dcn32_fpu.c
+Date: Sat, 27 May 2023 22:12:07 +0530
+Message-ID: <20230527164207.1527732-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230526123753.16160-1-lm0963hack@gmail.com>
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT096:EE_|SA0PR12MB4400:EE_
+X-MS-Office365-Filtering-Correlation-Id: 37594fea-0fb7-420c-24b3-08db5ed15b0c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: C9u1i1B/CcyfgJHX3wt05gsMbGR/iIpQ2UcdA1fx7XhWCyXvB33nEGjMfZDTPLYqvEMiuxX/Ry6rYm1XVO/kv++0dB72Cx8gAwYSN8bdRoVcgT65VlMfs5KXFr/yaAwFRDXUFniFlCI/4GKyoyKcp3QPiJ1s1Ak8B/DQQ4XB90QSl1sj9L0/OEo93ZWOi6rmqeuzADlzBvV9nga+jC8Q24I3qfOsGhV26gJgFnc89PR74Wno7/KYZOGtGf1j3DPMX1twileXgQaUPJyhm6mLWt9zyQgR8we0wBgw/jQiWPaEqVldfqt+S65Kwzxxc3UTX17mdkbNr+PPDu/yF64n2XNd5BZq/Tn4nN8zx26Va8FD2VMM1GIO/Siv3L8+NzZz44b5Hn05ZSpyn+3WiiKqZZN3x2/OjIO3X+TJO5Cow8D3YC6NFllWcNO2zevqF1Gqq/ND9yNC/cc7gQfl69p8R2xMr8ussPklG8wtvmqMgs0lXB7lb8HEOOirwujDkNri7nwueAAeVqMZkqRnk6oZNe3PxEFIotGAIh/DLAhwGMRR7S4jTmKl3wbPop5uq3goTEvR3fG3lWfsNxTWtxO43T+pT/zyN1v0jMRvsS0y/Zfor7YSmy12ueqlInKjRb4sWE5NokMusK2KTN0ZwP1628+Hln/5wzXpvNQuAkEysKsas+BGWfuTzXuBJWOMP4uGo+cC5Evb9TW95Y5ptIo6zhRPUZS6AmWT2iv6fs+akgZ+G//2N50ILT1KBuvn+7LTxmTqGFL2smCRVIdQa+Otpg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199021)(36840700001)(40470700004)(46966006)(82310400005)(44832011)(5660300002)(8936002)(40460700003)(8676002)(478600001)(54906003)(110136005)(7696005)(81166007)(40480700001)(316002)(6666004)(70206006)(6636002)(70586007)(4326008)(356005)(82740400003)(36756003)(2616005)(86362001)(16526019)(186003)(2906002)(336012)(36860700001)(426003)(83380400001)(41300700001)(47076005)(1076003)(26005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2023 16:42:27.0349 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37594fea-0fb7-420c-24b3-08db5ed15b0c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT096.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4400
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,92 +98,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, oe-kbuild-all@lists.linux.dev, airlied@gmail.com,
- christian.koenig@amd.com, linux-media@vger.kernel.org
+Cc: Harry Wentland <harry.wentland@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Min,
+Fixes the following gcc with W=1:
 
-kernel test robot noticed the following build warnings:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2806: warning: Cannot understand  * *************************************************************************
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2855: warning: Cannot understand  * *************************************************************************
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2900: warning: Function parameter or member 'dc' not described in 'dcn32_assign_fpo_vactive_candidate'
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2900: warning: Function parameter or member 'context' not described in 'dcn32_assign_fpo_vactive_candidate'
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2900: warning: Function parameter or member 'fpo_candidate_stream' not described in 'dcn32_assign_fpo_vactive_candidate'
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2929: warning: Function parameter or member 'dc' not described in 'dcn32_find_vactive_pipe'
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2929: warning: Function parameter or member 'context' not described in 'dcn32_find_vactive_pipe'
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2929: warning: Function parameter or member 'vactive_margin_req_us' not described in 'dcn32_find_vactive_pipe'
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v6.4-rc3 next-20230525]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 46 +++++++++----------
+ 1 file changed, 22 insertions(+), 24 deletions(-)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Min-Li/drm-radeon-fix-race-condition-UAF-in-radeon_gem_set_domain_ioctl/20230527-155623
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230526123753.16160-1-lm0963hack%40gmail.com
-patch subject: [PATCH] drm/radeon: fix race condition UAF in radeon_gem_set_domain_ioctl
-config: riscv-randconfig-r042-20230526 (https://download.01.org/0day-ci/archive/20230527/202305272311.JHzuoUJZ-lkp@intel.com/config)
-compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project 4faf3aaf28226a4e950c103a14f6fc1d1fdabb1b)
-reproduce (this is a W=1 build):
-        mkdir -p ~/bin
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # install riscv cross compiling tool for clang build
-        # apt-get install binutils-riscv64-linux-gnu
-        # https://github.com/intel-lab-lkp/linux/commit/66fb975494d21e80b90235b7d8bf0953990c5c89
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Min-Li/drm-radeon-fix-race-condition-UAF-in-radeon_gem_set_domain_ioctl/20230527-155623
-        git checkout 66fb975494d21e80b90235b7d8bf0953990c5c89
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang ~/bin/make.cross W=1 O=build_dir ARCH=riscv olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang ~/bin/make.cross W=1 O=build_dir ARCH=riscv SHELL=/bin/bash drivers/gpu/drm/radeon/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202305272311.JHzuoUJZ-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/radeon/radeon_gem.c:462:20: warning: variable 'robj' set but not used [-Wunused-but-set-variable]
-           struct radeon_bo *robj;
-                             ^
-   1 warning generated.
-
-
-vim +/robj +462 drivers/gpu/drm/radeon/radeon_gem.c
-
-f72a113a71ab08 Christian König 2014-08-07  453  
-771fe6b912fca5 Jerome Glisse   2009-06-05  454  int radeon_gem_set_domain_ioctl(struct drm_device *dev, void *data,
-771fe6b912fca5 Jerome Glisse   2009-06-05  455  				struct drm_file *filp)
-771fe6b912fca5 Jerome Glisse   2009-06-05  456  {
-771fe6b912fca5 Jerome Glisse   2009-06-05  457  	/* transition the BO to a domain -
-771fe6b912fca5 Jerome Glisse   2009-06-05  458  	 * just validate the BO into a certain domain */
-dee53e7fb3ee01 Jerome Glisse   2012-07-02  459  	struct radeon_device *rdev = dev->dev_private;
-771fe6b912fca5 Jerome Glisse   2009-06-05  460  	struct drm_radeon_gem_set_domain *args = data;
-771fe6b912fca5 Jerome Glisse   2009-06-05  461  	struct drm_gem_object *gobj;
-4c7886791264f0 Jerome Glisse   2009-11-20 @462  	struct radeon_bo *robj;
-771fe6b912fca5 Jerome Glisse   2009-06-05  463  	int r;
-771fe6b912fca5 Jerome Glisse   2009-06-05  464  
-771fe6b912fca5 Jerome Glisse   2009-06-05  465  	/* for now if someone requests domain CPU -
-771fe6b912fca5 Jerome Glisse   2009-06-05  466  	 * just make sure the buffer is finished with */
-dee53e7fb3ee01 Jerome Glisse   2012-07-02  467  	down_read(&rdev->exclusive_lock);
-771fe6b912fca5 Jerome Glisse   2009-06-05  468  
-771fe6b912fca5 Jerome Glisse   2009-06-05  469  	/* just do a BO wait for now */
-a8ad0bd84f9860 Chris Wilson    2016-05-09  470  	gobj = drm_gem_object_lookup(filp, args->handle);
-771fe6b912fca5 Jerome Glisse   2009-06-05  471  	if (gobj == NULL) {
-dee53e7fb3ee01 Jerome Glisse   2012-07-02  472  		up_read(&rdev->exclusive_lock);
-bf79cb914dbfe8 Chris Wilson    2010-08-04  473  		return -ENOENT;
-771fe6b912fca5 Jerome Glisse   2009-06-05  474  	}
-7e4d15d90afe46 Daniel Vetter   2011-02-18  475  	robj = gem_to_radeon_bo(gobj);
-771fe6b912fca5 Jerome Glisse   2009-06-05  476  
-771fe6b912fca5 Jerome Glisse   2009-06-05  477  	r = radeon_gem_set_domain(gobj, args->read_domains, args->write_domain);
-771fe6b912fca5 Jerome Glisse   2009-06-05  478  
-f11fb66ae92193 Emil Velikov    2020-05-15  479  	drm_gem_object_put(gobj);
-dee53e7fb3ee01 Jerome Glisse   2012-07-02  480  	up_read(&rdev->exclusive_lock);
-66fb975494d21e Min Li          2023-05-26  481  	r = radeon_gem_handle_lockup(rdev, r);
-771fe6b912fca5 Jerome Glisse   2009-06-05  482  	return r;
-771fe6b912fca5 Jerome Glisse   2009-06-05  483  }
-771fe6b912fca5 Jerome Glisse   2009-06-05  484  
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index 137ff970c9aa..6d8dda4cb065 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -2802,13 +2802,12 @@ bool dcn32_allow_subvp_with_active_margin(struct pipe_ctx *pipe)
+ 	return allow;
+ }
+ 
+-/**
+- * ************************************************************************************************
++/*
+  * dcn32_allow_subvp_high_refresh_rate: Determine if the high refresh rate config will allow subvp
+  *
+- * @param [in]: dc: Current DC state
+- * @param [in]: context: New DC state to be programmed
+- * @param [in]: pipe: Pipe to be considered for use in subvp
++ * @dc: Current DC state
++ * @context: New DC state to be programmed
++ * @pipe: Pipe to be considered for use in subvp
+  *
+  * On high refresh rate display configs, we will allow subvp under the following conditions:
+  * 1. Resolution is 3840x2160, 3440x1440, or 2560x1440
+@@ -2817,9 +2816,8 @@ bool dcn32_allow_subvp_with_active_margin(struct pipe_ctx *pipe)
+  * 4. Freesync is inactive
+  * 5. For single display cases, freesync must be disabled
+  *
+- * @return: True if pipe can be used for subvp, false otherwise
+- *
+- * ************************************************************************************************
++ * Returns:
++ *	True if pipe can be used for subvp, false otherwise
+  */
+ bool dcn32_allow_subvp_high_refresh_rate(struct dc *dc, struct dc_state *context, struct pipe_ctx *pipe)
+ {
+@@ -2851,16 +2849,15 @@ bool dcn32_allow_subvp_high_refresh_rate(struct dc *dc, struct dc_state *context
+ 	return allow;
+ }
+ 
+-/**
+- * *******************************************************************************************
++/*
+  * dcn32_determine_max_vratio_prefetch: Determine max Vratio for prefetch by driver policy
+  *
+- * @param [in]: dc: Current DC state
+- * @param [in]: context: New DC state to be programmed
++ * @dc: Current DC state
++ * @context: New DC state to be programmed
+  *
+- * @return: Max vratio for prefetch
++ * Returns:
++ *	Max vratio for prefetch
+  *
+- * *******************************************************************************************
+  */
+ double dcn32_determine_max_vratio_prefetch(struct dc *dc, struct dc_state *context)
+ {
+@@ -2881,7 +2878,7 @@ double dcn32_determine_max_vratio_prefetch(struct dc *dc, struct dc_state *conte
+ 	return max_vratio_pre;
+ }
+ 
+-/**
++/*
+  * dcn32_assign_fpo_vactive_candidate - Assign the FPO stream candidate for FPO + VActive case
+  *
+  * This function chooses the FPO candidate stream for FPO + VActive cases (2 stream config).
+@@ -2890,11 +2887,12 @@ double dcn32_determine_max_vratio_prefetch(struct dc *dc, struct dc_state *conte
+  * ActiveMargin <= 0 to be the FPO stream candidate if found.
+  *
+  *
+- * @param [in]: dc - current dc state
+- * @param [in]: context - new dc state
+- * @param [out]: fpo_candidate_stream - pointer to FPO stream candidate if one is found
++ * @dc: current dc state
++ * @context: new dc state
++ * @fpo_candidate_stream: pointer to FPO stream candidate if one is found
+  *
+- * Return: void
++ * Return:
++ *	void
+  */
+ void dcn32_assign_fpo_vactive_candidate(struct dc *dc, const struct dc_state *context, struct dc_stream_state **fpo_candidate_stream)
+ {
+@@ -2915,13 +2913,13 @@ void dcn32_assign_fpo_vactive_candidate(struct dc *dc, const struct dc_state *co
+ 	}
+ }
+ 
+-/**
++/*
+  * dcn32_find_vactive_pipe - Determines if the config has a pipe that can switch in VACTIVE
+  *
+- * @param [in]: dc - current dc state
+- * @param [in]: context - new dc state
+- * @param [in]: vactive_margin_req_us - The vactive marign required for a vactive pipe to be
+- *                                      considered "found"
++ * @dc: current dc state
++ * @context: new dc state
++ * @vactive_margin_req_us: The vactive marign required for a vactive pipe to be
++ *                              considered "found"
+  *
+  * Return: True if VACTIVE display is found, false otherwise
+  */
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.25.1
+
