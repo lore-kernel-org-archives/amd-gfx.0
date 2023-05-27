@@ -4,51 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9E1FC77B73
-	for <amd-gfx@archiver.kernel.org>; Sat, 27 May 2023 11:07:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F455C77B73
+	for <amd-gfx@archiver.kernel.org>; Sat, 27 May 2023 14:25:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AA3710E089;
-	Sat, 27 May 2023 11:07:07 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F65810E089;
- Sat, 27 May 2023 11:07:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685185625; x=1716721625;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=L74hDA45q+pqqA8K9jTL0kklXJ0cef6Nic12DbO9aA4=;
- b=B8GATqeliCCWfuwpQGwPUwN9S53XYw7kp7B4bTewvoBy345Ey6dSS8Sa
- OIXCWHhA/NWNoFIbs00m0jnLUh7xYo3Lpng+7tkiT+p6trXp1yS6Xt6jU
- XhpskH6Vfk9PSqeODaZ+mVDgg7yuv+R2SNUb0WlnzXBjDc4vvizWT/CYb
- j92nTN/gHPrJwvM6PWeVjLZlSDp8GoBVT9oVqgEv3BGFCbYYknVmYHi4t
- Z1J/Kryw24EQIbdtgjvOzvqmzIfXiIQf9ei/AfOaDgDZ6jiV/NPcgKZGu
- ja/1apxPaxd8etERLtWO74RMnS0errhNmYXT9+48YW724mA0+EDoWuKKy g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="334009508"
-X-IronPort-AV: E=Sophos;i="6.00,196,1681196400"; d="scan'208";a="334009508"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2023 04:07:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="708672893"
-X-IronPort-AV: E=Sophos;i="6.00,196,1681196400"; d="scan'208";a="708672893"
-Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
- by fmsmga007.fm.intel.com with ESMTP; 27 May 2023 04:07:01 -0700
-Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1q2rlE-000Jv6-0t;
- Sat, 27 May 2023 11:07:00 +0000
-Date: Sat, 27 May 2023 19:06:16 +0800
-From: kernel test robot <lkp@intel.com>
-To: Min Li <lm0963hack@gmail.com>, alexander.deucher@amd.com
-Subject: Re: [PATCH] drm/radeon: fix race condition UAF in
- radeon_gem_set_domain_ioctl
-Message-ID: <202305271806.VvOClWyB-lkp@intel.com>
-References: <20230526123753.16160-1-lm0963hack@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DF6410E122;
+	Sat, 27 May 2023 14:25:30 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2080.outbound.protection.outlook.com [40.107.92.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABD1810E122
+ for <amd-gfx@lists.freedesktop.org>; Sat, 27 May 2023 14:25:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Gmp5Mm9VmGxsLbhs3Nitgo3xfj4k9mbKJb9GP56tMc3eyplGcW6yra9nyuWE+vr/H9EDiUOBxYCOkqNzcjb2PzyJUq7e+gpy3A2Fb3fA4Omz6coHygACt8wQrIX8Z4Ke1+Wq+ihA/ZKl0vm8/YdEHnh12LgYS/cwmqcxmbM9uI8FG5fhGiN9FkDC8tIX02buuEM35qhDpsOVg8zi5LknOnriaMIPLHxmODMyfjIqwqlizsfTKfbnY/V3G7D9VmXNC6oC37JsnOp2oic1RXyqbMjK+c7m8LXrLiAy2O98kQKbSBqxGOkpQWeeWq9PIoTohCkwyaHiuPpf5qmi+LmjFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NpLIfNT8agHvjSn4IOqhedG0S2PvPKJh/QNKk6J8ZDM=;
+ b=ccd9l1lSf6BvbNYR51BsOT8M8xwnCeXvmhVU1oT5mQ1ZnJleLqFRar2rMZcwyCmqfnbUoW77B85SICmvbNsRrNyLB33TkY7IekFLquCoxeZkVMZeDW+Cl6OEzFlVM0aJEpD1A2QRM2ua+vdpgwUaPw/iczhCKRamn4Iey2CSwFSx0gi3dt1hrcYTs31rQrlH57XAw7dYExOfUa5QkEAgg2gpI5zmSbRaJEqHPsaWZEYvLwexecdGoq0noGDofIT8qLDagi9UYtQqi0f0v3qqIY+tXBSd1s1O7L/sS+I4yr3J+8/5/n6Iu1dw1ba7im/RUn0BxsPMypnXsCdYzuaiHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NpLIfNT8agHvjSn4IOqhedG0S2PvPKJh/QNKk6J8ZDM=;
+ b=0FP8z+rHLiVaE0DeCLyBo//DS7HWlsjOaQqYIg+THsSi/JkaU14UgaCu2MqbnMjfVAMPIK1Osam0LP9dPcXqm0NxgTBkhdwGl4X+I1ZL/H1nAfOFKCJ1zZmQQRANdFnYlxtubczZDWIdqzIxxBOzzZsJ/M1I+OJnPgyjXEttJmI=
+Received: from BYAPR08CA0068.namprd08.prod.outlook.com (2603:10b6:a03:117::45)
+ by MN2PR12MB4318.namprd12.prod.outlook.com (2603:10b6:208:1d8::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.21; Sat, 27 May
+ 2023 14:25:23 +0000
+Received: from CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:a03:117:cafe::c1) by BYAPR08CA0068.outlook.office365.com
+ (2603:10b6:a03:117::45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.21 via Frontend
+ Transport; Sat, 27 May 2023 14:25:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT016.mail.protection.outlook.com (10.13.175.141) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6433.19 via Frontend Transport; Sat, 27 May 2023 14:25:22 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sat, 27 May
+ 2023 09:25:20 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>
+Subject: [PATCH] drm/amd/display: Add missing kdoc entries in
+ update_planes_and_stream_adapter
+Date: Sat, 27 May 2023 19:55:03 +0530
+Message-ID: <20230527142503.1465145-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230526123753.16160-1-lm0963hack@gmail.com>
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT016:EE_|MN2PR12MB4318:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1eb45a3-5e49-4355-b88a-08db5ebe3507
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RnHmxZBl3TqcbXAs4iDLNs472O3jODVxfVfAQKlFSX0HQR3h12uMBMDpmL47tIBb2t7un94UCv6qLwy1ncVxFyfEMJuavHp3zN2mumATKyYp+p7ent0eFIBxL1XzpCrIRoFb6B5r8DIoVwKAgGnqEUTLKdQUjRCmF+6eXojDtP0rPym2Yf2VTSQixtePP+TCpjNbYs9YgxNylYOVxIIQTY7zGx2iiQkfN5Yn6/oqbrCoAkP1DEg6YVYOF9uNHSENbhp05kWEmy+QSNAypQT5ESa28sQGv9xWgw6Id8hPfT1BFdon76NCAnzWWdHmXa/Or8LdYbsoNEgF0LcCkVDS0t+6EMDae6eGw+WKg2igviT9bMW6HLmSdnvZZMajbHFtD0/OUIo41Ms0xxvFwgaqMe2QsWYqKGM4YsXrH0xKAWy7jaQj4TV5PE6vxCpRtBivXEuoSameMLVjCXj9Z1Ga2Y14rzxveO79LdPyDeaZ6j0KmsQiVqJKGSqu2H24t/Y2aib88phcR64QF8qSscz8wYyPwHZ6ntz7NBRCDRTFbL8s+H/aLIPr/bMp0ga6StxofdbkWybcyMnR+/+5ZKyIZTVMq3T/ruqYYO/mCpvDhHwqdwEZKUg0yClztkCQx6LaazU/4I7zTcx+O+Ve9SkcBGflOqDhPYeFMLNr+wGD2ahXE+EmeWjvvLPpSoR1vLNj3r01tS8oFnaCN26JiePMKj3bw43fTOsIXbMSS2Zicz8J/IECCD8J0o5SAXOMpReDmAEBbVOMO69PSIPszbWDgA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(136003)(376002)(396003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(6666004)(40460700003)(316002)(7696005)(41300700001)(8936002)(8676002)(47076005)(36860700001)(15650500001)(86362001)(2616005)(186003)(16526019)(82310400005)(2906002)(83380400001)(36756003)(5660300002)(1076003)(26005)(44832011)(336012)(426003)(40480700001)(70586007)(70206006)(110136005)(54906003)(478600001)(356005)(81166007)(82740400003)(4326008)(6636002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2023 14:25:22.8146 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1eb45a3-5e49-4355-b88a-08db5ebe3507
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4318
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,90 +99,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, oe-kbuild-all@lists.linux.dev, airlied@gmail.com,
- sumit.semwal@linaro.org, linux-media@vger.kernel.org
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Min,
+Fixes the following gcc with W=1:
 
-kernel test robot noticed the following build warnings:
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:374: warning: Function parameter or member 'dc' not described in 'update_planes_and_stream_adapter'
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:374: warning: Function parameter or member 'update_type' not described in 'update_planes_and_stream_adapter'
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:374: warning: Function parameter or member 'planes_count' not described in 'update_planes_and_stream_adapter'
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:374: warning: Function parameter or member 'stream' not described in 'update_planes_and_stream_adapter'
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:374: warning: Function parameter or member 'stream_update' not described in 'update_planes_and_stream_adapter'
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:374: warning: Function parameter or member 'array_of_surface_update' not described in 'update_planes_and_stream_adapter'
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v6.4-rc3 next-20230525]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Min-Li/drm-radeon-fix-race-condition-UAF-in-radeon_gem_set_domain_ioctl/20230527-155623
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230526123753.16160-1-lm0963hack%40gmail.com
-patch subject: [PATCH] drm/radeon: fix race condition UAF in radeon_gem_set_domain_ioctl
-config: mips-allyesconfig (https://download.01.org/0day-ci/archive/20230527/202305271806.VvOClWyB-lkp@intel.com/config)
-compiler: mips-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        mkdir -p ~/bin
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/66fb975494d21e80b90235b7d8bf0953990c5c89
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Min-Li/drm-radeon-fix-race-condition-UAF-in-radeon_gem_set_domain_ioctl/20230527-155623
-        git checkout 66fb975494d21e80b90235b7d8bf0953990c5c89
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 ~/bin/make.cross W=1 O=build_dir ARCH=mips olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 ~/bin/make.cross W=1 O=build_dir ARCH=mips SHELL=/bin/bash drivers/gpu/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202305271806.VvOClWyB-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/radeon/radeon_gem.c: In function 'radeon_gem_set_domain_ioctl':
->> drivers/gpu/drm/radeon/radeon_gem.c:462:27: warning: variable 'robj' set but not used [-Wunused-but-set-variable]
-     462 |         struct radeon_bo *robj;
-         |                           ^~~~
-
-
-vim +/robj +462 drivers/gpu/drm/radeon/radeon_gem.c
-
-f72a113a71ab08 Christian König 2014-08-07  453  
-771fe6b912fca5 Jerome Glisse   2009-06-05  454  int radeon_gem_set_domain_ioctl(struct drm_device *dev, void *data,
-771fe6b912fca5 Jerome Glisse   2009-06-05  455  				struct drm_file *filp)
-771fe6b912fca5 Jerome Glisse   2009-06-05  456  {
-771fe6b912fca5 Jerome Glisse   2009-06-05  457  	/* transition the BO to a domain -
-771fe6b912fca5 Jerome Glisse   2009-06-05  458  	 * just validate the BO into a certain domain */
-dee53e7fb3ee01 Jerome Glisse   2012-07-02  459  	struct radeon_device *rdev = dev->dev_private;
-771fe6b912fca5 Jerome Glisse   2009-06-05  460  	struct drm_radeon_gem_set_domain *args = data;
-771fe6b912fca5 Jerome Glisse   2009-06-05  461  	struct drm_gem_object *gobj;
-4c7886791264f0 Jerome Glisse   2009-11-20 @462  	struct radeon_bo *robj;
-771fe6b912fca5 Jerome Glisse   2009-06-05  463  	int r;
-771fe6b912fca5 Jerome Glisse   2009-06-05  464  
-771fe6b912fca5 Jerome Glisse   2009-06-05  465  	/* for now if someone requests domain CPU -
-771fe6b912fca5 Jerome Glisse   2009-06-05  466  	 * just make sure the buffer is finished with */
-dee53e7fb3ee01 Jerome Glisse   2012-07-02  467  	down_read(&rdev->exclusive_lock);
-771fe6b912fca5 Jerome Glisse   2009-06-05  468  
-771fe6b912fca5 Jerome Glisse   2009-06-05  469  	/* just do a BO wait for now */
-a8ad0bd84f9860 Chris Wilson    2016-05-09  470  	gobj = drm_gem_object_lookup(filp, args->handle);
-771fe6b912fca5 Jerome Glisse   2009-06-05  471  	if (gobj == NULL) {
-dee53e7fb3ee01 Jerome Glisse   2012-07-02  472  		up_read(&rdev->exclusive_lock);
-bf79cb914dbfe8 Chris Wilson    2010-08-04  473  		return -ENOENT;
-771fe6b912fca5 Jerome Glisse   2009-06-05  474  	}
-7e4d15d90afe46 Daniel Vetter   2011-02-18  475  	robj = gem_to_radeon_bo(gobj);
-771fe6b912fca5 Jerome Glisse   2009-06-05  476  
-771fe6b912fca5 Jerome Glisse   2009-06-05  477  	r = radeon_gem_set_domain(gobj, args->read_domains, args->write_domain);
-771fe6b912fca5 Jerome Glisse   2009-06-05  478  
-f11fb66ae92193 Emil Velikov    2020-05-15  479  	drm_gem_object_put(gobj);
-dee53e7fb3ee01 Jerome Glisse   2012-07-02  480  	up_read(&rdev->exclusive_lock);
-66fb975494d21e Min Li          2023-05-26  481  	r = radeon_gem_handle_lockup(rdev, r);
-771fe6b912fca5 Jerome Glisse   2009-06-05  482  	return r;
-771fe6b912fca5 Jerome Glisse   2009-06-05  483  }
-771fe6b912fca5 Jerome Glisse   2009-06-05  484  
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a69f4a39d92a..90de0d37f1d2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -364,6 +364,14 @@ static inline void reverse_planes_order(struct dc_surface_update *array_of_surfa
+  * adjustments and preparation before calling it. This function is a wrapper
+  * for the dc_update_planes_and_stream that does any required configuration
+  * before passing control to DC.
++ *
++ * @dc: Display Core control structure
++ * @update_type: specify whether it is FULL/MEDIUM/FAST update
++ * @planes_count: planes count to update
++ * @stream: stream state
++ * @stream_update: stream update
++ * @array_of_surface_update: dc surface update pointer
++ *
+  */
+ static inline bool update_planes_and_stream_adapter(struct dc *dc,
+ 						    int update_type,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.25.1
+
