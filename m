@@ -4,128 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2104CC77B7E
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 May 2023 02:35:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A6EEC77B7E
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 May 2023 06:45:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A3E110E02D;
-	Mon, 29 May 2023 02:35:27 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2043.outbound.protection.outlook.com [40.107.93.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2720810E02D
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 May 2023 02:35:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93D6B10E213;
+	Mon, 29 May 2023 06:45:11 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2079.outbound.protection.outlook.com [40.107.220.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B25BF10E215
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 May 2023 06:45:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L9HqLFqkImV8KvX2pNj4mQi/DxLN8QeZUkqGhigEzAOoC717QXgwH6RN3k/J6Z9CJpl/goFTQkqHNpybtgiDtXGdTeTHaCQjG31DVrjgFetBJ0L+ygm/KXvSc1YZr8xyUdlHj+56T9bPdbbX2NBpltQxDVxUSzC8hdf19DmDKeqv1hN+rzrBBsyCpAvIFC/5Z5vggZC8oTskbRxUPdJ8t6xclAKYUEVhHeBnIePkf66GP6wTuDjZSFn3B76blvnK8cYxkFlR5qjY2K2Pc/Ps3vmnSYKt4a3YNE3RceGe/RLTJ7QsmsbFWlBU/zVhrXgleVjqKvfeq8t/pLsIY15adA==
+ b=UPQioQd/PQSY6jEEy0VbqcXAcXYFMJ33MBgx3uXK4MkM4VH6j1SHmSgTYwkPGrd6ik6x00oFP7HomLEy9YULxSZ8ddn913AXE83Z+oUfrOZBDMZ/dn09GBIIqBUFXwpd0pbdprxf6kBBwfuk23ct2zoHZ3l5Cy6eXpv2PTygS+GWILmMbz6lUJ8q0V6lywwBgg+avOsLCOI5eQhczkFYQOhG4oE3Rw3P7IWDXn7PqFM3QCDcUmni7CDb2AoEzVjlvUtGZetJmwa19bw8RHcQCKIcK1bn2IWNtS8H/8ABEDLiBPhpfkyhCkwCE/WmblBXc2bgXIggNrrwiCXjcOXJcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GQu8FdI20vcdHJqiesoCIkfCtDChqGVFsAFGSUnqX78=;
- b=QYW8sXaNiMCZ5rNIxwqKL5uAc4EG3OzvwXO84QXTo9OFZjIAVilqeyMlrUV+Zt6WIU3H59dFgaddHzX6t+8ydfUqCbokSE3SDf6tC8A9xYyBjR1GQ0LC8LZKCVIXI0K2mAXhWWdOAxc439o3eDWJ9GOOuiGWsnXZ/RRzciEtAnu6TgRk6W/Jd3yQ8bLSTNLVz6aiakjJPIkjEtVXU6ubQil4fA5IotfK/+D59I4eIv1RI1b40rBNsCRNVVr4Mb62whP9TVMH2YgmK6+aHynu5nXdR8j7kMx4vFzX6GCg+UrZDISCsjwEC7uWbp+xJTvCzAxv18FHJ552F3qxbOBbiQ==
+ bh=2sCb8JEnHtCDLa3M0dqeA8n28SwgW2CNjriMcJwJwnY=;
+ b=GrCwW2jYa4+yfEgW3vdfSr6OxhJmYY4aGo/uR0Pz4WN8yBejxdkHkAN0qwfHL7j7P5a35mGA/Fwmb4qTs2+NLasZESB9sCyD7V90HQMbINUzHmSee2QsU+SOChTiYXMs+hzKz4othb0QOHHEcZAE9h2tLHAGXJ8xGIjs6o9r9nMSvwR55HXJiWmR7E3DBGKadd858zcYWt63ECVisx6kFgXhWEYwlG/9yqrPlS9oReybMmECCDyWlug/UJQ2nvbvzFHlX25rPLRR7bG8pW4xTQ8y0iajiJWGiVWbj6qa2SXWsFzFpXvoAiVllw48yDKqHuA0EIcf37o22WUcsKg/5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GQu8FdI20vcdHJqiesoCIkfCtDChqGVFsAFGSUnqX78=;
- b=DpQp5q4r5XswzEy+0CMrOxSkdmaaJ6baaOcfccXY/giWnfwFqhD/5pVGSC8HUBCMmeq204NMVDomhkt60F9z2SBAU5Q9QJYs964WUae3Iq1jBTsxPppHMIJU5EkgRJE2his1aLW/Eu8J2ozZAUh/KUjy+nWTUXls4F0W21bnwcA=
-Received: from DM4PR12MB5261.namprd12.prod.outlook.com (2603:10b6:5:398::22)
- by SJ0PR12MB6944.namprd12.prod.outlook.com (2603:10b6:a03:47b::11) with
+ bh=2sCb8JEnHtCDLa3M0dqeA8n28SwgW2CNjriMcJwJwnY=;
+ b=mBMUV8z/d4bpWLED5IJQ+R0+lfT8b2jd4imbQSmxUTmqczJvcB3QvmMHSN2ty0gR3NpwCNHXI/wmzakgeSh2M8z2M6A9F8AfQKPRU82Fi2mw5RrFFlBMZs0q08mfrkA2IL2UKjMRmJVkze17RfuYvSg3ny0tJk05PFpIBGhexZA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by DS0PR12MB7875.namprd12.prod.outlook.com (2603:10b6:8:14d::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.21; Mon, 29 May
- 2023 02:35:22 +0000
-Received: from DM4PR12MB5261.namprd12.prod.outlook.com
- ([fe80::9758:99e4:19b0:82b2]) by DM4PR12MB5261.namprd12.prod.outlook.com
- ([fe80::9758:99e4:19b0:82b2%4]) with mapi id 15.20.6433.022; Mon, 29 May 2023
- 02:35:21 +0000
-From: "Xiao, Shane" <shane.xiao@amd.com>
-To: "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>, "Kuehling, 
- Felix" <Felix.Kuehling@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] Revert "drm/amdgpu: remove TOPDOWN flags when allocating
+ 2023 06:45:07 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::560f:c247:cf85:84d7]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::560f:c247:cf85:84d7%4]) with mapi id 15.20.6433.022; Mon, 29 May 2023
+ 06:45:07 +0000
+Message-ID: <9e753e8c-e015-d7db-838b-ae4133487e06@amd.com>
+Date: Mon, 29 May 2023 12:14:54 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] Revert "drm/amdgpu: remove TOPDOWN flags when allocating
  VRAM in large bar system"
-Thread-Topic: [PATCH] Revert "drm/amdgpu: remove TOPDOWN flags when allocating
- VRAM in large bar system"
-Thread-Index: AQHZiv0QBXBJ6jL41ES+BKP5kfwQCq9jfsYAgAIHoSCAB16eAIADrv3w
-Date: Mon, 29 May 2023 02:35:21 +0000
-Message-ID: <DM4PR12MB52619D3795D127F9D0FDAD309D4A9@DM4PR12MB5261.namprd12.prod.outlook.com>
+To: "Xiao, Shane" <shane.xiao@amd.com>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 References: <20230520092518.1993-1-Arunpravin.PaneerSelvam@amd.com>
  <f03a448f-1ba3-5d4a-a2a5-baba97b3ec1f@amd.com>
  <DM4PR12MB5261EDA410B001ACCF0CDC289D439@DM4PR12MB5261.namprd12.prod.outlook.com>
  <6367650e-25a0-6658-042d-f5ea8f1a1ef6@amd.com>
-In-Reply-To: <6367650e-25a0-6658-042d-f5ea8f1a1ef6@amd.com>
-Accept-Language: en-US
+ <DM4PR12MB52619D3795D127F9D0FDAD309D4A9@DM4PR12MB5261.namprd12.prod.outlook.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=b8e82157-3d65-4b50-9b62-c43f37d78e9b;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-05-29T02:26:37Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5261:EE_|SJ0PR12MB6944:EE_
-x-ms-office365-filtering-correlation-id: f5b90084-3bb6-4872-66a4-08db5fed595a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Qx70VbTFh94dokOUXQu7d7f892TDXUk3xC0DU5Kx9rRxnboJRN/lLJIMtst91penqNuo0Fy/u9H/rgvHB2fM/70tesiftofiJzdDh5GTP1TqnL51n47djOyBr43C/PLXAgXaCB4BQszXuL5yHU/5z2eftd8ZPWy3iChMD943pvTdCw/ZI6MkijRp7ctYb+2VhYfzdTHC4G+Ht8NgH0UWGcD++zLJdvZaRjH2aKfl4NRQJN0pSiHjjVX2bpYi3zm1wI8y07oImA0942uoWWn2N+4nJlrRA7xD0PxHnlI1zTnTbsep71XfiO+JJoc5AIV3OHnbDv6JV+NCad1xPkVT4+Sc4t5DKpoTsJrNIWbp7Xru+sTghn6Gai6+CZdgSde8n/ULOJktxb66RuKLNLIKb2pcf4QqOQDGDBURE+lKrTd8XhmuXH9u3EGPDmdJ4GsJxdAW+Za3OUhTOL9UWVTuajjhfgtGENmOhKR49or7PFgcaf2OacuhMDZbexiA6x3cREf6C/5yeYIrPJWh9tCGFYwH1Y44ku8PEM4P62ut4rwUilF1FJPmPJzRiaiDOalY
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5261.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(376002)(346002)(136003)(396003)(39860400002)(451199021)(55016003)(38070700005)(2906002)(122000001)(966005)(41300700001)(38100700002)(186003)(86362001)(8676002)(8936002)(7696005)(478600001)(110136005)(33656002)(26005)(53546011)(54906003)(9686003)(6506007)(316002)(71200400001)(83380400001)(52536014)(76116006)(4326008)(66946007)(66556008)(66476007)(66446008)(64756008)(5660300002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bVVRaS9HaWVsZFl4NkRMUUdMbnlOVmVyMnkyMGhCS2JvWG9IUDhvRVR0U1l6?=
- =?utf-8?B?azRvd2x3OEJuYjk0SEtmZGJEcElyWEFZWGtBS2JCQnU2dzRMSU9NVzhhRmxL?=
- =?utf-8?B?WFlkNDBSdnBTcDVlMlZBc0Z1eHlQd2RqT3RxTzQveW5OL0l0a3RSclVndHpF?=
- =?utf-8?B?NkJRS2llaGdpVVFxOC9sVnA2UmQ4R0puc0o4TFdPV3pLRHhCWmlqeE5ZK1Fj?=
- =?utf-8?B?UllZUWtONStDL1E4a0pSd2g4MHBjQ3NVOEp0TEg5QkV3UVRPZHRJV0VneEdW?=
- =?utf-8?B?bVlmNXpyejVFRGloSHh3Z1lZZU5sWk42M3lrQnBnTGNxTnozb3JJOUN0OWtW?=
- =?utf-8?B?THhLM1dMUlMxbkJ5V3lwTm9COEZYbWxxbDRZR0xsVmdkdWZDbUlnOHlDVTFs?=
- =?utf-8?B?WDhlZm1SN0RPVWdBSUdXcDVRYk5oVXBnNzkyK2VhSWZTVlhhQTcveTlpbnlC?=
- =?utf-8?B?TEVrcHlZV0ZVdkhEWWRMZFpGMTFtYmp5SVA4ZGRnZFJ5cWdXSm1aWWlMSTZQ?=
- =?utf-8?B?TGlTNlV4ano0RG1UNVBqVHhVUEg0MVdFRDVNQVVMVVdDNVZIOVordXkrVTV6?=
- =?utf-8?B?M1VKTWRodnJpNnJRVjJXMWpvOHRZZkJ4K3ZwWStYTEhnZ0NiOFBVcVlCN0Yx?=
- =?utf-8?B?WERWb29yTlhNbisvZkNkU3RzN3RtTy9QcGtMNk1YQ2tOWi9vUjRLaEovc2xj?=
- =?utf-8?B?YXdnZHd2SGVBQ001NlJncWNoajJaSDNiMVdTTWpnNWRMZ3pURkNSYktRWjBM?=
- =?utf-8?B?OFRwSjBNUmt6ak45NU1yRzZyaUdpejRVUXhsMStLOUlQbXB6V3FnQ1Y2WnZa?=
- =?utf-8?B?LytvanNvcVRxZ1F3VDhRREQrMVczMkpvS01Cb3J1NUpuNTg4SW42Q2hoeUZU?=
- =?utf-8?B?RVZlOXFidnlEMnV5VFRyTTdCLytMZzI0eHI1SGVHUGZ3c2lkaldIV2dRWk5y?=
- =?utf-8?B?c1poZnBveCs5RFhaUFdmMnEwT1RCNjJMTDRmTXY5N1Qya2ZoNTAxUEgrSDQv?=
- =?utf-8?B?R3htVGpnbEVRdUx3RjRGYkJDS2JzZFZwSjBqODlmTWUrQkxiQkdNMXFDMDhv?=
- =?utf-8?B?NlVCMW1QM3MvRDN6bU1vT0lZZktYTTg3TDQzcVNYcml1SUlIZnJzSGFabjZB?=
- =?utf-8?B?Yi9KSWhNVEVZbzNjRlM0c254QlFSNVBLK1htbHhPYkxqNjBxTnFsWS8zRTUy?=
- =?utf-8?B?eVdYSW1kVm0wSlBRSENBZyttMXBhTTloWFdmSE90M2w0NytjaXhRTHcvT3pw?=
- =?utf-8?B?aEo5RmdxTFpTU0R3aHZOR0k0OGU4S05SQW50d0VxejJwWnd3YzZadjdCTC9X?=
- =?utf-8?B?N0FCcTNIL3pOKyt2QVd2M2Q0Q2VseE5ESng2U2FZRkcyNFIxVlhxS2daK3Jl?=
- =?utf-8?B?Q1M3RjRzODZ1enB5K2RhRUY5Y2ltcy9ySndPYU9BZXZRWVYzRE92OEFWVW5v?=
- =?utf-8?B?RlhKVTloWmYzaW0zRGlmVnBHUVpsRG00b21lMEVUNlgwWmVjd3lMZFdHZ0FJ?=
- =?utf-8?B?djdac2ZEb0JPUGcxcHpPV2xCdmF6TkFOdEw4UUVIdzMyVU1VbWN6d050YmNa?=
- =?utf-8?B?eUFsMmtKWFlBeko5dUR6RXRndkxyWDF6T3FLMmxsTTVuWWkxbVFiNTB5bExl?=
- =?utf-8?B?VGZNTG9NczBFSzNOdzBNNnhacmJETlFyTFRlUE8rVGNLdlpWRGxrdHpEcGMw?=
- =?utf-8?B?U1d3ZGlkM3o2TERHN0RNNGRWYzdPNUhNNkhXNTN1M3V5QUtaaWJDbEVKaGda?=
- =?utf-8?B?V0VLRzVMSm1UNVBLSzFkSkl3WjhjVzI4bDdhRURLYWRLMitINkFqSjF5UmR4?=
- =?utf-8?B?UGtTUGxuM0lZUldobWFjejVVTWR3elFDQjRib091eC9NL0lLM2EvRXA4TFhR?=
- =?utf-8?B?QkRjeWVSZlZKSjZnbm5CZjdBdUcyeVMzV3RaZWhyeGtxQlY4UmU3RzM4dHI4?=
- =?utf-8?B?RFpCYmNyM25yNnBlUWtLZWRWaVhqOXgyR0t6Nmk0V2h6QUxQbmtweTU1YXNl?=
- =?utf-8?B?eWpiaG8xd2IwblJZS2Y1aTBXRjE1RUlpQnFoOG1ZaDEzYXpVZi9Za1Vnczha?=
- =?utf-8?B?VHlaYlQxUGNzY3oyc0tLZ05sRDY5TjQzS3gwaS9tWjZmVFpMTmVaY2kwZWdj?=
- =?utf-8?Q?j3Hg=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <DM4PR12MB52619D3795D127F9D0FDAD309D4A9@DM4PR12MB5261.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0176.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26::31) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|DS0PR12MB7875:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f7dbdcb-2992-4676-3091-08db60103d0d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: C643nCfr/tKtUE5BOc1ED1l6CcOVCMs/2UdalvpAu1kIYmKt/GU061ruHnXH9h02XemvbreNdxcuUHg+/1ZB0ZxiFCGfF7vylINoomVPludffthtrHr9+WM1dqYg0L23Vuz2nHJsUh7bCQRtsVySdX/hqx2Ka6dauvCYIbcff2WDZqd0GuL20tjEx+7wd361L7dNLT4YIBgsUkb9TtjshzutOqGEmBMB672UrurR0nrizVGquYIjK+cEXWqhLbMp1r0rsNUis9R5Qgc1e9CzjyX0XeuxiqJQkw+R4nPbc2z76gfO91JoHiHifJNRUUylbK7BEPXy3lplmNQAd3+AngHJj4bMsEQk7DX306bYWJB83Opcu+XSxm8bry+LHa6caf0kwdoCyOSttJy+gOkls/494byTkepDx7YPltRJ2iLJvG3b5NDROqehulq+62mOp1ZUtvNbU+2nBT1KJxb51ljFCeHkcrcw5Akw1SOqkWChpJX0kUd5j473AhAvpBvAmnlQd0drxtvoQtvlpYQFtSGR7VkOLGAFAtEuSXktSdD6UW9macXa1fnRb6oIwsbL9ibp9K22igvhO+4KuWjynVIx/l8SUOuWBYGpwnd5h2s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(376002)(366004)(346002)(396003)(39860400002)(451199021)(83380400001)(5660300002)(6666004)(316002)(66946007)(66476007)(66556008)(4326008)(31696002)(36756003)(966005)(6486002)(8676002)(8936002)(41300700001)(38100700002)(86362001)(110136005)(54906003)(53546011)(2906002)(2616005)(6506007)(6512007)(186003)(31686004)(478600001)(26005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFRGZzZFVkFybVpkZDBxZDJ5aGNlSDAvaSt6UzVKWGUwb0dkbHlycFNHczZG?=
+ =?utf-8?B?d2xDcVlwZGpOemRtR2VjOGNSOFJUV1A5MFpDTklES25SeXEzMWVCTVJNeGFa?=
+ =?utf-8?B?RHFsMFBNSGpma21nbmNVTVdrN05yMUlCNkEvWVZKakhyNkI5TFJGdVJobDVa?=
+ =?utf-8?B?NHIxQURRcy9pRi85dHdhczFkamNEQkNZS1BkU0tEVDY2dmJsUkE3MEt0S3ht?=
+ =?utf-8?B?WmlrM0ppbDdyQ1ltU01XUmhBWG52S29EWDZTUDFJcnQ4TGpEQlk2amxXM2Jr?=
+ =?utf-8?B?NjVJT293Nk9XSjVhU1MvNTE2ZUZLb28zMENtUFpJNWVRTTU3U0E1NFYzY1NS?=
+ =?utf-8?B?d1BNRGI3L2pBVkEwWEVCSEVYQzZVdlY0VFk2YkN1L3VLQlNReVA2c29TYllU?=
+ =?utf-8?B?SXlSUVF1NEg2R2RqRi9kaTMxa2xacEdhSU1ZNlRXQjMwOUg5Q0pidEF6WGor?=
+ =?utf-8?B?NGcvYytSczYwZ2M2RnJFeUVVNWMxVVRWUnROQ3dhNVBKc1I4cXJ1U044MUxk?=
+ =?utf-8?B?ZWJFWXp2aWU2enRVKzhzakY2MlhacXJSMlVaNnVHK2J1Nnd1ZHFhUm1iMjV3?=
+ =?utf-8?B?WEVYZjRuWFh0eG56cHdySThZNzgzNnN0eVZUMjk0Q2RUc1lQTzVHSlNmeFJW?=
+ =?utf-8?B?N2k1aEt1YW5RdDR4am4vdm1tSFNvdE8xWFoxM210USswNFdvUzd1L1Aram5y?=
+ =?utf-8?B?d2syYjlkZnJSVCtLV1Y4Njd4WmE4TC9NN01SNU50MHlIWGZSeVluTDRnVVor?=
+ =?utf-8?B?bm1KNE1GRTVOaVQrZjdZaDFpYjdHcGxMazBTdXkyOGFFVHFhNDFqQlIwaGZ5?=
+ =?utf-8?B?ZnRIRTFlWUYxNFE4Y2hTUWFXTVYzbzJPVWwwMjBvQWJrVnl1TzJOaWtsNjNR?=
+ =?utf-8?B?bTMvYmhzdHY4OFBUS280ZG44QmpWcEZOTjJFcEdQbS8yR0pQSEVBWUVsUmh6?=
+ =?utf-8?B?SklnU2tYOEsvbGIvOTlhTnQwdWdicnFSOWJEOEExRzNnUEVVNitqK2dLZGxu?=
+ =?utf-8?B?TjdISjk1eCt1cE9wcFU2Vlc0ZXRQc3U3VkJTc3A2MnF0QkZlRlJZa1NWZXNL?=
+ =?utf-8?B?cEZkbHhwamptWEZaU1hOaytzL1VmWEtOZHNLbUhMNG9yeGJPSFo3eW9mekE5?=
+ =?utf-8?B?K3VnQkVhcHpZVEFaMFVoZFRWM0VpdTN3K3FkVHlkL2xlQlNIeVlMWDRIRC9N?=
+ =?utf-8?B?Ny9xeFNzcG5SUlVuQ0s4b0lud1Zjb1g0NDJkai9sRzBxa0ZKbWJQc3Zld3Qw?=
+ =?utf-8?B?Q0tVc0VGYjNkT1dKN0R6Vm5mM2NsNXBiQXJ5RDRIVEdOOFI3YUVwTG1wWEtm?=
+ =?utf-8?B?bC9sNHZLNXNCYzlMZWROcmhyTjJ4cWphWCtsbk1SMnR2ZTF2QjlyOWpVdFBE?=
+ =?utf-8?B?bjZzNzdBWkxmQzNUenE0bmFXa0RNNmlRc3dtTktMZUo1U2xxMExpaWVIQ1dC?=
+ =?utf-8?B?ai9HdGlSa3AwRXBTVkZYZzhTL04xejMyYVdBZ0xsQ0kwQXlmUU5mblFxTHdq?=
+ =?utf-8?B?SXNnRXhuQU05UzR1MmREUzF5TGdlRnFuZkQzbTRpRXZsUDJtVW9SaDVNV0Rl?=
+ =?utf-8?B?a2NTeVZRUjVHbGY0MUFZSTk1bFo5b2ZWVGl0L1gxcjl3N0o4blFBMXlERk9s?=
+ =?utf-8?B?T2NWLzZ6bmVyM1RUOTBkV2ZTS0d3aWpuRjVUUkVPbVcrODJqV3prSzY4d200?=
+ =?utf-8?B?SVdwM0RXMGhmTzVnODZZS2d2eVFrbENDV3FrcldJT0hQTEZPZnFJeURYYnBG?=
+ =?utf-8?B?TGFZbG9hMFl2VnN3NS80djREazNnNzkzaGVWaTVETHozZFBucTU3ZlAxdG1G?=
+ =?utf-8?B?bnlsK2xjMlRmWWxKTDdGZmMvU2xyN0lld2lVYWVIRHVVRUNkYWRYWW5sR2sw?=
+ =?utf-8?B?QmtYcGE5RFdPNHdwR3ZHTDZHU1VaVnB0WHpWc2greWxiQjBZUUIwY3RqbHRm?=
+ =?utf-8?B?RjFoMU5pQmhRbjlubG12TGhOMVJ4YlFYU2dTZ2ZKblRwMmVVb0FiR1I5WUo0?=
+ =?utf-8?B?U1NtYUJpdExTZTlwam1qOWtyUkFNVG1SMk5rQ2NEVS92ZmI4ZHc4R2Z1cktM?=
+ =?utf-8?B?Y0pjOFNBWUgvb3E1cXpmQjFIcVZoeGw1eEJIcURkQUpycnlmbGlVbVB0cWZ1?=
+ =?utf-8?Q?ECfsIjYpvW2YLsWFR7WjSnGID?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f7dbdcb-2992-4676-3091-08db60103d0d
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5261.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5b90084-3bb6-4872-66a4-08db5fed595a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2023 02:35:21.3703 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SnlpEngLHstI2vSyGtFLfrfoacpC6ZRsBUvIQV891H4RXYRv2PTIspkUTrStXDMrjSM1G+X+P8mLOp+4wXnnXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6944
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2023 06:45:06.7114 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5OWXwawlzO5b6fPSsu89LD4U0/v6f1IkCpd6R0LrsutNsz5FRtBAtNYcRB0HlA8TncjSWIHwqW2E60weScDAQA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7875
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,125 +135,157 @@ Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNz
-YWdlLS0tLS0NCj4gRnJvbTogUGFuZWVyIFNlbHZhbSwgQXJ1bnByYXZpbiA8QXJ1bnByYXZpbi5Q
-YW5lZXJTZWx2YW1AYW1kLmNvbT4NCj4gU2VudDogU2F0dXJkYXksIE1heSAyNywgMjAyMyAyOjEy
-IEFNDQo+IFRvOiBYaWFvLCBTaGFuZSA8c2hhbmUueGlhb0BhbWQuY29tPjsgS3VlaGxpbmcsIEZl
-bGl4DQo+IDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcNCj4gQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNv
-bT47IEtvZW5pZywgQ2hyaXN0aWFuDQo+IDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQo+IFN1
-YmplY3Q6IFJlOiBbUEFUQ0hdIFJldmVydCAiZHJtL2FtZGdwdTogcmVtb3ZlIFRPUERPV04gZmxh
-Z3Mgd2hlbg0KPiBhbGxvY2F0aW5nIFZSQU0gaW4gbGFyZ2UgYmFyIHN5c3RlbSINCj4NCj4NCj4N
-Cj4gT24gNS8yMi8yMDIzIDg6NTIgQU0sIFhpYW8sIFNoYW5lIHdyb3RlOg0KPiA+IFtBTUQgT2Zm
-aWNpYWwgVXNlIE9ubHkgLSBHZW5lcmFsXQ0KPiA+DQo+ID4+IC0tLS0tT3JpZ2luYWwgTWVzc2Fn
-ZS0tLS0tDQo+ID4+IEZyb206IEt1ZWhsaW5nLCBGZWxpeCA8RmVsaXguS3VlaGxpbmdAYW1kLmNv
-bT4NCj4gPj4gU2VudDogU3VuZGF5LCBNYXkgMjEsIDIwMjMgMjozOSBBTQ0KPiA+PiBUbzogUGFu
-ZWVyIFNlbHZhbSwgQXJ1bnByYXZpbiA8QXJ1bnByYXZpbi5QYW5lZXJTZWx2YW1AYW1kLmNvbT47
-DQo+IGFtZC0NCj4gPj4gZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiA+PiBDYzogRGV1Y2hl
-ciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS29lbmlnLCBDaHJpc3Rp
-YW4NCj4gPj4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IFhpYW8sIFNoYW5lIDxzaGFuZS54
-aWFvQGFtZC5jb20+DQo+ID4+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIFJldmVydCAiZHJtL2FtZGdw
-dTogcmVtb3ZlIFRPUERPV04gZmxhZ3Mgd2hlbg0KPiA+PiBhbGxvY2F0aW5nIFZSQU0gaW4gbGFy
-Z2UgYmFyIHN5c3RlbSINCj4gPj4NCj4gPj4gQW0gMjAyMy0wNS0yMCB1bSAwNToyNSBzY2hyaWVi
-IEFydW5wcmF2aW4gUGFuZWVyIFNlbHZhbToNCj4gPj4+IFRoaXMgcmV2ZXJ0cyBjb21taXQgYzEw
-NTUxODY3OWI2ZTg3MjMyODc0ZmZjOTg5ZWM0MDNiZWU1OTY2NC4NCj4gPj4+DQo+ID4+PiBUaGlz
-IHBhdGNoIGRpc2FibGVzIHRoZSBUT1BET1dOIGZsYWcgZm9yIEFQVSBhbmQgZmV3IGRHUFUgY2Fy
-ZHMNCj4gPj4+IHdoaWNoIGhhcyB0aGUgVlJBTSBzaXplIGVxdWFsIHRvIHRoZSBCQVIgc2l6ZS4N
-Cj4gPj4gV2l0aCByZXNpemFibGUgQkFScyBpdCdzIG5vdCB0aGF0IHJhcmUuDQo+ID4+DQo+ID4+
-DQo+ID4+PiBXaGVuIHdlIGVuYWJsZSB0aGUgVE9QRE9XTiBmbGFnLCB3ZSBnZXQgdGhlIGZyZWUg
-YmxvY2tzIGF0IHRoZQ0KPiA+Pj4gaGlnaGVzdCBhdmFpbGFibGUgbWVtb3J5IHJlZ2lvbiBhbmQg
-d2UgZG9uJ3Qgc3BsaXQgdGhlIGxvd2VyIG9yZGVyIGJsb2Nrcy4NCj4gPj4+IFRoaXMgY2hhbmdl
-IGlzIHJlcXVpcmVkIHRvIGtlZXAgb2ZmIHRoZSBmcmFnbWVudGF0aW9uIHJlbGF0ZWQgaXNzdWVz
-DQo+ID4+PiBwYXJ0aWN1bGFybHkgaW4gQVNJQyB3aGljaCBoYXMgVlJBTSBzcGFjZSA8PSA1MDBN
-aUINCj4gPiBBcyBmYXIgYXMgSSBjYW4gdW5kZXJzdGFuZCB0aGF0LCBib3RoIHdheXMgbWF5IGNh
-dXNlIGZyYWdtZW50YXRpb24gaXNzdWVzLg0KPiA+DQo+ID4gQXMgSSBjYW4gdW5kZXJzdGFuZCB0
-aGF0IHJlbW92ZSBUT1BET1dOIGZsYWdzIG1heSBnZXQgdHdvIHByb3M6DQo+ID4gMSkgSXQgY2Fu
-IHJlZHVjZSB0aGUgcmVzZWFyY2ggdGltZSB0byBPKDEpOw0KPiA+IDIpIFJlZHVjZSB0aGUgcmlz
-ayBvZiBzcGxpdHRpbmcgaGlnaGVyIG9yZGVyIGludG8gbG93ZXIgb3JkZXJzIHdoZW4gYWxsb2Nh
-dGluZw0KPiBibG9ja3MuDQo+ID4NCj4gPiBCdXQgYXMgZm9yIHRoZSBzZWNvbmQgcG9pbnQsIFJl
-bW92aW5nIFRPUERPV04gZmxhZ3Mgc3RpbGwgY2FycmllcyB0aGUNCj4gPiByaXNrIG9mIGNhdXNp
-bmcgZnJhZ21lbnRhdGlvbiBpc3N1ZSBvbiBzb21lIHNjZW5hcmlvcy4NCj4gPiBGb3IgZXhhbXBs
-ZSwgdGhlIGFwcHMgbmVlZCBhbGxvY2F0ZSAoMU0gKyA0SykgVlJBTSBzaXplLCB3aGljaCBpcyBu
-b3QgYQ0KPiBwb3dlciBvZiB0d28uDQo+ID4NCj4gPiBDYXNlIDE6IElmIG5vdCB1c2luZyBUT1BE
-T1dOIGZsYWcsIHdlIHdpbGwgYWxsb2NhdGUgMU0gb3JkZXIgc2l6ZSBhbmQgNEsNCj4gb3JkZXIg
-c2l6ZSBmcm9tIGRpZmZlcmVudCBvcmRlci4NCj4gPiAtLUFuZCB0aGVuIGlmIHRoaXMgNEsgYnVk
-ZHkgYW5kIDFNIGJ1ZGR5IGFyZSBmcmVlZCwgaXQgbWF5IHByZXZlbnQgdGhlIHN5c3RlbQ0KPiBm
-cm9tIG1lcmdpbmcgNEsob3IgMU0pIHRvIDhLKDJNKSBvcmRlci4NCj4gPiAtLUlmIHRoZSBhcHAg
-aGFzIG1hbnkgc3VjaCBhbGxvY2F0aW9uIHJlcXVpcmVtZW50cywgaXQgbWF5IGNhdXNlDQo+IGZy
-YWdtZW50YXRpb24gaXNzdWUgdW5kZXIgbWVtb3J5IHN0cmVzcy4NCj4gPg0KPiA+IENhc2UgMjog
-SWYgdXNpbmcgVE9QRE9XTiBmbGFnLCB3ZSB3aWxsIGZpbmQgdGhlIGhpZ2hlc3Qgb3JkZXIgd2hp
-Y2ggaXMNCj4gc3VpdGFibGUgZm9yIDRLIGFuZCAxTSBuZWVkcy4NCj4gPiAtLUFzc3VtaW5nIHRo
-ZSBoaWdoZXN0IG9yZGVyIHNpemUgaXMgOE0sIHRoZW4gd2Ugd2lsbCBzcGxpdCB0aGlzIDhNIHRv
-IGxvd2VyDQo+IG9yZGVyIHRvIG1lZXQgdGhlIG5lZWRzIG9mIDFNIGFuZCA0SyBzaXplcywgcmVz
-cGVjdGl2ZWx5Lg0KPiA+IC0tSW4gc3VjaCBjYXNlIHRoZSA4TSBzaXplIHdpbGwgc3BsaXQgaW50
-byBkaWZmZXJlbnQgbG93ZXIgb3JkZXJzLg0KPiA+IC0tSWYgYW55IG90aGVyIHRocmVhZCBvciBw
-cm9jZXNzIG5lZWQgYWxsb2NhdGUgNEsgb3IgMU0gVlJBTSwgYW5kIHRoZXJlIGlzDQo+IGFsc28g
-YSBjaGFuY2UgdG8gcHJldmVudCB0aGUgc3lzdGVtIGZyb20gbWVyZ2luZyA0SyhvciAxTSkgdG8g
-OEsob3IgMk0pDQo+IG9yZGVyLg0KPiA+DQo+ID4gSWYgdGhlcmUgYXJlIHNvIG1hbnkgbmVlZHMg
-dG8gYWxsb2NhdGUgbm90IHBvd2VyIG9mIHR3byBwYWdlcyBmcm9tIGFwcHMsDQo+IG9uZSBvZiB0
-aGUgY2hvb3NlIGlzIHRvIHVzZSBzdWJhbGxvY2F0b3IgZnJvbSBVTUQgc3VjaCBhcyB3aGF0IFJP
-Q3IgZG9lcy4NCj4gPiBUaGF0IG1lYW5zIHN1YmFsbG9jYXRvciBjYW4gYWxsb2NhdGUgcG93ZXIg
-b2YgdHdvIHBhZ2VzKGZvciBleGFtcGxlIDJNDQo+IGJ5dGVzKSBmcm9tIGRyaXZlciwgYW5kIHRo
-ZSBhcHAgY2FuIGFsbG9jYXRlIG1lbW9yeSBmcm9tIHN1YmFsbG9jYXRvci4NCj4gPiBJbiBzdWNo
-IHdheSwgaXQgbWF5IHJlZHVjZSB0aGUgcmlzayBvZiBjYXVzaW5nIGZyYWdtZW50YXRpb24gaXNz
-dWVzLiAgQnV0IEkgYW0NCj4gbm90IHN1cmUgdGhhdCBzdWNoIGFuIG9wdGlvbiBpcyBmZWFzaWJs
-ZS4NCj4gPg0KPiA+IE1heWJlIGNhc2UgMiBvY2N1cnMgbGVzcyBmcmVxdWVudGx5IHRoYW4gY2Fz
-ZSBvbmUsIHRoZW4gd2Ugc2hvdWxkIHVzZQ0KPiBUT1BET1dOIGZsYWdzIHdoZXRoZXIgdGhlIHN5
-c3RlbSBpcyBsYXItYmFyIG9yIG5vdC4NCj4gWWVzLCBJdCBpcyBiZXR0ZXIgdG8gc2V0IFRPUERP
-V04gZmxhZyBtYWlubHkgdG8gYXZvaWQgc3BsaXR0aW5nIGRvd24gdGhlIGxvd2VyDQo+IG9yZGVy
-IGJsb2NrcyB3aGljaCByZXNvbHZlcyB0aGUgZnJhZ21lbnRhdGlvbiBpc3N1ZXMgYW5kIGl0IGRv
-ZXNuJ3QgdHJ5IHRvDQo+IGFsbG9jYXRlIGZyb20gdmlzaWJsZSBtZW1vcnkgKHByb3ZpZGVkIHRo
-YXQgd2UgaGF2ZSB0aGUgZW5vdWdoIHJlcXVlc3RlZA0KPiBtZW1vcnkgc3BhY2UgaW4gdGhlIHRv
-cCBkb3duIHJlZ2lvbikgd2hpY2ggaW1wcm92ZXMgdGhlIGdyYXBoaWNzDQo+IHBlcmZvcm1hbmNl
-cyBhcyB3ZWxsLg0KDQpIaSBBcnVuLA0KVGhpbmsgaXQgbW9yZSwgdGhlIGdmeCBuZWVkcyBnZXQg
-Y29udGludW91cyBWUkFNIGZvciBkaXNwbGF5IHNvbWV0aGluZy4NCkluIHN1Y2ggY2FzZSwgdGhl
-IFRPUERPV04gZmxhZyBjYW4gbWVldCB0aGlzIG5lZWQgYmV0dGVyIHRoYW4gbm90IHVzZSBUT1BE
-T1dOIGZsYWcgYmVjYXVzZSB0aGUgZHJtIGJ1ZGR5IFRPUERPV04gZmxhZw0KaXMgcHJvbmUgdG8g
-bWVldCB0aGUgY29uZGl0aW9uIGluIGFtZGdwdV9pc192cmFtX21ncl9ibG9ja3NfY29udGlndW91
-cywgd2hpY2ggbWVhbnMgdGhhdCB0aGUgYmxvY2tzIGFyZSBjb250aWd1b3VzLg0KDQpBcyB5b3Ug
-bWVudGlvbmVkIHRoYXQgaXNzdWUgaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9h
-bWQvLS9pc3N1ZXMvMjI3MCAsIG9uZSBvZiB0aGUgcmVhc29ucyBtYXkgYmUgdGhhdCBUT1BET1dO
-DQpmbGFnIGluIGRybSBidWRkeSBjYW4gbWFrZSBpdCBlYXNpZXIgdG8gZ2V0IGNvbnRpZ3VvdXMg
-VlJBTSB3aXRoIHRoZSBzaXplIG9mIG5vdCBwb3dlciBvZiB0d28uDQpUaGlzIG1lYW5zIHRoYXQg
-d2UgZG8gbm90IG5lZWQgYWxsb2NhdGUgY29udGlndW91cyBWUkFNIGFnYWluIGFuZCB0aGVuIGRv
-IGNvcHkgZm9yIGRpc3BsYXkgc29tZXRoaW5nLg0KSW4gc3VjaCB3YXksIHdlIGNhbiBnZXQgZ29v
-ZCBwZXJmb3JtYW5jZSBhbmQgcmVkdWNlIHRoZSByaXNrIG9mIGFsbG9jYXRpb24gZmFpbHVyZXMu
-DQpJZiBzbywgaXQncyBuZWNlc3NhcnkgdG8gdXNlIFRPUERPV04gZmxhZyBmb3IgZ2Z4Lg0KDQoN
-CkhpIEZlbGl4ICYgQ2hyaXN0aWFuLA0KSG93ZXZlciwgZm9yIGNvbXB1dGUsIHRoZXJlIGlzIHN1
-YmFsbG9jYXRvciBvbiBST0NyIHRvIGFsbG9jYXRlIHBvd2VyIG9mIHR3byBzaXplcyBmcm9tIGRy
-bSBidWRkeS4NCklmIHdlIHVzZSB0aGUgVE9QRE9XTiBmbGFnLCAgdGhlcmUgaXMgYSBwb3RlbnRp
-YWwgcHJvYmxlbSB0aGF0IHNwbGl0IGhpZ2hlciBvcmRlciBpbnRvIGxvd2VyIG9yZGVyLg0KSXQg
-bWF5IGluY3JlYXNlIHRoZSByaXNrIG9mIGFsbG9jYXRpbmcgaGlnaGVyIG9yZGVyIGJsb2NrcyB1
-bmRlciBtZW1vcnkgcHJlc3N1cmUgaWYgd2Ugc3BsaXQgdG9vIG11Y2ggaGlnaGVyIG9yZGVyIGlu
-dG8gbG93ZXIgb3JkZXIuDQoNCklmIHNvLCBteSBxdWVzdGlvbiBpcyB0aGF0IGRvIHdlIG5lZWQg
-dG8gY29uc2lkZXIgdXNpbmcgZGlmZmVyZW50IGFsbG9jYXRvciBzdHJhdGVnaWVzIG9uIGdmeCBh
-bmQgY29tcHV0ZSBpbiBsYXJnZSBiYXIgc3lzdGVtPw0KDQpCZXN0IFJlZ2FyZHMsDQpTaGFuZQ0K
-DQo+DQo+IFJlZ2FyZHMsDQo+IEFydW4uDQo+ID4NCj4gPiBCZXN0IFJlZ2FyZHMsDQo+ID4gU2hh
-bmUNCj4gPg0KPiA+PiBJZiBUT1BET1dOIGhhcyB0aGVzZSBnZW5lcmFsIGJlbmVmaXRzLCB0aGVu
-IHdvdWxkIGl0IG1ha2Ugc2Vuc2UgdG8NCj4gPj4gYWxsb2NhdGUgdmlzaWJsZSBtZW1vcnkgVE9Q
-RE9XTiBhcyB3ZWxsLCBvbiBsYXJnZS1CQVIgR1BVcz8gV2l0aG91dA0KPiA+PiBrbm93aW5nIHRv
-byBtdWNoIGFib3V0IHRoZSBpbnRlcm5hbHMgb2YgdGhlIGFsbG9jYXRvciwgbXkgaW50dWl0aW9u
-DQo+ID4+IHRlbGxzIG1lIHRoYXQgdXNpbmcgb25seSBvbmUgYWxsb2NhdGlvbiBzdHJhdGVneSBo
-YXMgYSBiZXR0ZXIgY2hhbmNlDQo+ID4+IG9mIG1pbmltaXppbmcgZnJhZ21lbnRhdGlvbiB0aGFu
-IG1peGluZyB0d28gYWxsb2NhdGlvbiBzdHJhdGVnaWVzIGZvciBubw0KPiBnb29kIHJlYXNvbi4N
-Cj4gPj4NCj4gPj4gUmVnYXJkcywNCj4gPj4gICAgIEZlbGl4DQo+ID4+DQo+ID4+DQo+ID4+PiBI
-ZW5jZSwgd2UgYXJlIHJldmVydGluZyB0aGlzIHBhdGNoLg0KPiA+Pj4NCj4gPj4+IEdpdGxhYiBp
-c3N1ZSBsaW5rIC0NCj4gPj4+IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vYW1k
-Ly0vaXNzdWVzLzIyNzANCj4gPj4+DQo+ID4+PiBTaWduZWQtb2ZmLWJ5OiBBcnVucHJhdmluIFBh
-bmVlciBTZWx2YW0NCj4gPj4+IDxBcnVucHJhdmluLlBhbmVlclNlbHZhbUBhbWQuY29tPg0KPiA+
-Pj4gLS0tDQo+ID4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0
-LmMgfCAyICstDQo+ID4+PiAgICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVs
-ZXRpb24oLSkNCj4gPj4+DQo+ID4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X29iamVjdC5jDQo+ID4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9vYmplY3QuYw0KPiA+Pj4gaW5kZXggMmJkMWE1NGVlODY2Li5jYTVmYzA3ZmFmNmMg
-MTAwNjQ0DQo+ID4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2Jq
-ZWN0LmMNCj4gPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmpl
-Y3QuYw0KPiA+Pj4gQEAgLTEzOSw3ICsxMzksNyBAQCB2b2lkIGFtZGdwdV9ib19wbGFjZW1lbnRf
-ZnJvbV9kb21haW4oc3RydWN0DQo+ID4+PiBhbWRncHVfYm8gKmFibywgdTMyIGRvbWFpbikNCj4g
-Pj4+DQo+ID4+PiAgICAgICAgICAgICAgaWYgKGZsYWdzICYgQU1ER1BVX0dFTV9DUkVBVEVfQ1BV
-X0FDQ0VTU19SRVFVSVJFRCkNCj4gPj4+ICAgICAgICAgICAgICAgICAgICAgIHBsYWNlc1tjXS5s
-cGZuID0gdmlzaWJsZV9wZm47DQo+ID4+PiAtICAgICAgICAgICBlbHNlIGlmIChhZGV2LT5nbWMu
-cmVhbF92cmFtX3NpemUgIT0gYWRldi0NCj4gPj4+IGdtYy52aXNpYmxlX3ZyYW1fc2l6ZSkNCj4g
-Pj4+ICsgICAgICAgICAgIGVsc2UNCj4gPj4+ICAgICAgICAgICAgICAgICAgICAgIHBsYWNlc1tj
-XS5mbGFncyB8PSBUVE1fUExfRkxBR19UT1BET1dOOw0KPiA+Pj4NCj4gPj4+ICAgICAgICAgICAg
-ICBpZiAoZmxhZ3MgJiBBTURHUFVfR0VNX0NSRUFURV9WUkFNX0NPTlRJR1VPVVMpDQoNCg==
+
+
+On 5/29/2023 8:05 AM, Xiao, Shane wrote:
+> [AMD Official Use Only - General]
+>
+>> -----Original Message-----
+>> From: Paneer Selvam, Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+>> Sent: Saturday, May 27, 2023 2:12 AM
+>> To: Xiao, Shane <shane.xiao@amd.com>; Kuehling, Felix
+>> <Felix.Kuehling@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+>> <Christian.Koenig@amd.com>
+>> Subject: Re: [PATCH] Revert "drm/amdgpu: remove TOPDOWN flags when
+>> allocating VRAM in large bar system"
+>>
+>>
+>>
+>> On 5/22/2023 8:52 AM, Xiao, Shane wrote:
+>>> [AMD Official Use Only - General]
+>>>
+>>>> -----Original Message-----
+>>>> From: Kuehling, Felix <Felix.Kuehling@amd.com>
+>>>> Sent: Sunday, May 21, 2023 2:39 AM
+>>>> To: Paneer Selvam, Arunpravin <Arunpravin.PaneerSelvam@amd.com>;
+>> amd-
+>>>> gfx@lists.freedesktop.org
+>>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+>>>> <Christian.Koenig@amd.com>; Xiao, Shane <shane.xiao@amd.com>
+>>>> Subject: Re: [PATCH] Revert "drm/amdgpu: remove TOPDOWN flags when
+>>>> allocating VRAM in large bar system"
+>>>>
+>>>> Am 2023-05-20 um 05:25 schrieb Arunpravin Paneer Selvam:
+>>>>> This reverts commit c105518679b6e87232874ffc989ec403bee59664.
+>>>>>
+>>>>> This patch disables the TOPDOWN flag for APU and few dGPU cards
+>>>>> which has the VRAM size equal to the BAR size.
+>>>> With resizable BARs it's not that rare.
+>>>>
+>>>>
+>>>>> When we enable the TOPDOWN flag, we get the free blocks at the
+>>>>> highest available memory region and we don't split the lower order blocks.
+>>>>> This change is required to keep off the fragmentation related issues
+>>>>> particularly in ASIC which has VRAM space <= 500MiB
+>>> As far as I can understand that, both ways may cause fragmentation issues.
+>>>
+>>> As I can understand that remove TOPDOWN flags may get two pros:
+>>> 1) It can reduce the research time to O(1);
+>>> 2) Reduce the risk of splitting higher order into lower orders when allocating
+>> blocks.
+>>> But as for the second point, Removing TOPDOWN flags still carries the
+>>> risk of causing fragmentation issue on some scenarios.
+>>> For example, the apps need allocate (1M + 4K) VRAM size, which is not a
+>> power of two.
+>>> Case 1: If not using TOPDOWN flag, we will allocate 1M order size and 4K
+>> order size from different order.
+>>> --And then if this 4K buddy and 1M buddy are freed, it may prevent the system
+>> from merging 4K(or 1M) to 8K(2M) order.
+>>> --If the app has many such allocation requirements, it may cause
+>> fragmentation issue under memory stress.
+>>> Case 2: If using TOPDOWN flag, we will find the highest order which is
+>> suitable for 4K and 1M needs.
+>>> --Assuming the highest order size is 8M, then we will split this 8M to lower
+>> order to meet the needs of 1M and 4K sizes, respectively.
+>>> --In such case the 8M size will split into different lower orders.
+>>> --If any other thread or process need allocate 4K or 1M VRAM, and there is
+>> also a chance to prevent the system from merging 4K(or 1M) to 8K(or 2M)
+>> order.
+>>> If there are so many needs to allocate not power of two pages from apps,
+>> one of the choose is to use suballocator from UMD such as what ROCr does.
+>>> That means suballocator can allocate power of two pages(for example 2M
+>> bytes) from driver, and the app can allocate memory from suballocator.
+>>> In such way, it may reduce the risk of causing fragmentation issues.  But I am
+>> not sure that such an option is feasible.
+>>> Maybe case 2 occurs less frequently than case one, then we should use
+>> TOPDOWN flags whether the system is lar-bar or not.
+>> Yes, It is better to set TOPDOWN flag mainly to avoid splitting down the lower
+>> order blocks which resolves the fragmentation issues and it doesn't try to
+>> allocate from visible memory (provided that we have the enough requested
+>> memory space in the top down region) which improves the graphics
+>> performances as well.
+> Hi Arun,
+> Think it more, the gfx needs get continuous VRAM for display something.
+> In such case, the TOPDOWN flag can meet this need better than not use TOPDOWN flag because the drm buddy TOPDOWN flag
+> is prone to meet the condition in amdgpu_is_vram_mgr_blocks_contiguous, which means that the blocks are contiguous.
+>
+> As you mentioned that issue https://gitlab.freedesktop.org/drm/amd/-/issues/2270 , one of the reasons may be that TOPDOWN
+> flag in drm buddy can make it easier to get contiguous VRAM with the size of not power of two.
+> This means that we do not need allocate contiguous VRAM again and then do copy for display something.
+> In such way, we can get good performance and reduce the risk of allocation failures.
+> If so, it's necessary to use TOPDOWN flag for gfx.
+The reason behind setting TOPDOWN flag is that we don't hold the small 
+blocks randomly preventing the merge back into larger sized blocks.
+Enabling TOPDOWN flag allocates the smaller sized blocks from the higher 
+orders which are split already for the previous requests, thus we
+don't disturb the lower order or middle order blocks. Hence we don't hit 
+fragmentation issues.
+>
+>
+> Hi Felix & Christian,
+> However, for compute, there is suballocator on ROCr to allocate power of two sizes from drm buddy.
+> If we use the TOPDOWN flag,  there is a potential problem that split higher order into lower order.
+Exactly, this is what we want to solve the fragmentation problems.
+> It may increase the risk of allocating higher order blocks under memory pressure if we split too much higher order into lower order.
+This is not a risk, as I explained previously we dont disturb the lower 
+or middle order blocks, hence we could see improvement in performance.
+>
+> If so, my question is that do we need to consider using different allocator strategies on gfx and compute in large bar system?
+>
+> Best Regards,
+> Shane
+>
+>> Regards,
+>> Arun.
+>>> Best Regards,
+>>> Shane
+>>>
+>>>> If TOPDOWN has these general benefits, then would it make sense to
+>>>> allocate visible memory TOPDOWN as well, on large-BAR GPUs? Without
+>>>> knowing too much about the internals of the allocator, my intuition
+>>>> tells me that using only one allocation strategy has a better chance
+>>>> of minimizing fragmentation than mixing two allocation strategies for no
+>> good reason.
+>>>> Regards,
+>>>>      Felix
+>>>>
+>>>>
+>>>>> Hence, we are reverting this patch.
+>>>>>
+>>>>> Gitlab issue link -
+>>>>> https://gitlab.freedesktop.org/drm/amd/-/issues/2270
+>>>>>
+>>>>> Signed-off-by: Arunpravin Paneer Selvam
+>>>>> <Arunpravin.PaneerSelvam@amd.com>
+>>>>> ---
+>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-
+>>>>>     1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>> index 2bd1a54ee866..ca5fc07faf6c 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+>>>>> @@ -139,7 +139,7 @@ void amdgpu_bo_placement_from_domain(struct
+>>>>> amdgpu_bo *abo, u32 domain)
+>>>>>
+>>>>>               if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
+>>>>>                       places[c].lpfn = visible_pfn;
+>>>>> -           else if (adev->gmc.real_vram_size != adev-
+>>>>> gmc.visible_vram_size)
+>>>>> +           else
+>>>>>                       places[c].flags |= TTM_PL_FLAG_TOPDOWN;
+>>>>>
+>>>>>               if (flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)
+
