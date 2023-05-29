@@ -4,57 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBA1BC77B73
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 13:50:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B664EC77B7A
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 13:50:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A3A310E379;
-	Tue, 30 May 2023 13:50:43 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC15710E379;
- Tue, 30 May 2023 13:50:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685454642; x=1716990642;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=coaE20tPVJ7AZBZ9YIPPD7ohxPRVwifqLulonpO6f/c=;
- b=HsS0Nb7NMl9udjeQg/Fo+ep+sZv4m53a0n4AhKSIXQbsO8zqBETSWUhJ
- 8C38vbeoGzUONL5bsu4W0VEAuyx8hlMnDb/A9Dzf0/FIoJQ0di/AdxLSj
- h4wywTRqOD6/pOihNPkC9uMmEcnuuleRUz6lxDNc2M8YSSJakG8noyA9L
- nlDwRRLoSfXY/p/wmHMxBi3DlMI7FcBqyjd32U/6d6vr8e0XlH38obzUd
- CV4PWstklnraurhZlhVQe5TJh4XaWYar1CYHTBJdTDyImdx8mtVv1ghNf
- PU+OLcxBXBXfAE3aTL2gGLTB1GnLBguwK2H9Q3K/VUL8gWQX3wrF5npbX Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="352418869"
-X-IronPort-AV: E=Sophos;i="6.00,204,1681196400"; d="scan'208";a="352418869"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2023 06:50:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="771552147"
-X-IronPort-AV: E=Sophos;i="6.00,204,1681196400"; d="scan'208";a="771552147"
-Received: from lkp-server01.sh.intel.com (HELO fb1ced2c09fb) ([10.239.97.150])
- by fmsmga008.fm.intel.com with ESMTP; 30 May 2023 06:50:23 -0700
-Received: from kbuild by fb1ced2c09fb with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1q3zjy-0000aN-2p;
- Tue, 30 May 2023 13:50:22 +0000
-Date: Tue, 30 May 2023 21:50:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: Evan Quan <evan.quan@amd.com>, rafael@kernel.org, lenb@kernel.org,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
- kvalo@kernel.org, nbd@nbd.name, lorenzo@kernel.org,
- ryder.lee@mediatek.com, shayne.chen@mediatek.com,
- sean.wang@mediatek.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, Mario.Limonciello@amd.com,
- Lijo.Lazar@amd.com
-Subject: Re: [PATCH 8/9] drm/amd/pm: enable Wifi RFI mitigation feature
- support for SMU13.0.0
-Message-ID: <202305302118.3mARqykY-lkp@intel.com>
-References: <20230530024227.2139632-9-evan.quan@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D837410E398;
+	Tue, 30 May 2023 13:50:46 +0000 (UTC)
+Received: from smtp.smtpout.orange.fr (smtp-30.smtpout.orange.fr
+ [80.12.242.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51D2610E239
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 May 2023 07:19:17 +0000 (UTC)
+Received: from pop-os.home ([86.243.2.178]) by smtp.orange.fr with ESMTPA
+ id 3X9eqYgEzMDzt3X9vq4QNv; Mon, 29 May 2023 09:19:15 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1685344755;
+ bh=QHA/Y0t0+ZEe+OD0y5zfwImt3ZyVK3OrMC3Z9s2pa1M=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=W7r6xtOwhhzprrKfnZGh0T9qW6D98nODcTPYdrrsDy8UKp9fEcacSAXQkx7QVuWsz
+ vE44t8MRi8+dK7gLek1AWrWxPl2qATJxc8HrbjAGOwLvfuSOuHMg8DP6xMcVD+Q/hF
+ /zkkum9tvQek+TK7Z7XtphlqTNEWEXI55kvwobij7TzAVfmh+PJgyMsTYhyjUXYimY
+ Evlsvd/Mq++SUL8fVPRhVdmAdbSLzHn0uzjvyRgyt9LioGM/9JBO4zihT7xxKHZ/If
+ NW7ybU0zzERVByEtGA9ueYwMHYxdLYXlp9F7FUWyRqUTynkURq6ySZq3E7kKqkpFHx
+ sSecbvRt+wSiw==
+X-ME-Helo: pop-os.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Mon, 29 May 2023 09:19:15 +0200
+X-ME-IP: 86.243.2.178
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH 3/3] drm/amd/display: Use USEC_PER_SEC
+Date: Mon, 29 May 2023 09:18:56 +0200
+Message-Id: <c168fac9fdde872a4f4d047f12a6a7c19185f47c.1685342739.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <e0a2240f863279b65a1fdc7f8c27ede9f8e37893.1685342739.git.christophe.jaillet@wanadoo.fr>
+References: <e0a2240f863279b65a1fdc7f8c27ede9f8e37893.1685342739.git.christophe.jaillet@wanadoo.fr>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230530024227.2139632-9-evan.quan@amd.com>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 30 May 2023 13:50:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,52 +56,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- oe-kbuild-all@lists.linux.dev, ath11k@lists.infradead.org
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Evan,
+Use USEC_PER_SEC instead of defining an equivalent local 'us_in_sec'.
 
-kernel test robot noticed the following build errors:
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+NOT compile tested. Because of some BROKEN in KConfig files.
+Some header may be missing for USEC_PER_SEC!
+---
+ drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on kvalo-ath/ath-next wireless-next/main wireless/main linus/master v6.4-rc4]
-[cannot apply to next-20230530]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Evan-Quan/drivers-acpi-Add-support-for-Wifi-band-RF-mitigations/20230530-104541
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230530024227.2139632-9-evan.quan%40amd.com
-patch subject: [PATCH 8/9] drm/amd/pm: enable Wifi RFI mitigation feature support for SMU13.0.0
-config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20230530/202305302118.3mARqykY-lkp@intel.com/config)
-compiler: powerpc-linux-gcc (GCC) 12.3.0
-reproduce (this is a W=1 build):
-        mkdir -p ~/bin
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/8ecc361da81a0915bb626156b47403a91b678de1
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Evan-Quan/drivers-acpi-Add-support-for-Wifi-band-RF-mitigations/20230530-104541
-        git checkout 8ecc361da81a0915bb626156b47403a91b678de1
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.3.0 ~/bin/make.cross W=1 O=build_dir ARCH=powerpc olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.3.0 ~/bin/make.cross W=1 O=build_dir ARCH=powerpc SHELL=/bin/bash
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202305302118.3mARqykY-lkp@intel.com/
-
-All errors (new ones prefixed by >>, old ones prefixed by <<):
-
->> ERROR: modpost: "__umoddi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
->> ERROR: modpost: "__udivdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+index eafe8561e55e..9b82ee3e06d0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+@@ -678,7 +678,6 @@ static uint32_t get_dmif_switch_time_us(
+ 	uint32_t pixels_per_second;
+ 	uint32_t pixels_per_frame;
+ 	uint32_t refresh_rate;
+-	const uint32_t us_in_sec = 1000000;
+ 	const uint32_t min_single_frame_time_us = 30000;
+ 	/*return double of frame time*/
+ 	const uint32_t single_frame_time_multiplier = 2;
+@@ -691,8 +690,7 @@ static uint32_t get_dmif_switch_time_us(
+ 	pixels_per_frame = h_total * v_total;
+ 
+ 	refresh_rate = pixels_per_second / pixels_per_frame;
+-
+-	frame_time = us_in_sec / refresh_rate;
++	frame_time = USEC_PER_SEC / refresh_rate;
+ 
+ 	if (frame_time < min_single_frame_time_us)
+ 		frame_time = min_single_frame_time_us;
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.34.1
+
