@@ -4,115 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50114C7EE23
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 May 2023 19:49:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FE53C7EE23
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 May 2023 19:50:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBF3B10E24E;
-	Mon, 29 May 2023 19:49:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6637B10E2DF;
+	Mon, 29 May 2023 19:50:18 +0000 (UTC)
 Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2053.outbound.protection.outlook.com [40.107.101.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD38310E24E
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 May 2023 19:49:17 +0000 (UTC)
+ (mail-mw2nam04on2077.outbound.protection.outlook.com [40.107.101.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C45F410E2DF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 May 2023 19:50:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NW0DQd0eEJGgt7fgy/7b2kC/4k86/dqjxUGb+jKQBDQJI4MpV3m+awOLBPvvhE6uTnJJGtFoqSdEVBX/HD+hhQGGXd6Kl9V/xp6kZByWi3vrrs5pxQ/EALnGSgnxfJOmAOpO+kqhBjeesJ6IjHRWoA9IPrB1J7sMx3jMOml8yHidI5u5g6reGRU9jBx+fheYdYf1BSVbWcsSHyf50mc8OCxuwY4lqvEhufXgTY9QYjZscGDP6wpzGeo0vfuaaEIvtDOAiq3Rws+jISYKq9NKVfaD1tnckv0sUUyR61E0A1nR7oboHIf15hvQIz5aVeZLuESYrZYr2i058I0PNBiaGA==
+ b=ZtFezQ0F3qvr76EY3pdiNLbZ3787yw1+jlPuxghKOjy1kxxBwcCiJBnD27M+YK2+JgvtTz8Kqb1UD8lMNOPKbzvRTp3WWHn1jnF32x2yLIwEav0jKxwU7PGFIoLzFiO+2A7yoGFkL39+br+PznVefdnpb12/AH7GqFRktuOzo/Bm27qZSOqCrImGJPHttjIxF8mZGIox9SxoXyumiKx9Kzeu6cvQXLlNM8Q0t9qYXt0H4cu4FXLHEi8MjZqeUfz8UCz9SgVubIb4SbTcoWMdxmPcXYued2PZSouhaMpZWP2fzaIrqjFYP7JMXSNkbC47tqABW1P1WAiXCMvs4gr1KQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IytiTomdADT+vmHRer6aMosD+Xq17DiAPl8JpTYmJpo=;
- b=eXAamRU0xKlhAgEuTo/W/A9yHMr8zriz/MT4q4ae2jbaSWXTPnVh9lJ1lPQSmRNTEOHMhyaLJw898345DKkcLs1Ll8uaIj0wgeQNE+4rxNUCphchlxtXn/4V5nTt10RX/vOawpjLC/izvORw271ea7sgDhux1bdPMbIl5qptj3D0FDpXUv/hbyw30xAiWJBi8B69aa/SgqjlkbdFW9BEIALqmueEu278CqrQ6norHXOcWJOObc9S5ZbjQErFF3rMzawv0X+7ggrM31Ye4U45uHa/9Aj4PUOOFNKsKhErOMqrJuZqxsFO56ItxvF3shA5hPXcIM+JPcMjECbcGkQZaA==
+ bh=zY7sy6rpdFSfJYhzinyBUEk7sLmIk8wCVNRNw0m9X6M=;
+ b=ngPBztxNkUFxSkybP01gswv0DV2PKy/8BE/vd2Wg2SZpFwb0dK6W0YOr3TIbCnIfPAYQdU19itiYE8ON22SZeif5N9gl0BNftVhfJteWtZspUwHyh48olsI+Z+504icZo1gL4N7GYgbr4J4pWEOonLq9RzEdzI3jczym/V0NQg14E/2yYvvY5fTt6jS/G2zXxxnOfcUq83R3Zrf1fjVOBs29TOMYUeNt0HG+bvw9X4LY713+A1QFWPMM5CzeNSUGtGOvLF04MuRDmGtsmhB8TPbsYp2Twg234Y4wRQmdMQqnUBrr5uuXPtWNcffGVZ8IyjD4fzCTWAYll9oJfMRkGg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IytiTomdADT+vmHRer6aMosD+Xq17DiAPl8JpTYmJpo=;
- b=ErocLQkOpph8tSIoEAOAgoq2ICqbc7VPSsto6NiDOsYiyKwBsJGcPkrqr54WrM+9b7GoUa0LzWU3VIRC6mqd+yQseeBrdyi2jVRZn73mHuP9uU7sECOG0YgdAx/+ctC9Smf3IQd5IE1QQ+R1ZXpTlyAIjF/smCqgs5K3f2UtFE0=
+ bh=zY7sy6rpdFSfJYhzinyBUEk7sLmIk8wCVNRNw0m9X6M=;
+ b=DkLNF0lHS1ZzT+gmJU3hoAn9NxkVJG+28UoRkJhybgP7BPST+z4Fb00zsWHp/BsHZVOac98GGI3z8Midm4QVl+eORKCfYahyEZcF/5TdCuVyrvcZaMY/J8l638PO4t10PwU8m3uaHtx64n2aX4Mce4dgqf/Nyjzqb/eS43ywKR8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
  by IA1PR12MB8309.namprd12.prod.outlook.com (2603:10b6:208:3fe::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.22; Mon, 29 May
- 2023 19:49:14 +0000
+ 2023 19:50:13 +0000
 Received: from CH0PR12MB5284.namprd12.prod.outlook.com
  ([fe80::4d3e:94ab:56ef:6e11]) by CH0PR12MB5284.namprd12.prod.outlook.com
  ([fe80::4d3e:94ab:56ef:6e11%3]) with mapi id 15.20.6433.022; Mon, 29 May 2023
- 19:49:13 +0000
-Message-ID: <3590cc3b-9eba-e2bc-bc1f-14e1cabb219a@amd.com>
-Date: Mon, 29 May 2023 15:49:10 -0400
+ 19:50:13 +0000
+Message-ID: <a1139c82-9664-216c-0815-d8f1b0cdf491@amd.com>
+Date: Mon, 29 May 2023 15:50:11 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amd/display: Fix up kdoc formats in dcn32_fpu.c
+Subject: Re: [PATCH] drm/amd/display: Add missing kdoc entries in
+ update_planes_and_stream_adapter
 Content-Language: en-US, en-CA
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Harry Wentland <Harry.Wentland@amd.com>
-References: <20230527164207.1527732-1-srinivasan.shanmugam@amd.com>
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+References: <20230527142503.1465145-1-srinivasan.shanmugam@amd.com>
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-In-Reply-To: <20230527164207.1527732-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230527142503.1465145-1-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0001.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::24) To CH0PR12MB5284.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQZPR01CA0019.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:85::18) To CH0PR12MB5284.namprd12.prod.outlook.com
  (2603:10b6:610:d7::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CH0PR12MB5284:EE_|IA1PR12MB8309:EE_
-X-MS-Office365-Filtering-Correlation-Id: b52629a1-9f23-42b9-a55f-08db607dc71d
+X-MS-Office365-Filtering-Correlation-Id: 7922cbbf-16f6-48e0-9e6e-08db607deb13
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: M9jzw7cMr5VXoC1IiAjiFV/m0Fi3ZrtkNJEW4rVsfbolltT86fkA9kMHfQ3C+LZvkTRPG6MrHrvxlJftxll6fEjspxM+J0oQUguzJKFKgz/Axwq6kvmAYs1KgchIZKITccgDTBYUKjNfnCDAf4sazxUH3HZOqLkoOwXiLV2+4SdMXs9lDNxMmOC08DNRD9zG7L7WmTvZshi4DYNrke4xCQmFyzPeD2al4Re0bkqkp3C57IoR5HaPk2pCpVPctIiYO4VUh2WTTmHrk7IyXEx45J53na1iYkAj72g5BKOeAyQU3iznl3fmm92Ef5Wz8AdDIy0KUSdR+OnakveKj2FLyiABCXKxtjxC9ou63M7z2JD6hiUydMTNEC2VnKHP4g9/91j2lniFFyY0AjEiXaOZh93JPfs+c+2vlkTMyPoSfDb6RtxaZwV55KlYII3MH+GguGr2bHb9BlnA/p5zdn8JHv+JH7ru2emRJ2rG1bG/POaUD/2+jQLKI8tHbBA5XvUGQbSQ67Uq4uCHebGgnb1dLGZYcG6FaRoPEnu4Ot0ct98zHMstfUb7TtytxZaOI/fFU7wOOfkhXeVkkxz+2TJ9u5p1W6DPKG1mvE6kI2fDL7RlsnrLTgWNYKIb8M8ZxK6TMgcTnA328IOguug4P0tlsw==
+X-Microsoft-Antispam-Message-Info: FxmbzRvimOqWw6qT7DxBmruWDQn+vptnSSeYnakbphmmaZe04BpEEnCe+Yy6Sxyfbar7QAEvahes26ANg47uEKYwzxaYmi7iK1T7Ze9ODRJzxPY+ktY4RhWpA6CFOY6W8eKsSRdU8+JkAVsUxxZ5BWRf1iQqg8PIOQ3xvz1km4/5Gih8KfRvZXoIPibz3eOp+fUKayupL/nI7+ehyGjTTlVHe97KNGFIOAv/kKlfokHWJdnOnCbCAN4BZ+KDpkMHmxQpUoqS89mqQROXSbCfElXTcMfroXrQgnUL9+LEZ5NNIi1ztZBk424mCVd4XoDuhmZNE4pQ4uXNsXQq5YzjwipOf69k/TtEzWiDdkSZdhi+y7hxT8XE4sNO8IkxWcZ9FqV7/wq+XMEghJWGfr0doFWxgn+OPmJWg2qjhtkNgKRLEfIqi6u8Z/AT2pPEM70IBpphj+T/AqYjuV1dlb5XMyZWbbQSl0TXcEBS/5DFSkIfaVE1RXNTZFXkXrAH9JNkodYkcUAWm4KxfqWZb+PkjaO4YZYMxwPLeyIDjhyj5pjUWzqsUEvfYHOU5bQaCWuwuUpYbiYpz85zKCK4mJfoWXSvncTRGqXqB+BxrIAj+fa42FUh/vt5hQfPgdduVjBQZiB4ujcVzWavZmmO7oY5zw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(39860400002)(376002)(396003)(136003)(346002)(451199021)(6486002)(2906002)(31686004)(966005)(41300700001)(38100700002)(186003)(86362001)(31696002)(8936002)(8676002)(2616005)(110136005)(478600001)(26005)(53546011)(6512007)(316002)(6506007)(66556008)(83380400001)(6636002)(4326008)(66946007)(66476007)(36756003)(44832011)(5660300002)(45980500001)(43740500002);
+ SFS:(13230028)(4636009)(366004)(39860400002)(376002)(396003)(136003)(346002)(451199021)(6486002)(2906002)(31686004)(41300700001)(38100700002)(15650500001)(186003)(86362001)(31696002)(8936002)(8676002)(2616005)(110136005)(478600001)(26005)(53546011)(6512007)(316002)(6506007)(66556008)(83380400001)(6636002)(4326008)(66946007)(66476007)(36756003)(44832011)(5660300002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WWtuVDJPSEY1clM2ZjdjbHFPV2FGdGNVWmx1T1pXdVY0WnJXNGJ2R1pRcWQx?=
- =?utf-8?B?SDU4Nkg5UThiSXNzRWxOVWJyZ3ZJUXptSUN1QUhtUkw3QVAxQS9VeVlWQ2U2?=
- =?utf-8?B?S1V5bjlmZWZnQXhKRmlIY0xxZ1ZvYytRUGVMYWF0ektKU2p3cWowVUxLbHU1?=
- =?utf-8?B?TnFld3BFQll4SVJVdTkvMGVCRXd3cXNwbHNneGJXN3o2UzVzUXpYdkU3Q0ow?=
- =?utf-8?B?emQ2Z29HVlUraHlHMm5MZUZpYzhhVUw3d2NmQ0Z4ZVBYaXYvRHBmc1lqeVZX?=
- =?utf-8?B?RmVnVFVEWFBLL0NSbTlOcUZlOTZzR002TjVwOEhPRzNpTFpIV3ZDU3lwZXVE?=
- =?utf-8?B?b2hoZzNFdm1rVnNFRE44RUpSQWtLUXNoeFErRXNZZmRzWkg3OEFFZ2o4RlhT?=
- =?utf-8?B?clF6Szg1UHJnL0p5UkJpcnJ0WkNPbjVvS1gzeHVDOW5VWGxxRm5XSElSREdU?=
- =?utf-8?B?NzBNdDRuSVJZL0tXYnBGZVE2R1psNlFWaHR4Qk1vc0dpMjZmRTVGZGJnb2Vw?=
- =?utf-8?B?N1Z1WXhTU1ZURnRUd1Y3eHJlUm5NN2pJLzNKKzlmSVRrRUFnamRLeG1PR0Nu?=
- =?utf-8?B?SFBGTTVQYnUyOVZKNFhWYTdlbEw5aW4vb2pWc1hIV21SVmdxQUpWeFdOQlNu?=
- =?utf-8?B?YTEvV0xYUllaOFFhRyt1NTM3aHJzMEVSdEl3bjdtdjF2YzUrblVhOGorR1h1?=
- =?utf-8?B?ZGFqRFp3cTJINjZ2dEtHdEZyQkZPY2VhNm5TZDRIRWdoZWZJdWRpbEMzbnJT?=
- =?utf-8?B?Sk9tNVRpdnJ2QTIvK05DZzM3Q3pOTURWN29OUGJoRkNOL0NVWVdlcHdhaUlH?=
- =?utf-8?B?dGhxZWs2VlllVTRDa1dzc3V6MGUveHFoK1dGLzNrYnJFeWlkTWltWnZqRGcr?=
- =?utf-8?B?eTBiK29VRkVPb2M2alRwWUNBVVJCbzN3MHNXR2oyUjlyZ2MxYjBHRm9FRXRS?=
- =?utf-8?B?VnJ3K29qVU5qM1BsY2Y3bmhDeHFiWlREc09vd1FZNWxNY1ZZd3UzUXJORWNo?=
- =?utf-8?B?R0VuYjRyc2tDL0wvSUhyblEvU0RZUmFOS2RFZ0dia01SSGpOdWRXVmhhWEtK?=
- =?utf-8?B?L0UraHJqQ0hoRlRFZGk1UUt2SnJWaEhRMzVIQjEzc0hOSXdCSnlpLzRDZitw?=
- =?utf-8?B?Qk5WT3BjUHQzMGNjRm9jWkN6RkRrTVZHMnhMcEVJZlBGamR1b0s2N2t5YUYx?=
- =?utf-8?B?bjlJZXRCWDh1bnJEWWxDVmJXQUN5RndGSEVrbSsvbjBvQVlLYWFmRU41MHZl?=
- =?utf-8?B?QlNuVHlaNnQyTjdxa20xdit0dUp2NFlBSDZzaEVEMUM2SHRwVTFoSkJYQ0RO?=
- =?utf-8?B?M1hKclZiSHJHYTJBTnd6Um9wSHRxMzYxNlNDd1pDYVVyWG4zNUpUVHA0Zzgx?=
- =?utf-8?B?U3M3RFBhejFjQVNvclkvMVY4c1F4ZzNGcHo0M2wrUFlFMDYzVkx0MVRZMTJm?=
- =?utf-8?B?OUtUQjM2YVM1Nm1BTnR3N2FHKzVKUEtDQ2xRWkl1bjhjNmFKYyt3U1FITVRs?=
- =?utf-8?B?QXltM1ZmaDByblN2eTJ6N21nUjloMlZzdlZaTCsyUUdwb0puY0pBMExpR1JK?=
- =?utf-8?B?RmhIVitvY0hQZy8xSDhrS0orSlN4ajVSUy81TENrWXk3a1JSSjhFTlE1WC9u?=
- =?utf-8?B?Sk1HYlp4OFVnSlRlUmdHbFl6VUlwS0gyVzJneWltcm11Y0Y5MTk5T3o0Q1Bk?=
- =?utf-8?B?b0E1OXNwSmRmdVhINEMrem1xMkE5TG1UeXN4K3JIL0lzdk9yZzBPSG9wZnFD?=
- =?utf-8?B?YkJVTG5pYmtBUEkwVlFpTHFXRVJ6U05UcnZ5Rm9qenZXVkFtYUQ5OGxaYXFq?=
- =?utf-8?B?MHduY1c0RE02OU03R3FhQys2R0F5TERBd3hsSTNDWnY4dHZtb1hpQ0JFT243?=
- =?utf-8?B?UUIzR09hdWx1dEFQbXF2QzNpd1MxejV2QVhtcnhMaU5FWG5BQ0x6YWJSOG0r?=
- =?utf-8?B?Q1RwMFE2RXdJMXVZc1Nub0F1ZXlCWjNHcUNFNWZjeFB1WWRZb2hPaVVWK3d3?=
- =?utf-8?B?V3poS2kxTnF2ZDU2ZzlPQnRHNUZlZjYzRndtai9DeDE0RktlaTh2VEUxM2p4?=
- =?utf-8?B?NjNFMlNnQjJSZENKY3FjRldKdFlFWEg2cCsyV1hwbHN3MjJXb3JQcXBIY2xh?=
- =?utf-8?Q?WzRdl5YO18bRsLBSnLaHsDV1g?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bG5QL3pnNk56aEJLWVdILzdPSXhUNGhDUWowRVRxSEgyM2tGcVVjbUluT2JS?=
+ =?utf-8?B?dU1Qa3dydUZueGh3QmcrcHlmeHYzZFVZL1R1aEpXdXFpakNpa3FMQk03cmdY?=
+ =?utf-8?B?RW9CbTd3MUlCM2tqSGRaQ0M2NVhrLzdyRlB3bVRJZzhSS01BNmdXdyt4SlZU?=
+ =?utf-8?B?NVhvM3NlREs2SEdxRlBsZnVLSXZlRGZobHVQbFlidGxCc0dJWnI5SGN6TzM0?=
+ =?utf-8?B?TTgvY3M5d2lYSkRhWWh0VEtEMCt4bFBjek03UFF2cUk0Um1iZFF3SXBIOFlu?=
+ =?utf-8?B?aFE5WENQcXErYXFSYTdETFkyNlVxaDU2ZWJjMTBoLzVMYkFjUWVMSTMrK1lW?=
+ =?utf-8?B?MmQwVGk1cGpZdUQ3TU5FOFVhMC91VzJUL0JENWZCbUpHMVpadVV1QStvRUR3?=
+ =?utf-8?B?Tzg5NlJQdEwveFcrSEJHVWcvL1VScmJUaG45cXpwOUpycTZOeS94K1NrT1g5?=
+ =?utf-8?B?YzNvNHZweSt3Y09zVk1ETzhBZkdrNnZRVzRMK2FQTzFUekR5T0lacVRSV2pM?=
+ =?utf-8?B?U3RFaUVDVjVZZiswTVpGOWcwNk0zWHZCNXptOEFacVZ4TEZUanM1NXBxbWR2?=
+ =?utf-8?B?M3RYYmkvS1lCWmRNS1JKSmRtL2NFZ2VvQStQTThsY1BxN3ZXa3ZBek9kVzlV?=
+ =?utf-8?B?T0VsTzZjS1NFYkhrMUY3Yi96bnBhVjQvRXdVNmxUVk02aTh0UHpSZm9MUzhD?=
+ =?utf-8?B?MzBOTzZxOFZoNW1OOFhnT2U1T25NbE5nbW5QVVJqZExWS3ZjNk9Nai9YUmsx?=
+ =?utf-8?B?OUdXaGRPOXJOTStpWFdtb3FRWUdCVStHNHhvWUJndjY1M0hsb21OTFdmZTR0?=
+ =?utf-8?B?K2l5MTBDWGFFTXJpUjRtTWdZcnl0QlNVTXlYS0hzSmdTQmo4L3RjZjd4VkdV?=
+ =?utf-8?B?QkxyWHlwbVZDejlOOUE0TnI4TWQrSlorV01TbHlvS2svTHlrZUd3dGN3N1hq?=
+ =?utf-8?B?NkY2cmpURHQzcDFmV0NNTVhaV3N3MnVReEJnZWNoWEpidE4vRDdQbnMxMzZo?=
+ =?utf-8?B?YU1xSGZtWU85bjdJOVRkZ0FYK0NxV1BwckdRbURpL0JSQzNQRjZvcHQ0SGxh?=
+ =?utf-8?B?TG81eWY2aklVNFRSa3EyWllhREUyZjRMU1Z2VVFkTGdoY2xlZ1llVTlrRmpq?=
+ =?utf-8?B?TGJaQjdSN3dqSUR2dXRHL3dOWCtlZlVBbjRjYlhTUmJHRU5KYkIwVFlMTElr?=
+ =?utf-8?B?a2taSFMvT01KL3Vub1Jyamdab21UV2xrOXU1K2IzYUF3V2p6ZXJEdEVKTXBk?=
+ =?utf-8?B?RTQ4ZlBNeThWVGVrM0RROWMvUDVaV0NLaEwxbXZIRy9PNGlrc0YzV1BWeDUw?=
+ =?utf-8?B?aHBuQnp0YWVmZy9od1NJa3lQWURQMlAyaTZLRHFQRzR1aG82NndMMytkSkpD?=
+ =?utf-8?B?OCtYNk05RHN3VFdCSFFWZFBZQU55NHNIMG5VOXJQN3V4d3Ara3dzOW04TFpF?=
+ =?utf-8?B?c0hWVVFnZ1h2bWc5UTRYMFFGQi9VWlFJSW5lYStWSnA4ekIyNjRHYlU4aXFz?=
+ =?utf-8?B?cVJpblQ4cTN3Z0hMdndaNDU5d1NOcVArdGpsZ1YwMU5KQnlVU2ExekpkKzVZ?=
+ =?utf-8?B?Ym5XaENHQjhCQmQweUNiSTlVZXZDamFUN29tREFDaW8vSFVzNFJzMW40S0Qz?=
+ =?utf-8?B?UVZjcmFJRFR6eU1RRFpvZjFUdVhnZnUzdmN4WWFhczFhYlFkSW1lYWJaRFEy?=
+ =?utf-8?B?dTBTRDFjS1NESkdhME5seEZyOVl6dmZ6djlmTFlmaHBCbm90UHVoRjJCbGE4?=
+ =?utf-8?B?dmV4c0VqT2V4eE1kN1lyRXZ0ajNtVDNwRkhvaEZMQ2p4azlTU1pLbVhiYXYr?=
+ =?utf-8?B?V0dKRDhpQlhEN1RmNGhuUHdOWjk1WHVIS3c2Yk5CbEFmZ2s0dTlwUjlZckFz?=
+ =?utf-8?B?T3NtVUFHMHN5QnZIckxRV2w2UTNUa1ArQWxpS0IyMkVaT3QxK2lHbWd1bVpq?=
+ =?utf-8?B?d1A4WU4yLytNVDJLVFN4S3cxMittVlFDUENhT2drbG1uSkgrQjkvWldadnRV?=
+ =?utf-8?B?QWdscEZkc3dRQmpRaW5ia0lnRFRScWxLdEgwN01tdmZSMzBYMWxsRENsNlZ2?=
+ =?utf-8?B?NHc5MGlqdmdpVnpObUczWDZybWR6RmdIU2hncFlpeDhtekJnUHVHZkYraUJx?=
+ =?utf-8?Q?vwHzpnlh/FQxnxxzZUyUeujMp?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b52629a1-9f23-42b9-a55f-08db607dc71d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7922cbbf-16f6-48e0-9e6e-08db607deb13
 X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2023 19:49:13.5803 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2023 19:50:13.6302 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G5dTwQSOcoEHgTR2XF8sXBed4oBj5YveqwDo0kXcfJIr8CVaIHRCsjdKttrVHfgwoRYBSzIZYsg2gYlXp1SC1A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5pDnBBXYWUGp2ZJMMpyFYxpsOy19+IOi7FGh+vvq494/9aFtu3q0DCaj4VQcbVu15c+oVP55titmL6RXZuOXAg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8309
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -129,143 +129,42 @@ Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Srinivasan,
-
-Please see my inline comments:
-
-On 5/27/23 12:42, Srinivasan Shanmugam wrote:
-> Fixes the following gcc with W=1:
-> 
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2806: warning: Cannot understand  * *************************************************************************
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2855: warning: Cannot understand  * *************************************************************************
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2900: warning: Function parameter or member 'dc' not described in 'dcn32_assign_fpo_vactive_candidate'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2900: warning: Function parameter or member 'context' not described in 'dcn32_assign_fpo_vactive_candidate'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2900: warning: Function parameter or member 'fpo_candidate_stream' not described in 'dcn32_assign_fpo_vactive_candidate'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2929: warning: Function parameter or member 'dc' not described in 'dcn32_find_vactive_pipe'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2929: warning: Function parameter or member 'context' not described in 'dcn32_find_vactive_pipe'
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn32/dcn32_fpu.c:2929: warning: Function parameter or member 'vactive_margin_req_us' not described in 'dcn32_find_vactive_pipe'
-> 
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 46 +++++++++----------
->  1 file changed, 22 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-> index 137ff970c9aa..6d8dda4cb065 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-> @@ -2802,13 +2802,12 @@ bool dcn32_allow_subvp_with_active_margin(struct pipe_ctx *pipe)
->  	return allow;
->  }
->  
-> -/**
-> - * ************************************************************************************************
-> +/*
->   * dcn32_allow_subvp_high_refresh_rate: Determine if the high refresh rate config will allow subvp
->   *
-> - * @param [in]: dc: Current DC state
-> - * @param [in]: context: New DC state to be programmed
-> - * @param [in]: pipe: Pipe to be considered for use in subvp
-> + * @dc: Current DC state
-> + * @context: New DC state to be programmed
-> + * @pipe: Pipe to be considered for use in subvp
->   *
->   * On high refresh rate display configs, we will allow subvp under the following conditions:
->   * 1. Resolution is 3840x2160, 3440x1440, or 2560x1440
-> @@ -2817,9 +2816,8 @@ bool dcn32_allow_subvp_with_active_margin(struct pipe_ctx *pipe)
->   * 4. Freesync is inactive
->   * 5. For single display cases, freesync must be disabled
->   *
-> - * @return: True if pipe can be used for subvp, false otherwise
-> - *
-> - * ************************************************************************************************
-> + * Returns:
-> + *	True if pipe can be used for subvp, false otherwise
->   */
->  bool dcn32_allow_subvp_high_refresh_rate(struct dc *dc, struct dc_state *context, struct pipe_ctx *pipe)
->  {
-> @@ -2851,16 +2849,15 @@ bool dcn32_allow_subvp_high_refresh_rate(struct dc *dc, struct dc_state *context
->  	return allow;
->  }
->  
-> -/**
-> - * *******************************************************************************************
-> +/*
->   * dcn32_determine_max_vratio_prefetch: Determine max Vratio for prefetch by driver policy
->   *
-> - * @param [in]: dc: Current DC state
-> - * @param [in]: context: New DC state to be programmed
-> + * @dc: Current DC state
-> + * @context: New DC state to be programmed
->   *
-> - * @return: Max vratio for prefetch
-> + * Returns:
-> + *	Max vratio for prefetch
->   *
-> - * *******************************************************************************************
->   */
->  double dcn32_determine_max_vratio_prefetch(struct dc *dc, struct dc_state *context)
->  {
-> @@ -2881,7 +2878,7 @@ double dcn32_determine_max_vratio_prefetch(struct dc *dc, struct dc_state *conte
->  	return max_vratio_pre;
->  }
->  
-> -/**
-> +/*
->   * dcn32_assign_fpo_vactive_candidate - Assign the FPO stream candidate for FPO + VActive case
->   *
->   * This function chooses the FPO candidate stream for FPO + VActive cases (2 stream config).
-> @@ -2890,11 +2887,12 @@ double dcn32_determine_max_vratio_prefetch(struct dc *dc, struct dc_state *conte
->   * ActiveMargin <= 0 to be the FPO stream candidate if found.
->   *
->   *
-> - * @param [in]: dc - current dc state
-> - * @param [in]: context - new dc state
-> - * @param [out]: fpo_candidate_stream - pointer to FPO stream candidate if one is found
-> + * @dc: current dc state
-> + * @context: new dc state
-> + * @fpo_candidate_stream: pointer to FPO stream candidate if one is found
->   *
-> - * Return: void
-> + * Return:
-> + *	void
->   */
->  void dcn32_assign_fpo_vactive_candidate(struct dc *dc, const struct dc_state *context, struct dc_stream_state **fpo_candidate_stream)
->  {
-> @@ -2915,13 +2913,13 @@ void dcn32_assign_fpo_vactive_candidate(struct dc *dc, const struct dc_state *co
->  	}
->  }
->  
-> -/**
-> +/*
->   * dcn32_find_vactive_pipe - Determines if the config has a pipe that can switch in VACTIVE
->   *
-> - * @param [in]: dc - current dc state
-> - * @param [in]: context - new dc state
-> - * @param [in]: vactive_margin_req_us - The vactive marign required for a vactive pipe to be
-> - *                                      considered "found"
-> + * @dc: current dc state
-> + * @context: new dc state
-> + * @vactive_margin_req_us: The vactive marign required for a vactive pipe to be
-> + *                              considered "found"
-
-Multiline description for arguments should start at the same line as the previous. Please see https://www.kernel.org/doc/html/v5.0/doc-guide/kernel-doc.html for details.
->   *
->   * Return: True if VACTIVE display is found, false otherwise
->   */
-
-
-
-
-Return section in kernel-doc does not recognize line breaks, so you could put them into the same line itself, or you would need use something like:
-
-* Return:
-* * 0             - OK to runtime suspend the device
-* * -EBUSY        - Device should not be runtime suspended
-
-For this patch, multiline issue with Return section is not an issue. With the argument multiline issue fixed, the patch is:
+This patch is:
 
 Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+
+On 5/27/23 10:25, Srinivasan Shanmugam wrote:
+> Fixes the following gcc with W=1:
+> 
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:374: warning: Function parameter or member 'dc' not described in 'update_planes_and_stream_adapter'
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:374: warning: Function parameter or member 'update_type' not described in 'update_planes_and_stream_adapter'
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:374: warning: Function parameter or member 'planes_count' not described in 'update_planes_and_stream_adapter'
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:374: warning: Function parameter or member 'stream' not described in 'update_planes_and_stream_adapter'
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:374: warning: Function parameter or member 'stream_update' not described in 'update_planes_and_stream_adapter'
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:374: warning: Function parameter or member 'array_of_surface_update' not described in 'update_planes_and_stream_adapter'
+> 
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index a69f4a39d92a..90de0d37f1d2 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -364,6 +364,14 @@ static inline void reverse_planes_order(struct dc_surface_update *array_of_surfa
+>   * adjustments and preparation before calling it. This function is a wrapper
+>   * for the dc_update_planes_and_stream that does any required configuration
+>   * before passing control to DC.
+> + *
+> + * @dc: Display Core control structure
+> + * @update_type: specify whether it is FULL/MEDIUM/FAST update
+> + * @planes_count: planes count to update
+> + * @stream: stream state
+> + * @stream_update: stream update
+> + * @array_of_surface_update: dc surface update pointer
+> + *
+>   */
+>  static inline bool update_planes_and_stream_adapter(struct dc *dc,
+>  						    int update_type,
