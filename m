@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C27B3C7EE23
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 May 2023 19:23:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80EF0C77B7A
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 May 2023 19:24:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7DA910E12F;
-	Mon, 29 May 2023 19:23:55 +0000 (UTC)
-Received: from mailrelay3-1.pub.mailoutpod2-cph3.one.com
- (mailrelay3-1.pub.mailoutpod2-cph3.one.com [IPv6:2a02:2350:5:402::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92B8810E0EA
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 May 2023 19:23:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C723310E0EA;
+	Mon, 29 May 2023 19:24:41 +0000 (UTC)
+Received: from mailrelay1-1.pub.mailoutpod2-cph3.one.com
+ (mailrelay1-1.pub.mailoutpod2-cph3.one.com [IPv6:2a02:2350:5:400::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EC6510E1D6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 May 2023 19:24:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa1;
  h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
  from:date:from;
- bh=xwmlMtqlVAbaTkC5KPIaDaFug1I9apRWf/wLMNoERFk=;
- b=RcvTikbxSKYdsW5xUhTUWIYAnvCYFScqJry5K5MWANzd6G1RXDDas7mhH6lm7w4qQOiTHFht4TzLz
- 5js/9j+NZ5n9fWjTNTqIAmGB+fdH5q6Kif5YlXpY/tufSsGjZH4SS8NURBpK0ToLSYxfnqJN0v3Wsq
- tI5Gn0rVa9orxKzI78akiccpOrIFBsnEaFJUOhf0SH/LC7w1NiZ++FY+1E6/bW9KH/YhuX2J0R7w4X
- Jerh7acE7tx93xyEw5ekP3Sa0FAexJ4c2WepNQNjkNgRIUf3uZSPQ0gtkPxK5ehinEkj65T2v8Kqcs
- Tb6Oo5QVKjkFNqIRuTJwrVu7lteW87g==
+ bh=F5LGKOaO0xZd2QJQoDrZQ93hStlQw/BEXPGAVRv9xBI=;
+ b=E3BHWy6DSEDzXa3oMsDKl2c4TWz8TrNT0WyjTOSe+XHyDaVgdT5aPg8T5hFaGMlUPeTTq/cLYHLlV
+ K64J2Hv2MKaG704p5TTowDdRBBVkqBqZ9kK9Y1lHWwbF8hCE6m0obxp/YOxV+UUbLFXfkYVSMSGUUc
+ 0nLuy7L1Fl3FyC3AlqMbVyrETI6OmjZzrJXxEvCfr2bFcngJP14FvunK4S7tQx2H2Q9s1OSbxFFiob
+ apuajeIfa32NJXM7Q+sYFBeUF5j4nGYUIt0PX6oQox7+Y7q97UrJ0ScYOXBMzx2/mJsdsS6h6DekA6
+ 0nj1tQdnvvnils3kyvnZM7xho6VMt0A==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
  d=ravnborg.org; s=ed1;
  h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
  from:date:from;
- bh=xwmlMtqlVAbaTkC5KPIaDaFug1I9apRWf/wLMNoERFk=;
- b=AnuLEmPdR4hRTdwshvfNg+hztUBftoiHcgOILegLU4HYH/zFHvMHV9HwFw03/fy7/qoD+85f81dvA
- 6KfesBwDw==
-X-HalOne-ID: 54b70415-fe56-11ed-8e9f-b90637070a9d
+ bh=F5LGKOaO0xZd2QJQoDrZQ93hStlQw/BEXPGAVRv9xBI=;
+ b=x0HICKYM9KRbhvWk9S0JD14RS7oybqBEsNGG3i5w8SVdzkzLE9ImA16GyoklTIA3nv0gw+5D2CQ1v
+ BSqXCZKCg==
+X-HalOne-ID: 70b8da45-fe56-11ed-8520-99461c6a3fe8
 Received: from ravnborg.org (2-105-2-98-cable.dk.customer.tdc.net [2.105.2.98])
- by mailrelay3 (Halon) with ESMTPSA
- id 54b70415-fe56-11ed-8e9f-b90637070a9d;
- Mon, 29 May 2023 19:23:48 +0000 (UTC)
-Date: Mon, 29 May 2023 21:23:47 +0200
+ by mailrelay1 (Halon) with ESMTPSA
+ id 70b8da45-fe56-11ed-8520-99461c6a3fe8;
+ Mon, 29 May 2023 19:24:35 +0000 (UTC)
+Date: Mon, 29 May 2023 21:24:34 +0200
 From: Sam Ravnborg <sam@ravnborg.org>
 To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v4 02/13] fbdev: Add initializer macros for struct fb_ops
-Message-ID: <20230529192347.GB1370714@ravnborg.org>
+Subject: Re: [PATCH v4 03/13] drm/armada: Use regular fbdev I/O helpers
+Message-ID: <20230529192434.GC1370714@ravnborg.org>
 References: <20230524092150.11776-1-tzimmermann@suse.de>
- <20230524092150.11776-3-tzimmermann@suse.de>
+ <20230524092150.11776-4-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230524092150.11776-3-tzimmermann@suse.de>
+In-Reply-To: <20230524092150.11776-4-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,31 +59,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
- javierm@redhat.com, dri-devel@lists.freedesktop.org, mripard@kernel.org,
- daniel@ffwll.ch, linux-tegra@vger.kernel.org, airlied@gmail.com,
+ javierm@redhat.com, dri-devel@lists.freedesktop.org,
+ Russell King <linux@armlinux.org.uk>, mripard@kernel.org, daniel@ffwll.ch,
+ linux-tegra@vger.kernel.org, airlied@gmail.com,
  linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 24, 2023 at 11:21:39AM +0200, Thomas Zimmermann wrote:
-> For framebuffers in I/O and system memory, add macros that set
-> struct fb_ops to the respective callback functions.
+On Wed, May 24, 2023 at 11:21:40AM +0200, Thomas Zimmermann wrote:
+> Use the regular fbdev helpers for framebuffer I/O instead of DRM's
+> helpers. Armada does not use damage handling, so DRM's fbdev helpers
+> are mere wrappers around the fbdev code.
 > 
-> For deferred I/O, add macros that generate callback functions with
-> damage handling. Add initializer macros that set struct fb_ops to
-> the generated callbacks.
+> By using fbdev helpers directly within each DRM fbdev emulation,
+> we can eventually remove DRM's wrapper functions entirely.
 > 
-> These macros can remove a lot boilerplate code from fbdev drivers.
-> The drivers are supposed to use the macro that is required for its
-> framebuffer. Each macro is split into smaller helpers, so that
-> drivers with non-standard callbacks can pick and customize callbacks
-> as needed. There are individual helper macros for read/write, mmap
-> and drawing.
+> v4:
+> 	* use initializer macros for struct fb_ops
+> v2:
+> 	* use FB_IO_HELPERS option
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-I am not a fan of public functions/macros names __something.
-But I see it used in so many places, so maybe it is just me.
-And everything looks consistent, so OK.
-
-With the white space issues fixed:
-Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Russell King <linux@armlinux.org.uk>
+Acked-by: Sam Ravnborg <sam@ravnborg.org>
