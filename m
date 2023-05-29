@@ -4,89 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2C06C77B7E
-	for <amd-gfx@archiver.kernel.org>; Mon, 29 May 2023 09:29:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CD55C7EE29
+	for <amd-gfx@archiver.kernel.org>; Mon, 29 May 2023 09:45:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 863E210E260;
-	Mon, 29 May 2023 09:29:19 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2070.outbound.protection.outlook.com [40.107.94.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35EA510E260;
- Mon, 29 May 2023 09:29:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K5UWHfdAKZXhKOvi+mxLTPCKNc159nffad7IXVmc8gWJ0PQM/apC8ljpWYMqxAUGVXedX0t3TpDv2Yi5LF+K67eLh2DN0yRlXRFO9gLacz01zzjwUx8s/QVU29Z6UEbVWPLyj/1pUQ5Nwa5bQ8wa6d93YW9hyr/j+IglfNmOvedGLVxkPGbedxEn/VIn2nQ7IQFVvzCUwllQ+6hjE8QC77xWLh7GN+NO0ibQDk8QhP7izhtNUl8E/psKGs33AlVUkx5ijt1wF8+V3AyWE9Z7eUMdVN9V3JSHe8Yu4A5KRLymVup/r18CAnzGaqBoe3cvlUY36DauM2ni6YRFXwpV+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/k3GZZ+QrKgzBP03L+/MLF445nHfQuExoKLWM+MX3wo=;
- b=HeLHoZhswSVJYVoQZzRgERX+Bz5m02CgM4y7JaGz49xkl+WNjjcAZo9D28eDI4SlYwRUZitKZEgY9RUWlFnUvS64Hh7BM407Bs2XeYhECcisJlva4r/cnzNg+Pg3aOZJ4inj05ZnUGQtxCZ1zMkBeJBK/79j1wlobRWI/XXHIouq9bD+FjPfLutproEP4Et2wgAzv/7zMme1o4GapEtIkrAOp2sqrIj+RUdN9HpvVzh2l5Vrs8eXkmz++VGnqzMpnvqtBFG8REwiqjWJRs6tTNXSA45waHqy4Rth/xAucx8j7OT7z90um2eYgmpVem9sYYCxuv8oRmJjkvmeiYAyQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/k3GZZ+QrKgzBP03L+/MLF445nHfQuExoKLWM+MX3wo=;
- b=AsmSAnmANXfGeTLMBjbCzNQcKXanXzG95RsxIt0CRtm4UyoV4qkZOOMGxf3O3XPnNvqAUftw8tXCUtFj3jEIR1FbhxDXUEGyhvU4rPeS8n7NVPC5YCxELb07wihNGshiO8S5j81p1XRRfJpEdaGxGfh6Lrimr/X3BKPLUK1+hpw=
-Received: from BN0PR04CA0046.namprd04.prod.outlook.com (2603:10b6:408:e8::21)
- by SJ1PR12MB6292.namprd12.prod.outlook.com (2603:10b6:a03:455::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.22; Mon, 29 May
- 2023 09:29:16 +0000
-Received: from BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e8:cafe::e9) by BN0PR04CA0046.outlook.office365.com
- (2603:10b6:408:e8::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.22 via Frontend
- Transport; Mon, 29 May 2023 09:29:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT064.mail.protection.outlook.com (10.13.176.160) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6455.20 via Frontend Transport; Mon, 29 May 2023 09:29:15 +0000
-Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 29 May
- 2023 04:29:13 -0500
-From: Ma Jun <Jun.Ma2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <christian.koenig@amd.com>
-Subject: [PATCH] drm/ttm: Remove redundant code in ttm_tt_init_fields
-Date: Mon, 29 May 2023 17:28:53 +0800
-Message-ID: <20230529092853.3430546-1-Jun.Ma2@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94B3510E26A;
+	Mon, 29 May 2023 09:45:45 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BD6C10E26A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 29 May 2023 09:45:42 +0000 (UTC)
+Received: from [192.168.1.137] ([213.144.156.170])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202305291145383538; Mon, 29 May 2023 11:45:38 +0200
+Message-ID: <70baf20a-dd86-af46-5d4d-d807d537ef68@daenzer.net>
+Date: Mon, 29 May 2023 11:45:36 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Quan, Evan" <Evan.Quan@amd.com>, "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+References: <DM4PR12MB515262B810158F1D3C6E8324E39B9@DM4PR12MB5152.namprd12.prod.outlook.com>
+Content-Language: en-CA
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH] drm/amdgpu/gfx9: switch to golden tsc registers for
+ raven/raven2
+In-Reply-To: <DM4PR12MB515262B810158F1D3C6E8324E39B9@DM4PR12MB5152.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT064:EE_|SJ1PR12MB6292:EE_
-X-MS-Office365-Filtering-Correlation-Id: c4f6633b-2da7-4c32-495c-08db60272bd0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Y0xIK2l5Zisq36dajv9sTb1ItPITYVWwmo7LM1mIN19hL4vikrZo0lagwfTwhNpzlckgJUjkx0LcKnZCsNDoxcPuTX4ulffFhP7VATQioc+l0Ng5fwaz5xFTxehmjrjr6wST6OCJaTMHoXrhS1YAobTXi6O8xnWsccAoyvlCcMp57frTIGMzIQQDo1iZwgRxfYvG4f9K0HD7zUhkybJhV64YO/QottkzwyGRjWcP6W0wTPXC/qCtdURbuC3br+/xt1uNxL19QNcwHBFwhpCyqNOLORYa7WaFIOiVkhGBlg2zRD52baLBheqPF9Tk8hRwgmRpcb+tvMz809Y2gwJL6LV08csSAm1nLRJVxlWKMxD7cby+8P9IK3iy+CH7lv8S6dvhF4mExkhsxkPXtUKxNz9Dzsgjd4Ab+r2Vdr8GWtpd6HTUOlKPLwRshKBCS1DwHDshFKgCOIwbhHr/LAMjyT7S9JVCQBxvBBjIT2uNUJ+gVx/wImF6eADurnAT1402a0ocxN+PT8ASdnhmlH0Sqf3VU5TP86nFF3ker8GuDTsjT4ROs0N/67nmOxkS2TovC0Ivi4GFLVme6PsNHwnNRmy+nGA9YZ/pFPPRRZyNzt1wQ+ufd4pVTMAgv0eiZf6yrQ+HPfSrywMiVfhunWxZ8MjP9j1u2+03ApDmsevjeMzqWer2y7I2sdDxHkAYPRrOPmaP7aJcHRwZYHFdGCbg9OxDkCLKXWjUctuAaQ9qzz9okaMAQgPPbVuO5LKOBnWLghvqh3mHNO6tM6RntDj5ng==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(396003)(39860400002)(376002)(346002)(451199021)(46966006)(36840700001)(40470700004)(54906003)(478600001)(110136005)(40460700003)(5660300002)(8936002)(8676002)(36756003)(2906002)(4744005)(86362001)(82310400005)(70206006)(70586007)(82740400003)(4326008)(6636002)(356005)(316002)(81166007)(450100002)(40480700001)(41300700001)(186003)(36860700001)(16526019)(1076003)(26005)(336012)(47076005)(7696005)(426003)(6666004)(83380400001)(2616005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2023 09:29:15.6243 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c4f6633b-2da7-4c32-495c-08db60272bd0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6292
+X-CTCH: RefID="str=0001.0A782F17.64747442.0026,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,29 +44,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ma Jun <Jun.Ma2@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove redundant assignment code for ttm->caching
+On 4/12/23 03:23, Zhang, Jesse(Jie) wrote:
+> 
+>   Due to raven/raven2 maybe enable  sclk slow down,
+>     they cannot get clock count by the RLC at the auto level of dpm performance.
+>     So switch to golden tsc register.
 
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
----
- drivers/gpu/drm/ttm/ttm_tt.c | 1 -
- 1 file changed, 1 deletion(-)
+At least on this ThinkPad E595 with Picasso, the issue with this change (and the corresponding fbc24293ca16 "drm/amdgpu: change the reference clock for raven/raven2" & 9d2d1827af29 "drm/amdgpu: Differentiate between Raven2 and Raven/Picasso according to revision id") is that the GPU timestamps reported via the AMDGPU_INFO ioctl are no longer consistent with those reported via asynchronous GPU queries (e.g. via glQuery with GL_TIMESTAMP). The latter are still affected by clock changes, and even when the clock doesn't stop altogether, they still tick at 25 MHz, so the two kinds of GPU timestamps keep diverging further.
 
-diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
-index 02b812dacc5d..45a44544b656 100644
---- a/drivers/gpu/drm/ttm/ttm_tt.c
-+++ b/drivers/gpu/drm/ttm/ttm_tt.c
-@@ -143,7 +143,6 @@ static void ttm_tt_init_fields(struct ttm_tt *ttm,
- 			       unsigned long extra_pages)
- {
- 	ttm->num_pages = (PAGE_ALIGN(bo->base.size) >> PAGE_SHIFT) + extra_pages;
--	ttm->caching = ttm_cached;
- 	ttm->page_flags = page_flags;
- 	ttm->dma_address = NULL;
- 	ttm->swap_storage = NULL;
+This makes it impossible to determine the wall clock time at which a certain GPU job finished. GNOME's mutter uses this for adaptive frame scheduling.
+
+You can see the issue with the piglit test arb_timer_query-timestamp-get or with the Vulkan CTS tests dEQP-VK.pipeline.monolithic.timestamp.calibrated.*. (Note that some of these tests could already fail before with GFXOFF enabled, the symptoms are slightly different though)
+
+
+An ideal long-term solution for this might be to modify the GPU microcode to use the golden registers for asynchronous timestamp queries as well.
+
+In the meantime though, these changes need to be reverted for 6.4, at least for Picasso.
+
+
 -- 
-2.34.1
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
