@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6391C7EE2C
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:17:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79A55C7EE23
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:24:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A73010E3A3;
-	Tue, 30 May 2023 15:17:26 +0000 (UTC)
-Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
- [IPv6:2607:f8b0:4864:20::c34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4F2810E3A3
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 15:17:24 +0000 (UTC)
-Received: by mail-oo1-xc34.google.com with SMTP id
- 006d021491bc7-5556e2bddf9so2299325eaf.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 08:17:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCB2410E17B;
+	Tue, 30 May 2023 15:24:16 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4C4710E17B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 15:24:15 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ 46e09a7af769-6af6ec3df42so4361475a34.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 08:24:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1685459843; x=1688051843;
+ d=gmail.com; s=20221208; t=1685460254; x=1688052254;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zTQ36FAHlZOH0hHS/Mwd436WLNCFvwjFKASafLU6iYM=;
- b=N0FwSIpm9IjydM3MmQy8B6iiZSXpBlfCkOz5Aqer1F1q0X/rUe62Jtc1Qb+xa1xVe6
- Z1LBjGyPYa1y+2qn7Eyd8gDLQ8+GmO/JWAGDV1lvDGWTWIqyg5UGDnCfFVltT1XVdRZ1
- fEyFuHIFbBnwMCLh0VnfFIZqkAGT2noXU/4dSLwrczmZsjSnxUEINUA/FYijNGsrpXuS
- wuNFX+FkTIu3KN5/FtiMnkbvHyqzL9KIRXIp+J2P6BNoB+xcEwFoWLTigWDHJc3bw1HE
- 6zR99MMCrx7M071iaoVXACNW0xFYmbCBU+KenNOa9DLLaADNrb5SPJuZYDjuzgG1hcoN
- 8OUQ==
+ bh=MpS+AJJuD+xejcu1mPqYQo5uqXh9WCa9BTe4j7vL30c=;
+ b=AFqy7hDWysMmvrAZzbnuoMqFYE8OetVDI+E75L5US8WPncxnjDHDZHVMitbx/WT+rA
+ 93Ml17Sn2eavhZ2tq3NyaeiE1QUWF3qVYlDmo3dI/HA5gJNZaJ9FWJo0Z9gbPOIcbfap
+ FHR24+72iN2DnsFoJsXX/ysojyrHlSAC7+V8CYNgaG/h6WSVIDPpzPO9rlNBnZcJWLm9
+ DiHsCnzIb0Qo/hkO6bWTy/QN8S7jpDbqdb2XbYQ0JYd6vY0tTlH2Id+FkkXmFo7pnCvY
+ nbzSdw6Z3T18jAFHTLtAOfd6p0bkZ7Fa9HAXBdcAI9lr+wZsMfCxijJC3XCnqgC5iFFs
+ ZLGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685459843; x=1688051843;
+ d=1e100.net; s=20221208; t=1685460254; x=1688052254;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zTQ36FAHlZOH0hHS/Mwd436WLNCFvwjFKASafLU6iYM=;
- b=Hs/HacjrilQU1pjYyHaTyy7ghhRZD+HIUvk855Ub1SMFrwX0xoJiSh1ZPLXwl8Izne
- uL+oBFiFDvADTwFWdfvmXG7SUPJev9K0tmsKpU0wXMIbbfE2xGUdZ9pl0R3Y8jKTlCU5
- xuoRSFM7Q+Cyiquwu2fHtwiq/i/7idZ7Tv4AVobdxlScSw8YK2T972TZZUO2qE90VflL
- mkYIJ9LHjy8W4deB060AHbs0eE6rcNFBGA4xfehK6nrns2PMKQpAHY+utnT71dvKs5ve
- ZBHd4waFeHTAqwmjJh8qfD2KFshz2MuegHCfM04/UMAtIEdPDGFYiMggCJrSCYDa1jri
- gTdg==
-X-Gm-Message-State: AC+VfDzMY0UvOa7jiAoJFReWgx9EP4YvNa0wOLNPukNemwviNU5hB98Q
- 0pHY31JnMF2JifEgjoXzwCG+d3x5qsU/iPqnOu8=
-X-Google-Smtp-Source: ACHHUZ6ktu42Cq//5YHsYuscn9PlP2oCQEjCI4motDV/0MpRXtlK0HxvJQZ+vcKj4V5zJvpjRPiJTiZjGC4pAoBwm1w=
-X-Received: by 2002:a4a:4913:0:b0:555:8c22:a169 with SMTP id
- z19-20020a4a4913000000b005558c22a169mr1146798ooa.9.1685459843506; Tue, 30 May
- 2023 08:17:23 -0700 (PDT)
+ bh=MpS+AJJuD+xejcu1mPqYQo5uqXh9WCa9BTe4j7vL30c=;
+ b=HCeVb/DcXLlD0U6CU/uOI8UeEp/GCvAKWw2z4Qe/X0OHwuAzVAH2yURefAXNXRi+iO
+ oXpXaxGuu/P1/IjjCu/3C6z6HWq4TN8Fv1daqZVj5cMLkWOxhbu84WlcN4Yrt0vTBwV7
+ UfXohH7N/UKvRTNQeNq90WRS+qLrpri4znc+x3Ig+LPA+93/s1DdBMbrrmzfHPqVEomH
+ KBDSRkxgFk5j5Jf/aPhEtW2d9JoYCZqLAUMtiDZ6QYQCgLyDRx2M4N8YTyFr1GY/95/+
+ bH1xbs/zpYWbS73h39+Zn9m3c4nBfd0banhJI8S01RJsquKMhjNAWi9MscTWIwu/gWdB
+ 4/uQ==
+X-Gm-Message-State: AC+VfDycU/mcC4MOaprniSIrgse4ZW1WmwHHE3d4keOMGjCGmCZASWXl
+ +/kd5uAs1/gPGGIERkdSwqC56RKECNTufD3nPJFWPxQ2UNc=
+X-Google-Smtp-Source: ACHHUZ6P6iCZX5r6GAWrx0zfoML9pBkW+L75BCkWsuTyqQlJHPYgmaq816lQTfWV9eNoaGDF/v9cMDIbQDo5+94zjWI=
+X-Received: by 2002:a05:6870:ec89:b0:18e:db44:b81b with SMTP id
+ eo9-20020a056870ec8900b0018edb44b81bmr1585284oab.46.1685460254424; Tue, 30
+ May 2023 08:24:14 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230526011846.3331119-1-jiadong.zhu@amd.com>
- <20230526011846.3331119-2-jiadong.zhu@amd.com>
-In-Reply-To: <20230526011846.3331119-2-jiadong.zhu@amd.com>
+References: <20230530091734.2336424-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230530091734.2336424-1-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 30 May 2023 11:17:12 -0400
-Message-ID: <CADnq5_PRsz+udHO=Wgu3SLjte8M7QQsU_jvDw82zbU7dFWY+pg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Implement gfx9 patch functions for
- resubmission
-To: jiadong.zhu@amd.com
+Date: Tue, 30 May 2023 11:24:03 -0400
+Message-ID: <CADnq5_NMKh__Udag4d_uOjvHTVU-XtBGCrKY8d-EfHX5HiiKTQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix up missing parameter in kdoc for 'inst'
+ in gmc_ v7, v8, v9, v10, v11.c
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,158 +68,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-On Thu, May 25, 2023 at 9:19=E2=80=AFPM <jiadong.zhu@amd.com> wrote:
+On Tue, May 30, 2023 at 5:17=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
 >
-> From: Jiadong Zhu <Jiadong.Zhu@amd.com>
+> Fix these warnings by adding 'inst' arguments to kdocs.
 >
-> Patch the packages including CONTEXT_CONTROL and WRITE_DATA for gfx9
-> during the resubmission scenario.
+> gcc with W=3D1
+> drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c:428: warning: Function parameter or=
+ member 'inst' not described in 'gmc_v7_0_flush_gpu_tlb_pasid'
+> drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:626: warning: Function parameter or=
+ member 'inst' not described in 'gmc_v8_0_flush_gpu_tlb_pasid'
+> drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c:423: warning: Function parameter o=
+r member 'inst' not described in 'gmc_v10_0_flush_gpu_tlb_pasid'
+> drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c:328: warning: Function parameter o=
+r member 'inst' not described in 'gmc_v11_0_flush_gpu_tlb_pasid'
+> drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c:950: warning: Function parameter or=
+ member 'inst' not described in 'gmc_v9_0_flush_gpu_tlb_pasid'
 >
-> Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 80 +++++++++++++++++++++++++++
->  1 file changed, 80 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 1 +
+>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 1 +
+>  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c  | 1 +
+>  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c  | 1 +
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 1 +
+>  5 files changed, 5 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_0.c
-> index cbcf6126cce5..4fbeb9b5752c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -5172,9 +5172,83 @@ static void gfx_v9_0_ring_emit_ib_gfx(struct amdgp=
-u_ring *ring,
->  #endif
->                 lower_32_bits(ib->gpu_addr));
->         amdgpu_ring_write(ring, upper_32_bits(ib->gpu_addr));
-> +       amdgpu_ring_ib_on_emit_cntl(ring);
->         amdgpu_ring_write(ring, control);
->  }
->
-> +static void gfx_v9_0_ring_patch_cntl(struct amdgpu_ring *ring,
-> +                                    unsigned offset)
-> +{
-> +       u32 control =3D ring->ring[offset];
-> +
-> +       control |=3D INDIRECT_BUFFER_PRE_RESUME(1);
-> +       ring->ring[offset] =3D control;
-> +}
-> +
-> +static void gfx_v9_0_ring_patch_ce_meta(struct amdgpu_ring *ring,
-> +                                       unsigned offset)
-> +{
-> +       struct amdgpu_device *adev =3D ring->adev;
-> +       void *ce_payload_cpu_addr;
-> +       uint64_t payload_offset, payload_size;
-> +
-> +       payload_size =3D sizeof(struct v9_ce_ib_state);
-> +
-> +       if (ring->is_mes_queue) {
-> +               payload_offset =3D offsetof(struct amdgpu_mes_ctx_meta_da=
-ta,
-> +                                         gfx[0].gfx_meta_data) +
-> +                       offsetof(struct v9_gfx_meta_data, ce_payload);
-> +               ce_payload_cpu_addr =3D
-> +                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, payload_of=
-fset);
-> +       } else {
-> +               payload_offset =3D offsetof(struct v9_gfx_meta_data, ce_p=
-ayload);
-> +               ce_payload_cpu_addr =3D adev->virt.csa_cpu_addr + payload=
-_offset;
-> +       }
-> +
-> +       if (offset + (payload_size >> 2) <=3D ring->buf_mask + 1) {
-> +               memcpy((void *)&ring->ring[offset], ce_payload_cpu_addr, =
-payload_size);
-> +       } else {
-> +               memcpy((void *)&ring->ring[offset], ce_payload_cpu_addr,
-> +                      (ring->buf_mask + 1 - offset) << 2);
-> +               payload_size -=3D (ring->buf_mask + 1 - offset) << 2;
-> +               memcpy((void *)&ring->ring[0],
-> +                      ce_payload_cpu_addr + ((ring->buf_mask + 1 - offse=
-t) << 2),
-> +                      payload_size);
-> +       }
-> +}
-> +
-> +static void gfx_v9_0_ring_patch_de_meta(struct amdgpu_ring *ring,
-> +                                       unsigned offset)
-> +{
-> +       struct amdgpu_device *adev =3D ring->adev;
-> +       void *de_payload_cpu_addr;
-> +       uint64_t payload_offset, payload_size;
-> +
-> +       payload_size =3D sizeof(struct v9_de_ib_state);
-> +
-> +       if (ring->is_mes_queue) {
-> +               payload_offset =3D offsetof(struct amdgpu_mes_ctx_meta_da=
-ta,
-> +                                         gfx[0].gfx_meta_data) +
-> +                       offsetof(struct v9_gfx_meta_data, de_payload);
-> +               de_payload_cpu_addr =3D
-> +                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, payload_of=
-fset);
-> +       } else {
-> +               payload_offset =3D offsetof(struct v9_gfx_meta_data, de_p=
-ayload);
-> +               de_payload_cpu_addr =3D adev->virt.csa_cpu_addr + payload=
-_offset;
-> +       }
-> +
-> +       if (offset + (payload_size >> 2) <=3D ring->buf_mask + 1) {
-> +               memcpy((void *)&ring->ring[offset], de_payload_cpu_addr, =
-payload_size);
-> +       } else {
-> +               memcpy((void *)&ring->ring[offset], de_payload_cpu_addr,
-> +                      (ring->buf_mask + 1 - offset) << 2);
-> +               payload_size -=3D (ring->buf_mask + 1 - offset) << 2;
-> +               memcpy((void *)&ring->ring[0],
-> +                      de_payload_cpu_addr + ((ring->buf_mask + 1 - offse=
-t) << 2),
-> +                      payload_size);
-> +       }
-> +}
-> +
->  static void gfx_v9_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
->                                           struct amdgpu_job *job,
->                                           struct amdgpu_ib *ib,
-> @@ -5370,6 +5444,8 @@ static void gfx_v9_0_ring_emit_ce_meta(struct amdgp=
-u_ring *ring, bool resume)
->         amdgpu_ring_write(ring, lower_32_bits(ce_payload_gpu_addr));
->         amdgpu_ring_write(ring, upper_32_bits(ce_payload_gpu_addr));
->
-> +       amdgpu_ring_ib_on_emit_ce(ring);
-> +
->         if (resume)
->                 amdgpu_ring_write_multiple(ring, ce_payload_cpu_addr,
->                                            sizeof(ce_payload) >> 2);
-> @@ -5481,6 +5557,7 @@ static void gfx_v9_0_ring_emit_de_meta(struct amdgp=
-u_ring *ring, bool resume, bo
->         amdgpu_ring_write(ring, lower_32_bits(de_payload_gpu_addr));
->         amdgpu_ring_write(ring, upper_32_bits(de_payload_gpu_addr));
->
-> +       amdgpu_ring_ib_on_emit_de(ring);
->         if (resume)
->                 amdgpu_ring_write_multiple(ring, de_payload_cpu_addr,
->                                            sizeof(de_payload) >> 2);
-> @@ -6891,6 +6968,9 @@ static const struct amdgpu_ring_funcs gfx_v9_0_sw_r=
-ing_funcs_gfx =3D {
->         .emit_reg_write_reg_wait =3D gfx_v9_0_ring_emit_reg_write_reg_wai=
-t,
->         .soft_recovery =3D gfx_v9_0_ring_soft_recovery,
->         .emit_mem_sync =3D gfx_v9_0_emit_mem_sync,
-> +       .patch_cntl =3D gfx_v9_0_ring_patch_cntl,
-> +       .patch_de =3D gfx_v9_0_ring_patch_de_meta,
-> +       .patch_ce =3D gfx_v9_0_ring_patch_ce_meta,
->  };
->
->  static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_compute =3D {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v10_0.c
+> index 01bd45651382..1f9313298030 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -414,6 +414,7 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_dev=
+ice *adev, uint32_t vmid,
+>   * @pasid: pasid to be flush
+>   * @flush_type: the flush type
+>   * @all_hub: Used with PACKET3_INVALIDATE_TLBS_ALL_HUB()
+> + * @inst: is used to select which xcc's register to program
+
+Update the documentation to something like:
++ * @inst: is used to select which instance of KIQ to use for the invalidat=
+ion
+
+With that fixed for all of these, the patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+>   *
+>   * Flush the TLB for the requested pasid.
+>   */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gmc_v11_0.c
+> index 4bf807d825c0..8e78bcd92b59 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -319,6 +319,7 @@ static void gmc_v11_0_flush_gpu_tlb(struct amdgpu_dev=
+ice *adev, uint32_t vmid,
+>   * @pasid: pasid to be flush
+>   * @flush_type: the flush type
+>   * @all_hub: flush all hubs
+> + * @inst: is used to select which xcc's register to program
+>   *
+>   * Flush the TLB for the requested pasid.
+>   */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v7_0.c
+> index 6f53049619cd..4d4a6957ea00 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> @@ -419,6 +419,7 @@ static int gmc_v7_0_mc_init(struct amdgpu_device *ade=
+v)
+>   * @pasid: pasid to be flush
+>   * @flush_type: type of flush
+>   * @all_hub: flush all hubs
+> + * @inst: is used to select which xcc's register to program
+>   *
+>   * Flush the TLB for the requested pasid.
+>   */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v8_0.c
+> index 48475077ca92..a5d47e4d0a8d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -617,6 +617,7 @@ static int gmc_v8_0_mc_init(struct amdgpu_device *ade=
+v)
+>   * @pasid: pasid to be flush
+>   * @flush_type: type of flush
+>   * @all_hub: flush all hubs
+> + * @inst: is used to select which xcc's register to program
+>   *
+>   * Flush the TLB for the requested pasid.
+>   */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v9_0.c
+> index be7823d82150..5200303e63de 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -941,6 +941,7 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devi=
+ce *adev, uint32_t vmid,
+>   * @pasid: pasid to be flush
+>   * @flush_type: the flush type
+>   * @all_hub: flush all hubs
+> + * @inst: is used to select which xcc's register to program
+>   *
+>   * Flush the TLB for the requested pasid.
+>   */
 > --
 > 2.25.1
 >
