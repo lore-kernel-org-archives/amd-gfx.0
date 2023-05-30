@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06D0BC7EE32
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:13:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6391C7EE2C
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:17:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 583F210E415;
-	Tue, 30 May 2023 15:12:59 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7804310E3CA;
- Tue, 30 May 2023 15:12:36 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1E42F21AC8;
- Tue, 30 May 2023 15:12:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1685459555; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VrXDZhBF0OA8JM95e+fFIcXMgOAk3LrILwjnydxyums=;
- b=oWSndShoEVnkrn0tl/OEYXldEFwdyGZu3PsYMGu8ro0Lpftokp4ViUUPPyyok4/gIbwIhA
- o+loRfo5V2qeUXxiQHHDI4Ek60SjAn0Aa+QFhI9KVYLiOM1wYlamAgsGLHwGqKv5m+dppx
- +0/r/CP+gmTHOAumnDTjKQD8rRBlOEI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1685459555;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VrXDZhBF0OA8JM95e+fFIcXMgOAk3LrILwjnydxyums=;
- b=T17lhx+9/PUHfy4nnUQwonPVlY7GQ1qv+RWH6tjSrDdSQL4RqtYhiQzN05MqffIXt2FmYE
- 7TwaLC/K5hn71UCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BBF8F13478;
- Tue, 30 May 2023 15:12:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mCwYLWISdmRjAQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 30 May 2023 15:12:34 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, javierm@redhat.com, sam@ravnborg.org,
- suijingfeng@loongson.cn
-Subject: [PATCH v5 13/13] drm/i915: Implement dedicated fbdev I/O helpers
-Date: Tue, 30 May 2023 17:12:28 +0200
-Message-Id: <20230530151228.22979-14-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230530151228.22979-1-tzimmermann@suse.de>
-References: <20230530151228.22979-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A73010E3A3;
+	Tue, 30 May 2023 15:17:26 +0000 (UTC)
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4F2810E3A3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 15:17:24 +0000 (UTC)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ 006d021491bc7-5556e2bddf9so2299325eaf.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 08:17:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1685459843; x=1688051843;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zTQ36FAHlZOH0hHS/Mwd436WLNCFvwjFKASafLU6iYM=;
+ b=N0FwSIpm9IjydM3MmQy8B6iiZSXpBlfCkOz5Aqer1F1q0X/rUe62Jtc1Qb+xa1xVe6
+ Z1LBjGyPYa1y+2qn7Eyd8gDLQ8+GmO/JWAGDV1lvDGWTWIqyg5UGDnCfFVltT1XVdRZ1
+ fEyFuHIFbBnwMCLh0VnfFIZqkAGT2noXU/4dSLwrczmZsjSnxUEINUA/FYijNGsrpXuS
+ wuNFX+FkTIu3KN5/FtiMnkbvHyqzL9KIRXIp+J2P6BNoB+xcEwFoWLTigWDHJc3bw1HE
+ 6zR99MMCrx7M071iaoVXACNW0xFYmbCBU+KenNOa9DLLaADNrb5SPJuZYDjuzgG1hcoN
+ 8OUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685459843; x=1688051843;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zTQ36FAHlZOH0hHS/Mwd436WLNCFvwjFKASafLU6iYM=;
+ b=Hs/HacjrilQU1pjYyHaTyy7ghhRZD+HIUvk855Ub1SMFrwX0xoJiSh1ZPLXwl8Izne
+ uL+oBFiFDvADTwFWdfvmXG7SUPJev9K0tmsKpU0wXMIbbfE2xGUdZ9pl0R3Y8jKTlCU5
+ xuoRSFM7Q+Cyiquwu2fHtwiq/i/7idZ7Tv4AVobdxlScSw8YK2T972TZZUO2qE90VflL
+ mkYIJ9LHjy8W4deB060AHbs0eE6rcNFBGA4xfehK6nrns2PMKQpAHY+utnT71dvKs5ve
+ ZBHd4waFeHTAqwmjJh8qfD2KFshz2MuegHCfM04/UMAtIEdPDGFYiMggCJrSCYDa1jri
+ gTdg==
+X-Gm-Message-State: AC+VfDzMY0UvOa7jiAoJFReWgx9EP4YvNa0wOLNPukNemwviNU5hB98Q
+ 0pHY31JnMF2JifEgjoXzwCG+d3x5qsU/iPqnOu8=
+X-Google-Smtp-Source: ACHHUZ6ktu42Cq//5YHsYuscn9PlP2oCQEjCI4motDV/0MpRXtlK0HxvJQZ+vcKj4V5zJvpjRPiJTiZjGC4pAoBwm1w=
+X-Received: by 2002:a4a:4913:0:b0:555:8c22:a169 with SMTP id
+ z19-20020a4a4913000000b005558c22a169mr1146798ooa.9.1685459843506; Tue, 30 May
+ 2023 08:17:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20230526011846.3331119-1-jiadong.zhu@amd.com>
+ <20230526011846.3331119-2-jiadong.zhu@amd.com>
+In-Reply-To: <20230526011846.3331119-2-jiadong.zhu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 30 May 2023 11:17:12 -0400
+Message-ID: <CADnq5_PRsz+udHO=Wgu3SLjte8M7QQsU_jvDw82zbU7dFWY+pg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Implement gfx9 patch functions for
+ resubmission
+To: jiadong.zhu@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,291 +69,158 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Implement dedicated fbdev helpers for framebuffer I/O instead
-of using DRM's helpers. Use an fbdev generator macro for
-deferred I/O to create the fbdev callbacks. i915 was the only
-caller of the DRM helpers, so remove them from the helper module.
+Series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-i915's fbdev emulation is still incomplete as it doesn't implement
-deferred I/O and damage handling for mmaped pages.
-
-v4:
-	* generate deferred-I/O helpers
-	* use initializer macros for fb_ops
-v2:
-	* use FB_IO_HELPERS options
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: "Ville Syrjälä" <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/Kconfig                    |   3 -
- drivers/gpu/drm/drm_fb_helper.c            | 107 ---------------------
- drivers/gpu/drm/i915/Kconfig               |   1 +
- drivers/gpu/drm/i915/display/intel_fbdev.c |  14 +--
- include/drm/drm_fb_helper.h                |  39 --------
- 5 files changed, 9 insertions(+), 155 deletions(-)
-
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 92a782827b7b..bb2e48cc6cd6 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -133,9 +133,6 @@ config DRM_FBDEV_EMULATION
- 	bool "Enable legacy fbdev support for your modesetting driver"
- 	depends on DRM_KMS_HELPER
- 	depends on FB=y || FB=DRM_KMS_HELPER
--	select FB_CFB_FILLRECT
--	select FB_CFB_COPYAREA
--	select FB_CFB_IMAGEBLIT
- 	select FRAMEBUFFER_CONSOLE if !EXPERT
- 	select FRAMEBUFFER_CONSOLE_DETECT_PRIMARY if FRAMEBUFFER_CONSOLE
- 	default y
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 7f6e54967acb..61a5d450cc20 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -736,113 +736,6 @@ void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagerefli
- }
- EXPORT_SYMBOL(drm_fb_helper_deferred_io);
- 
--/**
-- * drm_fb_helper_cfb_read - Implements struct &fb_ops.fb_read for I/O memory
-- * @info: fb_info struct pointer
-- * @buf: userspace buffer to read from framebuffer memory
-- * @count: number of bytes to read from framebuffer memory
-- * @ppos: read offset within framebuffer memory
-- *
-- * Returns:
-- * The number of bytes read on success, or an error code otherwise.
-- */
--ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
--			       size_t count, loff_t *ppos)
--{
--	return fb_io_read(info, buf, count, ppos);
--}
--EXPORT_SYMBOL(drm_fb_helper_cfb_read);
--
--/**
-- * drm_fb_helper_cfb_write - Implements struct &fb_ops.fb_write for I/O memory
-- * @info: fb_info struct pointer
-- * @buf: userspace buffer to write to framebuffer memory
-- * @count: number of bytes to write to framebuffer memory
-- * @ppos: write offset within framebuffer memory
-- *
-- * Returns:
-- * The number of bytes written on success, or an error code otherwise.
-- */
--ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
--				size_t count, loff_t *ppos)
--{
--	struct drm_fb_helper *helper = info->par;
--	loff_t pos = *ppos;
--	ssize_t ret;
--	struct drm_rect damage_area;
--
--	ret = fb_io_write(info, buf, count, ppos);
--	if (ret <= 0)
--		return ret;
--
--	if (helper->funcs->fb_dirty) {
--		drm_fb_helper_memory_range_to_clip(info, pos, ret, &damage_area);
--		drm_fb_helper_damage(helper, damage_area.x1, damage_area.y1,
--				     drm_rect_width(&damage_area),
--				     drm_rect_height(&damage_area));
--	}
--
--	return ret;
--}
--EXPORT_SYMBOL(drm_fb_helper_cfb_write);
--
--/**
-- * drm_fb_helper_cfb_fillrect - wrapper around cfb_fillrect
-- * @info: fbdev registered by the helper
-- * @rect: info about rectangle to fill
-- *
-- * A wrapper around cfb_fillrect implemented by fbdev core
-- */
--void drm_fb_helper_cfb_fillrect(struct fb_info *info,
--				const struct fb_fillrect *rect)
--{
--	struct drm_fb_helper *helper = info->par;
--
--	cfb_fillrect(info, rect);
--
--	if (helper->funcs->fb_dirty)
--		drm_fb_helper_damage(helper, rect->dx, rect->dy, rect->width, rect->height);
--}
--EXPORT_SYMBOL(drm_fb_helper_cfb_fillrect);
--
--/**
-- * drm_fb_helper_cfb_copyarea - wrapper around cfb_copyarea
-- * @info: fbdev registered by the helper
-- * @area: info about area to copy
-- *
-- * A wrapper around cfb_copyarea implemented by fbdev core
-- */
--void drm_fb_helper_cfb_copyarea(struct fb_info *info,
--				const struct fb_copyarea *area)
--{
--	struct drm_fb_helper *helper = info->par;
--
--	cfb_copyarea(info, area);
--
--	if (helper->funcs->fb_dirty)
--		drm_fb_helper_damage(helper, area->dx, area->dy, area->width, area->height);
--}
--EXPORT_SYMBOL(drm_fb_helper_cfb_copyarea);
--
--/**
-- * drm_fb_helper_cfb_imageblit - wrapper around cfb_imageblit
-- * @info: fbdev registered by the helper
-- * @image: info about image to blit
-- *
-- * A wrapper around cfb_imageblit implemented by fbdev core
-- */
--void drm_fb_helper_cfb_imageblit(struct fb_info *info,
--				 const struct fb_image *image)
--{
--	struct drm_fb_helper *helper = info->par;
--
--	cfb_imageblit(info, image);
--
--	if (helper->funcs->fb_dirty)
--		drm_fb_helper_damage(helper, image->dx, image->dy, image->width, image->height);
--}
--EXPORT_SYMBOL(drm_fb_helper_cfb_imageblit);
--
- /**
-  * drm_fb_helper_set_suspend - wrapper around fb_set_suspend
-  * @fb_helper: driver-allocated fbdev helper, can be NULL
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index e4f4d2e3fdfe..01b5a8272a27 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -17,6 +17,7 @@ config DRM_I915
- 	select DRM_KMS_HELPER
- 	select DRM_PANEL
- 	select DRM_MIPI_DSI
-+	select FB_IO_HELPERS if DRM_FBDEV_EMULATION
- 	select RELAY
- 	select I2C
- 	select I2C_ALGOBIT
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index aab1ae74a8f7..eccaceaf8b9d 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -28,6 +28,7 @@
- #include <linux/console.h>
- #include <linux/delay.h>
- #include <linux/errno.h>
-+#include <linux/fb.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/mm.h>
-@@ -84,6 +85,10 @@ static void intel_fbdev_invalidate(struct intel_fbdev *ifbdev)
- 	intel_frontbuffer_invalidate(to_frontbuffer(ifbdev), ORIGIN_CPU);
- }
- 
-+FB_GEN_DEFAULT_DEFERRED_IO_OPS(intel_fbdev,
-+			       drm_fb_helper_damage_range,
-+			       drm_fb_helper_damage_area)
-+
- static int intel_fbdev_set_par(struct fb_info *info)
- {
- 	struct intel_fbdev *ifbdev = to_intel_fbdev(info->par);
-@@ -132,15 +137,12 @@ static int intel_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma)
- 
- static const struct fb_ops intelfb_ops = {
- 	.owner = THIS_MODULE,
-+	__FB_DEFAULT_DEFERRED_OPS_RDWR(intel_fbdev),
- 	DRM_FB_HELPER_DEFAULT_OPS,
- 	.fb_set_par = intel_fbdev_set_par,
--	.fb_read = drm_fb_helper_cfb_read,
--	.fb_write = drm_fb_helper_cfb_write,
--	.fb_fillrect = drm_fb_helper_cfb_fillrect,
--	.fb_copyarea = drm_fb_helper_cfb_copyarea,
--	.fb_imageblit = drm_fb_helper_cfb_imageblit,
--	.fb_pan_display = intel_fbdev_pan_display,
- 	.fb_blank = intel_fbdev_blank,
-+	.fb_pan_display = intel_fbdev_pan_display,
-+	__FB_DEFAULT_DEFERRED_OPS_DRAW(intel_fbdev),
- 	.fb_mmap = intel_fbdev_mmap,
- };
- 
-diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-index b50fd0c0b713..4863b0f8299e 100644
---- a/include/drm/drm_fb_helper.h
-+++ b/include/drm/drm_fb_helper.h
-@@ -258,18 +258,6 @@ void drm_fb_helper_damage_area(struct fb_info *info, u32 x, u32 y, u32 width, u3
- 
- void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagereflist);
- 
--ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
--			       size_t count, loff_t *ppos);
--ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
--				size_t count, loff_t *ppos);
--
--void drm_fb_helper_cfb_fillrect(struct fb_info *info,
--				const struct fb_fillrect *rect);
--void drm_fb_helper_cfb_copyarea(struct fb_info *info,
--				const struct fb_copyarea *area);
--void drm_fb_helper_cfb_imageblit(struct fb_info *info,
--				 const struct fb_image *image);
--
- void drm_fb_helper_set_suspend(struct drm_fb_helper *fb_helper, bool suspend);
- void drm_fb_helper_set_suspend_unlocked(struct drm_fb_helper *fb_helper,
- 					bool suspend);
-@@ -385,33 +373,6 @@ static inline int drm_fb_helper_defio_init(struct drm_fb_helper *fb_helper)
- 	return -ENODEV;
- }
- 
--static inline ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
--					     size_t count, loff_t *ppos)
--{
--	return -ENODEV;
--}
--
--static inline ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
--					      size_t count, loff_t *ppos)
--{
--	return -ENODEV;
--}
--
--static inline void drm_fb_helper_cfb_fillrect(struct fb_info *info,
--					      const struct fb_fillrect *rect)
--{
--}
--
--static inline void drm_fb_helper_cfb_copyarea(struct fb_info *info,
--					      const struct fb_copyarea *area)
--{
--}
--
--static inline void drm_fb_helper_cfb_imageblit(struct fb_info *info,
--					       const struct fb_image *image)
--{
--}
--
- static inline void drm_fb_helper_set_suspend(struct drm_fb_helper *fb_helper,
- 					     bool suspend)
- {
--- 
-2.40.1
-
+On Thu, May 25, 2023 at 9:19=E2=80=AFPM <jiadong.zhu@amd.com> wrote:
+>
+> From: Jiadong Zhu <Jiadong.Zhu@amd.com>
+>
+> Patch the packages including CONTEXT_CONTROL and WRITE_DATA for gfx9
+> during the resubmission scenario.
+>
+> Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 80 +++++++++++++++++++++++++++
+>  1 file changed, 80 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_0.c
+> index cbcf6126cce5..4fbeb9b5752c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -5172,9 +5172,83 @@ static void gfx_v9_0_ring_emit_ib_gfx(struct amdgp=
+u_ring *ring,
+>  #endif
+>                 lower_32_bits(ib->gpu_addr));
+>         amdgpu_ring_write(ring, upper_32_bits(ib->gpu_addr));
+> +       amdgpu_ring_ib_on_emit_cntl(ring);
+>         amdgpu_ring_write(ring, control);
+>  }
+>
+> +static void gfx_v9_0_ring_patch_cntl(struct amdgpu_ring *ring,
+> +                                    unsigned offset)
+> +{
+> +       u32 control =3D ring->ring[offset];
+> +
+> +       control |=3D INDIRECT_BUFFER_PRE_RESUME(1);
+> +       ring->ring[offset] =3D control;
+> +}
+> +
+> +static void gfx_v9_0_ring_patch_ce_meta(struct amdgpu_ring *ring,
+> +                                       unsigned offset)
+> +{
+> +       struct amdgpu_device *adev =3D ring->adev;
+> +       void *ce_payload_cpu_addr;
+> +       uint64_t payload_offset, payload_size;
+> +
+> +       payload_size =3D sizeof(struct v9_ce_ib_state);
+> +
+> +       if (ring->is_mes_queue) {
+> +               payload_offset =3D offsetof(struct amdgpu_mes_ctx_meta_da=
+ta,
+> +                                         gfx[0].gfx_meta_data) +
+> +                       offsetof(struct v9_gfx_meta_data, ce_payload);
+> +               ce_payload_cpu_addr =3D
+> +                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, payload_of=
+fset);
+> +       } else {
+> +               payload_offset =3D offsetof(struct v9_gfx_meta_data, ce_p=
+ayload);
+> +               ce_payload_cpu_addr =3D adev->virt.csa_cpu_addr + payload=
+_offset;
+> +       }
+> +
+> +       if (offset + (payload_size >> 2) <=3D ring->buf_mask + 1) {
+> +               memcpy((void *)&ring->ring[offset], ce_payload_cpu_addr, =
+payload_size);
+> +       } else {
+> +               memcpy((void *)&ring->ring[offset], ce_payload_cpu_addr,
+> +                      (ring->buf_mask + 1 - offset) << 2);
+> +               payload_size -=3D (ring->buf_mask + 1 - offset) << 2;
+> +               memcpy((void *)&ring->ring[0],
+> +                      ce_payload_cpu_addr + ((ring->buf_mask + 1 - offse=
+t) << 2),
+> +                      payload_size);
+> +       }
+> +}
+> +
+> +static void gfx_v9_0_ring_patch_de_meta(struct amdgpu_ring *ring,
+> +                                       unsigned offset)
+> +{
+> +       struct amdgpu_device *adev =3D ring->adev;
+> +       void *de_payload_cpu_addr;
+> +       uint64_t payload_offset, payload_size;
+> +
+> +       payload_size =3D sizeof(struct v9_de_ib_state);
+> +
+> +       if (ring->is_mes_queue) {
+> +               payload_offset =3D offsetof(struct amdgpu_mes_ctx_meta_da=
+ta,
+> +                                         gfx[0].gfx_meta_data) +
+> +                       offsetof(struct v9_gfx_meta_data, de_payload);
+> +               de_payload_cpu_addr =3D
+> +                       amdgpu_mes_ctx_get_offs_cpu_addr(ring, payload_of=
+fset);
+> +       } else {
+> +               payload_offset =3D offsetof(struct v9_gfx_meta_data, de_p=
+ayload);
+> +               de_payload_cpu_addr =3D adev->virt.csa_cpu_addr + payload=
+_offset;
+> +       }
+> +
+> +       if (offset + (payload_size >> 2) <=3D ring->buf_mask + 1) {
+> +               memcpy((void *)&ring->ring[offset], de_payload_cpu_addr, =
+payload_size);
+> +       } else {
+> +               memcpy((void *)&ring->ring[offset], de_payload_cpu_addr,
+> +                      (ring->buf_mask + 1 - offset) << 2);
+> +               payload_size -=3D (ring->buf_mask + 1 - offset) << 2;
+> +               memcpy((void *)&ring->ring[0],
+> +                      de_payload_cpu_addr + ((ring->buf_mask + 1 - offse=
+t) << 2),
+> +                      payload_size);
+> +       }
+> +}
+> +
+>  static void gfx_v9_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
+>                                           struct amdgpu_job *job,
+>                                           struct amdgpu_ib *ib,
+> @@ -5370,6 +5444,8 @@ static void gfx_v9_0_ring_emit_ce_meta(struct amdgp=
+u_ring *ring, bool resume)
+>         amdgpu_ring_write(ring, lower_32_bits(ce_payload_gpu_addr));
+>         amdgpu_ring_write(ring, upper_32_bits(ce_payload_gpu_addr));
+>
+> +       amdgpu_ring_ib_on_emit_ce(ring);
+> +
+>         if (resume)
+>                 amdgpu_ring_write_multiple(ring, ce_payload_cpu_addr,
+>                                            sizeof(ce_payload) >> 2);
+> @@ -5481,6 +5557,7 @@ static void gfx_v9_0_ring_emit_de_meta(struct amdgp=
+u_ring *ring, bool resume, bo
+>         amdgpu_ring_write(ring, lower_32_bits(de_payload_gpu_addr));
+>         amdgpu_ring_write(ring, upper_32_bits(de_payload_gpu_addr));
+>
+> +       amdgpu_ring_ib_on_emit_de(ring);
+>         if (resume)
+>                 amdgpu_ring_write_multiple(ring, de_payload_cpu_addr,
+>                                            sizeof(de_payload) >> 2);
+> @@ -6891,6 +6968,9 @@ static const struct amdgpu_ring_funcs gfx_v9_0_sw_r=
+ing_funcs_gfx =3D {
+>         .emit_reg_write_reg_wait =3D gfx_v9_0_ring_emit_reg_write_reg_wai=
+t,
+>         .soft_recovery =3D gfx_v9_0_ring_soft_recovery,
+>         .emit_mem_sync =3D gfx_v9_0_emit_mem_sync,
+> +       .patch_cntl =3D gfx_v9_0_ring_patch_cntl,
+> +       .patch_de =3D gfx_v9_0_ring_patch_de_meta,
+> +       .patch_ce =3D gfx_v9_0_ring_patch_ce_meta,
+>  };
+>
+>  static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_compute =3D {
+> --
+> 2.25.1
+>
