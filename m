@@ -4,49 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38EBAC77B7A
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:39:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7799FC77B7A
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:50:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B60F010E3AD;
-	Tue, 30 May 2023 15:39:08 +0000 (UTC)
-Received: from mailrelay5-1.pub.mailoutpod2-cph3.one.com
- (mailrelay5-1.pub.mailoutpod2-cph3.one.com [46.30.211.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C409710E3AD
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 15:39:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa1;
- h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
- from:date:from;
- bh=yErmUKLEV8p541cORXL+ZjgxkNaQgiMOaq6ZyNHls9A=;
- b=kJy4mOQJiQ6YFOtAavW7NVC4LtJUJWoWi0t56Isq6GJEQ94tSFFnKj2QAWLm0XaGC4nsXFkBkakDS
- NJpKJBBKnZj3kxtUaKYQCD2fzGVMwf1GdCYmplTtiUKOMCqmeCodCGDybgd3fBXqq41gTF+jtWaBud
- ZiifDfsFsxbsCYl7jUi6gqu8AP+taGhEp5M1s3Eje2y9B9jvuhLniBwkansgLifx6SE0ZhmmkwwW0S
- kQrmWvCeSptvOj1pNPoctQlqP/WS/dhXugy4DsvtYBfPP4+2ibR1557sMasm0CnZgPmuJJrK37Cziw
- 2hQh7NWvetGo07FA/uw7kZ2ePRqcxCg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
- d=ravnborg.org; s=ed1;
- h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
- from:date:from;
- bh=yErmUKLEV8p541cORXL+ZjgxkNaQgiMOaq6ZyNHls9A=;
- b=9OBjrRKYEtwrxBpN98hY1nffVfOZmReyI/MyWaIBmOFDtTrxJbnAvKHOUUjnmP+bOTyVAwwn+tCeN
- TfzEQsmCg==
-X-HalOne-ID: f3492551-feff-11ed-8093-231b2edd0ed2
-Received: from ravnborg.org (2-105-2-98-cable.dk.customer.tdc.net [2.105.2.98])
- by mailrelay5 (Halon) with ESMTPSA
- id f3492551-feff-11ed-8093-231b2edd0ed2;
- Tue, 30 May 2023 15:37:58 +0000 (UTC)
-Date: Tue, 30 May 2023 17:37:57 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v4 13/13] drm/i915: Implement dedicated fbdev I/O helpers
-Message-ID: <20230530153757.GA1464878@ravnborg.org>
-References: <20230524092150.11776-1-tzimmermann@suse.de>
- <20230524092150.11776-14-tzimmermann@suse.de>
- <20230529193621.GD1370714@ravnborg.org>
- <539118fc-ad60-ee3c-4a0c-1472774f5122@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D6DE10E176;
+	Tue, 30 May 2023 15:50:38 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20609.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::609])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7139910E16E;
+ Tue, 30 May 2023 15:50:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=X0kH+yjg03mhSAzGRz3ArZs5LwRfkHxZL9ollKG/X7oKLQgE2s748BZVKDjtfMTN+j2B2yjmP4Zpx8sXaMTuC+7xmsfHjeX7CgmyX8cG6emNAmTJjAUAglWsJev5p7PlGtF6XB7AzB7bpTTEMJdL+MG12ziQg3tBIHk6yUpVqf+at/0FeAn44oUjsdAzcxpbI7rh1riD6Qo0nQ1fEmno3Xa0qJ6sIDE1RZLDqM4l2+4810LXFah4wTJctwdqmndovxZGtX8uIL7veTF5wwZcGxmCexsSZ7f+uEElBe2Q7d/s8g4xv0ooVz7vEY2HM8heVMrNnKOIfEWEerkD6D+UhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s4OQKZDErOU1UfFLnXoY/b/zNP8PaDQj496aiwIBcls=;
+ b=GL2YCCKv5P3rwgNvJ8r+n7dEgCpOlaDsQCgk7Jl/8mf7UF5iwJHSFIt+s+mljgMOFOeCsLfOjdiz7EfI0t1yH4Ib1RrAnI8huoUWpz/t9szWBUQy/KEejuAfqsGi+EAuVYSg/0FVqUS3KdXgYVn4S+vXK6kDzFGxHLOL4wUxFbqv3wiVhjEwpQMzwNZAF+XJ44yqEuXueXecdG1iZ/OqYjJsQFaE3bhNaVqoI2m2mG5SlcWMuhZpmumh1sFtmbZqOZ+d6Y1e98eEWSrQN0qTyVllGR9nSdJu94pdirDgpSFQSTuBB7KLrKO8l1UN/eIAi0282aUlJGBhSaK4haOS/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s4OQKZDErOU1UfFLnXoY/b/zNP8PaDQj496aiwIBcls=;
+ b=AQyfkJpj8rDNesUgk5bARAl4ay3TiVm5SQ4bhcWlMJR++/lkq54ydKepPoo2+2ubIG0EXvi/5nCnAEbLNvcAiVlE7uhQKJeoSqrnHrlIk2jhCmc97uLFI/twV6eI5K45TW4+KlwQG97EcFt9AqLaKMnjLpj16ikMVqN0NBZSPOE=
+Received: from DM6PR12MB3996.namprd12.prod.outlook.com (2603:10b6:5:1c1::31)
+ by BY5PR12MB4952.namprd12.prod.outlook.com (2603:10b6:a03:1d8::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Tue, 30 May
+ 2023 15:50:33 +0000
+Received: from DM6PR12MB3996.namprd12.prod.outlook.com
+ ([fe80::e436:6d53:7445:88b8]) by DM6PR12MB3996.namprd12.prod.outlook.com
+ ([fe80::e436:6d53:7445:88b8%7]) with mapi id 15.20.6433.022; Tue, 30 May 2023
+ 15:50:32 +0000
+From: "Ho, Kenny" <Kenny.Ho@amd.com>
+To: "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amd/amdgpu: introduce DRM_AMDGPU_WERROR
+Thread-Topic: [PATCH] drm/amd/amdgpu: introduce DRM_AMDGPU_WERROR
+Thread-Index: AQHZjyd9xmQrPkt7AE6NNnI82OsITa9y93aAgAAGaVg=
+Date: Tue, 30 May 2023 15:50:32 +0000
+Message-ID: <DM6PR12MB3996064F09E1C2FD782CC944834B9@DM6PR12MB3996.namprd12.prod.outlook.com>
+References: <20230525163827.548058-1-hamza.mahfooz@amd.com>
+ <85f47623-5ef1-b817-195b-c4ae39564247@amd.com>
+In-Reply-To: <85f47623-5ef1-b817-195b-c4ae39564247@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-05-30T15:50:32.189Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB3996:EE_|BY5PR12MB4952:EE_
+x-ms-office365-filtering-correlation-id: 74a2f24f-19bd-4a18-0794-08db612599fd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: dJxRxRUWfNhpmp+IxIAFV+XYJfAbWPxW0NXuhDxSlsiTGN9oSBOk7O00JMmFCEaDJFLGcfyt4ZtFeEuUkWLsCLAaOBdSZJt46TyZ6687+YlypDl9Cdy6JFWG+pviqGF6m1UUUr8WDVO5+j2CigY9c7XYmYWfGaewzXiKktHovOV2ul6PjwwXPQhKmauxINr1vWDQL5AnHvnBK7qEaQ4LglGes5sbCEp5CO/RfAzaX6Qxb/yjaGQDPdzSMEm7//lVZg4h75tpZI7NsRTEyIGIa7r1MMTtZTm8XeFPaPQfQhp40kdmWsIDMEn3enXdYL81uriQKD7HynY6T7jE/JtnaBZpf2hl1oZfK73vCyssyVuzB5BxKvseRCJ79+lTLHrbGnXVPt7XJ2UsBI1ui7cjFJsg3VqbbiZ8HY/oPqN1Q14qPXmhaT5euKJwuhyeVcG5x9ESDeo3p9Dv9mrPRsp+98c/yuXHmmJ0sn0yoeQ/aJRXterqOOJ+59QjO0i2zuktbcRblai8XEO1zm4NEU31+zrJR3fchySEbQPCJRK12Cuw8QDf9ZjcsNblMkvVcdQNgh9FoXciShfHBmcETTHNHr97aCMegOJdC5rjTMxv1sbZeufIlhzNDhp8YMDH/Hq7
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3996.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(366004)(396003)(39860400002)(376002)(136003)(451199021)(6506007)(9686003)(4744005)(186003)(53546011)(2906002)(110136005)(54906003)(478600001)(26005)(83380400001)(7696005)(8676002)(38100700002)(41300700001)(122000001)(8936002)(55016003)(66446008)(66946007)(66476007)(76116006)(64756008)(66556008)(316002)(5660300002)(86362001)(33656002)(71200400001)(38070700005)(52536014)(91956017)(4326008);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?UaRnuNY7rHL5Y7znw60X2g5DEyQdzK2A4mJacIpcipW8KkX5EZ9toewCes?=
+ =?iso-8859-1?Q?m/XxPSKAKC20s3Ga2R5IXTm2IJFPF5ramTWs2vIC8MdyEIfxE+kQ4zOTS9?=
+ =?iso-8859-1?Q?mNq2Y0+vEEmCeOiDCB0mXMIe9diU0eAaSHwqAuOWc6dRrGvAqUsqrjxU6q?=
+ =?iso-8859-1?Q?h4UJmzC5wyK1zXkGmCJp/3rCF7+EIoDLPPwqMJjIPsm/IdkZJhy1+TlakT?=
+ =?iso-8859-1?Q?00YHu5Z6Vj6A8J1I1dY15/Pkud6E1VlrILy39PoBeFU0lESgU/cYIL+2LT?=
+ =?iso-8859-1?Q?KHVmMHzynp5JX1V0ebHCT5HQrLC/Oa2gIvUArb09/7g0lx2f2aZjH7DyNG?=
+ =?iso-8859-1?Q?8G8WbesIcu1x22quJeEekutLZ7ynFiEhidS6br2x8G/qy89Bqk2YKbfAVW?=
+ =?iso-8859-1?Q?lrgcEu1aH/g33O0g0gDqUgbyYQcAIOhtScadR09bmGWuP6t+tQMXVX8CxR?=
+ =?iso-8859-1?Q?NYpi7p4p56rGS07VDgXjWtLB/DpZISCaRj7E6VkeWJ3h9CqqmonfY9gUWU?=
+ =?iso-8859-1?Q?jxJH6joIemWLCdSndBxt9xvigWC8SfYwis/bwxkc2d2KYxEY0YYhFvovSZ?=
+ =?iso-8859-1?Q?aaZVNuMzPRnyEKd0jWc07rLplCMt27qQpWjRj9L5A9eTXaBxdDghbar8GD?=
+ =?iso-8859-1?Q?31j5HflrRLDqE1PyRFOFbQBx6hKBcxKYxJBUVrYVHuUfrVDxJFslbm56HE?=
+ =?iso-8859-1?Q?qpnoVnSkNSI7xK2grbkBHD2426meI0zITp4S3Ay9OHEvJpSdSy2jIvSUnI?=
+ =?iso-8859-1?Q?4gVnh/FyBkTSTV7xQJxQnjJxMzSmtiBuGr+H4XPqbHqcvvAkXZxmWuBfmC?=
+ =?iso-8859-1?Q?ezDGsZfu644zCD5AQ4SlIveCjNt6uKJ5eq3gKO3fjqrAuJCw3b5ktyKeQp?=
+ =?iso-8859-1?Q?7AWdOohoZoNr++ukZl73gkLNbR6+3CROlPEP5httfhFs76+Fp9vsx52wqy?=
+ =?iso-8859-1?Q?LAIwf6N6Y8YzXRqHgJItEobQMdgqeP9uOBWN84K1HIXwvA4oHgKTyxMzLw?=
+ =?iso-8859-1?Q?A9Ex7cL96x7T5acnIDunxz8Rrgbqi+rDSXttD7c5Vso0m8t0R9dBM7Fvhk?=
+ =?iso-8859-1?Q?ZvX82jVWL4Bsdjjee8nxlN0CI0aRnEoBFFlLZvSN8OEDnCsqq4TuoCyftS?=
+ =?iso-8859-1?Q?lvrN3vL8WmjrpI9YD82SibE1lhTVyWQYKOXEluWh8Ydj6qejmteB8MG9Mk?=
+ =?iso-8859-1?Q?uTkiRxrHvJksrq35eAPDufuJfoxjy9RdWxveypaLoQd43+3jQgf8IQr797?=
+ =?iso-8859-1?Q?uLp6W75RH7dRRlNxjnRS8VI8bp5ymuUa/a5Rxh9qMotLIZ0AbowYPrJ46W?=
+ =?iso-8859-1?Q?hiu2IdxAS4Amlq4dyErp+/wqrY2pDD6OOMLy0YMkMhgVj1YeuXZxSMzsRq?=
+ =?iso-8859-1?Q?p5Ipz+/FyxRyAOxJFUWppB9bUHNgOhQJf6jZNk0Pz9Xi8e/ZUWTJkoqfbc?=
+ =?iso-8859-1?Q?S2DjsIuD87Ll4tZQnQs5QZ1jIiw844ozJFqE5ypZ7E4zMquHnx63x/4fSz?=
+ =?iso-8859-1?Q?hZHVd63iYAzlER7ll5PbOkdXVMaLmq2rHCFRahdozNXuxqVn3gJNpsa4ex?=
+ =?iso-8859-1?Q?Jt0ZLbWVMATT+tIqTVZ+JzBz7IvXHC04EMg+odjQR9oYBwu40Q=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <539118fc-ad60-ee3c-4a0c-1472774f5122@suse.de>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3996.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74a2f24f-19bd-4a18-0794-08db612599fd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 May 2023 15:50:32.7654 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TATSapFDGy/wdc4wUagfZG1tasaEJ8VdtgUm/yxFfPI1FI4lPDTgs8P8/9COgn6X
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4952
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,45 +123,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, javierm@redhat.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>,
+ =?iso-8859-1?Q?Andr=E9_Almeida?= <andrealmeid@igalia.com>, "Wang,
+ Yang\(Kevin\)" <KevinYang.Wang@amd.com>, Peter Foley <pefoley2@pefoley.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Andrew Davis <afd@ti.com>, "Lazar,
+ Lijo" <Lijo.Lazar@amd.com>, "Ma, Le" <Le.Ma@amd.com>, "Chai,
+ Thomas" <YiPeng.Chai@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Li, Candice" <Candice.Li@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
+ David Airlie <airlied@gmail.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+[Public]
 
-> > > -	if (helper->funcs->fb_dirty) {
-> > > -		drm_fb_helper_memory_range_to_clip(info, pos, ret, &damage_area);
-> > > -		drm_fb_helper_damage(helper, damage_area.x1, damage_area.y1,
-> > > -				     drm_rect_width(&damage_area),
-> > > -				     drm_rect_height(&damage_area));
-> > > -	}
-> > 
-> > The generated helpers do not have the if (helper->funcs->fb_dirty)
-> > check.
-> > Is this implemented somewhere else that I missed?
-> 
-> It's not needed any longer.  We used to test if the fbdev code needs damage
-> handling by looking for a fb_dirty callback. If so, we ran the damage
-> handling code.
-> 
-> With the patchset applied, the fbdev code that does not need damage handling
-> calls fb_{io,sys}_write() directly.  The fbdev code that needs damage
-> handling (generic, i915, msm) uses the generator macro that creates
-> necessary the calls unconditionally.  We know each case at build time.
-> 
-> (I think I have to move the msm patch after patch 10/13 to make it
-> bisectable.)
-> 
-> AFAICT the missing test for fb_dirty is also one of the reasons why there's
-> a difference in performance.
-> 
-> Hopefully, this answers your question?
-Makes perfect sense - thanks.
-That also implies that my conditional r-b's are now OK.
+On 5/30/23 11:24, Hamza Mahfooz wrote:
+> I am able to get clean builds with this enabled on GCC 11-13 and Clang
+> 15, at least as of commit e786aef0869c ("drm/amd/display: remove unused
+> definition") on amd-staging-drm-next.
 
-	Sam
+Did you try intentionally introducing a warning to see if the build indeed =
+fail?
