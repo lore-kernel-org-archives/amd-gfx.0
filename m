@@ -4,59 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E16D9C77B7A
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 13:50:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBA1BC77B73
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 13:50:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D89C010E393;
-	Tue, 30 May 2023 13:50:29 +0000 (UTC)
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8884310E1C8
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 May 2023 12:02:25 +0000 (UTC)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-3f6cbf02747so4710025e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 26 May 2023 05:02:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685102544; x=1687694544;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=UtSP2dJ26RL4DTO5afV8jgi3I5uKUznxWJICL9NyxnA=;
- b=sCGPhNji26CuIR0qJVd/felDhmYZz+5n0wwiE5OK1bn78e6ktputOlGLBesEHzCVCm
- g/yAp1QxoKCpMhU0Q+kfPtJoT3m6AZvYVviRycg8NTpp85bn/uscGl6WH+ug47FYHUa6
- myt+f/5XH5VafaQrlUi+jnCYQGJ7nYc0Pb+8P9dTf6LOyDtTe19X3NhXnnUGqa7rT0QY
- +dA2izwioQ2nnyqae68eQHK0ljJ5a9zVek9GX6VDvlB/+a2cmiBaG85xNnLLiEyDZHJz
- CVs1R8NqGOHDuiLjaZuHzSNH4iW9ZFaK8KFwoxUPGx9izr8aaMcRHUZXKhdGy3h+jPmu
- FaRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685102544; x=1687694544;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UtSP2dJ26RL4DTO5afV8jgi3I5uKUznxWJICL9NyxnA=;
- b=bz5XMh/zKuBLwbM9F/cohHAE2g8LKSxrGMFt+WIhEv4Yveg9Am7Mb9BqOay2VmvNBs
- fsuIvItuDe3Xyo7ElqrVhpSepXGpdzrhnnXBeGnsg6KBb/X9xwdsRvyCPYKJn4rD8hIm
- TWIcoILlO+g/MYUYCpwNvn1RIcnF5nG9tBcpUdZB3juT1/YzjCYyVIXT9fqvaUbRCn/A
- /348sL0FaIDNr/Zn8B8P61On9BcqMPt+rQkJlplVqSFxHq+QNG/T79bXvaN9hU0+UUaO
- u+NpXJhdcVzRGZfWSVXmNtSDLcz9reywqdMDt0BqPBZJirgv1odhilYQimr1ayULFANf
- 9FWA==
-X-Gm-Message-State: AC+VfDyVf196+3rtEXm8QcUmskvtRMVGSyJT0XcSjI9Skk5RhHWfKFwl
- YV3DOBncK43CpecaZoSFerQHKw==
-X-Google-Smtp-Source: ACHHUZ5NCE9QPI/Oqr6TdhuutWLz8tFhBc0XBJ1aHrRQg60/dSDOQzZOWCtEmhhZwE8H0+REAlMTTQ==
-X-Received: by 2002:a05:600c:21cf:b0:3f6:8ef:a213 with SMTP id
- x15-20020a05600c21cf00b003f608efa213mr1303616wmj.28.1685102543642; 
- Fri, 26 May 2023 05:02:23 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- u10-20020a5d514a000000b00307b5376b2csm4832644wrt.90.2023.05.26.05.02.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 May 2023 05:02:22 -0700 (PDT)
-Date: Fri, 26 May 2023 15:02:19 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Rodrigo.Siqueira@amd.com, Qingqing Zhuo <qingqing.zhuo@amd.com>
-Subject: [bug report] drm/amd/display: Check clock table return
-Message-ID: <d9a8f0a0-b5e4-439f-b8b3-69a898ba4a0a@kili.mountain>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A3A310E379;
+	Tue, 30 May 2023 13:50:43 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC15710E379;
+ Tue, 30 May 2023 13:50:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1685454642; x=1716990642;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=coaE20tPVJ7AZBZ9YIPPD7ohxPRVwifqLulonpO6f/c=;
+ b=HsS0Nb7NMl9udjeQg/Fo+ep+sZv4m53a0n4AhKSIXQbsO8zqBETSWUhJ
+ 8C38vbeoGzUONL5bsu4W0VEAuyx8hlMnDb/A9Dzf0/FIoJQ0di/AdxLSj
+ h4wywTRqOD6/pOihNPkC9uMmEcnuuleRUz6lxDNc2M8YSSJakG8noyA9L
+ nlDwRRLoSfXY/p/wmHMxBi3DlMI7FcBqyjd32U/6d6vr8e0XlH38obzUd
+ CV4PWstklnraurhZlhVQe5TJh4XaWYar1CYHTBJdTDyImdx8mtVv1ghNf
+ PU+OLcxBXBXfAE3aTL2gGLTB1GnLBguwK2H9Q3K/VUL8gWQX3wrF5npbX Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="352418869"
+X-IronPort-AV: E=Sophos;i="6.00,204,1681196400"; d="scan'208";a="352418869"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 May 2023 06:50:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="771552147"
+X-IronPort-AV: E=Sophos;i="6.00,204,1681196400"; d="scan'208";a="771552147"
+Received: from lkp-server01.sh.intel.com (HELO fb1ced2c09fb) ([10.239.97.150])
+ by fmsmga008.fm.intel.com with ESMTP; 30 May 2023 06:50:23 -0700
+Received: from kbuild by fb1ced2c09fb with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1q3zjy-0000aN-2p;
+ Tue, 30 May 2023 13:50:22 +0000
+Date: Tue, 30 May 2023 21:50:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Evan Quan <evan.quan@amd.com>, rafael@kernel.org, lenb@kernel.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ kvalo@kernel.org, nbd@nbd.name, lorenzo@kernel.org,
+ ryder.lee@mediatek.com, shayne.chen@mediatek.com,
+ sean.wang@mediatek.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, Mario.Limonciello@amd.com,
+ Lijo.Lazar@amd.com
+Subject: Re: [PATCH 8/9] drm/amd/pm: enable Wifi RFI mitigation feature
+ support for SMU13.0.0
+Message-ID: <202305302118.3mARqykY-lkp@intel.com>
+References: <20230530024227.2139632-9-evan.quan@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-X-Mailman-Approved-At: Tue, 30 May 2023 13:50:27 +0000
+In-Reply-To: <20230530024227.2139632-9-evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,63 +66,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ oe-kbuild-all@lists.linux.dev, ath11k@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Rodrigo Siqueira,
+Hi Evan,
 
-This is a semi-automatic email about new static checker warnings.
+kernel test robot noticed the following build errors:
 
-The patch 4b4f21ff7f5d: "drm/amd/display: Check clock table return" 
-from Aug 20, 2020, leads to the following Smatch complaint:
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on kvalo-ath/ath-next wireless-next/main wireless/main linus/master v6.4-rc4]
+[cannot apply to next-20230530]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-    drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn21/rn_clk_mgr.c:775 rn_clk_mgr_construct()
-    warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 743)
+url:    https://github.com/intel-lab-lkp/linux/commits/Evan-Quan/drivers-acpi-Add-support-for-Wifi-band-RF-mitigations/20230530-104541
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20230530024227.2139632-9-evan.quan%40amd.com
+patch subject: [PATCH 8/9] drm/amd/pm: enable Wifi RFI mitigation feature support for SMU13.0.0
+config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20230530/202305302118.3mARqykY-lkp@intel.com/config)
+compiler: powerpc-linux-gcc (GCC) 12.3.0
+reproduce (this is a W=1 build):
+        mkdir -p ~/bin
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/8ecc361da81a0915bb626156b47403a91b678de1
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Evan-Quan/drivers-acpi-Add-support-for-Wifi-band-RF-mitigations/20230530-104541
+        git checkout 8ecc361da81a0915bb626156b47403a91b678de1
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.3.0 ~/bin/make.cross W=1 O=build_dir ARCH=powerpc olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.3.0 ~/bin/make.cross W=1 O=build_dir ARCH=powerpc SHELL=/bin/bash
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-   742	
-   743		if (ctx->dc_bios->integrated_info->memory_type == LpDdr4MemType) {
-                    ^^^^^^^^^^^^^^
-Not sure why Smatch is complaining about this after three years.
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202305302118.3mARqykY-lkp@intel.com/
 
-   744			if (clk_mgr->periodic_retraining_disabled) {
-   745				rn_bw_params.wm_table = lpddr4_wm_table_with_disabled_ppt;
-   746			} else {
-   747				if (is_green_sardine)
-   748					rn_bw_params.wm_table = lpddr4_wm_table_gs;
-   749				else
-   750					rn_bw_params.wm_table = lpddr4_wm_table_rn;
-   751			}
-   752		} else {
-   753			if (is_green_sardine)
-   754				rn_bw_params.wm_table = ddr4_wm_table_gs;
-   755			else {
-   756				if (ctx->dc->config.is_single_rank_dimm)
-   757					rn_bw_params.wm_table = ddr4_1R_wm_table_rn;
-   758				else
-   759					rn_bw_params.wm_table = ddr4_wm_table_rn;
-   760			}
-   761		}
-   762		/* Saved clocks configured at boot for debug purposes */
-   763		rn_dump_clk_registers(&clk_mgr->base.boot_snapshot, &clk_mgr->base, &log_info);
-   764	
-   765		clk_mgr->base.dprefclk_khz = 600000;
-   766		dce_clock_read_ss_info(clk_mgr);
-   767	
-   768	
-   769		clk_mgr->base.bw_params = &rn_bw_params;
-   770	
-   771		if (pp_smu && pp_smu->rn_funcs.get_dpm_clock_table) {
-   772			status = pp_smu->rn_funcs.get_dpm_clock_table(&pp_smu->rn_funcs.pp_smu, &clock_table);
-   773	
-   774			if (status == PP_SMU_RESULT_OK &&
-   775			    ctx->dc_bios && ctx->dc_bios->integrated_info) {
-                            ^^^^^^^^^^^^
-Check for NULL is too late.
+All errors (new ones prefixed by >>, old ones prefixed by <<):
 
-   776				rn_clk_mgr_helper_populate_bw_params (clk_mgr->base.bw_params, &clock_table, ctx->dc_bios->integrated_info);
-   777				/* treat memory config as single channel if memory is asymmetrics. */
+>> ERROR: modpost: "__umoddi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+>> ERROR: modpost: "__udivdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
 
-regards,
-dan carpenter
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
