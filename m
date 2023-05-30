@@ -4,61 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78577C7EE31
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 13:50:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDBD8C77B73
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 13:50:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C729910E15F;
-	Tue, 30 May 2023 13:50:27 +0000 (UTC)
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [IPv6:2607:f8b0:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6DE310E21B;
- Sat, 27 May 2023 07:54:44 +0000 (UTC)
-Received: by mail-pf1-x432.google.com with SMTP id
- d2e1a72fcca58-64f1f133c37so343486b3a.0; 
- Sat, 27 May 2023 00:54:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1685174084; x=1687766084;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ps1IF/L3y0LuIXv1kuyXMXVV1V92IKkA4nkdR1TZzsU=;
- b=J1k3fPaQZMPaMfdKrnm1zm7gzhHU3qdmAEgC4wn/zWlP5HZ6JqC5OlOYRpBy+aPcQg
- yUhoygdEbaP/d6l50zsX+P2x/nCpG+WCQ3vo2jEYDG6kXl3wiY3GZCZeW+KK7JfJUpXb
- vglxbKZsZSapWDZ6FUSrA82OzrEKw49uNha6r3OrW2h+wK+WUgqPh8mybzRX0ER05svx
- YYA6tu4labf09OfctbtGzSUoFMvh+n05rb5TndVmhR89vfRWC7USJ3BZBiHfKfvK5I6A
- uDJ1Kg6CpMzxNxSyjL2LyjV+88Akn+4O1hOLrEvQDDmCoLXemg9Gg6AS8g50KFwbTkEl
- 6+Iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685174084; x=1687766084;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ps1IF/L3y0LuIXv1kuyXMXVV1V92IKkA4nkdR1TZzsU=;
- b=fd+MtRHS5bqPsRDPtczwHU25kW/kxUqex+eerqrwjMtBglShw+J8XKdpzJUVwcLbhZ
- ndR6cFMNcV0KnO5XDEmfdOhc884/PWRKJU0rzw3hNprFgbq9xBTX7x3u6pLjYz9gpw8S
- WS9AgfBAIXtWMNhOQ8V4PXcF8eWVbWRzcTOnvi3h1jogdrUNmkonByvt52UTBvfiFdOr
- q12sYMlLZ3UrabLQKnDOK0umVs97MITVrdhvJNhJPrIimkmQ6ZgmAHJQDKo/L6JV6NI2
- W05ZErvozUeDNoq6Ig3MNWTbiUQ6xOU/AdiJavLE1OM2JQ2aufKi4T/ldWqMRzV+HouE
- LQyg==
-X-Gm-Message-State: AC+VfDyJKLzQhOV+HD5TRRn3Oa3Ui6HsGlmDpXhbCyii1Jj6jXbf0xc7
- RPG917uEso12Ixw9HkDtNw9jdXgD0wRFYD3M
-X-Google-Smtp-Source: ACHHUZ5Wl/x2AX2Bqkt5RQGo8lzJHVe2CTWpN35HVupnCmsS+crSB8FjThb8CWMDAlUiyAzTHgUY6Q==
-X-Received: by 2002:a05:6a00:349b:b0:64d:41f1:7c87 with SMTP id
- cp27-20020a056a00349b00b0064d41f17c87mr5793226pfb.2.1685174083809; 
- Sat, 27 May 2023 00:54:43 -0700 (PDT)
-Received: from ubuntu.localdomain ([103.114.158.1])
- by smtp.gmail.com with ESMTPSA id
- v7-20020a63d547000000b0053f22b76cdcsm3770567pgi.82.2023.05.27.00.54.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 27 May 2023 00:54:43 -0700 (PDT)
-From: Min Li <lm0963hack@gmail.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/radeon: fix race condition UAF in
- radeon_gem_set_domain_ioctl
-Date: Fri, 26 May 2023 20:37:53 +0800
-Message-Id: <20230526123753.16160-1-lm0963hack@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13ACD10E382;
+	Tue, 30 May 2023 13:50:28 +0000 (UTC)
+X-Greylist: delayed 1890 seconds by postgrey-1.36 at gabe;
+ Tue, 30 May 2023 06:54:18 UTC
+Received: from nbd.name (nbd.name [46.4.11.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A73110E34F;
+ Tue, 30 May 2023 06:54:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=nbd.name;
+ s=20160729; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:From
+ :References:Cc:To:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=XSDebSB19oA+MAG3fUqSU9st5hGlMUaKZomFXQkj8bQ=; b=YMImdWrUu2aDReyNZtLXpB54Kk
+ v1V1iaz9LXAL6jIDg7iIP2MLG6I9EZxMEqmxSHtwXqtEgm79oPgihC51IsJTPgi0wEH7jjFbZXMmK
+ KymQMz9B3RcEYtx41OSunnc5/SVEFBLvAtf//HXRk37oVPNR+2w054Neu4fha0KDNBT4=;
+Received: from p200300da7708b3c00512399822b48468.dip0.t-ipconnect.de
+ ([2003:da:7708:b3c0:512:3998:22b4:8468] helo=nf.local)
+ by ds12 with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+ (Exim 4.94.2) (envelope-from <nbd@nbd.name>)
+ id 1q3skY-00GyzG-PZ; Tue, 30 May 2023 08:22:30 +0200
+Message-ID: <1502188c-c527-3038-2163-5ca4f51ed735@nbd.name>
+Date: Tue, 30 May 2023 08:22:29 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.11.0
+To: Evan Quan <evan.quan@amd.com>, rafael@kernel.org, lenb@kernel.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, kvalo@kernel.org, lorenzo@kernel.org,
+ ryder.lee@mediatek.com, shayne.chen@mediatek.com, sean.wang@mediatek.com,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ Mario.Limonciello@amd.com, Lijo.Lazar@amd.com
+References: <20230530024227.2139632-1-evan.quan@amd.com>
+Content-Language: en-US
+From: Felix Fietkau <nbd@nbd.name>
+Subject: Re: [PATCH 0/9] Support Wifi RFI interference mitigation feature
+In-Reply-To: <20230530024227.2139632-1-evan.quan@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 30 May 2023 13:50:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,36 +58,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, airlied@gmail.com, christian.koenig@amd.com,
- linux-media@vger.kernel.org
+Cc: ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ ath11k@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Userspace can race to free the gobj(robj converted from), robj should not
-be accessed again after drm_gem_object_put, otherwith it will result in
-use-after-free.
+On 30.05.23 04:42, Evan Quan wrote:
+> Due to electrical and mechanical constraints in certain platform designs there may
+> be likely interference of relatively high-powered harmonics of the (G-)DDR memory
+> clocks with local radio module frequency bands used by Wifi 6/6e/7. To mitigate
+> possible RFI interference producers can advertise the frequencies in use and
+> consumers can use this information to avoid using these frequencies for
+> sensitive features.
+> 
+> The whole patch set is based on 6.4-rc3. With some brief introductions as below:
+> Patch1:     Core ACPI interfaces needed to support WBRF feature.
+> Patch2 - 4: Enable WBRF support for some Mediatek and Qualcomm wifi drivers.
+> Patch5 - 9: Enable WBRF support for AMD graphics driver.
+> 
+> Anson Tsao (1):
+>    wifi: ath11k: Add support to the Qualcomm ath11k for ACPI WBRF
+> 
+> Evan Quan (6):
+>    wifi: ath12k: Add support to the Qualcomm ath12k for ACPI WBRF
+>    drm/amd/pm: update driver_if and ppsmc headers for coming wbrf feature
+>    drm/amd/pm: setup the framework to support Wifi RFI mitigation feature
+>    drm/amd/pm: add flood detection for wbrf events
+>    drm/amd/pm: enable Wifi RFI mitigation feature support for SMU13.0.0
+>    drm/amd/pm: enable Wifi RFI mitigation feature support for SMU13.0.7
+> 
+> Mario Limonciello (2):
+>    drivers/acpi: Add support for Wifi band RF mitigations
+>    mt76: Add support to the Mediatek MT7921 for ACPI WBRF
+Wouldn't it make more sense to put this in mac80211 or cfg80211 instead 
+of duplicating the logic in different drivers?
 
-Signed-off-by: Min Li <lm0963hack@gmail.com>
----
- drivers/gpu/drm/radeon/radeon_gem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
-index bdc5af23f005..450c7cbdd28a 100644
---- a/drivers/gpu/drm/radeon/radeon_gem.c
-+++ b/drivers/gpu/drm/radeon/radeon_gem.c
-@@ -478,7 +478,7 @@ int radeon_gem_set_domain_ioctl(struct drm_device *dev, void *data,
- 
- 	drm_gem_object_put(gobj);
- 	up_read(&rdev->exclusive_lock);
--	r = radeon_gem_handle_lockup(robj->rdev, r);
-+	r = radeon_gem_handle_lockup(rdev, r);
- 	return r;
- }
- 
--- 
-2.34.1
+- Felix
 
