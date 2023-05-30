@@ -4,116 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E80AEC7EE23
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 08:59:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE5DBC7EE2E
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 09:17:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8CA10E2EB;
-	Tue, 30 May 2023 08:59:24 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2067.outbound.protection.outlook.com [40.107.243.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 174F010E157;
- Tue, 30 May 2023 08:59:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66DDD10E126;
+	Tue, 30 May 2023 09:17:56 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2060.outbound.protection.outlook.com [40.107.244.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B5A010E126
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 09:17:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FddRnXPNJUdJxCXJK3VX/wnVTUf2HwUdVyGdZtFoDHa7YPLaCUyxu5iDJ1qg/jZfbw7Fw5XBEi26GtRZHVM9MBlCU48istb/59Y+QmiKxKmmtyble9NoGR5q63y3jzcAPZI4SMJRT+Eg7oXEqZDlbLj/bTIdu44UMB+Cgs5eyvMeul4sjHsuGmBaPkbbEd/2ZFZSY/3F2x3eYXIuAWDjxKHj/hg3vz1rK3bW7r+eX58ksrEA2lDHnZZJgoWh1AgLp85qA7xngCxDocogCQf5yBNlEOy8leo2zkMxFuz+pdfAAwgNFcgrh2XiXN60pimdiFP1ADUF08nW3cvvU3Kn/g==
+ b=XtVRe2F/uV+VWwTy/RPTqvnHxGAbvk6j78+EY98yivHS6zTbma/FnLMTf4y+XD0ahDS98xg0RvQaEDT9d/AZl+1QXyuOLqvrU/dZUR2MHjASTL/3g1YK12njIAdPWhd6WAsd82Esxv7s9ruSHYNI0raCLvdxSp42dP19W0FAgq29nxhvemj4V/jtUF7+j24AIKqdamY4LJHFGK1FzjQduwCmh3n0yMchBQfcjcaNPvypzYcb5Wrec1lk4z1y+D6u9PgIs0CV235SWHtqWCeVHRLEeKGOqXTaciIZuWGfrToY6PU2q1xlFStg56ygKuY7KuaZ7uA5mXdX5B+2TZh4lA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b25KfUk/DsqTkJzDqMqMlenntGjd87g+Uswx5l1lHmY=;
- b=IUUzUA1K6hEhMCDu3zMOmEp/AV1S8+NI1lKMlV+McxeEfOwxfiaytE1Rqq4XKWP26CimcRWvs3ZiwQsHVCmoZfylMDH2OOY361LficRWwnLObs1U/0/n5GgTJf9hUiMxelIho66jCuzG98wRr1r5j9zYCkFdsey83VeLjdIUVlehlHp/VN5Msg6NhmozcNgxiVYd8wQsqEwGz/sGs9OEY4WhKRpf9wziInnXD4iyoHMUFKN6kr7DIY9WFhX0xtOnfgEgsapNv0it/kjVP//ol0Mk6eDLXGRZCmyrOi1oDIAJCvScj+OaLpToqKnaQpKcYKtiDEfW2GKSU49K6AQi+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=WjUg5xbvPcbvyq6+Tuqq5gqr5haGGF61z1oVZPVUKqU=;
+ b=fBkol6bLz15ap+td8v3Dy6AaRLpxPfuxjzGQ8bl7bF91fimzjN1dcl2byhEFWJJB4mva0gkp8bAdpJGFImCdsl86vUgSQqEsqePF7uYG/4/rq36QScRh9RaoMw8+lNoZCLVL8OYfB1LC/zl0J+U/hU7mbtRh5uJGPCqgL2MZp9nDQJL5FsQd1j3/sBHB+2br/WfdLnMj0gyroCLbbatwusI4sWaGM0qpEYnzEEtC48aJPpo5QZg8QliUoUjBlt2QnCD1MIYweVYnftNryHxDnvTIwZ5b3J0YEyv0aZhR0zwxs7MBCBo5VTuZnPlW5vwOHHBO4my9j5/7BAA1ED9GMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b25KfUk/DsqTkJzDqMqMlenntGjd87g+Uswx5l1lHmY=;
- b=RPkPwe8QU7p5b64Ic13v/1QZwgGHicEha6VC3FjHUTTyMsehSl7ZxkTFjA3MambfGRO8sRv01yIhrwgoMgY9F3MAKXVBYx4M8DplVdWtSR7Y8WahN0vKWiZb5DFzBJDNFxoUehff4/0D7Ld87wyJGE78yas3Fy8xGxXo/Uj8wmk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MW3PR12MB4443.namprd12.prod.outlook.com (2603:10b6:303:2d::15)
+ bh=WjUg5xbvPcbvyq6+Tuqq5gqr5haGGF61z1oVZPVUKqU=;
+ b=JBULthbmlos7D5+D6vwSCQfzen62aH7Dvb1RetKqAZ9dmbprg6yOXPlbW+ICIigCyCsf4JBW9EIJgNapghlvD8BKKZsMnJMeW00JtWTn/DYi9a32aiKHC4DxiwtWUL6hTus8Ru4O5jmS3vGGz1hvNX19cfz6v2HbzxcwZwJCKTk=
+Received: from BN9PR03CA0663.namprd03.prod.outlook.com (2603:10b6:408:10e::8)
+ by PH8PR12MB7160.namprd12.prod.outlook.com (2603:10b6:510:228::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Tue, 30 May
- 2023 08:59:18 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e566:9ca5:28e0:a42b]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::e566:9ca5:28e0:a42b%4]) with mapi id 15.20.6433.022; Tue, 30 May 2023
- 08:59:18 +0000
-Message-ID: <420e2658-37e8-3f1c-84a5-ca24e9d104ff@amd.com>
-Date: Tue, 30 May 2023 10:59:15 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/ttm: Remove redundant code in ttm_tt_init_fields
-Content-Language: en-US
-To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20230529092853.3430546-1-Jun.Ma2@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230529092853.3430546-1-Jun.Ma2@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0091.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::10) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.22; Tue, 30 May
+ 2023 09:17:52 +0000
+Received: from BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10e:cafe::df) by BN9PR03CA0663.outlook.office365.com
+ (2603:10b6:408:10e::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23 via Frontend
+ Transport; Tue, 30 May 2023 09:17:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT053.mail.protection.outlook.com (10.13.177.209) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6455.22 via Frontend Transport; Tue, 30 May 2023 09:17:51 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 30 May
+ 2023 04:17:49 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix up missing parameter in kdoc for 'inst' in
+ gmc_ v7, v8, v9, v10, v11.c
+Date: Tue, 30 May 2023 14:47:34 +0530
+Message-ID: <20230530091734.2336424-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MW3PR12MB4443:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8607bfb-1865-4372-6241-08db60ec2695
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT053:EE_|PH8PR12MB7160:EE_
+X-MS-Office365-Filtering-Correlation-Id: 314e702f-148b-4ce4-de43-08db60eebe72
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ldkbqjG8XEeZcAP9wZp9/CNMo8DCuwgdW2AVasjSdEj4WZjyoBYhAL+NwLZf86PcFUpn37etiGhaTEODBGK07HuD10H7eCU2//mjnu3a0CfqnyyN9zilsKAK639NSA+NBv+LNNakpBEnELmd1AwvGyMOyYxNNjqAMF8e2vVl4Io2eN2hJN9o/BgalR0sEVEgmt3XE+JRzEhW1N1l3jNWziZVU+sB1uHlX0PK3Ytps0ysN2Z7JAMMyFonQ5YIVrrkqvkXCyoGsvaa8KTSEDg+q6RiHF3FhpGV71xQ1mTXBO3cBY45JDmTF9XDRAmYeL9BDKEAZsKFCTSgWbsraVXi47vdjEQ/swJO2sclRMcXfhtu8dfl/vSrJN51iYRlzXG8Ll5W7vpRz2iAl3B8n7TT1KY5weBz/WKCtSqxMV8mhkFauQ51lXy0fiq54KGv/ukUvTkimbKO1o0Ex+t6qgXr1fGzUq8W0N8bVq0LHWePs6JdPBFOMN5SmKXK3JibggdtIO52Akb2pRrWMO+LLbb366EPJwzDJ2Lj70RGxEyTuDFepeShjxD+pc4Hadl0tBBPx/tK1iEqfraCCdl2IhkEfBWzIGHEso2ivAevRtA0anPUpnuDONIwU9v0imkmfaevGtCofreuvJZ9JhX1IHvJPg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(376002)(396003)(39860400002)(366004)(451199021)(4326008)(66946007)(450100002)(66556008)(66476007)(86362001)(478600001)(5660300002)(41300700001)(6486002)(31686004)(8676002)(8936002)(31696002)(6512007)(316002)(6666004)(6506007)(186003)(2616005)(83380400001)(2906002)(4744005)(36756003)(38100700002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: 3HNUTvV+3ZmtfgGnU53HISQpkbVD27cpBWEuELSPLB7x4aB5bMjao2+3LfG8eT12Bf7TT5I5Cg4XlL2r0+zqIX+ccmdOwpdFZ6X6mO8UwDeaYhb+CLAXKgnu29JtzxnfyDUe68cNBgBQdGmTOa2NE1t6R3oiJ7rqk1KEMpKgh768Lv1MbyrlR9Inwbf8XakAYFLlkJ0hvj0ynxC9x4TU62yqcZwMNFQdB73p0cttHTntVtSjGoKE3xSECpgU/ajMxxPMUys4cWmUb57nnX41yl95JrQ1zMJuXsamOeaXTHJtNU9U+eZHks+2RHf5VgwVRcL/N361rrp8w5TwiWl00sMAS1BeCxS045v2pruhoN65Y+yIjmG1HaF3dQ+Mk8P0o4fJAiKzhrZOfrDhmMkzjKU2zqQhsJbSkyGc4OcI7uknTBjAZiB90Rruo65DOvWwmrgUdBplvHAiWM8BRoK0OgVbg7pyBTMzmSRbBZ5qh+8/Rp6VM3XOdhHyi1QnfQw/xE/HENFIPptyrZm53qObN/D3pQdEitpnKHsFzoFfj2iClwYxzeOBOrlr0rF3e6Dl1Ojg3ZgJ3SBpj7DQtuHhi9P6WbIHePn6XLLyYkIia2QTLuojAghlk91C55KPCe12IDI1TIoEDPC5Sp/3SyCDoiIKsNo+gMARND0isXyVfGyUOq10K2jtDY3l97BMPB7kOfWg9p/4FpJ+KMywqqKvZqgedPpuN0CeVbPhmCKl5+6xAmR6oaEvoQ6B2/OgUXR4IqYFmtmYIlK3oI7Yan5Jew==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(376002)(39860400002)(396003)(136003)(451199021)(40470700004)(36840700001)(46966006)(8936002)(8676002)(47076005)(70586007)(66574015)(70206006)(316002)(16526019)(4326008)(6636002)(81166007)(356005)(36860700001)(41300700001)(82740400003)(2906002)(5660300002)(110136005)(54906003)(6666004)(7696005)(478600001)(44832011)(83380400001)(40460700003)(86362001)(26005)(1076003)(40480700001)(336012)(426003)(2616005)(36756003)(186003)(82310400005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFVsRUkvOWMxaHZNNC9OUm9OOEpaK2c3NmR0MisyeGFsQzZVYVdDMWdrR0J4?=
- =?utf-8?B?VnJLekFGemFNMTRxNVVQczZuMTM5cUNiRWQzQnJERE1Rd1BTKzZNbDhDc1p6?=
- =?utf-8?B?YlBPNWNKSnVTejNRaUtNN3prU0srRUw4NGNRMHdPaEFBcmJzOUhsN0NhNTBD?=
- =?utf-8?B?ZjMzV3lkaFByRkVuK0VHZEtYTGw1ei9UM21ORHR3dis1MVBKNWI0QzlrNU1Z?=
- =?utf-8?B?SjNjbHkwbUx5T2UwK3lGVUVHYk11VDdFb1loODMzTzlqMGozZm9YK25hRW1m?=
- =?utf-8?B?bndsQVVyRmpVTC9qbjUzZWFvMnBrR3d0NXp1MDhKQ0ppOWZFeU5wOUdqVW4v?=
- =?utf-8?B?c1ZINDNjRThNeldrSDdUdDRGeHFHcmZCNGt5QTFtUnFiODVmanpaRmJUTmRN?=
- =?utf-8?B?VWhIejFUSXcyZTRlMWhmTnN6d01aazFGRUhkTVA0SytZLzZ2OURQNDZmNDVv?=
- =?utf-8?B?Mkt5Uk9JTXhCL0t0QUZvdDQvRFZBbloxZ2pMWE80dTY2alBrS1VHVDNncm1v?=
- =?utf-8?B?ZjlkT1ZJV2h2WTNML3NlTG5wd0M3OFZEZW4xWjhndDZHalovN2RWVVJvVkpS?=
- =?utf-8?B?bnVBazlvdzE5L1ozSTIwWHpqWm9KS0l2d2VQc1l5RTNvMnUxbiswOWZWcFVv?=
- =?utf-8?B?b0cxUTVBWGRCMGNzMEFETmdwdC9PeUlkMDIya3QzS0NGM1pwY0xKKzZ6QmFO?=
- =?utf-8?B?eGx3RkpjQnRuM0N4Nm9MZlRVejkxcmV4aXpkQ1BxZGZraWh5eUFtSW9qc0pF?=
- =?utf-8?B?VUZaZXE0UmxMYzZob2xKQnROVDFZSGdqbUxYb2xoNUFqeDk5Smt4eXlrelpC?=
- =?utf-8?B?VDBUZGFaWUluOC9obEpYNlZSU1NDTzd3YWJWeGd2YlVBc1ZsNkRHdWVGcThE?=
- =?utf-8?B?aDJNZDhrYm4rSDExbG5OVzFCVzk2MU5YbVV0T2ZnU0ZYL0dGcmV6NkYwb2Ir?=
- =?utf-8?B?WnJ0djIwZndoY05YQmJudy9OcGtvTEY3cmZjNTJHZktIdkZVZEJDT05WcVpR?=
- =?utf-8?B?RWx1ak00dDA4KytnUFF5WFI0SzByMTdiSGFaTWRDd25SeVZXcmM2cDcvWXdZ?=
- =?utf-8?B?aHpuQmdlaWpGbGZxaXFXMCs5aTNZc0V0Q1Vya1V5VHZoY0pWcWpGRkRrL0Jx?=
- =?utf-8?B?YjBKNHlWdWxZNVNrVkVCRmIzODRUYTBncmVTR2c5M0xoQnM2NVdsbmxkNXFx?=
- =?utf-8?B?aEUwM1JhbDkzQWxtMzZXcTdzWkhnVTVoSGFTemFjWXU0LytoT0xIU3MyaGJo?=
- =?utf-8?B?bjJXTWgvU1MzQVZlWHRlL2xWa2hjL3A4MkhHMlkxVFQxYm9KRHZMODlpWTVy?=
- =?utf-8?B?dlJ6eFJLWXNjVkFtZVQ3QUd6MUJpandXMVM3MzJTVWZOSkoxSlVQRFQ1Nlpm?=
- =?utf-8?B?N1hVQ2psWW1MN2J2N1YyR052WU5mcVA0V0NSYXJqQ2ZYTVVISHJkOEVlTG40?=
- =?utf-8?B?TlE1bUgxYXc3SlVDQkUwNzQrVCtleWdGN2tKbnNVaktsajJ3eGpvWW1kSEtQ?=
- =?utf-8?B?QXdvaEJ1NlNGMzFHZ3U3RmQvRVBmNGlzQjJGNHJyV3lEakIxbjJRaXE4RjhE?=
- =?utf-8?B?WENBMGpKYUZ0ejNJTFRha2d3a1p4Y1hyRk9IQlRZMEhqb3MvWDNCVXFMOHlX?=
- =?utf-8?B?UXVnRHJUb3RLNDB0ZTVNem51U1g3YVcxWW9wRHAzT2VhR3drRGRQUkxyQ2RF?=
- =?utf-8?B?dzJQVDZFa2hmODNyM2Y5NXNYNk54ZzN2MVV2T2IxeHVML3FoSnNXY1FNZEpl?=
- =?utf-8?B?eHlxQXhoZG5HYTYxd1N5REZ2cjBTcnVQOWRSMm1aRmM2K3ZzNEVzR0Z3Tk1P?=
- =?utf-8?B?bzNCbnlFQzc3SjRUcEc1cEZoV0pUb2c4aHRONEwwMm5Lek01OXUvUm14MGVD?=
- =?utf-8?B?R01EZkFveWhySnNvcU5HUnpiRnZNTE45RlpVblFSRWhnZThzKzJEZ2F2b2Y3?=
- =?utf-8?B?dFFDaVVqV3UxUTZ2Wkw0MmtVUkZmTm1lek0wWTg2dzA2aENaS25DNTkvQWlp?=
- =?utf-8?B?YjlHMmFTWnNPNk9rU1pBTjFNMFIydEgvL1VVWS9xaW9RQ2dtd1E1RWVJNnI2?=
- =?utf-8?B?enNNcXl1RXI2UFlwMWRZTjcvaTFwZTROS0Nvd3Q4a2RBTnhXTlZPZHgrQkV0?=
- =?utf-8?B?MmtJcWF6V1dDc05NS2FwNmNiM2dBNHo0d3ZnZExQRDErTWVSS0RVYUliRDhU?=
- =?utf-8?Q?Yw1+k5Y2AhXknnoKwAhnJbuMXPl2wkn8krLckapyvspB?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8607bfb-1865-4372-6241-08db60ec2695
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2023 08:59:18.1830 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2023 09:17:51.6270 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 314e702f-148b-4ce4-de43-08db60eebe72
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OfKnnAhncdQyYEC8gQwG8A9oJcfrJDRxHcWHFkIF6axLLjhw7dsr978CYrJkPRpa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4443
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT053.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7160
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,34 +100,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 29.05.23 um 11:28 schrieb Ma Jun:
-> Remove redundant assignment code for ttm->caching
+Fix these warnings by adding 'inst' arguments to kdocs.
 
-The explanation is missing why this is redundant, e.g. something like 
-"this is overwritten just a few lines later"..
+gcc with W=1
+drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c:428: warning: Function parameter or member 'inst' not described in 'gmc_v7_0_flush_gpu_tlb_pasid'
+drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:626: warning: Function parameter or member 'inst' not described in 'gmc_v8_0_flush_gpu_tlb_pasid'
+drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c:423: warning: Function parameter or member 'inst' not described in 'gmc_v10_0_flush_gpu_tlb_pasid'
+drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c:328: warning: Function parameter or member 'inst' not described in 'gmc_v11_0_flush_gpu_tlb_pasid'
+drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c:950: warning: Function parameter or member 'inst' not described in 'gmc_v9_0_flush_gpu_tlb_pasid'
 
-Apart from that looks good to me,
-Christian.,
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c  | 1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c  | 1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 1 +
+ 5 files changed, 5 insertions(+)
 
->
-> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-> ---
->   drivers/gpu/drm/ttm/ttm_tt.c | 1 -
->   1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
-> index 02b812dacc5d..45a44544b656 100644
-> --- a/drivers/gpu/drm/ttm/ttm_tt.c
-> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
-> @@ -143,7 +143,6 @@ static void ttm_tt_init_fields(struct ttm_tt *ttm,
->   			       unsigned long extra_pages)
->   {
->   	ttm->num_pages = (PAGE_ALIGN(bo->base.size) >> PAGE_SHIFT) + extra_pages;
-> -	ttm->caching = ttm_cached;
->   	ttm->page_flags = page_flags;
->   	ttm->dma_address = NULL;
->   	ttm->swap_storage = NULL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 01bd45651382..1f9313298030 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -414,6 +414,7 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+  * @pasid: pasid to be flush
+  * @flush_type: the flush type
+  * @all_hub: Used with PACKET3_INVALIDATE_TLBS_ALL_HUB()
++ * @inst: is used to select which xcc's register to program
+  *
+  * Flush the TLB for the requested pasid.
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 4bf807d825c0..8e78bcd92b59 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -319,6 +319,7 @@ static void gmc_v11_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+  * @pasid: pasid to be flush
+  * @flush_type: the flush type
+  * @all_hub: flush all hubs
++ * @inst: is used to select which xcc's register to program
+  *
+  * Flush the TLB for the requested pasid.
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index 6f53049619cd..4d4a6957ea00 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -419,6 +419,7 @@ static int gmc_v7_0_mc_init(struct amdgpu_device *adev)
+  * @pasid: pasid to be flush
+  * @flush_type: type of flush
+  * @all_hub: flush all hubs
++ * @inst: is used to select which xcc's register to program
+  *
+  * Flush the TLB for the requested pasid.
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 48475077ca92..a5d47e4d0a8d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -617,6 +617,7 @@ static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
+  * @pasid: pasid to be flush
+  * @flush_type: type of flush
+  * @all_hub: flush all hubs
++ * @inst: is used to select which xcc's register to program
+  *
+  * Flush the TLB for the requested pasid.
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index be7823d82150..5200303e63de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -941,6 +941,7 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+  * @pasid: pasid to be flush
+  * @flush_type: the flush type
+  * @all_hub: flush all hubs
++ * @inst: is used to select which xcc's register to program
+  *
+  * Flush the TLB for the requested pasid.
+  */
+-- 
+2.25.1
 
