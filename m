@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DB9BC7EE23
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18250C77B7A
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:28:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADE0910E3A8;
-	Tue, 30 May 2023 15:27:36 +0000 (UTC)
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [IPv6:2001:4860:4864:20::34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D484A10E3A7
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 15:27:33 +0000 (UTC)
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-19fa4346498so184329fac.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 08:27:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A542810E3A7;
+	Tue, 30 May 2023 15:28:02 +0000 (UTC)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDFEB10E3A7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 15:28:01 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-19f268b1d83so2992484fac.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 08:28:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1685460452; x=1688052452;
+ d=gmail.com; s=20221208; t=1685460481; x=1688052481;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=b+poVcQMEHLIJTBBc3VFp1k+5jFG7qC2k2x7v7mTjJA=;
- b=I6WJ3fBk3vNBJhU4KSP968mxs/XXkezSElQTdcklfgQ/+NA3dRsv6X93Pcw75SAj/v
- 8Gl0grjeLHbGV3nbQ+Y+7vqH6cHoVh4OLxUrmopaxBR73j+CQKswmd0ax5glmBa3rGVF
- YUZp3sB8NIWxSLCs9zvovbbQ+cgWlplhbciERyeloKmSCQS4rPUfb5Phl44XHhSruwQG
- Z8TsWelFVXUL9hAfGDacckPwIZ/WdmAowB8eBU1QS9OreIPtWn+5xvVTaaKjtJ/zI1tV
- t78utcvNCBWuyjYhoADtzXjhGh7hVvsU2lDVce0mDsUs8VX07I+Xo71AeOP0MLY8DdU3
- wx3A==
+ bh=WfpaTZ7WvCfWqAjwTaagTPzHc/LAiu/m4nhHDv6s0W4=;
+ b=pqf6aLB1lai3Z43Qj34RHuUxb7XTGLaWYI3AH0dNyynqrWQaQuxLIU+VHQVE/VdcUB
+ caDyrdgcLuJlP04AMAtrFbabO3s1F3WNO0NqnC46jrr9abfqGraY2PZfA00Roxldap5W
+ qZP9Dau4trUQoZMqcUtDhG4dwLURQCsIvXsQUgkkp78iB/jchde7NAP8uzzuNfjuCcQF
+ HqhNHThEZ5a4JbDBIf1CjPScGd1QFMuL4NO7gDgpNB6pMng2TgJV04xVWcIyvdpTaH03
+ wkHtW9EWQBZdEKIltpOkIdC1en9ctxew93LSO7EgkgWQ0JOS/qWjZsA4zc0kDvLWFHRa
+ 3zwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685460452; x=1688052452;
+ d=1e100.net; s=20221208; t=1685460481; x=1688052481;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=b+poVcQMEHLIJTBBc3VFp1k+5jFG7qC2k2x7v7mTjJA=;
- b=CgaAf8inMuIXFD4Rn7e+72E6W9B/e1+ETRhB9q5u1sLDjDWsXMVk9do/K1Rif7jfxL
- Frm9L9ncrjvmCqiHg8tJwy/aQHwL3NM4ZbjgK0EUUu1BO5vd7uqI83O2hkaKwgDown0E
- E90uPy9U7+hpA/r4FduxczQpz8cwCNbR3lt6ER/2DnzFOdUNtMKzIPTTzK7Pkwp1wg2l
- x4hB1Tipovv7XoM2owmIwkzmZLxwpdk/3kv3MnQAGtvr0GWbzUiHrT2KYK49xW37aLQA
- y342gwDPQ/UmHFYIbbUjGyTJ/20SIDP14gm02szodGFSK9jmSjmCl5Ts1TxtYV/dWMm8
- 9FaQ==
-X-Gm-Message-State: AC+VfDyBzxJBLBqPLG4HE7kuJbc8wsq7k163BdZywrWu1XY0b8197Ojh
- 6HV+RBVM5FgyT0GInC3mEw83LDV+hgHcxcfETbyByDMz
-X-Google-Smtp-Source: ACHHUZ5x76j6tfXyyVlS82EETZo1GeZuK+Tw5hv+2byWC/FEFooGct9VyfyYyMmTjRX8dE0bVeGin2bfICjiUa1W+j0=
-X-Received: by 2002:a05:6870:1942:b0:18e:7e69:a6d4 with SMTP id
- m2-20020a056870194200b0018e7e69a6d4mr1166892oak.43.1685460451781; Tue, 30 May
- 2023 08:27:31 -0700 (PDT)
+ bh=WfpaTZ7WvCfWqAjwTaagTPzHc/LAiu/m4nhHDv6s0W4=;
+ b=MfDH1Sa9+/cvEqaUQGxzxac9MJdpk6us7F5vPFuBXk8y1Qrvxpw/ZPP+05dEaJlDvt
+ YNEX38Z3iDCRTGAoufSXi+qXT1lpcYhj+WL5RaIhhFIWVPTNhwnr5wDYAsemkoZsTLkK
+ GAT2pkVkMMh8eWWDxT7r8et3wXJwKyl83tCAGmQyP6ISQPEb15TVi2qA1LBPFx0NJ2cs
+ zoHx9vzTmLnXpHgBbN/Pb3XndbsGJqff+rfzs7nnbuivyDfvnyl0lvglHjBb5H5yK1+r
+ ClbvfnxvZyvfIrEcA9xVpZy1I3VgZr3xraA3wcgd0tIln7zCAkv+vBTjDq8ToNiCVmih
+ 1vCA==
+X-Gm-Message-State: AC+VfDxQEGjEqDkGRrNxWq+EnDeG8gxTtykScauSTcZ1ZaaH2avzGoJO
+ nnL3kuJTsqtc2BQ4wNllj9FYF1zXJhy9hYhj1nLEwEkyTRA=
+X-Google-Smtp-Source: ACHHUZ4GcEQOTaq/Won2NLNekEX1gaB5aie09TmPK2luynLA77vtPNuTFlAeWO97c6pH7OihS/bR2MMUiLo/iiBmfXM=
+X-Received: by 2002:a05:6870:8897:b0:18e:d932:a85d with SMTP id
+ m23-20020a056870889700b0018ed932a85dmr806503oam.28.1685460480683; Tue, 30 May
+ 2023 08:28:00 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230529141011.1896710-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230529141011.1896710-1-srinivasan.shanmugam@amd.com>
+References: <20230529145606.1914552-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230529145606.1914552-1-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 30 May 2023 11:27:20 -0400
-Message-ID: <CADnq5_PT=5_tvKVpaOEo1p-n9dyKBmsf=R0BZ+sSB3adHCx4WQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix missing parameter desc for 'xcc_id' in
- gfx_v7_0.c & amdgpu_rlc.c
+Date: Tue, 30 May 2023 11:27:49 -0400
+Message-ID: <CADnq5_M1_sQ4qVZLj4Ddf-egP6w=dqvdrSysEZL1Y0Ly-EpaXA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix missing parameter desc for 'xcp_id' in
+ amdgpu_amdkfd_reserve_mem_limit
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -74,18 +74,15 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 29, 2023 at 10:10=E2=80=AFAM Srinivasan Shanmugam
+On Mon, May 29, 2023 at 10:56=E2=80=AFAM Srinivasan Shanmugam
 <srinivasan.shanmugam@amd.com> wrote:
 >
-> Fix these warnings by adding 'xcc_id' arguments.
+> Fix these warnings by adding 'xcp_id' argument.
 >
 > gcc with W=3D1
-> drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c:1557: warning: Function parameter o=
-r member 'xcc_id' not described in 'gfx_v7_0_select_se_sh'
-> drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c:38: warning: Function parameter o=
-r member 'xcc_id' not described in 'amdgpu_gfx_rlc_enter_safe_mode'
-> drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c:62: warning: Function parameter o=
-r member 'xcc_id' not described in 'amdgpu_gfx_rlc_exit_safe_mode'
+> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:160: warning: Function p=
+arameter or member 'xcp_id' not described in 'amdgpu_amdkfd_reserve_mem_lim=
+it'
 >
 > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
 > Cc: Alex Deucher <alexander.deucher@amd.com>
@@ -94,49 +91,27 @@ r member 'xcc_id' not described in 'amdgpu_gfx_rlc_exit_safe_mode'
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c | 2 ++
->  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 2 +-
->  2 files changed, 3 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_rlc.c
-> index d3bed9a3e61f..35e0ae9acadc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.c
-> @@ -31,6 +31,7 @@
->   * amdgpu_gfx_rlc_enter_safe_mode - Set RLC into safe mode
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index fa4057da0d7f..cd5d7a39ad0c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -152,8 +152,11 @@ void amdgpu_amdkfd_reserve_system_mem(uint64_t size)
+>   * @size: Size of buffer, in bytes, encapsulated by B0. This should be
+>   * equivalent to amdgpu_bo_size(BO)
+>   * @alloc_flag: Flag used in allocating a BO as noted above
+> + * @xcp_id: xcp_id is used to get xcp from xcp manager, one xcp is
+> + * managed as one compute node in driver for app
 >   *
->   * @adev: amdgpu_device pointer
-> + * @xcc_id: xcc accelerated compute core id
->   *
->   * Set RLC enter into safe mode if RLC is enabled and haven't in safe mo=
-de.
+> - * Return: returns -ENOMEM in case of error, ZERO otherwise
+> + * Return:
+> + *     returns -ENOMEM in case of error, ZERO otherwise
 >   */
-> @@ -55,6 +56,7 @@ void amdgpu_gfx_rlc_enter_safe_mode(struct amdgpu_devic=
-e *adev, int xcc_id)
->   * amdgpu_gfx_rlc_exit_safe_mode - Set RLC out of safe mode
->   *
->   * @adev: amdgpu_device pointer
-> + * @xcc_id: xcc accelerated compute core id
->   *
->   * Set RLC exit safe mode if RLC is enabled and have entered into safe m=
-ode.
->   */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v7_0.c
-> index 0f0c12bbe228..7b3f13221c0f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -1548,7 +1548,7 @@ static void gfx_v7_0_tiling_mode_table_init(struct =
-amdgpu_device *adev)
->   * @sh_num: sh block to address
->   * @instance: Certain registers are instanced per SE or SH.
->   *            0xffffffff means broadcast to all SEs or SHs (CIK).
-> - *
-> + * @xcc_id: xcc accelerated compute core id
->   * Select which SE, SH combinations to address.
->   */
->  static void gfx_v7_0_select_se_sh(struct amdgpu_device *adev,
+>  int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+>                 uint64_t size, u32 alloc_flag, int8_t xcp_id)
 > --
 > 2.25.1
 >
