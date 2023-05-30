@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1A5CC83003
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:03:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DB3CC7EE43
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:03:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4866C10E3A9;
-	Tue, 30 May 2023 15:03:06 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0CC210E170;
- Tue, 30 May 2023 15:02:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ECD110E3BE;
+	Tue, 30 May 2023 15:03:07 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BAE710E170;
+ Tue, 30 May 2023 15:02:57 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A21E921AC5;
- Tue, 30 May 2023 15:02:57 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 21DB221AA0;
+ Tue, 30 May 2023 15:02:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1685458977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1685458975; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4jCsKRFR84UMDNELNVD7ch+vvbz7fuVluY9lendkATw=;
- b=FeFhzvtgflMP6YtcSBdY1tbdFMQEEPeN91viHDJ643kLh04bT4+cScfVJM26+0lGkhkVmq
- oMyHCO9IfLT+3W/pR+/ItnklaRMNGHCHgKiu+JpHnFlclMjBhCh2kqArWknUUL+aeppuRQ
- LVeM2RzMZ1yoLBiH+sXfpntelj5u3FY=
+ bh=TGZcPjI3AiQUELBGwNSCUMdtE0mmX+tRT45kZe/lzdU=;
+ b=j0bQEYamOAG5CoJgNLuocuC933CHZZwdqZaVBZlspLrrWmdRPgLfzzIXr4v73vOrVBFROt
+ 6zCQc7qmoV9UMOPhW54/ZE2hq4j+5QlAvcde3wrjHJ2k3+eD5Sf6kHqljPmp9VakmXE8Uf
+ K/loixe4U9hnd5/XNavp3ki9k7DWYhI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1685458977;
+ s=susede2_ed25519; t=1685458975;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=4jCsKRFR84UMDNELNVD7ch+vvbz7fuVluY9lendkATw=;
- b=ezXNYqonWyMEYhDmFnKfP1Ay6wyaQOdUoemJkrnYkJTeomecKvz1bBmFqkEmIEAp9ZOPGr
- qW2VnXU96LJbbqDw==
+ bh=TGZcPjI3AiQUELBGwNSCUMdtE0mmX+tRT45kZe/lzdU=;
+ b=iwCbkIhzgzPPPsNooQ77SgqXRT8mekoHk9ks/UB5+cYxY2QZKmvthk5cUDQ0TW5EWS0rAG
+ em9sEvTDV3iA28DA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 519AB13478;
- Tue, 30 May 2023 15:02:57 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D5FF513A21;
+ Tue, 30 May 2023 15:02:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id CGgxEyEQdmShegAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 30 May 2023 15:02:57 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id +OZ5Mx4QdmShegAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 30 May 2023 15:02:54 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, javierm@redhat.com, sam@ravnborg.org,
  suijingfeng@loongson.cn
-Subject: [PATCH v5 09/13] drm/tegra: Use regular fbdev I/O helpers
-Date: Tue, 30 May 2023 17:02:49 +0200
-Message-Id: <20230530150253.22758-10-tzimmermann@suse.de>
+Subject: [PATCH v5 01/13] fbdev: Add Kconfig options to select different
+ fb_ops helpers
+Date: Tue, 30 May 2023 17:02:41 +0200
+Message-Id: <20230530150253.22758-2-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230530150253.22758-1-tzimmermann@suse.de>
 References: <20230530150253.22758-1-tzimmermann@suse.de>
@@ -70,75 +71,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-tegra@vger.kernel.org,
- Jonathan Hunter <jonathanh@nvidia.com>, freedreno@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the regular fbdev helpers for framebuffer I/O instead of DRM's
-helpers. Tegra does not use damage handling, so DRM's fbdev helpers
-are mere wrappers around the fbdev code.
+Many fbdev drivers use the same set of fb_ops helpers. Add Kconfig
+options to select them at once. This will help with making DRM's
+fbdev emulation code more modular, but can also be used to simplify
+fbdev's driver configs.
 
-By using fbdev helpers directly within each DRM fbdev emulation,
-we can eventually remove DRM's wrapper functions entirely.
-
-v4:
-	* use initializer macros for struct fb_ops
-v2:
-	* use FB_SYS_HELPERS option
+v3:
+	* fix select statement (Jingfeng)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Acked-by: Sam Ravnborg <sam@ravnborg.org>
-Cc: Thierry Reding <thierry.reding@gmail.com>
-Cc: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>
+Reviewed-by: Sui Jingfeng <suijingfeng@loongson.cn>
+Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
 ---
- drivers/gpu/drm/tegra/Kconfig | 1 +
- drivers/gpu/drm/tegra/fbdev.c | 8 +++-----
- 2 files changed, 4 insertions(+), 5 deletions(-)
+ drivers/video/fbdev/Kconfig | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/tegra/Kconfig b/drivers/gpu/drm/tegra/Kconfig
-index 56453ca277c2..498313778175 100644
---- a/drivers/gpu/drm/tegra/Kconfig
-+++ b/drivers/gpu/drm/tegra/Kconfig
-@@ -12,6 +12,7 @@ config DRM_TEGRA
- 	select DRM_KMS_HELPER
- 	select DRM_MIPI_DSI
- 	select DRM_PANEL
-+	select FB_SYS_HELPERS if DRM_FBDEV_EMULATION
- 	select TEGRA_HOST1X
- 	select INTERCONNECT
- 	select IOMMU_IOVA
-diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.c
-index dca9eccae466..e74d9be981c7 100644
---- a/drivers/gpu/drm/tegra/fbdev.c
-+++ b/drivers/gpu/drm/tegra/fbdev.c
-@@ -8,6 +8,7 @@
-  */
+diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
+index e8889035c882..6df9bd09454a 100644
+--- a/drivers/video/fbdev/Kconfig
++++ b/drivers/video/fbdev/Kconfig
+@@ -158,6 +158,27 @@ config FB_DEFERRED_IO
+ 	bool
+ 	depends on FB
  
- #include <linux/console.h>
-+#include <linux/fb.h>
- #include <linux/vmalloc.h>
- 
- #include <drm/drm_drv.h>
-@@ -58,12 +59,9 @@ static void tegra_fbdev_fb_destroy(struct fb_info *info)
- 
- static const struct fb_ops tegra_fb_ops = {
- 	.owner = THIS_MODULE,
-+	__FB_DEFAULT_SYS_OPS_RDWR,
- 	DRM_FB_HELPER_DEFAULT_OPS,
--	.fb_read = drm_fb_helper_sys_read,
--	.fb_write = drm_fb_helper_sys_write,
--	.fb_fillrect = drm_fb_helper_sys_fillrect,
--	.fb_copyarea = drm_fb_helper_sys_copyarea,
--	.fb_imageblit = drm_fb_helper_sys_imageblit,
-+	__FB_DEFAULT_SYS_OPS_DRAW,
- 	.fb_mmap = tegra_fb_mmap,
- 	.fb_destroy = tegra_fbdev_fb_destroy,
- };
++config FB_IO_HELPERS
++	bool
++	depends on FB
++	select FB_CFB_COPYAREA
++	select FB_CFB_FILLRECT
++	select FB_CFB_IMAGEBLIT
++
++config FB_SYS_HELPERS
++	bool
++	depends on FB
++	select FB_SYS_COPYAREA
++	select FB_SYS_FILLRECT
++	select FB_SYS_FOPS
++	select FB_SYS_IMAGEBLIT
++
++config FB_SYS_HELPERS_DEFERRED
++	bool
++	depends on FB
++	select FB_DEFERRED_IO
++	select FB_SYS_HELPERS
++
+ config FB_HECUBA
+ 	tristate
+ 	depends on FB
 -- 
 2.40.1
 
