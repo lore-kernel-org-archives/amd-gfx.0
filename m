@@ -4,43 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53735C7EE23
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 04:02:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ACAAC77B7A
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 04:54:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1BA110E335;
-	Tue, 30 May 2023 04:02:13 +0000 (UTC)
-Received: from 189.cn (ptr.189.cn [183.61.185.101])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3021110E32A;
- Tue, 30 May 2023 04:02:11 +0000 (UTC)
-HMM_SOURCE_IP: 10.64.8.41:35688.709279162
-HMM_ATTACHE_NUM: 0000
-HMM_SOURCE_TYPE: SMTP
-Received: from clientip-114.242.206.180 (unknown [10.64.8.41])
- by 189.cn (HERMES) with SMTP id 9E7651002F1;
- Tue, 30 May 2023 12:02:02 +0800 (CST)
-Received: from  ([114.242.206.180])
- by gateway-151646-dep-75648544bd-xwndj with ESMTP id
- a8c92154d25549479df24175237368df for sam@ravnborg.org; 
- Tue, 30 May 2023 12:02:07 CST
-X-Transaction-ID: a8c92154d25549479df24175237368df
-X-Real-From: 15330273260@189.cn
-X-Receive-IP: 114.242.206.180
-X-MEDUSA-Status: 0
-Message-ID: <f2390274-8c51-f7f9-98b3-8ad3c3f7c2bc@189.cn>
-Date: Tue, 30 May 2023 12:02:01 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDFB110E337;
+	Tue, 30 May 2023 04:54:33 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C00D10E337
+ for <amd-gfx@lists.freedesktop.org>; Tue, 30 May 2023 04:54:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oA3TE/b06YBFvrwoksA2wjv2LzlALvl/U6fvcEbBZk3hfij5U4+le+AhjKrpJiXYc6BLgdDXWZ4YFA99GtnJudyR7pmKfC1UR6nuKc8sIyRAcrkLjYzM0h3rfJcli3mQPT7t6v56GLtYrLTHhwaVJJBvAqKw6+00o8qCXaYMvfB/YEXB6nQ+eEoESIo1e6K3N5fYud3a1HJg8hSWMCCcUrleanTLWMSYk+SBTR4NJL/72A8nn31NUfohzSuwWIFSDwGON8RwW/edmiJh5b4UitxLpqQvVpkpBcT44ADfvs7alCyTblgVTT4jqHvJR0t4Lnv/bLzqttd5ERTX2BzbpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FWnRBtfcP4MOFZ/0oPiQSvzdyDV9DnThaYahL1Gi3lc=;
+ b=BkTUS78FaKY5Ulx33gth/T9m6sgAEwIoKX4h4izYXpvyOt1SKMtI3RD/6LgpmQgvwhyQICnmcMJdteB7uNFCCDNllYi5d9pFc5dGPSd61xv1NkHR6yWJgLNXjV0ADHhztcuyzaveptJJQC5N+JwvL2ylsO1NLegb3jdXPt4jRa0MiLxJ6wB5eQvUzYR+XVIsHW5PkqzB/524qUahaMRxQKZjxis/zAGbSc2CDhmXnTqCSFlz5TsGpXARb8uBOzP/OepPkwk3u0cQ7q6ZmKgaEuLrM/2IVEYl4Tr2refeb16nxOuuNJYQMC7al46emwCI+yflcKDGo7iApbZ0Ktur+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FWnRBtfcP4MOFZ/0oPiQSvzdyDV9DnThaYahL1Gi3lc=;
+ b=pTnetA4lupxf+wvGEiSC70/XmZ5tsyD3nN5uD6AwoydfcJjxI6io7ooVRihFj2YcDGCAkU+cUe7JgtjbpEui+vrhZNomiiwKzB+k/bfwblx8Hps/Ekpue0G2l9g3f405pTSyYOYF/V1SJYDoM5i+igZkKGUjusaiCWCGQXJzM7o=
+Received: from BN9PR03CA0339.namprd03.prod.outlook.com (2603:10b6:408:f6::14)
+ by MW6PR12MB8833.namprd12.prod.outlook.com (2603:10b6:303:23f::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Tue, 30 May
+ 2023 04:54:28 +0000
+Received: from BN8NAM11FT073.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:f6:cafe::28) by BN9PR03CA0339.outlook.office365.com
+ (2603:10b6:408:f6::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23 via Frontend
+ Transport; Tue, 30 May 2023 04:54:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT073.mail.protection.outlook.com (10.13.177.231) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6455.21 via Frontend Transport; Tue, 30 May 2023 04:54:28 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 29 May
+ 2023 23:54:26 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix up missing parameters kdoc in
+ svm_migrate_vma_to_ram
+Date: Tue, 30 May 2023 10:24:07 +0530
+Message-ID: <20230530045407.2266290-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v4 13/13] drm/i915: Implement dedicated fbdev I/O helpers
-To: Sam Ravnborg <sam@ravnborg.org>, Thomas Zimmermann <tzimmermann@suse.de>
-References: <20230524092150.11776-1-tzimmermann@suse.de>
- <20230524092150.11776-14-tzimmermann@suse.de>
- <20230529193621.GD1370714@ravnborg.org>
-Content-Language: en-US
-From: Sui Jingfeng <15330273260@189.cn>
-In-Reply-To: <20230529193621.GD1370714@ravnborg.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT073:EE_|MW6PR12MB8833:EE_
+X-MS-Office365-Filtering-Correlation-Id: c89cf198-c0d6-49e7-32f4-08db60c9f2e7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: AOJT73E5JyXt3GArEDRZ1kV3OZdy2GE1dQko1ee4QNErqi10UeJ+Z6W4vPhhMLeUCz0nfVmQkcXz+SJrhnn0k0gzqji5SOvpaJl5OasnL4ml8TLDIlvzkQWmg1tnS8PyPhJDnDTbqzAAAHgIBaLgaFlPJqd6paMZpazAKPzBUJEH8TklrxHmSFjMFIkAYSYnkjb3nLtfnUz6jAuiEC2q8Y8dwBJ4DL1hHiwU8G940rOJ6IgLP6O3CZ4pD4Eg+FdmQDuudY9P3oxApyWkpyWZCEK2S0xwOf/KGLbWzUFZRjwU43sij+kLGjGp7aolTX2vVQtTbQO94lKNXNgKar9uhKJj3tyTr7JG+6cqq19nzdUd4bcZ7H2R1ZewiY1k/giJd0Zur0X0VfyskcMxg42VsCL8KGJ6p6D8KqsLW2BpTFDiojJ67sYAkWE6TmptRRxH4sO35S6U4Au+4lXqvhMF3mHvak5XiLswUpVqynbS0I+FkAiGE+Om6JrPoenqvuT16dQLpdxnmicpow/XgKjytMZTRRb3+AVgxw5OSm7qXOqeLERA06fdSjsPmaOtbizOp2SE/wQUzvffmBv7YPz+IArqtwA104/7phs4K6lQiHGKweLwzlIhl7fDCxH+R4mkcIWypCvER6n5nxpWEu9yTeqaWfmjXeZdn3/mTlXUHwUsQQbDuEN0rWMlp6vcd4OGepGm2ZY0MbZaxgR/CUog35hJrWq/18PIz4y56MP7GWEq/0jqajsTVGyNS+hF+7P3HgKQzpv15mde9LZC5JJPkA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(376002)(346002)(396003)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(186003)(16526019)(2616005)(41300700001)(426003)(336012)(83380400001)(1076003)(26005)(66574015)(6666004)(7696005)(36860700001)(47076005)(478600001)(40460700003)(110136005)(54906003)(356005)(81166007)(4326008)(82740400003)(70206006)(70586007)(6636002)(40480700001)(316002)(5660300002)(8676002)(8936002)(44832011)(2906002)(86362001)(82310400005)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2023 04:54:28.2675 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c89cf198-c0d6-49e7-32f4-08db60c9f2e7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT073.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8833
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,356 +100,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, freedreno@lists.freedesktop.org,
- linux-samsung-soc@vger.kernel.org,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, amd-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- maarten.lankhorst@linux.intel.com, javierm@redhat.com,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- mripard@kernel.org, daniel@ffwll.ch, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- linux-tegra@vger.kernel.org, airlied@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Fix these warnings by adding & deleting the deviant arguments.
 
-On 2023/5/30 03:36, Sam Ravnborg wrote:
-> Hi Thomas,
->
-> On Wed, May 24, 2023 at 11:21:50AM +0200, Thomas Zimmermann wrote:
->> Implement dedicated fbdev helpers for framebuffer I/O instead
->> of using DRM's helpers. Use an fbdev generator macro for
->> deferred I/O to create the fbdev callbacks. i915 was the only
->> caller of the DRM helpers, so remove them from the helper module.
->>
->> i915's fbdev emulation is still incomplete as it doesn't implement
->> deferred I/O and damage handling for mmaped pages.
->>
->> v4:
->> 	* generate deferred-I/O helpers
->> 	* use initializer macros for fb_ops
->> v2:
->> 	* use FB_IO_HELPERS options
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Jani Nikula <jani.nikula@linux.intel.com>
->> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
->> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
->> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
->> Cc: "Ville Syrjälä" <ville.syrjala@linux.intel.com>
->> ---
->>   drivers/gpu/drm/Kconfig                    |   3 -
->>   drivers/gpu/drm/drm_fb_helper.c            | 107 ---------------------
->>   drivers/gpu/drm/i915/Kconfig               |   1 +
->>   drivers/gpu/drm/i915/display/intel_fbdev.c |  14 +--
->>   include/drm/drm_fb_helper.h                |  39 --------
->>   5 files changed, 9 insertions(+), 155 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
->> index 92a782827b7b..bb2e48cc6cd6 100644
->> --- a/drivers/gpu/drm/Kconfig
->> +++ b/drivers/gpu/drm/Kconfig
->> @@ -133,9 +133,6 @@ config DRM_FBDEV_EMULATION
->>   	bool "Enable legacy fbdev support for your modesetting driver"
->>   	depends on DRM_KMS_HELPER
->>   	depends on FB=y || FB=DRM_KMS_HELPER
->> -	select FB_CFB_FILLRECT
->> -	select FB_CFB_COPYAREA
->> -	select FB_CFB_IMAGEBLIT
->>   	select FRAMEBUFFER_CONSOLE if !EXPERT
->>   	select FRAMEBUFFER_CONSOLE_DETECT_PRIMARY if FRAMEBUFFER_CONSOLE
->>   	default y
->> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
->> index bab6b252f02a..9978147bbc8a 100644
->> --- a/drivers/gpu/drm/drm_fb_helper.c
->> +++ b/drivers/gpu/drm/drm_fb_helper.c
->> @@ -736,113 +736,6 @@ void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagerefli
->>   }
->>   EXPORT_SYMBOL(drm_fb_helper_deferred_io);
->>   
->> -/**
->> - * drm_fb_helper_cfb_read - Implements struct &fb_ops.fb_read for I/O memory
->> - * @info: fb_info struct pointer
->> - * @buf: userspace buffer to read from framebuffer memory
->> - * @count: number of bytes to read from framebuffer memory
->> - * @ppos: read offset within framebuffer memory
->> - *
->> - * Returns:
->> - * The number of bytes read on success, or an error code otherwise.
->> - */
->> -ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
->> -			       size_t count, loff_t *ppos)
->> -{
->> -	return fb_io_read(info, buf, count, ppos);
->> -}
->> -EXPORT_SYMBOL(drm_fb_helper_cfb_read);
->> -
->> -/**
->> - * drm_fb_helper_cfb_write - Implements struct &fb_ops.fb_write for I/O memory
->> - * @info: fb_info struct pointer
->> - * @buf: userspace buffer to write to framebuffer memory
->> - * @count: number of bytes to write to framebuffer memory
->> - * @ppos: write offset within framebuffer memory
->> - *
->> - * Returns:
->> - * The number of bytes written on success, or an error code otherwise.
->> - */
->> -ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
->> -				size_t count, loff_t *ppos)
->> -{
->> -	struct drm_fb_helper *helper = info->par;
->> -	loff_t pos = *ppos;
->> -	ssize_t ret;
->> -	struct drm_rect damage_area;
->> -
->> -	ret = fb_io_write(info, buf, count, ppos);
->> -	if (ret <= 0)
->> -		return ret;
->> -
->> -	if (helper->funcs->fb_dirty) {
->> -		drm_fb_helper_memory_range_to_clip(info, pos, ret, &damage_area);
->> -		drm_fb_helper_damage(helper, damage_area.x1, damage_area.y1,
->> -				     drm_rect_width(&damage_area),
->> -				     drm_rect_height(&damage_area));
->> -	}
-> The generated helpers do not have the if (helper->funcs->fb_dirty)
-> check.
+gcc with W=1
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_migrate.c:671: warning: Function parameter or member 'node' not described in 'svm_migrate_vma_to_ram'
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_migrate.c:671: warning: Function parameter or member 'trigger' not described in 'svm_migrate_vma_to_ram'
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_migrate.c:671: warning: Function parameter or member 'fault_page' not described in 'svm_migrate_vma_to_ram'
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_migrate.c:671: warning: Excess function parameter 'adev' description in 'svm_migrate_vma_to_ram'
+drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_migrate.c:771: warning: Function parameter or member 'fault_page' not described in 'svm_migrate_vram_to_ram'
 
-Nice catch!
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-If I understand this correctly, fb_io_write() will write directly to the 
-ultimate
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 35cf6558cf1b..58d95fb99595 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -651,11 +651,13 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
+ /**
+  * svm_migrate_vma_to_ram - migrate range inside one vma from device to system
+  *
+- * @adev: amdgpu device to migrate from
+  * @prange: svm range structure
+  * @vma: vm_area_struct that range [start, end] belongs to
+  * @start: range start virtual address in pages
+  * @end: range end virtual address in pages
++ * @node: kfd node device to migrate from
++ * @trigger: reason of migration
++ * @fault_page: is from vmf->page, svm_migrate_to_ram(), this is CPU page fault callback
+  *
+  * Context: Process context, caller hold mmap read lock, prange->migrate_mutex
+  *
+@@ -760,6 +762,7 @@ svm_migrate_vma_to_ram(struct kfd_node *node, struct svm_range *prange,
+  * @prange: range structure
+  * @mm: process mm, use current->mm if NULL
+  * @trigger: reason of migration
++ * @fault_page: is from vmf->page, svm_migrate_to_ram(), this is CPU page fault callback
+  *
+  * Context: Process context, caller hold mmap read lock, prange->migrate_mutex
+  *
+-- 
+2.25.1
 
-destination. There no need to check if (helper->funcs->fb_dirty) anymore.
-
-code inside the curly brace of  `if (helper->funcs->fb_dirty) { }`  can 
-be delete safely .
-
-
-This could turn out to be an optimization. This is a benefit of 
-untangled implement.
-
-previously this is a generic (tangled) implement, which intended to be 
-used by both
-
-the UMA device driver and non-UMA device(with dedicate VRAM) driver.
-
-
-drm_fbdev_generic always has a shadow screen buffer allocated in system RAM,
-
-  it always has the fb_dirty hooked, so this could be an optimization 
-for fbdev_generic
-
-by eliminate if (helper->funcs->fb_dirty) check.
-
-
-while dma helper based driver could switch to drm_fbdev_dma, they writing
-
-to gem buffer directly, no shadow buffer is needed.
-
-
-With those patch, device driver with dedicated video memory can also 
-choose FB_CFB_*
-
-to update (iomem)framebuffer directly, despite slower.
-
-
-> Is this implemented somewhere else that I missed?
->
-> 	Sam
->
-drm_fb_helper_fb_dirty() function has a check:
-
-```
-
-     if (drm_WARN_ON_ONCE(dev, !helper->funcs->fb_dirty))
-         return;
-```
-
-Not sure if this is a little bit too late......
-
->> -
->> -	return ret;
->> -}
->> -EXPORT_SYMBOL(drm_fb_helper_cfb_write);
->> -
->> -/**
->> - * drm_fb_helper_cfb_fillrect - wrapper around cfb_fillrect
->> - * @info: fbdev registered by the helper
->> - * @rect: info about rectangle to fill
->> - *
->> - * A wrapper around cfb_fillrect implemented by fbdev core
->> - */
->> -void drm_fb_helper_cfb_fillrect(struct fb_info *info,
->> -				const struct fb_fillrect *rect)
->> -{
->> -	struct drm_fb_helper *helper = info->par;
->> -
->> -	cfb_fillrect(info, rect);
->> -
->> -	if (helper->funcs->fb_dirty)
->> -		drm_fb_helper_damage(helper, rect->dx, rect->dy, rect->width, rect->height);
->> -}
->> -EXPORT_SYMBOL(drm_fb_helper_cfb_fillrect);
->> -
->> -/**
->> - * drm_fb_helper_cfb_copyarea - wrapper around cfb_copyarea
->> - * @info: fbdev registered by the helper
->> - * @area: info about area to copy
->> - *
->> - * A wrapper around cfb_copyarea implemented by fbdev core
->> - */
->> -void drm_fb_helper_cfb_copyarea(struct fb_info *info,
->> -				const struct fb_copyarea *area)
->> -{
->> -	struct drm_fb_helper *helper = info->par;
->> -
->> -	cfb_copyarea(info, area);
->> -
->> -	if (helper->funcs->fb_dirty)
->> -		drm_fb_helper_damage(helper, area->dx, area->dy, area->width, area->height);
->> -}
->> -EXPORT_SYMBOL(drm_fb_helper_cfb_copyarea);
->> -
->> -/**
->> - * drm_fb_helper_cfb_imageblit - wrapper around cfb_imageblit
->> - * @info: fbdev registered by the helper
->> - * @image: info about image to blit
->> - *
->> - * A wrapper around cfb_imageblit implemented by fbdev core
->> - */
->> -void drm_fb_helper_cfb_imageblit(struct fb_info *info,
->> -				 const struct fb_image *image)
->> -{
->> -	struct drm_fb_helper *helper = info->par;
->> -
->> -	cfb_imageblit(info, image);
->> -
->> -	if (helper->funcs->fb_dirty)
->> -		drm_fb_helper_damage(helper, image->dx, image->dy, image->width, image->height);
->> -}
->> -EXPORT_SYMBOL(drm_fb_helper_cfb_imageblit);
->> -
->>   /**
->>    * drm_fb_helper_set_suspend - wrapper around fb_set_suspend
->>    * @fb_helper: driver-allocated fbdev helper, can be NULL
->> diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
->> index e4f4d2e3fdfe..01b5a8272a27 100644
->> --- a/drivers/gpu/drm/i915/Kconfig
->> +++ b/drivers/gpu/drm/i915/Kconfig
->> @@ -17,6 +17,7 @@ config DRM_I915
->>   	select DRM_KMS_HELPER
->>   	select DRM_PANEL
->>   	select DRM_MIPI_DSI
->> +	select FB_IO_HELPERS if DRM_FBDEV_EMULATION
->>   	select RELAY
->>   	select I2C
->>   	select I2C_ALGOBIT
->> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
->> index aab1ae74a8f7..eccaceaf8b9d 100644
->> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
->> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
->> @@ -28,6 +28,7 @@
->>   #include <linux/console.h>
->>   #include <linux/delay.h>
->>   #include <linux/errno.h>
->> +#include <linux/fb.h>
->>   #include <linux/init.h>
->>   #include <linux/kernel.h>
->>   #include <linux/mm.h>
->> @@ -84,6 +85,10 @@ static void intel_fbdev_invalidate(struct intel_fbdev *ifbdev)
->>   	intel_frontbuffer_invalidate(to_frontbuffer(ifbdev), ORIGIN_CPU);
->>   }
->>   
->> +FB_GEN_DEFAULT_DEFERRED_IO_OPS(intel_fbdev,
->> +			       drm_fb_helper_damage_range,
->> +			       drm_fb_helper_damage_area)
->> +
->>   static int intel_fbdev_set_par(struct fb_info *info)
->>   {
->>   	struct intel_fbdev *ifbdev = to_intel_fbdev(info->par);
->> @@ -132,15 +137,12 @@ static int intel_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma)
->>   
->>   static const struct fb_ops intelfb_ops = {
->>   	.owner = THIS_MODULE,
->> +	__FB_DEFAULT_DEFERRED_OPS_RDWR(intel_fbdev),
->>   	DRM_FB_HELPER_DEFAULT_OPS,
->>   	.fb_set_par = intel_fbdev_set_par,
->> -	.fb_read = drm_fb_helper_cfb_read,
->> -	.fb_write = drm_fb_helper_cfb_write,
->> -	.fb_fillrect = drm_fb_helper_cfb_fillrect,
->> -	.fb_copyarea = drm_fb_helper_cfb_copyarea,
->> -	.fb_imageblit = drm_fb_helper_cfb_imageblit,
->> -	.fb_pan_display = intel_fbdev_pan_display,
->>   	.fb_blank = intel_fbdev_blank,
->> +	.fb_pan_display = intel_fbdev_pan_display,
->> +	__FB_DEFAULT_DEFERRED_OPS_DRAW(intel_fbdev),
->>   	.fb_mmap = intel_fbdev_mmap,
->>   };
->>   
->> diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
->> index b50fd0c0b713..4863b0f8299e 100644
->> --- a/include/drm/drm_fb_helper.h
->> +++ b/include/drm/drm_fb_helper.h
->> @@ -258,18 +258,6 @@ void drm_fb_helper_damage_area(struct fb_info *info, u32 x, u32 y, u32 width, u3
->>   
->>   void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagereflist);
->>   
->> -ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
->> -			       size_t count, loff_t *ppos);
->> -ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
->> -				size_t count, loff_t *ppos);
->> -
->> -void drm_fb_helper_cfb_fillrect(struct fb_info *info,
->> -				const struct fb_fillrect *rect);
->> -void drm_fb_helper_cfb_copyarea(struct fb_info *info,
->> -				const struct fb_copyarea *area);
->> -void drm_fb_helper_cfb_imageblit(struct fb_info *info,
->> -				 const struct fb_image *image);
->> -
->>   void drm_fb_helper_set_suspend(struct drm_fb_helper *fb_helper, bool suspend);
->>   void drm_fb_helper_set_suspend_unlocked(struct drm_fb_helper *fb_helper,
->>   					bool suspend);
->> @@ -385,33 +373,6 @@ static inline int drm_fb_helper_defio_init(struct drm_fb_helper *fb_helper)
->>   	return -ENODEV;
->>   }
->>   
->> -static inline ssize_t drm_fb_helper_cfb_read(struct fb_info *info, char __user *buf,
->> -					     size_t count, loff_t *ppos)
->> -{
->> -	return -ENODEV;
->> -}
->> -
->> -static inline ssize_t drm_fb_helper_cfb_write(struct fb_info *info, const char __user *buf,
->> -					      size_t count, loff_t *ppos)
->> -{
->> -	return -ENODEV;
->> -}
->> -
->> -static inline void drm_fb_helper_cfb_fillrect(struct fb_info *info,
->> -					      const struct fb_fillrect *rect)
->> -{
->> -}
->> -
->> -static inline void drm_fb_helper_cfb_copyarea(struct fb_info *info,
->> -					      const struct fb_copyarea *area)
->> -{
->> -}
->> -
->> -static inline void drm_fb_helper_cfb_imageblit(struct fb_info *info,
->> -					       const struct fb_image *image)
->> -{
->> -}
->> -
->>   static inline void drm_fb_helper_set_suspend(struct drm_fb_helper *fb_helper,
->>   					     bool suspend)
->>   {
->> -- 
->> 2.40.1
-> _______________________________________________
-> linux-arm-kernel mailing list
-> linux-arm-kernel@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
