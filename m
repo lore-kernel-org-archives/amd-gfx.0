@@ -4,74 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F5FDC77B7A
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 13:50:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E694FC7EE23
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 13:50:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE18C10E37E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1B9D10E385;
 	Tue, 30 May 2023 13:50:28 +0000 (UTC)
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3439E10E311
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 May 2023 22:55:25 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4f4b0a0b557so4037382e87.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 May 2023 15:55:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1685400923; x=1687992923;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=erb1mT4gxBfvr6bhVSpCQkfJxjOnYXNjx/AzFex9rao=;
- b=vfM/4roU28bxzHL3YHgezlXFGtHkmoymMUAt7C7C7eUZJMqzGCbKBqUP1rA+44aveN
- FgNive4EI4JKkxnPztfsIPtq72JjsiQZxXyhpkjavq6qQVnn2u6JKZj6MU7rW0oHP+si
- h/XgVNYDqkrr2E0KYdA9n+S96P7xfC6/oigcrOUnEdu4eKsDzMWP9pwKvcWlRlZAaGsj
- umzlrja8UJkIFJ5DXoiNmpHyCZSAZ5RxWbFNn5yA4oBeGBe9uH7083Q+HZxq627v+GfX
- 1L//YKTObAEQXyt6vCJ1wE/Yls00L8oJN5TzbjCqUOKyZj/pSrLnFGPsbnzkyjQxplMh
- wwzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685400923; x=1687992923;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=erb1mT4gxBfvr6bhVSpCQkfJxjOnYXNjx/AzFex9rao=;
- b=foWfs022nhiUGl1dH8D8Mi3QrVmM1Xu50QD6Il+O4wsZuvt1lkDwMsc1cbGufnXPko
- HZFs3Ihl9IYxIBbpvBtsuyqJ0i5citQ9ng2GDLrNKeJtCt1NMhwNTD6iTS9oUC41eag1
- pRN/8YONGSrOIaAaehKhWMJbe7AzEPLmhF+DbNFjgBXYlUPiYJ8jO69lfUvnGuucf4kx
- pQs7vyTl3fDXyO9BMLrQFN3Ohpp2Wr/zpnJnqtXpVN3XLpCOgjT3ZI13CVw1tQEd/djC
- vbpiaPV9BFt21oZ3X0wfpB48JlIzdGfaoFQLAQ0vuQGmAsJwcTolGt3OAJ6JuVZS4dcl
- wAPg==
-X-Gm-Message-State: AC+VfDwyZlPB9bbQws0qrJyH6+MG1mAw2+ip9yOBqRcLYPIRiATkncoA
- kG9z0OQI5XFDSY3ggVtvuqsV2w==
-X-Google-Smtp-Source: ACHHUZ6yBG+U0n4l8SBmlpDgsHF6xTUrbv7N3+XfzyJJzM0/mlNjaK7nZJr2jDTfm98MXQI/puoQUw==
-X-Received: by 2002:ac2:4c35:0:b0:4f3:79af:fcb7 with SMTP id
- u21-20020ac24c35000000b004f379affcb7mr50149lfq.26.1685400923082; 
- Mon, 29 May 2023 15:55:23 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
- (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
- by smtp.gmail.com with ESMTPSA id
- u22-20020ac24c36000000b004efe73ee01fsm133154lfq.306.2023.05.29.15.55.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 May 2023 15:55:22 -0700 (PDT)
-Message-ID: <7e385b28-f418-52b2-71ea-52347ec6a819@linaro.org>
-Date: Tue, 30 May 2023 01:55:21 +0300
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-sgaapc01on2114.outbound.protection.outlook.com [40.107.215.114])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C80D10E319;
+ Tue, 30 May 2023 02:37:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QdG9qL7n6SeY+0F7mVWLqXfsXlqdkfXpt578IovnTJX3nVnZqQidgOTqRwmNAcnFvB4CKVoPwAK4aXaTRCGXkOrimDJ8JLZS4CgFrzAvNp5vSr9IGb36NiXeaOUfgFS9+qRFsp8REJnwdoOKFtMaCj0IiTa2DIApYnJ1ypSTYsHqfE19cBTkCeXN3kRpOCuTL5VvLUI60hcDCWDIeqnKKbgPTbj2BEsFxwSp8EdwwCQsHS6Cawi551zoIQ2ET1EwOdOulUZ6KOQ9um4KV+V47B+cVAygMrwcHvNGX/bIGsOBBOArhOq7wLN0oqijOSO0y6py1g4Bsx6RQxewRItQqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EZEE4sNFdgMdVs70pUWnwNW8fAEBYFJxb7UjnreesYo=;
+ b=MRyAlGRQ1whMraMLgBJfp/ujF7UK3g4NctbwdKyXLYkIjO8CfjSea8FxA/tydzwyElkVI0AbkRkOcX3kXj377WwxpGVbjWD5ksi1iN0iRoM8hy9bnvazXgCPAuxKcZAS68MoUe86iyQMWvuAIS9qtI9rHA8U30N5cWD2sE7XUkKr//Q1O1oalFPjV24RLMJHPSBCDBN5LXZDJnzGKWQSEs7PHgA8sKbdaUjbO8QdaWCoiSfcDpezE0lESXqM9+2PoLVJk6UYGq/TTty4iOvD1SZfNEfQJB/PSucc5u5FlcLOx6vpratgkndyz2jkiAlNl2BP6MWmEM2lSYNruM66Ng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EZEE4sNFdgMdVs70pUWnwNW8fAEBYFJxb7UjnreesYo=;
+ b=Djv7E0ypiHS3fUqB4oIzCrgLBbsvpSlUextD8qIlAcVqSk18XdErcllo9IhgKkF6FAl4oOeNvEzz2LtjMXhVMfJKz/22uMfc2UKySHYj2elHk0Y0xKhSOTx5qpf8nLGQGxAFhQXxkr3J/YJUJ0D9s3jSsl6AFQM1ZhbG/Z5jrhUo/O/21rjKD1J/f+ke17CT0A/SaR+K/DpIMHo/BfkbeLy/8Nwldh6E9M1R9hXXLH7d1EHN3DKmkRmdEa1S5xKwNHpHLgttPLZSiMVMLYFd5XNsHwA0zkn1IARLK4wKz/GHZ5/Z7ydXYeSjOSzpHj1D1NCQl26wh5uhjO7kM+UqIg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from TYZPR06MB6697.apcprd06.prod.outlook.com (2603:1096:400:451::6)
+ by KL1PR0601MB4433.apcprd06.prod.outlook.com (2603:1096:820:7b::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Tue, 30 May
+ 2023 02:37:44 +0000
+Received: from TYZPR06MB6697.apcprd06.prod.outlook.com
+ ([fe80::f652:a96b:482:409e]) by TYZPR06MB6697.apcprd06.prod.outlook.com
+ ([fe80::f652:a96b:482:409e%5]) with mapi id 15.20.6433.018; Tue, 30 May 2023
+ 02:37:44 +0000
+From: Lu Hongfei <luhongfei@vivo.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Jun Lei <jun.lei@amd.com>,
+ Alvin Lee <Alvin.Lee2@amd.com>, Nevenko Stupar <Nevenko.Stupar@amd.com>,
+ Dillon Varone <Dillon.Varone@amd.com>, George Shen <george.shen@amd.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ amd-gfx@lists.freedesktop.org (open list:AMD DISPLAY CORE),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] gpu: Replace the ternary conditional operator with max()
+Date: Tue, 30 May 2023 10:37:26 +0800
+Message-Id: <20230530023731.13534-1-luhongfei@vivo.com>
+X-Mailer: git-send-email 2.39.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SG2PR01CA0191.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:189::6) To TYZPR06MB6697.apcprd06.prod.outlook.com
+ (2603:1096:400:451::6)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 00/36] drm/amd/display: add AMD driver-specific properties
- for color mgmt
-To: Melissa Wen <mwen@igalia.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, brian.starkey@arm.com, christian.koenig@amd.com,
- daniel@ffwll.ch, liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, Xinhui.Pan@amd.com
-References: <20230523221520.3115570-1-mwen@igalia.com>
-Content-Language: en-GB
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230523221520.3115570-1-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYZPR06MB6697:EE_|KL1PR0601MB4433:EE_
+X-MS-Office365-Filtering-Correlation-Id: f261455f-d6e5-4f57-5b07-08db60b6d8a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vr22PIl5yQw4bQK0lhtEhQJsjjoniAbR4g8EUjssqVhqdFbPg/c1vyWsE61I9W1YnPW7yc7lAJgfNRseb37JDAoG7GD8zwp36bR5vjvUsgWqoC9I9xO4MyReMjcHoQM/xfdwU1IzdRcilpTsLSj3kzdNda3tunJAK77YFHL7XH7SyNqCEtMCX3rKijWft7RtgclsVw9GbSNUAUfubc53ZLGHTKLBfdvvlHa28ICsgYxCQBdwRhGdu2YjAQPyOSrNyU5bMVWZ5FcSc+YHWNrUrcMolkw4xfqd9WyRp1hnuvVijoOIJaa4r1PFvm0hMLYjFMwcqRHheadV9bN7BNm//PTeCYgeCh8Y5qubsz54v/wmAdPkJX/j+I/uhKw+CdiXuHCYMqQw/a/WcmrmUh4tcwz91SaBBRNnj4w0aCkGYfXQ5srgGzCWwfYVcj7kjue4MI2/hxYyPvz3XBEmPdRCf+dzUt1QkDsXSDSoD5MZFiqji+yyhXU7qothB2mx6u4GLr6gbM8aEsEdyf8PiDuFvzRBcMuuUr8bhVOgmDt48o/oDioIKBruO8ceGKCLo/DPEUeGvczP5qTS1w+EhA1BcAfSREcgUaNNjG2S9UrHq5/Aix40fLhn/N/TPageewrBtmv3RB+NIRJqr7hpvewm7w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYZPR06MB6697.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(136003)(396003)(376002)(366004)(39860400002)(451199021)(478600001)(110136005)(8676002)(8936002)(7416002)(5660300002)(36756003)(2906002)(86362001)(66476007)(921005)(4326008)(66556008)(66946007)(316002)(38350700002)(38100700002)(41300700001)(2616005)(107886003)(186003)(6506007)(1076003)(26005)(6512007)(52116002)(6666004)(6486002)(83380400001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1E8KOIfQbUG6RvcYLJjc9oy0wSuvqiE4kOLu5FrCicXYxWu8jfNYSGa1eoq+?=
+ =?us-ascii?Q?LM7b7fqSjqVv3vV1wTR2Rd74XIGhOSXYmS5riCrn2HJU+XIJNcY1gGv5/v5x?=
+ =?us-ascii?Q?EmLEIJAS36XanZQBrd/7CC3C19uSsCBNyz24fjXnDPkovfsc7EZ8YsXFibwf?=
+ =?us-ascii?Q?xcq3mbBWCAfeXncGFodhZpae9RW4U9vUos/OGwR3YZdbJ/eD032mLEcPRQeC?=
+ =?us-ascii?Q?eB9mpAXwolzLUkuvbJ2gwfpt+OYnmKN3bVUDeUT95DaHmsFjWQSNGUt37xPl?=
+ =?us-ascii?Q?iarzj3AYl1Nl7vIuOmTcwFQpcIlOTFOExPQeqiSCLViM6hTI1ENLx8117d7L?=
+ =?us-ascii?Q?6jqradbTiKCut/2X16i09DUEMIpVZnuqy7tMvMfHU9BvqSmh+iS7TDxConrt?=
+ =?us-ascii?Q?/pFMUTt9mmu3uB/g/7NvVBzEIj1q3rjxFzOZfhHSvpkHD6qmjFskDps+siYB?=
+ =?us-ascii?Q?JhFi+nDDuPXxCSVAYE1zDrkyEzG4LYYlQaRgaoai3hzinEjeEf79VWpdrupz?=
+ =?us-ascii?Q?zZqzhll+AKIPyTqSwnvnFqk2IQULonqJyFlXzODDq2TbD6LJ2txVLat+sLO3?=
+ =?us-ascii?Q?BIDmc+KkqXtqklsrSxM0qeQkhshuelv3EyD+oQC+muyl2k7lvzYwJ9xcvOJp?=
+ =?us-ascii?Q?WRmjgIoIacG/VCW8CCknyaPOfHtTamAd/uEX37TkcZdyMD0SAQYgf15lTeqT?=
+ =?us-ascii?Q?d3P8oAni9ZOvjMFxk/ZMKAm1Iy57kDwBsK8QH8h3crGyNS0GKi5TqeJ5MkEe?=
+ =?us-ascii?Q?6vl+nLlvWWwvOTstp8U5fkFC/jYV50Jh0Au6AAPKq5gwcqwWDQe2oe06vfWO?=
+ =?us-ascii?Q?Jz/0ZtevDfONsZoYroJUye8deCqmU9owwU5bBWwxmj/zl0qO9sx3qPnzyRq4?=
+ =?us-ascii?Q?A0FO8loKq/wIS1zXOtHEo217h3fIprEQ9xGVAfxgZ9H6YPaZzMqxKwhnE426?=
+ =?us-ascii?Q?subP1zcIkBuk4205DYHHkirKUKiETGo2XcP9o0CGvK+sM/NgqMS9TtNjK2yS?=
+ =?us-ascii?Q?XqxgL984wR94VUd80o53aZWAk0Rl/TlisRBTh8SgVEsGEkyLfrx8v/PyDJ3+?=
+ =?us-ascii?Q?vZxpgthsdLC6Pj6k6WZG9D4DOft9ZltB/eMFyLE9LVy6E3Ruvt0mIlLw6ITu?=
+ =?us-ascii?Q?a5NthlU+4Lm7lMdAhxG4o/Ya8jTCjv4sGc6xsyZpJjCS23Y+omyQxro5YrHE?=
+ =?us-ascii?Q?P8xql8UBw0BVIxSyNSPRbBsQiT2/pnPmJB1ICT6jhCLhbvVZA/RlMaD4giZP?=
+ =?us-ascii?Q?efGATyfP4G0af49voZg2+6nn6+lRK/1liYqWxt8Nw+CK1CZ5aK4gxk+HgwMI?=
+ =?us-ascii?Q?mCtec8YyAc5vld2+nP1DX+eRWJiXV/yr+16aQm0D+3u45Q9UBYuMOlKkYaco?=
+ =?us-ascii?Q?fCEtPwlpBxmJn5VQaIHf6y1rtMCEcjR94W1O2jCk6GVzQr45wuxXxGmDNjkU?=
+ =?us-ascii?Q?BLOO4RUlXiYJKCQWq3Ae95I/qQ0WpQpS9ktPwajmRlVSmMP6aljFAfg1t7iL?=
+ =?us-ascii?Q?PCR5LtgTCagSoeU7WcXlk83D0q8P7IEgjqhaeIwdpZIx73GMBw1UP3hGqaMx?=
+ =?us-ascii?Q?cJnmC5bAlFZEmghEScF7vSfEL7v7U7d9DbKXVJks?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f261455f-d6e5-4f57-5b07-08db60b6d8a0
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR06MB6697.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2023 02:37:43.9488 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: o8NZdCJdJ5kEOocRWQgqzNjK/U4E3MTvhlaHzkROvoY4KhW3tu+uL3lzdTvMURT4GxLNPIx7a9+eA8J5LW6/WA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR0601MB4433
 X-Mailman-Approved-At: Tue, 30 May 2023 13:50:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,151 +122,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
- Xaver Hugl <xaver.hugl@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Rob Clark <robdclark@gmail.com>, kernel-dev@igalia.com,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno <freedreno@lists.freedesktop.org>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
+Cc: opensource.kernel@vivo.com, luhongfei@vivo.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 24/05/2023 01:14, Melissa Wen wrote:
-> This series is a refined version of our RFC [1] for AMD driver-specific
-> color management properties. It is a collection of contributions from
-> Joshua, Harry and I to enhance AMD KMS color pipeline for Steam
-> Deck/SteamOS by exposing the large set of color caps available in AMD
-> display HW.
-> 
-> Considering RFC feedback, this patchset differs from the previous one by
-> removing the KConfig option and just guarding driver-specific properties
-> with `AMD_PRIVATE_COLOR` - but we also removed the guards from internal
-> elements and operations. We stopped to advertise CRTC shaper and 3D LUTs
-> properties since they aren't in use in the Steam Deck color pipeline[2].
-> On the other hand, we keep mapping CRTC shaper and 3D LUTs (DM) to DC
-> MPC setup. We also improved curve calculations to take into account HW
-> color caps.
-> 
-> In short, for pre-blending, we added the following properties:
-> - plane degamma LUT and predefined transfer function;
-> - plane HDR multiplier
-> - plane shaper LUT/transfer function;
-> - plane 3D LUT; and finally,
-> - plane blend LUT/transfer function, just before blending.
+It would be better to replace the traditional ternary conditional
+operator with max()
 
-This set of properties sounds interesting and not fully AMD-specific. 
-Could you please consider moving them to the more generic location?
+Signed-off-by: Lu Hongfei <luhongfei@vivo.com>
+---
+ drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+ mode change 100644 => 100755 drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
 
-For the reference, MSM (Qualcomm) display hardware supports 
-degamma/gamma LUTs for planes too. One of the suggested usecases for 
-these degamma/gamma units is to support colorspace transfer functions.
-
-Thus, at least some of these properties can be implemented in drm/msm 
-driver too.
-
-> After blending, we already have DRM CRTC degamma/gamma LUTs and CTM,
-> therefore, we extend post-blending color pipeline with CRTC gamma
-> transfer function.
-> 
-> The first three patches are on DRM KMS side. We expose DRM property
-> helper for blob lookup and replacement so that we can use it for
-> managing driver-specific properties. We add a tracked for plane color
-> mgmt changes and increase the maximum number of properties to
-> accommodate this expansion.
-> 
-> The userspace case here is Gamescope which is the compositor for
-> SteamOS. It's already using all of this functionality to implement its
-> color management pipeline right now [3].
-> 
-> Current IGT tests kms_color and amdgpu/amd_color on DCN301 and DCN21 HW
-> preserve the same results with and without the guard.
-> 
-> Finally, I may have missed something, please let me know if that's the
-> case.
-> 
-> Best Regards,
-> 
-> Melissa Wen
-> 
-> [1] https://lore.kernel.org/dri-devel/20230423141051.702990-1-mwen@igalia.com
-> [2] https://github.com/ValveSoftware/gamescope/blob/master/src/docs/Steam%20Deck%20Display%20Pipeline.png
-> [3] https://github.com/ValveSoftware/gamescope
-> 
-> 
-> Harry Wentland (2):
->    drm/amd/display: fix segment distribution for linear LUTs
->    drm/amd/display: fix the delta clamping for shaper LUT
-> 
-> Joshua Ashton (13):
->    drm/amd/display: add plane degamma TF driver-specific property
->    drm/amd/display: add plane HDR multiplier driver-specific property
->    drm/amd/display: add plane blend LUT and TF driver-specific properties
->    drm/amd/display: copy 3D LUT settings from crtc state to stream_update
->    drm/amd/display: dynamically acquire 3DLUT resources for color changes
->    drm/amd/display: add CRTC regamma TF support
->    drm/amd/display: set sdr_ref_white_level to 80 for out_transfer_func
->    drm/amd/display: add support for plane degamma TF and LUT properties
->    drm/amd/display: add dc_fixpt_from_s3132 helper
->    drm/adm/display: add HDR multiplier support
->    drm/amd/display: handle empty LUTs in __set_input_tf
->    drm/amd/display: add DRM plane blend LUT and TF support
->    drm/amd/display: allow newer DC hardware to use degamma ROM for PQ/HLG
-> 
-> Melissa Wen (21):
->    drm/drm_mode_object: increase max objects to accommodate new color
->      props
->    drm/drm_property: make replace_property_blob_from_id a DRM helper
->    drm/drm_plane: track color mgmt changes per plane
->    drm/amd/display: add CRTC driver-specific property for gamma TF
->    drm/amd/display: add plane driver-specific properties for degamma LUT
->    drm/amd/display: add plane 3D LUT driver-specific properties
->    drm/amd/display: add plane shaper LUT driver-specific properties
->    drm/amd/display: add plane shaper TF driver-private property
->    drm/amd/display: add comments to describe DM crtc color mgmt behavior
->    drm/amd/display: encapsulate atomic regamma operation
->    drm/amd/display: update lut3d and shaper lut to stream
->    drm/amd/display: allow BYPASS 3D LUT but keep shaper LUT settings
->    drm/amd/display: handle MPC 3D LUT resources for a given context
->    drm/amd/display: add CRTC 3D LUT support
->    drm/amd/display: add CRTC shaper LUT support
->    drm/amd/display: add CRTC shaper TF support
->    drm/amd/display: mark plane as needing reset if plane color mgmt
->      changes
->    drm/amd/display: decouple steps for mapping CRTC degamma to DC plane
->    drm/amd/display: reject atomic commit if setting both plane and CRTC
->      degamma
->    drm/amd/display: program DPP shaper and 3D LUT if updated
->    drm/amd/display: add plane shaper/3D LUT and shaper TF support
-> 
->   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 125 ++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  69 ++
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  28 +-
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 110 +++-
->   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 612 ++++++++++++++++--
->   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  72 ++-
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 213 +++++-
->   drivers/gpu/drm/amd/display/dc/core/dc.c      |  49 +-
->   drivers/gpu/drm/amd/display/dc/dc.h           |   8 +
->   .../amd/display/dc/dcn10/dcn10_cm_common.c    | 107 ++-
->   .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |   5 +-
->   .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |   9 +-
->   .../amd/display/dc/dcn301/dcn301_resource.c   |  26 +-
->   .../gpu/drm/amd/display/include/fixed31_32.h  |  12 +
->   drivers/gpu/drm/arm/malidp_crtc.c             |   2 +-
->   drivers/gpu/drm/drm_atomic.c                  |   1 +
->   drivers/gpu/drm/drm_atomic_state_helper.c     |   1 +
->   drivers/gpu/drm/drm_atomic_uapi.c             |  43 +-
->   drivers/gpu/drm/drm_property.c                |  49 ++
->   include/drm/drm_mode_object.h                 |   2 +-
->   include/drm/drm_plane.h                       |   7 +
->   include/drm/drm_property.h                    |   6 +
->   22 files changed, 1416 insertions(+), 140 deletions(-)
-> 
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index 47beb4ea779d..bbc1f2011e99
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -915,7 +915,7 @@ static bool subvp_drr_schedulable(struct dc *dc, struct dc_state *context, struc
+ 	stretched_drr_us = drr_frame_us + mall_region_us + SUBVP_DRR_MARGIN_US;
+ 	drr_stretched_vblank_us = (drr_timing->v_total - drr_timing->v_addressable) * drr_timing->h_total /
+ 			(double)(drr_timing->pix_clk_100hz * 100) * 1000000 + (stretched_drr_us - drr_frame_us);
+-	max_vblank_mallregion = drr_stretched_vblank_us > mall_region_us ? drr_stretched_vblank_us : mall_region_us;
++	max_vblank_mallregion = max(drr_stretched_vblank_us, mall_region_us);
+ 
+ 	/* We consider SubVP + DRR schedulable if the stretched frame duration of the DRR display (i.e. the
+ 	 * highest refresh rate + margin that can support UCLK P-State switch) passes the static analysis
+@@ -1008,7 +1008,7 @@ static bool subvp_vblank_schedulable(struct dc *dc, struct dc_state *context)
+ 				(double)(vblank_timing->pix_clk_100hz * 100) * 1000000;
+ 		subvp_active_us = main_timing->v_addressable * main_timing->h_total /
+ 				(double)(main_timing->pix_clk_100hz * 100) * 1000000;
+-		max_vblank_mallregion = vblank_blank_us > mall_region_us ? vblank_blank_us : mall_region_us;
++		max_vblank_mallregion = max(vblank_blank_us, mall_region_us);
+ 
+ 		// Schedulable if VACTIVE region of the SubVP pipe can fit the MALL prefetch, VBLANK frame time,
+ 		// and the max of (VBLANK blanking time, MALL region)
 -- 
-With best wishes
-Dmitry
+2.39.0
 
