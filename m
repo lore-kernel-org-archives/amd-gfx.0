@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADFEFC7EE23
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 14:11:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0485AC7EE2F
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:03:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E04310E159;
-	Tue, 30 May 2023 14:11:32 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D4E110E159;
- Tue, 30 May 2023 14:11:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685455891; x=1716991891;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=0ZSjvmRsPahZ8Twh6++RSb7rZmPdH3pP2QZxrCkFm9U=;
- b=Akc8v5lBcTq6Apf1aRd8oXaAzH8M8aPZqJM3EkVdiHSRkRRTK0CBIV1y
- +Y3O4DqOLG5pcUWMcgWPx0gIQqKYKjO2NOQtyFwilh49VoVZnhZzAnAN+
- lShebfpCKO1i37mVkqT+cLXVn3j7JuxPBdOcogvG3nStVIn3hsLTlrQvG
- mmVotu9XEapF77rSm9Cpb75+Ftoq6K/SMBacWWHR9oL8ZXTuqUyd6gAG8
- +kLTapyRkjelHhRRupiMZVlJwRdGdofUdOq2DyLbMByMAPgTamwmaORcL
- WwsQlf1lTsYBDFmV96lNp18RGCkQSqpjdDf9NWEhqgPDXmbM0SC3bBEfC A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="441282308"
-X-IronPort-AV: E=Sophos;i="6.00,204,1681196400"; d="scan'208";a="441282308"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2023 07:11:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="830768672"
-X-IronPort-AV: E=Sophos;i="6.00,204,1681196400"; d="scan'208";a="830768672"
-Received: from lkp-server01.sh.intel.com (HELO fb1ced2c09fb) ([10.239.97.150])
- by orsmga004.jf.intel.com with ESMTP; 30 May 2023 07:11:23 -0700
-Received: from kbuild by fb1ced2c09fb with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1q404J-0000ap-0k;
- Tue, 30 May 2023 14:11:23 +0000
-Date: Tue, 30 May 2023 22:10:52 +0800
-From: kernel test robot <lkp@intel.com>
-To: Evan Quan <evan.quan@amd.com>, rafael@kernel.org, lenb@kernel.org,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
- kvalo@kernel.org, nbd@nbd.name, lorenzo@kernel.org,
- ryder.lee@mediatek.com, shayne.chen@mediatek.com,
- sean.wang@mediatek.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, Mario.Limonciello@amd.com,
- Lijo.Lazar@amd.com
-Subject: Re: [PATCH 8/9] drm/amd/pm: enable Wifi RFI mitigation feature
- support for SMU13.0.0
-Message-ID: <202305302142.rrUt4NJV-lkp@intel.com>
-References: <20230530024227.2139632-9-evan.quan@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F84410E169;
+	Tue, 30 May 2023 15:03:00 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5568610E169;
+ Tue, 30 May 2023 15:02:57 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D2C4621A8B;
+ Tue, 30 May 2023 15:02:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1685458974; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=6lRuDrmy2AfI3wS06d/1engDNPo+ovoaDDKPepzHATs=;
+ b=oWjtuCDj469nIpdPMC4Dw0y7q9NkrJSlKUBqKgxqqnct9l0nVVMrRFuWw/0z0haJjRc6OE
+ 1GVaYsYp36afX2lFvEojNpjuxGE0cCob9TkUjrLh4OntfTj1TIIRegqeMkJtPzXWCAHDKp
+ NsUQujmsd+WJGzS1OxLsLsEg+Zoc1Lo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1685458974;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=6lRuDrmy2AfI3wS06d/1engDNPo+ovoaDDKPepzHATs=;
+ b=ZCAYvmnOQGfZhemupaWQxm0vcOKisDlPKboJ/trzmCqNAjM0sZd3Ib9FeE7D9kXlV57+hq
+ +LHoFGuSd++iV7Bg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 91CDF13478;
+ Tue, 30 May 2023 15:02:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id u//OIh4QdmShegAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 30 May 2023 15:02:54 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, javierm@redhat.com, sam@ravnborg.org,
+ suijingfeng@loongson.cn
+Subject: [PATCH v5 00/13] 
+Date: Tue, 30 May 2023 17:02:40 +0200
+Message-Id: <20230530150253.22758-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230530024227.2139632-9-evan.quan@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,54 +65,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- oe-kbuild-all@lists.linux.dev, ath11k@lists.infradead.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Evan,
+DRM provides a number of wrappers around fbdev cfb_() sys_(), fb_io_()
+and fb_sys_() helpers. The DRM functions don't provide any additional
+functionality for most DRM drivers. So remove them and call the fbdev
+I/O helpers directly.
 
-kernel test robot noticed the following build errors:
+The DRM fbdev I/O wrappers were originally added because <linux/fb.h>
+does not protect its content with CONFIG_FB. DRM fbdev emulation did
+not build if the config option had been disabled. This has been
+fixed. For fbdev-generic and i915, the wrappers added support for damage
+handling. But this is better handled within the two callers, as each
+is special in its damage handling.
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on kvalo-ath/ath-next wireless-next/main wireless/main linus/master v6.4-rc4]
-[cannot apply to next-20230530]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Patch 1 adds several internal Kconfig options that DRM drivers (and
+possibly other fbdev code) will use to select the correct set of I/O
+helpers. Patch 2 adds initializers for struct fb_ops and generator
+macros for the callback functions. These macros will simplify drivers.
+This patchset applies the new options and macros to DRM fbdev emulation,
+but regular fbdev drivers can use them as well.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Evan-Quan/drivers-acpi-Add-support-for-Wifi-band-RF-mitigations/20230530-104541
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230530024227.2139632-9-evan.quan%40amd.com
-patch subject: [PATCH 8/9] drm/amd/pm: enable Wifi RFI mitigation feature support for SMU13.0.0
-config: arm-allyesconfig (https://download.01.org/0day-ci/archive/20230530/202305302142.rrUt4NJV-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 12.3.0
-reproduce (this is a W=1 build):
-        mkdir -p ~/bin
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/8ecc361da81a0915bb626156b47403a91b678de1
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Evan-Quan/drivers-acpi-Add-support-for-Wifi-band-RF-mitigations/20230530-104541
-        git checkout 8ecc361da81a0915bb626156b47403a91b678de1
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.3.0 ~/bin/make.cross W=1 O=build_dir ARCH=arm olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.3.0 ~/bin/make.cross W=1 O=build_dir ARCH=arm SHELL=/bin/bash
+Patches 3 to 9 replace the DRM wrappers in a number of fbdev emulations.
+Patch 10 exports two helpers for damage handling. Patches 11 to 13
+update msm, fbdev-generic and i915 with the help of the exported functions.
+The patches also remove DRM's fbdev I/O helpers, which are now unused.
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202305302142.rrUt4NJV-lkp@intel.com/
+DRM's fbdev helpers had to select fbdev I/O helpers for I/O and for
+system memory. Each fbdev emulation now selects the correct helpers
+for itself. Depending on the selected DRM drivers, kernel builds will
+now only contain the necessary fbdev I/O helpers and might be slightly
+smaller in size.
 
-All errors (new ones prefixed by >>):
+v5:
+	* fix whitespace errors (Jingfeng)
+	* move msm patch to later position make it build
+v4:
+	* use initializer and generator macros for struct fb_ops
+	* partially support damage handling in msm (Dmitri)
+v3:
+	* fix Kconfig options (Jingfeng)
+	* minimize changes to exynos (Sam)
+v2:
+	* simplify Kconfig handling (Sam)
 
-   arm-linux-gnueabi-ld: drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.o: in function `smu_v13_0_0_set_wbrf_exclusion_ranges':
->> smu_v13_0_0_ppt.c:(.text+0x1384): undefined reference to `__aeabi_uldivmod'
->> arm-linux-gnueabi-ld: smu_v13_0_0_ppt.c:(.text+0x139c): undefined reference to `__aeabi_uldivmod'
-   arm-linux-gnueabi-ld: smu_v13_0_0_ppt.c:(.text+0x13b0): undefined reference to `__aeabi_uldivmod'
+Thomas Zimmermann (13):
+  fbdev: Add Kconfig options to select different fb_ops helpers
+  fbdev: Add initializer macros for struct fb_ops
+  drm/armada: Use regular fbdev I/O helpers
+  drm/exynos: Use regular fbdev I/O helpers
+  drm/gma500: Use regular fbdev I/O helpers
+  drm/radeon: Use regular fbdev I/O helpers
+  drm/fbdev-dma: Use regular fbdev I/O helpers
+  drm/omapdrm: Use regular fbdev I/O helpers
+  drm/tegra: Use regular fbdev I/O helpers
+  drm/fb-helper: Export helpers for marking damage areas
+  drm/msm: Use regular fbdev I/O helpers
+  drm/fbdev-generic: Implement dedicated fbdev I/O helpers
+  drm/i915: Implement dedicated fbdev I/O helpers
 
+ drivers/gpu/drm/Kconfig                    |  10 +-
+ drivers/gpu/drm/armada/Kconfig             |   1 +
+ drivers/gpu/drm/armada/armada_fbdev.c      |   7 +-
+ drivers/gpu/drm/drm_fb_helper.c            | 236 ++-------------------
+ drivers/gpu/drm/drm_fbdev_dma.c            |  11 +-
+ drivers/gpu/drm/drm_fbdev_generic.c        |  11 +-
+ drivers/gpu/drm/exynos/Kconfig             |   1 +
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c  |   9 +-
+ drivers/gpu/drm/gma500/Kconfig             |   1 +
+ drivers/gpu/drm/gma500/fbdev.c             |   8 +-
+ drivers/gpu/drm/i915/Kconfig               |   1 +
+ drivers/gpu/drm/i915/display/intel_fbdev.c |  14 +-
+ drivers/gpu/drm/msm/Kconfig                |   1 +
+ drivers/gpu/drm/msm/msm_fbdev.c            |  17 +-
+ drivers/gpu/drm/omapdrm/Kconfig            |   1 +
+ drivers/gpu/drm/omapdrm/omap_fbdev.c       |  11 +-
+ drivers/gpu/drm/radeon/Kconfig             |   1 +
+ drivers/gpu/drm/radeon/radeon_fbdev.c      |   9 +-
+ drivers/gpu/drm/tegra/Kconfig              |   1 +
+ drivers/gpu/drm/tegra/fbdev.c              |   8 +-
+ drivers/video/fbdev/Kconfig                |  21 ++
+ include/drm/drm_fb_helper.h                |  83 +-------
+ include/linux/fb.h                         | 112 ++++++++++
+ 23 files changed, 212 insertions(+), 363 deletions(-)
+
+
+base-commit: cf59b48ea3c0c0075d7c4e8538177d38999da7b0
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.40.1
+
