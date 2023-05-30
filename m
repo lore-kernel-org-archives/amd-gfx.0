@@ -4,117 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38A1DC7EE24
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 20:16:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E7A1C7EE23
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 20:21:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3889110E41E;
-	Tue, 30 May 2023 20:16:37 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2085.outbound.protection.outlook.com [40.107.244.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7C2110E125;
- Tue, 30 May 2023 20:16:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF1FF10E110;
+	Tue, 30 May 2023 20:21:19 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20623.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::623])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F82610E110;
+ Tue, 30 May 2023 20:21:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QYnY04O+kY0pB0ZT+G7ZVQckXJnPBy+r0oOOeQ/qk3GhgAHdZrwHNmi3cjWeyd4JoPAXehWpteIKMsx5hNDrQLqOAbGfvaUGsWovIcAAYC0TNyDIKd3Emon4kfLxaRn73DbV1tHnqFLss/lgWj6pQpnFBmuzP+tFHJxiyUJZsgekdVUmPPUQk0JpQpvq+I6rKIMOrlwzJxeZZeExp9LcsjGS//43llFHeOZbP9tpbt0HbtbdZJcC2LBgXDM8KaiSipyPke9bUAwTp81NinVM9IWJNViYCfcqC1dAR2nHqAnHJ1d9G4dt/09a++WRRYnUqQSVi7kfW6IgD3ueq/qJQw==
+ b=BWHhmGGgzSDQjozJXnoNTW0tVyMrmDigaYvELZf5SDTX/8Plg7JZG1q5cGW3jhqCw4idZrDF7OVLMuA6TbYCsvKy7NWq4Mtmc9NY8w2jHxDVtYaKGobSczKWgHkcphJ0yPgGHM7ksGcEtiEyfR83xXP/Zchp6KDIkPbdZvPsHqFna1pIDatF2rDGZ8IBuuueBazS8hBYASLE8f59KOFKgQY4USx7YpbRVPv+7Q5SNMupKH+XGqExHzo3IHbGKn8KVa4EThniUx5eqINqytRnATry4F9uF+7rtjTIIO4idBcRHQMhtUyCY312dQzOxx7aZhrbfxDk+xN9LJJnPDb4Ew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X0HmXv2vgC9JiOiwC2owc/7NNYqlKUPIIwTzWTcU0C4=;
- b=RQ18FBSNucJLcOHo/hqk8m3hPtblcLdGYtLkj9veXWWeg6263eXqK1g1GS7q+ANylunMPxvqiTurc29/RKJX4S+203V87gtTIEdbcgk6wrDGJYkpTDikn7CPwuYmpg75Hou0SZhbwV+q2MakR1GAwphIRN772ys+diwKubm8LNMKfAdWPfodiS6zF++Rl5rP+Shjsoj6xF/ip6jbbpCKqJNDup7IgQj9/TfKZ03d2UXrgJBZDJHZ8pPJx6CgbhNZeUrabpWLB1ZC3YwalpiA1eS7pjjd2MDJW6Qr12V3ZKJBNKJkFi/1j1EwtXqj1lkuxgCwVSdtISgfsmqytRmzBA==
+ bh=sTh+Mum/1wo86ds4wxC9dNLR51MoZUTpyQ133SyhQZg=;
+ b=HPLwYnHFzLuJjrndM/BoUfS8NZ+d+VI9FaaqM0pmXPcXSfXrhDI7qnMbf1GhVU7MIToQPw1G1Skz8Uwd61aqa9FlR1HagVGOGSaYMBgccVp6+yN62OOUROwrPvNeAb6LLMZL6BdL6Fi9zx0VxR50mTH72y3FYDLMd+dDu9zTNTsVHLyzL7kYK4O6MhY0efIU6PJj91rWt1jlqGgW8B5a4LfXKhpzXMDhJGkb8dgrZopKxK2Goy+8rFKxrgdybbvRe0CykJUuMzz8mq+i/zJfvYlXQCK2lRXmOnmo/VmQ3Dr4myZaHkBf+z/ud6hFGEuRitqk3jLGPjVpmbJm2utzrg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X0HmXv2vgC9JiOiwC2owc/7NNYqlKUPIIwTzWTcU0C4=;
- b=beJiLyh8Ju38VtMZJ2cvusAYdhKB1xtrCAa8g44WGIYg3pMyPXp6OFdFbDrluALVdv4ZfAv2tRUMXcsOCUP2Ti4e3F2JkE7yn+XUzJz1LpnLi0y1TqrH+b3fyWdZQ72oM6iaK4qMV65U96a++kxKp8Qs5EhhrrtbnsCyb/YqFBA=
+ bh=sTh+Mum/1wo86ds4wxC9dNLR51MoZUTpyQ133SyhQZg=;
+ b=Qn7K2ZlTc4S2ykKPOGyyvNexkudaFzVjp++9sCOxCmwzvY3RzknpS5fSE82uCIrUDoPWnSV1qoPVyepZSenHJ0I7Xnnn6i/hKTEZzxXZN2gRfSnXHVFxr/2+q9zZCN0QKikuO5WGmX/qMcqK4TQ8ZvMqoH9cR5dDfxkS7X0m2s0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by SJ0PR12MB6967.namprd12.prod.outlook.com (2603:10b6:a03:44b::6)
+ by IA1PR12MB6529.namprd12.prod.outlook.com (2603:10b6:208:3a6::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.22; Tue, 30 May
- 2023 20:16:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Tue, 30 May
+ 2023 20:21:14 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::943e:32fb:5204:a343]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::943e:32fb:5204:a343%3]) with mapi id 15.20.6433.022; Tue, 30 May 2023
- 20:16:29 +0000
-Message-ID: <dfed0531-e75b-13b1-0d75-4fdabc1b2ca1@amd.com>
-Date: Tue, 30 May 2023 16:16:27 -0400
+ 20:21:13 +0000
+Message-ID: <056583d6-049b-11b6-8918-555821620658@amd.com>
+Date: Tue, 30 May 2023 16:21:11 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH 22/33] drm/amdkfd: update process interrupt handling for
- debug events
+Subject: Re: [PATCH 24/33] drm/amdkfd: add debug wave launch override operation
 Content-Language: en-US
 To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 References: <20230525172745.702700-1-jonathan.kim@amd.com>
- <20230525172745.702700-22-jonathan.kim@amd.com>
+ <20230525172745.702700-24-jonathan.kim@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20230525172745.702700-22-jonathan.kim@amd.com>
+In-Reply-To: <20230525172745.702700-24-jonathan.kim@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0055.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:111::18) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT4P288CA0076.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d0::13) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SJ0PR12MB6967:EE_
-X-MS-Office365-Filtering-Correlation-Id: 058544db-c249-4dad-56d1-08db614ac0a9
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA1PR12MB6529:EE_
+X-MS-Office365-Filtering-Correlation-Id: 33bfcb25-9704-4531-d8f2-08db614b6a23
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ugxx6U9AWRB4fGYFtnErBwwHb9e8Dtn9WvmYI0ZDORP4BxKw9IEvQB1tyZKeVBKHusxnphCXbWXA+NVDF1ljfinsvS4E3twLBl7Ksq2pov0gSfocm7lYzKrcFZ8MRjBm7iGeuZfVnTqe89qMOKnwIeCOrXQlBgn/L9hZkKohpQ5EXuWNwegbVJgYavLOOd+1FvY/R/i1aSL/KHvjSU9vZ+kYhQlkTFicm9Sfx+3TZc+oCqhVKBGeDw4kxeuDFVuwRnHKk92gTY/S0LqkceqjZudaRTxOXA4bX3fEsz1cM0HFNQXqjdpkF3FktigEfIRCniTt09VllXF7rTYpjADYHvq8ReG8WhDryie4uDqG/XZE6NY54hU+g1yBn66qi31E6D28QoEIm7iYl8uWRAUU03Tz20Hr4KhUGO4dAWtw8FGJZBXteaERxNqrya8jk+C+94Px84v58P5vT3Hx0J/vJWInd/A4xjSLriSbxicjUKn+bV0uv97W9mTthPZaXS2tybHKFw53rJ3yi9F5YQflHN5OcIUS0O0KARAoz3CJMC5rj7yN5sRVi5hsXowuYKxdSZIbdyYcTlRiMqNCijFTRgaS3fMO5ttRwrNpqFgSQ49Lprjcf411ABicyvLAd/KkXEzWWg62erx63L+rHPFuqw==
+X-Microsoft-Antispam-Message-Info: nQqWuuRwWn1sNgHrmd7SakxvYwJu9ZyajDMYa1bOc08uhuZcKxe6AR3Sr2ZkI/0YrXiArFn8+8Lrze29Dio+/+hh3nO77g4al3tThl36lzqnT6k7Zw8YyFnxO+HDMPHw6vZAxoEGFPc852ZImU6V428ub6el35LtpKI/SFcFW6JIOYh+EkgaUmOksKx7TObxfGPKqhj/ZcisEZNnmt3/tAspdP3y5N63z8Bk+j5CWXupUghbVfRi34NaF39phKasaflpMvCQvHbo/u1fYhEKeTEybz2H1m7c6FFfadJeN0Dc9oHcKFhAENgBXvm2UyTnWKpT/8c6y/bOrORq8GEyKigNg900hHF1pXCvX5hR7V9pL33OYd4EhOVQe6N+bzTDQ7nmiAINl/TxeJZPMkheDXF7lDoKXpExuwvs6xll4Idfsu+zz0+JqoKBiQo5s/M5J9Z4c5QJn3LPQ6xgkeKCZUXC/1iS9m5djOPU5y8DwNv8a736FNikP/1HDir+l0AU7VroEgt8sXNQ4FhiLs/VIwRDKPKRJTwZxX5rOqEXiXzfQSUmJWR3YfJ7IJyxDkqrkYGXoIgThGQjqJW8KKhwCtwBtg6FoBAIsxpdkFyaqTnFV6UdTS21wvAmRsA5lsO9P3WFrnKzXSgjUBDgC5kwow==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(376002)(346002)(136003)(39860400002)(396003)(451199021)(41300700001)(66899021)(6486002)(5660300002)(186003)(8676002)(8936002)(36756003)(38100700002)(6506007)(6512007)(26005)(15650500001)(4326008)(66476007)(66556008)(44832011)(31686004)(316002)(66946007)(2906002)(30864003)(83380400001)(478600001)(2616005)(450100002)(31696002)(86362001)(43740500002)(45980500001)(579004);
+ SFS:(13230028)(4636009)(136003)(366004)(39860400002)(346002)(396003)(376002)(451199021)(26005)(38100700002)(41300700001)(6486002)(186003)(83380400001)(6506007)(31686004)(6512007)(2616005)(478600001)(66556008)(4326008)(66946007)(316002)(450100002)(5660300002)(66476007)(8676002)(8936002)(44832011)(86362001)(31696002)(2906002)(30864003)(36756003)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L1FsdWpQdjZ0K2tYbHo0aGxvTzBjVzhvY2NwdUVUdUZaM3ZYWkR1WEs4dU5N?=
- =?utf-8?B?Z25CR0xYcnhkbjZNZ1VHOHovZ3VLUFlZTmNHWTZZRENYTGR3Y2pPc21YOUZq?=
- =?utf-8?B?UTk0YmhldjZHeUQxbzNHZmNyVDNsa2FJOWd0aDJXWWdDNk9DN0ptSVVhVHFy?=
- =?utf-8?B?OVpVcWlnZWlkUmtSZUhPUWNKN2xhSE8wS3hQOGQ1TzFzbTB3K0tZekVQRHFB?=
- =?utf-8?B?WHJpb0ZVTWMzU0VZVDBORjlKQlFTK3J1SkRwYmlGU0VvcTlRbXI1RTRBeHZE?=
- =?utf-8?B?MVlHbnJlZ21aTW1VR0JBcWJ0MFNObmdTN3lZaUZqWmphUUpOa3ZEVHNpR2ZB?=
- =?utf-8?B?TUhIZ1preld2R0xDa29TYUsrc1RwUHZPVXRBNEdrdUpGdTBXVFplYXJoTTVC?=
- =?utf-8?B?RVFCUVk5Nk9ieWRGQ2VnQ3gxMnJzZDhFUTNFZVVZbnJIdHRjL0ZMYm1Fak50?=
- =?utf-8?B?aHpkZzI1dXZKQm91MFptMEIza1FsTDR1T1VJWEdEQ0kyNkE0V3RkYUJtWlQv?=
- =?utf-8?B?T3Y5S0hCT3M2bWdQbkVaVTU5SmZ5cFRtSC85UUJrRDFtWS9xRHN3ek1BRGdx?=
- =?utf-8?B?dS9pejUzUDgwVEVxbkNicytSb3lJRHNqZVF5Qlo3M2RBa3lsRVBJcXkxTmdp?=
- =?utf-8?B?elRiSUNmWk83NXQ3MWFkc3RGU0l2aXlZeWFKb0RaQTVhODNJZTRYUmZDTjVX?=
- =?utf-8?B?bVpJbmIvc1R4ZjcvVzFwaUMwLzQybks2SnExNjIyVThMeDRrTGJRdUhlTUo0?=
- =?utf-8?B?UUFvRksxRzVWZ09PelhJYUlhZ3E0WUExUnFMZ2tHTnV0VjUrVVFuKzFJbVdT?=
- =?utf-8?B?VUd5MTEvRlM5WFhjUXdKZDE0cTJuaUcwenFOTmlrWkpZS1R0YjVlbGdRZUVE?=
- =?utf-8?B?V0Y4OXpDZ2FibTc0dTRzSjdJRmtOb1djR2pMMjlENG9DeTFJTFVnZ1h1a2lt?=
- =?utf-8?B?aURqN3F3WnhOWi9tVk1Ba0xiQkwvOXlFOS9KdkVrcmtlcDNYN2NaOUR5MzVX?=
- =?utf-8?B?OFBpM3RqUEkyMUE3YXlONkJJWnhDQ1lxNFg2Ulo5K3hpendZb0hCcTZqY3dP?=
- =?utf-8?B?Ly81UFJYS3NyQ3hqOW5EcUlZSmxXYklteFpnOUdZbk5HczNwYlBJbURUc3g0?=
- =?utf-8?B?VDZQcURsOTB1MGZZZEZ1VzZCZHlIeVdzTUJRUWE4ZmtJTDVZYTIxVDdzblZK?=
- =?utf-8?B?MDZRd2tQL2Z0YkljQlFrT3prMm1NT1FjOWlqUFVMQWlYbXRPeXJhMlFrWXhm?=
- =?utf-8?B?a0oxeU5TcjU0UUROTUVXZ2ZXVUdPWXNuOS9pcVpCakJWMDRYdFpmK3oyMXVm?=
- =?utf-8?B?YWNwWFYvNk94MXBlUXgwZkZxSThKcCs0YXl6UVh3eTFpODhnc09VQ2xzQTla?=
- =?utf-8?B?VHI4alJJd1RCQUZjTXQ3TmFIQzIrLzJ0b29peGtKR1E1MEp6T00wanE1eWZq?=
- =?utf-8?B?RXZHSDlVbmRwSmw5MHVCa1RKTUw3cTNTUEFLaDBOTGF4a0pocWNGVUh6NEZM?=
- =?utf-8?B?MmFsY21KVVErN2tDcU9XYWx4WjVTdEh0WWh2RnZLOWVDeDFMSzhSd1pWa095?=
- =?utf-8?B?UDVTeFlJN3NOQVBxSXgrNkorVDV1ZGpkTmZDV1UxakRvUnJUWmJZSWRXdGcv?=
- =?utf-8?B?WFhQa0FlOXArWlpRNy8xZXNZWTdsc1puSnlNOTFiYVZVdkgyZkpqajhMWFJV?=
- =?utf-8?B?OHVxNTQ4ejJxaGVoWFQ3TWtTOVBTRVRYUVRoQi9LYmViYzA5TmFvalV4ckNj?=
- =?utf-8?B?NzNqNThaZURxMnh6VDVvd2txS1Q4L1J0VHpMZGdYdFJoVU1WWmF0L2FUNnZa?=
- =?utf-8?B?VE9rVlFrV2FtR3ZqSjhUb1FNZ3BWUjdtMnFiS1pub2hLc2s0ZEZqUG80MU8r?=
- =?utf-8?B?WlAxSVhlZnU0Nm81T05pWWNSVWZVZVFLN2p5eE5xdndIbDNFSkdjQ2s2VURK?=
- =?utf-8?B?K0phS3RPTUdwRnh5b2gwVVRCOUlHeDFPUUM5SXFiSUNzZVNjdlpvWC84L1pW?=
- =?utf-8?B?YlJNNWtxb1pqaGdSY2FKMlRNdDN1QUtWc0h3aEE0aS95a1l5NGRiZ1pXUStp?=
- =?utf-8?B?STFnWEtmREgwMGVUMWhoQWJpY0NROGY4ajJYRW5MRGlJOTNSRTRQK1N0Y2tx?=
- =?utf-8?Q?bG+pjmqu1u6C3WlcHbXedX70V?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dk53TXF0TDI0WTdSNFRVYzF5RmZ1R20xemlpUjJvUEdPYnZ2SWM2RVFhdHRO?=
+ =?utf-8?B?UlpMazdXTGd2d0xtcndIVkVrSE9ETHNhcUsyL0p2SEdXeEFPRkFEMitGRWJE?=
+ =?utf-8?B?eHlFdWt6aGxOMC9QRFQ2RE9iOEw2NURCOG1oVGZoZ0ZSUGZjandMZ2srczg4?=
+ =?utf-8?B?Ly9QU1JBeFdqTmVCekduSzc4Q1h3dDZCSjhFaitZK29HQVZUWUNQSUFPMG9p?=
+ =?utf-8?B?SXlCRHpISnBFRkd2Nm9HKzFQSndwUzNOQXFZa2tIdTZuckNLVEJZNitDblBX?=
+ =?utf-8?B?cVh4L3c2bi9LUmtmQWgrYWoxeElTMWtNNHZlUitId2NzaC8wbWdRRmxDUVhx?=
+ =?utf-8?B?ZTI4QmFhSUM1a0xDMFFKL0hibGFGaHRnV25UTWU5TFFJRDRCYXBMR04raXVq?=
+ =?utf-8?B?T2l0RG9mb3ZpMVVuU2ZqSVFHV0piLy9reUhQSVFOMzRVZ0NBRGZUS3VMdW9t?=
+ =?utf-8?B?bDJ5Q1h2UU53cS9tWTJzeGhFOGovOEhQSDNRWXpyVXk2UEdNNld6L09Ub0ZI?=
+ =?utf-8?B?RkFySVE5bnY1SjQrWDhtWWJtS0M3Z2hkSEt3MEk5ZlF2MWRORnBXeHpxTHo5?=
+ =?utf-8?B?OGo1cjN6eE0wbmZEc3Z3bUlDRUVqUk5NUjhsaE9WQWp3TS8xbWh3UUYvM3h4?=
+ =?utf-8?B?QjcwSThSTlM2S09KMDlBNC9ZQ201bGtvbzljcVZueU9NRXRCeUZKcUZxYVVO?=
+ =?utf-8?B?dU1qUXZWaHhxQkRoYkQrTjNickw5MjdPUjFVdUp5WXlRWDVZYzJwMkZqVFBS?=
+ =?utf-8?B?Vmc5MDRDT0NUZThUOWduZUJwQ3dMOEQyaTFhYzZobFR2UlFveG44UFU3VjlY?=
+ =?utf-8?B?aUxqUXcxdXRWTEpaQlpLVnNiejNQTEp6b3ZhTXAvK1R4VkRvemZyNFZXdlpE?=
+ =?utf-8?B?RW4vMDNTTUdlYVU4SWJQL25sa1JuTjhuVkRmKzVuV0MyN3FXUDhWN3B0K21J?=
+ =?utf-8?B?dFVnMVIwcWhWU1dldUhUcGt2Z3pTTlhVem8rZ3F2MFNmOEdqZ04yeHdXV015?=
+ =?utf-8?B?c0tDRS9qTFdncUMxWlBZZWNzTTg5M3dYVTVieVVwYWhuQnhTa3ZydndSd1Mv?=
+ =?utf-8?B?aTNBMGJVaFByN1hwMGwwYktUZm0rRmZwK2FNKzZsTityeGMzMkE5Sy9CRVhV?=
+ =?utf-8?B?Y0U3UExtbyt4NmRzUm4wZThBcUYyRnJ1Q2J0ektDZ3Y4Zy95TE5WNytvUVZx?=
+ =?utf-8?B?azZYTmQyS01wR1NRbURLTGp2OE1QLzdnWjRqckJDUW4zWTV4Vm1US0QwR2Rt?=
+ =?utf-8?B?V1ovSnZldS9JTzNwOTJyUHhyR1JDNkNycEpubGp5Qk9sanc3TFhrTy80bmVI?=
+ =?utf-8?B?QU9RM0NxU21NamhxUEY2eXE3MmE2alpnLzZOeEJESkRJSEFjeWYvdkpiamhq?=
+ =?utf-8?B?SmtSS0hNSUZRNHBDK0t3dVl3ZW1ZT2ZSa2cwVVJ2a3h3ZjE0Mk9KbFNGMnpL?=
+ =?utf-8?B?bCtsV1NXV3ZwbHBDV0M0anlwaXJsRk54blNwY3NSaThJa0FDRERaN2kvOVZM?=
+ =?utf-8?B?UkFmNlVZMU5icUJFTXNmRDRSVi9GM3BlQ0hLdC9SYUxvcnpmYmRqcWhDSU5j?=
+ =?utf-8?B?aHgrdlNpZURtaXFkYUhWYWQwSWNLNWQxU21xK3pLMEhHOW8xdjdaRm15OC95?=
+ =?utf-8?B?VUs0aTlsd1JReTZrdFEzS0ZnaWlNbFFZam1UYlkxYmhGSjZIdkFUTEw1ZXRS?=
+ =?utf-8?B?bWU1Q3Z5UFJzOFpxb0FhMnI0RVpzekY5WlNWVlZ6VWZ0U0UrcWhKQWZzRnBE?=
+ =?utf-8?B?MWFwM0pIdGpidGFLc0lrSXdWZ2E5aU43UEpVeUloeUtsN09SVFdzWktraEtV?=
+ =?utf-8?B?NjFjRjBETmExVkNsMlZWdHBxeVUrYnJab3JobE55Q3VjTDllNStwNEtPOEtE?=
+ =?utf-8?B?ckt0VkYvUGptYWNlT2pyMVN0SGxKSVNidUpIVDhxVEJvQXRsM3NyVWF5dG1H?=
+ =?utf-8?B?Q1Y4ZHl4eUZ4T1ViSGVCV1JmUXdXaWdhZ2ZjL25WUk5LdEJaMkVjSmx6Zzdk?=
+ =?utf-8?B?VTJkZHE2Y3ZSWm5YUWtZd0drUnZVZXZlK0RpUkcyTExaU2t5VDJKcUsyemR4?=
+ =?utf-8?B?QXMxUXFqVGQ5WXV2Wjk2emhNMXo0MmgwU3V6NFBMZzNwRGFUSEF6S2pBNEdK?=
+ =?utf-8?Q?JKhG0kucSSyrGrR8JtsJKs4XF?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 058544db-c249-4dad-56d1-08db614ac0a9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33bfcb25-9704-4531-d8f2-08db614b6a23
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2023 20:16:29.3453 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2023 20:21:13.7987 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BTWnG+//jbrpCcF7Y5Sg9xS12ZcoAVKsmdDOs8APSlvpHyq4S17iUkLhuBeXgun4DhAIE+PZx/APm/HzFKZM1A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6967
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3J9J+q1PFlUB6MjeLH/CWbHKmm+QQ0WSePCP4RtrpsHmZiWOKQoQVfHXKlnWpdhZUm8oHa3qbB/Kayh4PdwZaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6529
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,31 +130,26 @@ Cc: Jinhuieric.Huang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
 Am 2023-05-25 um 13:27 schrieb Jonathan Kim:
-> The debugger must be notified by any debugger subscribed exception
-> that comes from hardware interrupts.
+> This operation allows the debugger to override the enabled HW
+> exceptions on the device.
 >
-> If a debugger session exits, any exceptions it subscribed to may still
-> have interrupts in the interrupt ring buffer or KGD/KFD pipeline.
-> To prevent a new session from inheriting stale interrupts, when a new
-> queue is created, open an interrupt drain and allow the IH ring to drain
-> from a timestamped checkpoint.  Then inject a custom IV so that once
-> the custom IV is picked up by the KFD, it's safe to close the drain
-> and proceed with queue creation.
+> On debug devices that only support the debugging of a single process,
+> the HW exceptions are global and set through the SPI_GDBG_TRAP_MASK
+> register.
+> Because they are global, only address watch exceptions are allowed to
+> be enabled.  In other words, the debugger must preserve all non-address
+> watch exception states in normal mode operation by barring a full
+> replacement override or a non-address watch override request.
 >
-> The drain must also be on debug disable as SW interrupts may still
-> be processed.  Drain at this time and clear all the exception status.
+> For multi-process debugging, all HW exception overrides are per-VMID so
+> all exceptions can be overridden or fully replaced.
 >
-> The debugger may also not be attached nor subscibed to certain
-> exceptions so forward them directly to the runtime.
+> In order for the debugger to know what is permissible, returned the
+> supported override mask back to the debugger along with the previously
+> enable overrides.
 >
-> GFX10 also requires its own IV processing, hence the creation of
-> kfd_int_process_v10.c.  This is because the IV from SQ interrupts are
-> packed into a new continguous format unlike GFX9. To make this clear,
-> a separate interrupting handling code file was created.
->
-> v2: use new kfd_node struct in prototypes.
+> v2: fixup with new kfd_node struct reference for mes check
 >
 > Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 
@@ -162,1013 +157,542 @@ Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  16 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   2 +
->   drivers/gpu/drm/amd/amdkfd/Makefile           |   1 +
->   drivers/gpu/drm/amd/amdkfd/kfd_debug.c        |  84 ++++
->   drivers/gpu/drm/amd/amdkfd/kfd_debug.h        |   6 +
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c       |   4 +-
->   .../gpu/drm/amd/amdkfd/kfd_int_process_v10.c  | 405 ++++++++++++++++++
->   .../gpu/drm/amd/amdkfd/kfd_int_process_v11.c  |  21 +-
->   .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   |  98 ++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  12 +
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  47 ++
->   .../amd/amdkfd/kfd_process_queue_manager.c    |   4 +
->   12 files changed, 680 insertions(+), 20 deletions(-)
->   create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  | 47 ++++++++++
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |  2 +
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 55 ++++++++++++
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h    | 10 +++
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c  |  5 +-
+>   .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c    | 87 ++++++++++++++++++-
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 55 ++++++++++++
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h | 10 +++
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  7 ++
+>   drivers/gpu/drm/amd/amdkfd/kfd_debug.c        | 69 +++++++++++++++
+>   drivers/gpu/drm/amd/amdkfd/kfd_debug.h        |  6 ++
+>   11 files changed, 351 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index 66f80b9ab0c5..98cd52bb005f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -777,6 +777,22 @@ void amdgpu_amdkfd_ras_poison_consumption_handler(struct amdgpu_device *adev, bo
->   	amdgpu_umc_poison_handler(adev, reset);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> index b811a0985050..d7881bbd828d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> @@ -25,6 +25,7 @@
+>   #include "amdgpu_amdkfd_gfx_v9.h"
+>   #include "gc/gc_9_4_2_offset.h"
+>   #include "gc/gc_9_4_2_sh_mask.h"
+> +#include <uapi/linux/kfd_ioctl.h>
+>   
+>   /*
+>    * Returns TRAP_EN, EXCP_EN and EXCP_REPLACE.
+> @@ -62,6 +63,50 @@ static uint32_t kgd_aldebaran_disable_debug_trap(struct amdgpu_device *adev,
+>   	return data;
 >   }
 >   
-> +int amdgpu_amdkfd_send_close_event_drain_irq(struct amdgpu_device *adev,
-> +					uint32_t *payload)
+> +static int kgd_aldebaran_validate_trap_override_request(struct amdgpu_device *adev,
+> +							uint32_t trap_override,
+> +							uint32_t *trap_mask_supported)
 > +{
-> +	int ret;
+> +	*trap_mask_supported &= KFD_DBG_TRAP_MASK_FP_INVALID |
+> +				KFD_DBG_TRAP_MASK_FP_INPUT_DENORMAL |
+> +				KFD_DBG_TRAP_MASK_FP_DIVIDE_BY_ZERO |
+> +				KFD_DBG_TRAP_MASK_FP_OVERFLOW |
+> +				KFD_DBG_TRAP_MASK_FP_UNDERFLOW |
+> +				KFD_DBG_TRAP_MASK_FP_INEXACT |
+> +				KFD_DBG_TRAP_MASK_INT_DIVIDE_BY_ZERO |
+> +				KFD_DBG_TRAP_MASK_DBG_ADDRESS_WATCH |
+> +				KFD_DBG_TRAP_MASK_DBG_MEMORY_VIOLATION;
 > +
-> +	/* Device or IH ring is not ready so bail. */
-> +	ret = amdgpu_ih_wait_on_checkpoint_process_ts(adev, &adev->irq.ih);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Send payload to fence KFD interrupts */
-> +	amdgpu_amdkfd_interrupt(adev, payload);
+> +	if (trap_override != KFD_DBG_TRAP_OVERRIDE_OR &&
+> +			trap_override != KFD_DBG_TRAP_OVERRIDE_REPLACE)
+> +		return -EPERM;
 > +
 > +	return 0;
 > +}
 > +
->   bool amdgpu_amdkfd_ras_query_utcl2_poison_status(struct amdgpu_device *adev)
->   {
->   	if (adev->gfx.ras && adev->gfx.ras->query_utcl2_poison_status)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index 94cc456761e5..dd740e64e6e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -250,6 +250,8 @@ int amdgpu_amdkfd_get_xgmi_bandwidth_mbytes(struct amdgpu_device *dst,
->   					    struct amdgpu_device *src,
->   					    bool is_min);
->   int amdgpu_amdkfd_get_pcie_bandwidth_mbytes(struct amdgpu_device *adev, bool is_min);
-> +int amdgpu_amdkfd_send_close_event_drain_irq(struct amdgpu_device *adev,
-> +					uint32_t *payload);
->   
->   /* Read user wptr from a specified user address space with page fault
->    * disabled. The memory must be pinned and mapped to the hardware when
-> diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile b/drivers/gpu/drm/amd/amdkfd/Makefile
-> index 747754428073..2ec8f27c5366 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/Makefile
-> +++ b/drivers/gpu/drm/amd/amdkfd/Makefile
-> @@ -53,6 +53,7 @@ AMDKFD_FILES	:= $(AMDKFD_PATH)/kfd_module.o \
->   		$(AMDKFD_PATH)/kfd_events.o \
->   		$(AMDKFD_PATH)/cik_event_interrupt.o \
->   		$(AMDKFD_PATH)/kfd_int_process_v9.o \
-> +		$(AMDKFD_PATH)/kfd_int_process_v10.o \
->   		$(AMDKFD_PATH)/kfd_int_process_v11.o \
->   		$(AMDKFD_PATH)/kfd_smi_events.o \
->   		$(AMDKFD_PATH)/kfd_crat.o \
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> index 17e8e9edccbf..68b657398d41 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> @@ -125,6 +125,64 @@ bool kfd_dbg_ev_raise(uint64_t event_mask,
->   	return is_subscribed;
->   }
->   
-> +/* set pending event queue entry from ring entry  */
-> +bool kfd_set_dbg_ev_from_interrupt(struct kfd_node *dev,
-> +				   unsigned int pasid,
-> +				   uint32_t doorbell_id,
-> +				   uint64_t trap_mask,
-> +				   void *exception_data,
-> +				   size_t exception_data_size)
+> +/* returns TRAP_EN, EXCP_EN and EXCP_RPLACE. */
+> +static uint32_t kgd_aldebaran_set_wave_launch_trap_override(struct amdgpu_device *adev,
+> +					uint32_t vmid,
+> +					uint32_t trap_override,
+> +					uint32_t trap_mask_bits,
+> +					uint32_t trap_mask_request,
+> +					uint32_t *trap_mask_prev,
+> +					uint32_t kfd_dbg_trap_cntl_prev)
+> +
 > +{
-> +	struct kfd_process *p;
-> +	bool signaled_to_debugger_or_runtime = false;
+> +	uint32_t data = 0;
 > +
-> +	p = kfd_lookup_process_by_pasid(pasid);
+> +	*trap_mask_prev = REG_GET_FIELD(kfd_dbg_trap_cntl_prev, SPI_GDBG_PER_VMID_CNTL, EXCP_EN);
+> +	trap_mask_bits = (trap_mask_bits & trap_mask_request) |
+> +		(*trap_mask_prev & ~trap_mask_request);
 > +
-> +	if (!p)
-> +		return false;
+> +	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, TRAP_EN, 1);
+> +	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, EXCP_EN, trap_mask_bits);
+> +	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, EXCP_REPLACE, trap_override);
 > +
-> +	if (!kfd_dbg_ev_raise(trap_mask, p, dev, doorbell_id, true,
-> +			      exception_data, exception_data_size)) {
-> +		struct process_queue_manager *pqm;
-> +		struct process_queue_node *pqn;
-> +
-> +		if (!!(trap_mask & KFD_EC_MASK_QUEUE) &&
-> +		       p->runtime_info.runtime_state == DEBUG_RUNTIME_STATE_ENABLED) {
-> +			mutex_lock(&p->mutex);
-> +
-> +			pqm = &p->pqm;
-> +			list_for_each_entry(pqn, &pqm->queues,
-> +							process_queue_list) {
-> +
-> +				if (!(pqn->q && pqn->q->device == dev &&
-> +				      pqn->q->doorbell_id == doorbell_id))
-> +					continue;
-> +
-> +				kfd_send_exception_to_runtime(p, pqn->q->properties.queue_id,
-> +							      trap_mask);
-> +
-> +				signaled_to_debugger_or_runtime = true;
-> +
-> +				break;
-> +			}
-> +
-> +			mutex_unlock(&p->mutex);
-> +		} else if (trap_mask & KFD_EC_MASK(EC_DEVICE_MEMORY_VIOLATION)) {
-> +			kfd_dqm_evict_pasid(dev->dqm, p->pasid);
-> +			kfd_signal_vm_fault_event(dev, p->pasid, NULL,
-> +							exception_data);
-> +
-> +			signaled_to_debugger_or_runtime = true;
-> +		}
-> +	} else {
-> +		signaled_to_debugger_or_runtime = true;
-> +	}
-> +
-> +	kfd_unref_process(p);
-> +
-> +	return signaled_to_debugger_or_runtime;
+> +	return data;
 > +}
 > +
->   int kfd_dbg_send_exception_to_runtime(struct kfd_process *p,
->   					unsigned int dev_id,
->   					unsigned int queue_id,
-> @@ -281,6 +339,31 @@ void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind
->   	kfd_dbg_set_workaround(target, false);
+>   const struct kfd2kgd_calls aldebaran_kfd2kgd = {
+>   	.program_sh_mem_settings = kgd_gfx_v9_program_sh_mem_settings,
+>   	.set_pasid_vmid_mapping = kgd_gfx_v9_set_pasid_vmid_mapping,
+> @@ -82,6 +127,8 @@ const struct kfd2kgd_calls aldebaran_kfd2kgd = {
+>   	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
+>   	.enable_debug_trap = kgd_aldebaran_enable_debug_trap,
+>   	.disable_debug_trap = kgd_aldebaran_disable_debug_trap,
+> +	.validate_trap_override_request = kgd_aldebaran_validate_trap_override_request,
+> +	.set_wave_launch_trap_override = kgd_aldebaran_set_wave_launch_trap_override,
+>   	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
+>   	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
+>   	.program_trap_handler_settings = kgd_gfx_v9_program_trap_handler_settings,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> index a62bd0068515..ec2587664001 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
+> @@ -410,6 +410,8 @@ const struct kfd2kgd_calls arcturus_kfd2kgd = {
+>   				kgd_gfx_v9_set_vm_context_page_table_base,
+>   	.enable_debug_trap = kgd_arcturus_enable_debug_trap,
+>   	.disable_debug_trap = kgd_arcturus_disable_debug_trap,
+> +	.validate_trap_override_request = kgd_gfx_v9_validate_trap_override_request,
+> +	.set_wave_launch_trap_override = kgd_gfx_v9_set_wave_launch_trap_override,
+>   	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
+>   	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
+>   	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> index 98006c7021dd..7ea0362dcab3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+> @@ -32,6 +32,7 @@
+>   #include "v10_structs.h"
+>   #include "nv.h"
+>   #include "nvd.h"
+> +#include <uapi/linux/kfd_ioctl.h>
+>   
+>   enum hqd_dequeue_request_type {
+>   	NO_ACTION = 0,
+> @@ -803,6 +804,58 @@ uint32_t kgd_gfx_v10_disable_debug_trap(struct amdgpu_device *adev,
+>   	return 0;
 >   }
 >   
-> +static void kfd_dbg_clean_exception_status(struct kfd_process *target)
+> +int kgd_gfx_v10_validate_trap_override_request(struct amdgpu_device *adev,
+> +					      uint32_t trap_override,
+> +					      uint32_t *trap_mask_supported)
 > +{
-> +	struct process_queue_manager *pqm;
-> +	struct process_queue_node *pqn;
-> +	int i;
+> +	*trap_mask_supported &= KFD_DBG_TRAP_MASK_DBG_ADDRESS_WATCH;
+> +
+> +	/* The SPI_GDBG_TRAP_MASK register is global and affects all
+> +	 * processes. Only allow OR-ing the address-watch bit, since
+> +	 * this only affects processes under the debugger. Other bits
+> +	 * should stay 0 to avoid the debugger interfering with other
+> +	 * processes.
+> +	 */
+> +	if (trap_override != KFD_DBG_TRAP_OVERRIDE_OR)
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+> +uint32_t kgd_gfx_v10_set_wave_launch_trap_override(struct amdgpu_device *adev,
+> +					      uint32_t vmid,
+> +					      uint32_t trap_override,
+> +					      uint32_t trap_mask_bits,
+> +					      uint32_t trap_mask_request,
+> +					      uint32_t *trap_mask_prev,
+> +					      uint32_t kfd_dbg_trap_cntl_prev)
+> +{
+> +	uint32_t data, wave_cntl_prev;
+> +
+> +	mutex_lock(&adev->grbm_idx_mutex);
+> +
+> +	wave_cntl_prev = RREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL));
+> +
+> +	kgd_gfx_v10_set_wave_launch_stall(adev, vmid, true);
+> +
+> +	data = RREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK));
+> +	*trap_mask_prev = REG_GET_FIELD(data, SPI_GDBG_TRAP_MASK, EXCP_EN);
+> +
+> +	trap_mask_bits = (trap_mask_bits & trap_mask_request) |
+> +		(*trap_mask_prev & ~trap_mask_request);
+> +
+> +	data = REG_SET_FIELD(data, SPI_GDBG_TRAP_MASK, EXCP_EN, trap_mask_bits);
+> +	data = REG_SET_FIELD(data, SPI_GDBG_TRAP_MASK, REPLACE, trap_override);
+> +	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), data);
+> +
+> +	/* We need to preserve wave launch mode stall settings. */
+> +	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL), wave_cntl_prev);
+> +
+> +	mutex_unlock(&adev->grbm_idx_mutex);
+> +
+> +	return 0;
+> +}
+> +
+>   /* kgd_gfx_v10_get_iq_wait_times: Returns the mmCP_IQ_WAIT_TIME1/2 values
+>    * The values read are:
+>    *     ib_offload_wait_time     -- Wait Count for Indirect Buffer Offloads.
+> @@ -889,6 +942,8 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
+>   	.set_vm_context_page_table_base = set_vm_context_page_table_base,
+>   	.enable_debug_trap = kgd_gfx_v10_enable_debug_trap,
+>   	.disable_debug_trap = kgd_gfx_v10_disable_debug_trap,
+> +	.validate_trap_override_request = kgd_gfx_v10_validate_trap_override_request,
+> +	.set_wave_launch_trap_override = kgd_gfx_v10_set_wave_launch_trap_override,
+>   	.get_iq_wait_times = kgd_gfx_v10_get_iq_wait_times,
+>   	.build_grace_period_packet_info = kgd_gfx_v10_build_grace_period_packet_info,
+>   	.program_trap_handler_settings = program_trap_handler_settings,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+> index 1e993a213646..57339fa12807 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+> @@ -26,6 +26,16 @@ uint32_t kgd_gfx_v10_enable_debug_trap(struct amdgpu_device *adev,
+>   uint32_t kgd_gfx_v10_disable_debug_trap(struct amdgpu_device *adev,
+>   					bool keep_trap_enabled,
+>   					uint32_t vmid);
+> +int kgd_gfx_v10_validate_trap_override_request(struct amdgpu_device *adev,
+> +					     uint32_t trap_override,
+> +					     uint32_t *trap_mask_supported);
+> +uint32_t kgd_gfx_v10_set_wave_launch_trap_override(struct amdgpu_device *adev,
+> +					     uint32_t vmid,
+> +					     uint32_t trap_override,
+> +					     uint32_t trap_mask_bits,
+> +					     uint32_t trap_mask_request,
+> +					     uint32_t *trap_mask_prev,
+> +					     uint32_t kfd_dbg_trap_cntl_prev);
+>   void kgd_gfx_v10_get_iq_wait_times(struct amdgpu_device *adev, uint32_t *wait_times);
+>   void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *adev,
+>   					       uint32_t wait_times,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+> index 387bdf4823c9..7120927fed15 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+> @@ -675,5 +675,8 @@ const struct kfd2kgd_calls gfx_v10_3_kfd2kgd = {
+>   	.get_iq_wait_times = kgd_gfx_v10_get_iq_wait_times,
+>   	.build_grace_period_packet_info = kgd_gfx_v10_build_grace_period_packet_info,
+>   	.enable_debug_trap = kgd_gfx_v10_enable_debug_trap,
+> -	.disable_debug_trap = kgd_gfx_v10_disable_debug_trap
+> +	.disable_debug_trap = kgd_gfx_v10_disable_debug_trap,
+> +	.validate_trap_override_request = kgd_gfx_v10_validate_trap_override_request,
+> +	.set_wave_launch_trap_override = kgd_gfx_v10_set_wave_launch_trap_override
+> +
+>   };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
+> index cc954cf248ca..ae0c4707919f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
+> @@ -30,6 +30,7 @@
+>   #include "soc15d.h"
+>   #include "v11_structs.h"
+>   #include "soc21.h"
+> +#include <uapi/linux/kfd_ioctl.h>
+>   
+>   enum hqd_dequeue_request_type {
+>   	NO_ACTION = 0,
+> @@ -643,6 +644,88 @@ static uint32_t kgd_gfx_v11_disable_debug_trap(struct amdgpu_device *adev,
+>   	return data;
+>   }
+>   
+> +static int kgd_gfx_v11_validate_trap_override_request(struct amdgpu_device *adev,
+> +							uint32_t trap_override,
+> +							uint32_t *trap_mask_supported)
+> +{
+> +	*trap_mask_supported &= KFD_DBG_TRAP_MASK_FP_INVALID |
+> +				KFD_DBG_TRAP_MASK_FP_INPUT_DENORMAL |
+> +				KFD_DBG_TRAP_MASK_FP_DIVIDE_BY_ZERO |
+> +				KFD_DBG_TRAP_MASK_FP_OVERFLOW |
+> +				KFD_DBG_TRAP_MASK_FP_UNDERFLOW |
+> +				KFD_DBG_TRAP_MASK_FP_INEXACT |
+> +				KFD_DBG_TRAP_MASK_INT_DIVIDE_BY_ZERO |
+> +				KFD_DBG_TRAP_MASK_DBG_ADDRESS_WATCH |
+> +				KFD_DBG_TRAP_MASK_DBG_MEMORY_VIOLATION;
+> +
+> +	if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(11, 0, 4))
+> +		*trap_mask_supported |= KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_START |
+> +					KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_END;
+> +
+> +	if (trap_override != KFD_DBG_TRAP_OVERRIDE_OR &&
+> +			trap_override != KFD_DBG_TRAP_OVERRIDE_REPLACE)
+> +		return -EPERM;
+> +
+> +	return 0;
+> +}
+> +
+> +static uint32_t trap_mask_map_sw_to_hw(uint32_t mask)
+> +{
+> +	uint32_t trap_on_start = (mask & KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_START) ? 1 : 0;
+> +	uint32_t trap_on_end = (mask & KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_END) ? 1 : 0;
+> +	uint32_t excp_en = mask & (KFD_DBG_TRAP_MASK_FP_INVALID |
+> +			KFD_DBG_TRAP_MASK_FP_INPUT_DENORMAL |
+> +			KFD_DBG_TRAP_MASK_FP_DIVIDE_BY_ZERO |
+> +			KFD_DBG_TRAP_MASK_FP_OVERFLOW |
+> +			KFD_DBG_TRAP_MASK_FP_UNDERFLOW |
+> +			KFD_DBG_TRAP_MASK_FP_INEXACT |
+> +			KFD_DBG_TRAP_MASK_INT_DIVIDE_BY_ZERO |
+> +			KFD_DBG_TRAP_MASK_DBG_ADDRESS_WATCH |
+> +			KFD_DBG_TRAP_MASK_DBG_MEMORY_VIOLATION);
+> +	uint32_t ret;
+> +
+> +	ret = REG_SET_FIELD(0, SPI_GDBG_PER_VMID_CNTL, EXCP_EN, excp_en);
+> +	ret = REG_SET_FIELD(ret, SPI_GDBG_PER_VMID_CNTL, TRAP_ON_START, trap_on_start);
+> +	ret = REG_SET_FIELD(ret, SPI_GDBG_PER_VMID_CNTL, TRAP_ON_END, trap_on_end);
+> +
+> +	return ret;
+> +}
+> +
+> +static uint32_t trap_mask_map_hw_to_sw(uint32_t mask)
+> +{
+> +	uint32_t ret = REG_GET_FIELD(mask, SPI_GDBG_PER_VMID_CNTL, EXCP_EN);
+> +
+> +	if (REG_GET_FIELD(mask, SPI_GDBG_PER_VMID_CNTL, TRAP_ON_START))
+> +		ret |= KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_START;
+> +
+> +	if (REG_GET_FIELD(mask, SPI_GDBG_PER_VMID_CNTL, TRAP_ON_END))
+> +		ret |= KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_END;
+> +
+> +	return ret;
+> +}
+> +
+> +/* Returns TRAP_EN, EXCP_EN and EXCP_REPLACE. */
+> +static uint32_t kgd_gfx_v11_set_wave_launch_trap_override(struct amdgpu_device *adev,
+> +					uint32_t vmid,
+> +					uint32_t trap_override,
+> +					uint32_t trap_mask_bits,
+> +					uint32_t trap_mask_request,
+> +					uint32_t *trap_mask_prev,
+> +					uint32_t kfd_dbg_trap_cntl_prev)
+> +{
+> +	uint32_t data = 0;
+> +
+> +	*trap_mask_prev = trap_mask_map_hw_to_sw(kfd_dbg_trap_cntl_prev);
+> +
+> +	data = (trap_mask_bits & trap_mask_request) | (*trap_mask_prev & ~trap_mask_request);
+> +	data = trap_mask_map_sw_to_hw(data);
+> +
+> +	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, TRAP_EN, 1);
+> +	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, EXCP_REPLACE, trap_override);
+> +
+> +	return data;
+> +}
+> +
+>   const struct kfd2kgd_calls gfx_v11_kfd2kgd = {
+>   	.program_sh_mem_settings = program_sh_mem_settings_v11,
+>   	.set_pasid_vmid_mapping = set_pasid_vmid_mapping_v11,
+> @@ -660,5 +743,7 @@ const struct kfd2kgd_calls gfx_v11_kfd2kgd = {
+>   	.get_atc_vmid_pasid_mapping_info = NULL,
+>   	.set_vm_context_page_table_base = set_vm_context_page_table_base_v11,
+>   	.enable_debug_trap = kgd_gfx_v11_enable_debug_trap,
+> -	.disable_debug_trap = kgd_gfx_v11_disable_debug_trap
+> +	.disable_debug_trap = kgd_gfx_v11_disable_debug_trap,
+> +	.validate_trap_override_request = kgd_gfx_v11_validate_trap_override_request,
+> +	.set_wave_launch_trap_override = kgd_gfx_v11_set_wave_launch_trap_override
+>   };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> index 4a155d11b8c8..705669c26a1a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> @@ -38,6 +38,7 @@
+>   #include "soc15d.h"
+>   #include "gfx_v9_0.h"
+>   #include "amdgpu_amdkfd_gfx_v9.h"
+> +#include <uapi/linux/kfd_ioctl.h>
+>   
+>   enum hqd_dequeue_request_type {
+>   	NO_ACTION = 0,
+> @@ -739,6 +740,58 @@ uint32_t kgd_gfx_v9_disable_debug_trap(struct amdgpu_device *adev,
+>   	return 0;
+>   }
+>   
+> +int kgd_gfx_v9_validate_trap_override_request(struct amdgpu_device *adev,
+> +					uint32_t trap_override,
+> +					uint32_t *trap_mask_supported)
+> +{
+> +	*trap_mask_supported &= KFD_DBG_TRAP_MASK_DBG_ADDRESS_WATCH;
+> +
+> +	/* The SPI_GDBG_TRAP_MASK register is global and affects all
+> +	 * processes. Only allow OR-ing the address-watch bit, since
+> +	 * this only affects processes under the debugger. Other bits
+> +	 * should stay 0 to avoid the debugger interfering with other
+> +	 * processes.
+> +	 */
+> +	if (trap_override != KFD_DBG_TRAP_OVERRIDE_OR)
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+> +uint32_t kgd_gfx_v9_set_wave_launch_trap_override(struct amdgpu_device *adev,
+> +					     uint32_t vmid,
+> +					     uint32_t trap_override,
+> +					     uint32_t trap_mask_bits,
+> +					     uint32_t trap_mask_request,
+> +					     uint32_t *trap_mask_prev,
+> +					     uint32_t kfd_dbg_cntl_prev)
+> +{
+> +	uint32_t data, wave_cntl_prev;
+> +
+> +	mutex_lock(&adev->grbm_idx_mutex);
+> +
+> +	wave_cntl_prev = RREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL));
+> +
+> +	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
+> +
+> +	data = RREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK));
+> +	*trap_mask_prev = REG_GET_FIELD(data, SPI_GDBG_TRAP_MASK, EXCP_EN);
+> +
+> +	trap_mask_bits = (trap_mask_bits & trap_mask_request) |
+> +		(*trap_mask_prev & ~trap_mask_request);
+> +
+> +	data = REG_SET_FIELD(data, SPI_GDBG_TRAP_MASK, EXCP_EN, trap_mask_bits);
+> +	data = REG_SET_FIELD(data, SPI_GDBG_TRAP_MASK, REPLACE, trap_override);
+> +	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), data);
+> +
+> +	/* We need to preserve wave launch mode stall settings. */
+> +	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL), wave_cntl_prev);
+> +
+> +	mutex_unlock(&adev->grbm_idx_mutex);
+> +
+> +	return 0;
+> +}
+> +
+>   /* kgd_gfx_v9_get_iq_wait_times: Returns the mmCP_IQ_WAIT_TIME1/2 values
+>    * The values read are:
+>    *     ib_offload_wait_time     -- Wait Count for Indirect Buffer Offloads.
+> @@ -1008,6 +1061,8 @@ const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
+>   	.set_vm_context_page_table_base = kgd_gfx_v9_set_vm_context_page_table_base,
+>   	.enable_debug_trap = kgd_gfx_v9_enable_debug_trap,
+>   	.disable_debug_trap = kgd_gfx_v9_disable_debug_trap,
+> +	.validate_trap_override_request = kgd_gfx_v9_validate_trap_override_request,
+> +	.set_wave_launch_trap_override = kgd_gfx_v9_set_wave_launch_trap_override,
+>   	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
+>   	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
+>   	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> index fed5b7f18b1a..76812ddd35b1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> @@ -71,6 +71,16 @@ uint32_t kgd_gfx_v9_enable_debug_trap(struct amdgpu_device *adev,
+>   uint32_t kgd_gfx_v9_disable_debug_trap(struct amdgpu_device *adev,
+>   					bool keep_trap_enabled,
+>   					uint32_t vmid);
+> +int kgd_gfx_v9_validate_trap_override_request(struct amdgpu_device *adev,
+> +					     uint32_t trap_override,
+> +					     uint32_t *trap_mask_supported);
+> +uint32_t kgd_gfx_v9_set_wave_launch_trap_override(struct amdgpu_device *adev,
+> +					     uint32_t vmid,
+> +					     uint32_t trap_override,
+> +					     uint32_t trap_mask_bits,
+> +					     uint32_t trap_mask_request,
+> +					     uint32_t *trap_mask_prev,
+> +					     uint32_t kfd_dbg_trap_cntl_prev);
+>   void kgd_gfx_v9_get_iq_wait_times(struct amdgpu_device *adev, uint32_t *wait_times);
+>   void kgd_gfx_v9_build_grace_period_packet_info(struct amdgpu_device *adev,
+>   					       uint32_t wait_times,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 80d354eade35..e78103097162 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -2984,6 +2984,13 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
+>   				args->set_exceptions_enabled.exception_mask);
+>   		break;
+>   	case KFD_IOC_DBG_TRAP_SET_WAVE_LAUNCH_OVERRIDE:
+> +		r = kfd_dbg_trap_set_wave_launch_override(target,
+> +				args->launch_override.override_mode,
+> +				args->launch_override.enable_mask,
+> +				args->launch_override.support_request_mask,
+> +				&args->launch_override.enable_mask,
+> +				&args->launch_override.support_request_mask);
+> +		break;
+>   	case KFD_IOC_DBG_TRAP_SET_WAVE_LAUNCH_MODE:
+>   	case KFD_IOC_DBG_TRAP_SUSPEND_QUEUES:
+>   	case KFD_IOC_DBG_TRAP_RESUME_QUEUES:
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> index 48a4e3cc2234..733390fb2459 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> @@ -522,6 +522,75 @@ int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
+>   	return r;
+>   }
+>   
+> +static int kfd_dbg_validate_trap_override_request(struct kfd_process *p,
+> +						uint32_t trap_override,
+> +						uint32_t trap_mask_request,
+> +						uint32_t *trap_mask_supported)
+> +{
+> +	int i = 0;
+> +
+> +	*trap_mask_supported = 0xffffffff;
+> +
+> +	for (i = 0; i < p->n_pdds; i++) {
+> +		struct kfd_process_device *pdd = p->pdds[i];
+> +		int err = pdd->dev->kfd2kgd->validate_trap_override_request(
+> +								pdd->dev->adev,
+> +								trap_override,
+> +								trap_mask_supported);
+> +
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	if (trap_mask_request & ~*trap_mask_supported)
+> +		return -EACCES;
+> +
+> +	return 0;
+> +}
+> +
+> +int kfd_dbg_trap_set_wave_launch_override(struct kfd_process *target,
+> +					uint32_t trap_override,
+> +					uint32_t trap_mask_bits,
+> +					uint32_t trap_mask_request,
+> +					uint32_t *trap_mask_prev,
+> +					uint32_t *trap_mask_supported)
+> +{
+> +	int r = 0, i;
+> +
+> +	r = kfd_dbg_validate_trap_override_request(target,
+> +						trap_override,
+> +						trap_mask_request,
+> +						trap_mask_supported);
+> +
+> +	if (r)
+> +		return r;
 > +
 > +	for (i = 0; i < target->n_pdds; i++) {
 > +		struct kfd_process_device *pdd = target->pdds[i];
 > +
-> +		kfd_process_drain_interrupts(pdd);
+> +		amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
+> +		pdd->spi_dbg_override = pdd->dev->kfd2kgd->set_wave_launch_trap_override(
+> +				pdd->dev->adev,
+> +				pdd->dev->vm_info.last_vmid_kfd,
+> +				trap_override,
+> +				trap_mask_bits,
+> +				trap_mask_request,
+> +				trap_mask_prev,
+> +				pdd->spi_dbg_override);
+> +		amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
 > +
-> +		pdd->exception_status = 0;
+> +		if (!pdd->dev->kfd->shared_resources.enable_mes)
+> +			r = debug_refresh_runlist(pdd->dev->dqm);
+> +		else
+> +			r = kfd_dbg_set_mes_debug_mode(pdd);
+> +
+> +		if (r)
+> +			break;
 > +	}
-> +
-> +	pqm = &target->pqm;
-> +	list_for_each_entry(pqn, &pqm->queues, process_queue_list) {
-> +		if (!pqn->q)
-> +			continue;
-> +
-> +		pqn->q->properties.exception_status = 0;
-> +	}
-> +
-> +	target->exception_status = 0;
-> +}
-> +
->   int kfd_dbg_trap_disable(struct kfd_process *target)
->   {
->   	if (!target->debug_trap_enabled)
-> @@ -304,6 +387,7 @@ int kfd_dbg_trap_disable(struct kfd_process *target)
->   	}
->   
->   	target->debug_trap_enabled = false;
-> +	kfd_dbg_clean_exception_status(target);
->   	kfd_unref_process(target);
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-> index fca928564948..5153ccbd7fd1 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-> @@ -27,6 +27,12 @@
->   
->   void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind_count);
->   int kfd_dbg_trap_activate(struct kfd_process *target);
-> +bool kfd_set_dbg_ev_from_interrupt(struct kfd_node *dev,
-> +				   unsigned int pasid,
-> +				   uint32_t doorbell_id,
-> +				   uint64_t trap_mask,
-> +				   void *exception_data,
-> +				   size_t exception_data_size);
->   bool kfd_dbg_ev_raise(uint64_t event_mask,
->   			struct kfd_process *process, struct kfd_node *dev,
->   			unsigned int source_id, bool use_worker,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index 862a50f7b490..1eb57a4798f4 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -140,6 +140,8 @@ static void kfd_device_info_set_event_interrupt_class(struct kfd_dev *kfd)
->   	case IP_VERSION(9, 4, 1): /* ARCTURUS */
->   	case IP_VERSION(9, 4, 2): /* ALDEBARAN */
->   	case IP_VERSION(9, 4, 3): /* GC 9.4.3 */
-> +		kfd->device_info.event_interrupt_class = &event_interrupt_class_v9;
-> +		break;
->   	case IP_VERSION(10, 3, 1): /* VANGOGH */
->   	case IP_VERSION(10, 3, 3): /* YELLOW_CARP */
->   	case IP_VERSION(10, 3, 6): /* GC 10.3.6 */
-> @@ -153,7 +155,7 @@ static void kfd_device_info_set_event_interrupt_class(struct kfd_dev *kfd)
->   	case IP_VERSION(10, 3, 2): /* NAVY_FLOUNDER */
->   	case IP_VERSION(10, 3, 4): /* DIMGREY_CAVEFISH */
->   	case IP_VERSION(10, 3, 5): /* BEIGE_GOBY */
-> -		kfd->device_info.event_interrupt_class = &event_interrupt_class_v9;
-> +		kfd->device_info.event_interrupt_class = &event_interrupt_class_v10;
->   		break;
->   	case IP_VERSION(11, 0, 0):
->   	case IP_VERSION(11, 0, 1):
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-> new file mode 100644
-> index 000000000000..c7991e07b6be
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v10.c
-> @@ -0,0 +1,405 @@
-> +/*
-> + * Copyright 2023 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + */
-> +
-> +#include "kfd_events.h"
-> +#include "kfd_debug.h"
-> +#include "soc15_int.h"
-> +#include "kfd_device_queue_manager.h"
-> +
-> +/*
-> + * GFX10 SQ Interrupts
-> + *
-> + * There are 3 encoding types of interrupts sourced from SQ sent as a 44-bit
-> + * packet to the Interrupt Handler:
-> + * Auto - Generated by the SQG (various cmd overflows, timestamps etc)
-> + * Wave - Generated by S_SENDMSG through a shader program
-> + * Error - HW generated errors (Illegal instructions, Memviols, EDC etc)
-> + *
-> + * The 44-bit packet is mapped as {context_id1[7:0],context_id0[31:0]} plus
-> + * 4-bits for VMID (SOC15_VMID_FROM_IH_ENTRY) as such:
-> + *
-> + * - context_id1[7:6]
-> + * Encoding type (0 = Auto, 1 = Wave, 2 = Error)
-> + *
-> + * - context_id0[24]
-> + * PRIV bit indicates that Wave S_SEND or error occurred within trap
-> + *
-> + * - context_id0[22:0]
-> + * 23-bit data with the following layout per encoding type:
-> + * Auto - only context_id0[8:0] is used, which reports various interrupts
-> + * generated by SQG.  The rest is 0.
-> + * Wave - user data sent from m0 via S_SENDMSG
-> + * Error - Error type (context_id0[22:19]), Error Details (rest of bits)
-> + *
-> + * The other context_id bits show coordinates (SE/SH/CU/SIMD/WGP) for wave
-> + * S_SENDMSG and Errors.  These are 0 for Auto.
-> + */
-> +
-> +enum SQ_INTERRUPT_WORD_ENCODING {
-> +	SQ_INTERRUPT_WORD_ENCODING_AUTO = 0x0,
-> +	SQ_INTERRUPT_WORD_ENCODING_INST,
-> +	SQ_INTERRUPT_WORD_ENCODING_ERROR,
-> +};
-> +
-> +enum SQ_INTERRUPT_ERROR_TYPE {
-> +	SQ_INTERRUPT_ERROR_TYPE_EDC_FUE = 0x0,
-> +	SQ_INTERRUPT_ERROR_TYPE_ILLEGAL_INST,
-> +	SQ_INTERRUPT_ERROR_TYPE_MEMVIOL,
-> +	SQ_INTERRUPT_ERROR_TYPE_EDC_FED,
-> +};
-> +
-> +/* SQ_INTERRUPT_WORD_AUTO_CTXID */
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID0__THREAD_TRACE__SHIFT 0
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID0__WLT__SHIFT 1
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID0__THREAD_TRACE_BUF0_FULL__SHIFT 2
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID0__THREAD_TRACE_BUF1_FULL__SHIFT 3
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID0__THREAD_TRACE_UTC_ERROR__SHIFT 7
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID1__SE_ID__SHIFT 4
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID1__ENCODING__SHIFT 6
-> +
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID0__THREAD_TRACE_MASK 0x00000001
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID0__WLT_MASK 0x00000002
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID0__THREAD_TRACE_BUF0_FULL_MASK 0x00000004
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID0__THREAD_TRACE_BUF1_FULL_MASK 0x00000008
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID0__THREAD_TRACE_UTC_ERROR_MASK 0x00000080
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID1__SE_ID_MASK 0x030
-> +#define SQ_INTERRUPT_WORD_AUTO_CTXID1__ENCODING_MASK 0x0c0
-> +
-> +/* SQ_INTERRUPT_WORD_WAVE_CTXID */
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID0__DATA__SHIFT 0
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID0__SA_ID__SHIFT 23
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID0__PRIV__SHIFT 24
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID0__WAVE_ID__SHIFT 25
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID0__SIMD_ID__SHIFT 30
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID1__WGP_ID__SHIFT 0
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID1__SE_ID__SHIFT 4
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID1__ENCODING__SHIFT 6
-> +
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID0__DATA_MASK 0x000007fffff
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID0__SA_ID_MASK 0x0000800000
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID0__PRIV_MASK 0x00001000000
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID0__WAVE_ID_MASK 0x0003e000000
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID0__SIMD_ID_MASK 0x000c0000000
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID1__WGP_ID_MASK 0x00f
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID1__SE_ID_MASK 0x030
-> +#define SQ_INTERRUPT_WORD_WAVE_CTXID1__ENCODING_MASK 0x0c0
-> +
-> +#define KFD_CTXID0__ERR_TYPE_MASK 0x780000
-> +#define KFD_CTXID0__ERR_TYPE__SHIFT 19
-> +
-> +/* GFX10 SQ interrupt ENC type bit (context_id1[7:6]) for wave s_sendmsg */
-> +#define KFD_CONTEXT_ID1_ENC_TYPE_WAVE_MASK	0x40
-> +/* GFX10 SQ interrupt PRIV bit (context_id0[24]) for s_sendmsg inside trap */
-> +#define KFD_CONTEXT_ID0_PRIV_MASK		0x1000000
-> +/*
-> + * The debugger will send user data(m0) with PRIV=1 to indicate it requires
-> + * notification from the KFD with the following queue id (DOORBELL_ID) and
-> + * trap code (TRAP_CODE).
-> + */
-> +#define KFD_CONTEXT_ID0_DEBUG_DOORBELL_MASK	0x0003ff
-> +#define KFD_CONTEXT_ID0_DEBUG_TRAP_CODE_SHIFT	10
-> +#define KFD_CONTEXT_ID0_DEBUG_TRAP_CODE_MASK	0x07fc00
-> +#define KFD_DEBUG_DOORBELL_ID(ctxid0)	((ctxid0) &	\
-> +				KFD_CONTEXT_ID0_DEBUG_DOORBELL_MASK)
-> +#define KFD_DEBUG_TRAP_CODE(ctxid0)	(((ctxid0) &	\
-> +				KFD_CONTEXT_ID0_DEBUG_TRAP_CODE_MASK)	\
-> +				>> KFD_CONTEXT_ID0_DEBUG_TRAP_CODE_SHIFT)
-> +#define KFD_DEBUG_CP_BAD_OP_ECODE_MASK		0x3fffc00
-> +#define KFD_DEBUG_CP_BAD_OP_ECODE_SHIFT		10
-> +#define KFD_DEBUG_CP_BAD_OP_ECODE(ctxid0) (((ctxid0) &			\
-> +				KFD_DEBUG_CP_BAD_OP_ECODE_MASK)		\
-> +				>> KFD_DEBUG_CP_BAD_OP_ECODE_SHIFT)
-> +
-> +static void event_interrupt_poison_consumption(struct kfd_node *dev,
-> +				uint16_t pasid, uint16_t client_id)
-> +{
-> +	int old_poison, ret = -EINVAL;
-> +	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid);
-> +
-> +	if (!p)
-> +		return;
-> +
-> +	/* all queues of a process will be unmapped in one time */
-> +	old_poison = atomic_cmpxchg(&p->poison, 0, 1);
-> +	kfd_unref_process(p);
-> +	if (old_poison)
-> +		return;
-> +
-> +	switch (client_id) {
-> +	case SOC15_IH_CLIENTID_SE0SH:
-> +	case SOC15_IH_CLIENTID_SE1SH:
-> +	case SOC15_IH_CLIENTID_SE2SH:
-> +	case SOC15_IH_CLIENTID_SE3SH:
-> +	case SOC15_IH_CLIENTID_UTCL2:
-> +		ret = kfd_dqm_evict_pasid(dev->dqm, pasid);
-> +		break;
-> +	case SOC15_IH_CLIENTID_SDMA0:
-> +	case SOC15_IH_CLIENTID_SDMA1:
-> +	case SOC15_IH_CLIENTID_SDMA2:
-> +	case SOC15_IH_CLIENTID_SDMA3:
-> +	case SOC15_IH_CLIENTID_SDMA4:
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	kfd_signal_poison_consumed_event(dev, pasid);
-> +
-> +	/* resetting queue passes, do page retirement without gpu reset
-> +	 * resetting queue fails, fallback to gpu reset solution
-> +	 */
-> +	if (!ret) {
-> +		dev_warn(dev->adev->dev,
-> +			"RAS poison consumption, unmap queue flow succeeded: client id %d\n",
-> +			client_id);
-> +		amdgpu_amdkfd_ras_poison_consumption_handler(dev->adev, false);
-> +	} else {
-> +		dev_warn(dev->adev->dev,
-> +			"RAS poison consumption, fall back to gpu reset flow: client id %d\n",
-> +			client_id);
-> +		amdgpu_amdkfd_ras_poison_consumption_handler(dev->adev, true);
-> +	}
-> +}
-> +
-> +static bool event_interrupt_isr_v10(struct kfd_node *dev,
-> +					const uint32_t *ih_ring_entry,
-> +					uint32_t *patched_ihre,
-> +					bool *patched_flag)
-> +{
-> +	uint16_t source_id, client_id, pasid, vmid;
-> +	const uint32_t *data = ih_ring_entry;
-> +
-> +	source_id = SOC15_SOURCE_ID_FROM_IH_ENTRY(ih_ring_entry);
-> +	client_id = SOC15_CLIENT_ID_FROM_IH_ENTRY(ih_ring_entry);
-> +
-> +	/* Only handle interrupts from KFD VMIDs */
-> +	vmid = SOC15_VMID_FROM_IH_ENTRY(ih_ring_entry);
-> +	if (!KFD_IRQ_IS_FENCE(client_id, source_id) &&
-> +	   (vmid < dev->vm_info.first_vmid_kfd ||
-> +	    vmid > dev->vm_info.last_vmid_kfd))
-> +		return false;
-> +
-> +	pasid = SOC15_PASID_FROM_IH_ENTRY(ih_ring_entry);
-> +
-> +	/* Only handle clients we care about */
-> +	if (client_id != SOC15_IH_CLIENTID_GRBM_CP &&
-> +	    client_id != SOC15_IH_CLIENTID_SDMA0 &&
-> +	    client_id != SOC15_IH_CLIENTID_SDMA1 &&
-> +	    client_id != SOC15_IH_CLIENTID_SDMA2 &&
-> +	    client_id != SOC15_IH_CLIENTID_SDMA3 &&
-> +	    client_id != SOC15_IH_CLIENTID_SDMA4 &&
-> +	    client_id != SOC15_IH_CLIENTID_SDMA5 &&
-> +	    client_id != SOC15_IH_CLIENTID_SDMA6 &&
-> +	    client_id != SOC15_IH_CLIENTID_SDMA7 &&
-> +	    client_id != SOC15_IH_CLIENTID_VMC &&
-> +	    client_id != SOC15_IH_CLIENTID_VMC1 &&
-> +	    client_id != SOC15_IH_CLIENTID_UTCL2 &&
-> +	    client_id != SOC15_IH_CLIENTID_SE0SH &&
-> +	    client_id != SOC15_IH_CLIENTID_SE1SH &&
-> +	    client_id != SOC15_IH_CLIENTID_SE2SH &&
-> +	    client_id != SOC15_IH_CLIENTID_SE3SH)
-> +		return false;
-> +
-> +	pr_debug("client id 0x%x, source id %d, vmid %d, pasid 0x%x. raw data:\n",
-> +		 client_id, source_id, vmid, pasid);
-> +	pr_debug("%8X, %8X, %8X, %8X, %8X, %8X, %8X, %8X.\n",
-> +		 data[0], data[1], data[2], data[3],
-> +		 data[4], data[5], data[6], data[7]);
-> +
-> +	/* If there is no valid PASID, it's likely a bug */
-> +	if (WARN_ONCE(pasid == 0, "Bug: No PASID in KFD interrupt"))
-> +		return 0;
-> +
-> +	/* Interrupt types we care about: various signals and faults.
-> +	 * They will be forwarded to a work queue (see below).
-> +	 */
-> +	return source_id == SOC15_INTSRC_CP_END_OF_PIPE ||
-> +		source_id == SOC15_INTSRC_SDMA_TRAP ||
-> +		source_id == SOC15_INTSRC_SQ_INTERRUPT_MSG ||
-> +		source_id == SOC15_INTSRC_CP_BAD_OPCODE ||
-> +		client_id == SOC15_IH_CLIENTID_VMC ||
-> +		client_id == SOC15_IH_CLIENTID_VMC1 ||
-> +		client_id == SOC15_IH_CLIENTID_UTCL2 ||
-> +		KFD_IRQ_IS_FENCE(client_id, source_id);
-> +}
-> +
-> +static void event_interrupt_wq_v10(struct kfd_node *dev,
-> +					const uint32_t *ih_ring_entry)
-> +{
-> +	uint16_t source_id, client_id, pasid, vmid;
-> +	uint32_t context_id0, context_id1;
-> +	uint32_t encoding, sq_intr_err_type;
-> +
-> +	source_id = SOC15_SOURCE_ID_FROM_IH_ENTRY(ih_ring_entry);
-> +	client_id = SOC15_CLIENT_ID_FROM_IH_ENTRY(ih_ring_entry);
-> +	pasid = SOC15_PASID_FROM_IH_ENTRY(ih_ring_entry);
-> +	vmid = SOC15_VMID_FROM_IH_ENTRY(ih_ring_entry);
-> +	context_id0 = SOC15_CONTEXT_ID0_FROM_IH_ENTRY(ih_ring_entry);
-> +	context_id1 = SOC15_CONTEXT_ID1_FROM_IH_ENTRY(ih_ring_entry);
-> +
-> +	if (client_id == SOC15_IH_CLIENTID_GRBM_CP ||
-> +	    client_id == SOC15_IH_CLIENTID_SE0SH ||
-> +	    client_id == SOC15_IH_CLIENTID_SE1SH ||
-> +	    client_id == SOC15_IH_CLIENTID_SE2SH ||
-> +	    client_id == SOC15_IH_CLIENTID_SE3SH) {
-> +		if (source_id == SOC15_INTSRC_CP_END_OF_PIPE)
-> +			kfd_signal_event_interrupt(pasid, context_id0, 32);
-> +		else if (source_id == SOC15_INTSRC_SQ_INTERRUPT_MSG) {
-> +			encoding = REG_GET_FIELD(context_id1,
-> +						SQ_INTERRUPT_WORD_WAVE_CTXID1, ENCODING);
-> +			switch (encoding) {
-> +			case SQ_INTERRUPT_WORD_ENCODING_AUTO:
-> +				pr_debug(
-> +					"sq_intr: auto, se %d, ttrace %d, wlt %d, ttrac_buf0_full %d, ttrac_buf1_full %d, ttrace_utc_err %d\n",
-> +					REG_GET_FIELD(context_id1, SQ_INTERRUPT_WORD_AUTO_CTXID1,
-> +							SE_ID),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-> +							THREAD_TRACE),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-> +							WLT),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-> +							THREAD_TRACE_BUF0_FULL),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-> +							THREAD_TRACE_BUF1_FULL),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_AUTO_CTXID0,
-> +							THREAD_TRACE_UTC_ERROR));
-> +				break;
-> +			case SQ_INTERRUPT_WORD_ENCODING_INST:
-> +				pr_debug("sq_intr: inst, se %d, data 0x%x, sa %d, priv %d, wave_id %d, simd_id %d, wgp_id %d\n",
-> +					REG_GET_FIELD(context_id1, SQ_INTERRUPT_WORD_WAVE_CTXID1,
-> +							SE_ID),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0,
-> +							DATA),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0,
-> +							SA_ID),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0,
-> +							PRIV),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0,
-> +							WAVE_ID),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0,
-> +							SIMD_ID),
-> +					REG_GET_FIELD(context_id1, SQ_INTERRUPT_WORD_WAVE_CTXID1,
-> +							WGP_ID));
-> +				if (context_id0 & SQ_INTERRUPT_WORD_WAVE_CTXID0__PRIV_MASK) {
-> +					if (kfd_set_dbg_ev_from_interrupt(dev, pasid,
-> +							KFD_DEBUG_DOORBELL_ID(context_id0),
-> +							KFD_DEBUG_TRAP_CODE(context_id0),
-> +							NULL, 0))
-> +						return;
-> +				}
-> +				break;
-> +			case SQ_INTERRUPT_WORD_ENCODING_ERROR:
-> +				sq_intr_err_type = REG_GET_FIELD(context_id0, KFD_CTXID0,
-> +								ERR_TYPE);
-> +				pr_warn("sq_intr: error, se %d, data 0x%x, sa %d, priv %d, wave_id %d, simd_id %d, wgp_id %d, err_type %d\n",
-> +					REG_GET_FIELD(context_id1, SQ_INTERRUPT_WORD_WAVE_CTXID1,
-> +							SE_ID),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0,
-> +							DATA),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0,
-> +							SA_ID),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0,
-> +							PRIV),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0,
-> +							WAVE_ID),
-> +					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID0,
-> +							SIMD_ID),
-> +					REG_GET_FIELD(context_id1, SQ_INTERRUPT_WORD_WAVE_CTXID1,
-> +							WGP_ID),
-> +					sq_intr_err_type);
-> +				if (sq_intr_err_type != SQ_INTERRUPT_ERROR_TYPE_ILLEGAL_INST &&
-> +					sq_intr_err_type != SQ_INTERRUPT_ERROR_TYPE_MEMVIOL) {
-> +					event_interrupt_poison_consumption(dev, pasid, source_id);
-> +					return;
-> +				}
-> +				break;
-> +			default:
-> +				break;
-> +			}
-> +			kfd_signal_event_interrupt(pasid, context_id0 & 0x7fffff, 23);
-> +		} else if (source_id == SOC15_INTSRC_CP_BAD_OPCODE) {
-> +			kfd_set_dbg_ev_from_interrupt(dev, pasid,
-> +				KFD_DEBUG_DOORBELL_ID(context_id0),
-> +				KFD_EC_MASK(KFD_DEBUG_CP_BAD_OP_ECODE(context_id0)),
-> +				NULL,
-> +				0);
-> +		}
-> +	} else if (client_id == SOC15_IH_CLIENTID_SDMA0 ||
-> +		   client_id == SOC15_IH_CLIENTID_SDMA1 ||
-> +		   client_id == SOC15_IH_CLIENTID_SDMA2 ||
-> +		   client_id == SOC15_IH_CLIENTID_SDMA3 ||
-> +		   (client_id == SOC15_IH_CLIENTID_SDMA3_Sienna_Cichlid &&
-> +		    KFD_GC_VERSION(dev) == IP_VERSION(10, 3, 0)) ||
-> +		   client_id == SOC15_IH_CLIENTID_SDMA4 ||
-> +		   client_id == SOC15_IH_CLIENTID_SDMA5 ||
-> +		   client_id == SOC15_IH_CLIENTID_SDMA6 ||
-> +		   client_id == SOC15_IH_CLIENTID_SDMA7) {
-> +		if (source_id == SOC15_INTSRC_SDMA_TRAP) {
-> +			kfd_signal_event_interrupt(pasid, context_id0 & 0xfffffff, 28);
-> +		} else if (source_id == SOC15_INTSRC_SDMA_ECC) {
-> +			event_interrupt_poison_consumption(dev, pasid, source_id);
-> +			return;
-> +		}
-> +	} else if (client_id == SOC15_IH_CLIENTID_VMC ||
-> +		   client_id == SOC15_IH_CLIENTID_VMC1 ||
-> +		   client_id == SOC15_IH_CLIENTID_UTCL2) {
-> +		struct kfd_vm_fault_info info = {0};
-> +		uint16_t ring_id = SOC15_RING_ID_FROM_IH_ENTRY(ih_ring_entry);
-> +		struct kfd_hsa_memory_exception_data exception_data;
-> +
-> +		if (client_id == SOC15_IH_CLIENTID_UTCL2 &&
-> +				amdgpu_amdkfd_ras_query_utcl2_poison_status(dev->adev)) {
-> +			event_interrupt_poison_consumption(dev, pasid, client_id);
-> +			return;
-> +		}
-> +
-> +		info.vmid = vmid;
-> +		info.mc_id = client_id;
-> +		info.page_addr = ih_ring_entry[4] |
-> +			(uint64_t)(ih_ring_entry[5] & 0xf) << 32;
-> +		info.prot_valid = ring_id & 0x08;
-> +		info.prot_read  = ring_id & 0x10;
-> +		info.prot_write = ring_id & 0x20;
-> +
-> +		memset(&exception_data, 0, sizeof(exception_data));
-> +		exception_data.gpu_id = dev->id;
-> +		exception_data.va = (info.page_addr) << PAGE_SHIFT;
-> +		exception_data.failure.NotPresent = info.prot_valid ? 1 : 0;
-> +		exception_data.failure.NoExecute = info.prot_exec ? 1 : 0;
-> +		exception_data.failure.ReadOnly = info.prot_write ? 1 : 0;
-> +		exception_data.failure.imprecise = 0;
-> +
-> +		kfd_set_dbg_ev_from_interrupt(dev,
-> +						pasid,
-> +						-1,
-> +						KFD_EC_MASK(EC_DEVICE_MEMORY_VIOLATION),
-> +						&exception_data,
-> +						sizeof(exception_data));
-> +	} else if (KFD_IRQ_IS_FENCE(client_id, source_id)) {
-> +		kfd_process_close_interrupt_drain(pasid);
-> +	}
-> +}
-> +
-> +const struct kfd_event_interrupt_class event_interrupt_class_v10 = {
-> +	.interrupt_isr = event_interrupt_isr_v10,
-> +	.interrupt_wq = event_interrupt_wq_v10,
-> +};
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
-> index 0f0fdea4cd8a..1f92c6c6f181 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
-> @@ -26,6 +26,7 @@
->   #include "kfd_device_queue_manager.h"
->   #include "ivsrcid/vmc/irqsrcs_vmc_1_0.h"
->   #include "kfd_smi_events.h"
-> +#include "kfd_debug.h"
->   
->   /*
->    * GFX11 SQ Interrupts
-> @@ -238,7 +239,7 @@ static bool event_interrupt_isr_v11(struct kfd_node *dev,
->   	client_id = SOC15_CLIENT_ID_FROM_IH_ENTRY(ih_ring_entry);
->   	/* Only handle interrupts from KFD VMIDs */
->   	vmid = SOC15_VMID_FROM_IH_ENTRY(ih_ring_entry);
-> -	if (/*!KFD_IRQ_IS_FENCE(client_id, source_id) &&*/
-> +	if (!KFD_IRQ_IS_FENCE(client_id, source_id) &&
->   	    (vmid < dev->vm_info.first_vmid_kfd ||
->   	    vmid > dev->vm_info.last_vmid_kfd))
->   		return false;
-> @@ -267,7 +268,7 @@ static bool event_interrupt_isr_v11(struct kfd_node *dev,
->   		source_id == SOC15_INTSRC_SQ_INTERRUPT_MSG ||
->   		source_id == SOC15_INTSRC_CP_BAD_OPCODE ||
->   		source_id == SOC21_INTSRC_SDMA_TRAP ||
-> -		/* KFD_IRQ_IS_FENCE(client_id, source_id) || */
-> +		KFD_IRQ_IS_FENCE(client_id, source_id) ||
->   		(((client_id == SOC21_IH_CLIENTID_VMC) ||
->   		 ((client_id == SOC21_IH_CLIENTID_GFX) &&
->   		  (source_id == UTCL2_1_0__SRCID__FAULT))) &&
-> @@ -312,9 +313,9 @@ static void event_interrupt_wq_v11(struct kfd_node *dev,
->   		exception_data.failure.ReadOnly = info.prot_write ? 1 : 0;
->   		exception_data.failure.imprecise = 0;
->   
-> -		/*kfd_set_dbg_ev_from_interrupt(dev, pasid, -1,
-> +		kfd_set_dbg_ev_from_interrupt(dev, pasid, -1,
->   					      KFD_EC_MASK(EC_DEVICE_MEMORY_VIOLATION),
-> -					      &exception_data, sizeof(exception_data));*/
-> +					      &exception_data, sizeof(exception_data));
->   		kfd_smi_event_update_vmfault(dev, pasid);
->   
->   	/* GRBM, SDMA, SE, PMM */
-> @@ -324,11 +325,11 @@ static void event_interrupt_wq_v11(struct kfd_node *dev,
->   		/* CP */
->   		if (source_id == SOC15_INTSRC_CP_END_OF_PIPE)
->   			kfd_signal_event_interrupt(pasid, context_id0, 32);
-> -		/*else if (source_id == SOC15_INTSRC_CP_BAD_OPCODE)
-> +		else if (source_id == SOC15_INTSRC_CP_BAD_OPCODE)
->   			kfd_set_dbg_ev_from_interrupt(dev, pasid,
->   				KFD_CTXID0_DOORBELL_ID(context_id0),
->   				KFD_EC_MASK(KFD_CTXID0_CP_BAD_OP_ECODE(context_id0)),
-> -				NULL, 0);*/
-> +				NULL, 0);
->   
->   		/* SDMA */
->   		else if (source_id == SOC21_INTSRC_SDMA_TRAP)
-> @@ -350,11 +351,11 @@ static void event_interrupt_wq_v11(struct kfd_node *dev,
->   				print_sq_intr_info_inst(context_id0, context_id1);
->   				sq_int_priv = REG_GET_FIELD(context_id0,
->   						SQ_INTERRUPT_WORD_WAVE_CTXID0, PRIV);
-> -				/*if (sq_int_priv && (kfd_set_dbg_ev_from_interrupt(dev, pasid,
-> +				if (sq_int_priv && (kfd_set_dbg_ev_from_interrupt(dev, pasid,
->   						KFD_CTXID0_DOORBELL_ID(context_id0),
->   						KFD_CTXID0_TRAP_CODE(context_id0),
->   						NULL, 0)))
-> -					return;*/
-> +					return;
->   				break;
->   			case SQ_INTERRUPT_WORD_ENCODING_ERROR:
->   				print_sq_intr_info_error(context_id0, context_id1);
-> @@ -373,8 +374,8 @@ static void event_interrupt_wq_v11(struct kfd_node *dev,
->   			kfd_signal_event_interrupt(pasid, context_id0 & 0xffffff, 24);
->   		}
->   
-> -	/*} else if (KFD_IRQ_IS_FENCE(client_id, source_id)) {
-> -		kfd_process_close_interrupt_drain(pasid);*/
-> +	} else if (KFD_IRQ_IS_FENCE(client_id, source_id)) {
-> +		kfd_process_close_interrupt_drain(pasid);
->   	}
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> index 8cf58be80f4e..d5c9f30552e3 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> @@ -23,10 +23,40 @@
->   
->   #include "kfd_priv.h"
->   #include "kfd_events.h"
-> +#include "kfd_debug.h"
->   #include "soc15_int.h"
->   #include "kfd_device_queue_manager.h"
->   #include "kfd_smi_events.h"
->   
-> +/*
-> + * GFX9 SQ Interrupts
-> + *
-> + * There are 3 encoding types of interrupts sourced from SQ sent as a 44-bit
-> + * packet to the Interrupt Handler:
-> + * Auto - Generated by the SQG (various cmd overflows, timestamps etc)
-> + * Wave - Generated by S_SENDMSG through a shader program
-> + * Error - HW generated errors (Illegal instructions, Memviols, EDC etc)
-> + *
-> + * The 44-bit packet is mapped as {context_id1[7:0],context_id0[31:0]} plus
-> + * 4-bits for VMID (SOC15_VMID_FROM_IH_ENTRY) as such:
-> + *
-> + * - context_id0[27:26]
-> + * Encoding type (0 = Auto, 1 = Wave, 2 = Error)
-> + *
-> + * - context_id0[13]
-> + * PRIV bit indicates that Wave S_SEND or error occurred within trap
-> + *
-> + * - {context_id1[7:0],context_id0[31:28],context_id0[11:0]}
-> + * 24-bit data with the following layout per encoding type:
-> + * Auto - only context_id0[8:0] is used, which reports various interrupts
-> + * generated by SQG.  The rest is 0.
-> + * Wave - user data sent from m0 via S_SENDMSG
-> + * Error - Error type (context_id1[7:4]), Error Details (rest of bits)
-> + *
-> + * The other context_id bits show coordinates (SE/SH/CU/SIMD/WAVE) for wave
-> + * S_SENDMSG and Errors.  These are 0 for Auto.
-> + */
-> +
->   enum SQ_INTERRUPT_WORD_ENCODING {
->   	SQ_INTERRUPT_WORD_ENCODING_AUTO = 0x0,
->   	SQ_INTERRUPT_WORD_ENCODING_INST,
-> @@ -84,12 +114,32 @@ enum SQ_INTERRUPT_ERROR_TYPE {
->   #define SQ_INTERRUPT_WORD_WAVE_CTXID__SE_ID_MASK 0x03000000
->   #define SQ_INTERRUPT_WORD_WAVE_CTXID__ENCODING_MASK 0x0c000000
->   
-> +/* GFX9 SQ interrupt 24-bit data from context_id<0,1> */
->   #define KFD_CONTEXT_ID_GET_SQ_INT_DATA(ctx0, ctx1)                             \
->   	((ctx0 & 0xfff) | ((ctx0 >> 16) & 0xf000) | ((ctx1 << 16) & 0xff0000))
->   
->   #define KFD_SQ_INT_DATA__ERR_TYPE_MASK 0xF00000
->   #define KFD_SQ_INT_DATA__ERR_TYPE__SHIFT 20
->   
-> +/*
-> + * The debugger will send user data(m0) with PRIV=1 to indicate it requires
-> + * notification from the KFD with the following queue id (DOORBELL_ID) and
-> + * trap code (TRAP_CODE).
-> + */
-> +#define KFD_INT_DATA_DEBUG_DOORBELL_MASK	0x0003ff
-> +#define KFD_INT_DATA_DEBUG_TRAP_CODE_SHIFT	10
-> +#define KFD_INT_DATA_DEBUG_TRAP_CODE_MASK	0x07fc00
-> +#define KFD_DEBUG_DOORBELL_ID(sq_int_data)	((sq_int_data) &	\
-> +				KFD_INT_DATA_DEBUG_DOORBELL_MASK)
-> +#define KFD_DEBUG_TRAP_CODE(sq_int_data)	(((sq_int_data) &	\
-> +				KFD_INT_DATA_DEBUG_TRAP_CODE_MASK)	\
-> +				>> KFD_INT_DATA_DEBUG_TRAP_CODE_SHIFT)
-> +#define KFD_DEBUG_CP_BAD_OP_ECODE_MASK		0x3fffc00
-> +#define KFD_DEBUG_CP_BAD_OP_ECODE_SHIFT		10
-> +#define KFD_DEBUG_CP_BAD_OP_ECODE(ctxid0)	(((ctxid0) &		\
-> +				KFD_DEBUG_CP_BAD_OP_ECODE_MASK)		\
-> +				>> KFD_DEBUG_CP_BAD_OP_ECODE_SHIFT)
-> +
->   static void event_interrupt_poison_consumption_v9(struct kfd_node *dev,
->   				uint16_t pasid, uint16_t client_id)
->   {
-> @@ -168,14 +218,16 @@ static bool event_interrupt_isr_v9(struct kfd_node *dev,
->   	uint16_t source_id, client_id, pasid, vmid;
->   	const uint32_t *data = ih_ring_entry;
->   
-> +	source_id = SOC15_SOURCE_ID_FROM_IH_ENTRY(ih_ring_entry);
-> +	client_id = SOC15_CLIENT_ID_FROM_IH_ENTRY(ih_ring_entry);
-> +
->   	/* Only handle interrupts from KFD VMIDs */
->   	vmid = SOC15_VMID_FROM_IH_ENTRY(ih_ring_entry);
-> -	if (vmid < dev->vm_info.first_vmid_kfd ||
-> -	    vmid > dev->vm_info.last_vmid_kfd)
-> +	if (!KFD_IRQ_IS_FENCE(client_id, source_id) &&
-> +	   (vmid < dev->vm_info.first_vmid_kfd ||
-> +	    vmid > dev->vm_info.last_vmid_kfd))
->   		return false;
->   
-> -	source_id = SOC15_SOURCE_ID_FROM_IH_ENTRY(ih_ring_entry);
-> -	client_id = SOC15_CLIENT_ID_FROM_IH_ENTRY(ih_ring_entry);
->   	pasid = SOC15_PASID_FROM_IH_ENTRY(ih_ring_entry);
->   
->   	/* Only handle clients we care about */
-> @@ -194,7 +246,8 @@ static bool event_interrupt_isr_v9(struct kfd_node *dev,
->   	    client_id != SOC15_IH_CLIENTID_SE0SH &&
->   	    client_id != SOC15_IH_CLIENTID_SE1SH &&
->   	    client_id != SOC15_IH_CLIENTID_SE2SH &&
-> -	    client_id != SOC15_IH_CLIENTID_SE3SH)
-> +	    client_id != SOC15_IH_CLIENTID_SE3SH &&
-> +	    !KFD_IRQ_IS_FENCE(client_id, source_id))
->   		return false;
->   
->   	/* This is a known issue for gfx9. Under non HWS, pasid is not set
-> @@ -247,6 +300,7 @@ static bool event_interrupt_isr_v9(struct kfd_node *dev,
->   		source_id == SOC15_INTSRC_SDMA_ECC ||
->   		source_id == SOC15_INTSRC_SQ_INTERRUPT_MSG ||
->   		source_id == SOC15_INTSRC_CP_BAD_OPCODE ||
-> +		KFD_IRQ_IS_FENCE(client_id, source_id) ||
->   		((client_id == SOC15_IH_CLIENTID_VMC ||
->   		client_id == SOC15_IH_CLIENTID_VMC1 ||
->   		client_id == SOC15_IH_CLIENTID_UTCL2) &&
-> @@ -302,6 +356,13 @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
->   					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID, SIMD_ID),
->   					REG_GET_FIELD(context_id0, SQ_INTERRUPT_WORD_WAVE_CTXID, CU_ID),
->   					sq_int_data);
-> +				if (context_id0 & SQ_INTERRUPT_WORD_WAVE_CTXID__PRIV_MASK) {
-> +					if (kfd_set_dbg_ev_from_interrupt(dev, pasid,
-> +							KFD_DEBUG_DOORBELL_ID(sq_int_data),
-> +							KFD_DEBUG_TRAP_CODE(sq_int_data),
-> +							NULL, 0))
-> +						return;
-> +				}
->   				break;
->   			case SQ_INTERRUPT_WORD_ENCODING_ERROR:
->   				sq_intr_err = REG_GET_FIELD(sq_int_data, KFD_SQ_INT_DATA, ERR_TYPE);
-> @@ -324,8 +385,12 @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
->   				break;
->   			}
->   			kfd_signal_event_interrupt(pasid, context_id0 & 0xffffff, 24);
-> -		} else if (source_id == SOC15_INTSRC_CP_BAD_OPCODE)
-> -			kfd_signal_hw_exception_event(pasid);
-> +		} else if (source_id == SOC15_INTSRC_CP_BAD_OPCODE) {
-> +			kfd_set_dbg_ev_from_interrupt(dev, pasid,
-> +				KFD_DEBUG_DOORBELL_ID(context_id0),
-> +				KFD_EC_MASK(KFD_DEBUG_CP_BAD_OP_ECODE(context_id0)),
-> +				NULL, 0);
-> +		}
->   	} else if (client_id == SOC15_IH_CLIENTID_SDMA0 ||
->   		   client_id == SOC15_IH_CLIENTID_SDMA1 ||
->   		   client_id == SOC15_IH_CLIENTID_SDMA2 ||
-> @@ -345,6 +410,7 @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
->   		   client_id == SOC15_IH_CLIENTID_UTCL2) {
->   		struct kfd_vm_fault_info info = {0};
->   		uint16_t ring_id = SOC15_RING_ID_FROM_IH_ENTRY(ih_ring_entry);
-> +		struct kfd_hsa_memory_exception_data exception_data;
->   
->   		if (client_id == SOC15_IH_CLIENTID_UTCL2 &&
->   		    amdgpu_amdkfd_ras_query_utcl2_poison_status(dev->adev)) {
-> @@ -360,9 +426,23 @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
->   		info.prot_read  = ring_id & 0x10;
->   		info.prot_write = ring_id & 0x20;
->   
-> +		memset(&exception_data, 0, sizeof(exception_data));
-> +		exception_data.gpu_id = dev->id;
-> +		exception_data.va = (info.page_addr) << PAGE_SHIFT;
-> +		exception_data.failure.NotPresent = info.prot_valid ? 1 : 0;
-> +		exception_data.failure.NoExecute = info.prot_exec ? 1 : 0;
-> +		exception_data.failure.ReadOnly = info.prot_write ? 1 : 0;
-> +		exception_data.failure.imprecise = 0;
-> +
-> +		kfd_set_dbg_ev_from_interrupt(dev,
-> +						pasid,
-> +						-1,
-> +						KFD_EC_MASK(EC_DEVICE_MEMORY_VIOLATION),
-> +						&exception_data,
-> +						sizeof(exception_data));
->   		kfd_smi_event_update_vmfault(dev, pasid);
-> -		kfd_dqm_evict_pasid(dev->dqm, pasid);
-> -		kfd_signal_vm_fault_event(dev, pasid, &info, NULL);
-> +	} else if (KFD_IRQ_IS_FENCE(client_id, source_id)) {
-> +		kfd_process_close_interrupt_drain(pasid);
->   	}
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index a02fb939614a..cd2d56e5cdf0 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -963,6 +963,10 @@ struct kfd_process {
->   	uint64_t exception_enable_mask;
->   	uint64_t exception_status;
->   
-> +	/* Used to drain stale interrupts */
-> +	wait_queue_head_t wait_irq_drain;
-> +	bool irq_drain_is_open;
-> +
->   	/* shared virtual memory registered by this process */
->   	struct svm_range_list svms;
->   
-> @@ -1144,12 +1148,19 @@ int kfd_numa_node_to_apic_id(int numa_node_id);
->   void kfd_double_confirm_iommu_support(struct kfd_dev *gpu);
->   
->   /* Interrupts */
-> +#define	KFD_IRQ_FENCE_CLIENTID	0xff
-> +#define	KFD_IRQ_FENCE_SOURCEID	0xff
-> +#define	KFD_IRQ_IS_FENCE(client, source)				\
-> +				((client) == KFD_IRQ_FENCE_CLIENTID &&	\
-> +				(source) == KFD_IRQ_FENCE_SOURCEID)
->   int kfd_interrupt_init(struct kfd_node *dev);
->   void kfd_interrupt_exit(struct kfd_node *dev);
->   bool enqueue_ih_ring_entry(struct kfd_node *kfd, const void *ih_ring_entry);
->   bool interrupt_is_wanted(struct kfd_node *dev,
->   				const uint32_t *ih_ring_entry,
->   				uint32_t *patched_ihre, bool *flag);
-> +int kfd_process_drain_interrupts(struct kfd_process_device *pdd);
-> +void kfd_process_close_interrupt_drain(unsigned int pasid);
->   
->   /* amdkfd Apertures */
->   int kfd_init_apertures(struct kfd_process *process);
-> @@ -1421,6 +1432,7 @@ uint64_t kfd_get_number_elems(struct kfd_dev *kfd);
->   /* Events */
->   extern const struct kfd_event_interrupt_class event_interrupt_class_cik;
->   extern const struct kfd_event_interrupt_class event_interrupt_class_v9;
-> +extern const struct kfd_event_interrupt_class event_interrupt_class_v10;
->   extern const struct kfd_event_interrupt_class event_interrupt_class_v11;
->   
->   extern const struct kfd_device_global_init_class device_global_init_class_cik;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 2a60c630ab5d..e3a27c31f61d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -862,6 +862,8 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
->   		kfd_procfs_add_sysfs_stats(process);
->   		kfd_procfs_add_sysfs_files(process);
->   		kfd_procfs_add_sysfs_counters(process);
-> +
-> +		init_waitqueue_head(&process->wait_irq_drain);
->   	}
->   out:
->   	if (!IS_ERR(process))
-> @@ -2136,6 +2138,51 @@ void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE type)
->   	}
->   }
->   
-> +/* assumes caller holds process lock. */
-> +int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
-> +{
-> +	uint32_t irq_drain_fence[8];
-> +	int r = 0;
-> +
-> +	if (!KFD_IS_SOC15(pdd->dev))
-> +		return 0;
-> +
-> +	pdd->process->irq_drain_is_open = true;
-> +
-> +	memset(irq_drain_fence, 0, sizeof(irq_drain_fence));
-> +	irq_drain_fence[0] = (KFD_IRQ_FENCE_SOURCEID << 8) |
-> +							KFD_IRQ_FENCE_CLIENTID;
-> +	irq_drain_fence[3] = pdd->process->pasid;
-> +
-> +	/* ensure stale irqs scheduled KFD interrupts and send drain fence. */
-> +	if (amdgpu_amdkfd_send_close_event_drain_irq(pdd->dev->adev,
-> +						     irq_drain_fence)) {
-> +		pdd->process->irq_drain_is_open = false;
-> +		return 0;
-> +	}
-> +
-> +	r = wait_event_interruptible(pdd->process->wait_irq_drain,
-> +				     !READ_ONCE(pdd->process->irq_drain_is_open));
-> +	if (r)
-> +		pdd->process->irq_drain_is_open = false;
 > +
 > +	return r;
 > +}
 > +
-> +void kfd_process_close_interrupt_drain(unsigned int pasid)
-> +{
-> +	struct kfd_process *p;
-> +
-> +	p = kfd_lookup_process_by_pasid(pasid);
-> +
-> +	if (!p)
-> +		return;
-> +
-> +	WRITE_ONCE(p->irq_drain_is_open, false);
-> +	wake_up_all(&p->wait_irq_drain);
-> +	kfd_unref_process(p);
-> +}
-> +
->   struct send_exception_work_handler_workarea {
->   	struct work_struct work;
->   	struct kfd_process *p;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> index 43d432b5c5bc..70852a200d8f 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> @@ -337,6 +337,10 @@ int pqm_create_queue(struct process_queue_manager *pqm,
->   		kq->queue->properties.queue_id = *qid;
->   		pqn->kq = kq;
->   		pqn->q = NULL;
-> +		retval = kfd_process_drain_interrupts(pdd);
-> +		if (retval)
-> +			break;
-> +
->   		retval = dev->dqm->ops.create_kernel_queue(dev->dqm,
->   							kq, &pdd->qpd);
->   		break;
+>   void kfd_dbg_set_enabled_debug_exception_mask(struct kfd_process *target,
+>   					uint64_t exception_set_mask)
+>   {
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+> index 6c1054a08872..c9245221aa76 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+> @@ -42,6 +42,12 @@ int kfd_dbg_trap_disable(struct kfd_process *target);
+>   int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
+>   			void __user *runtime_info,
+>   			uint32_t *runtime_info_size);
+> +int kfd_dbg_trap_set_wave_launch_override(struct kfd_process *target,
+> +					uint32_t trap_override,
+> +					uint32_t trap_mask_bits,
+> +					uint32_t trap_mask_request,
+> +					uint32_t *trap_mask_prev,
+> +					uint32_t *trap_mask_supported);
+>   
+>   int kfd_dbg_send_exception_to_runtime(struct kfd_process *p,
+>   					unsigned int dev_id,
