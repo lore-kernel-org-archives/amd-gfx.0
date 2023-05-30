@@ -4,47 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC1C6C7EE23
-	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 13:50:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADFEFC7EE23
+	for <amd-gfx@archiver.kernel.org>; Tue, 30 May 2023 14:11:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20C6910E399;
-	Tue, 30 May 2023 13:50:48 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp-29.smtpout.orange.fr
- [80.12.242.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB9AC10E22E
- for <amd-gfx@lists.freedesktop.org>; Mon, 29 May 2023 07:19:10 +0000 (UTC)
-Received: from pop-os.home ([86.243.2.178]) by smtp.orange.fr with ESMTPA
- id 3X9eqYgEzMDzt3X9oq4QNQ; Mon, 29 May 2023 09:19:08 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1685344748;
- bh=E29VI58F9t8lbiMbudotJ9ysUUBZknzo+5bxInVW578=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=qN2RdXC/1SfqjAN9PDebvToRpP+JJUk8Q6FA4M43mFXtgHgv0S+f9x8BrEfyJZ44v
- mtS4PdX+9TjiYH+BNk64ndNK/Ckh2i5e6HYPe7JvC5eyR7vhJiDCWSCrkLW6IRGsti
- 4SbpZPIOkkBBr7xntU7liZnyPVJiF7mWgIksIwA3ms5JM7fsRK4Z5j0IJuIuFPi4rB
- rfVPxOjaTrYe/94URzYk1vwNsONPBvEQ7qOSB8Ik7Tz2YlnOHjqwVnq437SS7RmZeL
- xBlZ05K7U4aOtAjKzaQnJdRGcfQaCyE1b6xVOIiTFfCpG6wSLH9XXT4nbw/XPv1Y+L
- PT7MiJgsJiDfQ==
-X-ME-Helo: pop-os.home
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Mon, 29 May 2023 09:19:08 +0200
-X-ME-IP: 86.243.2.178
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH 2/3] drm/amd/display: Simplify get_dmif_switch_time_us()
-Date: Mon, 29 May 2023 09:18:55 +0200
-Message-Id: <1ab1210048a4b485247cccba6721f1885c986331.1685342739.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <e0a2240f863279b65a1fdc7f8c27ede9f8e37893.1685342739.git.christophe.jaillet@wanadoo.fr>
-References: <e0a2240f863279b65a1fdc7f8c27ede9f8e37893.1685342739.git.christophe.jaillet@wanadoo.fr>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E04310E159;
+	Tue, 30 May 2023 14:11:32 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D4E110E159;
+ Tue, 30 May 2023 14:11:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1685455891; x=1716991891;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=0ZSjvmRsPahZ8Twh6++RSb7rZmPdH3pP2QZxrCkFm9U=;
+ b=Akc8v5lBcTq6Apf1aRd8oXaAzH8M8aPZqJM3EkVdiHSRkRRTK0CBIV1y
+ +Y3O4DqOLG5pcUWMcgWPx0gIQqKYKjO2NOQtyFwilh49VoVZnhZzAnAN+
+ lShebfpCKO1i37mVkqT+cLXVn3j7JuxPBdOcogvG3nStVIn3hsLTlrQvG
+ mmVotu9XEapF77rSm9Cpb75+Ftoq6K/SMBacWWHR9oL8ZXTuqUyd6gAG8
+ +kLTapyRkjelHhRRupiMZVlJwRdGdofUdOq2DyLbMByMAPgTamwmaORcL
+ WwsQlf1lTsYBDFmV96lNp18RGCkQSqpjdDf9NWEhqgPDXmbM0SC3bBEfC A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="441282308"
+X-IronPort-AV: E=Sophos;i="6.00,204,1681196400"; d="scan'208";a="441282308"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 May 2023 07:11:30 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="830768672"
+X-IronPort-AV: E=Sophos;i="6.00,204,1681196400"; d="scan'208";a="830768672"
+Received: from lkp-server01.sh.intel.com (HELO fb1ced2c09fb) ([10.239.97.150])
+ by orsmga004.jf.intel.com with ESMTP; 30 May 2023 07:11:23 -0700
+Received: from kbuild by fb1ced2c09fb with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1q404J-0000ap-0k;
+ Tue, 30 May 2023 14:11:23 +0000
+Date: Tue, 30 May 2023 22:10:52 +0800
+From: kernel test robot <lkp@intel.com>
+To: Evan Quan <evan.quan@amd.com>, rafael@kernel.org, lenb@kernel.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ kvalo@kernel.org, nbd@nbd.name, lorenzo@kernel.org,
+ ryder.lee@mediatek.com, shayne.chen@mediatek.com,
+ sean.wang@mediatek.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, Mario.Limonciello@amd.com,
+ Lijo.Lazar@amd.com
+Subject: Re: [PATCH 8/9] drm/amd/pm: enable Wifi RFI mitigation feature
+ support for SMU13.0.0
+Message-ID: <202305302142.rrUt4NJV-lkp@intel.com>
+References: <20230530024227.2139632-9-evan.quan@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 30 May 2023 13:50:27 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230530024227.2139632-9-evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,53 +66,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ oe-kbuild-all@lists.linux.dev, ath11k@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks to the sanity check a few lines above:
-    if (!h_total || !v_total || !pix_clk_khz)
+Hi Evan,
 
-and the computation done afterwards on these non 0 values, we know that
-'pixels_per_second', 'pixels_per_frame' and 'refresh_rate' are not 0
+kernel test robot noticed the following build errors:
 
-The code can be simplified accordingly.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on kvalo-ath/ath-next wireless-next/main wireless/main linus/master v6.4-rc4]
+[cannot apply to next-20230530]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
-NOT compile tested. Because of some BROKEN in KConfig files.
----
- drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c | 13 -------------
- 1 file changed, 13 deletions(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Evan-Quan/drivers-acpi-Add-support-for-Wifi-band-RF-mitigations/20230530-104541
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20230530024227.2139632-9-evan.quan%40amd.com
+patch subject: [PATCH 8/9] drm/amd/pm: enable Wifi RFI mitigation feature support for SMU13.0.0
+config: arm-allyesconfig (https://download.01.org/0day-ci/archive/20230530/202305302142.rrUt4NJV-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 12.3.0
+reproduce (this is a W=1 build):
+        mkdir -p ~/bin
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/8ecc361da81a0915bb626156b47403a91b678de1
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Evan-Quan/drivers-acpi-Add-support-for-Wifi-band-RF-mitigations/20230530-104541
+        git checkout 8ecc361da81a0915bb626156b47403a91b678de1
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.3.0 ~/bin/make.cross W=1 O=build_dir ARCH=arm olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.3.0 ~/bin/make.cross W=1 O=build_dir ARCH=arm SHELL=/bin/bash
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
-index 091f0d68a045..eafe8561e55e 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
-@@ -690,21 +690,8 @@ static uint32_t get_dmif_switch_time_us(
- 	pixels_per_second = pix_clk_khz * 1000;
- 	pixels_per_frame = h_total * v_total;
- 
--	if (!pixels_per_second || !pixels_per_frame) {
--		/* avoid division by zero */
--		ASSERT(pixels_per_frame);
--		ASSERT(pixels_per_second);
--		return single_frame_time_multiplier * min_single_frame_time_us;
--	}
--
- 	refresh_rate = pixels_per_second / pixels_per_frame;
- 
--	if (!refresh_rate) {
--		/* avoid division by zero*/
--		ASSERT(refresh_rate);
--		return single_frame_time_multiplier * min_single_frame_time_us;
--	}
--
- 	frame_time = us_in_sec / refresh_rate;
- 
- 	if (frame_time < min_single_frame_time_us)
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202305302142.rrUt4NJV-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   arm-linux-gnueabi-ld: drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.o: in function `smu_v13_0_0_set_wbrf_exclusion_ranges':
+>> smu_v13_0_0_ppt.c:(.text+0x1384): undefined reference to `__aeabi_uldivmod'
+>> arm-linux-gnueabi-ld: smu_v13_0_0_ppt.c:(.text+0x139c): undefined reference to `__aeabi_uldivmod'
+   arm-linux-gnueabi-ld: smu_v13_0_0_ppt.c:(.text+0x13b0): undefined reference to `__aeabi_uldivmod'
+
 -- 
-2.34.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
