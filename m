@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42220C7EE2E
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 May 2023 13:43:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E79E3C7EE23
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 May 2023 13:44:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5EB910E4D1;
-	Wed, 31 May 2023 13:43:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8873710E4D6;
+	Wed, 31 May 2023 13:44:15 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF0B210E4D1;
- Wed, 31 May 2023 13:43:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD7B910E4D4;
+ Wed, 31 May 2023 13:44:12 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2E692636C2;
- Wed, 31 May 2023 13:43:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A86D3C433EF;
- Wed, 31 May 2023 13:43:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2F79063B72;
+ Wed, 31 May 2023 13:44:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5B48C4339E;
+ Wed, 31 May 2023 13:44:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1685540595;
- bh=SbhS7xWumawf0IXidumAoQr5bvCJ0c1u2Ym7dhm+aq8=;
+ s=k20201202; t=1685540652;
+ bh=P8VOBaAvWoWUl0YcRAIKvloxz3acn3TyCvUITgVlkdw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Rzs7fTUfrfsAAwlBUEGp0unEIo05m2g36AGgCtcm73aW2Z1A/+09dn1QrBD4xPDD+
- vZnvVnPL83QTjWPS+Vl2OEBfK6duUSw/fJvn7X1xnBT0OakJ/KKuvWE0ndxHqEmDTl
- cdxipccmLEmU4vU/oaqmFETTCIODYLq5XLkf70yoz8qQYVB9Q3VpyRwI+fi1oVTZah
- fPtaTp6Rg4A0K7/GrndUiIqr8+KIRZcHC5bOEUHc6vhATWkrzliKA2+0X3pVLYdQ79
- 3aHqsVs+EsZ7JCJEsOPvWdaQHQ2gi8mDJndt77ZXn9IUN2ti57a+kSarzKgmhblGLZ
- DC7IUpkzFFoXg==
+ b=biQNvJ8HuKsJddxlmeLYBt+u2KDGEqNDnNjmBN/thbKBzL46fkUnmkp5cDg1NJZJP
+ yDgomHRNLqtrjY9tyvotOEx/YPO3uMcj5Vsas7k4ez9R19GNSBIz7jKh+g/oSDGmim
+ ZbRMnEcK+HoAHpsCztLOWwRey5dVEitLj8ZXclKo+yHVTzHhT76TAcyhZ5HsDayERk
+ /nIbym0jJuIXPBwbOUsOM/m+pH1WLemJRXYcmhCsp6ZWgyeSFr68xtYcyHTHmaw12+
+ bV83uN5Z4weiRpbMaOoQsJUUPgSUD1gTP3B7r+JDJUxaTk7OEar39jiR0TzEbhTWc/
+ Ooowa8dp9W96g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 31/33] drm:amd:amdgpu: Fix missing buffer object
+Subject: [PATCH AUTOSEL 5.15 23/24] drm:amd:amdgpu: Fix missing buffer object
  unlock in failure path
-Date: Wed, 31 May 2023 09:41:57 -0400
-Message-Id: <20230531134159.3383703-31-sashal@kernel.org>
+Date: Wed, 31 May 2023 09:43:19 -0400
+Message-Id: <20230531134320.3384102-23-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230531134159.3383703-1-sashal@kernel.org>
-References: <20230531134159.3383703-1-sashal@kernel.org>
+In-Reply-To: <20230531134320.3384102-1-sashal@kernel.org>
+References: <20230531134320.3384102-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -55,10 +55,11 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Victor.Zhao@amd.com, Jack.Gui@amd.com,
+Cc: Sasha Levin <sashal@kernel.org>, lijo.lazar@amd.com, Jack.Gui@amd.com,
  dri-devel@lists.freedesktop.org, Arunpravin.PaneerSelvam@amd.com,
  jesse.zhang@amd.com, Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- le.ma@amd.com, mario.limonciello@amd.com, daniel@ffwll.ch, candice.li@amd.com,
+ le.ma@amd.com, YiPeng.Chai@amd.com, Victor.Zhao@amd.com,
+ mario.limonciello@amd.com, daniel@ffwll.ch, candice.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, Likun.Gao@amd.com,
  Jiadong.Zhu@amd.com, airlied@gmail.com, christian.koenig@amd.com,
  Sukrut Bellary <sukrut.bellary@linux.com>, Hawking.Zhang@amd.com
@@ -85,10 +86,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 2127aab74a68f..84a36b50ddd87 100644
+index 970d59a21005a..daff4da1a8bb9 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -6969,8 +6969,10 @@ static int gfx_v10_0_kiq_resume(struct amdgpu_device *adev)
+@@ -7197,8 +7197,10 @@ static int gfx_v10_0_kiq_resume(struct amdgpu_device *adev)
  		return r;
  
  	r = amdgpu_bo_kmap(ring->mqd_obj, (void **)&ring->mqd_ptr);
@@ -101,10 +102,10 @@ index 2127aab74a68f..84a36b50ddd87 100644
  	gfx_v10_0_kiq_init_queue(ring);
  	amdgpu_bo_kunmap(ring->mqd_obj);
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 1f3fdf6cb903e..fe371022e5104 100644
+index 5f325ded7f752..de1fab165041f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -3650,8 +3650,10 @@ static int gfx_v9_0_kiq_resume(struct amdgpu_device *adev)
+@@ -3871,8 +3871,10 @@ static int gfx_v9_0_kiq_resume(struct amdgpu_device *adev)
  		return r;
  
  	r = amdgpu_bo_kmap(ring->mqd_obj, (void **)&ring->mqd_ptr);
