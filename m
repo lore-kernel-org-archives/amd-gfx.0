@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83836C77B7C
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 May 2023 04:48:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5016FC77B7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 May 2023 04:48:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B7BB10E46B;
-	Wed, 31 May 2023 04:48:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4C5E10E46D;
+	Wed, 31 May 2023 04:48:56 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2081.outbound.protection.outlook.com [40.107.244.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8192510E46C
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 May 2023 04:48:49 +0000 (UTC)
+ (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4035210E46C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 May 2023 04:48:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c1OvKi6osCBtZJVsS/prFNjRh4QHxT4TwQdA2uuW9ke0+thOvzgJx01lgjxmz9dxSU1vokpHruyT2ak8nMfEvtY2P79YtWkWcofqNHTqLxYnVZZNJf6D6RJqYrjFWCRnlpCY/zyO6nsM/7axPOHk+XBzJkqNfrAE9Snr1mM24aE2+uQ51l1bUKJZgQGWt3n60tblKohcf+A/o7PfjkKzNEFTIjcwv+UiIPhDjqUbs2ewxZ0G++IyAnDtYN70PddMVnEkBrmMjHgq2XngwEnj5bwXvLc2MZUifHX64krltjTtlwvFsiNMs+ZCM4DTw7U/3F8NvItAnXAfvTIIi3QYsQ==
+ b=VkBTHWbYUW/7r8LJNhUl21unVrc2DXWDrgFQ+225G4bKssBNAgaZxG3KYpNQgm2mpXaFc2WNVvrNKCPji2fEhjeDY1bBZOgmFjtJ+3+hFvL/2WwvpQgJ7z9HkLGjTqEezQxClxIYvL6mMQWaxSbW2A3ac3XmNYXq2+JIfj0IbHzzMjjbeTBsbYAxXQ9T+ycOJZcx1VnqiePLaH5aiSejAozTmomU8pH3RozURHVnIV5n/aGPUIE3X5rkGavpLNxENAkJoDsMO7zlq0XVNymuAvMb7W4p19J5m9X+8uHu25JWbxNDEdjFP0khVutrEd8idvfGS3GzZhIPWaYYhIAEJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ixVO3PS/noIwURD4dE4JsN2pdvbpxgDUmbNgEUk8s1Y=;
- b=Pa/2u2CQ7cf7+ShOe4vaf02Ugz7dH8JeB/ivEcwt3vhpLkiLzg/fz7wCOcNyOym+fDSsafCNDcVeiUQpWefcYTHvK5S0UmgcxaZryih3tx+nqIuw9xEJV4gW7SbsR0ioYkS7BffIHYgP50DpeS6ueos2H6MD4oi9+BtZGC3suDXdgIkLg5ib+6KgZRIFBuB5ohnjy/DEpOpZfd9uzk83rg+SJMTwXh5UEFlX8PPR7FrMUl40XGLiPqVoH/LKiKO61d6U8R3906ojD3xXrx1TacIEYxpybMUn8lqgVHwApRpoILFMSSX7Rc8YGagqpbadCOCFXR2PZ/gpmcizdX8ZmQ==
+ bh=cZR9Q1bzmQfJUivSJlAc5EbqPkpeF2Ksu29eYCJY5ok=;
+ b=HhcL4uqThqBKgkHQWe2o+bHVhhmxW/iY7ZciXpytHjKUZAYjCHu6ldDHUxlKrreclll4ThYs2ps7sY2dYwHdWeDXJRzQ0vEHt6RAp0Oxyp1dkTYkfDWF4yKJG/MSFddVfRfIrPIIQZcfIaKWRC+m+WzjhIdXJailGgV6DtpeeF6SFRq/K1ZyudBvfbCQL3vn27t49Nwfzb178pQjv3mnZRDGXolnjdwa04v5iG68hTtioT1UbvUVw+pIfU4RXksKagbpTd0vbnLbWyiszoflIJA+Or4CHdjWbaxYdcOdgvxoq7ToK2Ik06rHDFd14XcM8Pb6NHaahDFj5CrxdMmkrA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ixVO3PS/noIwURD4dE4JsN2pdvbpxgDUmbNgEUk8s1Y=;
- b=cotk9j+LB3XGc4QYWKTg1W4wNts27vkFZfGPmX66YSgbmH9ibg5kTjnfr8777RCuMmTt8J0GbC2lWyUx/moiHbZanx1myHmJs61I3XbgXmsBOIGhjn2p4k03unI0+0vbV5v4UVM+bwybUradp11gQ2uqUHLOpV+X8gy982iIPYs=
-Received: from BN9PR03CA0568.namprd03.prod.outlook.com (2603:10b6:408:138::33)
- by PH7PR12MB6835.namprd12.prod.outlook.com (2603:10b6:510:1b5::14)
+ bh=cZR9Q1bzmQfJUivSJlAc5EbqPkpeF2Ksu29eYCJY5ok=;
+ b=Ce34VY8hz3EkGP58pPU8LA8+0vUTnguAFpm+1MoQzsGp7NS7t4MQbYjfoIFYP3gDcVoj1IWlFT2lvtwZs2iZk8nTUnjLhLeKpcQqkWCLiHGLblR6gwv4325bKDEz86RoCTG/VVU+L1DNyJMKQySBNMvS5Piz1mnQDgqb7j9mWO0=
+Received: from BN9P220CA0020.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::25)
+ by CY8PR12MB7219.namprd12.prod.outlook.com (2603:10b6:930:59::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.19; Wed, 31 May
- 2023 04:48:47 +0000
-Received: from BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:138:cafe::4d) by BN9PR03CA0568.outlook.office365.com
- (2603:10b6:408:138::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.22; Wed, 31 May
+ 2023 04:48:51 +0000
+Received: from BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13e:cafe::8a) by BN9P220CA0020.outlook.office365.com
+ (2603:10b6:408:13e::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.22 via Frontend
- Transport; Wed, 31 May 2023 04:48:46 +0000
+ Transport; Wed, 31 May 2023 04:48:51 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT064.mail.protection.outlook.com (10.13.176.160) with Microsoft SMTP
+ BN8NAM11FT057.mail.protection.outlook.com (10.13.177.49) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6455.22 via Frontend Transport; Wed, 31 May 2023 04:48:46 +0000
+ 15.20.6455.22 via Frontend Transport; Wed, 31 May 2023 04:48:51 +0000
 Received: from stylon-rog.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 30 May
- 2023 23:48:42 -0500
+ 2023 23:48:46 -0500
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 00/14] DC Patches June 2, 2023
-Date: Wed, 31 May 2023 12:47:59 +0800
-Message-ID: <20230531044813.145361-1-stylon.wang@amd.com>
+Subject: [PATCH 01/14] drm/amd/display: add ODM case when looking for first
+ split pipe
+Date: Wed, 31 May 2023 12:48:00 +0800
+Message-ID: <20230531044813.145361-2-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230531044813.145361-1-stylon.wang@amd.com>
+References: <20230531044813.145361-1-stylon.wang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT064:EE_|PH7PR12MB6835:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b245cc0-a763-4b83-2083-08db61925198
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT057:EE_|CY8PR12MB7219:EE_
+X-MS-Office365-Filtering-Correlation-Id: b2a90a8c-b14a-4071-f984-08db61925453
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jBa/9PNQfM3PYWk82p62jnWpunKtvP+zgdBiY+805Kg60J+PCYRCAEukS9ogslxf6OWerTFKgI4g4nC+TX5JLJIQtRD0AsApeeM/S+r+4fdPKlHoOhZZkr0TPvJfSVuf/wkkNkWUqn5iACtBk4F/5jwSLk7+KQX5riB3ZzZrqaTXuVAmpdszIRF14+/45icNHLgk8mX3acf5S/9S3RAA4myQUBJAWfmkBIbqF3hYBy87u8QwpHjlU0LFoJTTFa6YuM6b8uH1Zr5w4lD8gqEapeoQmjV0gJZrDHQCFtJ3YCYIdgbconqj3WKFaij3jysNcwTLLuiRIKHGewrhX4fSwTdnxsxFbtWp1wLuOMxJu4OFEbpKabqw1EdnBzC8M/FcuRC7q+BVhYSiyfU3CQuNm2rez13G6odylgHfNWxPOcxsrdXJ6UzkhBvo80Okg0fNzBq5CuhOsJFNOD4wp/+xKzfbFsq5inBxk+82DP3vyk9WGi8UY4zxKJpwBPiTJm9okVVh5INCDaFcmvQAG1zN6gOYzIP0hcOXvJWQc2+07ZkqSxlZcqSZBPapTCwqXPCDaAMJddC1elBmB3481i5sMsbfgYenlczfx/eT0i+CbqNIRE+1BotfSkHnAiic9TEL4iVODIF7OtwE7+JXutrisiRX/Uho5qLQUo/GUyzRIHhF8xlbGSYMOfVNBuQQ3u4buFk7TVFggbfyaYyYzNclD2NBOLDxL3/6SkAdM3wYakEsqbbYvuIPWIhXSeDp0l56e6H3Cvk6GAH0GdfBsoJ+WA==
+X-Microsoft-Antispam-Message-Info: AVHAo2qfb/8bTUu6JD7+06WO7SCslkJV9YsKPBqX0Fz+T51gMqAS4WEaXrW1lvhX75miqaU4hmLsJjd8VUSGpciB5v/DUalar/+Qf6eYhTJvodDohhCaRAE7HvVr4txx5G05YwRQZbjQ29m4kJdcSfr7rrTFDTZiV055Ce1EqnOQnQFYg72ZbTEEOGwggDpxKurUM9dtYM8svSoXC8hihkSbJRrSWUDdHJBJYbp9FpCX/R8U3L/lGtunhis1IUDgrWnbc6BHB3OWNqGXdGIpLxXeByvvFpYluBbKd2mDU7dkySoXoxGpTvSdUaZ5hGr2hNm8Gp9ODujY0mTh2VDNCbKhCBSFb0eV/SfUYebRb90LVwourKQdCLTZ/fUK6OBuiiagUQ8HnKWM43HYrYgcobNrNSvomQeX4AbaSLRaGoXQlPCN7vcdDll/4tOK2OlLFJLCOkli7Z5Pg6mXF+7XzAyJtUlbaMfu6AxqaUaZguD+pDGjpNFFc1MY+I5WhHOzPQ2z+2qNAz3mIEPxI5GxeclM4NbqDtj0grWfMmX4dGmZIE9iSr6BBR0zw332w7dVrU1HOsvCjeVr/Pw9GPPmKoJu+DpPYI/unNmhyTRtoCxOr+k//giwjdy9OQ7s1sahXj7Q+XrFBOwJRH4ecvumX64+4fhbN8XfzYfvmbd/ajDgfjsTFoLdkouZCYWjc49HDtSZl4/1XNg6PpdPuWt90gin8YCi3788ZXqGF9uwYIVwyUuSrUbOPGvNY98grychgotO+UwscvurpIEwJe/ZGQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(39860400002)(136003)(376002)(346002)(451199021)(46966006)(36840700001)(40470700004)(70586007)(70206006)(6916009)(478600001)(40480700001)(54906003)(356005)(82740400003)(4326008)(81166007)(316002)(7696005)(40460700003)(41300700001)(47076005)(6666004)(44832011)(36756003)(26005)(426003)(1076003)(336012)(36860700001)(8936002)(8676002)(83380400001)(2906002)(5660300002)(16526019)(86362001)(2616005)(186003)(82310400005)(36900700001);
+ SFS:(13230028)(4636009)(376002)(39860400002)(396003)(136003)(346002)(451199021)(46966006)(36840700001)(40470700004)(40460700003)(36860700001)(83380400001)(47076005)(316002)(5660300002)(6666004)(70206006)(70586007)(36756003)(4326008)(6916009)(82310400005)(8676002)(41300700001)(81166007)(356005)(7696005)(8936002)(86362001)(82740400003)(40480700001)(54906003)(2616005)(2906002)(186003)(16526019)(44832011)(336012)(478600001)(426003)(26005)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2023 04:48:46.4632 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b245cc0-a763-4b83-2083-08db61925198
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2023 04:48:51.0497 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2a90a8c-b14a-4071-f984-08db61925453
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6835
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7219
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,107 +102,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ Samson Tam <samson.tam@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>, wayne.lin@amd.com, Alex
+ Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we have:
+From: Samson Tam <samson.tam@amd.com>
 
-* Clock optimiation for DCN 3.1.4
-* Performance improvements
-* Improvements on power saving
-* Fix screen flash in high resolution displays
-* Enable Freesync video mode by default
-* Bug fixed on hang or crashes in various cases
-* Improved code robustness in corner cases
+[Why]
+When going from ODM 2:1 single display case to max displays, second
+odm pipe needs to be repurposed for one of the new single displays.
+However, acquire_first_split_pipe() only handles MPC case and not
+ODM case
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+[How]
+Add ODM conditions in acquire_first_split_pipe()
+Add commit_minimal_transition_state() in commit_streams() to handle
+odm 2:1 exit first, and then process new streams
+Handle ODM condition in commit_minimal_transition_state()
 
-Alvin Lee (2):
-  drm/amd/display: Refactor fast update to use new HWSS build sequence
-  drm/amd/display: Reduce sdp bw after urgent to 90%
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Acked-by: Stylon Wang <stylon.wang@amd.com>
+Signed-off-by: Samson Tam <samson.tam@amd.com>
+Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 36 ++++++++++++++++++-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c | 20 +++++++++++
+ 2 files changed, 55 insertions(+), 1 deletion(-)
 
-Aurabindo Pillai (1):
-  drm/amd/display: Enable Freesync Video Mode by default
-
-Austin Zheng (1):
-  drm/amd/display: Filter out AC mode frequencies on DC mode systems
-
-Charlene Liu (1):
-  drm/amd/display: add NULL pointer check
-
-Daniel Miess (1):
-  drm/amd/display: Enable dcn314 DPP RCO
-
-Dmytro Laktyushkin (2):
-  drm/amd/display: fix seamless odm transitions
-  drm/amd/display: fix dcn315 single stream crb allocation
-
-Leo Ma (1):
-  Revert "drm/amd/display: cache trace buffer size"
-
-Max Tseng (1):
-  drm/amd/display: Add control flag to dc_stream_state to skip eDP BL
-    off/link off
-
-Nicholas Kazlauskas (1):
-  drm/amd/display: Skip DPP DTO update if root clock is gated
-
-Saaem Rizvi (1):
-  drm/amd/display: Wrong index type for pipe iterator
-
-Samson Tam (1):
-  drm/amd/display: add ODM case when looking for first split pipe
-
-Sridevi (1):
-  drm/amd/display: DSC Programming Deltas
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  12 +-
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |  13 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 307 ++++++++++++++++--
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 255 +++++++++++++++
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  20 ++
- .../gpu/drm/amd/display/dc/core/dc_stream.c   |   4 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |   2 +
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |   1 +
- .../amd/display/dc/dce100/dce100_resource.c   |   5 +
- .../display/dc/dce110/dce110_hw_sequencer.c   |   3 +-
- .../amd/display/dc/dce110/dce110_resource.c   |   5 +
- .../amd/display/dc/dce112/dce112_resource.c   |   5 +
- .../amd/display/dc/dce120/dce120_resource.c   |   1 +
- .../drm/amd/display/dc/dce80/dce80_resource.c |   6 +
- .../drm/amd/display/dc/dcn10/dcn10_resource.c |   1 +
- .../gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c  |  29 +-
- .../gpu/drm/amd/display/dc/dcn20/dcn20_dsc.h  |  28 ++
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  11 +
- .../drm/amd/display/dc/dcn20/dcn20_resource.c |   1 +
- .../amd/display/dc/dcn201/dcn201_resource.c   |   1 +
- .../drm/amd/display/dc/dcn21/dcn21_resource.c |   1 +
- .../gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c |   8 +
- .../drm/amd/display/dc/dcn31/dcn31_resource.c |   1 +
- .../drm/amd/display/dc/dcn314/dcn314_dccg.c   |   5 +
- .../drm/amd/display/dc/dcn314/dcn314_hwseq.c  |   2 +-
- .../amd/display/dc/dcn314/dcn314_resource.c   |  16 +
- .../amd/display/dc/dcn315/dcn315_resource.c   |  16 +-
- .../amd/display/dc/dcn316/dcn316_resource.c   |   1 +
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  26 +-
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.h    |   2 +
- .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |   1 +
- .../gpu/drm/amd/display/dc/dcn32/dcn32_optc.c |   2 +-
- .../gpu/drm/amd/display/dc/dcn32/dcn32_optc.h |   1 +
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 142 +++++---
- .../amd/display/dc/dml/dcn321/dcn321_fpu.c    | 144 +++++---
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  11 +
- .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |   1 +
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |   1 +
- .../gpu/drm/amd/display/dc/inc/hw_sequencer.h | 126 +++++++
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |   7 +-
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |   1 -
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |   2 -
- 42 files changed, 1071 insertions(+), 156 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index f3820c5e63af..2ad4293bb3e5 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2008,6 +2008,9 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
+ 	return result;
+ }
+ 
++static bool commit_minimal_transition_state(struct dc *dc,
++		struct dc_state *transition_base_context);
++
+ /**
+  * dc_commit_streams - Commit current stream state
+  *
+@@ -2029,6 +2032,8 @@ enum dc_status dc_commit_streams(struct dc *dc,
+ 	struct dc_state *context;
+ 	enum dc_status res = DC_OK;
+ 	struct dc_validation_set set[MAX_STREAMS] = {0};
++	struct pipe_ctx *pipe;
++	bool handle_exit_odm2to1 = false;
+ 
+ 	if (dc->ctx->dce_environment == DCE_ENV_VIRTUAL_HW)
+ 		return res;
+@@ -2053,6 +2058,22 @@ enum dc_status dc_commit_streams(struct dc *dc,
+ 		}
+ 	}
+ 
++	/* Check for case where we are going from odm 2:1 to max
++	 *  pipe scenario.  For these cases, we will call
++	 *  commit_minimal_transition_state() to exit out of odm 2:1
++	 *  first before processing new streams
++	 */
++	if (stream_count == dc->res_pool->pipe_count) {
++		for (i = 0; i < dc->res_pool->pipe_count; i++) {
++			pipe = &dc->current_state->res_ctx.pipe_ctx[i];
++			if (pipe->next_odm_pipe)
++				handle_exit_odm2to1 = true;
++		}
++	}
++
++	if (handle_exit_odm2to1)
++		res = commit_minimal_transition_state(dc, dc->current_state);
++
+ 	context = dc_create_state(dc);
+ 	if (!context)
+ 		goto context_alloc_fail;
+@@ -3912,6 +3933,7 @@ static bool commit_minimal_transition_state(struct dc *dc,
+ 	unsigned int i, j;
+ 	unsigned int pipe_in_use = 0;
+ 	bool subvp_in_use = false;
++	bool odm_in_use = false;
+ 
+ 	if (!transition_context)
+ 		return false;
+@@ -3940,6 +3962,18 @@ static bool commit_minimal_transition_state(struct dc *dc,
+ 		}
+ 	}
+ 
++	/* If ODM is enabled and we are adding or removing planes from any ODM
++	 * pipe, we must use the minimal transition.
++	 */
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		struct pipe_ctx *pipe = &dc->current_state->res_ctx.pipe_ctx[i];
++
++		if (pipe->stream && pipe->next_odm_pipe) {
++			odm_in_use = true;
++			break;
++		}
++	}
++
+ 	/* When the OS add a new surface if we have been used all of pipes with odm combine
+ 	 * and mpc split feature, it need use commit_minimal_transition_state to transition safely.
+ 	 * After OS exit MPO, it will back to use odm and mpc split with all of pipes, we need
+@@ -3948,7 +3982,7 @@ static bool commit_minimal_transition_state(struct dc *dc,
+ 	 * Reduce the scenarios to use dc_commit_state_no_check in the stage of flip. Especially
+ 	 * enter/exit MPO when DCN still have enough resources.
+ 	 */
+-	if (pipe_in_use != dc->res_pool->pipe_count && !subvp_in_use) {
++	if (pipe_in_use != dc->res_pool->pipe_count && !subvp_in_use && !odm_in_use) {
+ 		dc_release_state(transition_context);
+ 		return true;
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 7e1e5532f88f..c72540d37aef 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -1445,6 +1445,26 @@ static int acquire_first_split_pipe(
+ 			split_pipe->plane_res.mpcc_inst = pool->dpps[i]->inst;
+ 			split_pipe->pipe_idx = i;
+ 
++			split_pipe->stream = stream;
++			return i;
++		} else if (split_pipe->prev_odm_pipe &&
++				split_pipe->prev_odm_pipe->plane_state == split_pipe->plane_state) {
++			split_pipe->prev_odm_pipe->next_odm_pipe = split_pipe->next_odm_pipe;
++			if (split_pipe->next_odm_pipe)
++				split_pipe->next_odm_pipe->prev_odm_pipe = split_pipe->prev_odm_pipe;
++
++			if (split_pipe->prev_odm_pipe->plane_state)
++				resource_build_scaling_params(split_pipe->prev_odm_pipe);
++
++			memset(split_pipe, 0, sizeof(*split_pipe));
++			split_pipe->stream_res.tg = pool->timing_generators[i];
++			split_pipe->plane_res.hubp = pool->hubps[i];
++			split_pipe->plane_res.ipp = pool->ipps[i];
++			split_pipe->plane_res.dpp = pool->dpps[i];
++			split_pipe->stream_res.opp = pool->opps[i];
++			split_pipe->plane_res.mpcc_inst = pool->dpps[i]->inst;
++			split_pipe->pipe_idx = i;
++
+ 			split_pipe->stream = stream;
+ 			return i;
+ 		}
 -- 
 2.40.1
 
