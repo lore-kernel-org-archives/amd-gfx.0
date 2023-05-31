@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46F9CC77B73
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 May 2023 04:20:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B028C77B7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 May 2023 04:29:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9394D10E1AD;
-	Wed, 31 May 2023 04:20:10 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2043.outbound.protection.outlook.com [40.107.212.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A93A310E466
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 May 2023 04:20:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3A0410E466;
+	Wed, 31 May 2023 04:29:19 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A192910E466
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 May 2023 04:29:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fq7b3DQoYwXksGJQ0FJMlChmJMmyw2H9KjGMkulPG1n3kRro9Q5HCTHCLZjtGC5hgKJdhFADMm9GF6E0khwyVwQKcgQEmOJsHAb9K7zxkWJLxtZdDMSRzLFoOxwH1Ec+saezD3INyyRUIOUgalrlP2t1pNXjVTrQTjnwUViKTfQ2xRk/PhhJlSDKAhJrkL6UOvk5ofyiMuZrp4gYH6yB9H5hYUW4DnX5zuwyP7ZXYhsbXXeByjWxyle3wQG5O1I3m2d4SpV5t3vnTCZkgfqKvBzX9ySm/hELy0+OeG445UjEdJ8ySSbN0xHKc0aI67IDx6nJGphcDyGTpP/1/xX6yw==
+ b=b8YDaYx9fxF+raFHCOmXdWNFsnJVbQrqOVKo1Xiv438Xd7oJSrKDUXSmBFvXGOYIvJC82vfmotBt4xt1KJpYgPTNW8+DS0l0qegrqhZvkv0j/w3sNhm/sAqH0QVH77XiEoGSY4bHhStpyXpt6LsfBSXDGAfAdW8C5FInC1JlOFGXu2lVI6UFeuu9gVb0Gfmc/ZCwL7lGCYqC9GzMczL5xy09MvoSYAFvQFfztcr0SrlG52HIs1o7CAokz9Xe6eZ/bqSv2Qznv0igjFdUY/oIogMnbVkyUbDo+moVexy6SCw0f7oL2I/0H7GDVaLFmV+GFSL9DPtW8ANAk1nKGve7PA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ezHiO/GUj+FnnTINOzamnrygCdctGDmEozimUjzm9A4=;
- b=lKi2DJ9bhDXoGblh1IVcIGj3qQvgFX6ETwzGf2JO6qhLBAWcgy11Q109qLdWNUni8tzclDOMSypCGGsJ2SgHNrMeu8a9EJctkB+xDPnEl6ZUm3Y4QKkpMiLGuAdvmg1YMmYRJdtakMLaeD1lj/R5eJurHRXcF9DlGihBrNGjQOA/0Uks1qYBiRUF3oH9s2qh1bZfPmw3Gxfo0UAkLXBuZKjvxmjBcP/Ps90/A4+DPtUIx4580br8FeGaPk00vQsE8Q8UtKfEGpWgr3wIcleTfayx0N8rB7uAP5LklVndWNGEtlpCiYGnWyrnWVUClN10vty/xJJXkEKRRrA+9E9FOQ==
+ bh=lt8Tdh6Ux9k0NA71mymgWlzxid9HGWL44ZSafQy7IZ0=;
+ b=HHAwgZ4f7rkae8xWbivWhKNv0ldhRAPmS2uMUU5F+M1B+cfmm3+jnBidBShY+Kcu7r1VvLldQGkygpsE+vS+qKX/UlQPV8dFsCrZCdJ0zRDYCBJwhFOSIRyTf6zWs+vp8ToFkfxg7SI2a0yacfErW80T164duSZIcu6RCKu/kX7yiCEHevy/C4t8YEKxNuRZWKQq3NWlsVMjKDZvt5DyrSsrJeQs+uQ1soNwnR4cSToqMUB3TcwRL0lPLs4drub5xUQd2pZ9Mu0AhoBRqf8NlmbwOTMgojVJVAystmaxv1lzyZ/wherEBmgN4bG/KwzYa4lNs3tuVGYmKMb1jr7H0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ezHiO/GUj+FnnTINOzamnrygCdctGDmEozimUjzm9A4=;
- b=muR/VbsCeKCSPEieH8kyi2pi2HUXIHefF8jJqibZsGBuxf+s3w57pMAnnaGzBDGW2Edgc5Y62DT3h/GibJ5+4f1Qm6h0+8FONeW83jtQklYLOu+Vjrkcx9Ufu/ELNSfP36TuoZv6C4iuGBQSFQK7fieAGy8LaRU3bK3bHSFaiqc=
-Received: from BN9PR03CA0766.namprd03.prod.outlook.com (2603:10b6:408:13a::21)
- by CH3PR12MB8728.namprd12.prod.outlook.com (2603:10b6:610:171::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Wed, 31 May
- 2023 04:20:05 +0000
-Received: from BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13a:cafe::ac) by BN9PR03CA0766.outlook.office365.com
- (2603:10b6:408:13a::21) with Microsoft SMTP Server (version=TLS1_2,
+ bh=lt8Tdh6Ux9k0NA71mymgWlzxid9HGWL44ZSafQy7IZ0=;
+ b=d7j6MB5mpafWvSs3ek49bK2nbeivUX946wmPjKIoYFFoqsDsLOqI3DG4wRW9Ngipz0oSCS5Of5j6TgpyZLtkuU77D5i7JEbr5Bqa7lX6mqsVr14bXu9kHCRsP0kQ+abVVX8cJbK4+RIAR0IhE6PZkv6+5YwAF4+DkVPN0hy9XCs=
+Received: from DM6PR11CA0005.namprd11.prod.outlook.com (2603:10b6:5:190::18)
+ by CH2PR12MB4088.namprd12.prod.outlook.com (2603:10b6:610:a5::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.24; Wed, 31 May
+ 2023 04:29:16 +0000
+Received: from DM6NAM11FT070.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:190:cafe::12) by DM6PR11CA0005.outlook.office365.com
+ (2603:10b6:5:190::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23 via Frontend
- Transport; Wed, 31 May 2023 04:20:05 +0000
+ Transport; Wed, 31 May 2023 04:29:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,50 +45,50 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT007.mail.protection.outlook.com (10.13.177.109) with Microsoft SMTP
+ DM6NAM11FT070.mail.protection.outlook.com (10.13.173.51) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6455.22 via Frontend Transport; Wed, 31 May 2023 04:20:04 +0000
+ 15.20.6455.22 via Frontend Transport; Wed, 31 May 2023 04:29:15 +0000
 Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 30 May
- 2023 23:20:02 -0500
+ 2023 23:29:13 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Hamza Mahfooz
  <hamza.mahfooz@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, "Harry
  Wentland" <harry.wentland@amd.com>
-Subject: [PATCH] drm/amd/display: Fix up kdoc formatting in
- dcn32_resource_helpers.c
-Date: Wed, 31 May 2023 09:49:47 +0530
-Message-ID: <20230531041947.3240207-1-srinivasan.shanmugam@amd.com>
+Subject: [PATCH] drm/amd/display: Fix up missing 'dc' & 'pipe' kdoc parameters
+ in delay_cursor_until_vupdate()
+Date: Wed, 31 May 2023 09:58:24 +0530
+Message-ID: <20230531042824.3243659-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT007:EE_|CH3PR12MB8728:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5dc5e26f-6522-468f-b4d5-08db618e4f7b
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT070:EE_|CH2PR12MB4088:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9880bbbf-caa0-4523-01ec-08db618f97ea
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hqIx5PyYivLPNCTJlTDfnglUNeZw3ZM1+O0uitbeAK68pmh9S/a/GTVzq1NSJcUEXyDo/9SL3zwNOkX0395d2utonnDWO6BejA3B/8Xt7hYHTVvIaaEOmfnOwYFv2Tu+/RXtCfaXnLOVhWWNK/6j2I7QqKlY2AAOOueOnecuHT9VkShEm332VKFeLuJ3WOR6gFJhFeX1CWSuXPjgZATGE269detj70Uve5lNW5rdovawAfmMk19ndeux3THAcM9DQkiyhSvnhjAmJn2Du/N+Xqs59CE1cQkJxZmwRIYAPM47O9Yp/yGhqGC/VTmCL81dKcT7zRusyHwUi9iNgoCtltA9BGyJZaCS/HjE80fRI/R5zL0jv5hMENK9qK35SOCWq9xhjF0noyCsCsShcucrdop1h5kucL/+iqnhWaTWnZ9dRHtkr6kGOPkBZ/it3o/B8ghM+F4zKoMbumIPTpCkn54B5kihOQTISAFXgymRGsMZO0Wr/HgYkac42FfgvUupw8Tz25mxffx9Un8xgdYHaV6YS1gaYIipvaEFyDo4epH0VPWgMgI8rZLvCfH2fb/CW1MYKAckrzaiF4UZ+kOqLYTOXxvBkcTwyGI7w+JoO9oESK7cwq4+t0zyqJWBYR1gO9ugUDaC9xzr/ygWdDK5isylDXV9XhC3Mb5jtmDptxtTr0KI2jxJbfmGsWXZuHjWR4rXcKsZ5jPPBBwDMO7vOYPiuqc7spisS9+UsQPIoz4zS4VcmL9QxPEjZzeVbvIgOSMV2Y1ine8dCYDWtT/nmw==
+X-Microsoft-Antispam-Message-Info: +1JCspOt5NluBPny2YxXHehhg/tBCU0lUBuQRb83e71wZV4YX1FnTaRdlMol1bPC9JmSj9mBCJazEGUOCtUmqrqpVLiKqGMfAsnxGJpetfowbgydUKFgln1gB+dJVVn0mv8oqU8QM5xgSG9q+ou9S8PwBrB6BLJ2f2bHdXIvH1yM31W0BCti5tK61+n/IZ5v3vRKHGFeIWuNABCDJEjrPmkKTewsf4S68lY+FDW6MUQi0DeDIcP3K6tWLzWVVNv18yol3ORFlNp5AkFXtdCesntS+BhYIVZu7CJhCEi0tliMrP6jPxDB3h+O2GTdLHvZ1IDaW6nANIjGXJlowevBf1YhT8qjXehtCCWdRQ+a5rYnhbh7ftdc4Rh4Qxws4OoA9Qf2P1a+RcItvEzdjgw1RVTc+Ciwmx1bFwKxZSWbAOk4B8VEEGPmng9C9KqxxeFxDLWM4pi0zltKroGE1yzU2ENiOnqkzAKz4ULQ5uf5kHZF6H67iHdgVnsQ1aBpRYR9peZ8InVd6rMIabB2DS2tGHMEzIbxb8v+Fd4uLeV/1mjOJ6XkkkuqUs5FYQdW0lcfnP091rSunV3FGIFliBqz/ECfyuqPy7bBqI/e/rj5jskbOYDkdDk7dD/jWqZl09IEHS3BxdqCgao5d08TI+xD2VKCJSjYgv9SJUqJpLFXC3SAfhne3umdoEbh6YQrFRAv4CmCeIghldhdqTLyL7HX5H5+QDW7WhbLm+zGvJqwcLGtr8NR1fNw1ZoZVSKYoybjhty/BlDVvIMf+2vGFsx/Mw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(346002)(376002)(136003)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(186003)(2616005)(16526019)(41300700001)(336012)(426003)(83380400001)(26005)(1076003)(7696005)(6666004)(36860700001)(47076005)(478600001)(40460700003)(110136005)(54906003)(6636002)(356005)(4326008)(70586007)(82740400003)(81166007)(40480700001)(316002)(5660300002)(8936002)(8676002)(44832011)(70206006)(86362001)(2906002)(82310400005)(36756003)(36900700001);
+ SFS:(13230028)(4636009)(376002)(396003)(346002)(136003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(5660300002)(2906002)(4326008)(6636002)(8936002)(8676002)(44832011)(316002)(70586007)(54906003)(110136005)(478600001)(70206006)(6666004)(7696005)(41300700001)(186003)(1076003)(26005)(16526019)(83380400001)(47076005)(2616005)(426003)(36860700001)(336012)(40460700003)(40480700001)(82310400005)(81166007)(86362001)(36756003)(82740400003)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2023 04:20:04.9346 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5dc5e26f-6522-468f-b4d5-08db618e4f7b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2023 04:29:15.9189 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9880bbbf-caa0-4523-01ec-08db618f97ea
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT070.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8728
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4088
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,149 +105,35 @@ Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes the following W=1 kernel build warning:
+Fixes the following gcc with W=1:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:97: warning: Cannot understand  * **************************************************************************
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:264: warning: Cannot understand  * *************************************************************************
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:435: warning: Cannot understand  * *************************************************************************
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:475: warning: Cannot understand  * *************************************************************************
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:599:
-warning: Function parameter or member 'dc' not described in
-'dcn32_can_support_mclk_switch_using_fw_based_vblank_stretch'
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:599:
-warning: Function parameter or member 'context' not described in
-'dcn32_can_support_mclk_switch_using_fw_based_vblank_stretch'
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:1904: warning: Function parameter or member 'dc' not described in 'delay_cursor_until_vupdate'
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:1904: warning: Function parameter or member 'pipe_ctx' not described in 'delay_cursor_until_vupdate'
 
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
 Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: Harry Wentland <harry.wentland@amd.com>
 Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- .../display/dc/dcn32/dcn32_resource_helpers.c | 56 ++++++++-----------
- 1 file changed, 22 insertions(+), 34 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-index a8082580df92..0ed208989c46 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-@@ -94,18 +94,15 @@ uint32_t dcn32_helper_calculate_mall_bytes_for_cursor(
- }
- 
- /**
-- * ********************************************************************************************
-- * dcn32_helper_calculate_num_ways_for_subvp: Calculate number of ways needed for SubVP
-+ * dcn32_helper_calculate_num_ways_for_subvp(): Calculate number of ways needed for SubVP
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 13b4e5118459..97d34cb903a2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -1899,6 +1899,11 @@ void dcn10_pipe_control_lock(
   *
-  * Gets total allocation required for the phantom viewport calculated by DML in bytes and
-  * converts to number of cache ways.
-  *
-- * @param [in] dc: current dc state
-- * @param [in] context: new dc state
-+ * @dc: current dc state
-+ * @context: new dc state
-  *
-- * @return: number of ways required for SubVP
-- *
-- * ********************************************************************************************
-+ * Return: number of ways required for SubVP
-  */
- uint32_t dcn32_helper_calculate_num_ways_for_subvp(
- 		struct dc *dc,
-@@ -261,8 +258,7 @@ bool dcn32_is_psr_capable(struct pipe_ctx *pipe)
- #define DCN3_2_NEW_DET_OVERRIDE_MIN_MULTIPLIER 7
- 
- /**
-- * *******************************************************************************************
-- * dcn32_determine_det_override: Determine DET allocation for each pipe
-+ * dcn32_determine_det_override(): Determine DET allocation for each pipe
-  *
-  * This function determines how much DET to allocate for each pipe. The total number of
-  * DET segments will be split equally among each of the streams, and after that the DET
-@@ -290,13 +286,11 @@ bool dcn32_is_psr_capable(struct pipe_ctx *pipe)
-  * 3. Assign smaller DET size for lower pixel display and higher DET size for
-  *    higher pixel display
-  *
-- * @param [in]: dc: Current DC state
-- * @param [in]: context: New DC state to be programmed
-- * @param [in]: pipes: Array of DML pipes
-- *
-- * @return: void
+  * TODO: Optimize cursor programming to be once per frame before VUPDATE
+  *       to avoid the need for this workaround.
++ *
 + * @dc: Current DC state
-+ * @context: New DC state to be programmed
-+ * @pipes: Array of DML pipes
-  *
-- * *******************************************************************************************
++ * @pipe: Pipe to be considered for use in cursor
++ *
 + * Return: void
   */
- void dcn32_determine_det_override(struct dc *dc,
- 		struct dc_state *context,
-@@ -432,8 +426,7 @@ void dcn32_set_det_allocations(struct dc *dc, struct dc_state *context,
- }
- 
- /**
-- * *******************************************************************************************
-- * dcn32_save_mall_state: Save MALL (SubVP) state for fast validation cases
-+ * dcn32_save_mall_state(): Save MALL (SubVP) state for fast validation cases
-  *
-  * This function saves the MALL (SubVP) case for fast validation cases. For fast validation,
-  * there are situations where a shallow copy of the dc->current_state is created for the
-@@ -446,13 +439,11 @@ void dcn32_set_det_allocations(struct dc *dc, struct dc_state *context,
-  * NOTE: This function ONLY works if the streams are not moved to a different pipe in the
-  *       validation. We don't expect this to happen in fast_validation=1 cases.
-  *
-- * @param [in]: dc: Current DC state
-- * @param [in]: context: New DC state to be programmed
-- * @param [out]: temp_config: struct used to cache the existing MALL state
-+ * @dc: Current DC state
-+ * @context: New DC state to be programmed
-+ * @temp_config: struct used to cache the existing MALL state
-  *
-- * @return: void
-- *
-- * *******************************************************************************************
-+ * Return: void
-  */
- void dcn32_save_mall_state(struct dc *dc,
- 		struct dc_state *context,
-@@ -472,18 +463,15 @@ void dcn32_save_mall_state(struct dc *dc,
- }
- 
- /**
-- * *******************************************************************************************
-- * dcn32_restore_mall_state: Restore MALL (SubVP) state for fast validation cases
-+ * dcn32_restore_mall_state(): Restore MALL (SubVP) state for fast validation cases
-  *
-  * Restore the MALL state based on the previously saved state from dcn32_save_mall_state
-  *
-- * @param [in]: dc: Current DC state
-- * @param [in/out]: context: New DC state to be programmed, restore MALL state into here
-- * @param [in]: temp_config: struct that has the cached MALL state
-- *
-- * @return: void
-+ * @dc: Current DC state
-+ * @context: New DC state to be programmed, restore MALL state into here
-+ * @temp_config: struct that has the cached MALL state
-  *
-- * *******************************************************************************************
-+ * Return: void
-  */
- void dcn32_restore_mall_state(struct dc *dc,
- 		struct dc_state *context,
-@@ -588,10 +576,10 @@ static int get_refresh_rate(struct dc_stream_state *fpo_candidate_stream)
- }
- 
- /**
-- * dcn32_can_support_mclk_switch_using_fw_based_vblank_stretch - Determines if config can support FPO
-+ * dcn32_can_support_mclk_switch_using_fw_based_vblank_stretch() - Determines if config can support FPO
-  *
-- * @param [in]: dc - current dc state
-- * @param [in]: context - new dc state
-+ * @dc - current dc state
-+ * @context - new dc state
-  *
-  * Return: Pointer to FPO stream candidate if config can support FPO, otherwise NULL
-  */
+ static void delay_cursor_until_vupdate(struct dc *dc, struct pipe_ctx *pipe_ctx)
+ {
 -- 
 2.25.1
 
