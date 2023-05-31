@@ -4,58 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B927FC77B73
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 May 2023 13:26:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C514C77B73
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 May 2023 13:33:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55F8510E1C8;
-	Wed, 31 May 2023 13:26:40 +0000 (UTC)
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [IPv6:2001:4860:4864:20::2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E905710E1C8
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 May 2023 13:26:38 +0000 (UTC)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-19f22575d89so2377423fac.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 May 2023 06:26:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1685539597; x=1688131597;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VBSeV8skhsdfB3yeHdSXZHeyjAD00anZ8UI378xqJiU=;
- b=Pabroi95v5JwUsMDZNeWcC/JfEBXpo+LZhEqyZP+r4vRAPh5I1DLr+MHl/Vk2O8w3p
- VD9TjavupC2rhoBahZJfC1nSZ72YKz/DEhzYN6YR88tnwkhFtLGftA8krROyIGpm1Sx6
- +U2KLzF5DsPoaeggI5q2cCFbYq2emjZKfufCzor8YPo3cFRu7u/wzAzVmYGZiU5/iv4r
- 9zAnnrf4I07m2vrrHZOaiTxL5/9se5cfiDyCHIopIiK/MRb2KySiJB1YFakFPJQQkzVY
- nnJUHfJ9xQG04AcSsGc61rMFwdKnQWX6/Fa2f7IwuWffpltl5dWtRokvGrlvw1J4N6jW
- 9wBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685539597; x=1688131597;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VBSeV8skhsdfB3yeHdSXZHeyjAD00anZ8UI378xqJiU=;
- b=BOlWXkXdzHwCEq7MQfyTnaS25rwcrri/5YIs8n9Y3gRj/4lWW8DV81y6knAArXpaio
- IA+0delkWiRmBT3UNfwEoMxNII29h2acGoDZCQ9tG+EPuwenl8gUB/1jluXl5eKtb/S0
- hqHCckmsDBfXghZtvNAH+QnBLOc1D+m+RDydTEhktURfIlC0q7ZDgavgqX1e5z2wn9XK
- r8C5EM+TziLKsVNQcJuAvx4Jrvg5dhN7yAgTAFBqpEZrlnLjgcTotAMPCV5POQD8h9fJ
- k+MYzybFg2zonCkTCGAWw9hRU9K/zMG+YPy5D6G3f0F8MsCfmTI+YSNyB0Vs+VUaOTi/
- DIaQ==
-X-Gm-Message-State: AC+VfDxKk/D1fxCQFBNZ9aiGSA4Z+PPSQLvogF9qBFY3+KrmbCfPucIy
- dDtsbfQodNmb5S4fI+kSMTurwKfXF3bESj0jZCHPcbzVGHY=
-X-Google-Smtp-Source: ACHHUZ6jbqFha+bBzs4mUXS3WAdYE59To4j1HK3V8hTkT3qne/l05SVCpWcOImso5Mw9EYM7WUpbXaPl3qwx4Ehk0Zc=
-X-Received: by 2002:a05:6870:3a2e:b0:19f:5701:8c34 with SMTP id
- du46-20020a0568703a2e00b0019f57018c34mr2347764oab.41.1685539597651; Wed, 31
- May 2023 06:26:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECE2710E06F;
+	Wed, 31 May 2023 13:33:25 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2052.outbound.protection.outlook.com [40.107.92.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D970C10E06F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 May 2023 13:33:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AxRWcg+DTtym8ujlZ5R2XySzlmPyjoD85pdFELoPzbuDmTSTfT6LyJPtIWZhuTx+u2/hT6KPLwLdX8m78P+J1R+1o7jecg1rfUi/pYEEA8vbvanHIfxcXEkh02VlCLw0tYQk9OZmzR+VjY0emMP0pSHoB0UaOxoKfO9x2Hb5w9lKOMhksjHk1u7Ws2AkMzZJOo9Mvd8kgJjblin2WPy3drWo/O5XLfKG5VUcKW/AQ/IP6r8LOOyaolhMzbPR0QJPtvGFyj5VTfzoGA2QIR0sEZ2ESdJuGQKCYJJVjvSXDQqwtF1nljwN8pab99qyvzN7JOlfFgn9VJlWj38TzUZUOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PEfko/+WQAB3YCQk8dBRiVw4QVF8abUun5QKsdLIBPs=;
+ b=gxwWk9F1zAgAv0vI2ENySg0ZL5mrUlP7w/waZS1a8yui3mcvEdn5ClTQZg8KAwMWqCxXwZpzmqc+qlkzgXFl91jUD1Qb4RRJUgS0aGp6tnt6d2CWuF/HkYHkPhvteeTca0876b3F5FhIPhAOeDFvOgA+WEmUE5nNpqiA6l1F24+u9vGKnttg3gWk1G+9lqDpvIEcZ5QwEZR61yqSoLSNFVPk7f2oFjbalq5ss1BQVngsstrWkZAq1ucfz0pyz1SGW4jWL957mYf4A6vDhVp5OVIfNuBBTpfj2lDASahHvG7Dty1GI0ge1rH8dLvWG2cqheOT0Q/ZgFLZUjlg5NQeVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PEfko/+WQAB3YCQk8dBRiVw4QVF8abUun5QKsdLIBPs=;
+ b=BzJZ+wMkD1gNXC/TsQF/oN4fvf0gbm6xfz3q0SHuzrnLsH4wG830e/Qc1ByvFOGQYu4kFBQvFumz0H8ShGmpsFM64B8zY1RkiqnfjzjTFpoIKIKDo58niJjR7V0h3Er/OkN+KyVTqFaMXZWyfG0tGxBks3E34OJVnLW6WWRS2dM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by LV8PR12MB9206.namprd12.prod.outlook.com (2603:10b6:408:186::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.22; Wed, 31 May
+ 2023 13:33:21 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::907f:26e2:673a:2ad2]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::907f:26e2:673a:2ad2%6]) with mapi id 15.20.6455.020; Wed, 31 May 2023
+ 13:33:21 +0000
+Message-ID: <2404b7f3-a465-a706-8af3-459105f0dc54@amd.com>
+Date: Wed, 31 May 2023 15:33:16 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/amdgpu: Rearrange WREG32 operations in gfxhub_v2_1.c
+Content-Language: en-US
+To: ghostfly233 <ghostfly23333@gmail.com>, alexander.deucher@amd.com,
+ Xinhui.Pan@amd.com
+References: <64690ac5.170a0220.92bb3.2e7a@mx.google.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <64690ac5.170a0220.92bb3.2e7a@mx.google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FRYP281CA0015.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::25)
+ To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-References: <20230530204848.231842-1-mario.limonciello@amd.com>
-In-Reply-To: <20230530204848.231842-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 31 May 2023 09:26:26 -0400
-Message-ID: <CADnq5_N64zscFAjTj2JtBGqyoZRUjazSrW75NGAJqPKWBXL68Q@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/amd: Disallow s0ix without BIOS support again
-To: Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|LV8PR12MB9206:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ca13133-8996-409e-fb2d-08db61db99e0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: K22KouEQ+jjdzJknDgXWBGDTyyXofwoJSuU7MIkvFxSurAOSbWtqK5yIoSC5q/GzTNbOOr7wezNHHLx1hWr5eFBL/JKpeQl33cxV19++8v4LXtc2yEFVB3Z/eW1fMuZuWdq5zRY7FNlOJ+Kurqc+OzZARb7HFAy2/NzXORt7uomTwOfeXMxAsKT044wHxCamaA32iwK/CK43wny0B4hVzpRCpcfkbQf7lT1Lq8hwBX0SWct+sjM6COfSpEb8X1UIJ2cp7wtJsKDqyOko5gHrJ1mzQ5dMCZP0oBtMVNLreF53I1DXm1/9iANC7ouTO4MZAz9ug1KBN0Uba+TjFiat/V/WtfPfsrtTtOgBb4/Pk/9pVXyudZ053/UapfjPMBUCMECte1Mm/h8CaA+QhBk085OmNMeeAw71xr9VRA66dWDZujg/EjeTDuGUvQuWRxC/9I4FVsU/Cu6qcVwvUv3EGlK9at6ndBFimr+2PORS2m9TuxoEbiVMb8kifxlIjV/tWvrs0ZaFYQgi4ruZyRrDwrbd8Vg/9ZXVDUUT+bszo1hzVW7oR4Tb8eW4g5hN2gpGe/9H11xCLqPSMl62VBXWGWl5cFFf4WSbhEBJ4oj5TVbruL+O0JOFAMhN8YCI8/D3xkI3xyHxLSrIIGj66mS/3A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(346002)(396003)(39860400002)(376002)(136003)(451199021)(6512007)(6506007)(31686004)(186003)(2906002)(2616005)(478600001)(83380400001)(31696002)(38100700002)(8676002)(41300700001)(8936002)(6486002)(66556008)(316002)(66946007)(6666004)(66476007)(5660300002)(86362001)(36756003)(4326008)(6636002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VHhjOGRiTllGdlF4NThwNU8xWGt4dk84YVhzY0ZXajJIUVJGaDF3amFPVU9w?=
+ =?utf-8?B?dlc0bzBHMzFKbUQ5TG8yOUdGN1ZYdE1XQUY2blJXTUVDaEhlK1FvNndCRnVO?=
+ =?utf-8?B?TmF4Nk9XU3JRV1ROTjJpdXFMNDhzQ0dYMExQWnpma1J2QmJFcEpYdjdtTHN3?=
+ =?utf-8?B?QW5pd29nb2pjcU9PMTZud1hhUnh3VGJiUUQyRjlNeDhCNkFSdlowV003azk1?=
+ =?utf-8?B?Y1dmczlvOG92UHlmc1F5b2Z2Vmc3T3dCMktoVWNjcS91QUlUWmNFRUhQaFRo?=
+ =?utf-8?B?cFhCMEx5eFZIaUpMdkZieFJDd2RURFRuTm1HWGYxYmNGTlBtWXQzQ092UHBm?=
+ =?utf-8?B?MndFMklpSnpLRk5Zb1EvMjNHNVNTNlAxYy9rVFp3dU16TjRRMHNNc3VtazFn?=
+ =?utf-8?B?MitFTTRqUStmV2tQakM1eWYvSWM3QkNDWGtLak5PK05DSzdMTWZmL0FsWFRv?=
+ =?utf-8?B?TUFFV1BmUXZvZ01ocERDUG16RXk5T2hLbVp2VXE5cVQ2eERHQkk1WXhqRVdH?=
+ =?utf-8?B?SVVSeDZUNjdGb2FXbWQ5cU0vQm9LekRnWU8rdEw2dExuYnFkc0JRVkY5N3lz?=
+ =?utf-8?B?WFdvSkh5QzdnM2VuQ3c4Vmw3RlZsK1ZWUWJWanpuZHFmUm5qTkNlRmlHc1dP?=
+ =?utf-8?B?Rk1uTHdkZUt4V1lSbG1EVk9EUUdocWo2U25uREowdzhtb1RvOUpWdFZNWmli?=
+ =?utf-8?B?dHh0alZLeVJsaEZKdWYvZHl0RVVid09VdklSbFkyV01LWlc5bFpibUxpeGZ5?=
+ =?utf-8?B?L2hzdEUyL1pUeEtyRUprekJyMkRTWWtWMDJib3hYREJ0Y1ZjL2dacFVldHgv?=
+ =?utf-8?B?WHVvai82Q1JSNjE4eStjYU9KSnYvd0xLN28wUDRjZkNmTFAzSTRhQ1graEhK?=
+ =?utf-8?B?dXNINHVNcE1IMDdtSEhMRDd1R2NwYzV6WTVLUkw1WGZqQUpBdkdIOFY5QWJ5?=
+ =?utf-8?B?VGd6RFpZQm5abDA1Yk1reElnZ2lDVys5NGdjNlJHa1dnYTFqeWYzdXJjU0tG?=
+ =?utf-8?B?VEtYZlVnY3FJcWVoTkdWaGhiRTVlQnFKMC9nWFI1bi9NdzJpc0JzT3ZWUUhE?=
+ =?utf-8?B?SDkxWVQyc2ZvWHE0Z0VFcU1lSzhFVWdqVkswQ1BqZ2huVXlMVHlYZW9WcG9F?=
+ =?utf-8?B?ZHk0N3RLSjRiZlVkREJvUnhpL3JxaEovWFVCOWY5VnYzQ3NDRURaekFUZjJw?=
+ =?utf-8?B?S2dpdTZOamdsVmxRdk9qY2EwaGtCMFVOeUpZL21wSlFKaituLy9qWU94Ympa?=
+ =?utf-8?B?TThsRU9WMjRaN0NGdVk1NytreGVGQXlac3dTREd4SDcvUzYrbGZYelNuREpM?=
+ =?utf-8?B?YTNqS2lFeng2bTVuL21yMFMvRlYrU1RleDVvL1cyVWthZnhrL2VrdDliRFV0?=
+ =?utf-8?B?WG80YjhiWXhHN2hOTGxWa2VBa0E0emJBdlN4UjJ4N3pSYlBrVUFDVnpSRVE4?=
+ =?utf-8?B?VEl6V1VpWStJUmx5N1NzS0hLWmpIWGx1bCt1aTZ0NFBCemdKZ3BQK2I5ZDFG?=
+ =?utf-8?B?ckpGT2RxT1dVU2xtd3BFZGRQa0I2YlFPN1Z0OU00UlltUzhrTERZdlhRRmoy?=
+ =?utf-8?B?U2xxZGxISmNOKzFsaVg4REJ2VHd4WklUcDd0WWw4SlRpTVJuc1pCbHAxZlYy?=
+ =?utf-8?B?ZnJNK3lldGxEZlkvZTZ1MG8vOWZCRzc2Q2tJK0xNRW9TcEEzNjdLcHVzZTRJ?=
+ =?utf-8?B?NnlLM1piOWxHTExzWHo0TkdLNDcvZXhoSXBVYjV0cThhTVBtQ0J5RVg0YThw?=
+ =?utf-8?B?MVZXSmJhUFZPVHZvdElocHFvU2xaRGRYaUVsNzgvSEFlR1FlbDhGeDNvem5X?=
+ =?utf-8?B?Nkc5RzVxZ2pubm1RdHl0cjFURmRpUnh5Z2RYb01wVDdObFJ4Ni9YbGIxNFdZ?=
+ =?utf-8?B?Rkw3M1RzQmYzTEpVY1NvdXJOSkI1a05JV3BvY1Q2bWlJZTZ2ZDFyYXJOZlVG?=
+ =?utf-8?B?VmJESG1iMTZjZmpUbXBzOU5sUGJKbllXbmE4eXdUUHBiNys0VDJoUW9YQnZi?=
+ =?utf-8?B?bmVKSGNQUmhiZkJDUGhKVzl0SE1QQ0lMRXkvQjk0K0p4ZTdvbG9Wd0xpTXh5?=
+ =?utf-8?B?a2Izd0xIVkRMVFJxRlZDczdveHB4cFRValY2ZTJnaks3bkFQK3UxRFMxUDh0?=
+ =?utf-8?B?WGJLK3Y5eUpyYmtvdmp1aC92L2RxU2hsNmlLRnJ1aE5CV09WVHJjZDFiR1NG?=
+ =?utf-8?Q?YXffw0ci6vUNXQfr0NDbDvV+gYmBw1+XFbjojgm/i3yz?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ca13133-8996-409e-fb2d-08db61db99e0
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2023 13:33:21.3468 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5T4DA4XmYt6YVedL4a3o6Aa7DSqXj65rG70WRh8NP8BRUDSCjz6n3MbewhomM7cL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9206
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,88 +125,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Rafael_=C3=81vila_de_Esp=C3=ADndola?= <rafael@espindo.la>,
+Cc: daniel@ffwll.ch, airlied@gmail.com, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 30, 2023 at 6:34=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> commit cf488dcd0ab7 ("drm/amd: Allow s0ix without BIOS support") showed
-> improvements to power consumption over suspend when s0ix wasn't enabled i=
-n
-> BIOS and the system didn't support S3.
->
-> This patch however was misguided because the reason the system didn't
-> support S3 was because SMT was disabled in OEM BIOS setup.
-> This prevented the BIOS from allowing S3.
->
-> Also allowing GPUs to use the s2idle path actually causes problems if
-> they're invoked on systems that may not support s2idle in the platform
-> firmware. `systemd` has a tendency to try to use `s2idle` if `deep` fails
-> for any reason, which could lead to unexpected flows.
->
-> The original commit also fixed a problem during resume from suspend to id=
-le
-> without hardware support, but this is no longer necessary with commit
-> ca4751866397 ("drm/amd: Don't allow s0ix on APUs older than Raven")
->
-> Revert commit cf488dcd0ab7 ("drm/amd: Allow s0ix without BIOS support")
-> to make it match the expected behavior again.
->
-> Cc: Rafael =C3=81vila de Esp=C3=ADndola <rafael@espindo.la>
-> Link: https://github.com/torvalds/linux/blob/v6.1/drivers/gpu/drm/amd/amd=
-gpu/amdgpu_acpi.c#L1060
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2599
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Am 20.05.23 um 13:59 schrieb ghostfly233:
+> In gfxhub_v2_1_setup_vmid_config(), the GCVM_CONTEXT1_CNTL reg is
+> written before related GCVM_CONTEXT1_PAGE_TABLE_START_ADDR and
+> GCVM_CONTEXT1_PAGE_TABLE_END_ADDR regs are written, which may
+> cause undefined behavior.
 
-Patch 1 is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Patch 2 seems a bit much, but I could be convinced if you think it
-will actually help more than a warn would.  Users already assume warn
-is a kernel crash.  I'm not sure the average user makes a distinction
-between warn and err.
+In which hw documentation did you found that?
 
-Alex
+>
+> This patch rearranges WREG32 operations in gfxhub_v2_1_setup_vmid_config(),
+> so that it can ensure the addresses are initialized before CNTL is enabled
+> and reduce the risk of encountering undefined behavior.
 
+I have absolutely no idea how you came to this conclusion, but as far as 
+I know this is just bluntly incorrect.
+
+The control register must be written before the other parameters are set 
+or otherwise the hw wouldn't know what to do with those values and might 
+even block writes to the registers or hang.
+
+Regards,
+Christian.
+
+>
+> Signed-off-by: Zibin Liu <ghostfly23333@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_acpi.c
-> index aeeec211861c..e1b01554e323 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -1092,16 +1092,20 @@ bool amdgpu_acpi_is_s0ix_active(struct amdgpu_dev=
-ice *adev)
->          * S0ix even though the system is suspending to idle, so return f=
-alse
->          * in that case.
->          */
-> -       if (!(acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0))
-> +       if (!(acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0)) {
->                 dev_warn_once(adev->dev,
->                               "Power consumption will be higher as BIOS h=
-as not been configured for suspend-to-idle.\n"
->                               "To use suspend-to-idle change the sleep mo=
-de in BIOS setup.\n");
-> +               return false;
-> +       }
->
->  #if !IS_ENABLED(CONFIG_AMD_PMC)
->         dev_warn_once(adev->dev,
->                       "Power consumption will be higher as the kernel has=
- not been compiled with CONFIG_AMD_PMC.\n");
-> -#endif /* CONFIG_AMD_PMC */
-> +       return false;
-> +#else
->         return true;
-> +#endif /* CONFIG_AMD_PMC */
->  }
->
->  #endif /* CONFIG_SUSPEND */
-> --
-> 2.34.1
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+> index 4aacbbec31e2..6d094e7315eb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+> @@ -321,8 +321,6 @@ static void gfxhub_v2_1_setup_vmid_config(struct amdgpu_device *adev)
+>   		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
+>   				    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
+>   				    !adev->gmc.noretry);
+> -		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL,
+> -				    i * hub->ctx_distance, tmp);
+>   		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32,
+>   				    i * hub->ctx_addr_distance, 0);
+>   		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32,
+> @@ -333,6 +331,8 @@ static void gfxhub_v2_1_setup_vmid_config(struct amdgpu_device *adev)
+>   		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32,
+>   				    i * hub->ctx_addr_distance,
+>   				    upper_32_bits(adev->vm_manager.max_pfn - 1));
+> +		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL,
+> +				    i * hub->ctx_distance, tmp);
+>   	}
+>   
+>   	hub->vm_cntx_cntl = tmp;
+
