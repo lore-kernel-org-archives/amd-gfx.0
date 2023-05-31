@@ -4,57 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFB23C7EE23
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 May 2023 12:35:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEAB7C77B7A
+	for <amd-gfx@archiver.kernel.org>; Wed, 31 May 2023 12:48:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DA7410E4B9;
-	Wed, 31 May 2023 12:35:37 +0000 (UTC)
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72EE410E4B6;
- Wed, 31 May 2023 12:35:35 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-19f454bd2c8so3652339fac.3; 
- Wed, 31 May 2023 05:35:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0272310E4BC;
+	Wed, 31 May 2023 12:48:26 +0000 (UTC)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9239110E4BC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 May 2023 12:48:23 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-19f68a583a7so624151fac.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 31 May 2023 05:48:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1685536533; x=1688128533;
+ d=gmail.com; s=20221208; t=1685537302; x=1688129302;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=b9AZS1ktoaapK3siunD9B+KchBJr9BGmfUOzDQLbyvQ=;
- b=RrV7MO8JqFliQBxnrmxbLuAX7c4pkU2dHXPSaVYEsaNwg0UH4sQlQmzcSU2ABJdpVD
- anwrx77vW2i27nuJX15NY1T5BUHLAdbDobHlhJgO8a1cSfT5c33tTZKWECaEaE06WGl/
- RfW2Lxei5x6gLJae60uuLVZ3GTsb9uuemLb2EoWYeV+V5zw0bCx27B2x5aXu9x0xEDTa
- c64JiT6xQApQ4u9jvlU4yKzCkHec4+oY6Ouu1hXuIC9sByw/+g8XuxpVhhCQ2c6Xwe/t
- LU26TmgrYHeUjDUtK6BDrPXx6CH+HGDJaBtY9198CHK7KWDaqq67N9CJdQU65jsl2H3y
- OY/g==
+ bh=PeW/DM98XuGkaieBWPeNW9yO4H9Z8Pw/V05Rt/+UEzU=;
+ b=WU4rlPdW3qj5Fi0w5d8iw0ijycX7T8vO6pP+LA8v2HOgA9xurcGF4w9iiFzht77D1z
+ Px9g53iXHW62QHEnbs4GpWmtlu2fZFaHBXYm5r1LPjwGZy+OMbZkbz/NgyFkEYusDHC/
+ ouyh7zOB8mfSsE6PyXTQw/ehtPpUoh2r08A6XcWDAEKtly6tzjlDxeo4xlgG/isl304b
+ pMkP6LQoAoA7IiMuvqyk2fMzqWm+Sl5XT+VcHDUQ9POsycXZWYeHEr2ye/W5tN91G7xH
+ 5QeqYEh1YiUFof94LoV6hKBnM4wNMFMCxVqFhDYqT4OyRJarMRF10nyLzXGCXQCWCrcl
+ QDdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685536533; x=1688128533;
+ d=1e100.net; s=20221208; t=1685537302; x=1688129302;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=b9AZS1ktoaapK3siunD9B+KchBJr9BGmfUOzDQLbyvQ=;
- b=SnrezQz1+X8sEq4PePn2+jXN2+bamLtUmLK2eUfT/mdwSetENjPBduV1M9/iTLR1zs
- iXgvSKih6XZB/5HHKvC84U5B7uaZxC2DZfN7wP3EZl17Ta9X5gqOm+AkhJJSc1zQrGJD
- UFYeiofOP9jZ0+ZBdp34ZpxlC1rX8tIG3c/QJJFWBH2eeHi3Ldu7myDLmd+BfMecDxhr
- u/fxfMy3y+r19+sTyWZ+dqOzKsF1NBe7nmd6QvJqqcgvZlP4PGOOlI3V3+UosCe8eBwM
- SmB1rtocqYkRAxjgn/MMyvyN0FgPGlg5ae6UIYZQyD/Aeb1dY+fF07N8mv84RXo53gld
- n50g==
-X-Gm-Message-State: AC+VfDyzzAOfg3ykHgB/JgeKBDIzWszOl/R/2/ut9JufylRAC1c1sigy
- ANSzZWYKUO8izGfsp7XuE7PrRZs1lPDwRiugwNQ=
-X-Google-Smtp-Source: ACHHUZ7K+P0pTYT3+q+g4HClQK0jyg+unRvzSajPbfsJwnUbTgBiM0kJlRhtEqv8Bk7yNGnYvUC4Wy6DDwe3xEdFrOw=
-X-Received: by 2002:a05:6871:4d18:b0:180:b716:9825 with SMTP id
- ug24-20020a0568714d1800b00180b7169825mr2940941oab.57.1685536533603; Wed, 31
- May 2023 05:35:33 -0700 (PDT)
+ bh=PeW/DM98XuGkaieBWPeNW9yO4H9Z8Pw/V05Rt/+UEzU=;
+ b=TUFOFru7XHJMFfsmRwVHQ1a2ksyeIKKnsvdXg+zFUa79jmZq/laDx9M2Xl+4+3/suh
+ WfwPk5GX0aKC8cACBVhhuajZ1SYLyFL9WyKu4GOe6IjvU5CMkuqLa7B28ozE9Zmo7sbq
+ 8qIvxs7bu+MNEPKfBQkWXFXmAX1BtsP+ESULiO+pwn6uKWzhxuViP4Zo48qtrxqs8j8Z
+ 9X8FJoInCdd/8/YuBymqz5jQFUFGxMjx82wjZ4ygLasIF7hDOjqhwzUyWOnXdgj4qEYe
+ PeMYLNH0ZcG3yM5TEgm0zHq8ltpxctsdGR5ruNSdeZNRLcNr7wi/12he7U57iOmxY53g
+ KFPQ==
+X-Gm-Message-State: AC+VfDz8O6mKt8xAjeXGxYx9027QkSrNrG8rWBoRu5aKEKHAGolqhcNC
+ tjWViv1amDa3A65d35+E2fNtyWsMYMwiI1gUnrb2adwJ
+X-Google-Smtp-Source: ACHHUZ57AeNdtj5/yOz3JdARniYdQ+p2VtvxaUNybzkjKtjmDNvxnv42OcDtL4dEsNFdSZej62/ZvLuqCeRTeWLmEKs=
+X-Received: by 2002:a05:6870:f581:b0:19f:202d:cf74 with SMTP id
+ eh1-20020a056870f58100b0019f202dcf74mr6827629oab.20.1685537301988; Wed, 31
+ May 2023 05:48:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230531040027.3457841-1-Wayne.Lin@amd.com>
-In-Reply-To: <20230531040027.3457841-1-Wayne.Lin@amd.com>
+References: <20230421072835.842112-1-evan.quan@amd.com>
+ <DM6PR12MB26192A46ED09CDB6BC1A3BF2E4609@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <DM6PR12MB261983FB6A9A84960055C198E4489@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <CADnq5_MKZsLmTgc4dib3sPA2mwbG0CKTGypf=UqjC79xiXTp-A@mail.gmail.com>
+In-Reply-To: <CADnq5_MKZsLmTgc4dib3sPA2mwbG0CKTGypf=UqjC79xiXTp-A@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 31 May 2023 08:35:22 -0400
-Message-ID: <CADnq5_MWQigGzi4oynP=wq3FF-NgisBr5Rjz61rx=u80sONtUQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/dp_mst: Clear MSG_RDY flag before sending new message
-To: Wayne Lin <Wayne.Lin@amd.com>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Date: Wed, 31 May 2023 08:48:10 -0400
+Message-ID: <CADnq5_ND1uYpwK8D_-W0yy-KYR-ZFzCRrUc1rtU1Ui9iC8Y=sQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: conditionally disable pcie lane switching for
+ some sienna_cichlid SKUs
+To: "Quan, Evan" <Evan.Quan@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,321 +71,224 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, imre.deak@intel.com, stable@vger.kernel.org,
- jerry.zuo@amd.com, amd-gfx@lists.freedesktop.org, harry.wentland@amd.com,
- ville.syrjala@linux.intel.com
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ dri-devel
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Wed, May 31, 2023 at 12:01=E2=80=AFAM Wayne Lin <Wayne.Lin@amd.com> wrot=
-e:
+On Wed, May 31, 2023 at 8:12=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
 >
-> [Why]
-> The sequence for collecting down_reply from source perspective should
-> be:
+> Sure.  Please go ahead.
 >
-> Request_n->repeat (get partial reply of Request_n->clear message ready
-> flag to ack DPRX that the message is received) till all partial
-> replies for Request_n are received->new Request_n+1.
+> Alex
 >
-> Now there is chance that drm_dp_mst_hpd_irq() will fire new down
-> request in the tx queue when the down reply is incomplete. Source is
-> restricted to generate interveleaved message transactions so we should
-> avoid it.
->
-> Also, while assembling partial reply packets, reading out DPCD DOWN_REP
-> Sideband MSG buffer + clearing DOWN_REP_MSG_RDY flag should be
-> wrapped up as a complete operation for reading out a reply packet.
-> Kicking off a new request before clearing DOWN_REP_MSG_RDY flag might
-> be risky. e.g. If the reply of the new request has overwritten the
-> DPRX DOWN_REP Sideband MSG buffer before source writing one to clear
-> DOWN_REP_MSG_RDY flag, source then unintentionally flushes the reply
-> for the new request. Should handle the up request in the same way.
->
-> [How]
-> Separete drm_dp_mst_hpd_irq() into 2 steps. After acking the MST IRQ
-> event, driver calls drm_dp_mst_hpd_irq_send_new_request() and might
-> trigger drm_dp_mst_kick_tx() only when there is no on going message
-> transaction.
->
-> Changes since v1:
-> * Reworked on review comments received
-> -> Adjust the fix to let driver explicitly kick off new down request
-> when mst irq event is handled and acked
-> -> Adjust the commit message
->
-> Changes since v2:
-> * Adjust the commit message
-> * Adjust the naming of the divided 2 functions and add a new input
->   parameter "ack".
-> * Adjust code flow as per review comments.
->
-> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-> Cc: stable@vger.kernel.org
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 33 +++++++++-------
->  drivers/gpu/drm/display/drm_dp_mst_topology.c | 39 +++++++++++++++++--
->  drivers/gpu/drm/i915/display/intel_dp.c       |  7 ++--
->  drivers/gpu/drm/nouveau/dispnv50/disp.c       | 12 ++++--
->  include/drm/display/drm_dp_mst_helper.h       |  7 +++-
->  5 files changed, 70 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index d5cec03eaa8d..597c3368bcfb 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3236,6 +3236,7 @@ static void dm_handle_mst_sideband_msg(struct amdgp=
-u_dm_connector *aconnector)
->  {
->         u8 esi[DP_PSR_ERROR_STATUS - DP_SINK_COUNT_ESI] =3D { 0 };
->         u8 dret;
-> +       u8 ack;
->         bool new_irq_handled =3D false;
->         int dpcd_addr;
->         int dpcd_bytes_to_read;
-> @@ -3265,34 +3266,36 @@ static void dm_handle_mst_sideband_msg(struct amd=
-gpu_dm_connector *aconnector)
->                 process_count < max_process_count) {
->                 u8 retry;
->                 dret =3D 0;
-> +               ack =3D 0;
->
->                 process_count++;
->
->                 DRM_DEBUG_DRIVER("ESI %02x %02x %02x\n", esi[0], esi[1], =
-esi[2]);
->                 /* handle HPD short pulse irq */
->                 if (aconnector->mst_mgr.mst_state)
-> -                       drm_dp_mst_hpd_irq(
-> -                               &aconnector->mst_mgr,
-> -                               esi,
-> -                               &new_irq_handled);
-> +                       drm_dp_mst_hpd_irq_handle_event(&aconnector->mst_=
-mgr,
-> +                                                       esi,
-> +                                                       &ack,
-> +                                                       &new_irq_handled)=
+> On Wed, May 31, 2023 at 5:54=E2=80=AFAM Quan, Evan <Evan.Quan@amd.com> wr=
+ote:
+> >
+> > [AMD Official Use Only - General]
+> >
+> > Hi Alex,
+> >
+> > Can we land this as a temporary solution while we are seeking a more pr=
+oper one?
+> > This is gating our customer and I was pushed for a solution.
+> >
+> > BR,
+> > Evan
+> > > -----Original Message-----
+> > > From: Quan, Evan
+> > > Sent: Friday, April 21, 2023 3:32 PM
+> > > To: amd-gfx@lists.freedesktop.org
+> > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Limonciello, Mari=
+o
+> > > <Mario.Limonciello@amd.com>
+> > > Subject: RE: [PATCH] drm/amd/pm: conditionally disable pcie lane swit=
+ching
+> > > for some sienna_cichlid SKUs
+> > >
+> > > [AMD Official Use Only - General]
+> > >
+> > > This seems able to address some audio noise issue observed per custom=
+er's
+> > > feedback.
+> > >
+> > > Evan
+> > > > -----Original Message-----
+> > > > From: Quan, Evan <Evan.Quan@amd.com>
+> > > > Sent: Friday, April 21, 2023 3:29 PM
+> > > > To: amd-gfx@lists.freedesktop.org
+> > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Limonciello, Ma=
+rio
+> > > > <Mario.Limonciello@amd.com>; Quan, Evan <Evan.Quan@amd.com>
+> > > > Subject: [PATCH] drm/amd/pm: conditionally disable pcie lane switch=
+ing
+> > > > for some sienna_cichlid SKUs
+> > > >
+> > > > Disable the pcie lane switching for some sienna_cichlid SKUs since =
+it
+> > > > might not work well on some platforms.
+> > > >
+> > > > Signed-off-by: Evan Quan <evan.quan@amd.com>
+> > > > Change-Id: Iea9ceaa146c8706768ee077c10e5d33bce9bc1c2
+> > > > ---
+> > > >  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 92 +++++++++++++++=
+-
+> > > --
+> > > > -
+> > > >  1 file changed, 74 insertions(+), 18 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.=
+c
+> > > > b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > > index 4b91cdc3eaa0..e7223513e384 100644
+> > > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > > @@ -2067,33 +2067,94 @@ static int
+> > > > sienna_cichlid_display_disable_memory_clock_switch(struct smu_conte=
+xt
+> > > >     return ret;
+> > > >  }
+> > > >
+> > > > +static void sienna_cichlid_get_override_pcie_settings(struct
+> > > > +smu_context
+> > > > *smu,
+> > > > +                                                 uint32_t
+> > > > *gen_speed_override,
+> > > > +                                                 uint32_t
+> > > > *lane_width_override)
+> > > > +{
+> > > > +   struct amdgpu_device *adev =3D smu->adev;
+> > > > +
+> > > > +   *gen_speed_override =3D 0xff;
+> > > > +   *lane_width_override =3D 0xff;
+> > > > +
+> > > > +   switch (adev->pdev->device) {
+> > > > +   case 0x73A0:
+> > > > +   case 0x73A1:
+> > > > +   case 0x73A2:
+> > > > +   case 0x73A3:
+> > > > +   case 0x73AB:
+> > > > +   case 0x73AE:
+> > > > +           /* Bit 7:0: PCIE lane width, 1 to 7 corresponds is x1 t=
+o x32 */
+> > > > +           *lane_width_override =3D 6;
+> > > > +           break;
+> > > > +   case 0x73E0:
+> > > > +   case 0x73E1:
+> > > > +   case 0x73E3:
+> > > > +           *lane_width_override =3D 4;
+> > > > +           break;
+> > > > +   case 0x7420:
+> > > > +   case 0x7421:
+> > > > +   case 0x7422:
+> > > > +   case 0x7423:
+> > > > +   case 0x7424:
+> > > > +           *lane_width_override =3D 3;
+> > > > +           break;
+> > > > +   default:
+> > > > +           break;
+> > > > +   }
+> > > > +}
+> > > > +
+> > > > +#define MAX(a, b)  ((a) > (b) ? (a) : (b))
+> > > > +
+> > > >  static int sienna_cichlid_update_pcie_parameters(struct smu_contex=
+t *smu,
+> > > >                                      uint32_t pcie_gen_cap,
+> > > >                                      uint32_t pcie_width_cap)
+> > > >  {
+> > > >     struct smu_11_0_dpm_context *dpm_context =3D smu-
+> > > > >smu_dpm.dpm_context;
+> > > > -
+> > > > -   uint32_t smu_pcie_arg;
+> > > > +   struct smu_11_0_pcie_table *pcie_table =3D &dpm_context-
+> > > > >dpm_tables.pcie_table;
+> > > > +   uint32_t gen_speed_override, lane_width_override;
+> > > >     uint8_t *table_member1, *table_member2;
+> > > > +   uint32_t min_gen_speed, max_gen_speed;
+> > > > +   uint32_t min_lane_width, max_lane_width;
+> > > > +   uint32_t smu_pcie_arg;
+> > > >     int ret, i;
+> > > >
+> > > >     GET_PPTABLE_MEMBER(PcieGenSpeed, &table_member1);
+> > > >     GET_PPTABLE_MEMBER(PcieLaneCount, &table_member2);
+> > > >
+> > > > -   /* lclk dpm table setup */
+> > > > -   for (i =3D 0; i < MAX_PCIE_CONF; i++) {
+> > > > -           dpm_context->dpm_tables.pcie_table.pcie_gen[i] =3D
+> > > > table_member1[i];
+> > > > -           dpm_context->dpm_tables.pcie_table.pcie_lane[i] =3D
+> > > > table_member2[i];
+> > > > +   sienna_cichlid_get_override_pcie_settings(smu,
+> > > > +                                             &gen_speed_override,
+> > > > +                                             &lane_width_override)=
 ;
->
->                 if (new_irq_handled) {
->                         /* ACK at DPCD to notify down stream */
-> -                       const int ack_dpcd_bytes_to_write =3D
-> -                               dpcd_bytes_to_read - 1;
-> -
->                         for (retry =3D 0; retry < 3; retry++) {
-> -                               u8 wret;
-> -
-> -                               wret =3D drm_dp_dpcd_write(
-> -                                       &aconnector->dm_dp_aux.aux,
-> -                                       dpcd_addr + 1,
-> -                                       &esi[1],
-> -                                       ack_dpcd_bytes_to_write);
-> -                               if (wret =3D=3D ack_dpcd_bytes_to_write)
-> +                               ssize_t wret;
-> +
-> +                               wret =3D drm_dp_dpcd_writeb(&aconnector->=
-dm_dp_aux.aux,
-> +                                                         dpcd_addr + 1,
-> +                                                         ack);
-> +                               if (wret =3D=3D 1)
->                                         break;
->                         }
->
-> +                       if (retry =3D=3D 3) {
-> +                               DRM_ERROR("Failed to ack MST event.\n");
-> +                               return;
-> +                       }
-> +
-> +                       drm_dp_mst_hpd_irq_send_new_request(&aconnector->=
-mst_mgr);
->                         /* check if there is new irq to be handled */
->                         dret =3D drm_dp_dpcd_read(
->                                 &aconnector->dm_dp_aux.aux,
-> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/=
-drm/display/drm_dp_mst_topology.c
-> index 38dab76ae69e..13165e764709 100644
-> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> @@ -4053,9 +4053,10 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_=
-mst_topology_mgr *mgr)
->  }
->
->  /**
-> - * drm_dp_mst_hpd_irq() - MST hotplug IRQ notify
-> + * drm_dp_mst_hpd_irq_handle_event() - MST hotplug IRQ handle MST event
->   * @mgr: manager to notify irq for.
->   * @esi: 4 bytes from SINK_COUNT_ESI
-> + * @ack: flags of events to ack
->   * @handled: whether the hpd interrupt was consumed or not
->   *
->   * This should be called from the driver when it detects a short IRQ,
-> @@ -4063,7 +4064,8 @@ static int drm_dp_mst_handle_up_req(struct drm_dp_m=
-st_topology_mgr *mgr)
->   * topology manager will process the sideband messages received as a res=
-ult
->   * of this.
->   */
-> -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, boo=
-l *handled)
-> +int drm_dp_mst_hpd_irq_handle_event(struct drm_dp_mst_topology_mgr *mgr,=
- const u8 *esi,
-> +                                   u8 *ack, bool *handled)
->  {
->         int ret =3D 0;
->         int sc;
-> @@ -4078,18 +4080,47 @@ int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology=
-_mgr *mgr, u8 *esi, bool *handl
->         if (esi[1] & DP_DOWN_REP_MSG_RDY) {
->                 ret =3D drm_dp_mst_handle_down_rep(mgr);
->                 *handled =3D true;
-> +               *ack |=3D DP_DOWN_REP_MSG_RDY;
->         }
->
->         if (esi[1] & DP_UP_REQ_MSG_RDY) {
->                 ret |=3D drm_dp_mst_handle_up_req(mgr);
->                 *handled =3D true;
-> +               *ack |=3D DP_UP_REQ_MSG_RDY;
->         }
->
-> -       drm_dp_mst_kick_tx(mgr);
->         return ret;
->  }
-> -EXPORT_SYMBOL(drm_dp_mst_hpd_irq);
-> +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_handle_event);
-> +
-> +/**
-> + * drm_dp_mst_hpd_irq_send_new_request() - MST hotplug IRQ kick off new =
-request
-> + * @mgr: manager to notify irq for.
-> + *
-> + * This should be called from the driver when mst irq event is handled
-> + * and acked. Note that new down request should only be sent when
-> + * previous message transaction is completed. Source is not supposed to =
-generate
-> + * interleaved message transactions.
-> + */
-> +void drm_dp_mst_hpd_irq_send_new_request(struct drm_dp_mst_topology_mgr =
-*mgr)
-> +{
-> +       struct drm_dp_sideband_msg_tx *txmsg;
-> +       bool kick =3D true;
->
-> +       mutex_lock(&mgr->qlock);
-> +       txmsg =3D list_first_entry_or_null(&mgr->tx_msg_downq,
-> +                                        struct drm_dp_sideband_msg_tx, n=
-ext);
-> +       /* If last transaction is not completed yet*/
-> +       if (!txmsg ||
-> +           txmsg->state =3D=3D DRM_DP_SIDEBAND_TX_START_SEND ||
-> +           txmsg->state =3D=3D DRM_DP_SIDEBAND_TX_SENT)
-> +               kick =3D false;
-> +       mutex_unlock(&mgr->qlock);
-> +
-> +       if (kick)
-> +               drm_dp_mst_kick_tx(mgr);
-> +}
-> +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_send_new_request);
->  /**
->   * drm_dp_mst_detect_port() - get connection status for an MST port
->   * @connector: DRM connector for this port
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 4bec8cd7979f..f24602887015 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4062,9 +4062,7 @@ intel_dp_mst_hpd_irq(struct intel_dp *intel_dp, u8 =
-*esi, u8 *ack)
->  {
->         bool handled =3D false;
->
-> -       drm_dp_mst_hpd_irq(&intel_dp->mst_mgr, esi, &handled);
-> -       if (handled)
-> -               ack[1] |=3D esi[1] & (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG=
-_RDY);
-> +       drm_dp_mst_hpd_irq_handle_event(&intel_dp->mst_mgr, esi, &ack[1],=
- &handled);
->
->         if (esi[1] & DP_CP_IRQ) {
->                 intel_hdcp_handle_cp_irq(intel_dp->attached_connector);
-> @@ -4139,6 +4137,9 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp=
-)
->
->                 if (!intel_dp_ack_sink_irq_esi(intel_dp, ack))
->                         drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
-> +
-> +               if (ack[1] & (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY))
-> +                       drm_dp_mst_hpd_irq_send_new_request(&intel_dp->ms=
-t_mgr);
->         }
->
->         return link_ok;
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/no=
-uveau/dispnv50/disp.c
-> index 9b6824f6b9e4..b2d9978e88a8 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> @@ -1357,6 +1357,7 @@ nv50_mstm_service(struct nouveau_drm *drm,
->         bool handled =3D true, ret =3D true;
->         int rc;
->         u8 esi[8] =3D {};
-> +       u8 ack;
->
->         while (handled) {
->                 rc =3D drm_dp_dpcd_read(aux, DP_SINK_COUNT_ESI, esi, 8);
-> @@ -1365,16 +1366,19 @@ nv50_mstm_service(struct nouveau_drm *drm,
->                         break;
->                 }
->
-> -               drm_dp_mst_hpd_irq(&mstm->mgr, esi, &handled);
-> +               ack =3D 0;
-> +               drm_dp_mst_hpd_irq_handle_event(&mstm->mgr, esi, &ack, &h=
-andled);
->                 if (!handled)
->                         break;
->
-> -               rc =3D drm_dp_dpcd_write(aux, DP_SINK_COUNT_ESI + 1, &esi=
-[1],
-> -                                      3);
-> -               if (rc !=3D 3) {
-> +               rc =3D drm_dp_dpcd_writeb(aux, DP_SINK_COUNT_ESI + 1, ack=
+> > > > +
+> > > > +   /* PCIE gen speed override */
+> > > > +   if (gen_speed_override !=3D 0xff) {
+> > > > +           min_gen_speed =3D MIN(pcie_gen_cap, gen_speed_override)=
+;
+> > > > +           max_gen_speed =3D MIN(pcie_gen_cap,
+> > > > gen_speed_override);
+> > > > +   } else {
+> > > > +           min_gen_speed =3D MAX(0, table_member1[0]);
+> > > > +           max_gen_speed =3D MIN(pcie_gen_cap, table_member1[1]);
+> > > > +           min_gen_speed =3D min_gen_speed > max_gen_speed ?
+> > > > +                           max_gen_speed : min_gen_speed;
+> > > >     }
+> > > > +   pcie_table->pcie_gen[0] =3D min_gen_speed;
+> > > > +   pcie_table->pcie_gen[1] =3D max_gen_speed;
+> > > > +
+> > > > +   /* PCIE lane width override */
+> > > > +   if (lane_width_override !=3D 0xff) {
+> > > > +           min_lane_width =3D MIN(pcie_width_cap,
+> > > > lane_width_override);
+> > > > +           max_lane_width =3D MIN(pcie_width_cap,
+> > > > lane_width_override);
+> > > > +   } else {
+> > > > +           min_lane_width =3D MAX(1, table_member2[0]);
+> > > > +           max_lane_width =3D MIN(pcie_width_cap, table_member2[1]=
 );
-> +
-> +               if (rc !=3D 1) {
->                         ret =3D false;
->                         break;
->                 }
-> +
-> +               drm_dp_mst_hpd_irq_send_new_request(&mstm->mgr);
->         }
->
->         if (!ret)
-> diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/displa=
-y/drm_dp_mst_helper.h
-> index 32c764fb9cb5..40e855c8407c 100644
-> --- a/include/drm/display/drm_dp_mst_helper.h
-> +++ b/include/drm/display/drm_dp_mst_helper.h
-> @@ -815,8 +815,11 @@ void drm_dp_mst_topology_mgr_destroy(struct drm_dp_m=
-st_topology_mgr *mgr);
->  bool drm_dp_read_mst_cap(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIV=
-ER_CAP_SIZE]);
->  int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr,=
- bool mst_state);
->
-> -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, boo=
-l *handled);
-> -
-> +int drm_dp_mst_hpd_irq_handle_event(struct drm_dp_mst_topology_mgr *mgr,
-> +                                   const u8 *esi,
-> +                                   u8 *ack,
-> +                                   bool *handled);
-> +void drm_dp_mst_hpd_irq_send_new_request(struct drm_dp_mst_topology_mgr =
-*mgr);
->
->  int
->  drm_dp_mst_detect_port(struct drm_connector *connector,
-> --
-> 2.37.3
->
+> > > > +           min_lane_width =3D min_lane_width > max_lane_width ?
+> > > > +                            max_lane_width : min_lane_width;
+> > > > +   }
+> > > > +   pcie_table->pcie_lane[0] =3D min_lane_width;
+> > > > +   pcie_table->pcie_lane[1] =3D max_lane_width;
+> > > >
+> > > >     for (i =3D 0; i < NUM_LINK_LEVELS; i++) {
+> > > > -           smu_pcie_arg =3D (i << 16) |
+> > > > -                   ((table_member1[i] <=3D pcie_gen_cap) ?
+> > > > -                    (table_member1[i] << 8) :
+> > > > -                    (pcie_gen_cap << 8)) |
+> > > > -                   ((table_member2[i] <=3D pcie_width_cap) ?
+> > > > -                    table_member2[i] :
+> > > > -                    pcie_width_cap);
+> > > > +           smu_pcie_arg =3D (i << 16 |
+> > > > +                           pcie_table->pcie_gen[i] << 8 |
+> > > > +                           pcie_table->pcie_lane[i]);
+> > > >
+> > > >             ret =3D smu_cmn_send_smc_msg_with_param(smu,
+> > > >                             SMU_MSG_OverridePcieParameters,
+> > > > @@ -2101,11 +2162,6 @@ static int
+> > > > sienna_cichlid_update_pcie_parameters(struct smu_context *smu,
+> > > >                             NULL);
+> > > >             if (ret)
+> > > >                     return ret;
+> > > > -
+> > > > -           if (table_member1[i] > pcie_gen_cap)
+> > > > -                   dpm_context->dpm_tables.pcie_table.pcie_gen[i] =
+=3D
+> > > > pcie_gen_cap;
+> > > > -           if (table_member2[i] > pcie_width_cap)
+> > > > -                   dpm_context->dpm_tables.pcie_table.pcie_lane[i]=
+ =3D
+> > > > pcie_width_cap;
+> > > >     }
+> > > >
+> > > >     return 0;
+> > > > --
+> > > > 2.34.1
