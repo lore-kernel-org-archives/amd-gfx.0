@@ -4,58 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A07B8C7EE23
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jun 2023 16:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEFC7C7EE2A
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jun 2023 16:24:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D72410E57E;
-	Thu,  1 Jun 2023 16:19:22 +0000 (UTC)
-Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
- [IPv6:2607:f8b0:4864:20::c34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E2E010E57A
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Jun 2023 16:19:20 +0000 (UTC)
-Received: by mail-oo1-xc34.google.com with SMTP id
- 006d021491bc7-5585f58ac49so574844eaf.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 01 Jun 2023 09:19:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1685636359; x=1688228359;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=r0v4dkuocYAAGTe/gCIUat3iFhwSLkszQVHNRMl4jCc=;
- b=oaWgk93pZGh/HhAW1cbVQB7fnNLPMpZR2vEh8ec2fTIVgRNe1HBB2zOhAcCaa+h+rc
- ghpuqTeUXWViqLm0MX4T+LemmRxNn43WcPr+Z6F2f6bAMhxzWmQQBzkyCQ0UDQIJSxHv
- VxmfE2KCicXmFL7v9+Bss/wZYCjpBZNnOXfrACuV7tDzcYBaC7ukQABerHTqa+z/bD5G
- R27t+/wvj0AVzryvlfPYRPeSPglEoL3UBzuDpiWd/+LhqW7lTbogKXql5WSRl6usqPz6
- TOkp5xfwSgUm2C3f405/nFQl/MnXLgSkDT5uV+yq+6+AnjeGryeNW6vRTGQDMawlmwXI
- 7WsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685636359; x=1688228359;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=r0v4dkuocYAAGTe/gCIUat3iFhwSLkszQVHNRMl4jCc=;
- b=WqciwNCYKEvSzemSDxmu+pLg35zlhCywrcwhGm3kqYo9WPO6Df40ihBSI1gHho2vj/
- z1NHCPQj3A4pRnrhl24KuHnFIXAdfNqFHldUB18Aof0r8qNxmQAJ5rdNpjYTkuTtxT07
- aKkv8khPhJ7VlNOQs/8sB9pNoh1Lf8/XP7xXcHj3TO6H4Z3AgcJtuUTbaJyhGtI4/leD
- XGOaWTEz+Ijls3+fvQni1fHavvNz9ViJR0hZOTEkSDRJlJjMKDRuet/obUNPleGX4zbT
- SjzCEt458C4QBv6ng+ZjYsuS5lFuCyp8URNuf5aD3oeanqNBtvA7ssD9rMwflZSDLRUQ
- Fugw==
-X-Gm-Message-State: AC+VfDzdRM6G1uXnxFy1FPLCBIqPJAT4fbyPJpOf6W+jCgVGXM755otL
- 7K1kCrdTnnqVkW2fqGK1hFIIHoVn7ntLpNnoVgC5cH71
-X-Google-Smtp-Source: ACHHUZ5udHeHu/jfXxDleHyHSIrc1HWoNVPyRmpi79YLE4DPAGmU6Eu23JwvUreJAhUncNkGHH+G82Eq/9ZZhrgrjM0=
-X-Received: by 2002:a4a:4913:0:b0:555:8c22:a169 with SMTP id
- z19-20020a4a4913000000b005558c22a169mr4630578ooa.9.1685636359306; Thu, 01 Jun
- 2023 09:19:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEBE210E584;
+	Thu,  1 Jun 2023 16:24:35 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE1BE10E153;
+ Thu,  1 Jun 2023 16:24:33 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 351Ce1mY025423; Thu, 1 Jun 2023 16:24:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=WNAynx4tlKqXRZp5kDxLG89UEaNImx42SZIHHfZDXfM=;
+ b=atZgqiL3xeyOLWRoxI/AOXm9BRSfaqwpC4rhRKLyCk0Z9xVR3pMTmp7XwSSTUilh5F9M
+ KXMmV3g1Jauy+YqoSRv/a2lDUY8G1mMcqaAiWyxC1oN7PAUe+tLIBOTwzKqHVYLF5kd0
+ k2gGtqi41UBn6/GzRM8aOsgp2azkKhpB5J+y+SV0Dd30t1O9LylTT+l6zZTjl48izrgQ
+ oLxUXunDWxsSP6DTjLU2jei8gTIzUGfAIJXJ7sGWoCgmbYYRA6CMl3vaEFuyHol0Ffsq
+ cNN9EajVbR8NzSfeczRWlVJgqVvm5kBEC9746PqLrcZiC/CDHFzyT0IacMrINDy4tcvv qA== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qxugrgn8n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 01 Jun 2023 16:24:26 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 351GOPRD013298
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 1 Jun 2023 16:24:25 GMT
+Received: from [10.110.26.45] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Thu, 1 Jun 2023
+ 09:24:21 -0700
+Message-ID: <d6fc9ce5-75e8-3b8d-a598-beb3cc18fd2a@quicinc.com>
+Date: Thu, 1 Jun 2023 09:24:19 -0700
 MIME-Version: 1.0
-References: <20230601143137.8633-1-Hawking.Zhang@amd.com>
-In-Reply-To: <20230601143137.8633-1-Hawking.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 1 Jun 2023 12:19:08 -0400
-Message-ID: <CADnq5_OZu8KtxJ=QoUG_or-+5xPX5SYAAPKoGTiOXU9sU1F4-w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: Fix power context allocation in SMU13
-To: Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v5 11/13] drm/msm: Use regular fbdev I/O helpers
+Content-Language: en-US
+To: Thomas Zimmermann <tzimmermann@suse.de>, <daniel@ffwll.ch>,
+ <airlied@gmail.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <javierm@redhat.com>, <sam@ravnborg.org>,
+ <suijingfeng@loongson.cn>
+References: <20230530150253.22758-1-tzimmermann@suse.de>
+ <20230530150253.22758-12-tzimmermann@suse.de>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230530150253.22758-12-tzimmermann@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: BwxUl_z5rEwYNDxEuLg0AizkPvjkYHQB
+X-Proofpoint-GUID: BwxUl_z5rEwYNDxEuLg0AizkPvjkYHQB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-01_08,2023-05-31_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ lowpriorityscore=0 mlxscore=0 mlxlogscore=657 spamscore=0 impostorscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 clxscore=1011 phishscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2306010142
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,50 +85,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Sean Paul <sean@poorly.run>, linux-samsung-soc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Rob Clark <robdclark@gmail.com>, amd-gfx@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 1, 2023 at 10:31=E2=80=AFAM Hawking Zhang <Hawking.Zhang@amd.co=
-m> wrote:
->
-> From: Lijo Lazar <lijo.lazar@amd.com>
->
-> Use the right data structure for allocation.
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
+On 5/30/2023 8:02 AM, Thomas Zimmermann wrote:
+> Use the regular fbdev helpers for framebuffer I/O instead of DRM's
+> helpers. Msm does not use damage handling, so DRM's fbdev helpers
+> are mere wrappers around the fbdev code.
+> 
+> By using fbdev helpers directly within each DRM fbdev emulation,
+> we can eventually remove DRM's wrapper functions entirely.
+> 
+> Msm's fbdev emulation has been incomplete as it didn't implement
+> damage handling. Partilly fix this by implementing damage handling
+> for write and draw operation. It is still missing for mmaped pages.
+> 
+> v4:
+> 	* use initializer macros for struct fb_ops
+> 	* partially support damage handling
+> v2:
+> 	* use FB_SYS_HELPERS option
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Acked-by: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Sean Paul <sean@poorly.run>
 > ---
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> index da059b02a153..09ac66ab9c34 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> @@ -534,11 +534,11 @@ int smu_v13_0_init_power(struct smu_context *smu)
->         if (smu_power->power_context || smu_power->power_context_size !=
-=3D 0)
->                 return -EINVAL;
->
-> -       smu_power->power_context =3D kzalloc(sizeof(struct smu_13_0_dpm_c=
-ontext),
-> +       smu_power->power_context =3D kzalloc(sizeof(struct smu_13_0_power=
-_context),
->                                            GFP_KERNEL);
->         if (!smu_power->power_context)
->                 return -ENOMEM;
-> -       smu_power->power_context_size =3D sizeof(struct smu_13_0_dpm_cont=
-ext);
-> +       smu_power->power_context_size =3D sizeof(struct smu_13_0_power_co=
-ntext);
->
->         return 0;
->  }
-> --
-> 2.17.1
->
+
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
