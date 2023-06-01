@@ -4,69 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12977C77B7E
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jun 2023 14:40:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46EB3C7EE23
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jun 2023 14:59:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98E7710E55A;
-	Thu,  1 Jun 2023 14:40:05 +0000 (UTC)
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02CE610E55A
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Jun 2023 14:40:03 +0000 (UTC)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-510f525e06cso1440328a12.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 01 Jun 2023 07:40:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1685630402; x=1688222402;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=QlU2bkmhLsj9aLYHqZuLoLdZpKsJ/x5xsbUzxDswI68=;
- b=i1oXHaZJHozHdObwKaz1Qqpk8wfF3PDqSZvkJEZ9j2c+3yByYk4/0XmN94F+Q44+oF
- 71rAwH1+F/9Pi7nCVpvDAh+/sEq5R61WAkmiCh66weDRQTKsf0EcfgnaK7sg+ESZ2J6d
- BVGi/2ECBrEw3imzODJC7LvzbuhoWLstaycW9d1L4rJFAVA9DY2g+jzJPNT6/FM0EBbu
- EI62odgG1bRK/iR2rDHGMUt1gp6xTPPnl9YiTkOSCDz/+GZ1+TKcO7El8EGzZ/G3h06y
- Wz+YaVgHDYxuwIOiovDLjl4yFntysFBkGIIetj+Ey+q+gErADV/BanTocrHuT958mBo1
- 2KvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685630402; x=1688222402;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=QlU2bkmhLsj9aLYHqZuLoLdZpKsJ/x5xsbUzxDswI68=;
- b=h8ASd+dXceGbmUS1kl6i3OzMiFpkkV39wFaoCkE4oh+3f37ShT8QeLcWbIb4ZVG3Wv
- Ui1FRQ+gKM+FqhdMg5p2xzjdObfnOAiPxRnBXXOsHrY8UUEdkgnmN7AyZiHadX5GPwS7
- PEDtuXtFmobcOUUXEuNsuaXIMkLOkuPgRmlQ5+m6moj7GpjmOk745Y74ZzxIF96M0rEB
- Htz67sWzvOimuXI66v7qHpMpDBeHMCR5ZSqDCSiApbZZXXAbpEovulTjqa1co8RuXHUo
- +0HulJnxY6yl8AB94Bcinw5kzErQLwukKOUXZy8QEHY/AqGvP5uJ+pm4PVWnrXixqJGw
- ALMg==
-X-Gm-Message-State: AC+VfDz5kUPHGRrC7XJBkP4iCXF6I50z0ArfNJ5Z50jQXSgxG9SgZ82z
- nP+jlS6rW4dpRWqsMp838mjkrAIYDEY=
-X-Google-Smtp-Source: ACHHUZ5i9OptcWzqbOCmu0FjhYMeWUyb2VrN/R3lvwiJfvF+1Df7j2kYOMWN9ZAa6K+3T5AxmjnYWQ==
-X-Received: by 2002:a17:906:ef02:b0:973:ff4d:d026 with SMTP id
- f2-20020a170906ef0200b00973ff4dd026mr8347942ejs.45.1685630401699; 
- Thu, 01 Jun 2023 07:40:01 -0700 (PDT)
-Received: from ?IPV6:2a00:e180:1543:da00:92db:2067:4b66:9b88?
- ([2a00:e180:1543:da00:92db:2067:4b66:9b88])
- by smtp.gmail.com with ESMTPSA id
- lx6-20020a170906af0600b0096efa536229sm10832926ejb.149.2023.06.01.07.40.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Jun 2023 07:40:01 -0700 (PDT)
-Message-ID: <bc744636-9eb0-0714-df77-cd058f8cfc28@gmail.com>
-Date: Thu, 1 Jun 2023 16:40:00 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8B8410E566;
+	Thu,  1 Jun 2023 14:59:33 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C86910E566
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Jun 2023 14:59:31 +0000 (UTC)
+Received: from [192.168.1.137] ([213.144.156.170])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202306011659247212; Thu, 01 Jun 2023 16:59:24 +0200
+Message-ID: <aca2a2e5-76c3-4df9-336e-2d9060333389@daenzer.net>
+Date: Thu, 1 Jun 2023 16:59:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH] Revert "drm/amdgpu: remove TOPDOWN flags when allocating
- VRAM in large bar system"
-Content-Language: en-US
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230520092518.1993-1-Arunpravin.PaneerSelvam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230520092518.1993-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Language: en-CA
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ "Zhuo, Qingqing (Lillian)" <Qingqing.Zhuo@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Chalmers, Wesley" <Wesley.Chalmers@amd.com>
+References: <20230414155330.5215-11-Qingqing.Zhuo@amd.com>
+ <9deeb132-a317-7419-e9da-cbc0a379c0eb@daenzer.net>
+ <CH0PR12MB5284513F3548D749845BD7B48B769@CH0PR12MB5284.namprd12.prod.outlook.com>
+ <CH0PR12MB5284BDF5F23009597E1503E38B769@CH0PR12MB5284.namprd12.prod.outlook.com>
+ <714c875f-21f1-7e29-fb39-4a1f97eb712f@daenzer.net>
+ <14582e0e-58cb-02df-50ae-1af22d194b29@amd.com>
+ <ea2f979e-730a-4bea-4092-3798f718ce0d@daenzer.net>
+ <8e0d6d87-0f73-1ae0-bce8-8b6231e6c068@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH 10/66] drm/amd/display: Do not set drr on pipe commit
+In-Reply-To: <8e0d6d87-0f73-1ae0-bce8-8b6231e6c068@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CTCH: RefID="str=0001.0A782F21.6478B24D.0003,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,51 +51,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, shane.xiao@amd.com
+Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Li,
+ Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>, "Chiu,
+ Solomon" <Solomon.Chiu@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Lakha,
+ Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Gutierrez,
+ Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.05.23 um 11:25 schrieb Arunpravin Paneer Selvam:
-> This reverts commit c105518679b6e87232874ffc989ec403bee59664.
->
-> This patch disables the TOPDOWN flag for APU and few dGPU cards
-> which has the VRAM size equal to the BAR size.
->
-> When we enable the TOPDOWN flag, we get the free blocks at
-> the highest available memory region and we don't split the
-> lower order blocks. This change is required to keep off
-> the fragmentation related issues particularly in ASIC
-> which has VRAM space <= 500MiB
->
-> Hence, we are reverting this patch.
->
-> Gitlab issue link - https://gitlab.freedesktop.org/drm/amd/-/issues/2270
->
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+On 5/31/23 22:14, Aurabindo Pillai wrote:
+> On 5/11/23 03:06, Michel Dänzer wrote:
+>> On 5/10/23 22:54, Aurabindo Pillai wrote:
+>>> On 5/10/23 09:20, Michel Dänzer wrote:
+>>>> On 5/9/23 23:07, Pillai, Aurabindo wrote:
+>>>>>
+>>>>> Sorry - the firmware in the previous message is for DCN32. For Navi2x, please use the firmware attached here.
+>>>>
+>>>> Same problem (contents of /sys/kernel/debug/dri/0/amdgpu_firmware_info below).
+>>>>
+>>>> Even if it did work with newer FW, the kernel must keep working with older FW, so in that case the new behaviour would need to be guarded by the FW version.
+>>>>
+>>>
+>>> Agreed. Were you able to repro the hang on any other modes/monitors? 
+>>
+>> Haven't tried specifically, and this is the only system I have with VRR.
+>>
+>>
+> Hi Michel,
+> 
+> I've fixed a related issue on Navi21. Could you please try the attached DMCUB along with the patches to be applied on top of amd-staging-drm-next and check if the hang/corruption is gone? 
 
-For now Reviewed-by: Christian König <christian.koenig@amd.com> for this 
-change.
+Thanks, though I'm afraid that made it kind of worse: Now it already hangs when Steam starts up in Big Picture mode. Same with the new DMCUB firmware or older one.
 
-The extra overhead for the topdown handling is intentional here as far 
-as I can see.
+This time, only
 
-Christian.
+ amdgpu 0000:0c:00.0: [drm] *ERROR* [CRTC:82:crtc-0] flip_done timed out
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 2bd1a54ee866..ca5fc07faf6c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -139,7 +139,7 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
->   
->   		if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
->   			places[c].lpfn = visible_pfn;
-> -		else if (adev->gmc.real_vram_size != adev->gmc.visible_vram_size)
-> +		else
->   			places[c].flags |= TTM_PL_FLAG_TOPDOWN;
->   
->   		if (flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)
+appears in dmesg.
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
