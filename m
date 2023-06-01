@@ -4,93 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BA97C7EE23
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jun 2023 17:09:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44D76C7EE33
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jun 2023 17:32:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15EC910E243;
-	Thu,  1 Jun 2023 17:09:52 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2043.outbound.protection.outlook.com [40.107.212.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF62E10E243
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Jun 2023 17:09:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SRAfKO/P5IHRlpBVT47/MYEmzYMBGBUGYCkIWg4jl628jRU+hVaC7OR2TMhQLY/mPKObcf9R6XEIEc1o+RJhzXzjlgrJPib49Akc3fuy6qKN87q6B1G6/tuYUQtN2HIH3FVfPhbGunWmExSTu2ESKy9hqKesYii7RGmwMM/s1a3ss3J951J58OEn5KIs8aQZ5M5sbRMVTuqEDwAwvk8gxtor27OfJX5pc6WVj2D7SNBlwcd5qi6iIavdtVgHnJakJTht2b968DkRFb/OVBYKCfkyyosIlCBAE4HX6LmG5Q8j6OGSuhthV3ePkxR4AOHmWx/DHiSyFJwbEeWgA93VNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=txeWdqEa5fuNslMcX2cO4KyebltOUOILRInxik9foNM=;
- b=TDv44+mdOP3kGHvXUJ20cbFyQ6lR0KNaa8NrniyjkNbV+xHTNaGsXA4/cgTVFGAT1r6wrgbA3fTCDZrMtcbTSdS1swcmzK7VKxY8lNMfjumGbmbRPLKVsGnE0EbsThHdMYUtdjYpHJIcQ5XrU9WHw1SFVZ/FvtR+wfUFL8wEuiucm2dBdudUD8W4k0qHmuasUPq/CAqoYqvIzX5YpHACzLiMQs9PlptvYABpgb6zUdtkzKXXMQ8P0DibRWuYngahq1j989BzECfXQi+k5edKhaARddG9cMjfFPKu3ZoT2mfB0mxx9iMhmBRa97OpOy+Lliy2hzXLxrR4rdAI9s0SNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=txeWdqEa5fuNslMcX2cO4KyebltOUOILRInxik9foNM=;
- b=Ld3Ho+aMPhqK9CI/QgcPA8CHQS54ODDidXNU+2DsPYgpn/Yf9Rmfj7MeDLriKt+J3qOG+iEPmDG40As7XmSUwSC6I9a0zV8G2144x2YL3Qi1/sIos9oHY92ae0b21LH59h9IPk5oyvptPmryv3RS3DhVGhnHcP6W0IZ4Z8lBSD8=
-Received: from DM6PR07CA0079.namprd07.prod.outlook.com (2603:10b6:5:337::12)
- by CY8PR12MB7609.namprd12.prod.outlook.com (2603:10b6:930:99::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.24; Thu, 1 Jun
- 2023 17:09:47 +0000
-Received: from DM6NAM11FT046.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:337:cafe::c1) by DM6PR07CA0079.outlook.office365.com
- (2603:10b6:5:337::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.23 via Frontend
- Transport; Thu, 1 Jun 2023 17:09:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT046.mail.protection.outlook.com (10.13.172.121) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6455.23 via Frontend Transport; Thu, 1 Jun 2023 17:09:45 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Jun
- 2023 12:09:45 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Jun
- 2023 10:09:44 -0700
-Received: from fedaura-ryzen.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 1 Jun 2023 12:09:44 -0500
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: Program OTG vtotal min/max selectors
- unconditionally for DCN1+
-Date: Thu, 1 Jun 2023 13:09:44 -0400
-Message-ID: <20230601170944.1770501-1-aurabindo.pillai@amd.com>
-X-Mailer: git-send-email 2.40.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT046:EE_|CY8PR12MB7609:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1776a82b-0560-4e4c-b002-08db62c2ffc3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cneu3TsRfnABGKNtNjz/5hGEou2aMhJjb8ccodPOLNsP1CPnha6l5VEOa8JS9XQrmV/4dQm8JMagkcXtpflk0ptWkTfK0k/DwgtIodUIvASNPQjVV4c95tOchpf98kMJQ5ye64EXJDmb35SlEflxQ5sb835fsC5c5sQxylOnlDehcLrMfZ90DLTIeJ+c+o/Axj3GHuvn0zOBhxGVtbNXjue/69h1jLTjGMwNDqgPFmnnca7pnDgYXOYV8LSMphKqGcQO3GDav30V+AO8VYl0kSZHXNJp8O3UGbtopIUFlkVt/T8cQlnS6NDneX/tV0rWyctsi+NCX/xzYfyhp4tl6zkA+I6LIXw+QoXGfDVf3CUSJVQ/rRDfmrl5u/roZexGU7sDGq/Iqp0mn+eDWYr57jBh0BJHWYJuxazq+eHXIbcqo08d9x7lhZk+wl+WjdeTgxP41Den6CDoRrl4KUnXm5SxKf62OjsrwuBGYecL5AEZ12wLx+kSsP/lAwLKM2rG6J0lFcWWIDk9UbELYeoExfKDvF+sC9i2dh7dJ2C2ycq87WygucuZrtqwTB5ET5hLyzIyBftBALsNaJS+isv/jEarNxBlUsRWMo7Mh6ZZHtXTU3ptBFfdDNvUGCSrJPLgmJepPqDjFK485Wfv49aTjSIRlMmVPfMG0vOkOPes2FntboIV2rGMTuIvVG5CP+e38E8/Gk2Ov667v/jv5xpevjDXcjReJfafLRrgoBcjbhpKqDDjN/bDGk6p2ASSBKXUCvKm7ZnCCJQW8cxfP7oaDw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(39860400002)(346002)(396003)(376002)(451199021)(46966006)(36840700001)(40470700004)(40460700003)(7696005)(36860700001)(47076005)(36756003)(83380400001)(426003)(336012)(2616005)(86362001)(82310400005)(82740400003)(81166007)(356005)(1076003)(26005)(186003)(40480700001)(2906002)(70206006)(70586007)(6916009)(4326008)(54906003)(8936002)(8676002)(316002)(5660300002)(41300700001)(44832011)(478600001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2023 17:09:45.6311 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1776a82b-0560-4e4c-b002-08db62c2ffc3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT046.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7609
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7572F10E58F;
+	Thu,  1 Jun 2023 17:32:19 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0B3D10E244;
+ Thu,  1 Jun 2023 17:32:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1685640736; x=1717176736;
+ h=date:from:to:cc:subject:message-id;
+ bh=PwsoXWiLBDAbQJFI4tD6NtsrJe7S2Evx4gR71sHvmOw=;
+ b=SyHE0gWlhbs/Uoa0obaOmw6eFiONuoaOgi7rGSb/0WmYJOqC/ZDK4XOf
+ tLVrKDTw6Y1+ArS1WaWOSifNyOjtEJaC8BsT6Au0S/8NewnrpQIBI2x08
+ 5YGBx27C/4suo48o9WmqEaH3+KHhI67zFtlFjqDT7SWfZDxylWYisQCO3
+ xrb0A613OpvJNWUaGD7VJ6RFGchC3NOq/ddEdyXJccRHYy5/W1fF/eYwV
+ /CuILvyl8oUJQagKabYF/Z5dIr7ViTMIV8wOy7slStwz2D8TT3wY9PoWj
+ iIN58X2eFWXdc2KwBSG69TOeHZPcGxKkuFAnj85E5C/4oMJxsY0pw6s0H w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10728"; a="335251260"
+X-IronPort-AV: E=Sophos;i="6.00,210,1681196400"; d="scan'208";a="335251260"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2023 10:31:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10728"; a="740441477"
+X-IronPort-AV: E=Sophos;i="6.00,210,1681196400"; d="scan'208";a="740441477"
+Received: from lkp-server01.sh.intel.com (HELO fb1ced2c09fb) ([10.239.97.150])
+ by orsmga001.jf.intel.com with ESMTP; 01 Jun 2023 10:31:34 -0700
+Received: from kbuild by fb1ced2c09fb with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1q4m97-0002XC-0h;
+ Thu, 01 Jun 2023 17:31:33 +0000
+Date: Fri, 02 Jun 2023 01:30:59 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 571d71e886a5edc89b4ea6d0fe6f445282938320
+Message-ID: <20230601173059.4lk2w%lkp@intel.com>
+User-Agent: s-nail v14.9.24
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,63 +54,247 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: harry.wentland@amd.com, aurabindo.pillai@amd.com, rodrigo.siqueira@amd.com
+Cc: linux-cifs@vger.kernel.org, netdev@vger.kernel.org,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ dri-devel@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ amd-gfx@lists.freedesktop.org, kvmarm@lists.linux.dev,
+ linux-xfs@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Due to FPO, firmware will try to change OTG timings, which would only
-latch if min/max selectors for vtotal are written by the driver.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 571d71e886a5edc89b4ea6d0fe6f445282938320  Add linux-next specific files for 20230601
 
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 15 +++------------
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c |  6 ++++++
- 2 files changed, 9 insertions(+), 12 deletions(-)
+Error/Warning reports:
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-index e1975991e075..633989fd2514 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-@@ -930,19 +930,10 @@ void optc1_set_drr(
- 				OTG_FORCE_LOCK_ON_EVENT, 0,
- 				OTG_SET_V_TOTAL_MIN_MASK_EN, 0,
- 				OTG_SET_V_TOTAL_MIN_MASK, 0);
--
--		// Setup manual flow control for EOF via TRIG_A
--		optc->funcs->setup_manual_trigger(optc);
--
--	} else {
--		REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
--				OTG_SET_V_TOTAL_MIN_MASK, 0,
--				OTG_V_TOTAL_MIN_SEL, 0,
--				OTG_V_TOTAL_MAX_SEL, 0,
--				OTG_FORCE_LOCK_ON_EVENT, 0);
--
--		optc->funcs->set_vtotal_min_max(optc, 0, 0);
- 	}
-+
-+	// Setup manual flow control for EOF via TRIG_A
-+	optc->funcs->setup_manual_trigger(optc);
- }
- 
- void optc1_set_vtotal_min_max(struct timing_generator *optc, int vtotal_min, int vtotal_max)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-index e0edc163d767..042ce082965f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-@@ -455,6 +455,12 @@ void optc2_setup_manual_trigger(struct timing_generator *optc)
- {
- 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
- 
-+	REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
-+                                OTG_V_TOTAL_MIN_SEL, 1,
-+                                OTG_V_TOTAL_MAX_SEL, 1,
-+                                OTG_FORCE_LOCK_ON_EVENT, 0,
-+                                OTG_SET_V_TOTAL_MIN_MASK, (1 << 1)); /* TRIGA */
-+
- 	REG_SET_8(OTG_TRIGA_CNTL, 0,
- 			OTG_TRIGA_SOURCE_SELECT, 21,
- 			OTG_TRIGA_SOURCE_PIPE_SELECT, optc->inst,
+https://lore.kernel.org/oe-kbuild-all/202305230552.WOByQyYa-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202305311652.OP9x8xkW-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202306010248.g3ZqQg4W-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202306011356.MNtU7Q9Z-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202306011435.2BxsHFUE-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202306011753.7eXAmz0M-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202306011915.bWdy8AJ8-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+drivers/net/dsa/qca/qca8k-leds.c:377:31: error: 'struct led_classdev' has no member named 'hw_control_is_supported'
+drivers/net/dsa/qca/qca8k-leds.c:378:31: error: 'struct led_classdev' has no member named 'hw_control_set'
+drivers/net/dsa/qca/qca8k-leds.c:379:31: error: 'struct led_classdev' has no member named 'hw_control_get'
+drivers/net/dsa/qca/qca8k-leds.c:380:31: error: 'struct led_classdev' has no member named 'hw_control_trigger'
+drivers/net/dsa/qca/qca8k-leds.c:406:18: error: no member named 'hw_control_get_device' in 'struct led_classdev'
+drivers/net/dsa/qca/qca8k-leds.c:406:31: error: 'struct led_classdev' has no member named 'hw_control_get_device'
+include/drm/drm_print.h:456:39: error: format '%ld' expects argument of type 'long int', but argument 4 has type 'size_t' {aka 'unsigned int'} [-Werror=format=]
+include/linux/usb/typec_mux.h:76:33: warning: 'fwnode_typec_mux_get' used but never defined
+include/linux/usb/typec_mux.h:77:1: error: expected identifier or '('
+include/linux/usb/typec_mux.h:77:1: error: expected identifier or '(' before '{' token
+mm/zswap.c:1183:6: warning: variable 'ret' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+arch/arm64/kvm/mmu.c:147:3-9: preceding lock on line 140
+fs/smb/client/cifsfs.c:982 cifs_smb3_do_mount() warn: possible memory leak of 'cifs_sb'
+fs/smb/client/cifssmb.c:4089 CIFSFindFirst() warn: missing error code? 'rc'
+fs/smb/client/cifssmb.c:4216 CIFSFindNext() warn: missing error code? 'rc'
+fs/smb/client/connect.c:2725 cifs_match_super() error: 'tlink' dereferencing possible ERR_PTR()
+fs/smb/client/connect.c:2924 generic_ip_connect() error: we previously assumed 'socket' could be null (see line 2912)
+fs/xfs/scrub/fscounters.c:459 xchk_fscounters() warn: ignoring unreachable code.
+kernel/events/uprobes.c:478 uprobe_write_opcode() warn: passing zero to 'PTR_ERR'
+{standard input}:1078: Error: pcrel too far
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- arc-randconfig-c004-20230531
+|   |-- include-linux-usb-typec_mux.h:error:expected-identifier-or-(-before-token
+|   `-- include-linux-usb-typec_mux.h:warning:fwnode_typec_mux_get-used-but-never-defined
+|-- arm64-randconfig-c033-20230531
+|   |-- arch-arm64-kvm-mmu.c:preceding-lock-on-line
+|   |-- include-linux-usb-typec_mux.h:error:expected-identifier-or-(-before-token
+|   `-- include-linux-usb-typec_mux.h:warning:fwnode_typec_mux_get-used-but-never-defined
+|-- arm64-randconfig-r001-20230531
+|   |-- drivers-net-dsa-qca-qca8k-leds.c:error:struct-led_classdev-has-no-member-named-hw_control_get
+|   |-- drivers-net-dsa-qca-qca8k-leds.c:error:struct-led_classdev-has-no-member-named-hw_control_get_device
+|   |-- drivers-net-dsa-qca-qca8k-leds.c:error:struct-led_classdev-has-no-member-named-hw_control_is_supported
+|   |-- drivers-net-dsa-qca-qca8k-leds.c:error:struct-led_classdev-has-no-member-named-hw_control_set
+|   `-- drivers-net-dsa-qca-qca8k-leds.c:error:struct-led_classdev-has-no-member-named-hw_control_trigger
+|-- arm64-randconfig-r016-20230601
+|   `-- include-linux-usb-typec_mux.h:error:expected-identifier-or-(-before-token
+|-- i386-allyesconfig
+|   `-- include-drm-drm_print.h:error:format-ld-expects-argument-of-type-long-int-but-argument-has-type-size_t-aka-unsigned-int
+|-- i386-randconfig-m021-20230531
+|   |-- fs-smb-client-cifsfs.c-cifs_smb3_do_mount()-warn:possible-memory-leak-of-cifs_sb
+|   |-- fs-smb-client-cifssmb.c-CIFSFindFirst()-warn:missing-error-code-rc
+|   |-- fs-smb-client-cifssmb.c-CIFSFindNext()-warn:missing-error-code-rc
+|   |-- fs-smb-client-connect.c-cifs_match_super()-error:tlink-dereferencing-possible-ERR_PTR()
+|   |-- fs-smb-client-connect.c-generic_ip_connect()-error:we-previously-assumed-socket-could-be-null-(see-line-)
+|   |-- fs-xfs-scrub-fscounters.c-xchk_fscounters()-warn:ignoring-unreachable-code.
+|   `-- kernel-events-uprobes.c-uprobe_write_opcode()-warn:passing-zero-to-PTR_ERR
+|-- riscv-randconfig-m031-20230531
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c-amdgpu_gfx_enable_kcq()-warn:inconsistent-indenting
+|   `-- kernel-events-uprobes.c-uprobe_write_opcode()-warn:passing-zero-to-PTR_ERR
+|-- sh-allmodconfig
+|   `-- standard-input:Error:pcrel-too-far
+`-- x86_64-randconfig-m001-20230601
+    |-- fs-smb-client-cifsfs.c-cifs_smb3_do_mount()-warn:possible-memory-leak-of-cifs_sb
+    |-- fs-smb-client-cifssmb.c-CIFSFindFirst()-warn:missing-error-code-rc
+    |-- fs-smb-client-cifssmb.c-CIFSFindNext()-warn:missing-error-code-rc
+    |-- fs-smb-client-connect.c-cifs_match_super()-error:tlink-dereferencing-possible-ERR_PTR()
+    |-- fs-smb-client-connect.c-generic_ip_connect()-error:we-previously-assumed-socket-could-be-null-(see-line-)
+    `-- kernel-events-uprobes.c-uprobe_write_opcode()-warn:passing-zero-to-PTR_ERR
+clang_recent_errors
+|-- arm-randconfig-r006-20230531
+|   `-- include-linux-usb-typec_mux.h:error:expected-identifier-or-(
+|-- hexagon-randconfig-r045-20230531
+|   `-- mm-zswap.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-true
+|-- mips-randconfig-r003-20230531
+|   `-- drivers-net-dsa-qca-qca8k-leds.c:error:no-member-named-hw_control_get_device-in-struct-led_classdev
+|-- s390-randconfig-r044-20230531
+|   `-- mm-zswap.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-true
+`-- x86_64-randconfig-x063-20230531
+    `-- mm-zswap.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-true
+
+elapsed time: 799m
+
+configs tested: 134
+configs skipped: 7
+
+tested configs:
+alpha                            allyesconfig   gcc  
+alpha        buildonly-randconfig-r006-20230531   gcc  
+alpha                               defconfig   gcc  
+alpha                randconfig-r034-20230531   gcc  
+arc                              alldefconfig   gcc  
+arc                              allyesconfig   gcc  
+arc          buildonly-randconfig-r005-20230531   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r043-20230531   gcc  
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm          buildonly-randconfig-r001-20230531   gcc  
+arm                                 defconfig   gcc  
+arm                   milbeaut_m10v_defconfig   clang
+arm                  randconfig-r006-20230531   clang
+arm                  randconfig-r046-20230531   gcc  
+arm                        spear6xx_defconfig   gcc  
+arm64                            allyesconfig   gcc  
+arm64                               defconfig   gcc  
+arm64                randconfig-r036-20230531   gcc  
+csky         buildonly-randconfig-r002-20230531   gcc  
+csky                                defconfig   gcc  
+hexagon              randconfig-r005-20230531   clang
+hexagon              randconfig-r022-20230531   clang
+hexagon              randconfig-r041-20230531   clang
+hexagon              randconfig-r045-20230531   clang
+i386                              allnoconfig   clang
+i386                             allyesconfig   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                 randconfig-i001-20230531   gcc  
+i386                 randconfig-i002-20230531   gcc  
+i386                 randconfig-i003-20230531   gcc  
+i386                 randconfig-i004-20230531   gcc  
+i386                 randconfig-i005-20230531   gcc  
+i386                 randconfig-i006-20230531   gcc  
+i386                 randconfig-i011-20230531   clang
+i386                 randconfig-i012-20230531   clang
+i386                 randconfig-i013-20230531   clang
+i386                 randconfig-i014-20230531   clang
+i386                 randconfig-i015-20230531   clang
+i386                 randconfig-i016-20230531   clang
+i386                 randconfig-i051-20230531   gcc  
+i386                 randconfig-i052-20230531   gcc  
+i386                 randconfig-i053-20230531   gcc  
+i386                 randconfig-i054-20230531   gcc  
+i386                 randconfig-i055-20230531   gcc  
+i386                 randconfig-i056-20230531   gcc  
+i386                 randconfig-i061-20230531   gcc  
+i386                 randconfig-i062-20230531   gcc  
+i386                 randconfig-i063-20230531   gcc  
+i386                 randconfig-i064-20230531   gcc  
+i386                 randconfig-i065-20230531   gcc  
+i386                 randconfig-i066-20230531   gcc  
+i386                 randconfig-r004-20230531   gcc  
+i386                 randconfig-r016-20230531   clang
+ia64                         bigsur_defconfig   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch            randconfig-r023-20230531   gcc  
+m68k                             allmodconfig   gcc  
+m68k                                defconfig   gcc  
+microblaze           randconfig-r013-20230531   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                           ip22_defconfig   clang
+mips                           jazz_defconfig   gcc  
+mips                malta_qemu_32r6_defconfig   clang
+mips                           mtx1_defconfig   clang
+mips                 randconfig-r003-20230531   clang
+mips                 randconfig-r012-20230531   gcc  
+nios2        buildonly-randconfig-r004-20230531   gcc  
+nios2                               defconfig   gcc  
+nios2                randconfig-r011-20230531   gcc  
+nios2                randconfig-r026-20230531   gcc  
+openrisc                            defconfig   gcc  
+openrisc             randconfig-r035-20230531   gcc  
+parisc                              defconfig   gcc  
+parisc64                            defconfig   gcc  
+powerpc                     akebono_defconfig   clang
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc                   lite5200b_defconfig   clang
+powerpc                 mpc834x_itx_defconfig   gcc  
+powerpc              randconfig-r025-20230531   clang
+powerpc                     stx_gp3_defconfig   gcc  
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                randconfig-r042-20230531   clang
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                          debug_defconfig   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r002-20230531   gcc  
+s390                 randconfig-r031-20230531   gcc  
+s390                 randconfig-r044-20230531   clang
+sh                               allmodconfig   gcc  
+sh                                  defconfig   gcc  
+sh                          urquell_defconfig   gcc  
+sparc                               defconfig   gcc  
+sparc64              randconfig-r015-20230531   gcc  
+sparc64              randconfig-r033-20230531   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64               randconfig-a001-20230531   gcc  
+x86_64               randconfig-a002-20230531   gcc  
+x86_64               randconfig-a003-20230531   gcc  
+x86_64               randconfig-a004-20230531   gcc  
+x86_64               randconfig-a005-20230531   gcc  
+x86_64               randconfig-a006-20230531   gcc  
+x86_64               randconfig-a011-20230531   clang
+x86_64               randconfig-a012-20230531   clang
+x86_64               randconfig-a013-20230531   clang
+x86_64               randconfig-a014-20230531   clang
+x86_64               randconfig-a015-20230531   clang
+x86_64               randconfig-a016-20230531   clang
+x86_64               randconfig-k001-20230531   clang
+x86_64               randconfig-x051-20230531   clang
+x86_64               randconfig-x052-20230531   clang
+x86_64               randconfig-x053-20230531   clang
+x86_64               randconfig-x054-20230531   clang
+x86_64               randconfig-x055-20230531   clang
+x86_64               randconfig-x056-20230531   clang
+x86_64               randconfig-x061-20230531   clang
+x86_64               randconfig-x063-20230531   clang
+x86_64                               rhel-8.3   gcc  
+xtensa               randconfig-r014-20230531   gcc  
+
 -- 
-2.40.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
