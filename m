@@ -4,35 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 509D1C7EE23
-	for <amd-gfx@archiver.kernel.org>; Wed, 31 May 2023 15:38:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79607C77B73
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jun 2023 01:38:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B674810E1B9;
-	Wed, 31 May 2023 15:38:07 +0000 (UTC)
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35DB610E4FC
- for <amd-gfx@lists.freedesktop.org>; Wed, 31 May 2023 15:38:04 +0000 (UTC)
-Received: from [192.168.1.137] ([213.144.156.170])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202305311738001552; Wed, 31 May 2023 17:38:00 +0200
-Message-ID: <9482eaae-2631-ccc9-6359-7de08cdceda3@daenzer.net>
-Date: Wed, 31 May 2023 17:37:59 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F73E10E200;
+	Thu,  1 Jun 2023 01:38:41 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2083.outbound.protection.outlook.com [40.107.220.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2197F10E1FA;
+ Thu,  1 Jun 2023 01:38:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lsaRp30FSC0olwDPvo2mvxKXlv3PS5ys3vlMZDSe1fioPI0vfHLn33J07gjCpx8Kc7TW9jXxH/kroJtE2G9RPAl9LElE5/r78dYi7pw8vREDCV0I5jvh1XlBZSu9LH2yiNa7QRsvBQM3ch6Dr3K1b6zxdGgLl50tvOufs3RT+RQ8d+TyyzyXl44xZ5k5HYG0ukapxTvnv6uWvT+OFUTZO+2swqdLD3n2xia890ia52Qywcz+mBIrd03DlB6uk5ju7Iv+8Nb0WNxxLXIfhixcYkdfdtY6GKCGOlAYfi2XFKqw1K/Jb+vbaat8KVQwxt5LUyr/S4GQN3n3u3YLGsLo0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0vfN1xyKl7lw0CpABFH0akPL2vBfQZyRU1ONOnJYq9A=;
+ b=AV3rHBWgDBf5x51r68fr/YmiYjUJm7aZMHtjJffX2fxwhsWJ4eKIx4cF0J2SMgMi0898j69O76SJWOKoH6PibECdzH0ULIxa8Puf2GoA8L5yKmOrE6U6ix2Q7a/mlwmIYOSh6i8Wcnzo7JrA3k3lfBGyURx3jSETJytDiR/yoEmRGrbDj9X9cBwayiig+6r+UV7gGLLvhDZE3TaZkgmSK49U0a4OcCAXifkF/jri3AcHnVxyUssCuq0zvx+y1NwaTlCsPOxAVXZY+PB47cMVvF7yd3m2s51wfpELgUPZYFn5SKZkVgBacbZg1chkUadmz6rj4rCN3FBQ1atE181Nvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0vfN1xyKl7lw0CpABFH0akPL2vBfQZyRU1ONOnJYq9A=;
+ b=xvm2YVH/L9muCoOq4sSX+gkzgx94gZ6V5oNSPKFE23mWMA92EABKHYLUsFWr3U3IxTkcDDXHI47TLGm2sFDQhg4+vdVxRwT3T4+DdMWAe0QDcIkeWCEeSSXa3Y/QWhS4mLKSRxnI91xmu5Kp4owLXi7A3aslkrxVMwCnmLlwSbA=
+Received: from BN8PR16CA0002.namprd16.prod.outlook.com (2603:10b6:408:4c::15)
+ by PH0PR12MB5497.namprd12.prod.outlook.com (2603:10b6:510:eb::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Thu, 1 Jun
+ 2023 01:38:36 +0000
+Received: from BL02EPF000145B9.namprd05.prod.outlook.com
+ (2603:10b6:408:4c:cafe::7c) by BN8PR16CA0002.outlook.office365.com
+ (2603:10b6:408:4c::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.23 via Frontend
+ Transport; Thu, 1 Jun 2023 01:38:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF000145B9.mail.protection.outlook.com (10.167.241.209) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6455.18 via Frontend Transport; Thu, 1 Jun 2023 01:38:35 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 31 May
+ 2023 20:38:35 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 31 May
+ 2023 18:38:35 -0700
+Received: from archlinux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Wed, 31 May 2023 20:38:32 -0500
+From: Wenyou Yang <WenYou.Yang@amd.com>
+To: <alexander.deucher@amd.com>, <mario.limonciello@amd.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <evan.quan@amd.com>
+Subject: [PATCH] drm/amd/pm: Vangogh: Add new gpu_metrics_v2_4 to acquire
+ gpu_metrics
+Date: Thu, 1 Jun 2023 09:38:26 +0800
+Message-ID: <20230601013826.265885-1-WenYou.Yang@amd.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-CA
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <DM4PR12MB515262B810158F1D3C6E8324E39B9@DM4PR12MB5152.namprd12.prod.outlook.com>
- <70baf20a-dd86-af46-5d4d-d807d537ef68@daenzer.net>
- <CADnq5_OXU6AC7JZm8bfM=eQuDEbMgnk3YmFCh2Gn1cEspfh_Lg@mail.gmail.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH] drm/amdgpu/gfx9: switch to golden tsc registers for
- raven/raven2
-In-Reply-To: <CADnq5_OXU6AC7JZm8bfM=eQuDEbMgnk3YmFCh2Gn1cEspfh_Lg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CTCH: RefID="str=0001.0A782F22.647769D9.0001,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
- Spam="Unknown"; VOD="Unknown"
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF000145B9:EE_|PH0PR12MB5497:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77520a6d-d3c1-426e-27de-08db6240eaba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /y77472i82d4cZ05Htc1LDmFB1l+VmwFJHVMbA5kdiac8Q332hdoKNmk8uYgDUzax1mRUShJJqJCwOYWnfSrFkJcXJt37RFK3qyHMQYjRE6nr1BzAiOOOccZlvvsiCGVcfVOn1BLpjMTK6HTinyWFJHbf63WHbu8KItjtzvqUtsWKewmX1nQahJfer8YInpLcIdCfggmuYpprHqa3e5HEi6JCgh7gagctq5tF4AqkcV7TcYLHe5wKUTtS5eh7SwF+MGfdIUKcHpYLHOs/rmiqsTQZl8C8YC2aUvut0Ry+UZPtw+yqPx1MgpszWIvmTkN1eEhO3zmBgD3Jv0o0pn8jGRAQGT0qC1kh9nAEngjpCYvt3nFA6wBs9tY4u/7s/9pLMBseXLQ4rqRLoILzsEM8dTAK2qpFOUhs9trQtR0g5kbWMlcRPKFogOWL2PxmLy1OHQtO+AqfJljdxBzvS3nUrr8h6sXa0neAoAeJi76E1eZdWO7XjryXPKhQA82bVzhVdW2tzd9kokdh31zzzSQWytx8P//Kyt6cFOJL5+9d3xEZKeG384Q3Wzxzj477CnrJ+XbsS/ZhultauCq+kGH/HZhwUavNENXgdK1vH1t3jESBNVEU/ZIlccrVmQKxNkiFytU3gMM5b3kBvmjuxCqiiy/+9fUlKsyJ5qI2+DIx+xc88YNxCR4e4/V9zVe9wpJAgm9Ari7E6DP7m1czs6cCImlpLLCb0xSr+wiFFpRokAAj+lhlMDOCpJRqfPu+EJTL71BqaoioTJsfWM4DcnE1g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(136003)(376002)(396003)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(82310400005)(7696005)(41300700001)(86362001)(40480700001)(6636002)(4326008)(40460700003)(6666004)(316002)(36756003)(70586007)(70206006)(47076005)(186003)(83380400001)(2616005)(1076003)(26005)(478600001)(36860700001)(426003)(336012)(5660300002)(2906002)(356005)(8676002)(81166007)(110136005)(54906003)(82740400003)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2023 01:38:35.8085 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77520a6d-d3c1-426e-27de-08db6240eaba
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000145B9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5497
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,45 +103,251 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
- Yifan" <Yifan1.Zhang@amd.com>, "Zhang, Jesse\(Jie\)" <Jesse.Zhang@amd.com>,
- "Quan, Evan" <Evan.Quan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Wenyou Yang <WenYou.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
+ weiyuan2@amd.com, richardqi.liang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 5/31/23 16:01, Alex Deucher wrote:
-> On Mon, May 29, 2023 at 5:45 AM Michel Dänzer <michel@daenzer.net> wrote:
->>
->> On 4/12/23 03:23, Zhang, Jesse(Jie) wrote:
->>>
->>>   Due to raven/raven2 maybe enable  sclk slow down,
->>>     they cannot get clock count by the RLC at the auto level of dpm performance.
->>>     So switch to golden tsc register.
->>
->> At least on this ThinkPad E595 with Picasso, the issue with this change (and the corresponding fbc24293ca16 "drm/amdgpu: change the reference clock for raven/raven2" & 9d2d1827af29 "drm/amdgpu: Differentiate between Raven2 and Raven/Picasso according to revision id") is that the GPU timestamps reported via the AMDGPU_INFO ioctl are no longer consistent with those reported via asynchronous GPU queries (e.g. via glQuery with GL_TIMESTAMP). The latter are still affected by clock changes, and even when the clock doesn't stop altogether, they still tick at 25 MHz, so the two kinds of GPU timestamps keep diverging further.
-> 
-> fbc24293ca16 "drm/amdgpu: change the reference clock for raven/raven2"
-> would also affect that.  Were you seeing the same results with that
-> patch as well?
+To acquire the voltage and current info from gpu_metrics interface,
+but gpu_metrics_v2_3 doesn't contain them, and to be backward compatible,
+add new gpu_metrics_v2_4 structure.
 
-Yes. That one is problematic because user space uses the reference clock for converting the results of asynchronous GPU queries from clock ticks to seconds. Since that clock still ticks at 25 MHz, the computed values in seconds are incorrect and keep diverging further from the corresponding values from the AMDGPU_INFO ioctl.
+Acked-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Wenyou Yang <WenYou.Yang@amd.com>
+---
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |  69 +++++++++++
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 109 ++++++++++++++++--
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |   3 +
+ 3 files changed, 172 insertions(+), 9 deletions(-)
 
-
->> This makes it impossible to determine the wall clock time at which a certain GPU job finished. GNOME's mutter uses this for adaptive frame scheduling.
->>
->> You can see the issue with the piglit test arb_timer_query-timestamp-get or with the Vulkan CTS tests dEQP-VK.pipeline.monolithic.timestamp.calibrated.*. (Note that some of these tests could already fail before with GFXOFF enabled, the symptoms are slightly different though)
->>
->>
->> An ideal long-term solution for this might be to modify the GPU microcode to use the golden registers for asynchronous timestamp queries as well.
-
-Any thoughts on whether or not this might be feasible?
-
-
->> In the meantime though, these changes need to be reverted for 6.4, at least for Picasso.
-
-
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index 9f542f6e19ed..0f37dafafcf9 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -892,4 +892,73 @@ struct gpu_metrics_v2_3 {
+ 	uint16_t			average_temperature_core[8]; // average CPU core temperature on APUs
+ 	uint16_t			average_temperature_l3[2];
+ };
++
++struct gpu_metrics_v2_4 {
++	struct metrics_table_header	common_header;
++
++	/* Temperature */
++	uint16_t			temperature_gfx;
++	uint16_t			temperature_soc;
++	uint16_t			temperature_core[8];
++	uint16_t			temperature_l3[2];
++
++	/* Utilization */
++	uint16_t			average_gfx_activity;
++	uint16_t			average_mm_activity;
++
++	/* Driver attached timestamp (in ns) */
++	uint64_t			system_clock_counter;
++
++	/* Power/Energy */
++	uint16_t			average_socket_power;
++	uint16_t			average_cpu_power;
++	uint16_t			average_soc_power;
++	uint16_t			average_gfx_power;
++	uint16_t			average_core_power[8];
++
++	/* Average clocks */
++	uint16_t			average_gfxclk_frequency;
++	uint16_t			average_socclk_frequency;
++	uint16_t			average_uclk_frequency;
++	uint16_t			average_fclk_frequency;
++	uint16_t			average_vclk_frequency;
++	uint16_t			average_dclk_frequency;
++
++	/* Current clocks */
++	uint16_t			current_gfxclk;
++	uint16_t			current_socclk;
++	uint16_t			current_uclk;
++	uint16_t			current_fclk;
++	uint16_t			current_vclk;
++	uint16_t			current_dclk;
++	uint16_t			current_coreclk[8];
++	uint16_t			current_l3clk[2];
++
++	/* Throttle status (ASIC dependent) */
++	uint32_t			throttle_status;
++
++	/* Fans */
++	uint16_t			fan_pwm;
++
++	uint16_t			padding[3];
++
++	/* Throttle status (ASIC independent) */
++	uint64_t			indep_throttle_status;
++
++	/* Average Temperature */
++	uint16_t			average_temperature_gfx;
++	uint16_t			average_temperature_soc;
++	uint16_t			average_temperature_core[8];
++	uint16_t			average_temperature_l3[2];
++
++	/* Power/Voltage */
++	uint16_t			average_cpu_voltage;
++	uint16_t			average_soc_voltage;
++	uint16_t			average_gfx_voltage;
++
++	/* Power/Current */
++	uint16_t			average_cpu_current;
++	uint16_t			average_soc_current;
++	uint16_t			average_gfx_current;
++};
+ #endif
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index 067b4e0b026c..185d0b50ee8e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -1854,6 +1854,86 @@ static ssize_t vangogh_get_gpu_metrics_v2_3(struct smu_context *smu,
+ 	return sizeof(struct gpu_metrics_v2_3);
+ }
+ 
++static ssize_t vangogh_get_gpu_metrics_v2_4(struct smu_context *smu,
++					    void **table)
++{
++	SmuMetrics_t metrics;
++	struct smu_table_context *smu_table = &smu->smu_table;
++	struct gpu_metrics_v2_4 *gpu_metrics =
++				(struct gpu_metrics_v2_4 *)smu_table->gpu_metrics_table;
++	int ret = 0;
++
++	ret = smu_cmn_get_metrics_table(smu, &metrics, true);
++	if (ret)
++		return ret;
++
++	smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 4);
++
++	gpu_metrics->temperature_gfx = metrics.Current.GfxTemperature;
++	gpu_metrics->temperature_soc = metrics.Current.SocTemperature;
++	memcpy(&gpu_metrics->temperature_core[0],
++	       &metrics.Current.CoreTemperature[0],
++	       sizeof(uint16_t) * 4);
++	gpu_metrics->temperature_l3[0] = metrics.Current.L3Temperature[0];
++
++	gpu_metrics->average_temperature_gfx = metrics.Average.GfxTemperature;
++	gpu_metrics->average_temperature_soc = metrics.Average.SocTemperature;
++	memcpy(&gpu_metrics->average_temperature_core[0],
++	       &metrics.Average.CoreTemperature[0],
++	       sizeof(uint16_t) * 4);
++	gpu_metrics->average_temperature_l3[0] = metrics.Average.L3Temperature[0];
++
++	gpu_metrics->average_gfx_activity = metrics.Current.GfxActivity;
++	gpu_metrics->average_mm_activity = metrics.Current.UvdActivity;
++
++	gpu_metrics->average_socket_power = metrics.Current.CurrentSocketPower;
++	gpu_metrics->average_cpu_power = metrics.Current.Power[0];
++	gpu_metrics->average_soc_power = metrics.Current.Power[1];
++	gpu_metrics->average_gfx_power = metrics.Current.Power[2];
++
++	gpu_metrics->average_cpu_voltage = metrics.Current.Voltage[0];
++	gpu_metrics->average_soc_voltage = metrics.Current.Voltage[1];
++	gpu_metrics->average_gfx_voltage = metrics.Current.Voltage[2];
++
++	gpu_metrics->average_cpu_current = metrics.Current.Current[0];
++	gpu_metrics->average_soc_current = metrics.Current.Current[1];
++	gpu_metrics->average_gfx_current = metrics.Current.Current[2];
++
++	memcpy(&gpu_metrics->average_core_power[0],
++	       &metrics.Average.CorePower[0],
++	       sizeof(uint16_t) * 4);
++
++	gpu_metrics->average_gfxclk_frequency = metrics.Average.GfxclkFrequency;
++	gpu_metrics->average_socclk_frequency = metrics.Average.SocclkFrequency;
++	gpu_metrics->average_uclk_frequency = metrics.Average.MemclkFrequency;
++	gpu_metrics->average_fclk_frequency = metrics.Average.MemclkFrequency;
++	gpu_metrics->average_vclk_frequency = metrics.Average.VclkFrequency;
++	gpu_metrics->average_dclk_frequency = metrics.Average.DclkFrequency;
++
++	gpu_metrics->current_gfxclk = metrics.Current.GfxclkFrequency;
++	gpu_metrics->current_socclk = metrics.Current.SocclkFrequency;
++	gpu_metrics->current_uclk = metrics.Current.MemclkFrequency;
++	gpu_metrics->current_fclk = metrics.Current.MemclkFrequency;
++	gpu_metrics->current_vclk = metrics.Current.VclkFrequency;
++	gpu_metrics->current_dclk = metrics.Current.DclkFrequency;
++
++	memcpy(&gpu_metrics->current_coreclk[0],
++	       &metrics.Current.CoreFrequency[0],
++	       sizeof(uint16_t) * 4);
++	gpu_metrics->current_l3clk[0] = metrics.Current.L3Frequency[0];
++
++	gpu_metrics->throttle_status = metrics.Current.ThrottlerStatus;
++	gpu_metrics->indep_throttle_status =
++			smu_cmn_get_indep_throttler_status(metrics.Current.ThrottlerStatus,
++							   vangogh_throttler_map);
++
++	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
++
++	*table = (void *)gpu_metrics;
++
++	return sizeof(struct gpu_metrics_v2_4);
++}
++
+ static ssize_t vangogh_get_gpu_metrics(struct smu_context *smu,
+ 				      void **table)
+ {
+@@ -1923,23 +2003,34 @@ static ssize_t vangogh_common_get_gpu_metrics(struct smu_context *smu,
+ {
+ 	uint32_t if_version;
+ 	uint32_t smu_version;
++	uint32_t smu_program;
++	uint32_t fw_version;
+ 	int ret = 0;
+ 
+ 	ret = smu_cmn_get_smc_version(smu, &if_version, &smu_version);
+-	if (ret) {
++	if (ret)
+ 		return ret;
+-	}
+ 
+-	if (smu_version >= 0x043F3E00) {
+-		if (if_version < 0x3)
+-			ret = vangogh_get_legacy_gpu_metrics_v2_3(smu, table);
++	smu_program = (smu_version >> 24) & 0xff;
++	fw_version = smu_version & 0xffffff;
++	if (smu_program == 6) {
++		if (fw_version >= 0x3F0800)
++			ret = vangogh_get_gpu_metrics_v2_4(smu, table);
+ 		else
+ 			ret = vangogh_get_gpu_metrics_v2_3(smu, table);
++
+ 	} else {
+-		if (if_version < 0x3)
+-			ret = vangogh_get_legacy_gpu_metrics(smu, table);
+-		else
+-			ret = vangogh_get_gpu_metrics(smu, table);
++		if (smu_version >= 0x043F3E00) {
++			if (if_version < 0x3)
++				ret = vangogh_get_legacy_gpu_metrics_v2_3(smu, table);
++			else
++				ret = vangogh_get_gpu_metrics_v2_3(smu, table);
++		} else {
++			if (if_version < 0x3)
++				ret = vangogh_get_legacy_gpu_metrics(smu, table);
++			else
++				ret = vangogh_get_gpu_metrics(smu, table);
++		}
+ 	}
+ 
+ 	return ret;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index 3ecb900e6ecd..cee5e32b4ff9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -996,6 +996,9 @@ void smu_cmn_init_soft_gpu_metrics(void *table, uint8_t frev, uint8_t crev)
+ 	case METRICS_VERSION(2, 3):
+ 		structure_size = sizeof(struct gpu_metrics_v2_3);
+ 		break;
++	case METRICS_VERSION(2, 4):
++		structure_size = sizeof(struct gpu_metrics_v2_4);
++		break;
+ 	default:
+ 		return;
+ 	}
 -- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+2.39.2
 
