@@ -4,59 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 498E8C7EE23
-	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jun 2023 16:14:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A07B8C7EE23
+	for <amd-gfx@archiver.kernel.org>; Thu,  1 Jun 2023 16:19:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1D3710E036;
-	Thu,  1 Jun 2023 16:14:56 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3757B10E580
- for <amd-gfx@lists.freedesktop.org>; Thu,  1 Jun 2023 16:14:54 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-19f268b1d83so929094fac.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 01 Jun 2023 09:14:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D72410E57E;
+	Thu,  1 Jun 2023 16:19:22 +0000 (UTC)
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E2E010E57A
+ for <amd-gfx@lists.freedesktop.org>; Thu,  1 Jun 2023 16:19:20 +0000 (UTC)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ 006d021491bc7-5585f58ac49so574844eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 01 Jun 2023 09:19:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1685636093; x=1688228093;
+ d=gmail.com; s=20221208; t=1685636359; x=1688228359;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ZDTF1dxP38D6BWtYQZzES+nhQ4V/B517i5WJP67hI8E=;
- b=NgkM9Z/faMiVf5dA+OiJzA1s3nAYCgh7EhrlnOHbqysdbfOZGJmSDEjym9D/RPjLsU
- mK8+mRowr901sKQSXGt6bAbo3uyk8uF94G5pjIbX92nVxVeeS+z9QFB/dgfE/KB+CBkv
- zrxHSvKYGUdzw+DF5Tnu+7kBstuYwwbZUZcLBWwzsoq3g6mhMd/n2SElX8aq4NdatoMN
- sgh0S70XNmRl+uaOjNFl3cwXhzwK/H7ILgn8BiJp/V4sUC9L3YlsV0yEAuD8RfV0+fsM
- Sj2fvsr2qDqb5+Mq7BiGaRuofy1KBXsuQo3ZyMqjWCGRS2yIaIqu5ekzqSwhYMBiC6kU
- 40TA==
+ bh=r0v4dkuocYAAGTe/gCIUat3iFhwSLkszQVHNRMl4jCc=;
+ b=oaWgk93pZGh/HhAW1cbVQB7fnNLPMpZR2vEh8ec2fTIVgRNe1HBB2zOhAcCaa+h+rc
+ ghpuqTeUXWViqLm0MX4T+LemmRxNn43WcPr+Z6F2f6bAMhxzWmQQBzkyCQ0UDQIJSxHv
+ VxmfE2KCicXmFL7v9+Bss/wZYCjpBZNnOXfrACuV7tDzcYBaC7ukQABerHTqa+z/bD5G
+ R27t+/wvj0AVzryvlfPYRPeSPglEoL3UBzuDpiWd/+LhqW7lTbogKXql5WSRl6usqPz6
+ TOkp5xfwSgUm2C3f405/nFQl/MnXLgSkDT5uV+yq+6+AnjeGryeNW6vRTGQDMawlmwXI
+ 7WsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685636093; x=1688228093;
+ d=1e100.net; s=20221208; t=1685636359; x=1688228359;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ZDTF1dxP38D6BWtYQZzES+nhQ4V/B517i5WJP67hI8E=;
- b=SeGW/rkHNHOb6FR1RoNmBo8vMbnYkR3S0PcMlPOcCivBTVDDlxWGglAocEbQu/NJxJ
- DwV4uGDy34jT38KzUGiuH87o3qLAKW4r3hNSB7JjLrJk4+mwcMWCvoa7vK+KxRHmvnno
- XTBiqSvLCwHhQ4sLv3bugnKdn3riPXpc+Kw8Pfdp43QjRFjLcYgGKqiMTw1PD+ABWEEu
- L7IsZiAt6xs95lGZvQQy8xTf57lU6rnZFO78nfLhVIQ9AjO5ThUCqT6Za56qjPx8UFWM
- 5GHQg/3IqRCmlVuuTzG01UwJ06xfQSua3KDXxyLP1469gbKP6tZoCmRW25j6kuIcnW29
- 3xgQ==
-X-Gm-Message-State: AC+VfDyqtAmQIJUZodkACmoy0qKGiKmzzZynlmB+wKJfgZzoMSI1foY2
- mcho7cPuPjeqO4JmniX4Xln8Fqqfun8IK5BUVms=
-X-Google-Smtp-Source: ACHHUZ7L8eRim0PK8TGoVpyEH9OtxzjUpUGZ79/KqZXHjeugp4omDSAW4fJLnyvhhKgm9j3mTGjX3CGmlACukyaiBLE=
-X-Received: by 2002:a05:6870:e7c3:b0:199:cadf:10b0 with SMTP id
- q3-20020a056870e7c300b00199cadf10b0mr5570474oak.13.1685636092703; Thu, 01 Jun
- 2023 09:14:52 -0700 (PDT)
+ bh=r0v4dkuocYAAGTe/gCIUat3iFhwSLkszQVHNRMl4jCc=;
+ b=WqciwNCYKEvSzemSDxmu+pLg35zlhCywrcwhGm3kqYo9WPO6Df40ihBSI1gHho2vj/
+ z1NHCPQj3A4pRnrhl24KuHnFIXAdfNqFHldUB18Aof0r8qNxmQAJ5rdNpjYTkuTtxT07
+ aKkv8khPhJ7VlNOQs/8sB9pNoh1Lf8/XP7xXcHj3TO6H4Z3AgcJtuUTbaJyhGtI4/leD
+ XGOaWTEz+Ijls3+fvQni1fHavvNz9ViJR0hZOTEkSDRJlJjMKDRuet/obUNPleGX4zbT
+ SjzCEt458C4QBv6ng+ZjYsuS5lFuCyp8URNuf5aD3oeanqNBtvA7ssD9rMwflZSDLRUQ
+ Fugw==
+X-Gm-Message-State: AC+VfDzdRM6G1uXnxFy1FPLCBIqPJAT4fbyPJpOf6W+jCgVGXM755otL
+ 7K1kCrdTnnqVkW2fqGK1hFIIHoVn7ntLpNnoVgC5cH71
+X-Google-Smtp-Source: ACHHUZ5udHeHu/jfXxDleHyHSIrc1HWoNVPyRmpi79YLE4DPAGmU6Eu23JwvUreJAhUncNkGHH+G82Eq/9ZZhrgrjM0=
+X-Received: by 2002:a4a:4913:0:b0:555:8c22:a169 with SMTP id
+ z19-20020a4a4913000000b005558c22a169mr4630578ooa.9.1685636359306; Thu, 01 Jun
+ 2023 09:19:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230530204848.231842-1-mario.limonciello@amd.com>
- <CADnq5_N64zscFAjTj2JtBGqyoZRUjazSrW75NGAJqPKWBXL68Q@mail.gmail.com>
- <CADnq5_McnF0W+zS0t+tShb0PH4bRLzRcPnSrWNryV06+0biYvg@mail.gmail.com>
- <MN0PR12MB610115263A4DEE12FCAB5D69E2499@MN0PR12MB6101.namprd12.prod.outlook.com>
-In-Reply-To: <MN0PR12MB610115263A4DEE12FCAB5D69E2499@MN0PR12MB6101.namprd12.prod.outlook.com>
+References: <20230601143137.8633-1-Hawking.Zhang@amd.com>
+In-Reply-To: <20230601143137.8633-1-Hawking.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 1 Jun 2023 12:14:40 -0400
-Message-ID: <CADnq5_PSsLLC7gRTDohur+2Oy2g_r0ziwOottbRVdWrJZ4HxAw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/amd: Disallow s0ix without BIOS support again
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+Date: Thu, 1 Jun 2023 12:19:08 -0400
+Message-ID: <CADnq5_OZu8KtxJ=QoUG_or-+5xPX5SYAAPKoGTiOXU9sU1F4-w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Fix power context allocation in SMU13
+To: Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -70,142 +67,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Rafael_=C3=81vila_de_Esp=C3=ADndola?= <rafael@espindo.la>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 1, 2023 at 11:33=E2=80=AFAM Limonciello, Mario
-<Mario.Limonciello@amd.com> wrote:
+On Thu, Jun 1, 2023 at 10:31=E2=80=AFAM Hawking Zhang <Hawking.Zhang@amd.co=
+m> wrote:
 >
-> [AMD Official Use Only - General]
+> From: Lijo Lazar <lijo.lazar@amd.com>
 >
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Wednesday, May 31, 2023 10:22 PM
-> > To: Limonciello, Mario <Mario.Limonciello@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org; Rafael =C3=81vila de Esp=C3=ADndola
-> > <rafael@espindo.la>
-> > Subject: Re: [PATCH v2 1/2] drm/amd: Disallow s0ix without BIOS support
-> > again
-> >
-> > On Wed, May 31, 2023 at 9:26=E2=80=AFAM Alex Deucher <alexdeucher@gmail=
-.com>
-> > wrote:
-> > >
-> > > On Tue, May 30, 2023 at 6:34=E2=80=AFPM Mario Limonciello
-> > > <mario.limonciello@amd.com> wrote:
-> > > >
-> > > > commit cf488dcd0ab7 ("drm/amd: Allow s0ix without BIOS support")
-> > showed
-> > > > improvements to power consumption over suspend when s0ix wasn't
-> > enabled in
-> > > > BIOS and the system didn't support S3.
-> > > >
-> > > > This patch however was misguided because the reason the system didn=
-'t
-> > > > support S3 was because SMT was disabled in OEM BIOS setup.
-> > > > This prevented the BIOS from allowing S3.
-> > > >
-> > > > Also allowing GPUs to use the s2idle path actually causes problems =
-if
-> > > > they're invoked on systems that may not support s2idle in the platf=
-orm
-> > > > firmware. `systemd` has a tendency to try to use `s2idle` if `deep`=
- fails
-> > > > for any reason, which could lead to unexpected flows.
-> > > >
-> > > > The original commit also fixed a problem during resume from suspend=
- to
-> > idle
-> > > > without hardware support, but this is no longer necessary with comm=
-it
-> > > > ca4751866397 ("drm/amd: Don't allow s0ix on APUs older than Raven")
-> > > >
-> > > > Revert commit cf488dcd0ab7 ("drm/amd: Allow s0ix without BIOS
-> > support")
-> > > > to make it match the expected behavior again.
-> > > >
-> > > > Cc: Rafael =C3=81vila de Esp=C3=ADndola <rafael@espindo.la>
-> > > > Link:
-> > https://github.com/torvalds/linux/blob/v6.1/drivers/gpu/drm/amd/amdgpu
-> > /amdgpu_acpi.c#L1060
-> > > > Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2599
-> > > > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> > >
-> > > Patch 1 is:
-> > > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> > > Patch 2 seems a bit much, but I could be convinced if you think it
-> > > will actually help more than a warn would.  Users already assume warn
-> > > is a kernel crash.  I'm not sure the average user makes a distinction
-> > > between warn and err.
-> > >
-> >
-> > You'll need to revert d2a197a45daacd ("drm/amd: Only run s3 or s0ix if
-> > system is configured properly") as well, otherwise, we'll break
-> > runtime pm.
-> >
+> Use the right data structure for allocation.
 >
-> Can you elaborate more on your thought process?  d2a197a45daacd was added=
- in 5.18
-> and cf488dcd0ab7 was added in 6.3.  I can't imagine runtime PM is broken =
-the whole time
-> on dGPUs.
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-I tested this patch yesterday and it broke runtime pm because
-amdgpu_pmops_prepare() returned 1.  I haven't delved into what
-condition broke.  Reverting this patch restored runtime pm.  This is a
-Threadripper box that only supports S3.  The dGPUs were polaris and
-navi2x.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
-
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> > Alex
-> >
-> > > Alex
-> > >
-> > > > ---
-> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 8 ++++++--
-> > > >  1 file changed, 6 insertions(+), 2 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > > > index aeeec211861c..e1b01554e323 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > > > @@ -1092,16 +1092,20 @@ bool amdgpu_acpi_is_s0ix_active(struct
-> > amdgpu_device *adev)
-> > > >          * S0ix even though the system is suspending to idle, so re=
-turn false
-> > > >          * in that case.
-> > > >          */
-> > > > -       if (!(acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0))
-> > > > +       if (!(acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0)) {
-> > > >                 dev_warn_once(adev->dev,
-> > > >                               "Power consumption will be higher as =
-BIOS has not been
-> > configured for suspend-to-idle.\n"
-> > > >                               "To use suspend-to-idle change the sl=
-eep mode in BIOS
-> > setup.\n");
-> > > > +               return false;
-> > > > +       }
-> > > >
-> > > >  #if !IS_ENABLED(CONFIG_AMD_PMC)
-> > > >         dev_warn_once(adev->dev,
-> > > >                       "Power consumption will be higher as the kern=
-el has not been
-> > compiled with CONFIG_AMD_PMC.\n");
-> > > > -#endif /* CONFIG_AMD_PMC */
-> > > > +       return false;
-> > > > +#else
-> > > >         return true;
-> > > > +#endif /* CONFIG_AMD_PMC */
-> > > >  }
-> > > >
-> > > >  #endif /* CONFIG_SUSPEND */
-> > > > --
-> > > > 2.34.1
-> > > >
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> index da059b02a153..09ac66ab9c34 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> @@ -534,11 +534,11 @@ int smu_v13_0_init_power(struct smu_context *smu)
+>         if (smu_power->power_context || smu_power->power_context_size !=
+=3D 0)
+>                 return -EINVAL;
+>
+> -       smu_power->power_context =3D kzalloc(sizeof(struct smu_13_0_dpm_c=
+ontext),
+> +       smu_power->power_context =3D kzalloc(sizeof(struct smu_13_0_power=
+_context),
+>                                            GFP_KERNEL);
+>         if (!smu_power->power_context)
+>                 return -ENOMEM;
+> -       smu_power->power_context_size =3D sizeof(struct smu_13_0_dpm_cont=
+ext);
+> +       smu_power->power_context_size =3D sizeof(struct smu_13_0_power_co=
+ntext);
+>
+>         return 0;
+>  }
+> --
+> 2.17.1
+>
