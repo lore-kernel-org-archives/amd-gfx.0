@@ -4,117 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92098C7EE2D
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Jun 2023 16:38:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E339BC7EE24
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Jun 2023 17:01:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D780210E5C8;
-	Fri,  2 Jun 2023 16:38:04 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2060.outbound.protection.outlook.com [40.107.92.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 753FB10E209
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Jun 2023 16:38:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64E3610E05B;
+	Fri,  2 Jun 2023 17:01:59 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2058.outbound.protection.outlook.com [40.107.243.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 220C010E05B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Jun 2023 17:01:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BqP+px2AXGw8qQd24YxQdPz7TTFzLqjDaZ+/bFEKYJPWoys66FYn04QsshS4/JQh7BeKcla77C/RjkVbBpcW7qKd2pgpbdKGMJhfxvS/86S0x8i/Vy4MntikPpaY1X+0XmftQI6kVfHtgtEnB5HKOWmjaZkWXmPM0s2uCs2NbWg5VasJy9qec5JrxGubwjbPO3aKcqRY311fZbqDSJod9U6OV2WTj0zKhKd3WlvyIh46Z7mlUVkyt341knLdD/OTcB6wkcjwXTBYnBwnfSxFaI+25TafpnTrKUEBuWAgWk33wRI43EeuEWG4PTbysKw19Yun/QNizVE9/RS6ZOBCWA==
+ b=Cj+EdDoek8LSE8ovJB1dpYhf2HXW+WdZFDVdRSjRmpi8BbWb8hHLXRO5eyXfBxy7RD78UsgSoeseQcVxhL1m6+7YLD+JhBxQojmIXnpMSUHdX3IynlAKX1l4Dwg+dI2X2Impn0qjXjq/PmC7psnw5p1gkTH9A8k443Wy65SQ9IzsTvRlUxLa7aNwq60/ekQ9zX+yLXINHBFrPItr5koNm/wgCCPGTTAVG8l4PcAeb+Meb9QpoUPTpN62LpKCnq0IbnX09CBjsPd92RrE5LdkkxYnai58mY1LAKGmw506KevVeWcZtBej+V8u4Au4wRu8lFJFmRoZ8pi6HlcdKxpaHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mk6p4QOb2UaA8mIcGIPaxCu+BMWaVgZ8JZH2Wo4Mj3A=;
- b=kAOadwzlPosO4JVPyIwa/QAp+o/JZJnRCOPdX/tL1KkRkMBhF1f5C87itQVsgV6XOjffjN3qIYneN+CUBBLmFIvb5FxRNiWM3UqbfWYrz+xxLVp0QyLiYJcZ7G4StQQjKlIZDevcM7oJvmQATrXTOahwqphEjNH2yV2MF8pgVc+YtMD9eEK+PIOwNxh1nMFbHPscrmattjaODwZPF/fgp7Cln31bAcQ3nkWfPuJ5kPeQf1WI7jAXV8tAYcb+emGXQOar9E2lIwXxUIip+dMcOCJzaf8E4A6603hj+AubXuFmqVLVfktz6Hc/Z8YEGnA9Myt7nY88jzVb5vUsYgrglg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=a3UtFJBay6m2qa8y6uIs4xQ0ItfxkODpWfAh9mq4bvg=;
+ b=abV5YhWUnFherQ/yzB/o6Yo/eLan4iOxYf7TDKNCdB4K23a6mGeV2inS/8Gywud+pIYViW4aXTComS4MG6EYomEKtGs7lSuWe2qghcedFf4BQt0NVzpFK/eiXlNMc/WLY7uNkT2KY4xjPINtTKN5O1S2h+H0XJLlntt8vE1Ce2QQglZfKkZaRFeGeBKw7E3bu7KCcGkDXzvcfO9/vfRupt+bJ0AiB9vp0/QlNYHYZ51aJa1vrRvnIW/PvT8Rt5VhxW/hVwPsUtS4Z1QBlvB6DqXzUOoN2ffTrXqUHpoSucdsw/ktYgkbZ71JHmWzc+36KKu/xn4Jj3o1fajTw8bnJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mk6p4QOb2UaA8mIcGIPaxCu+BMWaVgZ8JZH2Wo4Mj3A=;
- b=HdxLfBMEYmaWUCNKlbHtHlgCDNtYFkO4beVf8xYySowKGJeeluVNsfOMnK0Q05Jdh7TsaFNMFrm0QCvmqSC8WVMWCeb39Qo/PWvKvU5AbwqZhQ2DyOUSL1t0V/GxoiL44G2MPWu5AvwWnjGORH0CKbwASQDglMs8DvfrIJ3bwvs=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by MN0PR12MB5860.namprd12.prod.outlook.com (2603:10b6:208:37b::6)
+ bh=a3UtFJBay6m2qa8y6uIs4xQ0ItfxkODpWfAh9mq4bvg=;
+ b=x4R6EoPnS2JygV7MEdkjvB9xSHYwqtFSkYI5aWxt6JKK5gMvsgyRbmiYK4renKM/oVynfW/5fqkRidNVUKBvOLBf8WqazomeUkX64PV6JEruY2p42uX6ERixpxfsaKhGOLQfO/I4747RKsYX6dHdJZLZoC9WwgARUFyiH7EOGIY=
+Received: from CY5PR15CA0079.namprd15.prod.outlook.com (2603:10b6:930:18::15)
+ by CY5PR12MB6456.namprd12.prod.outlook.com (2603:10b6:930:34::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.23; Fri, 2 Jun
- 2023 16:38:00 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::c549:4aeb:a02f:56b2]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::c549:4aeb:a02f:56b2%4]) with mapi id 15.20.6455.024; Fri, 2 Jun 2023
- 16:38:00 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Kuehling, Felix"
- <Felix.Kuehling@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Mark 'kgd_gfx_aldebaran_clear_address_watch'
- & 'kgd_gfx_v11_clear_address_watch' functions as static
-Thread-Topic: [PATCH] drm/amdgpu: Mark 'kgd_gfx_aldebaran_clear_address_watch'
- & 'kgd_gfx_v11_clear_address_watch' functions as static
-Thread-Index: AQHZlWpXQY8PnpW5R0CzpTXfpMz4ua93tj8h
-Date: Fri, 2 Jun 2023 16:38:00 +0000
-Message-ID: <BL1PR12MB5144E1DFE0B37F5EF11C913CF74EA@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20230602155251.1729429-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230602155251.1729429-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-06-02T16:37:59.625Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|MN0PR12MB5860:EE_
-x-ms-office365-filtering-correlation-id: 6ee7bebf-ecf8-47b8-9527-08db6387ba9d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 0/P2X977dalQTiGvnKIhGtuDfA3dzDPkYnnw0UoZFp3WxBQBC8x0rM7dtwSK53+kYJ1L5le9OQ6NxH3C+A8TjH/pKsf/wHg4IB/q9Gip2Jl8F/K78B4so6ef5NuIohSMJlI3pfdzwsE8XBazdFOpmDjnqhl9yJiPeWqmWgEtbmKvtRerMlrEFC/KIatFqn5P4ThiiyTplhe8sIUoK8QhphcNF/qmFWLLfgXkhU3K3GjLe8Pj9/xQvvC52iHL3o1XRe1JHj69bAlyIbTPRspepaBO2WrK79imxD6mNOCsWEuvuPlD7bnRJTHJfmTdY8ctlr68HEwgy2V7z0llNKeBJ70f/J75vcvyZNyup6nPgkcZqLTfoLGXC3536PE/6ZZM5iMo06lplyrd56eHKD1D2PQG6KlUI7f0mO80fdYwaPyRtmJJEBfQi+rGrQuNc9GcrsXwGt8n6rX5Ojhuo/n8qZ6CWnJ4Rs846A5LrEi89fiAGuBB0Q7Sle4sDKBrfrxUmczcNsYiaEqiGV27JCRmgABSYk4/bL03aPVw2/7j7/AE8vXwGWxNhsJbOkNK0u5K1ZI/hqdqGy2YGHrNpn1Kj2z5xbvlqyF0+PhAAiLXc8/YUmNHJLRjmKX2Az2y8yXX
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(376002)(366004)(136003)(346002)(451199021)(41300700001)(316002)(110136005)(2906002)(5660300002)(52536014)(478600001)(8676002)(76116006)(66946007)(19627405001)(66446008)(66476007)(66556008)(8936002)(4326008)(6636002)(64756008)(71200400001)(7696005)(122000001)(33656002)(53546011)(9686003)(186003)(55016003)(6506007)(26005)(66574015)(83380400001)(86362001)(38070700005)(38100700002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?yf6OuiWw0dR0ADWbQLKztcvb8c+bpFeAAJlEiarlf8M7aFQ4OoGV+XPC?=
- =?Windows-1252?Q?cVWRcUGNNQp+ZblGP20CV1BiHzobANMGDIQxV+fl4l6b0VC/oEmb2r/n?=
- =?Windows-1252?Q?F9uQM3rzEMBaqmd7g+DevvRncB1FUzYKyiGFd9TDOlqZIuBCshe/4Fn2?=
- =?Windows-1252?Q?BH907f/XwRchfLWuRZGR9rPBAfkNz14H5hCGclIsiqXWOgX453Z2n6Pr?=
- =?Windows-1252?Q?S0+lNQNDjt7FtW/ejYoS+7NVixOxj7k7EeO/OJF0eZ8dGDmlZKSCIHBT?=
- =?Windows-1252?Q?ROuPbxU2aRkuni014ZWkPBQf6LZFM3SYO+G9TQPDh3QsHxloP68ZMiIY?=
- =?Windows-1252?Q?bhZ6Q5d3tpudMOrDslK5jPVIzk8qU2hAdxwZOXHH9l6hz6LBdwt31UjS?=
- =?Windows-1252?Q?UzQs12354mLG7gHtZndAS8ZXkLkGMe0mfaMK08uyIcALFK2LyebJSiQK?=
- =?Windows-1252?Q?FJldTvA5mNkZDof7YoBUz3GoyyKAGrrI9KR0l/cfC3E8nYDqBgCs5+64?=
- =?Windows-1252?Q?cew7iKenCh3S7d14rVNKX1S008l0R8qMCjunKgbFVORxA6/TGvh8hsyk?=
- =?Windows-1252?Q?fqbTgNtePahyyqf9wrx/dN4aplM6tGSMT67bQS8oFGKnhD4zQxWxtkvm?=
- =?Windows-1252?Q?IvPIVVc6pnbel8hyZRm/ebNpGINFTI1NLiK0/Ork/h2atDtBTxH0xq8d?=
- =?Windows-1252?Q?5ATJgYe19saqW8mEWgnPP/K3NJZYtg5afY4Nyh/v6CDsq8rxl4dyVihQ?=
- =?Windows-1252?Q?xb6RX6MQG8QkvjunQ12jrKTJCV5YOnJae6WTwX98XAqyHYr8G9sPcDs/?=
- =?Windows-1252?Q?w50ts+MqKfpvKgeoVTYzb6jwanYRMN/w4Q+Y9bCRqej+NWKbby1dUOK6?=
- =?Windows-1252?Q?BWg5HwjJqHrolxS5L9eQUYJnd+XQTdAdVIldvuscA8SYPjrJ4FCnQ9qB?=
- =?Windows-1252?Q?jg2+Yg2CiSqG0PD81un8nl7X/mWg319SROAZKOiVOadRalNJbVrENWCn?=
- =?Windows-1252?Q?T25FBY5l9YfH5Y0Q53oshe6GH9rB66APb/sjIoQZhmjMdkp5KoSvvkWr?=
- =?Windows-1252?Q?tQq/7/4oBvBomkOJrU2SiEetyRa8Z4VTx1Ky76wBx/m8yfJYhW8o0xOz?=
- =?Windows-1252?Q?ilolRpSyQ89bYV4s2GWir6pwxPjZlrvgR8UXGZ/lfZDmpw462hZpkRPm?=
- =?Windows-1252?Q?mur9aCE/eTyJHuHZmjp8IvyvejBWpYGb6gXV/+ChcR9J5xipozeFlwAT?=
- =?Windows-1252?Q?+C9usWfm8WsLhMFNemg68q0HKcJuRTd67bTpckEL3FKXzZrQDbgSM4M7?=
- =?Windows-1252?Q?dajz2tG6GLcUD7FRhhr1kQGnd738w+36Vj2Ttxb5l1NgyqJbtiytnKtx?=
- =?Windows-1252?Q?qZlp+hRqC+40Nl/x7vG7MjV2qz7noqz6XHvx9Q+4JK0ws2e0scGQxMQM?=
- =?Windows-1252?Q?vqJEL8n5m4LaD0IlkcsKVbzCvzpjAKkhXH+ABCFTghK7MbUByYbPoh3O?=
- =?Windows-1252?Q?9Hd5SXinmVkvXlUU5tAZdoTpJQraUYgVTw10vYb7I5/m9zjeB/Yj9SbP?=
- =?Windows-1252?Q?/UvtRHAsZoDp6qPnRaC0g4jUTqTxmbdSHgO3eLiC32yxubxMZNmfsPvO?=
- =?Windows-1252?Q?63mqNh4itOKXHNuCBrnEJYvYGVJ1K3z4gsYeb6kqAilXi+hZ2n3fZ8Gs?=
- =?Windows-1252?Q?FLIfo+FuJVg=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144E1DFE0B37F5EF11C913CF74EABL1PR12MB5144namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.24; Fri, 2 Jun
+ 2023 17:01:53 +0000
+Received: from CY4PEPF0000E9DB.namprd05.prod.outlook.com
+ (2603:10b6:930:18:cafe::c) by CY5PR15CA0079.outlook.office365.com
+ (2603:10b6:930:18::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.26 via Frontend
+ Transport; Fri, 2 Jun 2023 17:01:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9DB.mail.protection.outlook.com (10.167.241.81) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6477.13 via Frontend Transport; Fri, 2 Jun 2023 17:01:53 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 2 Jun
+ 2023 12:01:52 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] amd/amdkfd: drop unused KFD_IOCTL_SVM_FLAG_UNCACHED flag
+Date: Fri, 2 Jun 2023 13:01:39 -0400
+Message-ID: <20230602170139.18284-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DB:EE_|CY5PR12MB6456:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d20023d-78e7-4aa7-66df-08db638b10bb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: f8FS/4QqYlWoyCRuywf8ub9btlEp3zuozR7ViNwPDyV4Lqn4r0ALGUoyZZ2a6i4U7z9as8JS0P1swKhSODvzG9cmWEWZWVUWQojHZEOAHy+LQgczvaRbC6G+pJIc+EDxLSqHYn4qPZFJWy9d3rdoCz0WxQC2b4RCLebGrqXRgxFO5AH6R2KkJNX+7Kr+TttV4TsPCosSgyh3MBobXBFH4l5Hkj/NEo3qLL2i9aw1cVdL2yXE0ODAIs5yvWrxKQ11zS1Ic0R9AJztsCjUt5eFGYnOftSCk6qmvsltnQbvCDubX5b3NfmeGgtaYJQikKApizCe2fL9bepdEIDon30Co3zR/xfSFy6W2qerK6yvtMx9PgLT5n66t2HYK3AufBHycNZZv0uB2mRj4OTp8u2Nu38lIR4wwidTas0h7dVa6blo0ATw2S5Y7ZkeFzqQ4+/eL4mLVDs14TyyuRiRJTw6jUnRI1gdyyPQaF8eHmqLT8VgvvUUfBZsG0niR2YfKzayJGt5Ot5PgKJpP/LI/m8/gFUhMnaEEXelbnzmCie86/dRpJGOJz0tPcocT3pLRqmlWGuLQAy9Kh+GBuKV9XxZkUPjC7JAV39FmM2TG4rr8EPwZggOta0aa170njFtjFOFKElFO8tDvz+RIWgjbByZiEs4iX0ihyATcxwcObFbkYDiUPZBr8ukieCwXKfBpnN037AWxn3x3YqCTGtpyf7vkanxxiJ+iVXbZPjOebU0KjbmzLhuAj1Q8d+pRyahUgsV3bn9uo6eP9sRKOgFKUBb0Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(376002)(136003)(346002)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(82740400003)(356005)(82310400005)(81166007)(40460700003)(86362001)(478600001)(54906003)(70206006)(6916009)(70586007)(36756003)(40480700001)(6666004)(4326008)(186003)(26005)(16526019)(1076003)(316002)(2906002)(7696005)(8936002)(8676002)(36860700001)(2616005)(336012)(47076005)(5660300002)(41300700001)(426003)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ee7bebf-ecf8-47b8-9527-08db6387ba9d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2023 16:38:00.5262 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: k5V69tCsnFi86zTjoApqNxvgukZzaM/VJshsbUghA3NtQOh5RW5QQ6O14Nxs+P8JBZy9lQRqlnzmu52nBh/VRw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5860
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 17:01:53.4440 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d20023d-78e7-4aa7-66df-08db638b10bb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9DB.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6456
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,227 +97,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Philip.Yang@amd.com,
+ Felix.Kuehling@amd.com, rajneesh.bhardwaj@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144E1DFE0B37F5EF11C913CF74EABL1PR12MB5144namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+Was leftover from GC 9.4.3 bring up and is currently
+unused.  Drop it for now.
 
-[Public]
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-Sent: Friday, June 2, 2023 11:52 AM
-To: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexa=
-nder.Deucher@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; SHANMUGA=
-M, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [PATCH] drm/amdgpu: Mark 'kgd_gfx_aldebaran_clear_address_watch' &=
- 'kgd_gfx_v11_clear_address_watch' functions as static
-
-Below two functions cause a warning because they lack a prototype:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c:164:10: warning: no pr=
-evious prototype for =91kgd_gfx_aldebaran_clear_address_watch=92 [-Wmissing=
--prototypes]
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c:782:10: warning: no prev=
-ious prototype for =91kgd_gfx_v11_clear_address_watch=92 [-Wmissing-prototy=
-pes]
-
-There are no callers from other files, so just mark them as 'static'.
-
-Also fixes the following checks:
-
-CHECK: Alignment should match open parenthesis +static uint32_t
-kgd_gfx_aldebaran_clear_address_watch(struct amdgpu_device *adev,
-uint32_t watch_id)
-
-CHECK: Alignment should match open parenthesis +static uint32_t
-kgd_gfx_v11_clear_address_watch(struct amdgpu_device *adev, uint32_t
-watch_id)
-
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Christian K=F6nig <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: Philip.Yang@amd.com
+Cc: rajneesh.bhardwaj@amd.com
+Cc: Felix.Kuehling@amd.com
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c   | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 2 +-
+ include/uapi/linux/kfd_ioctl.h       | 2 --
+ 2 files changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c b/drivers=
-/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-index efd6a72aab4e..60f9e027fb66 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-@@ -161,8 +161,8 @@ static uint32_t kgd_gfx_aldebaran_set_address_watch(
-         return watch_address_cntl;
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 615eab3f78c9..5ff1a5a89d96 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1154,7 +1154,7 @@ svm_range_get_pte_flags(struct kfd_node *node,
+ 	uint64_t pte_flags;
+ 	bool snoop = (domain != SVM_RANGE_VRAM_DOMAIN);
+ 	bool coherent = flags & KFD_IOCTL_SVM_FLAG_COHERENT;
+-	bool uncached = flags & KFD_IOCTL_SVM_FLAG_UNCACHED;
++	bool uncached = false; /*flags & KFD_IOCTL_SVM_FLAG_UNCACHED;*/
+ 	unsigned int mtype_local;
+ 
+ 	if (domain == SVM_RANGE_VRAM_DOMAIN)
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index 2a9671e1ddb5..2da5c3ad71bd 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -623,8 +623,6 @@ enum kfd_mmio_remap {
+ #define KFD_IOCTL_SVM_FLAG_GPU_READ_MOSTLY     0x00000020
+ /* Keep GPU memory mapping always valid as if XNACK is disable */
+ #define KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED   0x00000040
+-/* Uncached access to memory */
+-#define KFD_IOCTL_SVM_FLAG_UNCACHED 0x00000080
+ 
+ /**
+  * kfd_ioctl_svm_op - SVM ioctl operations
+-- 
+2.40.1
 
--uint32_t kgd_gfx_aldebaran_clear_address_watch(struct amdgpu_device *adev,
--                                       uint32_t watch_id)
-+static uint32_t kgd_gfx_aldebaran_clear_address_watch(struct amdgpu_device=
- *adev,
-+                                                     uint32_t watch_id)
- {
-         return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-index 52efa690a3c2..91c3574ebed3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-@@ -779,8 +779,8 @@ static uint32_t kgd_gfx_v11_set_address_watch(struct am=
-dgpu_device *adev,
-         return watch_address_cntl;
- }
-
--uint32_t kgd_gfx_v11_clear_address_watch(struct amdgpu_device *adev,
--                                       uint32_t watch_id)
-+static uint32_t kgd_gfx_v11_clear_address_watch(struct amdgpu_device *adev=
-,
-+                                               uint32_t watch_id)
- {
-         return 0;
- }
---
-2.25.1
-
-
---_000_BL1PR12MB5144E1DFE0B37F5EF11C913CF74EABL1PR12MB5144namp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> SHANMUGAM, SRINIVASAN=
- &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;<br>
-<b>Sent:</b> Friday, June 2, 2023 11:52 AM<br>
-<b>To:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Deucher, Ale=
-xander &lt;Alexander.Deucher@amd.com&gt;; Kuehling, Felix &lt;Felix.Kuehlin=
-g@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; SHANMUGAM, SRINIVASAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Mark 'kgd_gfx_aldebaran_clear_address_w=
-atch' &amp; 'kgd_gfx_v11_clear_address_watch' functions as static</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Below two functions cause a warning because they l=
-ack a prototype:<br>
-<br>
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c:164:10: warning: no pr=
-evious prototype for =91kgd_gfx_aldebaran_clear_address_watch=92 [-Wmissing=
--prototypes]<br>
-drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c:782:10: warning: no prev=
-ious prototype for =91kgd_gfx_v11_clear_address_watch=92 [-Wmissing-prototy=
-pes]<br>
-<br>
-There are no callers from other files, so just mark them as 'static'.<br>
-<br>
-Also fixes the following checks:<br>
-<br>
-CHECK: Alignment should match open parenthesis +static uint32_t<br>
-kgd_gfx_aldebaran_clear_address_watch(struct amdgpu_device *adev,<br>
-uint32_t watch_id)<br>
-<br>
-CHECK: Alignment should match open parenthesis +static uint32_t<br>
-kgd_gfx_v11_clear_address_watch(struct amdgpu_device *adev, uint32_t<br>
-watch_id)<br>
-<br>
-Cc: Felix Kuehling &lt;Felix.Kuehling@amd.com&gt;<br>
-Cc: Christian K=F6nig &lt;christian.koenig@amd.com&gt;<br>
-Cc: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-Signed-off-by: Srinivasan Shanmugam &lt;srinivasan.shanmugam@amd.com&gt;<br=
->
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c | 4 ++--<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c&nbsp;&nbsp; | 4 ++=
---<br>
-&nbsp;2 files changed, 4 insertions(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c b/drivers=
-/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c<br>
-index efd6a72aab4e..60f9e027fb66 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c<br>
-@@ -161,8 +161,8 @@ static uint32_t kgd_gfx_aldebaran_set_address_watch(<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return watch_address_cntl;=
-<br>
-&nbsp;}<br>
-&nbsp;<br>
--uint32_t kgd_gfx_aldebaran_clear_address_watch(struct amdgpu_device *adev,=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; uint32_t watch_id)<br>
-+static uint32_t kgd_gfx_aldebaran_clear_address_watch(struct amdgpu_device=
- *adev,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; uint32_t watch_id)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c<br>
-index 52efa690a3c2..91c3574ebed3 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c<br>
-@@ -779,8 +779,8 @@ static uint32_t kgd_gfx_v11_set_address_watch(struct am=
-dgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return watch_address_cntl;=
-<br>
-&nbsp;}<br>
-&nbsp;<br>
--uint32_t kgd_gfx_v11_clear_address_watch(struct amdgpu_device *adev,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; uint32_t watch_id)<br>
-+static uint32_t kgd_gfx_v11_clear_address_watch(struct amdgpu_device *adev=
-,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t watch_id)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB5144E1DFE0B37F5EF11C913CF74EABL1PR12MB5144namp_--
