@@ -4,93 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A9B8C7EE29
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Jun 2023 15:02:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2357C77B7A
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Jun 2023 15:05:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDD0E10E5FC;
-	Fri,  2 Jun 2023 15:02:07 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2046.outbound.protection.outlook.com [40.107.93.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A350D10E0A1
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Jun 2023 15:02:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4552610E048;
+	Fri,  2 Jun 2023 15:05:58 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2062f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 293FB10E048
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Jun 2023 15:05:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J1UMkzXci99VFHPzZzAYtX8Tqdzq1hTAimxs0juNASxc6YlDEyEkX7r+0aKf6XuTCi6M3xYX40Wh//ln90JhTcMFpCpjg9ErNO7R5n5rdaSFAXlT7RNc4pP42Ce4APUsBriVapwnZDGHjKOD0z4AJ9OTnNwbFV+N3rOS6qI/MIEVDi2qqYbCL0CqmvhP2aHm/BNMhXCVTLIZZjLstzim7s6UmFNbMOCyT1XHv0tiY4+WHAvQlVIIJC94zdUDCX1otMdIMw6CcTCSwASy5EgLC92MzZaDrXkJfQWIVy5nhoEAsecdhzm1PgV6VBPCPtcMrR5FJCVhTLcZfaumB0xtXw==
+ b=CXt7fzAPib3afe5swIKp4S8Iq4tg01g3pg7gqs5rQwxZSSmPVQhRqC0KbGJ5V5za+EvzTvqE7u1RbzZTltVvLZ0jRrHpAnOHwcVTHOKyLkGu6ZA6gPu0ev0dUa0d2/qiA2owZfgAr84cuIYFHaQlPlkXJPd4dde2h8BX+eClA3g7En6YhRhHyhrEJI4AkNU8JRRDXnC2pmPZIAuQI9+MmrrmMfXWRwz4TiUfdmdKh1QbtpivVkecoGuPRa+FwH/CTMB9LjrHaEOp8VMHaC7ATZ3EURefRQyFLkQ+ifc0oBuyHwoTpx/UhWQqZNUHpWIDspaErO4+Eb+Ul0aIPLmymQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jvs44cTeIQg1uonT1BlFYy0bX4A62/94pOezI/NjswI=;
- b=O+41FazBgp+ViM4wAnWrlWfKa7glbGG8to/XKWSqPmBFwDeHkPtxFIGNa7Nmm5fqj39nn+/dWbjCik/11a8ec8MWGi4pZIzMl0SqyS9RsrRCEI46EdL3HwUaP0x8In+89kqTQXbbhWAPbTNlG6g5rKvhLRC5wqAaWuepIXgV/7mQaph5e5qWuaMal19GsjSL1j6jXt6M3VAT466ZnWUwVWWZhclVxiT8yXayWksFi9+uYymQNO5DbvTTLMGcZ1iYBJUc/RwdPPFQpWXnzwjuOFGgofwdSWOo9CtwHTMoP2nDd5Xu5SR1Jn0JXoC4xYhq/Ap3cPTnLa2tCksP3D21lA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=Zb9g0bGcrsxaVWef34qVVQ7JjyDcr8FHFpgjgLPas9M=;
+ b=DhJOdn7tExCHI8LKrGotKlEMhkeXDjrwRhb9DTTm9yj8u45m5wiRmevPyTFiiteAtO1n9+CubGyIer79CHiI4tyRBOjmlsmKvMwttoQfiljdqHw2jdEnIB6GH1NomcLPOYGPV6zoFvpfFjM376JEoYuLDZgeeepERRkYS2I+YiFBSxArF2oc/sdd4oyJRRtl/J0wvTNQD0GVKtlp9vhi1o345Ul5ONXy50kIdO6ZIV8qtobt/ibnmS5q5oChD4ESbF1k6Y0j8vPuJNT69fTSiCjtA3wdbF2pC1mfFy/rCRit3yi00Ya3xHv0iJrFAY+9ySlNEMpqT7Z2aILxOPN4nA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jvs44cTeIQg1uonT1BlFYy0bX4A62/94pOezI/NjswI=;
- b=Z4ZIlLX47nsCaDFcacWXEDwIFWcR9xiYTygWRHUasAxoY8EdV1TFSSujtO/ZX+zmiuggjDJlCKRriy4qQhukqNJ9uKXFo3syl0BHbxTXPIekT2IDhCCPydBcx5v3Uspvh6k63vupEHZOk4HevSMyhxB0Vp8/e7a0Yh0qPRa0JjM=
-Received: from BN8PR12CA0025.namprd12.prod.outlook.com (2603:10b6:408:60::38)
- by CY5PR12MB6648.namprd12.prod.outlook.com (2603:10b6:930:42::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.23; Fri, 2 Jun
- 2023 15:01:57 +0000
-Received: from BN8NAM11FT040.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:60:cafe::c8) by BN8PR12CA0025.outlook.office365.com
- (2603:10b6:408:60::38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.26 via Frontend
- Transport; Fri, 2 Jun 2023 15:01:57 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT040.mail.protection.outlook.com (10.13.177.166) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6455.27 via Frontend Transport; Fri, 2 Jun 2023 15:01:57 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 2 Jun
- 2023 10:01:56 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 2 Jun
- 2023 08:01:44 -0700
-Received: from fedaura-ryzen.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 2 Jun 2023 10:01:44 -0500
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amd/display: Program OTG vtotal min/max selectors
- unconditionally for DCN1+
-Date: Fri, 2 Jun 2023 11:01:44 -0400
-Message-ID: <20230602150144.259187-1-aurabindo.pillai@amd.com>
-X-Mailer: git-send-email 2.40.1
+ bh=Zb9g0bGcrsxaVWef34qVVQ7JjyDcr8FHFpgjgLPas9M=;
+ b=BjiKOk/8OHxDuqR4tITjKJ6e5GWAduk9NygPfKJHVu27q1/YUX+T97JQ2X8eUMRPdF4gCynMvjoRx3VoX8jeGxdXiZ5gf6ZSg9LYkNq6iuF58FG4pjgRYDSyeVSB7f7qG1QhtW7QPWsBDria/fiEZT5oDM1DCyLKyZi5LDjiOEM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
+ by CY5PR12MB6551.namprd12.prod.outlook.com (2603:10b6:930:41::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.24; Fri, 2 Jun
+ 2023 15:05:54 +0000
+Received: from MN2PR12MB2941.namprd12.prod.outlook.com
+ ([fe80::8c06:c9e:c6c2:3b16]) by MN2PR12MB2941.namprd12.prod.outlook.com
+ ([fe80::8c06:c9e:c6c2:3b16%4]) with mapi id 15.20.6455.024; Fri, 2 Jun 2023
+ 15:05:53 +0000
+Message-ID: <fb48be92-de1c-4648-dbb6-e9ebd11d75e0@amd.com>
+Date: Fri, 2 Jun 2023 09:05:51 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/amd/display: Fix up dcn30_fpu.c kdoc
+Content-Language: en-US
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
+References: <20230602083727.1568346-1-srinivasan.shanmugam@amd.com>
+From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20230602083727.1568346-1-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN9PR03CA0156.namprd03.prod.outlook.com
+ (2603:10b6:408:f4::11) To MN2PR12MB2941.namprd12.prod.outlook.com
+ (2603:10b6:208:a9::12)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT040:EE_|CY5PR12MB6648:EE_
-X-MS-Office365-Filtering-Correlation-Id: b2d3371d-3ba5-472a-b621-08db637a4f62
+X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|CY5PR12MB6551:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3997c544-6972-4f9e-fd29-08db637adc44
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ommgaGQeIv0cTcgqsHjVTTq5Rvn4w7mRPp88cDWrSNTf6V6hDkaSaX5Tsy5gMZZgaUWB5cM05EB6Rq7qOVepobwqYkezmfgu3gPW2SvtX0Dd8LMMxUpiN/aLngtin58KSCK/SS4Os0iCEFwhOvl5J8B9IubrNgjkisegM6rE9P6GIrWxNDAsKgErnQG2eQk5Ae98D8pj7TC3Y0A7ZXfEu/T+WAObyHvEyyLYHP5BOOhsS5JNcWjyhLUem7D1PbiYa1EVdHM47ZfoB0qnN+kXdXkC5W1rTbAMkWKgopcTaoMgFAgFYxZnpXYuwSzXE6S3dR7mPThqhIo3vBj7ni5nO1biVcJWNLh5HiscwZCV9SRKy0ubOtqTaVp/LVarlMUvt1Z9TbSKgQ5BrT3VXS8gi6m8W9ZnkfaT+5fpL/Str67XM9ijT1Fs6YIm88AzEz+zdQ1aAxD84AZWXx8djqktuoVXzCEYOe7UC97oPGdTcptTMoXBe5lNHtXSLeDVkhRHy72LYRvTwVT+SMi58yIAATiqNwuMpKAKPfqiTA3AnXvi2kq0ht/FJ+4JKvM5LesHDYKzu2DQzMZlbqi+5WqhFwaTYsRzuES7DYvXGooHFSo4ypxV8y+aMPyYH+4nr1iAdSiiYPph6vNtlcjgl/a8gOlc4hKE3RA2GWqJeKteWy5nv5rv/iv1sSHKAf2g8cS8A4dJbKJIkS5F0zvzHh0Q2KtO2KSVSC3xgGvg9ARglT7dAycUp3n0qe7fIkVC0sxM3RzdFMr659sWB/g3tEFVnw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(39860400002)(136003)(396003)(451199021)(46966006)(36840700001)(40470700004)(2906002)(44832011)(47076005)(8676002)(8936002)(83380400001)(41300700001)(36756003)(6916009)(336012)(426003)(2616005)(4326008)(81166007)(316002)(36860700001)(70586007)(356005)(70206006)(26005)(1076003)(7696005)(86362001)(82740400003)(54906003)(82310400005)(40460700003)(5660300002)(186003)(40480700001)(478600001)(36900700001);
+X-Microsoft-Antispam-Message-Info: a9FeadxNHaOKhUM4uosjUiE6XBTOPDXspJPgK1Sbb9Tcfx/ZdDPwp7atNbvTg5aFC4IlbS/0GraxXzJ1i+QJdagHgCeETOC/9xraJp7Au6sbl2Ff4BxLrNbwX9RhQPplWsrXcT9oOqlDZrLrkWluYR/Hsl4/VbV488xm0sR/EUlNE2URxeAJGauvhn7ixHhX537Vl/OsGfJ8odorHYQBzBow0mXhfAKq8OkXDpa/NglDDKDEQCkLEzHGJjEqSjZ+wC0XLRK4v8SG7W8P6mZrD2ip5dvEMDf3Tmau4wz2r3CCqtKnDrU0CnpkAzk23tQh5lYNkHc4eRfgfyfGp51wqR5ZcsKawUg2AsXeQfNVlJmlnWJLHPBWX+CA1tWSQbKJRCGy7ATdTsoxwJuo+ovl3HpdXclzAnAODwhgztMnZ/CYGs7XEFqJMvKWvkg11D71IACvk1bUOP3+shuebL0OJxW/XPfnrZiMQbMsw9nGS+nwMgScUFlrPgJ2RJbAD9ZMePSx382D8kkyj+m9pLfPcpjWjfgVoC40vdzR0ym0adxHg5ChWrhmiiufZnS7d9QatGkdnK8GobE4MPs8ZgN1Y16dlrnjfrolXNf4+eSs2ctqzPh9OLMdy+ehgxQBLDs3WSb8flp2BJ1cBW5F6W8Acw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(346002)(366004)(396003)(136003)(376002)(451199021)(4326008)(6506007)(6512007)(53546011)(186003)(6486002)(2616005)(83380400001)(41300700001)(5660300002)(316002)(2906002)(8936002)(8676002)(66476007)(66946007)(66556008)(110136005)(86362001)(478600001)(31696002)(36756003)(6636002)(38100700002)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFdPdE82bmFaMFpiT2JCcWgvRGFtYXVxeTd3RmNFNTdyemhETkg0anFuUGNR?=
+ =?utf-8?B?ZkpnblNRRVVwVG1iNXRSdjlDOXZmOVFkUlpqL1lNSW10UFY0N3RSTURIbWFU?=
+ =?utf-8?B?M1U0YUovV3NWRmY0a2ZmNHYzdnhkWEZBNHg3VjYzRmxjazhWU3krakhvZWxt?=
+ =?utf-8?B?REtBeDMycURua0U0UW40ZHJPaGd4b1ZDZCtiUk1HaXp1N0Q1R2UvMEpaNU9w?=
+ =?utf-8?B?a0RFVkJPQXFIbG5iNXEvblMrc2lDYlJHMElYdkRJc3FBSURiL0FnNDVySS9z?=
+ =?utf-8?B?MmNWQUZFOVJlVnFCZ3JYVk9wQ3pRamhZZWpLN3ZBNkx1RDBpeEFhRzZmU3ky?=
+ =?utf-8?B?WVIvQmliK0lCQ1ZlUkJxNDlBZ3lMRWV6TnFhZ3MvNzFzTFVLWmdJVVF1UTIx?=
+ =?utf-8?B?NUFqODc3WkVDN2RUNEYyK0tCMVNkUUJwYnF5T3pCNnllTnllQUp1NENiRlNW?=
+ =?utf-8?B?Y0NFdVlBYVVoNnQvV3oxelc3N2RpMXNDZmgvWklPSWx3anpRMzIyb1FkTDJG?=
+ =?utf-8?B?cVlNTkdtU2MxYnRJN0pMdjNPYVEvQVg5cjg3UllXdE5BQjFJL2hXS09ibGNq?=
+ =?utf-8?B?bVpZbEp3WG9nUnN0cUIySTZleDVPSWYwdmJDSnRnRUdibHNOT1ZPQUZzQ1E0?=
+ =?utf-8?B?K0NrbGZlZUVJRDFkY3NtYmlGM3ZNMlZJajQxMm1YQUwvR2w1UFlDaHdySDBq?=
+ =?utf-8?B?eGErL3h2Mnp3eUkvVS9lQWdxdTdOOFFGcG81SzFzcGhUblIyVmtLbFNuQ1d0?=
+ =?utf-8?B?MzBjc21HWlE4Y0lzWjdhVFV4UTFnRHk4b2dJblNTWVQrU0J0eFZjOEF4QTlP?=
+ =?utf-8?B?S2JUZDBWV3c5Wk0xUFBlZlU4RmU5T093UGlvOGY1Z0RYc2lpYWV0MEwrMzNW?=
+ =?utf-8?B?QnJrVXhMN05YVlJjWGJkdnJJU2JML3d4aXR0bjdCbE9jUVVMYjN4ZDQ0QWpw?=
+ =?utf-8?B?THBSbGpEUGpoclZCWGptcE1MclNBdGJhbUJqcXpFZmpGclN5RGxRSTZZQXEw?=
+ =?utf-8?B?V0kxUUhHcWtPOEhCdXFDQUwyV2ErRkhwc2tDWk5TUDY5S1prNDdxNzAyTkF3?=
+ =?utf-8?B?L1Q0cjFjYVhFTnlvekg0V0hzOUUySUFnM3h3ZWhuL1VQQjZmRGhlTVlqWlA3?=
+ =?utf-8?B?T0wxSUd3a3FRQkxsa2NXR2hqTG5uaVdSUFJSbTJscGpXM3lOUzN3aW9uQjU1?=
+ =?utf-8?B?bFZ4OU5rY3ZIT3JOdk14aGQxdW90K2RkN0JBbmVnQTlaejduaUlwbXhQMHZo?=
+ =?utf-8?B?K1U3bjFpS05YSzZTby80N1o0QmtldnZXUHVkK3RwbndVN1dISDNIT1NaeDI4?=
+ =?utf-8?B?UUhLMzI0K3RyRzdpelFZRmdTVHp5dmZTTWRFRGROa3RYNkpKNGhvWnhRR1J1?=
+ =?utf-8?B?c3libXlDSTh5ZEczeEJadXhQSzl3MUdXa1g1WmFXNUNMZlFCZnI2UWhEbHZh?=
+ =?utf-8?B?L2p4OGZ2cnNlQWxTakJPTE5iQlZwMEtlZ2JhUmh5bStBZTRmUEpGTFV1aTJq?=
+ =?utf-8?B?M2JGampZRnlQNjdnM1AwM1N6MkUzclMxdVlwOGFwNGZ4R0ZUemJaUEdnLzNE?=
+ =?utf-8?B?WTQ3VWVlZXRLU2M5MzdnQk9WWmhzdUdBQ3VreHN2UWhzT0Z3MmY4Qi9VRVF3?=
+ =?utf-8?B?WGtEK2gvQkZaaVc1bUE4M2VCVXFPcXB1QUhEaHpiZVNEd0VCeDBDbVpIRDdr?=
+ =?utf-8?B?ME1kVXViaVJPbnF6UzQvV1pCNS80Y3ZsVWdrYnR5MmNnbDdqOWY0Y0wwa09z?=
+ =?utf-8?B?M2VUekZWMEFYSk9OTlVPeks5M1RoYzUzeHBtVU0xSzQ5U0E5bTRQUkZXMlhK?=
+ =?utf-8?B?a2VTYWU4UTZTQk5CdWZqY3RjT1Y5Y2c3OFBlOU5nS3A0Z2twWnRSUVh5TXFy?=
+ =?utf-8?B?UlFNbW1KWjQ3Qy90Tm02SElTbjVkWGtOT3QrY2FJay9QbGVHTERoTTJiZ3Nh?=
+ =?utf-8?B?OVNoaVA1cmlrUFJqeDdoRVNVRml1OEFReXJiU00vWHJCNDFZbXRVak1jWU9v?=
+ =?utf-8?B?RE51dE1aeWhpRG9ZWGFMUDEwcGtCeUFMbkl1V3prUDc2enJoOXozRnVFMFJU?=
+ =?utf-8?B?NWZNZ2lna1NpdzE2dStXM2s5dm5FMkg1bEduTzVVY1ZaZ2hGZW9UMXlRS2do?=
+ =?utf-8?B?QlVVZVJwM3ZiZHpwRjFSNXU5VmhQU1ZyakdxVUNZWTZISEVJSUZ1cXBrU2lo?=
+ =?utf-8?Q?Z+YRx6fHDhsr2NeVobHVEejNIZTm7+C+qVMM6hmdBU52?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 15:01:57.1617 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2d3371d-3ba5-472a-b621-08db637a4f62
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3997c544-6972-4f9e-fd29-08db637adc44
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 15:05:53.8422 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT040.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6648
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qyf34lOtB8lLfxoxH2FQlTbwdWgl5lTJZkve/Dl4euak509XXIDkSVngRSBm3CXAsSOzk0AW14bUXYS+TrfL6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6551
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,73 +126,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: harry.wentland@amd.com, aurabindo.pillai@amd.com, rodrigo.siqueira@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For FPO/FAMS, DMCUB will try to change the output timings by writing to
-the OTG registers. However, the timings written directly to the OTG
-registers will not be honoured unless VMIN/VMAX selector registers are
-programmed with the right bits and trigger source is selected correctly.
-Proper solution needs to go into DMCUB but will require additional state
-tracking to ensure that the selectors are set and reset correctly as per
-driver state. Until fix is merged into firmware, apply the workaround in
-driver to unconditionally write OTG vmin/vmax selectors.
 
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 15 +++------------
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c | 10 ++++++++++
- 2 files changed, 13 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-index e1975991e075..633989fd2514 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-@@ -930,19 +930,10 @@ void optc1_set_drr(
- 				OTG_FORCE_LOCK_ON_EVENT, 0,
- 				OTG_SET_V_TOTAL_MIN_MASK_EN, 0,
- 				OTG_SET_V_TOTAL_MIN_MASK, 0);
--
--		// Setup manual flow control for EOF via TRIG_A
--		optc->funcs->setup_manual_trigger(optc);
--
--	} else {
--		REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
--				OTG_SET_V_TOTAL_MIN_MASK, 0,
--				OTG_V_TOTAL_MIN_SEL, 0,
--				OTG_V_TOTAL_MAX_SEL, 0,
--				OTG_FORCE_LOCK_ON_EVENT, 0);
--
--		optc->funcs->set_vtotal_min_max(optc, 0, 0);
- 	}
-+
-+	// Setup manual flow control for EOF via TRIG_A
-+	optc->funcs->setup_manual_trigger(optc);
- }
- 
- void optc1_set_vtotal_min_max(struct timing_generator *optc, int vtotal_min, int vtotal_max)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-index e0edc163d767..8a93cba64630 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-@@ -455,6 +455,16 @@ void optc2_setup_manual_trigger(struct timing_generator *optc)
- {
- 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
- 
-+	/* Set the min/max selectors unconditionally so that
-+	 * DMCUB fw may change OTG timings when necessary
-+	 * TODO: Remove the w/a after fixing the issue in DMCUB firmware
-+	 */
-+	REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
-+		    OTG_V_TOTAL_MIN_SEL, 1,
-+		    OTG_V_TOTAL_MAX_SEL, 1,
-+		    OTG_FORCE_LOCK_ON_EVENT, 0,
-+		    OTG_SET_V_TOTAL_MIN_MASK, (1 << 1)); /* TRIGA */
-+
- 	REG_SET_8(OTG_TRIGA_CNTL, 0,
- 			OTG_TRIGA_SOURCE_SELECT, 21,
- 			OTG_TRIGA_SOURCE_PIPE_SELECT, optc->inst,
--- 
-2.40.1
+On 6/2/23 02:37, Srinivasan Shanmugam wrote:
+> Fixes the following gcc with W=1:
+> 
+> display/dc/dml/dcn30/dcn30_fpu.c:677: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+>   * Finds dummy_latency_index when MCLK switching using firmware based
+> display/dc/dml/dcn30/dcn30_fpu.c:688: warning: Function parameter or member 'dc' not described in 'dcn30_find_dummy_latency_index_for_fw_based_mclk_switch'
+> display/dc/dml/dcn30/dcn30_fpu.c:688: warning: Function parameter or member 'context' not described in 'dcn30_find_dummy_latency_index_for_fw_based_mclk_switch'
+> display/dc/dml/dcn30/dcn30_fpu.c:688: warning: Function parameter or member 'pipes' not described in 'dcn30_find_dummy_latency_index_for_fw_based_mclk_switch'
+> display/dc/dml/dcn30/dcn30_fpu.c:688: warning: Function parameter or member 'pipe_cnt' not described in 'dcn30_find_dummy_latency_index_for_fw_based_mclk_switch'
+> display/dc/dml/dcn30/dcn30_fpu.c:688: warning: Function parameter or member 'vlevel' not described in 'dcn30_find_dummy_latency_index_for_fw_based_mclk_switch'
+
+I didn't know that gcc also highlights kernel-doc issue, nice.
+
+btw, I recommend you avoid the use of the keyword 'fix' in the commit 
+title since some upstream scripts look for this keyword; use fix for 
+something that fixes a bug. In this case or similars, consider using 
+something like 'Adjust'.
+
+Thanks
+Siqueira
+
+> 
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>   .../gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c  | 15 ++++++++++++---
+>   1 file changed, 12 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
+> index a352c703e258..ccb4ad78f667 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
+> @@ -674,10 +674,19 @@ void dcn30_fpu_update_bw_bounding_box(struct dc *dc,
+>   }
+>   
+>   /**
+> - * Finds dummy_latency_index when MCLK switching using firmware based
+> - * vblank stretch is enabled. This function will iterate through the
+> - * table of dummy pstate latencies until the lowest value that allows
+> + * dcn30_find_dummy_latency_index_for_fw_based_mclk_switch() - Finds
+> + * dummy_latency_index when MCLK switching using firmware based vblank stretch
+> + * is enabled. This function will iterate through the table of dummy pstate
+> + * latencies until the lowest value that allows
+>    * dm_allow_self_refresh_and_mclk_switch to happen is found
+> + *
+> + * @dc: Current DC state
+> + * @context: new dc state
+> + * @pipes: DML pipe params
+> + * @pipe_cnt: number of DML pipes
+> + * @vlevel: Voltage level calculated by DML
+> + *
+> + * Return: lowest dummy_latency_index value
+>    */
+>   int dcn30_find_dummy_latency_index_for_fw_based_mclk_switch(struct dc *dc,
+>   							    struct dc_state *context,
 
