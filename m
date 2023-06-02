@@ -4,90 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19A33C7EE23
-	for <amd-gfx@archiver.kernel.org>; Fri,  2 Jun 2023 02:42:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EF6EC7EE23
+	for <amd-gfx@archiver.kernel.org>; Fri,  2 Jun 2023 03:16:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E016010E60A;
-	Fri,  2 Jun 2023 02:42:28 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::600])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7476910E60A
- for <amd-gfx@lists.freedesktop.org>; Fri,  2 Jun 2023 02:42:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0342110E60D;
+	Fri,  2 Jun 2023 03:16:42 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2057.outbound.protection.outlook.com [40.107.212.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88F0F10E60D
+ for <amd-gfx@lists.freedesktop.org>; Fri,  2 Jun 2023 03:16:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H+9JXWJyLC4LM3ir6/mWXNWi73W4PwZk91oX34JzpJWgD8pur7OHx2xVTALoV/o9vdfsTxDp1qUcWF+5GJpkFycVhi+Lgqe++DwHoTCQNUWStFCR1jjYEdTHiTJUgonJ+PihZv21IxzSJfEl6fUTSeas0p+kASSsjHp/4PKfuRiRB9oxPHAR+LG81g7BI5na44opSkI3ZjelU2pG+k/C8Mf6I7KcXxdUkq5jz2TWZYhb8exNtYv+Y/uMv96v7u1xpOWgVV+OgGqCKDQ0KGH5B5FANG//P4RUmlWsvSzoTQsVgUzEzhaf8UUr33R+J9ggNV5WVqJan0qDHuSUi6C5ww==
+ b=XrzEop3C3bQk2vqdBeUcVpeteGmd27zjjusXtZMIW5fN033VRgz0BZ/Euwwi8w+UPLIswwCkzB3m7td8xTjGoq2M84TPpTtSNpGoRGOfjT9skm6zWKaPK2uMKr6MxVe0jO/xGLawAdPyjwi9dV3dBCPbyKkCOI8KOPaJKumKqU8NIPL3XNoC5UoSABQJVMpitv7/RmwXwlmKXx+cLAbGele4ejsT2eFW8SBcBFEQFf/IHY1RKzAeQ5IAeJOP9uyqb9qg0lH6NVV8Zy9qZFalf8b5teCw1yHYhMlFJsnEvxp1Js+QnI6i6avWrlZFrcdbQ0TXGdKlWgjPiW/AyEc9uQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PJ02zMNmz4NJA2+OCQahUBOhd+dDWuYS/7zMqVPITes=;
- b=Bx75ERuO4BSFqD+rDGBVp6qCETu8NHyiVW5wJgAMbk605PEskg+ls8WkV+P6wfrFeAVPYeAVPNP+Y7I/VDw6vaqT7wEkjus0MnGKw4SzP5TkAuEZY2Nl4+1P60dx0bjbVsF/3sgHpV4Uyi9IslsbF6aYQFV1r/HSexWVKtC4OEzNUo6Apw0zNPQVqmvp8mzGPteKcHH0B8B8q1Fq1D/Z0q1Z7bszxj6guNCUGWnhQaiI0Wm84n5SBczyRQofkzRFT1dqEGZ3XeB1A8gzLU+6sCXQUTSjHlSFT7q81oRd9fOvT/eeAlBve/eKS1BFpkMHslZnUbG4nVIU82k1CKxKxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=VByeqgyTubZknxzP5TCwYfK3gzPT6AiEkM2E8LGFskk=;
+ b=FsfoFe6PMORCZWN7zc+jUkWbEAh3bwEIFF4ixjyXXTdWS0hqwXiFJzhcY4d6yYJdMJ1tqdOuGrqNl3iM9baboZGddsJh4Fa+nfqTxKEwpTY99SYhlCv1WH7QUUCDyhslgSHNFSLg+MCZ/Y93UJfc87iT1iobc1pRZSqsk7bEnMvpahcIxZnqEwwq0fd7y5FXXi4VPzwaIcR5xZmXpdqqlWbAQI7ZhiBT4cV+ZEIsnFOAIu19mxI/n1SOPbwPfouTHDv8vr/r9VDEBotdzgcZoUDZxKN4N21bOG4HYv2bQKFrg9kl9klRy8ZA5Xn8MbTH7mHcPHrdeZIcefjbB7D5Pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PJ02zMNmz4NJA2+OCQahUBOhd+dDWuYS/7zMqVPITes=;
- b=wLYKEE1OYd6ilgag2eab/wSIuj8Gd+t7kJaKopHVI14HUDmDGnU0SOzuVgd/kKLoQmYfoilvAi1iga73nAh86jMJfKqubal5v25YsRbwiuBDZRJv7/Dra8wqKYG3Ht5YwRGMjWMpGzEsZpThG4MeHWECqIjIZ4eZe+g9PGnNInM=
-Received: from BN9P222CA0029.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::34)
- by IA0PR12MB8349.namprd12.prod.outlook.com (2603:10b6:208:407::17)
+ bh=VByeqgyTubZknxzP5TCwYfK3gzPT6AiEkM2E8LGFskk=;
+ b=f/mJgb55y4euAaV2g6Q4j743nQ7Yo2Mdi9YEG8X8sLv4+a3GNCHu4SfaeULlTThEez/N4kHNMpyyE89bF2qg05S7fwrQ8EuNweOsECYdrNtQGgSM6Rnv/U0hOSdZ+MX2KSeQIb6nk7Zhz0aBxmWxDZddDDIrihZYXgiIAvKzE3g=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by SJ2PR12MB7821.namprd12.prod.outlook.com (2603:10b6:a03:4d2::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.26; Fri, 2 Jun
- 2023 02:42:21 +0000
-Received: from BN8NAM11FT063.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10c:cafe::69) by BN9P222CA0029.outlook.office365.com
- (2603:10b6:408:10c::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.26 via Frontend
- Transport; Fri, 2 Jun 2023 02:42:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT063.mail.protection.outlook.com (10.13.177.110) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6455.24 via Frontend Transport; Fri, 2 Jun 2023 02:42:21 +0000
-Received: from lm-srdc-pc1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Jun
- 2023 21:42:18 -0500
-From: Le Ma <le.ma@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/1] drm/amdgpu/pm: notify driver unloading to PMFW for SMU
- v13.0.6 dGPU
-Date: Fri, 2 Jun 2023 10:41:50 +0800
-Message-ID: <20230602024150.1840-1-le.ma@amd.com>
-X-Mailer: git-send-email 2.38.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT063:EE_|IA0PR12MB8349:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9f70e86-4ff8-423d-187d-08db6312fd35
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 60AB1C4DnmoEyEstfdx3HIWry0fG9elurSwH5WE3ORHLupo7KSmVxEVo0FRpSSnnJSvjT+TdXCDvCKHcHZDW7VlxAm79bRqSQfUzUnw+PtwmTaHvBGhxywIuLDI7CKGh6eHoiOj/L4SdoGKUvHRIV5yZv3fzMAJ18S6m0NXFbrauH8HXaQxB+AaPXIe9prYZOz76cxieqvij+HNiFspGzp1VXQ8z2ZSBI0Ue8/9o+iJXD9AuccfV7GMPrG2zIbPvtfMxXRVkHrB8eZ0dECgbLFPCU3AtFbXZtrUnvnQYNz1xlllPd9djSz2/STUYYhzFIqCw2TKD6wAlEh6JnY2UTg04FYmEhPBymz1L+J5CmTjSdFSC6dpFbk+tOaVtqxoD2beqir6zQaaZrMm5oYhxgffzgVsu9drY947eKY+YAzK8JZPtIiGoH3zWuvbDgeFdl4guuQQXmLMAkWnniY9DysOZPQv2ahnPJYzZiGQRyxITY6Ia4NJ93rYsMDCdryL97Ox8lrI21rN7zuN1uWyM0kzLmkr7e2Cwst/1orLMedDrn7iYuakE6xSPmVrEDuaUv4OBtLI7MU3mHrUYZMn9TGv7ikz84FJz9ZvXKmBB0n3tjzC6+bWHb1XsGeTmdVPfCkO0oMCDHeI8d1J0QzOZDcGFUSQnaWdMkmi9a1Uc2CjIQkweBgOZAi0yrMbY9+gLRdV28UwcQNw7AYdtKncsYpK+XeZ7wQiJIAPz4iMJFu/mGiz1xLXpYQKMYOrU7xXJKzE5Vd6GZLJLnvwRmPji2g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(376002)(136003)(396003)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(356005)(82310400005)(81166007)(82740400003)(40460700003)(86362001)(478600001)(70586007)(70206006)(6916009)(4326008)(36756003)(40480700001)(54906003)(7696005)(6666004)(16526019)(186003)(26005)(1076003)(316002)(2906002)(8676002)(8936002)(5660300002)(44832011)(2616005)(47076005)(83380400001)(36860700001)(41300700001)(336012)(426003)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.22; Fri, 2 Jun
+ 2023 03:16:35 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::9c90:4cbc:7d12:fb99]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::9c90:4cbc:7d12:fb99%3]) with mapi id 15.20.6433.022; Fri, 2 Jun 2023
+ 03:16:35 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Ma, Le" <Le.Ma@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/1] drm/amdgpu/pm: notify driver unloading to PMFW for
+ SMU v13.0.6 dGPU
+Thread-Topic: [PATCH 1/1] drm/amdgpu/pm: notify driver unloading to PMFW for
+ SMU v13.0.6 dGPU
+Thread-Index: AQHZlPvkuxj2sAQs9E+9fnZ8QorkmK921zdA
+Date: Fri, 2 Jun 2023 03:16:35 +0000
+Message-ID: <BN9PR12MB52576E4252D33CB862306CC9FC4EA@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20230602024150.1840-1-le.ma@amd.com>
+In-Reply-To: <20230602024150.1840-1-le.ma@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=4923c3e6-366d-4762-b714-f6425d708a5b;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-06-02T03:16:16Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SJ2PR12MB7821:EE_
+x-ms-office365-filtering-correlation-id: bc4e4df2-8664-4156-5c51-08db6317c571
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: BpD/rTtG+WlbFozJTbsAzYIK59CPjh7uKNNAhISE3gMJdwquaJvu8jPV+dFHsf6UR9wAS6g7Q6su011iDPoOw1DBF18B7YjHSsjOjRw1yaNLJaZvwCOqvXGU9SMOZi95o7ST2UYpG8Ao2ZP71Dz0/0YCrD0XPQC+/nTlwtFWipxEMJ4+pE6maQxh7dvfw60uzHIzENkEZun+fdhKnRgoEFT8gaXwz8uXgph/JCd3UMUs4yfysV1E/amDoqUjPn96wy4J1ouDCFVtE1RB0dHTUakIHjUvDMvpXYsV7CB/2IZRok2WCI8H4aFr4QomnmvUbSpTFoQl4ZGUa3/7C9dL0UE9+4M3xDrbA2E5wkO31SRPMrxvEpOTWkEErL4pEMkJuhvYFiIm3HsN299jaKDgVIqnklqDox5cHAvpLEvlIDaTgugPcg0LHPNFH5dS3XCCjhB1wbNiX6hg97li0+jjHvdSTXKm51C7AHqPVnjEQuhcnEr5r0rdm8Raxmn5kW5uomsQBNWjOlV4gii9rVmmZF0ACH1sPO4LmGwQ0Nl7z7YIiMSfZwMAJKJ5Z8JtO2djstkmJA3f2HOEo0iYf46fvi956LXZhH/333UvmMGVthe6Gs/SGnB53iA5HkT8h1X2
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(136003)(376002)(366004)(39860400002)(346002)(451199021)(8676002)(2906002)(66556008)(76116006)(66476007)(66446008)(64756008)(5660300002)(316002)(52536014)(4326008)(66946007)(41300700001)(110136005)(54906003)(8936002)(7696005)(71200400001)(478600001)(55016003)(53546011)(33656002)(83380400001)(9686003)(122000001)(186003)(26005)(38070700005)(38100700002)(6506007)(86362001);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1kKG0Ya6YHOU7b02n5Q0UQ7Rv0bkSLYHYitQRG8xUa+vQmc2E1Tyiu6Png1D?=
+ =?us-ascii?Q?Darfvz9oAJ/a0TwRHerZ0srF5OFPU5IAs5bdW2LSEOncufbaZOvyyqM7W7VT?=
+ =?us-ascii?Q?rtia/6PFsQwxkX/B1zhFmww7IJAXUEGXEoqBfS9BDVzKrvGdJBnut911x1zo?=
+ =?us-ascii?Q?aeBNjgVY9ievxYlZ7t+tvxDOVPfkPtege6Obz23MnRQzmUTWUM4pIw2vobov?=
+ =?us-ascii?Q?5JVhALVtvo91PlgzoTs+y3uSti6A30viwooaRrzRmqlSMsy1oKDM2v8ya7BC?=
+ =?us-ascii?Q?4usJIkq3Q/l/BjY2C/vPdwqa0HSg5LS2xzsZfniGouqtWpNwSrQnSylH6FA1?=
+ =?us-ascii?Q?1xX+M27JaKT7MwNaNFrAmI+qrJ8ZSnk349geNe8uXq190lwL4Ze0Prb6uUVt?=
+ =?us-ascii?Q?/7gTVPEF/M/F32QuDCvn4O3wAS3k6g6yrlXL2Aw1iTPDJ8/87VJ0wS4mn+iH?=
+ =?us-ascii?Q?L/HUSwhsbW87lVDnR+L0cGKLsE13ejXzvA8+ucZrPS2BjTbXiqd62pOshIr5?=
+ =?us-ascii?Q?abWQxLastAOWNcpQfaF0MOZ2xy6UwDXNuUGVV5UkL3hhFTIUSB8KROXXQF10?=
+ =?us-ascii?Q?TDUE8/mr/SYebu9P70GjC91i4AtQPwZbXzWD3LSUSRqlIOdfu05Q3PO0Dpwh?=
+ =?us-ascii?Q?SLIOPoSvjkiLbChLUOD1Z3F6u3L1bcHJuz0ZQVwzc1fOcmXmXYADiPTiYFL9?=
+ =?us-ascii?Q?Jl1MeL+8G4s54tWBzpBBPsB6I78Kwt5VHN0yViqr0jkSvO4rdL1R5UDat4R/?=
+ =?us-ascii?Q?dI93G6yF8vVNBXlAMoc6zznTrj8hQu2Id1NR31XbfeCy04smlDfvhkzY/5yH?=
+ =?us-ascii?Q?7hK8j7ZHPIo6lTq358FpTdASaOiHsg6NgWUbqcxEo0QQ1GjLXRcq8/ZcCuZd?=
+ =?us-ascii?Q?f9hi1rpz+GkA4ZR6fKnp2LVfv+XGh1gufZQYYL7WGCZfPqH24hbtEj2jVLsy?=
+ =?us-ascii?Q?dKO+0MiK6438DHsE9l8biw/pX5gZ/lG7t+dFZ6/htBennJ1qHuIRY+VTW7fx?=
+ =?us-ascii?Q?I70+VE5MF1jby344pe4X3YavXTu5vgWb6wMLZhBYhJFR/SNV2FXCXLolDxKc?=
+ =?us-ascii?Q?R6VPaqjMAcshyBHd17AyjSq5Hk70i2DrLhrBZmDrCyHa8r52hxxQT4I2oacl?=
+ =?us-ascii?Q?Q3FEKxYF08KyPM950YeakaaJznDTj2ksz5nTaO4bewDaaMmic/radNJTcVaV?=
+ =?us-ascii?Q?cJPkh7450QuYcK8kijeAZDeVd2jqCKqJx9NmsuKcPbZ7FCDYV6ZurcLpnM/U?=
+ =?us-ascii?Q?/lvaNn9ZetdWZJkioRxY3fD1IWnNItmiyExvTZYPT8zpsp9vl+ewKq0a8ioG?=
+ =?us-ascii?Q?CwdNKPrDmciKR53jdjW8bQJewsHP4rsoB/tjmsySWXGlBQso/S/V/Gpe5nxJ?=
+ =?us-ascii?Q?wK5AvNKmNB7Co0B/PlaKPE7h+Dy+vrHpZYuYKkYEFIBlqcxQ5vIvewaHQY7H?=
+ =?us-ascii?Q?HSzGGKMGIBIUfMhC55RUTDUdaNd+EPhl6BBagHq40smMCgenMl5IT5pxgScl?=
+ =?us-ascii?Q?vOMi2mTeuRP8+HQRMDg1/XjyhhiwiWkSyHPh/bLPPj3AHSr8yo6BIrSfVZ9X?=
+ =?us-ascii?Q?QTqKl35B3/s5hgKdaspQe5PcauEIsPYtZbiXa8Qk?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 02:42:21.1108 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9f70e86-4ff8-423d-187d-08db6312fd35
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT063.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8349
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc4e4df2-8664-4156-5c51-08db6317c571
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2023 03:16:35.0568 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jSmk5JYbYD+gYge6LMbPRiXxLDbzVNbP5Aq+iWsYk8qg01m2nqkzQOSbQF47iD7We2pbpMOk9GUxR49ohOnKdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7821
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,13 +124,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Le Ma <le.ma@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Shiwu Zhang <shiwu.zhang@amd.com>
+Cc: "Ma, Le" <Le.Ma@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang,
+ Morris" <Shiwu.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Per requested, follow the same sequence as APU to send only
-PPSMC_MSG_PrepareForDriverUnload to PMFW during driver unloading.
+[AMD Official Use Only - General]
+
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+
+Regards,
+Hawking
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Le Ma
+Sent: Friday, June 2, 2023 10:42
+To: amd-gfx@lists.freedesktop.org
+Cc: Ma, Le <Le.Ma@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Morris=
+ <Shiwu.Zhang@amd.com>
+Subject: [PATCH 1/1] drm/amdgpu/pm: notify driver unloading to PMFW for SMU=
+ v13.0.6 dGPU
+
+Per requested, follow the same sequence as APU to send only PPSMC_MSG_Prepa=
+reForDriverUnload to PMFW during driver unloading.
 
 Change-Id: I2dc8495572b0bce6e21eafb51b215c83d94ac647
 Signed-off-by: Le Ma <le.ma@amd.com>
@@ -115,36 +155,40 @@ Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 16 +++++++---------
  1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
 index 3da614faf75d..392ccebc8dac 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -1409,18 +1409,16 @@ static int smu_v13_0_6_system_features_control(struct smu_context *smu,
- 					      bool enable)
+@@ -1409,18 +1409,16 @@ static int smu_v13_0_6_system_features_control(stru=
+ct smu_context *smu,
+                                              bool enable)
  {
- 	struct amdgpu_device *adev = smu->adev;
--	int ret;
+        struct amdgpu_device *adev =3D smu->adev;
+-       int ret;
 -
--	/* On APUs, notify FW that the device is no longer driver managed */
--	if (adev->flags & AMD_IS_APU) {
--		if (!enable)
--			smu_v13_0_6_notify_unload(smu);
-+	int ret = 0;
- 
--		return 0;
-+	if (enable) {
-+		if (!(adev->flags & AMD_IS_APU))
-+			ret = smu_v13_0_system_features_control(smu, enable);
-+	} else {
-+		/* Notify FW that the device is no longer driver managed */
-+		smu_v13_0_6_notify_unload(smu);
- 	}
- 
--	ret = smu_v13_0_system_features_control(smu, enable);
+-       /* On APUs, notify FW that the device is no longer driver managed *=
+/
+-       if (adev->flags & AMD_IS_APU) {
+-               if (!enable)
+-                       smu_v13_0_6_notify_unload(smu);
++       int ret =3D 0;
+
+-               return 0;
++       if (enable) {
++               if (!(adev->flags & AMD_IS_APU))
++                       ret =3D smu_v13_0_system_features_control(smu, enab=
+le);
++       } else {
++               /* Notify FW that the device is no longer driver managed */
++               smu_v13_0_6_notify_unload(smu);
+        }
+
+-       ret =3D smu_v13_0_system_features_control(smu, enable);
 -
- 	return ret;
+        return ret;
  }
- 
--- 
+
+--
 2.38.1
 
