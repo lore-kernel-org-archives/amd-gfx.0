@@ -4,115 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E549FC7EE24
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jun 2023 03:57:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61531C77B73
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jun 2023 05:11:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED1DF10E10A;
-	Mon,  5 Jun 2023 03:57:31 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2071.outbound.protection.outlook.com [40.107.212.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 043C810E10A
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Jun 2023 03:57:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C768610E11B;
+	Mon,  5 Jun 2023 05:11:26 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6BA910E11B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Jun 2023 05:11:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JKV6UW3JKcMCpVX3AHA0ESCf3D8znoXK5TfSDQN6bGO9nP9BySIlF/JDsr02vH0ZtLwxfhBDDJygJipWnTO2QmjcYZzbMhyfS+xyzvLhv94NcXu/vkbV2mt53wV9PES807+mT5mBYwB/PeM1/MEtbGalb2xTCQYu4bbN6CcXgf38gPAcVsG9Q7g5oi5qLfaT6UWRD4U4XkexGZXl7EyxvC0vs5SinXv5O/a5SbHWEniUBmE7wnQEtVcNh+DHt6l5mOmDk/xkRQzojjFAbFTTbo9k4xoX1kqYuR2YQkbrsoAR0H4/9D54bl5hHwNAhKOXlfdYOrputSLHc314C4QWew==
+ b=FV+SxqL6U9dQ2BI2PTEoE7M43dlp2RkNMR0kjo4OZkAl1u5oi1o9LkQEnohloY86XKOK8OmWZ920Hhaxd/gAjj3lix66oFwAqUXJtGnnfpr/7ZWJgPgn8QdHELMxDxR0b1hCi4pGc65agk52S55kq5kK1f8wYJBsnFmYdz2yBCirVtAsnDZxtK7EiofHele/LKpizuo5bWF39txOy+/Qsetd6Q0+XuugdAKh3gPJ+Rd3dHpgyRgfMfNbd33jjfAVFZ6guctC0Z6AoaAcWn3FuUICc8qGpGnjrKQ3ITgyptcQuKUWeyyalJLZouHeuRvU/SloPTagtkMcliX2ookalg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hxiq+TbkKrL5Wxm1IzPy6bLtOO56doGKBfiYmQN8/pQ=;
- b=INQuZx+uJb9EICywfOPfPawv94A5TDQj6Bx/sbSwq9mtpjKl4T8grJBJK6DUV5CzKFyZvKQYOKESlkzL3DTqiYC+XJV4FNUwS3eLTNkDrwdT2YiSVUSTSt2Jm4a4+5AzE3YK67EU12xumTx95M81h6XJ16009MZ6YSjiF8ht6Hinzipiy0r2tJ2Im0Qu5whgBUIIuAzNHE64hiG9upTKdKvmT5rn7Kmvt0XzHOR/94sthOV8GTuvOxWdqUoJZzYMm+SLlJBuy2MdEMuZ+3ZUdtY54nn05+WI3VlMyABPy+PkNlkTz3ZNkc2U/2sHmrxBHguGczz/AXCXFmGRpODK4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=RvWjveMGxAR4wHcZXpr1bat5DYo/yuO5Xdtf0OUs4us=;
+ b=hKGebOw9raRxUDRsW5cdeKbIewAaqFbAwnG4flTs2fwYtYE3Ag4euRVEZgNwWnTWaHr3/ntcvmt1M6hRJr6aB1Q0Xglm7IuE5pLgNRPL+jjSfgV34h+3xkm2pta3ZBkhSmNnrBn7CHudFI9X41oYMLHtjNNKNM24xxWsSk4L5pvv+bXeq6WApKABFlEASHYUjKKHuFixqzs1PKwVTQyrs8DSQxvEsgtC3+R1X4KXpq8UqLFb1hDNL7+2FtONBF16/7LMdiFlDDlr3IRdQpJS6ZuEHlDCoG6+V8PeNAEOjNOM91G+S1gEdGcZwMKuyPcP+ovXVY9lYC0nbIS1QdsiYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hxiq+TbkKrL5Wxm1IzPy6bLtOO56doGKBfiYmQN8/pQ=;
- b=481QaHQG6GyAGyrmldiDDubac7oJ8kwB/X1Xcn4ZJEU/GXwBZvamhVczWXE75NQLyNKMzdAXPyTE/SxHzSFXjNyulb3npXV4oKe9dxFddz81qq6kQFBiLms6YzyriLupVUszZaBNIJyyfoju2/kGp2kcWslngm+7NG5e217y+As=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by IA0PR12MB7556.namprd12.prod.outlook.com (2603:10b6:208:43c::12)
+ bh=RvWjveMGxAR4wHcZXpr1bat5DYo/yuO5Xdtf0OUs4us=;
+ b=cyffJfWpz3+1LrZT9aNehOLrJLT73BUmLMheXoEwh1CMnS1xWV6/iisKnWAeq9hyMKDkOtV0iAH41r0+jAZszjbIlgH2tVKCurYTiGR3EDaw3qJegcMlBxhBVuRt45CnxLvl7ZI1rSrsPzjFKJBEeAYQ7Clg3Y0wCGn+za6FsV0=
+Received: from BN8PR15CA0062.namprd15.prod.outlook.com (2603:10b6:408:80::39)
+ by SN7PR12MB7420.namprd12.prod.outlook.com (2603:10b6:806:2a7::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.32; Mon, 5 Jun
- 2023 03:57:25 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::5241:c0fb:9743:1a27]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::5241:c0fb:9743:1a27%4]) with mapi id 15.20.6455.030; Mon, 5 Jun 2023
- 03:57:25 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/pm: update smu-driver if header for smu 13.0.0
- and smu 13.0.10
-Thread-Topic: [PATCH] drm/amd/pm: update smu-driver if header for smu 13.0.0
- and smu 13.0.10
-Thread-Index: AQHZl1x6TYWv3A3TtkGEQhSaYFhd9q97lNrg
-Date: Mon, 5 Jun 2023 03:57:25 +0000
-Message-ID: <BN9PR12MB5257C0FA23FB19E1996F6D3BFC4DA@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20230605031842.3441796-1-kenneth.feng@amd.com>
-In-Reply-To: <20230605031842.3441796-1-kenneth.feng@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=bd92f68c-7373-4e60-a8e4-c9604474afe6;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-06-05T03:57:03Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|IA0PR12MB7556:EE_
-x-ms-office365-filtering-correlation-id: a25ad95d-117c-49e5-f4ac-08db6578f900
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ValJzGz7eL36etTuuIdeQ0NC3pXMxAcYCkrP4voIQx8WMB1G3USHmxEs4aA+rJ1F7RvaXo2vQFuCJTHKJ9UEWbBOF8MoJ6HSyusy1ZE2qdZExecDHJ8D0TZIxn8tnAOAWXsI4NM+OR9+6/KKu+Usa2h39scgAZaSbEwTlSYG9cf0kjg581ZkpChWLJmPJut8VgOT6ItjxOoPZ6DWhgRWlPAmbTF4f0zvkFDqJpGxC1WOXYdYkdaOGnD7mzPD1HQ9+wbg523fqGbeSEW1n89bG2JYg2tqqrS0FbXekRzvsxzL3ahZGr+A9D0Md1fZdCbacX6R3Sumo6HckxQ4vOFllZslwY29ml7ONrqRCzP0Ts8gmkkAiyT6EUya5oW/4HMKzl2E5ruMvbyHqrtn0WdZ8Uo0mBvvy49tPb/8n21MaSNyu+8+YCFZNp/n7LTE0keXXBQQE4tHvF/cclRCi0wKg3fU/B7g1Gp4ovYGl4LEeVQzfB4z0faqRyig/wtNr0aDa9BPETtD5uLFhrm1ymE1MLacsJDG3UXkTgvKm+Sz0RSeS2+ravdftHCZClZJ1/oGPmL16ne3KsAroVFM/Sv6cXvaJdEE372e2CZ65WZGCFsHVYj5Bu9Xvg2xi4Tw9lR/
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(376002)(39860400002)(366004)(346002)(451199021)(2906002)(38070700005)(86362001)(33656002)(15650500001)(5660300002)(52536014)(55016003)(83380400001)(71200400001)(7696005)(186003)(26005)(9686003)(6506007)(53546011)(478600001)(110136005)(76116006)(66946007)(66556008)(66476007)(64756008)(122000001)(316002)(38100700002)(66446008)(4326008)(41300700001)(8936002)(8676002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?75D92bKUMVc7p3YHzcjWtahmH7DFa+GGJ3EBnlDEjQ/RO+IJUX2jZsUcFk/I?=
- =?us-ascii?Q?LDd/PFfAQZ5PHjs2wWh49kliZHbXX2NRyUQ4BZ6Xo2HMpKtGmkjR8sjV/Zei?=
- =?us-ascii?Q?eR9NYgY9Vu9IhfTawzLLTZoLIGcHBZkjGSj0Jrv2JJDlzmphAxsVlYfLbli5?=
- =?us-ascii?Q?pU4dyyx6Kve0+WgaF0rMPXY8fXQUPrF03sxCw9P5lM9f8F4gvtrquBV/wY5F?=
- =?us-ascii?Q?shen/mzvLdIZDuCXKQk3s334D8z48RJ80uBMXWFN0TU7CPTAteHWtzdUT7pZ?=
- =?us-ascii?Q?FjhO1isp205UWSq5Ic4fxaCE3/XuMk1ZoYi8KH3MvODmBLWSxrBRhZ39C+oY?=
- =?us-ascii?Q?l4cQctXdaUgXyzP5DcX2mnOd+l0/8pqdfrmLFWu3qJ8FG40rUapyeMM3ir2L?=
- =?us-ascii?Q?q6rWAb6CM9nRY+p+jZE4HiU0uecEQQikU/v/cwoJcDNzceJr5GsZKZVNUTB5?=
- =?us-ascii?Q?hut1We4NVtVWF4Sr1e+ltJVOyA9BFZwJfAVrqGVtDxS/hZ0nHDRQiHMcYEbC?=
- =?us-ascii?Q?DLIERUgl5VIoFRbKNXRUIsK4ZTkO42JGgZ+yf9ceI3UplLGi6K5N1c6KeIvw?=
- =?us-ascii?Q?kG6nvonUhrvX1SzWTIlmTfqN8UKZgxzxugHIO5DokaNn761apiNnj8Qza8zU?=
- =?us-ascii?Q?SBbRXdm+nBMm6ksMQz7BDH5PX2VbdPY+WG6fptBHeiocoRXwNbwjy+adzYjX?=
- =?us-ascii?Q?tMeiPzbE/r8MNp+9QcQyYVWmv6aagE8ej3Bws2luPDxtytu/NJoVlqynt17r?=
- =?us-ascii?Q?f1IwVUdhvhDY2dFDaAY4FMjMQPHDD5jI49x5SQKlrG2jd+F0MCnQWeP0Bwt4?=
- =?us-ascii?Q?Or+n4bpfnaB6I+hRZheoqaGxuRNCD7uwZNZqa8nEu4oeWio75UvROKEuU7cJ?=
- =?us-ascii?Q?2kAZTrhcYxrGoqUqgAdi0qMAfhDsVRlSuNlKVSmiL1+AzJqgDN4Gln2nnCb5?=
- =?us-ascii?Q?EbyvAAdGjuA2ltq+7dk49qUKJSqVPQVNIohZ8rzrlCiX3RbKwpzut4FaP/Ea?=
- =?us-ascii?Q?VYo3nWqZp18m61nkbXZysEZpZRXU1RZCSfexu0QdghS5lp8IrhB/vAiN59Si?=
- =?us-ascii?Q?ZsgrK9pR1rz251ZVaw3vqiEpmpJeBun45RDq387vu7r1uJ/Z66v+TObWUPzT?=
- =?us-ascii?Q?NaJv38wMQuyVTSu8arC6WHzZpbWb5PHmVY0DQbefILziVjUbKf+spDY/cv3x?=
- =?us-ascii?Q?Sv6EpFlChqaVSAhPVs81ZcLMl9XVLFUBepB85e/Og9Z3seScdh6LvLmIbQwm?=
- =?us-ascii?Q?RQYEmpiAw5itMkbO9EB45C5uuBI6nOMr3K0pgheNFy8Pq5Oyit3zoJBNfZ2s?=
- =?us-ascii?Q?LoOTsfDYME5YTaDw3JsS7JyHruqaR51TTkL2UZDYkc6DMO44IzeGP6SxBmek?=
- =?us-ascii?Q?jVCAXiZKCe/lQj7/3bSvTezi9nrHp2zahh6fbmL+/7fbMIBaXtedc6aa5v2/?=
- =?us-ascii?Q?wnk5FLIQcp9AOJ4u34meE6khK0/QX25kvoIGYYQYFJzVU1EpC4JzBuJ1YAPA?=
- =?us-ascii?Q?IP4LaT978xQajAFwNKfJaMSKl3EMaRPJ81QcMvvnPSxJMLjqIWOm8i8gShbh?=
- =?us-ascii?Q?ZOOq+EFy0te+jp/3aQA=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2023 05:11:23 +0000
+Received: from BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:80:cafe::f5) by BN8PR15CA0062.outlook.office365.com
+ (2603:10b6:408:80::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.32 via Frontend
+ Transport; Mon, 5 Jun 2023 05:11:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT067.mail.protection.outlook.com (10.13.177.159) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6455.33 via Frontend Transport; Mon, 5 Jun 2023 05:11:22 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 5 Jun
+ 2023 00:11:20 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Harry Wentland <harry.wentland@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Subject: [PATCH] drm/amd/display: Correct kdoc formats in dcn10_opp.c
+Date: Mon, 5 Jun 2023 10:40:59 +0530
+Message-ID: <20230605051059.2101230-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT067:EE_|SN7PR12MB7420:EE_
+X-MS-Office365-Filtering-Correlation-Id: c02a400c-d9ed-4c19-8566-08db65834dfc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Z3THwFDb4X87rIYxM9L1+CqdYALKX5iAzUg8qY7kD0sUYoPmPbbm4fdN2TKb3AJbkLpovsmkYTKNcH4Tl4r4/yv8vxLtkJWRt6EyiSw65q1eYzzbFgClqhJRSVZHhholR29pTQJUFa6IvJvea7ZlD5Ujw4EWsbrpjioeveslwrzYNGPy9JvP/1tb6mHIBLKWDWPG1O41st18yjzZmXCbbX3SlqRneeWlLCLbdm8N17pAzd9cCuBT3STlIemhdJ+CKbuwTjDLn5kyU2CMltmJNfoVst2SN2cY4mUnBd+zW5D2R/k9qPvMNarcZM3ZM7c1VDnihNj0cQjpw/YvULTfeB2pjqG2qMMHqNSZopXj5g7JfprgxrymZ1hcHFCImwGTbmtKhXi4n3cdP54p/bcwV/8OlpJp0v6+hYhq1bWuchTBRdF3Y1YZZjAr9hu5tl3fqVIoDSQkPHIwrBmJoz+bi8MhxixLXfqRP6m4/2BW714JqUZWx+KCl6vYkZEzmVcLzwXM5/QO5sO66lES+nq7UbPPcv5v0Lel0MIFHIvkGLAaeeGZ3B7z1wprt4k78ZQ/7e6K2JOFfXrnDpx2MJDbiEFafXUdtDbmeFmfdbTmBiFE/duVi/4kl1bsM4XPmzqDSFR/7XgjJj87/s/gnHfsbmbUX6k+J5JKf0VLBtuR+VhEVO1HjCKoXVFFRiuIwK/lidaUNLueeMEN6WSfd+EYPn743oWmrO2I5O6O4KGaB3LQhX1diLKuZ71XURkoI0yOQToy+mjf2w3nMF1gry7g9w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(346002)(396003)(376002)(39860400002)(451199021)(40470700004)(46966006)(36840700001)(1076003)(26005)(40460700003)(36860700001)(36756003)(47076005)(83380400001)(426003)(336012)(86362001)(82310400005)(81166007)(356005)(82740400003)(16526019)(186003)(2616005)(40480700001)(41300700001)(44832011)(54906003)(110136005)(2906002)(478600001)(70586007)(70206006)(6636002)(4326008)(8936002)(8676002)(316002)(5660300002)(7696005)(6666004)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a25ad95d-117c-49e5-f4ac-08db6578f900
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2023 03:57:25.0888 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LsroOkF7A+IXTk1wgip2Gk5FfuDwoqFWTp8FmCTsRI70qzLiYX1Nw3kxC6Yssf6vJCpq/TQeyfezaO1HzfwxEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7556
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2023 05:11:22.6104 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c02a400c-d9ed-4c19-8566-08db65834dfc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7420
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,164 +98,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Fixes the following W=1 kernel build warning:
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+display/dc/dcn10/dcn10_opp.c:52: warning: Function parameter or member 'oppn10' not described in 'opp1_set_truncation'
+display/dc/dcn10/dcn10_opp.c:52: warning: Function parameter or member 'params' not described in 'opp1_set_truncation'
+display/dc/dcn10/dcn10_opp.c:52: warning: expecting prototype for set_truncation(). Prototype was for opp1_set_truncation() instead
+display/dc/dcn10/dcn10_opp.c:161: warning: Function parameter or member 'oppn10' not described in 'opp1_set_pixel_encoding'
+display/dc/dcn10/dcn10_opp.c:161: warning: Function parameter or member 'params' not described in 'opp1_set_pixel_encoding'
+display/dc/dcn10/dcn10_opp.c:161: warning: expecting prototype for set_pixel_encoding(). Prototype was for opp1_set_pixel_encoding() instead
+display/dc/dcn10/dcn10_opp.c:183: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ *      Set Clamping
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Kenneth =
-Feng
-Sent: Monday, June 5, 2023 11:19
-To: amd-gfx@lists.freedesktop.org
-Cc: Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amd/pm: update smu-driver if header for smu 13.0.0 and=
- smu 13.0.10
-
-update smu-driver if header for smu 13.0.0 and smu 13.0.10
-
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-Change-Id: I540aaa99fac2216f2d1a28fd79c68dd77a495f8b
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- .../inc/pmfw_if/smu13_driver_if_v13_0_0.h     | 33 ++++++++++++++-----
- 1 file changed, 25 insertions(+), 8 deletions(-)
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_opp.c  | 20 +++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0=
-_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
-index fe995651c6f5..ba56bc676310 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
-@@ -24,10 +24,10 @@
- #ifndef SMU13_DRIVER_IF_V13_0_0_H
- #define SMU13_DRIVER_IF_V13_0_0_H
-
--#define SMU13_0_0_DRIVER_IF_VERSION 0x32
-+#define SMU13_0_0_DRIVER_IF_VERSION 0x3D
-
- //Increment this version if SkuTable_t or BoardTable_t change -#define PPT=
-ABLE_VERSION 0x26
-+#define PPTABLE_VERSION 0x2B
-
- #define NUM_GFXCLK_DPM_LEVELS    16
- #define NUM_SOCCLK_DPM_LEVELS    8
-@@ -96,7 +96,7 @@
- #define FEATURE_ATHUB_MMHUB_PG_BIT            48
- #define FEATURE_SOC_PCC_BIT                   49
- #define FEATURE_EDC_PWRBRK_BIT                50
--#define FEATURE_SPARE_51_BIT                  51
-+#define FEATURE_BOMXCO_SVI3_PROG_BIT          51
- #define FEATURE_SPARE_52_BIT                  52
- #define FEATURE_SPARE_53_BIT                  53
- #define FEATURE_SPARE_54_BIT                  54
-@@ -312,6 +312,7 @@ typedef enum {
-        I2C_CONTROLLER_PROTOCOL_VR_IR35217,
-        I2C_CONTROLLER_PROTOCOL_TMP_MAX31875,
-        I2C_CONTROLLER_PROTOCOL_INA3221,
-+       I2C_CONTROLLER_PROTOCOL_TMP_MAX6604,
-        I2C_CONTROLLER_PROTOCOL_COUNT,
- } I2cControllerProtocol_e;
-
-@@ -570,6 +571,7 @@ typedef enum {
- } POWER_SOURCE_e;
-
- typedef enum {
-+  MEM_VENDOR_PLACEHOLDER0,
-   MEM_VENDOR_SAMSUNG,
-   MEM_VENDOR_INFINEON,
-   MEM_VENDOR_ELPIDA,
-@@ -579,7 +581,6 @@ typedef enum {
-   MEM_VENDOR_MOSEL,
-   MEM_VENDOR_WINBOND,
-   MEM_VENDOR_ESMT,
--  MEM_VENDOR_PLACEHOLDER0,
-   MEM_VENDOR_PLACEHOLDER1,
-   MEM_VENDOR_PLACEHOLDER2,
-   MEM_VENDOR_PLACEHOLDER3,
-@@ -808,6 +809,9 @@ typedef enum {
-
- #define INVALID_BOARD_GPIO 0xFF
-
-+#define MARKETING_BASE_CLOCKS         0
-+#define MARKETING_GAME_CLOCKS         1
-+#define MARKETING_BOOST_CLOCKS        2
-
- typedef struct {
-   //PLL 0
-@@ -1098,10 +1102,15 @@ typedef struct {
-   uint16_t        DcsExitHysteresis;    //The min amount of time power cre=
-dit accumulator should have a value > 0 before SMU exits the DCS throttling=
- phase.
-   uint16_t        DcsTimeout;           //This is the amount of time SMU F=
-W waits for RLC to put GFX into GFXOFF before reverting to the fallback mec=
-hanism of throttling GFXCLK to Fmin.
-
-+  uint8_t         FoptEnabled;
-+  uint8_t         DcsSpare2[3];
-+  uint32_t        DcsFoptM;             //Tuning paramters to shift Fopt c=
-alculation, used in T19 and Navi32
-+  uint32_t        DcsFoptB;             //Tuning paramters to shift Fopt c=
-alculation, used in T19 and Navi32
-
--  uint32_t        DcsSpare[16];
-+  uint32_t        DcsSpare[11];
-
-   // UCLK section
-+  uint16_t     ShadowFreqTableUclk     [NUM_UCLK_DPM_LEVELS];     // In MH=
-z
-   uint8_t      UseStrobeModeOptimizations; //Set to indicate that FW shoul=
-d use strobe mode optimizations
-   uint8_t      PaddingMem[3];
-
-@@ -1247,8 +1256,13 @@ typedef struct {
-   QuadraticInt_t qFeffCoeffBaseClock[POWER_SOURCE_COUNT];
-   QuadraticInt_t qFeffCoeffBoostClock[POWER_SOURCE_COUNT];
-
-+  uint16_t TemperatureLimit_Hynix; // In degrees Celsius. Memory
-+ temperature limit associated with Hynix  uint16_t
-+ TemperatureLimit_Micron; // In degrees Celsius. Memory temperature
-+ limit associated with Micron  uint16_t TemperatureFwCtfLimit_Hynix;
-+ uint16_t TemperatureFwCtfLimit_Micron;
-+
-   // SECTION: Sku Reserved
--  uint32_t         Spare[43];
-+  uint32_t         Spare[41];
-
-   // Padding for MMHUB - do not modify this
-   uint32_t     MmHubPadding[8];
-@@ -1320,8 +1334,9 @@ typedef struct {
-   // UCLK Spread Spectrum
-   uint8_t      UclkSpreadPercent[MEM_VENDOR_COUNT];
-
-+  uint8_t      GfxclkSpreadEnable;
-+
-   // FCLK Spread Spectrum
--  uint8_t      FclkSpreadPadding;
-   uint8_t      FclkSpreadPercent;   // Q4.4
-   uint16_t     FclkSpreadFreq;      // kHz
-
-@@ -1446,6 +1461,8 @@ typedef struct {
-
-
-   uint8_t ThrottlingPercentage[THROTTLER_COUNT];
-+  uint8_t VmaxThrottlingPercentage;
-+  uint8_t Padding1[3];
-
-   //metrics for D3hot entry/exit and driver ARM msgs
-   uint32_t D3HotEntryCountPerMode[D3HOT_SEQUENCE_COUNT];
-@@ -1465,7 +1482,7 @@ typedef struct {
-
- typedef struct {
-   SmuMetrics_t SmuMetrics;
--  uint32_t Spare[30];
-+  uint32_t Spare[29];
-
-   // Padding - ignore
-   uint32_t     MmHubPadding[8]; // SMU internal use
---
-2.34.1
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c
+index 41cec7acf51f..0dec57679269 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c
+@@ -37,14 +37,14 @@
+ #define CTX \
+ 	oppn10->base.ctx
+ 
+-
+-/************* FORMATTER ************/
+-
+ /**
+- *	set_truncation
++ * opp1_set_truncation():
+  *	1) set truncation depth: 0 for 18 bpp or 1 for 24 bpp
+  *	2) enable truncation
+  *	3) HW remove 12bit FMT support for DCE11 power saving reason.
++ *
++ * @oppn10: output_pixel_processor struct instance for dcn10.
++ * @params: pointer to bit_depth_reduction_params.
+  */
+ static void opp1_set_truncation(
+ 		struct dcn10_opp *oppn10,
+@@ -149,11 +149,12 @@ void opp1_program_bit_depth_reduction(
+ }
+ 
+ /**
+- *	set_pixel_encoding
+- *
+- *	Set Pixel Encoding
++ * opp1_set_pixel_encoding():
+  *		0: RGB 4:4:4 or YCbCr 4:4:4 or YOnly
+  *		1: YCbCr 4:2:2
++ *
++ * @oppn10: output_pixel_processor struct instance for dcn10.
++ * @params: pointer to clamping_and_pixel_encoding_params.
+  */
+ static void opp1_set_pixel_encoding(
+ 	struct dcn10_opp *oppn10,
+@@ -180,13 +181,16 @@ static void opp1_set_pixel_encoding(
+ }
+ 
+ /**
+- *	Set Clamping
++ * opp1_set_clamping():
+  *	1) Set clamping format based on bpc - 0 for 6bpc (No clamping)
+  *		1 for 8 bpc
+  *		2 for 10 bpc
+  *		3 for 12 bpc
+  *		7 for programable
+  *	2) Enable clamp if Limited range requested
++ *
++ * @oppn10: output_pixel_processor struct instance for dcn10.
++ * @params: pointer to clamping_and_pixel_encoding_params.
+  */
+ static void opp1_set_clamping(
+ 	struct dcn10_opp *oppn10,
+-- 
+2.25.1
 
