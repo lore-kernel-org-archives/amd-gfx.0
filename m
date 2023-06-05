@@ -4,33 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87B89C7EE23
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jun 2023 08:57:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F854C7EE2A
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jun 2023 09:11:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34D4610E1A5;
-	Mon,  5 Jun 2023 08:57:51 +0000 (UTC)
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 250D010E1A5
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Jun 2023 08:57:48 +0000 (UTC)
-Received: from [192.168.1.137] ([213.144.156.170])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202306051057438085; Mon, 05 Jun 2023 10:57:43 +0200
-Message-ID: <85ae153f-357b-53b9-e987-c6aafa425299@daenzer.net>
-Date: Mon, 5 Jun 2023 10:57:41 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id B746410E1B7;
+	Mon,  5 Jun 2023 09:11:28 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCED710E1B5
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Jun 2023 09:11:26 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-9768fd99c0cso497205166b.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 05 Jun 2023 02:11:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1685956285; x=1688548285;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=pL9j+CA9IBShTXKF1f9QsvbzTSBIudC9K5zY5oh+mZI=;
+ b=sC47liUQedhuD6GSLY7/ZjTOyj9VB0LeGDSciS7b0TfeXjFsV9wo5sCop0QiFR72kz
+ BwCLrTp7XR51RLnUl6YimtEZIWDNPnxkB+bwjXTnrKj4ea1Mu5quFWDFb/oWoMQh0mc1
+ xqcWfinSyUYqM//yoHFU/cSs4/0A5KVSCncNgMV29tWwQvg4FbLq6peHeq/ETRQeFpcb
+ C63xoKRd1iDuSewC4VkJLJyDlt6jlnTZXAZEeD64GhInz9e4a2QOIVcZNPtoDXnC7vBv
+ k2SKjI/7lB00leOaUzfFO77abMYO4GYHkX8qc7vTNq9/6K9s/Xb+VoBQYQ3RQ4tMzlvv
+ IYow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685956285; x=1688548285;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pL9j+CA9IBShTXKF1f9QsvbzTSBIudC9K5zY5oh+mZI=;
+ b=b2uKrYsKwxs47allEJEqdVBThWR95kYnEHXv2mk0DwMqzwcD/FvJruoLLdiCW8dgrQ
+ NUXTs8EVC/9TiL1X4uWlLBFhT/dDtOgNnoegbd8tuBtvdH73tgrhogY9JdNnNteAK4KY
+ fNsDeXzkovQ5tuoUTFZdKJrYzPeGPQp25Mvkto0rV6LXuUGReo8E165AVns06RZz1iKk
+ K9gRvBUucp/MRqNOT0OLhYQ1FhJoz3qBCLpiteP3VrVgRFX3XidkZsAqK1Rx7ER9QE3t
+ rgLELKVRE8OQoMvl9QDOB/v0A9vWROyMOkFpNjW42y35pWwl4VXa1hg/9J/vRGgLly9d
+ 4rSw==
+X-Gm-Message-State: AC+VfDyqCURRsQQyeR4ZVAxtLW6NUPXOPx1jQ2uaME6bHSz6NExEWi1L
+ EL+tFlb0wYSeUSBH/J3dqIIdWYeNAc8=
+X-Google-Smtp-Source: ACHHUZ6asq6LcGx/UuvhvuTiHug6JwmeX6uJxhBipRgfsfnfEAze/xEPKLL+hnIQuB8876oNz8o9Fg==
+X-Received: by 2002:a17:907:7b88:b0:973:8edc:5a57 with SMTP id
+ ne8-20020a1709077b8800b009738edc5a57mr5885846ejc.4.1685956284542; 
+ Mon, 05 Jun 2023 02:11:24 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:156f:3500:5740:cdd2:425c:f4f3])
+ by smtp.gmail.com with ESMTPSA id
+ w17-20020a1709060a1100b009655eb8be26sm4043134ejf.73.2023.06.05.02.11.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Jun 2023 02:11:24 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org, mikhail.v.gavrilov@gmail.com,
+ Guchun.Chen@amd.com
+Subject: [PATCH 2/2] drm/amdgpu: make sure that BOs have a backing store
+Date: Mon,  5 Jun 2023 11:11:22 +0200
+Message-Id: <20230605091122.3363-2-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230605091122.3363-1-christian.koenig@amd.com>
+References: <20230605091122.3363-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 1/3] Revert "drm/amdgpu: change the reference clock for
- raven/raven2"
-Content-Language: en-CA
-To: Alex Deucher <alexander.deucher@amd.com>
-References: <20230602184312.752618-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-In-Reply-To: <20230602184312.752618-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CTCH: RefID="str=0001.0A782F1E.647DA387.001E,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
- Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,29 +75,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jesse.Zhang@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/2/23 20:43, Alex Deucher wrote:
-> This reverts commit fbc24293ca16b3b9ef891fe32ccd04735a6f8dc1.
-> 
-> This results in inconsistent timing reported via asynchronous
-> GPU queries.
-> 
-> Link: https://lists.freedesktop.org/archives/amd-gfx/2023-May/093731.html
-> Cc: Jesse.Zhang@amd.com
-> Cc: michel@daenzer.net
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+It's perfectly possible that the BO is about to be destroyed and doesn't
+have a backing store associated with it.
 
-The series is
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Reviewed-by: Michel Dänzer <mdaenzer@redhat.com>
-
-Thanks!
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 2bd1a54ee866..249385985a4f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1268,8 +1268,12 @@ void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+ 			  struct amdgpu_mem_stats *stats)
+ {
+-	unsigned int domain;
+ 	uint64_t size = amdgpu_bo_size(bo);
++	unsigned int domain;
++
++	/* Abort if the BO doesn't currently have a backing store */
++	if (!bo->tbo.resource)
++		return;
+ 
+ 	domain = amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type);
+ 	switch (domain) {
 -- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+2.34.1
 
