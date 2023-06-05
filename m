@@ -4,114 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC7DFC77B73
-	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jun 2023 14:02:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35298C77B73
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jun 2023 14:11:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67D3C10E1CF;
-	Mon,  5 Jun 2023 14:02:00 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 625CF10E2B4
- for <amd-gfx@lists.freedesktop.org>; Mon,  5 Jun 2023 14:01:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fR7dh7VhctMANgNWlclrlYCIO6unx4ZYJgFzMxsKUn2BhXRfKD513gD47NUzxYF0QpVwQABIrTwuZOEC419WcRuQQFASwcaDQ+ce/TpwM8UbgjP/kPA2ocpVtQmanFVvsfBiJOpe/n0G5n3fbNhJxPbhaNsXQRXa88alqyUjTH1vTiTCtg1dtpiDjzo6bK9hSbiYXtXaDFlxh+5yAvV1dusSVUGdW2FWRfKZPn8FQd5mYgJSoeaBZLVg9T+82+Si5cpkBsA1bD3O7rk78U1BGVn7KUqcnFRpWXo/L26Xhl0RzZR0usaS+oFhf+G1liNh8uw0V8SamUiVbwIXmHBApg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L79QylnbRwJDTNIM3+ltkLUFG4D3pvaSIBHwEcy/dwc=;
- b=gjYs1s3GkSLqmyewNJeXDupeZsc210T8Z7uL4/eEs/7p2U/gZBH+GdM57VO5y1zLZUYjP4zB3RXV4+9F/ZkKSva5HhNpMsL6BCxDnc1iwSrkDOQdUs0QwH4lbK4p2TyAi1F9jpoIrYZeoHvLX6G3aU5BoUk3kgFRAlDvU0xR8/ZLFQwLwku5lUa0v7/pDgzulySPclwJyXZNadpcmjwN7qr82jq9CCL0CCrebc8yyc97K2SPmpY6iPvnm/BKwMS04Ee/FrjZTCnaXsChLqh4G+pxX/oC46RUydtooSh48eCoXxndX3qLA6+BVRD9gqv031cgnj+pbSrsJcTxLGv0pw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L79QylnbRwJDTNIM3+ltkLUFG4D3pvaSIBHwEcy/dwc=;
- b=pNLJNmb6hIve2/fhHgds2sylSm0j2WKuLZStOWh/9Myxcg0Xjfrjea4o0c47Qrg1zgUT3E1ItgJHQbdV4D++gcQYMXPWvHfKYWW08IJut3r6yBEMRsyKrCqYQ0C9TjbfJ1bOn+SRmvaFnFkvb5v7EqMjsp5aUqfkjodfTfCXcHU=
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
- PH8PR12MB7111.namprd12.prod.outlook.com (2603:10b6:510:22d::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6455.33; Mon, 5 Jun 2023 14:01:55 +0000
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::1f59:b0a3:9eb8:e272]) by DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::1f59:b0a3:9eb8:e272%4]) with mapi id 15.20.6455.030; Mon, 5 Jun 2023
- 14:01:55 +0000
-From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-To: "Wang, Chao-kai (Stylon)" <Stylon.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 00/14] DC Patches June 2, 2023
-Thread-Topic: [PATCH 00/14] DC Patches June 2, 2023
-Thread-Index: AQHZk3sv4WkBqjfSRUKInMvcVhFAqa98RDPw
-Date: Mon, 5 Jun 2023 14:01:55 +0000
-Message-ID: <DS0PR12MB65340526B46BCB97D28DB9B39C4DA@DS0PR12MB6534.namprd12.prod.outlook.com>
-References: <20230531044813.145361-1-stylon.wang@amd.com>
-In-Reply-To: <20230531044813.145361-1-stylon.wang@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=06f8da51-b729-4356-ab36-e84d06ed6eaf;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-06-05T13:57:21Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|PH8PR12MB7111:EE_
-x-ms-office365-filtering-correlation-id: 1752fc94-ebae-4c04-d10d-08db65cd6c03
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: FUvbE3nBO4EwbZS464u9uMCsWi/45nvXhKgIQ3PJGPNSs0GULZK0r/hDuhw/9Nw3QHxrVBvX0eRmL/geqOc50qPm2DGvWgmhBgIOZbC3Yb1sGLfQfDotGZI8XUpphaAOe0mATP/iNG2WESprn8qqnU4FxhyVWTklzPNezfydYO90qS6+BQPf7J7+pek1tIhuQZGHEDlQOnO/ZSBoBApm1CmXN7ilIX4zr1WRMILvY6ruJzqi/+53T8+X2rX2FtT2T+nLdu+KWNckxB+dp5C2ZN6TedcNLLWqos7LMWJr+xeexpy/yTRuoNPGeCnBOpwO937utE7gRAwwwY25C6YwV/a2pKe2QyD6+qPzTDBU+Ea3AJVcNEyrlB/KsTTmhAxydC+aCNGqnizfiCm02eTLlfha3JTlMeItlzMpHeQyKJYG3ZmQnxTBk4K/b8Tz/O1pyEjGXDfDNUBetT9CaUpxPQ8K6EmU+Ml8KCdElI1QZ+ekVFi3cJqaDEgNv884OEQhkFaW9d27DgwAF8bqj7BXmgh6s0sv4CVOH8vMoHn0AlnHZz5kDp9N2qVlkICaVH1tcwa7xrW3pSSqhg2qKJjK3K7OFw+sz35lWo95Hum18a4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(39860400002)(366004)(346002)(376002)(451199021)(54906003)(110136005)(71200400001)(478600001)(52536014)(5660300002)(8936002)(8676002)(38070700005)(2906002)(86362001)(33656002)(4326008)(122000001)(64756008)(66446008)(66476007)(66556008)(66946007)(76116006)(316002)(55016003)(38100700002)(41300700001)(53546011)(9686003)(6506007)(26005)(186003)(83380400001)(7696005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?SBRNTKsiEyyfvLo++PHdFGPhDrJQa/0Z3/sISX1UI4uwikMlXuc0DnzDE49U?=
- =?us-ascii?Q?Br9D+NNV84D0plblGIj18DvWdcic7JS+y8i9L1zonj9VP2huO2dPch70uJDC?=
- =?us-ascii?Q?xyURF7is+CryO96Ick8zT/B52JjQp93B2+0LPhDk8Wp9VdKK1sQRn95rDEuH?=
- =?us-ascii?Q?aiOVfOTwQifANjPp51f16kg7LbOF22cRnu82OjlBp3jSQ8Lg3OQwogg2jWfq?=
- =?us-ascii?Q?o8MMunNe0dbypgBRTXeMg9gQTawK2dyu3h0PlW7CN7Eqxq5y3S0IQ6BSNiJX?=
- =?us-ascii?Q?sB9wwkMPfjAQeCoAThmFsmRuxHzsMpv86cd4A5s+cJJk//dmYA1SFhxZWnQ8?=
- =?us-ascii?Q?H7v59lgI5SDIK3BJoqL0JI+FToRLjdYwbsJv2BZBY1aHeVY3mzVT/lJp7yPY?=
- =?us-ascii?Q?JUYzVTXWSEctE0rHTc4ujZ6+w2zUYLHsxlb7Ww6KZKk9iagnMjUrx6oHYNdF?=
- =?us-ascii?Q?rxkAa2qMK3Rev5QBF4WrPEFNL3yozLdIL83twPvhSc0mJ7+y7cM6P2W8vCW5?=
- =?us-ascii?Q?rvSI0d5Nh8k0FI0Xj45SQGxL7jHzaMaosJd7P4zWtKUtIJvImbrklQAp2tGp?=
- =?us-ascii?Q?4PIFQW6PYxsqYcgBVVCJjg5AO+BwCTOo9ZYfnGIoguh9WJPRarHcTv4WFt2A?=
- =?us-ascii?Q?VEn40WHmhdsR2/M/BPdcCajZhOAPdBbsNMOBUMYGUVEBxvIaeF5SRzBw4YE1?=
- =?us-ascii?Q?3qnFtD0zOKxHdKdQ9X/cv09PQyE12OCPbgZa98KkVDU4Z3wtjJGxDMPvHkmm?=
- =?us-ascii?Q?E3YY7dRTWQkz4fRTsSwdGB3TFSxog1UDASJgnW1jTvo0L7peKU0pRZZlUm3E?=
- =?us-ascii?Q?Uwk0/FUCsP3BcqcZcvRVeQ70rBA3O3XAayx5yMJcPMJ0DQG5drutfxLNdYyl?=
- =?us-ascii?Q?FB5hu8xGuGQh90XRUMaSWGuckuh5XFS1hr4BRfyEr7bdwOr85iLlb26Po3JF?=
- =?us-ascii?Q?niIf/regSVE5pvYNH5V1dwudYQ1Mr8gbWJqAnQWiiSlAqUkTiCG07mGtIKPA?=
- =?us-ascii?Q?/nr3ICR26tZ2HjdNGWmUVjiF0r7sjmGwpx4ntot8oyvQbO0NnjepDDJfZCCc?=
- =?us-ascii?Q?TLZuzFHZKIhmW3J8C4WZDoajt4/5AlKAzvHY1/GH05UIx8iLmG5ju/VUri8p?=
- =?us-ascii?Q?v8O/EZfav5g3ZNFFT/uTl8cZOzxfzTP4RDclAwtL8AnQKdTgfE+ctXA39Bhe?=
- =?us-ascii?Q?yKNX8WvhHzukIE8AaKQQh+Ear7m+ubKsFTZj4Jtn1OxlLgnMW04SriyMAxes?=
- =?us-ascii?Q?ul2+xyT0btlL/hYSjEfL/7doiEo8tcCY3NxzooLlTJTwW/fauW2p5PPveio4?=
- =?us-ascii?Q?wO+drOd1OwJ6+fbHZ9fL2ReB+EvGfOSd8RZlOjfCXjxC6cFT+Wa5IJNAgLYU?=
- =?us-ascii?Q?F1qREXiqF+kMZZ7STxtbWQs3L6RcA29xkoxOwiAHRN4SqkYJ16Q+K6N+pdhd?=
- =?us-ascii?Q?dlBsOVgkQQv22+DFLg9Rw8Qub5NNLyWKOvLFb4pTro8YNSOxeG1okhukZKfS?=
- =?us-ascii?Q?npcS50v0i8LEzmF5BPHEdBz3lBdVZMyRYesXpPN3OmYkqugnXrKdOUhnsf/L?=
- =?us-ascii?Q?O2BJNo/pLP+yjb4YC0U=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id E308A10E2A3;
+	Mon,  5 Jun 2023 14:11:37 +0000 (UTC)
+Received: from mail-oo1-xc2c.google.com (mail-oo1-xc2c.google.com
+ [IPv6:2607:f8b0:4864:20::c2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F7AC10E1D3;
+ Mon,  5 Jun 2023 14:11:35 +0000 (UTC)
+Received: by mail-oo1-xc2c.google.com with SMTP id
+ 006d021491bc7-557ca32515eso3508059eaf.3; 
+ Mon, 05 Jun 2023 07:11:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1685974294; x=1688566294;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AkFk+WRaK8DJpCbECdgTGImYYiJ/3koxt3S/LYx6+NI=;
+ b=SXhwucOX38CrGifxFyNT20ngbnqojLTSIR9wnhtJzHP6d+m9lTtk9Gw3AHaq0V5yyH
+ TRQy8GBtK5iJ+CyyHFMmNXoax65xdnpHxXlwb5g5u1nRvzMYHZXBVJLIaV2jApATWVej
+ 4dCdUKZJBp6Xr0wptg9RfoRfzmUdjDPjlf4VkC9sldY7iBWAi4EwgUNhqyHXzCz/UUAP
+ 1XBgTL2aZ1J7mzmBcWvSmMWJCfsJebKqXNH5kcPmiHr6fhoGfJ2wqoev5BMCxNhV83wz
+ gR/g3hESbdDUXF8gW0r8HmjtOOvkFN+1z/f4YJ83qrAvNfaNKiQGzABiCnEeGpmfrfMc
+ LS0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685974294; x=1688566294;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=AkFk+WRaK8DJpCbECdgTGImYYiJ/3koxt3S/LYx6+NI=;
+ b=LyD6TxeT1IqQFdsagIklAENCFPqB69pB4lB9pmC/rgt6FUXgKID2L1TRra2ddoUrqj
+ 9w93L83CaTsWy5x9flmNls0RpJ6NpK3uoKpP17pmuFpYNMUW6Xplgl8ap7N+TDwRt7CG
+ 2L9vW+Vd/lXPDggjhlfT+DkAr2CnLx5PG/Q/WsSaLjoYljI1R6NJjwpS6qYYCF6vy2Dp
+ YcZy1YFfmGEx8gvcWBCdgGEFrjR/bKCmwj6f2eP3ITtgef7FBPXrk4AOPl5XF2ei3qc1
+ I9viPMklHCeutvjP5ebKoXdSLAWumTS7FgS2Tbh2d7ysIw09PdTECmcGAAeDdnycuu4n
+ gh0g==
+X-Gm-Message-State: AC+VfDzduPSb7hbJtIDAkkWF+hvc5A2BuDrQ16/EmwxJ7nNZVyRqNxA5
+ gL3jEYXeqjJ02w+m1L4o38lCYAyeo5d/3LirzI0=
+X-Google-Smtp-Source: ACHHUZ680CB8KjSWlMoL0v9AipVoZynv3S0bgcUM2Fp8Hq0bmrpPBfrv49GwoX/ubuRiXv+W47DzK8ZeRBFn4Ove42Y=
+X-Received: by 2002:a4a:d0a7:0:b0:558:cb7e:c52e with SMTP id
+ t7-20020a4ad0a7000000b00558cb7ec52emr2271841oor.8.1685974294353; Mon, 05 Jun
+ 2023 07:11:34 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1752fc94-ebae-4c04-d10d-08db65cd6c03
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2023 14:01:55.7625 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: b7Jgo9EK7EJ7OWEz1zCVSqykRHfdQOpb4jgC507sUH2EkBSTNo7cj99JHpN7xS0MlWt9sGReM7TbemTT0pJ/NA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7111
+References: <46a7eb80-5f09-4f6a-4fd3-9550dafd497c@felixrichter.tech>
+ <1efbf587-e7b5-74a3-89e4-ca70386bd191@leemhuis.info>
+ <CADnq5_M-5SD6HDRVtFHPNF3q9XKz75PECdUxR-OaVpPe2Zw=EQ@mail.gmail.com>
+ <8d23a70e-b132-9b25-917a-1f45918533cc@leemhuis.info>
+ <0cac032a-0f65-5134-cde5-f535fc58c5ab@felixrichter.tech>
+ <e7eed5ce-e7a0-e03e-f8c7-3582d9771a33@leemhuis.info>
+ <e24373f9-4405-d7f7-dd54-d0bde111242c@felixrichter.tech>
+In-Reply-To: <e24373f9-4405-d7f7-dd54-d0bde111242c@felixrichter.tech>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 5 Jun 2023 10:11:23 -0400
+Message-ID: <CADnq5_MCXgtxNB_WBfAw+ZSKNeczSYL7gZPkpqqJ859G=LYkgA@mail.gmail.com>
+Subject: Re: PROBLEM: AMD Ryzen 9 7950X iGPU - Blinking Issue
+To: Felix Richter <judge@felixrichter.tech>, "Mahfooz,
+ Hamza" <Hamza.Mahfooz@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,182 +74,171 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Zhuo,
- Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>, "Chiu,
- Solomon" <Solomon.Chiu@amd.com>, "Pillai,
- Aurabindo" <Aurabindo.Pillai@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>,
- "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Gutierrez,
- Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Linux regressions mailing list <regressions@lists.linux.dev>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On Sat, Jun 3, 2023 at 10:52=E2=80=AFAM Felix Richter <judge@felixrichter.t=
+ech> wrote:
+>
+> Hi Guys,
+>
+> sorry for the silence from my side. I had a lot of things to take care
+> of after returning from vacation. Also I had to wait on the zfs modules
+> to be updated to support kernel 6.3 for further testing.
+>
+> The bad news is that I am still experiencing issues. I have been able to
+> get a reproducible trigger for the buggy behavior. The moment I take a
+> screenshot or any other program like `wdisplays` accesses the screen
+> buffer the screen starts flickering. The only way to reset it is to
+> reboot the machine or log out of the desktop.
+>
+> With this I did a bisection to figure out which commit is responsible
+> for this. I attached the logs to the mail. The short version is that I
+> identified commit 81d0bcf9900932633d270d5bc4a54ff599c6ebdb as the
+> culprit. Seems that there are side effects of having more flexible
+> buffer placement for the case of the internal GPU. To verify that this
+> actually is the cause of the issue I built the current archlinux kernel
+> with an extra patch to revert the commit:
+> https://github.com/ju6ge/linux/tree/v6.3.5-ju6ge. The result is that be
+> bug is fixed!
 
-Hi all,
++ Hamza
 
-This week this patchset was tested on the following systems:
-        * Lenovo ThinkBook T13s Gen4 with AMD Ryzen 5 6600U
-        * MSI Gaming X Trio RX 6800
-        * Gigabyte Gaming OC RX 7900 XTX
+This is a known issue.  You can workaround it by setting
+amdgpu.sg_display=3D0.  It should be issue should be fixed in:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
+id=3D08da182175db4c7f80850354849d95f2670e8cd9
 
-These systems were tested on the following display/connection types:
-        * eDP, (1080p 60hz [5650U]) (1920x1200 60hz [6600U]) (2560x1600 120=
-hz[6600U])
-        * VGA and DVI (1680x1050 60hz [DP to VGA/DVI, USB-C to VGA/DVI])
-        * DP/HDMI/USB-C (1440p 170hz, 4k 60hz, 4k 144hz, 4k 240hz [Includes=
- USB-C to DP/HDMI adapters])
-        * Thunderbolt (LG Ultrafine 5k)
-        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60Hz displays)
-        * DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60 display=
-s, and HP Hook G2 with 1 4k60 display)
-        * USB 4 (Kensington SD5700T and 1x 4k 60Hz display)
-        * PCON (Club3D CAC-1085 and 1x 4k 144Hz display [at 4k 120HZ, as th=
-at is the max the adapter supports])
-
-The testing is a mix of automated and manual tests. Manual testing includes=
- (but is not limited to):
-        * Changing display configurations and settings
-        * Benchmark testing
-        * Feature testing (Freesync, etc.)
-
-Automated testing includes (but is not limited to):
-        * Script testing (scripts to automate some of the manual checks)
-        * IGT testing
-
-The patchset consists of the amd-staging-drm-next branch (Head commit - 3e5=
-4d382a51b71bd08702a10c0864a60f0108c66 -> drm/amd/amdgpu: Fix up locking etc=
- in amdgpu_debugfs_gprwave_ioctl()) with new patches added on top of it. Th=
-is branch is used for both Ubuntu and Chrome OS testing (ChromeOS on a bi-w=
-eekly basis).
+Alex
 
 
-Tested on Ubuntu 22.04.2
 
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-
-
-Thank you,
-
-Dan Wheeler
-Sr. Technologist | AMD
-SW Display
----------------------------------------------------------------------------=
----------------------------------------
-1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
-amd.com
-
------Original Message-----
-From: Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>
-Sent: Wednesday, May 31, 2023 12:48 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Siqueira, Rodri=
-go <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>=
-; Zhuo, Qingqing (Lillian) <Qingqing.Zhuo@amd.com>; Li, Roman <Roman.Li@amd=
-.com>; Lin, Wayne <Wayne.Lin@amd.com>; Wang, Chao-kai (Stylon) <Stylon.Wang=
-@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>; Kotarac, Pavle <Pavle.Kota=
-rac@amd.com>; Gutierrez, Agustin <Agustin.Gutierrez@amd.com>; Wheeler, Dani=
-el <Daniel.Wheeler@amd.com>
-Subject: [PATCH 00/14] DC Patches June 2, 2023
-
-This DC patchset brings improvements in multiple areas. In summary, we have=
-:
-
-* Clock optimiation for DCN 3.1.4
-* Performance improvements
-* Improvements on power saving
-* Fix screen flash in high resolution displays
-* Enable Freesync video mode by default
-* Bug fixed on hang or crashes in various cases
-* Improved code robustness in corner cases
-
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
-
-Alvin Lee (2):
-  drm/amd/display: Refactor fast update to use new HWSS build sequence
-  drm/amd/display: Reduce sdp bw after urgent to 90%
-
-Aurabindo Pillai (1):
-  drm/amd/display: Enable Freesync Video Mode by default
-
-Austin Zheng (1):
-  drm/amd/display: Filter out AC mode frequencies on DC mode systems
-
-Charlene Liu (1):
-  drm/amd/display: add NULL pointer check
-
-Daniel Miess (1):
-  drm/amd/display: Enable dcn314 DPP RCO
-
-Dmytro Laktyushkin (2):
-  drm/amd/display: fix seamless odm transitions
-  drm/amd/display: fix dcn315 single stream crb allocation
-
-Leo Ma (1):
-  Revert "drm/amd/display: cache trace buffer size"
-
-Max Tseng (1):
-  drm/amd/display: Add control flag to dc_stream_state to skip eDP BL
-    off/link off
-
-Nicholas Kazlauskas (1):
-  drm/amd/display: Skip DPP DTO update if root clock is gated
-
-Saaem Rizvi (1):
-  drm/amd/display: Wrong index type for pipe iterator
-
-Samson Tam (1):
-  drm/amd/display: add ODM case when looking for first split pipe
-
-Sridevi (1):
-  drm/amd/display: DSC Programming Deltas
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  12 +-  .../display/dc/clk=
-_mgr/dcn32/dcn32_clk_mgr.c  |  13 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 307 ++++++++++++++++--
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 255 +++++++++++++++  .../g=
-pu/drm/amd/display/dc/core/dc_resource.c |  20 ++
- .../gpu/drm/amd/display/dc/core/dc_stream.c   |   4 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |   2 +
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |   1 +
- .../amd/display/dc/dce100/dce100_resource.c   |   5 +
- .../display/dc/dce110/dce110_hw_sequencer.c   |   3 +-
- .../amd/display/dc/dce110/dce110_resource.c   |   5 +
- .../amd/display/dc/dce112/dce112_resource.c   |   5 +
- .../amd/display/dc/dce120/dce120_resource.c   |   1 +
- .../drm/amd/display/dc/dce80/dce80_resource.c |   6 +
- .../drm/amd/display/dc/dcn10/dcn10_resource.c |   1 +
- .../gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c  |  29 +-  .../gpu/drm/amd/di=
-splay/dc/dcn20/dcn20_dsc.h  |  28 ++
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  11 +
- .../drm/amd/display/dc/dcn20/dcn20_resource.c |   1 +
- .../amd/display/dc/dcn201/dcn201_resource.c   |   1 +
- .../drm/amd/display/dc/dcn21/dcn21_resource.c |   1 +
- .../gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c |   8 +
- .../drm/amd/display/dc/dcn31/dcn31_resource.c |   1 +
- .../drm/amd/display/dc/dcn314/dcn314_dccg.c   |   5 +
- .../drm/amd/display/dc/dcn314/dcn314_hwseq.c  |   2 +-
- .../amd/display/dc/dcn314/dcn314_resource.c   |  16 +
- .../amd/display/dc/dcn315/dcn315_resource.c   |  16 +-
- .../amd/display/dc/dcn316/dcn316_resource.c   |   1 +
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  26 +-
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.h    |   2 +
- .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |   1 +
- .../gpu/drm/amd/display/dc/dcn32/dcn32_optc.c |   2 +-
- .../gpu/drm/amd/display/dc/dcn32/dcn32_optc.h |   1 +
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 142 +++++---
- .../amd/display/dc/dml/dcn321/dcn321_fpu.c    | 144 +++++---
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  11 +
- .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |   1 +
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |   1 +
- .../gpu/drm/amd/display/dc/inc/hw_sequencer.h | 126 +++++++
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |   7 +-
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |   1 -
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |   2 -
- 42 files changed, 1071 insertions(+), 156 deletions(-)
-
---
-2.40.1
-
+>
+> Now if this is the desired long term fix I do not know =E2=80=A6
+>
+> Kind regards,
+> Felix Richter
+>
+> On 02.05.23 16:12, Linux regression tracking (Thorsten Leemhuis) wrote:
+> > On 02.05.23 15:48, Felix Richter wrote:
+> >> On 5/2/23 15:34, Linux regression tracking (Thorsten Leemhuis) wrote:
+> >>> On 02.05.23 15:13, Alex Deucher wrote:
+> >>>> On Tue, May 2, 2023 at 7:45=E2=80=AFAM Linux regression tracking (Th=
+orsten
+> >>>> Leemhuis)<regressions@leemhuis.info>  wrote:
+> >>>>
+> >>>>> On 30.04.23 13:44, Felix Richter wrote:
+> >>>>>> Hi,
+> >>>>>>
+> >>>>>> I am running into an issue with the integrated GPU of the Ryzen 9
+> >>>>>> 7950X. It seems to be a regression from kernel version 6.1 to 6.2.
+> >>>>>> The bug materializes in from of my monitor blinking, meaning it
+> >>>>>> turns full white shortly. This happens very often so that the
+> >>>>>> system becomes unpleasant to use.
+> >>>>>>
+> >>>>>> I am running the Archlinux Kernel:
+> >>>>>> The Issue happens on the bleeding edge kernel: 6.2.13
+> >>>>>> Switching back to the LTS kernel resolves the issue: 6.1.26
+> >>>>>>
+> >>>>>> I have two monitors attached to the system. One 42 inch 4k Display
+> >>>>>> and a 24 inch 1080p Display and am running sway as my desktop.
+> >>>>>>
+> >>>>>> Let me know if there is more information I could provide to help
+> >>>>>> narrow down the issue.
+> >>>>> Thanks for the report. To be sure the issue doesn't fall through th=
+e
+> >>>>> cracks unnoticed, I'm adding it to regzbot, the Linux kernel regres=
+sion
+> >>>>> tracking bot:
+> >>>>>
+> >>>>> #regzbot ^introduced v6.1..v6.2
+> >>>>> #regzbot title drm: amdgpu: system becomes unpleasant to use after
+> >>>>> monitor starts blinking and turns full white
+> >>>>> #regzbot ignore-activity
+> >>>>>
+> >>>>> This isn't a regression? This issue or a fix for it are already
+> >>>>> discussed somewhere else? It was fixed already? You want to clarify
+> >>>>> when
+> >>>>> the regression started to happen? Or point out I got the title or
+> >>>>> something else totally wrong? Then just reply and tell me -- ideall=
+y
+> >>>>> while also telling regzbot about it, as explained by the page liste=
+d in
+> >>>>> the footer of this mail.
+> >>>>>
+> >>>>> Developers: When fixing the issue, remember to add 'Link:' tags
+> >>>>> pointing
+> >>>>> to the report (the parent of this mail). See page linked in footer =
+for
+> >>>>> details.
+> >>>> This sounds exactly like the issue that was fixed in this patch whic=
+h
+> >>>> is already on it's way to Linus:
+> >>>> https://gitlab.freedesktop.org/agd5f/linux/-/commit/08da182175db4c7f=
+80850354849d95f2670e8cd9
+> >>> FWIW, you in the flood of emails likely missed that this is the same
+> >>> thread where you yesterday replied "If the module parameter didn't he=
+lp
+> >>> then perhaps you are seeing some other issue.  Can you bisect?". That=
+'s
+> >>> why I decided to add this to the tracking. Or am I missing something
+> >>> obvious here?
+> >>>
+> >>> /me looks around again and can't see anything, but that doesn't have =
+to
+> >>> mean anything...
+> >>>
+> >>> Felix, btw, this guide might help you with the bisection, even if it'=
+s
+> >>> just for kernel compilation:
+> >>>
+> >>> https://docs.kernel.org/next/admin-guide/quickly-build-trimmed-linux.=
+html
+> >>>
+> >>> And to indirectly reply to your mail from yesterday[1]. You might wan=
+t
+> >>> to ignore the arch linux kernel git repo and just do a bisection betw=
+een
+> >>> 6.1 and the latest 6.2.y kernel using upstream repos; and if I were y=
+ou
+> >>> I'd also try 6.3 or even mainline before that, in case the issue was
+> >>> fixed already.
+> >>>
+> >>> [1]
+> >>> https://lore.kernel.org/all/04749ee4-0728-92fe-bcb0-a7320279eaac@feli=
+xrichter.tech/
+> >>>
+> >> Thanks for the pointers, I'll do a bisection on my desktop from 6.1 to
+> >> the newest commit.
+> > FWIW, I wonder what you actually mean with "newest commit" here: a
+> > bisection between 6.1 and mainline HEAD might be a waste of time, *if*
+> > this is something that only happens in 6.2.y (say due to a broken or
+> > incomplete backport)
+> >
+> >> That was the part I was mostly unsure about =E2=80=A6 where
+> >> to start from.
+> >>
+> >> I was planning to use PKGBUILD scripts from arch to achieve the same
+> >> configuration as I would when installing
+> >> the package and just rewrite the script to use a local copy of the
+> >> source code instead of the repository.
+> >> That way I can just use the bisect command, rebuild the package and te=
+st
+> >> again.
+> > In my experience trying to deal with Linux distro's package managers
+> > creates more trouble than it's worth.
+> >
+> >> But I probably won't be able to finish it this week, since I am on
+> >> vacation starting tomorrow and will not have access to the computer in
+> >> question. I will be back next week, by that time the patch Alex is
+> >> talking about might
+> >> already be in mainline. So if that fixes it, I will notice and let you
+> >> know. If not I will do the bisection to figure out what the actual iss=
+ue
+> >> is.
+> > Enjoy your vacation!
+> >
+> > Ciao, Thorsten
