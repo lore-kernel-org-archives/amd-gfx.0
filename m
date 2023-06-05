@@ -4,62 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D367C7EE2E
-	for <amd-gfx@archiver.kernel.org>; Sun,  4 Jun 2023 20:58:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B3A9C7EE24
+	for <amd-gfx@archiver.kernel.org>; Mon,  5 Jun 2023 03:18:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CACF10E0FE;
-	Sun,  4 Jun 2023 20:58:43 +0000 (UTC)
-Received: from 189.cn (ptr.189.cn [183.61.185.103])
- by gabe.freedesktop.org (Postfix) with ESMTP id D161610E0E6;
- Sun,  4 Jun 2023 20:58:40 +0000 (UTC)
-HMM_SOURCE_IP: 10.64.8.43:47878.118806016
-HMM_ATTACHE_NUM: 0000
-HMM_SOURCE_TYPE: SMTP
-Received: from clientip-114.242.206.180 (unknown [10.64.8.43])
- by 189.cn (HERMES) with SMTP id B96AD10029F;
- Mon,  5 Jun 2023 04:58:36 +0800 (CST)
-Received: from  ([114.242.206.180])
- by gateway-151646-dep-75648544bd-7vx9t with ESMTP id
- b5b118ae41ab49e0a154bdb74caa128c for alexander.deucher@amd.com; 
- Mon, 05 Jun 2023 04:58:39 CST
-X-Transaction-ID: b5b118ae41ab49e0a154bdb74caa128c
-X-Real-From: 15330273260@189.cn
-X-Receive-IP: 114.242.206.180
-X-MEDUSA-Status: 0
-From: Sui Jingfeng <15330273260@189.cn>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Ben Skeggs <bskeggs@redhat.com>, Karol Herbst <kherbst@redhat.com>,
- Lyude Paul <lyude@redhat.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Hawking Zhang <Hawking.Zhang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- Bokun Zhang <Bokun.Zhang@amd.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>, Li Yi <liyi@loongson.cn>,
- Sui Jingfeng <suijingfeng@loongson.cn>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>, Cornelia Huck <cohuck@redhat.com>,
- Yishai Hadas <yishaih@nvidia.com>, Abhishek Sahu <abhsahu@nvidia.com>,
- Yi Liu <yi.l.liu@intel.com>
-Subject: [PATCH v2 2/2] vgaarb: introduce is_boot_device callback function to
- vga_client_register
-Date: Mon,  5 Jun 2023 04:58:31 +0800
-Message-Id: <20230604205831.3357596-2-15330273260@189.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230604205831.3357596-1-15330273260@189.cn>
-References: <20230604205831.3357596-1-15330273260@189.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0DA610E11A;
+	Mon,  5 Jun 2023 03:18:56 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2072.outbound.protection.outlook.com [40.107.95.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D41AA10E11A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  5 Jun 2023 03:18:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hhK04y/vDPkaOVwNWsCvNMCaXCuP6PqCt6vW58Mb0rJxjiZHx+m2A0kvj8r6ZMDTt9AxCQxun3RHs0BzLAGvpvrZxVvr8bITSEtDu5rHcmZlZvJ+ddToqocb+ViCCkyviDgW+yxTZ0hTUVcF2J9UGKTM9h0LHxQB0n++WbzgQg6w99oc1svgxLW2EXTdkByGb211kEYWZ6b5U+zQImbGXlxgn/wUa8F7S7EaVc8+BNP8a4KtBJK6PVP6RvYkB8cSWtp1x6r1cscqeP6vc3LFKaHAZWwc/zkzHGVcc5/NfGjN8r8ajUTR7Cq+Rqv0Slwr3MA5/YfhXKufGXWInp5DLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JbzxgjMgxM50uA3JHX94RUJHkGCaku0HlWpX8mxGt54=;
+ b=YN6+2aDHUb1xMKyCUxKmwRO2p7HwS/a9/bOv0t7xhH57MtYz4VNlOKOdTjX3pky2BgewFc5lEEPp0Z9HDDUcAM4rtLR0cfX7CWcuInhK91iOv06wrJbBpxW/QwM+WVAAF061GiSzHO06b984dHr4bCUTQn7BvGQznkwiNHsHxK7wWZv6AybpWm6UNbLlIUsUPiM6i+83SXsGCndgKRbXZ1O044Xyz1yiSxumqhviZ27VmcWkjuWpXdhnMYURFKgjxT0ixitei3+Q89AK5P/4+ilRr2lJLEDfi8KpE8DH1EDTmXeDEZPxihZp+yXlCezVfeMa5wH2qQ+SORQpi5b1Mw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JbzxgjMgxM50uA3JHX94RUJHkGCaku0HlWpX8mxGt54=;
+ b=A5SUYmywfZzyiqQ5OJk5XKSdBft/gmZ2EI0qCDKgt/vfsO+aw5+Sp2M81H5A9dO5XuhCz8Ia1rt/VjZ68n8ufQu79whxBMyLlHquJ0A7EIcIwv6FbxkwruCuAUTu/aEcs9jGG+ZIeF0cVPE4S+4a7F+88IvTcJfo5hsQv8sboXw=
+Received: from DS7PR05CA0068.namprd05.prod.outlook.com (2603:10b6:8:57::20) by
+ CH2PR12MB4890.namprd12.prod.outlook.com (2603:10b6:610:63::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6455.27; Mon, 5 Jun 2023 03:18:51 +0000
+Received: from DM6NAM11FT098.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:57:cafe::a6) by DS7PR05CA0068.outlook.office365.com
+ (2603:10b6:8:57::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.18 via Frontend
+ Transport; Mon, 5 Jun 2023 03:18:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT098.mail.protection.outlook.com (10.13.173.61) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6455.32 via Frontend Transport; Mon, 5 Jun 2023 03:18:51 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 4 Jun
+ 2023 22:18:50 -0500
+Received: from kenneth-mlse-vm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via
+ Frontend Transport; Sun, 4 Jun 2023 22:18:50 -0500
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: update smu-driver if header for smu 13.0.0 and
+ smu 13.0.10
+Date: Mon, 5 Jun 2023 11:18:42 +0800
+Message-ID: <20230605031842.3441796-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT098:EE_|CH2PR12MB4890:EE_
+X-MS-Office365-Filtering-Correlation-Id: c004a778-e4cd-49dd-b932-08db657395d1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 1SkiOpoKsrKrYFPLf/iTPrs5O9zqBXKcHH3c/2nhi/A2oKJ4UayG1qdFcsjIWWteEhtkKpWnC9bsUiD1+nScinUz5u9EVRzg60L9op6Uk+shokDqP3fhXF7EXYz72ZyRaymT4hubgDrXYNCgD4Kk7hWwEcVLfPBpJ3mBAB99PmH2HnWpb0LpzX4HA2KfjWOeK1Ug8rrUx4LdF7E0PDcjL1PX4B4+AMuLKj6FucTVltr1sdyHkM2QfIbtguI1qr6tha4eLnXi/yW54wexD451R3R/Zq533uRCk5wkcOLyzC4hkmqpv9CzF05130whEVYigyqxiOnICsynVeosdW+RN/j3mTAeOkCclODWtIGBbSy/uatAZqbOxBfcLVOLNnDBk4++ZkOgA2yD0gewWVZELVSGkJREN1z4HRtlk4m7Msp8UDvyrL27LaSsjI+vjh+fCTVS2B0wqxUdVB0yE4biEoZkQ9W6HmaL08RP7TZxdD0Z8rSGMhAN2yj09robxc6QXubcpZ5IVd0wV30cqTrZMIpZEOPANpCUzHXTdn4A4GoQY8CRTxLw5bzIdcIFc6C2d1JvdCvWbIwCworK1vCpmR73jWgiypLnoKHS2dYdl8sfEQuF3XSunXw4poLnKSrKYqgLJWqtFgc3KqwNQqMVZqqJQZA838hBWEQBx/uIN1hGj03KArLB5C+zBXewBzEJLUsHon4DJ4GyLIEFPo9jxQqWGymezapgCeQUplL/ISn3QPUOSgZptPZoSvwgcEnN5UC3PMx8KttQwhAkS4YYXA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(376002)(39860400002)(136003)(346002)(451199021)(36840700001)(46966006)(40470700004)(2906002)(70206006)(70586007)(5660300002)(8676002)(8936002)(4326008)(44832011)(316002)(41300700001)(6916009)(15650500001)(7696005)(40480700001)(186003)(2616005)(426003)(336012)(83380400001)(26005)(1076003)(47076005)(36860700001)(86362001)(40460700003)(356005)(82740400003)(6666004)(478600001)(36756003)(82310400005)(81166007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2023 03:18:51.1313 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c004a778-e4cd-49dd-b932-08db657395d1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT098.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4890
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,215 +98,139 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, loongson-kernel@lists.loongnix.cn,
- amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org
+Cc: Kenneth Feng <kenneth.feng@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sui Jingfeng <suijingfeng@loongson.cn>
+update smu-driver if header for smu 13.0.0 and smu 13.0.10
 
-The vga_is_firmware_default() function is arch-dependent, which dosen't
-sound right. At least, It also works on Mips and LoongArch platform with
-the drm/AMDGPU and drm/radeon driver. However, it's difficult to enumerate
-all Arch-driver combination. I'm wrong if there are only one exception.
-
-With the observation that device drivers typically has better knowledge
-about which PCI bar contains the firmware framebuffer, Which could helps
-to avoids the need to iterate all of the PCI BARs. But As a PCI core
-function at pci/vgaarb.c, vga_is_firmware_default funciton is embarrasing
-to make optimization for a specific device.
-
-There also has PCI display controller don't has a dedicated VRAM bar in
-the world, this function will lost the effectiveness on such a case.
-
-Luckily, device driver can do the accurate workaround. We add a callback
-then, to let the device driver make the decision. Device drivers know what
-archs it could works, device driver also can shipping this decision to
-whatever arch its device can reach, not only the X86 and IA64.
-
-Also honor the comment: "Clients have two callback mechanisms they can use"
-
-Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Change-Id: I540aaa99fac2216f2d1a28fd79c68dd77a495f8b
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
- drivers/gpu/drm/i915/display/intel_vga.c   |  3 +--
- drivers/gpu/drm/nouveau/nouveau_vga.c      |  2 +-
- drivers/gpu/drm/radeon/radeon_device.c     |  2 +-
- drivers/pci/vgaarb.c                       | 22 ++++++++++++++++++----
- drivers/vfio/pci/vfio_pci_core.c           |  2 +-
- include/linux/vgaarb.h                     |  8 +++++---
- 7 files changed, 28 insertions(+), 13 deletions(-)
+ .../inc/pmfw_if/smu13_driver_if_v13_0_0.h     | 33 ++++++++++++++-----
+ 1 file changed, 25 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 5c7d40873ee2..7a096f2d5c16 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3960,7 +3960,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	/* this will fail for cards that aren't VGA class devices, just
- 	 * ignore it */
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
--		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
-+		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode, NULL);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
+index fe995651c6f5..ba56bc676310 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
+@@ -24,10 +24,10 @@
+ #ifndef SMU13_DRIVER_IF_V13_0_0_H
+ #define SMU13_DRIVER_IF_V13_0_0_H
  
- 	px = amdgpu_device_supports_px(ddev);
+-#define SMU13_0_0_DRIVER_IF_VERSION 0x32
++#define SMU13_0_0_DRIVER_IF_VERSION 0x3D
  
-diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
-index 286a0bdd28c6..98d7d4dffe9f 100644
---- a/drivers/gpu/drm/i915/display/intel_vga.c
-+++ b/drivers/gpu/drm/i915/display/intel_vga.c
-@@ -115,7 +115,6 @@ intel_vga_set_decode(struct pci_dev *pdev, bool enable_decode)
+ //Increment this version if SkuTable_t or BoardTable_t change
+-#define PPTABLE_VERSION 0x26
++#define PPTABLE_VERSION 0x2B
  
- int intel_vga_register(struct drm_i915_private *i915)
- {
--
- 	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
- 	int ret;
+ #define NUM_GFXCLK_DPM_LEVELS    16
+ #define NUM_SOCCLK_DPM_LEVELS    8
+@@ -96,7 +96,7 @@
+ #define FEATURE_ATHUB_MMHUB_PG_BIT            48
+ #define FEATURE_SOC_PCC_BIT                   49
+ #define FEATURE_EDC_PWRBRK_BIT                50
+-#define FEATURE_SPARE_51_BIT                  51
++#define FEATURE_BOMXCO_SVI3_PROG_BIT          51
+ #define FEATURE_SPARE_52_BIT                  52
+ #define FEATURE_SPARE_53_BIT                  53
+ #define FEATURE_SPARE_54_BIT                  54
+@@ -312,6 +312,7 @@ typedef enum {
+ 	I2C_CONTROLLER_PROTOCOL_VR_IR35217,
+ 	I2C_CONTROLLER_PROTOCOL_TMP_MAX31875,
+ 	I2C_CONTROLLER_PROTOCOL_INA3221,
++	I2C_CONTROLLER_PROTOCOL_TMP_MAX6604,
+ 	I2C_CONTROLLER_PROTOCOL_COUNT,
+ } I2cControllerProtocol_e;
  
-@@ -127,7 +126,7 @@ int intel_vga_register(struct drm_i915_private *i915)
- 	 * then we do not take part in VGA arbitration and the
- 	 * vga_client_register() fails with -ENODEV.
- 	 */
--	ret = vga_client_register(pdev, intel_vga_set_decode);
-+	ret = vga_client_register(pdev, intel_vga_set_decode, NULL);
- 	if (ret && ret != -ENODEV)
- 		return ret;
+@@ -570,6 +571,7 @@ typedef enum {
+ } POWER_SOURCE_e;
  
-diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
-index f8bf0ec26844..162b4f4676c7 100644
---- a/drivers/gpu/drm/nouveau/nouveau_vga.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
-@@ -92,7 +92,7 @@ nouveau_vga_init(struct nouveau_drm *drm)
- 		return;
- 	pdev = to_pci_dev(dev->dev);
+ typedef enum {
++  MEM_VENDOR_PLACEHOLDER0,
+   MEM_VENDOR_SAMSUNG,
+   MEM_VENDOR_INFINEON,
+   MEM_VENDOR_ELPIDA,
+@@ -579,7 +581,6 @@ typedef enum {
+   MEM_VENDOR_MOSEL,
+   MEM_VENDOR_WINBOND,
+   MEM_VENDOR_ESMT,
+-  MEM_VENDOR_PLACEHOLDER0,
+   MEM_VENDOR_PLACEHOLDER1,
+   MEM_VENDOR_PLACEHOLDER2,
+   MEM_VENDOR_PLACEHOLDER3,
+@@ -808,6 +809,9 @@ typedef enum {
  
--	vga_client_register(pdev, nouveau_vga_set_decode);
-+	vga_client_register(pdev, nouveau_vga_set_decode, NULL);
+ #define INVALID_BOARD_GPIO 0xFF
  
- 	/* don't register Thunderbolt eGPU with vga_switcheroo */
- 	if (pci_is_thunderbolt_attached(pdev))
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index afbb3a80c0c6..71f2ff39d6a1 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1425,7 +1425,7 @@ int radeon_device_init(struct radeon_device *rdev,
- 	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
- 	/* this will fail for cards that aren't VGA class devices, just
- 	 * ignore it */
--	vga_client_register(rdev->pdev, radeon_vga_set_decode);
-+	vga_client_register(rdev->pdev, radeon_vga_set_decode, NULL);
++#define MARKETING_BASE_CLOCKS         0
++#define MARKETING_GAME_CLOCKS         1
++#define MARKETING_BOOST_CLOCKS        2
  
- 	if (rdev->flags & RADEON_IS_PX)
- 		runtime = true;
-diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-index e40e6e5e5f03..4576c4197551 100644
---- a/drivers/pci/vgaarb.c
-+++ b/drivers/pci/vgaarb.c
-@@ -53,6 +53,7 @@ struct vga_device {
- 	bool bridge_has_one_vga;
- 	bool is_firmware_default;	/* device selected by firmware */
- 	unsigned int (*set_decode)(struct pci_dev *pdev, bool decode);
-+	bool (*is_boot_device)(struct pci_dev *pdev);
- };
+ typedef struct {
+   //PLL 0
+@@ -1098,10 +1102,15 @@ typedef struct {
+   uint16_t        DcsExitHysteresis;    //The min amount of time power credit accumulator should have a value > 0 before SMU exits the DCS throttling phase.
+   uint16_t        DcsTimeout;           //This is the amount of time SMU FW waits for RLC to put GFX into GFXOFF before reverting to the fallback mechanism of throttling GFXCLK to Fmin.
  
- static LIST_HEAD(vga_list);
-@@ -615,10 +616,17 @@ static bool vga_is_boot_device(struct vga_device *vgadev)
- 	if (boot_vga && boot_vga->is_firmware_default)
- 		return false;
++  uint8_t         FoptEnabled;
++  uint8_t         DcsSpare2[3];
++  uint32_t        DcsFoptM;             //Tuning paramters to shift Fopt calculation, used in T19 and Navi32
++  uint32_t        DcsFoptB;             //Tuning paramters to shift Fopt calculation, used in T19 and Navi32
  
--	if (vga_is_firmware_default(pdev)) {
--		vgadev->is_firmware_default = true;
-+	/*
-+	 * Ask the device driver first, if registered. Fallback to the
-+	 * default implement if the callback is non-exist.
-+	 */
-+	if (vgadev->is_boot_device)
-+		vgadev->is_firmware_default = vgadev->is_boot_device(pdev);
-+	else
-+		vgadev->is_firmware_default = vga_is_firmware_default(pdev);
+-  uint32_t        DcsSpare[16];
++  uint32_t        DcsSpare[11];
+ 
+   // UCLK section
++  uint16_t     ShadowFreqTableUclk     [NUM_UCLK_DPM_LEVELS];     // In MHz
+   uint8_t      UseStrobeModeOptimizations; //Set to indicate that FW should use strobe mode optimizations
+   uint8_t      PaddingMem[3];
+ 
+@@ -1247,8 +1256,13 @@ typedef struct {
+   QuadraticInt_t qFeffCoeffBaseClock[POWER_SOURCE_COUNT];
+   QuadraticInt_t qFeffCoeffBoostClock[POWER_SOURCE_COUNT];
+ 
++  uint16_t TemperatureLimit_Hynix; // In degrees Celsius. Memory temperature limit associated with Hynix
++  uint16_t TemperatureLimit_Micron; // In degrees Celsius. Memory temperature limit associated with Micron
++  uint16_t TemperatureFwCtfLimit_Hynix;
++  uint16_t TemperatureFwCtfLimit_Micron;
 +
-+	if (vgadev->is_firmware_default)
- 		return true;
--	}
+   // SECTION: Sku Reserved
+-  uint32_t         Spare[43];
++  uint32_t         Spare[41];
  
- 	/*
- 	 * A legacy VGA device has MEM and IO enabled and any bridges
-@@ -958,6 +966,10 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
-  * @set_decode callback: If a client can disable its GPU VGA resource, it
-  * will get a callback from this to set the encode/decode state.
-  *
-+ * @is_boot_device: callback to the device driver, query if a client is the
-+ * default boot device, as the device driver typically has better knowledge
-+ * if specific device is the boot device. But this callback is optional.
-+ *
-  * Rationale: we cannot disable VGA decode resources unconditionally, some
-  * single GPU laptops seem to require ACPI or BIOS access to the VGA registers
-  * to control things like backlights etc. Hopefully newer multi-GPU laptops do
-@@ -973,7 +985,8 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
-  * Returns: 0 on success, -1 on failure
-  */
- int vga_client_register(struct pci_dev *pdev,
--		unsigned int (*set_decode)(struct pci_dev *pdev, bool decode))
-+		unsigned int (*set_decode)(struct pci_dev *pdev, bool decode),
-+		bool (*is_boot_device)(struct pci_dev *pdev))
- {
- 	int ret = -ENODEV;
- 	struct vga_device *vgadev;
-@@ -985,6 +998,7 @@ int vga_client_register(struct pci_dev *pdev,
- 		goto bail;
+   // Padding for MMHUB - do not modify this
+   uint32_t     MmHubPadding[8];
+@@ -1320,8 +1334,9 @@ typedef struct {
+   // UCLK Spread Spectrum
+   uint8_t      UclkSpreadPercent[MEM_VENDOR_COUNT];
  
- 	vgadev->set_decode = set_decode;
-+	vgadev->is_boot_device = is_boot_device;
- 	ret = 0;
++  uint8_t      GfxclkSpreadEnable;
++
+   // FCLK Spread Spectrum
+-  uint8_t      FclkSpreadPadding;
+   uint8_t      FclkSpreadPercent;   // Q4.4
+   uint16_t     FclkSpreadFreq;      // kHz
  
- bail:
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index a5ab416cf476..2a8873a330ba 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -2067,7 +2067,7 @@ static int vfio_pci_vga_init(struct vfio_pci_core_device *vdev)
- 	if (ret)
- 		return ret;
+@@ -1446,6 +1461,8 @@ typedef struct {
  
--	ret = vga_client_register(pdev, vfio_pci_set_decode);
-+	ret = vga_client_register(pdev, vfio_pci_set_decode, NULL);
- 	if (ret)
- 		return ret;
- 	vga_set_legacy_decoding(pdev, vfio_pci_set_decode(pdev, false));
-diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
-index d36225c582ee..66fe80ffad76 100644
---- a/include/linux/vgaarb.h
-+++ b/include/linux/vgaarb.h
-@@ -50,7 +50,8 @@ struct pci_dev *vga_default_device(void);
- void vga_set_default_device(struct pci_dev *pdev);
- int vga_remove_vgacon(struct pci_dev *pdev);
- int vga_client_register(struct pci_dev *pdev,
--		unsigned int (*set_decode)(struct pci_dev *pdev, bool state));
-+		unsigned int (*set_decode)(struct pci_dev *pdev, bool state),
-+		bool (*is_boot_device)(struct pci_dev *pdev));
- #else /* CONFIG_VGA_ARB */
- static inline void vga_set_legacy_decoding(struct pci_dev *pdev,
- 		unsigned int decodes)
-@@ -76,7 +77,8 @@ static inline int vga_remove_vgacon(struct pci_dev *pdev)
- 	return 0;
- }
- static inline int vga_client_register(struct pci_dev *pdev,
--		unsigned int (*set_decode)(struct pci_dev *pdev, bool state))
-+		unsigned int (*set_decode)(struct pci_dev *pdev, bool state),
-+		bool (*is_boot_device)(struct pci_dev *pdev))
- {
- 	return 0;
- }
-@@ -114,7 +116,7 @@ static inline int vga_get_uninterruptible(struct pci_dev *pdev,
  
- static inline void vga_client_unregister(struct pci_dev *pdev)
- {
--	vga_client_register(pdev, NULL);
-+	vga_client_register(pdev, NULL, NULL);
- }
+   uint8_t ThrottlingPercentage[THROTTLER_COUNT];
++  uint8_t VmaxThrottlingPercentage;
++  uint8_t Padding1[3];
  
- #endif /* LINUX_VGA_H */
+   //metrics for D3hot entry/exit and driver ARM msgs
+   uint32_t D3HotEntryCountPerMode[D3HOT_SEQUENCE_COUNT];
+@@ -1465,7 +1482,7 @@ typedef struct {
+ 
+ typedef struct {
+   SmuMetrics_t SmuMetrics;
+-  uint32_t Spare[30];
++  uint32_t Spare[29];
+ 
+   // Padding - ignore
+   uint32_t     MmHubPadding[8]; // SMU internal use
 -- 
-2.25.1
+2.34.1
 
