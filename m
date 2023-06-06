@@ -4,55 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D20FC7EE24
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 19:11:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C518C77B73
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 19:23:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33EA610E255;
-	Tue,  6 Jun 2023 19:11:06 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id D3DDC10E255;
- Tue,  6 Jun 2023 19:11:03 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8AxUem3hH9kQk0AAA--.396S3;
- Wed, 07 Jun 2023 03:10:47 +0800 (CST)
-Received: from openarena.loongson.cn (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8CxCOW3hH9k7voCAA--.11776S2; 
- Wed, 07 Jun 2023 03:10:47 +0800 (CST)
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alvin Lee <Alvin.Lee2@amd.com>,
- Jun Lei <Jun.Lei@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Samson Tam <samson.tam@amd.com>, Dillon Varone <Dillon.Varone@amd.com>,
- Alan Liu <HaoPing.Liu@amd.com>
-Subject: [PATCH] drm/amdgpu: add error reporting code
-Date: Wed,  7 Jun 2023 03:10:46 +0800
-Message-Id: <20230606191046.300194-1-suijingfeng@loongson.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05F8210E395;
+	Tue,  6 Jun 2023 19:23:49 +0000 (UTC)
+Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
+ [IPv6:2607:f8b0:4864:20::112e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2654F10E267;
+ Tue,  6 Jun 2023 19:23:46 +0000 (UTC)
+Received: by mail-yw1-x112e.google.com with SMTP id
+ 00721157ae682-565eb83efe4so82932807b3.0; 
+ Tue, 06 Jun 2023 12:23:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1686079425; x=1688671425;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=yAk03zc/P/OUBf9OltBs8qALiN+AwjCHAF6DHi78NMo=;
+ b=SNBH6UZxGc/79+TYo8HTtHxwzZqrT60RJOunfcuti2i/qDYLaOELL85i3GplTWEA77
+ kw7eLZ2heliDsRnoZgPTHSb1muZSgT3vzNJlmp0PnbsnP8IoBuaGA6EkVXc7TQPoKRKX
+ Xq9zJ53VBLLd9hN57XL9gvl6QJ81SrjsrPopuXQogxZNodWKHXPdtfveBCBUh97mkeH7
+ vwoclsA0vYmLexjS/KquDPoyqE8EGQjwnIE5OEWC3CIBOTdtMUZ/OOD+jGZl8v+Z4jj9
+ 2pQ08TFQO1lHf46gYHIPvh89l9t2f4P1GqhqPYIwjCaEskXXw8ZxMNXF97C+8XhFQQTh
+ tXdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686079425; x=1688671425;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=yAk03zc/P/OUBf9OltBs8qALiN+AwjCHAF6DHi78NMo=;
+ b=S7yj40aYZ8c8r0owCvmPt4seIbqJs8L2IMyBXwqFGMIanU4ivfOqFoVeBQGyByxK0m
+ 9ATtqRJFKzwkidiG58smUyshmalFatEZjVVuuamJnR4hw65fCvF4Iq3xgVD9Adbay4he
+ MZoEdMZqHt6FUmxkw3vDeyj/yX6E1nc4JC4TJVRyj+zRekU0PyESsTSPGmX7S5JARv34
+ wNmp3a5tDo8he9B/wHx/ar8s0l3CqYPPgGT+fnARDMEEozTcJ+ytO9N2rgcGt6iWHLF2
+ Yg60ZMia9U/kqWAqq6Z6LYacNJWh4qN80ruUejZPljzPI7HVb3jZJ+bin4+dmDCbdJ0g
+ UQog==
+X-Gm-Message-State: AC+VfDx/LhJu0wDR8lKDBwZOBPx4Nv+ojE1IXDcIqEscwWEqUZ6nV2pj
+ 1CuKUwn5UDEx+7jywHNjY0h14/Xv16I3ZCiuJXmOW7j+
+X-Google-Smtp-Source: ACHHUZ7Lkapm2zMouLuWDboS2854o1EUXzupJUtwa8UNGIhcc5zWPNz52eerIVZdGHIaFomZfJk728gzaKKw6No/oZM=
+X-Received: by 2002:a05:6870:52d6:b0:1a3:125d:333b with SMTP id
+ p22-20020a05687052d600b001a3125d333bmr1927975oak.56.1686078927962; Tue, 06
+ Jun 2023 12:15:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8CxCOW3hH9k7voCAA--.11776S2
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXF4UtF1fGw1xur48tF4fZwc_yoW5Ar4xpw
- 4fGa1Y9rWUJwnIqrZxAay0qF1fAa4fKF40yry3Cw1Sva9rtr13tr48Cr1ay3y3JFZxWFyI
- qFWDKa15uF12krcCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUk0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
- Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
- 8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AK
- xVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64
- vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
- jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2I
- x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK
- 8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I
- 0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcsjjDUUUU
+References: <20230606133328.148490-1-suijingfeng@loongson.cn>
+In-Reply-To: <20230606133328.148490-1-suijingfeng@loongson.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 6 Jun 2023 15:15:16 -0400
+Message-ID: <CADnq5_MdNSBJuNrJC2-fRByhEoUqEJmMGATT+OrFvjqA7k4F5Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: display/Kconfig: replace leading spaces with
+ tab
+To: Sui Jingfeng <suijingfeng@loongson.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,101 +68,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ Pan Xinhui <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Christian Konig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c | 29 ++++++++++++++++--------
- 1 file changed, 20 insertions(+), 9 deletions(-)
+Applied.  Thanks!
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 52564b93f7eb..d33b78aa3e58 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -951,7 +951,7 @@ static bool dc_construct(struct dc *dc,
- 		goto fail;
- 	}
- 
--        dc_ctx = dc->ctx;
-+	dc_ctx = dc->ctx;
- 
- 	/* Resource should construct all asic specific resources.
- 	 * This should be the only place where we need to parse the asic id
-@@ -990,16 +990,21 @@ static bool dc_construct(struct dc *dc,
- 	}
- 
- 	dc->res_pool = dc_create_resource_pool(dc, init_params, dc_ctx->dce_version);
--	if (!dc->res_pool)
-+	if (!dc->res_pool) {
-+		dm_error("%s: failed to create resource pool\n", __func__);
- 		goto fail;
-+	}
- 
- 	/* set i2c speed if not done by the respective dcnxxx__resource.c */
- 	if (dc->caps.i2c_speed_in_khz_hdcp == 0)
- 		dc->caps.i2c_speed_in_khz_hdcp = dc->caps.i2c_speed_in_khz;
- 
- 	dc->clk_mgr = dc_clk_mgr_create(dc->ctx, dc->res_pool->pp_smu, dc->res_pool->dccg);
--	if (!dc->clk_mgr)
-+	if (!dc->clk_mgr) {
-+		dm_error("%s: failed to create clk manager\n", __func__);
- 		goto fail;
-+	}
-+
- #ifdef CONFIG_DRM_AMD_DC_FP
- 	dc->clk_mgr->force_smu_not_present = init_params->force_smu_not_present;
- 
-@@ -1022,14 +1027,18 @@ static bool dc_construct(struct dc *dc,
- 		goto fail;
- 	}
- 
--	if (!create_links(dc, init_params->num_virtual_links))
-+	if (!create_links(dc, init_params->num_virtual_links)) {
-+		dm_error("%s: failed to create links\n", __func__);
- 		goto fail;
-+	}
- 
- 	/* Create additional DIG link encoder objects if fewer than the platform
- 	 * supports were created during link construction.
- 	 */
--	if (!create_link_encoders(dc))
-+	if (!create_link_encoders(dc)) {
-+		dm_error("%s: failed to create link encoders\n", __func__);
- 		goto fail;
-+	}
- 
- 	dc_resource_state_construct(dc, dc->current_state);
- 
-@@ -1314,11 +1323,15 @@ struct dc *dc_create(const struct dc_init_data *init_params)
- 		return NULL;
- 
- 	if (init_params->dce_environment == DCE_ENV_VIRTUAL_HW) {
--		if (!dc_construct_ctx(dc, init_params))
-+		if (!dc_construct_ctx(dc, init_params)) {
-+			DC_LOG_ERROR("%s: dc construct failed\n", __func__);
- 			goto destruct_dc;
-+		}
- 	} else {
--		if (!dc_construct(dc, init_params))
-+		if (!dc_construct(dc, init_params)) {
-+			DC_LOG_ERROR("%s: dc construct failed\n", __func__);
- 			goto destruct_dc;
-+		}
- 
- 		full_pipe_count = dc->res_pool->pipe_count;
- 		if (dc->res_pool->underlay_pipe_index != NO_UNDERLAY_PIPE)
-@@ -1349,8 +1362,6 @@ struct dc *dc_create(const struct dc_init_data *init_params)
- 
- 	DC_LOG_DC("Display Core initialized\n");
- 
--
--
- 	return dc;
- 
- destruct_dc:
--- 
-2.25.1
+Alex
 
+On Tue, Jun 6, 2023 at 9:33=E2=80=AFAM Sui Jingfeng <suijingfeng@loongson.c=
+n> wrote:
+>
+> This patch replace the leading spaces with tab, make them keep aligned wi=
+th
+> the rest of the config options. No functional change.
+>
+> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+> ---
+>  drivers/gpu/drm/amd/display/Kconfig | 17 +++++++----------
+>  1 file changed, 7 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/di=
+splay/Kconfig
+> index 2d8e55e29637..04ccfc70d583 100644
+> --- a/drivers/gpu/drm/amd/display/Kconfig
+> +++ b/drivers/gpu/drm/amd/display/Kconfig
+> @@ -42,16 +42,13 @@ config DEBUG_KERNEL_DC
+>           Choose this option if you want to hit kdgb_break in assert.
+>
+>  config DRM_AMD_SECURE_DISPLAY
+> -        bool "Enable secure display support"
+> -        depends on DEBUG_FS
+> -        depends on DRM_AMD_DC_FP
+> -        help
+> -            Choose this option if you want to
+> -            support secure display
+> -
+> -            This option enables the calculation
+> -            of crc of specific region via debugfs.
+> -            Cooperate with specific DMCU FW.
+> +       bool "Enable secure display support"
+> +       depends on DEBUG_FS
+> +       depends on DRM_AMD_DC_FP
+> +       help
+> +         Choose this option if you want to support secure display
+>
+> +         This option enables the calculation of crc of specific region v=
+ia
+> +         debugfs. Cooperate with specific DMCU FW.
+>
+>  endmenu
+> --
+> 2.25.1
+>
