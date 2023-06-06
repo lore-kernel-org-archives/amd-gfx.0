@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8052BC77B7A
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 12:38:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09CD8C77B7A
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 13:05:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C35310E246;
-	Tue,  6 Jun 2023 12:38:19 +0000 (UTC)
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAAEC10E246
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jun 2023 12:38:17 +0000 (UTC)
-Received: by mail-qt1-x829.google.com with SMTP id
- d75a77b69052e-3f812691b52so6675531cf.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jun 2023 05:38:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9622D10E346;
+	Tue,  6 Jun 2023 13:05:32 +0000 (UTC)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71E7410E2F0
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jun 2023 08:33:53 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-30ad8f33f1aso5120591f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jun 2023 01:33:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686055096; x=1688647096;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vhd8VWqt4ozQLDu9T328utc1qu/cmrxBuXUkVH+OC3Q=;
- b=bY3lzK9pRZ5fzLbzYMlqxUsYT8xwTN0ELQufN3m8NPJFs1cY8zteB0DI7wGaMd0mFm
- 95ztLfw1u0ZvW9w4AVG5p4bVrbaXxhcY2EwyUYC/m4E9i4rDIZPGzD18hFlRg0OczT/W
- ZtVBGg7EDh2YojG/ehtTrIv5eLySCgQLy3zuMWE8TWlcQgvaajPZiW9kfKwSs6/QHbvi
- sDvS3BVdF4nC0udx4uxLHdRz7SfH5qJuh2cOvu8jsoyFeL79Ao7w6+wSvz1bexJmKxRP
- gvRxzXXFT1GW99sz77bGolrVaPJ9nJPyFGZKCkmfO3riDNoZ1l74rICIGjVweDV37Okh
- nkXg==
+ d=linaro.org; s=google; t=1686040432; x=1688632432;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ixVKLJG1J3IvnujzAUwpwAiWuL5lceT9xTDyP3ttmAs=;
+ b=Ft1ai+Nebad4F1ztgqj/bHSM3UpcMV0hLzfc2Yvd1I8NsAhtx50lHj67VHwCCLIoS3
+ zNm0f8obTd2fFypVUKb7KY0w3taJk3vB7UA4CUuO4ada24UHRB4JZWpS2aEZOquwgB+s
+ CsGyN97LMcMvXpkjPF+Ki2OAbf6RTjBbDlypjNdCKMAj9c74b5E9U8JkDmFz342c5VO/
+ 8bmgd0IrjRLWbibgv+EuXAo2FDSQnu5QpWK8cZrgwmEEnE/aV/zD7O/7Hql6ZIi2h1n8
+ LD8HAwrfM++ZMlJ5ZyEHkZFKW/Z9KLI4x8OF78zPrRRfmzEmY25Nm3MdGrrzAziqYDc8
+ qmiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686055096; x=1688647096;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=vhd8VWqt4ozQLDu9T328utc1qu/cmrxBuXUkVH+OC3Q=;
- b=luQN+GbT2Ho4i6qdSt20a1EoforOOkXsPbpfMsHuGflfvbvRlN7DxhpSjzg6PKVF3z
- 8Ik9efq/WdIoofXnnmtczFHIXdQ/f5r/5Zm37E0/OxygqpcJafR2SbGNLrxm1ai64CmV
- nbj1NVwudAtmqoIIDf2oERUeqDLgZy9kA9gOl+Uj3Q3TihGljIlSMGdOoFyfe8o/XfAL
- 9al8g+ZKRqKLiu+FWH9kkMKe+NOS+05O67+A1coOLnXN9wbcwtvwHMX+RNU2DCTOW5iW
- nYqOuwTPy0ZLW4RIK1QfLG91PCUMAlrfvGnK9ifExkduv/dIP+qAlXYjMCT4T1TmQZcU
- Ogew==
-X-Gm-Message-State: AC+VfDxNJeE/d76MgaPma37EAiRgAf1vAehW6gRGonmqd9hj9PIbcIuX
- gUKa/UL5imKwM7QgTPXTroo8e7+guG1Zhnrv9i4=
-X-Google-Smtp-Source: ACHHUZ5GwR8AQvuEN2rpIKKlX3fJvdn31fvWA138R3mLyUiT+pirfKiqNev7W5b3BqM79Pl2XsRgEqFJKipnfAcBols=
-X-Received: by 2002:a05:622a:1a94:b0:3f8:46d:dacc with SMTP id
- s20-20020a05622a1a9400b003f8046ddaccmr2122066qtc.2.1686055095889; Tue, 06 Jun
- 2023 05:38:15 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1686040432; x=1688632432;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ixVKLJG1J3IvnujzAUwpwAiWuL5lceT9xTDyP3ttmAs=;
+ b=CeKSlkL6Rxo2Eb8YsIzpOyp2ikeOiwJvZPe+yYfOLm1T0fR5tNCl6lNHGSSb4NoiO4
+ l/pLI74nhjbzOCxVuhQqzjfAJ4k6i6yJp1Zdph102yLuLxlwi9Z7Mt73LgmZnxED7ci4
+ navFXD70jqbwDHvDtmt3wgjBk6IcA+z7G2iW9HloytIHMyJuKgDGvJaj7yqUKdYRh9Yo
+ 5ScMH9ZsGrys70DvEXMHaFo3Ul23riSVgvEQ3/Q+Sb69IroIrZatkW0zu555/yvzDL92
+ NM/OGkYJksSj1PDcEtL02NDf5aAZM1L8OrlOEwJplrPP3FxQj2mF02uPsXIG3JGhgxnX
+ BI/Q==
+X-Gm-Message-State: AC+VfDyKLmr/dsU7q4ACjqUMBeE7lqaALgEtcJeQ1QoVSKUYqshH2EgC
+ 2JwVzdnC8yNW/S2QJ3wC92PW+A==
+X-Google-Smtp-Source: ACHHUZ6lXzUpAjlfOeWOwBgeuDEnlhI2XzFjrVsD3GMCZ2NqsCr9yljQBRIfLU53A7J1i47n26l4xw==
+X-Received: by 2002:adf:dec3:0:b0:309:49e3:efb4 with SMTP id
+ i3-20020adfdec3000000b0030949e3efb4mr1196426wrn.63.1686040431927; 
+ Tue, 06 Jun 2023 01:33:51 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ d8-20020adff848000000b0030ae849c70csm11965924wrq.37.2023.06.06.01.33.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Jun 2023 01:33:50 -0700 (PDT)
+Date: Tue, 6 Jun 2023 11:33:46 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Evan Quan <evan.quan@amd.com>
+Subject: [PATCH] drm/amd/pm: Fix memory some memory corruption
+Message-ID: <ZH7vaonsPEHJpy1j@moroto>
 MIME-Version: 1.0
-References: <20230605091122.3363-1-christian.koenig@amd.com>
- <20230605091122.3363-2-christian.koenig@amd.com>
-In-Reply-To: <20230605091122.3363-2-christian.koenig@amd.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Tue, 6 Jun 2023 17:38:05 +0500
-Message-ID: <CABXGCsObR5Ng2fqR2u4t2SOOWHmTzZS9bOjF-BBjKKDJtOTP7g@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: make sure that BOs have a backing store
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Tue, 06 Jun 2023 13:05:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,22 +68,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun.Chen@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Horatio Zhang <Hongkun.Zhang@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Yang Wang <KevinYang.Wang@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, kernel-janitors@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Candice Li <candice.li@amd.com>, David Airlie <airlied@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 5, 2023 at 2:11=E2=80=AFPM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> It's perfectly possible that the BO is about to be destroyed and doesn't
-> have a backing store associated with it.
->
+The "od_table" is a pointer to a large struct, but this code is doing
+pointer math as if it were pointing to bytes.  It results in writing
+far outside the struct.
 
-Thanks Christian. I appreciate your brilliant work.
-"KASAN: null-ptr-deref in range
-[0x0000000000000010-0x0000000000000017]" finally fixed.
-Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Fixes: f0a0c659fb96 ("drm/amd/pm: fulfill the OD support for SMU13.0.0")
+Fixes: e3afa4f988b3 ("drm/amd/pm: fulfill the OD support for SMU13.0.7")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 4 ++--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
---=20
-Best Regards,
-Mike Gavrilov.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 5ac5ea770c1c..413e592f0ed6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -1535,7 +1535,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 		 * settings. Thus we do not cache it.
+ 		 */
+ 		offset_of_featurectrlmask = offsetof(OverDriveTable_t, FeatureCtrlMask);
+-		if (memcmp(od_table + offset_of_featurectrlmask,
++		if (memcmp((u8 *)od_table + offset_of_featurectrlmask,
+ 			   table_context->user_overdrive_table + offset_of_featurectrlmask,
+ 			   sizeof(OverDriveTableExternal_t) - offset_of_featurectrlmask)) {
+ 			smu_v13_0_0_dump_od_table(smu, od_table);
+@@ -1548,7 +1548,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 
+ 			od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 			memcpy(table_context->user_overdrive_table + offset_of_featurectrlmask,
+-			       od_table + offset_of_featurectrlmask,
++			       (u8 *)od_table + offset_of_featurectrlmask,
+ 			       sizeof(OverDriveTableExternal_t) - offset_of_featurectrlmask);
+ 
+ 			if (!memcmp(table_context->user_overdrive_table,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index 0bd086360efa..cda4e818aab7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -1524,7 +1524,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 		 * settings. Thus we do not cache it.
+ 		 */
+ 		offset_of_featurectrlmask = offsetof(OverDriveTable_t, FeatureCtrlMask);
+-		if (memcmp(od_table + offset_of_featurectrlmask,
++		if (memcmp((u8 *)od_table + offset_of_featurectrlmask,
+ 			   table_context->user_overdrive_table + offset_of_featurectrlmask,
+ 			   sizeof(OverDriveTableExternal_t) - offset_of_featurectrlmask)) {
+ 			smu_v13_0_7_dump_od_table(smu, od_table);
+@@ -1537,7 +1537,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 
+ 			od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 			memcpy(table_context->user_overdrive_table + offset_of_featurectrlmask,
+-			       od_table + offset_of_featurectrlmask,
++			       (u8 *)od_table + offset_of_featurectrlmask,
+ 			       sizeof(OverDriveTableExternal_t) - offset_of_featurectrlmask);
+ 
+ 			if (!memcmp(table_context->user_overdrive_table,
+-- 
+2.39.2
+
