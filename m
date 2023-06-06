@@ -4,57 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5512CC7EE24
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 02:06:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D401C77B73
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 02:09:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB5BC10E1E5;
-	Tue,  6 Jun 2023 02:06:24 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id A22F910E0EB;
- Tue,  6 Jun 2023 02:06:21 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8Dx9vCalH5kRFUAAA--.1028S3;
- Tue, 06 Jun 2023 10:06:18 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8AxZuSXlH5kIp0BAA--.7051S3; 
- Tue, 06 Jun 2023 10:06:17 +0800 (CST)
-Message-ID: <f9e67fe9-a93b-75ab-1fdb-87d3783fe5fc@loongson.cn>
-Date: Tue, 6 Jun 2023 10:06:15 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8658810E0EB;
+	Tue,  6 Jun 2023 02:09:54 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2054.outbound.protection.outlook.com [40.107.212.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A2F110E0EB
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jun 2023 02:09:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZLbzoC7AoQpwfOKZiOcq219IjQnjhVrAf9niAV1ci2AlzNoNWLG4vYNvO2+pBgnWxUQa3AeZEfAlsyOCrUj+3reL+Ohj2LFIsPxt2xjC1/pBm4+q/lNo+VyVP59HMH3xjD3s/MumGgXnHA2QzI5XN1WW5srNjFl9z49tFXbW8Gw+NW65o2cNVx139Y7f3SETE3yUDaPtxyswhcBAmtgGoUw2uwsGEJ9jqOUNdMMup4MHc1a9DMrAr8HZ/thKxhhJB+7W9JvjLEQQf7caidxtawZv7bJiccorr/KgLhCjjnxvC7bAs5tBdzPd4iAHFudNhZdNrhiRY6vBIuajPSCRPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4zAEAszTZddEI0tcJZKe/ZnarEcAcvpqyhIWAQSP3n8=;
+ b=UBQqTokvQ8UorarRPhVaqyW6Zot3P0WYju0MLSsVmkChnKx5hqYhKaWedtSjWBxoXyhsFfsvYEFjrZU1ahsZ+SE7sB904AFTWpLtTGv+b9u0N7qXyrfZOV0NCY47FcAC7AMHoSPjBspnznde0ul3pde3jPEYly3y4y1RUf6ne3iN/yJcWD2OsSO2cj78JUYCytImaPYp7WNZLYcg1yTn7rYCQIyARCZMd3ZspoaJcirF9Mk56VEBE7ZkXZazezrtbj7gbX7oi9NYRhcJb78wvZaTQ1EeSj7xGyRHcWRrYET5hF0QOmajP5avK6qtt6oxsaqDZ+qJNnWk7NoDMh9WaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4zAEAszTZddEI0tcJZKe/ZnarEcAcvpqyhIWAQSP3n8=;
+ b=qsrm+Las4HYA8oezVuhVG8N6nBpKY/zipUtepLIASeY4qafA89DrDt/ZreHai1mXmqb4DAXCM61ibRpQ4uqJf7gupiD4pUbmrxR/FdN8dl5JNYzNdpJvwZjl10WsMrSQNxYL4zRcFHlTG+E+/lW+jKAKoSDWU7pr7/pNiIOPy9o=
+Received: from MW4PR03CA0136.namprd03.prod.outlook.com (2603:10b6:303:8c::21)
+ by CH3PR12MB8330.namprd12.prod.outlook.com (2603:10b6:610:12c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Tue, 6 Jun
+ 2023 02:09:49 +0000
+Received: from CO1NAM11FT024.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8c:cafe::58) by MW4PR03CA0136.outlook.office365.com
+ (2603:10b6:303:8c::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33 via Frontend
+ Transport; Tue, 6 Jun 2023 02:09:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT024.mail.protection.outlook.com (10.13.174.162) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6455.33 via Frontend Transport; Tue, 6 Jun 2023 02:09:48 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 5 Jun
+ 2023 21:09:44 -0500
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: disable virtual display support on APP device
+Date: Tue, 6 Jun 2023 10:08:59 +0800
+Message-ID: <20230606020859.2094244-1-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [Intel-gfx] [PATCH v2 1/2] vgaarb: various coding style and
- comments fix
-To: Andi Shyti <andi.shyti@linux.intel.com>, Sui Jingfeng <15330273260@189.cn>
-References: <20230604205831.3357596-1-15330273260@189.cn>
- <ZH5epG6rfTOWT6CS@ashyti-mobl2.lan>
-Content-Language: en-US
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-Organization: Loongson
-In-Reply-To: <ZH5epG6rfTOWT6CS@ashyti-mobl2.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8AxZuSXlH5kIp0BAA--.7051S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXFWkWw4DZFyfKFWDAw47Awc_yoW5XryDpF
- Zakas5Cw4kJrs7ZFy2qF4UJF1ruws3JFy7ArZIk3s7AF13J348JFsxCrZ8Z3y3XryfuF40
- vr4UWr1DGayDZagCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUPSb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
- AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
- AVWUtwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
- 8JMxk0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vI
- r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67
- AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCI
- c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
- AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
- Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU84E_t
- UUUUU==
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT024:EE_|CH3PR12MB8330:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28d4965e-f336-4dfa-c4f3-08db66331afc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OsoZ6zdZMAwAFqpwGwNfv+WKMS1Z9IGa1aA4NCSqVeiLD/wxKJeXDscbUVD/nyRYXjlDquZ7x54Gs8PKiEv3A9DwJpV5ll29Fm54gmZwQHYNzLcebjCTQhDDMs35NejZstG4FS0JhMGxw3shJ4rUKKOEQFdtujVQ5JKBoMGKQTIyYkYlio50/BsuwBiTa4maj2ktnWARDhwa6LjLE4jp3wzjscIIJl/BC9prxUoA8096/f4owHiFgDLpE5PhIP8amFpXmLMKLKPcxX9vh/WjXt+1AFlXA0WtNTq5PlDTYNhGG3DrQCgc2v0NwI+9OZbB79W3PV2JToyXYa8l9BChJTI43PYJIotr6nYG1ujs17rQokJBhzk9qt779IQXK37DldoGVYbT5FFZmVg42BuH/ck0Zu3wgwX5b7oNKeoes16kbaZCjYvDR8ob2GlQHORj20GG1sLyBZHSngQrqLdtW6KId2iRhaiWCjm6mJOrkrMEKiMwjt57L0AraHH/9J+zSs+mqLsMFyYGHMZ588R9f82SDKZb/5bohsQyFHyQp/tXfoAsy6eyLJB3j0Kx3BH7QZRbOAy0z9H9oF7uVinnaPqLmD9Tb2jzoHLDXg8EoC2UkEFJX7T685JQI/MtE74lzvlEbrhYbnY72fT16votsKs9EVQLauxRr3y8r2HoChQc75usKWlbJisrYAd0z7cB6FhwrD5JhGuOR/3EaN49r6sXoN9uIuhiy8eK4oapg0g76/A315fLVZvSGIofDbdAPBLvziFG+fHECiWDEgbSlQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199021)(36840700001)(40470700004)(46966006)(47076005)(83380400001)(336012)(426003)(40480700001)(82740400003)(478600001)(8936002)(40460700003)(8676002)(41300700001)(316002)(81166007)(356005)(70586007)(70206006)(6916009)(5660300002)(4326008)(86362001)(54906003)(6666004)(36756003)(4744005)(2906002)(7696005)(36860700001)(82310400005)(26005)(16526019)(186003)(1076003)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2023 02:09:48.3789 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28d4965e-f336-4dfa-c4f3-08db66331afc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT024.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8330
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,129 +97,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>, Yi Liu <yi.l.liu@intel.com>,
- kvm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- linux-pci@vger.kernel.org, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bokun Zhang <Bokun.Zhang@amd.com>,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, loongson-kernel@lists.loongnix.cn,
- Alex Williamson <alex.williamson@redhat.com>,
- Abhishek Sahu <abhsahu@nvidia.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Yishai Hadas <yishaih@nvidia.com>, Li Yi <liyi@loongson.cn>,
- Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Cornelia Huck <cohuck@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
+Cc: Gavin Wan <gavin.wan@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+virtual display is not support on APP device.
 
-On 2023/6/6 06:16, Andi Shyti wrote:
-> Hi Sui,
->
-> On Mon, Jun 05, 2023 at 04:58:30AM +0800, Sui Jingfeng wrote:
->> From: Sui Jingfeng <suijingfeng@loongson.cn>
->>
->> To keep consistent with vga_iostate_to_str() function, the third argument
->> of vga_str_to_iostate() function should be 'unsigned int *'.
-> I think the real reason is not to keep consistent with
-> vga_iostate_to_str() but because vga_str_to_iostate() is actually
-> only taking "unsigned int *" parameters.
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Signed-off-by: Gavin Wan <gavin.wan@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Yes, right.
-
-my expression is not completely correct, I will update it at next version.
-
-
-I think, we have the same opinion.
-
-Originally, I also want to express the opinion.
-
-Because, it make no sense to  interpret the return value
-
-(VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM) as int type.
-
-
-IO state should be should be donate by a unsigned type.
-
-vga_iostate_to_str() also receive unsigned type.
-
-static const char *vga_iostate_to_str(unsigned int iostate)
-
->> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
->> ---
->>   drivers/pci/vgaarb.c   | 29 +++++++++++++++--------------
->>   include/linux/vgaarb.h |  8 +++-----
->>   2 files changed, 18 insertions(+), 19 deletions(-)
->>
->> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
->> index 5a696078b382..e40e6e5e5f03 100644
->> --- a/drivers/pci/vgaarb.c
->> +++ b/drivers/pci/vgaarb.c
->> @@ -61,7 +61,6 @@ static bool vga_arbiter_used;
->>   static DEFINE_SPINLOCK(vga_lock);
->>   static DECLARE_WAIT_QUEUE_HEAD(vga_wait_queue);
->>   
->> -
-> drop this change
-
-OK,
-
-This is a double blank line.
-
-Originally, I intend to accumulate all tiny fix, commit together.
-
-As they are trivial.
-
-Now, Should I split this patch,
-
-then this patch set will contain two trivial patch ?
-
->>   static const char *vga_iostate_to_str(unsigned int iostate)
->>   {
->>   	/* Ignore VGA_RSRC_IO and VGA_RSRC_MEM */
->> @@ -77,10 +76,12 @@ static const char *vga_iostate_to_str(unsigned int iostate)
->>   	return "none";
->>   }
->>   
->> -static int vga_str_to_iostate(char *buf, int str_size, int *io_state)
->> +static int vga_str_to_iostate(char *buf, int str_size, unsigned int *io_state)
-> this is OK, it's actually what you are describing in the commit
-> log, but...
->
->>   {
->> -	/* we could in theory hand out locks on IO and mem
->> -	 * separately to userspace but it can cause deadlocks */
->> +	/*
->> +	 * we could in theory hand out locks on IO and mem
->> +	 * separately to userspace but it can cause deadlocks
->> +	 */
-> ... all the rest needs to go on different patches as it doesn't
-> have anything to do with what you describe.
-
-OK,
-
-I will wait a few days for more reviews,
-
-I process them together,   also avoid version grow too fast.
-
-Thanks.
-
-> Andi
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 2c1fbed24535..0f1ca0136f50 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -56,7 +56,8 @@ void amdgpu_virt_init_setting(struct amdgpu_device *adev)
+ 
+ 	/* enable virtual display */
+ 	if (adev->asic_type != CHIP_ALDEBARAN &&
+-	    adev->asic_type != CHIP_ARCTURUS) {
++	    adev->asic_type != CHIP_ARCTURUS &&
++	    ((adev->pdev->class >> 8) != AMD_ACCELERATOR_PROCESSING)) {
+ 		if (adev->mode_info.num_crtc == 0)
+ 			adev->mode_info.num_crtc = 1;
+ 		adev->enable_virtual_display = true;
 -- 
-Jingfeng
+2.34.1
 
