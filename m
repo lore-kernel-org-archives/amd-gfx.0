@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3603C7EE29
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 16:24:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3027FC7EE2A
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 16:24:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AAA910E382;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A723710E383;
 	Tue,  6 Jun 2023 16:24:37 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20625.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8b::625])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FCDC10E382
- for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jun 2023 16:24:34 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2073.outbound.protection.outlook.com [40.107.94.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63CB310E382
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jun 2023 16:24:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=biPJDD4dqFbcFSQ/QXz05A1KEGmACW8A7lG0y4QZoMunlFU4bniTocZBvaUrFv07TfAyarNJqATkkK2vObrppFU9RpgOEPmg8C0uLBesdHAmHAVZGmIi+QvzOx14ADhqSHxe4kOAT3Dt01sDoR+hG5mgsuFQ8XgVobJm4b9QGsQ8mxGuEzAbDaEPgZOUdzOAtr5OqIS2+iqzEd1x+iI05ceI5/IbRBcUq00TmktJENwM+M2jsGm8DLHr4N7WSkHHat8ClYYfzKIQ94+XOlaJtDubiV2p9XiK4vr178H8nLN5aPaB3+hiqEUWNOD5oZ0jrI9wwy3Rq3wMCqrC132EGA==
+ b=Gmeflmt4Zt4dlwibuaRaW7eWmyfQn9mcTv6tptJTjipfkcoMwirzt+8mGcxnw6AXWB2c3nSI0XA4XkQ3XlMlHJKgxOquhuUp3fv/h6gzHrB4I9ZYuewFLo6j2q+2j74aMn/KKZ9sC0UAv+uBV0AoaFgRyLZUnh27ZOi2msSVHUspTCpggqDljx9cVcs8BpYFhTQkedGCwbwvTvlfxEDGjfO5lnxXbPrueZEvXnokfahtiOoRthC+g3uniMVOtZ5oXiRc1p0Xc0IOgmJHQ1X35PFRr/c6aMebRde8MVQ8JNUpa6zgZ0/X14hJ6wRws0pb8mPCAOfOVGWx3HW61fccMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BlX1ynL5D7rqPWLI8JL55JV9/RI3DxlADvpojke2r1s=;
- b=XrO75MljmXhB4asXuhjScvAsyIedXmRWsdtIt2mvkYmdHB/P5WbWarOuV7F4P/42QQlrFPI7gHmP1BJvcn3Rc75Rv/MQ3rL8wYsQvJQQDkSXK84Z8TGmnlCzk8L2SQzC+vypHIjqmDOhkGO+nH+uMhJhSEvYmS+B+QjJqcharrqhiU1+kX2/sxXQQ29/5vJFZi+e/bjwMQAPXxauKvKXW+yvbFCiMTA3eOncGMPtKUagF2XCG7bCf4eb31UdFjzqFkQKZfKxNGr6E2IkVg4veyWp7Qy7hBUqmxC8DmaDXG5vWqlnfe47LxJnlUCEJy5S+2GezmrmipQPuU6SQYXbeg==
+ bh=kDFMlQ+pzDlDvRActCHKUTFThF3marVjDXlW0LQog3k=;
+ b=h0BueTIKbY9M5XfxaTWbF8aN0Ac5xD25lORavuQIn63qEhgW/xjOntN039umwaUHMMRrAixJgcFqfdMnIMavXpnVerTottgClZpOQFP9XzphyFKKgc62+ChKRyXpeDnFB/9epj7+0oERegdbZRBjI39GeIl6uaGP/Cm2ccVjVH5j7s7O2sFWxM+VuNivTDpsYuH4MsW3cWawZ4f0cinEDgZ//BmxXVHaRw21YXrQRbarok4+ZAvegHLLa3Ch6e74xbgV+kleHlZk7Y/ClNVcZ3NTof2rrpyMF2yxau68iYJJDqlDRoc7P2BWiviknjSTCl6pX9fKajXVY3VxNkYG5w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BlX1ynL5D7rqPWLI8JL55JV9/RI3DxlADvpojke2r1s=;
- b=NXBr4G7tElViD9MvFNj6TGFLMgFm6YAW2RVMeSWItg1z4c/aM/eU9jAiaMQefiZVRPPDQCQ71VK6uXgMrnpHH058QzxXvI4paFcVZQgOjt1FCJXAc++UNULpO618Fwug9cUqg6HnsQ5K5vvvEgJTiaaiOpWD0YtrsN85QuG5HHc=
-Received: from BYAPR07CA0053.namprd07.prod.outlook.com (2603:10b6:a03:60::30)
- by LV2PR12MB5965.namprd12.prod.outlook.com (2603:10b6:408:172::16)
+ bh=kDFMlQ+pzDlDvRActCHKUTFThF3marVjDXlW0LQog3k=;
+ b=pRZGvPfwmzQvZLtXyhjpEjQTP8oDSvWyhOpRf4THyRzis50+zFY4WyDGrorj53NgTxpwRokKIGT918rOAzCw7GwHhGvsIfhclfZYMWgMoaJLkykQ+wFvE0K62PbgdQtc86pMFb1ChLWMIODfSJ52CPAVYsGWklTDJKFcmhFH/N0=
+Received: from BYAPR07CA0038.namprd07.prod.outlook.com (2603:10b6:a03:60::15)
+ by IA1PR12MB7639.namprd12.prod.outlook.com (2603:10b6:208:425::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.32; Tue, 6 Jun
- 2023 16:24:31 +0000
+ 2023 16:24:32 +0000
 Received: from DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
- (2603:10b6:a03:60:cafe::d4) by BYAPR07CA0053.outlook.office365.com
- (2603:10b6:a03:60::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.19 via Frontend
- Transport; Tue, 6 Jun 2023 16:24:30 +0000
+ (2603:10b6:a03:60:cafe::af) by BYAPR07CA0038.outlook.office365.com
+ (2603:10b6:a03:60::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.36 via Frontend
+ Transport; Tue, 6 Jun 2023 16:24:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,17 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT048.mail.protection.outlook.com (10.13.173.114) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6455.33 via Frontend Transport; Tue, 6 Jun 2023 16:24:30 +0000
+ 15.20.6455.33 via Frontend Transport; Tue, 6 Jun 2023 16:24:31 +0000
 Received: from work-495456.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 6 Jun
  2023 11:24:29 -0500
 From: James Zhu <James.Zhu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 0/3] drm/amdkfd: new event wait support
-Date: Tue, 6 Jun 2023 12:24:15 -0400
-Message-ID: <20230606162418.1862540-1-James.Zhu@amd.com>
+Subject: [PATCH v2 1/3] drm/amdkfd: add event age tracking
+Date: Tue, 6 Jun 2023 12:24:16 -0400
+Message-ID: <20230606162418.1862540-2-James.Zhu@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230606162418.1862540-1-James.Zhu@amd.com>
+References: <20230606162418.1862540-1-James.Zhu@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT048:EE_|LV2PR12MB5965:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d5c18ca-673f-4def-b568-08db66aa8199
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT048:EE_|IA1PR12MB7639:EE_
+X-MS-Office365-Filtering-Correlation-Id: e090ddfc-e76d-426c-6f57-08db66aa8258
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JkNcCK+sV00TNyp/kpjsLliegi1Yv4f/lim4lRx6QR/Wk8YYT/4YzUcguFwTd/u5PKNq4vMxnu4blZO/X1lHm5M+O+1qTMBSPWSjddl8yJSKNLhlUwaErVAyqreE3Bp2e+/tRi8xRboxSbatdscAfbKhCPP7B+PY11icgCeUbMyf9O9Hp7iQhnGJlm7v7JdNROM7Isn4n8CyNw1kYV///BX2lC8Ez6HrEtSy97dHBCX1RmGHN70qp+Rjs5UkIL8qYF31/EeQbro2ZmDUJqnXhwv18ZXYHLJwePAJsEskb3iNvVnU3i7FXHqvWcOh+gida0wJ+RyouXBW0UPp+sSwR0LBKPe9CsTW4DCkXDCSM+yUBlQdfPVX/xs68yy1il8qeVf1GMcmL0Qm0YEteIyPP4uK+3wpZEckV7Puj+Vvd1I0gn+NPpEh5TLaEkYnNGEfd3G81zsxAxJNH2QMtQFxVMDvZ4WttHyPH2t2kBUFfgNJxRvlzGv7/ESpLMf/SCPXMBPEQPRRdhPFRT+MDtq8uTW1wCfArNfvz7K9euI/bAayXwIFZokd3LGf6tE64AIhQ9jb6WORAPsAgNgmLyycsibI7vowdC/SYJ036xA222h8by2xfe5Vod/apbShRUhSnh+rx84hNL1Djo+GHD71Xb6OMl/mQvLO9B9Hmvs56KVGOURlfkLbgHmB3TfPnR7CJbg/sAw58CIHofg3Yw5EuIEi22EyGJ/Is2uPV/hYJFbFcF6m04TfqwXNjeifimuDhyZOvi15jfQnP0hFYx5n793+oZZHi4Plhw40WWEVB9M=
+X-Microsoft-Antispam-Message-Info: kB0SG8mKxt4jky/z8HxrUWZAckR/m1OZbEymS81t3E6mL2p1IxXVi5DyGC7npUOdR/AdQHcKR6Tlgsvt7DAyj6Dd0YfiLzVkvGkBztPP7mK2/VXIzm0PF5QS4ty8McMjx0oM0GvcENpwNACtJGYFslaVcjYtJAJ112zo9rDFsKgusLDdgvx+2HifNauEJTwP1+xQlHxAVjxlL2cd78IqxucxV9lmrgzWIvW4vBvhPo/JACfENvJs9kXkqBUS5UERQ0aI8Htu/VhH0QwArICb9hABewbx7uqv0YXTfgTH0p7r4SXijrpaZ8IAMMdtT8ig8nsxskF1lTGcjTh5v6yYEpMs9K0hWB1eNP74riv2yZ/kFfMpucZrki4GXziDmuAUltmALN5mSYWwNn1o5dR79ravhgEJ3tMbgDkBRjtQbOQBbHLnILn0py/6YWylr6Ubuu1IuEzGLMTYfnS3NzpKoUWaAUNVmzoe5LP94cb48LoF9k+HaNJLXDwj0574giwC9NI5TQo9KQ6c7nTllYPd1EdAhMV0ufsSkWrOkZ9jREzLQ1iuE4h6gctVKho6Ne+6iVU3f14kX2VwHScMpNMfqiP5pkwu68t6tAVdkeaNhqaLHkV6To1MJbekNdYxb9fT2XOKvqxogk4krYkh7NAQAXmKd+vZaIrKnZkmT3bCtXhCUUbx/7Sk7Ex+wUCITaocQH5F4axHttrWCfDZaU02g6IWyvit0g6bdi5XRWl7T5MJRPIPY8W+Cf9Ah2nu2xqCF9TxhsnRLPrxGiJY0qmQng==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(376002)(39860400002)(346002)(396003)(451199021)(36840700001)(46966006)(40470700004)(70206006)(70586007)(2906002)(478600001)(4326008)(316002)(8936002)(6916009)(8676002)(41300700001)(54906003)(6666004)(5660300002)(7696005)(1076003)(40460700003)(26005)(82310400005)(966005)(16526019)(356005)(82740400003)(186003)(2616005)(40480700001)(336012)(426003)(83380400001)(47076005)(36860700001)(81166007)(36756003)(86362001)(36900700001);
+ SFS:(13230028)(4636009)(396003)(376002)(39860400002)(136003)(346002)(451199021)(40470700004)(36840700001)(46966006)(82310400005)(1076003)(2616005)(41300700001)(36860700001)(7696005)(336012)(426003)(6666004)(47076005)(26005)(186003)(16526019)(83380400001)(40460700003)(40480700001)(478600001)(54906003)(2906002)(70586007)(6916009)(70206006)(356005)(316002)(81166007)(82740400003)(5660300002)(4326008)(8936002)(86362001)(8676002)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2023 16:24:30.7083 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d5c18ca-673f-4def-b568-08db66aa8199
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2023 16:24:31.9583 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e090ddfc-e76d-426c-6f57-08db66aa8258
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5965
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7639
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,37 +103,51 @@ Cc: Felix.kuehling@amd.com, jamesz@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In kernel amdgpu driver, kfd_wait_on_events is used to support user space signal event wait
-function. For multiple threads waiting on same event scenery, race condition could occur
-since some threads after checking signal condition, before calling kfd_wait_on_events, the 
-event interrupt could be fired and wake up other thread which are sleeping on this event.
-Then those threads could fall into sleep without waking up again. Adding event age tracking
-in both kernel and user mode, will help avoiding this race condition.
+Add event age tracking
 
-The changes for The user space ROCT-Thunk-Interface/ROCR-Runtime are listed below for
-review togehter with kernel mode changes.
+Signed-off-by: James Zhu <James.Zhu@amd.com>
+---
+ include/uapi/linux/kfd_ioctl.h | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-ROCT-Thunk-Interface:
-https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/commit/efdbf6cfbc026bd68ac3c35d00dacf84370eb81e
-https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/commit/1820ae0a2db85b6f584611dc0cde1a00e7c22915
-
-ROCR-Runtime:
-https://github.com/RadeonOpenCompute/ROCR-Runtime/compare/master...zhums:ROCR-Runtime:new_event_wait_review
-https://github.com/RadeonOpenCompute/ROCR-Runtime/commit/e1f5bdb88eb882ac798aeca2c00ea3fbb2dba459
-https://github.com/RadeonOpenCompute/ROCR-Runtime/commit/7d26afd14107b5c2a754c1a3f415d89f3aabb503
-
--v2: remove unnecessay link
-
-James Zhu (3):
-  drm/amdkfd: add event age tracking
-  drm/amdkfd: add event_age tracking when receiving interrupt
-  drm/amdkfd: don't sleep when event age unmatch
-
- drivers/gpu/drm/amd/amdkfd/kfd_events.c | 21 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_events.h |  1 +
- include/uapi/linux/kfd_ioctl.h          | 13 +++++++++++--
- 3 files changed, 33 insertions(+), 2 deletions(-)
-
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index 1781e7669982..eeb2fdcbdcb7 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -39,9 +39,10 @@
+  * - 1.11 - Add unified memory for ctx save/restore area
+  * - 1.12 - Add DMA buf export ioctl
+  * - 1.13 - Add debugger API
++ * - 1.14 - Update kfd_event_data
+  */
+ #define KFD_IOCTL_MAJOR_VERSION 1
+-#define KFD_IOCTL_MINOR_VERSION 13
++#define KFD_IOCTL_MINOR_VERSION 14
+ 
+ struct kfd_ioctl_get_version_args {
+ 	__u32 major_version;	/* from KFD */
+@@ -320,12 +321,20 @@ struct kfd_hsa_hw_exception_data {
+ 	__u32 gpu_id;
+ };
+ 
++/* hsa signal event data */
++struct kfd_hsa_signal_event_data {
++	__u64 last_event_age;	/* to and from KFD */
++};
++
+ /* Event data */
+ struct kfd_event_data {
+ 	union {
++		/* From KFD */
+ 		struct kfd_hsa_memory_exception_data memory_exception_data;
+ 		struct kfd_hsa_hw_exception_data hw_exception_data;
+-	};				/* From KFD */
++		/* To and From KFD */
++		struct kfd_hsa_signal_event_data signal_event_data;
++	};
+ 	__u64 kfd_event_data_ext;	/* pointer to an extension structure
+ 					   for future exception types */
+ 	__u32 event_id;		/* to KFD */
 -- 
 2.34.1
 
