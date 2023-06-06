@@ -4,56 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B8FCC77B73
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 19:24:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86647C7EE37
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 19:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA3010E267;
-	Tue,  6 Jun 2023 19:24:31 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3511910E267;
- Tue,  6 Jun 2023 19:24:29 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8Dxi+rrh39k600AAA--.736S3;
- Wed, 07 Jun 2023 03:24:28 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8DxbMrrh39k5f8CAA--.3429S3; 
- Wed, 07 Jun 2023 03:24:27 +0800 (CST)
-Message-ID: <516bcf93-2a57-f87a-49b4-c8977d48b554@loongson.cn>
-Date: Wed, 7 Jun 2023 03:24:27 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E70810E39E;
+	Tue,  6 Jun 2023 19:35:47 +0000 (UTC)
+Received: from mail-vk1-xa2c.google.com (mail-vk1-xa2c.google.com
+ [IPv6:2607:f8b0:4864:20::a2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82D5E10E39E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  6 Jun 2023 19:35:44 +0000 (UTC)
+Received: by mail-vk1-xa2c.google.com with SMTP id
+ 71dfb90a1353d-45eabad43c4so2310135e0c.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 06 Jun 2023 12:35:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1686080143; x=1688672143;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7WNUhc6EOU+k61yIdrNm+E3oNw4Ztiymxbf5SrtdJeM=;
+ b=OAtaQIKnWxb27fJ6TQUcrFq4Uj6Fm8Qik1YAKmvxVI2SijAKpNR6gw3ND19cCQSP5u
+ p86y2l1bJetJqfo7NYgodpVikyuG0Acpa5jxAaQulU4zWTq85Nr30JNAR4t8j28LvYYG
+ +aNCUFYm8xBLxnAS4MQ0q8Ozhc780XRNjvWQYpCsx6tSqTpMo5V0yPoQNTEVBlh17nMW
+ t+yFZuxIcGwUZlvRyp9I4qJsN3Re+DOKpJk2hmVpu77VNMGHsskTSdwQxH4g9UlOQqS6
+ BrL0BXbS4h3962e5f4z09jUdOJGsIGJFUHdMUVpeG1Qpr0p39c3jACP+9V3THL5wFKnf
+ bQEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686080143; x=1688672143;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=7WNUhc6EOU+k61yIdrNm+E3oNw4Ztiymxbf5SrtdJeM=;
+ b=ZowD0GT/d35HZj1ANz2GwokFPkeW0rSKdEB/GdHVJQ8/8Dieh2JDJajtFFEkuJuIDs
+ JgITmpbbQvY919y8oAT/IhKhsVx+YvCrBhSX5m7EzhN7rUhFKpDCVhHah9pT8Bq5Tr8C
+ l/11rKo0tJtwZBpF84m0JdiDp+gqiVqF1ezl5e5KBiVHc5A2+4dE2HSKNdMKDolC84m1
+ IWgIOxTJvwUyIqhp4x/qKd1dAedebNGP7z56lZyxkSuypT1o70CB+6dF0BCaADhpBiar
+ 49fhCoe6FGT13jqKYsPwSzg9gOBfAGl1amppQ2IMxbvfX7jedBXeKSrww5MszemwOCC+
+ Itaw==
+X-Gm-Message-State: AC+VfDxZiYuOeHKlj0fblvFdYYm9UNIRk58+qUiFvigLl+3xjL150FCJ
+ rujCxv9KgOsvd1CNqR0/01DtuVEPgkfcnqeXXYIsdP/R
+X-Google-Smtp-Source: ACHHUZ4yOChY2GqmKhYtFI2nRjc/GpXTQegYHYbqmx8aBfxwUplIw2ye/W5kcwf5trOmxctAlCfdIN6UwLpSmR/AmEk=
+X-Received: by 2002:a05:6870:73c3:b0:196:8dc3:4e16 with SMTP id
+ a3-20020a05687073c300b001968dc34e16mr2839070oan.39.1686079688302; Tue, 06 Jun
+ 2023 12:28:08 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amdgpu: display/Kconfig: replace leading spaces with
- tab
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20230606133328.148490-1-suijingfeng@loongson.cn>
- <CADnq5_MdNSBJuNrJC2-fRByhEoUqEJmMGATT+OrFvjqA7k4F5Q@mail.gmail.com>
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-Organization: Loongson
-In-Reply-To: <CADnq5_MdNSBJuNrJC2-fRByhEoUqEJmMGATT+OrFvjqA7k4F5Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8DxbMrrh39k5f8CAA--.3429S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Cw18XrykZF4fKrW5uFyxXrc_yoW8XFyrp3
- 98C3Z09rWUJF1Yy39rA3WfWFy5Ga93JFyUKryDG343Za4DAF1xGrWkKFWYgrZrXFyxAa1r
- ZFZ5WF42v3WqkrgCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUPFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
- Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
- kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
- XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
- k0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l
- 4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxV
- WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
- 7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
- 4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI
- 42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcwIDDUUUU
+References: <ZH7vaonsPEHJpy1j@moroto>
+ <DM6PR12MB26192FFABF329682D9001C3BE452A@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB26192FFABF329682D9001C3BE452A@DM6PR12MB2619.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 6 Jun 2023 15:27:57 -0400
+Message-ID: <CADnq5_OjjkfGzj3Px3wARYEsgX=D7KhjfjJLAVbFWMAsqOCxAg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Fix memory some memory corruption
+To: "Quan, Evan" <Evan.Quan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,64 +68,124 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Christian Konig <christian.koenig@amd.com>
+Cc: "Zhang, Horatio" <Hongkun.Zhang@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, "Wang, Yang\(Kevin\)" <KevinYang.Wang@amd.com>,
+ David Airlie <airlied@gmail.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chai,
+ Thomas" <YiPeng.Chai@amd.com>, Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Li, Candice" <Candice.Li@amd.com>,
+ "Feng, Kenneth" <Kenneth.Feng@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>,
+ Dan Carpenter <dan.carpenter@linaro.org>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks a lot.
+Applied.  Thanks!
 
+Alex
 
-On 2023/6/7 03:15, Alex Deucher wrote:
-> Applied.  Thanks!
+On Tue, Jun 6, 2023 at 6:27=E2=80=AFAM Quan, Evan <Evan.Quan@amd.com> wrote=
+:
 >
-> Alex
+> [AMD Official Use Only - General]
 >
-> On Tue, Jun 6, 2023 at 9:33 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
->> This patch replace the leading spaces with tab, make them keep aligned with
->> the rest of the config options. No functional change.
->>
->> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
->> ---
->>   drivers/gpu/drm/amd/display/Kconfig | 17 +++++++----------
->>   1 file changed, 7 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
->> index 2d8e55e29637..04ccfc70d583 100644
->> --- a/drivers/gpu/drm/amd/display/Kconfig
->> +++ b/drivers/gpu/drm/amd/display/Kconfig
->> @@ -42,16 +42,13 @@ config DEBUG_KERNEL_DC
->>            Choose this option if you want to hit kdgb_break in assert.
->>
->>   config DRM_AMD_SECURE_DISPLAY
->> -        bool "Enable secure display support"
->> -        depends on DEBUG_FS
->> -        depends on DRM_AMD_DC_FP
->> -        help
->> -            Choose this option if you want to
->> -            support secure display
->> -
->> -            This option enables the calculation
->> -            of crc of specific region via debugfs.
->> -            Cooperate with specific DMCU FW.
->> +       bool "Enable secure display support"
->> +       depends on DEBUG_FS
->> +       depends on DRM_AMD_DC_FP
->> +       help
->> +         Choose this option if you want to support secure display
->>
->> +         This option enables the calculation of crc of specific region via
->> +         debugfs. Cooperate with specific DMCU FW.
->>
->>   endmenu
->> --
->> 2.25.1
->>
--- 
-Jingfeng
-
+> Thanks for catching this.
+> Reviewed-by: Evan Quan <evan.quan@amd.com>
+>
+> > -----Original Message-----
+> > From: Dan Carpenter <dan.carpenter@linaro.org>
+> > Sent: Tuesday, June 6, 2023 4:34 PM
+> > To: Quan, Evan <Evan.Quan@amd.com>
+> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David
+> > Airlie <airlied@gmail.com>; Daniel Vetter <daniel@ffwll.ch>; Lazar, Lij=
+o
+> > <Lijo.Lazar@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Feng,
+> > Kenneth <Kenneth.Feng@amd.com>; Li, Candice <Candice.Li@amd.com>;
+> > Chai, Thomas <YiPeng.Chai@amd.com>; Wang, Yang(Kevin)
+> > <KevinYang.Wang@amd.com>; Zhang, Horatio <Hongkun.Zhang@amd.com>;
+> > amd-gfx@lists.freedesktop.org; kernel-janitors@vger.kernel.org
+> > Subject: [PATCH] drm/amd/pm: Fix memory some memory corruption
+> >
+> > The "od_table" is a pointer to a large struct, but this code is doing p=
+ointer
+> > math as if it were pointing to bytes.  It results in writing far outsid=
+e the struct.
+> >
+> > Fixes: f0a0c659fb96 ("drm/amd/pm: fulfill the OD support for SMU13.0.0"=
+)
+> > Fixes: e3afa4f988b3 ("drm/amd/pm: fulfill the OD support for SMU13.0.7"=
+)
+> > Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> > ---
+> >  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 4 ++--
+> > drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 4 ++--
+> >  2 files changed, 4 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > index 5ac5ea770c1c..413e592f0ed6 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > @@ -1535,7 +1535,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct
+> > smu_context *smu,
+> >                * settings. Thus we do not cache it.
+> >                */
+> >               offset_of_featurectrlmask =3D offsetof(OverDriveTable_t,
+> > FeatureCtrlMask);
+> > -             if (memcmp(od_table + offset_of_featurectrlmask,
+> > +             if (memcmp((u8 *)od_table + offset_of_featurectrlmask,
+> >                          table_context->user_overdrive_table +
+> > offset_of_featurectrlmask,
+> >                          sizeof(OverDriveTableExternal_t) -
+> > offset_of_featurectrlmask)) {
+> >                       smu_v13_0_0_dump_od_table(smu, od_table); @@ -
+> > 1548,7 +1548,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct
+> > smu_context *smu,
+> >
+> >                       od_table->OverDriveTable.FeatureCtrlMask =3D 0;
+> >                       memcpy(table_context->user_overdrive_table +
+> > offset_of_featurectrlmask,
+> > -                            od_table + offset_of_featurectrlmask,
+> > +                            (u8 *)od_table + offset_of_featurectrlmask=
+,
+> >                              sizeof(OverDriveTableExternal_t) -
+> > offset_of_featurectrlmask);
+> >
+> >                       if (!memcmp(table_context->user_overdrive_table,
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > index 0bd086360efa..cda4e818aab7 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > @@ -1524,7 +1524,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct
+> > smu_context *smu,
+> >                * settings. Thus we do not cache it.
+> >                */
+> >               offset_of_featurectrlmask =3D offsetof(OverDriveTable_t,
+> > FeatureCtrlMask);
+> > -             if (memcmp(od_table + offset_of_featurectrlmask,
+> > +             if (memcmp((u8 *)od_table + offset_of_featurectrlmask,
+> >                          table_context->user_overdrive_table +
+> > offset_of_featurectrlmask,
+> >                          sizeof(OverDriveTableExternal_t) -
+> > offset_of_featurectrlmask)) {
+> >                       smu_v13_0_7_dump_od_table(smu, od_table); @@ -
+> > 1537,7 +1537,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct
+> > smu_context *smu,
+> >
+> >                       od_table->OverDriveTable.FeatureCtrlMask =3D 0;
+> >                       memcpy(table_context->user_overdrive_table +
+> > offset_of_featurectrlmask,
+> > -                            od_table + offset_of_featurectrlmask,
+> > +                            (u8 *)od_table + offset_of_featurectrlmask=
+,
+> >                              sizeof(OverDriveTableExternal_t) -
+> > offset_of_featurectrlmask);
+> >
+> >                       if (!memcmp(table_context->user_overdrive_table,
+> > --
+> > 2.39.2
+>
