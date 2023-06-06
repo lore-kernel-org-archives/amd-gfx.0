@@ -4,52 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89875C7EE24
-	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 13:33:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDE0BC77B7A
+	for <amd-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 14:02:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA43E10E34C;
-	Tue,  6 Jun 2023 13:33:49 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 79CFB10E34A;
- Tue,  6 Jun 2023 13:33:47 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8Bx6empNX9kQzIAAA--.403S3;
- Tue, 06 Jun 2023 21:33:29 +0800 (CST)
-Received: from openarena.loongson.cn (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8AxZuSoNX9k_3UCAA--.10047S2; 
- Tue, 06 Jun 2023 21:33:28 +0800 (CST)
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH] drm/amdgpu: display/Kconfig: replace leading spaces with tab
-Date: Tue,  6 Jun 2023 21:33:28 +0800
-Message-Id: <20230606133328.148490-1-suijingfeng@loongson.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B3C810E240;
+	Tue,  6 Jun 2023 14:02:57 +0000 (UTC)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CBB010E240;
+ Tue,  6 Jun 2023 14:02:56 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id
+ 46e09a7af769-6b28eefb49cso1061323a34.0; 
+ Tue, 06 Jun 2023 07:02:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1686060175; x=1688652175;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uKfMxnlTG/tbmuksWuOGZWrrvfs8QjlyYN4r2hnIpWo=;
+ b=VA42Clb/LLV7nHqt/y8/XVxTan46RsgI8crf9vhzZRuiychWUTwqv0bsNXuz1rz7xu
+ MlGWultN0RTL1m/HaT5y1hLhfLRp+ea9eGpqaJ04pgBw9o1VxDlkbNsj5SGtYpKtnE3R
+ u0gs7e3qAIZZy3JfBBWI/huXTusyPeG55EBuAYrFTrVJs0YnBVt8dHEaa5otkZFA+8x4
+ MsgphfPGBFX3hxHFZUie4K7a/KcGSIN0xizFUxP+75ax6WzzD/0WJtLpBXhaDJtvVqky
+ f6vxhN6ghr+kGS6VBHc13JH9560ANfmpjy0ygTVrMklQVdZIWOEjfOV+N03omHKgc5ZH
+ +87w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686060175; x=1688652175;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=uKfMxnlTG/tbmuksWuOGZWrrvfs8QjlyYN4r2hnIpWo=;
+ b=CJcA9tHMTCeMiDtrXt+kp55Y3aNj5jDUrXB89pvIvZt6VwFGbPCE6hrbiOuLptcid+
+ Me1xumA8XKF7lGJf0aimF8X90HD/f+11S5H+hgLTppri2UFPttkuR+GT5cawNN996FXU
+ 0YlfpY6LJIRdt6cEwD+rTIKC03i+LmWi23N+IFFW6oFSdqpWNSn2lLxApC8s6axWj1i3
+ e0CSw33++UGTN4QMn9rNoBu9wUVUqWPuK/qjug2zVb0jsP5IzKgjSwAaqM008nufPAR0
+ I6UGot07a8QB4paiXk7P5K455DW0P4nuCHfwNKvlxeJu2Yeekeuimry4rzvtXm4w/m0O
+ Y8/Q==
+X-Gm-Message-State: AC+VfDyFAtsmDEIE/tEytcWxBCkNmXPeUpii2rDounDY/A5L+LDr7pms
+ OthZm6QdHXBqUB+jjkuSF/MUNvU2Sk+Gm2WsLqQ=
+X-Google-Smtp-Source: ACHHUZ7ElSN1h6Nn2Mycq3M2NnCpSv8PBO/3dsGRn7+ApEUjV4I+bf369hsLA1VMW49PWCrORbuNPG4AeB/CJ+Hvhys=
+X-Received: by 2002:a05:6808:98b:b0:398:2b78:5a53 with SMTP id
+ a11-20020a056808098b00b003982b785a53mr1067410oic.40.1686060175306; Tue, 06
+ Jun 2023 07:02:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8AxZuSoNX9k_3UCAA--.10047S2
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoWrKF45Ww4rAF1xKryDWr1UCFX_yoW8JrWkpw
- s8G3ZxurWUGF1Sq39xA3WxWFy5Ga97JFWUKrWDG3sxZa4UAF4j9rZ5KFW5Ka4UXF97A3Wr
- JFn5GF42vF1vk3cCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUkYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v2
- 6F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
- 02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAF
- wI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7V
- AKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
- r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
- IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAI
- w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x
- 0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8HSoJUUUUU==
+References: <20230605183007.204399-1-hamza.mahfooz@amd.com>
+ <20230605183007.204399-2-hamza.mahfooz@amd.com>
+In-Reply-To: <20230605183007.204399-2-hamza.mahfooz@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 6 Jun 2023 10:02:44 -0400
+Message-ID: <CADnq5_N72yxvjVNT5jEe496J36L8x9bZKaWHZ1X6=qwMPW8_rw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: mark dml314's UseMinimumDCFCLK() as
+ noinline_for_stack
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,47 +69,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Charlene Liu <Charlene.Liu@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Nick Desaulniers <ndesaulniers@google.com>, Leo Li <sunpeng.li@amd.com>,
+ Tom Rix <trix@redhat.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ llvm@lists.linux.dev, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ Nathan Chancellor <nathan@kernel.org>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Paul Hsieh <Paul.Hsieh@amd.com>,
+ Jun Lei <Jun.Lei@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch replace the leading spaces with tab, make them keep aligned with
-the rest of the config options. No functional change.
+Series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
----
- drivers/gpu/drm/amd/display/Kconfig | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-index 2d8e55e29637..04ccfc70d583 100644
---- a/drivers/gpu/drm/amd/display/Kconfig
-+++ b/drivers/gpu/drm/amd/display/Kconfig
-@@ -42,16 +42,13 @@ config DEBUG_KERNEL_DC
- 	  Choose this option if you want to hit kdgb_break in assert.
- 
- config DRM_AMD_SECURE_DISPLAY
--        bool "Enable secure display support"
--        depends on DEBUG_FS
--        depends on DRM_AMD_DC_FP
--        help
--            Choose this option if you want to
--            support secure display
--
--            This option enables the calculation
--            of crc of specific region via debugfs.
--            Cooperate with specific DMCU FW.
-+	bool "Enable secure display support"
-+	depends on DEBUG_FS
-+	depends on DRM_AMD_DC_FP
-+	help
-+	  Choose this option if you want to support secure display
- 
-+	  This option enables the calculation of crc of specific region via
-+	  debugfs. Cooperate with specific DMCU FW.
- 
- endmenu
--- 
-2.25.1
-
+On Mon, Jun 5, 2023 at 2:30=E2=80=AFPM Hamza Mahfooz <hamza.mahfooz@amd.com=
+> wrote:
+>
+> clang reports:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/display_mode_vba_314.=
+c:3892:6: error: stack frame size (2632) exceeds limit (2048) in 'dml314_Mo=
+deSupportAndSystemConfigurationFull' [-Werror,-Wframe-larger-than]
+>  3892 | void dml314_ModeSupportAndSystemConfigurationFull(struct display_=
+mode_lib *mode_lib)
+>       |      ^
+> 1 error generated.
+>
+> So, since UseMinimumDCFCLK() consumes a lot of stack space, mark it as
+> noinline_for_stack to prevent it from blowing up
+> dml314_ModeSupportAndSystemConfigurationFull()'s stack size.
+>
+> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> ---
+>  .../gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c    | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_3=
+14.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
+> index 27b83162ae45..1532a7e0ed6c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
+> @@ -7061,7 +7061,7 @@ static double CalculateUrgentLatency(
+>         return ret;
+>  }
+>
+> -static void UseMinimumDCFCLK(
+> +static noinline_for_stack void UseMinimumDCFCLK(
+>                 struct display_mode_lib *mode_lib,
+>                 int MaxPrefetchMode,
+>                 int ReorderingBytes)
+> --
+> 2.40.1
+>
