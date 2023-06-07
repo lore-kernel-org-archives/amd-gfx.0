@@ -4,108 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC8F3C7EE25
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 17:49:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69543C7EE25
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 18:06:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 304C210E534;
-	Wed,  7 Jun 2023 17:49:43 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2054.outbound.protection.outlook.com [40.107.102.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF99810E53B
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jun 2023 17:49:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0iYNhw6TbjRjyBFK4G1xsN7oOSA4VbxA+q5BL8BkQWM=;
- b=lGBKw1ABP1zwQEgch92wmNnlIsHxSe2pApmF8HT6EoFveVoOiY/w2b724FMwKOvoLx6d4E5odBxWbSr11OVLeQvRUzpLHdpqGNIXrCcR9AunyndjMxWCw++zUdbXj637R466vv88px+sxrgLDmTL9rV6RF2nnkJu3VbGTYo6rhk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM5PR12MB1753.namprd12.prod.outlook.com (2603:10b6:3:10d::16)
- by MW4PR12MB7142.namprd12.prod.outlook.com (2603:10b6:303:220::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.32; Wed, 7 Jun
- 2023 17:49:38 +0000
-Received: from DM5PR12MB1753.namprd12.prod.outlook.com
- ([fe80::a500:7a4:10f6:1cc6]) by DM5PR12MB1753.namprd12.prod.outlook.com
- ([fe80::a500:7a4:10f6:1cc6%5]) with mapi id 15.20.6455.030; Wed, 7 Jun 2023
- 17:49:38 +0000
-Message-ID: <3a43a066-099b-c5d6-ddf7-0f0977794ada@amd.com>
-Date: Wed, 7 Jun 2023 13:49:36 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v2 3/3] drm/amdkfd: don't sleep when event age unmatch
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>, James Zhu <James.Zhu@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230606162418.1862540-1-James.Zhu@amd.com>
- <20230606162418.1862540-4-James.Zhu@amd.com>
- <d7674f97-f5cb-9b79-ed1a-a499fcea27f9@amd.com>
-From: James Zhu <jamesz@amd.com>
-Organization: AMD RTG
-In-Reply-To: <d7674f97-f5cb-9b79-ed1a-a499fcea27f9@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0149.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:7e::13) To DM5PR12MB1753.namprd12.prod.outlook.com
- (2603:10b6:3:10d::16)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61A4D10E53A;
+	Wed,  7 Jun 2023 18:05:57 +0000 (UTC)
+Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
+ [IPv6:2607:f8b0:4864:20::c35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F36A910E539;
+ Wed,  7 Jun 2023 18:05:54 +0000 (UTC)
+Received: by mail-oo1-xc35.google.com with SMTP id
+ 006d021491bc7-557d4a08bbaso4427359eaf.2; 
+ Wed, 07 Jun 2023 11:05:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1686161154; x=1688753154;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=rrcUk3QXD5nFY+wcOPn8saiJBhZSNAUJ+BdDVGNC138=;
+ b=NLRCyNLDmaHkVdK4yHA5tcb2zzlmiY9NDfuZ7tyPI2g+uVgZwG3l6FH5LX4m4yokwy
+ nmuw6wWKIvJRDc3xDSEekccAdl6YH9Ze5O1jpu+Cqmhe3Ti2Dn84t5zpAc7DQrjeQvgV
+ DlMze3GpxVhlQD65cuhbW3T6sDP+22G8TSsHlZEVnml2kAcdpCXihy/rxCNhy0dbsD/Z
+ KM6HnP9yAd/80VqYIPTU8KXMBnq5WBQcnwUrj9N4JQzRjmjNYfUOklSh012dHbyra7mr
+ e57HT5qiND/zPSl+0lASBoF6rmyxAsXaAU2pr+DkpaFCkafQ0t+zA1RUplND/udCak4Y
+ ET6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686161154; x=1688753154;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=rrcUk3QXD5nFY+wcOPn8saiJBhZSNAUJ+BdDVGNC138=;
+ b=lLM7ACeVfGOXc5bt2C83hMIKxkBYGpe1IUWERAp2vFgo38io+nhIoJiqe2u9KOYimL
+ 5ZTlY/vwr3Aj3pnHl0xFmDuZRvZYpOFF/oxBX71MVx2yTnq484GS364tmGzijcN4PcGN
+ SrE9LYKSEt0mD7ai0XluYyrPGyEHy3d5ld2boreFR+s6yEfWO6i3hkFuuhEL5/0dB4pX
+ CwNciowiG4yA2mX7UktayAI9tCsOUdg9ITJJG7W3Q30pKG0m/bNhUxJV4N2RaNerehNW
+ 4r7xoZ2XBjmZc5o3iGtbTeKrKz4wOemEnegPUXyVSds7KtaHxD0b3zrETLWV0kPEyrGM
+ 6HOw==
+X-Gm-Message-State: AC+VfDwc5eACrGzQ4rFAe75UPtvTCZfF/wryM5pUlJ228EtoqoFj39eV
+ 30APRSALBDZviZiXRtBHNXXokGycDD/6LXG1SXA=
+X-Google-Smtp-Source: ACHHUZ7TdRWEjprJMV3MT1zLscbuyK+HS5AVs7cUsAEHXT15VUdjl+aJOgCuufi/iZpOdxUYrBMfxqGPqWbHs8od9Xs=
+X-Received: by 2002:a4a:ea89:0:b0:558:a782:5209 with SMTP id
+ r9-20020a4aea89000000b00558a7825209mr3113447ooh.1.1686161153788; Wed, 07 Jun
+ 2023 11:05:53 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1753:EE_|MW4PR12MB7142:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5fd36101-7c93-49fe-0d97-08db677f9049
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ho/jxawYteH2eioRzt5xZeieYykmuWogK6kVEKucQfLWSzah9Qe2IuCGevlCjikeWw0IcfZ7y4rINSbJj/GqKbLMuXyFviqSuyx/+Ti4CRFtO6rIZ+5qAACtlbuqcstyXZmbZI3cPWahtSits7hhiSNrqJg4cjn6IL8GyxCNSBYp/ZmbgieoNM6683z+QHtJ8cPfZbOgnHfWjzP5Skg0LBgNxZdSVuf7kVU6J+/Jwsw9Hb0/xRh0Bn9Ycdug5MQGhsW1PMcYa1FPvGW5T5LXnkm8fN9qN6ORx3/I4F4macEw56Kafbz5/cJ2r5fCdow/KYp6CsMEyxXXzTcTUdwb9nRJumImYbt68ml2K+4FT2tyV3qOg/+21LV7snxjWDVlj7u5sW1dyWq3z5LxB2U5QQyiJX/rtHI2YWmEuu8Bf0OXRvTPBVi0dlHlL9GdWiqIo9fQrzW9TQZHZOZ4ouhsQrsYMtzz/yYJyTcUwr9E4Z6Xq+kJ5iIUlnEvtMr7CD5JkAqkv+gxAqoPnp98XwIFA3dlWbhqKzYAWUQrjEM+8ddnjW6TAbrzsyqTlpZ8Sn8s3oLUMwPW7t68LYlDH2KutypR20wqE4cZSrkqQ2vUOQbkc+dJzIlo7+o0tbaMGGl0eQKRlwYHVAv9+b3vYYRs3g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(346002)(376002)(39860400002)(396003)(136003)(451199021)(26005)(6512007)(53546011)(31686004)(6506007)(186003)(2616005)(83380400001)(36756003)(6486002)(2906002)(36916002)(8676002)(8936002)(478600001)(110136005)(66476007)(31696002)(38100700002)(5660300002)(316002)(4326008)(66556008)(41300700001)(66946007)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bit0YVgyV3BPVDhhTWlzVDh6MzZmb3dtTkduR2VrN0c2WTRLNDVZZ04yc3lZ?=
- =?utf-8?B?emhYcVlCVElqeVQyWnF1RWVpZDFDWDB3NUZGQ2taRHFGTW4yeTJOREh1aGdx?=
- =?utf-8?B?L1VxNmx4WnovaE11Si9BV2N6cE0zSW9udmtSTFRoMjVKbk1WeUIya3QzMVpG?=
- =?utf-8?B?clhPNEkxa3NZaWxwQVhvMW9QcmQxeDdvcVQvL2I4OFZ0NTVQL3lWNWFONWdB?=
- =?utf-8?B?UDFZdWt5aHkxRWQ4UmQwT0d6ek42SEVZT2tCbWtpRHcrNHozbkZuU2FHeFZr?=
- =?utf-8?B?aEFxZEJ5d3YxaUJ3V1BXMTFmbXN6NDFwWGoyOGdPZ20xTnJxMUFEaXJ6ODZ6?=
- =?utf-8?B?UFkxeFJINXNTZkxzeS9YbmRxN3AwQ1lnVHdoYUlNaXVpNWtRaUtEbmhhSHd0?=
- =?utf-8?B?aWsxRWdxOEp0VzBnRkpkMitpWXFqZ1lLUDVwNjVaTFlzNG02RFhhaUpxRFZD?=
- =?utf-8?B?c2NtejZraEprTlVyUXkyTm5LUUZoU0ZQMFpHVExTRndFVGZVUFZRMlVIRTJa?=
- =?utf-8?B?UGdGamxNR0RoOVRDR3dMaGNDZlcxSUxwTUd4ZEo2bityb2NEWHI4ZXF1MjFE?=
- =?utf-8?B?cmM5Ti80NWN2cHRYbVVnQXBlWVN5SWduNldHRE5qUXBOcUZ0cVZvSTVGVVlS?=
- =?utf-8?B?RUZZaU1JL2RPZlhWVnJncWllaW54Y2prVkl5NVcwMnI1a3duSHNVanVBVmc3?=
- =?utf-8?B?SWNzOTRCTXpPTnRXN3lKTUg0VFJXRTQ0d3ZSZXFaZEtMWkE0dFJucHU5Q1g4?=
- =?utf-8?B?RmZKMHBOZitoSnpLRHdsZWhFbElocXk1Q1paM2NZVGdSSXV2akFVZDVrY0hy?=
- =?utf-8?B?MzlWT1VmdDArN3FWN2UrSVY3Zmk4ODkwU3hxVlFJazRmcm9qbmVFT096UGhZ?=
- =?utf-8?B?bEhYcGtMb2x2b2dFZmxubHVCaEpxektKdDMxdTlQTUwzZExiQUhRV0NQUnNJ?=
- =?utf-8?B?c3UvUzJNSEd3RmI4RUZiZUovOWoyMW5qSjY2emFlSk9IWW5XK00rdGNOdHRG?=
- =?utf-8?B?YjZYdkVWZWhMVW9tUTNsb2M4cXFHOGxOWTAvakhId2d2TWtjbUdsU1c4ZE1q?=
- =?utf-8?B?UWF1WjR3Z2FxTVZQYXI1czdzN2VubmNZb3I5d05ud2RoUndNb3owNUc2QnV1?=
- =?utf-8?B?Zkl5MGxHeHFLbXp6Tmo4ZnRhd1NUZkZPd0dYUFVZMm5HOVpaUXVHTkg0UEF3?=
- =?utf-8?B?VEkySTltMHdRdS8yelZrNGNLVUZsa012NHkvK1dScHg0T1VoMDBBZVdmRDNx?=
- =?utf-8?B?U2JIRWJJa1BwN1FjZDZlU2Z6b0JUMUh0N2IxZ1dNSDA5Vjl5TlA3RldDZTJW?=
- =?utf-8?B?Z2J6MzQvK3lsS1hMNy9uZlNGZUVaMmtWWjc5U2JGZ2h0OVdRSHF0djZkZVFB?=
- =?utf-8?B?bDNTSzBpQUVPZ0lPMmg5WHRtM0hFRHJkWjdLL1BERHh6eXFNQUVOZ1c2Q3ho?=
- =?utf-8?B?SWc4cmVwMURUa0pXOWtCd3lhaU9QdlVudFlsdWJwdXJGcTR2TndsNWEwWHEz?=
- =?utf-8?B?V2EwRGNIcGJpc2E2TTRnQWhlUGRCWjlxVWVrTDhzVk5RRjZqRjMzdmlGbTMv?=
- =?utf-8?B?MmZzNU1PNS92UFQ0VTlrQWdIelN4NUpIc3l2aVo2ZXVpbndEWHZYVDV1SnUw?=
- =?utf-8?B?S3ZQK3d1Ky9aRDJ3dW5CZTM5OWg5SjcyK0RicUxhb1hYSTVnRlhRdWNOS3lo?=
- =?utf-8?B?VjcxNjk1eWdRbWlZbDBaNE9VWHZQWEpPNEFBcVRKL0dDaVdMNEZKNkZsQnFD?=
- =?utf-8?B?ZjFFMGYzU1B6UzNCM21xenpnTzJWall4c2FLNXdtUjV2S2NJTDhaL05kWmhk?=
- =?utf-8?B?TkpHanRXNktrMmRBVGQrUkxyYlFUQVdvc0wrQWRwM2lBV1pSS3d4VGpoZDdy?=
- =?utf-8?B?WllGSlJpUE4yL1ZiQk5aa1h1ZFJjdnpsZ0l1Tis4UHRMS1Y1T1Ywak1UM2hL?=
- =?utf-8?B?NTNuOGhmcTZyMytCMjZCMzJWdm1DRkxDNFpWV1lWb001TUQvUVRpWVR3aEF3?=
- =?utf-8?B?QVRvOEwzcktiSldrd1U2dDY4REdUa1NMUTlwbERsMERXdUZYSUJlTHdjVGgz?=
- =?utf-8?B?dVZGb083TmxGVU44S3JWc0V2L29PRlZjYjdSdW1NSmRvL3FWcjBQRXZwVWZv?=
- =?utf-8?Q?nbR8/PiGbzoR0BE0SglPrNxrp?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fd36101-7c93-49fe-0d97-08db677f9049
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1753.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 17:49:38.4292 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B1C5ZapptSWnjGA1jsVS8UtmTi3ctTRtD+om9GABcFIKZM3Kin+yseqrcFDASRxR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7142
+References: <46a7eb80-5f09-4f6a-4fd3-9550dafd497c@felixrichter.tech>
+ <1efbf587-e7b5-74a3-89e4-ca70386bd191@leemhuis.info>
+ <CADnq5_M-5SD6HDRVtFHPNF3q9XKz75PECdUxR-OaVpPe2Zw=EQ@mail.gmail.com>
+ <8d23a70e-b132-9b25-917a-1f45918533cc@leemhuis.info>
+ <0cac032a-0f65-5134-cde5-f535fc58c5ab@felixrichter.tech>
+ <e7eed5ce-e7a0-e03e-f8c7-3582d9771a33@leemhuis.info>
+ <e24373f9-4405-d7f7-dd54-d0bde111242c@felixrichter.tech>
+ <CADnq5_MCXgtxNB_WBfAw+ZSKNeczSYL7gZPkpqqJ859G=LYkgA@mail.gmail.com>
+ <076f493a-9e88-db37-f4a0-2a269e94d51e@felixrichter.tech>
+In-Reply-To: <076f493a-9e88-db37-f4a0-2a269e94d51e@felixrichter.tech>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 7 Jun 2023 14:05:42 -0400
+Message-ID: <CADnq5_Ojz=dTO-ve0KxrLb+v0OouwbQdGTn4Fm8vwEjR2Ww-gw@mail.gmail.com>
+Subject: Re: PROBLEM: AMD Ryzen 9 7950X iGPU - Blinking Issue
+To: Felix Richter <judge@felixrichter.tech>
+Content-Type: multipart/mixed; boundary="0000000000009b25b505fd8dfcf4"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,64 +73,212 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org, "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>,
+ amd-gfx@lists.freedesktop.org,
+ Linux regressions mailing list <regressions@lists.linux.dev>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--0000000000009b25b505fd8dfcf4
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2023-06-07 13:27, Felix Kuehling wrote:
-> On 2023-06-06 12:24, James Zhu wrote:
->> Don't sleep when event age unmatch, and update last_event_age.
->> It is only for KFD_EVENT_TYPE_SIGNAL which is checked by user space.
->>
->> Signed-off-by: James Zhu <James.Zhu@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_events.c | 15 +++++++++++++++
->>   1 file changed, 15 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c 
->> b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->> index c7689181cc22..f4ceb5be78ed 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->> @@ -952,6 +952,21 @@ int kfd_wait_on_events(struct kfd_process *p,
->>                       event_data.event_id);
->>           if (ret)
->>               goto out_unlock;
->> +
->> +        /* last_event_age = 0 reserved for backward compatible */
->> +        if (event_data.signal_event_data.last_event_age &&
->> +            event_waiters[i].event->event_age !=
->> +                event_data.signal_event_data.last_event_age) {
->> +            event_data.signal_event_data.last_event_age =
->> +                event_waiters[i].event->event_age;
+On Wed, Jun 7, 2023 at 4:42=E2=80=AFAM Felix Richter <judge@felixrichter.te=
+ch> wrote:
 >
-> The event_age is updated in set_event under the event->spin_lock. You 
-> need to take that lock for this check here as well.
+> Hi Guys,
 >
-> I think the easiest way to do this would be to move the check into 
-> init_event_waiter. That way you can initialize the waiter as activated 
-> if the event age is not up to date.
-[JZ] Sure
+> so I checked, the kernel I am running has this commit
+> (https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+> /commit/?id=3D08da182175db4c7f80850354849d95f2670e8cd9) applied already!
+>
+> https://github.com/ju6ge/linux/commit/917680e6056aa288cac288d3afd2745d372=
+beb61u
+>
+> And the bug of display flickering persists with or without the
+> amdgpu.sg_display=3D0 variable applied!
+
+That is unexpected.  Setting sg_display=3D0 should be equivalent to
+reverting 81d0bcf9900932633d270d5bc4a54ff599c6ebdb.  Does the attached
+patch (with sg_display=3D0 set) make any difference?
+
+Alex
+
+
+>
+> Kind regards,
+> Felix Richter
 >
 >
->> + WRITE_ONCE(event_waiters[i].activated, true);
->> +
->> +            if (copy_to_user(&events[i], &event_data,
->> +                sizeof(struct kfd_event_data))) {
->> +                ret = -EFAULT;
->> +                goto out_unlock;
->> +            }
->> +        }
+> On 6/5/23 16:11, Alex Deucher wrote:
+> > + Hamza
+> > This is a known issue.  You can workaround it by setting
+> > amdgpu.sg_display=3D0.  It should be issue should be fixed in:
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
+it/?id=3D08da182175db4c7f80850354849d95f2670e8cd9
+> >
+> > Alex
+> >
+> >
+> >
+> >> Now if this is the desired long term fix I do not know =E2=80=A6
+> >>
+> >> Kind regards,
+> >> Felix Richter
+> >>
+> >> On 02.05.23 16:12, Linux regression tracking (Thorsten Leemhuis) wrote=
+:
+> >>> On 02.05.23 15:48, Felix Richter wrote:
+> >>>> On 5/2/23 15:34, Linux regression tracking (Thorsten Leemhuis) wrote=
+:
+> >>>>> On 02.05.23 15:13, Alex Deucher wrote:
+> >>>>>> On Tue, May 2, 2023 at 7:45=E2=80=AFAM Linux regression tracking (=
+Thorsten
+> >>>>>> Leemhuis)<regressions@leemhuis.info>  wrote:
+> >>>>>>
+> >>>>>>> On 30.04.23 13:44, Felix Richter wrote:
+> >>>>>>>> Hi,
+> >>>>>>>>
+> >>>>>>>> I am running into an issue with the integrated GPU of the Ryzen =
+9
+> >>>>>>>> 7950X. It seems to be a regression from kernel version 6.1 to 6.=
+2.
+> >>>>>>>> The bug materializes in from of my monitor blinking, meaning it
+> >>>>>>>> turns full white shortly. This happens very often so that the
+> >>>>>>>> system becomes unpleasant to use.
+> >>>>>>>>
+> >>>>>>>> I am running the Archlinux Kernel:
+> >>>>>>>> The Issue happens on the bleeding edge kernel: 6.2.13
+> >>>>>>>> Switching back to the LTS kernel resolves the issue: 6.1.26
+> >>>>>>>>
+> >>>>>>>> I have two monitors attached to the system. One 42 inch 4k Displ=
+ay
+> >>>>>>>> and a 24 inch 1080p Display and am running sway as my desktop.
+> >>>>>>>>
+> >>>>>>>> Let me know if there is more information I could provide to help
+> >>>>>>>> narrow down the issue.
+> >>>>>>> Thanks for the report. To be sure the issue doesn't fall through =
+the
+> >>>>>>> cracks unnoticed, I'm adding it to regzbot, the Linux kernel regr=
+ession
+> >>>>>>> tracking bot:
+> >>>>>>>
+> >>>>>>> #regzbot ^introduced v6.1..v6.2
+> >>>>>>> #regzbot title drm: amdgpu: system becomes unpleasant to use afte=
+r
+> >>>>>>> monitor starts blinking and turns full white
+> >>>>>>> #regzbot ignore-activity
+> >>>>>>>
+> >>>>>>> This isn't a regression? This issue or a fix for it are already
+> >>>>>>> discussed somewhere else? It was fixed already? You want to clari=
+fy
+> >>>>>>> when
+> >>>>>>> the regression started to happen? Or point out I got the title or
+> >>>>>>> something else totally wrong? Then just reply and tell me -- idea=
+lly
+> >>>>>>> while also telling regzbot about it, as explained by the page lis=
+ted in
+> >>>>>>> the footer of this mail.
+> >>>>>>>
+> >>>>>>> Developers: When fixing the issue, remember to add 'Link:' tags
+> >>>>>>> pointing
+> >>>>>>> to the report (the parent of this mail). See page linked in foote=
+r for
+> >>>>>>> details.
+> >>>>>> This sounds exactly like the issue that was fixed in this patch wh=
+ich
+> >>>>>> is already on it's way to Linus:
+> >>>>>> https://gitlab.freedesktop.org/agd5f/linux/-/commit/08da182175db4c=
+7f80850354849d95f2670e8cd9
+> >>>>> FWIW, you in the flood of emails likely missed that this is the sam=
+e
+> >>>>> thread where you yesterday replied "If the module parameter didn't =
+help
+> >>>>> then perhaps you are seeing some other issue.  Can you bisect?". Th=
+at's
+> >>>>> why I decided to add this to the tracking. Or am I missing somethin=
+g
+> >>>>> obvious here?
+> >>>>>
+> >>>>> /me looks around again and can't see anything, but that doesn't hav=
+e to
+> >>>>> mean anything...
+> >>>>>
+> >>>>> Felix, btw, this guide might help you with the bisection, even if i=
+t's
+> >>>>> just for kernel compilation:
+> >>>>>
+> >>>>> https://docs.kernel.org/next/admin-guide/quickly-build-trimmed-linu=
+x.html
+> >>>>>
+> >>>>> And to indirectly reply to your mail from yesterday[1]. You might w=
+ant
+> >>>>> to ignore the arch linux kernel git repo and just do a bisection be=
+tween
+> >>>>> 6.1 and the latest 6.2.y kernel using upstream repos; and if I were=
+ you
+> >>>>> I'd also try 6.3 or even mainline before that, in case the issue wa=
+s
+> >>>>> fixed already.
+> >>>>>
+> >>>>> [1]
+> >>>>> https://lore.kernel.org/all/04749ee4-0728-92fe-bcb0-a7320279eaac@fe=
+lixrichter.tech/
+> >>>>>
+> >>>> Thanks for the pointers, I'll do a bisection on my desktop from 6.1 =
+to
+> >>>> the newest commit.
+> >>> FWIW, I wonder what you actually mean with "newest commit" here: a
+> >>> bisection between 6.1 and mainline HEAD might be a waste of time, *if=
+*
+> >>> this is something that only happens in 6.2.y (say due to a broken or
+> >>> incomplete backport)
+> >>>
+> >>>> That was the part I was mostly unsure about =E2=80=A6 where
+> >>>> to start from.
+> >>>>
+> >>>> I was planning to use PKGBUILD scripts from arch to achieve the same
+> >>>> configuration as I would when installing
+> >>>> the package and just rewrite the script to use a local copy of the
+> >>>> source code instead of the repository.
+> >>>> That way I can just use the bisect command, rebuild the package and =
+test
+> >>>> again.
+> >>> In my experience trying to deal with Linux distro's package managers
+> >>> creates more trouble than it's worth.
+> >>>
+> >>>> But I probably won't be able to finish it this week, since I am on
+> >>>> vacation starting tomorrow and will not have access to the computer =
+in
+> >>>> question. I will be back next week, by that time the patch Alex is
+> >>>> talking about might
+> >>>> already be in mainline. So if that fixes it, I will notice and let y=
+ou
+> >>>> know. If not I will do the bisection to figure out what the actual i=
+ssue
+> >>>> is.
+> >>> Enjoy your vacation!
+> >>>
+> >>> Ciao, Thorsten
 >
-> I think we also need to update the event age in event data after an 
-> event has signaled. You should probably move updating and copying of 
-> the event age to user mode into copy_signaled_event_data. That way it 
-> would handle all the cases.
-[JZ] Sure
->
-> Regards,
->   Felix
->
->
->>       }
->>         /* Check condition once. */
+
+--0000000000009b25b505fd8dfcf4
+Content-Type: text/x-patch; charset="US-ASCII"; name="sg_display_test.diff"
+Content-Disposition: attachment; filename="sg_display_test.diff"
+Content-Transfer-Encoding: base64
+Content-ID: <f_lim0srqt0>
+X-Attachment-Id: f_lim0srqt0
+
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
+X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
+CmluZGV4IGNjNjVjMzM0Y2I2NC4uMTk1YjRmZjdhMjg3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTE2MzEsMTAgKzE2MzEs
+NyBAQCBzdGF0aWMgaW50IGFtZGdwdV9kbV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+KQogCQlicmVhazsKIAl9CiAJaWYgKGluaXRfZGF0YS5mbGFncy5ncHVfdm1fc3VwcG9ydCAmJgot
+CSAgICAoYW1kZ3B1X3NnX2Rpc3BsYXkgPT0gMCkpCi0JCWluaXRfZGF0YS5mbGFncy5ncHVfdm1f
+c3VwcG9ydCA9IGZhbHNlOwotCi0JaWYgKGluaXRfZGF0YS5mbGFncy5ncHVfdm1fc3VwcG9ydCkK
+KwkgICAgKGFtZGdwdV9zZ19kaXNwbGF5ICE9IDApKQogCQlhZGV2LT5tb2RlX2luZm8uZ3B1X3Zt
+X3N1cHBvcnQgPSB0cnVlOwogCiAJaWYgKGFtZGdwdV9kY19mZWF0dXJlX21hc2sgJiBEQ19GQkNf
+TUFTSykK
+--0000000000009b25b505fd8dfcf4--
