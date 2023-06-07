@@ -4,34 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEDBFC7EE2E
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 09:37:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8395C7EE2F
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 09:42:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BA3010E49E;
-	Wed,  7 Jun 2023 09:37:56 +0000 (UTC)
-Received: from mail-4317.proton.ch (mail-4317.proton.ch [185.70.43.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B8CB10E49E
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jun 2023 09:37:52 +0000 (UTC)
-Date: Wed, 07 Jun 2023 09:37:43 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F6A910E4A3;
+	Wed,  7 Jun 2023 09:42:20 +0000 (UTC)
+Received: from mail-41103.protonmail.ch (mail-41103.protonmail.ch
+ [185.70.41.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A72910E4A3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jun 2023 09:42:18 +0000 (UTC)
+Date: Wed, 07 Jun 2023 09:42:09 +0000
+Authentication-Results: mail-41103.protonmail.ch;
+ dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
+ header.b="n9FCFcjD"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail; t=1686130669; x=1686389869;
- bh=/37RiszT2hQkqefLXSWgn0PU/fXLOedYWzon5kBfTN4=;
+ s=protonmail; t=1686130930; x=1686390130;
+ bh=x67qiGvM7KF/tVDJArPKY6A/o4dTYbNV/diGB4MoJZc=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=GBWhjcPdoqCnveEEbJmt/yxGnkDBtWA1BUlvmhR8XKVJi5gj8vzLrvOV9zJkmtPxJ
- +dN/y3J8+ugQPuRlWcWsSUizo7P4rCv8eTdJ49MJLRIHf24GgIHgN0lKDLLhhwwL4p
- SwCJcLNH8Ru1A64ACawicz01uSLm9qValzkWawrzH5SJxPCdIORlpyHzqNkB/5HRlh
- EyYedqNG3qeWHAYIZSvV8H2n4Fxn2wN099l8kfbZeDaemnNVCylXs6G2cyKJwsdKsD
- LUcn+qSgdiYd0HfLuuNd2KJOSziphIBrbrv4SQlu2YtqObxEDVLnGrRAlOp2wUaNI5
- EvchU7xGQT4yQ==
+ b=n9FCFcjDZ7g+9sUCei3+ZvtWnyt067z3yEXebQyeXqzSWd9hQn6oUMYEHceS93AK0
+ 1ew03GwyLTCSHBxDcRnOEY+1Xo89r5QSuv0Kvkk/tQlnV88B6WISxlnMNN+kLBIQqk
+ GSd/gSVac8Js+4VQ8MAq+02UgUZnAqSU2A4jruYcBj8oe9M/gVe7u2M/etoViDVWc7
+ XEmCV+1xRuNsbVkCEVERbwSaVPnoYJP05u6rWsLkCDrYhhQOEM5MakmPSeSemA7Yw/
+ ZtDd9xWYvp8IqCD7tv1zPLY71mqUjg75yWk2a8jbUNh7sgAKeJ+fto8p1grEDrvZaj
+ qWcRsESgK2BqQ==
 To: Harry Wentland <harry.wentland@amd.com>
 From: Simon Ser <contact@emersion.fr>
-Subject: Re: [PATCH v5 04/13] drm/connector: Use common colorspace_names array
-Message-ID: <cmrrldxWMcHBZPTtrtNWKhTmgBqdJcEl1XAHvp_OS3RQMTjVk_wvYkwmDYJNKX4AWIVR_GkjJcackYtcKfhQHD1_LirFv2cl5hVn7q3vnC4=@emersion.fr>
-In-Reply-To: <20230606202607.122914-5-harry.wentland@amd.com>
+Subject: Re: [PATCH v5 06/13] drm/connector: Allow drivers to pass list of
+ supported colorspaces
+Message-ID: <TKjxspHl8aKZqasklhnRL_RQzlhqrRD35JBIOw2HEBPECtg6OrM4wY6-wF1GStScWVtiur3N76vNTgr2cr1hWgxkVIW_o-WIpiIWN9IvH1s=@emersion.fr>
+In-Reply-To: <20230606202607.122914-7-harry.wentland@amd.com>
 References: <20230606202607.122914-1-harry.wentland@amd.com>
- <20230606202607.122914-5-harry.wentland@amd.com>
+ <20230606202607.122914-7-harry.wentland@amd.com>
 Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -57,10 +62,19 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On Tuesday, June 6th, 2023 at 22:25, Harry Wentland <harry.wentland@amd.com=
+On Tuesday, June 6th, 2023 at 22:26, Harry Wentland <harry.wentland@amd.com=
 > wrote:
 
-> We an use bitfields to track the support ones for HDMI
+> -int drm_mode_create_hdmi_colorspace_property(struct drm_connector *conne=
+ctor)
+> +int drm_mode_create_hdmi_colorspace_property(struct drm_connector *conne=
+ctor,
+> +=09=09=09=09=09     u32 supported_colorspaces)
+>  {
+> -=09return drm_mode_create_colorspace_property(connector, hdmi_colorspace=
+s);
+> +=09u32 colorspaces =3D supported_colorspaces & hdmi_colorspaces;
 
-Typo: "We can"
+This creates a potentially weird situation where the driver passes a
+non-0 supported_colorspaces, but the intersection with hdmi_colorspaces
+ends up being empty, and all colorspaces end up being advertised.
