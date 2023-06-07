@@ -4,114 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F2A4C7EE25
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 17:34:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33ADCC7EE25
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 17:35:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E97E610E532;
-	Wed,  7 Jun 2023 17:34:21 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2056.outbound.protection.outlook.com [40.107.244.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB6D410E532
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jun 2023 17:34:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8C9210E533;
+	Wed,  7 Jun 2023 17:35:12 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2060f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e83::60f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 637B410E533
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jun 2023 17:35:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M97ZRJNewrP71gi663N6/4e2bAteBwm6+FBg6cDCjqG9KkWz/T7+Cj7XNxCHufKAuof3jZgwdZlPpNBw8jGchzxBavw1WtQqLFXPZeqjiI8FWXtZhTArXWR8ImDChAAMid4T2iKQ3U1Et1uvTKFbh3MjGZ3NMCXP3iljuNWGZvFwyyXsp11i7CwJT2Ah8EUBcJ3O5/kW7i8+Dea4h0KRQv0m7bVTxgMkrdZuzPH5pLT4VaQjsKyXh7MXuNE+6eDu1E5p16LieRvFvGztg9ajTjgjOHLyIYIIoxAzTUM0DcSnt1/WvtanU9fCt+pmm16/3Jx89oMSqpD6AsKIxkbWQQ==
+ b=YIV4MBJ/3+Lu50hH/BIV+473dH4EQN4+pVk3wiGbIUlCBhXQRJBusguOqA76+WHrqhLH3mXnxfUOM11RW3m84mVdtBZiGYzlYVGls55m3/iQaJNGPoIvrxOAS6nBUhZPe3BzxD3hvVVnqVWayIOX616HWgePQewfV/dZ70K975P/k6NjJLORn58eLLkJO87TpYBurX2qsje8YITofWyFE6q9WO8Qz7JLL3sbYpkACHafJeFRUYnObc4fBfvG5wpU7sI9pj9GwvpiseN6/yDbTT5vLWdQ49JmsFH2qygYYFfhy42HnhWG8u541Ko5PLLj6PgJfu3WkFJDR0bak9SRzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8cEREPP+wWhJDLspUTPMtms5aASjDxrn17qPYsnqJpQ=;
- b=B3Ked0dsSwzqcBcR+Q1hsvT1wQUrIgh26D4NJGW3UF2lnkzDgYv466OLj3bAk6hE6k/aoR7gGjRspjj6wHIjd8mp//GfMFs7Bmkh/ONlZ1hGRcUGsDlcrTEmaKP0HuzsWqw7oCiFBatV7ghD7Pzv3pEJYz/VUWSrKpp6HGbx6zpY6XmawVC78FPhvYrKTZ4rqDSmhRrObcpYR7gqv2JS7YIq9pVUdKY1ifKcfPlpx0iBd+4VEUcwqmK0aXMNHNlrLiZqDJ9JanuzHjfoNVOehOl77s4XTqCTOnDS8gUuU4q5w2gdB/n3WDMYuSpDmN3QulYNtLCiYggQGOk5RybQrA==
+ bh=JNXxjhphGls73sPnkWvYqka0oX0xy7+0r2W7MYKVRiE=;
+ b=SsU/lXvfsTtifpATQP7oCe/shawfOp0P9i0+zyAc1S7itgAgq9mp8n2m/+flC6gxQfWSPI8/ptjr304hI3sHrtMDb472TUxPbSi8NvUUruyqESXQG4VjvLnA1Gmbiny7+j4kt5VfzjiEz3rjEpXmj+dstnp6QgeRw1hegRk3ThdWdljTcUyLSVosvQQRSLFex6PRyyouhO+mhsHdoOzFL348w5m9WDWks4vioN1KHBtW9z0Yv5gYWDmIljZIznLutNXz7WnThaQHlVNehcbfh3w3X5E2BVqSJRgFkGBlTBhk26jiH7fOJMBJ+1xorJqNFRJIJyyclcPra584k6/MVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8cEREPP+wWhJDLspUTPMtms5aASjDxrn17qPYsnqJpQ=;
- b=fOAfZtMZH99txzYM9y9XJA7gp2lV70yKZkXDOOvijh5rjGCO9t71+GV9/nqlpgyOQM5d7Ezy3ZLcL91N0l27KQFF96sMN56ny4ucaq3aNJCMCJpOEM0WJtC/JcS2AoAnQUHFSrmNwzjm1joXhM7L0ZVQNIqExiFlb4yuAJKHq2Y=
-Received: from CY8PR12MB7435.namprd12.prod.outlook.com (2603:10b6:930:51::6)
- by BY5PR12MB4902.namprd12.prod.outlook.com (2603:10b6:a03:1dd::9) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=JNXxjhphGls73sPnkWvYqka0oX0xy7+0r2W7MYKVRiE=;
+ b=hRKBPYOLZmlVJr9EhVrUrNGx1GFmYbAm8KCmFM59kjkRWE0+B5AgqHbO9YV7kNe8Kmq/9hKLlJfFrjAOIMfIaubmT0YzjedsUZYOsbbnJYAMaNJEYrj/L34PrVaAmJjNzUDVQEBlTxio/Z/LaKq+zilEKYBROCg6hJvOxM/EqqA=
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by CH3PR12MB8330.namprd12.prod.outlook.com (2603:10b6:610:12c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Wed, 7 Jun
- 2023 17:34:17 +0000
-Received: from CY8PR12MB7435.namprd12.prod.outlook.com
- ([fe80::100e:1d82:bd2a:e05e]) by CY8PR12MB7435.namprd12.prod.outlook.com
- ([fe80::100e:1d82:bd2a:e05e%3]) with mapi id 15.20.6455.030; Wed, 7 Jun 2023
- 17:34:17 +0000
-From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdkfd: optimize gfx off enable toggle for debugging
-Thread-Topic: [PATCH] drm/amdkfd: optimize gfx off enable toggle for debugging
-Thread-Index: AQHZmWX91iNzXn38fEyDxLwoy8UC1q9/ma+g
-Date: Wed, 7 Jun 2023 17:34:17 +0000
-Message-ID: <CY8PR12MB7435460F52AC91FF912A964E8553A@CY8PR12MB7435.namprd12.prod.outlook.com>
-References: <20230607173211.1824941-1-jonathan.kim@amd.com>
-In-Reply-To: <20230607173211.1824941-1-jonathan.kim@amd.com>
+ 2023 17:35:07 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::e02a:b0f7:e051:10cd]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::e02a:b0f7:e051:10cd%4]) with mapi id 15.20.6455.030; Wed, 7 Jun 2023
+ 17:35:07 +0000
+From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel@daenzer.net>, "Zhuo, Qingqing
+ (Lillian)" <Qingqing.Zhuo@amd.com>, "Chalmers, Wesley"
+ <Wesley.Chalmers@amd.com>
+Subject: Re: [PATCH 10/66] drm/amd/display: Do not set drr on pipe commit
+Thread-Topic: [PATCH 10/66] drm/amd/display: Do not set drr on pipe commit
+Thread-Index: AQHZmE+p2kFzkjFxL0CbkqT2G2DnrK9+CffjgAGIgQCAAAYZqg==
+Date: Wed, 7 Jun 2023 17:35:07 +0000
+Message-ID: <CH0PR12MB5284C88ABA0C45CD177F9C5B8B53A@CH0PR12MB5284.namprd12.prod.outlook.com>
+References: <bc662b83-f117-2f61-c580-086c3f404086@daenzer.net>
+ <ec919f31-2f33-f085-dfdd-25360b5e082c@daenzer.net>
+ <CH0PR12MB528496B026471110065187488B52A@CH0PR12MB5284.namprd12.prod.outlook.com>
+ <df1dde7c-f789-97eb-5b67-266bbb95c1e1@daenzer.net>
+In-Reply-To: <df1dde7c-f789-97eb-5b67-266bbb95c1e1@daenzer.net>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=3fb36729-2f4c-4351-84da-dd65d011075e;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-06-07T17:34:13Z;
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-06-07T17:35:06.306Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7435:EE_|BY5PR12MB4902:EE_
-x-ms-office365-filtering-correlation-id: c837b3f2-16c5-47ec-7343-08db677d6ba4
+x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|CH3PR12MB8330:EE_
+x-ms-office365-filtering-correlation-id: 5bf15b50-b03b-4089-760f-08db677d892a
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 5cqTT3wSn+zjuZBAaidxhY6zE39JDnttM6o324NdUUjnoKwqPaJTG7dTiYtdTvfIzKYrBSqwe2Od4e8VqFZVk22NaiEUj2urPBlwj14bX0rjTEbGS0ZFP7F3LjNl8WeidtRGOC+5+/kwxPy2/Y9PEo9pQXJHAm38z6PMMrCcgLMzWjqmWYHMAtKx0vSb7VX/qjdL8KPa8gxtvGQFMMaVTLJXpBl5ewHw0g4+NnZeJvHvCCYjLrcEZP1ZaUnFj2IFAgS97+XJadknJXDd3nRqfPODD7rl/OhriI4KQuz1ZnQEYqpWNlnqbAZRNUIgqVMSiNsX+cGOsozK6pvvRCdcEzIJzln/zSBd7rVw0KDhhUBJ1MdrZ44gsnubSRqpe2n2ZFvsFrtKHWkoLSt0Vu1bMjoB9fPBbGPfFhsMuYjVnzAlQfP2lF22sZPACKObQlWTsm5nMoT4Jk+sThc/NI5XWC02KIGE3RFm8YqShy9u2caQL0iAGwfEVzwy31Os9vFLOZEEGO5s5R1cX6PhpA8HLDlSSja8wrtLLSsGlzNIpo6uWJxWolyNwgtL1qE/8Apo3YH2yosBsBLWX8xTk0HMP+sUCQGliMvCO3pS7nz3ah5zMTgAtoy+G2aYKamPfvBQ3s5QJvasIBKTOyeogjIP6w==
+x-microsoft-antispam-message-info: +GXatx97/HP95LQDn4Q5CqfcCppOpDLShAzWVUlMs4NfxFdMG0svbhIyrdh6ONKtNta0mV1xXNl6CeYbLBVV1LeDIy+vS5qx5a7E88D27Fo7TsEVvGNyEOy1vm0WGWi8M2A1kqCnD0nzs/p54mNNgJKzGl4wUd0Ih37+lZU80q2bX6KiUfFzT/ZArQvLVkSMO7ABx5OrX3FQpvRJXfVWBURgfmFzJdCF7o9d7GAU0VP6L8PEa8JSLQ7yzMW8pefXv7+nwedIKZgDegZBOkEqMXoln8RWjt/DUxv9acWQRYaqjv/ruFD7d9suDwVKEkcyR3UKYHoAMqXwBfmuSVgLKLwLBpDCWIVIN78yQd4myKt1TooEqwwnv1kthuB7MIPxSTUGSOJ5AJbumgeRZzf8dS52TQkQLWOwqoS8e6pB0VgSFpEqcJNFfHxJewtejB7j/Cn+t7BfT5l9af+BrmZFB6kA6Itg/pFQeCyPJgBVvcG6vfn0GxkTH+1oqd13N+TVx0h+QDQU+YBSBPneJnZQMQvCE7GvrzehgQSlbGf+2u/YkmMdAHYahyau258/yRs/zVxHAPGBpYHdG6I+Xj3GlqmIC9YMPkiNekwgwrsB1L4=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(39860400002)(396003)(376002)(366004)(451199021)(86362001)(52536014)(122000001)(83380400001)(54906003)(64756008)(66476007)(6916009)(38100700002)(66946007)(4326008)(66556008)(76116006)(66446008)(71200400001)(7696005)(478600001)(2906002)(186003)(38070700005)(5660300002)(30864003)(8936002)(41300700001)(8676002)(33656002)(316002)(55016003)(53546011)(9686003)(6506007)(579004)(309714004);
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(366004)(396003)(136003)(346002)(39860400002)(451199021)(86362001)(83380400001)(966005)(478600001)(110136005)(33656002)(55016003)(8936002)(8676002)(316002)(41300700001)(38070700005)(54906003)(64756008)(166002)(66476007)(76116006)(66556008)(66446008)(52536014)(66946007)(91956017)(38100700002)(6636002)(122000001)(5660300002)(4326008)(7696005)(2906002)(71200400001)(26005)(19627405001)(186003)(6506007)(9686003)(53546011);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8yAGIOfc3QSf/0sYpyGiVWEOOlVz2AUr21g+t/x0vqxIwdH2gk5z04qE8zds?=
- =?us-ascii?Q?0P+19XQfzMuHmrQ0x4umBcZ804TZkpC414x7R0EMPm2v44WZQGWwPELDjE2i?=
- =?us-ascii?Q?OqUJVLUz4ZpKnNHbzItw8W+6OHeppyMACzWFDoFrUFipIr7iYRQDYEFkLTE7?=
- =?us-ascii?Q?5TDtMLdCLso5xDd/npYTYG1Ikdt3+01GMBQgaZYiCZrnkL1J/HVyn5PYcLUJ?=
- =?us-ascii?Q?LVmtuvd/BoK7Nn/A/vxxyhQ/YNzkaNMOJJh5gqCIhsOS9JRRbgghiMDDyg0f?=
- =?us-ascii?Q?P6eSpkLVNyJgXbBnHZdfvRWwa2i8pRHX3VB5kjRReidbeVnI+ykJq49612Rs?=
- =?us-ascii?Q?lYLRK4gBvnUPF/BDQpy4r6EMrM6ibSVH9paqErg6Qrm1fR/WXF+sOHPky6Kc?=
- =?us-ascii?Q?ufIOOw4WC/CizUQN2HP3CFANaZ3/65N3RCQPIqmQfQ8BLJQZPvTPpfn9u1T7?=
- =?us-ascii?Q?BbXBJ50Uipzzlv4JCzriGQPJLElNGiNRV1A2bGi8hwgtMo3URq7VaeErhJo1?=
- =?us-ascii?Q?CtztxnoTj1gCtMCiyXZosWKQJKEY1UnD9hm8EtEQwUTVq2JZNoikSapdUs63?=
- =?us-ascii?Q?5PpyO6tyFLH0MayVO4PtdvST9C8Q6CGIhXU6VEr8ZSJmHP6EWqFAbUj0FsBv?=
- =?us-ascii?Q?/PGw9W7g6mG9eBSBPGcJdpE5cq5J9swpFTXYvMFevKTYWk8nStZqpDy42zOs?=
- =?us-ascii?Q?JNBv/IDM5OjLkTCk4LUQFYkmGBBSg9bBJEJTPja+nN05UvGgtLkYOflyzXwX?=
- =?us-ascii?Q?CCd1yydcvHAtUqJ7r71VgK2xNIC1Jdd2kQjb+rZmLEApqaJdqgzaP50Km1ou?=
- =?us-ascii?Q?2NXc08vmMNwOmkJoqhx+LZPup8SkcImh57MToIUxcBVkp0tkO9fknOM1v/ue?=
- =?us-ascii?Q?HHX+vTkivEd+KxWS19ujreFkOAdTOa8BLO9Kgp0Ydvssd8hKTQ/1SQYqdeBA?=
- =?us-ascii?Q?rUHAkEgB5tPwAaafWhdpJJVgQvw9SOUBoWRWatV0TMcpczKMiSvai5WW9x+K?=
- =?us-ascii?Q?pb6k5LmJ82vElF4umjzPWa/cumXH0fpqDsmxiLyVJy7uNvu2+5YJ9Wn7h7T4?=
- =?us-ascii?Q?biA+3gFNEERKNmHAXyOzm+GWdOfTL1rWUBtwmZwUYSQ70L+3vSyqRgJ8r15G?=
- =?us-ascii?Q?9KjJHgKmOhMMw3ilnvwfMsZfLGlzWCrfiYsQRHIYdlbkTixtH3vPZFUK7xqw?=
- =?us-ascii?Q?opnQ0evrbyh5j9o92gtBl7P0QDsSMOPqPbC2s8IGGCoxz8Dtao4M5gtTyUC0?=
- =?us-ascii?Q?j7wY4YG07fQt/spZceI7yvmvVhS2WBJz7H0Be6XcKokHlRuP+YjJTjcN3zNE?=
- =?us-ascii?Q?4he5v/z2q7DgVxZ/VzVdpZt8Q/82LCEiIYpmZdnkDn1DrYDxcc2dDCdJRELL?=
- =?us-ascii?Q?Na1c+f+YLOmQS/2ALhPQmu55pz5UKcL+f1it9fWGO+GbG6JjIfZ5dc5MP/vG?=
- =?us-ascii?Q?BkzXj+YL9hWP4uVlbjX/PWRrl1wvxvnRbLZVuNrcBJ6j1ogQl6ZikRZuE6oo?=
- =?us-ascii?Q?+gN+j2yj16r7FdM/hq7xMwJUxADbatsbwLITjCfA/6OSHb15cTHpt6tF8mgz?=
- =?us-ascii?Q?GYpsMRazt4tluYl1swtZGiiSa3F8R9LBEPVDrPtx9mwcoi4W4+XhAHStGmfP?=
- =?us-ascii?Q?7jh46NRWQGAul0TNUgnkqFQ=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?O7VArlv9XjDBzroyi9qVqvnPb4IfbOxSEjhTHKhqzlZ76RZVyoRq3oN7LW?=
+ =?iso-8859-1?Q?odSyDmAKkUWaqAUUuPcN9qD0OGalvepwzOtP1ot2PysJPkzpz/lmYIuCce?=
+ =?iso-8859-1?Q?Bj5dnIXt9fEOzx99grBnM54GHh6qCE42OeKCiORC9y6nhToNUCgj2e1d9w?=
+ =?iso-8859-1?Q?JORDJ+no0Yd7x1iEkgzmI00OqKpTwthr+g6wRaLzasGqI12XOtYdd76Gh3?=
+ =?iso-8859-1?Q?DUz7ExcqjEhcby7BjUzcBWVyk2RxNOm4YEI/1BiRkk0tZVU1P9s9YeB6oT?=
+ =?iso-8859-1?Q?lU/zgDD2qJc/OK1YTvuqMekExlqLVkxHwMxIPcO3z5qB7AbTy7yBoFqQSm?=
+ =?iso-8859-1?Q?YbDVCvLcw1XmFEXtqWpoiBMR+owH+opaQsNspxJX3VItRAwUrV5X+hIFmd?=
+ =?iso-8859-1?Q?0kBuD4P978MfIePsJK9LMf+JSP5hovzgeRQibV3h5UVkxmDH8JVkzCsLn9?=
+ =?iso-8859-1?Q?P7U6l30QzOp9lVJgk6oudWAzaLDTDPcnNUmjKcsvFKsCJOsLUfDnytA9pU?=
+ =?iso-8859-1?Q?GBdFKEnUfvvcl4+g/0nyDcYPXAix2SxNWIZ+7aWwftgvoU+tS0Rf81ySSt?=
+ =?iso-8859-1?Q?4FHy/nCM724OqERn6WrLk4mBUqHQWmdoit76zHAruJA1qLDRNpzy7iIcEB?=
+ =?iso-8859-1?Q?FM6TcUOSmxsrvPOQWI/33XdgHyyeqC+qb8j0kHRkdGiqlnaGB8ahERekVI?=
+ =?iso-8859-1?Q?SjxraPVDrWyLqYWOde3Pdw3czUcMJzyyFu277nXKFs6gYbZccJUPf93ydu?=
+ =?iso-8859-1?Q?kslCy866bP8cPMNFMubemsffcdUbRzm7bRjs58KYyFcuDKWNZsV0Cgh+LA?=
+ =?iso-8859-1?Q?r3i1/kZJSQvmieCpMQbJgRkoWVRJ0AcfWmO3VOIv77nGiuwoxxi4hF5Ruc?=
+ =?iso-8859-1?Q?ONkpdIROoXuglEAo9XyuBYEZoE2dePWu02lHZ+kLPiUd5KpjZJMJpmnT9B?=
+ =?iso-8859-1?Q?FUluzQXlXxKIfolRtTWxwoe5t9pbAsm63aiPK4lQ4DzKhUBIKxBAfknqtW?=
+ =?iso-8859-1?Q?kOdRZ86tjBi2p+eZCSC6pS/alq05s3lK3M1zPZlkb5js+7t40RHyQGqgCW?=
+ =?iso-8859-1?Q?JHpZJJzPsob/uGDHdEaXIS9o7TH34l17TqL/CZwc8bQhLHi6PxtGfcm/z9?=
+ =?iso-8859-1?Q?5mfwElRwwKJloLXxqR78u0VYAta5EvELZiTW02SGwPUM32aAax9PmzUpJz?=
+ =?iso-8859-1?Q?fuSn5E6FWr+eW3SnkddDODDT3xX5Qt2ItRwwoI5QaDHUixYDG3kjXSTu/W?=
+ =?iso-8859-1?Q?1Y6izkc1oSUUuRkgFoRvsaqD3dAoCU1VR7MLrMxcsg1D1KtdZqDepYEOvQ?=
+ =?iso-8859-1?Q?OKmp11ATnwn7R1vHLbqRu4jecW32T3IgKETFbFNW8VyLqSapyId5BK+iPc?=
+ =?iso-8859-1?Q?BThD5MVDD8lNrmt/J+IhuCq8YJDQom2rhmVQl46ZgzmGwKMyF0Nn2hLdVa?=
+ =?iso-8859-1?Q?+5ZGZeLgT490q3/YUqIYjsMGSI3dU/9/ahy6NX5mCYJrqQzenvCkkmU1pI?=
+ =?iso-8859-1?Q?64xoyGjqi/kFrqPsrgOX+2fjHxtU7iLjAzi5xNkzicEgbSm0hVEOgcg5xg?=
+ =?iso-8859-1?Q?VJ05mj3+H4B0IZUYcX3uYGpFDkl2RKF0044KUVfeuuYc2bWdGekRUy+1gm?=
+ =?iso-8859-1?Q?Y6DzrGGTC6Lfs=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CH0PR12MB5284C88ABA0C45CD177F9C5B8B53ACH0PR12MB5284namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7435.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c837b3f2-16c5-47ec-7343-08db677d6ba4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jun 2023 17:34:17.7550 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bf15b50-b03b-4089-760f-08db677d892a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jun 2023 17:35:07.2834 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 30/rgWbFFHyRBZqZ1Q3E7g7YdMi8bQpgGumldTspiWkxhVQguXYvzLXGtfRYBkh5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4902
+X-MS-Exchange-CrossTenant-userprincipalname: 5wjoP3gvNSo04RpfOICjxRTkocVU9K2I2DM+idz0w6zmZrWwcmHshdS9NpDU1JGhh6FZ/nV1T7Bb7XZZbhEMjA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8330
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,586 +127,238 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Huang, JinHuiEric" <JinHuiEric.Huang@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>
+Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Li,
+ Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Lakha, 
+ Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chiu, 
+ Solomon" <Solomon.Chiu@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Gutierrez,
+ Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_CH0PR12MB5284C88ABA0C45CD177F9C5B8B53ACH0PR12MB5284namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
 [Public]
 
-+ Felix (typo on email)
+Thanks Michel.
 
-> -----Original Message-----
-> From: Kim, Jonathan <Jonathan.Kim@amd.com>
-> Sent: Wednesday, June 7, 2023 1:32 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Felix.Kueling@amd.com; Huang, JinHuiEric <JinHuiEric.Huang@amd.com>;
-> Kim, Jonathan <Jonathan.Kim@amd.com>
-> Subject: [PATCH] drm/amdkfd: optimize gfx off enable toggle for debugging
->
-> Legacy debug devices limited to pinning a single debug VMID for debugging
-> are the only devices that require disabling GFX OFF while accessing
-> debug registers.  Debug devices that support multi-process debugging
-> rely on the hardware scheduler to update debug registers and do not run
-> into GFX OFF access issues.
->
-> Remove KFD GFX OFF enable toggle clutter by moving these calls into the
-> KGD debug calls themselves.
->
-> v2: toggle gfx off around address watch hi/lo settings as well.
->
-> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
-> ---
->  .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  |  4 +++
->  .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |  7 ++++
->  .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 33
-> ++++++++++++++++++-
->  .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c    |  4 +++
->  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 24 ++++++++++++++
->  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 22 +++----------
->  drivers/gpu/drm/amd/amdkfd/kfd_debug.c        | 21 +-----------
->  7 files changed, 77 insertions(+), 38 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-> index 60f9e027fb66..1f0e6ec56618 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-> @@ -150,6 +150,8 @@ static uint32_t
-> kgd_gfx_aldebaran_set_address_watch(
->                       VALID,
->                       1);
->
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_H)
-> +
->                       (watch_id * TCP_WATCH_STRIDE)),
->                       watch_address_high);
-> @@ -158,6 +160,8 @@ static uint32_t
-> kgd_gfx_aldebaran_set_address_watch(
->                       (watch_id * TCP_WATCH_STRIDE)),
->                       watch_address_low);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return watch_address_cntl;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-> index 625db444df1c..a4e28d547173 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-> @@ -350,6 +350,8 @@ static uint32_t
-> kgd_arcturus_enable_debug_trap(struct amdgpu_device *adev,
->                               bool restore_dbg_registers,
->                               uint32_t vmid)
->  {
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       mutex_lock(&adev->grbm_idx_mutex);
->
->       kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
-> @@ -362,6 +364,8 @@ static uint32_t
-> kgd_arcturus_enable_debug_trap(struct amdgpu_device *adev,
->
->       mutex_unlock(&adev->grbm_idx_mutex);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> @@ -375,6 +379,7 @@ static uint32_t
-> kgd_arcturus_disable_debug_trap(struct amdgpu_device *adev,
->                                       bool keep_trap_enabled,
->                                       uint32_t vmid)
->  {
-> +     amdgpu_gfx_off_ctrl(adev, false);
->
->       mutex_lock(&adev->grbm_idx_mutex);
->
-> @@ -388,6 +393,8 @@ static uint32_t
-> kgd_arcturus_disable_debug_trap(struct amdgpu_device *adev,
->
->       mutex_unlock(&adev->grbm_idx_mutex);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->  const struct kfd2kgd_calls arcturus_kfd2kgd =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> index 8ad7a7779e14..415928139861 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> @@ -754,12 +754,13 @@ uint32_t kgd_gfx_v10_enable_debug_trap(struct
-> amdgpu_device *adev,
->                               bool restore_dbg_registers,
->                               uint32_t vmid)
->  {
-> +     amdgpu_gfx_off_ctrl(adev, false);
->
->       mutex_lock(&adev->grbm_idx_mutex);
->
->       kgd_gfx_v10_set_wave_launch_stall(adev, vmid, true);
->
-> -     /* assume gfx off is disabled for the debug session if rlc restore =
-not
-> supported. */
-> +     /* keep gfx off disabled for the debug session if rlc restore not
-> supported. */
->       if (restore_dbg_registers) {
->               uint32_t data =3D 0;
->
-> @@ -784,6 +785,8 @@ uint32_t kgd_gfx_v10_enable_debug_trap(struct
-> amdgpu_device *adev,
->
->       mutex_unlock(&adev->grbm_idx_mutex);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> @@ -791,6 +794,8 @@ uint32_t kgd_gfx_v10_disable_debug_trap(struct
-> amdgpu_device *adev,
->                                       bool keep_trap_enabled,
->                                       uint32_t vmid)
->  {
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       mutex_lock(&adev->grbm_idx_mutex);
->
->       kgd_gfx_v10_set_wave_launch_stall(adev, vmid, true);
-> @@ -801,6 +806,16 @@ uint32_t kgd_gfx_v10_disable_debug_trap(struct
-> amdgpu_device *adev,
->
->       mutex_unlock(&adev->grbm_idx_mutex);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
-> +     /*
-> +      * Remove the extra gfx off disable reference from debug restore ca=
-ll
-> +      * for asics that do not support rlc restore for debug registers.
-> +      */
-> +     if (adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(10, 1, 10) ||
-> +         adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(10, 1, 1))
-> +             amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> @@ -832,6 +847,8 @@ uint32_t
-> kgd_gfx_v10_set_wave_launch_trap_override(struct amdgpu_device *adev,
->  {
->       uint32_t data, wave_cntl_prev;
->
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       mutex_lock(&adev->grbm_idx_mutex);
->
->       wave_cntl_prev =3D RREG32(SOC15_REG_OFFSET(GC, 0,
-> mmSPI_GDBG_WAVE_CNTL));
-> @@ -853,6 +870,8 @@ uint32_t
-> kgd_gfx_v10_set_wave_launch_trap_override(struct amdgpu_device *adev,
->
->       mutex_unlock(&adev->grbm_idx_mutex);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> @@ -863,6 +882,8 @@ uint32_t kgd_gfx_v10_set_wave_launch_mode(struct
-> amdgpu_device *adev,
->       uint32_t data =3D 0;
->       bool is_mode_set =3D !!wave_launch_mode;
->
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       mutex_lock(&adev->grbm_idx_mutex);
->
->       kgd_gfx_v10_set_wave_launch_stall(adev, vmid, true);
-> @@ -877,6 +898,8 @@ uint32_t kgd_gfx_v10_set_wave_launch_mode(struct
-> amdgpu_device *adev,
->
->       mutex_unlock(&adev->grbm_idx_mutex);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> @@ -916,6 +939,8 @@ uint32_t kgd_gfx_v10_set_address_watch(struct
-> amdgpu_device *adev,
->                       VALID,
->                       0);
->
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       WREG32((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
->                       (watch_id * TCP_WATCH_STRIDE)),
->                       watch_address_cntl);
-> @@ -938,6 +963,8 @@ uint32_t kgd_gfx_v10_set_address_watch(struct
-> amdgpu_device *adev,
->                       (watch_id * TCP_WATCH_STRIDE)),
->                       watch_address_cntl);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> @@ -948,10 +975,14 @@ uint32_t kgd_gfx_v10_clear_address_watch(struct
-> amdgpu_device *adev,
->
->       watch_address_cntl =3D 0;
->
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       WREG32((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
->                       (watch_id * TCP_WATCH_STRIDE)),
->                       watch_address_cntl);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> index 91c3574ebed3..bb6ad733b3d6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> @@ -768,6 +768,8 @@ static uint32_t kgd_gfx_v11_set_address_watch(struct
-> amdgpu_device *adev,
->                       VALID,
->                       1);
->
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_H)
-> +
->                       (watch_id * TCP_WATCH_STRIDE)),
->                       watch_address_high);
-> @@ -776,6 +778,8 @@ static uint32_t kgd_gfx_v11_set_address_watch(struct
-> amdgpu_device *adev,
->                       (watch_id * TCP_WATCH_STRIDE)),
->                       watch_address_low);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return watch_address_cntl;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> index 51d93fb13ea3..e30d1f9f5564 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> @@ -704,6 +704,8 @@ uint32_t kgd_gfx_v9_enable_debug_trap(struct
-> amdgpu_device *adev,
->                               bool restore_dbg_registers,
->                               uint32_t vmid)
->  {
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       mutex_lock(&adev->grbm_idx_mutex);
->
->       kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
-> @@ -714,6 +716,8 @@ uint32_t kgd_gfx_v9_enable_debug_trap(struct
-> amdgpu_device *adev,
->
->       mutex_unlock(&adev->grbm_idx_mutex);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> @@ -727,6 +731,8 @@ uint32_t kgd_gfx_v9_disable_debug_trap(struct
-> amdgpu_device *adev,
->                                       bool keep_trap_enabled,
->                                       uint32_t vmid)
->  {
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       mutex_lock(&adev->grbm_idx_mutex);
->
->       kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
-> @@ -737,6 +743,8 @@ uint32_t kgd_gfx_v9_disable_debug_trap(struct
-> amdgpu_device *adev,
->
->       mutex_unlock(&adev->grbm_idx_mutex);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> @@ -768,6 +776,8 @@ uint32_t
-> kgd_gfx_v9_set_wave_launch_trap_override(struct amdgpu_device *adev,
->  {
->       uint32_t data, wave_cntl_prev;
->
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       mutex_lock(&adev->grbm_idx_mutex);
->
->       wave_cntl_prev =3D RREG32(SOC15_REG_OFFSET(GC, 0,
-> mmSPI_GDBG_WAVE_CNTL));
-> @@ -789,6 +799,8 @@ uint32_t
-> kgd_gfx_v9_set_wave_launch_trap_override(struct amdgpu_device *adev,
->
->       mutex_unlock(&adev->grbm_idx_mutex);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> @@ -799,6 +811,8 @@ uint32_t kgd_gfx_v9_set_wave_launch_mode(struct
-> amdgpu_device *adev,
->       uint32_t data =3D 0;
->       bool is_mode_set =3D !!wave_launch_mode;
->
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       mutex_lock(&adev->grbm_idx_mutex);
->
->       kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
-> @@ -813,6 +827,8 @@ uint32_t kgd_gfx_v9_set_wave_launch_mode(struct
-> amdgpu_device *adev,
->
->       mutex_unlock(&adev->grbm_idx_mutex);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> @@ -852,6 +868,8 @@ uint32_t kgd_gfx_v9_set_address_watch(struct
-> amdgpu_device *adev,
->                       VALID,
->                       0);
->
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       WREG32_RLC((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
->                       (watch_id * TCP_WATCH_STRIDE)),
->                       watch_address_cntl);
-> @@ -874,6 +892,8 @@ uint32_t kgd_gfx_v9_set_address_watch(struct
-> amdgpu_device *adev,
->                       (watch_id * TCP_WATCH_STRIDE)),
->                       watch_address_cntl);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> @@ -884,10 +904,14 @@ uint32_t kgd_gfx_v9_clear_address_watch(struct
-> amdgpu_device *adev,
->
->       watch_address_cntl =3D 0;
->
-> +     amdgpu_gfx_off_ctrl(adev, false);
-> +
->       WREG32_RLC((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
->                       (watch_id * TCP_WATCH_STRIDE)),
->                       watch_address_cntl);
->
-> +     amdgpu_gfx_off_ctrl(adev, true);
-> +
->       return 0;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index cf1db0ab3471..f597e1c8ebee 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -2766,7 +2766,6 @@ static int runtime_enable(struct kfd_process *p,
-> uint64_t r_debug,
->                       struct kfd_process_device *pdd =3D p->pdds[i];
->
->                       if (!kfd_dbg_is_rlc_restore_supported(pdd->dev)) {
-> -                             amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
->                               pdd->dev->kfd2kgd->enable_debug_trap(
->                                               pdd->dev->adev,
->                                               true,
-> @@ -2823,33 +2822,22 @@ static int runtime_disable(struct kfd_process *p)
->                       return ret;
->       }
->
-> -     if (was_enabled && p->runtime_info.ttmp_setup) {
-> -             for (i =3D 0; i < p->n_pdds; i++) {
-> -                     struct kfd_process_device *pdd =3D p->pdds[i];
-> -
-> -                     if (!kfd_dbg_is_rlc_restore_supported(pdd->dev))
-> -                             amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
-> -             }
-> -     }
-> -
->       p->runtime_info.ttmp_setup =3D false;
->
->       /* disable ttmp setup */
->       for (i =3D 0; i < p->n_pdds; i++) {
->               struct kfd_process_device *pdd =3D p->pdds[i];
->
-> -             if (kfd_dbg_is_per_vmid_supported(pdd->dev)) {
-> -                     pdd->spi_dbg_override =3D
-> -                                     pdd->dev->kfd2kgd-
-> >disable_debug_trap(
-> -                                     pdd->dev->adev,
-> -                                     false,
-> -                                     pdd->dev->vm_info.last_vmid_kfd);
-> +             pdd->spi_dbg_override =3D
-> +                             pdd->dev->kfd2kgd->disable_debug_trap(
-> +                             pdd->dev->adev,
-> +                             false,
-> +                             pdd->dev->vm_info.last_vmid_kfd);
->
->                       if (!pdd->dev->kfd->shared_resources.enable_mes)
->                               debug_refresh_runlist(pdd->dev->dqm);
->                       else
->                               kfd_dbg_set_mes_debug_mode(pdd);
-> -             }
->       }
->
->       return 0;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> index e7bc07068eed..5b381018407a 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> @@ -441,11 +441,9 @@ int kfd_dbg_trap_clear_dev_address_watch(struct
-> kfd_process_device *pdd,
->                       return r;
->       }
->
-> -     amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
->       pdd->watch_points[watch_id] =3D pdd->dev->kfd2kgd-
-> >clear_address_watch(
->                                                       pdd->dev->adev,
->                                                       watch_id);
-> -     amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
->
->       if (!pdd->dev->kfd->shared_resources.enable_mes)
->               r =3D debug_map_and_unlock(pdd->dev->dqm);
-> @@ -476,7 +474,6 @@ int kfd_dbg_trap_set_dev_address_watch(struct
-> kfd_process_device *pdd,
->               }
->       }
->
-> -     amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
->       pdd->watch_points[*watch_id] =3D pdd->dev->kfd2kgd-
-> >set_address_watch(
->                               pdd->dev->adev,
->                               watch_address,
-> @@ -484,7 +481,6 @@ int kfd_dbg_trap_set_dev_address_watch(struct
-> kfd_process_device *pdd,
->                               *watch_id,
->                               watch_mode,
->                               pdd->dev->vm_info.last_vmid_kfd);
-> -     amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
->
->       if (!pdd->dev->kfd->shared_resources.enable_mes)
->               r =3D debug_map_and_unlock(pdd->dev->dqm);
-> @@ -599,15 +595,11 @@ void kfd_dbg_trap_deactivate(struct kfd_process
-> *target, bool unwind, int unwind
->
->               kfd_process_set_trap_debug_flag(&pdd->qpd, false);
->
-> -             /* GFX off is already disabled by debug activate if not RLC
-> restore supported. */
-> -             if (kfd_dbg_is_rlc_restore_supported(pdd->dev))
-> -                     amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
->               pdd->spi_dbg_override =3D
->                               pdd->dev->kfd2kgd->disable_debug_trap(
->                               pdd->dev->adev,
->                               target->runtime_info.ttmp_setup,
->                               pdd->dev->vm_info.last_vmid_kfd);
-> -             amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
->
->               if (!kfd_dbg_is_per_vmid_supported(pdd->dev) &&
->                               release_debug_trap_vmid(pdd->dev->dqm,
-> &pdd->qpd))
-> @@ -699,14 +691,10 @@ int kfd_dbg_trap_activate(struct kfd_process
-> *target)
->                       }
->               }
->
-> -             /* Disable GFX OFF to prevent garbage read/writes to debug
-> registers.
-> +             /*
->                * If RLC restore of debug registers is not supported and
-> runtime enable
->                * hasn't done so already on ttmp setup request, restore th=
-e
-> trap config registers.
-> -              *
-> -              * If RLC restore of debug registers is not supported, keep=
- gfx
-> off disabled for
-> -              * the debug session.
->                */
-> -             amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
->               if (!(kfd_dbg_is_rlc_restore_supported(pdd->dev) ||
->                                               target-
-> >runtime_info.ttmp_setup))
->                       pdd->dev->kfd2kgd->enable_debug_trap(pdd->dev-
-> >adev, true,
-> @@ -717,9 +705,6 @@ int kfd_dbg_trap_activate(struct kfd_process *target)
->                                       false,
->                                       pdd->dev->vm_info.last_vmid_kfd);
->
-> -             if (kfd_dbg_is_rlc_restore_supported(pdd->dev))
-> -                     amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
-> -
->               /*
->                * Setting the debug flag in the trap handler requires that=
- the
-> TMA has been
->                * allocated, which occurs during CWSR initialization.
-> @@ -851,7 +836,6 @@ int kfd_dbg_trap_set_wave_launch_override(struct
-> kfd_process *target,
->       for (i =3D 0; i < target->n_pdds; i++) {
->               struct kfd_process_device *pdd =3D target->pdds[i];
->
-> -             amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
->               pdd->spi_dbg_override =3D pdd->dev->kfd2kgd-
-> >set_wave_launch_trap_override(
->                               pdd->dev->adev,
->                               pdd->dev->vm_info.last_vmid_kfd,
-> @@ -860,7 +844,6 @@ int kfd_dbg_trap_set_wave_launch_override(struct
-> kfd_process *target,
->                               trap_mask_request,
->                               trap_mask_prev,
->                               pdd->spi_dbg_override);
-> -             amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
->
->               if (!pdd->dev->kfd->shared_resources.enable_mes)
->                       r =3D debug_refresh_runlist(pdd->dev->dqm);
-> @@ -887,12 +870,10 @@ int kfd_dbg_trap_set_wave_launch_mode(struct
-> kfd_process *target,
->       for (i =3D 0; i < target->n_pdds; i++) {
->               struct kfd_process_device *pdd =3D target->pdds[i];
->
-> -             amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
->               pdd->spi_dbg_launch_mode =3D pdd->dev->kfd2kgd-
-> >set_wave_launch_mode(
->                               pdd->dev->adev,
->                               wave_launch_mode,
->                               pdd->dev->vm_info.last_vmid_kfd);
-> -             amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
->
->               if (!pdd->dev->kfd->shared_resources.enable_mes)
->                       r =3D debug_refresh_runlist(pdd->dev->dqm);
-> --
-> 2.25.1
+Do you see the issue if you force disable FAMS?  The following diff should =
+do:
 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/driver=
+s/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index f4ee4b3df596..475c16aab518 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -725,7 +725,8 @@ static const struct dc_debug_options debug_defaults_drv=
+ =3D {
+        .dwb_fi_phase =3D -1, // -1 =3D disable,
+        .dmub_command_table =3D true,
+        .use_max_lb =3D true,
+-       .exit_idle_opt_for_cursor_updates =3D true
++       .exit_idle_opt_for_cursor_updates =3D true,
++       .disable_fams=3Dtrue
+ };
+
+ static const struct dc_panel_config panel_config_defaults =3D {
+
+
+--
+
+Regards,
+Jay
+________________________________
+From: Michel D=E4nzer <michel@daenzer.net>
+Sent: Wednesday, June 7, 2023 1:00 PM
+To: Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Zhuo, Qingqing (Lillian) =
+<Qingqing.Zhuo@amd.com>; Chalmers, Wesley <Wesley.Chalmers@amd.com>
+Cc: Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; Li, Sun peng (Leo) <Sunp=
+eng.Li@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Siqueira, Rodrig=
+o <Rodrigo.Siqueira@amd.com>; Li, Roman <Roman.Li@amd.com>; Chiu, Solomon <=
+Solomon.Chiu@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>; Lakha, Bhawanpreet <=
+Bhawanpreet.Lakha@amd.com>; Gutierrez, Agustin <Agustin.Gutierrez@amd.com>;=
+ Kotarac, Pavle <Pavle.Kotarac@amd.com>; amd-gfx@lists.freedesktop.org <amd=
+-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 10/66] drm/amd/display: Do not set drr on pipe commit
+
+On 6/6/23 20:01, Pillai, Aurabindo wrote:
+>
+> I'm attaching another DMCUB firmware which has the bug fix for the hang w=
+e saw at our end and some added tracing enabled.
+
+Still runs into the newer hang when starting a KDE Plasma Wayland session.
+
+Should I try this for starting the game without the program OTG patch as we=
+ll?
+
+
+> Could you please grab the dmesg with the following added to the kernel cm=
+dline: "drm.debug=3D0x156 log_buf_len=3D20M" using stock gnome/kde when you=
+ have all 3 patches merged ?
+>
+> Also attach the contents of /sys/kernel/debug/dri/0/amdgpu_dm_dmub_traceb=
+uffer
+
+Both files attached.
+
+
+--
+Earthling Michel D=E4nzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
+
+--_000_CH0PR12MB5284C88ABA0C45CD177F9C5B8B53ACH0PR12MB5284namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
+ign=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+Thanks Michel.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+Do you see the issue if you force disable FAMS?&nbsp; The following diff sh=
+ould do:<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof ContentPasted0">
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/driver=
+s/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+<div class=3D"ContentPasted0">index f4ee4b3df596..475c16aab518 100644</div>
+<div class=3D"ContentPasted0">--- a/drivers/gpu/drm/amd/display/dc/dcn30/dc=
+n30_resource.c</div>
+<div class=3D"ContentPasted0">+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dc=
+n30_resource.c</div>
+<div class=3D"ContentPasted0">@@ -725,7 +725,8 @@ static const struct dc_de=
+bug_options debug_defaults_drv =3D {</div>
+<div class=3D"ContentPasted0">&nbsp; &nbsp; &nbsp; &nbsp; .dwb_fi_phase =3D=
+ -1, // -1 =3D disable,</div>
+<div class=3D"ContentPasted0">&nbsp; &nbsp; &nbsp; &nbsp; .dmub_command_tab=
+le =3D true,</div>
+<div class=3D"ContentPasted0">&nbsp; &nbsp; &nbsp; &nbsp; .use_max_lb =3D t=
+rue,</div>
+<div class=3D"ContentPasted0">- &nbsp; &nbsp; &nbsp; .exit_idle_opt_for_cur=
+sor_updates =3D true</div>
+<div class=3D"ContentPasted0">+ &nbsp; &nbsp; &nbsp; .exit_idle_opt_for_cur=
+sor_updates =3D true,</div>
+<div class=3D"ContentPasted0">+ &nbsp; &nbsp; &nbsp; .disable_fams=3Dtrue</=
+div>
+<div class=3D"ContentPasted0">&nbsp;};</div>
+<div><br class=3D"ContentPasted0">
+</div>
+<div class=3D"ContentPasted0">&nbsp;static const struct dc_panel_config pan=
+el_config_defaults =3D {</div>
+<br>
+</div>
+<div class=3D"elementToProof">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature">
+<div>
+<div></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+--</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Jay<br>
+</div>
+</div>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Michel D=E4nzer &lt;m=
+ichel@daenzer.net&gt;<br>
+<b>Sent:</b> Wednesday, June 7, 2023 1:00 PM<br>
+<b>To:</b> Pillai, Aurabindo &lt;Aurabindo.Pillai@amd.com&gt;; Zhuo, Qingqi=
+ng (Lillian) &lt;Qingqing.Zhuo@amd.com&gt;; Chalmers, Wesley &lt;Wesley.Cha=
+lmers@amd.com&gt;<br>
+<b>Cc:</b> Wang, Chao-kai (Stylon) &lt;Stylon.Wang@amd.com&gt;; Li, Sun pen=
+g (Leo) &lt;Sunpeng.Li@amd.com&gt;; Wentland, Harry &lt;Harry.Wentland@amd.=
+com&gt;; Siqueira, Rodrigo &lt;Rodrigo.Siqueira@amd.com&gt;; Li, Roman &lt;=
+Roman.Li@amd.com&gt;; Chiu, Solomon &lt;Solomon.Chiu@amd.com&gt;; Lin,
+ Wayne &lt;Wayne.Lin@amd.com&gt;; Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha@=
+amd.com&gt;; Gutierrez, Agustin &lt;Agustin.Gutierrez@amd.com&gt;; Kotarac,=
+ Pavle &lt;Pavle.Kotarac@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd=
+-gfx@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> Re: [PATCH 10/66] drm/amd/display: Do not set drr on pipe c=
+ommit</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 6/6/23 20:01, Pillai, Aurabindo wrote:<br>
+&gt; <br>
+&gt; I'm attaching another DMCUB firmware which has the bug fix for the han=
+g we saw at our end and some added tracing enabled.<br>
+<br>
+Still runs into the newer hang when starting a KDE Plasma Wayland session.<=
+br>
+<br>
+Should I try this for starting the game without the program OTG patch as we=
+ll?<br>
+<br>
+<br>
+&gt; Could you please grab the dmesg with the following added to the kernel=
+ cmdline: &quot;drm.debug=3D0x156 log_buf_len=3D20M&quot; using stock gnome=
+/kde when you have all 3 patches merged ?<br>
+&gt; <br>
+&gt; Also attach the contents of /sys/kernel/debug/dri/0/amdgpu_dm_dmub_tra=
+cebuffer<br>
+<br>
+Both files attached.<br>
+<br>
+<br>
+-- <br>
+Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"https://redhat.com=
+">
+https://redhat.com</a><br>
+Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mesa and Xwayland de=
+veloper<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CH0PR12MB5284C88ABA0C45CD177F9C5B8B53ACH0PR12MB5284namp_--
