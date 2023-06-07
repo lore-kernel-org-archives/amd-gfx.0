@@ -4,115 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21B53C7EE25
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 15:38:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9046AC77B7A
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 15:59:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91E2410E09D;
-	Wed,  7 Jun 2023 15:38:18 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19B6D10E09D
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jun 2023 15:38:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jlx5G8ezWKB5r68R9UzZHjHtmyRLTv01SLXdEl3xGw+gUtYcI4QkG5TnW7V9/qVOKalNqPtnxtCMJwcohEvxffZWdNYgapvYoDO76wFRFIDXnOLkyeNHGT+mxHq7+St7SpCLa3ghQonK2p2QsoUXaLYM/U+s++D6SDGf/hi3Uv7KilmFBGh1HoedtqUQByqf4jQCwmxP+iH3IJuqOquDTBKKAnTZ/b3q987RjiUiiA/oLLcuoEzsv7NmprznzjHUHG3Gie3RWoIFP8ZHO9jiECdMAHyLkNYavs/yYrJIOXkx2yA9q3SKvOQY/Pbc2y8u4wmaoolviKF+pjoIPKO7tA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5stO9wlcUH/LdpC6CyFCJ4SDC3qnZoLNwDLSrOxhIBk=;
- b=iOXg9fvirCmnrKs5pO3cJdZQz842aZTyWtT72csYUZ2Uy4QKNbSY58JQ5Z6pj//DpQryAa7jybX7Mld6tD9j3yg8WVM+GL+KHNzdxS8tSXCdpV7wx8xT8LZJPtvO1sSdGOaxFhpp6/e2dzRmCPKSMECKlkZWAZqDAN8MhPmhaAu3FDgWO0rUUuLbX7EcaT0yynsiYUewiLaUPiNyNBDsGFrUKt/Ri3ISWPIPi/jozEudt07I/OxsXd1UiLjMST4WCL4+WaJy2XBnJGDpWosf8zI6kepyF/9qgK8TM3/kaBSUNUKogPkv31dogSrfo76H0oCeGC2VwbqtQlDr6uT5XQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5stO9wlcUH/LdpC6CyFCJ4SDC3qnZoLNwDLSrOxhIBk=;
- b=Rplhti2inb067FpSPgDRznNVv4f4Vbl5ecZUg6vA+GnUj99EcJC71lFAgPKMTGGtc4E/Qd+Jlo13YYbieB+N94OF3GDp+6DK1k6PqvX96OTO4TaOeS/KYG8Qhmzzo8SE5NweD9G4IfFxNeDT758cRmvGBVYT9oV6GdPw1QpFCGg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM6PR12MB4912.namprd12.prod.outlook.com (2603:10b6:5:20b::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.38; Wed, 7 Jun
- 2023 15:38:14 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::2dc3:c1:e72d:55bc]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::2dc3:c1:e72d:55bc%6]) with mapi id 15.20.6455.030; Wed, 7 Jun 2023
- 15:38:14 +0000
-Message-ID: <270445f7-ca79-784e-5060-e6e0b0782277@amd.com>
-Date: Wed, 7 Jun 2023 11:38:11 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amdkfd: Fix reserved SDMA queues handling
-Content-Language: en-US
-To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230607152741.320428-1-mukul.joshi@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20230607152741.320428-1-mukul.joshi@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0032.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00::45) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FB7F10E1A4;
+	Wed,  7 Jun 2023 15:59:33 +0000 (UTC)
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C5D110E1A4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jun 2023 15:59:31 +0000 (UTC)
+Received: by mail-oi1-x233.google.com with SMTP id
+ 5614622812f47-3909756b8b1so2970352b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 07 Jun 2023 08:59:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1686153570; x=1688745570;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=31Iv/Eys9075DRtvuaFcper8WxNVfprSD4DZoxGqUOg=;
+ b=UoXJmTkuuQad5n7mXnVXqvsVZJINXpZW8Sq8sMGgFGXu5lpc1ssJm874J84AuxL5bt
+ iL4Iz9+9bzh0mI7ErEt/qKv3pVwVQslUFHylKVzCd4w/1YOE+vjw53PFzgNGrmFh9/dO
+ k+x9q8va1O2SSU5+uFVgg6FrlaKKwh4kZbsF7ANnY6N9ejYF9T6qmSGHJYWcJPHsrwiw
+ oUq27wLpYRhCMUsGJPSTpHlB+gJdmCcsLf2NkrG9Qh0ZJV292tDtZ/ba6DqnPJu6Sg4r
+ TQS5c2kJTHfJFcwg6sAyvKf+gAyN5b19grTrQ75VFcJrnPFaKKQ6Dmzgdii8FxYeZDJZ
+ YsZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686153570; x=1688745570;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=31Iv/Eys9075DRtvuaFcper8WxNVfprSD4DZoxGqUOg=;
+ b=gY+3WZNhXPdgRZKWfHP4xfUMNghBO1drkiM6MEF/bl4OFFF9ZOjDrymEhvXleAZifS
+ rRYSqWbGllmhQ3RwHhqFUnr8lF6Th1M0h6/+rF3NqBqGKpQNJycWKKXsoScsTleRt5WA
+ TW7fwehcGZcHfyKJApheh9zs+0Vj8f8ciCQLtbp4cslUxkppc7gMredTQU/Blw8NAHbD
+ dw8MEW5ScDLN8YDYKsXTZjm5k86F8GIDEVW7IjsyY207eu2ThFpLuV5/NthW/2CKrsKN
+ i57USMgqNvFngF6Z/3TI6lxmhOg6mU+KqypBhQTeSYfOQKaQ7PGr7eQJgGFekJSOGLwE
+ XHbw==
+X-Gm-Message-State: AC+VfDzxyxYwM4CNplLh0C4sPXDu4lCGTujVJJkA8Jk0Y1mozXkElDvn
+ MzMXHxIP1h1rchPFvxUNoIPvswYZfa5/JaX0WTsdF/Pi
+X-Google-Smtp-Source: ACHHUZ7va/1HYtdi8pDHB+AdT3rcEDr7wBOaGXB1/W66CknPTZl14snC1QwBkL1KVfHZijjA1KWKWSpPewmavTQbXoI=
+X-Received: by 2002:aca:1908:0:b0:395:eed6:5193 with SMTP id
+ l8-20020aca1908000000b00395eed65193mr2251197oii.10.1686153570435; Wed, 07 Jun
+ 2023 08:59:30 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM6PR12MB4912:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5edc25b2-5107-4134-52f9-08db676d34fb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8SA52kkOqVdYcJ2KkFQckKoO0g7NW8cA3Wtvhh0xL6KTxKAmvQGyWfJYRsSFkigt2mXTNfj9cwgppkveRiM2vkTNR5uHN7RcVQ2OUOYnaH/rnMfiUZoN0INec6v4NSukByash+4hJCNN+B6LqtyjPQOXLP49iBBZu6T4rdevI9Hys0AfAGg6xtC2WthYkDqLS99zXqs1l1ooVlgjTMBymh8A6DUITZt4tLUG7BpyoP4BfVb3hqlVRBexvSBrugw4YkzltlWAwx5uIwsxcbRDZnkQnDdHWD5wfIU0XoAkABI88Q0hlbx9bISFTjRHvlXlniYs31cYuG1B05vaWHONP7CEeyHfys7YoJr9y7Yxov9emaYzOX3zw7XzHdevontbM//PTFgSEd/fsS8Bf4KE2cPgU6h07Wbmkj7Zyqyy3+LN6r2Xl5cbydJub7PL54nYfu4zH3US0qN0J6nFwIra5Xog/epE0PUynK4s5Zq9PRghiVbsK4ES+6QQ8FozBgOalIuuVYfmBG2uXsb0MvtMTBrrGLSNj1X7ZyS4IX3u6cGiL847RSbsF/Ha150IjxNEV9iC+AwnBHceTVfQQTNd4X/mwUMdyzKZFBLOQOcPkxQ5w5VqGifam17qsAkG6I+9c6dnNwZ0IbrBVU24cU+/Mw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(396003)(376002)(366004)(39860400002)(451199021)(36916002)(6486002)(6666004)(2906002)(66946007)(66556008)(66476007)(36756003)(38100700002)(5660300002)(44832011)(8936002)(8676002)(86362001)(31696002)(41300700001)(316002)(478600001)(2616005)(53546011)(6512007)(26005)(6506007)(31686004)(186003)(83380400001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlJ3ZG1NWDBPaytHdloweUZTSFpGZWZ2VmE5Wlo4c3Q0cWxvZ1hJTkg3dXJX?=
- =?utf-8?B?S3NJM0RSaGlQZzJsMFV0SVhJS1oxdGZxb0hlT0dMRnVGNmtOeHRIaitibjU1?=
- =?utf-8?B?UmwwZFovMVZXZGdvWWg4NFVrbGt6cXJEZWcvanh6MXFaY21ZNzN3ZUY2MDF3?=
- =?utf-8?B?SnFqZDNLc3VxUFh3Z295S0U3VWxESjhhOWE5amZNUXJVQVd3SUVUbXlGNk1U?=
- =?utf-8?B?dTIwc1JVdi9OelVhQzBnYTU2UnlLTS9NRkNzQ2oxYmNpSmNMUGk3c1RLbjJJ?=
- =?utf-8?B?S2x2OXhrZ3VyMFBVZm45eUJ4NitoZzg2eExBaGxkWjFqK0N0cUpGZWhNTWp6?=
- =?utf-8?B?ZWlFaDdMOGY5S2premZVcUlYbUpBYVovMFdza0NkV0pnQVhVU1BvWm9nczk0?=
- =?utf-8?B?NXhwTmhpUnZPUGJQYXVsU1YrUnA2Z1BFMWRkUzRMNE9FT3BMMG1Vc3Z3K0F6?=
- =?utf-8?B?VWRqbTVjNUV3WUc5eE9xS1hvdFVSa0xRZG5sS3IxZldWeFlxcHUrYUcyQmNh?=
- =?utf-8?B?Y1pHQ094eVJwaUpYcFJKbFJBK3B1dlUyS1BRQmdUeEsrNnNISnBNcmxyWU5k?=
- =?utf-8?B?WnROY3kxVC9xbHJyM1F2a3dtekRKSkg2WUREeWNOSTllbjFoYStRSlRoTFVX?=
- =?utf-8?B?d1R4T1JtZmc4VVF4bDVzL1JsRnowZjkweHlPWGZxaVR5Z2FYeitvVXNreTNm?=
- =?utf-8?B?UUtvdzV6UlRLUDg3a2QyMVlFRWdhSWpTN1JEL2YwSVB3RGxZc1hQZGMwUWF2?=
- =?utf-8?B?NDZQZVBacUxWOGV1VmhHdnc3OXdBTmJxRW1FcjIwc1B3Y200c1FvTDJkbGRo?=
- =?utf-8?B?eUU2bXkweFJmVnk0eHBiekRTQU9TekFEZmpHZmxlSFBrTi94UmJ5ejhQSE90?=
- =?utf-8?B?SGo2MGRwalRqTUtHVnNrQjgxSDY3WWw5cTdtNkorekVZNE1sYWtjRnlZbjhi?=
- =?utf-8?B?Nm1Oa1NaamdINlVpaGJ5ekVrMW52bi83M21INWZBaEV4Yld6a0pMOTBWa0ln?=
- =?utf-8?B?MFVOeDNGSFNTTzZMbm1Ddjk4RS9ENVlpbTZVVzYzRjJGVktxcnE4dHgrRUJt?=
- =?utf-8?B?Y1IrRE91OEQvNzZVQ2tGUE5vUzVHcDhBKzIxMU1hZXp4aGNEOVdUVXFyeHhP?=
- =?utf-8?B?dUQwMmVKeXZ3WnNkaWdTeGNXK3lBWUZFSmtidHFnWXd2dUpGeEkwWDAveTVp?=
- =?utf-8?B?aHNkbWhwQVZOZnJPWWtPRHRsTFdCNHRrYXBGbmZ5U0NuVDdBUVNJWmQ4YW1G?=
- =?utf-8?B?NXRETHVVTDJTcktWM2ZmcXBkNVY2UU1ObXNWeVBDTnRZbUxTWlR5MXkxeE1o?=
- =?utf-8?B?bTVCcW9vS3JYZU1vVEF5V21qZWM1ZGVSQVdnUitLc2xTUGFmU1dJYk5WZ2pY?=
- =?utf-8?B?VGFjUjFoNis5MFVWeGJZY1FrbEdiVVgyb3IvTFdOZjBSOUlMNVB3QjVXc2Ur?=
- =?utf-8?B?aWx3L1k1OUVLSUt2a0VTU0tjcWNlOUdWM1J3Mm9kYTRFbGM3WDltZzFpd2pX?=
- =?utf-8?B?RlRQTUNGUDJ1ay8zTURRQkp0ZkFvT3FVR1FkUThoSXQ1dm96a3Blb0tUcy9I?=
- =?utf-8?B?MWNPcFEzbEF3WEdUT2RtM3ZoMmRJNnlIS2RZeG9EcEowa2tEOFBVMUlVNmVh?=
- =?utf-8?B?c2ZKNEdVOVdWUFBTUjVtT1RaSGFXeVB6cVNGNFpsOUtkUWt4WjZHblRhZHRU?=
- =?utf-8?B?Qy93b0pXZTNGdzdJOTl6dFZtcVh1a2RMM3JSWDEzVTFUYjJpaGdkUWNDWDVn?=
- =?utf-8?B?MTRKK2J5azhhVTk4bk1BVXE2TXlGU2JoeVlSTTNINDI2WkZ0aXhYd3dmSXVu?=
- =?utf-8?B?NzgrZTNhdDVXQTlhWUdHNUJDck94NFJrdit4aDRoTU5sWmJzRzRFOXVOK0dM?=
- =?utf-8?B?SVV4QUlhakJ0UjNxNjQwc24ySzAyQjRiZk5jT0hPODI2djlHU3o3T2hEVXQz?=
- =?utf-8?B?RU9XdUZBK3RKdWcySHRWd3MwVTRtWlFFanRnWVlwZVROWmNvUnpQbDBrVE9s?=
- =?utf-8?B?NFdYY2FYTy8wbVQvTEl3QnM3ekx0aGFzZHA2TU1PeVFaQnY0ZWVRVHVtclds?=
- =?utf-8?B?U1hycWlYSEhFRTVHdFpsM1lVSmJjZ0xHMk1kQ3RtRDBiRm83R0Q1NGgvQzBU?=
- =?utf-8?Q?gnZRQAcY/5D8fr/eRhdB33LGh?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5edc25b2-5107-4134-52f9-08db676d34fb
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 15:38:14.2235 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9uWWfTHGlyAyRuMPM1GodkeQPPZLhQ/K6o9tgN4aU8joTO5Pb6w5hG70o0gzfQMdLxpIpA69Cy+SBmLWfbWZLg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4912
+References: <20230607110747.1769721-1-shikai.guo@amd.com>
+In-Reply-To: <20230607110747.1769721-1-shikai.guo@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 7 Jun 2023 11:59:19 -0400
+Message-ID: <CADnq5_Mi_E3Oj5_cbEhM4OU6YG2Upk39R1pyv1VHKtO=fpCt+w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: enable more Pstates profile levels for
+ yellow_carp
+To: shikaguo <shikai.guo@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,97 +68,254 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: tim.huang@amd.com, prike.liang@amd.com, aaron.liu@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On 2023-06-07 11:27, Mukul Joshi wrote:
-> This patch fixes a regression caused by a bad merge where
-> the handling of reserved SDMA queues was accidentally removed.
-> With the fix, the reserved SDMA queues are again correctly
-> marked as unavailable for allocation.
+On Wed, Jun 7, 2023 at 7:09=E2=80=AFAM shikaguo <shikai.guo@amd.com> wrote:
 >
-> Fixes: c27842c84a848 ("drm/amdkfd: Update SDMA queue management for GFX9.4.3")
-> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
+> This patch enables following UMD stable Pstates profile levels for power_=
+dpm_force_performance_level interface.
+>
+> - profile_peak
+> - profile_min_mclk
+> - profile_min_sclk
+> - profile_standard
+>
+> Signed-off-by: shikaguo <shikai.guo@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c             | 13 ++++++-------
->   .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c   | 10 +++++-----
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h               |  2 +-
->   3 files changed, 12 insertions(+), 13 deletions(-)
+>  .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  | 94 ++++++++++++++++++-
+>  .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h  |  8 +-
+>  2 files changed, 98 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index 9fc9d32cb579..9d4abfd8b55e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -106,20 +106,19 @@ static void kfd_device_info_set_sdma_info(struct kfd_dev *kfd)
->   		kfd->device_info.num_sdma_queues_per_engine = 8;
->   	}
->   
-> +	bitmap_zero(kfd->device_info.reserved_sdma_queues_bitmap, KFD_MAX_SDMA_QUEUES);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> index a92da336ecec..5c968ab2ea8d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+> @@ -957,6 +957,9 @@ static int yellow_carp_set_soft_freq_limited_range(st=
+ruct smu_context *smu,
+>                                                         uint32_t max)
+>  {
+>         enum smu_message_type msg_set_min, msg_set_max;
+> +       uint32_t min_clk =3D min;
+> +       uint32_t max_clk =3D max;
 > +
->   	switch (sdma_version) {
->   	case IP_VERSION(6, 0, 0):
-> +	case IP_VERSION(6, 0, 1):
->   	case IP_VERSION(6, 0, 2):
->   	case IP_VERSION(6, 0, 3):
->   		/* Reserve 1 for paging and 1 for gfx */
->   		kfd->device_info.num_reserved_sdma_queues_per_engine = 2;
->   		/* BIT(0)=engine-0 queue-0; BIT(1)=engine-1 queue-0; BIT(2)=engine-0 queue-1; ... */
-> -		kfd->device_info.reserved_sdma_queues_bitmap = 0xFULL;
-> -		break;
-> -	case IP_VERSION(6, 0, 1):
-> -		/* Reserve 1 for paging and 1 for gfx */
-> -		kfd->device_info.num_reserved_sdma_queues_per_engine = 2;
-> -		/* BIT(0)=engine-0 queue-0; BIT(1)=engine-0 queue-1; ... */
-> -		kfd->device_info.reserved_sdma_queues_bitmap = 0x3ULL;
-> +		bitmap_set(kfd->device_info.reserved_sdma_queues_bitmap, 0,
-> +			   kfd->adev->sdma.num_instances *
-> +			   kfd->device_info.num_reserved_sdma_queues_per_engine);
->   		break;
->   	default:
->   		break;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 0c1be91a87c6..498ad7d4e7d9 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -123,11 +123,6 @@ unsigned int get_num_xgmi_sdma_queues(struct device_queue_manager *dqm)
->   		dqm->dev->kfd->device_info.num_sdma_queues_per_engine;
->   }
->   
-> -static inline uint64_t get_reserved_sdma_queues_bitmap(struct device_queue_manager *dqm)
-> -{
-> -	return dqm->dev->kfd->device_info.reserved_sdma_queues_bitmap;
-> -}
-> -
->   static void init_sdma_bitmaps(struct device_queue_manager *dqm)
->   {
->   	bitmap_zero(dqm->sdma_bitmap, KFD_MAX_SDMA_QUEUES);
-> @@ -135,6 +130,11 @@ static void init_sdma_bitmaps(struct device_queue_manager *dqm)
->   
->   	bitmap_zero(dqm->xgmi_sdma_bitmap, KFD_MAX_SDMA_QUEUES);
->   	bitmap_set(dqm->xgmi_sdma_bitmap, 0, get_num_xgmi_sdma_queues(dqm));
+>         int ret =3D 0;
+>
+>         if (!yellow_carp_clk_dpm_is_enabled(smu, clk_type))
+> @@ -985,11 +988,17 @@ static int yellow_carp_set_soft_freq_limited_range(=
+struct smu_context *smu,
+>                 return -EINVAL;
+>         }
+>
+> -       ret =3D smu_cmn_send_smc_msg_with_param(smu, msg_set_min, min, NU=
+LL);
+> +       if (clk_type =3D=3D SMU_VCLK) {
+> +               min_clk =3D min << SMU_13_VCLK_SHIFT;
+> +               max_clk =3D max << SMU_13_VCLK_SHIFT;
+> +       }
 > +
-> +	/* Mask out the reserved queues */
-> +	bitmap_andnot(dqm->sdma_bitmap, dqm->sdma_bitmap,
-> +		      dqm->dev->kfd->device_info.reserved_sdma_queues_bitmap,
-> +		      KFD_MAX_SDMA_QUEUES);
->   }
->   
->   void program_sh_mem_settings(struct device_queue_manager *dqm,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 023b17e0116b..7364a5d77c6e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -239,7 +239,7 @@ struct kfd_device_info {
->   	uint32_t no_atomic_fw_version;
->   	unsigned int num_sdma_queues_per_engine;
->   	unsigned int num_reserved_sdma_queues_per_engine;
-> -	uint64_t reserved_sdma_queues_bitmap;
-> +	DECLARE_BITMAP(reserved_sdma_queues_bitmap, KFD_MAX_SDMA_QUEUES);
->   };
->   
->   unsigned int kfd_get_num_sdma_engines(struct kfd_node *kdev);
+> +       ret =3D smu_cmn_send_smc_msg_with_param(smu, msg_set_min, min_clk=
+, NULL);
+> +
+>         if (ret)
+>                 goto out;
+>
+> -       ret =3D smu_cmn_send_smc_msg_with_param(smu, msg_set_max, max, NU=
+LL);
+> +       ret =3D smu_cmn_send_smc_msg_with_param(smu, msg_set_max, max_clk=
+, NULL);
+>         if (ret)
+>                 goto out;
+>
+> @@ -1107,6 +1116,50 @@ static int yellow_carp_force_clk_levels(struct smu=
+_context *smu,
+>         return ret;
+>  }
+>
+> +static int yellow_carp_get_dpm_profile_freq(struct smu_context *smu,
+> +                                       enum amd_dpm_forced_level level,
+> +                                       enum smu_clk_type clk_type,
+> +                                       uint32_t *min_clk,
+> +                                       uint32_t *max_clk)
+> +{
+> +       int ret =3D 0;
+> +       uint32_t clk_limit =3D 0;
+> +
+> +       switch (clk_type) {
+> +       case SMU_GFXCLK:
+> +       case SMU_SCLK:
+> +               clk_limit =3D YELLOW_CARP_UMD_PSTATE_GFXCLK;
+> +               if (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
+> +                       yellow_carp_get_dpm_ultimate_freq(smu, SMU_SCLK, =
+NULL, &clk_limit);
+> +               else if (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SC=
+LK)
+> +                       yellow_carp_get_dpm_ultimate_freq(smu, SMU_SCLK, =
+&clk_limit, NULL);
+> +               break;
+> +       case SMU_SOCCLK:
+> +               clk_limit =3D YELLOW_CARP_UMD_PSTATE_SOCCLK;
+> +               if (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
+> +                       yellow_carp_get_dpm_ultimate_freq(smu, SMU_SOCCLK=
+, NULL, &clk_limit);
+> +               break;
+> +       case SMU_FCLK:
+> +               clk_limit =3D YELLOW_CARP_UMD_PSTATE_FCLK;
+> +               if (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
+> +                       yellow_carp_get_dpm_ultimate_freq(smu, SMU_FCLK, =
+NULL, &clk_limit);
+> +               else if (level =3D=3D AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MC=
+LK)
+> +                       yellow_carp_get_dpm_ultimate_freq(smu, SMU_FCLK, =
+&clk_limit, NULL);
+> +               break;
+> +       case SMU_VCLK:
+> +               yellow_carp_get_dpm_ultimate_freq(smu, SMU_VCLK, NULL, &c=
+lk_limit);
+> +               break;
+> +       case SMU_DCLK:
+> +               yellow_carp_get_dpm_ultimate_freq(smu, SMU_DCLK, NULL, &c=
+lk_limit);
+> +               break;
+> +       default:
+> +               ret =3D -EINVAL;
+> +               break;
+> +       }
+> +       *min_clk =3D *max_clk =3D clk_limit;
+> +       return ret;
+> +}
+> +
+>  static int yellow_carp_set_performance_level(struct smu_context *smu,
+>                                                 enum amd_dpm_forced_level=
+ level)
+>  {
+> @@ -1114,6 +1167,9 @@ static int yellow_carp_set_performance_level(struct=
+ smu_context *smu,
+>         uint32_t sclk_min =3D 0, sclk_max =3D 0;
+>         uint32_t fclk_min =3D 0, fclk_max =3D 0;
+>         uint32_t socclk_min =3D 0, socclk_max =3D 0;
+> +       uint32_t vclk_min =3D 0, vclk_max =3D 0;
+> +       uint32_t dclk_min =3D 0, dclk_max =3D 0;
+> +
+>         int ret =3D 0;
+>
+>         switch (level) {
+> @@ -1121,28 +1177,42 @@ static int yellow_carp_set_performance_level(stru=
+ct smu_context *smu,
+>                 yellow_carp_get_dpm_ultimate_freq(smu, SMU_SCLK, NULL, &s=
+clk_max);
+>                 yellow_carp_get_dpm_ultimate_freq(smu, SMU_FCLK, NULL, &f=
+clk_max);
+>                 yellow_carp_get_dpm_ultimate_freq(smu, SMU_SOCCLK, NULL, =
+&socclk_max);
+> +               yellow_carp_get_dpm_ultimate_freq(smu, SMU_VCLK, NULL, &v=
+clk_max);
+> +               yellow_carp_get_dpm_ultimate_freq(smu, SMU_DCLK, NULL, &d=
+clk_max);
+>                 sclk_min =3D sclk_max;
+>                 fclk_min =3D fclk_max;
+>                 socclk_min =3D socclk_max;
+> +               vclk_min =3D vclk_max;
+> +               dclk_min =3D dclk_max;
+>                 break;
+>         case AMD_DPM_FORCED_LEVEL_LOW:
+>                 yellow_carp_get_dpm_ultimate_freq(smu, SMU_SCLK, &sclk_mi=
+n, NULL);
+>                 yellow_carp_get_dpm_ultimate_freq(smu, SMU_FCLK, &fclk_mi=
+n, NULL);
+>                 yellow_carp_get_dpm_ultimate_freq(smu, SMU_SOCCLK, &soccl=
+k_min, NULL);
+> +               yellow_carp_get_dpm_ultimate_freq(smu, SMU_VCLK, &vclk_mi=
+n, NULL);
+> +               yellow_carp_get_dpm_ultimate_freq(smu, SMU_DCLK, &dclk_mi=
+n, NULL);
+>                 sclk_max =3D sclk_min;
+>                 fclk_max =3D fclk_min;
+>                 socclk_max =3D socclk_min;
+> +               vclk_max =3D vclk_min;
+> +               dclk_max =3D dclk_min;
+>                 break;
+>         case AMD_DPM_FORCED_LEVEL_AUTO:
+>                 yellow_carp_get_dpm_ultimate_freq(smu, SMU_SCLK, &sclk_mi=
+n, &sclk_max);
+>                 yellow_carp_get_dpm_ultimate_freq(smu, SMU_FCLK, &fclk_mi=
+n, &fclk_max);
+>                 yellow_carp_get_dpm_ultimate_freq(smu, SMU_SOCCLK, &soccl=
+k_min, &socclk_max);
+> +               yellow_carp_get_dpm_ultimate_freq(smu, SMU_VCLK, &vclk_mi=
+n, &vclk_max);
+> +               yellow_carp_get_dpm_ultimate_freq(smu, SMU_DCLK, &dclk_mi=
+n, &dclk_max);
+>                 break;
+>         case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
+>         case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
+>         case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
+>         case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
+> -               /* Temporarily do nothing since the optimal clocks haven'=
+t been provided yet */
+> +               yellow_carp_get_dpm_profile_freq(smu, level, SMU_SCLK, &s=
+clk_min, &sclk_max);
+> +               yellow_carp_get_dpm_profile_freq(smu, level, SMU_FCLK, &f=
+clk_min, &fclk_max);
+> +               yellow_carp_get_dpm_profile_freq(smu, level, SMU_SOCCLK, =
+&socclk_min, &socclk_max);
+> +               yellow_carp_get_dpm_profile_freq(smu, level, SMU_VCLK, &v=
+clk_min, &vclk_max);
+> +               yellow_carp_get_dpm_profile_freq(smu, level, SMU_DCLK, &d=
+clk_min, &dclk_max);
+>                 break;
+>         case AMD_DPM_FORCED_LEVEL_MANUAL:
+>         case AMD_DPM_FORCED_LEVEL_PROFILE_EXIT:
+> @@ -1182,6 +1252,24 @@ static int yellow_carp_set_performance_level(struc=
+t smu_context *smu,
+>                         return ret;
+>         }
+>
+> +       if (vclk_min && vclk_max) {
+> +               ret =3D yellow_carp_set_soft_freq_limited_range(smu,
+> +                                                             SMU_VCLK,
+> +                                                             vclk_min,
+> +                                                             vclk_max);
+> +               if (ret)
+> +                       return ret;
+> +       }
+> +
+> +       if (dclk_min && dclk_max) {
+> +               ret =3D yellow_carp_set_soft_freq_limited_range(smu,
+> +                                                             SMU_DCLK,
+> +                                                             dclk_min,
+> +                                                             dclk_max);
+> +               if (ret)
+> +                       return ret;
+> +       }
+> +
+>         return ret;
+>  }
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h
+> index a9205a8ea3ad..59257bbd66e0 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.h
+> @@ -24,6 +24,12 @@
+>  #define __YELLOW_CARP_PPT_H__
+>
+>  extern void yellow_carp_set_ppt_funcs(struct smu_context *smu);
+> -#define YELLOW_CARP_UMD_PSTATE_GFXCLK       1100
+> +
+> +#define SMU_13_VCLK_SHIFT              16
+> +
+> +//UMD PState Rembrandt Msg Parameters in MHz
+> +#define YELLOW_CARP_UMD_PSTATE_GFXCLK       700
+> +#define YELLOW_CARP_UMD_PSTATE_SOCCLK          678
+> +#define YELLOW_CARP_UMD_PSTATE_FCLK                    800
+>
+>  #endif
+> --
+> 2.25.1
+>
