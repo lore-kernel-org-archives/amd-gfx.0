@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C5C1C7EE25
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 12:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5717DC7EE23
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 12:16:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E244610E4D1;
-	Wed,  7 Jun 2023 12:16:41 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0ED310E4D1
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jun 2023 12:16:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC50610E4D2;
+	Wed,  7 Jun 2023 12:16:45 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2044.outbound.protection.outlook.com [40.107.243.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90B0110E4D2
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jun 2023 12:16:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lKqjvjh2rUPrGuC/oKZihtnSDLXyIg4RU94CWQUMd9U0mYiQ2Qyp2r46Tq8/h+9VmIc1aWnmdIJpVm40tNFbFaPfWeqZ8Ftvcon1G0cDBA2vlUWy7TVJCI92QOxekkK9OkuPAZZDJCEwX/fUHGkvGwIGqyNRTHyriEDwcp/Kj92+8yCiX+pvkFCTG3SRETSctyN5jdRAGdq44mKGVxe4GC4zshsyCelUDdwiB7JCBvTKk2Q8r4FnVy3wCHYWRJW0l94S74i9Xe5lUBiI0BJlf5cBRBxTo/0SF0Behv7yQChXhMpMHLj7SHY2MzUOlPka3ULkk2AV+HSmEOwlYdDDGA==
+ b=ZGPT25pnS7rueWgingTz6nMDGDex0LkBCps3PvcCC/H9I0gx1Ps+Qq5F8yDLAPYkp0APajINsrfUCWoqHl2IiioWhXbdzTnt1i0E3xvxgVmlKRbuYdsloQprNZJoVGCfI9K00y7KmSFfyqW/TQ1e/oKTAMGZ0hWCwPkq72cxrykYQirfB5/YFkjYp7VigHcVFLXbM/Tvo1bE3mtg8r0LKhMdFP6C9wKglO7TT1svaCdg/66AeVDSvqE5wA/dY2rgURowSQD/Nw5CpnPw8RlfP1kkEeZvE5gnPb4OYPxN997YEtMwh0dB8Di+gqdZKqwUpzo+xLmtEMxFMqfevOleUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xiakA8SNFP8F5ev/8jQ00qKyrWQ52Ym0+TJpA4Ng3ac=;
- b=nuHjvClMe2s5sPlvRlrvOBOsTALVal0Ecmd2wXGpG/KiPtHteNHgZua6ZBbtHjDWFgLZoegCFi3U5J2YDsWVkff0bIxI8lc6TNflSuj9kYQnsWePsuMt9LgWoodXPmxqIspQOo670dX3zPQ3iM+f1rYWiH816vj8Hwk25FQwiEHumKqg84u5bmRTgFOT+AkUhTAXXIlVHjrzFUUx7hsF9tu0qKtzKkKv/tUzLu84dWknWW1vGOhMTZENbuXtk1+c9sSGw9cs4FqQdy3E/P05qg4wQLbTMdCuopVRJ1xCsr6xa1k8AGZHErqkFmC3xfSI2jm/RKRCkEArMhW5ybVIrw==
+ bh=PQ09aAjyo8RNqiegGOqbDy0EcFw0zfx7aC8OWXKpZlM=;
+ b=WbWNCfHFxd/i1uRxyQqq39h+xTYrNZni6cg3hFoiJwKfWh2sY7Z9rSRlSpen5PPEi1aYx50r+jWU2M+v5PEBbDxdWEstF2k4SwjbmDzD9JaZYINYokGmXNdwTBKISfnOsSdaxW1mB2WdVqooEZNBmNyqzeIX5im7ESnZb+NO7b5hrHzJGpBoy6Zo85eibhKpsocy4axiWSXXVvXokWQ6qn7UDVLqeZk6PDmoitKpJU43bcmSLmluH9VjjTD4xzEh/oj6661xhd1e8zY0oad1amkjle6mCTjaV55YdTSIxFr7VA35QCJONBZ0V0Me6YyyXIofWACgd7YzxsdgLo013w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xiakA8SNFP8F5ev/8jQ00qKyrWQ52Ym0+TJpA4Ng3ac=;
- b=xqYBieU/j9lA9tzuLzdJORU6sDsErcx4Ufi6A4kiVUl3QZZMqhbpXurBVSgGFxn6MTaTVVa0bHJdDyDV8xEBnoZUs9zwE+H44x0MDeZ22vfpsySe6CnsSRfe2Xm1Nolu1ix6O6I6H0QVAX3+YXkb7pswJLaFPNCgswtvZHo1ZFs=
-Received: from DM6PR02CA0131.namprd02.prod.outlook.com (2603:10b6:5:1b4::33)
- by DS0PR12MB8574.namprd12.prod.outlook.com (2603:10b6:8:166::7) with
+ bh=PQ09aAjyo8RNqiegGOqbDy0EcFw0zfx7aC8OWXKpZlM=;
+ b=PkIENrES/ikSPTf2Hon2t3ayKP2EDaL9mRJ4H+AiAMAxIVFV1HrLS/s4KR8QBFSv9ZvGzFZHYbrqGw8G404oDW9JFhpOfsDgWDWppe9bHibEb4/nyZyrl+8+Y+rXtC1HYRy8jnDqIVD8FjK/EW29+EYK8IfTQVUZ5fbXWpgHpuk=
+Received: from DM6PR02CA0119.namprd02.prod.outlook.com (2603:10b6:5:1b4::21)
+ by MN6PR12MB8514.namprd12.prod.outlook.com (2603:10b6:208:474::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Wed, 7 Jun
- 2023 12:16:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.32; Wed, 7 Jun
+ 2023 12:16:40 +0000
 Received: from CY4PEPF0000EE34.namprd05.prod.outlook.com
- (2603:10b6:5:1b4:cafe::48) by DM6PR02CA0131.outlook.office365.com
- (2603:10b6:5:1b4::33) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:5:1b4:cafe::34) by DM6PR02CA0119.outlook.office365.com
+ (2603:10b6:5:1b4::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33 via Frontend
- Transport; Wed, 7 Jun 2023 12:16:35 +0000
+ Transport; Wed, 7 Jun 2023 12:16:40 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000EE34.mail.protection.outlook.com (10.167.242.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6477.13 via Frontend Transport; Wed, 7 Jun 2023 12:16:35 +0000
+ 15.20.6477.13 via Frontend Transport; Wed, 7 Jun 2023 12:16:39 +0000
 Received: from stylon-rog.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 7 Jun
- 2023 07:16:30 -0500
+ 2023 07:16:35 -0500
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/20] drm/amd/display: fix the system hang while disable PSR
-Date: Wed, 7 Jun 2023 20:15:34 +0800
-Message-ID: <20230607121548.1479290-7-stylon.wang@amd.com>
+Subject: [PATCH 07/20] drm/amd/display: Fix disbling PSR slow response issue
+Date: Wed, 7 Jun 2023 20:15:35 +0800
+Message-ID: <20230607121548.1479290-8-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230607121548.1479290-1-stylon.wang@amd.com>
 References: <20230607121548.1479290-1-stylon.wang@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE34:EE_|DS0PR12MB8574:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9493748-0a38-41b0-ebc9-08db675109d7
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE34:EE_|MN6PR12MB8514:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e7e5b55-46e0-406a-320f-08db67510c46
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 01Ko5GThvIkBBQpYBSoJppX366N2IKpO6DmAMo+78J7jQFzvYOavSMPrwAp3AklaLKqUJs0zH/Wkx35UY/n5LpQxK9gaaXpSxYK6aQZkV+1JTeyeWvabGqkmZyCMITvFcZSnoozVq6tJNbtiGvwTnf32XitT9lQo+HXVky0ZV05SOWCwrwkQiAoOF7rPu26Z+JrZoutqYnCGp4fU1R3l3zMV+MJIw147iGpapkc6JslG35O1dnGi+uOUo3OntoGS6e/Vuh6QfM3Kc+RS3txdRJ7ZRvLtngRCLIcXvgHFi6RSGebNhHj6yeHCbyLXZwWSnJ/odWqbudVtnudGetVQXWV4gO2QA81ToyZdpZRYElZN97Fmk3EPevr9kroyOQ2+HvlDAU+2v56NtYrypAxfU6vnR7WwpbRdTQaNQ1qEjUWxpvmjxQMcKzIBFGwe961IwpMXI4ioMjFlr5hBxoHFoGGCRwcxt0E5IZKIzl4XPbJrAoKGdGQpMkcZ86Rns5JAbtBvTmJIFDxzUfPzTyyW+hgN2d77/t0oPXG2i928UFa4CxhbAZPGq7hTENjjoK/d+e7EJ6QxaVnoWmrYeERIRaPKjgwsD/Skt6PlyMkT/b1S6XcsaWsZYfD9esKM23ZCUkQKXMYWL1mQTFkBW81w23Rcdab/Zux5lYdfQYnq3b6k6q4mnkX2I5O6dcWEF5lD0Axmp2JakmPZmBKNg9UQnI9JvxNMl87OmI8hOKRhM8U9O8DfmfUmBJ6n3WOvib62YqPdNOzvZmF+Nz240u4PIg==
+X-Microsoft-Antispam-Message-Info: zrm5qQDT/UW5fk96g4NwbMEe3OGIMYMMaxSQG4F9uVMAKkZo6g/rO3epbIU47Ati9VMBLlzh908vQOrXkZ5B4Y8PcpJeYl+ee7XcMChH2i9qBCN4p4+WMQHAv5Ss73BYEN2tOQq4PhrDxFm77BaH4YWR3bsTyeF6Cx3dT00x76Gia7eFox+0vLnEuR8oJ+HsDFQElahz8nyfSsHIf98H+8E1PpQ05QMOcboAJfCqFJyeH3bTE9WYpJjVjGT7yr+MD5vT6EvnmGpvGRduRD8oRzv/7cYpwohE4rKtqahUGKbfeuVtvz/geZ2RBqJY4zpn+pdN/yHvBQbSdSQMzkUdRuInl7XFpp3nbTFb68GXbkdfGc+a7O0C/wLCVFhHgtwqOOG1XMoeqqEPu6jgGwqUTBnwZKRwou5Ctshfjl5PzB9GUhBhk2/2tEQwGSohjFlPz4wBrbd1iT0ZryOxaqtaRS0Ms1mp2AYzKRikDpA3SBu40yMRUYfnm1BP2rFcFSKQ5Sbct7oQUnfTIqAuezyXJ5fHsBNuwyu7TCvV7muiKyT8CmuUzr1s4pWgu1FBYiRcrZt8FeGQIERIVp1Y8HmnECeXfsDMIb7nIfvVzaVls1+t0IUsph1yvpTtQFI7+hmTmohRoEzfsK0Klm6WgpSOs187cs9nAXRiia+8h+M4I0k/8bKxKdSt9OO+bRpE8DIYqMI5UjWDZs04Tn9+peMnoM/Pstkg1AL+NdsRrj52OhHUWFLGLxhNamoGWObIzu9QpZCcYYjjIutwKfyWm0AnbQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(346002)(376002)(396003)(136003)(451199021)(40470700004)(36840700001)(46966006)(83380400001)(40460700003)(47076005)(336012)(426003)(2906002)(2616005)(36756003)(86362001)(82310400005)(356005)(81166007)(82740400003)(36860700001)(40480700001)(41300700001)(316002)(5660300002)(8936002)(8676002)(7696005)(478600001)(54906003)(6916009)(70586007)(70206006)(4326008)(26005)(1076003)(16526019)(186003)(44832011)(36900700001);
+ SFS:(13230028)(4636009)(346002)(39860400002)(396003)(136003)(376002)(451199021)(36840700001)(40470700004)(46966006)(83380400001)(8676002)(8936002)(4326008)(44832011)(70206006)(70586007)(6916009)(316002)(5660300002)(40480700001)(41300700001)(54906003)(82740400003)(2906002)(478600001)(40460700003)(356005)(16526019)(26005)(86362001)(1076003)(81166007)(186003)(336012)(36756003)(7696005)(82310400005)(47076005)(2616005)(36860700001)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 12:16:35.7277 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9493748-0a38-41b0-ebc9-08db675109d7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 12:16:39.8058 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e7e5b55-46e0-406a-320f-08db67510c46
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE34.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8574
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8514
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,62 +101,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Tom Chung <chiahsuan.chung@amd.com>,
  Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, stable@vger.kernel.org,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- Mario Limonciello <mario.limonciello@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Wayne Lin <Wayne.Lin@amd.com>,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Tom Chung <chiahsuan.chung@amd.com>
 
 [Why]
-When the PSR enabled. If you try to adjust the timing parameters,
-it may cause system hang. Because the timing mismatch with the
-DMCUB settings.
+dmub_psr_get_state() return an invalid PSR state while disable
+the PSR because convert_psr_state() doesn't recognize the state
+that return from DMCUB.
 
 [How]
-Disable the PSR before adjusting timing parameters.
+Add a PSR state to make the dmub_psr_get_state() return a
+correct PSR state.
 
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
 Acked-by: Stylon Wang <stylon.wang@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_types.h     | 1 +
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c | 2 ++
+ 2 files changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 9279c1d474f2..cfd1a67cf7d0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8244,6 +8244,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 		if (acrtc_state->abm_level != dm_old_crtc_state->abm_level)
- 			bundle->stream_update.abm_level = &acrtc_state->abm_level;
- 
-+		mutex_lock(&dm->dc_lock);
-+		if ((acrtc_state->update_type > UPDATE_TYPE_FAST) &&
-+				acrtc_state->stream->link->psr_settings.psr_allow_active)
-+			amdgpu_dm_psr_disable(acrtc_state->stream);
-+		mutex_unlock(&dm->dc_lock);
-+
- 		/*
- 		 * If FreeSync state on the stream has changed then we need to
- 		 * re-adjust the min/max bounds now that DC doesn't handle this
-@@ -8257,10 +8263,6 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
- 		}
- 		mutex_lock(&dm->dc_lock);
--		if ((acrtc_state->update_type > UPDATE_TYPE_FAST) &&
--				acrtc_state->stream->link->psr_settings.psr_allow_active)
--			amdgpu_dm_psr_disable(acrtc_state->stream);
--
- 		update_planes_and_stream_adapter(dm->dc,
- 					 acrtc_state->update_type,
- 					 planes_count,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index 6b4731b5e975..0ce7728a5a4b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -597,6 +597,7 @@ enum dc_psr_state {
+ 	PSR_STATE4b_FULL_FRAME,
+ 	PSR_STATE4c_FULL_FRAME,
+ 	PSR_STATE4_FULL_FRAME_POWERUP,
++	PSR_STATE4_FULL_FRAME_HW_LOCK,
+ 	PSR_STATE5,
+ 	PSR_STATE5a,
+ 	PSR_STATE5b,
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+index 4000a834592c..0f24b6fbd220 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+@@ -87,6 +87,8 @@ static enum dc_psr_state convert_psr_state(uint32_t raw_state)
+ 		state = PSR_STATE4c_FULL_FRAME;
+ 	else if (raw_state == 0x4E)
+ 		state = PSR_STATE4_FULL_FRAME_POWERUP;
++	else if (raw_state == 0x4F)
++		state = PSR_STATE4_FULL_FRAME_HW_LOCK;
+ 	else if (raw_state == 0x60)
+ 		state = PSR_STATE_HWLOCK_MGR;
+ 	else if (raw_state == 0x61)
 -- 
 2.40.1
 
