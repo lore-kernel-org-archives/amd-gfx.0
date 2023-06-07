@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF6BC7EE29
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 12:17:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AD6AC7EE23
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 12:17:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EF5910E4DE;
-	Wed,  7 Jun 2023 12:17:29 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2067.outbound.protection.outlook.com [40.107.102.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16C4B10E4DE
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jun 2023 12:17:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E1AC10E4E1;
+	Wed,  7 Jun 2023 12:17:32 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2051.outbound.protection.outlook.com [40.107.220.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BF6D10E4DF
+ for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jun 2023 12:17:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YZ3/ldx8D3bTSkewvR22bmUw8WPut2QAgRUJ6SETdrWyNv0W1qkCgmZirF2maKwIc2yWU9MU1MtwHKZqEFCRdfbh43h2ny+wwDKxt1eLFkVx9X0dW72s4hkQh0aDgSgqF9TSaKfynDmmE1HFfprtnDUBv5Xq68DiBf66Ue+ibPcvJVkoW0Kd6vmX95CqqUZUy1BWEqRCOY+cNw9b5W3c5v6IRZbBftwqq3QNDwbXBDy9SOAVbRuHYqUl8NyvVzuAnc3XxujqmJJOhGkpxljSrtnr0ZM9ud0n4MRED4LVzR+tGUxjPbGh7zJHzYqmvgpuzgZv6ZcssRsnSDsurCgzBg==
+ b=ft18lirqAq1KqFA0WQDUsaMQH6TLdT/xpKQdtEiKn+yFhTVoHwWUG1hi2yUJg2Qa1mNJeQNNxKviAmD1szB2kPBA+wHPYeCcAshYu5QSOFHDZjAZHWra48cdCwJWPEy4ImshmYZOpn2a2oMThcc9vzP49HTcn6IAHyD64i/CbRDzw5dIlk4dNY6gYqvdAsDhB/ROv5YRjytmSTCrepNDsGMJReaRchRjDyUyS4JdHDlTxJvkjCxcas0ZtbBT42W8Z6/zL0XmLXeX1wEuWh0K+slmLyBORKrGquqG45U1W0uqUzSkh2xSW1hqySMAr6YMaHRuwCSI9MUqvqZKgOJU0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ktW35BTVWmEYRqQyX5bY/BpOJvfNa9DMEMLQMy3Y6TM=;
- b=jYuo+coPD47tSSILO+CKIssJrhGVHbV/viEqwa8Hv04rhN0AwO88b5PfzhyJIq5gKZ/PfCvCkE6BvZhTOMVqBkxkU5fQoCPpe+W+q/xpzO1YPS3MS53N8oKs8kCLLzTyUX3/0KBCpa2r2bzqEaroapPoM2hNaZ7a+Zt38/poPDJvsWz6Dwb4nrrneJqFVqP+hmBSakRTdYtYOiZlm5/d78ydoBdCdefcC7mM4xAPt5DpIM2Oi4UlPhJDejxMaUsjhbgu95gnQl0NVrsyyJNsl+Te+/HbhjAzSZ7soIPZh3nVWdGPBvk43WxlMsLb76rLi5jXOksWy7j0PkWZuZZPIA==
+ bh=RswkBCMzo/5gBR5Ge9RtWWhfb1Z3FLuN4bVM3fDZT78=;
+ b=bAnWhgCPG7wM5eBgZzLYZbN7QxMzzij78NQk47s4OG63dgmC6NmRpXaghXLKt9TnBaxetCEdOaDFDLcZn4pCT+coSKn8Shx80VMgD3JCjQa2ooCXkLxSd+yTfWjfc6nbfPH1PWDNlGbfsuk2IJHBa3+sm5bXuH9Kmo1ob7ArBikCQLNWhuiq3vbBHv3AnJAIKkjZuu4QSheY9qgfYQZYxAy7kELinN0nYDF8Y2+zumN2FOTAXuXuv3xbpscAH974SLZOLP4TCRKAwvMgKJX3Ju3K+g1zi05R4IyOeyA5fG3bCILd2XwU6NlvpmRH5Npvq8Mj+hTrPR1omJyIfrtrtg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ktW35BTVWmEYRqQyX5bY/BpOJvfNa9DMEMLQMy3Y6TM=;
- b=khaigjB4eWxEB6l3jgGczZMYeg90Jh/mrE3I/FHb4TI4pAU0ySDn9kudwuNdp69HqPuWhFP1VRw09f64pB/AG0kLohhJO+BSPDykWKUWgrcZZPr6VsqvrXOuMul98rmAyqFQvIbY7zyhQrvuzc+FinpC6NQvoexhCgssFSCpZxQ=
-Received: from DM6PR13CA0018.namprd13.prod.outlook.com (2603:10b6:5:bc::31) by
- PH7PR12MB6907.namprd12.prod.outlook.com (2603:10b6:510:1b9::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Wed, 7 Jun
- 2023 12:17:24 +0000
-Received: from CY4PEPF0000EE31.namprd05.prod.outlook.com
- (2603:10b6:5:bc:cafe::88) by DM6PR13CA0018.outlook.office365.com
- (2603:10b6:5:bc::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.16 via Frontend
- Transport; Wed, 7 Jun 2023 12:17:24 +0000
+ bh=RswkBCMzo/5gBR5Ge9RtWWhfb1Z3FLuN4bVM3fDZT78=;
+ b=wTJgNdT/uqTK3XLrQ8LIzHhKGoY8XlZtBdSoz98KDnVcOarsd9kYKhYbAl8IIOrfa7djnmrn9gZ04057z45XKXq0+Ultf7zbK7vlgCVWo9jdaSgcgfvMrPFcR++RrCKqVE9ZKqnbKXpc5Dr1TTzEJvWV0K3uUYuW/flBkwKHSVg=
+Received: from CY5PR13CA0023.namprd13.prod.outlook.com (2603:10b6:930::9) by
+ DM4PR12MB5358.namprd12.prod.outlook.com (2603:10b6:5:39c::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6455.33; Wed, 7 Jun 2023 12:17:27 +0000
+Received: from CY4PEPF0000EE33.namprd05.prod.outlook.com
+ (2603:10b6:930:0:cafe::39) by CY5PR13CA0023.outlook.office365.com
+ (2603:10b6:930::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.19 via Frontend
+ Transport; Wed, 7 Jun 2023 12:17:27 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +44,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE31.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ CY4PEPF0000EE33.mail.protection.outlook.com (10.167.242.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6477.13 via Frontend Transport; Wed, 7 Jun 2023 12:17:23 +0000
+ 15.20.6477.13 via Frontend Transport; Wed, 7 Jun 2023 12:17:27 +0000
 Received: from stylon-rog.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 7 Jun
- 2023 07:17:19 -0500
+ 2023 07:17:23 -0500
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 18/20] Revert "drm/amd/display: reallocate DET for dual
- displays with high pixel rate ratio"
-Date: Wed, 7 Jun 2023 20:15:46 +0800
-Message-ID: <20230607121548.1479290-19-stylon.wang@amd.com>
+Subject: [PATCH 19/20] drm/amd/display: fix pixel rate update sequence
+Date: Wed, 7 Jun 2023 20:15:47 +0800
+Message-ID: <20230607121548.1479290-20-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230607121548.1479290-1-stylon.wang@amd.com>
 References: <20230607121548.1479290-1-stylon.wang@amd.com>
@@ -69,26 +67,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE31:EE_|PH7PR12MB6907:EE_
-X-MS-Office365-Filtering-Correlation-Id: 430a312a-d3df-4d30-8688-08db6751268c
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE33:EE_|DM4PR12MB5358:EE_
+X-MS-Office365-Filtering-Correlation-Id: a5d2fa2d-fe2b-4593-5cf8-08db675128a2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nGbS+O905ZUppuSuijSjTI3hcO0e/rLHDAdsP5lvKrHp+ugDSJcWPLxnnIOmkXySvhZdCqYvG57TC6ZfkCslH6gRR5cdknhIQllBphz65eF7GWE5s1i/gCAAMgFJ4FFeZkFSgAZGyi5/6B72w59ewEPMPpS7ZMZX6DzloOqKeWRlNxCD8skMFMF5xlbtWh48sqn5fH4u1aERokQ+MnVZQ5KtyeGWSkbbr5PYfr9slpVzSSn+h9sDxsx6DQDRTI5u7F+6/rdbxZw01EPf47obpwChHL4JDfqRQN1AdljZGW4/SCO1dn27QZJ2Ibzz/SC5JbLLKwJqQBnNoJ4p6bnYjJlYWjDi0aW5Xq/HwnLht1DGB9sHBz5rvUBsADopiwDiA+wamJ7nI3m62Oy6bPAS4A5Mk9Fi5BFw3TOILeBNbHBIUTZ5ab+VNFl0cnvPBnLl9Hsvv7/VYzlKgwJwCrRVpRBo1RH3BmuImH6t6ArtoXYaZKi7wFfIX+rXwCXjIbskhrZi2DnWPwfzFgBBVc12c+YiBB7B+euhx34Yt77JJhNfcXFCpnqaKqoeb3YTAO1lJbX+UL4d1rvBNaiZuAiA+wspjOxjuFcX1/7LbK15tV7kt8upcXfAFSHi5hEDHAv4qB4tTIrlMOWbMzBKVYCKgwNvOaYEsn0sjKrLh3N54XkRiYMOb0ax+KTTy+H6uzXtnBiewuuP0CAtUWPBQP3ulDu0p2ZcTXO01SopI80WMiN4DN9kji4cSf8bk95CB30bOpRv9C9QL9PB6EHzOCl3pw==
+X-Microsoft-Antispam-Message-Info: /bXm0pVE59y03I2w0Ih9Q4TZZ/K6Ln0xyPLFByWcydKRQ+NHIr0xjfPD/FbJWyl0zsvrSQ+QTA5Z2DigCgKSXti/ec/GH1VvzIdXWIGlrUF8A5c1n8bTapJazD56WvTTEzgvNrmqCO90CgXaiXzL2RKAZUfelWIN/xvV77o6ZnOsjdFzkpllsaMKilCBDaUifxjGJjYIJckq7drV/WLorJTdZl0CeHNAky41PEjAKyqhj8WNDn5wACXUvypahCc93g6Ij7u5tedJBuZ+MrKpmCbH4LHPrZvDy232QzvF0eZXOdaDB/gCNFElZAy0gouY1F7bNbt9ja22RBZ7zUuXhNkOySfTMhkLeGqFLIjVaZiaXKhTe29yducKM2h22AY2hTgeUPOcK/RslxkBWnN2yB87K7jPMTcF0BVdE+HhzYA2xSnnJPK65nzkgmiC3lnfbcijUf62zm+VtEsMjoVITs1j1KQ0YtcIsmOun6l9eXUYcLaZGnK08lMiOKafs+uyu5nWdkbuP2sKv+iMeR9DCX1RLvdEh02GrtobzniW+BxS1Ufeha30bIAy4IKVuo218v1sKR4IHs8AJ3cP/nZXx3/pGtHDQFHm+QCLCe0esahpKVQ+YwfrkwGN90tW9L72uWDtJ8BRk5zKbhF0C8ljcY+MIbr+iCpDV5LdvJCRCdat2TY0IC9JEGUW0y3WkbIZMd2QLIoqzYJRRxzTDcsewVs5reu8XzKATkiNNLhNh4kypxibmx52VhbbWVWxxVYGilbn8QlBk2E4NuqaoWvClg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(346002)(396003)(376002)(136003)(451199021)(40470700004)(36840700001)(46966006)(70206006)(70586007)(36756003)(8676002)(8936002)(5660300002)(6916009)(4326008)(6666004)(54906003)(478600001)(40460700003)(316002)(7696005)(41300700001)(40480700001)(82740400003)(81166007)(356005)(47076005)(44832011)(1076003)(26005)(16526019)(186003)(83380400001)(426003)(336012)(2616005)(36860700001)(86362001)(82310400005)(2906002)(36900700001);
+ SFS:(13230028)(4636009)(396003)(346002)(136003)(376002)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(7696005)(6666004)(82740400003)(2906002)(356005)(81166007)(70586007)(70206006)(54906003)(36756003)(5660300002)(8936002)(86362001)(8676002)(44832011)(41300700001)(15650500001)(6916009)(4326008)(40480700001)(316002)(478600001)(40460700003)(426003)(336012)(2616005)(26005)(1076003)(16526019)(186003)(36860700001)(66899021)(82310400005)(83380400001)(47076005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 12:17:23.8875 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 430a312a-d3df-4d30-8688-08db6751268c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 12:17:27.3860 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5d2fa2d-fe2b-4593-5cf8-08db675128a2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE31.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE33.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6907
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5358
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,127 +98,174 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Samson Tam <samson.tam@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Ariel Bernstein <Eric.Bernstein@amd.com>,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Samson Tam <samson.tam@amd.com>
+From: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
 
-Revert commit b957de69c4c8 ("drm/amd/display: reallocate DET for dual displays with high pixel rate ratio")
+The k1/k2 pixel rate dividers in dccg should only be updated on stream enable
+and do not actually depend on whether odm combine is active.
 
-[Why]
-Previously had modified DET allocation algorithm to allocate less DET
-segments for lower pixel rate display and more DET segments for higher
-pixel rate display.  But noticed it is causing underflow when higher
-pixel rate display is not displaying at higher mode
-
-[How]
-Roll back change
+This removes an on flip update of these and fixes the calculate function
+to ignore odm status for dp steams.
 
 Acked-by: Stylon Wang <stylon.wang@amd.com>
-Signed-off-by: Samson Tam <samson.tam@amd.com>
-Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
+Signed-off-by: Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>
+Reviewed-by: Ariel Bernstein <Eric.Bernstein@amd.com>
 ---
- .../display/dc/dcn32/dcn32_resource_helpers.c | 51 ++-----------------
- 1 file changed, 5 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 11 -----------
+ drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c  |  9 ++-------
+ drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.h  |  2 +-
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  8 ++------
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h    |  2 +-
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer_private.h |  2 +-
+ 6 files changed, 7 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-index 7eec39576e2c..4882c3684b82 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-@@ -255,8 +255,6 @@ bool dcn32_is_psr_capable(struct pipe_ctx *pipe)
- 	return psr_capable;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 20f668d28364..eaf9e9ccad2a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1741,17 +1741,6 @@ static void dcn20_program_pipe(
  
--#define DCN3_2_NEW_DET_OVERRIDE_MIN_MULTIPLIER 7
+ 		if (hws->funcs.setup_vupdate_interrupt)
+ 			hws->funcs.setup_vupdate_interrupt(dc, pipe_ctx);
 -
- /**
-  * dcn32_determine_det_override(): Determine DET allocation for each pipe
-  *
-@@ -267,6 +265,7 @@ bool dcn32_is_psr_capable(struct pipe_ctx *pipe)
-  * If there is a plane that's driven by more than 1 pipe (i.e. pipe split), then the
-  * number of DET for that given plane will be split among the pipes driving that plane.
-  *
-+ *
-  * High level algorithm:
-  * 1. Split total DET among number of streams
-  * 2. For each stream, split DET among the planes
-@@ -274,21 +273,9 @@ bool dcn32_is_psr_capable(struct pipe_ctx *pipe)
-  *    among those pipes.
-  * 4. Assign the DET override to the DML pipes.
-  *
-- * Special cases:
-- *
-- * For two displays that have a large difference in pixel rate, we may experience
-- *  underflow on the larger display when we divide the DET equally. For this, we
-- *  will implement a modified algorithm to assign more DET to larger display.
-- *
-- * 1. Calculate difference in pixel rates ( multiplier ) between two displays
-- * 2. If the multiplier exceeds DCN3_2_NEW_DET_OVERRIDE_MIN_MULTIPLIER, then
-- *    implement the modified DET override algorithm.
-- * 3. Assign smaller DET size for lower pixel display and higher DET size for
-- *    higher pixel display
-- *
-- * @dc: Current DC state
-- * @context: New DC state to be programmed
-- * @pipes: Array of DML pipes
-+ * @param [in]: dc: Current DC state
-+ * @param [in]: context: New DC state to be programmed
-+ * @param [in]: pipes: Array of DML pipes
-  *
-  * Return: void
-  */
-@@ -303,31 +290,10 @@ void dcn32_determine_det_override(struct dc *dc,
- 	struct dc_plane_state *current_plane = NULL;
- 	uint8_t stream_count = 0;
- 
--	int phy_pix_clk_mult, lower_mode_stream_index;
--	int phy_pix_clk[MAX_PIPES] = {0};
--	bool use_new_det_override_algorithm = false;
+-		if (hws->funcs.calculate_dccg_k1_k2_values && dc->res_pool->dccg->funcs->set_pixel_rate_div) {
+-			unsigned int k1_div, k2_div;
 -
- 	for (i = 0; i < context->stream_count; i++) {
- 		/* Don't count SubVP streams for DET allocation */
--		if (context->streams[i]->mall_stream_config.type != SUBVP_PHANTOM) {
--			phy_pix_clk[i] = context->streams[i]->phy_pix_clk;
-+		if (context->streams[i]->mall_stream_config.type != SUBVP_PHANTOM)
- 			stream_count++;
+-			hws->funcs.calculate_dccg_k1_k2_values(pipe_ctx, &k1_div, &k2_div);
+-
+-			dc->res_pool->dccg->funcs->set_pixel_rate_div(
+-				dc->res_pool->dccg,
+-				pipe_ctx->stream_res.tg->inst,
+-				k1_div, k2_div);
 -		}
--	}
--
--	/* Check for special case with two displays, one with much higher pixel rate */
--	if (stream_count == 2) {
--		ASSERT((phy_pix_clk[0] > 0) && (phy_pix_clk[1] > 0));
--		if (phy_pix_clk[0] < phy_pix_clk[1]) {
--			lower_mode_stream_index = 0;
--			phy_pix_clk_mult = phy_pix_clk[1] / phy_pix_clk[0];
--		} else {
--			lower_mode_stream_index = 1;
--			phy_pix_clk_mult = phy_pix_clk[0] / phy_pix_clk[1];
--		}
--
--		if (phy_pix_clk_mult >= DCN3_2_NEW_DET_OVERRIDE_MIN_MULTIPLIER)
--			use_new_det_override_algorithm = true;
  	}
  
- 	if (stream_count > 0) {
-@@ -336,13 +302,6 @@ void dcn32_determine_det_override(struct dc *dc,
- 			if (context->streams[i]->mall_stream_config.type == SUBVP_PHANTOM)
- 				continue;
+ 	if (pipe_ctx->update_flags.bits.odm)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c
+index 4d2820ffe468..32a1c3105089 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c
+@@ -337,14 +337,13 @@ void dcn314_enable_power_gating_plane(struct dce_hwseq *hws, bool enable)
+ 		REG_SET(DC_IP_REQUEST_CNTL, 0, IP_REQUEST_EN, 0);
+ }
  
--			if (use_new_det_override_algorithm) {
--				if (i == lower_mode_stream_index)
--					stream_segments = 4;
--				else
--					stream_segments = 14;
--			}
+-unsigned int dcn314_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsigned int *k1_div, unsigned int *k2_div)
++void dcn314_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsigned int *k1_div, unsigned int *k2_div)
+ {
+ 	struct dc_stream_state *stream = pipe_ctx->stream;
+-	unsigned int odm_combine_factor = 0;
+ 	bool two_pix_per_container = false;
+ 
+ 	two_pix_per_container = optc2_is_two_pixels_per_containter(&stream->timing);
+-	odm_combine_factor = get_odm_config(pipe_ctx, NULL);
++	get_odm_config(pipe_ctx, NULL);
+ 
+ 	if (stream->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe_ctx)) {
+ 		*k1_div = PIXEL_RATE_DIV_BY_1;
+@@ -362,15 +361,11 @@ unsigned int dcn314_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsig
+ 		} else {
+ 			*k1_div = PIXEL_RATE_DIV_BY_1;
+ 			*k2_div = PIXEL_RATE_DIV_BY_4;
+-			if (odm_combine_factor == 2)
+-				*k2_div = PIXEL_RATE_DIV_BY_2;
+ 		}
+ 	}
+ 
+ 	if ((*k1_div == PIXEL_RATE_DIV_NA) && (*k2_div == PIXEL_RATE_DIV_NA))
+ 		ASSERT(false);
 -
- 			if (context->stream_status[i].plane_count > 0)
- 				plane_segments = stream_segments / context->stream_status[i].plane_count;
- 			else
+-	return odm_combine_factor;
+ }
+ 
+ void dcn314_set_pixels_per_cycle(struct pipe_ctx *pipe_ctx)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.h
+index eafcc4ea6d24..3841da67a737 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.h
+@@ -37,7 +37,7 @@ void dcn314_dsc_pg_control(struct dce_hwseq *hws, unsigned int dsc_inst, bool po
+ 
+ void dcn314_enable_power_gating_plane(struct dce_hwseq *hws, bool enable);
+ 
+-unsigned int dcn314_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsigned int *k1_div, unsigned int *k2_div);
++void dcn314_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsigned int *k1_div, unsigned int *k2_div);
+ 
+ void dcn314_set_pixels_per_cycle(struct pipe_ctx *pipe_ctx);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index e5bd76c6b1d3..c586468872e2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -1141,10 +1141,9 @@ void dcn32_update_odm(struct dc *dc, struct dc_state *context, struct pipe_ctx *
+ 	}
+ }
+ 
+-unsigned int dcn32_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsigned int *k1_div, unsigned int *k2_div)
++void dcn32_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsigned int *k1_div, unsigned int *k2_div)
+ {
+ 	struct dc_stream_state *stream = pipe_ctx->stream;
+-	unsigned int odm_combine_factor = 0;
+ 	bool two_pix_per_container = false;
+ 
+ 	// For phantom pipes, use the same programming as the main pipes
+@@ -1152,7 +1151,6 @@ unsigned int dcn32_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsign
+ 		stream = pipe_ctx->stream->mall_stream_config.paired_stream;
+ 	}
+ 	two_pix_per_container = optc2_is_two_pixels_per_containter(&stream->timing);
+-	odm_combine_factor = get_odm_config(pipe_ctx, NULL);
+ 
+ 	if (stream->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe_ctx)) {
+ 		*k1_div = PIXEL_RATE_DIV_BY_1;
+@@ -1170,15 +1168,13 @@ unsigned int dcn32_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsign
+ 		} else {
+ 			*k1_div = PIXEL_RATE_DIV_BY_1;
+ 			*k2_div = PIXEL_RATE_DIV_BY_4;
+-			if ((odm_combine_factor == 2) || dcn32_is_dp_dig_pixel_rate_div_policy(pipe_ctx))
++			if (dcn32_is_dp_dig_pixel_rate_div_policy(pipe_ctx))
+ 				*k2_div = PIXEL_RATE_DIV_BY_2;
+ 		}
+ 	}
+ 
+ 	if ((*k1_div == PIXEL_RATE_DIV_NA) && (*k2_div == PIXEL_RATE_DIV_NA))
+ 		ASSERT(false);
+-
+-	return odm_combine_factor;
+ }
+ 
+ void dcn32_set_pixels_per_cycle(struct pipe_ctx *pipe_ctx)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
+index 2d2628f31bed..bf9bffabe0c0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
+@@ -71,7 +71,7 @@ void dcn32_update_force_pstate(struct dc *dc, struct dc_state *context);
+ 
+ void dcn32_update_odm(struct dc *dc, struct dc_state *context, struct pipe_ctx *pipe_ctx);
+ 
+-unsigned int dcn32_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsigned int *k1_div, unsigned int *k2_div);
++void dcn32_calculate_dccg_k1_k2_values(struct pipe_ctx *pipe_ctx, unsigned int *k1_div, unsigned int *k2_div);
+ 
+ void dcn32_set_pixels_per_cycle(struct pipe_ctx *pipe_ctx);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h
+index 4ca4192c1e12..a151865a3a20 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h
+@@ -156,7 +156,7 @@ struct hwseq_private_funcs {
+ 	void (*program_mall_pipe_config)(struct dc *dc, struct dc_state *context);
+ 	void (*update_force_pstate)(struct dc *dc, struct dc_state *context);
+ 	void (*update_mall_sel)(struct dc *dc, struct dc_state *context);
+-	unsigned int (*calculate_dccg_k1_k2_values)(struct pipe_ctx *pipe_ctx,
++	void (*calculate_dccg_k1_k2_values)(struct pipe_ctx *pipe_ctx,
+ 			unsigned int *k1_div,
+ 			unsigned int *k2_div);
+ 	void (*set_pixels_per_cycle)(struct pipe_ctx *pipe_ctx);
 -- 
 2.40.1
 
