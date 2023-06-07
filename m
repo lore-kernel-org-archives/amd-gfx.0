@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A18A1C7EE23
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 15:26:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07187C7EE2F
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 15:26:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C368710E50D;
-	Wed,  7 Jun 2023 15:26:27 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2086.outbound.protection.outlook.com [40.107.95.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A09410E16B;
- Wed,  7 Jun 2023 15:26:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 103BB10E174;
+	Wed,  7 Jun 2023 15:26:32 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2060d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::60d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA12910E50A;
+ Wed,  7 Jun 2023 15:26:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cWUgaa6yynDwTwnjKyrm2plTLX7A6XgcTK+OiEGLkQGAEUjZWltToOEyuVV0xd/SLgf0kYKG+FK2a4EnDJE7cwyZywk/P+uHpvLRxEw8tcflutl6qoGjZHNLOgvL+0rfRREW6lrdKVZZd+jTPmmpkxE5Yb4PFi8DW9MUiFLDQhVvxiRinQNXWG7vAz1WPomSAZ27nr8Ml3kSCD3weYd33h5/uLm9NwpGbQ4JSiZY+bv95TfvC2CKbtsFE156n3jUCYYXqMq5PDanGDVMP4j5KdQptEeSM3UxLwuxECzGJ3gmBcq+bMi2Z4Vm2zB9XdGa9VcskNQWwaxwwcfmNb3uEQ==
+ b=QlXjiTVd8UR/EquVE5Zlro0TrEQMczYh+lcP0/FB/2Kbn8wP/v349hLNWfEmwlkE8Tss5uzGVsvjOeMBIK1PcbCHUKgXnOIVicxttiaUhViqSii0IwQtIc0Lo6PGdZ5BUkvRfcchc2HYY22LkQYx7AFF0kvHHjsYacGxi5vbwjGsoXkeJywoDTU0yFt7WyJzodW432sbv0PB5w0E7zqNIPoRGDjunOQ2Z8UmyuWZX/MgNQ4uO+WAnC4SVndpMC6Il9aqJgXf7T2nFXl25ISy8tvWmNTlxo29wURgwrj4sRjTcxiipFipqNTBA8JQ/FUHxHmbKncqAmqvGq6P+RYUIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eP3qv0wvgTVZJPOvkXJC+775JgrEd3fJB+Ny+soksM4=;
- b=PDl1hrBxw8BhaDMfIQpA5cPJN7Uqe8m0ExPbdIufdWlW3kxk9Y4iPxAWbyq0H0MBAGmhZ/5uG/osP/q94frzno7Q+T7uaNVAVvetL951ueXvInWKSfao12JdPBOpZDEkIhHBkQ4oNp+gyXAcEDnex6j/G/weumaFazi3evCIGuVOXNyjYSaLQ0NusbWd9Bh1Fx1WAL6yJmVj6MSp0CuoVM/HVQG3xKFD/cH19GxdRGHkU+MW48ZxANz5upbveOUqu9qhD6ed2OkjwZCEWUpvX9r5bAOnIS5Q+zRtmDttCIpq6hiEWNAazqSpDA+isHFARoDxOHcQU1uV6I5Fs+f3Vw==
+ bh=dpoDThbFgL/dq0K1vV2TWgr2FFpAW2XvxwC50PIpZcE=;
+ b=ENnTbHqW5dJowGTTbndr2VOp4ecDypQU44BBHV7rrDrC6YxgNzj080LcWeRf8Hfoo7Rk85lZ8ELU0OGQTAf/NxGN54k0ISB/7TWM8z5ix6I0hmXpY9v7sr3VsYG5WrYON2MV3MljyEAx55LbXL3o9xgyDAQbWC7sWP5yCggWHWE0Ub3O4Car3ataBtdke0FSld7Tieosb3rvoqNYCc5oMnOJFugpIf5iKKOESE0Doj4LTses5yKkh4hV1xK1/v/le0yQP8dcoLpLa1IKY4KHO+QxEwkLkokKARQsDp39mtUk6LsVopM9wqG+lTK9w/gveq8IU1MVqAqONaj4DQEF+g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eP3qv0wvgTVZJPOvkXJC+775JgrEd3fJB+Ny+soksM4=;
- b=mNpeuKX6uvksTTfTVtVbdD3fOkek8GT+BE5KpXi633T4C4jdTaZSWCrdbQGO3QAknPesFOUGFrlkSCnOSf7VpgI303e/jRkBDrcHJtY84l/cvh723zIFBdFAC17adfFVRxOfRXbF1TFF6Fsj8YB96xtIPd0XwS5rGDqR/T1SqbY=
-Received: from DS7PR03CA0335.namprd03.prod.outlook.com (2603:10b6:8:55::34) by
- SJ0PR12MB5486.namprd12.prod.outlook.com (2603:10b6:a03:3bb::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.32; Wed, 7 Jun
- 2023 15:26:21 +0000
-Received: from CY4PEPF0000EE36.namprd05.prod.outlook.com
- (2603:10b6:8:55:cafe::2) by DS7PR03CA0335.outlook.office365.com
- (2603:10b6:8:55::34) with Microsoft SMTP Server (version=TLS1_2,
+ bh=dpoDThbFgL/dq0K1vV2TWgr2FFpAW2XvxwC50PIpZcE=;
+ b=WCopbdxgC8F5CuFkNngcLEVellpTpfyYM90NLwlM8AApbUtVlfqYX+L5f3LSXO++ZDTfULUUUIscUAi+iyHFodXJi0g54n2o85wk8oB9+pIQB3Dh/GXji4WSC4TNDcpvqZ8stk0BQbCMcs5D/bfI8+8F4emmn5Fz3v/x53p04/Y=
+Received: from CY5PR15CA0119.namprd15.prod.outlook.com (2603:10b6:930:68::27)
+ by SA1PR12MB8860.namprd12.prod.outlook.com (2603:10b6:806:38b::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Wed, 7 Jun
+ 2023 15:26:23 +0000
+Received: from CY4PEPF0000EE31.namprd05.prod.outlook.com
+ (2603:10b6:930:68:cafe::ab) by CY5PR15CA0119.outlook.office365.com
+ (2603:10b6:930:68::27) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.19 via Frontend
- Transport; Wed, 7 Jun 2023 15:26:20 +0000
+ Transport; Wed, 7 Jun 2023 15:26:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,51 +46,54 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000EE36.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ CY4PEPF0000EE31.mail.protection.outlook.com (10.167.242.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6477.13 via Frontend Transport; Wed, 7 Jun 2023 15:26:20 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ 15.20.6477.13 via Frontend Transport; Wed, 7 Jun 2023 15:26:23 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 7 Jun
- 2023 10:26:20 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 10:26:22 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 7 Jun
- 2023 08:26:19 -0700
+ 2023 08:26:22 -0700
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Wed, 7 Jun 2023 10:26:18 -0500
+ Transport; Wed, 7 Jun 2023 10:26:21 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v6 00/13] Enable Colorspace connector property in amdgpu
-Date: Wed, 7 Jun 2023 11:26:04 -0400
-Message-ID: <20230607152617.997573-1-harry.wentland@amd.com>
+Subject: [PATCH v6 02/13] drm/connector: Add enum documentation to
+ drm_colorspace
+Date: Wed, 7 Jun 2023 11:26:06 -0400
+Message-ID: <20230607152617.997573-3-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230607152617.997573-1-harry.wentland@amd.com>
+References: <20230607152617.997573-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE36:EE_|SJ0PR12MB5486:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ead7dbf-cf2d-4c8c-4dea-08db676b8bc5
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE31:EE_|SA1PR12MB8860:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8934fdab-202e-4fba-1634-08db676b8d3c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5c51CgzI4XgCYsmqi/uhSZ21eDyHM7LC66AUZkC5z1ykvuGZAPsf8wo4idzHv6HR0s+U78682K+0FMLZNCv3Rmj39QcqQQXCNBuGwlN7N932/WL6+3iHcRhMZSSEgiXpDm5gmti+qugZ9eOxa3QMrwsWzm5ZUrue5bDLXBhk6NB6PEr3V+iiPaPLNF7y0cdFW1lFJLfS6aCKkJyD+/qDMMGjHJsVUhN7OltzRfFSOA30zYE4ei8kKy3MvHjS/MTPxDLYykcQtsPzLGqx8yCZ3RBRF/75Mh38NkvYj+A2KjZ83jO2ENUaHMFSY7JbWj/TlKRiTOWwI0vhCcilEajkLA4sZivN9AyKDQu/yDqnNHIN3kp0n3XDa70SYAIruZBag688OmSCUmtT2VGqruMKyURXYWAsvN5x/jZakTUrJPFfU0lIrakmbo/S/0Uewadr1Feqj5tAaSJDNzyDBKdX8iwY1pN48WdrVTLtIaEoM+aYAnYH8d0AuAOjiZVS0owSE4WzLoTux6joDdApitYi1/byi+F+AQArUbAO/qFHVspWy9Qs7UgMv06h2zP2zcsl2XA1QFslNVe5p2C75xH+MuDFq1sB7fGrqYLj8+dVBTeoW5pHjry+rL8IgJ6scAJoGXMCiWNGEXFx8hOO/yBt5efUPH8OTsE28dvHaPYuiL1KoTy5B8rAs0rNvp2L1tTn8rPqgyLSgLbmCw2AKEm5XJyoNMKgFFejDm6wUiQQXlM=
+X-Microsoft-Antispam-Message-Info: dOAJ+S72su7uBY0+x0U1ghAv9j0dX3QK6SBhTZ6C2ibQiiWAZi1j8Ad7ChDsq6dBvR6alqCDck6slUCwkXQ2qMmcC584MTcLa95PuoFkDjspjlz98vg0rZGjzPWeggtS7WSls/ZmirJ2nv2y6LGt/7GL1GzI+VqVrsFthbEMV+59wmsFc2lHkGpNZsEggg3H7ndp/rJqwyufKIo5zpxke/vKXdlbYq8a/xJMlGXr6OPt9aguKyiD7VFwsAZmLUWWh/TTuqK4mzoqQprmY2VCaTk6cw6kunrmu7rhbb+0p7DR26F/Bke9t0b+irXUKvKV0Sz7gytWKSWyjHvtE2yX7wXGWjv/2m0ADecd74gxXe8HuiTo6M8HmV+/N2PKNAFZB/gL9pFC1OiTsA7iDSbf8XGN6tQSi/OPryNztq9m0lFIxF4yQryqDMOG9Sr3x77kDPXcSlvXVaFjTo+2bPUEUs8id53wcMrCAqq7teauEX33RsubunOPnOFdVhG2fJzkSbjqYNpVybAqykb8lou0fMpl9jAffx2dFRF0o4s5jvTGguPt00MV5rp4MFBSBqhA7JlCKMtwABd1pV+C2rJEHTsVlhfDruM0u/ITL2nSQAxhgK8SPb9te3N2ZNwl/owpRf9xtI4qBgcGGkdC+QziybD9V5pbJK1liEQjBOhfPygkhVvBE4HLIwtSszRmxpI9G1EnoOBB6EuN0x3mGGhHuJQjmYFSTVKa4pfGZUyPH/n/hfooHVVcjCPlFINWu+vT2hinYxZIlT6KUtpR841hMA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(136003)(396003)(346002)(376002)(451199021)(40470700004)(46966006)(36840700001)(40460700003)(82310400005)(966005)(6666004)(26005)(47076005)(83380400001)(66574015)(426003)(336012)(40480700001)(36860700001)(1076003)(2616005)(186003)(86362001)(36756003)(82740400003)(81166007)(356005)(7416002)(44832011)(54906003)(110136005)(5660300002)(316002)(41300700001)(8936002)(4326008)(70586007)(478600001)(70206006)(8676002)(2906002)(36900700001);
+ SFS:(13230028)(4636009)(39860400002)(136003)(376002)(396003)(346002)(451199021)(40470700004)(46966006)(36840700001)(36860700001)(47076005)(66574015)(83380400001)(86362001)(40480700001)(81166007)(82310400005)(82740400003)(40460700003)(478600001)(356005)(110136005)(41300700001)(6666004)(54906003)(8676002)(44832011)(4326008)(70586007)(5660300002)(8936002)(316002)(2906002)(70206006)(7416002)(2616005)(66899021)(26005)(336012)(1076003)(426003)(36756003)(186003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 15:26:20.6244 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ead7dbf-cf2d-4c8c-4dea-08db676b8bc5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 15:26:23.0650 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8934fdab-202e-4fba-1634-08db676b8d3c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE36.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE31.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5486
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8860
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,93 +106,37 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, Simon
+ Ser <contact@emersion.fr>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  Melissa Wen <mwen@igalia.com>, Pekka Paalanen <ppaalanen@gmail.com>,
  Uma Shankar <uma.shankar@intel.com>, Vitaly.Prosyak@amd.com,
- Joshua Ashton <joshua@froggi.es>, Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+ Harry Wentland <harry.wentland@amd.com>, Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patchset is based on Joshua's previous patchset [1], as well
-as my previous patchset [2].
+From: Joshua Ashton <joshua@froggi.es>
 
-It is
-- enabling support for the colorspace property in amdgpu, as well as
-- allowing drivers to specify the supported set of colorspaces, and
-
-Colorspace, Infoframes, and YCbCr matrix
----------------------------------------
-
-Even though the initial intent of the colorspace property was to set the
-colorspace field in the respective HDMI AVI and DP SDP infoframes that
-is not sufficient in all scenarios. For DP the colorspace information
-also affects the MSA (main stream attribute) packet. For YUV output the
-colorspace affects the RGB-to-YCbCr conversion matrix. The colorspace
-field of the infopackets also depends on the encoding used, which is
-something that is decided by the driver and not known to userspace.
-
-For these reasons a driver will need to be able to select the supported
-colorspaces at property creation.
-
-Note: There seems to be an understanding that the colorspace property
-should ONLY modify the infoframe. While this is current behavior and
-sufficient in some cases it is nowhere specified that this should be the
-only use of this property. As outlined above this limitation is not
-going to work in all cases.
-
-This patchset does not affect current behavior for the drivers that
-implement this property: i915 and vc4.
-
-In the future we might want to give userspace control over the encoding
-format on the wire, in particular to avoid use of YUV420 when image
-fidelity is important. This work would likely go hand in hand with a
-min_bpc property and wouldn't conflict with the work done in this
-patchset. I would expect this future work to tag along with a drm_crtc
-or drm_connector's Color Pipeline, similar to the one propsed for
-drm_plane [3].
-
-Colorspace on crtc or connector?
---------------------------------
-
-There have been suggestions of programming 'colorspace' on the drm_crtc
-but I don't think the crtc is the right place for this property. The
-drm_plane and drm_crtc will be used to offload color processing that
-would normally be done via the GFX or other pipelines. The drm_connector
-controls the signalling with the display and ensures the wire format is
-appropriate for the encoding by programming the RGB-to-YCbCr matrix.
-
-[1] https://patchwork.freedesktop.org/series/113632/
-[2] https://patchwork.freedesktop.org/series/111865/
-[3] https://lists.freedesktop.org/archives/dri-devel/2023-May/403173.html
+To match the other enums, and add more information about these values.
 
 v2:
-- Tested with DP and HDMI analyzers
-- Confirmed driver will fallback to lower bpc when needed
-- Dropped hunk to set HDMI AVI infoframe as it was a no-op
-- Fixed BT.2020 YCbCr colorimetry (JoshuaAshton)
-- Simplify initialization of supported colorspaces (Jani)
-- Fix kerneldoc (kernel test robot)
-
-v3:
-- Added documentation for colorspaces (Pekka, Joshua)
-- Split 'Allow drivers to pass list of supported colorspaces' patch
-  to pull out code to create common colorspace array and keep it separate
-  from change to create only supported colorspaces
+ - Specify where an enum entry comes from
+ - Clarify DEFAULT and NO_DATA behavior
+ - BT.2020 CYCC is "constant luminance"
+ - correct type for BT.601
 
 v4:
-- Don't "deprecate" existing enum values
-- Fixes based on review comments throughout
-- Dropped Josh's RBs
+- drop DP/HDMI clarifications that might create
+  more questions than answers
 
 v5:
-- Add documentation that drivers are free to pick appropriate
-  RGB or YCC variant
+- Add note on YCC and RGB variants
 
-v6:
-- Remove magic when drivers pass '0' as supported_colorspaces
-  to indicate default support for all DP/HDMI colorspaces
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Sebastian Wick <sebastian.wick@redhat.com>
+Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
 
 Cc: Pekka Paalanen <ppaalanen@gmail.com>
 Cc: Sebastian Wick <sebastian.wick@redhat.com>
@@ -196,41 +144,101 @@ Cc: Vitaly.Prosyak@amd.com
 Cc: Uma Shankar <uma.shankar@intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: Joshua Ashton <joshua@froggi.es>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Michel Dänzer <michel.daenzer@mailbox.org>
 Cc: Simon Ser <contact@emersion.fr>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: Melissa Wen <mwen@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org
+---
+ include/drm/drm_connector.h | 70 +++++++++++++++++++++++++++++++++++--
+ 1 file changed, 68 insertions(+), 2 deletions(-)
 
-Harry Wentland (10):
-  drm/connector: Convert DRM_MODE_COLORIMETRY to enum
-  drm/connector: Pull out common create_colorspace_property code
-  drm/connector: Use common colorspace_names array
-  drm/connector: Print connector colorspace in state debugfs
-  drm/connector: Allow drivers to pass list of supported colorspaces
-  drm/amd/display: Always pass connector_state to stream validation
-  drm/amd/display: Register Colorspace property for DP and HDMI
-  drm/amd/display: Signal mode_changed if colorspace changed
-  drm/amd/display: Send correct DP colorspace infopacket
-  drm/amd/display: Add debugfs for testing output colorspace
-
-Joshua Ashton (3):
-  drm/connector: Add enum documentation to drm_colorspace
-  drm/amd/display: Always set crtcinfo from create_stream_for_sink
-  drm/amd/display: Refactor avi_info_frame colorimetry determination
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  84 +++++---
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  57 ++++++
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  28 ++-
- drivers/gpu/drm/drm_atomic.c                  |   1 +
- drivers/gpu/drm/drm_connector.c               | 189 +++++++++++-------
- .../gpu/drm/i915/display/intel_connector.c    |   4 +-
- drivers/gpu/drm/vc4/vc4_hdmi.c                |   2 +-
- include/drm/display/drm_dp.h                  |   2 +-
- include/drm/drm_connector.h                   | 129 +++++++++---
- 9 files changed, 363 insertions(+), 133 deletions(-)
-
---
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 77401e425341..907f40851e80 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -363,13 +363,79 @@ enum drm_privacy_screen_status {
+ 	PRIVACY_SCREEN_ENABLED_LOCKED,
+ };
+ 
+-/*
+- * This is a consolidated colorimetry list supported by HDMI and
++/**
++ * enum drm_colorspace - color space
++ *
++ * This enum is a consolidated colorimetry list supported by HDMI and
+  * DP protocol standard. The respective connectors will register
+  * a property with the subset of this list (supported by that
+  * respective protocol). Userspace will set the colorspace through
+  * a colorspace property which will be created and exposed to
+  * userspace.
++ *
++ * DP definitions come from the DP v2.0 spec
++ * HDMI definitions come from the CTA-861-H spec
++ *
++ * A note on YCC and RGB variants:
++ *
++ * Since userspace is not aware of the encoding on the wire
++ * (RGB or YCbCr), drivers are free to pick the appropriate
++ * variant, regardless of what userspace selects. E.g., if
++ * BT2020_RGB is selected by userspace a driver will pick
++ * BT2020_YCC if the encoding on the wire is YUV444 or YUV420.
++  *
++ * @DRM_MODE_COLORIMETRY_DEFAULT:
++ *   Driver specific behavior.
++ * @DRM_MODE_COLORIMETRY_NO_DATA:
++ *   Driver specific behavior.
++ * @DRM_MODE_COLORIMETRY_SMPTE_170M_YCC:
++ *   (HDMI)
++ *   SMPTE ST 170M colorimetry format
++ * @DRM_MODE_COLORIMETRY_BT709_YCC:
++ *   (HDMI, DP)
++ *   ITU-R BT.709 colorimetry format
++ * @DRM_MODE_COLORIMETRY_XVYCC_601:
++ *   (HDMI, DP)
++ *   xvYCC601 colorimetry format
++ * @DRM_MODE_COLORIMETRY_XVYCC_709:
++ *   (HDMI, DP)
++ *   xvYCC709 colorimetry format
++ * @DRM_MODE_COLORIMETRY_SYCC_601:
++ *   (HDMI, DP)
++ *   sYCC601 colorimetry format
++ * @DRM_MODE_COLORIMETRY_OPYCC_601:
++ *   (HDMI, DP)
++ *   opYCC601 colorimetry format
++ * @DRM_MODE_COLORIMETRY_OPRGB:
++ *   (HDMI, DP)
++ *   opRGB colorimetry format
++ * @DRM_MODE_COLORIMETRY_BT2020_CYCC:
++ *   (HDMI, DP)
++ *   ITU-R BT.2020 Y'c C'bc C'rc (constant luminance) colorimetry format
++ * @DRM_MODE_COLORIMETRY_BT2020_RGB:
++ *   (HDMI, DP)
++ *   ITU-R BT.2020 R' G' B' colorimetry format
++ * @DRM_MODE_COLORIMETRY_BT2020_YCC:
++ *   (HDMI, DP)
++ *   ITU-R BT.2020 Y' C'b C'r colorimetry format
++ * @DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
++ *   (HDMI)
++ *   SMPTE ST 2113 P3D65 colorimetry format
++ * @DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
++ *   (HDMI)
++ *   SMPTE ST 2113 P3DCI colorimetry format
++ * @DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED:
++ *   (DP)
++ *   RGB wide gamut fixed point colorimetry format
++ * @DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT:
++ *   (DP)
++ *   RGB wide gamut floating point
++ *   (scRGB (IEC 61966-2-2)) colorimetry format
++ * @DRM_MODE_COLORIMETRY_BT601_YCC:
++ *   (DP)
++ *   ITU-R BT.601 colorimetry format
++ *   The DP spec does not say whether this is the 525 or the 625
++ *   line version.
+  */
+ enum drm_colorspace {
+ 	/* For Default case, driver will set the colorspace */
+-- 
 2.41.0
 
