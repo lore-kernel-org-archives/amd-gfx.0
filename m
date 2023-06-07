@@ -4,38 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3527EC7EE2F
-	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 09:46:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B86F1C77B7A
+	for <amd-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 09:49:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A56A610E4AE;
-	Wed,  7 Jun 2023 09:46:40 +0000 (UTC)
-Received: from mail-4317.proton.ch (mail-4317.proton.ch [185.70.43.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5918210E4A7;
- Wed,  7 Jun 2023 09:46:38 +0000 (UTC)
-Date: Wed, 07 Jun 2023 09:46:24 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail; t=1686131196; x=1686390396;
- bh=cJbxiYRG4+GDcR8+bOjwETCgvvOXEPXxSJzUF6F0cAY=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=ZNd+UkS+c647LbF7iWHUUUgB5TnstAL29F0rlapzMyMnpVntgTYW3vdPKi1xDU+gh
- 2ZddtVx+tDbLuR+pzqALzWR5hD2G62AGg15g41Kh/Cwo0t2F2WxBthN2O9zPmSjKon
- Xq+zhr6+2Pt6K+T8EC9m4lRn0rNu/H2NazMlvYPs6U/KbCLcLEJDTiF0DBDQz8Tzlt
- uW8pWgg+GWlpLGFVEl2bCC3iakRKF06lwRiaFw21+Quy+eq91t3yuvgCqjxizxgM9w
- 4J4TTFA/K7er+O7wOUa09kSRWNZFWVn4mRMfXZZ51oYTtbADFGBYOPYi/vu2xNMx+3
- NCxNKAAbDBJoA==
-To: Harry Wentland <harry.wentland@amd.com>
-From: Simon Ser <contact@emersion.fr>
-Subject: Re: [PATCH v5 04/13] drm/connector: Use common colorspace_names array
-Message-ID: <FZ35H51NfkJ9AW7308J3UnZV4tkbehUMp-hAeohZT0-sfWYnsNEHFSa3VHD07WcisBW3-6yhcbCG-D_qfOCi1VKQGGFj5T0ed4Mjhm0kkvQ=@emersion.fr>
-In-Reply-To: <20230606202607.122914-5-harry.wentland@amd.com>
-References: <20230606202607.122914-1-harry.wentland@amd.com>
- <20230606202607.122914-5-harry.wentland@amd.com>
-Feedback-ID: 1358184:user:proton
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D9F110E4A8;
+	Wed,  7 Jun 2023 09:49:54 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C029F10E4A7;
+ Wed,  7 Jun 2023 09:49:51 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8Ax3eq8UoBkDRkAAA--.362S3;
+ Wed, 07 Jun 2023 17:49:48 +0800 (CST)
+Received: from [10.20.42.43] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8AxKeW6UoBk70AEAA--.15579S3; 
+ Wed, 07 Jun 2023 17:49:47 +0800 (CST)
+Message-ID: <6a765dff-b3ed-3027-dcf8-7883ca46ea4e@loongson.cn>
+Date: Wed, 7 Jun 2023 17:49:46 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/amdgpu: display/Kconfig: replace leading spaces with
+ tab
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, Alex Deucher <alexdeucher@gmail.com>
+References: <20230606133328.148490-1-suijingfeng@loongson.cn>
+ <CADnq5_MdNSBJuNrJC2-fRByhEoUqEJmMGATT+OrFvjqA7k4F5Q@mail.gmail.com>
+ <85b7bf66-840b-c6de-a7e3-be1f49953464@loongson.cn>
+ <7db6a90f-1929-5e36-3f1d-c96acb5c70a1@loongson.cn>
+ <DM5PR12MB2469E5DA60D629BBEC0A6157F153A@DM5PR12MB2469.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Sui Jingfeng <suijingfeng@loongson.cn>
+Organization: Loongson
+In-Reply-To: <DM5PR12MB2469E5DA60D629BBEC0A6157F153A@DM5PR12MB2469.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: AQAAf8AxKeW6UoBk70AEAA--.15579S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxJF4fXry7uFWfJw45AF4UWrX_yoW5CFy5pw
+ 43AFn0kF4DXF1rt3srta4fWF15tan3tFy8XryDGw1UZryqvF1SgrWkKrs8ur95ZF1xCa1r
+ ZFyrWF47W3WFyrgCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUvab4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
+ 02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAF
+ wI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
+ AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
+ rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
+ CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
+ 67AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr
+ 0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU
+ FyCJUUUUU
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,28 +68,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
- Melissa Wen <mwen@igalia.com>, Pekka Paalanen <ppaalanen@gmail.com>,
- Uma Shankar <uma.shankar@intel.com>, dri-devel@lists.freedesktop.org,
- Joshua Ashton <joshua@froggi.es>,
- =?utf-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Vitaly.Prosyak@amd.com
+Cc: "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, June 6th, 2023 at 22:25, Harry Wentland <harry.wentland@amd.com=
-> wrote:
+Hi,
 
-> +=09=09if (supported_colorspaces !=3D 0 && (colorspaces & BIT(i)) =3D=3D =
-0)
+On 2023/6/7 17:09, Chen, Guchun wrote:
+> [Public]
+>
+> It's https://gitlab.freedesktop.org/agd5f/linux/-/tree/amd-staging-drm-next?ref_type=heads. Latest patches including yours's will be pushed to this branch after a while.
 
-This patch actually also introduces a change in behavior: passing no
-colorspace will make the function advertise all colorspaces. I have a
-hard time understanding how this can be useful: we want to either
-advertise all DP colorspaces, or all HDMI colorspaces, but not both?
+Now I know,  thanks for your kindness reply.
 
-One way to fix this would be to handle the "zero means everything"
-behavior in the specific DP/HDMI callers. But I wonder, is it really
-worth the magic if we can expose a simple const variable with all
-DP/HDMI colorspaces?
+> Regards,
+> Guchun
+>
+>> -----Original Message-----
+>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Sui
+>> Jingfeng
+>> Sent: Wednesday, June 7, 2023 2:34 PM
+>> To: Alex Deucher <alexdeucher@gmail.com>
+>> Cc: Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; David Airlie
+>> <airlied@gmail.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Siqueira, Rodrigo
+>> <Rodrigo.Siqueira@amd.com>; linux-kernel@vger.kernel.org; dri-
+>> devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; Daniel Vetter
+>> <daniel@ffwll.ch>; Deucher, Alexander <Alexander.Deucher@amd.com>;
+>> Wentland, Harry <Harry.Wentland@amd.com>; Koenig, Christian
+>> <Christian.Koenig@amd.com>
+>> Subject: Re: [PATCH] drm/amdgpu: display/Kconfig: replace leading spaces
+>> with tab
+>>
+>> https://cgit.freedesktop.org/amd/drm-amd/
+>>
+>>
+>> This one has a long time with no update.
+>>
+>>
+>> On 2023/6/7 14:31, Sui Jingfeng wrote:
+>>> Hi,
+>>>
+>>> On 2023/6/7 03:15, Alex Deucher wrote:
+>>>> Applied.  Thanks!
+>>> Where is the official branch of drm/amdgpu, I can't find it on the
+>>> internet.
+>>>
+>>> Sorry for asking this silly question.
+>>>> Alex
+>>>>
+>>>> On Tue, Jun 6, 2023 at 9:33 AM Sui Jingfeng <suijingfeng@loongson.cn>
+>>>> wrote:
+>>>>> This patch replace the leading spaces with tab, make them keep
+>>>>> aligned with the rest of the config options. No functional change.
+>>>>>
+>>>>> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+>>>>> ---
+>>>>>    drivers/gpu/drm/amd/display/Kconfig | 17 +++++++----------
+>>>>>    1 file changed, 7 insertions(+), 10 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/display/Kconfig
+>>>>> b/drivers/gpu/drm/amd/display/Kconfig
+>>>>> index 2d8e55e29637..04ccfc70d583 100644
+>>>>> --- a/drivers/gpu/drm/amd/display/Kconfig
+>>>>> +++ b/drivers/gpu/drm/amd/display/Kconfig
+>>>>> @@ -42,16 +42,13 @@ config DEBUG_KERNEL_DC
+>>>>>             Choose this option if you want to hit kdgb_break in assert.
+>>>>>
+>>>>>    config DRM_AMD_SECURE_DISPLAY
+>>>>> -        bool "Enable secure display support"
+>>>>> -        depends on DEBUG_FS
+>>>>> -        depends on DRM_AMD_DC_FP
+>>>>> -        help
+>>>>> -            Choose this option if you want to
+>>>>> -            support secure display
+>>>>> -
+>>>>> -            This option enables the calculation
+>>>>> -            of crc of specific region via debugfs.
+>>>>> -            Cooperate with specific DMCU FW.
+>>>>> +       bool "Enable secure display support"
+>>>>> +       depends on DEBUG_FS
+>>>>> +       depends on DRM_AMD_DC_FP
+>>>>> +       help
+>>>>> +         Choose this option if you want to support secure display
+>>>>>
+>>>>> +         This option enables the calculation of crc of specific
+>>>>> region via
+>>>>> +         debugfs. Cooperate with specific DMCU FW.
+>>>>>
+>>>>>    endmenu
+>>>>> --
+>>>>> 2.25.1
+>>>>>
+>> --
+>> Jingfeng
+
+-- 
+Jingfeng
+
