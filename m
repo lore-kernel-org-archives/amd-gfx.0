@@ -4,112 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BF6CC7EE25
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jun 2023 15:46:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 012AAC7EE29
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jun 2023 16:40:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADBB710E5DA;
-	Thu,  8 Jun 2023 15:46:23 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2076.outbound.protection.outlook.com [40.107.102.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C430910E025
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Jun 2023 15:46:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gy/mt5riGrpkNXA35xRHpXU7hrbGFOYW1fvsN+XvxdMbt4HuQJnCDDH20OcFskslMSHmcVwGLJp4Cwys3hcLXQxvY68RSA5GjluakprJKnxOkjmDIGDXSytsw7fXN27NindSXcrP73fyF17GsTl6EYGYZ21eY7Tbpo5iR0bzFTIgaXkZ2fYLxIOUxsvgXSqXs96G05spQ3yn+ftTskOympL8QLe0cSJ4H3Tql2WyFniuGE1Umv6t4S3BTe394EAnrW3JLbEwfWD1AVCsrH3KFzG42TtpaxHqFvmHbZG7dQMVq206FADu7AnxBVWYwJU7CFYlMjBvXU4dlBDm9i0LMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p3W05gHaIpEnk07YAZXNvGMTGq2Fe5km7T0ljQlCXmo=;
- b=eEsXbo7hWugIKeU4k0AHTL6xwqWFoHhQhnVRHDszVuvsEIEL1fy4pkocCJo7j2prt3yb/VdRPPQz/sJ38CXmYTOMMrnpqKOkNFfM6foGD/fzMoaPv3/Eu7gIIxQqGLYgQ8+USAtDlE2SaHjtrVCo4M/26BjeSIILdf0honmVOqxaJ5jCdRhVhND7Qgg2d95iOxWT3o5D//0Ey+3x/gAzH2Y0oHKEMME4EtzxP4bAISz207lUSZfgECktHI6yalNsZOG9YuF3kox/JxhALFZitClr1gfO4fO2wqng1cZP8IRjQi6IkSO9jQfH/hpFWvK1LCnJRmHNtoZTVU3Q+Qwxow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p3W05gHaIpEnk07YAZXNvGMTGq2Fe5km7T0ljQlCXmo=;
- b=aFLX2E2593FBacM87m0dVq5KmP3K0dO8sR4knMMBgyGHP0wuGsKQ2NKIFsAidNzOFlZf2RYRItEM0s2k8SPBMTlgkJCc18/5CGx8qIQptaQ+FC9SNh+kvGNLHNV1QLV07eXRr7AJGa2pZLBC5qb+hXouI/9PwQZC+UeLBE1dauI=
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
- LV2PR12MB5896.namprd12.prod.outlook.com (2603:10b6:408:172::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.31; Thu, 8 Jun
- 2023 15:46:18 +0000
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::10e9:7f44:45ae:4f94]) by DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::10e9:7f44:45ae:4f94%4]) with mapi id 15.20.6455.039; Thu, 8 Jun 2023
- 15:46:17 +0000
-From: "Liu, Leo" <Leo.Liu@amd.com>
-To: "Jiang, Sonny" <Sonny.Jiang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: vcn_4_0 set instance 0 init sched score to 1
-Thread-Topic: [PATCH] drm/amdgpu: vcn_4_0 set instance 0 init sched score to 1
-Thread-Index: AQHZmhknEa6h5p7ASUaEgAyxCc8oIq+BDDly
-Date: Thu, 8 Jun 2023 15:46:17 +0000
-Message-ID: <DM8PR12MB53993BA11A7C9562ADD18E9EE550A@DM8PR12MB5399.namprd12.prod.outlook.com>
-References: <20230608145415.825486-1-sonny.jiang@amd.com>
-In-Reply-To: <20230608145415.825486-1-sonny.jiang@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-06-08T15:46:16.854Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM8PR12MB5399:EE_|LV2PR12MB5896:EE_
-x-ms-office365-filtering-correlation-id: 226083d8-e003-4c48-b5c1-08db68377fc5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Ryrm7/l/oI2kIvu/DLNyEocairsbG0YtUrOl8fwlYDCjgwI7J0jS3oP6bzGMrBHVGuiOkHllDfKbSJaX+RZ7dKFyRJxjmkRRy5En8N9btO9JRjxJBfjsYpANUHNBuVdmjq4F/B6HYUc7bKGT0h+kzHWWJnGZ0kOtfMfFHh034LGnI4hqYJfdutZ3jUUYAKsi1x0iBok0NctlWT2t0ECwjuMZzI3dh1UNXA7eHoJ4CAfF1sIEnoEuHa87DNu1no0wGRm6E6FauevOnytqQtfxtyPovw64I5WK0BQlZWjmgwVOIkp/AM1RSThO6XsSwoKTV46COUbjd3ebFuvTP1BYRx5yx1lJGklk7rGpmuoTzHv4tT7sy3CphhQrPGyenQNm6lnUoNa3WE3XjvMh0zjrWIXPcVZ4JUBKRJuj55eVhMuuXXsQaFMPP5RGY+m06B7uAKevVZPI0Mj0V42TvuVLQ5UtXJNpWjZyO2M/UGRmd/qQEUCeBwUDUd5K5k4kvTrmNXDcX+dETfWeE+6RCXD/GweUQKLgPfhFQppIsvrkhBFVFnzbIwsDFA0uuRuxZqXBXN1XwM6rwIozYcjbawDxs4lciSbQCh7bZfbRrsBilJJfIbNx5jgwVlZT5vBbuWDE
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(366004)(39860400002)(136003)(396003)(346002)(451199021)(55016003)(7696005)(33656002)(316002)(76116006)(8936002)(66446008)(66556008)(122000001)(91956017)(66476007)(66946007)(52536014)(2906002)(64756008)(5660300002)(110136005)(41300700001)(86362001)(38100700002)(8676002)(38070700005)(71200400001)(478600001)(83380400001)(186003)(19627405001)(26005)(9686003)(53546011)(6506007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?SaGzu37Z5xTSWqulGVxgnQT/ucM9JXgOSRlguUp4c0H6Finf/6a67V0kA4RV?=
- =?us-ascii?Q?7M4eCsI5FFsqATIK3xf/PDHeti00wqBIIqa5hapfcy55kTcHWfTcjMkqtWvO?=
- =?us-ascii?Q?o+EXTAp94vHbVkTLbevlG/fu0CJUWOgk8Rlj1ZPisazXY1ZzH3Tce+9MZv4L?=
- =?us-ascii?Q?OKXtaGg9tGPbxLv3qsI6l7u4UinWZQ1fP9yHIOfEROS+VwZr6KOXRGTXNC7d?=
- =?us-ascii?Q?TDJys5XqjNtwKs508kCYnJ83zX45kVRxDy1Ao8/E5cYhJCct9Sj7NEEGAmnS?=
- =?us-ascii?Q?TDMi3LOl67ftLM5bKH2gmH14WJVC4cvT9wj6Pv31OjJVGpl4H01xUve2MhbX?=
- =?us-ascii?Q?jBovu7vqr3r71SvKWp1MBg4Z/fPyOsbxWpG5OHGtU5ToibAxh8KqdSuuEje7?=
- =?us-ascii?Q?5bfb3M3TRkzaefgMx3neoVbhK57Zz2BcV2gjJGDPfBTHTpqOCEf2eqR9dOMu?=
- =?us-ascii?Q?X76yoBPUPk5nXNkH+uAiaK40bgF/9MU+9vOPJkku3wD5izWbrzI4mt6xo6in?=
- =?us-ascii?Q?lNa3v49/8G5A8OE+/5FSOh0AcaFginoPY1vbF0TH627jqJLeKBk0IaMuovON?=
- =?us-ascii?Q?5JjjvT6u+9bu2GkwBYuiR2DrxhcUa+WEmvE2hv7XS4m+QD3Pq4ZponKzuaFB?=
- =?us-ascii?Q?VwfxJyj1w0HUrWFqC+Q7M7GRiSl8vXIYa218KYdyd10hc9EiwUK0yOuW7RIz?=
- =?us-ascii?Q?YKuG4L/EBNs8gjo6sg1vka7G6u+OpKt7+uurt7pgDYcNggDji3dUtBLwuQnl?=
- =?us-ascii?Q?dw8LCNNxvi4vOn2DIX5TGCTm3Mi30Ld3Na2yR1SuQ68sXwB8lasZnXi031DE?=
- =?us-ascii?Q?UhIkflnGUXpZQNp8ilSV6KCEBxxep1PNKf/7MsiBDQHWxOIWtlXPVgzpcRGY?=
- =?us-ascii?Q?uLlRN2gkzeDlwtH3sqz9rdLskHqbh+b3J7Tj1w+IscJk1/9VTeGIG4O66Q5P?=
- =?us-ascii?Q?K27xF8SPcNCI/PAgVSia8qEtwtSWcCSdjf4ST40GImnuRfbDVhDmEEPamD+r?=
- =?us-ascii?Q?uo5N65b4tCUAhZgqvIC6JsXQpAbgy7F+H5TVi5srdOlTw51WoAtEZg8E92OT?=
- =?us-ascii?Q?cKz7cK9CxAIi01mnpJmXYNciYDjOwOKIptxo7bq6l00FAAgIzP6LRqyZe/wo?=
- =?us-ascii?Q?oUFtUgIVYouCWKPyhckxmiroOGj8LUNhbCZF8rIItzFLOfeAvI797S8uFT2k?=
- =?us-ascii?Q?RKygBLE6ev/pdwbpnwLJ9mQwmkbWCf4jXxGCnhl4aCbY5UDRX1aSBAXFbD6o?=
- =?us-ascii?Q?K44v6WBcF+FVvi3P4gCZVB/i37JahIVceSyWy9F01Yu8UWj1gsI8IGGsUrOL?=
- =?us-ascii?Q?xSfofT7uEaOj52+aewFnZPJC1sMw/ZBsKuMyfqEZDjcTNH7agSEZHjT4RslN?=
- =?us-ascii?Q?Y0vPaemFLtnoej1qV5HSLMHTmH1R/YVsXSnrPk9dNmwLnAypWc3wY42G1+rf?=
- =?us-ascii?Q?9i2uEk4NVAxbbHK5P7MfWvvB96kMWIoHQntaBpX59iW8lhDdtl/IxFMY9TnU?=
- =?us-ascii?Q?debgMvrAenClSFw4uvDy9550nsY2iXuK/oMemion4qKP5CjbqZ9aI6NWt7mr?=
- =?us-ascii?Q?VrXqB/zvv25MDwA5AHY=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DM8PR12MB53993BA11A7C9562ADD18E9EE550ADM8PR12MB5399namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8152410E5E7;
+	Thu,  8 Jun 2023 16:40:50 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F215610E5EE
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Jun 2023 16:40:48 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=[IPv6:::1]) by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <l.stach@pengutronix.de>)
+ id 1q7Igh-0000rs-9q; Thu, 08 Jun 2023 18:40:39 +0200
+Message-ID: <241d8d6699582df9e80785b264c4feacb00d12d7.camel@pengutronix.de>
+Subject: Re: [PATCH v2] Revert "drm/scheduler: Avoid accessing freed bad job."
+From: Lucas Stach <l.stach@pengutronix.de>
+To: "Liu, Monk" <Monk.Liu@amd.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>, Luben Tuikov
+ <luben.tuikov@amd.com>
+Date: Thu, 08 Jun 2023 18:40:37 +0200
+In-Reply-To: <BL1PR12MB526995BE01F10A5F7D8158F184C19@BL1PR12MB5269.namprd12.prod.outlook.com>
+References: <20210818112114.1417685-1-Jingwen.Chen2@amd.com>
+ <CADnq5_OApvH1Jo2VzJBHewHB_LXgg1WzUHvTBvrNYnbYdFAWhQ@mail.gmail.com>
+ <69cbf5bd-42c2-be55-a604-43f4ebba159d@amd.com>
+ <YR0Z7qtEti2hwZ7i@phenom.ffwll.local>
+ <b92c62f2-7b1c-d4d8-cb84-1b5ccc3e4bb1@amd.com>
+ <YR0cb43Wv8jGiIbb@phenom.ffwll.local>
+ <82782ff5-d2a7-a4a8-8526-d1ff231630ed@amd.com>
+ <YR4k0fPfUL5viMRY@phenom.ffwll.local>
+ <BL1PR12MB52690CB11358D0298AABC8C084C09@BL1PR12MB5269.namprd12.prod.outlook.com>
+ <BL1PR12MB526995BE01F10A5F7D8158F184C19@BL1PR12MB5269.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 226083d8-e003-4c48-b5c1-08db68377fc5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2023 15:46:17.8939 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: n6+UB5aEdPSnczJQSeiCroDMwgnZIeFvAhmkwlnibFtL7bFyHhx4Nc7mYt/C2cb4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5896
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: l.stach@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: amd-gfx@lists.freedesktop.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,148 +56,371 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexdeucher@gmail.com>, "Chen,
+ JingWen" <JingWen.Chen2@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM8PR12MB53993BA11A7C9562ADD18E9EE550ADM8PR12MB5399namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hi all,
 
-[Public]
+and almost 2 years later I stumbled across this exact issue still being
+present in the scheduler: if the driver bails out of the timeout
+handling before calling drm_sched_stop(), the timeout job will be
+leaked and the TDR timer will potentially not be restarted as the job
+isn't put back in the pending_list.
 
-Reviewed-by: Leo Liu <leo.liu@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Sonny Ji=
-ang <sonny.jiang@amd.com>
-Sent: June 8, 2023 10:54 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Jiang, Sonny <Sonny.Jiang@amd.com>
-Subject: [PATCH] drm/amdgpu: vcn_4_0 set instance 0 init sched score to 1
+How do we solve this? Apply the below suggestion?
 
-From: Sonny Jiang <sonjiang@amd.com>
+Regards,
+Lucas
 
-Only vcn0 can process AV1 codecx. In order to use both vcn0 and
-vcn1 in h264/265 transcode to AV1 cases, set vcn0 sched score to 1
-at initialization time.
+Am Freitag, dem 20.08.2021 um 07:12 +0000 schrieb Liu, Monk:
+> [AMD Official Use Only]
+>=20
+> @Daniel Vetter @Grodzovsky, Andrey @Koenig, Christian
+> =20
+> Do you have any concern on the kthread_park() approach ?
+>=20
+> Theoretically speaking sched_main shall run there exclusively with job_ti=
+meout since they both touches jobs, and stop scheduler during job_timeout w=
+on't impact performance since in that scenario
+> There was already something wrong/stuck on that ring/scheduler=20
+>=20
+> Thanks=20
+>=20
+> ------------------------------------------
+> Monk Liu | Cloud-GPU Core team
+> ------------------------------------------
+>=20
+> -----Original Message-----
+> From: Liu, Monk=20
+> Sent: Thursday, August 19, 2021 6:26 PM
+> To: Daniel Vetter <daniel@ffwll.ch>; Grodzovsky, Andrey <Andrey.Grodzovsk=
+y@amd.com>
+> Cc: Alex Deucher <alexdeucher@gmail.com>; Chen, JingWen <JingWen.Chen2@am=
+d.com>; Maling list - DRI developers <dri-devel@lists.freedesktop.org>; amd=
+-gfx list <amd-gfx@lists.freedesktop.org>; Koenig, Christian <Christian.Koe=
+nig@amd.com>
+> Subject: RE: [PATCH v2] Revert "drm/scheduler: Avoid accessing freed bad =
+job."
+>=20
+> [AMD Official Use Only]
+>=20
+> Hi Daniel
+>=20
+> > > Why can't we stop the scheduler thread first, so that there's guarant=
+eed no race? I've recently had a lot of discussions with panfrost folks abo=
+ut their reset that spawns across engines, and without stopping the schedul=
+er thread first before you touch anything it's just plain impossible.
+>=20
+> Yeah we had this though as well in our mind.
+>=20
+> Our second approach is to call ktrhead_stop() in job_timedout() routine s=
+o that  the "bad" job is guaranteed to be used without scheduler's touching=
+ or freeing, Check this sample patch one as well please:
+>=20
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
+eduler/sched_main.c
+> index a2a9536..50a49cb 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -319,17 +319,12 @@ static void drm_sched_job_timedout(struct work_stru=
+ct *work)
+>         sched =3D container_of(work, struct drm_gpu_scheduler, work_tdr.w=
+ork);
+> =20
+>         /* Protects against concurrent deletion in drm_sched_get_cleanup_=
+job */
+> +       kthread_park(sched->thread);
+>         spin_lock(&sched->job_list_lock);
+>         job =3D list_first_entry_or_null(&sched->pending_list,
+>                                        struct drm_sched_job, list);
+> =20
+>         if (job) {
+> -               /*
+> -                * Remove the bad job so it cannot be freed by concurrent
+> -                * drm_sched_cleanup_jobs. It will be reinserted back aft=
+er sched->thread
+> -                * is parked at which point it's safe.
+> -                */
+> -               list_del_init(&job->list);
+>                 spin_unlock(&sched->job_list_lock);
+> =20
+>                 status =3D job->sched->ops->timedout_job(job);
+> @@ -345,6 +340,7 @@ static void drm_sched_job_timedout(struct work_struct=
+ *work)
+>         } else {
+>                 spin_unlock(&sched->job_list_lock);
+>         }
+> +       kthread_unpark(sched->thread);
+> =20
+>         if (status !=3D DRM_GPU_SCHED_STAT_ENODEV) {
+>                 spin_lock(&sched->job_list_lock); @@ -393,20 +389,6 @@ vo=
+id drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *ba=
+d)
+>         kthread_park(sched->thread);
+> =20
+>         /*
+> -        * Reinsert back the bad job here - now it's safe as
+> -        * drm_sched_get_cleanup_job cannot race against us and release t=
+he
+> -        * bad job at this point - we parked (waited for) any in progress
+> -        * (earlier) cleanups and drm_sched_get_cleanup_job will not be c=
+alled
+> -        * now until the scheduler thread is unparked.
+> -        */
+> -       if (bad && bad->sched =3D=3D sched)
+> -               /*
+> -                * Add at the head of the queue to reflect it was the ear=
+liest
+> -                * job extracted.
+> -                */
+> -               list_add(&bad->list, &sched->pending_list);
+> -
+> -       /*
+>          * Iterate the job list from later to  earlier one and either dea=
+ctive
+>          * their HW callbacks or remove them from pending list if they al=
+ready
+>          * signaled.
+>=20
+>=20
+> Thanks=20
+>=20
+> ------------------------------------------
+> Monk Liu | Cloud-GPU Core team
+> ------------------------------------------
+>=20
+> -----Original Message-----
+> From: Daniel Vetter <daniel@ffwll.ch>
+> Sent: Thursday, August 19, 2021 5:31 PM
+> To: Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>; Alex Deucher <alexdeucher@gmail.com>=
+; Chen, JingWen <JingWen.Chen2@amd.com>; Maling list - DRI developers <dri-=
+devel@lists.freedesktop.org>; amd-gfx list <amd-gfx@lists.freedesktop.org>;=
+ Liu, Monk <Monk.Liu@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+> Subject: Re: [PATCH v2] Revert "drm/scheduler: Avoid accessing freed bad =
+job."
+>=20
+> On Wed, Aug 18, 2021 at 10:51:00AM -0400, Andrey Grodzovsky wrote:
+> >=20
+> > On 2021-08-18 10:42 a.m., Daniel Vetter wrote:
+> > > On Wed, Aug 18, 2021 at 10:36:32AM -0400, Andrey Grodzovsky wrote:
+> > > > On 2021-08-18 10:32 a.m., Daniel Vetter wrote:
+> > > > > On Wed, Aug 18, 2021 at 10:26:25AM -0400, Andrey Grodzovsky wrote=
+:
+> > > > > > On 2021-08-18 10:02 a.m., Alex Deucher wrote:
+> > > > > >=20
+> > > > > > > + dri-devel
+> > > > > > >=20
+> > > > > > > Since scheduler is a shared component, please add dri-devel=
+=20
+> > > > > > > on all scheduler patches.
+> > > > > > >=20
+> > > > > > > On Wed, Aug 18, 2021 at 7:21 AM Jingwen Chen <Jingwen.Chen2@a=
+md.com> wrote:
+> > > > > > > > [Why]
+> > > > > > > > for bailing job, this commit will delete it from pending=
+=20
+> > > > > > > > list thus the bailing job will never have a chance to be=
+=20
+> > > > > > > > resubmitted even in advance tdr mode.
+> > > > > > > >=20
+> > > > > > > > [How]
+> > > > > > > > after embeded hw_fence into amdgpu_job is done, the race=
+=20
+> > > > > > > > condition that this commit tries to work around is=20
+> > > > > > > > completely solved.So revert this commit.
+> > > > > > > > This reverts commit 135517d3565b48f4def3b1b82008bc17eb5d1c9=
+0.
+> > > > > > > > v2:
+> > > > > > > > add dma_fence_get/put() around timedout_job to avoid=20
+> > > > > > > > concurrent delete during processing timedout_job
+> > > > > > > >=20
+> > > > > > > > Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+> > > > > > > > ---
+> > > > > > > >     drivers/gpu/drm/scheduler/sched_main.c | 23 +++++------=
+------------
+> > > > > > > >     1 file changed, 5 insertions(+), 18 deletions(-)
+> > > > > > > >=20
+> > > > > > > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > index a2a953693b45..f9b9b3aefc4a 100644
+> > > > > > > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > > > > > > @@ -314,6 +314,7 @@ static void drm_sched_job_timedout(stru=
+ct work_struct *work)
+> > > > > > > >     {
+> > > > > > > >            struct drm_gpu_scheduler *sched;
+> > > > > > > >            struct drm_sched_job *job;
+> > > > > > > > +       struct dma_fence *fence;
+> > > > > > > >            enum drm_gpu_sched_stat status =3D=20
+> > > > > > > > DRM_GPU_SCHED_STAT_NOMINAL;
+> > > > > > > >=20
+> > > > > > > >            sched =3D container_of(work, struct=20
+> > > > > > > > drm_gpu_scheduler, work_tdr.work); @@ -325,11 +326,10 @@=
+=20
+> > > > > > > > static void drm_sched_job_timedout(struct work_struct
+> > > > > > > > *work)
+> > > > > > > >=20
+> > > > > > > >            if (job) {
+> > > > > > > >                    /*
+> > > > > > > > -                * Remove the bad job so it cannot be freed=
+ by concurrent
+> > > > > > > > -                * drm_sched_cleanup_jobs. It will be reins=
+erted back after sched->thread
+> > > > > > > > -                * is parked at which point it's safe.
+> > > > > > > > +                * Get job->s_fence->parent here to avoid c=
+oncurrent delete during
+> > > > > > > > +                * processing timedout_job
+> > > > > > > >                     */
+> > > > > > > > -               list_del_init(&job->list);
+> > > > > > > > +               fence =3D
+> > > > > > > > + dma_fence_get(job->s_fence->parent);
+> > > > > > While this is true for amdgpu, it has no meaning for other=20
+> > > > > > drivers for whom we haven't done the refactoring of embedding=
+=20
+> > > > > > HW fence (parent) into the job structure.
+> > > > > > In fact thinking
+> > > > > > about it, unless you do the HW fence embedding for all the=20
+> > > > > > drivers using the scheduler you cannot revert this patch or=20
+> > > > > > you will just break them.
+> > > > > btw, why did you do that embedding? I do still have my patches=
+=20
+> > > > > with dma_fence annotations floating around, but my idea at least=
+=20
+> > > > > was to fix that issue with a mempool, not with embeddeding. What=
+=20
+> > > > > was the motivation for embedding the wh fence?
+> > > > > -Daniel
+> > > >=20
+> > > > The motivation was 2 fold, avoid memory allocation during jobs=20
+> > > > submissions (HW fence allocation) because as Christian explained=
+=20
+> > > > this leads to deadlock with mm code during evictions due to memory=
+=20
+> > > > pressure (Christian can clarify if I messed
+> > > Yeah that's the exact same thing I've chased with my dma_fence=20
+> > > annotations, but thus far zero to none interested in getting it=20
+> > > sorted. I think it'd be good to have some cross-driver agreement on=
+=20
+> > > how this should be solved before someone just charges ahead ...
+> > >=20
+> > > > this explanation). Second is to exactly revert this patch because=
+=20
+> > > > while it solved the issue described in the patch it created=20
+> > > > another with drivers who baildc out early during TDR handling for=
+=20
+> > > > various reason and the job would just leak because it was already=
+=20
+> > > > removed form pending list.
+> > > Can't we reinsert it before we restart the scheduler thread? It=20
+> > > might need a separate list for that due to the lockless queue=20
+> > > tricks. Or am I thinking about the wrong kind of "we lost the job"?
+> > > -Danile
+> >=20
+> >=20
+> > If you look at the original patch it would reinsert it even earlier -=
+=20
+> > right after stopping the=C2=A0 SW scheduler thread, and even then it wa=
+s to=20
+> > late for some drivers as they would decide to return back from their=
+=20
+> > TDR handler even before that. It is solvable but in an ugly way as far=
+=20
+> > as I see, you need to require each driver in his code to put the job=
+=20
+> > back in the list if they do it before reaching the place where=20
+> > scheduler framework does it. Kind of spaghetti code seems to me.
+>=20
+> Hm yeah I didn't realize this all happens before we stop the scheduler th=
+read.
+>=20
+> Why can't we stop the scheduler thread first, so that there's guaranteed =
+no race? I've recently had a lot of discussions with panfrost folks about t=
+heir reset that spawns across engines, and without stopping the scheduler t=
+hread first before you touch anything it's just plain impossible.
+>=20
+> I'm also still not understanding what exactly you guys have done, can som=
+eone please dig out the the amdgpu patches that motivate all this maybe tha=
+t's clearer? A full explanation would still be good since I've only started=
+ in scheduler stuff.
+>=20
+> Another thing I recently pondered for tdr races looking at i915 code is w=
+hether the tdr should first block the completion fence for that job. My mot=
+ivation is to have a race-free error capture (if the completion races then =
+we might start evicting memory and everything goes boom), but maybe that he=
+lps here too. Some kind of atomic "block this fence from completing thing.
+>=20
+> Or I'm I completely guessing in the wrong direction?
+> -Daniel
+>=20
+> >=20
+> > Andrey
+> >=20
+> >=20
+> > >=20
+> > > > Andrey
+> > > >=20
+> > > >=20
+> > > > >=20
+> > > > > > Andrey
+> > > > > >=20
+> > > > > >=20
+> > > > > > > >                    spin_unlock(&sched->job_list_lock);
+> > > > > > > >=20
+> > > > > > > >                    status =3D
+> > > > > > > > job->sched->ops->timedout_job(job);
+> > > > > > > > @@ -342,6 +342,7 @@ static void drm_sched_job_timedout(stru=
+ct work_struct *work)
+> > > > > > > >                            job->sched->ops->free_job(job);
+> > > > > > > >                            sched->free_guilty =3D false;
+> > > > > > > >                    }
+> > > > > > > > +               dma_fence_put(fence);
+> > > > > > > >            } else {
+> > > > > > > >                    spin_unlock(&sched->job_list_lock);
+> > > > > > > >            }
+> > > > > > > > @@ -392,20 +393,6 @@ void drm_sched_stop(struct=20
+> > > > > > > > drm_gpu_scheduler *sched, struct drm_sched_job *bad)
+> > > > > > > >=20
+> > > > > > > >            kthread_park(sched->thread);
+> > > > > > > >=20
+> > > > > > > > -       /*
+> > > > > > > > -        * Reinsert back the bad job here - now it's safe a=
+s
+> > > > > > > > -        * drm_sched_get_cleanup_job cannot race against us=
+ and release the
+> > > > > > > > -        * bad job at this point - we parked (waited for) a=
+ny in progress
+> > > > > > > > -        * (earlier) cleanups and drm_sched_get_cleanup_job=
+ will not be called
+> > > > > > > > -        * now until the scheduler thread is unparked.
+> > > > > > > > -        */
+> > > > > > > > -       if (bad && bad->sched =3D=3D sched)
+> > > > > > > > -               /*
+> > > > > > > > -                * Add at the head of the queue to reflect =
+it was the earliest
+> > > > > > > > -                * job extracted.
+> > > > > > > > -                */
+> > > > > > > > -               list_add(&bad->list, &sched->pending_list);
+> > > > > > > > -
+> > > > > > > >            /*
+> > > > > > > >             * Iterate the job list from later to  earlier o=
+ne and either deactive
+> > > > > > > >             * their HW callbacks or remove them from=20
+> > > > > > > > pending list if they already
+> > > > > > > > --
+> > > > > > > > 2.25.1
+> > > > > > > >=20
+>=20
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttp%3A%2F%2Fblog.f=
+fwll.ch%2F&amp;data=3D04%7C01%7Cmonk.liu%40amd.com%7C27fcce7ca8dd4f39608508=
+d962f40f33%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637649622657672189%=
+7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWw=
+iLCJXVCI6Mn0%3D%7C1000&amp;sdata=3DJVZtg3AhbiA%2FDmVbNGo3MxVliO83nh8%2Fi50P=
+CMsvwyY%3D&amp;reserved=3D0
 
-Signed-off-by: Sonny Jiang <sonjiang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/am=
-dgpu/vcn_v4_0.c
-index 8d371faaa2b3..b48bb5212488 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -129,7 +129,11 @@ static int vcn_v4_0_sw_init(void *handle)
-                 if (adev->vcn.harvest_config & (1 << i))
-                         continue;
-
--               atomic_set(&adev->vcn.inst[i].sched_score, 0);
-+               /* Init instance 0 sched_score to 1, so it's scheduled afte=
-r other instances */
-+               if (i =3D=3D 0)
-+                       atomic_set(&adev->vcn.inst[i].sched_score, 1);
-+               else
-+                       atomic_set(&adev->vcn.inst[i].sched_score, 0);
-
-                 /* VCN UNIFIED TRAP */
-                 r =3D amdgpu_irq_add_id(adev, amdgpu_ih_clientid_vcns[i],
---
-2.34.1
-
-
---_000_DM8PR12MB53993BA11A7C9562ADD18E9EE550ADM8PR12MB5399namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;" al=
-ign=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-Reviewed-by: Leo Liu &lt;leo.liu@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Sonny Jiang &lt;sonny.jiang@a=
-md.com&gt;<br>
-<b>Sent:</b> June 8, 2023 10:54 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Jiang, Sonny &lt;Sonny.Jiang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: vcn_4_0 set instance 0 init sched score=
- to 1</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Sonny Jiang &lt;sonjiang@amd.com&gt;<br>
-<br>
-Only vcn0 can process AV1 codecx. In order to use both vcn0 and<br>
-vcn1 in h264/265 transcode to AV1 cases, set vcn0 sched score to 1<br>
-at initialization time.<br>
-<br>
-Signed-off-by: Sonny Jiang &lt;sonjiang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 6 +++++-<br>
-&nbsp;1 file changed, 5 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/am=
-dgpu/vcn_v4_0.c<br>
-index 8d371faaa2b3..b48bb5212488 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c<br>
-@@ -129,7 +129,11 @@ static int vcn_v4_0_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i))=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
-nue;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; atomic_set(&amp;adev-&gt;vcn.inst[i].sched_score, 0);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* Init instance 0 sched_score to 1, so it's scheduled after oth=
-er instances */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (i =3D=3D 0)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;=
-adev-&gt;vcn.inst[i].sched_score, 1);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; else<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;=
-adev-&gt;vcn.inst[i].sched_score, 0);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* VCN UNIFIED TRAP */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_irq_add_id(adev, amdgpu_ih_clientid_vcns=
-[i],<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_DM8PR12MB53993BA11A7C9562ADD18E9EE550ADM8PR12MB5399namp_--
