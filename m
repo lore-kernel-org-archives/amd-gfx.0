@@ -4,25 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE845C7EE43
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jun 2023 11:43:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD2FCC7EE29
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jun 2023 11:43:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A25F10E252;
-	Thu,  8 Jun 2023 11:43:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9D2E10E26A;
+	Thu,  8 Jun 2023 11:43:45 +0000 (UTC)
 Received: from 189.cn (ptr.189.cn [183.61.185.103])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6F80E10E05D;
- Thu,  8 Jun 2023 11:43:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id D1FD810E262;
+ Thu,  8 Jun 2023 11:43:41 +0000 (UTC)
 HMM_SOURCE_IP: 10.64.8.41:48916.660287130
 HMM_ATTACHE_NUM: 0000
 HMM_SOURCE_TYPE: SMTP
 Received: from clientip-114.242.206.180 (unknown [10.64.8.41])
- by 189.cn (HERMES) with SMTP id 615DE10029E;
- Thu,  8 Jun 2023 19:43:27 +0800 (CST)
+ by 189.cn (HERMES) with SMTP id CC14D1002A6;
+ Thu,  8 Jun 2023 19:43:35 +0800 (CST)
 Received: from  ([114.242.206.180])
  by gateway-151646-dep-75648544bd-xwndj with ESMTP id
- e4cdf3a7b06f4b5690ebec352dc8a3cb for alexander.deucher@amd.com; 
- Thu, 08 Jun 2023 19:43:31 CST
-X-Transaction-ID: e4cdf3a7b06f4b5690ebec352dc8a3cb
+ 2966c463e9d240d7a1935434913645a0 for alexander.deucher@amd.com; 
+ Thu, 08 Jun 2023 19:43:38 CST
+X-Transaction-ID: 2966c463e9d240d7a1935434913645a0
 X-Real-From: 15330273260@189.cn
 X-Receive-IP: 114.242.206.180
 X-MEDUSA-Status: 0
@@ -51,9 +51,9 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  Kevin Tian <kevin.tian@intel.com>, Cornelia Huck <cohuck@redhat.com>,
  Yishai Hadas <yishaih@nvidia.com>, Abhishek Sahu <abhsahu@nvidia.com>,
  Yi Liu <yi.l.liu@intel.com>
-Subject: [PATCH v3 1/4] PCI/VGA: tidy up the code and comment format
-Date: Thu,  8 Jun 2023 19:43:19 +0800
-Message-Id: <20230608114322.604887-2-15330273260@189.cn>
+Subject: [PATCH v3 3/4] PCI/VGA: only deal with VGA class devices
+Date: Thu,  8 Jun 2023 19:43:21 +0800
+Message-Id: <20230608114322.604887-4-15330273260@189.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230608114322.604887-1-15330273260@189.cn>
 References: <20230608114322.604887-1-15330273260@189.cn>
@@ -79,145 +79,78 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-This patch replaces the leading space with a tab and removes the double
-blank line, no functional change.
+vgaarb only deal with the VGA devcie(pdev->class == 0x0300), so replace the
+pci_get_subsys() function with pci_get_class(). Filter the non pci display
+device out. There no need to process the non display PCI device.
 
 Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 ---
- drivers/pci/vgaarb.c   | 26 +++++++++++++-------------
- include/linux/vgaarb.h |  8 +++-----
- 2 files changed, 16 insertions(+), 18 deletions(-)
+ drivers/pci/vgaarb.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-index 5a696078b382..bf2921e3cb06 100644
+index 7f0347f4f6fd..b0bf4952a95d 100644
 --- a/drivers/pci/vgaarb.c
 +++ b/drivers/pci/vgaarb.c
-@@ -61,7 +61,6 @@ static bool vga_arbiter_used;
- static DEFINE_SPINLOCK(vga_lock);
- static DECLARE_WAIT_QUEUE_HEAD(vga_wait_queue);
+@@ -756,10 +756,6 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
+ 	struct pci_dev *bridge;
+ 	u16 cmd;
  
+-	/* Only deal with VGA class devices */
+-	if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
+-		return false;
 -
- static const char *vga_iostate_to_str(unsigned int iostate)
- {
- 	/* Ignore VGA_RSRC_IO and VGA_RSRC_MEM */
-@@ -80,7 +79,8 @@ static const char *vga_iostate_to_str(unsigned int iostate)
- static int vga_str_to_iostate(char *buf, int str_size, int *io_state)
- {
- 	/* we could in theory hand out locks on IO and mem
--	 * separately to userspace but it can cause deadlocks */
-+	 * separately to userspace but it can cause deadlocks
-+	 */
- 	if (strncmp(buf, "none", 4) == 0) {
- 		*io_state = VGA_RSRC_NONE;
- 		return 1;
-@@ -99,7 +99,7 @@ static int vga_str_to_iostate(char *buf, int str_size, int *io_state)
- 	return 1;
- }
+ 	/* Allocate structure */
+ 	vgadev = kzalloc(sizeof(struct vga_device), GFP_KERNEL);
+ 	if (vgadev == NULL) {
+@@ -1499,7 +1495,9 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+ 	struct pci_dev *pdev = to_pci_dev(dev);
+ 	bool notify = false;
  
--/* this is only used a cookie - it should not be dereferenced */
-+/* This is only used as cookie, it should not be dereferenced */
- static struct pci_dev *vga_default;
+-	vgaarb_dbg(dev, "%s\n", __func__);
++	/* Only deal with VGA class devices */
++	if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
++		return 0;
  
- /* Find somebody in our list */
-@@ -194,13 +194,15 @@ int vga_remove_vgacon(struct pci_dev *pdev)
- EXPORT_SYMBOL(vga_remove_vgacon);
+ 	/* For now we're only intereted in devices added and removed. I didn't
+ 	 * test this thing here, so someone needs to double check for the
+@@ -1509,6 +1507,8 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+ 	else if (action == BUS_NOTIFY_DEL_DEVICE)
+ 		notify = vga_arbiter_del_pci_device(pdev);
  
- /* If we don't ever use VGA arb we should avoid
--   turning off anything anywhere due to old X servers getting
--   confused about the boot device not being VGA */
-+ * turning off anything anywhere due to old X servers getting
-+ * confused about the boot device not being VGA
-+ */
- static void vga_check_first_use(void)
- {
- 	/* we should inform all GPUs in the system that
- 	 * VGA arb has occurred and to try and disable resources
--	 * if they can */
-+	 * if they can
-+	 */
- 	if (!vga_arbiter_used) {
- 		vga_arbiter_used = true;
++	vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
++
+ 	if (notify)
  		vga_arbiter_notify_clients();
-@@ -956,9 +958,9 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
-  * @set_decode callback: If a client can disable its GPU VGA resource, it
-  * will get a callback from this to set the encode/decode state.
-  *
-- * Rationale: we cannot disable VGA decode resources unconditionally some single
-- * GPU laptops seem to require ACPI or BIOS access to the VGA registers to
-- * control things like backlights etc.  Hopefully newer multi-GPU laptops do
-+ * Rationale: we cannot disable VGA decode resources unconditionally, some
-+ * single GPU laptops seem to require ACPI or BIOS access to the VGA registers
-+ * to control things like backlights etc. Hopefully newer multi-GPU laptops do
-  * something saner, and desktops won't have any special ACPI for this. The
-  * driver will get a callback when VGA arbitration is first used by userspace
-  * since some older X servers have issues.
-@@ -988,7 +990,6 @@ int vga_client_register(struct pci_dev *pdev,
- bail:
- 	spin_unlock_irqrestore(&vga_lock, flags);
- 	return ret;
--
- }
- EXPORT_SYMBOL(vga_client_register);
- 
-@@ -1079,7 +1080,6 @@ static int vga_pci_str_to_vars(char *buf, int count, unsigned int *domain,
- 	int n;
- 	unsigned int slot, func;
- 
--
- 	n = sscanf(buf, "PCI:%x:%x:%x.%x", domain, bus, &slot, &func);
- 	if (n != 4)
- 		return 0;
-@@ -1431,7 +1431,6 @@ static int vga_arb_open(struct inode *inode, struct file *file)
- 	priv->cards[0].io_cnt = 0;
- 	priv->cards[0].mem_cnt = 0;
- 
--
  	return 0;
- }
+@@ -1533,8 +1533,8 @@ static struct miscdevice vga_arb_device = {
  
-@@ -1544,7 +1543,8 @@ static int __init vga_arb_device_init(void)
- 	bus_register_notifier(&pci_bus_type, &pci_notifier);
+ static int __init vga_arb_device_init(void)
+ {
++	struct pci_dev *pdev = NULL;
+ 	int rc;
+-	struct pci_dev *pdev;
  
+ 	rc = misc_register(&vga_arb_device);
+ 	if (rc < 0)
+@@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
  	/* We add all PCI devices satisfying VGA class in the arbiter by
--	 * default */
-+	 * default
-+	 */
- 	pdev = NULL;
- 	while ((pdev =
- 		pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
-diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
-index b4b9137f9792..d36225c582ee 100644
---- a/include/linux/vgaarb.h
-+++ b/include/linux/vgaarb.h
-@@ -23,9 +23,7 @@
-  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-- * DEALINGS
-- * IN THE SOFTWARE.
-- *
-+ * DEALINGS IN THE SOFTWARE.
-  */
+ 	 * default
+ 	 */
+-	pdev = NULL;
+-	while ((pdev =
+-		pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
+-			       PCI_ANY_ID, pdev)) != NULL)
++	while (1) {
++		pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
++		if (!pdev)
++			break;
++
+ 		vga_arbiter_add_pci_device(pdev);
++	};
  
- #ifndef LINUX_VGA_H
-@@ -96,7 +94,7 @@ static inline int vga_client_register(struct pci_dev *pdev,
- static inline int vga_get_interruptible(struct pci_dev *pdev,
- 					unsigned int rsrc)
- {
--       return vga_get(pdev, rsrc, 1);
-+	return vga_get(pdev, rsrc, 1);
- }
- 
- /**
-@@ -111,7 +109,7 @@ static inline int vga_get_interruptible(struct pci_dev *pdev,
- static inline int vga_get_uninterruptible(struct pci_dev *pdev,
- 					  unsigned int rsrc)
- {
--       return vga_get(pdev, rsrc, 0);
-+	return vga_get(pdev, rsrc, 0);
- }
- 
- static inline void vga_client_unregister(struct pci_dev *pdev)
+ 	pr_info("loaded\n");
+ 	return rc;
 -- 
 2.25.1
 
