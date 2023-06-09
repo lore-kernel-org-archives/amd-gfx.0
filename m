@@ -4,116 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C3A1C7EE29
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 14:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0F06C7EE2E
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 15:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9977A10E0A3;
-	Fri,  9 Jun 2023 14:54:31 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2065.outbound.protection.outlook.com [40.107.212.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09AC510E0A3;
- Fri,  9 Jun 2023 14:54:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6619510E149;
+	Fri,  9 Jun 2023 15:05:40 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2070.outbound.protection.outlook.com [40.107.94.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8182D10E149
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jun 2023 15:05:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TvQw11cN1iTSr0SKcJ4SHrBP2ngscc0r66ea+tNoiie4F4RY/crWRkX3V/eUM6jDIYj7tWgGQppJFNXTYPe9HOeeT40K+cOi2anm8FDPhKds/xbvW6ZEFH0PcTlIWlBvYqtS5Gr/bOtTElB8IZ7riOswkMdBPvnvqFiSn2Zry0QLP7wXCFHopeXwiXNpieOcEkCXa8enS3ZkBVmuKOv2oYXu/viRkuyD1TLfASGTwlYVNzsDqwe4+izYgdWP3KGMl+uqcehNUvMJwI9WwIal2/SQMhK8aHW0sgmVTbx712RTzXEyQMe9x4db7kECa8OCLN3TzwixVe8PDYeflOqfVQ==
+ b=jZUBLS284+v778dKVGaCwazdMy5J1R0hgRvgfjcCYYZCU7wRTpUFV9MFOrGSbpUFyGDu588SnBZvqCHPD1JWpepWOdxXjQq03m7St/lywFQrL6jg/gAsQd1grrZxZZte+BNsN3bFIpl3POF7X5dimDTqyEYcgqK/FiETPiuVozfnBaTh8z/iwFce/QXflwIFqJB81xIbzUXlWdfsykj1PFRmGp4+bNJLnN4hQzS+vFamNmQV5BXq7HYpYzYkZvkwCksmshwkPrHLt63nfWti72B/OaKO7myOocK1UYlJ2dyd8gKX/BMe99bOgtAWQEe4jcac6MlnFClc3lNub+aFIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SC+YV4Sgfwo8OHcszvKt0afV4qQxDY5hGQdrcwfN8+A=;
- b=UD0ekq3KBSXoKgmFrRnWZD5ZDJtNqCDW7tDymIA3HBu+Jmw3Virt+Xrydb/HpHzVN76nwIj3Utvi9hCkOry6AYJVCf61oyEyvt5wnXZuyl6/6tbzzmS/YYlLJpaZeB8Iz/QBubwue/m7cedvbc7cOvmUToD4LnBX2Dn/Ynv7PRVXgNRbRYZxDQfa2GZHT7vv96gpeYTC8GgV/22buM6mVky4h5GXyI6rMD2x9L91y8be0kZmsg68BVvhLctRjcq/YGxZYxYH6M0ZMS3DSe75ampV4GUINVepE0TZQk1LW0TxmTVVDDzncRCjKpP90fIPWAIjnE8AnMj05O8ZpXlkBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=9/mNuLWsJFRb7Xuis7r5bgxmUMD5iJgrvqP8TLif6Ng=;
+ b=ToqqdQb/89JFEwV/tM4poTcemRjOC0fYvSfvztYL1QPeR9573MwR/qsxbqFxl7U7GKBjaTfWc/yyRLOzHqY8OfvKKVgJiepzykqgKqkYMdc8x9UTnQh/nRnwXImbz6zQg4xCTs1bL7fxVf+RhnC9Ac6tAs97ULUEIPPWGpmcFqN23kN5hO/nuT1Io/lGdeEfFFFor2SREXFtLpkahQ5e4Plo0EfKHzAjltTWVaM0ctpIH9KGnm1jleRML3rGRqkOObkNhWZ4+zeKWDTqND4ArGWBaUUJ/eGN7d8kF3k7GqyH9HhJ3I0sdhI7FHjaTr1B6Dz18q2Y3MAWvdbcOJdQkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SC+YV4Sgfwo8OHcszvKt0afV4qQxDY5hGQdrcwfN8+A=;
- b=bIe6o8lqIEmUdw3Wc1pyjZkjZaVqzfsEoUShWKWSChkMMk7cS6Ovq1GSuxNMVwZmGCDHi30hrlCJDfhpAiScQzKsGtpi+cYszdRv0YOzeV6WN7bcAtV+8lAjIDZ8D5udriKF6P/S3n++g5KWkiKljQv5qTsLNYJlBs79HwmPdfk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by BL3PR12MB6595.namprd12.prod.outlook.com (2603:10b6:208:38e::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.42; Fri, 9 Jun
- 2023 14:54:26 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::4666:2db3:db1e:810c]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::4666:2db3:db1e:810c%7]) with mapi id 15.20.6455.037; Fri, 9 Jun 2023
- 14:54:26 +0000
-Message-ID: <3f71e132-8b9b-8f54-973c-ad9403369c1a@amd.com>
-Date: Fri, 9 Jun 2023 10:54:22 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Subject: Re: [RESEND 11/15] drm/amd/display/amdgpu_dm/amdgpu_dm_helpers: Move
- SYNAPTICS_DEVICE_ID into CONFIG_DRM_AMD_DC_DCN ifdef
-To: Lee Jones <lee@kernel.org>
-References: <20230609081732.3842341-1-lee@kernel.org>
- <20230609081732.3842341-12-lee@kernel.org>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20230609081732.3842341-12-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0057.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:1::34) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ bh=9/mNuLWsJFRb7Xuis7r5bgxmUMD5iJgrvqP8TLif6Ng=;
+ b=mlNlRvQDpjddTuapJt99ZWIboYClemu3Z8mtoKJBnhHwsX3i6cKCTMJRK+jkb7Banl7lqSpEHeMhIamH9igAA7KPzeDZ/bH70hI6UIlwP3rbnvwlcS+8fcicMZuej6JbjfyBnxSMMXuShmHR/qrBgndsXGphBr+IigM/mpsO7KE=
+Received: from MW4PR04CA0190.namprd04.prod.outlook.com (2603:10b6:303:86::15)
+ by CY5PR12MB6249.namprd12.prod.outlook.com (2603:10b6:930:23::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.36; Fri, 9 Jun
+ 2023 15:05:35 +0000
+Received: from CO1PEPF000044F9.namprd21.prod.outlook.com
+ (2603:10b6:303:86:cafe::ff) by MW4PR04CA0190.outlook.office365.com
+ (2603:10b6:303:86::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.27 via Frontend
+ Transport; Fri, 9 Jun 2023 15:05:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044F9.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6521.0 via Frontend Transport; Fri, 9 Jun 2023 15:05:35 +0000
+Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 9 Jun
+ 2023 10:05:33 -0500
+From: Shashank Sharma <shashank.sharma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdgpu: flush GPU TLB using SDMA ring
+Date: Fri, 9 Jun 2023 17:05:21 +0200
+Message-ID: <20230609150521.951-1-shashank.sharma@amd.com>
+X-Mailer: git-send-email 2.38.0.windows.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|BL3PR12MB6595:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9dde8987-5763-44bd-16b2-08db68f96bba
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F9:EE_|CY5PR12MB6249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 204e01be-9ccc-4bdd-fa44-08db68fafa72
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EqWRpxU6MhWdoQjJGf4TXkdBu1JTgYMZ2HkblSbCzBIlu8DRAL0hjOX5mVbYFF0Kd1V7aBtiLR/xRu9X6ld5TK3nPHFzwMNbp0vV/ZSQ9JGqmPCnURi19DcFjDs5O4QFLDvU+ku+KxybfyUQO6iDgdn40emVQzQ1QbeAfHiAUKU82LcVtasHxV39Bc4Z9CGM0O07Va9iWdW3YM1aZMrn9CN2+JJbpAX5fSQMmPafVIerk/D3TNGniMxjKME255qGJmRNG7VntfBE8CjJYQPWYIVk/uMkQ8eAmpMOJuRGzZ1H4SJJvzMphpKHtLwHrdDIE1II3UxFQ6evLJJAYxxxUS8hUl7LkmdQKV0abRjIzCplJdSEW9ZSr6O8wawIOEgQGdBkIB1ErGTIzzxV4E7qjRGDRz6moZtlGeTcnZCIevYdawrA17FbBXgrALIfur+luzYFtu5K6dpvgd+ThzoqqD2E9NdNvZx/epVp8apeVIyloGs4rB44Ne/aTf3AzH2UySaA2yoqEEmTApLg5/gDp9ZZuMgdnvfPseEpS59grN5tnwaO/My8MJ76SAVTCTziP8+TLaYJSRESGX3z8ZKj0KxNi77ofdiRI4z2xLo3gS1Kx26Wsg/lbe1fI9gdKsUxU3poH75BSbv3+xr43H5gyg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(366004)(39860400002)(376002)(346002)(136003)(451199021)(2906002)(31686004)(44832011)(66574015)(83380400001)(5660300002)(8936002)(8676002)(54906003)(316002)(36756003)(66946007)(66556008)(41300700001)(4326008)(6916009)(478600001)(6486002)(6666004)(66476007)(186003)(31696002)(2616005)(86362001)(38100700002)(6512007)(6506007)(26005)(53546011)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: WvmQeFbLmtAv3sq+vZ5N1AJ9SbeJx2pgIcepfjnR6bd/xhgt+uxjcdPN1/jg1FhKu6tm2NcJU42US7VjNlF2XxB+MBjyakWr2gzABjUk2kER2p6fn9bXtOXO0+6D+oKEowMFaW+UQIKTbEAGvlg1L8DZLNtG8UjgP4LPFj+mnUT7Zhjnojqp0xdIUVWQgyrcgwBcu0DBxmQvel+7J7tHpmzOKlOXzCwoBNRoVrmTktP++DVdSotVe7ZqiItMGIhHvCS+wBpHo7llz1lB/80pZBHxzTjkM46r2FNikqw5Ypr2XkbP8XIghdTBZDg5MYwro+9eHzKzQf6WGMLCWnh8/8Iq8ZQKzXeBOI0XtCy503GN2FhURQvAQxbwyEJXaSKpKzZ4QeDKkGPGNGF57i162C+FxYXXyzztdKuV2F/loN6cdSozIY+2e3N2btULDsRH9kkPh2Dud4EPSXueDgLq/ddUH/d4mKa27XTKeQCQFGDdFOFLlb4PTuQ0s2H6LZM86aKW7zqi3l46kTdAWfPbzMRv6FNLdvSZ0rJV8OBWv0IF7i2vL/1RkUQ/m0ugUYDQZ92iuQVhhaWxNCDdDc75Df+DWIlcDCSUrby5pLTR6cpOO5CXv44w1EcXC1DajJEx1PxniLSDUsN786NFRGwC1+zUOgbN5AcccnFP2Hjssw1IuNOGO4tX7fpmR971VpctqRen6UNcXJ3UZpm4R/NGWe80qSSWmVM3biSR87vPaY2/ZnidKQAGiGQpivMSxylzD96K5zCmg8t7O9HEYLyjnQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(346002)(39860400002)(376002)(136003)(451199021)(36840700001)(40470700004)(46966006)(47076005)(83380400001)(82740400003)(336012)(426003)(40480700001)(478600001)(8936002)(8676002)(4326008)(86362001)(70206006)(70586007)(81166007)(356005)(6916009)(5660300002)(40460700003)(41300700001)(316002)(7696005)(6666004)(36756003)(82310400005)(36860700001)(2906002)(54906003)(44832011)(16526019)(186003)(1076003)(26005)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TDBlMEFvOGs1OUZnY3ByYmlxQ1VWT3dDZE5mcXUzZHllMzhRdytab1J6dzZv?=
- =?utf-8?B?UW5BT0NOb0RUT2t3YzJnbS9XdE5CV3VpVTVVSnFQQUowenhIZkx1VmR5ZHZm?=
- =?utf-8?B?MCtOQnY1UHFqY0ZxRFpuQjhHMnU5MjZ2Qk9sbVlxVGJBVVJBb3UrN0FjQWdh?=
- =?utf-8?B?VXBnUHRINHRvU1VSWlIvM3VaaS9STGdMUGwvd1dSbmxyRzQxSit3Y2YvYzhF?=
- =?utf-8?B?T2tsKzlBeDIzUml1UTBnakE3RVpIYmxQNFIzZEJHcHBqZ1BnRm5HbTFyUlVo?=
- =?utf-8?B?SGRLaUdOc2NlTnpoZUxLcmxMMmREcGplZ3U1KzljdStYWUFvWG5xdCtmWFlr?=
- =?utf-8?B?Y1BaS0RnQ045cHZNMEorUzlyYTBRUTY1Unc1Z05sc0FBMm5LSytNMWEzY3VP?=
- =?utf-8?B?UjE3TUE5L00vQU1tNm1SWkZNZE9xSXRUNlhkSFBKS042dmtneHpFdTU2MUZt?=
- =?utf-8?B?Y2duV25KbXJ5SG53OEF6eElQTEE2NUdjbzNKdk1ha3F4MDFFSllJczNSdmhr?=
- =?utf-8?B?b1lEQ2dCZVpVQWNSUDFSYWx4bHA1ZXUrbExWcjh1OVZudDN0ZXc3d1pTdC8x?=
- =?utf-8?B?dWlmQzJ1YUpZZFo0WHJqQXlzYUF6YzZnSzdBcjhtZEtHQUN3S3czWWE0c1ZW?=
- =?utf-8?B?NXhvTnJ6RDNKMXJGUFJUNXFWS0NHc0RJZ1lIY1BiOG84ekFLYk1IMWN2M2xz?=
- =?utf-8?B?T0RIeThMVEhlOUdaMXE2allyeHJPYjhmeU1yMUVZcitDaXZWcUNjUWwwcHU0?=
- =?utf-8?B?WXQrOUtyR0JGd1YybCtadzIxcUFiV3AyeGYxSndFTzFHQ2t5N0ZvZnFOVXhY?=
- =?utf-8?B?MUtyZmg2azMwVTA5OEJLOC9tTDRpSW5CTXBWM0ZnZ0N4cDJrRy9xSHNld2hi?=
- =?utf-8?B?aWlaMWI5N04vNGorUk4wTThQMFdOWnRpY1NqaS80RWl4aDZ3SFZpc0FQWmZm?=
- =?utf-8?B?clYzTTM1ME4vbE0vWk5PRGsvdDJNRWRIK0FhQnphcjNVWUNqd3c3czgzQ3Az?=
- =?utf-8?B?RFY0cVFKa2plVFdKS09WUHB0alpxcDRzYVlPc3FYekZ1cVA2ZVFGSUlKZk1U?=
- =?utf-8?B?Y2FwaS9YOUJZRlZmZ1hYU2t6THRiYUNnZ0JYWTVsUXl5amRXbmhaZWdKanRJ?=
- =?utf-8?B?cjk1MWxFSlJ3TUxHenhIbFJYRXdJTVc3T1R0QzdiRzJrayt5OG5INDdNQytV?=
- =?utf-8?B?cDlrV0M5Z0pIL1hrM01CYm11eXg2MTRhWU9SbUsxVGxXZytKUjlFa3F1QzF5?=
- =?utf-8?B?SmhPc1pBTkVJTkorbEQ1Z2E0Z2R0L0pHMXVxYzlhWndSTnRBaTgvTFVBektI?=
- =?utf-8?B?OHBHdmRqVjVxS0NuQWQyODBybVdUM2pjM3VQTFRxNmhoWjlaQS92MDNCamhT?=
- =?utf-8?B?RzFBeEkybHE2b1NhVlZ0YVZtTkNIOFY5MG1WUWNIdnBURCtsOCs2VDVQR1hG?=
- =?utf-8?B?MXVaSVlHR25NaW40eGQvOHA1QkNjazBBdWdqVjMvNFFvZjVLZmttdU1OMVRr?=
- =?utf-8?B?YXNYMXg2QjF5ZjNoWHRPVlVuUW9XVEtIbUdtL0w4bGdWTlB0dytieVNYRTEy?=
- =?utf-8?B?bUpEcnJKY1dxSGVGZ0pZYmg4WVptcWdWMDZtTklnWUhWNHR5M3k2WTFTdnA0?=
- =?utf-8?B?eDFlNjJjSlh5ZzBHYWhpWnhPdDVPSnJjZVd4eTcvS01qZjlRdnBMMEJWcjVs?=
- =?utf-8?B?OUVPZ1pYNzZzcFZNMDNMcVZHYjdBNU4wd05sQkhzeGJDeTRFcjUyaUlCVnI1?=
- =?utf-8?B?VzhZM20rZW5DZ1k4QjVndm9iR2JHamtHRnZHT1dZNlZXb21DcFlMSXpHb1pR?=
- =?utf-8?B?TzRLbTgyV0oxRGkvYUI0VzdMeFluUkliTWxDMUFiNGhvblpIUzNIS2Zydzlz?=
- =?utf-8?B?YXNBWExRYzBUODZENjMyK3pucENHdUtCUTcvVm0xdU5QTG9MU0I4T0M0NU5X?=
- =?utf-8?B?NEQzUVhrY24yMEZIaDcwQW0reDlhaFFHdTlReExYMW1YcTkvazFWNTJSczV2?=
- =?utf-8?B?WlQzaldsaVJINll6QjYzejNwVEZyQllnR3dCVmZ0MWRLOXBSUnlnd3ArSFpV?=
- =?utf-8?B?OEpzaUZjdm4weHdsdWtsTnpTTjRMWWNYY0V5Tm56YUdVamdIcFJRTytIVWg1?=
- =?utf-8?Q?ucI9DNZMQq4V46qlA20opF4Iy?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9dde8987-5763-44bd-16b2-08db68f96bba
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2023 14:54:26.8480 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2023 15:05:35.4602 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 204e01be-9ccc-4bdd-fa44-08db68fafa72
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HKD44Gqsd4iuJwBPBVtN0F57qAKtM85dTX07HAnge0kPlfWwISLUW7hPpc/t3MgesAhG62bsumXomjzbtFZFag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6595
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F9.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6249
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,62 +97,202 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Philip Yang <philip.yang@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>, felix.kuehling@amd.com,
+ Amaranath.Somalapuram@amd.com, Rajneesh.Bhardwaj@amd.com,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/9/23 04:17, Lee Jones wrote:
-> Fixes the following W=1 kernel build warning(s):
-> 
->  drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.c:48:22: warning: ‘SYNAPTICS_DEVICE_ID’ defined but not used [-Wunused-const-variable=]
-> 
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Leo Li <sunpeng.li@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: "Christian König" <christian.koenig@amd.com>
-> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+This patch moves the code to flush GPU TLB using SDMA ring and
+splits it into two parts:
+- a general purpose function to flush GPU TLB using any valid GPU ring.
+- a wrapper which consumes this function using SDMA ring.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+The idea is that KFD/KGD code should be able to flush GPU TLB
+using SDMA ring if they want to.
 
-Harry
+v2: Addressed review comments on RFC
+    - Make the TLB flush function generic, and add a SDMA wrapper
+      to it (Christian).
 
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index 09e056a647087..cd20cfc049969 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -44,9 +44,6 @@
->  #include "dm_helpers.h"
->  #include "ddc_service_types.h"
->  
-> -/* MST Dock */
-> -static const uint8_t SYNAPTICS_DEVICE_ID[] = "SYNA";
-> -
->  /* dm_helpers_parse_edid_caps
->   *
->   * Parse edid caps
-> @@ -702,6 +699,9 @@ static void apply_synaptics_fifo_reset_wa(struct drm_dp_aux *aux)
->  	DC_LOG_DC("Done apply_synaptics_fifo_reset_wa\n");
->  }
->  
-> +/* MST Dock */
-> +static const uint8_t SYNAPTICS_DEVICE_ID[] = "SYNA";
-> +
->  static uint8_t write_dsc_enable_synaptics_non_virtual_dpcd_mst(
->  		struct drm_dp_aux *aux,
->  		const struct dc_stream_state *stream,
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Philip Yang <philip.yang@amd.com>
+Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 22 +++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c  | 36 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h  |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   | 34 +++++-----------------
+ 5 files changed, 67 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+index 231ca06bc9c7..05ffeb704dc4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -30,6 +30,28 @@
+ /* SDMA CSA reside in the 3rd page of CSA */
+ #define AMDGPU_CSA_SDMA_OFFSET (4096 * 2)
+ 
++/**
++ * amdgpu_sdma_flush_tlb - flush gpu TLB using SDMA ring
++ *
++ * @adev: amdgpu device pointer
++ *
++ * return: returns 0 on success.
++ */
++int amdgpu_sdma_flush_gpu_tlb(struct amdgpu_device *adev)
++{
++	struct dma_fence *fence;
++	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
++
++	fence = amdgpu_ttm_flush_tlb(ring);
++	if (fence) {
++		dma_fence_wait(fence, false);
++		dma_fence_put(fence);
++		return 0;
++	}
++
++	return -1;
++}
++
+ /*
+  * GPU SDMA IP block helpers function.
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+index fc8528812598..739077862a7d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+@@ -130,5 +130,6 @@ void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
+         bool duplicate);
+ void amdgpu_sdma_unset_buffer_funcs_helper(struct amdgpu_device *adev);
+ int amdgpu_sdma_ras_sw_init(struct amdgpu_device *adev);
++int amdgpu_sdma_flush_gpu_tlb(struct amdgpu_device *adev);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index c5ef7f7bdc15..1248d1dd5abc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -81,6 +81,42 @@ static int amdgpu_ttm_init_on_chip(struct amdgpu_device *adev,
+ 				  false, size_in_page);
+ }
+ 
++/**
++ * amdgpu_ttm_flush_tlb - flush gpu TLB using a GPU ring
++ *
++ * @ring: ring to submit the flushing job to
++ *
++ * return: returns dma fence which must be put by caller
++ */
++struct dma_fence *amdgpu_ttm_flush_tlb(struct amdgpu_ring *ring)
++{
++	struct amdgpu_job *job;
++	struct dma_fence *fence;
++	struct amdgpu_device *adev = ring->adev;
++	int r;
++
++	mutex_lock(&adev->mman.gtt_window_lock);
++	r = amdgpu_job_alloc_with_ib(adev, &adev->mman.entity,
++				     AMDGPU_FENCE_OWNER_UNDEFINED,
++				     16 * 4, AMDGPU_IB_POOL_IMMEDIATE,
++				     &job);
++	if (r)
++		goto error_alloc;
++
++	job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gart.bo);
++	job->vm_needs_flush = true;
++	job->ibs->ptr[job->ibs->length_dw++] = ring->funcs->nop;
++	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
++	fence = amdgpu_job_submit(job);
++
++	mutex_unlock(&adev->mman.gtt_window_lock);
++	return fence;
++
++error_alloc:
++	mutex_unlock(&adev->mman.gtt_window_lock);
++	return NULL;
++}
++
+ /**
+  * amdgpu_evict_flags - Compute placement flags
+  *
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index e2cd5894afc9..86ba70d2eb53 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -200,5 +200,6 @@ uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct ttm_tt *ttm,
+ int amdgpu_ttm_evict_resources(struct amdgpu_device *adev, int mem_type);
+ 
+ void amdgpu_ttm_debugfs_init(struct amdgpu_device *adev);
++struct dma_fence *amdgpu_ttm_flush_tlb(struct amdgpu_ring *ring);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index ab2556ca984e..9892b155d1ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -52,6 +52,7 @@
+ #include "athub_v2_1.h"
+ 
+ #include "amdgpu_reset.h"
++#include "amdgpu_sdma.h"
+ 
+ #if 0
+ static const struct soc15_reg_golden golden_settings_navi10_hdp[] =
+@@ -332,10 +333,6 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 					uint32_t vmhub, uint32_t flush_type)
+ {
+ 	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
+-	struct dma_fence *fence;
+-	struct amdgpu_job *job;
+-
+-	int r;
+ 
+ 	/* flush hdp cache */
+ 	adev->hdp.funcs->flush_hdp(adev, NULL);
+@@ -378,34 +375,17 @@ static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 		return;
+ 	}
+ 
+-	/* The SDMA on Navi has a bug which can theoretically result in memory
++	mutex_unlock(&adev->mman.gtt_window_lock);
++
++	/*
++	 * The SDMA on Navi has a bug which can theoretically result in memory
+ 	 * corruption if an invalidation happens at the same time as an VA
+ 	 * translation. Avoid this by doing the invalidation from the SDMA
+ 	 * itself.
+ 	 */
+-	r = amdgpu_job_alloc_with_ib(ring->adev, &adev->mman.entity,
+-				     AMDGPU_FENCE_OWNER_UNDEFINED,
+-				     16 * 4, AMDGPU_IB_POOL_IMMEDIATE,
+-				     &job);
+-	if (r)
+-		goto error_alloc;
+ 
+-	job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gart.bo);
+-	job->vm_needs_flush = true;
+-	job->ibs->ptr[job->ibs->length_dw++] = ring->funcs->nop;
+-	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
+-	fence = amdgpu_job_submit(job);
+-
+-	mutex_unlock(&adev->mman.gtt_window_lock);
+-
+-	dma_fence_wait(fence, false);
+-	dma_fence_put(fence);
+-
+-	return;
+-
+-error_alloc:
+-	mutex_unlock(&adev->mman.gtt_window_lock);
+-	DRM_ERROR("Error flushing GPU TLB using the SDMA (%d)!\n", r);
++	if (amdgpu_sdma_flush_gpu_tlb(adev))
++		DRM_ERROR("Error flushing GPU TLB using the SDMA !\n");
+ }
+ 
+ /**
+-- 
+2.40.1
 
