@@ -4,58 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11A4EC7EE25
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 17:13:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 204F2C7EE2E
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 17:43:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 808FF10E161;
-	Fri,  9 Jun 2023 17:13:48 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29D7210E161
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jun 2023 17:13:47 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- 46e09a7af769-6b296cadbffso775315a34.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Jun 2023 10:13:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686330825; x=1688922825;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=o9Ew8qCQrlyCyJxxDqgYQcfx9Zs2F5EdKF+oKOoHqvY=;
- b=cm9T1sWDc1RSVdXAlL19wRySXnm89mfFu0us89Bjb13C8L+Yg5zp7T/DELESlR2Yk3
- pzbyi9dbUNfvj3NtNfxxoCniQcuEItOOqHJse1rTaF+/lgixVwmHtnhWkR7rOgkqjPPf
- bAn7avdTBHVstCBZj23eqDvJmsJcaABQlyb4w3f33xLT+AqrixlAT979Zm25B1POXN2j
- F/U/liKNY0lSEaXX+WKJzFCM0gaBOC81RsUZLGhPbr9JYcOxsFx2H46kBNN7mPJEXyHI
- FBqSDN/I1Fl2dE1Kql+5SGqR1NLTeDNzXxNUHarIzBwtrU3cY3S3DjejyAHyQz95Uk5t
- hKEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686330825; x=1688922825;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=o9Ew8qCQrlyCyJxxDqgYQcfx9Zs2F5EdKF+oKOoHqvY=;
- b=Sak2cAvP0Umrs8QhMGdohnO+PxXse4Ra4wZnKZ2wd984GcFylxUbPUl3XVgE/1pR01
- eAsMM8bNXsbovv5Vej1+ZhzdRjAWG89tVFqKPP22m3gvTNts+b7c5IRwFkTdxmTnKo5Y
- NfCn5DFaXSz4opxWH4kp9i3BMmeGYRVT5/0lSdV6CVrv85eJ++yDxywRND76yG5pSPhf
- vWg2FE/MYapT76zrnJF29rR5SjyRIfeIT2Ybjae0nznF1lIOYbVp4dSeU9jl1vwJQDaq
- 3Sjxq4bdKmYkugcNGXkBB9x6rjuzCEWlB7Hf08C8wepVMjcp46//CFD9SRmPgEDMy6kz
- 9frg==
-X-Gm-Message-State: AC+VfDzdGz/QXqi5/BuDqx6Xc/b6RLwr41Z/lTZ3H+12PiQBXlEmZkTz
- LML1zQvnYyKTx1dO/XGirB8XOyyxSVEnQlyue+RIoo/k
-X-Google-Smtp-Source: ACHHUZ5iL1LmL5ZNXUOoKB+u/AxpGh0p4jYbWsUj6O60GhdjPkSJ7pevaY+6M6NGnGKkQlL/qSSAnlRQlOdMPFqCQrQ=
-X-Received: by 2002:a05:6870:d2ab:b0:1a2:9a3c:ae31 with SMTP id
- d43-20020a056870d2ab00b001a29a3cae31mr1611381oae.11.1686330825626; Fri, 09
- Jun 2023 10:13:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 952E510E157;
+	Fri,  9 Jun 2023 17:43:49 +0000 (UTC)
+Received: from 189.cn (ptr.189.cn [183.61.185.102])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5C05210E157;
+ Fri,  9 Jun 2023 17:43:47 +0000 (UTC)
+HMM_SOURCE_IP: 10.64.8.43:47690.1937665454
+HMM_ATTACHE_NUM: 0000
+HMM_SOURCE_TYPE: SMTP
+Received: from clientip-114.242.206.180 (unknown [10.64.8.43])
+ by 189.cn (HERMES) with SMTP id AEDBE100212;
+ Sat, 10 Jun 2023 01:43:39 +0800 (CST)
+Received: from  ([114.242.206.180])
+ by gateway-151646-dep-75648544bd-7vx9t with ESMTP id
+ 0877e90f4b584cbe94a878d807b39f22 for helgaas@kernel.org; 
+ Sat, 10 Jun 2023 01:43:43 CST
+X-Transaction-ID: 0877e90f4b584cbe94a878d807b39f22
+X-Real-From: 15330273260@189.cn
+X-Receive-IP: 114.242.206.180
+X-MEDUSA-Status: 0
+Message-ID: <2cf50ad0-e4fa-17a3-3e22-7fd8d4a316ed@189.cn>
+Date: Sat, 10 Jun 2023 01:43:39 +0800
 MIME-Version: 1.0
-References: <20230609151123.1006374-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230609151123.1006374-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 9 Jun 2023 13:13:34 -0400
-Message-ID: <CADnq5_PU4jRNMCGdb6LTNQpnhqGEMmppVrDd_1OUrcZkeegDzw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix kdoc warning
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [Intel-gfx] [PATCH v3 4/4] PCI/VGA: introduce is_boot_device
+ function callback to vga_client_register
+To: Bjorn Helgaas <helgaas@kernel.org>, Sui Jingfeng <suijingfeng@loongson.cn>
+References: <20230609164850.GA1251187@bhelgaas>
+Content-Language: en-US
+From: Sui Jingfeng <15330273260@189.cn>
+In-Reply-To: <20230609164850.GA1251187@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,59 +51,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Pan Xinhui <Xinhui.Pan@amd.com>, kvm@vger.kernel.org,
+ nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Ville Syrjala <ville.syrjala@linux.intel.com>, Yi Liu <yi.l.liu@intel.com>,
+ Karol Herbst <kherbst@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
+ linux-pci@vger.kernel.org, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Kevin Tian <kevin.tian@intel.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Bokun Zhang <Bokun.Zhang@amd.com>,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, loongson-kernel@lists.loongnix.cn,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Abhishek Sahu <abhsahu@nvidia.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Yishai Hadas <yishaih@nvidia.com>, Li Yi <liyi@loongson.cn>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Cornelia Huck <cohuck@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Fri, Jun 9, 2023 at 11:11=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> Fixes the following gcc with W=3D1:
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c:76: warning: This comment =
-starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-=
-guide/kernel-doc.rst
->  * EEPROM Table structure v1
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c:98: warning: This comment =
-starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-=
-guide/kernel-doc.rst
->  * EEPROM Table structrue v2.1
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> index c2e8f6491ac6..0648dfe559af 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> @@ -72,7 +72,7 @@
->  /* Bad GPU tag =E2=80=98BADG=E2=80=99 */
->  #define RAS_TABLE_HDR_BAD       0x42414447
->
-> -/**
-> +/*
->   * EEPROM Table structure v1
->   * ---------------------------------
->   * |                               |
-> @@ -94,7 +94,7 @@
->  #define RAS_MAX_RECORD_COUNT    ((RAS_TBL_SIZE_BYTES - RAS_TABLE_HEADER_=
-SIZE) \
->                                  / RAS_TABLE_RECORD_SIZE)
->
-> -/**
-> +/*
->   * EEPROM Table structrue v2.1
->   * ---------------------------------
->   * |                               |
-> --
-> 2.25.1
->
+On 2023/6/10 00:48, Bjorn Helgaas wrote:
+> On Fri, Jun 09, 2023 at 10:27:39AM +0800, Sui Jingfeng wrote:
+>> On 2023/6/9 03:19, Bjorn Helgaas wrote:
+>>> On Thu, Jun 08, 2023 at 07:43:22PM +0800, Sui Jingfeng wrote:
+>>>> From: Sui Jingfeng <suijingfeng@loongson.cn>
+>>>>
+>>>> The vga_is_firmware_default() function is arch-dependent, which doesn't
+>>>> sound right. At least, it also works on the Mips and LoongArch platforms.
+>>>> Tested with the drm/amdgpu and drm/radeon drivers. However, it's difficult
+>>>> to enumerate all arch-driver combinations. I'm wrong if there is only one
+>>>> exception.
+>>>>
+>>>> With the observation that device drivers typically have better knowledge
+>>>> about which PCI bar contains the firmware framebuffer, which could avoid
+>>>> the need to iterate all of the PCI BARs.
+>>>>
+>>>> But as a PCI function at pci/vgaarb.c, vga_is_firmware_default() is
+>>>> probably not suitable to make such an optimization for a specific device.
+>>>>
+>>>> There are PCI display controllers that don't have a dedicated VRAM bar,
+>>>> this function will lose its effectiveness in such a case. Luckily, the
+>>>> device driver can provide an accurate workaround.
+>>>>
+>>>> Therefore, this patch introduces a callback that allows the device driver
+>>>> to tell the VGAARB if the device is the default boot device. This patch
+>>>> only intends to introduce the mechanism, while the implementation is left
+>>>> to the device driver authors. Also honor the comment: "Clients have two
+>>>> callback mechanisms they can use"
+>>> s/bar/BAR/ (several)
+>>>
+>>> Nothing here uses the callback.  I don't want to merge this until we
+>>> have a user.
+>> This is chicken and egg question.
+>>
+>> If you could help get this merge first, I will show you the first user.
+>>
+>>> I'm not sure why the device driver should know whether its device is
+>>> the default boot device.
+>> It's not that the device driver should know,
+>>
+>> but it's about that the device driver has the right to override.
+>>
+>> Device driver may have better approach to identify the default boot
+>> device.
+> The way we usually handle this is to include the new callback in the
+> same series as the first user of it.  That has two benefits:
+> (1) everybody can review the whole picture and possibly suggest
+> different approaches, and (2) when we merge the infrastructure,
+> we also merge a user of it at the same time, so the whole thing can be
+> tested and we don't end up with unused code.
+
+OK, acceptable
+
+I will try to prepare the user code of this callback and respin the patch.
+
+I may resend it with another patch set in the future, this series 
+already drop it,
+
+see v5[1]
+
+[1] https://patchwork.freedesktop.org/series/119134/
+
+> Bjorn
