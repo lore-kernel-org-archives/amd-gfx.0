@@ -4,56 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A323BC7EE25
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 12:22:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F26F1C7EE2E
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 13:00:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2435610E25B;
-	Fri,  9 Jun 2023 12:22:25 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8437B10E25B;
- Fri,  9 Jun 2023 12:22:22 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8Bxa+p8GYNk_xUBAA--.3213S3;
- Fri, 09 Jun 2023 20:22:20 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8CxReR6GYNkDyELAA--.33801S3; 
- Fri, 09 Jun 2023 20:22:18 +0800 (CST)
-Message-ID: <8e7fe36d-0d0d-bab4-9ace-a738d7a48111@loongson.cn>
-Date: Fri, 9 Jun 2023 20:22:18 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5314C10E69F;
+	Fri,  9 Jun 2023 13:00:36 +0000 (UTC)
+X-Greylist: delayed 2486 seconds by postgrey-1.36 at gabe;
+ Fri, 09 Jun 2023 09:03:02 UTC
+Received: from sipsolutions.net (s3.sipsolutions.net
+ [IPv6:2a01:4f8:191:4433::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 870D910E662;
+ Fri,  9 Jun 2023 09:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+ Resent-Cc:Resent-Message-ID; bh=ioJP5/nPwkDScpLmhYFsFtpoICiOH9A6AqZVomfCoCQ=; 
+ t=1686301382; x=1687510982; b=ZNDLTnQUxzC9apvVPe3QZF/lvK5iSfDUWmOxlZXezc0jE8v
+ WUu1YLRf/c7MPz7jY49GxHq/YmpeOycllKFeJzNVGHQEfuNH9Pb6A/ecUGp+RDIsvmV88MgaqFfxQ
+ J9K14n0brmrcrXmzLJSw9TwVagiObrtYFT3Gbj+iGvXBpeV+btHMApQ+tsZyEND+pMC+IwSBNosST
+ hc90dVXE/OiGev04Vl7nUJVUuFaylbMQzBLdGBS/h0DAckCwE8rViDL2Rnbc7BkSwNsg0XE3+ko4h
+ LfRCg3lOJEVXhnvzboc4HA4octTUQZSMVkeG8d6me2SbZOsMLTXqIFXNajU+4weA==;
+Received: by sipsolutions.net with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.96) (envelope-from <johannes@sipsolutions.net>)
+ id 1q7XMw-000rrZ-1g; Fri, 09 Jun 2023 10:21:14 +0200
+Message-ID: <ccbaf80adb305ea59eb1a457460b99dc920bb65d.camel@sipsolutions.net>
+Subject: Re: [PATCH V2 2/7] wifi: mac80211: Add support for ACPI WBRF
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Evan Quan <evan.quan@amd.com>, rafael@kernel.org, lenb@kernel.org, 
+ Alexander.Deucher@amd.com, Christian.Koenig@amd.com, Xinhui.Pan@amd.com, 
+ airlied@gmail.com, daniel@ffwll.ch, kvalo@kernel.org, nbd@nbd.name, 
+ lorenzo@kernel.org, ryder.lee@mediatek.com, shayne.chen@mediatek.com, 
+ sean.wang@mediatek.com, matthias.bgg@gmail.com, 
+ angelogioacchino.delregno@collabora.com, Mario.Limonciello@amd.com, 
+ Lijo.Lazar@amd.com
+Date: Fri, 09 Jun 2023 10:21:12 +0200
+In-Reply-To: <20230609072846.1552238-3-evan.quan@amd.com>
+References: <20230609072846.1552238-1-evan.quan@amd.com>
+ <20230609072846.1552238-3-evan.quan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.3 (3.48.3-1.fc38) 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [Intel-gfx] [PATCH v3 3/4] PCI/VGA: only deal with VGA class
- devices
-To: Bjorn Helgaas <helgaas@kernel.org>, Sui Jingfeng <15330273260@189.cn>
-References: <20230608191221.GA1209912@bhelgaas>
-Content-Language: en-US
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-Organization: Loongson
-In-Reply-To: <20230608191221.GA1209912@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8CxReR6GYNkDyELAA--.33801S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxtFyUWw4rAr48JFykGFykZwc_yoW7ZF4Dpa
- yrGayfKrWkWF17Cryav3WUZFy5u39Yya4fKr4Ykw1YkanxCryFqFyrKrW5A3W7JrZrGF10
- vFWUt3W7Wa1qqagCm3ZEXasCq-sJn29KB7ZKAUJUUUU3529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUPlb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVWxJr0_GcWln4kS14v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
- xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r12
- 6r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwI
- xGrwCYjI0SjxkI62AI1cAE67vIY487MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAK
- I48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrV
- AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8Jr1l
- IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
- AFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4U
- JVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07
- jhl19UUUUU=
+X-malware-bazaar: not-scanned
+X-Mailman-Approved-At: Fri, 09 Jun 2023 13:00:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,222 +60,181 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>, Yi Liu <yi.l.liu@intel.com>,
- kvm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- linux-pci@vger.kernel.org, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bokun Zhang <Bokun.Zhang@amd.com>,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, loongson-kernel@lists.loongnix.cn,
- Alex Williamson <alex.williamson@redhat.com>,
- Abhishek Sahu <abhsahu@nvidia.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Yishai Hadas <yishaih@nvidia.com>, Li Yi <liyi@loongson.cn>,
- Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Cornelia Huck <cohuck@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: linux-acpi@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Fri, 2023-06-09 at 15:28 +0800, Evan Quan wrote:
 
-On 2023/6/9 03:12, Bjorn Helgaas wrote:
-> Start with verb and capitalize to match ("Deal only with ...")
->
-> On Thu, Jun 08, 2023 at 07:43:21PM +0800, Sui Jingfeng wrote:
->> From: Sui Jingfeng <suijingfeng@loongson.cn>
->>
->> vgaarb only deal with the VGA devcie(pdev->class == 0x0300), so replace the
->> pci_get_subsys() function with pci_get_class(). Filter the non pci display
->> device out. There no need to process the non display PCI device.
-> s/non pci/non-PCI/
-> s/non display/non-display/
->
-> This is fine, and I'll merge this, but someday I would like to get rid
-> of the bus_register_notifier() and call vga_arbiter_add_pci_device()
-> and vga_arbiter_del_pci_device() directly from the PCI core.
+> --- a/include/net/cfg80211.h
+> +++ b/include/net/cfg80211.h
+> @@ -5551,6 +5551,10 @@ struct wiphy {
+> =20
+>  	u16 hw_timestamp_max_peers;
+> =20
+> +#ifdef CONFIG_ACPI_WBRF
+> +	bool wbrf_supported;
+> +#endif
 
-Nice idea!
+This should be in some private struct in mac80211, ieee80211_local I
+think.
 
+>  	char priv[] __aligned(NETDEV_ALIGN);
+>  };
+> =20
+> @@ -9067,4 +9071,18 @@ static inline int cfg80211_color_change_notify(str=
+uct net_device *dev)
+>  bool cfg80211_valid_disable_subchannel_bitmap(u16 *bitmap,
+>  					      const struct cfg80211_chan_def *chandef);
+> =20
+> +#ifdef CONFIG_ACPI_WBRF
+> +void ieee80211_check_wbrf_support(struct wiphy *wiphy);
+> +int ieee80211_add_wbrf(struct wiphy *wiphy,
+> +		       struct cfg80211_chan_def *chandef);
+> +void ieee80211_remove_wbrf(struct wiphy *wiphy,
+> +			   struct cfg80211_chan_def *chandef);
+> +#else
+> +static inline void ieee80211_check_wbrf_support(struct wiphy *wiphy) { }
+> +static inline int ieee80211_add_wbrf(struct wiphy *wiphy,
+> +				     struct cfg80211_chan_def *chandef) { return 0; }
+> +static inline void ieee80211_remove_wbrf(struct wiphy *wiphy,
+> +					 struct cfg80211_chan_def *chandef) { }
+> +#endif /* CONFIG_ACPI_WBRF */
 
-But I'm wondering there are traps in this.
-
-The pci_notifier in vgaarb.c is still need on Mips platform.
-
-Because of loading order problems.
-
-On MIPS system, PCI devices are enumerated by pcibios_init(),
-
-which runs after vga_arb_device_init(). This is true until now.
-
-When vga_arb_device_init() function get called, it will capture nothing.
-
-On that time, the system have no PCI device enumerated.
-
-Because of this, there are various problems in the past.
-
-This is the reason we still need the notifier,
-
-we need a way to capture the PCI display device after vgaarb already 
-loaded(finished).
-
-
-On complex case, there are ASpeed BMC, loongson integrated display 
-controller,
-
-and radeon discrete video card co-exist on Loongson 3B4000 server.
-
-I have fixed various bug at our downstream(linux-4.19) environment.
+Same here, not the right place. This should even be in an internal
+mac80211 header (such as net/mac80211/ieee80211_i.h or create a new
+net/mac80211/wrbf.h or so if you prefer.)
 
 
-I have fixed a bug on downstream involved with aspeed bmc, by workaround[1].
+> --- a/net/mac80211/chan.c
+> +++ b/net/mac80211/chan.c
+> @@ -668,6 +668,10 @@ static int ieee80211_add_chanctx(struct ieee80211_lo=
+cal *local,
+>  	lockdep_assert_held(&local->mtx);
+>  	lockdep_assert_held(&local->chanctx_mtx);
+> =20
+> +	err =3D ieee80211_add_wbrf(local->hw.wiphy, &ctx->conf.def);
+> +	if (err)
+> +		return err;
+> +
+>  	if (!local->use_chanctx)
+>  		local->hw.conf.radar_enabled =3D ctx->conf.radar_enabled;
+> =20
+> @@ -748,6 +752,8 @@ static void ieee80211_del_chanctx(struct ieee80211_lo=
+cal *local,
+>  	}
+> =20
+>  	ieee80211_recalc_idle(local);
+> +
+> +	ieee80211_remove_wbrf(local->hw.wiphy, &ctx->conf.def);
+>  }
+> =20
+>  static void ieee80211_free_chanctx(struct ieee80211_local *local,
+>=20
 
-Chen Huacai grabbing my patch[1] and rewrite it, submit together with 
-him-self's.
+This is tricky, and quite likely incorrect.
 
-Its fine,  but those patch still look paleness in the front of Loongson 
-integrated display controller.
+First of all, chandefs can actually _change_, see
+_ieee80211_change_chanctx(). You'd probably have to call this add/remove
+(or have modify) whenever we call drv_change_chanctx() to change the
+width (not if radar/rx chains change).
 
-Loongson integrated display controller don't has a dedicated VRAM bar.
+Secondly, you don't know if the driver will actually use ctx->conf.def,
+or ctx->conf.mindef. For client mode that doesn't matter, but for AP
+mode if the AP is configured to say 160 MHz, it might actually configure
+down to 20 MHz when no stations are connected (or only 20 MHz stations
+are). I don't know if you really care about taking that into account, I
+also don't know how dynamic this really should be. Stations can connect
+and disconnect quickly, so perhaps the WBRF should actually take the
+full potential bandwidth into account all the time, in which case taking
+ctx->conf.def would be correct.
 
-vga_is_firmware_default() will lose its effectiveness then.
-
-This is the reason we reveal our patch(0004 in this series) to face 
-upstream.
-
-Its not only for loongson integrated display controller through.
-
-Its not uncommon that ARM servers have A aspeed BMC and discrete amdgpu 
-or old radeon card.
-
-Let the device drivers gave us a hint probably can help to resolve 
-multi-video card co-exist
-
-problem.
-
-Consider that sometime user want to use integrate gpu, sometime user 
-want to use discrete gpu.
-
-Also, during driver developing(or debugging),
-
-driver writer may want override the default boot device.
-
-
-vgaarb probable shouldn't make the decision
-
-without giving the device driver a chance to override.
-
-
-Beside,  vga_is_firmware_default() only apply for PCI display device.
-
-On ARM64 system, there are a lot of platform device.
-
-If we move this function back to the device driver,
-
-it probably applicable for a platform display controller + one/two PCI 
-display devices case.
-
-
-We find a method at downstream during we get efifb works LoongArch platform.
-
-We can utilize the screen_info, screen_info say where's the firmware 
-framebuffer is located at.
-
-Drivers for specific hardware platform perhaps know more clearly than 
-vgaarb.
-
-if it is the default boot device.
+I'll note that your previous in-driver approach had all the same
+problems the way you had implemented it, though I don't know if that
+driver ever can use mindef or not.
 
 
-[1] 
-https://lore.kernel.org/all/20210514080025.1828197-6-chenhuacai@loongson.cn/
+> +void ieee80211_check_wbrf_support(struct wiphy *wiphy)
+> +{
+> +	struct device *dev =3D wiphy->dev.parent;
+> +	struct acpi_device *acpi_dev;
+> +
+> +	acpi_dev =3D ACPI_COMPANION(dev);
 
-> Or if you wanted to do that now, that would be even better :)
->
-> Bjorn
->
->> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
->> ---
->>   drivers/pci/vgaarb.c | 22 ++++++++++++----------
->>   1 file changed, 12 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
->> index 7f0347f4f6fd..b0bf4952a95d 100644
->> --- a/drivers/pci/vgaarb.c
->> +++ b/drivers/pci/vgaarb.c
->> @@ -756,10 +756,6 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
->>   	struct pci_dev *bridge;
->>   	u16 cmd;
->>   
->> -	/* Only deal with VGA class devices */
->> -	if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
->> -		return false;
->> -
->>   	/* Allocate structure */
->>   	vgadev = kzalloc(sizeof(struct vga_device), GFP_KERNEL);
->>   	if (vgadev == NULL) {
->> @@ -1499,7 +1495,9 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
->>   	struct pci_dev *pdev = to_pci_dev(dev);
->>   	bool notify = false;
->>   
->> -	vgaarb_dbg(dev, "%s\n", __func__);
->> +	/* Only deal with VGA class devices */
->> +	if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
->> +		return 0;
->>   
->>   	/* For now we're only intereted in devices added and removed. I didn't
->>   	 * test this thing here, so someone needs to double check for the
->> @@ -1509,6 +1507,8 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
->>   	else if (action == BUS_NOTIFY_DEL_DEVICE)
->>   		notify = vga_arbiter_del_pci_device(pdev);
->>   
->> +	vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
->> +
->>   	if (notify)
->>   		vga_arbiter_notify_clients();
->>   	return 0;
->> @@ -1533,8 +1533,8 @@ static struct miscdevice vga_arb_device = {
->>   
->>   static int __init vga_arb_device_init(void)
->>   {
->> +	struct pci_dev *pdev = NULL;
->>   	int rc;
->> -	struct pci_dev *pdev;
->>   
->>   	rc = misc_register(&vga_arb_device);
->>   	if (rc < 0)
->> @@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
->>   	/* We add all PCI devices satisfying VGA class in the arbiter by
->>   	 * default
->>   	 */
->> -	pdev = NULL;
->> -	while ((pdev =
->> -		pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
->> -			       PCI_ANY_ID, pdev)) != NULL)
->> +	while (1) {
->> +		pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
->> +		if (!pdev)
->> +			break;
->> +
->>   		vga_arbiter_add_pci_device(pdev);
->> +	};
->>   
->>   	pr_info("loaded\n");
->>   	return rc;
->> -- 
->> 2.25.1
->>
--- 
-Jingfeng
+Can this cope with 'dev' being NULL? Just not sure nothing like hwsim or
+so always even has a parent. I guess it should, but ...
 
+> +static int chan_width_to_mhz(enum nl80211_chan_width chan_width)
+> +{
+> +	int mhz;
+> +
+> +	switch (chan_width) {
+> +	case NL80211_CHAN_WIDTH_1:
+> +		mhz =3D 1;
+> +		break;
+> +	case NL80211_CHAN_WIDTH_2:
+> +		mhz =3D 2;
+> +		break;
+> +	case NL80211_CHAN_WIDTH_4:
+> +		mhz =3D 4;
+> +		break;
+> +	case NL80211_CHAN_WIDTH_8:
+> +		mhz =3D 8;
+> +		break;
+> +	case NL80211_CHAN_WIDTH_16:
+> +		mhz =3D 16;
+> +		break;
+> +	case NL80211_CHAN_WIDTH_5:
+> +		mhz =3D 5;
+> +		break;
+> +	case NL80211_CHAN_WIDTH_10:
+> +		mhz =3D 10;
+> +		break;
+> +	case NL80211_CHAN_WIDTH_20:
+> +	case NL80211_CHAN_WIDTH_20_NOHT:
+> +		mhz =3D 20;
+> +		break;
+> +	case NL80211_CHAN_WIDTH_40:
+> +		mhz =3D 40;
+> +		break;
+> +	case NL80211_CHAN_WIDTH_80P80:
+> +	case NL80211_CHAN_WIDTH_80:
+> +		mhz =3D 80;
+> +		break;
+> +	case NL80211_CHAN_WIDTH_160:
+> +		mhz =3D 160;
+> +		break;
+> +	case NL80211_CHAN_WIDTH_320:
+> +		mhz =3D 320;
+> +		break;
+> +	default:
+> +		WARN_ON_ONCE(1);
+> +		return -1;
+> +	}
+> +	return mhz;
+
+This might be more generally useful as a function in cfg80211 that's
+exported - hwsim has exactly the same function today, for example.
+
+> +static void get_chan_freq_boundary(u32 center_freq,
+> +				   u32 bandwidth,
+> +				   u64 *start,
+> +				   u64 *end)
+> +{
+> +	bandwidth =3D MHZ_TO_KHZ(bandwidth);
+> +	center_freq =3D MHZ_TO_KHZ(center_freq);
+> +
+> +	*start =3D center_freq - bandwidth / 2;
+> +	*end =3D center_freq + bandwidth / 2;
+> +
+> +	/* Frequency in HZ is expected */
+> +	*start =3D KHZ_TO_HZ(*start);
+> +	*end =3D KHZ_TO_HZ(*end);
+> +}
+
+Similar patterns are probably elsewhere too for this, but I guess we can
+always refactor later too.
+
+johannes
