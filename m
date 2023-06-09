@@ -4,41 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B06BC7EE25
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jun 2023 19:52:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C316C7EE23
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 01:54:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E16E310E33F;
-	Thu,  8 Jun 2023 19:52:46 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 364AB10E33F
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Jun 2023 19:52:45 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8206F60FB6;
- Thu,  8 Jun 2023 19:52:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6A67C433D2;
- Thu,  8 Jun 2023 19:52:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686253963;
- bh=VJNbfl7ur9asyNZBqTr7SnXNe0VdqWbZjoHtSp9mbDM=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=KxAxzHcyP9KgJs1oCW2E0PJKveamozbtzTq0toPwxSwPMJZsVS6+BlnbrrvG5eASB
- ad8kQD2WITB/hrP+6UqfI2bKHDpC0M2spiobAkjoKF9jwdyBSQC9DC+ipJzILHppso
- 2qdIWzE0RgVkqrSigmvJepxOYv1udyQOD7DN6eBeDyDyRZsUleoeSDawglAzQEQFIa
- l6eryb+mxYAt97ETvmWLsssm0E3KYMSeLCaBuE7w4MIXGXWG7BGOmLmpDMuBCCIb+b
- 64AzN0Y5bUNPRNnwuAdDgqLj1vMrR8hqvI6xOiROhNItZPE7n3t9awhk0hb1QdptZf
- M54fBkYtoN02g==
-Date: Thu, 8 Jun 2023 14:52:42 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Shiwu Zhang <shiwu.zhang@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: add the accelerator pcie class
-Message-ID: <20230608195242.GA1211647@bhelgaas>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDCF510E62B;
+	Fri,  9 Jun 2023 01:54:32 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2410310E62B;
+ Fri,  9 Jun 2023 01:54:29 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8Cxe+pUhoJkZ9YAAA--.2707S3;
+ Fri, 09 Jun 2023 09:54:28 +0800 (CST)
+Received: from [10.20.42.43] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8AxZuRThoJkXW0JAA--.29103S3; 
+ Fri, 09 Jun 2023 09:54:28 +0800 (CST)
+Message-ID: <5f47425c-69b7-3274-55eb-4551a152c0fe@loongson.cn>
+Date: Fri, 9 Jun 2023 09:54:27 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230523040232.21756-1-shiwu.zhang@amd.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [Intel-gfx] [PATCH v3 1/4] PCI/VGA: tidy up the code and comment
+ format
+Content-Language: en-US
+To: Bjorn Helgaas <helgaas@kernel.org>, Sui Jingfeng <15330273260@189.cn>
+References: <20230608190730.GA1209607@bhelgaas>
+From: Sui Jingfeng <suijingfeng@loongson.cn>
+Organization: Loongson
+In-Reply-To: <20230608190730.GA1209607@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID: AQAAf8AxZuRThoJkXW0JAA--.29103S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoW7trW8GryUXFy8Gw45ZFy8CrX_yoW8Xw4xp3
+ 4YkF93Cws3Gr15WryxZr4fXFWfX395J3WUt3W5Wr93AwnxK34kKrsYyan8KFW3Xr9FyF40
+ qF4jgr43G3W3uFgCm3ZEXasCq-sJn29KB7ZKAUJUUUU3529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUPab4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6r4UJVWxJr1ln4kS14v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+ xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r12
+ 6r1DMcIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
+ 1lc7I2V7IY0VAS07AlzVAYIcxG8wCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxG
+ rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUAVWUtwC20s026c02F40E14
+ v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Wrv_Gr1UMIIY
+ rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+ v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
+ JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUaTa0DU
+ UUU
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,69 +65,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
- amd-gfx@lists.freedesktop.org
+Cc: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Ville Syrjala <ville.syrjala@linux.intel.com>, Yi Liu <yi.l.liu@intel.com>,
+ kvm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
+ linux-pci@vger.kernel.org, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Kevin Tian <kevin.tian@intel.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Bokun Zhang <Bokun.Zhang@amd.com>,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, loongson-kernel@lists.loongnix.cn,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Abhishek Sahu <abhsahu@nvidia.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Yishai Hadas <yishaih@nvidia.com>, Li Yi <liyi@loongson.cn>,
+ Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Cornelia Huck <cohuck@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-s/pcie/PCIe/ in the subject.
+Hi,
 
-On Tue, May 23, 2023 at 12:02:32PM +0800, Shiwu Zhang wrote:
-> v2: add the base class id for accelerator (lijo)
+On 2023/6/9 03:07, Bjorn Helgaas wrote:
+> Capitalize subject to match ("Tidy ...")
+>
+> On Thu, Jun 08, 2023 at 07:43:19PM +0800, Sui Jingfeng wrote:
+>> From: Sui Jingfeng <suijingfeng@loongson.cn>
+>>
+>> This patch replaces the leading space with a tab and removes the double
+>> blank line, no functional change.
+> Can you move this to the end of the series?  The functional changes
+> are more likely to be backported, and I think the backport may be a
+> little easier without the cleanup in the middle.
 
-Please include a commit log.  For PCI, the "v2: ..." stuff would go
-below the "---" so it doesn't get included in the git commit.  I don't
-know what the DRM convention is.
+OK, acceptable.
 
-It's OK if the commit log repeats the subject.  The subject is like
-the title of a story -- it's not the first sentence of the story.
+>>   	/* we could in theory hand out locks on IO and mem
+>> -	 * separately to userspace but it can cause deadlocks */
+>> +	 * separately to userspace but it can cause deadlocks
+>> +	 */
+> Since you're touching this anyway, can you update it to the
+> conventional multi-line comment style:
+>
+>    /*
+>     * We could in theory ...
+>     */
+>
+> And capitalize "We", add a period at end, and rewrap to fill 78
+> columns or so?  Same for other comments below.
+OK, I could improve this at next version.
+>> +++ b/include/linux/vgaarb.h
+>> @@ -23,9 +23,7 @@
+>>    * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+>>    * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+>>    * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+>> - * DEALINGS
+>> - * IN THE SOFTWARE.
+>> - *
+>> + * DEALINGS IN THE SOFTWARE.
+>>    */
+> Can you make a separate patch to replace this entire copyright notice
+> with the appropriate SPDX-License-Identifier header?
+> Documentation/process/license-rules.rst has details.
 
-Please include a spec citation for the PCI_BASE_CLASS_ACCELERATOR
-values in the commit log.  I think it's something like "PCI Code and
-ID Assignment, r1.9, sec 1, 1.19".
+Wow ...
 
-> Signed-off-by: Shiwu Zhang <shiwu.zhang@amd.com>
-> Acked-by: Lijo Lazar <lijo.lazar@amd.com>
+> Bjorn
 
-With the above:
+-- 
+Jingfeng
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>  # pci_ids.h
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 5 +++++
->  include/linux/pci_ids.h                 | 3 +++
->  2 files changed, 8 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 3d91e123f9bd..5d652e6f0b1e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2042,6 +2042,11 @@ static const struct pci_device_id pciidlist[] = {
->  	  .class_mask = 0xffffff,
->  	  .driver_data = CHIP_IP_DISCOVERY },
->  
-> +	{ PCI_DEVICE(0x1002, PCI_ANY_ID),
-> +	  .class = PCI_CLASS_ACCELERATOR_PROCESSING << 8,
-> +	  .class_mask = 0xffffff,
-> +	  .driver_data = CHIP_IP_DISCOVERY },
-> +
->  	{0, 0, 0}
->  };
->  
-> diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-> index b362d90eb9b0..4918ff26a987 100644
-> --- a/include/linux/pci_ids.h
-> +++ b/include/linux/pci_ids.h
-> @@ -151,6 +151,9 @@
->  #define PCI_CLASS_SP_DPIO		0x1100
->  #define PCI_CLASS_SP_OTHER		0x1180
->  
-> +#define PCI_BASE_CLASS_ACCELERATOR	0x12
-> +#define PCI_CLASS_ACCELERATOR_PROCESSING	0x1200
-> +
->  #define PCI_CLASS_OTHERS		0xff
->  
->  /* Vendors and devices.  Sort key: vendor first, device next. */
-> -- 
-> 2.17.1
-> 
