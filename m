@@ -4,59 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC92C7EE25
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 19:10:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A4D4C7EE25
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 19:33:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A09BD10E187;
-	Fri,  9 Jun 2023 19:10:00 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7608A10E187;
- Fri,  9 Jun 2023 19:09:58 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- 46e09a7af769-6b2d356530eso344923a34.0; 
- Fri, 09 Jun 2023 12:09:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686337797; x=1688929797;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MVQZHxckD+TT2eK0mAZ62mb4xg3Gddtob/89sfuDqRY=;
- b=SgufqHxH1elHAmk4b4GJFqgyErSwNjy/ITyd8iFengr42GG3+ixW8rZz7eCfjzNRKS
- usQuwP009T+TTwXUhHdGY/9+HVxr19P+fQ+HJbpkznVXGv4SOkON3fZ3C96xZC377iG6
- eICbZR3y5VJOG8WEKQvq1wf9Ad9rLIKzOjpHayNaUFaFfq7i2fZbfTx7Tpgy2sBTSixH
- M6XAruhCUmZaRPF1rMA8EUjRhacnAGptd1wQR3uNmVas0h2L2NTbCNG6EsM1321Ex0hk
- +Lu60BbYNQ0jGTQwgpXIJ5Y3IXK9qlbyajt/eKn+EVNaCfi77h8Yl57Y/uL6zx3hDZhp
- j7ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686337797; x=1688929797;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MVQZHxckD+TT2eK0mAZ62mb4xg3Gddtob/89sfuDqRY=;
- b=cW67fTniEkLW5BA/kFpZ2/hsQk+GfGGwRFHqOxWr/OtA4YfFSX91TCEhlQFK7xWI5k
- C2EEc9Y5gJ34yjrGgOPSA9sfysfX6rIzWDhnWwPWFhohshY6nz3ZfyasQ9ndeTTZd1KA
- JARXdnXH+Tv1nuTHWiCklwMMBYWp6l2G4Ss+R00BhS9VNtu9X0GCrgB7YlfAO0Y2z3cG
- YIGskAFeT6kmvPEZZ2MuMfwvdYPWuFaeNckES1Q0KvZx/npEaqsdfZTNXCnBR8P14e1E
- KAzIDUFCKhYgz7fBPYCpHdnE5vvLpQ/lW3VKBTdKYPvqhWnu0bqm3wYam5KysnPxY4wg
- EyRw==
-X-Gm-Message-State: AC+VfDxZmOkXe3xnMkvvrJMC/WegCHEhk+uuPVfM+YFq/8FcgdcmOeTG
- MknaEePAC7CybevlgqmHU7Vxk9kBYr+QB3CQGRs=
-X-Google-Smtp-Source: ACHHUZ7F9pZ43Fuw/6hg76FCyhtn0nfK+lQZ+dA3sMWlTDhlPT+s/bzb3kA3xH8iF41iVyZ0KAEutmyfbj9b+VAbsQQ=
-X-Received: by 2002:a05:6870:d892:b0:1a3:5f63:b4b3 with SMTP id
- dv18-20020a056870d89200b001a35f63b4b3mr1480598oab.56.1686337797178; Fri, 09
- Jun 2023 12:09:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACBE810E0C9;
+	Fri,  9 Jun 2023 19:33:28 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2062a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7ea9::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29BC010E0C9
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jun 2023 19:33:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kinCgMDdek2Ad3alzdgzBOXmtCjQySBr+RB6H8SOCueGo4CMmDbpmmUfYeFxK6J4V1v0/7o83beJNVl8CCpxVaf6c340f5/TyjfQpR6Jh+Fcb+V4zZ8puSGfvlztM/cq6SxDQxDrqUEVZP+UkrUboMxHMlgwzbtvD0jDt6h1uTPu5w0lJzgkmQh2/B8ZD+QZHeH7mou2srsGJ+IrY+HoLsaQKOmJCn7CbxDxx86OqtrHTA6a6dbfeSkiDSIHX+EUAuK8l7/cydy+OeNbDHIBF3I/EkYfMvHmWyqCZqWOMG5cn0dBzN8t/QhkI9tTO7qMUBlAuTQHeTUu15z+EA79YA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c4yUqW6xvGfwK5MvzKZbV5mS5WIGqtgVcewj6QcLJfU=;
+ b=MfihxIAcnXhoB0MlBuieitXzJa/hhylJOJ/ddsBOcuLfm+uCFe8IiF+VGU9hLNo8WH9LXC3wv71u2rzymyeWLOdad+Hx9YtLdcTjf6MXIR5KwA0alCnGk7+TVBvYFcJs4ofW4p7l8sk1mNfH3cQF9iTUQJa2Px6/apjJJZuxFL8aQ9t4onGSu49pS2Oge+wky5WrbyRgDRZEWGoJbgTBkPG1ZJtRVJ6TW3Fwr2w+vvqLvbIZVxz5h5yZ/xp65JMSUn01j25ieZwxu6ZlPgNUP5JZtbtSPsxXksSJls80i40OVI7yxkTb5Nh1YL5suBTqKc5/lGBeg1bEaEOicPwGhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c4yUqW6xvGfwK5MvzKZbV5mS5WIGqtgVcewj6QcLJfU=;
+ b=1+I3gDqODNtqWc6Jg9NvPaznq0xABIf+yEXoSpgHQM2WcQPnTpFEVPfpiEkBtDDTXk70/lT0iEPJvr1PgF7v9k3MP8eQCK+8XlHAmGZdRmBn89S0BShxnxuI2a6+FDDRBGYUXhNaTPElAP2WHws4pIoAQWBjeLa3EYa18MM+Sd4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by MW4PR12MB6828.namprd12.prod.outlook.com (2603:10b6:303:209::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.42; Fri, 9 Jun
+ 2023 19:33:19 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2dc3:c1:e72d:55bc]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2dc3:c1:e72d:55bc%6]) with mapi id 15.20.6455.030; Fri, 9 Jun 2023
+ 19:33:19 +0000
+Message-ID: <bc736154-f727-a1f6-d83e-826122cd702e@amd.com>
+Date: Fri, 9 Jun 2023 15:33:16 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2 08/12] drm/amdgpu: use doorbell manager for kfd kernel
+ doorbells
+Content-Language: en-US
+To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230412162537.1357-1-shashank.sharma@amd.com>
+ <20230412162537.1357-9-shashank.sharma@amd.com>
+ <2808cded-f913-58fa-a026-6887445ef37f@amd.com>
+ <0c0fb5c0-1183-c4b3-272d-fe153faefa28@amd.com>
+ <4980a1b8-cccd-6d08-a95f-0d7af7b15878@amd.com>
+ <659d9452-7828-5b14-edf6-a3b307d4319e@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <659d9452-7828-5b14-edf6-a3b307d4319e@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0291.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6d::6) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20230609140356.16846-1-tzimmermann@suse.de>
- <20230609174006.GEZINj9lbcJilcUzkI@fat_crate.local>
-In-Reply-To: <20230609174006.GEZINj9lbcJilcUzkI@fat_crate.local>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 9 Jun 2023 15:09:46 -0400
-Message-ID: <CADnq5_Nw3GSCTbE_7b+RTDw2AzpUySb3qoB467oXqcDRib=kZQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: Disable outputs when releasing fbdev client
-To: Borislav Petkov <bp@alien8.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW4PR12MB6828:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6dc0651b-f719-48db-8dbc-08db69206136
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UIdtTGzA3GFV/ydj8zNk9WRRa2MUFT5rFnzfIazur4s8ZfBLi8yqA4oBoaPDJp5sT80ORPFwoDhxMFFmwrMuh3JAxoBBEjEoNWzV8/OMtBmgcXz+hZ/TSG0gdmxQQQJ7LKV0GfJoIf+EtoLvWstovYQtwXhMn3tCtelVMbrgSSDM0vjCme7cV/XGdXHuWyaMLP45sZBqn/H0IH/KXxGqRXLvIT9uQ6THZbWxbZbpRBZp04xO8EtNiOCO7nJEV5zN6FEdrsrvnE/NjAVnvjau1eoDPiHLJ1L+KSAYeKBQNL5o+TmOCRfjsY2ChwNy3uAT6NnIMxQ1eqFj3Wuz31bjwouPIoYofxkyGGsYUFGGvkkWaytk585fMahUSrNp7VcvC1J31kyA0rVt/vBs8olo9xJo/jS2+zTtht7oAhI01KfHA2RXEhElus7JjsvrjU2BWKqrSeN+zwEw54Hv1PWKmiv5ZSxsr3uy6RzZ0sayWyzelOFV2X8Kc/W7oLkW3cigARCJNT6WmTX4dj4HJGKJeTiftdJBo7VnUKUJtKd+ShrRXmVMX0fb4bhpJ9M8sFfrJ9atDZwy08DE6iIha1n2ePmJV7bRvLeGViSYiE214Vbop/1jfUk8IdK0o1XmX4h+HRUXa5ntdCFUv+ydwjYB6w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(376002)(396003)(136003)(366004)(346002)(451199021)(66476007)(31686004)(66946007)(66556008)(8676002)(8936002)(36756003)(5660300002)(6666004)(4326008)(478600001)(54906003)(36916002)(41300700001)(6486002)(316002)(38100700002)(53546011)(26005)(44832011)(6512007)(6506007)(186003)(2906002)(2616005)(83380400001)(31696002)(86362001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Zm1SUjIvYjFBdFdJeGh4aStBMGxzNVB4dU8yajV2STVjNmhJbCtkMUF6UnJD?=
+ =?utf-8?B?VWJMNjl4Vml0SjZIbHNOUllvQ3VrdGd5alBkdnVXcHRoeWxJNGR3ODFRNVRx?=
+ =?utf-8?B?SUpmRnAyVllraGxma0R3UW1sTE0zV1hRbnJOMTdLKzJnQk1YL3EzdnlFUXUy?=
+ =?utf-8?B?TUd5V0swVElON1Rnb3NUQzRqZnlFNDZWdTlxRTI4Uy9wWnJGNXRib0xub2d3?=
+ =?utf-8?B?TW9CYnpjMHBjb3NmTWtjTlZpc21peVplUzdzTFR3d2h6T2JIUEtxbk42bGRD?=
+ =?utf-8?B?QnpoN3JGS1A0SlRncG5hTGJlNmtkSFl3ZGNmNlcwd0hLNHFWU2ZOazdjQStR?=
+ =?utf-8?B?NmRqQkh6YUhXYTA4d2haZmxyUDhPQi9ueGU5UGt2ci9jbmdSRmN4UGNEY1pQ?=
+ =?utf-8?B?aCtCNW9ncXAzUGdjKzJxdk9SQWlvVy85M25TcEFGTTZ6Q2FJQkJUWklNWktX?=
+ =?utf-8?B?Ujc1NW9lZ290SXoveVlJelU5dlB4aWp3WHpidkpmMUtscUtFMDlqS2o2bUZn?=
+ =?utf-8?B?SjJWcFJBREM4WjdZZUpSSHl5a1hidnpSZTJjSHdadjBoaHdYS1Jjb25xSWJF?=
+ =?utf-8?B?Qm5UdnZjWGVGa2JtZG9mMDJ6RDhBL0kxNFhjT3FsY0R2UEJBZDJJYkw0UmRJ?=
+ =?utf-8?B?QkRNUVBBNm11WjJBeEJTd3A2ZVdKTGJrV0dnQ3VuL3FMc1BIa3V1YWFkMy9Z?=
+ =?utf-8?B?K1B3MHFTOGR5ODhDOUFmSHptOWEydlMwRkhVaUZsd2dEblArL2R2QXorK01E?=
+ =?utf-8?B?K1JtZEJvTVYxcnUyS25yclMrVG02OTlDM0FzZmpLT0VweWpuMXd2ZVNxUlRn?=
+ =?utf-8?B?T1ZmSWtnQWlwejM3TWRLNC9ZM29KRXRKaVVBT0I5QW9lcDVXTkEyS2txV0NR?=
+ =?utf-8?B?OUNBM2M4VkhUQzZ6K0VBOGdIWVU2dExlTTlFajFMdFFucUJuRlNkSU1FSExX?=
+ =?utf-8?B?YnBtUXJjN1I2KytFTURxTS9XVFFlZklGVE5FTVExR2tpcGxrTStXbFpOUkNk?=
+ =?utf-8?B?cWM5eE5nd2ppcFAxblExRXNvbnBTK3RYTHB3OXZtOUg4cUFHVkpPWTI0YU5O?=
+ =?utf-8?B?b1RrcW5sZFJRdHFOTG5xenFqUUhBSE91azNXaEhOcjZtL3RUYTVlUUphS2xk?=
+ =?utf-8?B?Q2pWdlYxQlBmVzZFaHFtRjZnZmVYWlo5aGpsVG1uWnpkMEh4dXJES0gvOXRv?=
+ =?utf-8?B?R1NUSFgvbTVwNFVSS0xVelFjd1JuaXNhUXNPWEx4VmhvbzM0dW1TRnVvd0do?=
+ =?utf-8?B?bHZwQXprUzNDQ2pkcnpDZnhld1FNT1NROVVlTkZheTh0L0diOWtsTnFsbWEv?=
+ =?utf-8?B?VVNWOEd1TDJybW02dEZMMFlIanJueWU2eDE3THFDM3JabWV4YWJRNk40ek5w?=
+ =?utf-8?B?TXpMWWVxeUl6c3dlTGpwNU1DZGpOL09EdXJCRm1jazBacEVzZUhjZ0MybzMr?=
+ =?utf-8?B?ZzBZM0pkNGVBZWdORXJLV1JDanFTd1VRZkN2RWtIbEN4L1lCVFYyRFdtWEkr?=
+ =?utf-8?B?TFR3ZnJpQnVTT2JCaUkveTdVWkxhWjlUOEo4N1g2Sm5RRlNyQnVOeXA3eG41?=
+ =?utf-8?B?SkNYQTdrNEUwMUJtMjltUy9UR2VUSytZdFhnRkYxNGRoK1ZBcXNxbjllTWF1?=
+ =?utf-8?B?L2NIWXNURFNKY1BTNERzc2tCbVZvSEYwbnp5QUZUbnNicTd4bmtOcXBZRjdz?=
+ =?utf-8?B?RzFrT1RuQlk3WllZdTIxOG50NGhtNjZYRXNPaUFuYlZSYkFmSXh4UERsb2Er?=
+ =?utf-8?B?LzZIcUtLK2srS1dwVlpVejV3U3FTZElkVTJFMmhGbXVXdjhhY3FqYTI3bTNx?=
+ =?utf-8?B?UUxwa1J2bDBOMmU5QXQ3eHI0QlFKUEIxcmxEVll6OFJWallaeHQxRE5yWnlz?=
+ =?utf-8?B?ZFNxZVBySloxR3hsbCs0MWJwS0hhSnRhQ0RQeVNkZWo3c2xvaXZvVDZ1blZ1?=
+ =?utf-8?B?TU5YTWdlVHZqQkJuZThORHhhYmJYeUF2dENQKzFqUTcySGFCUHdLTURlSFor?=
+ =?utf-8?B?TmI3NXpFdnBWSlY4RnFEOGowa3JuUTNCb2dxR0lEWWhRMk8xblRiNXNGcCty?=
+ =?utf-8?B?aU5Ld3EvR3JSNUZ5czFqYmFXVHJHcW91ZFc5WUp4SWFiMHRhSTBybkJWd1Rq?=
+ =?utf-8?Q?blCzbDdMAIbFVbzCQzE3bm6Hw?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6dc0651b-f719-48db-8dbc-08db69206136
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2023 19:33:19.5697 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iq4Ib2odOfar8Vm715hgc4lNLblwo6i8P3P1Hk9Pm2quNsca/PcEKPkF6TdNpakpzlvllzUsgNUlS7NsjVJgjw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6828
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,155 +131,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, mukul.joshi@amd.com,
+ contactshashanksharma@gmail.com, Christian Koenig <christian.koenig@amd.com>,
+ arvind.yadav@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
 
-Alex
+On 2023-04-25 15:59, Shashank Sharma wrote:
+>
+> On 24/04/2023 21:56, Felix Kuehling wrote:
+>> On 2023-04-22 2:39, Shashank Sharma wrote:
+>>> - KFD process level doorbells: doorbell pages which are allocated by 
+>>> kernel but mapped and written by userspace processes, saved in 
+>>> struct pdd->qpd->doorbells
+>>>
+>>> size = kfd_doorbell_process_slice.
+>>>
+>>> We realized that we only need 1-2 doorbells for KFD kernel level 
+>>> stuff (so kept it one page), but need 2-page of doorbells for KFD 
+>>> process, so they are sized accordingly.
+>>>
+>>> We have also run kfd_test_suit and verified the changes for any 
+>>> regression. Hope this helps in explaining the design.
+>>
+>> Right, I missed that this was only for kernel doorbells. I wonder 
+>> whether KFD really needs its own page here. I think we only need a 
+>> doorbell for HWS. And when we use MES, I think even that isn't needed 
+>> because MES packet submissions go through amdgpu. So maybe KFD 
+>> doesn't need its own kernel-mode doorbell page any more on systems 
+>> with user graphics mode queues.
+>
+> Yeah, for any IP with MES enabled, KFD doesn't need kernel level 
+> doorbells. But I still allocated a page just to make sure we do not 
+> break any non-MES platforms or use cases where MES is deliberately 
+> disabled from kernel command line. Hope that works for you.
 
-On Fri, Jun 9, 2023 at 1:40=E2=80=AFPM Borislav Petkov <bp@alien8.de> wrote=
-:
+Even without MES, we still only need one doorbell for HWS. Allocating a 
+whole page for that is wasteful. Anyway, I'm OK with cleaning that up later.
+
+Regards,
+   Felix
+
+
 >
-> On Fri, Jun 09, 2023 at 04:03:56PM +0200, Thomas Zimmermann wrote:
-> > Disable the modesetting pipeline before release the radeon's fbdev
-> > client. Fixes the following error:
-> >
-> > [   17.217408] WARNING: CPU: 5 PID: 1464 at drivers/gpu/drm/ttm/ttm_bo.=
-c:326 ttm_bo_release+0x27e/0x2d0 [ttm]
-> > [   17.217418] Modules linked in: edac_mce_amd radeon(+) drm_ttm_helper=
- ttm video drm_suballoc_helper drm_display_helper kvm irqbypass drm_kms_hel=
-per syscopyarea crc32_pclmul sysfillrect sha512_ssse3 sysimgblt sha512_gene=
-ric cfbfillrect cfbimgblt wmi_bmof aesni_intel cfbcopyarea crypto_simd cryp=
-td k10temp acpi_cpufreq wmi dm_mod
-> > [   17.217432] CPU: 5 PID: 1464 Comm: systemd-udevd Not tainted 6.4.0-r=
-c4+ #1
-> > [   17.217436] Hardware name: Micro-Star International Co., Ltd. MS-7A3=
-8/B450M PRO-VDH MAX (MS-7A38), BIOS B.G0 07/26/2022
-> > [   17.217438] RIP: 0010:ttm_bo_release+0x27e/0x2d0 [ttm]
-> > [   17.217444] Code: 48 89 43 38 48 89 43 40 48 8b 5c 24 30 48 8b b5 40=
- 08 00 00 48 8b 6c 24 38 48 83 c4 58 e9 7a 49 f7 e0 48 89 ef e9 6c fe ff ff=
- <0f> 0b 48 83 7b 20 00 0f 84 b7 fd ff ff 0f 0b 0f 1f 00 e9 ad fd ff
-> > [   17.217448] RSP: 0018:ffffc9000095fbb0 EFLAGS: 00010202
-> > [   17.217451] RAX: 0000000000000001 RBX: ffff8881052c8de0 RCX: 0000000=
-000000000
-> > [   17.217453] RDX: 0000000000000001 RSI: 0000000000000000 RDI: ffff888=
-1052c8de0
-> > [   17.217455] RBP: ffff888104a66e00 R08: ffff8881052c8de0 R09: ffff888=
-104a7cf08
-> > [   17.217457] R10: ffffc9000095fbe0 R11: ffffc9000095fbe8 R12: ffff888=
-1052c8c78
-> > [   17.217458] R13: ffff8881052c8c78 R14: dead000000000100 R15: ffff888=
-10528b108
-> > [   17.217460] FS:  00007f319fcbb8c0(0000) GS:ffff88881a540000(0000) kn=
-lGS:0000000000000000
-> > [   17.217463] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > [   17.217464] CR2: 000055dc8b0224a0 CR3: 000000010373d000 CR4: 0000000=
-000750ee0
-> > [   17.217466] PKRU: 55555554
-> > [   17.217468] Call Trace:
-> > [   17.217470]  <TASK>
-> > [   17.217472]  ? __warn+0x97/0x160
-> > [   17.217476]  ? ttm_bo_release+0x27e/0x2d0 [ttm]
-> > [   17.217481]  ? report_bug+0x1ec/0x200
-> > [   17.217487]  ? handle_bug+0x3c/0x70
-> > [   17.217490]  ? exc_invalid_op+0x1f/0x90
-> > [   17.217493]  ? preempt_count_sub+0xb5/0x100
-> > [   17.217496]  ? asm_exc_invalid_op+0x16/0x20
-> > [   17.217500]  ? ttm_bo_release+0x27e/0x2d0 [ttm]
-> > [   17.217505]  ? ttm_resource_move_to_lru_tail+0x1ab/0x1d0 [ttm]
-> > [   17.217511]  radeon_bo_unref+0x1a/0x30 [radeon]
-> > [   17.217547]  radeon_gem_object_free+0x20/0x30 [radeon]
-> > [   17.217579]  radeon_fbdev_fb_destroy+0x57/0x90 [radeon]
-> > [   17.217616]  unregister_framebuffer+0x72/0x110
-> > [   17.217620]  drm_client_dev_unregister+0x6d/0xe0
-> > [   17.217623]  drm_dev_unregister+0x2e/0x90
-> > [   17.217626]  drm_put_dev+0x26/0x90
-> > [   17.217628]  pci_device_remove+0x44/0xc0
-> > [   17.217631]  really_probe+0x257/0x340
-> > [   17.217635]  __driver_probe_device+0x73/0x120
-> > [   17.217638]  driver_probe_device+0x2c/0xb0
-> > [   17.217641]  __driver_attach+0xa0/0x150
-> > [   17.217643]  ? __pfx___driver_attach+0x10/0x10
-> > [   17.217646]  bus_for_each_dev+0x67/0xa0
-> > [   17.217649]  bus_add_driver+0x10e/0x210
-> > [   17.217651]  driver_register+0x5c/0x120
-> > [   17.217653]  ? __pfx_radeon_module_init+0x10/0x10 [radeon]
-> > [   17.217681]  do_one_initcall+0x44/0x220
-> > [   17.217684]  ? kmalloc_trace+0x37/0xc0
-> > [   17.217688]  do_init_module+0x64/0x240
-> > [   17.217691]  __do_sys_finit_module+0xb2/0x100
-> > [   17.217694]  do_syscall_64+0x3b/0x90
-> > [   17.217697]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
-> > [   17.217700] RIP: 0033:0x7f319feaa5a9
-> > [   17.217702] Code: 08 89 e8 5b 5d c3 66 2e 0f 1f 84 00 00 00 00 00 90=
- 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05=
- <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 27 08 0d 00 f7 d8 64 89 01 48
-> > [   17.217706] RSP: 002b:00007ffc6bf3e7f8 EFLAGS: 00000246 ORIG_RAX: 00=
-00000000000139
-> > [   17.217709] RAX: ffffffffffffffda RBX: 00005607204f3170 RCX: 00007f3=
-19feaa5a9
-> > [   17.217710] RDX: 0000000000000000 RSI: 00007f31a002eefd RDI: 0000000=
-000000018
-> > [   17.217712] RBP: 00007f31a002eefd R08: 0000000000000000 R09: 0000560=
-7204f1860
-> > [   17.217714] R10: 0000000000000018 R11: 0000000000000246 R12: 0000000=
-000020000
-> > [   17.217716] R13: 0000000000000000 R14: 0000560720522450 R15: 0000560=
-720255899
-> > [   17.217718]  </TASK>
-> > [   17.217719] ---[ end trace 0000000000000000 ]---
-> >
-> > The buffer object backing the fbdev emulation got pinned twice: by the
-> > fb_probe helper radeon_fbdev_create_pinned_object() and the modesetting
-> > code when the framebuffer got displayed. It only got unpinned once by
-> > the fbdev helper radeon_fbdev_destroy_pinned_object(). Hence TTM's BO-
-> > release function complains about the pin counter. Forcing the outputs
-> > off also undoes the modesettings pin increment.
-> >
-> > Reported-by: Borislav Petkov <bp@alien8.de>
-> > Closes: https://lore.kernel.org/dri-devel/20230603174814.GCZHt83pN+wNjf=
-63sC@fat_crate.local/
-> > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> > Fixes: e317a69fe891 ("drm/radeon: Implement client-based fbdev emulatio=
-n")
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
-> > Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org
-> > ---
-> >  drivers/gpu/drm/radeon/radeon_fbdev.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/ra=
-deon/radeon_fbdev.c
-> > index 28212c2d6c98..ab9c1abbac97 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_fbdev.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
-> > @@ -304,6 +304,7 @@ static void radeon_fbdev_client_unregister(struct d=
-rm_client_dev *client)
-> >
-> >       if (fb_helper->info) {
-> >               vga_switcheroo_client_fb_set(rdev->pdev, NULL);
-> > +             drm_helper_force_disable_all(dev);
-> >               drm_fb_helper_unregister_info(fb_helper);
-> >       } else {
-> >               drm_client_release(&fb_helper->client);
-> > --
+> - Shashank
 >
-> Thanks, that takes care of it.
->
-> Btw, I'd trim that splat in the commit message above so that it is more
-> readable. But that's for the committer to decide.
->
-> Tested-by: Borislav Petkov (AMD) <bp@alien8.de>
->
-> --
-> Regards/Gruss,
->     Boris.
->
-> https://people.kernel.org/tglx/notes-about-netiquette
+>>
+>> Regards,
+>>   Felix
+>>
+>>
+>>>
+>>> - Shashank 
