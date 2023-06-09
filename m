@@ -4,116 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1B72C7EE29
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 19:34:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FA00C7EE29
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 19:43:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5264610E6DA;
-	Fri,  9 Jun 2023 19:34:32 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2075.outbound.protection.outlook.com [40.107.96.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D48B310E0CE
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jun 2023 19:34:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27D8D10E0CE;
+	Fri,  9 Jun 2023 19:43:58 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20619.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8d::619])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C573210E0CE
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jun 2023 19:43:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oMmPnHvR7zr45LUbq+fqRuFyvcnlyTPqiW4oe7UHdoxqZACvUX54LBMtAyOQKjoQoEJiGpXpGRWwgldvtgCvXQKyK2LxSEtyTNKxoZ5QtJKfue3TxMUCROwyg939xzNziAQ462Hn1p7iAYhJvJ6zsZLE/GppKrPCKO8It1rGN8ulY26l8ndEiOZuVjqAEWifFdf2KTNItVesLszTIa37Uh9XPDyq/MoRrBveWTTO1f1V1nrQQRvVSVRpRaHGu/Dva+UZBgvZa3r+VErJvGZoCU2O0Tn1r/Yn9WaxC1TYrQyWU0jiBl3TZHMW2lFBBk3YJkIDDZ1IWcHxRRToQGdrLw==
+ b=ADxsCGfyhxsTh+cJ7wIolipenuLbjZBvorXqFVQKNq7nTqS9hT4VWVkzROyCnTRn9z/m2dbd6DL8g6LA0XQAOrYieuCSF9yvyPrv2Cwp/keCp4hBD0RkKhLzupC9v3Zv5doSkhyGWB49Ft6SSb7GRmNrkEnOis1jf8Q0hOQEDxaIR4zxrw9XsKx84oICTLpX5xB76y+i6N9tDlK8sUPSSZHiKhADR4QXRKbAM9jnXTNf1dNK/wxo45z6iSd8k9qvi7AVJxeqQR3IeXSP51WkKPRaKH9+vnBUgvhhwIEXM6l7NCbaYUkMsrpyUXF7JDTn43frJt9MKmWSE7r4KOuJgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=47qbcxdjnHmvTGjEUQZkWC8ZjrtU+GVf5MGJdATavOA=;
- b=THGVkIt7ufh/516bUXSueiZWbcFMcLNR+JDk0fka0T0/7KwYhLnod83vU/9MPCMScm/g5wjCqHf8ekleRJibwA18cuYA4lhyq+4qprgxNzR0U68qlaU+m1DSLKD1EQRMbfJxjoF0flKKhztBN0OwzCGdsVbAmvBL/GrHlGkk6JMtixKmUXmkcnXLdOWjHh5irI4vZAhwpKcmJUdXlEhGzorFsgMbG2kbHEnCjdrxhJiqasIoyrXdc3sa+hpVhbmK1dl8577F1LSE0ajjve/TVt8MGfbwjhRSii17DVyGRged2s3weIWVE8qO9fip3gzMWuxYWXdt96oqhVxyJCO0Uw==
+ bh=891NQRS7Oj2GNnvYzXpYgTYz1n93MWLIv7ihzMc4JoM=;
+ b=AUWDkb9Wjw6YxpzFYfpfaUAQaIp/Ti23XTwJhMYiD1mqvNTxYkVa0SLDiP0VVKcsQA7AcJiflwjl9TO4e8ychK28wzOt3rwiiDgMDTO7gQFdKlEK1b9yuIpsrircnZGJaZ1Lxhj/nhfnLzbrFq2w2rcloHzF0uP1UBUtAogxLeIPvrY6m/Iu3eApSECmq7A058joEvq68/aCqdhKYj6V9GegsBYd+6eZLRbnJ5VDL7SBV6EmycDcnpvWPsRlhoZRKeeff3g9kOUmBKrqP/JwpF56P+wAkrnIo00Upaznl7qU3WcV7Z9odAOcxKNQ87ydiYmOifgl4FoFBtMYo8/6AA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=47qbcxdjnHmvTGjEUQZkWC8ZjrtU+GVf5MGJdATavOA=;
- b=UQoFhe5sq+uu+v/0FM9nKiYs3+CIhEwibrmQFFgYuxFz1DlFMBDN9dIt2uneyDI55eJLhegM12eNxqUEiGziMD0AaRpk7o7b91KC4wDfMdghOh+bvsL8J6xhtz4Fdex+eNn/I8VnAAbg/81VuJkGtals42VPmmi+u9D6nl+scHg=
+ bh=891NQRS7Oj2GNnvYzXpYgTYz1n93MWLIv7ihzMc4JoM=;
+ b=h0dP1uaQTdjH494YqO2+oRMnnP9FlUYz3Ce7TCYTKwxITwqv4h4k/lmebLavtnIb/penwrTQWyUeA6REbXS4orgwON/EU4FxJ0gvAcSb46HrE/5zG4uROr16dAU0n3oNQdQoxOgONEe7cHMua+kbiRo3vWzFQ+viKRaWJx0VbmA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MW4PR12MB6828.namprd12.prod.outlook.com (2603:10b6:303:209::13)
+ by CH2PR12MB4087.namprd12.prod.outlook.com (2603:10b6:610:7f::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.42; Fri, 9 Jun
- 2023 19:34:27 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.41; Fri, 9 Jun
+ 2023 19:43:51 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::2dc3:c1:e72d:55bc]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::2dc3:c1:e72d:55bc%6]) with mapi id 15.20.6455.030; Fri, 9 Jun 2023
- 19:34:27 +0000
-Message-ID: <ed23c69f-ab34-86ed-4df7-1590430ce441@amd.com>
-Date: Fri, 9 Jun 2023 15:34:24 -0400
+ 19:43:51 +0000
+Message-ID: <cb634cff-ccf1-1bf1-569e-c3cc503aa7eb@amd.com>
+Date: Fri, 9 Jun 2023 15:43:48 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v2 10/12] drm/amdgpu: remove unused functions and variables
+Subject: Re: [PATCH v3 3/5] drm/amdkfd: set activated flag true when event age
+ unmatchs
 Content-Language: en-US
-To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230412162537.1357-1-shashank.sharma@amd.com>
- <20230412162537.1357-11-shashank.sharma@amd.com>
+To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230608170705.2271276-1-James.Zhu@amd.com>
+ <20230608170705.2271276-4-James.Zhu@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20230412162537.1357-11-shashank.sharma@amd.com>
+In-Reply-To: <20230608170705.2271276-4-James.Zhu@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0287.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6d::13) To BN9PR12MB5115.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR01CA0134.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:1::34) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW4PR12MB6828:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ef1edd0-ecbd-435c-ef0a-08db6920896d
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH2PR12MB4087:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8a8006a-8d4b-4f7e-d606-08db6921d99c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: L/W0CG1JyPzWyWg7lWeROSS9jRucDH4bpmekcp0Med5/K8/z3XADwTqYwuSQJ4nxDLvsymGoVKRzNVQMG/1I11+jQxBmQ9QFxEjjobbDt+0sRbolVI6vSNJ+PxKXlLtfWQ+7spAkOqmtapwxosF9maZUlfWL/rVFXcJGrPooQ3M9HjoNmJpGL37tHL+jlu7MYCI178R+iiIttbqB5xsaxek1O5f8/iHuTWLOFCVlid0KGnD0KcEmlWvltxO+pDOiGIfFLEnf2F7dT6rXhbbojcSQQsSwqWo3/HAx5f9ppDCXlSyXBMYlrk0ZsjdT70uMCkW1o+4Pq6EW2D567MXiaH4e/zCZVGMVek+jc/XM271HbDg7Pq8T5jrL+Fq0B+r2eCDVqBcLTN20Z4c4znstZnT7uz21HE3CYzECekU0IbDU5SO1x6iVrFR7yIKWhgmVTSGxMDlVlRubOsQxNNgxT34y7DyHNTv8taO5aE5GCS85+IMZK6i3hZ62UEb9Q3WQ96zqpL7/7l5R+zr2WrzQsZNDi5RbUmKFNRGze6QtNoJYwoNinuSlwiu4BYAJhfQVmKP9OGaOfn2snJYRyxKevsBeEDTbwXwYjHRBrQgIUPt8wefz/GmXuk6Y+vL4r+GSA+6AEuxY4OMYeGa8+eRlxA==
+X-Microsoft-Antispam-Message-Info: BAr45jMlffFB+SazV2vl2IksGhJx7JF9i2TuDtG7wy6sHkDOhkbWzstZXGWU6tCIxlnAkl6xpnDDh/zNUNdQ06R8jmBqq7tpRCW927z3D6eSkV2C0K26VungKyKZYP34Nht+htnsJ7+jQruWPZmT7iuDgDafwPAC38H/i829HX7r1OpANby+mNtXEI0nkimGv2XKDShe1MmPOjwsAVl1s7l0yeXJ7jce7N0MkUiXlinurPEE92Q72fA9PHSFmTdDdWDcNeS+szfwQTOQtsdZuag/PXCYONN7ArYai7TNvI+t46ydhohuxTqi76dPbtT2Fqs3fVCGJ270JGe+PBXJP5fzvNE1R1Jnc22kf9RPxmx2wiVJLfw8UFmqmDX6DZvTewZ2hkeDca4OuUcATLAwRcqwrSeWCI/SRFgdN8C75Co8hW+l9SLedT8wGQ7jnGTCPaJEXZBg2WV0tUY7fk0aX1i76bh0d/DV/oNhdb3d04STkk5Kp7jx1JDGvmvFm/TMHW+3aZFM84nerTgJHItQcTv+/aHuRHi1ZT+fyEHq/ILthapJOAEghILrhD4ra6REPNOo5xbGXXQPjDlwmRvGMx8SJHo/3CUwt/0a0kqCU9tSBzqnqaKOTNPI/IRQ2nwguphcq+1pV7cK3VpYxzLY/8vaJyWzPDsounTdjsG0g+A=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(376002)(396003)(136003)(366004)(346002)(451199021)(66476007)(31686004)(66946007)(66556008)(8676002)(8936002)(36756003)(5660300002)(6666004)(4326008)(478600001)(54906003)(36916002)(41300700001)(6486002)(316002)(38100700002)(53546011)(26005)(44832011)(6512007)(6506007)(186003)(2906002)(2616005)(83380400001)(31696002)(86362001)(43740500002)(45980500001);
+ SFS:(13230028)(4636009)(346002)(376002)(396003)(136003)(39860400002)(366004)(451199021)(186003)(26005)(53546011)(6512007)(31686004)(6506007)(2616005)(83380400001)(36756003)(6666004)(6486002)(44832011)(36916002)(2906002)(8936002)(8676002)(478600001)(4326008)(38100700002)(31696002)(86362001)(316002)(5660300002)(41300700001)(66476007)(66556008)(66946007)(45980500001)(43740500002)(309714004);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b09xNjd3eU9ZY0JjdndYbkxERzJMT0xrN05aeXQzRzZseXVjUUFyMHBQdXJz?=
- =?utf-8?B?TEhCSTcrUnhQbjFkaG1PY1JQUk0xZ0xOZlQxY2gwMEFQVXA3NW1yY1JTWHIv?=
- =?utf-8?B?K0FORGd1aXU5UXZCRFpqRFEva2dLSUx2MnloOUdPeXFSaW5ydFRCSHF3ZllN?=
- =?utf-8?B?VllTQnBkUTB5MDRZM3drWkVyV0ZRNldJb0x5TzI5bDdiREFRZ1RpMU81VjhS?=
- =?utf-8?B?QWRZVjdOL2x0c1ZCeEhkOUErMWhMOGozak51UjBrYWh2SHFDdCtaNFdLM3Mr?=
- =?utf-8?B?cG9RaStuQzFNY09lS0JnUFJrTlVXOWRYKzYzRlV1QXlEajNmVHNpYXE0WEZO?=
- =?utf-8?B?RHllU24yUTd0UDdscXZGQWVEaXhwZytXU09BU2M1NitySGh4QlN4SWl0WS9t?=
- =?utf-8?B?cFZGcDB2eWZLQUMvbFRKMzFHZFRzUUpRc2JkU0pDTXAzQVpjTENWd0xzSmNM?=
- =?utf-8?B?d3hERUtPUjNiQkl1b1JHQ3dxWmR2V01uU2pSQVdpSFZWNjdpa1pZNzF1dGdm?=
- =?utf-8?B?eUptWUlrVG9ZTHZhK28ybzBvR3ZUWUxEVU5WMmlqSGY4R2N4ZXYyaWZaNHpN?=
- =?utf-8?B?Q2k0VUZHVEx5MEIrUXdDYjd2Tm1CQzVGMHlpbnlDeTZaK3YvemtRZ09oNVMv?=
- =?utf-8?B?bmk5d1ZTRE9maTVVUVdhWndjS3EyZWJReDh5Z29ZaERMa1BCZlczY3NVUUxE?=
- =?utf-8?B?SXB5cVgwemc1Sk85YndQQ0QrWG56RlUyRlEzTFZOOS9nNFVuMzlxcVltN1lB?=
- =?utf-8?B?T0p1Q1UxVGFROW5haGJacGtheStVQVA2WHlkQW8rODB2bTFIdkwzOElrL0th?=
- =?utf-8?B?TE90V01idmRhbi85amJJMnhIejArOFc0S0FOelU1VExqRzk3MWNBcEJzb3Vm?=
- =?utf-8?B?djdEcFd0NWNiY3A2aDdZQ0NiTHhJeUYzMlYzMitBZVhIY3N6c240dm1GVnFC?=
- =?utf-8?B?VmloM3ZneVFNanpKMUNoS2dLRGNCYnlXOUEwTlBsb3MzVmNaRVBxUjNYZEFO?=
- =?utf-8?B?ZURrcUhFKzRFTlpvRUJSTmNuQWtRaVVnOEh1RG44T09Sa2RheHdDTzk5R1VZ?=
- =?utf-8?B?ekRwRjFCTE4rUXJ3Smg1ajBLYmQyVHRrKzNUSEljKzQ1NVhyc1Z6YnJwN1g1?=
- =?utf-8?B?MXZIb3lYTzBielVkdGxocjA2R3FlWlQrMmdhY1ozYkZNc3JhQ1pPRVRidzNI?=
- =?utf-8?B?MGZLMXhLREFCR0U2VHJuUlJFYnlQZlFjVEFTL2FHMnlpQzJpNUJDOVQwakNR?=
- =?utf-8?B?dCtzUnRVQ1hiZVFXZmVpM1BMY1FaTUE4Rm5BTmZxR2lDZXNNcXcvZDVvQ0hJ?=
- =?utf-8?B?d0JkMEJqeGtFUzY2dStFYllVMVNjS3plMTRaaVpBa21qcUFDSmU1UEFyUFNI?=
- =?utf-8?B?YmgwM2VTT0xjejVidXpjR3FRRUZna3JWQTlBdXJMODBtMTJZekd6N0p3MVg3?=
- =?utf-8?B?NjFNa2tKRVZaSDJ6V0h2M09QOWRnS3FEZlRidHQ5b2lJUHF1RWxpNHdGdmh2?=
- =?utf-8?B?UTlMcjhnK3UzQ2tYSldiZGRaNjlHRm5lbWdoN1NXWWE1blo3NkZLRk8zRVND?=
- =?utf-8?B?djhjN2JXdnNTWGZnWEJ2SkdwNk82bmJJbkpRNHlodkpvSEx6ZHRCYWZrNlBL?=
- =?utf-8?B?VUo2RWVIQjE5dUk2Y3d3M3RVUCtwZVQ2bVV4SVU0VlJTclN5N3NoWUFtVERZ?=
- =?utf-8?B?ZU5LODN1cGk2MzdQdlkzL0hhTEl5SUMzSDh6ZGIvZENGdTEwYVliYnY2dGVD?=
- =?utf-8?B?R2ZLZVFpdE1NL0U2RGJBeFg5cGdjdlA2ZmtNS2U3eG5NdDhJZjVNY1MyQU1Z?=
- =?utf-8?B?YUZ3ZUtGY2I4UXlaK05Ia2g3M3lJSXJtQUZjc2tEZEpkRGt4enBsQUNpZC9G?=
- =?utf-8?B?SkRmTm5UN1IzZU9qVHF0enJzL2pnekpEM0dCNXZWR3k3bHRSWTkvN1hUbW5l?=
- =?utf-8?B?MFZqMGRSeTNSV0NkL3lwVCtlSEloZXRCWElJclRYU0JWWERGdHNFYitSRWpo?=
- =?utf-8?B?cFZ1cTN5Z3BTRVVBVXNzcnViSTl2V1ZaTlpVbHFxRCtWajFXTXdQVGxDZEVp?=
- =?utf-8?B?SDRMaXcrMENBcXhLOXBJaFNNUEFITDBicjJBU01hbTdzdEhFT3NKM0RhcWln?=
- =?utf-8?Q?6HxQw5z74BUtEdj4Y6qF1PHuZ?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bTdsN1Q1WGtvWDIwV0Npc25QVVFJeWloREg1Rk5FMFpRQUxROHlGMXBuQ3RQ?=
+ =?utf-8?B?WElFdkZyVHNyZy94QlBmRVRia0N0MFp5V0ExZ0Y3WG5jRjhIdEZIYTJ1MUtY?=
+ =?utf-8?B?Y1VjUXczRnllTnRPNEdhSlh2Y21jZHFkQyt5MUNYYmRFZjdWSTR4M3F0VFNl?=
+ =?utf-8?B?MFhiRVpEK1BsTmJaSW55TU03d0pHUTRWTGRVTkgyMkxpS2FBakRJdXlNTjNW?=
+ =?utf-8?B?MVQyWWwwMkZORDJOQTg0RytsMTJmMkJHU0VHR3hxNENNYWVCNlhPYy9ETG4z?=
+ =?utf-8?B?b2V1Y3phSTVKTklmZlVNRXNWU1NjSjJMeWJRSEc3aVBYL0RScUptWFNNZHJi?=
+ =?utf-8?B?Q2JDTFNsMUV4NmkvUWxBMUNjWWZQaHU2cTlnSGh6L3pCVEYweXFDajhlUjA1?=
+ =?utf-8?B?cUhjb2h4cGNCMG5rM3NPTnJlVE1JWXpjZ3lleUUxTWZKVkQ4emhNVUhpN2JD?=
+ =?utf-8?B?NkQ2elBidjRJcmZteDl0NVdnLy9ucm91bUtIYkhzL1ljYS82Vm1uZzlUdUd6?=
+ =?utf-8?B?MHRqZzhKT01JalZvclVqNC9XVWt0bFJ6UE8wSmswc2U4THJpVGIySHpraTY5?=
+ =?utf-8?B?SVI5U3dGblZadTlweFFLNWp3MlBxSFBJY2h1SHE0eC8yZHJVeThKOThzZm1B?=
+ =?utf-8?B?a2ZEZDBGNnpTL1BtM25FemtOOXhwdEE2L1JYelRsb3ZDYnBJUHZLREppN1Ro?=
+ =?utf-8?B?TzVqeHNOUFBzZVVXRDdMaVJxN2VmZVBHamhUbHloT1IxWTBSbUpyQ0hxeHRy?=
+ =?utf-8?B?dWVScFJWWUt5WkhNWEVxR3RjTkJldDRWeXVnV0tTR3VsREdZalZhcEVFVjdS?=
+ =?utf-8?B?WGNuVUNGd2F5Z2QxaUhhQUttSHg5bVo0d2trV3ZPVkxFVlBIMGRuUU9qSzNY?=
+ =?utf-8?B?eElQcTZFMHdPd3pLaVZRVVAxVVJWazY0SVQzZHJ0UjJacllGUUNVNnBnR0lr?=
+ =?utf-8?B?ZUhjSWVHRmE1QTZaVUh6MGlzTEt1M2ZOazFJZWZGc3EvSURDZkNzc0xMbWVM?=
+ =?utf-8?B?UzA3NWF2VUNROHZRZDlSMjkzUkpSQ3pRd2l4VTdrRmplRTNTd1JMQUFqZ3JY?=
+ =?utf-8?B?ZWZRVHMrSnB2VURydXcrbHdRSHJMY0tOaTQzcTdQZCtzWTFmd00zWmdseXlR?=
+ =?utf-8?B?Ri80NmE2bXEzdytPSVQyQTZYcFlmSWpuMG1wRHlBUmFyV09JL0JGVGdYTWRH?=
+ =?utf-8?B?anBpdGhidU5yeGR1eWhUQ3N3d0FXVVBVZGc3WlFka2hFTmlOZHlZZGRjd0tY?=
+ =?utf-8?B?SzVPZzNIb2tFNmFxK3pBNkhzc2tUY05nS2tHcDNuSWdGc1pGV2R2b1FCNGpj?=
+ =?utf-8?B?SytBNFluNExYOFEvY1NUTXdyL1EyclNvUFJGeWEyQmEzdFhvRjhmaUNTb1lz?=
+ =?utf-8?B?V2psNnRpTTJ5b2c5dnd3WDR4RjVJeU9VSmVLUm5zMFNRditCM2JpWmd3UU95?=
+ =?utf-8?B?MVNYWG56UzZqZHhHQ2RpVXkyZ2dvU3NQa09hQjkwT0NudmNHYTByY2ZGemwr?=
+ =?utf-8?B?d0s5MEVQRCtEVmFzOFhCUm1rWmhvbUdHeVRpYXFHWDU3NXY5NVVsMXJwZXZL?=
+ =?utf-8?B?a2J5dC9Tb2UzWGZRNXVabWI2bUNhUUFVT0U1VDNyRHNPdnVRMm93cm5aZXJG?=
+ =?utf-8?B?RDg2UHBsTkF3M3RaWisxVUp5N3g2aXJRNlkrZzR5RmR2U2F3YTQ0azdpNHlY?=
+ =?utf-8?B?MGVNb01KblZ6VUhTMldFVkpQc05LYThZUUZGWS9RSXU4U2l2M3NSVHBzS3pp?=
+ =?utf-8?B?QzhUZmg2aUFRZHBlWjF5TG9kK0tSRTE2N1FiK0Rld3BpSjBBSmhxdUNxdE1L?=
+ =?utf-8?B?WGZYYUxNZVVNRmwrZkpCYTFObkJieXo4QVBIN0pOR0tWdUI2bUIwb2FJaGto?=
+ =?utf-8?B?Yzk2NmY3VW9DV0xKTWNCclNOVzgxaFhna0YvUExhTGlaSTZ6UUVHSWZhME9U?=
+ =?utf-8?B?VTNReWxldWRIUFp0aC94N0c2amFmNzJySWhGYzl4ZGxmY1hEQTRUcjMzSU02?=
+ =?utf-8?B?S0ZFSldrN3dScDJ6VmczazJ0SkRNZzJOR0E2ay9uZ056RTFqK0NQSmN6d3lU?=
+ =?utf-8?B?WnFGeEJhdHZyTG9OREdGaXVQeDZOeHZTZGdTaVB5VFIxZld2dERETnQvVGxZ?=
+ =?utf-8?Q?6mBmJV0fOEG5aC3S+2kv7PKnT?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ef1edd0-ecbd-435c-ef0a-08db6920896d
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8a8006a-8d4b-4f7e-d606-08db6921d99c
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2023 19:34:26.9898 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2023 19:43:50.9883 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Gn3QbfDnQgKaede4AnueOwhbFuNDeeiRfG67yX+C95VbIFMfaIEndOISxsNhPjex54XoW5wAubz7IicjM0K+2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6828
+X-MS-Exchange-CrossTenant-UserPrincipalName: Rtg1YewzQ4fBuQKWvX4R4dvutMoRlavMxaVSsCdIAgnopag3flolTu1S3aNjY4InBng6iUc6tyTKSvRp8+oqpw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4087
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,106 +127,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, mukul.joshi@amd.com,
- contactshashanksharma@gmail.com, Christian Koenig <christian.koenig@amd.com>,
- arvind.yadav@amd.com
+Cc: jamesz@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-04-12 12:25, Shashank Sharma wrote:
-> This patch removes some variables and functions from KFD
-> doorbell handling code, which are no more required since
-> doorbell manager is handling doorbell calculations.
+
+On 2023-06-08 13:07, James Zhu wrote:
+> Set waiter's activated flag true when event age unmatchs with last_event_age.
 >
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
+> Signed-off-by: James Zhu <James.Zhu@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 32 -----------------------
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h     | 12 ---------
->   2 files changed, 44 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_events.c | 15 +++++++++++----
+>   1 file changed, 11 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> index 718cfe9cb4f5..f4088cfd52db 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> @@ -193,38 +193,6 @@ void write_kernel_doorbell64(void __iomem *db, u64 value)
->   	}
->   }
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> index c7689181cc22..4c6907507190 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+> @@ -41,6 +41,7 @@ struct kfd_event_waiter {
+>   	wait_queue_entry_t wait;
+>   	struct kfd_event *event; /* Event to wait for */
+>   	bool activated;		 /* Becomes true when event is signaled */
+> +	bool event_age_enabled;  /* set to true when last_event_age is non-zero */
+>   };
 >   
-> -unsigned int kfd_get_doorbell_dw_offset_in_bar(struct kfd_dev *kfd,
-> -					struct kfd_process_device *pdd,
-> -					unsigned int doorbell_id)
-> -{
-> -	/*
-> -	 * doorbell_base_dw_offset accounts for doorbells taken by KGD.
-> -	 * index * kfd_doorbell_process_slice/sizeof(u32) adjusts to
-> -	 * the process's doorbells. The offset returned is in dword
-> -	 * units regardless of the ASIC-dependent doorbell size.
-> -	 */
-> -	if (!kfd->shared_resources.enable_mes)
-> -		return kfd->doorbell_base_dw_offset +
-> -			pdd->doorbell_index
-> -			* kfd_doorbell_process_slice(kfd) / sizeof(u32) +
-> -			doorbell_id *
-> -			kfd->device_info.doorbell_size / sizeof(u32);
-> -	else
-> -		return amdgpu_mes_get_doorbell_dw_offset_in_bar(
-> -				(struct amdgpu_device *)kfd->adev,
-> -				pdd->doorbell_index, doorbell_id);
-> -}
-> -
-> -uint64_t kfd_get_number_elems(struct kfd_dev *kfd)
-> -{
-> -	uint64_t num_of_elems = (kfd->shared_resources.doorbell_aperture_size -
-> -				kfd->shared_resources.doorbell_start_offset) /
-> -					kfd_doorbell_process_slice(kfd) + 1;
-> -
-> -	return num_of_elems;
-> -
-> -}
-> -
->   phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
+>   /*
+> @@ -797,9 +798,9 @@ static struct kfd_event_waiter *alloc_event_waiters(uint32_t num_events)
+>   
+>   static int init_event_waiter(struct kfd_process *p,
+>   		struct kfd_event_waiter *waiter,
+> -		uint32_t event_id)
+> +		struct kfd_event_data *event_data)
 >   {
->   	struct amdgpu_device *adev = pdd->dev->adev;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index dfff77379acb..1bc6a8ed8cda 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -257,15 +257,6 @@ struct kfd_dev {
+> -	struct kfd_event *ev = lookup_event_by_id(p, event_id);
+> +	struct kfd_event *ev = lookup_event_by_id(p, event_data->event_id);
 >   
->   	unsigned int id;		/* topology stub index */
+>   	if (!ev)
+>   		return -EINVAL;
+> @@ -808,6 +809,13 @@ static int init_event_waiter(struct kfd_process *p,
+>   	waiter->event = ev;
+>   	waiter->activated = ev->signaled;
+>   	ev->signaled = ev->signaled && !ev->auto_reset;
+> +
+> +	/* last_event_age = 0 reserved for backward compatible */
+> +	waiter->event_age_enabled = !!event_data->signal_event_data.last_event_age;
+> +	if (waiter->event_age_enabled &&
+> +		ev->event_age != event_data->signal_event_data.last_event_age)
+> +		WRITE_ONCE(waiter->activated, true);
+
+This needs to check the event type. Looking at 
+event_data->signal_event_data when this is not a signal event is 
+illegal, because it is aliased in a union with other event type data.
+
+Other than that, the series looks good to me now.
+
+Regards,
+   Felix
+
+
+> +
+>   	if (!waiter->activated)
+>   		add_wait_queue(&ev->wq, &waiter->wait);
+>   	spin_unlock(&ev->lock);
+> @@ -948,8 +956,7 @@ int kfd_wait_on_events(struct kfd_process *p,
+>   			goto out_unlock;
+>   		}
 >   
-> -	phys_addr_t doorbell_base;	/* Start of actual doorbells used by
-> -					 * KFD. It is aligned for mapping
-> -					 * into user mode
-> -					 */
-> -	size_t doorbell_base_dw_offset;	/* Offset from the start of the PCI
-> -					 * doorbell BAR to the first KFD
-> -					 * doorbell in dwords. GFX reserves
-> -					 * the segment before this offset.
-> -					 */
->   	u32 __iomem *doorbell_kernel_ptr; /* This is a pointer for a doorbells
->   					   * page used by kernel queue
->   					   */
-> @@ -276,8 +267,6 @@ struct kfd_dev {
->   
->   	const struct kfd2kgd_calls *kfd2kgd;
->   	struct mutex doorbell_mutex;
-> -	DECLARE_BITMAP(doorbell_available_index,
-> -			KFD_MAX_NUM_OF_QUEUES_PER_PROCESS);
->   
->   	void *gtt_mem;
->   	uint64_t gtt_start_gpu_addr;
-> @@ -754,7 +743,6 @@ struct kfd_process_device {
->   	struct attribute attr_evict;
->   
->   	struct kobject *kobj_stats;
-> -	unsigned int doorbell_index;
->   
->   	/*
->   	 * @cu_occupancy: Reports occupancy of Compute Units (CU) of a process
+> -		ret = init_event_waiter(p, &event_waiters[i],
+> -					event_data.event_id);
+> +		ret = init_event_waiter(p, &event_waiters[i], &event_data);
+>   		if (ret)
+>   			goto out_unlock;
+>   	}
