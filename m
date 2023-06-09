@@ -4,56 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB5E8C7EE25
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 02:27:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3814DC7EE29
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 02:32:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F0D110E62E;
-	Fri,  9 Jun 2023 02:27:45 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0B34B10E62E;
- Fri,  9 Jun 2023 02:27:42 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8DxDesdjoJkddkAAA--.2723S3;
- Fri, 09 Jun 2023 10:27:41 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8DxFOQbjoJkAIAJAA--.29115S3; 
- Fri, 09 Jun 2023 10:27:40 +0800 (CST)
-Message-ID: <0d2ba099-9817-13be-c85b-997211443119@loongson.cn>
-Date: Fri, 9 Jun 2023 10:27:39 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EFB410E631;
+	Fri,  9 Jun 2023 02:32:43 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD25810E095
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jun 2023 02:32:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GRbgJgMpvkBxSBV7HVIpnnjBgQ0UGwecCcz9Dkhd7RPlzVtGAlxlH1Syn4cwl3WxdI0qoSR9WjSZXlUHYfyW7K+PZgpJIOMTtBsjqRBNo1S4PWpOXPhn8z2mi9eBP6540sCcIlf0kmi2MkKYR6YWWaIVjIYJatdXjCCsTHz+Mzvh8d61clYrcc3iwtu5lemWoq9mMBqBCPaKkEk3bZuXkqbBGP2yG+/gvzvMfE+mvKKJVB1q15eCJDoHcMOopzmnHmgIQxzO2tFB0VVc89H5j6afBj1G/zVCEMapq+ZGa8wseIjaxFc5LLSslRI8kwrKBTw+SvGl4MV2B8XuspIlPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z9CfOdts+xIFydZFBmcXWTdMxDHus76tBjqR36lYLIg=;
+ b=nIjV59RxYRHTYpLPg/9iUEBaT/nWMjiD8WZ8CIQo3oH/4ZmL82nHssx3Ih4kqtuYyPk0eyNXEr2DAUL9BbiuUCe3Bvb3VvuNvxwSowVUK8UowxsdxqSvgLN2P36xgbBwsbjXn4E1hGwoYlCns0g4A1f7SoyV7mUV2HMsOu8VWYGGaoVN7gKtyyGady3a6bQiiZDUqCxpGxOQhmgZDlZM27B1bHaQ7A4z7XT3ZYerJcwbyiHpjjl6iOj1aAE6iELyZNwLy3dTcRpMCadpk6qjb9m3PkepjEr1uBASX4lYUw6eS1Q6uy/iNIqJgGZK54X5unNE/KleNRi1UNCfRXvLvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z9CfOdts+xIFydZFBmcXWTdMxDHus76tBjqR36lYLIg=;
+ b=HwylO3zO5MsjU9YlpyXTDGKUhX0gefv7nmg7R83JIufJCkOXMU3IJ29gbegPDY3ZvEa6Kul5ych6P15AtBDZ7p9Swd5Vm7yr6wcWgJI6780Kh47SveWakpGOUZmR1CY+F9Mx/6NySaHkZ4LX8VSJrdgc22RbJQFYKi6C5noYBQc=
+Received: from CY8PR19CA0028.namprd19.prod.outlook.com (2603:10b6:930:6::6) by
+ DM6PR12MB4201.namprd12.prod.outlook.com (2603:10b6:5:216::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6455.33; Fri, 9 Jun 2023 02:32:38 +0000
+Received: from CY4PEPF0000EE39.namprd03.prod.outlook.com
+ (2603:10b6:930:6:cafe::ec) by CY8PR19CA0028.outlook.office365.com
+ (2603:10b6:930:6::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.26 via Frontend
+ Transport; Fri, 9 Jun 2023 02:32:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE39.mail.protection.outlook.com (10.167.242.13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6477.13 via Frontend Transport; Fri, 9 Jun 2023 02:32:38 +0000
+Received: from ruiliji2-lsy-2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 8 Jun
+ 2023 21:32:33 -0500
+From: "Ji, Ruili" <ruili.ji@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdkfd: To enable traps for GC_11_0_4 and up
+Date: Fri, 9 Jun 2023 10:31:26 +0800
+Message-ID: <20230609023126.197544-1-ruili.ji@amd.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [Intel-gfx] [PATCH v3 4/4] PCI/VGA: introduce is_boot_device
- function callback to vga_client_register
-Content-Language: en-US
-To: Bjorn Helgaas <helgaas@kernel.org>, Sui Jingfeng <15330273260@189.cn>
-References: <20230608191924.GA1210122@bhelgaas>
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-Organization: Loongson
-In-Reply-To: <20230608191924.GA1210122@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID: AQAAf8DxFOQbjoJkAIAJAA--.29115S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoW3Ar18try3CFy3XryDGry5ZFc_yoWDGF18pF
- WrJFy5AFWfZF4I9r47X3W5AFyYv3yIvayrGrW7Cw1Yga45Cr9YqFyFyry5tryxJrZ7CF17
- tFn8tay7uF4jvFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUf529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUPlb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
- wI0_Gr1j6F4UJwAaw2AFwI0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
- xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
- JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64
- vIr41lc7I2V7IY0VAS07AlzVAYIcxG8wCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0E
- wIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUAVWUtwC20s026c02F4
- 0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Wrv_Gr1U
- MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I
- 0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWx
- JVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07
- j-CztUUUUU=
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE39:EE_|DM6PR12MB4201:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67a690cc-64cd-4655-d550-08db6891ca9b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YspNg82tCHdGfBiNCDf+nhcC6JdPCCkaaHabszd8uKfCA2rhABtAb3+RH442Kk+kpfNhvfwNqpmEr5USRuto9swsSk1Qdrf2HTmIQ///6EJOVTzYjwbchvXX3G2CMXg9gGxiw9HRbA7IJCHVIb6XrC2cTOhuK2i70WO1PQWb/jBfN8K68mycs+cEdTEvY2wfc2mdPniD0d2mMDbR4wIrnOAQxAlV1l/zrl/UJfMv7XE5wUygUHrADI4cJpWAW8wwHBQDbD7azDpobS8bTxB7ntKlNAXTm7e4Z0itXI4zdQVaWpzZcqvHrrPbNVFpMTYHIQZVTG0qNbVUcY8DmcAiG80MXYd8haeVKQEB4qanh+jO76a5Vy4XL+J9dOYpCTtDS1uCRhqOVj5uK0wsRFW/WGBzbS1z4Oy23kXMPu+s2d2DHugxKgZWkkn+QhnpwKDNAblEbZou6v+4Zf/kt8XgoVQR8LdWGc2kMWtVTU8fUqZ4RONH9CjKmEDqZDZVG0j/evETVTCFFcm14qp6uvw+O7Xgs4c1rkIPsL+Mtb3ua5HRKwsI7HL55Gw5z+nsQtk4VMY2M7oIy11Dg5OVuWrfr95IFW70oTuX/Ksz90YxTOyzQMIz4RlhJE+yyVoN3PohEOfk2QNRO8QpqCIDEVe4hSRBqGF9siCDihYY04gY3Q+kzEc86MNTfw8CNqiExh7JtG9nVuOqVhbCGWO89bQsVSp+JootjAqOzN5+XiLs8E9HBPGv/H5Ffm/TwU/fcj77cmaXWgFppdfVJ/EyZKHfggWh4NaJHyFZ8DSWSn0In1k=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199021)(40470700004)(36840700001)(46966006)(2616005)(1076003)(41300700001)(336012)(7696005)(426003)(6666004)(36860700001)(47076005)(16526019)(26005)(83380400001)(186003)(40460700003)(478600001)(40480700001)(54906003)(81166007)(70206006)(356005)(4326008)(82740400003)(316002)(82310400005)(70586007)(8676002)(6916009)(8936002)(2906002)(5660300002)(86362001)(36756003)(36900700001)(309714004);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2023 02:32:38.0876 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67a690cc-64cd-4655-d550-08db6891ca9b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE39.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4201
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,262 +97,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>, Yi Liu <yi.l.liu@intel.com>,
- kvm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- linux-pci@vger.kernel.org, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bokun Zhang <Bokun.Zhang@amd.com>,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, loongson-kernel@lists.loongnix.cn,
- Alex Williamson <alex.williamson@redhat.com>,
- Abhishek Sahu <abhsahu@nvidia.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Yishai Hadas <yishaih@nvidia.com>, Li Yi <liyi@loongson.cn>,
- Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Cornelia Huck <cohuck@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Ruili Ji <ruiliji2@amd.com>,
+ Jonathan Kim <jonathan.kim@amd.com>, Aaron Liu <aaron.liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+From: Ruili Ji <ruiliji2@amd.com>
 
-On 2023/6/9 03:19, Bjorn Helgaas wrote:
-> On Thu, Jun 08, 2023 at 07:43:22PM +0800, Sui Jingfeng wrote:
->> From: Sui Jingfeng <suijingfeng@loongson.cn>
->>
->> The vga_is_firmware_default() function is arch-dependent, which doesn't
->> sound right. At least, it also works on the Mips and LoongArch platforms.
->> Tested with the drm/amdgpu and drm/radeon drivers. However, it's difficult
->> to enumerate all arch-driver combinations. I'm wrong if there is only one
->> exception.
->>
->> With the observation that device drivers typically have better knowledge
->> about which PCI bar contains the firmware framebuffer, which could avoid
->> the need to iterate all of the PCI BARs.
->>
->> But as a PCI function at pci/vgaarb.c, vga_is_firmware_default() is
->> probably not suitable to make such an optimization for a specific device.
->>
->> There are PCI display controllers that don't have a dedicated VRAM bar,
->> this function will lose its effectiveness in such a case. Luckily, the
->> device driver can provide an accurate workaround.
->>
->> Therefore, this patch introduces a callback that allows the device driver
->> to tell the VGAARB if the device is the default boot device. This patch
->> only intends to introduce the mechanism, while the implementation is left
->> to the device driver authors. Also honor the comment: "Clients have two
->> callback mechanisms they can use"
-> s/bar/BAR/ (several)
->
-> Nothing here uses the callback.  I don't want to merge this until we
-> have a user.
+Flag trap_en should be enabled for trap handler.
 
-This is chicken and egg question.
+Signed-off-by: Ruili Ji <ruiliji2@amd.com>
+Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-If you could help get this merge first, I will show you the first user.
-
-> I'm not sure why the device driver should know whether its device is
-> the default boot device.
-
-It's not that the device driver should know,
-
-but it's about that the device driver has the right to override.
-
-Device driver may have better approach to identify the default boot device.
-
->> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
->>   drivers/gpu/drm/i915/display/intel_vga.c   |  3 +--
->>   drivers/gpu/drm/nouveau/nouveau_vga.c      |  2 +-
->>   drivers/gpu/drm/radeon/radeon_device.c     |  2 +-
->>   drivers/pci/vgaarb.c                       | 22 ++++++++++++++++++----
->>   drivers/vfio/pci/vfio_pci_core.c           |  2 +-
->>   include/linux/vgaarb.h                     |  8 +++++---
->>   7 files changed, 28 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index 5c7d40873ee2..7a096f2d5c16 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -3960,7 +3960,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->>   	/* this will fail for cards that aren't VGA class devices, just
->>   	 * ignore it */
->>   	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
->> -		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
->> +		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode, NULL);
->>   
->>   	px = amdgpu_device_supports_px(ddev);
->>   
->> diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
->> index 286a0bdd28c6..98d7d4dffe9f 100644
->> --- a/drivers/gpu/drm/i915/display/intel_vga.c
->> +++ b/drivers/gpu/drm/i915/display/intel_vga.c
->> @@ -115,7 +115,6 @@ intel_vga_set_decode(struct pci_dev *pdev, bool enable_decode)
->>   
->>   int intel_vga_register(struct drm_i915_private *i915)
->>   {
->> -
->>   	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
->>   	int ret;
->>   
->> @@ -127,7 +126,7 @@ int intel_vga_register(struct drm_i915_private *i915)
->>   	 * then we do not take part in VGA arbitration and the
->>   	 * vga_client_register() fails with -ENODEV.
->>   	 */
->> -	ret = vga_client_register(pdev, intel_vga_set_decode);
->> +	ret = vga_client_register(pdev, intel_vga_set_decode, NULL);
->>   	if (ret && ret != -ENODEV)
->>   		return ret;
->>   
->> diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
->> index f8bf0ec26844..162b4f4676c7 100644
->> --- a/drivers/gpu/drm/nouveau/nouveau_vga.c
->> +++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
->> @@ -92,7 +92,7 @@ nouveau_vga_init(struct nouveau_drm *drm)
->>   		return;
->>   	pdev = to_pci_dev(dev->dev);
->>   
->> -	vga_client_register(pdev, nouveau_vga_set_decode);
->> +	vga_client_register(pdev, nouveau_vga_set_decode, NULL);
->>   
->>   	/* don't register Thunderbolt eGPU with vga_switcheroo */
->>   	if (pci_is_thunderbolt_attached(pdev))
->> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
->> index afbb3a80c0c6..71f2ff39d6a1 100644
->> --- a/drivers/gpu/drm/radeon/radeon_device.c
->> +++ b/drivers/gpu/drm/radeon/radeon_device.c
->> @@ -1425,7 +1425,7 @@ int radeon_device_init(struct radeon_device *rdev,
->>   	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
->>   	/* this will fail for cards that aren't VGA class devices, just
->>   	 * ignore it */
->> -	vga_client_register(rdev->pdev, radeon_vga_set_decode);
->> +	vga_client_register(rdev->pdev, radeon_vga_set_decode, NULL);
->>   
->>   	if (rdev->flags & RADEON_IS_PX)
->>   		runtime = true;
->> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
->> index b0bf4952a95d..d3dab61e0ef2 100644
->> --- a/drivers/pci/vgaarb.c
->> +++ b/drivers/pci/vgaarb.c
->> @@ -53,6 +53,7 @@ struct vga_device {
->>   	bool bridge_has_one_vga;
->>   	bool is_firmware_default;	/* device selected by firmware */
->>   	unsigned int (*set_decode)(struct pci_dev *pdev, bool decode);
->> +	bool (*is_boot_device)(struct pci_dev *pdev);
->>   };
->>   
->>   static LIST_HEAD(vga_list);
->> @@ -614,10 +615,17 @@ static bool vga_is_boot_device(struct vga_device *vgadev)
->>   	if (boot_vga && boot_vga->is_firmware_default)
->>   		return false;
->>   
->> -	if (vga_is_firmware_default(pdev)) {
->> -		vgadev->is_firmware_default = true;
->> +	/*
->> +	 * Ask the device driver first, if registered. Fallback to the
->> +	 * default implement if the callback is non-exist.
->> +	 */
->> +	if (vgadev->is_boot_device)
->> +		vgadev->is_firmware_default = vgadev->is_boot_device(pdev);
->> +	else
->> +		vgadev->is_firmware_default = vga_is_firmware_default(pdev);
->> +
->> +	if (vgadev->is_firmware_default)
->>   		return true;
->> -	}
->>   
->>   	/*
->>   	 * A legacy VGA device has MEM and IO enabled and any bridges
->> @@ -954,6 +962,10 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
->>    * @set_decode callback: If a client can disable its GPU VGA resource, it
->>    * will get a callback from this to set the encode/decode state.
->>    *
->> + * @is_boot_device: callback to the device driver, query if a client is the
->> + * default boot device, as the device driver typically has better knowledge
->> + * if specific device is the boot device. But this callback is optional.
->> + *
->>    * Rationale: we cannot disable VGA decode resources unconditionally, some
->>    * single GPU laptops seem to require ACPI or BIOS access to the VGA registers
->>    * to control things like backlights etc. Hopefully newer multi-GPU laptops do
->> @@ -969,7 +981,8 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
->>    * Returns: 0 on success, -1 on failure
->>    */
->>   int vga_client_register(struct pci_dev *pdev,
->> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool decode))
->> +		unsigned int (*set_decode)(struct pci_dev *pdev, bool decode),
->> +		bool (*is_boot_device)(struct pci_dev *pdev))
->>   {
->>   	int ret = -ENODEV;
->>   	struct vga_device *vgadev;
->> @@ -981,6 +994,7 @@ int vga_client_register(struct pci_dev *pdev,
->>   		goto bail;
->>   
->>   	vgadev->set_decode = set_decode;
->> +	vgadev->is_boot_device = is_boot_device;
->>   	ret = 0;
->>   
->>   bail:
->> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
->> index a5ab416cf476..2a8873a330ba 100644
->> --- a/drivers/vfio/pci/vfio_pci_core.c
->> +++ b/drivers/vfio/pci/vfio_pci_core.c
->> @@ -2067,7 +2067,7 @@ static int vfio_pci_vga_init(struct vfio_pci_core_device *vdev)
->>   	if (ret)
->>   		return ret;
->>   
->> -	ret = vga_client_register(pdev, vfio_pci_set_decode);
->> +	ret = vga_client_register(pdev, vfio_pci_set_decode, NULL);
->>   	if (ret)
->>   		return ret;
->>   	vga_set_legacy_decoding(pdev, vfio_pci_set_decode(pdev, false));
->> diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
->> index d36225c582ee..66fe80ffad76 100644
->> --- a/include/linux/vgaarb.h
->> +++ b/include/linux/vgaarb.h
->> @@ -50,7 +50,8 @@ struct pci_dev *vga_default_device(void);
->>   void vga_set_default_device(struct pci_dev *pdev);
->>   int vga_remove_vgacon(struct pci_dev *pdev);
->>   int vga_client_register(struct pci_dev *pdev,
->> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool state));
->> +		unsigned int (*set_decode)(struct pci_dev *pdev, bool state),
->> +		bool (*is_boot_device)(struct pci_dev *pdev));
->>   #else /* CONFIG_VGA_ARB */
->>   static inline void vga_set_legacy_decoding(struct pci_dev *pdev,
->>   		unsigned int decodes)
->> @@ -76,7 +77,8 @@ static inline int vga_remove_vgacon(struct pci_dev *pdev)
->>   	return 0;
->>   }
->>   static inline int vga_client_register(struct pci_dev *pdev,
->> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool state))
->> +		unsigned int (*set_decode)(struct pci_dev *pdev, bool state),
->> +		bool (*is_boot_device)(struct pci_dev *pdev))
->>   {
->>   	return 0;
->>   }
->> @@ -114,7 +116,7 @@ static inline int vga_get_uninterruptible(struct pci_dev *pdev,
->>   
->>   static inline void vga_client_unregister(struct pci_dev *pdev)
->>   {
->> -	vga_client_register(pdev, NULL);
->> +	vga_client_register(pdev, NULL, NULL);
->>   }
->>   
->>   #endif /* LINUX_VGA_H */
->> -- 
->> 2.25.1
->>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index d6b15493fffd..8a39a9e0ed5a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -227,7 +227,7 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
+ 	queue_input.tba_addr = qpd->tba_addr;
+ 	queue_input.tma_addr = qpd->tma_addr;
+ 	queue_input.trap_en = KFD_GC_VERSION(q->device) < IP_VERSION(11, 0, 0) ||
+-			      KFD_GC_VERSION(q->device) >= IP_VERSION(12, 0, 0);
++			      KFD_GC_VERSION(q->device) > IP_VERSION(11, 0, 3);
+ 	queue_input.skip_process_ctx_clear = qpd->pqm->process->debug_trap_enabled;
+ 
+ 	queue_type = convert_to_mes_queue_type(q->properties.type);
+@@ -1807,7 +1807,7 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
+ 	q->properties.is_evicted = !!qpd->evicted;
+ 	q->properties.is_dbg_wa = qpd->pqm->process->debug_trap_enabled &&
+ 			KFD_GC_VERSION(q->device) >= IP_VERSION(11, 0, 0) &&
+-			KFD_GC_VERSION(q->device) < IP_VERSION(12, 0, 0);
++			KFD_GC_VERSION(q->device) <= IP_VERSION(11, 0, 3);
+ 
+ 	if (qd)
+ 		mqd_mgr->restore_mqd(mqd_mgr, &q->mqd, q->mqd_mem_obj, &q->gart_mqd_addr,
 -- 
-Jingfeng
+2.40.1
 
