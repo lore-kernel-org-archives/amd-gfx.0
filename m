@@ -4,52 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7EB6C7EE29
-	for <amd-gfx@archiver.kernel.org>; Sat, 10 Jun 2023 06:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D20EC77B7A
+	for <amd-gfx@archiver.kernel.org>; Sat, 10 Jun 2023 07:14:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E7EB10E173;
-	Sat, 10 Jun 2023 06:49:45 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FB3010E11B;
- Sat, 10 Jun 2023 06:49:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E84110E162;
+	Sat, 10 Jun 2023 07:14:15 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E50210E162;
+ Sat, 10 Jun 2023 07:14:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686379781; x=1717915781;
+ t=1686381253; x=1717917253;
  h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=UiBaKKuIu48RRz7kin0VOWL4SjKi6DsOcDmvTbBe48o=;
- b=GE5xsn8mMwhzkAcFerl9x7GXUERULvHJazT6PubSlF3LpV3RjvF0QHWJ
- Ma6YG308e0EdyupMJcYuysosj1g+5hx78RmsIuSkbKfL1zzrhbzi1oHPJ
- h2GSvyKCRyuESotwpzWZxpxxdoRWtmD0JRxkACsj5P02ijpIwxwHUqCXO
- 5y0paXnufyDhg75xjNQcs40u0GHIRgf55oA8kxXnjFkfMb0giEjy4r9/z
- RfMbzyq0COBMl+WIcLr0jgEuDLsqRe6zh7S9skOqJ8HZN9qVzcn4qMs/r
- 40JYSF61zNAcM98az+lBy/3qNZjTbuQHq3S3CCehKpFhZDney6Z4DnqKG w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10736"; a="360220142"
-X-IronPort-AV: E=Sophos;i="6.00,231,1681196400"; d="scan'208";a="360220142"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2023 23:49:40 -0700
+ message-id:mime-version;
+ bh=/AJK6BcsI1+pYayq4GPa+LNrEBFVNr39nXOAfbSELVQ=;
+ b=DMlab+E0krCIGWLq6E6qsZaaWGm0etDoTLL8v+UQrUCeeRgKH13z7Y9n
+ /ytXEx94tmJXoP/6a7JzjeMSJ3dxIgztSWI/5v/4/9jl8LA8J26LdWn7x
+ UDOs7tHX2dUMY7svc3dsCpwM/Shc2gvHtRbB+tmtDHjPtE0wHs6oXjSGX
+ ykloczcYXJdcWrhyFCzaF/rpJWPOfDbyk3v/aJxrnHdqnv3yFss2P7p//
+ Y6VfXzgEvwrXWLJZXnZlwZ8OBxgj75ZGs1EsoTSExfrHwnLZVH1+Yurbt
+ yPhgNafOLYbYiB5jS/8QZT7OEVuvPt9VfdDQwLcrMSt4zrLvLG+ofX6B1 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10736"; a="355228629"
+X-IronPort-AV: E=Sophos;i="6.00,231,1681196400"; d="scan'208";a="355228629"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2023 00:14:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10736"; a="661001719"
-X-IronPort-AV: E=Sophos;i="6.00,231,1681196400"; d="scan'208";a="661001719"
+X-IronPort-AV: E=McAfee;i="6600,9927,10736"; a="854981401"
+X-IronPort-AV: E=Sophos;i="6.00,231,1681196400"; d="scan'208";a="854981401"
 Received: from mnovakov-mobl1.amr.corp.intel.com (HELO localhost)
  ([10.252.60.33])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2023 23:49:34 -0700
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2023 00:14:08 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Masahiro Yamada <masahiroy@kernel.org>, Nathan Chancellor
- <nathan@kernel.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: enable W=1 for amdgpu
-In-Reply-To: <CAK7LNAQArK=+Qy+yQU2qB-0pCKyWugsQ=VGXUzLUf+tPow5M_w@mail.gmail.com>
+To: Nathan Chancellor <nathan@kernel.org>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com
+Subject: Re: [PATCH] drm/amdgpu: Wrap -Wunused-but-set-variable in cc-option
+In-Reply-To: <20230608-amdgpu-wrap-wunused-but-set-variable-in-cc-option-v1-1-48ca005f2247@kernel.org>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230609164207.430377-1-hamza.mahfooz@amd.com>
- <20230609201754.GA3961359@dev-arch.thelio-3990X>
- <CAK7LNAQArK=+Qy+yQU2qB-0pCKyWugsQ=VGXUzLUf+tPow5M_w@mail.gmail.com>
-Date: Sat, 10 Jun 2023 09:49:31 +0300
-Message-ID: <875y7vrev8.fsf@intel.com>
+References: <20230608-amdgpu-wrap-wunused-but-set-variable-in-cc-option-v1-1-48ca005f2247@kernel.org>
+Date: Sat, 10 Jun 2023 10:14:05 +0300
+Message-ID: <87ttvfpz5u.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,138 +58,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>, Xiaojian Du <Xiaojian.Du@amd.com>,
- linux-kbuild@vger.kernel.org, "Pan, 
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Hawking Zhang <Hawking.Zhang@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Le Ma <le.ma@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, James Zhu <James.Zhu@amd.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>
+Cc: trix@redhat.com, llvm@lists.linux.dev, ndesaulniers@google.com,
+ patches@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Nathan Chancellor <nathan@kernel.org>, amd-gfx@lists.freedesktop.org,
+ Kenny.Ho@amd.com, hamza.mahfooz@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, 10 Jun 2023, Masahiro Yamada <masahiroy@kernel.org> wrote:
-> On Sat, Jun 10, 2023 at 5:17=E2=80=AFAM Nathan Chancellor <nathan@kernel.=
-org> wrote:
->>
->> + Masahiro and linux-kbuild
->>
->> On Fri, Jun 09, 2023 at 12:42:06PM -0400, Hamza Mahfooz wrote:
->> > We have a clean build with W=3D1 as of
->> > commit 12a15dd589ac ("drm/amd/display/amdgpu_dm/amdgpu_dm_helpers: Move
->> > SYNAPTICS_DEVICE_ID into CONFIG_DRM_AMD_DC_DCN ifdef"). So, let's enab=
-le
->> > these checks unconditionally for the entire module to catch these erro=
-rs
->> > during development.
->> >
->> > Cc: Alex Deucher <alexander.deucher@amd.com>
->> > Cc: Nathan Chancellor <nathan@kernel.org>
->> > Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
->>
->> I think this is fine, especially since it will help catch issues in
->> amdgpu quickly and hopefully encourage developers to fix their problems
->> before they make it to a tree with wider impact lika -next.
->>
->> However, this is now the third place that W=3D1 has been effectively
->> enabled (i915 and btrfs are the other two I know of) and it would be
->> nice if this was a little more unified, especially since it is not
->> uncommon for the warnings under W=3D1 to shift around and keeping them
->> unified will make maintainence over the longer term a little easier. I
->> am not sure if this has been brought up in the past and I don't want to
->> hold up this change but I suspect this sentiment of wanting to enable
->> W=3D1 on a per-subsystem basis is going to continue to grow.
+On Thu, 08 Jun 2023, Nathan Chancellor <nathan@kernel.org> wrote:
+> -Wunused-but-set-variable was only supported in clang starting with
+> 13.0.0, so earlier versions will emit a warning, which is turned into a
+> hard error for the kernel to mirror GCC:
 >
+>   error: unknown warning option '-Wunused-but-set-variable'; did you mean '-Wunused-const-variable'? [-Werror,-Wunknown-warning-option]
 >
->
-> I believe this patch is the right way because
-> we will be able to add a new warning option to
-> scripts/Makefile.extrawarn without fixing any code.
->
-> I remember somebody argued that drivers should be
-> able to do
->   subdir-ccflags-y +=3D $(W1_FLAGS)
+> The minimum supported version of clang for building the kernel is
+> 11.0.0, so match the rest of the kernel and wrap
+> -Wunused-but-set-variable in a cc-option call, so that it is only used
+> when supported by the compiler.
 
-Personally, I think this would be the viable way to make the kernel free
-of W=3D1 warnings. Make it clean driver and subsystem at a time, with
-constant progress. Currently, there's haphazard fixing of issues, with
-new ones creeping back in, because kernel-wide W=3D1 is too verbose for
-most developers. It's whac-a-mole.
+I wonder if there's a table somewhere listing all the warning options,
+which GCC and Clang versions support them, and which versions have them
+in -Wall and -Wextra. Would be really useful.
 
-> However, if a new flag, -Wfoo, emits warnings
-> for drivers/gpu/drm/{i915,amd},
-> you cannot add it to W=3D1 until fixing the code.
-
-Or adding -Wno-foo where it breaks, until fixed.
-
-> If many drivers start to do likewise,
-> W=3D1 warning will not be W=3D1 any more.
-
-I don't know, is the goal to fix the warnings, or keep adding stuff to
-W=3D1 so that it'll always emit warnings? :p
-
+If there isn't one, it would be really helpful. *wink*.
 
 BR,
 Jani.
 
-> Another good thing for hard-coding warning options
-> is you can lift up a warning flag one by one.
->
->
-> Let's say you fixed the entire DRM subsystem so
-> it is -Wunused free now.
->
-> Then, you can move -Wunused to drivers/gpu/drm/Makefile,
-> while other warning options stay in drivers Makefiles.
->
->
->
->
->
->
->
->>
->> Regardless, for clang 11.1.0 to 16.0.5, I see no warnings when building
->> drivers/gpu/drm/amd/amdgpu/ with Arch Linux's configuration or
->> allmodconfig.
->>
->> Reviewed-by: Nathan Chancellor <nathan@kernel.org>
->> Tested-by: Nathan Chancellor <nathan@kernel.org>
->>
->> > ---
->> >  drivers/gpu/drm/amd/amdgpu/Makefile | 13 ++++++++++++-
->> >  1 file changed, 12 insertions(+), 1 deletion(-)
->> >
->> > diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd=
-/amdgpu/Makefile
->> > index 86b833085f19..8d16f280b695 100644
->> > --- a/drivers/gpu/drm/amd/amdgpu/Makefile
->> > +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
->> > @@ -40,7 +40,18 @@ ccflags-y :=3D -I$(FULL_AMD_PATH)/include/asic_reg \
->> >       -I$(FULL_AMD_PATH)/amdkfd
->> >
->> >  subdir-ccflags-y :=3D -Wextra
->> > -subdir-ccflags-y +=3D $(call cc-option, -Wunused-but-set-variable)
->> > +subdir-ccflags-y +=3D -Wunused
->> > +subdir-ccflags-y +=3D -Wmissing-prototypes
->> > +subdir-ccflags-y +=3D -Wmissing-declarations
->> > +subdir-ccflags-y +=3D -Wmissing-include-dirs
->> > +subdir-ccflags-y +=3D -Wold-style-definition
->> > +subdir-ccflags-y +=3D -Wmissing-format-attribute
->> > +# Need this to avoid recursive variable evaluation issues
->> > +cond-flags :=3D $(call cc-option, -Wunused-but-set-variable) \
->> > +     $(call cc-option, -Wunused-const-variable) \
->> > +     $(call cc-option, -Wstringop-truncation) \
->> > +     $(call cc-option, -Wpacked-not-aligned)
->> > +subdir-ccflags-y +=3D $(cond-flags)
->> >  subdir-ccflags-y +=3D -Wno-unused-parameter
->> >  subdir-ccflags-y +=3D -Wno-type-limits
->> >  subdir-ccflags-y +=3D -Wno-sign-compare
->> > --
->> > 2.40.1
->> >
 
---=20
+>
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/1869
+> Fixes: a0fd5a5f676c ("drm/amd/amdgpu: introduce DRM_AMDGPU_WERROR")
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Makefile | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 7ee68b1bbfed..86b833085f19 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -40,7 +40,7 @@ ccflags-y := -I$(FULL_AMD_PATH)/include/asic_reg \
+>  	-I$(FULL_AMD_PATH)/amdkfd
+>  
+>  subdir-ccflags-y := -Wextra
+> -subdir-ccflags-y += -Wunused-but-set-variable
+> +subdir-ccflags-y += $(call cc-option, -Wunused-but-set-variable)
+>  subdir-ccflags-y += -Wno-unused-parameter
+>  subdir-ccflags-y += -Wno-type-limits
+>  subdir-ccflags-y += -Wno-sign-compare
+>
+> ---
+> base-commit: 6bd4b01e8938779b0d959bdf33949a9aa258a363
+> change-id: 20230608-amdgpu-wrap-wunused-but-set-variable-in-cc-option-0be9528ac5c8
+>
+> Best regards,
+
+-- 
 Jani Nikula, Intel Open Source Graphics Center
