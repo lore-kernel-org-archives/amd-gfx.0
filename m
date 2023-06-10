@@ -4,118 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7CC4C7EE2E
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 22:44:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ED5BC7EE2E
+	for <amd-gfx@archiver.kernel.org>; Sat, 10 Jun 2023 01:21:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0F510E029;
-	Fri,  9 Jun 2023 22:44:36 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2062b.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7ea9::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0570F10E029
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jun 2023 22:44:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g1shXk+I/B50jD+EjmkCuj/jnMPD418PoZ9jZKNZq10SjlmuRcLtVFOby9sYdzQ8znTv6AXApfuy+Cbv9E6DamRE5KdwAJjEsL9C6BFX5PPjPBodPN1uwHjnsQgWMsGTd+DuBgECSToTkmE9LVaASzSUM1EMpLKKwb+LB4QsZ6C9cl2qnsSMOzUGMOGYHJDaRf8wZ1nVLrUopVID2MXpgkL9SQhJwnVGICOw10X5bVhtBFdk/ZT6Yat3/PFAn9EzqViDhT2oaSOQIzETowDcXWNfWd6DMAzuHNwvD6oSenHypHL9en15xtZaPDpGWTgIeSEtyD6I0rR2LEU3qfRw5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AEtyND8cdGk66oizeZOB8UW0+o1cyrcoZpGsqjWM4X8=;
- b=N2lvsyRboxx73Va3nnAlt+Vy0Zr7LS0PYBn5rFNrUesA7L209cWOXz3udnDbFVqv89J3gnghH1UCW8gcQMf0+JPuwn9QPqfNkU6tOOby/dwpcUFV/OLX/gM14EbJvmkZe1Eb8M6u0rVsPd6AfHkjLZCa9s7OwXHdJGTOtM3272acZEClapy+IudEB1otUdoP+IZDkWPYRWrQtij6IoC2ilf87sjfTCyYw+N/zzLcpFn0tV2bpacfpAneVxzPz9ZMpaDxxHEiRiyFEFyZhN7oxaK3tVZpWrBXqZ6LsMaMDqAnAo+zli5P7xWtSdQep6PFxBpeRO+P7WkW9D4W68h4Qw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AEtyND8cdGk66oizeZOB8UW0+o1cyrcoZpGsqjWM4X8=;
- b=tv1trHxpMTe9pD6LpV3dnutgHDSEgSSelFVUOyIGwubZTgxCd5Mh3WUwdvDRpWbkJjRVrYam0s26nQzCkipOJ8RTQhbO6HjP28fkmL83oxEEJqKeqxE7hZwQA6V9Zd+gjrRm0RgaGqT6aPSYPogVlpIdnTS4f9sk9S//HbSnCwY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MW6PR12MB8836.namprd12.prod.outlook.com (2603:10b6:303:241::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Fri, 9 Jun
- 2023 22:44:30 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::2dc3:c1:e72d:55bc]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::2dc3:c1:e72d:55bc%6]) with mapi id 15.20.6455.030; Fri, 9 Jun 2023
- 22:44:30 +0000
-Message-ID: <3380071c-2673-8e2b-762b-51c2b66baa72@amd.com>
-Date: Fri, 9 Jun 2023 18:44:27 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v5 3/5] drm/amdkfd: set activated flag true when event age
- unmatchs
-Content-Language: en-US
-To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230608170705.2271276-4-James.Zhu@amd.com>
- <20230609204350.2352248-1-James.Zhu@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20230609204350.2352248-1-James.Zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0266.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:68::31) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD47D10E070;
+	Sat, 10 Jun 2023 01:21:08 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 494C210E070;
+ Sat, 10 Jun 2023 01:21:06 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2D7D565787;
+ Sat, 10 Jun 2023 01:21:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96EBFC433A0;
+ Sat, 10 Jun 2023 01:21:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1686360064;
+ bh=4EzQQBfR3Y6IMMwcv3Ml6mE37bE59PBewIq+eKeDgdw=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=SVCbP7shTsCtyucgEUhJnBhSnUxvBOjDELgNu69+AsuWIZ3gpRvWR7D7QCyYRY02B
+ ceeaBjl2Nog+iYzFvfFd7fpI3hZW23YsU00wLf1hFtNpcqXhpZ78mQEm4mNqHeBQTk
+ XYoGUsL+R/E96G+DRJ/xKx04jPEcQxjNAxOZ5zC/0Gv4ZMMHdoXV6iWetZv7MEIOEI
+ kpKbdcT+v7CbBqaJW4tm+v4aeUPtj0C0jy+jiOMAaJOxhnQK3fbLyg711CLsne9yiw
+ MFKSSLlLM5GLkkTEIgHPbVUXIva8iMpbuWeoTpMX7RO2oaw8WH9/WG9LYAkIYUXk+v
+ FO0Bbdi/roSUQ==
+Received: by mail-oo1-f51.google.com with SMTP id
+ 006d021491bc7-558cf19575dso1594840eaf.3; 
+ Fri, 09 Jun 2023 18:21:04 -0700 (PDT)
+X-Gm-Message-State: AC+VfDyOstJtHZfS3a8SUCxZpwN3l39cApgidnqDOkaqzT7UIsrp5DQd
+ OmLc29gW+nYNmI8kBzLoDN2ij2MyxA8RVcb0AVw=
+X-Google-Smtp-Source: ACHHUZ6P8QQ65VhsV/Qfo9dv4MOBcLQ5tp1vntMJnnm4lvvGL2lDtm3He7qaum/8UKsyci+znd6MrY++SYH1GIDnYFM=
+X-Received: by 2002:a4a:a746:0:b0:55a:f44b:43cd with SMTP id
+ h6-20020a4aa746000000b0055af44b43cdmr1980800oom.7.1686360063739; Fri, 09 Jun
+ 2023 18:21:03 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW6PR12MB8836:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b7f26af-3e69-4431-1e06-08db693b1663
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ioo11xGlMzjclFtcjD7n2r9DmNtgGQU/AFDmp3c70MIXpklDMkP8Zp3iOdw3WaXXNJp8Hg7IQl57P30JQzPJpMQ/At0dkuwW34ELhlQl45tqFWamYgO+D9OdyxVsYPstAIWS0uVbrtltrFmv+hz03UPg4xvHZa5/TRvHNyHaS2pX5eZnlcpGRMqiuLLTac8lWlbpA0TEd4x+1E6Di2nM9ob4MXe1AyRrKSv/uTeORWJEyyKQwNZes923o+t5zerQhij/mVXWr465V5lI6pe0GaYICrsHRss6rAU/YHVbVA8+zZdnkwPs6Xehwtl31j4AWOBinKQJcBptM+QLt2rSkGUmQ/aK8YDkt7/k0Wct6IvwhFqLw/+T7hWSN11CNzLxkch+7kJ7HFXsbM1HPOjwfpAxn8Mah9qzpJfGnHEJqmVEOUS96ePrvIly7jdjVfEKqv8FPsbQ++InWX03Z4EqURHxnIjIPpYy6c44z/WJDVCGF505Fq9tjG+GPbkP1fzNYLXrSkHHIeIS7c7KTxAoLBNS0mJ30S2svtbBdBZztlJzqO68sKdAQNpSMjR7hRlMpU1KlVz2W+0heaw7OoGKHORUtXkttw85QOKIFuYoW1AysFa0p/xL/tq/fvnYOl6SGTUIugAicuByUvLlgBL2PQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(376002)(39860400002)(346002)(136003)(396003)(451199021)(186003)(26005)(6506007)(6512007)(2616005)(31686004)(53546011)(83380400001)(36756003)(6666004)(6486002)(2906002)(36916002)(8676002)(41300700001)(8936002)(44832011)(478600001)(31696002)(4326008)(5660300002)(38100700002)(86362001)(66476007)(66556008)(316002)(66946007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnhyV1FYSmJraENHZ0prVG1LYUx3V3FDaTNaaEM2NUtXbzB4L09mNm13d1RH?=
- =?utf-8?B?Qzl0NW1teXA4WEtRSi9Ra0gwVXdMaUxCZlozSDliWjhRT2k4SUFORmRYakt2?=
- =?utf-8?B?K2RKaENpNDdQYjVlNzdkNFhmSXVYLzJFZjZCZ2RScVJ2eUt5L0Z1QmUrMnhn?=
- =?utf-8?B?bmpwUWl4SEcrNVZjNWNtZkRvd0lueDJkM0dyeWNpY1RUQkowb2poZVU5a0hY?=
- =?utf-8?B?NUZKNVhlNEhUNFlDL0thdXQvcStsSDdjVEREbWdRN2Z5amJ1SVpQREliQnZJ?=
- =?utf-8?B?T1lPTDZaTWwxRUo3Tk0zaW1yUTdkMCtxU2JCdmR3c29zTStnQS9MNlBaVGVU?=
- =?utf-8?B?YWgvLzBUZ2h4SFd6MVNKY3V1Y2o5TVlVZ2lWYUlOMDZ4Zy9tTjB1Y0xFSGta?=
- =?utf-8?B?aktiYmlqbW5LWmQyZE93R1hQM3lEdWFReElXMitTcDdSc2FZNTVLVmpiR1lz?=
- =?utf-8?B?Ym5mVVJPQnJVcEx2WVJnODBBQmMwRDlDSnpwYnF4QVhRTDA0UjdkQlVJRWgz?=
- =?utf-8?B?MkIwd3ZJeS9USXVZdWhsTVVlSmk3Mzk2K2ZxWFBRTEJTZENKSFJROTZudy9N?=
- =?utf-8?B?TXVyczNOTEt4NnFUeDFWM2pPWUJwU2Q2QzViS1JDUnBtRUw4Q2pKMDhiejVl?=
- =?utf-8?B?Ynlrd2JOZkJPVzQxdXNVZGZZRElpNFVpUzdaaXphN091b1hTNFdNeWlqN0Ey?=
- =?utf-8?B?dVFMcnJqWnZBQWpCWDVUNVhvM1ZPMHFUUXplRlZJbURRQTA5TXhpL1ZWVXR0?=
- =?utf-8?B?c0F0ZHJsNjViSDgyd2tkbHkzTkpBTHZ6Rkk2VzM1cFF6SDR5RGVvOXltZVJV?=
- =?utf-8?B?Zms4anZ2RjNaRytXT3ZacWZqWEJReThEZ2pxRGhLbW9ySnZKZ0tTdEo2bkEv?=
- =?utf-8?B?OU9RV09SNC9LdE43cTlISE9tcUo1SVgwUEVBWnJpckRFZ3IyWllKb2lJazhF?=
- =?utf-8?B?Q1ZBODBsS1NZSEdGc29CZXVja3hGc1E0ZUxHWFBwOSswd3NSVTh4SUl3Y3dH?=
- =?utf-8?B?VjBSUURVcVdIS084VEd1OVN3c2R1c3Q5UTBKOHpFYzU3ekpXVCtZRERlK3pa?=
- =?utf-8?B?b29Cc0J5Q3dUaU8wbSt2M0kzWWVSWGZrY1ExT1V0bkJlWitucm5HaG5Fa29E?=
- =?utf-8?B?VUgyVUVFTk9jYWNrcWN0SUVEbEh2dEhXRFFwVFRKQjk1TGM1L3NUT3RLYlV1?=
- =?utf-8?B?Tjk3V2JDY1AzN3lTZ0VjSnpwbGZ2Uld4Sjk2aDdtWjdtM2VKWlhaSXNQNlZD?=
- =?utf-8?B?Vyt1V28yRUZHQVVPeDYwSndxeXI3Y3dwV0t0dmVwS3RxTWpFUzhtWWJkSlFr?=
- =?utf-8?B?ZnBySk5uOTFpWWNLcFRrNjFmZFdFd0dKY1I3blhhcXlLSDh3M1JaVXR1enlJ?=
- =?utf-8?B?R2cwWUYwMTJRL2RXN0ZjTWhwbnJsbHpvTlFXdVRMT0g5Z0xVWTVTTVZVVGY4?=
- =?utf-8?B?OHE3V2hPMk84WmVmUmdQU1lxcVBJcDFleFlCcGtpL2NJVWdCWE9lWGhBZ3B6?=
- =?utf-8?B?bW9ScWtsWUQrUkVaYlhCMS8wRnYzVlRNV1BVaDExRSttQ0x0amNlci9pM0Nw?=
- =?utf-8?B?VUNzbkNrN3N4K2RweDlkeFFpNWI0YjFRaUljZHh0TytCRzZtWlNxQnJOcHdS?=
- =?utf-8?B?cUJlQVlTZ3FEdEdIdVZ6VGY1TUhYOGZZRDROR2NHaE5tL1BuZDZKYktWN2Ez?=
- =?utf-8?B?bi9veTNHQ0JwV3h5T3oyZ2w1OWJxM0IwRTRqanU3Q0p0SW1tblpqUDRrNWtY?=
- =?utf-8?B?VU54NWk4ZGMrbnJOMVpvc29kT0MydWxYdUIrekZwVzcwZE50b3I3Ym9mRnZt?=
- =?utf-8?B?Ry9OM0pYaXJkNW42UlQ5VFFsc0NpN3lzU0N0dFYwNy90dmVBNjZSbnNmQWl6?=
- =?utf-8?B?VEVjV1VtMkxDeXdhQ1JBNFp3czlGbXh4Z2t3cFpyVFVUVzYvYVE4ZHlJZWQx?=
- =?utf-8?B?czNGbjYzMzIrd0NKQytoTUEza1J6cllzZzgxeVZUQ0xTazEvRWhlWlpEMTJp?=
- =?utf-8?B?emJXRGpZeTJ0dTFCQVBnQ0V5ekVLRlQ2K3FwTWIvajJEKzBZcGltcldBUUdt?=
- =?utf-8?B?ejErbFFIYit0amJ0TFhOVHEyb2NlK3ZMTjduR2JKaUZOMEt3d0l4Ti9Mamhq?=
- =?utf-8?Q?PgL03WlbstsfQ7XMaAugyrEDP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b7f26af-3e69-4431-1e06-08db693b1663
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2023 22:44:30.4964 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DAUbtSlRx4raSmcWok3cCiEecBc4zPwKGr7AEAaJVe7suD11skdLW25OegZbeCY4wbpL//Zn3fZQXkasa8pWjw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8836
+References: <20230609164207.430377-1-hamza.mahfooz@amd.com>
+ <20230609201754.GA3961359@dev-arch.thelio-3990X>
+In-Reply-To: <20230609201754.GA3961359@dev-arch.thelio-3990X>
+From: Masahiro Yamada <masahiroy@kernel.org>
+Date: Sat, 10 Jun 2023 10:20:27 +0900
+X-Gmail-Original-Message-ID: <CAK7LNAQArK=+Qy+yQU2qB-0pCKyWugsQ=VGXUzLUf+tPow5M_w@mail.gmail.com>
+Message-ID: <CAK7LNAQArK=+Qy+yQU2qB-0pCKyWugsQ=VGXUzLUf+tPow5M_w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: enable W=1 for amdgpu
+To: Nathan Chancellor <nathan@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,82 +61,128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jamesz@amd.com
+Cc: Tao Zhou <tao.zhou1@amd.com>, Xiaojian Du <Xiaojian.Du@amd.com>,
+ linux-kbuild@vger.kernel.org, dri-devel@lists.freedesktop.org, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>,
+ Le Ma <le.ma@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, James Zhu <James.Zhu@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
- From the KFD perspective, the series is
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-David, I looked at the ROCr and Thunk changes as well, and they look 
-reasonable to me. Do you have any feedback on these patches from a ROCr 
-point of view? Is there a reasonable stress test that could be used 
-check that this handles the race conditions as expected and allows all 
-waiters to sleep?
-
-Regards,
-   Felix
-
-
-On 2023-06-09 16:43, James Zhu wrote:
-> Set waiter's activated flag true when event age unmatchs with last_event_age.
+On Sat, Jun 10, 2023 at 5:17=E2=80=AFAM Nathan Chancellor <nathan@kernel.or=
+g> wrote:
 >
-> -v4: add event type check
-> -v5: improve on event age enable and activated flags
+> + Masahiro and linux-kbuild
 >
-> Signed-off-by: James Zhu <James.Zhu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_events.c | 17 +++++++++++++----
->   1 file changed, 13 insertions(+), 4 deletions(-)
+> On Fri, Jun 09, 2023 at 12:42:06PM -0400, Hamza Mahfooz wrote:
+> > We have a clean build with W=3D1 as of
+> > commit 12a15dd589ac ("drm/amd/display/amdgpu_dm/amdgpu_dm_helpers: Move
+> > SYNAPTICS_DEVICE_ID into CONFIG_DRM_AMD_DC_DCN ifdef"). So, let's enabl=
+e
+> > these checks unconditionally for the entire module to catch these error=
+s
+> > during development.
+> >
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Nathan Chancellor <nathan@kernel.org>
+> > Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> index c7689181cc22..b2586a1dd35d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> @@ -41,6 +41,7 @@ struct kfd_event_waiter {
->   	wait_queue_entry_t wait;
->   	struct kfd_event *event; /* Event to wait for */
->   	bool activated;		 /* Becomes true when event is signaled */
-> +	bool event_age_enabled;  /* set to true when last_event_age is non-zero */
->   };
->   
->   /*
-> @@ -797,9 +798,9 @@ static struct kfd_event_waiter *alloc_event_waiters(uint32_t num_events)
->   
->   static int init_event_waiter(struct kfd_process *p,
->   		struct kfd_event_waiter *waiter,
-> -		uint32_t event_id)
-> +		struct kfd_event_data *event_data)
->   {
-> -	struct kfd_event *ev = lookup_event_by_id(p, event_id);
-> +	struct kfd_event *ev = lookup_event_by_id(p, event_data->event_id);
->   
->   	if (!ev)
->   		return -EINVAL;
-> @@ -808,6 +809,15 @@ static int init_event_waiter(struct kfd_process *p,
->   	waiter->event = ev;
->   	waiter->activated = ev->signaled;
->   	ev->signaled = ev->signaled && !ev->auto_reset;
-> +
-> +	/* last_event_age = 0 reserved for backward compatible */
-> +	if (waiter->event->type == KFD_EVENT_TYPE_SIGNAL &&
-> +		event_data->signal_event_data.last_event_age) {
-> +		waiter->event_age_enabled = true;
-> +		if (ev->event_age != event_data->signal_event_data.last_event_age)
-> +			waiter->activated = true;
-> +	}
-> +
->   	if (!waiter->activated)
->   		add_wait_queue(&ev->wq, &waiter->wait);
->   	spin_unlock(&ev->lock);
-> @@ -948,8 +958,7 @@ int kfd_wait_on_events(struct kfd_process *p,
->   			goto out_unlock;
->   		}
->   
-> -		ret = init_event_waiter(p, &event_waiters[i],
-> -					event_data.event_id);
-> +		ret = init_event_waiter(p, &event_waiters[i], &event_data);
->   		if (ret)
->   			goto out_unlock;
->   	}
+> I think this is fine, especially since it will help catch issues in
+> amdgpu quickly and hopefully encourage developers to fix their problems
+> before they make it to a tree with wider impact lika -next.
+>
+> However, this is now the third place that W=3D1 has been effectively
+> enabled (i915 and btrfs are the other two I know of) and it would be
+> nice if this was a little more unified, especially since it is not
+> uncommon for the warnings under W=3D1 to shift around and keeping them
+> unified will make maintainence over the longer term a little easier. I
+> am not sure if this has been brought up in the past and I don't want to
+> hold up this change but I suspect this sentiment of wanting to enable
+> W=3D1 on a per-subsystem basis is going to continue to grow.
+
+
+
+I believe this patch is the right way because
+we will be able to add a new warning option to
+scripts/Makefile.extrawarn without fixing any code.
+
+I remember somebody argued that drivers should be
+able to do
+  subdir-ccflags-y +=3D $(W1_FLAGS)
+
+However, if a new flag, -Wfoo, emits warnings
+for drivers/gpu/drm/{i915,amd},
+you cannot add it to W=3D1 until fixing the code.
+
+If many drivers start to do likewise,
+W=3D1 warning will not be W=3D1 any more.
+
+
+
+Another good thing for hard-coding warning options
+is you can lift up a warning flag one by one.
+
+
+Let's say you fixed the entire DRM subsystem so
+it is -Wunused free now.
+
+Then, you can move -Wunused to drivers/gpu/drm/Makefile,
+while other warning options stay in drivers Makefiles.
+
+
+
+
+
+
+
+>
+> Regardless, for clang 11.1.0 to 16.0.5, I see no warnings when building
+> drivers/gpu/drm/amd/amdgpu/ with Arch Linux's configuration or
+> allmodconfig.
+>
+> Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+> Tested-by: Nathan Chancellor <nathan@kernel.org>
+>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/Makefile | 13 ++++++++++++-
+> >  1 file changed, 12 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/=
+amdgpu/Makefile
+> > index 86b833085f19..8d16f280b695 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> > +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> > @@ -40,7 +40,18 @@ ccflags-y :=3D -I$(FULL_AMD_PATH)/include/asic_reg \
+> >       -I$(FULL_AMD_PATH)/amdkfd
+> >
+> >  subdir-ccflags-y :=3D -Wextra
+> > -subdir-ccflags-y +=3D $(call cc-option, -Wunused-but-set-variable)
+> > +subdir-ccflags-y +=3D -Wunused
+> > +subdir-ccflags-y +=3D -Wmissing-prototypes
+> > +subdir-ccflags-y +=3D -Wmissing-declarations
+> > +subdir-ccflags-y +=3D -Wmissing-include-dirs
+> > +subdir-ccflags-y +=3D -Wold-style-definition
+> > +subdir-ccflags-y +=3D -Wmissing-format-attribute
+> > +# Need this to avoid recursive variable evaluation issues
+> > +cond-flags :=3D $(call cc-option, -Wunused-but-set-variable) \
+> > +     $(call cc-option, -Wunused-const-variable) \
+> > +     $(call cc-option, -Wstringop-truncation) \
+> > +     $(call cc-option, -Wpacked-not-aligned)
+> > +subdir-ccflags-y +=3D $(cond-flags)
+> >  subdir-ccflags-y +=3D -Wno-unused-parameter
+> >  subdir-ccflags-y +=3D -Wno-type-limits
+> >  subdir-ccflags-y +=3D -Wno-sign-compare
+> > --
+> > 2.40.1
+> >
+
+
+
+--=20
+Best Regards
+Masahiro Yamada
