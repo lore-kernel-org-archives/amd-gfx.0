@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00A31C7EE2E
-	for <amd-gfx@archiver.kernel.org>; Sun, 11 Jun 2023 14:21:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C6B1C77B7A
+	for <amd-gfx@archiver.kernel.org>; Sun, 11 Jun 2023 15:24:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 561DF10E02B;
-	Sun, 11 Jun 2023 14:21:28 +0000 (UTC)
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F38F10E02B
- for <amd-gfx@lists.freedesktop.org>; Sun, 11 Jun 2023 14:21:26 +0000 (UTC)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-30e56fc9fd2so3289286f8f.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 11 Jun 2023 07:21:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20221208.gappssmtp.com; s=20221208; t=1686493282; x=1689085282;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=gt81LkxSRKwqN5GsntJNctdmadeZwJBlj1zAtRHC19k=;
- b=gFHLKAdgOa2ayQfewlYuAfmwtcgxlqGX4UStauA4fpQwrcS3NxsoLATrWeUYCfpEH/
- 5hfsNQfxEc66MJlSnhDYl2lGAPNZdlYXB0dgW3uEQzVh6rmzumD3X6PxNPmnU9Y1G7EV
- k+mGk3Gk3dTEOJBpr1M5tW9DZjHVu0d3K6euEYd5FuVuA9M/ZwASDX8cSAlvGTi2+dS5
- KvL6Q20o+qr1kMwqXNC7rLDROkghY5FkVQ98trFFrj5V7YCcI8wh4ttOZbOrxJnoPNhu
- NNtKvM6imh9bSyDR8nIPo98/Z/NglT95pFwcy8bOD5HYYue4YJuBYqOrkNIdTPTr8Zkz
- TBwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686493282; x=1689085282;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gt81LkxSRKwqN5GsntJNctdmadeZwJBlj1zAtRHC19k=;
- b=WowSFesIivriDeejnxFywsV3xbrjWuX7wil+vX9mevQJOdTWMkSJ4SrihaLybkEV42
- z4PwRoWib2gnFkGmjmlqaBzv33HkpnrJRP8+QTKRB+x2P+bFGgLD/QRMk3evxGwq0hgw
- m4ZpQNDIclqsS8Md1uBbVGWe8aCJxwKEc/70/dyfkcAGUoRidt3cDUFtupZ6ypf2KqIL
- /ZdxT7FBKhrnE50SM5ZcS3k2uY4ukCJtskuaUvP7Tf9GgFVhaH0J/uS2gku9ExCbm1sl
- wNMOIgQ2QV/DeA2XkGfxpgZszC+SmVicv615WBDhmBkfwq9QVTgvLcckkYQaYglahvvV
- +VVA==
-X-Gm-Message-State: AC+VfDyXJ2UeYL7ndQcdytal9EvN81V7O35QA3DY0J2N8cbBdqrkw4WI
- tYk6PXzuVXM4JqOxlQdeg7NlktQ5aoaJ3UT8oFCyBw==
-X-Google-Smtp-Source: ACHHUZ4ycK5xRTS/iTMNiWMOcLor/1ax6OIlWvJngtYU2WUAuExBI+NL47T4MZtfhClZ3jUuV+o/SSA4u4mFsTGAofY=
-X-Received: by 2002:adf:f701:0:b0:30a:ea8a:7a6d with SMTP id
- r1-20020adff701000000b0030aea8a7a6dmr3177500wrp.16.1686493281684; Sun, 11 Jun
- 2023 07:21:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B029A10E102;
+	Sun, 11 Jun 2023 15:23:59 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2D02E10E0E3;
+ Sun, 11 Jun 2023 15:23:55 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8BxZ+kH54VkptwCAA--.4558S3;
+ Sun, 11 Jun 2023 23:23:52 +0800 (CST)
+Received: from openarena.loongson.cn (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8DxVeQH54VkHBATAA--.55302S2; 
+ Sun, 11 Jun 2023 23:23:51 +0800 (CST)
+From: Sui Jingfeng <suijingfeng@loongson.cn>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>,
+ Pan Xinhui <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alvin Lee <Alvin.Lee2@amd.com>,
+ Jun Lei <Jun.Lei@amd.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, Samson Tam <samson.tam@amd.com>,
+ Dillon Varone <Dillon.Varone@amd.com>, Alan Liu <HaoPing.Liu@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Add error reporting code for the display core
+Date: Sun, 11 Jun 2023 23:23:51 +0800
+Message-Id: <20230611152351.24569-1-suijingfeng@loongson.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
- <20230414155330.5215-62-Qingqing.Zhuo@amd.com>
-In-Reply-To: <20230414155330.5215-62-Qingqing.Zhuo@amd.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Sun, 11 Jun 2023 15:21:10 +0100
-Message-ID: <CAHbf0-EpMiJQtZ=LWKA=2G9YxiVfhaij8aAxMnJW11Gj6VY_kg@mail.gmail.com>
-Subject: Re: [PATCH 61/66] drm/amd/display: fix dpms_off issue when disabling
- bios mode
-To: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: AQAAf8DxVeQH54VkHBATAA--.55302S2
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxCr1kAFykJryDJF1xCryxCrX_yoW5uFW7pw
+ 4fGa1YgrWUAwnIqrZxJay0vF1fAa4fKF40yry3Cw1Sqa9rtrn3Jr48Gr1ayay3JFZxWa4I
+ qFZ0y3y5uF12krcCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+ Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+ kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
+ twAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
+ 8JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
+ 6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+ AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+ 0xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
+ v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
+ xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8hID7UUUUU==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,66 +65,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, amd-gfx@lists.freedesktop.org,
- Zhongwei <Zhongwei.Zhang@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Harry.Wentland@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+[why]
 
-This gives me a blank screen when booting on my Ryzen 9 5900HX Laptop
+Because the drm/amdgpu drivers do not work with Navi 10 [RX 5700] series
+GPUs on non-x86 platforms, this patch helps find out where the drivers fail.
+After applying his patch, the following error message can be found:
 
-03:00.0 Display controller [0380]: Advanced Micro Devices, Inc.
-[AMD/ATI] Navi 22 [Radeon RX 6700/6700 XT/6750 XT / 6800M/6850M XT]
-[1002:73df] (rev c3)
-08:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc.
-[AMD/ATI] Cezanne [Radeon Vega Series / Radeon Vega Mobile Series]
-[1002:1638] (rev c4)
+[drm:dc_create [amdgpu]] *ERROR* dc_construct: failed to create resource pool
+[drm:dc_create [amdgpu]] *ERROR* dc_create: dc construct failed
+[drm] Display Core failed to initialize with v3.2.230!
 
-This is the second time this has been changed - the last time was back
-in November, I'll happily help debug why this is breaking on my laptop
-but I'd appreciate if this would be reverted and not reattempted until
-the underlying issue is fixed
+Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 29 ++++++++++++++++--------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
-Cheers
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 52564b93f7eb..d33b78aa3e58 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -951,7 +951,7 @@ static bool dc_construct(struct dc *dc,
+ 		goto fail;
+ 	}
+ 
+-        dc_ctx = dc->ctx;
++	dc_ctx = dc->ctx;
+ 
+ 	/* Resource should construct all asic specific resources.
+ 	 * This should be the only place where we need to parse the asic id
+@@ -990,16 +990,21 @@ static bool dc_construct(struct dc *dc,
+ 	}
+ 
+ 	dc->res_pool = dc_create_resource_pool(dc, init_params, dc_ctx->dce_version);
+-	if (!dc->res_pool)
++	if (!dc->res_pool) {
++		dm_error("%s: failed to create resource pool\n", __func__);
+ 		goto fail;
++	}
+ 
+ 	/* set i2c speed if not done by the respective dcnxxx__resource.c */
+ 	if (dc->caps.i2c_speed_in_khz_hdcp == 0)
+ 		dc->caps.i2c_speed_in_khz_hdcp = dc->caps.i2c_speed_in_khz;
+ 
+ 	dc->clk_mgr = dc_clk_mgr_create(dc->ctx, dc->res_pool->pp_smu, dc->res_pool->dccg);
+-	if (!dc->clk_mgr)
++	if (!dc->clk_mgr) {
++		dm_error("%s: failed to create clk manager\n", __func__);
+ 		goto fail;
++	}
++
+ #ifdef CONFIG_DRM_AMD_DC_FP
+ 	dc->clk_mgr->force_smu_not_present = init_params->force_smu_not_present;
+ 
+@@ -1022,14 +1027,18 @@ static bool dc_construct(struct dc *dc,
+ 		goto fail;
+ 	}
+ 
+-	if (!create_links(dc, init_params->num_virtual_links))
++	if (!create_links(dc, init_params->num_virtual_links)) {
++		dm_error("%s: failed to create links\n", __func__);
+ 		goto fail;
++	}
+ 
+ 	/* Create additional DIG link encoder objects if fewer than the platform
+ 	 * supports were created during link construction.
+ 	 */
+-	if (!create_link_encoders(dc))
++	if (!create_link_encoders(dc)) {
++		dm_error("%s: failed to create link encoders\n", __func__);
+ 		goto fail;
++	}
+ 
+ 	dc_resource_state_construct(dc, dc->current_state);
+ 
+@@ -1314,11 +1323,15 @@ struct dc *dc_create(const struct dc_init_data *init_params)
+ 		return NULL;
+ 
+ 	if (init_params->dce_environment == DCE_ENV_VIRTUAL_HW) {
+-		if (!dc_construct_ctx(dc, init_params))
++		if (!dc_construct_ctx(dc, init_params)) {
++			DC_LOG_ERROR("%s: dc construct failed\n", __func__);
+ 			goto destruct_dc;
++		}
+ 	} else {
+-		if (!dc_construct(dc, init_params))
++		if (!dc_construct(dc, init_params)) {
++			DC_LOG_ERROR("%s: dc construct failed\n", __func__);
+ 			goto destruct_dc;
++		}
+ 
+ 		full_pipe_count = dc->res_pool->pipe_count;
+ 		if (dc->res_pool->underlay_pipe_index != NO_UNDERLAY_PIPE)
+@@ -1349,8 +1362,6 @@ struct dc *dc_create(const struct dc_init_data *init_params)
+ 
+ 	DC_LOG_DC("Display Core initialized\n");
+ 
+-
+-
+ 	return dc;
+ 
+ destruct_dc:
+-- 
+2.25.1
 
-Mike
-
-On Fri, 14 Apr 2023 at 16:55, Qingqing Zhuo <Qingqing.Zhuo@amd.com> wrote:
->
-> From: Zhongwei <Zhongwei.Zhang@amd.com>
->
-> [Why]
-> disable_vbios_mode_if_required() will set dpms_off to false during boot
-> when pixel clk dismatches with driver requires. This will cause extra
-> backlight on and off if OS call 2 times setmode.
->
-> [How]
-> Set dpms_off to true to keep power_off and let OS control backlight by
-> display's powerState.
->
-> Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Signed-off-by: Zhongwei <Zhongwei.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 9304eb66a1af..238a13266ad8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -1268,7 +1268,7 @@ static void disable_vbios_mode_if_required(
->
->                                         if (pix_clk_100hz != requested_pix_clk_100hz) {
->                                                 dc->link_srv->set_dpms_off(pipe);
-> -                                               pipe->stream->dpms_off = false;
-> +                                               pipe->stream->dpms_off = true;
->                                         }
->                                 }
->                         }
-> --
-> 2.34.1
->
