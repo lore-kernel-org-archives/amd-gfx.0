@@ -4,120 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5D7CC7EE2F
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 16:31:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92805C88CB2
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 17:47:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDAD510E18D;
-	Mon, 12 Jun 2023 16:31:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 438B210E1AA;
+	Mon, 12 Jun 2023 17:47:45 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20619.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8a::619])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9710610E18D
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 16:31:34 +0000 (UTC)
+ (mail-bn7nam10on2062d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4457910E1AA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 17:47:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nW+Sn31uRkEdj2dJgfvoGq5ZiUCa4c/y0fIXizzSya88CmiEQ6qJjjJT3nMnGjLpHGGnGg69DYI/8xXLBah2GpETuhDRV30keWvbMTGID3HX4XGbgg2P4cYCqOfzyTtwzcXdliFtoaj93ds5R7dPZKVo2oh4cyHxSJ1D86vg9DBFh57/t56o1XJX1txUmc5rOVM/V1XMHP23xYk8bxuxrEgS7qkJq4a/ZiPv/SAYisywSTbStBf+JLQGHCSwx+uZvg+I1KQHJxJnzuh1iGK4vYvHKcgbvz5NQgjMn/qbPcnp0GqXa2apLC4SzOEROxyuPTOAj+m0serbg0TLGlmLiw==
+ b=irtm+g00byDDnpoiAxhILIINdLif3zHrg7aDDnyR9ebvhtr7oi/k+XqWmwRqOGy0/vKacxEhoELROA0JarHcG8KXmro0hYuefLMTVV1yhVgEwmm6mQO5HNkc9DrI/t/hibmI+GuS81krOAN9v/yNZM+LsVNzQVnZUxJbPMNuO5bIRbQfdo5PV2qVR83U7GPGyDpANbVBnCh4EJmWBuJKVwEexjRgzryACkfZgrK4fvTBNQaPd8pTuxUxlMWPiKQ7HnsGVVbS0SFLV78Kh5/sJ1xSU0oEPlM8Vg1DXV6p2kzcZi/8Tw9YdtnGQr2cqRTBVZoGfO12YcU3QLm5idrKaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nufbUMIOpTJQ/q7D6RvEgdL/Daq1duuFKFvarQC5exk=;
- b=ETyg5Ob5JU3mu3j7LjMTK0J+YnJ1+7K+9aYLGWcsBkbFw/6/GPy7YGKTdnpZT49FHhSx76s0rzcIf4Nj/PPizWmu/CkDOtTv7mCVhyDYKRLcDV7hha1Bgb40PAwpwUUgeQk8RC6U98tsaAu5K5tVgM/vm0swhOI6ybLEny9uoYXeTsH6aC95WVuF72iVovvF8Vhr6bCVOLutnYJ4eolIY6kEq4mefXmcj9GIhyKFxSBTkBp0W1xXyPqRBOiNds30tnAXvMIPyIxnL43OVjDrvrIlWWwPfJg2Syy6uBTx5lzXlaMUj7NTDJlIhoApV3deA77h6YWS/eNBkaNYSMn4kQ==
+ bh=EESqJF5O2oyKmokhe/GSQFlzEAqTGJONnGUkySrgYGI=;
+ b=nIcafdbuXPdPEcoTW4O0lWjVSHyZtIZKK4APyAIn2j9w5rwnnn5gINNNuiS0tnYshEsAYx3kfuvMJrD/ib6gwje6O0WW9Z8w+SviB3En92PFe7yAjDOusOEf/Rw6xo4CJOnBTWWK9M6eXAzSlPdXKOevE35djD39D2NzciwRKgSNQ4NBDsxgbMROB6FedL+HQ8cZzBwsNdNdBEEzfqHi9szE2cP7r1hmSvEfO1lISO6EN+amF8yqZebJVoyEe+UurznfTU9mhzbfQzidJQipLw6tqSA4b7yFVWqXoXbPd5aT1IDUYjbgn0OPK0XCgEHvqYbrXRoEZFhRT2ETGhVxWg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nufbUMIOpTJQ/q7D6RvEgdL/Daq1duuFKFvarQC5exk=;
- b=no2W9tniW7MKMsXDVShuGCTKtcpT1hPohyF4Z/Ms3A3Cd7Ppt18f6oe0eRFStOUcWlcny6Dc/fdb0uBhiTsZ3M6UNQXkXjirN8VvlswZCful5HdDq4b0ZSviwhikYiFQefr1RChq/jXwurwhYj6/DY6R88fJRipSEBoB3l6/68w=
+ bh=EESqJF5O2oyKmokhe/GSQFlzEAqTGJONnGUkySrgYGI=;
+ b=e6GiRmaSZSe/QA8Fr6088nf7QgzCl0NSvxSYCREWUKgoK6d2mQZkMpwGR7DwybPVfwUn8DGB0MnJ+/lReuzJFsGi6REiWorryFTfeqhoMjKooK4Yzvsz0aP9GuJyy06bT4uWvTmKxX40R6daGO1MlLDnG9LXN8V5NXW+CIqme+I=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by IA0PR12MB8278.namprd12.prod.outlook.com (2603:10b6:208:3dc::11)
+ by LV3PR12MB9258.namprd12.prod.outlook.com (2603:10b6:408:1bb::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.38; Mon, 12 Jun
- 2023 16:31:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Mon, 12 Jun
+ 2023 17:47:39 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::2dc3:c1:e72d:55bc]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::2dc3:c1:e72d:55bc%7]) with mapi id 15.20.6477.028; Mon, 12 Jun 2023
- 16:31:29 +0000
-Message-ID: <64505e39-d9e2-26ea-f380-53b408bed6ef@amd.com>
-Date: Mon, 12 Jun 2023 12:31:27 -0400
+ 17:47:39 +0000
+Message-ID: <027b9150-3201-b2ad-0153-e60deab275fd@amd.com>
+Date: Mon, 12 Jun 2023 13:47:37 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v5 3/5] drm/amdkfd: set activated flag true when event age
- unmatchs
+Subject: Re: [PATCH] drm/amdkfd: fix null queue check on debug setting
+ exceptions
 Content-Language: en-US
-To: "Yat Sin, David" <David.YatSin@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20230608170705.2271276-4-James.Zhu@amd.com>
- <20230609204350.2352248-1-James.Zhu@amd.com>
- <3380071c-2673-8e2b-762b-51c2b66baa72@amd.com>
- <DM6PR12MB50214C152AF8F6E2F6F626B09554A@DM6PR12MB5021.namprd12.prod.outlook.com>
+To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230612154657.2309434-1-jonathan.kim@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <DM6PR12MB50214C152AF8F6E2F6F626B09554A@DM6PR12MB5021.namprd12.prod.outlook.com>
+In-Reply-To: <20230612154657.2309434-1-jonathan.kim@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0067.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:88::14) To BN9PR12MB5115.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBP288CA0022.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6a::6) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA0PR12MB8278:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49d4f7a0-c138-4bf6-f841-08db6b627997
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|LV3PR12MB9258:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7227c2a1-1ec2-4209-54d9-08db6b6d1d97
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: If17hcYNCnsmRi2+9FMbTw/HAnwbvFo8GK2iv372uzuw7OiydxGSFXVyPg3gSc8n4350cnXU3pr9ZDAUVc0ZIfkqoqIS/oe4pAJfA8ESkdTeX4vEtrwpCrXACAXNN8cAxoAUybPI09wGAxfMi8zsI3zud37U0Y9eguoPnqn17OFQKtwbpjlWP7GpzFJ9E5J99UcgToGgTFOAtMBmCv7qSuKizmHyzjy/CbqaDU3eENvUspeI5cU3qz8bDNgZ+9xYiOZ9TaP3EqvKMCdyGbpmE3jSyxL7ebZqejBfMc/4rEnWgiTZ2FiutbGPyKj4OvVGhSCOwYdTwr5pBvBGjr3FT6y6h5LqjTl0y64GGI27rR3LVOpmaJnxMhco3LLgxLRmX/3/aiUMp2GQnNUYKbOYayo8t8V9BGWCpXocmV00fAWN7eo4dLdU2z87xol5UYn+efbh4U2qJnBPqHFW6ujKtyo8JZ92SJ2I9O781sGuEl2VqUwMFU8w4+Gm535du7Ox641D+2nUF1fWfe3iUyq59gzuFS9nDr94gwNFJ9grSJWsx718gEptmlrY8vtfGmVFI2ckyxDVCFRdxz6Jf5J4VTlcm2NQRe5JtLNpXgMceWGYENffbLEbRDgccBTpQSJudeBbMPng6bWQgF+W/l8PKA==
+X-Microsoft-Antispam-Message-Info: nukgYsooVtc2WxwHvLSY2ysPO9T/sdPnM3KWolDIZAmsLAZF/hh7moKouXrmMw65LHvKzM+pcIGVWHiGP7aZx9RhRreACSDDHCfsPOpyBRwfmKPi4e4tWGnia8PaOhiOSe1jRjdqbPAzCEQbtLXojB8S2pfy8eKkaE8RMyY58p3wFXHkTRmcX4MSixide8/uK9HQTjh0AYO+37k7qKeLhjofldU1ZvXoNeh5p1anaq0M7nJBVyJq7tZOko2puPYP4BtU2rJ5XihGp0nJhMfEuuFufDsLg9tZiWwgDNXWL4pikXlfhGyNNkQDnCYhl86/xwmV4XgzGHvUbbV8HQIZ+0hb8ykOYIsO/FeEtzsN0TwCr8j4FAwu2XJeFBnKiLe6eg81RakZy2rHKdCaA0RJ4Mm85pVtXpR4lkeEUAL1jncdw5luyVYwJYHOnjOnaLLSUXgSv/IeOgENKFvVbrR4GomukJCVej4iGygWjjHc0rhGsXgjunfgyq3zuktQXbeczdH24mz6pBsWNOg/x+DhXyfuhNRGo7sNx4w2W1x1c70Vke7fL4iS5QqYVDb3wpbeEdNcA03/rV8RX5aVgnCLzSL2sctuYLUvu0Uk2f56PFkhDshOCDrIBJi6nXlu3UjOAewPDS86ne/1oJHfNzEv5Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(136003)(366004)(346002)(376002)(451199021)(6486002)(6506007)(36756003)(26005)(83380400001)(186003)(5660300002)(6512007)(41300700001)(53546011)(110136005)(8676002)(38100700002)(478600001)(8936002)(66476007)(66946007)(66556008)(316002)(31696002)(86362001)(2906002)(44832011)(2616005)(31686004)(45980500001)(43740500002);
+ SFS:(13230028)(4636009)(346002)(376002)(396003)(136003)(366004)(39860400002)(451199021)(6486002)(478600001)(26005)(6512007)(6506007)(83380400001)(186003)(36756003)(31696002)(38100700002)(86362001)(2616005)(31686004)(5660300002)(8676002)(8936002)(316002)(41300700001)(2906002)(4744005)(66556008)(66476007)(66946007)(44832011)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S1JMdXhEOW1xV1FsbHhDa1FGNEV2akN2SmpPaDZvWXl5aVhmTy8ydWxwKzRG?=
- =?utf-8?B?UVpUQjlieVhEalp0dmJhdVNjNG9sdHU0QWpUNXFLand0aHcvbkVvRjhqMHl4?=
- =?utf-8?B?c1BFTGhpWE5xcnlVdEoyRWRkazhyUEZFb283UHptcnhpZDM4K1BVckVsTG84?=
- =?utf-8?B?OW5jS1VCamIrQ3N6RnhQYm96eHRzeFBOOStEdGNqNW1vU3d6ZGNxMVV2ajF4?=
- =?utf-8?B?Sy9ZRUZydEFqSG55M2oyRmozSHJZZnZEaFFSdEZacUIrOFpxRnJMVlZPbGlQ?=
- =?utf-8?B?ZWtEUGNybEZrNE5TejIzMkFyUkhBeUxSc3pldGxZVzlYcFNhY2JjZ3VLK0JD?=
- =?utf-8?B?RmtxcHZwYS9OWVdVaFRXRnNBdDlUNTdXbFdnUDVKOU1SaUNma1FqZUpyOWwz?=
- =?utf-8?B?ZDRXYm1tZFFTSTFwVTlBeUhEVUtMd01zUlNPYnBDZjhrUnl0ZHB6R1VqcVA1?=
- =?utf-8?B?Y3REVStFVjhFRy8vclorNk0vbkk4NnJQUjNxQkRsS2xqdGNmWEh5SUxvSWRJ?=
- =?utf-8?B?YUxvY1o5RE5OUmFKdU0wdkgwcUJoMlRQbjlLanlDU0lxbzdTTEhlWEhGeTk5?=
- =?utf-8?B?cGRqVG1nYmpvRmJnMll1UTJkVDNaRVdCbGt1MmJWSGI0bnZSa3pDV1dnS21L?=
- =?utf-8?B?STI5a2RQR2xESHJUNTRiVXZMRWgyRzZpb0szSVlzK2ZBZ3Z2Nzk4dkIwTzNo?=
- =?utf-8?B?TVBpREwrb3RvZU9iWGZiRFNka3VyTUNBbFB5Qm4vUEJnekwwNVNDT1JRLzR4?=
- =?utf-8?B?Y3NrZElvTTd1blRDVXl0ZEFmWjhPSkZOOXlEQUZFS3ErUlB2SFdLQThkRnhP?=
- =?utf-8?B?T1Z5SEpjcDZxQ1k0MDJ2cHBidWNNSmxTSFRTRnhOb1p1TllIRURLa3FzUnhD?=
- =?utf-8?B?ZTQ0azNoY05JMS9qMGZpc2tOSFNWSmpmRFhzVHVpN1c3aWl1T0F6MDQxMm55?=
- =?utf-8?B?WHBtV1BickltNDlscm9aTW1xVlpNQ21ubk1wZ0gzRVkyZjZqNjRyT3d1UGZl?=
- =?utf-8?B?ZDk4eUpMLzJwRTUranoyYWtlV1gzaEV6RDhVN2c3Zzk1VlNZZlNuMTVKY3hH?=
- =?utf-8?B?YXh0aUJjdElxN0JBeHp3Q1g0OVpNOGNiMXVMU2d6V2RaaWhSdEVLTVVKYU12?=
- =?utf-8?B?a2FrN3JHT1E4TmRINm5YbGZPeWdBbklNTlBhMXNVL2JuVURPNTk2WHJkc3RX?=
- =?utf-8?B?U3lZWVFUU0FtMnRDZHNkR3l3bXNQNisrS1BJV2RUZjVRRk1XdVhFcjQ1N3Er?=
- =?utf-8?B?V1hKZWc5bXdtcmFBMnIwb3NUSjBsQ0hEUTZadDZBWVdsQWM0WWNoa2pyZnVI?=
- =?utf-8?B?SGNQR0VLcXM2N0RMT1ozcDdOZXlyNnRGc2dxU2pVNlI3cmpQUCtaNjU4YWdx?=
- =?utf-8?B?NlYzVXBlSzhVc3VGbW5vdVRSUlR3UGg2bGVLcjZQY0xBQnJJWFZZaEJyUXFs?=
- =?utf-8?B?RmxYRlVTOFVJN0s1Sm5iMjdwaDhWMDk2aEhabUpkYlVZTGJGRytQL0xkSklX?=
- =?utf-8?B?TU9EUzZuZjhUWDBtSW45aGVuUEJOZDhGYVJnV1pibGphK3dPZnE0OGtnTzRv?=
- =?utf-8?B?bU9JN2ZDWjZEdHBUak03aTdnOXo5TkJ3Z3hVTm9ZODQzdUhmZTBVY1kyQzFN?=
- =?utf-8?B?RXpqK2VaN2dNekEwQVhKOW1JWkwrTEdGUnhoUzRyWkx2MGtpOUNHdzhuVlBR?=
- =?utf-8?B?WGlxYnNkRFhmMlZGQ3loL1VWT3JzUWh4SW0rZ2Q1bVEzUFJzQWRyekF0cTZr?=
- =?utf-8?B?NzBEQTFYMHA4NEVnTVp6VW14UmxjdXlHcy96NUJUK0NGTHpwMnJrc1MyNVh6?=
- =?utf-8?B?TE1ybkVvK3dMcDQ3N1U1Z3h4U2grTy9Jb2tqeU5DSDNDN2JpaVhveXcxZFhK?=
- =?utf-8?B?OGJrQVYvQ0N6d2tuV0swV1VoNkJ1d2tSbDg3TzFrOHA0YUhKS2JjZElBb1BD?=
- =?utf-8?B?RHJNMjQ1ZE56aDRtcVhIZVN3TWtnMjhRZFlKT3JLQ1hCSCtFOGVOZU4vWjJ4?=
- =?utf-8?B?WTVtd1NDOUZIUHdzaUZNYjg4NzB1OExNWkpMQzJMelhqR1RlREVqQUR1cjRC?=
- =?utf-8?B?NE1tZzVVV3B4ZE1WUDdWRG1CMG4yemZydEZPNm1VS2IxSUcwMmRvRVRVTW9D?=
- =?utf-8?Q?b3QGOPhMKvpUNc8PO+ZGbd7y5?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a1dIWjJDVUQ3cjJ5NTlaOG14cW9GY1BFS2NNV1I3UFV1VDBTOHYxd3pnMEpX?=
+ =?utf-8?B?MDJ5KzJuOE45a1dDZGR6TGx1RlZSelhlZFZpTGV5MjhBdjdzNXBtREM5Rzkx?=
+ =?utf-8?B?U1FCOVFrOXRCb0Z4MVNuenZUV2FxbGJWblhDbUJBRjY0b1IrdnVadW5xK0Nn?=
+ =?utf-8?B?MWpFcG1rbkZZZXBmaktWMjZSY0s3NFgyRDFjaVNkaVJpUHlPRmVkUE44R2cv?=
+ =?utf-8?B?dUZwTDdHTXBMZDlYY294RWRZcys5dVExYmw4SEdjZnovSDRrbGh3Y1hTNzV0?=
+ =?utf-8?B?NlZsSnl4RGx0bkovUG9MdFBDK0RmWURkLzV0K0I5SHFKV2NpMnhTLytQUXNi?=
+ =?utf-8?B?Z01QZGFPY05OZ0VrRXEvcjR2QmEyNlNVQXVWZzNhKzB0R3R1ZFpZeUhBRU9R?=
+ =?utf-8?B?L3pXdTJyRFpUZkcxSmpOM0V5S2NVcHBYMmxldFhzTDdGTG1HckRZbVB2Tncy?=
+ =?utf-8?B?V2lsVTZ3NGI3S3E2MjZhSU12NFNUOEdTY2ZWWjFMdTR0L1NhTS9hbkF1VE1H?=
+ =?utf-8?B?SlVVd2FjYUJaRHdjMGFMRHN0VEhRaHBYdFdWYjJMRmh5YTV3TFQ3SE53WGNr?=
+ =?utf-8?B?YjNKR0diNWQxbnRDRDlXcVQ2UjZlRkVTTWFkREdRVWpkTVA1cjh6T25BamNL?=
+ =?utf-8?B?VGRFcnlvZ2k1ZEVta1c3MnljSFAvUXZkcGduckZGYjloaTZYTndJYmlPRloz?=
+ =?utf-8?B?K2hJNFgwUUxZS1NjUHlmckpQK2lVRzNhSHNLeTByeVNLSjhhTmJiSlVJWS9P?=
+ =?utf-8?B?cklNZ1ZkQWg0MzdPSVpUM25ZV2JtR1k3bGhoN1BuVGlSNUVpMzBOWG40WnE5?=
+ =?utf-8?B?SkwwS0FkenNPeXZwNVE0eHdYTFNOVXNtTHpZaW90dTVBcDFPYU1QVUEzRStC?=
+ =?utf-8?B?WDM5TVBjVFcvYmVDYTQ4QmtmSTc0NVRPUXAyU2tDcUt6a0NOSjdtWlFzRm5x?=
+ =?utf-8?B?dUovNkRxS04rb0ZYT1RRdnN1V2xKaTNIanpKQWdCQ21rQXdSNXpqWW9kbGhr?=
+ =?utf-8?B?WklSZEVkQUR5c3VXMGtWZ2o1Y1UrdHQ1dEh3dTlIMHlFM3Q5RUNJQ1ZNejFh?=
+ =?utf-8?B?alBMVERjdFJyUjMva2FKdk01SzRYRkl6N3E5aHhLUktGSUk3WElvamJkR1ZW?=
+ =?utf-8?B?Yk02bFcycldnWDVIQ2NOcFNGY2xUdTczUWU3cWR1bzBSZS9YS1FOYVY0U1hH?=
+ =?utf-8?B?enNPWGFXdmpjNytzNUdCZ3JsSFRka3VFZ2dFT0h6a1RyODF4UTcyOVp3VXI0?=
+ =?utf-8?B?SmN6a3dlNFB6a3VrMGhHTkRSdXBVWGFUYVhQUHpOVXRwOHUvWWJmT2dRdHpY?=
+ =?utf-8?B?V21iVERxOGxZUVp3T1EwbzdDaU1WOTlDSDBJSzhQamFUZVBkeEVzbi9ZSFdy?=
+ =?utf-8?B?aFY5ZlBJRGdYRU9CY3lFbUovU1dOQk5DaGpqa1ZVMEs5ajJoRGRWMjlRL0d6?=
+ =?utf-8?B?aHR3RkVSM1JnV0hxeVdJcXF2MWhLVldjT0EyWCtZL3Iwb0Vid2ZHdFJ5U1JW?=
+ =?utf-8?B?ejVsRVZrNW1LbGpNK3dIOTdUaVozd0Rnc3lQaEJ6N0Y3UWZVQVBtazI4c2Nt?=
+ =?utf-8?B?eUxsNktVclgvS041ZU9hRFNGWW5OSVJFU3hMMlVtdVF2RzR6RHlpQThtR1dM?=
+ =?utf-8?B?eXFXMlpCUHoyajJlNk1sbkV1UTJROWhFUXFNNG9XZHYyZ1BRV3Y0NWZ6TnRX?=
+ =?utf-8?B?RXpHdU9VUHNxTjl6WGdoVVFuVWpqcDlvMEg3V3MvTkhyeklyNkZycWZlLzlO?=
+ =?utf-8?B?K2JEdGZNK1FxVDkwckRTanZzV0x3N1B4eU9pSjZuUm1BVWg5YktzNzRpMzZL?=
+ =?utf-8?B?MDZyUGZFK2UrOVdwUjhvTkJmajkyR3FWUXZUT0F1cXo5K1RLU3JjZVJLSjd4?=
+ =?utf-8?B?UjgrYndtaEVDc1lZeUNmb25Rc2N1aFRpU3A2b2hRTGxwOHNWMkRRMVNzVEV5?=
+ =?utf-8?B?Qkp6cmFuTXJ1U3BCejRqOC8xaS9JdlEwbktjUGhxNzZCN1lpSG9XRHlGU2Rk?=
+ =?utf-8?B?WUZaM2hBZ3lEczQrU290dGlwWjQrcmJacDQzdmE4TGdVNGhlcVdxNmd2Zkhs?=
+ =?utf-8?B?ek9NOFFDQ0J0dXREWWx6Q21XQmh6Rzk5Ujdsc3JDNGxJaVZoSUFnMFMxd01B?=
+ =?utf-8?Q?zAcFU3VurlOljlt12yki/nsSt?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49d4f7a0-c138-4bf6-f841-08db6b627997
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7227c2a1-1ec2-4209-54d9-08db6b6d1d97
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 16:31:29.5913 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 17:47:39.6195 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y705Kvlo2IY3ADMcNfXfkXGpNIjB/b+pZj9vBVu8CwefrGT8U7AAF54/Te9cTDWLZ4gbKdUPXOoxjLy61AP9NA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8278
+X-MS-Exchange-CrossTenant-UserPrincipalName: fi3DsLvmkDIVRy/RfHWRJqhejPCz4mjc88VoKUy0McKh5lg4x3ANg9P6w5N838rfZ65n37Ez9LztgppL093fDQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9258
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,118 +128,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Testing for intermittent failures or race conditions is not easy. If we 
-create such a test, we need to make sure it can catch the problem when 
-not using the event ages, just to know that the test is good enough.
 
-I guess it could be a parametrized test that can run with or without 
-event age. Without event age, we'd expect to catch a timeout. Not 
-catching a timeout would be a test failure (indicating that the test is 
-not good enough). With event age it should not time out, i.e. a timeout 
-would be considered a failure in this case (indicating a problem with 
-the event age mechanism).
-
-That said, I'd feel better about a ROCr test that doesn't just cover the 
-KFD event age mechanism, but also its use in the ROCr implementation of 
-HSA signal waiting.
-
-Regards,
-   Felix
-
-
-Am 2023-06-12 um 12:19 schrieb Yat Sin, David:
-> [AMD Official Use Only - General]
+Am 2023-06-12 um 11:46 schrieb Jonathan Kim:
+> Null check should be done on queue struct itself and not on the
+> process queue list node.
 >
-> The current ROCr patches already address my previous feedback. I am ok with the current ROCr patches.
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_debug.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> Currently, there is no ROCrtst that would stress this multiple-waiters issue. I was thinking something like the KFDTest, but with by calling the waiters from different threads. @Zhu, James Would you have time to look into this?
->
-> ~David
->
->> -----Original Message-----
->> From: Kuehling, Felix <Felix.Kuehling@amd.com>
->> Sent: Friday, June 9, 2023 6:44 PM
->> To: Zhu, James <James.Zhu@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Yat Sin, David <David.YatSin@amd.com>; Zhu, James
->> <James.Zhu@amd.com>
->> Subject: Re: [PATCH v5 3/5] drm/amdkfd: set activated flag true when event
->> age unmatchs
->>
->>   From the KFD perspective, the series is
->>
->> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
->>
->> David, I looked at the ROCr and Thunk changes as well, and they look
->> reasonable to me. Do you have any feedback on these patches from a ROCr
->> point of view? Is there a reasonable stress test that could be used check that
->> this handles the race conditions as expected and allows all waiters to sleep?
->>
->> Regards,
->>     Felix
->>
->>
->> On 2023-06-09 16:43, James Zhu wrote:
->>> Set waiter's activated flag true when event age unmatchs with
->> last_event_age.
->>> -v4: add event type check
->>> -v5: improve on event age enable and activated flags
->>>
->>> Signed-off-by: James Zhu <James.Zhu@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdkfd/kfd_events.c | 17 +++++++++++++----
->>>    1 file changed, 13 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->>> index c7689181cc22..b2586a1dd35d 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
->>> @@ -41,6 +41,7 @@ struct kfd_event_waiter {
->>>      wait_queue_entry_t wait;
->>>      struct kfd_event *event; /* Event to wait for */
->>>      bool activated;          /* Becomes true when event is signaled */
->>> +   bool event_age_enabled;  /* set to true when last_event_age is
->>> +non-zero */
->>>    };
->>>
->>>    /*
->>> @@ -797,9 +798,9 @@ static struct kfd_event_waiter
->>> *alloc_event_waiters(uint32_t num_events)
->>>
->>>    static int init_event_waiter(struct kfd_process *p,
->>>              struct kfd_event_waiter *waiter,
->>> -           uint32_t event_id)
->>> +           struct kfd_event_data *event_data)
->>>    {
->>> -   struct kfd_event *ev = lookup_event_by_id(p, event_id);
->>> +   struct kfd_event *ev = lookup_event_by_id(p, event_data->event_id);
->>>
->>>      if (!ev)
->>>              return -EINVAL;
->>> @@ -808,6 +809,15 @@ static int init_event_waiter(struct kfd_process *p,
->>>      waiter->event = ev;
->>>      waiter->activated = ev->signaled;
->>>      ev->signaled = ev->signaled && !ev->auto_reset;
->>> +
->>> +   /* last_event_age = 0 reserved for backward compatible */
->>> +   if (waiter->event->type == KFD_EVENT_TYPE_SIGNAL &&
->>> +           event_data->signal_event_data.last_event_age) {
->>> +           waiter->event_age_enabled = true;
->>> +           if (ev->event_age != event_data-
->>> signal_event_data.last_event_age)
->>> +                   waiter->activated = true;
->>> +   }
->>> +
->>>      if (!waiter->activated)
->>>              add_wait_queue(&ev->wq, &waiter->wait);
->>>      spin_unlock(&ev->lock);
->>> @@ -948,8 +958,7 @@ int kfd_wait_on_events(struct kfd_process *p,
->>>                      goto out_unlock;
->>>              }
->>>
->>> -           ret = init_event_waiter(p, &event_waiters[i],
->>> -                                   event_data.event_id);
->>> +           ret = init_event_waiter(p, &event_waiters[i], &event_data);
->>>              if (ret)
->>>                      goto out_unlock;
->>>      }
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> index cd34e7aaead4..fff3ccc04fa9 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> @@ -1097,7 +1097,7 @@ void kfd_dbg_set_enabled_debug_exception_mask(struct kfd_process *target,
+>   
+>   	pqm = &target->pqm;
+>   	list_for_each_entry(pqn, &pqm->queues, process_queue_list) {
+> -		if (!pqn)
+> +		if (!pqn->q)
+>   			continue;
+>   
+>   		found_mask |= pqn->q->properties.exception_status;
