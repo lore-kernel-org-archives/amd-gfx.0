@@ -4,67 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1453BC7EE2E
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 14:48:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D528BC7EE2E
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 14:55:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A7DD10E295;
-	Mon, 12 Jun 2023 14:48:43 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8AAD910E295;
- Mon, 12 Jun 2023 14:48:40 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8Cx_epGMIdkLd4DAA--.8460S3;
- Mon, 12 Jun 2023 22:48:38 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8BxC8pGMIdkC3IWAA--.55549S3; 
- Mon, 12 Jun 2023 22:48:38 +0800 (CST)
-Message-ID: <3ca51fbe-391c-7428-4cf0-20a20ab294d9@loongson.cn>
-Date: Mon, 12 Jun 2023 22:48:38 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C94410E29C;
+	Mon, 12 Jun 2023 14:55:32 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2071.outbound.protection.outlook.com [40.107.93.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEAB110E29C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 14:55:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O+0PVQcKNZrrupBgXjm5p31cuFDUfFYrx1ZTal/feKDRxOicO8Rkn3u63ZCYFgh1H38qRbtYx//KSMYToUhj2un84+ifiTp7ZjqbgCgB3Dz4YcPvagTIsNKlZ91axZbzxTrA4KQSOD/9l6Kts0fNP9Z2/CI9ayLXb1z1izwuICRgFimzwObrADBlnRQMKPlabEdvOyTDv5F0zEiU3BmoSX264j3/ncwNV+i8kTxXPezBRsjA/jLTyI1nFBuMkmyrs5eOWIWt2I/59nCAagixVD3dlAyl7/V/gg5ju4PfMHAQw8y29hGtmpo7xgHVm4whUnTokuHvsC18pFWF0ClKIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gYcDwtdFBgLz/r2O/eu6Ob9SJLbz7xbPkhzP+PKpUaM=;
+ b=FeYSlwXipflw2NIF4p2LmIF3Ur4OO9DuWfEu/64xvA/qcUr9ylrSxx41ystNpPK95ZhDEDN4K2mmyEU4rGPGCBohE+Zs538wKsOuE4RXjPIcCx7+YKfqKuTDF0gQlyPRNkvhzgKkpLn5aYcABWUT7QI8sMNedQGJGssVsrJjrIbL/fzv2XhFhAY8Pfo5qLVM2Lg6epH99igyZ5rIqPlCuzLiqfXZ0UeZ0DeG1EvD7R44WHxV59N8eDLaNMdLm8no5iSLfMyunTlHBvTDuYK2WT7dICSRBnDbrLYaf05L00fnqvNS1i1cSc5q9onkcRdJ5fLrM+wGWTDNvfuD8mFhOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gYcDwtdFBgLz/r2O/eu6Ob9SJLbz7xbPkhzP+PKpUaM=;
+ b=RvnhSIXcsa403HLUpy6qgkywMmyxN6PaxkV3AbGAHYWk5C0BhJz/3iX1s6cvtNCG0zEQp58DqTYgu3vEhyplW50L6NllyZoUN0OC915qwyepUBgMsvKepvw1u7Khnx60mWwoWVxApb3JGl0/KmqHg9xer2O+CJbTrAOoeT/1AyQ=
+Received: from DM6PR08CA0050.namprd08.prod.outlook.com (2603:10b6:5:1e0::24)
+ by LV3PR12MB9260.namprd12.prod.outlook.com (2603:10b6:408:1b4::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Mon, 12 Jun
+ 2023 14:55:26 +0000
+Received: from CY4PEPF0000EDD3.namprd03.prod.outlook.com
+ (2603:10b6:5:1e0:cafe::81) by DM6PR08CA0050.outlook.office365.com
+ (2603:10b6:5:1e0::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.33 via Frontend
+ Transport; Mon, 12 Jun 2023 14:55:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD3.mail.protection.outlook.com (10.167.241.207) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.21 via Frontend Transport; Mon, 12 Jun 2023 14:55:25 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 12 Jun
+ 2023 09:55:24 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: don't free stolen console memory during
+ suspend
+Date: Mon, 12 Jun 2023 10:55:12 -0400
+Message-ID: <20230612145512.752279-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v2] drm/amdgpu: Add error reporting code for the display
- core
-Content-Language: en-US
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, "Lee, Alvin" <Alvin.Lee2@amd.com>,
- "Lei, Jun" <Jun.Lei@amd.com>,
- "Zhuo, Qingqing (Lillian)" <Qingqing.Zhuo@amd.com>,
- "Liu, Wenjing" <Wenjing.Liu@amd.com>, "Tam, Samson" <Samson.Tam@amd.com>,
- "Varone, Dillon" <Dillon.Varone@amd.com>,
- "Liu, HaoPing (Alan)" <HaoPing.Liu@amd.com>
-References: <20230611152351.24569-1-suijingfeng@loongson.cn>
- <BL1PR12MB5144EE0E3EB0D30F27D5F824F754A@BL1PR12MB5144.namprd12.prod.outlook.com>
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-Organization: Loongson
-In-Reply-To: <BL1PR12MB5144EE0E3EB0D30F27D5F824F754A@BL1PR12MB5144.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID: AQAAf8BxC8pGMIdkC3IWAA--.55549S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxCF1kAr13Ww15Cw48JF48Xwc_yoW7JFyUpr
- 4fGF4Y9rWUZw1aqry3JFyjvF4ay3WfKF4FyrWUGw1Sv3sFyr1fJF48Kr43u3y3uFsrWw1I
- qFWjgF4xuF12krXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUvFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v2
- 6F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
- 02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAF
- wI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxk0xIA0c2IEe2xFo4
- CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
- 67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MI
- IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E
- 14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JV
- WxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcHUq
- UUUUU
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
+ (10.181.40.144)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD3:EE_|LV3PR12MB9260:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6bc81127-b869-427f-1ced-08db6b550e61
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7AXJphy1BasQu6VBhQmkkuFGCzV/7tK67upuwGK/VxLotUuo62FbdqE/0ze6o+hPl6qqGipWGaEUBY2jZr1MjXrMNTFmjUEKmoc6P36E0fITIuGG/aUU7146gAJiPZy570YQDtSH33yVjT3erw3vcfnkDIBHmCupfRU9IpZ696SKeMRILpA2Fxji4hzVa3mUOix/7qCl08Du+6LH3y/hR/+zMyF2ukYk0N3+08PWHbjbFKpmYkvv+6tXmI9eIzn0Wn71XWMx7wlTxIg/qGyK57aGD28l7pn1ejc+juS+zW9FC2HuSXfBsMQlBeHOfmYbpgyq39ta74PSgY3SWFm0y/2l/7s3ivkmNlMhvb44oE1y/Qgh+HdmLuRTvFeWkqOWp7cfqYqXxHSCpRujngKvq0VvFLakMdt3froUo4yCNPM1Va/Mp/7wft1x6mVfT935/25XXUeA4xkUBq+4T7CEMApxIy3pWYZ/tnXAmQVclgqLPTe+NtR+7ZhYDQlQzISBuPJI4YNtumelc5xl3hieZhf4HaLqbzJwwPEz15Xx2wrtGkQOoLQDkzEhnbbz2zRxNWh7iwHpVj2G787UlJrXVN8YSzzr1nUlCPNsW5LyzBNh5aPK2K9Vm/mrKwb3l7JYDSdQrQ68f17HpU7iRBouJWrGhrurTsQXQoV0CklUmyxhFzqT5JbH/btyRQk6yKbPa2gX4kEmWLhgavYnwu34AIlWkQ9Br6ECbWicnef/biY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(346002)(136003)(376002)(396003)(451199021)(36840700001)(46966006)(40470700004)(82310400005)(36860700001)(40480700001)(47076005)(336012)(83380400001)(426003)(356005)(4326008)(82740400003)(81166007)(41300700001)(36756003)(316002)(7696005)(6666004)(966005)(1076003)(26005)(6916009)(70206006)(70586007)(2906002)(5660300002)(40460700003)(86362001)(8936002)(8676002)(478600001)(15650500001)(186003)(16526019)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 14:55:25.9600 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6bc81127-b869-427f-1ced-08db6b550e61
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9260
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,150 +98,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Don't free the memory if we are hitting this as part of suspend.
+This way we don't free any memory during suspend; see
+amdgpu_bo_free_kernel().  The memory will be freed in the first
+non-suspend modeset or when the driver is torn down.
 
-On 2023/6/12 22:41, Deucher, Alexander wrote:
-> [Public]
->
->> -----Original Message-----
->> From: Sui Jingfeng <suijingfeng@loongson.cn>
->> Sent: Sunday, June 11, 2023 11:24 AM
->> To: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
->> <Sunpeng.Li@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>;
->> Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David
->> Airlie <airlied@gmail.com>; Daniel Vetter <daniel@ffwll.ch>; Lee, Alvin
->> <Alvin.Lee2@amd.com>; Lei, Jun <Jun.Lei@amd.com>; Zhuo, Qingqing (Lillian)
->> <Qingqing.Zhuo@amd.com>; Liu, Wenjing <Wenjing.Liu@amd.com>; Tam,
->> Samson <Samson.Tam@amd.com>; Varone, Dillon
->> <Dillon.Varone@amd.com>; Liu, HaoPing (Alan) <HaoPing.Liu@amd.com>
->> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
->> kernel@vger.kernel.org
->> Subject: [PATCH v2] drm/amdgpu: Add error reporting code for the display
->> core
->>
->> [why]
->>
->> Because the drm/amdgpu drivers do not work with Navi 10 [RX 5700] series
->> GPUs on non-x86 platforms, this patch helps find out where the drivers fail.
->> After applying his patch, the following error message can be found:
->>
->> [drm:dc_create [amdgpu]] *ERROR* dc_construct: failed to create resource
->> pool [drm:dc_create [amdgpu]] *ERROR* dc_create: dc construct failed [drm]
->> Display Core failed to initialize with v3.2.230!
-> Curious what the failure was on your platform.  Resource create is mostly just allocating structures.
-This is because the DRM_AMD_DC_FP configuration does not get selected on 
-my hardware platform.
->
-> Alex
->
->> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
->> ---
->>   drivers/gpu/drm/amd/display/dc/core/dc.c | 29 ++++++++++++++++--------
->>   1 file changed, 20 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c
->> b/drivers/gpu/drm/amd/display/dc/core/dc.c
->> index 52564b93f7eb..d33b78aa3e58 100644
->> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
->> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
->> @@ -951,7 +951,7 @@ static bool dc_construct(struct dc *dc,
->>                goto fail;
->>        }
->>
->> -        dc_ctx = dc->ctx;
->> +     dc_ctx = dc->ctx;
->>
->>        /* Resource should construct all asic specific resources.
->>         * This should be the only place where we need to parse the asic id
->> @@ -990,16 +990,21 @@ static bool dc_construct(struct dc *dc,
->>        }
->>
->>        dc->res_pool = dc_create_resource_pool(dc, init_params, dc_ctx-
->>> dce_version);
->> -     if (!dc->res_pool)
->> +     if (!dc->res_pool) {
->> +             dm_error("%s: failed to create resource pool\n", __func__);
->>                goto fail;
->> +     }
->>
->>        /* set i2c speed if not done by the respective dcnxxx__resource.c */
->>        if (dc->caps.i2c_speed_in_khz_hdcp == 0)
->>                dc->caps.i2c_speed_in_khz_hdcp = dc-
->>> caps.i2c_speed_in_khz;
->>        dc->clk_mgr = dc_clk_mgr_create(dc->ctx, dc->res_pool->pp_smu, dc-
->>> res_pool->dccg);
->> -     if (!dc->clk_mgr)
->> +     if (!dc->clk_mgr) {
->> +             dm_error("%s: failed to create clk manager\n", __func__);
->>                goto fail;
->> +     }
->> +
->>   #ifdef CONFIG_DRM_AMD_DC_FP
->>        dc->clk_mgr->force_smu_not_present = init_params-
->>> force_smu_not_present;
->> @@ -1022,14 +1027,18 @@ static bool dc_construct(struct dc *dc,
->>                goto fail;
->>        }
->>
->> -     if (!create_links(dc, init_params->num_virtual_links))
->> +     if (!create_links(dc, init_params->num_virtual_links)) {
->> +             dm_error("%s: failed to create links\n", __func__);
->>                goto fail;
->> +     }
->>
->>        /* Create additional DIG link encoder objects if fewer than the
->> platform
->>         * supports were created during link construction.
->>         */
->> -     if (!create_link_encoders(dc))
->> +     if (!create_link_encoders(dc)) {
->> +             dm_error("%s: failed to create link encoders\n", __func__);
->>                goto fail;
->> +     }
->>
->>        dc_resource_state_construct(dc, dc->current_state);
->>
->> @@ -1314,11 +1323,15 @@ struct dc *dc_create(const struct dc_init_data
->> *init_params)
->>                return NULL;
->>
->>        if (init_params->dce_environment == DCE_ENV_VIRTUAL_HW) {
->> -             if (!dc_construct_ctx(dc, init_params))
->> +             if (!dc_construct_ctx(dc, init_params)) {
->> +                     DC_LOG_ERROR("%s: dc construct failed\n",
->> __func__);
->>                        goto destruct_dc;
->> +             }
->>        } else {
->> -             if (!dc_construct(dc, init_params))
->> +             if (!dc_construct(dc, init_params)) {
->> +                     DC_LOG_ERROR("%s: dc construct failed\n",
->> __func__);
->>                        goto destruct_dc;
->> +             }
->>
->>                full_pipe_count = dc->res_pool->pipe_count;
->>                if (dc->res_pool->underlay_pipe_index !=
->> NO_UNDERLAY_PIPE) @@ -1349,8 +1362,6 @@ struct dc *dc_create(const
->> struct dc_init_data *init_params)
->>
->>        DC_LOG_DC("Display Core initialized\n");
->>
->> -
->> -
->>        return dc;
->>
->>   destruct_dc:
->> --
->> 2.25.1
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2568
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 0454e94d5680..fc0dd31785cb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8963,10 +8963,17 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+ 
+ 	drm_atomic_helper_cleanup_planes(dev, state);
+ 
+-	/* return the stolen vga memory back to VRAM */
+-	if (!adev->mman.keep_stolen_vga_memory)
+-		amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
+-	amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
++	/* Don't free the memory if we are hitting this as part of suspend.
++	 * This way we don't free any memory during suspend; see
++	 * amdgpu_bo_free_kernel().  The memory will be freed in the first
++	 * non-suspend modeset or when the driver is torn down.
++	 */
++	if (!adev->in_suspend) {
++		/* return the stolen vga memory back to VRAM */
++		if (!adev->mman.keep_stolen_vga_memory)
++			amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
++		amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
++	}
+ 
+ 	/*
+ 	 * Finally, drop a runtime PM reference for each newly disabled CRTC,
 -- 
-Jingfeng
+2.40.1
 
