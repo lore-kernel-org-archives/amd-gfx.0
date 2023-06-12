@@ -4,116 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58A29C7EE25
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 13:23:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8E4BC7EE25
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 13:23:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE8E710E23E;
-	Mon, 12 Jun 2023 13:23:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EAD610E243;
+	Mon, 12 Jun 2023 13:23:55 +0000 (UTC)
 Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2040.outbound.protection.outlook.com [40.107.96.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 894D410E23E
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 13:23:09 +0000 (UTC)
+ (mail-sn1nam02on2080.outbound.protection.outlook.com [40.107.96.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84FC210E240
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 13:23:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S6d03inAM/4oNpF1AYXqlojLpK2HII8ngdazzN+CJuJeFTajbx16igx591996iZv2LMiWff2gxxal/dD0lOMxteFtwpzVXcypu7M9qeXfL4cpjmgEWRIB4lDtygSJvmg768HyccR21vTkFuu+hsXgve345p7Di5ulE3eHmMNU9VK0O+b7ZYia6Ll0VKLTePtWoVlpdgmYiL3E2S8h0jCCrjbwuxxKK3eIDjJcVkTLvI+pZH8AkDzBVDNZYiZtLGNpS3PYEsZc0O9PwPWRKFq2xUasJerbPVVi5eBbH4xv0/8cqC6DsC1JxqR5NJUaBEx0MBYMs+mvIO1aeahkHFJxg==
+ b=Ur2DsYajbE7CQuIbNgPJlDx/H6dWLzASpcmYjvwINJYr9l/T7ysyHep7SGvCw9v/3BHGu0mu52x1W3vzjjDXSvuHF5PW2PlAto3A5W4fhG2vjePrvFT4pei4HCHqxSfPBmVjk5ZWOWjpAwQBkPFluiYyB3uCm+aBSxBh8eVTKm61XMvdqcJEjaw/LP4sLwCTL4zlqn4M3rJ7WgXdYEx7K6vZUaYv009lUTiL3zP9IoXZ3cZdECNsHov5OpQ7KPPQiisPPLnOGy/XC5W0hFPmpVHIgPxIyMixQGyah8D9yHA+DRruwzlFEt/shxMlUFLcrYt15z9GwQjxd6GoQIgZCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xJuNF0TfOJP4eR56BRJyZats8ixsrrmvUAsw1iWNIVE=;
- b=c6NkcrnbTH7Vx27GH5PtVYP2/O2lbI0dpteQYVu+3383TPldaxQBt6loEJrQp69jKtie7l9OOSVSHLAWqfCOPtP/MitS55rVUe4v+ievMQNo0WhhTJXmzR2pd/Vt92jrtQBjXNmGEvtpn3k4uZOIUVg7MmWIEUoFrc8n/6pLxYzagHYS7//SysxGfdK5XLMtaEt9qNpOMa3Q/m3QzrNR6lb236G7yF1LP66C/krgYuUHuGcxhG/qM8WGp1cKJykUr3l2s2aAJ3Nn330K+icpxSjMJB79v+gE6Dnghy0CpPWiLtVyhiAWfn/MjdhjOLd/cOEx/LvJotrHD9je9VuEqw==
+ bh=5boK8cvkdmEJccFr9l2sQhu2vkc+K/DhIZfWKmjWBZ0=;
+ b=brz0+IejyyjlwdPuoONo4KZZtuOfwmYUSe0FyFhibLCBcziiM6kYDXTqdMJ2btNLUXag87hzipkgTcb4nAlnA8pawNTFT3MJZLSw5Ab2/+K8QvwQ05Kn01Ub0D9YKw4ki29uYvDVSJ7yYYOL0M575as+vBrTJM93S1BS1VHztXcPUN5++/jaTTDTAnx3oIB3HtW6lauOu+hcq1QVZzbeuwXM9GUaERivzev9hBaw9h8gte2F5d3SIDbgTy3HwtNDhbpFlMAtqKgsFticjaXQ0LIPi3a/jwcOou9ECcfp8x5a6rtXnA7LhU+Q9Qh2q2ePx6qVzbsPkHtQhFScKV7sAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xJuNF0TfOJP4eR56BRJyZats8ixsrrmvUAsw1iWNIVE=;
- b=x7Q2LkCGIfMqRrIOPscwh2/BfMTWXjVvOvNPDzCdQR19rte/4NRLrGllFrdDFawztr/83MQzrbvEtWTpJHZIBomt79mnnO+dr8VSLkpLmrz36Kfxf3pQZ5kPqRDNJbl2tOog7to6H4kD2fgdHMKCbycyIxGQ7OKnlD3f7MRokiA=
+ bh=5boK8cvkdmEJccFr9l2sQhu2vkc+K/DhIZfWKmjWBZ0=;
+ b=MiUq3KAaqxJ52Ml0qZnrgA6CMY5lL83jJahF4mcVadi9wRt8an2eCSUIoarUKZf0AeJMqdvBXPWdiqdgSE6wGujd75uvcr6fbXSpxYxzgljZefUQdJtorOXxlRO0pzOgNebOsNHlUkcnIevgwRsuenM8s3UJmmmDFNoUpviIBoI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
  by CH3PR12MB8902.namprd12.prod.outlook.com (2603:10b6:610:17d::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.42; Mon, 12 Jun
- 2023 13:23:04 +0000
+ 2023 13:23:50 +0000
 Received: from MN2PR12MB2941.namprd12.prod.outlook.com
  ([fe80::8c06:c9e:c6c2:3b16]) by MN2PR12MB2941.namprd12.prod.outlook.com
  ([fe80::8c06:c9e:c6c2:3b16%5]) with mapi id 15.20.6477.028; Mon, 12 Jun 2023
- 13:23:04 +0000
-Message-ID: <d0bdadb5-c3fe-4a78-eb11-9e53086962e6@amd.com>
-Date: Mon, 12 Jun 2023 07:23:02 -0600
+ 13:23:50 +0000
+Message-ID: <3516bdfb-5e3b-bf07-39b4-2e3682327d87@amd.com>
+Date: Mon, 12 Jun 2023 07:23:48 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amd/display: Correct kdoc formats in dcn10_opp.c
+Subject: Re: [PATCH] drm/amdgpu: Add missing function parameter 'optc' &
+ 'enable' to kdoc in optc3_set_timing_double_buffer()
 Content-Language: en-US
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  Harry Wentland <harry.wentland@amd.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>
-References: <20230605051059.2101230-1-srinivasan.shanmugam@amd.com>
+References: <20230603145347.1940243-1-srinivasan.shanmugam@amd.com>
 From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20230605051059.2101230-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230603145347.1940243-1-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0494.namprd03.prod.outlook.com
- (2603:10b6:408:130::19) To MN2PR12MB2941.namprd12.prod.outlook.com
+X-ClientProxiedBy: BN9PR03CA0510.namprd03.prod.outlook.com
+ (2603:10b6:408:130::35) To MN2PR12MB2941.namprd12.prod.outlook.com
  (2603:10b6:208:a9::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|CH3PR12MB8902:EE_
-X-MS-Office365-Filtering-Correlation-Id: daeee9b6-7ce8-4bbb-4095-08db6b482765
+X-MS-Office365-Filtering-Correlation-Id: 50f39fb9-48b6-41fe-9094-08db6b4842a2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ohClidZhAJgSkKJsKZ7ul3Cb1pPPBVTN4V7y0ksMz3T4glgbXarUdSyVT95n6cuB4d6pHV48efvYFp9rLFakfWNv9oIGtlAF3uxAa1wk3yj1gqQKs84SvghcFMK/37t8HvQhs3JLso456czLkSNauZNbHCPd9D39rE28iQNWMbYGkwUrLfq/D1sP7GhQueu+zi135bpP3HmiJnkUFooHtgmCCpSB7PQGn2Y9XBcubzJt8skJHYBP9pfeaEpL2PNGAxyve8tjVu3vQbdZEu8nrXUn4hLcXbw8OOx1riM0GsFMrgq9sUQQguBf2UPQXxIpZkXD/NqZpIE/brdg9Yl42xZPGaPAQLW3tVJsDIUVHXCn8wSaNXDPLfj3zHSpkbAgbKpLLuHdHbzO4p7xEzIT+cuAbrCoZoSN64WGaA5LPajyA0LxG5P7sb85GAQCC+H7WT+nUKAmMO3hwZFqPvuBbMmUc8jJ72V9Ml7igk1muibgm4kxwBuo8FTW+4omNw4dl81SbwotKJF4AZ5Bzfbp1MbrNybk1hX3ytNilUuow/meYQ3efqAqjU72NHoP46CBjtQ09NreV0zofwnRAr1/XqIWeom7cL3eoEC0B+VjdBpEYOyct59471L5oeLxC3uQpmv5c7mJ3qoyTW2+Z/0K+A==
+X-Microsoft-Antispam-Message-Info: MsIjX7hyP0Ig+2W4xtJcbVG/mF9eL1/UbrceGOcetaymgjU54G9chyRgBQQsrfkfVny9aX88nC1hlZ759GHGMWt1ml4iTi+Bxbdmyem2YBHRLDAaop/nkxxKShHncZ70xQ/cFDVJ6F7ETf2sbbF79k+O9nP7mI6wTaaVrLbWI9kH8L8fhA/T1WGgGAnjb/l1A3BWrWt5oQg/93naPSqidqczZzHYrvoYzDge54u3waJXqF/+rG7YpZGGicaZ/AaoaDJzUGJdUEF46VsZUnC/mt4zYgd4tDPLIFSkzsXIkzb/pBm5l5NHITY6EgmJrmdqBohZXt88zcrXBdlyDD2X/utVlC9JuKwLKxJxdT6JnzZgtWuP5LmyDKv24sg8Fwnt+aaJzlz9gHvQ3m36DlhuJKbNIt493uC5BidKKssYidSd8UJTBcYkbakyZ6LrTreGqqP1gOWUsjzi81FSB+uF2lfkuHTBBBAz4IaoNxIo1Q+q6/UlxYDObO+/YLLK4od/syaINwLbc7CoMMexpPHe3fBK0DSs5Vkhx8o4ciYQ9mNl13DnDX4YnPMhpyMjSYAwXi7Xo8zCSsEU9uuOCfQLTX7vnRIGGEInVkWKJCh49Bn38hwXidDuklEu8b8+4myDW2y9cAYsNmtPqyiKPiJZ8g==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230028)(4636009)(396003)(366004)(136003)(346002)(376002)(39860400002)(451199021)(6486002)(83380400001)(36756003)(2616005)(38100700002)(31696002)(86362001)(6506007)(6512007)(53546011)(186003)(2906002)(5660300002)(110136005)(8676002)(8936002)(316002)(41300700001)(31686004)(6636002)(4326008)(66946007)(66556008)(66476007)(478600001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dzB4b3lsalpRbHA0S3Fyd0tmai8wNTdvbERFRURaRzJYZ3MwMHNuR0RTZ2pI?=
- =?utf-8?B?a2RtR25LY1IrRW10MEsyampHVUh2b2RaL2F0V3Vja3NLL01TWFdlQXdTZXhF?=
- =?utf-8?B?aVdJeGoyQm1Pa2EyRWlWdHVJaytXSEx2QWJSQm9oNXhUZHBwRkgxT3NVRXBn?=
- =?utf-8?B?UGNvN3A3YVJObzdLUWhpWEVUUmhPK1hnbzBtQk1ITTY4RHNDTVhvSWkvVjVJ?=
- =?utf-8?B?RHBMT2xRQXY4SWphdFVPN1hBS1M5K2pseDJPUC9mbnkxQXhFblpBTDBhQWJR?=
- =?utf-8?B?eVpCZGdUbm4zMndkdlJlTVBQb2c1VzdqeWN5MEpESHRRcnJkQVh6MndyKzdR?=
- =?utf-8?B?YnduRUdqOWJVUnNrSUVEQmdzV0xSZXlreElxeFJ4VVZDMXhGSmxwQnFabEMz?=
- =?utf-8?B?aFBTT1dHU0hqYmkwR2ZvSXIrZUIrNlk0c0d1MTFOeVhkdiswTlpxZFc0aXoz?=
- =?utf-8?B?dXhZZHVPWXBYSWpDbFZUMVZYVGxKbHo0VUdKc3FLbmtMWU1rdTFHUUVtdGVD?=
- =?utf-8?B?dnFENE1Jbi8zZHVKSmhBNmRMREJFTm1MbkkySitvMWJ4VUN6RmYvcGl1ZWpn?=
- =?utf-8?B?bUMvSUsxcG0yWlgwSTdPdkd4cmE5bjFXQllEUllueGlGckJyZktuc0tGakVH?=
- =?utf-8?B?WUtad0NyS3hQMHdML3NZbUYzZ09Vc2N5THRwUlJBYlNyQm54TENHRUVYMmNj?=
- =?utf-8?B?eUhVRzRlZVdaVG5LZTAvN1BrVnJEWVRGSHhmRVRoUkNheUN0Mk13dHpuNWQr?=
- =?utf-8?B?Q1Z2b1ZKNUZuZkdIRXJTc3JmZFBaOHIyTG9iNDJ1TUhGVjVlNDVNTU94czd3?=
- =?utf-8?B?TUxnSkhEWnVDREUrMU8xSjBNd2RzNTBWTkZaL1J6WGdkSUNrWldnTzQ5cFlT?=
- =?utf-8?B?SjVoL0lFWEpVWHN0NDZKU0VOcEJzMC9mQ1g0S200YUhRUW1UM2tlUTU2TDdH?=
- =?utf-8?B?R3M5Ymg5aEQ5ODNaelNYN2c2OERHYzAyQnRCN0plenZIM0VhMFNUN0NRTjhT?=
- =?utf-8?B?UDRYaHVsdFJkVCtXRE5HbGMvWGNRSE5EVkVzQzQ5eldpbE01ZXhnQWFZZG9X?=
- =?utf-8?B?cVZueDR6clZ2cTEzV3FGdTc2L3I1d0hsYzhybGtOSjZQWi9xdHBzYWtKalA1?=
- =?utf-8?B?K2ZrTTlUQXVqQk1XaFhkVlpFRC9JaHRaNUYzNy9GZEpLMlJXK2NSWWFFaElj?=
- =?utf-8?B?N0hKRnFYSFRNUVZDZUFVcUlHY2JMZjRGS2NPZlI4K1h0Nis4ek9hNmpLbC9l?=
- =?utf-8?B?MWNXakVNMlFuMVRyOU9TNlV0MFdRTVZyV3NibDB2ejBqSzFWQ1YyL053UmNS?=
- =?utf-8?B?ZWg5dHFXL2ZmQXBkaHlydW9CRTl6bE9qc0NBL3FHL1B6L1VyaXQvMG5POHdQ?=
- =?utf-8?B?K0l6Y3QwZkZ6eEFXQUdCN2hqQjF2V1B1WnUvVm44Zm9yczJEbFhKMUVCVDlO?=
- =?utf-8?B?dWhCdGxPTFM3cUhKN3g2TGplR3JSOVk5aDN5TzVqSTJqVVhnTzUveldGWUlq?=
- =?utf-8?B?dWFSVG1lUGVwSXkxemZoUysrRmNBUHRLaTV0UjcxSERRT1ZGZ0Y1VFRjK3M3?=
- =?utf-8?B?K0hFRzB5K21ZMThIYjFNWUpJQ0NSVkk4WlVvQmV6WXcxSGZVbmRyb2ZOdGVE?=
- =?utf-8?B?R2ZvMUg3a09LSFluU2I4cFpRcGlQaDc0SC9HT3VoT014S3VRQkNzOTVZdVh2?=
- =?utf-8?B?SUZnZkp6cEx2VUVobmlPMjJhZGNtTHMzMmhZSEhGeW9xV1BRUUZ1aGhZYWtC?=
- =?utf-8?B?T2h1eGhIS2Rmckh2R2dQYk03NkdPK1FXRGR3dlRyQ1p1bk9qdjQ4U3JRNndv?=
- =?utf-8?B?Q09KajVtdUJMQ1FpZEhvNmxRQk40MlkxQ1BnUTR3enJCMVlKd2x6cUZEOEh1?=
- =?utf-8?B?bkdXWnYwMWlOMFhBOHphOVM1TGRLdjZRUTNYQjNNakQzNitNMW56VHdvb0Q4?=
- =?utf-8?B?WmVNUSt1YTJabGk2Z1BlSURGYXlFV1UxTEtUSG1Ea0VJSzBwS1MraC9sSklm?=
- =?utf-8?B?SWJkR3hFQjlvT21mTlNwcjlPYk82bzNtUFR3ZXZKaUZHekh1NXQyZ2pRUE4r?=
- =?utf-8?B?Y2c4c0dEc3lmTjJBM1krczhheWZxODRPVFQzQ205dS8veTVZdEpVdWZPTFNk?=
- =?utf-8?B?TURjREs5SzQyejR5citzVENpL0ZLdFN2YnVabzRSelhHVytuTlN2SndJZGNz?=
- =?utf-8?Q?aBTvAaCXj6Zh0rOX5Aa4HNTuvylpbZ6npNn32IP6JVLT?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWlydmJFR3BQYVFPM2NTODBPOEVvYVVlazgxZDR0ZGRHSkZ6anU1SzVEWmVI?=
+ =?utf-8?B?eFZTOXhkUVFmK042Z281SUdoZHhtamZmS29tNGdvTHhHd3V5Uk1nMHRlNnVG?=
+ =?utf-8?B?U2JLNVM0VkVreldEQllhcGpsODNoSTZxZkZOcXpyd0VlU0d3eittUTJ5cEdm?=
+ =?utf-8?B?U0hzL2cyYkVObGNLZzNDd015SjdOZFlTZGpGQ0NUaE1wV0wybWx3N3N2dE8r?=
+ =?utf-8?B?UklGS0c1L2hDOEJWdEJoUEE4VUY1VE4yeUZ1RU1xNVMweHd2Z2wyanByMjhE?=
+ =?utf-8?B?cWRPelNjUUtwcjRvZHhmeWF5L3JqaHl4Wkg5SUI3SE1ucG5TQlhvbVAxNHVv?=
+ =?utf-8?B?ODkrbkVBcDFZSzdPSEZMcXF0TmhBTm9jQ1RydlVaRnBBL2lyZ0pNbGZFMVFJ?=
+ =?utf-8?B?SjcvR1FTK3hhajQyaFI0MU1xYmN5VHhZMWQ1ZXY2Qk8wc3ZWYjUyNGYzeWFz?=
+ =?utf-8?B?RHYvdlIzQ0Z0ZmduR3lzK3lRUGlvcS9ndFlZdXdLQ3VNLzkrcksyTFpKS2xj?=
+ =?utf-8?B?cHZDUUJabW1oZHptVGxYM0pUQ0p2ME1OOTBjMUExRlY1TzlKalNaNUtOeTFx?=
+ =?utf-8?B?MU1tMUFOQ0xnNG11YmlTaDdvWGYvQzAyc2gvS0dDZGdZbDYwKy8vSGxaV3pY?=
+ =?utf-8?B?VEJHUjRVblZCVjhybGZQaGwzbzF4dnI3STczcWhHT0pBKzUvVklWNVZkN0p1?=
+ =?utf-8?B?WHRSMGNqR1JZcFlmRlFzeXZWTitDYlhZdlhwNEFaMVZnUWFhdXFWaDJtU3Na?=
+ =?utf-8?B?cmtMeWlXKy9CNGYwODlaSUNrVnVjS2lzVmc5MHRDU05xOEJHTFplU3U4OSt5?=
+ =?utf-8?B?YndEZzhRcHZKV29XVlA5Ui85Wk9LMi9WN0txL0EyN2JxRHBhR1M4eEx1K2Np?=
+ =?utf-8?B?aGJqbzZPWmE0Q201NndUMHRVb2RqTXRPRGs1ZFk3VnBSYkRPQWtwZmxGd25Z?=
+ =?utf-8?B?ZXRTNEZxZ1BKb1VUaFlVMHlvYUMySkJ0eVBMem83emMzMkJBb1dOY2tsZzdi?=
+ =?utf-8?B?ZTUzdWhvaGZydlFaV1pkOU9NTFJmTG9vRi9KNGNvdi8xU3A5amovSG4zTkVu?=
+ =?utf-8?B?a3NCa2tDQ3lDRUgxQkw1UGpYaXl2SElmTzl4VDVlUlRnSE9QbnEwRFdRdVU0?=
+ =?utf-8?B?T3k3R3dRUU5vVzI5TUphejVqdCsyTDJyako2eUdCMFV4NnlsZTY3S3g0a3h1?=
+ =?utf-8?B?RU5qM3loTjVTZVBPNlNYanlvZFF1LzZVU3gxQ0NLcFp2OHJUMmZNRzlWekZl?=
+ =?utf-8?B?VU1NRUlIbnFWOThTa0pjRHpkcGtKamdLOURoc1lrTzZZa0cya2djTFNXSnlt?=
+ =?utf-8?B?cEoyYXo1aE1kVWRjOTlGOVdLa05ZckMxQ0x5MlZBdTdYdTNJMElYYnV6SlBx?=
+ =?utf-8?B?a3MrSm1FUkhMWTBqbHdjSisvSit0VmdHY0pEczdweWg4Z3dkdmNUYklWcGRi?=
+ =?utf-8?B?QUFqTGVqVngvV2hGWU1VM3o5SUIzOWlwYkdSckhFK0FNY0srdHo1UnJ6dWdt?=
+ =?utf-8?B?VDVZMUptZ2NPNkkzM3pCb0V1QVRSdjY4NW95bHpKdWl3M0g4THA4ZlJRMTVq?=
+ =?utf-8?B?VmhNb2tkQ3c0Y1dJRGRHeDVaU2VhbWRpY2g5VlJQSGVERkcwZ242blQ0c2Zy?=
+ =?utf-8?B?OVUzUEpzN1phU3VLSUtMZGs3NmU4VHFidEw2WVUxWE5Wdjk4a3d0a29SVXFJ?=
+ =?utf-8?B?ODFjdFpRaUpZZWxSU1VLUjJxZWpHUE9LTFhESW53ZkFUczUvWW1ib0pDWG5L?=
+ =?utf-8?B?Mm5IQkc3bHVUQWNibm8xdDZTR0ExdFZwbGdpenZEMVl5R1hyQ25LQ1RDYnBk?=
+ =?utf-8?B?bjVUeFc2NGZhM0JuclNIQmtENFAwQmkxVlZjR00rVnNaTy9waFMvcktxQjNp?=
+ =?utf-8?B?aUZXUkdwT2VGNHBnRllEWlFYbHlSZlRodS90d0xPdkFuNjd3eTFicmxJS1lD?=
+ =?utf-8?B?UHphMVVXYmtLd1FzYmRtOCtoQkZicWVRNDdxclVqT0QzUG5acXRPYVFZcWcx?=
+ =?utf-8?B?NThDYWJyajdFMXlHRkJxTm5TWW5OQnVyVkFKUzgzZFFYbjR3VVU5NFAyWURZ?=
+ =?utf-8?B?VU1xYzltaWlNblNod0dmZm54R2FuMTFremJLQitnUU5ReTFtMUVhYTR6QlZy?=
+ =?utf-8?B?dncwbis0UVJzRWg5SmN5WWJMcGpzZG14OHlQK2taM3J3LzNQTXVmMFlhNnVK?=
+ =?utf-8?Q?LT942B+mrnAKSbmaSs0qyOr6BgeXLpgzeSaifTM9eXw/?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: daeee9b6-7ce8-4bbb-4095-08db6b482765
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50f39fb9-48b6-41fe-9094-08db6b4842a2
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 13:23:04.7134 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 13:23:50.4323 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1g22tk5avsg5OZmTw+7/F/s9gz04E2Lk/pIPjvUiMsEXdx7jeKHkr/LzY7//Ybcjs/+A38swfiwV+vsONGi+9g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZeRnbqZLDEVC7Tg81ovkdcERotcxlH8BTHB6pGTPI1ORpY9vDvJsTr+WG4IzdVND4ruhJn1pBuwr5qnoiBCO1w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8902
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -132,81 +133,33 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 6/4/23 23:10, Srinivasan Shanmugam wrote:
-> Fixes the following W=1 kernel build warning:
+On 6/3/23 08:53, Srinivasan Shanmugam wrote:
+> Fixes the following gcc with W=1:
 > 
-> display/dc/dcn10/dcn10_opp.c:52: warning: Function parameter or member 'oppn10' not described in 'opp1_set_truncation'
-> display/dc/dcn10/dcn10_opp.c:52: warning: Function parameter or member 'params' not described in 'opp1_set_truncation'
-> display/dc/dcn10/dcn10_opp.c:52: warning: expecting prototype for set_truncation(). Prototype was for opp1_set_truncation() instead
-> display/dc/dcn10/dcn10_opp.c:161: warning: Function parameter or member 'oppn10' not described in 'opp1_set_pixel_encoding'
-> display/dc/dcn10/dcn10_opp.c:161: warning: Function parameter or member 'params' not described in 'opp1_set_pixel_encoding'
-> display/dc/dcn10/dcn10_opp.c:161: warning: expecting prototype for set_pixel_encoding(). Prototype was for opp1_set_pixel_encoding() instead
-> display/dc/dcn10/dcn10_opp.c:183: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
->   *      Set Clamping
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.c:285: warning: Function parameter or member 'optc' not described in 'optc3_set_timing_double_buffer'
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.c:285: warning: Function parameter or member 'enable' not described in 'optc3_set_timing_double_buffer'
 > 
+> Cc: Harry Wentland <harry.wentland@amd.com>
 > Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 > Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
 > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->   .../gpu/drm/amd/display/dc/dcn10/dcn10_opp.c  | 20 +++++++++++--------
->   1 file changed, 12 insertions(+), 8 deletions(-)
+>   drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c | 3 +++
+>   1 file changed, 3 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c
-> index 41cec7acf51f..0dec57679269 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c
-> @@ -37,14 +37,14 @@
->   #define CTX \
->   	oppn10->base.ctx
->   
-> -
-> -/************* FORMATTER ************/
-> -
->   /**
-> - *	set_truncation
-> + * opp1_set_truncation():
->    *	1) set truncation depth: 0 for 18 bpp or 1 for 24 bpp
->    *	2) enable truncation
->    *	3) HW remove 12bit FMT support for DCE11 power saving reason.
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
+> index c6f5f3df8061..dfb8f62765f2 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
+> @@ -279,6 +279,9 @@ static void optc3_set_odm_combine(struct timing_generator *optc, int *opp_id, in
+>    * Sets double buffer point for V_TOTAL, H_TOTAL, VTOTAL_MIN,
+>    * VTOTAL_MAX, VTOTAL_MIN_SEL and VTOTAL_MAX_SEL registers.
+>    *
+> + * @optc: timing_generator instance.
+> + * @enable: Enable DRR double buffering control if true, disable otherwise.
 > + *
-> + * @oppn10: output_pixel_processor struct instance for dcn10.
-> + * @params: pointer to bit_depth_reduction_params.
+>    * Options: any time,  start of frame, dp start of frame (range timing)
 >    */
->   static void opp1_set_truncation(
->   		struct dcn10_opp *oppn10,
-> @@ -149,11 +149,12 @@ void opp1_program_bit_depth_reduction(
->   }
->   
->   /**
-> - *	set_pixel_encoding
-> - *
-> - *	Set Pixel Encoding
-> + * opp1_set_pixel_encoding():
->    *		0: RGB 4:4:4 or YCbCr 4:4:4 or YOnly
->    *		1: YCbCr 4:2:2
-> + *
-> + * @oppn10: output_pixel_processor struct instance for dcn10.
-> + * @params: pointer to clamping_and_pixel_encoding_params.
->    */
->   static void opp1_set_pixel_encoding(
->   	struct dcn10_opp *oppn10,
-> @@ -180,13 +181,16 @@ static void opp1_set_pixel_encoding(
->   }
->   
->   /**
-> - *	Set Clamping
-> + * opp1_set_clamping():
->    *	1) Set clamping format based on bpc - 0 for 6bpc (No clamping)
->    *		1 for 8 bpc
->    *		2 for 10 bpc
->    *		3 for 12 bpc
->    *		7 for programable
->    *	2) Enable clamp if Limited range requested
-> + *
-> + * @oppn10: output_pixel_processor struct instance for dcn10.
-> + * @params: pointer to clamping_and_pixel_encoding_params.
->    */
->   static void opp1_set_clamping(
->   	struct dcn10_opp *oppn10,
+>   static void optc3_set_timing_double_buffer(struct timing_generator *optc, bool enable)
+
 Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
