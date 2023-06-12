@@ -4,119 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7B24C7EE23
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 13:24:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B73EDC88CB2
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 13:54:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35E5010E240;
-	Mon, 12 Jun 2023 13:24:29 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2061f.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7ea9::61f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C5BC10E240
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 13:24:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F65910E039;
+	Mon, 12 Jun 2023 13:54:51 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2057.outbound.protection.outlook.com [40.107.220.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D72810E039
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 13:54:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c2tyjltBmOvM/gyqZ5uEbHLEU+OWU/2alhOgfauxH2TRinjeCG9gKhHDkw/P+vp+0oU6XJE0Y7Qe4uStrEs7xWLLAOil65g1OPG9u1aYVsisX8WDqly8+NlcM9EVc61TlX9qPfYlK2LrDGjCXH7uCNmL3xZ/ZwlbNh7HlmGOyWsvEUbSFjlHhrcpi8jjgM2qRq79zbYygy9o9nK/5jzR37x6Ax+iFQ988+K9/FsHc7AEiQUEqZKwJR4edeTup5Y0voWq2d6hjBC6PyYuKOESqJaP1dTn62xgbIiq+E+sN5+bfn7Fa345K/b8cZyG3LTFM4BwnoIO7fZpL8bLTRmfEA==
+ b=YB2jhvLaQetjnCVbMCUdC9Kz36VfO0STSbH1/APrg5CddApfDVDtx9hA1NjIJ9AVR4fXqK7wLmcJy34dpHa3blKKMo6wmy63Q0CM5OlF/FMHRrVs9055Cyku3mrsFmVmhptsTYOP6frmkSyc9nT5x6nN/YHhNM3QyOq6WCuTPN5Rp3SLJXX3IH413HL900AoMds3fRy0NKJWnID5QPVTW2EAwLYyfBwGfUQAGEZWS6M5wlgVdI2aiIIuDjt2VLRY20CaKQsuK73tdbvGaBvwwmYxZilqNv+hqm0cpYoohYtKFV85F6qkiEz3W/vYHpwHXt08jAOA5QJjKZybxFZxBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xL8TWg5sqf6ib2wsK6XsVO+cnRWtM+a8cGZyKyF+bs8=;
- b=WVHlG0oupi1MfBdS1jVnAQEPouvEC6UYIkWLOPrMu9d+WxK8Nvi5SGzMP+zjs0C2kzcC3uTBtuggfcGYpHWue8mO9yJsTTn3ST21YTvKoHf0qvzk4wptVB5aSorKgXTqWNeMBaT7gWtud7QDM7hvqCknFyFxmUPM2raHEFuhhlq2/tU2nX1lNU025w5KQ+XfQFiE79XmM5H8E2mmMhhQMO44T6XPZs1ZLULjPdzxMbkRMr0xUrExTZbY2OADc30b36+YrwRQGRUUWBR281qWOhUdvgfTaeqE2R0LMubl6ZWi9To/0JdiOJSgjhjMcqGlNz2yKUXNb3ZBx0LtSr96nQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=i6v9K+Mp3+n4B9It+QjdJzAk/fsm6NzeX7+HSdOPj9o=;
+ b=San2k3o2IIuSFeNniniEWr7QAfSAcNOrRo+VwQbbLccjJLh+bflqayt2+ZV+VBM3ZmGqJaxt/C7IXDRcPaVY8jyFxiU/WREkfWQhPzQBhBE08V0sPug+LPQWe0igvygXJBuPIhXiZXYssO6uPGJgFygYQ7zxWdLRARfEhi3/fRKq1E6g/w3NdHV4w6ke9iFWOdmdTH7h4nQdmSQapqOsTrZpvjIhz/yOBZ70WGjPYWHcHlnRiAOaDKwoYqiFw0P2nt/kPwcpydDobqibwPeODhex6rmuzdzhK3QuRqh8jKzpV+f6OO8mpRzh1Oy774hCHRjsnyKxG29QpD11WBYTeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xL8TWg5sqf6ib2wsK6XsVO+cnRWtM+a8cGZyKyF+bs8=;
- b=wZug6yucOKBN9QZbraF7n263oeDeoxO2wXEuoLyn8oxnHR15zgxg0fyA1YVOmxPgJwrDSDS7yXQoz/X7lWEtasCxCdiuSZFOaVUt+H8brqWKeBQ1SZVmuUUOdJH2g00BK68BZZKtjbcKP9IO9hKuQez6OnOjP1tqO4L79WQ5ob0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by CH3PR12MB8902.namprd12.prod.outlook.com (2603:10b6:610:17d::5)
+ bh=i6v9K+Mp3+n4B9It+QjdJzAk/fsm6NzeX7+HSdOPj9o=;
+ b=JXCgK2AqOqksRYb7DFMgdmp8iQoWrI7pippqGbJAEmsiWi1KGTAFWEAMIzQ1PHi+kncyLihf2DoBOtIPbHq4O7QbsnmmDjOuIOi7OvNiKYdRsE4Ched/XZIZvYpxMT2S9FLj9uBOGIVk4ZWzzoHqDitxMfpkdI5qZ1DFFnsy6Y8=
+Received: from BN1PR14CA0022.namprd14.prod.outlook.com (2603:10b6:408:e3::27)
+ by PH0PR12MB7789.namprd12.prod.outlook.com (2603:10b6:510:283::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.42; Mon, 12 Jun
- 2023 13:24:24 +0000
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::8c06:c9e:c6c2:3b16]) by MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::8c06:c9e:c6c2:3b16%5]) with mapi id 15.20.6477.028; Mon, 12 Jun 2023
- 13:24:24 +0000
-Message-ID: <ec78e90d-e4d5-2a92-1e00-db9bdcf41764@amd.com>
-Date: Mon, 12 Jun 2023 07:24:22 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amd/display: Provide function name for
- 'optc32_enable_crtc()'
-Content-Language: en-US
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>
-References: <20230603142823.1930299-1-srinivasan.shanmugam@amd.com>
-From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20230603142823.1930299-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0489.namprd03.prod.outlook.com
- (2603:10b6:408:130::14) To MN2PR12MB2941.namprd12.prod.outlook.com
- (2603:10b6:208:a9::12)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Mon, 12 Jun
+ 2023 13:54:43 +0000
+Received: from BN8NAM11FT063.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e3:cafe::a7) by BN1PR14CA0022.outlook.office365.com
+ (2603:10b6:408:e3::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.34 via Frontend
+ Transport; Mon, 12 Jun 2023 13:54:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT063.mail.protection.outlook.com (10.13.177.110) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.21 via Frontend Transport; Mon, 12 Jun 2023 13:54:42 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 12 Jun
+ 2023 08:54:40 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Rodrigo Siqueira
+ <Rodrigo.Siqueira@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH] drm/amd/display: Clean up dcn10_optc.c kdoc
+Date: Mon, 12 Jun 2023 19:24:25 +0530
+Message-ID: <20230612135425.2299237-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|CH3PR12MB8902:EE_
-X-MS-Office365-Filtering-Correlation-Id: 998473fd-78d2-47d7-fd32-08db6b485728
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT063:EE_|PH0PR12MB7789:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43f0f0aa-86e9-4863-147f-08db6b4c92a6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uOcM2vVKOglDUBaA494rVD7oRimlMHkXsNFcShFPUB/wSfoRjmJbBqf0IyhvSXZl20JgzNZw//xduCbhqYlcjX4aX/T8niZZPua6BSsrWgFotUr6kxpLCxF/fQliYHarQ4Yzf6hBnkHPKmzHg4QJGvpd1WGmWekVWbMeDBBe6sVPYzA8Hs312eg6gIiTtNcLE82qFADK+SdTwj8C/rLjWMPSIxPPHPutpd/qqGqqnd2ngZ9xqSQ0p6wpXCuZRjDbgS0FRvKUpd2lk06hzWe/qHtP0HPfIJYvunKMDHZD/tcfh8twAP9fqLsNSDKRVt017dyVpWzMLHQ359WOALgtqPngQfbfBAmOPhLY6XWDpHQU/6/Bj3cln91XASeapj3+8UaMbqlcMRqv8z5fcnCuuFq/vVSw6ABcrxRm2ROd3whushjzxSfHIoZdzZclwlVPGBLPnLjcqNXKC10YMwMlh9vcE2tDLsw0E4q18/0lQowU14x6e6GhBcggoXmuGMmKeB1RKUNGNLLzgPqQE9z4A2Sg5j/SbsQ7jh04BwwvRzxkr95q6W/mYq4B4LB4JaWQDYbSKPp33ASQ6NrbTQ/8S0kTPUrWYWTis4lIDabTSHFnwSAyVueCVPlpydU6X3vW5cfG0lABV7PDt094INmtOw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(366004)(136003)(346002)(376002)(39860400002)(451199021)(6486002)(83380400001)(36756003)(2616005)(38100700002)(31696002)(86362001)(6506007)(6512007)(53546011)(186003)(2906002)(5660300002)(110136005)(8676002)(8936002)(316002)(41300700001)(31686004)(6636002)(4326008)(66946007)(66556008)(66476007)(478600001)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: cCoBAamsvFwz8jd8aW0Yd+uGKjb3zMf9lHIX6jGucB5W8qsyv8q/8FG9WLir1qtGlHK9gxAvyPfWXcZKVrJ36pl0WOhHzI+l+WQfw6ybgEASMiA7Sr2QqSCfaol8/Tx9JQ4CFzVeo7iig8dxGvDzG6WiQzDdZpOAymVNXIpnnh000sD9sNwYHBp0DHiVVIX0MsEo8oSrlSmnfeZq90gzVTQrfYrh4OtDacokLXmM0poHKjzlSNmiqjIlS2PzPYBxq4p/3zQu+HZMqNCHAGIKR0dnsD2/lew1v8z3AiGWo1tssNYC6Jx8jy3sYV8SsEZRJI3j7K0xbtCVqbhCic2kPEuwj1Rc46fd3eN63UEyHJQg0Bt7GAiLXjWOH/xRROqb6Jbc5+C6XVgd8ZF/lfRRfJGClezl71dsWUvaRj+y7Fpvm8pJlZqjMp9pTQs7NvI3w5WRy+8207/tdj8GPEAhJUjYN8KOmwpDzhQaeBydEDT+woeiBU1C/I+Xpja6+RzxUi52ODAvKvzgVYVhYXfGejOirHN4j3cc2+wdU6ZH6nts1Q6IGureACeZO0pc20XmwOaAGjVH2LPpjt+XH4B8RBcf5gngPXYF84fgQiEI6KnQfWRjO3wHJ3qGTBhSn+1Kx/IP3+rYIJ2e8u7/uMS0+9ciIYK70WUgVkJKzBk5o5ZvdY6el8XYaZ85OAg1RnGymIC3lsJO0UzW1u/eH+RdXFbZpCKvaL7ISezUAewEQObGZxAIZgtB7p+5TkYJEcHm1lNZu1cQF9fIHO3WptjQPg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(346002)(376002)(396003)(136003)(451199021)(36840700001)(46966006)(40470700004)(82740400003)(2616005)(186003)(110136005)(54906003)(26005)(70206006)(81166007)(70586007)(6636002)(4326008)(356005)(6666004)(47076005)(426003)(36860700001)(478600001)(82310400005)(336012)(83380400001)(7696005)(1076003)(36756003)(40460700003)(2906002)(316002)(44832011)(41300700001)(40480700001)(16526019)(8936002)(8676002)(86362001)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZnY0R2c3em5vVElvTzlUdklBWHpsaVFIS3ZjNE5zMEdPYVhzUi9EbjFsWE54?=
- =?utf-8?B?NzdNNXY1WGZlbFlqQ3h3T09FR0NTOFpxeGIrMnpsVWdQZGNkSGVRS3VHdzNr?=
- =?utf-8?B?U012MXNidTJUWE1UZVc4TDYyNkQzOXRZdmFHZEVubkNMaGZGTmduMzk4eERM?=
- =?utf-8?B?V2RST0RHdXl6V3dPOHBOWDRQQ2M4dFVRb1diQUpDSjB5S0NRVHYyMjhjdytS?=
- =?utf-8?B?aVRDM3lGWlNSeUFMa1VGbG83YkZxTy9GaHBJQ0tJbEZDTkFlYXhuMjRHV0pK?=
- =?utf-8?B?SHQ1S3dQU2dFNTBKcm9vTStHdmZBRnJWN1FQTy9oY2JoY21FQ1VHYkxFY01a?=
- =?utf-8?B?R3Ntc0o5cVl3OVNmSHdNeVlXclVsYllxZFJPWU1zb0Y4cWJBUFVydU8wa2cv?=
- =?utf-8?B?M3AzS1dadU9uY0l6Ym8yU2pVcVdaeThmVEJpTkNVYi9MWnZNYWlQY1lUVTJY?=
- =?utf-8?B?MmI0WW5wVitsc1czZGw5MUZiOW1wMFYvRGxXWGFuMWJUcFdiQnhDWHhmYzRL?=
- =?utf-8?B?ZGhEQjlYWHcybnFON0FqQXhnT1ZMTDJnTURnUTBva1V2VUlTVDNNdXhEczAw?=
- =?utf-8?B?YzdOeEl1cTRFcWd2NWNuS01acGRZdERlMkJLRDNkNWZ1L0RQcFd1aEdDMVBh?=
- =?utf-8?B?b0dLRFMxb2QzNnVIMEhhVi8vRWt5enNyMW9QTlJjdkR5NWFWUXU2cFZlblRi?=
- =?utf-8?B?b1ZRaHNMbGFkdkxuNElLMDc2RXFJdHBmNStKQkNZUFNERDlRN2ZvUDRxeWFM?=
- =?utf-8?B?NHNsWU5TSDdCWXoxcS9JZDRhUVRxS3JDQnlYSmFTT2VRaHdKc2ZrbDc1SXFs?=
- =?utf-8?B?cEVsL1ROWkhiL3htSUk5dW9GcTVHL2kvaE9WVGJsQUozQ1hXUEU1elFLUUlN?=
- =?utf-8?B?cUJ1TGtNWXJMTCtzUndSWEROVmVxSC9HMlNvelpud3dXaGdIdTIyZldoTjAr?=
- =?utf-8?B?VFIvTUU2NmJFdG9Dc0FKQXlQckhOSXU5b2trQ3JTajk1YjVCb3BpRnllUWlI?=
- =?utf-8?B?T3hYTXdyMzIxQlVhelQrVGZaQVI3SDEvYXgrb3NuSTBQenllWEVjRlVGdi93?=
- =?utf-8?B?NFFPSjFTY0pVbm1kQnZVMWpKbkJ6SWxvdThuamtTZEY0d3FxSmt1c1gwRXRu?=
- =?utf-8?B?WVZ3b2JGYThhZEgyekxCZ2FiVHFETVVmOUxtSUVRaXcwMEVQamlDOHhTV1B6?=
- =?utf-8?B?aUx4TUtMZ2p5TjJRVmM5cmZCZGl6MFVjdGw0Yzh3T2JZMTJia0xWUGtGMmVu?=
- =?utf-8?B?aXFEdWJERG1pTUZ4NzE3ekwzWWVUVzdhamh6V1BuUjJJNXNydFRiUWxsVTVH?=
- =?utf-8?B?NDE4MENmbFI1Zkk0YlBUS09pSm5BK3MrWnpKaldCdUNZenlnMWhvZnZudW45?=
- =?utf-8?B?ayt4STFmSUY4ZkgxdldYRWZWTGNaOVZiMk1jTjRUMFBKdWx1dkVuNStqYXBt?=
- =?utf-8?B?Q0VGTG9TZ21QN201dDc3NG1aT1ozN2xyUWx5TEJkTXl0K0RiYXVMMjUvNkd0?=
- =?utf-8?B?dG16Vm56Wm9iOXdWakdUSFIxM2RLcy9NVG1qQ3N3NUJUQUkyWkFoVXpQZ3Ix?=
- =?utf-8?B?STcvSkxUUTBwdXhJTkliYnBnR1RqTVRWMHRhT3M2NEEvWElwWkRwY2d5ck1W?=
- =?utf-8?B?alZKNzZZcmR4SzRwRzV6QzZHbDZpYnpvTCtrQ1FxeHhlNmhqNHRNYkd1Y1du?=
- =?utf-8?B?SXcxak9VZE9NbzZlclF0SXR0L0hvdmhQamV2aE0yUi92Z0JHMER2Z1ArZnoz?=
- =?utf-8?B?cUo2ODZ2Q1BmR3JXNW5ZMmdXdVZzY1NNWXVXNkJ0d0lwMC9LQ0FVSDE2cklP?=
- =?utf-8?B?RWxkV2dNdndkSi83U3E5RWlzdlIrS3pPRUM0cFJwV0dzWnlqcEpVZDE2R3oy?=
- =?utf-8?B?Y3VLSzFGSG4vMm1DbjZab3BGVS95c1ljelBDcWVNaEhaalBaN21hT1ZNbHZV?=
- =?utf-8?B?MDhpZVpHMTdlQUc2UFlkdVRkaHJrd0oxSGc0eUs0TkEzS1lGUkNQdUp6eW1G?=
- =?utf-8?B?Q0RXb3kwRk5NSVFMczlwblJHRTUzUUxZeW1mZXZ2MEtEQ0ZONHA2T0VzSVBm?=
- =?utf-8?B?dWdzaWIzeUFVekM0aU4xYzFvYlBhY0o4TFkzVjA2UzB3eG92NWZmd0NVdUs5?=
- =?utf-8?B?TFo5bnY2VEs1WmljUm5mUlF4M2xRVHNReFR3OGE3UGdZL2hFYnJCSkxiZ0dH?=
- =?utf-8?Q?EZM8nx+BfCQ1RIzWQIGoo4GXciOprv7Ecbz2bHsobg6J?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 998473fd-78d2-47d7-fd32-08db6b485728
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 13:24:24.8516 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 13:54:42.4788 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43f0f0aa-86e9-4863-147f-08db6b4c92a6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: axTTecfxfEUr3S8m1itz5c9dBzhsCHCfAJvyfqGY4o56CXflmuyJnNtmabsNFXIocguoDLje4Mx8vk8Pra7gpA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8902
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT063.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7789
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,43 +98,149 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Fixes the following W=1 kernel build warning:
 
+display/dc/dcn10/dcn10_optc.c:45: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+* apply_front_porch_workaround  TODO FPGA still need?
+display/dc/dcn10/dcn10_optc.c:136: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ * program_timing_generator   used by mode timing set
+display/dc/dcn10/dcn10_optc.c:391: warning: Function parameter or member 'optc' not described in 'optc1_set_timing_double_buffer'
+display/dc/dcn10/dcn10_optc.c:391: warning: Function parameter or member 'enable' not described in 'optc1_set_timing_double_buffer'
+display/dc/dcn10/dcn10_optc.c:404: warning: Function parameter or member 'optc' not described in 'optc1_unblank_crtc'
+display/dc/dcn10/dcn10_optc.c:404: warning: expecting prototype for unblank_crtc(). Prototype was for optc1_unblank_crtc() instead
+display/dc/dcn10/dcn10_optc.c:427: warning: Function parameter or member 'optc' not described in 'optc1_blank_crtc'
+display/dc/dcn10/dcn10_optc.c:427: warning: expecting prototype for blank_crtc(). Prototype was for optc1_blank_crtc() instead
+display/dc/dcn10/dcn10_optc.c:496: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ * Enable CRTC
+display/dc/dcn10/dcn10_optc.c:895: warning: Cannot understand  *****************************************************************************
+ on line 895 - I thought it was a doc line
 
-On 6/3/23 08:28, Srinivasan Shanmugam wrote:
-> Fixes the following W=1 kernel build warning(s):
-> 
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_optc.c:109: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
->   * Enable CRTC
-> 
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->   drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
-> index 2cffedea2df5..8abb94f60078 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
-> @@ -106,8 +106,11 @@ void optc32_set_h_timing_div_manual_mode(struct timing_generator *optc, bool man
->   			OTG_H_TIMING_DIV_MODE_MANUAL, manual_mode ? 1 : 0);
->   }
->   /**
-> - * Enable CRTC
-> - * Enable CRTC - call ASIC Control Object to enable Timing generator.
-> + * optc32_enable_crtc() - Enable CRTC - call ASIC Control Object to enable Timing generator.
-> + *
-> + * @optc: timing_generator instance.
-> + *
-> + * Return: If CRTC is enabled, return true.
->    */
->   static bool optc32_enable_crtc(struct timing_generator *optc)
->   {
-
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 57 ++++++++++++-------
+ 1 file changed, 36 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+index 633989fd2514..0e8f4f36c87c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+@@ -42,11 +42,13 @@
+ #define STATIC_SCREEN_EVENT_MASK_RANGETIMING_DOUBLE_BUFFER_UPDATE_EN 0x100
+ 
+ /**
+-* apply_front_porch_workaround  TODO FPGA still need?
+-*
+-* This is a workaround for a bug that has existed since R5xx and has not been
+-* fixed keep Front porch at minimum 2 for Interlaced mode or 1 for progressive.
+-*/
++ * apply_front_porch_workaround() - This is a workaround for a bug that has
++ *                                  existed since R5xx and has not been fixed
++ *                                  keep Front porch at minimum 2 for Interlaced
++ *                                  mode or 1 for progressive.
++ *
++ * @timing: Timing parameters used to configure DCN blocks.
++ */
+ static void apply_front_porch_workaround(struct dc_crtc_timing *timing)
+ {
+ 	if (timing->flags.INTERLACE == 1) {
+@@ -133,9 +135,20 @@ void optc1_setup_vertical_interrupt2(
+ }
+ 
+ /**
+- * program_timing_generator   used by mode timing set
+- * Program CRTC Timing Registers - OTG_H_*, OTG_V_*, Pixel repetition.
+- * Including SYNC. Call BIOS command table to program Timings.
++ * optc1_program_timing() - used by mode timing set Program
++ *                          CRTC Timing Registers - OTG_H_*,
++ *                          OTG_V_*, Pixel repetition.
++ *                          Including SYNC. Call BIOS command table to program Timings.
++ *
++ * @optc: timing_generator instance.
++ * @dc_crtc_timing: Timing parameters used to configure DCN blocks.
++ * @vready_offset: Vready's starting position.
++ * @vstartup_start: Vstartup period.
++ * @vupdate_offset: Vupdate starting position.
++ * @vupdate_width: Vupdate duration.
++ * @signal: DC signal types.
++ * @use_vbios: to program timings from BIOS command table.
++ *
+  */
+ void optc1_program_timing(
+ 	struct timing_generator *optc,
+@@ -385,6 +398,9 @@ void optc1_set_blank_data_double_buffer(struct timing_generator *optc, bool enab
+  * Sets double buffer point for V_TOTAL, H_TOTAL, VTOTAL_MIN,
+  * VTOTAL_MAX, VTOTAL_MIN_SEL and VTOTAL_MAX_SEL registers.
+  *
++ * @optc: timing_generator instance.
++ * @enable: Enable DRR double buffering control if true, disable otherwise.
++ *
+  * Options: any time,  start of frame, dp start of frame (range timing)
+  */
+ void optc1_set_timing_double_buffer(struct timing_generator *optc, bool enable)
+@@ -397,8 +413,9 @@ void optc1_set_timing_double_buffer(struct timing_generator *optc, bool enable)
+ }
+ 
+ /**
+- * unblank_crtc
+- * Call ASIC Control Object to UnBlank CRTC.
++ * optc1_unblank_crtc() - Call ASIC Control Object to UnBlank CRTC.
++ *
++ * @optc: timing_generator instance.
+  */
+ static void optc1_unblank_crtc(struct timing_generator *optc)
+ {
+@@ -419,8 +436,9 @@ static void optc1_unblank_crtc(struct timing_generator *optc)
+ }
+ 
+ /**
+- * blank_crtc
+- * Call ASIC Control Object to Blank CRTC.
++ * optc1_blank_crtc() - Call ASIC Control Object to Blank CRTC.
++ *
++ * @optc: timing_generator instance.
+  */
+ 
+ static void optc1_blank_crtc(struct timing_generator *optc)
+@@ -493,8 +511,9 @@ void optc1_enable_optc_clock(struct timing_generator *optc, bool enable)
+ }
+ 
+ /**
+- * Enable CRTC
+- * Enable CRTC - call ASIC Control Object to enable Timing generator.
++ * optc1_enable_crtc() - Enable CRTC - call ASIC Control Object to enable Timing generator.
++ *
++ * @optc: timing_generator instance.
+  */
+ static bool optc1_enable_crtc(struct timing_generator *optc)
+ {
+@@ -890,15 +909,11 @@ static void optc1_program_manual_trigger(struct timing_generator *optc)
+ 			MANUAL_FLOW_CONTROL, 0);
+ }
+ 
+-
+ /**
+- *****************************************************************************
+- *  Function: set_drr
++ * optc1_set_drr() - Program dynamic refresh rate registers m_OTGx_OTG_V_TOTAL_*.
+  *
+- *  @brief
+- *     Program dynamic refresh rate registers m_OTGx_OTG_V_TOTAL_*.
+- *
+- *****************************************************************************
++ * @optc: timing_generator instance.
++ * @params: parameters used for Dynamic Refresh Rate.
+  */
+ void optc1_set_drr(
+ 	struct timing_generator *optc,
+-- 
+2.25.1
+
