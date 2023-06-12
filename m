@@ -4,117 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59AC5C7EE25
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 09:42:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04F81C7EE2E
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 09:49:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA85210E1EB;
-	Mon, 12 Jun 2023 09:42:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5163110E0B5;
+	Mon, 12 Jun 2023 09:49:08 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::60c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B126310E0B5
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 09:42:47 +0000 (UTC)
+ (mail-dm6nam11on2062c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::62c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1477010E0B5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 09:49:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mkzGjNOoVjPY+C2F57PIeEjf2GuJYoXyFwdNP1zVHO00AUzQxrfKUCqDE61QgKtrCrDXGVNMmR3oQSOkY2lo/kHXpLpQpVjd03ZzhFbnfNnmwJLG18HqTHNRMBT7oFDq4C67s8iTOZctNXNwBcAGJzrBtDn8UzXa/tcOGBUvo/BSseEMhtsSylOboTSJERiAqfWmtuUUXHb+InvJcgXhC0tMIQUSBi43ccio0nsph7F6po5FmCGgSappjdBnbFwR2+Di+80fzSDtUXUxdBQI+1cxhirLPpm1ZCFhEzeUO4VMze+Ysf3TAgqeOYuuE1qUbVHAUlix/acKnx7KFy7O4A==
+ b=jV9qAUToeicheAs65Ae2TYZjZ6medVtPumjJ+Pf3232LiO5IZ3IbTd39btK3ywg5Z/QWSe1jLKIiANf1PRzjo+1ABSt6I1a/JQD27nT5x4sJoKUe6ejbxOONsrQIW6xRuyaxeja9LXNkPA+JoSgqTgJAK4RBlsCjccZwY9QaoyFA2iEuAavArjUjvTwupRTPcXPObyJVEoIgT7St4r6fiG8D4tlTK39aSHT5enaHgYCa3jTA2ZS1W0gL4paA7WSaYXmy+lCqW061/Ke7V1BdphawlyeckuDzmBoH9N5o4cDsRXAkMZzoQoBTaPtk4YAQr+aK3mYpwWfoZTTNBiBnhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sFqISwehn9IIBITvO4kk75gXGauZvOxYuzkg7mP5zYE=;
- b=lEYZ7WfYufI4ZN/jgimfE3pdYvowxm98Y7ZAVq+ZOMFmStK+nTL2jXH0WC62kBgsnufKZSsQdBsTibSOjw6lk4cer5kK3/yGP/WzetxMZ/Ln5MpJcFAXWwAKOt17fI1SC7EnXLblyD/sf0Ea/8Sf1Se3zxAyzbDpK0FGY6BpnEjeFbrebeQ07l9PcZYnDQTCdfooHmjXjCOckMlTLyvchqPkLHzjtYtUkvHjZYY8Rbd+qko6HMQ1MFhIujDfxex2vWDx8+hlwThoJc5f7ZHz+YdME/58nhhz1xvDUkdb5AEBJh44D3w3/aOyJElWy1zGUhgHFahiIUd8paVSpKaT5A==
+ bh=XDtATfBgQwAn4+wiTjco3PvoLJNm6KrNcUuXzxCOYp8=;
+ b=mhih76tR5IYM2CpzSs4AhtMxNX/wp+O6/6KUjXaLzZ+gjBPbrTGhh9BXNYDo9qe2KvGh/cY4JNeaaSzowju6y7YWAhr+pphMq4I1mT5nWm8pgxtx8mkjkb35fybyvgiEWLSJz1hWsKeV4Dutpju2H+23JXqkPZekcxv53aoPcvPeYkdzmDMp/ZU1wMJipoBzVQfA5C63XjJ2eLpdEv+6DFz+kYHmSWFY4XIewwQqTQ8jRnxzkMziK1owWMqpxlslhzQxR2kKffZkhyNkyRZucYYLoPHb3Z6lSBN/g8GoNcg4LYF4JoGd4jtwistZ3ExU1PebL3kA6fXvF32DUiSHCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sFqISwehn9IIBITvO4kk75gXGauZvOxYuzkg7mP5zYE=;
- b=oBaNXByD1yVt3zvQUQZOugT1VqoIZEU8hv15RFp95PVRC0yZi/A985v/ddBevFu2hAity72zAkJnnRa80/NNZguiwjaM4/NMGReA8IGV9yLZmOOj5hoG8a0hKnMzbB7NsDMhDDby6U8yu1OGZAOlKxE2nd6fdrJjkIhL43/96d8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by CY8PR12MB7755.namprd12.prod.outlook.com (2603:10b6:930:87::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.36; Mon, 12 Jun
- 2023 09:42:44 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::f0e:7e1f:f3d6:efc6]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::f0e:7e1f:f3d6:efc6%5]) with mapi id 15.20.6455.043; Mon, 12 Jun 2023
- 09:42:44 +0000
-Message-ID: <4944d628-d0b1-63cb-41ef-c9222ca58d67@amd.com>
-Date: Mon, 12 Jun 2023 11:42:36 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [RFC] drm/amdgpu: flush gpu tlb using sdma ring
+ bh=XDtATfBgQwAn4+wiTjco3PvoLJNm6KrNcUuXzxCOYp8=;
+ b=ypBAXFmfQLaRFw2okWYHLC+m2tj5DRHN2arvIJ4al1XO8f8ZPVvDbIUTM7Z+mIhQ0d/o7ej/ReeiVfolWBPgdV1X7AqfsZtztHABo/RX7EcdIskNlc6fbOX9jFVJPo6JALzybxmvLU6ennLTHmBwKGs2ZO7HeSftagjWmkDBlZA=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by CH3PR12MB8510.namprd12.prod.outlook.com (2603:10b6:610:15b::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.29; Mon, 12 Jun
+ 2023 09:49:02 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::5241:c0fb:9743:1a27]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::5241:c0fb:9743:1a27%4]) with mapi id 15.20.6455.030; Mon, 12 Jun 2023
+ 09:49:02 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Li, Candice" <Candice.Li@amd.com>, "Chai,
+ Thomas" <YiPeng.Chai@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: Enable gfx v11_0_3 ras if poison mode is
+ supported
+Thread-Topic: [PATCH 2/2] drm/amdgpu: Enable gfx v11_0_3 ras if poison mode is
+ supported
+Thread-Index: AQHZnFH1dRF0Ls4VxUKwI7ZXJmGXp6+G13wAgAAVLIA=
+Date: Mon, 12 Jun 2023 09:49:02 +0000
+Message-ID: <BN9PR12MB5257745FABDF134FD5C7D9E8FC54A@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20230611104546.7383-1-Hawking.Zhang@amd.com>
+ <20230611104546.7383-2-Hawking.Zhang@amd.com>
+ <BL1PR12MB53345F9177FB21C89A44B4259A54A@BL1PR12MB5334.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB53345F9177FB21C89A44B4259A54A@BL1PR12MB5334.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: "Chen, Guchun" <Guchun.Chen@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20230609100257.900-1-shashank.sharma@amd.com>
- <DM5PR12MB2469B9F1325438F0C91F8DCCF154A@DM5PR12MB2469.namprd12.prod.outlook.com>
-From: Shashank Sharma <shashank.sharma@amd.com>
-In-Reply-To: <DM5PR12MB2469B9F1325438F0C91F8DCCF154A@DM5PR12MB2469.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BE1P281CA0026.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:15::14) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|CY8PR12MB7755:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c68e4f3-7843-4938-53fe-08db6b295f10
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: E4/QVN0YX+HQtCB7Sxo3dJkzMqjRh9a11EkQuMJSST27h7hSdc1sUQPZgAohMFAvAu7soLDJx6qW0Z25wOdsfOQ0UkEflO2gd4K+hNvdiNddr8ft/c4g1AkypVlpnaVlRUM6PkHGh+mKjnN/iYb+Sh8B9W+I9TYlfWaoUyATv+xXd/8RYUrH36Qnr4k3lsM1JiPRKf6XJH/FqUNsm5MkREqi5ezcxIZdvPBTehPDc18+hmQisbSoEhmrqmmtloFKS8RXavB027n+r/QZQ0pMYwDcQb0lXlPwmuv3KUxoiizLzsNpVE5PYGNhO08DF8CpVqJGLtkrCbqCgf1LX36uKROyD12cQX9kYYb7aF7yMZR293l6gcZZ6FK0VCb14F4dvowbiLBX33rlK0+QycCfPZOZC+t8xErVOJLMNTBqT9scfpyrwls9KF/yfg+nmajzpXfmC5nTnKgotLVg6q2CUWwDL05bk3XRkbm79RrJ8AWBZMQW1uQkkAuppgR9ig9M4bYlJHEDwS2TFEOT01qI48rpnwdBedvPEoKahgxQPfgQkHQM+cVpd1zYiiGKJQd83Kp+/pdRh1okfQyz4vuaRg0YXjol98PzNwQZnmYg9lZI8w9beP/ZP3kvy4CQHkvFAgx5d3httY/bp5GjTT2rBw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(366004)(136003)(39860400002)(346002)(396003)(451199021)(53546011)(6512007)(26005)(2616005)(6506007)(83380400001)(186003)(31686004)(6666004)(66946007)(6486002)(66556008)(66476007)(2906002)(41300700001)(38100700002)(36756003)(44832011)(5660300002)(8936002)(8676002)(110136005)(54906003)(478600001)(316002)(86362001)(31696002)(4326008)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=238cc4df-8fcc-4703-aa18-7d6e987220c4;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-06-12T08:26:32Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|CH3PR12MB8510:EE_
+x-ms-office365-filtering-correlation-id: bb3d7c8a-274f-46da-fe67-08db6b2a40c7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: axuh7eiEN0dfKV/a6GxemNtZf73cSH422w6Sgi1Zyz9ncd/NmFAVJsMzwCxP6K6vAmPo5Woqna8vZKTmkRAWIOw0C1jn88EhMqr+k1u+9j9PB3UdK7QVnOpWtYNOZnS7SzkEh3LqlQ9Z8Z9gnzfhTfRYyGa+3/tIcYSdHBcaufwBLbHdoRmIczhh2tBQWHCNQXYef5VeEYllg+o2hODzS5mplviBvJset2QcGDoJh90wtMxjGnWwIfbD+oyTlk5EECUCbags4iPdQX6AxE+KAbSN5s5/5UjaanVVqNk9hrXfE/GD4D10+TQfMYaLjyHv1MYz/uvGx9vsGdTLA2+h2CDJ1OdJ5OptgwRn6Vw49OWqjDTlbXKeo1vucpN2UN84SHfo5l7lhM3iuWiWSgvBL1aH/+wd387h5ZoKVAxdWEAMEXFKGEzyAkW82dUjR0LxFa4chlVTHj09SfXRLI8Qy/6ztnNwlw03+0eGOcOlyP/adTqT7RYGTRm/v+kaY8SU/GNZDDDB6vQITzZrqocE7nqnDPtFLTD39kBRovl7F9UDcay/mIe5Xq5sKiTajvqMaTy2TIqBjeaej1TGTlmbQkOwV/JL0ntFJjiXRvY3CzGLSWF5C6q6YZeOaZ70riD8
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(366004)(39860400002)(346002)(396003)(136003)(451199021)(83380400001)(33656002)(38100700002)(86362001)(122000001)(38070700005)(55016003)(478600001)(110136005)(71200400001)(7696005)(8936002)(8676002)(2906002)(5660300002)(52536014)(66556008)(66946007)(64756008)(66476007)(66446008)(76116006)(6636002)(41300700001)(316002)(53546011)(186003)(66899021)(6506007)(9686003)(26005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TXBFZ1hvVmNnbmlxcWp6MUhWNHdLK0VqbDUwU3pubU03RWVhejg0NlZEb0Rt?=
- =?utf-8?B?UlJpWmxoSy8xdVIyQ3dMdWJjV25kVEU4YUU1RmZmb3NNV1Jpb1R4OTdhRWJ3?=
- =?utf-8?B?SFV0ZUxjS3lyMk0yRkJyWk1PYTdrTzFUN2k2Qm5UbGp1L3BHN0JINEZsclJU?=
- =?utf-8?B?SUhOemlHMHpWcVFSa0hTY2JVTktaZCszTDE2NU1EcmYwTWM4QlE1RHl5VG9K?=
- =?utf-8?B?T0tkWUMyd09hbVpEemZsOE5YS1JMNUhidSsrOEJlQkZyNExvZXJjRmFPL1p6?=
- =?utf-8?B?YU9TUWppQk9NcVF2by9YT2U1eVB0a3B4QUJKcmhmS2dRUzRhalBZVWExdzNl?=
- =?utf-8?B?TnFUSGNkTU45Y3RpYytwUEFMMFpMUFZOaXNsdVBTcVdUUW5odHduVTcxQ2Jn?=
- =?utf-8?B?a2dtVEtPaTRnVkgvc1p0OEZiUEIrejhYODZYRXFEd0tYOWUwcTA0bWQrbFg5?=
- =?utf-8?B?US9qcGRjaHV6TkFJL0M3L053TlpLWjNEVU5WYmRHVDFEZUFGcjBOeFRCQVZ5?=
- =?utf-8?B?Y284NWNUQWZSblZVcDZVWDBIN0gvZVpvbTI1L2NhYWRiNW85Z3dLMWdERUUr?=
- =?utf-8?B?UHA1STlBcStrSU5UcFhyN0JadGZhck5PV05XNldXU3g2ZitJcUdjTEVpOUNa?=
- =?utf-8?B?R283V1owcENFSTV0dEFGc2ZtT1pRZlM0aG8rQndxNlVnSlNpN1VQZndYU3NG?=
- =?utf-8?B?ak5HWnREeHZjNFNyUlhaUnhzNkxtSkhxaFA2NWN2MTlIbXhkdXpSWWM5dFFK?=
- =?utf-8?B?cVRXOGxPandOaVdBSnF4TTE4R1kxWVQ0cTRPNWI0RHM2S2lyTE8rdlI2NUg3?=
- =?utf-8?B?T2g3eWNtekdIR3RSQm90SUkrNlhvbm01RHlsSW9pK3F3aFRMUWFLQXJWSEhj?=
- =?utf-8?B?ckx1Qzhtb0U1ZDIwUU1sYStUdVRLWWlYZUF3NU85b0xpVVdqWHNaVFI2TjZF?=
- =?utf-8?B?Yk9hOWplOVZLMmhIZ1VPNWtzMGVKeHViY3lDTzh3ZWpOM1JtTE5xQnFRRmlV?=
- =?utf-8?B?dHhhMFl1SkJ2Q0t0aWZuZjlzRGRQRE45eWx2UjBkTDhvaGw2TjRIUWFWRktl?=
- =?utf-8?B?TXlpSUh2VWtHaUZMTFo5MFByM2xOcFdJa2N5bXlMREo1VXRsK0lCMU9vMTc0?=
- =?utf-8?B?MDlBSDR5bUltbitnZ0RrcUZjeEN5Y0xQa2txVDgyUUZFd0RqRGNCcUNQODBY?=
- =?utf-8?B?a01ZeFdxYWtlbVN1MjV0dnRKQzZlYlNUZjFBUVY2Q3dVNlA5L0gyc1BRVFhG?=
- =?utf-8?B?MVNiNFNRNVBoRyszWGRhN3FoZFVoQ2d5TFhGL0xIRDhmUGVDSHc0UTd4N2RF?=
- =?utf-8?B?TSt0VlBzdkFkNkVRK01nVStVK1FNL3J3SzB4SHZEU0l3b1o5aUtQbTNVYVFC?=
- =?utf-8?B?dS8rMjNEbzQydHNTOHVUQnM3N0J4WXErRG5MR09YMVNXS3BhUGdNUXlvR2lT?=
- =?utf-8?B?bjFGbm8yODF4V1gyWkN2WDJNNDRwOGZucXhORU1xSkdvNzZmVU9jUDlKQU5r?=
- =?utf-8?B?Q3NFN3pDclowWVJ5aGhmdWtHOVBQaW1Qbll3QmlDQk1VWlRMcTdld3hRUVg5?=
- =?utf-8?B?ZE1hbmpNRHRwbU9pd0lIZkFxYmIyMytGbjlDMXpLV25wL1Y4ZFNqVStTVnlt?=
- =?utf-8?B?bmdXZ0p0TlZ4c2xYNWdIMDhqWTE3OW9sQ2RBUytzOHhEaEJsN1prR3NRdG8x?=
- =?utf-8?B?NElJZE8xV0tockduRFBoWVVrNTZWUGFTUCszZkZNRUVwbzR5RE5oS3FOdkg3?=
- =?utf-8?B?NC9oUGF5MDU5bkZKZzQ2c3JTdXBKaVpXSTV6R1dBS1NWQndLUFFveGhyd3NU?=
- =?utf-8?B?eFBUVE4zclVXeC85d0pjYWZBbE90dW9XWktiZ1NZY0ZNcXRodzFNZm84REdM?=
- =?utf-8?B?b09BdDZhQThWdXMxUVBDSm5EaUpLNGlHMmxBQ3hncHh3YWd0aCt3dDRLUUQr?=
- =?utf-8?B?a29vbHZ6VHhXRkdkdU16Y3hZQU4wa0IyRjhpSTZ0U1paV3BRa1AwdGhNRTgy?=
- =?utf-8?B?My8xVG01MVgvS3pmQ29IT2RaZDB3Vm56VXBQS05TRzJnTWdzaWFzQU8xd1NI?=
- =?utf-8?B?RjJxaFVmeWJSTGFIV1l1Q3BZRGZGRGYzRVV4U3JEek1PZzhZUFBBS25USE1X?=
- =?utf-8?Q?PW/H4GIe3QMcQb2AZcq5A5QJ9?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0jjC66NjnbpNZ6fFNzzx+JPZMh+jk9wvDn+9fqnYa41vsk+NH5pbRWRNr6ls?=
+ =?us-ascii?Q?Ydvz1ToELAYF6kc7JxSnFOMIQAb9q34yRSwQcx5NjkIsxRpcAGNpMN5znstT?=
+ =?us-ascii?Q?tAGocwQGPL/vJGbZJt4ovnBXKKkVZiRNkw7ygnguDK06rmyJRayinXRCqHLq?=
+ =?us-ascii?Q?EQ5P7d0XxOoWXMtzJhN8LrZJSCtMn3USGz3bm2MiZYZ4Vr3wcAvgnyqqlzYn?=
+ =?us-ascii?Q?t8+bZQ8nLGXvkGgkIb3qEs/lWRS3/IxStnnbkOIoQAWabBI6aVc99sNSjc5E?=
+ =?us-ascii?Q?Mfc7GCwYTWK92WLHr4ObCES+S8S6SqTgMTlwD/TvtnPRj8mvS2PJjzDJwajE?=
+ =?us-ascii?Q?HMbsOdSlnPUCPt1uyN5BFYAMj9lx+fLrvHWnd900PMZgS+oB8OyYgyS6JPKa?=
+ =?us-ascii?Q?vNZgj0/rJjaC0Ya8x6IuwlbE4DlI4UkUc0TGp7e7bDmGKIaKbp9ihLoQ2Zad?=
+ =?us-ascii?Q?nnzf+9OEC6sWrDRG9zcu66MoTgu5/sQs3WvEQezIKybVeblPm4/JycrLUk98?=
+ =?us-ascii?Q?TACiSd+Zm5JkL82vDUwcVoaJt+zflMXFd/hyynLDjpjdIFtjQyM3yf0FGsRs?=
+ =?us-ascii?Q?NquqAF1cgo0h9+MOyd3mK9FwPFiciL+RfsK2hDral5j145ibOJgnEx5pr4x4?=
+ =?us-ascii?Q?vbYFiwtSDHfObqaHYg24keGfG+BOlbwxL/L3cPWoOyYZwBX2WfQRLU7ASE3D?=
+ =?us-ascii?Q?0dn4Q8B0g9r2MeQArBTmDum61SrW26C9mzldsMVmDf/Py8FXjW7ZTGzpkmGZ?=
+ =?us-ascii?Q?dDTg3EhP2w5xxuAkhrXlhXWpOYnmzldw+1H+RL//8VdlOQOcBtxj8Znx575/?=
+ =?us-ascii?Q?xO+9HUIrA9xDqy82Oc/PjyQ8FMalmfL/ejv4ZfuFL3VfoGiT8flQ7tGIUB5Y?=
+ =?us-ascii?Q?Ck+NeiF9AmaM/nc34LmAnAHog5saSIEoBhyWjciiTCqQR1vuYNc0HnWS2QKN?=
+ =?us-ascii?Q?Yaj870RB9nFQ7w2dCjiT1LGBUlG7NqFAtbQfXwRNxeSTFSiYEEveCthygq9A?=
+ =?us-ascii?Q?XnZHRnOc5nGNTn0EV7uEQfPwI3vHJdJ3dkXEVjdIPFvH3syqNZ4wdqnO+2Uy?=
+ =?us-ascii?Q?aO9qQuoNKyT0wXYh+Sg2d2NbLmJ001thdvl5aaUl2YjpXGOlOujJ+5MtocoI?=
+ =?us-ascii?Q?DnRdeNgDD4SgGv60tUZLiVFwBFPSHhaw3Fzvi2zCAlOn7h9mXDvLkjS8Ct93?=
+ =?us-ascii?Q?kaQoKeegmnJ9u7IEn5AOlGOyjz3GGU6i+WzhJQLx/vSDd9tgwvOpYg6TcLy6?=
+ =?us-ascii?Q?pTu2G1Ua1XhlU42U7/DVhm3P8/5VChJkoP7iWtljlsIiHfFK6Y6F0XYXXxvy?=
+ =?us-ascii?Q?LxPa/VVu9yiff6EAQD4ujQxqoJYvO3YUZJHu1PPv6Qc1nk9HdIhTQpOI+gce?=
+ =?us-ascii?Q?7efwCvfUoyijrZriURgl32fNUXyffYsbgSj4+UAiBiqeFe2rRjWGCQIRDw0S?=
+ =?us-ascii?Q?SEp1jchsY2dwdAgeA4oE0KSZA5gTjdlupIPKl7a7RkiAIB8FwKavPmUjfDJ4?=
+ =?us-ascii?Q?MzdH7GzARs2DXDvDf5LWKrPF8LkuhUdwpxybDEsohfdS9cz4pnkG+42ly6xF?=
+ =?us-ascii?Q?lBCpAoPL3Da4MngWRMk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c68e4f3-7843-4938-53fe-08db6b295f10
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 09:42:43.9325 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0iawoYqgY9GzJ/Sr/VgrxM0SUEsDiX7L+bAyrM7wJVj7oEzWQoEjEM79FQ4aIc1dXdu3ls4JisHa9KoY+H9V6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7755
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb3d7c8a-274f-46da-fe67-08db6b2a40c7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2023 09:49:02.2579 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HW2CClIfeyvjQVVKOGVSwL4bN32hV3q0dAr38qnZaY7MHoqkAO67jffu7KcMmi/xgyImCYGEq0Jg19ve5UGmSg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8510
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,183 +128,257 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Somalapuram,
- Amaranath" <Amaranath.Somalapuram@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Guchun,
+[AMD Official Use Only - General]
 
-Thanks for your comments.
+Good point. gfx v11_0_3 doesn't support sram ecc. We should *not* let KFD r=
+eport SRAMEDC cap to user mode - it will result to wrong shader compiler wi=
+th ecc enabled for gfx v11_0_3.
 
-On 12/06/2023 08:52, Chen, Guchun wrote:
-> [Public]
+I'm leaning toward creating per IP feature matrix to deal with the cases th=
+at hardware just supports partial RAS features. Let me think about it more =
+and get back to you.
+
+Regards,
+Hawking
+
+-----Original Message-----
+From: Yang, Stanley <Stanley.Yang@amd.com>
+Sent: Monday, June 12, 2023 16:30
+To: Zhang, Hawking <Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org; =
+Li, Candice <Candice.Li@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; Zhou1=
+, Tao <Tao.Zhou1@amd.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: Enable gfx v11_0_3 ras if poison mode =
+is supported
+
+[AMD Official Use Only - General]
+
+> -----Original Message-----
+> From: Zhang, Hawking <Hawking.Zhang@amd.com>
+> Sent: Sunday, June 11, 2023 6:46 PM
+> To: amd-gfx@lists.freedesktop.org; Yang, Stanley
+> <Stanley.Yang@amd.com>; Li, Candice <Candice.Li@amd.com>; Chai, Thomas
+> <YiPeng.Chai@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
+> Subject: [PATCH 2/2] drm/amdgpu: Enable gfx v11_0_3 ras if poison mode
+> is supported
 >
->> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
->> Shashank Sharma
->> Sent: Friday, June 9, 2023 6:03 PM
->> To: amd-gfx@lists.freedesktop.org
->> Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Somalapuram, Amaranath
->> <Amaranath.Somalapuram@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>; Sharma, Shashank
->> <Shashank.Sharma@amd.com>
->> Subject: [RFC] drm/amdgpu: flush gpu tlb using sdma ring
->>
->> This RFC patch moves the code to flush TLB using SDMA ring to a different
->> place like a separate function. The idea is that KFD/KGD code should be able
->> to flush GPU TLB using SDMA if they want to.
->>
->> Cc: Christian Koenig <christian.koenig@amd.com>
->> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 41
->> ++++++++++++++++++++++++
->> drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  1 +
->>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   | 36 +++++----------------
->>   3 files changed, 50 insertions(+), 28 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
->> index 231ca06bc9c7..20a5dad32bfc 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
->> @@ -30,6 +30,47 @@
->>   /* SDMA CSA reside in the 3rd page of CSA */  #define
->> AMDGPU_CSA_SDMA_OFFSET (4096 * 2)
->>
->> +/**
->> + * amdgpu_sdma_flush_tlb - flush gpu TLB using SDMA ring
->> + *
->> + * @adev: amdgpu device pointer
->> + *
->> + * return: returns dma fence which must be put by caller
->> + *
->> + * The SDMA on Navi has a bug which can theoretically result in memory
->> + * corruption if an invalidation happens at the same time as an VA
->> + * translation. Avoid this by doing the invalidation from the SDMA
->> + * itself.
->> + */
->> +struct dma_fence *amdgpu_sdma_flush_tlb(struct amdgpu_device *adev) {
->> +     int r;
->> +     struct dma_fence *fence;
->> +     struct amdgpu_job *job;
->> +     struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
->> +
->> +     mutex_lock(&adev->mman.gtt_window_lock);
->> +     r = amdgpu_job_alloc_with_ib(ring->adev, &adev->mman.entity,
-> I guess this patch needs to be reworked on top of recent entity rename to high_pr code.
-
-Probably, my code was based on V6.3, I might have to fast forward.
-
-- Shashank
-
-> Regards,
-> Guchun
+> GFX v11_0_3 ras needs to be enabled if poison mode is supported.
+> Driver doesn't need issue an feature enable call in gfx_v11_0 late
+> init phase. The ras late init call is already centralized to amdgpu_ras_l=
+ate_init.
+> In addition, move poison_mode check out of common helper like
+> amdgpu_ras_is_supported and amdgpu_ras_is_feature_allowed ensure only
+> GFX RAS is enabled when poison mode is supported.
 >
->> +                                  AMDGPU_FENCE_OWNER_UNDEFINED,
->> +                                  16 * 4, AMDGPU_IB_POOL_IMMEDIATE,
->> +                                  &job);
->> +     if (r)
->> +             goto error_alloc;
->> +
->> +     job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gart.bo);
->> +     job->vm_needs_flush = true;
->> +     job->ibs->ptr[job->ibs->length_dw++] = ring->funcs->nop;
->> +     amdgpu_ring_pad_ib(ring, &job->ibs[0]);
->> +     fence = amdgpu_job_submit(job);
->> +
->> +     mutex_unlock(&adev->mman.gtt_window_lock);
->> +     return fence;
->> +
->> +error_alloc:
->> +     mutex_unlock(&adev->mman.gtt_window_lock);
->> +     return NULL;
->> +}
->> +
->>   /*
->>    * GPU SDMA IP block helpers function.
->>    */
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
->> index fc8528812598..c895948f6e82 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
->> @@ -130,5 +130,6 @@ void amdgpu_sdma_destroy_inst_ctx(struct
->> amdgpu_device *adev,
->>           bool duplicate);
->>   void amdgpu_sdma_unset_buffer_funcs_helper(struct amdgpu_device
->> *adev);  int amdgpu_sdma_ras_sw_init(struct amdgpu_device *adev);
->> +struct dma_fence *amdgpu_sdma_flush_tlb(struct amdgpu_device *adev);
->>
->>   #endif
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->> b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->> index ab2556ca984e..0bfaee00a838 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
->> @@ -52,6 +52,7 @@
->>   #include "athub_v2_1.h"
->>
->>   #include "amdgpu_reset.h"
->> +#include "amdgpu_sdma.h"
->>
->>   #if 0
->>   static const struct soc15_reg_golden golden_settings_navi10_hdp[] = @@ -
->> 333,9 +334,6 @@ static void gmc_v10_0_flush_gpu_tlb(struct
->> amdgpu_device *adev, uint32_t vmid,  {
->>        struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
->>        struct dma_fence *fence;
->> -     struct amdgpu_job *job;
->> -
->> -     int r;
->>
->>        /* flush hdp cache */
->>        adev->hdp.funcs->flush_hdp(adev, NULL); @@ -378,34 +376,16 @@
->> static void gmc_v10_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t
->> vmid,
->>                return;
->>        }
->>
->> -     /* The SDMA on Navi has a bug which can theoretically result in
->> memory
->> -      * corruption if an invalidation happens at the same time as an VA
->> -      * translation. Avoid this by doing the invalidation from the SDMA
->> -      * itself.
->> -      */
->> -     r = amdgpu_job_alloc_with_ib(ring->adev, &adev->mman.entity,
->> -                                  AMDGPU_FENCE_OWNER_UNDEFINED,
->> -                                  16 * 4, AMDGPU_IB_POOL_IMMEDIATE,
->> -                                  &job);
->> -     if (r)
->> -             goto error_alloc;
->> -
->> -     job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gart.bo);
->> -     job->vm_needs_flush = true;
->> -     job->ibs->ptr[job->ibs->length_dw++] = ring->funcs->nop;
->> -     amdgpu_ring_pad_ib(ring, &job->ibs[0]);
->> -     fence = amdgpu_job_submit(job);
->> -
->>        mutex_unlock(&adev->mman.gtt_window_lock);
->>
->> -     dma_fence_wait(fence, false);
->> -     dma_fence_put(fence);
->> -
->> -     return;
->> +     fence = amdgpu_sdma_flush_tlb(adev);
->> +     if (fence) {
->> +             dma_fence_wait(fence, false);
->> +             dma_fence_put(fence);
->> +             return;
->> +     }
->>
->> -error_alloc:
->> -     mutex_unlock(&adev->mman.gtt_window_lock);
->> -     DRM_ERROR("Error flushing GPU TLB using the SDMA (%d)!\n", r);
->> +     DRM_ERROR("Error flushing GPU TLB using the SDMA !\n");
->>   }
->>
->>   /**
->> --
->> 2.40.1
+> Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 49
+> ++++++++----------------- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 26
+> -------------
+>  2 files changed, 16 insertions(+), 59 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index dd7cdc234d7e..35e70860d628 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -126,6 +126,7 @@ static bool
+> amdgpu_ras_check_bad_page_unlock(struct amdgpu_ras *con,
+>                               uint64_t addr);  static bool
+> amdgpu_ras_check_bad_page(struct amdgpu_device *adev,
+>                               uint64_t addr);
+> +static void amdgpu_ras_query_poison_mode(struct amdgpu_device *adev);
+>  #ifdef CONFIG_X86_MCE_AMD
+>  static void amdgpu_register_bad_pages_mca_notifier(struct
+> amdgpu_device *adev);  struct mce_notifier_adev_list { @@ -757,16
+> +758,6 @@ static int __amdgpu_ras_feature_enable(struct amdgpu_device *ad=
+ev,
+>       return 0;
+>  }
+>
+> -static int amdgpu_ras_check_feature_allowed(struct amdgpu_device *adev,
+> -             struct ras_common_if *head)
+> -{
+> -     if (amdgpu_ras_is_feature_allowed(adev, head) ||
+> -             amdgpu_ras_is_poison_mode_supported(adev))
+> -             return 1;
+> -     else
+> -             return 0;
+> -}
+> -
+>  /* wrapper of psp_ras_enable_features */  int
+> amdgpu_ras_feature_enable(struct amdgpu_device *adev,
+>               struct ras_common_if *head, bool enable) @@ -797,7
+> +788,7 @@ int amdgpu_ras_feature_enable(struct amdgpu_device *adev,
+>       }
+>
+>       /* Do not enable if it is not allowed. */
+> -     if (enable && !amdgpu_ras_check_feature_allowed(adev, head))
+> +     if (enable && !amdgpu_ras_is_feature_allowed(adev, head))
+>               goto out;
+>
+>       /* Only enable ras feature operation handle on host side */ @@ -
+> 2420,9 +2411,9 @@ static bool amdgpu_ras_asic_supported(struct
+> amdgpu_device *adev)  }
+>
+>  /*
+> - * this is workaround for vega20 workstation sku,
+> - * force enable gfx ras, ignore vbios gfx ras flag
+> - * due to GC EDC can not write
+> + * Common helpers for device or IP specific RAS quirks including
+> + * a). Enable gfx ras on D16406 or D36002 board
+> + * b). Enable gfx ras in gfx_v11_0_3 if poison mode is supported
+>   */
+>  static void amdgpu_ras_get_quirks(struct amdgpu_device *adev)  { @@ -
+> 2431,10 +2422,16 @@ static void amdgpu_ras_get_quirks(struct
+> amdgpu_device *adev)
+>       if (!ctx)
+>               return;
+>
+> +     /* Enable gfx ras on specific board */
+>       if (strnstr(ctx->vbios_version, "D16406",
+>                   sizeof(ctx->vbios_version)) ||
+> -             strnstr(ctx->vbios_version, "D36002",
+> -                     sizeof(ctx->vbios_version)))
+> +         strnstr(ctx->vbios_version, "D36002",
+> +                 sizeof(ctx->vbios_version)))
+> +             adev->ras_hw_enabled |=3D (1 <<
+> AMDGPU_RAS_BLOCK__GFX);
+> +
+> +     /* Enable gfx ras on gfx_v11_0_3 if poison mode is supported */
+> +     if (adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(11, 0, 3) &&
+> +         amdgpu_ras_is_poison_mode_supported(adev))
+>               adev->ras_hw_enabled |=3D (1 << AMDGPU_RAS_BLOCK__GFX);  }
+
+[Stanley]: For GC 11.0.3, it's better not expose AMDGPU_RAS_BLOCK__GFX to k=
+fd, may be with below is more reasonable.
+{
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_topology.c
+index 8e4124dcb6e4..84030289ac96 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1996,9 +1996,10 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+        }
+
+        /* kfd only concerns sram ecc on GFX and HBM ecc on UMC */
+-       dev->node_props.capability |=3D
+-               ((dev->gpu->adev->ras_enabled & BIT(AMDGPU_RAS_BLOCK__GFX))=
+ !=3D 0) ?
+-               HSA_CAP_SRAM_EDCSUPPORTED : 0;
++       if (KFD_GC_VERSION(dev->gpu) !=3D IP_VERSION(11, 0, 3))
++               dev->node_props.capability |=3D
++                       ((dev->gpu->adev->ras_enabled & BIT(AMDGPU_RAS_BLOC=
+K__GFX)) !=3D 0) ?
++                       HSA_CAP_SRAM_EDCSUPPORTED : 0;
+        dev->node_props.capability |=3D
+                ((dev->gpu->adev->ras_enabled & BIT(AMDGPU_RAS_BLOCK__UMC))=
+ !=3D 0) ?
+                HSA_CAP_MEM_EDCSUPPORTED : 0;
+--
+}
+
+Regards,
+Stanley
+>
+> @@ -2502,6 +2499,8 @@ static void amdgpu_ras_check_supported(struct
+> amdgpu_device *adev)
+>                                          1 <<
+> AMDGPU_RAS_BLOCK__MMHUB);
+>       }
+>
+> +     amdgpu_ras_query_poison_mode(adev);
+> +
+>       amdgpu_ras_get_quirks(adev);
+>
+>       /* hw_supported needs to be aligned with RAS block mask. */ @@ -
+> 2659,8 +2658,6 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+>                       goto release_con;
+>       }
+>
+> -     amdgpu_ras_query_poison_mode(adev);
+> -
+>       if (amdgpu_ras_fs_init(adev)) {
+>               r =3D -EINVAL;
+>               goto release_con;
+> @@ -3115,26 +3112,12 @@ int amdgpu_ras_set_context(struct
+> amdgpu_device *adev, struct amdgpu_ras *ras_co  int
+> amdgpu_ras_is_supported(struct amdgpu_device *adev,
+>               unsigned int block)
+>  {
+> -     int ret =3D 0;
+>       struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+>
+>       if (block >=3D AMDGPU_RAS_BLOCK_COUNT)
+>               return 0;
+>
+> -     ret =3D ras && (adev->ras_enabled & (1 << block));
+> -
+> -     /* For the special asic with mem ecc enabled but sram ecc
+> -      * not enabled, even if the ras block is not supported on
+> -      * .ras_enabled, if the asic supports poison mode and the
+> -      * ras block has ras configuration, it can be considered
+> -      * that the ras block supports ras function.
+> -      */
+> -     if (!ret &&
+> -         amdgpu_ras_is_poison_mode_supported(adev) &&
+> -         amdgpu_ras_get_ras_block(adev, block, 0))
+> -             ret =3D 1;
+> -
+> -     return ret;
+> +     return (ras && (adev->ras_enabled & (1 << block)));
+>  }
+>
+>  int amdgpu_ras_reset_gpu(struct amdgpu_device *adev) diff --git
+> a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 690e121d9dda..11e0c574b9f7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -4650,26 +4650,6 @@ static int gfx_v11_0_early_init(void *handle)
+>       return gfx_v11_0_init_microcode(adev);  }
+>
+> -static int gfx_v11_0_ras_late_init(void *handle) -{
+> -     struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+> -     struct ras_common_if *gfx_common_if;
+> -     int ret;
+> -
+> -     gfx_common_if =3D kzalloc(sizeof(struct ras_common_if), GFP_KERNEL)=
+;
+> -     if (!gfx_common_if)
+> -             return -ENOMEM;
+> -
+> -     gfx_common_if->block =3D AMDGPU_RAS_BLOCK__GFX;
+> -
+> -     ret =3D amdgpu_ras_feature_enable(adev, gfx_common_if, true);
+> -     if (ret)
+> -             dev_warn(adev->dev, "Failed to enable gfx11 ras feature\n")=
+;
+> -
+> -     kfree(gfx_common_if);
+> -     return 0;
+> -}
+> -
+>  static int gfx_v11_0_late_init(void *handle)  {
+>       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle; @@
+> -
+> 4683,12 +4663,6 @@ static int gfx_v11_0_late_init(void *handle)
+>       if (r)
+>               return r;
+>
+> -     if (adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(11, 0, 3)) {
+> -             r =3D gfx_v11_0_ras_late_init(handle);
+> -             if (r)
+> -                     return r;
+> -     }
+> -
+>       return 0;
+>  }
+>
+> --
+> 2.17.1
+
+
