@@ -4,89 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D528BC7EE2E
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 14:55:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59D76C88CB4
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 15:08:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C94410E29C;
-	Mon, 12 Jun 2023 14:55:32 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2071.outbound.protection.outlook.com [40.107.93.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEAB110E29C
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 14:55:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1C5110E1FF;
+	Mon, 12 Jun 2023 15:08:46 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2053.outbound.protection.outlook.com [40.107.243.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02DE410E1FF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 15:08:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O+0PVQcKNZrrupBgXjm5p31cuFDUfFYrx1ZTal/feKDRxOicO8Rkn3u63ZCYFgh1H38qRbtYx//KSMYToUhj2un84+ifiTp7ZjqbgCgB3Dz4YcPvagTIsNKlZ91axZbzxTrA4KQSOD/9l6Kts0fNP9Z2/CI9ayLXb1z1izwuICRgFimzwObrADBlnRQMKPlabEdvOyTDv5F0zEiU3BmoSX264j3/ncwNV+i8kTxXPezBRsjA/jLTyI1nFBuMkmyrs5eOWIWt2I/59nCAagixVD3dlAyl7/V/gg5ju4PfMHAQw8y29hGtmpo7xgHVm4whUnTokuHvsC18pFWF0ClKIw==
+ b=ClMvJ6DYr1/VEw9COUkjdTREUTykkF0DxnQBkG67Y0FVUmrTuqVij6TpmL6ZlLsQcF8yMthcD5CYjPxyIcidkHD0GKRMs4S5Uv2eOaMq4s/wqJwfp0brT5B4eZ1JEickezfLUALe0hoSb9qGRwiuGMwIwQDOIuI6fKSVRro+L7YF7/6wT6P77rFHoBYDJvcM6qoydjZNG3rCcgd4tDSCGwd4+dfjfTzuiwomhV0hPlhu3J2SsN5XjqTi0kTy5qOBHIq6rXWBwPml4OJcbHgtTONiCw2UPEryoEM7KXkLWbjmmIW75fNdALPJesMGxSvc+lRQFeivX/qcZDuEUivMBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gYcDwtdFBgLz/r2O/eu6Ob9SJLbz7xbPkhzP+PKpUaM=;
- b=FeYSlwXipflw2NIF4p2LmIF3Ur4OO9DuWfEu/64xvA/qcUr9ylrSxx41ystNpPK95ZhDEDN4K2mmyEU4rGPGCBohE+Zs538wKsOuE4RXjPIcCx7+YKfqKuTDF0gQlyPRNkvhzgKkpLn5aYcABWUT7QI8sMNedQGJGssVsrJjrIbL/fzv2XhFhAY8Pfo5qLVM2Lg6epH99igyZ5rIqPlCuzLiqfXZ0UeZ0DeG1EvD7R44WHxV59N8eDLaNMdLm8no5iSLfMyunTlHBvTDuYK2WT7dICSRBnDbrLYaf05L00fnqvNS1i1cSc5q9onkcRdJ5fLrM+wGWTDNvfuD8mFhOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=uCcK7jjhY2MaGDHQ3UndpM6jFJmtM0qXYiImKaNxmuA=;
+ b=THPwb680bgrLNDnbfXvx+eylbjNDbqxKO4bc3ldFe2pv6k1xV2bdLrNB8i46XcocB/czihbdZf0+AS+76TcSDjacXhPH9LRdbKc3aAy6jZs4qEfjvTEGwS4gjt07lSBSSeOw6JGb0vfNN/AMdEj3GIoegLzTLeVU4QiAPggk7Q897zjrl0/SSI/7hEQ9N1Q5F7eh/JuEhnpOW1IPMsFbOxEKhMiCSjbdXnNEhM0n20+9hDUmrZ8ppAzjILg3UqFg+owyYhOQJ5LmY167F9lUYTKTsV00N/zAubkrN6jmfrx48xaXGvzRHGLzGTPIy8Fxfjk3fJJjLt4aJ7UeYRpezQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gYcDwtdFBgLz/r2O/eu6Ob9SJLbz7xbPkhzP+PKpUaM=;
- b=RvnhSIXcsa403HLUpy6qgkywMmyxN6PaxkV3AbGAHYWk5C0BhJz/3iX1s6cvtNCG0zEQp58DqTYgu3vEhyplW50L6NllyZoUN0OC915qwyepUBgMsvKepvw1u7Khnx60mWwoWVxApb3JGl0/KmqHg9xer2O+CJbTrAOoeT/1AyQ=
-Received: from DM6PR08CA0050.namprd08.prod.outlook.com (2603:10b6:5:1e0::24)
- by LV3PR12MB9260.namprd12.prod.outlook.com (2603:10b6:408:1b4::21) with
+ bh=uCcK7jjhY2MaGDHQ3UndpM6jFJmtM0qXYiImKaNxmuA=;
+ b=wM3p7ZaAkJ0S3WQcFIF6EirRs2FD1JovnR0osGQ2ujWR6/6l1AP//lIjNnjMxR3SDGC7B5NdnTKRHUDq2nF/SHKJks2QwMuwZ+f6SgGTKfOWtlJeylrpwcnxhpt/zsc/FGgysLaDZ4W68UwZtUdEum0lF+ufAeW1vZH8lVjbgz4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by PH8PR12MB6961.namprd12.prod.outlook.com (2603:10b6:510:1bc::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Mon, 12 Jun
- 2023 14:55:26 +0000
-Received: from CY4PEPF0000EDD3.namprd03.prod.outlook.com
- (2603:10b6:5:1e0:cafe::81) by DM6PR08CA0050.outlook.office365.com
- (2603:10b6:5:1e0::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.33 via Frontend
- Transport; Mon, 12 Jun 2023 14:55:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000EDD3.mail.protection.outlook.com (10.167.241.207) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.21 via Frontend Transport; Mon, 12 Jun 2023 14:55:25 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 12 Jun
- 2023 09:55:24 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: don't free stolen console memory during
+ 2023 15:08:40 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::4666:2db3:db1e:810c]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::4666:2db3:db1e:810c%7]) with mapi id 15.20.6455.045; Mon, 12 Jun 2023
+ 15:08:40 +0000
+Message-ID: <5e16bb94-8ae8-1284-eed7-80d06154fd07@amd.com>
+Date: Mon, 12 Jun 2023 11:08:36 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH] drm/amd/display: don't free stolen console memory during
  suspend
-Date: Mon, 12 Jun 2023 10:55:12 -0400
-Message-ID: <20230612145512.752279-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.40.1
+Content-Language: en-US
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230612145512.752279-1-alexander.deucher@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20230612145512.752279-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0024.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00::37) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB03.amd.com
- (10.181.40.144)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD3:EE_|LV3PR12MB9260:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6bc81127-b869-427f-1ced-08db6b550e61
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|PH8PR12MB6961:EE_
+X-MS-Office365-Filtering-Correlation-Id: 167fedf7-777a-46ff-a2cf-08db6b56e786
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7AXJphy1BasQu6VBhQmkkuFGCzV/7tK67upuwGK/VxLotUuo62FbdqE/0ze6o+hPl6qqGipWGaEUBY2jZr1MjXrMNTFmjUEKmoc6P36E0fITIuGG/aUU7146gAJiPZy570YQDtSH33yVjT3erw3vcfnkDIBHmCupfRU9IpZ696SKeMRILpA2Fxji4hzVa3mUOix/7qCl08Du+6LH3y/hR/+zMyF2ukYk0N3+08PWHbjbFKpmYkvv+6tXmI9eIzn0Wn71XWMx7wlTxIg/qGyK57aGD28l7pn1ejc+juS+zW9FC2HuSXfBsMQlBeHOfmYbpgyq39ta74PSgY3SWFm0y/2l/7s3ivkmNlMhvb44oE1y/Qgh+HdmLuRTvFeWkqOWp7cfqYqXxHSCpRujngKvq0VvFLakMdt3froUo4yCNPM1Va/Mp/7wft1x6mVfT935/25XXUeA4xkUBq+4T7CEMApxIy3pWYZ/tnXAmQVclgqLPTe+NtR+7ZhYDQlQzISBuPJI4YNtumelc5xl3hieZhf4HaLqbzJwwPEz15Xx2wrtGkQOoLQDkzEhnbbz2zRxNWh7iwHpVj2G787UlJrXVN8YSzzr1nUlCPNsW5LyzBNh5aPK2K9Vm/mrKwb3l7JYDSdQrQ68f17HpU7iRBouJWrGhrurTsQXQoV0CklUmyxhFzqT5JbH/btyRQk6yKbPa2gX4kEmWLhgavYnwu34AIlWkQ9Br6ECbWicnef/biY=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(346002)(136003)(376002)(396003)(451199021)(36840700001)(46966006)(40470700004)(82310400005)(36860700001)(40480700001)(47076005)(336012)(83380400001)(426003)(356005)(4326008)(82740400003)(81166007)(41300700001)(36756003)(316002)(7696005)(6666004)(966005)(1076003)(26005)(6916009)(70206006)(70586007)(2906002)(5660300002)(40460700003)(86362001)(8936002)(8676002)(478600001)(15650500001)(186003)(16526019)(2616005)(36900700001);
+X-Microsoft-Antispam-Message-Info: iyT6ViKYPwdULcnBzR1YncTnPcYgFUWaLPCLc4l+Pi5Rig6GqtJpCf0oeBgnuGXf3EPVu8TdKaucNsjqxEPgN+Mj0Zi5W43zWBu0NuVhUCRWnaPq8K8fAjoVoCgIZGUfaDlefWcTKPsp3OOi769r4l5mHN3Zj7bZwVGdxIxJ/bgDuK7btykqVuEo0Cb9Aclyft560+DtK8IjXj14ambMSfyEewCSAz9/HLSNx8MgzsCOQjhMcJjowFIw+UBy6kHUk50V/d2ma1eCk+lBycYAE6d+zBA2HKrKnj6GeUFbTE3mFTLb0HvAH3PIm+KVFepTpFA55Cbw6BnmNlmjj6XBkiO6M/o5wsNkX6BQJa4EuNAoB7mLoVgH2l4YZa5Qjae7yX2SjfdgAFT+xR4g8ZjwyIHJCnJrH04MZGZ8dhpIQBtgVjjwDf0aSxKDXZqj2nPzbNmWi81cu3QHF5FyWmxpj0N4JvdFhIOfOE8KJ09ivmh7JttmQJeOOrwch1BsnaHn8+ZrBr0VxKeRa0mHwjD/CRgNPm4uAQScwetLYmpupYBt+Pa/0KzUjTftpesQ62RyOkhijTOikqEhmb0IxWotZtjl9br70dXx8VvDdAM2vO4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(396003)(366004)(376002)(346002)(39860400002)(451199021)(36756003)(31696002)(86362001)(2906002)(44832011)(15650500001)(31686004)(966005)(6666004)(6486002)(186003)(83380400001)(6512007)(6506007)(26005)(53546011)(66946007)(66556008)(66476007)(316002)(2616005)(38100700002)(478600001)(5660300002)(8676002)(41300700001)(8936002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2RYRS9BRFlpU2VCVnF3N3BvcHExWHJ5WEx1a09vRSsxOVlVaFJCdzdSRW1v?=
+ =?utf-8?B?bERlLzhRNFk4UXVtNm5ITmNySUpwVHFHTjc4UkhyZXZXbzZKYjQ4VGk0dzZP?=
+ =?utf-8?B?WHhVTHc2bjJ2OFJkMU1yZGhUR0xMcFZMblZRcW5jWnlFWTd0UU1CelZrYlVj?=
+ =?utf-8?B?UUo5ME1Ec3JhZ055OC9YWThyd0RTSHNQYk95UFVpM0xmSlM2eXNFVzcwOXpV?=
+ =?utf-8?B?SGcxRUdGWHVCYlpKKzRRaGZsM25BemdHaFFwR1FROEZsQ1FCZk9EZWFQb0ts?=
+ =?utf-8?B?TWppT3dEQlVkdU9RRWZyTUY0aFRnUzRBbVZIcFJhdHVHdTlPNWhOU1JSL3lD?=
+ =?utf-8?B?dmltaDBEdkkxKzZpZjcwV0hjMWpKbytwN0pkYXR0VFNnbGYvMzhKNHg4ZGpv?=
+ =?utf-8?B?dVZBVGNxSTBBVVY3TGpRU2s0MTdEYXlLb3lnVng5TVF4VUw5d29SSHNUenVt?=
+ =?utf-8?B?enZtZnQwM1Y3WXZoSXhGUm4zbjNhV2pWNGRHUlcxbm82NFo5Y2ZYMUFCTHdL?=
+ =?utf-8?B?S2Y2ZTI4djJUeUJzUFJzTUY5bU10bUN3YlpFZG9TSHM5VDhnMGhYcVVRK0U0?=
+ =?utf-8?B?MFZsNXRRMEc3aXJFUHRsclBtbXNnR1hvekNHUmNCWHdadkphRWM1TXROZEYy?=
+ =?utf-8?B?dWNEaWxoK245aXA4VDhDeXFrSGxjejhxVzJKT1VhWmlXMjk4QnpjQzMwdnNR?=
+ =?utf-8?B?dGwxeFlaWEdNZk9MdUdrNlVEWlBXWHVXbU8vaUhjcnpTWkM3L25Md1d5QlZs?=
+ =?utf-8?B?MUxSVFhsWWN2RG9oOGliSy9VbDF2Vm9zRitzcE12U1pEZGtBL282cEFTVk1W?=
+ =?utf-8?B?VUYvYVJ5ZEpDeVlMQmxQSVk2YWM2SHEyYmtwMi9ZMGd0ZEplOW5Ed21UTVBp?=
+ =?utf-8?B?bmppZW5sNlJRZFdxZjJzTkJ6WVhWQzdDODRmWUdhOGxVSzFwbzRwZG9NNDls?=
+ =?utf-8?B?VjUxU0doRVJBMVRXMU5qays3UHBDTXBhSlZKeElzMmY5a2puQUlNQ0ZUbGNi?=
+ =?utf-8?B?RFZadDkxaFROQ0RuSzY2QXZuazU0eWhMR2hDN2hubE9HMHpFMG1qZnZYUitv?=
+ =?utf-8?B?ZlVmU0JuV0lWM0dzN09UNzNYQzcxWmt3UzR0eExQZDByeXdOVW5GazUvVVBS?=
+ =?utf-8?B?QjlFYnlVeXU4bnBpcU1HNUsxRmQzbHhSTktLdFdiZS9yN0ZxTEJOd0VTdWNw?=
+ =?utf-8?B?aDNkcHpNUi9hOUpZN21tS1VTSVQvRG1qWE1ibEVWUC8vS1lFOTY4MDhzWEh6?=
+ =?utf-8?B?cDdIamJJWTM0SWo1WnBRejJjbVNrRlVZdjZEUlpjZWpCRU9iSFp1K0VzSm42?=
+ =?utf-8?B?UzN0ZGFFWjhKRVJJWFIyeGQ0Wk4vM1lxUFljZFdkOTUrd0tUN2pUWkRiN3BJ?=
+ =?utf-8?B?S1hBWWRpUTBVVXBscHFVL3IybTMza0ZiaWZXcXh4YjRIcnFmMnZZektvbyt0?=
+ =?utf-8?B?c0RvMGo0Z0RtT3F2M2x5SWc3TGYyb1JoV1lMb3IwQzAvS0t4bllFeUJqc24w?=
+ =?utf-8?B?Y3lOZU10TlRiRFdSak9YSEFOSHdmTE1LcVBCY3duMUc2R2tjR3l4YU5RRTQ4?=
+ =?utf-8?B?V0RSdnJnV0tCU2ZZNE5wNjJZaG53NUptRWF5Z2Zjc0hVOXBqd1psbEdoV2VC?=
+ =?utf-8?B?TVQ5WVE4aVJwUlRUekEzVnR2ZHJHY3VQMkhEQkRyaGQvZllEMDZNMzQ1QVc0?=
+ =?utf-8?B?a3EvWGlHcEVraHYrSXBxZng3QnpEaTNyNnhoY0Y0aEt4SUtMYnc0bGVDdzRN?=
+ =?utf-8?B?K05RZWN3TkdCTnlkbGF0YnNwdHQ1djFQQ1NRc2NnUVdiN1VGYWVLU0FCNU5G?=
+ =?utf-8?B?TFpiWUJ3YkVldXIxUU9Wd3RpUjh6NWR2L3UySm9mSkpXbHlxTHduY0JmaWhI?=
+ =?utf-8?B?NmNhckprbmR4UCtQTHhvWk03TWlraThaZFZNdTE1N2xmRGNqZEk3SjMwcXds?=
+ =?utf-8?B?SEdVWk9yUU1EVEN2dTJkNHJtSGQrSHQ4QXpGUU9NM3ZoUmRBNnlPaThHODRL?=
+ =?utf-8?B?Z2lTR3dCY1ZUem1LL2F3RTNjTVdQWGZrMUY4RUlWZUhLU3ZrQlc4ZVdZZXVC?=
+ =?utf-8?B?KzdGVCtPYlVlM0ZzNkR4MTBtNWRPTy9DaUR6VXVtbW5DQXdXZ0pPQXlSQisz?=
+ =?utf-8?Q?G0CcbuGu/ABxaHXUVUs5ZWnON?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 14:55:25.9600 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6bc81127-b869-427f-1ced-08db6b550e61
+X-MS-Exchange-CrossTenant-Network-Message-Id: 167fedf7-777a-46ff-a2cf-08db6b56e786
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 15:08:40.0260 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD3.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9260
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kyIGhjLopPyMyguB4RuNPQz7DiX8OWgJ8ir293b1ChrF1t8z0l70vqeuuejZ0s7e9j8bwiX1hefYPs6kmUyFDw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6961
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,47 +124,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Don't free the memory if we are hitting this as part of suspend.
-This way we don't free any memory during suspend; see
-amdgpu_bo_free_kernel().  The memory will be freed in the first
-non-suspend modeset or when the driver is torn down.
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2568
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 0454e94d5680..fc0dd31785cb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8963,10 +8963,17 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 
- 	drm_atomic_helper_cleanup_planes(dev, state);
- 
--	/* return the stolen vga memory back to VRAM */
--	if (!adev->mman.keep_stolen_vga_memory)
--		amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
--	amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
-+	/* Don't free the memory if we are hitting this as part of suspend.
-+	 * This way we don't free any memory during suspend; see
-+	 * amdgpu_bo_free_kernel().  The memory will be freed in the first
-+	 * non-suspend modeset or when the driver is torn down.
-+	 */
-+	if (!adev->in_suspend) {
-+		/* return the stolen vga memory back to VRAM */
-+		if (!adev->mman.keep_stolen_vga_memory)
-+			amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
-+		amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
-+	}
- 
- 	/*
- 	 * Finally, drop a runtime PM reference for each newly disabled CRTC,
--- 
-2.40.1
+On 6/12/23 10:55, Alex Deucher wrote:
+> Don't free the memory if we are hitting this as part of suspend.
+> This way we don't free any memory during suspend; see
+> amdgpu_bo_free_kernel().  The memory will be freed in the first
+> non-suspend modeset or when the driver is torn down.
+> 
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2568
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+Acked-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 +++++++++++----
+>  1 file changed, 11 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 0454e94d5680..fc0dd31785cb 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -8963,10 +8963,17 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+>  
+>  	drm_atomic_helper_cleanup_planes(dev, state);
+>  
+> -	/* return the stolen vga memory back to VRAM */
+> -	if (!adev->mman.keep_stolen_vga_memory)
+> -		amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
+> -	amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
+> +	/* Don't free the memory if we are hitting this as part of suspend.
+> +	 * This way we don't free any memory during suspend; see
+> +	 * amdgpu_bo_free_kernel().  The memory will be freed in the first
+> +	 * non-suspend modeset or when the driver is torn down.
+> +	 */
+> +	if (!adev->in_suspend) {
+> +		/* return the stolen vga memory back to VRAM */
+> +		if (!adev->mman.keep_stolen_vga_memory)
+> +			amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
+> +		amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
+> +	}
+>  
+>  	/*
+>  	 * Finally, drop a runtime PM reference for each newly disabled CRTC,
 
