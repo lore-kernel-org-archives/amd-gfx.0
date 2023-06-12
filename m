@@ -4,76 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C495C7EE43
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 22:34:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD03EC7EE2F
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 23:07:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 486AF10E114;
-	Mon, 12 Jun 2023 22:34:18 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5CBC10E066
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 22:34:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1686609255;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GJLInVJEKXNw7vCOj/1bHLr6YoEVgTokYOzOmHQKO24=;
- b=F9qfEwq7BltNNNXWdrWOC8pA305xcmyp/WzulC1wxjDffI/ShgUoAAESK3ZM2Zv/ovoUei
- 1eGLb72iGmhR9MV3Y3N75g6hQ7PteMGzq5mp0SUWmpOgLmbYEojlCdWaz3qeuytUx0fFyk
- gU4VjOwXBJoMbF8nRuHAuXyqkgDTdvc=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-80-et6NlQIgPaiZyqB4t2_k_g-1; Mon, 12 Jun 2023 18:34:11 -0400
-X-MC-Unique: et6NlQIgPaiZyqB4t2_k_g-1
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-3f9edda3892so6130061cf.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 15:34:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686609251; x=1689201251;
- h=mime-version:user-agent:content-transfer-encoding:organization
- :references:in-reply-to:date:cc:to:from:subject:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=AbeCENkMKx/+aAQtVAjinuSws5DYTdc2Zscj2BYBR5M=;
- b=gtkeJZVeIMw/9V67QtKpRz8XoA7ubOSFbHwmRItHE7HYeI0+OskpaMvmhDkR8BMuVN
- SVqDpSpqU3veXHypVaKF8yq68ShxGEjrU8FrkfwYJISY2AT538M2MUrVhb0pf82/HCbU
- W1eZpAAeWhay0mFQqOkWJB76q0A6XFkr7Fke+0lnlKzO2SPE9oUHB4Xsp5y2Wdv9S7q7
- c9aur4FKEG7+U3IL1wfRqUQ2jj0Q9gnrl0PIbEfOk8DhNEzPSZRCA/1f33MFQVr4hTqP
- 8eingVBPg+j0fOUzrzFDNbXSbUFlBxwRFfSTjjcVKXFkcj2B7NkaPaP6lmdtXUr1ANV/
- S+dg==
-X-Gm-Message-State: AC+VfDxXL/qygijZvyLFgGBRCQyKMo8CzX65WL/PxLubgKgD2Dbu/0GE
- mtSlEfL/tdXLobN+Yldk98P1gyjEBofjL44FYKtFmDW9AC5UUxNjEfHf6WwvUZOwX8Y8ekk4yaz
- p3PjWBL//yVFvtMv3bVjIuEGdFw==
-X-Received: by 2002:a05:622a:100c:b0:3f6:9b4e:512a with SMTP id
- d12-20020a05622a100c00b003f69b4e512amr11740513qte.54.1686609250829; 
- Mon, 12 Jun 2023 15:34:10 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ40JOINKlTsIVmrGQ0AaM7ywK31TKcr/8Fs7KJrfRHtAxNfOfJAoa2ygQC7gloFxvmoeQOkOQ==
-X-Received: by 2002:a05:622a:100c:b0:3f6:9b4e:512a with SMTP id
- d12-20020a05622a100c00b003f69b4e512amr11740486qte.54.1686609250484; 
- Mon, 12 Jun 2023 15:34:10 -0700 (PDT)
-Received: from ?IPv6:2600:4040:5c62:8200::feb? ([2600:4040:5c62:8200::feb])
- by smtp.gmail.com with ESMTPSA id
- 2-20020ac85642000000b003f9c2f51558sm3724441qtt.24.2023.06.12.15.34.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jun 2023 15:34:10 -0700 (PDT)
-Message-ID: <cf4bd446d5cbbd7021a44418f54c6f70958b9c4e.camel@redhat.com>
-Subject: Re: [PATCH v5] drm/dp_mst: Clear MSG_RDY flag before sending new
- message
-From: Lyude Paul <lyude@redhat.com>
-To: Wayne Lin <Wayne.Lin@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Date: Mon, 12 Jun 2023 18:34:09 -0400
-In-Reply-To: <20230609104925.3736756-1-Wayne.Lin@amd.com>
-References: <20230609104925.3736756-1-Wayne.Lin@amd.com>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.48.3 (3.48.3-1.fc38)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3071A10E106;
+	Mon, 12 Jun 2023 23:07:17 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2049.outbound.protection.outlook.com [40.107.243.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0AF710E106
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 23:07:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WzKLcQ6fFilqPkdTfcnYd17JmC0wor/1/IAwWtlaBi0PSui0ooJEiSwegZT5zGFnD90WEH4R1/Ct8a/CnW5ZGEcJsMfO9e1AYzxKqBL2/amuCvyOGmCK7i7aRZ1yyIM0G7HcCC7Th2QpU7wAW+UY4uHiITNQCvD12MGV8CjgdvuTsv2OoEKSAjlYrnaLqlklPfCFHyCyshUEFD27ydebFZeZdudGXk1QJDTUYu5Y/pESuwbbRwBIqqNOrAq2EDyIhVRe4feQrOPzbxE3Luut92fgp1HcBEJQcrMPCXRjGjpYbY19K8cuMG1/hF854tzx+ksB56hJBHQFSp4zfKviBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Nfw+FrKgLFg04+BALgko16rPqW37ujV4TJqRHu4TALc=;
+ b=Hw/APFEEvNcg4Kk6S85ogzmPknjrPNo23L9i4BB4DVf1nqJC0/Fp8AlkS+lnx/J7wsDd4AP8jdiTD9m3ThMJRmbHE2HIm5kelph1EbKL5hmkOWL4cHoHRmJkGGsooIDJoCUDoaAvoqdr052oioAzDCiHM0NFI41uQlWGPcNqsmmF4pD0J7+Z3t2oZ42yQIl1Rh4EzuUCYflYwr75s/cKYjb2WGYSD15fbXxPoPgFt5+t/eHwoRu1io5zasa9YRGL0si1NGuXHNk5zOdKVZ1ixbW6csQVotsJtYlXzjck5VoiVL/OmI8Zq1K8X8+VOZKaJmFxydKCy7lhcYzeck3plA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Nfw+FrKgLFg04+BALgko16rPqW37ujV4TJqRHu4TALc=;
+ b=MGqerwGBsjk6tNeAumYC3b6YTCOC/HFgUvokk7xLhEvLdyoTQepdhuddct3y4OuCTlupYf29+4Dlu24nWAZe3l5I3I3Nt2/h4P1pDKvNxT5RzZpsP5RJgT0IzLgwGd62weUGMmgourO4i17+Rm1IhwUjQdYfrsygWfWz22MOZ4I=
+Received: from SA9PR13CA0149.namprd13.prod.outlook.com (2603:10b6:806:27::34)
+ by PH8PR12MB7373.namprd12.prod.outlook.com (2603:10b6:510:217::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Mon, 12 Jun
+ 2023 23:07:12 +0000
+Received: from SN1PEPF0002636B.namprd02.prod.outlook.com
+ (2603:10b6:806:27:cafe::c5) by SA9PR13CA0149.outlook.office365.com
+ (2603:10b6:806:27::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.22 via Frontend
+ Transport; Mon, 12 Jun 2023 23:07:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002636B.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.23 via Frontend Transport; Mon, 12 Jun 2023 23:07:12 +0000
+Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 12 Jun
+ 2023 18:07:04 -0500
+From: Mukul Joshi <mukul.joshi@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdkfd: Remove DUMMY_VRAM_SIZE
+Date: Mon, 12 Jun 2023 19:06:51 -0400
+Message-ID: <20230612230651.755557-1-mukul.joshi@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636B:EE_|PH8PR12MB7373:EE_
+X-MS-Office365-Filtering-Correlation-Id: f865cc19-62bb-4600-b0d9-08db6b99c16d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RUWfd25v3vs0j+1fEZjVzm9IeTSXbHGCz9UzDNNRaL/b2tWWBI+oCyS2hz3m6bwRcDAClkjAP2RhKxMMsnlqZ4EdH4+gdGemXNq0bIByeyx78G7JmPRkv0jUUzDgGLlh4xj0Tkk7hrlK7FWzaHwiAuzBluOAAmJfVZbTeqXKhGpuwbdRpSTdfIo6DHeP2SVu0zcPQ/8VQCFyfBNksbgBwLjshsECqTlwhzEwzziqxGF7sIVsCGcNTs2X9mO7qy95JWiTxMbX9z4H5vUu/9tOMg5bniy3ftgYgvhfkOnqPDMXmJ4eBg2XBxHVjrrNe2E+jbmOLNkd9mhdvAoq5aR1a25ESKfKrm/X9E6Wg+dh70TbxW1CWCZ2Ugm4+ksHwBgj27SSQThiZXdf7jliyU4TZVwcUB5LWNKowqMkhIlf39Hthb3ONZBjAUesJVO/670igtjZSCb9If5Hox17g4kYM3tnuslN8c61B/i2bip85I7u0rp17gyqKwf7vlYq07PljzlpD485wMI7Kb1hEUHTeCsNAZO880ZO6oQx2mkqa6GWoaaH/A62BSr8uu0PsJadN6hR09jTDmfAnrWcKq6UI/w5HoYQ0pZq42zzIawnlI5mz3BNbN48A2lQ4h6BxpXih7XVDsFScbeGl7vL7TJW/7ejwF4+ZoGw/283cAuB09Q/1UOlAourcIEwN6l/zKdRkfAhzrbUQV/crpUBjVaJu7iJSKVkpEV6BT0TolRTvxShP2gRg0BbS4eMZvJlniRY98JJ422DZxJ1YL+elvwvTw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(136003)(39860400002)(396003)(346002)(451199021)(46966006)(40470700004)(36840700001)(5660300002)(478600001)(41300700001)(4326008)(6916009)(70586007)(70206006)(8936002)(54906003)(8676002)(44832011)(186003)(16526019)(26005)(1076003)(7696005)(316002)(6666004)(40480700001)(2616005)(83380400001)(47076005)(40460700003)(426003)(336012)(2906002)(36860700001)(81166007)(356005)(82740400003)(86362001)(82310400005)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 23:07:12.1948 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f865cc19-62bb-4600-b0d9-08db6b99c16d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7373
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,321 +97,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, imre.deak@intel.com, stable@vger.kernel.org,
- jerry.zuo@amd.com, harry.wentland@amd.com, ville.syrjala@linux.intel.com
+Cc: Mukul Joshi <mukul.joshi@amd.com>, Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-FWIW: Should have a response to this very soon, figured out the cause of my
-MST issues so I should be able to test this very soon
+Remove DUMMY_VRAM_SIZE as it is not needed and can result
+in reporting incorrect memory size.
 
-On Fri, 2023-06-09 at 18:49 +0800, Wayne Lin wrote:
-> [Why]
-> The sequence for collecting down_reply from source perspective should
-> be:
->=20
-> Request_n->repeat (get partial reply of Request_n->clear message ready
-> flag to ack DPRX that the message is received) till all partial
-> replies for Request_n are received->new Request_n+1.
->=20
-> Now there is chance that drm_dp_mst_hpd_irq() will fire new down
-> request in the tx queue when the down reply is incomplete. Source is
-> restricted to generate interveleaved message transactions so we should
-> avoid it.
->=20
-> Also, while assembling partial reply packets, reading out DPCD DOWN_REP
-> Sideband MSG buffer + clearing DOWN_REP_MSG_RDY flag should be
-> wrapped up as a complete operation for reading out a reply packet.
-> Kicking off a new request before clearing DOWN_REP_MSG_RDY flag might
-> be risky. e.g. If the reply of the new request has overwritten the
-> DPRX DOWN_REP Sideband MSG buffer before source writing one to clear
-> DOWN_REP_MSG_RDY flag, source then unintentionally flushes the reply
-> for the new request. Should handle the up request in the same way.
->=20
-> [How]
-> Separete drm_dp_mst_hpd_irq() into 2 steps. After acking the MST IRQ
-> event, driver calls drm_dp_mst_hpd_irq_send_new_request() and might
-> trigger drm_dp_mst_kick_tx() only when there is no on going message
-> transaction.
->=20
-> Changes since v1:
-> * Reworked on review comments received
-> -> Adjust the fix to let driver explicitly kick off new down request
-> when mst irq event is handled and acked
-> -> Adjust the commit message
->=20
-> Changes since v2:
-> * Adjust the commit message
-> * Adjust the naming of the divided 2 functions and add a new input
->   parameter "ack".
-> * Adjust code flow as per review comments.
->=20
-> Changes since v3:
-> * Update the function description of drm_dp_mst_hpd_irq_handle_event
->=20
-> Changes since v4:
-> * Change ack of drm_dp_mst_hpd_irq_handle_event() to be an array align
->   the size of esi[]
->=20
-> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-> Cc: stable@vger.kernel.org
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 32 +++++------
->  drivers/gpu/drm/display/drm_dp_mst_topology.c | 54 ++++++++++++++++---
->  drivers/gpu/drm/i915/display/intel_dp.c       |  7 +--
->  drivers/gpu/drm/nouveau/dispnv50/disp.c       | 12 +++--
->  include/drm/display/drm_dp_mst_helper.h       |  7 ++-
->  5 files changed, 81 insertions(+), 31 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index d5cec03eaa8d..ec629b4037e4 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3263,6 +3263,7 @@ static void dm_handle_mst_sideband_msg(struct amdgp=
-u_dm_connector *aconnector)
-> =20
->  =09while (dret =3D=3D dpcd_bytes_to_read &&
->  =09=09process_count < max_process_count) {
-> +=09=09u8 ack[DP_PSR_ERROR_STATUS - DP_SINK_COUNT_ESI] =3D {};
->  =09=09u8 retry;
->  =09=09dret =3D 0;
-> =20
-> @@ -3271,28 +3272,29 @@ static void dm_handle_mst_sideband_msg(struct amd=
-gpu_dm_connector *aconnector)
->  =09=09DRM_DEBUG_DRIVER("ESI %02x %02x %02x\n", esi[0], esi[1], esi[2]);
->  =09=09/* handle HPD short pulse irq */
->  =09=09if (aconnector->mst_mgr.mst_state)
-> -=09=09=09drm_dp_mst_hpd_irq(
-> -=09=09=09=09&aconnector->mst_mgr,
-> -=09=09=09=09esi,
-> -=09=09=09=09&new_irq_handled);
-> +=09=09=09drm_dp_mst_hpd_irq_handle_event(&aconnector->mst_mgr,
-> +=09=09=09=09=09=09=09esi,
-> +=09=09=09=09=09=09=09ack,
-> +=09=09=09=09=09=09=09&new_irq_handled);
-> =20
->  =09=09if (new_irq_handled) {
->  =09=09=09/* ACK at DPCD to notify down stream */
-> -=09=09=09const int ack_dpcd_bytes_to_write =3D
-> -=09=09=09=09dpcd_bytes_to_read - 1;
-> -
->  =09=09=09for (retry =3D 0; retry < 3; retry++) {
-> -=09=09=09=09u8 wret;
-> -
-> -=09=09=09=09wret =3D drm_dp_dpcd_write(
-> -=09=09=09=09=09&aconnector->dm_dp_aux.aux,
-> -=09=09=09=09=09dpcd_addr + 1,
-> -=09=09=09=09=09&esi[1],
-> -=09=09=09=09=09ack_dpcd_bytes_to_write);
-> -=09=09=09=09if (wret =3D=3D ack_dpcd_bytes_to_write)
-> +=09=09=09=09ssize_t wret;
-> +
-> +=09=09=09=09wret =3D drm_dp_dpcd_writeb(&aconnector->dm_dp_aux.aux,
-> +=09=09=09=09=09=09=09  dpcd_addr + 1,
-> +=09=09=09=09=09=09=09  ack[1]);
-> +=09=09=09=09if (wret =3D=3D 1)
->  =09=09=09=09=09break;
->  =09=09=09}
-> =20
-> +=09=09=09if (retry =3D=3D 3) {
-> +=09=09=09=09DRM_ERROR("Failed to ack MST event.\n");
-> +=09=09=09=09return;
-> +=09=09=09}
-> +
-> +=09=09=09drm_dp_mst_hpd_irq_send_new_request(&aconnector->mst_mgr);
->  =09=09=09/* check if there is new irq to be handled */
->  =09=09=09dret =3D drm_dp_dpcd_read(
->  =09=09=09=09&aconnector->dm_dp_aux.aux,
-> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/=
-drm/display/drm_dp_mst_topology.c
-> index 38dab76ae69e..487d057a9582 100644
-> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> @@ -4053,17 +4053,28 @@ static int drm_dp_mst_handle_up_req(struct drm_dp=
-_mst_topology_mgr *mgr)
->  }
-> =20
->  /**
-> - * drm_dp_mst_hpd_irq() - MST hotplug IRQ notify
-> + * drm_dp_mst_hpd_irq_handle_event() - MST hotplug IRQ handle MST event
->   * @mgr: manager to notify irq for.
->   * @esi: 4 bytes from SINK_COUNT_ESI
-> + * @ack: 4 bytes used to ack events starting from SINK_COUNT_ESI
->   * @handled: whether the hpd interrupt was consumed or not
->   *
-> - * This should be called from the driver when it detects a short IRQ,
-> + * This should be called from the driver when it detects a HPD IRQ,
->   * along with the value of the DEVICE_SERVICE_IRQ_VECTOR_ESI0. The
-> - * topology manager will process the sideband messages received as a res=
-ult
-> - * of this.
-> + * topology manager will process the sideband messages received
-> + * as indicated in the DEVICE_SERVICE_IRQ_VECTOR_ESI0 and set the
-> + * corresponding flags that Driver has to ack the DP receiver later.
-> + *
-> + * Note that driver shall also call
-> + * drm_dp_mst_hpd_irq_send_new_request() if the 'handled' is set
-> + * after calling this function, to try to kick off a new request in
-> + * the queue if the previous message transaction is completed.
-> + *
-> + * See also:
-> + * drm_dp_mst_hpd_irq_send_new_request()
->   */
-> -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, boo=
-l *handled)
-> +int drm_dp_mst_hpd_irq_handle_event(struct drm_dp_mst_topology_mgr *mgr,=
- const u8 *esi,
-> +=09=09=09=09    u8 *ack, bool *handled)
->  {
->  =09int ret =3D 0;
->  =09int sc;
-> @@ -4078,18 +4089,47 @@ int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology=
-_mgr *mgr, u8 *esi, bool *handl
->  =09if (esi[1] & DP_DOWN_REP_MSG_RDY) {
->  =09=09ret =3D drm_dp_mst_handle_down_rep(mgr);
->  =09=09*handled =3D true;
-> +=09=09ack[1] |=3D DP_DOWN_REP_MSG_RDY;
->  =09}
-> =20
->  =09if (esi[1] & DP_UP_REQ_MSG_RDY) {
->  =09=09ret |=3D drm_dp_mst_handle_up_req(mgr);
->  =09=09*handled =3D true;
-> +=09=09ack[1] |=3D DP_UP_REQ_MSG_RDY;
->  =09}
-> =20
-> -=09drm_dp_mst_kick_tx(mgr);
->  =09return ret;
->  }
-> -EXPORT_SYMBOL(drm_dp_mst_hpd_irq);
-> +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_handle_event);
-> =20
-> +/**
-> + * drm_dp_mst_hpd_irq_send_new_request() - MST hotplug IRQ kick off new =
-request
-> + * @mgr: manager to notify irq for.
-> + *
-> + * This should be called from the driver when mst irq event is handled
-> + * and acked. Note that new down request should only be sent when
-> + * previous message transaction is completed. Source is not supposed to =
-generate
-> + * interleaved message transactions.
-> + */
-> +void drm_dp_mst_hpd_irq_send_new_request(struct drm_dp_mst_topology_mgr =
-*mgr)
-> +{
-> +=09struct drm_dp_sideband_msg_tx *txmsg;
-> +=09bool kick =3D true;
-> +
-> +=09mutex_lock(&mgr->qlock);
-> +=09txmsg =3D list_first_entry_or_null(&mgr->tx_msg_downq,
-> +=09=09=09=09=09 struct drm_dp_sideband_msg_tx, next);
-> +=09/* If last transaction is not completed yet*/
-> +=09if (!txmsg ||
-> +=09    txmsg->state =3D=3D DRM_DP_SIDEBAND_TX_START_SEND ||
-> +=09    txmsg->state =3D=3D DRM_DP_SIDEBAND_TX_SENT)
-> +=09=09kick =3D false;
-> +=09mutex_unlock(&mgr->qlock);
-> +
-> +=09if (kick)
-> +=09=09drm_dp_mst_kick_tx(mgr);
-> +}
-> +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_send_new_request);
->  /**
->   * drm_dp_mst_detect_port() - get connection status for an MST port
->   * @connector: DRM connector for this port
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 4bec8cd7979f..f4a2e72a5c20 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4062,9 +4062,7 @@ intel_dp_mst_hpd_irq(struct intel_dp *intel_dp, u8 =
-*esi, u8 *ack)
->  {
->  =09bool handled =3D false;
-> =20
-> -=09drm_dp_mst_hpd_irq(&intel_dp->mst_mgr, esi, &handled);
-> -=09if (handled)
-> -=09=09ack[1] |=3D esi[1] & (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
-> +=09drm_dp_mst_hpd_irq_handle_event(&intel_dp->mst_mgr, esi, ack, &handle=
-d);
-> =20
->  =09if (esi[1] & DP_CP_IRQ) {
->  =09=09intel_hdcp_handle_cp_irq(intel_dp->attached_connector);
-> @@ -4139,6 +4137,9 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp=
-)
-> =20
->  =09=09if (!intel_dp_ack_sink_irq_esi(intel_dp, ack))
->  =09=09=09drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
-> +
-> +=09=09if (ack[1] & (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY))
-> +=09=09=09drm_dp_mst_hpd_irq_send_new_request(&intel_dp->mst_mgr);
->  =09}
-> =20
->  =09return link_ok;
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/no=
-uveau/dispnv50/disp.c
-> index 9b6824f6b9e4..42e1665ba11a 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> @@ -1359,22 +1359,26 @@ nv50_mstm_service(struct nouveau_drm *drm,
->  =09u8 esi[8] =3D {};
-> =20
->  =09while (handled) {
-> +=09=09u8 ack[8] =3D {};
-> +
->  =09=09rc =3D drm_dp_dpcd_read(aux, DP_SINK_COUNT_ESI, esi, 8);
->  =09=09if (rc !=3D 8) {
->  =09=09=09ret =3D false;
->  =09=09=09break;
->  =09=09}
-> =20
-> -=09=09drm_dp_mst_hpd_irq(&mstm->mgr, esi, &handled);
-> +=09=09drm_dp_mst_hpd_irq_handle_event(&mstm->mgr, esi, ack, &handled);
->  =09=09if (!handled)
->  =09=09=09break;
-> =20
-> -=09=09rc =3D drm_dp_dpcd_write(aux, DP_SINK_COUNT_ESI + 1, &esi[1],
-> -=09=09=09=09       3);
-> -=09=09if (rc !=3D 3) {
-> +=09=09rc =3D drm_dp_dpcd_writeb(aux, DP_SINK_COUNT_ESI + 1, ack[1]);
-> +
-> +=09=09if (rc !=3D 1) {
->  =09=09=09ret =3D false;
->  =09=09=09break;
->  =09=09}
-> +
-> +=09=09drm_dp_mst_hpd_irq_send_new_request(&mstm->mgr);
->  =09}
-> =20
->  =09if (!ret)
-> diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/displa=
-y/drm_dp_mst_helper.h
-> index 32c764fb9cb5..40e855c8407c 100644
-> --- a/include/drm/display/drm_dp_mst_helper.h
-> +++ b/include/drm/display/drm_dp_mst_helper.h
-> @@ -815,8 +815,11 @@ void drm_dp_mst_topology_mgr_destroy(struct drm_dp_m=
-st_topology_mgr *mgr);
->  bool drm_dp_read_mst_cap(struct drm_dp_aux *aux, const u8 dpcd[DP_RECEIV=
-ER_CAP_SIZE]);
->  int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr,=
- bool mst_state);
-> =20
-> -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, boo=
-l *handled);
-> -
-> +int drm_dp_mst_hpd_irq_handle_event(struct drm_dp_mst_topology_mgr *mgr,
-> +=09=09=09=09    const u8 *esi,
-> +=09=09=09=09    u8 *ack,
-> +=09=09=09=09    bool *handled);
-> +void drm_dp_mst_hpd_irq_send_new_request(struct drm_dp_mst_topology_mgr =
-*mgr);
-> =20
->  int
->  drm_dp_mst_detect_port(struct drm_connector *connector,
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
---=20
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 3dcd8f8bc98e..49f40d9f16e8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -30,9 +30,6 @@
+ #include "amdgpu.h"
+ #include "amdgpu_amdkfd.h"
+ 
+-/* Fixme: Fake 32GB for 1PNPS1 mode bringup */
+-#define DUMMY_VRAM_SIZE 31138512896
+-
+ /* GPU Processor ID base for dGPUs for which VCRAT needs to be created.
+  * GPU processor ID are expressed with Bit[31]=1.
+  * The base is set to 0x8000_0000 + 0x1000 to avoid collision with GPU IDs
+@@ -1056,8 +1053,6 @@ static int kfd_parse_subtype_mem(struct crat_subtype_memory *mem,
+ 
+ 			props->heap_type = heap_type;
+ 			props->flags = flags;
+-			if (size_in_bytes == 0)
+-				size_in_bytes = DUMMY_VRAM_SIZE; /* Fixme: TBD */
+ 			props->size_in_bytes = size_in_bytes;
+ 			props->width = width;
+ 
+-- 
+2.35.1
 
