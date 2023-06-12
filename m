@@ -4,25 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDBCDC7EE43
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 19:26:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07AE2C88CB6
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 19:26:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6793410E2C4;
-	Mon, 12 Jun 2023 19:26:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A86B10E2C7;
+	Mon, 12 Jun 2023 19:26:09 +0000 (UTC)
 Received: from 189.cn (ptr.189.cn [183.61.185.102])
- by gabe.freedesktop.org (Postfix) with ESMTP id 79D5610E0E9;
- Mon, 12 Jun 2023 19:26:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3B27C10E2C7;
+ Mon, 12 Jun 2023 19:26:05 +0000 (UTC)
 HMM_SOURCE_IP: 10.64.8.41:42778.1249123675
 HMM_ATTACHE_NUM: 0000
 HMM_SOURCE_TYPE: SMTP
 Received: from clientip-114.242.206.180 (unknown [10.64.8.41])
- by 189.cn (HERMES) with SMTP id E55DE1001B5;
- Tue, 13 Jun 2023 03:25:52 +0800 (CST)
+ by 189.cn (HERMES) with SMTP id 311461002B2;
+ Tue, 13 Jun 2023 03:25:59 +0800 (CST)
 Received: from  ([114.242.206.180])
  by gateway-151646-dep-75648544bd-xwndj with ESMTP id
- c3854781d6844409b550d5c2521a5b02 for alexander.deucher@amd.com; 
- Tue, 13 Jun 2023 03:25:55 CST
-X-Transaction-ID: c3854781d6844409b550d5c2521a5b02
+ 6d29b3ab2b714ff0869e711772a8b3e0 for alexander.deucher@amd.com; 
+ Tue, 13 Jun 2023 03:26:04 CST
+X-Transaction-ID: 6d29b3ab2b714ff0869e711772a8b3e0
 X-Real-From: 15330273260@189.cn
 X-Receive-IP: 114.242.206.180
 X-MEDUSA-Status: 0
@@ -51,11 +51,12 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  Kevin Tian <kevin.tian@intel.com>, Cornelia Huck <cohuck@redhat.com>,
  Yishai Hadas <yishaih@nvidia.com>, Abhishek Sahu <abhsahu@nvidia.com>,
  Yi Liu <yi.l.liu@intel.com>
-Subject: [PATCH v6 0/8] PCI/VGA: introduce is_boot_device function callback to
- vga_client_register
-Date: Tue, 13 Jun 2023 03:25:42 +0800
-Message-Id: <20230612192550.197053-1-15330273260@189.cn>
+Subject: [PATCH v6 2/8] PCI/VGA: Deal only with VGA class devices
+Date: Tue, 13 Jun 2023 03:25:44 +0800
+Message-Id: <20230612192550.197053-3-15330273260@189.cn>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230612192550.197053-1-15330273260@189.cn>
+References: <20230612192550.197053-1-15330273260@189.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -78,51 +79,79 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-The vga_is_firmware_default() function is arch-dependent, it's probably
-wrong if we simply remove the arch guard. As the VRAM BAR which contains
-firmware framebuffer may move, while the lfb_base and lfb_size members of
-the screen_info does not change accordingly. In short, it should take the
-re-allocation of the PCI BAR into consideration.
+Deal only with the VGA devcie(pdev->class == 0x0300), so replace the
+pci_get_subsys() function with pci_get_class(). Filter the non-PCI display
+device(pdev->class != 0x0300) out. There no need to process the non-display
+PCI device.
 
-With the observation that device drivers or video aperture helpers may
-have better knowledge about which PCI bar contains the firmware fb,
-which could avoid the need to iterate all of the PCI BARs. But as a PCI
-function at pci/vgaarb.c, vga_is_firmware_default() is not suitable to
-make such an optimization since it is loaded too early.
+Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+---
+ drivers/pci/vgaarb.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-There are PCI display controllers that don't have a dedicated VRAM bar,
-this function will lose its effectiveness in such a case. Luckily, the
-device driver can provide an accurate workaround.
-
-Therefore, this patch introduces a callback that allows the device driver
-to tell the VGAARB if the device is the default boot device. Also honor
-the comment: "Clients have two callback mechanisms they can use"
-
-Sui Jingfeng (8):
-  PCI/VGA: Use unsigned type for the io_state variable
-  PCI/VGA: Deal only with VGA class devices
-  PCI/VGA: Tidy up the code and comment format
-  PCI/VGA: Replace full MIT license text with SPDX identifier
-  video/aperture: Add a helper to detect if an aperture contains
-    firmware FB
-  PCI/VGA: Introduce is_boot_device function callback to
-    vga_client_register
-  drm/amdgpu: Implement the is_boot_device callback function
-  drm/radeon: Implement the is_boot_device callback function
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  12 +-
- drivers/gpu/drm/drm_aperture.c             |  16 +++
- drivers/gpu/drm/i915/display/intel_vga.c   |   3 +-
- drivers/gpu/drm/nouveau/nouveau_vga.c      |   2 +-
- drivers/gpu/drm/radeon/radeon_device.c     |  12 +-
- drivers/pci/vgaarb.c                       | 153 +++++++++++++--------
- drivers/vfio/pci/vfio_pci_core.c           |   2 +-
- drivers/video/aperture.c                   |  29 ++++
- include/drm/drm_aperture.h                 |   2 +
- include/linux/aperture.h                   |   7 +
- include/linux/vgaarb.h                     |  35 ++---
- 11 files changed, 184 insertions(+), 89 deletions(-)
-
+diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+index c1bc6c983932..22a505e877dc 100644
+--- a/drivers/pci/vgaarb.c
++++ b/drivers/pci/vgaarb.c
+@@ -754,10 +754,6 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
+ 	struct pci_dev *bridge;
+ 	u16 cmd;
+ 
+-	/* Only deal with VGA class devices */
+-	if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
+-		return false;
+-
+ 	/* Allocate structure */
+ 	vgadev = kzalloc(sizeof(struct vga_device), GFP_KERNEL);
+ 	if (vgadev == NULL) {
+@@ -1500,7 +1496,9 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+ 	struct pci_dev *pdev = to_pci_dev(dev);
+ 	bool notify = false;
+ 
+-	vgaarb_dbg(dev, "%s\n", __func__);
++	/* Only deal with VGA class devices */
++	if (pdev->class != PCI_CLASS_DISPLAY_VGA << 8)
++		return 0;
+ 
+ 	/* For now we're only intereted in devices added and removed. I didn't
+ 	 * test this thing here, so someone needs to double check for the
+@@ -1510,6 +1508,8 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+ 	else if (action == BUS_NOTIFY_DEL_DEVICE)
+ 		notify = vga_arbiter_del_pci_device(pdev);
+ 
++	vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
++
+ 	if (notify)
+ 		vga_arbiter_notify_clients();
+ 	return 0;
+@@ -1534,8 +1534,8 @@ static struct miscdevice vga_arb_device = {
+ 
+ static int __init vga_arb_device_init(void)
+ {
++	struct pci_dev *pdev = NULL;
+ 	int rc;
+-	struct pci_dev *pdev;
+ 
+ 	rc = misc_register(&vga_arb_device);
+ 	if (rc < 0)
+@@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
+ 
+ 	/* We add all PCI devices satisfying VGA class in the arbiter by
+ 	 * default */
+-	pdev = NULL;
+-	while ((pdev =
+-		pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
+-			       PCI_ANY_ID, pdev)) != NULL)
++	while (1) {
++		pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
++		if (!pdev)
++			break;
++
+ 		vga_arbiter_add_pci_device(pdev);
++	}
+ 
+ 	pr_info("loaded\n");
+ 	return rc;
 -- 
 2.25.1
 
