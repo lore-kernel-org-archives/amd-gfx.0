@@ -4,88 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4438C7EE2F
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 16:23:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5D7CC7EE2F
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 16:31:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3260F10E0BA;
-	Mon, 12 Jun 2023 16:23:56 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 290B510E0BA
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 16:23:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDAD510E18D;
+	Mon, 12 Jun 2023 16:31:36 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20619.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::619])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9710610E18D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 16:31:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dRwb55AIgXAspg2cEAbFtrsnFG49R/JjlXS9Zw0OWfVW6aBCl2Iy52y2IYCGPM6MZ7389EMk12BVYJs5f0JBVHse3jvoek0ChFh0kpMpbI9S25/K8C9zed9WufNBxUYUz3JEWRjot3GNlGS6Dal2AsKnz2se96bgOLQP44pMMdc1qfWLu+Y/aIPitSOtUn352Is3bak8kfbpi40BFYUImtkTBFZemfTEKvDOojBnGkH5cevW/MVpyXIe+NyIxQ42XYjric4R4L3o0zcs01M+TwbK4bg0mBw/v9RnAzbGZ+prhSFRiY/PCUxIL2VMA7ecZsgtPS7J7R91184f7L8Zsw==
+ b=nW+Sn31uRkEdj2dJgfvoGq5ZiUCa4c/y0fIXizzSya88CmiEQ6qJjjJT3nMnGjLpHGGnGg69DYI/8xXLBah2GpETuhDRV30keWvbMTGID3HX4XGbgg2P4cYCqOfzyTtwzcXdliFtoaj93ds5R7dPZKVo2oh4cyHxSJ1D86vg9DBFh57/t56o1XJX1txUmc5rOVM/V1XMHP23xYk8bxuxrEgS7qkJq4a/ZiPv/SAYisywSTbStBf+JLQGHCSwx+uZvg+I1KQHJxJnzuh1iGK4vYvHKcgbvz5NQgjMn/qbPcnp0GqXa2apLC4SzOEROxyuPTOAj+m0serbg0TLGlmLiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FTm/+oKwkLNw7rg0yu9q19J2OpJTiQEA1EV8o5mXZOs=;
- b=A9ByJ6SgTo/3A7yGDZIfYMaOO/s3USkqyX3ntcjsVS96TotJcDK2FtG3i67VqBlpY3250K1RwEtPLdKZs0fxetBt4Eg/puTg4kicIwaL75m3tMhSUvjWsbFLNDReDXoQFxH2VvpulcvD86qTHe5Koj8J5tE0shyEedzZL9OSddSyvQ/Uk0xRNKmEFxzvtZRfUKPx24vu0cyWGL9xQc+F2EUxQ8FcFFJyLubPuM1VvSBsJIHlMer1wMVByERT4maE5oAiq2sYFrlLio4uMrbosB2L1JSp+r3yfvoVlivV12GIU5iiD0GEO3gFnzUD5aFUB2AGBzVig1RuEwytWN0lVQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=nufbUMIOpTJQ/q7D6RvEgdL/Daq1duuFKFvarQC5exk=;
+ b=ETyg5Ob5JU3mu3j7LjMTK0J+YnJ1+7K+9aYLGWcsBkbFw/6/GPy7YGKTdnpZT49FHhSx76s0rzcIf4Nj/PPizWmu/CkDOtTv7mCVhyDYKRLcDV7hha1Bgb40PAwpwUUgeQk8RC6U98tsaAu5K5tVgM/vm0swhOI6ybLEny9uoYXeTsH6aC95WVuF72iVovvF8Vhr6bCVOLutnYJ4eolIY6kEq4mefXmcj9GIhyKFxSBTkBp0W1xXyPqRBOiNds30tnAXvMIPyIxnL43OVjDrvrIlWWwPfJg2Syy6uBTx5lzXlaMUj7NTDJlIhoApV3deA77h6YWS/eNBkaNYSMn4kQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FTm/+oKwkLNw7rg0yu9q19J2OpJTiQEA1EV8o5mXZOs=;
- b=E8R87VJuNVEj/3XF+QtnOaEV2MQbLKlsOJ+OVIeBHy84l6fdJxl3ow1aMfoKisyeTRXmTxjfHV8oCN+l8/OtPBB5TIYpY37PSXU1+Kmi3cRanODdasxnlDvSSBBuC+3fl3mM9MSfzCPYiPouVSmm5VFhj5dLpq+eDQuP1GYYGN0=
-Received: from MW4PR04CA0356.namprd04.prod.outlook.com (2603:10b6:303:8a::31)
- by PH7PR12MB5807.namprd12.prod.outlook.com (2603:10b6:510:1d3::8)
+ bh=nufbUMIOpTJQ/q7D6RvEgdL/Daq1duuFKFvarQC5exk=;
+ b=no2W9tniW7MKMsXDVShuGCTKtcpT1hPohyF4Z/Ms3A3Cd7Ppt18f6oe0eRFStOUcWlcny6Dc/fdb0uBhiTsZ3M6UNQXkXjirN8VvlswZCful5HdDq4b0ZSviwhikYiFQefr1RChq/jXwurwhYj6/DY6R88fJRipSEBoB3l6/68w=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by IA0PR12MB8278.namprd12.prod.outlook.com (2603:10b6:208:3dc::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.36; Mon, 12 Jun
- 2023 16:23:50 +0000
-Received: from CO1NAM11FT050.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8a:cafe::b5) by MW4PR04CA0356.outlook.office365.com
- (2603:10b6:303:8a::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.34 via Frontend
- Transport; Mon, 12 Jun 2023 16:23:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT050.mail.protection.outlook.com (10.13.174.79) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.21 via Frontend Transport; Mon, 12 Jun 2023 16:23:49 +0000
-Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 12 Jun
- 2023 11:23:47 -0500
-From: Mukul Joshi <mukul.joshi@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCHv2] drm/amdgpu: Update invalid PTE flag setting
-Date: Mon, 12 Jun 2023 12:23:30 -0400
-Message-ID: <20230612162330.668641-1-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.35.1
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.38; Mon, 12 Jun
+ 2023 16:31:29 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2dc3:c1:e72d:55bc]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2dc3:c1:e72d:55bc%7]) with mapi id 15.20.6477.028; Mon, 12 Jun 2023
+ 16:31:29 +0000
+Message-ID: <64505e39-d9e2-26ea-f380-53b408bed6ef@amd.com>
+Date: Mon, 12 Jun 2023 12:31:27 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v5 3/5] drm/amdkfd: set activated flag true when event age
+ unmatchs
+Content-Language: en-US
+To: "Yat Sin, David" <David.YatSin@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20230608170705.2271276-4-James.Zhu@amd.com>
+ <20230609204350.2352248-1-James.Zhu@amd.com>
+ <3380071c-2673-8e2b-762b-51c2b66baa72@amd.com>
+ <DM6PR12MB50214C152AF8F6E2F6F626B09554A@DM6PR12MB5021.namprd12.prod.outlook.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <DM6PR12MB50214C152AF8F6E2F6F626B09554A@DM6PR12MB5021.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YQZPR01CA0067.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:88::14) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT050:EE_|PH7PR12MB5807:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa40539c-acd8-4bd7-6486-08db6b616786
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA0PR12MB8278:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49d4f7a0-c138-4bf6-f841-08db6b627997
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vICFq4iyYM2wy8hwPb42CUXAYOlvWroue+ASSx+7Xr1r+qOPZpjxztuRmCPtt1Ty4fwyS7Klhrx6tNkbPLuS7+OJH8SUrRAQ9g0iFU+eF8iwMLf7+tEhGreH6guVq5n7N0xKcntzCudTnTxM2zjuYHQYLgYuKNoZ0vCsAHI3vOX2jyFU2otWC5xsblmMO2viF7DWJtEzeALFdyDxWe+A/f0MKWRIlHaWk0ASJkOzOxsKh96/+t5ppYlkP7N+bKqR5wjVSa0QeS9/VHiFYGR047jhQgVyXEDkmtvHJOFWtoPg0Z+fm5IhlTxsZluhaapENqxTSFh8ghiF40BUCC8+xAgNsGO2igzQ7ylClklHcQKA/T0dcm2hu5G3WRg/CzCGCuvKmhF9GHal/8Fkd3iu0OR2utA9FM+IBorXDTtyYph+rNgxslASBmTluB6selZbHWBJig64gqbgq/br4UZUUlC/EbM4Hbldpy8JixKoi7AhcujLeUSZ/PTGf0bCAhATC4m9sJv59Icbb3yWoHj2x5YS7a/0pk3EW5m2pxEyCuFOIPT5mgVkxRP5m7xjiUm8SQHrmr9FRCrQxU22HIGhCsRR/oOphK4/YFCDEIvy67wtOIgGRrOx/UUCZDnFEVjDGn7OJP/np5655/GHrhVJhJrAJ11s+b0U0bnCgrQQizHa22FY+RXcjaHARzms3ZqnQy+NOpGrTB9IMBNaqCYCDgzK33h0wFUYMIwXUMHUXr+pqUScxgxA3I64FS4FHBJR
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(346002)(136003)(376002)(451199021)(40470700004)(46966006)(36840700001)(47076005)(83380400001)(336012)(82740400003)(426003)(44832011)(40480700001)(478600001)(8676002)(8936002)(4326008)(86362001)(70206006)(70586007)(81166007)(356005)(6916009)(5660300002)(40460700003)(41300700001)(316002)(36756003)(7696005)(6666004)(15650500001)(82310400005)(36860700001)(54906003)(2906002)(16526019)(26005)(186003)(1076003)(2616005)(36900700001);
+X-Microsoft-Antispam-Message-Info: If17hcYNCnsmRi2+9FMbTw/HAnwbvFo8GK2iv372uzuw7OiydxGSFXVyPg3gSc8n4350cnXU3pr9ZDAUVc0ZIfkqoqIS/oe4pAJfA8ESkdTeX4vEtrwpCrXACAXNN8cAxoAUybPI09wGAxfMi8zsI3zud37U0Y9eguoPnqn17OFQKtwbpjlWP7GpzFJ9E5J99UcgToGgTFOAtMBmCv7qSuKizmHyzjy/CbqaDU3eENvUspeI5cU3qz8bDNgZ+9xYiOZ9TaP3EqvKMCdyGbpmE3jSyxL7ebZqejBfMc/4rEnWgiTZ2FiutbGPyKj4OvVGhSCOwYdTwr5pBvBGjr3FT6y6h5LqjTl0y64GGI27rR3LVOpmaJnxMhco3LLgxLRmX/3/aiUMp2GQnNUYKbOYayo8t8V9BGWCpXocmV00fAWN7eo4dLdU2z87xol5UYn+efbh4U2qJnBPqHFW6ujKtyo8JZ92SJ2I9O781sGuEl2VqUwMFU8w4+Gm535du7Ox641D+2nUF1fWfe3iUyq59gzuFS9nDr94gwNFJ9grSJWsx718gEptmlrY8vtfGmVFI2ckyxDVCFRdxz6Jf5J4VTlcm2NQRe5JtLNpXgMceWGYENffbLEbRDgccBTpQSJudeBbMPng6bWQgF+W/l8PKA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(396003)(136003)(366004)(346002)(376002)(451199021)(6486002)(6506007)(36756003)(26005)(83380400001)(186003)(5660300002)(6512007)(41300700001)(53546011)(110136005)(8676002)(38100700002)(478600001)(8936002)(66476007)(66946007)(66556008)(316002)(31696002)(86362001)(2906002)(44832011)(2616005)(31686004)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S1JMdXhEOW1xV1FsbHhDa1FGNEV2akN2SmpPaDZvWXl5aVhmTy8ydWxwKzRG?=
+ =?utf-8?B?UVpUQjlieVhEalp0dmJhdVNjNG9sdHU0QWpUNXFLand0aHcvbkVvRjhqMHl4?=
+ =?utf-8?B?c1BFTGhpWE5xcnlVdEoyRWRkazhyUEZFb283UHptcnhpZDM4K1BVckVsTG84?=
+ =?utf-8?B?OW5jS1VCamIrQ3N6RnhQYm96eHRzeFBOOStEdGNqNW1vU3d6ZGNxMVV2ajF4?=
+ =?utf-8?B?Sy9ZRUZydEFqSG55M2oyRmozSHJZZnZEaFFSdEZacUIrOFpxRnJMVlZPbGlQ?=
+ =?utf-8?B?ZWtEUGNybEZrNE5TejIzMkFyUkhBeUxSc3pldGxZVzlYcFNhY2JjZ3VLK0JD?=
+ =?utf-8?B?RmtxcHZwYS9OWVdVaFRXRnNBdDlUNTdXbFdnUDVKOU1SaUNma1FqZUpyOWwz?=
+ =?utf-8?B?ZDRXYm1tZFFTSTFwVTlBeUhEVUtMd01zUlNPYnBDZjhrUnl0ZHB6R1VqcVA1?=
+ =?utf-8?B?Y3REVStFVjhFRy8vclorNk0vbkk4NnJQUjNxQkRsS2xqdGNmWEh5SUxvSWRJ?=
+ =?utf-8?B?YUxvY1o5RE5OUmFKdU0wdkgwcUJoMlRQbjlLanlDU0lxbzdTTEhlWEhGeTk5?=
+ =?utf-8?B?cGRqVG1nYmpvRmJnMll1UTJkVDNaRVdCbGt1MmJWSGI0bnZSa3pDV1dnS21L?=
+ =?utf-8?B?STI5a2RQR2xESHJUNTRiVXZMRWgyRzZpb0szSVlzK2ZBZ3Z2Nzk4dkIwTzNo?=
+ =?utf-8?B?TVBpREwrb3RvZU9iWGZiRFNka3VyTUNBbFB5Qm4vUEJnekwwNVNDT1JRLzR4?=
+ =?utf-8?B?Y3NrZElvTTd1blRDVXl0ZEFmWjhPSkZOOXlEQUZFS3ErUlB2SFdLQThkRnhP?=
+ =?utf-8?B?T1Z5SEpjcDZxQ1k0MDJ2cHBidWNNSmxTSFRTRnhOb1p1TllIRURLa3FzUnhD?=
+ =?utf-8?B?ZTQ0azNoY05JMS9qMGZpc2tOSFNWSmpmRFhzVHVpN1c3aWl1T0F6MDQxMm55?=
+ =?utf-8?B?WHBtV1BickltNDlscm9aTW1xVlpNQ21ubk1wZ0gzRVkyZjZqNjRyT3d1UGZl?=
+ =?utf-8?B?ZDk4eUpMLzJwRTUranoyYWtlV1gzaEV6RDhVN2c3Zzk1VlNZZlNuMTVKY3hH?=
+ =?utf-8?B?YXh0aUJjdElxN0JBeHp3Q1g0OVpNOGNiMXVMU2d6V2RaaWhSdEVLTVVKYU12?=
+ =?utf-8?B?a2FrN3JHT1E4TmRINm5YbGZPeWdBbklNTlBhMXNVL2JuVURPNTk2WHJkc3RX?=
+ =?utf-8?B?U3lZWVFUU0FtMnRDZHNkR3l3bXNQNisrS1BJV2RUZjVRRk1XdVhFcjQ1N3Er?=
+ =?utf-8?B?V1hKZWc5bXdtcmFBMnIwb3NUSjBsQ0hEUTZadDZBWVdsQWM0WWNoa2pyZnVI?=
+ =?utf-8?B?SGNQR0VLcXM2N0RMT1ozcDdOZXlyNnRGc2dxU2pVNlI3cmpQUCtaNjU4YWdx?=
+ =?utf-8?B?NlYzVXBlSzhVc3VGbW5vdVRSUlR3UGg2bGVLcjZQY0xBQnJJWFZZaEJyUXFs?=
+ =?utf-8?B?RmxYRlVTOFVJN0s1Sm5iMjdwaDhWMDk2aEhabUpkYlVZTGJGRytQL0xkSklX?=
+ =?utf-8?B?TU9EUzZuZjhUWDBtSW45aGVuUEJOZDhGYVJnV1pibGphK3dPZnE0OGtnTzRv?=
+ =?utf-8?B?bU9JN2ZDWjZEdHBUak03aTdnOXo5TkJ3Z3hVTm9ZODQzdUhmZTBVY1kyQzFN?=
+ =?utf-8?B?RXpqK2VaN2dNekEwQVhKOW1JWkwrTEdGUnhoUzRyWkx2MGtpOUNHdzhuVlBR?=
+ =?utf-8?B?WGlxYnNkRFhmMlZGQ3loL1VWT3JzUWh4SW0rZ2Q1bVEzUFJzQWRyekF0cTZr?=
+ =?utf-8?B?NzBEQTFYMHA4NEVnTVp6VW14UmxjdXlHcy96NUJUK0NGTHpwMnJrc1MyNVh6?=
+ =?utf-8?B?TE1ybkVvK3dMcDQ3N1U1Z3h4U2grTy9Jb2tqeU5DSDNDN2JpaVhveXcxZFhK?=
+ =?utf-8?B?OGJrQVYvQ0N6d2tuV0swV1VoNkJ1d2tSbDg3TzFrOHA0YUhKS2JjZElBb1BD?=
+ =?utf-8?B?RHJNMjQ1ZE56aDRtcVhIZVN3TWtnMjhRZFlKT3JLQ1hCSCtFOGVOZU4vWjJ4?=
+ =?utf-8?B?WTVtd1NDOUZIUHdzaUZNYjg4NzB1OExNWkpMQzJMelhqR1RlREVqQUR1cjRC?=
+ =?utf-8?B?NE1tZzVVV3B4ZE1WUDdWRG1CMG4yemZydEZPNm1VS2IxSUcwMmRvRVRVTW9D?=
+ =?utf-8?Q?b3QGOPhMKvpUNc8PO+ZGbd7y5?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 16:23:49.4511 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa40539c-acd8-4bd7-6486-08db6b616786
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49d4f7a0-c138-4bf6-f841-08db6b627997
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 16:31:29.5913 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT050.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5807
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y705Kvlo2IY3ADMcNfXfkXGpNIjB/b+pZj9vBVu8CwefrGT8U7AAF54/Te9cTDWLZ4gbKdUPXOoxjLy61AP9NA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8278
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,131 +129,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mukul Joshi <mukul.joshi@amd.com>, Felix.Kuehling@amd.com,
- christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update the invalid PTE flag setting with TF enabled.
-This is to ensure, in addition to transitioning the
-retry fault to a no-retry fault, it also causes the
-wavefront to enter the trap handler. With the current
-setting, the fault only transitions to a no-retry fault.
-Additionally, have 2 sets of invalid PTE settings, one for
-TF enabled, the other for TF disabled. The setting with
-TF disabled, doesn't work with TF enabled.
+Testing for intermittent failures or race conditions is not easy. If we 
+create such a test, we need to make sure it can catch the problem when 
+not using the event ages, just to know that the test is good enough.
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
----
-v1->v2:
-- Update handling according to Christian's feedback.
+I guess it could be a parametrized test that can run with or without 
+event age. Without event age, we'd expect to catch a timeout. Not 
+catching a timeout would be a test failure (indicating that the test is 
+not good enough). With event age it should not time out, i.e. a timeout 
+would be considered a failure in this case (indicating a problem with 
+the event age mechanism).
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h   |  7 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  6 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c |  3 +++
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c     | 11 +++++++++++
- 5 files changed, 28 insertions(+), 1 deletion(-)
+That said, I'd feel better about a ROCr test that doesn't just cover the 
+KFD event age mechanism, but also its use in the ROCr implementation of 
+HSA signal waiting.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index 6794edd1d2d2..e5c6b075fbbb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -152,6 +152,10 @@ struct amdgpu_gmc_funcs {
- 	void (*override_vm_pte_flags)(struct amdgpu_device *dev,
- 				      struct amdgpu_vm *vm,
- 				      uint64_t addr, uint64_t *flags);
-+	/* update no-retry flags */
-+	void (*update_vm_pte_noretry_flags)(struct amdgpu_device *dev,
-+					uint64_t *flags);
-+
- 	/* get the amount of memory used by the vbios for pre-OS console */
- 	unsigned int (*get_vbios_fb_size)(struct amdgpu_device *adev);
- 
-@@ -343,6 +347,9 @@ struct amdgpu_gmc {
- #define amdgpu_gmc_override_vm_pte_flags(adev, vm, addr, pte_flags)	\
- 	(adev)->gmc.gmc_funcs->override_vm_pte_flags			\
- 		((adev), (vm), (addr), (pte_flags))
-+#define amdgpu_gmc_update_vm_pte_noretry_flags(adev, pte_flags)		\
-+	((adev)->gmc.gmc_funcs->update_vm_pte_noretry_flags		\
-+		((adev), (pte_flags)))
- #define amdgpu_gmc_get_vbios_fb_size(adev) (adev)->gmc.gmc_funcs->get_vbios_fb_size((adev))
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 1cb14ea18cd9..ff9db7e5c086 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2583,7 +2583,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 		/* Intentionally setting invalid PTE flag
- 		 * combination to force a no-retry-fault
- 		 */
--		flags = AMDGPU_PTE_SNOOPED | AMDGPU_PTE_PRT;
-+		flags = AMDGPU_VM_NORETRY_FLAGS;
- 		value = 0;
- 	} else if (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_NEVER) {
- 		/* Redirect the access to the dummy page */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 9c85d494f2a2..b81fcb962d8f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -84,7 +84,13 @@ struct amdgpu_mem_stats;
- /* PDE Block Fragment Size for VEGA10 */
- #define AMDGPU_PDE_BFS(a)	((uint64_t)a << 59)
- 
-+/* Flag combination to set no-retry with TF disabled */
-+#define AMDGPU_VM_NORETRY_FLAGS	(AMDGPU_PTE_EXECUTABLE | AMDGPU_PDE_PTE | \
-+				AMDGPU_PTE_TF)
- 
-+/* Flag combination to set no-retry with TF enabled */
-+#define AMDGPU_VM_NORETRY_FLAGS_TF (AMDGPU_PTE_VALID | AMDGPU_PTE_SYSTEM | \
-+				   AMDGPU_PTE_PRT)
- /* For GFX9 */
- #define AMDGPU_PTE_MTYPE_VG10(a)	((uint64_t)(a) << 57)
- #define AMDGPU_PTE_MTYPE_VG10_MASK	AMDGPU_PTE_MTYPE_VG10(3ULL)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index dea1a64be44d..39f1650f6d00 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -804,6 +804,9 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
- 		flags |= AMDGPU_PTE_EXECUTABLE;
- 	}
- 
-+	if (adev->gmc.translate_further && level == AMDGPU_VM_PTB)
-+		amdgpu_gmc_update_vm_pte_noretry_flags(adev, &flags);
-+
- 	/* APUs mapping system memory may need different MTYPEs on different
- 	 * NUMA nodes. Only do this for contiguous ranges that can be assumed
- 	 * to be on the same NUMA node.
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 3ed286b72cae..aea8e80c3419 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1307,6 +1307,16 @@ static void gmc_v9_0_get_vm_pte(struct amdgpu_device *adev,
- 					     mapping, flags);
- }
- 
-+static void gmc_v9_0_update_vm_pte_noretry_flags(struct amdgpu_device *adev,
-+					   uint64_t *flags)
-+{
-+	/* Update no retry flags when TF is enabled */
-+	if ((*flags & AMDGPU_VM_NORETRY_FLAGS) == AMDGPU_VM_NORETRY_FLAGS) {
-+		*flags &= ~AMDGPU_VM_NORETRY_FLAGS;
-+		*flags |= AMDGPU_VM_NORETRY_FLAGS_TF;
-+	}
-+}
-+
- static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
- 					   struct amdgpu_vm *vm,
- 					   uint64_t addr, uint64_t *flags)
-@@ -1445,6 +1455,7 @@ static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
- 	.get_vm_pde = gmc_v9_0_get_vm_pde,
- 	.get_vm_pte = gmc_v9_0_get_vm_pte,
- 	.override_vm_pte_flags = gmc_v9_0_override_vm_pte_flags,
-+	.update_vm_pte_noretry_flags = gmc_v9_0_update_vm_pte_noretry_flags,
- 	.get_vbios_fb_size = gmc_v9_0_get_vbios_fb_size,
- 	.query_mem_partition_mode = &gmc_v9_0_query_memory_partition,
- };
--- 
-2.35.1
+Regards,
+   Felix
 
+
+Am 2023-06-12 um 12:19 schrieb Yat Sin, David:
+> [AMD Official Use Only - General]
+>
+> The current ROCr patches already address my previous feedback. I am ok with the current ROCr patches.
+>
+> Currently, there is no ROCrtst that would stress this multiple-waiters issue. I was thinking something like the KFDTest, but with by calling the waiters from different threads. @Zhu, James Would you have time to look into this?
+>
+> ~David
+>
+>> -----Original Message-----
+>> From: Kuehling, Felix <Felix.Kuehling@amd.com>
+>> Sent: Friday, June 9, 2023 6:44 PM
+>> To: Zhu, James <James.Zhu@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Yat Sin, David <David.YatSin@amd.com>; Zhu, James
+>> <James.Zhu@amd.com>
+>> Subject: Re: [PATCH v5 3/5] drm/amdkfd: set activated flag true when event
+>> age unmatchs
+>>
+>>   From the KFD perspective, the series is
+>>
+>> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>>
+>> David, I looked at the ROCr and Thunk changes as well, and they look
+>> reasonable to me. Do you have any feedback on these patches from a ROCr
+>> point of view? Is there a reasonable stress test that could be used check that
+>> this handles the race conditions as expected and allows all waiters to sleep?
+>>
+>> Regards,
+>>     Felix
+>>
+>>
+>> On 2023-06-09 16:43, James Zhu wrote:
+>>> Set waiter's activated flag true when event age unmatchs with
+>> last_event_age.
+>>> -v4: add event type check
+>>> -v5: improve on event age enable and activated flags
+>>>
+>>> Signed-off-by: James Zhu <James.Zhu@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_events.c | 17 +++++++++++++----
+>>>    1 file changed, 13 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>>> index c7689181cc22..b2586a1dd35d 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>>> @@ -41,6 +41,7 @@ struct kfd_event_waiter {
+>>>      wait_queue_entry_t wait;
+>>>      struct kfd_event *event; /* Event to wait for */
+>>>      bool activated;          /* Becomes true when event is signaled */
+>>> +   bool event_age_enabled;  /* set to true when last_event_age is
+>>> +non-zero */
+>>>    };
+>>>
+>>>    /*
+>>> @@ -797,9 +798,9 @@ static struct kfd_event_waiter
+>>> *alloc_event_waiters(uint32_t num_events)
+>>>
+>>>    static int init_event_waiter(struct kfd_process *p,
+>>>              struct kfd_event_waiter *waiter,
+>>> -           uint32_t event_id)
+>>> +           struct kfd_event_data *event_data)
+>>>    {
+>>> -   struct kfd_event *ev = lookup_event_by_id(p, event_id);
+>>> +   struct kfd_event *ev = lookup_event_by_id(p, event_data->event_id);
+>>>
+>>>      if (!ev)
+>>>              return -EINVAL;
+>>> @@ -808,6 +809,15 @@ static int init_event_waiter(struct kfd_process *p,
+>>>      waiter->event = ev;
+>>>      waiter->activated = ev->signaled;
+>>>      ev->signaled = ev->signaled && !ev->auto_reset;
+>>> +
+>>> +   /* last_event_age = 0 reserved for backward compatible */
+>>> +   if (waiter->event->type == KFD_EVENT_TYPE_SIGNAL &&
+>>> +           event_data->signal_event_data.last_event_age) {
+>>> +           waiter->event_age_enabled = true;
+>>> +           if (ev->event_age != event_data-
+>>> signal_event_data.last_event_age)
+>>> +                   waiter->activated = true;
+>>> +   }
+>>> +
+>>>      if (!waiter->activated)
+>>>              add_wait_queue(&ev->wq, &waiter->wait);
+>>>      spin_unlock(&ev->lock);
+>>> @@ -948,8 +958,7 @@ int kfd_wait_on_events(struct kfd_process *p,
+>>>                      goto out_unlock;
+>>>              }
+>>>
+>>> -           ret = init_event_waiter(p, &event_waiters[i],
+>>> -                                   event_data.event_id);
+>>> +           ret = init_event_waiter(p, &event_waiters[i], &event_data);
+>>>              if (ret)
+>>>                      goto out_unlock;
+>>>      }
