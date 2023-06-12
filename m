@@ -4,118 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B58C7EE2F
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 14:47:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1453BC7EE2E
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 14:48:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCC4D10E2B6;
-	Mon, 12 Jun 2023 14:46:59 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2048.outbound.protection.outlook.com [40.107.96.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0A6C10E2A3
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 14:46:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MMaqt3NFpTf3m8qVJQC+pXPU/1QVGmRspl8hqrm18Df4+Jyt+K31DfOdQ/u2T8TMVRnNAIxvTG0n8Sr41a3Vupir6KKFZjSaTwV65mKpre4ytKqnmVb90ZN7cjLYLEyIGhzWiJh+QbBvKgEypykb304OLfcHomq8ckV4oxnhdYyrQd2NIPWErNSFvl2+XMElxP2338smurYhvFRSGWAygpb3Xj68w66HcEWI92PWSY7jWN8/Yi3RGbUl4kIJaMn8nS3WSh5XdC9f1CLnDtNaUobj6Q7oCg37CqB3MZHYIWhJfnm36M11xu72s+w4vp/JUv/tLUTUlYxQ+9CedUKWWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hnb3jwPqTdYHMhfjnU2B1687Cli4g2ld4GpqXRNr7RM=;
- b=T3tOiIQGuGjWj6PoriCGLzwyiaQCBORGcRjGmC2hoJGUMGBI4LZwpgXZ/P4LV6aEM5qSIo/jsGnSysy3grCZyMoq6d8uX/xeX7egYO3SLVqVGxte3gqG7QSg1XqioKA35enIDux4D6xFVus9H673LvEL5HxD+Y//JKukub0G79J+CYYz2mnLbrLmHhL/v71e1+s/+tBP7jkufL0FGxemeFCHXpX5s6u+1kdoT0sGzOf5Vj9Bw/KI1bAhg6heMFpmxXMZSDraMGO6MhO4o+me2a2r3suSeA68tHzp75dUfXVVs2ZDe/m61gY9bX3voPTd2yal5ZkPRIx/wB7tjGhddg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hnb3jwPqTdYHMhfjnU2B1687Cli4g2ld4GpqXRNr7RM=;
- b=Pc+3es45buzYXfE4vkOBeFqeCJMhd51g92zF/fiU/nhs7uz9J2MGpG9vDrcSjpWh3JVEt93sh9zoedn4XcQ7InzX/aNGFHVPGuhqFzDVkHDCgPsypspUctaiA+Egow3mesi8wakuFc2VvqcmgGJyJP81tfkH1GljIrncYcrcXl8=
-Received: from DM8PR12MB5400.namprd12.prod.outlook.com (2603:10b6:8:3b::12) by
- PH7PR12MB7967.namprd12.prod.outlook.com (2603:10b6:510:273::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6455.39; Mon, 12 Jun 2023 14:46:51 +0000
-Received: from DM8PR12MB5400.namprd12.prod.outlook.com
- ([fe80::34e3:4867:66c:e52e]) by DM8PR12MB5400.namprd12.prod.outlook.com
- ([fe80::34e3:4867:66c:e52e%7]) with mapi id 15.20.6477.028; Mon, 12 Jun 2023
- 14:46:51 +0000
-From: "Lee, Alvin" <Alvin.Lee2@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Pillai,
- Aurabindo" <Aurabindo.Pillai@amd.com>, "Siqueira, Rodrigo"
- <Rodrigo.Siqueira@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>, "Wang, Chao-kai (Stylon)"
- <Stylon.Wang@amd.com>
-Subject: RE: [PATCH] drm/amd/display: Correct kdoc formats in
- dcn32_resource_helpers.c
-Thread-Topic: [PATCH] drm/amd/display: Correct kdoc formats in
- dcn32_resource_helpers.c
-Thread-Index: AQHZnTYz8VMhlkpjL020hpE2OG0ioK+HPu1g
-Date: Mon, 12 Jun 2023 14:46:51 +0000
-Message-ID: <DM8PR12MB540095F27B7CF4916FDB4D66D154A@DM8PR12MB5400.namprd12.prod.outlook.com>
-References: <20230612135938.2301377-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230612135938.2301377-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=80b04477-b97d-48cf-8405-52e313e008a7;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-06-12T14:46:31Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM8PR12MB5400:EE_|PH7PR12MB7967:EE_
-x-ms-office365-filtering-correlation-id: f1dc871c-88e6-4558-7862-08db6b53db67
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Dq+S66xjpxn6CwCZ/sv3d4F2EVy2lr+AP1BkL4gW4sAfocFPQzWvjKDU2TjQWx2EwqAqNYyUvWILsmADUncGagCUNeGnp0A4OD+iwntuHXBEk/hJ8cZTsvFMADCVEHrB8h8jnaf/qRY1u7e64x3e0aeSgP/5ZO4JP0x2zjw/yPYFbLOzz1yHe4lNCZ0MOH3RCCSxNznCLEiUB0ruRXp/hmnFK6+QWDrqMlo+dhvC3g5ohZ6cKHJBsghfjKKn6LXNjwePSnpLOKcSxLnItVi9MN25SdNazBzIWOSYr10HJ4VJSmGyFcSFTh1UbqvFxTbJLib/9uoe+FkAO6lPOekPX6mjvL2/UrOUw9ASZvWG+DAUoFgcO61Nw6oeTtA7S4Ew6CSmyXwEU4EQDddcIxRftcAuzu8fkfMmKId98bQbUWBnSHw7i3i68h/HFe8pTk9TBar/jCg2ordNsTRVYT2UkvB7sVPtCzs1qXewmT3ZzcttOw60oq1mXcst5Zrm/6H3XjkbqMkAwoS+XuhvgWsMdToE5v8nrzrm1VX10vrsPBUhD2F0bTbeu2DteOZPWVGsaBjSrArGpCf3CCViyV0YBg0jdjgSvXRZx0CcwD86Rxvn2ZnBYSgSRfT2xLdjjvZDnMziizpXmqfmDooQ+uELzw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR12MB5400.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(39860400002)(136003)(346002)(366004)(396003)(451199021)(64756008)(66946007)(66476007)(66446008)(76116006)(66556008)(478600001)(54906003)(110136005)(8676002)(5660300002)(52536014)(8936002)(71200400001)(4326008)(6636002)(7696005)(41300700001)(316002)(38100700002)(122000001)(921005)(9686003)(6506007)(26005)(186003)(53546011)(83380400001)(86362001)(38070700005)(2906002)(33656002)(55016003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?VJgyHcxgUMLEmy5GGxMDappOuPQDVom9lttZ1h6OnfG1fXGqiRAhn/KQ9Kk+?=
- =?us-ascii?Q?jUEQGX1RyDJBliMAInOiEX+IKq8SWcgfUcjwnu71r63f58GHoKTfh3e6KWnN?=
- =?us-ascii?Q?h4MhKSWR4FmAg16SG/RxspYeCeYFaXONxY1BKgOaqhdtSAQoBvUU3L2kmE19?=
- =?us-ascii?Q?IMjHa7DL5cHCKrrlthSJ8IpgQ9n7dD+JDVjuGbd8Zj3JRteeSep90x5pMYO6?=
- =?us-ascii?Q?M2g78tIVSUBew0b9lKWgAd2Ds9olxJRAQjqa6amzU2uicKv7mLfueD0tCkt6?=
- =?us-ascii?Q?ko7cuzy3DdhcaSQRgdFUXPuJzmJKG2wBx5wcEbDilFYKXiFgtdv8kFBKr5hF?=
- =?us-ascii?Q?YNuFfylngKlhytCyF7dTATDBRMWd8O8sgKjL0I0EQvEAImccmpU1AqsukQDI?=
- =?us-ascii?Q?tek50lHUWGGGyWQJk5wMw2ZXEhuvEr7JHM7lFJqoHTxb2VWDJwd2khVpz4ma?=
- =?us-ascii?Q?mr6vVeEYiu/r5ybd0M/ER/NqfykCRyOJYwSvfjZRDd35U0NLvqz2OlSp0798?=
- =?us-ascii?Q?xpoVVBC1D9PbsxdUg//UYkl4P7z2166rh8QS/sHDLObIrFHHYHbe0ig7cOck?=
- =?us-ascii?Q?RFaYPguRcdl9/AhiwWiintSAXEqjqZPf/pEdbdVGLWq2e6qvdLo8zidCZhj8?=
- =?us-ascii?Q?62M3jDuO/BK/z+Tr+Dq4FxY6MDpzlQBt8piXl/9mPVmJEtXR2U99+JWQ0n/T?=
- =?us-ascii?Q?nREeJliAAiHfYw/qoBUrUCZgWjSH7TQlhGMcG3E+lgJUsmYSMGEmB3C5ek2b?=
- =?us-ascii?Q?ABnJE78JXOLi9Uju3J4cym8n61KWQCYJX2tFsVxCNTB4lSCgo8Z4CITBleHQ?=
- =?us-ascii?Q?KrA38FyVCOanwoFUoFwZLFv1iczO5UuTS9tfs3JXbV3MQhNF9nEtL6vXYTIH?=
- =?us-ascii?Q?7QS4Sg2zU8xDWmJzbdYLVD69cm9zsglbtBXHKt6J7acBDJIzAO9cZ2cSdUei?=
- =?us-ascii?Q?+1S835L5Lo6U7W6lrMY5o+vzR9r5LLnTBcjVw25Y3HUD9XtMBPJK+HIjyNeI?=
- =?us-ascii?Q?OndjVOhOihOXZBaUdHVWGH0AULB3qFHueae+Wzms8AsXYawDP0X/dnUExt9h?=
- =?us-ascii?Q?kxyMfJUS5T3bAPyuz47wbOGTKG06eKjCBpxjdM1D35+C7UAYs6BU2uLI4Kqy?=
- =?us-ascii?Q?QPRd1dO3kPSLLQRWHeB+i3FT/vFR9eqmARaVf2eYxgyFwShIjTemL180PboS?=
- =?us-ascii?Q?zBVqhAXjJSY+Tjh76yGVuCEHxnWOZRmm8JzMT32JKGRRCx1BMcgsdHuhjor2?=
- =?us-ascii?Q?5WJWNqnm3jA3Y21YSnb942lfUYRFypxfCByZXu0kqFI4YV3iNiCoLC4y17K1?=
- =?us-ascii?Q?emsFXtcOqNinUVHHhzurdZh/oPq554sq4EmElzAcn4EHOmlOv45GKUDD9kiN?=
- =?us-ascii?Q?/ooe4zUtBDuf9XUWyAQ+WQd7+saTGKTV3irS+OcnY41bAjwZgTE7miRGu5bA?=
- =?us-ascii?Q?jxqye733ICv6ZT+WEGV1Ns0Q0g/jiRyfU0JkQJRZkA9yTwK+4VT0aq9Hyumw?=
- =?us-ascii?Q?VeGT8kptJYVWGVqrXgMfJ40PVaHpRVs2iTjTJtaI4uYX8+VsLqWcGayGOUhr?=
- =?us-ascii?Q?/AF6wldpu3woF4eVQPk=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A7DD10E295;
+	Mon, 12 Jun 2023 14:48:43 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8AAD910E295;
+ Mon, 12 Jun 2023 14:48:40 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8Cx_epGMIdkLd4DAA--.8460S3;
+ Mon, 12 Jun 2023 22:48:38 +0800 (CST)
+Received: from [10.20.42.43] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8BxC8pGMIdkC3IWAA--.55549S3; 
+ Mon, 12 Jun 2023 22:48:38 +0800 (CST)
+Message-ID: <3ca51fbe-391c-7428-4cf0-20a20ab294d9@loongson.cn>
+Date: Mon, 12 Jun 2023 22:48:38 +0800
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5400.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1dc871c-88e6-4558-7862-08db6b53db67
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2023 14:46:51.0423 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mDbXWAd6jFKYyA+wBd8DVKr7oX+iPbts08C20k+eQAJgSn1TXNAodJhciAIWRcIL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7967
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2] drm/amdgpu: Add error reporting code for the display
+ core
+Content-Language: en-US
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, "Lee, Alvin" <Alvin.Lee2@amd.com>,
+ "Lei, Jun" <Jun.Lei@amd.com>,
+ "Zhuo, Qingqing (Lillian)" <Qingqing.Zhuo@amd.com>,
+ "Liu, Wenjing" <Wenjing.Liu@amd.com>, "Tam, Samson" <Samson.Tam@amd.com>,
+ "Varone, Dillon" <Dillon.Varone@amd.com>,
+ "Liu, HaoPing (Alan)" <HaoPing.Liu@amd.com>
+References: <20230611152351.24569-1-suijingfeng@loongson.cn>
+ <BL1PR12MB5144EE0E3EB0D30F27D5F824F754A@BL1PR12MB5144.namprd12.prod.outlook.com>
+From: Sui Jingfeng <suijingfeng@loongson.cn>
+Organization: Loongson
+In-Reply-To: <BL1PR12MB5144EE0E3EB0D30F27D5F824F754A@BL1PR12MB5144.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID: AQAAf8BxC8pGMIdkC3IWAA--.55549S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxCF1kAr13Ww15Cw48JF48Xwc_yoW7JFyUpr
+ 4fGF4Y9rWUZw1aqry3JFyjvF4ay3WfKF4FyrWUGw1Sv3sFyr1fJF48Kr43u3y3uFsrWw1I
+ qFWjgF4xuF12krXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUvFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
+ 02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAF
+ wI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxk0xIA0c2IEe2xFo4
+ CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
+ 67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MI
+ IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E
+ 14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JV
+ WxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcHUq
+ UUUUU
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,143 +76,150 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Hi,
 
-Looks good to me. Approved.
+On 2023/6/12 22:41, Deucher, Alexander wrote:
+> [Public]
+>
+>> -----Original Message-----
+>> From: Sui Jingfeng <suijingfeng@loongson.cn>
+>> Sent: Sunday, June 11, 2023 11:24 AM
+>> To: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
+>> <Sunpeng.Li@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>;
+>> Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+>> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David
+>> Airlie <airlied@gmail.com>; Daniel Vetter <daniel@ffwll.ch>; Lee, Alvin
+>> <Alvin.Lee2@amd.com>; Lei, Jun <Jun.Lei@amd.com>; Zhuo, Qingqing (Lillian)
+>> <Qingqing.Zhuo@amd.com>; Liu, Wenjing <Wenjing.Liu@amd.com>; Tam,
+>> Samson <Samson.Tam@amd.com>; Varone, Dillon
+>> <Dillon.Varone@amd.com>; Liu, HaoPing (Alan) <HaoPing.Liu@amd.com>
+>> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
+>> kernel@vger.kernel.org
+>> Subject: [PATCH v2] drm/amdgpu: Add error reporting code for the display
+>> core
+>>
+>> [why]
+>>
+>> Because the drm/amdgpu drivers do not work with Navi 10 [RX 5700] series
+>> GPUs on non-x86 platforms, this patch helps find out where the drivers fail.
+>> After applying his patch, the following error message can be found:
+>>
+>> [drm:dc_create [amdgpu]] *ERROR* dc_construct: failed to create resource
+>> pool [drm:dc_create [amdgpu]] *ERROR* dc_create: dc construct failed [drm]
+>> Display Core failed to initialize with v3.2.230!
+> Curious what the failure was on your platform.  Resource create is mostly just allocating structures.
+This is because the DRM_AMD_DC_FP configuration does not get selected on 
+my hardware platform.
+>
+> Alex
+>
+>> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+>> ---
+>>   drivers/gpu/drm/amd/display/dc/core/dc.c | 29 ++++++++++++++++--------
+>>   1 file changed, 20 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> index 52564b93f7eb..d33b78aa3e58 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+>> @@ -951,7 +951,7 @@ static bool dc_construct(struct dc *dc,
+>>                goto fail;
+>>        }
+>>
+>> -        dc_ctx = dc->ctx;
+>> +     dc_ctx = dc->ctx;
+>>
+>>        /* Resource should construct all asic specific resources.
+>>         * This should be the only place where we need to parse the asic id
+>> @@ -990,16 +990,21 @@ static bool dc_construct(struct dc *dc,
+>>        }
+>>
+>>        dc->res_pool = dc_create_resource_pool(dc, init_params, dc_ctx-
+>>> dce_version);
+>> -     if (!dc->res_pool)
+>> +     if (!dc->res_pool) {
+>> +             dm_error("%s: failed to create resource pool\n", __func__);
+>>                goto fail;
+>> +     }
+>>
+>>        /* set i2c speed if not done by the respective dcnxxx__resource.c */
+>>        if (dc->caps.i2c_speed_in_khz_hdcp == 0)
+>>                dc->caps.i2c_speed_in_khz_hdcp = dc-
+>>> caps.i2c_speed_in_khz;
+>>        dc->clk_mgr = dc_clk_mgr_create(dc->ctx, dc->res_pool->pp_smu, dc-
+>>> res_pool->dccg);
+>> -     if (!dc->clk_mgr)
+>> +     if (!dc->clk_mgr) {
+>> +             dm_error("%s: failed to create clk manager\n", __func__);
+>>                goto fail;
+>> +     }
+>> +
+>>   #ifdef CONFIG_DRM_AMD_DC_FP
+>>        dc->clk_mgr->force_smu_not_present = init_params-
+>>> force_smu_not_present;
+>> @@ -1022,14 +1027,18 @@ static bool dc_construct(struct dc *dc,
+>>                goto fail;
+>>        }
+>>
+>> -     if (!create_links(dc, init_params->num_virtual_links))
+>> +     if (!create_links(dc, init_params->num_virtual_links)) {
+>> +             dm_error("%s: failed to create links\n", __func__);
+>>                goto fail;
+>> +     }
+>>
+>>        /* Create additional DIG link encoder objects if fewer than the
+>> platform
+>>         * supports were created during link construction.
+>>         */
+>> -     if (!create_link_encoders(dc))
+>> +     if (!create_link_encoders(dc)) {
+>> +             dm_error("%s: failed to create link encoders\n", __func__);
+>>                goto fail;
+>> +     }
+>>
+>>        dc_resource_state_construct(dc, dc->current_state);
+>>
+>> @@ -1314,11 +1323,15 @@ struct dc *dc_create(const struct dc_init_data
+>> *init_params)
+>>                return NULL;
+>>
+>>        if (init_params->dce_environment == DCE_ENV_VIRTUAL_HW) {
+>> -             if (!dc_construct_ctx(dc, init_params))
+>> +             if (!dc_construct_ctx(dc, init_params)) {
+>> +                     DC_LOG_ERROR("%s: dc construct failed\n",
+>> __func__);
+>>                        goto destruct_dc;
+>> +             }
+>>        } else {
+>> -             if (!dc_construct(dc, init_params))
+>> +             if (!dc_construct(dc, init_params)) {
+>> +                     DC_LOG_ERROR("%s: dc construct failed\n",
+>> __func__);
+>>                        goto destruct_dc;
+>> +             }
+>>
+>>                full_pipe_count = dc->res_pool->pipe_count;
+>>                if (dc->res_pool->underlay_pipe_index !=
+>> NO_UNDERLAY_PIPE) @@ -1349,8 +1362,6 @@ struct dc *dc_create(const
+>> struct dc_init_data *init_params)
+>>
+>>        DC_LOG_DC("Display Core initialized\n");
+>>
+>> -
+>> -
+>>        return dc;
+>>
+>>   destruct_dc:
+>> --
+>> 2.25.1
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-
-Thanks,
-
-Alvin
-
------Original Message-----
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Sent: Monday, June 12, 2023 10:00 AM
-To: Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Siqueira, Rodrigo <Rodrig=
-o.Siqueira@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Mahfooz, Ham=
-za <Hamza.Mahfooz@amd.com>; Wang, Chao-kai (Stylon) <Stylon.Wang@amd.com>; =
-Lee, Alvin <Alvin.Lee2@amd.com>
-Cc: amd-gfx@lists.freedesktop.org; SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMU=
-GAM@amd.com>
-Subject: [PATCH] drm/amd/display: Correct kdoc formats in dcn32_resource_he=
-lpers.c
-
-Fixes the following gcc with W=3D1:
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:285=
-: warning: Function parameter or member 'dc' not described in 'dcn32_determ=
-ine_det_override'
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:285=
-: warning: Function parameter or member 'context' not described in 'dcn32_d=
-etermine_det_override'
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:285=
-: warning: Function parameter or member 'pipes' not described in 'dcn32_det=
-ermine_det_override'
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:624=
-: warning: Cannot understand  * *******************************************=
-**********************
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:676=
-: warning: Cannot understand  * *******************************************=
-**********************
-
-Cc: Alvin Lee <alvin.lee2@amd.com>
-Cc: Stylon Wang <stylon.wang@amd.com>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- .../display/dc/dcn32/dcn32_resource_helpers.c | 29 ++++++++-----------
- 1 file changed, 12 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c =
-b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-index 4882c3684b82..a9c41ef0751f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-@@ -273,9 +273,9 @@ bool dcn32_is_psr_capable(struct pipe_ctx *pipe)
-  *    among those pipes.
-  * 4. Assign the DET override to the DML pipes.
-  *
-- * @param [in]: dc: Current DC state
-- * @param [in]: context: New DC state to be programmed
-- * @param [in]: pipes: Array of DML pipes
-+ * @dc: Current DC state
-+ * @context: New DC state to be programmed
-+ * @pipes: Array of DML pipes
-  *
-  * Return: void
-  */
-@@ -621,11 +621,10 @@ bool dcn32_check_native_scaling_for_res(struct pipe_c=
-tx *pipe, unsigned int widt  }
-
- /**
-- * ***********************************************************************=
-*************************
-- * dcn32_subvp_drr_admissable: Determine if SubVP + DRR config is admissib=
-le
-+ * dcn32_subvp_drr_admissable() - Determine if SubVP + DRR config is
-+ admissible
-  *
-- * @param [in]: dc: Current DC state
-- * @param [in]: context: New DC state to be programmed
-+ * @dc: Current DC state
-+ * @context: New DC state to be programmed
-  *
-  * SubVP + DRR is admissible under the following conditions:
-  * - Config must have 2 displays (i.e., 2 non-phantom master pipes) @@ -63=
-3,9 +632,7 @@ bool dcn32_check_native_scaling_for_res(struct pipe_ctx *pipe=
-, unsigned int widt
-  * - Other display must have Freesync enabled
-  * - The potential DRR display must not be PSR capable
-  *
-- * @return: True if admissible, false otherwise
-- *
-- * ***********************************************************************=
-*************************
-+ * Return: True if admissible, false otherwise
-  */
- bool dcn32_subvp_drr_admissable(struct dc *dc, struct dc_state *context)  =
-{ @@ -673,11 +670,11 @@ bool dcn32_subvp_drr_admissable(struct dc *dc, stru=
-ct dc_state *context)  }
-
- /**
-- * ***********************************************************************=
-*************************
-- * dcn32_subvp_vblank_admissable: Determine if SubVP + Vblank config is ad=
-missible
-+ * dcn32_subvp_vblank_admissable() - Determine if SubVP + Vblank config
-+ is admissible
-  *
-- * @param [in]: dc: Current DC state
-- * @param [in]: context: New DC state to be programmed
-+ * @dc: Current DC state
-+ * @context: New DC state to be programmed
-+ * @vlevel: Voltage level calculated by DML
-  *
-  * SubVP + Vblank is admissible under the following conditions:
-  * - Config must have 2 displays (i.e., 2 non-phantom master pipes) @@ -68=
-6,9 +683,7 @@ bool dcn32_subvp_drr_admissable(struct dc *dc, struct dc_stat=
-e *context)
-  * - DML must have output DRAM clock change support as SubVP + Vblank
-  * - The potential vblank display must not be PSR capable
-  *
-- * @return: True if admissible, false otherwise
-- *
-- * ***********************************************************************=
-*************************
-+ * Return: True if admissible, false otherwise
-  */
- bool dcn32_subvp_vblank_admissable(struct dc *dc, struct dc_state *context=
-, int vlevel)  {
---
-2.25.1
+-- 
+Jingfeng
 
