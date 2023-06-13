@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46405C88CBB
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 03:01:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7AA3C7EE2F
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 03:01:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C93010E305;
-	Tue, 13 Jun 2023 03:00:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE4510E311;
+	Tue, 13 Jun 2023 03:00:49 +0000 (UTC)
 Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7F80010E2FD;
- Tue, 13 Jun 2023 03:00:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 16AD010E2F8;
+ Tue, 13 Jun 2023 03:00:41 +0000 (UTC)
 Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8DxCerY24dkWGMEAA--.9450S3;
- Tue, 13 Jun 2023 11:00:40 +0800 (CST)
+ by gateway (Coremail) with SMTP id _____8AxW+rW24dkRmMEAA--.9344S3;
+ Tue, 13 Jun 2023 11:00:38 +0800 (CST)
 Received: from openarena.loongson.cn (unknown [10.20.42.43])
  by localhost.localdomain (Coremail) with SMTP id
- AQAAf8BxC8rV24dkOkAYAA--.60391S6; 
- Tue, 13 Jun 2023 11:00:39 +0800 (CST)
+ AQAAf8BxC8rV24dkOkAYAA--.60391S3; 
+ Tue, 13 Jun 2023 11:00:37 +0800 (CST)
 From: Sui Jingfeng <suijingfeng@loongson.cn>
 To: Bjorn Helgaas <bhelgaas@google.com>
-Subject: [PATCH v7 4/8] PCI/VGA: Replace full MIT license text with SPDX
- identifier
-Date: Tue, 13 Jun 2023 11:00:31 +0800
-Message-Id: <20230613030035.216556-5-suijingfeng@loongson.cn>
+Subject: [PATCH v7 1/8] PCI/VGA: Use unsigned type for the io_state variable
+Date: Tue, 13 Jun 2023 11:00:28 +0800
+Message-Id: <20230613030035.216556-2-suijingfeng@loongson.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230613030035.216556-1-suijingfeng@loongson.cn>
 References: <20230613030035.216556-1-suijingfeng@loongson.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8BxC8rV24dkOkAYAA--.60391S6
+X-CM-TRANSID: AQAAf8BxC8rV24dkOkAYAA--.60391S3
 X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7trWDGr1UXryfXw18Jr45XFc_yoW5JrWfpF
- ZIkwnrGrW8WFyxGa4qkr4SyFyUX3yrCF1UKF97WF1I9rnIywnYgan8tr1rtas8AFZ7KFy5
- ZF9rWrW5uFnrZFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUBmb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
- wI0_Gr1j6F4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
- xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
- Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
- Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Y
- z7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
- 8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE
- 2Ix0cI8IcVAFwI0_Xr0_Ar1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6x
- AIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIE
- c7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU2nmRUUUUU
+X-Coremail-Antispam: 1Uk129KBj9xXoW7XFW3Wr1xKryUZF1fWr1fXwc_yoWDtFc_u3
+ 97t3yIgr48G3W29F1DC3yrArWfKw10vF47Wa4kXa4fAFyjqrn8G3s7Wr98Ka1DXa13CFs0
+ gry8Jw1S9ry7WosvyTuYvTs0mTUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUj1kv1TuYvT
+ s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+ cSsGvfJTRUUUb7AYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+ vaj40_Wr0E3s1l1IIY67AEw4v_JrI_Jryl8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+ w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+ W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+ Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
+ 02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAF
+ wI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7V
+ AKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+ r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+ IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
+ w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x
+ 0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8yrW7UUUUU==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,72 +58,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>, linux-fbdev@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, kvm@vger.kernel.org,
- Andi Shyti <andi.shyti@linux.intel.com>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- linux-pci@vger.kernel.org, David Airlie <airlied@gmail.com>
+ amd-gfx@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
+ linux-pci@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Per Documentation/process/license-rules.rst, the SPDX MIT identifier is
-equivalent to including the entire MIT license text from
-LICENSES/preferred/MIT.
+The io_state variable in the vga_arb_write() function is declared with
+unsigned int type, while the vga_str_to_iostate() function takes int *
+type. To keep them consistent, replace the third argument of
+vga_str_to_iostate() function with the unsigned int * type.
 
-Replace the MIT license text with the equivalent SPDX identifier.
-
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
 Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- include/linux/vgaarb.h | 23 ++---------------------
- 1 file changed, 2 insertions(+), 21 deletions(-)
+ drivers/pci/vgaarb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
-index 6d5465f8c3f2..97129a1bbb7d 100644
---- a/include/linux/vgaarb.h
-+++ b/include/linux/vgaarb.h
-@@ -1,3 +1,5 @@
-+/* SPDX-License-Identifier: MIT */
-+
- /*
-  * The VGA aribiter manages VGA space routing and VGA resource decode to
-  * allow multiple VGA devices to be used in a system in a safe way.
-@@ -5,27 +7,6 @@
-  * (C) Copyright 2005 Benjamin Herrenschmidt <benh@kernel.crashing.org>
-  * (C) Copyright 2007 Paulo R. Zanoni <przanoni@gmail.com>
-  * (C) Copyright 2007, 2009 Tiago Vignatti <vignatti@freedesktop.org>
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without limitation
-- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-- * and/or sell copies of the Software, and to permit persons to whom the
-- * Software is furnished to do so, subject to the following conditions:
-- *
-- * The above copyright notice and this permission notice (including the next
-- * paragraph) shall be included in all copies or substantial portions of the
-- * Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-- * DEALINGS
-- * IN THE SOFTWARE.
-- *
-  */
+diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+index 5a696078b382..c1bc6c983932 100644
+--- a/drivers/pci/vgaarb.c
++++ b/drivers/pci/vgaarb.c
+@@ -77,7 +77,7 @@ static const char *vga_iostate_to_str(unsigned int iostate)
+ 	return "none";
+ }
  
- #ifndef LINUX_VGA_H
+-static int vga_str_to_iostate(char *buf, int str_size, int *io_state)
++static int vga_str_to_iostate(char *buf, int str_size, unsigned int *io_state)
+ {
+ 	/* we could in theory hand out locks on IO and mem
+ 	 * separately to userspace but it can cause deadlocks */
 -- 
 2.25.1
 
