@@ -4,112 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7C7FC77B7A
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 13:25:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CE30C77B7A
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 13:27:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ED8110E14E;
-	Tue, 13 Jun 2023 13:25:55 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34EF710E14E
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jun 2023 13:25:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A17D610E3B4;
+	Tue, 13 Jun 2023 13:27:39 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2065.outbound.protection.outlook.com [40.107.101.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC93710E265
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jun 2023 13:27:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C3QELMgxBpOsCD/n791nfSoNzF0paPffQs3NU4oFmbHFSRP9IxVJZMI9NaIIQL3NBm04ppDYyLaAOn7YcEHVU4BMbDhP/PuAOXR3c1hIpC5EXvE+X7ERd4YTJSUWLtwvq4Xy2x1CT0K08YPUNy7ZNumOtEF38I4x/pheXZbGpYVGY6Tb688Oug00F03/pWgVIP9+jy/0YadDr8kHL1er5CM0lK6Atbf5bkcN2ABOVeEKEGtQAeMFcbz1V0dgZk598kF4kXwuKPoCGyf45j/pkRxe8KzDyISHMfcUst5XsPvXvNfaZzMwSFNQfpFIYpzoSNbYMv+OaUs6lJZHl4eK5Q==
+ b=P7xDXlM3RKPY5Pqj5qHg2FuU7L60MGeMBxxVSgNiuecoVC+VyZJZUALfPTgdkUnANqwJtntkBedPmX1hXeJMKXTvRA+Mk4a5ccKA46BPDzO/VEw4iu3a99ZNMyA5uXqi1GujZx1j6jDeuXzaW4a4nBIZOO5P+Ys6D8bLSjyW9nfPI/egR0aMMAkJeCnA6etHW0+gkSNGG6zD9o6BLI9KpGUwZjKs2FlwUuHkV69m2YOu+4/AE6vxeSa8Sxe84AUiP5UseXWg+jqaNNE15ybLVHm31gJ6wWSmDMqqAtUYAMRzqxzXj0RZ1Yz9FNHtIw6DopZVWRM285wxUxwzICPjBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tgbX564y1/uv5miM/MGpXF0xmhV24X6jaYTTzDvaOOQ=;
- b=mO83Cal0req9UIFArdzGmozPBzkQ+sfHPLLL9WdAcVo4sAc3J3tOpMwhUm+uASGoSpt6P7P0Us/hlvbT3wB58XFYiuFljh25vulhdwWRp469S7JoQIViKRQ71m2AFePINlgkP6ke6MZYIgDcEViqTAB7+oigBLEChWYcDsJfPuz0WjpuZ2bZdMiDrNZ3vTPPNg/2DMm5Vz7l0FULV5B532jiZb26so3n3HT/6Dbi/AJlur/aAKJzVNAe+IjxNc78oW+42uwMhKKyzUl8sbRp4r55OB4M1bkZB5eKlEkP70gPndSC7AdZ5NwpLl3NgCHRi1NmY/LrgYOvkVX5qLCDKg==
+ bh=bEGFOfPLFx1+ZPANl0r1UyD1l5RdEMtsbv0Va789KvQ=;
+ b=Rq9yaNOpSdFvJnA+mEHfYVZB+rkZRfOXD8B9XYPBLFUnOzsu5AU0g4PmYAhG3koqcdhcM3D8vX3Bb4LqR0HX5nBl1L7g9qRax7tdu1hd4fcM+omDvtDShV199DI6S9UTe7Rct0tcl6NDOxpIUzli/GRtuHuSyRKsncfGF6sP8mNeI23WiUPIvO3XGyJDa6szLrzhO+IAsWMonz+fGhVS8MFos4JNgFJPd9KTQIGbBc8CkKJn1TfMMB4RblmhGLL8sG2UnMc3NZ1VR4m4l7Yv4ZSFkO37gzrW5nn8kwjMqbHvqY/NRGnZuQ4oR1H1q8v+bnKLXimOGKi0G+IDS5nTgw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tgbX564y1/uv5miM/MGpXF0xmhV24X6jaYTTzDvaOOQ=;
- b=nVbjj4sQrXfMwf1J2+r5fVrQ3TLyVqNoytN3BIXPeKNSOAleJ2mQA2J9Xby+NqJt2AL73Z8ZT7Qwb7jPR3ibDf1O9+db2w99KHNDStpPV2Wh+//94ut7OiqntaEWnpAokAta6FBsOkdytLGIFr8+RooRPk1tHrUnuhHnnxAj11s=
+ bh=bEGFOfPLFx1+ZPANl0r1UyD1l5RdEMtsbv0Va789KvQ=;
+ b=Cripf5R9R3U0+WU/4mRNhcfX/NxFWFA1u59TvntM7nWJYlJYOK+tgkppA0h+BY3VoAUmo+MN4gLyRFGSlpB8FwVHzr4RSYcBsfxKwM1SWtuYFQhBdOUOeJOpB4zfSxbKzvvocd4lmYRczIOKT8yhxFjYWpMnvTtpTUgL1mLXTPg=
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
  by MN0PR12MB6200.namprd12.prod.outlook.com (2603:10b6:208:3c3::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.46; Tue, 13 Jun
- 2023 13:25:51 +0000
+ 2023 13:27:35 +0000
 Received: from BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::c549:4aeb:a02f:56b2]) by BL1PR12MB5144.namprd12.prod.outlook.com
  ([fe80::c549:4aeb:a02f:56b2%4]) with mapi id 15.20.6455.045; Tue, 13 Jun 2023
- 13:25:50 +0000
+ 13:27:35 +0000
 From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 Subject: Re: [PATCH 3/3] drm/amdgpu: Remove unused NBIO interface
 Thread-Topic: [PATCH 3/3] drm/amdgpu: Remove unused NBIO interface
-Thread-Index: AQHZneVlsFJsx+LSWEGf1mE5Nc86ra+IuUX+
-Date: Tue, 13 Jun 2023 13:25:50 +0000
-Message-ID: <BL1PR12MB5144D9F55EA2C1E8DCCAE572F755A@BL1PR12MB5144.namprd12.prod.outlook.com>
+Thread-Index: AQHZneVlsFJsx+LSWEGf1mE5Nc86ra+IuUX+gAAAb/M=
+Date: Tue, 13 Jun 2023 13:27:35 +0000
+Message-ID: <BL1PR12MB514483C91159FFA26C0FDA91F755A@BL1PR12MB5144.namprd12.prod.outlook.com>
 References: <20230613105354.1561876-1-lijo.lazar@amd.com>
  <20230613105354.1561876-3-lijo.lazar@amd.com>
-In-Reply-To: <20230613105354.1561876-3-lijo.lazar@amd.com>
+ <BL1PR12MB5144D9F55EA2C1E8DCCAE572F755A@BL1PR12MB5144.namprd12.prod.outlook.com>
+In-Reply-To: <BL1PR12MB5144D9F55EA2C1E8DCCAE572F755A@BL1PR12MB5144.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-06-13T13:25:49.935Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-06-13T13:27:34.730Z;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
  MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|MN0PR12MB6200:EE_
-x-ms-office365-filtering-correlation-id: 148532b9-1f6a-4299-d306-08db6c11b4f3
+x-ms-office365-filtering-correlation-id: 19f559bd-ae38-45f4-d093-08db6c11f35b
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: AEmqqvRDXsFUcNT8aP0uyaCd0Skm3i5srmMnEXTATmwQCsXiug0dUT2HDvluqnjEo+3m+zcHDj/zKiC3TxdKtkenL5eg7sAQNiqKFsG92McMo+Fj703P/lP7Wl/58iLjOjpiUmT5vICB9YZC1zci2BEW1UsAliHrSAGbHNCVOdaO9W8/nwnPlKPxuRSQxBzXfkpTEJ8LevPPXTUPjitpVMOmYjXmU/INHwFnv4tO8M1a7uA42xCVHuPhps9cTKnUUzeCDonTFiawwthsQlaC5G4juLFPM8u0i5DM7nDffsWaCszpwjIQTKqq2QpUq8lENqaCLXJ90IUemTES32f8aHIhaJFTVePmtzkO3tphIfVPcZlYH+mZDefSO4W35nbC/ro2p+DB0UM44Q8s+jSm9/aLiJJ1tciSQGb6WczKcB8Jb5GrIHSOAl9lyheGh4YdwVmd9wEVMhKJQONll7KoSVGMxDlLEbpV3J0focsEHEwPo10yMQm07YsSvppZLAt2GNY4h+OTtXaM3h0GpQjwCeLYStI9U3u68HFR2K7Jq77EMtGhlFiDsIY+aa25Lv6wxXhLPqzjpS5SGTxf2qK0J6UZ3eKLN7a6Br3uS+wLz6MC8niEAacKZMNW8kJdHMRP
+x-microsoft-antispam-message-info: u0/MjboVrkNIC7RqAi3PTH6CSPxrdYhF4XA6C1/L4wLSQLSc90ft0DlO0AqZa76lU8JxBIWfJQ+1WdHlrpGA1aMLzhlewfwWZrV5tVyEbxNS1jubqbSO2vlZLTrfugknL0kx2L+MxwamnVMvl1O/5wogfWkrFFRLEd8a4qikOBTC0I54+CI5zLBQT4IAxgr17eAsvZdxcQT+54nv7mGZAGty4ME5yjMbjIvmJK6fRJCi3IXnDG9fokj40MhRbNVvAeVXJkIyAUO/w+zxHZmQNDIUcGn2dGPotUjGJBksWUR15KknTSc7Qa0qNELTFFXXyjj69FtNBNoF5YepN5c5+uWhuPnX6pRopZD0wXTa838oTs49n6pnhVxXZhoGqPdfJsHHaAX5yR4rXRvTAMYD2xzmvFJucL426HsEuwp8nX9xh83zw41j+eFRXehZhDquQiWR7C0gkGDuXS2tUiKcubW1dCiuePS3KTwTBPKt0zkGcsP4x0Qdn2OP0OP61AMlfATm2FRI0Q9NXMziB/QTbuft1Zhp0Se57Aw2RuiPSZDJS7Ix1TJgI49vcYiGU7mT/s4xfOJaLycs43bPS7/mgj82cSr5or+5hsneYAsB1eqJt9+jCpFDMvRs9kl5KQQl
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(39860400002)(346002)(376002)(366004)(136003)(451199021)(19627405001)(64756008)(83380400001)(55016003)(122000001)(4326008)(33656002)(316002)(7696005)(66476007)(66446008)(41300700001)(38100700002)(38070700005)(71200400001)(9686003)(6506007)(53546011)(66946007)(26005)(76116006)(2906002)(86362001)(5660300002)(478600001)(8936002)(8676002)(52536014)(66556008)(54906003)(110136005)(186003);
+ SFS:(13230028)(4636009)(396003)(39860400002)(346002)(376002)(366004)(136003)(451199021)(19627405001)(64756008)(83380400001)(55016003)(122000001)(4326008)(33656002)(316002)(7696005)(66476007)(66446008)(41300700001)(38100700002)(38070700005)(71200400001)(9686003)(6506007)(53546011)(66946007)(26005)(76116006)(2906002)(86362001)(5660300002)(478600001)(8936002)(8676002)(52536014)(66556008)(2940100002)(54906003)(110136005)(186003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7haVnTDbgHPHC9pJRpO1B+17AfQuAtGFAasDRuMkwjd/c7WT87OPHWo4y6O9?=
- =?us-ascii?Q?vDZ1vSQDm0q8kTq5vL8lPR7v5GOeFZYuAe4W9mg3NGRr5NnEHY+JrZd+CgnZ?=
- =?us-ascii?Q?bTu+l/GSgXLYvOWXBaOL5IoVJtsztIcuHyZzcqjDSKO7ONhZWni354N6Rx/g?=
- =?us-ascii?Q?CPROFXYW04LPDW33cMeMxqRD4UKnvVqrzW34SHQAfCeS43qIQAvJSJwwnLdT?=
- =?us-ascii?Q?XAYgMGk5urSkqxuwR8g6qWde7xuY1FJM4npeqOXtjw/8AZaGgt+9i50/rk67?=
- =?us-ascii?Q?Wj466mHsCDZLSm0InLF1XlqNqvC5i7vQDhKLQqCCKn/KiKwxV85w8QaDh3Lg?=
- =?us-ascii?Q?rQpuCy5rt22KmzFYcWyXt+WfH9i6A+efr2xKwAhreVSYpkO/uMHcw7G/RtKY?=
- =?us-ascii?Q?4I7ljYcTICtKHMMW9kMPkvLpfXgn0TVhoTSRY+8GjMaE5q1vyuEK1XjXbJ7F?=
- =?us-ascii?Q?1byjoRYAchuIqXcARmHAoE/gfVe+ToYUtDqSfd80B39ivGJcLZ7s2BXocmRZ?=
- =?us-ascii?Q?qM1gk3B5e1sPpYgHtHcefew8w2zPCb6XHOYBm7JUt4r68inFt4AgjjWsSKES?=
- =?us-ascii?Q?JCfKv9+84Lm3fYDIfa+qDcdvcyBseYuDR4ofcfjdpZWOO33e4r6XGyojmq/P?=
- =?us-ascii?Q?ASssdRHYURyEBDtLZc4YSYdq/U7y5mzKP2e7Me0WDiC4uYyPssNeVo006nSW?=
- =?us-ascii?Q?RIfZ5aZ6Y68Yu//HWDpfAETnC3cOczCIMAe9EoUa0kBmuMFqpWWBucR7PiYI?=
- =?us-ascii?Q?2IOI83CtapgiblAYJM+OoTAs5dxSvvN+weq6gvHagYl+jXC+OiLoAFud8D3h?=
- =?us-ascii?Q?IRiTcFfwtYDb1sCc513KfsVUcHMPDgpQKVcpW3zkUMr8/dSrvRXQsHTdh1N+?=
- =?us-ascii?Q?bDyQYZfOdI6IY8i2t9mAMxct+Ky1OpKlaJ9p95e5APqmQz2ShcyLKxkQIF/7?=
- =?us-ascii?Q?B2YSevdft4t4LIMYLrApqI92aWL/afdPb4wQuYYSpH/rFneHHFuvRPffWZ35?=
- =?us-ascii?Q?geZY3hRs7IFo0iqArMQrE+1hCflv5cAxedDkPbmN2RwXgW8/rvc2MZ69u2zK?=
- =?us-ascii?Q?N4Xk2FVc347acXRgQ31p0Pg7gyhmXukW1nSbpjEUZfqw/lIua5+fkwo8tmtP?=
- =?us-ascii?Q?S0DLNBeUjriuqOjE4TCtw59NAKRWM8jCnkWyGpLy/sPuLnIZnYSSQ0fNvz3m?=
- =?us-ascii?Q?DcZxBeyvSmHfepDcG3z5DK+v9p3k5hTN+zMldMXQETJzduLQ9DgYWrUnhrmA?=
- =?us-ascii?Q?RZaI6soUb4TXbsIHnjqo9se2NCBE3sdvP9iGciUK7/FBhKjVH6RhImJJUqH+?=
- =?us-ascii?Q?iK34a78WG27wJYQl92O0bZHFFRZ0jXBC7N4R3I50kjJ3FhcwlCVOAJBmHy+y?=
- =?us-ascii?Q?4dcrYNtfMGWTepgtgxuvvJMuLM+crT3cYaDxF/Od3TCBdVF8kr3yQrfi031w?=
- =?us-ascii?Q?ciyCVJ4ce78OlPFiJm5LE3PpZWOf9YLQaeJFVLRrl+XgT6sY6CpXvUrJuT6f?=
- =?us-ascii?Q?qraTXBWM5VTFQBge61AhixffLXYNl/t/h/hYcC+O5oH1TOGsezgtHk/wiYZN?=
- =?us-ascii?Q?F4tq+9xH+gpz3gFtnPY=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?xqLwd2GBSKf3W5UeNvOry07yIpGJHoOvX4RhB4n69TAnr1xLkf2SAFK2kIQp?=
+ =?us-ascii?Q?nsj0jBNC0qsXQMeCtYgm43HJsyzKTzq24nDLXktrA9p6lruuyOHxTZszqS9+?=
+ =?us-ascii?Q?N4oM8are5XyinfUgOGQW1PmShGwMXWF9kjSBelVBZJ9KU2sMi5HxYUiHRFu7?=
+ =?us-ascii?Q?Clu1XHC7RNGGbD8JFO/zJpwPYLadi/LpWaUWvsA7olNpuTTa4RGGHO/gxSDJ?=
+ =?us-ascii?Q?/Uq2Z8AOKfSf4s8ZZfnOnZTMjNxImDxFwqgpfTGHWLHeVwEiD/0DkSquQQxF?=
+ =?us-ascii?Q?tAJxam6kLTTR5jHDIsCPSgj0kzCTD7aqn8/8ZELyOLNUWVlOeyLczMqHA3mK?=
+ =?us-ascii?Q?PruyNnGhyLudEAxzMR7OIVuzBSf3LZm+pINIB2ohp08Q6gmO0yxva+0cE/6R?=
+ =?us-ascii?Q?Rauwc3OEQmbvlOhCEf3yrfP4a23qxuVisJfprR4C7PodpwcTVfv2aQnBiOwR?=
+ =?us-ascii?Q?aSv0zPXrPBIRhyV+DcPMUs7W9sRD0XupYS9aPd/N0nG3wKaR/SiRRFSMc7iu?=
+ =?us-ascii?Q?eNwhq88N9Ds8DY9r2ujM0zSCWTbuSlj999q7en6gJxDQHb/g0FYwUb5Mt7b4?=
+ =?us-ascii?Q?KoEoZuoZOc5d7qs9YHgFz5jmPdQZVxngAeExevpA8/emDFwsAa4fr9hJbLX9?=
+ =?us-ascii?Q?zvx0uIl//+ly3smFEolAIBcIZOOxPEUNT1E1NDQ2WjGZbm5kexXhqAs0appx?=
+ =?us-ascii?Q?jGJPpOvL4Eji71SMeYppl5stAoYqkSmmX99JRf8Z+mML+pAIMe6hYxlbxNnX?=
+ =?us-ascii?Q?wjjyVTGzcpqlTG2dpjtQIHM2ifksfljQKfA+VdMQkTarkgeUX0n3J4obMxvO?=
+ =?us-ascii?Q?dZVE+ewuleXVPUJoGb63V3bOOnYvxI1Ot9G17U3h1TfUbdIsUpjYW0nyWeO7?=
+ =?us-ascii?Q?xcFsRpsOHFHwpVeaR1qmz0kmkGghdg4oeHV0kKva3/8nlYElU7VSdSvGov/V?=
+ =?us-ascii?Q?09qY2UjqI1TpKdHomh8akl7tO6c5ypqdc7oJsjVKHSHRG1sQGXLmFrIChKnJ?=
+ =?us-ascii?Q?bYjlDgTblkd77sCkUBTH+NRhmbMhhcV0DBkJWM9mo0TWpYYSGGIyx5rByldZ?=
+ =?us-ascii?Q?PC7r4r70nEvC3Vc0zCZXkWLYhfnaoO5nNcKdG45D6IXCmmgHonXCPoM8cVAw?=
+ =?us-ascii?Q?5XvtazCYncTSY2Pry1Cqsua+rBf2CgdiOstOM9WGovp9OyqXsBMyUSq8Ndrk?=
+ =?us-ascii?Q?XSsmoZI74xDUCIzKYyzevXATj1oDKu5DBQrQGqbl5M/ANEN1KmXHzRZ7ASlV?=
+ =?us-ascii?Q?z8KGA5UahTLjNz7sUjTouNAKLtbYu45BxyaXjuKxoxjjj4sURy7cY+9swdGi?=
+ =?us-ascii?Q?DR7rfhuPSIPmLNk0xmyUwEDuz6vD14LbR83hbkwQ9MNlU2wBbKbDYpfTLC+t?=
+ =?us-ascii?Q?fMWAamfaEozGiAtBh/1TXPjChEngScCnOODJ+hjBgq0zILTHynSBdM05A0i0?=
+ =?us-ascii?Q?m21nK2UITyEXs681UVKR2x1wwBOuKMDvHhhXjGv1ydXTgmK6k+To1RgAagFJ?=
+ =?us-ascii?Q?cTcLTpDeIt3M7DnEIm9jjltN22ewsBcICNP4ojtI4Pc6xgFgHvMX8IGzYcOV?=
+ =?us-ascii?Q?22L1SX3MY/1QoVaXilw=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144D9F55EA2C1E8DCCAE572F755ABL1PR12MB5144namp_"
+ boundary="_000_BL1PR12MB514483C91159FFA26C0FDA91F755ABL1PR12MB5144namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 148532b9-1f6a-4299-d306-08db6c11b4f3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jun 2023 13:25:50.8750 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19f559bd-ae38-45f4-d093-08db6c11f35b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jun 2023 13:27:35.5989 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QtAxIc0pCorHN4KHHrwQL+tMekoU5i8en/zQCZ4u0SWYHBgwbePO35m+3/lUlg5waV2l1JkePyh+X1Zrl5XzzA==
+X-MS-Exchange-CrossTenant-userprincipalname: w3wI7wh8B+Evyjd2RQbgeIwSBG3S18OazTXxm+cMzcwXVm4ssr4dr2aafBScA+rdZ6P1sDKufc7UQRmQ8LXtLg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6200
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,9 +128,28 @@ Cc: "Ma, Le" <Le.Ma@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>, "Zhang,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144D9F55EA2C1E8DCCAE572F755ABL1PR12MB5144namp_
+--_000_BL1PR12MB514483C91159FFA26C0FDA91F755ABL1PR12MB5144namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+Sorry, replied to the wrong rev of the patch.  my AB applies to v2 as well.
+
+Alex
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Deucher,=
+ Alexander <Alexander.Deucher@amd.com>
+Sent: Tuesday, June 13, 2023 9:25 AM
+To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
+x@lists.freedesktop.org>
+Cc: Ma, Le <Le.Ma@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Zhang, Hawkin=
+g <Hawking.Zhang@amd.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Remove unused NBIO interface
+
+
+[Public]
+
 
 [Public]
 
@@ -209,7 +229,7 @@ e,
 2.25.1
 
 
---_000_BL1PR12MB5144D9F55EA2C1E8DCCAE572F755ABL1PR12MB5144namp_
+--_000_BL1PR12MB514483C91159FFA26C0FDA91F755ABL1PR12MB5144namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -229,16 +249,65 @@ ttom:0;} </style>
 <div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-Series is:</div>
+Sorry, replied to the wrong rev of the patch.&nbsp; my AB applies to v2 as =
+well.</div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+Alex<br>
 </div>
 <div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lazar, Lijo &lt;Lijo.=
-Lazar@amd.com&gt;<br>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Deucher, Alexander &lt;Alexan=
+der.Deucher@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, June 13, 2023 9:25 AM<br>
+<b>To:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedeskto=
+p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Ma, Le &lt;Le.Ma@amd.com&gt;; Kamal, Asad &lt;Asad.Kamal@amd.com=
+&gt;; Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH 3/3] drm/amdgpu: Remove unused NBIO interface</f=
+ont>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#008000=
+; margin:15pt; font-style:normal; font-weight:normal; text-decoration:none"=
+>
+[Public]<br>
+</p>
+<br>
+<div>
+<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#008000=
+; margin:15pt; font-style:normal; font-weight:normal; text-decoration:none"=
+>
+[Public]<br>
+</p>
+<br>
+<div>
+<div class=3D"x_elementToProof" style=3D"font-family:Calibri,Arial,Helvetic=
+a,sans-serif; font-size:12pt; color:rgb(0,0,0)">
+Series is:</div>
+<div class=3D"x_elementToProof" style=3D"font-family:Calibri,Arial,Helvetic=
+a,sans-serif; font-size:12pt; color:rgb(0,0,0)">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"x_appendonsend"></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Lazar, Lijo &lt;Lij=
+o.Lazar@amd.com&gt;<br>
 <b>Sent:</b> Tuesday, June 13, 2023 6:53 AM<br>
 <b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
 gt;<br>
@@ -248,10 +317,10 @@ gt;<br>
 <b>Subject:</b> [PATCH 3/3] drm/amdgpu: Remove unused NBIO interface</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Set compute partition mode interface in NBIO is no=
- longer used. Remove<br>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">Set compute partition mode interface in NBIO is =
+no longer used. Remove<br>
 the only implementation from NBIO v7.9<br>
 <br>
 Signed-off-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;<br>
@@ -346,7 +415,10 @@ v7_9_set_compute_partition_mode,<br>
 </div>
 </span></font></div>
 </div>
+</div>
+</div>
+</div>
 </body>
 </html>
 
---_000_BL1PR12MB5144D9F55EA2C1E8DCCAE572F755ABL1PR12MB5144namp_--
+--_000_BL1PR12MB514483C91159FFA26C0FDA91F755ABL1PR12MB5144namp_--
