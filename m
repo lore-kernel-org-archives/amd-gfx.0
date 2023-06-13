@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93363C7EE2E
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 03:53:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91BE8C7EE2E
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 03:53:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2E1A10E136;
-	Tue, 13 Jun 2023 03:53:30 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EB7510E136
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DB8410E308;
+	Tue, 13 Jun 2023 03:53:31 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2073.outbound.protection.outlook.com [40.107.93.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0829110E136
  for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jun 2023 03:53:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vnw2702JRCSWlTgHSjG9Djk/44KqSXSfU7tbfL9MFY9/2t4e3OsEkMHTe81esNn+upjUoDUc+uJiI5wXTbuJV65UFJBVpVnkRsQLTSE8Ah6EqtMAGWM9W7VubvQ3+Vv4o+VeaKaz2YWbK5tGgxtRzPa9XIYPk2fZfWktfnAwMCH+3RYRM98KFrR3EGYU5BgL8/bL6ohE0C/z/KiHywewJ2DdreZgTlhZcEEqHnagTZ1siTF6Q9mA3XVRlMrZESLlSVnD7chnwM0XPQr3x5rTvYb4qgr5AuooE4wRUm75AhWBsjmmGKhzSH0SFcR1UVfbQ2Ou6KfWF6a78KpVT1s64w==
+ b=TQes6wg9VjBfdBOnGWVOcFuPeWFFHiXdruPPWXADIzUnB6EBrgaE6Qtpchp4cOESmp1/8k3bqZpBlQp8Zh8P/igoukUF8RkJqdzeVt+ifUhV0+9hZPVfwcrmxj4qLIB2ILGGVidFbtN1rl0G7hgi8GpUpsqiigKaA2xb+62tlUgv17A/mwe6dg37ngJGPDUrY89I20Di9pwQ+VXthnP9mIzD66JpgkO47ISDIRRnowEulLBWaoLspyT9gu9y/0LiqYddIwxPGzZJxe7iN1LbQCi47sILUqnROCfIqhNNqg42P+gGewLyRrrE2c+N3C3qcSnb8/zqLLYIK++N2TE50A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TW+vFjFLHg4/odBoVZS+3pa272iLE4Rlbx2RaPK9VGY=;
- b=IOCdvp4+Sjbr053F+p2Id232K12H98b4eofeYJqh7Fm2rES4YyoSVrAJLLONHvxyy7ZXwWLmK4QnbRS9Nd0xS8sSyJ27wKttP++0GCh85QctcnUuKB+nzAvol/galX7fKKoy82lUelDXyoyw2p6WRpBB00PZ/QIFFur4reQa/pmk5S2E8JofChMVlrvVTOtlIuOINLmsEUyVSvGL8kAK0fzLJBE2LHvv1c/NqB+6c0IMYPSQptvGMsYhjNZwnWsKn7awcne1YRdfWfqQlN4xoea1d+6FmdvR/6X1ZeCmmufdYoPDbNNVRq1lGOPbnkyaCQZThq2Gy5B8x+qvuuAPCQ==
+ bh=T/zV3f1Tz2nEEbQ4QCDQ7uQbJU78T5qbONd8+vhNzNk=;
+ b=WbpnEJtw3vVTMGTtS6o111QdgnwIvyLrUawxZJ273ewPzW1ISxlSykAVTwIiBww6X4DnFz4lqRgVL/AkqZzGI4NuwQak1nIW9XJXlE/+gcAuAM/1N7oIWDGlmxqMFDEdxWV2jgGvifHBuHooi1ToM/97KbKXdL9BrkQhqt0vfE+Tp3b9lkgj5VbHnMJCyi13a1mYUdnYz9MImxMTuy7N1FB/R/CvvahJtXCMTTBvixKJSScXl0hALWYfNE18B8DAIONDUy/lZUGAnL79xv8Bh7T+rNIXdaU6UjWkKtSHxiuEjasfq2h6YFEGsBauR4v//e3DjWGDWToKQAgoguaneA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TW+vFjFLHg4/odBoVZS+3pa272iLE4Rlbx2RaPK9VGY=;
- b=j0uogCnp3ZXN+VNnn9MnYaWToj25C7dgf65ZuBO1Hfjaf3YamENPmewZLm06lBvk5SKTv9DpQiDou15VSRSDpqpT8Z0FeoVAQ8mvxoO7+fsN0CM8qpNVBetmcR+afguNE8ZvaCTHgsgLNqJTDzvz5PXTXcw8t7tUNpKDCVNRARo=
-Received: from MW4P223CA0010.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::15)
- by CH2PR12MB4328.namprd12.prod.outlook.com (2603:10b6:610:a6::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.44; Tue, 13 Jun
- 2023 03:53:27 +0000
+ bh=T/zV3f1Tz2nEEbQ4QCDQ7uQbJU78T5qbONd8+vhNzNk=;
+ b=10pO1qzFFHCrLfXJXyMA06BbE8g3KqkDdiwT7H8XpbyC0J2BbKGQlBvACpl5un+moqJkI0Ftr1cZSTr736vYpof3WnYvscE9qxOsaWW22cOEgeMPDl7KSyGlG5Dhg2q+86eRk5KgBi8h+jHT+stxRKydJbT+r+cW7W1sLN6pW2k=
+Received: from MW4P223CA0004.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::9) by
+ CY8PR12MB7585.namprd12.prod.outlook.com (2603:10b6:930:98::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6455.46; Tue, 13 Jun 2023 03:53:28 +0000
 Received: from CO1NAM11FT004.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:80:cafe::21) by MW4P223CA0010.outlook.office365.com
- (2603:10b6:303:80::15) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:303:80:cafe::b0) by MW4P223CA0004.outlook.office365.com
+ (2603:10b6:303:80::9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.34 via Frontend
- Transport; Tue, 13 Jun 2023 03:53:26 +0000
+ Transport; Tue, 13 Jun 2023 03:53:28 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,45 +47,47 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT004.mail.protection.outlook.com (10.13.175.89) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.22 via Frontend Transport; Tue, 13 Jun 2023 03:53:26 +0000
+ 15.20.6500.22 via Frontend Transport; Tue, 13 Jun 2023 03:53:27 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 12 Jun
- 2023 22:53:21 -0500
+ 2023 22:53:23 -0500
 Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
- Transport; Mon, 12 Jun 2023 22:53:20 -0500
+ Transport; Mon, 12 Jun 2023 22:53:22 -0500
 From: Stanley.Yang <Stanley.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <Hawking.Zhang@amd.com>,
  <Tao.Zhou1@amd.com>
-Subject: [PATCH Review 1/2] drm/amdgpu: Optimze checking ras supported
-Date: Tue, 13 Jun 2023 11:53:17 +0800
-Message-ID: <20230613035318.10613-1-Stanley.Yang@amd.com>
+Subject: [PATCH Review 2/2] drm/amdgpu: Add checking mc_vram_size
+Date: Tue, 13 Jun 2023 11:53:18 +0800
+Message-ID: <20230613035318.10613-2-Stanley.Yang@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20230613035318.10613-1-Stanley.Yang@amd.com>
+References: <20230613035318.10613-1-Stanley.Yang@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT004:EE_|CH2PR12MB4328:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc76d5d3-ec9a-4c3b-6ac4-08db6bc1bde5
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT004:EE_|CY8PR12MB7585:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9dbae24d-5c1f-41e7-d1bb-08db6bc1bed3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: M54ZRNF2q78GhCwCrhUeIGh2SLc+xfreR+Xqjd444mQSBUdme0e5chK1Q1t3x9ahUEQP20fEy9O73IPlttZBlPN5NHD1QfHx5KcStZrN8TWC8qCiAIN9rO3qkbfCLiTm7mcc8k0FOkLERA540iQovvulwaoIcIhUQufd5m7bpXYfpv21VHI42mmdXdDR1tN9uV3h5y6VvhcXBSXTBhWNr0IUQW7nSg7UrKsyTk8Em2ZY/f0dKtSCIyM9doLOg5MErF8nA0ccYGe6JhwTPI3BJT8xuC4t3PTC3M8hxkJSIBNzQ/McLSIxXlWuZl6GwZUCBo42tn0IaYOpJCtHdKVd+CuV8am7HcGM7pZLdxQbPE1Lgvb06hGsftveT4SOL+NvEcPQU8a4G9OIUnSH0b6zROCYpkbxy6qAp91K4ApQv5nEmb0OwRkHtmvvsQ9vrd1qH3SC4fLjAfWpXdJjoZrZreze6m2YU+RDWeeYPWK1UpQFzjApuHxiS4uE9ZYETXMutbpdnncosvc/7s07F/RwAvOaCLExDZ4s5NUueenoX00415i7DOnaGYEL1fYM7H+YSQkvN/FnZvykBknM8vkAVJFL+UhZKihpOm5awOOo/zRmbWh2an4f32Zim7WV9X5aBEGG3Wuzyo8Q7iSgkO4nJ5mj9/NT0VC+14oaTSPxsIntB8eDQo5EX6kSK5XrP4YZEGacJMU5o6KoehHX+iYOGDcL9CzfdS3akSa3F6wZLO2OwCgaOVge24JUuTShykk0BX+g3kW+xlNXijkLhNCHog==
+X-Microsoft-Antispam-Message-Info: RWtIjvTuBZOHgVS+KWKdAdDx4yZfv8ibsgtYVINQZj4WAN/8fDfTYa1af+GSm4GJB20Uh/k9vDscDqgbaXhQ3TFdn/LB+p/Pz9ksvYPE5P1bDRud+OphtAZmxj//pwBtQLelauqihUpoYYbrJNOs8A/Jkg0gSv+rZUqbWOHIeVW33+QfFQxWj2/x7Ff5Dct4LEHrK0QwcgvzDm4nc822F9PBme5psrKKiVF3ZINBZdh5+1neH69bYG49W7xDKmY6RzYc6cTapV4jNg3iHSiGkVi+IkpSAZXeCrPoBtcy21scFzcqbDF4a9ZHF6BPiIWpEFb2FxLGL1ibtjhQqbSSEzk1hCANdgIs9WrdnsHJBYrfcjuei2ig0xZS6Z7GLYAIMxCCN6xWO1mvH29ex8c6GLyzpofZYIfA72csOmYJ07vcp05vjdZQSsPwHDpsOUoAgTomNlbzXKVxCBQl6U4r40EWBm2+GEy+KbIj5SUagbl6TfTyt5frfxn7XQjZNzFnALE8idqomWUCHGJniqqGg847JL9lKHMx7xYnZe7ihHC8RbC2v0bjnlUHD8gvaeVWMiujMfO9NKkvoR/QRJrSX50RLABiZbsp/qrXXK5qBFH9eOpZF8xTUugK3UYk3ZmNnOpvc7/wuZJE0O6kDe07L6CWM0yDqCW5i19NnBmYwgdhtQP432DYdmRmokvTPU8k3VYfZPZKYpVxVDeUZZyyorja86+5gLAr5mCEiFmTn9wT3SQpUynNizJmVB4oYDYZtcN5jXOXVvQKnOzv7DCgXA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(376002)(39860400002)(346002)(136003)(451199021)(36840700001)(46966006)(40470700004)(316002)(7696005)(40460700003)(41300700001)(426003)(336012)(2616005)(86362001)(82310400005)(26005)(186003)(1076003)(47076005)(36860700001)(83380400001)(2906002)(81166007)(82740400003)(356005)(40480700001)(36756003)(5660300002)(8936002)(8676002)(70206006)(70586007)(4326008)(478600001)(110136005)(6636002)(6666004)(36900700001);
+ SFS:(13230028)(4636009)(39860400002)(136003)(376002)(396003)(346002)(451199021)(46966006)(40470700004)(36840700001)(86362001)(36756003)(478600001)(110136005)(4326008)(6636002)(70206006)(6666004)(316002)(70586007)(7696005)(40480700001)(8676002)(41300700001)(5660300002)(4744005)(2906002)(8936002)(82310400005)(356005)(81166007)(82740400003)(2616005)(426003)(336012)(1076003)(26005)(186003)(83380400001)(47076005)(36860700001)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2023 03:53:26.0440 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc76d5d3-ec9a-4c3b-6ac4-08db6bc1bde5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2023 03:53:27.5907 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9dbae24d-5c1f-41e7-d1bb-08db6bc1bed3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT004.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4328
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7585
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,108 +103,28 @@ Cc: "Stanley.Yang" <Stanley.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Using "is_app_apu" to identify device in the native
-APU mode or carveout mode.
+Do not compare injection address with mc_vram_size
+if mc_vram_size is zero.
 
 Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |  8 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 34 ++++++++++++++-----------
- 3 files changed, 23 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 78bacea951a9..352e958b190a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1653,7 +1653,7 @@ int psp_ras_initialize(struct psp_context *psp)
- 
- 	if (amdgpu_ras_is_poison_mode_supported(adev))
- 		ras_cmd->ras_in_message.init_flags.poison_mode_en = 1;
--	if (!adev->gmc.xgmi.connected_to_cpu)
-+	if (!adev->gmc.xgmi.connected_to_cpu && !adev->gmc.is_app_apu)
- 		ras_cmd->ras_in_message.init_flags.dgpu_mode = 1;
- 	ras_cmd->ras_in_message.init_flags.xcc_mask =
- 		adev->gfx.xcc_mask;
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 7a0924469e4f..56bb0db207b9 100644
+index 56bb0db207b9..3c041efcf0c4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1689,8 +1689,7 @@ static void amdgpu_ras_interrupt_poison_consumption_handler(struct ras_manager *
- 		}
- 	}
- 
--	if (!adev->gmc.xgmi.connected_to_cpu)
--		amdgpu_umc_poison_handler(adev, false);
-+	amdgpu_umc_poison_handler(adev, false);
- 
- 	if (block_obj->hw_ops && block_obj->hw_ops->handle_poison_consumption)
- 		poison_stat = block_obj->hw_ops->handle_poison_consumption(adev);
-@@ -2458,11 +2457,10 @@ static void amdgpu_ras_check_supported(struct amdgpu_device *adev)
- {
- 	adev->ras_hw_enabled = adev->ras_enabled = 0;
- 
--	if (!adev->is_atom_fw ||
--	    !amdgpu_ras_asic_supported(adev))
-+	if (!amdgpu_ras_asic_supported(adev))
- 		return;
- 
--	if (!adev->gmc.xgmi.connected_to_cpu) {
-+	if (!adev->gmc.xgmi.connected_to_cpu &&	!adev->gmc.is_app_apu) {
- 		if (amdgpu_atomfirmware_mem_ecc_supported(adev)) {
- 			dev_info(adev->dev, "MEM ECC is active.\n");
- 			adev->ras_hw_enabled |= (1 << AMDGPU_RAS_BLOCK__UMC |
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-index 1edf8e6aeb16..db0d94ca4ffc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -169,27 +169,31 @@ int amdgpu_umc_poison_handler(struct amdgpu_device *adev, bool reset)
- {
- 	int ret = AMDGPU_RAS_SUCCESS;
- 
--	if (!amdgpu_sriov_vf(adev)) {
--		if (!adev->gmc.xgmi.connected_to_cpu) {
--			struct ras_err_data err_data = {0, 0, 0, NULL};
--			struct ras_common_if head = {
--				.block = AMDGPU_RAS_BLOCK__UMC,
--			};
--			struct ras_manager *obj = amdgpu_ras_find_obj(adev, &head);
--
--			ret = amdgpu_umc_do_page_retirement(adev, &err_data, NULL, reset);
--
--			if (ret == AMDGPU_RAS_SUCCESS && obj) {
--				obj->err_data.ue_count += err_data.ue_count;
--				obj->err_data.ce_count += err_data.ce_count;
--			}
--		} else if (reset) {
-+	if (adev->gmc.xgmi.connected_to_cpu ||
-+		adev->gmc.is_app_apu) {
-+		if (reset) {
- 			/* MCA poison handler is only responsible for GPU reset,
- 			 * let MCA notifier do page retirement.
- 			 */
- 			kgd2kfd_set_sram_ecc_flag(adev->kfd.dev);
- 			amdgpu_ras_reset_gpu(adev);
- 		}
-+		return ret;
-+	}
-+
-+	if (!amdgpu_sriov_vf(adev)) {
-+		struct ras_err_data err_data = {0, 0, 0, NULL};
-+		struct ras_common_if head = {
-+			.block = AMDGPU_RAS_BLOCK__UMC,
-+		};
-+		struct ras_manager *obj = amdgpu_ras_find_obj(adev, &head);
-+
-+		ret = amdgpu_umc_do_page_retirement(adev, &err_data, NULL, reset);
-+
-+		if (ret == AMDGPU_RAS_SUCCESS && obj) {
-+			obj->err_data.ue_count += err_data.ue_count;
-+			obj->err_data.ce_count += err_data.ce_count;
-+		}
- 	} else {
- 		if (adev->virt.ops && adev->virt.ops->ras_poison_handler)
- 			adev->virt.ops->ras_poison_handler(adev);
+@@ -494,7 +494,8 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct file *f,
+ 		ret = amdgpu_ras_feature_enable(adev, &data.head, 1);
+ 		break;
+ 	case 2:
+-		if ((data.inject.address >= adev->gmc.mc_vram_size) ||
++		if ((data.inject.address >= adev->gmc.mc_vram_size &&
++		    adev->gmc.mc_vram_size) ||
+ 		    (data.inject.address >= RAS_UMC_INJECT_ADDR_LIMIT)) {
+ 			dev_warn(adev->dev, "RAS WARN: input address "
+ 					"0x%llx is invalid.",
 -- 
 2.17.1
 
