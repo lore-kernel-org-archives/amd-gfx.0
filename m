@@ -4,37 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5003DEB64D7
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 16:57:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FB98C001DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 21:38:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4A5410E3CD;
-	Tue, 13 Jun 2023 16:57:11 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95AC010E3BA;
- Tue, 13 Jun 2023 15:44:00 +0000 (UTC)
-Received: from ideasonboard.com (unknown
- [IPv6:2001:b07:5d2e:52c9:72c3:346:a663:c82d])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0F67AE4;
- Tue, 13 Jun 2023 17:43:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1686671008;
- bh=69Y8mbPkcrpHvAWJab0wmj4G9uavhZYYSLIf/HtXip4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=q9qJOZXuM0Md7IFQuErNgFFt28HvD+xzojk0IbacpF5xYQGEoHbpl316yTQ40J/z/
- HpUskdMcYa/UJj6UD98ac03OnavF2UYQCjUCovoVjmThU3DUb3r6tGNCNGtaJM6a6h
- KXuqUbIJhKMIuAmogfHIo2+tVUK0WRHyPRYEzMQg=
-Date: Tue, 13 Jun 2023 17:43:55 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Melissa Wen <mwen@igalia.com>
-Subject: Re: [RFC PATCH v2 00/18] Add DRM CRTC 3D LUT interface
-Message-ID: <yevhvooznvpqbuybp7tmbo6qgrbxzqrs4y2k4onrjnfbcz42et@hmiwqw74dhgc>
-References: <20230109143846.1966301-1-mwen@igalia.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20230109143846.1966301-1-mwen@igalia.com>
-X-Mailman-Approved-At: Tue, 13 Jun 2023 16:57:10 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12A7A10E3E2;
+	Tue, 13 Jun 2023 21:38:41 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AFB110E087;
+ Tue, 13 Jun 2023 21:38:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1686692317; x=1718228317;
+ h=date:from:to:cc:subject:message-id;
+ bh=Guc7gtRTxli+wBjPsahIGhnNE4Kjiv1U0ukfm90hN6g=;
+ b=lzFkhUWue1ReuECBHcuFJdztuqGUkVzsGzdAsVuiBs0qBfxb4MyZKRdF
+ zi9RKN/NWDBL2DwKHBfR1dSfmqaRZbIBIA4+vdC54vSQHH/SLyx8AAhBj
+ NjSxNxEBFuNnUTvkpqbin1HUzXyNLQzZULzMO6LOINRj3kcaXJrmw06it
+ ucXywCNBcVQq1L6kohS8cyxgj4CxHT0fqUYQXKOleFm6DDD8wZijUzV7C
+ igkH0zukH5uvbsRIp7cPaNeRIhJkT509pcITwpg3qOhyJG4SdVq18nmla
+ H4bj0IzuRMq24wjKKTy46K5EOejPhLq7nlrMe/n6WRAEW8+S4NDKmAoI8 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10740"; a="386859602"
+X-IronPort-AV: E=Sophos;i="6.00,240,1681196400"; d="scan'208";a="386859602"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2023 14:38:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10740"; a="662147806"
+X-IronPort-AV: E=Sophos;i="6.00,240,1681196400"; d="scan'208";a="662147806"
+Received: from lkp-server01.sh.intel.com (HELO 211f47bdb1cb) ([10.239.97.150])
+ by orsmga003.jf.intel.com with ESMTP; 13 Jun 2023 14:38:23 -0700
+Received: from kbuild by 211f47bdb1cb with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1q9BiZ-0001ng-01;
+ Tue, 13 Jun 2023 21:38:23 +0000
+Date: Wed, 14 Jun 2023 05:38:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 1f6ce8392d6ff486af5ca96df9ded5882c4b6977
+Message-ID: <202306140504.RvxBbOLo-lkp@intel.com>
+User-Agent: s-nail v14.9.24
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,135 +54,280 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
- laurent.pinchart+renesas@ideasonboard.com,
- Shashank Sharma <shashank.sharma@amd.com>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, alex.hung@amd.com, harry.wentland@amd.com,
- tzimmermann@suse.de, sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, ppaalanen@gmail.com, seanpaul@chromium.org,
- daniel@ffwll.ch, bhawanpreet.lakha@amd.com, sungjoon.kim@amd.com,
- Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org, christian.koenig@amd.com,
- kernel-dev@igalia.com, alexander.deucher@amd.com, nicholas.kazlauskas@amd.com,
- Joshua Ashton <joshua@froggi.es>
+Cc: linux-arch@vger.kernel.org, linux-cifs@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-rdma@vger.kernel.org,
+ netdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ amd-gfx@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>, linux-btrfs@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, kvmarm@lists.linux.dev,
+ linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kunit-dev@googlegroups.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 1f6ce8392d6ff486af5ca96df9ded5882c4b6977  Add linux-next specific files for 20230613
 
-   I'm completing the support for 3D LUT on R-Car DU peripheral
-and I have used this series as a base.
+Error/Warning reports:
 
-I'm wondering, since quite some time has passed without any update if
-this series is still a thing and it makes any sense for me to try to
-bring it forward.
+https://lore.kernel.org/oe-kbuild-all/202306082341.UQtCM8PO-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202306122223.HHER4zOo-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202306132155.BFZc9arF-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202306132237.Z4LJE8bP-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202306140347.S9nJS3Al-lkp@intel.com
 
-I'm asking as I've noticed:
-"[PATCH 00/36] drm/amd/display: add AMD driver-specific properties for color mgmt"
+Error/Warning: (recently discovered and may have been fixed)
 
-which seems to supersede this proposal with driver-specific
-properties.
+arch/microblaze/include/asm/page.h:34: warning: "ARCH_DMA_MINALIGN" redefined
+arch/parisc/kernel/pdt.c:65:6: warning: no previous prototype for 'arch_report_meminfo' [-Wmissing-prototypes]
+csky-linux-ld: drivers/net/ethernet/sfc/ef100_netdev.c:114: undefined reference to `efx_tc_netevent_event'
+drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c:76: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/gpu/drm/i915/display/intel_display_power.h:256:70: error: declaration of 'struct seq_file' will not be visible outside of this function [-Werror,-Wvisibility]
+drivers/leds/leds-cht-wcove.c:144:21: warning: no previous prototype for 'cht_wc_leds_brightness_get' [-Wmissing-prototypes]
+include/asm-generic/bitops/instrumented-non-atomic.h:141: undefined reference to `uv_info'
+lib/kunit/executor_test.c:138:4: warning: cast from 'void (*)(const void *)' to 'kunit_action_t *' (aka 'void (*)(void *)') converts to incompatible function type [-Wcast-function-type-strict]
+lib/kunit/test.c:775:38: warning: cast from 'void (*)(const void *)' to 'kunit_action_t *' (aka 'void (*)(void *)') converts to incompatible function type [-Wcast-function-type-strict]
 
-I asked Melissa privately but I wasn't able to get an hold of her, so
-if anyone has any clue feel free to reply :)
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-Thanks
-  j
+arch/arm64/kvm/mmu.c:147:3-9: preceding lock on line 140
+drivers/net/ethernet/mellanox/mlx5/core/lib/devcom.c:98 mlx5_devcom_register_device() error: uninitialized symbol 'tmp_dev'.
+drivers/usb/cdns3/cdns3-starfive.c:23: warning: expecting prototype for cdns3(). Prototype was for USB_STRAP_HOST() instead
+fs/btrfs/volumes.c:6404 btrfs_map_block() error: we previously assumed 'mirror_num_ret' could be null (see line 6242)
+fs/smb/client/cifsfs.c:982 cifs_smb3_do_mount() warn: possible memory leak of 'cifs_sb'
+fs/smb/client/cifssmb.c:4089 CIFSFindFirst() warn: missing error code? 'rc'
+fs/smb/client/cifssmb.c:4216 CIFSFindNext() warn: missing error code? 'rc'
+fs/smb/client/connect.c:2775 cifs_match_super() error: 'tlink' dereferencing possible ERR_PTR()
+fs/smb/client/connect.c:2974 generic_ip_connect() error: we previously assumed 'socket' could be null (see line 2962)
+lib/kunit/test.c:336 __kunit_abort() warn: ignoring unreachable code.
 
-On Mon, Jan 09, 2023 at 01:38:28PM -0100, Melissa Wen wrote:
-> Hi,
->
-> After collecting comments in different places, here is a second version
-> of the work on adding DRM CRTC 3D LUT support to the current DRM color
-> mgmt interface. In comparison to previous proposals [1][2][3], here we
-> add 3D LUT before gamma 1D LUT, but also a shaper 1D LUT before 3D LUT,
-> that means the following DRM CRTC color correction pipeline:
->
-> Blend -> Degamma 1D LUT -> CTM -> Shaper 1D LUT -> 3D LUT -> Gamma 1D LUT
->
-> and we also add a DRM CRTC LUT3D_MODE property, based on Alex Hung
-> proposal for pre-blending 3D LUT [4] (Thanks!), instead of just a
-> LUT3D_SIZE, that allows userspace to use different supported settings of
-> 3D LUT, fitting VA-API and new color API better. In this sense, I
-> adjusted the pre-blending proposal for post-blending usage.
->
-> Patches 1-6 targets the addition of shaper LUT and 3D LUT properties to
-> the current DRM CRTC color mgmt pipeline. Patch 6 can be considered an
-> extra/optional patch to define a default value for LUT3D_MODE, inspired
-> by what we do for the plane blend mode property (pre-multiplied).
->
-> Patches 7-18 targets AMD display code to enable shaper and 3D LUT usage
-> on DCN 301 (our HW case). Patches 7-9 performs code cleanups on current
-> AMD DM colors code, patch 10 updates AMD stream in case of user 3D LUT
-> changes, patch 11/12 rework AMD MPC 3D LUT resource handling by context
-> for DCN 301 (easily extendible to other DCN families). Finally, from
-> 13-18, we wire up SHAPER LUT, LUT3D and LUT3D MODE to AMD display
-> driver, exposing modes supported by HW and programming user shaper and
-> 3D LUT accordingly.
->
-> Our target userspace is Gamescope/SteamOS.
->
-> Basic IGT tests were based on [5][6] and are available here (in-progress):
-> https://gitlab.freedesktop.org/mwen/igt-gpu-tools/-/commits/crtc-lut3d-api
->
-> [1] https://lore.kernel.org/all/20201221015730.28333-1-laurent.pinchart+renesas@ideasonboard.com/
-> [2] https://github.com/vsyrjala/linux/commit/4d28e8ddf2a076f30f9e5bdc17cbb4656fe23e69
-> [3] https://lore.kernel.org/amd-gfx/20220619223104.667413-1-mwen@igalia.com/
-> [4] https://lore.kernel.org/dri-devel/20221004211451.1475215-1-alex.hung@amd.com/
-> [5] https://patchwork.freedesktop.org/series/90165/
-> [6] https://patchwork.freedesktop.org/series/109402/
-> [VA_API] http://intel.github.io/libva/structVAProcFilterParameterBuffer3DLUT.html
-> [KMS_pipe_API] https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/11
->
-> Let me know your thoughts.
->
-> Thanks,
->
-> Melissa
->
-> Alex Hung (2):
->   drm: Add 3D LUT mode and its attributes
->   drm/amd/display: Define 3D LUT struct for HDR planes
->
-> Melissa Wen (16):
->   drm/drm_color_mgmt: add shaper LUT to color mgmt properties
->   drm/drm_color_mgmt: add 3D LUT props to DRM color mgmt
->   drm/drm_color_mgmt: add function to create 3D LUT modes supported
->   drm/drm_color_mgmt: add function to attach 3D LUT props
->   drm/drm_color_mgmt: set first lut3d mode as default
->   drm/amd/display: remove unused regamma condition
->   drm/amd/display: add comments to describe DM crtc color mgmt behavior
->   drm/amd/display: encapsulate atomic regamma operation
->   drm/amd/display: update lut3d and shaper lut to stream
->   drm/amd/display: handle MPC 3D LUT resources for a given context
->   drm/amd/display: acquire/release 3D LUT resources for ctx on DCN301
->   drm/amd/display: expand array of supported 3D LUT modes
->   drm/amd/display: enable 3D-LUT DRM properties if supported
->   drm/amd/display: add user 3D LUT support to the amdgpu_dm color
->     pipeline
->   drm/amd/display: decouple steps to reuse in shaper LUT support
->   drm/amd/display: add user shaper LUT support to amdgpu_dm color
->     pipeline
->
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 +
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
->  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 370 ++++++++++++++++--
->  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   2 +
->  drivers/gpu/drm/amd/display/dc/core/dc.c      |  49 ++-
->  drivers/gpu/drm/amd/display/dc/dc.h           |   8 +
->  .../amd/display/dc/dcn301/dcn301_resource.c   |  47 ++-
->  .../amd/display/modules/color/color_gamma.h   |  43 ++
->  drivers/gpu/drm/drm_atomic_state_helper.c     |   7 +
->  drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
->  drivers/gpu/drm/drm_color_mgmt.c              | 127 ++++++
->  drivers/gpu/drm/drm_fb_helper.c               |   5 +
->  drivers/gpu/drm/drm_mode_config.c             |  21 +
->  include/drm/drm_color_mgmt.h                  |   8 +
->  include/drm/drm_crtc.h                        |  32 +-
->  include/drm/drm_mode_config.h                 |  25 ++
->  include/drm/drm_mode_object.h                 |   2 +-
->  include/uapi/drm/drm_mode.h                   |  17 +
->  18 files changed, 757 insertions(+), 39 deletions(-)
->
-> --
-> 2.35.1
->
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arm-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arm-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arm64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- arm64-randconfig-c033-20230611
+|   `-- arch-arm64-kvm-mmu.c:preceding-lock-on-line
+|-- csky-randconfig-c044-20230612
+|   |-- csky-linux-ld:drivers-net-ethernet-sfc-ef100_netdev.c:undefined-reference-to-efx_tc_netevent_event
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-leds-leds-cht-wcove.c:warning:no-previous-prototype-for-cht_wc_leds_brightness_get
+|-- i386-randconfig-m021-20230612
+|   |-- fs-smb-client-cifsfs.c-cifs_smb3_do_mount()-warn:possible-memory-leak-of-cifs_sb
+|   |-- fs-smb-client-cifssmb.c-CIFSFindFirst()-warn:missing-error-code-rc
+|   |-- fs-smb-client-cifssmb.c-CIFSFindNext()-warn:missing-error-code-rc
+|   |-- fs-smb-client-connect.c-cifs_match_super()-error:tlink-dereferencing-possible-ERR_PTR()
+|   `-- fs-smb-client-connect.c-generic_ip_connect()-error:we-previously-assumed-socket-could-be-null-(see-line-)
+|-- m68k-randconfig-m031-20230612
+|   |-- fs-btrfs-volumes.c-btrfs_map_block()-error:we-previously-assumed-mirror_num_ret-could-be-null-(see-line-)
+|   `-- lib-kunit-test.c-__kunit_abort()-warn:ignoring-unreachable-code.
+|-- microblaze-buildonly-randconfig-r002-20230612
+|   `-- arch-microblaze-include-asm-page.h:warning:ARCH_DMA_MINALIGN-redefined
+|-- mips-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- mips-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- openrisc-randconfig-r013-20230612
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- parisc-allyesconfig
+|   |-- arch-parisc-kernel-pdt.c:warning:no-previous-prototype-for-arch_report_meminfo
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- parisc-defconfig
+|   `-- arch-parisc-kernel-pdt.c:warning:no-previous-prototype-for-arch_report_meminfo
+|-- parisc-randconfig-r004-20230612
+|   `-- arch-parisc-kernel-pdt.c:warning:no-previous-prototype-for-arch_report_meminfo
+|-- parisc-randconfig-s031-20230612
+|   `-- arch-parisc-kernel-pdt.c:warning:no-previous-prototype-for-arch_report_meminfo
+|-- parisc64-defconfig
+|   `-- arch-parisc-kernel-pdt.c:warning:no-previous-prototype-for-arch_report_meminfo
+|-- powerpc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- riscv-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-usb-cdns3-cdns3-starfive.c:warning:expecting-prototype-for-cdns3().-Prototype-was-for-USB_STRAP_HOST()-instead
+|-- riscv-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-usb-cdns3-cdns3-starfive.c:warning:expecting-prototype-for-cdns3().-Prototype-was-for-USB_STRAP_HOST()-instead
+|-- s390-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- s390-randconfig-r026-20230612
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- s390-randconfig-r044-20230612
+|   `-- include-asm-generic-bitops-instrumented-non-atomic.h:undefined-reference-to-uv_info
+|-- sparc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|-- x86_64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras_eeprom.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-leds-leds-cht-wcove.c:warning:no-previous-prototype-for-cht_wc_leds_brightness_get
+`-- x86_64-randconfig-m001-20230612
+    |-- drivers-net-ethernet-mellanox-mlx5-core-lib-devcom.c-mlx5_devcom_register_device()-error:uninitialized-symbol-tmp_dev-.
+    |-- fs-smb-client-cifsfs.c-cifs_smb3_do_mount()-warn:possible-memory-leak-of-cifs_sb
+    |-- fs-smb-client-cifssmb.c-CIFSFindFirst()-warn:missing-error-code-rc
+    |-- fs-smb-client-cifssmb.c-CIFSFindNext()-warn:missing-error-code-rc
+    |-- fs-smb-client-connect.c-cifs_match_super()-error:tlink-dereferencing-possible-ERR_PTR()
+    `-- fs-smb-client-connect.c-generic_ip_connect()-error:we-previously-assumed-socket-could-be-null-(see-line-)
+clang_recent_errors
+|-- hexagon-buildonly-randconfig-r006-20230612
+|   |-- lib-kunit-executor_test.c:warning:cast-from-void-(-)(const-void-)-to-kunit_action_t-(aka-void-(-)(void-)-)-converts-to-incompatible-function-type
+|   `-- lib-kunit-test.c:warning:cast-from-void-(-)(const-void-)-to-kunit_action_t-(aka-void-(-)(void-)-)-converts-to-incompatible-function-type
+|-- hexagon-randconfig-r041-20230612
+|   |-- lib-kunit-executor_test.c:warning:cast-from-void-(-)(const-void-)-to-kunit_action_t-(aka-void-(-)(void-)-)-converts-to-incompatible-function-type
+|   `-- lib-kunit-test.c:warning:cast-from-void-(-)(const-void-)-to-kunit_action_t-(aka-void-(-)(void-)-)-converts-to-incompatible-function-type
+|-- hexagon-randconfig-r045-20230612
+|   |-- lib-kunit-executor_test.c:warning:cast-from-void-(-)(const-void-)-to-kunit_action_t-(aka-void-(-)(void-)-)-converts-to-incompatible-function-type
+|   `-- lib-kunit-test.c:warning:cast-from-void-(-)(const-void-)-to-kunit_action_t-(aka-void-(-)(void-)-)-converts-to-incompatible-function-type
+|-- riscv-randconfig-r003-20230612
+|   |-- lib-kunit-executor_test.c:warning:cast-from-void-(-)(const-void-)-to-kunit_action_t-(aka-void-(-)(void-)-)-converts-to-incompatible-function-type
+|   `-- lib-kunit-test.c:warning:cast-from-void-(-)(const-void-)-to-kunit_action_t-(aka-void-(-)(void-)-)-converts-to-incompatible-function-type
+`-- x86_64-randconfig-r036-20230612
+    `-- drivers-gpu-drm-i915-display-intel_display_power.h:error:declaration-of-struct-seq_file-will-not-be-visible-outside-of-this-function-Werror-Wvisibility
+
+elapsed time: 816m
+
+configs tested: 126
+configs skipped: 6
+
+tested configs:
+alpha                            allyesconfig   gcc  
+alpha        buildonly-randconfig-r001-20230612   gcc  
+alpha                               defconfig   gcc  
+alpha                randconfig-r031-20230612   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r015-20230612   gcc  
+arc                  randconfig-r025-20230612   gcc  
+arc                  randconfig-r043-20230612   gcc  
+arm                              alldefconfig   clang
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                         axm55xx_defconfig   gcc  
+arm          buildonly-randconfig-r005-20230612   clang
+arm                     davinci_all_defconfig   clang
+arm                                 defconfig   gcc  
+arm                            hisi_defconfig   gcc  
+arm                            mmp2_defconfig   clang
+arm                         nhk8815_defconfig   gcc  
+arm                  randconfig-r046-20230612   clang
+arm                           spitz_defconfig   clang
+arm                           u8500_defconfig   gcc  
+arm64                            allyesconfig   gcc  
+arm64                               defconfig   gcc  
+csky                                defconfig   gcc  
+hexagon      buildonly-randconfig-r006-20230612   clang
+hexagon              randconfig-r041-20230612   clang
+hexagon              randconfig-r045-20230612   clang
+i386                             allyesconfig   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                 randconfig-i001-20230612   clang
+i386                 randconfig-i002-20230612   clang
+i386                 randconfig-i003-20230612   clang
+i386                 randconfig-i004-20230612   clang
+i386                 randconfig-i005-20230612   clang
+i386                 randconfig-i006-20230612   clang
+i386                 randconfig-i011-20230612   gcc  
+i386                 randconfig-i012-20230612   gcc  
+i386                 randconfig-i013-20230612   gcc  
+i386                 randconfig-i014-20230612   gcc  
+i386                 randconfig-i015-20230612   gcc  
+i386                 randconfig-i016-20230612   gcc  
+i386                 randconfig-r012-20230612   gcc  
+i386                 randconfig-r014-20230612   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch            randconfig-r035-20230612   gcc  
+m68k                             allmodconfig   gcc  
+m68k                             allyesconfig   gcc  
+m68k                                defconfig   gcc  
+m68k                        m5307c3_defconfig   gcc  
+m68k                 randconfig-r023-20230612   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                        maltaup_defconfig   clang
+mips                        omega2p_defconfig   clang
+mips                 randconfig-r001-20230612   gcc  
+mips                 randconfig-r011-20230612   clang
+mips                       rbtx49xx_defconfig   clang
+mips                         rt305x_defconfig   gcc  
+mips                           xway_defconfig   gcc  
+nios2        buildonly-randconfig-r003-20230612   gcc  
+nios2                               defconfig   gcc  
+nios2                randconfig-r022-20230612   gcc  
+openrisc     buildonly-randconfig-r004-20230612   gcc  
+openrisc             randconfig-r013-20230612   gcc  
+openrisc             randconfig-r024-20230612   gcc  
+parisc                           allyesconfig   gcc  
+parisc                              defconfig   gcc  
+parisc               randconfig-r004-20230612   gcc  
+parisc64                            defconfig   gcc  
+powerpc                    adder875_defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc                     mpc512x_defconfig   clang
+powerpc                  mpc885_ads_defconfig   clang
+powerpc                    mvme5100_defconfig   clang
+powerpc                     rainier_defconfig   gcc  
+powerpc              randconfig-r033-20230612   clang
+powerpc                    sam440ep_defconfig   gcc  
+powerpc                      walnut_defconfig   clang
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   clang
+riscv                             allnoconfig   gcc  
+riscv                            allyesconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                randconfig-r003-20230612   clang
+riscv                randconfig-r042-20230612   gcc  
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r016-20230612   gcc  
+s390                 randconfig-r026-20230612   gcc  
+s390                 randconfig-r044-20230612   gcc  
+sh                               allmodconfig   gcc  
+sh                             espt_defconfig   gcc  
+sh                          polaris_defconfig   gcc  
+sh                   randconfig-r002-20230612   gcc  
+sparc                            allyesconfig   gcc  
+sparc                               defconfig   gcc  
+sparc64              randconfig-r021-20230612   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   clang
+um                           x86_64_defconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64       buildonly-randconfig-r002-20230612   clang
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64               randconfig-a001-20230613   gcc  
+x86_64               randconfig-a002-20230613   gcc  
+x86_64               randconfig-a003-20230613   gcc  
+x86_64               randconfig-a004-20230613   gcc  
+x86_64               randconfig-a005-20230613   gcc  
+x86_64               randconfig-a006-20230613   gcc  
+x86_64               randconfig-a011-20230612   gcc  
+x86_64               randconfig-a012-20230612   gcc  
+x86_64               randconfig-a013-20230612   gcc  
+x86_64               randconfig-a014-20230612   gcc  
+x86_64               randconfig-a015-20230612   gcc  
+x86_64               randconfig-a016-20230612   gcc  
+x86_64               randconfig-r005-20230612   clang
+x86_64               randconfig-r036-20230612   clang
+x86_64                          rhel-8.3-rust   clang
+x86_64                               rhel-8.3   gcc  
+xtensa                          iss_defconfig   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
