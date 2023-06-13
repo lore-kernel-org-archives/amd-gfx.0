@@ -4,48 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 586E6C7EE43
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 03:01:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46405C88CBB
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 03:01:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC8E10E2FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C93010E305;
 	Tue, 13 Jun 2023 03:00:47 +0000 (UTC)
 Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 132FB10E004;
- Tue, 13 Jun 2023 03:00:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7F80010E2FD;
+ Tue, 13 Jun 2023 03:00:43 +0000 (UTC)
 Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8DxDevV24dkQmMEAA--.9387S3;
- Tue, 13 Jun 2023 11:00:37 +0800 (CST)
+ by gateway (Coremail) with SMTP id _____8DxCerY24dkWGMEAA--.9450S3;
+ Tue, 13 Jun 2023 11:00:40 +0800 (CST)
 Received: from openarena.loongson.cn (unknown [10.20.42.43])
  by localhost.localdomain (Coremail) with SMTP id
- AQAAf8BxC8rV24dkOkAYAA--.60391S2; 
- Tue, 13 Jun 2023 11:00:37 +0800 (CST)
+ AQAAf8BxC8rV24dkOkAYAA--.60391S6; 
+ Tue, 13 Jun 2023 11:00:39 +0800 (CST)
 From: Sui Jingfeng <suijingfeng@loongson.cn>
 To: Bjorn Helgaas <bhelgaas@google.com>
-Subject: [PATCH v7 0/8] PCI/VGA: Introduce is_boot_device function callback to
- vga_client_register
-Date: Tue, 13 Jun 2023 11:00:27 +0800
-Message-Id: <20230613030035.216556-1-suijingfeng@loongson.cn>
+Subject: [PATCH v7 4/8] PCI/VGA: Replace full MIT license text with SPDX
+ identifier
+Date: Tue, 13 Jun 2023 11:00:31 +0800
+Message-Id: <20230613030035.216556-5-suijingfeng@loongson.cn>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230613030035.216556-1-suijingfeng@loongson.cn>
+References: <20230613030035.216556-1-suijingfeng@loongson.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8BxC8rV24dkOkAYAA--.60391S2
+X-CM-TRANSID: AQAAf8BxC8rV24dkOkAYAA--.60391S6
 X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7ZrWUZF45Zr4kur18tFW3XFc_yoW8trWkpF
- 45KF9xAr95JF4akry7Aw4xZFy5Zan7CayfKr9rCw1a93W5Cry8trWqyFWrK34DJrWxAF4r
- tr9xKry7GF1qvrXCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+X-Coremail-Antispam: 1Uk129KBj93XoW7trWDGr1UXryfXw18Jr45XFc_yoW5JrWfpF
+ ZIkwnrGrW8WFyxGa4qkr4SyFyUX3yrCF1UKF97WF1I9rnIywnYgan8tr1rtas8AFZ7KFy5
+ ZF9rWrW5uFnrZFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
  sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
- 6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
- Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE
- 14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
- 0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
- 7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcV
- C0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF
- 04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7
- CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jOuc_UUUUU=
+ 0xBIdaVrnRJUUUBmb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
+ wI0_Gr1j6F4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
+ xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
+ Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+ Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Y
+ z7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
+ 8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE
+ 2Ix0cI8IcVAFwI0_Xr0_Ar1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6x
+ AIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIE
+ c7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU2nmRUUUUU
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,61 +60,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+Cc: Maxime Ripard <mripard@kernel.org>, linux-fbdev@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, kvm@vger.kernel.org,
+ Andi Shyti <andi.shyti@linux.intel.com>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Sui Jingfeng <15330273260@189.cn>, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ linux-pci@vger.kernel.org, David Airlie <airlied@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sui Jingfeng <15330273260@189.cn>
+Per Documentation/process/license-rules.rst, the SPDX MIT identifier is
+equivalent to including the entire MIT license text from
+LICENSES/preferred/MIT.
 
-The vga_is_firmware_default() function is arch-dependent, it's probably
-wrong if we simply remove the arch guard. As the VRAM BAR which contains
-firmware framebuffer may move, while the lfb_base and lfb_size members of
-the screen_info does not change accordingly. In short, it should take the
-re-allocation of the PCI BAR into consideration.
+Replace the MIT license text with the equivalent SPDX identifier.
 
-With the observation that device drivers or video aperture helpers may
-have better knowledge about which PCI bar contains the firmware fb,
-which could avoid the need to iterate all of the PCI BARs. But as a PCI
-function at pci/vgaarb.c, vga_is_firmware_default() is not suitable to
-make such an optimization since it is loaded too early.
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ include/linux/vgaarb.h | 23 ++---------------------
+ 1 file changed, 2 insertions(+), 21 deletions(-)
 
-There are PCI display controllers that don't have a dedicated VRAM bar,
-this function will lose its effectiveness in such a case. Luckily, the
-device driver can provide an accurate workaround.
-
-Therefore, this patch introduces a callback that allows the device driver
-to tell the VGAARB if the device is the default boot device. Also honor
-the comment: "Clients have two callback mechanisms they can use"
-
-Sui Jingfeng (8):
-  PCI/VGA: Use unsigned type for the io_state variable
-  PCI/VGA: Deal only with VGA class devices
-  PCI/VGA: Tidy up the code and comment format
-  PCI/VGA: Replace full MIT license text with SPDX identifier
-  video/aperture: Add a helper to detect if an aperture contains
-    firmware FB
-  PCI/VGA: Introduce is_boot_device function callback to
-    vga_client_register
-  drm/amdgpu: Implement the is_boot_device callback function
-  drm/radeon: Implement the is_boot_device callback function
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  12 +-
- drivers/gpu/drm/drm_aperture.c             |  16 +++
- drivers/gpu/drm/i915/display/intel_vga.c   |   3 +-
- drivers/gpu/drm/nouveau/nouveau_vga.c      |   2 +-
- drivers/gpu/drm/radeon/radeon_device.c     |  12 +-
- drivers/pci/vgaarb.c                       | 153 +++++++++++++--------
- drivers/vfio/pci/vfio_pci_core.c           |   2 +-
- drivers/video/aperture.c                   |  29 ++++
- include/drm/drm_aperture.h                 |   2 +
- include/linux/aperture.h                   |   7 +
- include/linux/vgaarb.h                     |  35 ++---
- 11 files changed, 184 insertions(+), 89 deletions(-)
-
+diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
+index 6d5465f8c3f2..97129a1bbb7d 100644
+--- a/include/linux/vgaarb.h
++++ b/include/linux/vgaarb.h
+@@ -1,3 +1,5 @@
++/* SPDX-License-Identifier: MIT */
++
+ /*
+  * The VGA aribiter manages VGA space routing and VGA resource decode to
+  * allow multiple VGA devices to be used in a system in a safe way.
+@@ -5,27 +7,6 @@
+  * (C) Copyright 2005 Benjamin Herrenschmidt <benh@kernel.crashing.org>
+  * (C) Copyright 2007 Paulo R. Zanoni <przanoni@gmail.com>
+  * (C) Copyright 2007, 2009 Tiago Vignatti <vignatti@freedesktop.org>
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice (including the next
+- * paragraph) shall be included in all copies or substantial portions of the
+- * Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+- * DEALINGS
+- * IN THE SOFTWARE.
+- *
+  */
+ 
+ #ifndef LINUX_VGA_H
 -- 
 2.25.1
 
