@@ -4,90 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77E3FEB64D7
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 16:42:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5003DEB64D7
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 16:57:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C218F10E3F3;
-	Tue, 13 Jun 2023 16:42:12 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2081.outbound.protection.outlook.com [40.107.95.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD6710E0DF
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jun 2023 16:42:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BwHKboNcu0N2PdbJVz4uTBQSD9cIV9rnGkppySiL+SPFWFv7ck+TZvhy17VNVU+a1e6IUGCI3ToUsATlR98Svhqim1a1Slbvyrb1SgM+cKDY3OUIMm83hK/TbfbE3IiWOKjoypu7esFZLl8ZCTCDfv8mNDDuyVPI+pOvvGjOfWCULDnTfST4Ew7MCPdTcoEvt0ys9Pq1PuKC7/gNtsi5/fzbtoEVMR8t5gcPeryjQokj2yZUj8f11FsnXqSgiwbbog4+9jBN+cjtAzaamVe0a14Oxi2c21wONFwPStE++t0vda3t7dO7E16yHKpKg9K1p1E71NzutMj6OA2ZePMY9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2x5tqixepVRSUMJQ5KtD7WykBhEIfsgpseqNZZsoMEo=;
- b=hf6HjCMYV2lfzxoCifighjokTeuj/VZdGr8cpiblA9To6i10wjrc8C4aVT23Od/fblqZtEE04OVE0fcfPHTJYZXzdtDkiNh7KM5YT+Iti9ByqGxBlkZwFW52wHmHfbD4BNCJSWruLOk8mntj7KiEzQaJF6cvhIRRD8u3tu+Kvr1g478jDZIhlg5vviAKZ+8d2aCP76Ub3GXCPFVVOuC443/m0EiG0YtKHfYzVs341TNvXK+WVnX+3vz9DdwCFyy99EyO98z0ts7KjDlo+SgMI2Hi3ND50sKuB6BUEBBA0kPalPJfcLq9/FYJAQ0NZs3EyyHTME1lVDRyhDUreL0SrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2x5tqixepVRSUMJQ5KtD7WykBhEIfsgpseqNZZsoMEo=;
- b=yTuRhZAFNkY92hjVA+tDF4Lj9vjFc1oglnpqM6w3k1yweovlW9I/oqCAE4M2qwOEEQYdqEuOJXWHhKgPyTB6ReaFJUYAcjyU2sjJmhB/QwHyLgw0FIg2OEfv/ZNGd5V2V+iIud87MLxbLdKLHwkl/Y2XAXJWk7PFBjCO7bmGO9w=
-Received: from SN7PR04CA0219.namprd04.prod.outlook.com (2603:10b6:806:127::14)
- by BN9PR12MB5337.namprd12.prod.outlook.com (2603:10b6:408:102::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.46; Tue, 13 Jun
- 2023 16:42:07 +0000
-Received: from SN1PEPF00026368.namprd02.prod.outlook.com
- (2603:10b6:806:127:cafe::27) by SN7PR04CA0219.outlook.office365.com
- (2603:10b6:806:127::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.35 via Frontend
- Transport; Tue, 13 Jun 2023 16:42:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF00026368.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.23 via Frontend Transport; Tue, 13 Jun 2023 16:42:06 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Tue, 13 Jun
- 2023 11:42:05 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu/pm: make mclk consistent for smu 13.0.7
-Date: Tue, 13 Jun 2023 12:41:48 -0400
-Message-ID: <20230613164148.2631132-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230613164148.2631132-1-alexander.deucher@amd.com>
-References: <20230613164148.2631132-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4A5410E3CD;
+	Tue, 13 Jun 2023 16:57:11 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95AC010E3BA;
+ Tue, 13 Jun 2023 15:44:00 +0000 (UTC)
+Received: from ideasonboard.com (unknown
+ [IPv6:2001:b07:5d2e:52c9:72c3:346:a663:c82d])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0F67AE4;
+ Tue, 13 Jun 2023 17:43:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1686671008;
+ bh=69Y8mbPkcrpHvAWJab0wmj4G9uavhZYYSLIf/HtXip4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=q9qJOZXuM0Md7IFQuErNgFFt28HvD+xzojk0IbacpF5xYQGEoHbpl316yTQ40J/z/
+ HpUskdMcYa/UJj6UD98ac03OnavF2UYQCjUCovoVjmThU3DUb3r6tGNCNGtaJM6a6h
+ KXuqUbIJhKMIuAmogfHIo2+tVUK0WRHyPRYEzMQg=
+Date: Tue, 13 Jun 2023 17:43:55 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Melissa Wen <mwen@igalia.com>
+Subject: Re: [RFC PATCH v2 00/18] Add DRM CRTC 3D LUT interface
+Message-ID: <yevhvooznvpqbuybp7tmbo6qgrbxzqrs4y2k4onrjnfbcz42et@hmiwqw74dhgc>
+References: <20230109143846.1966301-1-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026368:EE_|BN9PR12MB5337:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6298ee2-c651-4efd-af76-08db6c2d1fe0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pU8IzEiaX1s5gKny+v1zbwDmJXpqbbTtE/Jqjk6IlGBeNE5Elq0gMLXoDj7dP/QOoPmZF7lx+VHdjNQgC5KYI/uqzw8KXwM2HqjL3fXITv/+JIWApyDAnwD7aMfNb/ViQ1nORxMdT78iKvS8firwyPVtMrJ33puu1m14ly856FkTdB+6eH+L/U+WFc3MOWaplLSuZeLJktpus7Ux/35Aiw0M2lntRMiEHPr9PCoU01EuvvN74COP9QGx4IhssdgiGkBOY4Q6wxVCrkn5eqbo2izg+P3OqgGLCUsfww0tv5oScaoLt80Cd9BIX1kPL6FdrrkD0IMYDLsl+kz65Kd+nRjVlu39CCFDNh/yKs6srk304tMz4h/5A9eOeAftgICPvGslYVP0etB7TL5jrrQSWx63N1/3AHCMeGGunlSsccwi7kD8XwLXFu7m5/nWPhHu5GsiYT2TzpzAHTRmVefDzSHe3+nhUBUbegWMgXQeCEIsZmbql4LTOTQFYjLVegbfXBgMlTqPCY2vT2/+FbSIqm3tyjuwa/hLuBXZ4bVJ81ehBnMfrSQTtxmT0UoIEvizVZ40nVY6emutMb0BtzH5rrtMsbIp/y+nhNMZM6XIC4atMsUcnf4KYzHYnn5BVT0qoFS8acvOHfpHVotEf5BGudA6FoY+w7+MWyjqs6sEA9bYlXSYdW+ITAIyWbYYzC8gtd1U5Z0KzaUSUClt6uZeOwZi5Jy7Q1M+u6LMzGp4MOfs0XnkVoZuBbQnR/MW4eHBe6J612UODl9vHi9eHqr8CA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(39860400002)(396003)(376002)(451199021)(36840700001)(46966006)(40470700004)(82740400003)(40460700003)(6666004)(7696005)(478600001)(36860700001)(47076005)(186003)(426003)(26005)(336012)(1076003)(83380400001)(36756003)(16526019)(82310400005)(86362001)(2616005)(356005)(81166007)(40480700001)(5660300002)(8676002)(8936002)(316002)(41300700001)(2906002)(4744005)(4326008)(6916009)(70586007)(70206006)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2023 16:42:06.6578 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6298ee2-c651-4efd-af76-08db6c2d1fe0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026368.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5337
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20230109143846.1966301-1-mwen@igalia.com>
+X-Mailman-Approved-At: Tue, 13 Jun 2023 16:57:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,30 +46,135 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
+ laurent.pinchart+renesas@ideasonboard.com,
+ Shashank Sharma <shashank.sharma@amd.com>, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, alex.hung@amd.com, harry.wentland@amd.com,
+ tzimmermann@suse.de, sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, ppaalanen@gmail.com, seanpaul@chromium.org,
+ daniel@ffwll.ch, bhawanpreet.lakha@amd.com, sungjoon.kim@amd.com,
+ Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org, christian.koenig@amd.com,
+ kernel-dev@igalia.com, alexander.deucher@amd.com, nicholas.kazlauskas@amd.com,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use current uclk to be consistent with other dGPUs.
+Hello
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+   I'm completing the support for 3D LUT on R-Car DU peripheral
+and I have used this series as a base.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index cda4e818aab7..8eb8c30e6c69 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -949,7 +949,7 @@ static int smu_v13_0_7_read_sensor(struct smu_context *smu,
- 		break;
- 	case AMDGPU_PP_SENSOR_GFX_MCLK:
- 		ret = smu_v13_0_7_get_smu_metrics_data(smu,
--						       METRICS_AVERAGE_UCLK,
-+						       METRICS_CURR_UCLK,
- 						       (uint32_t *)data);
- 		*(uint32_t *)data *= 100;
- 		*size = 4;
--- 
-2.40.1
+I'm wondering, since quite some time has passed without any update if
+this series is still a thing and it makes any sense for me to try to
+bring it forward.
 
+I'm asking as I've noticed:
+"[PATCH 00/36] drm/amd/display: add AMD driver-specific properties for color mgmt"
+
+which seems to supersede this proposal with driver-specific
+properties.
+
+I asked Melissa privately but I wasn't able to get an hold of her, so
+if anyone has any clue feel free to reply :)
+
+Thanks
+  j
+
+On Mon, Jan 09, 2023 at 01:38:28PM -0100, Melissa Wen wrote:
+> Hi,
+>
+> After collecting comments in different places, here is a second version
+> of the work on adding DRM CRTC 3D LUT support to the current DRM color
+> mgmt interface. In comparison to previous proposals [1][2][3], here we
+> add 3D LUT before gamma 1D LUT, but also a shaper 1D LUT before 3D LUT,
+> that means the following DRM CRTC color correction pipeline:
+>
+> Blend -> Degamma 1D LUT -> CTM -> Shaper 1D LUT -> 3D LUT -> Gamma 1D LUT
+>
+> and we also add a DRM CRTC LUT3D_MODE property, based on Alex Hung
+> proposal for pre-blending 3D LUT [4] (Thanks!), instead of just a
+> LUT3D_SIZE, that allows userspace to use different supported settings of
+> 3D LUT, fitting VA-API and new color API better. In this sense, I
+> adjusted the pre-blending proposal for post-blending usage.
+>
+> Patches 1-6 targets the addition of shaper LUT and 3D LUT properties to
+> the current DRM CRTC color mgmt pipeline. Patch 6 can be considered an
+> extra/optional patch to define a default value for LUT3D_MODE, inspired
+> by what we do for the plane blend mode property (pre-multiplied).
+>
+> Patches 7-18 targets AMD display code to enable shaper and 3D LUT usage
+> on DCN 301 (our HW case). Patches 7-9 performs code cleanups on current
+> AMD DM colors code, patch 10 updates AMD stream in case of user 3D LUT
+> changes, patch 11/12 rework AMD MPC 3D LUT resource handling by context
+> for DCN 301 (easily extendible to other DCN families). Finally, from
+> 13-18, we wire up SHAPER LUT, LUT3D and LUT3D MODE to AMD display
+> driver, exposing modes supported by HW and programming user shaper and
+> 3D LUT accordingly.
+>
+> Our target userspace is Gamescope/SteamOS.
+>
+> Basic IGT tests were based on [5][6] and are available here (in-progress):
+> https://gitlab.freedesktop.org/mwen/igt-gpu-tools/-/commits/crtc-lut3d-api
+>
+> [1] https://lore.kernel.org/all/20201221015730.28333-1-laurent.pinchart+renesas@ideasonboard.com/
+> [2] https://github.com/vsyrjala/linux/commit/4d28e8ddf2a076f30f9e5bdc17cbb4656fe23e69
+> [3] https://lore.kernel.org/amd-gfx/20220619223104.667413-1-mwen@igalia.com/
+> [4] https://lore.kernel.org/dri-devel/20221004211451.1475215-1-alex.hung@amd.com/
+> [5] https://patchwork.freedesktop.org/series/90165/
+> [6] https://patchwork.freedesktop.org/series/109402/
+> [VA_API] http://intel.github.io/libva/structVAProcFilterParameterBuffer3DLUT.html
+> [KMS_pipe_API] https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/11
+>
+> Let me know your thoughts.
+>
+> Thanks,
+>
+> Melissa
+>
+> Alex Hung (2):
+>   drm: Add 3D LUT mode and its attributes
+>   drm/amd/display: Define 3D LUT struct for HDR planes
+>
+> Melissa Wen (16):
+>   drm/drm_color_mgmt: add shaper LUT to color mgmt properties
+>   drm/drm_color_mgmt: add 3D LUT props to DRM color mgmt
+>   drm/drm_color_mgmt: add function to create 3D LUT modes supported
+>   drm/drm_color_mgmt: add function to attach 3D LUT props
+>   drm/drm_color_mgmt: set first lut3d mode as default
+>   drm/amd/display: remove unused regamma condition
+>   drm/amd/display: add comments to describe DM crtc color mgmt behavior
+>   drm/amd/display: encapsulate atomic regamma operation
+>   drm/amd/display: update lut3d and shaper lut to stream
+>   drm/amd/display: handle MPC 3D LUT resources for a given context
+>   drm/amd/display: acquire/release 3D LUT resources for ctx on DCN301
+>   drm/amd/display: expand array of supported 3D LUT modes
+>   drm/amd/display: enable 3D-LUT DRM properties if supported
+>   drm/amd/display: add user 3D LUT support to the amdgpu_dm color
+>     pipeline
+>   drm/amd/display: decouple steps to reuse in shaper LUT support
+>   drm/amd/display: add user shaper LUT support to amdgpu_dm color
+>     pipeline
+>
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 +
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 370 ++++++++++++++++--
+>  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   2 +
+>  drivers/gpu/drm/amd/display/dc/core/dc.c      |  49 ++-
+>  drivers/gpu/drm/amd/display/dc/dc.h           |   8 +
+>  .../amd/display/dc/dcn301/dcn301_resource.c   |  47 ++-
+>  .../amd/display/modules/color/color_gamma.h   |  43 ++
+>  drivers/gpu/drm/drm_atomic_state_helper.c     |   7 +
+>  drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
+>  drivers/gpu/drm/drm_color_mgmt.c              | 127 ++++++
+>  drivers/gpu/drm/drm_fb_helper.c               |   5 +
+>  drivers/gpu/drm/drm_mode_config.c             |  21 +
+>  include/drm/drm_color_mgmt.h                  |   8 +
+>  include/drm/drm_crtc.h                        |  32 +-
+>  include/drm/drm_mode_config.h                 |  25 ++
+>  include/drm/drm_mode_object.h                 |   2 +-
+>  include/uapi/drm/drm_mode.h                   |  17 +
+>  18 files changed, 757 insertions(+), 39 deletions(-)
+>
+> --
+> 2.35.1
+>
