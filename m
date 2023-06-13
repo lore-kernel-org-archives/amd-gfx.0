@@ -4,58 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EE11C7EE2E
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 02:14:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FBD6C88CB6
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jun 2023 03:01:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 991F910E0D9;
-	Tue, 13 Jun 2023 02:14:34 +0000 (UTC)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA43E10E0D9
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jun 2023 02:14:32 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-3f7ebb2b82cso52164735e9.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jun 2023 19:14:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20221208.gappssmtp.com; s=20221208; t=1686622469; x=1689214469;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=KRtNz5XmC20i4MEqH2wLeCYZrIPKHzFjc7f91Y1yBQg=;
- b=wnPFj/DRCLSvp80sByEMSDDJ/SdAI+ihgCVUgCDblPd5XEOzzzy4eN2GwHNXGz13tu
- 9N2hYBlPNfDffHErk5wfcbe1UYUpS33ThFnVHreBsQIJ6mXkKJc6JbABS5gCP54RRo/h
- fRUedj4PV9nm3Vahyv4YNhCV2E4+3Qb6O++YvBAFl+CYXioibJ1tUg+/e//OaBe9PvLt
- WcqWe1G1IqUkbfBQ1UAvkK4ykOKOtUnyWOdWDqz6eJa4h2giOe6gJI/wKlroaGYpVPYl
- dNYMHepGzLTKmk4dV0Zm3bZ2Jp0nMAb8/21zD1/Jyj4wo8TNKFfPb23i972sT8RNJ2jH
- 6gVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686622469; x=1689214469;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=KRtNz5XmC20i4MEqH2wLeCYZrIPKHzFjc7f91Y1yBQg=;
- b=TK3mmwd5hCW4QBLQ7S3el1+i9pPoxJAjgu60fe+m3W+dlWOVdLhHKLaVxH2fpqhb9x
- 7BhaYfnsYxJa+T7+wt0sDzsVzoxcYtizDFk4lCzNj55d8b0h3u+LKm/5aUURyiNdBf23
- eViiW+eYmxtS+soNfr9P3mxIXHd+qyQdWqlTO6cMclzNIKw3yCefwsAd0rKZ7G53vZrv
- EW0UNORpQmFHhSPFQLYhE38GaCySdVr6ygahIDQTmbrgY4iC4GAxE/qNaGQpTCPhCgSO
- +nDpxmiStln3zuABr0jGInMuU6Ajg/2WChq+LsEA23A97KY91yN/6VwlMifgfnMlL2vY
- UH2g==
-X-Gm-Message-State: AC+VfDwREHOwvYlGZddLVfqFF77P/f4lE+87gxTSy2NQYukempK8cBE8
- BQBZT8T5sOW5PjH8AR+SOcgWB8YKqJSM4NFGem2kjw==
-X-Google-Smtp-Source: ACHHUZ6wm/rg/odUeTCEX8geHc4ucER1n7BEc2be4cGAmvJGrxhlyIH6QvX0ZmWY5faGkXjUmItcHSIMdA3kCOAxrTE=
-X-Received: by 2002:a7b:cc84:0:b0:3f6:476:915 with SMTP id
- p4-20020a7bcc84000000b003f604760915mr8434541wma.6.1686622468926; 
- Mon, 12 Jun 2023 19:14:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A05810E300;
+	Tue, 13 Jun 2023 03:00:46 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 94A8A10E2FA;
+ Tue, 13 Jun 2023 03:00:42 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8BxZ+nW24dkSWMEAA--.7406S3;
+ Tue, 13 Jun 2023 11:00:38 +0800 (CST)
+Received: from openarena.loongson.cn (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8BxC8rV24dkOkAYAA--.60391S4; 
+ Tue, 13 Jun 2023 11:00:38 +0800 (CST)
+From: Sui Jingfeng <suijingfeng@loongson.cn>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Subject: [PATCH v7 2/8] PCI/VGA: Deal only with VGA class devices
+Date: Tue, 13 Jun 2023 11:00:29 +0800
+Message-Id: <20230613030035.216556-3-suijingfeng@loongson.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230613030035.216556-1-suijingfeng@loongson.cn>
+References: <20230613030035.216556-1-suijingfeng@loongson.cn>
 MIME-Version: 1.0
-References: <20230612140019.720959-1-alexander.deucher@amd.com>
- <50548877-3012-2869-21eb-1e5224700a9b@amd.com>
-In-Reply-To: <50548877-3012-2869-21eb-1e5224700a9b@amd.com>
-From: Mike Lothian <mike@fireburn.co.uk>
-Date: Tue, 13 Jun 2023 03:14:18 +0100
-Message-ID: <CAHbf0-FKeTtq=UyK8kUP7rWJPCnBLqs-WESwzO5C8OG5divr=g@mail.gmail.com>
-Subject: Re: [PATCH] Revert "drm/amd/display: fix dpms_off issue when
- disabling bios mode"
-To: Harry Wentland <harry.wentland@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: AQAAf8BxC8rV24dkOkAYAA--.60391S4
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoW7WFW8Kr47tw4kJw1xCFy8WFX_yoW8Kw17pa
+ yrJFWrKry8Ww17Ga12qF1kZFy5ZrZ2ka4ftr4Ik34SkFZrCrW0qasYkry5A34fJrZ5JF1I
+ qay2yF1UXw47GabCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+ Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE
+ 14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
+ 0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
+ 7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcV
+ C0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF
+ 04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7
+ CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j5l1kUUUUU=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,50 +58,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Zhongwei <Zhongwei.Zhang@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks
+Deal only with the VGA devcie(pdev->class == 0x0300), so replace the
+pci_get_subsys() function with pci_get_class(). Filter the non-PCI display
+device(pdev->class != 0x0300) out. There no need to process the non-display
+PCI device.
 
-I'm happy to help debug this further
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+---
+ drivers/pci/vgaarb.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-On Mon, 12 Jun 2023 at 15:18, Harry Wentland <harry.wentland@amd.com> wrote:
->
-> On 6/12/23 10:00, Alex Deucher wrote:
-> > This reverts commit 58e67bb3c131da5ee14e4842b08e53f4888dce0a.
-> >
-> > This patch was reverted, but came back again as
-> > commit 58e67bb3c131 ("drm/amd/display: fix dpms_off issue when disabling bios mode")
-> > Revert it again as it breaks Asus G513QY / 6800M laptops.
-> >
-> > Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2259
-> > Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> > Cc: Zhongwei <Zhongwei.Zhang@amd.com>
-> > Cc: Harry Wentland <harry.wentland@amd.com>
-> > Cc: Mike Lothian <mike@fireburn.co.uk>
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->
-> Harry
->
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/core/dc.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > index be72e03cdf92..5d3d61faeb28 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > @@ -1296,7 +1296,7 @@ static void disable_vbios_mode_if_required(
-> >
-> >                                       if (pix_clk_100hz != requested_pix_clk_100hz) {
-> >                                               dc->link_srv->set_dpms_off(pipe);
-> > -                                             pipe->stream->dpms_off = true;
-> > +                                             pipe->stream->dpms_off = false;
-> >                                       }
-> >                               }
-> >                       }
->
+diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+index c1bc6c983932..22a505e877dc 100644
+--- a/drivers/pci/vgaarb.c
++++ b/drivers/pci/vgaarb.c
+@@ -754,10 +754,6 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
+ 	struct pci_dev *bridge;
+ 	u16 cmd;
+ 
+-	/* Only deal with VGA class devices */
+-	if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
+-		return false;
+-
+ 	/* Allocate structure */
+ 	vgadev = kzalloc(sizeof(struct vga_device), GFP_KERNEL);
+ 	if (vgadev == NULL) {
+@@ -1500,7 +1496,9 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+ 	struct pci_dev *pdev = to_pci_dev(dev);
+ 	bool notify = false;
+ 
+-	vgaarb_dbg(dev, "%s\n", __func__);
++	/* Only deal with VGA class devices */
++	if (pdev->class != PCI_CLASS_DISPLAY_VGA << 8)
++		return 0;
+ 
+ 	/* For now we're only intereted in devices added and removed. I didn't
+ 	 * test this thing here, so someone needs to double check for the
+@@ -1510,6 +1508,8 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+ 	else if (action == BUS_NOTIFY_DEL_DEVICE)
+ 		notify = vga_arbiter_del_pci_device(pdev);
+ 
++	vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
++
+ 	if (notify)
+ 		vga_arbiter_notify_clients();
+ 	return 0;
+@@ -1534,8 +1534,8 @@ static struct miscdevice vga_arb_device = {
+ 
+ static int __init vga_arb_device_init(void)
+ {
++	struct pci_dev *pdev = NULL;
+ 	int rc;
+-	struct pci_dev *pdev;
+ 
+ 	rc = misc_register(&vga_arb_device);
+ 	if (rc < 0)
+@@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
+ 
+ 	/* We add all PCI devices satisfying VGA class in the arbiter by
+ 	 * default */
+-	pdev = NULL;
+-	while ((pdev =
+-		pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
+-			       PCI_ANY_ID, pdev)) != NULL)
++	while (1) {
++		pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
++		if (!pdev)
++			break;
++
+ 		vga_arbiter_add_pci_device(pdev);
++	}
+ 
+ 	pr_info("loaded\n");
+ 	return rc;
+-- 
+2.25.1
+
