@@ -4,55 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BC84EB64D9
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jun 2023 10:50:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCA02EB64D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jun 2023 11:28:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9004410E43F;
-	Wed, 14 Jun 2023 10:50:42 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0116A10E24E;
- Wed, 14 Jun 2023 10:50:36 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8AxW+p7m4lkURgFAA--.10857S3;
- Wed, 14 Jun 2023 18:50:35 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8DxK8p6m4lkKIUaAA--.1634S3; 
- Wed, 14 Jun 2023 18:50:34 +0800 (CST)
-Message-ID: <dbf0d89f-717a-1f78-aef2-f30506751d4d@loongson.cn>
-Date: Wed, 14 Jun 2023 18:50:34 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 258C910E120;
+	Wed, 14 Jun 2023 11:28:22 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2078.outbound.protection.outlook.com [40.107.94.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FEF610E120
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jun 2023 11:28:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Mc/olgkRt8baLRET4L8bhHecYicN6n1UwASZfXF05VGScd0X3GAr02QrebIfUxW+El9OSb3dhHlJJlIXsg6GYOPZRGYyViUowfuR2wHWmagFMxeNUQ09B4OEMct9xqk4r3W6kqREMKmAo5SVcKNt4zcXnWOqLodU5aTwV0PUeNT0f2XsH+SbrmsQs1e2GqQu7nVpiy9VmHKuuq7xospAKcNtciPH2rCkcHyuP3vBpde2+4lhY6zgOxCdIpusOHMvmz1s5dTEFQm+Kbp12A0/JW7ZE0HL4LN2qntvXWe/G3KY44/wgED5QfTU0xfgALOCr0i+BAbd+eLmLn21iP3q+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZUj406accyqRn7TxIYRCDvErfnrbpFHXsTLF99uJN7A=;
+ b=FO2NN6FozECs7i6P/1Q3YVuWkoiozOPGl0UbzIKfnVPi8pyBeqK2AQDNjkjv7loAVHen+4O2+GMqlB+VvF73OcDJOxOZJ6PrpoQVnrHgwbjVSNL/D66ZQ5ThkDgCzSgr7VkNPidgBjNPNzalg5JUxDwd9szF//hihvwuqecmG0YqO8p/yV+Acqqg+MY5V4Nq6YiDISQc9KQ+8Hvw07oApGsbQioJO2675QMSPYQ8Rr2fTURXGGE+DcW36V0QyguwcJJlaUZu0j1IqLDlTW790Q46fOYhptL+xwO+M1ADghr7Nt1YhMzD1Nqh5YoCl0yd/lFt8BP5vNt51pPhDaopmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZUj406accyqRn7TxIYRCDvErfnrbpFHXsTLF99uJN7A=;
+ b=pid2Esv65rTLwXpnelLOajVCPbLbM4/OeU1Nxeww0ogr7nv3hVgj/Pwael6PEAgeD2KV1PknWwZvK/MEv/qNa3wUbkVICfUmmw3+AFqFrQkT+1O7kQrbwUkId96IoKIjApxAT5pZhcOtpNtV4TfT5mirrFTSsET5LY6uIG8R8VE=
+Received: from CYZPR05CA0040.namprd05.prod.outlook.com (2603:10b6:930:a3::17)
+ by CH3PR12MB9193.namprd12.prod.outlook.com (2603:10b6:610:195::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.29; Wed, 14 Jun
+ 2023 11:28:14 +0000
+Received: from CY4PEPF0000EE38.namprd03.prod.outlook.com
+ (2603:10b6:930:a3:cafe::fd) by CYZPR05CA0040.outlook.office365.com
+ (2603:10b6:930:a3::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.25 via Frontend
+ Transport; Wed, 14 Jun 2023 11:28:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE38.mail.protection.outlook.com (10.167.242.12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.25 via Frontend Transport; Wed, 14 Jun 2023 11:28:14 +0000
+Received: from kullatnunu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 14 Jun
+ 2023 06:28:13 -0500
+From: =?UTF-8?q?Nicolai=20H=C3=A4hnle?= <nicolai.haehnle@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: add amdgpu_timeout_ring_* file to debugfs
+Date: Wed, 14 Jun 2023 13:27:58 +0200
+Message-ID: <20230614112758.120429-1-nicolai.haehnle@amd.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v7 2/8] PCI/VGA: Deal only with VGA class devices
-To: Sui Jingfeng <15330273260@189.cn>, Bjorn Helgaas <bhelgaas@google.com>
-References: <20230613030151.216625-1-15330273260@189.cn>
- <20230613030151.216625-3-15330273260@189.cn>
-Content-Language: en-US
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-Organization: Loongson
-In-Reply-To: <20230613030151.216625-3-15330273260@189.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8DxK8p6m4lkKIUaAA--.1634S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXr43WFyxtr4ruFWDXr4xAFc_yoW5tr1xpF
- yrGa45KrW8Ga4xW3y2qF18ZFy5ZFZ0ka4rtr42k34FkFWqkw1qqF95GFyYq343JrWkJF1I
- qa1ayrnruanFgabCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v2
- 6rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
- 8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
- xVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxk0xIA0c2IEe2xFo4
- CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
- 67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MI
- IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E
- 14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJV
- W8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU13E
- fUUUUUU==
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE38:EE_|CH3PR12MB9193:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2247a0e-522e-4628-8876-08db6cca716b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: eec2YefjspcF9E49wrYwhuqx178L7SM1yCpJpJ4CXSSaBm4uooC3kCYnbFyeAar1NYqpFSMH+DHVnrZUmlP2iImgqk/Ry7yoZnq0ix0Z6E3cLyPYb9pYXf6MPpoUmuL0RrTI1ZCxotkDIHmgfXMiJxZOSoDDnTKY9IgV8hUkWW78UDiO6uDX7s4kCHrE/txgPlTE/NDoZ3RGOsBCo5xNw96cEaEoRPNy7zCHoJzgERVM86AgV+S9yXyK6S1V8zicJ+Mp9kZYGEOc41vkQ8m/pW8DtqdfcNGuiQIWCZX1PxuD0tvZHAHJ1I7HlHHSPHqlagbb22CI5YMTt17QuGOUi0bo/JlMTd9e8qMXOaAxFVzeeXHBnEwXDnBWsHp9zwtfjFcslK3EK9I+b8Ni+yr+KIQmgLfXPwjQyb1ga2uzOGPmaDcs/IXOMg3rdoWgr3n3npGxammvqtGXG3wzaSUHiXkRU3hTWHRbNwY9jJQnmHbon+kZ3uHIYnnXgKcPWpuyaAm3k5diQkh140+6JgrahpoENGYqgCtvoQtLfoREr1/YYgu9hQ9Z+v37nCk2+0Sk/dgk4xAUTyKXeyoHx+/VZfUbq7ElP93TqSTvg3iVXyZBhM9/uhvq6vTvceozZLLiDfoZI2CXHw7gh7wGRo5UOjaGeaGsjkzUM8xaljnBfmXiYRCx122LJf/VsGI1ONesrnLaxKTzDyQSWljbK2mKgB9rlrPZqsEr1LjNIce8gjONnd0cN+sZAjtUqAxlUtjiD2T7zjNo96AwdtBorBBQHg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(376002)(39860400002)(396003)(136003)(451199021)(40470700004)(36840700001)(46966006)(70586007)(70206006)(478600001)(8936002)(36756003)(5660300002)(8676002)(6916009)(6666004)(4326008)(82310400005)(336012)(426003)(41300700001)(40460700003)(7696005)(316002)(356005)(81166007)(82740400003)(186003)(47076005)(2906002)(86362001)(83380400001)(40480700001)(36860700001)(66574015)(2616005)(26005)(1076003)(16526019)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2023 11:28:14.4029 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2247a0e-522e-4628-8876-08db6cca716b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE38.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9193
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,126 +97,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org
+Cc: =?UTF-8?q?Nicolai=20H=C3=A4hnle?= <nicolai.haehnle@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Report the per-ring timeout in milliseconds and allow users to adjust
+the timeout dynamically. This can be useful for debugging, e.g. to more
+easily test whether a submission genuinely hangs or is just taking very
+long, and to temporarily disable GPU recovery so that shader problems
+can be examined in detail, including single-stepping through shader
+code.
 
-On 2023/6/13 11:01, Sui Jingfeng wrote:
-> From: Sui Jingfeng <suijingfeng@loongson.cn>
->
-> Deal only with the VGA devcie(pdev->class == 0x0300), so replace the
-> pci_get_subsys() function with pci_get_class(). Filter the non-PCI display
-> device(pdev->class != 0x0300) out. There no need to process the non-display
-> PCI device.
->
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
-> ---
->   drivers/pci/vgaarb.c | 22 ++++++++++++----------
->   1 file changed, 12 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-> index c1bc6c983932..22a505e877dc 100644
-> --- a/drivers/pci/vgaarb.c
-> +++ b/drivers/pci/vgaarb.c
-> @@ -754,10 +754,6 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
->   	struct pci_dev *bridge;
->   	u16 cmd;
->   
-> -	/* Only deal with VGA class devices */
-> -	if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
-> -		return false;
-> -
+It feels a bit questionable to access ring->sched.timeout without any
+locking -- under a C++ memory model it would technically be undefined
+behavior. But it's not like a lot can go wrong here in practice, and
+it's not clear to me what locking or atomics, if any, should be used.
 
-Hi, here is probably a bug fixing.
+Signed-off-by: Nicolai Hähnle <nicolai.haehnle@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 32 +++++++++++++++++++++++-
+ 1 file changed, 31 insertions(+), 1 deletion(-)
 
-For an example, nvidia render only GPU typically has 0x0380.
-
-at its PCI class number, but  render only GPU should not participate in 
-the arbitration.
-
-As it shouldn't snoop the legacy fixed VGA address.
-
-It(render only GPU) can not display anything.
-
-
-But 0x0380 >> 8 = 0x03, the filter  failed.
-
-
->   	/* Allocate structure */
->   	vgadev = kzalloc(sizeof(struct vga_device), GFP_KERNEL);
->   	if (vgadev == NULL) {
-> @@ -1500,7 +1496,9 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
->   	struct pci_dev *pdev = to_pci_dev(dev);
->   	bool notify = false;
->   
-> -	vgaarb_dbg(dev, "%s\n", __func__);
-> +	/* Only deal with VGA class devices */
-> +	if (pdev->class != PCI_CLASS_DISPLAY_VGA << 8)
-> +		return 0;
-
-So here we only care 0x0300, my initial intent is to make an optimization,
-
-nowadays sane display graphic card should all has 0x0300 as its PCI 
-class number, is this complete right?
-
-```
-
-#define PCI_BASE_CLASS_DISPLAY        0x03
-#define PCI_CLASS_DISPLAY_VGA        0x0300
-#define PCI_CLASS_DISPLAY_XGA        0x0301
-#define PCI_CLASS_DISPLAY_3D        0x0302
-#define PCI_CLASS_DISPLAY_OTHER        0x0380
-
-```
-
-Any ideas ?
-
->   	/* For now we're only intereted in devices added and removed. I didn't
->   	 * test this thing here, so someone needs to double check for the
-> @@ -1510,6 +1508,8 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
->   	else if (action == BUS_NOTIFY_DEL_DEVICE)
->   		notify = vga_arbiter_del_pci_device(pdev);
->   
-> +	vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
-> +
->   	if (notify)
->   		vga_arbiter_notify_clients();
->   	return 0;
-> @@ -1534,8 +1534,8 @@ static struct miscdevice vga_arb_device = {
->   
->   static int __init vga_arb_device_init(void)
->   {
-> +	struct pci_dev *pdev = NULL;
->   	int rc;
-> -	struct pci_dev *pdev;
->   
->   	rc = misc_register(&vga_arb_device);
->   	if (rc < 0)
-> @@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
->   
->   	/* We add all PCI devices satisfying VGA class in the arbiter by
->   	 * default */
-> -	pdev = NULL;
-> -	while ((pdev =
-> -		pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
-> -			       PCI_ANY_ID, pdev)) != NULL)
-> +	while (1) {
-> +		pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
-> +		if (!pdev)
-> +			break;
-> +
->   		vga_arbiter_add_pci_device(pdev);
-> +	}
->   
->   	pr_info("loaded\n");
->   	return rc;
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index dc474b809604..32d223daa789 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -471,35 +471,65 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
+ 
+ 	return result;
+ }
+ 
+ static const struct file_operations amdgpu_debugfs_ring_fops = {
+ 	.owner = THIS_MODULE,
+ 	.read = amdgpu_debugfs_ring_read,
+ 	.llseek = default_llseek
+ };
+ 
++static int amdgpu_debugfs_timeout_ring_get(void *data, u64 *val) {
++	struct amdgpu_ring *ring = data;
++
++	if (ring->sched.timeout == MAX_SCHEDULE_TIMEOUT)
++		*val = 0;
++	else
++		*val = jiffies_to_msecs(ring->sched.timeout);
++
++	return 0;
++}
++
++static int amdgpu_debugfs_timeout_ring_set(void *data, u64 val) {
++	struct amdgpu_ring *ring = data;
++
++	if (val == 0)
++		ring->sched.timeout = MAX_SCHEDULE_TIMEOUT;
++	else
++		ring->sched.timeout = msecs_to_jiffies(val);
++
++	return 0;
++}
++
++DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_debugfs_timeout_ring_fops,
++			 amdgpu_debugfs_timeout_ring_get,
++			 amdgpu_debugfs_timeout_ring_set,
++			 "%llu\n");
++
+ #endif
+ 
+ void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+ 			      struct amdgpu_ring *ring)
+ {
+ #if defined(CONFIG_DEBUG_FS)
+ 	struct drm_minor *minor = adev_to_drm(adev)->primary;
+ 	struct dentry *root = minor->debugfs_root;
+-	char name[32];
++	char name[40];
+ 
+ 	sprintf(name, "amdgpu_ring_%s", ring->name);
+ 	debugfs_create_file_size(name, S_IFREG | S_IRUGO, root, ring,
+ 				 &amdgpu_debugfs_ring_fops,
+ 				 ring->ring_size + 12);
+ 
++	sprintf(name, "amdgpu_timeout_ring_%s", ring->name);
++	debugfs_create_file(name, S_IFREG | S_IRUGO | S_IWUSR, root, ring,
++			    &amdgpu_debugfs_timeout_ring_fops);
+ #endif
+ }
+ 
+ /**
+  * amdgpu_ring_test_helper - tests ring and set sched readiness status
+  *
+  * @ring: ring to try the recovery on
+  *
+  * Tests ring and set sched readiness status
+  *
 -- 
-Jingfeng
+2.40.0
 
