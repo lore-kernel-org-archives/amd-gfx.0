@@ -4,49 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0291BEB64D9
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jun 2023 12:22:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B683BEB64D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jun 2023 12:24:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FD6F10E453;
-	Wed, 14 Jun 2023 12:22:20 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B11E10E12D;
- Wed, 14 Jun 2023 12:22:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686745337; x=1718281337;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=JZVfxrwUIK3Wdo4307QCQsPD4ASj/0JzwbGG4o3QQcM=;
- b=LW8dh1m70Z513YT0iNBJhs/ntpZ6L3q/I9l6q6D3MPx4LvHuyChNMmy4
- WT3H1iYD7MXg+7cMHLG0KqKvR0PFEbgUcgNNLaM2lGwntjRVhvYyJQpXG
- 6dwBgt3Bb0Pguf3DrdIOk/TU2gJh+puJvvquY/UPxQlePtGy1Rs2OQBi6
- ddwmNLKYJSoy0HxV0oZR8YcYVy1I1ZQ/OK31wez0V8nJBTzzB23Kv7YDr
- c+Zi6eEU5Dye+o0Vsrs6TvmT4Pc5Xbiwr1yvhG1swSzNskKltTXxBJ9nO
- 3r3WEjM+o4EMv8sl4i0TODxSc6JRz51+xxmnt3ZBgs/mQcGXle4dpiqnp Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10741"; a="356089044"
-X-IronPort-AV: E=Sophos;i="6.00,242,1681196400"; d="scan'208";a="356089044"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2023 05:22:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10741"; a="741821027"
-X-IronPort-AV: E=Sophos;i="6.00,242,1681196400"; d="scan'208";a="741821027"
-Received: from lkp-server02.sh.intel.com (HELO d59cacf64e9e) ([10.239.97.151])
- by orsmga008.jf.intel.com with ESMTP; 14 Jun 2023 05:22:13 -0700
-Received: from kbuild by d59cacf64e9e with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1q9PVn-0000ck-0W;
- Wed, 14 Jun 2023 12:22:08 +0000
-Date: Wed, 14 Jun 2023 20:21:33 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Felix.Kuehling@amd.com
-Subject: Re: [PATCH] drm/amdkfd: Switch over to memdup_user()
-Message-ID: <202306142005.G5XIz3fm-lkp@intel.com>
-References: <20230614020432.44044-1-jiapeng.chong@linux.alibaba.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3198010E449;
+	Wed, 14 Jun 2023 12:24:01 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FEFE10E44E;
+ Wed, 14 Jun 2023 12:23:57 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 388F76606EF9;
+ Wed, 14 Jun 2023 13:23:55 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1686745435;
+ bh=94jmGvb9/fisLQL3Z5Z7hxHVRD0/khMmbpRfmP6wJ8w=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=SpJIu6f4Qv270Sov/+Cy+4WaSHapbmxUPWNfElcbl6SDq3VxwZR+YrBx77z5ztxFZ
+ gSpwu3PWaSqaqygGMONYcGVjbzUWpxPq6YFL1FltLjFZ3gikZNZFqpqYH8HKtU8TQ/
+ ZOFrlRc6CJGh2xAvQwLhDCx9/7V9rpolx0cfEzUo0XGVW232GWRD4dXGtfJkkzSv7y
+ YgnVIema7QHlpgYRLSJoVBzyMKOKRL3IBBB8TrvH+PtqIVmQjkGTkb5mAPeShX9KGj
+ BHITIsAi80j4+W0IDVjz5uo5NehnrGWcVKltP1WRW0oZUwknJeI1erhtzSIVU0dxxq
+ tK6+OAz2PG5Zw==
+Date: Wed, 14 Jun 2023 14:23:39 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: "Christian =?UTF-8?B?S8O2bmln?=" <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 01/13] drm: execution context for GEM buffers v4
+Message-ID: <20230614142339.04df5111@collabora.com>
+In-Reply-To: <20230504115159.2245-2-christian.koenig@amd.com>
+References: <20230504115159.2245-1-christian.koenig@amd.com>
+ <20230504115159.2245-2-christian.koenig@amd.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230614020432.44044-1-jiapeng.chong@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,73 +52,177 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Xinhui.Pan@amd.com,
- llvm@lists.linux.dev, Abaci Robot <abaci@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, oe-kbuild-all@lists.linux.dev,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: arunpravin.paneerselvam@amd.com, felix.kuehling@amd.com,
+ francois.dugast@intel.com, amd-gfx@lists.freedesktop.org, luben.tuikov@amd.com,
+ dakr@redhat.com, dri-devel@lists.freedesktop.org, thomas_os@shipmail.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jiapeng,
+Hi Christian,
 
-kernel test robot noticed the following build errors:
+On Thu,  4 May 2023 13:51:47 +0200
+"Christian K=C3=B6nig" <ckoenig.leichtzumerken@gmail.com> wrote:
 
-[auto build test ERROR on next-20230613]
-[cannot apply to drm-misc/drm-misc-next v6.4-rc6 v6.4-rc5 v6.4-rc4 linus/master v6.4-rc6]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> This adds the infrastructure for an execution context for GEM buffers
+> which is similar to the existing TTMs execbuf util and intended to replace
+> it in the long term.
+>=20
+> The basic functionality is that we abstracts the necessary loop to lock
+> many different GEM buffers with automated deadlock and duplicate handling.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Jiapeng-Chong/drm-amdkfd-Switch-over-to-memdup_user/20230614-100553
-base:   next-20230613
-patch link:    https://lore.kernel.org/r/20230614020432.44044-1-jiapeng.chong%40linux.alibaba.com
-patch subject: [PATCH] drm/amdkfd: Switch over to memdup_user()
-config: x86_64-buildonly-randconfig-r006-20230614 (https://download.01.org/0day-ci/archive/20230614/202306142005.G5XIz3fm-lkp@intel.com/config)
-compiler: clang version 15.0.7 (https://github.com/llvm/llvm-project.git 8dfdcc7b7bf66834a761bd8de445840ef68e4d1a)
-reproduce (this is a W=1 build):
-        mkdir -p ~/bin
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        git checkout next-20230613
-        b4 shazam https://lore.kernel.org/r/20230614020432.44044-1-jiapeng.chong@linux.alibaba.com
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang ~/bin/make.cross W=1 O=build_dir ARCH=x86_64 olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang ~/bin/make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/gpu/
+As many other drivers do already, we are considering using drm_exec()
+for our resv locking in the PowerVR driver, so we might have more
+questions/comments in the coming days/weeks, but I already have a
+couple right now (see below).
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202306142005.G5XIz3fm-lkp@intel.com/
+> v3: drop duplicate tracking, radeon is really the only one needing that
 
-All errors (new ones prefixed by >>):
+I think we'd actually be interested in duplicate tracking. Is there any
+way we can make it an optional feature through some extra helpers/flags?
+Doesn't have to be done in this patch series, I'm just wondering if this
+is something we can share as well.
 
->> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:2815:10: error: incompatible integer to pointer conversion returning 'long' from a function with result type 'uint32_t *' (aka 'unsigned int *') [-Wint-conversion]
-                   return PTR_ERR(queue_ids);
-                          ^~~~~~~~~~~~~~~~~~
-   1 error generated.
+[...]
 
+> +/**
+> + * DOC: Overview
+> + *
+> + * This component mainly abstracts the retry loop necessary for locking
+> + * multiple GEM objects while preparing hardware operations (e.g. command
+> + * submissions, page table updates etc..).
+> + *
+> + * If a contention is detected while locking a GEM object the cleanup pr=
+ocedure
+> + * unlocks all previously locked GEM objects and locks the contended one=
+ first
+> + * before locking any further objects.
+> + *
+> + * After an object is locked fences slots can optionally be reserved on =
+the
+> + * dma_resv object inside the GEM object.
+> + *
+> + * A typical usage pattern should look like this::
+> + *
+> + *	struct drm_gem_object *obj;
+> + *	struct drm_exec exec;
+> + *	unsigned long index;
+> + *	int ret;
+> + *
+> + *	drm_exec_init(&exec, true);
+> + *	drm_exec_while_not_all_locked(&exec) {
+> + *		ret =3D drm_exec_prepare_obj(&exec, boA, 1);
+> + *		drm_exec_continue_on_contention(&exec);
+> + *		if (ret)
+> + *			goto error;
+> + *
 
-vim +2815 drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c
+Have you considered defining a drm_exec_try_prepare_obj_or_retry()
+combining drm_exec_prepare_obj() and drm_exec_continue_on_contention()?
 
-  2804	
-  2805	static uint32_t *get_queue_ids(uint32_t num_queues, uint32_t *usr_queue_id_array)
-  2806	{
-  2807		size_t array_size = num_queues * sizeof(uint32_t);
-  2808		uint32_t *queue_ids = NULL;
-  2809	
-  2810		if (!usr_queue_id_array)
-  2811			return NULL;
-  2812	
-  2813		queue_ids = memdup_user(usr_queue_id_array, array_size);
-  2814		if (IS_ERR(queue_ids))
-> 2815			return PTR_ERR(queue_ids);
-  2816	
-  2817		return queue_ids;
-  2818	}
-  2819	
+#define drm_exec_try_prepare_obj_or_retry(exec, obj, num_fences) \
+        ({ \
+                int __ret =3D drm_exec_prepare_obj(exec, bo, num_fences); \
+                if (unlikely(drm_exec_is_contended(exec))) \
+                        continue; \
+                __ret; \
+        })
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+This way the following pattern
+
+		ret =3D drm_exec_prepare_obj(&exec, boA, 1);
+		drm_exec_continue_on_contention(&exec);
+		if (ret)
+			goto error;
+
+can be turned into something more conventional:
+
+		ret =3D drm_exec_try_prepare_obj_or_retry(&exec, boA, 1);
+		if (ret)
+			goto error;
+
+I guess we could even add static checks to make sure
+drm_exec_try_prepare_obj() is called inside a
+drm_exec_while_not_all_locked() loop.
+
+> + *		ret =3D drm_exec_prepare_obj(&exec, boB, 1);
+> + *		drm_exec_continue_on_contention(&exec);
+> + *		if (ret)
+> + *			goto error;
+> + *	}
+> + *
+> + *	drm_exec_for_each_locked_object(&exec, index, obj) {
+> + *		dma_resv_add_fence(obj->resv, fence, DMA_RESV_USAGE_READ);
+> + *		...
+> + *	}
+> + *	drm_exec_fini(&exec);
+> + *
+> + * See struct dma_exec for more details.
+> + */
+
+[...]
+
+> +/**
+> + * drm_exec_prepare_array - helper to prepare an array of objects
+> + * @exec: the drm_exec object with the state
+> + * @objects: array of GEM object to prepare
+> + * @num_objects: number of GEM objects in the array
+> + * @num_fences: number of fences to reserve on each GEM object
+> + *
+> + * Prepares all GEM objects in an array, handles contention but aports o=
+n first
+> + * error otherwise. Reserves @num_fences on each GEM object after lockin=
+g it.
+> + *
+> + * Returns: -EALREADY when object is already locked, -ENOMEM when memory
+> + * allocation failed and zero for success.
+> + */
+> +int drm_exec_prepare_array(struct drm_exec *exec,
+> +			   struct drm_gem_object **objects,
+> +			   unsigned int num_objects,
+> +			   unsigned int num_fences)
+> +{
+> +	int ret;
+> +
+> +	drm_exec_while_not_all_locked(exec) {
+> +		for (unsigned int i =3D 0; i < num_objects; ++i) {
+> +			ret =3D drm_exec_prepare_obj(exec, objects[i],
+> +						   num_fences);
+> +			drm_exec_break_on_contention(exec);
+
+I had a hard time understanding what the intent was here: we do want the
+locking to keep going on contention (reset and retry), but we need to
+break out of the inner loop for this to happen, which is what this
+drm_exec_break_on_contention() is doing. My misunderstanding was coming
+from the fact I was expecting drm_exec_break_on_contention() to stop
+the process of preparing objects. Maybe it's just me, but I think it'd
+be less confusing if we were getting rid of
+drm_exec_{break,continue}_on_contention and have the loop slightly
+adjusted:
+
+	unsigned int obj_ptr =3D 0;
+
+	drm_exec_while_not_all_locked(exec) {
+		int ret;
+
+		/* We acquired/prepared all objects, we can leave the loop now. */
+		if (obj_ptr =3D=3D num_objects)
+			break;
+
+		ret =3D drm_exec_try_prepare_obj_or_retry(exec, objects[obj_ptr++],
+							num_fences);
+		if (ret)
+			return ret;
+	}
+
+	return 0;
+
+Of course, this is just my personal view on this, and none of these
+comments should be considered as blockers, but I thought I'd share
+my concerns anyway.
+
+Thanks again for your work!
+
+Regards,
+
+Boris
+
