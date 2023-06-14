@@ -4,68 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 686CAEB64DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jun 2023 10:38:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BC84EB64D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jun 2023 10:50:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 594E010E43C;
-	Wed, 14 Jun 2023 10:38:43 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9C7E10E43F
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jun 2023 10:38:26 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5193c97ecbbso406519a12.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jun 2023 03:38:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686739105; x=1689331105;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=93fbJ3dxKTpDp411p+8u24KVkC132jl3dQCpwK/KMeo=;
- b=bid4e96GovQQPLRZFAZSWMWRxgTsQ2Up+LISGZ3DEA8Zm8n6jVZorxHGzrI0OOS1dv
- khxXEJWbNFIrCfK+XBpSzQltd9lXfQSYZo2TJdrllEpSvSwViXP5SX0OhM/LWjqsuCoT
- RpyFtZbmTFJuFJ4v3Co+xehucNZxmqQe9TsiXBLzFNy1js6er/AsU5ledINrAurJIjmR
- Qk7iz04vk2n6wqdnVaHf0de4cyQiTeJwZikJd9ux5WOs0djJbNCY5g4hSwOnW1FjFsJV
- +LvmmIbNprgt0dizVdKO19/yZyWAt6Y7S8E4SwZJnHob7apxTPaGuD/6oki9TvKbsdx1
- /qlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686739105; x=1689331105;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=93fbJ3dxKTpDp411p+8u24KVkC132jl3dQCpwK/KMeo=;
- b=Wc94uLpkBBQmksWpDgqLJVMfVklDy25NdVCnt5mpMPEHXjom21z0iciNaK+gnwudln
- 2vb/Uii12uminRpZX/kcf9BahTtBgP8nJphv3EFeD5yGDhclL1/LPEfSLyYnHQkXqRaK
- kb0a2BOqE30aLbZabWo0qSQ8CGi5M6v22GLQzKIdS8dSjMvGsXjExgD6jGkeYWTg+LUH
- i7EqdBvH5uKcTqynlKj1GnR9ISju+Sc2qfdHNDFFiDAOqtXMc/WcVTMIfQmtVY4tnc+U
- tpAQINh2o4RHEeY/gW2huiU6i+0bcUpM9e+WCxH/wBS/lSvxhi3bZG0gLCj+FeyThhb1
- sdWg==
-X-Gm-Message-State: AC+VfDzPkKs2sHZifaJ1g2jGkBLOh3F2bgVuZl6dfjEXsYaYJC2TjxUZ
- V07HYnz9h6t5av0vu1+6ckE=
-X-Google-Smtp-Source: ACHHUZ4jA8qwHs1H71Khj5BsdbUk3AJsmUBCVCD0zKn2JBmS4nimNJDraffe1AmuLbHBG0wIlpqeUg==
-X-Received: by 2002:a05:6402:5155:b0:514:7a67:44dc with SMTP id
- n21-20020a056402515500b005147a6744dcmr8590511edd.19.1686739104490; 
- Wed, 14 Jun 2023 03:38:24 -0700 (PDT)
-Received: from ?IPV6:2a00:e180:15d8:6300:fc64:4eb1:dfe9:8133?
- ([2a00:e180:15d8:6300:fc64:4eb1:dfe9:8133])
- by smtp.gmail.com with ESMTPSA id
- x22-20020aa7cd96000000b0050bca43ff55sm7649383edv.68.2023.06.14.03.38.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jun 2023 03:38:21 -0700 (PDT)
-Message-ID: <851ebfd9-bad6-8a11-5f73-44b183d2cb36@gmail.com>
-Date: Wed, 14 Jun 2023 12:38:15 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9004410E43F;
+	Wed, 14 Jun 2023 10:50:42 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0116A10E24E;
+ Wed, 14 Jun 2023 10:50:36 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8AxW+p7m4lkURgFAA--.10857S3;
+ Wed, 14 Jun 2023 18:50:35 +0800 (CST)
+Received: from [10.20.42.43] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8DxK8p6m4lkKIUaAA--.1634S3; 
+ Wed, 14 Jun 2023 18:50:34 +0800 (CST)
+Message-ID: <dbf0d89f-717a-1f78-aef2-f30506751d4d@loongson.cn>
+Date: Wed, 14 Jun 2023 18:50:34 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH 2/3] drm/amdgpu: Implement new dummy vram manager
+Subject: Re: [PATCH v7 2/8] PCI/VGA: Deal only with VGA class devices
+To: Sui Jingfeng <15330273260@189.cn>, Bjorn Helgaas <bhelgaas@google.com>
+References: <20230613030151.216625-1-15330273260@189.cn>
+ <20230613030151.216625-3-15330273260@189.cn>
 Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230509220144.474723-1-alexander.deucher@amd.com>
- <20230509220144.474723-2-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230509220144.474723-2-alexander.deucher@amd.com>
+From: Sui Jingfeng <suijingfeng@loongson.cn>
+Organization: Loongson
+In-Reply-To: <20230613030151.216625-3-15330273260@189.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: AQAAf8DxK8p6m4lkKIUaAA--.1634S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxXr43WFyxtr4ruFWDXr4xAFc_yoW5tr1xpF
+ yrGa45KrW8Ga4xW3y2qF18ZFy5ZFZ0ka4rtr42k34FkFWqkw1qqF95GFyYq343JrWkJF1I
+ qa1ayrnruanFgabCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+ 8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
+ xVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxk0xIA0c2IEe2xFo4
+ CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
+ 67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MI
+ IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E
+ 14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJV
+ W8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU13E
+ fUUUUUU==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,131 +64,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix Kuehling <felix.kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 10.05.23 um 00:01 schrieb Alex Deucher:
-> From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Hi,
+
+On 2023/6/13 11:01, Sui Jingfeng wrote:
+> From: Sui Jingfeng <suijingfeng@loongson.cn>
 >
-> This adds dummy vram manager to support ASICs that do not have a
-> dedicated or carvedout vram domain.
-
-Well that doesn't seem to make much sense. Why we should have that?
-
-Christian.
-
+> Deal only with the VGA devcie(pdev->class == 0x0300), so replace the
+> pci_get_subsys() function with pci_get_class(). Filter the non-PCI display
+> device(pdev->class != 0x0300) out. There no need to process the non-display
+> PCI device.
 >
-> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 67 ++++++++++++++++++--
->   1 file changed, 60 insertions(+), 7 deletions(-)
+>   drivers/pci/vgaarb.c | 22 ++++++++++++----------
+>   1 file changed, 12 insertions(+), 10 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index 43d6a9d6a538..89d35d194f2c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -370,6 +370,45 @@ int amdgpu_vram_mgr_query_page_status(struct amdgpu_vram_mgr *mgr,
->   	return ret;
->   }
+> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+> index c1bc6c983932..22a505e877dc 100644
+> --- a/drivers/pci/vgaarb.c
+> +++ b/drivers/pci/vgaarb.c
+> @@ -754,10 +754,6 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
+>   	struct pci_dev *bridge;
+>   	u16 cmd;
 >   
-> +static void amdgpu_dummy_vram_mgr_debug(struct ttm_resource_manager *man,
-> +				  struct drm_printer *printer)
-> +{
-> +	DRM_DEBUG_DRIVER("Dummy vram mgr debug\n");
-> +}
-> +
-> +static bool amdgpu_dummy_vram_mgr_compatible(struct ttm_resource_manager *man,
-> +				       struct ttm_resource *res,
-> +				       const struct ttm_place *place,
-> +				       size_t size)
-> +{
-> +	DRM_DEBUG_DRIVER("Dummy vram mgr compatible\n");
-> +	return false;
-> +}
-> +
-> +static bool amdgpu_dummy_vram_mgr_intersects(struct ttm_resource_manager *man,
-> +				       struct ttm_resource *res,
-> +				       const struct ttm_place *place,
-> +				       size_t size)
-> +{
-> +	DRM_DEBUG_DRIVER("Dummy vram mgr intersects\n");
-> +	return true;
-> +}
-> +
-> +static void amdgpu_dummy_vram_mgr_del(struct ttm_resource_manager *man,
-> +				struct ttm_resource *res)
-> +{
-> +	DRM_DEBUG_DRIVER("Dummy vram mgr deleted\n");
-> +}
-> +
-> +static int amdgpu_dummy_vram_mgr_new(struct ttm_resource_manager *man,
-> +			       struct ttm_buffer_object *tbo,
-> +			       const struct ttm_place *place,
-> +			       struct ttm_resource **res)
-> +{
-> +	DRM_DEBUG_DRIVER("Dummy vram mgr new\n");
-> +	return -ENOSPC;
-> +}
-> +
->   /**
->    * amdgpu_vram_mgr_new - allocate new ranges
->    *
-> @@ -817,6 +856,14 @@ static void amdgpu_vram_mgr_debug(struct ttm_resource_manager *man,
->   	mutex_unlock(&mgr->lock);
->   }
->   
-> +static const struct ttm_resource_manager_func amdgpu_dummy_vram_mgr_func = {
-> +	.alloc	= amdgpu_dummy_vram_mgr_new,
-> +	.free	= amdgpu_dummy_vram_mgr_del,
-> +	.intersects = amdgpu_dummy_vram_mgr_intersects,
-> +	.compatible = amdgpu_dummy_vram_mgr_compatible,
-> +	.debug	= amdgpu_dummy_vram_mgr_debug
-> +};
-> +
->   static const struct ttm_resource_manager_func amdgpu_vram_mgr_func = {
->   	.alloc	= amdgpu_vram_mgr_new,
->   	.free	= amdgpu_vram_mgr_del,
-> @@ -841,17 +888,22 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->   	ttm_resource_manager_init(man, &adev->mman.bdev,
->   				  adev->gmc.real_vram_size);
->   
-> -	man->func = &amdgpu_vram_mgr_func;
+> -	/* Only deal with VGA class devices */
+> -	if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
+> -		return false;
 > -
-> -	err = drm_buddy_init(&mgr->mm, man->size, PAGE_SIZE);
-> -	if (err)
-> -		return err;
-> -
->   	mutex_init(&mgr->lock);
->   	INIT_LIST_HEAD(&mgr->reservations_pending);
->   	INIT_LIST_HEAD(&mgr->reserved_pages);
->   	mgr->default_page_size = PAGE_SIZE;
+
+Hi, here is probably a bug fixing.
+
+For an example, nvidia render only GPU typically has 0x0380.
+
+at its PCI class number, but  render only GPU should not participate in 
+the arbitration.
+
+As it shouldn't snoop the legacy fixed VGA address.
+
+It(render only GPU) can not display anything.
+
+
+But 0x0380 >> 8 = 0x03, the filter  failed.
+
+
+>   	/* Allocate structure */
+>   	vgadev = kzalloc(sizeof(struct vga_device), GFP_KERNEL);
+>   	if (vgadev == NULL) {
+> @@ -1500,7 +1496,9 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+>   	struct pci_dev *pdev = to_pci_dev(dev);
+>   	bool notify = false;
 >   
-> +	if (!adev->gmc.is_app_apu) {
-> +		man->func = &amdgpu_vram_mgr_func;
+> -	vgaarb_dbg(dev, "%s\n", __func__);
+> +	/* Only deal with VGA class devices */
+> +	if (pdev->class != PCI_CLASS_DISPLAY_VGA << 8)
+> +		return 0;
+
+So here we only care 0x0300, my initial intent is to make an optimization,
+
+nowadays sane display graphic card should all has 0x0300 as its PCI 
+class number, is this complete right?
+
+```
+
+#define PCI_BASE_CLASS_DISPLAY        0x03
+#define PCI_CLASS_DISPLAY_VGA        0x0300
+#define PCI_CLASS_DISPLAY_XGA        0x0301
+#define PCI_CLASS_DISPLAY_3D        0x0302
+#define PCI_CLASS_DISPLAY_OTHER        0x0380
+
+```
+
+Any ideas ?
+
+>   	/* For now we're only intereted in devices added and removed. I didn't
+>   	 * test this thing here, so someone needs to double check for the
+> @@ -1510,6 +1508,8 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+>   	else if (action == BUS_NOTIFY_DEL_DEVICE)
+>   		notify = vga_arbiter_del_pci_device(pdev);
+>   
+> +	vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
 > +
-> +		err = drm_buddy_init(&mgr->mm, man->size, PAGE_SIZE);
-> +		if (err)
-> +			return err;
-> +	} else {
-> +		man->func = &amdgpu_dummy_vram_mgr_func;
-> +		DRM_INFO("Setup dummy vram mgr\n");
-> +	}
-> +
->   	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
->   	ttm_resource_manager_set_used(man, true);
+>   	if (notify)
+>   		vga_arbiter_notify_clients();
 >   	return 0;
-> @@ -886,7 +938,8 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
->   		drm_buddy_free_list(&mgr->mm, &rsv->allocated);
->   		kfree(rsv);
->   	}
-> -	drm_buddy_fini(&mgr->mm);
-> +	if (!adev->gmc.is_app_apu)
-> +		drm_buddy_fini(&mgr->mm);
->   	mutex_unlock(&mgr->lock);
+> @@ -1534,8 +1534,8 @@ static struct miscdevice vga_arb_device = {
 >   
->   	ttm_resource_manager_cleanup(man);
+>   static int __init vga_arb_device_init(void)
+>   {
+> +	struct pci_dev *pdev = NULL;
+>   	int rc;
+> -	struct pci_dev *pdev;
+>   
+>   	rc = misc_register(&vga_arb_device);
+>   	if (rc < 0)
+> @@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
+>   
+>   	/* We add all PCI devices satisfying VGA class in the arbiter by
+>   	 * default */
+> -	pdev = NULL;
+> -	while ((pdev =
+> -		pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
+> -			       PCI_ANY_ID, pdev)) != NULL)
+> +	while (1) {
+> +		pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
+> +		if (!pdev)
+> +			break;
+> +
+>   		vga_arbiter_add_pci_device(pdev);
+> +	}
+>   
+>   	pr_info("loaded\n");
+>   	return rc;
+
+-- 
+Jingfeng
 
