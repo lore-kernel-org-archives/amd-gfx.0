@@ -4,68 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 039E3EB64D8
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jun 2023 12:51:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7169EB64D8
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jun 2023 13:03:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD22E10E25B;
-	Wed, 14 Jun 2023 12:51:33 +0000 (UTC)
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACBCE10E25B
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jun 2023 12:51:31 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-9768fd99c0cso129063066b.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jun 2023 05:51:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686747088; x=1689339088;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=OHnv8FXXrMFJit6OkBaiCVLo1lhSoqg03YDvVs22Z3I=;
- b=pCMVDp6fEUsOXWmlKhdO1d9tUv5Xx3QGryUDweVBkUiGTHhzuOFUgXOIwf933rwQeS
- ctKFT8hTu9n3WQJQ759jJVadVL/9xib1AYADVrhNgTzsE6qvR36nizdHzXjgVVeIFKqC
- lzXgEhCAWXVoxb3R27pLtU7CmJR2HPZixnWiXmmQV94O2XbUOq6hhRK2a3RsmZ/qB9ab
- 3+3b0tY7FTff4hqjWNEglJ5Gx7HhmpyXZSOPHsQxMWaO2NDmZ1ensSJPy8k02GCLxdlb
- XNyd6xz/4C2ZSbvGBX4ETHvRFfimhP0FrHguAV64syD5JihdRhEVbLpfhrSMJZsrCPak
- eVLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686747088; x=1689339088;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=OHnv8FXXrMFJit6OkBaiCVLo1lhSoqg03YDvVs22Z3I=;
- b=jhQq1/LMIJBxn971CiP/tDhphYzPA2M+Ne/P43/Y9uE0FmO5/4JGtNe0vVdnDb8u9T
- TcwxL9BOyIgExzEkALdjZbyGA5c7txyRUS6NNUggqhjiFmJW5FUFirCQ9EaYuUcmG5fm
- cE7DDkvww6McgOrfya3AgEdQlWdLzAqcmlq3ifiFWIX69jretOx6nJp+8UNyBWUCb777
- Z1J765qFR1T9wChV29IDkMJWkeQd8xRrq74bLim3eFtMf2/93xUxoCPx6gziz/hJ2wMJ
- OZW9mAfDabZMC3XO0INoYlb0l8oCcacEU8KVGWTtZrn876fnY1BWDIxNawHCIEy5YoE5
- w0CA==
-X-Gm-Message-State: AC+VfDxDen/kdg8dXSHKNGukvbXp5s1Z3zJcwtDzRfajCk+nrj4SklpX
- 0TkPL+a0OM+mrH89AJcFEBA=
-X-Google-Smtp-Source: ACHHUZ7n1P7O0uhURqbkOuzqZ50UYM5Ktrj5XIQw8PCifjc1mxh8G2CN6v6Tpj107VkIU72F6X7/Ww==
-X-Received: by 2002:a17:907:96a0:b0:978:af9d:c004 with SMTP id
- hd32-20020a17090796a000b00978af9dc004mr1760818ejc.4.1686747088037; 
- Wed, 14 Jun 2023 05:51:28 -0700 (PDT)
-Received: from ?IPV6:2a00:e180:15e4:4200:3c54:f73b:1892:7271?
- ([2a00:e180:15e4:4200:3c54:f73b:1892:7271])
- by smtp.gmail.com with ESMTPSA id
- f13-20020a170906494d00b0097461fecc91sm7954119ejt.81.2023.06.14.05.51.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jun 2023 05:51:27 -0700 (PDT)
-Message-ID: <cca52290-bd13-e9e9-297c-e480acaef782@gmail.com>
-Date: Wed, 14 Jun 2023 14:51:26 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6220110E457;
+	Wed, 14 Jun 2023 13:03:02 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B3F410E454;
+ Wed, 14 Jun 2023 13:02:58 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 39E9C6606F48;
+ Wed, 14 Jun 2023 14:02:55 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1686747775;
+ bh=T2IBPPZ12ZOXVRzMlto02oo6Piu9HeqGMeqUyLhTLj8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=eSAXwfCgaVZ7kBAQUXUu5vRLe6wuxmHehPO6oiwi7ngptWppDVIpzugoEkOxTjNL3
+ iKu9NWOZGz7FMaNIWCAUZYi9f3f+kO8kjeWTs/1CHLHdpFH+yAMfgu2ysN1jIpK62+
+ oXFkho7g8ChIBGL7u5Vq+XnIEExjKydMHseGi5y35n19b8F8IErztX1nK2elsECit1
+ OdHxUCKE8jaWUwy9v4jTviEcrFYc38pRDdxDADxvh9Qd5+/aATiPs0GZYsiahpVgv/
+ 64p9zmImOJzu2uvE4ktYD5coPCYUbljbkLv72YfFtF7Npw4lAMcINp574IElBLCgBk
+ DzdvswLYQs1xA==
+Date: Wed, 14 Jun 2023 15:02:52 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 01/13] drm: execution context for GEM buffers v4
+Message-ID: <20230614150252.6ceb42fd@collabora.com>
+In-Reply-To: <299e0ff6-bd0a-fa8d-acda-8b3ce22d6ab6@amd.com>
+References: <20230504115159.2245-1-christian.koenig@amd.com>
+ <20230504115159.2245-2-christian.koenig@amd.com>
+ <20230614142339.04df5111@collabora.com>
+ <299e0ff6-bd0a-fa8d-acda-8b3ce22d6ab6@amd.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amdgpu: add amdgpu_timeout_ring_* file to debugfs
-Content-Language: en-US
-To: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nicolai.haehnle@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230614112758.120429-1-nicolai.haehnle@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230614112758.120429-1-nicolai.haehnle@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,115 +55,175 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: arunpravin.paneerselvam@amd.com, felix.kuehling@amd.com,
+ francois.dugast@intel.com, amd-gfx@lists.freedesktop.org, luben.tuikov@amd.com,
+ dakr@redhat.com, dri-devel@lists.freedesktop.org, thomas_os@shipmail.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 14.06.23 um 13:27 schrieb Nicolai Hähnle:
-> Report the per-ring timeout in milliseconds and allow users to adjust
-> the timeout dynamically. This can be useful for debugging, e.g. to more
-> easily test whether a submission genuinely hangs or is just taking very
-> long, and to temporarily disable GPU recovery so that shader problems
-> can be examined in detail, including single-stepping through shader
-> code.
->
-> It feels a bit questionable to access ring->sched.timeout without any
-> locking -- under a C++ memory model it would technically be undefined
-> behavior. But it's not like a lot can go wrong here in practice, and
-> it's not clear to me what locking or atomics, if any, should be used.
+On Wed, 14 Jun 2023 14:30:53 +0200
+Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
 
-Uh, that's very dangerous what you do here and wouldn't work in a whole 
-bunch of cases.
+> Am 14.06.23 um 14:23 schrieb Boris Brezillon:
+> > Hi Christian,
+> >
+> > On Thu,  4 May 2023 13:51:47 +0200
+> > "Christian K=C3=B6nig" <ckoenig.leichtzumerken@gmail.com> wrote:
+> > =20
+> >> This adds the infrastructure for an execution context for GEM buffers
+> >> which is similar to the existing TTMs execbuf util and intended to rep=
+lace
+> >> it in the long term.
+> >>
+> >> The basic functionality is that we abstracts the necessary loop to lock
+> >> many different GEM buffers with automated deadlock and duplicate handl=
+ing. =20
+> > As many other drivers do already, we are considering using drm_exec()
+> > for our resv locking in the PowerVR driver, so we might have more
+> > questions/comments in the coming days/weeks, but I already have a
+> > couple right now (see below).
+> > =20
+> >> v3: drop duplicate tracking, radeon is really the only one needing tha=
+t =20
+> > I think we'd actually be interested in duplicate tracking. Is there any
+> > way we can make it an optional feature through some extra helpers/flags?
+> > Doesn't have to be done in this patch series, I'm just wondering if this
+> > is something we can share as well. =20
+>=20
+> You can still capture the -EALREADY error and act appropriately in your=20
+> driver.
+>=20
+> For radeon it just means ignoring the error code and going ahead, but=20
+> that behavior doesn't seem to be desired in most cases.
+>=20
+> Initially I though we need to separately track how many and how often=20
+> BOs are duplicated, but there is simply no use for this.
+>=20
+> >
+> > [...]
+> > =20
+> >> +/**
+> >> + * DOC: Overview
+> >> + *
+> >> + * This component mainly abstracts the retry loop necessary for locki=
+ng
+> >> + * multiple GEM objects while preparing hardware operations (e.g. com=
+mand
+> >> + * submissions, page table updates etc..).
+> >> + *
+> >> + * If a contention is detected while locking a GEM object the cleanup=
+ procedure
+> >> + * unlocks all previously locked GEM objects and locks the contended =
+one first
+> >> + * before locking any further objects.
+> >> + *
+> >> + * After an object is locked fences slots can optionally be reserved =
+on the
+> >> + * dma_resv object inside the GEM object.
+> >> + *
+> >> + * A typical usage pattern should look like this::
+> >> + *
+> >> + *	struct drm_gem_object *obj;
+> >> + *	struct drm_exec exec;
+> >> + *	unsigned long index;
+> >> + *	int ret;
+> >> + *
+> >> + *	drm_exec_init(&exec, true);
+> >> + *	drm_exec_while_not_all_locked(&exec) {
+> >> + *		ret =3D drm_exec_prepare_obj(&exec, boA, 1);
+> >> + *		drm_exec_continue_on_contention(&exec);
+> >> + *		if (ret)
+> >> + *			goto error;
+> >> + * =20
+> > Have you considered defining a drm_exec_try_prepare_obj_or_retry()
+> > combining drm_exec_prepare_obj() and drm_exec_continue_on_contention()?
+> >
+> > #define drm_exec_try_prepare_obj_or_retry(exec, obj, num_fences) \
+> >          ({ \
+> >                  int __ret =3D drm_exec_prepare_obj(exec, bo, num_fence=
+s); \
+> >                  if (unlikely(drm_exec_is_contended(exec))) \
+> >                          continue; \
+> >                  __ret; \
+> >          })
+> >
+> > This way the following pattern
+> >
+> > 		ret =3D drm_exec_prepare_obj(&exec, boA, 1);
+> > 		drm_exec_continue_on_contention(&exec);
+> > 		if (ret)
+> > 			goto error;
+> >
+> > can be turned into something more conventional:
+> >
+> > 		ret =3D drm_exec_try_prepare_obj_or_retry(&exec, boA, 1);
+> > 		if (ret)
+> > 			goto error; =20
+>=20
+> Yeah, I was considering that as well. But then abandoned it as to=20
+> complicated.
+>=20
+> I really need to find some time to work on that anyway.
+>=20
+> >
+> > I guess we could even add static checks to make sure
+> > drm_exec_try_prepare_obj() is called inside a
+> > drm_exec_while_not_all_locked() loop. =20
+>=20
+> Interesting idea, but how would somebody do that?
 
-First of all GPU recovery is part of normal operation and necessary for 
-system stability. So disabling GPU recovery is actually not a good idea 
-in the first place.
+There are probably better/cleaner ways, but the below diff
+seems to catch cases where drm_exec_try_prepare_obj() is
+called in a context where break/continue are allowed, but
+that's not inside a drm_exec_while_not_all_locked() section.
 
-We already discussed that we probably need to taint the kernel if we do 
-so to indicate in crash logs that the system is not considered stable 
-any more. The problem was only that there wasn't an agreement on how to 
-do this.
+What's missing though is a way to detect when it's called
+from an inner loop.
 
-Since this here now makes it even easier to disable GPU recovery it's 
-probably not the right approach.
-
-Regards,
-Christian.
-
->
-> Signed-off-by: Nicolai Hähnle <nicolai.haehnle@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 32 +++++++++++++++++++++++-
->   1 file changed, 31 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> index dc474b809604..32d223daa789 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -471,35 +471,65 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
->   
->   	return result;
->   }
->   
->   static const struct file_operations amdgpu_debugfs_ring_fops = {
->   	.owner = THIS_MODULE,
->   	.read = amdgpu_debugfs_ring_read,
->   	.llseek = default_llseek
->   };
->   
-> +static int amdgpu_debugfs_timeout_ring_get(void *data, u64 *val) {
-> +	struct amdgpu_ring *ring = data;
-> +
-> +	if (ring->sched.timeout == MAX_SCHEDULE_TIMEOUT)
-> +		*val = 0;
-> +	else
-> +		*val = jiffies_to_msecs(ring->sched.timeout);
-> +
-> +	return 0;
-> +}
-> +
-> +static int amdgpu_debugfs_timeout_ring_set(void *data, u64 val) {
-> +	struct amdgpu_ring *ring = data;
-> +
-> +	if (val == 0)
-> +		ring->sched.timeout = MAX_SCHEDULE_TIMEOUT;
-> +	else
-> +		ring->sched.timeout = msecs_to_jiffies(val);
-> +
-> +	return 0;
-> +}
-> +
-> +DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_debugfs_timeout_ring_fops,
-> +			 amdgpu_debugfs_timeout_ring_get,
-> +			 amdgpu_debugfs_timeout_ring_set,
-> +			 "%llu\n");
-> +
->   #endif
->   
->   void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
->   			      struct amdgpu_ring *ring)
->   {
->   #if defined(CONFIG_DEBUG_FS)
->   	struct drm_minor *minor = adev_to_drm(adev)->primary;
->   	struct dentry *root = minor->debugfs_root;
-> -	char name[32];
-> +	char name[40];
->   
->   	sprintf(name, "amdgpu_ring_%s", ring->name);
->   	debugfs_create_file_size(name, S_IFREG | S_IRUGO, root, ring,
->   				 &amdgpu_debugfs_ring_fops,
->   				 ring->ring_size + 12);
->   
-> +	sprintf(name, "amdgpu_timeout_ring_%s", ring->name);
-> +	debugfs_create_file(name, S_IFREG | S_IRUGO | S_IWUSR, root, ring,
-> +			    &amdgpu_debugfs_timeout_ring_fops);
->   #endif
->   }
->   
->   /**
->    * amdgpu_ring_test_helper - tests ring and set sched readiness status
->    *
->    * @ring: ring to try the recovery on
->    *
->    * Tests ring and set sched readiness status
->    *
-
+---
+diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+index 7c7481ed088a..1f4e0e1a7783 100644
+--- a/include/drm/drm_exec.h
++++ b/include/drm/drm_exec.h
+@@ -69,8 +69,10 @@ struct drm_exec {
+  *
+  * At the beginning of the loop it is guaranteed that no GEM object is loc=
+ked.
+  */
++#define __in_drm_exec_while_not_all_locked false
+ #define drm_exec_while_not_all_locked(exec)    \
+-       while (drm_exec_cleanup(exec))
++       for (const bool __in_drm_exec_while_not_all_locked =3D true; \
++            drm_exec_cleanup(exec); )
+=20
+ /**
+  * drm_exec_continue_on_contention - continue the loop when we need to cle=
+anup
+@@ -83,6 +85,25 @@ struct drm_exec {
+        if (unlikely(drm_exec_is_contended(exec)))      \
+                continue
+=20
++/**
++ * drm_exec_try_prepare_obj - Try prepare an object and retry on contention
++ * @exec: drm_exec object
++ * @obj: GEM object to prepare
++ * @num_fence: number of fence slots to reserve
++ *
++ * Wrapper around drm_exec_prepare_obj() that automatically retries on
++ * contention by going back to the head of the drm_exec_while_not_all_lock=
+ed()
++ * loop.
++ */
++#define drm_exec_try_prepare_obj(exec, obj, num_fences) \
++       ({ \
++               int __ret =3D drm_exec_prepare_obj(exec, obj, num_fences); \
++               static_assert(__in_drm_exec_while_not_all_locked =3D=3D tru=
+e); \
++               if (unlikely(drm_exec_is_contended(exec))) \
++                       continue; \
++               __ret; \
++       })
++
+ /**
+  * drm_exec_break_on_contention - break a subordinal loop on contention
+  * @exec: drm_exec object
