@@ -4,43 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C811EB64D9
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jun 2023 07:21:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49893EB64D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jun 2023 07:21:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F17110E403;
-	Wed, 14 Jun 2023 07:21:00 +0000 (UTC)
-X-Greylist: delayed 409 seconds by postgrey-1.36 at gabe;
- Wed, 14 Jun 2023 05:36:48 UTC
-Received: from gnuweeb.org (gnuweeb.org [51.81.211.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 120DF10E0DC;
- Wed, 14 Jun 2023 05:36:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gnuweeb.org;
- s=default; t=1686720598;
- bh=YMi7ui8mUgZ7xFFkJ5jRHmFFR0KM3n2BdmtqWjBfWoo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Xm3mi4uk+1eGjNtyboS8Ys6bgrLGRlC4yCrd64p73sBzfviEPL79mlXvS+ty1EIZx
- c3NIg3m+762aqr0b0naNw31oAYo+3RNevZfM7fhbw3i9tP92eHySeW105s5t5tmU9O
- fbBaZ439bPjEjOP+ya4F1+TuuDvWqaZXNyh7pJWSTzCzSGUmMRwGgkaBxckMEvGUU4
- V7zKLi8g3qFoV5Gki7QVAmzu8NbH3Ma3NqgWTr5tBs6Qm78U6IF6Y9Y9jstSJuPRXX
- GgOGDN4PqTDANYMBY46TF6pb7Zg/jK2nPK82ZgQXAnKFgyZSQ+pBjaDi9O7HiBPmx1
- QxvYxdXEOphcw==
-Received: from [10.20.0.2] (unknown [182.253.126.223])
- by gnuweeb.org (Postfix) with ESMTPSA id ACF79249C00;
- Wed, 14 Jun 2023 12:29:52 +0700 (WIB)
-Message-ID: <5844e20e-843d-f65e-107a-8fd4cff48e32@gnuweeb.org>
-Date: Wed, 14 Jun 2023 12:29:48 +0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64C4B10E417;
+	Wed, 14 Jun 2023 07:21:16 +0000 (UTC)
+X-Greylist: delayed 460 seconds by postgrey-1.36 at gabe;
+ Wed, 14 Jun 2023 02:26:54 UTC
+Received: from mail.208.org (unknown [183.242.55.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07ED310E3FC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jun 2023 02:26:53 +0000 (UTC)
+Received: from mail.208.org (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTP id 4Qgq7G623vzBJL9m
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jun 2023 10:26:50 +0800 (CST)
+Authentication-Results: mail.208.org (amavisd-new); dkim=pass
+ reason="pass (just generated, assumed good)" header.d=208.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
+ content-transfer-encoding:content-type:message-id:user-agent
+ :references:in-reply-to:subject:to:from:date:mime-version; s=
+ dkim; t=1686709610; x=1689301611; bh=6kTDM7vlftjb630W5DW3qUW1xSe
+ 0NbOG51vxu+5VB0Y=; b=ecNhXYRvk7voO7rVamgQmRrVpyjRN7y+VjlpwygW+eR
+ zuQHwn5YN/lhrKTUOtIu14/50zzu9Zi4mg3gRM/pQCBy4/0Z5XvP91bp3B30hWt4
+ SmvoCPkhWxEpCenzPNQ26YGFB7uDh3Z/J9ASxGjsSJILUWEA5Y+0vCemRM0y+w1f
+ bHzbEN0zY+O4nE3dDuTrqHLo6tbsUdnI5HX1sSHoWprlfVXy/Q4AGNL0khoWPTxG
+ bmFlaVxE1ZjP7F8Vci49FIlyA2qYN7fGhsovKrSXE4dd5eRiAggLvNUGYiOme7kK
+ KL8HR4oMVj8C1zsGe+44jxgFAeuU/orFne2z+tkuQdQ==
+X-Virus-Scanned: amavisd-new at mail.208.org
+Received: from mail.208.org ([127.0.0.1])
+ by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id AiZxPnQrZUPz for <amd-gfx@lists.freedesktop.org>;
+ Wed, 14 Jun 2023 10:26:50 +0800 (CST)
+Received: from localhost (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTPSA id 4Qgq7G1h15zBJCMY;
+ Wed, 14 Jun 2023 10:26:50 +0800 (CST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] amd/display/dc:remove repeating expression
-To: Wang Ming <machel@vivo.com>
-References: <20230614034936.876-1-machel@vivo.com>
-Content-Language: en-US
-From: Ammar Faizi <ammarfaizi2@gnuweeb.org>
-In-Reply-To: <20230614034936.876-1-machel@vivo.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Wed, 14 Jun 2023 10:26:50 +0800
+From: baomingtong001@208suo.com
+To: daniel@ffwll.ch, airlied@gmail.com
+Subject: [PATCH] drm/amdgpu: remove unneeded variable
+In-Reply-To: <20230614022440.33828-1-luojianhong@cdjrlc.com>
+References: <20230614022440.33828-1-luojianhong@cdjrlc.com>
+User-Agent: Roundcube Webmail
+Message-ID: <1ccd72cc9fa4b0f1c5acceef0c21d9fb@208suo.com>
+X-Sender: baomingtong001@208suo.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Wed, 14 Jun 2023 07:20:54 +0000
+X-Mailman-Approved-At: Wed, 14 Jun 2023 07:20:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,24 +62,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, opensource.kernel@vivo.com,
- Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/14/23 10:49 AM, Wang Ming wrote:
-> Identify issues that arise by using the tests/doubletest.cocci
-> semantic patch.Need to remove duplicate expression in if statement.
-> 
-> Signed-off-by: Wang Ming <machel@vivo.com>
+fix the following coccicheck warning:
 
-Reviewed-by: Ammar Faizi <ammarfaizi2@gnuweeb.org>
+drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c:1156:5-11: 
+Unneeded variable: "result".
 
--- 
-Ammar Faizi
+Signed-off-by: Mingtong Bao <baomingtong001@208suo.com>
+---
+  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c | 3 +--
+  1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c 
+b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
+index 21be23ec3c79..36aa7657c66d 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
+@@ -1153,7 +1153,6 @@ int smu7_enable_power_containment(struct pp_hwmgr 
+*hwmgr)
+      struct phm_ppt_v1_information *table_info =
+              (struct phm_ppt_v1_information *)(hwmgr->pptable);
+      int smc_result;
+-    int result = 0;
+      struct phm_cac_tdp_table *cac_table;
+
+      data->power_containment_features = 0;
+@@ -1191,7 +1190,7 @@ int smu7_enable_power_containment(struct pp_hwmgr 
+*hwmgr)
+              }
+          }
+      }
+-    return result;
++    return 0;
+  }
+
+  int smu7_disable_power_containment(struct pp_hwmgr *hwmgr)
