@@ -4,89 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E711EB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 02:41:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F34DEB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 06:32:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA5910E121;
-	Thu, 15 Jun 2023 02:40:59 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2076.outbound.protection.outlook.com [40.107.102.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5974310E07F;
- Thu, 15 Jun 2023 02:40:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cdg1jLItr+359hcslX9sKwrN33IgLbamJRKpGMKQti8dTRr+brBRCsdBjqg4XGRHDhksIMipyTenlZAl9lBKeVS+0B19O1hqdrthMUJZDNWBMtjv2ZvWOIEu0hqzBBeYTXQ0qFWbTo6D5T4Tr5J88W40zuXe6PSaeQoyHpHrNPdyZn8h7/RLi1FjLRNkmGEeRIT7W+mvQuJ31YTlt7xNZgY/kdRn34bHlrkdWzGHfuA3z9pw9I8rWTkVNsyINPp57LxBEoC2Rw2mzN0EBKHWf4zOrFH1140Pbds6dn+X7MEtfN4iTVdkt+fPUWUdYxmR2yT8vG1CGYVYQ7uSPq4Rxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g9WbOLNeNHAudOMb8SBZMJEy/BM9Qk6iLfy8UTEWc98=;
- b=SxYTA5gEYkme/ftjMNalW9C+PCWQ42sEvOvC4y6K94KxUFjqtuJoGwXALIHWc12HnuzAtfiBrW3GHnoE5bRUcEcR+NJX01LHtgfigc1iqdvR8X+qRK90/AXtwIoq/s1OzLiPVmKfqvA+WL3K5/MIz0WSbXSUdJvg4z+HO0iG+Y5uV/y+u3IiN/3CpTKyANHNnZbQV8K3hABGsPe0IeJ2jY0rrYdRUpDQ8BsoNY+MQNrkO6X9MPYl7r2xLif3J0mmx7ewrxUGz8ibPWw1EQbnynTDXUvpntvZcNHksgRbcVV01F1yYQavFoc83ipGwbwV2Oi9ELRFnndwfzFRSB/BUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g9WbOLNeNHAudOMb8SBZMJEy/BM9Qk6iLfy8UTEWc98=;
- b=SXzNwnriOPEftTMJIxZ8GcmU28zRGBxrcK4umQn+CoJAI+dGc67b6adSJ25FVKb6A/nq2z52xqCy04R98uiJoK4ooYkrevQWAdk6qWc15doqR+OoM2Zti2IFxvsnnSYJyKDQn518Yp3PKEHpBXA2IkAu0azM8j2OM8hYT1KA1G4=
-Received: from DS7PR06CA0039.namprd06.prod.outlook.com (2603:10b6:8:54::7) by
- BL3PR12MB6450.namprd12.prod.outlook.com (2603:10b6:208:3b9::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.29; Thu, 15 Jun
- 2023 02:40:54 +0000
-Received: from DM6NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:54:cafe::e0) by DS7PR06CA0039.outlook.office365.com
- (2603:10b6:8:54::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.25 via Frontend
- Transport; Thu, 15 Jun 2023 02:40:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT055.mail.protection.outlook.com (10.13.173.103) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.25 via Frontend Transport; Thu, 15 Jun 2023 02:40:54 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 14 Jun
- 2023 21:40:52 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu, radeon drm-fixes-6.4
-Date: Wed, 14 Jun 2023 22:40:11 -0400
-Message-ID: <20230615024011.7773-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.40.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A49FE10E483;
+	Thu, 15 Jun 2023 06:32:53 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 506A110E11A;
+ Thu, 15 Jun 2023 06:32:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1686810771; x=1718346771;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=m7Rg4Z8tN68L4Ggv7n3oCaLNZ0NWwcD2fhinr5NJ6OQ=;
+ b=jMf83c3XLvk7tJXBwanPTTwO86u5jrb9KasKXOOIvgU07qgTtJ4K8iXz
+ FqbOh8yH/shXxqm4NHyFO6lfOOcV5pdnZnM4LJT898lkq1/avNRhY8GtX
+ kkdxRQ74ChxYYGzFDqPIujZO7G6TaHmXdj+g37doJaXdo2RYVko4hgl8y
+ CGUkLKAdxCyfpvr79U7kBDy5dULxd5Ry8/npgoi8YwNeRvwvG2HR4Dzxh
+ mhr0fzc+uGFEmHf8xk+49+5vWu3g83nwxKN19Pa96HsuamVEynRRnXiaj
+ aP149gHSx2z7mR5eD9pk9wl8mUKfCRPtUCQFLextOvNAwDDMAy6HRQDJF A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10741"; a="343527719"
+X-IronPort-AV: E=Sophos;i="6.00,244,1681196400"; d="scan'208";a="343527719"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2023 23:32:50 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10741"; a="712345887"
+X-IronPort-AV: E=Sophos;i="6.00,244,1681196400"; d="scan'208";a="712345887"
+Received: from lkp-server02.sh.intel.com (HELO d59cacf64e9e) ([10.239.97.151])
+ by orsmga002.jf.intel.com with ESMTP; 14 Jun 2023 23:32:47 -0700
+Received: from kbuild by d59cacf64e9e with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1q9gXG-0001Yd-2W;
+ Thu, 15 Jun 2023 06:32:46 +0000
+Date: Thu, 15 Jun 2023 14:32:02 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Felix.Kuehling@amd.com
+Subject: Re: [PATCH] drm/amdkfd: Switch over to memdup_user()
+Message-ID: <202306151407.U4D2AMDM-lkp@intel.com>
+References: <20230614020432.44044-1-jiapeng.chong@linux.alibaba.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT055:EE_|BL3PR12MB6450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 073fe45a-135d-4efd-f8fc-08db6d49f0af
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TDidoeELvzQVODUSAZ84N/6OP4ZOhO/txn/Qoq3xhRX9MwaTKXufdYcOz6jfA36IzNZ1z2dhGG+C3RUt67UUamHB1fkBIYetp6Snf6t57aNEF1vzi7zRS9/ELncaNzvUBWm+ClGVpZlxgQ71p7JC0MWgmagQfV+DHXmFBzzQT9g88u8nmfekw7IkiJ0GW98VGyBHnBg3H9PdO4c54IG6f2JPZkW4DN+JQFWT0hJgC7C2aFqrOeONACiRNXV8aMo0R/obPF7j0Aqn35x06FDA85snAk86X8ZByQxfOyg8F5iWcazi9Bek5XL4965eP/kXBSz+w4uoGHHu5D20RyxY60cTrB/1V4Zklk+ekA0QcIMASwp9cf//1qFOJwB9bI9s9GESq7Sv0n44Ea4XEfMAjJcKdKLBQzj7a9fl0PsKCdB5fx3C3R+T3c8pd2/a2yvID7V+eKt13cqLjIXrBmuwZr5oHWjBuXNMH6c1tTWrvyuyUZF0QUesxPW7EL6dAOPfx+mgw71isBzmiYPmUZ8nk136defu5rCrzd9x21A121Lt1puqnLWTval35OESFttuwNg1F53Mp8nnztJb0ruteG6qkmiy+zOhykQ64tdmIBV2LnRgYjeRGnPYy+XbSdeMOHUmjavebZgV2Nefh1PqVX4OJCinqJKO05YrvNvDWmP3N+E+2+aIoBZaltnoHsnfHcJf0b5+AaguDv2afXS1Y8s5GiFcENYy2A/vzFZWbHc=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(376002)(346002)(136003)(451199021)(46966006)(36840700001)(40470700004)(47076005)(70586007)(70206006)(336012)(4326008)(36756003)(426003)(186003)(478600001)(16526019)(110136005)(2616005)(2906002)(8676002)(6666004)(316002)(966005)(41300700001)(82310400005)(86362001)(40460700003)(7696005)(36860700001)(356005)(1076003)(8936002)(82740400003)(26005)(83380400001)(5660300002)(81166007)(40480700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2023 02:40:54.0380 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 073fe45a-135d-4efd-f8fc-08db6d49f0af
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT055.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6450
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230614020432.44044-1-jiapeng.chong@linux.alibaba.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,89 +58,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Xinhui.Pan@amd.com,
+ Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ oe-kbuild-all@lists.linux.dev, alexander.deucher@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+Hi Jiapeng,
 
-Fixes for 6.4.
+kernel test robot noticed the following build warnings:
 
-The following changes since commit 858fd168a95c5b9669aac8db6c14a9aeab446375:
+[auto build test WARNING on next-20230613]
+[cannot apply to drm-misc/drm-misc-next v6.4-rc6 v6.4-rc5 v6.4-rc4 linus/master v6.4-rc6]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-  Linux 6.4-rc6 (2023-06-11 14:35:30 -0700)
+url:    https://github.com/intel-lab-lkp/linux/commits/Jiapeng-Chong/drm-amdkfd-Switch-over-to-memdup_user/20230614-100553
+base:   next-20230613
+patch link:    https://lore.kernel.org/r/20230614020432.44044-1-jiapeng.chong%40linux.alibaba.com
+patch subject: [PATCH] drm/amdkfd: Switch over to memdup_user()
+config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20230615/202306151407.U4D2AMDM-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+reproduce (this is a W=1 build):
+        git checkout next-20230613
+        b4 shazam https://lore.kernel.org/r/20230614020432.44044-1-jiapeng.chong@linux.alibaba.com
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        make W=1 O=build_dir ARCH=x86_64 olddefconfig
+        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/gpu/
 
-are available in the Git repository at:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202306151407.U4D2AMDM-lkp@intel.com/
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.4-2023-06-14
+All warnings (new ones prefixed by >>):
 
-for you to fetch changes up to 7c5835bcb9176df94683396f1c0e5df6bf5094b3:
+   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c: In function 'get_queue_ids':
+>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:2815:24: warning: returning 'long int' from a function with return type 'uint32_t *' {aka 'unsigned int *'} makes pointer from integer without a cast [-Wint-conversion]
+    2815 |                 return PTR_ERR(queue_ids);
+         |                        ^~~~~~~~~~~~~~~~~~
 
-  drm/amd/display: limit DPIA link rate to HBR3 (2023-06-13 17:16:35 -0400)
 
-----------------------------------------------------------------
-amd-drm-fixes-6.4-2023-06-14:
+vim +2815 drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c
 
-amdgpu:
-- GFX9 preemption fixes
-- Add missing radeon secondary PCI ID
-- vblflash fixes
-- SMU 13 fix
-- VCN 4.0 fix
-- Re-enable TOPDOWN flag for large BAR systems to fix regression
-- eDP fix
-- PSR hang fix
-- DPIA fix
+  2804	
+  2805	static uint32_t *get_queue_ids(uint32_t num_queues, uint32_t *usr_queue_id_array)
+  2806	{
+  2807		size_t array_size = num_queues * sizeof(uint32_t);
+  2808		uint32_t *queue_ids = NULL;
+  2809	
+  2810		if (!usr_queue_id_array)
+  2811			return NULL;
+  2812	
+  2813		queue_ids = memdup_user(usr_queue_id_array, array_size);
+  2814		if (IS_ERR(queue_ids))
+> 2815			return PTR_ERR(queue_ids);
+  2816	
+  2817		return queue_ids;
+  2818	}
+  2819	
 
-radeon:
-- fbdev client warning fix
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amdgpu: add missing radeon secondary PCI ID
-
-Arunpravin Paneer Selvam (1):
-      Revert "drm/amdgpu: remove TOPDOWN flags when allocating VRAM in large bar system"
-
-Hersen Wu (1):
-      drm/amd/display: edp do not add non-edid timings
-
-Jiadong Zhu (4):
-      drm/amdgpu: Reset CP_VMID_PREEMPT after trailing fence signaled
-      drm/amdgpu: Program gds backup address as zero if no gds allocated
-      drm/amdgpu: Modify indirect buffer packages for resubmission
-      drm/amdgpu: Implement gfx9 patch functions for resubmission
-
-Kenneth Feng (1):
-      drm/amd/pm: workaround for compute workload type on some skus
-
-Mario Limonciello (2):
-      drm/amd: Make sure image is written to trigger VBIOS image update flow
-      drm/amd: Tighten permissions on VBIOS flashing attributes
-
-Peichen Huang (1):
-      drm/amd/display: limit DPIA link rate to HBR3
-
-Sonny Jiang (1):
-      drm/amdgpu: vcn_4_0 set instance 0 init sched score to 1
-
-Thomas Zimmermann (1):
-      drm/radeon: Disable outputs when releasing fbdev client
-
-Tom Chung (1):
-      drm/amd/display: fix the system hang while disable PSR
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |   7 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c           |  18 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h           |   9 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c       |  60 ++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h       |  15 +++
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              | 101 +++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c              |   6 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  18 +++-
- .../gpu/drm/amd/display/dc/link/link_detection.c   |   5 +
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  33 ++++++-
- drivers/gpu/drm/radeon/radeon_fbdev.c              |   1 +
- 13 files changed, 256 insertions(+), 20 deletions(-)
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
