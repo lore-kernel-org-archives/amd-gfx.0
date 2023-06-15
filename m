@@ -4,73 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3735EB64DA
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 20:39:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16866EB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 20:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7526710E1A0;
-	Thu, 15 Jun 2023 20:39:18 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB9CA10E19A
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jun 2023 19:33:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1686857599;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=qJ9fh5TisbZKUaORbgtmA89u4YsXzvNQtjxXBV2tisQ=;
- b=d9sXOwXaDHhdNS0y6w3eSf3HsBV/KvHRR4HlqjXjd+Ecl66bSy4lfTLObAWdq0y58XQMPy
- iL2mW1/UC7SQ9cZIbGgVaTOPYc/ermwd/62gKjv67I6HbBpfNG0NK2hog5SQ0veTUJjxR0
- 3O2vkqvoNbuSIlnfnFbd3+2JWZNV38E=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-556-O4W5hEm-N0qrNlcDuR6LLw-1; Thu, 15 Jun 2023 15:33:18 -0400
-X-MC-Unique: O4W5hEm-N0qrNlcDuR6LLw-1
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-62ffa1214edso104126d6.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jun 2023 12:33:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686857596; x=1689449596;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qJ9fh5TisbZKUaORbgtmA89u4YsXzvNQtjxXBV2tisQ=;
- b=VFZG+r//VVsQdn//YjOpbOHyH7HhcVIoRQdFjUwJ0ShzsdnCLLYc3GEmfanA8ZMRaq
- atfBfaKjCXIqzNodzQvw8ajFWws+bX+F7F2p1qXQf0KUnrWfDbus7QMjjpRd2d2a8lQC
- UycgP4zdnoisD8QHxGPqlEt3ZBXIDw7esQq3JhutdYdATRcDvf8dNE4OutRhMliBT8a4
- oOjFxSmBEuboZoQ0zpcwU+JgrhlNY+WGImICXWgMgdsmjS9btOqtrwEy2nWLvUoeht0J
- Gqau2KuSxg/OgMvESvj1kiUjkAPq/Hd3tIAfiLgoCsDsyZADV52ddUBnKNX9wJ8GJBud
- USaw==
-X-Gm-Message-State: AC+VfDxikIBcMMwrC9v96WhLaFTGcqxwY8VnGhkrGRVwObI+L+3ULf4K
- AZb+6uf5spbgBcGDxaWLVRlM8+tGYp/s85j9i+q5NxrAgF+Zby8EcDyGtY+g2NryrMpEksdZG17
- 9O1TtTtXOFgZkVoflzcYlwWnTfA==
-X-Received: by 2002:ad4:5bca:0:b0:5ed:c96e:ca4a with SMTP id
- t10-20020ad45bca000000b005edc96eca4amr22503028qvt.1.1686857595848; 
- Thu, 15 Jun 2023 12:33:15 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ5M13ke+gvL3VoDObxmyNhDkjVrjDagXp/R2MhL92zTstn0T61v6zTXVFTefmODf0p29xAboA==
-X-Received: by 2002:ad4:5bca:0:b0:5ed:c96e:ca4a with SMTP id
- t10-20020ad45bca000000b005edc96eca4amr22503000qvt.1.1686857595549; 
- Thu, 15 Jun 2023 12:33:15 -0700 (PDT)
-Received: from x1n (cpe5c7695f3aee0-cm5c7695f3aede.cpe.net.cable.rogers.com.
- [99.254.144.39]) by smtp.gmail.com with ESMTPSA id
- c20-20020a0cca14000000b0062ff47845fcsm719203qvk.48.2023.06.15.12.33.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jun 2023 12:33:14 -0700 (PDT)
-Date: Thu, 15 Jun 2023 15:33:12 -0400
-From: Peter Xu <peterx@redhat.com>
-To: Alex Sierra <alex.sierra@amd.com>
-Subject: Re: [PATCH v9 02/14] mm: move page zone helpers from mm.h to mmzone.h
-Message-ID: <ZItneGX+sqg7WApF@x1n>
-References: <20220715150521.18165-1-alex.sierra@amd.com>
- <20220715150521.18165-3-alex.sierra@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99BA910E1A1;
+	Thu, 15 Jun 2023 20:39:56 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2057.outbound.protection.outlook.com [40.107.92.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC81610E19C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jun 2023 20:39:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UFs0s9NyskwgxHfY9xeQ8r50oRqP3OZpVZS7yaYha9Cxck+4hZ1ekS+mxC3/aH0WpBCYQ4xZyVq+U6ku82wwllp81f7iHnf4KK/B4RZ4VJDGiAQXNGfZ8ywXH1GRLJuxtkhq/B8v3QPiXzo2iOkhPg9HDJ/wBXL0Dyqt95hT/gyFRiXTkN1/FWc4dAqUnQi+8ZCyG6xQ+DtSXSq6exyQk1pU2FStulsN2gzAouyLb9F8e8wrHKEdFe+B62sq4UgZ7Ywcx7hqArtXBxYLQ1WE86hR5YmX8y9kc15u3jdk1oR2srsvRYnPvRshhsO6G9ssOZk3pTStZ4IWVPxtEEv4pA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ctsnfo4QjRf3GP2PxDWBf7Xva+/XUE3OpMYadlKsET4=;
+ b=lL7ey9fdtrpOs/d7kup4pxp8DRQIapvUxT5DtOXWEMBdhFXjqji7x/Zm68nLZjwFy5yf/RBgU7myP0Qvk2EdrZQOkoTaQ2XHjAELD+/Ne/hGDH7wMYkZRm5of2vgFBglKQmSxD2kf1B5FGgKmsByyijPnTLrVFxRtPWeA6oJT8Qe67D/+XNFxE8Yiw/sQfZ7Q0KKPWHixFgiOdvYKKfECL4TrkJOngAsFPDbQqeGsy4K7hfi2p7xkIZbKdj2MMYacV0NZ44jhocBKFtf1af9/I+HWtcjtl1oViPRR1F2mpMy4Ov9tiHMU86gDhVpDFBY9mK5qnb4OQDTEC/ltjEG0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ctsnfo4QjRf3GP2PxDWBf7Xva+/XUE3OpMYadlKsET4=;
+ b=MuR6I044dLO0CYp0/wlXiIWTX+GSrebEIeEjiOlncVkuS/4XZ/GcGYjPuJl+qaXzLU6/uy+1wMJOn/9lcx6kBChktJPjbx1xPb6QyytxlHUY+374uNC1mL3GB0Y6MD9rYcmqFZ88Cxw+i5BSzYaCNa/9tT0lhJDhpdzskRkpEVI=
+Received: from DS7PR03CA0025.namprd03.prod.outlook.com (2603:10b6:5:3b8::30)
+ by BL1PR12MB5254.namprd12.prod.outlook.com (2603:10b6:208:31e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.27; Thu, 15 Jun
+ 2023 20:39:52 +0000
+Received: from CY4PEPF0000EDD6.namprd03.prod.outlook.com
+ (2603:10b6:5:3b8:cafe::10) by DS7PR03CA0025.outlook.office365.com
+ (2603:10b6:5:3b8::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.25 via Frontend
+ Transport; Thu, 15 Jun 2023 20:39:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD6.mail.protection.outlook.com (10.167.241.210) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.22 via Frontend Transport; Thu, 15 Jun 2023 20:39:51 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 15 Jun
+ 2023 15:39:51 -0500
+Received: from blakha.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
+ Transport; Thu, 15 Jun 2023 15:39:50 -0500
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <harry.wentland@amd.com>,
+ <alexander.deucher@amd.com>
+Subject: [PATCH 0/6] Freesync Panel Replay
+Date: Thu, 15 Jun 2023 16:39:24 -0400
+Message-ID: <20230615203930.1715722-1-Bhawanpreet.Lakha@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20220715150521.18165-3-alex.sierra@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-X-Mailman-Approved-At: Thu, 15 Jun 2023 20:39:16 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD6:EE_|BL1PR12MB5254:EE_
+X-MS-Office365-Filtering-Correlation-Id: e244e74a-ca4c-44c2-c7ff-08db6de0ab5f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: I6LMYUJ+SfgmfZm5aYbfIIcIkw3moSQraSy6BXPxx9wJIOYRLiPcVs//nSlSW2zncULEuLpAiBuCMl1wrOCZmAs5AobJaGvlWaLdlMG2RInlza6xTOLSMuGQjC29NllagSmXIV76ALRc8oAI3kyRC8AZOgt5SnCyjt50UjNfiA7X7TBUmnopL3AXylMRqqIv1Gpjlzv0FRq1twoIxtEVGdnuKUZTSXW4d2biuI1qEWwN0XosQGBe2kwrAug+HBUiYB8s94kZVhe68WQKUsKc4fb1ZzAk1y9t0gZxuYlzFVDJ5++ufzxFa4+cc4uRUO0fslrTjUb3sEKztlbJglE0PzTfG+F2fkUATC6yuqPDMjnr7UeiWA5uuvlrtvKHmFzS6JWlHt6NmbpDd0FsFwRRyBVTCYJXAJ3/QvNFLIRrHRtDbjMDjcawhxTMoILRqBjS4HalbkQt8uKU/0dGNPDhM2mJn64mNdbX9L5H+QIjaJbu6aBnUjOhNB5fc8kKq6qEjzKbZKgwJCDsz9Yse9Mu3opiM5pE1HaRBdUaCEINrIGFmyTeyuGw51jqq7jtARCmbIcQx/UZbxoOKB0E2Ujpk05VkjrSnewQcWEJiZdrPEAq3lnQbCgpiMFmhpd7AYgs0PDU0jD/J5PAw637sJfK2oeIbDt+Wd5sfPYtomc5vgHvBW39oSSC9Kf3r8XC9lSVZaviv61YIzSYcgdj+3KBAuef1gguKPDGAMpyJQcu/dhUdvwRyOpT4Y7sXvVnwAQhjwrvHE1KvdbbT568poyeeQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(396003)(376002)(136003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(82310400005)(8936002)(186003)(86362001)(40480700001)(1076003)(36860700001)(26005)(5660300002)(40460700003)(8676002)(81166007)(356005)(478600001)(36756003)(70206006)(70586007)(2906002)(6636002)(41300700001)(4326008)(2616005)(336012)(426003)(83380400001)(110136005)(82740400003)(7696005)(47076005)(6666004)(316002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2023 20:39:51.7246 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e244e74a-ca4c-44c2-c7ff-08db6de0ab5f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD6.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5254
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,42 +98,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rcampbell@nvidia.com, willy@infradead.org, david@redhat.com,
- Felix.Kuehling@amd.com, apopple@nvidia.com, amd-gfx@lists.freedesktop.org,
- linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
- dri-devel@lists.freedesktop.org, jgg@nvidia.com, akpm@linux-foundation.org,
- linux-ext4@vger.kernel.org, hch@lst.de
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello, all,
+This patch set introduces Freesync Panel Replay capability on DCN 3.1.4
+and newer
 
-On Fri, Jul 15, 2022 at 10:05:09AM -0500, Alex Sierra wrote:
-> +static inline enum zone_type page_zonenum(const struct page *page)
-> +{
-> +	ASSERT_EXCLUSIVE_BITS(page->flags, ZONES_MASK << ZONES_PGSHIFT);
-> +	return (page->flags >> ZONES_PGSHIFT) & ZONES_MASK;
-> +}
+These patches are enabling panel replay in static screen use-cases.
+Other use cases will be added as they are ready
 
-Sorry to hijack this patch - not directly relevant to the movement, but
-relevant to this helper, so maybe I can leverage the cc list..
+*Please note that there is a bug I am seeing with these patches where
+there is a hang after the screen is idle for a few minutes. I am
+actively debugging this and will send an updated patch set once the fix
+is found
 
-My question is whether page_zonenum() is ready for taking all kinds of tail
-pages?
 
-Zone device tail pages all look fine, per memmap_init_zone_device().  The
-question was other kinds of usual compound pages, like either thp or
-hugetlb.  IIUC page->flags can be uninitialized for those tail pages.
+The importance of Replay
+************************
 
-Asking because I noticed it seems possible that page_zonenum() can just
-take any random tail page as input, e.g.:
+In some instances, the GPU is transmitting repeated frames to the sink
+without any updates or changes in the content. These repeat transmission
+are wasteful, resulting in power draw in different aspects of the system
 
-try_grab_folio -> is_pci_p2pdma_page -> is_zone_device_page -> page_zonenum
+1. DCN is fetching the frame of data from DF/UMC/DRAM. This memory traffic
+prevents power down of parts of this HW path.
 
-I'm worried it'll just read fake things, but maybe I just missed something?
+2. GPU is transmitting pixel data to the display through the main link of
+the DisplayPort interface. This prevents power down of both the Source
+transmitter (TX) and the Sink receiver (RX)
 
-Thanks,
+
+
+How it improves on PSR
+************************
+
+The concepts of utilizing replay is similar to PSR, but there is a benefit of:
+	Source and Sink remaining synchronized which allows for
+        	- lower latency when switching from replay to live frames
+	        - enable the possibility of more use cases
+		- easy control of the sink's refresh rate during replay
+
+Due to Source and Sink remaining timing synchronized, Replay can be activated
+in more UI scenarios.
+
+
+Regards,
+Bhawan
+
+
+
+Bhawanpreet Lakha (6):
+  drm/amd/display: Add structs for Freesync Panel Replay
+  drm/amd/display: Add Functions to enable Freesync Panel Replay
+  drm/amd/display: Add Freesync Panel DM code
+  drm/amd/display: Read replay data from sink
+  drm/amd/display: Enable Replay for static screen use cases
+  drm/amd/display: Get replay info from VSDB
+
+ .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  56 +++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  14 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   4 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_replay.c  | 184 ++++++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_replay.h  |  46 ++
+ .../drm/amd/display/dc/core/dc_link_exports.c |   5 +
+ drivers/gpu/drm/amd/display/dc/dc.h           |   5 +
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  29 ++
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |  41 ++
+ drivers/gpu/drm/amd/display/dc/dce/Makefile   |   2 +-
+ .../gpu/drm/amd/display/dc/dce/dmub_replay.c  | 303 +++++++++++++
+ .../gpu/drm/amd/display/dc/dce/dmub_replay.h  |  58 +++
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c |  12 +
+ .../amd/display/dc/dcn314/dcn314_resource.c   |  12 +
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  19 +
+ drivers/gpu/drm/amd/display/dc/inc/link.h     |  14 +
+ .../drm/amd/display/dc/link/link_factory.c    |   7 +
+ .../dc/link/protocols/link_dp_capability.c    |  10 +
+ .../link/protocols/link_edp_panel_control.c   | 165 +++++++
+ .../link/protocols/link_edp_panel_control.h   |   8 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 408 ++++++++++++++++++
+ .../gpu/drm/amd/display/include/dpcd_defs.h   |   4 +-
+ .../amd/display/modules/power/power_helpers.c |   5 +
+ .../amd/display/modules/power/power_helpers.h |   2 +
+ drivers/gpu/drm/amd/include/amd_shared.h      |   2 +
+ 26 files changed, 1414 insertions(+), 3 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
 
 -- 
-Peter Xu
+2.25.1
 
