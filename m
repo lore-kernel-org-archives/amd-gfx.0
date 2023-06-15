@@ -4,60 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EA84EB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 21:12:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDB07EB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 22:13:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C89F310E19D;
-	Thu, 15 Jun 2023 21:12:12 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E99210E023;
- Thu, 15 Jun 2023 21:12:10 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-1a991886254so140341fac.2; 
- Thu, 15 Jun 2023 14:12:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686863529; x=1689455529;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cYFIoxmK6/11WcQGMEd3k+GSDGPqNwcIqNk05D0COTE=;
- b=Ctj8OnhGP2r2mDaRqVkWYkbCXLxlBOU1XnLMs2rQnEZVFtLbX4y/91GeJfTZJq5ilZ
- BEBJVQLtXSa74ZV6v9HQtOkzjDigIp47DOIRcrHwGUcKTsqQAhkMdn1UO87Sb7Gpm7ex
- X45UZ0QhVvOtmv5xonVSE+x+ADmFWyurK8i6hsId3TXKamH0UIU6FCtus2oYmyYc/hXN
- aKVQWGwGuIgL3W0ZwDOUERyeYftA7rlPAK83m58oUSPJYAdDpFEgGtRYfhALMGIZvZ2b
- gofXVCoULo3vxmDnvGTZQX+wnBV6wdCwVEVCg+rvInQGzr6Uhq9I2bWmhZs/WkNDiQrK
- W5gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686863529; x=1689455529;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cYFIoxmK6/11WcQGMEd3k+GSDGPqNwcIqNk05D0COTE=;
- b=jfVVE6xAZdVxNcuxdOj0IBv7br7cvBdPcsUViwbPRbPROC8oLbRo4J+nYzUJyjl5dG
- ayVkSLOBarNeI+KP0iy20FVKOfN9GDjuF9fUkdg85iqrTueQuTv0wAXz7Iqs2NYstyNt
- jy5wQYDInLvG4S6IrfCaQGr2Sq2fhrjAgAMvkWPs0cP6DNkm0fydTgqXyMCU75V2/iXY
- Ul4KjIaS+OCsz8EogjdLHK6CCa2dNaBv4a7O08dwuOwc0al8V5t/k8BiNjdaM/K/ohDu
- +MILem1sdHOF21AM25/9cF2An4VO8Fq+qgnfriEnVEB+178C7XLgA0iHGRDYGVK0ayXe
- 8nEw==
-X-Gm-Message-State: AC+VfDz/MOd3CB5EbHtRPqe66VpVcSiW57b8XpQGqoiYOgHDY6sZPrtk
- CNY64h0vlkx/ncUOk6DKR21HIKmSvcmVAzq2fm0=
-X-Google-Smtp-Source: ACHHUZ4RQOzLkRBT57QFtwfdt42rHQTpRvSKNUguWsVJUC9l4YMVkHjXvUxUEmpNf+dIqOqbJjieNSEhAcMqJy+p5M0=
-X-Received: by 2002:a05:6871:6ba6:b0:19f:ad5a:f518 with SMTP id
- zh38-20020a0568716ba600b0019fad5af518mr274084oab.25.1686863529246; Thu, 15
- Jun 2023 14:12:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FAEB10E55B;
+	Thu, 15 Jun 2023 22:13:37 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2058.outbound.protection.outlook.com [40.107.237.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3519610E55B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jun 2023 22:13:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BnpMxDLlJCHl7oBKqg9uyXqgg/vciE+8RFtC2HRJU+m7UFAZ8ZXrHWsr9zphoeht67Tam0fZd6dXwhz6/gGMImMib3Oil9X+oFRrmuMJ6JVIBCrXgLiib/EksgHlyesc6PeRm3SRoHvf2wMcakxudxE19buzFvd1A8Sjc46S2eEMCqtDt0VAUULdaIzYIaj4wMocIscVdcxXY63BLQ05LRJ5mexvtQP9qdI59zDpgxJDyBoW7ucxbIYLkBr6ARXNvKGMjMocZgvCfOmv4ukplm4N3KkBqvBbnF+IXjRXkv/me9HfyvbrlG3Ifl2sPYxWN63Hdm3T93gjZ56718Odmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2wcLanI2ZrHclOwbCmiCBbhYoXY9Ki2mR0FD4gxT/NY=;
+ b=XJBd6DL+qPB8P8MaElqEjFCysjinQaqn1fZVeQsdbhC2opIYC7/eEmgyLU2GM+C6oShZcqYBuBQ3al88SI+fUDlELznWS9DwND2XmPenDz9OrO+eTaWcpE4Qb7t5z5XQfsRbywMWYQHLsL7+pDkeLGigtv7rD4GuCCAXKELD2B9E+ZcKFC2hbWHFbm/bcO9OulGRLntbH0ESVj3xf8pGJs4xhNc8sD5PtPQK41HU9JtYFNkgQ8CDQcCmb8owp6Nk/PwyOibPNRP/ALafoopXB/8Q/HOYeIBDdW1HplNsmrn1YWODwq5z627TsHDT9a57FSK67Jwnc6aql+U0Ia0joA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2wcLanI2ZrHclOwbCmiCBbhYoXY9Ki2mR0FD4gxT/NY=;
+ b=jmBpjx0LVuQrdf0oyDKjnvqbEKM+KDdcXiLtEbxm47tuU1DOJSf9K071pM2cK1gtyI590gT1StDYq35b6Ifpq1kk3xwx9z95cK1FoFlEdAzurUBquhsW7XbE6bVepYzUYHR0n5dB3Cgno5UkIgYWyMKNq+rqiCnl451YGhQOQBo=
+Received: from BY3PR04CA0021.namprd04.prod.outlook.com (2603:10b6:a03:217::26)
+ by CY8PR12MB7513.namprd12.prod.outlook.com (2603:10b6:930:91::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.29; Thu, 15 Jun
+ 2023 22:13:33 +0000
+Received: from SA2PEPF000015CA.namprd03.prod.outlook.com
+ (2603:10b6:a03:217:cafe::ba) by BY3PR04CA0021.outlook.office365.com
+ (2603:10b6:a03:217::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.27 via Frontend
+ Transport; Thu, 15 Jun 2023 22:13:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF000015CA.mail.protection.outlook.com (10.167.241.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6477.37 via Frontend Transport; Thu, 15 Jun 2023 22:13:31 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 15 Jun
+ 2023 17:13:30 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/atomfirmware: fix LPDDR5 width reporting
+Date: Thu, 15 Jun 2023 18:13:17 -0400
+Message-ID: <20230615221317.3795214-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-References: <20230613030151.216625-1-15330273260@189.cn>
- <20230613030151.216625-3-15330273260@189.cn>
- <dbf0d89f-717a-1f78-aef2-f30506751d4d@loongson.cn>
-In-Reply-To: <dbf0d89f-717a-1f78-aef2-f30506751d4d@loongson.cn>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 15 Jun 2023 17:11:58 -0400
-Message-ID: <CADnq5_N6vVtzH6tzguZdHnP_TdRoG1G-Cr94O+X03jvtk=vhag@mail.gmail.com>
-Subject: Re: [PATCH v7 2/8] PCI/VGA: Deal only with VGA class devices
-To: Sui Jingfeng <suijingfeng@loongson.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|CY8PR12MB7513:EE_
+X-MS-Office365-Filtering-Correlation-Id: d649526b-af95-492f-92af-08db6dedc0f5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jmdZ41VTosCgmACQpGIYTSF3GfmxNVCFt8NWHAqC29U6ZGc5eXpO5k3J5/Ff3VD1LLxuzPaROrxYxIO+TqdcEJTEd7xmRflU2RLI1AaDuHTR68Tv1R90VnJwUr+RSXOdasXIo2zx3hOoItDrUNriDW0BnKk/+kCXPBJWQW6r9i2EarAu689eKvKKdRJV2HpUHZZyRlm2awEobRekmsMMW02M3dfKewL3YwNwPwWUmfljlmuVRb7EnTeHh2A07yq0cq4Mrp5NnJV8xfKkv8V/Gb8NuWuQShcmQLyZVPE3D+bn2jlyAD0dj52BTPZCcoot/Z/woDAybZzPm5dEbVP2Y6qDq6QxuwZ0B+mPkYSJIfL1AhfMLEpRhDrtJcQbNl9UFeRwjm7HUQW0USf9FwBo0zOOvZCyKmeAieVWFZCZwDNDItI5gA2YKnJsDuvafpMN+i9m6tHYlYMPOQqzCFcPgkr2o0eXeHRgwLzfg1O4Q7fdMDWxE6YQqrDGBbexvW06WhdpNAms5O7c1sf5c0CGJleTDtFxxsxL3/vnxqw5RJPhzzPJwJkFXCKYd3NnAWk5EHYBbo1V2kgBWAqMJ6eyeBtrdBoYdvEl+ZIJcdqxP46R+AnnlpyvUnmWKMjsTkrsOFeAeYD2orAcMdTP9l66zmnwQdaCisXT1X2jvyMzEhGBNJ7YvqgeM8a9FQke3ibyvdfCuoss3V+gTRCKFOH/OLWTSr1LGwT3G/uDtQG2cpg=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(136003)(376002)(346002)(39860400002)(451199021)(46966006)(40470700004)(36840700001)(36860700001)(83380400001)(7696005)(2906002)(4326008)(966005)(47076005)(6666004)(186003)(16526019)(26005)(1076003)(40480700001)(2616005)(40460700003)(336012)(426003)(36756003)(81166007)(356005)(86362001)(41300700001)(478600001)(5660300002)(82740400003)(8936002)(70206006)(70586007)(82310400005)(8676002)(6916009)(316002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2023 22:13:31.4428 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d649526b-af95-492f-92af-08db6dedc0f5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7513
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,147 +97,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Sui Jingfeng <15330273260@189.cn>, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 14, 2023 at 6:50=E2=80=AFAM Sui Jingfeng <suijingfeng@loongson.=
-cn> wrote:
->
-> Hi,
->
-> On 2023/6/13 11:01, Sui Jingfeng wrote:
-> > From: Sui Jingfeng <suijingfeng@loongson.cn>
-> >
-> > Deal only with the VGA devcie(pdev->class =3D=3D 0x0300), so replace th=
-e
-> > pci_get_subsys() function with pci_get_class(). Filter the non-PCI disp=
-lay
-> > device(pdev->class !=3D 0x0300) out. There no need to process the non-d=
-isplay
-> > PCI device.
-> >
-> > Cc: Bjorn Helgaas <bhelgaas@google.com>
-> > Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
-> > ---
-> >   drivers/pci/vgaarb.c | 22 ++++++++++++----------
-> >   1 file changed, 12 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-> > index c1bc6c983932..22a505e877dc 100644
-> > --- a/drivers/pci/vgaarb.c
-> > +++ b/drivers/pci/vgaarb.c
-> > @@ -754,10 +754,6 @@ static bool vga_arbiter_add_pci_device(struct pci_=
-dev *pdev)
-> >       struct pci_dev *bridge;
-> >       u16 cmd;
-> >
-> > -     /* Only deal with VGA class devices */
-> > -     if ((pdev->class >> 8) !=3D PCI_CLASS_DISPLAY_VGA)
-> > -             return false;
-> > -
->
-> Hi, here is probably a bug fixing.
->
-> For an example, nvidia render only GPU typically has 0x0380.
->
-> at its PCI class number, but  render only GPU should not participate in
-> the arbitration.
->
-> As it shouldn't snoop the legacy fixed VGA address.
->
-> It(render only GPU) can not display anything.
->
->
-> But 0x0380 >> 8 =3D 0x03, the filter  failed.
->
->
-> >       /* Allocate structure */
-> >       vgadev =3D kzalloc(sizeof(struct vga_device), GFP_KERNEL);
-> >       if (vgadev =3D=3D NULL) {
-> > @@ -1500,7 +1496,9 @@ static int pci_notify(struct notifier_block *nb, =
-unsigned long action,
-> >       struct pci_dev *pdev =3D to_pci_dev(dev);
-> >       bool notify =3D false;
-> >
-> > -     vgaarb_dbg(dev, "%s\n", __func__);
-> > +     /* Only deal with VGA class devices */
-> > +     if (pdev->class !=3D PCI_CLASS_DISPLAY_VGA << 8)
-> > +             return 0;
->
-> So here we only care 0x0300, my initial intent is to make an optimization=
-,
->
-> nowadays sane display graphic card should all has 0x0300 as its PCI
-> class number, is this complete right?
->
-> ```
->
-> #define PCI_BASE_CLASS_DISPLAY        0x03
-> #define PCI_CLASS_DISPLAY_VGA        0x0300
-> #define PCI_CLASS_DISPLAY_XGA        0x0301
-> #define PCI_CLASS_DISPLAY_3D        0x0302
-> #define PCI_CLASS_DISPLAY_OTHER        0x0380
->
-> ```
->
-> Any ideas ?
+LPDDR5 channels are 32 bit rather than 64, report the width properly
+in the log.
 
-I'm not quite sure what you are asking about here.  For vga_arb, we
-only care about VGA class devices since those should be on the only
-ones that might have VGA routed to them.  However, as VGA gets
-deprecated, you'll have more non VGA PCI classes for devices which
-could be the pre-OS console device.
+v2: Only LPDDR5 are 32 bits per channel.  DDR5 is 64 bits per channel
 
-Alex
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2468
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c   | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
->
-> >       /* For now we're only intereted in devices added and removed. I d=
-idn't
-> >        * test this thing here, so someone needs to double check for the
-> > @@ -1510,6 +1508,8 @@ static int pci_notify(struct notifier_block *nb, =
-unsigned long action,
-> >       else if (action =3D=3D BUS_NOTIFY_DEL_DEVICE)
-> >               notify =3D vga_arbiter_del_pci_device(pdev);
-> >
-> > +     vgaarb_dbg(dev, "%s: action =3D %lu\n", __func__, action);
-> > +
-> >       if (notify)
-> >               vga_arbiter_notify_clients();
-> >       return 0;
-> > @@ -1534,8 +1534,8 @@ static struct miscdevice vga_arb_device =3D {
-> >
-> >   static int __init vga_arb_device_init(void)
-> >   {
-> > +     struct pci_dev *pdev =3D NULL;
-> >       int rc;
-> > -     struct pci_dev *pdev;
-> >
-> >       rc =3D misc_register(&vga_arb_device);
-> >       if (rc < 0)
-> > @@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
-> >
-> >       /* We add all PCI devices satisfying VGA class in the arbiter by
-> >        * default */
-> > -     pdev =3D NULL;
-> > -     while ((pdev =3D
-> > -             pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
-> > -                            PCI_ANY_ID, pdev)) !=3D NULL)
-> > +     while (1) {
-> > +             pdev =3D pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
-> > +             if (!pdev)
-> > +                     break;
-> > +
-> >               vga_arbiter_add_pci_device(pdev);
-> > +     }
-> >
-> >       pr_info("loaded\n");
-> >       return rc;
->
-> --
-> Jingfeng
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+index ef4b9a41f20a..0b7f4c4d58e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+@@ -327,10 +327,13 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
+ 					mem_channel_number = igp_info->v11.umachannelnumber;
+ 					if (!mem_channel_number)
+ 						mem_channel_number = 1;
+-					/* channel width is 64 */
+-					if (vram_width)
+-						*vram_width = mem_channel_number * 64;
+ 					mem_type = igp_info->v11.memorytype;
++					if (mem_type == LpDdr5MemType)
++						mem_channel_width = 32;
++					else
++						mem_channel_width = 64;
++					if (vram_width)
++						*vram_width = mem_channel_number * mem_channel_width;
+ 					if (vram_type)
+ 						*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
+ 					break;
+@@ -345,10 +348,13 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
+ 					mem_channel_number = igp_info->v21.umachannelnumber;
+ 					if (!mem_channel_number)
+ 						mem_channel_number = 1;
+-					/* channel width is 64 */
+-					if (vram_width)
+-						*vram_width = mem_channel_number * 64;
+ 					mem_type = igp_info->v21.memorytype;
++					if (mem_type == LpDdr5MemType)
++						mem_channel_width = 32;
++					else
++						mem_channel_width = 64;
++					if (vram_width)
++						*vram_width = mem_channel_number * mem_channel_width;
+ 					if (vram_type)
+ 						*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
+ 					break;
+-- 
+2.40.1
+
