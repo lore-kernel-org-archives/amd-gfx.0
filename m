@@ -4,64 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C322AEB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 13:14:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71E94EB64DC
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 13:16:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 290D110E4DF;
-	Thu, 15 Jun 2023 13:14:43 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBF2610E4DF
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jun 2023 13:14:41 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-1a99f39a387so555915fac.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jun 2023 06:14:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686834880; x=1689426880;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pqo8qvVl+UNe9ViWHJ/+P2WmvR4lYzzwX9aC1s+fshg=;
- b=ChantmjcrCR6MjNP+LZrxTGqTs1kKzdtZizmAf6MOeH2RWM1567UpOklobwylRbMLV
- WFcPRBweKy2XUy+Uxjx6oy1f7sbkkIZYS0CpnBoyTVoRYMq753vIK0VIh7nTctaaAjlB
- 3y7rVhVFKnRQ6w1JHL45liV71FQXypmePBz1aw20JnzgJaPXe6J9YiZrwbxKW7wFPjmQ
- cl+EGm6F+ajni4Q6k1JIC81BbPjUHAfP8xMTtiuu89zO5VYdqnFLmy9qnI1X5KZOCxNg
- FvjgfhGMBpRIZhFP3ryRFiDf1kUTOSG3bAOinmrjdOZZaFgnzHylLb3nZc/UcY7q9lRV
- BVbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686834880; x=1689426880;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pqo8qvVl+UNe9ViWHJ/+P2WmvR4lYzzwX9aC1s+fshg=;
- b=UKbqTYL/ufWkxrj318l0W7ZYDCjLfxZLDvekdOi4bRO85w3VUXmAs77pHYqCQz7L6z
- Jy9S1tS+1fLFCfme5rUpCqClvNHe78PWs8KAcxB0Fi84fAWQU0TZvYZu+GvLYU9WiWnc
- rMjbZINThCqtQiLvzDjZbJdneH3qRRDoa61WDHGTpmpC25hYF85C0MBD7fhqMxS70kuu
- guLsV9Bozd89G4DX0uVsg5M6oIVsGCWVrujx7WrUDhqa0jpfDFcy6mrDWx/Wkm9PpF7S
- OehbKcKWQheirboclD3xmhBq9S1VxMO5+L9NXVTqMB5gVmpG5lamsbsLtm6GvjNgqIP/
- tXWA==
-X-Gm-Message-State: AC+VfDzPLM6u/vwfihkcilNstwLhG8pbpenWYftcgYhoMWf5Y9ToHkEh
- wkPs0yVNlJ8l6QXv5SWd4YC7AH2euHqWDDuvpbNL/2wM
-X-Google-Smtp-Source: ACHHUZ7tneCiPbK2HCC9X6EAOSY3FTiIDNR+SHyrzUQ6UPmdP4/gc+GbS1aSSXEVF9CHRESTkPufS5UVpgwsATpJimA=
-X-Received: by 2002:a05:6870:85c4:b0:19f:a340:232 with SMTP id
- g4-20020a05687085c400b0019fa3400232mr12742133oal.10.1686834880539; Thu, 15
- Jun 2023 06:14:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1435C10E4EA;
+	Thu, 15 Jun 2023 13:16:29 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A75810E499;
+ Thu, 15 Jun 2023 08:07:41 +0000 (UTC)
+Received: from ideasonboard.com (unknown
+ [IPv6:2001:b07:5d2e:52c9:72c3:346:a663:c82d])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id BA3F69CA;
+ Thu, 15 Jun 2023 10:07:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1686816427;
+ bh=kbuJJORB55uG1rpi8Q5Xqtf8uPJC39lWv6+lZ0HWqHw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LWH6Z3asRysr0usrMPrOlUIs4Wtu7UOEdOGa0eqA6zv2x8ce0WQxGZkSjIieAFOgb
+ 3QuoClM2c3pnvzYu46v+Aq/qCZ1TQzmcmQkrRf9nlcecqh3CVuQu4wmcBHRielBqJJ
+ gXIKAYaPm7yOZmoQDIDxLNQfdnD6k7ePTZTLOp7g=
+Date: Thu, 15 Jun 2023 10:07:35 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Subject: Re: [RFC PATCH v2 00/18] Add DRM CRTC 3D LUT interface
+Message-ID: <sc3jn73i3x6g7jexe7h35ip4rhnxilcwmsknubguxxvfgkwujp@lcm2otuhxgn7>
+References: <20230109143846.1966301-1-mwen@igalia.com>
+ <yevhvooznvpqbuybp7tmbo6qgrbxzqrs4y2k4onrjnfbcz42et@hmiwqw74dhgc>
+ <20230615101405.09745e65@eldfell>
 MIME-Version: 1.0
-References: <20230614112758.120429-1-nicolai.haehnle@amd.com>
- <cca52290-bd13-e9e9-297c-e480acaef782@gmail.com>
- <DM4PR12MB596202BE54818219FEC63746FF5AA@DM4PR12MB5962.namprd12.prod.outlook.com>
- <CAO4GU+A4rZWfP5VOnx1ubTbm9Jb8z6z1BkUU+mJKNaNj_f9=aQ@mail.gmail.com>
- <ae3eb473-ba76-1a3a-f063-388a00766164@gmail.com>
- <CAO4GU+D1SDsRk+Oe0KfGSh3Rivvnb6RTaGO59bByeD3M5Q2qGQ@mail.gmail.com>
- <9c24612a-d9e7-4319-ce9f-df51fb74a6fe@gmail.com>
-In-Reply-To: <9c24612a-d9e7-4319-ce9f-df51fb74a6fe@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 15 Jun 2023 09:14:29 -0400
-Message-ID: <CADnq5_M27+AtDErXzyAaA82exN51NGWuJXHwWrERL0o_6qe=UQ@mail.gmail.com>
-Subject: Re: Fw: [PATCH] drm/amdgpu: add amdgpu_timeout_ring_* file to debugfs
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="3apr2dpqo7izt23g"
+Content-Disposition: inline
+In-Reply-To: <20230615101405.09745e65@eldfell>
+X-Mailman-Approved-At: Thu, 15 Jun 2023 13:16:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,214 +49,206 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Nicolai_H=C3=A4hnle?= <nhaehnle@gmail.com>, "Haehnle,
- Nicolai" <Nicolai.Haehnle@amd.com>,
- Faith Ekstrand <faith.ekstrand@collabora.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
+ laurent.pinchart+renesas@ideasonboard.com,
+ Shashank Sharma <shashank.sharma@amd.com>, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, alex.hung@amd.com, harry.wentland@amd.com,
+ tzimmermann@suse.de, sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, Melissa Wen <mwen@igalia.com>, seanpaul@chromium.org,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, daniel@ffwll.ch,
+ bhawanpreet.lakha@amd.com, sungjoon.kim@amd.com, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, nicholas.kazlauskas@amd.com,
+ kernel-dev@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 15, 2023 at 5:14=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Am 15.06.23 um 10:55 schrieb Nicolai H=C3=A4hnle:
-> > On Thu, Jun 15, 2023 at 9:47=E2=80=AFAM Christian K=C3=B6nig
-> > <ckoenig.leichtzumerken@gmail.com> wrote:
-> >>>> Uh, that's very dangerous what you do here and wouldn't work in a wh=
-ole
-> >>>> bunch of cases.
-> >>> Please elaborate: *what* case doesn't work?
-> >> The core memory management can wait at any time for the GPU reset to f=
-inish.
-> >>
-> >> If we set the timeout to infinity we risk just deadlocking the kernel.
-> > Okay, thanks. I may have seen some aspect of this before in cases
-> > where GPU reset failed and left processes in an unkillable state.
-> >
-> > I'll be honest, I've seen my fair share of exotic GPU hangs and to put
-> > it mildly I'm not impressed by the kernel's handling of them.
->
-> Yeah, and I completely agree with you. The whole situation around that
-> is just horrible.
->
-> > Obviously you know much more about the intricacies of kernel memory
-> > management than I do, but the fact that processes can end up in an
-> > unkillable state for *any* GPU-related reason feels to me like the
-> > result of a bad design decision somewhere.
-> >
-> > But anyway, I'm not even asking you to fix those problems. All I'm
-> > asking you is to let me do *my* job, part of which is to help prevent
-> > GPU hangs from happening in the first place. For that, I need useful
-> > debugging facilities -- and so do others.
-> >
-> >
-> >>> Again, being able to disable GPU recovery is a crucial debugging
-> >>> feature. We need to be able to inspect the live state of hung shaders=
-,
-> >>> and we need to be able to single-step through shaders. All of that
-> >>> requires disabling GPU recovery.
-> >> Yeah, I'm perfectly aware of that. The problem is this is just *not*
-> >> supported on Linux for graphics shaders.
-> >>
-> >> What you can do is to run the shader with something like CWSR enabled
-> >> (or an to be invented graphics equivalent). Since we are debugging the
-> >> shader anyway that should be possible I think.
-> >>
-> >>> Forcing people to reboot just to be able to disable GPU recovery for
-> >>> debugging is developer hostile.
-> >> Well, I think you misunderstood me. The suggestion was even to force
-> >> them to re-compile the kernel driver to disable GPU recovery.
-> >>
-> >> Disabling GPU recovery is *not* something you can do and expect the
-> >> system to be stable.
-> >>
-> >> The only case we can do that is when we attach a JTAG debugger in an A=
-MD
-> >> lab.
-> > You're being *completely* unreasonable here. Even Windows(!) allows
-> > disabling GPU recovery at runtime from software, and Windows is
-> > usually far more developer hostile than Linux in these things.
-> > Seriously, this level of hostility against developers coming from you
-> > is not okay.
->
-> Well, I'm not hostile against developers, but just realistic that this
-> will lead to even more problems.
->
-> And I rather avoid problems with end-users than with developers because
-> the later are usually the more skilled people.
->
-> As far as I can see that Windows allowed to disable GPU recovery was
-> actually the source of the problem and is absolutely no argument to
-> repeat the same mistake on Linux again.
->
-> > Yes, it's a tool that has sharp edges. That is perfectly well
-> > understood. If we need to add warning labels then so be it. And if the
-> > details of *how* to change the timeout or disable GPU recovery at
-> > runtime should be changed, that too is fine. But it's an important
-> > tool. Can we please just move forward on this in a pragmatic fashion?
->
-> Yes and because of this I'm just rejecting this approach here.
->
-> Rebooting to disable GPU reset is perfectly fine and reasonable to do
-> for a developer.
->
-> As I said the requirement I have for the other extreme is to make it a
-> compile time only option and I'm trying to avoid that as well.
 
-I have to agree with Nicolai here.  I think it's reasonable to be able
-to enable a debugging mode at runtime if you are root.  There are
-plenty of other dangerous things you can do via debugfs.  This is the
-least of our worries.  Pretty much the first thing anyone one does
-when trying to debug a hang is to disable reset.  This seems like a
-nice compromise.
+--3apr2dpqo7izt23g
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Subject: Re: [RFC PATCH v2 00/18] Add DRM CRTC 3D LUT interface
+MIME-Version: 1.0
 
-Alex
+Hi Pekka
+    thanks for the reply
 
+On Thu, Jun 15, 2023 at 10:14:05AM +0300, Pekka Paalanen wrote:
+> On Tue, 13 Jun 2023 17:43:55 +0200
+> Jacopo Mondi <jacopo.mondi@ideasonboard.com> wrote:
 >
-> Regards,
-> Christian.
+> > Hello
+> >
+> >    I'm completing the support for 3D LUT on R-Car DU peripheral
+> > and I have used this series as a base.
+> >
+> > I'm wondering, since quite some time has passed without any update if
+> > this series is still a thing and it makes any sense for me to try to
+> > bring it forward.
+> >
+> > I'm asking as I've noticed:
+> > "[PATCH 00/36] drm/amd/display: add AMD driver-specific properties for color mgmt"
+> >
+> > which seems to supersede this proposal with driver-specific
+> > properties.
+> >
+> > I asked Melissa privately but I wasn't able to get an hold of her, so
+> > if anyone has any clue feel free to reply :)
+>
+> Hi,
+>
+> since no-one else replied, I'll point you to the thread starting at
+> https://lists.freedesktop.org/archives/dri-devel/2023-May/403173.html
+
+Yes, Melissa pointed me to that series privately yesterday.
+
+However, and here I might be missing something, per-plane properties do
+not apply well to the HW pipeline I'm looking at.
+
+The R-Car DU has a 1D LUT and a 3D LUT at the CRTC level (I guess
+'post blending' is the right term here) ?  A per-plane property
+doesn't seem to match how the HW work, but please feel free to correct
+me as this is all rather new to me and I might be overlooking
+something.
+
+My plan at the moment would have been to base my work on Melissa's RFC
+and re-send to prop discussions, unless it is certainly a dead-end and
+I have missed how to properly use per-plane properties on our HW.
+
+Thank you!
+
+> and continuing to June. That is the plan of getting a common UAPI for
+> these things.
+>
+>
+> Thanks,
+> pq
+>
 >
 > >
-> > Thanks,
-> > Nicolai
+> > Thanks
+> >   j
 > >
-> >
-> >> Regards,
-> >> Christian.
-> >>
-> >>> So again, if there really are cases where this "doesn't work" (and
-> >>> those cases aren't just that your desktop will freeze -- that part is
-> >>> intentional), then let's talk through it and see how to address them.
-> >>>
-> >>> Thanks,
-> >>> Nicolai
-> >>>
-> >>>
-> >>>> Regards,
-> >>>> Christian.
-> >>>>
-> >>>>> Signed-off-by: Nicolai H=C3=A4hnle <nicolai.haehnle@amd.com>
-> >>>>> ---
-> >>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 32 +++++++++++++++++=
-++++++-
-> >>>>>     1 file changed, 31 insertions(+), 1 deletion(-)
-> >>>>>
-> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_ring.c
-> >>>>> index dc474b809604..32d223daa789 100644
-> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> >>>>> @@ -471,35 +471,65 @@ static ssize_t amdgpu_debugfs_ring_read(struc=
-t file *f, char __user *buf,
-> >>>>>
-> >>>>>          return result;
-> >>>>>     }
-> >>>>>
-> >>>>>     static const struct file_operations amdgpu_debugfs_ring_fops =
-=3D {
-> >>>>>          .owner =3D THIS_MODULE,
-> >>>>>          .read =3D amdgpu_debugfs_ring_read,
-> >>>>>          .llseek =3D default_llseek
-> >>>>>     };
-> >>>>>
-> >>>>> +static int amdgpu_debugfs_timeout_ring_get(void *data, u64 *val) {
-> >>>>> +     struct amdgpu_ring *ring =3D data;
-> >>>>> +
-> >>>>> +     if (ring->sched.timeout =3D=3D MAX_SCHEDULE_TIMEOUT)
-> >>>>> +             *val =3D 0;
-> >>>>> +     else
-> >>>>> +             *val =3D jiffies_to_msecs(ring->sched.timeout);
-> >>>>> +
-> >>>>> +     return 0;
-> >>>>> +}
-> >>>>> +
-> >>>>> +static int amdgpu_debugfs_timeout_ring_set(void *data, u64 val) {
-> >>>>> +     struct amdgpu_ring *ring =3D data;
-> >>>>> +
-> >>>>> +     if (val =3D=3D 0)
-> >>>>> +             ring->sched.timeout =3D MAX_SCHEDULE_TIMEOUT;
-> >>>>> +     else
-> >>>>> +             ring->sched.timeout =3D msecs_to_jiffies(val);
-> >>>>> +
-> >>>>> +     return 0;
-> >>>>> +}
-> >>>>> +
-> >>>>> +DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_debugfs_timeout_ring_fops,
-> >>>>> +                      amdgpu_debugfs_timeout_ring_get,
-> >>>>> +                      amdgpu_debugfs_timeout_ring_set,
-> >>>>> +                      "%llu\n");
-> >>>>> +
-> >>>>>     #endif
-> >>>>>
-> >>>>>     void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
-> >>>>>                                struct amdgpu_ring *ring)
-> >>>>>     {
-> >>>>>     #if defined(CONFIG_DEBUG_FS)
-> >>>>>          struct drm_minor *minor =3D adev_to_drm(adev)->primary;
-> >>>>>          struct dentry *root =3D minor->debugfs_root;
-> >>>>> -     char name[32];
-> >>>>> +     char name[40];
-> >>>>>
-> >>>>>          sprintf(name, "amdgpu_ring_%s", ring->name);
-> >>>>>          debugfs_create_file_size(name, S_IFREG | S_IRUGO, root, ri=
-ng,
-> >>>>>                                   &amdgpu_debugfs_ring_fops,
-> >>>>>                                   ring->ring_size + 12);
-> >>>>>
-> >>>>> +     sprintf(name, "amdgpu_timeout_ring_%s", ring->name);
-> >>>>> +     debugfs_create_file(name, S_IFREG | S_IRUGO | S_IWUSR, root, =
-ring,
-> >>>>> +                         &amdgpu_debugfs_timeout_ring_fops);
-> >>>>>     #endif
-> >>>>>     }
-> >>>>>
-> >>>>>     /**
-> >>>>>      * amdgpu_ring_test_helper - tests ring and set sched readiness=
- status
-> >>>>>      *
-> >>>>>      * @ring: ring to try the recovery on
-> >>>>>      *
-> >>>>>      * Tests ring and set sched readiness status
-> >>>>>      *
-> >
+> > On Mon, Jan 09, 2023 at 01:38:28PM -0100, Melissa Wen wrote:
+> > > Hi,
+> > >
+> > > After collecting comments in different places, here is a second version
+> > > of the work on adding DRM CRTC 3D LUT support to the current DRM color
+> > > mgmt interface. In comparison to previous proposals [1][2][3], here we
+> > > add 3D LUT before gamma 1D LUT, but also a shaper 1D LUT before 3D LUT,
+> > > that means the following DRM CRTC color correction pipeline:
+> > >
+> > > Blend -> Degamma 1D LUT -> CTM -> Shaper 1D LUT -> 3D LUT -> Gamma 1D LUT
+> > >
+> > > and we also add a DRM CRTC LUT3D_MODE property, based on Alex Hung
+> > > proposal for pre-blending 3D LUT [4] (Thanks!), instead of just a
+> > > LUT3D_SIZE, that allows userspace to use different supported settings of
+> > > 3D LUT, fitting VA-API and new color API better. In this sense, I
+> > > adjusted the pre-blending proposal for post-blending usage.
+> > >
+> > > Patches 1-6 targets the addition of shaper LUT and 3D LUT properties to
+> > > the current DRM CRTC color mgmt pipeline. Patch 6 can be considered an
+> > > extra/optional patch to define a default value for LUT3D_MODE, inspired
+> > > by what we do for the plane blend mode property (pre-multiplied).
+> > >
+> > > Patches 7-18 targets AMD display code to enable shaper and 3D LUT usage
+> > > on DCN 301 (our HW case). Patches 7-9 performs code cleanups on current
+> > > AMD DM colors code, patch 10 updates AMD stream in case of user 3D LUT
+> > > changes, patch 11/12 rework AMD MPC 3D LUT resource handling by context
+> > > for DCN 301 (easily extendible to other DCN families). Finally, from
+> > > 13-18, we wire up SHAPER LUT, LUT3D and LUT3D MODE to AMD display
+> > > driver, exposing modes supported by HW and programming user shaper and
+> > > 3D LUT accordingly.
+> > >
+> > > Our target userspace is Gamescope/SteamOS.
+> > >
+> > > Basic IGT tests were based on [5][6] and are available here (in-progress):
+> > > https://gitlab.freedesktop.org/mwen/igt-gpu-tools/-/commits/crtc-lut3d-api
+> > >
+> > > [1] https://lore.kernel.org/all/20201221015730.28333-1-laurent.pinchart+renesas@ideasonboard.com/
+> > > [2] https://github.com/vsyrjala/linux/commit/4d28e8ddf2a076f30f9e5bdc17cbb4656fe23e69
+> > > [3] https://lore.kernel.org/amd-gfx/20220619223104.667413-1-mwen@igalia.com/
+> > > [4] https://lore.kernel.org/dri-devel/20221004211451.1475215-1-alex.hung@amd.com/
+> > > [5] https://patchwork.freedesktop.org/series/90165/
+> > > [6] https://patchwork.freedesktop.org/series/109402/
+> > > [VA_API] http://intel.github.io/libva/structVAProcFilterParameterBuffer3DLUT.html
+> > > [KMS_pipe_API] https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/11
+> > >
+> > > Let me know your thoughts.
+> > >
+> > > Thanks,
+> > >
+> > > Melissa
+> > >
+> > > Alex Hung (2):
+> > >   drm: Add 3D LUT mode and its attributes
+> > >   drm/amd/display: Define 3D LUT struct for HDR planes
+> > >
+> > > Melissa Wen (16):
+> > >   drm/drm_color_mgmt: add shaper LUT to color mgmt properties
+> > >   drm/drm_color_mgmt: add 3D LUT props to DRM color mgmt
+> > >   drm/drm_color_mgmt: add function to create 3D LUT modes supported
+> > >   drm/drm_color_mgmt: add function to attach 3D LUT props
+> > >   drm/drm_color_mgmt: set first lut3d mode as default
+> > >   drm/amd/display: remove unused regamma condition
+> > >   drm/amd/display: add comments to describe DM crtc color mgmt behavior
+> > >   drm/amd/display: encapsulate atomic regamma operation
+> > >   drm/amd/display: update lut3d and shaper lut to stream
+> > >   drm/amd/display: handle MPC 3D LUT resources for a given context
+> > >   drm/amd/display: acquire/release 3D LUT resources for ctx on DCN301
+> > >   drm/amd/display: expand array of supported 3D LUT modes
+> > >   drm/amd/display: enable 3D-LUT DRM properties if supported
+> > >   drm/amd/display: add user 3D LUT support to the amdgpu_dm color
+> > >     pipeline
+> > >   drm/amd/display: decouple steps to reuse in shaper LUT support
+> > >   drm/amd/display: add user shaper LUT support to amdgpu_dm color
+> > >     pipeline
+> > >
+> > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 +
+> > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
+> > >  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 370 ++++++++++++++++--
+> > >  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   2 +
+> > >  drivers/gpu/drm/amd/display/dc/core/dc.c      |  49 ++-
+> > >  drivers/gpu/drm/amd/display/dc/dc.h           |   8 +
+> > >  .../amd/display/dc/dcn301/dcn301_resource.c   |  47 ++-
+> > >  .../amd/display/modules/color/color_gamma.h   |  43 ++
+> > >  drivers/gpu/drm/drm_atomic_state_helper.c     |   7 +
+> > >  drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
+> > >  drivers/gpu/drm/drm_color_mgmt.c              | 127 ++++++
+> > >  drivers/gpu/drm/drm_fb_helper.c               |   5 +
+> > >  drivers/gpu/drm/drm_mode_config.c             |  21 +
+> > >  include/drm/drm_color_mgmt.h                  |   8 +
+> > >  include/drm/drm_crtc.h                        |  32 +-
+> > >  include/drm/drm_mode_config.h                 |  25 ++
+> > >  include/drm/drm_mode_object.h                 |   2 +-
+> > >  include/uapi/drm/drm_mode.h                   |  17 +
+> > >  18 files changed, 757 insertions(+), 39 deletions(-)
+> > >
+> > > --
+> > > 2.35.1
+> > >
 >
+
+
+
+--3apr2dpqo7izt23g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEtcQ9SICaIIqPWDjAcjQGjxahVjwFAmSKxscACgkQcjQGjxah
+VjzSlxAAllnfZnIYDF6MKvj99AQNFUV1mFvbBvOgTD6LMnvqsKjnQitsiKsjFLxa
+/pop4FiZ9chjQOND5uSl4fKuLooZ7rhntQGr0qzKOXhs9y0VSC6Gw9h9nHaehc+/
+KqfJ97meuZp4UVODtcT/dkj1n9SLltqCK3CTsYjsHL825jxuduAA1OjwY4mF3UpH
+AG+7ESSh/3Auykg2Kr5xEXRzYqZI7MydtkB5Yoqv1HKBW9KGQgOhWKqhLmSLU6Gn
+G5OnoHynmqAv9x777p/nu/blt2xTeCnvSpqz2wtQ2sH8KHgcctpA6OJJLPVUq8wW
+CKLsKOA6Dr01rhzaj64O7K5dPzkN3GMz8bDsMVZ8NMIhCEts3WduOSElszB1tCbu
+bXHUZSWDcQFyRKVpDQI8+F/QyjzclbKH3Ybr5VS0hAw17PGdTORPyf7hrfREmVXk
+DmcV3yvBPkZeVZGLsllp000O3MWSM/uAL2c8vGP2Dhu9eelrnpnduq9h2B0apoXS
+gP/GyHNDS+MpOSvAs6CS0ENjj2L7wBVuC2+dtuiNraHy6uYtWNM+2SjxKh5aRINs
+wb3mnN4wzhn81dowXV83LhHdWuGufqTurIIP6NuVPzMhrIvU2shLml2I+gFgpHYC
+SKqWEHAOjaDnNzYGPy3zDrFB0l6rHvvxlea+hudwuZ//uTNPPDY=
+=XmNk
+-----END PGP SIGNATURE-----
+
+--3apr2dpqo7izt23g--
