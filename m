@@ -4,88 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3780EB64DC
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 10:29:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1253EB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 10:29:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6B1D10E0EF;
-	Thu, 15 Jun 2023 10:29:18 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C7FF10E0EF
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jun 2023 10:29:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Fs8JiZuRPFEix+m4mOG3ebgprDTUP418AmLvUSt1AL7GtyclG4QQlMYvNSK1x7r2HS4UI4l0pBE/CTcyqRKgoy79DVhJ9Mz1t84Y9jO/Arvu1rSRAGhd/hQnF9vqpJPqVPGkPeJvbIplm9/krBv+zsuWgGK71wxVOUglfMyNw/qCmNa4yDk8nXCZoArZ/BLH6ab1PTQ8wfM9BUgytmBLJUkQNoLv01fUzpWcjxGLH0awzBJZ+zMwsjnxFxKtV6cAoqsvlGu1EzrIW5P0LU8IlzfviNnSTouWZszjWdtb5/LgE70P2t3zMPhszwdOCRZMTCdwxZ3vKBfsjWzy7vp/Jw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eli23XIMunX225tEiSt1vzmLokZxcMFyi4s2YxK6f7I=;
- b=E2nnrq9WBHDa1YCdHDTyMYtrkaOiWpnW8EYrZBAAC6uG1Mgag6AyMr4Ue7t2Ks0C9WB2czcqH+wSE14iMfS2ZVIgvED/fBZ0fI519r+9SViymuz81YxFjFD89K5fJM40F1ft5SMzFdlXq0hC3rV1RN8YT4brQoXpB8Zaw68bpnLba+wsztWPscNiC957FM7JZVVzaaR1PdElTnrCgXUeC+nyguOiJyJr5fWBDm5D3eWR9nASCpeNj4RBJLEV++F0bAlbSUhMGkiMIANm4MoBq3wILs97PXGp9IqpzFIz8/xsIlyyl7qwBL3v74Sul9ljlgHkgElnMgxptUgDu4rhuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eli23XIMunX225tEiSt1vzmLokZxcMFyi4s2YxK6f7I=;
- b=bw8Ele3LPZcZalc5Ho6MxujvrRQVHs7X1FZHGAt6Oqz/0M6hQCpdc8Ub18rbEZCfqfDj2S5ovTw4Nbb8eQTMVq95WhmjwZlmq2M1uDp4b8v74I6Bn/xxnROfKJBAVJFQ99pGmyxx794ytNSg3X/quwEdxH416+arSidhWXoEfZ4=
-Received: from SJ0PR03CA0216.namprd03.prod.outlook.com (2603:10b6:a03:39f::11)
- by DM4PR12MB5088.namprd12.prod.outlook.com (2603:10b6:5:38b::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.37; Thu, 15 Jun
- 2023 10:29:14 +0000
-Received: from DM6NAM11FT042.eop-nam11.prod.protection.outlook.com
- (2603:10b6:a03:39f:cafe::cc) by SJ0PR03CA0216.outlook.office365.com
- (2603:10b6:a03:39f::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.27 via Frontend
- Transport; Thu, 15 Jun 2023 10:29:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT042.mail.protection.outlook.com (10.13.173.165) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.25 via Frontend Transport; Thu, 15 Jun 2023 10:29:12 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 15 Jun
- 2023 05:29:10 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Rename aqua_vanjaram_reg_init.c
-Date: Thu, 15 Jun 2023 15:58:55 +0530
-Message-ID: <20230615102855.1629085-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5155710E4C1;
+	Thu, 15 Jun 2023 10:29:56 +0000 (UTC)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6E5810E4C0;
+ Thu, 15 Jun 2023 10:29:53 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-4f74cda5f1dso5802899e87.3; 
+ Thu, 15 Jun 2023 03:29:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1686824992; x=1689416992;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=THThpCdpe4lw2uO/Ab75gZ3YriVXnkDGfU5suGI1T1M=;
+ b=hC4UbTKezBSHIQkUn0+22AXJv9viB2PAao9owNBzT8wzWeEJuop1zONhCBtZcrIVrJ
+ ffZ49L2IiRAaQZxSIUdSNEfWJse8YphALJ5wR0t93mE+W8dfMdfY7B943RkZUApYGVf7
+ xdzsqSc8fXyUhwcG8+SJWfvjq2ymakQ83d5smP2OG+f6Blg+wA5lME3LXAs9i5maDmxY
+ Zz0AHWO3hLKAoqJUecLNpSCJN/4Oluv/lujqEViXE+Db/6RLRSXyc3UoLbwWP4QV3Cw0
+ OFxbFj2m9F+dM83DP425R6EA7s65x47smOVj9CyavG+hSpVdXsVaTCTnrE/xQQWpnGvb
+ QCyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686824992; x=1689416992;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=THThpCdpe4lw2uO/Ab75gZ3YriVXnkDGfU5suGI1T1M=;
+ b=dkNwGoQ8ITQeIlm2ThpWpq8t/7tbAoMRwhDGZlM4cKiG0sxvBQHKn5ftZmM9pl1cQU
+ UhNRBhNg/7T8hJUBRcONTREama2T3UHK5L2CQ8jm4liirPn7cAhrNVJrGWOLUvgDjPqo
+ FlfNbCl3XdDQS7V2VekkZb6YuV0EsK1NeKVl3rinRujBrmKt9/FfK3aqBVXB4PN7jTXo
+ pVyV7uMOioh5XWX21NmRIzJRrJr+PR1SiF89r18bJGqDjlpqJJM74eglrlAt61DQgO+q
+ 3u4dg+XxBo6VRxUCLXlNZslJt2KlOYEfxnj0g79dvncK5aWDJRo53bNj7gqot4cYdzB3
+ jcUQ==
+X-Gm-Message-State: AC+VfDwEQTuN0YOz6w5+jRjw0uBjo5tAYf9NBrVQpf6ug5OrGioEgaYr
+ Mu6JSMMWtRkA/G/23f4lOEs=
+X-Google-Smtp-Source: ACHHUZ5OuaE2E47WTDsXETVFBMyFeMU5UIwvIAxbke0PC0k30vy1NUFFMXgnLUhytEq1Uz/OhVj68w==
+X-Received: by 2002:ac2:4d9b:0:b0:4f3:a61d:19d2 with SMTP id
+ g27-20020ac24d9b000000b004f3a61d19d2mr9353367lfe.36.1686824991138; 
+ Thu, 15 Jun 2023 03:29:51 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ u3-20020ac24c23000000b004f8422b7991sm252031lfq.154.2023.06.15.03.29.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Jun 2023 03:29:50 -0700 (PDT)
+Date: Thu, 15 Jun 2023 13:29:39 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: Re: [RFC PATCH v2 00/18] Add DRM CRTC 3D LUT interface
+Message-ID: <20230615132939.26a40559@eldfell>
+In-Reply-To: <sc3jn73i3x6g7jexe7h35ip4rhnxilcwmsknubguxxvfgkwujp@lcm2otuhxgn7>
+References: <20230109143846.1966301-1-mwen@igalia.com>
+ <yevhvooznvpqbuybp7tmbo6qgrbxzqrs4y2k4onrjnfbcz42et@hmiwqw74dhgc>
+ <20230615101405.09745e65@eldfell>
+ <sc3jn73i3x6g7jexe7h35ip4rhnxilcwmsknubguxxvfgkwujp@lcm2otuhxgn7>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.24; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT042:EE_|DM4PR12MB5088:EE_
-X-MS-Office365-Filtering-Correlation-Id: 121e4cab-50c1-4a49-71dd-08db6d8b5cc0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: am+/i81dGxunULGRp36t8ftsYmO3pclAf2crxiTyLhZUA2D/mLBumlqas8wR/+0ZKFzjSN/Li1j94aAKua0Tg9zr7KINOlLXxEoJbdx4JIrCSdphO2u00zh29s/3/o4nCqU96Z0uQKG23Ymp6C1nB6dvJ7r3hepumK4QgQxNSRTyNIGlkeaIULPCvNGr/iufPxyVNRhhfX7eu7iRWJqKuZGnZIjXz6SDcUjIMcZWCD7LE3qTL233ikr9PMKUOGjPr8ipXFtOlh4sk8PKaSU6zKaBeer4v8FtuA0wdg5nRtACQVyd/Ko9wDSHaowbPLe5G2xFvuRjnK55At/n+JmPMTh4+Vs7lzZvZmnagzrfOtsG0CnHXpBVF0qXevsa2zJTtlvw+JeHSKrBRi1mRN/k/PDeUl9NL1de1TYH5Z+w+jUfGBJJdTBWYFa3G+yowVJzTbsE812ODPHF7vXWIOtIcie9GP3cqNXun1ZZ01cpHCQQQfr2A3M9LFWzQ1J2TbVvRtMc92WYRPKlYFadCLUfI5FvCwyqEJexvRmimSolsdYJ8oaeIUSRlnr9AFfkr66eXcqGveHgyw8dtV8WY2bbyLfFrWzGe0ts+Sn4Z+2lW/ai9nuXguaIT37noI/MarKRnqgDhRzte/l8Yo9LFq+FAtV3gX8JSXjXxM2CUuyarWJcxLCK0xOiYWb1a+Qjcn5M4pgZV2Mx4k1eyY0DSOcX6W9/VyQFu8hAKLC7J9GwDT29SLXjDPjtaOJGk+n3f1ti22YLYtDLXdYLsxzaGyw8LQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(39860400002)(396003)(136003)(376002)(451199021)(46966006)(40470700004)(36840700001)(5660300002)(83380400001)(426003)(336012)(186003)(40480700001)(44832011)(2906002)(47076005)(16526019)(2616005)(36860700001)(41300700001)(8936002)(7696005)(26005)(40460700003)(8676002)(316002)(54906003)(6666004)(82740400003)(36756003)(478600001)(81166007)(356005)(82310400005)(4326008)(86362001)(70206006)(6916009)(70586007)(1076003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2023 10:29:12.6273 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 121e4cab-50c1-4a49-71dd-08db6d8b5cc0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT042.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5088
+Content-Type: multipart/signed; boundary="Sig_/.GzMUDGpxXiyR+fAvEDXguv";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,38 +73,248 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Le.Ma@amd.com, Asad.Kamal@amd.com,
- Hawking.Zhang@amd.com
+Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
+ laurent.pinchart+renesas@ideasonboard.com,
+ Shashank Sharma <shashank.sharma@amd.com>, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, alex.hung@amd.com, harry.wentland@amd.com,
+ tzimmermann@suse.de, sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, Melissa Wen <mwen@igalia.com>, seanpaul@chromium.org,
+ daniel@ffwll.ch, bhawanpreet.lakha@amd.com, sungjoon.kim@amd.com,
+ Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org, christian.koenig@amd.com,
+ kernel-dev@igalia.com, alexander.deucher@amd.com, nicholas.kazlauskas@amd.com,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This contains SOC specific functions, rename to a more generic format
-<soc>.c => aqua_vanjaram.c
+--Sig_/.GzMUDGpxXiyR+fAvEDXguv
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/Makefile                             | 2 +-
- .../amd/amdgpu/{aqua_vanjaram_reg_init.c => aqua_vanjaram.c}    | 0
- 2 files changed, 1 insertion(+), 1 deletion(-)
- rename drivers/gpu/drm/amd/amdgpu/{aqua_vanjaram_reg_init.c => aqua_vanjaram.c} (100%)
+On Thu, 15 Jun 2023 10:07:35 +0200
+Jacopo Mondi <jacopo.mondi@ideasonboard.com> wrote:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 8d16f280b695..60c800d22e89 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -98,7 +98,7 @@ amdgpu-y += \
- 	vega20_reg_init.o nbio_v7_4.o nbio_v2_3.o nv.o arct_reg_init.o mxgpu_nv.o \
- 	nbio_v7_2.o hdp_v4_0.o hdp_v5_0.o aldebaran_reg_init.o aldebaran.o soc21.o \
- 	sienna_cichlid.o smu_v13_0_10.o nbio_v4_3.o hdp_v6_0.o nbio_v7_7.o hdp_v5_2.o lsdma_v6_0.o \
--	nbio_v7_9.o aqua_vanjaram_reg_init.o
-+	nbio_v7_9.o aqua_vanjaram.o
- 
- # add DF block
- amdgpu-y += \
-diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c
-rename to drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
--- 
-2.25.1
+> Hi Pekka
+>     thanks for the reply
+>=20
+> On Thu, Jun 15, 2023 at 10:14:05AM +0300, Pekka Paalanen wrote:
+> > On Tue, 13 Jun 2023 17:43:55 +0200
+> > Jacopo Mondi <jacopo.mondi@ideasonboard.com> wrote:
+> > =20
+> > > Hello
+> > >
+> > >    I'm completing the support for 3D LUT on R-Car DU peripheral
+> > > and I have used this series as a base.
+> > >
+> > > I'm wondering, since quite some time has passed without any update if
+> > > this series is still a thing and it makes any sense for me to try to
+> > > bring it forward.
+> > >
+> > > I'm asking as I've noticed:
+> > > "[PATCH 00/36] drm/amd/display: add AMD driver-specific properties fo=
+r color mgmt"
+> > >
+> > > which seems to supersede this proposal with driver-specific
+> > > properties.
+> > >
+> > > I asked Melissa privately but I wasn't able to get an hold of her, so
+> > > if anyone has any clue feel free to reply :) =20
+> >
+> > Hi,
+> >
+> > since no-one else replied, I'll point you to the thread starting at
+> > https://lists.freedesktop.org/archives/dri-devel/2023-May/403173.html =
+=20
+>=20
+> Yes, Melissa pointed me to that series privately yesterday.
+>=20
+> However, and here I might be missing something, per-plane properties do
+> not apply well to the HW pipeline I'm looking at.
+>=20
+> The R-Car DU has a 1D LUT and a 3D LUT at the CRTC level (I guess
+> 'post blending' is the right term here) ?  A per-plane property
+> doesn't seem to match how the HW work, but please feel free to correct
+> me as this is all rather new to me and I might be overlooking
+> something.
 
+Post-blending, correct. The long term plan is to replicate the same
+idea to post-blending as it is planned for pre-blending.
+
+>=20
+> My plan at the moment would have been to base my work on Melissa's RFC
+> and re-send to prop discussions, unless it is certainly a dead-end and
+> I have missed how to properly use per-plane properties on our HW.
+
+I'm not a kernel dev nor a maintainer, so I can't comment on what would
+be acceptable in the mean time before the new pipeline design is
+implemented. The long term plan is to supersede all existing color
+transformation related properties with pipelines.
+
+
+Thanks,
+pq
+
+>=20
+> Thank you!
+>=20
+> > and continuing to June. That is the plan of getting a common UAPI for
+> > these things.
+> >
+> >
+> > Thanks,
+> > pq
+> >
+> > =20
+> > >
+> > > Thanks
+> > >   j
+> > >
+> > > On Mon, Jan 09, 2023 at 01:38:28PM -0100, Melissa Wen wrote: =20
+> > > > Hi,
+> > > >
+> > > > After collecting comments in different places, here is a second ver=
+sion
+> > > > of the work on adding DRM CRTC 3D LUT support to the current DRM co=
+lor
+> > > > mgmt interface. In comparison to previous proposals [1][2][3], here=
+ we
+> > > > add 3D LUT before gamma 1D LUT, but also a shaper 1D LUT before 3D =
+LUT,
+> > > > that means the following DRM CRTC color correction pipeline:
+> > > >
+> > > > Blend -> Degamma 1D LUT -> CTM -> Shaper 1D LUT -> 3D LUT -> Gamma =
+1D LUT
+> > > >
+> > > > and we also add a DRM CRTC LUT3D_MODE property, based on Alex Hung
+> > > > proposal for pre-blending 3D LUT [4] (Thanks!), instead of just a
+> > > > LUT3D_SIZE, that allows userspace to use different supported settin=
+gs of
+> > > > 3D LUT, fitting VA-API and new color API better. In this sense, I
+> > > > adjusted the pre-blending proposal for post-blending usage.
+> > > >
+> > > > Patches 1-6 targets the addition of shaper LUT and 3D LUT propertie=
+s to
+> > > > the current DRM CRTC color mgmt pipeline. Patch 6 can be considered=
+ an
+> > > > extra/optional patch to define a default value for LUT3D_MODE, insp=
+ired
+> > > > by what we do for the plane blend mode property (pre-multiplied).
+> > > >
+> > > > Patches 7-18 targets AMD display code to enable shaper and 3D LUT u=
+sage
+> > > > on DCN 301 (our HW case). Patches 7-9 performs code cleanups on cur=
+rent
+> > > > AMD DM colors code, patch 10 updates AMD stream in case of user 3D =
+LUT
+> > > > changes, patch 11/12 rework AMD MPC 3D LUT resource handling by con=
+text
+> > > > for DCN 301 (easily extendible to other DCN families). Finally, from
+> > > > 13-18, we wire up SHAPER LUT, LUT3D and LUT3D MODE to AMD display
+> > > > driver, exposing modes supported by HW and programming user shaper =
+and
+> > > > 3D LUT accordingly.
+> > > >
+> > > > Our target userspace is Gamescope/SteamOS.
+> > > >
+> > > > Basic IGT tests were based on [5][6] and are available here (in-pro=
+gress):
+> > > > https://gitlab.freedesktop.org/mwen/igt-gpu-tools/-/commits/crtc-lu=
+t3d-api
+> > > >
+> > > > [1] https://lore.kernel.org/all/20201221015730.28333-1-laurent.pinc=
+hart+renesas@ideasonboard.com/
+> > > > [2] https://github.com/vsyrjala/linux/commit/4d28e8ddf2a076f30f9e5b=
+dc17cbb4656fe23e69
+> > > > [3] https://lore.kernel.org/amd-gfx/20220619223104.667413-1-mwen@ig=
+alia.com/
+> > > > [4] https://lore.kernel.org/dri-devel/20221004211451.1475215-1-alex=
+.hung@amd.com/
+> > > > [5] https://patchwork.freedesktop.org/series/90165/
+> > > > [6] https://patchwork.freedesktop.org/series/109402/
+> > > > [VA_API] http://intel.github.io/libva/structVAProcFilterParameterBu=
+ffer3DLUT.html
+> > > > [KMS_pipe_API] https://gitlab.freedesktop.org/pq/color-and-hdr/-/is=
+sues/11
+> > > >
+> > > > Let me know your thoughts.
+> > > >
+> > > > Thanks,
+> > > >
+> > > > Melissa
+> > > >
+> > > > Alex Hung (2):
+> > > >   drm: Add 3D LUT mode and its attributes
+> > > >   drm/amd/display: Define 3D LUT struct for HDR planes
+> > > >
+> > > > Melissa Wen (16):
+> > > >   drm/drm_color_mgmt: add shaper LUT to color mgmt properties
+> > > >   drm/drm_color_mgmt: add 3D LUT props to DRM color mgmt
+> > > >   drm/drm_color_mgmt: add function to create 3D LUT modes supported
+> > > >   drm/drm_color_mgmt: add function to attach 3D LUT props
+> > > >   drm/drm_color_mgmt: set first lut3d mode as default
+> > > >   drm/amd/display: remove unused regamma condition
+> > > >   drm/amd/display: add comments to describe DM crtc color mgmt beha=
+vior
+> > > >   drm/amd/display: encapsulate atomic regamma operation
+> > > >   drm/amd/display: update lut3d and shaper lut to stream
+> > > >   drm/amd/display: handle MPC 3D LUT resources for a given context
+> > > >   drm/amd/display: acquire/release 3D LUT resources for ctx on DCN3=
+01
+> > > >   drm/amd/display: expand array of supported 3D LUT modes
+> > > >   drm/amd/display: enable 3D-LUT DRM properties if supported
+> > > >   drm/amd/display: add user 3D LUT support to the amdgpu_dm color
+> > > >     pipeline
+> > > >   drm/amd/display: decouple steps to reuse in shaper LUT support
+> > > >   drm/amd/display: add user shaper LUT support to amdgpu_dm color
+> > > >     pipeline
+> > > >
+> > > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 +
+> > > >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
+> > > >  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 370 ++++++++++++++=
+++--
+> > > >  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   2 +
+> > > >  drivers/gpu/drm/amd/display/dc/core/dc.c      |  49 ++-
+> > > >  drivers/gpu/drm/amd/display/dc/dc.h           |   8 +
+> > > >  .../amd/display/dc/dcn301/dcn301_resource.c   |  47 ++-
+> > > >  .../amd/display/modules/color/color_gamma.h   |  43 ++
+> > > >  drivers/gpu/drm/drm_atomic_state_helper.c     |   7 +
+> > > >  drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
+> > > >  drivers/gpu/drm/drm_color_mgmt.c              | 127 ++++++
+> > > >  drivers/gpu/drm/drm_fb_helper.c               |   5 +
+> > > >  drivers/gpu/drm/drm_mode_config.c             |  21 +
+> > > >  include/drm/drm_color_mgmt.h                  |   8 +
+> > > >  include/drm/drm_crtc.h                        |  32 +-
+> > > >  include/drm/drm_mode_config.h                 |  25 ++
+> > > >  include/drm/drm_mode_object.h                 |   2 +-
+> > > >  include/uapi/drm/drm_mode.h                   |  17 +
+> > > >  18 files changed, 757 insertions(+), 39 deletions(-)
+> > > >
+> > > > --
+> > > > 2.35.1
+> > > > =20
+> > =20
+>=20
+>=20
+
+
+--Sig_/.GzMUDGpxXiyR+fAvEDXguv
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSK6BMACgkQI1/ltBGq
+qqfNTxAAgcxSltdnm0V4ZPP69ypXdFFlgTAW+tZEVK+yCYUsNZFAZtYWAhsdhIKH
+uyZycPfCcjy5DV9YIMGwjZ8lDOEpsi01W0c05bYTz15QVlgFkENqYSgMw4MkLLBY
+/Vuaw84jbjjBbRfzSSzHTK9LtfxXk18mmBb64Gow1gM2Vbc4teTODxtnZCwu5PfW
+w6Vn4Uu+Ate29idJOKlnOXy5f0ds4w37JGzvmhV5EgULGTAgjTvcfAZea2B1Zm72
+s8Ue0DZyhF1vF1lzoQXy4tln8WPCpa5PvxAkzuR4+v63aOiMXDjtiq3LBWifbGay
+W2qdbhAQLuh6bYQazEMMfEzbTD8rIkcP8m+fbip1levMCq5Qbwd5u3ARpMZKyL69
+YCnjomHAclbkRwhHsqS3mNkenlz1NENwtWJAGpUP1LwA2aCMA6i8ldqO7auKk41p
+8ohciZdaiEQaMGxHP1I761+VIn/gLz8OCwvc+BkaN+BB/c15Le+Iw6Y3Q2QncSr5
+ljfEZNFz24NZEqAD3SUqxkhzrhcxNMGTJvEieHXVruOjxsNc5/WaffOuaeZt+cH0
+EwqTBP0d79rrigUoYjYFsbGfYcft+pdvjSOot+YeVm9n1IVi3c9VaBheBKEN4Pw9
+36EJmfkAtLBupIWNqykC0MoMejjGrA4w1SnncipV0D5tlkgRyEk=
+=YHYm
+-----END PGP SIGNATURE-----
+
+--Sig_/.GzMUDGpxXiyR+fAvEDXguv--
