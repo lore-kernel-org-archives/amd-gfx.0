@@ -4,74 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CE63EB64DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 20:57:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EA84EB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 21:12:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09F0F10E54B;
-	Thu, 15 Jun 2023 20:57:45 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35B3510E543
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jun 2023 20:49:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1686862145;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=hKMjMj3FplZLOT+91I/4pBUGTAnLqLsMd/PZxjoHeJI=;
- b=VY/RFTEH78npZ2CTBhF5QX5iCnMcei+jL8WXQQqyKKEyoDBcDVBUqSXm6Qtt6BcdnS0WJR
- kiXaSaQxKJOX6Ft/YrHFF6U9uKpCjmDP/WzrLexJijqkFdKoanwh90RmgPsqqrJ5qbLl3H
- Qotg2eKDcq/F0k7Enkev0BB/7FoQXaE=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-317-4LKcPTaqOVqgJsbxrPs5xQ-1; Thu, 15 Jun 2023 16:49:01 -0400
-X-MC-Unique: 4LKcPTaqOVqgJsbxrPs5xQ-1
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-62dd79f63e0so129546d6.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jun 2023 13:49:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686862141; x=1689454141;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+	by gabe.freedesktop.org (Postfix) with ESMTP id C89F310E19D;
+	Thu, 15 Jun 2023 21:12:12 +0000 (UTC)
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E99210E023;
+ Thu, 15 Jun 2023 21:12:10 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-1a991886254so140341fac.2; 
+ Thu, 15 Jun 2023 14:12:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1686863529; x=1689455529;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=hKMjMj3FplZLOT+91I/4pBUGTAnLqLsMd/PZxjoHeJI=;
- b=WX+loe8O7zxZdb94C714trwCJGLeF1z92bJCUAvZMk/4zVbalEgV6c91xSTEaWevND
- E0/HZ0DvJ3TTKq0kavKUtDf9uIb76O0wDq+k2f5D/bNUzVZlqatVH2PycDrrQLaCfrhb
- bnme7ho2haYAuclli/t3zltZ5xTTmUO/Akyz7uwQbh170Bm6waO6IFMz+jAKvYYcqE+q
- Jfb+NCMjkFZTQ5fV8jeJG8qFyoZZfpCKUf8bgae/qURy9gevBcyM/gzzxIidJGkwpo9T
- 8Wd4jtjOB3PSpPqbP0M1WtXRq+ZP/Myxy6Tfq3IeQC4qBY05D99CjTkEo2IzV1fnQe46
- HMrw==
-X-Gm-Message-State: AC+VfDzNT26YUYr40OGbWi26mwJOLI0KAQsDNg8nooyCCCyYtDn4kaP3
- bJAeYVG6RiJSqc46AIiAOlbLtbI2BLpK/ZgIoxcbXMxGeYoUAIms8Hi5a/5nnCmO0UHt6ohLu+g
- yI45EPhTgQqZuvH9AAS7SxZprnw==
-X-Received: by 2002:a05:6214:411c:b0:62d:f62b:907 with SMTP id
- kc28-20020a056214411c00b0062df62b0907mr205922qvb.0.1686862140906; 
- Thu, 15 Jun 2023 13:49:00 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ67Q0T7UNcg441S5K48ufQ95OaInqX07S7iw3hjgHEcSdnXpq3izlYE7fKD1k9BhKtWSVJMmA==
-X-Received: by 2002:a05:6214:411c:b0:62d:f62b:907 with SMTP id
- kc28-20020a056214411c00b0062df62b0907mr205893qvb.0.1686862140601; 
- Thu, 15 Jun 2023 13:49:00 -0700 (PDT)
-Received: from x1n (cpe5c7695f3aee0-cm5c7695f3aede.cpe.net.cable.rogers.com.
- [99.254.144.39]) by smtp.gmail.com with ESMTPSA id
- d24-20020a05620a159800b0074a6c29df4dsm1117082qkk.119.2023.06.15.13.48.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jun 2023 13:48:59 -0700 (PDT)
-Date: Thu, 15 Jun 2023 16:48:58 -0400
-From: Peter Xu <peterx@redhat.com>
-To: Matthew Wilcox <willy@infradead.org>
-Subject: Re: [PATCH v9 02/14] mm: move page zone helpers from mm.h to mmzone.h
-Message-ID: <ZIt5Oho3enLFs+sv@x1n>
-References: <20220715150521.18165-1-alex.sierra@amd.com>
- <20220715150521.18165-3-alex.sierra@amd.com> <ZItneGX+sqg7WApF@x1n>
- <ZItxXny9kRDq/ryf@casper.infradead.org>
+ bh=cYFIoxmK6/11WcQGMEd3k+GSDGPqNwcIqNk05D0COTE=;
+ b=Ctj8OnhGP2r2mDaRqVkWYkbCXLxlBOU1XnLMs2rQnEZVFtLbX4y/91GeJfTZJq5ilZ
+ BEBJVQLtXSa74ZV6v9HQtOkzjDigIp47DOIRcrHwGUcKTsqQAhkMdn1UO87Sb7Gpm7ex
+ X45UZ0QhVvOtmv5xonVSE+x+ADmFWyurK8i6hsId3TXKamH0UIU6FCtus2oYmyYc/hXN
+ aKVQWGwGuIgL3W0ZwDOUERyeYftA7rlPAK83m58oUSPJYAdDpFEgGtRYfhALMGIZvZ2b
+ gofXVCoULo3vxmDnvGTZQX+wnBV6wdCwVEVCg+rvInQGzr6Uhq9I2bWmhZs/WkNDiQrK
+ W5gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686863529; x=1689455529;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cYFIoxmK6/11WcQGMEd3k+GSDGPqNwcIqNk05D0COTE=;
+ b=jfVVE6xAZdVxNcuxdOj0IBv7br7cvBdPcsUViwbPRbPROC8oLbRo4J+nYzUJyjl5dG
+ ayVkSLOBarNeI+KP0iy20FVKOfN9GDjuF9fUkdg85iqrTueQuTv0wAXz7Iqs2NYstyNt
+ jy5wQYDInLvG4S6IrfCaQGr2Sq2fhrjAgAMvkWPs0cP6DNkm0fydTgqXyMCU75V2/iXY
+ Ul4KjIaS+OCsz8EogjdLHK6CCa2dNaBv4a7O08dwuOwc0al8V5t/k8BiNjdaM/K/ohDu
+ +MILem1sdHOF21AM25/9cF2An4VO8Fq+qgnfriEnVEB+178C7XLgA0iHGRDYGVK0ayXe
+ 8nEw==
+X-Gm-Message-State: AC+VfDz/MOd3CB5EbHtRPqe66VpVcSiW57b8XpQGqoiYOgHDY6sZPrtk
+ CNY64h0vlkx/ncUOk6DKR21HIKmSvcmVAzq2fm0=
+X-Google-Smtp-Source: ACHHUZ4RQOzLkRBT57QFtwfdt42rHQTpRvSKNUguWsVJUC9l4YMVkHjXvUxUEmpNf+dIqOqbJjieNSEhAcMqJy+p5M0=
+X-Received: by 2002:a05:6871:6ba6:b0:19f:ad5a:f518 with SMTP id
+ zh38-20020a0568716ba600b0019fad5af518mr274084oab.25.1686863529246; Thu, 15
+ Jun 2023 14:12:09 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <ZItxXny9kRDq/ryf@casper.infradead.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-X-Mailman-Approved-At: Thu, 15 Jun 2023 20:57:43 +0000
+References: <20230613030151.216625-1-15330273260@189.cn>
+ <20230613030151.216625-3-15330273260@189.cn>
+ <dbf0d89f-717a-1f78-aef2-f30506751d4d@loongson.cn>
+In-Reply-To: <dbf0d89f-717a-1f78-aef2-f30506751d4d@loongson.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 15 Jun 2023 17:11:58 -0400
+Message-ID: <CADnq5_N6vVtzH6tzguZdHnP_TdRoG1G-Cr94O+X03jvtk=vhag@mail.gmail.com>
+Subject: Re: [PATCH v7 2/8] PCI/VGA: Deal only with VGA class devices
+To: Sui Jingfeng <suijingfeng@loongson.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,41 +69,147 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, rcampbell@nvidia.com, david@redhat.com,
- Felix.Kuehling@amd.com, apopple@nvidia.com, amd-gfx@lists.freedesktop.org,
- linux-xfs@vger.kernel.org, linux-mm@kvack.org, jglisse@redhat.com,
- dri-devel@lists.freedesktop.org, jgg@nvidia.com, akpm@linux-foundation.org,
- linux-ext4@vger.kernel.org, hch@lst.de
+Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Sui Jingfeng <15330273260@189.cn>, amd-gfx@lists.freedesktop.org,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 15, 2023 at 09:15:26PM +0100, Matthew Wilcox wrote:
-> On Thu, Jun 15, 2023 at 03:33:12PM -0400, Peter Xu wrote:
-> > My question is whether page_zonenum() is ready for taking all kinds of tail
-> > pages?
-> > 
-> > Zone device tail pages all look fine, per memmap_init_zone_device().  The
-> > question was other kinds of usual compound pages, like either thp or
-> > hugetlb.  IIUC page->flags can be uninitialized for those tail pages.
-> 
-> I don't think that's true.  It's my understanding that page->flags is
-> initialised for all pages in memmap at boot / hotplug / delayed-init
-> time.  So you can check things like zone, node, etc on literally any
-> page.  Contrariwise, those flags are not available in tail pages for
-> use by the entity that has allocated a compound page / large folio.
+On Wed, Jun 14, 2023 at 6:50=E2=80=AFAM Sui Jingfeng <suijingfeng@loongson.=
+cn> wrote:
+>
+> Hi,
+>
+> On 2023/6/13 11:01, Sui Jingfeng wrote:
+> > From: Sui Jingfeng <suijingfeng@loongson.cn>
+> >
+> > Deal only with the VGA devcie(pdev->class =3D=3D 0x0300), so replace th=
+e
+> > pci_get_subsys() function with pci_get_class(). Filter the non-PCI disp=
+lay
+> > device(pdev->class !=3D 0x0300) out. There no need to process the non-d=
+isplay
+> > PCI device.
+> >
+> > Cc: Bjorn Helgaas <bhelgaas@google.com>
+> > Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+> > ---
+> >   drivers/pci/vgaarb.c | 22 ++++++++++++----------
+> >   1 file changed, 12 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+> > index c1bc6c983932..22a505e877dc 100644
+> > --- a/drivers/pci/vgaarb.c
+> > +++ b/drivers/pci/vgaarb.c
+> > @@ -754,10 +754,6 @@ static bool vga_arbiter_add_pci_device(struct pci_=
+dev *pdev)
+> >       struct pci_dev *bridge;
+> >       u16 cmd;
+> >
+> > -     /* Only deal with VGA class devices */
+> > -     if ((pdev->class >> 8) !=3D PCI_CLASS_DISPLAY_VGA)
+> > -             return false;
+> > -
+>
+> Hi, here is probably a bug fixing.
+>
+> For an example, nvidia render only GPU typically has 0x0380.
+>
+> at its PCI class number, but  render only GPU should not participate in
+> the arbitration.
+>
+> As it shouldn't snoop the legacy fixed VGA address.
+>
+> It(render only GPU) can not display anything.
+>
+>
+> But 0x0380 >> 8 =3D 0x03, the filter  failed.
+>
+>
+> >       /* Allocate structure */
+> >       vgadev =3D kzalloc(sizeof(struct vga_device), GFP_KERNEL);
+> >       if (vgadev =3D=3D NULL) {
+> > @@ -1500,7 +1496,9 @@ static int pci_notify(struct notifier_block *nb, =
+unsigned long action,
+> >       struct pci_dev *pdev =3D to_pci_dev(dev);
+> >       bool notify =3D false;
+> >
+> > -     vgaarb_dbg(dev, "%s\n", __func__);
+> > +     /* Only deal with VGA class devices */
+> > +     if (pdev->class !=3D PCI_CLASS_DISPLAY_VGA << 8)
+> > +             return 0;
+>
+> So here we only care 0x0300, my initial intent is to make an optimization=
+,
+>
+> nowadays sane display graphic card should all has 0x0300 as its PCI
+> class number, is this complete right?
+>
+> ```
+>
+> #define PCI_BASE_CLASS_DISPLAY        0x03
+> #define PCI_CLASS_DISPLAY_VGA        0x0300
+> #define PCI_CLASS_DISPLAY_XGA        0x0301
+> #define PCI_CLASS_DISPLAY_3D        0x0302
+> #define PCI_CLASS_DISPLAY_OTHER        0x0380
+>
+> ```
+>
+> Any ideas ?
 
-Oh so the zone mask is special.  Fair enough.
+I'm not quite sure what you are asking about here.  For vga_arb, we
+only care about VGA class devices since those should be on the only
+ones that might have VGA routed to them.  However, as VGA gets
+deprecated, you'll have more non VGA PCI classes for devices which
+could be the pre-OS console device.
 
-> 
-> Also, I don't believe zone device pages support compound allocation.
-> I think they're always allocated as order-0.
+Alex
 
-Totally not familiar with zone device pages, but memmap_init_zone_device()
-has pfns_per_compound which can be >1.  From there, memmap_init_compound()
-does go ahead and setup pages as compound ones.
-
-Thanks!
-
--- 
-Peter Xu
-
+>
+> >       /* For now we're only intereted in devices added and removed. I d=
+idn't
+> >        * test this thing here, so someone needs to double check for the
+> > @@ -1510,6 +1508,8 @@ static int pci_notify(struct notifier_block *nb, =
+unsigned long action,
+> >       else if (action =3D=3D BUS_NOTIFY_DEL_DEVICE)
+> >               notify =3D vga_arbiter_del_pci_device(pdev);
+> >
+> > +     vgaarb_dbg(dev, "%s: action =3D %lu\n", __func__, action);
+> > +
+> >       if (notify)
+> >               vga_arbiter_notify_clients();
+> >       return 0;
+> > @@ -1534,8 +1534,8 @@ static struct miscdevice vga_arb_device =3D {
+> >
+> >   static int __init vga_arb_device_init(void)
+> >   {
+> > +     struct pci_dev *pdev =3D NULL;
+> >       int rc;
+> > -     struct pci_dev *pdev;
+> >
+> >       rc =3D misc_register(&vga_arb_device);
+> >       if (rc < 0)
+> > @@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
+> >
+> >       /* We add all PCI devices satisfying VGA class in the arbiter by
+> >        * default */
+> > -     pdev =3D NULL;
+> > -     while ((pdev =3D
+> > -             pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
+> > -                            PCI_ANY_ID, pdev)) !=3D NULL)
+> > +     while (1) {
+> > +             pdev =3D pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
+> > +             if (!pdev)
+> > +                     break;
+> > +
+> >               vga_arbiter_add_pci_device(pdev);
+> > +     }
+> >
+> >       pr_info("loaded\n");
+> >       return rc;
+>
+> --
+> Jingfeng
+>
