@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93827EB64DA
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 17:12:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EE0BEB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 17:16:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F1E510E526;
-	Thu, 15 Jun 2023 17:12:43 +0000 (UTC)
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D85E10E525;
- Thu, 15 Jun 2023 17:12:42 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- 46e09a7af769-6b2dbca2daeso4780726a34.3; 
- Thu, 15 Jun 2023 10:12:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F24CA10E529;
+	Thu, 15 Jun 2023 17:16:21 +0000 (UTC)
+Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
+ [IPv6:2607:f8b0:4864:20::c35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E3A510E528;
+ Thu, 15 Jun 2023 17:16:20 +0000 (UTC)
+Received: by mail-oo1-xc35.google.com with SMTP id
+ 006d021491bc7-558c8a109bdso701142eaf.1; 
+ Thu, 15 Jun 2023 10:16:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686849161; x=1689441161;
+ d=gmail.com; s=20221208; t=1686849379; x=1689441379;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=f7t8tAjtALMCxF4db4hi1Na7h70msD6c1rOODixaixs=;
- b=jNqIYIKjaHjZGxMm6sINXlkUWOIHlJv67UcaVrw15ZUbyxe0n2u5Y4JHeH3FviTlR/
- pCh+K0a0f4XdDI2cqcOJ6lNIsg7OjMKICFPnIZrHuPwfcGHwywIiEHeGMFuCog6E6VVz
- K6AyyNUE5jlhz5/QZco3+c/NKidFQfZuZLFOAt+RWhouuFhndh9Hg1e9krU3RvKgRMkz
- mWee2eKcY/DTIVRhURZWmTAWs8cHAlgeComVUetYhxZCBHytBECwVOvwL/84LQrXwHLw
- PPWOu6qSRyXYjJIV9QujArTRi0eTu030+MZB4DlrOCuWLf5JOD6nhH0shqaMMHiciJ0F
- 5czQ==
+ bh=+Zvw/N0cOumXbbZ81vLKyTA+j5vgM9L3CnYOXhhTKaA=;
+ b=ijhz1/xnH8dq1iakUnwQbeOxnXjZBMiAAYtuoan8SWXDq/WOPkwFs4Xp3NAkAAroN4
+ 9eJFKpKHG5YX7tlOBJez8FN9WrZPgoQfijxj/WIWjN70W7C2VpEwoAHGo+8I84J/nCag
+ vCX86oNRio6Ycin2NT3v25Sp5OrYi+K8KytPGlj4uIvIDhNAATsbiqISEWeGaXvUkboi
+ EjqGHJjuRCUoEVLaeH7cVd5RykxG/S4R2E1lfuv8xDfTNBG59MMZgdAMbe/9TH3DOCg3
+ HKvy3KWlyn5rcH2f2ba6gM77JQYQl7vGptKNFkgqGLE5ZSb9+DH400Hcm6m8XM4eEhKs
+ Z2Vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686849161; x=1689441161;
+ d=1e100.net; s=20221208; t=1686849379; x=1689441379;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=f7t8tAjtALMCxF4db4hi1Na7h70msD6c1rOODixaixs=;
- b=DiwCoVnAneMjaw5qRArmo6MHuf8DvQockbWOL1eInnA6armVax8TaKwzFRgc32L/Tb
- Vy1hmNPDnyCfE3jeV17kJy1vvkmrDSqHjBDrg1NA74klQyKXYVD5vp7ZMHgZ/q48i6SL
- MQgasz9Zk16CjvI37KYlL1QsQD6x/1SYQ+xYnRYjIQyVXSDgQajyVYWlNbxGs2rNWdHg
- OmSx5JYlPttfN8OzCLGKwH3h1O3FrzvDMOYaAfYXEq+saqXJCmGnUx1lc+wTsrVt391/
- G+QuyKpwGetzScYBHcbYCmD2YZWPyopGk9XfEjpQdo89FBJTlmKPM+esMwLpa0KUZJma
- P60Q==
-X-Gm-Message-State: AC+VfDzEcqxpvW+PhkZjBu4Pf6zNe3UX4aAd/U+3Af7t5ckER9B1P8KF
- U78Vsz7dAhoDLVAiKIqjpL/4k9Mjt5mTQokzr1ZBr2FR
-X-Google-Smtp-Source: ACHHUZ6CXnT0WPxl4FYp/k4qqBNQvCCWTxuAf5kTrU+0rjax35sGjlU7IXpnGAs+b68DIsoVnpxYAHJfYkEVz1vWONM=
-X-Received: by 2002:a05:6870:e506:b0:1a2:7a03:4fe2 with SMTP id
- y6-20020a056870e50600b001a27a034fe2mr12726386oag.35.1686849161335; Thu, 15
- Jun 2023 10:12:41 -0700 (PDT)
+ bh=+Zvw/N0cOumXbbZ81vLKyTA+j5vgM9L3CnYOXhhTKaA=;
+ b=XUQhLC5u4vTmvP2RvXIB3wzQF1BhtCBRf7V1aQNBhEz3Cz0S09VBW9tCMkXt5rEX7V
+ uyRQNX723n7nlLzvu7yE1bKlFGkJXvtN/kZO2sHpiXDFruMIpms51vuPv7loVcyQlr79
+ gfU9MO9r2U3VD1dwPmGAYd3woQe91vnNCRX+seIGDozjHDeFzSD73X4hQdADOVG5xNfh
+ TN1+0xvHsNm4/cYr9GS4PdXHWEUwpdK8if837VLSZiQRTPLa+D0CHhkeY7WZ/HsPsCnp
+ Xvpjq3yNgx/QDIQRBr43cmv7Lcd8rE08a33Dpkv3kD2JKnAEQzgd7BAty6sJQXadIJz2
+ QyWQ==
+X-Gm-Message-State: AC+VfDzmd1DDpcazLqI8MdzzPxawnokV4+oKBKlVmg+YVs8LLufWoF0w
+ cB6zc1WOvUI6pitLaDstggCWKz33zoac7bslMB4=
+X-Google-Smtp-Source: ACHHUZ4POIy+0PaqoiRrlH+MGs2QaSUATqPRf+VEjZEiymlcK6iI+rWJT9kn6NVhbnZfSGfv8AV4QAtMVWTwq6/VmWA=
+X-Received: by 2002:a4a:e70a:0:b0:558:cd46:6104 with SMTP id
+ y10-20020a4ae70a000000b00558cd466104mr3323508oou.0.1686849378850; Thu, 15 Jun
+ 2023 10:16:18 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230614034936.876-1-machel@vivo.com>
- <5844e20e-843d-f65e-107a-8fd4cff48e32@gnuweeb.org>
-In-Reply-To: <5844e20e-843d-f65e-107a-8fd4cff48e32@gnuweeb.org>
+References: <20230614022440.33828-1-luojianhong@cdjrlc.com>
+ <1ccd72cc9fa4b0f1c5acceef0c21d9fb@208suo.com>
+In-Reply-To: <1ccd72cc9fa4b0f1c5acceef0c21d9fb@208suo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 15 Jun 2023 13:12:29 -0400
-Message-ID: <CADnq5_O-HmDpTbNnEAvtrFzFRHiBoDD+wfJM2kJ0rzT2PPb7+w@mail.gmail.com>
-Subject: Re: [PATCH] amd/display/dc:remove repeating expression
-To: Ammar Faizi <ammarfaizi2@gnuweeb.org>
+Date: Thu, 15 Jun 2023 13:16:07 -0400
+Message-ID: <CADnq5_OEWo7cS=kUPQRyjfx-j=vR27hme5TG8SvOUUu1mJ3Qug@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: remove unneeded variable
+To: baomingtong001@208suo.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,30 +68,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, opensource.kernel@vivo.com,
- Leo Li <sunpeng.li@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx@lists.freedesktop.org, Wang Ming <machel@vivo.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, airlied@gmail.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Wed, Jun 14, 2023 at 3:20=E2=80=AFAM <baomingtong001@208suo.com> wrote:
+>
+> fix the following coccicheck warning:
+>
+> drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c:1156:5-11:
+> Unneeded variable: "result".
+>
+
+This variable is used and the code fails to compile with it removed.
 
 Alex
 
-On Wed, Jun 14, 2023 at 1:36=E2=80=AFAM Ammar Faizi <ammarfaizi2@gnuweeb.or=
-g> wrote:
+> Signed-off-by: Mingtong Bao <baomingtong001@208suo.com>
+> ---
+>   drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
 >
-> On 6/14/23 10:49 AM, Wang Ming wrote:
-> > Identify issues that arise by using the tests/doubletest.cocci
-> > semantic patch.Need to remove duplicate expression in if statement.
-> >
-> > Signed-off-by: Wang Ming <machel@vivo.com>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
+> b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
+> index 21be23ec3c79..36aa7657c66d 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
+> @@ -1153,7 +1153,6 @@ int smu7_enable_power_containment(struct pp_hwmgr
+> *hwmgr)
+>       struct phm_ppt_v1_information *table_info =3D
+>               (struct phm_ppt_v1_information *)(hwmgr->pptable);
+>       int smc_result;
+> -    int result =3D 0;
+>       struct phm_cac_tdp_table *cac_table;
 >
-> Reviewed-by: Ammar Faizi <ammarfaizi2@gnuweeb.org>
+>       data->power_containment_features =3D 0;
+> @@ -1191,7 +1190,7 @@ int smu7_enable_power_containment(struct pp_hwmgr
+> *hwmgr)
+>               }
+>           }
+>       }
+> -    return result;
+> +    return 0;
+>   }
 >
-> --
-> Ammar Faizi
+>   int smu7_disable_power_containment(struct pp_hwmgr *hwmgr)
