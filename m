@@ -4,60 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB3F6EB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 17:30:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD11CEB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 17:49:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BC5410E52E;
-	Thu, 15 Jun 2023 17:30:32 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4203A10E52E;
- Thu, 15 Jun 2023 17:30:29 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-1a68c02553aso4754396fac.0; 
- Thu, 15 Jun 2023 10:30:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686850227; x=1689442227;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DBFAQ+OspbXgxiU1uwcjpJ+KgjxBMeHaD8ugzzQiLeU=;
- b=DYHm+gT66KuV9e2kX1K7tNs1xU9tgGlItzNUZ1iRBBQrwfCAkcDV9cnKKHaAGB7M9F
- sZmsZhyTndnwepjYMLa2x+v0MEVo5U0Sfr+NPf+wLdWHanjR4HaLDjGs+e5jwh82zGJb
- XoPrahc5N5C7FPPy/fqyg/VgQgCHoMMlZFUH/SgUoYapNzCrmFkRy/PUvqRFgGLUEf5v
- e6EJggAmMKnti3SDZTfyA6vlK6/RfPZRbvbveMXA9fnM0l27BjwSMLJoBy8GrfYk5DM5
- k62BhikLVPBOtMOo7uHGqfzTaDvb7zErRS0o8+AdxXLjcTHQMXSE9vqv4Jh2tAm8oVOL
- gmuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686850227; x=1689442227;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DBFAQ+OspbXgxiU1uwcjpJ+KgjxBMeHaD8ugzzQiLeU=;
- b=ErN778igodbdc4SxfxsVXApqTjTeJse8ZMsFIxg0krLbqtMy2GcsDiP8KiU7jihZwc
- uZCAG9r4IbmKTwbiw9upNo8ZnAAUpprrRIGJkwxHlqjMplpVKCGBZrHtljvKhWezVTI8
- 9VEqr5CmMMeV1qflP9xBupmJIs6DxkYJvo7haYejlFw/E1mHtoYDxpeCteyMmDVKmONf
- 1Y4UfM3mDfh53Slt7TMYx7E3vxlVHtqiLDaN+tFOg4PMcK2XuszmbOfUezJw2oKpvrQC
- TZxDtOg2tz3lxkgkssYnpAMMMDN49iCR4qgTzc56GqjFvdgAHXImvIDa3Y0mQ+1N2AY1
- sHAQ==
-X-Gm-Message-State: AC+VfDz9TCCXgArmKhqaHgT4j1WDrmQ3XDx9HeYSTsYOQbRPGwvfw2oR
- zeFg/SfN044JmFZdO7TmR+tFdDNyotfEkrM4FaWXUC6v
-X-Google-Smtp-Source: ACHHUZ43pEX4UxqrYbGcs9QMb5obU3lfpTRVrSjmZvwNSem2mYI53z+kAnG4gGLHZnRBTB+m7jNmjoyPuJiodrPSifg=
-X-Received: by 2002:a05:6870:4515:b0:180:b716:9825 with SMTP id
- e21-20020a056870451500b00180b7169825mr14924552oao.57.1686850227681; Thu, 15
- Jun 2023 10:30:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5082A10E198;
+	Thu, 15 Jun 2023 17:49:40 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2074.outbound.protection.outlook.com [40.107.92.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1FBD10E198
+ for <amd-gfx@lists.freedesktop.org>; Thu, 15 Jun 2023 17:49:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ff5Mh+lMNpuPL0KEJV63V36i5IMyx1aCeojjDtyWSuQsgnNje1341GusbP+bsdpQGSwLRutEfIREPkqzcvhnT36LIv976Ui6uUgHxci67JDvVbpL+P17RUjPJnzuC+YdpXmRImktNIjGdSaPuR6AA1RHU7pgs0ndM+hGIZhJp1FB300Th71ix/sWaZk1Qc4tkU8QoETTuBVewmiezknNlOeFT11l9B5Z1ngxYEcxzpa0tyCLUMxgiRsOJZzyZoX6jgV3kvcL8KbLLc3HN3ZugWaPX3ADHyw8ooZxEneU16rcW5v/U4VTaoA/sXQVMJ55N9GLZtA3CjjIApy/wlj0/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sGvrqQOkopOaG3UNk4NAS2lD0la33v4hidgM0njBQaI=;
+ b=Nk/kjdtApSu51gVomvAY6wq+ckDuZuTaz/SHINiFYg78CnnjE89QmUct470Q65ad7sxIkH1hbccKUHoNa4xJlm3AmY+1q95dKfaMH5F5pGxdeDyYs9Yb1ZQUsvfO//2Hlb2JS/wY5ex5QogYNHFJeUE1t1ShEidFYMiTXNVFkrhid6cxVlCNc67t5z3amKWG3L2CuH9yKlhgkHUG+Lg4Y++/UeB930SdFUMG4lOizXShVvbAHoCshR/G9zto+MpukROq+KE184uf6MRpbFw6PIhkN8hzCTHZZKNbl8i66f0sADyTuHC0ErvCz44bh06lz3WHK2LSAQj8ibeuMJM71Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sGvrqQOkopOaG3UNk4NAS2lD0la33v4hidgM0njBQaI=;
+ b=fD2maz693iWXF6Dg0AG5JRkHNxD1DfOcn+4lbd5rBqmxfp8Eyel4wUKkTE40DkCBj3GfB/wPl88f8TKU8DZCc4Es82E4fsB8e+aWuoglohlw4Q5xsq6qKeAxlVmDZhj0MGzLMPOTykAMlg+BH2eRn6Anpl5D2fWqzVbj0UDByos=
+Received: from SA1P222CA0126.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c5::15)
+ by BN9PR12MB5290.namprd12.prod.outlook.com (2603:10b6:408:103::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.25; Thu, 15 Jun
+ 2023 17:49:35 +0000
+Received: from SN1PEPF00026368.namprd02.prod.outlook.com
+ (2603:10b6:806:3c5:cafe::20) by SA1P222CA0126.outlook.office365.com
+ (2603:10b6:806:3c5::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.38 via Frontend
+ Transport; Thu, 15 Jun 2023 17:49:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF00026368.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.27 via Frontend Transport; Thu, 15 Jun 2023 17:49:34 +0000
+Received: from MKM-L1-ZHLUO987.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 15 Jun
+ 2023 12:49:34 -0500
+From: Zhigang Luo <Zhigang.Luo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: Skip TMR for MP0_HWIP 13.0.6
+Date: Thu, 15 Jun 2023 13:49:19 -0400
+Message-ID: <20230615174920.25499-1-Zhigang.Luo@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230615-amdgpu-wunused-const-variable-wo-debugfs-v1-0-06efd224aebb@kernel.org>
- <20230615-amdgpu-wunused-const-variable-wo-debugfs-v1-2-06efd224aebb@kernel.org>
-In-Reply-To: <20230615-amdgpu-wunused-const-variable-wo-debugfs-v1-2-06efd224aebb@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 15 Jun 2023 13:30:16 -0400
-Message-ID: <CADnq5_OWLXzuZvro4g7bDngcO4xjesNr1H=pwDypLKNY-_7PPg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Move clocks closer to its only usage in
- amdgpu_parse_cg_state()
-To: Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026368:EE_|BN9PR12MB5290:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f9ed8fa-fb0f-4e8d-451d-08db6dc8e190
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 2M8MBsiR1mUDUTfFe6S69fJkZYrN6uQw0S1Acztckf1rLe09aAS006f62pd6wGvn3htFOMpz+lU3hlCIi1GGzMZeUVryJ7Uian1+ATes9oPvASGOYFSGq3bilfN5pEV9QhHF3hQ4nd2/RRHquptGcnL/6VEtfsuZDqloiJ4Cg6QehPUDYfKkG0h2kN8qTWghZS+mL6TD9u4NNRRaKryz0gfgm8WAblj3nxExp8QsXxmbnHWWMymmh0jHZHPrb+nProlCdqztCu450KTU4tg/snWZG6sxivB7qlwCmakJCNV3HacHtx4mpZIVYdnJOLM9WEbGmP9aJ17LOQ+1/OzPDN/9Gq9XA76zTT8mjF/I5ZcJJPRFk6Y5ae8YQ3AHc84FPlv/t7l66tBz1GD/3Ys3VEiSJ1eqEt1fMHs76wqAs2g5o0pDCUEcFIjXR+L3rGrqTzqqChspL7ZFf4Tq/qvuMbrkpZqTIYkAPtruvp9pEc16E8GSrphFEKtbe9hXnkdWtg6hwteoOxk+CQGCxWyuo7iyhBxwE2f9x7qJv8n7ZPkfWMaM9E5yKUdxskwPA2dMDzglBZzJ/fzCCFL/qAQ91eMM78xKiCTTScJ5fjSL8k96Ps0KDmwLkRxuO+R6onRMjMsgkAo4zVdKUDhM8zKk+J3/kZ171km/joeK9yknfETgTnJCn7Fu4FeeuM7oFozmqYyeSzyAyq+cktS/db3LUr7cgubJVnVwguuMWNwBC0MTAkXEnFKp3P8bK1ZV66lBgQ0FhGQaHZV8TOguyxN1gA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(396003)(136003)(376002)(346002)(451199021)(40470700004)(46966006)(36840700001)(82310400005)(356005)(40480700001)(81166007)(47076005)(1076003)(26005)(8676002)(2906002)(4744005)(8936002)(86362001)(5660300002)(186003)(2616005)(7696005)(6666004)(36756003)(40460700003)(336012)(426003)(54906003)(4326008)(6916009)(478600001)(82740400003)(316002)(41300700001)(16526019)(36860700001)(70586007)(70206006)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2023 17:49:34.7647 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f9ed8fa-fb0f-4e8d-451d-08db6dc8e190
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026368.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5290
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,174 +97,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, patches@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com
+Cc: alexander.deucher@amd.com, Zhigang Luo <Zhigang.Luo@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
+For SRIOV VF, no TMR needed.
 
-Alex
+Signed-off-by: Zhigang Luo <Zhigang.Luo@amd.com>
+Change-Id: If9556cf60dfcbd95e102b1387cf233e902d9490e
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Thu, Jun 15, 2023 at 1:06=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
-g> wrote:
->
-> After commit a25a9dae2067 ("drm/amd/amdgpu: enable W=3D1 for amdgpu"),
-> there is an instance of -Wunused-const-variable when CONFIG_DEBUG_FS is
-> disabled:
->
->   drivers/gpu/drm/amd/amdgpu/../pm/amdgpu_pm.c:38:34: error: unused varia=
-ble 'clocks' [-Werror,-Wunused-const-variable]
->      38 | static const struct cg_flag_name clocks[] =3D {
->         |                                  ^
->   1 error generated.
->
-> clocks is only used when CONFIG_DEBUG_FS is set, so move the definition
-> into the CONFIG_DEBUG_FS block right above its only usage to clear up
-> the warning.
->
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> ---
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 76 +++++++++++++++++++-------------=
-------
->  1 file changed, 38 insertions(+), 38 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c
-> index a57952b93e73..386ccf11e657 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -35,44 +35,6 @@
->  #include <linux/pm_runtime.h>
->  #include <asm/processor.h>
->
-> -static const struct cg_flag_name clocks[] =3D {
-> -       {AMD_CG_SUPPORT_GFX_FGCG, "Graphics Fine Grain Clock Gating"},
-> -       {AMD_CG_SUPPORT_GFX_MGCG, "Graphics Medium Grain Clock Gating"},
-> -       {AMD_CG_SUPPORT_GFX_MGLS, "Graphics Medium Grain memory Light Sle=
-ep"},
-> -       {AMD_CG_SUPPORT_GFX_CGCG, "Graphics Coarse Grain Clock Gating"},
-> -       {AMD_CG_SUPPORT_GFX_CGLS, "Graphics Coarse Grain memory Light Sle=
-ep"},
-> -       {AMD_CG_SUPPORT_GFX_CGTS, "Graphics Coarse Grain Tree Shader Cloc=
-k Gating"},
-> -       {AMD_CG_SUPPORT_GFX_CGTS_LS, "Graphics Coarse Grain Tree Shader L=
-ight Sleep"},
-> -       {AMD_CG_SUPPORT_GFX_CP_LS, "Graphics Command Processor Light Slee=
-p"},
-> -       {AMD_CG_SUPPORT_GFX_RLC_LS, "Graphics Run List Controller Light S=
-leep"},
-> -       {AMD_CG_SUPPORT_GFX_3D_CGCG, "Graphics 3D Coarse Grain Clock Gati=
-ng"},
-> -       {AMD_CG_SUPPORT_GFX_3D_CGLS, "Graphics 3D Coarse Grain memory Lig=
-ht Sleep"},
-> -       {AMD_CG_SUPPORT_MC_LS, "Memory Controller Light Sleep"},
-> -       {AMD_CG_SUPPORT_MC_MGCG, "Memory Controller Medium Grain Clock Ga=
-ting"},
-> -       {AMD_CG_SUPPORT_SDMA_LS, "System Direct Memory Access Light Sleep=
-"},
-> -       {AMD_CG_SUPPORT_SDMA_MGCG, "System Direct Memory Access Medium Gr=
-ain Clock Gating"},
-> -       {AMD_CG_SUPPORT_BIF_MGCG, "Bus Interface Medium Grain Clock Gatin=
-g"},
-> -       {AMD_CG_SUPPORT_BIF_LS, "Bus Interface Light Sleep"},
-> -       {AMD_CG_SUPPORT_UVD_MGCG, "Unified Video Decoder Medium Grain Clo=
-ck Gating"},
-> -       {AMD_CG_SUPPORT_VCE_MGCG, "Video Compression Engine Medium Grain =
-Clock Gating"},
-> -       {AMD_CG_SUPPORT_HDP_LS, "Host Data Path Light Sleep"},
-> -       {AMD_CG_SUPPORT_HDP_MGCG, "Host Data Path Medium Grain Clock Gati=
-ng"},
-> -       {AMD_CG_SUPPORT_DRM_MGCG, "Digital Right Management Medium Grain =
-Clock Gating"},
-> -       {AMD_CG_SUPPORT_DRM_LS, "Digital Right Management Light Sleep"},
-> -       {AMD_CG_SUPPORT_ROM_MGCG, "Rom Medium Grain Clock Gating"},
-> -       {AMD_CG_SUPPORT_DF_MGCG, "Data Fabric Medium Grain Clock Gating"}=
-,
-> -       {AMD_CG_SUPPORT_VCN_MGCG, "VCN Medium Grain Clock Gating"},
-> -       {AMD_CG_SUPPORT_HDP_DS, "Host Data Path Deep Sleep"},
-> -       {AMD_CG_SUPPORT_HDP_SD, "Host Data Path Shutdown"},
-> -       {AMD_CG_SUPPORT_IH_CG, "Interrupt Handler Clock Gating"},
-> -       {AMD_CG_SUPPORT_JPEG_MGCG, "JPEG Medium Grain Clock Gating"},
-> -       {AMD_CG_SUPPORT_REPEATER_FGCG, "Repeater Fine Grain Clock Gating"=
-},
-> -       {AMD_CG_SUPPORT_GFX_PERF_CLK, "Perfmon Clock Gating"},
-> -       {AMD_CG_SUPPORT_ATHUB_MGCG, "Address Translation Hub Medium Grain=
- Clock Gating"},
-> -       {AMD_CG_SUPPORT_ATHUB_LS, "Address Translation Hub Light Sleep"},
-> -       {0, NULL},
-> -};
-> -
->  static const struct hwmon_temp_label {
->         enum PP_HWMON_TEMP channel;
->         const char *label;
-> @@ -3684,6 +3646,44 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_fi=
-le *m, struct amdgpu_device *a
->         return 0;
->  }
->
-> +static const struct cg_flag_name clocks[] =3D {
-> +       {AMD_CG_SUPPORT_GFX_FGCG, "Graphics Fine Grain Clock Gating"},
-> +       {AMD_CG_SUPPORT_GFX_MGCG, "Graphics Medium Grain Clock Gating"},
-> +       {AMD_CG_SUPPORT_GFX_MGLS, "Graphics Medium Grain memory Light Sle=
-ep"},
-> +       {AMD_CG_SUPPORT_GFX_CGCG, "Graphics Coarse Grain Clock Gating"},
-> +       {AMD_CG_SUPPORT_GFX_CGLS, "Graphics Coarse Grain memory Light Sle=
-ep"},
-> +       {AMD_CG_SUPPORT_GFX_CGTS, "Graphics Coarse Grain Tree Shader Cloc=
-k Gating"},
-> +       {AMD_CG_SUPPORT_GFX_CGTS_LS, "Graphics Coarse Grain Tree Shader L=
-ight Sleep"},
-> +       {AMD_CG_SUPPORT_GFX_CP_LS, "Graphics Command Processor Light Slee=
-p"},
-> +       {AMD_CG_SUPPORT_GFX_RLC_LS, "Graphics Run List Controller Light S=
-leep"},
-> +       {AMD_CG_SUPPORT_GFX_3D_CGCG, "Graphics 3D Coarse Grain Clock Gati=
-ng"},
-> +       {AMD_CG_SUPPORT_GFX_3D_CGLS, "Graphics 3D Coarse Grain memory Lig=
-ht Sleep"},
-> +       {AMD_CG_SUPPORT_MC_LS, "Memory Controller Light Sleep"},
-> +       {AMD_CG_SUPPORT_MC_MGCG, "Memory Controller Medium Grain Clock Ga=
-ting"},
-> +       {AMD_CG_SUPPORT_SDMA_LS, "System Direct Memory Access Light Sleep=
-"},
-> +       {AMD_CG_SUPPORT_SDMA_MGCG, "System Direct Memory Access Medium Gr=
-ain Clock Gating"},
-> +       {AMD_CG_SUPPORT_BIF_MGCG, "Bus Interface Medium Grain Clock Gatin=
-g"},
-> +       {AMD_CG_SUPPORT_BIF_LS, "Bus Interface Light Sleep"},
-> +       {AMD_CG_SUPPORT_UVD_MGCG, "Unified Video Decoder Medium Grain Clo=
-ck Gating"},
-> +       {AMD_CG_SUPPORT_VCE_MGCG, "Video Compression Engine Medium Grain =
-Clock Gating"},
-> +       {AMD_CG_SUPPORT_HDP_LS, "Host Data Path Light Sleep"},
-> +       {AMD_CG_SUPPORT_HDP_MGCG, "Host Data Path Medium Grain Clock Gati=
-ng"},
-> +       {AMD_CG_SUPPORT_DRM_MGCG, "Digital Right Management Medium Grain =
-Clock Gating"},
-> +       {AMD_CG_SUPPORT_DRM_LS, "Digital Right Management Light Sleep"},
-> +       {AMD_CG_SUPPORT_ROM_MGCG, "Rom Medium Grain Clock Gating"},
-> +       {AMD_CG_SUPPORT_DF_MGCG, "Data Fabric Medium Grain Clock Gating"}=
-,
-> +       {AMD_CG_SUPPORT_VCN_MGCG, "VCN Medium Grain Clock Gating"},
-> +       {AMD_CG_SUPPORT_HDP_DS, "Host Data Path Deep Sleep"},
-> +       {AMD_CG_SUPPORT_HDP_SD, "Host Data Path Shutdown"},
-> +       {AMD_CG_SUPPORT_IH_CG, "Interrupt Handler Clock Gating"},
-> +       {AMD_CG_SUPPORT_JPEG_MGCG, "JPEG Medium Grain Clock Gating"},
-> +       {AMD_CG_SUPPORT_REPEATER_FGCG, "Repeater Fine Grain Clock Gating"=
-},
-> +       {AMD_CG_SUPPORT_GFX_PERF_CLK, "Perfmon Clock Gating"},
-> +       {AMD_CG_SUPPORT_ATHUB_MGCG, "Address Translation Hub Medium Grain=
- Clock Gating"},
-> +       {AMD_CG_SUPPORT_ATHUB_LS, "Address Translation Hub Light Sleep"},
-> +       {0, NULL},
-> +};
-> +
->  static void amdgpu_parse_cg_state(struct seq_file *m, u64 flags)
->  {
->         int i;
->
-> --
-> 2.41.0
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index e15c27e05564..ac9b57231589 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -839,6 +839,7 @@ static bool psp_skip_tmr(struct psp_context *psp)
+ 	case IP_VERSION(11, 0, 9):
+ 	case IP_VERSION(11, 0, 7):
+ 	case IP_VERSION(13, 0, 2):
++	case IP_VERSION(13, 0, 6):
+ 	case IP_VERSION(13, 0, 10):
+ 		return true;
+ 	default:
+-- 
+2.25.1
+
