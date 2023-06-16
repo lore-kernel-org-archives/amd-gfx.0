@@ -4,67 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7862EB64DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 12:47:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8AE5EB64D7
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 12:51:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7085B10E615;
-	Fri, 16 Jun 2023 12:47:19 +0000 (UTC)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E62F10E614
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 12:47:15 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5147e40bbbbso861804a12.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 05:47:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686919633; x=1689511633;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=RlfMi5vKY6QjjzfvXUGj6GpuwoT85GrBCFkNQAMVV2o=;
- b=NQj7DotQV9hAyKF2H7hGm/sJPE0U7TPsb7TBy3tc8URRBgD6Kg+WecRSVMltioUphY
- Q7V4CSK6Rs5BP1RBd10o8FTpgqbi2itwxI2lnVhthisCzeNcOXr65YEg1Xu3h9qaiXu9
- esaIDnWj4niBdp1bdoaIpxeEyWSvlnDwTD6np1mudOUf2KiFG7TB3JnBQR9levwmYC4B
- NLsO4Pi/9fgTJaLggOd0qyHdi/Ndy/d5UvKvNfXKDyrqr032CBn5/Qxyaju1EyxgcK1U
- dcAEBv1aCDFoyUUkuuefPM37Xuw/q0m/ez1PJ4tpWapjxmnb1aB0FFCIld43sn0Ot4/X
- IoUQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FBEA10E618;
+	Fri, 16 Jun 2023 12:51:54 +0000 (UTC)
+X-Greylist: delayed 526 seconds by postgrey-1.36 at gabe;
+ Fri, 16 Jun 2023 12:20:07 UTC
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D40910E0EB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 12:20:07 +0000 (UTC)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 4CCE63F16F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 12:11:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1686917480;
+ bh=ygm1JpcHC+yM6gwUZ9anDyDYQkSa5UJcZ+p9QEN6GhU=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+ b=m80NhPyjDUPqJGH+dmcSS1hWLH3FcicKhUkPYlM1C1vnspQ+/LWrwQGr7PqsgRyx6
+ svaXwURgeBgJhSIPbb4czOv33q0jtzO7m6VTzr5UPjl+WagKysQuUNN065BgqvFK7y
+ BM3k1h6wOljAc1DJRHf8+Nu0odTWOhyR6DfdsF7ZwNqdvFhNyyLCIqMphQu3Q0fSC4
+ eZoOfWo0zxlHqSdus5vCFCA3m3lCH6daJw6I2aWbgKmC8NP+Pi5yaTd9J4MBDqhziX
+ 8oZS2R0xxl/60DnHcmwjDhn0j60iZSQvHFFPKjUrE9eSN5ffc2fgRYxLMgF9hhBjTy
+ Zr10Sq3xDbekQ==
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-30fc67636a2so212268f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 05:11:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686919633; x=1689511633;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RlfMi5vKY6QjjzfvXUGj6GpuwoT85GrBCFkNQAMVV2o=;
- b=KFMlGXVKD14BkXmCuoYFFKsSDS15HSibkBNNAU+8FM5eQDrEfTqkBRQd15BDb9El36
- u15F3dNZyHSELBW6mw63upw/bmWEwdXM3kM6jMoDhaLAg9NKpIvxmC93DTpcEMfUqz1n
- l6SuxUMKoaPga6nfkRch4oqaNB3bLdevr0oCMturNoRleCv+/5/GeCHkdftB8AoauK+6
- pAcn4Qp2ew9XW7HY9uxvmd6ezSANENieXiRZkZ0RyepaXN+CXCJmNNyOSd/m8yoPzQJM
- F0B3KD9Livekvj1wSsQkLii+z8yxhIzCAuJx8YNC8PxS/36krqcLa2ElAvv46h86p6vD
- BPvw==
-X-Gm-Message-State: AC+VfDwzOA1VH22TsHUXwNEO0kHdMQ5Zn3ipGvqFxGue/kAWMwPC4Wyq
- ip4ClpQe3/7q9DVFh3PpNvqq/Fxa1gM=
-X-Google-Smtp-Source: ACHHUZ44XoNiO+0nxzku5689vwwMnCSeaG/ynGoiIWIg3OHhPfRD3S9kbMfZ5k+F3R9AuLU8iCiQKw==
-X-Received: by 2002:a05:6402:29a:b0:514:945c:6cea with SMTP id
- l26-20020a056402029a00b00514945c6ceamr1377382edv.37.1686919633136; 
- Fri, 16 Jun 2023 05:47:13 -0700 (PDT)
-Received: from ?IPV6:2a00:e180:151b:3a00:4ba7:36a9:cecb:189?
- ([2a00:e180:151b:3a00:4ba7:36a9:cecb:189])
- by smtp.gmail.com with ESMTPSA id
- e5-20020a056402104500b005153b12c9f7sm9959246edu.32.2023.06.16.05.47.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 Jun 2023 05:47:12 -0700 (PDT)
-Message-ID: <25182053-2c9f-fd10-68cf-31de4ae20045@gmail.com>
-Date: Fri, 16 Jun 2023 14:47:11 +0200
+ d=1e100.net; s=20221208; t=1686917480; x=1689509480;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ygm1JpcHC+yM6gwUZ9anDyDYQkSa5UJcZ+p9QEN6GhU=;
+ b=ey1jW75mHIMMCMm3s4eu0JJnuX0acR7qTXlwNiJ7VV0xdODE6rKPC9dK5/0aq5LsUR
+ 5B9LfFuB2sWW1p7IOZ6MBKGaqe988IDP/DDeqwd7qxstSj3kmayckzMu6SzXJhN/PxdO
+ 5AhBsxO3i16/jwk5tZL1HylknTMit/3TYIc987mhUupJgcb5OLIBzJQxchEphc14AEMT
+ O9ErOf3DG9V8q/mlPi9+yl55/mEB0ULJyTQqD49d4HOvaMviMWmrWbWK1uB5wptOa6Qo
+ dn/5J1iltq35/muGq4ZxJBhQBQoh8cpOrVlchZuxdXEqnsp2cakwv9MRFMghmAgVv6cz
+ GyTQ==
+X-Gm-Message-State: AC+VfDwkz9GO5qvluGEQ7OqvC/aaAkxuAVTW5pujTXctcW0g1S0d9kKC
+ LWiHsELtFgfPo1ES5xK4iPrS0JJvdvZ1vhTckpNooKPlaz40FKjlCLSM2bGEqG6USusBvJVM2ay
+ obBX0yzATcNiwRFgh5eQBTvICwJcnBROh6WtQAD9zmHM=
+X-Received: by 2002:adf:fd82:0:b0:30e:19a8:4b15 with SMTP id
+ d2-20020adffd82000000b0030e19a84b15mr1232214wrr.30.1686917480060; 
+ Fri, 16 Jun 2023 05:11:20 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ7+RJMFh0mO2k3qKah4mRBirj+tBn8JQcdEo6xSgXQRBq85MahquhXfYVqxTBHqLgbleXfsHQ==
+X-Received: by 2002:adf:fd82:0:b0:30e:19a8:4b15 with SMTP id
+ d2-20020adffd82000000b0030e19a84b15mr1232197wrr.30.1686917479747; 
+ Fri, 16 Jun 2023 05:11:19 -0700 (PDT)
+Received: from localhost ([194.191.244.86]) by smtp.gmail.com with ESMTPSA id
+ s2-20020adfecc2000000b0030aed4223e0sm23325047wro.105.2023.06.16.05.11.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Jun 2023 05:11:19 -0700 (PDT)
+From: Juerg Haefliger <juerg.haefliger@canonical.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: Add missing MODULE_FIRMWARE macro
+Date: Fri, 16 Jun 2023 14:11:16 +0200
+Message-Id: <20230616121116.1031336-1-juerg.haefliger@canonical.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amdgpu: enable mcbp by default on gfx9 chips
-Content-Language: en-US
-To: jiadong.zhu@amd.com, amd-gfx@lists.freedesktop.org
-References: <20230616050725.1464277-1-jiadong.zhu@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230616050725.1464277-1-jiadong.zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 16 Jun 2023 12:51:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,39 +83,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Bokun.Zhang@amd.com, lijo.lazar@amd.com, linux-kernel@vger.kernel.org,
+ YiPeng.Chai@amd.com, Juerg Haefliger <juerg.haefliger@canonical.com>,
+ mario.limonciello@amd.com, Likun.Gao@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 16.06.23 um 07:07 schrieb jiadong.zhu@amd.com:
-> From: Jiadong Zhu <Jiadong.Zhu@amd.com>
->
-> Gfx9 is using software rings which would trigger mcbp in some cases.
-> Thus the parameter amdgpu_mcbp shall be enabled by default.
+Add the missing MODULE_FIRMWARE macro for "amdgpu/fiji_smc.bin".
 
-Actually the idea was to not need the amdgpu_mcbp parameter any more and 
-deprecate it with the use of the software rings.
+Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Why is that still necessary?
-
-Regards,
-Christian.
-
->
-> Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 65577eca58f1..1b3cfda946f9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -4527,6 +4527,7 @@ static int gfx_v9_0_early_init(void *handle)
->   	adev->gfx.xcc_mask = 1;
->   	adev->gfx.num_compute_rings = min(amdgpu_gfx_get_num_kcq(adev),
->   					  AMDGPU_MAX_COMPUTE_RINGS);
-> +	amdgpu_mcbp = 1;
->   	gfx_v9_0_set_kiq_pm4_funcs(adev);
->   	gfx_v9_0_set_ring_funcs(adev);
->   	gfx_v9_0_set_irq_funcs(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 5c7d40873ee2..1f83a939d641 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -92,6 +92,7 @@ MODULE_FIRMWARE("amdgpu/picasso_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/raven2_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/arcturus_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/navi12_gpu_info.bin");
++MODULE_FIRMWARE("amdgpu/fiji_smc.bin");
+ 
+ #define AMDGPU_RESUME_MS		2000
+ #define AMDGPU_MAX_RETRY_LIMIT		2
+-- 
+2.37.2
 
