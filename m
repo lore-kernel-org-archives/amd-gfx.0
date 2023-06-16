@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BEDBEB64DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 10:27:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D5AEEB64DA
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 10:27:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A23D10E5EF;
-	Fri, 16 Jun 2023 10:27:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C884E10E5F1;
+	Fri, 16 Jun 2023 10:27:48 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B60610E5ED;
- Fri, 16 Jun 2023 10:27:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C89E810E5F2;
+ Fri, 16 Jun 2023 10:27:46 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0ED3B6245F;
- Fri, 16 Jun 2023 10:27:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47DD3C433CB;
- Fri, 16 Jun 2023 10:27:12 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4A3BF6361A;
+ Fri, 16 Jun 2023 10:27:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF094C433C8;
+ Fri, 16 Jun 2023 10:27:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686911233;
- bh=ad9mJNWY2ATqiIvDKYUCVrrn+8LgbBm8sw+UrkCnxFI=;
+ s=k20201202; t=1686911266;
+ bh=qWmMBOZMGkRLT6BQk090qvnWS2KcOxcFhciIQWtT4v0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=o02bTlsY8jJ3/G3tMZYjvkq7Sbv9xz9guRQ2fLHLo60F+TXPjjqRr9Jm6yjfjfr7b
- EG76cuAvrzBWX696foHkzZ/uvm3/XH8ZJ47zWqmtokVYYNUCicboJtXTCa2+kjlwCA
- TmdPp2jBCt8i0I8AGGZ0hEkM61MaR9+VdP43/bwB7/KgPHgxmEYaoMT1iN8mbR/U5Q
- hsXr+3+Ue6mnLRQ9vR3mtH7iHdwDV1tfB6FxiN/CPnXfuGzv9FTo0nG4lBgKumXkGm
- LmOp1bsNyZP9aTqh2mA9cf3IgbHyla4qTBHoZpQw/74a1MueF9HlcEM+i9i3uZvmHy
- ukem1mmO+DslA==
+ b=aw437wiDwVS2wyDiFMoEWT3jVVDenc/HNYGsa6qBoX4iooAYfw1wj+g+SaEtmYspx
+ VmOYLXwSLXTG9yM1lfDXF2ud1yaa7yr90lJHtIQ3VaM0g+odHt7Ie5WTovDGpaFzUB
+ LJpG8iYEAHPY8Dq2qyJZLE8YpIs2gfvb7mLqdinxzPMw4sXcR/m+K22VuKWjt80Ky/
+ fLdviGU2aM91DmCsP6tOAdsJb7MNGiMZQj/Sp/xKSHdodhchRzPR11T1vtRANXvJTk
+ xUCLUOV4oYflX5wK5pK9DSBDWqWHj7feA15ZtBFOQJUkm6TvP4M2lYPeDZFNJqaJt1
+ HQCukDfdohTig==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 22/26] drm/radeon: fix race condition UAF in
+Subject: [PATCH AUTOSEL 5.15 12/16] drm/radeon: fix race condition UAF in
  radeon_gem_set_domain_ioctl
-Date: Fri, 16 Jun 2023 06:26:19 -0400
-Message-Id: <20230616102625.673454-22-sashal@kernel.org>
+Date: Fri, 16 Jun 2023 06:27:15 -0400
+Message-Id: <20230616102721.673775-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230616102625.673454-1-sashal@kernel.org>
-References: <20230616102625.673454-1-sashal@kernel.org>
+In-Reply-To: <20230616102721.673775-1-sashal@kernel.org>
+References: <20230616102721.673775-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.34
+X-stable-base: Linux 5.15.117
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,10 +82,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
-index 261fcbae88d78..75d79c3110389 100644
+index a36a4f2c76b09..57218263ef3b1 100644
 --- a/drivers/gpu/drm/radeon/radeon_gem.c
 +++ b/drivers/gpu/drm/radeon/radeon_gem.c
-@@ -459,7 +459,6 @@ int radeon_gem_set_domain_ioctl(struct drm_device *dev, void *data,
+@@ -456,7 +456,6 @@ int radeon_gem_set_domain_ioctl(struct drm_device *dev, void *data,
  	struct radeon_device *rdev = dev->dev_private;
  	struct drm_radeon_gem_set_domain *args = data;
  	struct drm_gem_object *gobj;
@@ -93,7 +93,7 @@ index 261fcbae88d78..75d79c3110389 100644
  	int r;
  
  	/* for now if someone requests domain CPU -
-@@ -472,13 +471,12 @@ int radeon_gem_set_domain_ioctl(struct drm_device *dev, void *data,
+@@ -469,13 +468,12 @@ int radeon_gem_set_domain_ioctl(struct drm_device *dev, void *data,
  		up_read(&rdev->exclusive_lock);
  		return -ENOENT;
  	}
