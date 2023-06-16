@@ -4,49 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60ECAC001B1
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 10:29:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 146B3EB64D7
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 12:47:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 881D610E601;
-	Fri, 16 Jun 2023 10:29:02 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 123FB10E5FF;
- Fri, 16 Jun 2023 10:29:01 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7F95C6374C;
- Fri, 16 Jun 2023 10:29:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0DFC433C0;
- Fri, 16 Jun 2023 10:28:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686911339;
- bh=jFp0Hq2POJGsZrpeXaqiQ8IhrQ8rVyOi86cT82XbsEQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=E6c/ulQlX4yt3zwCrsz5nPxY0lgM9da0xqm8Ow/ejULZ4FwERufrKHESFXWcgTmyr
- 7m0hiSWT+7GpnlA6tb2GYVS5o6A+7qFxXjc8zh1Fc6xQiyWKPWsQL2ALK36UR6A7d8
- jpGRbbLPpWa4XvxS2uCNfAauYrG3POhYQ6DPfGHAWwzvCyBWkxzuj/Fj1KHuV2BCnf
- 6FRL0kS3Ky/zZR9xEv2pc69IVBm3QzpjkgOztyU+9EOJXcjQ5cq3pbfL4yjIeSVRuC
- sfRCeBc+bACQo2Bxx1Jwno8vTt3T+XeEA6RNUYGXgXGb9EJk1kMWMU4OPHexuBRENn
- Dju/cWGgNhzRg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 4/5] drm/radeon: fix race condition UAF in
- radeon_gem_set_domain_ioctl
-Date: Fri, 16 Jun 2023 06:28:50 -0400
-Message-Id: <20230616102852.674366-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230616102852.674366-1-sashal@kernel.org>
-References: <20230616102852.674366-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2644E10E614;
+	Fri, 16 Jun 2023 12:47:17 +0000 (UTC)
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14D2610E622
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 12:47:14 +0000 (UTC)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ 006d021491bc7-558cf19575dso402921eaf.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 05:47:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1686919634; x=1689511634;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4M70utfNWiSd56mHJg2tP551CWaio5hTlZ4noMCF1II=;
+ b=naxY8lcxv8hShoQBHGFxJRxvaIY/blbaj4QkrDaR85bvMttOzR3h9W5NghJ8KmH1PP
+ c3G9LZLYN7I8FeI9FBvCqYJRp8rmXE93ONhrcM+gRW//s0/1RJJrXdG8hPc5aW8JWqYG
+ RJhCRwFk+ACw9oQzlMZcONTL9kJkP9S2nrdLGDLk/AG7EUcFItOyy6vPOh4lf45QLCfn
+ 3oaxnv+20a3M5sK54CIG/xCb3faqgY/ZixXTqCCn6WGiUdK5OV7HkfqyJv3GHb+K5huo
+ ntuwBfQhf6xT6CIEu4T11VcMlb+hCiyv2pxVuqUjwfOr0nGnVv6+q5TB5KAQZWsFIjic
+ 8rnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686919634; x=1689511634;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4M70utfNWiSd56mHJg2tP551CWaio5hTlZ4noMCF1II=;
+ b=e6qZhwUetBDr9uMPpsWioPY8Lrda5/UVpLRTjjBNambQNA4nNyaek+KwRhZk9fKHR3
+ 72oG+22jWjoqo7VZnW2Ari62T9I3eYbQv8UTUKpbN6SO4/EzGBCv9cxCgODw19msbNK1
+ FwsglYpJIWES1d98fdeZ8zGHiA0AfYPBwwhTFieGblSWahRiq31nVZi8Do7eog0BJIjb
+ xEnIHAZcSKXXwnletcq4F+q2aCzSV8yYYyP+2oAaF4DWJn8hjl7KnbSRLe4kHv4+XlHL
+ BvdxuUuexSxOi1Lls+IoD/vGZKOWuNyzeYgypdbUtvE2XGo9/fiI2shBBSnBPnMEmXPM
+ 2unw==
+X-Gm-Message-State: AC+VfDz7jclayJ77qxXj40+pMhqH07riFcMGLRHnFIlxtGl6NCim6G3Q
+ Q8v+AFyOYkk7TfG+ymtvTLhmJfOixM0E4PuiDMo=
+X-Google-Smtp-Source: ACHHUZ5YUjzL6SDSvnYqAV/NbYStWLoJITNh2Q5KXdzJKjWaG7JvEnV4H5OmNhVW9XD0Fe7Q208nHWgcL0sdbh87q4U=
+X-Received: by 2002:a4a:d557:0:b0:558:c15c:f62e with SMTP id
+ q23-20020a4ad557000000b00558c15cf62emr1753819oos.8.1686919633760; Fri, 16 Jun
+ 2023 05:47:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 4.14.318
-Content-Transfer-Encoding: 8bit
+References: <20230616012015.3699013-1-evan.quan@amd.com>
+ <20230616012015.3699013-2-evan.quan@amd.com>
+In-Reply-To: <20230616012015.3699013-2-evan.quan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 16 Jun 2023 08:47:02 -0400
+Message-ID: <CADnq5_Nw=GJMZwDde1P38Okr5UcO2izW+v4RLvU_XfLwKYvyyA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/pm: update the LC_L1_INACTIIVY setting to
+ address possible noise issue
+To: Evan Quan <evan.quan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,57 +69,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Min Li <lm0963hack@gmail.com>,
- Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Min Li <lm0963hack@gmail.com>
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-[ Upstream commit 982b173a6c6d9472730c3116051977e05d17c8c5 ]
-
-Userspace can race to free the gobj(robj converted from), robj should not
-be accessed again after drm_gem_object_put, otherwith it will result in
-use-after-free.
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Min Li <lm0963hack@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/radeon/radeon_gem.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
-index ac467b80edc7c..59ad0a4e2fd53 100644
---- a/drivers/gpu/drm/radeon/radeon_gem.c
-+++ b/drivers/gpu/drm/radeon/radeon_gem.c
-@@ -376,7 +376,6 @@ int radeon_gem_set_domain_ioctl(struct drm_device *dev, void *data,
- 	struct radeon_device *rdev = dev->dev_private;
- 	struct drm_radeon_gem_set_domain *args = data;
- 	struct drm_gem_object *gobj;
--	struct radeon_bo *robj;
- 	int r;
- 
- 	/* for now if someone requests domain CPU -
-@@ -389,13 +388,12 @@ int radeon_gem_set_domain_ioctl(struct drm_device *dev, void *data,
- 		up_read(&rdev->exclusive_lock);
- 		return -ENOENT;
- 	}
--	robj = gem_to_radeon_bo(gobj);
- 
- 	r = radeon_gem_set_domain(gobj, args->read_domains, args->write_domain);
- 
- 	drm_gem_object_put_unlocked(gobj);
- 	up_read(&rdev->exclusive_lock);
--	r = radeon_gem_handle_lockup(robj->rdev, r);
-+	r = radeon_gem_handle_lockup(rdev, r);
- 	return r;
- }
- 
--- 
-2.39.2
-
+On Thu, Jun 15, 2023 at 9:20=E2=80=AFPM Evan Quan <evan.quan@amd.com> wrote=
+:
+>
+> It is proved that insufficient LC_L1_INACTIIVY setting can cause audio
+> noise on some platform. With the LC_L1_INACTIIVY increased to 4ms, the
+> issue can be resolved.
+>
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd=
+/amdgpu/nbio_v2_3.c
+> index 7ba47fc1917b..4038455d7998 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
+> @@ -345,7 +345,7 @@ static void nbio_v2_3_init_registers(struct amdgpu_de=
+vice *adev)
+>  }
+>
+>  #define NAVI10_PCIE__LC_L0S_INACTIVITY_DEFAULT         0x00000000 // off=
+ by default, no gains over L1
+> -#define NAVI10_PCIE__LC_L1_INACTIVITY_DEFAULT          0x00000009 // 1=
+=3D1us, 9=3D1ms
+> +#define NAVI10_PCIE__LC_L1_INACTIVITY_DEFAULT          0x0000000A // 1=
+=3D1us, 9=3D1ms, 10=3D4ms
+>  #define NAVI10_PCIE__LC_L1_INACTIVITY_TBT_DEFAULT      0x0000000E // 400=
+ms
+>
+>  static void nbio_v2_3_enable_aspm(struct amdgpu_device *adev,
+> --
+> 2.34.1
+>
