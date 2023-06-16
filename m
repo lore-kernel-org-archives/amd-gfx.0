@@ -4,58 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B788DEB64D8
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 07:11:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F502EB64D8
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 10:24:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3D4310E096;
-	Fri, 16 Jun 2023 07:11:15 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id C97E510E091;
- Fri, 16 Jun 2023 07:11:11 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8Bx7eoLC4xkoOAFAA--.12645S3;
- Fri, 16 Jun 2023 15:11:07 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8AxZuQLC4xk+_0cAA--.16734S3; 
- Fri, 16 Jun 2023 15:11:07 +0800 (CST)
-Message-ID: <3c1c86ab-96ea-aa1c-c9c5-9a4012644fd6@loongson.cn>
-Date: Fri, 16 Jun 2023 15:11:07 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id E198010E151;
+	Fri, 16 Jun 2023 10:24:02 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2060d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::60d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25C5610E151
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 10:24:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bdEh0HDk9jUj8D97Q+VdzwXrezt/0UNJSsz2NwS10a5Q5ghqfKtXr9H6HbEv4RR/hoqbrEWIrxWZNlymFaQ+XGZV9kRbTSgQRXUGrSrgiXG8sIbEd8lVbZp0cmaet/c7d95VExdnVaKTtHXkZYzk2bcXLFSPNk8eq2skwQiIBa7KtevYlXVW49SO/c9cNY+IazxfuySDHdrMI4hPcE2bnXT33il8mpmu/hnRB6SY1sJnMF8Wmwn2GhTb03NJgAimYYQe7pmfvgVr9Fa3EZ/jBx65a1fvRvRAOdod+HBm8UYUSeItVyxQ/pEK1tSSqy08dOJfqETXj3Zs3abA8/NQUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9aPGhEJCtfuy7z6XeluFwzE1XDJOvexM9+D2XfwHHKo=;
+ b=MTs69ZgbZOVYoPRlKYBYKAKWpOodadPgLi8oh2uqmkqrq2RBIb2ZbsD0Znp0UuycK1DrzyXXrkt7k2WeprHEVs0sqGgkqESGFqJBxBfVcIe6gfg2MqNHR34N4/1sy9+PiRKeZotP09p3rPW4LQQ8jNU048FcCDKd5cDuawTILmgeHrV/n1XusnYm/gqSg3vmIqmD8JoI+NL1PJzEslP7XK3vNIOyLn+BsZL/AeNrQvpw9WwYLKqycA0gob7yie/mqvY6j44AU7/Pbv0FnFCMzNuAAfU0S2UjwAVFFnZQetCSiJDXtbyGjq8xS+MJmORgemCYWrcvdagkf4SOey7cVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9aPGhEJCtfuy7z6XeluFwzE1XDJOvexM9+D2XfwHHKo=;
+ b=LHYruy9OVqJ+NSq6BEhh4MEp6PEZoavfdowzjAECi49/D03+bDwLz5aoXKSLDOm+LAYoEjGeaD5fXBa9jsmVuol/ppoUZJpTRlGuouy9m7JBA7Z4SNihxmDgnWFz5Y5IoNc88sr2j9Kkphht61HifhprISkFIVZczVY7k+e3hqo=
+Received: from DS7P222CA0012.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::15) by
+ DM6PR12MB4577.namprd12.prod.outlook.com (2603:10b6:5:2aa::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6500.27; Fri, 16 Jun 2023 10:23:57 +0000
+Received: from DM6NAM11FT102.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2e:cafe::93) by DS7P222CA0012.outlook.office365.com
+ (2603:10b6:8:2e::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.41 via Frontend
+ Transport; Fri, 16 Jun 2023 10:23:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT102.mail.protection.outlook.com (10.13.173.172) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.29 via Frontend Transport; Fri, 16 Jun 2023 10:23:57 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 16 Jun
+ 2023 05:23:54 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Modify for_each_inst macro
+Date: Fri, 16 Jun 2023 15:53:40 +0530
+Message-ID: <20230616102340.1665822-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v7 2/8] PCI/VGA: Deal only with VGA class devices
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-References: <20230613030151.216625-1-15330273260@189.cn>
- <20230613030151.216625-3-15330273260@189.cn>
- <dbf0d89f-717a-1f78-aef2-f30506751d4d@loongson.cn>
- <CADnq5_N6vVtzH6tzguZdHnP_TdRoG1G-Cr94O+X03jvtk=vhag@mail.gmail.com>
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-Organization: Loongson
-In-Reply-To: <CADnq5_N6vVtzH6tzguZdHnP_TdRoG1G-Cr94O+X03jvtk=vhag@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8AxZuQLC4xk+_0cAA--.16734S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoW3Xw1Utryrury5AF4rCFyrKrX_yoW7Ar48pF
- WrCay5KrW8JFy7C342qr1kXFyYv3sYya4rJF4rK3sakFZ0yr98WryrKry5u3yxGrZ5GF1I
- vw4UJF9rua9YqagCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
- 1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv
- 67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
- AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
- F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
- ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
- xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
- 1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU1Ek
- sDUUUUU==
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT102:EE_|DM6PR12MB4577:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00d93843-8469-40d4-c8cd-08db6e53cb40
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: eKZaq+ZS/YmEbpSgThIg6/JGLbNO0UW1qt4xeP8xEYgm2kpHyHEnACdrRTjL3yluHDmzVjeJERswSia9Bg9fXKlgyM1+1pNh0/+8rWt8tWGOfoS5j3LULnYi15iwDiDvD2Jy+pJzUjKfvFKELXY/PBmXq7eGZmv8NIrpCze7njWGlvxoRK7aLfMrJxEW0pbPQZ9j8V1Oo8p/mgYTNXbreKgFd1nK6OLN7OObQphTkqteQ6/r1VOJs8Xuuf5noBvzaimoo9a9+7j8mvrnYT4xaEih4LCtWtJMfFe4FdkD3COL/DPPb5e3jk1rwOFFk5NbKf8GKOTQroWIGD3cVLmbGvARPOrsmls/F4Y/q6LYcT3mNp0TRuH+rhrplNjZSKP698brDp2hJ8R+5KGjsWIqrQ8ZQVaGXGdl0OtRihPpwBT2wZw8FXnKhTMR6RhW3MVmjnXq3CYqGVTxkZcOPcbEbE4VP39N7Ila4UH1iDtfiBVhKEXwPNaiTg7f/0m4K9mvSiLcJxYoZDgrmAMmxRPHXtskzSelo0acwwsjGPvQpwhT5r07kSEY77U90E6sXvRQTsBEMnxpVs4ncAiR2Pbr6qzxHhEqiGvoVjxKaIJVAVmnWxewTuESGoNwW5N52cQVFrvzIal5aek2tf5A5Vtwfpdt/O+7pvtFXjp8smG+BDQM4W1jJ5N8YU3kRIx7+gG7F5mh8ldqS1zj/wdnYpgH0RpqoYeq8o1w4bemo23nQD4gVR/OoZ7gx9BQ5ozK5EIyp2juTexqZ1EmhkocX76o7A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(376002)(136003)(39860400002)(396003)(451199021)(36840700001)(40470700004)(46966006)(36756003)(82310400005)(86362001)(478600001)(8676002)(7696005)(8936002)(41300700001)(81166007)(82740400003)(4326008)(54906003)(6666004)(316002)(5660300002)(44832011)(1076003)(4744005)(16526019)(186003)(26005)(2906002)(36860700001)(2616005)(47076005)(40480700001)(356005)(6916009)(70586007)(70206006)(426003)(83380400001)(40460700003)(336012)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2023 10:23:57.3637 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00d93843-8469-40d4-c8cd-08db6e53cb40
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT102.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4577
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,195 +98,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Sui Jingfeng <15330273260@189.cn>, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Alexander.Deucher@amd.com, Le.Ma@amd.com, Asad.Kamal@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Modify it such that it doesn't change the instance mask parameter.
 
-On 2023/6/16 05:11, Alex Deucher wrote:
-> On Wed, Jun 14, 2023 at 6:50 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
->> Hi,
->>
->> On 2023/6/13 11:01, Sui Jingfeng wrote:
->>> From: Sui Jingfeng <suijingfeng@loongson.cn>
->>>
->>> Deal only with the VGA devcie(pdev->class == 0x0300), so replace the
->>> pci_get_subsys() function with pci_get_class(). Filter the non-PCI display
->>> device(pdev->class != 0x0300) out. There no need to process the non-display
->>> PCI device.
->>>
->>> Cc: Bjorn Helgaas <bhelgaas@google.com>
->>> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
->>> ---
->>>    drivers/pci/vgaarb.c | 22 ++++++++++++----------
->>>    1 file changed, 12 insertions(+), 10 deletions(-)
->>>
->>> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
->>> index c1bc6c983932..22a505e877dc 100644
->>> --- a/drivers/pci/vgaarb.c
->>> +++ b/drivers/pci/vgaarb.c
->>> @@ -754,10 +754,6 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
->>>        struct pci_dev *bridge;
->>>        u16 cmd;
->>>
->>> -     /* Only deal with VGA class devices */
->>> -     if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
->>> -             return false;
->>> -
->> Hi, here is probably a bug fixing.
->>
->> For an example, nvidia render only GPU typically has 0x0380.
->>
->> as its PCI class number, but render only GPU should not participate in
->> the arbitration.
->>
->> As it shouldn't snoop the legacy fixed VGA address.
->>
->> It(render only GPU) can not display anything.
->>
->>
->> But 0x0380 >> 8 = 0x03, the filter  failed.
->>
->>
->>>        /* Allocate structure */
->>>        vgadev = kzalloc(sizeof(struct vga_device), GFP_KERNEL);
->>>        if (vgadev == NULL) {
->>> @@ -1500,7 +1496,9 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
->>>        struct pci_dev *pdev = to_pci_dev(dev);
->>>        bool notify = false;
->>>
->>> -     vgaarb_dbg(dev, "%s\n", __func__);
->>> +     /* Only deal with VGA class devices */
->>> +     if (pdev->class != PCI_CLASS_DISPLAY_VGA << 8)
->>> +             return 0;
->> So here we only care 0x0300, my initial intent is to make an optimization,
->>
->> nowadays sane display graphic card should all has 0x0300 as its PCI
->> class number, is this complete right?
->>
->> ```
->>
->> #define PCI_BASE_CLASS_DISPLAY        0x03
->> #define PCI_CLASS_DISPLAY_VGA        0x0300
->> #define PCI_CLASS_DISPLAY_XGA        0x0301
->> #define PCI_CLASS_DISPLAY_3D        0x0302
->> #define PCI_CLASS_DISPLAY_OTHER        0x0380
->>
->> ```
->>
->> Any ideas ?
-> I'm not quite sure what you are asking about here.
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-To be honest, I'm worried about the PCI devices which has a
-
-PCI_CLASS_DISPLAY_XGA as its PCI class number.
-
-As those devices are very uncommon in the real world.
-
-
-$ find . -name "*.c" -type f | xargs grep "PCI_CLASS_DISPLAY_XGA"
-
-
-Grep the "PCI_CLASS_DISPLAY_XGA" in the linux kernel tree got ZERO,
-
-there no code reference this macro. So I think it seems safe to ignore 
-the XGA ?
-
-
-PCI_CLASS_DISPLAY_3D and PCI_CLASS_DISPLAY_OTHER are used to annotate 
-the render-only GPU.
-
-And render-only GPU can't decode the fixed VGA address space, it is safe 
-to ignore them.
-
-
->   For vga_arb, we
-> only care about VGA class devices since those should be on the only
-> ones that might have VGA routed to them.
-
->   However, as VGA gets deprecated,
-
-We need the vgaarb for a system with multiple video card.
-
-Not only because some Legacy VGA devices implemented
-
-on PCI will typically have the same "hard-decoded" addresses;
-
-But also these video card need to participate in the arbitration,
-
-determine the default boot device.
-
-
-Nowadays, the 'VGA devices' here is stand for the Graphics card
-
-which is capable of display something on the screen.
-
-We still need vgaarb to select the default boot device.
-
-
-> you'll have more non VGA PCI classes for devices which
-> could be the pre-OS console device.
-
-Ah, we still want  do this(by applying this patch) first,
-
-and then we will have the opportunity to see who will crying if 
-something is broken. Will know more then.
-
-But drop this patch or revise it with more consideration is also 
-acceptable.
-
-
-I asking about suggestion and/or review.
-
-> Alex
->
->>>        /* For now we're only intereted in devices added and removed. I didn't
->>>         * test this thing here, so someone needs to double check for the
->>> @@ -1510,6 +1508,8 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
->>>        else if (action == BUS_NOTIFY_DEL_DEVICE)
->>>                notify = vga_arbiter_del_pci_device(pdev);
->>>
->>> +     vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
->>> +
->>>        if (notify)
->>>                vga_arbiter_notify_clients();
->>>        return 0;
->>> @@ -1534,8 +1534,8 @@ static struct miscdevice vga_arb_device = {
->>>
->>>    static int __init vga_arb_device_init(void)
->>>    {
->>> +     struct pci_dev *pdev = NULL;
->>>        int rc;
->>> -     struct pci_dev *pdev;
->>>
->>>        rc = misc_register(&vga_arb_device);
->>>        if (rc < 0)
->>> @@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
->>>
->>>        /* We add all PCI devices satisfying VGA class in the arbiter by
->>>         * default */
->>> -     pdev = NULL;
->>> -     while ((pdev =
->>> -             pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
->>> -                            PCI_ANY_ID, pdev)) != NULL)
->>> +     while (1) {
->>> +             pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
->>> +             if (!pdev)
->>> +                     break;
->>> +
->>>                vga_arbiter_add_pci_device(pdev);
->>> +     }
->>>
->>>        pr_info("loaded\n");
->>>        return rc;
->> --
->> Jingfeng
->>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index f4029c13a9be..c5451a9b0ee4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1295,9 +1295,9 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+ 
+ #define amdgpu_inc_vram_lost(adev) atomic_inc(&((adev)->vram_lost_counter));
+ 
+-#define for_each_inst(i, inst_mask)                                            \
+-	for (i = ffs(inst_mask) - 1; inst_mask;                                \
+-	     inst_mask &= ~(1U << i), i = ffs(inst_mask) - 1)
++#define for_each_inst(i, inst_mask)        \
++	for (i = ffs(inst_mask); i-- != 0; \
++	     i = ffs((inst_mask & (~0U << (i + 1)))))
+ 
+ #define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
+ 
 -- 
-Jingfeng
+2.25.1
 
