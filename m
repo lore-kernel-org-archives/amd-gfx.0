@@ -4,62 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D7D2EB64DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 15:45:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C16AEB64D7
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 16:36:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11C6010E649;
-	Fri, 16 Jun 2023 15:44:55 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7183010E0E3;
- Fri, 16 Jun 2023 15:44:48 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8BxKupvg4xk8wUGAA--.12861S3;
- Fri, 16 Jun 2023 23:44:47 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8CxhuRsg4xkqmsdAA--.18023S3; 
- Fri, 16 Jun 2023 23:44:45 +0800 (CST)
-Message-ID: <1486f6e9-3123-3c3e-806a-47b9463cb61a@loongson.cn>
-Date: Fri, 16 Jun 2023 23:44:44 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D14710E664;
+	Fri, 16 Jun 2023 16:36:11 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2041.outbound.protection.outlook.com [40.107.237.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B5C910E65E;
+ Fri, 16 Jun 2023 16:36:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hZpubQ13XYHV6YlDbBz3IGUvEkL33C1zc/t6T3oN/8fAc7w3WaYFCkKomuzAqh47FEg5/0CwAtEOeToHJivDxCOm+xQBPufxfkeI3xScUq9A9I7MC7pP704GwGGHHdCkWWHPl1VTGXk9wfLqeqztelBgZ+hS3LuBdsqcoNYsM5FPNuw0Ctfkz9STnQlP5PpW/hMBZ3wJ5E0QmLNWcoQE4BnA79GanErxQq1QN8/sJxgkO5uRXhpCtAy04BzgzZ0SxRfgQnDDHrMJLajiFA9KsSPbpYMxtXj7c/7SDLoktEeT6kwFP69lcb2afiUGtmLuBY/xK6VQ6nZlXl1n3q0xEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iDRUj5dQnx8h8PGBEbMDhoMhblKRzrqxgWuJkGa7HYw=;
+ b=jBc332mhvsP59+SzxSUhdeEueUOygvm4r4NMxWnbu+ScZNhXc/eO3QlKN3dhcLOgn3FEm6A7V3Mu62Bczvwpq1WpD/XuDvgXno7oyhGvFdFtWdbML3afOe81GCOcsE6s5CafeticgT0skRvIG1HxoNIzDnQ4kuexD1k3+gvBoyhLCddIYnO9UliwmCajUtQRlVYGXoCT3E0VNKcmupJX38tMSCsM7CCh1zFgKIslLQu9La5xzvKu+88RNIwspQ6lCqnDX3oWXsDcTpp22XlTOnqgfHVi5cuhvYhx6mmscUU8olk4Gd8g4EOHRAowA/icVxUtNd9PrnaAu5ffbTv79w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iDRUj5dQnx8h8PGBEbMDhoMhblKRzrqxgWuJkGa7HYw=;
+ b=aM4nGGEYmsQ2mPUR2ZSQe9++UsKS41ss6FztyFxuXExHB4SFWusPtAID5LZ+2/J5xqv6jpPpewuAESP2RAA7fCBPLDu9/Pc63kU7cuiHAGI6u+5Er2ay6ySHBxvA311M8GSNnr7y2i0mdAgFN8Y3XtpBZbXncG9MAwCTY44MiB4=
+Received: from BN9PR03CA0904.namprd03.prod.outlook.com (2603:10b6:408:107::9)
+ by PH0PR12MB8031.namprd12.prod.outlook.com (2603:10b6:510:28e::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.25; Fri, 16 Jun
+ 2023 16:36:02 +0000
+Received: from BN8NAM11FT010.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:107:cafe::80) by BN9PR03CA0904.outlook.office365.com
+ (2603:10b6:408:107::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.27 via Frontend
+ Transport; Fri, 16 Jun 2023 16:36:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT010.mail.protection.outlook.com (10.13.177.53) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.29 via Frontend Transport; Fri, 16 Jun 2023 16:36:01 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 16 Jun
+ 2023 11:36:00 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu, amdkfd, radeon, drm, scheduler, UAPI drm-next-6.5
+Date: Fri, 16 Jun 2023 12:35:48 -0400
+Message-ID: <20230616163548.7706-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v7 2/8] PCI/VGA: Deal only with VGA class devices
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
- Daniel Vetter <daniel@ffwll.ch>
-References: <20230613030151.216625-1-15330273260@189.cn>
- <20230613030151.216625-3-15330273260@189.cn>
- <dbf0d89f-717a-1f78-aef2-f30506751d4d@loongson.cn>
- <CADnq5_N6vVtzH6tzguZdHnP_TdRoG1G-Cr94O+X03jvtk=vhag@mail.gmail.com>
- <3c1c86ab-96ea-aa1c-c9c5-9a4012644fd6@loongson.cn>
- <CADnq5_Px-HWfwetv8LZsCnCeV7SMt_uqtLwMVK7648ZQiP2RCQ@mail.gmail.com>
- <f08b6a76-6c90-b59b-ff43-c779ef759d09@loongson.cn>
- <CADnq5_PFoM2O8mCd6+VFfu9Nc-Hg_HTnwEMxrq0FGRpva1kKiA@mail.gmail.com>
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-Organization: Loongson
-In-Reply-To: <CADnq5_PFoM2O8mCd6+VFfu9Nc-Hg_HTnwEMxrq0FGRpva1kKiA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8CxhuRsg4xkqmsdAA--.18023S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoW3Zr4kXFW7uF1fWr1kJF47Awc_yoWkZFyDpF
- W5GFW5tF4DJr1UCr12qw1UXFyYv34rJFy5Xr15Jw1Y9ws0yr1UXryrtr4UC347Jrn5GF12
- vr4UJry7uF15ZagCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUBFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVWxJr0_GcWln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
- xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y
- 6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
- 1lc7I2V7IY0VAS07AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
- JVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
- vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
- x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
- xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAF
- wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jFa0PUUUUU=
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT010:EE_|PH0PR12MB8031:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1237ad77-d50d-4054-11ea-08db6e87c5a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CVUhhK5Dw5QOLYU/m408gguv3c0WDCd9FJXfE9kZH2BQ1+BICTTWaAYY+YwxdjVucivF3lsXAX6FAmaLh5jwUb1dFrkqMognmy18bdURFOtG9IqnAtK+jBiqWhbrENn07G3jZqnO1/UlYtRyBVxbTWHEds3IOkOWAmhx+h2vas1XX84GVj9TvpWv7R6Mwh680r3akwQg60FN6J0nb3YjIYyR8ZDDRRtrs1tQn+QtoR+KY+M/3HtjyvffaI0U4gTTkiHORVb5Vq/GGs5XOJHKNpqfaWtQkRkP+xNaclJ3PZkP7fDQBlRR2UKk19QiOQ1bbRCaZXrxCIB8ltPMUoDmVAX3KtevpcKW3x/eKlRnLM6npbPRQsR4EFMXjBnjCfA4uiuNIA7Qvj1DvTFxq4zLmhVm5S7n7r4wzPpXzCvi8QIlZzE5m1/NcSfvN3vsVpDGLG5ftzna4ot8yOciR1axmOQus6DL/DYnjDUflLoW6Y4+iR3S+SPYQsP+B5JkUw94+y4rRPjfa357S8rKTLXPrEfNPFMA/BfyQ1vhnApUDipIPXfNXzwAL2nMImuwmUin70PXVaKc9k1SuX+vt5RqOifCYXL9yMVhNpjL996HWKP02u3hOUsFA3Kn9yKS/sUrlc5yl/nUh3YfAniJu1WKMlwq/AJSXlxZkTTbzN4t+GRtomgaevy+oJaDEXVKRvH4wkX4zQLTuGcwjSh1XwEYnSMTFOr/fQk9nagWfoTkegI=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(136003)(346002)(376002)(39860400002)(451199021)(46966006)(40470700004)(36840700001)(356005)(81166007)(82310400005)(86362001)(82740400003)(5660300002)(316002)(8936002)(8676002)(41300700001)(4326008)(70206006)(70586007)(36860700001)(83380400001)(66574015)(47076005)(426003)(110136005)(2616005)(336012)(186003)(1076003)(16526019)(478600001)(26005)(36756003)(40460700003)(2906002)(30864003)(7696005)(966005)(40480700001)(6666004)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2023 16:36:01.8354 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1237ad77-d50d-4054-11ea-08db6e87c5a8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT010.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8031
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,372 +98,325 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Sui Jingfeng <15330273260@189.cn>, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-pci@vger.kernel.org,
- Bjorn Helgaas <bhelgaas@google.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Dave, Daniel,
 
-On 2023/6/16 22:34, Alex Deucher wrote:
-> On Fri, Jun 16, 2023 at 10:22 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
->>
->> On 2023/6/16 21:41, Alex Deucher wrote:
->>> On Fri, Jun 16, 2023 at 3:11 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
->>>> Hi,
->>>>
->>>> On 2023/6/16 05:11, Alex Deucher wrote:
->>>>> On Wed, Jun 14, 2023 at 6:50 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
->>>>>> Hi,
->>>>>>
->>>>>> On 2023/6/13 11:01, Sui Jingfeng wrote:
->>>>>>> From: Sui Jingfeng <suijingfeng@loongson.cn>
->>>>>>>
->>>>>>> Deal only with the VGA devcie(pdev->class == 0x0300), so replace the
->>>>>>> pci_get_subsys() function with pci_get_class(). Filter the non-PCI display
->>>>>>> device(pdev->class != 0x0300) out. There no need to process the non-display
->>>>>>> PCI device.
->>>>>>>
->>>>>>> Cc: Bjorn Helgaas <bhelgaas@google.com>
->>>>>>> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
->>>>>>> ---
->>>>>>>      drivers/pci/vgaarb.c | 22 ++++++++++++----------
->>>>>>>      1 file changed, 12 insertions(+), 10 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
->>>>>>> index c1bc6c983932..22a505e877dc 100644
->>>>>>> --- a/drivers/pci/vgaarb.c
->>>>>>> +++ b/drivers/pci/vgaarb.c
->>>>>>> @@ -754,10 +754,6 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
->>>>>>>          struct pci_dev *bridge;
->>>>>>>          u16 cmd;
->>>>>>>
->>>>>>> -     /* Only deal with VGA class devices */
->>>>>>> -     if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
->>>>>>> -             return false;
->>>>>>> -
->>>>>> Hi, here is probably a bug fixing.
->>>>>>
->>>>>> For an example, nvidia render only GPU typically has 0x0380.
->>>>>>
->>>>>> as its PCI class number, but render only GPU should not participate in
->>>>>> the arbitration.
->>>>>>
->>>>>> As it shouldn't snoop the legacy fixed VGA address.
->>>>>>
->>>>>> It(render only GPU) can not display anything.
->>>>>>
->>>>>>
->>>>>> But 0x0380 >> 8 = 0x03, the filter  failed.
->>>>>>
->>>>>>
->>>>>>>          /* Allocate structure */
->>>>>>>          vgadev = kzalloc(sizeof(struct vga_device), GFP_KERNEL);
->>>>>>>          if (vgadev == NULL) {
->>>>>>> @@ -1500,7 +1496,9 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
->>>>>>>          struct pci_dev *pdev = to_pci_dev(dev);
->>>>>>>          bool notify = false;
->>>>>>>
->>>>>>> -     vgaarb_dbg(dev, "%s\n", __func__);
->>>>>>> +     /* Only deal with VGA class devices */
->>>>>>> +     if (pdev->class != PCI_CLASS_DISPLAY_VGA << 8)
->>>>>>> +             return 0;
->>>>>> So here we only care 0x0300, my initial intent is to make an optimization,
->>>>>>
->>>>>> nowadays sane display graphic card should all has 0x0300 as its PCI
->>>>>> class number, is this complete right?
->>>>>>
->>>>>> ```
->>>>>>
->>>>>> #define PCI_BASE_CLASS_DISPLAY        0x03
->>>>>> #define PCI_CLASS_DISPLAY_VGA        0x0300
->>>>>> #define PCI_CLASS_DISPLAY_XGA        0x0301
->>>>>> #define PCI_CLASS_DISPLAY_3D        0x0302
->>>>>> #define PCI_CLASS_DISPLAY_OTHER        0x0380
->>>>>>
->>>>>> ```
->>>>>>
->>>>>> Any ideas ?
->>>>> I'm not quite sure what you are asking about here.
->>>> To be honest, I'm worried about the PCI devices which has a
->>>>
->>>> PCI_CLASS_DISPLAY_XGA as its PCI class number.
->>>>
->>>> As those devices are very uncommon in the real world.
->>>>
->>>>
->>>> $ find . -name "*.c" -type f | xargs grep "PCI_CLASS_DISPLAY_XGA"
->>>>
->>>>
->>>> Grep the "PCI_CLASS_DISPLAY_XGA" in the linux kernel tree got ZERO,
->>>>
->>>> there no code reference this macro. So I think it seems safe to ignore
->>>> the XGA ?
->>>>
->>>>
->>>> PCI_CLASS_DISPLAY_3D and PCI_CLASS_DISPLAY_OTHER are used to annotate
->>>> the render-only GPU.
->>>>
->>>> And render-only GPU can't decode the fixed VGA address space, it is safe
->>>> to ignore them.
->>>>
->>>>
->>>>>     For vga_arb, we
->>>>> only care about VGA class devices since those should be on the only
->>>>> ones that might have VGA routed to them.
->>>>>     However, as VGA gets deprecated,
->>>> We need the vgaarb for a system with multiple video card.
->>>>
->>>> Not only because some Legacy VGA devices implemented
->>>>
->>>> on PCI will typically have the same "hard-decoded" addresses;
->>>>
->>>> But also these video card need to participate in the arbitration,
->>>>
->>>> determine the default boot device.
->>> But couldn't the boot device be determined via what whatever resources
->>> were used by the pre-OS console?
->> I don't know what you are refer to by saying  pre-OS console, UEFI
->> SHELL,  UEFI GOP  or something like that.
->>
-> Right.  Before the OS loads the platform firmware generally sets up
-> something for display.  That could be GOP or vesa or some other
-> platform specific protocol.
->
->> If you are referring to the framebuffer driver which light up the screen
->> before the Linux kernel is loaded .
->>
->>
->> Then, what you have said is true,  the boot device is determined by the
->> pre-OS console.
->>
->> But the problem is how does the Linux kernel(vgaarb) could know which
->> one is the default boot device
->>
->> on a multiple GPU machine.  Relaying on the firmware fb's address and
->> size is what the mechanism
->>
->> we already in using.
-> Right.  It shouldn't need to depend on vgaarb.
->
->>
->>>    I feel like that should be separate from vgaarb.
->> Emm, this really deserved another patch, please ?
->>
->>>    vgaarb should handle PCI VGA routing and some other
->>> mechanism should be used to determine what device provided the pre-OS
->>> console.
->> If the new mechanism need the firmware changed, then this probably break
->> the old machine.
->>
->> Also, this probably will get all arch involved. to get the new mechanism
->> supported.
->>
->> The testing pressure and review power needed is quite large.
->>
->> drm/amdgpu and drm/radeon already being used on X86, ARM64,  Mips and
->> more arch...
->>
->> The reviewing process will became quite difficult then.
->>
->> vgaarb is really what we already in use, and being used more than ten
->> years ...
-> Yes, it works for x86 (and a few other platforms) today because of the
-> VGA legacy, so we can look at VGA routing to determine this.  But even
-> today, we don't need VGA routing to determine what was the primary
-> display before starting the OS.  We could probably have a platform
-> independent way to handle this by looking at the bread crumbs leftover
-> from the pre-OS environment.  E.g., for pre-UEFI platforms, we can
-> look at VGA routing.  For UEFI platforms we can look at what GOP left
-> us.  For various non-UEFI ARM/PPC/MIPS/etc. platforms we can look at
-> whatever breadcrumbs those pre-OS environments left.  That way when
-> VGA goes away, we can have a clean break and you won't need vgaarb if
-> the platform has no VGA devices.
+Last few odds and ends for 6.5.  Mostly bug fixes.  Was waiting on some
+GPU scheduler changes in drm-misc for a few of the GPU reset fixes in amdgpu.
 
-Yes, I'm complete agree the spirit you are convey here.
+The following changes since commit 901bdf5ea1a836400ee69aa32b04e9c209271ec7:
 
-Patch 5[1] of this series is actually does what you have told me just now.
+  Merge tag 'amd-drm-next-6.5-2023-06-09' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2023-06-15 14:11:22 +1000)
 
-I put this function in video/aperture intended.
+are available in the Git repository at:
 
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.5-2023-06-16
 
-Its does not rely on "VGA routing".
+for you to fetch changes up to 72f1de49ffb90b29748284f27f1d6b829ab1de95:
 
-Its also does not required the display device is PCI vga device.
+  drm/dp_mst: Clear MSG_RDY flag before sending new message (2023-06-15 17:55:41 -0400)
 
-Platform display controller drivers(drm/ingenic, drm/imx, drm/rockchip etc)
+----------------------------------------------------------------
+amd-drm-next-6.5-2023-06-16:
 
-can also call this function(aperture_contain_firmware_fb).
+amdgpu:
+- Misc display fixes
+- W=1 fixes
+- Improve scheduler naming
+- DCN 3.1.4 fixes
+- kdoc fixes
+- Enable W=1
+- VCN 4.0 fix
+- xgmi fixes
+- TOPDOWN fix for large BAR systems
+- eDP fix
+- PSR fixes
+- SubVP fixes
+- Freesync fix
+- DPIA fix
+- SMU 13.0.5 fixes
+- vblflash fix
+- RAS fixes
+- SDMA 4 fix
+- BO locking fix
+- BO backing store fix
+- NBIO 7.9 fixes
+- GC 9.4.3 fixes
+- GPU reset recovery fixes
+- HMM fix
 
-It only require the platform has a firmware framebuffer driver 
-registered successfully.
+amdkfd:
+- Fix NULL check
+- Trap fixes
+- Queue count fix
+- Add event age tracking
 
-Both EFIFB are SIMPLEFB will be OK.
+radeon:
+- fbdev client fix
 
+scheduler:
+- Avoid an infinite loop
 
-Beside  this, on systems with a platform display controller device and a 
-PCI GPU device,
+UAPI:
+- Add KFD event age tracking:
+  Proposed ROCT-Thunk-Interface:
+  https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/commit/efdbf6cfbc026bd68ac3c35d00dacf84370eb81e
+  https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/commit/1820ae0a2db85b6f584611dc0cde1a00e7c22915
+  Proposed ROCR-Runtime:
+  https://github.com/RadeonOpenCompute/ROCR-Runtime/compare/master...zhums:ROCR-Runtime:new_event_wait_review
+  https://github.com/RadeonOpenCompute/ROCR-Runtime/commit/e1f5bdb88eb882ac798aeca2c00ea3fbb2dba459
+  https://github.com/RadeonOpenCompute/ROCR-Runtime/commit/7d26afd14107b5c2a754c1a3f415d89f3aabb503
 
-the current implement may always set the PCI GPU device as the default 
-boot device.
+drm:
+- DP MST fix
 
-This is probably true for the arm64 platform.
+----------------------------------------------------------------
+Alex Deucher (4):
+      Revert "drm/amd/display: fix dpms_off issue when disabling bios mode"
+      drm/amd/display: don't free stolen console memory during suspend
+      drm/amdgpu/sdma4: set align mask to 255
+      drm/amdgpu: mark GC 9.4.3 experimental for now
 
+Alvin Lee (4):
+      drm/amd/display: SubVP high refresh only if all displays >= 120hz
+      drm/amd/display: Re-enable SubVP high refresh
+      drm/amd/display: Block SubVP + DRR if the DRR is PSR capable
+      drm/amd/display: Include CSC updates in new fast update path
 
-On the past, loongson LS2K1000 SoC  has a platform display controller,
+Aric Cyr (2):
+      drm/amd/display: Promote DAL to 3.2.238
+      drm/amd/display: 3.2.239
 
-the SoC also has PCIE controller, So drm/radeon driver can be used on it.
+Artem Grishin (1):
+      drm/amd/display: Bug fix in dcn315_populate_dml_pipes_from_context
 
-When discrete card is mounted on the system, the discrete gpu is always been
+Arunpravin Paneer Selvam (1):
+      Revert "drm/amdgpu: remove TOPDOWN flags when allocating VRAM in large bar system"
 
-selected as the default boot device in the past.
+Austin Zheng (2):
+      drm/amd/display: Add DP2 Metrics
+      drm/amd/display: Limit Minimum FreeSync Refresh Rate
 
-Because radeon gpu is more faster, this behavior meet the user's 
-expectation by accident.
+Candice Li (3):
+      drm/amd/pm: Align eccinfo table structure with smu v13_0_0 interface
+      drm/amdgpu: Update total channel number for umc v8_10
+      drm/amdgpu: Add channel_dis_num to ras init flags
 
-Its funny and lucky.
+Christian König (8):
+      drm/amdgpu: make sure BOs are locked in amdgpu_vm_get_memory
+      drm/amdgpu: make sure that BOs have a backing store
+      drm/amdgpu: add amdgpu_error_* debugfs file
+      drm/amdgpu: mark force completed fences with -ECANCELED
+      drm/amdgpu: mark soft recovered fences with -ENODATA
+      drm/amdgpu: abort submissions during prepare on error
+      drm/amdgpu: reset VM when an error is detected
+      drm/amdgpu: add VM generation token
 
+Daniel Miess (2):
+      drm/amd/display: Enable dcn314 DPP RCO
+      drm/amd/display: Re-enable DPP/HUBP Power Gating
 
-But the problem is sometime you want to use the integrated one,
+Dmytro Laktyushkin (1):
+      drm/amd/display: fix pixel rate update sequence
 
-for example in the process of developing driver, or discrete GPU driver
+Fangzhi Zuo (1):
+      drm/amd/display: Add Error Code for Dml Validation Failure
 
-has a bug panic X server,  the user(or the device driver) don't has the 
-right to override.
+Hamza Mahfooz (1):
+      drm/amd/amdgpu: enable W=1 for amdgpu
 
+Hersen Wu (2):
+      drm/amd/display: edp do not add non-edid timings
+      drm/amd/display: add debugfs for allow_edp_hotplug_detection
 
-Also with the current implement, even you disable the device driver.
+James Zhu (5):
+      drm/amdkfd: add event age tracking
+      drm/amdkfd: add event_age tracking when receiving interrupt
+      drm/amdkfd: set activated flag true when event age unmatchs
+      drm/amdkfd: update user space last_event_age
+      drm/amdkfd: bump kfd ioctl minor version for event age availability
 
-vgaarb still make the decision for you,  which made the X server 
-confused and panic.
+Jonathan Kim (2):
+      drm/amdkfd: fix null queue check on debug setting exceptions
+      drm/amdkfd: decrement queue count on mes queue destroy
 
+Lee Jones (1):
+      drm/amd/display/amdgpu_dm/amdgpu_dm_helpers: Move SYNAPTICS_DEVICE_ID into CONFIG_DRM_AMD_DC_DCN ifdef
 
-Say on machine with loongson integrated display controller and a rx5700  
-machine.
+Lijo Lazar (4):
+      drm/amdgpu: Release SDMAv4.4.2 ecc irq properly
+      drm/amdgpu: Change nbio v7.9 xcp status definition
+      drm/amdgpu: Use PSP FW API for partition switch
+      drm/amdgpu: Remove unused NBIO interface
 
-By passing the cmdline "modprobe.blacklist=amdgpu", then vgaarb will not 
-agree.
+Likun Gao (1):
+      drm/amdgpu: add wait_for helper for spirom update
 
-He still mark the rx5700 as the default boot device. Then X server crash.
+Luben Tuikov (2):
+      drm/amdgpu: Report ras_num_recs in debugfs
+      drm/amdgpu: Fix usage of UMC fill record in RAS
 
-Because xf86-video-amdgpu(still loaded) has no root in the kernel do the 
-service for it.
+Ma Jun (1):
+      drm/amdgpu: Print client id for the unregistered interrupt resource
 
+Mukul Joshi (2):
+      drm/amdgpu: Rename DRM schedulers in amdgpu TTM
+      drm/amdkfd: Remove DUMMY_VRAM_SIZE
 
-I'm doing such a thing because I need developing the drivers for this
+Nicholas Kazlauskas (1):
+      drm/amd/display: Skip DPP DTO update if root clock is gated
 
-integrated display controller, but I don't want unmounted the discrete 
-GPU every time.
+Peichen Huang (1):
+      drm/amd/display: limit DPIA link rate to HBR3
 
-Because I also need to do the PRIME buffer sharing developing and test.
+Philip Yang (2):
+      drm/amdgpu: Enable translate further for GC v9.4.3
+      drm/amdgpu: Increase hmm range get pages timeout
 
+Ruili Ji (1):
+      drm/amdkfd: To enable traps for GC_11_0_4 and up
 
-For AMD APU, this is also the case.
+Saaem Rizvi (1):
+      drm/amd/display: Do not disable phantom pipes in driver
 
-R5 200GE and 3000G processor has the integrated GPU,
+Samson Tam (1):
+      Revert "drm/amd/display: reallocate DET for dual displays with high pixel rate ratio"
 
-On a machine with R5 5600G + nvidia gtx1060, a user may want to compare
+Shiwu Zhang (1):
+      drm/amdgpu: expose num_hops and num_links xgmi info through dev attr
 
-which GPU is more powerful. But with the current implement, both the device
+Sonny Jiang (1):
+      drm/amdgpu: vcn_4_0 set instance 0 init sched score to 1
 
-driver and the end user don't have a choice.
+Srinivasan Shanmugam (10):
+      drm/amdgpu: Fix kdoc warning
+      drm/amdgpu: Fix memcpy() in sienna_cichlid_append_powerplay_table function.
+      drm/amdgpu: Add missing function parameter 'optc' & 'enable' to kdoc in optc3_set_timing_double_buffer()
+      drm/amd/display: Correct kdoc formats in dcn10_opp.c
+      drm/amd/display: Correct and remove excess function parameter names in kdoc
+      drm/amd/display: Provide function name for 'optc32_enable_crtc()'
+      drm/amd/display: Correct kdoc formats in dcn32_resource_helpers.c
+      drm/amd/display: Clean up dcn10_optc.c kdoc
+      drm/radeon: Fix missing prototypes in radeon_atpx_handler.c
+      drm/amd/display: Convert to kdoc formats in dc/core/dc.c
 
+Stanley.Yang (2):
+      drm/amdgpu: Optimize checking ras supported
+      drm/amdgpu: Add checking mc_vram_size
 
-This is the reason why patch 6, 7 and 8[2] of this series is introduced.
+Thomas Zimmermann (1):
+      drm/radeon: Disable outputs when releasing fbdev client
 
-Device driver could do the force override if it isn't the default device.
+Tim Huang (3):
+      drm/amd/pm: fix vclk setting failed for SMU v13.0.5
+      drm/amd/pm: enable vclk and dclk Pstates for SMU v13.0.5
+      drm/amd/pm: enable more Pstates profile levels for SMU v13.0.5
 
-(by introducing another kernel cmd line)
+Tom Chung (2):
+      drm/amd/display: fix the system hang while disable PSR
+      drm/amd/display: Fix disbling PSR slow response issue
 
-Because of device driver(.ko) get loaded latter than vgaarb.
+Wayne Lin (1):
+      drm/dp_mst: Clear MSG_RDY flag before sending new message
 
+ZhenGuo Yin (2):
+      drm/amdgpu: add entity error check in amdgpu_ctx_get_entity
+      drm/scheduler: avoid infinite loop if entity's dependency is a scheduled error fence
 
-So feel free send a reviewed by ?
-
-
-[1] https://patchwork.freedesktop.org/patch/542253/?series=119250&rev=1
-
-[2] https://patchwork.freedesktop.org/patch/542255/?series=119250&rev=1
-
-> Alex
->
->>
->>> Alex
->>>
->>>> Nowadays, the 'VGA devices' here is stand for the Graphics card
->>>>
->>>> which is capable of display something on the screen.
->>>>
->>>> We still need vgaarb to select the default boot device.
->>>>
->>>>
->>>>> you'll have more non VGA PCI classes for devices which
->>>>> could be the pre-OS console device.
->>>> Ah, we still want  do this(by applying this patch) first,
->>>>
->>>> and then we will have the opportunity to see who will crying if
->>>> something is broken. Will know more then.
->>>>
->>>> But drop this patch or revise it with more consideration is also
->>>> acceptable.
->>>>
->>>>
->>>> I asking about suggestion and/or review.
->>>>
->>>>> Alex
->>>>>
->>>>>>>          /* For now we're only intereted in devices added and removed. I didn't
->>>>>>>           * test this thing here, so someone needs to double check for the
->>>>>>> @@ -1510,6 +1508,8 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
->>>>>>>          else if (action == BUS_NOTIFY_DEL_DEVICE)
->>>>>>>                  notify = vga_arbiter_del_pci_device(pdev);
->>>>>>>
->>>>>>> +     vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
->>>>>>> +
->>>>>>>          if (notify)
->>>>>>>                  vga_arbiter_notify_clients();
->>>>>>>          return 0;
->>>>>>> @@ -1534,8 +1534,8 @@ static struct miscdevice vga_arb_device = {
->>>>>>>
->>>>>>>      static int __init vga_arb_device_init(void)
->>>>>>>      {
->>>>>>> +     struct pci_dev *pdev = NULL;
->>>>>>>          int rc;
->>>>>>> -     struct pci_dev *pdev;
->>>>>>>
->>>>>>>          rc = misc_register(&vga_arb_device);
->>>>>>>          if (rc < 0)
->>>>>>> @@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
->>>>>>>
->>>>>>>          /* We add all PCI devices satisfying VGA class in the arbiter by
->>>>>>>           * default */
->>>>>>> -     pdev = NULL;
->>>>>>> -     while ((pdev =
->>>>>>> -             pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
->>>>>>> -                            PCI_ANY_ID, pdev)) != NULL)
->>>>>>> +     while (1) {
->>>>>>> +             pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
->>>>>>> +             if (!pdev)
->>>>>>> +                     break;
->>>>>>> +
->>>>>>>                  vga_arbiter_add_pci_device(pdev);
->>>>>>> +     }
->>>>>>>
->>>>>>>          pr_info("loaded\n");
->>>>>>>          return rc;
->>>>>> --
->>>>>> Jingfeng
->>>>>>
->>>> --
->>>> Jingfeng
->>>>
->> --
->> Jingfeng
->>
--- 
-Jingfeng
-
+ drivers/gpu/drm/amd/amdgpu/Makefile                |  13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c            |  14 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h            |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c          |  25 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h            |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c            |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |  17 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h            |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h           |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  23 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h            |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |  16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c           |  23 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h           |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  18 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h            |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c            |  34 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             | 176 ++++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c           |  46 ++++++
+ .../gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c    |   3 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c            |  18 +--
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |   1 +
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c             |  18 +--
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c             |   9 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.h             |   2 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |   4 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c           |  20 ++-
+ drivers/gpu/drm/amd/amdgpu/ta_ras_if.h             |   1 +
+ drivers/gpu/drm/amd/amdgpu/umc_v8_10.h             |   3 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c              |   6 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |   5 -
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.c             |   2 +-
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   6 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c            |  46 ++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_events.h            |   1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c           |   2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  65 +++++---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  |  32 ++++
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |   6 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  36 ++---
+ .../gpu/drm/amd/display/dc/core/dc_hw_sequencer.c  |  70 ++++++++
+ drivers/gpu/drm/amd/display/dc/dc.h                |   9 +-
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h       |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h          |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c      |   2 +
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_opp.c   |  20 ++-
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c  |  57 ++++---
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c |  11 --
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c  |   3 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_resource.c  |   1 +
+ .../drm/amd/display/dc/dcn302/dcn302_resource.c    |   1 +
+ .../drm/amd/display/dc/dcn303/dcn303_resource.c    |   1 +
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_dccg.c  |   8 +
+ .../gpu/drm/amd/display/dc/dcn314/dcn314_dccg.c    |   5 +
+ .../gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c   |   9 +-
+ .../gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.h   |   2 +-
+ .../drm/amd/display/dc/dcn314/dcn314_resource.c    |  27 +++-
+ .../drm/amd/display/dc/dcn315/dcn315_resource.c    |   1 +
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c |  11 +-
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h |   2 +-
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c  |   7 +-
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.c  |   3 +-
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.h  |   4 +
+ .../amd/display/dc/dcn32/dcn32_resource_helpers.c  | 147 ++++++++++++-----
+ .../drm/amd/display/dc/dcn321/dcn321_resource.c    |   3 +-
+ .../display/dc/dml/dcn314/display_mode_vba_314.c   |  59 +++++++
+ .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   | 178 +++++++++++++--------
+ .../drm/amd/display/dc/dml/display_mode_enums.h    |   8 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h       |   1 +
+ drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h  |  32 ++++
+ .../drm/amd/display/dc/inc/hw_sequencer_private.h  |   2 +-
+ .../gpu/drm/amd/display/dc/link/link_detection.c   |   5 +
+ .../drm/amd/display/modules/freesync/freesync.c    |  11 +-
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |  18 ++-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |   3 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c   |  80 ++++++++-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.h   |   2 +-
+ drivers/gpu/drm/display/drm_dp_mst_topology.c      |  54 ++++++-
+ drivers/gpu/drm/i915/display/intel_dp.c            |   7 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c            |  12 +-
+ drivers/gpu/drm/radeon/radeon_acpi.h               |   9 ++
+ drivers/gpu/drm/radeon/radeon_atpx_handler.c       |   2 +-
+ drivers/gpu/drm/radeon/radeon_fbdev.c              |   1 +
+ drivers/gpu/drm/scheduler/sched_entity.c           |   2 +-
+ include/drm/display/drm_dp_mst_helper.h            |   7 +-
+ include/uapi/linux/kfd_ioctl.h                     |  13 +-
+ 93 files changed, 1222 insertions(+), 431 deletions(-)
