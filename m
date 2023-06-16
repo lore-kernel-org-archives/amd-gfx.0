@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69E91EB64D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 10:26:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BEDBEB64DA
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 10:27:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8936D10E5E3;
-	Fri, 16 Jun 2023 10:26:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A23D10E5EF;
+	Fri, 16 Jun 2023 10:27:18 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 914C310E5E3;
- Fri, 16 Jun 2023 10:26:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B60610E5ED;
+ Fri, 16 Jun 2023 10:27:14 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 029A963594;
- Fri, 16 Jun 2023 10:26:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BDB9C433CC;
- Fri, 16 Jun 2023 10:26:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0ED3B6245F;
+ Fri, 16 Jun 2023 10:27:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47DD3C433CB;
+ Fri, 16 Jun 2023 10:27:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686911174;
+ s=k20201202; t=1686911233;
  bh=ad9mJNWY2ATqiIvDKYUCVrrn+8LgbBm8sw+UrkCnxFI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Y5pmRdhOqlNo5TIvm6xDtkBBH2G6zzErddjOSeXS0lHIpjuyDW3rQPL9bzm3uWYtg
- QEmelHw4m5x6CCJsNCF8E59fam1BBqlJbkdvM5k8y7lfCBMfIGSRf3qSCjYBXhVWhV
- +9sGzCgpiTjZmoz2vtqsT1yeoLC+mDJN6ITfoHTPQGnBJPbGASqT/SS4YaKBGPfQB6
- BYawp9PcQtGB2VybWjumHv4eN82IMfcRoY6ooqL1y4EuNwnM3O5krOvzw0lTjgCI+b
- C6xax5dKotyvXeXLwL9VjU4HoEMqcMo+5L3C+yaPwjXPmMDfOuvnDlmjM0v15DP1E3
- BIXs+Y1qn8afw==
+ b=o02bTlsY8jJ3/G3tMZYjvkq7Sbv9xz9guRQ2fLHLo60F+TXPjjqRr9Jm6yjfjfr7b
+ EG76cuAvrzBWX696foHkzZ/uvm3/XH8ZJ47zWqmtokVYYNUCicboJtXTCa2+kjlwCA
+ TmdPp2jBCt8i0I8AGGZ0hEkM61MaR9+VdP43/bwB7/KgPHgxmEYaoMT1iN8mbR/U5Q
+ hsXr+3+Ue6mnLRQ9vR3mtH7iHdwDV1tfB6FxiN/CPnXfuGzv9FTo0nG4lBgKumXkGm
+ LmOp1bsNyZP9aTqh2mA9cf3IgbHyla4qTBHoZpQw/74a1MueF9HlcEM+i9i3uZvmHy
+ ukem1mmO+DslA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.3 25/30] drm/radeon: fix race condition UAF in
+Subject: [PATCH AUTOSEL 6.1 22/26] drm/radeon: fix race condition UAF in
  radeon_gem_set_domain_ioctl
-Date: Fri, 16 Jun 2023 06:25:13 -0400
-Message-Id: <20230616102521.673087-25-sashal@kernel.org>
+Date: Fri, 16 Jun 2023 06:26:19 -0400
+Message-Id: <20230616102625.673454-22-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230616102521.673087-1-sashal@kernel.org>
-References: <20230616102521.673087-1-sashal@kernel.org>
+In-Reply-To: <20230616102625.673454-1-sashal@kernel.org>
+References: <20230616102625.673454-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.3.8
+X-stable-base: Linux 6.1.34
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
