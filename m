@@ -4,110 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 301FAEB64D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 15:28:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D7D2EB64DA
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 15:45:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5955F10E089;
-	Fri, 16 Jun 2023 15:28:04 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E703910E089
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 15:28:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=abnmGH3Nt5arF23pTXj1dfmgFm0lt9k6zUCZ5TG1hx47sErwwS+wrXYdEchBro/ayTPnBy0UlxBef4HzJgNYB3gBHcffW49do8yyMNGOKMyw8+zlZL2rEeJD1xCqnPQ+YJPm4gfc06qcAU8xUf9/fpb5vxg6Nz788MpABV5iAnoDU43ooxei/p17nYTJtufgySIdbcurlvg5YMYSvfqROTPsDwaN74rRfEwmNZixroMnzhaRFPs8WvrhSwmJ0qeUKHtMgRhGv0ytLSOpDNKolFqGnbvB+kyqIP7/cwzwfXLieqHtuW4KXVdpl+JAA/mHBsVofdI9KLIMAT5CsBywsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2muub0izgZa5RsV/YxFpYB4wAx/VSXf1HS6To4Tc6sQ=;
- b=m7jyPdjlBS93y3UGx0RP0UTQWK3JmIBCaZgcPj5Lk51nE21oNoXewW4QtZlUSHph6XECDcUM5VfrG2MNCnMx2xS3KNRwZ6Xi/pQNqYw/cwHAIenBLsfz6SKAXKSX8dHjeEDyTBiZiMRTQApXtv5pMDwjYQf8k5Ibn05eau5XJZhuXP00eIqS5wJ80LpLJVu5+734tufqOFdkVY8MfSPSP9JVIn+AGzR4G8kKbQmbAYnl35ncZDDt/zNkgrBH8gsEX1/HzPljz7pFgkUzmTJNK8agEwO0g36xHIPdLy9gJ6dsljwhe8kieuTBn8feWBF5eOO4wJt1ZgmKwrTIN9WAAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2muub0izgZa5RsV/YxFpYB4wAx/VSXf1HS6To4Tc6sQ=;
- b=gLwBXja5m0uNidZ3MavSibjIIV5FV9FMKIZPPYW4sD+3uHUz4cV/KG79IyS6anbCUXbrs3kxUYFoTyhBypCA+2X9TadKAVem3D9QzPhnhGZ05kAfzx8YzJ2xONjgwlI2O1ca8/+8fc9tqDzezpbCjghVKftx6t2PV7ggDlcGk6w=
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by LV2PR12MB5822.namprd12.prod.outlook.com (2603:10b6:408:179::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.29; Fri, 16 Jun
- 2023 15:27:58 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::8f81:b929:d2f9:4ef0]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::8f81:b929:d2f9:4ef0%4]) with mapi id 15.20.6500.026; Fri, 16 Jun 2023
- 15:27:57 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Modify for_each_inst macro
-Thread-Topic: [PATCH] drm/amdgpu: Modify for_each_inst macro
-Thread-Index: AQHZoDyegAPsujx99EGvvlZ6GhHfHa+NjYZv
-Date: Fri, 16 Jun 2023 15:27:57 +0000
-Message-ID: <BYAPR12MB461498B181C44842783B77DE9758A@BYAPR12MB4614.namprd12.prod.outlook.com>
-References: <20230616102340.1665822-1-lijo.lazar@amd.com>
-In-Reply-To: <20230616102340.1665822-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-06-16T15:27:02.6421416Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BYAPR12MB4614:EE_|LV2PR12MB5822:EE_
-x-ms-office365-filtering-correlation-id: 772a6a60-0ca6-4bfd-29a6-08db6e7e4312
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: EDjxWWCy1nQCT2Fv5sOloEGSSNuvA5e6tejks1AY+2+CjTE7mdXUsSJGJH9JH1xGNitFXLYltTrCPWpagCXOpCkwRVIvkjTZdJpNPdHnaAAcIGCuy0eNVRsps8/pqHJcByJvUDj7Ipe1U17C1QA9wGsHbmK7iTLEKMIdxuKACH9yTYGcuM3+AlhKJbwns5E3+pPrFDS+rQ112/gdtYzDID8CVjXJdA3dSBfvrTZx/V0SQXdFES/GPuMGatUIx8o6uf2zeLeFVT41Wu49U4R+GNGvnQsAtkai04MInjcP02l7D9bRWqHSU/SRnD330Du6PSNtHfqwvNLD61qbQ//O+9jH2kut57xnxiLPZVMhnUQn53xs9nOAJU9x6UxqeXoEjFJU04oV4aUxWU0oJ9o46ietk04TpZ/dMTEfGFWSzx1evfDiX0ASjRpBFe68ixEUhRJ5lu7YjUgIjvPnCfTw+ytm+R0PpqEASQozl1U5+M0BYh8dCKKTtjjlko5h/WiokeJiscCgfRtOWpfS3wpYz4o5NlVEdg0/+ogeYTvk6aZtQtY22JR8RkalgFaBly4tyRCInVVVbNBH+rS0NyEXysmoUU7HtLMrUh/vxwKjGoHJUyPLVdCDMzC5gvXKAuxt
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(376002)(39860400002)(136003)(396003)(346002)(451199021)(5660300002)(8676002)(52536014)(122000001)(86362001)(38100700002)(83380400001)(8936002)(316002)(38070700005)(41300700001)(66446008)(6916009)(4326008)(64756008)(66946007)(66556008)(66476007)(76116006)(91956017)(54906003)(33656002)(186003)(9686003)(53546011)(478600001)(26005)(6506007)(2906002)(7696005)(55016003)(71200400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Go8SbYB7dk2WErq6+hVViHkOolweclcxhii+7hf6oMfh2QBO7mbLce/ggAvu?=
- =?us-ascii?Q?gWtaTVLv2RBROBTgTwZiZvRD7ca/7lTrtvpv6W/wEH+XBOEyxCgGg7mN2PIx?=
- =?us-ascii?Q?L2v7RNxlWavXR/dWDjwJa59lUPeluNQJYpar8ezwW1wiX2wRSZeFSKMCJVLe?=
- =?us-ascii?Q?sUuHmlUVQZvaiEeJJ4v3uLxf7uyCJ0sja1DHlKGfb8Bj3pZo80sCGlRP7BpX?=
- =?us-ascii?Q?N93YkK68np3zKplvhmVGZv5ZfAB+Fb3bT93S4GLWXOabkXJ+x15di23uJLHK?=
- =?us-ascii?Q?CCQKQwxByLindGzZT1ZItgky9oBQJGELMomjjjz5ocGqJXmxx4NDUTrGdm8N?=
- =?us-ascii?Q?0/3WkAoTDp3u9fEmMIFWZsBs5lk6g8oALEOAkMYdkQO7x4iIqZcNxHg8edne?=
- =?us-ascii?Q?qUicEqDH1PcD6ZpU25QdFMvDAtFD+i/Cd6Fhj4PqOYLAuV3ivi/a0BnloK+l?=
- =?us-ascii?Q?vy9pbmmRKnfcofeIGg9/exP3gJVEt+pf13pTRoDtsYLX7fZa1yl7MQAVPShs?=
- =?us-ascii?Q?h2uclj+Ree7tkzkP2hpgGGLK17yjOojDsv36OsZyavfKlKU87C/7P2AUNez4?=
- =?us-ascii?Q?65SsO4Dc8cpHhPSDjQCN8mP4JAMAj+uBZxW8yKxqKA516BQ/Ei8wJieilF57?=
- =?us-ascii?Q?o8/ATpZdNA6ZZx4N0n/drRksCAuYR9vcaP0+geVX0FjZi6jT9Pl3oTay7QhU?=
- =?us-ascii?Q?hT47MdZvMkqF72/VibKRiWzpxTPOFmBkUnVIm3CXFuL3bcxd/mtq2bOhH49U?=
- =?us-ascii?Q?HSEabfZA4YLpTmw/rmgUZaMdDoQt/yuefSoCFCQRnjBqUrZE8oRs34vsBADy?=
- =?us-ascii?Q?RntQnDukEMklvXt7D9X9QMWAXMEDWZzOxx/JseWoDTRBUMXy0JsLUFpvjSIR?=
- =?us-ascii?Q?CBr8dVhSYrwHHtge/orlYLUPy8sm7VhYTJBk3m7PVWHxGFiQtMCttAaUsN0f?=
- =?us-ascii?Q?kwQ3KBs7ocSKEHTDwDp2Om10YVSarOd6oKTKY3vBVJ+I4h/aXjndQo8Op2mr?=
- =?us-ascii?Q?ehBMHZJgVlsd25HnP58cl2SWL8FgGqdPWVuiozXJigN3APKGI2rhKWbb+dnS?=
- =?us-ascii?Q?0OdbQBhYpJX1idlVsEHvaSUYYQ1IK5+70B9GOXSeg1TU+BE2B7VaOg6RlEPC?=
- =?us-ascii?Q?XiPYxLq8a2PDyainYorfhc10JHlrHpuzMQHp8aOEoqkuQPUxgdF/dvPMsE6M?=
- =?us-ascii?Q?HYs3ix50ehG3Rs6SgM6MKk1ogrTf2bzN1LaYAANTnqUyo4TvN5xZKDIcC0Lm?=
- =?us-ascii?Q?49HtwGiciV1s/CWqBub0mtr4Bu7Il9kYm00HeyBHuQQ7NqWCfSY5FVTynv5a?=
- =?us-ascii?Q?BounozMf7jNDLVzjEdYO65r9gsN7knV38GhKYx8n09/clJAcNGqk8MjSGIH/?=
- =?us-ascii?Q?34UuUe23yh26BhEKYf/99c7ufxWlHtmH+XAFF4PUmxw63LGkp2vi9NOedkWj?=
- =?us-ascii?Q?BUy2Y/vKBpzEWp37Rn3FRm6Ja6LwNZ90hHxmHLwuludo29nZYaava78lHKgj?=
- =?us-ascii?Q?sNQJTpX8aTJHymTOuQ6T/sIq6KjMLA6E0+TgGwZdDXWbqkQhW18Uqsa04bNS?=
- =?us-ascii?Q?F2EHHiUWeU6IiD3Px2GzzIopwOlph3+Ad1/ngb70?=
-Content-Type: multipart/alternative;
- boundary="_000_BYAPR12MB461498B181C44842783B77DE9758ABYAPR12MB4614namp_"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11C6010E649;
+	Fri, 16 Jun 2023 15:44:55 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7183010E0E3;
+ Fri, 16 Jun 2023 15:44:48 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8BxKupvg4xk8wUGAA--.12861S3;
+ Fri, 16 Jun 2023 23:44:47 +0800 (CST)
+Received: from [10.20.42.43] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8CxhuRsg4xkqmsdAA--.18023S3; 
+ Fri, 16 Jun 2023 23:44:45 +0800 (CST)
+Message-ID: <1486f6e9-3123-3c3e-806a-47b9463cb61a@loongson.cn>
+Date: Fri, 16 Jun 2023 23:44:44 +0800
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 772a6a60-0ca6-4bfd-29a6-08db6e7e4312
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jun 2023 15:27:57.2910 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4euFiMxPPb8C4qxj71MQvkpx3ECBrzhef4Fv1V/VCuGrrsjRw3UEULI5Ip+TEoMK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5822
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v7 2/8] PCI/VGA: Deal only with VGA class devices
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
+ Daniel Vetter <daniel@ffwll.ch>
+References: <20230613030151.216625-1-15330273260@189.cn>
+ <20230613030151.216625-3-15330273260@189.cn>
+ <dbf0d89f-717a-1f78-aef2-f30506751d4d@loongson.cn>
+ <CADnq5_N6vVtzH6tzguZdHnP_TdRoG1G-Cr94O+X03jvtk=vhag@mail.gmail.com>
+ <3c1c86ab-96ea-aa1c-c9c5-9a4012644fd6@loongson.cn>
+ <CADnq5_Px-HWfwetv8LZsCnCeV7SMt_uqtLwMVK7648ZQiP2RCQ@mail.gmail.com>
+ <f08b6a76-6c90-b59b-ff43-c779ef759d09@loongson.cn>
+ <CADnq5_PFoM2O8mCd6+VFfu9Nc-Hg_HTnwEMxrq0FGRpva1kKiA@mail.gmail.com>
+From: Sui Jingfeng <suijingfeng@loongson.cn>
+Organization: Loongson
+In-Reply-To: <CADnq5_PFoM2O8mCd6+VFfu9Nc-Hg_HTnwEMxrq0FGRpva1kKiA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: AQAAf8CxhuRsg4xkqmsdAA--.18023S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoW3Zr4kXFW7uF1fWr1kJF47Awc_yoWkZFyDpF
+ W5GFW5tF4DJr1UCr12qw1UXFyYv34rJFy5Xr15Jw1Y9ws0yr1UXryrtr4UC347Jrn5GF12
+ vr4UJry7uF15ZagCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUBFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+ xVWxJr0_GcWln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+ xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y
+ 6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
+ 1lc7I2V7IY0VAS07AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+ JVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+ vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
+ x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
+ xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAF
+ wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jFa0PUUUUU=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,152 +71,372 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
- "Skvortsov, Victor" <Victor.Skvortsov@amd.com>, "Kamal,
- Asad" <Asad.Kamal@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Sui Jingfeng <15330273260@189.cn>, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-pci@vger.kernel.org,
+ Bjorn Helgaas <bhelgaas@google.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BYAPR12MB461498B181C44842783B77DE9758ABYAPR12MB4614namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-[AMD Official Use Only - General]
-
-cc: Victor
-
-Victor pointed at a shift beyond MSB condition. Will send a v2.
-
-Thanks,
-Lijo
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Lijo Laz=
-ar <lijo.lazar@amd.com>
-Sent: Friday, June 16, 2023 3:53:40 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Ma, Le <Le.Ma@amd.com>;=
- Kamal, Asad <Asad.Kamal@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: Modify for_each_inst macro
-
-Modify it such that it doesn't change the instance mask parameter.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h
-index f4029c13a9be..c5451a9b0ee4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1295,9 +1295,9 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
-
- #define amdgpu_inc_vram_lost(adev) atomic_inc(&((adev)->vram_lost_counter)=
-);
-
--#define for_each_inst(i, inst_mask)                                       =
-     \
--       for (i =3D ffs(inst_mask) - 1; inst_mask;                          =
-      \
--            inst_mask &=3D ~(1U << i), i =3D ffs(inst_mask) - 1)
-+#define for_each_inst(i, inst_mask)        \
-+       for (i =3D ffs(inst_mask); i-- !=3D 0; \
-+            i =3D ffs((inst_mask & (~0U << (i + 1)))))
-
- #define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
-
---
-2.25.1
-
-
---_000_BYAPR12MB461498B181C44842783B77DE9758ABYAPR12MB4614namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On 2023/6/16 22:34, Alex Deucher wrote:
+> On Fri, Jun 16, 2023 at 10:22 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
+>>
+>> On 2023/6/16 21:41, Alex Deucher wrote:
+>>> On Fri, Jun 16, 2023 at 3:11 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
+>>>> Hi,
+>>>>
+>>>> On 2023/6/16 05:11, Alex Deucher wrote:
+>>>>> On Wed, Jun 14, 2023 at 6:50 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
+>>>>>> Hi,
+>>>>>>
+>>>>>> On 2023/6/13 11:01, Sui Jingfeng wrote:
+>>>>>>> From: Sui Jingfeng <suijingfeng@loongson.cn>
+>>>>>>>
+>>>>>>> Deal only with the VGA devcie(pdev->class == 0x0300), so replace the
+>>>>>>> pci_get_subsys() function with pci_get_class(). Filter the non-PCI display
+>>>>>>> device(pdev->class != 0x0300) out. There no need to process the non-display
+>>>>>>> PCI device.
+>>>>>>>
+>>>>>>> Cc: Bjorn Helgaas <bhelgaas@google.com>
+>>>>>>> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+>>>>>>> ---
+>>>>>>>      drivers/pci/vgaarb.c | 22 ++++++++++++----------
+>>>>>>>      1 file changed, 12 insertions(+), 10 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+>>>>>>> index c1bc6c983932..22a505e877dc 100644
+>>>>>>> --- a/drivers/pci/vgaarb.c
+>>>>>>> +++ b/drivers/pci/vgaarb.c
+>>>>>>> @@ -754,10 +754,6 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
+>>>>>>>          struct pci_dev *bridge;
+>>>>>>>          u16 cmd;
+>>>>>>>
+>>>>>>> -     /* Only deal with VGA class devices */
+>>>>>>> -     if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
+>>>>>>> -             return false;
+>>>>>>> -
+>>>>>> Hi, here is probably a bug fixing.
+>>>>>>
+>>>>>> For an example, nvidia render only GPU typically has 0x0380.
+>>>>>>
+>>>>>> as its PCI class number, but render only GPU should not participate in
+>>>>>> the arbitration.
+>>>>>>
+>>>>>> As it shouldn't snoop the legacy fixed VGA address.
+>>>>>>
+>>>>>> It(render only GPU) can not display anything.
+>>>>>>
+>>>>>>
+>>>>>> But 0x0380 >> 8 = 0x03, the filter  failed.
+>>>>>>
+>>>>>>
+>>>>>>>          /* Allocate structure */
+>>>>>>>          vgadev = kzalloc(sizeof(struct vga_device), GFP_KERNEL);
+>>>>>>>          if (vgadev == NULL) {
+>>>>>>> @@ -1500,7 +1496,9 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+>>>>>>>          struct pci_dev *pdev = to_pci_dev(dev);
+>>>>>>>          bool notify = false;
+>>>>>>>
+>>>>>>> -     vgaarb_dbg(dev, "%s\n", __func__);
+>>>>>>> +     /* Only deal with VGA class devices */
+>>>>>>> +     if (pdev->class != PCI_CLASS_DISPLAY_VGA << 8)
+>>>>>>> +             return 0;
+>>>>>> So here we only care 0x0300, my initial intent is to make an optimization,
+>>>>>>
+>>>>>> nowadays sane display graphic card should all has 0x0300 as its PCI
+>>>>>> class number, is this complete right?
+>>>>>>
+>>>>>> ```
+>>>>>>
+>>>>>> #define PCI_BASE_CLASS_DISPLAY        0x03
+>>>>>> #define PCI_CLASS_DISPLAY_VGA        0x0300
+>>>>>> #define PCI_CLASS_DISPLAY_XGA        0x0301
+>>>>>> #define PCI_CLASS_DISPLAY_3D        0x0302
+>>>>>> #define PCI_CLASS_DISPLAY_OTHER        0x0380
+>>>>>>
+>>>>>> ```
+>>>>>>
+>>>>>> Any ideas ?
+>>>>> I'm not quite sure what you are asking about here.
+>>>> To be honest, I'm worried about the PCI devices which has a
+>>>>
+>>>> PCI_CLASS_DISPLAY_XGA as its PCI class number.
+>>>>
+>>>> As those devices are very uncommon in the real world.
+>>>>
+>>>>
+>>>> $ find . -name "*.c" -type f | xargs grep "PCI_CLASS_DISPLAY_XGA"
+>>>>
+>>>>
+>>>> Grep the "PCI_CLASS_DISPLAY_XGA" in the linux kernel tree got ZERO,
+>>>>
+>>>> there no code reference this macro. So I think it seems safe to ignore
+>>>> the XGA ?
+>>>>
+>>>>
+>>>> PCI_CLASS_DISPLAY_3D and PCI_CLASS_DISPLAY_OTHER are used to annotate
+>>>> the render-only GPU.
+>>>>
+>>>> And render-only GPU can't decode the fixed VGA address space, it is safe
+>>>> to ignore them.
+>>>>
+>>>>
+>>>>>     For vga_arb, we
+>>>>> only care about VGA class devices since those should be on the only
+>>>>> ones that might have VGA routed to them.
+>>>>>     However, as VGA gets deprecated,
+>>>> We need the vgaarb for a system with multiple video card.
+>>>>
+>>>> Not only because some Legacy VGA devices implemented
+>>>>
+>>>> on PCI will typically have the same "hard-decoded" addresses;
+>>>>
+>>>> But also these video card need to participate in the arbitration,
+>>>>
+>>>> determine the default boot device.
+>>> But couldn't the boot device be determined via what whatever resources
+>>> were used by the pre-OS console?
+>> I don't know what you are refer to by saying  pre-OS console, UEFI
+>> SHELL,  UEFI GOP  or something like that.
+>>
+> Right.  Before the OS loads the platform firmware generally sets up
+> something for display.  That could be GOP or vesa or some other
+> platform specific protocol.
 >
-</head>
-<body>
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div style=3D"" dir=3D"auto">cc: Victor</div>
-<div style=3D"" dir=3D"auto"><br>
-</div>
-<div style=3D"" dir=3D"auto">Victor pointed at a shift beyond MSB condition=
-. Will send a v2.</div>
-<div id=3D"ms-outlook-mobile-signature" dir=3D"auto">
-<div><br>
-</div>
-Thanks,<br>
-Lijo</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Lijo Lazar &lt;lijo.lazar@amd=
-.com&gt;<br>
-<b>Sent:</b> Friday, June 16, 2023 3:53:40 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Ma, Le &lt=
-;Le.Ma@amd.com&gt;; Kamal, Asad &lt;Asad.Kamal@amd.com&gt;; Zhang, Hawking =
-&lt;Hawking.Zhang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Modify for_each_inst macro</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Modify it such that it doesn't change the instance=
- mask parameter.<br>
-<br>
-Signed-off-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h | 6 +++---<br>
-&nbsp;1 file changed, 3 insertions(+), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h<br>
-index f4029c13a9be..c5451a9b0ee4 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-@@ -1295,9 +1295,9 @@ int emu_soc_asic_init(struct amdgpu_device *adev);<br=
+>> If you are referring to the framebuffer driver which light up the screen
+>> before the Linux kernel is loaded .
+>>
+>>
+>> Then, what you have said is true,  the boot device is determined by the
+>> pre-OS console.
+>>
+>> But the problem is how does the Linux kernel(vgaarb) could know which
+>> one is the default boot device
+>>
+>> on a multiple GPU machine.  Relaying on the firmware fb's address and
+>> size is what the mechanism
+>>
+>> we already in using.
+> Right.  It shouldn't need to depend on vgaarb.
 >
-&nbsp;<br>
-&nbsp;#define amdgpu_inc_vram_lost(adev) atomic_inc(&amp;((adev)-&gt;vram_l=
-ost_counter));<br>
-&nbsp;<br>
--#define for_each_inst(i, inst_mask)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D ffs(inst_mask) - 1; inst_m=
-ask;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; inst_ma=
-sk &amp;=3D ~(1U &lt;&lt; i), i =3D ffs(inst_mask) - 1)<br>
-+#define for_each_inst(i, inst_mask)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; \<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D ffs(inst_mask); i-- !=3D 0=
-; \<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i =3D f=
-fs((inst_mask &amp; (~0U &lt;&lt; (i + 1)))))<br>
-&nbsp;<br>
-&nbsp;#define MIN(X, Y) ((X) &lt; (Y) ? (X) : (Y))<br>
-&nbsp;<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+>>
+>>>    I feel like that should be separate from vgaarb.
+>> Emm, this really deserved another patch, please ?
+>>
+>>>    vgaarb should handle PCI VGA routing and some other
+>>> mechanism should be used to determine what device provided the pre-OS
+>>> console.
+>> If the new mechanism need the firmware changed, then this probably break
+>> the old machine.
+>>
+>> Also, this probably will get all arch involved. to get the new mechanism
+>> supported.
+>>
+>> The testing pressure and review power needed is quite large.
+>>
+>> drm/amdgpu and drm/radeon already being used on X86, ARM64,  Mips and
+>> more arch...
+>>
+>> The reviewing process will became quite difficult then.
+>>
+>> vgaarb is really what we already in use, and being used more than ten
+>> years ...
+> Yes, it works for x86 (and a few other platforms) today because of the
+> VGA legacy, so we can look at VGA routing to determine this.  But even
+> today, we don't need VGA routing to determine what was the primary
+> display before starting the OS.  We could probably have a platform
+> independent way to handle this by looking at the bread crumbs leftover
+> from the pre-OS environment.  E.g., for pre-UEFI platforms, we can
+> look at VGA routing.  For UEFI platforms we can look at what GOP left
+> us.  For various non-UEFI ARM/PPC/MIPS/etc. platforms we can look at
+> whatever breadcrumbs those pre-OS environments left.  That way when
+> VGA goes away, we can have a clean break and you won't need vgaarb if
+> the platform has no VGA devices.
 
---_000_BYAPR12MB461498B181C44842783B77DE9758ABYAPR12MB4614namp_--
+Yes, I'm complete agree the spirit you are convey here.
+
+Patch 5[1] of this series is actually does what you have told me just now.
+
+I put this function in video/aperture intended.
+
+
+Its does not rely on "VGA routing".
+
+Its also does not required the display device is PCI vga device.
+
+Platform display controller drivers(drm/ingenic, drm/imx, drm/rockchip etc)
+
+can also call this function(aperture_contain_firmware_fb).
+
+It only require the platform has a firmware framebuffer driver 
+registered successfully.
+
+Both EFIFB are SIMPLEFB will be OK.
+
+
+Beside  this, on systems with a platform display controller device and a 
+PCI GPU device,
+
+the current implement may always set the PCI GPU device as the default 
+boot device.
+
+This is probably true for the arm64 platform.
+
+
+On the past, loongson LS2K1000 SoC  has a platform display controller,
+
+the SoC also has PCIE controller, So drm/radeon driver can be used on it.
+
+When discrete card is mounted on the system, the discrete gpu is always been
+
+selected as the default boot device in the past.
+
+Because radeon gpu is more faster, this behavior meet the user's 
+expectation by accident.
+
+Its funny and lucky.
+
+
+But the problem is sometime you want to use the integrated one,
+
+for example in the process of developing driver, or discrete GPU driver
+
+has a bug panic X server,  the user(or the device driver) don't has the 
+right to override.
+
+
+Also with the current implement, even you disable the device driver.
+
+vgaarb still make the decision for you,  which made the X server 
+confused and panic.
+
+
+Say on machine with loongson integrated display controller and a rx5700  
+machine.
+
+By passing the cmdline "modprobe.blacklist=amdgpu", then vgaarb will not 
+agree.
+
+He still mark the rx5700 as the default boot device. Then X server crash.
+
+Because xf86-video-amdgpu(still loaded) has no root in the kernel do the 
+service for it.
+
+
+I'm doing such a thing because I need developing the drivers for this
+
+integrated display controller, but I don't want unmounted the discrete 
+GPU every time.
+
+Because I also need to do the PRIME buffer sharing developing and test.
+
+
+For AMD APU, this is also the case.
+
+R5 200GE and 3000G processor has the integrated GPU,
+
+On a machine with R5 5600G + nvidia gtx1060, a user may want to compare
+
+which GPU is more powerful. But with the current implement, both the device
+
+driver and the end user don't have a choice.
+
+
+This is the reason why patch 6, 7 and 8[2] of this series is introduced.
+
+Device driver could do the force override if it isn't the default device.
+
+(by introducing another kernel cmd line)
+
+Because of device driver(.ko) get loaded latter than vgaarb.
+
+
+So feel free send a reviewed by ?
+
+
+[1] https://patchwork.freedesktop.org/patch/542253/?series=119250&rev=1
+
+[2] https://patchwork.freedesktop.org/patch/542255/?series=119250&rev=1
+
+> Alex
+>
+>>
+>>> Alex
+>>>
+>>>> Nowadays, the 'VGA devices' here is stand for the Graphics card
+>>>>
+>>>> which is capable of display something on the screen.
+>>>>
+>>>> We still need vgaarb to select the default boot device.
+>>>>
+>>>>
+>>>>> you'll have more non VGA PCI classes for devices which
+>>>>> could be the pre-OS console device.
+>>>> Ah, we still want  do this(by applying this patch) first,
+>>>>
+>>>> and then we will have the opportunity to see who will crying if
+>>>> something is broken. Will know more then.
+>>>>
+>>>> But drop this patch or revise it with more consideration is also
+>>>> acceptable.
+>>>>
+>>>>
+>>>> I asking about suggestion and/or review.
+>>>>
+>>>>> Alex
+>>>>>
+>>>>>>>          /* For now we're only intereted in devices added and removed. I didn't
+>>>>>>>           * test this thing here, so someone needs to double check for the
+>>>>>>> @@ -1510,6 +1508,8 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+>>>>>>>          else if (action == BUS_NOTIFY_DEL_DEVICE)
+>>>>>>>                  notify = vga_arbiter_del_pci_device(pdev);
+>>>>>>>
+>>>>>>> +     vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
+>>>>>>> +
+>>>>>>>          if (notify)
+>>>>>>>                  vga_arbiter_notify_clients();
+>>>>>>>          return 0;
+>>>>>>> @@ -1534,8 +1534,8 @@ static struct miscdevice vga_arb_device = {
+>>>>>>>
+>>>>>>>      static int __init vga_arb_device_init(void)
+>>>>>>>      {
+>>>>>>> +     struct pci_dev *pdev = NULL;
+>>>>>>>          int rc;
+>>>>>>> -     struct pci_dev *pdev;
+>>>>>>>
+>>>>>>>          rc = misc_register(&vga_arb_device);
+>>>>>>>          if (rc < 0)
+>>>>>>> @@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
+>>>>>>>
+>>>>>>>          /* We add all PCI devices satisfying VGA class in the arbiter by
+>>>>>>>           * default */
+>>>>>>> -     pdev = NULL;
+>>>>>>> -     while ((pdev =
+>>>>>>> -             pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
+>>>>>>> -                            PCI_ANY_ID, pdev)) != NULL)
+>>>>>>> +     while (1) {
+>>>>>>> +             pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
+>>>>>>> +             if (!pdev)
+>>>>>>> +                     break;
+>>>>>>> +
+>>>>>>>                  vga_arbiter_add_pci_device(pdev);
+>>>>>>> +     }
+>>>>>>>
+>>>>>>>          pr_info("loaded\n");
+>>>>>>>          return rc;
+>>>>>> --
+>>>>>> Jingfeng
+>>>>>>
+>>>> --
+>>>> Jingfeng
+>>>>
+>> --
+>> Jingfeng
+>>
+-- 
+Jingfeng
+
