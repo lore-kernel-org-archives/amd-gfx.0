@@ -4,60 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 146B3EB64D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 12:47:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7862EB64DA
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 12:47:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2644E10E614;
-	Fri, 16 Jun 2023 12:47:17 +0000 (UTC)
-Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
- [IPv6:2607:f8b0:4864:20::c34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14D2610E622
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 12:47:14 +0000 (UTC)
-Received: by mail-oo1-xc34.google.com with SMTP id
- 006d021491bc7-558cf19575dso402921eaf.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 05:47:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7085B10E615;
+	Fri, 16 Jun 2023 12:47:19 +0000 (UTC)
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E62F10E614
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 12:47:15 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-5147e40bbbbso861804a12.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 05:47:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686919634; x=1689511634;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4M70utfNWiSd56mHJg2tP551CWaio5hTlZ4noMCF1II=;
- b=naxY8lcxv8hShoQBHGFxJRxvaIY/blbaj4QkrDaR85bvMttOzR3h9W5NghJ8KmH1PP
- c3G9LZLYN7I8FeI9FBvCqYJRp8rmXE93ONhrcM+gRW//s0/1RJJrXdG8hPc5aW8JWqYG
- RJhCRwFk+ACw9oQzlMZcONTL9kJkP9S2nrdLGDLk/AG7EUcFItOyy6vPOh4lf45QLCfn
- 3oaxnv+20a3M5sK54CIG/xCb3faqgY/ZixXTqCCn6WGiUdK5OV7HkfqyJv3GHb+K5huo
- ntuwBfQhf6xT6CIEu4T11VcMlb+hCiyv2pxVuqUjwfOr0nGnVv6+q5TB5KAQZWsFIjic
- 8rnw==
+ d=gmail.com; s=20221208; t=1686919633; x=1689511633;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=RlfMi5vKY6QjjzfvXUGj6GpuwoT85GrBCFkNQAMVV2o=;
+ b=NQj7DotQV9hAyKF2H7hGm/sJPE0U7TPsb7TBy3tc8URRBgD6Kg+WecRSVMltioUphY
+ Q7V4CSK6Rs5BP1RBd10o8FTpgqbi2itwxI2lnVhthisCzeNcOXr65YEg1Xu3h9qaiXu9
+ esaIDnWj4niBdp1bdoaIpxeEyWSvlnDwTD6np1mudOUf2KiFG7TB3JnBQR9levwmYC4B
+ NLsO4Pi/9fgTJaLggOd0qyHdi/Ndy/d5UvKvNfXKDyrqr032CBn5/Qxyaju1EyxgcK1U
+ dcAEBv1aCDFoyUUkuuefPM37Xuw/q0m/ez1PJ4tpWapjxmnb1aB0FFCIld43sn0Ot4/X
+ IoUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686919634; x=1689511634;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4M70utfNWiSd56mHJg2tP551CWaio5hTlZ4noMCF1II=;
- b=e6qZhwUetBDr9uMPpsWioPY8Lrda5/UVpLRTjjBNambQNA4nNyaek+KwRhZk9fKHR3
- 72oG+22jWjoqo7VZnW2Ari62T9I3eYbQv8UTUKpbN6SO4/EzGBCv9cxCgODw19msbNK1
- FwsglYpJIWES1d98fdeZ8zGHiA0AfYPBwwhTFieGblSWahRiq31nVZi8Do7eog0BJIjb
- xEnIHAZcSKXXwnletcq4F+q2aCzSV8yYYyP+2oAaF4DWJn8hjl7KnbSRLe4kHv4+XlHL
- BvdxuUuexSxOi1Lls+IoD/vGZKOWuNyzeYgypdbUtvE2XGo9/fiI2shBBSnBPnMEmXPM
- 2unw==
-X-Gm-Message-State: AC+VfDz7jclayJ77qxXj40+pMhqH07riFcMGLRHnFIlxtGl6NCim6G3Q
- Q8v+AFyOYkk7TfG+ymtvTLhmJfOixM0E4PuiDMo=
-X-Google-Smtp-Source: ACHHUZ5YUjzL6SDSvnYqAV/NbYStWLoJITNh2Q5KXdzJKjWaG7JvEnV4H5OmNhVW9XD0Fe7Q208nHWgcL0sdbh87q4U=
-X-Received: by 2002:a4a:d557:0:b0:558:c15c:f62e with SMTP id
- q23-20020a4ad557000000b00558c15cf62emr1753819oos.8.1686919633760; Fri, 16 Jun
- 2023 05:47:13 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1686919633; x=1689511633;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=RlfMi5vKY6QjjzfvXUGj6GpuwoT85GrBCFkNQAMVV2o=;
+ b=KFMlGXVKD14BkXmCuoYFFKsSDS15HSibkBNNAU+8FM5eQDrEfTqkBRQd15BDb9El36
+ u15F3dNZyHSELBW6mw63upw/bmWEwdXM3kM6jMoDhaLAg9NKpIvxmC93DTpcEMfUqz1n
+ l6SuxUMKoaPga6nfkRch4oqaNB3bLdevr0oCMturNoRleCv+/5/GeCHkdftB8AoauK+6
+ pAcn4Qp2ew9XW7HY9uxvmd6ezSANENieXiRZkZ0RyepaXN+CXCJmNNyOSd/m8yoPzQJM
+ F0B3KD9Livekvj1wSsQkLii+z8yxhIzCAuJx8YNC8PxS/36krqcLa2ElAvv46h86p6vD
+ BPvw==
+X-Gm-Message-State: AC+VfDwzOA1VH22TsHUXwNEO0kHdMQ5Zn3ipGvqFxGue/kAWMwPC4Wyq
+ ip4ClpQe3/7q9DVFh3PpNvqq/Fxa1gM=
+X-Google-Smtp-Source: ACHHUZ44XoNiO+0nxzku5689vwwMnCSeaG/ynGoiIWIg3OHhPfRD3S9kbMfZ5k+F3R9AuLU8iCiQKw==
+X-Received: by 2002:a05:6402:29a:b0:514:945c:6cea with SMTP id
+ l26-20020a056402029a00b00514945c6ceamr1377382edv.37.1686919633136; 
+ Fri, 16 Jun 2023 05:47:13 -0700 (PDT)
+Received: from ?IPV6:2a00:e180:151b:3a00:4ba7:36a9:cecb:189?
+ ([2a00:e180:151b:3a00:4ba7:36a9:cecb:189])
+ by smtp.gmail.com with ESMTPSA id
+ e5-20020a056402104500b005153b12c9f7sm9959246edu.32.2023.06.16.05.47.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 Jun 2023 05:47:12 -0700 (PDT)
+Message-ID: <25182053-2c9f-fd10-68cf-31de4ae20045@gmail.com>
+Date: Fri, 16 Jun 2023 14:47:11 +0200
 MIME-Version: 1.0
-References: <20230616012015.3699013-1-evan.quan@amd.com>
- <20230616012015.3699013-2-evan.quan@amd.com>
-In-Reply-To: <20230616012015.3699013-2-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 16 Jun 2023 08:47:02 -0400
-Message-ID: <CADnq5_Nw=GJMZwDde1P38Okr5UcO2izW+v4RLvU_XfLwKYvyyA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/pm: update the LC_L1_INACTIIVY setting to
- address possible noise issue
-To: Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/amdgpu: enable mcbp by default on gfx9 chips
+Content-Language: en-US
+To: jiadong.zhu@amd.com, amd-gfx@lists.freedesktop.org
+References: <20230616050725.1464277-1-jiadong.zhu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230616050725.1464277-1-jiadong.zhu@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,44 +76,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Am 16.06.23 um 07:07 schrieb jiadong.zhu@amd.com:
+> From: Jiadong Zhu <Jiadong.Zhu@amd.com>
+>
+> Gfx9 is using software rings which would trigger mcbp in some cases.
+> Thus the parameter amdgpu_mcbp shall be enabled by default.
 
-On Thu, Jun 15, 2023 at 9:20=E2=80=AFPM Evan Quan <evan.quan@amd.com> wrote=
-:
+Actually the idea was to not need the amdgpu_mcbp parameter any more and 
+deprecate it with the use of the software rings.
+
+Why is that still necessary?
+
+Regards,
+Christian.
+
 >
-> It is proved that insufficient LC_L1_INACTIIVY setting can cause audio
-> noise on some platform. With the LC_L1_INACTIIVY increased to 4ms, the
-> issue can be resolved.
->
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 1 +
+>   1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd=
-/amdgpu/nbio_v2_3.c
-> index 7ba47fc1917b..4038455d7998 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-> @@ -345,7 +345,7 @@ static void nbio_v2_3_init_registers(struct amdgpu_de=
-vice *adev)
->  }
->
->  #define NAVI10_PCIE__LC_L0S_INACTIVITY_DEFAULT         0x00000000 // off=
- by default, no gains over L1
-> -#define NAVI10_PCIE__LC_L1_INACTIVITY_DEFAULT          0x00000009 // 1=
-=3D1us, 9=3D1ms
-> +#define NAVI10_PCIE__LC_L1_INACTIVITY_DEFAULT          0x0000000A // 1=
-=3D1us, 9=3D1ms, 10=3D4ms
->  #define NAVI10_PCIE__LC_L1_INACTIVITY_TBT_DEFAULT      0x0000000E // 400=
-ms
->
->  static void nbio_v2_3_enable_aspm(struct amdgpu_device *adev,
-> --
-> 2.34.1
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 65577eca58f1..1b3cfda946f9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -4527,6 +4527,7 @@ static int gfx_v9_0_early_init(void *handle)
+>   	adev->gfx.xcc_mask = 1;
+>   	adev->gfx.num_compute_rings = min(amdgpu_gfx_get_num_kcq(adev),
+>   					  AMDGPU_MAX_COMPUTE_RINGS);
+> +	amdgpu_mcbp = 1;
+>   	gfx_v9_0_set_kiq_pm4_funcs(adev);
+>   	gfx_v9_0_set_ring_funcs(adev);
+>   	gfx_v9_0_set_irq_funcs(adev);
+
