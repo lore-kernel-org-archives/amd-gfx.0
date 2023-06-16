@@ -4,60 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDFFAEB64D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 14:12:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1F8FEB64D7
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 14:22:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7790610E635;
-	Fri, 16 Jun 2023 14:12:04 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BBA010E635
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 14:12:02 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id
- 5614622812f47-39e86b3da59so618432b6e.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 07:12:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686924722; x=1689516722;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZR8l87uxMTn24HKBJkRWEV1gNPPBQJxvGEngYiN4xkQ=;
- b=j5WOs6Ftj3JBiMEpAfWucV9BkxMbsAsHbfb/l4V8+uuD51kAZDiU5t9DOOKK3gIUdK
- z9T5+6pWqpRNpHx89X123mOstQwn8SvXyIWxcRtb37fzf5RQnxMqLPqN/wCMf9oe+dmp
- iGU57FwGUdCtpT2+tLzrqq3Iz9+gnZYoLyPziEk/k1Hhc3UbDoboIi6Tnwjti2rLP5bT
- f0A66MNudWL5BGLCPp3QmxDS8nTprmANOSnj4ClSTXybkFimf+gdma/1onkcQThsbAtX
- febgJqw5hpeT4XLhqWhio+OnMSspZt6yEm4qlxsfu6ZJPBH3PE3VzK1ayp9e8U467lEA
- cAhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686924722; x=1689516722;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ZR8l87uxMTn24HKBJkRWEV1gNPPBQJxvGEngYiN4xkQ=;
- b=DNZu63XyiNB/ckplxsWqYdRLgh6+6yQzO2EOsjC4N6zqn44o+viH2YBXOCZPxqFgmD
- Eljo937IswClbwWuei0cfx2bszuiYuAmIlh/7GuHAS/tyjBeBPJ2fSO1qevoMQ5vDezZ
- BJ6CcMQCbPzo5IoEyhKd/Iarlz89MQckC+vuIF0B9zdBi4mSETSapywp+6EO/xDOvXIE
- PloSSGME+URFC/QIOPDZ403TwdpBHy5VKaWVBgOoJ2z19YTsHId3MZ2vIiGQSlx5uwtG
- Gygy8lSpLWYAhbySP0SIli+lwzwZIFZ+QV762MrQlaVuGPQWoazoTPM9ZNjxxh7d/V/Y
- JyYA==
-X-Gm-Message-State: AC+VfDy+JlxNcZh3pLvVWWxsDhznYgjI/sPp2Mgg+yWI/SoE3xAkNRbk
- En68jUBvyi+um3z1U5NSGwg9jcP3cWv14nLH3YY=
-X-Google-Smtp-Source: ACHHUZ7S7UcTqzYA4X92kgh1zTF0zzUpPOtfVou4EAWc1BUBVzWSXBetXuQNVekQXln0eh+Olb1I2/5nGt05X9ocfS4=
-X-Received: by 2002:a05:6808:2394:b0:39e:78ae:1d2c with SMTP id
- bp20-20020a056808239400b0039e78ae1d2cmr2519162oib.58.1686924721691; Fri, 16
- Jun 2023 07:12:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31E2010E632;
+	Fri, 16 Jun 2023 14:22:57 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2A49410E632;
+ Fri, 16 Jun 2023 14:22:53 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8Ax0Og6cIxkUwEGAA--.10880S3;
+ Fri, 16 Jun 2023 22:22:50 +0800 (CST)
+Received: from [10.20.42.43] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8CxXMo5cIxkFl4dAA--.9099S3; 
+ Fri, 16 Jun 2023 22:22:49 +0800 (CST)
+Message-ID: <f08b6a76-6c90-b59b-ff43-c779ef759d09@loongson.cn>
+Date: Fri, 16 Jun 2023 22:22:49 +0800
 MIME-Version: 1.0
-References: <20230616062708.15913-1-samuel.pitoiset@gmail.com>
- <20230616131407.170149-1-samuel.pitoiset@gmail.com>
-In-Reply-To: <20230616131407.170149-1-samuel.pitoiset@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 16 Jun 2023 10:11:50 -0400
-Message-ID: <CADnq5_MxYHW8-LYvm2KevPQaiQGh=Yzq1QO7ejc7hwzjeZXW9Q@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: fix clearing mappings for BOs that are
- always valid in VM
-To: Samuel Pitoiset <samuel.pitoiset@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v7 2/8] PCI/VGA: Deal only with VGA class devices
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <20230613030151.216625-1-15330273260@189.cn>
+ <20230613030151.216625-3-15330273260@189.cn>
+ <dbf0d89f-717a-1f78-aef2-f30506751d4d@loongson.cn>
+ <CADnq5_N6vVtzH6tzguZdHnP_TdRoG1G-Cr94O+X03jvtk=vhag@mail.gmail.com>
+ <3c1c86ab-96ea-aa1c-c9c5-9a4012644fd6@loongson.cn>
+ <CADnq5_Px-HWfwetv8LZsCnCeV7SMt_uqtLwMVK7648ZQiP2RCQ@mail.gmail.com>
+Content-Language: en-US
+From: Sui Jingfeng <suijingfeng@loongson.cn>
+Organization: Loongson
+In-Reply-To: <CADnq5_Px-HWfwetv8LZsCnCeV7SMt_uqtLwMVK7648ZQiP2RCQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: AQAAf8CxXMo5cIxkFl4dAA--.9099S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoW3JF4UJr48trW3WF15GrWfWFX_yoWxKw13pF
+ WrGFW5KFWkJFy7Cw12qw1vqFyYv3s5tFyrXr1rK3sakrs0yr1UGryrK3y5u34xZrs5GF1I
+ vr4UJFy7ua4YqagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+ xVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+ Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE
+ 14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
+ AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
+ rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
+ CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
+ 67AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr
+ 0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8cz
+ VUUUUUU==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,72 +68,247 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Sui Jingfeng <15330273260@189.cn>, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-pci@vger.kernel.org,
+ Bjorn Helgaas <bhelgaas@google.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
 
-Alex
+On 2023/6/16 21:41, Alex Deucher wrote:
+> On Fri, Jun 16, 2023 at 3:11 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
+>> Hi,
+>>
+>> On 2023/6/16 05:11, Alex Deucher wrote:
+>>> On Wed, Jun 14, 2023 at 6:50 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
+>>>> Hi,
+>>>>
+>>>> On 2023/6/13 11:01, Sui Jingfeng wrote:
+>>>>> From: Sui Jingfeng <suijingfeng@loongson.cn>
+>>>>>
+>>>>> Deal only with the VGA devcie(pdev->class == 0x0300), so replace the
+>>>>> pci_get_subsys() function with pci_get_class(). Filter the non-PCI display
+>>>>> device(pdev->class != 0x0300) out. There no need to process the non-display
+>>>>> PCI device.
+>>>>>
+>>>>> Cc: Bjorn Helgaas <bhelgaas@google.com>
+>>>>> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+>>>>> ---
+>>>>>     drivers/pci/vgaarb.c | 22 ++++++++++++----------
+>>>>>     1 file changed, 12 insertions(+), 10 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+>>>>> index c1bc6c983932..22a505e877dc 100644
+>>>>> --- a/drivers/pci/vgaarb.c
+>>>>> +++ b/drivers/pci/vgaarb.c
+>>>>> @@ -754,10 +754,6 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
+>>>>>         struct pci_dev *bridge;
+>>>>>         u16 cmd;
+>>>>>
+>>>>> -     /* Only deal with VGA class devices */
+>>>>> -     if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
+>>>>> -             return false;
+>>>>> -
+>>>> Hi, here is probably a bug fixing.
+>>>>
+>>>> For an example, nvidia render only GPU typically has 0x0380.
+>>>>
+>>>> as its PCI class number, but render only GPU should not participate in
+>>>> the arbitration.
+>>>>
+>>>> As it shouldn't snoop the legacy fixed VGA address.
+>>>>
+>>>> It(render only GPU) can not display anything.
+>>>>
+>>>>
+>>>> But 0x0380 >> 8 = 0x03, the filter  failed.
+>>>>
+>>>>
+>>>>>         /* Allocate structure */
+>>>>>         vgadev = kzalloc(sizeof(struct vga_device), GFP_KERNEL);
+>>>>>         if (vgadev == NULL) {
+>>>>> @@ -1500,7 +1496,9 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+>>>>>         struct pci_dev *pdev = to_pci_dev(dev);
+>>>>>         bool notify = false;
+>>>>>
+>>>>> -     vgaarb_dbg(dev, "%s\n", __func__);
+>>>>> +     /* Only deal with VGA class devices */
+>>>>> +     if (pdev->class != PCI_CLASS_DISPLAY_VGA << 8)
+>>>>> +             return 0;
+>>>> So here we only care 0x0300, my initial intent is to make an optimization,
+>>>>
+>>>> nowadays sane display graphic card should all has 0x0300 as its PCI
+>>>> class number, is this complete right?
+>>>>
+>>>> ```
+>>>>
+>>>> #define PCI_BASE_CLASS_DISPLAY        0x03
+>>>> #define PCI_CLASS_DISPLAY_VGA        0x0300
+>>>> #define PCI_CLASS_DISPLAY_XGA        0x0301
+>>>> #define PCI_CLASS_DISPLAY_3D        0x0302
+>>>> #define PCI_CLASS_DISPLAY_OTHER        0x0380
+>>>>
+>>>> ```
+>>>>
+>>>> Any ideas ?
+>>> I'm not quite sure what you are asking about here.
+>> To be honest, I'm worried about the PCI devices which has a
+>>
+>> PCI_CLASS_DISPLAY_XGA as its PCI class number.
+>>
+>> As those devices are very uncommon in the real world.
+>>
+>>
+>> $ find . -name "*.c" -type f | xargs grep "PCI_CLASS_DISPLAY_XGA"
+>>
+>>
+>> Grep the "PCI_CLASS_DISPLAY_XGA" in the linux kernel tree got ZERO,
+>>
+>> there no code reference this macro. So I think it seems safe to ignore
+>> the XGA ?
+>>
+>>
+>> PCI_CLASS_DISPLAY_3D and PCI_CLASS_DISPLAY_OTHER are used to annotate
+>> the render-only GPU.
+>>
+>> And render-only GPU can't decode the fixed VGA address space, it is safe
+>> to ignore them.
+>>
+>>
+>>>    For vga_arb, we
+>>> only care about VGA class devices since those should be on the only
+>>> ones that might have VGA routed to them.
+>>>    However, as VGA gets deprecated,
+>> We need the vgaarb for a system with multiple video card.
+>>
+>> Not only because some Legacy VGA devices implemented
+>>
+>> on PCI will typically have the same "hard-decoded" addresses;
+>>
+>> But also these video card need to participate in the arbitration,
+>>
+>> determine the default boot device.
+> But couldn't the boot device be determined via what whatever resources
+> were used by the pre-OS console?
 
-On Fri, Jun 16, 2023 at 9:38=E2=80=AFAM Samuel Pitoiset
-<samuel.pitoiset@gmail.com> wrote:
+I don't know what you are refer to by saying  pre-OS console, UEFI 
+SHELL,  UEFI GOP  or something like that.
+
+If you are referring to the framebuffer driver which light up the screen 
+before the Linux kernel is loaded .
+
+
+Then, what you have said is true,  the boot device is determined by the 
+pre-OS console.
+
+But the problem is how does the Linux kernel(vgaarb) could know which 
+one is the default boot device
+
+on a multiple GPU machine.  Relaying on the firmware fb's address and 
+size is what the mechanism
+
+we already in using.
+
+
+>   I feel like that should be separate from vgaarb.
+
+Emm, this really deserved another patch, please ?
+
+>   vgaarb should handle PCI VGA routing and some other
+> mechanism should be used to determine what device provided the pre-OS
+> console.
+
+If the new mechanism need the firmware changed, then this probably break 
+the old machine.
+
+Also, this probably will get all arch involved. to get the new mechanism 
+supported.
+
+The testing pressure and review power needed is quite large.
+
+drm/amdgpu and drm/radeon already being used on X86, ARM64,  Mips and 
+more arch...
+
+The reviewing process will became quite difficult then.
+
+vgaarb is really what we already in use, and being used more than ten 
+years ...
+
+
+> Alex
 >
-> Per VM BOs must be marked as moved or otherwise their ranges are not
-> updated on use which might be necessary when the replace operation
-> splits mappings.
->
-> This fixes random GPU hangs when replacing sparse mappings from the
-> userspace, while OP_MAP/OP_UNMAP works fine because always valid BOs
-> are correctly handled there.
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Samuel Pitoiset <samuel.pitoiset@gmail.com>
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index 143d11afe0e5..eff73c428b12 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1771,18 +1771,30 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_dev=
-ice *adev,
->
->         /* Insert partial mapping before the range */
->         if (!list_empty(&before->list)) {
-> +               struct amdgpu_bo *bo =3D before->bo_va->base.bo;
-> +
->                 amdgpu_vm_it_insert(before, &vm->va);
->                 if (before->flags & AMDGPU_PTE_PRT)
->                         amdgpu_vm_prt_get(adev);
-> +
-> +               if (bo && bo->tbo.base.resv =3D=3D vm->root.bo->tbo.base.=
-resv &&
-> +                   !before->bo_va->base.moved)
-> +                       amdgpu_vm_bo_moved(&before->bo_va->base);
->         } else {
->                 kfree(before);
->         }
->
->         /* Insert partial mapping after the range */
->         if (!list_empty(&after->list)) {
-> +               struct amdgpu_bo *bo =3D after->bo_va->base.bo;
-> +
->                 amdgpu_vm_it_insert(after, &vm->va);
->                 if (after->flags & AMDGPU_PTE_PRT)
->                         amdgpu_vm_prt_get(adev);
-> +
-> +               if (bo && bo->tbo.base.resv =3D=3D vm->root.bo->tbo.base.=
-resv &&
-> +                   !after->bo_va->base.moved)
-> +                       amdgpu_vm_bo_moved(&after->bo_va->base);
->         } else {
->                 kfree(after);
->         }
-> --
-> 2.41.0
->
+
+>>
+>> Nowadays, the 'VGA devices' here is stand for the Graphics card
+>>
+>> which is capable of display something on the screen.
+>>
+>> We still need vgaarb to select the default boot device.
+>>
+>>
+>>> you'll have more non VGA PCI classes for devices which
+>>> could be the pre-OS console device.
+>> Ah, we still want  do this(by applying this patch) first,
+>>
+>> and then we will have the opportunity to see who will crying if
+>> something is broken. Will know more then.
+>>
+>> But drop this patch or revise it with more consideration is also
+>> acceptable.
+>>
+>>
+>> I asking about suggestion and/or review.
+>>
+>>> Alex
+>>>
+>>>>>         /* For now we're only intereted in devices added and removed. I didn't
+>>>>>          * test this thing here, so someone needs to double check for the
+>>>>> @@ -1510,6 +1508,8 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+>>>>>         else if (action == BUS_NOTIFY_DEL_DEVICE)
+>>>>>                 notify = vga_arbiter_del_pci_device(pdev);
+>>>>>
+>>>>> +     vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
+>>>>> +
+>>>>>         if (notify)
+>>>>>                 vga_arbiter_notify_clients();
+>>>>>         return 0;
+>>>>> @@ -1534,8 +1534,8 @@ static struct miscdevice vga_arb_device = {
+>>>>>
+>>>>>     static int __init vga_arb_device_init(void)
+>>>>>     {
+>>>>> +     struct pci_dev *pdev = NULL;
+>>>>>         int rc;
+>>>>> -     struct pci_dev *pdev;
+>>>>>
+>>>>>         rc = misc_register(&vga_arb_device);
+>>>>>         if (rc < 0)
+>>>>> @@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
+>>>>>
+>>>>>         /* We add all PCI devices satisfying VGA class in the arbiter by
+>>>>>          * default */
+>>>>> -     pdev = NULL;
+>>>>> -     while ((pdev =
+>>>>> -             pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
+>>>>> -                            PCI_ANY_ID, pdev)) != NULL)
+>>>>> +     while (1) {
+>>>>> +             pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
+>>>>> +             if (!pdev)
+>>>>> +                     break;
+>>>>> +
+>>>>>                 vga_arbiter_add_pci_device(pdev);
+>>>>> +     }
+>>>>>
+>>>>>         pr_info("loaded\n");
+>>>>>         return rc;
+>>>> --
+>>>> Jingfeng
+>>>>
+>> --
+>> Jingfeng
+>>
+-- 
+Jingfeng
+
