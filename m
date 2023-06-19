@@ -4,116 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4550EB64DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jun 2023 14:13:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CAD4EB64D9
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jun 2023 14:25:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23B0F10E211;
-	Mon, 19 Jun 2023 14:13:48 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2055.outbound.protection.outlook.com [40.107.237.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9B7610E210;
- Mon, 19 Jun 2023 14:13:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lMWnX9Gdtvo78tekVuWBvMEuChRU7R4jKiQmb3DbJTvELslkVzgQV0bumuKu1nWhC/4uDrNvQaEddSacerynqDmrlkeoYsLcyn6VuM4z4qsDtOdsOsRPDcr/qJj0evRLkd/ksmJeXjk32LB2NELqm6Cq/Rk17IiIZ1oXEwmLTekYju+kKg9ynDvv8oor2bRSUDQeY7Ix6wYVqzApFJx5kGa+omKegNQls17Esh9vHUJQS2u2+hqm6D2trmB06k11vs9c1G+orhSpOePWp5zcqHagLm6p/Lr26+hq57RoTv8FrUjiBm4qf2e5ytMWTHqz3ie52yQ9vuKRy4fOyahyZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=auHddwvWgj4D7Dk30pz0Uz7hxQo0gXdYDCS2DoDGxXI=;
- b=VS49R00bfgBNJ7cnv+0QUK/26YLGTQ+TRVHnNaqwWOvrGjvdqco3qssQPLD7c+cc6yz+5MTjdG1p5t1rBuOFN3gNFtoTVbI5/n/BnBONlPGOlVX/x+tVoB+UpuRM13nHQ/AwZB+HUBzOQDwU2Pdi001Yg1aMA7ZcWFMOnPQiYGJCrHGYstaMbps0Ex/hJP6vze28azfmst/Zs5AtZUAkITjeJHU2bKrqAmuhIaRFO+Z/G9LI8u91nhNL+nGkmS/WOTr37q45KdetoLRydqvMVkDg/dn75cT3sP9assmLSSuRMoUaT85NrWLSM2QF34ub3aMBrPNLkGsVyIrAQsf35A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=auHddwvWgj4D7Dk30pz0Uz7hxQo0gXdYDCS2DoDGxXI=;
- b=ssg+2XLY3r/WfAP8iHnV50/ktJspCTnnDoZsuqCWhRd2HAcXRP11sTdaXal357Nqgcx+0m3Ob5UCUyyAsctXKght+uRoPZ5MHcyw9e/29qrwL0CYT/uvIK6oWmWEz3naCMDicufhFTywWfdYvr2yszDgXjbWC8Z/sWIRcHwNVik=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SN7PR12MB7228.namprd12.prod.outlook.com (2603:10b6:806:2ab::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.36; Mon, 19 Jun
- 2023 14:13:41 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::384a:95a4:8819:ee84]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::384a:95a4:8819:ee84%7]) with mapi id 15.20.6500.036; Mon, 19 Jun 2023
- 14:13:41 +0000
-Message-ID: <74d264fe-7f76-0744-7011-56e04ad1f48a@amd.com>
-Date: Mon, 19 Jun 2023 16:13:37 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D11A10E213;
+	Mon, 19 Jun 2023 14:25:16 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A598710E20E;
+ Mon, 19 Jun 2023 14:25:13 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A053B1F88B;
+ Mon, 19 Jun 2023 14:25:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1687184711; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=EmdngxdAfAdRgeTQ6brD+4mCQGX0/rNR5zaq9QX/X+g=;
+ b=aATEIAOWmR+BcBidW/b6YkNuEgvYUz+VI2fuExf86NP6c1AzA34fNqFotJXEvgOFm0Fzg7
+ SKyy7Exx4gPUIzdQO5cCSk47GTIQycnVnxblllTk//p5QelEsADil5/l1ifk/TdS4y0K6j
+ NKKJS0c7RBybUcdFstMw3QtrcySxylA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1687184711;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=EmdngxdAfAdRgeTQ6brD+4mCQGX0/rNR5zaq9QX/X+g=;
+ b=3yt+/9EaX+EC1a12GaIJIrwU9b7EPKH/teoGEsxw4JWTypLmNrG4k0N5rlOAmOKTIFdajf
+ jH/lm/X1JehVSpBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7BC59138E8;
+ Mon, 19 Jun 2023 14:25:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id P7VIHUdlkGQCIgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Jun 2023 14:25:11 +0000
+Message-ID: <8df0c3a6-363e-b3dc-f6e2-4a20188e29e0@suse.de>
+Date: Mon, 19 Jun 2023 16:25:09 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+ Thunderbird/102.12.0
 Subject: Re: [PATCH] drm/amdgpu: Remove struct drm_driver.gem_prime_mmap
 Content-Language: en-US
-To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
- Xinhui.Pan@amd.com, jani.nikula@linux.intel.com
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, jani.nikula@linux.intel.com
 References: <20230619141129.2002-1-tzimmermann@suse.de>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230619141129.2002-1-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0096.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::19) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SN7PR12MB7228:EE_
-X-MS-Office365-Filtering-Correlation-Id: da5f51d6-c7c3-4197-cd4d-08db70cf6218
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MN4tlw9Y3RpQfYqbmnTskwiHpU4d6guV/TS0twNzm/ftrHf/TSwTAOHEVKzQm87bCfX4gy5yFFdZtBxPjSkttD0pkXR2sCrh0ZaDyMpNThIVDq2K6GaGuKhv0BD9k40XM+d20+HoTeS4utTWFSzZDprrGXUu+fga8IMO80ZKuGfyN1W/27MaRoCVAUk0XfVb2FxzcYvoaI993v/GOgvENrZrDwmX12+/7Tm8L74fABpJ2MS+TR5US9RYGUQ+Q41VHRaGsVWOiyRyIPCCiHwiRcEjnyDsAOdkMlU8OtyWwe7k+oWfeDN08qqYAgXqK5/hqZdgzmDTUdQI9nSGtOEiXzTrW94xVsxFwPHmtdIYHrgQ9GYEM5g126zNskpHZna9d9MgLOV/iiTZxUsY7SD7swNhqbhXjvA5zUXu2uSg+S4U++CmWYaRup+y72Ecog30YgYMVuq0j2AyuLlkVkawc5hlPr9wjKleMBg8Zp6u2rhoqbCRV0/E/vCwaEc0m6VWiIY6kvn6/tgoGPK0Pnp6ftNPyi4TZaJQbvDqYZJwaN6UeA6wOC8AnzDVbuxKOxSnS2V8nJa4x2Alxr6cJFiDp/WUbXQDYLFpIusEi/p8Fd5grkEMIlmr92ID7u8IkIUucQuAY/+yfUW+JwVzejqAIg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(136003)(366004)(39860400002)(396003)(346002)(451199021)(86362001)(31696002)(41300700001)(8676002)(8936002)(5660300002)(66556008)(66476007)(66946007)(316002)(31686004)(2616005)(38100700002)(83380400001)(66574015)(186003)(36756003)(6512007)(6486002)(6666004)(6506007)(4326008)(478600001)(2906002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RGtmY3BhODdrRFd4MFlBOXc0UGdoMVAzdXBmTmxGWkY4OG1FNVRrWFVTVmZy?=
- =?utf-8?B?ZkV3Vkx5d1BldlJ3Y0hJSyt3L0puOG9LTERZckt1ZU5pUkhWMEtERU9OL3Mz?=
- =?utf-8?B?eElJa2pDbDlWbHZHN3kvR1VBTytENUluNkJuSHB4UTcvY043MjYrTmhYODdY?=
- =?utf-8?B?elNua0xYZGNVYnZrZTRRc3ZTNEpVdWE1bDRveUhiWmRSK0hzUkVVOE1MWUFy?=
- =?utf-8?B?cEc4bDZMbFEyWG5DN3E3L08zZGpnSHVETWZpQ1JCWisxa3dxaitqRTZjVVFI?=
- =?utf-8?B?TW53VVd0LytpR2Y1WmFUVmF3TXRTWG1UeDRGbXM4YnkvUFRtTFdzZ21UcnpI?=
- =?utf-8?B?TzgyTlY4cGFiQ2dKRWhsVm10Tks5YTM0VGpCbURTTVhHVnIyU1lWZUtSN2JP?=
- =?utf-8?B?VW11MlROdEpTcHdyWTk0dDYxV2hoTGErTmRYdGpLOTdlUTNGeVFaOUNtYVhE?=
- =?utf-8?B?NHNDMnpzSktjOTIyTlNyWTdMNFFOaWJreFZQeWhQejhEV0tGZHZLdGtGQjJi?=
- =?utf-8?B?NG9FaFBUZ0l4VU9kL2l2REY5aGx6NHR4YWo3dGZmR0xsc1NkYkFjTDhvWHNW?=
- =?utf-8?B?bmIxYlV6UHJrQzZjU2ZPOGJtMGs0WE9GbEREdVE2MjFNNUpzdEZoaVg2Ry9w?=
- =?utf-8?B?S3VhbCtKb3c5ei9zUUpHYndCWEoycXQvU2gxeTdONHFXQXk1Rlh0QnNQd3dG?=
- =?utf-8?B?bkVNUFZHcXVnbWxKMFdneWZJSGpTSFFnVDJnZHNoaUtRZFVWYnM5YTVNYXU0?=
- =?utf-8?B?V01QZU9zZ1d5c01OUkJoVERPZE9oUE9uSlpHRjhjUm5STkYycGw5M3NZb1NX?=
- =?utf-8?B?RDVvL1BUZ3dKMHJqWVNQRkc3Q245RmxDdDdOTE96dGtHZ01UUTRGUnpHUWtU?=
- =?utf-8?B?UVNZNEtXVmQvS2x5MGtvaldTZ29zQ1FNR0U5c3BNT2dSTnB1d1M1RE5uSEx2?=
- =?utf-8?B?QmxzQjhyR0pJU3hEMzRvdy9LMDBnZmJMMTFiY0V4OGhPYW1jYy80bXpFbkRp?=
- =?utf-8?B?R2gyY3BFUHp5aExXNCtlK3Qyc1grZTdyUTFmcWVWR1J6V1BIeUpHRzdSNzVm?=
- =?utf-8?B?Rm1FbTBMc2tzcFFyQU1raTBKWElFb2R5T1VkRzdIVFhIeDZMbmpZUDljYlB0?=
- =?utf-8?B?ZXMyQkFDWkxBdUhjbGtNWFlzeWRiLysvanFXcjhzN2FsT29rd0xzTWMxMm52?=
- =?utf-8?B?cWpCM1Z3dWw0OHBUS055emNlU0ZmWWxZMlJjOVRFa3p4YW9HZmVDM1k5RExp?=
- =?utf-8?B?cXZROHJYanYrNHUyR1VxdWFTeU9SSWJzalF4RFdOQSsyZmdOUncvdE02NDJM?=
- =?utf-8?B?Tmd1UWR2dHZTMTB6OFJMOXRnenN2aHJPWmVJZVhBMXpjdGxSVTE1aHpiOUpn?=
- =?utf-8?B?c2ZhVlFCTStMcWc1Q3dMejUvYjZZUVpvSW04eTY4d1ZBNWxwRG9SbzZHdEdi?=
- =?utf-8?B?MUszcHVsM3ZsNGk1dytmRnpjU1hqS2xZNysvcVIycHJrWW13S3k4Smx0S1Rv?=
- =?utf-8?B?bGJMZ0gwK0RPVUxESW0zMm43UkhZcTNaUDFWNUpWOXhtL2g5K2dOaUhaNHlz?=
- =?utf-8?B?NDJnb0tlSkk1T1lsUEhkV2Z0T1BEUWVsR3RGeDFHL0RTVy82NTJKWk1UOTY5?=
- =?utf-8?B?NFJxOGN5d2JBSjArYlRUNWVucEtaMVpsTnRNdnEyQUhVcVRBWmRVRnlvcWRL?=
- =?utf-8?B?bjBpTzU0dUFHeUVaV2ZqM1BiM3UxL2licm9HQWZHUjNJU2ZpdG1ESDR1ZUs5?=
- =?utf-8?B?aWsxRHJZYXFoV1VPZEh0TkVvUm5UVzRXS084QnIzVmlkMjVVVjlEYVpQa0gy?=
- =?utf-8?B?V0E3eVh2RlNlbUlnQk80Y1dLZ2VWRHk3aldoU1UxRjFkTHgxSXRPVHlpNS9C?=
- =?utf-8?B?ZGtmRjVnTGgrcmc0R1g4VVJ5SVp2ZWYxckU1OE83SFZXZS9mSmxFOFpMbngv?=
- =?utf-8?B?QmVXY3UwSE5tR0N4UTg4cllndVJ2WWt2OHIxTkFHZ29KdWVVWDNpQjZTMVVH?=
- =?utf-8?B?TmRVdFZFTDhzVkpMOXI2VXpCYVpDbTliKzVPM29weVNFeXRLRzVnME5IY2Qv?=
- =?utf-8?B?dHA3KzQvd01FZlplT1JwbEZIRXNWWEc0M1JhT09yQnJHb2dBNnd4emsyNjE3?=
- =?utf-8?B?SGQ2KzlMSkdKV1hsMit5cUljdTBmeFJtOW5kZGhDb3dQQU5ZQ1JoNVJoWUVO?=
- =?utf-8?Q?l5/gjEhqp3EZT3xUOq+g4G+Trq8hLIV5c7R9CECqT3qD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da5f51d6-c7c3-4197-cd4d-08db70cf6218
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2023 14:13:41.4098 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fTSNQNXDa3D343Lu07yB8BIOVk9U3NwJrdNHUM43prvy4FBGuUiir4R8GOaBXmS5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7228
+ <74d264fe-7f76-0744-7011-56e04ad1f48a@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <74d264fe-7f76-0744-7011-56e04ad1f48a@amd.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------PYXjclUKBg4mT201Iet8I7yR"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,43 +70,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------PYXjclUKBg4mT201Iet8I7yR
+Content-Type: multipart/mixed; boundary="------------nMFW0QgY45SzlgbvahcOTeHi";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, jani.nikula@linux.intel.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Message-ID: <8df0c3a6-363e-b3dc-f6e2-4a20188e29e0@suse.de>
+Subject: Re: [PATCH] drm/amdgpu: Remove struct drm_driver.gem_prime_mmap
+References: <20230619141129.2002-1-tzimmermann@suse.de>
+ <74d264fe-7f76-0744-7011-56e04ad1f48a@amd.com>
+In-Reply-To: <74d264fe-7f76-0744-7011-56e04ad1f48a@amd.com>
 
+--------------nMFW0QgY45SzlgbvahcOTeHi
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Am 19.06.23 um 16:11 schrieb Thomas Zimmermann:
-> The callback struct drm_driver.gem_prime_mmap as been removed in
-> commit 0adec22702d4 ("drm: Remove struct drm_driver.gem_prime_mmap").
-> Do not assign to it. The assigned function, drm_gem_prime_mmap(), is
-> now the default for the operation, so there is no change in functionality.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: 0adec22702d4 ("drm: Remove struct drm_driver.gem_prime_mmap")
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: "Christian König" <christian.koenig@amd.com>
-> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
+SGkgQ2hyaXN0aWFuDQoNCkFtIDE5LjA2LjIzIHVtIDE2OjEzIHNjaHJpZWIgQ2hyaXN0aWFu
+IEvDtm5pZzoNCj4gDQo+IA0KPiBBbSAxOS4wNi4yMyB1bSAxNjoxMSBzY2hyaWViIFRob21h
+cyBaaW1tZXJtYW5uOg0KPj4gVGhlIGNhbGxiYWNrIHN0cnVjdCBkcm1fZHJpdmVyLmdlbV9w
+cmltZV9tbWFwIGFzIGJlZW4gcmVtb3ZlZCBpbg0KPj4gY29tbWl0IDBhZGVjMjI3MDJkNCAo
+ImRybTogUmVtb3ZlIHN0cnVjdCBkcm1fZHJpdmVyLmdlbV9wcmltZV9tbWFwIikuDQo+PiBE
+byBub3QgYXNzaWduIHRvIGl0LiBUaGUgYXNzaWduZWQgZnVuY3Rpb24sIGRybV9nZW1fcHJp
+bWVfbW1hcCgpLCBpcw0KPj4gbm93IHRoZSBkZWZhdWx0IGZvciB0aGUgb3BlcmF0aW9uLCBz
+byB0aGVyZSBpcyBubyBjaGFuZ2UgaW4gDQo+PiBmdW5jdGlvbmFsaXR5Lg0KPj4NCj4+IFNp
+Z25lZC1vZmYtYnk6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0K
+Pj4gRml4ZXM6IDBhZGVjMjI3MDJkNCAoImRybTogUmVtb3ZlIHN0cnVjdCBkcm1fZHJpdmVy
+LmdlbV9wcmltZV9tbWFwIikNCj4+IENjOiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1h
+bm5Ac3VzZS5kZT4NCj4+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
+ZC5jb20+DQo+PiBDYzogIkNocmlzdGlhbiBLw7ZuaWciIDxjaHJpc3RpYW4ua29lbmlnQGFt
+ZC5jb20+DQo+PiBDYzogIlBhbiwgWGluaHVpIiA8WGluaHVpLlBhbkBhbWQuY29tPg0KPj4g
+Q2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+PiBDYzogZHJpLWRldmVsQGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZw0KPiANCj4gUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7Zu
+aWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCg0KVGhhbmtzIGZvciB0aGUgcXVpY2sg
+cmVzcG9uc2UuIEknbGwgYWRkIHRoZSBwYXRjaCB0byBkcm0tbWlzYy1uZXh0IA0KaW1tZWRp
+YXRlbHksIHRvIG1ha2UgdGhlIHRyZWUncyBhbWRncHUgYnVpbGQgYWdhaW4uDQoNCkJlc3Qg
+cmVnYXJkcw0KVGhvbWFzDQoNCj4gDQo+PiAtLS0NCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyB8IDEgLQ0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDEg
+ZGVsZXRpb24oLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2Rydi5jIA0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZHJ2LmMNCj4+IGluZGV4IDQzNjEzNTY5ODAxYjYuLjA3ZTE2YWQ0NjVkMDYgMTAw
+NjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMN
+Cj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYw0KPj4g
+QEAgLTI4NzksNyArMjg3OSw2IEBAIGNvbnN0IHN0cnVjdCBkcm1fZHJpdmVyIGFtZGdwdV9w
+YXJ0aXRpb25fZHJpdmVyID0gew0KPj4gwqDCoMKgwqDCoCAucHJpbWVfaGFuZGxlX3RvX2Zk
+ID0gZHJtX2dlbV9wcmltZV9oYW5kbGVfdG9fZmQsDQo+PiDCoMKgwqDCoMKgIC5wcmltZV9m
+ZF90b19oYW5kbGUgPSBkcm1fZ2VtX3ByaW1lX2ZkX3RvX2hhbmRsZSwNCj4+IMKgwqDCoMKg
+wqAgLmdlbV9wcmltZV9pbXBvcnQgPSBhbWRncHVfZ2VtX3ByaW1lX2ltcG9ydCwNCj4+IC3C
+oMKgwqAgLmdlbV9wcmltZV9tbWFwID0gZHJtX2dlbV9wcmltZV9tbWFwLA0KPj4gwqDCoMKg
+wqDCoCAubmFtZSA9IERSSVZFUl9OQU1FLA0KPj4gwqDCoMKgwqDCoCAuZGVzYyA9IERSSVZF
+Ul9ERVNDLA0KPiANCg0KLS0gDQpUaG9tYXMgWmltbWVybWFubg0KR3JhcGhpY3MgRHJpdmVy
+IERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFueSBHbWJIDQpGcmFu
+a2Vuc3RyYXNzZSAxNDYsIDkwNDYxIE51ZXJuYmVyZywgR2VybWFueQ0KR0Y6IEl2byBUb3Rl
+diwgQW5kcmV3IE15ZXJzLCBBbmRyZXcgTWNEb25hbGQsIEJvdWRpZW4gTW9lcm1hbg0KSFJC
+IDM2ODA5IChBRyBOdWVybmJlcmcpDQo=
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+--------------nMFW0QgY45SzlgbvahcOTeHi--
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 -
->   1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 43613569801b6..07e16ad465d06 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2879,7 +2879,6 @@ const struct drm_driver amdgpu_partition_driver = {
->   	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
->   	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
->   	.gem_prime_import = amdgpu_gem_prime_import,
-> -	.gem_prime_mmap = drm_gem_prime_mmap,
->   
->   	.name = DRIVER_NAME,
->   	.desc = DRIVER_DESC,
+--------------PYXjclUKBg4mT201Iet8I7yR
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmSQZUUFAwAAAAAACgkQlh/E3EQov+BV
+ARAAlqDZ2WtM1dEZ5r8fxMbLkbk/Fo70POM0EiX4QqtCkxwjwRirh+XT2Ncl5BSZOwUa3g/VrfYX
+y3xUZNFSFy76onNdh5t/IsoyK+ZJNrMTFGMuWeKPatA5iXcbVDn81zNP7MiKqPDY4yjUMjP1BzsZ
+oC7AKg4p7ooGpW7Ncr37BgcbEanbfmQXjPojRskLg4zep4b7eA+TNGVmsY3f9HUGPdfxMJ4+pfUT
+SfLrI/L6eJXHgYs/06F5mYavQjfWUbRbXLPQ5lg2cW5wIGC4HqIkSpsvrp0oofSahlmPJB2paPbq
+Lp/96uTK5Ut/rvyEEYBzcCxMCDmmaJ2XUNIB0miCJuJuCQqoxP1L6DawzvoawT2bR+HbMQfqinsr
+tkwbNwSedkAJdAz33yR3UjlMp1BNvec9OKHLFR8Tg7mOst5Je+L/aFrzT014TuFBqBkYqURqzMPu
+gSZpkgy+M7XXSVlQ6x5O6vvXrhiflxJM10ZLGY9dMRZQX1AlFX7Videc9lmc/sKxkpWXtdYd/Ijj
+GJMI+wPg5Eqm7fiRT323mB0YHehJdlD6EajVE6PvDF8t3vgD9EO3u32dyW3VZCWFteMe+K31RIdT
+CkXxz8PxJLEqgevBxLviIU3ldIdZp6/pcEgN4xXYCxqBNKyjCYHi2N5F2V7xrksSypEWa9dTZIky
+6Fw=
+=mbzR
+-----END PGP SIGNATURE-----
+
+--------------PYXjclUKBg4mT201Iet8I7yR--
