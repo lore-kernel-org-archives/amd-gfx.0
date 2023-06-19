@@ -4,49 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 038A0EB64D9
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jun 2023 10:23:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34187EB64D9
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jun 2023 10:23:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79F7C10E1DE;
-	Mon, 19 Jun 2023 10:23:19 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB08010E1DA;
- Mon, 19 Jun 2023 10:23:16 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 385616606F81;
- Mon, 19 Jun 2023 11:23:14 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1687170194;
- bh=dwfj6A7GDHZ04QDjj9/w0/oDMPqRxaNJJcv+oyV0twQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ckyEjmkZfuX09sAMfq0gFy0Scv8IBpqncRO2eREj0iZNNAlFwr3LDYkJXb3OKsSxA
- H24R9yip6p1gLw1TyWVLgegm6Q9En26sNKk53y7WWFjSqIxTyCYNAVZ73h7A267TX3
- h2cZaYSSMgW1jWn/df2lr+VlWPXE8waxWaAOmsoUDLIZ9B+xyxtm8IF6J4ismcPFeu
- he5uSm4Vys9qoENzr1obhul4Nubdy+q+yvYbf75KQ9N+kvVsjsVd9a3BX0T2P69eTS
- Ir7stXVVNQdWWZcjdUAQ6pyCSOsP6X4xR0UmPQhtZmHcz05vg3klKwyTT7V1KvPFdu
- +J14ypPaUFfDA==
-Date: Mon, 19 Jun 2023 12:23:11 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 01/13] drm: execution context for GEM buffers v4
-Message-ID: <20230619122311.0b26c31b@collabora.com>
-In-Reply-To: <94f9393a-17fe-321d-c4e1-e12663dc3106@amd.com>
-References: <20230504115159.2245-1-christian.koenig@amd.com>
- <20230504115159.2245-2-christian.koenig@amd.com>
- <20230614142339.04df5111@collabora.com>
- <299e0ff6-bd0a-fa8d-acda-8b3ce22d6ab6@amd.com>
- <20230614150252.6ceb42fd@collabora.com>
- <20230617135434.7dd3a25d@collabora.com>
- <5058c4dd-da1b-9495-5ced-c4d5a5749194@shipmail.org>
- <94f9393a-17fe-321d-c4e1-e12663dc3106@amd.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEBF710E1DF;
+	Mon, 19 Jun 2023 10:23:43 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2048.outbound.protection.outlook.com [40.107.94.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4221D10E1DF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jun 2023 10:23:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gYTnbXceywaWErt3vZ1R1ovkZZSlTRFEwSi/j4Oq6Iv04WlxGeAV1faYoKys54HqO7qSGLyZhqd2u80zTVd4l4k2oKlTl2gaZG18pnAkXadVhyuKfAV1droG+87gLA5tf6PFQNxeHS+f9GdtKuMkCUKSi7IPcYkq5ABE94Smom2PrDdpCfqwdZbSCAtOoERTd5QX0gt7u/3FrmKw87gGc+a120QBgWs5c7OaKqUxrPcmA+HTefgNAOyX6hFNSigc7HJTYzBBA/bevK/1en/VnU6HxZLEp0uGh56f9bKdu6cUaWA4hqUb1kz0a+JE+gmB/bBNWSU9AbxRBeqqKMkAAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WmGspNlImIQUaqTHYk8+f1SdSj/CXWJD0D4zoosfoF0=;
+ b=FHZPmMLQeWc54MfPd/z1byaXxoBwMj3vjJw5tdCPuBcQtGn5AQVeXN10eqccPb1CZLIfDcBNJU70dqzMz5IGSYI+jpoNLW77X6EYwLUSy1AsHKfMJ0heIV+9vk7MJiaZ1UQIdU0/i7ybboQnHCV8bw9KkfXd/DwSicGfP33ee5w8a3EjMxswsLBOEBe6OmK2jXwSuxL6rlb79wrjGTEvXf+DjLpL1ERqtDlRYzMZhbe7OW6YU19wGp2AZe1CSYAsO2U85aauHXBBzKWWSRSOOcb1uexMP566M+F6j70RRpy+ZF8/7cuOrw2k1tvBXjH0QrJv9Yi8Sf+RQ2uNbavWHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WmGspNlImIQUaqTHYk8+f1SdSj/CXWJD0D4zoosfoF0=;
+ b=wouTh9sgx8jljDVYXcvFESJn+dUoRG8UEAnPAcdcAlHLBaSKSgG/fc7VXlrS92YFhpaDFoi9QQo5wSa/OpqooAeEPqbRpbnrTofH8tX0hUinCgxAwnFMSHL2YYhrfJ7JWPawzhNgU31pRbSouenGuKty250qfTsJrb3m6Gw9CyQ=
+Received: from CYXPR03CA0015.namprd03.prod.outlook.com (2603:10b6:930:d0::10)
+ by PH7PR12MB9253.namprd12.prod.outlook.com (2603:10b6:510:30d::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Mon, 19 Jun
+ 2023 10:23:39 +0000
+Received: from CY4PEPF0000EDD1.namprd03.prod.outlook.com
+ (2603:10b6:930:d0:cafe::4e) by CYXPR03CA0015.outlook.office365.com
+ (2603:10b6:930:d0::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37 via Frontend
+ Transport; Mon, 19 Jun 2023 10:23:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD1.mail.protection.outlook.com (10.167.241.205) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6521.20 via Frontend Transport; Mon, 19 Jun 2023 10:23:38 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 19 Jun
+ 2023 05:23:38 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 19 Jun
+ 2023 05:23:37 -0500
+Received: from emiy-Z10PA-U8-Series.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23
+ via Frontend Transport; Mon, 19 Jun 2023 05:23:36 -0500
+From: Emily Deng <Emily.Deng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/vcn: Need to pause dpg before stop dpg
+Date: Mon, 19 Jun 2023 18:23:34 +0800
+Message-ID: <20230619102334.2264865-1-Emily.Deng@amd.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD1:EE_|PH7PR12MB9253:EE_
+X-MS-Office365-Filtering-Correlation-Id: b07eb082-f930-4988-d3de-08db70af3f62
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: U6rUMrLL3b0pv25PD3W/B4gaupUb7kj2E5xNtFtxOIByoxkHTk43PTGVGqEeUWeo6rU2Oyg2II47cZ8+JwuEsxyPdo3tgbNaD99RxsAbfG2DYBFrg6PKCkc/1v7JrbTEsDEoR6ju/VGHFs1ml48uSEpNbNZZr4nHGGeREHEbTxJ85XF/RRwxJAYN5vfhDkswKZzfYiYJOVHI591RcrrUqCdVDZLIRUlbUSyZiKRHSZak3Y+jXgCDm8V9OMWAQi6YFJSebiUAgM+Dygtk/YWfU9N6wc7x54XuOQQDoBFdp2GjGuA/zIqA+d37tbIfRvdDM/xGJI6WDPnPJqghM7fMli88asbi9dF4ezPDJN6GvZDdGuDKQgDYEz32H+0nM/jtAmtamsSC5WLK7XHZYTnnU+lzVDfZydewvzz7Mv91t/tewtUyDqI1bX10mSjNj7Y0N53AwsUA/WHDwlB9dckZUlSz4Pn3n0P/eBCnFq41sdqj6LSGNw2S/C0sK32IRz8tWKL3cdCjbOqfuQSl+1L/SR/aFj0LoP94Biil6vneGoDxs08S7ed0P+FfPOhli4VJr4LULxBq3JQz5iBPXCIkDHaw/b11TaH14IcpX41Dmb3XqfhPc7YybOg4+of6KSOds9dPqeB/KvVgpU9mT7cIbFMTNbYF7DMT5BvQtelpVkobDoqTGUYxKg/DkPpaD9pYYt6IGT+ht7vSdiazyrNeFBZzfvTVcxLatIM/dgRYV39WZypxAodsuXDGDLrDUc5+n/9oqcFYnLyVZwKGYASTyw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(136003)(39860400002)(346002)(396003)(451199021)(40470700004)(46966006)(36840700001)(186003)(82310400005)(70206006)(8676002)(70586007)(8936002)(82740400003)(5660300002)(40460700003)(4326008)(7696005)(316002)(478600001)(41300700001)(36756003)(26005)(1076003)(6916009)(40480700001)(336012)(426003)(356005)(81166007)(47076005)(86362001)(2906002)(4744005)(36860700001)(2616005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2023 10:23:38.6679 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b07eb082-f930-4988-d3de-08db70af3f62
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD1.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9253
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,100 +101,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Brost <matthew.brost@intel.com>, arunpravin.paneerselvam@amd.com,
- "Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= \(Intel\)" <thomas_os@shipmail.org>,
- francois.dugast@intel.com, amd-gfx@lists.freedesktop.org, luben.tuikov@amd.com,
- dakr@redhat.com, dri-devel@lists.freedesktop.org, felix.kuehling@amd.com
+Cc: Emily Deng <Emily.Deng@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 19 Jun 2023 11:20:06 +0200
-Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
+Need to pause dpg first, or it will hit follow error during stop dpg:
+"[drm] Register(1) [regUVD_POWER_STATUS] failed to reach value 0x00000001 != 0x00000000n"
 
-> Hi guys,
->=20
-> Am 19.06.23 um 10:59 schrieb Thomas Hellstr=C3=B6m (Intel):
-> > [SNIP] =20
-> >>>>
-> >>>> I really need to find some time to work on that anyway. =20
-> >> I've been playing with drm_exec for a couple weeks now, and I wanted
-> >> to share something I hacked to try and make the API simpler and
-> >> more robust against misuse (see the below diff, which is a slightly
-> >> adjusted version of your work). =20
-> >
-> > It would be good if we could have someone taking charge of this series=
-=20
-> > and address all review comments, I see some of my comments getting=20
-> > lost, we have multiple submitters and I can't find a dri-devel=20
-> > patchwork entry for this. Anyway some comments below. =20
->=20
-> I can try to find some time for the series this week (As long as nobody=20
-> comes along and has any burning roof).
+Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-That's great news!
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index b48bb5212488..259795098173 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -1424,8 +1424,10 @@ static int vcn_v4_0_start_sriov(struct amdgpu_device *adev)
+  */
+ static void vcn_v4_0_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
+ {
++	struct dpg_pause_state state = {.fw_based = VCN_DPG_STATE__UNPAUSE};
+ 	uint32_t tmp;
+ 
++	vcn_v4_0_pause_dpg_mode(adev, inst_idx, &state);
+ 	/* Wait for power status to be 1 */
+ 	SOC15_WAIT_ON_RREG(VCN, inst_idx, regUVD_POWER_STATUS, 1,
+ 		UVD_POWER_STATUS__UVD_POWER_STATUS_MASK);
+-- 
+2.36.1
 
->=20
-> > =20
-> >>
-> >> In this version, the user is no longer in control of the retry
-> >> loop. Instead, it provides an expression (a call to a
-> >> sub-function) to be re-evaluated each time a contention is
-> >> detected. IMHO, this makes the 'prepare-objs' functions easier to
-> >> apprehend, and avoids any mistake like calling
-> >> drm_exec_continue_on_contention() in an inner loop, or breaking
-> >> out of the drm_exec_while_all_locked() loop unintentionally. =20
-> >
-> > In i915 we've had a very similar helper to this, and while I agree=20
-> > this newer version would probably help make code cleaner, but OTOH=20
-> > there also are some places where the short drm_exec_while_all_locked()=
-=20
-> > -likeblock don't really motivate a separate function. Porting i915 to=20
-> > the current version will take some work, For=C2=A0 the xe driver both=20
-> > versions would work fine. =20
->=20
-> Yeah, this is actually what my first version of this looked like. But I=20
-> abandoned that approach because we have a lot of cases were we just=20
-> quickly want to lock a few GEM objects and don't want the extra overhead=
-=20
-> of putting all the state into some bag to forward it to a function.
-
-If you're talking about verbosity, it might be the case, though I guess
-it mostly a matter of taste (I do like when things are well isolated).
-As for runtime overhead, I'd expect the compiler to inline the function
-anyway, so it's unlikely to change anything.
-
-> >> +/* Track the locked object in the array */
-> >> +static int drm_exec_obj_locked(struct drm_exec *exec,
-> >> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_gem_object *obj)
-> >> +{
-> >> +=C2=A0=C2=A0=C2=A0 if (unlikely(exec->num_objects =3D=3D exec->max_ob=
-jects)) {
-> >> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 size_t size =3D exec->max_=
-objects * sizeof(void *);
-> >> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void *tmp;
-> >> +
-> >> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D kvrealloc(exec->ob=
-jects, size, size + PAGE_SIZE,
-> >> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 GFP_KERNEL);
-> >> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!tmp)
-> >> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 re=
-turn -ENOMEM; =20
-> >
-> > Sometimes you need to just temporarily lock an object and then unlock=20
-> > it again if it goes out of scope before reaching the end of=20
-> > _until_all_locked(). In that case you might need to remove a lock from=
-=20
-> > the array. I *think* for all use-cases in i915 it would suffice to=20
-> > take a snapshot of num_objects, and unlock everything above that,=20
-> > having exec->objects behave like a stack, but was ever a list=20
-> > considered instead of a realloced array? =20
->=20
-> Yes, the problem is that linked lists really suck regarding their cache=20
-> line locality. That's why I've came up with this approach here.
-
-Hm, maybe I'm missing something, but if you place the list_head obj you
-use to stack the locked objects close enough to the resv pointer, and
-aligned on cache line, it shouldn't really be a problem, given you have
-to dereference the GEM object to retrieve its resv anyway.
