@@ -4,61 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FD26EB64D7
-	for <amd-gfx@archiver.kernel.org>; Sun, 18 Jun 2023 12:11:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F17C7EB64D7
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jun 2023 02:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 801AA10E12E;
-	Sun, 18 Jun 2023 12:11:26 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7E53210E084;
- Sun, 18 Jun 2023 12:11:21 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8Cxd+ln9I5knIQGAA--.11592S3;
- Sun, 18 Jun 2023 20:11:19 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8AxJeRn9I5kzfseAA--.21964S3; 
- Sun, 18 Jun 2023 20:11:19 +0800 (CST)
-Message-ID: <c2cdc3ca-20de-0133-b198-1118fcea7902@loongson.cn>
-Date: Sun, 18 Jun 2023 20:11:19 +0800
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AED610E071;
+	Mon, 19 Jun 2023 02:04:40 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20631.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C008110E10C;
+ Mon, 19 Jun 2023 02:04:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BHyRCHwMTShhUdYV8fU2EmAfRLoxqFHX+/EcYlfwhqe2N7ZvwMCviyTPA+rbKa1Rno1gUo3JzTAm884af0QeoyKAcXUgNE/ddzGcKuPixrOYiaSAC22spUlsrXcEBvQwq0pPz9x+bs9EUjRDDR7k5SanM/2hu8s0qTUgpxtfmnhqwu1rHYytwrAhyUXnf8Ol3SSmx6hiArSVYyyIiqjohQ8qtz+ST2flvVGV4otquFNIs8wvQWhdDWe7z0UPZUjof9GdNh1GU1415via3saDsdWGz4zaJWCT1A7jvoX06uvTwPk24MBLhflztMg5AXTxgFz6Us7+nrUCH6qT3Ox3uA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ky7ufUKo/LTl2b4iufGgb0Qztrw9y4UB7KvbIjQFJC4=;
+ b=TNwoxllto21aXUIl0dLFcXYnanUVYHpK5QmU7zVX4j4tpGS30AbuygdrAgPg/8D7uATavpb9bJmiZkF1cxZ9avN2KQUmKCgAi2gbB4YFtYOKNQVk8YJiTfd7jgye+hdn58vbozuBBFQ24k0CVOAweZfwutFlAWBYlK3EkTG6S8CWtYEvbFfYtB2C+hqaANt4O2MNCddC/cpIfM24qRCuPj3O1hE4W/QlVb6i6vB7CQsvk1llnOO7BlnE8fzYYJY2D+quHo8gJoPj3bmtOHwscyxdK/zPojwn17IGYA9SXNrNnryEB6eqEihBchmyYOiLuNdL3uGNwL1tb9GBPYtHmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ky7ufUKo/LTl2b4iufGgb0Qztrw9y4UB7KvbIjQFJC4=;
+ b=n0uAKERKWPWOu6gToAsMN4VKseYBN0robE6sGfroFb27wukQHMkQ+L+LvCOpSgdN3sGVCbCDLeADW/UzwR7TDFQnIb9m3hDZu8bvchYiG7ymsvRg+o8j3iIKuW1X7Gwv1FZs3gQebk+LYH97MuJ+FWjZNwWnjHB0X/JNd+EtvL0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by PH7PR12MB6396.namprd12.prod.outlook.com (2603:10b6:510:1fc::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.35; Mon, 19 Jun
+ 2023 02:04:33 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::dfcf:f53c:c778:6f70]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::dfcf:f53c:c778:6f70%5]) with mapi id 15.20.6500.036; Mon, 19 Jun 2023
+ 02:04:33 +0000
+Message-ID: <fc055de3-3ff4-c0dc-f48a-9f30a60bfcbf@amd.com>
+Date: Sun, 18 Jun 2023 21:04:29 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v7 2/8] PCI/VGA: Deal only with VGA class devices
+ Thunderbird/102.9.1
+Subject: Re: [PATCH V3 1/7] drivers/acpi: Add support for Wifi band RF
+ mitigations
 Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20230613030151.216625-1-15330273260@189.cn>
- <20230613030151.216625-3-15330273260@189.cn>
- <dbf0d89f-717a-1f78-aef2-f30506751d4d@loongson.cn>
- <CADnq5_N6vVtzH6tzguZdHnP_TdRoG1G-Cr94O+X03jvtk=vhag@mail.gmail.com>
- <3c1c86ab-96ea-aa1c-c9c5-9a4012644fd6@loongson.cn>
- <CADnq5_Px-HWfwetv8LZsCnCeV7SMt_uqtLwMVK7648ZQiP2RCQ@mail.gmail.com>
- <f08b6a76-6c90-b59b-ff43-c779ef759d09@loongson.cn>
- <CADnq5_PFoM2O8mCd6+VFfu9Nc-Hg_HTnwEMxrq0FGRpva1kKiA@mail.gmail.com>
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-Organization: Loongson
-In-Reply-To: <CADnq5_PFoM2O8mCd6+VFfu9Nc-Hg_HTnwEMxrq0FGRpva1kKiA@mail.gmail.com>
+To: Evan Quan <evan.quan@amd.com>
+References: <20230616065757.1054422-1-evan.quan@amd.com>
+ <20230616065757.1054422-2-evan.quan@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20230616065757.1054422-2-evan.quan@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8AxJeRn9I5kzfseAA--.21964S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoW3Zr4kXFW7uF1fWr1kJF47Awc_yoWDAr47pF
- WrGFW5KF4kJr17Gr12qw18JFyYvryrJFyrXr1rJw1Ykrn0yr1UJryrKr45u34xJrs5Gr12
- vr4UJry7uF15ZagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUvIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAF
- wI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
- 1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv
- 67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
- AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
- F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
- ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
- xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
- 4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jO
- F4_UUUUU=
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DM6PR02CA0060.namprd02.prod.outlook.com
+ (2603:10b6:5:177::37) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|PH7PR12MB6396:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2184c06-d0e6-4041-eee5-08db70698628
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: X2fyA9skfgutXkSu7toB60UDj0U1+YUtgvxqi+o9RQ/2a4X8NeGf9EWbLvuFZ+IfdbS+j1IbXWgialHVJ8ARwRDzITgZwAIOBbk7zAcVjS7P/Zsj8yUUBc0UXyscCz0ztpiyuorKwUucBiNpjWl4jy0pFXwtLxTPBxlNRkDipTMEepDaLQU6zwy7IvUutlQcKT/4Oh7joS2s2bsU32MlrbpCShv0glLkyoNVgdkka8sInDu5DIRIozAgJS7rKYkMAa/xjVuwrlP0K00GgE35kdwfft9guZ+1q6P/S0keptJPUwPx5h2daVdA2XNcy8PJfdCVLO0+gB97Y7W4SlUSXP+y82Gh8gr+srfJa4QYEpEYMq1IFp8QZLoIvewPxEjZoYnGzVeGnjuJj5zQuF7kgv2BywDEmwc88Qb8X73/JXLLkIgEzwNa0elftmaOtOPBzEANeKiDZXH+a1h+Bb+uN+1TkfYGOjHicr2WP9uQ47XhXnSDWd6abRZIhTCvAfUv7zkDg4dWmqxHfnYbj4Jtjd3hNoGrFHuHzYCNHZJN93Zqkkcr/HO1PNavFjWTUkVToAkB7ed6uAnd1K5QCSkxwjqTWOIVeICp1KyFs317g8dxx+W4aC9TuQFtxh781pNcI6DK/AvlQVV2jJD9+WpW8A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(376002)(366004)(346002)(136003)(39860400002)(451199021)(2906002)(30864003)(41300700001)(7416002)(5660300002)(44832011)(6862004)(8676002)(8936002)(36756003)(86362001)(31696002)(53546011)(478600001)(6506007)(6512007)(37006003)(186003)(6486002)(6666004)(66946007)(66476007)(66556008)(6636002)(4326008)(316002)(38100700002)(2616005)(31686004)(83380400001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1VDYm1xbXFGZGNYQWhvL3NkdXBadkNTUllGUUVZUytJd0o3NjA5a1BXZ1pv?=
+ =?utf-8?B?VDF2ckwvN3RucHBESnhOQm0wWGI0SEJhRnZFSjVWSlZ6dytSR21VajNhQktK?=
+ =?utf-8?B?QTZDalV5VGpvaTVNUzFOcWhHbm9qRWlaTm8wcWo4bDNNUENHWGpKbmFsaFdX?=
+ =?utf-8?B?WnEvK3dQYWtseHRaWnlIYzk0RktqRTMxWVk3S2NaamUvQ2o4VGlHNkNwOHFx?=
+ =?utf-8?B?bmhYckNGdkpvYkhFa1RXaHhza1FvcXZxQWV2dHd3TmNhd0F3K3pzSWRHTzBh?=
+ =?utf-8?B?QmZxdUN0Nm92bGljdTB4d0RxdDJQMmVjQnpjOWI5Sy84d1NrSHFhWEw2ZXhD?=
+ =?utf-8?B?U0sxSTcyREE0ZEVibVArK1lSclhFazk1cC9LSDBaSXprWGMxMlhDRFF6SkZU?=
+ =?utf-8?B?cElCQ0RYNlg5T2lwa0tYRXF3WS85a3B0WG5vcHMzYnBQeG5aRFIyOXN0QVBU?=
+ =?utf-8?B?RVR4Q0UzSTdURTdqWnJaN2tIMHdTTmdSVVVhRk9mT21nN09PS0pib2M0NURw?=
+ =?utf-8?B?NmN0LzJaUTBEMEZVaTg3K0d0TG5YOTdwZGJoQmVBcENGVW94V3BFV3ZLMlRR?=
+ =?utf-8?B?S1crc01uZmpINzg1OUd3TWZ5aTQ5MVJkR3R0cGs2NTBJRkJpUGxNbmJPcTVJ?=
+ =?utf-8?B?UWhDU3pRQnFxejdZS3JMN29hQnBNT01kTlFJUTZGd3h4UlJteFp6OVN2V1ZF?=
+ =?utf-8?B?RHdMQ3lZbVVJNm1oOWlUL29kZnRHRFVRcDZta3htSUFhT0l3VXRhK1dKT3Jq?=
+ =?utf-8?B?UUw4ZTZaSnNOVmRlZUFlNTZyUEdydWFMV0U2eXlFdEMwUE1JS1E4L1FRR0sz?=
+ =?utf-8?B?bkJlWUpic0tJNHYyeGJQaUJlSHFEaFBJaHViZFplckpobWZxQnBYYlZjR3JC?=
+ =?utf-8?B?bzh5VGN0ZjNaT3ZXcVkvejNqTEpWMG9SamFiOWlpYTNJeGdQVUZDS1ZDU3dy?=
+ =?utf-8?B?MUNGZytpaE1Ud2JYVEdOYzBsYjByZDh0VDAxR1FnM3NjL2Q3L0J1eDZHcGhM?=
+ =?utf-8?B?YTBSNTA3NDR4bEpjTEtDeDlUbWRWSHlWZ1lNK0pZUEt5L2ZuQVowSUdwUFpG?=
+ =?utf-8?B?NGo1bG9CMWFVSVYvakJ6YlppMWFaQXV1RVVWdjhvUFVWZ3E1WURaY01hWjdI?=
+ =?utf-8?B?c2xEdEM4RVp0dEpkVGVCOEZnZThhTUR6c3IvMHdhWnFPK2QvcEhiTU0zTzNF?=
+ =?utf-8?B?Wk1Dc0FaZkZNSU5vc0pWaURkbStzd1ZUcEYwa1c4Rm4yc1RxZVRTcUZoT0Ja?=
+ =?utf-8?B?OFZCclNhUDFHdmUwbkNDRHhUMjBRai82amdvYVdXY2ZQS2NZSlM1b3pNTlVo?=
+ =?utf-8?B?b08zZ2dISkVDY3BzMFlPQ3kwcDJtM2J6SWwxQ3htQkVrcFBhaWhKSDJ4Y2JU?=
+ =?utf-8?B?djYxaEdvUndUV3lyd080WTRUQTZDTjBkVFpNRnpEWGM1KzlpQXl5ekFGdFgz?=
+ =?utf-8?B?UlZ1NDNLbDB4NHBKbHUycEszeEgray9mZDkwSFovY3hESmxqRGNkN0VlWEVP?=
+ =?utf-8?B?eW9FV2FDZWtDam83TVRhYWtINlMyOUM5OGxiZksrWm1PTithRmVyWjkxR2Ft?=
+ =?utf-8?B?UG5tNlRZdFphVXp2NGx3MTdQMk1FWHBDUzdzNlQzL1BmdE8yQURXbTlWWFJn?=
+ =?utf-8?B?MXBGTFJZbXFUdmlyM0ZidEFNY2M1SzdiQ01LOWRPdkovdHNlNWdIOHJkMkVr?=
+ =?utf-8?B?OWZabUg0VkdLZmxlRU0wVXRMY0dpcEYxNEZkYUFsemxnRnJwa29Mb3ZpZVRD?=
+ =?utf-8?B?UW5qRVVPMzZ5YzdzRnRyazdCYnF0dENTRnBsdS9jTHJzaTE2VXlESEk3Q0RI?=
+ =?utf-8?B?TGtDSEJ2ckJyaHNpRVFUcXdRdExzTjlBNkxFK0lwNVNxYkFUdGVDakxlbW01?=
+ =?utf-8?B?MFJWSDNvK1liTmFNQUNBS1BXZllDNjZjYmExN2hKVUpEc0Q5UTZMLzM4ZGpm?=
+ =?utf-8?B?WExCU1pTaW1zcDVXaVY2NTRFZ051U0pRWm1DTlhDdXlGWklaSXdrU0ZyRGw3?=
+ =?utf-8?B?aXY0YVN2UEJJUWRYMFozVFVpSjhaS0NwZ0hOY3VJSWlyRDNKd1hYODFzcnVE?=
+ =?utf-8?B?R1QrN0t5enNTRmxObFpQT1lkMDErSHJSOE5tdlRZek5QUFBtLzhpWEJiU3Zr?=
+ =?utf-8?B?NkE4c21YbjZyYnNvMTRhZUM5ckYwQWh2R1N0b1MxWmtpZXZ1Zkk1WGUxbjdh?=
+ =?utf-8?B?amc9PQ==?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2184c06-d0e6-4041-eee5-08db70698628
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2023 02:04:32.9197 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J8QI+yob7Eyk9dIhT8v/4tgL4qmOaRV4R0CJccm1hja2QA7xCtKMDrITyf3kOPe7UtMcpCE5gxgcHHjz03aubg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6396
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,314 +127,374 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Sui Jingfeng <15330273260@189.cn>, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-pci@vger.kernel.org,
- Bjorn Helgaas <bhelgaas@google.com>
+Cc: ryder.lee@mediatek.com, angelogioacchino.delregno@collabora.com,
+ rafael@kernel.org, lorenzo@kernel.org, kvalo@kernel.org, Xinhui.Pan@amd.com,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Lijo.Lazar@amd.com,
+ linux-acpi@vger.kernel.org, shayne.chen@mediatek.com, matthias.bgg@gmail.com,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, Alexander.Deucher@amd.com,
+ nbd@nbd.name, airlied@gmail.com, Christian.Koenig@amd.com,
+ sean.wang@mediatek.com, lenb@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On 6/16/23 01:57, Evan Quan wrote:
+> From: Mario Limonciello <mario.limonciello@amd.com>
+> 
+> Due to electrical and mechanical constraints in certain platform designs
+> there may be likely interference of relatively high-powered harmonics of
+> the (G-)DDR memory clocks with local radio module frequency bands used
+> by Wifi 6/6e/7.
+> 
+> To mitigate this, AMD has introduced an ACPI based mechanism that
+> devices can use to notify active use of particular frequencies so
+> that devices can make relative internal adjustments as necessary
+> to avoid this resonance.
+> 
+> In order for a device to support this, the expected flow for device
+> driver or subsystems:
+> 
+> Drivers/subsystems contributing frequencies:
+> 
+> 1) During probe, check `wbrf_supported_producer` to see if WBRF supported
+>     for the device.
+> 2) If adding frequencies, then call `wbrf_add_exclusion` with the
+>     start and end ranges of the frequencies.
+> 3) If removing frequencies, then call `wbrf_remove_exclusion` with
+>     start and end ranges of the frequencies.
+> 
+> Drivers/subsystems responding to frequencies:
+> 
+> 1) During probe, check `wbrf_supported_consumer` to see if WBRF is supported
+>     for the device.
+> 2) Call the `wbrf_retrieve_exclusions` to retrieve the current
+>     exclusions on receiving an ACPI notification for a new frequency
+>     change.
+> 
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> Co-developed-by: Evan Quan <evan.quan@amd.com>
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> --
+> v1->v2:
+>    - move those wlan specific implementations to net/mac80211(Mario)
+> ---
+>   drivers/acpi/Kconfig     |   7 ++
+>   drivers/acpi/Makefile    |   2 +
+>   drivers/acpi/acpi_wbrf.c | 215 +++++++++++++++++++++++++++++++++++++++
+>   include/linux/wbrf.h     |  55 ++++++++++
+>   4 files changed, 279 insertions(+)
+>   create mode 100644 drivers/acpi/acpi_wbrf.c
+>   create mode 100644 include/linux/wbrf.h
+> 
+> diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig
+> index ccbeab9500ec..9ee7c7dcc3e6 100644
+> --- a/drivers/acpi/Kconfig
+> +++ b/drivers/acpi/Kconfig
+> @@ -611,3 +611,10 @@ config X86_PM_TIMER
+>   
+>   	  You should nearly always say Y here because many modern
+>   	  systems require this timer.
+> +
+> +config ACPI_WBRF
+> +	bool "ACPI Wifi band RF mitigation mechanism"
+> +	help
+> +	  Wifi band RF mitigation mechanism allows multiple drivers from
+> +	  different domains to notify the frequencies in use so that hardware
+> +	  can be reconfigured to avoid harmonic conflicts.
+> \ No newline at end of file
 
-On 2023/6/16 22:34, Alex Deucher wrote:
-> On Fri, Jun 16, 2023 at 10:22 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
->>
->> On 2023/6/16 21:41, Alex Deucher wrote:
->>> On Fri, Jun 16, 2023 at 3:11 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
->>>> Hi,
->>>>
->>>> On 2023/6/16 05:11, Alex Deucher wrote:
->>>>> On Wed, Jun 14, 2023 at 6:50 AM Sui Jingfeng <suijingfeng@loongson.cn> wrote:
->>>>>> Hi,
->>>>>>
->>>>>> On 2023/6/13 11:01, Sui Jingfeng wrote:
->>>>>>> From: Sui Jingfeng <suijingfeng@loongson.cn>
->>>>>>>
->>>>>>> Deal only with the VGA devcie(pdev->class == 0x0300), so replace the
->>>>>>> pci_get_subsys() function with pci_get_class(). Filter the non-PCI display
->>>>>>> device(pdev->class != 0x0300) out. There no need to process the non-display
->>>>>>> PCI device.
->>>>>>>
->>>>>>> Cc: Bjorn Helgaas <bhelgaas@google.com>
->>>>>>> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
->>>>>>> ---
->>>>>>>      drivers/pci/vgaarb.c | 22 ++++++++++++----------
->>>>>>>      1 file changed, 12 insertions(+), 10 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
->>>>>>> index c1bc6c983932..22a505e877dc 100644
->>>>>>> --- a/drivers/pci/vgaarb.c
->>>>>>> +++ b/drivers/pci/vgaarb.c
->>>>>>> @@ -754,10 +754,6 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
->>>>>>>          struct pci_dev *bridge;
->>>>>>>          u16 cmd;
->>>>>>>
->>>>>>> -     /* Only deal with VGA class devices */
->>>>>>> -     if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
->>>>>>> -             return false;
->>>>>>> -
->>>>>> Hi, here is probably a bug fixing.
->>>>>>
->>>>>> For an example, nvidia render only GPU typically has 0x0380.
->>>>>>
->>>>>> as its PCI class number, but render only GPU should not participate in
->>>>>> the arbitration.
->>>>>>
->>>>>> As it shouldn't snoop the legacy fixed VGA address.
->>>>>>
->>>>>> It(render only GPU) can not display anything.
->>>>>>
->>>>>>
->>>>>> But 0x0380 >> 8 = 0x03, the filter  failed.
->>>>>>
->>>>>>
->>>>>>>          /* Allocate structure */
->>>>>>>          vgadev = kzalloc(sizeof(struct vga_device), GFP_KERNEL);
->>>>>>>          if (vgadev == NULL) {
->>>>>>> @@ -1500,7 +1496,9 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
->>>>>>>          struct pci_dev *pdev = to_pci_dev(dev);
->>>>>>>          bool notify = false;
->>>>>>>
->>>>>>> -     vgaarb_dbg(dev, "%s\n", __func__);
->>>>>>> +     /* Only deal with VGA class devices */
->>>>>>> +     if (pdev->class != PCI_CLASS_DISPLAY_VGA << 8)
->>>>>>> +             return 0;
->>>>>> So here we only care 0x0300, my initial intent is to make an optimization,
->>>>>>
->>>>>> nowadays sane display graphic card should all has 0x0300 as its PCI
->>>>>> class number, is this complete right?
->>>>>>
->>>>>> ```
->>>>>>
->>>>>> #define PCI_BASE_CLASS_DISPLAY        0x03
->>>>>> #define PCI_CLASS_DISPLAY_VGA        0x0300
->>>>>> #define PCI_CLASS_DISPLAY_XGA        0x0301
->>>>>> #define PCI_CLASS_DISPLAY_3D        0x0302
->>>>>> #define PCI_CLASS_DISPLAY_OTHER        0x0380
->>>>>>
->>>>>> ```
->>>>>>
->>>>>> Any ideas ?
->>>>> I'm not quite sure what you are asking about here.
->>>> To be honest, I'm worried about the PCI devices which has a
->>>>
->>>> PCI_CLASS_DISPLAY_XGA as its PCI class number.
->>>>
->>>> As those devices are very uncommon in the real world.
->>>>
->>>>
->>>> $ find . -name "*.c" -type f | xargs grep "PCI_CLASS_DISPLAY_XGA"
->>>>
->>>>
->>>> Grep the "PCI_CLASS_DISPLAY_XGA" in the linux kernel tree got ZERO,
->>>>
->>>> there no code reference this macro. So I think it seems safe to ignore
->>>> the XGA ?
->>>>
->>>>
->>>> PCI_CLASS_DISPLAY_3D and PCI_CLASS_DISPLAY_OTHER are used to annotate
->>>> the render-only GPU.
->>>>
->>>> And render-only GPU can't decode the fixed VGA address space, it is safe
->>>> to ignore them.
->>>>
->>>>
->>>>>     For vga_arb, we
->>>>> only care about VGA class devices since those should be on the only
->>>>> ones that might have VGA routed to them.
->>>>>     However, as VGA gets deprecated,
->>>> We need the vgaarb for a system with multiple video card.
->>>>
->>>> Not only because some Legacy VGA devices implemented
->>>>
->>>> on PCI will typically have the same "hard-decoded" addresses;
->>>>
->>>> But also these video card need to participate in the arbitration,
->>>>
->>>> determine the default boot device.
->>> But couldn't the boot device be determined via what whatever resources
->>> were used by the pre-OS console?
->> I don't know what you are refer to by saying  pre-OS console, UEFI
->> SHELL,  UEFI GOP  or something like that.
->>
-> Right.  Before the OS loads the platform firmware generally sets up
-> something for display.  That could be GOP or vesa or some other
-> platform specific protocol.
->
->> If you are referring to the framebuffer driver which light up the screen
->> before the Linux kernel is loaded .
->>
->>
->> Then, what you have said is true,  the boot device is determined by the
->> pre-OS console.
->>
->> But the problem is how does the Linux kernel(vgaarb) could know which
->> one is the default boot device
->>
->> on a multiple GPU machine.  Relaying on the firmware fb's address and
->> size is what the mechanism
->>
->> we already in using.
-> Right.  It shouldn't need to depend on vgaarb.
->
->>
->>>    I feel like that should be separate from vgaarb.
->> Emm, this really deserved another patch, please ?
->>
->>>    vgaarb should handle PCI VGA routing and some other
->>> mechanism should be used to determine what device provided the pre-OS
->>> console.
->> If the new mechanism need the firmware changed, then this probably break
->> the old machine.
->>
->> Also, this probably will get all arch involved. to get the new mechanism
->> supported.
->>
->> The testing pressure and review power needed is quite large.
->>
->> drm/amdgpu and drm/radeon already being used on X86, ARM64,  Mips and
->> more arch...
->>
->> The reviewing process will became quite difficult then.
->>
->> vgaarb is really what we already in use, and being used more than ten
->> years ...
+There should be a newline at the end of the Kconfig file.
 
-This base class is defined for all types of display controllers.
-
-For VGA devices (Sub-Class 00h), the Programming Interface byte is 
-divided into a bit field that identifies additional video controller 
-compatibilities.
-
-A device can support multiple interfaces by using the bit map to 
-indicate which interfaces are supported.
-
-For the XGA devices (Sub-Class 01h), only the standard XGA interface is 
-defined.
-
-Sub-Class 02h is for controllers that have hardware support for 3D 
-operations and are not VGA compatible.
-
-
-> Yes, it works for x86 (and a few other platforms) today because of the
-> VGA legacy, so we can look at VGA routing to determine this.  But even
-> today, we don't need VGA routing to determine what was the primary
-> display before starting the OS.  We could probably have a platform
-> independent way to handle this by looking at the bread crumbs leftover
-> from the pre-OS environment.
-
-Yes, I agree with you.
-
->   E.g., for pre-UEFI platforms, we can
-> look at VGA routing.  For UEFI platforms we can look at what GOP left
-> us.  For various non-UEFI ARM/PPC/MIPS/etc. platforms we can look at
-> whatever breadcrumbs those pre-OS environments left.  That way when
-> VGA goes away, we can have a clean break and you won't need vgaarb if
-> the platform has no VGA devices.
-
-Yes, I agree with you.
-
-
-Then, move vga_is_firmware_default() function to video/aperture.c also ?
-
-Because this function shouldn't be platform dependent,
-
-can be usable as long as the PCI resource relocation don't happen  (The 
-vram bar don't move),
-
-And screen_info is more about video specifci thing.
-
-
-Yes your are right, it seems that the selection of the default boot 
-device shouldn't depend on vgaarb.
-
-As vgaarb is only for PCI vga compatible display controller.
-
-It seems that platform display controller device should also 
-participated in the arbitration.
-
-Emm, but that may a bit difficult. Because we rely on the PCI notifier 
-to snoop the bound between the drm driver and device,
-
-call back to use if successful. So, what should I do next?  as a first step?
-
-> Alex
->
->>
->>> Alex
->>>
->>>> Nowadays, the 'VGA devices' here is stand for the Graphics card
->>>>
->>>> which is capable of display something on the screen.
->>>>
->>>> We still need vgaarb to select the default boot device.
->>>>
->>>>
->>>>> you'll have more non VGA PCI classes for devices which
->>>>> could be the pre-OS console device.
->>>> Ah, we still want  do this(by applying this patch) first,
->>>>
->>>> and then we will have the opportunity to see who will crying if
->>>> something is broken. Will know more then.
->>>>
->>>> But drop this patch or revise it with more consideration is also
->>>> acceptable.
->>>>
->>>>
->>>> I asking about suggestion and/or review.
->>>>
->>>>> Alex
->>>>>
->>>>>>>          /* For now we're only intereted in devices added and removed. I didn't
->>>>>>>           * test this thing here, so someone needs to double check for the
->>>>>>> @@ -1510,6 +1508,8 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
->>>>>>>          else if (action == BUS_NOTIFY_DEL_DEVICE)
->>>>>>>                  notify = vga_arbiter_del_pci_device(pdev);
->>>>>>>
->>>>>>> +     vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
->>>>>>> +
->>>>>>>          if (notify)
->>>>>>>                  vga_arbiter_notify_clients();
->>>>>>>          return 0;
->>>>>>> @@ -1534,8 +1534,8 @@ static struct miscdevice vga_arb_device = {
->>>>>>>
->>>>>>>      static int __init vga_arb_device_init(void)
->>>>>>>      {
->>>>>>> +     struct pci_dev *pdev = NULL;
->>>>>>>          int rc;
->>>>>>> -     struct pci_dev *pdev;
->>>>>>>
->>>>>>>          rc = misc_register(&vga_arb_device);
->>>>>>>          if (rc < 0)
->>>>>>> @@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
->>>>>>>
->>>>>>>          /* We add all PCI devices satisfying VGA class in the arbiter by
->>>>>>>           * default */
->>>>>>> -     pdev = NULL;
->>>>>>> -     while ((pdev =
->>>>>>> -             pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
->>>>>>> -                            PCI_ANY_ID, pdev)) != NULL)
->>>>>>> +     while (1) {
->>>>>>> +             pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
->>>>>>> +             if (!pdev)
->>>>>>> +                     break;
->>>>>>> +
->>>>>>>                  vga_arbiter_add_pci_device(pdev);
->>>>>>> +     }
->>>>>>>
->>>>>>>          pr_info("loaded\n");
->>>>>>>          return rc;
->>>>>> --
->>>>>> Jingfeng
->>>>>>
->>>> --
->>>> Jingfeng
->>>>
->> --
->> Jingfeng
->>
--- 
-Jingfeng
+> diff --git a/drivers/acpi/Makefile b/drivers/acpi/Makefile
+> index feb36c0b9446..be173e76aa62 100644
+> --- a/drivers/acpi/Makefile
+> +++ b/drivers/acpi/Makefile
+> @@ -131,3 +131,5 @@ obj-y				+= dptf/
+>   obj-$(CONFIG_ARM64)		+= arm64/
+>   
+>   obj-$(CONFIG_ACPI_VIOT)		+= viot.o
+> +
+> +obj-$(CONFIG_ACPI_WBRF)		+= acpi_wbrf.o
+> \ No newline at end of file
+> diff --git a/drivers/acpi/acpi_wbrf.c b/drivers/acpi/acpi_wbrf.c
+> new file mode 100644
+> index 000000000000..8c275998ac29
+> --- /dev/null
+> +++ b/drivers/acpi/acpi_wbrf.c
+> @@ -0,0 +1,215 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * AMD Wifi Band Exclusion Interface
+> + * Copyright (C) 2023 Advanced Micro Devices
+> + *
+> + */
+> +
+> +#include <linux/wbrf.h>
+> +
+> +/* functions */
+> +#define WBRF_RECORD		0x1
+> +#define WBRF_RETRIEVE		0x2
+> +
+> +/* record actions */
+> +#define WBRF_RECORD_ADD		0x0
+> +#define WBRF_RECORD_REMOVE	0x1
+> +
+> +#define WBRF_REVISION		0x1
+> +
+> +static const guid_t wifi_acpi_dsm_guid =
+> +	GUID_INIT(0x7b7656cf, 0xdc3d, 0x4c1c,
+> +		  0x83, 0xe9, 0x66, 0xe7, 0x21, 0xde, 0x30, 0x70);
+> +
+> +static int wbrf_dsm(struct acpi_device *adev, u8 fn,
+> +		    union acpi_object *argv4,
+> +		    union acpi_object **out)
+> +{
+> +	union acpi_object *obj;
+> +	int rc;
+> +
+> +	obj = acpi_evaluate_dsm(adev->handle, &wifi_acpi_dsm_guid,
+> +				WBRF_REVISION, fn, argv4);
+> +	if (!obj)
+> +		return -ENXIO;
+> +
+> +	switch (obj->type) {
+> +	case ACPI_TYPE_BUFFER:
+> +		if (!*out) {
+> +			rc = -EINVAL;
+> +			break;
+> +		}
+> +		*out = obj;
+> +		return 0;
+> +
+> +	case ACPI_TYPE_INTEGER:
+> +		rc =  obj->integer.value ? -EINVAL : 0;
+> +		break;
+> +	default:
+> +		rc = -EOPNOTSUPP;
+> +	}
+> +	ACPI_FREE(obj);
+> +
+> +	return rc;
+> +}
+> +
+> +static int wbrf_record(struct acpi_device *adev, uint8_t action,
+> +		       struct wbrf_ranges_in *in)
+> +{
+> +	union acpi_object *argv4;
+> +	uint32_t num_of_ranges = 0;
+> +	uint32_t arg_idx = 0;
+> +	uint32_t loop_idx;
+> +	int ret;
+> +
+> +	if (!in)
+> +		return -EINVAL;
+> +
+> +	for (loop_idx = 0; loop_idx < ARRAY_SIZE(in->band_list);
+> +	     loop_idx++)
+> +		if (in->band_list[loop_idx].start &&
+> +		    in->band_list[loop_idx].end)
+> +			num_of_ranges++;
+> +
+> +	argv4 = kzalloc(sizeof(*argv4) * (2 * num_of_ranges + 2 + 1), GFP_KERNEL);
+> +	if (!argv4)
+> +		return -ENOMEM;
+> +
+> +	argv4[arg_idx].package.type = ACPI_TYPE_PACKAGE;
+> +	argv4[arg_idx].package.count = 2 + 2 * num_of_ranges;
+> +	argv4[arg_idx++].package.elements = &argv4[1];
+> +	argv4[arg_idx].integer.type = ACPI_TYPE_INTEGER;
+> +	argv4[arg_idx++].integer.value = num_of_ranges;
+> +	argv4[arg_idx].integer.type = ACPI_TYPE_INTEGER;
+> +	argv4[arg_idx++].integer.value = action;
+> +
+> +	for (loop_idx = 0; loop_idx < ARRAY_SIZE(in->band_list);
+> +	     loop_idx++) {
+> +		if (!in->band_list[loop_idx].start ||
+> +		    !in->band_list[loop_idx].end)
+> +			continue;
+> +
+> +		argv4[arg_idx].integer.type = ACPI_TYPE_INTEGER;
+> +		argv4[arg_idx++].integer.value = in->band_list[loop_idx].start;
+> +		argv4[arg_idx].integer.type = ACPI_TYPE_INTEGER;
+> +		argv4[arg_idx++].integer.value = in->band_list[loop_idx].end;
+> +	}
+> +
+> +	ret = wbrf_dsm(adev, WBRF_RECORD, argv4, NULL);
+> +
+> +	kfree(argv4);
+> +
+> +	return ret;
+> +}
+> +
+> +int wbrf_add_exclusion(struct acpi_device *adev,
+> +		       struct wbrf_ranges_in *in)
+> +{
+> +	return wbrf_record(adev, WBRF_RECORD_ADD, in);
+> +}
+> +EXPORT_SYMBOL_GPL(wbrf_add_exclusion);
+> +
+> +int wbrf_remove_exclusion(struct acpi_device *adev,
+> +			  struct wbrf_ranges_in *in)
+> +{
+> +	return wbrf_record(adev, WBRF_RECORD_REMOVE, in);
+> +}
+> +EXPORT_SYMBOL_GPL(wbrf_remove_exclusion);
+> +
+> +bool wbrf_supported_producer(struct acpi_device *adev)
+> +{
+> +	return acpi_check_dsm(adev->handle, &wifi_acpi_dsm_guid,
+> +			      WBRF_REVISION,
+> +			      (1ULL << WBRF_RECORD) | (1ULL << WBRF_RETRIEVE));
+> +}
+> +EXPORT_SYMBOL_GPL(wbrf_supported_producer);
+> +
+> +static union acpi_object *
+> +acpi_evaluate_wbrf(acpi_handle handle, u64 rev, u64 func)
+> +{
+> +	acpi_status ret;
+> +	struct acpi_buffer buf = {ACPI_ALLOCATE_BUFFER, NULL};
+> +	union acpi_object params[4];
+> +	struct acpi_object_list input = {
+> +		.count = 4,
+> +		.pointer = params,
+> +	};
+> +
+> +	params[0].type = ACPI_TYPE_INTEGER;
+> +	params[0].integer.value = rev;
+> +	params[1].type = ACPI_TYPE_INTEGER;
+> +	params[1].integer.value = func;
+> +	params[2].type = ACPI_TYPE_PACKAGE;
+> +	params[2].package.count = 0;
+> +	params[2].package.elements = NULL;
+> +	params[3].type = ACPI_TYPE_STRING;
+> +	params[3].string.length = 0;
+> +	params[3].string.pointer= NULL;
+> +
+> +	ret = acpi_evaluate_object(handle, "WBRF", &input, &buf);
+> +	if (ACPI_SUCCESS(ret))
+> +		return (union acpi_object *)buf.pointer;
+> +
+> +	if (ret != AE_NOT_FOUND)
+> +		acpi_handle_warn(handle,
+> +				 "failed to evaluate WBRF(0x%x)\n", ret);
+> +
+> +	return NULL;
+> +}
+> +
+> +static bool check_acpi_wbrf(acpi_handle handle, u64 rev, u64 funcs)
+> +{
+> +	int i;
+> +	u64 mask = 0;
+> +	union acpi_object *obj;
+> +
+> +	if (funcs == 0)
+> +		return false;
+> +
+> +	obj = acpi_evaluate_wbrf(handle, rev, 0);
+> +	if (!obj)
+> +		return false;
+> +
+> +	if (obj->type != ACPI_TYPE_BUFFER)
+> +		return false;
+> +
+> +	for (i = 0; i < obj->buffer.length && i < 8; i++)
+> +		mask |= (((u64)obj->buffer.pointer[i]) << (i * 8));
+> +	ACPI_FREE(obj);
+> +
+> +	/*
+> +	 * Bit 0 indicates whether there's support for any functions other than
+> +	 * function 0.
+> +	 */
+> +	if ((mask & 0x1) && (mask & funcs) == funcs)
+> +		return true;
+> +
+> +	return false;
+> +}
+> +
+> +bool wbrf_supported_consumer(struct acpi_device *adev)
+> +{
+> +	return check_acpi_wbrf(adev->handle,
+> +			       WBRF_REVISION,
+> +			       1ULL << WBRF_RETRIEVE);
+> +}
+> +EXPORT_SYMBOL_GPL(wbrf_supported_consumer);
+> +
+> +int wbrf_retrieve_exclusions(struct acpi_device *adev,
+> +			     struct wbrf_ranges_out *exclusions_out)
+> +{
+> +	union acpi_object *obj;
+> +
+> +	obj = acpi_evaluate_wbrf(adev->handle,
+> +				 WBRF_REVISION,
+> +				 WBRF_RETRIEVE);
+> +	if (!obj)
+> +		return -EINVAL;
+> +
+> +	memcpy(exclusions_out, obj->buffer.pointer, obj->buffer.length);
+> +
+> +	ACPI_FREE(obj);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(wbrf_retrieve_exclusions);
+> diff --git a/include/linux/wbrf.h b/include/linux/wbrf.h
+> new file mode 100644
+> index 000000000000..e4c99b69f1d2
+> --- /dev/null
+> +++ b/include/linux/wbrf.h
+> @@ -0,0 +1,55 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * AMD Wifi Band Exclusion Interface
+> + * Copyright (C) 2023 Advanced Micro Devices
+> + */
+> +
+> +#ifndef _LINUX_WBRF_H
+> +#define _LINUX_WBRF_H
+> +
+> +#include <linux/acpi.h>
+> +
+> +/* Maximum number of wbrf ranges */
+> +#define MAX_NUM_OF_WBRF_RANGES		11 > +
+> +struct exclusion_range {
+> +	/* start and end point of the frequency range in Hz */
+> +	uint64_t	start;
+> +	uint64_t	end;
+> +};
+> +
+> +struct wbrf_ranges_in {
+> +	/* valid entry: `start` and `end` filled with non-zero values */
+> +	struct exclusion_range	band_list[MAX_NUM_OF_WBRF_RANGES];
+> +};
+> +
+> +struct wbrf_ranges_out {
+> +	uint32_t		num_of_ranges;
+> +	struct exclusion_range	band_list[MAX_NUM_OF_WBRF_RANGES];
+> +} __attribute__((packed));
+> +
+> +/**
+> + * APIs needed by drivers/subsystems for contributing frequencies:
+> + * During probe, check `wbrf_supported_producer` to see if WBRF is supported.
+> + * If adding frequencies, then call `wbrf_add_exclusion` with the
+> + * start and end points specified for the frequency ranges added.
+> + * If removing frequencies, then call `wbrf_remove_exclusion` with
+> + * start and end points specified for the frequency ranges added.
+> + */
+> +bool wbrf_supported_producer(struct acpi_device *adev);
+> +int wbrf_add_exclusion(struct acpi_device *adev,
+> +		       struct wbrf_ranges_in *in);
+> +int wbrf_remove_exclusion(struct acpi_device *adev,
+> +			  struct wbrf_ranges_in *in);
+> +
+> +/**
+> + * APIs needed by drivers/subsystems responding to frequencies:
+> + * During probe, check `wbrf_supported_consumer` to see if WBRF is supported.
+> + * When receiving an ACPI notification for some frequencies change, run
+> + * `wbrf_retrieve_exclusions` to retrieve the latest frequencies ranges.
+> + */
+> +int wbrf_retrieve_exclusions(struct acpi_device *adev,
+> +			     struct wbrf_ranges_out *out);
+> +bool wbrf_supported_consumer(struct acpi_device *adev);
+> +
+> +#endif /* _LINUX_WBRF_H */
 
