@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43B4FEB64DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 06:47:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C772EB64D7
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 07:09:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B154610E25E;
-	Tue, 20 Jun 2023 06:47:11 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3A9510E25E;
- Tue, 20 Jun 2023 06:47:10 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 38F566606F23;
- Tue, 20 Jun 2023 07:47:08 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1687243628;
- bh=0TT/70u6EJFMsxbYh7XTY8VA6PAj4oaCda1q7LxyPFQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=D0JGzn+Ut+Jivasz2yNNDjkZo8oFtrFmSyWkJgLFgSxfb5PhhUbxShDtaoYGDNSnP
- 3bNCaQeYpizSUJZxq0nYz3QVr63lgXgwKDVtaZ3lKJ/KqxlwU0engMQyy+mLBAFunA
- vzmIjcmIxBvVMjXiUZYi8VSe6hZJtlz8Mz3dt9htygaYiOv5a4q5G/95vSzKFMs93+
- pMKYLEHhy5ob6riHHDHuPymXzBeG6jY3cTbKilJjOZEu5I4CsgKI+3/AyJzdTrEMNf
- IuH/ySEUy0t7Hz2953RhyiYZsT1qqsBuJGav6dHYfIzo9YrHS4Bpo5+5M8pvx2WNB3
- wUT2XBDZCOrLg==
-Date: Tue, 20 Jun 2023 08:47:04 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 01/13] drm: execution context for GEM buffers v4
-Message-ID: <20230620084704.154b95e2@collabora.com>
-In-Reply-To: <20230619142923.74c21fca@collabora.com>
-References: <20230504115159.2245-1-christian.koenig@amd.com>
- <20230504115159.2245-2-christian.koenig@amd.com>
- <20230614142339.04df5111@collabora.com>
- <299e0ff6-bd0a-fa8d-acda-8b3ce22d6ab6@amd.com>
- <20230614150252.6ceb42fd@collabora.com>
- <20230617135434.7dd3a25d@collabora.com>
- <5058c4dd-da1b-9495-5ced-c4d5a5749194@shipmail.org>
- <20230619121234.4a826f53@collabora.com>
- <26c94e6a-9458-7aeb-8e6f-85838bac43ca@amd.com>
- <20230619142923.74c21fca@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE2AF10E26B;
+	Tue, 20 Jun 2023 07:09:57 +0000 (UTC)
+Received: from smtp.kvr.at (smtp.kvr.at [83.65.151.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA0C810E06B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jun 2023 14:48:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org; 
+ s=20200417.ckk.user;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=IlrSmA/LOGBJmXy5aVzLSVP8j6MkTyK3zdgaviVwT2w=; b=Kjs6lexnFXtTGFPg33Ni8yQ9D+
+ EM7KQGj9W96XYxSN7HYvKHPPBP5W5FpTXh9I01qev29b2E7VrH+C5U8Lzt7kBFQWRMqxo+igqLXkE
+ /m1BNFObqKuEPRQWeCqPgKIiPSIttoE4Y6cJiIWZEKGHJXGFgiM/+oHCAmpNfGdvdodOBiXIhnbgw
+ 6hvNgEYXWABrlCtyF0XkTC3ieAB3gU9WzaiI3CilGFkS6sPzqOJHxT9X/K6JFoYJZE5/yt1MXbGsM
+ Gvq+AHVbLtbzDgO+662Q5u/a33tAUXptZGOta8ETg/xVZJNptXPAiAw/tUd+esWpIYfotJBdlejsW
+ IYz74xxRstAk8r+NE9dtEfuNTn9YuEkdbnbLvbDLnekXWxe5ZstbEFsDW9dtUop7N07dCb4XVyNRP
+ mjcBcPspfn+1B6t/GFg9BZ+ZSDqIesE6aXjq3Km89qp2avLkZNLyiCGEjwOmhjMXFgNirE0Rmvgft
+ ekyadW6s77If6B/XYiD8GeQ6wSYg/i2l0G+LzkcHo3EV+TXde9zV8yBP8BZv/pItf51wInjHdTQH+
+ 5f4jZzHj9msPrWamHLfYOCOa2J5lsRF7HHv1ngrryzRSK2I8qPfv3JqA5OuXwofv2bBjn+nWeXWF+
+ lubwgJM7q4upRUh3zLJ7jldcCK1u9Djo62T1BwJuo=;
+Received: from [192.168.0.7] (port=53252)
+ by smtp.kvr.at with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+ (Exim 4.96) (envelope-from <ckk@debian.org>) id 1qBGBZ-001uXk-2X;
+ Mon, 19 Jun 2023 16:48:53 +0200
+Message-ID: <ae413961-7de2-b5a4-3ecd-ab29a158ee26@debian.org>
+Date: Mon, 19 Jun 2023 16:48:53 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: Warning appeared after c8b5a95 ("drm/amdgpu: Fix desktop freezed
+ after gpu-reset")
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <113ba574-90b4-1a7f-5982-d9de8d12c24b@debian.org>
+ <CADnq5_P6h1YQBO3TRWoEPBAzfSzJOCgUyY2xw2WWPmnW48Sq7A@mail.gmail.com>
+Content-Language: en-US
+From: Christian Kastner <ckk@debian.org>
+In-Reply-To: <CADnq5_P6h1YQBO3TRWoEPBAzfSzJOCgUyY2xw2WWPmnW48Sq7A@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 20 Jun 2023 07:09:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,84 +60,22 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Brost <matthew.brost@intel.com>, arunpravin.paneerselvam@amd.com,
- "Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= \(Intel\)" <thomas_os@shipmail.org>,
- francois.dugast@intel.com, amd-gfx@lists.freedesktop.org, luben.tuikov@amd.com,
- dakr@redhat.com, dri-devel@lists.freedesktop.org, felix.kuehling@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 19 Jun 2023 14:29:23 +0200
-Boris Brezillon <boris.brezillon@collabora.com> wrote:
+On 2023-06-19 16:05, Alex Deucher wrote:
+> On Mon, Jun 19, 2023 at 9:05 AM Christian Kastner <ckk@debian.org> wrote:
+>> On a Debian 12 ("bookworm") system, I observed a new warning when I
+>> upgraded from kernel 6.1.25 to 6.1.27. This is on a system with an RX
+>> 6800 XT GPU and 3500X processor.
+> 
+> The warnings are harmless, but they have been fixed[1] and the fixes
+> are making their way back to stable kernels.
+> 
+> [1] - https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=08c677cb0b436a96a836792bb35a8ec5de4999c2
 
-> On Mon, 19 Jun 2023 12:44:06 +0200
-> Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
->=20
-> > Am 19.06.23 um 12:12 schrieb Boris Brezillon: =20
-> > > [SNIP]
-> > > Note that the drm_exec_until_all_locked() helper I introduced is taki=
-ng
-> > > an expression, so in theory, you don't have to define a separate
-> > > function.
-> > >
-> > > 	drm_exec_until_all_locked(&exec, {
-> > > 		/* inlined-code */
-> > > 		int ret;
-> > >
-> > > 		ret =3D blabla()
-> > > 		if (ret)
-> > > 			goto error;
-> > >
-> > > 		...
-> > >
-> > > error:
-> > > 		/* return value. */
-> > > 		ret;
-> > > 	});
-> > >
-> > > This being said, as soon as you have several failure paths,
-> > > it makes things a lot easier/controllable if you make it a function,
-> > > and I honestly don't think the readability would suffer from having a
-> > > function defined just above the user. My main concern with the origin=
-al
-> > > approach was the risk of calling continue/break_if_contended() in the
-> > > wrong place, and also the fact you can't really externalize things to
-> > > a function if you're looking for a cleaner split. At least with
-> > > drm_exec_until_all_locked() you can do both.   =20
-> >=20
-> > Yeah, but that means that you can't use return inside your code block=20
-> > and instead has to define an error label for handling "normal"=20
-> > contention which is what I'm trying to avoid here. =20
->=20
-> Sorry, didn't pay attention to this particular concern. Indeed, if you
-> want to return inside the expression, that's a problem.
+That was quick. Thank you for pointing out the resolution.
 
-Sorry, that's wrong again. Had trouble focusing yesterday...
-
-So, returning directly from the expression block should be perfectly
-fine. The only problem is breaking out of the retry loop early and
-propagating the error, but that's no more or less problematic than it
-was before. We just need the drm_exec_retry_on_contention() helper you
-suggested, and a drm_exec_stop() that would go to some local
-__drm_exec_stop label.
-
-	int ret =3D 0;
-
-	ret =3D drm_exec_until_all_locked(exec, ({
-		...
-		ret =3D drm_exec_prepare_obj(exec, objA, 1);
-		drm_exec_retry_on_contention(exec);
-		if (ret)
-			drm_exec_stop(exec, ret);
-		...
-
-		ret =3D drm_exec_prepare_obj(exec, objB, 1);
-		drm_exec_retry_on_contention(exec);
-		if (ret)
-			drm_exec_stop(exec, ret);
-
-		0;
-	}));
-
-Which is pretty close to the syntax you defined initially, except for
-the '0;' oddity at the end, which is ugly, I admit.
+Best,
+Christian
