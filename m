@@ -4,118 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67355EB64D7
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:39:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2187EB64DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 19:25:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A26510E379;
-	Tue, 20 Jun 2023 18:39:57 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AC9A10E378;
- Tue, 20 Jun 2023 18:39:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1035510E0CF;
+	Tue, 20 Jun 2023 19:25:58 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2070.outbound.protection.outlook.com [40.107.244.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2583910E0CF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jun 2023 19:25:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GqFsixxRg996H6AQIgyFJDCWGvxdGCUXty5cwsPvhC9TLNJRi7znOocJ/wZXGfsRXFQ8WAFQ+4S8syytU9XeBQl7aZPw7mqUBVP7iXKaseuq+bsUpZaFUbjZ9V/aSogfOcf5ix+wWPyHxDPxlWWJ1Rh3Do8kTblxra4zp34teiLHJTRNrj13pkFfcuFV++JQjukEcZ8QGSPSbzU/sK8NIsB0fS4e2yy5koa7JegYPPXGU6xDowT2+IbhkuwzPteTyecXvNV1C4uJ79s8mB/cnSs88q0N111j1BzgeSO2tHsHs+HVvJ+gE8PSsmrlrs6fNfk7bgjdCPVBy8Ip9w1+LA==
+ b=inhnKUzDwtBYOZ8ptzZ5vegDcJVzWOlPFj22TnkcA65cFDF64DqEcmqj5EUcMLK+wW5FVTsIHPi8A+zruIGw3/fSGTYx3axp4EucFcdNc3uHWc1HPEqYoPIxcMmtw1hKefeS3GT9MxQpiDF4ZrRHazCpUetjogkmxo79DwiCl1Uxf2kwPzQLdKVabjpsCH+GZNJc51olOeIleSKanZawOvcNhU5bc7ndVzDCu8EG94KN0pCryM3kxWRKfBp0qs6uVWQejIfS4n7S2y/lONr24TC/cLmk605sYqrciI+NCoqC1JJEFi862lQHVHlAcD7omCIGdYqqxNqWh9XfzITxbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2hbWlIMLkKOfYFeqmU1cA8dfu2ibmz7PvfR1/QObRxM=;
- b=dctTmvs2SPg1CQjon3Nzmg+7kotVbsQ1qgbrGVvF/1Frtej2OHi1KkLT6vKlyGfjSQyS2+HeFnV4eK9HHF682ERJRScMM0kYSX0KYzCC9EJkaC89I+EAUUVg1kRGZE4p7UwCPlKqFzLwH3ewEVNpF2tX15eD+J6hYtfNEPbfaE0FJu8CPPW/yurhBgu1zkYU1csXPxpf7XoarLVlOW0XxQn1b3Z7c/ARVAXQ/iyl7tjDiidYaDCpoJ7WDmw5yRzoOIN7CaRD9PUYvTF+gvs3rMfXIU0t4alHW6Cj3vQw4yHsyLYmYqMCtddZbduSy+Cn1Con6Ujqlk//KK25TPlelQ==
+ bh=wccA/r32QrzKUNtOJLw69qHtO8fi35fiZEbplBJC3xk=;
+ b=Sb2hBZWaYb45Gf0EqtQEMuXwXbjkN49UuCDzKjlKR0BHrBt0cYV1rKvGOqqDp1oT8vC8ip2JVSXWpPTL26cRKQxZ8LMyZbAhzT4MCw/eMddHqttBEZn4Y9n0TJMWJyAcsM7Qh6cDKggXUt36+NyRx3Vrzu7xNBoXBnHtIpmJlXTmhK+U6QT4b+pYAGbo8SdFpdNVerydVpIUbS0zBhsTqj5mxaKQ5Mk2IhI1IS+ozotHcTe3c6bQX8TxfkiWJEYDOyfULWJ89NNFrJrTpTYTZ1BBFlGy1XXh//uaqcTb5n4YjS/jF5AqxGUXtFOOH3SNF5f6sfqtanlhuTiu/wpjMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2hbWlIMLkKOfYFeqmU1cA8dfu2ibmz7PvfR1/QObRxM=;
- b=FHMWnFlZat+M+rBaCPQluKH0Vdmasnm52msLMYtwUicgE599oBUhxpnj/Q3/9zD3wUos/5EyK+ze0DuZnqvy+gDTcmpCEFjil/LmM2O+k5Mj0EiIvFkSRuPuRTi2wcv7K6bSP4gwcvcQjpP5FgeGHyAjMpX7Cc7iWCKrp9ebA1w=
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by DS0PR12MB8455.namprd12.prod.outlook.com (2603:10b6:8:158::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Tue, 20 Jun
- 2023 18:39:52 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::dfcf:f53c:c778:6f70]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::dfcf:f53c:c778:6f70%5]) with mapi id 15.20.6521.020; Tue, 20 Jun 2023
- 18:39:52 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-To: "Yang, WenYou" <WenYou.Yang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: Vangogh: Add new gpu_metrics_v2_4 to acquire
- gpu_metrics
-Thread-Topic: [PATCH] drm/amd/pm: Vangogh: Add new gpu_metrics_v2_4 to acquire
- gpu_metrics
-Thread-Index: AQHZlCnLuj1cXKxMLkaNhPGNLa25iq+FKYaAgA77CSA=
-Date: Tue, 20 Jun 2023 18:39:52 +0000
-Message-ID: <MN0PR12MB6101C84C2AD84CA4D1CD8BFAE25CA@MN0PR12MB6101.namprd12.prod.outlook.com>
-References: <20230601013826.265885-1-WenYou.Yang@amd.com>
- <DM6PR12MB35313C599DF2DFFA0F329D87FD57A@DM6PR12MB3531.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB35313C599DF2DFFA0F329D87FD57A@DM6PR12MB3531.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=f088a03e-531b-478a-a3c7-23195e560767;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-06-20T18:39:46Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=wccA/r32QrzKUNtOJLw69qHtO8fi35fiZEbplBJC3xk=;
+ b=Y6KedkY3WxMROfDMaS8q6bHog6x2gCakM9+vPP4POe4eT8EhWV1BELHC7yYeIleezaNcFXknGSwtBbWrV5YwyH8t53ggC7wY6RChkaIr8GfhD4owHEhLVcRzUNiFek8xP419RIa9YCzUBIyczeBpEhnSQkQdBGLZHIiUGLSvcOw=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN0PR12MB6101:EE_|DS0PR12MB8455:EE_
-x-ms-office365-filtering-correlation-id: 2bf116fb-ed94-4235-785c-08db71bdbc69
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 6eGrG1kQX3WoIjxHS6Rc6wGSG9WZDmEcw+jO4UaYpGiYmarur5Br//ITKqHlZBaAEXpD//n85jOGahtqoTxc34vannoZU8peFntJV3qOtCMc6bZ6uWtamUq4p4Ltf0rA4O15oQOLHFzn+39mPhThSkgMNP0y/dWUNW9N9KrROMzl/VR3lUXlhFvXjRHyaYWjXdmaHM5fDJp4DyXb7QVAMl8Vk4BSfAB1pWexp+SSSqmj8hmAZG7wcYqUlhl/ImqdaOdawJQjLCXYeOgDAp7GzGXNlcaUZigbreL6LZAqsTFXUuE5zoc7M6lUl5H1X8bTMznGCYnLJySmBU2Twp9u5AOcFW9HIGkKiIBv4N5rRudXrTaNVlMGDGiro3Iac4FTKq2lgSGfVj1/tbb43hmCa0ko7djrTUaMc4LrNAT9S5BcmJqwpaXgyjYtIXmadBPCGrY1J2isurPIT+x/opR+c4g6ZMVu8n+BMyJ/1uCazuume6Hnw2Rnfi6RT5Ih7uVZnqWD0RvkKMrlEc+zRaHsOtVIBttw+Z+43j6ug3i0DuQsyuaYLHfK/+8p7F7cgX+oqEGGJaZFeSnS3pQZI/yolsLLyMEQl9SR5oVsSo2U2nGLKyuh/3lN7LlNhlebt4EqgVGO+1IoKPaBqmf4T9flSA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(136003)(39860400002)(396003)(366004)(376002)(451199021)(5660300002)(478600001)(26005)(52536014)(64756008)(66476007)(66946007)(76116006)(6636002)(66556008)(66446008)(316002)(54906003)(110136005)(41300700001)(4326008)(2906002)(53546011)(7696005)(71200400001)(8936002)(30864003)(8676002)(186003)(6506007)(9686003)(83380400001)(122000001)(921005)(55016003)(38100700002)(33656002)(86362001)(38070700005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LwlCVpIdOy0SSFZ1Qzjnaz1jBTvx9cuLyIhgTU0HlL4SbwAT8yW8ZYSdcdsk?=
- =?us-ascii?Q?oHwtqtNM3qwsa1lSgGK57LatNsxtdeJhBIm6qr1vaLCrT96rG9MzKFz7bndD?=
- =?us-ascii?Q?VhIm6ZBtIW5F7amckhbZl0c2i4aHAFd41GNjqLzgu3I+8kxL8FEgx0rkgfh0?=
- =?us-ascii?Q?gf3RrgyujT01VeHqUISTvWe0yrHi/FmhPB9CYEJDkA7RIdMWf6sB0l5grisf?=
- =?us-ascii?Q?k3sCpDr3WFgDWkJzU/X9Ha4+lcmmyOfYAFxtYvgjaNN5sLl6sPveH0Xr3r11?=
- =?us-ascii?Q?YW4W0zLghkK25YJJuxe9LLAh7PLEr0+Yt4BSg2Zcf7qCAqt1x3D1NEsh0WQ9?=
- =?us-ascii?Q?PFkURGOtil9Y4rbPQCsSULnoAVIjPYtIfyFyQI6CbZCmxAxWHemkdNZv8vZT?=
- =?us-ascii?Q?ukyO9s7sgqmJTZHtfWq39LrBkI2XQe/tUiTNyyEKbYMik7Z1MylrAjWSnRkg?=
- =?us-ascii?Q?9F46sfp+LkZitPE4vIKCpEzj2JSJTVkqqjq4ftXabW1f3pN43Etvsdck+a8v?=
- =?us-ascii?Q?JldkrvVWHuQyKq3JH1vm2FyUJ7hx3rDlhDgiThRrce+cWZpzh2bBldRyyxjt?=
- =?us-ascii?Q?NwA09YUQsGHADfS9gZO/6pnT9nfROWyfFNVo9M4WOjyvDXtoIG041R9H/mVH?=
- =?us-ascii?Q?Fz0Z4MwD2OJwMLaBZgzE9JJcDdCufGMcpYZV0UGMeUuZLgoO6dPmcgP0TFyU?=
- =?us-ascii?Q?cpD6UKYKANU9u/LSaixF0jt40SyqcR1f5dzDSKiAq/QL3jIRsJI1xOiphkAa?=
- =?us-ascii?Q?a4hHpameGMOS6W2S0Gs9L0GWvNkjMZPCLAk4MY2ShJ7IWgdU6syBU9eQ7POy?=
- =?us-ascii?Q?hjquTH87QhjsbcXQvm305q0QhIsIyCUOy79C0X8TaWp/8Ublcih/BhXJgQBg?=
- =?us-ascii?Q?/M22DVqU3bG3hwOruqfG+pBCQCLuxjOE8MM68y8pT1IlP0blm7voM7CmQ7GW?=
- =?us-ascii?Q?yNTkBH6bG9OX7mTc+xgjvR2J6evTyEaoOOSC/zbb9QArRQuoFXDkgqhL1r2t?=
- =?us-ascii?Q?wv8H3fdSpmjqT0ukDaqQ9l5tgtXt9RJv9JHfLUoCdr7RqxM9WSFdaBbJoFUT?=
- =?us-ascii?Q?i1pLcWxc049G5PpQLlltDclgZNQQq4+dKd9nlbnONejVztjgrWz5fIJg52hR?=
- =?us-ascii?Q?9AoqpAZYctC5VrKK3pT5F32/njyzf7ppsUDJzUBWmLLRiDrVTsYwHZKrUkov?=
- =?us-ascii?Q?7uePscOU/lW97pyTgV2Hytvr0aLYTcnOyhwWI0lLFcsRDkRg8xgMDSCWh5/F?=
- =?us-ascii?Q?h2fTVoL2O/Lgdn/wNdmUou6T1AJ1VSSJkuDRN/1rWxX8tXPsyLDf9GTTwmgE?=
- =?us-ascii?Q?ENv2LSabdx4pTJU6plWz5jfYtYgLURmOQF39NIXaxnSsFRGrnwSvmNvm/8zL?=
- =?us-ascii?Q?KQUZPvk3QACEy08sqcbTGvff0IW/kA/8qCQSzqihkkbanvym7WWffjgzb3xh?=
- =?us-ascii?Q?EdFN43ZnQTz+x9vqXWkvHZx9PHCzYWElzHnCe4PQt3pk0TJ3Ws6EmiobKFZ0?=
- =?us-ascii?Q?BjrB2vDxra0mGdFC4rInnRHhcLAy4Qvis5dQGIkBSbOiCXjeQf56rGhy/lW4?=
- =?us-ascii?Q?1pgR8RNcV6J11lCDN+4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BN9PR12MB5193.namprd12.prod.outlook.com (2603:10b6:408:11a::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Tue, 20 Jun
+ 2023 19:25:53 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2dc3:c1:e72d:55bc]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::2dc3:c1:e72d:55bc%7]) with mapi id 15.20.6500.036; Tue, 20 Jun 2023
+ 19:25:52 +0000
+Message-ID: <55f8aca0-ef75-6300-6482-cc19b5d58a08@amd.com>
+Date: Tue, 20 Jun 2023 15:25:50 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCHv4] drm/amdgpu: Update invalid PTE flag setting
+Content-Language: en-US
+To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230619173825.1461932-1-mukul.joshi@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20230619173825.1461932-1-mukul.joshi@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0137.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:87::17) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BN9PR12MB5193:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b192c79-ec83-4064-93cc-08db71c4296d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 94SIv8Lzvqw4anjTZslgsJik2ng8fFYz85QkInHR1FCr8AFrAA6bK8m3JyQem4eyZ26hO74dw4EoWz0X6fN2QLTvyOYqbXIWlEUMQvCrcqvcCjKuSD9ptK1iLnqV7H+R5TvOHgNmYJwaU9d/r/Y8bTj8OlX/FSsy0OcGXQi4BOiag0VxRJpPyQIQ1JqUc60VjybPEI5ffyr2bZdTbQtmNnokTwnyQ+NwxOMWyYr2DACvGsTdV7o8AomQJFaSGjnOj/zQ2aQrZ+6PBTjK+UNGN5GTjpUp9x4Tx7mZfJs8jZ6EG1iZrDxGVtVCBpEBPJ4c+EoprYSETqvmR/rHZu4yqh+UI1ud+DMU1A+lhVcdzjU16/kv6BNXaGwjmrM+H4rTDKhZpes2axJuG60rQa/uENKj7lx+iUv2I9XgAxivWOvkOcFSgKobpLwNJgikVR1C1orKAlvrcdm9VfWiL3wVFZpFdxZY4xsCfZjh2xQiR+oQvvF5fJ99d1lOxRa4OoPNevfTom1sFVSBWo6axgURrIDurwxssyW8BwnYipynHl7xiJpf/Ac21ayGUpTq+OZZJsQ+IRUvgRaCJmnEcPs4zKMrA3XJVx6yJ8+fKZ0arfiUoHSOJrU95L6bIiSWy9eevJBmdD0od9QBZkDFOcTaow==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(366004)(396003)(376002)(39860400002)(346002)(451199021)(6512007)(6506007)(186003)(26005)(6486002)(41300700001)(31686004)(478600001)(36916002)(66946007)(66476007)(66556008)(4326008)(316002)(53546011)(38100700002)(44832011)(36756003)(5660300002)(8936002)(8676002)(2616005)(31696002)(86362001)(2906002)(83380400001)(15650500001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3VUdTQvcENXc0pOVVpVblhvQ09XTjlVN0t6RWdSOTMrK1pWdGdFUlp6anJL?=
+ =?utf-8?B?blI4TEtJNTVTUk5iK2Fqd0Jwakd4QVVSUHJjUU01WE05VHdNWkFHN2FwVDB3?=
+ =?utf-8?B?c1k1T09Oamg5cW45Q1BaT3FCcWtTQUZDZjBFUUlUU2kyQUxiWXQ0dFRmMzlP?=
+ =?utf-8?B?dTB0aGMrbWUyRFkzNElaaWtvR0RLOXRWaWplMmUyUjBZa0xYKzI3Q3RrT1F2?=
+ =?utf-8?B?SlpUVFFodTV3a25kb3pFSWtTai83MGR0OFBwTGRRdWJtT3d4bDBqRWpCaUwr?=
+ =?utf-8?B?ZHc0cGNCR0pvbjRSWHB0dWxDcXR5RTAzQ2xjQ0E3OU1MaldTbXVmM2Y2UUZT?=
+ =?utf-8?B?V0plMXF1b2dMQ0E3TVhkUzJUNExQaUR2RGRsRFlnWkxnSmhldzhSc0RoRzU5?=
+ =?utf-8?B?OHZ6TXlRTXJGVlJhUnBrT1RMNjEyTG81Y1BCMTBYUmIxU1FmK2F4cnFpWEhC?=
+ =?utf-8?B?eWZwdDVTM09uYlVPL2hDcFd4UkY3eHFPRTdvTEUzcTZranFFWm1Rc0E4c1Ey?=
+ =?utf-8?B?by8zS3lUbFVsN3FQL0RTcGd6NXNZWER4S04rSGJRTy9WNGRWSll4K1c3QThC?=
+ =?utf-8?B?SVJ6OStHVzh4S1EzQjNmQlNOM1NqNFpVaDZiNFZ1bVhWUmdzbVdLU01JM0JW?=
+ =?utf-8?B?QnYyN0kvYSs0Q2JmbE5XOE93NzRiYnBoRk1HcndnM2hqM1A5Smg3UjBjcjBT?=
+ =?utf-8?B?QVEyZyt3bXNGWm4rSGxVSWZOMjExSGFNeG1aK040anNCbG9iTWhLeDU3dDAw?=
+ =?utf-8?B?Wkw0WDhCSkVyVHRHN2EzeXQ0TUJOTW5zYXQvcUp4bzlIQmRMYVlIUGlYdyt2?=
+ =?utf-8?B?SGVIVk1tb3FPbVdFMkRha01GclEzSXAweGNYV1Jvd1lvQS9wMnpaWTdtS3J3?=
+ =?utf-8?B?NGtPd0VkZ3pScnJBZzAxK1lteDAxVGQ2czJQZDNwUml5bFJFVUxPVkdrRUc2?=
+ =?utf-8?B?bGgwakRTV3VqS3VxRWhjRzRZTWVBWU1pUlFFek9YOTJDL1hTVHducnJUZW9E?=
+ =?utf-8?B?eGhIUXdwMEVIcDE1cDgrVnRqUTFPa0dUam0xWUF0a3hobDM0NTJlM0R3RERs?=
+ =?utf-8?B?M3NMSGxDNkRNdGJWSUx3bFF6TTBreExLWVV4V3JQSHFTcWFvWmt1S2ErbTdT?=
+ =?utf-8?B?U0VlQnc1OFhUN2ZxK294eVVFSk5EUGhkd2s0Ni82M2xFcy91UVFwV0dyTitJ?=
+ =?utf-8?B?Q3E0aFR4SFhFbU1DY29IMDZhbGJXRG1vU0U2OU1ITHVlbUhIbGV4Sm5zTndv?=
+ =?utf-8?B?eGJHanFaRm9uZmN0Rng0cm9mTStqcHQvYkhGM3lqV1FzSmpGd0kreFowa3Ur?=
+ =?utf-8?B?b2xtbjNtRExKeG5RR05ha25lZXN1UUc2Z2hDUjdvc1dTZytkZEpqV2VYWXNu?=
+ =?utf-8?B?dGNVTGJWK0hUNkVVaitiUytqbXJjYzlBL2lqZlcyeElWMHRDRUFrb0x5SHRE?=
+ =?utf-8?B?V2trcXh0dXEzcVhvR2s0aGk0Y0RTTWxla1VpV0Q0YnlvTzhsQ1czQ2o4TkZr?=
+ =?utf-8?B?TWpOWm4yTXdRRnJncEJ6NXV5NlAxUU02bGlrYW1EUFBBTzV0MGRyR2Y5alJI?=
+ =?utf-8?B?TTY0UEFBK0I2N2F2MDNKMll5YlBlZjBjSkd4UmQ5TTEvbHNjSFdNRFFtcFBO?=
+ =?utf-8?B?U1BDOGk0VDZQMER4dnIvUVIzUE1VWDZYei9CbVh5QjJWV0ZVUUlLYzNGUllH?=
+ =?utf-8?B?TDF1NHQrYWt1c0VUM2pSV1B3OGFwSEgrYXRMNXU5K0hSd1piYlk2RHpNbkc3?=
+ =?utf-8?B?endIcXlVVFVrWVNsMEtVaVJTYUxvY0tiR2dHWFI5NlNXdzhDOHprcGxTN0t0?=
+ =?utf-8?B?TzdjQXBCd2xKdndDbkZZeWJCV2Mwam5nU1ZGbVFnbEFveTNndnNRSVhvKzln?=
+ =?utf-8?B?N1pONEI4UW1iSnRqL3Qxd253TkhDeDNhaXZQamF0bG9HQnBONzB3ajVYSjBh?=
+ =?utf-8?B?S2lkQi9pSTA0RjNLM0puTnFzRzVhaldDUWhxTDQ1NE10UU5qSmdLMk1ZQW8y?=
+ =?utf-8?B?Z2xYN0pFZ2RYNEhFWDRkanpMUUttUm9CZWJaeitpT2s1ZU1ycFhHdUs2Sk9u?=
+ =?utf-8?B?dGh4elcrODNKdFpqcE04NWozRjg4WmR2SVFNNGNPaUI5RDh5eWNXdSs4enVW?=
+ =?utf-8?Q?F8ePJkin/bDGsNGMzomuVOjcf?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b192c79-ec83-4064-93cc-08db71c4296d
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bf116fb-ed94-4235-785c-08db71bdbc69
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jun 2023 18:39:52.6402 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RmYyhy9tABhtZMWqA7mYPV2SpOwZjlBJtk2Dwph/ilaIDgv+FzUeqnqjRr10IqZieoT7XRkpW6WKaKb7fib19g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8455
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2023 19:25:52.7082 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rxCr1z++M70RCIxIbZbbrE32cj9x0cTwCFYhBE8N2+o0eEXXs4sgmLvvHPg084zi/QbwauxftpHhv8j/rT1YFg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5193
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,324 +124,197 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Yuan,
- Perry" <Perry.Yuan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liang,
- Richard qi" <Richardqi.Liang@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
-
-You've got an A-b from Evan already on this.  It looks fine to me too.
-
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-
-> -----Original Message-----
-> From: Yang, WenYou <WenYou.Yang@amd.com>
-> Sent: Sunday, June 11, 2023 12:53 AM
-> To: Yang, WenYou <WenYou.Yang@amd.com>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Limonciello, Mario
-> <Mario.Limonciello@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Quan,
-> Evan <Evan.Quan@amd.com>
-> Cc: Yuan, Perry <Perry.Yuan@amd.com>; Liang, Richard qi
-> <Richardqi.Liang@amd.com>; amd-gfx@lists.freedesktop.org; dri-
-> devel@lists.freedesktop.org; linux-kernel@vger.kernel.org
-> Subject: RE: [PATCH] drm/amd/pm: Vangogh: Add new gpu_metrics_v2_4 to
-> acquire gpu_metrics
+On 2023-06-19 13:38, Mukul Joshi wrote:
+> Update the invalid PTE flag setting with TF enabled.
+> This is to ensure, in addition to transitioning the
+> retry fault to a no-retry fault, it also causes the
+> wavefront to enter the trap handler. With the current
+> setting, the fault only transitions to a no-retry fault.
+> Additionally, have 2 sets of invalid PTE settings, one for
+> TF enabled, the other for TF disabled. The setting with
+> TF disabled, doesn't work with TF enabled.
 >
-> [AMD Official Use Only - General]
->
-> Any comments?
->
-> > -----Original Message-----
-> > From: Wenyou Yang <WenYou.Yang@amd.com>
-> > Sent: Thursday, June 1, 2023 9:38 AM
-> > To: Deucher, Alexander <Alexander.Deucher@amd.com>; Limonciello, Mario
-> > <Mario.Limonciello@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>;
-> > Pan, Xinhui <Xinhui.Pan@amd.com>; Quan, Evan <Evan.Quan@amd.com>
-> > Cc: Yuan, Perry <Perry.Yuan@amd.com>; Liang, Richard qi
-> > <Richardqi.Liang@amd.com>; amd-gfx@lists.freedesktop.org; dri-
-> > devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; Yang, WenYou
-> > <WenYou.Yang@amd.com>
-> > Subject: [PATCH] drm/amd/pm: Vangogh: Add new gpu_metrics_v2_4 to
-> acquire
-> > gpu_metrics
-> >
-> > To acquire the voltage and current info from gpu_metrics interface, but
-> > gpu_metrics_v2_3 doesn't contain them, and to be backward compatible,
-> add
-> > new gpu_metrics_v2_4 structure.
-> >
-> > Acked-by: Evan Quan <evan.quan@amd.com>
-> > Signed-off-by: Wenyou Yang <WenYou.Yang@amd.com>
-> > ---
-> >  .../gpu/drm/amd/include/kgd_pp_interface.h    |  69 +++++++++++
-> >  .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 109
-> ++++++++++++++++-
-> > -
-> >  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |   3 +
-> >  3 files changed, 172 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> > b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> > index 9f542f6e19ed..0f37dafafcf9 100644
-> > --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> > +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> > @@ -892,4 +892,73 @@ struct gpu_metrics_v2_3 {
-> >       uint16_t                        average_temperature_core[8]; //
-> > average CPU core temperature on APUs
-> >       uint16_t                        average_temperature_l3[2];
-> >  };
-> > +
-> > +struct gpu_metrics_v2_4 {
-> > +     struct metrics_table_header     common_header;
-> > +
-> > +     /* Temperature */
-> > +     uint16_t                        temperature_gfx;
-> > +     uint16_t                        temperature_soc;
-> > +     uint16_t                        temperature_core[8];
-> > +     uint16_t                        temperature_l3[2];
-> > +
-> > +     /* Utilization */
-> > +     uint16_t                        average_gfx_activity;
-> > +     uint16_t                        average_mm_activity;
-> > +
-> > +     /* Driver attached timestamp (in ns) */
-> > +     uint64_t                        system_clock_counter;
-> > +
-> > +     /* Power/Energy */
-> > +     uint16_t                        average_socket_power;
-> > +     uint16_t                        average_cpu_power;
-> > +     uint16_t                        average_soc_power;
-> > +     uint16_t                        average_gfx_power;
-> > +     uint16_t                        average_core_power[8];
-> > +
-> > +     /* Average clocks */
-> > +     uint16_t                        average_gfxclk_frequency;
-> > +     uint16_t                        average_socclk_frequency;
-> > +     uint16_t                        average_uclk_frequency;
-> > +     uint16_t                        average_fclk_frequency;
-> > +     uint16_t                        average_vclk_frequency;
-> > +     uint16_t                        average_dclk_frequency;
-> > +
-> > +     /* Current clocks */
-> > +     uint16_t                        current_gfxclk;
-> > +     uint16_t                        current_socclk;
-> > +     uint16_t                        current_uclk;
-> > +     uint16_t                        current_fclk;
-> > +     uint16_t                        current_vclk;
-> > +     uint16_t                        current_dclk;
-> > +     uint16_t                        current_coreclk[8];
-> > +     uint16_t                        current_l3clk[2];
-> > +
-> > +     /* Throttle status (ASIC dependent) */
-> > +     uint32_t                        throttle_status;
-> > +
-> > +     /* Fans */
-> > +     uint16_t                        fan_pwm;
-> > +
-> > +     uint16_t                        padding[3];
-> > +
-> > +     /* Throttle status (ASIC independent) */
-> > +     uint64_t                        indep_throttle_status;
-> > +
-> > +     /* Average Temperature */
-> > +     uint16_t                        average_temperature_gfx;
-> > +     uint16_t                        average_temperature_soc;
-> > +     uint16_t                        average_temperature_core[8];
-> > +     uint16_t                        average_temperature_l3[2];
-> > +
-> > +     /* Power/Voltage */
-> > +     uint16_t                        average_cpu_voltage;
-> > +     uint16_t                        average_soc_voltage;
-> > +     uint16_t                        average_gfx_voltage;
-> > +
-> > +     /* Power/Current */
-> > +     uint16_t                        average_cpu_current;
-> > +     uint16_t                        average_soc_current;
-> > +     uint16_t                        average_gfx_current;
-> > +};
-> >  #endif
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> > b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> > index 067b4e0b026c..185d0b50ee8e 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> > @@ -1854,6 +1854,86 @@ static ssize_t
-> vangogh_get_gpu_metrics_v2_3(struct
-> > smu_context *smu,
-> >       return sizeof(struct gpu_metrics_v2_3);  }
-> >
-> > +static ssize_t vangogh_get_gpu_metrics_v2_4(struct smu_context *smu,
-> > +                                         void **table)
-> > +{
-> > +     SmuMetrics_t metrics;
-> > +     struct smu_table_context *smu_table =3D &smu->smu_table;
-> > +     struct gpu_metrics_v2_4 *gpu_metrics =3D
-> > +                             (struct gpu_metrics_v2_4 *)smu_table-
-> > >gpu_metrics_table;
-> > +     int ret =3D 0;
-> > +
-> > +     ret =3D smu_cmn_get_metrics_table(smu, &metrics, true);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> > +     smu_cmn_init_soft_gpu_metrics(gpu_metrics, 2, 4);
-> > +
-> > +     gpu_metrics->temperature_gfx =3D metrics.Current.GfxTemperature;
-> > +     gpu_metrics->temperature_soc =3D metrics.Current.SocTemperature;
-> > +     memcpy(&gpu_metrics->temperature_core[0],
-> > +            &metrics.Current.CoreTemperature[0],
-> > +            sizeof(uint16_t) * 4);
-> > +     gpu_metrics->temperature_l3[0] =3D metrics.Current.L3Temperature[=
-0];
-> > +
-> > +     gpu_metrics->average_temperature_gfx =3D
-> > metrics.Average.GfxTemperature;
-> > +     gpu_metrics->average_temperature_soc =3D
-> > metrics.Average.SocTemperature;
-> > +     memcpy(&gpu_metrics->average_temperature_core[0],
-> > +            &metrics.Average.CoreTemperature[0],
-> > +            sizeof(uint16_t) * 4);
-> > +     gpu_metrics->average_temperature_l3[0] =3D
-> > +metrics.Average.L3Temperature[0];
-> > +
-> > +     gpu_metrics->average_gfx_activity =3D metrics.Current.GfxActivity=
-;
-> > +     gpu_metrics->average_mm_activity =3D metrics.Current.UvdActivity;
-> > +
-> > +     gpu_metrics->average_socket_power =3D
-> > metrics.Current.CurrentSocketPower;
-> > +     gpu_metrics->average_cpu_power =3D metrics.Current.Power[0];
-> > +     gpu_metrics->average_soc_power =3D metrics.Current.Power[1];
-> > +     gpu_metrics->average_gfx_power =3D metrics.Current.Power[2];
-> > +
-> > +     gpu_metrics->average_cpu_voltage =3D metrics.Current.Voltage[0];
-> > +     gpu_metrics->average_soc_voltage =3D metrics.Current.Voltage[1];
-> > +     gpu_metrics->average_gfx_voltage =3D metrics.Current.Voltage[2];
-> > +
-> > +     gpu_metrics->average_cpu_current =3D metrics.Current.Current[0];
-> > +     gpu_metrics->average_soc_current =3D metrics.Current.Current[1];
-> > +     gpu_metrics->average_gfx_current =3D metrics.Current.Current[2];
-> > +
-> > +     memcpy(&gpu_metrics->average_core_power[0],
-> > +            &metrics.Average.CorePower[0],
-> > +            sizeof(uint16_t) * 4);
-> > +
-> > +     gpu_metrics->average_gfxclk_frequency =3D
-> > metrics.Average.GfxclkFrequency;
-> > +     gpu_metrics->average_socclk_frequency =3D
-> > metrics.Average.SocclkFrequency;
-> > +     gpu_metrics->average_uclk_frequency =3D
-> > metrics.Average.MemclkFrequency;
-> > +     gpu_metrics->average_fclk_frequency =3D
-> > metrics.Average.MemclkFrequency;
-> > +     gpu_metrics->average_vclk_frequency =3D metrics.Average.VclkFrequ=
-ency;
-> > +     gpu_metrics->average_dclk_frequency =3D
-> > metrics.Average.DclkFrequency;
-> > +
-> > +     gpu_metrics->current_gfxclk =3D metrics.Current.GfxclkFrequency;
-> > +     gpu_metrics->current_socclk =3D metrics.Current.SocclkFrequency;
-> > +     gpu_metrics->current_uclk =3D metrics.Current.MemclkFrequency;
-> > +     gpu_metrics->current_fclk =3D metrics.Current.MemclkFrequency;
-> > +     gpu_metrics->current_vclk =3D metrics.Current.VclkFrequency;
-> > +     gpu_metrics->current_dclk =3D metrics.Current.DclkFrequency;
-> > +
-> > +     memcpy(&gpu_metrics->current_coreclk[0],
-> > +            &metrics.Current.CoreFrequency[0],
-> > +            sizeof(uint16_t) * 4);
-> > +     gpu_metrics->current_l3clk[0] =3D metrics.Current.L3Frequency[0];
-> > +
-> > +     gpu_metrics->throttle_status =3D metrics.Current.ThrottlerStatus;
-> > +     gpu_metrics->indep_throttle_status =3D
-> > +
-> >       smu_cmn_get_indep_throttler_status(metrics.Current.ThrottlerStatu=
-s,
-> > +
-> > vangogh_throttler_map);
-> > +
-> > +     gpu_metrics->system_clock_counter =3D ktime_get_boottime_ns();
-> > +
-> > +     *table =3D (void *)gpu_metrics;
-> > +
-> > +     return sizeof(struct gpu_metrics_v2_4); }
-> > +
-> >  static ssize_t vangogh_get_gpu_metrics(struct smu_context *smu,
-> >                                     void **table)
-> >  {
-> > @@ -1923,23 +2003,34 @@ static ssize_t
-> > vangogh_common_get_gpu_metrics(struct smu_context *smu,  {
-> >       uint32_t if_version;
-> >       uint32_t smu_version;
-> > +     uint32_t smu_program;
-> > +     uint32_t fw_version;
-> >       int ret =3D 0;
-> >
-> >       ret =3D smu_cmn_get_smc_version(smu, &if_version, &smu_version);
-> > -     if (ret) {
-> > +     if (ret)
-> >               return ret;
-> > -     }
-> >
-> > -     if (smu_version >=3D 0x043F3E00) {
-> > -             if (if_version < 0x3)
-> > -                     ret =3D vangogh_get_legacy_gpu_metrics_v2_3(smu,
-> > table);
-> > +     smu_program =3D (smu_version >> 24) & 0xff;
-> > +     fw_version =3D smu_version & 0xffffff;
-> > +     if (smu_program =3D=3D 6) {
-> > +             if (fw_version >=3D 0x3F0800)
-> > +                     ret =3D vangogh_get_gpu_metrics_v2_4(smu, table);
-> >               else
-> >                       ret =3D vangogh_get_gpu_metrics_v2_3(smu, table);
-> > +
-> >       } else {
-> > -             if (if_version < 0x3)
-> > -                     ret =3D vangogh_get_legacy_gpu_metrics(smu, table=
-);
-> > -             else
-> > -                     ret =3D vangogh_get_gpu_metrics(smu, table);
-> > +             if (smu_version >=3D 0x043F3E00) {
-> > +                     if (if_version < 0x3)
-> > +                             ret =3D
-> > vangogh_get_legacy_gpu_metrics_v2_3(smu, table);
-> > +                     else
-> > +                             ret =3D vangogh_get_gpu_metrics_v2_3(smu,
-> > table);
-> > +             } else {
-> > +                     if (if_version < 0x3)
-> > +                             ret =3D vangogh_get_legacy_gpu_metrics(sm=
-u,
-> > table);
-> > +                     else
-> > +                             ret =3D vangogh_get_gpu_metrics(smu, tabl=
-e);
-> > +             }
-> >       }
-> >
-> >       return ret;
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> > b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> > index 3ecb900e6ecd..cee5e32b4ff9 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> > @@ -996,6 +996,9 @@ void smu_cmn_init_soft_gpu_metrics(void *table,
-> > uint8_t frev, uint8_t crev)
-> >       case METRICS_VERSION(2, 3):
-> >               structure_size =3D sizeof(struct gpu_metrics_v2_3);
-> >               break;
-> > +     case METRICS_VERSION(2, 4):
-> > +             structure_size =3D sizeof(struct gpu_metrics_v2_4);
-> > +             break;
-> >       default:
-> >               return;
-> >       }
-> > --
-> > 2.39.2
->
+> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
+> ---
+> v1->v2:
+> - Update handling according to Christian's feedback.
+>
+> v2->v3:
+> - Remove ASIC specific callback (Felix).
+>
+> v3->v4:
+> - Add noretry flag to amdgpu->gmc. This allows to set
+>    ASIC specific flags.
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h   |  2 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  6 +++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 31 +++++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c    |  1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c    |  1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c     |  1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c     |  1 +
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c     |  1 +
+>   9 files changed, 45 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> index 56d73fade568..fdc25cd559b6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -331,6 +331,8 @@ struct amdgpu_gmc {
+>   	u64 VM_CONTEXT_PAGE_TABLE_END_ADDR_LO32[16];
+>   	u64 VM_CONTEXT_PAGE_TABLE_END_ADDR_HI32[16];
+>   	u64 MC_VM_MX_L1_TLB_CNTL;
+> +
+> +	u64 noretry_flags;
+>   };
+>   
+>   #define amdgpu_gmc_flush_gpu_tlb(adev, vmid, vmhub, type) ((adev)->gmc.gmc_funcs->flush_gpu_tlb((adev), (vmid), (vmhub), (type)))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index eff73c428b12..8c7861a4d75d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2604,7 +2604,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+>   		/* Intentionally setting invalid PTE flag
+>   		 * combination to force a no-retry-fault
+>   		 */
+> -		flags = AMDGPU_PTE_SNOOPED | AMDGPU_PTE_PRT;
+> +		flags = AMDGPU_VM_NORETRY_FLAGS;
+>   		value = 0;
+>   	} else if (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_NEVER) {
+>   		/* Redirect the access to the dummy page */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 9c85d494f2a2..b81fcb962d8f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -84,7 +84,13 @@ struct amdgpu_mem_stats;
+>   /* PDE Block Fragment Size for VEGA10 */
+>   #define AMDGPU_PDE_BFS(a)	((uint64_t)a << 59)
+>   
+> +/* Flag combination to set no-retry with TF disabled */
+> +#define AMDGPU_VM_NORETRY_FLAGS	(AMDGPU_PTE_EXECUTABLE | AMDGPU_PDE_PTE | \
+> +				AMDGPU_PTE_TF)
+>   
+> +/* Flag combination to set no-retry with TF enabled */
+> +#define AMDGPU_VM_NORETRY_FLAGS_TF (AMDGPU_PTE_VALID | AMDGPU_PTE_SYSTEM | \
+> +				   AMDGPU_PTE_PRT)
+>   /* For GFX9 */
+>   #define AMDGPU_PTE_MTYPE_VG10(a)	((uint64_t)(a) << 57)
+>   #define AMDGPU_PTE_MTYPE_VG10_MASK	AMDGPU_PTE_MTYPE_VG10(3ULL)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index dea1a64be44d..24ddf6a0512a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -778,6 +778,27 @@ int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
+>   					1, 0, flags);
+>   }
+>   
+> +/**
+> + * amdgpu_vm_pte_update_noretry_flags - Update PTE no-retry flags
+> + *
+> + * @adev - amdgpu_device pointer
+> + * @flags: pointer to PTE flags
+> + *
+> + * Update PTE no-retry flags when TF is enabled.
+> + */
+> +static void amdgpu_vm_pte_update_noretry_flags(struct amdgpu_device *adev,
+> +						uint64_t *flags)
+> +{
+> +	/*
+> +	 * Update no-retry flags with the corresponding TF
+> +	 * no-retry combination.
+> +	 */
+> +	if ((*flags & AMDGPU_VM_NORETRY_FLAGS) == AMDGPU_VM_NORETRY_FLAGS) {
+> +		*flags &= ~AMDGPU_VM_NORETRY_FLAGS;
+> +		*flags |= adev->gmc.noretry_flags;
+> +	}
+> +}
+> +
+>   /*
+>    * amdgpu_vm_pte_update_flags - figure out flags for PTE updates
+>    *
+> @@ -804,6 +825,16 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
+>   		flags |= AMDGPU_PTE_EXECUTABLE;
+>   	}
+>   
+> +	/*
+> +	 * Update no-retry flags to use the no-retry flag combination
+> +	 * with TF enabled. The AMDGPU_VM_NORETRY_FLAGS flag combination
+> +	 * does not work when TF is enabled. So, replace them with
+> +	 * AMDGPU_VM_NORETRY_FLAGS_TF flag combination which works for
+> +	 * all cases.
+> +	 */
+> +	if (level == AMDGPU_VM_PTB)
+> +		amdgpu_vm_pte_update_noretry_flags(adev, &flags);
+> +
+>   	/* APUs mapping system memory may need different MTYPEs on different
+>   	 * NUMA nodes. Only do this for contiguous ranges that can be assumed
+>   	 * to be on the same NUMA node.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index 0c8a47989576..13b89f78d07d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -751,6 +751,7 @@ static int gmc_v10_0_early_init(void *handle)
+>   	adev->gmc.private_aperture_start = 0x1000000000000000ULL;
+>   	adev->gmc.private_aperture_end =
+>   		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
+> +	adev->gmc.noretry_flags = AMDGPU_VM_NORETRY_FLAGS_TF;
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> index c571f0d95994..c68ecb7dfa39 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -651,6 +651,7 @@ static int gmc_v11_0_early_init(void *handle)
+>   	adev->gmc.private_aperture_start = 0x1000000000000000ULL;
+>   	adev->gmc.private_aperture_end =
+>   		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
+> +	adev->gmc.noretry_flags = AMDGPU_VM_NORETRY_FLAGS_TF;
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> index acd2b407860f..027b14603037 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> @@ -942,6 +942,7 @@ static int gmc_v7_0_early_init(void *handle)
+>   		adev->gmc.shared_aperture_end + 1;
+>   	adev->gmc.private_aperture_end =
+>   		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
+> +	adev->gmc.noretry_flags = AMDGPU_VM_NORETRY_FLAGS_TF;
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> index 85dead2a5702..581ed922dbe3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -1056,6 +1056,7 @@ static int gmc_v8_0_early_init(void *handle)
+>   		adev->gmc.shared_aperture_end + 1;
+>   	adev->gmc.private_aperture_end =
+>   		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
+> +	adev->gmc.noretry_flags = AMDGPU_VM_NORETRY_FLAGS_TF;
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 67e669e0141c..ebdbc823fae3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1622,6 +1622,7 @@ static int gmc_v9_0_early_init(void *handle)
+>   	adev->gmc.private_aperture_start = 0x1000000000000000ULL;
+>   	adev->gmc.private_aperture_end =
+>   		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
+> +	adev->gmc.noretry_flags = AMDGPU_VM_NORETRY_FLAGS_TF;
+>   
+>   	return 0;
+>   }
