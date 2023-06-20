@@ -4,37 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5876DEB64DD
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:38:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 648F6EB64DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:38:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74CED10E4B8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3EF110E4BB;
 	Wed, 21 Jun 2023 15:38:47 +0000 (UTC)
-X-Greylist: delayed 373 seconds by postgrey-1.36 at gabe;
- Wed, 21 Jun 2023 12:04:48 UTC
-Received: from tretyak2.mcst.ru (tretyak2.mcst.ru [212.5.119.215])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09A7610E468;
- Wed, 21 Jun 2023 12:04:47 +0000 (UTC)
-Received: from tretyak2.mcst.ru (localhost [127.0.0.1])
- by tretyak2.mcst.ru (Postfix) with ESMTP id DE46410239C;
- Wed, 21 Jun 2023 14:58:29 +0300 (MSK)
-Received: from frog.lab.sun.mcst.ru (frog.lab.sun.mcst.ru [176.16.4.50])
- by tretyak2.mcst.ru (Postfix) with ESMTP id D7DFF102390;
- Wed, 21 Jun 2023 14:57:44 +0300 (MSK)
-Received: from artemiev-i.lab.sun.mcst.ru (avior-1 [192.168.53.223])
- by frog.lab.sun.mcst.ru (8.13.4/8.12.11) with ESMTP id 35LBvhXh010817;
- Wed, 21 Jun 2023 14:57:44 +0300
-From: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [lvc-project] [PATCH] drm/radeon: remove useless conditions
-Date: Wed, 21 Jun 2023 14:56:17 +0300
-Message-Id: <20230621115617.2126804-1-Igor.A.Artemiev@mcst.ru>
-X-Mailer: git-send-email 2.39.0.152.ga5737674b6
+X-Greylist: delayed 1316 seconds by postgrey-1.36 at gabe;
+ Tue, 20 Jun 2023 22:17:46 UTC
+Received: from maynard.decadent.org.uk (maynard.decadent.org.uk
+ [95.217.213.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9474C10E19C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jun 2023 22:17:46 +0000 (UTC)
+Received: from [213.219.167.32] (helo=deadeye)
+ by maynard with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <ben@decadent.org.uk>)
+ id 1qBjKD-0006Bd-GM; Tue, 20 Jun 2023 23:55:45 +0200
+Received: from ben by deadeye with local (Exim 4.96)
+ (envelope-from <ben@decadent.org.uk>) id 1qBjKD-00BBOs-03;
+ Tue, 20 Jun 2023 23:55:45 +0200
+Message-ID: <2e6faab830d01849a8eec6871d66787db455864e.camel@decadent.org.uk>
+Subject: Re: Possible missing firmware
+ /lib/firmware/amdgpu/sienna_cichlid_mes.bin navi10_mes.bin for module amdgpu
+From: Ben Hutchings <ben@decadent.org.uk>
+To: amd-gfx@lists.freedesktop.org
+Date: Tue, 20 Jun 2023 23:55:37 +0200
+References: <168258140711.32181.12062781302326675605.reportbug@atzlinux-arm64>
+In-Reply-To: <168258140711.32181.12062781302326675605.reportbug@atzlinux-arm64>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-CpMhR66BW1jvhP/b8PUy"
+User-Agent: Evolution 3.48.2-1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Anti-Virus: Kaspersky Anti-Virus for Linux Mail Server 5.6.39/RELEASE,
- bases: 20111107 #2745587, check: 20230621 notchecked
-X-AV-Checked: ClamAV using ClamSMTP
-X-Mailman-Approved-At: Wed, 21 Jun 2023 15:38:41 +0000
+X-SA-Exim-Connect-IP: 213.219.167.32
+X-SA-Exim-Mail-From: ben@decadent.org.uk
+X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+X-Mailman-Approved-At: Wed, 21 Jun 2023 15:38:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,128 +49,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lvc-project@linuxtesting.org, Igor Artemiev <Igor.A.Artemiev@mcst.ru>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: 1034903@bugs.debian.org,
+ xiao sheng =?UTF-8?Q?wen=28=E8=82=96=E7=9B=9B=E6=96=87=EF=BC=89?=
+ <atzlinux@sina.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Comparisons of 'table' and 'vddc_sclk_table' with NULL are useless
-since 'table' and 'vddc_sclk_table' are initialized by an addresses
-and cannot be NULL.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+--=-CpMhR66BW1jvhP/b8PUy
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
----
- drivers/gpu/drm/radeon/kv_dpm.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+On Thu, 27 Apr 2023 15:43:28 +0800 xiao sheng wen(=E8=82=96=E7=9B=9B=E6=96=
+=87=EF=BC=89
+<atzlinux@sina.com> wrote:
+> Package: firmware-amd-graphics
+> Version: 20230310-1~exp1
+> Severity: normal
+> X-Debbugs-Cc: atzlinux@sina.com
+>=20
+> Hi,
+>=20
+>=C2=A0 When I upgrade to kernel 5.10.0-22-arm64, there are following error
+>=C2=A0 infos:
+>=20
+> W: Possible missing firmware /lib/firmware/amdgpu/sienna_cichlid_mes.bin =
+for module amdgpu
+> W: Possible missing firmware /lib/firmware/amdgpu/navi10_mes.bin for modu=
+le amdgpu
+[...]
 
-diff --git a/drivers/gpu/drm/radeon/kv_dpm.c b/drivers/gpu/drm/radeon/kv_dpm.c
-index f7735da07feb..17d312ceb6ec 100644
---- a/drivers/gpu/drm/radeon/kv_dpm.c
-+++ b/drivers/gpu/drm/radeon/kv_dpm.c
-@@ -399,7 +399,7 @@ static u32 kv_convert_vid2_to_vid7(struct radeon_device *rdev,
- 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
- 	u32 i;
- 
--	if (vddc_sclk_table && vddc_sclk_table->count) {
-+	if (vddc_sclk_table->count) {
- 		if (vid_2bit < vddc_sclk_table->count)
- 			return vddc_sclk_table->entries[vid_2bit].v;
- 		else
-@@ -421,7 +421,7 @@ static u32 kv_convert_vid7_to_vid2(struct radeon_device *rdev,
- 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
- 	u32 i;
- 
--	if (vddc_sclk_table && vddc_sclk_table->count) {
-+	if (vddc_sclk_table->count) {
- 		for (i = 0; i < vddc_sclk_table->count; i++) {
- 			if (vddc_sclk_table->entries[i].v == vid_7bit)
- 				return i;
-@@ -561,7 +561,7 @@ static int kv_program_bootup_state(struct radeon_device *rdev)
- 	struct radeon_clock_voltage_dependency_table *table =
- 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
- 
--	if (table && table->count) {
-+	if (table->count) {
- 		for (i = pi->graphics_dpm_level_count - 1; i > 0; i--) {
- 			if (table->entries[i].clk == pi->boot_pl.sclk)
- 				break;
-@@ -666,7 +666,7 @@ static int kv_populate_uvd_table(struct radeon_device *rdev)
- 	int ret;
- 	u32 i;
- 
--	if (table == NULL || table->count == 0)
-+	if (table->count == 0)
- 		return 0;
- 
- 	pi->uvd_level_count = 0;
-@@ -737,7 +737,7 @@ static int kv_populate_vce_table(struct radeon_device *rdev)
- 		&rdev->pm.dpm.dyn_state.vce_clock_voltage_dependency_table;
- 	struct atom_clock_dividers dividers;
- 
--	if (table == NULL || table->count == 0)
-+	if (table->count == 0)
- 		return 0;
- 
- 	pi->vce_level_count = 0;
-@@ -800,7 +800,7 @@ static int kv_populate_samu_table(struct radeon_device *rdev)
- 	int ret;
- 	u32 i;
- 
--	if (table == NULL || table->count == 0)
-+	if (table->count == 0)
- 		return 0;
- 
- 	pi->samu_level_count = 0;
-@@ -866,7 +866,7 @@ static int kv_populate_acp_table(struct radeon_device *rdev)
- 	int ret;
- 	u32 i;
- 
--	if (table == NULL || table->count == 0)
-+	if (table->count == 0)
- 		return 0;
- 
- 	pi->acp_level_count = 0;
-@@ -922,7 +922,7 @@ static void kv_calculate_dfs_bypass_settings(struct radeon_device *rdev)
- 	struct radeon_clock_voltage_dependency_table *table =
- 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
- 
--	if (table && table->count) {
-+	if (table->count) {
- 		for (i = 0; i < pi->graphics_dpm_level_count; i++) {
- 			if (pi->caps_enable_dfs_bypass) {
- 				if (kv_get_clock_difference(table->entries[i].clk, 40000) < 200)
-@@ -1532,7 +1532,7 @@ static void kv_set_valid_clock_range(struct radeon_device *rdev,
- 	struct radeon_clock_voltage_dependency_table *table =
- 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
- 
--	if (table && table->count) {
-+	if (table->count) {
- 		for (i = 0; i < pi->graphics_dpm_level_count; i++) {
- 			if ((table->entries[i].clk >= new_ps->levels[0].sclk) ||
- 			    (i == (pi->graphics_dpm_level_count - 1))) {
-@@ -1905,7 +1905,7 @@ static int kv_get_high_voltage_limit(struct radeon_device *rdev, int *limit)
- 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
- 	int i;
- 
--	if (table && table->count) {
-+	if (table->count) {
- 		for (i = table->count - 1; i >= 0; i--) {
- 			if (pi->high_voltage_t &&
- 			    (kv_convert_8bit_index_to_voltage(rdev, table->entries[i].v) <=
-@@ -2149,7 +2149,7 @@ static void kv_init_graphics_levels(struct radeon_device *rdev)
- 	struct radeon_clock_voltage_dependency_table *table =
- 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
- 
--	if (table && table->count) {
-+	if (table->count) {
- 		u32 vid_2bit;
- 
- 		pi->graphics_dpm_level_count = 0;
--- 
-2.30.2
+I see that the amdgpu driver has had references to these files for
+several years, but they've never been added to linux-firmware.git.
+More recently amdgpu added:
 
+MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes.bin");
+MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes_2.bin");
+MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes1.bin");
+
+and these are also missing from linux-firmware.git.
+
+Is this firmware intended to be available to the public?
+
+Ben.
+
+--=20
+Ben Hutchings
+compatible: Gracefully accepts erroneous data from any source
+
+
+--=-CpMhR66BW1jvhP/b8PUy
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmSSIFoACgkQ57/I7JWG
+EQkYzg/6AxdDEJUyLct4JRfBmMjJH5ItKcwwOkCXdfnOe8/481WSwXaZ8gE+P+8u
+hFePtUPTALCK0YGi1eSEwbh5YPl3DEC2S+FtorIeXUFQlUrQjP1lnXFZ7YcQrnCi
+PfxIunxQMF1xZgvGzs89WpbUHvJKKhlocUdsQiqgSFQ7lst94pAAcNkx1jFD+4CQ
+4kdzfDwpxdDGLSYbz3Dj/CYeumLSD9xYXoVjrmrrblkjYQfbd7Z3rdG5tLtkIKXI
+POL2cR6+fyWyz3wAa1BZSms1haYhSQIuT1NI3ARAhDMAfi/9vl5kOAgQVYvPPYZP
+kjtUqk7mNDRUjndS7tc7t+IfRs4kD5x//EO0okp0VKet1Gy1jKI2TpeH/o20eDzG
+T8RKt3xGXAf/ttE+sXUR/j6ucGxuHidW00yFRra+t05PN5k/FkdDhJRPKuHoJ56m
+Lv+LA10wnxvRJvdeVdrE3kDw5/b6quNJ1kF7Jt8R/lCfmaMvXSsvoqDUEQ6YYy4D
+o1kLvZ3fWQ67gSBGFW5Vk9RMHGSm8OCDOF3aMJV5c5Z15tICDAZgX8cvIYD1ciaa
+WO1lkJTjxIRIafWE+Zg2X7O7ok//2rBl4fxOEfi7lBDdwqJNNoYG7EVq/z4+ZI/6
+qgOc0zsOBbKAj2UlChMf7qFmccu+uD8B47nOBt5pmaL4tka8mVc=
+=B9TS
+-----END PGP SIGNATURE-----
+
+--=-CpMhR66BW1jvhP/b8PUy--
