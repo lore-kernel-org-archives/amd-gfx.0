@@ -4,49 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D756EB64D7
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 09:20:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55CE2EB64D7
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 11:18:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B351410E2A0;
-	Tue, 20 Jun 2023 09:20:39 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED56810E29F;
- Tue, 20 Jun 2023 09:20:37 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 1BEBC6606F8A;
- Tue, 20 Jun 2023 10:20:36 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1687252836;
- bh=JViCwxLmhr546PGu90fAM7323UFdyHu/DNgW3ueXdYQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=JjTJcLINyxhTc4bqJIkOV6/OVvQUiu3dNzz5SEk5fabxC1RhjHd4iVI42r+C/MUJn
- 6e1Q8x+xRynwQ88wE8/r23EhdWn5EoRJv2OKP77sDA3N/ze60xoBkMG/RhaT21RDXL
- iQR7B8UUuahSXWvul5Bjw3lI9X7p2qzNIB7Q7yGS6jutoZTaKUJgbn+HEySQscK2Jf
- lX5P0gYWN7Vhmkv3ZGz8kENZlYZDSBliuPD75vovhw79Aif7vxgigqR1unf6+UEbkE
- xCoa07g0F7Fwlhmb9NCqyygdPVgh5KFfCmDYPRDv+xkgfE9ACVej9JmtpA9jhLAvwg
- s1spzZ+FKH0Zg==
-Date: Tue, 20 Jun 2023 11:20:32 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Christian =?UTF-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 06/13] drm/amdgpu: use the new drm_exec object for CS v2
-Message-ID: <20230620112032.3c8091d7@collabora.com>
-In-Reply-To: <01ad928e-a900-fc5e-901c-8fe2639d711a@gmail.com>
-References: <20230504115159.2245-1-christian.koenig@amd.com>
- <20230504115159.2245-7-christian.koenig@amd.com>
- <e163fa54-b016-1879-d1c0-840a4d3885b1@gmail.com>
- <08169925-eb0b-bc79-e6f1-1eaa26198f5e@gmail.com>
- <20230620102817.6570f521@collabora.com>
- <ee7987a4-a9ad-e667-9ac5-c06b42cf36f1@gmail.com>
- <20230620110948.461e4359@collabora.com>
- <01ad928e-a900-fc5e-901c-8fe2639d711a@gmail.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFE1110E2CF;
+	Tue, 20 Jun 2023 11:18:19 +0000 (UTC)
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9279010E2CF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jun 2023 11:18:17 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3110a5f2832so4347515f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jun 2023 04:18:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1687259895; x=1689851895;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=qWsp4yYru4kXBlNawXqd7nUHoJlFCWUW68NeTeczsFY=;
+ b=Q2vQa+FQd8YNPYSxe2Y6FLVyD9QOh34DvL5kEcwuIBBj+gFbpdrLzVCpL4PQu0YU0D
+ UY7Z16kz0+UNyWDZEHbJEimoJPH3zrBiyRYVWGol20s1J3lhmPXK9hlmm7CXztyU4El9
+ fIvvhd6igbDpTGiikx72Uk5VdZEA2qd9BI5ZotHHfPCqtFPb7ddiEGsB6NVp4YWqz3oj
+ WAUCgx88HdSE/hQPb3EGBkPqnAlVEVgs5tivwrIbhneBblR1oK9hF2JRwW5jD/pZ6mLM
+ DKcGMSRa0273NrWB0828WQqvtpJAD/ibqyCSqb4wAWZbh0iF0FWpCQxSxC6pkZtOaJZg
+ LUDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687259895; x=1689851895;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=qWsp4yYru4kXBlNawXqd7nUHoJlFCWUW68NeTeczsFY=;
+ b=ireiVq0Kp1j1szFmALS9Mu/xMHNsMFYhq+gzKpz7+NRZgvX3sjLKk0qEyQ7W3z9LRZ
+ doUAbRHMywV8aJHKyMCg4UwmKfPY+ZPNHugQBItMUpc/gxb/6aZg0ihgWPBrY30MS24C
+ xtZ8txryLVyRXMguaBcM1CcIc+Db8cvp1bNfKxXwefv2rq/X1iNib3GYqq7Ri0OWKvFv
+ ojOm7w+s/lIw35+EiIP3BP6tJ452wf2ZqfhwumiRN6y1dFPyJspeoEqg5Pn6T+Zd7k93
+ SwcwR/3YSL8EXNAjo4wTfhQKSpuudyJvSVB2SITb8PV9lt8mbMgWrix6TctZdvBwHJBq
+ eN+g==
+X-Gm-Message-State: AC+VfDz/7yW+4XVKtP7t+en8v8HpiXEiYWBvuotlTFMTNtYcJqRnOfZ5
+ Q9N0wjKzuOpKxy1r1CWTTgk=
+X-Google-Smtp-Source: ACHHUZ5Sg24OYgdntcqERFz5wqRJZVM5vjHy3fcKd4ZLuBzw43CabGQWmTmVi5cZxWFFWQ364qXlEw==
+X-Received: by 2002:adf:ea45:0:b0:30f:df4e:217d with SMTP id
+ j5-20020adfea45000000b0030fdf4e217dmr10286140wrn.6.1687259895373; 
+ Tue, 20 Jun 2023 04:18:15 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:154d:9c00:2ee6:f0fd:671e:1d86])
+ by smtp.gmail.com with ESMTPSA id
+ x8-20020a5d54c8000000b0030fae360f14sm1758757wrv.68.2023.06.20.04.18.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Jun 2023 04:18:14 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: felix.kuehling@amd.com, Yunxiang.Li@amd.com, amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: fix number of fence calculations
+Date: Tue, 20 Jun 2023 13:18:13 +0200
+Message-Id: <20230620111813.2523-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,85 +71,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: matthew.brost@intel.com, Tatsuyuki Ishi <ishitatsuyuki@gmail.com>,
- arunpravin.paneerselvam@amd.com, thomas_os@shipmail.org,
- francois.dugast@intel.com, amd-gfx@lists.freedesktop.org, luben.tuikov@amd.com,
- dakr@redhat.com, dri-devel@lists.freedesktop.org, felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 20 Jun 2023 11:14:51 +0200
-Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com> wrote:
+Since adding gang submit we need to take the gang size into account
+while reserving fences.
 
-> Am 20.06.23 um 11:09 schrieb Boris Brezillon:
-> > On Tue, 20 Jun 2023 10:44:26 +0200
-> > Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com> wrote:
-> > =20
-> >> Am 20.06.23 um 10:28 schrieb Boris Brezillon: =20
-> >>> On Tue, 20 Jun 2023 10:12:13 +0200
-> >>> Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com> wrote:
-> >>>    =20
-> >>>>> I think Boris's suggestion of having this through a common
-> >>>>> DRM_EXEC_FLAG_ALLOW_DUPLICATES flag fits well. =20
-> >>>> No, again. The only driver which should accept duplicates is radeon,=
- for
-> >>>> all other drivers especially new ones duplicates should probably be
-> >>>> rejected.
-> >>>>
-> >>>> We only allow this for radeon because it is already UAPI, could be t=
-hat
-> >>>> we need to do this for amdgpu as well but I really hope we don't nee=
-d this. =20
-> >>> Just want to describe the use case we have: we support submission in
-> >>> batch (several jobs passed to the submit ioctl) with a
-> >>> submit-all-or-nothing model: if any of the job description is passed
-> >>> wrong args or causes an allocation error, we fail the whole group. In
-> >>> the submission path, we want to prepare GEMs for all jobs. That means
-> >>> adding enough fence slots for the number job finished fences. Given n=
-ot
-> >>> all jobs will access the same set of BOs, I thought I could use
-> >>> duplicates support to make my life easier, because otherwise I have to
-> >>> collect all BOs upfront, store them in a temporary array, and keep
-> >>> track of the number of fence slots needed for each of them. I guess
-> >>> the other option would be to over-estimate the number of slots and ma=
-ke
-> >>> it equal to num_jobs for all BOs. =20
-> >> Sounds pretty much what amdgpu is doing as well, but question is why
-> >> don't you give just one list of BOs? Do you really want to add the
-> >> fences that fine grained? =20
-> > Actually, we don't give a list of BOs at all, we pass a VM, and lock
-> > all BOs attached to the VM (similar to what Xe does). And, as all other
-> > drivers being submitted recently, we use explicit sync, so most of
-> > those VM BOs, except for the imported/exported ones, will be given a
-> > BOOKKEEP fence.
-> >
-> > The reason we need support for duplicates is because we also have
-> > implicit BOs (like the HWRT object that's shared by the
-> > geometry/fragment queues to pass data around), and those can be passed
-> > to multiple jobs in a given batch and require special synchronization
-> > (geometry job writes to them, fragment job reads from them, so we have
-> > a reader/writer sync to express). I can of course de-duplicate upfront,
-> > by parsing jobs and creating an array of BOs that need to be acquired
-> > over the whole submission, but that's still one extra-step I'd prefer
-> > to avoid, given the dma_resv framework allows us to figure it out at
-> > lock time. I can also just deal with the EALREADY case in the driver
-> > directly, it's not like it's super complicated anyway, just thought
-> > other drivers would fall in the same situation, that's all. =20
->=20
-> Well as long as you just need to ignore EALREADY, that should be trivial=
-=20
-> and doable.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Fixes: 4624459c84d7 ("drm/amdgpu: add gang submit frontend v6")
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-Oh, yeah, that's all I need really. We probably don't want to add the
-GEM object a second time in the array though, hence the goto
-reserve_fences in my proposal when EALREADY is returned.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index d9503882ea97..b34f9f8d33d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -136,9 +136,6 @@ static int amdgpu_cs_p1_user_fence(struct amdgpu_cs_parser *p,
+ 	bo = amdgpu_bo_ref(gem_to_amdgpu_bo(gobj));
+ 	p->uf_entry.priority = 0;
+ 	p->uf_entry.tv.bo = &bo->tbo;
+-	/* One for TTM and two for the CS job */
+-	p->uf_entry.tv.num_shared = 3;
+-
+ 	drm_gem_object_put(gobj);
+ 
+ 	size = amdgpu_bo_size(bo);
+@@ -912,15 +909,19 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 
+ 	mutex_lock(&p->bo_list->bo_list_mutex);
+ 
+-	/* One for TTM and one for the CS job */
++	/* One for TTM and one for each CS job */
+ 	amdgpu_bo_list_for_each_entry(e, p->bo_list)
+-		e->tv.num_shared = 2;
++		e->tv.num_shared = 1 + p->gang_size;
++	p->uf_entry.tv.num_shared = 1 + p->gang_size;
+ 
+ 	amdgpu_bo_list_get_list(p->bo_list, &p->validated);
+ 
+ 	INIT_LIST_HEAD(&duplicates);
+ 	amdgpu_vm_get_pd_bo(&fpriv->vm, &p->validated, &p->vm_pd);
+ 
++	/* Two for VM updates, one for TTM and one for each CS job */
++	p->vm_pd.tv.num_shared = 3 + p->gang_size;
++
+ 	if (p->uf_entry.tv.bo && !ttm_to_amdgpu_bo(p->uf_entry.tv.bo)->parent)
+ 		list_add(&p->uf_entry.tv.head, &p->validated);
+ 
+-- 
+2.34.1
 
->=20
-> What radeon needs is to keep EALREADY BOs in a separate container=20
-> because we need to double check their properties to not break the UAPI.
->=20
-> I strongly think that this shouldn't be needed by any other driver.
->=20
-> Going to add a flag to ignore EALREADY which can be set during exec init.
-
-Thanks!
