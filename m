@@ -4,73 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7E32EB64D7
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 04:14:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43B4FEB64DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 06:47:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 266AF10E259;
-	Tue, 20 Jun 2023 04:14:28 +0000 (UTC)
-Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
- [IPv6:2607:f8b0:4864:20::d36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8B9810E258;
- Tue, 20 Jun 2023 04:14:26 +0000 (UTC)
-Received: by mail-io1-xd36.google.com with SMTP id
- ca18e2360f4ac-77e3c55843cso22853939f.0; 
- Mon, 19 Jun 2023 21:14:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1687234465; x=1689826465;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :to:subject:from:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to;
- bh=HfXcA5JdNA0yf+U+AJ2SuyKVr9rRyTUAx98Z0AaLNjU=;
- b=nCDvG5c6cXOqyczo3SPAlLoIYL3tinmRwA7LG1Sh2BeV10m0RceQxHtBmzDN5itEyg
- WdlBkyD57wkjgU577v+JxRgihq6/g8/IECAgMO8OIlwe5tO8Y8rLmSlSetePJayCXYo2
- ebHLcIDQaV6+YS6hKNMY2+RBjQbOsdsdJVHRzVz6YAfBAbPzP9a7ZDAnZTfYHaRbPwzC
- 4a+LQiVzkY+sZLqT5kTZAqOBh+mgVqKlH/4fSRPWUIpVIyvlZsVpNOyMyZclRi0BXZWu
- LM0rjyTIWUds3EkqN41d2X2uY3DhCkBY3O3V4H4dlXyutG1ztMMDXRBXCKSeHxl73q8r
- J4gA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687234465; x=1689826465;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :to:subject:from:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=HfXcA5JdNA0yf+U+AJ2SuyKVr9rRyTUAx98Z0AaLNjU=;
- b=S7WX4tigEoPTsK6yP3hSPvOzyD8ZbE9WjAuDh1kHSDSxOzo1OglrclfRPKISiIA523
- etzzS+11E+9KzR0W5U74mugykX34L7Ir+aaWZiGm2BfP3jgGflaxFmhHMW9Yjz4S0yYy
- RhH5oMON7JKq/JbEEwC1/mDlqeCqLkXQziQ2WaAh/1sxrIRa0EgjugGdwHjXXzU0CLJ5
- MB8SJqBx+C4qHSh1w+hEHMNQarqYckOIRrHBeQIGqt8gjdr3KRfl2C+RAtNCO5eexAx6
- ggyyg2fqKh77tvJ8glZGy9Pa3HFS5p0KtJ9Mi4GmtCrhTz7e+8qoGb3s53DcGOGzNYgy
- PJBg==
-X-Gm-Message-State: AC+VfDxBe4fgGpQ6gaKmcdQZAmhMjuEOepap6kGeNf2kzX1w1P2KXcyZ
- ASami6G6Y8wfJqNhOo0RfQ8=
-X-Google-Smtp-Source: ACHHUZ6F2FXg8uHYdsZkLFEFMNP7a1KIe0AMPEYR5KKoRUALJJ8c0cL/kyR+1tAgGrT+v0QoVyQYHg==
-X-Received: by 2002:a05:6e02:c72:b0:340:ba06:b16a with SMTP id
- f18-20020a056e020c7200b00340ba06b16amr7876800ilj.3.1687234465308; 
- Mon, 19 Jun 2023 21:14:25 -0700 (PDT)
-Received: from [10.104.2.174] (zz20184013906F627101.userreverse.dion.ne.jp.
- [111.98.113.1]) by smtp.gmail.com with ESMTPSA id
- l186-20020a6391c3000000b0052c9d1533b6sm432097pge.56.2023.06.19.21.14.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Jun 2023 21:14:24 -0700 (PDT)
-Message-ID: <7446c685-474d-c69a-2224-e73146987365@gmail.com>
-Date: Tue, 20 Jun 2023 13:14:21 +0900
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-From: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
-Subject: Re: [PATCH 06/13] drm/amdgpu: use the new drm_exec object for CS v2
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- francois.dugast@intel.com, felix.kuehling@amd.com,
- arunpravin.paneerselvam@amd.com, thomas_os@shipmail.org, dakr@redhat.com,
- luben.tuikov@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, matthew.brost@intel.com,
- boris.brezillon@collabora.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id B154610E25E;
+	Tue, 20 Jun 2023 06:47:11 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3A9510E25E;
+ Tue, 20 Jun 2023 06:47:10 +0000 (UTC)
+Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 38F566606F23;
+ Tue, 20 Jun 2023 07:47:08 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1687243628;
+ bh=0TT/70u6EJFMsxbYh7XTY8VA6PAj4oaCda1q7LxyPFQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=D0JGzn+Ut+Jivasz2yNNDjkZo8oFtrFmSyWkJgLFgSxfb5PhhUbxShDtaoYGDNSnP
+ 3bNCaQeYpizSUJZxq0nYz3QVr63lgXgwKDVtaZ3lKJ/KqxlwU0engMQyy+mLBAFunA
+ vzmIjcmIxBvVMjXiUZYi8VSe6hZJtlz8Mz3dt9htygaYiOv5a4q5G/95vSzKFMs93+
+ pMKYLEHhy5ob6riHHDHuPymXzBeG6jY3cTbKilJjOZEu5I4CsgKI+3/AyJzdTrEMNf
+ IuH/ySEUy0t7Hz2953RhyiYZsT1qqsBuJGav6dHYfIzo9YrHS4Bpo5+5M8pvx2WNB3
+ wUT2XBDZCOrLg==
+Date: Tue, 20 Jun 2023 08:47:04 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 01/13] drm: execution context for GEM buffers v4
+Message-ID: <20230620084704.154b95e2@collabora.com>
+In-Reply-To: <20230619142923.74c21fca@collabora.com>
 References: <20230504115159.2245-1-christian.koenig@amd.com>
- <20230504115159.2245-7-christian.koenig@amd.com>
- <e163fa54-b016-1879-d1c0-840a4d3885b1@gmail.com>
-Content-Language: en-US
-In-Reply-To: <e163fa54-b016-1879-d1c0-840a4d3885b1@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <20230504115159.2245-2-christian.koenig@amd.com>
+ <20230614142339.04df5111@collabora.com>
+ <299e0ff6-bd0a-fa8d-acda-8b3ce22d6ab6@amd.com>
+ <20230614150252.6ceb42fd@collabora.com>
+ <20230617135434.7dd3a25d@collabora.com>
+ <5058c4dd-da1b-9495-5ced-c4d5a5749194@shipmail.org>
+ <20230619121234.4a826f53@collabora.com>
+ <26c94e6a-9458-7aeb-8e6f-85838bac43ca@amd.com>
+ <20230619142923.74c21fca@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,64 +60,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Matthew Brost <matthew.brost@intel.com>, arunpravin.paneerselvam@amd.com,
+ "Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= \(Intel\)" <thomas_os@shipmail.org>,
+ francois.dugast@intel.com, amd-gfx@lists.freedesktop.org, luben.tuikov@amd.com,
+ dakr@redhat.com, dri-devel@lists.freedesktop.org, felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/20/23 13:07, Tatsuyuki Ishi wrote:
->> @@ -1296,9 +1271,8 @@ static int amdgpu_cs_submit(struct 
->> amdgpu_cs_parser *p,
->>        */
->>       r = 0;
->>       amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
->> -        struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
->> -
->> -        r |= !amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, e->range);
->> +        r |= !amdgpu_ttm_tt_get_user_pages_done(e->bo->tbo.ttm,
->> +                            e->range);
->>           e->range = NULL;
-> 
-> e->range = NULL; needs to be removed, or it's causing *massive* memory 
-> leaks.
+On Mon, 19 Jun 2023 14:29:23 +0200
+Boris Brezillon <boris.brezillon@collabora.com> wrote:
 
-Actually, I quoted the wrong hunk, the correct one is below.
+> On Mon, 19 Jun 2023 12:44:06 +0200
+> Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
+>=20
+> > Am 19.06.23 um 12:12 schrieb Boris Brezillon: =20
+> > > [SNIP]
+> > > Note that the drm_exec_until_all_locked() helper I introduced is taki=
+ng
+> > > an expression, so in theory, you don't have to define a separate
+> > > function.
+> > >
+> > > 	drm_exec_until_all_locked(&exec, {
+> > > 		/* inlined-code */
+> > > 		int ret;
+> > >
+> > > 		ret =3D blabla()
+> > > 		if (ret)
+> > > 			goto error;
+> > >
+> > > 		...
+> > >
+> > > error:
+> > > 		/* return value. */
+> > > 		ret;
+> > > 	});
+> > >
+> > > This being said, as soon as you have several failure paths,
+> > > it makes things a lot easier/controllable if you make it a function,
+> > > and I honestly don't think the readability would suffer from having a
+> > > function defined just above the user. My main concern with the origin=
+al
+> > > approach was the risk of calling continue/break_if_contended() in the
+> > > wrong place, and also the fact you can't really externalize things to
+> > > a function if you're looking for a cleaner split. At least with
+> > > drm_exec_until_all_locked() you can do both.   =20
+> >=20
+> > Yeah, but that means that you can't use return inside your code block=20
+> > and instead has to define an error label for handling "normal"=20
+> > contention which is what I'm trying to avoid here. =20
+>=20
+> Sorry, didn't pay attention to this particular concern. Indeed, if you
+> want to return inside the expression, that's a problem.
 
-> @@ -928,18 +874,56 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
->  		e->user_invalidated = userpage_invalidated;
->  	}
->  
-> -	r = ttm_eu_reserve_buffers(&p->ticket, &p->validated, true,
-> -				   &duplicates);
-> -	if (unlikely(r != 0)) {
-> -		if (r != -ERESTARTSYS)
-> -			DRM_ERROR("ttm_eu_reserve_buffers failed.\n");
-> -		goto out_free_user_pages;
-> +	drm_exec_while_not_all_locked(&p->exec) {
-> +		r = amdgpu_vm_lock_pd(&fpriv->vm, &p->exec);
-> +		drm_exec_continue_on_contention(&p->exec);
-> +		if (unlikely(r))
-> +			goto out_free_user_pages;
-> +
-> +		amdgpu_bo_list_for_each_entry(e, p->bo_list) {
-> +			r = drm_exec_prepare_obj(&p->exec, &e->bo->tbo.base, 2);
-> +			drm_exec_break_on_contention(&p->exec);
-> +			if (unlikely(r))
-> +				goto out_free_user_pages;
-> +
-> +			e->bo_va = amdgpu_vm_bo_find(vm, e->bo);
-> +			e->range = NULL;
+Sorry, that's wrong again. Had trouble focusing yesterday...
 
-This causes the leak.
+So, returning directly from the expression block should be perfectly
+fine. The only problem is breaking out of the retry loop early and
+propagating the error, but that's no more or less problematic than it
+was before. We just need the drm_exec_retry_on_contention() helper you
+suggested, and a drm_exec_stop() that would go to some local
+__drm_exec_stop label.
 
-> +		}
-> +		drm_exec_continue_on_contention(&p->exec);
-> +
-> +		if (p->uf_bo) {
-> +			r = drm_exec_prepare_obj(&p->exec, &p->uf_bo->tbo.base,
-> +						 2);
-> +			drm_exec_continue_on_contention(&p->exec);
-> +			if (unlikely(r))
-> +				goto out_free_user_pages;
-> +		}
->  	}
+	int ret =3D 0;
 
-Tatsuyuki
+	ret =3D drm_exec_until_all_locked(exec, ({
+		...
+		ret =3D drm_exec_prepare_obj(exec, objA, 1);
+		drm_exec_retry_on_contention(exec);
+		if (ret)
+			drm_exec_stop(exec, ret);
+		...
+
+		ret =3D drm_exec_prepare_obj(exec, objB, 1);
+		drm_exec_retry_on_contention(exec);
+		if (ret)
+			drm_exec_stop(exec, ret);
+
+		0;
+	}));
+
+Which is pretty close to the syntax you defined initially, except for
+the '0;' oddity at the end, which is ugly, I admit.
