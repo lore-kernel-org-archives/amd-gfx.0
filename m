@@ -4,92 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62680EB64D7
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 03:45:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B803EB64D7
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 04:07:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E68D510E07F;
-	Tue, 20 Jun 2023 03:45:46 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5972810E07F
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jun 2023 03:45:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NQZGbA9AfN6tVGDt47ybBpYXs2aJ6IGTP4xoXPCOyeMeNXWZntcTKxlzc2vBSx8WfHbZUq0qmmIwPgSHk0e1TImUpYsEd/NtHSeHmzb4ZtEg1Ia9iSfQUhAxF2IF8mVEncT2t5Ri6Amj70UpUfh9qpafX0q1O+/Sze9l2f0Rjb4x4nVDJIWfX0GYEtf/ahWJ/kDscx+ArktUZh9Vy1kuiUEMM5BlIs9oeNL9ZE9bJ04KFMO6I51MBAnxqzg4dcO/WepXQpKoRtMd+p5mNUH9ktvDpp2bAvrFBDDjT5xoseNLTMDuSrhGXqQ22HLyF/2sUsLH6UJ6XH9x7loPK8glnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IC6BZoghhQPQol4Avy0T16WVyR0ZT4peWhLm8bcOa18=;
- b=lXFm5Z4hi02MmYd9trsgrHous9dYED1wzT1mhvxo0SuYNKhC0FCQNb/8KitZV5JURhEjZLw8zRKeEi6dKyJL0OhKbvmumS/Xma9Mu7c91eMIJ1rZ4dz/UMDX028frG/IrYM5sOByRQxjCL6RC3UOu9hC/PParOSEAlH2zmFxiFYFByiUYXoiwN/vLW7EuXCtcM+BsHOIZ/yHXplLGU3jZXKSPvOJAxQRusU43S/4pmXEJiLuqPZvta/zJ5fZODt3QmloSYTiD+MI7Ix66dv+4ukoaTC2fTb3VOMqYvS4v33KBekKjUTuj9Yiq4NZ6mavnOVierBx2/ODQ/hTfuSVXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IC6BZoghhQPQol4Avy0T16WVyR0ZT4peWhLm8bcOa18=;
- b=VeGrpBs10ClFfd+O+L63VsUEscvuc9+KzCkbNeyJwTLmEz3F7ukDY7LxJwJ96OC/r8Ik+/lS1pYENCaKuxTysKwGCrikYDB/1+PiH4/lk9bQzCm8K4mEk5ClNFkklAr06fYP5LcYCFfQIk3gc+hSUp6RXZ4ClneITHYE+paRg/0=
-Received: from BN8PR15CA0009.namprd15.prod.outlook.com (2603:10b6:408:c0::22)
- by IA0PR12MB8931.namprd12.prod.outlook.com (2603:10b6:208:48a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Tue, 20 Jun
- 2023 03:45:43 +0000
-Received: from BN8NAM11FT071.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:c0:cafe::88) by BN8PR15CA0009.outlook.office365.com
- (2603:10b6:408:c0::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37 via Frontend
- Transport; Tue, 20 Jun 2023 03:45:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT071.mail.protection.outlook.com (10.13.177.92) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.37 via Frontend Transport; Tue, 20 Jun 2023 03:45:42 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 19 Jun
- 2023 22:45:42 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 19 Jun
- 2023 22:45:42 -0500
-Received: from kenneth-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23 via
- Frontend Transport; Mon, 19 Jun 2023 22:45:41 -0500
-From: Kenneth Feng <kenneth.feng@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: add abnormal fan detection for smu 13.0.0
-Date: Tue, 20 Jun 2023 11:45:37 +0800
-Message-ID: <20230620034537.1495445-1-kenneth.feng@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88EFB10E255;
+	Tue, 20 Jun 2023 04:07:47 +0000 (UTC)
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
+ [IPv6:2607:f8b0:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE6C10E172;
+ Tue, 20 Jun 2023 04:07:45 +0000 (UTC)
+Received: by mail-pf1-x42d.google.com with SMTP id
+ d2e1a72fcca58-6666b89ffaeso1218107b3a.1; 
+ Mon, 19 Jun 2023 21:07:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1687234064; x=1689826064;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=0ituisTKRh05UIoGJ3s4t+V6DstjYn56GWSD85FlHLQ=;
+ b=ahQJOpVgW+JbLKHxNmf3gUyNlG4Tyr3wdkmUb8BuQ/4j4rkFgVeM5IDE9JRd8aynVH
+ WgqgOVZzHw2kvF+BeUvf9JtyARDl98yDUICC5ooRA8ub58lSowxVkkwhNixNmn6SBjkl
+ 9teM7gQmXuXTLOZ+ISxYKUNR04/kNrE0tmXAU+Xp+YfgjyCirgA2GEmgo3aOC8pCTLrf
+ k7BnyPVv3Oof6NuFcryuiS5WAlbtTuXJhw6ovAgMjsd2RKqqTGBP9Z+jDJhUzPxRzOW/
+ 8Och5s4xnSZ4hG3q0QnU+pSN7CULBGNXYK6EmxpqeP2PriFFgKmoV9+LwA+pDMd/cCkV
+ 2FVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687234064; x=1689826064;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=0ituisTKRh05UIoGJ3s4t+V6DstjYn56GWSD85FlHLQ=;
+ b=Ini23GjkSxWaNv3v/eG6ebA0r9Wt5nvjv3B81S3ORnQg4MzN1oi8DlOMOomnb1fTbL
+ IrpEOMxO8Ikzq9BnBdxXRylaZKA/yJWce76yVgbAqHC2aOnAYLsBfL+m9NkjC+TF1RIR
+ VnsDreKGsU8nuCwFUxU4Y3wn8nTru82pg5RbhRtu3+zsK8nm6b0Ko7fsQMY0KR4NVuMw
+ hdCcx3E1EltCndeWRJSFHsMAFbl44DaxJji4KkHjbM7kpGa/f24U/fKZdaxbe7p0XxZO
+ e3DxVSP5J7QiyC1FyYXGicP9i7D+KoIhRIvNgU/Tg3pGcYPWdEQzDM1rMavchHokZixZ
+ LEBQ==
+X-Gm-Message-State: AC+VfDyNgVIxZixdlaHJ6YStIY7em6meUjksrr0EhViQWNeC59ZKu7DS
+ gFKIRx4KnRPoB7wGOm+uOwQ=
+X-Google-Smtp-Source: ACHHUZ5cPFiBrjssL2IvYHYMp9o0tSI7KcstrYg1UwToc3MbzSTrB94eUv6I/N4wMvEZn/t71S1n5g==
+X-Received: by 2002:a05:6a00:1a4e:b0:662:a9c3:7b84 with SMTP id
+ h14-20020a056a001a4e00b00662a9c37b84mr13785353pfv.2.1687234064365; 
+ Mon, 19 Jun 2023 21:07:44 -0700 (PDT)
+Received: from [10.104.2.174] (zz20184013906F627101.userreverse.dion.ne.jp.
+ [111.98.113.1]) by smtp.gmail.com with ESMTPSA id
+ y123-20020a633281000000b0055386b1415dsm242382pgy.51.2023.06.19.21.07.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 Jun 2023 21:07:43 -0700 (PDT)
+Message-ID: <e163fa54-b016-1879-d1c0-840a4d3885b1@gmail.com>
+Date: Tue, 20 Jun 2023 13:07:40 +0900
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH 06/13] drm/amdgpu: use the new drm_exec object for CS v2
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ francois.dugast@intel.com, felix.kuehling@amd.com,
+ arunpravin.paneerselvam@amd.com, thomas_os@shipmail.org, dakr@redhat.com,
+ luben.tuikov@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, matthew.brost@intel.com,
+ boris.brezillon@collabora.com
+References: <20230504115159.2245-1-christian.koenig@amd.com>
+ <20230504115159.2245-7-christian.koenig@amd.com>
+From: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
+In-Reply-To: <20230504115159.2245-7-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT071:EE_|IA0PR12MB8931:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c65fce8-02b1-4f3c-bed9-08db7140d29a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ozQT22R9EaiDwUv0UVcNz/dkHUL74glFAJKHszGg2RqNDxx6PhYaI2c5CDB1Wcp4fo5UvBimSKIqkm86iMtI51W6LVAxSseoK6lGevy7MOJ10Y/2GVxWXg1bTbDfP3Bj0Cvjm24VAYNO2ckmTOE2z9tgX1BdtSNHF0+p9P3kBrK5NL8r79Y/hetfC+ahIMp31pHAnNRsUcJyA8lh//tFBy5G4jC6xHmaThJ5zTBS/8iVlNvgZDC24BCBl8NzCUfoH7FLQQLMSLQ8fHeTkfStiAbfmlYZCrey5B7pBZdF2hC4kA0XfDtiMTOa/AzN3l4G9oQk0JrLdLFJAuWKwSdY6L19OB2dzO94WyRUVe5ItbiSJ/U/4C3mUa7MSJ7AK2s99H3G7rE5ONORSqc7SoxOYgvQ8Nko5KfXz7Prcq0bJavqAouRl3Xtt7I9rTPf7ENVvnsHAtOqY3jyN1Xq7Plmg0czQM2pZ29TqbZzwRqiCC6tbb5SdXlziFXIhBlFKyC0v7s13Rg0qPGCDP/sFWCGOGtQ+PE8WbB9MjjdS61aI/iexRrKRVdv0KnZqNWMeZ1wVT9oAiwl+aFArssfFWFL18YYbSB50zx5jwD4XWTmIzAYrVAL+xmQSqu2HYObfIiBDaT5EzJRqE8g7CfFl+rixHhC/dEV1muWJDnJAwAOFjiqN8SVxpFdOvyjCtWoKEJ6szSRTLiYe4zVcML5elRoYmpK+QeQnXKYpMpwEYvDp3wqckhaIOIzijB88b7PFy5OjeVw5qKsEpSxeHfQmMCshA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(376002)(39860400002)(346002)(451199021)(36840700001)(40470700004)(46966006)(82310400005)(44832011)(336012)(47076005)(426003)(86362001)(83380400001)(41300700001)(8936002)(8676002)(5660300002)(6916009)(316002)(70206006)(70586007)(36860700001)(2616005)(82740400003)(81166007)(356005)(26005)(40460700003)(1076003)(40480700001)(6666004)(186003)(478600001)(7696005)(4326008)(2906002)(4744005)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2023 03:45:42.7790 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c65fce8-02b1-4f3c-bed9-08db7140d29a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT071.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8931
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,29 +81,170 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kenneth Feng <kenneth.feng@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add abnormal fan detection for smu 13.0.0
++Boris and +Matthew in case you want to take over this patch set.
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 1 +
- 1 file changed, 1 insertion(+)
+Here are some review / testing comments, including those I posted before 
+to ease tracking.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index a6083957ae51..124287cbbff8 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -1710,6 +1710,7 @@ static int smu_v13_0_0_get_thermal_temperature_range(struct smu_context *smu,
- 	range->mem_emergency_max = (pptable->SkuTable.TemperatureLimit[TEMP_MEM] + CTF_OFFSET_MEM)*
- 		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
- 	range->software_shutdown_temp = powerplay_table->software_shutdown_temp;
-+	range->software_shutdown_temp_offset = pptable->SkuTable.FanAbnormalTempLimitOffset;
- 
- 	return 0;
- }
--- 
-2.34.1
+On 5/4/23 20:51, Christian König wrote:
+> Use the new component here as well and remove the old handling.
+> 
+> v2: drop dupplicate handling
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h         |   1 -
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c |  71 ++-----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h |   5 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      | 210 +++++++++-----------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.h      |   7 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |  22 --
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |   3 -
+>   7 files changed, 115 insertions(+), 204 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 02b827785e39..eba3e4f01ea6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -133,6 +141,8 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
+>   
+>   	list->first_userptr = first_userptr;
+>   	list->num_entries = num_entries;
+> +	sort(array, last_entry, sizeof(struct amdgpu_bo_list_entry),
+> +	     amdgpu_bo_list_entry_cmp, NULL);
 
+Previously amdgpu_bo_list_get_list sorted all entries, but this one only 
+sorts userptr entries. I think this changes behavior?
+
+> @@ -928,18 +874,56 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+>   		e->user_invalidated = userpage_invalidated;
+>   	}
+>   
+> -	r = ttm_eu_reserve_buffers(&p->ticket, &p->validated, true,
+> -				   &duplicates);
+> -	if (unlikely(r != 0)) {
+> -		if (r != -ERESTARTSYS)
+> -			DRM_ERROR("ttm_eu_reserve_buffers failed.\n");
+> -		goto out_free_user_pages;
+> +	drm_exec_while_not_all_locked(&p->exec) {
+> +		r = amdgpu_vm_lock_pd(&fpriv->vm, &p->exec);
+> +		drm_exec_continue_on_contention(&p->exec);
+
+Duplicate handling is needed for pretty much every call of 
+amdgpu_vm_lock_pd, as bo->tbo.base.resv == vm->root.bo->tbo.base.resv 
+for AMDGPU_GEM_CREATE_VM_ALWAYS_VALID.
+
+I think Boris's suggestion of having this through a common 
+DRM_EXEC_FLAG_ALLOW_DUPLICATES flag fits well.
+
+> +		if (unlikely(r))
+> +			goto out_free_user_pages;
+> +
+> +		amdgpu_bo_list_for_each_entry(e, p->bo_list) {
+> +			r = drm_exec_prepare_obj(&p->exec, &e->bo->tbo.base, 2);
+
+Previously there were comments for how the fence count is calculated, 
+now they seem to be removed. I'd prefer if they were properly retained 
+as finding out who calls drm_resv_add_fence is not trivial, and wrong 
+reservation count can also be really hard to debug.
+
+Likewise for amdgpu_vm_lock_pd (which was added in another commit).
+
+> +			drm_exec_break_on_contention(&p->exec);
+> +			if (unlikely(r))
+> +				goto out_free_user_pages;
+> +
+> +			e->bo_va = amdgpu_vm_bo_find(vm, e->bo);
+> +			e->range = NULL;
+> +		}
+> +		drm_exec_continue_on_contention(&p->exec);
+> +
+> +		if (p->uf_bo) {
+> +			r = drm_exec_prepare_obj(&p->exec, &p->uf_bo->tbo.base,
+> +						 2);
+> +			drm_exec_continue_on_contention(&p->exec);
+> +			if (unlikely(r))
+> +				goto out_free_user_pages;
+> +		}
+>   	}
+>   
+> -	amdgpu_bo_list_for_each_entry(e, p->bo_list) {
+> -		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
+> +	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
+> +		struct mm_struct *usermm;
+>   
+> -		e->bo_va = amdgpu_vm_bo_find(vm, bo);
+> +		usermm = amdgpu_ttm_tt_get_usermm(e->bo->tbo.ttm);
+> +		if (usermm && usermm != current->mm) {
+> +			r = -EPERM;
+> +			goto out_free_user_pages;
+> +		}
+> +
+> +		if (amdgpu_ttm_tt_is_userptr(e->bo->tbo.ttm) &&
+> +		    e->user_invalidated && e->user_pages) {
+> +			amdgpu_bo_placement_from_domain(e->bo,
+> +							AMDGPU_GEM_DOMAIN_CPU);
+> +			r = ttm_bo_validate(&e->bo->tbo, &e->bo->placement,
+> +					    &ctx);
+> +			if (r)
+> +				goto out_free_user_pages;
+> +
+> +			amdgpu_ttm_tt_set_user_pages(e->bo->tbo.ttm,
+> +						     e->user_pages);
+> +		}
+> +
+> +		kvfree(e->user_pages);
+> +		e->user_pages = NULL;
+>   	}
+>   
+>   	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
+> @@ -1296,9 +1271,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+>   	 */
+>   	r = 0;
+>   	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
+> -		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
+> -
+> -		r |= !amdgpu_ttm_tt_get_user_pages_done(bo->tbo.ttm, e->range);
+> +		r |= !amdgpu_ttm_tt_get_user_pages_done(e->bo->tbo.ttm,
+> +							e->range);
+>   		e->range = NULL;
+
+e->range = NULL; needs to be removed, or it's causing *massive* memory 
+leaks.
+
+>   	}
+>   	if (r) {
+> @@ -1307,20 +1281,22 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+>   	}
+>   
+>   	p->fence = dma_fence_get(&leader->base.s_fence->finished);
+> -	list_for_each_entry(e, &p->validated, tv.head) {
+> +	drm_exec_for_each_locked_object(&p->exec, index, gobj) {
+> +
+> +		ttm_bo_move_to_lru_tail_unlocked(&gem_to_amdgpu_bo(gobj)->tbo);
+>   
+>   		/* Everybody except for the gang leader uses READ */
+>   		for (i = 0; i < p->gang_size; ++i) {
+>   			if (p->jobs[i] == leader)
+>   				continue;
+>   
+> -			dma_resv_add_fence(e->tv.bo->base.resv,
+> +			dma_resv_add_fence(gobj->resv,
+>   					   &p->jobs[i]->base.s_fence->finished,
+>   					   DMA_RESV_USAGE_READ);
+>   		}
+>   
+> -		/* The gang leader is remembered as writer */
+> -		e->tv.num_shared = 0;
+> +		/* The gang leader as remembered as writer */
+> +		dma_resv_add_fence(gobj->resv, p->fence, DMA_RESV_USAGE_WRITE);
+>   	}
+
+Previously PD used READ accesses, now everything is WRITE. This probably 
+isn't right.
+
+Regards,
+Tatsuyuki
