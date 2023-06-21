@@ -4,121 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D99E4EB64D7
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C7B7EB64D8
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 16:15:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62ACC10E3DB;
-	Wed, 21 Jun 2023 15:57:35 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2046.outbound.protection.outlook.com [40.107.237.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37DD810E3DB
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 15:57:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56CBF10E23A;
+	Wed, 21 Jun 2023 16:15:13 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20603.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::603])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF8E10E238;
+ Wed, 21 Jun 2023 16:15:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SRS14ULusGZYUENQDPzV/evODuGk+/OnbbX9+T24BnzRzUREvGV6PShAY5nwlOeBnEWWp+znobSybG10vpMrVl1hf6x+oy9Y/QLrXu/ei4yRXjL6VKVdh3gCGIY5G/4kA9KhwfxKQykjjKGAkplE627vVQ4YIV9lPjG0dyKhKHip8DFgM2/gBpM7v+oJH4M59OrTvBCLsZKJYDexgqqBG12V+zedSQt/f/UfSkEs1REIcvpzKsI30MmGrMjxF7wwHXww4V11OJxs6nvLoh+66NH96SgBdfpF9asGYdRcDlVxEWw7SFve3FasMQIst+RTLF1PqxrCI0GjF2MJS5nHEQ==
+ b=E1xmLpc+1ef5weZFgu6kVmIkGRPu/NsuOH9Ttd8AAVy5ZFHULy7Ctr2SXqBn0hJhaY8Z9sQiVspGd6duGWDqtEvVvtQOpw2Jiq7RgqfJcrCVzKRGAHGnfJByw3tsm3HHJKx/G4pO47OGegOfHRbUKCGGXH8nxWFXzzNjJy8b7VITEyINiTe1tizQMaNLXfXf1dJcMqB1g+PjZJOhntRSvnjuA51221buVpX8aBZQTCI+IfvBkLiXBvi4rKF8VHCTEElE8cuD9OAcAIYssNRz943Y9ZtkRdQ3CiE8y4Q5OCJZtp7xBWwxCxmFDnRDHk/B0wS4aHK14MBJ11FEN4lYmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3q198nkruy2i0UU2VzJbEYC7D3D6HLvcKiD4PpZCU40=;
- b=EuIw3PumluerhAxq8qz2ReJl9MrrvlbfUQsWmMuB1G6RS/M/cFztIHFoF+8kydL8bAUAdlqiAZDRtMwrmnVCPhLu+NWgnR+AZ8eFnHe+H2ZqGgd8Pm24YW+F7KXzjV1K1QgegsLT0zdZ00uIkH3sEkdaTwYFFMvHMMYkegxKCnpk54gBtUOybFASg/RSQ0GQJGUCzw5q/0T7snkIcomQTy4aik+OBHTuiKtuI3GqqEOZsOvKQ8QmACu1/82cREXhcwDj8IzgzspQ8EJ2plJT2I22zSiM0qFbZxZTqIzdQxHsZSvhl8pfGHssN3lwum7rxflyzWsHkX9pInUfChJOQg==
+ bh=2XuIkuVB09s2z0EXoibkagIFTtxAv4WP2pPDyyxrThI=;
+ b=WoRnwhqT2Esd8RNktcLsIpNARcs/Jm23ypTAMlfqGRJ5pmKK+cna8MzCm+muOYQ/NqYPvdg0x2J40mc+eJKR6fqc2MiT+B2z2e26BtKpOIGq9DwGGgqL+fS/SnYlWUZl4gRUgd5mBrgfGgICw7rrFpuvov2zkoq8RUWQ3+z4QPLnl79LEMZ6qBV4XPjP1V04Q0Ep3/d9ZxYcpypwKpEDWq9Nr7rHUEkvwvE09p7iJnr//MjS5GyhM+EZh10qW3OqTX32UfVb9CN36zBPZUjENXwHVXStDok93l0EFsDNfbPC0+ZF25P7JnvmeZ8RqSWY9z1bphjtdOCI3W78YCZj4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3q198nkruy2i0UU2VzJbEYC7D3D6HLvcKiD4PpZCU40=;
- b=5o5cwJohVAjORLljj6hv9Rl7bPWTOWQtVPMs8vlJlNTHC9kV+mMzLbJaxBt3fY0TY7JvizsoQRj6i5nxkJmG7A+qkhOVfX90+6F/lMo3ISNMI/mY9tq6SDQMRR1ZCylZYfqwcxFDshpzrGlhvi5FD94tHydn34ogknB7mekIgQ8=
+ bh=2XuIkuVB09s2z0EXoibkagIFTtxAv4WP2pPDyyxrThI=;
+ b=wSwpo+F0gqG87cDBUm4gI5LwnqC2UYoCbiq+XapIEpYXslzegdcBThn/OVeYMXEBBSiv9VgrmNEArJgC9CYgfRqjUk/TzQDU4nOX/+of/y/YVdvTCiHA8C+cPhL4HjcoF1GEADgAkochIqP7WBBViPxhauRl30PSq9OaNhaU6jU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by IA1PR12MB6459.namprd12.prod.outlook.com (2603:10b6:208:3a9::11)
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by MW4PR12MB5602.namprd12.prod.outlook.com (2603:10b6:303:169::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Wed, 21 Jun
- 2023 15:57:29 +0000
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::8c06:c9e:c6c2:3b16]) by MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::8c06:c9e:c6c2:3b16%5]) with mapi id 15.20.6500.036; Wed, 21 Jun 2023
- 15:57:29 +0000
-Message-ID: <740c0baa-2fb9-68dc-8b19-d6e436b6a4d6@amd.com>
-Date: Wed, 21 Jun 2023 09:57:26 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH] drm/amd/display: Remove else after return statement in
- 'dm_update_plane_state'
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Wed, 21 Jun
+ 2023 16:15:05 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::dfcf:f53c:c778:6f70]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::dfcf:f53c:c778:6f70%5]) with mapi id 15.20.6521.020; Wed, 21 Jun 2023
+ 16:15:05 +0000
+Message-ID: <b1abec47-04df-4481-d680-43c5ff3cbb48@amd.com>
+Date: Wed, 21 Jun 2023 11:15:00 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+Subject: Re: [PATCH V4 1/8] drivers/acpi: Add support for Wifi band RF
+ mitigations
 Content-Language: en-US
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-References: <20230619120250.4168839-1-srinivasan.shanmugam@amd.com>
-From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20230619120250.4168839-1-srinivasan.shanmugam@amd.com>
+To: Johannes Berg <johannes@sipsolutions.net>, Andrew Lunn <andrew@lunn.ch>,
+ Evan Quan <evan.quan@amd.com>
+References: <20230621054603.1262299-1-evan.quan@amd.com>
+ <20230621054603.1262299-2-evan.quan@amd.com>
+ <3a7c8ffa-de43-4795-ae76-5cd9b00c52b5@lunn.ch>
+ <216f3c5aa1299100a0009ddf4e95b019855a32be.camel@sipsolutions.net>
+From: "Limonciello, Mario" <mario.limonciello@amd.com>
+In-Reply-To: <216f3c5aa1299100a0009ddf4e95b019855a32be.camel@sipsolutions.net>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0558.namprd03.prod.outlook.com
- (2603:10b6:408:138::23) To MN2PR12MB2941.namprd12.prod.outlook.com
- (2603:10b6:208:a9::12)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA0PR11CA0193.namprd11.prod.outlook.com
+ (2603:10b6:806:1bc::18) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|IA1PR12MB6459:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57afce0b-9c46-4426-d1a2-08db72703733
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|MW4PR12MB5602:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c70935e-48eb-4e8f-026f-08db7272ac8d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /swL56b3dEpoXXZGCiuvw0TBeFNEAb7/NQTpeN5MJmHMrsbNxSj6r0segxIrAys6+FY8mdfnrO6E/2WwBIlvcG6XPyltoL7UDE3f9E+ZeY8eij/gQMeFIk3/g0XYExZwp/s9TRJsRujQmlGU7noh8TGUOEShdnCPbcbFTvRK6FIUTkPe+D8IQQmmAyN/KKE6vZiq2yPoTF+bbb/uqhiQvLKbRF72e3Ons+Wl0o9ehWANGfutHZJVPNY6rP1IB9vnO3lRqhj+LJ4NbYqicO9RCmP3pTCddpsrm8im9oQsWDo4mDfBObbeJwdRO8uS+mSp1RBbdg0E2M0qsJSfV07j8HJ81u9oWVBw+iluSux2P/o3IlWbMQSFU1JKXM+03Q/THhIJFw7h5WiWTA4JzgzlbylWR/U/j8ldMLVlw/ho46qQ03aKNVvcUbvYqGjIiaH9nGcTpcOKYg8l7B40TfK4Rfzk9Q/m/1a4Gb5gjf5mLAokYZYSvS6ChiWOYbhiQMOJCl1nJEM8HxcTmHDRoGqq8n6O0zVHIvQj6oE0Pl3RKdxMp8yizTfuR6RpwQbqBlLAofEIired04+HHWoUVVy7BFHwB/bKhUHR8goZKXqylsuDlxLEnSuRNNbjLN17C2XbZzjjFrmS2D85PEyIGD5StQ==
+X-Microsoft-Antispam-Message-Info: kNj8/xhpnNQTd3MFZcv99BwPIF296qlnDlLXS5NC+GIqnb0HE9pjgTc1jBVIh+gUvCSIHsiuDMYuZKSmXmE/P+XGJBzk6rHKIVigotKDAcd7yQWi/Tw5YuvLbhmuMcWCpsqwB02x0PKuNAd9zZoqeAyjGhqwZYESvSyO6gbHSF1EfqO15JF6BqMVzb2vpHfvXPCYhUz8lgb7qtH1YHIxCmwRqrUBMTr1Vl2VKNt1cuMuS4+vfSmT1kqOrJ8MVPYVLJcyEeRQR+4llXHmiECTdu2d598YZcXM0me6Xk433xUqCL+A/mwTXwvCsk1sYwIgQpqaLsiDjPL/LR4w6rsax15r1ubbP4DCEotqO6XW9akaIJ55BJxs/d7mgZbBvxTOMK/3UXxO+ll+7KL/ReyDiOqZkSl/VpzNU9SUJK/8oJZx4BxymzHWoUqRFi/Ao5CEbmsKXXpRjSgrVHkqtO8OHgJfwt1uulPL9QR0dVnmjn4zTPRLcdsOMDHrSBL+/qrXyBTSo7ILk6aTZ/xOdlpUWh2i+UPZQzLJUjaHwV9VuAkMFDmKSxcaUMNBhulclbeu8DOdh73Eul6ihJSFxkWvhfA5iKyYmdYHuYDFnebx8bvud28A4ogmfqzlhTzmzK47hmzdqwz2xovv3Ke060aU+A==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(136003)(366004)(376002)(346002)(451199021)(31696002)(83380400001)(31686004)(6486002)(6666004)(110136005)(316002)(38100700002)(8936002)(2616005)(8676002)(6512007)(36756003)(86362001)(4326008)(6636002)(186003)(6506007)(66476007)(41300700001)(5660300002)(53546011)(66946007)(66556008)(478600001)(2906002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(346002)(136003)(39860400002)(396003)(376002)(451199021)(38100700002)(5660300002)(53546011)(26005)(6512007)(6506007)(83380400001)(186003)(2616005)(7416002)(41300700001)(2906002)(8676002)(8936002)(36756003)(6666004)(478600001)(6486002)(4326008)(6636002)(66476007)(66556008)(66946007)(316002)(31696002)(86362001)(110136005)(31686004)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UGtSczdvdGdkYjBTUnhkWmxYWkJJeFJWUmx0a1NxLzlnVUtwdGRFK1BiTndE?=
- =?utf-8?B?VDlTVTk4WHh6MUVFdmJDU2s2bjRsVEdGS1UwK3MxRmZ6WFZBZDlNQWRFb0ww?=
- =?utf-8?B?c0FVV0hlTi9DRVRYdFVnajhtZmRMaklMajM2OHJvM2RmeEdZNGR0RUdyM1dx?=
- =?utf-8?B?cTlxcm0rSlUvcHpicFQ3aUw5ZFBvS1dWMlAvWGxLaHVVTXY1MWZ1d1FJVFhi?=
- =?utf-8?B?ZXFMdERmV0tRTmxUTEltY2IwNDhCLzlIK29oY0k1eEhsS2F2WWdoNERtWWZ3?=
- =?utf-8?B?M2k5OTBDbGsrTWNmRytoaGFkYmFsTERZL1lHRFR5ajludEFYTGhiYU1nTFlG?=
- =?utf-8?B?dFBuZ3VDVEFiRnlpK2NiVVNVN05pN2V1WHNJbHh1Y09sRDhkYktBUHpMVDRo?=
- =?utf-8?B?cXRzenc1RlQwQ0ZKMUd5SDJEZ1UrNG5SenlOQWtDTjFvQWV6S1B2OWNaRkVl?=
- =?utf-8?B?YXNVMkhXdGoxMkE3N09aZzNGV2V1c0pHeEdBZkZyT3lZRGtXVkFmd1FXaVln?=
- =?utf-8?B?K01YZm9wL1NBMFFUWXVEbGxRVDJrTFJ0RUdKcm1KK1gyVVdVRmlpcjNDWWMr?=
- =?utf-8?B?VTBUV1ptcERib0tCUGVwcUxVY2VXeENHZzV1R0pCSzE5T2xQaVVINHhrWFg2?=
- =?utf-8?B?bTdKTEtMMUs2TnZ6MTMyOEx2Q1lRdjJTTFMyT2ZTOW9UK1BVYW5vVFAxZW1Z?=
- =?utf-8?B?eEc4Y29nT1VoellYVndkeUhOVGdTL0FoclJUVGZoNWE3MVpKaXFINDVXZ092?=
- =?utf-8?B?ZmEyc0dtMEREaTU3VkcrQjZaWXMzZ012anBjeDhOMjQ5ZUhZM2xEUE9XVjlG?=
- =?utf-8?B?NWUvU2pHd2dUc3hKd3FSV1BKWGoxcmpiYVQ2dUpHTXhGd2Jzckw2UHBvUUVa?=
- =?utf-8?B?ZUoxM3dTQzhldFpCRHNiS0M2TkxxMjZBbXNpTks2RTZBb3JUaCtxcE4xUWZi?=
- =?utf-8?B?NU1NRDRKS1B1NFplVTIwNUNMejhEK2QxdElob0R6WGpCaHljZG14UkhWR2ZI?=
- =?utf-8?B?RnZTUDJhZlArUjc4cXZSSlZkWjV5M1RYY1R6Wk5Ca0diYngwbFdkREJKenoz?=
- =?utf-8?B?TWJUUGdpQXNTQ2UrWENoNitLMWdET2tRT2NjVzN1dW9vME1sRGZsRmc5TDFP?=
- =?utf-8?B?TWtwTlA3TFRnQ0FaY29xVG9WZlR6VURLT2VoVng3aTRLRlpzUXBuRmxrVGJ3?=
- =?utf-8?B?ZXZMWHhYRHBPdTgwL3pGYVNvY0IxVkgrRGcrSFFTZ1JtcXR5ODNaUDhyU09B?=
- =?utf-8?B?d3Z2VzVkaSswdHB1NjlzSHEvL2FEWGIyUytySTJnMkJ5ZWNxSGwzTERXMnQr?=
- =?utf-8?B?WmMwTXdIQjdXOVVtcUlTQUQ5M05GbEtPd21GUXE3T1pBdWVxTnZBazVHVlhO?=
- =?utf-8?B?UmlxQ1p5bmZmMnFKMXZ3bU44cFdsWWpOQ2FUSUNEWGRiMHJtcUNJN2IzSWRo?=
- =?utf-8?B?ZTlSd2FLVldsYVhKbjBmQzc1bGFpNjU0dktLMmNtZGJxMzZoYzB4RmFQOEtX?=
- =?utf-8?B?cnNmVlJkelFwVy82QmY2VHc0dEpOaFk0QXZIUlczdE5EditoblF0VU1MRXU2?=
- =?utf-8?B?MHYwMzFzUEo2WlhxMHF2TEsyYUhKekVQWjRiK2JNazF4STl0cmRWUUNoUXcv?=
- =?utf-8?B?QVNjQUFHQkR4ZkZwUkNpU3RNT2hCOE0vd0JaTTlNSk13M2J5dmc4dktxTDQ0?=
- =?utf-8?B?U1pVMWlNTXFiZVcxaXpXMmVUMk1velZML0JuNWhVd0pTbzJKbDZLaS9xTzlw?=
- =?utf-8?B?dzdmSEJpdkNLaGRrQS85Snoxb3BXSjhVQXF4dWNObVk1eW81OFRxbllSa1B6?=
- =?utf-8?B?Nm9MdjlIU0g0UHNkWHdIRVI3UFpHWWlkYVEvQjNTNEFjYTZZRmpDMmxmdHNy?=
- =?utf-8?B?NnAzS01QamJXWThFank4dExudkFBNytjRFQwRkhLOTYvV1FKMCs0RHNGeUhy?=
- =?utf-8?B?RTVibWR6NVU2Y2gxc3VjUk55V2xoNm1Gb3BURklHTzBJNm51S0REN1JYald2?=
- =?utf-8?B?RkhvRkR3S0pKbnZrbWhqaGdEODVPZjNJeHFObjZmZDNDOCtNYmhxTVJPdkxQ?=
- =?utf-8?B?VmR0bHNpZUZrVURPMFdyQ1pncXhSblFkZnpFc1JkdGk3Y3d0OWgzQWRrVlM2?=
- =?utf-8?B?MFhwTXpmamltRUZIdEVLWFpiQTZHdkxKWWxIVGVYUVlEM0hHLzdPdEpjUlVa?=
- =?utf-8?Q?cdMqy4KFhdbJhRUZDUmfTzimtGKMT3uzX51wFveEvz21?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2plNGpaeUxlRmNrOGFVcFVKYWNoeWJyZHJGay83eVYxNXNQaFV0aVRhd05K?=
+ =?utf-8?B?ak9jY2preXg4Vm9UMVUxSWVtUkdtbFV2d29DVm01cTlJZnVoREdWY3pjSUVT?=
+ =?utf-8?B?c0Z4dmRacnkyQnIzcHVLc2I5K1V1US8xb1NXK3czZUxtSUx3bk55eStadmN5?=
+ =?utf-8?B?Nnlub3NlK1NDTkp0L1o5cHIyU3lvQUFHU1Q5dEEyeWFxNXJ5ZnMwbDBtUjFh?=
+ =?utf-8?B?Z1Y3UUNwRU1FUnRFYWtZdWJHVTZjVHlsQURydG5GQjgreCtobS8xMmpBd2Rw?=
+ =?utf-8?B?KzRJNjF5d1hvZDJjWVpRTnVqRnN6VFJ2SThXNmhHaHJwL1J5elBwRktnTDhN?=
+ =?utf-8?B?KytjK0s2QnA1bGQ4MjNIaytYdTZuUHB5MjQvL3QxbmtPSldRbFhnRW5sdzN5?=
+ =?utf-8?B?VDJmU284NHh5SGVCdEdGTVd4MDdFZDF5L2d4UWx5eldXVmRLd2p1QWZnNWUr?=
+ =?utf-8?B?dXJ1OWpMRWc4OW5TTkxRQ04zc01XVzhkOWRHaWJHdzJacTB1WVBYeXp5Qkxa?=
+ =?utf-8?B?NTZuUlR0b0tjNzkzY1lIMWUrMU12MzNrcVcvSDRLcGg5RTJyVFRRUjBNNkY1?=
+ =?utf-8?B?MXlkL3NpMURzWERHUjJIZkViazQzTlRCZ01wRnE4NCs5d2ZsdUFiUEhjWlZm?=
+ =?utf-8?B?ZUxXdmZvYnZ6K2xjVmVQYjZENGdLdFFmQWwyVjdjZzcybzZSOW1kV0Q2Z0Rt?=
+ =?utf-8?B?eDRqcmlPbUNibCtlVU1OVUtDa1RaTDFZTFdhYklQamw0dWVXWWxHbDZtWisz?=
+ =?utf-8?B?c2pHOTFFT1E5YmdtdHZKbTRkclJpQUhiblEyL2hYWTd4cEhiWTJWYjlaQW1Y?=
+ =?utf-8?B?NUJEV1ArMnBIQ0QrWG5yV0o3aTNHS3AyL25GMThrMVR5UE9nN2tGcEEwM3Vo?=
+ =?utf-8?B?SXl0MHYxZldCWFdBR1RSbTFoZWc0dEdidXU2dy9JSGNXUWcrSEZDZ21XRCtt?=
+ =?utf-8?B?bDJCN2RnNnYzc21MMk8wN05ZUnZoU0JCempLTWVpZThjZlRxRmthaXl2MG9F?=
+ =?utf-8?B?YWtSUExlUDlLVG5pOW8vZVRLTExjbXhhOGZEekV6UytZczlmeXAvU2o3YnYr?=
+ =?utf-8?B?aS9JTjRrT2xJT2VVRUhFdmgya0EzMGJoeVdtdlNVSVZjalFGS25zZUp5bmhh?=
+ =?utf-8?B?bW1xUGQvZ3BpaFVVWk55eVVzNkVRcktBTzhuVGdNSnUyZWFkYjkyVTR2YUJG?=
+ =?utf-8?B?MGhuZzNLTjlFUmpJQlU5bkc2UG1lT0tScVArRGE3N2gwSjFwMjcwVXNwRk5D?=
+ =?utf-8?B?R21XT0JsWG9sQkJ2T2xxUWh1cTAya2RDejVjbzFGL21EREpiamd0bzZ4OU5D?=
+ =?utf-8?B?andyNmNTeEw5cTQvQkRuZ0t2ZTc3STVLS0xxc1pnZnFnRHhOL2lsN29BWllZ?=
+ =?utf-8?B?QjBHQ0NCcWpLVUp0WGpPOTE0LzdDdi9DZk05WFZmUUpIN1JNS3ZjOU9CeWJm?=
+ =?utf-8?B?ZXVOM2g2YXJtK3ZweWdFYlQwY1NvUWtnS1BQZm5yREttcnU1c2VPSWo5T0Np?=
+ =?utf-8?B?bEhWK0hocGlSdEtJbTJUdGs3M2dqRGN2VTg1aTMyd0Z5UEVRNHpwUkFvRzls?=
+ =?utf-8?B?NGNBRmJYUS9iM1Y5THlia0pKKzZqclEyUU5aNTRBOFl6dmthWnR3emxZSTcy?=
+ =?utf-8?B?THg4ZzhYSms3MFp1dExCWEJRZGdlbU1vZXV0Y2U0SFEzV1pQaE92L2U3cU8z?=
+ =?utf-8?B?WHJyUHU5UzFPNjVEcmNkeTFrZ05pRFVYNVlvWGo0MnR3KzRiZk1XVXNicWVB?=
+ =?utf-8?B?UnRleEZNdDE1TnU2dy8xSXZQTmxFU0RyRTRXc2NzTFBXYkNjbFMyT0crU1Vp?=
+ =?utf-8?B?RVpwV1NROXJUcXpMaVdGaTN4eWNPb3J0MHpRSHVsZWhHTDhPRUZMOU9FeGVD?=
+ =?utf-8?B?dEhLWSsrTXh0U1JPMnZkY3VscmZrRzY3MmFqMnMyc1ZWaVRCT2tNOHRIVzBp?=
+ =?utf-8?B?cHFLT3ArTi9IMUhHTGpUY0hnajBZc3VGMEZvbWtiY3p6WkFWT2Jla1RpSERZ?=
+ =?utf-8?B?MG1QMDJpSk9sbkxPNG83S21RQk1neStFZTNnY014TlhBWjQzVzQrSFNuVWhH?=
+ =?utf-8?B?cDNyNUhOOVZHTzJBV0ZsN3loL2MzTmNUNUhMWDBBU0h4T0w5VlJNSytrTnJr?=
+ =?utf-8?Q?3k+8C/2FQKzWb5hwJlMrWKC/q?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57afce0b-9c46-4426-d1a2-08db72703733
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c70935e-48eb-4e8f-026f-08db7272ac8d
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2023 15:57:29.2595 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2023 16:15:05.1658 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eu0Mmy8k9Ob0kLRgGUJwUdxf1hQ3Iu+JOJQbInAT3beKFK7WhBUKK5AZoGWlO3hGpRnK7mtkR+xoxN0lRu/LwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6459
+X-MS-Exchange-CrossTenant-UserPrincipalName: aCcOnNKscodZcJZ3WJUzqWYGQI1IEtArbgmYSfl+Uf0qqlHf1iyRsMTcNs4PSfXqWv6fCVGaH9RcZhE4WeZbDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5602
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,46 +129,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: jingyuwang_vip@163.com, bellosilicio@gmail.com, rafael@kernel.org,
+ trix@redhat.com, lijo.lazar@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, mdaenzer@redhat.com, airlied@gmail.com,
+ amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, lenb@kernel.org, andrealmeid@igalia.com, daniel@ffwll.ch,
+ arnd@arndb.de, maarten.lankhorst@linux.intel.com, hdegoede@redhat.com,
+ jsg@jsg.id.au, jim.cromie@gmail.com, netdev@vger.kernel.org,
+ Xinhui.Pan@amd.com, linux-wireless@vger.kernel.org, edumazet@google.com,
+ christian.koenig@amd.com, tzimmermann@suse.de, alexander.deucher@amd.com,
+ davem@davemloft.net
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+On 6/21/2023 10:39 AM, Johannes Berg wrote:
+> On Wed, 2023-06-21 at 17:36 +0200, Andrew Lunn wrote:
+>> On Wed, Jun 21, 2023 at 01:45:56PM +0800, Evan Quan wrote:
+>>> From: Mario Limonciello <mario.limonciello@amd.com>
+>>>
+>>> Due to electrical and mechanical constraints in certain platform designs
+>>> there may be likely interference of relatively high-powered harmonics of
+>>> the (G-)DDR memory clocks with local radio module frequency bands used
+>>> by Wifi 6/6e/7.
+>>>
+>>> To mitigate this, AMD has introduced an ACPI based mechanism that
+>>> devices can use to notify active use of particular frequencies so
+>>> that devices can make relative internal adjustments as necessary
+>>> to avoid this resonance.
+>> Do only ACPI based systems have:
+>>
+>>     interference of relatively high-powered harmonics of the (G-)DDR
+>>     memory clocks with local radio module frequency bands used by
+>>     Wifi 6/6e/7."
+>>
+>> Could Device Tree based systems not experience this problem?
+> They could, of course, but they'd need some other driver to change
+> _something_ in the system? I don't even know what this is doing
+> precisely under the hood in the ACPI BIOS, perhaps it adjusts the DDR
+> memory clock frequency in response to WiFi using a frequency that will
+> cause interference with harmonics.
 
-On 6/19/23 06:02, Srinivasan Shanmugam wrote:
-> Else is not necessary after return statements, hence remove it.
-> 
-> Reported by checkpatch:
-> 
-> WARNING: else is not generally useful after a break or return
-> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:9776:
->                                 return -EINVAL;
->                         else
-> 
-> Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-> Cc: Qingqing Zhuo <qingqing.zhuo@amd.com>
-> Cc: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 2446529c329a..e657214e0104 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -9777,8 +9777,8 @@ static int dm_update_plane_state(struct dc *dc,
->   		if (plane->type == DRM_PLANE_TYPE_OVERLAY) {
->   			if (is_video_format(new_plane_state->fb->format->format) && *is_top_most_overlay)
->   				return -EINVAL;
-> -			else
-> -				*is_top_most_overlay = false;
-> +
-> +			*is_top_most_overlay = false;
->   		}
->   
->   		DRM_DEBUG_ATOMIC("Enabling DRM plane: %d on DRM crtc %d\n",
+The way that WBRF has been architected, it's intended to be able
+to scale to any type of device pair that has harmonic issues.
 
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+In the first use (Wifi 6e + specific AMD dGPUs) that matches this
+series BIOS has the following purposes:
+
+1) The existence of _DSM indicates that the system may not have
+adequate shielding and should be using these mitigations.
+
+2) Notification mechanism of frequency use.
+
+For the first problematic devices we *could* have done notifications
+entirely in native Linux kernel code with notifier chains.
+However that still means you need a hint from the platform that the
+functionality is needed like a _DSD bit.
+
+It's also done this way so that AML could do some of the notifications
+directly to applicable devices in the future without needing "consumer"
+driver participation.
+
+>>> +/**
+>>> + * APIs needed by drivers/subsystems for contributing frequencies:
+>>> + * During probe, check `wbrf_supported_producer` to see if WBRF is supported.
+>>> + * If adding frequencies, then call `wbrf_add_exclusion` with the
+>>> + * start and end points specified for the frequency ranges added.
+>>> + * If removing frequencies, then call `wbrf_remove_exclusion` with
+>>> + * start and end points specified for the frequency ranges added.
+>>> + */
+>>> +bool wbrf_supported_producer(struct acpi_device *adev);
+>>> +int wbrf_add_exclusion(struct acpi_device *adev,
+>>> +		       struct wbrf_ranges_in *in);
+>>> +int wbrf_remove_exclusion(struct acpi_device *adev,
+>>> +			  struct wbrf_ranges_in *in);
+>> Could struct device be used here, to make the API agnostic to where
+>> the information is coming from? That would then allow somebody in the
+>> future to implement a device tree based information provider.
+> That does make sense, and it wouldn't even be that much harder if we
+> assume in a given platform there's only one provider - but once you go
+> beyond that these would need to call function pointers I guess? Though
+> that could be left for "future improvement" too.
+>
+> johannes
+
+There's more to it than just sending in the frequency that is
+added or removed.  The notification path comes from ACPI as well.
+
+This first implementation only has one provider and consumer
+but yes, we envision that there could be multiple of each party
+and that AML may be the mechanism for some consumers to react.
+
