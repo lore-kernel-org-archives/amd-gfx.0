@@ -4,51 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA16DEB64D7
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 00:41:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1668AEB64D7
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 00:51:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E7AD10E1A1;
-	Wed, 21 Jun 2023 00:41:54 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 441B810E1A1;
- Wed, 21 Jun 2023 00:41:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687308112; x=1718844112;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=277/2wA/6c86YPNajc/h4u/CD/qf7C0620q+NVqnQ4s=;
- b=ktGHf2M29WCrG3s2lmvDK1EthmcHqnBzR3hDc2ioKDFM90oyPK8DbFIo
- nDzpX9shhR1yT4ePIdphXjNNCtJkNXFtZFu8dmCB2h70z3PgBRe60UZkt
- Z/g+1ofN3EeZZrKq0odOtNAn1h87r1GO10OqbzmerybwRogTqKdOtKiuh
- V/LvVg4VwDnOCNCCYos1SjONcePs3vJ4N0ct/PKEHm+ZrieiXIuPLp7EO
- x1CTin9cyGD5mHTMYjkFiBD044xAlW/ROtETstMnpHQ/pqxcPqgdbA+IX
- 6aqNskk2lp1nL8XX2fnFT88sOOIrtyXOuqfQg/3fmgsn5tb17yP6yMXji w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="349754549"
-X-IronPort-AV: E=Sophos;i="6.00,258,1681196400"; d="scan'208";a="349754549"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2023 17:41:50 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="827222461"
-X-IronPort-AV: E=Sophos;i="6.00,258,1681196400"; d="scan'208";a="827222461"
-Received: from lkp-server01.sh.intel.com (HELO 783282924a45) ([10.239.97.150])
- by fmsmga002.fm.intel.com with ESMTP; 20 Jun 2023 17:41:46 -0700
-Received: from kbuild by 783282924a45 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qBlus-0006NY-0f;
- Wed, 21 Jun 2023 00:41:46 +0000
-Date: Wed, 21 Jun 2023 08:41:13 +0800
-From: kernel test robot <lkp@intel.com>
-To: Su Hui <suhui@nfschina.com>, alexander.deucher@amd.com,
- airlied@gmail.com, Xinhui.Pan@amd.com, daniel@ffwll.ch
-Subject: Re: [PATCH] drm/amd/amdgpu: Properly tune the size of struct
-Message-ID: <202306210814.EJjpL8Qs-lkp@intel.com>
-References: <20230620045919.492128-1-suhui@nfschina.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8925A10E386;
+	Wed, 21 Jun 2023 00:51:03 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on20630.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7ea9::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED86A10E386
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 00:51:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Rd5ajBwq+Vfy8+WUBY4b3Fao8yEEpkql98KY/NZfnZ09LIB72HxI9cvfZzQXG2EcqcbswUGeph+XWEapLe2+J7dVwpaY4Fy/tEGbCOPQUuTtKJ5gV0wYEIB1tm+zPaSCH6QE6Bpc51/WPsdBGr+moIjaHdz48hKmoVVXA3HSyfOtl51SLjXdQkwVMwYty3EKhuAWFUN17R4tW57Nly0iPXu9hxmWL1Pw5SIq+m5C6IPEruQoF6nk33XBj0Yyr1bblL6jJ5PHdv+XusxxcgWCoh/R+7puUV+racDR5AgK2vANqc8neYMqzxNKGsOaXRg5v7sgXM0mT6g87hX185oMEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=W7X6BC49aBT/oHCVhw/L55lMpLT3aYfHY77jlBdvjx8=;
+ b=hluvXnwRx9m/8VTer1Fv22cszmKDhpZzo2Ao0270Q+ZenOUEmjLqPgO7iK/K5ueR16JcHjXUITDL5t1DlNX5Ot9OwndIDBSngjQajd1cvF/dztSm+AukpO9o97rFTYACB0W4WyRu9nbvSBpNJOM+82jcFQl/QHzmLKTzrq5EuWbTCXBWH88g2mVNgO96gG0enAP+a/fOng5JJe/FZd5ysxHo+4aiGGA/fkw1JmUGzF0HJ5P7sxwjMAriEPZL+MEZh2SzDzop3/Qvb4/L2SfNjPdicS62WYs5Sd6zsDdK8xtyWWmAEOGhac2nLEODAz2SSx6/ANKjOlpj/1Yw3yA6qw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W7X6BC49aBT/oHCVhw/L55lMpLT3aYfHY77jlBdvjx8=;
+ b=AOa0rBW44fPxXMljW77cS+FMayvPlSkX/OiVkZy2UeVjrmPi2BarWIgrObJPNGe886NtGZN5ietNzvCEXMQRiIi1s8laNX1pGuPkbvoJBHS4ii+v5yG9XVfcMUy8Am606GVV1DxACqoQ6UBOW4+mBzB9g51Y9W9cQEBD6Al8sfE=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ BL1PR12MB5141.namprd12.prod.outlook.com (2603:10b6:208:309::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6500.37; Wed, 21 Jun 2023 00:50:59 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::3bef:2463:a3e0:e51c]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::3bef:2463:a3e0:e51c%4]) with mapi id 15.20.6521.020; Wed, 21 Jun 2023
+ 00:50:58 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/pm: add abnormal fan detection for smu 13.0.0
+Thread-Topic: [PATCH] drm/amd/pm: add abnormal fan detection for smu 13.0.0
+Thread-Index: AQHZoym2FEy2/xV12UCkbq6Prci0hq+Ubnpg
+Date: Wed, 21 Jun 2023 00:50:58 +0000
+Message-ID: <DM6PR12MB2619C3423DB9319D56DB2413E45DA@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20230620034537.1495445-1-kenneth.feng@amd.com>
+In-Reply-To: <20230620034537.1495445-1-kenneth.feng@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=8fe7b732-2447-4a82-89d6-8cbc6e8e5f6b;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-06-21T00:50:40Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|BL1PR12MB5141:EE_
+x-ms-office365-filtering-correlation-id: cf0dfe21-479f-464f-be93-08db71f19404
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 85nB14Pd+aQLLdJCeEoOs1deAHhQWluEyW2f9kS2pY/ywDFKA8KuNiFRnk70742i7KBAREbGpA8eELegFODe864Etx/J9nFBsLObovGaNnjiRvKB73+q93/gQCmbPof3cpLz9gFozn2t8v/bWHFQj/02K8R6Omju1quImK0TuUoWHCWV4ggi+7CZEXbScOtm+R8Ix7wRczW8nohjW657ySgSTS+2dmOI3JVVwu4NoYtbeWAsn3U308EtQFKJo1aekO0kHm/YMGSjAqPOZZGD3X2G6RLkseLrDwh8bOCaX18PcbCajBVBO8YNMf0E1JORnHvZqgcR9e7oEM5HbImboQoNs+lEeGPO90+0sCocr4ckZZxIRL37gFNtfO/rHqBfCK1LWYUJA+oc6943Uw6t4EKX4x9+ohUkshMiaEi86GH3JOzQcnJe74rx1pg8FUUSfBC9IPFHv9WfAtDycpK0O9YAfyMUbd/a4x9GK5Dw/X4962XtbIxbE88dDhgk0hW6522YXdbmqteOeuQXyWjcWosfeJwB88DCw5uXeOB0Hsd/hrATVJjoc04pgD5hFmj1k6uC5W+A/L+xxyntaBHgv9ztE1REAjCvHB2A3J0TFHYzQJ6O4nYEWLE0+E1ULPt7
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(39860400002)(396003)(136003)(346002)(366004)(451199021)(478600001)(8676002)(66946007)(64756008)(52536014)(76116006)(4326008)(41300700001)(66446008)(66556008)(66476007)(33656002)(38100700002)(122000001)(83380400001)(86362001)(7696005)(71200400001)(2906002)(5660300002)(110136005)(8936002)(316002)(6506007)(53546011)(26005)(9686003)(55016003)(38070700005)(186003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tORlxw1GEM73lC8518kyjxO2BE4pEybhiKLfjl0metoiRAHB4i98bqLLZgn6?=
+ =?us-ascii?Q?E20kfeJ5zON3V1SZKK/wDVJ3a1k6xEi6qZWgS7qxksR2dYKHvo/IV702Cc0J?=
+ =?us-ascii?Q?/RE+2KW5dgRaMKs1XXlwAXhRka7OEB+REL9oJsG+Yl+lr/xaDEMDVp/laCp9?=
+ =?us-ascii?Q?EPVp0hnQ2MWbvWA9/79xKz8U28B98fp/AYRGJCtIsXh1gDRyS16kQ6ossWt+?=
+ =?us-ascii?Q?j0Szi7etdgd5lBl0iVOvn6Kik10ZkrO2WDwcQC2TmaE1FKsdqz4pqKAgPXYC?=
+ =?us-ascii?Q?yUPI3bjW7tOefSO7KM2PM5s6iB1pMevG2v1C2XVWWqd53G0fitZ93NfQUrcy?=
+ =?us-ascii?Q?eZ7zg/zBzngAWjvw3Be/4xLauv0qY2Nz3saFwqYBti3SQareZfSai9FeCE87?=
+ =?us-ascii?Q?1asptxrUqpbQ770olN010NUhwYn1e7sU6OdsrnoAmOXRS1B1rS/8GBuOetD/?=
+ =?us-ascii?Q?8bPBQtemoBUIMLR+ihUXLnK+EgEFhkVBP8eV2MRHYuPczI7BfusykFRj7hRk?=
+ =?us-ascii?Q?8zxspKonaGqkWcvbaiCgyUICLEkfuczlkRnxJJwdngJX26rlEKOJAnXgsDul?=
+ =?us-ascii?Q?SeWzgN1mnjP4yAR4KclTogC8QCwZ5CJgjUpyrlR2iInXBhBglVdq61af1Tez?=
+ =?us-ascii?Q?8/jOY4jPwsa9daUdKGOgZ0vMx4CoZyNgwYK4zskbnOL6pI3aJMcEf3uKHRt+?=
+ =?us-ascii?Q?jKHnxOaV/pgnDlZt1+1hIVZ4GEdDmHkLIJHfeqfQmJccLKnSvURos7uKVf47?=
+ =?us-ascii?Q?/oWz+rh3IdESt1kJx9+2DiShN/O1LP/bC0ycM9MUnPyVzCdcyTBiLc6q48A/?=
+ =?us-ascii?Q?v22WKsnjRrP9qes8KKGF9D1mTGghZZHCW5I1QSWxUEfPtZUCuMXUDOc6yZNr?=
+ =?us-ascii?Q?c2gtUKo7MgLPWU4cd7h2CnQjQEvybmsWRc6IA6UunOnRYszwGwkC8YJsu/eC?=
+ =?us-ascii?Q?zVwy9+YudeJ9l3sL/yzRcbHjrDsb7f5xV0T1A0UrNoWttPMtb5vnI4ZFwHcm?=
+ =?us-ascii?Q?cgweKvro+M2YZIUoqCf4COmUPRw7ZEIvNOajlHWeLT1VAJM1xpYeZVSFfnZU?=
+ =?us-ascii?Q?mD2cgEA2i1sxDpPnnY3Ia3r02ULNyf859HUlwqY7WtmCgFkXIyR9R8S05YXt?=
+ =?us-ascii?Q?yUCsEKH+X8TZ6a97BVPo3RwQfJK36NzQDDtQlcJcCIKQ7a5bdebaiiczksGh?=
+ =?us-ascii?Q?FhpAgGtccJO3WuQCUZcj1ptfuypWzkXpcOp7mrGtXiABWtIfIwhmjy8k7n36?=
+ =?us-ascii?Q?qriXE1QVyyQsFbaIf8zVdxAMly7DpBT5O7n4xo0jC7MOdCVOde7ECpWErOIK?=
+ =?us-ascii?Q?QwgEzLrnt9wPn1zAYn1L/LdpDUiTW1urU1mwlBpGMeCIi9gEVE9F1VsEYyH4?=
+ =?us-ascii?Q?aSfSLqH8tXohiTa1EOcD4XGHpezWoKu4zEg5huNUfjeS4YoJecUBbpugE3t7?=
+ =?us-ascii?Q?q4GigfYDedUpVAshOz6mccq/1/JOSDWZazm5il0X1FCx8taaARtxSolftC75?=
+ =?us-ascii?Q?0IaU+mqhjZinI82FmrMr4V0GJBKHWti9+XvE0e0XIQP9hGOTIX+0qcJ1T2K+?=
+ =?us-ascii?Q?Gu3LFC7VQZLR7UCkRJk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230620045919.492128-1-suhui@nfschina.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf0dfe21-479f-464f-be93-08db71f19404
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jun 2023 00:50:58.7182 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pbaY1TCVcItRxDHDg5kK4XgqTzUQ+S4GDQUXjcdV/YZWzFGqg9ZSk3tejMXDTPwO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5141
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,491 +123,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Su Hui <suhui@nfschina.com>, Jane.Jian@amd.com, Bokun.Zhang@amd.com,
- David.Francis@amd.com, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, oe-kbuild-all@lists.linux.dev,
- monk.liu@amd.com
+Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Su,
+[AMD Official Use Only - General]
 
-kernel test robot noticed the following build warnings:
+Reviewed-by: Evan Quan <evan.quan@amd.com>
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v6.4-rc7 next-20230620]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> Kenneth Feng
+> Sent: Tuesday, June 20, 2023 11:46 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Feng, Kenneth <Kenneth.Feng@amd.com>
+> Subject: [PATCH] drm/amd/pm: add abnormal fan detection for smu 13.0.0
+>
+> add abnormal fan detection for smu 13.0.0
+>
+> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> index a6083957ae51..124287cbbff8 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> @@ -1710,6 +1710,7 @@ static int
+> smu_v13_0_0_get_thermal_temperature_range(struct smu_context *smu,
+>       range->mem_emergency_max =3D (pptable-
+> >SkuTable.TemperatureLimit[TEMP_MEM] + CTF_OFFSET_MEM)*
+>               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+>       range->software_shutdown_temp =3D powerplay_table-
+> >software_shutdown_temp;
+> +     range->software_shutdown_temp_offset =3D pptable-
+> >SkuTable.FanAbnormalTempLimitOffset;
+>
+>       return 0;
+>  }
+> --
+> 2.34.1
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Su-Hui/drm-amd-amdgpu-Properly-tune-the-size-of-struct/20230620-130013
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230620045919.492128-1-suhui%40nfschina.com
-patch subject: [PATCH] drm/amd/amdgpu: Properly tune the size of struct
-config: csky-randconfig-s041-20230620 (https://download.01.org/0day-ci/archive/20230621/202306210814.EJjpL8Qs-lkp@intel.com/config)
-compiler: csky-linux-gcc (GCC) 12.3.0
-reproduce: (https://download.01.org/0day-ci/archive/20230621/202306210814.EJjpL8Qs-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202306210814.EJjpL8Qs-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:485:29: sparse: sparse: cast removes address space '__user' of expression
->> drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:485:29: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void [noderef] __user *__p @@     got unsigned int [usertype] * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:485:29: sparse:     expected void [noderef] __user *__p
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:485:29: sparse:     got unsigned int [usertype] *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:485:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:485:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:485:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:485:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:485:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:485:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:500:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:500:21: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void [noderef] __user *__p @@     got unsigned int [usertype] * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:500:21: sparse:     expected void [noderef] __user *__p
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:500:21: sparse:     got unsigned int [usertype] *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:500:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:500:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:500:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:500:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:500:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:500:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:546:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:546:21: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void [noderef] __user *__p @@     got unsigned int [usertype] * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:546:21: sparse:     expected void [noderef] __user *__p
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:546:21: sparse:     got unsigned int [usertype] *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:546:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:546:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:546:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:546:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:546:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c:546:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c: note: in included file (through include/linux/uaccess.h, include/linux/sched/task.h, include/linux/sched/signal.h, ...):
-   arch/csky/include/asm/uaccess.h:110:17: sparse: sparse: cast removes address space '__user' of expression
-   arch/csky/include/asm/uaccess.h:110:17: sparse: sparse: asm output is not an lvalue
-   arch/csky/include/asm/uaccess.h:110:17: sparse: sparse: cast removes address space '__user' of expression
-   arch/csky/include/asm/uaccess.h:110:17: sparse: sparse: cast removes address space '__user' of expression
-   arch/csky/include/asm/uaccess.h:110:17: sparse: sparse: asm output is not an lvalue
-   arch/csky/include/asm/uaccess.h:110:17: sparse: sparse: cast removes address space '__user' of expression
-   arch/csky/include/asm/uaccess.h:110:17: sparse: sparse: generating address of non-lvalue (11)
-   arch/csky/include/asm/uaccess.h:110:17: sparse: sparse: generating address of non-lvalue (11)
-   arch/csky/include/asm/uaccess.h:110:17: sparse: sparse: cast removes address space '__user' of expression
-   arch/csky/include/asm/uaccess.h:110:17: sparse: sparse: asm output is not an lvalue
-   arch/csky/include/asm/uaccess.h:110:17: sparse: sparse: cast removes address space '__user' of expression
-   arch/csky/include/asm/uaccess.h:110:17: sparse: sparse: generating address of non-lvalue (11)
---
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:579:42: sparse: sparse: cast removes address space '__iomem' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
->> drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __user *__p @@     got unsigned int [usertype] * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse:     expected void const [noderef] __user *__p
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse:     got unsigned int [usertype] *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:2347:21: sparse: sparse: cast removes address space '__user' of expression
---
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:153:29: sparse: sparse: cast removes address space '__user' of expression
->> drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:153:29: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void [noderef] __user *__p @@     got unsigned int [usertype] * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:153:29: sparse:     expected void [noderef] __user *__p
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:153:29: sparse:     got unsigned int [usertype] *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:153:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:153:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:153:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:153:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:153:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:153:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
->> drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __user *__p @@     got unsigned int [usertype] * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse:     expected void const [noderef] __user *__p
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse:     got unsigned int [usertype] *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:155:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:282:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:282:29: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void [noderef] __user *__p @@     got unsigned int [usertype] * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:282:29: sparse:     expected void [noderef] __user *__p
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:282:29: sparse:     got unsigned int [usertype] *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:282:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:282:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:282:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:282:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:282:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:282:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __user *__p @@     got unsigned int [usertype] * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse:     expected void const [noderef] __user *__p
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse:     got unsigned int [usertype] *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:284:29: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:330:46: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void const [noderef] __user *from @@     got struct amdgpu_debugfs_regs2_iocdata_v2 * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:330:46: sparse:     expected void const [noderef] __user *from
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:330:46: sparse:     got struct amdgpu_debugfs_regs2_iocdata_v2 *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:336:47: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void const [noderef] __user *from @@     got struct amdgpu_debugfs_regs2_iocdata * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:336:47: sparse:     expected void const [noderef] __user *from
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:336:47: sparse:     got struct amdgpu_debugfs_regs2_iocdata *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:460:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:460:21: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void [noderef] __user *__p @@     got unsigned int [usertype] * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:460:21: sparse:     expected void [noderef] __user *__p
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:460:21: sparse:     got unsigned int [usertype] *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:460:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:460:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:460:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:460:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:460:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:460:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:488:37: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void const [noderef] __user *from @@     got struct amdgpu_debugfs_gprwave_iocdata * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:488:37: sparse:     expected void const [noderef] __user *from
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:488:37: sparse:     got struct amdgpu_debugfs_gprwave_iocdata *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:543:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:543:21: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void [noderef] __user *__p @@     got unsigned int [usertype] * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:543:21: sparse:     expected void [noderef] __user *__p
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:543:21: sparse:     got unsigned int [usertype] *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:543:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:543:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:543:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:543:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:543:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:543:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __user *__p @@     got unsigned int [usertype] * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse:     expected void const [noderef] __user *__p
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse:     got unsigned int [usertype] *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:598:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:656:21: sparse: sparse: cast removes address space '__user' of expression
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:656:21: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void [noderef] __user *__p @@     got unsigned int [usertype] * @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c:656:21: sparse:     expected void [noderef] __user *__p
---
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:275:21: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:280:34: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:281:34: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:306:30: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:307:30: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:308:30: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:314:40: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:320:28: sparse: sparse: cast to restricted __le32
->> drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:458:33: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void const volatile [noderef] __iomem * @@     got void *[assigned] ptr @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:458:33: sparse:     expected void const volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:458:33: sparse:     got void *[assigned] ptr
->> drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:487:33: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void volatile [noderef] __iomem * @@     got void *[assigned] ptr @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:487:33: sparse:     expected void volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:487:33: sparse:     got void *[assigned] ptr
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:498:42: sparse: sparse: cast to restricted __le32
->> drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:500:41: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void volatile [noderef] __iomem * @@     got void *cpu_addr @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:500:41: sparse:     expected void volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:500:41: sparse:     got void *cpu_addr
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:500:41: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:504:41: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:505:40: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:507:25: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void volatile [noderef] __iomem * @@     got void *[assigned] ptr @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:507:25: sparse:     expected void volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:507:25: sparse:     got void *[assigned] ptr
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:769:35: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1204:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1204:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1204:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1205:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1205:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1205:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1206:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1206:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1206:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1207:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1207:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1207:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1208:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1208:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1208:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1209:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1209:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1209:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1210:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1210:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1210:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1211:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1211:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1211:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1212:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1212:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1212:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1213:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1213:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1213:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1214:17: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1214:17: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1214:17: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1216:24: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1216:24: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1216:24: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1240:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1240:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1240:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1241:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1241:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1241:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1242:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1242:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1242:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1243:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1243:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1243:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1245:24: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1245:24: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c:1245:24: sparse:     got restricted __le32 [usertype]
---
-   drivers/gpu/drm/amd/amdgpu/vce_v4_0.c:457:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/vce_v4_0.c:457:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/vce_v4_0.c:457:25: sparse: sparse: cast to restricted __le32
->> drivers/gpu/drm/amd/amdgpu/vce_v4_0.c:574:25: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void const volatile [noderef] __iomem * @@     got void *ptr @@
-   drivers/gpu/drm/amd/amdgpu/vce_v4_0.c:574:25: sparse:     expected void const volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/vce_v4_0.c:574:25: sparse:     got void *ptr
->> drivers/gpu/drm/amd/amdgpu/vce_v4_0.c:623:25: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void volatile [noderef] __iomem * @@     got void *ptr @@
-   drivers/gpu/drm/amd/amdgpu/vce_v4_0.c:623:25: sparse:     expected void volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/vce_v4_0.c:623:25: sparse:     got void *ptr
-   drivers/gpu/drm/amd/amdgpu/vce_v4_0.c:1081:27: sparse: sparse: symbol 'vce_v4_0_ip_funcs' was not declared. Should it be static?
---
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c:171:25: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c:309:18: sparse: sparse: cast to restricted __le32
->> drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c:312:17: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void volatile [noderef] __iomem * @@     got void *[addressable] cpu_addr @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c:312:17: sparse:     expected void volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c:312:17: sparse:     got void *[addressable] cpu_addr
---
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:139:32: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:147:21: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:151:26: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:152:30: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:154:28: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:155:24: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:161:29: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:162:34: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:163:34: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:170:28: sparse: sparse: cast to restricted __le32
->> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:311:25: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void const volatile [noderef] __iomem * @@     got void *[assigned] ptr @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:311:25: sparse:     expected void const volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:311:25: sparse:     got void *[assigned] ptr
->> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:335:33: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void volatile [noderef] __iomem * @@     got void *[assigned] ptr @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:335:33: sparse:     expected void volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:335:33: sparse:     got void *[assigned] ptr
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:346:42: sparse: sparse: cast to restricted __le32
->> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:348:41: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void volatile [noderef] __iomem * @@     got void *cpu_addr @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:348:41: sparse:     expected void volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:348:41: sparse:     got void *cpu_addr
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:348:41: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:352:41: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:353:40: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:355:25: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void volatile [noderef] __iomem * @@     got void *[assigned] ptr @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:355:25: sparse:     expected void volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:355:25: sparse:     got void *[assigned] ptr
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:583:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:583:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:583:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:584:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:584:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:584:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:585:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:585:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:585:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:586:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:586:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:586:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:587:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:587:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:587:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:588:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:588:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:588:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:589:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:589:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:589:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:590:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:590:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:590:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:591:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:591:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:591:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:592:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:592:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:592:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:593:17: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:593:17: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:593:17: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:594:17: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:594:17: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:594:17: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:595:17: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:595:17: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:595:17: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:596:17: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:596:17: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:596:17: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:598:24: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:598:24: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:598:24: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:618:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:618:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:618:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:619:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:619:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:619:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:620:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:620:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:620:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:621:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:621:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:621:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:622:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:622:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:622:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:623:16: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:623:16: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:623:16: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:625:24: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:625:24: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:625:24: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:728:34: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:728:34: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:728:34: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:733:39: sparse: sparse: invalid assignment: |=
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:733:39: sparse:    left side has type unsigned int
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:733:39: sparse:    right side has type restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:734:46: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] msg_buffer_address_hi @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:734:46: sparse:     expected unsigned int [usertype] msg_buffer_address_hi
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:734:46: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:735:46: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] msg_buffer_address_lo @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:735:46: sparse:     expected unsigned int [usertype] msg_buffer_address_lo
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:735:46: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1047:33: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1047:33: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1047:33: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1151:15: sparse: sparse: invalid assignment: |=
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1151:15: sparse:    left side has type unsigned int
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1151:15: sparse:    right side has type restricted __le32
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1153:25: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int volatile [usertype] addr_lo @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1153:25: sparse:     expected unsigned int volatile [usertype] addr_lo
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1153:25: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1154:25: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int volatile [usertype] addr_hi @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1154:25: sparse:     expected unsigned int volatile [usertype] addr_hi
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1154:25: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1155:22: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int volatile [usertype] size @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c:1155:22: sparse:     expected unsigned int volatile [usertype] size
---
-   drivers/gpu/drm/amd/amdgpu/../pm/powerplay/smumgr/smu7_smumgr.c:65:25: sparse: sparse: cast to restricted __be32
-   drivers/gpu/drm/amd/amdgpu/../pm/powerplay/smumgr/smu7_smumgr.c:74:26: sparse: sparse: cast to restricted __be32
->> drivers/gpu/drm/amd/amdgpu/../pm/powerplay/smumgr/smu7_smumgr.c:411:9: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void volatile [noderef] __iomem * @@     got void *kaddr @@
-   drivers/gpu/drm/amd/amdgpu/../pm/powerplay/smumgr/smu7_smumgr.c:411:9: sparse:     expected void volatile [noderef] __iomem *
-   drivers/gpu/drm/amd/amdgpu/../pm/powerplay/smumgr/smu7_smumgr.c:411:9: sparse:     got void *kaddr
-
-vim +485 drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-
-d38ceaf99ed015 Alex Deucher    2015-04-20  460  
-4f4824b55650fa Tom St Denis    2016-04-27  461  /* Layout of file is 12 bytes consisting of
-4f4824b55650fa Tom St Denis    2016-04-27  462   * - rptr
-4f4824b55650fa Tom St Denis    2016-04-27  463   * - wptr
-4f4824b55650fa Tom St Denis    2016-04-27  464   * - driver's copy of wptr
-4f4824b55650fa Tom St Denis    2016-04-27  465   *
-4f4824b55650fa Tom St Denis    2016-04-27  466   * followed by n-words of ring data
-4f4824b55650fa Tom St Denis    2016-04-27  467   */
-4f4824b55650fa Tom St Denis    2016-04-27  468  static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
-4f4824b55650fa Tom St Denis    2016-04-27  469  					size_t size, loff_t *pos)
-d38ceaf99ed015 Alex Deucher    2015-04-20  470  {
-450630975da9e7 Al Viro         2016-12-04  471  	struct amdgpu_ring *ring = file_inode(f)->i_private;
-4f4824b55650fa Tom St Denis    2016-04-27  472  	int r, i;
-4f4824b55650fa Tom St Denis    2016-04-27  473  	uint32_t value, result, early[3];
-d38ceaf99ed015 Alex Deucher    2015-04-20  474  
-c71dbd93eb0039 Tom St Denis    2016-05-02  475  	if (*pos & 3 || size & 3)
-4f4824b55650fa Tom St Denis    2016-04-27  476  		return -EINVAL;
-d38ceaf99ed015 Alex Deucher    2015-04-20  477  
-4f4824b55650fa Tom St Denis    2016-04-27  478  	result = 0;
-c7e6be2303d0b6 Christian König 2016-01-21  479  
-4f4824b55650fa Tom St Denis    2016-04-27  480  	if (*pos < 12) {
-9c5c71bbed4132 Tom St Denis    2018-03-01  481  		early[0] = amdgpu_ring_get_rptr(ring) & ring->buf_mask;
-ec63982e90a879 Tom St Denis    2017-03-29  482  		early[1] = amdgpu_ring_get_wptr(ring) & ring->buf_mask;
-ec63982e90a879 Tom St Denis    2017-03-29  483  		early[2] = ring->wptr & ring->buf_mask;
-4f4824b55650fa Tom St Denis    2016-04-27  484  		for (i = *pos / 4; i < 3 && size; i++) {
-4f4824b55650fa Tom St Denis    2016-04-27 @485  			r = put_user(early[i], (uint32_t *)buf);
-4f4824b55650fa Tom St Denis    2016-04-27  486  			if (r)
-4f4824b55650fa Tom St Denis    2016-04-27  487  				return r;
-4f4824b55650fa Tom St Denis    2016-04-27  488  			buf += 4;
-4f4824b55650fa Tom St Denis    2016-04-27  489  			result += 4;
-4f4824b55650fa Tom St Denis    2016-04-27  490  			size -= 4;
-4f4824b55650fa Tom St Denis    2016-04-27  491  			*pos += 4;
-4f4824b55650fa Tom St Denis    2016-04-27  492  		}
-4f4824b55650fa Tom St Denis    2016-04-27  493  	}
-d38ceaf99ed015 Alex Deucher    2015-04-20  494  
-4f4824b55650fa Tom St Denis    2016-04-27  495  	while (size) {
-4f4824b55650fa Tom St Denis    2016-04-27  496  		if (*pos >= (ring->ring_size + 12))
-4f4824b55650fa Tom St Denis    2016-04-27  497  			return result;
-d38ceaf99ed015 Alex Deucher    2015-04-20  498  
-4f4824b55650fa Tom St Denis    2016-04-27  499  		value = ring->ring[(*pos - 12)/4];
-4f4824b55650fa Tom St Denis    2016-04-27  500  		r = put_user(value, (uint32_t *)buf);
-4f4824b55650fa Tom St Denis    2016-04-27  501  		if (r)
-4f4824b55650fa Tom St Denis    2016-04-27  502  			return r;
-4f4824b55650fa Tom St Denis    2016-04-27  503  		buf += 4;
-4f4824b55650fa Tom St Denis    2016-04-27  504  		result += 4;
-4f4824b55650fa Tom St Denis    2016-04-27  505  		size -= 4;
-4f4824b55650fa Tom St Denis    2016-04-27  506  		*pos += 4;
-d38ceaf99ed015 Alex Deucher    2015-04-20  507  	}
-4f4824b55650fa Tom St Denis    2016-04-27  508  
-4f4824b55650fa Tom St Denis    2016-04-27  509  	return result;
-d38ceaf99ed015 Alex Deucher    2015-04-20  510  }
-d38ceaf99ed015 Alex Deucher    2015-04-20  511  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
