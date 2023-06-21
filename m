@@ -4,39 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 648F6EB64DC
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80DD4EB64D8
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:38:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3EF110E4BB;
-	Wed, 21 Jun 2023 15:38:47 +0000 (UTC)
-X-Greylist: delayed 1316 seconds by postgrey-1.36 at gabe;
- Tue, 20 Jun 2023 22:17:46 UTC
-Received: from maynard.decadent.org.uk (maynard.decadent.org.uk
- [95.217.213.242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9474C10E19C
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jun 2023 22:17:46 +0000 (UTC)
-Received: from [213.219.167.32] (helo=deadeye)
- by maynard with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <ben@decadent.org.uk>)
- id 1qBjKD-0006Bd-GM; Tue, 20 Jun 2023 23:55:45 +0200
-Received: from ben by deadeye with local (Exim 4.96)
- (envelope-from <ben@decadent.org.uk>) id 1qBjKD-00BBOs-03;
- Tue, 20 Jun 2023 23:55:45 +0200
-Message-ID: <2e6faab830d01849a8eec6871d66787db455864e.camel@decadent.org.uk>
-Subject: Re: Possible missing firmware
- /lib/firmware/amdgpu/sienna_cichlid_mes.bin navi10_mes.bin for module amdgpu
-From: Ben Hutchings <ben@decadent.org.uk>
-To: amd-gfx@lists.freedesktop.org
-Date: Tue, 20 Jun 2023 23:55:37 +0200
-References: <168258140711.32181.12062781302326675605.reportbug@atzlinux-arm64>
-In-Reply-To: <168258140711.32181.12062781302326675605.reportbug@atzlinux-arm64>
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-CpMhR66BW1jvhP/b8PUy"
-User-Agent: Evolution 3.48.2-1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12CE810E4BC;
+	Wed, 21 Jun 2023 15:38:48 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7485010E40F;
+ Wed, 21 Jun 2023 08:11:02 +0000 (UTC)
+Received: from uno.lan (unknown [IPv6:2001:b07:5d2e:52c9:1cf0:b3bc:c785:4625])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id B61FE2C96;
+ Wed, 21 Jun 2023 10:10:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1687335026;
+ bh=Nz5xxiQsV7L8tjRBWm4HkFoJy2viyWnaSexoVo6LVwE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=qEy/Jrd+AP3vUp/wSwq9Zb5ZDKTXSGg51A8nUv24Lwogw+ZcXK41ZGglw0/Q4t0aE
+ 7aXEvjXlWPC879/ne7Qd/fvqKoxtXjCndntS/+lxpK1X6glJq/Bwtk3+uwJEYeMTm+
+ sNgcXFaXtomYjMZ+rsYPNMwIM7ODEQOFa4dZYjV0=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Subject: [RFC 9/9] drm: rcar-du: crtc: Enable 3D LUT
+Date: Wed, 21 Jun 2023 10:10:31 +0200
+Message-Id: <20230621081031.7876-10-jacopo.mondi@ideasonboard.com>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
+References: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 213.219.167.32
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 21 Jun 2023 15:38:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,74 +46,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: 1034903@bugs.debian.org,
- xiao sheng =?UTF-8?Q?wen=28=E8=82=96=E7=9B=9B=E6=96=87=EF=BC=89?=
- <atzlinux@sina.com>
+Cc: Victoria Brekenfeld <victoria@system76.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>, mdaenzer@redhat.com,
+ airlied@gmail.com, aleixpol@kde.org, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org,
+ wayland-devel <wayland-devel@lists.freedesktop.org>,
+ =?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@redhat.com>,
+ Uma Shankar <uma.shankar@intel.com>, harry.wentland@amd.com,
+ tzimmermann@suse.de, sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com,
+ Sebastian Wick <sebastian.wick@redhat.com>, mripard@kernel.org,
+ Melissa Wen <mwen@igalia.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, Simon Ser <contact@emersion.fr>,
+ Xinhui.Pan@amd.com, xaver.hugl@gmail.com, linux-renesas-soc@vger.kernel.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Enable the 3D LUT in rcar_du_crtc by first creating a property for
+the supported 3d lut modes and by calling the drm_crtc_enable_lut3d()
+helper.
 
---=-CpMhR66BW1jvhP/b8PUy
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+---
+ drivers/gpu/drm/rcar-du/rcar_cmm.h     | 14 ++++++++++++++
+ drivers/gpu/drm/rcar-du/rcar_du_crtc.c | 23 +++++++++++++++++++++--
+ 2 files changed, 35 insertions(+), 2 deletions(-)
 
-On Thu, 27 Apr 2023 15:43:28 +0800 xiao sheng wen(=E8=82=96=E7=9B=9B=E6=96=
-=87=EF=BC=89
-<atzlinux@sina.com> wrote:
-> Package: firmware-amd-graphics
-> Version: 20230310-1~exp1
-> Severity: normal
-> X-Debbugs-Cc: atzlinux@sina.com
->=20
-> Hi,
->=20
->=C2=A0 When I upgrade to kernel 5.10.0-22-arm64, there are following error
->=C2=A0 infos:
->=20
-> W: Possible missing firmware /lib/firmware/amdgpu/sienna_cichlid_mes.bin =
-for module amdgpu
-> W: Possible missing firmware /lib/firmware/amdgpu/navi10_mes.bin for modu=
-le amdgpu
-[...]
+diff --git a/drivers/gpu/drm/rcar-du/rcar_cmm.h b/drivers/gpu/drm/rcar-du/rcar_cmm.h
+index 277b9e4d9cc4..eed9e480a96f 100644
+--- a/drivers/gpu/drm/rcar-du/rcar_cmm.h
++++ b/drivers/gpu/drm/rcar-du/rcar_cmm.h
+@@ -8,6 +8,8 @@
+ #ifndef __RCAR_CMM_H__
+ #define __RCAR_CMM_H__
+ 
++#include <drm/drm_fourcc.h>
++
+ #define CM2_LUT_SIZE		256
+ #define CM2_CLU_SIZE		(17 * 17 * 17)
+ 
+@@ -43,6 +45,16 @@ void rcar_cmm_disable(struct platform_device *pdev);
+ 
+ int rcar_cmm_setup(struct platform_device *pdev,
+ 		   const struct rcar_cmm_config *config);
++
++static const struct drm_mode_lut3d_mode rcar_cmm_3dlut_modes[] = {
++	{
++		.lut_size = 17,
++		.lut_stride = {17, 17, 17},
++		.bit_depth = 8,
++		.color_format = DRM_FORMAT_XRGB16161616,
++		.flags = 0,
++	},
++};
+ #else
+ static inline int rcar_cmm_init(struct platform_device *pdev)
+ {
+@@ -63,6 +75,8 @@ static inline int rcar_cmm_setup(struct platform_device *pdev,
+ {
+ 	return 0;
+ }
++
++static const struct drm_mode_lut3d_mode rcar_cmm_3dlut_modes[] = { };
+ #endif /* IS_ENABLED(CONFIG_DRM_RCAR_CMM) */
+ 
+ #endif /* __RCAR_CMM_H__ */
+diff --git a/drivers/gpu/drm/rcar-du/rcar_du_crtc.c b/drivers/gpu/drm/rcar-du/rcar_du_crtc.c
+index 895a23161f7b..126083d226d2 100644
+--- a/drivers/gpu/drm/rcar-du/rcar_du_crtc.c
++++ b/drivers/gpu/drm/rcar-du/rcar_du_crtc.c
+@@ -571,6 +571,24 @@ static void rcar_du_cmm_setup(struct rcar_du_crtc *rcrtc,
+ 	rcar_cmm_setup(rcrtc->cmm, &cmm_config);
+ }
+ 
++static int rcar_du_cmm_enable_color_mgmt(struct rcar_du_crtc *rcrtc)
++{
++	struct drm_crtc *crtc = &rcrtc->crtc;
++	int ret;
++
++	drm_mode_crtc_set_gamma_size(crtc, CM2_LUT_SIZE);
++	drm_crtc_enable_color_mgmt(crtc, 0, false, CM2_LUT_SIZE);
++
++	ret = drm_crtc_create_lut3d_mode_property(crtc, rcar_cmm_3dlut_modes,
++						  ARRAY_SIZE(rcar_cmm_3dlut_modes));
++	if (ret)
++		return ret;
++
++	drm_crtc_enable_lut3d(crtc, 0);
++
++	return 0;
++}
++
+ /* -----------------------------------------------------------------------------
+  * Start/Stop and Suspend/Resume
+  */
+@@ -1355,8 +1373,9 @@ int rcar_du_crtc_create(struct rcar_du_group *rgrp, unsigned int swindex,
+ 		rcrtc->cmm = rcdu->cmms[swindex];
+ 		rgrp->cmms_mask |= BIT(hwindex % 2);
+ 
+-		drm_mode_crtc_set_gamma_size(crtc, CM2_LUT_SIZE);
+-		drm_crtc_enable_color_mgmt(crtc, 0, false, CM2_LUT_SIZE);
++		ret = rcar_du_cmm_enable_color_mgmt(rcrtc);
++		if (ret)
++			return ret;
+ 	}
+ 
+ 	drm_crtc_helper_add(crtc, &crtc_helper_funcs);
+-- 
+2.40.1
 
-I see that the amdgpu driver has had references to these files for
-several years, but they've never been added to linux-firmware.git.
-More recently amdgpu added:
-
-MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes.bin");
-MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes_2.bin");
-MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes1.bin");
-
-and these are also missing from linux-firmware.git.
-
-Is this firmware intended to be available to the public?
-
-Ben.
-
---=20
-Ben Hutchings
-compatible: Gracefully accepts erroneous data from any source
-
-
---=-CpMhR66BW1jvhP/b8PUy
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmSSIFoACgkQ57/I7JWG
-EQkYzg/6AxdDEJUyLct4JRfBmMjJH5ItKcwwOkCXdfnOe8/481WSwXaZ8gE+P+8u
-hFePtUPTALCK0YGi1eSEwbh5YPl3DEC2S+FtorIeXUFQlUrQjP1lnXFZ7YcQrnCi
-PfxIunxQMF1xZgvGzs89WpbUHvJKKhlocUdsQiqgSFQ7lst94pAAcNkx1jFD+4CQ
-4kdzfDwpxdDGLSYbz3Dj/CYeumLSD9xYXoVjrmrrblkjYQfbd7Z3rdG5tLtkIKXI
-POL2cR6+fyWyz3wAa1BZSms1haYhSQIuT1NI3ARAhDMAfi/9vl5kOAgQVYvPPYZP
-kjtUqk7mNDRUjndS7tc7t+IfRs4kD5x//EO0okp0VKet1Gy1jKI2TpeH/o20eDzG
-T8RKt3xGXAf/ttE+sXUR/j6ucGxuHidW00yFRra+t05PN5k/FkdDhJRPKuHoJ56m
-Lv+LA10wnxvRJvdeVdrE3kDw5/b6quNJ1kF7Jt8R/lCfmaMvXSsvoqDUEQ6YYy4D
-o1kLvZ3fWQ67gSBGFW5Vk9RMHGSm8OCDOF3aMJV5c5Z15tICDAZgX8cvIYD1ciaa
-WO1lkJTjxIRIafWE+Zg2X7O7ok//2rBl4fxOEfi7lBDdwqJNNoYG7EVq/z4+ZI/6
-qgOc0zsOBbKAj2UlChMf7qFmccu+uD8B47nOBt5pmaL4tka8mVc=
-=B9TS
------END PGP SIGNATURE-----
-
---=-CpMhR66BW1jvhP/b8PUy--
