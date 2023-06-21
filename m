@@ -4,36 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FBB1EB64D8
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:39:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D68BC0015E
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:39:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8D9010E4C7;
-	Wed, 21 Jun 2023 15:38:50 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24D4110E3F9;
- Wed, 21 Jun 2023 08:10:57 +0000 (UTC)
-Received: from uno.lan (unknown [IPv6:2001:b07:5d2e:52c9:1cf0:b3bc:c785:4625])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 61B5C10FE;
- Wed, 21 Jun 2023 10:10:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1687335021;
- bh=cUuBguMATEha6mgxhe66vUlSq0MV+gqW6ALG/cofuEQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YixKUSUeY7/pe0j50m+pyFA/LHYyJTTMmyHRsJPmKrCCvMbufpIxMH5lweFmUFvXn
- yc+beU3c5aWAXzph3JrHBKoUWHx5uXsThDEFFvFsILaae5QHFGvPc4xovTBgkbVa2D
- oOSlvOXjPQMcmvubpaxQwmBSpESZH3KOdX/3M7dw=
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Subject: [RFC 6/9] drm: rcar-du: cmm: Refactor LUT configuration
-Date: Wed, 21 Jun 2023 10:10:28 +0200
-Message-Id: <20230621081031.7876-7-jacopo.mondi@ideasonboard.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
-References: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D44510E4CB;
+	Wed, 21 Jun 2023 15:38:51 +0000 (UTC)
+Received: from sipsolutions.net (s3.sipsolutions.net
+ [IPv6:2a01:4f8:191:4433::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D64A310E439;
+ Wed, 21 Jun 2023 10:23:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+ Resent-Cc:Resent-Message-ID; bh=E5J3XlE1FsUIlBpFkRpwctJVhjB2FlOiEwVbSdNHhcE=; 
+ t=1687342990; x=1688552590; b=fwZAzcF+UlIhVUrY3lP5AzfjB25U5O6sp/nmT71ZWMkuv28
+ 7yswjLQZ0nCvuFVWV35HK5GzxpOcCzvkiTfgw93axqgaYKgzyYe0EOPiL0HyKXq7mlnJiD1TCbXDN
+ Pnyu8K16p6LOhZVq5wfEuMMJRUbIU+xdgQgEfAItdm5hOi8YOOZM3I9Nlc/M7MsMZQYFs/lk05Cpr
+ hVhBKUE462lSTo3Tn8hoiMjBSm2rydC+656SxlphXsDdvegBofxbUB23OkIdUuAFHY/uzmYmERA55
+ RSydKXbByZf5lUD2ptvJUVQ7UVIBCOz0EUoVgvMWHObHK3s/VkXudHfKK0rRSYng==;
+Received: by sipsolutions.net with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.96) (envelope-from <johannes@sipsolutions.net>)
+ id 1qBuym-00DagI-0V; Wed, 21 Jun 2023 12:22:24 +0200
+Message-ID: <3eb2c16cb0692c8d6b03bd57cb049b1fb3457e92.camel@sipsolutions.net>
+Subject: Re: [PATCH V4 3/8] wifi: mac80211: Add support for ACPI WBRF
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Evan Quan <evan.quan@amd.com>, rafael@kernel.org, lenb@kernel.org, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
+ airlied@gmail.com, daniel@ffwll.ch, davem@davemloft.net,
+ edumazet@google.com,  kuba@kernel.org, pabeni@redhat.com,
+ mario.limonciello@amd.com, mdaenzer@redhat.com, 
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
+ hdegoede@redhat.com,  jingyuwang_vip@163.com, lijo.lazar@amd.com,
+ jim.cromie@gmail.com,  bellosilicio@gmail.com, andrealmeid@igalia.com,
+ trix@redhat.com, jsg@jsg.id.au,  arnd@arndb.de
+Date: Wed, 21 Jun 2023 12:22:21 +0200
+In-Reply-To: <20230621054603.1262299-4-evan.quan@amd.com>
+References: <20230621054603.1262299-1-evan.quan@amd.com>
+ <20230621054603.1262299-4-evan.quan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.3 (3.48.3-1.fc38) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-malware-bazaar: not-scanned
 X-Mailman-Approved-At: Wed, 21 Jun 2023 15:38:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -46,222 +60,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Victoria Brekenfeld <victoria@system76.com>,
- DRI Development <dri-devel@lists.freedesktop.org>, mdaenzer@redhat.com,
- airlied@gmail.com, aleixpol@kde.org,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
- wayland-devel <wayland-devel@lists.freedesktop.org>,
- =?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@redhat.com>,
- Uma Shankar <uma.shankar@intel.com>, harry.wentland@amd.com,
- tzimmermann@suse.de, sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com,
- Sebastian Wick <sebastian.wick@redhat.com>, mripard@kernel.org,
- Melissa Wen <mwen@igalia.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>, Simon Ser <contact@emersion.fr>,
- Xinhui.Pan@amd.com, xaver.hugl@gmail.com, linux-renesas-soc@vger.kernel.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com,
- Joshua Ashton <joshua@froggi.es>
+Cc: netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+On Wed, 2023-06-21 at 13:45 +0800, Evan Quan wrote:
+> To support AMD's WBRF interference mitigation mechanism, Wifi adapters
+> utilized in the system must register the frequencies in use(or unregister
+> those frequencies no longer used) via the dedicated APCI calls. So that,
+> other drivers responding to the frequencies can take proper actions to
+> mitigate possible interference.
+>=20
+> To make WBRF feature functional, the kernel needs to be configured with
+> CONFIG_ACPI_WBRF and the platform is equipped with WBRF support(from
+> BIOS and drivers).
+>=20
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> Co-developed-by: Evan Quan <evan.quan@amd.com>
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
 
-To prepare for CLU support, expend the CMM API exposed to the DU driver
-to separate the LUT table pointer from the LUT update decision. This
-will be required, as we will need to update the LUT and CLU
-independently.
+I was going to say this looks good ... but still have a few nits, sorry.
 
-Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Reviewed-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
----
- drivers/gpu/drm/rcar-du/rcar_cmm.c     | 60 ++++++++++++--------------
- drivers/gpu/drm/rcar-du/rcar_cmm.h     | 19 +++++---
- drivers/gpu/drm/rcar-du/rcar_du_crtc.c | 22 +++++++---
- 3 files changed, 55 insertions(+), 46 deletions(-)
+But then the next question anyway is how we merge this? The wifi parts
+sort of depend on the first patch, although technically I guess I could
+merge them since it's all hidden behind the CONFIG_ symbol, assuming you
+get that in via some other tree it can combine upstream.
 
-diff --git a/drivers/gpu/drm/rcar-du/rcar_cmm.c b/drivers/gpu/drm/rcar-du/rcar_cmm.c
-index e2a67dda4658..df768a9afb72 100644
---- a/drivers/gpu/drm/rcar-du/rcar_cmm.c
-+++ b/drivers/gpu/drm/rcar-du/rcar_cmm.c
-@@ -42,23 +42,33 @@ static inline void rcar_cmm_write(struct rcar_cmm *rcmm, u32 reg, u32 data)
- 	iowrite32(data, rcmm->base + reg);
- }
- 
--/*
-- * rcar_cmm_lut_write() - Scale the DRM LUT table entries to hardware precision
-- *			  and write to the CMM registers
-- * @rcmm: Pointer to the CMM device
-- * @drm_lut: Pointer to the DRM LUT table
-- */
--static void rcar_cmm_lut_write(struct rcar_cmm *rcmm,
--			       const struct drm_color_lut *drm_lut)
-+static void rcar_cmm_lut_configure(struct rcar_cmm *rcmm,
-+				   const struct drm_color_lut *table)
- {
--	unsigned int i;
-+	bool enable = !!table;
-+
-+	if (rcmm->lut.enabled != enable) {
-+		rcar_cmm_write(rcmm, CM2_LUT_CTRL,
-+			       enable ? CM2_LUT_CTRL_LUT_EN : 0);
-+		rcmm->lut.enabled = enable;
-+	}
- 
--	for (i = 0; i < CM2_LUT_SIZE; ++i) {
--		u32 entry = drm_color_lut_extract(drm_lut[i].red, 8) << 16
--			  | drm_color_lut_extract(drm_lut[i].green, 8) << 8
--			  | drm_color_lut_extract(drm_lut[i].blue, 8);
-+	if (table) {
-+		unsigned int i;
- 
--		rcar_cmm_write(rcmm, CM2_LUT_TBL(i), entry);
-+		/*
-+		 * Scale the DRM LUT table entries to the hardware precision
-+		 * and program it.
-+		 */
-+		for (i = 0; i < CM2_LUT_SIZE; ++i) {
-+			const struct drm_color_lut *lut = &table[i];
-+
-+			u32 entry = drm_color_lut_extract(lut->red, 8) << 16
-+				  | drm_color_lut_extract(lut->green, 8) << 8
-+				  | drm_color_lut_extract(lut->blue, 8);
-+
-+			rcar_cmm_write(rcmm, CM2_LUT_TBL(i), entry);
-+		}
- 	}
- }
- 
-@@ -83,23 +93,8 @@ int rcar_cmm_setup(struct platform_device *pdev,
- {
- 	struct rcar_cmm *rcmm = platform_get_drvdata(pdev);
- 
--	/* Disable LUT if no table is provided. */
--	if (!config->lut.table) {
--		if (rcmm->lut.enabled) {
--			rcar_cmm_write(rcmm, CM2_LUT_CTRL, 0);
--			rcmm->lut.enabled = false;
--		}
--
--		return 0;
--	}
--
--	/* Enable LUT and program the new gamma table values. */
--	if (!rcmm->lut.enabled) {
--		rcar_cmm_write(rcmm, CM2_LUT_CTRL, CM2_LUT_CTRL_LUT_EN);
--		rcmm->lut.enabled = true;
--	}
--
--	rcar_cmm_lut_write(rcmm, config->lut.table);
-+	if (config->lut.update)
-+		rcar_cmm_lut_configure(rcmm, config->lut.table);
- 
- 	return 0;
- }
-@@ -144,8 +139,7 @@ void rcar_cmm_disable(struct platform_device *pdev)
- {
- 	struct rcar_cmm *rcmm = platform_get_drvdata(pdev);
- 
--	rcar_cmm_write(rcmm, CM2_LUT_CTRL, 0);
--	rcmm->lut.enabled = false;
-+	rcar_cmm_lut_configure(rcmm, NULL);
- 
- 	pm_runtime_put(&pdev->dev);
- }
-diff --git a/drivers/gpu/drm/rcar-du/rcar_cmm.h b/drivers/gpu/drm/rcar-du/rcar_cmm.h
-index 628072acc98b..375a3b9c3db3 100644
---- a/drivers/gpu/drm/rcar-du/rcar_cmm.h
-+++ b/drivers/gpu/drm/rcar-du/rcar_cmm.h
-@@ -13,16 +13,23 @@
- struct drm_color_lut;
- struct platform_device;
- 
-+/**
-+ * struct rcar_cmm_table_config - CMM LUT configuration
-+ * @update: When true, update the LUT configuration.
-+ * @table: Table data. The LUT is enabled if non-NULL, and disabled
-+ *	otherwise. The value is ignored if @update is false.
-+ */
-+struct rcar_cmm_table_config {
-+	bool update;
-+	struct drm_color_lut *table;
-+};
-+
- /**
-  * struct rcar_cmm_config - CMM configuration
-- *
-- * @lut:	1D-LUT configuration
-- * @lut.table:	1D-LUT table entries. Disable LUT operations when NULL
-+ * @lut: 1D-LUT configuration
-  */
- struct rcar_cmm_config {
--	struct {
--		struct drm_color_lut *table;
--	} lut;
-+	struct rcar_cmm_table_config lut;
- };
- 
- #if IS_ENABLED(CONFIG_DRM_RCAR_CMM)
-diff --git a/drivers/gpu/drm/rcar-du/rcar_du_crtc.c b/drivers/gpu/drm/rcar-du/rcar_du_crtc.c
-index d6d29be6b4f4..a2d477dc5a51 100644
---- a/drivers/gpu/drm/rcar-du/rcar_du_crtc.c
-+++ b/drivers/gpu/drm/rcar-du/rcar_du_crtc.c
-@@ -537,17 +537,23 @@ static int rcar_du_cmm_check(struct drm_crtc *crtc,
- 	return 0;
- }
- 
--static void rcar_du_cmm_setup(struct drm_crtc *crtc)
-+static void rcar_du_cmm_setup(struct rcar_du_crtc *rcrtc,
-+			      const struct drm_crtc_state *old_state,
-+			      const struct drm_crtc_state *new_state)
- {
--	struct drm_property_blob *drm_lut = crtc->state->gamma_lut;
--	struct rcar_du_crtc *rcrtc = to_rcar_crtc(crtc);
- 	struct rcar_cmm_config cmm_config = {};
- 
- 	if (!rcrtc->cmm)
- 		return;
- 
--	if (drm_lut)
--		cmm_config.lut.table = (struct drm_color_lut *)drm_lut->data;
-+	if (!old_state ||
-+	    !old_state->gamma_lut != !new_state->gamma_lut ||
-+	    (old_state->gamma_lut && new_state->gamma_lut &&
-+	     old_state->gamma_lut->base.id != new_state->gamma_lut->base.id)) {
-+		cmm_config.lut.update = true;
-+		cmm_config.lut.table = new_state->gamma_lut
-+				     ? new_state->gamma_lut->data : NULL;
-+	}
- 
- 	rcar_cmm_setup(rcrtc->cmm, &cmm_config);
- }
-@@ -794,7 +800,7 @@ static void rcar_du_crtc_atomic_enable(struct drm_crtc *crtc,
- 	 * after the DU channel has been activated. Investigate the impact
- 	 * of this restriction on the first displayed frame.
- 	 */
--	rcar_du_cmm_setup(crtc);
-+	rcar_du_cmm_setup(rcrtc, NULL, crtc->state);
- }
- 
- static void rcar_du_crtc_atomic_disable(struct drm_crtc *crtc,
-@@ -844,6 +850,8 @@ static void rcar_du_crtc_atomic_disable(struct drm_crtc *crtc,
- static void rcar_du_crtc_atomic_begin(struct drm_crtc *crtc,
- 				      struct drm_atomic_state *state)
- {
-+	struct drm_crtc_state *old_state = drm_atomic_get_old_crtc_state(state,
-+									 crtc);
- 	struct rcar_du_crtc *rcrtc = to_rcar_crtc(crtc);
- 
- 	WARN_ON(!crtc->state->enable);
-@@ -864,7 +872,7 @@ static void rcar_du_crtc_atomic_begin(struct drm_crtc *crtc,
- 
- 	/* If the active state changed, we let .atomic_enable handle CMM. */
- 	if (crtc->state->color_mgmt_changed && !crtc->state->active_changed)
--		rcar_du_cmm_setup(crtc);
-+		rcar_du_cmm_setup(rcrtc, old_state, crtc->state);
- 
- 	if (rcar_du_has(rcrtc->dev, RCAR_DU_FEATURE_VSP1_SOURCE))
- 		rcar_du_vsp_atomic_begin(rcrtc);
--- 
-2.40.1
+I'd also say you can merge those parts elsewhere but I'm planning to
+also land some locking rework that I've been working on, so it will
+probably conflict somewhere.
 
+> +++ b/net/mac80211/chan.c
+> @@ -506,11 +506,16 @@ static void _ieee80211_change_chanctx(struct ieee80=
+211_local *local,
+> =20
+>  	WARN_ON(!cfg80211_chandef_compatible(&ctx->conf.def, chandef));
+> =20
+> +	ieee80211_remove_wbrf(local, &ctx->conf.def);
+> +
+>  	ctx->conf.def =3D *chandef;
+> =20
+>  	/* check if min chanctx also changed */
+>  	changed =3D IEEE80211_CHANCTX_CHANGE_WIDTH |
+>  		  _ieee80211_recalc_chanctx_min_def(local, ctx, rsvd_for);
+> +
+> +	ieee80211_add_wbrf(local, &ctx->conf.def);
+
+You ignore the return value here.
+
+
+> @@ -668,6 +673,10 @@ static int ieee80211_add_chanctx(struct ieee80211_lo=
+cal *local,
+>  	lockdep_assert_held(&local->mtx);
+>  	lockdep_assert_held(&local->chanctx_mtx);
+> =20
+> +	err =3D ieee80211_add_wbrf(local, &ctx->conf.def);
+> +	if (err)
+> +		return err;
+
+But not here.
+
+In the code, there are basically two error paths:
+
+> +int ieee80211_add_wbrf(struct ieee80211_local *local,
+> +		       struct cfg80211_chan_def *chandef)
+> +{
+> +	struct device *dev =3D local->hw.wiphy->dev.parent;
+> +	struct wbrf_ranges_in ranges_in =3D {0};
+> +	int ret;
+> +
+> +	if (!local->wbrf_supported)
+> +		return 0;
+> +
+> +	ret =3D wbrf_get_ranges_from_chandef(chandef, &ranges_in);
+> +	if (ret)
+> +		return ret;
+
+This really won't fail, just if the bandwidth calculation was bad, but
+that's an internal error that WARNs anyway and we can ignore it.
+
+> +	return wbrf_add_exclusion(ACPI_COMPANION(dev), &ranges_in);
+
+This I find a bit confusing, why do we even propagate the error? If the
+platform has some issue with it, should we really fail the connection?
+
+
+I think it seems better to me to just make this void, and have it be
+only a notification interface?
+
+johannes
