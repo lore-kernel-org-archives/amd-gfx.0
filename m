@@ -4,114 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1668AEB64D7
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 00:51:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27D94EB64D7
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 00:58:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8925A10E386;
-	Wed, 21 Jun 2023 00:51:03 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on20630.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7ea9::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED86A10E386
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 00:51:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rd5ajBwq+Vfy8+WUBY4b3Fao8yEEpkql98KY/NZfnZ09LIB72HxI9cvfZzQXG2EcqcbswUGeph+XWEapLe2+J7dVwpaY4Fy/tEGbCOPQUuTtKJ5gV0wYEIB1tm+zPaSCH6QE6Bpc51/WPsdBGr+moIjaHdz48hKmoVVXA3HSyfOtl51SLjXdQkwVMwYty3EKhuAWFUN17R4tW57Nly0iPXu9hxmWL1Pw5SIq+m5C6IPEruQoF6nk33XBj0Yyr1bblL6jJ5PHdv+XusxxcgWCoh/R+7puUV+racDR5AgK2vANqc8neYMqzxNKGsOaXRg5v7sgXM0mT6g87hX185oMEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W7X6BC49aBT/oHCVhw/L55lMpLT3aYfHY77jlBdvjx8=;
- b=hluvXnwRx9m/8VTer1Fv22cszmKDhpZzo2Ao0270Q+ZenOUEmjLqPgO7iK/K5ueR16JcHjXUITDL5t1DlNX5Ot9OwndIDBSngjQajd1cvF/dztSm+AukpO9o97rFTYACB0W4WyRu9nbvSBpNJOM+82jcFQl/QHzmLKTzrq5EuWbTCXBWH88g2mVNgO96gG0enAP+a/fOng5JJe/FZd5ysxHo+4aiGGA/fkw1JmUGzF0HJ5P7sxwjMAriEPZL+MEZh2SzDzop3/Qvb4/L2SfNjPdicS62WYs5Sd6zsDdK8xtyWWmAEOGhac2nLEODAz2SSx6/ANKjOlpj/1Yw3yA6qw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W7X6BC49aBT/oHCVhw/L55lMpLT3aYfHY77jlBdvjx8=;
- b=AOa0rBW44fPxXMljW77cS+FMayvPlSkX/OiVkZy2UeVjrmPi2BarWIgrObJPNGe886NtGZN5ietNzvCEXMQRiIi1s8laNX1pGuPkbvoJBHS4ii+v5yG9XVfcMUy8Am606GVV1DxACqoQ6UBOW4+mBzB9g51Y9W9cQEBD6Al8sfE=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- BL1PR12MB5141.namprd12.prod.outlook.com (2603:10b6:208:309::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6500.37; Wed, 21 Jun 2023 00:50:59 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::3bef:2463:a3e0:e51c]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::3bef:2463:a3e0:e51c%4]) with mapi id 15.20.6521.020; Wed, 21 Jun 2023
- 00:50:58 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/pm: add abnormal fan detection for smu 13.0.0
-Thread-Topic: [PATCH] drm/amd/pm: add abnormal fan detection for smu 13.0.0
-Thread-Index: AQHZoym2FEy2/xV12UCkbq6Prci0hq+Ubnpg
-Date: Wed, 21 Jun 2023 00:50:58 +0000
-Message-ID: <DM6PR12MB2619C3423DB9319D56DB2413E45DA@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20230620034537.1495445-1-kenneth.feng@amd.com>
-In-Reply-To: <20230620034537.1495445-1-kenneth.feng@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=8fe7b732-2447-4a82-89d6-8cbc6e8e5f6b;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-06-21T00:50:40Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|BL1PR12MB5141:EE_
-x-ms-office365-filtering-correlation-id: cf0dfe21-479f-464f-be93-08db71f19404
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 85nB14Pd+aQLLdJCeEoOs1deAHhQWluEyW2f9kS2pY/ywDFKA8KuNiFRnk70742i7KBAREbGpA8eELegFODe864Etx/J9nFBsLObovGaNnjiRvKB73+q93/gQCmbPof3cpLz9gFozn2t8v/bWHFQj/02K8R6Omju1quImK0TuUoWHCWV4ggi+7CZEXbScOtm+R8Ix7wRczW8nohjW657ySgSTS+2dmOI3JVVwu4NoYtbeWAsn3U308EtQFKJo1aekO0kHm/YMGSjAqPOZZGD3X2G6RLkseLrDwh8bOCaX18PcbCajBVBO8YNMf0E1JORnHvZqgcR9e7oEM5HbImboQoNs+lEeGPO90+0sCocr4ckZZxIRL37gFNtfO/rHqBfCK1LWYUJA+oc6943Uw6t4EKX4x9+ohUkshMiaEi86GH3JOzQcnJe74rx1pg8FUUSfBC9IPFHv9WfAtDycpK0O9YAfyMUbd/a4x9GK5Dw/X4962XtbIxbE88dDhgk0hW6522YXdbmqteOeuQXyWjcWosfeJwB88DCw5uXeOB0Hsd/hrATVJjoc04pgD5hFmj1k6uC5W+A/L+xxyntaBHgv9ztE1REAjCvHB2A3J0TFHYzQJ6O4nYEWLE0+E1ULPt7
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(39860400002)(396003)(136003)(346002)(366004)(451199021)(478600001)(8676002)(66946007)(64756008)(52536014)(76116006)(4326008)(41300700001)(66446008)(66556008)(66476007)(33656002)(38100700002)(122000001)(83380400001)(86362001)(7696005)(71200400001)(2906002)(5660300002)(110136005)(8936002)(316002)(6506007)(53546011)(26005)(9686003)(55016003)(38070700005)(186003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tORlxw1GEM73lC8518kyjxO2BE4pEybhiKLfjl0metoiRAHB4i98bqLLZgn6?=
- =?us-ascii?Q?E20kfeJ5zON3V1SZKK/wDVJ3a1k6xEi6qZWgS7qxksR2dYKHvo/IV702Cc0J?=
- =?us-ascii?Q?/RE+2KW5dgRaMKs1XXlwAXhRka7OEB+REL9oJsG+Yl+lr/xaDEMDVp/laCp9?=
- =?us-ascii?Q?EPVp0hnQ2MWbvWA9/79xKz8U28B98fp/AYRGJCtIsXh1gDRyS16kQ6ossWt+?=
- =?us-ascii?Q?j0Szi7etdgd5lBl0iVOvn6Kik10ZkrO2WDwcQC2TmaE1FKsdqz4pqKAgPXYC?=
- =?us-ascii?Q?yUPI3bjW7tOefSO7KM2PM5s6iB1pMevG2v1C2XVWWqd53G0fitZ93NfQUrcy?=
- =?us-ascii?Q?eZ7zg/zBzngAWjvw3Be/4xLauv0qY2Nz3saFwqYBti3SQareZfSai9FeCE87?=
- =?us-ascii?Q?1asptxrUqpbQ770olN010NUhwYn1e7sU6OdsrnoAmOXRS1B1rS/8GBuOetD/?=
- =?us-ascii?Q?8bPBQtemoBUIMLR+ihUXLnK+EgEFhkVBP8eV2MRHYuPczI7BfusykFRj7hRk?=
- =?us-ascii?Q?8zxspKonaGqkWcvbaiCgyUICLEkfuczlkRnxJJwdngJX26rlEKOJAnXgsDul?=
- =?us-ascii?Q?SeWzgN1mnjP4yAR4KclTogC8QCwZ5CJgjUpyrlR2iInXBhBglVdq61af1Tez?=
- =?us-ascii?Q?8/jOY4jPwsa9daUdKGOgZ0vMx4CoZyNgwYK4zskbnOL6pI3aJMcEf3uKHRt+?=
- =?us-ascii?Q?jKHnxOaV/pgnDlZt1+1hIVZ4GEdDmHkLIJHfeqfQmJccLKnSvURos7uKVf47?=
- =?us-ascii?Q?/oWz+rh3IdESt1kJx9+2DiShN/O1LP/bC0ycM9MUnPyVzCdcyTBiLc6q48A/?=
- =?us-ascii?Q?v22WKsnjRrP9qes8KKGF9D1mTGghZZHCW5I1QSWxUEfPtZUCuMXUDOc6yZNr?=
- =?us-ascii?Q?c2gtUKo7MgLPWU4cd7h2CnQjQEvybmsWRc6IA6UunOnRYszwGwkC8YJsu/eC?=
- =?us-ascii?Q?zVwy9+YudeJ9l3sL/yzRcbHjrDsb7f5xV0T1A0UrNoWttPMtb5vnI4ZFwHcm?=
- =?us-ascii?Q?cgweKvro+M2YZIUoqCf4COmUPRw7ZEIvNOajlHWeLT1VAJM1xpYeZVSFfnZU?=
- =?us-ascii?Q?mD2cgEA2i1sxDpPnnY3Ia3r02ULNyf859HUlwqY7WtmCgFkXIyR9R8S05YXt?=
- =?us-ascii?Q?yUCsEKH+X8TZ6a97BVPo3RwQfJK36NzQDDtQlcJcCIKQ7a5bdebaiiczksGh?=
- =?us-ascii?Q?FhpAgGtccJO3WuQCUZcj1ptfuypWzkXpcOp7mrGtXiABWtIfIwhmjy8k7n36?=
- =?us-ascii?Q?qriXE1QVyyQsFbaIf8zVdxAMly7DpBT5O7n4xo0jC7MOdCVOde7ECpWErOIK?=
- =?us-ascii?Q?QwgEzLrnt9wPn1zAYn1L/LdpDUiTW1urU1mwlBpGMeCIi9gEVE9F1VsEYyH4?=
- =?us-ascii?Q?aSfSLqH8tXohiTa1EOcD4XGHpezWoKu4zEg5huNUfjeS4YoJecUBbpugE3t7?=
- =?us-ascii?Q?q4GigfYDedUpVAshOz6mccq/1/JOSDWZazm5il0X1FCx8taaARtxSolftC75?=
- =?us-ascii?Q?0IaU+mqhjZinI82FmrMr4V0GJBKHWti9+XvE0e0XIQP9hGOTIX+0qcJ1T2K+?=
- =?us-ascii?Q?Gu3LFC7VQZLR7UCkRJk=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 700B210E389;
+	Wed, 21 Jun 2023 00:58:34 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D4D710E389;
+ Wed, 21 Jun 2023 00:58:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=dD+0WX2WV6Iq8HXq3xOanwTmTky971Axctsxt30metE=; b=AFwHoupWdW4Ozmxjp9xj9e/m3t
+ XZc6hhXZuz5Fqn+LWY/W1l4/QQ1VyrBkr7VIpCSaHzXE/fdAdnp/75Dn1rn5uAi2Bgg217t9kJ2DL
+ DOrVgClp6/5GFX7rbSDkZM5ISxzBF0vSDfhAYDUAX0Pt3oRkdJ24nXyARDkobAwV6t39Qck2p+Vlv
+ dVgec97mwUL9tjx6bfBs2i4X+Wimp+yavP138mdogQBNrjjVDKlLy1xgaoFbmzZCBfuZD3MmA75qY
+ qBhPdsjj40Yf424y7WVChuNJGMavYTZxlcMpdSp5ieY3WCGOzLFVpsv6BzWR+5Jqqq/F9CARcy+kS
+ Pdb6XNGw==;
+Received: from [179.113.218.86] (helo=steammachine.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1qBmAz-0011pg-Iu; Wed, 21 Jun 2023 02:58:26 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v3 0/4] drm: Standardize device reset notification
+Date: Tue, 20 Jun 2023 21:57:15 -0300
+Message-ID: <20230621005719.836857-1-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf0dfe21-479f-464f-be93-08db71f19404
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jun 2023 00:50:58.7182 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pbaY1TCVcItRxDHDg5kK4XgqTzUQ+S4GDQUXjcdV/YZWzFGqg9ZSk3tejMXDTPwO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5141
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,46 +50,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Simon Ser <contact@emersion.fr>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
+ Rob Clark <robdclark@gmail.com>, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ alexander.deucher@amd.com, Dave Airlie <airlied@gmail.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Hi,
 
-Reviewed-by: Evan Quan <evan.quan@amd.com>
+This is a new version of the documentation for DRM device resets. As I dived
+more in the subject, I started to believe that part of the problem was the lack
+of a DRM API to get reset information from the driver. With an API, we can
+better standardize reset queries, increase common code from both DRM and Mesa,
+and make easier to write end-to-end tests.
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Kenneth Feng
-> Sent: Tuesday, June 20, 2023 11:46 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Feng, Kenneth <Kenneth.Feng@amd.com>
-> Subject: [PATCH] drm/amd/pm: add abnormal fan detection for smu 13.0.0
->
-> add abnormal fan detection for smu 13.0.0
->
-> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index a6083957ae51..124287cbbff8 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -1710,6 +1710,7 @@ static int
-> smu_v13_0_0_get_thermal_temperature_range(struct smu_context *smu,
->       range->mem_emergency_max =3D (pptable-
-> >SkuTable.TemperatureLimit[TEMP_MEM] + CTF_OFFSET_MEM)*
->               SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
->       range->software_shutdown_temp =3D powerplay_table-
-> >software_shutdown_temp;
-> +     range->software_shutdown_temp_offset =3D pptable-
-> >SkuTable.FanAbnormalTempLimitOffset;
->
->       return 0;
->  }
-> --
-> 2.34.1
+So this patchset, along with the documentation, comes with a new IOCTL and two
+implementations of it for amdgpu and i915 (although just the former was really
+tested). This IOCTL uses the "context id" to query reset information, but this
+might be not generic enough to be included in a DRM API.  At least for amdgpu,
+this information is encapsulated by libdrm so one can't just call the ioctl
+directly from the UMD as I was planning to, but a small refactor can be done to
+expose the id. Anyway, I'm sharing it as it is to gather feedback if this seems
+to work.
+
+The amdgpu and i915 implementations are provided as a mean of testing and as
+exemplification, and not as reference code yet, as the goal is more about the
+interface itself then the driver parts.
+
+For the documentation itself, after spending some time reading the reset path in
+the kernel in Mesa, I decide to rewrite it to better reflect how it works, from
+bottom to top.
+
+You can check the userspace side of the IOCLT here:
+ Mesa: https://gitlab.freedesktop.org/andrealmeid/mesa/-/commit/cd687b22fb32c21b23596c607003e2a495f465
+ libdrm: https://gitlab.freedesktop.org/andrealmeid/libdrm/-/commit/b31e5404893ee9a85d1aa67e81c2f58c1dac3c46
+
+For testing, I use this vulkan app that has an infinity loop in the shader:
+https://github.com/andrealmeid/vulkan-triangle-v1
+
+Feedbacks are welcomed!
+
+Thanks,
+		André
+
+v2: https://lore.kernel.org/all/20230227204000.56787-1-andrealmeid@igalia.com/
+v1: https://lore.kernel.org/all/20230123202646.356592-1-andrealmeid@igalia.com/
+
+André Almeida (4):
+  drm/doc: Document DRM device reset expectations
+  drm: Create DRM_IOCTL_GET_RESET
+  drm/amdgpu: Implement DRM_IOCTL_GET_RESET
+  drm/i915: Implement DRM_IOCTL_GET_RESET
+
+ Documentation/gpu/drm-uapi.rst                | 51 ++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c       | 35 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h       |  5 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       | 12 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |  2 +
+ drivers/gpu/drm/drm_debugfs.c                 |  2 +
+ drivers/gpu/drm/drm_ioctl.c                   | 58 +++++++++++++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   | 18 ++++++
+ drivers/gpu/drm/i915/gem/i915_gem_context.h   |  2 +
+ .../gpu/drm/i915/gem/i915_gem_context_types.h |  2 +
+ drivers/gpu/drm/i915/i915_driver.c            |  2 +
+ include/drm/drm_device.h                      |  3 +
+ include/drm/drm_drv.h                         |  3 +
+ include/uapi/drm/drm.h                        | 21 +++++++
+ include/uapi/drm/drm_mode.h                   | 15 +++++
+ 17 files changed, 233 insertions(+), 3 deletions(-)
+
+-- 
+2.41.0
 
