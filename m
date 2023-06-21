@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7DE7EB64D8
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 05:47:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6075EB64DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 05:48:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68D5410E3B2;
-	Wed, 21 Jun 2023 05:47:49 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70E7C10E3B4;
- Wed, 21 Jun 2023 05:47:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5836110E3B6;
+	Wed, 21 Jun 2023 05:48:38 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2055.outbound.protection.outlook.com [40.107.93.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4219810E3B6;
+ Wed, 21 Jun 2023 05:48:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Refr58cvqrJFU6+4aA6hNN16815N84AxWM1kIfUylIvfgyNXK6bh3yeIBoUrAHUdaoHGMuNWXR3tLRJ7saaLsN76JpIBnoV4fTWeD40ocTQIKMGNvl88xVMZonKvmfuEs1GIkPlscTLQoFdaZrBkdQim4xDSITY3lF/cRnmtnH5cMw1Pg6J5ZQj+YXc90i3OFn8HMso7/YmWiM28ZohPY18BBVx/c/JEZkqJkyqijW4No0V9wmCiTds/vq0WGwBsSLYYE4u0WKS10Ix3NZCf/xD/lqYzQYcs3wzdJiTbLrZopX/h88jUV6Wk+OdL8iZ8eaSS9c1HOy4vff0jew0QAw==
+ b=GScW/SWuCrndy+JspCS1AwucyzLXnbyp7J9WqYKh1erDOqrb83Spmo7Ot1JgxxwUd0RpUlDFZ4txJ3vbqisHu8EVOmXPxkCGOGpQiRETKRTXNy/KxuCJJOI28HiXfqtjDcmjwRvCIO0W4S9yXo7DM8W7U4y3KEbmRCmrf1mJ4QNC548c+AXL+dp1xqOY7dx5H33pld7iWUFKjIm2ZDXo2E76n2ehuhdKc/nMtUPNi6CN7seCyrkhhhkLZMRbMyfoFI7aiu4pC+nByZMa7E7JanOw6Xnmh/M0yvPxjrjjLZTP5HibYWZyREvRY3YsTelDGrIUlPpsuRhHob5ebvkJGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V2W7MeeYoJAjHpnZBPrbz+KWPIKBQOAP/ttwqdtMG0c=;
- b=aT2nTD/1vqR7FmZYDsAd//KmVNa2NhSPFOHCjcFJKZlMFZlJyJJA9db9tJMrJrYeVpS1Qp7t0+QMH4dPSaRWotVJdpZeFquc9Ubzmu0qMv7CongixFml9wx+envEnE0MEh/QZD7/u7uFQgSLviG8S3q0jdrqr4Q601zzPRI2GKJUanJbZCR/HRnHpa6i3UID/q8NMZ04RMYG6UqGmAOo07+9MRw16AWfN93ugD4Rbsfsvx+JqTh7dtMEmV0v8hhlzOrs4oCLhyxDEIaS/LGsNgWmruQI6/raCREVkBcJQGuBE95JOzsYRTfci8E/+IVYkrHpRiaNE/jWHqj1iU2N6A==
+ bh=jiyRm8230ePWHdpc1Lroiu7N3Eh7mvvWEAN2GjgUtx0=;
+ b=JergrLKi79FxBreLlc1O/t2/GBGt2WnhfPk5pxNjJb6iIsPkN+RndtocCoYa13SKXuXwbTC20ZdFwVPnGDnqu3YBvLk7v7UKClFIrXm305ZdQsWJ+o16uPX0l1RxfhiRDskkKWWOg4KW6wzF+lqOOqCcLsfnpRfEwzXZ0bhcZ0lV9ni8Gy65Eg9+pUowY034jDYAmTZ3evEYQmmMwYxuCf/5ycbj9NXRUkr8nlHfcpLqquqlSZ5J9TB1Fqbt+TNAKQQHzSu/O7C5okS8GvXojZz9Ra/cUu2yzBQek2ULxGhXCRj6sRCd7FlQGaD60wlT+qRkK7h66T6ZGjPljnXZNQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V2W7MeeYoJAjHpnZBPrbz+KWPIKBQOAP/ttwqdtMG0c=;
- b=HLOWVUKEdQ/s+VVBNZ6cIuj3QDdqj7dFaydXbVB7eDhaPqZMd7CP2XOH0hCDY2t1NwEabwrwmgnMX/mtSYwmqK/q/1RV2ch1+P5XlPQAKQ6e32nOUPnx+hl3TFEyatEuve7MFi9Rw6GJOXCRWatmgHdmcxHCz1Fcd0sWxzB0Qd0=
-Received: from BY5PR17CA0035.namprd17.prod.outlook.com (2603:10b6:a03:1b8::48)
- by SJ2PR12MB7848.namprd12.prod.outlook.com (2603:10b6:a03:4ca::20)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=jiyRm8230ePWHdpc1Lroiu7N3Eh7mvvWEAN2GjgUtx0=;
+ b=Z4FoYnggvok0zGJQfvqXDhmt5uevbY1ps2Bl60sfUso3d65HX1Nh7rw8wivNf8e+6BBPBJ21AIwT4ZUmQNDgZUdg7F8uJqFNua8oi8W5RWc/235/ENOclML7zRlVPwYyCpYkEGYvJLswnJdqXJDy05VXAKjavvuXWyMYT2VFnhY=
+Received: from DM6PR12CA0015.namprd12.prod.outlook.com (2603:10b6:5:1c0::28)
+ by MN0PR12MB6270.namprd12.prod.outlook.com (2603:10b6:208:3c2::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Wed, 21 Jun
- 2023 05:47:44 +0000
-Received: from MWH0EPF000989EB.namprd02.prod.outlook.com
- (2603:10b6:a03:1b8:cafe::57) by BY5PR17CA0035.outlook.office365.com
- (2603:10b6:a03:1b8::48) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 05:48:33 +0000
+Received: from MWH0EPF000989E5.namprd02.prod.outlook.com
+ (2603:10b6:5:1c0:cafe::63) by DM6PR12CA0015.outlook.office365.com
+ (2603:10b6:5:1c0::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37 via Frontend
- Transport; Wed, 21 Jun 2023 05:47:44 +0000
+ Transport; Wed, 21 Jun 2023 05:48:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,13 +45,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989EB.mail.protection.outlook.com (10.167.241.138) with Microsoft
+ MWH0EPF000989E5.mail.protection.outlook.com (10.167.241.132) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6521.17 via Frontend Transport; Wed, 21 Jun 2023 05:47:44 +0000
+ 15.20.6521.17 via Frontend Transport; Wed, 21 Jun 2023 05:48:32 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 21 Jun
- 2023 00:47:35 -0500
+ 2023 00:48:25 -0500
 From: Evan Quan <evan.quan@amd.com>
 To: <rafael@kernel.org>, <lenb@kernel.org>, <alexander.deucher@amd.com>,
  <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
@@ -62,10 +62,10 @@ To: <rafael@kernel.org>, <lenb@kernel.org>, <alexander.deucher@amd.com>,
  <hdegoede@redhat.com>, <jingyuwang_vip@163.com>, <lijo.lazar@amd.com>,
  <jim.cromie@gmail.com>, <bellosilicio@gmail.com>, <andrealmeid@igalia.com>,
  <trix@redhat.com>, <jsg@jsg.id.au>, <arnd@arndb.de>
-Subject: [PATCH V4 2/8] cfg80211: expose nl80211_chan_width_to_mhz for wide
- sharing
-Date: Wed, 21 Jun 2023 13:45:57 +0800
-Message-ID: <20230621054603.1262299-3-evan.quan@amd.com>
+Subject: [PATCH V4 4/8] drm/amd/pm: update driver_if and ppsmc headers for
+ coming wbrf feature
+Date: Wed, 21 Jun 2023 13:45:59 +0800
+Message-ID: <20230621054603.1262299-5-evan.quan@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230621054603.1262299-1-evan.quan@amd.com>
 References: <20230621054603.1262299-1-evan.quan@amd.com>
@@ -77,26 +77,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989EB:EE_|SJ2PR12MB7848:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c50bf97-b33a-451c-ea4e-08db721b0900
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E5:EE_|MN0PR12MB6270:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7efebd76-eca6-48c7-0b54-08db721b25e7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6D1F66XADojQEHzi1ZXWJdKTHLhBoVRdWgIj8ntD2cEcEO3yzuSMOyU0zik5S5hDbGs+HQXuutBgx2wnYWbHBlY94ZtpoBPO4LmmcZ6DnbvcezgxUuiTOfl2IR/C5E3HF+IHO+BkuW0JWfblDLwF4NTljWWSAbIfbwxP5T0B2cj5mJo3V5x8HO10d+aprsi1YO8yJICqWXGOCvZVrdCIaPrEA95wABBPAgVT9qhqjxyp1qEBAGfTNhXijdNb1eodwrelTWCjpNqzZLoNEDlYDrD9YIi6Mxz1/aht0oxbQxY01bDU5lxZ/Kf0G9kt+jy79Ia0lXM9HHPyj80lrVyxOx5Aq+BwZ4ARUQ2ehWQlqTV8F20q4Reh1+m8Slx4z1P3Xz2KhQ/AsSGAdFM33zPEdh6gt3M6V5aoy1CIPONbLLVyvaltgaCBF98+dWZaeaEd2+jAM9enIBliF29eu4mWf5rSQno4WQhZ3ZfuKbm95/T2IwQRx1fKLq/MWvZ4HrjhV0P5B/kr6vp99pxYgg+ZT/5xu/60aNC9wphhWIfIFhdmo2GfK6EI067oD1J0h1kqXFyK1RKJjqqRPNRxa90lu8trDIB66K2RDFlJMXy/uEvzWwWAduA3IhJwq8/HWVECkIii5jfldGZUZzyWnNrHn65QKVrIw+Hd6xn4DwN5k7bkZ7RC2ozpmQGD7nwTTw7NJj5HsO6UaEeWiO8wwe9KWprjzItVUVZLyg70caB0tz6X12EctpbpmnaJLHqB2SGkJS+z/4me4VsZ5B659xGGfFAc2slGQMk0F4msZlsE8nYfKLG9qmZm75pddxEQl0hIEBXllUx4vVWkS4ecxzII2g==
+X-Microsoft-Antispam-Message-Info: 8WJWMMLKqwrPV3Ty5GzTu1YxDxTMeoLUlAGnhOPDBeVbAG5ylPH3ZLMlF8iGGjU4+XCuc6NNyEXKBnRWAw+9mG2PkhvQG+8N7FoyPLIXG1EUrCllX6gkFBMISTOyelBlUqUdk9dV+AcARiTveAVFlbMqq9scF5jULvKV/0xaC1a1fNIGgKMTYZWMU8fEoXtrJOwRZFZGz+y9uKStMHzLm542o6aNxZ3wY8U8fk9GVEATIxAsOcjsapMqE1BqQuAtwvnCpjKl+IEmOLC5GAT/5iZfFSKjRlqFdTL/Cyy/bKX9HPEefRH4Y/MVlK9kqBcVJKUYVXiKvciqpRE9ZBDkaceKc7o/JGntiGsq9UVnFgY3dn6vyzpmYe7Fbo+p8rFX2u/PTOILL4XV/b/qJq3RHifz7WjQCs88hJNmNpHpIOgvcRWqCulzUnLg3GEBmzJO3LDCWhJuOXu31x2z2222jAB4ZDGOx9/i3Sj2VwEO5HTNqiR1HqHkdD0rAiAgTxDNzxLa/spo1Wc7XDXpS7auvrPyQCvvUSyvB6hPVxm4MfautbV2B9lUn3QCOPYmDL3V2khaGpUpmyTX4fcdrm1B6NWWSMGseAEk3D4fC2YAeqppBPF1W2qs2e1JGth7LMlzut/uFMI0Su549H/C+sgGyCw5nmL3ewtC1Wg4xUJuPcyX2Grno0MXpVvoXtN/DZVj+8EDiFx9L47adWEv+q8AAYb22sjsbJnaXCbckG++BWX7W6zZm4Y6lWKsyPhqubZHSBwWP6ivxprczydlrPGSiYYc73JSxerVuzjXtb190PTNwa7DIWyVsb1CNdCfqihQtz+u44XLknUxF+Q6BHSpEA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(39860400002)(376002)(346002)(136003)(451199021)(46966006)(40470700004)(36840700001)(110136005)(54906003)(6666004)(478600001)(82310400005)(70206006)(70586007)(16526019)(26005)(186003)(1076003)(2616005)(336012)(40460700003)(7696005)(4326008)(5660300002)(41300700001)(316002)(8936002)(8676002)(44832011)(7416002)(2906002)(40480700001)(81166007)(356005)(921005)(82740400003)(36756003)(86362001)(426003)(36860700001)(47076005)(83380400001)(2101003)(36900700001)(83996005);
+ SFS:(13230028)(4636009)(376002)(136003)(396003)(39860400002)(346002)(451199021)(46966006)(36840700001)(40470700004)(41300700001)(5660300002)(8676002)(8936002)(40480700001)(6666004)(44832011)(316002)(15650500001)(2906002)(7416002)(4326008)(70206006)(70586007)(40460700003)(336012)(426003)(110136005)(54906003)(7696005)(478600001)(36756003)(82740400003)(86362001)(82310400005)(186003)(2616005)(356005)(921005)(81166007)(16526019)(83380400001)(47076005)(1076003)(26005)(36860700001)(83996005)(2101003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2023 05:47:44.2858 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c50bf97-b33a-451c-ea4e-08db721b0900
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2023 05:48:32.7701 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7efebd76-eca6-48c7-0b54-08db721b25e7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989EB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E5.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7848
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6270
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,55 +115,108 @@ Cc: netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The newly added WBRF feature needs this interface for channel
-width calculation.
+Add those data structures to support Wifi RFI mitigation feature.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- include/net/cfg80211.h | 8 ++++++++
- net/wireless/chan.c    | 3 ++-
- 2 files changed, 10 insertions(+), 1 deletion(-)
+ .../pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h | 14 +++++++++++++-
+ .../pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h | 14 +++++++++++++-
+ .../amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h   |  3 ++-
+ .../amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h   |  3 ++-
+ 4 files changed, 30 insertions(+), 4 deletions(-)
 
-diff --git a/include/net/cfg80211.h b/include/net/cfg80211.h
-index 9e04f69712b1..c6dc337eafce 100644
---- a/include/net/cfg80211.h
-+++ b/include/net/cfg80211.h
-@@ -920,6 +920,14 @@ const struct cfg80211_chan_def *
- cfg80211_chandef_compatible(const struct cfg80211_chan_def *chandef1,
- 			    const struct cfg80211_chan_def *chandef2);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
+index b686fb68a6e7..d64188fb5839 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
+@@ -388,6 +388,17 @@ typedef struct {
+   EccInfo_t  EccInfo[24];
+ } EccInfoTable_t;
  
-+/**
-+ * nl80211_chan_width_to_mhz - get the channel width in Mhz
-+ * @chan_width: the channel width from &enum nl80211_chan_width
-+ * Return: channel width in Mhz if the chan_width from &enum nl80211_chan_width
-+ * is valid. -1 otherwise.
-+ */
-+int nl80211_chan_width_to_mhz(enum nl80211_chan_width chan_width);
++typedef struct {
++  uint16_t     LowFreq;
++  uint16_t     HighFreq;
++} WifiOneBand_t;
 +
- /**
-  * cfg80211_chandef_valid - check if a channel definition is valid
-  * @chandef: the channel definition to check
-diff --git a/net/wireless/chan.c b/net/wireless/chan.c
-index 0b7e81db383d..227db04eac42 100644
---- a/net/wireless/chan.c
-+++ b/net/wireless/chan.c
-@@ -141,7 +141,7 @@ static bool cfg80211_edmg_chandef_valid(const struct cfg80211_chan_def *chandef)
- 	return true;
- }
++typedef struct {
++  uint32_t         WifiBandEntryNum;
++  WifiOneBand_t    WifiBandEntry[11];
++  uint32_t         MmHubPadding[8];
++} WifiBandEntryTable_t;
++
+ //D3HOT sequences
+ typedef enum {
+   BACO_SEQUENCE,
+@@ -1592,7 +1603,8 @@ typedef struct {
+ #define TABLE_I2C_COMMANDS            9
+ #define TABLE_DRIVER_INFO             10
+ #define TABLE_ECCINFO                 11
+-#define TABLE_COUNT                   12
++#define TABLE_WIFIBAND                12
++#define TABLE_COUNT                   13
  
--static int nl80211_chan_width_to_mhz(enum nl80211_chan_width chan_width)
-+int nl80211_chan_width_to_mhz(enum nl80211_chan_width chan_width)
- {
- 	int mhz;
+ //IH Interupt ID
+ #define IH_INTERRUPT_ID_TO_DRIVER                   0xFE
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h
+index 4c46a0392451..77483e8485e7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_7.h
+@@ -392,6 +392,17 @@ typedef struct {
+   EccInfo_t  EccInfo[24];
+ } EccInfoTable_t;
  
-@@ -190,6 +190,7 @@ static int nl80211_chan_width_to_mhz(enum nl80211_chan_width chan_width)
- 	}
- 	return mhz;
- }
-+EXPORT_SYMBOL(nl80211_chan_width_to_mhz);
++typedef struct {
++  uint16_t     LowFreq;
++  uint16_t     HighFreq;
++} WifiOneBand_t;
++
++typedef struct {
++  uint32_t         WifiBandEntryNum;
++  WifiOneBand_t    WifiBandEntry[11];
++  uint32_t         MmHubPadding[8];
++} WifiBandEntryTable_t;
++
+ //D3HOT sequences
+ typedef enum {
+   BACO_SEQUENCE,
+@@ -1624,7 +1635,8 @@ typedef struct {
+ #define TABLE_I2C_COMMANDS            9
+ #define TABLE_DRIVER_INFO             10
+ #define TABLE_ECCINFO                 11
+-#define TABLE_COUNT                   12
++#define TABLE_WIFIBAND                12
++#define TABLE_COUNT                   13
  
- static int cfg80211_chandef_get_width(const struct cfg80211_chan_def *c)
- {
+ //IH Interupt ID
+ #define IH_INTERRUPT_ID_TO_DRIVER                   0xFE
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h
+index 10cff75b44d5..c98cc32d11bd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h
+@@ -138,7 +138,8 @@
+ #define PPSMC_MSG_SetBadMemoryPagesRetiredFlagsPerChannel 0x4A
+ #define PPSMC_MSG_SetPriorityDeltaGain           0x4B
+ #define PPSMC_MSG_AllowIHHostInterrupt           0x4C
+-#define PPSMC_Message_Count                      0x4D
++#define PPSMC_MSG_EnableUCLKShadow               0x51
++#define PPSMC_Message_Count                      0x52
+ 
+ //Debug Dump Message
+ #define DEBUGSMC_MSG_TestMessage                    0x1
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h
+index 6aaefca9b595..a6bf9cdd130e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h
+@@ -134,6 +134,7 @@
+ #define PPSMC_MSG_SetBadMemoryPagesRetiredFlagsPerChannel 0x4A
+ #define PPSMC_MSG_SetPriorityDeltaGain           0x4B
+ #define PPSMC_MSG_AllowIHHostInterrupt           0x4C
+-#define PPSMC_Message_Count                      0x4D
++#define PPSMC_MSG_EnableUCLKShadow               0x51
++#define PPSMC_Message_Count                      0x52
+ 
+ #endif
 -- 
 2.34.1
 
