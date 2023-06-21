@@ -4,61 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFD78EB64D8
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 10:33:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0915DEB64D7
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 11:46:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66B5110E442;
-	Wed, 21 Jun 2023 10:33:40 +0000 (UTC)
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 168A810E047;
- Wed, 21 Jun 2023 10:33:37 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-4f86a7a5499so5409207e87.2; 
- Wed, 21 Jun 2023 03:33:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80A0A10E447;
+	Wed, 21 Jun 2023 11:46:45 +0000 (UTC)
+Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
+ [IPv6:2607:f8b0:4864:20::f2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BABB110E444
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 11:46:43 +0000 (UTC)
+Received: by mail-qv1-xf2e.google.com with SMTP id
+ 6a1803df08f44-62ff3ee0ca5so11769936d6.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 04:46:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1687343615; x=1689935615;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=pfgox7DjqCgOODZiUus9R296tpfM4SHoLpMKmpo7PZc=;
- b=sqEzfQQt8Z1/ncRb725HjB/HGo0PmZ0deiAF1S72l4WbFl/BZNNjLiQ6RWjG1wKYrX
- 4HNLB4RtO6GAz1R7/1b+GM28Xaqrj9w/tvGouIojau42K7XLX0467OH+nx/AVgaTWJ/q
- 7WLThSWjbslGD+ZIqVL9ufxxiGOSEY1t8Ij/irD5g/5zL/Khj1/5+T/+75Z6o3IwFAVv
- VR28VYgj782NEmz7u54QpdjqHYyP+3Qz2+MCRLLxQqfZNKcSMcM3R2MWYgGX12mhJaQd
- hB7BKstTm4FbjN37W3+KeOJ/7Cj8IjH9R0JXln+iVpaOfmVC1LiqTD1QxEgJ2PZStmpk
- 2oCw==
+ d=gmail.com; s=20221208; t=1687348002; x=1689940002;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NKmjvZ24aJdHR1bdzRQxTNrzufTEY8kILc9JOoDk14M=;
+ b=eMiKE2VwS2KmuUPH4gJXiHvgieWLDL4GVs8E7kzRp2U1YIKAnHeCvTdUHMjA68M7SC
+ KAn4K8PENtVaC+7J0oroyQWb6bES1B0yGDMamSfaHs5oJDLlkpR9ZEWtogYDC//YrG8E
+ PFSkCstcoiPrmoJRtkiGK9wjvy19ha7AQj4oZEtb82P69xO5W3neFVAdkeclKur+vEP8
+ zgegRK1/YIv8gjw3KE4C7PlY5FAoxYIfBMxyIXD0I28kZuFzV7jMsCHdHoKN6+FW5YBP
+ HdLwERQFCv+uqGgUkMWEt0R1dE0ppQq5TiZTcamPpCO/bgKlZ6YRw/PF5deD/pXh+FEv
+ X8ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687343615; x=1689935615;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=pfgox7DjqCgOODZiUus9R296tpfM4SHoLpMKmpo7PZc=;
- b=lHqU99vYDGH2R0jMdW2lSDfxf5yCuJrK7x7ZSsdJt162s+f4rACzg3SWTmqvRZ3h9N
- T/HLqNtk+cfeMN7u66Yxl2m2L5Gphv6YTFPrZHMSiGtLXoD5gVFrrx7EAbC+jYxYA+TF
- RH07NlpKWZWZgDYn/g8adniq6FP/j7I1Z/jrITGnSZOTLQW40dSo8D7dmFStvPvFGdLe
- HQt1fVnJnstQf2+nPA4Ai1YG6oACBgXPsg47liJVans+hCkf9MZe5XSFSy9NgmGqRyy6
- VtxGM127OdIqVK2ORlUIVQxv2rl6OUhB0BRfjK8oClgJtp42POdTCv3HvgSHo0djth1q
- Rw8w==
-X-Gm-Message-State: AC+VfDxVZPOO1EDWD6UyTJ2Uf0iDsqTs2PYXtOvV6KF/GNaNp3+RfqH/
- BdcSiwjDqS1KPG9qNfcAyxw=
-X-Google-Smtp-Source: ACHHUZ4tOvzHgGjDN2bgk1ZHXh+FyGxbppt5b9Yo+JBNsr8KddNaMOaxR8K46x42pniMmUxxt5b0nw==
-X-Received: by 2002:ac2:5b0c:0:b0:4f8:666b:9de8 with SMTP id
- v12-20020ac25b0c000000b004f8666b9de8mr7317814lfn.13.1687343614713; 
- Wed, 21 Jun 2023 03:33:34 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- q4-20020ac25144000000b004f8427f8716sm720493lfd.262.2023.06.21.03.33.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jun 2023 03:33:34 -0700 (PDT)
-Date: Wed, 21 Jun 2023 13:33:30 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Subject: Re: [RFC 0/9] drm: rcar-du: cmm: Enable 3D LUT support
-Message-ID: <20230621133330.3d09d47a@eldfell>
-In-Reply-To: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
-References: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+ d=1e100.net; s=20221208; t=1687348002; x=1689940002;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NKmjvZ24aJdHR1bdzRQxTNrzufTEY8kILc9JOoDk14M=;
+ b=E80zlS/b+s5kICwT04zbwcObryBhKaAL11fWrvXLthaoauvBQe4bYQfTr3PIcIk4KK
+ +ktkUKDJjdqnZI1yEwp+hwC88cS9pi7nmo900gjH4jBWjn5cKUL4DEP2plD92FxVxK/K
+ Pej+2P1SvE2QG8SCCpIL/ojFKy74Ggle3wnN1+Easgd9DexRuUqi6UY8R9XWSQdehyvM
+ Qvj21wPrhtzFdqO+ucPiLkUzuV3rtnPAEBCISQ64WDaqV3LX9u361V7rUb5QpVj+zv+N
+ xNA1YVqrpC/5cY59VOBRTttwtA8fGSBKJVj119wHD8i/S+9OHSZAZcNAwu7rVIEm6vRe
+ x15g==
+X-Gm-Message-State: AC+VfDw9Frzh9XP6bdNgvZj8JTW1kEbQx2C0WHDTSf8b8VkQ1Cs7+Rw2
+ xCOSwYnU6vRxEhswo/m8dUySUogjuo4yWeRwDOs=
+X-Google-Smtp-Source: ACHHUZ4xB6P/YWDE2+izdYoWeA38aODQI96tFF30JsCUbilR3DI+SosDXP+qWI9Oo60qnfvL/DZBab4JdOvwDt78Yns=
+X-Received: by 2002:ad4:5de8:0:b0:621:65de:f60c with SMTP id
+ jn8-20020ad45de8000000b0062165def60cmr18455206qvb.3.1687348002251; Wed, 21
+ Jun 2023 04:46:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/fhMLvl8VtR_L/+6Pe_vgAZ7";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+References: <CABXGCsM5TQpnGkk7pvmrwayDytGHszYm4Vz-UgFGDMERu3UGSw@mail.gmail.com>
+ <DS7PR12MB63334DD6E7153A0BB89762EBF45DA@DS7PR12MB6333.namprd12.prod.outlook.com>
+In-Reply-To: <DS7PR12MB63334DD6E7153A0BB89762EBF45DA@DS7PR12MB6333.namprd12.prod.outlook.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Wed, 21 Jun 2023 16:46:31 +0500
+Message-ID: <CABXGCsOSvuHYXdBnptW=eYaN6QNKcW1q5cEQLAdOJZ4Nwu8=Mg@mail.gmail.com>
+Subject: Re: [6.4-rc7][regression] slab-out-of-bounds in
+ amdgpu_sw_ring_ib_mark_offset+0x2c1/0x2e0 [amdgpu]
+To: "Zhu, Jiadong" <Jiadong.Zhu@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,154 +69,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Victoria Brekenfeld <victoria@system76.com>,
- DRI Development <dri-devel@lists.freedesktop.org>, mdaenzer@redhat.com,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, airlied@gmail.com,
- aleixpol@kde.org, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
- wayland-devel <wayland-devel@lists.freedesktop.org>,
- Jonas =?UTF-8?B?w4VkYWhs?= <jadahl@redhat.com>,
- Uma Shankar <uma.shankar@intel.com>, harry.wentland@amd.com,
- tzimmermann@suse.de, sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com,
- Sebastian Wick <sebastian.wick@redhat.com>, mripard@kernel.org,
- Melissa Wen <mwen@igalia.com>, Simon Ser <contact@emersion.fr>,
- Xinhui.Pan@amd.com, xaver.hugl@gmail.com, linux-renesas-soc@vger.kernel.org,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, daniel@ffwll.ch,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- Joshua Ashton <joshua@froggi.es>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/fhMLvl8VtR_L/+6Pe_vgAZ7
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On Wed, Jun 21, 2023 at 12:47=E2=80=AFPM Zhu, Jiadong <Jiadong.Zhu@amd.com>=
+ wrote:
+>
+> [AMD Official Use Only - General]
+>
+> Hi,
+>
+> It is fixed on  https://patchwork.freedesktop.org/patch/542647/?series=3D=
+119384&rev=3D2
+>
+> Could you make sure if this patch is included.
+>
 
-On Wed, 21 Jun 2023 10:10:22 +0200
-Jacopo Mondi <jacopo.mondi@ideasonboard.com> wrote:
+I confirm this patch fixes the issue.
+But this patch is still not merged yet in 6.4 that is a problem.
 
-> Hello, this series is based on the RFC sent by Melssa Wen:
-> "[RFC PATCH v2 00/18] Add DRM CRTC 3D LUT interface"
-> https://lore.kernel.org/dri-devel/20230109143846.1966301-1-mwen@igalia.co=
-m/
-> that introduces CRTC properties to control 3D LUT operations.
->=20
-> The R-Car DU peripheral has a post-blending color management pipeline (CM=
-M)
-> composed by (in order of processing) a 3D LUT a 1D LUT and a Color conver=
-sion
-> unit.
->=20
-> The CMM driver already supported operating the 1D LUT, this series add su=
-pport
-> for the cubic LUT (named CLU).
->=20
-> I've been made aware by Melissa and Pekka that the focus of upstream for
-> color management properties is now on the definition of the "Plane color
-> pipeline" properties
-> https://lore.kernel.org/dri-devel/QMers3awXvNCQlyhWdTtsPwkp5ie9bze_hD5nAc=
-cFW7a_RXlWjYB7MoUW_8CKLT2bSQwIXVi5H6VULYIxCdgvryZoAoJnC5lZgyK1QWn488=3D@eme=
-rsion.fr/
->=20
-> Unfortunately the model there proposed doesn't match the R-Car DU hardwar=
-e which
-> has color management at the post-blending level and not per plane (I've c=
-c-ed
-> all the receivers of that series, just in case).
-
-Hi,
-
-what are the actual use cases for post-blending color pipelines?
-
-The pre-blending per-plane color pipelines are important for future
-Wayland compositors, and post-blending is probably mostly about just
-encoding for the sink (applying some inverse EOTF), so I've been
-wondering why the post-blending color hardware seems to be so prevalent
-and well-developed compared to pre-blending.
-
-Is the idea that composition happens in a standard fixed color space,
-and the post-blending color pipeline converts that to sink-native color
-space?
-
-If so, how do systems get their input content into the composition
-space first?
-
-Or is all this just a side-effect of caring about color on a single
-plane, and not care at all how other planes with other kinds of content
-will look? (e.g. TV broadcast vs. sub-titles, program guide, OSD)
-
-
-Thanks,
-pq
-
-> The user-space interface has been validated with dedicated unit tests for
-> the R-Car DU test suite (kms-test) which are available at:
-> https://git.sr.ht/~jmondi_/kms-test
->=20
-> The series validates the usage of the HW interface in the hope of re-star=
-ting
-> discussions and interests in the definition of CRTC color management
-> properties.
->=20
-> Thanks
->    j
->=20
-> Alex Hung (1):
->   drm: Add 3D LUT mode and its attributes
->=20
-> Jacopo Mondi (1):
->   drm: rcar-du: crtc: Enable 3D LUT
->=20
-> Kieran Bingham (2):
->   drm: rcar-du: cmm: Provide 3D-CLU support
->   drm: rcar-du: kms: Configure the CLU
->=20
-> Laurent Pinchart (1):
->   drm: rcar-du: cmm: Refactor LUT configuration
->=20
-> Melissa Wen (4):
->   drm/drm_color_mgmt: add shaper LUT to color mgmt properties
->   drm/drm_color_mgmt: add 3D LUT props to DRM color mgmt
->   drm/drm_color_mgmt: add function to create 3D LUT modes supported
->   drm/drm_color_mgmt: add function to attach 3D LUT props
->=20
->  drivers/gpu/drm/drm_atomic_state_helper.c |   7 ++
->  drivers/gpu/drm/drm_atomic_uapi.c         |  24 ++++
->  drivers/gpu/drm/drm_color_mgmt.c          | 113 +++++++++++++++++++
->  drivers/gpu/drm/drm_fb_helper.c           |   5 +
->  drivers/gpu/drm/drm_mode_config.c         |  21 ++++
->  drivers/gpu/drm/rcar-du/rcar_cmm.c        | 127 ++++++++++++++++------
->  drivers/gpu/drm/rcar-du/rcar_cmm.h        |  36 +++++-
->  drivers/gpu/drm/rcar-du/rcar_du_crtc.c    |  68 +++++++++---
->  include/drm/drm_color_mgmt.h              |   7 ++
->  include/drm/drm_crtc.h                    |  32 +++++-
->  include/drm/drm_mode_config.h             |  25 +++++
->  include/drm/drm_mode_object.h             |   2 +-
->  include/uapi/drm/drm_mode.h               |  17 +++
->  13 files changed, 428 insertions(+), 56 deletions(-)
->=20
-> --
-> 2.40.1
->=20
-
-
---Sig_/fhMLvl8VtR_L/+6Pe_vgAZ7
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSS0foACgkQI1/ltBGq
-qqfjKg//SqaRQZPhOcU1s7eAHUHUDW0xyDuO6myOzWM/ltjB3/wmU2Q268RDspXh
-rXqhgNAY5UnwqwxG0+O5sNB6gNV/ZZxE3Im+bRHnLTLkN1oigY/saElTSltgaali
-bklvi7vi4trRnd6+g5Jm+6ahtJEeyYXvwDCycM2s1h7lYYzL6SK64CmHohOjsNUK
-2TJQpk6bsCHIta6bF0Npyq/pYWzjFQZ2fb3HghXouwHXPwgKb3jxQ4p1zp99L6mx
-7cJ+IBq654Cuf6xlMAUsyPqZUyeSgNEcXs5/NI0Dw4FFaLxk3fdS8d60TjAT2Wlw
-lDWU1tQOJ9ir4WSh/uRGLIyg7gSYslCWEbeSxSh+ngv31lzyoVmUfd6TurNCuAHF
-xJZGqPLdfTE1xsasj9+o62BL/EaMzsD63NBk9Vvalp+Lq+xcEaYmnrwLEAxbuNPd
-CvKOMfKiYBGp6plbSfu7htOYRK4dm8wOpLtfmmwC1vqNZX23m6su8qlQAOOJFLSr
-gdj2o5HckXzQ0xPTV1LWgrcY1E8q4Ye7/WJKtO9D8bdEEIa6DyOgKSrbNh2UH47k
-GH+Cl0TmIkFDshve9/vEt/g+tJ0JUheYZs/8opa7MHX0gxp4nw0UwID3q5HPrwxf
-AvDA8tYO3d9XFYkjOa6bLEKzcAagLz9fTFzwCY10vACsiDs6M6A=
-=ZmE/
------END PGP SIGNATURE-----
-
---Sig_/fhMLvl8VtR_L/+6Pe_vgAZ7--
+--=20
+Best Regards,
+Mike Gavrilov.
