@@ -4,33 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AD74EB64DD
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:38:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B4E5C001B3
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:38:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D6FD10E4BE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75A8710E4BF;
 	Wed, 21 Jun 2023 15:38:48 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A148710E3F9;
- Wed, 21 Jun 2023 08:10:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E242F10E3FA;
+ Wed, 21 Jun 2023 08:10:51 +0000 (UTC)
 Received: from uno.lan (unknown [IPv6:2001:b07:5d2e:52c9:1cf0:b3bc:c785:4625])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id D77F510A;
- Wed, 21 Jun 2023 10:10:08 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 35052B2A;
+ Wed, 21 Jun 2023 10:10:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1687335010;
- bh=Hbr+RKqfhbJQ+nkVEm6ASUtLSzb4vRzDpeqBiTu74Uc=;
- h=From:To:Cc:Subject:Date:From;
- b=Ka47U7sYq8LTI/9eb8Yld6aGmYH+a8HD3wvnJXNKCpQi0PdaF53FmBP2lwSvkrEOt
- Xr3PSqCYvdCVdb4KR/6Atiq+4LI+2UXoa8UUs/q/+YPHR1slAymZV6Ix1Ud9jvlJyq
- sLZ06sNCZ5BAUnx0RIVHudF1lR26hRyL/MITQ+CM=
+ s=mail; t=1687335015;
+ bh=mVBu98iqneDFuXVf4ZnlC1ZWG8aMUrHiTZitFjzREr4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=CzqqvXbnP78XWfZ9tzVun2bQBVEAUO5wCvCqLGyhfWn6kleuYk6hAIYHIZJP8LKA/
+ OxgcWz0oB6GlIaAa1AZUH55zWH4572tvYeTU+U/kaLppDc3gQVZrXqnT5S49j5eom2
+ lV2LPMFOd+isPGszmxYR0U8g0hzvNDgAPQUV9hUY=
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Subject: [RFC 0/9] drm: rcar-du: cmm: Enable 3D LUT support
-Date: Wed, 21 Jun 2023 10:10:22 +0200
-Message-Id: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
+Subject: [RFC 3/9] drm/drm_color_mgmt: add 3D LUT props to DRM color mgmt
+Date: Wed, 21 Jun 2023 10:10:25 +0200
+Message-Id: <20230621081031.7876-4-jacopo.mondi@ideasonboard.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
+References: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 21 Jun 2023 15:38:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -61,72 +64,219 @@ Cc: Victoria Brekenfeld <victoria@system76.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello, this series is based on the RFC sent by Melssa Wen:
-"[RFC PATCH v2 00/18] Add DRM CRTC 3D LUT interface"
-https://lore.kernel.org/dri-devel/20230109143846.1966301-1-mwen@igalia.com/
-that introduces CRTC properties to control 3D LUT operations.
+From: Melissa Wen <mwen@igalia.com>
 
-The R-Car DU peripheral has a post-blending color management pipeline (CMM)
-composed by (in order of processing) a 3D LUT a 1D LUT and a Color conversion
-unit.
-
-The CMM driver already supported operating the 1D LUT, this series add support
-for the cubic LUT (named CLU).
-
-I've been made aware by Melissa and Pekka that the focus of upstream for
-color management properties is now on the definition of the "Plane color
-pipeline" properties
-https://lore.kernel.org/dri-devel/QMers3awXvNCQlyhWdTtsPwkp5ie9bze_hD5nAccFW7a_RXlWjYB7MoUW_8CKLT2bSQwIXVi5H6VULYIxCdgvryZoAoJnC5lZgyK1QWn488=@emersion.fr/
-
-Unfortunately the model there proposed doesn't match the R-Car DU hardware which
-has color management at the post-blending level and not per plane (I've cc-ed
-all the receivers of that series, just in case).
-
-The user-space interface has been validated with dedicated unit tests for
-the R-Car DU test suite (kms-test) which are available at:
-https://git.sr.ht/~jmondi_/kms-test
-
-The series validates the usage of the HW interface in the hope of re-starting
-discussions and interests in the definition of CRTC color management
-properties.
-
-Thanks
-   j
-
-Alex Hung (1):
-  drm: Add 3D LUT mode and its attributes
-
-Jacopo Mondi (1):
-  drm: rcar-du: crtc: Enable 3D LUT
-
-Kieran Bingham (2):
-  drm: rcar-du: cmm: Provide 3D-CLU support
-  drm: rcar-du: kms: Configure the CLU
-
-Laurent Pinchart (1):
-  drm: rcar-du: cmm: Refactor LUT configuration
-
-Melissa Wen (4):
-  drm/drm_color_mgmt: add shaper LUT to color mgmt properties
-  drm/drm_color_mgmt: add 3D LUT props to DRM color mgmt
-  drm/drm_color_mgmt: add function to create 3D LUT modes supported
-  drm/drm_color_mgmt: add function to attach 3D LUT props
-
- drivers/gpu/drm/drm_atomic_state_helper.c |   7 ++
- drivers/gpu/drm/drm_atomic_uapi.c         |  24 ++++
- drivers/gpu/drm/drm_color_mgmt.c          | 113 +++++++++++++++++++
- drivers/gpu/drm/drm_fb_helper.c           |   5 +
- drivers/gpu/drm/drm_mode_config.c         |  21 ++++
- drivers/gpu/drm/rcar-du/rcar_cmm.c        | 127 ++++++++++++++++------
- drivers/gpu/drm/rcar-du/rcar_cmm.h        |  36 +++++-
- drivers/gpu/drm/rcar-du/rcar_du_crtc.c    |  68 +++++++++---
- include/drm/drm_color_mgmt.h              |   7 ++
- include/drm/drm_crtc.h                    |  32 +++++-
- include/drm/drm_mode_config.h             |  25 +++++
- include/drm/drm_mode_object.h             |   2 +-
- include/uapi/drm/drm_mode.h               |  17 +++
- 13 files changed, 428 insertions(+), 56 deletions(-)
+Add 3D LUT for gammar correction using a 3D lookup table. The position
+in the color correction pipeline where 3D LUT is applied depends on hw
+design, being after CTM or gamma. If just after CTM, a shaper lut must
+be set to shape the content for a non-linear space. That details should
+be handled by the driver according to its color capabilities.
 
 --
+v3:
+- refactor CRTC 3D LUT API to use Alex Hung proposal for planes
+
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ drivers/gpu/drm/drm_atomic_state_helper.c |  3 +++
+ drivers/gpu/drm/drm_atomic_uapi.c         | 14 ++++++++++++++
+ drivers/gpu/drm/drm_color_mgmt.c          | 19 +++++++++++++++++++
+ drivers/gpu/drm/drm_fb_helper.c           |  2 ++
+ drivers/gpu/drm/drm_mode_config.c         |  7 +++++++
+ include/drm/drm_crtc.h                    | 20 +++++++++++++++++++-
+ include/drm/drm_mode_config.h             | 13 +++++++++++++
+ include/drm/drm_mode_object.h             |  2 +-
+ 8 files changed, 78 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index b75dcf2aa881..0d5ceb5c654c 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -143,6 +143,8 @@ void __drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc,
+ 		drm_property_blob_get(state->ctm);
+ 	if (state->shaper_lut)
+ 		drm_property_blob_get(state->shaper_lut);
++	if (state->lut3d)
++		drm_property_blob_get(state->lut3d);
+ 	if (state->gamma_lut)
+ 		drm_property_blob_get(state->gamma_lut);
+ 
+@@ -218,6 +220,7 @@ void __drm_atomic_helper_crtc_destroy_state(struct drm_crtc_state *state)
+ 	drm_property_blob_put(state->degamma_lut);
+ 	drm_property_blob_put(state->ctm);
+ 	drm_property_blob_put(state->shaper_lut);
++	drm_property_blob_put(state->lut3d);
+ 	drm_property_blob_put(state->gamma_lut);
+ }
+ EXPORT_SYMBOL(__drm_atomic_helper_crtc_destroy_state);
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index d006e4934ba2..1f02022e45b3 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -438,6 +438,16 @@ static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
+ 					&replaced);
+ 		state->color_mgmt_changed |= replaced;
+ 		return ret;
++	} else if (property == config->lut3d_property) {
++		ret = drm_atomic_replace_property_blob_from_id(dev,
++					&state->lut3d,
++					val,
++					-1, sizeof(struct drm_color_lut),
++					&replaced);
++		state->color_mgmt_changed |= replaced;
++		return ret;
++	} else if (property == config->lut3d_mode_property) {
++		state->lut3d_mode = val;
+ 	} else if (property == config->gamma_lut_property) {
+ 		ret = drm_atomic_replace_property_blob_from_id(dev,
+ 					&state->gamma_lut,
+@@ -491,6 +501,10 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
+ 		*val = (state->ctm) ? state->ctm->base.id : 0;
+ 	else if (property == config->shaper_lut_property)
+ 		*val = (state->shaper_lut) ? state->shaper_lut->base.id : 0;
++	else if (property == config->lut3d_property)
++		*val = (state->lut3d) ? state->lut3d->base.id : 0;
++	else if (property == config->lut3d_mode_property)
++		*val = state->lut3d_mode;
+ 	else if (property == config->gamma_lut_property)
+ 		*val = (state->gamma_lut) ? state->gamma_lut->base.id : 0;
+ 	else if (property == config->prop_out_fence_ptr)
+diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+index cf6a998b4298..f92633b3b67e 100644
+--- a/drivers/gpu/drm/drm_color_mgmt.c
++++ b/drivers/gpu/drm/drm_color_mgmt.c
+@@ -87,6 +87,25 @@
+  *	publish the largest size, and sub-sample smaller sized LUTs
+  *	appropriately.
+  *
++ * “LUT3D”:
++ *	Blob property to set the 3D LUT mapping pixel data after the color
++ *	transformation matrix and before gamma 1D lut correction. The
++ *	data is interpreted as an array of &struct drm_color_lut elements.
++ *	Hardware might choose not to use the full precision of the LUT
++ *	elements.
++ *
++ *	Setting this to NULL (blob property value set to 0) means a the output
++ *	color is identical to the input color. This is generally the driver
++ *	boot-up state too. Drivers can access this blob through
++ *	&drm_crtc_state.gamma_lut.
++ *
++ * “LUT3D_MODE”:
++ *	Enum property to give the mode of the 3D lookup table to be set on the
++ *	LUT3D property. A mode specifies size, stride, bit depth and color
++ *	format and depends on the underlying hardware). If drivers support
++ *	multiple 3D LUT modes, they should be declared in a array of
++ *	drm_color_lut3d_mode and they will be advertised as an enum.
++ *
+  * “GAMMA_LUT”:
+  *	Blob property to set the gamma lookup table (LUT) mapping pixel data
+  *	after the transformation matrix to data sent to the connector. The
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index a4ecb25fcfa0..fd76de50bb79 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -964,6 +964,8 @@ static int setcmap_atomic(struct fb_cmap *cmap, struct fb_info *info)
+ 		replaced |= drm_property_replace_blob(&crtc_state->ctm, NULL);
+ 		replaced |= drm_property_replace_blob(&crtc_state->shaper_lut,
+ 						      NULL);
++		replaced |= drm_property_replace_blob(&crtc_state->lut3d,
++						      NULL);
+ 		replaced |= drm_property_replace_blob(&crtc_state->gamma_lut,
+ 						      gamma_lut);
+ 
+diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+index e288bc4815ab..b82a7cb2a8f7 100644
+--- a/drivers/gpu/drm/drm_mode_config.c
++++ b/drivers/gpu/drm/drm_mode_config.c
+@@ -367,6 +367,13 @@ static int drm_mode_create_standard_properties(struct drm_device *dev)
+ 		return -ENOMEM;
+ 	dev->mode_config.shaper_lut_size_property = prop;
+ 
++	prop = drm_property_create(dev,
++			DRM_MODE_PROP_BLOB,
++			"LUT3D", 0);
++	if (!prop)
++		return -ENOMEM;
++	dev->mode_config.lut3d_property = prop;
++
+ 	prop = drm_property_create(dev,
+ 			DRM_MODE_PROP_BLOB,
+ 			"GAMMA_LUT", 0);
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index 7f289e0153aa..805a50c36a70 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -152,7 +152,7 @@ struct drm_crtc_state {
+ 	bool zpos_changed : 1;
+ 	/**
+ 	 * @color_mgmt_changed: Color management properties have changed
+-	 * (@shaper_lut, @gamma_lut, @degamma_lut or @ctm). Used by
++	 * (@shaper_lut, @lut3d, @gamma_lut, @degamma_lut or @ctm). Used by
+ 	 * the atomic helpers and drivers to steer the atomic commit control
+ 	 * flow.
+ 	 */
+@@ -289,6 +289,24 @@ struct drm_crtc_state {
+ 	 */
+ 	struct drm_property_blob *shaper_lut;
+ 
++	/**
++	 * @lut3d:
++	 *
++	 * 3D Lookup table for converting pixel data. Position where it takes
++	 * place depends on hw design, after @ctm or @gamma_lut. See
++	 * drm_crtc_enable_color_mgmt(). The blob (if not NULL) is an array of
++	 * &struct drm_color_lut.
++	 */
++	struct drm_property_blob *lut3d;
++
++	/**
++	 * @lut3d_mode:
++	 * This is a blob_id and exposes the platform capabilities wrt
++	 * various 3dlut. This also helps user select a 3dlut mode amongst
++	 * the supported ones.
++	 */
++	u32 lut3d_mode;
++
+ 	/**
+ 	 * @target_vblank:
+ 	 *
+diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+index 0ad06ec8abec..0baf6354f757 100644
+--- a/include/drm/drm_mode_config.h
++++ b/include/drm/drm_mode_config.h
+@@ -820,6 +820,19 @@ struct drm_mode_config {
+ 	 */
+ 	struct drm_property *shaper_lut_size_property;
+ 
++	/**
++	 * @lut3d_property: Optional CRTC property to set the 3D LUT used to
++	 * convert colors; before or after gamma conversion depends on hw
++	 * design. A shaper LUT can be used to delinearize content before apply
++	 * 3D LUT correction.
++	 */
++	struct drm_property *lut3d_property;
++	/**
++	 * @lut3d_mode_property: Optional CRTC property to describe 3D LUT modes
++	 * supported by the driver.
++	 */
++	struct drm_property *lut3d_mode_property;
++
+ 	/**
+ 	 * @gamma_lut_property: Optional CRTC property to set the LUT used to
+ 	 * convert the colors, after the CTM matrix, to the gamma space of the
+diff --git a/include/drm/drm_mode_object.h b/include/drm/drm_mode_object.h
+index 5e75b51936e6..d39ee21f26db 100644
+--- a/include/drm/drm_mode_object.h
++++ b/include/drm/drm_mode_object.h
+@@ -60,7 +60,7 @@ struct drm_mode_object {
+ 	void (*free_cb)(struct kref *kref);
+ };
+ 
+-#define DRM_OBJECT_MAX_PROPERTY 26
++#define DRM_OBJECT_MAX_PROPERTY 28
+ /**
+  * struct drm_object_properties - property tracking for &drm_mode_object
+  */
+-- 
 2.40.1
 
