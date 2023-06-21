@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 407ACEB64DD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4937EB64D7
 	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:39:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BAA410E4C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A150810E4C6;
 	Wed, 21 Jun 2023 15:38:50 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E95910E3FD;
- Wed, 21 Jun 2023 08:10:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06EA410E3FA;
+ Wed, 21 Jun 2023 08:10:49 +0000 (UTC)
 Received: from uno.lan (unknown [IPv6:2001:b07:5d2e:52c9:1cf0:b3bc:c785:4625])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id A3E502082;
- Wed, 21 Jun 2023 10:10:17 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id A5036556;
+ Wed, 21 Jun 2023 10:10:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1687335019;
- bh=UZmFwbOhP9tYgRdVpDLV8/qbaogykXpher6ddo7BN50=;
+ s=mail; t=1687335012;
+ bh=w1iXcw/V3spckvEgKXCmL4tvJ5rQs45envQm9GmietU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TMp+u+tFfHVuEq3zOkTl5uMgROVpzm6BTz0WEfLvBondHTH7pwuHvr+aM9ZnLwG1f
- EQvIDtDdvfu081bc4Ewzaw5zq6C5Vw0roRQXlpR3NdOULPAuRKjEI0BWY79rvWCwP6
- bxl6IFbNxw7lUyOLh2ihmNDqsRdK1nthOz+gMXmQ=
+ b=lijEoFGnxbBm9UH+qEciP0O20xYkPzvcOmQZI9V7xuKhb0TOaQ1cL5nBuq8pcIRAd
+ C6229VvyMxhIzx8qb5JiZiLKcVjaUHdpVoBrTO059t988qV8D8rufYJAURSi7+cpZR
+ MXOBMtk2mcUkk5OIOA6JtlhslxhviA/IHEIubY3Y=
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Subject: [RFC 5/9] drm/drm_color_mgmt: add function to attach 3D LUT props
-Date: Wed, 21 Jun 2023 10:10:27 +0200
-Message-Id: <20230621081031.7876-6-jacopo.mondi@ideasonboard.com>
+Subject: [RFC 1/9] drm: Add 3D LUT mode and its attributes
+Date: Wed, 21 Jun 2023 10:10:23 +0200
+Message-Id: <20230621081031.7876-2-jacopo.mondi@ideasonboard.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
 References: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
@@ -51,6 +51,7 @@ Cc: Victoria Brekenfeld <victoria@system76.com>,
  airlied@gmail.com, aleixpol@kde.org, Rodrigo.Siqueira@amd.com,
  amd-gfx@lists.freedesktop.org,
  wayland-devel <wayland-devel@lists.freedesktop.org>,
+ Alex Hung <alex.hung@amd.com>,
  =?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@redhat.com>,
  Uma Shankar <uma.shankar@intel.com>, harry.wentland@amd.com,
  tzimmermann@suse.de, sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com,
@@ -63,77 +64,48 @@ Cc: Victoria Brekenfeld <victoria@system76.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Melissa Wen <mwen@igalia.com>
+From: Alex Hung <alex.hung@amd.com>
 
-If the driver supports user 3D LUT then it calls a drm function to
-attach 3D LUT related properties according to HW caps.
+A struct is defined for 3D LUT modes to be supported by hardware.
+The elements includes lut_size, lut_stride, bit_depth, color_format
+and flags.
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+Note: A patchset "IGT tests for pre-blending 3D LUT interfaces" for this
+proposal is sent to IGT mailing list.
+
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/drm_color_mgmt.c | 35 ++++++++++++++++++++++++++++++++
- include/drm/drm_color_mgmt.h     |  3 +++
- 2 files changed, 38 insertions(+)
+ include/uapi/drm/drm_mode.h | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
-index 6ce48007cdd4..06503f693ecd 100644
---- a/drivers/gpu/drm/drm_color_mgmt.c
-+++ b/drivers/gpu/drm/drm_color_mgmt.c
-@@ -269,6 +269,41 @@ int drm_crtc_create_lut3d_mode_property(struct drm_crtc *crtc,
- }
- EXPORT_SYMBOL(drm_crtc_create_lut3d_mode_property);
+diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+index 43691058d28f..3b40694259c7 100644
+--- a/include/uapi/drm/drm_mode.h
++++ b/include/uapi/drm/drm_mode.h
+@@ -854,6 +854,23 @@ struct drm_color_lut {
+ 	__u16 reserved;
+ };
  
-+/**
-+ * drm_crtc_enable_lut3d - enable 3D LUT properties
-+ * @crtc: DRM CRTC
-+ * @shaper_lut_size: the size of shaper lut
-+ *
-+ * This function lets the driver enable the 3D LUT color correction property
-+ * on a CRTC. This includes 3D LUT and also a shaper LUT, if set. The shaper
-+ * LUT property is only attached if its size is not 0 and 3D LUT is set, being
-+ * therefore optional.
++/*
++ * struct drm_mode_lut3d_mode - 3D LUT mode information.
++ * @lut_size: number of valid points on every dimension of 3D LUT.
++ * @lut_stride: number of points on every dimension of 3D LUT.
++ * @bit_depth: number of bits of RGB. If color_mode defines entries with higher
++ *             bit_depth the least significant bits will be truncated.
++ * @color_format: fourcc values, ex. DRM_FORMAT_XRGB16161616 or DRM_FORMAT_XBGR16161616.
++ * @flags: flags for hardware-sepcific features
 + */
-+void drm_crtc_enable_lut3d(struct drm_crtc *crtc,
-+			   uint shaper_lut_size)
-+{
-+	struct drm_device *dev = crtc->dev;
-+	struct drm_mode_config *config = &dev->mode_config;
-+
-+	if (!config->lut3d_mode_property)
-+		return;
-+
-+	drm_object_attach_property(&crtc->base,
-+				   config->lut3d_property, 0);
-+	drm_object_attach_property(&crtc->base,
-+				   config->lut3d_mode_property, 0);
-+
-+	if (!shaper_lut_size)
-+		return;
-+
-+	drm_object_attach_property(&crtc->base,
-+				   config->shaper_lut_property, 0);
-+	drm_object_attach_property(&crtc->base,
-+				   config->shaper_lut_size_property,
-+				   shaper_lut_size);
-+}
-+EXPORT_SYMBOL(drm_crtc_enable_lut3d);
++struct drm_mode_lut3d_mode {
++	__u16 lut_size;
++	__u16 lut_stride[3];
++	__u16 bit_depth;
++	__u32 color_format;
++	__u32 flags;
++};
 +
  /**
-  * drm_mode_crtc_set_gamma_size - set the gamma table size
-  * @crtc: CRTC to set the gamma table size for
-diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
-index af9305925572..db2026dc825e 100644
---- a/include/drm/drm_color_mgmt.h
-+++ b/include/drm/drm_color_mgmt.h
-@@ -63,6 +63,9 @@ int drm_crtc_create_lut3d_mode_property(struct drm_crtc *crtc,
- 					const struct drm_mode_lut3d_mode modes[],
- 					unsigned int num_modes);
- 
-+void drm_crtc_enable_lut3d(struct drm_crtc *crtc,
-+			   uint shaper_lut_size);
-+
- int drm_mode_crtc_set_gamma_size(struct drm_crtc *crtc,
- 				 int gamma_size);
- 
+  * struct hdr_metadata_infoframe - HDR Metadata Infoframe Data.
+  *
 -- 
 2.40.1
 
