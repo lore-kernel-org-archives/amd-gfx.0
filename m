@@ -4,27 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17009C001B3
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:39:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20459EB64DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D23A310E4C8;
-	Wed, 21 Jun 2023 15:38:50 +0000 (UTC)
-Received: from mail.nfschina.com (unknown [42.101.60.195])
- by gabe.freedesktop.org (Postfix) with SMTP id 6BB2210E15E;
- Tue, 20 Jun 2023 08:55:56 +0000 (UTC)
-Received: from localhost.localdomain (unknown [180.167.10.98])
- by mail.nfschina.com (Maildata Gateway V2.8.8) with ESMTPA id 09F1760C12808;
- Tue, 20 Jun 2023 16:55:44 +0800 (CST)
-X-MD-Sfrom: suhui@nfschina.com
-X-MD-SrcIP: 180.167.10.98
-From: Su Hui <suhui@nfschina.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-Subject: [PATCH] =?UTF-8?q?drm/amd/amdgpu:=20Use=20=E2=80=9C=5F=5Fpacked?=
- =?UTF-8?q?=E2=80=9C=20instead=20of=20"pragma=20pack()"?=
-Date: Tue, 20 Jun 2023 16:55:43 +0800
-Message-Id: <20230620085543.576733-1-suhui@nfschina.com>
-X-Mailer: git-send-email 2.30.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CBEF10E4C9;
+	Wed, 21 Jun 2023 15:38:51 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A186310E400;
+ Wed, 21 Jun 2023 08:10:53 +0000 (UTC)
+Received: from uno.lan (unknown [IPv6:2001:b07:5d2e:52c9:1cf0:b3bc:c785:4625])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id E60DBD77;
+ Wed, 21 Jun 2023 10:10:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1687335017;
+ bh=Ap0cu7IR+Hff/WHhknNnXA/M5CqBHc7utucP7RaYZ5k=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=B5iSl4AJJdmDGvJ5vLqTJQzCgaE30efpe52Flv0DMVIpieUHthkpnYn3SRyP9Urn9
+ X3cNOxw+AB5GdNUtW0LZfRXYM53pUfrwzdeALTyRGglHzyPi6ifuTocGBXGi32IEnK
+ ZOh8gscMCA9Dq4B/X3+jeF+jJcs9dcMScGvn5Tks=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Subject: [RFC 4/9] drm/drm_color_mgmt: add function to create 3D LUT modes
+ supported
+Date: Wed, 21 Jun 2023 10:10:26 +0200
+Message-Id: <20230621081031.7876-5-jacopo.mondi@ideasonboard.com>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
+References: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -40,67 +48,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Su Hui <suhui@nfschina.com>, Jane.Jian@amd.com, David.Francis@amd.com,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Likun.Gao@amd.com, dan.carpenter@linaro.org
+Cc: Victoria Brekenfeld <victoria@system76.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>, mdaenzer@redhat.com,
+ airlied@gmail.com, aleixpol@kde.org, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org,
+ wayland-devel <wayland-devel@lists.freedesktop.org>,
+ =?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@redhat.com>,
+ Uma Shankar <uma.shankar@intel.com>, harry.wentland@amd.com,
+ tzimmermann@suse.de, sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com,
+ Sebastian Wick <sebastian.wick@redhat.com>, mripard@kernel.org,
+ Melissa Wen <mwen@igalia.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, Simon Ser <contact@emersion.fr>,
+ Xinhui.Pan@amd.com, xaver.hugl@gmail.com, linux-renesas-soc@vger.kernel.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-use "__packed" is clearer amd better than “pragma pack()”.
+From: Melissa Wen <mwen@igalia.com>
 
-Signed-off-by: Su Hui <suhui@nfschina.com>
+DRM color function to create modes for lut3d mode property from an array
+of drm_color_lut3d_mode modes supported by the HW and advertise to
+userspace. Userspace can get the description of a specific mode in the
+enum list from its blob data.
+
+Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
-As Dan Carpenter mentioned:
-'"Mark the associated types properly packed individually, rather than
-use the disgusting "pragma pack()" that should never be used."
-https://lore.kernel.org/linux-sparse/CAHk-=wi7jGZ+bVbt-UfXOkpEQdHzF3Z2HBjkGdjh8q4dvPPGWQ@mail.gmail.com/'
-use "__packed" is better.
-the previous wrong patch's address:
-https://lore.kernel.org/kernel-janitors/c12c4031-52fb-25a2-b411-e668eb9baaa2@tom.com/T/#t
- drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_color_mgmt.c | 43 +++++++++++++++++++++++++++++++-
+ include/drm/drm_color_mgmt.h     |  4 +++
+ 2 files changed, 46 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-index 24d42d24e6a0..025adc950026 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-@@ -83,8 +83,6 @@ enum amd_sriov_ucode_engine_id {
- 	AMD_SRIOV_UCODE_ID__MAX
- };
+diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+index f92633b3b67e..6ce48007cdd4 100644
+--- a/drivers/gpu/drm/drm_color_mgmt.c
++++ b/drivers/gpu/drm/drm_color_mgmt.c
+@@ -104,7 +104,7 @@
+  *	LUT3D property. A mode specifies size, stride, bit depth and color
+  *	format and depends on the underlying hardware). If drivers support
+  *	multiple 3D LUT modes, they should be declared in a array of
+- *	drm_color_lut3d_mode and they will be advertised as an enum.
++ *	drm_mode_lut3d_mode and they will be advertised as an enum.
+  *
+  * “GAMMA_LUT”:
+  *	Blob property to set the gamma lookup table (LUT) mapping pixel data
+@@ -228,6 +228,47 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+ }
+ EXPORT_SYMBOL(drm_crtc_enable_color_mgmt);
  
--#pragma pack(push, 1) // PF2VF / VF2PF data areas are byte packed
--
- union amd_sriov_msg_feature_flags {
- 	struct {
- 		uint32_t error_log_collect : 1;
-@@ -210,7 +208,7 @@ struct amd_sriov_msg_pf2vf_info {
- 	uint32_t pcie_atomic_ops_support_flags;
- 	/* reserved */
- 	uint32_t reserved[256 - AMD_SRIOV_MSG_PF2VF_INFO_FILLED_SIZE];
--};
-+} __packed;
++int drm_crtc_create_lut3d_mode_property(struct drm_crtc *crtc,
++					const struct drm_mode_lut3d_mode modes[],
++					unsigned int num_modes)
++{
++	struct drm_device *dev = crtc->dev;
++	struct drm_property_blob *blob;
++	struct drm_property *prop;
++	char *name;
++	int ret;
++
++	if (dev->mode_config.lut3d_mode_property)
++		return 0;
++
++	prop = drm_property_create(dev, DRM_MODE_PROP_ENUM, "LUT3D_MODE", num_modes);
++	if (!prop)
++		return -EINVAL;
++
++	for (int i = 0; i < num_modes; i++) {
++		blob = drm_property_create_blob(dev, sizeof(modes[i]), &modes[i]);
++		if (IS_ERR(blob))
++			return PTR_ERR(blob);
++
++		name = kasprintf(GFP_KERNEL, "lut3d_%d_%dbit",
++				 modes[i].lut_size, modes[i].bit_depth);
++		if (!name)
++			return -ENOMEM;
++
++		ret = drm_property_add_enum(prop, blob->base.id, name);
++		if (ret) {
++			drm_property_blob_put(blob);
++			kfree(name);
++			return ret;
++		}
++		kfree(name);
++	}
++	dev->mode_config.lut3d_mode_property = prop;
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_crtc_create_lut3d_mode_property);
++
+ /**
+  * drm_mode_crtc_set_gamma_size - set the gamma table size
+  * @crtc: CRTC to set the gamma table size for
+diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
+index 81c298488b0c..af9305925572 100644
+--- a/include/drm/drm_color_mgmt.h
++++ b/include/drm/drm_color_mgmt.h
+@@ -59,6 +59,10 @@ void drm_crtc_enable_color_mgmt(struct drm_crtc *crtc,
+ 				bool has_ctm,
+ 				uint gamma_lut_size);
  
- struct amd_sriov_msg_vf2pf_info_header {
- 	/* the total structure size in byte */
-@@ -263,7 +261,7 @@ struct amd_sriov_msg_vf2pf_info {
- 	struct {
- 		uint8_t id;
- 		uint32_t version;
--	} ucode_info[AMD_SRIOV_MSG_RESERVE_UCODE];
-+	} __packed ucode_info[AMD_SRIOV_MSG_RESERVE_UCODE];
- 	uint64_t dummy_page_addr;
++int drm_crtc_create_lut3d_mode_property(struct drm_crtc *crtc,
++					const struct drm_mode_lut3d_mode modes[],
++					unsigned int num_modes);
++
+ int drm_mode_crtc_set_gamma_size(struct drm_crtc *crtc,
+ 				 int gamma_size);
  
- 	/* reserved */
-@@ -301,8 +299,6 @@ enum amd_sriov_gpu_init_data_version {
- 	GPU_INIT_DATA_READY_V1 = 1,
- };
- 
--#pragma pack(pop) // Restore previous packing option
--
- /* checksum function between host and guest */
- unsigned int amd_sriov_msg_checksum(void *obj, unsigned long obj_size, unsigned int key,
- 				    unsigned int checksum);
 -- 
-2.30.2
+2.40.1
 
