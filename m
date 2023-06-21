@@ -4,61 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF036EB64D7
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:38:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64019EB64D8
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:38:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC7A910E4AD;
-	Wed, 21 Jun 2023 15:38:43 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1692410E27D
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jun 2023 07:38:07 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-3f901f87195so23626575e9.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jun 2023 00:38:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687246686; x=1689838686;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=f9ygZ7yIAEY2d9d/qVhI0amgeoXNE1mQXne5+wfl6TU=;
- b=o8C35uSrEvqAjtB8BTU84BGAVzv5V27RljnynJG/urSw8gln1nYPSK77wTX/DfGNnh
- ouStvQQoAm1BiMsdV+Pcw+zXRKqAij3IDmt8Q2HNlmCce+Vd2wN3J5Mi6IGHqE+xPtWg
- nOOYbZOkx0WbHbuQbSOwjaw2ahP6qphnFUnPhhoeXvR+6dadq1QF43DKO04T6+2dB6cQ
- k0mmoin7wISe+MjOaA9iwZzcYvE71fIewTAp7lygYvIGJrzta3el1COcgZBVi4pftR6T
- ESnilamv1CcDBMgF5FSmjL3cgZG3cWCLhWHtvKy9G86NjjJ0JURiXbkby373yfvzYOgm
- 7Fxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687246686; x=1689838686;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=f9ygZ7yIAEY2d9d/qVhI0amgeoXNE1mQXne5+wfl6TU=;
- b=KZ3l8cx2ZVtvkSwBTL5Q9r3sXzyOFcHJ3kq40KK8tPn31/c0Jl4WgHg4SKDVT+OQTL
- REfxkH4S2yYJmzOF4D4cdnh8OYxk6ZhqKAH+o3umoMtWoGNYYQKW+Jjo07VC0IafLt3v
- ZlNzHw80HBlTrOEaymWbLFFlUzjaTQo6FUpytB6PIgW0ETEDD1/ZZ2EGTVTPvOAjOyFd
- cLaYnwjR9qDc5xyClc9KnsUEoCkWADC9glaa06D7IhP4XI5UTdBvT4JvmHZcdBlv7Sjz
- T+DGb7f0mU0K1jZuyYHgDvfKwoiyb43In0NACA4hzG87fFg7S215rMdpUojJqfvQu6NH
- TZpA==
-X-Gm-Message-State: AC+VfDzlc3p2ZlQm39q9NeWRZ7prQ5h3Q8ZnF4ztJzhm0EzVubYCrjVx
- XaXiRJhyeUYjHXH2qn2wfg6aoA==
-X-Google-Smtp-Source: ACHHUZ5FuDhulJo8756eozh0KRopUTsJakAb65F/au8o6bfOt5vQhNQQ7DZNSJsOaDGBmSoV0WMa7w==
-X-Received: by 2002:adf:ef10:0:b0:311:ff2:87e4 with SMTP id
- e16-20020adfef10000000b003110ff287e4mr10664853wro.33.1687246686193; 
- Tue, 20 Jun 2023 00:38:06 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- s6-20020adfea86000000b0030ae3a6be5bsm1315337wrm.78.2023.06.20.00.38.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jun 2023 00:38:04 -0700 (PDT)
-Date: Tue, 20 Jun 2023 10:37:59 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Su Hui <suhui@nfschina.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Properly tune the size of struct
-Message-ID: <da6c860f-0ef0-44e4-8b58-0f4d55c1b8bd@kadam.mountain>
-References: <20230620045919.492128-1-suhui@nfschina.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 286E410E4AF;
+	Wed, 21 Jun 2023 15:38:44 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E91AC10E40C;
+ Wed, 21 Jun 2023 08:10:58 +0000 (UTC)
+Received: from uno.lan (unknown [IPv6:2001:b07:5d2e:52c9:1cf0:b3bc:c785:4625])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2B57F2CB5;
+ Wed, 21 Jun 2023 10:10:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1687335022;
+ bh=19iEz0s6orKITVIsjB+HX/6A98SJnMlLGSm1/CTMxLQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Vu29+XkHbShwg1aoUJDbac6MVvEhAdHXQlgW+L1Pv0CGr1ZNZbyFQQkH08x5Tpo+M
+ q/qsj9D+g62wwvlstzCOnvsEnhxa5gAY0M7hYEm1IhVPhScRGKYassVe5NS8+x9dhT
+ uLtNPCUGEE0aNfHR78SmAYNf+SKArZgrwGIdHuLM=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Subject: [RFC 7/9] drm: rcar-du: cmm: Provide 3D-CLU support
+Date: Wed, 21 Jun 2023 10:10:29 +0200
+Message-Id: <20230621081031.7876-8-jacopo.mondi@ideasonboard.com>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
+References: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230620045919.492128-1-suhui@nfschina.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 21 Jun 2023 15:38:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,38 +46,197 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jane.Jian@amd.com, Bokun.Zhang@amd.com, David.Francis@amd.com,
- Xinhui.Pan@amd.com, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
- airlied@gmail.com, monk.liu@amd.com
+Cc: Victoria Brekenfeld <victoria@system76.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>, mdaenzer@redhat.com,
+ airlied@gmail.com, aleixpol@kde.org,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
+ wayland-devel <wayland-devel@lists.freedesktop.org>,
+ =?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@redhat.com>,
+ Uma Shankar <uma.shankar@intel.com>, harry.wentland@amd.com,
+ tzimmermann@suse.de, sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com,
+ Sebastian Wick <sebastian.wick@redhat.com>, mripard@kernel.org,
+ Melissa Wen <mwen@igalia.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, Simon Ser <contact@emersion.fr>,
+ Xinhui.Pan@amd.com, xaver.hugl@gmail.com, linux-renesas-soc@vger.kernel.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 20, 2023 at 12:59:19PM +0800, Su Hui wrote:
-> Smatch error:
->     gpu/drm/amd/amdgpu/amdgv_sriovmsg.h:316:49: error:
->     static assertion failed: "amd_sriov_msg_pf2vf_info must be 1 KB"
->     static assertion failed: "amd_sriov_msg_vf2pf_info must be 1 KB"
-> 
+From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
 
-I doubt that moving the struct members around is safe.  This looks like
-it's in a very specific order.  So I don't think this patch is correct.
+The CMM module provides a three-dimensional cubic look up table that
+converts three-color-component data into desired three color components
+by use of a lookup table.
 
-The reason for this false positive this code uses a #pragma to pack the
-struct.
+While the 1D-LUT can only control each of three color components
+separately, the 3D-CLU can be used for specific color adjustment.
 
-#pragma pack(push, 1) // PF2VF / VF2PF data areas are byte packed
+Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Reviewed-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+---
+ drivers/gpu/drm/rcar-du/rcar_cmm.c | 71 +++++++++++++++++++++++++++++-
+ drivers/gpu/drm/rcar-du/rcar_cmm.h | 11 +++--
+ 2 files changed, 76 insertions(+), 6 deletions(-)
 
-Sparse does not support this and Smatch uses Sparse as a parser.  The
-main reason why Sparse doesn't support this pragma is because Linus
-thinks it's gross.  You probably didn't even see the #pragma did you?
-And anything you can't see is unreadable by definition.
+diff --git a/drivers/gpu/drm/rcar-du/rcar_cmm.c b/drivers/gpu/drm/rcar-du/rcar_cmm.c
+index df768a9afb72..defedfaf8f56 100644
+--- a/drivers/gpu/drm/rcar-du/rcar_cmm.c
++++ b/drivers/gpu/drm/rcar-du/rcar_cmm.c
+@@ -17,9 +17,18 @@
+ 
+ #define CM2_LUT_CTRL		0x0000
+ #define CM2_LUT_CTRL_LUT_EN	BIT(0)
++
++#define CM2_CLU_CTRL		0x0100
++#define CM2_CLU_CTRL_CLU_EN	BIT(0)
++#define CM2_CLU_CTRL_MVS	BIT(24)
++#define CM2_CLU_CTRL_AAI	BIT(28)
++
+ #define CM2_LUT_TBL_BASE	0x0600
+ #define CM2_LUT_TBL(__i)	(CM2_LUT_TBL_BASE + (__i) * 4)
+ 
++#define CM2_CLU_ADDR		0x0a00
++#define CM2_CLU_DATA		0x0a04
++
+ struct rcar_cmm {
+ 	void __iomem *base;
+ 
+@@ -30,6 +39,10 @@ struct rcar_cmm {
+ 	struct {
+ 		bool enabled;
+ 	} lut;
++
++	struct {
++		bool enabled;
++	} clu;
+ };
+ 
+ static inline int rcar_cmm_read(struct rcar_cmm *rcmm, u32 reg)
+@@ -72,13 +85,63 @@ static void rcar_cmm_lut_configure(struct rcar_cmm *rcmm,
+ 	}
+ }
+ 
++static void rcar_cmm_clu_program(struct rcar_cmm *rcmm,
++				 const struct drm_color_lut *table)
++{
++	unsigned int i;
++
++	/* Utilise CM2_CLU_CTRL_AAI (auto-increment). */
++	rcar_cmm_write(rcmm, CM2_CLU_ADDR, 0);
++
++	for (i = 0; i < CM2_CLU_SIZE; ++i) {
++		const struct drm_color_lut *lut = &table[i];
++
++		u32 entry = drm_color_lut_extract(lut->red, 8) << 16
++			  | drm_color_lut_extract(lut->green, 8) << 8
++			  | drm_color_lut_extract(lut->blue, 8);
++
++		rcar_cmm_write(rcmm, CM2_CLU_DATA, entry);
++	}
++}
++
++static void rcar_cmm_clu_configure(struct rcar_cmm *rcmm,
++				   const struct drm_color_lut *table)
++{
++	static const u32 clu_ctrl = CM2_CLU_CTRL_AAI | CM2_CLU_CTRL_MVS
++				  | CM2_CLU_CTRL_CLU_EN;
++	bool enable = !!table;
++
++	if (rcmm->clu.enabled != enable) {
++		/*
++		 * This is the first run of the CLU. We need to program
++		 * the CLU data before enabling the peripheral.
++		 */
++		if (enable) {
++			rcar_cmm_write(rcmm, CM2_CLU_CTRL, CM2_CLU_CTRL_AAI);
++			rcar_cmm_clu_program(rcmm, table);
++		}
++
++		rcar_cmm_write(rcmm, CM2_CLU_CTRL, enable ? clu_ctrl : 0);
++		rcmm->clu.enabled = enable;
++
++		return;
++	}
++
++	/*
++	 * CLU already enabled, but the 3D LUT has been updated; re-program
++	 * the data table with the new values.
++	 */
++	if (table)
++		rcar_cmm_clu_program(rcmm, table);
++}
++
+ /*
+  * rcar_cmm_setup() - Configure the CMM unit
+  * @pdev: The platform device associated with the CMM instance
+  * @config: The CMM unit configuration
+  *
+- * Configure the CMM unit with the given configuration. Currently enabling,
+- * disabling and programming of the 1-D LUT unit is supported.
++ * Configure the CMM unit with the given configuration, handling both the
++ * 1-D LUT and the 3-D CLU.
+  *
+  * As rcar_cmm_setup() accesses the CMM registers the unit should be powered
+  * and its functional clock enabled. To guarantee this, before any call to
+@@ -96,6 +159,9 @@ int rcar_cmm_setup(struct platform_device *pdev,
+ 	if (config->lut.update)
+ 		rcar_cmm_lut_configure(rcmm, config->lut.table);
+ 
++	if (config->clu.update)
++		rcar_cmm_clu_configure(rcmm, config->clu.table);
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(rcar_cmm_setup);
+@@ -140,6 +206,7 @@ void rcar_cmm_disable(struct platform_device *pdev)
+ 	struct rcar_cmm *rcmm = platform_get_drvdata(pdev);
+ 
+ 	rcar_cmm_lut_configure(rcmm, NULL);
++	rcar_cmm_clu_configure(rcmm, NULL);
+ 
+ 	pm_runtime_put(&pdev->dev);
+ }
+diff --git a/drivers/gpu/drm/rcar-du/rcar_cmm.h b/drivers/gpu/drm/rcar-du/rcar_cmm.h
+index 375a3b9c3db3..277b9e4d9cc4 100644
+--- a/drivers/gpu/drm/rcar-du/rcar_cmm.h
++++ b/drivers/gpu/drm/rcar-du/rcar_cmm.h
+@@ -9,14 +9,15 @@
+ #define __RCAR_CMM_H__
+ 
+ #define CM2_LUT_SIZE		256
++#define CM2_CLU_SIZE		(17 * 17 * 17)
+ 
+ struct drm_color_lut;
+ struct platform_device;
+ 
+ /**
+- * struct rcar_cmm_table_config - CMM LUT configuration
+- * @update: When true, update the LUT configuration.
+- * @table: Table data. The LUT is enabled if non-NULL, and disabled
++ * struct rcar_cmm_table_config - CMM LUT and CLU configuration
++ * @update: When true, update the LUT or CLU configuration.
++ * @table: Table data. The LUT or CLU is enabled if non-NULL, and disabled
+  *	otherwise. The value is ignored if @update is false.
+  */
+ struct rcar_cmm_table_config {
+@@ -26,10 +27,12 @@ struct rcar_cmm_table_config {
+ 
+ /**
+  * struct rcar_cmm_config - CMM configuration
+- * @lut: 1D-LUT configuration
++ * @lut: 1D LUT configuration
++ * @clu: 3D (cubic) LUT configuration
+  */
+ struct rcar_cmm_config {
+ 	struct rcar_cmm_table_config lut;
++	struct rcar_cmm_table_config clu;
+ };
+ 
+ #if IS_ENABLED(CONFIG_DRM_RCAR_CMM)
+-- 
+2.40.1
 
-"Mark the associated types properly packed individually, rather than
-use the disgusting "pragma pack()" that should never be used."
-
-https://lore.kernel.org/linux-sparse/CAHk-=wi7jGZ+bVbt-UfXOkpEQdHzF3Z2HBjkGdjh8q4dvPPGWQ@mail.gmail.com/
-
-regards,
-dan carpenter
