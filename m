@@ -4,120 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C364CEB64D7
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 16:23:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C3C6EB64DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 16:28:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F01110E31E;
-	Wed, 21 Jun 2023 16:23:23 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20625.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e83::625])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2BDB10E31B;
- Wed, 21 Jun 2023 16:23:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S+ow/TwN8XwpsWGVk4ZQ+dzozzq01gleJd9ZNfU7ewqHSIz5++GBaRgOWNramiCdQRkHrIrVCPjJ7k+ojrw2PVs3QS1N5IpkovtCJigfiurIecfKyw32zszvZ77RxDmL+WwiTRV5VMEtk3BuhFHrT/dE/glfV6Af8GN9ugO2gqK3mxtoUG/TfvAkZDilz5OXt62ljNwjOJbF1qo9+mjHc1dz7/Pc78h3je9KU2uw2sqRIsyOOU78HlE9XoTAjIgFT+FTv28nd4xXd9TI5dYW3+9o/1iImz7TSv7YWCF8V/ZZRxjObjGZczL0nfWSk1nenIrpyMmDCRYrx+qz6pkrGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K3a5xOi3G+vEGom6/mlC/alCWP8iJq4Ln7/GSF7VQHs=;
- b=NcGQsoc6sDXU/xWyncyHQwYNz8Yq1uoazCuuhwCffiD1oJzibJ1jE5hUPwfpv1LL1UCBbu9fMdZt8ymRduEaqxBbHOrGFxe8h8cXaaRnJaihZv4sqGW7k+2gWd3BklHA0B7Ew+5GLQ6ZLNNLXE3d/QHfLrAsufW9cWD7GZrf2F/rzuqIUkY+UA6GsGZoCeyspLwdzrSQhL1D/KT/4uV7mLXg0tbih208RbJvnlD1ll39PV1CGLfsupGU92PXalpiwL960ayfLc8UZrj/bAdtXnw6/zqvsM0Z0SnIGuQCeXysNk7E6yLm3OaR3xtVoAoCiUr8Z8lNJlAkca2gS1Tmqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K3a5xOi3G+vEGom6/mlC/alCWP8iJq4Ln7/GSF7VQHs=;
- b=ydtnyn6MPWptlxDCCVbWmxao018a4NHzQlp4JXLDtHFKAomhrCtCKqj24oKN2stuB9iJXw4/v6uxVHE0FRODWsIzzoa6YPjw6rW7qplFFz99Zabk9fiS8ymFgK0EgFwofK59qfFYOLTiEAfQrGdkhoU16tTvBnTYWt645or6g8k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by SJ2PR12MB9162.namprd12.prod.outlook.com (2603:10b6:a03:555::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.39; Wed, 21 Jun
- 2023 16:23:18 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::dfcf:f53c:c778:6f70]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::dfcf:f53c:c778:6f70%5]) with mapi id 15.20.6521.020; Wed, 21 Jun 2023
- 16:23:18 +0000
-Message-ID: <98c858e6-fb18-d50f-6eea-eddc63ba136f@amd.com>
-Date: Wed, 21 Jun 2023 11:23:13 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Subject: Re: [PATCH V4 1/8] drivers/acpi: Add support for Wifi band RF
- mitigations
-Content-Language: en-US
-To: Andrew Lunn <andrew@lunn.ch>, Johannes Berg <johannes@sipsolutions.net>
-References: <20230621054603.1262299-1-evan.quan@amd.com>
- <20230621054603.1262299-2-evan.quan@amd.com>
- <3a7c8ffa-de43-4795-ae76-5cd9b00c52b5@lunn.ch>
- <216f3c5aa1299100a0009ddf4e95b019855a32be.camel@sipsolutions.net>
- <d2dba04d-36bf-4d07-bf2b-dd06671c45c6@lunn.ch>
-From: "Limonciello, Mario" <mario.limonciello@amd.com>
-In-Reply-To: <d2dba04d-36bf-4d07-bf2b-dd06671c45c6@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7PR04CA0018.namprd04.prod.outlook.com
- (2603:10b6:806:f2::23) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9BAD10E121;
+	Wed, 21 Jun 2023 16:28:46 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E15A010E0CA;
+ Wed, 21 Jun 2023 16:28:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=twjQf8R86b3wIe7w+v/y0vrm9B6yITXlFsoZ7q0uaz0=; b=PilaYNCPRtDyNeptm+tMztdcUx
+ q524gSe07wN7rFu0YTNLX8UJ8SFdpcnU17kS6OjgoG+cqf/YpnU34HnNjeDNDFi6EZBkTb99EmhB9
+ yk63FT3P36aPWLz/5K29WR1CFzkgIQ+VENoj/w/JfAiam4gh/LpW8Ww52yutY7o+XatdSiJ0mjXui
+ LCEErASJ16DnnXsDuITj5qskFVwtwTedV7GGIKX3+03csOfEGMMO+XdZMEZBI05gk3PrhZSkJDSPx
+ Q487GTB4r8yHIX/NrdwDjnAe4U4pLzaQE4d7cbP1Xn4loRzal1RcpyixrWITwGuppfbqYvXnTE7UQ
+ V9M2A1+Q==;
+Received: from [179.113.218.86] (helo=[192.168.1.111])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1qC0hD-001NyD-Ft; Wed, 21 Jun 2023 18:28:39 +0200
+Message-ID: <26a4f7f3-33fa-c28e-dd71-e44e61ffa229@igalia.com>
+Date: Wed, 21 Jun 2023 13:28:34 -0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SJ2PR12MB9162:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1abf2f19-a929-4efe-deae-08db7273d2bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CtWJRCiaOVSNFWFeX4W0f2cSGNbTHgQUyzlMISbUYYMpS9iqfyrqyFLRi0yqVuELenI8qoxjAAX3pWgPVRNpGth9m7+M8QIUJ9Xtz0dugjEMme/xuoEXOr5vJnKv5KcsS9DsrOJsF3czCCgHD1YBdHBDhBbVyK0hTDYYd2KZKerEnkai74/2QPG8D5SNagdc2wMGQ/u7Jj52pPz7SuEwhTRfyrRIoh1pLkGnK7bUhJ00JgmOq/uN/zHo3nFTd6RKafstP2jGgAXvwYfrRDxUDUDxAusS8+G2J/MsvA1riCR9ztP3NDBn0wRHY0OR7nV+jsJKsOp9viW+Ez8BBZoOqmZ+OoIp6pFwhZQQiryl/RlzUmuI7tvMVYoXasYNN63z/16Gm42sy7vcrpIEikXSBhFePMCl9f6ofexV4mWERp7lolUiJQSU9JN5si5zfqClgYaqvhcon7k8WR7DtrGL0/WuagZO8RNpW578Rxo4q3mgomzp/gG7CGN/8jdX0bfwnZmmyFS2JEWlDjkApwmWPctLYCbeLSlcseHriNSkm1varl9GZGw8cYLh7jd67YwzLruZDh4Ijc5IHLRh4cuxVlhDzSEydjmr541W3SGBN73FC00/DDsrisHUl2/LFu9cS4GgjgNRzVRz5lByZmYx2w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(346002)(376002)(39860400002)(396003)(136003)(451199021)(6486002)(8676002)(8936002)(7416002)(83380400001)(6666004)(2616005)(5660300002)(66946007)(4326008)(66476007)(66556008)(478600001)(110136005)(316002)(36756003)(38100700002)(41300700001)(26005)(6506007)(31696002)(31686004)(186003)(6512007)(2906002)(86362001)(53546011)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NUxuZ1lpVm9rVWhxV2VDZGJxdnpYN0hnZ1N0L25CSlFTVHRmUFFBRUtTWmRW?=
- =?utf-8?B?Zld6OU9YOE9hYVY4RFFuRmU5UkZTSWZQWFhXdXlySkp2U0RZUmtZMVVLSWt5?=
- =?utf-8?B?UnJ4NG5CQVhCUTAzN2dINWJYbkY4OGk1K0RodG1rY2xoc2VLNHJZNDNYYzRt?=
- =?utf-8?B?M2pVY2U1WVlEbzI0YnYzZXBNNk5IcHNnTUV1ZXBKSkczU2h2MFBWcHN2Z2FO?=
- =?utf-8?B?SnlIYkFwUlB5dlhXdWg5NXZrM2pJSkR5TWt1SlNiVVNtYnRGaTBzSzNwTmFm?=
- =?utf-8?B?Ym0xZk82NldQOTRFbWlNRHBra1hEWTVOeWozeDJXbzdJQ3NOSmViaXJoc3JH?=
- =?utf-8?B?aDNFVWdncVF5dVB5eGxSeEV3RXRRMHhxUFFHQXh5akxtaURmazZzTnhRUHNr?=
- =?utf-8?B?RDk1QXRaZ291c09UejJDSkQyV1JXSXMvcVBPRDJ0N0dZQW9jSzdZdWQvYkpF?=
- =?utf-8?B?Uk5sNGxpdFJOdHY0cmZuYnNGN1IvUkJzNW56cS9oY0FxellkY3ZzMFRDZkpY?=
- =?utf-8?B?d2xlNGE0Z1hxQmNHMnd2RUZZQnV1QkpsQjYzaHRUR2o4RzQxem1ScVhNRjYv?=
- =?utf-8?B?cXMreGVjTGhiNEV0ZHZBTGthdSt6b1M3YmxiSjBIcVlMQVdoVzVQZTFqQlJ0?=
- =?utf-8?B?Q28rNXlIY2hEenRtTUluVFduSTNOOHBsVUF1VTNwYklwOTdDSnNuTlRJNUNi?=
- =?utf-8?B?c2VhTWlKUE8xN2xjbnRueGo0bTZscEVMQVJQM3VWbHg1WmtVY2JBcklxcDZz?=
- =?utf-8?B?cUtIS3NqMklmRHphSmpIQ09UM3p1MTk4Ty9HczRtQzJHYWJIRmJkTWgvb0xh?=
- =?utf-8?B?UTdIcDlWQmhTNk5OYTZNVjc4QWkzUm5BSGxyQU1uQ0JnYU13MURaVXpTaHhl?=
- =?utf-8?B?Sk9iTDNVVytKNnVoUjVVdzRjMWpHQzZPamRSZldWN2dUZ2pBQlBjT0ZtZ2Nz?=
- =?utf-8?B?dlJMelVrQ0VSUTVsQ3pyRE9sUlpMUE5mam1zTE9xdFN1aVA5M2FoR1FTQko2?=
- =?utf-8?B?aTh5QlVqbnBnV3ZpSnlMU3ZYRjFvNVIwdlA2NGlyM2xjYk0xblhjamZuZC9B?=
- =?utf-8?B?dm5FNVFIVE5rMm0ySzZoSXdYUFIxNE50VExEMGpyTXlnZFJHSFlaWk1mT0Mr?=
- =?utf-8?B?dkI2NmlnZWJIcUJLbDNIRmZqL1JUMk1MVUVUZnpvNUNJYTFDOFRDcytlcGV6?=
- =?utf-8?B?Z01mQk9PRTFvaW5HVURmM2ZHTjVsUUZwM2xvNGZJdEhzQUoxei9yV1g4UHlE?=
- =?utf-8?B?YnNNYytPaWY5azlrUHAxUi90WHU4dk9ob2VXa3duMU91bGxTY2NaYndmVGt5?=
- =?utf-8?B?aTZWVmVjRUFEYlAzbW5FSjFxRDBsOWRMcUpINmNIQVkxUjFWSXNzMHk1L0pQ?=
- =?utf-8?B?eC9wb0M1MWpQR0ZMNlhMN09uN251TXlHQXJUakdEWE1rZFhiYmZUN0VhN3Vk?=
- =?utf-8?B?eDdTSDZqN3pzUEprSFVZNk0vNUJ3bWZ3Y1dFN1lUZVMxaXBoeHIwdnNKNEh3?=
- =?utf-8?B?c1R2QU85eWtiUU9heFRZNHVKSE1rSGRuakgvL1lWcDVHZ2NUbkM5QzFqeWV6?=
- =?utf-8?B?ZnVFUzUvajU1TGk1L2FUc0tHTjdhUHpTYTROSjl3QXNNRnhocEcxM3lqODc3?=
- =?utf-8?B?MlRsdmkzaGpXVFVya0ZOU0lvWlJVYTJMcFVtMFpiNnRESlNjdjg5K0dQelp2?=
- =?utf-8?B?MFBJQ2pRQitGK3gxRFB6am05TnVPNnVzSXpadVEzNWR3R2tSNmtqTmJMdTc2?=
- =?utf-8?B?dTU5d3p6N0VtZmdxM2x6bjNDRzFteS9zckN6bGFMckVzemJmNXcybzdnU1V2?=
- =?utf-8?B?bFpCUlhXdFgyTnRtQ3ZyVkdwamV5UjU0VmFVWHhzd1d1ZU1NU0N5Z1QvMS8w?=
- =?utf-8?B?cE5CbDhIcjBiK1MvZXlmT0dpeWRZeVBaTzlqMWo3ZmVoRG83ZUI4WXZQNzlh?=
- =?utf-8?B?R3Y3eXVQMGMxUWpyVXJmcnBMeS9EWnJ2aUpack9CZng0MmtaU3lQUUN2U1NQ?=
- =?utf-8?B?K3BlVHFZeUtKanQ4TUZQUXQwR1hoa21LTXJuUUs4Z2g0ZVlDSys3Zy9vVzU0?=
- =?utf-8?B?TXNraEZrMFJCcXhuUWdibjJlb0I3VzdPZUhMbzMwVlVFVGpTNk9PTHV0ZEVV?=
- =?utf-8?Q?5Ldg+gyj2xxeXO1kuPKwK869A?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1abf2f19-a929-4efe-deae-08db7273d2bf
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2023 16:23:18.7235 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nLSJKGWkpJknsbN8tQRioPWmonVgCFP+Mckzn+0Z6/3PwdHPQy2HAa8oUiOxvrPar59F9hXvYPvrtuZDA7/MXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9162
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [RFC PATCH v3 1/4] drm/doc: Document DRM device reset expectations
+Content-Language: en-US
+To: Pekka Paalanen <ppaalanen@gmail.com>
+References: <20230621005719.836857-1-andrealmeid@igalia.com>
+ <20230621005719.836857-2-andrealmeid@igalia.com>
+ <20230621105842.0c21b161@eldfell>
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20230621105842.0c21b161@eldfell>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,66 +55,212 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jingyuwang_vip@163.com, bellosilicio@gmail.com, rafael@kernel.org,
- trix@redhat.com, lijo.lazar@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, mdaenzer@redhat.com, airlied@gmail.com,
- amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org, kuba@kernel.org,
- pabeni@redhat.com, lenb@kernel.org, andrealmeid@igalia.com, daniel@ffwll.ch,
- arnd@arndb.de, maarten.lankhorst@linux.intel.com, hdegoede@redhat.com,
- jsg@jsg.id.au, Evan Quan <evan.quan@amd.com>, jim.cromie@gmail.com,
- netdev@vger.kernel.org, Xinhui.Pan@amd.com, linux-wireless@vger.kernel.org,
- edumazet@google.com, christian.koenig@amd.com, tzimmermann@suse.de,
- alexander.deucher@amd.com, davem@davemloft.net
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>,
+ Simon Ser <contact@emersion.fr>,
+ =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ alexander.deucher@amd.com, Daniel Stone <daniel@fooishbar.org>,
+ Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Em 21/06/2023 04:58, Pekka Paalanen escreveu:
+> On Tue, 20 Jun 2023 21:57:16 -0300
+> André Almeida <andrealmeid@igalia.com> wrote:
+> 
+>> Create a section that specifies how to deal with DRM device resets for
+>> kernel and userspace drivers.
+>>
+>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+> 
+> Hi André,
+> 
+> nice to see this! I ended up giving lots of grammar comments, but I'm
+> not a native speaker. Generally it looks good to me.
 
-On 6/21/2023 11:14 AM, Andrew Lunn wrote:
->>> Do only ACPI based systems have:
->>>
->>>     interference of relatively high-powered harmonics of the (G-)DDR
->>>     memory clocks with local radio module frequency bands used by
->>>     Wifi 6/6e/7."
->>>
->>> Could Device Tree based systems not experience this problem?
->> They could, of course, but they'd need some other driver to change
->> _something_ in the system? I don't even know what this is doing
->> precisely under the hood in the ACPI BIOS
-> If you don't know what it is actually doing, it suggests the API is
-> not very well defined. Is there even enough details that ARM64 ACPI
-> BIOS could implement this?
-I think there is enough details for this to happen. It's done
-so that either the AML can natively behave as a consumer or a
-driver can behave as a consumer.
->>>> +/**
->>>> + * APIs needed by drivers/subsystems for contributing frequencies:
->>>> + * During probe, check `wbrf_supported_producer` to see if WBRF is supported.
->>>> + * If adding frequencies, then call `wbrf_add_exclusion` with the
->>>> + * start and end points specified for the frequency ranges added.
->>>> + * If removing frequencies, then call `wbrf_remove_exclusion` with
->>>> + * start and end points specified for the frequency ranges added.
->>>> + */
->>>> +bool wbrf_supported_producer(struct acpi_device *adev);
->>>> +int wbrf_add_exclusion(struct acpi_device *adev,
->>>> +		       struct wbrf_ranges_in *in);
->>>> +int wbrf_remove_exclusion(struct acpi_device *adev,
->>>> +			  struct wbrf_ranges_in *in);
->>> Could struct device be used here, to make the API agnostic to where
->>> the information is coming from? That would then allow somebody in the
->>> future to implement a device tree based information provider.
->> That does make sense, and it wouldn't even be that much harder if we
->> assume in a given platform there's only one provider
-> That seems like a very reasonable assumption. It is theoretically
-> possible to build an ACPI + DT hybrid, but i've never seen it actually
-> done.
->
-> If an ARM64 ACPI BIOS could implement this, then i would guess the low
-> level bits would be solved, i guess jumping into the EL1
-> firmware. Putting DT on top instead should not be too hard.
->
-> 	Andrew
+Thank you for your feedback :)
 
-To make life easier I'll ask whether we can include snippets of
-the matching ASL for this first implementation as part of the
-public ACPI spec that matches this code when we release it.
+> 
+>> ---
+>>   Documentation/gpu/drm-uapi.rst | 65 ++++++++++++++++++++++++++++++++++
+>>   1 file changed, 65 insertions(+)
+>>
+>> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+>> index 65fb3036a580..da4f8a694d8d 100644
+>> --- a/Documentation/gpu/drm-uapi.rst
+>> +++ b/Documentation/gpu/drm-uapi.rst
+>> @@ -285,6 +285,71 @@ for GPU1 and GPU2 from different vendors, and a third handler for
+>>   mmapped regular files. Threads cause additional pain with signal
+>>   handling as well.
+>>   
+>> +Device reset
+>> +============
+>> +
+>> +The GPU stack is really complex and is prone to errors, from hardware bugs,
+>> +faulty applications and everything in between the many layers. To recover
+>> +from this kind of state, sometimes is needed to reset the device. This section
+> 
+> It seems unclear what "this kind of state" refers to, so maybe just write "errors"?
+> 
+> Maybe:
+> 
+> 	Some errors require resetting the device in order to make the
+> 	device usable again.
+> 
+> I presume that recovery does not mean that the failed job could recover.
+> 
+>> +describes what's the expectations for DRM and usermode drivers when a device
+>> +resets and how to propagate the reset status.
+>> +
+>> +Kernel Mode Driver
+>> +------------------
+>> +
+>> +The KMD is responsible for checking if the device needs a reset, and to perform
+>> +it as needed. Usually a hung is detected when a job gets stuck executing. KMD
+> 
+> s/hung/hang/ ?
+> 
+>> +then update it's internal reset tracking to be ready when userspace asks the
+> 
+> updates its
+> 
+> "update reset tracking"... do you mean that KMD records information
+> about the reset in case userspace asks for it later?
 
+Yes, kernel drivers do annotate whenever a reset happens, so it can 
+report to userspace when it asks about resets.
+
+For instance, this is the amdgpu implementation of 
+AMDGPU_CTX_OP_QUERY_STATE2:
+
+https://elixir.bootlin.com/linux/v6.3.8/source/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c#L548 
+
+
+You can see there stored information about resets.
+
+> 
+>> +kernel about reset information. Drivers should implement the DRM_IOCTL_GET_RESET
+>> +for that.
+> 
+> At this point, I'm not sure what "reset tracking" or "reset
+> information" entails. Could something be said about those?
+>  >> +
+>> +User Mode Driver
+>> +----------------
+>> +
+>> +The UMD should check before submitting new commands to the KMD if the device has
+>> +been reset, and this can be checked more often if it requires to. The
+>> +DRM_IOCTL_GET_RESET is the default interface for those kind of checks. After
+>> +detecting a reset, UMD will then proceed to report it to the application using
+>> +the appropriated API error code, as explained in the bellow section about
+> 
+> s/bellow/below/
+> 
+>> +robustness.
+>> +
+>> +Robustness
+>> +----------
+>> +
+>> +The only way to try to keep an application working after a reset is if it
+>> +complies with the robustness aspects of the graphical API that is using.
+> 
+> that it is using.
+> 
+>> +
+>> +Graphical APIs provide ways to application to deal with device resets. However,
+> 
+> provide ways for applications to deal with
+> 
+>> +there's no guarantee that the app will be correctly using such features, and UMD
+>> +can implement policies to close the app if it's a repeating offender, likely in
+>> +a broken loop. This is done to ensure that it doesn't keeps blocking the user
+> 
+> does not keep
+> 
+> I think contractions are usually avoided in documents, but I'm not
+> bothering to flag them all.
+> 
+>> +interface to be correctly displayed.
+> 
+> interface from being correctly displayed.
+> 
+>> +
+>> +OpenGL
+>> +~~~~~~
+>> +
+>> +Apps using OpenGL can rely on ``GL_ARB_robustness`` to be robust. This extension
+>> +tells if a reset has happened, and if so, all the context state is considered
+>> +lost and the app proceeds by creating new ones. If robustness isn't in use, UMD
+>> +will terminate the app when a reset is detected, giving that the contexts are
+>> +lost and the app won't be able to figure this out and recreate the contexts.
+> 
+> What about GL ES? Is GL_ARB_robustness implemented or even defined there?
+> 
+
+I found this: 
+https://registry.khronos.org/OpenGL/extensions/EXT/EXT_robustness.txt
+
+"Since this is intended to be a version of ARB_robustness for OpenGL ES, 
+it should be named accordingly."
+
+I can add this to this paragraph.
+
+> What about EGL returning errors like EGL_CONTEXT_LOST, would handling that not
+> be enough from the app? The documented expectation is: "The application
+> must destroy all contexts and reinitialise OpenGL ES state and objects
+> to continue rendering."
+
+I couldn't find the spec for EGL_CONTEXT_LOST, but I found for 
+GL_CONTEXT_LOST, which I assume is similar.
+
+GL_CONTEXT_LOST is only returned in some specific commands (that might 
+cause a polling application to block indefinitely), so I don't think 
+it's enough, given that the we can't guarantee that the application will 
+call such commands after a reset, thus not being able to notice a reset.
+
+https://registry.khronos.org/OpenGL-Refpages/gl4/html/glGetGraphicsResetStatus.xhtml
+
+> 
+>> +
+>> +Vulkan
+>> +~~~~~~
+>> +
+>> +Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for submissions.
+>> +This error code means, among other things, that a device reset has happened and
+>> +it needs to recreate the contexts to keep going.
+>> +
+>> +Reporting resets causes
+>> +-----------------------
+>> +
+>> +Apart from propagating the reset through the stack so apps can recover, it's
+>> +really useful for driver developers to learn more about what caused the reset in
+>> +first place. DRM devices should make use of devcoredump to store relevant
+>> +information about the reset, so this information can be added to user bug
+>> +reports.
+>> +
+>>   .. _drm_driver_ioctl:
+>>   
+>>   IOCTL Support on Device Nodes
+> 
+> What about VRAM contents? If userspace holds a dmabuf handle, can a GPU
+> reset wipe that buffer? How would that be communicated?
+> 
+
+Yes, it can.
+
+> The dmabuf may have originated in another process.
+> 
+
+Indeed, I think we might need to add an error code for dmabuf calls so 
+the buffer user knows that it's invalid now because a reset has happened 
+in the other device. I will need to read more dmabuf code to make sure 
+how this would be possible.
+
+> 
+> Thanks,
+> pq
