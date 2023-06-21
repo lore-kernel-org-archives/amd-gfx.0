@@ -4,60 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F362C0015E
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:39:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 407ACEB64DD
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 15:39:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C9C310E4C3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BAA410E4C1;
 	Wed, 21 Jun 2023 15:38:50 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7170E10E2E1;
- Tue, 20 Jun 2023 13:47:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687268837; x=1718804837;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=tCBTG6EshP8yDnY64rQPzjgjv41iMK/kEF3IhZM1+uU=;
- b=ZNzlr91+dq5gDLDaErCqBvXB7AR6YfXM2s0pMaYcyBLYH1XQ4QvUUpUV
- yqCzv+Bt+HfA9v5cfZrq/drqyuuM378qlEURdrUKJumAHqqjoIS7MvHZY
- v2AmjARlQ2Wx72ELBkAoMzWwf6aqA/zWYLgmM8qjc1rOKl8chnNbOIzJY
- gBTVn1Ws8hvMhDJgwyKBzdbt2sr+Oiqa+MFkJ/Vphbmmn9NQq+IGJCs5z
- sH+wcNQBY+THRns//Lb8GcM9od36x3Hr+sk5PCokW6FoPMoxkBeoD6KAj
- DNvywmncn6o8hLpeYkB/F6V1no60l6KjidoqRyuv9pbz7QikEA6ri/lm7 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="362401444"
-X-IronPort-AV: E=Sophos;i="6.00,257,1681196400"; d="scan'208";a="362401444"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2023 06:47:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="827006800"
-X-IronPort-AV: E=Sophos;i="6.00,257,1681196400"; d="scan'208";a="827006800"
-Received: from eshaanan-mobl.ger.corp.intel.com (HELO
- ijarvine-mobl2.ger.corp.intel.com) ([10.252.61.137])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2023 06:47:09 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Rob Herring <robh@kernel.org>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Heiner Kallweit <hkallweit1@gmail.com>, Lukas Wunner <lukas@wunner.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Jammy Zhou <Jammy.Zhou@amd.com>,
- Ken Wang <Qingqing.Wang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 05/10] drm/amdgpu: Use RMW accessors for changing LNKCTL
-Date: Tue, 20 Jun 2023 16:46:19 +0300
-Message-Id: <20230620134624.99688-6-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230620134624.99688-1-ilpo.jarvinen@linux.intel.com>
-References: <20230620134624.99688-1-ilpo.jarvinen@linux.intel.com>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E95910E3FD;
+ Wed, 21 Jun 2023 08:10:55 +0000 (UTC)
+Received: from uno.lan (unknown [IPv6:2001:b07:5d2e:52c9:1cf0:b3bc:c785:4625])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id A3E502082;
+ Wed, 21 Jun 2023 10:10:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1687335019;
+ bh=UZmFwbOhP9tYgRdVpDLV8/qbaogykXpher6ddo7BN50=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=TMp+u+tFfHVuEq3zOkTl5uMgROVpzm6BTz0WEfLvBondHTH7pwuHvr+aM9ZnLwG1f
+ EQvIDtDdvfu081bc4Ewzaw5zq6C5Vw0roRQXlpR3NdOULPAuRKjEI0BWY79rvWCwP6
+ bxl6IFbNxw7lUyOLh2ihmNDqsRdK1nthOz+gMXmQ=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Subject: [RFC 5/9] drm/drm_color_mgmt: add function to attach 3D LUT props
+Date: Wed, 21 Jun 2023 10:10:27 +0200
+Message-Id: <20230621081031.7876-6-jacopo.mondi@ideasonboard.com>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
+References: <20230621081031.7876-1-jacopo.mondi@ideasonboard.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 21 Jun 2023 15:38:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,138 +46,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dean Luick <dean.luick@cornelisnetworks.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, stable@vger.kernel.org
+Cc: Victoria Brekenfeld <victoria@system76.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>, mdaenzer@redhat.com,
+ airlied@gmail.com, aleixpol@kde.org, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org,
+ wayland-devel <wayland-devel@lists.freedesktop.org>,
+ =?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@redhat.com>,
+ Uma Shankar <uma.shankar@intel.com>, harry.wentland@amd.com,
+ tzimmermann@suse.de, sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com,
+ Sebastian Wick <sebastian.wick@redhat.com>, mripard@kernel.org,
+ Melissa Wen <mwen@igalia.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, Simon Ser <contact@emersion.fr>,
+ Xinhui.Pan@amd.com, xaver.hugl@gmail.com, linux-renesas-soc@vger.kernel.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Don't assume that only the driver would be accessing LNKCTL. ASPM
-policy changes can trigger write to LNKCTL outside of driver's control.
-And in the case of upstream bridge, the driver does not even own the
-device it's changing the registers for.
+From: Melissa Wen <mwen@igalia.com>
 
-Use RMW capability accessors which do proper locking to avoid losing
-concurrent updates to the register value.
+If the driver supports user 3D LUT then it calls a drm function to
+attach 3D LUT related properties according to HW caps.
 
-Fixes: a2e73f56fa62 ("drm/amdgpu: Add support for CIK parts")
-Fixes: 62a37553414a ("drm/amdgpu: add si implementation v10")
-Suggested-by: Lukas Wunner <lukas@wunner.de>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: stable@vger.kernel.org
+Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/cik.c | 36 +++++++++-----------------------
- drivers/gpu/drm/amd/amdgpu/si.c  | 36 +++++++++-----------------------
- 2 files changed, 20 insertions(+), 52 deletions(-)
+ drivers/gpu/drm/drm_color_mgmt.c | 35 ++++++++++++++++++++++++++++++++
+ include/drm/drm_color_mgmt.h     |  3 +++
+ 2 files changed, 38 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-index de6d10390ab2..9be6da37032a 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-@@ -1574,17 +1574,8 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
- 			u16 bridge_cfg2, gpu_cfg2;
- 			u32 max_lw, current_lw, tmp;
+diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+index 6ce48007cdd4..06503f693ecd 100644
+--- a/drivers/gpu/drm/drm_color_mgmt.c
++++ b/drivers/gpu/drm/drm_color_mgmt.c
+@@ -269,6 +269,41 @@ int drm_crtc_create_lut3d_mode_property(struct drm_crtc *crtc,
+ }
+ EXPORT_SYMBOL(drm_crtc_create_lut3d_mode_property);
  
--			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--						  &bridge_cfg);
--			pcie_capability_read_word(adev->pdev, PCI_EXP_LNKCTL,
--						  &gpu_cfg);
--
--			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
--
--			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(adev->pdev, PCI_EXP_LNKCTL,
--						   tmp16);
-+			pcie_capability_set_word(root, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
-+			pcie_capability_set_word(adev->pdev, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
++/**
++ * drm_crtc_enable_lut3d - enable 3D LUT properties
++ * @crtc: DRM CRTC
++ * @shaper_lut_size: the size of shaper lut
++ *
++ * This function lets the driver enable the 3D LUT color correction property
++ * on a CRTC. This includes 3D LUT and also a shaper LUT, if set. The shaper
++ * LUT property is only attached if its size is not 0 and 3D LUT is set, being
++ * therefore optional.
++ */
++void drm_crtc_enable_lut3d(struct drm_crtc *crtc,
++			   uint shaper_lut_size)
++{
++	struct drm_device *dev = crtc->dev;
++	struct drm_mode_config *config = &dev->mode_config;
++
++	if (!config->lut3d_mode_property)
++		return;
++
++	drm_object_attach_property(&crtc->base,
++				   config->lut3d_property, 0);
++	drm_object_attach_property(&crtc->base,
++				   config->lut3d_mode_property, 0);
++
++	if (!shaper_lut_size)
++		return;
++
++	drm_object_attach_property(&crtc->base,
++				   config->shaper_lut_property, 0);
++	drm_object_attach_property(&crtc->base,
++				   config->shaper_lut_size_property,
++				   shaper_lut_size);
++}
++EXPORT_SYMBOL(drm_crtc_enable_lut3d);
++
+ /**
+  * drm_mode_crtc_set_gamma_size - set the gamma table size
+  * @crtc: CRTC to set the gamma table size for
+diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
+index af9305925572..db2026dc825e 100644
+--- a/include/drm/drm_color_mgmt.h
++++ b/include/drm/drm_color_mgmt.h
+@@ -63,6 +63,9 @@ int drm_crtc_create_lut3d_mode_property(struct drm_crtc *crtc,
+ 					const struct drm_mode_lut3d_mode modes[],
+ 					unsigned int num_modes);
  
- 			tmp = RREG32_PCIE(ixPCIE_LC_STATUS1);
- 			max_lw = (tmp & PCIE_LC_STATUS1__LC_DETECTED_LINK_WIDTH_MASK) >>
-@@ -1637,21 +1628,14 @@ static void cik_pcie_gen3_enable(struct amdgpu_device *adev)
- 				msleep(100);
++void drm_crtc_enable_lut3d(struct drm_crtc *crtc,
++			   uint shaper_lut_size);
++
+ int drm_mode_crtc_set_gamma_size(struct drm_crtc *crtc,
+ 				 int gamma_size);
  
- 				/* linkctl */
--				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(root, PCI_EXP_LNKCTL,
--							   tmp16);
--
--				pcie_capability_read_word(adev->pdev,
--							  PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(adev->pdev,
--							   PCI_EXP_LNKCTL,
--							   tmp16);
-+				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   bridge_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
-+				pcie_capability_clear_and_set_word(adev->pdev, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   gpu_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
- 
- 				/* linkctl2 */
- 				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 7f99e130acd0..fd34c2100bd9 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -2276,17 +2276,8 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
- 			u16 bridge_cfg2, gpu_cfg2;
- 			u32 max_lw, current_lw, tmp;
- 
--			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--						  &bridge_cfg);
--			pcie_capability_read_word(adev->pdev, PCI_EXP_LNKCTL,
--						  &gpu_cfg);
--
--			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
--
--			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(adev->pdev, PCI_EXP_LNKCTL,
--						   tmp16);
-+			pcie_capability_set_word(root, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
-+			pcie_capability_set_word(adev->pdev, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
- 
- 			tmp = RREG32_PCIE(PCIE_LC_STATUS1);
- 			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
-@@ -2331,21 +2322,14 @@ static void si_pcie_gen3_enable(struct amdgpu_device *adev)
- 
- 				mdelay(100);
- 
--				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(root, PCI_EXP_LNKCTL,
--							   tmp16);
--
--				pcie_capability_read_word(adev->pdev,
--							  PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(adev->pdev,
--							   PCI_EXP_LNKCTL,
--							   tmp16);
-+				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   bridge_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
-+				pcie_capability_clear_and_set_word(adev->pdev, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   gpu_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
- 
- 				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
- 							  &tmp16);
 -- 
-2.30.2
+2.40.1
 
