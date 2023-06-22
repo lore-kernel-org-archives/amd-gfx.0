@@ -4,90 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 439EDEB64D8
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 09:39:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56A00EB64D8
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 10:00:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD83310E51D;
-	Thu, 22 Jun 2023 09:39:03 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2054.outbound.protection.outlook.com [40.107.94.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6CF910E51D
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 09:39:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C96C110E508;
+	Thu, 22 Jun 2023 10:00:04 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061.outbound.protection.outlook.com [40.107.93.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C6EE10E508;
+ Thu, 22 Jun 2023 10:00:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fSQ+ZMLOUiL3I+EDQfl+jJFvCYbYp6U1W5mLLJYs8OA8CCiZ6GlT4vws3xsHyvpchel4nfr0ZbFrQYejpPfNP1fcvRQV2kWIZuCdET70iFIRViJofnv0Dgrz+/jmzx7i6/yEnmpsM6NUeXfPuZCElNxGyzOv/oFkSgNzh+Kf1duG4LuPHHiV4k+8RI783D/tvVi+tlTQl9OyTqBoa3OegYvP2aQXlhMAmfWwD/5XAgaKnvib8h26zRpVoQHMjepU4D5F4xDjciCaAry+XdsZfnMadLkcDRzDaJQzbuTtmaLCt8eDVD7E05ghhmIai9Jvh7q+o8fAMU0sQ687TryMsg==
+ b=K1Afzg0uJNcs27IJaYSxPMAm3ECDUTWCYHt3g9ubkPuL2dJ78lMIrJIA5ajS4854MovPqbSSTMqtqIO2uHI4JuHGluUvoUIIlrCRCd0YMmOebf14nGOcMovrMaXIogTh0eLKPx0ycVKkV0OQjrsVQze7ruoLKsmibReOnfoVA3ZTx5gBt8ihZ0xNJfTYCi+rgQmtKFn1YSA+5MgHluyw1zhvPwC7vskkxNDqfWtUhmNTfsF4VH4m2ha3CqtWydsfsKZpkIQwhYaEGc8EYBtJxXoOtEyzOCxLq11JB0C1LQewgod1SePfGZGqH4Ek/LywWZwBeoJoOxeVFgYjXxRFSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UDfbKj6HbGZdBeDy7xqd5126AuW6i0RrZ2pivKs2CkI=;
- b=NIV0l3LLV2VJCItrhAgnhDa932oEunavw85QdP+srfconyoK9Yf/tRJekuEBxp5fwn7uDXKZK2SfIA9KhaZpR3IqC70GOVmQCwknXoN2LqbLKCxT8tx4V5Zx4k43SsbGksRkmtr3yrT2bd8KAWu0PwUpl7wLEMpD4OJECLTydOeT4+cqt0fSR8brTHTuDnVpuBDqgs2DQkgrYFQzgdSPG0JkguVCC9s97AJhgNTPgH75+JkSaz8ehyB8oD4905l4kHyBNy0SKyACHyWYG/VcS/omgmFyJjZy4zdUkpIcUvaV6J1ciq6ESFYGwAURPT2e2pDD7tEkLoPa0HxWru8ViQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=C1R5DOUVShpjIRnaTmmSb1HP3397S5/R4q8T3ZmIZc4=;
+ b=h8cwFa+WmH09y+lYMv4SrYBOZ8lqVh19j7Xbq75r1+uLW4aHNlCUCK4JTY+f4EJqWn3whelcq3lh4OqKwfpMZ7q6XxGvCLYbXiWpELH7hnWhZvREpCg3nvZI3l25pFQUtKw3wiV8mpZHU9V7w3SDO2TtdkStNd3csZBCIM3XbSmZOlrU1m76MCRWYHp+x8NNY6WS/NiRqaJ5ZVf9+Ag444V/XSg4xPfNRVPJSArci7/YyeDdByUvxL0ReLQmm0/PirUvliai17dXSIRuCeZHdrbZl5yH/OpwMq+HgXzvZ9WNs6ZzFkcXPEaAXl1odNzfJneqXD5AF/2+65BD+JNL+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UDfbKj6HbGZdBeDy7xqd5126AuW6i0RrZ2pivKs2CkI=;
- b=s1dtaKFFHY7+z0WazsLkevpcFS3whOmd6KgTGEtZyOfkbPST7BIDvoFB40iU1xHXnJtp1QGfpQwwgrVtfs1tZSKxVtS8Jns9z3sv25UqodpHozfOSfCtMeiRA+N2c8jyngjajhwf3d+mrCiFhFH+Qt0RYTeZsYke5camtcWBKOI=
-Received: from SA1P222CA0170.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c3::26)
- by PH7PR12MB6633.namprd12.prod.outlook.com (2603:10b6:510:1ff::20)
+ bh=C1R5DOUVShpjIRnaTmmSb1HP3397S5/R4q8T3ZmIZc4=;
+ b=czKpVm/yqhv4UZhEVM12VxPO2tNFRzsGu+GutRGohBzAM51jzJoWjyFwHz8F18a+lzdPI20uNQDk2h8By5t/0tnPvzcxbmpdkS5cAlcX9Hi7FC73SDHjAbsvH8azL/Mofabet8NC4W1hjFuCPglaX8/NkirO18I8eedrYMXLs0c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by PH8PR12MB7352.namprd12.prod.outlook.com (2603:10b6:510:214::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Thu, 22 Jun
- 2023 09:38:59 +0000
-Received: from SA2PEPF00001507.namprd04.prod.outlook.com
- (2603:10b6:806:3c3:cafe::f8) by SA1P222CA0170.outlook.office365.com
- (2603:10b6:806:3c3::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24 via Frontend
- Transport; Thu, 22 Jun 2023 09:38:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00001507.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6521.17 via Frontend Transport; Thu, 22 Jun 2023 09:38:59 +0000
-Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 22 Jun
- 2023 04:38:57 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Rodrigo Siqueira
- <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH] drm/amd/display: Remove redundant braces in
- 'amdgpu_dm_crtc_notify_ta_to_read()'
-Date: Thu, 22 Jun 2023 15:08:44 +0530
-Message-ID: <20230622093844.1088508-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Thu, 22 Jun
+ 2023 09:59:58 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::384a:95a4:8819:ee84]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::384a:95a4:8819:ee84%7]) with mapi id 15.20.6521.024; Thu, 22 Jun 2023
+ 09:59:57 +0000
+Message-ID: <97886df5-05bd-e28e-7cc3-1c46b460e557@amd.com>
+Date: Thu, 22 Jun 2023 11:59:51 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [RFC PATCH v3 2/4] drm: Create DRM_IOCTL_GET_RESET
+Content-Language: en-US
+To: Pekka Paalanen <ppaalanen@gmail.com>,
+ =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+References: <20230621005719.836857-1-andrealmeid@igalia.com>
+ <20230621005719.836857-3-andrealmeid@igalia.com>
+ <20230621110931.6f3c8914@eldfell>
+ <ab9ebe98-f583-234d-4901-ae570fb89d9f@igalia.com>
+ <20230622112241.70d4e941@eldfell>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230622112241.70d4e941@eldfell>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR0P281CA0242.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:af::12) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00001507:EE_|PH7PR12MB6633:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57daa6e5-5dc9-43e7-ebd0-08db73048190
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH8PR12MB7352:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb98be7c-7d4e-497b-557e-08db73076f70
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2RrqbwSZLVSjmnS8EYpG+6cfvQLZ9bTBVKdSPmFA4qjRsU1pOvaxEFNWiUt5Wobl9kEgRjdooci0F3zvavyx/L1Xo1PFtB2Wse/n+mbMguSo9PD2b31hz8/CYtMcysQiHNl6PtcgjN3rmEdt1FwOfDDQMnz96Y8h+N8CIsev69sdJ7ITrCOq6wfSafKZ58vUXw/403xsYxNvFFso+j1b7UOUai3ScqIx8iK1KAg8ZKvsm8Al4k/jmWggE6EOt6Mu1acHMufsIzQdcEaHlsqou0mXSjaDSU2joc1O+da9D1aMA19ah8EcQDzFAGUKBF1v8md7DLQXESaxyBiMITHYMtzwXHH8xjl5bcswQBCcrWjAEf+68U9UTZVsf5bbGPc0hIcpFqQXqsxdkg7m4wUsgJEed5bfiDMNdnqIo9E4hFGw/2cv8Y9RCuWvDnazQ4mMQa/ogH3aAgomj2Nz5k1YTmAQbdTVV955Tg9fUPU9ygRbuIz+zDusZb8vdq10fbfvQMgm6fX70ZPiafqHvpo+qe6/zNaijrz4G23DYgv2tYUcz4FRfBi4XEMBiTdjpIqhNBmTkLps5QQLkUN50I74J+fe95M6KMEQzjW3Lw29ymoZ1G8xrgOP9sXGLr0HWFREKNVUv6+/SKb9f7DkJBBi3AXzBYI7Zd+4RosJTt+cathzSPZrwFVTjNYRXCkdzRPG2bwrcz/9PgkLxYEfbLBvtfEy/rQjXItWIAkBQMcwCx+uivWSE2qg6YPNfAFepjonMOs/ExNZ60GkAkqWTq7KGw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(376002)(396003)(136003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(26005)(2906002)(8936002)(8676002)(86362001)(44832011)(70206006)(316002)(6636002)(4326008)(70586007)(478600001)(41300700001)(54906003)(110136005)(5660300002)(82740400003)(82310400005)(83380400001)(6666004)(7696005)(36860700001)(47076005)(336012)(426003)(2616005)(40460700003)(186003)(81166007)(356005)(1076003)(16526019)(36756003)(40480700001)(36900700001);
+X-Microsoft-Antispam-Message-Info: yQ4UPeaf5D7HnRK0feXysJjgrOLQQjQhBit0OkSUeLVEILnwaEfE8WXTuswYL10Md65UH7XpCBzKwUJJQ+dSWXWgZS0vh9dZrDjcjIjCVyjgs8Ug8Yk01IxksbaMQ5Xac5C5UMrnuOGfjgKPqdtyiX8hrJsdq290ghRT3g8BlifK//v+J1Cb7XkqUJwuR+kHrc1B97Y1+rsfBXM0wDo+5T90vQ/qGC377ApfR9CeWv/PABNJ16iY4FB7vQeXiOqsjbmmgzN7e2pFDCqXSSgXP7o52DPxr15HX6+bugJOl/qEfgOFfB5smdKn+hY+iaEIcc2ddGAQZ1zT2Z/2b7oudplNI2Fyk/w/aGy1C66hUDsCvzNH001GJHRcLrqtZZa/4OPqptaM5FEEqJS6Ou+du5vfq8GIIFX6YUp/enGbxRtXQFENUz2kUfcIS3QeqWJrpfv461bx1a35l1FgWM7s2kqwao87uDRd67dQjjYKrIS9TMgE8ZPHqr9RUOuWmIfEL2Al9v81bA/AWGuBFpu6QOJzrcF+kxcg5SpgS8yH98oAN+CR5YBtppYFVU6s2tJPKxohBBeT4lQa39KqqXSE1OTqxbNzMSx+E2IUFZOneecVP7KRS+EK3WtMu5sMxizyhI0XB5jANOpfce4w8tHkOQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(39860400002)(376002)(346002)(366004)(136003)(451199021)(316002)(83380400001)(41300700001)(7416002)(5660300002)(2906002)(8936002)(8676002)(36756003)(38100700002)(6506007)(6512007)(6666004)(186003)(6486002)(31686004)(66476007)(4326008)(66556008)(66946007)(478600001)(31696002)(110136005)(54906003)(86362001)(2616005)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YWFCb0VXdGFscktaSER4Q0w3SDYyb1JJa01oZ1RObTJOUlhlY0hpWGw2TDNm?=
+ =?utf-8?B?eEtOMFI2eUVIeDc3QlRyYWtRU2F0V24rS2FVeitpRWxIOWt5SUViaTNsZDVB?=
+ =?utf-8?B?aWkrMUJ4bUNNRE5OaEJ1bXJqM09tQklXWTkyYkNXR1JSWG1YTWlqRWF1UVZ4?=
+ =?utf-8?B?SFhHNnd3dm5vbHd6WlZuZU43OTY0eGhxcTZ5VlJZUTI5eTU4NkRHbVQrY3RJ?=
+ =?utf-8?B?U0J2bytHWHprWTZRYm5VRDB6TDUwYk83SG9pclczNXVCK1FOb1R2NG9oc0Rn?=
+ =?utf-8?B?RXBlWUVwc2FodEwxTSs1WGNWREk4ZzNRdSs1TGhDUHhEd0g0VXdMMytJd2E3?=
+ =?utf-8?B?RzFjSDdKL08yN08vRVRKNjc3czBTS01MdDUwVnpkYm1aQlREcVI0N1pMM1J1?=
+ =?utf-8?B?NnhTWlBkN1NGSUdiMXFMT2luTTNRM1lPTHVSSzlkdVY0THptTDZyak40N1JU?=
+ =?utf-8?B?RkRPUkFQWEZDTnVsUVBjczNBOGVkb2JVL0xibU55RXdIS3FrQVdaUlhtNXds?=
+ =?utf-8?B?U0VLNVVRdk81ZW5zZkprT25GTU5OZzhqZWRCWnVOa0JWSVpjRHFkb2VJbVM3?=
+ =?utf-8?B?QUFBdmQ0REc5MGsvbk9FMnJVV3pqTnNuNEtMYnhwU1VCZEZnOU9hSC9lNUhv?=
+ =?utf-8?B?TXZQR2JBbGlTbDNBanQzMEk3S3F5TlJSYytWZnYwUmpYakNpVGV1NEIrUEsw?=
+ =?utf-8?B?QkJub0ZNdFVjSngya0JUZFJsLzRHUFBGUExGeEJGQU93RlFEYVFPVkhoMWRX?=
+ =?utf-8?B?YnRDTUFiOFBNZUIrWC9OZUZ5R05GdWlwdTg4VmkxbGVQc2VmN0VHSWlCdmV2?=
+ =?utf-8?B?eWlxM0lmMEFsVmU2MFh2R1VTSjlsMFNXYU00eVNnUEJ6cVRjUXFSbEF2V2xT?=
+ =?utf-8?B?WWx4eEI3K2xMWEloY2xXcklXaUtKVFZXZmsyYWgwcjZHb1lhRkhBMHk1WjJx?=
+ =?utf-8?B?bEtMS3FFQ29JUllERyswSFZYUmY4ZnlqbXpGOVpoK3cyd1VrenpERFhOTktH?=
+ =?utf-8?B?V2dUV1FUc2ZMOFdheHFjaHJ1WUV6cVkvUGp1MDNkem4xQ0Y5QVphN1d4YVlz?=
+ =?utf-8?B?RENVSkpxWlRtVVowcEdZWVRvUEFFZWU1eE9EaGVxSlVPcUp5eWx1d1hSRUhG?=
+ =?utf-8?B?ZUxIU1g0VDVyVVpJMEtGSHdxYzhJUWF2SVBGY3l4SXBTajJzd0dPNVlwZmg4?=
+ =?utf-8?B?OGdsMzlDWVcyUkllYWR1WDVFQWZlY2xib1hZWVN1bnFia1NkVExCKzk3dDJO?=
+ =?utf-8?B?ekVZNVBhelRDTCtFT3ZZQmp0SUljbUtXTCtuRUFEL2k2TUpWSlZYVW5pc0Ux?=
+ =?utf-8?B?M0xOTmVoSlB3dUZVQ1dvK1RLU0EzWDV1d1ZLRHNEa2hOQXVidmw2MEE3RjRR?=
+ =?utf-8?B?Qm8ydHY5KzJsYWR1ZUFzQUcyRGhVUUR0NkY3V0RGZ3RmUHhwYWc5RTMydTVP?=
+ =?utf-8?B?aGp3V0htcXRhY25yOEZaV3FFM01jMzdtV1FXc3o5ckNLenJWSFN4M3NVaC9P?=
+ =?utf-8?B?WkpzaHhGUWZ6WmhRTXBTTGNvdFhZWWpaQTIwUHBvL2lLVVZRek1SZTRzZWRm?=
+ =?utf-8?B?eU9TbFZMNy9aU29YMTRIWTdBTlFwd3FoSU80L1FNbGVkdGwrbzFVODFPVzR2?=
+ =?utf-8?B?bGtPS3JVSGZodXVWUXBBSWZGWFpZbzNrRnlESGxBc09waWw0czhtUStEWEZB?=
+ =?utf-8?B?MXV5RUl3eC8wY3BWWGxxTWhObDRCYjhBMkpNYnlnSkF0Rkw4SFcwZWJBUGNm?=
+ =?utf-8?B?VnU2QVNyNUs5S3hndmJLaU16em91dHlDOFgwSkhYdDAvMFBVcW50NnNoVWJl?=
+ =?utf-8?B?TnA3bkg1ZGYzVjlZMFFHc3J2M29aamhVdzhwYXFmRmZybU85R0thQUxUZGVX?=
+ =?utf-8?B?Y0VIVVErWGs0MU56eURoSzFGOXhHalA5WTc0ZU4rUzk2M2I2QmNOaS9hbVZi?=
+ =?utf-8?B?SEZXL2hFOVJkR2U2dmh6SEVVcTF5dCtFS2Jlbm1wWTd1ZGc1b1NOejExcUN2?=
+ =?utf-8?B?emZWcHdVc2ZpTmJXTmoxcTFFOHNXUGg2RXhCaWZ2Zk8zU3RxdGlXZUxqRmxk?=
+ =?utf-8?B?UnpoWnZweWdWWGJHRzN6SFE1U1ozV01QWG5NbjJLeEpONnNNamNJWE5wTGY5?=
+ =?utf-8?B?dzJwNDRyc0FoeHd0b2NsbkFjbkRSVm9WcDhaYy9ZTUYySzFFa2FQNFY1ODFB?=
+ =?utf-8?Q?oLNjzu5kv3D1CRX3u6ZFU1aSDrBzgPLB8uBJuarPuCwr?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 09:38:59.3097 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57daa6e5-5dc9-43e7-ebd0-08db73048190
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb98be7c-7d4e-497b-557e-08db73076f70
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 09:59:57.6740 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001507.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6633
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ig5tjSC5Ph8ORZV0Q5wgqPdcKxJhPYIq8fG4CXEdvYDpXzFbeesQa0x/2WKtH/6Q
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7352
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,50 +129,145 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>,
+ Simon Ser <contact@emersion.fr>,
+ =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ alexander.deucher@amd.com, Daniel Stone <daniel@fooishbar.org>,
+ Dave Airlie <airlied@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Adhere to Linux kernel coding style.
+Am 22.06.23 um 10:22 schrieb Pekka Paalanen:
+> On Wed, 21 Jun 2023 13:33:56 -0300
+> André Almeida <andrealmeid@igalia.com> wrote:
+>
+>> Em 21/06/2023 05:09, Pekka Paalanen escreveu:
+>>> On Tue, 20 Jun 2023 21:57:17 -0300
+>>> André Almeida <andrealmeid@igalia.com> wrote:
+>>>    
+>>>> Create a new DRM ioctl operation to get the numbers of resets for a
+>>>> given context. The numbers reflect just the resets that happened after
+>>>> the context was created, and not since the machine was booted.
+>>>>
+>>>> Create a debugfs interface to make easier to test the API without real
+>>>> resets.
+>>>>
+>>>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+>>>> ---
+>>>>    drivers/gpu/drm/drm_debugfs.c |  2 ++
+>>>>    drivers/gpu/drm/drm_ioctl.c   | 58 +++++++++++++++++++++++++++++++++++
+>>>>    include/drm/drm_device.h      |  3 ++
+>>>>    include/drm/drm_drv.h         |  3 ++
+>>>>    include/uapi/drm/drm.h        | 21 +++++++++++++
+>>>>    include/uapi/drm/drm_mode.h   | 15 +++++++++
+>>>>    6 files changed, 102 insertions(+)
+>>> ...
+>>>    
+>>>> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+>>>> index a87bbbbca2d4..a84559aa0d77 100644
+>>>> --- a/include/uapi/drm/drm.h
+>>>> +++ b/include/uapi/drm/drm.h
+>>>> @@ -1169,6 +1169,27 @@ extern "C" {
+>>>>     */
+>>>>    #define DRM_IOCTL_MODE_GETFB2		DRM_IOWR(0xCE, struct drm_mode_fb_cmd2)
+>>>>    
+>>>> +/**
+>>>> + * DRM_IOCTL_GET_RESET - Get information about device resets
+>>>> + *
+>>>> + * This operation requests from the device information about resets. It should
+>>>> + * consider only resets that happens after the context is created, therefore,
+>>>> + * the counter should be zero during context creation.
+>>>> + *
+>>>> + * dev_reset_count tells how many resets have happened on this device, and
+>>>> + * ctx_reset_count tells how many of such resets were caused by this context.
+>>>> + *
+>>>> + * Flags can be used to tell if a reset is in progress, and userspace should
+>>>> + * wait until it's not in progress anymore to be able to create a new context;
+>>>> + * and to tell if the VRAM is considered lost. There's no safe way to clean this
+>>>> + * flag so if a context see this flag set, it should be like that until the end
+>>>> + * of the context.
+>>> Is "this flag" the VRAM_LOST? Or any flag?
+>>>
+>>> Does this mean that not all resets are fatal to the context? Is there
+>>> any kind of reset that should not be fatal to a context? All the
+>>> rendering APIs seem to assume that any reset is fatal and the context
+>>> must be destroyed.
+>> I got this flag from the `AMDGPU_CTX_OP_QUERY_STATE2` operation, and
+>> it's used to notify that the reset was fatal for a giving context,
+>> although the idea of non-fatal resets seems to be a bit controversial
+>> for now, so I think it will be better if I leave this flag for latter
+>> improvements of the API.
+> Which flag is "this flag"? There are RESET_IN_PROGRESS and VRAM_LOST.
+> Both are fine by me to exist.
+>
+> I think I made a wrong conclusion here. Somehow I read that it would be
+> possible to have a reset happen, and if VRAM is not lost, then the
+> context could work again.
 
-Reported by checkpatch:
+Yeah, that's exactly what AMD tries to do.
 
-WARNING: braces {} are not necessary for single statement blocks
+And no, I'm absolutely not keen about that idea.
 
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Regards,
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-index 0802f8e8fac5..52ecfa746b54 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-@@ -123,9 +123,8 @@ static void amdgpu_dm_crtc_notify_ta_to_read(struct work_struct *work)
- 	secure_display_ctx = container_of(work, struct secure_display_context, notify_ta_work);
- 	crtc = secure_display_ctx->crtc;
- 
--	if (!crtc) {
-+	if (!crtc)
- 		return;
--	}
- 
- 	psp = &drm_to_adev(crtc->dev)->psp;
- 
-@@ -151,9 +150,8 @@ static void amdgpu_dm_crtc_notify_ta_to_read(struct work_struct *work)
- 	ret = psp_securedisplay_invoke(psp, TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC);
- 
- 	if (!ret) {
--		if (securedisplay_cmd->status != TA_SECUREDISPLAY_STATUS__SUCCESS) {
-+		if (securedisplay_cmd->status != TA_SECUREDISPLAY_STATUS__SUCCESS)
- 			psp_securedisplay_parse_resp_status(psp, securedisplay_cmd->status);
--		}
- 	}
- 
- 	mutex_unlock(&psp->securedisplay_context.mutex);
--- 
-2.25.1
+> Should there be some wording added to say the context is permanently
+> broken on any kind of reset? Or is that for UMD to decide?
+>
+>
+> Thanks,
+> pq
+>
+>>>    
+>>>> + */
+>>>> +#define DRM_IOCTL_GET_RESET		DRM_IOWR(0xCF, struct drm_get_reset)
+>>>> +
+>>>> +#define DRM_RESET_IN_PROGRESS	0x1
+>>>> +#define DRM_RESET_VRAM_LOST	0x2
+>>> Ok, so the dmabuf lost is being communicated here, but how would a
+>>> userspace process know on which device a dmabuf resides on?
+>>>
+>>> Let's assume process A uses device 1 to draw, exports a dmabuf, sends
+>>> it to process B which imports it to device 2. Device 1 resets and loses
+>>> VRAM contents. How would process B notice that the dmabuf is lost when
+>>> it never touches device 1 itself?
+>>>    
+>>>> +
+>>>>    /*
+>>>>     * Device specific ioctls should only be in their respective headers
+>>>>     * The device specific ioctl range is from 0x40 to 0x9f.
+>>>> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+>>>> index 43691058d28f..c3257bd1af9c 100644
+>>>> --- a/include/uapi/drm/drm_mode.h
+>>>> +++ b/include/uapi/drm/drm_mode.h
+>>>> @@ -1308,6 +1308,21 @@ struct drm_mode_rect {
+>>>>    	__s32 y2;
+>>>>    };
+>>>>    
+>>>> +/**
+>>>> + * struct drm_get_reset - Get information about a DRM device resets
+>>>> + * @ctx_id: the context id to be queried about resets
+>>>> + * @flags: flags
+>>>> + * @dev_reset_count: global counter of resets for a given DRM device
+>>>> + * @ctx_reset_count: of all the resets counted by this device, how many were
+>>>> + * caused by this context.
+>>>> + */
+>>>> +struct drm_get_reset {
+>>>> +	__u32 ctx_id;
+>>>> +	__u32 flags;
+>>>> +	__u64 dev_reset_count;
+>>>> +	__u64 ctx_reset_count;
+>>>> +};
+>>>> +
+>>>>    #if defined(__cplusplus)
+>>>>    }
+>>>>    #endif
+>>> Thanks,
+>>> pq
 
