@@ -4,64 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EF7BEB64D8
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 08:22:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 882D2EB64DA
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 08:58:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71BA710E045;
-	Thu, 22 Jun 2023 08:22:50 +0000 (UTC)
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F92C10E035;
- Thu, 22 Jun 2023 08:22:48 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-4f883420152so4515056e87.1; 
- Thu, 22 Jun 2023 01:22:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1687422166; x=1690014166;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=BWWJ5mCxzvhA8c7lR6uzF03qO4Q/gDSBdD/wAoQDu+M=;
- b=ZyojS6QuKSA9auGsWYdMWEIInsnFyIkfmjq7lItpRW2jr7DB/XsKJz1OQc0HZnkKiM
- P4kJDhmk44VGx7oQcbA/cUAZBAz2Dtxo6FxacklhVaAby0fVC7CcnxOFQ0pljkRDIC4+
- XG/aRXEcRSlLFgzGkj1MIVv/qspRsgt/gtEpko4eh90jluAYXvYCq2ILnr84hWFSdKeM
- h/BaqsRa0NtVN+MmQceprrfdYVHJ84qO5NsQJyiw3bTgmq8imFLdsuNPDQNsY/bgi6T0
- IooCuF/4J1gDsk3vS+J7qRCZG190twazhntsDZimK77cBgH2XOdXooLhgZbnJoq8hkXB
- O9YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687422166; x=1690014166;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BWWJ5mCxzvhA8c7lR6uzF03qO4Q/gDSBdD/wAoQDu+M=;
- b=KKqfQg7viF9uonOZf4VlBWqYi0wmvBnwMe59Sw5QFwAHmhsTcR6iXL6Rh8A6N0qzrG
- Wiqla1kYUqzsBwmG1CPRZYiPs8hX/NmIbZIum2s41X43CHdNzSLnMP5AwWh8viMvn0D8
- tg2jCR3baOTzoRdjx2vpBkbWTgnh7Rxiu0XEApMR31AVMctJUbJl0/2KHAXYIFn11FI+
- mZrcSGCwFvLU4BbwJ4v86qo5zhdofJcZzEmC+j8rgYGkUnqF5awcDBqP+kBxdcllX3tW
- OYkKXiK9jahtpEE35LqHPy/YgCj7mcs6Ggmir1hqRhYemOlNt8hRn/6fVPq2mFe8hkoX
- 2+IQ==
-X-Gm-Message-State: AC+VfDyRgljwr8BndCgPO5Ek6L41JKC+9pCMrULySL/d+7IRu4vS3JDF
- aXvHjz8TWiZxTDJuu4JQgUc=
-X-Google-Smtp-Source: ACHHUZ5ya1+M2t9pTmTqq6kEPZRAEwdayD44K8Z/vmH3Om2/imVNHB9gCNOq+qUgP6JiUoiVTnx7Tw==
-X-Received: by 2002:a19:6d0e:0:b0:4f6:520d:6b9b with SMTP id
- i14-20020a196d0e000000b004f6520d6b9bmr9103054lfc.60.1687422165682; 
- Thu, 22 Jun 2023 01:22:45 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- k11-20020ac2456b000000b004f6150e0899sm1011093lfm.290.2023.06.22.01.22.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 01:22:45 -0700 (PDT)
-Date: Thu, 22 Jun 2023 11:22:41 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Subject: Re: [RFC PATCH v3 2/4] drm: Create DRM_IOCTL_GET_RESET
-Message-ID: <20230622112241.70d4e941@eldfell>
-In-Reply-To: <ab9ebe98-f583-234d-4901-ae570fb89d9f@igalia.com>
-References: <20230621005719.836857-1-andrealmeid@igalia.com>
- <20230621005719.836857-3-andrealmeid@igalia.com>
- <20230621110931.6f3c8914@eldfell>
- <ab9ebe98-f583-234d-4901-ae570fb89d9f@igalia.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E37F010E14C;
+	Thu, 22 Jun 2023 08:58:36 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2043.outbound.protection.outlook.com [40.107.243.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 421A610E14C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:58:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V0yd+No1jUSXNAm3kUsfDcshyWJ/t4cCOx+g4Pmq1xZUqFTU+rgNIJ8UvNwQR0lh51ofXg2yZkoPrPcShALKVhMt3jDmK3SLEbOmqyxePxCPXNxl0dVpPbYpCx5dS5649V7TmPVaUM7la+sLJGR1UoYBRABooOUWvm10J+Z4Q7mM+2vOk4DZ5fjZk4ev7b3e9PIogTW5xeE2l7ikRDcWupjwkKXs2pZoD40EG13ywcgboaiHQ5Ojehg+xp7ctNvq7nFoMwOfShpMT5Hsakyv/kYJS0Yf5hsBHEmFAIne2umwiUFG+/3ticxAEqgQIGVXIyw1m/9OIxYZplJfHu1X5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZoAlAfu3fIPy+NcLSRulmXUtNkW8ux5l/q4ASzj5qgY=;
+ b=DhfnY7XqKDl3Z7H0OFUU90NaW+n6ZWZlPf7KHDejlJhoTXLWLKbe0Y7mzhKOgkVb+tQX9ImeB0Z4/NcLnKvX3gVCE0I6inYKmr38/Fhc27WrEX6YZm/8GsVPpO+Hn0nn3Y6xIxHH2p+3st7MHJc+6j+VCKeT+QVzI4aqoGmn1LMMvrylzwE/0Arklr9xKMfnjtKGdwoy/9WpB+wO4cZLTQocDf+5tpAkwvzzzxaJ6Hf3OARyE71KHFjtsTDc0GYZCsrqCnRFUl/zuw3+YFC5LNvKaSKTO+Na64qR3rdy0GYuEb8As4vd++JyeYKe7zuEyTO7gM7k42nbw7HVTh8ckA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZoAlAfu3fIPy+NcLSRulmXUtNkW8ux5l/q4ASzj5qgY=;
+ b=hlWSnjiRxqOBbWtBwJ5HFL4r5dKuBKrHgrhHqjFyrBTlinZC2UPO4gNo+AXZDouPOvPkzNBSPTEqUh7eY1kyz5qjrY9eSI+Do0ZSxqQkCdZHeFZIu0qDXJFxuf4+eNyRHk+ZWJ5QqlHDrrUjG4Y47gjJ4qdDeUTyoM3bhIRGszc=
+Received: from BN0PR04CA0066.namprd04.prod.outlook.com (2603:10b6:408:ea::11)
+ by CH0PR12MB8577.namprd12.prod.outlook.com (2603:10b6:610:18b::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.21; Thu, 22 Jun
+ 2023 08:58:32 +0000
+Received: from BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ea:cafe::d7) by BN0PR04CA0066.outlook.office365.com
+ (2603:10b6:408:ea::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24 via Frontend
+ Transport; Thu, 22 Jun 2023 08:58:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT088.mail.protection.outlook.com (10.13.177.81) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.41 via Frontend Transport; Thu, 22 Jun 2023 08:58:32 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 22 Jun
+ 2023 03:58:29 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Rodrigo Siqueira
+ <Rodrigo.Siqueira@amd.com>
+Subject: [PATCH] drm/amd/display: Use seq_puts() in
+ 'amdgpu_current_colorspace_show()' & 'edp_ilr_show()'
+Date: Thu, 22 Jun 2023 14:28:16 +0530
+Message-ID: <20230622085816.1087357-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/3jFCMXZINee0lyRZG4tx5pz";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT088:EE_|CH0PR12MB8577:EE_
+X-MS-Office365-Filtering-Correlation-Id: ec614712-b34a-45b5-6b07-08db72fedad9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: upCWQHOYM5IKE8D9tXQI5kpEOB+QzLTs0ALZrrH9TYyylKhTM82o6mUJjEmMY27V5cu7LVp9RiIWCpwONl+Y6lQz7SGs8UTgXMmOBbbyujbvdOm9c7iyNXoGH/+IzlSDyXLYRsDsSOOGOqT+/xAzLDZOeIPtmY/zYseg0QVSScglp513XwH+/raNDpukXy4f55HHefihva8asLLzfs0LuaTK6tL3e8Jma1Qa+7PDojBqEF6BptV9x+pg8anxee5N/rdD1CjZHFNxr1SpR0wimZ6zsrGAX7WtnJ13hntZKjGdv2zzOH6LCGZhgsgvu0RpqVWC4mwuYsJmuHs9Lfo/qiOmCQEQcHwYzgPMIouE1qrXka3dfA/0u2OFjFnd3nY4v2mTSTVgtpKsdIfvJuLZ1r1fkW2w6slM+Q/WdKZ0wMBG1AhZFpExSgu5kIilhRRHAa2m/NKyU/MG5ClkXa9i/90k2Phw2TqjPHtMBGFZzhXsc/ttLGwl2rGLoUg8Q0WbcjcFK3ojOgicZ3iZDu/DW/Xhi5Bh1L+AF3COxc5/olAmhaK2ABZPqEo8FlbflkL+zERwH/s8QSGd3oQFke4Qq2LV73FrD0ir19uIt8VzVF547UpapScMT6hATV+DVZpXov4oaMVGwaoAIdW+u5QzSsqXJz0bVhnvEOoztAUVwzOk8RT4IzY68Xs7o5blehGT6MeBYDbwn5SnCnRlnzPjyNdCXUMHJ/nT3X+THKgaZm3UovwRYjZ181iAGkX3o6EuoLqXhi27Vy9qv8/EcPomzw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(376002)(396003)(39860400002)(136003)(451199021)(36840700001)(46966006)(40470700004)(82310400005)(36860700001)(478600001)(1076003)(47076005)(6666004)(336012)(7696005)(83380400001)(110136005)(54906003)(2616005)(186003)(16526019)(2906002)(26005)(44832011)(5660300002)(40460700003)(36756003)(70206006)(356005)(81166007)(70586007)(4326008)(316002)(40480700001)(82740400003)(6636002)(86362001)(8936002)(8676002)(41300700001)(426003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 08:58:32.1529 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec614712-b34a-45b5-6b07-08db72fedad9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8577
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,181 +99,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- 'Marek =?UTF-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>,
- Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- alexander.deucher@amd.com, Daniel Stone <daniel@fooishbar.org>,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com
+Cc: Harry Wentland <harry.wentland@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org, Wayne Lin <Wayne.Lin@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/3jFCMXZINee0lyRZG4tx5pz
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Replace seq_printf with seq_puts when there is no argument list.
 
-On Wed, 21 Jun 2023 13:33:56 -0300
-Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
+Fix the checkpatch warning:
+WARNING: Prefer seq_puts to seq_printf
 
-> Em 21/06/2023 05:09, Pekka Paalanen escreveu:
-> > On Tue, 20 Jun 2023 21:57:17 -0300
-> > Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
-> >  =20
-> >> Create a new DRM ioctl operation to get the numbers of resets for a
-> >> given context. The numbers reflect just the resets that happened after
-> >> the context was created, and not since the machine was booted.
-> >>
-> >> Create a debugfs interface to make easier to test the API without real
-> >> resets.
-> >>
-> >> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> >> ---
-> >>   drivers/gpu/drm/drm_debugfs.c |  2 ++
-> >>   drivers/gpu/drm/drm_ioctl.c   | 58 +++++++++++++++++++++++++++++++++=
-++
-> >>   include/drm/drm_device.h      |  3 ++
-> >>   include/drm/drm_drv.h         |  3 ++
-> >>   include/uapi/drm/drm.h        | 21 +++++++++++++
-> >>   include/uapi/drm/drm_mode.h   | 15 +++++++++
-> >>   6 files changed, 102 insertions(+) =20
-> >=20
-> > ...
-> >  =20
-> >> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-> >> index a87bbbbca2d4..a84559aa0d77 100644
-> >> --- a/include/uapi/drm/drm.h
-> >> +++ b/include/uapi/drm/drm.h
-> >> @@ -1169,6 +1169,27 @@ extern "C" {
-> >>    */
-> >>   #define DRM_IOCTL_MODE_GETFB2		DRM_IOWR(0xCE, struct drm_mode_fb_cmd=
-2)
-> >>  =20
-> >> +/**
-> >> + * DRM_IOCTL_GET_RESET - Get information about device resets
-> >> + *
-> >> + * This operation requests from the device information about resets. =
-It should
-> >> + * consider only resets that happens after the context is created, th=
-erefore,
-> >> + * the counter should be zero during context creation.
-> >> + *
-> >> + * dev_reset_count tells how many resets have happened on this device=
-, and
-> >> + * ctx_reset_count tells how many of such resets were caused by this =
-context.
-> >> + *
-> >> + * Flags can be used to tell if a reset is in progress, and userspace=
- should
-> >> + * wait until it's not in progress anymore to be able to create a new=
- context;
-> >> + * and to tell if the VRAM is considered lost. There's no safe way to=
- clean this
-> >> + * flag so if a context see this flag set, it should be like that unt=
-il the end
-> >> + * of the context. =20
-> >=20
-> > Is "this flag" the VRAM_LOST? Or any flag?
-> >=20
-> > Does this mean that not all resets are fatal to the context? Is there
-> > any kind of reset that should not be fatal to a context? All the
-> > rendering APIs seem to assume that any reset is fatal and the context
-> > must be destroyed. =20
->=20
-> I got this flag from the `AMDGPU_CTX_OP_QUERY_STATE2` operation, and=20
-> it's used to notify that the reset was fatal for a giving context,=20
-> although the idea of non-fatal resets seems to be a bit controversial=20
-> for now, so I think it will be better if I leave this flag for latter=20
-> improvements of the API.
+Cc: Wayne Lin <Wayne.Lin@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-Which flag is "this flag"? There are RESET_IN_PROGRESS and VRAM_LOST.
-Both are fine by me to exist.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index d63ee636483b..7c21e21bcc51 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -1075,24 +1075,24 @@ static int amdgpu_current_colorspace_show(struct seq_file *m, void *data)
+ 
+ 	switch (dm_crtc_state->stream->output_color_space) {
+ 	case COLOR_SPACE_SRGB:
+-		seq_printf(m, "sRGB");
++		seq_puts(m, "sRGB");
+ 		break;
+ 	case COLOR_SPACE_YCBCR601:
+ 	case COLOR_SPACE_YCBCR601_LIMITED:
+-		seq_printf(m, "BT601_YCC");
++		seq_puts(m, "BT601_YCC");
+ 		break;
+ 	case COLOR_SPACE_YCBCR709:
+ 	case COLOR_SPACE_YCBCR709_LIMITED:
+-		seq_printf(m, "BT709_YCC");
++		seq_puts(m, "BT709_YCC");
+ 		break;
+ 	case COLOR_SPACE_ADOBERGB:
+-		seq_printf(m, "opRGB");
++		seq_puts(m, "opRGB");
+ 		break;
+ 	case COLOR_SPACE_2020_RGB_FULLRANGE:
+-		seq_printf(m, "BT2020_RGB");
++		seq_puts(m, "BT2020_RGB");
+ 		break;
+ 	case COLOR_SPACE_2020_YCBCR:
+-		seq_printf(m, "BT2020_YCC");
++		seq_puts(m, "BT2020_YCC");
+ 		break;
+ 	default:
+ 		goto unlock;
+@@ -3022,7 +3022,7 @@ static int edp_ilr_show(struct seq_file *m, void *unused)
+ 			seq_printf(m, "[%d] %d kHz\n", entry/2, link_rate_in_khz);
+ 		}
+ 	} else {
+-		seq_printf(m, "ILR is not supported by this eDP panel.\n");
++		seq_puts(m, "ILR is not supported by this eDP panel.\n");
+ 	}
+ 
+ 	return 0;
+-- 
+2.25.1
 
-I think I made a wrong conclusion here. Somehow I read that it would be
-possible to have a reset happen, and if VRAM is not lost, then the
-context could work again.
-
-Should there be some wording added to say the context is permanently
-broken on any kind of reset? Or is that for UMD to decide?
-
-
-Thanks,
-pq
-
-> >  =20
-> >> + */
-> >> +#define DRM_IOCTL_GET_RESET		DRM_IOWR(0xCF, struct drm_get_reset)
-> >> +
-> >> +#define DRM_RESET_IN_PROGRESS	0x1
-> >> +#define DRM_RESET_VRAM_LOST	0x2 =20
-> >=20
-> > Ok, so the dmabuf lost is being communicated here, but how would a
-> > userspace process know on which device a dmabuf resides on?
-> >=20
-> > Let's assume process A uses device 1 to draw, exports a dmabuf, sends
-> > it to process B which imports it to device 2. Device 1 resets and loses
-> > VRAM contents. How would process B notice that the dmabuf is lost when
-> > it never touches device 1 itself?
-> >  =20
-> >> +
-> >>   /*
-> >>    * Device specific ioctls should only be in their respective headers
-> >>    * The device specific ioctl range is from 0x40 to 0x9f.
-> >> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> >> index 43691058d28f..c3257bd1af9c 100644
-> >> --- a/include/uapi/drm/drm_mode.h
-> >> +++ b/include/uapi/drm/drm_mode.h
-> >> @@ -1308,6 +1308,21 @@ struct drm_mode_rect {
-> >>   	__s32 y2;
-> >>   };
-> >>  =20
-> >> +/**
-> >> + * struct drm_get_reset - Get information about a DRM device resets
-> >> + * @ctx_id: the context id to be queried about resets
-> >> + * @flags: flags
-> >> + * @dev_reset_count: global counter of resets for a given DRM device
-> >> + * @ctx_reset_count: of all the resets counted by this device, how ma=
-ny were
-> >> + * caused by this context.
-> >> + */
-> >> +struct drm_get_reset {
-> >> +	__u32 ctx_id;
-> >> +	__u32 flags;
-> >> +	__u64 dev_reset_count;
-> >> +	__u64 ctx_reset_count;
-> >> +};
-> >> +
-> >>   #if defined(__cplusplus)
-> >>   }
-> >>   #endif =20
-> >=20
-> > Thanks,
-> > pq =20
-
-
---Sig_/3jFCMXZINee0lyRZG4tx5pz
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSUBNEACgkQI1/ltBGq
-qqdjoA/9GT+l9T5suQZtlvGC1fGcbW8PXhRzhk7AGMWx6O1IyikY/WoA7uDT7Lkw
-5o1tzI9g8zYHyRtxy3e6G1ZkiCbQGR2+Q6hki97WHunBZMvSz/GLtMU4/u/QbxZ3
-RTmm3A3wkUBtFV/LCJ7eU9tQSgy4HK7zrLCNeLM2ASch0a6gK5OncQe7XQ80cc0p
-DRNBT1BhDEMQBmvv3C7oDeQGrySAkWcIqJMOchtKvAnJLdTxYUCAAmgGog+Aku7K
-S0UGkcjqTjrdYx89W/y8l+Fd94UsmMhoDC+Lqey7rPydg5HOQDtp9NQ+iPmSikhf
-ffvF3p7VdIRfovd7RPGrm1lWhtS6rX1techog3ZZtk9uGcPUaMQRRYBm45SdGbIL
-a2mAi84ZKOlf4WeUDjsVnEy7c9HBrHjytPPz0AoJfoHEAZjERHReDuCXB6sEOwy9
-JRxvmG36rnzXC77pSFFn/G2merMOxmS0irXEBE/Cy3t7gJk884CTht0/S1mMoguq
-dbNHF0sni/ZyM061AhjEycPm0TNnjEXD5nviC5hxugzMfcL2Cw67dkNiYUJXuafa
-fKpoLJLlrh4xisTtjOmIMHvHAUEIs8BobazLyyF/tl/C0lUr+9Mqau4FMFhDnw/W
-T7OeXGxWV5Dni7SMkQIMINcYyJwcf/xX/nhtxUO2JUIwNbvoWiU=
-=RLZf
------END PGP SIGNATURE-----
-
---Sig_/3jFCMXZINee0lyRZG4tx5pz--
