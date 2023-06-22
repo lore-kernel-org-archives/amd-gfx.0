@@ -4,57 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D045EB64D8
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 05:08:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99D82EB64D8
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 05:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 711E410E4D2;
-	Thu, 22 Jun 2023 05:08:28 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 469BB10E4C2;
- Thu, 22 Jun 2023 05:08:23 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8Axz8dE15NkH1cAAA--.545S3;
- Thu, 22 Jun 2023 13:08:20 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8BxrM4_15Nk16ABAA--.9048S3; 
- Thu, 22 Jun 2023 13:08:15 +0800 (CST)
-Message-ID: <0dd961ae-78a7-0b67-af51-008ecbcdbbef@loongson.cn>
-Date: Thu, 22 Jun 2023 13:08:15 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v7 6/8] PCI/VGA: Introduce is_boot_device function
- callback to vga_client_register
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9D5410E13C;
+	Thu, 22 Jun 2023 05:44:48 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7798E10E13C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 05:44:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FHlIuUJ28Ioo+Mj8FJXLX5I5URvdMu8NMtiA4cBitHL7bVU5y9Trc6xfj0/s9NtjLoq9UbEpDBc8Ny+c19VeNP6faj9jkkagTgIjrdLXy2voR6p75xZ3ZVXijBm7CtAMMtS3g8WMhcvHlSSpMGc4CxSAd/vaLTrPv1ZEC3dFOdHY7Z/f+Xnw0AbOE+aI747CHnru68gcngMDTpXbyMbYoKHtxZ1XyjApg5lNMkPohU2JTSW3bfMgw1FSLJgGDdy1RKNrwUbe24UR168Dp6OuBxl72DF3esIivZPCrWQH491GT5avPk4Ebk+1zFwd+GD2W033SoHbfo4JRiGX+YmsRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bAk/F2Vy9rxixPGLSxDVXkcUXQE9Qv/ytVElV0hrDT8=;
+ b=IZteAkHZvnWx1mynG46+53ftO217WZc2WeiqVGuCPF+b6MY5oNfLpoz/mVOIOtWjQNr57lHkhCxW6GBlc0eRNOPI6Y3S5pZxs6mn1LZMMYfvkXFS7cVE3+ohAqAKe0TzTkgTnWLbta5/NO5pUk/QJcn4c6sawxLN0Wh1WtrcmlyFtnXirb/tJAbm17ttBNKUtYl6oCzCW8smrkelcCPek1zbQn0kZcVa/Ze1L9yD9kdSOCjGwbmLNA3NMkQdUfn+7B6PUuxZ6ROJp+r/c3RtrVE9BQe+zSUmGxZRc2o9w7Tnypk5nTbbr/GporT83OnGmN7iE0dgx0qEiP6S1aYGGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bAk/F2Vy9rxixPGLSxDVXkcUXQE9Qv/ytVElV0hrDT8=;
+ b=ij7+D1FvFQN+LEbiMWUEx91I25ind/wG/8kU95it1z2ocD5Mq3XKo6iW5JUsNYzc+1LTfRy5Rz/bQf0nQ/bzNqJ7eqDN3grV3nhZ37JZSf5NQ4HD9idHfa00jcKesm2wWHF3KH73ajq6RQf57xJOesJd8YGM4UJgO8iZ3X/jR70=
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by SN7PR12MB7204.namprd12.prod.outlook.com (2603:10b6:806:2ab::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Thu, 22 Jun
+ 2023 05:44:43 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::8f81:b929:d2f9:4ef0]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::8f81:b929:d2f9:4ef0%4]) with mapi id 15.20.6521.023; Thu, 22 Jun 2023
+ 05:44:43 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/pm: Provide energy data in 15.625mJ units
+Thread-Topic: [PATCH] drm/amd/pm: Provide energy data in 15.625mJ units
+Thread-Index: AQHZoquJvrNuQ+dY1k+sxh6FoSq0OK+WU+WQ
+Date: Thu, 22 Jun 2023 05:44:42 +0000
+Message-ID: <BYAPR12MB4614293E9ED8D77971B8CDED9722A@BYAPR12MB4614.namprd12.prod.outlook.com>
+References: <20230619124215.2085234-1-lijo.lazar@amd.com>
+In-Reply-To: <20230619124215.2085234-1-lijo.lazar@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Sui Jingfeng <15330273260@189.cn>, Bjorn Helgaas <bhelgaas@google.com>
-References: <20230613030151.216625-1-15330273260@189.cn>
- <20230613030151.216625-7-15330273260@189.cn>
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-Organization: Loongson
-In-Reply-To: <20230613030151.216625-7-15330273260@189.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID: AQAAf8BxrM4_15Nk16ABAA--.9048S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoW3KF1DJw4UAw1xZry3ur45Jwc_yoWDtF13pF
- 4rJF15Ar97ZF4I9w47Xa4UAFyYv3y0va4fGrW7A34Y9a43Ar9YgF9YyFy5tryxJrZrCF43
- tryDKFWxuF1jvFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUf529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUPvb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
- 6r4UJVWxJr1ln4kS14v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
- xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r12
- 6r1DMcIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
- 8JMxk0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vI
- r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67
- AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCI
- c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
- AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_
- Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUsl
- 4iUUUUU
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=f1032af7-b9f6-414d-a95a-216ffc03e3d0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-06-22T05:44:32Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BYAPR12MB4614:EE_|SN7PR12MB7204:EE_
+x-ms-office365-filtering-correlation-id: c70784aa-14ae-4ab5-5708-08db72e3c745
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: olIlaUKoipen34YHUbuL1JLeyRaRm7PrDl/S6jAomZB0mxviKT3z5sBmTVfl1ZooZXIuSUChY+n/bVz8AekvYYwVRqv/6Lt+rhQT6LtIgsWQAH1WEvh2k7WS2e6wq/4KBLh47ysgSfoJXyK4lZ/QIiToi8XXiVPdm+uUIWBAbtb6d8wPFOFu0kusP+NxyZcSUjmbYhDf77WrMC43yTAUJj7hsE1bundOLbb0aXpx43ev35wqTd21ZQUdz6nUIU5eEf2V/eBPoPjP/V9lgAEWiiYZ3RTGijQyqEW4LkylCgbdH8KoX8oiihOTUf4CDzWUlc3IwncYeUB2urlpVo5FQ420xXArmEvLd/0XMMp2PzDtlcMyYjW3zXU5SMI9nfqFsJn6ZVwYQiM+rl8zmJNX0mKxS/0ZQLpuM3QWSahNpSlEyOx7ka79yHEtxGdGhESTOM77/QlXy/x+ptUrK9czowKc4qPjdEUrEl3KI2mAOwtHW0kc0m7C0CkJ9fL2deoZRb4DKuQQR+luAwm7mAP7NNIqQbe7xEaMgDHDYUXkVQEQSVHoOAAtN3LuUeJCoBDGOa8G5FXlyh3sa+liJ6pWg4ZDW1uBeFoU6FHGnEjtujOK3a0dUjQxoFtSPNyUoSJJ
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(376002)(136003)(366004)(346002)(39860400002)(451199021)(38100700002)(7696005)(83380400001)(186003)(53546011)(26005)(6506007)(9686003)(71200400001)(55016003)(122000001)(33656002)(76116006)(316002)(4326008)(66556008)(66446008)(66946007)(38070700005)(66476007)(64756008)(2906002)(8936002)(8676002)(86362001)(52536014)(41300700001)(5660300002)(110136005)(54906003)(478600001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KO/ACs2s9d8Rjfz2gbyyn9FHx62DAkUas3ty3cRsScUDv6fJdqWtv2iVhbkV?=
+ =?us-ascii?Q?/JzH+1dSTSgDn9z4/OWeN5eVobAAdjeubVNYZCXPDYsJp8iC5M7ETcuJ8fMq?=
+ =?us-ascii?Q?ImFsleBOo2hbCjpRW3s06FIce6G03YFMVjujKr96XTW5v9X0c4A3MCsNuFE+?=
+ =?us-ascii?Q?fnfS6+qvG7qk99yFTXacdNL2Be6v3WxUsG0mgsGn54DctnEW10B2jBK3GjIv?=
+ =?us-ascii?Q?vBLEg449RJKkIPbQtfStnxjBU6BTPlUNWiQIngKTMilqr5AxRxMYYApCFYyd?=
+ =?us-ascii?Q?5CVBtsobogo/K2w+7q2PRW6qQe1pUo5QwHywEKcPoFEhHRiRuyF64ow0KqGc?=
+ =?us-ascii?Q?JwdxWbnvG8rWgO664JOS/IRsfLG+54UBsEUfYeA5WqwwucyqP9maTFpOZY5u?=
+ =?us-ascii?Q?1HO25jMromigv/u1S9GvXnVMIw4tHibFze4y39KAR4CHL6NUJ83DSwo88rZ0?=
+ =?us-ascii?Q?J+1XRs1S0TUJs+v3u8wewmW7gxptSqoI0/nOceaXhgpLQgj4U3wyg8+9Csca?=
+ =?us-ascii?Q?4QES199WZ+W3ZcTozaC1bZrfe/0qr8LN715WUyXJsBBqqEtxPNE1po5X+Box?=
+ =?us-ascii?Q?Los30WHl6sFQ2V312Gg/Gd7jHl3zwp7lUu3NOKB/73riX/VVsVO/Rh15oagS?=
+ =?us-ascii?Q?QUeLhxbDsyYx10gknq+wOfYZtumFXiJYUlKnJ1zdhehX9xALn/6xDP4ETcSZ?=
+ =?us-ascii?Q?a2VQduvSMCOMBuvzYqbboDzTGYJzwJdc7oDp3OysjZJpJeR/ugGt+pZWobKe?=
+ =?us-ascii?Q?QTqbqjAl7LmBVcpiq7DDaA7o9QGghy4R/x9AhdGpFAj4lrSxCbjulpU3x2wU?=
+ =?us-ascii?Q?wDc4Pz7KSrNoCLsXRtLXzI7So8MMWlBO0ZawfgvnPb4L2DboQYgebvqT3XDn?=
+ =?us-ascii?Q?WQ2fG09psrH5GQRLpbwOPBY4x0yENiNyddDjfW9/xdxrrGXCZ0xT9W4TuIgk?=
+ =?us-ascii?Q?3oqhZu1+5ICPb3Ks0oGx7We06O5uJMhO6bqgfIT22ruP9XnTyfOBqTE+beHS?=
+ =?us-ascii?Q?jJr9QVPsd2oEGb0kbB9O6rUb/efnm2ClMvRxvOOA+0w4Mp2uLfYD7ECGPZze?=
+ =?us-ascii?Q?PGdY96HpaYW4Pc8XladnDue9Xh06CdUqKe7+k4cImlG64DYlEP6ot/n95FN8?=
+ =?us-ascii?Q?28vE/tz4ufULIeOfzydYv850rS4nYIVd0J7p18efE6ntSCZwDs3BjwN6gbx8?=
+ =?us-ascii?Q?sZVdThhcSBY0FH3bxXAJnLAxsbHpAChma1M3NVrbCMD+oH4Pys8saandk+eA?=
+ =?us-ascii?Q?OMEH57uMnfSlU+5iIn+R6MuMA8Nefzw5QYT3l3nu1caT6/4yP6djet6N/y85?=
+ =?us-ascii?Q?Wm/6bHnjqwb2NBgiEJjfrSJfpiwjdkr8BzGeTLNwwm+7OMGYkkSf6TR+YG7+?=
+ =?us-ascii?Q?X0AIQ0tWsoMU1++9Uk65VK3bx8+NgEn77VIZZuSGIDGd7UpsWN453UVFgID8?=
+ =?us-ascii?Q?tEY7bofSg/IN9X6Jc/5cKvMsZZAefL2Ad8xx/S8wVkgFtacnEp1S2XwDYxZc?=
+ =?us-ascii?Q?SUD1V2AWGbi4nqx0MG/m3HlP572k4O/RMavIO9cZ1Eys9sENmRhjLSPvftlp?=
+ =?us-ascii?Q?tj/nlYOBrxX3Tpv7gk4=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c70784aa-14ae-4ab5-5708-08db72e3c745
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2023 05:44:42.8807 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: cPZE1Yk0H1G4A+OBke7cKv62WNTJ0PfHr96c52spG8IPFFUhE5LU2j2Og7hyhP8G
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7204
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,280 +122,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Cornelia Huck <cohuck@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- David Airlie <airlied@gmail.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>, Yi Liu <yi.l.liu@intel.com>,
- kvm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- linux-pci@vger.kernel.org, Kevin Tian <kevin.tian@intel.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Bokun Zhang <Bokun.Zhang@amd.com>, intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Abhishek Sahu <abhsahu@nvidia.com>, Maxime Ripard <mripard@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Yishai Hadas <yishaih@nvidia.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kasiviswanathan,
+ Harish" <Harish.Kasiviswanathan@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+[AMD Official Use Only - General]
 
+<ping>
 
-A nouveau developer(Lyude) from redhat send me a R-B,
+Thanks,
+Lijo
 
-Thanks for the developers of nouveau project.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lijo Laz=
+ar
+Sent: Monday, June 19, 2023 6:12 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Kasiviswanathan, Harish=
+ <Harish.Kasiviswanathan@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amd/pm: Provide energy data in 15.625mJ units
 
+Publish energy data in 15.625mJ unit for SMU v13.0.6. The same unit is used=
+ in Aldebaran also.
 
-Please allow me add a link[1] here.
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers=
+/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index a92ea4601ea4..6ef12252beb5 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -200,7 +200,6 @@ struct PPTable_t {
+ };
 
-[1] 
-https://lore.kernel.org/all/0afadc69f99a36bc9d03ecf54ff25859dbc10e28.camel@redhat.com/
+ #define SMUQ10_TO_UINT(x) ((x) >> 10)
+-#define SMUQ16_TO_UINT(x) ((x) >> 16)
 
+ struct smu_v13_0_6_dpm_map {
+        enum smu_clk_type clk_type;
+@@ -1994,8 +1993,9 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu=
+_context *smu, void **table
 
-On 2023/6/13 11:01, Sui Jingfeng wrote:
-> From: Sui Jingfeng <suijingfeng@loongson.cn>
->
-> The vga_is_firmware_default() function is arch-dependent, it's probably
-> wrong if we simply remove the arch guard. As the VRAM BAR which contains
-> firmware framebuffer may move, while the lfb_base and lfb_size members of
-> the screen_info does not change accordingly. In short, it should take the
-> re-allocation of the PCI BAR into consideration.
->
-> With the observation that device drivers or video aperture helpers may
-> have better knowledge about which PCI bar contains the firmware fb,
-> which could avoid the need to iterate all of the PCI BARs. But as a PCI
-> function at pci/vgaarb.c, vga_is_firmware_default() is not suitable to
-> make such an optimization since it is loaded too early.
->
-> There are PCI display controllers that don't have a dedicated VRAM bar,
-> this function will lose its effectiveness in such a case. Luckily, the
-> device driver can provide an accurate workaround.
->
-> Therefore, this patch introduces a callback that allows the device driver
-> to tell the VGAARB if the device is the default boot device. This patch
-> only intends to introduce the mechanism, while the implementation is left
-> to the device driver authors. Also honor the comment: "Clients have two
-> callback mechanisms they can use"
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian Konig <christian.koenig@amd.com>
-> Cc: Pan Xinhui <Xinhui.Pan@amd.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> Cc: Ben Skeggs <bskeggs@redhat.com>
-> Cc: Karol Herbst <kherbst@redhat.com>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Alex Williamson <alex.williamson@redhat.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
-> Cc: YiPeng Chai <YiPeng.Chai@amd.com>
-> Cc: Bokun Zhang <Bokun.Zhang@amd.com>
-> Cc: Likun Gao <Likun.Gao@amd.com>
-> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
-> Cc: Jason Gunthorpe <jgg@ziepe.ca>
-> CC: Kevin Tian <kevin.tian@intel.com>
-> Cc: Cornelia Huck <cohuck@redhat.com>
-> Cc: Yishai Hadas <yishaih@nvidia.com>
-> Cc: Abhishek Sahu <abhsahu@nvidia.com>
-> Cc: Yi Liu <yi.l.liu@intel.com>
-> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
->   drivers/gpu/drm/i915/display/intel_vga.c   |  3 +--
->   drivers/gpu/drm/nouveau/nouveau_vga.c      |  2 +-
->   drivers/gpu/drm/radeon/radeon_device.c     |  2 +-
->   drivers/pci/vgaarb.c                       | 21 ++++++++++++++++++++-
->   drivers/vfio/pci/vfio_pci_core.c           |  2 +-
->   include/linux/vgaarb.h                     |  8 +++++---
->   7 files changed, 30 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 5c7d40873ee2..7a096f2d5c16 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3960,7 +3960,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	/* this will fail for cards that aren't VGA class devices, just
->   	 * ignore it */
->   	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
-> -		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
-> +		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode, NULL);
->   
->   	px = amdgpu_device_supports_px(ddev);
->   
-> diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
-> index 286a0bdd28c6..98d7d4dffe9f 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vga.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vga.c
-> @@ -115,7 +115,6 @@ intel_vga_set_decode(struct pci_dev *pdev, bool enable_decode)
->   
->   int intel_vga_register(struct drm_i915_private *i915)
->   {
-> -
->   	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
->   	int ret;
->   
-> @@ -127,7 +126,7 @@ int intel_vga_register(struct drm_i915_private *i915)
->   	 * then we do not take part in VGA arbitration and the
->   	 * vga_client_register() fails with -ENODEV.
->   	 */
-> -	ret = vga_client_register(pdev, intel_vga_set_decode);
-> +	ret = vga_client_register(pdev, intel_vga_set_decode, NULL);
->   	if (ret && ret != -ENODEV)
->   		return ret;
->   
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
-> index f8bf0ec26844..162b4f4676c7 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_vga.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
-> @@ -92,7 +92,7 @@ nouveau_vga_init(struct nouveau_drm *drm)
->   		return;
->   	pdev = to_pci_dev(dev->dev);
->   
-> -	vga_client_register(pdev, nouveau_vga_set_decode);
-> +	vga_client_register(pdev, nouveau_vga_set_decode, NULL);
->   
->   	/* don't register Thunderbolt eGPU with vga_switcheroo */
->   	if (pci_is_thunderbolt_attached(pdev))
-> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-> index afbb3a80c0c6..71f2ff39d6a1 100644
-> --- a/drivers/gpu/drm/radeon/radeon_device.c
-> +++ b/drivers/gpu/drm/radeon/radeon_device.c
-> @@ -1425,7 +1425,7 @@ int radeon_device_init(struct radeon_device *rdev,
->   	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
->   	/* this will fail for cards that aren't VGA class devices, just
->   	 * ignore it */
-> -	vga_client_register(rdev->pdev, radeon_vga_set_decode);
-> +	vga_client_register(rdev->pdev, radeon_vga_set_decode, NULL);
->   
->   	if (rdev->flags & RADEON_IS_PX)
->   		runtime = true;
-> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-> index ceb914245383..c574898380f0 100644
-> --- a/drivers/pci/vgaarb.c
-> +++ b/drivers/pci/vgaarb.c
-> @@ -53,6 +53,7 @@ struct vga_device {
->   	bool bridge_has_one_vga;
->   	bool is_firmware_default;	/* device selected by firmware */
->   	unsigned int (*set_decode)(struct pci_dev *pdev, bool decode);
-> +	bool (*is_boot_device)(struct pci_dev *pdev);
->   };
->   
->   static LIST_HEAD(vga_list);
-> @@ -969,6 +970,10 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
->    * @set_decode callback: If a client can disable its GPU VGA resource, it
->    * will get a callback from this to set the encode/decode state.
->    *
-> + * @is_boot_device: callback to the device driver, query if a client is the
-> + * default boot device, as the device driver typically has better knowledge
-> + * if specific device is the boot device. But this callback is optional.
-> + *
->    * Rationale: we cannot disable VGA decode resources unconditionally, some
->    * single GPU laptops seem to require ACPI or BIOS access to the VGA registers
->    * to control things like backlights etc. Hopefully newer multi-GPU laptops do
-> @@ -984,7 +989,8 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
->    * Returns: 0 on success, -1 on failure
->    */
->   int vga_client_register(struct pci_dev *pdev,
-> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool decode))
-> +		unsigned int (*set_decode)(struct pci_dev *pdev, bool decode),
-> +		bool (*is_boot_device)(struct pci_dev *pdev))
->   {
->   	int ret = -ENODEV;
->   	struct vga_device *vgadev;
-> @@ -996,6 +1002,7 @@ int vga_client_register(struct pci_dev *pdev,
->   		goto bail;
->   
->   	vgadev->set_decode = set_decode;
-> +	vgadev->is_boot_device = is_boot_device;
->   	ret = 0;
->   
->   bail:
-> @@ -1523,6 +1530,18 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
->   		notify = vga_arbiter_add_pci_device(pdev);
->   	else if (action == BUS_NOTIFY_DEL_DEVICE)
->   		notify = vga_arbiter_del_pci_device(pdev);
-> +	else if (action == BUS_NOTIFY_BOUND_DRIVER) {
-> +		struct vga_device *vgadev = vgadev_find(pdev);
-> +		bool boot_dev = false;
-> +
-> +		if (vgadev && vgadev->is_boot_device)
-> +			boot_dev = vgadev->is_boot_device(pdev);
-> +
-> +		if (boot_dev) {
-> +			vgaarb_info(&pdev->dev, "Set as boot device (dictated by driver)\n");
-> +			vga_set_default_device(pdev);
-> +		}
-> +	}
->   
->   	vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
->   
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index a5ab416cf476..2a8873a330ba 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -2067,7 +2067,7 @@ static int vfio_pci_vga_init(struct vfio_pci_core_device *vdev)
->   	if (ret)
->   		return ret;
->   
-> -	ret = vga_client_register(pdev, vfio_pci_set_decode);
-> +	ret = vga_client_register(pdev, vfio_pci_set_decode, NULL);
->   	if (ret)
->   		return ret;
->   	vga_set_legacy_decoding(pdev, vfio_pci_set_decode(pdev, false));
-> diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
-> index 97129a1bbb7d..dfde5a6ba55a 100644
-> --- a/include/linux/vgaarb.h
-> +++ b/include/linux/vgaarb.h
-> @@ -33,7 +33,8 @@ struct pci_dev *vga_default_device(void);
->   void vga_set_default_device(struct pci_dev *pdev);
->   int vga_remove_vgacon(struct pci_dev *pdev);
->   int vga_client_register(struct pci_dev *pdev,
-> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool state));
-> +		unsigned int (*set_decode)(struct pci_dev *pdev, bool state),
-> +		bool (*is_boot_device)(struct pci_dev *pdev));
->   #else /* CONFIG_VGA_ARB */
->   static inline void vga_set_legacy_decoding(struct pci_dev *pdev,
->   		unsigned int decodes)
-> @@ -59,7 +60,8 @@ static inline int vga_remove_vgacon(struct pci_dev *pdev)
->   	return 0;
->   }
->   static inline int vga_client_register(struct pci_dev *pdev,
-> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool state))
-> +		unsigned int (*set_decode)(struct pci_dev *pdev, bool state),
-> +		bool (*is_boot_device)(struct pci_dev *pdev))
->   {
->   	return 0;
->   }
-> @@ -97,7 +99,7 @@ static inline int vga_get_uninterruptible(struct pci_dev *pdev,
->   
->   static inline void vga_client_unregister(struct pci_dev *pdev)
->   {
-> -	vga_client_register(pdev, NULL);
-> +	vga_client_register(pdev, NULL, NULL);
->   }
->   
->   #endif /* LINUX_VGA_H */
+        gpu_metrics->average_socket_power =3D
+                SMUQ10_TO_UINT(metrics->SocketPower);
++       /* Energy is reported in 15.625mJ units */
+        gpu_metrics->energy_accumulator =3D
+-               SMUQ16_TO_UINT(metrics->SocketEnergyAcc);
++               SMUQ10_TO_UINT(metrics->SocketEnergyAcc);
 
--- 
-Jingfeng
+        gpu_metrics->current_gfxclk =3D
+                SMUQ10_TO_UINT(metrics->GfxclkFrequency[xcc0]);
+--
+2.25.1
 
