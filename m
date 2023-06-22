@@ -4,118 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45009EB64DA
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 07:45:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF91EB64D8
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 08:12:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C09E10E4D9;
-	Thu, 22 Jun 2023 07:45:42 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2070.outbound.protection.outlook.com [40.107.93.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB09510E4EB;
- Thu, 22 Jun 2023 07:45:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mKpogOp5dECqUbMWHVGZstt4L2Z+xW9YFBmMyxSvyseEGdpMdbZphWMRuhl0DAOR55RBYXh5Et3pq3mX3bhBY+yVytWG/ItCVt3n9P+Wm0jVJZq3pC95qi/sqrBoDEluVF+qHcdlCmBYtNUTj9QhXi2tzIm7FuAIbJuvLUqHnZZbXG9W0UA28Yds4IVgmQhBH5/vijRJQuTeDFgOOdzvadNIB+Lf+reKVVxuu8MRZ2gzoepTYSSzoxdMvbi403kNG3TzmwQbuqugM13sWa2ZhWojsSxZTOIEiDRL868dnE5j+R6FXgs30izKuFUCJ/+YwKe6nl4TzjqOOjqL9LfCPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vsf5CGmagf1/+/aOj9M3FIPeqrm7kdIygRmK/qZbx6A=;
- b=Wg+f4wZSbbepdYQPjMKmr4pOEZXR55Kj9VxZsORep8tgl39pVCzccWX6aPp0uKtL8BmMqFHxakCht8k/Rdp7d7SRYOObWXs23lca5lOHMZy038ar+ELd+BkbDf12T/5iSvoTU8ZpWQKElLY/84k8xV8FFzPhu5aOP0TkLakFrFJ7DPDZa34dkqSwDTMsH8Fry70vX2Vw0Ir9PQ1PHzh2SKtNPSsjQKo9gIrhmoAiVfqm2pA/fkxgnEgB4wkDBE+U/7yb+KahK+XTWuyhQ/oxGHiG2kq7b7IocE0fqdVXOYQR20eANNaV45wmNiN1zilSuaU8FVeqkAiZWG/kZDPDFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vsf5CGmagf1/+/aOj9M3FIPeqrm7kdIygRmK/qZbx6A=;
- b=phu3kKLGkmaFqP2mCmeM0kvqz1ffi0WWP/gOmqvK4WeXl9nO2nXlRqneG0wrzF8P3KX+iqxNSfnfeGfXP7ZLWJbEOnz4lHdywSvhHlz4M41+rTk4uILDR4QLrTlxi+6id08wOAgqrpLBltpYyUN26Bb6tZWi1zIO1tRS7l1KgzQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DS7PR12MB6046.namprd12.prod.outlook.com (2603:10b6:8:85::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Thu, 22 Jun
- 2023 07:45:36 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::384a:95a4:8819:ee84]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::384a:95a4:8819:ee84%7]) with mapi id 15.20.6521.024; Thu, 22 Jun 2023
- 07:45:36 +0000
-Message-ID: <376f4136-6c32-1a3c-9ff5-74ee2408214c@amd.com>
-Date: Thu, 22 Jun 2023 09:45:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [RFC PATCH v3 3/4] drm/amdgpu: Implement DRM_IOCTL_GET_RESET
-Content-Language: en-US
-To: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1E8B10E4F4;
+	Thu, 22 Jun 2023 08:12:51 +0000 (UTC)
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70C2E10E4F2;
+ Thu, 22 Jun 2023 08:12:49 +0000 (UTC)
+Received: by mail-lj1-x242.google.com with SMTP id
+ 38308e7fff4ca-2b46b11051aso75425231fa.3; 
+ Thu, 22 Jun 2023 01:12:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1687421567; x=1690013567;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=kRlylnnlrnTqTEP6Z7obJnbsABovx12jOSEH2GlALZc=;
+ b=pPETHloY4bCrkHEhuO8C/pk3uVwxHJPbmsgB40ImiQLrKd6fYlecVCDPrcYnu9NDij
+ GmhlVSA8qDGCoHgzCBKnBtGFSyOlzqiPwAjmsLHtSv7+pGXzLbPmJMqt7N1cYpurH2nK
+ RmTTqc0BJh/K1QydulWvFPy3V6KNjtzN+dbCUTWN03vlZM+j8bsLAYW6hUQs7IRi2tCA
+ GK+OqwJLdNDzjhCOUeSdvtupjteZcre8mo9XWqLZMGu9W8CoJJavkx41PcbDpKaErd0i
+ xrWk1YXg9wxYc5lLxip7gZhqgJbJdg+eoTneAEf9OE+4tWsWqCMkfk4qbguJO1ptCb5D
+ gaiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687421567; x=1690013567;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=kRlylnnlrnTqTEP6Z7obJnbsABovx12jOSEH2GlALZc=;
+ b=UD6eEG6P6KLCUpKFgCj7rwEqqhcue42tHyad+OeHDDuwsTPdHFYswnB6nnabCgU4eW
+ buu0cTjRUN34OV5drbVVNytdxGiHOAy9ojtrdvrQbfbEbeDvIUKiI41ur0Xe6Z6taax4
+ F/mZxrz5tjDxHMoWStJ3VFK1FFvk1V05a3txjN4ETJ4TWAHFx+ns+DoY9cYrQ9+4EQGr
+ /P0aEHBr8IJvjvIpOXJ4/JJs3A6AAe9/IkrIYLThTt56CHyf3sKPatE7O4jHPZed7LHr
+ nfRIwHuDdKs7zHvU7ajvtZl/UKldzeBqRKY03I50BY2no2CBck1KAIN9w1XEXbqES96/
+ 3DgQ==
+X-Gm-Message-State: AC+VfDx6ucAP1n9LDZrpCuRPZthyDpNvEiTtPIwrw4L4l1iVsqbVWfk4
+ tIiApoe4+qgWg3SjyWHv7WU=
+X-Google-Smtp-Source: ACHHUZ6+nyv9cNMediST2QyNQ4tu4yAeNImYRJUJqc0EclUDdCbVl8VSA2JosPx4Hk+FoadVuPNeCQ==
+X-Received: by 2002:a2e:9183:0:b0:2b4:6e21:637e with SMTP id
+ f3-20020a2e9183000000b002b46e21637emr7398995ljg.16.1687421566629; 
+ Thu, 22 Jun 2023 01:12:46 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ p14-20020a2e9a8e000000b002b58eb44badsm204006lji.106.2023.06.22.01.12.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jun 2023 01:12:45 -0700 (PDT)
+Date: Thu, 22 Jun 2023 11:12:34 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
+Subject: Re: [RFC PATCH v3 1/4] drm/doc: Document DRM device reset expectations
+Message-ID: <20230622111234.71820ff8@eldfell>
+In-Reply-To: <26a4f7f3-33fa-c28e-dd71-e44e61ffa229@igalia.com>
 References: <20230621005719.836857-1-andrealmeid@igalia.com>
- <20230621005719.836857-4-andrealmeid@igalia.com>
- <5a0876a6-c3db-73b6-15c1-ef0b8cc8c732@amd.com>
- <1d638ba7-b34c-472a-0816-72758da20ec7@igalia.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <1d638ba7-b34c-472a-0816-72758da20ec7@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0122.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:97::12) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ <20230621005719.836857-2-andrealmeid@igalia.com>
+ <20230621105842.0c21b161@eldfell>
+ <26a4f7f3-33fa-c28e-dd71-e44e61ffa229@igalia.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DS7PR12MB6046:EE_
-X-MS-Office365-Filtering-Correlation-Id: 859e7496-725d-445d-731a-08db72f4aaa9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SBI/AfmqTjtxH+2ErL55MO/S+NPdYuCzs/Ykf8j7ZuheVHla/YG+NNkjgw+nRWABPSWxNOqT/KDc9fo93l6TRocHZk1sf7trUOpZcauozUaRApIr3fyCt5Vjw9R8Qn0OZp/+AxoyRmKAR56bUgdi/dIiseXcyqDlbXDNlFSoGY8XdHmx8tTP1cpQ1VPycB/gWsIAnMIdXxOr4sup38/bxyF7krpNLDEgD4cOPXRW6bApKpzrHDKxT/fDdhQkyxWylSD2pTsv+MZPNkDlY+u/fQjH4PoFjESGgh2BYXzlzjXnKE9lTXK1D8WYdnQUFkiwZoY3IUanJaqhjur6Lv4Utlox1fZCGZqhWEYgDdfTmjgC/B6hoeMPJZPu1CTw6/d4CPVmCIQvGCmETJhEICsIdL6RQnA5elSeZaVHmQNREzFWXoZ9Ivb6ZnbLi35UU+V5FaVzLIh4YheCrncldA8Yp4WZjhDfztacGueX21vw+QKo3cvahAAZAiDW8NzOEe1/j7cUS8fk/C82QqNwVaUHxy342XFwTjODAvaW/YazHcTab2Uu9DN1Z3YeOtpqbUyuBgs4ykZzGWxaWrTbntji9Quo1jXg9urbBrWU3MJx7f0JJHZECx9UsJJnPJvK4//EfsxaMkqLe3MyMqpOf1mbvg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(39860400002)(136003)(376002)(366004)(346002)(451199021)(8676002)(31686004)(4326008)(6486002)(66946007)(66556008)(66476007)(6916009)(478600001)(36756003)(6666004)(316002)(54906003)(31696002)(86362001)(83380400001)(6506007)(66574015)(6512007)(186003)(2616005)(38100700002)(5660300002)(2906002)(41300700001)(8936002)(7416002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Umk2dGJOMEJpbVZqd3FvYWFTcDFRcktDOFBBank0ZEpzQjJDTUZzR25xMGJY?=
- =?utf-8?B?c09wMDlHNmJYS0UvYTJ1VVhVV3NWdjZvOTViYWlwcFdXTkozOWVtZEJ2bFhy?=
- =?utf-8?B?bFVYcU9kWjI5R0xpN2ZoSysrSGoxb0cyL1NrK3kyS29nMVovVmZvaXdPbWQz?=
- =?utf-8?B?dCsvWXlhYlZQN2c1QkFlOUs0Z2w3bnlmMWVtWmRxWHlJbm11RkhTUmxib1oy?=
- =?utf-8?B?aWxTcFRHZEFJRlJWQlVFVjROSWNUU1NIcnBmSmczMkdhd1VONEdNelI4L3VW?=
- =?utf-8?B?QUdHZlVyejNuRzBSNHVDV3UrWTJLNS80b0tLSFRYTStiZHpiT0lZV2JjZWNC?=
- =?utf-8?B?cnBWUTQ3V0Q4QTk2MVV6RjJMVGVpYUt1L3Urb05ORk05a2VsajFZZ1NPeFRa?=
- =?utf-8?B?MktjUlczMTlWRlY2YWpTWUIxbTViUi9kNWhLSGtKaHhBRHRmOTdyM2lYcGF1?=
- =?utf-8?B?R3RkeUJqU2dUSGNsSC93NjBBVCtpZ3VzMnMzQlB3cEdZRGdQb1NkZjIyL0xT?=
- =?utf-8?B?dFhxK2pGS0s2TTJsT1NoTkxnZzFDS2Q1K2paWnhzS2hCR25SV0VJTXhGWkF6?=
- =?utf-8?B?dE1FM0xxL1Z2NGRlaTEwRjJiVGROeUExSnprY0VhVHB2RWo5dS9kT3JOdFE2?=
- =?utf-8?B?TVpsaElVY0doSzhvUHpZenZPVHhmNSt2R21Wc1RNSEt0L1Bid3hDSTRNclRY?=
- =?utf-8?B?V2RKeHlqanh1dWpWd1o4d1ljaUZKNTRxYWI2VUlFUkxSSFhpZnowTzUzOG9x?=
- =?utf-8?B?Sm9Ib04vY1pGdWlLTjd4Z0J3VHdPTGk2R2JsNVMwYTVjTVo1aXJlZlh2dC9W?=
- =?utf-8?B?RGpLOHZUWlpIazkrUEdidTVkYzh2TDRtczU4RE5ZN2ZWUTZaemJ6eEtWcXhK?=
- =?utf-8?B?V0J6SE8rZ2xDc1NxRVRaS1N1SHErNnU2WHpGYW52ZU5LanhiWlZpUjVyYkVV?=
- =?utf-8?B?SUUxM1JncUlCYk5qaVJqODF1cGpVRlFFZmNhMGFYWVhQOTM4amMvc01zeUdW?=
- =?utf-8?B?S21jWWR2MGpPempmNnVXdUl0eFlUeEpVbFBpZ3crZmVjUm1HalVsTnhnS3Iw?=
- =?utf-8?B?czZ1TlhSVk1pZ2V5S2VMUWJVNEJUWm13T1VOMlhDbTM5M0lIWmd4T0hRUHVn?=
- =?utf-8?B?ek1qOHZIQmJ3ODZ2VXZCYVl3TDBOMVFWWmMxZkhMdHJNaEFvZzdKYi9QYzZo?=
- =?utf-8?B?eTc2aWF5L0p3aC95UW5HcitWd3M2VDBWeFBEMXMrYWNnL1N6MUJGR0dMSjk5?=
- =?utf-8?B?N0FsKzc3UERxN2lkdmdFR2o2WVA5djQ0bGFDU29VclpPR0ZMeDJUNWtkS3l4?=
- =?utf-8?B?ZnVlRmhIc00vMDRkbE5xSnhPVll0c2Y4Q2szbEU4S0I2Q3JlTkJ4dVZzaUhR?=
- =?utf-8?B?N1lkL3VMSm13VUFSSERIeWdUN0F4V1QyYUVEM2trc2s5WVBWeWE4ZFVDZVVv?=
- =?utf-8?B?a25CMktPMDZLV0IybTg5dkw5R1JxMjNTd0c0SnB0V2FrUEFpWVBLOG9VMGVs?=
- =?utf-8?B?NkhzMXFzeW0vUWVsbDNTM0VDSUsxekI0Tk1Ebk1lOE5DenRReGgyZGFaN0w2?=
- =?utf-8?B?MlJkNG9RZCtwTWlLSjJUQ2RKdTQrYnZUUU5jNUQ5cENhdmNHeHVVQUhTdFov?=
- =?utf-8?B?WlZqSW96L01sS05aNTVKOHVqOWE4aG5pb0lvRnZ6cTVrWUxwbzRvN2Y4NzBi?=
- =?utf-8?B?UXpvNk9CWnUyTjFDbDNBb0hkV0QyMDVrYkVsQVBxT1UvU2lSV20zT2g2RTJN?=
- =?utf-8?B?MitKRVAyMEFuZUhDWGhBQUxvN3JuN1VwSVJJQWIvVUVReThGcThvNFI1YWJ4?=
- =?utf-8?B?eUliWXh4NjhuRE8zUmVmNENNTnpURjNzMG9DTDNBWERoUGs4QnQrN2lodzJN?=
- =?utf-8?B?bkkyWUVYUXZiaDZCcmFHdTJUaUk2RU9nK2N4UWpnNW1CVmFqNGRyaWppeG04?=
- =?utf-8?B?TW40UmpZOFYwUHBSUlpYNnZ0UWY3d1pKQXhodjJseHJuYUtEeHRjTW1PRTZI?=
- =?utf-8?B?czdOdkdyZVM1VnVSeVJHYVhrYjgrNUJzNnNHTW1RS3psZHkwSWw2OWZodTJR?=
- =?utf-8?B?aGJaM1d4YktyZXJyWFdjdTVkUDBDVTdtQTN2Q1NFNFQwTi9kdWxNbmhDOE04?=
- =?utf-8?B?c0hKNGpqeUZtU0dJdEE2TC9tT0Z6eFFUTEhNZVkzc0t6SlVsSTIzUnl1SnBG?=
- =?utf-8?Q?QEYvkHtQLvW9xxLFZFPL+5/NZsqMsnY0GRPQUPinkjAg?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 859e7496-725d-445d-731a-08db72f4aaa9
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 07:45:36.5214 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jvDpuIpMjLTKxB+9qan8IPhFIr7Hnq9k5R9GOcwI7dFkcE+tn24kUmebo1u1E12P
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6046
+Content-Type: multipart/signed; boundary="Sig_/U0kPyh_oeO=f4YN=rPynzPv";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,226 +75,340 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: pierre-eric.pelloux-prayer@amd.com,
  Samuel Pitoiset <samuel.pitoiset@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>,
+ 'Marek =?UTF-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
  Simon Ser <contact@emersion.fr>,
- =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, alexander.deucher@amd.com,
- Daniel Stone <daniel@fooishbar.org>, Dave Airlie <airlied@gmail.com>
+ Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ alexander.deucher@amd.com, Daniel Stone <daniel@fooishbar.org>,
+ Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.06.23 um 18:38 schrieb André Almeida:
-> Em 21/06/2023 04:40, Christian König escreveu:
->> Am 21.06.23 um 02:57 schrieb André Almeida:
->>> Implement get_reset ioctl for amdgpu
->>
->> Well that pretty much won't work since the jobs are destroyed much 
->> later than the contexts.
->>
->
-> Why does this prevents the code to work? If the context is detroyed, 
-> it can't be queried anyway.
+--Sig_/U0kPyh_oeO=f4YN=rPynzPv
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Yeah, but you cause use after free issues with that!
+On Wed, 21 Jun 2023 13:28:34 -0300
+Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
 
-The references are ctx->entit->job->fence, so that ctx and entity can be 
-destroyed first without destroying the job or fence.
+> Em 21/06/2023 04:58, Pekka Paalanen escreveu:
+> > On Tue, 20 Jun 2023 21:57:16 -0300
+> > Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
+> >  =20
+> >> Create a section that specifies how to deal with DRM device resets for
+> >> kernel and userspace drivers.
+> >>
+> >> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com> =20
+> >=20
+> > Hi Andr=C3=A9,
+> >=20
+> > nice to see this! I ended up giving lots of grammar comments, but I'm
+> > not a native speaker. Generally it looks good to me. =20
+>=20
+> Thank you for your feedback :)
+>=20
+> >  =20
+> >> ---
+> >>   Documentation/gpu/drm-uapi.rst | 65 ++++++++++++++++++++++++++++++++=
+++
+> >>   1 file changed, 65 insertions(+)
+> >>
+> >> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-ua=
+pi.rst
+> >> index 65fb3036a580..da4f8a694d8d 100644
+> >> --- a/Documentation/gpu/drm-uapi.rst
+> >> +++ b/Documentation/gpu/drm-uapi.rst
+> >> @@ -285,6 +285,71 @@ for GPU1 and GPU2 from different vendors, and a t=
+hird handler for
+> >>   mmapped regular files. Threads cause additional pain with signal
+> >>   handling as well.
+> >>  =20
+> >> +Device reset
+> >> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >> +
+> >> +The GPU stack is really complex and is prone to errors, from hardware=
+ bugs,
+> >> +faulty applications and everything in between the many layers. To rec=
+over
+> >> +from this kind of state, sometimes is needed to reset the device. Thi=
+s section =20
+> >=20
+> > It seems unclear what "this kind of state" refers to, so maybe just wri=
+te "errors"?
+> >=20
+> > Maybe:
+> >=20
+> > 	Some errors require resetting the device in order to make the
+> > 	device usable again.
+> >=20
+> > I presume that recovery does not mean that the failed job could recover.
+> >  =20
+> >> +describes what's the expectations for DRM and usermode drivers when a=
+ device
+> >> +resets and how to propagate the reset status.
+> >> +
+> >> +Kernel Mode Driver
+> >> +------------------
+> >> +
+> >> +The KMD is responsible for checking if the device needs a reset, and =
+to perform
+> >> +it as needed. Usually a hung is detected when a job gets stuck execut=
+ing. KMD =20
+> >=20
+> > s/hung/hang/ ?
+> >  =20
+> >> +then update it's internal reset tracking to be ready when userspace a=
+sks the =20
+> >=20
+> > updates its
+> >=20
+> > "update reset tracking"... do you mean that KMD records information
+> > about the reset in case userspace asks for it later? =20
+>=20
+> Yes, kernel drivers do annotate whenever a reset happens, so it can=20
+> report to userspace when it asks about resets.
+>=20
+> For instance, this is the amdgpu implementation of=20
+> AMDGPU_CTX_OP_QUERY_STATE2:
+>=20
+> https://elixir.bootlin.com/linux/v6.3.8/source/drivers/gpu/drm/amd/amdgpu=
+/amdgpu_ctx.c#L548=20
+>=20
+>=20
+> You can see there stored information about resets.
 
-If the job has a back reference that whole stuff doesn't work any more 
-and the pointer is potentially dangling.
+Hi Andr=C3=A9,
 
-Christian.
+right. What I mean is, if I have to ask this, then that implies that
+the wording could be more clear.
 
->
->> Christian.
->>
->>>
->>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  |  4 ++-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 35 
->>> +++++++++++++++++++++++++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  5 ++++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  1 +
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 12 +++++++--
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h |  2 ++
->>>   6 files changed, 56 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> index 2eb2c66843a8..0ba26b4b039c 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> @@ -1262,8 +1262,10 @@ static int amdgpu_cs_submit(struct 
->>> amdgpu_cs_parser *p,
->>>       uint64_t seq;
->>>       int r;
->>> -    for (i = 0; i < p->gang_size; ++i)
->>> +    for (i = 0; i < p->gang_size; ++i) {
->>> +        p->jobs[i]->ctx = p->ctx;
->>>           drm_sched_job_arm(&p->jobs[i]->base);
->>> +    }
->>>       for (i = 0; i < p->gang_size; ++i) {
->>>           struct dma_fence *fence;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->>> index d2139ac12159..d3e292382d4a 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->>> @@ -322,6 +322,9 @@ static int amdgpu_ctx_init(struct amdgpu_ctx_mgr 
->>> *mgr, int32_t priority,
->>>       ctx->init_priority = priority;
->>>       ctx->override_priority = AMDGPU_CTX_PRIORITY_UNSET;
->>> +    ctx->global_reset_counter = 
->>> atomic_read(&mgr->adev->gpu_reset_counter);
->>> +    ctx->local_reset_counter = 0;
->>> +
->>>       r = amdgpu_ctx_get_stable_pstate(ctx, &current_stable_pstate);
->>>       if (r)
->>>           return r;
->>> @@ -963,3 +966,35 @@ void amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr 
->>> *mgr,
->>>       }
->>>       mutex_unlock(&mgr->lock);
->>>   }
->>> +
->>> +int amdgpu_get_reset(struct drm_file *filp, struct drm_device *dev,
->>> +             struct drm_get_reset *reset)
->>> +{
->>> +    struct amdgpu_device *adev = drm_to_adev(dev);
->>> +    struct amdgpu_ctx *ctx;
->>> +    struct amdgpu_ctx_mgr *mgr;
->>> +    unsigned int id = reset->ctx_id;
->>> +    struct amdgpu_fpriv *fpriv = filp->driver_priv;
->>> +
->>> +    mgr = &fpriv->ctx_mgr;
->>> +    mutex_lock(&mgr->lock);
->>> +    ctx = idr_find(&mgr->ctx_handles, id);
->>> +    if (!ctx) {
->>> +        mutex_unlock(&mgr->lock);
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    reset->dev_reset_count =
->>> +        atomic_read(&adev->gpu_reset_counter) - 
->>> ctx->global_reset_counter;
->>> +
->>> +    reset->ctx_reset_count = ctx->local_reset_counter;
->>> +
->>> +    if (amdgpu_in_reset(adev))
->>> +        reset->flags |= DRM_RESET_IN_PROGRESS;
->>> +
->>> +    if (ctx->vram_lost_counter != 
->>> atomic_read(&adev->vram_lost_counter))
->>> +        reset->flags |= DRM_RESET_VRAM_LOST;
->>> +
->>> +    mutex_unlock(&mgr->lock);
->>> +    return 0;
->>> +}
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->>> index 0fa0e56daf67..0c9815695884 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->>> @@ -57,6 +57,9 @@ struct amdgpu_ctx {
->>>       unsigned long            ras_counter_ce;
->>>       unsigned long            ras_counter_ue;
->>>       uint32_t            stable_pstate;
->>> +
->>> +    uint64_t            global_reset_counter;
->>> +    uint64_t            local_reset_counter;
->>>   };
->>>   struct amdgpu_ctx_mgr {
->>> @@ -97,4 +100,6 @@ void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr 
->>> *mgr);
->>>   void amdgpu_ctx_mgr_usage(struct amdgpu_ctx_mgr *mgr,
->>>                 ktime_t usage[AMDGPU_HW_IP_NUM]);
->>> +int amdgpu_get_reset(struct drm_file *file_priv, struct drm_device 
->>> *dev,
->>> +             struct drm_get_reset *reset);
->>>   #endif
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> index c9a41c997c6c..431791b2c3cb 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>> @@ -2805,6 +2805,7 @@ static const struct drm_driver 
->>> amdgpu_kms_driver = {
->>>   #ifdef CONFIG_PROC_FS
->>>       .show_fdinfo = amdgpu_show_fdinfo,
->>>   #endif
->>> +    .get_reset = amdgpu_get_reset,
->>>       .prime_handle_to_fd = drm_gem_prime_handle_to_fd,
->>>       .prime_fd_to_handle = drm_gem_prime_fd_to_handle,
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>> index c3d9d75143f4..1553a2633d46 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>> @@ -35,11 +35,20 @@ static enum drm_gpu_sched_stat 
->>> amdgpu_job_timedout(struct drm_sched_job *s_job)
->>>   {
->>>       struct amdgpu_ring *ring = to_amdgpu_ring(s_job->sched);
->>>       struct amdgpu_job *job = to_amdgpu_job(s_job);
->>> +    struct drm_sched_entity *entity = job->base.entity;
->>>       struct amdgpu_task_info ti;
->>>       struct amdgpu_device *adev = ring->adev;
->>>       int idx;
->>>       int r;
->>> +    memset(&ti, 0, sizeof(struct amdgpu_task_info));
->>> +    amdgpu_vm_get_task_info(ring->adev, job->pasid, &ti);
->>> +
->>> +    if (job->ctx) {
->>> +        DRM_INFO("Increasing ctx reset count for %s (%d)\n", 
->>> ti.process_name, ti.pid);
->>> +        job->ctx->local_reset_counter++;
->>> +    }
->>> +
->>>       if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
->>>           DRM_INFO("%s - device unplugged skipping recovery on 
->>> scheduler:%s",
->>>                __func__, s_job->sched->name);
->>> @@ -48,7 +57,6 @@ static enum drm_gpu_sched_stat 
->>> amdgpu_job_timedout(struct drm_sched_job *s_job)
->>>           return DRM_GPU_SCHED_STAT_ENODEV;
->>>       }
->>> -    memset(&ti, 0, sizeof(struct amdgpu_task_info));
->>>       adev->job_hang = true;
->>>       if (amdgpu_gpu_recovery &&
->>> @@ -58,7 +66,6 @@ static enum drm_gpu_sched_stat 
->>> amdgpu_job_timedout(struct drm_sched_job *s_job)
->>>           goto exit;
->>>       }
->>> -    amdgpu_vm_get_task_info(ring->adev, job->pasid, &ti);
->>>       DRM_ERROR("ring %s timeout, signaled seq=%u, emitted seq=%u\n",
->>>             job->base.sched->name, 
->>> atomic_read(&ring->fence_drv.last_seq),
->>>             ring->fence_drv.sync_seq);
->>> @@ -105,6 +112,7 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, 
->>> struct amdgpu_vm *vm,
->>>        */
->>>       (*job)->base.sched = &adev->rings[0]->sched;
->>>       (*job)->vm = vm;
->>> +    (*job)->ctx = NULL;
->>>       amdgpu_sync_create(&(*job)->explicit_sync);
->>>       (*job)->vram_lost_counter = 
->>> atomic_read(&adev->vram_lost_counter);
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>> index 52f2e313ea17..0d463babaa60 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>> @@ -63,6 +63,8 @@ struct amdgpu_job {
->>>       uint32_t        oa_base, oa_size;
->>>       uint32_t        vram_lost_counter;
->>> +    struct amdgpu_ctx    *ctx;
->>> +
->>>       /* user fence handling */
->>>       uint64_t        uf_addr;
->>>       uint64_t        uf_sequence;
->>
+I don't know if "reset tracking" is some sub-system that is turned on
+and off as needed or what updating it would mean.
 
+> >  =20
+> >> +kernel about reset information. Drivers should implement the DRM_IOCT=
+L_GET_RESET
+> >> +for that. =20
+> >=20
+> > At this point, I'm not sure what "reset tracking" or "reset
+> > information" entails. Could something be said about those? =20
+> >  >> + =20
+> >> +User Mode Driver
+> >> +----------------
+> >> +
+> >> +The UMD should check before submitting new commands to the KMD if the=
+ device has
+> >> +been reset, and this can be checked more often if it requires to. The
+> >> +DRM_IOCTL_GET_RESET is the default interface for those kind of checks=
+. After
+> >> +detecting a reset, UMD will then proceed to report it to the applicat=
+ion using
+> >> +the appropriated API error code, as explained in the bellow section a=
+bout =20
+> >=20
+> > s/bellow/below/
+> >  =20
+> >> +robustness.
+> >> +
+> >> +Robustness
+> >> +----------
+> >> +
+> >> +The only way to try to keep an application working after a reset is i=
+f it
+> >> +complies with the robustness aspects of the graphical API that is usi=
+ng. =20
+> >=20
+> > that it is using.
+> >  =20
+> >> +
+> >> +Graphical APIs provide ways to application to deal with device resets=
+. However, =20
+> >=20
+> > provide ways for applications to deal with
+> >  =20
+> >> +there's no guarantee that the app will be correctly using such featur=
+es, and UMD
+> >> +can implement policies to close the app if it's a repeating offender,=
+ likely in
+> >> +a broken loop. This is done to ensure that it doesn't keeps blocking =
+the user =20
+> >=20
+> > does not keep
+> >=20
+> > I think contractions are usually avoided in documents, but I'm not
+> > bothering to flag them all.
+> >  =20
+> >> +interface to be correctly displayed. =20
+> >=20
+> > interface from being correctly displayed.
+> >  =20
+> >> +
+> >> +OpenGL
+> >> +~~~~~~
+> >> +
+> >> +Apps using OpenGL can rely on ``GL_ARB_robustness`` to be robust. Thi=
+s extension
+> >> +tells if a reset has happened, and if so, all the context state is co=
+nsidered
+> >> +lost and the app proceeds by creating new ones. If robustness isn't i=
+n use, UMD
+> >> +will terminate the app when a reset is detected, giving that the cont=
+exts are
+> >> +lost and the app won't be able to figure this out and recreate the co=
+ntexts. =20
+> >=20
+> > What about GL ES? Is GL_ARB_robustness implemented or even defined ther=
+e?
+> >  =20
+>=20
+> I found this:=20
+> https://registry.khronos.org/OpenGL/extensions/EXT/EXT_robustness.txt
+>=20
+> "Since this is intended to be a version of ARB_robustness for OpenGL ES,=
+=20
+> it should be named accordingly."
+>=20
+> I can add this to this paragraph.
+
+Yes, please!
+
+I suppose there could be even more extensions with similar benefits, so
+maybe these extension should be mentioned as examples. Right now the
+wording sounds like these are the chosen extensions, and if you don't
+use one, the process will be terminated.
+
+>=20
+> > What about EGL returning errors like EGL_CONTEXT_LOST, would handling t=
+hat not
+> > be enough from the app? The documented expectation is: "The application
+> > must destroy all contexts and reinitialise OpenGL ES state and objects
+> > to continue rendering." =20
+>=20
+> I couldn't find the spec for EGL_CONTEXT_LOST, but I found for=20
+> GL_CONTEXT_LOST, which I assume is similar.
+
+EGL Version 1.5 - August 27, 2014
+
+Section 2.7 Power Management
+
+	Following a power management event, calls to eglSwapBuffers,
+	eglCopyBuffers, or eglMakeCurrent will indicate failure by
+	returning EGL_FALSE. The error EGL_CONTEXT_LOST will be
+	returned if a power management event has occurred.
+
+	On detection of this error, the application must destroy all
+	contexts (by calling eglDestroyContext for each context). To
+	continue rendering the application must recreate any contexts
+	it requires, and subsequently restore any client API state and
+	objects it wishes to use.
+
+It is talking about power management which is not quite GPU reset, but
+I see so much similarity that I'd say it doesn't matter which one
+actually happened. The only difference is that power management events
+are not caused by application bugs, which means that the application
+will simply re-initialize and retry, which may result in a reset loop.
+
+You already wrote provision to handle reset loops, and I'm not sure
+applications handling EGL_CONTEXT_LOST would/could ever infer that they
+are the culprit without using robustness extensions.
+
+I can see how EGL_CONTEXT_LOST could be deemed unsuitable for resets,
+too.
+
+>=20
+> GL_CONTEXT_LOST is only returned in some specific commands (that might=20
+> cause a polling application to block indefinitely), so I don't think=20
+> it's enough, given that the we can't guarantee that the application will=
+=20
+> call such commands after a reset, thus not being able to notice a reset.
+>=20
+> https://registry.khronos.org/OpenGL-Refpages/gl4/html/glGetGraphicsResetS=
+tatus.xhtml
+
+Ok, another API for a similar thing.
+
+So in that case, the app does not need to use a robustness extension if
+it uses OpenGL 4.5 and bothers to check.
+
+This makes the wording "If robustness is not in use" problematic,
+because it seems complicated to determine if robusteness is in use in
+any particular application. I suppose Mesa would track if the app ever
+called glGetGraphicsResetStatus() before drawing after reset?
+
+
+Thanks,
+pq
+
+> >  =20
+> >> +
+> >> +Vulkan
+> >> +~~~~~~
+> >> +
+> >> +Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for submi=
+ssions.
+> >> +This error code means, among other things, that a device reset has ha=
+ppened and
+> >> +it needs to recreate the contexts to keep going.
+> >> +
+> >> +Reporting resets causes
+> >> +-----------------------
+> >> +
+> >> +Apart from propagating the reset through the stack so apps can recove=
+r, it's
+> >> +really useful for driver developers to learn more about what caused t=
+he reset in
+> >> +first place. DRM devices should make use of devcoredump to store rele=
+vant
+> >> +information about the reset, so this information can be added to user=
+ bug
+> >> +reports.
+> >> +
+> >>   .. _drm_driver_ioctl:
+> >>  =20
+> >>   IOCTL Support on Device Nodes =20
+> >=20
+> > What about VRAM contents? If userspace holds a dmabuf handle, can a GPU
+> > reset wipe that buffer? How would that be communicated?
+> >  =20
+>=20
+> Yes, it can.
+>=20
+> > The dmabuf may have originated in another process.
+> >  =20
+>=20
+> Indeed, I think we might need to add an error code for dmabuf calls so=20
+> the buffer user knows that it's invalid now because a reset has happened=
+=20
+> in the other device. I will need to read more dmabuf code to make sure=20
+> how this would be possible.
+>=20
+> >=20
+> > Thanks,
+> > pq =20
+
+
+--Sig_/U0kPyh_oeO=f4YN=rPynzPv
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSUAnIACgkQI1/ltBGq
+qqfk1w/+LUyDu0A5QysUvLstuEmS3JSLKjlmbd65TQGJDbG4TYpHLAJVYm4I1RMx
+eQMf6Sc1NRdvLkzuAzKeJdqhOarDP8a9piLRe298HLIKk1IfOhhEwG4SBHEe3qsv
+5Cs8Ms2nC+1FLc8awfCZw0lD2mg6Xor97N77v6SkMqJ3kKqRJy+0DwPC2iRr/6uH
+ZCgFPj+Az+wBcmM7SaiW7qJvj3Q8CrnN+ei9Z51mg7u1LtBJtZ2P45eAQJj7FIV9
+EDWk218J7x6oUQ93khX2L41VN8li84Gjs5rZ9Bkh0NpNwu5zCuXNnk/N4+f3z188
+OIF25SYEXcuYls1apVCJpxIEzIOPQ8QeFPd7qX2BSBqYC3vJhXdll9p6pSWtevC6
+tcDX/lsFsI36xxAhkYJLoLE88cHm6gb0lXbKCareNssqm6Z5LaiSNKyQ5+VHi2jt
+I7brdrhnuWt9s6BQXFHqAGEyl8vToMD2l+xkMz/M/7d6gKaj3pGLosC/tq7ITblF
+09uxp7ehi/InlmR/B5rt3u+gW0qCFcVdQV5QVQtLOxGBHFR1TXbrj3L0yV0HpWG5
+siyeNove+Kr69kMx5ZwdS40ndp9lqpuBH01wBtezofX1qfDCoQmleLx2Ypt+Iv4c
+Y+7DgDAcMWlmbJHEW2Hgm1dZ8kfXVhu4GHoNgqTWk3H7N9yXY/Q=
+=0G+e
+-----END PGP SIGNATURE-----
+
+--Sig_/U0kPyh_oeO=f4YN=rPynzPv--
