@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C16C9EB64DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 21:58:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46364C0015E
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 21:58:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D25A410E5AA;
-	Thu, 22 Jun 2023 21:58:15 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 450EA10E5A8
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 21:58:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45F8C10E5AD;
+	Thu, 22 Jun 2023 21:58:18 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2040.outbound.protection.outlook.com [40.107.101.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E4CE10E5AA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 21:58:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=le0+tSxp8d6Z8YSN12zPYLP10ylIcLFfChuk+OOILujVA8vmoM3Yck0+wZ4hh2BtFta/y+OCCdnX0eNLaD0cOeApMDIh8r772V2O3r312G43Shro74BLosAYctmV/1gX/+c3scNDRFsZ/gF22vbyzElYhQBODqeBZYAJs7aMNiDLJ0+nTNHDgCScVqK32tTbhpKM0ZEV94olnd1PnexjwmPoY8ey/Wgo4U/YlaIYjsOT3nWc2ro2BWA3UKbp3igzzZt1E8tmpfxrOMCd15qF25bPnzM9634uKirRyhPESKBX19Ofh28fPnaCvWVBWzGRXgH0XltSuaW5qZaXa+MdBg==
+ b=OdCafxozDRxZ6GWo506Zun6Cf2qbDMwEJFCf750j/1iOj/+43yGZ4dnBy2VUlOCa7lO+ViheTE/FX/pw2qZpkXs9AwLs+byGZDp4emhdHf79yySKwUqk4MhHFKECV+vjyHEdXQbjbNxchbtXc4M2kGnfNk1bRBaY7lCH5DnrCOz55pHgwRR4vnqh0AMR2iA0HR0C4BR+JRjXI7J3qfZ3k3/2Fir3/aZg+HWkfPlwQ6h8pVgM3eM9nlKAoibBanjaudGwcQsamEnubI29ygTUQ/hXCCSfUudipHQ+PgPmHbAH+hFaPd+xQi2N8XQiFohqCav7HyFDWvdSAOcUWAAOXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YmpxEUuUvJAEXMlPO06iSUCtfYGXs288jCYj5/4HoaY=;
- b=AphgQs0K523jxy6kNJd59uohLl8Zp+46msVpLHWwu3zCcg6xTl8bqkyOE/t+N+HdDxf5n2DK+1eTZZ5Oz102f6YUTFoJ9k3iPsAH34sSj7cs0X0CBpsjyzCzWTj9Szn3OlVt2kQB0nMkhezNFK1qXisREapCagc8BXLF43v3X6O/g+4VvIHLNDj1vvPLEKEcsWhjvHeBMSfwqM0OGmbpvqIW/5ylwTm7Y6pDGpyB7MfKoKNJXrsDsxuknQjSxTPHQZg8GkxPO6SOSK2hOJMvBRf+ig9DtXNtzh0FkjymS3acAdlo7cJ4mjm0Cj5Syi2QavokaQy2x54YbQ5izppiTg==
+ bh=aEd2YqBJq2kLNJKqYVE9Eu3WVuqAgdoQhnAyvBm7KUo=;
+ b=U49NALtMKbAewUZN5PtBJNzTT5cXIax23ptGNeJRnxCOTfT75NyQ6yZY2LowEUhRefJcAR+aea+OEFgIhMVu2805Dg4HVlQ8XRqOjLWJW/aHvoqXmwj8kKowOES4BSSAcCk9hOwFQ/AhGo3HulbxTaWU5pJOFi6kNQmkkFCY7LA9yKVuJjbfyc3+BT6B5hwFHeokbA9wxFE7ESh0ehqyeFkIXvnjv+bjtktyUqnFCsLTQXHB/bQeTt4t0aYTjNsRcDX7YAFfQC9A4dGhK77dlmsRjmr39WRkWUs/HjUEjGA8FYzDLI3cCT+3qX4wvR8HnGMHEN6jsqNiMGuo0CKxPg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YmpxEUuUvJAEXMlPO06iSUCtfYGXs288jCYj5/4HoaY=;
- b=E7x9+i/xaS5HMo4srDPReT+86iB1xZCgmSSNLCdBcmdlrqB+9Wxg+69MMt0Xl4PXFNOn2n/gWtW6ZuEDjCJzeT11SrR9mBZDuKmTBIop6mRc6NGoZr6dOePtAcAj+FXFN1czKn7O+WX/ET11JFdJAHHHKS9sxhmcaE93iCmEb08=
-Received: from SA1P222CA0136.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c2::16)
- by BY5PR12MB4196.namprd12.prod.outlook.com (2603:10b6:a03:205::21)
+ bh=aEd2YqBJq2kLNJKqYVE9Eu3WVuqAgdoQhnAyvBm7KUo=;
+ b=SCAS8JpIs9ANTmDuuyfx90oBhnLv0sWy9vaT0JjPliAe6Fzw0PtCvvHSwKx6fswA0pnnlGmwvtN9adMoPfwUIqsSwhqNV3gzRhQYT/n+8VeHxOeoo7kdmFwXHdQkCrgslV8akQfSVI4e7XdaYCk41tw7UQ1gg4JE6cWu8ssVdpI=
+Received: from SA0PR12CA0030.namprd12.prod.outlook.com (2603:10b6:806:6f::35)
+ by BY1PR12MB8447.namprd12.prod.outlook.com (2603:10b6:a03:525::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Thu, 22 Jun
- 2023 21:58:11 +0000
-Received: from SN1PEPF00026367.namprd02.prod.outlook.com
- (2603:10b6:806:3c2:cafe::6) by SA1P222CA0136.outlook.office365.com
- (2603:10b6:806:3c2::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.35; Thu, 22 Jun
+ 2023 21:58:12 +0000
+Received: from SN1PEPF0002636E.namprd02.prod.outlook.com
+ (2603:10b6:806:6f:cafe::11) by SA0PR12CA0030.outlook.office365.com
+ (2603:10b6:806:6f::35) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24 via Frontend
- Transport; Thu, 22 Jun 2023 21:58:10 +0000
+ Transport; Thu, 22 Jun 2023 21:58:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF00026367.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SN1PEPF0002636E.mail.protection.outlook.com (10.167.241.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6521.19 via Frontend Transport; Thu, 22 Jun 2023 21:58:10 +0000
+ 15.20.6521.17 via Frontend Transport; Thu, 22 Jun 2023 21:58:12 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 22 Jun
- 2023 16:58:08 -0500
+ 2023 16:58:09 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 04/11] drm/amd/display: Fix the delta clamping for shaper LUT
-Date: Thu, 22 Jun 2023 15:57:28 -0600
-Message-ID: <20230622215735.2026220-5-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 05/11] drm/amd/display: Limit new fast update path to addr and
+ gamma / color
+Date: Thu, 22 Jun 2023 15:57:29 -0600
+Message-ID: <20230622215735.2026220-6-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230622215735.2026220-1-Rodrigo.Siqueira@amd.com>
 References: <20230622215735.2026220-1-Rodrigo.Siqueira@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026367:EE_|BY5PR12MB4196:EE_
-X-MS-Office365-Filtering-Correlation-Id: 525bbc5f-b59e-4c03-ad90-08db736bc4f5
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636E:EE_|BY1PR12MB8447:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f03dbee-955a-4556-1320-08db736bc609
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PE1s2v4/+Zh0QK42EIwrvxMPUaNQ0sXHNfotYhBYXnSf0qkwL0qoEf5hCM4Zor2CtGks/yBIiUj1eTcQPi8W6kCiUVsCMOGgr01FQfHtuQmny/ve2Z6BfFdiAImM7mMNt4JqwpQmQGfmsjBCtS42jUpkE+0c74D63UF5I+8QB5ozQ6SRiQcWz2XCZPxVwEdfe1MqZvW89zOXVUY14PmX6UrOBDzfJWJrtz5iyMX3pNF2lzLRmJMNMxMRgfuJcWSpPei2OB/LHef52B76xjjdrRr1byokyuC6Pas3obzDDT1XxV+9tHZinm7DB3ET6opVFYixcBi0S9/il2EoHnH2udGUIQcv8DfcFRgTFdT/pNofYIFEYd69m9+QpX7N0jqi/YCXHYoaigesXiAxOj2v3uJEpBwWcFCOVKYYrNfPYD+AzexL3g7p8FYGTjKybFYczvKGTp0c3yD22OQpmnLSFhwm8dP5pivrHfyh5/XWiTUnKO46uOXtfsCXViM9iAqd9mGGYPv8fxe413ZJ9QbwNnvw2TdZMn9Rj7FBPtU27kq14GEHhX4gXPhNTiepyBGcvSgW1531OnmLDqZRrEBc4XAw9SUtAGxvsbLp2Mwfds8lOgYWL4VsotCqpm7+MOmMl+ACAGXcue/ye3crEl04NBDqatHkYqPkMpF/vK+ybrKo4Ylwnx8OX7llbV2N4V1sViDFe1v4ur0AuW3m+gfbUFrnMGogRwjzMHJDO1HM7wQHHZC5ilvI9rLe+ACUSka0g1c86j4Of2z6pFAs3H9O3g==
+X-Microsoft-Antispam-Message-Info: m+N8cqGNFCpBCOJWhiFnfLSbmvWezD0Vx8PSXhC/fljAY1XSs6SqKSCzlE9WC/NAujBvQsxPCcE/rBGM1lue5CnxxA2+DAxFIn2t8Z4YL23HPZVIuAvVghK4e91agzg4tl84wbe36edKJho3SS2aCF3v12rK3g4zJeLuf36muoduXHKfWktwUi+AuIqJKOkIr2b6XGRDVGh5yp7Z68jkTw7YOpoAbesYFhdYr93JgZp/qTX6PJ7w8pBp1GJq03jmvYUDKjiHpknZOmkUOsdrundg0vMTAwEYR8frS8Jr25pRhio9QqmfYHd4C0OwVpHWWrejXchE1CoR9ZruxIzSVBzEhYqgWhsPVs34+V5eELcTQD0pi5Dv7M3B+VKapAryO5T/N7nuDpS3J7ULsTUR7yjCnEvyzYuotFh8oqYRmuMAy5GlmvQ0T1/ns++DuFUlmvQBaj6Z44lEuM1mkG41FfUgg0IMZebUPcpUOMY1KTHS8YCB3mQdR5x3nrV1dHVhoNw/U5bHzvuayimO5LpyrJmP3SVu1jydqoKtXJavivndVqEjmjKlvRNxfIuqcvBsp2vkIHSImGPcvP9SMf4dmHKAT/Rs0Lhqq90NQcnmmAt1fK3X+G+eMqTg3a2TvDBg3zOcY3AmFyzmJybK34YgfF4Fqodd2bHSB6LXei9xtKYI+V7Sa6Q597zgO7OjD5/vfbR1bTSSermv4tiFhsj2XiqAHzLH0lsF5fv1wK9hK7iIWITxtxM6u1V8S+F2TMOT3vZmQDpb0GDfammD9G6mcw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(396003)(346002)(39860400002)(136003)(451199021)(36840700001)(46966006)(40470700004)(6666004)(82740400003)(1076003)(186003)(5660300002)(16526019)(82310400005)(478600001)(356005)(81166007)(26005)(40480700001)(2616005)(2906002)(8936002)(41300700001)(40460700003)(8676002)(54906003)(6916009)(70206006)(36756003)(426003)(83380400001)(316002)(47076005)(70586007)(36860700001)(86362001)(4326008)(336012)(36900700001);
+ SFS:(13230028)(4636009)(396003)(39860400002)(376002)(136003)(346002)(451199021)(40470700004)(46966006)(36840700001)(1076003)(26005)(186003)(2616005)(36756003)(426003)(336012)(6666004)(16526019)(47076005)(54906003)(82740400003)(81166007)(356005)(478600001)(83380400001)(36860700001)(70206006)(4326008)(70586007)(6916009)(82310400005)(316002)(41300700001)(8936002)(8676002)(40460700003)(2906002)(15650500001)(5660300002)(86362001)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 21:58:10.5718 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 525bbc5f-b59e-4c03-ad90-08db736bc4f5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 21:58:12.3454 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f03dbee-955a-4556-1320-08db736bc609
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026367.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4196
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR12MB8447
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,189 +100,192 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Krunoslav Kovac <krunoslav.kovac@amd.com>,
- Sunpeng.Li@amd.com, Harry Wentland <harry.wentland@amd.com>,
- qingqing.zhuo@amd.com, Rodrigo
- Siqueira <rodrigo.siqueira@amd.com>, roman.li@amd.com, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com, Jun Lei <jun.lei@amd.com>,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Harry Wentland <harry.wentland@amd.com>
+From: Alvin Lee <alvin.lee2@amd.com>
 
-The shaper LUT requires a 10-bit value of the delta between segments. We
-were using dc_fixpt_clamp_u0d10() to do that but it doesn't do what we
-want it to do. It will preserve 10-bit precision after the decimal
-point, but that's not quite what we want. We want 14-bit precision and
-discard the 4 most-significant bytes.
+[Description]
+- We want to limit the new fast update path to address and gamma updates
+  only.
+- Add a check in dc_update_planes_and_stream to only take the new fast
+  update path if we only have the specific fast updates defined.
 
-To do that we'll do dc_fixpt_clamp_u0d14() & 0x3ff instead.
-
-Reviewed-by: Krunoslav Kovac <krunoslav.kovac@amd.com>
+Reviewed-by: Jun Lei <jun.lei@amd.com>
 Acked-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
 ---
- .../amd/display/dc/dcn10/dcn10_cm_common.c    | 19 +++++++++++++++----
- .../amd/display/dc/dcn10/dcn10_cm_common.h    |  1 +
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  2 +-
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  6 +++---
- .../drm/amd/display/dc/dcn30/dcn30_dwb_cm.c   |  2 +-
- .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  2 +-
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  6 +++---
- 7 files changed, 25 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 94 +++++++++++++++++++++++-
+ drivers/gpu/drm/amd/display/dc/dc.h      | 10 +++
+ 2 files changed, 102 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
-index 7a00fe525dfb..3538973bd0c6 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
-@@ -308,7 +308,10 @@ bool cm_helper_convert_to_custom_float(
- #define NUMBER_REGIONS     32
- #define NUMBER_SW_SEGMENTS 16
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index f413998ff253..b97c4dfa5098 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -4243,6 +4243,90 @@ static void update_seamless_boot_flags(struct dc *dc,
+ 	}
+ }
  
--bool cm_helper_translate_curve_to_hw_format(
-+#define DC_LOGGER \
-+		ctx->logger
++static void populate_fast_updates(struct dc_fast_update *fast_update,
++		struct dc_surface_update *srf_updates,
++		struct dc_stream_update *stream_update)
++{
++	if (srf_updates) {
++		fast_update->flip_addr = srf_updates->flip_addr;
++		fast_update->gamma = srf_updates->gamma;
++		fast_update->gamut_remap_matrix = srf_updates->gamut_remap_matrix;
++		fast_update->input_csc_color_matrix = srf_updates->input_csc_color_matrix;
++		fast_update->coeff_reduction_factor = srf_updates->coeff_reduction_factor;
++	}
++	if (stream_update) {
++		fast_update->out_transfer_func = stream_update->out_transfer_func;
++		fast_update->output_csc_transform = stream_update->output_csc_transform;
++	}
++}
 +
-+bool cm_helper_translate_curve_to_hw_format(struct dc_context *ctx,
- 				const struct dc_transfer_func *output_tf,
- 				struct pwl_params *lut_params, bool fixpoint)
- {
-@@ -482,10 +485,18 @@ bool cm_helper_translate_curve_to_hw_format(
- 		rgb->delta_green = dc_fixpt_sub(rgb_plus_1->green, rgb->green);
- 		rgb->delta_blue  = dc_fixpt_sub(rgb_plus_1->blue,  rgb->blue);
- 
++static bool fast_updates_exist(struct dc_fast_update *fast_update)
++{
++	if (fast_update->flip_addr ||
++			fast_update->gamma ||
++			fast_update->gamut_remap_matrix ||
++			fast_update->input_csc_color_matrix ||
++			fast_update->coeff_reduction_factor ||
++			fast_update->out_transfer_func ||
++			fast_update->output_csc_transform)
++		return true;
 +
- 		if (fixpoint == true) {
--			rgb->delta_red_reg   = dc_fixpt_clamp_u0d10(rgb->delta_red);
--			rgb->delta_green_reg = dc_fixpt_clamp_u0d10(rgb->delta_green);
--			rgb->delta_blue_reg  = dc_fixpt_clamp_u0d10(rgb->delta_blue);
-+			uint32_t red_clamp = dc_fixpt_clamp_u0d14(rgb->delta_red);
-+			uint32_t green_clamp = dc_fixpt_clamp_u0d14(rgb->delta_green);
-+			uint32_t blue_clamp = dc_fixpt_clamp_u0d14(rgb->delta_blue);
++	return false;
++}
 +
-+			if (red_clamp >> 10 || green_clamp >> 10 || blue_clamp >> 10)
-+				DC_LOG_WARNING("Losing delta precision while programming shaper LUT.");
++static bool full_update_required(struct dc_surface_update *srf_updates,
++		struct dc_stream_update *stream_update)
++{
++	if (srf_updates &&
++			(srf_updates->plane_info ||
++			srf_updates->scaling_info ||
++			(srf_updates->hdr_mult.value &&
++			srf_updates->hdr_mult.value != srf_updates->surface->hdr_mult.value) ||
++			srf_updates->in_transfer_func ||
++			srf_updates->func_shaper ||
++			srf_updates->lut3d_func ||
++			srf_updates->blend_tf))
++		return true;
 +
-+			rgb->delta_red_reg   = red_clamp & 0x3ff;
-+			rgb->delta_green_reg = green_clamp & 0x3ff;
-+			rgb->delta_blue_reg  = blue_clamp & 0x3ff;
- 			rgb->red_reg         = dc_fixpt_clamp_u0d14(rgb->red);
- 			rgb->green_reg       = dc_fixpt_clamp_u0d14(rgb->green);
- 			rgb->blue_reg        = dc_fixpt_clamp_u0d14(rgb->blue);
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.h
-index 3b8cd7410498..0a68b63d6126 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.h
-@@ -106,6 +106,7 @@ bool cm_helper_convert_to_custom_float(
- 		bool fixpoint);
++	if (stream_update &&
++			(((stream_update->src.height != 0 && stream_update->src.width != 0) ||
++			(stream_update->dst.height != 0 && stream_update->dst.width != 0) ||
++			stream_update->integer_scaling_update) ||
++			stream_update->hdr_static_metadata ||
++			stream_update->abm_level ||
++			stream_update->periodic_interrupt ||
++			stream_update->vrr_infopacket ||
++			stream_update->vsc_infopacket ||
++			stream_update->vsp_infopacket ||
++			stream_update->hfvsif_infopacket ||
++			stream_update->vtem_infopacket ||
++			stream_update->adaptive_sync_infopacket ||
++			stream_update->dpms_off ||
++			stream_update->allow_freesync ||
++			stream_update->vrr_active_variable ||
++			stream_update->vrr_active_fixed ||
++			stream_update->gamut_remap ||
++			stream_update->output_color_space ||
++			stream_update->dither_option ||
++			stream_update->wb_update ||
++			stream_update->dsc_config ||
++			stream_update->mst_bw_update ||
++			stream_update->func_shaper ||
++			stream_update->lut3d_func ||
++			stream_update->pending_test_pattern ||
++			stream_update->crtc_timing_adjust))
++		return true;
++
++	return false;
++}
++
++static bool fast_update_only(struct dc_fast_update *fast_update,
++		struct dc_surface_update *srf_updates,
++		struct dc_stream_update *stream_update)
++{
++	return fast_updates_exist(fast_update) && !full_update_required(srf_updates, stream_update);
++}
++
+ bool dc_update_planes_and_stream(struct dc *dc,
+ 		struct dc_surface_update *srf_updates, int surface_count,
+ 		struct dc_stream_state *stream,
+@@ -4252,6 +4336,7 @@ bool dc_update_planes_and_stream(struct dc *dc,
+ 	enum surface_update_type update_type;
+ 	int i;
+ 	struct mall_temp_config mall_temp_config;
++	struct dc_fast_update fast_update = {0};
  
- bool cm_helper_translate_curve_to_hw_format(
-+		struct dc_context *ctx,
- 		const struct dc_transfer_func *output_tf,
- 		struct pwl_params *lut_params, bool fixpoint);
+ 	/* In cases where MPO and split or ODM are used transitions can
+ 	 * cause underflow. Apply stream configuration with minimal pipe
+@@ -4260,6 +4345,7 @@ bool dc_update_planes_and_stream(struct dc *dc,
+ 	bool force_minimal_pipe_splitting;
+ 	bool is_plane_addition;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 20a1582be0b1..a50309039d08 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -1843,7 +1843,7 @@ bool dcn10_set_output_transfer_func(struct dc *dc, struct pipe_ctx *pipe_ctx,
- 	/* dcn10_translate_regamma_to_hw_format takes 750us, only do it when full
- 	 * update.
- 	 */
--	else if (cm_helper_translate_curve_to_hw_format(
-+	else if (cm_helper_translate_curve_to_hw_format(dc->ctx,
- 			stream->out_transfer_func,
- 			&dpp->regamma_params, false)) {
- 		dpp->funcs->dpp_program_regamma_pwl(
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 4c8aa3dfb959..4492bc2392b6 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -867,7 +867,7 @@ bool dcn20_set_output_transfer_func(struct dc *dc, struct pipe_ctx *pipe_ctx,
- 			params = &stream->out_transfer_func->pwl;
- 		else if (pipe_ctx->stream->out_transfer_func->type ==
- 			TF_TYPE_DISTRIBUTED_POINTS &&
--			cm_helper_translate_curve_to_hw_format(
-+			cm_helper_translate_curve_to_hw_format(dc->ctx,
- 			stream->out_transfer_func,
- 			&mpc->blender_params, false))
- 			params = &mpc->blender_params;
-@@ -896,7 +896,7 @@ bool dcn20_set_blend_lut(
- 		if (plane_state->blend_tf->type == TF_TYPE_HWPWL)
- 			blend_lut = &plane_state->blend_tf->pwl;
- 		else if (plane_state->blend_tf->type == TF_TYPE_DISTRIBUTED_POINTS) {
--			cm_helper_translate_curve_to_hw_format(
-+			cm_helper_translate_curve_to_hw_format(plane_state->ctx,
- 					plane_state->blend_tf,
- 					&dpp_base->regamma_params, false);
- 			blend_lut = &dpp_base->regamma_params;
-@@ -918,7 +918,7 @@ bool dcn20_set_shaper_3dlut(
- 		if (plane_state->in_shaper_func->type == TF_TYPE_HWPWL)
- 			shaper_lut = &plane_state->in_shaper_func->pwl;
- 		else if (plane_state->in_shaper_func->type == TF_TYPE_DISTRIBUTED_POINTS) {
--			cm_helper_translate_curve_to_hw_format(
-+			cm_helper_translate_curve_to_hw_format(plane_state->ctx,
- 					plane_state->in_shaper_func,
- 					&dpp_base->shaper_params, true);
- 			shaper_lut = &dpp_base->shaper_params;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb_cm.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb_cm.c
-index 6a3d3a0ec0a3..701c7d8bc038 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb_cm.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb_cm.c
-@@ -280,7 +280,7 @@ bool dwb3_ogam_set_input_transfer_func(
- 	dwb_ogam_lut = kzalloc(sizeof(*dwb_ogam_lut), GFP_KERNEL);
++	populate_fast_updates(&fast_update, srf_updates, stream_update);
+ 	force_minimal_pipe_splitting = could_mpcc_tree_change_for_active_pipes(
+ 			dc,
+ 			stream,
+@@ -4310,7 +4396,8 @@ bool dc_update_planes_and_stream(struct dc *dc,
+ 	}
  
- 	if (dwb_ogam_lut) {
--		cm_helper_translate_curve_to_hw_format(
-+		cm_helper_translate_curve_to_hw_format(dwbc->ctx,
- 			in_transfer_func_dwb_ogam,
- 			dwb_ogam_lut, false);
+ 	update_seamless_boot_flags(dc, context, surface_count, stream);
+-	if (!dc->debug.enable_legacy_fast_update && update_type == UPDATE_TYPE_FAST) {
++	if (fast_update_only(&fast_update, srf_updates, stream_update) &&
++			!dc->debug.enable_legacy_fast_update) {
+ 		commit_planes_for_stream_fast(dc,
+ 				srf_updates,
+ 				surface_count,
+@@ -4367,7 +4454,9 @@ void dc_commit_updates_for_stream(struct dc *dc,
+ 	struct dc_state *context;
+ 	struct dc_context *dc_ctx = dc->ctx;
+ 	int i, j;
++	struct dc_fast_update fast_update = {0};
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-index b9753867d97b..bf8864bc8a99 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-@@ -106,7 +106,7 @@ static bool dcn30_set_mpc_shaper_3dlut(struct pipe_ctx *pipe_ctx,
- 		if (stream->func_shaper->type == TF_TYPE_HWPWL) {
- 			shaper_lut = &stream->func_shaper->pwl;
- 		} else if (stream->func_shaper->type == TF_TYPE_DISTRIBUTED_POINTS) {
--			cm_helper_translate_curve_to_hw_format(stream->func_shaper,
-+			cm_helper_translate_curve_to_hw_format(stream->ctx, stream->func_shaper,
- 							       &dpp_base->shaper_params, true);
- 			shaper_lut = &dpp_base->shaper_params;
- 		}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-index e5bd76c6b1d3..526e89ef9cdc 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-@@ -448,7 +448,7 @@ bool dcn32_set_mpc_shaper_3dlut(
- 		if (stream->func_shaper->type == TF_TYPE_HWPWL)
- 			shaper_lut = &stream->func_shaper->pwl;
- 		else if (stream->func_shaper->type == TF_TYPE_DISTRIBUTED_POINTS) {
--			cm_helper_translate_curve_to_hw_format(
-+			cm_helper_translate_curve_to_hw_format(stream->ctx,
- 					stream->func_shaper,
- 					&dpp_base->shaper_params, true);
- 			shaper_lut = &dpp_base->shaper_params;
-@@ -484,7 +484,7 @@ bool dcn32_set_mcm_luts(
- 		if (plane_state->blend_tf->type == TF_TYPE_HWPWL)
- 			lut_params = &plane_state->blend_tf->pwl;
- 		else if (plane_state->blend_tf->type == TF_TYPE_DISTRIBUTED_POINTS) {
--			cm_helper_translate_curve_to_hw_format(
-+			cm_helper_translate_curve_to_hw_format(plane_state->ctx,
- 					plane_state->blend_tf,
- 					&dpp_base->regamma_params, false);
- 			lut_params = &dpp_base->regamma_params;
-@@ -499,7 +499,7 @@ bool dcn32_set_mcm_luts(
- 		else if (plane_state->in_shaper_func->type == TF_TYPE_DISTRIBUTED_POINTS) {
- 			// TODO: dpp_base replace
- 			ASSERT(false);
--			cm_helper_translate_curve_to_hw_format(
-+			cm_helper_translate_curve_to_hw_format(plane_state->ctx,
- 					plane_state->in_shaper_func,
- 					&dpp_base->shaper_params, true);
- 			lut_params = &dpp_base->shaper_params;
++	populate_fast_updates(&fast_update, srf_updates, stream_update);
+ 	stream_status = dc_stream_get_status(stream);
+ 	context = dc->current_state;
+ 
+@@ -4453,7 +4542,8 @@ void dc_commit_updates_for_stream(struct dc *dc,
+ 	TRACE_DC_PIPE_STATE(pipe_ctx, i, MAX_PIPES);
+ 
+ 	update_seamless_boot_flags(dc, context, surface_count, stream);
+-	if (!dc->debug.enable_legacy_fast_update && update_type == UPDATE_TYPE_FAST) {
++	if (fast_update_only(&fast_update, srf_updates, stream_update) &&
++			!dc->debug.enable_legacy_fast_update) {
+ 		commit_planes_for_stream_fast(dc,
+ 				srf_updates,
+ 				surface_count,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 24f580bdac6a..90e71c3e766f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1264,6 +1264,16 @@ struct dc_scaling_info {
+ 	struct scaling_taps scaling_quality;
+ };
+ 
++struct dc_fast_update {
++	const struct dc_flip_addrs *flip_addr;
++	const struct dc_gamma *gamma;
++	const struct colorspace_transform *gamut_remap_matrix;
++	const struct dc_csc_transform *input_csc_color_matrix;
++	const struct fixed31_32 *coeff_reduction_factor;
++	struct dc_transfer_func *out_transfer_func;
++	struct dc_csc_transform *output_csc_transform;
++};
++
+ struct dc_surface_update {
+ 	struct dc_plane_state *surface;
+ 
 -- 
 2.39.2
 
