@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D1AAEB64DA
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 21:29:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31D3AEB64DA
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 21:29:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8BEC10E09B;
-	Thu, 22 Jun 2023 21:29:02 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2076.outbound.protection.outlook.com [40.107.94.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BE3210E09B
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 21:29:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD2FD10E581;
+	Thu, 22 Jun 2023 21:29:05 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2085.outbound.protection.outlook.com [40.107.237.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB1A10E580
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 21:29:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K0Z633U1paJ85p5KCIcgtEszYG8THuz6WAYRhKhcE0A4XcOKkiyQjcupAeB0hGJQ4YkSbrcTIGjGNkPfLDUx96imtx8IeIsHK0t5W79faTgYHQ8kr+w3v58xHT2kAIfl5rY3wMkAQDRQJf720UJGMz4sSjDyySdg+01SMOFrcZdwa9/W9GuLI6RQBMViQwxoX7/lMWL2S5B8CEsmG7jNVT73VOUeNYhe27oUFXdAHZQl8MulN1sKyeGezMSAXlj55ZkR9Z5ccjsRqQDlkEv/qiYcgdI3nuubszQFGbZxo4Mz3atdR3jcwflDHkFUW3l5OSXA/6c+xOJyNCtBe8y8XA==
+ b=Y28kZXFoTK5Fec1hxXKcx+lFaKZNGgPdAHBw1h8bdDl99IILtblLDy/wtikfEoCuWqyeOIQcu7P1WBaV9Vjvx7/UktqXGHPg9xgXxxsMfwEASzjiIq6BROoczCsKqSyInEM3xK3KJPQVYV4an1CQouRssF5ZcNgigxZzXqulL+cp8/DuEVqjir/fDIQ8vKPOz/KndsvVT0HsDDg1QIbQKniaVnmY/1jHc5PH7ezuasBNDQhmRQk2JOebCfCpSx6zT5KgrWYiRtKh1fjrSfZIg7jhkJ2kH3GY53fZ+4B7yphR4zhmBDoFNNOe5SaJMgsAmwC6Ccv6DsAWFutR3OG7Wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jsj5uAr2hUyJDe7+CcIxb7TLEbBUetmAzyF1tpqGnQU=;
- b=jWkezU0npGnAHK4kz4Egg625yatH5h2jnJi9K7pmEAtAYY92vurEL5UKkvHaRkmgtwbabuHPYG5P+8ylQhu6IiEGOovn9v74Rx5GwbCUE+1Mp8u8XVQtinh1VF/2QRrrEuaxeksLN0FFL7H9Vht99cs/dE7EJeotuFdoAIEtr4r6spS84ssgv+uEdahx2XwKl6Fk2DnK4e3pDcKFTsjUNa5L8IB4Y+MGSM0QqOggLdesZEpqjmSxmp7KUetVcEQhPd8aww7uYHXi86BXk889AFi3VQlAl8uP9Pbw+UZWHBSZXJ80pvZ9NQaainIZ1DlkG8RW1UgznZmN0YOydj3RIw==
+ bh=hie7qc+qO+TndShnm1zpLRNnyReFup6E/LFM2wg7s70=;
+ b=W+nwtI3O5mYijGaw0gQf7QrEY4qUEpj8cq6cmxJ16VU7l5SIrCCxcNHP8TSU/JU4CCun3HsdQt9zkVj7AWqYRLjJfRd3HCto6hdBIH+S6+0ZIBAWsyZrXcatL3Svwsb02kvImABoTNf72MoHsnt6+ogFWqGKufnbQPWC3oBxZ2sS+EWGX8CCXYKr5HptG+fRQMv6TzceYvhPviaaj9dibo5pW+WOBZiQ9OPKKQLJnnKsXM967quroGYpiqZbcZAF5KsNck05ttZopQ9VJ8ytVDZwsI+nXQZTSswDIg8SgxMZepr+d+OzcMSrMkqfkyAVxK4NjyJqPEQrkkL+NN/LAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jsj5uAr2hUyJDe7+CcIxb7TLEbBUetmAzyF1tpqGnQU=;
- b=aB8WIcRASEbrhnFzOY1X+R493vi3GYsGd9F0VEKwZhLegJI3a5G7ygC7doEZteT1R3G35aaB+tWf+8m0/aV36UKad1kQ0V1ZJY5zEeux1srKW1FEMu6XETDzPsLaqIOkMkNz7CfGY2w0jsUrmNSr2/CYVPVASqKlpQ9sulmkYLg=
-Received: from SJ0PR05CA0173.namprd05.prod.outlook.com (2603:10b6:a03:339::28)
- by IA1PR12MB6529.namprd12.prod.outlook.com (2603:10b6:208:3a6::16)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=hie7qc+qO+TndShnm1zpLRNnyReFup6E/LFM2wg7s70=;
+ b=q07AiMhnazgmE41QUmWKXRxg4uSOOfgs43KD9uyx4jlYWI3TRVRcrtDwPC73ABr5CSVmct9q6z2MBw4gc0PZNbm1dtzz9QjnAOKaSjjJX/ziQdq3NNzVlPZbdxy0XRMO5l8pkfDzNx7vSlEqJfF+lKz3EWQ82v3+w/I/OlqA4R0=
+Received: from SJ0PR05CA0151.namprd05.prod.outlook.com (2603:10b6:a03:339::6)
+ by DS7PR12MB6142.namprd12.prod.outlook.com (2603:10b6:8:9a::11) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Thu, 22 Jun
- 2023 21:28:58 +0000
+ 2023 21:28:59 +0000
 Received: from CO1PEPF000042A7.namprd03.prod.outlook.com
- (2603:10b6:a03:339:cafe::82) by SJ0PR05CA0173.outlook.office365.com
- (2603:10b6:a03:339::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.26 via Frontend
- Transport; Thu, 22 Jun 2023 21:28:57 +0000
+ (2603:10b6:a03:339:cafe::d5) by SJ0PR05CA0151.outlook.office365.com
+ (2603:10b6:a03:339::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23 via Frontend
+ Transport; Thu, 22 Jun 2023 21:28:59 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000042A7.mail.protection.outlook.com (10.167.243.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6521.23 via Frontend Transport; Thu, 22 Jun 2023 21:28:57 +0000
+ 15.20.6521.23 via Frontend Transport; Thu, 22 Jun 2023 21:28:58 +0000
 Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 22 Jun
- 2023 16:28:55 -0500
+ 2023 16:28:56 -0500
 From: Mukul Joshi <mukul.joshi@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amdkfd: Update interrupt handling for GFX 9.4.3
-Date: Thu, 22 Jun 2023 17:28:42 -0400
-Message-ID: <20230622212843.1595336-1-mukul.joshi@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: Correctly setup TMR region size for GFX9.4.3
+Date: Thu, 22 Jun 2023 17:28:43 -0400
+Message-ID: <20230622212843.1595336-2-mukul.joshi@amd.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20230622212843.1595336-1-mukul.joshi@amd.com>
+References: <20230622212843.1595336-1-mukul.joshi@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A7:EE_|IA1PR12MB6529:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f9bf3b7-4101-416b-8910-08db7367afdc
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042A7:EE_|DS7PR12MB6142:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17ab6b30-0a06-44ea-f2ca-08db7367b0e9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5RVQp2lqjkMD+dUusiKheXnve7AVPbbiXcsehjupt3u/a+9jdmcu7nZNaWkytI1IxPO7ejlOUG23xH82kU9hAWWrVHlys13c2oKUWl2b/udWilqWpzNXRq9nWQpigN8LWr9GDahygr9ZYe05T6kHpicg9jMgnEM73jIIkPyLdrfDkRVidSlM4on+JqIqeAdlSJSFB5Tz3eQfCuFGqf3iXkYHby1WxUPj3MLyo0gptJ/kVTMTXfUAXHvVFDHKBcXYhGwW+tBP17z7akJ/zfhxsn5KcF4EMG6xGAIiFYGgiJnxzZEj6iXSvZxk/ZfYTw7nD676p3oA89wkZBHN40fE84dqHxJQ1y+Lbhtfxdz7bh4E49CdB6lKjLwLflZmkVJI4Pof8XDFFCeI4+3R/wmKAf52N6z6lUo3PDOBXHZAD9mzJVeeKhp4n733hYC7y2ay3FP8E1JlaO1gbuIVO1ax60608VctNEOY4Z7wulDfV0G3E+oruso0vw8uVrW39gFWsbatLlGJ8r+c91Ho3dPWLruGHY1nHc4xfHIzgGtcqEFgAdmhk5jcmdeplcr0nRyAaiKbwpfEaqs8dwGnjenHApde4RIYVBuDrY+1EaEQ35DQi+Jx2eeaTM3OL5AfL+uUdwCh7m8VQ5VZDfJjX2TT6w7UBrjHmgkLdTwebI5s59zH2KTznV4pG/HV0E+pLKPPMioJW3H4ZkTGr1ycPkUAxga5lrldagzbAXPE67Lgxz9BkYqTfooM3CF9FcSYvpntvx1bEu/0x7FQLEsdpyWgPg==
+X-Microsoft-Antispam-Message-Info: dekOMhDknryayGN4QJ6pQt2wskQoxLuJqlpJ3AQllTsitp1xDYJVYID1XVNpfMXbpfU6NDPzQunzkzGrELeF55qIv2jJ5b1UBlJTCE3z6FQQPlDpAAiBAdwKEUd3TnHqy/oaa7czNUI3Q90k+yUQpXUX1QCLGtpRYR0Ogkkgdd/BpYcfe9P3Pit99c3VZtfKzsia1gf3zIt/+90Q0VpNvZMvwVG90a1395l8nvXjjY6yb0zhPX6OycnYKJ/f60CyLTGZ5eu9uiXctfsXhohg1cOxqqlwpPhDsmZhg6Ej1srlBF5w39mnOtmRg9pQS0VnLQGgXmk5nPnMOswdF+ORgKX+DNdREBv8sS6FhBfSIHZNneB3Ht9s9bI1Y7psDuQxll1NJPt4CtwWLwLeXJdwbEkzrHId103sokjyHiPOgD4TMYC8V+4xA50dq2K53KVWL7b+GUiBZll7QQlu11WVmJqeRm1MU04PFhAKQJUm++B0NXv0jhjZUx/z5oysfSoUMsJ/nZjbVf56hsiTWRY7JwjkJSP0WVOfZlcaP8c9RHxwAwpbi6PNKQfVvnZYMQDcZANz8ks1TvYWWUrgm6v0oWXjHDv6HUZJDU+iM3GjqYDKhhkIE2NaHWestNTars6E5WIferMTvqn44R1yG0g1DvBdj4QqPhcyhb7x4YU7t4ruYilDHDByWMZGavISlu8wq5HEIcQPWLUzXo8xmG0zWD3LRJMRQ4dDnQD7gfHQD1VJxQjohOsucBly5P2IOwGFmmqszzLzAiUjhD+m3s3Nxw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(136003)(39860400002)(396003)(376002)(451199021)(40470700004)(36840700001)(46966006)(82740400003)(356005)(5660300002)(81166007)(47076005)(1076003)(26005)(83380400001)(336012)(2616005)(186003)(16526019)(36860700001)(44832011)(40480700001)(15650500001)(41300700001)(2906002)(8936002)(6666004)(36756003)(6916009)(70206006)(7696005)(4326008)(478600001)(70586007)(426003)(86362001)(40460700003)(316002)(54906003)(82310400005)(8676002)(36900700001);
+ SFS:(13230028)(4636009)(376002)(136003)(396003)(346002)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(6666004)(7696005)(83380400001)(82310400005)(186003)(356005)(81166007)(40480700001)(1076003)(36756003)(16526019)(47076005)(426003)(2616005)(336012)(36860700001)(40460700003)(316002)(70206006)(6916009)(4326008)(70586007)(4744005)(2906002)(8936002)(8676002)(26005)(86362001)(44832011)(5660300002)(41300700001)(54906003)(82740400003)(478600001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 21:28:57.0786 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f9bf3b7-4101-416b-8910-08db7367afdc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 21:28:58.8286 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17ab6b30-0a06-44ea-f2ca-08db7367b0e9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042A7.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6529
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6142
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,191 +99,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amber.lin@amd.com, Mukul Joshi <mukul.joshi@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: amber.lin@amd.com, Mukul Joshi <mukul.joshi@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For GFX 9.4.3, interrupt handling needs to be updated for:
-- Interrupt cookie will have a NodeId field. Each KFD
-  node needs to check the NodeId before processing the
-  interrupt.
-- For CPX mode, there are additional checks of client ID
-  needed to process the interrupt.
-- Add NodeId to the process drain interrupt.
+A faulty check was causing TMR region size to be setup incorrectly
+for GFX9.4.3. Remove the check and setup TMR region size as 280MB
+for GFX9.4.3.
 
+Fixes: b6780d70db5e ("drm/amdgpu: bypass bios dependent operations")
 Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       | 43 ++++++++++++++++++-
- .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   | 29 +++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  1 +
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  9 ++++
- drivers/gpu/drm/amd/amdkfd/soc15_int.h        |  1 +
- 5 files changed, 82 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 226d2dd7fa49..0b3dc754e06b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -138,9 +138,12 @@ static void kfd_device_info_set_event_interrupt_class(struct kfd_dev *kfd)
- 	case IP_VERSION(9, 4, 0): /* VEGA20 */
- 	case IP_VERSION(9, 4, 1): /* ARCTURUS */
- 	case IP_VERSION(9, 4, 2): /* ALDEBARAN */
--	case IP_VERSION(9, 4, 3): /* GC 9.4.3 */
- 		kfd->device_info.event_interrupt_class = &event_interrupt_class_v9;
- 		break;
-+	case IP_VERSION(9, 4, 3): /* GC 9.4.3 */
-+		kfd->device_info.event_interrupt_class =
-+						&event_interrupt_class_v9_4_3;
-+		break;
- 	case IP_VERSION(10, 3, 1): /* VANGOGH */
- 	case IP_VERSION(10, 3, 3): /* YELLOW_CARP */
- 	case IP_VERSION(10, 3, 6): /* GC 10.3.6 */
-@@ -599,6 +602,41 @@ static void kfd_cleanup_nodes(struct kfd_dev *kfd, unsigned int num_nodes)
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 7c6dd3de1867..fa5721b3139c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1718,7 +1718,7 @@ static int amdgpu_ttm_reserve_tmr(struct amdgpu_device *adev)
+ 		reserve_size =
+ 			amdgpu_atomfirmware_get_fw_reserved_fb_size(adev);
  
-+static void kfd_setup_interrupt_bitmap(struct kfd_node *node,
-+				       unsigned int kfd_node_idx)
-+{
-+	struct amdgpu_device *adev = node->adev;
-+	uint32_t xcc_mask = node->xcc_mask;
-+	uint32_t xcc, mapped_xcc;
-+	/*
-+	 * Interrupt bitmap is setup for processing interrupts from
-+	 * different XCDs and AIDs.
-+	 * Interrupt bitmap is defined as follows:
-+	 * 1. Bits 0-15 - correspond to the NodeId field.
-+	 *    Each bit corresponds to NodeId number. For example, if
-+	 *    a KFD node has interrupt bitmap set to 0x7, then this
-+	 *    KFD node will process interrupts with NodeId = 0, 1 and 2
-+	 *    in the IH cookie.
-+	 * 2. Bits 16-31 - unused.
-+	 *
-+	 * Please note that the kfd_node_idx argument passed to this
-+	 * function is not related to NodeId field received in the
-+	 * IH cookie.
-+	 *
-+	 * In CPX mode, a KFD node will process an interrupt if:
-+	 * - the Node Id matches the corresponding bit set in
-+	 *   Bits 0-15.
-+	 * - AND VMID reported in the interrupt lies within the
-+	 *   VMID range of the node.
-+	 */
-+	for_each_inst(xcc, xcc_mask) {
-+		mapped_xcc = GET_INST(GC, xcc);
-+		node->interrupt_bitmap |= (mapped_xcc % 2 ? 5 : 3) << (4 * (mapped_xcc / 2));
-+	}
-+	dev_info(kfd_device, "Node: %d, interrupt_bitmap: %x\n", kfd_node_idx,
-+							node->interrupt_bitmap);
-+}
-+
- bool kgd2kfd_device_init(struct kfd_dev *kfd,
- 			 const struct kgd2kfd_shared_resources *gpu_resources)
- {
-@@ -798,6 +836,9 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
- 		amdgpu_amdkfd_get_local_mem_info(kfd->adev,
- 					&node->local_mem_info, node->xcp);
- 
-+		if (KFD_GC_VERSION(kfd) == IP_VERSION(9, 4, 3))
-+			kfd_setup_interrupt_bitmap(node, i);
-+
- 		/* Initialize the KFD node */
- 		if (kfd_init_node(node)) {
- 			dev_err(kfd_device, "Error initializing KFD node\n");
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-index d5c9f30552e3..f0731a6a5306 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -446,7 +446,36 @@ static void event_interrupt_wq_v9(struct kfd_node *dev,
- 	}
- }
- 
-+static bool event_interrupt_isr_v9_4_3(struct kfd_node *node,
-+				const uint32_t *ih_ring_entry,
-+				uint32_t *patched_ihre,
-+				bool *patched_flag)
-+{
-+	uint16_t node_id, vmid;
-+
-+	/*
-+	 * For GFX 9.4.3, process the interrupt if:
-+	 * - NodeID field in IH entry matches the corresponding bit
-+	 *   set in interrupt_bitmap Bits 0-15.
-+	 *   OR
-+	 * - If partition mode is CPX and interrupt came from
-+	 *   Node_id 0,4,8,12, then check if the Bit (16 + client id)
-+	 *   is set in interrupt bitmap Bits 16-31.
-+	 */
-+	node_id = SOC15_NODEID_FROM_IH_ENTRY(ih_ring_entry);
-+	vmid = SOC15_VMID_FROM_IH_ENTRY(ih_ring_entry);
-+	if (kfd_irq_is_from_node(node, node_id, vmid))
-+		return event_interrupt_isr_v9(node, ih_ring_entry,
-+					patched_ihre, patched_flag);
-+	return false;
-+}
-+
- const struct kfd_event_interrupt_class event_interrupt_class_v9 = {
- 	.interrupt_isr = event_interrupt_isr_v9,
- 	.interrupt_wq = event_interrupt_wq_v9,
- };
-+
-+const struct kfd_event_interrupt_class event_interrupt_class_v9_4_3 = {
-+	.interrupt_isr = event_interrupt_isr_v9_4_3,
-+	.interrupt_wq = event_interrupt_wq_v9,
-+};
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 7364a5d77c6e..d4c9ee3f9953 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1444,6 +1444,7 @@ uint64_t kfd_get_number_elems(struct kfd_dev *kfd);
- /* Events */
- extern const struct kfd_event_interrupt_class event_interrupt_class_cik;
- extern const struct kfd_event_interrupt_class event_interrupt_class_v9;
-+extern const struct kfd_event_interrupt_class event_interrupt_class_v9_4_3;
- extern const struct kfd_event_interrupt_class event_interrupt_class_v10;
- extern const struct kfd_event_interrupt_class event_interrupt_class_v11;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index e3a27c31f61d..ba04a4baecf2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -2142,6 +2142,7 @@ void kfd_flush_tlb(struct kfd_process_device *pdd, enum TLB_FLUSH_TYPE type)
- int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
- {
- 	uint32_t irq_drain_fence[8];
-+	uint8_t node_id = 0;
- 	int r = 0;
- 
- 	if (!KFD_IS_SOC15(pdd->dev))
-@@ -2154,6 +2155,14 @@ int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
- 							KFD_IRQ_FENCE_CLIENTID;
- 	irq_drain_fence[3] = pdd->process->pasid;
- 
-+	/*
-+	 * For GFX 9.4.3, send the NodeId also in IH cookie DW[3]
-+	 */
-+	if (KFD_GC_VERSION(pdd->dev->kfd) == IP_VERSION(9, 4, 3)) {
-+		node_id = ffs(pdd->dev->interrupt_bitmap) - 1;
-+		irq_drain_fence[3] |= node_id << 16;
-+	}
-+
- 	/* ensure stale irqs scheduled KFD interrupts and send drain fence. */
- 	if (amdgpu_amdkfd_send_close_event_drain_irq(pdd->dev->adev,
- 						     irq_drain_fence)) {
-diff --git a/drivers/gpu/drm/amd/amdkfd/soc15_int.h b/drivers/gpu/drm/amd/amdkfd/soc15_int.h
-index e3f3b0b93a59..10138676f27f 100644
---- a/drivers/gpu/drm/amd/amdkfd/soc15_int.h
-+++ b/drivers/gpu/drm/amd/amdkfd/soc15_int.h
-@@ -40,6 +40,7 @@
- #define SOC15_VMID_FROM_IH_ENTRY(entry) (le32_to_cpu(entry[0]) >> 24 & 0xf)
- #define SOC15_VMID_TYPE_FROM_IH_ENTRY(entry) (le32_to_cpu(entry[0]) >> 31 & 0x1)
- #define SOC15_PASID_FROM_IH_ENTRY(entry) (le32_to_cpu(entry[3]) & 0xffff)
-+#define SOC15_NODEID_FROM_IH_ENTRY(entry) (le32_to_cpu(entry[3]) >> 16 & 0xff)
- #define SOC15_CONTEXT_ID0_FROM_IH_ENTRY(entry) (le32_to_cpu(entry[4]))
- #define SOC15_CONTEXT_ID1_FROM_IH_ENTRY(entry) (le32_to_cpu(entry[5]))
- #define SOC15_CONTEXT_ID2_FROM_IH_ENTRY(entry) (le32_to_cpu(entry[6]))
+-	if (!adev->bios && adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3))
++	if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3))
+ 		reserve_size = max(reserve_size, (uint32_t)280 << 20);
+ 	else if (!reserve_size)
+ 		reserve_size = DISCOVERY_TMR_OFFSET;
 -- 
 2.35.1
 
