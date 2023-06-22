@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B92CDEB64DA
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 18:25:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFF99EB64D8
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 18:25:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF4D410E09F;
-	Thu, 22 Jun 2023 18:25:27 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8AB210E09D
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 18:25:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6833510E59C;
+	Thu, 22 Jun 2023 18:25:32 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20622.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::622])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F54E10E597
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 18:25:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nK+8jxL+FdGtrVMq181DUtYIMyL/PcNu++7PMNTT8TE6UvEox5scshxEZvERxQIXxNg7LXEGlsmgE2DgwEDKvqFWttgVHiN39Q3H0ISzBQf8wp/dmFhmqae8Cba/QZVGCq4GayuJuMaPsrh77BZbMp6SqNshAzxcfSwquypRLT/SOIIW0hSJ3s/dgrI0rYwfm1jMfymboCdHtFv7jzVvgqF6fdVNN2JFSbv8cGbkEva154YVjviM9vweDH6q4yHJjPx0+C0URG44Vtg/hleP1zuxnV7K8VP2kWOYC9DM4lPjmLd/CHAA53l4zjyTaPGIeWO+AuuiZb0LYwtmvOP93g==
+ b=UnddtWDEhK0Nd3l5DvZZa4aLxw+Y/K6MV6POknK/Im3ztVJ7718k/EE4JYPcbzeQXzQi0SJFzOFkwBqLpTxhZ09CnuIfS2LNjFi5HihYx12x9RTiAU96gkEct9QPsseRjjlG/dkgKReANx3hg7FN31dl7vQzvrpSgDVbX8XDNTwzMgT4oUh6DidZkgL6XfS628OOG6aGl8wrJl4Ln/8LO3KjS5VNR5XDUJR/aeqFbhHVyn380nY6ygqtOlLhdw45gwnTujqVzMFuIH48Pk+vJpvNLkG8tR48TcjSXLSi6AcccVAmdirLbQL9nOT1KaIPFSzElGRL/YLE6VyVsOTx0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HXlEX+AfXBYJ2066MWaPOYyPXhf6LC0o+NMJAHPHg98=;
- b=hhxvWJ3po4+DVhs++37wPMQsa/LS4+JsEVQoUMf0xM2J0wmlyru4cxHTdJGbgSw6RSd2rJBGOW5BmkYtYge8649kqVmTQX+T2S+YYKrgxcbzLhauxUq/4dxxdXu73Ii4TXvxneDLGGJWD4FrfTND6UluKLreqLGtJmulbdqGPtLAsklljk2usQBxmBUYvIuIONpenQmSPhwE7ERJGi6xKLpKMmiXxnZQfziQYzpAdyY8/fuZcJxUTiGgaeacBy2WdkkUPQit9pP3pCYWbAw0UGO6fIXoKBGsyt9DLUFWBDK8n6ZIQ2Pm1znwl8rzpZc7TLU6Dyf4w8BFXBzzvOhAdA==
+ bh=GfyWIsQr5KxX6yEns9FoR/4neu4HrPXyXLKJ1HEjoLA=;
+ b=YKuXrRn92rTiZnCq9B6QEe3/scNvg6GxnbglJzR58xTVCCxPjVlb2usij5HI6mlILOo/hRaqOU21QPgXf6JTcNPwmMtNtsY/kjUL8YK802AzbZj9zqX2HDAfmPLuVR7oMFMD+gmVDjDnwk0loF9lq4EE8xIYLlSEzfsjwSiZJr9AZbJWQ3oBm+xqHGVWWAsnekWazdTBI/VkcntjZ2Rvkg363FaNAkJIWkG1ovupiQq4qqzbbxiv2ry+vrZn+XDYa1VIDBeH1cw4G7cA7GNZj3vTf3woclO27ILiPYWTO1LbCCRgsXajCEQffWLq2f5gjsSLnJ0qtj8Gr+lCaXEkTA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HXlEX+AfXBYJ2066MWaPOYyPXhf6LC0o+NMJAHPHg98=;
- b=PxzE5f/aV1D7Kr31trpEjjXryIfwFZGZNyV//12YyThreAKM7HOPwNu0aBY1Q9OEZnm6YbzmQV9hszNQ8D7Z9fjn44QtxpS6C3TRpWWUGJRzgG0ZS4Nnh0RzkZGDrpCOlIXXv1zUSTfRS5t2oY/W8iMWqj6cucyqnh4aihMu53w=
-Received: from MW4PR03CA0316.namprd03.prod.outlook.com (2603:10b6:303:dd::21)
- by CY8PR12MB7540.namprd12.prod.outlook.com (2603:10b6:930:97::15)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=GfyWIsQr5KxX6yEns9FoR/4neu4HrPXyXLKJ1HEjoLA=;
+ b=e1XH0IKnztcVbNhzdFwfaOzN4GedsmQB9WPmqrS5GgXW6B1efYKA6MyYfIoTdOSzl3crjmy2br3zDZl7+O5SDd2/Q47kLcTewst6Y2nfY5xA6QMIITvyqmoG0kHk/QVrdbASCc+d6h8juq7++fp212Lz4AUNv+C+989BWvTMxiQ=
+Received: from MW4PR03CA0307.namprd03.prod.outlook.com (2603:10b6:303:dd::12)
+ by DM4PR12MB5184.namprd12.prod.outlook.com (2603:10b6:5:397::18) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Thu, 22 Jun
  2023 18:25:24 +0000
 Received: from MWH0EPF000989E9.namprd02.prod.outlook.com
- (2603:10b6:303:dd:cafe::1) by MW4PR03CA0316.outlook.office365.com
- (2603:10b6:303:dd::21) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:303:dd:cafe::cc) by MW4PR03CA0307.outlook.office365.com
+ (2603:10b6:303:dd::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24 via Frontend
  Transport; Thu, 22 Jun 2023 18:25:24 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -47,17 +48,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  MWH0EPF000989E9.mail.protection.outlook.com (10.167.241.136) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6521.17 via Frontend Transport; Thu, 22 Jun 2023 18:25:23 +0000
+ 15.20.6521.17 via Frontend Transport; Thu, 22 Jun 2023 18:25:24 +0000
 Received: from SITE-L-T34-2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 22 Jun
  2023 13:25:22 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/4] drm/amd/display: Set minimum requirement for using PSR-SU
- on Rembrandt
-Date: Thu, 22 Jun 2023 13:25:05 -0500
-Message-ID: <20230622182507.25531-3-mario.limonciello@amd.com>
+Subject: [PATCH 3/4] drm/amd/display: Set minimum requirement for using PSR-SU
+ on Phoenix
+Date: Thu, 22 Jun 2023 13:25:06 -0500
+Message-ID: <20230622182507.25531-4-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230622182507.25531-1-mario.limonciello@amd.com>
 References: <20230622182507.25531-1-mario.limonciello@amd.com>
@@ -69,26 +70,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E9:EE_|CY8PR12MB7540:EE_
-X-MS-Office365-Filtering-Correlation-Id: c316bd67-d87f-4955-8a00-08db734e0b89
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E9:EE_|DM4PR12MB5184:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3bc0fd8c-3b73-4998-d3e4-08db734e0bf4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vGvSGLsIiSZ8If8nW1A2gP3a9pq1dJgnFGn0L1l2qmVK3/Fcody1fRKoEPrZ5UwgOwiRd+tn4ygaWaOnd5CDD+mQPE5wrWti/BfKC0X91ra36zN2Lo6AulB+wsWQLvIW0sFmYMLFQhIr8frWuPZs26nSx7btH4N+M0UmWvTOCYXalJ2OoWc/Z0Ruq6CFkEz0vNJL1ZDYrlCjk+n3rZ7XGLgCYsLWeimPduvvokC9Fp+voJowq69mMcf+j4PGYjy2LCWVzD1ZEyBxq4ludvUWcGZiezQIgp+35HWCv1IsgHKIhoLk4KsnPCb7hdjESZmzE0/7bZOSsLs9Hzc4U4vjQQvYSzaVgSYl0V9Y5gDkaLWLNuLuqXm/ofH3ojWWjd1pLcqyKiwlZ3QQHklC1vqF7HaR+y5P3L9eLTbNrStWEbfcHp/mCbBZbBTqOQ0DBl1CHvV9Ub9Trw1eGILiwMqVniALNExjK9wF6YVT5JtK8uUZsODQvEMyuJpQ9T9H8eT1zQE3VaLmfBeBv/JgaGLnNV5LFiWxOMVf/bh4fu2T2e5u1kL2kI7dl2jUq461PcPi+qDuJJMYa9z0sZBaxqX90+FDwKWvk2GUkXGCKw1vykflquxuUhxVRtlq5Cf0AWSiIQN/fHCDxMjQ9wqcuevk5uAPpkuikYIRb1LVKH3SqMlXH7zDHIo9JZhi2ls8JXwCKVhGR8uXUkPyE9fp/QmPV/JnQZpNEqmHrvoI2bioCmVKdzLcfm3mLCik+gKp/Vbw
+X-Microsoft-Antispam-Message-Info: /qY6m/MWMaciJn+OCkeXuXSx6kM+K6BK9fy7aSJoCpAc9H6IbSVV3o4BucE1xq4fX7WdEaZfBByyFUyCZi/eIx5RlxF+EJcPqA63In6n/lwOOm19qMPEVNQxEh6qJ3//mfDzAyie+s4h1PLU41u08R2+clhpBvH2ouoalU/xkqPWEiC94tDxtDrmAJuuqPe1rNQZhpCugOIW5DSQC0yI6jP/w9Q82KCGETt7732905oqqXDEPHcCOCXAAe/N937wKOuNumrnmVDSXFtrta8H6q9fKh6HNDAwxpOuEDe0MWcWgclZa0MvpnrEEeyQMs/+Tlzyt64CzgneRZ2qZp8E+hIEDEsyB4qbtiv3ISzXnwV7VbrnBm8Gbz3y+DeSsfmR4TmaWlaRCzgPQ4ZuAsJ6KSRyiCQ/BbziX1ggxQdC5DgBRN0GsFacXD2C5zYwuyLmDxCHy7Dp1UqEfql5y/+i6EvwFW0o/pWzd0oUHP8hSngSIw7MIBINTlNJTxp+IGfs6TQwQLBs5TR2Kz0Xm79sLM+rZJZi/jmR7yyNZYFruKjdarzeQN+iofNW1dcw5Xk6GVL3zUzUE1HxOAbHYMpe4R6aSGl7BANwCizqJly8UDHDlStCcuX8T81Lah5O/jav19t+qkrmCFF7XbkSyfKfihb9yQDOqT3gCNwLGsIZ7YJmEfX2HB4h62zA7SvPVPOjUo4Cv4gWiCjkHUp5C1c30RZopfFTX2cbe+3DzEKr8EcQ4vGULkaFT1Nl9Za/fgiRXE0zkw/H3bQwYi5KDQdJEA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(396003)(39860400002)(346002)(136003)(451199021)(46966006)(40470700004)(36840700001)(44832011)(966005)(40480700001)(47076005)(5660300002)(2906002)(1076003)(26005)(8676002)(16526019)(8936002)(186003)(40460700003)(41300700001)(2616005)(426003)(336012)(83380400001)(36756003)(356005)(82310400005)(478600001)(82740400003)(81166007)(7696005)(36860700001)(86362001)(70586007)(70206006)(316002)(4326008)(6916009)(54906003)(6666004)(36900700001);
+ SFS:(13230028)(4636009)(346002)(39860400002)(396003)(136003)(376002)(451199021)(36840700001)(40470700004)(46966006)(6666004)(478600001)(1076003)(7696005)(426003)(5660300002)(54906003)(70206006)(70586007)(4326008)(8676002)(41300700001)(6916009)(8936002)(336012)(44832011)(2906002)(47076005)(36860700001)(36756003)(82740400003)(26005)(186003)(16526019)(356005)(81166007)(82310400005)(40460700003)(316002)(2616005)(40480700001)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 18:25:23.9544 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c316bd67-d87f-4955-8a00-08db734e0b89
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 18:25:24.6732 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3bc0fd8c-3b73-4998-d3e4-08db734e0bf4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E9.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7540
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5184
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,9 +108,8 @@ Cc: Tsung-hua Lin <Tsung-hua.Lin@amd.com>, Marc Rossi <Marc.Rossi@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A number of parade TCONs are causing system hangs when utilized with
-older DMUB firmware and PSR-SU. Some changes have been introduced into
-DMUB firmware to add resilience against these failures.
+The same parade TCON issue can potentially happen on Phoenix, and the same
+PSR resilience changes have been ported into the DMUB firmware.
 
 Don't allow running PSR-SU unless on the newer firmware.
 
@@ -117,131 +117,49 @@ Cc: Sean Wang <sean.ns.wang@amd.com>
 Cc: Marc Rossi <Marc.Rossi@amd.com>
 Cc: Hamza Mahfooz <Hamza.Mahfooz@amd.com>
 Cc: Tsung-hua (Ryan) Lin <Tsung-hua.Lin@amd.com>
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2443
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |  3 ++-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c          |  7 +++++++
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h          |  1 +
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h           |  2 ++
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c     |  5 +++++
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h     |  2 ++
- drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c       | 10 ++++++----
- 7 files changed, 25 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.c | 5 +++++
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.h | 2 ++
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c    | 1 +
+ 3 files changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-index d647f68fd563..4f61d4f257cd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-@@ -24,6 +24,7 @@
-  */
- 
- #include "amdgpu_dm_psr.h"
-+#include "dc_dmub_srv.h"
- #include "dc.h"
- #include "dm_helpers.h"
- #include "amdgpu_dm.h"
-@@ -50,7 +51,7 @@ static bool link_supports_psrsu(struct dc_link *link)
- 	    !link->dpcd_caps.psr_info.psr2_su_y_granularity_cap)
- 		return false;
- 
--	return true;
-+	return dc_dmub_check_min_version(dc->ctx->dmub_srv->dmub);
- }
- 
- /*
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index c52c40b16387..c753c6f30dd7 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -1011,3 +1011,10 @@ void dc_send_update_cursor_info_to_dmu(
- 		dm_execute_dmub_cmd_list(pCtx->stream->ctx, 2, cmd, DM_DMUB_WAIT_TYPE_WAIT);
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.c
+index 48a06dbd9be7..f161aeb7e7c4 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.c
+@@ -60,3 +60,8 @@ const struct dmub_srv_dcn31_regs dmub_srv_dcn314_regs = {
+ 	{ DMUB_DCN31_FIELDS() },
+ #undef DMUB_SF
+ };
 +
-+bool dc_dmub_check_min_version(struct dmub_srv *srv)
++bool dmub_dcn314_is_psrsu_supported(struct dmub_srv *dmub)
 +{
-+	if (!srv->hw_funcs.is_psrsu_supported)
-+		return true;
-+	return srv->hw_funcs.is_psrsu_supported(srv);
++	return dmub->fw_version >= DMUB_FW_VERSION(8, 0, 16);
 +}
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-index a5196a9292b3..099f94b6107c 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-@@ -86,4 +86,5 @@ void dc_dmub_setup_subvp_dmub_command(struct dc *dc, struct dc_state *context, b
- void dc_dmub_srv_log_diagnostic_data(struct dc_dmub_srv *dc_dmub_srv);
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.h
+index 674267a2940e..f213bd82c911 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.h
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.h
+@@ -30,4 +30,6 @@
  
- void dc_send_update_cursor_info_to_dmu(struct pipe_ctx *pCtx, uint8_t pipe_idx);
-+bool dc_dmub_check_min_version(struct dmub_srv *srv);
- #endif /* _DMUB_DC_SRV_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-index 2a66a305679a..4585e0419da6 100644
---- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-@@ -367,6 +367,8 @@ struct dmub_srv_hw_funcs {
+ extern const struct dmub_srv_dcn31_regs dmub_srv_dcn314_regs;
  
- 	bool (*is_supported)(struct dmub_srv *dmub);
- 
-+	bool (*is_psrsu_supported)(struct dmub_srv *dmub);
++bool dmub_dcn314_is_psrsu_supported(struct dmub_srv *dmub);
 +
- 	bool (*is_hw_init)(struct dmub_srv *dmub);
- 
- 	void (*enable_dmub_boot_options)(struct dmub_srv *dmub,
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-index ebf7aeec4029..c8445d474107 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-@@ -302,6 +302,11 @@ bool dmub_dcn31_is_supported(struct dmub_srv *dmub)
- 	return supported;
- }
- 
-+bool dmub_dcn31_is_psrsu_supported(struct dmub_srv *dmub)
-+{
-+	return dmub->fw_version >= DMUB_FW_VERSION(4, 0, 58);
-+}
-+
- void dmub_dcn31_set_gpint(struct dmub_srv *dmub,
- 			  union dmub_gpint_data_register reg)
- {
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h
-index 7d5c10ee539b..89c5a948b67d 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h
-@@ -221,6 +221,8 @@ bool dmub_dcn31_is_hw_init(struct dmub_srv *dmub);
- 
- bool dmub_dcn31_is_supported(struct dmub_srv *dmub);
- 
-+bool dmub_dcn31_is_psrsu_supported(struct dmub_srv *dmub);
-+
- void dmub_dcn31_set_gpint(struct dmub_srv *dmub,
- 			  union dmub_gpint_data_register reg);
- 
+ #endif /* _DMUB_DCN314_H_ */
 diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 9e9a6a44a7ac..fd5b043dd32d 100644
+index fd5b043dd32d..bdaf43892f47 100644
 --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
 +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -226,14 +226,16 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
- 	case DMUB_ASIC_DCN314:
- 	case DMUB_ASIC_DCN315:
- 	case DMUB_ASIC_DCN316:
--		if (asic == DMUB_ASIC_DCN314)
-+		if (asic == DMUB_ASIC_DCN314) {
- 			dmub->regs_dcn31 = &dmub_srv_dcn314_regs;
--		else if (asic == DMUB_ASIC_DCN315)
-+			funcs->is_psrsu_supported = dmub_dcn314_is_psrsu_supported;
-+		} else if (asic == DMUB_ASIC_DCN315) {
- 			dmub->regs_dcn31 = &dmub_srv_dcn315_regs;
--		else if (asic == DMUB_ASIC_DCN316)
-+		} else if (asic == DMUB_ASIC_DCN316) {
+@@ -235,6 +235,7 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
  			dmub->regs_dcn31 = &dmub_srv_dcn316_regs;
--		else
-+		} else {
+ 		} else {
  			dmub->regs_dcn31 = &dmub_srv_dcn31_regs;
-+		}
++			funcs->is_psrsu_supported = dmub_dcn31_is_psrsu_supported;
+ 		}
  		funcs->reset = dmub_dcn31_reset;
  		funcs->reset_release = dmub_dcn31_reset_release;
- 		funcs->backdoor_load = dmub_dcn31_backdoor_load;
 -- 
 2.34.1
 
