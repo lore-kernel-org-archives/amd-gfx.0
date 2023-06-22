@@ -4,46 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B28EEB64DA
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 10:20:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D36CEB64DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 11:01:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F112810E52D;
-	Thu, 22 Jun 2023 10:20:45 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0321610E52D;
- Thu, 22 Jun 2023 10:20:43 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6E37E61521;
- Thu, 22 Jun 2023 10:20:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92EF0C433C8;
- Thu, 22 Jun 2023 10:20:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1687429242;
- bh=AWFPWNjgq8nDENgHhyxRM1ln3/MFL4dH5rZ97ud8+z4=;
- h=From:To:Cc:Subject:Date:From;
- b=lr5YgX/5QzEp2HSY7IaidtJuiAoPY0Sdmn1yD8o2RR7TCKFENJqN98bbcvWyw8QL9
- dfiQV0eAQMuoDCNzDowXK3NNXkywINA+rE7Seabeig6ooXd5hBLA3d7CNvGCjDQrYg
- P8+6MAVeTnpurC0pJf5E3yAVtcJgispoud0+yPICWVtfdoNgVZgXIlIaPErK+SMu1s
- UYsEXR1vvuBUfD/mGPhMoc8vu+ZaHMi3jZbIIEyJxEt5SN6DK6GFRO0nVZONaPXLIn
- Uz1UmlHVPC+fzNv/xT6h4PkELS+4KVMHuBbwNOQQL7fwk43+7yIKrreShY1PPuew8L
- 3wrBu96nixZnw==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Evan Quan <evan.quan@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Wenhui Sheng <Wenhui.Sheng@amd.com>,
- Guchun Chen <Guchun.Chen@amd.com>
-Subject: [PATCH] drm/amdgpu: fix building without DEBUG_FS
-Date: Thu, 22 Jun 2023 12:20:26 +0200
-Message-Id: <20230622102035.3552643-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDF7A10E524;
+	Thu, 22 Jun 2023 11:01:19 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061.outbound.protection.outlook.com [40.107.92.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9616910E524
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 11:01:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SEZ7YAPO3qRLJPRWUuFb4anEvnQwmcr+GZa+GmMC6C6zheGRFlnIswtFRElQ4y1Q/x1eWyHqBe398KyEHoMbMPcdeDOHJEQD2a8Fu+G4sb3a0//2z5VOEBrfpFnuk+nEj0Z0PYbjeDUM3x8an6VG5H8wr3cnlHRv0ZRHL2SpVf+Ojpkbcx3w/1FiC9iaIDBGmDCyMoUKqCgXsi1rYoiwSc90AETzd7sKntMYL4ywiBjq+nnHQJjFM9kICBHaqJHvO7X90gm3msT8NC3jqwXy2by/4PV8HQ6bDtNOL8YJ9WpGBkvmqPRX9jt8QHJuNt5VEHoPX5kl+wjrzhvVCetWsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G8GVLpE6FujO49FaqB2TKKNl4nrZTpTWYSB7iikCZcE=;
+ b=BOhLghuEmOrP0id9pvcH06FgNnmh6W+Qm7vt0p/UuOcR1fxBNi+p/1haNOp5f7Uq9VWmA7Ukq0sW4S8I04Gb/V1pSXSTDr4NQ0mx5u0pONn935iRaiIfmyQpe5stf6K9+xdvJwyYNYKDhyBnDBBB3OgrirGdSff/URWm5DkVb9pb1cmLLEsPA91SP+uAgRNp4lmQcoo1ecVmT4pCdECT7gpXNQ1Jn2iSjR+Gd+uFlkD9uu98m5zCcnGvqyQ/93sngehvTuU/3UsBM1NMWuRHcnb/wMQSWLqA6/p9ocNpL/yG2NxRm8PK7PEUla7mxbMalqwcBB2Kw7ZBYjgutUXOGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G8GVLpE6FujO49FaqB2TKKNl4nrZTpTWYSB7iikCZcE=;
+ b=XkQeKQKPb+VWk4lO0/lDrH/pfSAXQP3dHOeOAwxQA3w2QhQ4KwwPF2mcc5+D5VUnG3gx5A9xMIgSYzsTPJ8S3G2ovVLkfO1Joxcx/kzFiMjD4EEQ74WgRN5B7kn3/3Drs9O9V8inSFgniKvZpOHB8Zwoaj8mGCy92tiN50w3R9M=
+Received: from SN7P220CA0015.NAMP220.PROD.OUTLOOK.COM (2603:10b6:806:123::20)
+ by PH7PR12MB9076.namprd12.prod.outlook.com (2603:10b6:510:2f6::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Thu, 22 Jun
+ 2023 11:01:09 +0000
+Received: from SN1PEPF0002636D.namprd02.prod.outlook.com
+ (2603:10b6:806:123:cafe::e7) by SN7P220CA0015.outlook.office365.com
+ (2603:10b6:806:123::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24 via Frontend
+ Transport; Thu, 22 Jun 2023 11:01:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002636D.mail.protection.outlook.com (10.167.241.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6521.17 via Frontend Transport; Thu, 22 Jun 2023 11:01:09 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 22 Jun
+ 2023 06:01:07 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Rodrigo Siqueira
+ <Rodrigo.Siqueira@amd.com>
+Subject: [PATCH] drm/amd/display: Remove spaces before tabs in amdgpu_dm_hdcp.c
+Date: Thu, 22 Jun 2023 16:30:37 +0530
+Message-ID: <20230622110037.1091075-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636D:EE_|PH7PR12MB9076:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e193abc-79a0-4b0f-1c87-08db730ffbe8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 3G2XtkaJUM+6M+QjuUqO32MeIYaMt0KTQ7j2jYGq6JebVTDZVE1tVUKqxWF9UvHjcK26naFjoEMBRVzYOucNmDMBOcHHwEC0A1yhDFi3OviQuKP1uzg64HG6vc+YtCswZP1vYAE+OPhxr6d2hOJ6HhvQImmWWCmARUQLxo8cHv6bBbRyWl6L/BMI80EtBLtrPf8eBnqO5NvBUyOFpsHskL1IVMRqtGZtlBU7BVUBpEM/mMP6yrG9iY3uxNDxI05BpTbrdQ9cAw5/gyaIeOgusHJKYnprZem2stOpWZWOMl0vNLHT+JVRV9ohPy6sYYG8d34QjeNn8ZXlBE/dbWQXWMe/Hid0ntZxTXD/yInrOIpnLT8G4nF5cL2I2LFDUgRp3ALF5XTEpuRX6dB7xif7gSd5CFTs+7MkDzZtsVO9yqifvMrX4hbn2dRyThI/W1QGIlPEQmuvLU+ptHCJnoQbk+RMNI+gEsV+kB6TZPEGCMmAXzl/ig2Mkf91TZ2ESjiP77jL1scHfP2ze+tPbvYLSqAqqyboTzyHDU/v84BOpmLRPdrDFoeRAfuOQkLk606FLG6DP/gS+OV/wmqDzJQvf/JQqTc5iiWL0saL8hECv8DvZR3nI3XKBYUhRvR09bjMyVmbzKJ0TvRavyVWPJFsA+bN+Qzrd102OGiCeTuqj50Uz0FLoI00ybAV43Tw7rkkesK2QcwCfSfMj+ES+cwFnuVVQtT1mnwysX/DnuU41U44OzAq9InnBhfpeGDiVyCJKhv1ONSNRGENwLRXd4VcCA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(136003)(396003)(39860400002)(376002)(451199021)(40470700004)(46966006)(36840700001)(6636002)(4326008)(36756003)(6666004)(2616005)(54906003)(316002)(81166007)(70586007)(82740400003)(70206006)(83380400001)(36860700001)(47076005)(44832011)(1076003)(86362001)(426003)(2906002)(7696005)(5660300002)(8936002)(8676002)(16526019)(26005)(186003)(40460700003)(336012)(41300700001)(40480700001)(356005)(110136005)(478600001)(82310400005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 11:01:09.0428 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e193abc-79a0-4b0f-1c87-08db730ffbe8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9076
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,92 +98,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ZhenGuo Yin <zhenguo.yin@amd.com>, Tong Liu01 <Tong.Liu01@amd.com>,
- amd-gfx@lists.freedesktop.org, kernel test robot <lkp@intel.com>,
- Arnd Bergmann <arnd@arndb.de>, Yiqing Yao <yiqing.yao@amd.com>,
- dri-devel@lists.freedesktop.org, Jonatas Esteves <jntesteves@gmail.com>,
- Asad Kamal <asad.kamal@amd.com>, linux-kernel@vger.kernel.org,
- Kent Russell <kent.russell@amd.com>, Kun Liu <Kun.Liu2@amd.com>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+Conform to Linux kernel coding style.
 
-The debugfs file is defined unconditionally, but the registration is hidden
-in an #ifdef, which causes a warning:
+Reported by checkpatch:
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c:110:37: error: unused variable 'amdgpu_rap_debugfs_ops' [-Werror,-Wunused-const-variable]
-static const struct file_operations amdgpu_rap_debugfs_ops = {
-                                    ^
+WARNING: please, no space before tabs
 
-in amdgpu_pm.c, the same thing happens with the clocks[] variable:
-
-drivers/gpu/drm/amd/pm/amdgpu_pm.c:38:34: error: unused variable 'clocks' [-Werror,-Wunused-const-variable]
-static const struct cg_flag_name clocks[] = {
-                                 ^
-
-Since debugfs_create_file() does nothing when debugfs is disabled, removing
-the ifdefs makes the code more readable and also avoids both warnings.
-
-Fixes: a4322e1881bed ("drm/amdgpu: add debugfs interface for RAP test")
-Fixes: e098bc9612c2b ("drm/amd/pm: optimize the power related source code layout")
-Reported-by: kernel test robot <lkp@intel.com>
-Link: https://lore.kernel.org/oe-kbuild-all/202302200339.Whql7Emr-lkp@intel.com/
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c | 2 --
- drivers/gpu/drm/amd/pm/amdgpu_pm.c      | 6 ------
- 2 files changed, 8 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    | 40 +++++++++----------
+ 1 file changed, 20 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
-index 12010c988c8b5..123bcf5c2bb13 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rap.c
-@@ -116,7 +116,6 @@ static const struct file_operations amdgpu_rap_debugfs_ops = {
- 
- void amdgpu_rap_debugfs_init(struct amdgpu_device *adev)
- {
--#if defined(CONFIG_DEBUG_FS)
- 	struct drm_minor *minor = adev_to_drm(adev)->primary;
- 
- 	if (!adev->psp.rap_context.context.initialized)
-@@ -124,5 +123,4 @@ void amdgpu_rap_debugfs_init(struct amdgpu_device *adev)
- 
- 	debugfs_create_file("rap_test", S_IWUSR, minor->debugfs_root,
- 				adev, &amdgpu_rap_debugfs_ops);
--#endif
- }
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index a57952b93e73f..ec39805b762e6 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -3565,8 +3565,6 @@ void amdgpu_pm_sysfs_fini(struct amdgpu_device *adev)
- /*
-  * Debugfs info
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+index 5536d17306d0..3f421107c3b3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+@@ -591,19 +591,19 @@ static void update_config(void *handle, struct cp_psp_stream_config *config)
+  * cannot throw errors early as it will stop the kernel from writing to sysfs
+  *
+  * Example 1:
+- * 	Good SRM size = 5096
+- * 	first call to write 4096 -> PSP fails
+- * 	Second call to write 1000 -> PSP Pass -> SRM is set
++ *	Good SRM size = 5096
++ *	first call to write 4096 -> PSP fails
++ *	Second call to write 1000 -> PSP Pass -> SRM is set
+  *
+  * Example 2:
+- * 	Bad SRM size = 4096
+- * 	first call to write 4096 -> PSP fails (This is the same as above, but we don't know if this
+- * 	is the last call)
++ *	Bad SRM size = 4096
++ *	first call to write 4096 -> PSP fails (This is the same as above, but we don't know if this
++ *	is the last call)
+  *
+  * Solution?:
+- * 	1: Parse the SRM? -> It is signed so we don't know the EOF
+- * 	2: We can have another sysfs that passes the size before calling set. -> simpler solution
+- * 	below
++ *	1: Parse the SRM? -> It is signed so we don't know the EOF
++ *	2: We can have another sysfs that passes the size before calling set. -> simpler solution
++ *	below
+  *
+  * Easy Solution:
+  * Always call get after Set to verify if set was successful.
+@@ -612,14 +612,14 @@ static void update_config(void *handle, struct cp_psp_stream_config *config)
+  * +----------------------+
+  * PSP will only update its srm if its older than the one we are trying to load.
+  * Always do set first than get.
+- * 	-if we try to "1. SET" a older version PSP will reject it and we can "2. GET" the newer
+- * 	version and save it
++ *	-if we try to "1. SET" a older version PSP will reject it and we can "2. GET" the newer
++ *	version and save it
+  *
+- * 	-if we try to "1. SET" a newer version PSP will accept it and we can "2. GET" the
+- * 	same(newer) version back and save it
++ *	-if we try to "1. SET" a newer version PSP will accept it and we can "2. GET" the
++ *	same(newer) version back and save it
+  *
+- * 	-if we try to "1. SET" a newer version and PSP rejects it. That means the format is
+- * 	incorrect/corrupted and we should correct our SRM by getting it from PSP
++ *	-if we try to "1. SET" a newer version and PSP rejects it. That means the format is
++ *	incorrect/corrupted and we should correct our SRM by getting it from PSP
   */
--#if defined(CONFIG_DEBUG_FS)
--
- static void amdgpu_debugfs_prints_cpu_info(struct seq_file *m,
- 					   struct amdgpu_device *adev) {
- 	uint16_t *p_val;
-@@ -3768,11 +3766,8 @@ static const struct file_operations amdgpu_debugfs_pm_prv_buffer_fops = {
- 	.llseek = default_llseek,
- };
- 
--#endif
--
- void amdgpu_debugfs_pm_init(struct amdgpu_device *adev)
- {
--#if defined(CONFIG_DEBUG_FS)
- 	struct drm_minor *minor = adev_to_drm(adev)->primary;
- 	struct dentry *root = minor->debugfs_root;
- 
-@@ -3789,5 +3784,4 @@ void amdgpu_debugfs_pm_init(struct amdgpu_device *adev)
- 					 adev->pm.smu_prv_buffer_size);
- 
- 	amdgpu_dpm_stb_debug_fs_init(adev);
--#endif
- }
+ static ssize_t srm_data_write(struct file *filp, struct kobject *kobj, struct bin_attribute *bin_attr, char *buffer,
+ 			      loff_t pos, size_t count)
+@@ -684,9 +684,9 @@ static ssize_t srm_data_read(struct file *filp, struct kobject *kobj, struct bin
+ /* From the hdcp spec (5.Renewability) SRM needs to be stored in a non-volatile memory.
+  *
+  * For example,
+- * 	if Application "A" sets the SRM (ver 2) and we reboot/suspend and later when Application "B"
+- * 	needs to use HDCP, the version in PSP should be SRM(ver 2). So SRM should be persistent
+- * 	across boot/reboots/suspend/resume/shutdown
++ *	if Application "A" sets the SRM (ver 2) and we reboot/suspend and later when Application "B"
++ *	needs to use HDCP, the version in PSP should be SRM(ver 2). So SRM should be persistent
++ *	across boot/reboots/suspend/resume/shutdown
+  *
+  * Currently when the system goes down (suspend/shutdown) the SRM is cleared from PSP. For HDCP we need
+  * to make the SRM persistent.
+@@ -699,8 +699,8 @@ static ssize_t srm_data_read(struct file *filp, struct kobject *kobj, struct bin
+  *
+  * Usermode can read/write to/from PSP using the sysfs interface
+  * For example:
+- * 	to save SRM from PSP to storage : cat /sys/class/drm/card0/device/hdcp_srm > srmfile
+- * 	to load from storage to PSP: cat srmfile > /sys/class/drm/card0/device/hdcp_srm
++ *	to save SRM from PSP to storage : cat /sys/class/drm/card0/device/hdcp_srm > srmfile
++ *	to load from storage to PSP: cat srmfile > /sys/class/drm/card0/device/hdcp_srm
+  */
+ static const struct bin_attribute data_attr = {
+ 	.attr = {.name = "hdcp_srm", .mode = 0664},
 -- 
-2.39.2
+2.25.1
 
