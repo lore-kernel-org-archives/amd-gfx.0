@@ -4,50 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 534CDEB64D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jun 2023 17:16:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6887EB64DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jun 2023 17:34:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3E5310E688;
-	Fri, 23 Jun 2023 17:16:12 +0000 (UTC)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 811D410E68B;
- Fri, 23 Jun 2023 17:16:11 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-97ea801b0d0so18431266b.1; 
- Fri, 23 Jun 2023 10:16:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6439410E691;
+	Fri, 23 Jun 2023 17:34:34 +0000 (UTC)
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28D0B10E690;
+ Fri, 23 Jun 2023 17:34:32 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-1aa291b3fc9so741287fac.0; 
+ Fri, 23 Jun 2023 10:34:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1687541670; x=1690133670;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nS07vla6Z4VDTbb2v8uiONE/y3+dsUfJ2mdvXYVnpGo=;
+ b=r3+LqWNJapXaQTgcMmErSAmi7nE6X2ZjjEc65henO/IvJmTCngECUMU7yUjolkTPLI
+ Rz0O6AFj4K0ioy+5Xnqh4zrSVlhlJTwfnx9t1Adxdn41HJ7siPUeDnSSQ53D6LXdIW86
+ KqgDZQ9+DJvSE4Qy4lKb/mlzfbNlhkENqPGLhaC8fTdjzKax/0Ao2bSrjI1k4diKHdM/
+ uvQTQah+ma4QXquNa+DK/olibtrb/PuDqcchMjBnlTlePyIOfvaD3JdmVgNr4wVDkGZv
+ 6YXSwxUH22B+iFnqoZHISqN7SLYlcBIxifkD/xjmk2XiuHrmAMd/cVUCkQ0sLznv1yAE
+ cmTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687540570; x=1690132570;
+ d=1e100.net; s=20221208; t=1687541670; x=1690133670;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=++I0bwtrHbKq/ScVaI2y/wuFflAnqwfHn5bGDDiyGlI=;
- b=SkiVg6JYTL5MRAJlhu1Nbl6zfuzWg8Z51d49LmffgXoAiW2OSJHz84PYYgPKlnkXOn
- iJ95Bw/S6alALHfdBO9J0ab/QwySTh4yq+8x0p7a/jvFoDWbcSmji3kzOcVynxCENzK8
- kbDwJYw72uMxuD09NtN4NCXm6CQbT3I7NmUIk04R/iEe6XL+BhLmM9PUa77cMNVMyoXA
- k236Xx//QB60U/1TL6j0htuU8KS0RCR/6K1l/6chTZHjo42kc0bXiPOB8GgLWbtpbWUo
- N/eATAy2+2Z8vSPnXc0IKFlOAqckEHNhopzIDCxvUu8Wl0TpMxnjzv6efDPE0V6nWOe6
- 6r7w==
-X-Gm-Message-State: AC+VfDwAgULgAz7xjwthAXHTzE4kfafeaLGmM1tHDkAKa2YLvBQ8a+bX
- qY7UazEOCZ9jAiE1AxdaLFKA4i1oygx3A6Y8KTA=
-X-Google-Smtp-Source: ACHHUZ5US9J/ZgCAFTh5AYOguizpGxZnLeJHo3AK7Wd3X9ovii63C+dm6Qk1WKxgnt2LMEl9QMec3C8Z8RMvEXNgmWA=
-X-Received: by 2002:a17:906:73dd:b0:989:1ed3:d00b with SMTP id
- n29-20020a17090673dd00b009891ed3d00bmr9073854ejl.4.1687540569572; Fri, 23 Jun
- 2023 10:16:09 -0700 (PDT)
+ bh=nS07vla6Z4VDTbb2v8uiONE/y3+dsUfJ2mdvXYVnpGo=;
+ b=jbl1JZ95jTLg/DxIiWqpqc3lyL6ZSx7Bm6FWoAQVrTCmkEYun6KRl2n38bzuLvHnzh
+ dNzczE24qeQa3ABnD8o/gRqfUp8WLDTw3LwjI80kLhuyR6r5mWiZcGROX7VWSblp7SsW
+ qDZ4fD/Tyfqqrlsqdnbwp+u56ZzIkc3SCyz3QLkgQ5aTTDyUissod90gsaqWQmqeEtBB
+ m/vlOhE6c+rhWyNK6yV6/sp6w2Il97w1qCOCDB+IdFIbKt8bx4HmZ2dlx3OP7QYmb1Sy
+ 0VfA3Xe5dWp4j85Fylf8HjxUWcRlIDxkYdYg84tbIbDj7QbX7Kr0dRcuqeiGlyqW7saL
+ CuNg==
+X-Gm-Message-State: AC+VfDy5mGIpE61qrit466Tfc+KtPRxyRxXrYsTkhFitd6ugS4DNTXmK
+ rUcdTFSRZvnP92NfHvrAl4d5sUEwgvNOtUErW8r9CMvS
+X-Google-Smtp-Source: ACHHUZ6XLGd6HwFFY22hhq6+Wz2p+wlygKmy5RCReOQGkXc/R+u3NwsvFqRCkJR5K13rCNwdWSwr8GINPEIXdFDasIY=
+X-Received: by 2002:a05:6870:3842:b0:1ad:544:f634 with SMTP id
+ z2-20020a056870384200b001ad0544f634mr8655702oal.4.1687541670388; Fri, 23 Jun
+ 2023 10:34:30 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230621054603.1262299-1-evan.quan@amd.com>
- <20230621054603.1262299-2-evan.quan@amd.com>
- <CAJZ5v0iqy0yMJP5H7ub67R8R6i42=TcS_6+VF-+fWrM-9tYFQA@mail.gmail.com>
- <c518da2a-5ba5-af7e-e26d-1973db7b4c9e@amd.com>
- <CAJZ5v0gnTt0pV4nF+jcYCyZuZXDNuRn3mS0bDoAv-ZDpetyxVg@mail.gmail.com>
- <5d6f6a89-1c7f-3763-8616-b80fdc301603@amd.com>
-In-Reply-To: <5d6f6a89-1c7f-3763-8616-b80fdc301603@amd.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Fri, 23 Jun 2023 19:15:57 +0200
-Message-ID: <CAJZ5v0iwPqD5PhQ8OcXO_xncFwH824h=U7W50pyPMBqtPSpP=g@mail.gmail.com>
-Subject: Re: [PATCH V4 1/8] drivers/acpi: Add support for Wifi band RF
- mitigations
-To: "Limonciello, Mario" <mario.limonciello@amd.com>
+References: <20230622004226.7177-1-shamrocklee@posteo.net>
+In-Reply-To: <20230622004226.7177-1-shamrocklee@posteo.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 23 Jun 2023 13:34:19 -0400
+Message-ID: <CADnq5_PYWtz6sgutbTc66WAJgKTTgPtG=s=F+geR=74-hNy9ww@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix comment typo
+To: Yueh-Shun Li <shamrocklee@posteo.net>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -61,145 +67,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jingyuwang_vip@163.com, bellosilicio@gmail.com,
- "Rafael J. Wysocki" <rafael@kernel.org>, trix@redhat.com, lijo.lazar@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mdaenzer@redhat.com, airlied@gmail.com, amd-gfx@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, kuba@kernel.org, pabeni@redhat.com,
- lenb@kernel.org, andrealmeid@igalia.com, daniel@ffwll.ch, arnd@arndb.de,
- maarten.lankhorst@linux.intel.com, hdegoede@redhat.com, jsg@jsg.id.au,
- Evan Quan <evan.quan@amd.com>, jim.cromie@gmail.com, netdev@vger.kernel.org,
- Xinhui.Pan@amd.com, linux-wireless@vger.kernel.org, edumazet@google.com,
- christian.koenig@amd.com, tzimmermann@suse.de, alexander.deucher@amd.com,
- johannes@sipsolutions.net, davem@davemloft.net
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 23, 2023 at 6:48=E2=80=AFPM Limonciello, Mario
-<mario.limonciello@amd.com> wrote:
->
->
-> On 6/23/2023 11:28 AM, Rafael J. Wysocki wrote:
-> > On Fri, Jun 23, 2023 at 5:57=E2=80=AFPM Limonciello, Mario
-> > <mario.limonciello@amd.com> wrote:
-> >>
-> >> On 6/23/2023 9:52 AM, Rafael J. Wysocki wrote:
-> >>> On Wed, Jun 21, 2023 at 7:47=E2=80=AFAM Evan Quan <evan.quan@amd.com>=
- wrote:
-> >>>> From: Mario Limonciello <mario.limonciello@amd.com>
-> >>>>
-> >>>> Due to electrical and mechanical constraints in certain platform des=
-igns
-> >>>> there may be likely interference of relatively high-powered harmonic=
-s of
-> >>>> the (G-)DDR memory clocks with local radio module frequency bands us=
-ed
-> >>>> by Wifi 6/6e/7.
-> >>>>
-> >>>> To mitigate this, AMD has introduced an ACPI based mechanism that
-> >>>> devices can use to notify active use of particular frequencies so
-> >>>> that devices can make relative internal adjustments as necessary
-> >>>> to avoid this resonance.
-> >>>>
-> >>>> In order for a device to support this, the expected flow for device
-> >>>> driver or subsystems:
-> >>>>
-> >>>> Drivers/subsystems contributing frequencies:
-> >>>>
-> >>>> 1) During probe, check `wbrf_supported_producer` to see if WBRF supp=
-orted
-> >>> The prefix should be acpi_wbrf_ or acpi_amd_wbrf_ even, so it is clea=
-r
-> >>> that this uses ACPI and is AMD-specific.
-> >> I guess if we end up with an intermediary library approach
-> >> wbrf_supported_producer makes sense and that could call acpi_wbrf_*.
-> >>
-> >> But with no intermediate library your suggestion makes sense.
-> >>
-> >> I would prefer not to make it acpi_amd as there is no reason that
-> >> this exact same problem couldn't happen on an
-> >> Wifi 6e + Intel SOC + AMD dGPU design too and OEMs could use the
-> >> same mitigation mechanism as Wifi6e + AMD SOC + AMD dGPU too.
-> > The mitigation mechanism might be the same, but the AML interface very
-> > well may be different.
->
->
-> Right.  I suppose right now we should keep it prefixed as "amd",
-> and if it later is promoted as a standard it can be renamed.
->
->
-> >
-> > My point is that this particular interface is AMD-specific ATM and I'm
-> > not aware of any plans to make it "standard" in some way.
->
->
-> Yeah; this implementation is currently AMD specific AML, but I
-> expect the exact same AML would be delivered to OEMs using the
-> dGPUs.
->
->
-> >
-> > Also if the given interface is specified somewhere, it would be good
-> > to have a pointer to that place.
->
->
-> It's a code first implementation.  I'm discussing with the
-> owners when they will release it.
->
->
-> >
-> >>> Whether or not there needs to be an intermediate library wrapped
-> >>> around this is a different matter.
-> > IMO individual drivers should not be expected to use this interface
-> > directly, as that would add to boilerplate code and overall bloat.
->
-> The thing is the ACPI method is not a platform method.  It's
-> a function of the device (_DSM).
+Applied.  Thanks!
 
-_DSM is an interface to the platform like any other AML, so I'm not
-really sure what you mean.
+Alex
 
-> The reason for having acpi_wbrf.c in the first place is to
-> avoid the boilerplate of the _DSM implementation across multiple
-> drivers.
-
-Absolutely, drivers should not be bothered with having to use _DSM in
-any case.  However, they may not even realize that they are running on
-a system using ACPI and I'm not sure if they really should care.
-
-> >
-> > Also whoever uses it, would first need to check if the device in
-> > question has an ACPI companion.
+On Thu, Jun 22, 2023 at 3:32=E2=80=AFAM Yueh-Shun Li <shamrocklee@posteo.ne=
+t> wrote:
 >
+> Spell "transmission" properly.
 >
-> Which comes back to Andrew's point.
-> Either we:
+> Found by searching for keyword "tranm".
 >
-> Have a generic wbrf_ helper that takes struct *device and
-> internally checks if there is an ACPI companion and support.
+> Signed-off-by: Yueh-Shun Li <shamrocklee@posteo.net>
+> ---
+>  .../gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c  | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> or
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_enc=
+oder.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
+> index 0278bae50a9d..45143459eedd 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hpo_dp_stream_encoder.c
+> @@ -154,7 +154,7 @@ static void dcn31_hpo_dp_stream_enc_dp_blank(
+>                         VID_STREAM_STATUS, 0,
+>                         10, 5000);
 >
-> Do the check for support in mac80211 + applicable drivers
-> and only call the AMD WBRF ACPI method in those drivers in
-> those cases.
-
-Either of the above has problems IMO.
-
-The problem with the wbrf_ helper approach is that it adds
-(potentially) several pieces of interaction with the platform,
-potentially for every driver, in places where drivers don't do such
-things as a rule.
-
-The problem with the other approach is that the drivers in question
-now need to be aware of ACPI in general and the AMD WBRF interface in
-particular and if other similar interfaces are added by other vendors,
-they will have to learn about those as well.
-
-I think that we need to start over with a general problem statement
-that in some cases the platform needs to be consulted regarding radio
-frequencies that drivers would like to use, because it may need to
-adjust or simply say which ranges are "noisy" (or even completely
-unusable for that matter).  That should allow us to figure out how the
-interface should look like from the driver side and it should be
-possible to hook up the existing platform interface to that.
+> -       /* Disable SDP tranmission */
+> +       /* Disable SDP transmission */
+>         REG_UPDATE(DP_SYM32_ENC_SDP_CONTROL,
+>                         SDP_STREAM_ENABLE, 0);
+>
+> --
+> 2.38.1
+>
