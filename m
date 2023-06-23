@@ -4,57 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B69BFEB64D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jun 2023 16:10:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0A6AC0015E
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jun 2023 16:28:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F20910E671;
-	Fri, 23 Jun 2023 16:10:51 +0000 (UTC)
-Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
- [IPv6:2607:f8b0:4864:20::c2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13DE910E049
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 16:10:48 +0000 (UTC)
-Received: by mail-oo1-xc2b.google.com with SMTP id
- 006d021491bc7-55b85b94bb0so473483eaf.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 09:10:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1687536648; x=1690128648;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4HvylnQoB2aCpq9I48MD6PGGYLWLVclKpHqZaqQxr/k=;
- b=nxJuDqaT1Ic0SARturb5PUrlNxEqW1BnfEwKcuYoYG4whIzBLLgwr3EI5aoEtgWFJf
- 11zwYXPAr4392PagWt+ZNsFG4yucShzy3cQetumiv/z2EcqYzOIJUvp1QOD2mSA+Gw0N
- IzS8+Fzz7EugNaJSdat4dVCZ/gt9+n4tpmUMOlaRKZGpuiDtIMJrVYWe+l86S+GJDt4V
- yBx5P/rUw1W2FvyJSSjTWtW5Ou1zsCnkahbF1Lvq9t2Pxxrvalg5jgey/bMF92dH7ftw
- tMLT3E33YGmCXJkOC2ZR/FNb++HSH+JvaZ+0Mk4dSdQb038sqOW1a2cwVorIiDIpNXaw
- UY+A==
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE1E710E673;
+	Fri, 23 Jun 2023 16:28:17 +0000 (UTC)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F07F10E672;
+ Fri, 23 Jun 2023 16:28:15 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2b57b4e95a8so2832641fa.1; 
+ Fri, 23 Jun 2023 09:28:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687536648; x=1690128648;
+ d=1e100.net; s=20221208; t=1687537693; x=1690129693;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4HvylnQoB2aCpq9I48MD6PGGYLWLVclKpHqZaqQxr/k=;
- b=JqkCEEzhGu9UAkjHFjjGuTJ3UaBhSAMKK5yHf8gBI209kCwx+/0+vF1/dluavwcW9l
- 1D2GMdnlKK48f/nudxvDgH/BWjFi4um/n8BkOJ50exK3auTs9PQqAOR+yEIbTajHJPqu
- Ku3mQAsTQ2SKtt5VJXGEtQeBFtTTMdt7lhQI5qaheM2tjCpH7VjCwZpke9Jq53lpBJ9a
- p0+dG0bjjGeYvCZ94KSPis48qq9IupePxxHZjovuRbt6XyZHzyltMYNhYxK7A1ad5lKu
- YWTdiqxXr4m+Y4Q0iKjkYKxNZ89Bb5zYQOSzXT+dx57rWPo3+Ea3xrPutHcjEmuL2z9s
- fqZA==
-X-Gm-Message-State: AC+VfDx9l1D2JDOHzi8PWNaW8TlJO+ftZb0o+faADKr8vAML9VQfOfI2
- kjjXgqGPHDKbZz7vm46E3W224SOCvX4vr43X36Q=
-X-Google-Smtp-Source: ACHHUZ53Fc1hX07QrgCo9rhIxnnOSLU6Q/6SwYjbCMnGh/7InePWYTEMKuVAL2j09sufi5EbHWMezSe4mX0ZBxo6E50=
-X-Received: by 2002:a4a:e688:0:b0:563:16e4:b6de with SMTP id
- u8-20020a4ae688000000b0056316e4b6demr629815oot.2.1687536647717; Fri, 23 Jun
- 2023 09:10:47 -0700 (PDT)
+ bh=kvgeaWwow5dQzFM6Uw8ojK5T7WjFQWYGvDt1Izr/8jk=;
+ b=gqQ5p355zp2q1u3wlrs/v1mnKsKLrJ3WQoblNZH0o3FVYoZTmNSiJCqE0swlDOem4h
+ 3myzogySVKqLk1/T2v2n/dkP/5axHN/zpuaT1NzCOZot3TiNDnc4X9YyqyACnHeICWc5
+ uJff761/SzQOmfZjOnPvf6iemQNYTTZsWaf9dEO2kBNZQPVWohZJnTgtmjEAd78C6QKC
+ x/Zgc5MCi7AsExuohZPVib1KZJJmtbCd9H2wMccIQMPzr7lIsbDoNtFiVJNR0QkX+ira
+ YzMvATfR/ixK93Iow6bIp/cwLqLaYkHsdjP8/DeTsNEk+88oSbfLhmZJn9/KVc7gYcpg
+ xdkg==
+X-Gm-Message-State: AC+VfDyj8GIyoAtzcHXcKddyZFBoujIbzjPitnCW74gnlOq+gz+ioWWa
+ qAJJ9L/CsVy/QmlyXqvzswtXpYIe0UiQgOpd6uI=
+X-Google-Smtp-Source: ACHHUZ7MZE3zsM6gspBvAbI6j3yhuhxSNyO7LoHURailwc+M8lU+tu/GWJJ/M+xF6Lk75Dt+elliEUR2HeQhtX0eK54=
+X-Received: by 2002:a2e:a492:0:b0:2b4:6d9a:2222 with SMTP id
+ h18-20020a2ea492000000b002b46d9a2222mr9575407lji.0.1687537692753; Fri, 23 Jun
+ 2023 09:28:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230623031839.16911-1-mario.limonciello@amd.com>
-In-Reply-To: <20230623031839.16911-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 23 Jun 2023 12:10:36 -0400
-Message-ID: <CADnq5_N9qXaGTAACjBFu2P1P=e=QOdUBSRsSda4gf69LCt6KsQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Don't try to enable secure display TA multiple
- times
-To: Mario Limonciello <mario.limonciello@amd.com>
+References: <20230621054603.1262299-1-evan.quan@amd.com>
+ <20230621054603.1262299-2-evan.quan@amd.com>
+ <CAJZ5v0iqy0yMJP5H7ub67R8R6i42=TcS_6+VF-+fWrM-9tYFQA@mail.gmail.com>
+ <c518da2a-5ba5-af7e-e26d-1973db7b4c9e@amd.com>
+In-Reply-To: <c518da2a-5ba5-af7e-e26d-1973db7b4c9e@amd.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Fri, 23 Jun 2023 18:28:01 +0200
+Message-ID: <CAJZ5v0gnTt0pV4nF+jcYCyZuZXDNuRn3mS0bDoAv-ZDpetyxVg@mail.gmail.com>
+Subject: Re: [PATCH V4 1/8] drivers/acpi: Add support for Wifi band RF
+ mitigations
+To: "Limonciello, Mario" <mario.limonciello@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,47 +59,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Filip Hejsek <filip.hejsek@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: jingyuwang_vip@163.com, bellosilicio@gmail.com,
+ "Rafael J. Wysocki" <rafael@kernel.org>, trix@redhat.com, lijo.lazar@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mdaenzer@redhat.com, airlied@gmail.com, amd-gfx@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ lenb@kernel.org, andrealmeid@igalia.com, daniel@ffwll.ch, arnd@arndb.de,
+ maarten.lankhorst@linux.intel.com, hdegoede@redhat.com, jsg@jsg.id.au,
+ Evan Quan <evan.quan@amd.com>, jim.cromie@gmail.com, netdev@vger.kernel.org,
+ Xinhui.Pan@amd.com, linux-wireless@vger.kernel.org, edumazet@google.com,
+ christian.koenig@amd.com, tzimmermann@suse.de, alexander.deucher@amd.com,
+ johannes@sipsolutions.net, davem@davemloft.net
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 22, 2023 at 11:19=E2=80=AFPM Mario Limonciello
+On Fri, Jun 23, 2023 at 5:57=E2=80=AFPM Limonciello, Mario
 <mario.limonciello@amd.com> wrote:
 >
-> If the securedisplay TA failed to load the first time, it's unlikely
-> to work again after a suspend/resume cycle or reset cycle and it appears
-> to be causing problems in futher attempts.
 >
-> Fixes: e42dfa66d592 ("drm/amdgpu: Add secure display TA load for Renoir")
-> Reported-by: Filip Hejsek <filip.hejsek@gmail.com>
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2633
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> On 6/23/2023 9:52 AM, Rafael J. Wysocki wrote:
+> > On Wed, Jun 21, 2023 at 7:47=E2=80=AFAM Evan Quan <evan.quan@amd.com> w=
+rote:
+> >> From: Mario Limonciello <mario.limonciello@amd.com>
+> >>
+> >> Due to electrical and mechanical constraints in certain platform desig=
+ns
+> >> there may be likely interference of relatively high-powered harmonics =
+of
+> >> the (G-)DDR memory clocks with local radio module frequency bands used
+> >> by Wifi 6/6e/7.
+> >>
+> >> To mitigate this, AMD has introduced an ACPI based mechanism that
+> >> devices can use to notify active use of particular frequencies so
+> >> that devices can make relative internal adjustments as necessary
+> >> to avoid this resonance.
+> >>
+> >> In order for a device to support this, the expected flow for device
+> >> driver or subsystems:
+> >>
+> >> Drivers/subsystems contributing frequencies:
+> >>
+> >> 1) During probe, check `wbrf_supported_producer` to see if WBRF suppor=
+ted
+> > The prefix should be acpi_wbrf_ or acpi_amd_wbrf_ even, so it is clear
+> > that this uses ACPI and is AMD-specific.
+>
+> I guess if we end up with an intermediary library approach
+> wbrf_supported_producer makes sense and that could call acpi_wbrf_*.
+>
+> But with no intermediate library your suggestion makes sense.
+>
+> I would prefer not to make it acpi_amd as there is no reason that
+> this exact same problem couldn't happen on an
+> Wifi 6e + Intel SOC + AMD dGPU design too and OEMs could use the
+> same mitigation mechanism as Wifi6e + AMD SOC + AMD dGPU too.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+The mitigation mechanism might be the same, but the AML interface very
+well may be different.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index 89a62df76a12..c4cef3f2af3e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -1937,6 +1937,8 @@ static int psp_securedisplay_initialize(struct psp_=
-context *psp)
->                 psp_securedisplay_parse_resp_status(psp, securedisplay_cm=
-d->status);
->                 dev_err(psp->adev->dev, "SECUREDISPLAY: query securedispl=
-ay TA failed. ret 0x%x\n",
->                         securedisplay_cmd->securedisplay_out_message.quer=
-y_ta.query_cmd_ret);
-> +               /* don't try again */
-> +               psp->securedisplay_context.context.bin_desc.size_bytes =
-=3D 0;
->         }
->
->         return 0;
-> --
-> 2.34.1
->
+My point is that this particular interface is AMD-specific ATM and I'm
+not aware of any plans to make it "standard" in some way.
+
+Also if the given interface is specified somewhere, it would be good
+to have a pointer to that place.
+
+> >
+> > Whether or not there needs to be an intermediate library wrapped
+> > around this is a different matter.
+
+IMO individual drivers should not be expected to use this interface
+directly, as that would add to boilerplate code and overall bloat.
+
+Also whoever uses it, would first need to check if the device in
+question has an ACPI companion.
