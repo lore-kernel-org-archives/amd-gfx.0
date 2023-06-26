@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 865A8EB64D7
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 14:51:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FB86EB64DC
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 14:51:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29C0510E215;
-	Mon, 26 Jun 2023 14:51:26 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20620.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e89::620])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED83610E215
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jun 2023 14:51:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90F8C10E21C;
+	Mon, 26 Jun 2023 14:51:41 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::601])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DCC910E219
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jun 2023 14:51:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fZrTpvgvwpKzRfj5bytbyGDNP7enb8+ScYuBwtSj/k1uqj56jcmSf5kGo9RSfYP8COfzu9TtdJSxR06esNcEcLFCzR7uN4uOnYXnLnmrms05sqyTDAc9/RqHL5aHy81l/eki5nTp6cPFwwn+bBPcOiMU1NF60JDA91S8LQ0/hLKDx3U3hJLDvTwEanhfXvJQHqAk6o63IVj2KL0JwGIPgsTg3b/+EyfLyoLYrQHYT+2quL7QNXsgcQLLtJbkxgWjvIYpEAAZ6pF+2+gox3EVaUpsPjl7XXrbIqG2z8g1W5E3iAlza/1cLjM9yPzHFnulqlflasyyluPLNQ01QCrcig==
+ b=kyvXoi7I3MgIUr1m2JYM5rIceBsMgpINELY9L51KV3wShTar/i65ioM/vzgLs0o5yPpffos6bbSw22khBfoMdrE2jLvgW/Tmct7uT4XwifFeKMcPNOQpcDvNraz/yAJYx1TYK2VOqFs93l3TcVMjxNHc5udbptLLVuFxcqOz22vHBQbnv0rMjuQOQSUDElHbwhNlkXUUiTpBiPCZPAfeuNdsH8zF0TOoJS5ofBeoFqWMVTOmFGPgvNg2qUwYn6jirJ3xSO95XNZnpGhrxUGc3GjgjvO2cf8J6H5muwzyO/kV3hdNeB5g2R59b/Li5gp6qx7SVhzBvPj5gzXyFQooOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ojIrUQ2Lm336kbUX7L+G86LPFazpbB+xtle7eZ4JyP8=;
- b=nSNyMrEVkPANlsD7scOPj1ObfNcA39NdfIn1PD+/zMXPwScaYCLT6DOT85wCyfLkafeXnMPviGwePi/30BG7j/fTyrTxUkWEsZn93KVxoT8FT+S8Y0DGzVzcfJedZLj7sNmEnDjvm9uPPHqwk1FxmGZazaQwPzjHm/uckVDmgNWldDqpnS1JRknI6D6qq9+6qom4bYVzdOjtjhewPY89pXypq7RTK5G0U0T5b92FdaII/JXc++memFPt2nRgh1xiqipzG0hojSwe+OO4oaIBuES8BRa/wcYigzhZSbm3b8VCDf2nJi6A96WJoHzLwCD9TSDq0+oJoWpsrsaD9sJExg==
+ bh=xAIx+CAKn3jgd6YcVBwT4LgekBQjxM6e1r1RZeU2kj4=;
+ b=CbqtqjfZW4wm2p1vF5+FR6Jql1CTC+dOF/01lNmNJZM5GCXgUdODotsokOS9Qj0vjaEr2dp5CgRUHBox7Cd1R+hyb3h4NYkfKqTAVVNpW3IoL078SICVtj1GmJTgbj6/wICE+kw4XGExKnuPMw8ZRxIWkEGyblCrRrfg/kVrSRCx92rKpgIBHNsGip0woFTFpsHVtswRpDMIlBnheu9ckXZalgAD2eYnZl4I74OrsSAcJ+HDZE0ateTvTa1ovfZp/wM3AVso6zCnaA7cHJlxpA/0tw1UkxLBPYzC0JIfNYRy9uDiup5D8iWxpIV9uqf+bWj9PlU0ppedwkChZ1ZJjw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ojIrUQ2Lm336kbUX7L+G86LPFazpbB+xtle7eZ4JyP8=;
- b=hcPhNXQcu2Qd8kURWTNNm9W+sLAJCg6WZEyBrqbuUbfrdhSnxdmrJw2oJNQ8YD4GWzKJGxFqlmgp/SuEzmZgKhSa4iCL/1mVjz9epOKA7OEGKJ6Co4Wp0qOZcdrxmaWk/YP/1+iH65O8EzVbCcbIaH4oheixLCD0ac2FDCL3U0M=
-Received: from MW4PR04CA0067.namprd04.prod.outlook.com (2603:10b6:303:6b::12)
- by SJ2PR12MB8009.namprd12.prod.outlook.com (2603:10b6:a03:4c7::10)
+ bh=xAIx+CAKn3jgd6YcVBwT4LgekBQjxM6e1r1RZeU2kj4=;
+ b=RWC375sQ7HEsW7DG6biYG5YBl2x0nkRuMTJH29DfWVMnIixs9zoYr2zSKBP96KcSowQGCx5GdDwVxOI8pFpQIH4etDC/5c754TniVUjLG5OoxB8DXjudHqJMn2sQwoV0H22yNrv6yk0BB/z3yyS70SCfdGF5fhwQKf6/I7PzY2g=
+Received: from MW4PR03CA0102.namprd03.prod.outlook.com (2603:10b6:303:b7::17)
+ by BN9PR12MB5382.namprd12.prod.outlook.com (2603:10b6:408:103::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Mon, 26 Jun
- 2023 14:51:20 +0000
-Received: from CO1NAM11FT022.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6b:cafe::54) by MW4PR04CA0067.outlook.office365.com
- (2603:10b6:303:6b::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.33 via Frontend
- Transport; Mon, 26 Jun 2023 14:51:20 +0000
+ 2023 14:51:36 +0000
+Received: from CO1NAM11FT073.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b7:cafe::d8) by MW4PR03CA0102.outlook.office365.com
+ (2603:10b6:303:b7::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.34 via Frontend
+ Transport; Mon, 26 Jun 2023 14:51:35 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,21 +46,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT022.mail.protection.outlook.com (10.13.175.199) with Microsoft SMTP
+ CO1NAM11FT073.mail.protection.outlook.com (10.13.174.196) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.47 via Frontend Transport; Mon, 26 Jun 2023 14:51:20 +0000
+ 15.20.6500.47 via Frontend Transport; Mon, 26 Jun 2023 14:51:35 +0000
 Received: from x570-ryzen9-5900x.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23; Mon, 26 Jun 2023 09:51:17 -0500
+ 15.1.2507.23; Mon, 26 Jun 2023 09:51:33 -0500
 From: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
 To: <saleemkhan.jamadar@amd.com>, <amd-gfx@lists.freedesktop.org>,
  <leo.liu@amd.com>, <veerabadhran.gopalakrishnan@amd.com>,
  <sathishkumar.sundararaju@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu:update kernel vcn ring test
-Date: Mon, 26 Jun 2023 20:20:58 +0530
-Message-ID: <20230626145059.2238696-1-saleemkhan.jamadar@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu:update kernel vcn ring test
+Date: Mon, 26 Jun 2023 20:20:59 +0530
+Message-ID: <20230626145059.2238696-2-saleemkhan.jamadar@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230626145059.2238696-1-saleemkhan.jamadar@amd.com>
+References: <20230626145059.2238696-1-saleemkhan.jamadar@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -69,26 +71,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT022:EE_|SJ2PR12MB8009:EE_
-X-MS-Office365-Filtering-Correlation-Id: 586a183b-8e56-43b6-2567-08db7654cd99
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT073:EE_|BN9PR12MB5382:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8e56738-007e-4d37-5e5f-08db7654d6fc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AR8irfvfcTc1vqKjKceN2eI50md8/LRMEBdCVbFmyvQUf41a/g4kFw8ubfTVkURYvYew8kL/yvXSZJcXj/GJ79m4wgHk0PQU+5EbDf4O8SvrV9Kn+1pNg7h7dU1KuFhz3gHXX/LSG7GdeBT6eUL6c2rKyWQt1TRYST1YQp7SQK8mCiBEUikzMxoaXbfCNJ7uL4uVXST8ilBX9sMYeMn7XKJTdFrYx2bMxLDJE6nZC3+QdqAZnZXoc4L4KzFc/gl0SPqf4xysWi7UiL80I2yYj7Bmmo61/7We0+IIgEQpoTXOuOVVPAe+e4cb7tZeyVu0zZG6/aeheoMF+oKtKC4hoRmIHnzGrCvzNAVqVViEcau4Rm8by1e64HboBm7BanITvy4rmbZ8Of+6+A9hute2XVqZhhaqELehReTg0ofxM49RNMMb9mkhdTY0Kd3ETi5oMmrPzsoA9aPdiG/ZOtR5/TvGqKselIKFEPhUV7Six9l+adbNC3+2VxyvHAVXmuNexxfX7NB3zJBzPmzaOdHielKd6sd3GQy9K6LEBl0DaVQi0KW93EUwxlqQrZCLdeynI5lTnO0xVx0ElCX9cC1lqOmj93qSjsniQYoZpuxkMvFa7z6xPWbLlJi6gy23KlrNqG8RgXuXIcOk+ArKBOmiKgbGPRGySLQYK32H8CogPwUQSOxPANbyuMrdH+YTJXYkidexqSTULBW1N68cIYMbbnhqgxiHwQqQ7bFO0YRXpVpIMhz6u9dvrQLDiqohlhr/ZZM6SQSeKRZKhDrnTNh77g==
+X-Microsoft-Antispam-Message-Info: XASKDbeGdiB9BAh+i1gHjoTvwZ548txHyBJt4HuRE6tL9QUWtVp3x2l2ylfxaTKe845O/l4lrJd+tGZiEF3zS9jgcm2Rgv+Y6mHPvo7utiQp9QO/Eeif8sub+Z5HZfxg9jkEt8tLfZyY1Anl81uZMdLHexI/FJ976BxIKzg8jSbvZDfwJWGI2psOvd3D5cNqHFoQgOdT8jqRrYtCbfjl/BOAM30Vty+uqa5AvMMDc3dIL+c81SeH8ANFOlfmFwjLWd7V7EbfUaAPLlAminAiKPTweyGamAq6LOA1prJvWIkL3AvX1iCuCgqOgjiTUsfhpS+oGgkGH4i36UAgY03ykmsO5C4FJzSpgH11MIj/hG3AoUaa9hvZHBcApopOPXOQbdjk0YkyjT+Mc/LOXfDxs0t0kvhtfANVxaleNTTEVO6RzZba/FhU95yQsvEjMiwGEr8suG2EnJ5jLrKKLhPs+f6hRtr/+qIhruuzoy4rW9FWESZSK9PycjEO/pM2THpkEan8+hgMatcZKPQFnj7UETFYOtZMmUl5yUerIvOyQN/vxGm9v0y+jE5LNEm9a3Vp0ZvCtWIjfkVQ+MQRNwoKoSxLSkOHxCm+McFEJ4Pw2NPOv4g1uuLkOFWHlatQrPOu4qNTxgPREXd4dxB6jcMZO/1My9op86G9B66ZU7j/AFvwJKY3uGRrtVjtZLW2iHFS5mf+1w+oNtWhE+Rf/Ly2apWgljI6V2x1A1GRFaZAdF9llghcPYzVab/k4qoKbo7g3aKt8niXDZYiJMmoFjR0hg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(396003)(39860400002)(136003)(451199021)(36840700001)(46966006)(40470700004)(8676002)(41300700001)(8936002)(2906002)(70586007)(110136005)(478600001)(70206006)(44832011)(5660300002)(316002)(4326008)(6636002)(336012)(426003)(36860700001)(2616005)(83380400001)(47076005)(81166007)(356005)(82740400003)(82310400005)(40460700003)(36756003)(16526019)(40480700001)(6666004)(7696005)(26005)(186003)(1076003)(86362001)(36900700001);
+ SFS:(13230028)(4636009)(376002)(39860400002)(346002)(396003)(136003)(451199021)(46966006)(40470700004)(36840700001)(82310400005)(36860700001)(47076005)(6666004)(2616005)(7696005)(83380400001)(336012)(426003)(110136005)(26005)(1076003)(186003)(16526019)(2906002)(478600001)(5660300002)(356005)(44832011)(36756003)(40460700003)(70206006)(81166007)(70586007)(82740400003)(40480700001)(4326008)(316002)(6636002)(8936002)(8676002)(41300700001)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 14:51:20.0191 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 586a183b-8e56-43b6-2567-08db7654cd99
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 14:51:35.7688 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8e56738-007e-4d37-5e5f-08db7654d6fc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT022.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT073.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8009
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5382
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,53 +106,69 @@ Cc: srinath.rao@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add session context buffer to decoder ring test.
-
-v2 - put the buffer at the end of the IB (Christian)
+add session context buffer to decoder ring test fro vcn v1 to v3.
 
 Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
-Acked-by: Leo Liu <leo.liu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 30 ++++++++++++++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  3 +++
- 2 files changed, 30 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 43 ++++++++++++++++++++++---
+ 1 file changed, 38 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 2d94f1b63bd6..04daaaf6ab34 100644
+index 04daaaf6ab34..3e9c023e6c42 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -691,7 +691,8 @@ static void amdgpu_vcn_unified_ring_ib_checksum(uint32_t **ib_checksum,
+@@ -518,9 +518,11 @@ int amdgpu_vcn_dec_sw_ring_test_ring(struct amdgpu_ring *ring)
  
- static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
- 				      struct amdgpu_ib *ib_msg,
--				      struct dma_fence **fence)
-+				      struct dma_fence **fence,
-+					  uint64_t session_ctx_buf_gaddr)
+ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
+ 				   struct amdgpu_ib *ib_msg,
+-				   struct dma_fence **fence)
++				   struct dma_fence **fence,
++				   uint64_t session_ctx_buf_gaddr)
  {
- 	struct amdgpu_vcn_decode_buffer *decode_buffer = NULL;
- 	unsigned int ib_size_dw = 64;
-@@ -730,6 +731,14 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
- 	ib->length_dw += sizeof(struct amdgpu_vcn_decode_buffer) / 4;
- 	memset(decode_buffer, 0, sizeof(struct amdgpu_vcn_decode_buffer));
+ 	u64 addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
++        struct amdgpu_vcn_decode_buffer *decode_buffer = NULL;
+ 	struct amdgpu_device *adev = ring->adev;
+ 	struct dma_fence *f = NULL;
+ 	struct amdgpu_job *job;
+@@ -534,6 +536,22 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
+ 		goto err;
  
-+	if (session_ctx_buf_gaddr) {
-+		decode_buffer->valid_buf_flag |=
-+					cpu_to_le32(AMDGPU_VCN_CMD_FLAG_SESSION_CONTEXT_BUFFER);
-+		decode_buffer->session_context_buffer_address_hi =
-+							cpu_to_le32(session_ctx_buf_gaddr >> 32);
-+		decode_buffer->session_context_buffer_address_lo =
-+							cpu_to_le32(session_ctx_buf_gaddr);
-+	}
- 	decode_buffer->valid_buf_flag |= cpu_to_le32(AMDGPU_VCN_CMD_FLAG_MSG_BUFFER);
- 	decode_buffer->msg_buffer_address_hi = cpu_to_le32(addr >> 32);
- 	decode_buffer->msg_buffer_address_lo = cpu_to_le32(addr);
-@@ -763,20 +772,34 @@ int amdgpu_vcn_dec_sw_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	ib = &job->ibs[0];
++	ib->length_dw = 0;
++        ib->ptr[ib->length_dw++] = sizeof(struct amdgpu_vcn_decode_buffer) + 8;
++        ib->ptr[ib->length_dw++] = cpu_to_le32(AMDGPU_VCN_IB_FLAG_DECODE_BUFFER);
++        decode_buffer = (struct amdgpu_vcn_decode_buffer *)&(ib->ptr[ib->length_dw]);
++        ib->length_dw += sizeof(struct amdgpu_vcn_decode_buffer) / 4;
++        memset(decode_buffer, 0, sizeof(struct amdgpu_vcn_decode_buffer));
++
++        if (session_ctx_buf_gaddr) {
++                decode_buffer->valid_buf_flag |=
++                                        cpu_to_le32(AMDGPU_VCN_CMD_FLAG_SESSION_CONTEXT_BUFFER);
++                decode_buffer->session_context_buffer_address_hi =
++                                                        cpu_to_le32(session_ctx_buf_gaddr >> 32);
++                decode_buffer->session_context_buffer_address_lo =
++                                                        cpu_to_le32(session_ctx_buf_gaddr);
++        }
++
+ 	ib->ptr[0] = PACKET0(adev->vcn.internal.data0, 0);
+ 	ib->ptr[1] = addr;
+ 	ib->ptr[2] = PACKET0(adev->vcn.internal.data1, 0);
+@@ -544,7 +562,7 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
+ 		ib->ptr[i] = PACKET0(adev->vcn.internal.nop, 0);
+ 		ib->ptr[i+1] = 0;
+ 	}
+-	ib->length_dw = 16;
++	ib->length_dw += 16;
+ 
+ 	r = amdgpu_job_submit_direct(job, ring, &f);
+ 	if (r)
+@@ -631,20 +649,34 @@ int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
  {
  	struct dma_fence *fence = NULL;
  	struct amdgpu_ib ib;
 +	struct amdgpu_bo *session_ctx_buf = NULL;
-+	void *cpu_addr = NULL;
-+	uint64_t gpu_addr = 0;
++        void *cpu_addr = NULL;
++        uint64_t gpu_addr = 0;
  	long r;
  
 +	r = amdgpu_bo_create_kernel(ring->adev, 128*1024, PAGE_SIZE,
@@ -168,20 +186,20 @@ index 2d94f1b63bd6..04daaaf6ab34 100644
  	if (r)
  		goto error;
  
--	r = amdgpu_vcn_dec_sw_send_msg(ring, &ib, NULL);
-+	r = amdgpu_vcn_dec_sw_send_msg(ring, &ib, NULL, gpu_addr);
+-	r = amdgpu_vcn_dec_send_msg(ring, &ib, NULL);
++	r = amdgpu_vcn_dec_send_msg(ring, &ib, NULL, gpu_addr);
  	if (r)
  		goto error;
  	r = amdgpu_vcn_dec_get_destroy_msg(ring, 1, &ib);
  	if (r)
  		goto error;
  
--	r = amdgpu_vcn_dec_sw_send_msg(ring, &ib, &fence);
-+	r = amdgpu_vcn_dec_sw_send_msg(ring, &ib, &fence, gpu_addr);
+-	r = amdgpu_vcn_dec_send_msg(ring, &ib, &fence);
++	r = amdgpu_vcn_dec_send_msg(ring, &ib, &fence, gpu_addr);
  	if (r)
  		goto error;
  
-@@ -788,6 +811,7 @@ int amdgpu_vcn_dec_sw_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+@@ -656,6 +688,7 @@ int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
  
  	dma_fence_put(fence);
  error:
@@ -189,27 +207,15 @@ index 2d94f1b63bd6..04daaaf6ab34 100644
  	return r;
  }
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index f1397ef66fd7..06f9ee91a1e1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -166,6 +166,7 @@
- 
- #define AMDGPU_VCN_IB_FLAG_DECODE_BUFFER	0x00000001
- #define AMDGPU_VCN_CMD_FLAG_MSG_BUFFER		0x00000001
-+#define AMDGPU_VCN_CMD_FLAG_SESSION_CONTEXT_BUFFER	0x00100000
- 
- #define VCN_CODEC_DISABLE_MASK_AV1  (1 << 0)
- #define VCN_CODEC_DISABLE_MASK_VP9  (1 << 1)
-@@ -357,6 +358,8 @@ struct amdgpu_vcn_decode_buffer {
- 	uint32_t valid_buf_flag;
- 	uint32_t msg_buffer_address_hi;
- 	uint32_t msg_buffer_address_lo;
-+	unsigned int session_context_buffer_address_hi;
-+	unsigned int session_context_buffer_address_lo;
- 	uint32_t pad[30];
- };
- 
+@@ -692,7 +725,7 @@ static void amdgpu_vcn_unified_ring_ib_checksum(uint32_t **ib_checksum,
+ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
+ 				      struct amdgpu_ib *ib_msg,
+ 				      struct dma_fence **fence,
+-					  uint64_t session_ctx_buf_gaddr)
++				      uint64_t session_ctx_buf_gaddr)
+ {
+ 	struct amdgpu_vcn_decode_buffer *decode_buffer = NULL;
+ 	unsigned int ib_size_dw = 64;
 -- 
 2.25.1
 
