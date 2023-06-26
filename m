@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E34BBEB64D7
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 15:04:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC2DBEB64DC
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 15:04:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 749AB10E0B9;
-	Mon, 26 Jun 2023 15:04:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A747110E216;
+	Mon, 26 Jun 2023 15:04:30 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060.outbound.protection.outlook.com [40.107.223.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D9D310E0B9
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jun 2023 15:04:27 +0000 (UTC)
+ (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E63E10E0B9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jun 2023 15:04:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A7FrbXQmh7K/eekpNP+uSH1tD7i8CuZam9A2bDdEB/aOr7kVZPkIGU9ZdDCmcXTz8+BbDS53HGS7bfzx3ebqcvOhgjcQDahvjtn+py5ukYtuOnfz4c2p58a67vF9llQOCNjleb29j/Npff1JTVQRjFJK3pl8w8eKfq+DwQLengW4xDAcCaLeU/qjhYWlO+fwd44ANhahK0kkJmaGhtJNasV+yoeOCwU1fon3pZZc39wm8Uk+/Aib0DYWg5Vg/+DlTGfGMk3dazAXA0t6IkC5MA6r1j24f9YcH8VieRoL+vCpo0Hh/79Tj9b8HxanbL/RghwCEHdArMGo+RNU9V3Dcg==
+ b=cggxcC5xxPeaqGvUMk1lKqHggDCxJZC01gA/aRqR6SkXd+LOvgXJAbQ8wQaRFdi2YdsTQ9XI49hpATMI8en7bywuxJGyHll8N5t2g6lP7B9RQjXOl8i4nC/as5QN2Byg18oWx7TrtZnz9R9am38jCQb0zbRoglx0vA38oaG+MubFr5lV7pUGB3D5O1az29AU+A1E24Yb58GAW5odoxxMEoHkLbb5bISNU5pURMTNpuUBpVAqkW2PhuDShCi5QnSmw+HVPLfmWsp/7WlgMvj1fVPzouske2m0bdmgop0R7XdesgbtqLd+KGCOXX8KrmAAO3n/hIqdA6lGuEDPMmSHVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VuAZTc1aPRzTibPyHz7MkahjaZgp+1rVP2tVF5HNs2k=;
- b=iqogwb4IlXT8QNBrXb6+KxdtYRcTb8Sb1R4nNjby7XsBG/OWOeU6l7ZuoEmyqmhPxivEcZS9FMht0xY6SWytRTzmsJSgZ9bFEIbDDlmldpOoZchBpO/UAXxOTqZXMHDzcycwcTKl61aDXIbiUh2PKRPHatPjWQDh1kRAseVtBMHlgd6Y7FrMY0oQ8kh34bHyn1tYFg1BRHAPjklZrPKTRUgHq5l1r85sTpzspESW5zo7cL9sL3cnGesx1oV0dAT3ryxs2gD8Y70tfi78I9ZYzHydErCuibCTIpCUKsG2y6zRJRse4w1FmI8N6qbai8D3ZofMfB8rsec4WMLM2gaxTw==
+ bh=FEz05I5vYx+YlZary10X6xat0qlWJiCHBun76DPLbcI=;
+ b=Bm08rs3Gj7wfNDcem5GkcX7QRBbSlzSBk39GsvJCCD+okByoxlhYf1o2TIx1U5pIMVP+gXKx1cVcTFIcHEcOAsOvNNM7XFTywslUVA4d0gP73IchzUyU2zUd33e4WhcQJh5LEglPUUFtV8VT4m5Oj9A2sf10nU5n7Ut7BbdXf/gA+S05CRn/RxOcpFaGhXIzVIe+sDXPJTCADHwPLgC8qmnQplFPanNUUY+AIMLuRXw4Q7M6Mq8isgT82JKnQU6s7fIF3J40Tlgng3jOLgz8Wd/ToPFxtnUu0/FYebRqRrK7/uaABdOy5UUxhctKO5i66o0HK/1XzDU5P7/nkU9ugQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VuAZTc1aPRzTibPyHz7MkahjaZgp+1rVP2tVF5HNs2k=;
- b=paNPGDWEaBo3MxIXE7gyJzGQgApJkE5bdKuNBvM4FKhhQNvcgZ9PdsZr+DP5MkrY6/hNbJ6LTWK/zHwPxW9MKpP5jHEToLD3FpjHUpWBx+vqzhb7HBdOT9GeirohwDwquIBwibzYRL9tAqsI/Ra3l1LpoKzHt7gZNxOetKkrbRQ=
-Received: from MW4PR04CA0347.namprd04.prod.outlook.com (2603:10b6:303:8a::22)
- by PH8PR12MB6891.namprd12.prod.outlook.com (2603:10b6:510:1cb::20)
+ bh=FEz05I5vYx+YlZary10X6xat0qlWJiCHBun76DPLbcI=;
+ b=FSc+3aKp56FTUCaQRxPo8jWYty4h7Tto9idbXIjahh/kZEltHg2qbWQJ3C7ObrUEqEMxAkdofYPbBku+XEGV/rnBXdq0e5WPYOhB80GBPKzq8kClZTXff78DftAvpwfCdvgSbqCDtKrJDS7i/2isDwMNqaHYE25bmwuzNm7dpBc=
+Received: from MW4PR04CA0345.namprd04.prod.outlook.com (2603:10b6:303:8a::20)
+ by PH8PR12MB6986.namprd12.prod.outlook.com (2603:10b6:510:1bd::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Mon, 26 Jun
- 2023 15:04:25 +0000
+ 2023 15:04:26 +0000
 Received: from CO1NAM11FT018.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8a:cafe::b7) by MW4PR04CA0347.outlook.office365.com
- (2603:10b6:303:8a::22) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:303:8a:cafe::16) by MW4PR04CA0345.outlook.office365.com
+ (2603:10b6:303:8a::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.33 via Frontend
- Transport; Mon, 26 Jun 2023 15:04:24 +0000
+ Transport; Mon, 26 Jun 2023 15:04:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT018.mail.protection.outlook.com (10.13.175.16) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.47 via Frontend Transport; Mon, 26 Jun 2023 15:04:24 +0000
+ 15.20.6500.47 via Frontend Transport; Mon, 26 Jun 2023 15:04:26 +0000
 Received: from SITE-L-T34-2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 26 Jun
- 2023 10:04:23 -0500
+ 2023 10:04:24 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/5] drm/amd: Don't initialize PSP twice for Navi3x
-Date: Mon, 26 Jun 2023 10:04:03 -0500
-Message-ID: <20230626150407.1447-1-mario.limonciello@amd.com>
+Subject: [PATCH 3/5] drm/amd: Make flashing messages quieter
+Date: Mon, 26 Jun 2023 10:04:05 -0500
+Message-ID: <20230626150407.1447-3-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230626150407.1447-1-mario.limonciello@amd.com>
+References: <20230626150407.1447-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT018:EE_|PH8PR12MB6891:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d56ac58-6e34-45f5-c3aa-08db7656a144
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT018:EE_|PH8PR12MB6986:EE_
+X-MS-Office365-Filtering-Correlation-Id: 074e98d5-65c3-4663-522b-08db7656a23a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sg8Fd7HcTqtPQudhFOX1qWxcq5LiemaIISDxW5FLrOLtbgXsJIpTqDwwBGaiUkvVA7Gd516dmqGEL/wEsiKwC0wmkxczTlp4G48mR74WxZDKzjN7pRl9gi4M2gW30Dtgc3Bi6V9g7pXFN2rWmn22E17c+BlkwFYcJG/t7dVnUKmzD4ltkZhQiyToBvTMlCPajfpq5l/xr2g+DhxVFBHQiWZvcYEOn7hV3AFIactRikMZHbKpU/Ozc8q4LG1lLBM8c/rwgbLWtrCKK1zdSWqtrCSZhqT/0ltDVYcdXZS9E8VKpF3YouRxnQBO1b7gFif44j9oGpKSYg9OrkAkU/WZ+4lQpYlx+ueOrJ3QEVdrxa0LD0WVmcOgWCBUaydp1w+fsUAZZC6OC6As+ChvVKtrdOQRN43V/eeYv06wt4fDMjwvvM2oq627hj/VDjAvY4p+BGEqa2w4/bRn/fRBI3KRpgNyntMoJU5uP0tBuYHg7otrrHu7c1OcAS2HIGiSeGgQBGzYW5xuiwqHIfOdyU3ZZ8tuOW81UqW7HSZhXQqymCdRVpTWuIcJXC/y20tul7eGw0zVAiX+slAvH5gWWdI9WTqRn7lj/RfNwBccde3W+89Kj7wb1Nltv60KdjT2GTl6xaJQAqJeDLNGKRFjeAMoPFe/FSl4WfMKKCJeno3n7/cw2WFPY3EDtqTZUP8Js02fC2Md3/L/i7U77L/O7yf5qK+sXyuWBw7stsg93zpfNzkIPSLt6d2ZOPd+g2Wz/mMIMX1FoLwGbSXtv83k64sHb2k69I89/PIjqRTzuzqEoJ8=
+X-Microsoft-Antispam-Message-Info: KIRmjqSp6STZ3ZE2UqGicSorfkisN8Qzf1w3L7lGfO7yHzN/nvJO4jxWRMOSzAnxVSSjjBHcqdmTodCE6iWK5Jr8D3g0MiD7KhmNsoAoAuoHlG+6R5qkbrGWBcxDHAM4pCS7KJ9KuPKMruiOY5TfXwCkIkmxHCtlzEipHHSR9NIOyNm9mDFDOxVmp5+m71PqxkOX6tPrClQsjGrNdictsxUdqWVlZTs6z5d/DEHYfvBqFjJlnswvar6hIwlyCUhTEy4TJS7LUnUlCx+FVhnrDRxpWWDJFnjDaFPxzDBuvWnN4Qwfd+KXRyhwhZNqYkzueUp/eV8GjwXDC8VyLuBrlXougqOiD/9NRbYiyEGm1uAZbvUu3wZb35YzHfpBPVCrUn726xMeufbhZJGtY+0FldUaS683335mXtnLSxhVxQ2qh/XW5uxKtYc3a65KooHRIojVZZVVEthnkbYN5SLb25Mi9V1Sf+BF4JQiT9VPC/BBG8fFObSnQxhEl8oVdFZA34NKCp1rEVAKuWov5jM4C++owbAqUsyXPmEf9xSsNS6MT91mGU27QiuDNS/QmhJNxHHiDFqx6XJ7IEgAU7EgPPmR7Kz4j6ApBbNm+zGE+00B7ITpON62jvqa4gkffn89AZs62WsemJGkMtz4OR7aE40gt1d64XfknvRToq+bQU+Cfztu3RVpbfSaHHYYAsfAeHn/UfmVyN0kFWCdOsHTthKjIgOjTFPlyyDtnJOl9XYrkj8o+OoZMhBn6lE8RgRjZSv45r4oGvD5/I/jycbgHg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(39860400002)(136003)(396003)(451199021)(46966006)(36840700001)(40470700004)(2906002)(4744005)(7696005)(82310400005)(16526019)(6666004)(2616005)(356005)(81166007)(82740400003)(83380400001)(336012)(426003)(1076003)(26005)(47076005)(186003)(36860700001)(40480700001)(40460700003)(41300700001)(86362001)(478600001)(316002)(36756003)(70206006)(4326008)(6916009)(70586007)(44832011)(5660300002)(8676002)(8936002)(32563001)(36900700001);
+ SFS:(13230028)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199021)(36840700001)(40470700004)(46966006)(8936002)(8676002)(4326008)(70206006)(41300700001)(70586007)(6916009)(316002)(186003)(1076003)(16526019)(26005)(336012)(2616005)(478600001)(6666004)(7696005)(40460700003)(82310400005)(2906002)(15650500001)(5660300002)(40480700001)(44832011)(82740400003)(81166007)(356005)(36756003)(86362001)(36860700001)(47076005)(83380400001)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 15:04:24.6398 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d56ac58-6e34-45f5-c3aa-08db7656a144
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 15:04:26.2334 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 074e98d5-65c3-4663-522b-08db7656a23a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT018.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6891
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6986
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,30 +103,53 @@ Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PSP functions are already set by psp_early_init() so initializing
-them a second time is unnecessary.
-No intended functional changes.
+Debug messages related to the kernel process of flashing an updated
+IFWI are needlessly noisy and also confusing.
+
+Downgrade them to debug instead and clarify what they are actually
+doing.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index a150b7a4b4aae..eb687a338a1bd 100644
+index 4286c0b4beb90..93d014e69ee39 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -3621,10 +3621,6 @@ int amdgpu_psp_sysfs_init(struct amdgpu_device *adev)
- 	switch (adev->ip_versions[MP0_HWIP][0]) {
- 	case IP_VERSION(13, 0, 0):
- 	case IP_VERSION(13, 0, 7):
--		if (!psp->adev) {
--			psp->adev = adev;
--			psp_v13_0_set_psp_funcs(psp);
--		}
- 		ret = sysfs_create_bin_file(&adev->dev->kobj, &psp_vbflash_bin_attr);
- 		if (ret)
- 			dev_err(adev->dev, "Failed to create device file psp_vbflash");
+@@ -3531,7 +3531,7 @@ static ssize_t amdgpu_psp_vbflash_write(struct file *filp, struct kobject *kobj,
+ 	adev->psp.vbflash_image_size += count;
+ 	mutex_unlock(&adev->psp.mutex);
+ 
+-	dev_info(adev->dev, "VBIOS flash write PSP done");
++	dev_dbg(adev->dev, "IFWI staged for update");
+ 
+ 	return count;
+ }
+@@ -3551,7 +3551,7 @@ static ssize_t amdgpu_psp_vbflash_read(struct file *filp, struct kobject *kobj,
+ 	if (adev->psp.vbflash_image_size == 0)
+ 		return -EINVAL;
+ 
+-	dev_info(adev->dev, "VBIOS flash to PSP started");
++	dev_dbg(adev->dev, "PSP IFWI flash process initiated");
+ 
+ 	ret = amdgpu_bo_create_kernel(adev, adev->psp.vbflash_image_size,
+ 					AMDGPU_GPU_PAGE_SIZE,
+@@ -3576,11 +3576,11 @@ static ssize_t amdgpu_psp_vbflash_read(struct file *filp, struct kobject *kobj,
+ 	adev->psp.vbflash_image_size = 0;
+ 
+ 	if (ret) {
+-		dev_err(adev->dev, "Failed to load VBIOS FW, err = %d", ret);
++		dev_err(adev->dev, "Failed to load IFWI, err = %d", ret);
+ 		return ret;
+ 	}
+ 
+-	dev_info(adev->dev, "VBIOS flash to PSP done");
++	dev_dbg(adev->dev, "PSP IFWI flash process done");
+ 	return 0;
+ }
+ 
 -- 
 2.34.1
 
