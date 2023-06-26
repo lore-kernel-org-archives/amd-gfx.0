@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5986BEB64D9
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 18:34:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39C30EB64D7
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 18:55:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 180D410E23E;
-	Mon, 26 Jun 2023 18:34:03 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3292110E23F;
- Mon, 26 Jun 2023 18:34:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=oSueTiYMF138dSTfNnMKrmstGKw/e3IK9bYy1ze85L0=; b=VQDVxuCFQBdNcjmnjAju2cUvxx
- LdH3XwBHaGQt+dFtXZzyyu+W/1yGNAVjEAglYJbgQLXHkLJVlffMgBSq1vMLR2wF3dz42dSG8H7Ir
- TlTRAmLlOGgPkXEUMJl8rOUrZbyp1xefiLRLsyHc2zPNT79DoXwsAsD+yhYPtuKnIL6B/DeSBOa0z
- IRENLn6AMyTcHwfLAP3ArGvUvBZv2XLeN0YRVeHkd7DruLNqmwRQRguEnqcWCK/Mgph1JiXokoRmB
- Kgf2wWEq2dYg8ABzgTCFfV11DkZGwflzlbR9a71YIbqeJ+T4EIok1lB/svr/UCWLuWaB4ZjHGYyUZ
- ghykJ52g==;
-Received: from [179.113.218.86] (helo=steammachine.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qDr2E-0047zl-Ju; Mon, 26 Jun 2023 20:33:59 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/1] drm/doc: Document DRM device reset expectations
-Date: Mon, 26 Jun 2023 15:33:47 -0300
-Message-ID: <20230626183347.55118-2-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230626183347.55118-1-andrealmeid@igalia.com>
-References: <20230626183347.55118-1-andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD03F10E23F;
+	Mon, 26 Jun 2023 18:55:43 +0000 (UTC)
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E2AD10E23F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jun 2023 18:55:42 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id
+ 5614622812f47-3a1a12e95b1so2737853b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jun 2023 11:55:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1687805741; x=1690397741;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pF++ZJcStVMwcg+sT2az0K3nlVT2a2zKgZJHwUd+4OM=;
+ b=TZjop3QfJ+NdcwV6kaBGpGEaukcCGAJ0W/sJ0ONsK2rk4ZLcvdO5vvfJLv+HiKZ5jz
+ c4Ml/7nBU8aF+JUPen5w0HBkVvVZDlF8MsBo8rbTg9iPvfzxPuT5K0oO0STtOcsF9/SI
+ yz50epYdsP9ZibK+NX0mipfmk6Fo1/aEZJkbq03LwhnalLUWD+MHGHihfF2MlwiPsPBC
+ 8GpNTDkQPbOQO7JGM9h2jsmWPBg+NoltdgyNNheYc8H4FdJuy8fh8RheW7KubbLs5e7a
+ y/rhpMmNEscSS996amApEngoAX5aIpg+8Chdzdm8EzCbe4wKcUN/xq6PYqzNpnT2+eaS
+ h5Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687805741; x=1690397741;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pF++ZJcStVMwcg+sT2az0K3nlVT2a2zKgZJHwUd+4OM=;
+ b=iYuen3viZl8zTbSnkfEgvoZha4Gv8AlT5ix6+QdH4qfs1paj8dfCQmbUoAzkN2avRe
+ so9RBsFvIKgjYj7ZcbkfzYxXY8yhVEZILZbVkyhcv453qUEV6JuqfWtwuuFdHN8r9s6V
+ 3XmMNhIJRoILSC6qjIHqXxW4kELSKHXJJ+OeldS5WUEnPA1Ske6zP89nfcQPOi4p1jDh
+ i6uEZZPkAuOSRLzg0WH7NF6ne0SOFwZDuiw+r+sHcQoo5qMf9aInKiL1QCMDC2xlnvxr
+ dkDYr+5cvwZFxCgZonm97MxByVW9OzEg8ket36ggPDN5qt23bZnjdoXZYKNWB6QT6H46
+ EMrw==
+X-Gm-Message-State: AC+VfDwemftqh1j2x3vFY7GZy1Xe+8IhJCmnoH39vf/Ex8WCDwMoLave
+ fYb/mRQLRPerCASKGcHlwUQ4y3AN5Vyg12GK25s=
+X-Google-Smtp-Source: ACHHUZ5vSJ/3U3SMY6K9ugvbLcWwJpLb0EvNTDNIAc97Oi31bMf9mFf3Y4kn5mpNqCYnkSkJvmXhkbUDIzwpso5suA8=
+X-Received: by 2002:aca:b9c6:0:b0:39c:7f78:ba6d with SMTP id
+ j189-20020acab9c6000000b0039c7f78ba6dmr18142547oif.19.1687805740778; Mon, 26
+ Jun 2023 11:55:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20230626150407.1447-1-mario.limonciello@amd.com>
+ <20230626150407.1447-5-mario.limonciello@amd.com>
+In-Reply-To: <20230626150407.1447-5-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 26 Jun 2023 14:55:29 -0400
+Message-ID: <CADnq5_OizgHEKchE+y39kZnARdmJ4fgsi4mvFzz3NcHg3NDyXA@mail.gmail.com>
+Subject: Re: [PATCH 5/5] drm/amd: Add documentation for how to flash a dGPU
+To: Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,108 +68,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
- Rob Clark <robdclark@gmail.com>, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- alexander.deucher@amd.com, Dave Airlie <airlied@gmail.com>,
- christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Create a section that specifies how to deal with DRM device resets for
-kernel and userspace drivers.
+On Mon, Jun 26, 2023 at 11:04=E2=80=AFAM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
- Documentation/gpu/drm-uapi.rst | 68 ++++++++++++++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
+Needs a basic patch description.  Even just "add documentation"
 
-diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-index 65fb3036a580..25a11b9b98fa 100644
---- a/Documentation/gpu/drm-uapi.rst
-+++ b/Documentation/gpu/drm-uapi.rst
-@@ -285,6 +285,74 @@ for GPU1 and GPU2 from different vendors, and a third handler for
- mmapped regular files. Threads cause additional pain with signal
- handling as well.
- 
-+Device reset
-+============
-+
-+The GPU stack is really complex and is prone to errors, from hardware bugs,
-+faulty applications and everything in between the many layers. Some errors
-+require resetting the device in order to make the device usable again. This
-+section describes what is the expectations for DRM and usermode drivers when a
-+device resets and how to propagate the reset status.
-+
-+Kernel Mode Driver
-+------------------
-+
-+The KMD is responsible for checking if the device needs a reset, and to perform
-+it as needed. Usually a hang is detected when a job gets stuck executing. KMD
-+should keep track of resets, because userspace can query any time about the
-+reset stats for an specific context. This is needed to propagate to the rest of
-+the stack that a reset has happened. Currently, this is implemented by each
-+driver separately, with no common DRM interface.
-+
-+User Mode Driver
-+----------------
-+
-+The UMD should check before submitting new commands to the KMD if the device has
-+been reset, and this can be checked more often if it requires to. After
-+detecting a reset, UMD will then proceed to report it to the application using
-+the appropriated API error code, as explained in the below section about
-+robustness.
-+
-+Robustness
-+----------
-+
-+The only way to try to keep an application working after a reset is if it
-+complies with the robustness aspects of the graphical API that it is using.
-+
-+Graphical APIs provide ways to application to deal with device resets. However,
-+there is no guarantee that the app will be correctly using such features, and
-+UMD can implement policies to close the app if it is a repeating offender,
-+likely in a broken loop. This is done to ensure that it does not keeps blocking
-+the user interface from being correctly displayed. This should be done even if
-+the app is correct but happens to trigger some bug in the hardware/driver.
-+
-+OpenGL
-+~~~~~~
-+
-+Apps using OpenGL should use the available robust interfaces, like the
-+extension ``GL_ARB_robustness`` (or ``GL_EXT_robustness`` for OpenGL ES). This
-+interface tells if a reset has happened, and if so, all the context state is
-+considered lost and the app proceeds by creating new ones. If is possible to
-+determine that robustness is not in use, UMD will terminate the app when a reset
-+is detected, giving that the contexts are lost and the app won't be able to
-+figure this out and recreate the contexts.
-+
-+Vulkan
-+~~~~~~
-+
-+Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for submissions.
-+This error code means, among other things, that a device reset has happened and
-+it needs to recreate the contexts to keep going.
-+
-+Reporting resets causes
-+-----------------------
-+
-+Apart from propagating the reset through the stack so apps can recover, it's
-+really useful for driver developers to learn more about what caused the reset in
-+first place. DRM devices should make use of devcoredump to store relevant
-+information about the reset, so this information can be added to user bug
-+reports.
-+
- .. _drm_driver_ioctl:
- 
- IOCTL Support on Device Nodes
--- 
-2.41.0
+With that fixed, the series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  Documentation/gpu/amdgpu/flashing.rst   | 33 +++++++++++++++++++++++++
+>  Documentation/gpu/amdgpu/index.rst      |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 16 ++++++++++++
+>  3 files changed, 50 insertions(+)
+>  create mode 100644 Documentation/gpu/amdgpu/flashing.rst
+>
+> diff --git a/Documentation/gpu/amdgpu/flashing.rst b/Documentation/gpu/am=
+dgpu/flashing.rst
+> new file mode 100644
+> index 0000000000000..bd745c42a538f
+> --- /dev/null
+> +++ b/Documentation/gpu/amdgpu/flashing.rst
+> @@ -0,0 +1,33 @@
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> + dGPU firmware flashing
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +IFWI
+> +----
+> +Flashing the dGPU integrated firmware image (IFWI) is supported by GPUs =
+that
+> +use the PSP to orchestrate the update (Navi3x or newer GPUs).
+> +For supported GPUs, `amdgpu` will export a series of sysfs files that ca=
+n be
+> +used for the flash process.
+> +
+> +The IFWI flash process is:
+> +
+> +1. Ensure the IFWI image is intended for the dGPU on the system.
+> +2. "Write" the IFWI image to the sysfs file `psp_vbflash`. This will sta=
+ge the IFWI in memory.
+> +3. "Read" from the `psp_vbflash` sysfs file to initiate the flash proces=
+s.
+> +4. Poll the `psp_vbflash_status` sysfs file to determine when the flash =
+process completes.
+> +
+> +USB-C PD F/W
+> +------------
+> +On GPUs that support flashing an updated USB-C PD firmware image, the pr=
+ocess
+> +is done using the `usbc_pd_fw` sysfs file.
+> +
+> +* Reading the file will provide the current firmware version.
+> +* Writing the name of a firmware payload stored in `/lib/firmware/amdgpu=
+` to the sysfs file will initiate the flash process.
+> +
+> +The firmware payload stored in `/lib/firmware/amdgpu` can be named any n=
+ame
+> +as long as it doesn't conflict with other existing binaries that are use=
+d by
+> +`amdgpu`.
+> +
+> +sysfs files
+> +-----------
+> +.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> diff --git a/Documentation/gpu/amdgpu/index.rst b/Documentation/gpu/amdgp=
+u/index.rst
+> index 03c2966cae798..912e699fd3731 100644
+> --- a/Documentation/gpu/amdgpu/index.rst
+> +++ b/Documentation/gpu/amdgpu/index.rst
+> @@ -10,6 +10,7 @@ Next (GCN), Radeon DNA (RDNA), and Compute DNA (CDNA) a=
+rchitectures.
+>     module-parameters
+>     driver-core
+>     display/index
+> +   flashing
+>     xgmi
+>     ras
+>     thermal
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_psp.c
+> index 7872004ed7f9b..047760bafcc23 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -3476,6 +3476,11 @@ void psp_copy_fw(struct psp_context *psp, uint8_t =
+*start_addr, uint32_t bin_size
+>         drm_dev_exit(idx);
+>  }
+>
+> +/**
+> + * DOC: usbc_pd_fw
+> + * Reading from this file will retrieve the USB-C PD firmware version. W=
+riting to
+> + * this file will trigger the update process.
+> + */
+>  static DEVICE_ATTR(usbc_pd_fw, S_IRUGO | S_IWUSR,
+>                    psp_usbc_pd_fw_sysfs_read,
+>                    psp_usbc_pd_fw_sysfs_write);
+> @@ -3569,6 +3574,11 @@ static ssize_t amdgpu_psp_vbflash_read(struct file=
+ *filp, struct kobject *kobj,
+>         return 0;
+>  }
+>
+> +/**
+> + * DOC: psp_vbflash
+> + * Writing to this file will stage an IFWI for update. Reading from this=
+ file
+> + * will trigger the update process.
+> + */
+>  static struct bin_attribute psp_vbflash_bin_attr =3D {
+>         .attr =3D {.name =3D "psp_vbflash", .mode =3D 0660},
+>         .size =3D 0,
+> @@ -3576,6 +3586,12 @@ static struct bin_attribute psp_vbflash_bin_attr =
+=3D {
+>         .read =3D amdgpu_psp_vbflash_read,
+>  };
+>
+> +/**
+> + * DOC: psp_vbflash_status
+> + * The status of the flash process.
+> + * 0: IFWI flash not complete.
+> + * 1: IFWI flash complete.
+> + */
+>  static ssize_t amdgpu_psp_vbflash_status(struct device *dev,
+>                                          struct device_attribute *attr,
+>                                          char *buf)
+> --
+> 2.34.1
+>
