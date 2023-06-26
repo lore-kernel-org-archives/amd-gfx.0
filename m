@@ -4,48 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D12EC0015E
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 16:15:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90CBAEB64D7
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 17:41:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E43110E08F;
-	Mon, 26 Jun 2023 16:15:40 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A506710E257;
- Mon, 26 Jun 2023 16:15:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=slu41Trq4O3Esbd8wXKLjEegsdREKhu6+OYesH7zUvE=; b=l5Y50eFH5nYELas6XCTzOMOTNB
- moOFu9+7uvrHyyOZFt1mH+dn9ySUNCSHk1bt0Vx8HCsuIsDLwoTHlw7by3AN+k+J0h/QtLhpgyrme
- /9qEYlm1PSf/Zk+sqGitx+kbQeW2nCUYS7K5XQwaCldm2w8ew++bvsZP0UtnpmSZK5WXa4BVs+OoQ
- ZKQM+O5umiam0Eenb0f4jn6MMeEtLNST3y1r/lMOK1NWddvrvaN+kUubd5zvwVTZx1YJEdkuqQ7W8
- 6ktZsoleWB1oz8Jzn+wa8ILNylfgRhn0RttNaKDrkopf98VS1jWaC64DC9Zn4EX2bXTeU8ueumySf
- hXLwPllg==;
-Received: from [179.113.218.86] (helo=[192.168.1.111])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1qDosH-0044gc-Di; Mon, 26 Jun 2023 18:15:33 +0200
-Message-ID: <46eec220-5bed-cf7f-7bd7-0491883ef4fd@igalia.com>
-Date: Mon, 26 Jun 2023 13:15:27 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0788E10E117;
+	Mon, 26 Jun 2023 17:41:08 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20628.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::628])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B00E310E117
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jun 2023 17:41:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=W4XEDa9GJBb6tauIrY2HkhBuK2D2OpR8Cf+R9gOrSvfCyUEnP03/R6zCadMjukBK7zUG+wFthxIgEfPtUW6IvT7qBTdGebP2W+6VJFueAxu6PxPKT0UkVgsxjiHtW/9YqHEDL4tJCHKu3vAl4kt/dRMZst/ifciaO/5R7mXQTpKBMnwH65hne5J01TbHzgcRglj0y2eQP6fOOvmL8RhrqXN2iv04Ingj+zodpW+nJLJ5ssrCnZRfRCmw8c6Ja7MvNY3ilO6CFCwv28pDlfgdQu6IZvKxaK5WMHEKjQE/WxMpO70LjVpqtUOCwUVdGYlJ2QpMcpH9Ng2DUEmbFsX6Rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BwcWVSYBefsdaN+pmAsez0jWFt4L9BVdSrJtOrNwiT4=;
+ b=oEKqJyFsTFcjUZRNYaaVitu2Y1VrFjM0NMCrwWnmvLJQH+dZppWlSGH0OAubyys3SR+Rxgwx0b1lav1vLB7fj7XEzK8vXFSZlPO+NwVMFTLdx4TNFy9ZTsX/Lr4QFs/mKTGRSdDDBt9Ks32SmpMUIvoqX5ec7xyaKZ6IwpNwAdn4aHgAHKVP3+UFWn4EtFQ5JEJnx2hHVS3gAlYolb9pP2DcwM71Xf0U/3Zv/gyXMxjBiML7VesX97Lw4S8dTlzZ0IldnSIikFOfdHIR39pgSF/uPKNZnArC2bRx0zNRRiK1+O69AqWXNgN5YdtOrLmygGA5xkScsAMpeMreruWtxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BwcWVSYBefsdaN+pmAsez0jWFt4L9BVdSrJtOrNwiT4=;
+ b=BbODjciWt/lcGj5qNWdm6R6fnrA8Ul2A/SQQ0SV3HohMb9w00eJY4njDRUzWM/Iapbcb+AZBCXJH5feoB4n88sebhAVui/vyfdYix8xeB9U0A2y+v48Ik6SdvpmLGVXj6hw9m/wn2DJgj1EsvCxLUm10lmrf1GbUFg2y2beVlFU=
+Received: from SJ0PR05CA0029.namprd05.prod.outlook.com (2603:10b6:a03:33b::34)
+ by LV2PR12MB6016.namprd12.prod.outlook.com (2603:10b6:408:14e::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Mon, 26 Jun
+ 2023 17:41:01 +0000
+Received: from DM6NAM11FT099.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:a03:33b:cafe::a6) by SJ0PR05CA0029.outlook.office365.com
+ (2603:10b6:a03:33b::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.15 via Frontend
+ Transport; Mon, 26 Jun 2023 17:41:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT099.mail.protection.outlook.com (10.13.172.241) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.47 via Frontend Transport; Mon, 26 Jun 2023 17:41:01 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 26 Jun
+ 2023 12:41:01 -0500
+Received: from hersenwu-Majolica-CZN.hitronhub.home (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23
+ via Frontend Transport; Mon, 26 Jun 2023 12:41:00 -0500
+From: Hersen Wu <hersenxs.wu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <harry.wentland@amd.com>,
+ <mario.limonciello@amd.com>
+Subject: [PATCH] Revert "drm/amd/display: edp do not add non-edid timings"
+Date: Mon, 26 Jun 2023 13:40:58 -0400
+Message-ID: <20230626174058.1344311-1-hersenxs.wu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [RFC PATCH v3 1/4] drm/doc: Document DRM device reset expectations
-Content-Language: en-US
-To: Pekka Paalanen <ppaalanen@gmail.com>
-References: <20230621005719.836857-1-andrealmeid@igalia.com>
- <20230621005719.836857-2-andrealmeid@igalia.com>
- <20230621105842.0c21b161@eldfell>
- <26a4f7f3-33fa-c28e-dd71-e44e61ffa229@igalia.com>
- <20230622111234.71820ff8@eldfell>
-From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <20230622111234.71820ff8@eldfell>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT099:EE_|LV2PR12MB6016:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b0d10c3-9193-44d1-5920-08db766c8215
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: m40wvn6sH26uC/npIbVgLA7+NA4JjxmPLIyLQfOqCwWASXJVoYi/yBxRD82X//EeK8U8NBqsx4jMXO2uyoK0xEwsemntPdh2ySq1OHV6oeHIn36SdZ+aE5i6ROVjkXoVlnGtrIeUjpGQrGkSopkrvogD9bO2b1qkmFiqMhFWXdDZIaxIT3N0NP7Auydkrf1mPP9pJRUruN7bOTHEblLRoN5h1OSXf1CgPhDgNLK9FM7I1QqS1oyF/a7VEKN6NnZJFPCFw730uyR/QFbPsn5SUu12jX8KFD9JuhmKPemosHmqS5RpdYh1uHKtrJhpkcEr6RIWTXMLWEzoBElxSJuwT+ambTnhA77gb3KsC0DMs5XXv2JjcC1Z19hSjT4h5fAnQHYvTCgb/pPMdjd+A51V+7tSqfxEe2R+gAWFvctTEdmVumfyMaGTQz4hmuTSaj8a98l7pstOjcf/Q/kryoUHG94krsp/qnJN8cxGEwDym0Wts3u+ukAPRQhrrGpcPtLwSMMU9fQBM4nQlXFpQW8zUDl9YfgnAgBtO6hF+yANWwIxKVpHYX4q6XiLJUguZECiK/9ONWep9JKJ22Tpw7jeWbsSJM19qVBSLRE8WEE/ABuhNIpb0HbDbpnpX+7RP7yjShxvpRq2o/ik+/NxWecqdBZok93YUeQIUfi6iJBvajHs7xkIMBx3jd32mC/EdMBQ8w+gapjSqajL7PbHOetOE+QTFaaGKBX08943rKLZxY7o3Kvm1AOA5feUfNRtJa4w1z3wJY5xMoBkRfyikEN76w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(396003)(376002)(136003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(36860700001)(82310400005)(47076005)(336012)(83380400001)(110136005)(426003)(1076003)(26005)(2616005)(478600001)(2906002)(186003)(5660300002)(356005)(40460700003)(36756003)(70206006)(4326008)(81166007)(316002)(6636002)(82740400003)(40480700001)(70586007)(8936002)(8676002)(41300700001)(86362001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 17:41:01.3258 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b0d10c3-9193-44d1-5920-08db766c8215
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT099.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB6016
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,293 +99,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>,
- =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- alexander.deucher@amd.com, Daniel Stone <daniel@fooishbar.org>,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com
+Cc: Hersen Wu <hersenxs.wu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Em 22/06/2023 05:12, Pekka Paalanen escreveu:
-> On Wed, 21 Jun 2023 13:28:34 -0300
-> André Almeida <andrealmeid@igalia.com> wrote:
-> 
->> Em 21/06/2023 04:58, Pekka Paalanen escreveu:
->>> On Tue, 20 Jun 2023 21:57:16 -0300
->>> André Almeida <andrealmeid@igalia.com> wrote:
->>>    
->>>> Create a section that specifies how to deal with DRM device resets for
->>>> kernel and userspace drivers.
->>>>
->>>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
->>>
->>> Hi André,
->>>
->>> nice to see this! I ended up giving lots of grammar comments, but I'm
->>> not a native speaker. Generally it looks good to me.
->>
->> Thank you for your feedback :)
->>
->>>    
->>>> ---
->>>>    Documentation/gpu/drm-uapi.rst | 65 ++++++++++++++++++++++++++++++++++
->>>>    1 file changed, 65 insertions(+)
->>>>
->>>> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
->>>> index 65fb3036a580..da4f8a694d8d 100644
->>>> --- a/Documentation/gpu/drm-uapi.rst
->>>> +++ b/Documentation/gpu/drm-uapi.rst
->>>> @@ -285,6 +285,71 @@ for GPU1 and GPU2 from different vendors, and a third handler for
->>>>    mmapped regular files. Threads cause additional pain with signal
->>>>    handling as well.
->>>>    
->>>> +Device reset
->>>> +============
->>>> +
->>>> +The GPU stack is really complex and is prone to errors, from hardware bugs,
->>>> +faulty applications and everything in between the many layers. To recover
->>>> +from this kind of state, sometimes is needed to reset the device. This section
->>>
->>> It seems unclear what "this kind of state" refers to, so maybe just write "errors"?
->>>
->>> Maybe:
->>>
->>> 	Some errors require resetting the device in order to make the
->>> 	device usable again.
->>>
->>> I presume that recovery does not mean that the failed job could recover.
->>>    
->>>> +describes what's the expectations for DRM and usermode drivers when a device
->>>> +resets and how to propagate the reset status.
->>>> +
->>>> +Kernel Mode Driver
->>>> +------------------
->>>> +
->>>> +The KMD is responsible for checking if the device needs a reset, and to perform
->>>> +it as needed. Usually a hung is detected when a job gets stuck executing. KMD
->>>
->>> s/hung/hang/ ?
->>>    
->>>> +then update it's internal reset tracking to be ready when userspace asks the
->>>
->>> updates its
->>>
->>> "update reset tracking"... do you mean that KMD records information
->>> about the reset in case userspace asks for it later?
->>
->> Yes, kernel drivers do annotate whenever a reset happens, so it can
->> report to userspace when it asks about resets.
->>
->> For instance, this is the amdgpu implementation of
->> AMDGPU_CTX_OP_QUERY_STATE2:
->>
->> https://elixir.bootlin.com/linux/v6.3.8/source/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c#L548
->>
->>
->> You can see there stored information about resets.
-> 
-> Hi André,
-> 
-> right. What I mean is, if I have to ask this, then that implies that
-> the wording could be more clear.
-> 
-> I don't know if "reset tracking" is some sub-system that is turned on
-> and off as needed or what updating it would mean.
-> 
+This change causes regression when eDP and external display in mirror
+mode. When external display supports low resolution than eDP, use eDP
+timing to driver external display may cause corruption on external
+display.
 
-Understood, I'll rewrite it to be more clear.
+This reverts commit aa9704d5127f06c9ffedb0480d2788b87fecedfb.
 
->>>    
->>>> +kernel about reset information. Drivers should implement the DRM_IOCTL_GET_RESET
->>>> +for that.
->>>
->>> At this point, I'm not sure what "reset tracking" or "reset
->>> information" entails. Could something be said about those?
->>>   >> +
->>>> +User Mode Driver
->>>> +----------------
->>>> +
->>>> +The UMD should check before submitting new commands to the KMD if the device has
->>>> +been reset, and this can be checked more often if it requires to. The
->>>> +DRM_IOCTL_GET_RESET is the default interface for those kind of checks. After
->>>> +detecting a reset, UMD will then proceed to report it to the application using
->>>> +the appropriated API error code, as explained in the bellow section about
->>>
->>> s/bellow/below/
->>>    
->>>> +robustness.
->>>> +
->>>> +Robustness
->>>> +----------
->>>> +
->>>> +The only way to try to keep an application working after a reset is if it
->>>> +complies with the robustness aspects of the graphical API that is using.
->>>
->>> that it is using.
->>>    
->>>> +
->>>> +Graphical APIs provide ways to application to deal with device resets. However,
->>>
->>> provide ways for applications to deal with
->>>    
->>>> +there's no guarantee that the app will be correctly using such features, and UMD
->>>> +can implement policies to close the app if it's a repeating offender, likely in
->>>> +a broken loop. This is done to ensure that it doesn't keeps blocking the user
->>>
->>> does not keep
->>>
->>> I think contractions are usually avoided in documents, but I'm not
->>> bothering to flag them all.
->>>    
->>>> +interface to be correctly displayed.
->>>
->>> interface from being correctly displayed.
->>>    
->>>> +
->>>> +OpenGL
->>>> +~~~~~~
->>>> +
->>>> +Apps using OpenGL can rely on ``GL_ARB_robustness`` to be robust. This extension
->>>> +tells if a reset has happened, and if so, all the context state is considered
->>>> +lost and the app proceeds by creating new ones. If robustness isn't in use, UMD
->>>> +will terminate the app when a reset is detected, giving that the contexts are
->>>> +lost and the app won't be able to figure this out and recreate the contexts.
->>>
->>> What about GL ES? Is GL_ARB_robustness implemented or even defined there?
->>>    
->>
->> I found this:
->> https://registry.khronos.org/OpenGL/extensions/EXT/EXT_robustness.txt
->>
->> "Since this is intended to be a version of ARB_robustness for OpenGL ES,
->> it should be named accordingly."
->>
->> I can add this to this paragraph.
-> 
-> Yes, please!
-> 
-> I suppose there could be even more extensions with similar benefits, so
-> maybe these extension should be mentioned as examples. Right now the
-> wording sounds like these are the chosen extensions, and if you don't
-> use one, the process will be terminated.
-> 
->>
->>> What about EGL returning errors like EGL_CONTEXT_LOST, would handling that not
->>> be enough from the app? The documented expectation is: "The application
->>> must destroy all contexts and reinitialise OpenGL ES state and objects
->>> to continue rendering."
->>
->> I couldn't find the spec for EGL_CONTEXT_LOST, but I found for
->> GL_CONTEXT_LOST, which I assume is similar.
-> 
-> EGL Version 1.5 - August 27, 2014
-> 
-> Section 2.7 Power Management
-> 
-> 	Following a power management event, calls to eglSwapBuffers,
-> 	eglCopyBuffers, or eglMakeCurrent will indicate failure by
-> 	returning EGL_FALSE. The error EGL_CONTEXT_LOST will be
-> 	returned if a power management event has occurred.
-> 
-> 	On detection of this error, the application must destroy all
-> 	contexts (by calling eglDestroyContext for each context). To
-> 	continue rendering the application must recreate any contexts
-> 	it requires, and subsequently restore any client API state and
-> 	objects it wishes to use.
-> 
-> It is talking about power management which is not quite GPU reset, but
-> I see so much similarity that I'd say it doesn't matter which one
-> actually happened. The only difference is that power management events
-> are not caused by application bugs, which means that the application
-> will simply re-initialize and retry, which may result in a reset loop.
-> 
-> You already wrote provision to handle reset loops, and I'm not sure
-> applications handling EGL_CONTEXT_LOST would/could ever infer that they
-> are the culprit without using robustness extensions.
-> 
-> I can see how EGL_CONTEXT_LOST could be deemed unsuitable for resets,
-> too.
-> 
+Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-Indeed, this is tricky. However, I believe that the complex nature of 
-the stack can lead to situations where an app is causing the hardware to 
-change it's power management settings. Even though the app isn't doing 
-it on purpose, as stated in the introduction of this section, resets can 
-be caused by hardware bugs, so unfortunately apps might not be able to 
-run correctly and will get reset notifications, and even get terminate.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a46b8b47b756..073bf00c6fdc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7258,13 +7258,7 @@ static int amdgpu_dm_connector_get_modes(struct drm_connector *connector)
+ 				drm_add_modes_noedid(connector, 1920, 1080);
+ 	} else {
+ 		amdgpu_dm_connector_ddc_get_modes(connector, edid);
+-		/* most eDP supports only timings from its edid,
+-		 * usually only detailed timings are available
+-		 * from eDP edid. timings which are not from edid
+-		 * may damage eDP
+-		 */
+-		if (connector->connector_type != DRM_MODE_CONNECTOR_eDP)
+-			amdgpu_dm_connector_add_common_modes(encoder, connector);
++		amdgpu_dm_connector_add_common_modes(encoder, connector);
+ 		amdgpu_dm_connector_add_freesync_modes(connector, edid);
+ 	}
+ 	amdgpu_dm_fbc_init(connector);
+-- 
+2.25.1
 
->>
->> GL_CONTEXT_LOST is only returned in some specific commands (that might
->> cause a polling application to block indefinitely), so I don't think
->> it's enough, given that the we can't guarantee that the application will
->> call such commands after a reset, thus not being able to notice a reset.
->>
->> https://registry.khronos.org/OpenGL-Refpages/gl4/html/glGetGraphicsResetStatus.xhtml
-> 
-> Ok, another API for a similar thing.
-> 
-> So in that case, the app does not need to use a robustness extension if
-> it uses OpenGL 4.5 and bothers to check.
-> 
-> This makes the wording "If robustness is not in use" problematic,
-> because it seems complicated to determine if robusteness is in use in
-> any particular application. I suppose Mesa would track if the app ever
-> called glGetGraphicsResetStatus() before drawing after reset?
-> 
-> 
-
-I agree, I think tracking glGetGraphicsResetStatus() should be enough, 
-but I will let this part of the documentation as this for now:
-
-If it's _possible to guarantee_ that robustness is not in use [...]
-
-> Thanks,
-> pq
-> 
->>>    
->>>> +
->>>> +Vulkan
->>>> +~~~~~~
->>>> +
->>>> +Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for submissions.
->>>> +This error code means, among other things, that a device reset has happened and
->>>> +it needs to recreate the contexts to keep going.
->>>> +
->>>> +Reporting resets causes
->>>> +-----------------------
->>>> +
->>>> +Apart from propagating the reset through the stack so apps can recover, it's
->>>> +really useful for driver developers to learn more about what caused the reset in
->>>> +first place. DRM devices should make use of devcoredump to store relevant
->>>> +information about the reset, so this information can be added to user bug
->>>> +reports.
->>>> +
->>>>    .. _drm_driver_ioctl:
->>>>    
->>>>    IOCTL Support on Device Nodes
->>>
->>> What about VRAM contents? If userspace holds a dmabuf handle, can a GPU
->>> reset wipe that buffer? How would that be communicated?
->>>    
->>
->> Yes, it can.
->>
->>> The dmabuf may have originated in another process.
->>>    
->>
->> Indeed, I think we might need to add an error code for dmabuf calls so
->> the buffer user knows that it's invalid now because a reset has happened
->> in the other device. I will need to read more dmabuf code to make sure
->> how this would be possible.
->>
->>>
->>> Thanks,
->>> pq
-> 
