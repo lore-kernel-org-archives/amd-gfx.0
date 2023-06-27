@@ -4,90 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A31F9EB64D9
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 03:56:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8521DEB64D9
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 04:06:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ECC210E145;
-	Tue, 27 Jun 2023 03:56:37 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e89::601])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBC2710E145
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jun 2023 03:56:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D261810E27F;
+	Tue, 27 Jun 2023 04:06:56 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2069.outbound.protection.outlook.com [40.107.101.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EB9310E27F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jun 2023 04:06:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ooa2EEq9ppG5ILhfJzg2VT9o7i2amVezF43um0jl5BPm1gGbxwN9U0VG3Q64U3iW5oPppfiOlh4Eur277++fuZC7CGD6pejQm9nt2GS7DvDo/ctsmtBbTytcmuJNGCiLHCq35nvcPCm996hxGNoo34pyTpYCYn0ssMOU6Sy5JSE+t1XsBfP45CDlSBmh+dRWg86mfduiMTJvV/SNbJnMZ1GGPM7iciP5OYj5jVFr0MwJ/q/lXHB//pRvX3z1gpoLuI8N68aPTc8VR1R0K2KNzY+JH/Vhc+R+Rf3en6qkK+0QseM8my+ghgipPGIUBbYfSShjet7BjNqEDPdEH7DWrw==
+ b=manwFpFIIe1O3mMAxUsuQSDfR/18mUkyr6j/oIqIOMy8ZxJQItlsFujFWHzI72EfgfWitIrF8hnaybVJnWh1PuGQqP2aA6GB37fRk9QoFkrnogTLGhaqaF/OAe2MInZ28KTCIZ4RU2cwj1kUGNLoVbezX0UL3RI0WP2A8fCimCXHhz6BVvwK9RmswQsefPhm/0yyDQP9t0lOCn7Apx2ARCDshpg6nQfvVAofK8WmsNhOWdZtmCe/+eUf9FGPFBKQOu1dpG7ho7opfpaujn8ChcNiCXsTgnDa9VPtr18Oz2d7i1cr3eHBarCE2lMdtVGx+fv8hm2mcKYWbB91F70bGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DY+8f0hGrABUI5OK5SVBFrm6X8paMwXm/ihTO9UI0Wo=;
- b=F8oXMjID3fwy5JABC3J+E3MShH2kSl59IuQbf4EJDVK9oEgk1u+JsJi++qmpz+6Qd0jGQXGW9AJnEPAEXLExSTjzdkRKGot2aom9GCBbYDU92PD2s8KyoyrYzEryNvkTmLW7EFqHhNQuO1bfBLYR3vEprpZebmXDGsJIcDQdfACURF9AzdVbo7U9aA6gUWczdBDpM+BywSsrSkqIOnVdwRyRw5Lqzid8Dq3K0aJ3hmlR2zKXNeEM26vyRtJj37cTUehvmN922EPKnauTlGDOvYsaaKywPvW6xJd3lU9/4M72ViYtk5Y1IBCie2CG6GkPjOAL6qb7gRgTD92AseB7dw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=lnEM4V9/Ny9JEU5JWKxtaX3uwW+2VbwKtoO3knLvlKQ=;
+ b=gDBZG1r8EDepFjdGO2kkgXCkzffaHk0DcJKRTaLbjWWec60hEElbIzTJxxC+wnJAzPRYlwmSrQeJGdkU6q6OuZxlEMfEjckDJdxSJ+Lo3lHT/U8U72LOioDJ2MvkIUJUfbggZrJPRIqpGSfukJRzeHTSwwkZqwGGfy6769fIA3RLiHTNZKtN1u9AjO1q95iGa3g9CUld6Z1oxPbJwynCNjFkD1q/uaZLPkfNAzIHQ99r9Ufd2Z3PcTT7R66LXkCDgO3+EejzS3FTHffPs+QjJgqMpry2/1nyCrwtEYPQLyMCwppJgazFxltwiX1xS7Q95s8KEQ0VnLmIiicUBIB5ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DY+8f0hGrABUI5OK5SVBFrm6X8paMwXm/ihTO9UI0Wo=;
- b=M0t6MctzLQZBS7oRqWghrOcT/Zuz4YamvUUosC0RnTUSl0sCr4NJIRW95c9mbO+vVg4MdoxymXXbUaUMomI2GpUhhsj+1J5cKjMKNSZMOwPCspJ9N4COKetiM9IHKxIsa7RLJhNTrV0rPEXZ0emsnY4BFB6Lk5Gj8xUus0XdKf0=
-Received: from DM6PR03CA0076.namprd03.prod.outlook.com (2603:10b6:5:333::9) by
- CH2PR12MB5514.namprd12.prod.outlook.com (2603:10b6:610:62::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6521.24; Tue, 27 Jun 2023 03:56:30 +0000
-Received: from DM6NAM11FT072.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:333:cafe::11) by DM6PR03CA0076.outlook.office365.com
- (2603:10b6:5:333::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.34 via Frontend
- Transport; Tue, 27 Jun 2023 03:56:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT072.mail.protection.outlook.com (10.13.173.181) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.47 via Frontend Transport; Tue, 27 Jun 2023 03:56:29 +0000
-Received: from lm-srdc-pc1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 26 Jun
- 2023 22:56:28 -0500
-From: Le Ma <le.ma@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/1] drm/amdgpu: remove duplicated doorbell range init for
+ bh=lnEM4V9/Ny9JEU5JWKxtaX3uwW+2VbwKtoO3knLvlKQ=;
+ b=v40eaT5G2Qd6aMIZuOjtGSkpvayjww1L3ka9DVhebLM1T7PrkZmXAQT1x8y7gtsgaolDV+nVcDAJHMmvuC9HAgL+SEQZiSAx7VkPE29xENIebn0O8zRobX4NxB2R0+82HajW38W4cTsLaV+WkqSClIJEp24Nh+PMxTU4cvIseqw=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by IA1PR12MB7638.namprd12.prod.outlook.com (2603:10b6:208:426::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.26; Tue, 27 Jun
+ 2023 04:06:51 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::5241:c0fb:9743:1a27]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::5241:c0fb:9743:1a27%5]) with mapi id 15.20.6521.024; Tue, 27 Jun 2023
+ 04:06:51 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Ma, Le" <Le.Ma@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/1] drm/amdgpu: remove duplicated doorbell range init for
  sdma v4.4.2
-Date: Tue, 27 Jun 2023 11:56:20 +0800
-Message-ID: <20230627035620.8589-1-le.ma@amd.com>
-X-Mailer: git-send-email 2.38.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT072:EE_|CH2PR12MB5514:EE_
-X-MS-Office365-Filtering-Correlation-Id: 865dc184-04d7-4a08-27e9-08db76c27d0c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: odziRHnvi3JaC9QNaymH7n+OWWGxGNe47tQEgYqoavqPunk2z3/1+1veZO/PP2LPPjvecXAA16L6ST5cr5YcWwmaueec1crSsMa6k4aYaJ5ATtTxKPw+QICfCaiIVxBkZNoM4cmq+h/uDBYuF+ZJchvBOpa+ZhiYLnWr8qXpdd0fxVTY72RBmAH5S6lqyH3fuvnSuay4b4BpZDfxb9juQoaW0y74k/SJRtr6YPTK89t8fqhdnmh1Gv968uvYJfaFVrLBeXYzc+vjydN/NQ/yitZDesUTD8JhnS+N0VQNHgGLHXl+BJZblUhXm/Er3/RSp8cHYC2NeNYuI5PrAP7Pg+0V9bHGX9o4wd7wUMoku0bseUgDm+7VDmhRmMhubcqxlb5A1E3grzpxT0EYDgMkjszGYOjDq4C2fOB4dwka2AyTsi1if96/InRDBFNS5S2/Mc2+zmovPKkFhQnMwDiHadd3XIec2zdgqIjYHQW7pRUmoELMgTHQa67Ba2//uGMzPtAAdKiCr3MM2AHpEId1mfoWlc0ER6mvcLGG/e5zsDM2tMLPTXj0WgNCEkaKujwm4Ksytg23BS4MLmsWLlXiuOMyWBRxeCxWpoxHov22rOOBKybAgeJ4BdFaUT2lZBQQ//fDpJ6zqCCS2ZLx0Quf9agt0sDTv/rcPYQZpy8iR5pFNCTQs0A/lMTAjb14udzVqbFyaEbPqmMOD4VQqWQDT8qVI4VVHg0dMHeCRrjgeLXc9nhN9vz4dnrYg3B8jbWSh7kw4lxqcuL/bo7S04ZjLA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(396003)(39860400002)(376002)(346002)(451199021)(40470700004)(46966006)(36840700001)(8676002)(41300700001)(316002)(8936002)(70206006)(70586007)(6916009)(186003)(26005)(16526019)(1076003)(336012)(2616005)(4744005)(478600001)(6666004)(40460700003)(7696005)(82310400005)(2906002)(5660300002)(40480700001)(44832011)(82740400003)(81166007)(356005)(36756003)(36860700001)(86362001)(47076005)(83380400001)(426003)(36900700001);
+Thread-Topic: [PATCH 1/1] drm/amdgpu: remove duplicated doorbell range init
+ for sdma v4.4.2
+Thread-Index: AQHZqKtiOYU5jdns0UCbECoMHOCQv6+eB7bA
+Date: Tue, 27 Jun 2023 04:06:51 +0000
+Message-ID: <BN9PR12MB5257E40DCB53179645A5E283FC27A@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20230627035620.8589-1-le.ma@amd.com>
+In-Reply-To: <20230627035620.8589-1-le.ma@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=464d2982-4c7c-4e50-adba-119c67545ec8;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-06-27T04:04:53Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|IA1PR12MB7638:EE_
+x-ms-office365-filtering-correlation-id: 9f6295e5-1a17-4e51-2922-08db76c3ef8f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: d8Vni3vIQIU4SEJvNCeORd+r8je7eli6+/+YUUGQCdXfvZIMuHwTUQjsuP1KizBGkREdD9M+D0/1OUoMG7B90i1FlAa5XPJi9gMQkKxsaY4bjlmBktuen645S8skGCsUa47CsALHrw4IYibgxv90M1OyZLfJGEZm7r839t0bdg4SGf2TT28NJ7NQUbUjLFaEFj6taFK6FHbYOxbZOx5DMe/fINeIyog2vFF51H0GRxBS1WaTF3vmoZqTfBYl7dMfljnezjXfkKhNvZGd4XeT0Wjn6OV8/Vxwv8ig8hkkZMEf0Pg7wwl3o01Gd4VX/f07xk5/MJLAqAl9N+lq+OuYF8En0IUcjrp88pw+/cFidfSDa7YzUgEh+/iiBUc9kWEf1s+v0feJkEm+/tj4aSh1U3qfMkDCtSJHd+ONjP8XnDPrePl9eFuee/2MhZgYD0uOOx3ZkIbVopTneJq6itSJJbVokeurcL9bHWbwSLxv1SKFjJSAupcMq4HckzqpymEZcNV1ga+KYprpCog8VVGTNT2KYRzrm2rPzPMHfHdEyKSA8tqHKMRWidVNJOYq0d+d9cfarbmsActoe8TcKfh51DcOhqshQzz75uKsW2k79SQ4kRcZEb1miFwvW+1jKo4c
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(396003)(366004)(346002)(39860400002)(376002)(451199021)(26005)(33656002)(5660300002)(52536014)(66446008)(66946007)(41300700001)(8936002)(66556008)(64756008)(38070700005)(66476007)(86362001)(38100700002)(122000001)(76116006)(316002)(8676002)(55016003)(9686003)(2906002)(6506007)(53546011)(186003)(7696005)(478600001)(83380400001)(71200400001)(110136005);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?aiubK2CALo/Ms8dJCU4HpoUZiabVukQrjOHe7vlHSMZ4H9ETrGfP0qAjefNO?=
+ =?us-ascii?Q?rsEeMkUpk3Jt698bj57VQOBmMPv0rKrhtNWzY4dWdDbteJq54Tmzsb7Z9NL4?=
+ =?us-ascii?Q?C5IwGkj79FQA867hL+LwoUi+lnNKTwPQvdPqPnLLE4QfrMUmu9x7nGYqPVTs?=
+ =?us-ascii?Q?G1q2bwKQtbsSEqfAEzKiHsdl155Bl2EnJqpTf/4M7Vqni4S/Rvzj5NFzaDuM?=
+ =?us-ascii?Q?LGckUW1EiptAGqvZ0NBpC2v44bdA/Xo9GtwXdkI/wvDELCKA0Xb3y0JXIaqE?=
+ =?us-ascii?Q?YGtRlaxTtB7KNR4omNC+6HdRqqcWMjuKUkJ32Y3qUoJV+Be+qkP8CEMYqAhA?=
+ =?us-ascii?Q?kVkGKYypGxHd0zHfsWhSgHkMiVOgIZZfEZh8NaMrNJs/7O92mx2baHqXG4fM?=
+ =?us-ascii?Q?rAb2CQPRSVomdLdKyczkWP4IGC8y0g0UvREhAkGnasaRR7wKBxP7TDn+OhZt?=
+ =?us-ascii?Q?zPHWSsfCvS6LjBxvgn+//yP4sLkdKEGc/zEpI0h77HhJ9v/uH0vBkmv1QuuP?=
+ =?us-ascii?Q?fJbgA2OUl+e5naa1TqKcWVyxmK5wiRm5YADEz7wXzVbRCui0PR9Wba/+R2aI?=
+ =?us-ascii?Q?xylESOKhLshQO6MtBGXAfAIyXDlY59ATXNYOAKvSUi/YK7VorMLUJBzpyNT+?=
+ =?us-ascii?Q?6tLqhoNbckC/+anmNtb5GovSb3zCn1+SmD/HJeqmZj7ahl6Zadww9VzDUZlr?=
+ =?us-ascii?Q?wCIZfBsPVj+AwT37832VGB03xQIJLfkhA/Q9Y0kWJ4UDtXlQLyTr3BkbKwbO?=
+ =?us-ascii?Q?He/9Q6oqJSht8x4ohmIpW5IjZ6bGuWVJlCjCyZVmy6ZZbO7uwL9FHXxtnnBX?=
+ =?us-ascii?Q?0HjYhpE3gk3tcXg8DJNEBaQ2itW6A4QgBXoJGIQVwy92Dvxeqt7N38GJOugl?=
+ =?us-ascii?Q?LplkCFkHQiuq5lLxHDJ87CoIKjJpCKiB8uprTnYZsM2WHi8VCtqWxLXuXrKF?=
+ =?us-ascii?Q?0rPR0mrQCG9+0qnpMV68z2xTd/bqL1aWTsbO4suyd5a+QjjHpbEVXzL4Dthd?=
+ =?us-ascii?Q?s+H2oUgCLmCOiLH2UkGgaWMp0raArxrtW4QDQvv6EvXYNpuU9BUQyy13NP7l?=
+ =?us-ascii?Q?NQsBcsTe5XVKCER5c745Mzek+63ujiygrfEox37dVnajxNR794KllmhUJvP2?=
+ =?us-ascii?Q?ZhjhcD9IASZN2OudU70ZBpFA7XRd7ZWZb7DuzHmIjPD6I/meMcKM13O+klXW?=
+ =?us-ascii?Q?ExqArhosF5cVb17tRsmNKKn8/dZP3oRvQ8+D/WxUCHTGxd0ukL9BTZtFryev?=
+ =?us-ascii?Q?xHtUczKB+hennqpdpTPx40hR6+ZPm+OHgUmfnqwbtRgdwM1qu/SBq7uuTQzF?=
+ =?us-ascii?Q?8zKkJDG9iy8I47goio/DJDJkn688S/nqBRvZCw7dEEwITsT6xiE04uRSUIR8?=
+ =?us-ascii?Q?Wi4Dm55/SjRIZ3JeDLJY2RgL6RZDKRVL2RlNozEPOEybZg3IUdJ73Aldtn/4?=
+ =?us-ascii?Q?4rhZjt7Y3g9U8iYHHMkT3Hvdk7hh0W0CWdpi5caWQ8KwgKyhEPGSj7+5dOAB?=
+ =?us-ascii?Q?xCO/GTmnpPNq+zwOUfC9zxokRYs/dCrf6ZRRd3dTO/bYPAncqI56gescz13L?=
+ =?us-ascii?Q?/76b1+cgMT+9H1sA+tU=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2023 03:56:29.5957 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 865dc184-04d7-4a08-27e9-08db76c27d0c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT072.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5514
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f6295e5-1a17-4e51-2922-08db76c3ef8f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jun 2023 04:06:51.2476 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pSUYgQmY+mX+JfqWa/UxsVXvrUe1Xbzy9bYX6PVZ22EvsMUSQo95n3xf8ovpUTvJrLks2AvzIsclNoQyua80DA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7638
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,6 +127,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - General]
+
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+
+Regards,
+Hawking
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Le Ma
+Sent: Tuesday, June 27, 2023 11:56
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/1] drm/amdgpu: remove duplicated doorbell range init for =
+sdma v4.4.2
+
 Handled in earlier phase
 
 Signed-off-by: Le Ma <le.ma@amd.com>
@@ -109,22 +147,25 @@ Signed-off-by: Le Ma <le.ma@amd.com>
  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 5 -----
  1 file changed, 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v4_4_2.c
 index 6be19ffc502b..f413898dda37 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -902,11 +902,6 @@ static int sdma_v4_4_2_inst_start(struct amdgpu_device *adev,
- 		WREG32_SDMA(i, regSDMA_CNTL, temp);
- 
- 		if (!amdgpu_sriov_vf(adev)) {
--			ring = &adev->sdma.instance[i].ring;
--			adev->nbio.funcs->sdma_doorbell_range(adev, i,
--				ring->use_doorbell, ring->doorbell_index,
--				adev->doorbell_index.sdma_doorbell_range);
+@@ -902,11 +902,6 @@ static int sdma_v4_4_2_inst_start(struct amdgpu_device=
+ *adev,
+                WREG32_SDMA(i, regSDMA_CNTL, temp);
+
+                if (!amdgpu_sriov_vf(adev)) {
+-                       ring =3D &adev->sdma.instance[i].ring;
+-                       adev->nbio.funcs->sdma_doorbell_range(adev, i,
+-                               ring->use_doorbell, ring->doorbell_index,
+-                               adev->doorbell_index.sdma_doorbell_range);
 -
- 			if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
- 				/* unhalt engine */
- 				temp = RREG32_SDMA(i, regSDMA_F32_CNTL);
--- 
+                        if (adev->firmware.load_type !=3D AMDGPU_FW_LOAD_PS=
+P) {
+                                /* unhalt engine */
+                                temp =3D RREG32_SDMA(i, regSDMA_F32_CNTL);
+--
 2.38.1
 
