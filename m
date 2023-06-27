@@ -4,57 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82C86EB64D9
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:35:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FE4CEB64DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 16:10:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FF4210E2F0;
-	Tue, 27 Jun 2023 14:35:41 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5901910E2F0;
- Tue, 27 Jun 2023 14:35:39 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8Dxc8S585pkpScDAA--.5168S3;
- Tue, 27 Jun 2023 22:35:37 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8Dx5sy285pkUF4MAA--.28626S3; 
- Tue, 27 Jun 2023 22:35:34 +0800 (CST)
-Message-ID: <7e995baa-22ed-c5ee-6fd1-51bb4440af03@loongson.cn>
-Date: Tue, 27 Jun 2023 22:35:34 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F9CD10E308;
+	Tue, 27 Jun 2023 16:10:25 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8E6D10E305;
+ Tue, 27 Jun 2023 16:09:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=mrpMVPePqZcp/TARbg/0wmIdMAyOFZ9lEopNh2bXlGI=; b=IVmklvoTr61w2Y5JHaAluqrrkB
+ QwielsATQOForcre5ApJ9MjIbkF8fEFy/wGOG5WKWKvMU/lKVfOBu4NlEZ2iqPT5uV0eBbi5Yt80Q
+ 5CZ4Tm9aJCdXIx9Rwa9o6bc86Okrc+tMhsr2vY35p3QeVwJJJyrkWy1IjE+hnwrXFrKANLxjiSqF4
+ QBYV3cnNUvN8HliTm0RlH4XHR028lTdYvGV2al0Ju3+ctFHtngCtSkjPM1zlylzCajOm42iR/4Znq
+ DMBUpYOOBapxI87fWPI2/ETyetfW6hkI1pBktjX8FXUuqCocpjiZexjEjrdxdCZW96K4Kp9AAQCaO
+ WURxOjjg==;
+Received: from [2601:1c2:980:9ec0::2764]
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qEBFW-00DbMZ-1S; Tue, 27 Jun 2023 16:09:02 +0000
+Message-ID: <a64df916-b945-1f6b-4888-a393bd75d9a1@infradead.org>
+Date: Tue, 27 Jun 2023 09:09:01 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v7 6/8] PCI/VGA: Introduce is_boot_device function
- callback to vga_client_register
+ Thunderbird/102.11.2
+Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
 Content-Language: en-US
-To: Sui Jingfeng <15330273260@189.cn>, Bjorn Helgaas <bhelgaas@google.com>
-References: <20230613030151.216625-1-15330273260@189.cn>
- <20230613030151.216625-7-15330273260@189.cn>
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-Organization: Loongson
-In-Reply-To: <20230613030151.216625-7-15330273260@189.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID: AQAAf8Dx5sy285pkUF4MAA--.28626S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoW3Cw4UWry5GF4DJr47Xr43urX_yoWDZF13pF
- 4rJF15Ar97ZF4I9w47Xa4UAFyYv3y0va4fGrW7Aw1Y9a43Ar9YgF9YyFy5tryxJrZrCF43
- tryDKFWxuF1jvFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUf529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUPGb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
- AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
- tVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64
- vIr41lc7I2V7IY0VAS07AlzVAYIcxG8wCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0E
- wIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUAVWUtwC20s026c02F4
- 0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Wrv_Gr1U
- MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I
- 0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
- Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvj
- xU3U73DUUUU
+To: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20230627132323.115440-1-andrealmeid@igalia.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20230627132323.115440-1-andrealmeid@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 27 Jun 2023 16:10:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,267 +53,136 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Cornelia Huck <cohuck@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- David Airlie <airlied@gmail.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>, Yi Liu <yi.l.liu@intel.com>,
- kvm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- linux-pci@vger.kernel.org, Kevin Tian <kevin.tian@intel.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Bokun Zhang <Bokun.Zhang@amd.com>, intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Abhishek Sahu <abhsahu@nvidia.com>, Maxime Ripard <mripard@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Yishai Hadas <yishaih@nvidia.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>,
+ Simon Ser <contact@emersion.fr>,
+ =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
+ Rob Clark <robdclark@gmail.com>, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ alexander.deucher@amd.com, Dave Airlie <airlied@gmail.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PING ?
+Hi André,
 
-On 2023/6/13 11:01, Sui Jingfeng wrote:
-> From: Sui Jingfeng <suijingfeng@loongson.cn>
->
-> The vga_is_firmware_default() function is arch-dependent, it's probably
-> wrong if we simply remove the arch guard. As the VRAM BAR which contains
-> firmware framebuffer may move, while the lfb_base and lfb_size members of
-> the screen_info does not change accordingly. In short, it should take the
-> re-allocation of the PCI BAR into consideration.
->
-> With the observation that device drivers or video aperture helpers may
-> have better knowledge about which PCI bar contains the firmware fb,
-> which could avoid the need to iterate all of the PCI BARs. But as a PCI
-> function at pci/vgaarb.c, vga_is_firmware_default() is not suitable to
-> make such an optimization since it is loaded too early.
->
-> There are PCI display controllers that don't have a dedicated VRAM bar,
-> this function will lose its effectiveness in such a case. Luckily, the
-> device driver can provide an accurate workaround.
->
-> Therefore, this patch introduces a callback that allows the device driver
-> to tell the VGAARB if the device is the default boot device. This patch
-> only intends to introduce the mechanism, while the implementation is left
-> to the device driver authors. Also honor the comment: "Clients have two
-> callback mechanisms they can use"
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian Konig <christian.koenig@amd.com>
-> Cc: Pan Xinhui <Xinhui.Pan@amd.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> Cc: Ben Skeggs <bskeggs@redhat.com>
-> Cc: Karol Herbst <kherbst@redhat.com>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Alex Williamson <alex.williamson@redhat.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
-> Cc: YiPeng Chai <YiPeng.Chai@amd.com>
-> Cc: Bokun Zhang <Bokun.Zhang@amd.com>
-> Cc: Likun Gao <Likun.Gao@amd.com>
-> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
-> Cc: Jason Gunthorpe <jgg@ziepe.ca>
-> CC: Kevin Tian <kevin.tian@intel.com>
-> Cc: Cornelia Huck <cohuck@redhat.com>
-> Cc: Yishai Hadas <yishaih@nvidia.com>
-> Cc: Abhishek Sahu <abhsahu@nvidia.com>
-> Cc: Yi Liu <yi.l.liu@intel.com>
-> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+I have just a few more below:
+
+On 6/27/23 06:23, André Almeida wrote:
+> Create a section that specifies how to deal with DRM device resets for
+> kernel and userspace drivers.
+> 
+> Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+> Signed-off-by: André Almeida <andrealmeid@igalia.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
->   drivers/gpu/drm/i915/display/intel_vga.c   |  3 +--
->   drivers/gpu/drm/nouveau/nouveau_vga.c      |  2 +-
->   drivers/gpu/drm/radeon/radeon_device.c     |  2 +-
->   drivers/pci/vgaarb.c                       | 21 ++++++++++++++++++++-
->   drivers/vfio/pci/vfio_pci_core.c           |  2 +-
->   include/linux/vgaarb.h                     |  8 +++++---
->   7 files changed, 30 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 5c7d40873ee2..7a096f2d5c16 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3960,7 +3960,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->   	/* this will fail for cards that aren't VGA class devices, just
->   	 * ignore it */
->   	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
-> -		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
-> +		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode, NULL);
->   
->   	px = amdgpu_device_supports_px(ddev);
->   
-> diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
-> index 286a0bdd28c6..98d7d4dffe9f 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vga.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vga.c
-> @@ -115,7 +115,6 @@ intel_vga_set_decode(struct pci_dev *pdev, bool enable_decode)
->   
->   int intel_vga_register(struct drm_i915_private *i915)
->   {
-> -
->   	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
->   	int ret;
->   
-> @@ -127,7 +126,7 @@ int intel_vga_register(struct drm_i915_private *i915)
->   	 * then we do not take part in VGA arbitration and the
->   	 * vga_client_register() fails with -ENODEV.
->   	 */
-> -	ret = vga_client_register(pdev, intel_vga_set_decode);
-> +	ret = vga_client_register(pdev, intel_vga_set_decode, NULL);
->   	if (ret && ret != -ENODEV)
->   		return ret;
->   
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
-> index f8bf0ec26844..162b4f4676c7 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_vga.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
-> @@ -92,7 +92,7 @@ nouveau_vga_init(struct nouveau_drm *drm)
->   		return;
->   	pdev = to_pci_dev(dev->dev);
->   
-> -	vga_client_register(pdev, nouveau_vga_set_decode);
-> +	vga_client_register(pdev, nouveau_vga_set_decode, NULL);
->   
->   	/* don't register Thunderbolt eGPU with vga_switcheroo */
->   	if (pci_is_thunderbolt_attached(pdev))
-> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-> index afbb3a80c0c6..71f2ff39d6a1 100644
-> --- a/drivers/gpu/drm/radeon/radeon_device.c
-> +++ b/drivers/gpu/drm/radeon/radeon_device.c
-> @@ -1425,7 +1425,7 @@ int radeon_device_init(struct radeon_device *rdev,
->   	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
->   	/* this will fail for cards that aren't VGA class devices, just
->   	 * ignore it */
-> -	vga_client_register(rdev->pdev, radeon_vga_set_decode);
-> +	vga_client_register(rdev->pdev, radeon_vga_set_decode, NULL);
->   
->   	if (rdev->flags & RADEON_IS_PX)
->   		runtime = true;
-> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-> index ceb914245383..c574898380f0 100644
-> --- a/drivers/pci/vgaarb.c
-> +++ b/drivers/pci/vgaarb.c
-> @@ -53,6 +53,7 @@ struct vga_device {
->   	bool bridge_has_one_vga;
->   	bool is_firmware_default;	/* device selected by firmware */
->   	unsigned int (*set_decode)(struct pci_dev *pdev, bool decode);
-> +	bool (*is_boot_device)(struct pci_dev *pdev);
->   };
->   
->   static LIST_HEAD(vga_list);
-> @@ -969,6 +970,10 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
->    * @set_decode callback: If a client can disable its GPU VGA resource, it
->    * will get a callback from this to set the encode/decode state.
->    *
-> + * @is_boot_device: callback to the device driver, query if a client is the
-> + * default boot device, as the device driver typically has better knowledge
-> + * if specific device is the boot device. But this callback is optional.
-> + *
->    * Rationale: we cannot disable VGA decode resources unconditionally, some
->    * single GPU laptops seem to require ACPI or BIOS access to the VGA registers
->    * to control things like backlights etc. Hopefully newer multi-GPU laptops do
-> @@ -984,7 +989,8 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
->    * Returns: 0 on success, -1 on failure
->    */
->   int vga_client_register(struct pci_dev *pdev,
-> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool decode))
-> +		unsigned int (*set_decode)(struct pci_dev *pdev, bool decode),
-> +		bool (*is_boot_device)(struct pci_dev *pdev))
->   {
->   	int ret = -ENODEV;
->   	struct vga_device *vgadev;
-> @@ -996,6 +1002,7 @@ int vga_client_register(struct pci_dev *pdev,
->   		goto bail;
->   
->   	vgadev->set_decode = set_decode;
-> +	vgadev->is_boot_device = is_boot_device;
->   	ret = 0;
->   
->   bail:
-> @@ -1523,6 +1530,18 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
->   		notify = vga_arbiter_add_pci_device(pdev);
->   	else if (action == BUS_NOTIFY_DEL_DEVICE)
->   		notify = vga_arbiter_del_pci_device(pdev);
-> +	else if (action == BUS_NOTIFY_BOUND_DRIVER) {
-> +		struct vga_device *vgadev = vgadev_find(pdev);
-> +		bool boot_dev = false;
+> 
+> v4: https://lore.kernel.org/lkml/20230626183347.55118-1-andrealmeid@igalia.com/
+> 
+> Changes:
+>  - Grammar fixes (Randy)
+> 
+>  Documentation/gpu/drm-uapi.rst | 68 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 68 insertions(+)
+> 
+> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+> index 65fb3036a580..3cbffa25ed93 100644
+> --- a/Documentation/gpu/drm-uapi.rst
+> +++ b/Documentation/gpu/drm-uapi.rst
+> @@ -285,6 +285,74 @@ for GPU1 and GPU2 from different vendors, and a third handler for
+>  mmapped regular files. Threads cause additional pain with signal
+>  handling as well.
+>  
+> +Device reset
+> +============
 > +
-> +		if (vgadev && vgadev->is_boot_device)
-> +			boot_dev = vgadev->is_boot_device(pdev);
+> +The GPU stack is really complex and is prone to errors, from hardware bugs,
+> +faulty applications and everything in between the many layers. Some errors
+> +require resetting the device in order to make the device usable again. This
+> +sections describes the expectations for DRM and usermode drivers when a
+
+   section
+
+> +device resets and how to propagate the reset status.
 > +
-> +		if (boot_dev) {
-> +			vgaarb_info(&pdev->dev, "Set as boot device (dictated by driver)\n");
-> +			vga_set_default_device(pdev);
-> +		}
-> +	}
->   
->   	vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
->   
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index a5ab416cf476..2a8873a330ba 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -2067,7 +2067,7 @@ static int vfio_pci_vga_init(struct vfio_pci_core_device *vdev)
->   	if (ret)
->   		return ret;
->   
-> -	ret = vga_client_register(pdev, vfio_pci_set_decode);
-> +	ret = vga_client_register(pdev, vfio_pci_set_decode, NULL);
->   	if (ret)
->   		return ret;
->   	vga_set_legacy_decoding(pdev, vfio_pci_set_decode(pdev, false));
-> diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
-> index 97129a1bbb7d..dfde5a6ba55a 100644
-> --- a/include/linux/vgaarb.h
-> +++ b/include/linux/vgaarb.h
-> @@ -33,7 +33,8 @@ struct pci_dev *vga_default_device(void);
->   void vga_set_default_device(struct pci_dev *pdev);
->   int vga_remove_vgacon(struct pci_dev *pdev);
->   int vga_client_register(struct pci_dev *pdev,
-> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool state));
-> +		unsigned int (*set_decode)(struct pci_dev *pdev, bool state),
-> +		bool (*is_boot_device)(struct pci_dev *pdev));
->   #else /* CONFIG_VGA_ARB */
->   static inline void vga_set_legacy_decoding(struct pci_dev *pdev,
->   		unsigned int decodes)
-> @@ -59,7 +60,8 @@ static inline int vga_remove_vgacon(struct pci_dev *pdev)
->   	return 0;
->   }
->   static inline int vga_client_register(struct pci_dev *pdev,
-> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool state))
-> +		unsigned int (*set_decode)(struct pci_dev *pdev, bool state),
-> +		bool (*is_boot_device)(struct pci_dev *pdev))
->   {
->   	return 0;
->   }
-> @@ -97,7 +99,7 @@ static inline int vga_get_uninterruptible(struct pci_dev *pdev,
->   
->   static inline void vga_client_unregister(struct pci_dev *pdev)
->   {
-> -	vga_client_register(pdev, NULL);
-> +	vga_client_register(pdev, NULL, NULL);
->   }
->   
->   #endif /* LINUX_VGA_H */
+> +Kernel Mode Driver
+> +------------------
+> +
+> +The KMD is responsible for checking if the device needs a reset, and to perform
+> +it as needed. Usually a hang is detected when a job gets stuck executing. KMD
+> +should keep track of resets, because userspace can query any time about the
+> +reset stats for an specific context. This is needed to propagate to the rest of
+
+               for a specific
+
+stats or status?
+
+> +the stack that a reset has happened. Currently, this is implemented by each
+> +driver separately, with no common DRM interface.
+> +
+> +User Mode Driver
+> +----------------
+> +
+> +The UMD should check before submitting new commands to the KMD if the device has
+> +been reset, and this can be checked more often if the UMD requires it. After
+> +detecting a reset, UMD will then proceed to report it to the application using
+> +the appropriate API error code, as explained in the section below about
+> +robustness.
+> +
+> +Robustness
+> +----------
+> +
+> +The only way to try to keep an application working after a reset is if it
+> +complies with the robustness aspects of the graphical API that it is using.
+> +
+> +Graphical APIs provide ways to applications to deal with device resets. However,
+> +there is no guarantee that the app will use such features correctly, and the
+> +UMD can implement policies to close the app if it is a repeating offender,
+> +likely in a broken loop. This is done to ensure that it does not keep blocking
+> +the user interface from being correctly displayed. This should be done even if
+> +the app is correct but happens to trigger some bug in the hardware/driver.
+> +
+> +OpenGL
+> +~~~~~~
+> +
+> +Apps using OpenGL should use the available robust interfaces, like the
+> +extension ``GL_ARB_robustness`` (or ``GL_EXT_robustness`` for OpenGL ES). This
+> +interface tells if a reset has happened, and if so, all the context state is
+> +considered lost and the app proceeds by creating new ones. If it is possible to
+> +determine that robustness is not in use, the UMD will terminate the app when a
+> +reset is detected, giving that the contexts are lost and the app won't be able
+> +to figure this out and recreate the contexts.
+> +
+> +Vulkan
+> +~~~~~~
+> +
+> +Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for submissions.
+> +This error code means, among other things, that a device reset has happened and
+> +it needs to recreate the contexts to keep going.
+> +
+> +Reporting causes of resets
+> +--------------------------
+> +
+> +Apart from propagating the reset through the stack so apps can recover, it's
+> +really useful for driver developers to learn more about what caused the reset in
+> +first place. DRM devices should make use of devcoredump to store relevant
+
+   the first place.
+
+> +information about the reset, so this information can be added to user bug
+> +reports.
+> +
+>  .. _drm_driver_ioctl:
+>  
+>  IOCTL Support on Device Nodes
+
+and with those addressed:
+
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+
+Thanks for adding the documentation.
 
 -- 
-Jingfeng
-
+~Randy
