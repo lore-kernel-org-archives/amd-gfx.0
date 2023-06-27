@@ -4,41 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 012ACEB64D9
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 13:23:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 216BCEB64D9
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:15:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A01210E2E0;
-	Tue, 27 Jun 2023 13:23:39 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 032BE10E2E2;
- Tue, 27 Jun 2023 13:23:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=XXhdTWoMk14blpQJORYtPE+5yfyz5ZqdWBj8yIkLzts=; b=GVtsM/JAeN+WVIVK5y8d9+UwbL
- vQvr+6+K0y1KIV1qun0KL0TPobxoP4ch9FaLw2AcFV+RiUHM4eUbU2aJOAEHPs6lTnlI/UGB3x9Q0
- uHSyXWF1fI9dwNyrB+U5o8H4JRk7ajOxpvMdqI0gF++zcTN4Y06KyLNyKTRwz1v5Mh/IiapsMswEf
- UNJtlpWufkEyzBNENgpCLTvPOgiWgj6MZA6/9VJVumIeeElrAEoFV+Gs5PR0lToOPlshD0/SkVCpu
- 7t5eMnMIKmw5ryXFHhP6kjt7TigQ9cxnS0I55bG3WO+68FWUhmlpRbIpvTxGdHdEnwvk0f8V3IV9v
- DQ5bGx5A==;
-Received: from [179.113.218.86] (helo=steammachine.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qE8fM-004Yyb-Bb; Tue, 27 Jun 2023 15:23:32 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
-Date: Tue, 27 Jun 2023 10:23:23 -0300
-Message-ID: <20230627132323.115440-1-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.41.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C63F910E2E7;
+	Tue, 27 Jun 2023 14:15:17 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2386710E2E7;
+ Tue, 27 Jun 2023 14:15:14 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8Dx+8bv7ppkWiYDAA--.5224S3;
+ Tue, 27 Jun 2023 22:15:11 +0800 (CST)
+Received: from [10.20.42.43] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8Cx7yPv7ppkeVcMAA--.9012S3; 
+ Tue, 27 Jun 2023 22:15:11 +0800 (CST)
+Message-ID: <ea709740-5aa7-a904-d15b-fe27f91578a5@loongson.cn>
+Date: Tue, 27 Jun 2023 22:15:11 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm: Remove the deprecated drm_put_dev() function
+Content-Language: en-US
+From: Sui Jingfeng <suijingfeng@loongson.cn>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>
+References: <20230625050901.393055-1-suijingfeng@loongson.cn>
+ <4672fc8d-ca95-6d00-1303-cb5968c51703@suse.de>
+ <766f323a-efcf-6552-f7e5-a736830c3f12@loongson.cn>
+Organization: Loongson
+In-Reply-To: <766f323a-efcf-6552-f7e5-a736830c3f12@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: AQAAf8Cx7yPv7ppkeVcMAA--.9012S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj9xXoW7Jw4xuFyUtFW8Aw4xJryUCFX_yoW3ZFg_Wa
+ yDuFZ3Ww4kJ397JF1DAr4xZry7GF4qvrykAa1SvF43Cry7XrZ5Ga45WrnYvryUWwsakry7
+ KrW5Zrn3J3WavosvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
+ s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+ cSsGvfJTRUUUbIAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+ vaj40_Wr0E3s1l1IIY67AEw4v_JrI_Jryl8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+ w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+ WUJVW8JwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+ Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE
+ 14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
+ AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+ F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
+ ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
+ xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F
+ 4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU
+ wEfOUUUUU
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,115 +69,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com, Randy Dunlap <rdunlap@infradead.org>,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
- Rob Clark <robdclark@gmail.com>, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- alexander.deucher@amd.com, Pekka Paalanen <pekka.paalanen@collabora.com>,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Create a section that specifies how to deal with DRM device resets for
-kernel and userspace drivers.
+Hi,
 
-Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
+On 2023/6/27 16:41, Sui Jingfeng wrote:
+> I have verified that
+>
+> if the ->probe() failed, then the ->remove will be get called.
+>
+Sorry,
 
-v4: https://lore.kernel.org/lkml/20230626183347.55118-1-andrealmeid@igalia.com/
+if the ->probe() failed, then the ->remove() will *NOT* get called.
 
-Changes:
- - Grammar fixes (Randy)
 
- Documentation/gpu/drm-uapi.rst | 68 ++++++++++++++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
+> I'm doing the test by add a line before the drm_dev_alloc()
+>
+I do the test by adding one line code before the drm_dev_alloc() function
 
-diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-index 65fb3036a580..3cbffa25ed93 100644
---- a/Documentation/gpu/drm-uapi.rst
-+++ b/Documentation/gpu/drm-uapi.rst
-@@ -285,6 +285,74 @@ for GPU1 and GPU2 from different vendors, and a third handler for
- mmapped regular files. Threads cause additional pain with signal
- handling as well.
- 
-+Device reset
-+============
-+
-+The GPU stack is really complex and is prone to errors, from hardware bugs,
-+faulty applications and everything in between the many layers. Some errors
-+require resetting the device in order to make the device usable again. This
-+sections describes the expectations for DRM and usermode drivers when a
-+device resets and how to propagate the reset status.
-+
-+Kernel Mode Driver
-+------------------
-+
-+The KMD is responsible for checking if the device needs a reset, and to perform
-+it as needed. Usually a hang is detected when a job gets stuck executing. KMD
-+should keep track of resets, because userspace can query any time about the
-+reset stats for an specific context. This is needed to propagate to the rest of
-+the stack that a reset has happened. Currently, this is implemented by each
-+driver separately, with no common DRM interface.
-+
-+User Mode Driver
-+----------------
-+
-+The UMD should check before submitting new commands to the KMD if the device has
-+been reset, and this can be checked more often if the UMD requires it. After
-+detecting a reset, UMD will then proceed to report it to the application using
-+the appropriate API error code, as explained in the section below about
-+robustness.
-+
-+Robustness
-+----------
-+
-+The only way to try to keep an application working after a reset is if it
-+complies with the robustness aspects of the graphical API that it is using.
-+
-+Graphical APIs provide ways to applications to deal with device resets. However,
-+there is no guarantee that the app will use such features correctly, and the
-+UMD can implement policies to close the app if it is a repeating offender,
-+likely in a broken loop. This is done to ensure that it does not keep blocking
-+the user interface from being correctly displayed. This should be done even if
-+the app is correct but happens to trigger some bug in the hardware/driver.
-+
-+OpenGL
-+~~~~~~
-+
-+Apps using OpenGL should use the available robust interfaces, like the
-+extension ``GL_ARB_robustness`` (or ``GL_EXT_robustness`` for OpenGL ES). This
-+interface tells if a reset has happened, and if so, all the context state is
-+considered lost and the app proceeds by creating new ones. If it is possible to
-+determine that robustness is not in use, the UMD will terminate the app when a
-+reset is detected, giving that the contexts are lost and the app won't be able
-+to figure this out and recreate the contexts.
-+
-+Vulkan
-+~~~~~~
-+
-+Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for submissions.
-+This error code means, among other things, that a device reset has happened and
-+it needs to recreate the contexts to keep going.
-+
-+Reporting causes of resets
-+--------------------------
-+
-+Apart from propagating the reset through the stack so apps can recover, it's
-+really useful for driver developers to learn more about what caused the reset in
-+first place. DRM devices should make use of devcoredump to store relevant
-+information about the reset, so this information can be added to user bug
-+reports.
-+
- .. _drm_driver_ioctl:
- 
- IOCTL Support on Device Nodes
+  to generate a fault(error) manually,
+
+
+>
+> See below:
+>
+> ```
+>
+>     return -ENODEV;
+>
+>     dev = drm_dev_alloc(&kms_driver, &pdev->dev);
+>     if (IS_ERR(dev))
+>         return PTR_ERR(dev);
+>
+>     ret = pci_enable_device(pdev);
+>     if (ret)
+>         goto err_free;
+> ```
+>
+>
+> So, there is no problem, as far as I can see. 
+All in all,  if the ->probe() failed, then the ->remove() will *NOT* get 
+called.
+
 -- 
-2.41.0
+Jingfeng
 
