@@ -4,118 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A45E6EB64D7
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 19:13:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C8D2EB64D7
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 00:43:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DE2110E249;
-	Mon, 26 Jun 2023 19:13:18 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20615.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8b::615])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4977A10E248
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jun 2023 19:13:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 837E710E26E;
+	Tue, 27 Jun 2023 00:43:22 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2045.outbound.protection.outlook.com [40.107.92.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C106510E26E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jun 2023 00:43:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hEtzM/sTuHziDis3EpXibrdHciVqzk1KW1AjSDweoHjXq1Q2e390C0B9noqkcsPLUwHAFOT6LtZr3EbCQw9bS6S6eOEnEpc5zPUpOCU51DhH9E7GabRng0u4XqoNoBhvJOaBm0u+0/InwEngFpQuiCiz/KUGuIreawuBlk6V35vfOhtNBsaresjnKUREzFvWnKU1oabIWhH+ofk/Z3FnJhO7zLDtQqHWJbEvsX7syEFU5HJV0LQeIWzs1QAg+yAIscFvAvufk04dSWJOr/FxAfvnhfGca1y5y2pcQssRb+HAi6cm+qFe7PtwMaUjXOHi68lj5WKdI096TZPxiIgK+A==
+ b=mgjVP0HGyakM3YjIPoMgYAPHHnNx+IgUHOGpnbZeUXR9x5kl4H0+AF05dBIT8v/C06KKNwkTsTVCq+ZHScpQU6IyidwaC4PE09VapgeqpZ/CFZGYAIcaFMUP/CwZ1a2Vr1M6pOoFKvczPMSyLxJRPSdBpKyqOdFa3swVjd+3Ut2nj8B0yHN/OmAjHA+mPekQwJpHB+9On2ZxJe+8xDuremrSu5/gA3E3U9BnBR84g/pEE+My/IHTMZlEOag12ahKqEVCRiTJ25Fb7/3rc1suw4Y0ekOM5UkK0xQSoDutxMjj44v8WX2TKp7m7MsgNcd46jEWG7iUwYIrGlGL13PPvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+nozGh3H1O1NtzdrU/cGlX0JzKEjO5s+rFnivuDoJvI=;
- b=PjEt5I00vb0GSSRx8j74DksIhhDmovQ83qR7lxqnBz8vYCAMfHuCiC2QNAdigmbG8fV2KuB0v2qyOjderhGCr3KtEtGhkD1QqcjnPshxH+5dcxpuTNlzO8nG6JTCVQWzzam/LPyOUo6p5sz4KCTyTQPoxNxOjPNO9d0os2E8KW9mtnHExdLiJRGwqmmSkasMNILKikuPkMOjkpmDtQB9lhHv2MWWannkf+K3FnVl7vppAsDXX+q463rokXSRPfX72ycJbSRgZwEF7iFwvXgjrnOgSe96cICTsaBnWhG8M2DDn93H8A6+hEnfCghLszbR/j0ODexx6OcQ/xorhlRPWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=EOTYbjKlPnILutfYHdjpmh/pqSA61Xy6CuR2d3VRuVw=;
+ b=aoYP7W5ntgSo5WLhSm/KvntE/WsaXzs12vFLEsXw6r5jLnYLgeligP4JzHX7sI+9C/TDKxpR3cbu42PRViLlkOrbXg8EDnSQZI1q1FhXTeaIbeD/pHzvfQuyYWfw7Tcrnv/0FcmqjBrWiFjLVqP4K+QuKudiurWgNRdRLFdsugwfljCmDpTqkwRKyYh/loisTMitBh0DzTmFcve+SP43N1tf2nCnvgQq/8j5xMkSa0s1NCu0biviy/4CCutC8/+K7iYu/2jqiMgQUPT38rjakNhzc/ge5ZbhG3+ABdKIjc76Ta1A9an6mrytZ/7ejLNO+t3/VYMLER5dzLemuNOQwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+nozGh3H1O1NtzdrU/cGlX0JzKEjO5s+rFnivuDoJvI=;
- b=EaJuf6/dRKk8NqZXlU/Cv+qiix38LcDmQBtqAmYVIi6VnR6LrfmiU/XSdQSx/T+Zbv9ujwlPklw3IFzX8n4hceLoCxtGfOqIlYrz3yLjzzZCvK2XWvFiIrFNbLeCiFiA0l9dhWDeH1I8kPWHqRBgrowebFwYnEmXp2BZBCao0Kc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com (2603:10b6:5:39f::7) by
- MN2PR12MB4583.namprd12.prod.outlook.com (2603:10b6:208:26e::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6521.21; Mon, 26 Jun 2023 19:13:12 +0000
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::1a81:77c7:9126:e215]) by DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::1a81:77c7:9126:e215%5]) with mapi id 15.20.6521.024; Mon, 26 Jun 2023
- 19:13:12 +0000
-Message-ID: <58a3ac87-59f9-8d26-0985-69eacfc0b4bf@amd.com>
-Date: Mon, 26 Jun 2023 15:13:09 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH v2 3/4] drm/amd/display: Set minimum requirement for using
- PSR-SU on Phoenix
-Content-Language: en-US
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230623150522.32494-1-mario.limonciello@amd.com>
- <20230623150522.32494-4-mario.limonciello@amd.com>
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <20230623150522.32494-4-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0021.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::8) To DM4PR12MB5311.namprd12.prod.outlook.com
- (2603:10b6:5:39f::7)
+ bh=EOTYbjKlPnILutfYHdjpmh/pqSA61Xy6CuR2d3VRuVw=;
+ b=zBod1ZlRTFmq1Q2wiBwnETxIEd/mZunKCi2yO+ngbR6VJokbo20rcRoIHPjPZO28HZe7ebEKHH5mNo57y0KzPkxiyru4k0lQ3MI7pSP5N/VsvKJtdrKihmWcnTkz7j4ncE+ktVuQjl8vXOJqWekNOR2Xq/rvECkXUs3vm5ImgWA=
+Received: from BN9PR03CA0575.namprd03.prod.outlook.com (2603:10b6:408:10d::10)
+ by SA0PR12MB4399.namprd12.prod.outlook.com (2603:10b6:806:98::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Tue, 27 Jun
+ 2023 00:43:15 +0000
+Received: from BN8NAM11FT112.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10d:cafe::3f) by BN9PR03CA0575.outlook.office365.com
+ (2603:10b6:408:10d::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.33 via Frontend
+ Transport; Tue, 27 Jun 2023 00:43:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT112.mail.protection.outlook.com (10.13.176.210) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.47 via Frontend Transport; Tue, 27 Jun 2023 00:43:14 +0000
+Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 26 Jun
+ 2023 19:43:11 -0500
+From: Lang Yu <Lang.Yu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: rename psp_update_vcn_sram to a common name
+Date: Tue, 27 Jun 2023 08:42:51 +0800
+Message-ID: <20230627004251.3521493-1-Lang.Yu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5311:EE_|MN2PR12MB4583:EE_
-X-MS-Office365-Filtering-Correlation-Id: 427545dc-1503-4a5b-6f0e-08db7679629c
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT112:EE_|SA0PR12MB4399:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56de2c34-2ef4-4093-da60-08db76a77e0d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nxNqjSVS7rdSM2yTBk1H5U3LGhyyXTCpQHO8K2bhM1XNF8WEtc3Y17h0D37bIoOYzsFIwFS4Tz1CkR0zIyhoIGUWbQFylMF3KguZJDMY4F2HxOyxC5hFmIlcRr60lvGykvexIMMHdi7q3h5r6GaYtHHdvQsAH3LkXBQj/kbrjEcFtfeS7hj20TQ3s7+IaANqhaNtKcSB/JOQzRr+EaVlQCkVV69lZ7WtEvaUASfz79eeQhOVT3J7jLZ1vZDcJUbaz5R3BXZPIoXuaTH/4gJhHAn9vV5mT8Qy3jX37RA+kQbp888A/zGw1rTQtsmVCIKMZdEMUGdNxU6OhMd0jwrr/QVzZDyFDCgUGFs2f78x9cqJbiEFvsfWXflHr3XpheXQTDC65NQjwp2Ok+PDrk/irsItKmz1LsFlcT1sbLOSqBMoN4+DQmtbmgOjgecwt0o/s5SkLPmVME2MuObhY2NVctl2RXrVyYp10ocUQHsh3eDB5ipTSPIwpBkylvIMB15ET6DHYq/8h7Iy7E68kH4X2wD5bwAlLZOl+3U1nNerNP+uLQZ+c0BJnTwe6tGuhlvSeqx5X910UzMWotSBm4TkccbDdK0iiOdJatT+fYbpTm4WHg2aMefehnpqm/F2JrBbuCk/Lj7sVHiavJPpiJBNWA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5311.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(136003)(366004)(396003)(346002)(376002)(451199021)(8676002)(8936002)(66476007)(66556008)(66946007)(316002)(6512007)(4326008)(6506007)(26005)(186003)(53546011)(6486002)(478600001)(54906003)(2616005)(41300700001)(6666004)(2906002)(5660300002)(38100700002)(36756003)(31696002)(86362001)(31686004)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: s6rd1FczhyfR0fmKwy/RYKsbvU6jtq2wP3s7Ntp8vL6YLwVL+bRdhdIwQ3UhT13fluJrU0sFIa6FDZSXyrFBDcqxTXzPv7sdLGTWfwhCKTRdoO/j8ptj2+5rgd3sDiWVutVtzUmwMZjiWgYWAl0wzOf9QlqhJ98PBQfwHCitsl6jASpBOHFHzeLez6cYzCjgYJp9at8D+1odIgmUk4+C7/qBt4NfNAKU/7scNcj1t727QCFq8nFYsJT6zZbmomO0tCUBYtvU2ZUpiLRN12+SJrkzZYQ+K9Gotnn5fQqjzTnnnLdad9v2081PbYFje1x94aOQPnsMegv5JDUshMqluz2QZYYQP4cVANAHDybFrwpmBY2VPf7fGOlxUKX3Xs2Ckg58uhGSsFzMILbMWVvx5KNl2+j2r9px/yWUKZJCcisveuy4vb84of9e4MQKF41BgWgKeyrFBND6rrxFVfYafujrnlq383ZVExWSOw1CvkzyTjAPq9R4FUlTB+P1/I4NsZ6WfzGjUCz/ajDliQVuVz6dW8zs9sQvff3KzslCByYty62WT/sXjmNJb4v8P+u73XUqe5yOusBkCnjwImtDh1//uugjJ6N5PjZreZaWikl9kS0t7j6AlfomTbQbJE6Y+JKmMs3sVDjvuarL+ng/jLL1tSR/0uV3y2NTUrl3kFKcr288eJ0DyjHpydgaLcxvvBaSptnzOeUK1BH/dfg8niaKHPQQqKSyNjuxU0yDoZUrNRJs2LwSFX7V1CpDs94ylaKr54eRU+9VvOIHUirVPg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(346002)(396003)(136003)(376002)(451199021)(46966006)(36840700001)(40470700004)(82310400005)(36860700001)(40460700003)(36756003)(356005)(5660300002)(70206006)(86362001)(41300700001)(6916009)(8936002)(8676002)(40480700001)(81166007)(4326008)(70586007)(316002)(82740400003)(478600001)(47076005)(1076003)(2906002)(186003)(16526019)(426003)(26005)(7696005)(336012)(83380400001)(6666004)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkJCZTZHZ3FqY1RaaGdHSlVUTm56MWdHUXp4ekpOZnFaTDlZVFlDcS9uMjMz?=
- =?utf-8?B?d2x3SDNBV1hkcnVoK040Y2hmNEZoZndCS25FMkJhYXM4V0s2MFNYeDVQZ2pG?=
- =?utf-8?B?Z2VWU1EvZ3pmSWNQR3BScFE3UGQxT01OVGdjVW1FOUpVdWdqWUo4REt0YWVD?=
- =?utf-8?B?c2puM0NWTEx2aW1Mam1xcVg0RGJ0ZnB6VEc1TStvTW12NG4zQ25TM2dCbFBj?=
- =?utf-8?B?cFF1VlMrSnhnS2NPWlRPZ0JXUnMrVzgxcFFxUHZ1ZUo5dEtqMmtVb3JOQmpU?=
- =?utf-8?B?R1JsbFZnOHBKbkI0UEdxdldSSXRvN1F3RjNhSkVVVEl1WGl0Mk53K2dsRXBQ?=
- =?utf-8?B?VVFJYTUwUWxtMmd3dUNEcHBYZENMVWVvVXo3WCtWS3dDcUg3TDZnTVFmdVVC?=
- =?utf-8?B?OXdOSGFQdHRrSjAwY2ZKcWF2M3hSUHhoZm1VV28vdWFDT21XNUQrMXUvU2Ev?=
- =?utf-8?B?MTF4Rm56dVNPbjh0OEhHL1JQbS9tTVdBaTZjMkZLbHREQ2FWVUtUd3J3cDdB?=
- =?utf-8?B?dzVvZitWMkxRY1Q0NXFWbmZXbG1yTFB6YVp5aE81TW15c3RSRXpZQ1IxUWhV?=
- =?utf-8?B?b3dUMXQ0eS9OY25WZVJoM1YwVXIvMEJ3REZXbU9abzNqV2w2czNGZHY1L1lO?=
- =?utf-8?B?TE11NDJSV0tnbFIyMlk3a0pZZHV1dURSZkNBcHhDeWk5WjMrZ3dZakd5ZlJW?=
- =?utf-8?B?VEZISjZVTWRGdXgxNENlWUlqVnJxRWdvWnE5Y1JRTDVoOHF3SlgvWmZWOVVW?=
- =?utf-8?B?OUxlYkFzOWxmUFFLTW1sL2VObTMwWkdxMWlxMFNNOFRhcStraWljTTJNNmpT?=
- =?utf-8?B?MXlxSTU5SmNtM3BGNmVEOGo4d3dlOXcwTThieWRnbVNOTGVHMFBXNWFNVkx6?=
- =?utf-8?B?V09CczgvOW01cWFuVjdyRWIvWkx4WXJNN1VDUTBoRFZ3M0NLVDF5LzhoYTdH?=
- =?utf-8?B?ZmZDN1BYblh5RGFXTE9DUGdGeTFGVFRiVWFyZ2kwUWFQTFEzRDNIUEJML280?=
- =?utf-8?B?N1VhVC9tY0ZHZ29UTmZibmp1enNiREJTUmNKTUVwLzBsVzBUejhiTXVhUE9n?=
- =?utf-8?B?aWNiOStBaFNDWE51TS9SL1AxTHFMN0hzcW4vSUN3VHZPaFVreXQ4bjc5czIr?=
- =?utf-8?B?N2lFZzJGbXBIbFY5Z1NIeENrU1FVT3A3YW10MTZaV0RrbnR1ajVhV2M0Uzla?=
- =?utf-8?B?dVVVbnpMWUZtUGgyYUs5allyYnRUU0ZQeHByL0VCSFlGa2hmOTJJU0o4RWRD?=
- =?utf-8?B?SC8zL2p5SmZnelIvQnBNNmVFN0pINWZTNU9jb0pZbldXMVA5eTZDR2pPZXlR?=
- =?utf-8?B?UFc5NjhKb1FCMjNDWmZQSi9iRXNscGtOcFV4OGJubzU5QnVkd3YzU2xqM29j?=
- =?utf-8?B?bHU1MlVaU0hsMS9nb3g2aW1BM2twVzFYbHF4WktzM1hlT2wxcXpuUDV6angz?=
- =?utf-8?B?S3VoVXlEemtQTDJicU5VcmpoQXBleUpWblVucU1QR3Q2OUw4ekNicm8zS1U3?=
- =?utf-8?B?UWpTRmdqT1dLT0NzUHcyS25qajF0M2U2cjR4a1FGSEpXTWcvVnNrQjU1dHBv?=
- =?utf-8?B?aU11THVWa0N5RHhZS2RUbmhpOVdBdk1nUVd2SmR6ZEdWWURhSGZ2d08yOHZK?=
- =?utf-8?B?cG13K0QwMDBsTkp4bnFUWElqdjJjQ1BhNWtKaWp0dklnVWYyU1ZmenJsNlc1?=
- =?utf-8?B?OHJ2WUd2dmpMeVVPMVBiamUyQU5tV3Vidno2cStYNzVaWjQyMTNhbzhITldt?=
- =?utf-8?B?WjQ1U1BOekFuaDBJc0N4dkE1cEFuRDFRTDBJSk01b1NmNWFvSHpWUlBVTmdh?=
- =?utf-8?B?anUvMFdDdmxrUmJHL0FpOXFqQXBJMmtvZ2VFNTNxNCs0ZlJEUkJyZ1krMW8x?=
- =?utf-8?B?RTFFdlIwLzc2SUdCNmdHdjJWdXh3NDVUeHBqOGdsWS9yMmRCT21GczlJMGR5?=
- =?utf-8?B?RzE3NzljOXh2TCtoem9keklRZ3FPamNmRTFXSjZTTFl1MnNER3NrTFVpU2V6?=
- =?utf-8?B?Ty9vdnRJaGVJdElDWHpQdldEU1lEVVFuU3lMbDlpdzMyNVVuUndPZXljU24y?=
- =?utf-8?B?Y3hCZThxS0lTN3dsOSs2YWJ0NnNmay9NZkRpR20wNE5XcWNTQW5ha1hrMDRJ?=
- =?utf-8?Q?AeoM/acIjdx7EiItYru8FGglY?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 427545dc-1503-4a5b-6f0e-08db7679629c
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5311.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 19:13:12.1990 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2023 00:43:14.9041 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56de2c34-2ef4-4093-da60-08db76a77e0d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IlCEqX6Z2Z0rxWCXA3eYjitiyYlqmyoWGRo2xrCVKkZkPv5X4Sn6DzRk2KL+VPf0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4583
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT112.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4399
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,69 +97,162 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Wang <sean.ns.wang@amd.com>, Marc Rossi <Marc.Rossi@amd.com>,
- Tsung-hua Lin <Tsung-hua.Lin@amd.com>, Hamza Mahfooz <Hamza.Mahfooz@amd.com>
+Cc: Lang Yu <Lang.Yu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Rename psp_update_vcn_sram to psp_execute_ucode_loading
+so that other clients can feel free to use it.
 
+Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 19 ++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  7 +++++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   |  7 ++++---
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   |  8 +++++---
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   |  6 ++++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   |  6 ++++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c |  5 +++--
+ 7 files changed, 35 insertions(+), 23 deletions(-)
 
-On 6/23/23 11:05, Mario Limonciello wrote:
-> The same parade TCON issue can potentially happen on Phoenix, and the same
-> PSR resilience changes have been ported into the DMUB firmware.
-> 
-> Don't allow running PSR-SU unless on the newer firmware.
-> 
-> Cc: Sean Wang <sean.ns.wang@amd.com>
-> Cc: Marc Rossi <Marc.Rossi@amd.com>
-> Cc: Hamza Mahfooz <Hamza.Mahfooz@amd.com>
-> Cc: Tsung-hua (Ryan) Lin <Tsung-hua.Lin@amd.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index aa69269169a1..33f8b8389979 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -2931,15 +2931,16 @@ int psp_rlc_autoload_start(struct psp_context *psp)
+ 	return ret;
+ }
+ 
+-int psp_update_vcn_sram(struct amdgpu_device *adev, int inst_idx,
+-			uint64_t cmd_gpu_addr, int cmd_size)
+-{
+-	struct amdgpu_firmware_info ucode = {0};
+-
+-	ucode.ucode_id = inst_idx ? AMDGPU_UCODE_ID_VCN1_RAM :
+-		AMDGPU_UCODE_ID_VCN0_RAM;
+-	ucode.mc_addr = cmd_gpu_addr;
+-	ucode.ucode_size = cmd_size;
++int psp_execute_ucode_loading(struct amdgpu_device *adev,
++			      enum AMDGPU_UCODE_ID ucode_id,
++			      uint64_t ucode_gpu_addr,
++			      int ucode_size)
++{
++	struct amdgpu_firmware_info ucode = {
++		.ucode_id = ucode_id,
++		.mc_addr = ucode_gpu_addr,
++		.ucode_size = ucode_size,
++	};
+ 
+ 	return psp_execute_non_psp_fw_load(&adev->psp, &ucode);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index 2cae0b1a0b8a..93849db18696 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -459,8 +459,11 @@ extern int psp_wait_for_spirom_update(struct psp_context *psp, uint32_t reg_inde
+ 			uint32_t field_val, uint32_t mask, uint32_t msec_timeout);
+ 
+ int psp_gpu_reset(struct amdgpu_device *adev);
+-int psp_update_vcn_sram(struct amdgpu_device *adev, int inst_idx,
+-			uint64_t cmd_gpu_addr, int cmd_size);
++
++int psp_execute_ucode_loading(struct amdgpu_device *adev,
++			      enum AMDGPU_UCODE_ID ucode_id,
++			      uint64_t ucode_gpu_addr,
++			      int ucode_size);
+ 
+ int psp_ta_init_shared_buf(struct psp_context *psp,
+ 				  struct ta_mem_context *mem_ctx);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index c975aed2f6c7..e89b1e760000 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -881,9 +881,10 @@ static int vcn_v2_0_start_dpg_mode(struct amdgpu_device *adev, bool indirect)
+ 		UVD_MASTINT_EN__VCPU_EN_MASK, 0, indirect);
+ 
+ 	if (indirect)
+-		psp_update_vcn_sram(adev, 0, adev->vcn.inst->dpg_sram_gpu_addr,
+-				    (uint32_t)((uintptr_t)adev->vcn.inst->dpg_sram_curr_addr -
+-					       (uintptr_t)adev->vcn.inst->dpg_sram_cpu_addr));
++		psp_execute_ucode_loading(adev, AMDGPU_UCODE_ID_VCN0_RAM,
++			adev->vcn.inst->dpg_sram_gpu_addr,
++			(uint32_t)((uintptr_t)adev->vcn.inst->dpg_sram_curr_addr -
++				   (uintptr_t)adev->vcn.inst->dpg_sram_cpu_addr));
+ 
+ 	/* force RBC into idle state */
+ 	rb_bufsz = order_base_2(ring->ring_size);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index bb1875f926f1..e5df190a79a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -912,9 +912,11 @@ static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
+ 		UVD_MASTINT_EN__VCPU_EN_MASK, 0, indirect);
+ 
+ 	if (indirect)
+-		psp_update_vcn_sram(adev, inst_idx, adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
+-				    (uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
+-					       (uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
++		psp_execute_ucode_loading(adev,
++			inst_idx ? AMDGPU_UCODE_ID_VCN1_RAM : AMDGPU_UCODE_ID_VCN0_RAM,
++			adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
++			(uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
++				   (uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
+ 
+ 	ring = &adev->vcn.inst[inst_idx].ring_dec;
+ 	/* force RBC into idle state */
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index c8f63b3c6f69..aa3d7439cd34 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -1037,9 +1037,11 @@ static int vcn_v3_0_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
+ 		VCN, inst_idx, mmUVD_VCPU_CNTL), tmp, 0, indirect);
+ 
+ 	if (indirect)
+-		psp_update_vcn_sram(adev, inst_idx, adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
++		psp_execute_ucode_loading(adev,
++			inst_idx ? AMDGPU_UCODE_ID_VCN1_RAM : AMDGPU_UCODE_ID_VCN0_RAM,
++			adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
+ 			(uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
+-				(uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
++			(uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
+ 
+ 	ring = &adev->vcn.inst[inst_idx].ring_dec;
+ 	/* force RBC into idle state */
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 2db73a964031..d0867526e477 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -993,9 +993,11 @@ static int vcn_v4_0_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
+ 
+ 
+ 	if (indirect)
+-		psp_update_vcn_sram(adev, inst_idx, adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
++		psp_execute_ucode_loading(adev,
++			inst_idx ? AMDGPU_UCODE_ID_VCN1_RAM : AMDGPU_UCODE_ID_VCN0_RAM,
++			adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
+ 			(uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
+-				(uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
++				   (uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
+ 
+ 	ring = &adev->vcn.inst[inst_idx].ring_enc[0];
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+index 5d67b8b8a3d6..221a10f0316f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+@@ -778,9 +778,10 @@ static int vcn_v4_0_3_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, b
+ 		UVD_MASTINT_EN__VCPU_EN_MASK, 0, indirect);
+ 
+ 	if (indirect)
+-		psp_update_vcn_sram(adev, 0, adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
++		psp_execute_ucode_loading(adev, AMDGPU_UCODE_ID_VCN0_RAM,
++			adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
+ 			(uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
+-				(uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
++				   (uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
+ 
+ 	ring = &adev->vcn.inst[inst_idx].ring_enc[0];
+ 
+-- 
+2.25.1
 
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-
-> ---
-> v1->v2:
->      * Fix a s/dcn31/dcn314/ mixup
-> ---
->   drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.c | 5 +++++
->   drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.h | 2 ++
->   drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c    | 1 +
->   3 files changed, 8 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.c
-> index 48a06dbd9be7..f161aeb7e7c4 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.c
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.c
-> @@ -60,3 +60,8 @@ const struct dmub_srv_dcn31_regs dmub_srv_dcn314_regs = {
->   	{ DMUB_DCN31_FIELDS() },
->   #undef DMUB_SF
->   };
-> +
-> +bool dmub_dcn314_is_psrsu_supported(struct dmub_srv *dmub)
-> +{
-> +	return dmub->fw_version >= DMUB_FW_VERSION(8, 0, 16);
-> +}
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.h
-> index 674267a2940e..f213bd82c911 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.h
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn314.h
-> @@ -30,4 +30,6 @@
->   
->   extern const struct dmub_srv_dcn31_regs dmub_srv_dcn314_regs;
->   
-> +bool dmub_dcn314_is_psrsu_supported(struct dmub_srv *dmub);
-> +
->   #endif /* _DMUB_DCN314_H_ */
-> diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-> index 7a31e3e27bab..bdaf43892f47 100644
-> --- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-> +++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-> @@ -228,6 +228,7 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
->   	case DMUB_ASIC_DCN316:
->   		if (asic == DMUB_ASIC_DCN314) {
->   			dmub->regs_dcn31 = &dmub_srv_dcn314_regs;
-> +			funcs->is_psrsu_supported = dmub_dcn314_is_psrsu_supported;
->   		} else if (asic == DMUB_ASIC_DCN315) {
->   			dmub->regs_dcn31 = &dmub_srv_dcn315_regs;
->   		} else if (asic == DMUB_ASIC_DCN316) {
