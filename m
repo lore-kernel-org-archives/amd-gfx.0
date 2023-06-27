@@ -4,62 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3AA6C001B0
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 07:30:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BE66EB64D9
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 08:41:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99E1210E29F;
-	Tue, 27 Jun 2023 07:30:13 +0000 (UTC)
-Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
- [IPv6:2a00:1450:4864:20::142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 801BA10E29E;
- Tue, 27 Jun 2023 07:30:12 +0000 (UTC)
-Received: by mail-lf1-x142.google.com with SMTP id
- 2adb3069b0e04-4f122ff663eso5636707e87.2; 
- Tue, 27 Jun 2023 00:30:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1687851010; x=1690443010;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=2tGkXgqPnO73+Ge79y8eYh7hyEhs9j1/fEjMENH9dVw=;
- b=l/9PvrGnvCGdt67tEHQovr48fd+oAw102q/o6VU/akdHFNQJ0SGHwZNdJGwxIK3ih0
- D+AuXiZgTdtP8Tfy0Sb6Z+1y9LwUD5V+Gh+w+7SmyubuhNCY9QoVliGmAtGjBu1wT/Ry
- fYw6LxXLMEklFWdQuAcNYHJthLP66xf8Z0m5AoNRqY4JymlxDE5Ztw77JhWUlA6L21Gs
- n7gRzP0RH6b0x6QN1nFxoJjBhFPKTRNuDrtCZTCIm1gtPl02cgkErxECvySBtJSVITup
- W36H4GTB4nqqGMeRl+UGvIXzxYb5JJ4pPs9fEoZQj406Qn+BsCCzoV2pY50eAtxdH46e
- 1X4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687851010; x=1690443010;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=2tGkXgqPnO73+Ge79y8eYh7hyEhs9j1/fEjMENH9dVw=;
- b=exs3nlcQIPjOLHiHfF7vI1vYnyJH+FYwKjz3+9eWP1cIJEtFJtN/lTwOSrI3T/Oe74
- QTveULupIFqAboW1tDT9FNxWNRvKXN2HZAZul7NVoPl1XbZSM7dNYYSQFFJ/q7YdTG1d
- UudBSDG3xVKlM82BL6qGWr9KILb8hBsaYhwvmznQjXyQL6ZfYfriSz7CFLkwn6JCwVzP
- wAaa0xkmciTJ1S9WWFU4gt540Xg4Ajriji9nEH65xWKr4SEYhz8An2OCFxIAjoaJthgv
- rxXqaWwWPH75LkNDaht2AYrqxr1rW83wTYNJfkbGnfop05N0pQ29p5PcBOUN+gdmT26j
- +9ug==
-X-Gm-Message-State: AC+VfDxWCVBwUWirUheA/fJKbHTFsggsdN+ESAngxTQP9rkY/nWXPZ9J
- QsqJrksFLE+c/2DaLdDF7i0=
-X-Google-Smtp-Source: ACHHUZ71r5/kDhdT11gZFM7z5vHTCReKWrlCcy770IWoTfq3m+v0hoMkISN2LAe0BwO1tDdKUt6riQ==
-X-Received: by 2002:a05:6512:2824:b0:4fb:7888:7e6d with SMTP id
- cf36-20020a056512282400b004fb78887e6dmr3264331lfb.46.1687851009721; 
- Tue, 27 Jun 2023 00:30:09 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- b25-20020ac25e99000000b004fb85ffc82csm107306lfq.10.2023.06.27.00.30.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Jun 2023 00:30:09 -0700 (PDT)
-Date: Tue, 27 Jun 2023 10:29:55 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Subject: Re: [PATCH v4 1/1] drm/doc: Document DRM device reset expectations
-Message-ID: <20230627102955.6a2c5796@eldfell>
-In-Reply-To: <20230626183347.55118-2-andrealmeid@igalia.com>
-References: <20230626183347.55118-1-andrealmeid@igalia.com>
- <20230626183347.55118-2-andrealmeid@igalia.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9412310E2B6;
+	Tue, 27 Jun 2023 08:41:41 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A256510E2B6;
+ Tue, 27 Jun 2023 08:41:38 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8CxLMe_oJpkcPYCAA--.4609S3;
+ Tue, 27 Jun 2023 16:41:35 +0800 (CST)
+Received: from [10.20.42.43] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8AxzyO_oJpknq4LAA--.7367S3; 
+ Tue, 27 Jun 2023 16:41:35 +0800 (CST)
+Message-ID: <766f323a-efcf-6552-f7e5-a736830c3f12@loongson.cn>
+Date: Tue, 27 Jun 2023 16:41:35 +0800
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/orsJdneEox0Kbc+g6Dj4_fM";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm: Remove the deprecated drm_put_dev() function
+Content-Language: en-US
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>
+References: <20230625050901.393055-1-suijingfeng@loongson.cn>
+ <4672fc8d-ca95-6d00-1303-cb5968c51703@suse.de>
+From: Sui Jingfeng <suijingfeng@loongson.cn>
+Organization: Loongson
+In-Reply-To: <4672fc8d-ca95-6d00-1303-cb5968c51703@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: AQAAf8AxzyO_oJpknq4LAA--.7367S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoW3Xr48Jw1UGr4Uur4fZw1kWFX_yoW7uF4fpF
+ s3JFyrtrWUtFs5Gr17JF17CFy5Jw47t3WfWr18Ga43Wrs8Ary0qF9xXry0gryUJrW8Ar1F
+ yF15XF1UZFyUCFcCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUvIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+ xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+ 1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv
+ 67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
+ AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+ F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
+ ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
+ xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
+ 4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j5
+ WrAUUUUU=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,175 +68,203 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- 'Marek =?UTF-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>,
- Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- alexander.deucher@amd.com, Daniel Stone <daniel@fooishbar.org>,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/orsJdneEox0Kbc+g6Dj4_fM
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 26 Jun 2023 15:33:47 -0300
-Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
-
-> Create a section that specifies how to deal with DRM device resets for
-> kernel and userspace drivers.
->=20
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> ---
->  Documentation/gpu/drm-uapi.rst | 68 ++++++++++++++++++++++++++++++++++
->  1 file changed, 68 insertions(+)
-
 Hi,
 
-grammar nitpicks notwithstanding, I'm happy with the contents now, so
+On 2023/6/26 15:56, Thomas Zimmermann wrote:
+> Hi
+>
+> Am 25.06.23 um 07:09 schrieb Sui Jingfeng:
+>> As this function can be replaced with drm_dev_unregister() + 
+>> drm_dev_put(),
+>> it is already marked as deprecated, so remove it. No functional change.
+>>
+>> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+>> ---
+>>   drivers/gpu/drm/drm_drv.c           | 28 ----------------------------
+>>   drivers/gpu/drm/drm_pci.c           |  3 ++-
+>>   drivers/gpu/drm/radeon/radeon_drv.c |  3 ++-
+>>   include/drm/drm_drv.h               |  1 -
+>>   4 files changed, 4 insertions(+), 31 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+>> index 12687dd9e1ac..5057307fe22a 100644
+>> --- a/drivers/gpu/drm/drm_drv.c
+>> +++ b/drivers/gpu/drm/drm_drv.c
+>> @@ -406,34 +406,6 @@ void drm_minor_release(struct drm_minor *minor)
+>>    * possibly leaving the hardware enabled.
+>>    */
+>>   -/**
+>> - * drm_put_dev - Unregister and release a DRM device
+>> - * @dev: DRM device
+>> - *
+>> - * Called at module unload time or when a PCI device is unplugged.
+>> - *
+>> - * Cleans up all DRM device, calling drm_lastclose().
+>> - *
+>> - * Note: Use of this function is deprecated. It will eventually go away
+>> - * completely.  Please use drm_dev_unregister() and drm_dev_put() 
+>> explicitly
+>> - * instead to make sure that the device isn't userspace accessible 
+>> any more
+>> - * while teardown is in progress, ensuring that userspace can't 
+>> access an
+>> - * inconsistent state.
+>> - */
+>> -void drm_put_dev(struct drm_device *dev)
+>> -{
+>> -    DRM_DEBUG("\n");
+>> -
+>> -    if (!dev) {
+>> -        DRM_ERROR("cleanup called no dev\n");
+>> -        return;
+>> -    }
+>> -
+>> -    drm_dev_unregister(dev);
+>> -    drm_dev_put(dev);
+>> -}
+>> -EXPORT_SYMBOL(drm_put_dev);
+>> -
+>>   /**
+>>    * drm_dev_enter - Enter device critical section
+>>    * @dev: DRM device
+>> diff --git a/drivers/gpu/drm/drm_pci.c b/drivers/gpu/drm/drm_pci.c
+>> index 39d35fc3a43b..b3a68a92eaa6 100644
+>> --- a/drivers/gpu/drm/drm_pci.c
+>> +++ b/drivers/gpu/drm/drm_pci.c
+>> @@ -257,7 +257,8 @@ void drm_legacy_pci_exit(const struct drm_driver 
+>> *driver,
+>>                        legacy_dev_list) {
+>>               if (dev->driver == driver) {
+>>                   list_del(&dev->legacy_dev_list);
+>> -                drm_put_dev(dev);
+>> +                drm_dev_unregister(dev);
+>> +                drm_dev_put(dev);
+>>               }
+>>           }
+>>           mutex_unlock(&legacy_dev_list_lock);
+>> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c 
+>> b/drivers/gpu/drm/radeon/radeon_drv.c
+>> index e4374814f0ef..a4955ae10659 100644
+>> --- a/drivers/gpu/drm/radeon/radeon_drv.c
+>> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
+>> @@ -357,7 +357,8 @@ radeon_pci_remove(struct pci_dev *pdev)
+>>   {
+>>       struct drm_device *dev = pci_get_drvdata(pdev);
+>>   -    drm_put_dev(dev);
+>
+> Did you verify that dev cannot be NULL here? There was a check in 
+> drm_put_dev() for !dev.
+>
 
-Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-
-
-Thanks,
-pq
-
->=20
-> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.=
-rst
-> index 65fb3036a580..25a11b9b98fa 100644
-> --- a/Documentation/gpu/drm-uapi.rst
-> +++ b/Documentation/gpu/drm-uapi.rst
-> @@ -285,6 +285,74 @@ for GPU1 and GPU2 from different vendors, and a thir=
-d handler for
->  mmapped regular files. Threads cause additional pain with signal
->  handling as well.
-> =20
-> +Device reset
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +The GPU stack is really complex and is prone to errors, from hardware bu=
-gs,
-> +faulty applications and everything in between the many layers. Some erro=
-rs
-> +require resetting the device in order to make the device usable again. T=
-his
-> +section describes what is the expectations for DRM and usermode drivers =
-when a
-> +device resets and how to propagate the reset status.
-> +
-> +Kernel Mode Driver
-> +------------------
-> +
-> +The KMD is responsible for checking if the device needs a reset, and to =
-perform
-> +it as needed. Usually a hang is detected when a job gets stuck executing=
-. KMD
-> +should keep track of resets, because userspace can query any time about =
-the
-> +reset stats for an specific context. This is needed to propagate to the =
-rest of
-> +the stack that a reset has happened. Currently, this is implemented by e=
-ach
-> +driver separately, with no common DRM interface.
-> +
-> +User Mode Driver
-> +----------------
-> +
-> +The UMD should check before submitting new commands to the KMD if the de=
-vice has
-> +been reset, and this can be checked more often if it requires to. After
-> +detecting a reset, UMD will then proceed to report it to the application=
- using
-> +the appropriated API error code, as explained in the below section about
-> +robustness.
-> +
-> +Robustness
-> +----------
-> +
-> +The only way to try to keep an application working after a reset is if it
-> +complies with the robustness aspects of the graphical API that it is usi=
-ng.
-> +
-> +Graphical APIs provide ways to application to deal with device resets. H=
-owever,
-> +there is no guarantee that the app will be correctly using such features=
-, and
-> +UMD can implement policies to close the app if it is a repeating offende=
-r,
-> +likely in a broken loop. This is done to ensure that it does not keeps b=
-locking
-> +the user interface from being correctly displayed. This should be done e=
-ven if
-> +the app is correct but happens to trigger some bug in the hardware/drive=
-r.
-> +
-> +OpenGL
-> +~~~~~~
-> +
-> +Apps using OpenGL should use the available robust interfaces, like the
-> +extension ``GL_ARB_robustness`` (or ``GL_EXT_robustness`` for OpenGL ES)=
-. This
-> +interface tells if a reset has happened, and if so, all the context stat=
-e is
-> +considered lost and the app proceeds by creating new ones. If is possibl=
-e to
-> +determine that robustness is not in use, UMD will terminate the app when=
- a reset
-> +is detected, giving that the contexts are lost and the app won't be able=
- to
-> +figure this out and recreate the contexts.
-> +
-> +Vulkan
-> +~~~~~~
-> +
-> +Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for submissi=
-ons.
-> +This error code means, among other things, that a device reset has happe=
-ned and
-> +it needs to recreate the contexts to keep going.
-> +
-> +Reporting resets causes
-> +-----------------------
-> +
-> +Apart from propagating the reset through the stack so apps can recover, =
-it's
-> +really useful for driver developers to learn more about what caused the =
-reset in
-> +first place. DRM devices should make use of devcoredump to store relevant
-> +information about the reset, so this information can be added to user bug
-> +reports.
-> +
->  .. _drm_driver_ioctl:
-> =20
->  IOCTL Support on Device Nodes
+I have verified :
 
 
---Sig_/orsJdneEox0Kbc+g6Dj4_fM
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+1)
 
------BEGIN PGP SIGNATURE-----
+If there is no radeon card(say R5-340) mounted in the system,  I 
+modprobe the radeon.ko manually.
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSaj/MACgkQI1/ltBGq
-qqfDXRAAm2d0qCfUurM9gqoskeR0oqeuQx2qnSmrJ0JdOxYVwnhUgFa5jqiWP0Jt
-15vwqIgqKkJTBaREdBZ0T3WeRZnm8DFWcol+qAwU1WV4rXzdjfAIwv0L4UjPDbBD
-VDA2uAfrMYvoKApiuLCpleMbFnKD79nkWe/FDkrZksGTFmK/u2SDFFMJXAhEoy7s
-3PwNvUbHijAeTgSwu68qJ4zMM1uLZI4ff6eWuS6GQKiLk8zCnZN+/6NmKk/pgVlo
-Mr+1Br1/ZaHV78LQNZWyuq+njnyC7I2pyx3Qy/1X0Tka8PapG5V2QVZLMnnc4WI3
-nSwCOYDMpQ8yGNRoSRZaNd9B88xTweKIpXrvIrJw3sBmfKRNTJcoTuBeiB32x1BO
-Wm2f0v24lnc9tb3EYrhruAbmrofCHGUUD6Fd6cgbf938D4DaNrR6uhTJdEj8JDif
-CcbnPgzR2pOg3gNOJ3va9QsSdInFwv2wYr4ftVh76O6hzCvuyMdsskxUwophl8x0
-Vn0OQDrKfBoRacuHwOLgRlgI4SA/6TZ7SDyfHI+Uljg3tP49VPUji6oFyxljLccp
-Qeq2vLtLbBDeY+68lUOXOMieC+D/FZlODi05gjfKLuhdNg4l4+VnDvSQN7Btb7DQ
-WSS+I5IHK7yFXV1Y/N4DqWqGjSA9mEEc3CLDC50N4JF62/ri1FI=
-=76Wv
------END PGP SIGNATURE-----
+then both the radeon_pci_probe() and the radeon_pci_remove() function 
+won't get called.
 
---Sig_/orsJdneEox0Kbc+g6Dj4_fM--
+There is no chance that the driver_probe_device() function getting called.
+
+
+|- driver_register()
+
+|-- bus_add_driver()
+
+|--- driver_attach()
+
+|---- bus_for_each_dev(drv->bus, NULL, drv, __driver_attach)
+
+|----- __driver_attach()
+
+|------ __device_attach_driver()
+
+// There is no chance that the driver_probe_device() function get called.
+
+|------- driver_probe_device(drv, dev)
+
+```
+
+
+2)  normal case:
+
+
+If there are radeon cards mounted in the system,
+
+then as long as the pci_set_drvdata(pdev, dev) get called,
+
+the 'driver_data' member of struct device will hold the pointer to the 
+'struct drm_device';
+
+So, it will be fine as long as the radeon.ko get loaded normally.
+
+
+I'm sure it will works as expected on normal case, with 100% confident.
+
+
+3) Abnormal case
+
+If there is a error happen before the 'pci_set_drvdata(pdev, dev)' 
+function get called.
+
+It is also don't need to worry, if the ->probe() failed, then the 
+->remove will be get called.
+
+
+I have verified that
+
+if the ->probe() failed, then the ->remove will be get called.
+
+I'm doing the test by add a line before the drm_dev_alloc()
+
+function in the body of radeon_pci_probe() function.
+
+See below:
+
+```
+
+     return -ENODEV;
+
+     dev = drm_dev_alloc(&kms_driver, &pdev->dev);
+     if (IS_ERR(dev))
+         return PTR_ERR(dev);
+
+     ret = pci_enable_device(pdev);
+     if (ret)
+         goto err_free;
+```
+
+
+So, there is no problem, as far as I can see.
+
+
+> Best regards
+> Thomas
+>
+>> +    drm_dev_unregister(dev);
+>> +    drm_dev_put(dev);
+>>   }
+>>     static void
+>> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+>> index 89e2706cac56..289c97b12e82 100644
+>> --- a/include/drm/drm_drv.h
+>> +++ b/include/drm/drm_drv.h
+>> @@ -511,7 +511,6 @@ void drm_dev_unregister(struct drm_device *dev);
+>>     void drm_dev_get(struct drm_device *dev);
+>>   void drm_dev_put(struct drm_device *dev);
+>> -void drm_put_dev(struct drm_device *dev);
+>>   bool drm_dev_enter(struct drm_device *dev, int *idx);
+>>   void drm_dev_exit(int idx);
+>>   void drm_dev_unplug(struct drm_device *dev);
+>
+-- 
+Jingfeng
+
