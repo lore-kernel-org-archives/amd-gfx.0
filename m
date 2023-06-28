@@ -4,58 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76AA5EB64D7
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jun 2023 13:39:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DED7EB64D7
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jun 2023 13:45:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14A9010E042;
-	Wed, 28 Jun 2023 13:39:56 +0000 (UTC)
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [IPv6:2001:4860:4864:20::35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76E4410E042
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jun 2023 13:39:53 +0000 (UTC)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-1a1fa977667so5310492fac.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jun 2023 06:39:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8914D10E046;
+	Wed, 28 Jun 2023 13:45:12 +0000 (UTC)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8171210E046
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jun 2023 13:45:10 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-311367a3e12so7138509f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jun 2023 06:45:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1687959590; x=1690551590;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EWVf/wDfV6BsotvIDWy9G+QBeSM9MGBMpI5rthzxGDs=;
- b=LCHgTtO0J5kgnnhUm9Qv5AD8+1ZUWP5Cmbyo14exrzaFCMiwAiBJi9Ia8becmauKrQ
- VggswBNpMAuerU4e2WvNQpdfT4VPnGi98QtVoTNJVj9q8c3hy0UROWiG3BKhSGY71fv0
- c3hoLJ2UqxsHGtDa7iS5gqOnb0ro9KhXMwk9k4txw3yCs8WLE6DpGlLZ+V8sIRo+0JiP
- 9F4vz1wzif79s94ZNRoyQVn8dOIp2HsXdxlbK3i07vLOEgURjP0uSfKGVsM3dRl0teW1
- niCJPCK+wTKLDHVI7Fhxg2iKWOVD7QDlIG1Z0Vx0GtpFD8xYXG3LbH9BG1TmC2O0WwGG
- JEMA==
+ d=gmail.com; s=20221208; t=1687959907; x=1690551907;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=T3t/wW5fk3PRGdIqBreXOJYKawBkpfPasDaYifJOFGs=;
+ b=RJy4vnWF+ir+rvrrCUzZloA0XZGu+/m3SxQjhuJr7kfluW55XaK6ZuFL8FFRehYhTM
+ U1wKxDFoMqKjkbgHgbvWUK0UQ9RA1YecjMq9p0vB2kHXVtOY7cUFP15T2phZvwTOQprD
+ ghHLSo1l5kyINWzjLoQ0LA9eqDaWpYRMrjR246idZLbHwDrdh1HGrzwEOX2xFEWTp+nm
+ OS+p3n9TmhS5ha0075e6WB8Yj5Q/rakrcMr+b7HEha2f1FloG23Gdt/MwbaM1VasEB1D
+ FeVtthBvROfMXViF93MKoIHd4FZrN+v4S1gsG97ktzwlJiwSZUhre9miPdusAYnq1VeK
+ xwpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687959590; x=1690551590;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EWVf/wDfV6BsotvIDWy9G+QBeSM9MGBMpI5rthzxGDs=;
- b=JIStLp2QhINUWVeEiiYy7v52CjOO5uxd2ZpPc9a7xNr3kpZOwIHtNggBpTe/lw/uxs
- +eLDI81MJAWa47Iz7MzeR0rC90DrippRUnjo+/q1i0zDg51xj0am3xib3gZtKKRyeWgl
- bNOJBClnxBRR9w7TqdBHS78FpexPxPtClK++zXLnr+Dbl8kY+t4bFcRQ+B83sOHxZ6G5
- 6xhKxVNkvs+fSpBjIiCy/BSQuU7EbpN5Jm2o/1iTg81iq3kMdsciGGhoO6EtKEmnVFWc
- 67u8ktkDZxfufZ1WDvrY2SKj2cZsN5f57jayOslIjVHwGKvVNju41s29sDjKCPWRl534
- k+VQ==
-X-Gm-Message-State: AC+VfDz0zv77t8Qv3iLYAo+ZCoBbDrSk+a6Ro+boWTluqWD2uCQUM8TB
- RrDeFMT14i/XxaRy5Nd6EmCzkkdpwCCyWqYJ6T8=
-X-Google-Smtp-Source: ACHHUZ47W9xmaU380w6/CQgIsBWX9ssJCd8bls+L0C+YaMcUj0+NftQfRnHFNEyy3Uomy4JMwNTG02xYKoXGrT6HSqE=
-X-Received: by 2002:a05:6870:3a2b:b0:1b0:f38:9102 with SMTP id
- du43-20020a0568703a2b00b001b00f389102mr12807345oab.7.1687959589952; Wed, 28
- Jun 2023 06:39:49 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1687959907; x=1690551907;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=T3t/wW5fk3PRGdIqBreXOJYKawBkpfPasDaYifJOFGs=;
+ b=SI+qVWHY93jFjKVwGKtF2AT4U8h1vgPOQscvN4HvBGenL0a764m12MBrpqshqw1M87
+ CaqRFwUh3h/47UgEDmxzlUbt95UsbDnNtmuwivc2//Dc6bsmCZ/V3VCAEZFjycsbx4H4
+ 94sK2Ag8ijvIN+gc66V57KOb8slcUgW9o48NU+mwYSazTEy19zEwGQo6MuzApypYqbvo
+ DDuECWTW2cpnF5XJz5LZOPKjLZuRRNqngfPNyea5OqeqM2vRnHSEMUO2ClHw6EXIiVME
+ aCFhPlsPHxWZwF0upAPxNAAY0jflRj+cKZ4+Oxvku06wJZHYwo/oEJ4TNACLKc4PH2GZ
+ t92g==
+X-Gm-Message-State: AC+VfDxo2BiXDP3PqP1iH76CD+b8u/GUxUZiop9hghglTzwm6s2x6jDD
+ VQLkD/BXdohm7PnggaM1kekTnLCN0Z2eEQ==
+X-Google-Smtp-Source: ACHHUZ5w8C15vPiF01EE5Yweli8Q2L+YXlk2DgIpCV3/d/3r7Q8vyCm4fF2IqIHGfwTLonS6yxyK4g==
+X-Received: by 2002:a5d:49cc:0:b0:314:4db:e0ba with SMTP id
+ t12-20020a5d49cc000000b0031404dbe0bamr2852071wrs.11.1687959907180; 
+ Wed, 28 Jun 2023 06:45:07 -0700 (PDT)
+Received: from EliteBook.amd.com (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ j14-20020adfff8e000000b003112dbc3257sm13180037wrr.90.2023.06.28.06.45.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Jun 2023 06:45:06 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: Fix potential fence use-after-free v2
+Date: Wed, 28 Jun 2023 15:45:00 +0200
+Message-Id: <20230628134500.24444-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20230628123021.2286846-1-kevinyang.wang@amd.com>
-In-Reply-To: <20230628123021.2286846-1-kevinyang.wang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 28 Jun 2023 09:39:38 -0400
-Message-ID: <CADnq5_Mu6qOysGeAia9_FJYnQmbYWz9++tZjCRUbgMbsFwuC7w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: fix smu i2c data read risk
-To: Yang Wang <kevinyang.wang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,175 +72,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: shanzhulig <shanzhulig@email.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ shanzhulig <shanzhulig@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+From: shanzhulig <shanzhulig@gmail.com>
 
-On Wed, Jun 28, 2023 at 8:30=E2=80=AFAM Yang Wang <kevinyang.wang@amd.com> =
-wrote:
->
-> the smu driver_table is used for all types of smu
-> tables data transcation (e.g: PPtable, Metrics, i2c, Ecc..).
->
-> it is necessary to hold this lock to avoiding data tampering
-> during the i2c read operation.
->
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c       | 2 +-
->  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 2 +-
->  drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 2 +-
->  drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c      | 2 +-
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c    | 2 +-
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c    | 2 +-
->  6 files changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/=
-gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> index 9cd005131f56..3bb18396d2f9 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> @@ -2113,7 +2113,6 @@ static int arcturus_i2c_xfer(struct i2c_adapter *i2=
-c_adap,
->         }
->         mutex_lock(&adev->pm.mutex);
->         r =3D smu_cmn_update_table(smu, SMU_TABLE_I2C_COMMANDS, 0, req, t=
-rue);
-> -       mutex_unlock(&adev->pm.mutex);
->         if (r)
->                 goto fail;
->
-> @@ -2130,6 +2129,7 @@ static int arcturus_i2c_xfer(struct i2c_adapter *i2=
-c_adap,
->         }
->         r =3D num_msgs;
->  fail:
-> +       mutex_unlock(&adev->pm.mutex);
->         kfree(req);
->         return r;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
-u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index c94d825a871b..95f6d821bacb 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -3021,7 +3021,6 @@ static int navi10_i2c_xfer(struct i2c_adapter *i2c_=
-adap,
->         }
->         mutex_lock(&adev->pm.mutex);
->         r =3D smu_cmn_update_table(smu, SMU_TABLE_I2C_COMMANDS, 0, req, t=
-rue);
-> -       mutex_unlock(&adev->pm.mutex);
->         if (r)
->                 goto fail;
->
-> @@ -3038,6 +3037,7 @@ static int navi10_i2c_xfer(struct i2c_adapter *i2c_=
-adap,
->         }
->         r =3D num_msgs;
->  fail:
-> +       mutex_unlock(&adev->pm.mutex);
->         kfree(req);
->         return r;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/dr=
-ivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index f7ed3e655e39..8fe2e1716da4 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -3842,7 +3842,6 @@ static int sienna_cichlid_i2c_xfer(struct i2c_adapt=
-er *i2c_adap,
->         }
->         mutex_lock(&adev->pm.mutex);
->         r =3D smu_cmn_update_table(smu, SMU_TABLE_I2C_COMMANDS, 0, req, t=
-rue);
-> -       mutex_unlock(&adev->pm.mutex);
->         if (r)
->                 goto fail;
->
-> @@ -3859,6 +3858,7 @@ static int sienna_cichlid_i2c_xfer(struct i2c_adapt=
-er *i2c_adap,
->         }
->         r =3D num_msgs;
->  fail:
-> +       mutex_unlock(&adev->pm.mutex);
->         kfree(req);
->         return r;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> index e80f122d8aec..ce50ef46e73f 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-> @@ -1525,7 +1525,6 @@ static int aldebaran_i2c_xfer(struct i2c_adapter *i=
-2c_adap,
->         }
->         mutex_lock(&adev->pm.mutex);
->         r =3D smu_cmn_update_table(smu, SMU_TABLE_I2C_COMMANDS, 0, req, t=
-rue);
-> -       mutex_unlock(&adev->pm.mutex);
->         if (r)
->                 goto fail;
->
-> @@ -1542,6 +1541,7 @@ static int aldebaran_i2c_xfer(struct i2c_adapter *i=
-2c_adap,
->         }
->         r =3D num_msgs;
->  fail:
-> +       mutex_unlock(&adev->pm.mutex);
->         kfree(req);
->         return r;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index 124287cbbff8..1d995f53aaab 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -2320,7 +2320,6 @@ static int smu_v13_0_0_i2c_xfer(struct i2c_adapter =
-*i2c_adap,
->         }
->         mutex_lock(&adev->pm.mutex);
->         r =3D smu_cmn_update_table(smu, SMU_TABLE_I2C_COMMANDS, 0, req, t=
-rue);
-> -       mutex_unlock(&adev->pm.mutex);
->         if (r)
->                 goto fail;
->
-> @@ -2337,6 +2336,7 @@ static int smu_v13_0_0_i2c_xfer(struct i2c_adapter =
-*i2c_adap,
->         }
->         r =3D num_msgs;
->  fail:
-> +       mutex_unlock(&adev->pm.mutex);
->         kfree(req);
->         return r;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> index 6ef12252beb5..1ac552142763 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> @@ -1763,7 +1763,6 @@ static int smu_v13_0_6_i2c_xfer(struct i2c_adapter =
-*i2c_adap,
->         }
->         mutex_lock(&adev->pm.mutex);
->         r =3D smu_v13_0_6_request_i2c_xfer(smu, req);
-> -       mutex_unlock(&adev->pm.mutex);
->         if (r)
->                 goto fail;
->
-> @@ -1780,6 +1779,7 @@ static int smu_v13_0_6_i2c_xfer(struct i2c_adapter =
-*i2c_adap,
->         }
->         r =3D num_msgs;
->  fail:
-> +       mutex_unlock(&adev->pm.mutex);
->         kfree(req);
->         return r;
->  }
-> --
-> 2.34.1
->
+fence Decrements the reference count before exiting.
+Avoid Race Vulnerabilities for fence use-after-free.
+
+v2 (chk): actually fix the use after free and not just move it.
+
+Signed-off-by: shanzhulig <shanzhulig@email.com>
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 2eb2c66843a8..71a9c4ab905f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1624,15 +1624,15 @@ static int amdgpu_cs_wait_all_fences(struct amdgpu_device *adev,
+ 			continue;
+ 
+ 		r = dma_fence_wait_timeout(fence, true, timeout);
++		if (r > 0 && fence->error)
++			r = fence->error;
++
+ 		dma_fence_put(fence);
+ 		if (r < 0)
+ 			return r;
+ 
+ 		if (r == 0)
+ 			break;
+-
+-		if (fence->error)
+-			return fence->error;
+ 	}
+ 
+ 	memset(wait, 0, sizeof(*wait));
+-- 
+2.34.1
+
