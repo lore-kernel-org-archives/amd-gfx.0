@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B607DEB64DC
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jun 2023 21:24:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EA94EB64D7
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jun 2023 21:24:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C2ED10E39B;
-	Wed, 28 Jun 2023 21:24:09 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2062f.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8b::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2114C10E39B
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6837010E39E;
+	Wed, 28 Jun 2023 21:24:15 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2085.outbound.protection.outlook.com [40.107.220.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C17D10E39D
  for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jun 2023 21:24:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hpPkiaO47w9EEKVIsxvAxSylFvKvGehOqazyDrOCxruztCjSBMEiCOVz7UtXAi9u4QoLMhH8frJKnUct3mirMwSoAX+EU0C3tB3ThzfB9F6uoBD384YYHMNjmSSZ0P1F7/CmPnFQMFWGGIOUuKGRIEPM391IaHYQ9OEJJt726VNjhO3p0+e7WL/Ss594S3trXL+BtheMh3am7O40MKpmhnNgOCmjRR4I5VqN51l5ZOqhwVG5qcdAbyOY339vE8PjBHHsSf4LNepK1tNWxO+ZytToRRagCaK9u7RsP9pGgiLG99MqexNymGN+ZILe3MM7wd35WEI2MigLnSviu0Vx4A==
+ b=nRJ6JoRuDebimBEg2s3ZkE7l4opBQZYkrEXlBcXhChAxh13qKsA5tcSidwoTIbcYyDtlFzv1IGHys2SkbVPQXYb0DEIweGRAJel/6fD2R2UWynePj3L3S/r9dLMwCX5AnBMrQOXHL1eMlT6cyvVX0zg12Wtjf9jt2wkN4d/L9qvBkRFhzIYZ3dCq6P/ljzwoH4B1FPbWCqjHX/ZNgzAMHMl0gzJWed1xmxHwqx+j/NDwo9h9r4pSREL+nBO7mKGNt055zP8X3ZFwyJNycg6QqaRdqi1+ZbM5q1WqQ7DeB87D7S9ZA2SQWu5linNNnq27yVcug+t4LeON6RaneDDIKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9qm4h2IIVLx/50RkYv57X9ad7i1I1qYz9ZD/h3cnU1Q=;
- b=Md2Y/jxtGopERiLbkGIpqp5FHwdI4WGfxoTA2IsnGPVWnl1sXMIhEC7yq4XaWzufgAJzGEE1abTC+hREF8WHpxE4Gow2GFsltnDcRCz7ohDsJuk+nTx9H+/rwR6sO2x3LSNjkD+t51ZOSgujj89sSzkr4ILS+lA3oYMKLrt1ghRtssgMNMNFxvqSF2U7XVwjlrTO80IKPINujsj96frIIn2xZS7y6242K+xz07qCa8GJAboWCYASW379rXx10K68Eqt6S9b9c6lEcgM8XSzKprcvnQSffaoA5Zcoq4tOt1X/gsg5/FcnEStfIBRgBqNOjtQ4EFhSd0kdOTkdEvhGcQ==
+ bh=6lf4Ykrf58TbutvtgyYmtuhQPuc6vbNF16CodezAGFo=;
+ b=QDeFq08WCAtqLeVnPD/bYCV26CVA28XGRCCUqaR6BU6i5qO2WfXgXu3Y2XATbJ5HmC7PhGc4BJFJx2SHQhfGc9zdXXMwJW7FS0zZdO8omsASQ8HHSxMmarVVxfzZez8fozxVfdkb1YZI6fkJ7lUZjuziGUUOY+BlrbijTdDe6aabpn1YfaGDpjFcOieVyyGpNMnl1ARiTe/nbzlH8x6FVwAzOvIjt0VmlHgXeeA5Oq2F6+NSvco7Nc7/7nAcnP2pqJt5N8JyUzchVqwuJUyIQBk8O7cq7UyHQ6gVUmFVbey+n0Ll5Veuy4Uo202rHaRC1fnt1jCYjNyc8mxjn5ArKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9qm4h2IIVLx/50RkYv57X9ad7i1I1qYz9ZD/h3cnU1Q=;
- b=gMbmAMPu9PIqiRc5L7NzaRh0Q0axpNj7sYXISAj1KtrUmGT6w56BQbyzOoqodfSd1C0/hREnXOmE1UMdwofz2s0bUIgsvhPEUoA5+OI6uiPKpQw6i2HxS30bswCUKIDKGdqfArd1EX3em2Ygg9barv63nH4Y6an8tfxvblhgsTM=
-Received: from SJ0PR13CA0049.namprd13.prod.outlook.com (2603:10b6:a03:2c2::24)
- by SN7PR12MB8103.namprd12.prod.outlook.com (2603:10b6:806:355::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.47; Wed, 28 Jun
- 2023 21:24:03 +0000
-Received: from DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
- (2603:10b6:a03:2c2:cafe::ba) by SJ0PR13CA0049.outlook.office365.com
- (2603:10b6:a03:2c2::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.6 via Frontend
- Transport; Wed, 28 Jun 2023 21:24:03 +0000
+ bh=6lf4Ykrf58TbutvtgyYmtuhQPuc6vbNF16CodezAGFo=;
+ b=IbbqhHrlDReVxOWOg0bTLmMAMM4RCBsphR0XdCaaaFMwcW4zhzpveQugBMuCmpr7fZMMg0IPm4BG7sg25PLiNh9z5pRv1YiYNE896sB2OSAJPUqn0vKZK8E7hr9I/kQnXbAUtJhcFqLwrxdtO/d8gn6ew7RVkXIWovtm5TUp9to=
+Received: from DM6PR06CA0052.namprd06.prod.outlook.com (2603:10b6:5:54::29) by
+ PH8PR12MB6868.namprd12.prod.outlook.com (2603:10b6:510:1cb::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Wed, 28 Jun
+ 2023 21:23:59 +0000
+Received: from DM6NAM11FT082.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:54:cafe::df) by DM6PR06CA0052.outlook.office365.com
+ (2603:10b6:5:54::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.20 via Frontend
+ Transport; Wed, 28 Jun 2023 21:23:59 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT051.mail.protection.outlook.com (10.13.172.243) with Microsoft SMTP
+ DM6NAM11FT082.mail.protection.outlook.com (10.13.173.107) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.48 via Frontend Transport; Wed, 28 Jun 2023 21:24:02 +0000
+ 15.20.6500.48 via Frontend Transport; Wed, 28 Jun 2023 21:23:59 +0000
 Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23; Wed, 28 Jun 2023 16:24:00 -0500
+ 15.1.2507.23; Wed, 28 Jun 2023 16:23:58 -0500
 From: Eric Huang <jinhuieric.huang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 4/5] drm/amdkfd: add xcc instance for debugger APIs
-Date: Wed, 28 Jun 2023 17:23:22 -0400
-Message-ID: <20230628212323.248650-5-jinhuieric.huang@amd.com>
+Subject: [PATCH 1/5] drm/amdgpu: add debugger support for GC v9.4.3
+Date: Wed, 28 Jun 2023 17:23:19 -0400
+Message-ID: <20230628212323.248650-2-jinhuieric.huang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230628212323.248650-1-jinhuieric.huang@amd.com>
 References: <20230628212323.248650-1-jinhuieric.huang@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT051:EE_|SN7PR12MB8103:EE_
-X-MS-Office365-Filtering-Correlation-Id: 04d74fc7-c1b4-4032-d363-08db781dfef0
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT082:EE_|PH8PR12MB6868:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6dd97eed-3a4c-4cba-f8a8-08db781dfcf9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: APwS7tLwiD+hKnHY4j2kBmWhBMuGOUIUzydHNh8gLN2ZFRH/H9ab1A6fyjrVI+9A6BMvilGIC+tB+DM5/JIvnWLq9s81yDLYEy9bhQN4j/H+Me4gTH9aZubTj3RTBF/Q3NciVzXighCbvQa/ah/v0K61qagCJnr9cpA7g/0gGoM4YJ3B6hJuevzbdZn8unJRgQR/EoStUh57Z1FGQ6uBVkF+CPs31pxSsqEfuOFuflFFvDgAy6hw7qCU60fqwKgzmRmCEIItmJCkHoEz1yJYFMnh0I8V0g6VrZmWVE+o9twtpeWFljGG+POvk/TFe1DL6f9/4ou6t4NS38Ngj5w4f0U9euiJNz6VXxpzZc+VRF2NbWvvxq5X9EQrlNJz/s2GEZVasWyMphlaCxuhNKSp8i3GhWZMoIg4fIxB1Ik6Y+nFivZi2NOhFfIyvDL2UoKwViW37wCMRsITITPQ5ksnj08Ty2lxFU9prdRXhI+9FhSmpG92q6JiWQX3FiJ1nQ0b+kwspRQfdqDEBqB9gRqj92TgoIBkBtO2x7oSHiVvxFJUHilkaqX+dMDGEgTcwS6O0GZ5/DiZu0DdKCUxpTFhyvJRCMiQ3e3AkgSC6poCAfCqntWCYtnWTXS2NXc8Rj97kjyEQnHjtWMV8pBhUbY+fy8TJULSgFCjnMLBeKY+csgbnvfSZ2DgP1EeZThw54O3U216NjIWGjh0pRmM5W6+F4KLM4QSCSp+D/3wYyWJ+WaSyrnVBm6htJsxWDPKipivhreQtmfeFHQTlMFylKPOzGThDGIPUSw1l2ENOgeK/FIV+qfv6V9K+0o2vzVPX17B
+X-Microsoft-Antispam-Message-Info: BKzPkQ6kPjW+DPaJ9KLGXJSsmlg8/Nj7eUUBF4Bhadrh/QFOGU6+jSCPcpHTqI3YTPOt9xkBs6aLyfv1hr+bRchSobPXVxx4sA3K/8JDys/89jzuqFY56FVtjphp0OI13tTnxq8VA7i4mYEJPvv6Xd3RgRrHLWfRUaVGJ5CL3G6r22KF16lhm3NMt3WjG410FiiidhGs+otfexqtHM2hYs7YbWgJIF/6VBT+mjHfAbBZhWp3godQYrv9jR3jO5FR/PEOt+bsAdL6dtC9yh7f/5P6vAnRMHMGF3lbzH3GN/aO6RGG+1wd9FosS6Uc0U7scpcjYLDycAdxzAb1V5SShH0W+svvy3WNGPuZ29metWnZe9Wac+2ZWHf7CPCbNAh4Q47knkapksh3OfnATW9v8i/yaWi/2bhP8fDWTRbpX9Q/EFNnFaE5fkPeOXN+XLYbiOoLGusJ5QXL5y46/lEugENt75U3qlc509q6j2UfAggOG6kU7kMYrKJUjhvvqiw69SgHG0gcZEj8J1QBcWZRiamiqKBQW3kZxPgIyl6Qpqwg3SQ4KLCePd7sPhMA5A0A4mBQ+SI7jtGHUo++Yx03G4dhiv0n10rkdjgo6tfA4p/8sBz2gCg7DOmGKGXxDSR9XwwwooWoBb70v6e+XhpgdHh9aTBpJqkAa4koURi7P8MHu+CqpKUL/32B58O6qt+Ga+cvThfG2EzKhu5C6/t97+ZuBXtkwnfLhbb3T6WYyYdWIH2rWf8kNE1lhV3xGXMtCT5sz/rEt2oQfCFOiOUvSg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(376002)(136003)(396003)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(82310400005)(36860700001)(478600001)(6666004)(83380400001)(2616005)(426003)(7696005)(336012)(54906003)(1076003)(2906002)(186003)(26005)(47076005)(16526019)(86362001)(4326008)(70206006)(40480700001)(41300700001)(356005)(40460700003)(5660300002)(36756003)(70586007)(81166007)(82740400003)(316002)(6916009)(8676002)(8936002)(36900700001);
+ SFS:(13230028)(4636009)(396003)(346002)(376002)(39860400002)(136003)(451199021)(46966006)(36840700001)(40470700004)(5660300002)(4326008)(6916009)(70206006)(478600001)(36756003)(316002)(70586007)(8936002)(66899021)(8676002)(2906002)(40460700003)(36860700001)(54906003)(41300700001)(82310400005)(186003)(7696005)(40480700001)(86362001)(336012)(16526019)(47076005)(6666004)(426003)(26005)(356005)(1076003)(81166007)(82740400003)(2616005)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2023 21:24:02.8856 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04d74fc7-c1b4-4032-d363-08db781dfef0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2023 21:23:59.5901 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6dd97eed-3a4c-4cba-f8a8-08db781dfcf9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT051.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT082.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8103
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6868
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,224 +99,275 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Huang <jinhuieric.huang@amd.com>, Jonathan.Kim@amd.com
+Cc: Eric Huang <jinhuieric.huang@amd.com>, Jonathan Kim <jonathan.kim@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since GFX9 GPU has multiple xcc instances, this is to
-implement this change in KFD for debugger APIs.
+From: Jonathan Kim <jonathan.kim@amd.com>
 
+Implement the similarities as GC v9.4.2, and the difference
+for GC v9.4.3 HW spec.
+
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c  | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c   | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h   | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c   | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c    | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h    | 6 ++++--
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c               | 6 ++++--
- drivers/gpu/drm/amd/include/kgd_kfd_interface.h      | 6 ++++--
- 9 files changed, 36 insertions(+), 18 deletions(-)
+ .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  |   7 +-
+ .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h  |  30 ++++
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c   | 146 +++++++++++++++++-
+ 3 files changed, 179 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-index f3f7e0437447..c7f88bfa1976 100644
+index 60f9e027fb66..f3f7e0437447 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-@@ -126,7 +126,8 @@ static uint32_t kgd_gfx_aldebaran_set_address_watch(
- 					uint32_t watch_address_mask,
- 					uint32_t watch_id,
- 					uint32_t watch_mode,
--					uint32_t debug_vmid)
-+					uint32_t debug_vmid,
-+					uint32_t inst )
+@@ -23,6 +23,7 @@
+ #include "amdgpu_amdkfd.h"
+ #include "amdgpu_amdkfd_arcturus.h"
+ #include "amdgpu_amdkfd_gfx_v9.h"
++#include "amdgpu_amdkfd_aldebaran.h"
+ #include "gc/gc_9_4_2_offset.h"
+ #include "gc/gc_9_4_2_sh_mask.h"
+ #include <uapi/linux/kfd_ioctl.h>
+@@ -36,7 +37,7 @@
+  * initialize the debug mode registers after it has disabled GFX off during the
+  * debug session.
+  */
+-static uint32_t kgd_aldebaran_enable_debug_trap(struct amdgpu_device *adev,
++uint32_t kgd_aldebaran_enable_debug_trap(struct amdgpu_device *adev,
+ 					    bool restore_dbg_registers,
+ 					    uint32_t vmid)
  {
- 	uint32_t watch_address_high;
- 	uint32_t watch_address_low;
-@@ -163,7 +164,8 @@ static uint32_t kgd_gfx_aldebaran_set_address_watch(
+@@ -50,7 +51,7 @@ static uint32_t kgd_aldebaran_enable_debug_trap(struct amdgpu_device *adev,
  }
  
- static uint32_t kgd_gfx_aldebaran_clear_address_watch(struct amdgpu_device *adev,
--						      uint32_t watch_id)
-+						      uint32_t watch_id,
-+						      uint32_t inst)
+ /* returns TRAP_EN, EXCP_EN and EXCP_REPLACE. */
+-static uint32_t kgd_aldebaran_disable_debug_trap(struct amdgpu_device *adev,
++uint32_t kgd_aldebaran_disable_debug_trap(struct amdgpu_device *adev,
+ 						bool keep_trap_enabled,
+ 						uint32_t vmid)
  {
- 	return 0;
+@@ -107,7 +108,7 @@ static uint32_t kgd_aldebaran_set_wave_launch_trap_override(struct amdgpu_device
+ 	return data;
  }
+ 
+-static uint32_t kgd_aldebaran_set_wave_launch_mode(struct amdgpu_device *adev,
++uint32_t kgd_aldebaran_set_wave_launch_mode(struct amdgpu_device *adev,
+ 					uint8_t wave_launch_mode,
+ 					uint32_t vmid)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h
+new file mode 100644
+index 000000000000..5f776ede295e
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h
+@@ -0,0 +1,30 @@
++/*
++ * Copyright 2021 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++uint32_t kgd_aldebaran_enable_debug_trap(struct amdgpu_device *adev,
++					bool restore_dbg_registers,
++					uint32_t vmid);
++uint32_t kgd_aldebaran_disable_debug_trap(struct amdgpu_device *adev,
++					bool keep_trap_enabled,
++					uint32_t vmid);
++uint32_t kgd_aldebaran_set_wave_launch_mode(struct amdgpu_device *adev,
++					uint8_t wave_launch_mode,
++					uint32_t vmid);
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-index 7aab8dcf46e1..17fe4e90f203 100644
+index 5b4b7f8b92a5..7aab8dcf46e1 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-@@ -454,7 +454,8 @@ static uint32_t kgd_gfx_v9_4_3_set_address_watch(
- 				uint32_t watch_address_mask,
- 				uint32_t watch_id,
- 				uint32_t watch_mode,
--				uint32_t debug_vmid)
-+				uint32_t debug_vmid,
-+				uint32_t inst)
+@@ -22,6 +22,7 @@
+ #include "amdgpu.h"
+ #include "amdgpu_amdkfd.h"
+ #include "amdgpu_amdkfd_gfx_v9.h"
++#include "amdgpu_amdkfd_aldebaran.h"
+ #include "gc/gc_9_4_3_offset.h"
+ #include "gc/gc_9_4_3_sh_mask.h"
+ #include "athub/athub_1_8_0_offset.h"
+@@ -32,6 +33,7 @@
+ #include "soc15.h"
+ #include "sdma/sdma_4_4_2_offset.h"
+ #include "sdma/sdma_4_4_2_sh_mask.h"
++#include <uapi/linux/kfd_ioctl.h>
+ 
+ static inline struct v9_sdma_mqd *get_sdma_mqd(void *mqd)
  {
- 	uint32_t watch_address_high;
- 	uint32_t watch_address_low;
-@@ -491,7 +492,8 @@ static uint32_t kgd_gfx_v9_4_3_set_address_watch(
+@@ -361,6 +363,139 @@ static int kgd_gfx_v9_4_3_hqd_load(struct amdgpu_device *adev, void *mqd,
+ 	return 0;
  }
  
- static uint32_t kgd_gfx_v9_4_3_clear_address_watch(struct amdgpu_device *adev,
--				uint32_t watch_id)
++static int kgd_gfx_v9_4_3_validate_trap_override_request(
++				struct amdgpu_device *adev,
++				uint32_t trap_override,
++				uint32_t *trap_mask_supported)
++{
++	*trap_mask_supported &= KFD_DBG_TRAP_MASK_FP_INVALID |
++	                        KFD_DBG_TRAP_MASK_FP_INPUT_DENORMAL |
++	                        KFD_DBG_TRAP_MASK_FP_DIVIDE_BY_ZERO |
++	                        KFD_DBG_TRAP_MASK_FP_OVERFLOW |
++	                        KFD_DBG_TRAP_MASK_FP_UNDERFLOW |
++	                        KFD_DBG_TRAP_MASK_FP_INEXACT |
++	                        KFD_DBG_TRAP_MASK_INT_DIVIDE_BY_ZERO |
++	                        KFD_DBG_TRAP_MASK_DBG_ADDRESS_WATCH |
++	                        KFD_DBG_TRAP_MASK_DBG_MEMORY_VIOLATION |
++	                        KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_START |
++	                        KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_END;
++
++	if (trap_override != KFD_DBG_TRAP_OVERRIDE_OR &&
++			trap_override != KFD_DBG_TRAP_OVERRIDE_REPLACE)
++		return -EPERM;
++
++	return 0;
++}
++
++static uint32_t trap_mask_map_sw_to_hw(uint32_t mask)
++{
++	uint32_t trap_on_start = (mask & KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_START) ? 1 : 0;
++	uint32_t trap_on_end = (mask & KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_END) ? 1 : 0;
++	uint32_t excp_en = mask & (KFD_DBG_TRAP_MASK_FP_INVALID |
++				KFD_DBG_TRAP_MASK_FP_INPUT_DENORMAL |
++				KFD_DBG_TRAP_MASK_FP_DIVIDE_BY_ZERO |
++				KFD_DBG_TRAP_MASK_FP_OVERFLOW |
++				KFD_DBG_TRAP_MASK_FP_UNDERFLOW |
++				KFD_DBG_TRAP_MASK_FP_INEXACT |
++				KFD_DBG_TRAP_MASK_INT_DIVIDE_BY_ZERO |
++				KFD_DBG_TRAP_MASK_DBG_ADDRESS_WATCH |
++				KFD_DBG_TRAP_MASK_DBG_MEMORY_VIOLATION);
++	uint32_t ret;
++
++	ret = REG_SET_FIELD(0, SPI_GDBG_PER_VMID_CNTL, EXCP_EN, excp_en);
++	ret = REG_SET_FIELD(ret, SPI_GDBG_PER_VMID_CNTL, TRAP_ON_START, trap_on_start);
++	ret = REG_SET_FIELD(ret, SPI_GDBG_PER_VMID_CNTL, TRAP_ON_END, trap_on_end);
++
++	return ret;
++}
++
++static uint32_t trap_mask_map_hw_to_sw(uint32_t mask)
++{
++	uint32_t ret = REG_GET_FIELD(mask, SPI_GDBG_PER_VMID_CNTL, EXCP_EN);
++
++	if (REG_GET_FIELD(mask, SPI_GDBG_PER_VMID_CNTL, TRAP_ON_START))
++		ret |= KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_START;
++
++	if (REG_GET_FIELD(mask, SPI_GDBG_PER_VMID_CNTL, TRAP_ON_END))
++		ret |= KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_END;
++
++	return ret;
++}
++
++/* returns TRAP_EN, EXCP_EN and EXCP_RPLACE. */
++static uint32_t kgd_gfx_v9_4_3_set_wave_launch_trap_override(
++				struct amdgpu_device *adev,
++				uint32_t vmid,
++				uint32_t trap_override,
++				uint32_t trap_mask_bits,
++				uint32_t trap_mask_request,
++				uint32_t *trap_mask_prev,
++				uint32_t kfd_dbg_trap_cntl_prev)
++
++{
++	uint32_t data = 0;
++
++	*trap_mask_prev = trap_mask_map_hw_to_sw(kfd_dbg_trap_cntl_prev);
++
++	data = (trap_mask_bits & trap_mask_request) |
++	       (*trap_mask_prev & ~trap_mask_request);
++	data = trap_mask_map_sw_to_hw(data);
++
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, TRAP_EN, 1);
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, EXCP_REPLACE, trap_override);
++
++	return data;
++}
++
++#define TCP_WATCH_STRIDE (regTCP_WATCH1_ADDR_H - regTCP_WATCH0_ADDR_H)
++static uint32_t kgd_gfx_v9_4_3_set_address_watch(
++				struct amdgpu_device *adev,
++				uint64_t watch_address,
++				uint32_t watch_address_mask,
 +				uint32_t watch_id,
-+				uint32_t inst)
- {
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-index 8ad7a7779e14..225b8929a878 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-@@ -886,7 +886,8 @@ uint32_t kgd_gfx_v10_set_address_watch(struct amdgpu_device *adev,
- 					uint32_t watch_address_mask,
- 					uint32_t watch_id,
- 					uint32_t watch_mode,
--					uint32_t debug_vmid)
-+					uint32_t debug_vmid,
-+					uint32_t inst)
- {
- 	uint32_t watch_address_high;
- 	uint32_t watch_address_low;
-@@ -942,7 +943,8 @@ uint32_t kgd_gfx_v10_set_address_watch(struct amdgpu_device *adev,
- }
- 
- uint32_t kgd_gfx_v10_clear_address_watch(struct amdgpu_device *adev,
--					uint32_t watch_id)
-+					uint32_t watch_id,
-+					uint32_t inst)
- {
- 	uint32_t watch_address_cntl;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-index e6b70196071a..c904a08b022b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-@@ -44,9 +44,11 @@ uint32_t kgd_gfx_v10_set_address_watch(struct amdgpu_device *adev,
- 					uint32_t watch_address_mask,
- 					uint32_t watch_id,
- 					uint32_t watch_mode,
--					uint32_t debug_vmid);
-+					uint32_t debug_vmid,
-+					uint32_t inst);
- uint32_t kgd_gfx_v10_clear_address_watch(struct amdgpu_device *adev,
--					uint32_t watch_id);
-+					uint32_t watch_id,
-+					uint32_t inst);
- void kgd_gfx_v10_get_iq_wait_times(struct amdgpu_device *adev, uint32_t *wait_times);
- void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *adev,
- 					       uint32_t wait_times,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-index 91c3574ebed3..d5d0ca6a14d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-@@ -743,7 +743,8 @@ static uint32_t kgd_gfx_v11_set_address_watch(struct amdgpu_device *adev,
- 					uint32_t watch_address_mask,
- 					uint32_t watch_id,
- 					uint32_t watch_mode,
--					uint32_t debug_vmid)
-+					uint32_t debug_vmid,
-+					uint32_t inst)
- {
- 	uint32_t watch_address_high;
- 	uint32_t watch_address_low;
-@@ -780,7 +781,8 @@ static uint32_t kgd_gfx_v11_set_address_watch(struct amdgpu_device *adev,
- }
- 
- static uint32_t kgd_gfx_v11_clear_address_watch(struct amdgpu_device *adev,
--						uint32_t watch_id)
-+						uint32_t watch_id,
-+						uint32_t inst)
- {
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 51d93fb13ea3..7aabe6722726 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -822,7 +822,8 @@ uint32_t kgd_gfx_v9_set_address_watch(struct amdgpu_device *adev,
- 					uint32_t watch_address_mask,
- 					uint32_t watch_id,
- 					uint32_t watch_mode,
--					uint32_t debug_vmid)
-+					uint32_t debug_vmid,
-+					uint32_t inst)
- {
- 	uint32_t watch_address_high;
- 	uint32_t watch_address_low;
-@@ -878,7 +879,8 @@ uint32_t kgd_gfx_v9_set_address_watch(struct amdgpu_device *adev,
- }
- 
- uint32_t kgd_gfx_v9_clear_address_watch(struct amdgpu_device *adev,
--					uint32_t watch_id)
-+					uint32_t watch_id,
-+					uint32_t inst)
- {
- 	uint32_t watch_address_cntl;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-index 5f54bff0db49..519f05b86a05 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-@@ -89,9 +89,11 @@ uint32_t kgd_gfx_v9_set_address_watch(struct amdgpu_device *adev,
- 					uint32_t watch_address_mask,
- 					uint32_t watch_id,
- 					uint32_t watch_mode,
--					uint32_t debug_vmid);
-+					uint32_t debug_vmid,
-+					uint32_t inst);
- uint32_t kgd_gfx_v9_clear_address_watch(struct amdgpu_device *adev,
--					uint32_t watch_id);
-+					uint32_t watch_id,
-+					uint32_t inst);
- void kgd_gfx_v9_get_iq_wait_times(struct amdgpu_device *adev, uint32_t *wait_times);
- void kgd_gfx_v9_build_grace_period_packet_info(struct amdgpu_device *adev,
- 					       uint32_t wait_times,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-index fff3ccc04fa9..dcc49183364b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -427,7 +427,8 @@ int kfd_dbg_trap_clear_dev_address_watch(struct kfd_process_device *pdd,
- 	amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
- 	pdd->watch_points[watch_id] = pdd->dev->kfd2kgd->clear_address_watch(
- 							pdd->dev->adev,
--							watch_id);
-+							watch_id,
-+							0);
- 	amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
- 
- 	if (!pdd->dev->kfd->shared_resources.enable_mes)
-@@ -466,7 +467,8 @@ int kfd_dbg_trap_set_dev_address_watch(struct kfd_process_device *pdd,
- 				watch_address_mask,
- 				*watch_id,
- 				watch_mode,
--				pdd->dev->vm_info.last_vmid_kfd);
-+				pdd->dev->vm_info.last_vmid_kfd,
-+				0);
- 	amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
- 
- 	if (!pdd->dev->kfd->shared_resources.enable_mes)
-diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-index d0df3381539f..3749d193238a 100644
---- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-@@ -315,9 +315,11 @@ struct kfd2kgd_calls {
- 					uint32_t watch_address_mask,
- 					uint32_t watch_id,
- 					uint32_t watch_mode,
--					uint32_t debug_vmid);
-+					uint32_t debug_vmid,
-+					uint32_t inst);
- 	uint32_t (*clear_address_watch)(struct amdgpu_device *adev,
--			uint32_t watch_id);
-+			uint32_t watch_id,
-+			uint32_t inst);
- 	void (*get_iq_wait_times)(struct amdgpu_device *adev,
- 			uint32_t *wait_times);
- 	void (*build_grace_period_packet_info)(struct amdgpu_device *adev,
++				uint32_t watch_mode,
++				uint32_t debug_vmid)
++{
++	uint32_t watch_address_high;
++	uint32_t watch_address_low;
++	uint32_t watch_address_cntl;
++
++	watch_address_cntl = 0;
++	watch_address_low = lower_32_bits(watch_address);
++	watch_address_high = upper_32_bits(watch_address) & 0xffff;
++
++	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
++			TCP_WATCH0_CNTL,
++			MODE,
++			watch_mode);
++
++	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
++			TCP_WATCH0_CNTL,
++			MASK,
++			watch_address_mask >> 7);
++
++	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
++			TCP_WATCH0_CNTL,
++			VALID,
++			1);
++
++	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_H) +
++			(watch_id * TCP_WATCH_STRIDE)),
++			watch_address_high);
++
++	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_L) +
++			(watch_id * TCP_WATCH_STRIDE)),
++			watch_address_low);
++
++	return watch_address_cntl;
++}
++
++static uint32_t kgd_gfx_v9_4_3_clear_address_watch(struct amdgpu_device *adev,
++				uint32_t watch_id)
++{
++	return 0;
++}
++
+ const struct kfd2kgd_calls gc_9_4_3_kfd2kgd = {
+ 	.program_sh_mem_settings = kgd_gfx_v9_program_sh_mem_settings,
+ 	.set_pasid_vmid_mapping = kgd_gfx_v9_4_3_set_pasid_vmid_mapping,
+@@ -380,5 +515,14 @@ const struct kfd2kgd_calls gc_9_4_3_kfd2kgd = {
+ 	.set_vm_context_page_table_base =
+ 				kgd_gfx_v9_set_vm_context_page_table_base,
+ 	.program_trap_handler_settings =
+-				kgd_gfx_v9_program_trap_handler_settings
++				kgd_gfx_v9_program_trap_handler_settings,
++	.enable_debug_trap = kgd_aldebaran_enable_debug_trap,
++	.disable_debug_trap = kgd_aldebaran_disable_debug_trap,
++	.validate_trap_override_request =
++			kgd_gfx_v9_4_3_validate_trap_override_request,
++	.set_wave_launch_trap_override =
++			kgd_gfx_v9_4_3_set_wave_launch_trap_override,
++	.set_wave_launch_mode = kgd_aldebaran_set_wave_launch_mode,
++	.set_address_watch = kgd_gfx_v9_4_3_set_address_watch,
++	.clear_address_watch = kgd_gfx_v9_4_3_clear_address_watch
+ };
 -- 
 2.34.1
 
