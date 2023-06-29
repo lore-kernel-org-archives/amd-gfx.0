@@ -4,69 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0E9AEB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 08:20:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B412EB64DC
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 09:06:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB5CD10E167;
-	Thu, 29 Jun 2023 08:20:17 +0000 (UTC)
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [IPv6:2607:f8b0:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7BFD10E14B;
- Thu, 29 Jun 2023 08:20:14 +0000 (UTC)
-Received: by mail-pf1-x42f.google.com with SMTP id
- d2e1a72fcca58-657c4bcad0bso121325b3a.1; 
- Thu, 29 Jun 2023 01:20:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688026814; x=1690618814;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :to:subject:from:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to;
- bh=3ekq2//rgPNBeYEEizIXWWlTW0BlgF6AzeVi3W6aqWk=;
- b=gLh59snSNoiU7tTwAJb8m69dA0EkbBED24tNnjXXAa4t6Xv84z+0PbiAsW5M6aQP2Q
- IimpafEq4juTGZh/SKzqH0aY60u/B81xfbYbPVhRRt+8scMk1sai/4a5IRBmw8cCy8eR
- lMez6HIv64gXmFUAJ64U68BFGkofC7C5Z3yLEA/Eg34tVUKMQmXzOJlopI82jiA8gAnt
- zj9HXW8v/EpHKhk8ir96TGMeci1Y6YCH8i/MwwWMghP8eGFo6pjtn7va+pekPz55MDza
- xOelWSxbfLIC4ULyH4nRiJjCZl3gdi/5IcF4h6ewOjR24uEaAhJ7rwUCcr5LF92IGbg+
- qmnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688026814; x=1690618814;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :to:subject:from:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3ekq2//rgPNBeYEEizIXWWlTW0BlgF6AzeVi3W6aqWk=;
- b=PfjyoPD75c54SB6Wg7rDdvwPk7K753G6M4fi5zp1L4pPSthRoOdw/CxaAERXn8JWUw
- lfAcF7iTrGhlBhbcFgR9u5KR00yDFdpOeLYK3lXt07VCEdWHlamvTKIwgm/P8rJMlWiF
- KxttpiqJtDdk+n7ytRwayzpiCHAnzjUtgUpLbgZEBZ6e5Butq/r8qbMP50jXCy7V842P
- 3cqSuQw4cK626Ww836EdUNfbEymuxVqmAfmlUK6yW+v+SZARphxf5ygcxVq8LzeshYku
- azWTysxUZlixvBVIRA6Y6QyZheYF3o5GNSIh22CiwcuZVoQonNhHp8OdR8V2hSvkM8pM
- epYg==
-X-Gm-Message-State: AC+VfDzWPlljGGhFrKXUeuUM1AvKogUqJymnSpOOtuQe0si9OvQ7zFC6
- kMrhoZC0f/IE+TGAd//rjsk=
-X-Google-Smtp-Source: ACHHUZ7FM2u2Mak8pDEsLVfIxizeo2nY/DwLtfHzUm6ovUXRCyjoZPhkQJExFHJCZSCqYJRe2u+N4w==
-X-Received: by 2002:a05:6a20:432a:b0:126:c759:27f8 with SMTP id
- h42-20020a056a20432a00b00126c75927f8mr16009003pzk.2.1688026813753; 
- Thu, 29 Jun 2023 01:20:13 -0700 (PDT)
-Received: from [10.104.2.174] (zz20184013906F627101.userreverse.dion.ne.jp.
- [111.98.113.1]) by smtp.gmail.com with ESMTPSA id
- n13-20020a170903110d00b001b558c37f91sm8610183plh.288.2023.06.29.01.20.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jun 2023 01:20:12 -0700 (PDT)
-Message-ID: <dda5dd70-403a-273d-6506-cca5bc084f64@gmail.com>
-Date: Thu, 29 Jun 2023 17:20:10 +0900
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3EAA10E08E;
+	Thu, 29 Jun 2023 09:06:53 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2080.outbound.protection.outlook.com [40.107.94.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8570110E0D7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 09:06:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UjlGRc7tKmSuDaFSnkFZ56kiDNOmH1uN+3hDLx2M0U79Wz673fHCIYVnSBG+MqbsuA0DQf+rt57fA20KVzc66MlOZEF9K9NQXl/thN/skDDjOHozlGZyHXG5MeelQqLEVUcKfhHJpJrMNGdX3B/DMoJI4UJ2qV1hb++g3ICxqcZxFQ/G+NrP9694w/W50UStpSDzgQwjzu3oZ4+AQSm0LMidML0MjtaoX9dnSnTBM3LVYcnyCGdAkxs1ILy2zd5ERSpR74RPScAH05vHhnYV5QYzJoGDOsyvmDYt1RfRo95MQcI8Db6aauOIhSkLTQIoXKfWUWzdbDRvwJUxZhA/9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wuq4zP0UDxWdFjgT+Te60OqvdyPJpl1hrVzyX4jf6+Q=;
+ b=amFD+H8taOIKDp9OvJi7xGA8jj5R3S8KwRl8SfOoO4CbOGf6+e91ypB+LQUCyavFrepDUHIwqw3+z4EcL99DCKC187e7qH1IeiQ5FkETCSyGTO3d1eiuT66RhgbJ/beVAjwEEM+MeE59bOAIhXOMIKCJ29jbyc0VhsON56fk7933vGCHeAStpq4rO97mpB/tF65rSSeNCRGvgbWFVLPjdWa5BIROWLSSQ00QyjeKO+CUbCUcqbxwkBiecW6cLuSDpZRqRkdi9ANtbru2uJD7a5ag8qmHPcriRuY/bCSXt1LVTxH8MUh0LaTSip+eMQfi0qlcqFfTxgJByWz8WeA61g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wuq4zP0UDxWdFjgT+Te60OqvdyPJpl1hrVzyX4jf6+Q=;
+ b=drt5UwIfj5GlFzQ8Ae2PZ6ci78pnn6a45UNNHHGWp3y6FdghUgH+/t8cgW/d4HmNVjdYqWFuPtscCeTWMoEVFzKghEDWiKgAWxzvP+Nkr9lL9GpI3PJigl1RbX8uRnbndydYzRReKEJc/hyrIAPi6EWIr6JyYnpFbBCA/+dbYRw=
+Received: from MW4P222CA0003.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::8)
+ by SA0PR12MB4365.namprd12.prod.outlook.com (2603:10b6:806:96::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.26; Thu, 29 Jun
+ 2023 09:06:49 +0000
+Received: from CO1NAM11FT110.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:114:cafe::c8) by MW4P222CA0003.outlook.office365.com
+ (2603:10b6:303:114::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.34 via Frontend
+ Transport; Thu, 29 Jun 2023 09:06:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT110.mail.protection.outlook.com (10.13.175.125) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.47 via Frontend Transport; Thu, 29 Jun 2023 09:06:49 +0000
+Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 29 Jun
+ 2023 04:06:46 -0500
+From: Ma Jun <Jun.Ma2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
+ <Alexander.Deucher@amd.com>, <felix.kuehling@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix the mmio remap failure issue
+Date: Thu, 29 Jun 2023 17:06:28 +0800
+Message-ID: <20230629090628.3684956-1-Jun.Ma2@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-From: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
-Subject: Re: [PATCH 4/6] drm/amdgpu: use drm_exec for GEM and CSA handling
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com
-References: <20230628104446.1369-1-christian.koenig@amd.com>
- <20230628104446.1369-5-christian.koenig@amd.com>
-Content-Language: en-US
-In-Reply-To: <20230628104446.1369-5-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT110:EE_|SA0PR12MB4365:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e8d517b-43ce-417b-9c05-08db78802c08
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: PrH1pNV8iYznM77qjANIQCU63+NWg5SeT+TzIeqkpUXkLo2q1o4lqOweHgRvHGDi+AbctOwJ6KeDTtOHiJWc3DOM3Ro+4D5cijfKySkTnsjjMET2lnzfEqTcqXkFi2siqvYUOtTuCMfzILK6unuKdrj2sox/OMFXm7PX0aNXwnPE53yOCBcwjclN+bqxEHuz6SnhDVtGiTmYMvz/Xf4uIU5Y0HNl1vKXIEOKtkS7urqJ1oOKKyl8J7o2tIs5CkSKb2QLYHKeAnbVtNGXymofrgvNmCObrFC0wMU3wuIm91z0MsdochhJNqLAZy1Rv7lui6DJPAvH3ARKQ74L8+3916BY8N0B2c9NCKUhmm2iBCrj+medf6LiRpNkwPH7Sli9xLdlUawJIk60ozprtBhWQUFZp2y4yO7zorxa2aPKj5wnFEAam0YSg4BWC/oO7o9O78Nh6Qfzxrfd9pYwwTXlI4aO5nU+20vczFF/cgcGO9KgX02HiLoOVWHtDmz9zDAYk6G65iCtj0F4Wh+zk2xFZNrDsqS4GvzB0bJknFQ+n1cKwvqDW7GTYv/XK8DJftpPbDqMhmCVFeDD5llvNFhLotbVoGhFDX/axmKziiJv9euvVAr37rvgzqrUf9kpp82sah06l+6YFYNgmtq+M3bAVokRfP4sifEVFxtYYfA9MPfbOdjgmwccv+wC04MdyT8el8ZR4y5n4CqSywGlbgxF5RlItXdSjyD4MdU+iRscKbgRy0vBxbIUNICv4cT+2jztabcAIK0ED/QKCvj4yf2A9Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(376002)(346002)(136003)(39860400002)(451199021)(46966006)(36840700001)(40470700004)(5660300002)(1076003)(70586007)(316002)(478600001)(36756003)(4326008)(70206006)(6636002)(8676002)(8936002)(86362001)(4744005)(2906002)(26005)(110136005)(54906003)(36860700001)(40460700003)(40480700001)(41300700001)(82310400005)(6666004)(7696005)(356005)(16526019)(186003)(82740400003)(336012)(426003)(47076005)(83380400001)(2616005)(81166007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2023 09:06:49.1247 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e8d517b-43ce-417b-9c05-08db78802c08
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT110.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4365
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,80 +98,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Ma Jun <Jun.Ma2@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/28/23 19:44, Christian König wrote:
+Initialize the rmmio_remap to fix the mmio remap issue when start the
+kfdtest. The error message is as follows.
+"Failed to map remapped mmio page on gpu_mem 0"
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 74055cba3dc9..6811fc866494 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -728,36 +723,37 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->   		return -EINVAL;
->   	}
->   
-> -	INIT_LIST_HEAD(&list);
-> -	INIT_LIST_HEAD(&duplicates);
->   	if ((args->operation != AMDGPU_VA_OP_CLEAR) &&
->   	    !(args->flags & AMDGPU_VM_PAGE_PRT)) {
->   		gobj = drm_gem_object_lookup(filp, args->handle);
->   		if (gobj == NULL)
->   			return -ENOENT;
->   		abo = gem_to_amdgpu_bo(gobj);
-> -		tv.bo = &abo->tbo;
-> -		if (abo->flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID)
-> -			tv.num_shared = 1;
-> -		else
-> -			tv.num_shared = 0;
-> -		list_add(&tv.head, &list);
->   	} else {
->   		gobj = NULL;
->   		abo = NULL;
->   	}
->   
-> -	amdgpu_vm_get_pd_bo(&fpriv->vm, &list, &vm_pd);
-> +	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
+Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vi.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Sorry, I missed this last time, but this needs to allow duplicates as well or mapping
-always_valid BOs doesn't work.
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index 6a8494f98d3e..979f5223877f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -1458,8 +1458,14 @@ static const struct amdgpu_asic_funcs vi_asic_funcs =
+ 
+ static int vi_common_early_init(void *handle)
+ {
++#define MMIO_REG_HOLE_OFFSET (0x80000 - PAGE_SIZE)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
++	if (!amdgpu_sriov_vf(adev)) {
++		adev->rmmio_remap.reg_offset = MMIO_REG_HOLE_OFFSET;
++		adev->rmmio_remap.bus_addr = adev->rmmio_base + MMIO_REG_HOLE_OFFSET;
++	}
++
+ 	if (adev->flags & AMD_IS_APU) {
+ 		adev->smc_rreg = &cz_smc_rreg;
+ 		adev->smc_wreg = &cz_smc_wreg;
+-- 
+2.34.1
 
-> +	drm_exec_until_all_locked(&exec) {
-> +		if (gobj) {
-> +			r = drm_exec_lock_obj(&exec, gobj);
-> +			drm_exec_retry_on_contention(&exec);
-> +			if (unlikely(r))
-> +				goto error;
-> +		}
->   
-> -	r = ttm_eu_reserve_buffers(&ticket, &list, true, &duplicates);
-> -	if (r)
-> -		goto error_unref;
-> +		r = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 2);
-> +		drm_exec_retry_on_contention(&exec);
-> +		if (unlikely(r))
-> +			goto error;
-> +	}
->   
->   	if (abo) {
->   		bo_va = amdgpu_vm_bo_find(&fpriv->vm, abo);
->   		if (!bo_va) {
->   			r = -ENOENT;
-> -			goto error_backoff;
-> +			goto error;
->   		}
->   	} else if (args->operation != AMDGPU_VA_OP_CLEAR) {
->   		bo_va = fpriv->prt_va;
-> @@ -794,10 +790,8 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->   		amdgpu_gem_va_update_vm(adev, &fpriv->vm, bo_va,
->   					args->operation);
->   
-> -error_backoff:
-> -	ttm_eu_backoff_reservation(&ticket, &list);
-> -
-> -error_unref:
-> +error:
-> +	drm_exec_fini(&exec);
->   	drm_gem_object_put(gobj);
->   	return r;
->   }
