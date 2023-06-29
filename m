@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64394EB64DC
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 04:42:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F856EB64DD
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 04:42:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3A2D10E079;
-	Thu, 29 Jun 2023 04:42:49 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2065.outbound.protection.outlook.com [40.107.243.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B08B10E079
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 04:42:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F52910E0EA;
+	Thu, 29 Jun 2023 04:42:50 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EEAA10E103
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 04:42:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LmRnuddXhXY2PfFkISeywmx5h2bdl9DNM3Bum5+9ATLw5zKqGUZmnwpn6mLsJlTRL+fbdVNyw0RUk5DiIAmOr2vEGC1vr2cznkLUwXaNz+EWgTiIVH4iFi5Q2c4bMZMPGjeQWBoJSTRCmUIn9j4pS1MiQDJZEd3w0iMOuW2+DUlG3ITXZs3r2ltojQ799K2VH7lo+HIzllOYSUpN8HsVhyq+orbIcCtTO1EvSFKlEOxMShNB7DSY2Ta1J1vaEu64ZL9/ApDgKM7XyHVQZLxnivSxrOpguPfFHOWnSmSBS0NpbgVmsmFwi/gTxLK47YsODGX2K1KXVrSWz36eW+zAtw==
+ b=LhW+m0z4H5zOIgpPJdzcrian008w0TApGFz0kFgrGT6KCNTY8qhtn03inl8+YQjzJR3dhTEROo3GgxWeHGxi5hj0UZ4P6+/XJGlH0YiKdiZMyuxA8hmCzVi3LyCviYtUHPtzn9W6oG7nbKVPaW+URI0sv3thxuqfFs+lw0A0iniBDCO8LEJN/FDyX5IHoX4R9GP68Mj9zWO1H0WouA/qNJizUpynkJb15t40kvwdFLR0Aago6CPd/Uh3LI3Vmkk8mFjrxOpkTfOyx6v+aod0Vt0Ftu0faI8goQS27lg0BRV2kMyBIsmIYJf1jOVtejBSNXy/OGT7TWQ3RSWWoaubPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z7lErXXSLebLyiY72TF8yauhbRsVpbc2nfhS7gIhrdk=;
- b=a7bvUnCDFGCl0XRdeNiUDMRxkojduy++DB09TkDzIho8ZIoCjvmhNX/qO9ZoAMCsi1jNMJUeOszDJ0oJms9EnUisv1TKNqdqAeTI69DANcIT6janlbUY3PpHWwqRaJecWwtP1P4kOwXouzghPVL/MOguigVruRQdVllSJX7+UWSFuHSw3ze2P+WY+mCL5P1MDFjzEC4swtAZhYTLovU1HglxtxvLV+eAQlsFtC7+ld6gP4Ch6jCIFvtjcZ/kCyA9fnPSCok0olmNfcG6giPJ560meZc721JRngFGop3unzx0OzAWiCBbkmAbGpTYX/qbvN4bxEvwK4OwI1QC/wQ9cg==
+ bh=O84CYa3gpK20bwsuMb/O1xq2YplIa7nTSl6UD7lOv+c=;
+ b=oUq8VE+aBoBvlWRcyqhFdrgg3hMh2FKPQ9fdJjAlDWOaydbYgHlzoNwsgf/mu+TEtaE+avaRp6mEMo1lj4bQj3XANNdfLLSKY2S2QEme7SnoYuGHy5vpLeXdAhOP59yECCl/J324KRXnLzOtc99dokALmckL+C8+EiXhDY1xCkOIxGX6zMiSiO2g6FebTlxZtdaOOCWsazUqLDdFz/TupqFOgEH+7WYkv/eACtdAmbhUN1CQoh8SUbcInptTmCUb6rvAaWN9KYoF/fFi+MfI4Htx1TK5VNTFTCJIq+s8JWNwXW9W/vT2aKOxGFQ30D5poHDOuUyKlSTCTwzugRsxgg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z7lErXXSLebLyiY72TF8yauhbRsVpbc2nfhS7gIhrdk=;
- b=ETX3XcADZ27uKcyC9tL6EgceVE2YcD+USmijGqQH5RICd/WCtQvV9C+Teus+OCN1K8UQK6dsmy+6Ei3f29+6VhqmAgrnFyfs4kJLirTHXki2Y4nd/da0yaoWQoF1OYXZtUOnGLJU8DOXy1cPXS+i0bgyuUl6VuPKEEYga9Z/eCc=
-Received: from BN9P222CA0011.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::16)
- by MN2PR12MB4320.namprd12.prod.outlook.com (2603:10b6:208:15f::7)
+ bh=O84CYa3gpK20bwsuMb/O1xq2YplIa7nTSl6UD7lOv+c=;
+ b=cTzRlujO+LT22OoRQjpYmtZ7JOOLLpxUB3rAUlsQIu0bwiRaAaa24QN074OSQdCFW3AIx1iEvtncaVa0dF2MtnWo+9e1OR0GwzQGQ6nfRaS5r5fB9lW08NVhnjAmRp6mcdZJ1TReyc5D1ZJYWHK0vpkgb6RRQ4RTwCNWzwzg4AQ=
+Received: from BN9P222CA0019.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::24)
+ by IA0PR12MB8228.namprd12.prod.outlook.com (2603:10b6:208:402::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Thu, 29 Jun
- 2023 04:42:41 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Thu, 29 Jun
+ 2023 04:42:43 +0000
 Received: from BN8NAM11FT040.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10c:cafe::79) by BN9P222CA0011.outlook.office365.com
- (2603:10b6:408:10c::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.20 via Frontend
- Transport; Thu, 29 Jun 2023 04:42:41 +0000
+ (2603:10b6:408:10c:cafe::d9) by BN9P222CA0019.outlook.office365.com
+ (2603:10b6:408:10c::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.34 via Frontend
+ Transport; Thu, 29 Jun 2023 04:42:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,18 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT040.mail.protection.outlook.com (10.13.177.166) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.49 via Frontend Transport; Thu, 29 Jun 2023 04:42:40 +0000
+ 15.20.6500.49 via Frontend Transport; Thu, 29 Jun 2023 04:42:43 +0000
 Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 28 Jun
- 2023 23:42:38 -0500
+ 2023 23:42:40 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Rodrigo Siqueira
  <Rodrigo.Siqueira@amd.com>, Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH 5/6] drm/amd/display: Clean up warnings in amdgpu_dm
- _mst_types, _plane, _psr.c
-Date: Thu, 29 Jun 2023 10:12:07 +0530
-Message-ID: <20230629044208.2266584-6-srinivasan.shanmugam@amd.com>
+Subject: [PATCH 6/6] drm/amd/display: Eliminate warnings in amdgpu_dm_helpers.c
+Date: Thu, 29 Jun 2023 10:12:08 +0530
+Message-ID: <20230629044208.2266584-7-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230629044208.2266584-1-srinivasan.shanmugam@amd.com>
 References: <20230629044208.2266584-1-srinivasan.shanmugam@amd.com>
@@ -70,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT040:EE_|MN2PR12MB4320:EE_
-X-MS-Office365-Filtering-Correlation-Id: b2d27c79-e6e0-4811-ae5e-08db785b45b6
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT040:EE_|IA0PR12MB8228:EE_
+X-MS-Office365-Filtering-Correlation-Id: b747ef00-340d-4e01-d720-08db785b4706
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RQPxKrv5C+vMPHpd4SRVtpEwYzlAMABsN0qMKPiqvQxedozoRbOX+HAMit1PsegRQdQ0a578UxaA/Nt2+5+AFrHFHE4JR2NlwWNFRZGxeLIkoOS4GESroUKeH48OqTxyFANMTsCjJj7yvjv8BdAy+Kbd0OPX1rPonsdmwXDraLMKVZRmGkYyOU1DGHiZJgdXEB565egmasI1gkdpB6tOHLE8+3Xh3egJ0cSjRAsySLCOlunKijZbA/lCW+qx+oKL6sSYOuZHGM/gDIrgLuZVb0h2zlFYE/ZKRe54cohqNFZmFKqI5SjpJA2vmBRaIa6wUlewyj0Uo7vbkMGFCBj+0/UUwik37+h1XTARuQsT0h+6ZT8vs4p9T13pD/Og1IC6lBe8wscZpdH0ci+T419ITE5Cn2eclz5UGColWisFufhRchO3nF+7XRCsQv7rVEjo+BkUcZc815xgWDmFDXqqAyfJzLackDTa7r2NI7+JhymOnQRzan6/+FESRK80saV0i+HvTDcGxuf/8VhZpt/yHbuIze+9dGLDp8IJTUyhoF8/7M91Vrbsjh82pgV/MXc1ji1A7s01mEXH7Gke/A/aMuvdhK7fY47yvOu6N9Lv13zBt0gKot/J+0I3gM5/M+L3/jJlAXqELeq4K8IFK0UsO1mxwtE2qpTvbw+gwS0KjDybNIe9nAelx8ks9udSYhOAxn1KjtMo8IBrSh4eA8GFpvc7rgISQiqDroElC7mTfQO1gJiAOVINuSQbKYsbwPeeEUrRzgDbzxIQ7nSil7Y4DQ==
+X-Microsoft-Antispam-Message-Info: 3dhWBLXkzkvT1lTf2yeHI0PUl9qiiJJ+Y0F2QAZNTwfVgcgb6o56WcuhyIEKjK4ezoTej6JUJTjf2E1PP2NLoi5YIk4zPVqRE0Jt/AD1J1HgV5A3Oar5ZEXd55Bv+cP7Sby14SjaiT2UUR3y/hlw0TviGp4TpLiU2B7cF42GJXjenyo4gq7TybZyb+wieo5jL+UWUW9FrK9GO03u03BYnRW16i1RGRZR47VjP3Z6ZQLv1ASaLj06ZGZc50VN0+BS/JOpuCXSTMn4YbePnoe3DEULUgETVnzHgOi1U9LJIHXdM0czu8XU6HTO+IB3Z+vKR/LkG3YfO41BDv/N/uicAjet3fRvGGVqXGcXRNFSiaQVZdOH/NagwNU/R/80Xlcu62OJwNsenVXAfnWcwPWx71SmHlTarICbia83YPMIhR/zTEt7lJU4iBfp+54GahCzHXh52p4LUIoO499nJolwL3cwiMhOe2KbBfHbyUoY+YWdDDrXRp4lSiwx+F5Qtd7M1HE7h66DmT5rygQTHN6q3HzlFow//LW+/zWbHVSp8MixfsUSEMIrsLWo/1qnXBFTgtM0Ep9EwcKDu7tOpTibvLlyqrVpgA/G65Z7CjjUBwIegQj6ZLR4f67HPu1xBH5d/2OVCvS1dDiFJRm1RollovmOGPDU/AhpmlqFh0g80ucx2pTnTs6WzaKCsiVDeT+mT+pQUpWBi8o+81dmNjG4s+rezm2yI7IvhJW4cQ29TFwuVUITefM6zWTG4/qgndLV1tk7d6lFeRLVl30wLLKeHg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(346002)(136003)(376002)(39860400002)(451199021)(40470700004)(46966006)(36840700001)(316002)(70586007)(6636002)(5660300002)(4326008)(70206006)(478600001)(36756003)(8676002)(8936002)(44832011)(47076005)(1076003)(40460700003)(36860700001)(86362001)(40480700001)(54906003)(41300700001)(110136005)(2906002)(82310400005)(7696005)(426003)(6666004)(336012)(186003)(16526019)(83380400001)(356005)(82740400003)(81166007)(26005)(2616005)(36900700001);
+ SFS:(13230028)(4636009)(39860400002)(396003)(136003)(376002)(346002)(451199021)(40470700004)(36840700001)(46966006)(44832011)(5660300002)(4326008)(70206006)(478600001)(36756003)(316002)(6636002)(70586007)(8936002)(8676002)(2906002)(16526019)(40460700003)(110136005)(36860700001)(54906003)(41300700001)(82310400005)(7696005)(40480700001)(186003)(86362001)(47076005)(6666004)(426003)(26005)(336012)(356005)(1076003)(81166007)(2616005)(82740400003)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2023 04:42:40.9389 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2d27c79-e6e0-4811-ae5e-08db785b45b6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2023 04:42:43.1419 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b747ef00-340d-4e01-d720-08db785b4706
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT040.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4320
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8228
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,64 +107,110 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following warnings reported by checkpatch:
 
-WARNING: Missing a blank line after declarations
-WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
+WARNING: Block comments use a trailing */ on a separate line
+WARNING: Prefer using '"%s...", __func__' to using 'execute_synaptics_rc_command', this function's name, in a string
+WARNING: Prefer using '"%s...", __func__' to using 'apply_synaptics_fifo_reset_wa', this function's name, in a string
+WARNING: braces {} are not necessary for single statement blocks
 
 Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 1 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c     | 4 ++--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c       | 1 +
- 3 files changed, 4 insertions(+), 2 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 29 +++++++++----------
+ 1 file changed, 14 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 46d0a8f57e55..95eefa6b4f2f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -296,6 +296,7 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
- 
- 	if (!aconnector->edid) {
- 		struct edid *edid;
-+
- 		edid = drm_dp_mst_get_edid(connector, &aconnector->mst_root->mst_mgr, aconnector->mst_output_port);
- 
- 		if (!edid) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 322668973747..de1c7026ffcd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -164,7 +164,7 @@ static bool modifier_has_dcc(uint64_t modifier)
- 	return IS_AMD_FMT_MOD(modifier) && AMD_FMT_MOD_GET(DCC, modifier);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index a6be04ad387f..66909bb5e5b0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -68,15 +68,13 @@ static void apply_edid_quirks(struct edid *edid, struct dc_edid_caps *edid_caps)
+ 	}
  }
  
--static unsigned modifier_gfx9_swizzle_mode(uint64_t modifier)
-+static unsigned int modifier_gfx9_swizzle_mode(uint64_t modifier)
- {
- 	if (modifier == DRM_FORMAT_MOD_LINEAR)
- 		return 0;
-@@ -581,7 +581,7 @@ static void add_gfx11_modifiers(struct amdgpu_device *adev,
- 	int pkrs = 0;
- 	u32 gb_addr_config;
- 	u8 i = 0;
--	unsigned swizzle_r_x;
-+	unsigned int swizzle_r_x;
- 	uint64_t modifier_r_x;
- 	uint64_t modifier_dcc_best;
- 	uint64_t modifier_dcc_4k;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-index 4f61d4f257cd..08ce3bb8f640 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
-@@ -166,6 +166,7 @@ bool amdgpu_dm_psr_enable(struct dc_stream_state *stream)
- 	 */
- 	if (vsync_rate_hz != 0) {
- 		unsigned int frame_time_microsec = 1000000 / vsync_rate_hz;
-+
- 		num_frames_static = (30000 / frame_time_microsec) + 1;
+-/* dm_helpers_parse_edid_caps
++/**
++ * dm_helpers_parse_edid_caps() - Parse edid caps
+  *
+- * Parse edid caps
++ * @edid_caps:	[in] pointer to edid caps
+  *
+- * @edid:	[in] pointer to edid
+- *  edid_caps:	[in] pointer to edid caps
+- * @return
+- *	void
+- * */
++ * Return: void
++ */
+ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 		struct dc_link *link,
+ 		const struct dc_edid *edid,
+@@ -255,7 +253,8 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+ 	/* Accessing the connector state is required for vcpi_slots allocation
+ 	 * and directly relies on behaviour in commit check
+ 	 * that blocks before commit guaranteeing that the state
+-	 * is not gonna be swapped while still in use in commit tail */
++	 * is not gonna be swapped while still in use in commit tail
++	 */
+ 
+ 	if (!aconnector || !aconnector->mst_root)
+ 		return false;
+@@ -282,7 +281,8 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+ 	/* mst_mgr->->payloads are VC payload notify MST branch using DPCD or
+ 	 * AUX message. The sequence is slot 1-63 allocated sequence for each
+ 	 * stream. AMD ASIC stream slot allocation should follow the same
+-	 * sequence. copy DRM MST allocation to dc */
++	 * sequence. copy DRM MST allocation to dc
++	 */
+ 	fill_dc_mst_payload_table_from_drm(stream->link, enable, target_payload, proposed_table);
+ 
+ 	return true;
+@@ -633,7 +633,7 @@ static bool execute_synaptics_rc_command(struct drm_dp_aux *aux,
+ 	ret = drm_dp_dpcd_write(aux, SYNAPTICS_RC_COMMAND, &rc_cmd, sizeof(rc_cmd));
+ 
+ 	if (ret < 0) {
+-		DRM_ERROR("	execute_synaptics_rc_command - write cmd ..., err = %d\n", ret);
++		DRM_ERROR("%s: write cmd ..., err = %d\n",  __func__, ret);
+ 		return false;
  	}
  
+@@ -655,7 +655,7 @@ static bool execute_synaptics_rc_command(struct drm_dp_aux *aux,
+ 		drm_dp_dpcd_read(aux, SYNAPTICS_RC_DATA, data, length);
+ 	}
+ 
+-	DC_LOG_DC("	execute_synaptics_rc_command - success = %d\n", success);
++	DC_LOG_DC("%s: success = %d\n", __func__, success);
+ 
+ 	return success;
+ }
+@@ -664,7 +664,7 @@ static void apply_synaptics_fifo_reset_wa(struct drm_dp_aux *aux)
+ {
+ 	unsigned char data[16] = {0};
+ 
+-	DC_LOG_DC("Start apply_synaptics_fifo_reset_wa\n");
++	DC_LOG_DC("Start %s\n", __func__);
+ 
+ 	// Step 2
+ 	data[0] = 'P';
+@@ -722,7 +722,7 @@ static void apply_synaptics_fifo_reset_wa(struct drm_dp_aux *aux)
+ 	if (!execute_synaptics_rc_command(aux, true, 0x02, 0, 0, NULL))
+ 		return;
+ 
+-	DC_LOG_DC("Done apply_synaptics_fifo_reset_wa\n");
++	DC_LOG_DC("Done %s\n", __func__);
+ }
+ 
+ /* MST Dock */
+@@ -995,9 +995,8 @@ void dm_helpers_override_panel_settings(
+ 	struct dc_panel_config *panel_config)
+ {
+ 	// Feature DSC
+-	if (amdgpu_dc_debug_mask & DC_DISABLE_DSC) {
++	if (amdgpu_dc_debug_mask & DC_DISABLE_DSC)
+ 		panel_config->dsc.disable_dsc_edp = true;
+-	}
+ }
+ 
+ void *dm_helpers_allocate_gpu_mem(
 -- 
 2.25.1
 
