@@ -4,67 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36D9BEB64DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 14:37:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 849AFEB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 14:42:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B17D410E3DA;
-	Thu, 29 Jun 2023 14:37:09 +0000 (UTC)
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BE2210E3DA
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 14:37:07 +0000 (UTC)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-4f76a0a19d4so1148710e87.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 07:37:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688049425; x=1690641425;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=fqOrfB3nX1jZJ4uzfN1fClbwfs+HlEk2Zbi9cPctxsw=;
- b=eYnnXVm482EOwn4DV+l3lMgpyAdju7DoGL6vwszgQPd8cKyM3nAWaDgEkw0cqUnWQG
- rerFTGakvaOACd81dg86Xvb0HH1ku+S8B65U2p7+T5haynlTP8lSSRE7u3X2Jl/V+WVH
- 65EWtUDeWsUkCzBvyGCnfN/2VsdS5VifuFfCvPzMRm87z2i06/CN7MCbZHO5tAc6u6Nm
- TgLZYTKO72c2I866TDarNzLaxIIla38TYoL0hexCU4V+ZZo7EB9yYGmiO2zzCRpKX7G7
- nRfHRfJUGcq+OpUxNhUW3ToEg39tHkRYt5w5UX5iVV8J2L5PEL/556tGMkYtt5K0jXB7
- 0G8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688049425; x=1690641425;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=fqOrfB3nX1jZJ4uzfN1fClbwfs+HlEk2Zbi9cPctxsw=;
- b=aQ412CBxCINUgH6vnPHP2zofmy02+dT5CGNZ4TBN9iU3rqcKCWMWrpsHTnO/5F/Aif
- 8eYizD+fkpYpmM1HSCRKPjHlhHoeN810n+LTfc4MpQnYEitMSe8owzqndgf+GtnIOtma
- 0+IQz1jTORxU04GKLq52kdd4haC5d1vOW5L92zb1gxBs2b2PoF7FQtiexESvAxU9rCGM
- mQJzJciukvi2sQZYMZctzXDtz4nnDGGEE5Sv7damaVlI23E0T4YLV882Bcs4GEqTWWRu
- OaWXzpfA9ccmH+a2hdeIKm37gvPJBlOwgOgX9mqkDhCZ+g6MvSktZ4lkKl4wdszDCIWk
- J0yg==
-X-Gm-Message-State: AC+VfDy0DYnpeqOLhr46qSOQ4BNQM0iJn8HZ0+xMtrLIZADb/2qbmJCW
- Wncpjv1w/yfoowPJnkiAxUw=
-X-Google-Smtp-Source: ACHHUZ4o75v/wLcAIUGdMVKIA0x9tNmLVIytYB99ziVFoi6kzUG2AtqFRnZxgD17oAH0Ccg7VVzdfQ==
-X-Received: by 2002:a05:651c:1206:b0:2b6:c465:b6cb with SMTP id
- i6-20020a05651c120600b002b6c465b6cbmr2476068lja.42.1688049424477; 
- Thu, 29 Jun 2023 07:37:04 -0700 (PDT)
-Received: from ?IPV6:2a00:e180:15af:8a00:54e3:8652:e343:aef4?
- ([2a00:e180:15af:8a00:54e3:8652:e343:aef4])
- by smtp.gmail.com with ESMTPSA id
- d10-20020a056402078a00b0051de38eb925sm492616edy.93.2023.06.29.07.37.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jun 2023 07:37:03 -0700 (PDT)
-Message-ID: <e72a7ddf-e6b8-0c03-eabe-ba4ce445a061@gmail.com>
-Date: Thu, 29 Jun 2023 16:37:03 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38EFE10E3D8;
+	Thu, 29 Jun 2023 14:42:11 +0000 (UTC)
+Received: from 189.cn (ptr.189.cn [183.61.185.104])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B3BD910E3D8;
+ Thu, 29 Jun 2023 14:42:05 +0000 (UTC)
+HMM_SOURCE_IP: 10.64.8.31:35364.1849375783
+HMM_ATTACHE_NUM: 0000
+HMM_SOURCE_TYPE: SMTP
+Received: from clientip-114.242.206.180 (unknown [10.64.8.31])
+ by 189.cn (HERMES) with SMTP id 85BF11001F4;
+ Thu, 29 Jun 2023 22:41:52 +0800 (CST)
+Received: from  ([114.242.206.180])
+ by gateway-151646-dep-75648544bd-xp9j7 with ESMTP id
+ d951c9669f8b4dc1b643b8be72c86a33 for 15330273260@189.cn; 
+ Thu, 29 Jun 2023 22:41:56 CST
+X-Transaction-ID: d951c9669f8b4dc1b643b8be72c86a33
+X-Real-From: 15330273260@189.cn
+X-Receive-IP: 114.242.206.180
+X-MEDUSA-Status: 0
+Message-ID: <714fd097-2c22-8e5f-61b7-1d165874f98e@189.cn>
+Date: Thu, 29 Jun 2023 22:41:51 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCHv4] drm/amdgpu: Update invalid PTE flag setting
+To: Sui Jingfeng <15330273260@189.cn>, Bjorn Helgaas <bhelgaas@google.com>
+References: <20230613030151.216625-1-15330273260@189.cn>
+ <20230613030151.216625-7-15330273260@189.cn>
 Content-Language: en-US
-To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230619173825.1461932-1-mukul.joshi@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230619173825.1461932-1-mukul.joshi@amd.com>
+From: Sui Jingfeng <15330273260@189.cn>
+Subject: Re: [PATCH v7 6/8] PCI/VGA: Introduce is_boot_device function
+ callback to vga_client_register
+In-Reply-To: <20230613030151.216625-7-15330273260@189.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,197 +52,279 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, christian.koenig@amd.com
+Cc: linux-fbdev@vger.kernel.org, Cornelia Huck <cohuck@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Likun Gao <Likun.Gao@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Ville Syrjala <ville.syrjala@linux.intel.com>, Yi Liu <yi.l.liu@intel.com>,
+ kvm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
+ linux-pci@vger.kernel.org, Kevin Tian <kevin.tian@intel.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Bokun Zhang <Bokun.Zhang@amd.com>, intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Abhishek Sahu <abhsahu@nvidia.com>, Maxime Ripard <mripard@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Yishai Hadas <yishaih@nvidia.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 19.06.23 um 19:38 schrieb Mukul Joshi:
-> Update the invalid PTE flag setting with TF enabled.
-> This is to ensure, in addition to transitioning the
-> retry fault to a no-retry fault, it also causes the
-> wavefront to enter the trap handler. With the current
-> setting, the fault only transitions to a no-retry fault.
-> Additionally, have 2 sets of invalid PTE settings, one for
-> TF enabled, the other for TF disabled. The setting with
-> TF disabled, doesn't work with TF enabled.
+Hi,
+
+
+Humble ping !
+
+
+Please share some bandwidth to help reviewing this series, OK ?
+
+
+As this series is useful for all architecture, I have tested on my X86, 
+mips and LoongArch computer.
+
+Questions and comments is also welcome.
+
+If no one response within three days,
+
+I'm going to send a updated version with another trivial improvement, OK?
+
+On 2023/6/13 11:01, Sui Jingfeng wrote:
+> From: Sui Jingfeng <suijingfeng@loongson.cn>
 >
-> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-
-Acked-by: Christian König <christian.koenig@amd.com>
-
+> The vga_is_firmware_default() function is arch-dependent, it's probably
+> wrong if we simply remove the arch guard. As the VRAM BAR which contains
+> firmware framebuffer may move, while the lfb_base and lfb_size members of
+> the screen_info does not change accordingly. In short, it should take the
+> re-allocation of the PCI BAR into consideration.
+>
+> With the observation that device drivers or video aperture helpers may
+> have better knowledge about which PCI bar contains the firmware fb,
+> which could avoid the need to iterate all of the PCI BARs. But as a PCI
+> function at pci/vgaarb.c, vga_is_firmware_default() is not suitable to
+> make such an optimization since it is loaded too early.
+>
+> There are PCI display controllers that don't have a dedicated VRAM bar,
+> this function will lose its effectiveness in such a case. Luckily, the
+> device driver can provide an accurate workaround.
+>
+> Therefore, this patch introduces a callback that allows the device driver
+> to tell the VGAARB if the device is the default boot device. This patch
+> only intends to introduce the mechanism, while the implementation is left
+> to the device driver authors. Also honor the comment: "Clients have two
+> callback mechanisms they can use"
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian Konig <christian.koenig@amd.com>
+> Cc: Pan Xinhui <Xinhui.Pan@amd.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> Cc: Ben Skeggs <bskeggs@redhat.com>
+> Cc: Karol Herbst <kherbst@redhat.com>
+> Cc: Lyude Paul <lyude@redhat.com>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Alex Williamson <alex.williamson@redhat.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Lijo Lazar <lijo.lazar@amd.com>
+> Cc: YiPeng Chai <YiPeng.Chai@amd.com>
+> Cc: Bokun Zhang <Bokun.Zhang@amd.com>
+> Cc: Likun Gao <Likun.Gao@amd.com>
+> Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+> Cc: Jason Gunthorpe <jgg@ziepe.ca>
+> CC: Kevin Tian <kevin.tian@intel.com>
+> Cc: Cornelia Huck <cohuck@redhat.com>
+> Cc: Yishai Hadas <yishaih@nvidia.com>
+> Cc: Abhishek Sahu <abhsahu@nvidia.com>
+> Cc: Yi Liu <yi.l.liu@intel.com>
+> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 > ---
-> v1->v2:
-> - Update handling according to Christian's feedback.
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
+>   drivers/gpu/drm/i915/display/intel_vga.c   |  3 +--
+>   drivers/gpu/drm/nouveau/nouveau_vga.c      |  2 +-
+>   drivers/gpu/drm/radeon/radeon_device.c     |  2 +-
+>   drivers/pci/vgaarb.c                       | 21 ++++++++++++++++++++-
+>   drivers/vfio/pci/vfio_pci_core.c           |  2 +-
+>   include/linux/vgaarb.h                     |  8 +++++---
+>   7 files changed, 30 insertions(+), 10 deletions(-)
 >
-> v2->v3:
-> - Remove ASIC specific callback (Felix).
->
-> v3->v4:
-> - Add noretry flag to amdgpu->gmc. This allows to set
->    ASIC specific flags.
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h   |  2 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  6 +++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 31 +++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c    |  1 +
->   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c    |  1 +
->   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c     |  1 +
->   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c     |  1 +
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c     |  1 +
->   9 files changed, 45 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> index 56d73fade568..fdc25cd559b6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-> @@ -331,6 +331,8 @@ struct amdgpu_gmc {
->   	u64 VM_CONTEXT_PAGE_TABLE_END_ADDR_LO32[16];
->   	u64 VM_CONTEXT_PAGE_TABLE_END_ADDR_HI32[16];
->   	u64 MC_VM_MX_L1_TLB_CNTL;
-> +
-> +	u64 noretry_flags;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 5c7d40873ee2..7a096f2d5c16 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3960,7 +3960,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>   	/* this will fail for cards that aren't VGA class devices, just
+>   	 * ignore it */
+>   	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
+> -		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
+> +		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode, NULL);
+>   
+>   	px = amdgpu_device_supports_px(ddev);
+>   
+> diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
+> index 286a0bdd28c6..98d7d4dffe9f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vga.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vga.c
+> @@ -115,7 +115,6 @@ intel_vga_set_decode(struct pci_dev *pdev, bool enable_decode)
+>   
+>   int intel_vga_register(struct drm_i915_private *i915)
+>   {
+> -
+>   	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+>   	int ret;
+>   
+> @@ -127,7 +126,7 @@ int intel_vga_register(struct drm_i915_private *i915)
+>   	 * then we do not take part in VGA arbitration and the
+>   	 * vga_client_register() fails with -ENODEV.
+>   	 */
+> -	ret = vga_client_register(pdev, intel_vga_set_decode);
+> +	ret = vga_client_register(pdev, intel_vga_set_decode, NULL);
+>   	if (ret && ret != -ENODEV)
+>   		return ret;
+>   
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
+> index f8bf0ec26844..162b4f4676c7 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_vga.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
+> @@ -92,7 +92,7 @@ nouveau_vga_init(struct nouveau_drm *drm)
+>   		return;
+>   	pdev = to_pci_dev(dev->dev);
+>   
+> -	vga_client_register(pdev, nouveau_vga_set_decode);
+> +	vga_client_register(pdev, nouveau_vga_set_decode, NULL);
+>   
+>   	/* don't register Thunderbolt eGPU with vga_switcheroo */
+>   	if (pci_is_thunderbolt_attached(pdev))
+> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+> index afbb3a80c0c6..71f2ff39d6a1 100644
+> --- a/drivers/gpu/drm/radeon/radeon_device.c
+> +++ b/drivers/gpu/drm/radeon/radeon_device.c
+> @@ -1425,7 +1425,7 @@ int radeon_device_init(struct radeon_device *rdev,
+>   	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
+>   	/* this will fail for cards that aren't VGA class devices, just
+>   	 * ignore it */
+> -	vga_client_register(rdev->pdev, radeon_vga_set_decode);
+> +	vga_client_register(rdev->pdev, radeon_vga_set_decode, NULL);
+>   
+>   	if (rdev->flags & RADEON_IS_PX)
+>   		runtime = true;
+> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+> index ceb914245383..c574898380f0 100644
+> --- a/drivers/pci/vgaarb.c
+> +++ b/drivers/pci/vgaarb.c
+> @@ -53,6 +53,7 @@ struct vga_device {
+>   	bool bridge_has_one_vga;
+>   	bool is_firmware_default;	/* device selected by firmware */
+>   	unsigned int (*set_decode)(struct pci_dev *pdev, bool decode);
+> +	bool (*is_boot_device)(struct pci_dev *pdev);
 >   };
 >   
->   #define amdgpu_gmc_flush_gpu_tlb(adev, vmid, vmhub, type) ((adev)->gmc.gmc_funcs->flush_gpu_tlb((adev), (vmid), (vmhub), (type)))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index eff73c428b12..8c7861a4d75d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2604,7 +2604,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
->   		/* Intentionally setting invalid PTE flag
->   		 * combination to force a no-retry-fault
->   		 */
-> -		flags = AMDGPU_PTE_SNOOPED | AMDGPU_PTE_PRT;
-> +		flags = AMDGPU_VM_NORETRY_FLAGS;
->   		value = 0;
->   	} else if (amdgpu_vm_fault_stop == AMDGPU_VM_FAULT_STOP_NEVER) {
->   		/* Redirect the access to the dummy page */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 9c85d494f2a2..b81fcb962d8f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -84,7 +84,13 @@ struct amdgpu_mem_stats;
->   /* PDE Block Fragment Size for VEGA10 */
->   #define AMDGPU_PDE_BFS(a)	((uint64_t)a << 59)
->   
-> +/* Flag combination to set no-retry with TF disabled */
-> +#define AMDGPU_VM_NORETRY_FLAGS	(AMDGPU_PTE_EXECUTABLE | AMDGPU_PDE_PTE | \
-> +				AMDGPU_PTE_TF)
->   
-> +/* Flag combination to set no-retry with TF enabled */
-> +#define AMDGPU_VM_NORETRY_FLAGS_TF (AMDGPU_PTE_VALID | AMDGPU_PTE_SYSTEM | \
-> +				   AMDGPU_PTE_PRT)
->   /* For GFX9 */
->   #define AMDGPU_PTE_MTYPE_VG10(a)	((uint64_t)(a) << 57)
->   #define AMDGPU_PTE_MTYPE_VG10_MASK	AMDGPU_PTE_MTYPE_VG10(3ULL)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index dea1a64be44d..24ddf6a0512a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -778,6 +778,27 @@ int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
->   					1, 0, flags);
->   }
->   
-> +/**
-> + * amdgpu_vm_pte_update_noretry_flags - Update PTE no-retry flags
-> + *
-> + * @adev - amdgpu_device pointer
-> + * @flags: pointer to PTE flags
-> + *
-> + * Update PTE no-retry flags when TF is enabled.
-> + */
-> +static void amdgpu_vm_pte_update_noretry_flags(struct amdgpu_device *adev,
-> +						uint64_t *flags)
-> +{
-> +	/*
-> +	 * Update no-retry flags with the corresponding TF
-> +	 * no-retry combination.
-> +	 */
-> +	if ((*flags & AMDGPU_VM_NORETRY_FLAGS) == AMDGPU_VM_NORETRY_FLAGS) {
-> +		*flags &= ~AMDGPU_VM_NORETRY_FLAGS;
-> +		*flags |= adev->gmc.noretry_flags;
-> +	}
-> +}
-> +
->   /*
->    * amdgpu_vm_pte_update_flags - figure out flags for PTE updates
+>   static LIST_HEAD(vga_list);
+> @@ -969,6 +970,10 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
+>    * @set_decode callback: If a client can disable its GPU VGA resource, it
+>    * will get a callback from this to set the encode/decode state.
 >    *
-> @@ -804,6 +825,16 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
->   		flags |= AMDGPU_PTE_EXECUTABLE;
->   	}
+> + * @is_boot_device: callback to the device driver, query if a client is the
+> + * default boot device, as the device driver typically has better knowledge
+> + * if specific device is the boot device. But this callback is optional.
+> + *
+>    * Rationale: we cannot disable VGA decode resources unconditionally, some
+>    * single GPU laptops seem to require ACPI or BIOS access to the VGA registers
+>    * to control things like backlights etc. Hopefully newer multi-GPU laptops do
+> @@ -984,7 +989,8 @@ EXPORT_SYMBOL(vga_set_legacy_decoding);
+>    * Returns: 0 on success, -1 on failure
+>    */
+>   int vga_client_register(struct pci_dev *pdev,
+> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool decode))
+> +		unsigned int (*set_decode)(struct pci_dev *pdev, bool decode),
+> +		bool (*is_boot_device)(struct pci_dev *pdev))
+>   {
+>   	int ret = -ENODEV;
+>   	struct vga_device *vgadev;
+> @@ -996,6 +1002,7 @@ int vga_client_register(struct pci_dev *pdev,
+>   		goto bail;
 >   
-> +	/*
-> +	 * Update no-retry flags to use the no-retry flag combination
-> +	 * with TF enabled. The AMDGPU_VM_NORETRY_FLAGS flag combination
-> +	 * does not work when TF is enabled. So, replace them with
-> +	 * AMDGPU_VM_NORETRY_FLAGS_TF flag combination which works for
-> +	 * all cases.
-> +	 */
-> +	if (level == AMDGPU_VM_PTB)
-> +		amdgpu_vm_pte_update_noretry_flags(adev, &flags);
+>   	vgadev->set_decode = set_decode;
+> +	vgadev->is_boot_device = is_boot_device;
+>   	ret = 0;
+>   
+>   bail:
+> @@ -1523,6 +1530,18 @@ static int pci_notify(struct notifier_block *nb, unsigned long action,
+>   		notify = vga_arbiter_add_pci_device(pdev);
+>   	else if (action == BUS_NOTIFY_DEL_DEVICE)
+>   		notify = vga_arbiter_del_pci_device(pdev);
+> +	else if (action == BUS_NOTIFY_BOUND_DRIVER) {
+> +		struct vga_device *vgadev = vgadev_find(pdev);
+> +		bool boot_dev = false;
 > +
->   	/* APUs mapping system memory may need different MTYPEs on different
->   	 * NUMA nodes. Only do this for contiguous ranges that can be assumed
->   	 * to be on the same NUMA node.
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 0c8a47989576..13b89f78d07d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -751,6 +751,7 @@ static int gmc_v10_0_early_init(void *handle)
->   	adev->gmc.private_aperture_start = 0x1000000000000000ULL;
->   	adev->gmc.private_aperture_end =
->   		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
-> +	adev->gmc.noretry_flags = AMDGPU_VM_NORETRY_FLAGS_TF;
+> +		if (vgadev && vgadev->is_boot_device)
+> +			boot_dev = vgadev->is_boot_device(pdev);
+> +
+> +		if (boot_dev) {
+> +			vgaarb_info(&pdev->dev, "Set as boot device (dictated by driver)\n");
+> +			vga_set_default_device(pdev);
+> +		}
+> +	}
 >   
+>   	vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
+>   
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> index a5ab416cf476..2a8873a330ba 100644
+> --- a/drivers/vfio/pci/vfio_pci_core.c
+> +++ b/drivers/vfio/pci/vfio_pci_core.c
+> @@ -2067,7 +2067,7 @@ static int vfio_pci_vga_init(struct vfio_pci_core_device *vdev)
+>   	if (ret)
+>   		return ret;
+>   
+> -	ret = vga_client_register(pdev, vfio_pci_set_decode);
+> +	ret = vga_client_register(pdev, vfio_pci_set_decode, NULL);
+>   	if (ret)
+>   		return ret;
+>   	vga_set_legacy_decoding(pdev, vfio_pci_set_decode(pdev, false));
+> diff --git a/include/linux/vgaarb.h b/include/linux/vgaarb.h
+> index 97129a1bbb7d..dfde5a6ba55a 100644
+> --- a/include/linux/vgaarb.h
+> +++ b/include/linux/vgaarb.h
+> @@ -33,7 +33,8 @@ struct pci_dev *vga_default_device(void);
+>   void vga_set_default_device(struct pci_dev *pdev);
+>   int vga_remove_vgacon(struct pci_dev *pdev);
+>   int vga_client_register(struct pci_dev *pdev,
+> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool state));
+> +		unsigned int (*set_decode)(struct pci_dev *pdev, bool state),
+> +		bool (*is_boot_device)(struct pci_dev *pdev));
+>   #else /* CONFIG_VGA_ARB */
+>   static inline void vga_set_legacy_decoding(struct pci_dev *pdev,
+>   		unsigned int decodes)
+> @@ -59,7 +60,8 @@ static inline int vga_remove_vgacon(struct pci_dev *pdev)
 >   	return 0;
 >   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> index c571f0d95994..c68ecb7dfa39 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -651,6 +651,7 @@ static int gmc_v11_0_early_init(void *handle)
->   	adev->gmc.private_aperture_start = 0x1000000000000000ULL;
->   	adev->gmc.private_aperture_end =
->   		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
-> +	adev->gmc.noretry_flags = AMDGPU_VM_NORETRY_FLAGS_TF;
->   
+>   static inline int vga_client_register(struct pci_dev *pdev,
+> -		unsigned int (*set_decode)(struct pci_dev *pdev, bool state))
+> +		unsigned int (*set_decode)(struct pci_dev *pdev, bool state),
+> +		bool (*is_boot_device)(struct pci_dev *pdev))
+>   {
 >   	return 0;
 >   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> index acd2b407860f..027b14603037 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -942,6 +942,7 @@ static int gmc_v7_0_early_init(void *handle)
->   		adev->gmc.shared_aperture_end + 1;
->   	adev->gmc.private_aperture_end =
->   		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
-> +	adev->gmc.noretry_flags = AMDGPU_VM_NORETRY_FLAGS_TF;
+> @@ -97,7 +99,7 @@ static inline int vga_get_uninterruptible(struct pci_dev *pdev,
 >   
->   	return 0;
+>   static inline void vga_client_unregister(struct pci_dev *pdev)
+>   {
+> -	vga_client_register(pdev, NULL);
+> +	vga_client_register(pdev, NULL, NULL);
 >   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index 85dead2a5702..581ed922dbe3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -1056,6 +1056,7 @@ static int gmc_v8_0_early_init(void *handle)
->   		adev->gmc.shared_aperture_end + 1;
->   	adev->gmc.private_aperture_end =
->   		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
-> +	adev->gmc.noretry_flags = AMDGPU_VM_NORETRY_FLAGS_TF;
 >   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 67e669e0141c..ebdbc823fae3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1622,6 +1622,7 @@ static int gmc_v9_0_early_init(void *handle)
->   	adev->gmc.private_aperture_start = 0x1000000000000000ULL;
->   	adev->gmc.private_aperture_end =
->   		adev->gmc.private_aperture_start + (4ULL << 30) - 1;
-> +	adev->gmc.noretry_flags = AMDGPU_VM_NORETRY_FLAGS_TF;
->   
->   	return 0;
->   }
-
+>   #endif /* LINUX_VGA_H */
