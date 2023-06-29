@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 006AAEB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 04:42:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73634EB64DD
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 04:42:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7176610E071;
-	Thu, 29 Jun 2023 04:42:40 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5510110E021
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 04:42:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ABAC10E078;
+	Thu, 29 Jun 2023 04:42:41 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20626.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::626])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5D4A10E071
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 04:42:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JvtoY5PPVB+C+oaIvWd6z3/S+UJataWQ7FUWLZ/lCbxx8Sas6Iarrubjdtej9nK9LToysiUTNMRYw8y22kSnCmG0X+I/fYfypdZN1SrTqd4E1NlXc4nnBooEvLE3ji/ggHGusXS5I9pjhcNKrp7iprjSYmLZf4P8OBgMp23G2vexA+w8JYk1XjVLTjMcbBVhgFFMzbYFSD/fGhx311MSwyL8AoNJChSdlQElUUEpMMG9hJP/1vYxDR0V6R6tigFQk0XB91AGBaozlGUamQM1m1WlXSp5Tz/vVSZu8dns43DN+otouW2VjWJnXdnVvoEJ3Fq0eQoMkhfqV/ynoYj0jg==
+ b=USb/pzd78apyV3QWanlptzlfWqaEKERALkTAZ3//BAIP8+aSA/IA0odLIkNfl3EiY9VWu5az8G1/ht/qwQsdEsZtHntUba8vvIx+Le3FU91x6BqbfKR9l8EQbsER+gpPugK+yL5N28qR00zFq0fcNyEDGQe3tzrLkOuTbQdLUd3yoF6dw/t5AmEqmA2G8z4E/PzuclVrsu4ocWe/rMpXcO8SQF4w1Uix5Z5GgPrVt1vyFaQF2TOu+qYaf7VFFcYMjZKqYdyvRZxQ1HC1ucUKsdW9cBKiUjaJNoO5Se/6mnQFJ2Gd5osuHPNdBnjLhHKRhPpVhKgzfHFCb8Au+28WEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8WZ8dp0YW0I9Cm2ge8GQWTu9vcazlcIZcJQgIG45RRg=;
- b=SS2l0Ic37ekVCazHLfRJ71LFD5IM5qcC+qA04FDVEysVyxqi7W0isWNEgUi+y+DUDcLdJLLF7yjHZSAxcNXSL4n1L6A1FRxP1SLbzNRmNCguu7QiKhg9faDBv+WJ3k+gOFN7J21NVa9tIOTZymF6sLfsJLr92LdQFE+Zw89wX50kJ6tLoGc6GenmqJbXhUa5WxNaO/YAe1CN/7G4nT6v0f2QEd+2ObEveGr1QQeUDO+/3rIX5HqR7MzpJWj0wE/8HwXPI2gwIC2ka4z4Au7g3vMI4pOfd8RkuPWibvqmUYEgUnDind0PXpe8AuQ3zhEn2qqkCTo/PnkuBNsS7qNqLQ==
+ bh=i1HuTEHWvV1JbAYHzpGf9sy7Q4hiFLXAOn/UBM7gOEE=;
+ b=VFRSBKtVNmsF+ZlcP+xY1k3atrLSQjY4AxnLkvroneANqjhpgl6oLlopP7uSlwduX6S5yktpYvk5/Ek9eD2/upGm/W8DITGIYPIy1KfA9G/RoDRt4wSE7h8CUo0kM+j2NxwF2fJkMbeOfjbRtCNZJXcQdiu7Y6HBW/affJj0pDt9qjUuekaoG9HfOmBhTdbV44+/5ZQ0BTeweroQXuuLu14CBqaBVU11A7XMNDMIf4pYj1aics1HD/QgPM8uiOeZunM1y4MnYx73znCfA3g5MM+ISRSJpR7draUB0H57/6UBo37XNEzOVWFPWGXLCp9zW8s9qwItSug42/kcHQlPPw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8WZ8dp0YW0I9Cm2ge8GQWTu9vcazlcIZcJQgIG45RRg=;
- b=w4b7phpfYt3XEpZapk9msTqqqX/JDn0ssHd7xjObNjWsxm21odtLKh2SjP/ER77AfWfKxYy0GbMpiWNiGoh3pNWWvEHyDoN7G5tSA1o+h8JwpqM7kC/1btT1b8VkPtgZq9ral89JsqRv9eO1LpWL2F/6GoB7tTOXY1V+LbN8qng=
+ bh=i1HuTEHWvV1JbAYHzpGf9sy7Q4hiFLXAOn/UBM7gOEE=;
+ b=IcwHiz+tMwNR8zw8Dk7DhJNBJi7ljpqUOzqhkxGgdXKMcTpH3EkkO7aNdK2M8RDj8Atb8T80npeuJNpBBwwKSuj2lGOzXEyP9CprTsnrYe1tcC/oIb0MuAF3+5esoFjlRj9zSAyUWm4waEuATwgotRYPaOZnIXpSLN3ZgXLop2c=
 Received: from BN9PR03CA0289.namprd03.prod.outlook.com (2603:10b6:408:f5::24)
- by SN7PR12MB6767.namprd12.prod.outlook.com (2603:10b6:806:269::8)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DM4PR12MB5817.namprd12.prod.outlook.com (2603:10b6:8:60::21) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Thu, 29 Jun
- 2023 04:42:35 +0000
+ 2023 04:42:33 +0000
 Received: from BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
  (2603:10b6:408:f5:cafe::47) by BN9PR03CA0289.outlook.office365.com
  (2603:10b6:408:f5::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.34 via Frontend
- Transport; Thu, 29 Jun 2023 04:42:35 +0000
+ Transport; Thu, 29 Jun 2023 04:42:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,49 +48,46 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT067.mail.protection.outlook.com (10.13.177.159) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.48 via Frontend Transport; Thu, 29 Jun 2023 04:42:35 +0000
+ 15.20.6500.48 via Frontend Transport; Thu, 29 Jun 2023 04:42:32 +0000
 Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 28 Jun
- 2023 23:42:33 -0500
+ 2023 23:42:28 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Rodrigo Siqueira
  <Rodrigo.Siqueira@amd.com>, Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH 2/6] drm/amd/display: Remove spaces before tabs in
- amdgpu_dm_hdcp.c
-Date: Thu, 29 Jun 2023 10:12:04 +0530
-Message-ID: <20230629044208.2266584-3-srinivasan.shanmugam@amd.com>
+Subject: Clean up patches in display/amdgpu_dm code
+Date: Thu, 29 Jun 2023 10:12:02 +0530
+Message-ID: <20230629044208.2266584-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230629044208.2266584-1-srinivasan.shanmugam@amd.com>
-References: <20230629044208.2266584-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT067:EE_|SN7PR12MB6767:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e8c75a8-727e-4ad7-be11-08db785b422e
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT067:EE_|DM4PR12MB5817:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1bc228a8-55ad-48cc-c5b2-08db785b409b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aYyX/GD3vvrrnI0JXUhCwbZ0w5raEoQUN/d2zEv0caHfMQCmUCXoGzKWtP7A1E0k1cG7f7d+QIk5wEDhq0SDj3wmNp7UHNk4mV4pLajDsx951ccpOCClr0kbM1qtCJqA72CMBdvSivzsEM9g0Cxz4YO7Mzz0xH3lZrXmCcsu04Y1nWjs+furL1eOlTvmNKcbty5G0B1TfzCiLBi1JJJOfPpHI2IjoC9xAu1Zwtv8nBj50XULuuXCeHWHBgB+/S03t3O+NDuJCAGq40IwYhqHdKTMtZvq1gXkIB6kjoACP3XHjDwOZoFzblsaO7GTlp7x/eA4DdKaii1z9pGhLhvU3GSqPcGS5cZWR2Q4laubsqkNgPLHDrizn8hSfVQa10i4mp7Pxv3QsosOZ7rRn4F6FaxK1t2yNK3IX25jiCj7wPOFA6p583LvPLg+JD2HpvEaYS87fTqY78Oyem+9qOtKM8Ml/LkqdOfpYuKnROUkPRbBXC4wit/cqXo/7lQjdTA5Fg/1tG4cXfSmzgFk+r454W7uG79x6eK+5Pk0VhbPNVEuRKt1sD2LwuRWhlZHX43wK50Tjp1M1RVMUxfLSdpMu9JkXRVx1hVelNeezVXSvPKmnnozHOnlqtTCyrfWCjo4L74R9KhsO5xuZwcu8leZriUtlqyiELi1/7dNMAM7RHowwAZ43uW+d8lrvEl7SoKqyHxoonS5Jyky2DQ357ZpEpguq2gRzTot3yqnwwwdvcwCEqwjihfowLqeAP+QfmmSU2jBwaOqIw0vdo4bq3PCeQ==
+X-Microsoft-Antispam-Message-Info: VvCXvhjM7EoUtiyOygUmsnZygesnGFVppaT1q5YbcxcCkrDLjqOkM1RECHQSdSY9ltLNf46HFkHH0EVW8Heb7syPepph0NYhjYycbCkkePd2pObUrjm0Prlt7Qc4m+1uFqOwYTX3wHBpPC4sEkFlZvPzsQkbI9fmOkhYvjAsU2gcaDf2SY0UVRn4wjkMLmMYARMRg28I34fIHaEc9OZ3pCqlPdGs/zah9Eb8ykJsV/y9RbjXteTmz0ga+uiD25qc1S/o+Yqq2edDp8eViFjPHPQkB5J+YJja/6wYL4r8i8txUyqCsOPRvtYt7UKG5tOkoUP9E8e+KV3R70pm/czxB2WMpV8nYsw/lJlw5wEhljWhCntWM8LsGF+AVxyAZz4q8PRtNA4kqGx4/8rtYzycuu+qu+Nk4fZIcIdd0/CHFHIePd3Dx4ocnv51UNDNeJKPQGk1CWhuHx3DshNJ4B6J7GbaPwM9dRFtpB0XD/3SAT5AQFbQyAiQ+d/Uz/Xc2qlgz3rapexPz5byUCwfK5KzsMwPAweILBSB2NixZcxiiuAjf86zHkPTZ/jIHY/Tb6FQFlsOOgp3DKROF0HJ3dw95rS+xrSMUL8mwuGrpIo6WXgp4zFWIdrbyx7USyKTdA8KjYa+47SWiWzYeFS8X1HE9hHFWkIDVeOI12GfCZuA49hSDZZJcaQyGJPdpYhCWUCQ8vzMrkkNdcYlRTRT7+Panxzzi+RkRWZKSewypsQXeEmphcql/Vn5F+aEVdMJzkMw/Encb2XDJuZ95uKuQKPcUnXjWv7wb/UVsE5JBCrfF6o=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(136003)(346002)(376002)(451199021)(36840700001)(46966006)(40470700004)(36756003)(82310400005)(36860700001)(82740400003)(81166007)(70206006)(40460700003)(44832011)(356005)(86362001)(5660300002)(316002)(4326008)(41300700001)(8936002)(40480700001)(6636002)(8676002)(70586007)(47076005)(2906002)(7696005)(478600001)(1076003)(186003)(16526019)(426003)(26005)(336012)(83380400001)(110136005)(54906003)(6666004)(2616005)(36900700001);
+ SFS:(13230028)(4636009)(376002)(396003)(346002)(136003)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(5660300002)(1076003)(44832011)(70586007)(316002)(478600001)(36756003)(4326008)(70206006)(6636002)(8936002)(8676002)(86362001)(2906002)(26005)(110136005)(966005)(54906003)(36860700001)(40460700003)(41300700001)(40480700001)(82310400005)(6666004)(7696005)(356005)(16526019)(186003)(82740400003)(336012)(426003)(47076005)(83380400001)(81166007)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2023 04:42:35.0305 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e8c75a8-727e-4ad7-be11-08db785b422e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2023 04:42:32.3896 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1bc228a8-55ad-48cc-c5b2-08db785b409b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6767
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5817
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,124 +99,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+Cc: Fangzhi Zuo <jerry.zuo@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Conform to Linux kernel coding style.
+This patchset does code clean up in respective
+display/amdgpu_dm code.
 
-Reported by checkpatch:
+This Cover letter is enclosed with the below patches:
+ 
+https://patchwork.freedesktop.org/patch/544079/ | drm/amd/display: Clean
+up warnings in amdgpu_dm _mst_types, _plane, _psr.c -> Addressed coding
+style patches to be put into single cover letter (Harry)
+https://patchwork.freedesktop.org/patch/544078/?series=119746&rev=2 |
+[v2] drm/amd/display: Remove spaces before tabs in amdgpu_dm_hdcp.c ->
+Promoted to kdoc (Rodrigo)
+https://patchwork.freedesktop.org/patch/544238/?series=119821&rev=3 |
+[v3] drm/amd/display: Remove unnecessary casts in amdgpu_dm_helpers.c ->
+Kept same as v1 - so that variable "buf" remains to local to the block,
+whereever it is declared, by having just removed the casting.
+https://patchwork.freedesktop.org/patch/544080/ | drm/amd/display:
+Eliminate warnings in amdgpu_dm_helpers.c
+https://patchwork.freedesktop.org/patch/544082/ | drm/amd/display: Fix
+warning about msleep in amdgpu_dm_helpers.c -> this is a functional
+change - Requested Jerry to take a look at it.
+https://patchwork.freedesktop.org/patch/544106/ | [v2] drm/amd/display:
+Clean up warnings in amdgpu_dm_pp_smu.c -> fixed code indentation in v2.
 
-WARNING: please, no space before tabs
 
-And promote sysfs entry for set/get srm to kdoc
-
-Suggested-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    | 50 +++++++++++--------
- 1 file changed, 28 insertions(+), 22 deletions(-)
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Fangzhi Zuo <jerry.zuo@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-index 5536d17306d0..308f2b0687b5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-@@ -576,7 +576,10 @@ static void update_config(void *handle, struct cp_psp_stream_config *config)
- }
- 
- 
--/* NOTE: From the usermodes prospective you only need to call write *ONCE*, the kernel
-+/**
-+ * DOC: Add sysfs interface for set/get srm
-+ *
-+ * NOTE: From the usermodes prospective you only need to call write *ONCE*, the kernel
-  *      will automatically call once or twice depending on the size
-  *
-  * call: "cat file > /sys/class/drm/card0/device/hdcp_srm" from usermode no matter what the size is
-@@ -591,19 +594,19 @@ static void update_config(void *handle, struct cp_psp_stream_config *config)
-  * cannot throw errors early as it will stop the kernel from writing to sysfs
-  *
-  * Example 1:
-- * 	Good SRM size = 5096
-- * 	first call to write 4096 -> PSP fails
-- * 	Second call to write 1000 -> PSP Pass -> SRM is set
-+ *	Good SRM size = 5096
-+ *	first call to write 4096 -> PSP fails
-+ *	Second call to write 1000 -> PSP Pass -> SRM is set
-  *
-  * Example 2:
-- * 	Bad SRM size = 4096
-- * 	first call to write 4096 -> PSP fails (This is the same as above, but we don't know if this
-- * 	is the last call)
-+ *	Bad SRM size = 4096
-+ *	first call to write 4096 -> PSP fails (This is the same as above, but we don't know if this
-+ *	is the last call)
-  *
-  * Solution?:
-- * 	1: Parse the SRM? -> It is signed so we don't know the EOF
-- * 	2: We can have another sysfs that passes the size before calling set. -> simpler solution
-- * 	below
-+ *	1: Parse the SRM? -> It is signed so we don't know the EOF
-+ *	2: We can have another sysfs that passes the size before calling set. -> simpler solution
-+ *	below
-  *
-  * Easy Solution:
-  * Always call get after Set to verify if set was successful.
-@@ -612,14 +615,14 @@ static void update_config(void *handle, struct cp_psp_stream_config *config)
-  * +----------------------+
-  * PSP will only update its srm if its older than the one we are trying to load.
-  * Always do set first than get.
-- * 	-if we try to "1. SET" a older version PSP will reject it and we can "2. GET" the newer
-- * 	version and save it
-+ *	-if we try to "1. SET" a older version PSP will reject it and we can "2. GET" the newer
-+ *	version and save it
-  *
-- * 	-if we try to "1. SET" a newer version PSP will accept it and we can "2. GET" the
-- * 	same(newer) version back and save it
-+ *	-if we try to "1. SET" a newer version PSP will accept it and we can "2. GET" the
-+ *	same(newer) version back and save it
-  *
-- * 	-if we try to "1. SET" a newer version and PSP rejects it. That means the format is
-- * 	incorrect/corrupted and we should correct our SRM by getting it from PSP
-+ *	-if we try to "1. SET" a newer version and PSP rejects it. That means the format is
-+ *	incorrect/corrupted and we should correct our SRM by getting it from PSP
-  */
- static ssize_t srm_data_write(struct file *filp, struct kobject *kobj, struct bin_attribute *bin_attr, char *buffer,
- 			      loff_t pos, size_t count)
-@@ -681,12 +684,15 @@ static ssize_t srm_data_read(struct file *filp, struct kobject *kobj, struct bin
- 	return ret;
- }
- 
--/* From the hdcp spec (5.Renewability) SRM needs to be stored in a non-volatile memory.
-+/**
-+ * DOC: SRM should be persistent across boot/reboots/suspend/resume/shutdown
-+ *
-+ * From the hdcp spec (5.Renewability) SRM needs to be stored in a non-volatile memory.
-  *
-  * For example,
-- * 	if Application "A" sets the SRM (ver 2) and we reboot/suspend and later when Application "B"
-- * 	needs to use HDCP, the version in PSP should be SRM(ver 2). So SRM should be persistent
-- * 	across boot/reboots/suspend/resume/shutdown
-+ *	if Application "A" sets the SRM (ver 2) and we reboot/suspend and later when Application "B"
-+ *	needs to use HDCP, the version in PSP should be SRM(ver 2). So SRM should be persistent
-+ *	across boot/reboots/suspend/resume/shutdown
-  *
-  * Currently when the system goes down (suspend/shutdown) the SRM is cleared from PSP. For HDCP we need
-  * to make the SRM persistent.
-@@ -699,8 +705,8 @@ static ssize_t srm_data_read(struct file *filp, struct kobject *kobj, struct bin
-  *
-  * Usermode can read/write to/from PSP using the sysfs interface
-  * For example:
-- * 	to save SRM from PSP to storage : cat /sys/class/drm/card0/device/hdcp_srm > srmfile
-- * 	to load from storage to PSP: cat srmfile > /sys/class/drm/card0/device/hdcp_srm
-+ *	to save SRM from PSP to storage : cat /sys/class/drm/card0/device/hdcp_srm > srmfile
-+ *	to load from storage to PSP: cat srmfile > /sys/class/drm/card0/device/hdcp_srm
-  */
- static const struct bin_attribute data_attr = {
- 	.attr = {.name = "hdcp_srm", .mode = 0664},
+Srinivasan Shanmugam (6):
+  drm/amd/display: Remove unnecessary casts in amdgpu_dm_helpers.c
+  drm/amd/display: Remove spaces before tabs in amdgpu_dm_hdcp.c
+  drm/amd/display: Clean up warnings in amdgpu_dm_pp_smu.c
+  drm/amd/display: Fix warning about msleep in amdgpu_dm_helpers.c
+  drm/amd/display: Clean up warnings in amdgpu_dm _mst_types, _plane,
+    _psr.c
+  drm/amd/display: Eliminate warnings in amdgpu_dm_helpers.c
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    | 50 +++++++++++--------
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 33 ++++++------
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  1 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  4 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  | 11 ++--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |  1 +
+ 6 files changed, 54 insertions(+), 46 deletions(-)
+
 -- 
 2.25.1
 
