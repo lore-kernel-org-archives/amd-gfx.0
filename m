@@ -4,71 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CDDBEB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 13:58:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14940EB64DC
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 14:03:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E55CF10E0F8;
-	Thu, 29 Jun 2023 13:58:17 +0000 (UTC)
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 667AA10E0F8;
- Thu, 29 Jun 2023 13:58:15 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-4f8735ac3e3so1077209e87.2; 
- Thu, 29 Jun 2023 06:58:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B30810E3CC;
+	Thu, 29 Jun 2023 14:03:28 +0000 (UTC)
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEE5510E3CC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 14:03:26 +0000 (UTC)
+Received: by mail-oi1-x234.google.com with SMTP id
+ 5614622812f47-3a37909a64eso294035b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 07:03:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688047093; x=1690639093;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=4kITJlcrUmU8tHjuThxQLR7HDJZ6H3jRown+5txUCGE=;
- b=k5NWRUDKzqGetrVx9DY/IQtyO1mMepJPTSvVVsxm30HIWqBd6jnKk5JcAqusWMdB72
- QNJOxLZGcyhaN99epDTZIdu51J2Z3/tZXxm48Rlmb+a6UMVE8cWiq/LI1HCBBbA7z0bn
- nttnaIVLfJ+NH4lS2XkF2cHwuNz5aX/g4sAbYBkewpRUcwg4bo/PDtCpUDskIqfN50sD
- 5MDJRE2AS0+13KJiHs8ra7x8uEkx324sseqE+dQaNBeTpNVTLdJouvOxTRHNgJ+PP4q1
- V36RaCwKWshp+XBsjLpnvQ7Y6DFrWzFq7hZCVL6Yi42dJADnDoknGHu2rxWSsWEbM150
- bVUQ==
+ d=gmail.com; s=20221208; t=1688047405; x=1690639405;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dkb9egEsW5KSI2wNqiVuF1mk4/C/9eEIIR0e6j0MX14=;
+ b=AUPq9Ud/8W7LTrVSVebLEl7O+AY6SyHj7di7E9Veo+pgwBGk33xsBtf/+6VVCJaaR7
+ C3xlGmBlSgQDGv0nPiiGAy/QSDdVC3sEf1CuVc/DbuQNnfXoZIKD26Wtf8p46W9NyXeD
+ tpJqUNfOnjvrnZQ8neZ3vFL31opo0FYvaQsJAAvTQDchD/pNrdn03u04qtWekJzM8tJ/
+ H4jFOli+xTYX5nupovCdSgk0OyxhtJKQs/5iUaGOru7EpnGR6arYRVX9NOuAFV6t0J3/
+ dNhHm5CL8TmaoZaetBKJBBNoOopicdM8KKG+15RVsdRa5ypPOty1AD/iGqhjGG3zWM+i
+ rnJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688047093; x=1690639093;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4kITJlcrUmU8tHjuThxQLR7HDJZ6H3jRown+5txUCGE=;
- b=HG4X1fTWAVzl1VqIK/EleSIzIaz8C/EI4kFxWZsmdwJp/L6GbJT7GNfstWKxF1m7yz
- kskdIIIma1zeGWagW5bT/HsEhmehBJ7FXkiqlqFPyoMuMLqZGfvyPFKNSJvLRSmwaxy0
- CGpYvaLJ2qOPPyfLQUcH6yC/Rxi9FJXjsK4PMwATSHek0MR1C31vEtk+8KqseCK3T20J
- Zdszt3okZqhwCKpfFzp9Vtw7m71yAOIcphoH81k10rRQU9eZRx1cBT+XjOX51I/6UxGq
- HGY+CnpPyJ27rDJKCtm2gosAlXb9n1GNDQYU5ditMgTcs5fOVLPVFhBltErXeWTKwjDu
- UvEw==
-X-Gm-Message-State: ABy/qLY1eefiAVhcwmSmrEfLwBwirGI5vF6SUyde370047u6lIwe0L3V
- N9Rae9mVbMNVRbjz7ezUIW4=
-X-Google-Smtp-Source: APBJJlGtgxw4Ik0N+LuPBcuAJLmewIlSZNBjY9cNZUdMox0kqvrdUfBBUqXHY4sL7zn8L82ADsxxfQ==
-X-Received: by 2002:a05:6512:1105:b0:4fb:744e:17db with SMTP id
- l5-20020a056512110500b004fb744e17dbmr65414lfg.1.1688047092575; 
- Thu, 29 Jun 2023 06:58:12 -0700 (PDT)
-Received: from ?IPV6:2a00:e180:15af:8a00:54e3:8652:e343:aef4?
- ([2a00:e180:15af:8a00:54e3:8652:e343:aef4])
- by smtp.gmail.com with ESMTPSA id
- i7-20020a05600c290700b003fbb346279dsm3853504wmd.38.2023.06.29.06.58.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Jun 2023 06:58:12 -0700 (PDT)
-Message-ID: <517a4b60-94bb-e683-b8be-ca3b71509cb5@gmail.com>
-Date: Thu, 29 Jun 2023 15:58:10 +0200
+ d=1e100.net; s=20221208; t=1688047405; x=1690639405;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dkb9egEsW5KSI2wNqiVuF1mk4/C/9eEIIR0e6j0MX14=;
+ b=UwQrECsOnlTc6ckVdTGhCdspojBz1S8mQyZmfR4LJsXtBzcO/c7bGQWOLzHUF8PDyn
+ JGhspBHRULm52xYN8qqHG0McGkmIGWQgRz5mnXTzZqHgAHfKK77T6ww7l1Am4x2FfHP8
+ kYAOaJVfmKgMwBCh+E+PzcC2M9xir4PlCScVZ7zHjzN02JjuNW/28ZHTey6N4nWB6mWx
+ pHf/DzZHT9qBWn16PI1t0I8Zkh2yP+T/E9MEQg3GSsXFi9RJ09jZMUC6Qw/rCfWOkBqB
+ jLPHa2kAgRsPSQLSq5AlTf8owjcTYKbli2I6ujR47jqQGAfouL8dITW5fw91w6Pn6hUH
+ BUeQ==
+X-Gm-Message-State: AC+VfDwX48n9AN2Espv8mX70AY40uEnuX9J+30qt2iMAC7/RxcTUJphD
+ 4CxVE8t+w99SFRg8h7m2xUHo6Zcp2TbCMd755hraf46t
+X-Google-Smtp-Source: ACHHUZ7sxkus5M1BfRQL6hc4N3XVCgb2znbZJcSgqUchflEd12AsNsepgmY8ir4VndvJ5ssuwRYko5/H4RYMCMrweaI=
+X-Received: by 2002:a05:6808:2a77:b0:3a3:6c7d:a5cc with SMTP id
+ fu23-20020a0568082a7700b003a36c7da5ccmr3818510oib.24.1688047405563; Thu, 29
+ Jun 2023 07:03:25 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 6/6] drm/amdgpu: use the new drm_exec object for CS v2
-Content-Language: en-US
-To: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com
-References: <20230628104446.1369-1-christian.koenig@amd.com>
- <20230628104446.1369-7-christian.koenig@amd.com>
- <17e929a5-d94f-8370-6aad-cf93490c6ad7@gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <17e929a5-d94f-8370-6aad-cf93490c6ad7@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20230629044635.2266729-1-srinivasan.shanmugam@amd.com>
+ <20230629044635.2266729-2-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230629044635.2266729-2-srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 29 Jun 2023 10:03:14 -0400
+Message-ID: <CADnq5_OVAZUcx8O_wnM99PxitfT8kmszTDUhfBDSRM2dNBk2OQ@mail.gmail.com>
+Subject: Re: [PATCH 1/6] drm/amd/display: Remove unnecessary casts in
+ amdgpu_dm_helpers.c
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,55 +69,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Harry Wentland <harry.wentland@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-
-Am 29.06.23 um 10:20 schrieb Tatsuyuki Ishi:
-> On 6/28/23 19:44, Christian König wrote:
->> @@ -958,18 +904,57 @@ static int amdgpu_cs_parser_bos(struct 
->> amdgpu_cs_parser *p,
->>           e->user_invalidated = userpage_invalidated;
->>       }
->>   -    r = ttm_eu_reserve_buffers(&p->ticket, &p->validated, true,
->> -                   &duplicates);
->> -    if (unlikely(r != 0)) {
->> -        if (r != -ERESTARTSYS)
->> -            DRM_ERROR("ttm_eu_reserve_buffers failed.\n");
->> -        goto out_free_user_pages;
->> +    drm_exec_until_all_locked(&p->exec) {
->> +        r = amdgpu_vm_lock_pd(&fpriv->vm, &p->exec, 1 + p->gang_size);
->> +        drm_exec_retry_on_contention(&p->exec);
->> +        if (unlikely(r))
->> +            goto out_free_user_pages;
->> +
->> +        amdgpu_bo_list_for_each_entry(e, p->bo_list) {
->> +            /* One fence for TTM and one for each CS job */
->> +            r = drm_exec_prepare_obj(&p->exec, &e->bo->tbo.base,
->> +                         1 + p->gang_size);
->> +            drm_exec_retry_on_contention(&p->exec);
->> +            if (unlikely(r))
->> +                goto out_free_user_pages;
->> +
->> +            e->bo_va = amdgpu_vm_bo_find(vm, e->bo);
->> +            e->range = NULL;
-> Still leaking.
-
-Scratching my head, I though I fixed this.
-
-Thanks for pointing this out,
-Christian.
-
->> +        }
->> +
->> +        if (p->uf_bo) {
->> +            r = drm_exec_prepare_obj(&p->exec, &p->uf_bo->tbo.base,
->> +                         1 + p->gang_size);
->> +            drm_exec_retry_on_contention(&p->exec);
->> +            if (unlikely(r))
->> +                goto out_free_user_pages;
->> +        }
->>       }
+On Thu, Jun 29, 2023 at 12:47=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
 >
-
+> Fixes the following category of checkpatch complaints:
+>
+> WARNING: unnecessary cast may hide bugs, see http://c-faq.com/malloc/mall=
+ocnocast.html
+> +               char *buf =3D (char *)kvcalloc(total, sizeof(char), GFP_K=
+ERNEL);
+>
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> index d9a482908380..c13b70629be6 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> @@ -426,7 +426,7 @@ void dm_dtn_log_append_v(struct dc_context *ctx,
+>         total =3D log_ctx->pos + n + 1;
+>
+>         if (total > log_ctx->size) {
+> -               char *buf =3D (char *)kvcalloc(total, sizeof(char), GFP_K=
+ERNEL);
+> +               char *buf =3D kvcalloc(total, sizeof(char), GFP_KERNEL);
+>
+>                 if (buf) {
+>                         memcpy(buf, log_ctx->buf, log_ctx->pos);
+> --
+> 2.25.1
+>
