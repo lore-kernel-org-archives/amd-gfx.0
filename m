@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13A48EB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 14:04:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEA99EB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 14:04:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75B0610E0E7;
-	Thu, 29 Jun 2023 14:04:01 +0000 (UTC)
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1603610E0E7
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 14:03:59 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id
- 5614622812f47-3a0642e4695so370140b6e.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 07:03:59 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 825AD10E3D7;
+	Thu, 29 Jun 2023 14:04:13 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5E1810E3D7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 14:04:11 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id
+ 5614622812f47-3a0642e4695so370326b6e.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 07:04:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688047439; x=1690639439;
+ d=gmail.com; s=20221208; t=1688047451; x=1690639451;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FxtJSHJM4VcK4L4UT+Tm+W2J3cD54MeBsQBwF/Qgz9g=;
- b=Sz9IVcA7BdCi0iOOg1FEUOgUKRRrGJeZQhGEVFfFcGAXGA/9ndw8APm1CWF6uuj235
- 581CjrDs9xtbYTzYz7bYG6FOzqBq850jXJdm0nG3pEmm3B4QPgCFV9aBa0fXM/Ns8Azd
- h/t4vCZNAIUCoJbM3TbcW3c8Beo13OdIZl15BSdMvd0pnVAayByjiCLJf2zw5pDb3vQD
- ca7r0cI/c1OQRwC9BNfME2L9PVKds36g7WNe+Gmo3JX0ScR6XKRkTcHW1CcORvkhvfxI
- ex8aT2lhesFkY4fnf+2Oatx0HisvmLLkiI9GxrKftKzhbnPWoeCkKvQyUq92K4LxSpQ1
- oN8Q==
+ bh=98d/topu5FAaj5tt6b4OfS+nUwThxzO/mqYy2A1wpbU=;
+ b=OuBsGJcPpc3qi4QbEisOeyMT3i0dSviIiH9IlIIOx/mKo17YYR3MhdmklaAbnMFsQl
+ rdvJFs/1xhwyE+vKW6IbQg7q2cP/hsFJJD6YsVNgemNy/ktQOTZFrONA0BaCQjL6m9aq
+ 1UPRFylCvGtqTRMdkM7lNxRSKx0P0+sGoLFbfEykyNYbNBKyFIvmkU8f1Nrpq1fKG08d
+ 1pOhVe8arahIRBUfqfnlKGStrMmvWx2hLnxPvk9FqOKbsnZDKEkVt9aROD1ZMaHJ0Lxr
+ nsifzX1h9UiyE3nVt9sOZOr+viRNbxDJQA+2H0P3/gh5JxcCzyLrhgDZ+ZA8BGvcr4py
+ sEJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688047439; x=1690639439;
+ d=1e100.net; s=20221208; t=1688047451; x=1690639451;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FxtJSHJM4VcK4L4UT+Tm+W2J3cD54MeBsQBwF/Qgz9g=;
- b=RQePmrfk2mjNLaapNC+cXqm6UuAwUDnFmLOhuqDAnOb7tai1SrFpXLHyqBy2lrdPtP
- TG2dXY5OwgmDJff9zMHL5lTFEimUWQxlkqI/UXH1Rau2sfm8hdOYyuQUtFanls422PQ3
- IXvZnhMSd/T7dtiF/Sc+Nxiu7YMi3XgohC+RJJH0T0nxu9zrAlNtsUn9a2CSniWIUSwU
- vO97rfzs/YDqayJekZDwxzesEEn0Neq8nxiEW7MHCRdzadZ4CSNCmG59AIE7DJU927cS
- nxc3+L91rSWmEZZbPjAIhiiu54iMB7D4oQrupqm+FigIxh6QfXw4o5lLwpabINaOJgM/
- KInQ==
-X-Gm-Message-State: AC+VfDzM6PK30wNX5xyTmjR3dz3SnBIvx4gMrgAJkmenU8TkVP1IupPM
- yi4CSD3k+6IMLfkvPbqyN7Fw6l4sh+Gtr06RexE=
-X-Google-Smtp-Source: ACHHUZ76c39neaoU5KLIK7PlZSadRFBb1a0Aty2OupMPi7xXHMXCDn570X2zulstnfrwYJDQJ1inV5lOCc8pAuTtlSQ=
-X-Received: by 2002:a05:6808:309e:b0:3a1:cbea:3bf2 with SMTP id
- bl30-20020a056808309e00b003a1cbea3bf2mr14051321oib.11.1688047438267; Thu, 29
- Jun 2023 07:03:58 -0700 (PDT)
+ bh=98d/topu5FAaj5tt6b4OfS+nUwThxzO/mqYy2A1wpbU=;
+ b=fY8xhL93ZQmw7Pqo6TnQROIQbaLiSBYyPA33aguhsZwGm0SjtJccJWGumUjiH2cNF5
+ SsFmViEMqXtLJOoz21f/uizQ969tLWTArWCE9KYZgkESB1xAinSqcnS6IbYqhsfXYxH9
+ 8lwPlRdxouHX7pGH4BNJknpVYsseGCsDVhpATep1erZCJLCHZ7IQ85hJVLegORFkp8FU
+ q7sTH3n0T+4efPIyL9JG3jGsn0Ir/1Gogs0MT7n2/fezBgb5jSCXnWXIznabVJDf0vly
+ VoxbrHW5jVVScBYm7SlvVEYtVk+3MBVcJJX56K34OVs7stjVZ22r1L8GKnxbwC2gVIJC
+ RSdg==
+X-Gm-Message-State: AC+VfDzNbueCTOmkSkjQBBtd+OkVFOBotCBOxmyqSRdBYEkV4XS2Z4rX
+ QvPJH372cmR44a0iGZ0R1WVBlWVHCwdgN+ImaNc=
+X-Google-Smtp-Source: ACHHUZ7kxo+WN91Xex1M9p7Yl2pVdjAaxC2zVagGT+YC9jpB/Gg4LY7WW6nvGrvo8xyTRHgo9P/M+Rtn0EtYXRy4wQo=
+X-Received: by 2002:a05:6808:1987:b0:3a1:9540:feb1 with SMTP id
+ bj7-20020a056808198700b003a19540feb1mr21017455oib.14.1688047450758; Thu, 29
+ Jun 2023 07:04:10 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230629044635.2266729-1-srinivasan.shanmugam@amd.com>
- <20230629044635.2266729-4-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230629044635.2266729-4-srinivasan.shanmugam@amd.com>
+ <20230629044635.2266729-6-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230629044635.2266729-6-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Jun 2023 10:03:47 -0400
-Message-ID: <CADnq5_POiCmv2Pwagxwi4av0TN8hAO6YWpiORXVH4SFYX3Vf7A@mail.gmail.com>
-Subject: Re: [PATCH 3/6] drm/amd/display: Clean up warnings in
- amdgpu_dm_pp_smu.c
+Date: Thu, 29 Jun 2023 10:03:59 -0400
+Message-ID: <CADnq5_PHQs4uuoVuFzApOjuqe-2dXXg3P8dFsZirE-YbzrMGsA@mail.gmail.com>
+Subject: Re: [PATCH 5/6] drm/amd/display: Clean up warnings in amdgpu_dm
+ _mst_types, _plane, _psr.c
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -80,59 +80,75 @@ Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 On Thu, Jun 29, 2023 at 12:47=E2=80=AFAM Srinivasan Shanmugam
 <srinivasan.shanmugam@amd.com> wrote:
 >
-> Fixes the following category of checkpatch warning:
+> Fix the following warnings reported by checkpatch:
 >
-> WARNING: Block comments use a trailing */ on a separate line
-> +                                * non-boosted one. */
->
-> WARNING: suspect code indent for conditional statements (8, 24)
-> +       if ((adev->asic_type >=3D CHIP_POLARIS10) &&
-> [...]
-> +                       return true;
+> WARNING: Missing a blank line after declarations
+> WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
 >
 > Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 > Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
 > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 1 +
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c     | 4 ++--
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c       | 1 +
+>  3 files changed, 4 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-> index 75284e2cec74..848c5b4bb301 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-> @@ -334,7 +334,8 @@ bool dm_pp_get_clock_levels_by_type(
->                         if (dc_clks->clocks_in_khz[i] > validation_clks.e=
-ngine_max_clock) {
->                                 /* This clock is higher the validation cl=
-ock.
->                                  * Than means the previous one is the hig=
-hest
-> -                                * non-boosted one. */
-> +                                * non-boosted one.
-> +                                */
->                                 DRM_INFO("DM_PPLIB: reducing engine clock=
- level from %d to %d\n",
->                                                 dc_clks->num_levels, i);
->                                 dc_clks->num_levels =3D i > 0 ? i : 1;
-> @@ -406,10 +407,10 @@ bool dm_pp_notify_wm_clock_changes(
->          * TODO: expand this to other ASICs
->          */
->         if ((adev->asic_type >=3D CHIP_POLARIS10) &&
-> -            (adev->asic_type <=3D CHIP_VEGAM) &&
-> -            !amdgpu_dpm_set_watermarks_for_clocks_ranges(adev,
-> -                                               (void *)wm_with_clock_ran=
-ges))
-> -                       return true;
-> +           (adev->asic_type <=3D CHIP_VEGAM) &&
-> +           !amdgpu_dpm_set_watermarks_for_clocks_ranges(adev,
-> +                                                        (void *)wm_with_=
-clock_ranges))
-> +               return true;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 46d0a8f57e55..95eefa6b4f2f 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -296,6 +296,7 @@ static int dm_dp_mst_get_modes(struct drm_connector *=
+connector)
 >
->         return false;
+>         if (!aconnector->edid) {
+>                 struct edid *edid;
+> +
+>                 edid =3D drm_dp_mst_get_edid(connector, &aconnector->mst_=
+root->mst_mgr, aconnector->mst_output_port);
+>
+>                 if (!edid) {
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index 322668973747..de1c7026ffcd 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -164,7 +164,7 @@ static bool modifier_has_dcc(uint64_t modifier)
+>         return IS_AMD_FMT_MOD(modifier) && AMD_FMT_MOD_GET(DCC, modifier)=
+;
 >  }
+>
+> -static unsigned modifier_gfx9_swizzle_mode(uint64_t modifier)
+> +static unsigned int modifier_gfx9_swizzle_mode(uint64_t modifier)
+>  {
+>         if (modifier =3D=3D DRM_FORMAT_MOD_LINEAR)
+>                 return 0;
+> @@ -581,7 +581,7 @@ static void add_gfx11_modifiers(struct amdgpu_device =
+*adev,
+>         int pkrs =3D 0;
+>         u32 gb_addr_config;
+>         u8 i =3D 0;
+> -       unsigned swizzle_r_x;
+> +       unsigned int swizzle_r_x;
+>         uint64_t modifier_r_x;
+>         uint64_t modifier_dcc_best;
+>         uint64_t modifier_dcc_4k;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/driv=
+ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+> index 4f61d4f257cd..08ce3bb8f640 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+> @@ -166,6 +166,7 @@ bool amdgpu_dm_psr_enable(struct dc_stream_state *str=
+eam)
+>          */
+>         if (vsync_rate_hz !=3D 0) {
+>                 unsigned int frame_time_microsec =3D 1000000 / vsync_rate=
+_hz;
+> +
+>                 num_frames_static =3D (30000 / frame_time_microsec) + 1;
+>         }
+>
 > --
 > 2.25.1
 >
