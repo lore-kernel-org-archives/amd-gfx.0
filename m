@@ -4,60 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E1E1EB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 13:53:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CDDBEB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 13:58:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AADA810E10E;
-	Thu, 29 Jun 2023 13:53:31 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14FD089089
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 13:53:29 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- 46e09a7af769-6b74791c948so604241a34.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 06:53:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E55CF10E0F8;
+	Thu, 29 Jun 2023 13:58:17 +0000 (UTC)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 667AA10E0F8;
+ Thu, 29 Jun 2023 13:58:15 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4f8735ac3e3so1077209e87.2; 
+ Thu, 29 Jun 2023 06:58:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688046809; x=1690638809;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VFFy77mFWYUTHeAvsV4v8UzydEgkTXHO+bOz1fk0eOY=;
- b=Kxr7yIKrfc+5lhJCmuVPS8g8825WjgAjsw1droTmZnVUnfDGeL4nOqdsxm6k0nK5er
- 1zhdq0WgTNw0X1s3fRsAkKMQnA1h1jUZzs+VWVq5XmkHgvBKVo6x4Y730iuG7sDqJknY
- rN7IXI2S8lKo+zzkYFNO1LxtJ2gqJ9goJ9YGmtRLLKQ5fh2edxrJ1/jH6LLY70BQ8Tyy
- 8kNNojeIiBvV5LXRccUrla/8b75ZjWhl85jVVTxFQqjKekRYnB4CXeKqDn8GJe94FIlh
- LFsoKEcmfTWowkEsEZ9i31hTf5lUyBBIaq8RAequvFKfBzXA0N1G9crIKfmKKjpTeZw3
- KahA==
+ d=gmail.com; s=20221208; t=1688047093; x=1690639093;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=4kITJlcrUmU8tHjuThxQLR7HDJZ6H3jRown+5txUCGE=;
+ b=k5NWRUDKzqGetrVx9DY/IQtyO1mMepJPTSvVVsxm30HIWqBd6jnKk5JcAqusWMdB72
+ QNJOxLZGcyhaN99epDTZIdu51J2Z3/tZXxm48Rlmb+a6UMVE8cWiq/LI1HCBBbA7z0bn
+ nttnaIVLfJ+NH4lS2XkF2cHwuNz5aX/g4sAbYBkewpRUcwg4bo/PDtCpUDskIqfN50sD
+ 5MDJRE2AS0+13KJiHs8ra7x8uEkx324sseqE+dQaNBeTpNVTLdJouvOxTRHNgJ+PP4q1
+ V36RaCwKWshp+XBsjLpnvQ7Y6DFrWzFq7hZCVL6Yi42dJADnDoknGHu2rxWSsWEbM150
+ bVUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688046809; x=1690638809;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VFFy77mFWYUTHeAvsV4v8UzydEgkTXHO+bOz1fk0eOY=;
- b=WgCl/ReiZv9Ku4/nx9aoNNVb3TNi57jDdNjQaW5XCt97B+wwLZCZkO6usWl/gIfBHX
- 2cPRiT5HXYuOgVJIq7DreUji6q6/OGIl057QrnUSkjOB8DyyF7B0NgGTGcqipsKs7Um0
- pc8bO+tG4YdsvKBzeaROgDG9TD3v5ldFnqG4/Ej1lvCDlzZjeOWioWl8j9W9SRBoU0dZ
- GbnC5TNZ5APMQPQMx0mz+BMGA8VO3BzNh/3lLPR5ZXsLFeOOPDF1RiR49bk6IL1rR6EZ
- YQlO0Q66xDzcr7w2e6KtHdSoaGcvVeTOZmBdHyRlXc90v32kWhVgXH4lNvf4hBHXhUjJ
- tPTw==
-X-Gm-Message-State: ABy/qLb620QH4WAv4jmMDU94prX969AJ7PPKPIAbyDswEGc/V2I3+q69
- je9OAyeog+tYVy7nnJDgvMGw4nYr2ggfkH+9NS4=
-X-Google-Smtp-Source: APBJJlGwAJE7+TZkixT3eukn72wLfSC4OKAz5dLLUJVTQdYnGhSmEwSYGs/OPaUZMJm3SwejPuK2hmQqPhGZ3Qqc/Tg=
-X-Received: by 2002:a05:6870:648d:b0:1b0:f38:90f6 with SMTP id
- cz13-20020a056870648d00b001b00f3890f6mr12705oab.7.1688046809142; Thu, 29 Jun
- 2023 06:53:29 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1688047093; x=1690639093;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=4kITJlcrUmU8tHjuThxQLR7HDJZ6H3jRown+5txUCGE=;
+ b=HG4X1fTWAVzl1VqIK/EleSIzIaz8C/EI4kFxWZsmdwJp/L6GbJT7GNfstWKxF1m7yz
+ kskdIIIma1zeGWagW5bT/HsEhmehBJ7FXkiqlqFPyoMuMLqZGfvyPFKNSJvLRSmwaxy0
+ CGpYvaLJ2qOPPyfLQUcH6yC/Rxi9FJXjsK4PMwATSHek0MR1C31vEtk+8KqseCK3T20J
+ Zdszt3okZqhwCKpfFzp9Vtw7m71yAOIcphoH81k10rRQU9eZRx1cBT+XjOX51I/6UxGq
+ HGY+CnpPyJ27rDJKCtm2gosAlXb9n1GNDQYU5ditMgTcs5fOVLPVFhBltErXeWTKwjDu
+ UvEw==
+X-Gm-Message-State: ABy/qLY1eefiAVhcwmSmrEfLwBwirGI5vF6SUyde370047u6lIwe0L3V
+ N9Rae9mVbMNVRbjz7ezUIW4=
+X-Google-Smtp-Source: APBJJlGtgxw4Ik0N+LuPBcuAJLmewIlSZNBjY9cNZUdMox0kqvrdUfBBUqXHY4sL7zn8L82ADsxxfQ==
+X-Received: by 2002:a05:6512:1105:b0:4fb:744e:17db with SMTP id
+ l5-20020a056512110500b004fb744e17dbmr65414lfg.1.1688047092575; 
+ Thu, 29 Jun 2023 06:58:12 -0700 (PDT)
+Received: from ?IPV6:2a00:e180:15af:8a00:54e3:8652:e343:aef4?
+ ([2a00:e180:15af:8a00:54e3:8652:e343:aef4])
+ by smtp.gmail.com with ESMTPSA id
+ i7-20020a05600c290700b003fbb346279dsm3853504wmd.38.2023.06.29.06.58.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Jun 2023 06:58:12 -0700 (PDT)
+Message-ID: <517a4b60-94bb-e683-b8be-ca3b71509cb5@gmail.com>
+Date: Thu, 29 Jun 2023 15:58:10 +0200
 MIME-Version: 1.0
-References: <20230629044635.2266729-1-srinivasan.shanmugam@amd.com>
- <20230629044635.2266729-5-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230629044635.2266729-5-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Jun 2023 09:53:17 -0400
-Message-ID: <CADnq5_MvZuEt_tAFZiggObrA3OJ1sXenm50su5VAjOLhWtQ1UQ@mail.gmail.com>
-Subject: Re: [PATCH 4/6] drm/amd/display: Fix warning about msleep in
- amdgpu_dm_helpers.c
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 6/6] drm/amdgpu: use the new drm_exec object for CS v2
+Content-Language: en-US
+To: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com
+References: <20230628104446.1369-1-christian.koenig@amd.com>
+ <20230628104446.1369-7-christian.koenig@amd.com>
+ <17e929a5-d94f-8370-6aad-cf93490c6ad7@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <17e929a5-d94f-8370-6aad-cf93490c6ad7@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,53 +80,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harry Wentland <harry.wentland@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 29, 2023 at 12:47=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> Fixes the following category of checkpatch warning:
->
-> WARNING: msleep < 20ms can sleep for up to 20ms; see Documentation/timers=
-/timers-howto.rst
-> +               msleep(10);
->
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index c13b70629be6..a6be04ad387f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -643,7 +643,7 @@ static bool execute_synaptics_rc_command(struct drm_d=
-p_aux *aux,
->                 if (rc_cmd =3D=3D cmd)
->                         // active is 0
->                         break;
-> -               msleep(10);
-> +               msleep(20);
-
-This doesn't seem like the right fix.  The warning seems somewhat
-bogus to begin with.  If the length really matters, I guess we should
-use usleep_range(), but if not, I don't see any reason not to leave it
-as is.  Sure, it might sleep longer, but it might not.  Better to have
-the code stay as is since 10 was presumably the intended sleep time.
-
-Alex
 
 
->         }
+Am 29.06.23 um 10:20 schrieb Tatsuyuki Ishi:
+> On 6/28/23 19:44, Christian König wrote:
+>> @@ -958,18 +904,57 @@ static int amdgpu_cs_parser_bos(struct 
+>> amdgpu_cs_parser *p,
+>>           e->user_invalidated = userpage_invalidated;
+>>       }
+>>   -    r = ttm_eu_reserve_buffers(&p->ticket, &p->validated, true,
+>> -                   &duplicates);
+>> -    if (unlikely(r != 0)) {
+>> -        if (r != -ERESTARTSYS)
+>> -            DRM_ERROR("ttm_eu_reserve_buffers failed.\n");
+>> -        goto out_free_user_pages;
+>> +    drm_exec_until_all_locked(&p->exec) {
+>> +        r = amdgpu_vm_lock_pd(&fpriv->vm, &p->exec, 1 + p->gang_size);
+>> +        drm_exec_retry_on_contention(&p->exec);
+>> +        if (unlikely(r))
+>> +            goto out_free_user_pages;
+>> +
+>> +        amdgpu_bo_list_for_each_entry(e, p->bo_list) {
+>> +            /* One fence for TTM and one for each CS job */
+>> +            r = drm_exec_prepare_obj(&p->exec, &e->bo->tbo.base,
+>> +                         1 + p->gang_size);
+>> +            drm_exec_retry_on_contention(&p->exec);
+>> +            if (unlikely(r))
+>> +                goto out_free_user_pages;
+>> +
+>> +            e->bo_va = amdgpu_vm_bo_find(vm, e->bo);
+>> +            e->range = NULL;
+> Still leaking.
+
+Scratching my head, I though I fixed this.
+
+Thanks for pointing this out,
+Christian.
+
+>> +        }
+>> +
+>> +        if (p->uf_bo) {
+>> +            r = drm_exec_prepare_obj(&p->exec, &p->uf_bo->tbo.base,
+>> +                         1 + p->gang_size);
+>> +            drm_exec_retry_on_contention(&p->exec);
+>> +            if (unlikely(r))
+>> +                goto out_free_user_pages;
+>> +        }
+>>       }
 >
->         // read rc result
-> --
-> 2.25.1
->
+
