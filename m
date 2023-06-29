@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73634EB64DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 04:42:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E5A8EB64DC
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jun 2023 04:42:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ABAC10E078;
-	Thu, 29 Jun 2023 04:42:41 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20626.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::626])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5D4A10E071
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 04:42:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB1A910E087;
+	Thu, 29 Jun 2023 04:42:43 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2056.outbound.protection.outlook.com [40.107.220.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0C1C10E071
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jun 2023 04:42:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=USb/pzd78apyV3QWanlptzlfWqaEKERALkTAZ3//BAIP8+aSA/IA0odLIkNfl3EiY9VWu5az8G1/ht/qwQsdEsZtHntUba8vvIx+Le3FU91x6BqbfKR9l8EQbsER+gpPugK+yL5N28qR00zFq0fcNyEDGQe3tzrLkOuTbQdLUd3yoF6dw/t5AmEqmA2G8z4E/PzuclVrsu4ocWe/rMpXcO8SQF4w1Uix5Z5GgPrVt1vyFaQF2TOu+qYaf7VFFcYMjZKqYdyvRZxQ1HC1ucUKsdW9cBKiUjaJNoO5Se/6mnQFJ2Gd5osuHPNdBnjLhHKRhPpVhKgzfHFCb8Au+28WEw==
+ b=HS5NEXHuTHRW+sIdgNNsn15I2swCcyHXlXfePuh/DZQ0rwYYFBDMs/97OpwQ8VyVkcxeh6a8g4cLdGCSdAxBpsd15mzXlScYSomK0vcaQbzZWk6D/Pbl4D9rZPdJ2uHIGlE52WkPzScN/Wu4HbtqSQkcQ3UkS3pijLvx3bsK4dY3vNsiWl3i4Vv4ddTkEyX96fqAR4sgExMxCq6aHx/CckcePQUzvo2M5BnTSTrTyEnYKdK36Cecx0/FkDHpm/bGcQTSYjBmYcE28NGy1ksPzhS+UINxLgxgwYbCheJ1DfTt9sQSdtihcJRMMo/lNg1cDZ7A92pzf/em61M8jB3DFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i1HuTEHWvV1JbAYHzpGf9sy7Q4hiFLXAOn/UBM7gOEE=;
- b=VFRSBKtVNmsF+ZlcP+xY1k3atrLSQjY4AxnLkvroneANqjhpgl6oLlopP7uSlwduX6S5yktpYvk5/Ek9eD2/upGm/W8DITGIYPIy1KfA9G/RoDRt4wSE7h8CUo0kM+j2NxwF2fJkMbeOfjbRtCNZJXcQdiu7Y6HBW/affJj0pDt9qjUuekaoG9HfOmBhTdbV44+/5ZQ0BTeweroQXuuLu14CBqaBVU11A7XMNDMIf4pYj1aics1HD/QgPM8uiOeZunM1y4MnYx73znCfA3g5MM+ISRSJpR7draUB0H57/6UBo37XNEzOVWFPWGXLCp9zW8s9qwItSug42/kcHQlPPw==
+ bh=+ZDeo1+zLSCPKpfrwKfEHuFNTLpJdhBw1FUSnnh63/Y=;
+ b=VFJwiAyFUgVFAr4Fn2ERAva5NgivFMvAbkTjxr9cEwSdHu65vSgmB8kpdKwN2Ggc0BOeoG+S6oiEkTn0oZR/Pjd49h8GLJHW8RjL+P9jCNzh+E1WCYxN4/5GtbSEfc4t/i913Nhukh5gIO6/m5wtRWobJnSKFeFGEmHdLGYbul4qfrv+LF/4YvluP60G3TdTqlgg1YlJmhQXb9onFusIgvkxWtcGqsTXiki/rjGTppGfcR3Qq3ik+nPZTSsJkuUSfX7pxDx7OiZuFPTI5Rj0IPqnIllWMyKu65RTddm/4PIbyCJT0ixTaPLhnoViRG7v9Kz70hBqKcPJBEP1h3Aexg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i1HuTEHWvV1JbAYHzpGf9sy7Q4hiFLXAOn/UBM7gOEE=;
- b=IcwHiz+tMwNR8zw8Dk7DhJNBJi7ljpqUOzqhkxGgdXKMcTpH3EkkO7aNdK2M8RDj8Atb8T80npeuJNpBBwwKSuj2lGOzXEyP9CprTsnrYe1tcC/oIb0MuAF3+5esoFjlRj9zSAyUWm4waEuATwgotRYPaOZnIXpSLN3ZgXLop2c=
-Received: from BN9PR03CA0289.namprd03.prod.outlook.com (2603:10b6:408:f5::24)
- by DM4PR12MB5817.namprd12.prod.outlook.com (2603:10b6:8:60::21) with
+ bh=+ZDeo1+zLSCPKpfrwKfEHuFNTLpJdhBw1FUSnnh63/Y=;
+ b=3poKg/tBPyNPXa2SUT20IdR4YI/4zbBMOfSfmG52p0yGSWuSTTz73NcBYlqEvvpCdIZ4EbZHBLaalvYn7UBQG9u4rTPaIcRcAgMWIkeBR6dTEw1yTVPYkmnHMUbxPfp/j5bP4Mx5xuMxqIelpEHd1wguLN62qnDof2MukoXtYws=
+Received: from BN9PR03CA0274.namprd03.prod.outlook.com (2603:10b6:408:f5::9)
+ by LV2PR12MB5846.namprd12.prod.outlook.com (2603:10b6:408:175::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Thu, 29 Jun
- 2023 04:42:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Thu, 29 Jun
+ 2023 04:42:37 +0000
 Received: from BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f5:cafe::47) by BN9PR03CA0289.outlook.office365.com
- (2603:10b6:408:f5::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.34 via Frontend
- Transport; Thu, 29 Jun 2023 04:42:32 +0000
+ (2603:10b6:408:f5:cafe::9c) by BN9PR03CA0274.outlook.office365.com
+ (2603:10b6:408:f5::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.20 via Frontend
+ Transport; Thu, 29 Jun 2023 04:42:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,46 +47,48 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT067.mail.protection.outlook.com (10.13.177.159) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.48 via Frontend Transport; Thu, 29 Jun 2023 04:42:32 +0000
+ 15.20.6500.48 via Frontend Transport; Thu, 29 Jun 2023 04:42:37 +0000
 Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 28 Jun
- 2023 23:42:28 -0500
+ 2023 23:42:35 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Rodrigo Siqueira
  <Rodrigo.Siqueira@amd.com>, Harry Wentland <harry.wentland@amd.com>
-Subject: Clean up patches in display/amdgpu_dm code
-Date: Thu, 29 Jun 2023 10:12:02 +0530
-Message-ID: <20230629044208.2266584-1-srinivasan.shanmugam@amd.com>
+Subject: [PATCH 3/6] drm/amd/display: Clean up warnings in amdgpu_dm_pp_smu.c
+Date: Thu, 29 Jun 2023 10:12:05 +0530
+Message-ID: <20230629044208.2266584-4-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230629044208.2266584-1-srinivasan.shanmugam@amd.com>
+References: <20230629044208.2266584-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT067:EE_|DM4PR12MB5817:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1bc228a8-55ad-48cc-c5b2-08db785b409b
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT067:EE_|LV2PR12MB5846:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00b6b788-07ad-4ee5-54da-08db785b43b3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VvCXvhjM7EoUtiyOygUmsnZygesnGFVppaT1q5YbcxcCkrDLjqOkM1RECHQSdSY9ltLNf46HFkHH0EVW8Heb7syPepph0NYhjYycbCkkePd2pObUrjm0Prlt7Qc4m+1uFqOwYTX3wHBpPC4sEkFlZvPzsQkbI9fmOkhYvjAsU2gcaDf2SY0UVRn4wjkMLmMYARMRg28I34fIHaEc9OZ3pCqlPdGs/zah9Eb8ykJsV/y9RbjXteTmz0ga+uiD25qc1S/o+Yqq2edDp8eViFjPHPQkB5J+YJja/6wYL4r8i8txUyqCsOPRvtYt7UKG5tOkoUP9E8e+KV3R70pm/czxB2WMpV8nYsw/lJlw5wEhljWhCntWM8LsGF+AVxyAZz4q8PRtNA4kqGx4/8rtYzycuu+qu+Nk4fZIcIdd0/CHFHIePd3Dx4ocnv51UNDNeJKPQGk1CWhuHx3DshNJ4B6J7GbaPwM9dRFtpB0XD/3SAT5AQFbQyAiQ+d/Uz/Xc2qlgz3rapexPz5byUCwfK5KzsMwPAweILBSB2NixZcxiiuAjf86zHkPTZ/jIHY/Tb6FQFlsOOgp3DKROF0HJ3dw95rS+xrSMUL8mwuGrpIo6WXgp4zFWIdrbyx7USyKTdA8KjYa+47SWiWzYeFS8X1HE9hHFWkIDVeOI12GfCZuA49hSDZZJcaQyGJPdpYhCWUCQ8vzMrkkNdcYlRTRT7+Panxzzi+RkRWZKSewypsQXeEmphcql/Vn5F+aEVdMJzkMw/Encb2XDJuZ95uKuQKPcUnXjWv7wb/UVsE5JBCrfF6o=
+X-Microsoft-Antispam-Message-Info: i6YekPCZE5tSnfNVHhP+kEUftx50PEjijgvIRcjABiunM7I/7ABB4xmzfn4TGgJ4c+rafvl8w6sArN0UAeg9JQD6yO9MqwE/PBCOr159RfE4MUmailzoCLb7ETsJ2gWTcyYaO6cuDwmyyKcrB6BUuAGfnMrk386UfUTpfgaHiO2V1EfKm/iV8lIzvySBqzaCNykJEDU5KlY8mZCnSmndqsIT+7txIyi0ZZ5Ms/oBiFgPfBaaY3nfyvIo6K76fcGxn94VDwY6cPTx9RxR3vKkQNQEt9l5Fjg2ri28rOuhs78cAAhagGbHkGBIs21rjsgl+m98In2TwelwOIPPtTlY7ELkXBwEq9hrhq4+aWYVFeLYIkAZ29HZRgRwscDW3PmXAqzoiNy15ahK/Y0Y8yvpqpy6m4SwSsHrDP70XE8kqgYghR8wvWATXIs7nze2Mg8AKU5cPNZWvRj6a6lAS11XdzcuMf2z2obz6pHe4GAmBLT9iDtdnaNlnKq4FGkDMZl0Q2z+UkZzvB/87EdPEWokWESZDvYqNVO0r4iNG34xRefkedX8RfG436pHCp5N3yZjf77lta1bhwVfy1tL/7Y1yuWvg9wEqgUAZX9NSi8MW+r0zD4Ow3ZMdl8QpfuRq5LkEqfjtqJSPpUPNHTJt8NZRjBsCIUGnH/PtdqkTc+McbjxgBWSC/h2m+WIiZ9dIGvwT1iKAGal2KVe1MkN8H/RSKMQO74ITgoqWxu5av+4BTS45CjDRQAg2T0v74LBUH8rOSQgk710iEWuVH/+oJJLHQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(396003)(346002)(136003)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(5660300002)(1076003)(44832011)(70586007)(316002)(478600001)(36756003)(4326008)(70206006)(6636002)(8936002)(8676002)(86362001)(2906002)(26005)(110136005)(966005)(54906003)(36860700001)(40460700003)(41300700001)(40480700001)(82310400005)(6666004)(7696005)(356005)(16526019)(186003)(82740400003)(336012)(426003)(47076005)(83380400001)(81166007)(2616005)(36900700001);
+ SFS:(13230028)(4636009)(39860400002)(346002)(136003)(396003)(376002)(451199021)(46966006)(40470700004)(36840700001)(356005)(81166007)(82740400003)(36756003)(47076005)(83380400001)(36860700001)(86362001)(54906003)(8936002)(110136005)(7696005)(40460700003)(6666004)(41300700001)(70206006)(316002)(8676002)(70586007)(1076003)(336012)(426003)(26005)(16526019)(6636002)(186003)(4326008)(44832011)(82310400005)(40480700001)(2616005)(478600001)(2906002)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2023 04:42:32.3896 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bc228a8-55ad-48cc-c5b2-08db785b409b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2023 04:42:37.5615 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00b6b788-07ad-4ee5-54da-08db785b43b3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5817
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5846
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,58 +100,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Fangzhi Zuo <jerry.zuo@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patchset does code clean up in respective
-display/amdgpu_dm code.
+Fixes the following category of checkpatch warning:
 
-This Cover letter is enclosed with the below patches:
- 
-https://patchwork.freedesktop.org/patch/544079/ | drm/amd/display: Clean
-up warnings in amdgpu_dm _mst_types, _plane, _psr.c -> Addressed coding
-style patches to be put into single cover letter (Harry)
-https://patchwork.freedesktop.org/patch/544078/?series=119746&rev=2 |
-[v2] drm/amd/display: Remove spaces before tabs in amdgpu_dm_hdcp.c ->
-Promoted to kdoc (Rodrigo)
-https://patchwork.freedesktop.org/patch/544238/?series=119821&rev=3 |
-[v3] drm/amd/display: Remove unnecessary casts in amdgpu_dm_helpers.c ->
-Kept same as v1 - so that variable "buf" remains to local to the block,
-whereever it is declared, by having just removed the casting.
-https://patchwork.freedesktop.org/patch/544080/ | drm/amd/display:
-Eliminate warnings in amdgpu_dm_helpers.c
-https://patchwork.freedesktop.org/patch/544082/ | drm/amd/display: Fix
-warning about msleep in amdgpu_dm_helpers.c -> this is a functional
-change - Requested Jerry to take a look at it.
-https://patchwork.freedesktop.org/patch/544106/ | [v2] drm/amd/display:
-Clean up warnings in amdgpu_dm_pp_smu.c -> fixed code indentation in v2.
+WARNING: Block comments use a trailing */ on a separate line
++                                * non-boosted one. */
 
+WARNING: suspect code indent for conditional statements (8, 24)
++       if ((adev->asic_type >= CHIP_POLARIS10) &&
+[...]
++                       return true;
 
 Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Fangzhi Zuo <jerry.zuo@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-Srinivasan Shanmugam (6):
-  drm/amd/display: Remove unnecessary casts in amdgpu_dm_helpers.c
-  drm/amd/display: Remove spaces before tabs in amdgpu_dm_hdcp.c
-  drm/amd/display: Clean up warnings in amdgpu_dm_pp_smu.c
-  drm/amd/display: Fix warning about msleep in amdgpu_dm_helpers.c
-  drm/amd/display: Clean up warnings in amdgpu_dm _mst_types, _plane,
-    _psr.c
-  drm/amd/display: Eliminate warnings in amdgpu_dm_helpers.c
-
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    | 50 +++++++++++--------
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 33 ++++++------
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  1 +
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  4 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  | 11 ++--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |  1 +
- 6 files changed, 54 insertions(+), 46 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+index 75284e2cec74..848c5b4bb301 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+@@ -334,7 +334,8 @@ bool dm_pp_get_clock_levels_by_type(
+ 			if (dc_clks->clocks_in_khz[i] > validation_clks.engine_max_clock) {
+ 				/* This clock is higher the validation clock.
+ 				 * Than means the previous one is the highest
+-				 * non-boosted one. */
++				 * non-boosted one.
++				 */
+ 				DRM_INFO("DM_PPLIB: reducing engine clock level from %d to %d\n",
+ 						dc_clks->num_levels, i);
+ 				dc_clks->num_levels = i > 0 ? i : 1;
+@@ -406,10 +407,10 @@ bool dm_pp_notify_wm_clock_changes(
+ 	 * TODO: expand this to other ASICs
+ 	 */
+ 	if ((adev->asic_type >= CHIP_POLARIS10) &&
+-	     (adev->asic_type <= CHIP_VEGAM) &&
+-	     !amdgpu_dpm_set_watermarks_for_clocks_ranges(adev,
+-						(void *)wm_with_clock_ranges))
+-			return true;
++	    (adev->asic_type <= CHIP_VEGAM) &&
++	    !amdgpu_dpm_set_watermarks_for_clocks_ranges(adev,
++							 (void *)wm_with_clock_ranges))
++		return true;
+ 
+ 	return false;
+ }
 -- 
 2.25.1
 
