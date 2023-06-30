@@ -4,117 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A36D5EB64D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 12:00:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40299EB64DA
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 14:25:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B49D610E46A;
-	Fri, 30 Jun 2023 12:00:07 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2051.outbound.protection.outlook.com [40.107.93.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D206C10E47C
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 12:00:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9932310E48B;
+	Fri, 30 Jun 2023 14:25:46 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2100.outbound.protection.outlook.com [40.107.236.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D9BE10E1B6;
+ Fri, 30 Jun 2023 13:38:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jUET4Cg6l+TXU7PWbP8J626vL08Sa41xgC1iyE2a/pOH1gmdiguPxKa4mWlFmDVo5ZBu7MK6vK1J69SLiHMeBzvUMc73OrZiDxOUnYV/egp1ZI21yVqXscQfydO+MBlqMw1D85INUOvtXIV/KuldKcVP5eO6XFpUr2edkFjXuvSnS0EQgT/ybpW4A5h+zDILpZfXH+ZAPg2KQ6KLm1TokQQwE5C7jVv35JLhT1VXGMmR/qhjKgLAtkUYdg7RTuyg/tJnNTIOQhXRmaboaTMUiXKDcevzJNc83ptqPW8HB3nwQYqiFmZZIcNQUwPGdtblET5dYOhK+T5NFlw4a3pgsQ==
+ b=aY1apBV+G0D43GIy2sjF22lqXwW8YBZ2ibqLCvw3PrAz5VYYtNxyFcP5nI988uVwKgDeVKgo7ligZY89kCnZvCGVuNh+/wLEq53aNFXrUi8O6cYoSiQ4MRNz1Uh3fi9GDDqRInORf+zl1vSJ/+XlHgMS7bv5RxSM/lgyZe09dTkJ8ASPGzeAJHGjxZ3tQK6FjnC8qLLcDi4LBhKMaxWEPZ2mCFNKnf66rOhMx0wemOdokx10trVvYzFZoiaRLe5uCOMzI3ayAeZ8/Qe8vy6Ds9bRx4r6baM4h+wYVmgJ7sJAU9TvrlHh3r1fz8MYwxE+/i3Sba4Oo/TxH55E/dcFRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Ax0eccQNsx9hGcsrRmInLFT7tNTaRGC73Ixwku8oNo=;
- b=auQeB6TJEm6+ACdCYSItEt/dJUOoieyxmpQjGe/xYqJA1klDCbkNFhwl4arF3oYtcYcgxZDDedl8Vx0FX6YbnZzIWiAEMEDO5MEksrDXCxwB7UwghsboLF2u39BJ42W+njFjDn+1qHB6f86Tg+zDBZbUQcjsfjoF3HLrqY4Eb/pEvudDLqALuwH3JNd5utwUk47t09Nma3JMpG5iy4ho9H7M4iWCCkSTWpTYYInOJXZ28/S8/iTJBxnBlM5HXuCAcqbKPtPmwratjJkUOjebnAWmqAUSHl/iT/zyTqWOyVCO9aH671Xj6cSPn7smDm8cvmYBTc9TqAEL6FyodHk07A==
+ bh=OXikBvj/pVJ0VPbfZan3q79e4S6bCEu3UnCdyCmCUU0=;
+ b=g9ly4iherxhhJJ8+K1BiB+n5WK9ZkYdPjpXx50xa2Ly6muwAGC7Qqo6+910+EGzlgHhG8v2ML1ywO6Xt/uDOB/5FRTbvgN2Sa4n+MGYEZnllUfN5xzAgCjQ1HRUzjg4qXjEbGbZqCQ1qXa1zCMtCbj1i9P/LC+zZqG2jjNb5ISfgfQNkn7qn1xrXTsHiFCCxmtdjOP54StQZ3vKXgEqdmcWORA9WhmllSsBJ4/+LdkD+vuO7K0o9yJlkNdT6tnPhwDFe4H3qPCmYJpP8Q3J/TMNyO+K7qxh7Oefu/3uCzPYNfw1FnLG9fLWXL/mvsqK5FtCnVDUFh7bWnrGqWwD3Ww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
+ dkim=pass header.d=corigine.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0Ax0eccQNsx9hGcsrRmInLFT7tNTaRGC73Ixwku8oNo=;
- b=aF1VTVv/W3kFZC+4UoAoqvPFnWCpneMj2PJIOBtrQUV68TWGPt/3DxgW5ub4Lnzs3CQtgjQ0hhNngoj8oa79fckpLU9trYypI9eiKOT+dQCUJv5XHtEvnbO6vVtB6XiEcEXY4JJDkMY25yeqkv6Vnb0/2g7TBH7WMGLQVa05dyY=
+ bh=OXikBvj/pVJ0VPbfZan3q79e4S6bCEu3UnCdyCmCUU0=;
+ b=Vsb1S/giWb2A4EMBzhGhhHfaUUoaprXIuYJ1jbHxaLo9ZDihpIpNXnc7j95HtccCFxEc2vnu+nenFcb8Ux+nPpWUTaozvcxAXRZNFIl3NIw+V+jD6C3NGS4CV05KQPqVI0pEmQpl4j6f94z0sIRSzT5CSvH+B0y+TrvBeKBDgB0=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MW6PR12MB8960.namprd12.prod.outlook.com (2603:10b6:303:23e::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.26; Fri, 30 Jun
- 2023 12:00:02 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::384a:95a4:8819:ee84]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::384a:95a4:8819:ee84%7]) with mapi id 15.20.6544.019; Fri, 30 Jun 2023
- 12:00:02 +0000
-Message-ID: <516512b4-c24d-c042-cd31-1266fc8cf8d8@amd.com>
-Date: Fri, 30 Jun 2023 13:59:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 1/6] drm/amdgpu: Fix warnings in gfxhub_ v1_0, v1_2.c
-Content-Language: en-US
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20230630115618.2855618-1-srinivasan.shanmugam@amd.com>
- <20230630115618.2855618-2-srinivasan.shanmugam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230630115618.2855618-2-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0146.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::7) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ header.d=none;dmarc=none action=none header.from=corigine.com;
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
+ by DS7PR13MB4639.namprd13.prod.outlook.com (2603:10b6:5:3ac::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Fri, 30 Jun
+ 2023 13:38:51 +0000
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::eb8f:e482:76e0:fe6e]) by PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::eb8f:e482:76e0:fe6e%5]) with mapi id 15.20.6544.019; Fri, 30 Jun 2023
+ 13:38:51 +0000
+Date: Fri, 30 Jun 2023 15:38:42 +0200
+From: Simon Horman <simon.horman@corigine.com>
+To: Evan Quan <evan.quan@amd.com>
+Subject: Re: [PATCH V5 1/9] drivers core: Add support for Wifi band RF
+ mitigations
+Message-ID: <ZJ7a4pvrjJbU2qjJ@corigine.com>
+References: <20230630103240.1557100-1-evan.quan@amd.com>
+ <20230630103240.1557100-2-evan.quan@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230630103240.1557100-2-evan.quan@amd.com>
+X-ClientProxiedBy: AM0PR03CA0038.eurprd03.prod.outlook.com (2603:10a6:208::15)
+ To PH0PR13MB4842.namprd13.prod.outlook.com
+ (2603:10b6:510:78::6)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MW6PR12MB8960:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f9ff7c8-c210-44a8-308b-08db79618907
+X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|DS7PR13MB4639:EE_
+X-MS-Office365-Filtering-Correlation-Id: a63e7b10-28fc-42db-d9f0-08db796f5741
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Kf8rUqo4ZOHYHaubjZrYXp3/DiU+GN5INGvMl+43ot47wHPIhnZaCag02di53uvcaK6ULwU56ypckkhvBxWeHq4NDnciQZUlc2v3A9DW4PX9Fd/TXS/mXXa3GTm34v9PSiKU0u6f6XRceO1uKGMgMaWtVlrk3JAaB1YnuFmUdZS4gbO7l17QPDglvqSHz6a1A1WKYV3E79y+6edyTCFkPZVv9px4dMnwWxIiKMHKWou88hbr1WRWNCowK0Q+B/tULceY1fr0U3xSxRzUkzbyz9quvYguo1jZUc5NB2gF7wsJCHcyrz8aH8LscGTpJ8vtLQbvNI3UR3vtq0tjpIgsgczVIY4ldRMyY8yMwLAlCfzt6LrCDyn3Usl381bNzI2XUxkZsFqtmczFJPk9jfOGt95UQxlliVJp47PGI6uBZgzWksQGIYfsUGHCKE/6ou7bM7Bg/88r3bufJ8N7ul5tz40i3d2ZyPwGnI+D+hdt8vY0PNg/qOAzPyRwzJQkBIQd+ixFQLgBAsMZc/1ZhjnvVyZ2JGUhMPf2fTGmK0/jqHSTBdIAVDIYte10MCW7KZKPABl90zkiIvz0ZvbwJBTV04FtYUfLpaOrzeoQXB0z3LLZLJaEHdVOQV1Da92Qi+jF99MkHbNnf1DM/e5+IWZyeA==
+X-Microsoft-Antispam-Message-Info: mvWGI+hI6dv2MwuxbwmJTh5rckYyi7b8ss1PY75TzpZDD8nYecX+kpi4pFo4+1PCiOHpWm8eK2BgpNLKiTabUNTt/VNrwnvMNqJQyHhIYVIKx1lCcIZ5G4dOASouLviY6VNH9dE3vSWo++95sF5+lAVCn52QuNpP62IfEgrfrnnn/CFJoZOxA9YndOfrLeQMG+UKZtwkkCNLwJPZ0+b/J1twRqTCzed0Xh9PdpYUi3LMCzXavAghVzVcEZiJsXlQqvPRUMtbSpTp/c3MdcOT0ZL5xL3wdAHxoWQCw5maTR2+bsNwZJSdML/bcNhBbCURNSpaIO9nHxm/Gm1LeI1rQreXdsWuodYBYl3p+DhfcVXPtlE7WSDHjKo8BDWInbN3ttY6FpVYn2LFqZ09bgmXYhctAccNEqpA2L841iCcD2xbKOa1R5K/abV9wYLKn/tKdXMbI5OFHb2+ovB3b3UyVCMCJEZgxOSFx8gxOvXqUpPKzvJ71n9RhcI/PyUUl9F+EVRZBedotXIDrE/52SYDIlTgoU0RxlwOGy/PgLGpcluIr0EtcM2B7x9KYEgBwVk4kEN5owP1taIEGiD5JhTg/4EZtijZUTIwalo7bYdMsIU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(39860400002)(136003)(396003)(376002)(366004)(451199021)(478600001)(38100700002)(83380400001)(66574015)(36756003)(31696002)(31686004)(86362001)(110136005)(2616005)(6486002)(6666004)(8936002)(66556008)(316002)(8676002)(66946007)(4326008)(6512007)(6636002)(186003)(41300700001)(6506007)(66476007)(5660300002)(2906002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(136003)(396003)(376002)(39840400004)(346002)(451199021)(6512007)(8936002)(66556008)(4326008)(66476007)(66946007)(7406005)(44832011)(7416002)(86362001)(6916009)(41300700001)(8676002)(316002)(5660300002)(38100700002)(6506007)(36756003)(6486002)(2906002)(6666004)(186003)(2616005)(478600001);
+ DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Wmh2a1RoL1QxS0pSeXNlNUgxditDQitLSGpseWw3am5FQ0JjV1pXUWUvcHZ6?=
- =?utf-8?B?ZUwrcXZkbXd0RENIWUFlQVhMTUpXOFo5VFNHcFh0bDJkMWZqN3JUc2VidWhN?=
- =?utf-8?B?UGc3dm9lcWptODI3ZjEzQlI0cjZ0eE5pMHZ3S0MwK0xKNmdlOVBvcVgxQ0po?=
- =?utf-8?B?ZHlQOHBjci9tdUVSNVVzU1FtNS8xOGU2VGZKZG9PZitHdmtqZnJSVTJFcUtK?=
- =?utf-8?B?NnhUWTg4MGdiRlBmRUI3RWR0enIzT0syUmRwVWluanJnMFNEMjlIYWc4bnh5?=
- =?utf-8?B?Y2RXMFk0VmFsRG41N3pDV1pjajNHeS85RUlLSFE3eko0UzN6VWEyRW9UQ3pO?=
- =?utf-8?B?UktZaVRaTG8wS1U2b2R2R2p3WGtUbFVLUmtqWWlqL2VDQSt3dUcrMzV1NzA3?=
- =?utf-8?B?Nys0YnZOaXdBNDQwRm1McklIeUhpYVBrckhTN2JHbURidHZubk82TmpCaEM1?=
- =?utf-8?B?anhtVjA4aDZ6azJxTE4xU3VOMVMzK0kzejVvUUNTajgxdHc2TzFzMFZWTlNX?=
- =?utf-8?B?WWU3Lzk4VnJDQmhtdFZQczlwamwyQlQ1dUo2MmcyMEhhRVI2ZXlQdU1na0l3?=
- =?utf-8?B?VzFLbWFwQWVSY3Q5blRvYjhCOXN5Um8rZy9TNGJGOVZPTUp4d3JXNlJUNWdJ?=
- =?utf-8?B?L2FleWVkWHVmSzE5QjVySjljY1lUYk9ycXV2YlZTQlBsR1R5TU9hK3duYVVk?=
- =?utf-8?B?a1k1eDBqRFJTRlNVSklBWlV1SytERjRUdnFGL3poNUluWTJ6TUpWZFFWV1hD?=
- =?utf-8?B?RXpCdG5oTHNSd0x5ajJvWnpnK0ZGS2hCS3RaTGcycTcwU2p3a3pSNHFrRUNS?=
- =?utf-8?B?TDhZbjhrR3c4SkNwNFZ3dGFaVXdRZ0F0OHp2RUV2T1FYUnhRVmtCOU8yY012?=
- =?utf-8?B?VkNKR3BuOExEdWl2TExVRU9mVlN2T0hXQ0ZyVTVnNEo1V21mQSt0TXhqaHRY?=
- =?utf-8?B?QnlaeFZweU5vNlRMZ0g0RzhXMjlBUDh2MWZNWFFWVjNMTmtRc0IwdTVyVFZW?=
- =?utf-8?B?a0JNdUVLTjZYT2RyK0loZ2R5Nm1XS3ZzV1JtWVJja0RxMnZUaEFaeFBRYzVL?=
- =?utf-8?B?SGkyaThScmVvRkFHRExrTTVvZDZFY2FQYnBBNExoN2ZZL25waHlkRjBkcHpz?=
- =?utf-8?B?NHZGb2NCNGlpYVl3TTNyZXlLcExaQzBucUYzZ1BkckVuNFZsd05xREJSeitD?=
- =?utf-8?B?dWxOdmROeFlSZVJvdWpIUWxkMXZ4eWE4RnVKbUM5blY0QWdSWDY1c3lYdWR4?=
- =?utf-8?B?S3JMOWZjYjRNalBhaVIzZXJjN2tjOEF2djhPTDkveml4YjhOd0dWMkdOUmJo?=
- =?utf-8?B?cjBzM2RHSGR5N1pHcGlLazBsRDlscTBNK0J2MllHWGdydUNNMzNqTXdpdzNw?=
- =?utf-8?B?bW9aV2YwRG5TdDdEaUR6bFVqVGNVQ2c2dG52bnRNRE9oOFdrQ2JhVk5kVDRE?=
- =?utf-8?B?aUViVURiVWdRMC8xTmg2bHRNa2RLK0RCOC9GbXZLZXRUZFFTTXZBbTRIbHRP?=
- =?utf-8?B?V3kyUkxFS29iNHNMNVhYSlF5YW9nU005LzNJQk5nLzdieHNseFhRb3EyanUy?=
- =?utf-8?B?ZEE4dm90ZkMvVzUvUGpHdDd5ckwveC95QVl1V1pVOXBEUFMwajhsSVpGTVpD?=
- =?utf-8?B?ckNvUFV3cU13eWprdS9jQnFHWlJRNTFWMlFTbldnaGVPWmFhQUpqbVp5RklB?=
- =?utf-8?B?TjBXeUVFc0ZSOW9mN3puWmZHY2g2Uk1NTTFTT3owZUFobTkvcEQycUtwWGdX?=
- =?utf-8?B?djlOWHhYeDAycDIvL20vMHg5aWpRblQzOEtBRHg2dEt0aFRmQ0VYL2Z3WEti?=
- =?utf-8?B?WHR6TVZMZmlmenN0WlZweHB1MGhENCtPWnVLRTduNHJtN3hSS2xjTlhjSDZ6?=
- =?utf-8?B?amZkOVhrQitLUHkyTU0rMGJSbmZBWkcwbHlURXBQM0kwelFiOW1SbzdNYktu?=
- =?utf-8?B?VTIyTWRWNlVUbFRDVkEzaEN1OW5QangyWVM2TG9ndU1CMWFZaEI1Zlkyemdy?=
- =?utf-8?B?MzhVTHN6ZDRZUDZ6YzNtWmtZbzZHejE5aTBsQk1BOHhUbWNubm91MEpSMmJi?=
- =?utf-8?B?MFhMZmVzSVRZNU40cVdmUnJPZTdPUTJlbDNwSEZyY2kxMlpPQzNEMjF0aGk2?=
- =?utf-8?B?OGdYUXhKSXZ0WjAydDNsWmVVTUE0SjdpRzI0NDVWTkdJQjh4UVY2clovQlE0?=
- =?utf-8?Q?bYpHxBJPviMP2Y+cA/zueRYRL9XMaLwo3iCkot7hwKuk?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f9ff7c8-c210-44a8-308b-08db79618907
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?KnrmHxlx4dCgeCyYHl8E+eA/BEZbR+Hhkl+hZtpEIm8Y/DJCHcdfGxC6gv1y?=
+ =?us-ascii?Q?MmQoR/2flrHU9rTywuKelboj6Q09aJW1PIM07WR3QY5mZhgDtyQQINuXkpjJ?=
+ =?us-ascii?Q?KyHz6E+hqGzEq4kgyhURaGbi5yXlPek4xwxk9URf245hWIBak8AByH6+m753?=
+ =?us-ascii?Q?D1Luc2AmlNtEe1rPtsQoyNz/LsNH1o19DLK3Ak4RKgkuxoCMolGPX7ncrWsi?=
+ =?us-ascii?Q?EJiQJWCZ8N8U6MsGvsYhW/zFdodlhfsfGOBZmnb5a+cX0Rt/79Ek8+geoaEg?=
+ =?us-ascii?Q?nAJh/OMIy3z7oTVPuOvCVHcNIt6jnL1bpneYJWbg2nsKzHIo4J8u7Sm8Oj6g?=
+ =?us-ascii?Q?PnqufVRf8inTzV0G8s7Ewp3wsjkXShqzutbmBBEKfglcMauZ3W9BUXlbKObF?=
+ =?us-ascii?Q?L3uz8NnnkYUKBvx2MiiKIlg2YxzFTw5DFHxi/JHjkUKW3C3uj1vFh9Ev0cVC?=
+ =?us-ascii?Q?g7Xf4tEHBoZz7iRiHHXIjQElj4rWRuLDknhv2oN+74/132XuzGkipds5fPgl?=
+ =?us-ascii?Q?QfmpBT6fLNnr7W8ECAs8K5bjTUKn8+UrxRzIDaMZfE71KHsEpuPzUoIgaCxq?=
+ =?us-ascii?Q?hHMppPX5VGkQ88mZKMfPXwT+iFaRxKuCNy+4gtn5SRAQmHUCz/G45sVL5lc7?=
+ =?us-ascii?Q?l24d3IarAnkEFfLw9x7wehDQDwjrq/cm7M2oX3UMjBIxovpWYHyrcAJ6bJey?=
+ =?us-ascii?Q?b1VcApBjn3vM+/9YJg9HhHpttADraGTaIe4svPx/T3mK5Fbpoz6Qo60ue4BD?=
+ =?us-ascii?Q?ArFn8bjI9966cdUD8xBn5SdEDkVCAwPJOmxqjH5BdVk4TD89HCM+JaDKDDFn?=
+ =?us-ascii?Q?Q0NIKdJ+qZsJnpSBXAxly25CBPtFSzSw36YM9I5MA044mPxLHqCRifIdQWZa?=
+ =?us-ascii?Q?TEnwAJ5iX07PnpF7jsb5I19FVB/wB3WzFtHF+HTpWzfgyoP6TApMAQspPzAk?=
+ =?us-ascii?Q?zWvd5FB1fXkIe5qa8vrj9ARQ5N9jM+vFnCwNHsCAPXSCqnpQzXa4Y5L5/pqC?=
+ =?us-ascii?Q?k+S95BSNA1iBqq+xHr9A4cBqRSG7BNWSAHYIRNw5COxcFiVbW8wLjIVm4uQS?=
+ =?us-ascii?Q?eVd72DtLegOMriJ9jFu6nY82Gy98cuF6p4Mc/TlKx0dxaicar4t8QczAPb2N?=
+ =?us-ascii?Q?WC8Cy33TaHZF7fS8CT6mNlLOTnuspUBShndUx7nyKVN8sM8pbC+Lu+0BIGYP?=
+ =?us-ascii?Q?KX5yUDkF55HpYaemdKifzamMc2ekiUveEyNuU8LVXylBc+H9HHDHZLQdv2v6?=
+ =?us-ascii?Q?rHodEqZPaj+D/2fnjsrKbJ8IzMmeVTobgTgIEN5lyAFXsfLwPbKNG2G45abO?=
+ =?us-ascii?Q?dYno+EbNWHqHPcYTJ5hgKMEtusoZfHVc0EdrC9SSzXNL2tU81Sb5q9Y45Aw4?=
+ =?us-ascii?Q?g6g7i16KJO6M0HVEbgWCzpKJ1ng4aq4B358EPEk50RvZTqLonwdzF4RTRlFc?=
+ =?us-ascii?Q?6VQQIZEU/v3j8LTL/nUGsQXtswR6UtzTGmNy3UVFyXRyViVosZTMWRCo8Xhb?=
+ =?us-ascii?Q?NjWOyHOstOtkFiAtV3E9p8sfgBPYQfhlXR0FoYX6mUBn1+x6+qt0L1oe/63b?=
+ =?us-ascii?Q?uFbyJ4VT5vcKujAx49Kcoqk2w27r2QlHc2EK6XkKKsDjbGm0l2HhtVBqElKT?=
+ =?us-ascii?Q?Vmw6aEmJKPwSaMPtUqxGRWSFQquzGunPwoAng9qcssMk91YNnGigAKhe20RU?=
+ =?us-ascii?Q?sMK+XQ=3D=3D?=
+X-OriginatorOrg: corigine.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a63e7b10-28fc-42db-d9f0-08db796f5741
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2023 12:00:02.2543 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2023 13:38:51.6898 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w2trnQlpeL5JgwAPomv8uwh+9LIh21Yff2WwldhN7AGtmrxo+jyFwLYWe1DAKfTJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8960
+X-MS-Exchange-CrossTenant-UserPrincipalName: W4fwxOj0siDetAKKt4ESAAs6FMsXGp7CjadoZqwAjPfgowBLmluHcMzpCUG42paoxm+tK40EUt/8I7zy3oxePxQtzDUdCJDSU0stlbSE7vw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR13MB4639
+X-Mailman-Approved-At: Fri, 30 Jun 2023 14:25:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,104 +117,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: jingyuwang_vip@163.com, bellosilicio@gmail.com, rafael@kernel.org,
+ trix@redhat.com, Lijo.Lazar@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, mdaenzer@redhat.com, Mario.Limonciello@amd.com,
+ airlied@gmail.com, amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, lenb@kernel.org, andrealmeid@igalia.com,
+ daniel@ffwll.ch, arnd@arndb.de, maarten.lankhorst@linux.intel.com,
+ hdegoede@redhat.com, jsg@jsg.id.au, jim.cromie@gmail.com,
+ netdev@vger.kernel.org, Xinhui.Pan@amd.com, linux-wireless@vger.kernel.org,
+ edumazet@google.com, Christian.Koenig@amd.com, tzimmermann@suse.de,
+ Alexander.Deucher@amd.com, johannes@sipsolutions.net, davem@davemloft.net
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 30.06.23 um 13:56 schrieb Srinivasan Shanmugam:
-> Fix the below checkpatch warnings:
->
-> WARNING: Block comments should align the * on each line
-> +                       /*
-> +                       * Raven2 has a HW issue that it is unable to use the
->
-> WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
-> +       unsigned num_level, block_size;
->
-> WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
-> +       unsigned i;
->
-> WARNING: Missing a blank line after declarations
-> +       u32 tmp;
-> +       tmp = RREG32_SOC15(GC, 0, mmVM_L2_PROTECTION_FAULT_CNTL);
->
-> WARNING: Block comments should align the * on each line
-> +                               /*
-> +                               * Raven2 has a HW issue that it is unable to use the
->
-> WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
-> +       unsigned num_level, block_size;
->
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+On Fri, Jun 30, 2023 at 06:32:32PM +0800, Evan Quan wrote:
 
-Acked-by: Christian König <christian.koenig@amd.com> for the series.
+...
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 7 ++++---
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c | 4 ++--
->   2 files changed, 6 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> index d94cc1ec7242..cdc290a474a9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> @@ -103,7 +103,7 @@ static void gfxhub_v1_0_init_system_aperture_regs(struct amdgpu_device *adev)
->   			min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
->   
->   		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
-> -			/*
-> +		       /*
->   			* Raven2 has a HW issue that it is unable to use the
->   			* vram which is out of MC_VM_SYSTEM_APERTURE_HIGH_ADDR.
->   			* So here is the workaround that increase system
-> @@ -248,7 +248,7 @@ static void gfxhub_v1_0_disable_identity_aperture(struct amdgpu_device *adev)
->   static void gfxhub_v1_0_setup_vmid_config(struct amdgpu_device *adev)
->   {
->   	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
-> -	unsigned num_level, block_size;
-> +	unsigned int num_level, block_size;
->   	uint32_t tmp;
->   	int i;
->   
-> @@ -308,7 +308,7 @@ static void gfxhub_v1_0_setup_vmid_config(struct amdgpu_device *adev)
->   static void gfxhub_v1_0_program_invalidation(struct amdgpu_device *adev)
->   {
->   	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
-> -	unsigned i;
-> +	unsigned int i;
->   
->   	for (i = 0 ; i < 18; ++i) {
->   		WREG32_SOC15_OFFSET(GC, 0, mmVM_INVALIDATE_ENG0_ADDR_RANGE_LO32,
-> @@ -375,6 +375,7 @@ static void gfxhub_v1_0_set_fault_enable_default(struct amdgpu_device *adev,
->   						 bool value)
->   {
->   	u32 tmp;
+> diff --git a/include/linux/wbrf.h b/include/linux/wbrf.h
+> new file mode 100644
+> index 000000000000..3ca95786cef5
+> --- /dev/null
+> +++ b/include/linux/wbrf.h
+> @@ -0,0 +1,65 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Wifi Band Exclusion Interface
+> + * Copyright (C) 2023 Advanced Micro Devices
+> + */
 > +
->   	tmp = RREG32_SOC15(GC, 0, mmVM_L2_PROTECTION_FAULT_CNTL);
->   	tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
->   			RANGE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-> index 4dabf910334b..47f95ec218a3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-> @@ -140,7 +140,7 @@ gfxhub_v1_2_xcc_init_system_aperture_regs(struct amdgpu_device *adev,
->   				min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
->   
->   			if (adev->apu_flags & AMD_APU_IS_RAVEN2)
-> -				/*
-> +			       /*
->   				* Raven2 has a HW issue that it is unable to use the
->   				* vram which is out of MC_VM_SYSTEM_APERTURE_HIGH_ADDR.
->   				* So here is the workaround that increase system
-> @@ -315,7 +315,7 @@ static void gfxhub_v1_2_xcc_setup_vmid_config(struct amdgpu_device *adev,
->   					      uint32_t xcc_mask)
->   {
->   	struct amdgpu_vmhub *hub;
-> -	unsigned num_level, block_size;
-> +	unsigned int num_level, block_size;
->   	uint32_t tmp;
->   	int i, j;
->   
+> +#ifndef _LINUX_WBRF_H
+> +#define _LINUX_WBRF_H
+> +
+> +#include <linux/device.h>
+> +
+> +/* Maximum number of wbrf ranges */
+> +#define MAX_NUM_OF_WBRF_RANGES		11
+> +
+> +struct exclusion_range {
+> +	/* start and end point of the frequency range in Hz */
+> +	uint64_t	start;
+> +	uint64_t	end;
+> +};
+> +
+> +struct exclusion_range_pool {
+> +	struct exclusion_range	band_list[MAX_NUM_OF_WBRF_RANGES];
+> +	uint64_t		ref_counter[MAX_NUM_OF_WBRF_RANGES];
+> +};
+> +
+> +struct wbrf_ranges_in {
+> +	/* valid entry: `start` and `end` filled with non-zero values */
+> +	struct exclusion_range	band_list[MAX_NUM_OF_WBRF_RANGES];
+> +};
+> +
+> +struct wbrf_ranges_out {
+> +	uint32_t		num_of_ranges;
+> +	struct exclusion_range	band_list[MAX_NUM_OF_WBRF_RANGES];
+> +} __packed;
+> +
+> +enum wbrf_notifier_actions {
+> +	WBRF_CHANGED,
+> +};
 
+Hi Evan,
+
+checkpatch suggests that u64 and u32 might be more appropriate types here,
+as they are Kernel types, whereas the ones use are user-space types.
+
+...
