@@ -4,52 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC825EB64DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 15:18:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D050CEB64D7
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 15:21:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C697D10E16F;
-	Fri, 30 Jun 2023 15:18:33 +0000 (UTC)
-X-Greylist: delayed 403 seconds by postgrey-1.36 at gabe;
- Fri, 30 Jun 2023 15:18:32 UTC
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org
- [IPv6:2001:67c:2050:0:465::101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 180F010E16D;
- Fri, 30 Jun 2023 15:18:31 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4QszLQ5HWYz9sb4;
- Fri, 30 Jun 2023 17:11:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1688137902;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ua30wMXPHiIzJC+EDhqRrAg0WgrJt2wqLGpN6dMTsnE=;
- b=XpHYz7NGak7KagCRXi00iobhb5iTDn6dzHL+UN7sESklYB+TogCXy613/A2FumWprXei0n
- 6X1A+RhnvZEqW4sdcc7JHjPN83cudu6zSpPXYaVt55mjbsviJpx/Yj6omqvvjmZpyVmgGU
- X9YqrixgneF+iC6Bh6qynctyb6oKn7kSrKU939SMTbxnqo/Z983nCYKGcAVR8Foqr8/8nr
- FZ9rFPwZBSAvTd5kV8RN2BY0PeOExEoqV16PjmZuZdv3kmlYdd58bknXvssFPQ/t55MLWh
- dQkKHb08UlemwcT98nwa1+vcWUXnMRTASVw1l2eN0jIxzrg8RrPxJnCYNA8ouQ==
-Message-ID: <afab1f5a-e581-3416-e2c2-238ea120655b@mailbox.org>
-Date: Fri, 30 Jun 2023 17:11:38 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6207610E16E;
+	Fri, 30 Jun 2023 15:21:19 +0000 (UTC)
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [IPv6:2001:4860:4864:20::35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE0C210E49A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 15:21:16 +0000 (UTC)
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-1b060bce5b0so1844172fac.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 08:21:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1688138476; x=1690730476;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3wtDor58wYkeD7k1+TbbF0Fg/zO20U4/pAMVm2I7KJA=;
+ b=Flmi7Tbgnqi/k/OIfescGSoyn0pGBEr6FhJlLwIZ5FEgsFapJKQEO1w+IdoQG6QWkZ
+ Cyxn/SD3eq88F1vZn9AuajGKuNVX+miFtDjT9aOcFnvfdo02fm/Lt5Ts+eMM6fdDfnpO
+ +omdCubRT9xkOKAH87HUqlKjAJ+q0iSwatg7DcDeKma4S1v4B6PSxmx1lmvTXM5qphML
+ lM4HDCsi/H0DjlZu2TQPNRzSzcOKZUa+a6yovxxCbjYwrUPDVH4EDyZ8lEO0+TXNXTwC
+ ELm2SZK29/Z9ZmiM+v1B9Mkep6ZBstlRjRSsx0+zJ/aYvFATz0bVmg5jExpVfnmuIhf+
+ 3cJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688138476; x=1690730476;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3wtDor58wYkeD7k1+TbbF0Fg/zO20U4/pAMVm2I7KJA=;
+ b=FwbPdksWD8xMbGXezjDkHXA8rf9/tGmUh6Br6Y9I4v51ZhBefjJmDqMAtweGxtx4Oj
+ kWhWvCcFqKfCfv1A6ptCGDRESeR7m/a8rxO+e84AShq8KnJWYV6aKVLM1oFfalaYi49V
+ qd7iuaI4tGHTXxZ+0r8CP8nBvT3zAGv4cbGwz9tc4CFmEH3daC/eR/hQXJeSsa/0idBr
+ S0l3R9Qf/VqRyrLy2n6391EY74aM/Mja+Nwyolonq96zOBdja2rAxxkKOD8VKVtrAm9C
+ a3j2alV+SmaHQJNB2/yV5P0WPVdJRJPciWHAG+Xk9ixg0BAY0qyYC3iTQvlmVSUFuytJ
+ XJaQ==
+X-Gm-Message-State: ABy/qLZ2gw0KdVe5BPGIWz7jP1vKPAX97CUPf5Cbjig+OFnaKFSjPFRu
+ 1Rh9f15ndD64PhIKQK5LkufDXanFnTw59cZtimk=
+X-Google-Smtp-Source: APBJJlHHy6N5ZCDbtlPcYseza9bOuf9J2BAk/nI2GeLwNptHVcUmpkymeiUhPlzX+8x2XjVO9SiNtZh/nXZzbrnL0+0=
+X-Received: by 2002:a05:6870:f988:b0:1a2:8e53:c418 with SMTP id
+ hv8-20020a056870f98800b001a28e53c418mr2691979oab.57.1688138475715; Fri, 30
+ Jun 2023 08:21:15 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
-Content-Language: en-CA
-To: Alex Deucher <alexdeucher@gmail.com>,
- Sebastian Wick <sebastian.wick@redhat.com>
-References: <20230627132323.115440-1-andrealmeid@igalia.com>
- <CA+hFU4z1pc=KUVVqyqfXEceUqMXQgh-qUnuB=1nkPELghvQO7w@mail.gmail.com>
- <CADnq5_MNVdtdcWKSz6dgmsjg+kEu8p5FVE+fkw_5BaXeG3QGow@mail.gmail.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <CADnq5_MNVdtdcWKSz6dgmsjg+kEu8p5FVE+fkw_5BaXeG3QGow@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 852533966e5c2714efb
-X-MBO-RS-META: o68zfrpg5xx44heqt4sp9rw33djooghd
+References: <20230630112135.3347421-1-kevinyang.wang@amd.com>
+In-Reply-To: <20230630112135.3347421-1-kevinyang.wang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 30 Jun 2023 11:21:04 -0400
+Message-ID: <CADnq5_O5ZheqKR=n05yZO6BdQN0BQmEjhRYx7--=ORy2B_ueLQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: disbale dcefclk device sysnode on GFX v9.4.3
+ chip
+To: Yang Wang <kevinyang.wang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,54 +68,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com, amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>, kernel-dev@igalia.com,
- alexander.deucher@amd.com, Pekka Paalanen <pekka.paalanen@collabora.com>,
- christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/30/23 16:59, Alex Deucher wrote:
-> On Fri, Jun 30, 2023 at 10:49 AM Sebastian Wick
-> <sebastian.wick@redhat.com> wrote:
->> On Tue, Jun 27, 2023 at 3:23 PM André Almeida <andrealmeid@igalia.com> wrote:
->>>
->>> +Robustness
->>> +----------
->>> +
->>> +The only way to try to keep an application working after a reset is if it
->>> +complies with the robustness aspects of the graphical API that it is using.
->>> +
->>> +Graphical APIs provide ways to applications to deal with device resets. However,
->>> +there is no guarantee that the app will use such features correctly, and the
->>> +UMD can implement policies to close the app if it is a repeating offender,
->>> +likely in a broken loop. This is done to ensure that it does not keep blocking
->>> +the user interface from being correctly displayed. This should be done even if
->>> +the app is correct but happens to trigger some bug in the hardware/driver.
->>
->> I still don't think it's good to let the kernel arbitrarily kill
->> processes that it thinks are not well-behaved based on some heuristics
->> and policy.
->>
->> Can't this be outsourced to user space? Expose the information about
->> processes causing a device and let e.g. systemd deal with coming up
->> with a policy and with killing stuff.
-> 
-> I don't think it's the kernel doing the killing, it would be the UMD.
-> E.g., if the app is guilty and doesn't support robustness the UMD can
-> just call exit().
+On Fri, Jun 30, 2023 at 7:22=E2=80=AFAM Yang Wang <kevinyang.wang@amd.com> =
+wrote:
+>
+> the dceflck sysnode is not aviable on GFX v9.4.3 chip.
+>
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 
-It would be safer to just ignore API calls[0], similarly to what is done until the application destroys the context with robustness. Calling exit() likely results in losing any unsaved work, whereas at least some applications might otherwise allow saving the work by other means.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-
-[0] Possibly accompanied by a one-time message to stderr along the lines of "GPU reset detected but robustness not enabled in context, ignoring OpenGL API calls".
-
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
-
+> ---
+>  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
+amdgpu_pm.c
+> index 9ef88a0b1b57..5bf401533103 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -2050,7 +2050,8 @@ static int default_attr_update(struct amdgpu_device=
+ *adev, struct amdgpu_device_
+>         } else if (DEVICE_ATTR_IS(pp_dpm_dcefclk)) {
+>                 if (gc_ver < IP_VERSION(9, 0, 0) ||
+>                     gc_ver =3D=3D IP_VERSION(9, 4, 1) ||
+> -                   gc_ver =3D=3D IP_VERSION(9, 4, 2))
+> +                   gc_ver =3D=3D IP_VERSION(9, 4, 2) ||
+> +                   gc_ver =3D=3D IP_VERSION(9, 4, 3))
+>                         *states =3D ATTR_STATE_UNSUPPORTED;
+>         } else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {
+>                 if (mp1_ver < IP_VERSION(10, 0, 0))
+> --
+> 2.34.1
+>
