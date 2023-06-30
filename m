@@ -4,88 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19ACEEB64D9
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 00:05:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11843EB64D9
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 02:14:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F88410E416;
-	Fri, 30 Jun 2023 00:05:02 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8404710E403
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 00:05:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=REDZ/0u0jv/D9WC1itVnn6t+iIkfXaPva8Z+ZsyfOJJGnVUk1QvyLDzKC1ItfZVnShbxmmdurlT0T4fVnHn91mi13g9Cs0TU/l8038E4HivjvO5p++tM9eoD0kpnlGuzNtAtci0iNk/oS3nULWOy1ezChg4fPCN1QZGI8aqStCid8TFp1MmkkZXLYq+L7lajdcOe6Mi1fmjFahlalNM58hDAojSKjnuFp/b5fUuha6dnw7aRNZqWEAwYB15umJI1CHTury8V8RmtSOQtNawunVxQFFJMM9vM4zf/McxXa88RW0ad064mMArEtHeM+C8vvho10CFb6+YUX5hVZlihCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0AWXqSSxQwwdsv4U1QdsGWG/QxACFcLiiYwvJk9kEuQ=;
- b=PASYHAdAZTruStENdSdlzeDiLHF97cAaBb7/I6RTjdK1OpUkk9rFw0rUWNY5ROBcZ4P26PureZfPAhvQEwSy2iP0C0+kVUoHpOiuvHOAKo0D/fhpSV+xnNKbQIkFzufv/yCwYLuRd2jI+I59qx7tm/A5A/Ukuf1FBtw0vsa3uif6Kx1qERsfKHXEamLgLGtmTsdaHfl5DGU444HtGeK/KX/acP3gavusmDCPvnMBSdxlK52t6rRqOQJFCuKJI3vtKtwrFryuU/SEO9DP/Bvml8kCTOHPNMPyZe9Mdtx+/DQKJI83VlmGrXr9V4fs+9k/1goKXfoIDQmtb7ogT62YDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0AWXqSSxQwwdsv4U1QdsGWG/QxACFcLiiYwvJk9kEuQ=;
- b=j7U7aMh4D52UW9ZNDVR/fCmoVux5E94w2iBoXoRzSoJqDfE9+pMe1C+/B5uYfAbsdmAqniGAvwWrCbb2c6AvekiyjNHchb0TG0m9FJxHHXB9xm7OAFQAgC4Cz1hA1hcWRmi654wIu4StbZ/k3O/9yeih6bex8g/rBXcxx0QVjBc=
-Received: from BN0PR04CA0073.namprd04.prod.outlook.com (2603:10b6:408:ea::18)
- by DM6PR12MB4139.namprd12.prod.outlook.com (2603:10b6:5:214::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.26; Fri, 30 Jun
- 2023 00:04:58 +0000
-Received: from BN8NAM11FT102.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ea:cafe::49) by BN0PR04CA0073.outlook.office365.com
- (2603:10b6:408:ea::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.22 via Frontend
- Transport; Fri, 30 Jun 2023 00:04:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT102.mail.protection.outlook.com (10.13.177.27) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.49 via Frontend Transport; Fri, 30 Jun 2023 00:04:57 +0000
-Received: from ssomasek-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 29 Jun
- 2023 19:04:57 -0500
-From: Sreekant Somasekharan <sreekant.somasekharan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/amdgpu: Add cu_occupancy sysfs file to GFX9.4.3
-Date: Thu, 29 Jun 2023 20:04:08 -0400
-Message-ID: <20230630000408.686895-1-sreekant.somasekharan@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 193B510E43B;
+	Fri, 30 Jun 2023 02:14:22 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0C7F910E434;
+ Fri, 30 Jun 2023 02:14:18 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8CxpMR3Op5kyh0EAA--.6715S3;
+ Fri, 30 Jun 2023 10:14:15 +0800 (CST)
+Received: from [10.20.42.43] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8BxxsxzOp5kA3oSAA--.41851S3; 
+ Fri, 30 Jun 2023 10:14:11 +0800 (CST)
+Message-ID: <2c81fbe3-308a-4c5e-0150-32006253b3ea@loongson.cn>
+Date: Fri, 30 Jun 2023 10:14:11 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT102:EE_|DM6PR12MB4139:EE_
-X-MS-Office365-Filtering-Correlation-Id: e49108ef-72a9-4651-2ce1-08db78fda43d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TPSDvGTRe0yR5oHAD7vRTDmINh2+MKqQyI3BbdYYJhYmqAv1yEcj+0pZ0IZ9A1rbe3uyWB1lTQzwhj6djm5mDu33+xzIdKC1Xy6EMWNJgNz6UK5h3oQhFS8DKF1ivNglzO9qDP68PRK+ps/GD16kaHBDslxEeWHYr72I41lCO8rFk/5tSIbZcd+KL+dEgTBzc16rRwJgCP59rukR8nszFR7DyNhF9mtyePlfy/eir0s0m+DApTPdy+CmFHp4S/b+dBJO8H9DS0i8q8wwQlv3IKgqnjhkrVQMqfRfny3WkAAQcLngnU/dBfSlsOzblk4c/JegqcIDzqAVdphp2NvIaQqxOQ8v42yqT0HANf6xneRkXjc0NNPZbOgodAJlUNPBmZqKtIXsjqmqbu4xkhMEqQF9Za5uiYZYNThc+GWhqZ1xIuQ3/zKH/7rKQrC5Tnhb19ga1Yqt9szk9VVxsiSNcVK2TTWUolcGL9JNhyGsEqkHXhJFrhh0x1MTBrK82DSN3kTvMF+3UWHZDjlBz4tN3KBBeLpTrnKGFm8I5NyKCZrSWMGNvvYwo5Cn4IRNuXSk7HaUoj8kenqUeuYY1Fl9yLVX8Sg2XBPR+Xe847vB/N1SnTApLilgXZkxr30sbgIh1AFNkweaMPTbBhjz21qfT71IWgqMMUR2lGEG6imG9QCLW9GeWfyuLYlwqYE++J7U0hFTokFLMd/Sol0t1eH6dRWFfcLXlGprJECy8UoFSvFRmDtaXmU7DWLaBygDAKVlpdcak7Lj6eYQ8O3L/kME8A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(136003)(39860400002)(396003)(376002)(451199021)(46966006)(40470700004)(36840700001)(82310400005)(36756003)(36860700001)(41300700001)(1076003)(2906002)(478600001)(47076005)(6666004)(7696005)(426003)(336012)(186003)(16526019)(2616005)(4744005)(26005)(6916009)(356005)(5660300002)(44832011)(40460700003)(70206006)(81166007)(316002)(4326008)(70586007)(40480700001)(82740400003)(86362001)(8936002)(8676002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2023 00:04:57.9807 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e49108ef-72a9-4651-2ce1-08db78fda43d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT102.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4139
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH v7 6/8] PCI/VGA: Introduce is_boot_device function
+ callback to vga_client_register
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "15330273260@189.cn" <15330273260@189.cn>, Bjorn Helgaas <helgaas@kernel.org>
+References: <20230629155436.GA397963@bhelgaas>
+ <bcfdc77d-a94d-bca1-56e3-5e14e91f6fd9@189.cn>
+ <MN0PR12MB6101CDB6FF9DC8F8EDEF5F45E225A@MN0PR12MB6101.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: suijingfeng <suijingfeng@loongson.cn>
+In-Reply-To: <MN0PR12MB6101CDB6FF9DC8F8EDEF5F45E225A@MN0PR12MB6101.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID: AQAAf8BxxsxzOp5kA3oSAA--.41851S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoW3JryDGFWfuryxZw1xGryrZrc_yoW7ZF4xpr
+ WY9FsIkrs7Xr1rAF1kKa4UAF1jq3y8J343Wrn8t3W8ur909F1SqrZaqr4a9Fy5Ar1akF4Y
+ vw4agrn2k395Z3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUf529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUPqb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
+ wI0_Gr1j6F4UJwAaw2AFwI0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
+ xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
+ JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwI
+ xGrwCYjI0SjxkI62AI1cAE67vIY487MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAK
+ I48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrV
+ AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8Jr1l
+ IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
+ AFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
+ 6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jD8n
+ 5UUUUU=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,30 +67,178 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sreekant.somasekharan@amd.com
+Cc: "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Chai,
+ Thomas" <YiPeng.Chai@amd.com>, "Gao, Likun" <Likun.Gao@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Ville Syrjala <ville.syrjala@linux.intel.com>, Yi Liu <yi.l.liu@intel.com>,
+ Karol Herbst <kherbst@redhat.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ Kevin Tian <kevin.tian@intel.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, "Zhang, Bokun" <Bokun.Zhang@amd.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Abhishek Sahu <abhsahu@nvidia.com>, Maxime Ripard <mripard@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Yishai Hadas <yishaih@nvidia.com>, Cornelia Huck <cohuck@redhat.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Include kgd_gfx_v9_get_cu_occupancy call inside kfd2kgd_calls for
-GFX9.4.3 to expose cu_occupancy sysfs file.
+Hi,
 
-Signed-off-by: Sreekant Somasekharan <sreekant.somasekharan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c | 1 +
- 1 file changed, 1 insertion(+)
+On 2023/6/30 01:44, Limonciello, Mario wrote:
+> [Public]
+>
+>> -----Original Message-----
+>> From: 15330273260@189.cn <15330273260@189.cn>
+>> Sent: Thursday, June 29, 2023 12:00 PM
+>> To: Bjorn Helgaas <helgaas@kernel.org>; Sui Jingfeng
+>> <suijingfeng@loongson.cn>
+>> Cc: Bjorn Helgaas <bhelgaas@google.com>; linux-fbdev@vger.kernel.org;
+>> Cornelia Huck <cohuck@redhat.com>; Karol Herbst <kherbst@redhat.com>;
+>> nouveau@lists.freedesktop.org; Joonas Lahtinen
+>> <joonas.lahtinen@linux.intel.com>; dri-devel@lists.freedesktop.org; Chai,
+>> Thomas <YiPeng.Chai@amd.com>; Limonciello, Mario
+>> <Mario.Limonciello@amd.com>; Gao, Likun <Likun.Gao@amd.com>; David
+>> Airlie <airlied@gmail.com>; Ville Syrjala <ville.syrjala@linux.intel.com>; Yi Liu
+>> <yi.l.liu@intel.com>; kvm@vger.kernel.org; amd-gfx@lists.freedesktop.org;
+>> Jason Gunthorpe <jgg@ziepe.ca>; Ben Skeggs <bskeggs@redhat.com>; linux-
+>> pci@vger.kernel.org; Kevin Tian <kevin.tian@intel.com>; Lazar, Lijo
+>> <Lijo.Lazar@amd.com>; Thomas Zimmermann <tzimmermann@suse.de>;
+>> Zhang, Bokun <Bokun.Zhang@amd.com>; intel-gfx@lists.freedesktop.org;
+>> Maarten Lankhorst <maarten.lankhorst@linux.intel.com>; Jani Nikula
+>> <jani.nikula@linux.intel.com>; Alex Williamson
+>> <alex.williamson@redhat.com>; Abhishek Sahu <abhsahu@nvidia.com>;
+>> Maxime Ripard <mripard@kernel.org>; Rodrigo Vivi <rodrigo.vivi@intel.com>;
+>> Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>; Yishai Hadas
+>> <yishaih@nvidia.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; linux-
+>> kernel@vger.kernel.org; Daniel Vetter <daniel@ffwll.ch>; Deucher, Alexander
+>> <Alexander.Deucher@amd.com>; Koenig, Christian
+>> <Christian.Koenig@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+>> Subject: Re: [PATCH v7 6/8] PCI/VGA: Introduce is_boot_device function
+>> callback to vga_client_register
+>>
+>> Hi,
+>>
+>> On 2023/6/29 23:54, Bjorn Helgaas wrote:
+>>> On Thu, Jun 22, 2023 at 01:08:15PM +0800, Sui Jingfeng wrote:
+>>>> Hi,
+>>>>
+>>>>
+>>>> A nouveau developer(Lyude) from redhat send me a R-B,
+>>>>
+>>>> Thanks for the developers of nouveau project.
+>>>>
+>>>>
+>>>> Please allow me add a link[1] here.
+>>>>
+>>>>
+>>>> [1]
+>> https://lore.kernel.org/all/0afadc69f99a36bc9d03ecf54ff25859dbc10e28.ca
+>> mel@redhat.com/
+>>> 1) Thanks for this.  If you post another version of this series,
+>>>      please pick up Lyude's Reviewed-by and include it in the relevant
+>>>      patches (as long as you haven't made significant changes to the
+>>>      code Lyude reviewed).
+>> Yes, no significant changes. Just fix typo.
+>>
+>> I also would like to add support for other DRM drivers.
+>>
+>> But I think this deserve another patch.
+>>
+>>>    Whoever applies this should automatically
+>>>      pick up Reviewed-by/Ack/etc that are replies to the version being
+>>>      applied, but they won't go through previous revisions to find them.
+>>>
+>>> 2) Please mention the commit to which the series applies.  I tried to
+>>>      apply this on v6.4-rc1, but it doesn't apply cleanly.
+>> Since I'm a graphic driver developer, I'm using drm-tip.
+>>
+>> I just have already pulled, it still apply cleanly on drm-tip.
+>>
+>>> 3) Thanks for including cover letters in your postings.  Please
+>>>      include a little changelog in the cover letter so we know what
+>>>      changed between v6 and v7, etc.
+>> No change between v6 and v7,
+>>
+>> it seems that it is because the mailbox don't allow me to sending too
+>> many mails a day.
+>>
+>> so some of the patch is failed to delivery because out of quota.
+>>
+>>
+>>> 4) Right now we're in the middle of the v6.5 merge window, so new
+>>>      content, e.g., this series, is too late for v6.5.  Most
+>>>      maintainers, including me, wait to merge new content until the
+>>>      merge window closes and a new -rc1 is tagged.  This merge window
+>>>      should close on July 9, and people will start merging content for
+>>>      v6.6, typically based on v6.5-rc1.
+>> I'm wondering
+>>
+>> Would you will merge all of the patches in this series (e.g. including
+>> the patch for drm/amdgpu(7/8) and drm/radeon(8/8)) ?
+>>
+>> Or just part of them?
+>>
+>> Emm, I don't know because my patch seems across different subsystem of
+>> Linux kernel.
+>>
+>> There is also a developer for AMDGPU (Mario) give me a R-B for the
+>> patch-0002 of this series.
+>>
+>> So, at least, PATCH-0001, PATCH-0002, PATCH-0003, PATCH-0004, PATCH-
+>> 0006
+>> are already OK(got reviewed by).
+>>
+>> Those 5 patch are already qualified to be merged, I think.
+> I think what you can do is pick up all the tags in your next version.  Once the
+> whole series has tags we can discuss how it merges.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-index 5b4b7f8b92a5..0ac5377a2fe7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
-@@ -379,6 +379,7 @@ const struct kfd2kgd_calls gc_9_4_3_kfd2kgd = {
- 				kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
- 	.set_vm_context_page_table_base =
- 				kgd_gfx_v9_set_vm_context_page_table_base,
-+	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
- 	.program_trap_handler_settings =
- 				kgd_gfx_v9_program_trap_handler_settings
- };
--- 
-2.25.1
+Thanks a lot, Mario.
+
+
+Is it possible to merge the PCI/VGA part as fast as possible, especially the
+
+PATCH-0006 PCI/VGA: Introduce is_boot_device function callback to vga_client_register
+
+As this patch is fundamental, it introduce no functional change, as long as the drm
+
+driver side don't introduce a callback.
+
+I'm not hurry, but drm driver-side's patch have a dependency on this patch,
+
+I think it is better the PCI/VGA-side's patch got merge first.
+
+At least for get the first four cleanup(0001 ~ 0004) patch merged first,
+
+so that I don't have to send so much on the next version on one series.
+
+Being exposed so far, there no obvious objection.
+
+It saying that other people also want it got merged.
+
+Bjorn, is this OK ?
+
+>
+>> I means that if you could merge those 5 patch first, then there no need
+>> to send another version again.
+>>
+>> I will refine the rest patch with more details and description.
+>>
+>> I'm fear of making too much noise.
+>>
+>>> Bjorn
 
