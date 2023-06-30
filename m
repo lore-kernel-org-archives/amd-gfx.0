@@ -4,49 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79903EB64D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 18:32:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5991EB64DC
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 20:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1580F10E4E6;
-	Fri, 30 Jun 2023 18:32:36 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D3BD10E4E0;
- Fri, 30 Jun 2023 18:32:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1688149953; x=1719685953;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=AUog1oylk7F8erWTwuZvVpqNmif9eOSht3QwuL4uOG8=;
- b=KK1RfvbhbAh74z3tzwv+CJBtmzNehYTlcpbn4/sGM0VtVNRl7RPKG2Oe
- usWsvVk8XNFb5zzrzCLFzIkE7A/x9Jk4zD4b+OEtSTev2OOVXFb8YS/CH
- 4E2ITrdBQ9xhMLR5r8JcxGHWe6NGhr4w4jK+UZfTV6Qz7EvRdEqQPQBxz
- KmetxV6fNdhar/tZAFv+/89lKiuhK4Jh8lyzPrDSJDfvtZX98H3/mQAjb
- IDEEsE3vIVMfmHoQcgBuFY9+t1WLMfBptJ6dXrWaiM6iozkgNoOoqFMNG
- 7SnVsrI2jLFYXyw2ro6JbtZAWj8pLkjT2IE0yx02mCMKm8k3sLpTzHeF7 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10757"; a="365949337"
-X-IronPort-AV: E=Sophos;i="6.01,171,1684825200"; d="scan'208";a="365949337"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2023 11:32:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10757"; a="717896031"
-X-IronPort-AV: E=Sophos;i="6.01,171,1684825200"; d="scan'208";a="717896031"
-Received: from lpascal-mobl.amr.corp.intel.com (HELO localhost)
- ([10.252.49.62])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2023 11:32:23 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Bjorn Helgaas <helgaas@kernel.org>, suijingfeng <suijingfeng@loongson.cn>
-Subject: Re: [PATCH v7 6/8] PCI/VGA: Introduce is_boot_device function
- callback to vga_client_register
-In-Reply-To: <20230630174156.GA487980@bhelgaas>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230630174156.GA487980@bhelgaas>
-Date: Fri, 30 Jun 2023 21:32:20 +0300
-Message-ID: <87v8f4243v.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A310B10E195;
+	Fri, 30 Jun 2023 20:33:14 +0000 (UTC)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51F7410E192;
+ Fri, 30 Jun 2023 20:33:12 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-3fba8e2aa52so25777995e9.1; 
+ Fri, 30 Jun 2023 13:33:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1688157190; x=1690749190;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=EcdF/6fyXoCel57zXUGGjxHCncr0l7PpKqOEZtpYrpY=;
+ b=gKcKV4rdxFUMwM7EIjl97teRG1SVQYkR5e479nULRSfLuRDXcKKccntzxUkh6nEEwU
+ rqoNMTDfBnw5147B8u39Sv9pjlOSuBEZ2rz5GJdWfVQnI2Fi6k8wuO54fwXK95qyowaT
+ e2aERNIgSrwW9Ktb+FRc6hgBZI7obfDnB1f9hCRXY5//gvhec+reXFLGRk8+Ko/qe/oi
+ E27qoPGkNS9FG1tV0cM9UuNSseDlyR4ldA6WFG5gJ0KeFxPXc/iZPAbxPzX/2Z9u8uib
+ HdoK/NeUTyX5gFDlKr8hdHKSeP/PPsqlEIcN1AmFgrD39DGUPMnj2GHJT5izirgwAGLG
+ YPBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688157190; x=1690749190;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=EcdF/6fyXoCel57zXUGGjxHCncr0l7PpKqOEZtpYrpY=;
+ b=D8lduxkkhfrW/akIUgQ8raO6yn+ojDlgVijp4V+Q5EKq2+qvpm7ZRFRfbuSQy4pelf
+ ivOGahtlF5sVVQcpi+Z2Bvq7eSIZ6TWtWl798nvS6ha1olIeSRi1q/4V1YGBOmXmleye
+ udHneiDxZZxrwbiye10Z1BwM80B0ijnQ4YdVEEN5HMHzdWosBciB66/4eoRolYtF8zki
+ 1L/DTf+l9Q/fA6lWR5AyNVkO8q5zK+cCP4FV4s/yRcrhhTs419DN4tBcIJjq6mLI0YqY
+ reLwYz2D6ZqYkDiP6IowXAAeltAJL/YQqy9LKHSXcvJuJze0MVGNEuUnv5X7OzkpNhhQ
+ CzLw==
+X-Gm-Message-State: AC+VfDygrCewkkYtUHCpDmxf/pKW9XZ1FFHuksnFTuKDw9NBdVd+0Ff9
+ B6xz7COoDMYVVbTJ5i6fZJnkYkv02J/uQ7+ANWM=
+X-Google-Smtp-Source: ACHHUZ4CCRu+32eXGdZT9Eu7EW+/FQwl8xNQTdwRCFny7A9jyWFiH0CJH1AaI+fljG7stqwhf1MfZ2sgczOLmvmnoZE=
+X-Received: by 2002:a05:600c:b55:b0:3fa:8040:27f6 with SMTP id
+ k21-20020a05600c0b5500b003fa804027f6mr2916420wmr.11.1688157189959; Fri, 30
+ Jun 2023 13:33:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20230627132323.115440-1-andrealmeid@igalia.com>
+ <CA+hFU4z1pc=KUVVqyqfXEceUqMXQgh-qUnuB=1nkPELghvQO7w@mail.gmail.com>
+ <CADnq5_MNVdtdcWKSz6dgmsjg+kEu8p5FVE+fkw_5BaXeG3QGow@mail.gmail.com>
+ <afab1f5a-e581-3416-e2c2-238ea120655b@mailbox.org>
+In-Reply-To: <afab1f5a-e581-3416-e2c2-238ea120655b@mailbox.org>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Fri, 30 Jun 2023 16:32:33 -0400
+Message-ID: <CAAxE2A5C96k5ua+r938VA_+w7gHHNTdF3n8LwDb98W0Bf9wCVA@mail.gmail.com>
+Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Type: multipart/alternative; boundary="000000000000a1f3c205ff5eb93b"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,107 +68,179 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
- Cornelia Huck <cohuck@redhat.com>, Karol Herbst <kherbst@redhat.com>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "Lazar, 
- Lijo" <Lijo.Lazar@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Chai,
- Thomas" <YiPeng.Chai@amd.com>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>, "Gao, Likun" <Likun.Gao@amd.com>,
- David Airlie <airlied@gmail.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>, Yi Liu <yi.l.liu@intel.com>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "15330273260@189.cn" <15330273260@189.cn>, Jason Gunthorpe <jgg@ziepe.ca>,
- Ben Skeggs <bskeggs@redhat.com>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- Kevin Tian <kevin.tian@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, "Zhang, 
- Bokun" <Bokun.Zhang@amd.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Alex Williamson <alex.williamson@redhat.com>,
- Abhishek Sahu <abhsahu@nvidia.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Yishai Hadas <yishaih@nvidia.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>, kernel-dev@igalia.com,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 30 Jun 2023, Bjorn Helgaas <helgaas@kernel.org> wrote:
-> On Fri, Jun 30, 2023 at 10:14:11AM +0800, suijingfeng wrote:
->> On 2023/6/30 01:44, Limonciello, Mario wrote:
->> > > On 2023/6/29 23:54, Bjorn Helgaas wrote:
->> > > > On Thu, Jun 22, 2023 at 01:08:15PM +0800, Sui Jingfeng wrote:
+--000000000000a1f3c205ff5eb93b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+That's a terrible idea. Ignoring API calls would be identical to a freeze.
+You might as well disable GPU recovery because the result would be the same=
+.
+
+There are 2 scenarios:
+- robust contexts: report the GPU reset status and skip API calls; let the
+app recreate the context to recover
+- non-robust contexts: call exit(1) immediately, which is the best way to
+recover
+
+Marek
+
+On Fri, Jun 30, 2023 at 11:11=E2=80=AFAM Michel D=C3=A4nzer <michel.daenzer=
+@mailbox.org>
+wrote:
+
+> On 6/30/23 16:59, Alex Deucher wrote:
+> > On Fri, Jun 30, 2023 at 10:49=E2=80=AFAM Sebastian Wick
+> > <sebastian.wick@redhat.com> wrote:
+> >> On Tue, Jun 27, 2023 at 3:23=E2=80=AFPM Andr=C3=A9 Almeida <andrealmei=
+d@igalia.com>
+> wrote:
+> >>>
+> >>> +Robustness
+> >>> +----------
+> >>> +
+> >>> +The only way to try to keep an application working after a reset is
+> if it
+> >>> +complies with the robustness aspects of the graphical API that it is
+> using.
+> >>> +
+> >>> +Graphical APIs provide ways to applications to deal with device
+> resets. However,
+> >>> +there is no guarantee that the app will use such features correctly,
+> and the
+> >>> +UMD can implement policies to close the app if it is a repeating
+> offender,
+> >>> +likely in a broken loop. This is done to ensure that it does not kee=
+p
+> blocking
+> >>> +the user interface from being correctly displayed. This should be
+> done even if
+> >>> +the app is correct but happens to trigger some bug in the
+> hardware/driver.
+> >>
+> >> I still don't think it's good to let the kernel arbitrarily kill
+> >> processes that it thinks are not well-behaved based on some heuristics
+> >> and policy.
+> >>
+> >> Can't this be outsourced to user space? Expose the information about
+> >> processes causing a device and let e.g. systemd deal with coming up
+> >> with a policy and with killing stuff.
+> >
+> > I don't think it's the kernel doing the killing, it would be the UMD.
+> > E.g., if the app is guilty and doesn't support robustness the UMD can
+> > just call exit().
 >
->> > > > 4) Right now we're in the middle of the v6.5 merge window, so new
->> > > >      content, e.g., this series, is too late for v6.5.  Most
->> > > >      maintainers, including me, wait to merge new content until the
->> > > >      merge window closes and a new -rc1 is tagged.  This merge window
->> > > >      should close on July 9, and people will start merging content for
->> > > >      v6.6, typically based on v6.5-rc1.
->> > > 
->> > > Would you will merge all of the patches in this series (e.g. including
->> > > the patch for drm/amdgpu(7/8) and drm/radeon(8/8)) ?
->> > > 
->> > > Or just part of them?
+> It would be safer to just ignore API calls[0], similarly to what is done
+> until the application destroys the context with robustness. Calling exit(=
+)
+> likely results in losing any unsaved work, whereas at least some
+> applications might otherwise allow saving the work by other means.
 >
-> The bulk of this series is drivers/pci changes, so typically I would
-> merge all the patches after getting Acked-by tags from the other
-> subsystems (DRM and VFIO).
-
-For the (negligible) i915 parts,
-
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-
->> Is it possible to merge the PCI/VGA part as fast as possible,
->> especially the PATCH-0006 PCI/VGA: Introduce is_boot_device function
->> callback to vga_client_register
 >
-> We're in the middle of the v6.5 merge window, so it's too late to add
-> things to v6.5-rc1.  The most likely path for new material like this
-> would be to queue it for v6.6, which means I would merge it after
-> v6.5-rc1 is tagged (that tag will probably happen on July 9).
-
-Perhaps the part that causes confusion here is that the drm-misc-next
-and drm-intel-next branches, for example, are always open for new
-patches; it's just that there's a cutoff at around rc5/rc6 after which
-they start targeting the next+1 release. We basically hide the merge
-window from a lot of drm developers.
-
-> It would then be in -next until the v6.6 merge window opens (likely in
-> September), when it would be merged into Linus' tree.
+> [0] Possibly accompanied by a one-time message to stderr along the lines
+> of "GPU reset detected but robustness not enabled in context, ignoring
+> OpenGL API calls".
 >
-> If the series fixes a regression or other major defect, it's
-> *possible* to merge things earlier, so they appear in v6.5.  But this
-> series doesn't seem to fall in that category, so I think v6.6 is a
-> more realistic target.
+> --
+> Earthling Michel D=C3=A4nzer            |                  https://redhat=
+.com
+> Libre software enthusiast          |         Mesa and Xwayland developer
 >
-> Merging for v6.6 would include both the PCI parts and the DRM parts at
-> the same time, so hopefully that addresses your dependency concerns.
-
-I guess the main question is whether Sui Jingfeng has follow-up work
-planned in drm that depends on these being merged. This would set that
-back by a full release. (But it happens.)
-
-BR,
-Jani.
-
-
-
 >
-> I suggest that you wait until v6.5-rc1, rebase your patches so they
-> apply cleanly on that tag, collect all the Reviewed-by and Acked-by
-> tags, include them in your commit logs, and then repost them.
->
-> Bjorn
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+--000000000000a1f3c205ff5eb93b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>That&#39;s a terrible idea. Ignoring API calls would =
+be identical to a freeze. You might as well disable GPU recovery because th=
+e result would be the same.</div><div><br></div><div>There are 2 scenarios:=
+</div><div>- robust contexts: report the GPU reset status and skip API call=
+s; let the app recreate the context to recover<br></div><div>- non-robust c=
+ontexts: call exit(1) immediately, which is the best way to recover<br></di=
+v><div></div><div></div><div><br></div><div>Marek<br></div></div><br><div c=
+lass=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jun 30, =
+2023 at 11:11=E2=80=AFAM Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel.da=
+enzer@mailbox.org">michel.daenzer@mailbox.org</a>&gt; wrote:<br></div><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
+1px solid rgb(204,204,204);padding-left:1ex">On 6/30/23 16:59, Alex Deucher=
+ wrote:<br>
+&gt; On Fri, Jun 30, 2023 at 10:49=E2=80=AFAM Sebastian Wick<br>
+&gt; &lt;<a href=3D"mailto:sebastian.wick@redhat.com" target=3D"_blank">seb=
+astian.wick@redhat.com</a>&gt; wrote:<br>
+&gt;&gt; On Tue, Jun 27, 2023 at 3:23=E2=80=AFPM Andr=C3=A9 Almeida &lt;<a =
+href=3D"mailto:andrealmeid@igalia.com" target=3D"_blank">andrealmeid@igalia=
+.com</a>&gt; wrote:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; +Robustness<br>
+&gt;&gt;&gt; +----------<br>
+&gt;&gt;&gt; +<br>
+&gt;&gt;&gt; +The only way to try to keep an application working after a re=
+set is if it<br>
+&gt;&gt;&gt; +complies with the robustness aspects of the graphical API tha=
+t it is using.<br>
+&gt;&gt;&gt; +<br>
+&gt;&gt;&gt; +Graphical APIs provide ways to applications to deal with devi=
+ce resets. However,<br>
+&gt;&gt;&gt; +there is no guarantee that the app will use such features cor=
+rectly, and the<br>
+&gt;&gt;&gt; +UMD can implement policies to close the app if it is a repeat=
+ing offender,<br>
+&gt;&gt;&gt; +likely in a broken loop. This is done to ensure that it does =
+not keep blocking<br>
+&gt;&gt;&gt; +the user interface from being correctly displayed. This shoul=
+d be done even if<br>
+&gt;&gt;&gt; +the app is correct but happens to trigger some bug in the har=
+dware/driver.<br>
+&gt;&gt;<br>
+&gt;&gt; I still don&#39;t think it&#39;s good to let the kernel arbitraril=
+y kill<br>
+&gt;&gt; processes that it thinks are not well-behaved based on some heuris=
+tics<br>
+&gt;&gt; and policy.<br>
+&gt;&gt;<br>
+&gt;&gt; Can&#39;t this be outsourced to user space? Expose the information=
+ about<br>
+&gt;&gt; processes causing a device and let e.g. systemd deal with coming u=
+p<br>
+&gt;&gt; with a policy and with killing stuff.<br>
+&gt; <br>
+&gt; I don&#39;t think it&#39;s the kernel doing the killing, it would be t=
+he UMD.<br>
+&gt; E.g., if the app is guilty and doesn&#39;t support robustness the UMD =
+can<br>
+&gt; just call exit().<br>
+<br>
+It would be safer to just ignore API calls[0], similarly to what is done un=
+til the application destroys the context with robustness. Calling exit() li=
+kely results in losing any unsaved work, whereas at least some applications=
+ might otherwise allow saving the work by other means.<br>
+<br>
+<br>
+[0] Possibly accompanied by a one-time message to stderr along the lines of=
+ &quot;GPU reset detected but robustness not enabled in context, ignoring O=
+penGL API calls&quot;.<br>
+<br>
+-- <br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <a href=3D"http=
+s://redhat.com" rel=3D"noreferrer" target=3D"_blank">https://redhat.com</a>=
+<br>
+Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0Mesa and Xwayland developer<br>
+<br>
+</blockquote></div>
+
+--000000000000a1f3c205ff5eb93b--
