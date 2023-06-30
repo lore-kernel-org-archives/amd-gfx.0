@@ -4,60 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06C57EB64D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 14:29:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D6B9EB64D7
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 14:49:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99BA210E48E;
-	Fri, 30 Jun 2023 14:29:43 +0000 (UTC)
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B581B10E48E
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 14:29:40 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id
- 5614622812f47-38e04d1b2b4so1350847b6e.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 07:29:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688135379; x=1690727379;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LOv0aysYsCQjqwGoH0mQjcuIibs3Pny/1RTvzHnp3eY=;
- b=T8ZHtDMcNjdUws5atzVc2MzvoB3Q2nHpURNiGtNN8PQbJ4Apko+fn7Vi4IiDY5x1ln
- Ryifbe/J87OHJSTMIRy0weKjt83YMMMVavCl0kKbPqLg6PvhEuFcE6kr9jP58q8tdHoJ
- y1SK7lt8cm1NrOdSOxMRJmo9TB4qRp8BiQo90IZfyP8pnzMukwiZZagm9JKcSlptgWQ6
- Pe7Bx/B4NuQEwn1l3AF8SaARzP3bhSJAG+OPutbK2sxOhCZJse3QKvtJVTEAWUqrX4fr
- u0K4BdbbHwGAA1ZVZ4bCbvF4bde6QankN/cPY9PluNHQDJhdsHUKhkWU4OESnUipwsqL
- 9axA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63D7910E4B2;
+	Fri, 30 Jun 2023 14:49:08 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5CE210E49F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 14:49:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1688136543;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IE6S4UE7sAhbA+CX4GXzjRMRbvuc9Ga9QvqadN+Ay54=;
+ b=Cl2sVRdkIi7eOo+rhzxWdmLQxq7aS9tWy80jtlBzKMX/KHk1IqzaBtEDuBFCZo3pHS1t6H
+ u46Q6wfgVOfCbPjnGH9qA5v97b1Ev+QoNSu/Vp1vuYn+aAqLDGdA2GpQzCLdGCfioZaiX6
+ B31QdTth459V27u+NhuSwyXf24scirk=
+Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
+ [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-149-GDRtebr9M6aMDRiNcO3WiQ-1; Fri, 30 Jun 2023 10:49:02 -0400
+X-MC-Unique: GDRtebr9M6aMDRiNcO3WiQ-1
+Received: by mail-lf1-f69.google.com with SMTP id
+ 2adb3069b0e04-4f01644f62eso1979007e87.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 07:49:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688135379; x=1690727379;
+ d=1e100.net; s=20221208; t=1688136540; x=1690728540;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=LOv0aysYsCQjqwGoH0mQjcuIibs3Pny/1RTvzHnp3eY=;
- b=bPmvcXdpHvSZMKsiFylo361tRlHTRfVYYXJ7Gq/TJm5TH2X0gjtbbJ/UGSfPxlj0VF
- 0Fgc9XC1qrAW3+W2MB9k1ReksySjkscI9Q01tSxSmnVadjw/KjnHA8bwSZYkoL5vn/Rn
- n1hdicQSxH4VZWcqxD8xAy63G/acfdUhwbRQtIYjnLxv5FiESUDKWZJ1Dvu9lTMkIjxC
- lBraPr2lWbIS1nh/6dIvpct5hpKNZ9VhGHmcJ6lZgolE6N5T5MVzc+VDES1uToJzPmDN
- 8TTbGLUdPj99x/BHM2dLsexThv44gAgMuflqmePJ1BsJcR5p+gsEzsxyHakrewBv27/u
- IKWw==
-X-Gm-Message-State: AC+VfDx9EGMoMmc3rPGX6pD/AiryZBSYsUYvSyQ/nBg6zeof2p5QH4PH
- StlUEnvXXVuiqjpj1RSJ8y3ldrr5JnXebZuK/qUSc/N9JcU=
-X-Google-Smtp-Source: ACHHUZ7p5fFpBMzf1OWVnw4S5DO6vgtzVcoUupOdgDMXY7MgqmhrEcVURpOqqk3a48lhf9Qf5Wbl1STbxiWA9Z7qaOw=
-X-Received: by 2002:a05:6808:1792:b0:3a1:dfa4:b654 with SMTP id
- bg18-20020a056808179200b003a1dfa4b654mr3230467oib.11.1688135379422; Fri, 30
- Jun 2023 07:29:39 -0700 (PDT)
+ bh=IE6S4UE7sAhbA+CX4GXzjRMRbvuc9Ga9QvqadN+Ay54=;
+ b=VEz7CNTkUlsDfsZEoyjNhrtMh3AoUtSHbm3KVHayXJKHsH0od9+mPG+fUEYmxstHDU
+ 3USa/qcoPoiZnEDe7JZGgzMuUHG2WdSgpZr1RDmzeYl7nNjWF7SC6nMqM9u3TpI3tTsH
+ zO1EXD1PSJOUr0peS+rmWUbgErvPEGuYlU/5wM6IIzqaf7RjKJDIAki3mN/JJQrMl7Al
+ nH7EdASX+ZBbSRZznjQCtiu3MvYShG5aWVd6+Y7KC4gk14nGHDsmNdJFHr53WhKGl6XE
+ hnVUJkUnWzgwVL8P1LAd+/yBlnQc8ea0AgvQLDYM9HfiQ9Zzx0Cp1hOHPUVhl8ikLxmS
+ sOYA==
+X-Gm-Message-State: ABy/qLa8iYOOC8TWq64/5CWPu88solNnB/VYr3/C2hgKPVX2qV9RxToh
+ cuNbQ9yXQhrXicbW0XWtRMAdl91v4RLi81XqNt7fBCiIiPG3KJRWLqwnA2CyZJHmlNDgXxsKjJZ
+ 3AakVbtC6YsGjzadqayp9I4JjQqndQij0bVJkg0GMfw==
+X-Received: by 2002:a19:e01d:0:b0:4fb:7592:cc7a with SMTP id
+ x29-20020a19e01d000000b004fb7592cc7amr2158283lfg.20.1688136540351; 
+ Fri, 30 Jun 2023 07:49:00 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlGtjzxeVBKbob2iqqdDAGaWV6CTJDd7NKkDPpclcn4S7VPc1LXPfVpLRshmFb+uMsJdQD1SXjE2Cr9ak6FgKcE=
+X-Received: by 2002:a19:e01d:0:b0:4fb:7592:cc7a with SMTP id
+ x29-20020a19e01d000000b004fb7592cc7amr2158264lfg.20.1688136540018; Fri, 30
+ Jun 2023 07:49:00 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230526011846.3331119-1-jiadong.zhu@amd.com>
- <DS7PR12MB63333AA94098FF3191BCE8FFF44B9@DS7PR12MB6333.namprd12.prod.outlook.com>
- <ZJ7Z2RIj0ckGKRiq@fedora>
- <CAB=+i9SC_eErQXqHBiiuztqvB2i9X2RarAD4DVVdXcHD9t3WpQ@mail.gmail.com>
-In-Reply-To: <CAB=+i9SC_eErQXqHBiiuztqvB2i9X2RarAD4DVVdXcHD9t3WpQ@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 30 Jun 2023 10:29:28 -0400
-Message-ID: <CADnq5_MNOoxNKW92npaioQTYByuSi0ktNcTzmdy2VsDzducnrA@mail.gmail.com>
-Subject: Re: [BUG REPORT][PATCH 1/2] drm/amdgpu: Modify indirect buffer
- packages for resubmission
-To: Hyeonggon Yoo <42.hyeyoo@gmail.com>
+References: <20230627132323.115440-1-andrealmeid@igalia.com>
+In-Reply-To: <20230627132323.115440-1-andrealmeid@igalia.com>
+From: Sebastian Wick <sebastian.wick@redhat.com>
+Date: Fri, 30 Jun 2023 16:48:49 +0200
+Message-ID: <CA+hFU4z1pc=KUVVqyqfXEceUqMXQgh-qUnuB=1nkPELghvQO7w@mail.gmail.com>
+Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,244 +76,159 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, "Zhu,
- Jiadong" <Jiadong.Zhu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 30, 2023 at 10:25=E2=80=AFAM Hyeonggon Yoo <42.hyeyoo@gmail.com=
-> wrote:
+On Tue, Jun 27, 2023 at 3:23=E2=80=AFPM Andr=C3=A9 Almeida <andrealmeid@iga=
+lia.com> wrote:
 >
-> On Fri, Jun 30, 2023 at 10:34=E2=80=AFPM Hyeonggon Yoo <42.hyeyoo@gmail.c=
-om> wrote:
-> >
-> > On Tue, May 30, 2023 at 06:23:53AM +0000, Zhu, Jiadong wrote:
-> > > -----Original Message-----
-> > > From: Zhu, Jiadong <Jiadong.Zhu@amd.com>
-> > > Sent: Friday, May 26, 2023 9:19 AM
-> > > To: amd-gfx@lists.freedesktop.org
-> > > Cc: Zhu, Jiadong <Jiadong.Zhu@amd.com>
-> > > Subject: [PATCH 1/2] drm/amdgpu: Modify indirect buffer packages for =
-resubmission
-> > >
-> > > From: Jiadong Zhu <Jiadong.Zhu@amd.com>
-> > >
-> > > When the preempted IB frame resubmitted to cp, we need to modify the =
-frame data including:
-> > > 1. set PRE_RESUME 1 in CONTEXT_CONTROL.
-> > > 2. use meta data(DE and CE) read from CSA in WRITE_DATA.
-> > >
-> > > Add functions to save the location the first time IBs emitted and cal=
-lback to patch the package when resubmission happens.
-> > >
-> > > Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c     | 18 ++++++
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h     |  9 +++
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c | 60 ++++++++++++++++++=
-++  drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h | 15 +++++
-> > >  4 files changed, 102 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_ring.c
-> >
-> > <...snip...>
-> >
-> > > +void amdgpu_ring_mux_ib_mark_offset(struct amdgpu_ring_mux *mux,
-> > > +                                   struct amdgpu_ring *ring, u64 off=
-set,
-> > > +                                   enum amdgpu_ring_mux_offset_type =
-type) {
-> > > +       struct amdgpu_mux_entry *e;
-> > > +       struct amdgpu_mux_chunk *chunk;
-> > > +
-> > > +       e =3D amdgpu_ring_mux_sw_entry(mux, ring);
-> > > +       if (!e) {
-> > > +               DRM_ERROR("cannot find entry!\n");
-> > > +               return;
-> > > +       }
-> > > +
-> > > +       chunk =3D list_last_entry(&e->list, struct amdgpu_mux_chunk, =
-entry);
-> > > +       if (!chunk) {
-> > > +               DRM_ERROR("cannot find chunk!\n");
-> > > +               return;
-> > > +       }
-> > > +
-> > > +       switch (type) {
-> > > +       case AMDGPU_MUX_OFFSET_TYPE_CONTROL:
-> > > +               chunk->cntl_offset =3D offset;
-> > > +               break;
-> >
-> > Hello folks,
+> Create a section that specifies how to deal with DRM device resets for
+> kernel and userspace drivers.
 >
-> (+Cc'ing Alex Deucher)
+> Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> ---
 >
-> > While booting my laptop I just observed a slab out of bounds error from=
- KASAN on this line.
+> v4: https://lore.kernel.org/lkml/20230626183347.55118-1-andrealmeid@igali=
+a.com/
 >
-> sorry for confusion, the offending function is not the function above
-> (amdgpu_ring_mux_ib_mark_offset) but amdgpu_sw_ring_ib_mark_offset()
+> Changes:
+>  - Grammar fixes (Randy)
 >
-> This was tested on top of commit e55e5df193d247a38a
-> (" csky: fix up lock_mm_and_find_vma() conversion")
-> so you can check the line numbers on top of the commit :)
+>  Documentation/gpu/drm-uapi.rst | 68 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 68 insertions(+)
 >
-> let me know if you need more information.
+> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.=
+rst
+> index 65fb3036a580..3cbffa25ed93 100644
+> --- a/Documentation/gpu/drm-uapi.rst
+> +++ b/Documentation/gpu/drm-uapi.rst
+> @@ -285,6 +285,74 @@ for GPU1 and GPU2 from different vendors, and a thir=
+d handler for
+>  mmapped regular files. Threads cause additional pain with signal
+>  handling as well.
+>
+> +Device reset
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +The GPU stack is really complex and is prone to errors, from hardware bu=
+gs,
+> +faulty applications and everything in between the many layers. Some erro=
+rs
+> +require resetting the device in order to make the device usable again. T=
+his
+> +sections describes the expectations for DRM and usermode drivers when a
+> +device resets and how to propagate the reset status.
+> +
+> +Kernel Mode Driver
+> +------------------
+> +
+> +The KMD is responsible for checking if the device needs a reset, and to =
+perform
+> +it as needed. Usually a hang is detected when a job gets stuck executing=
+. KMD
+> +should keep track of resets, because userspace can query any time about =
+the
+> +reset stats for an specific context. This is needed to propagate to the =
+rest of
+> +the stack that a reset has happened. Currently, this is implemented by e=
+ach
+> +driver separately, with no common DRM interface.
+> +
+> +User Mode Driver
+> +----------------
+> +
+> +The UMD should check before submitting new commands to the KMD if the de=
+vice has
+> +been reset, and this can be checked more often if the UMD requires it. A=
+fter
+> +detecting a reset, UMD will then proceed to report it to the application=
+ using
+> +the appropriate API error code, as explained in the section below about
+> +robustness.
+> +
+> +Robustness
+> +----------
+> +
+> +The only way to try to keep an application working after a reset is if i=
+t
+> +complies with the robustness aspects of the graphical API that it is usi=
+ng.
+> +
+> +Graphical APIs provide ways to applications to deal with device resets. =
+However,
+> +there is no guarantee that the app will use such features correctly, and=
+ the
+> +UMD can implement policies to close the app if it is a repeating offende=
+r,
+> +likely in a broken loop. This is done to ensure that it does not keep bl=
+ocking
+> +the user interface from being correctly displayed. This should be done e=
+ven if
+> +the app is correct but happens to trigger some bug in the hardware/drive=
+r.
 
-I believe this was fixed in this patch:
-https://gitlab.freedesktop.org/agd5f/linux/-/commit/ef3c36a6e025e9b16ca3321=
-479ba016841fa17a0
+I still don't think it's good to let the kernel arbitrarily kill
+processes that it thinks are not well-behaved based on some heuristics
+and policy.
 
-Alex
+Can't this be outsourced to user space? Expose the information about
+processes causing a device and let e.g. systemd deal with coming up
+with a policy and with killing stuff.
 
-> thanks!
+> +
+> +OpenGL
+> +~~~~~~
+> +
+> +Apps using OpenGL should use the available robust interfaces, like the
+> +extension ``GL_ARB_robustness`` (or ``GL_EXT_robustness`` for OpenGL ES)=
+. This
+> +interface tells if a reset has happened, and if so, all the context stat=
+e is
+> +considered lost and the app proceeds by creating new ones. If it is poss=
+ible to
+> +determine that robustness is not in use, the UMD will terminate the app =
+when a
+> +reset is detected, giving that the contexts are lost and the app won't b=
+e able
+> +to figure this out and recreate the contexts.
+> +
+> +Vulkan
+> +~~~~~~
+> +
+> +Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for submissi=
+ons.
+> +This error code means, among other things, that a device reset has happe=
+ned and
+> +it needs to recreate the contexts to keep going.
+> +
+> +Reporting causes of resets
+> +--------------------------
+> +
+> +Apart from propagating the reset through the stack so apps can recover, =
+it's
+> +really useful for driver developers to learn more about what caused the =
+reset in
+> +first place. DRM devices should make use of devcoredump to store relevan=
+t
+> +information about the reset, so this information can be added to user bu=
+g
+> +reports.
+> +
+>  .. _drm_driver_ioctl:
 >
-> > This splat disappears after reverting this whole series.
-> > config file is attached.
-> >
-> > Thanks!
-> >
-> > [   18.223441] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > [   18.223444] BUG: KASAN: slab-out-of-bounds in amdgpu_sw_ring_ib_mark=
-_offset (drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c:503 drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ring_mux.c:428) amdgpu
-> > [   18.224601] Write of size 8 at addr ffff8881208eb898 by task kworker=
-/8:1/104
-> >
-> > [   18.224611] Hardware name: LENOVO 21DL/LNVNB161216, BIOS JPCN20WW(V1=
-.06) 09/20/2022
-> > [   18.224614] Workqueue: events amdgpu_device_delayed_init_work_handle=
-r [amdgpu]
-> > [   18.225558] Call Trace:
-> > [   18.225561]  <TASK>
-> > [   18.225563] dump_stack_lvl (lib/dump_stack.c:108)
-> > [   18.225572] print_report (mm/kasan/report.c:365 (discriminator 1) mm=
-/kasan/report.c:475 (discriminator 1))
-> > [   18.225579] ? __virt_addr_valid (./include/linux/mmzone.h:1908 (disc=
-riminator 1) ./include/linux/mmzone.h:2004 (discriminator 1) arch/x86/mm/ph=
-ysaddr.c:65 (discriminator 1))
-> > [   18.225585] ? amdgpu_sw_ring_ib_mark_offset (drivers/gpu/drm/amd/amd=
-gpu/amdgpu_ring_mux.c:503 drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c:428)=
- amdgpu
-> > [   18.226530] kasan_report (mm/kasan/report.c:590)
-> > [   18.226535] ? amdgpu_sw_ring_ib_mark_offset (drivers/gpu/drm/amd/amd=
-gpu/amdgpu_ring_mux.c:503 drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c:428)=
- amdgpu
-> > [   18.227478] amdgpu_sw_ring_ib_mark_offset (drivers/gpu/drm/amd/amdgp=
-u/amdgpu_ring_mux.c:503 drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c:428) a=
-mdgpu
-> > [   18.228426] gfx_v9_0_ring_emit_ib_gfx (drivers/gpu/drm/amd/amdgpu/am=
-dgpu_ring.h:373 drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c:5169) amdgpu
-> > [   18.229397] amdgpu_ib_schedule (drivers/gpu/drm/amd/amdgpu/amdgpu_ib=
-.c:252 (discriminator 1)) amdgpu
-> > [   18.230342] gfx_v9_0_ring_test_ib (drivers/gpu/drm/amd/amdgpu/gfx_v9=
-_0.c:1052) amdgpu
-> > [   18.231295] ? __pfx_gfx_v9_0_ring_test_ib (drivers/gpu/drm/amd/amdgp=
-u/gfx_v9_0.c:1023) amdgpu
-> > [   18.232251] ? lock_acquire (kernel/locking/lockdep.c:467 (discrimina=
-tor 4) kernel/locking/lockdep.c:5763 (discriminator 4) kernel/locking/lockd=
-ep.c:5726 (discriminator 4))
-> > [   18.232259] ? __pfx_lock_acquire (kernel/locking/lockdep.c:5729)
-> > [   18.232263] ? __pfx_lock_release (kernel/locking/lockdep.c:5769)
-> > [   18.232267] amdgpu_ib_ring_tests (drivers/gpu/drm/amd/amdgpu/amdgpu_=
-ib.c:436 (discriminator 1)) amdgpu
-> > [   18.233219] ? __pfx_gfx_v9_0_ring_test_ib (drivers/gpu/drm/amd/amdgp=
-u/gfx_v9_0.c:1023) amdgpu
-> > [   18.234180] amdgpu_device_delayed_init_work_handler (drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c:3061) amdgpu
-> > [   18.235110] process_one_work (kernel/workqueue.c:2602)
-> > [   18.235119] ? __pfx_process_one_work (kernel/workqueue.c:2491)
-> > [   18.235123] ? lock_acquired (kernel/locking/lockdep.c:6009 kernel/lo=
-cking/lockdep.c:6042)
-> > [   18.235130] worker_thread (./include/linux/list.h:292 (discriminator=
- 2) kernel/workqueue.c:2749 (discriminator 2))
-> > [   18.235136] ? __pfx_worker_thread (kernel/workqueue.c:2691)
-> > [   18.235140] kthread (kernel/kthread.c:389)
-> > [   18.235144] ? __pfx_kthread (kernel/kthread.c:342)
-> > [   18.235148] ret_from_fork (arch/x86/entry/entry_64.S:314)
-> > [   18.235155]  </TASK>
-> >
-> > [   18.235158] Allocated by task 456:
-> > [   18.235160] kasan_save_stack (mm/kasan/common.c:46)
-> > [   18.235163] kasan_set_track (mm/kasan/common.c:52 (discriminator 1))
-> > [   18.235166] __kasan_kmalloc (mm/kasan/common.c:374 mm/kasan/common.c=
-:383)
-> > [   18.235168] __kmalloc (mm/slab_common.c:986 mm/slab_common.c:998)
-> > [   18.235172] amdgpu_ring_mux_init (drivers/gpu/drm/amd/amdgpu/amdgpu_=
-ring_mux.c:155 (discriminator 1)) amdgpu
-> > [   18.236112] gfx_v9_0_sw_init (drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c:=
-2128) amdgpu
-> > [   18.237083] amdgpu_device_init (drivers/gpu/drm/amd/amdgpu/amdgpu_de=
-vice.c:2516 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:3993) amdgpu
-> > [   18.238021] amdgpu_driver_load_kms (drivers/gpu/drm/amd/amdgpu/amdgp=
-u_kms.c:146) amdgpu
-> > [   18.238948] amdgpu_pci_probe (drivers/gpu/drm/amd/amdgpu/amdgpu_drv.=
-c:2188) amdgpu
-> > [   18.239904] local_pci_probe (drivers/pci/pci-driver.c:325)
-> > [   18.239911] pci_device_probe (drivers/pci/pci-driver.c:392 (discrimi=
-nator 1) drivers/pci/pci-driver.c:417 (discriminator 1) drivers/pci/pci-dri=
-ver.c:460 (discriminator 1))
-> > [   18.239915] really_probe (drivers/base/dd.c:579 drivers/base/dd.c:65=
-8)
-> > [   18.239920] __driver_probe_device (drivers/base/dd.c:798)
-> > [   18.239923] driver_probe_device (drivers/base/dd.c:828)
-> > [   18.239926] __driver_attach (drivers/base/dd.c:1215)
-> > [   18.239928] bus_for_each_dev (drivers/base/bus.c:368)
-> > [   18.239931] bus_add_driver (drivers/base/bus.c:674)
-> > [   18.239934] driver_register (drivers/base/driver.c:246)
-> > [   18.239938] do_one_initcall (init/main.c:1232)
-> > [   18.239942] do_init_module (kernel/module/main.c:2522)
-> > [   18.239947] load_module (kernel/module/main.c:2973)
-> > [   18.239950] init_module_from_file (kernel/module/main.c:3149)
-> > [   18.239953] __x64_sys_finit_module (./include/linux/file.h:44 kernel=
-/module/main.c:3172 kernel/module/main.c:3154 kernel/module/main.c:3154)
-> > [   18.239956] do_syscall_64 (arch/x86/entry/common.c:50 (discriminator=
- 1) arch/x86/entry/common.c:80 (discriminator 1))
-> > [   18.239960] entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.=
-S:120)
-> >
-> > [   18.239967] The buggy address belongs to the object at ffff8881208eb=
-800
-> > which belongs to the cache kmalloc-128 of size 128
-> > [   18.239969] The buggy address is located 24 bytes to the right of
-> > allocated 128-byte region [ffff8881208eb800, ffff8881208eb880)
-> >
-> > [   18.239973] The buggy address belongs to the physical page:
-> > [   18.239975] page:000000008ed9aff4 refcount:1 mapcount:0 mapping:0000=
-000000000000 index:0x0 pfn:0x1208ea
-> > [   18.239979] head:000000008ed9aff4 order:1 entire_mapcount:0 nr_pages=
-_mapped:0 pincount:0
-> > [   18.239981] flags: 0x17ffffc0010200(slab|head|node=3D0|zone=3D2|last=
-cpupid=3D0x1fffff)
-> > [   18.239986] page_type: 0xffffffff()
-> > [   18.239990] raw: 0017ffffc0010200 ffff8881000428c0 dead000000000122 =
-0000000000000000
-> > [   18.239992] raw: 0000000000000000 0000000080200020 00000001ffffffff =
-0000000000000000
-> > [   18.239994] page dumped because: kasan: bad access detected
-> >
-> > [   18.239997] Memory state around the buggy address:
-> > [   18.239999]  ffff8881208eb780: fc fc fc fc fc fc fc fc fc fc fc fc f=
-c fc fc fc
-> > [   18.240001]  ffff8881208eb800: 00 00 00 00 00 00 00 00 00 00 00 00 0=
-0 00 00 00
-> > [   18.240003] >ffff8881208eb880: fc fc fc fc fc fc fc fc fc fc fc fc f=
-c fc fc fc
-> > [   18.240005]                             ^
-> > [   18.240007]  ffff8881208eb900: 00 00 00 00 00 00 00 00 00 00 00 00 0=
-0 00 00 fc
-> > [   18.240009]  ffff8881208eb980: fc fc fc fc fc fc fc fc fc fc fc fc f=
-c fc fc fc
-> > [   18.240010] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >
-> >
-> > --
-> > Hyeonggon Yoo
-> >
-> > Undergraduate | Chungnam National University
+>  IOCTL Support on Device Nodes
+> --
+> 2.41.0
+>
+
