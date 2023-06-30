@@ -4,59 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5991EB64DC
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 20:33:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EDFDEB64DA
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 21:27:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A310B10E195;
-	Fri, 30 Jun 2023 20:33:14 +0000 (UTC)
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51F7410E192;
- Fri, 30 Jun 2023 20:33:12 +0000 (UTC)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-3fba8e2aa52so25777995e9.1; 
- Fri, 30 Jun 2023 13:33:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688157190; x=1690749190;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=EcdF/6fyXoCel57zXUGGjxHCncr0l7PpKqOEZtpYrpY=;
- b=gKcKV4rdxFUMwM7EIjl97teRG1SVQYkR5e479nULRSfLuRDXcKKccntzxUkh6nEEwU
- rqoNMTDfBnw5147B8u39Sv9pjlOSuBEZ2rz5GJdWfVQnI2Fi6k8wuO54fwXK95qyowaT
- e2aERNIgSrwW9Ktb+FRc6hgBZI7obfDnB1f9hCRXY5//gvhec+reXFLGRk8+Ko/qe/oi
- E27qoPGkNS9FG1tV0cM9UuNSseDlyR4ldA6WFG5gJ0KeFxPXc/iZPAbxPzX/2Z9u8uib
- HdoK/NeUTyX5gFDlKr8hdHKSeP/PPsqlEIcN1AmFgrD39DGUPMnj2GHJT5izirgwAGLG
- YPBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688157190; x=1690749190;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=EcdF/6fyXoCel57zXUGGjxHCncr0l7PpKqOEZtpYrpY=;
- b=D8lduxkkhfrW/akIUgQ8raO6yn+ojDlgVijp4V+Q5EKq2+qvpm7ZRFRfbuSQy4pelf
- ivOGahtlF5sVVQcpi+Z2Bvq7eSIZ6TWtWl798nvS6ha1olIeSRi1q/4V1YGBOmXmleye
- udHneiDxZZxrwbiye10Z1BwM80B0ijnQ4YdVEEN5HMHzdWosBciB66/4eoRolYtF8zki
- 1L/DTf+l9Q/fA6lWR5AyNVkO8q5zK+cCP4FV4s/yRcrhhTs419DN4tBcIJjq6mLI0YqY
- reLwYz2D6ZqYkDiP6IowXAAeltAJL/YQqy9LKHSXcvJuJze0MVGNEuUnv5X7OzkpNhhQ
- CzLw==
-X-Gm-Message-State: AC+VfDygrCewkkYtUHCpDmxf/pKW9XZ1FFHuksnFTuKDw9NBdVd+0Ff9
- B6xz7COoDMYVVbTJ5i6fZJnkYkv02J/uQ7+ANWM=
-X-Google-Smtp-Source: ACHHUZ4CCRu+32eXGdZT9Eu7EW+/FQwl8xNQTdwRCFny7A9jyWFiH0CJH1AaI+fljG7stqwhf1MfZ2sgczOLmvmnoZE=
-X-Received: by 2002:a05:600c:b55:b0:3fa:8040:27f6 with SMTP id
- k21-20020a05600c0b5500b003fa804027f6mr2916420wmr.11.1688157189959; Fri, 30
- Jun 2023 13:33:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AE4410E197;
+	Fri, 30 Jun 2023 21:27:24 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2050.outbound.protection.outlook.com [40.107.93.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 800F910E197
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 21:27:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=arnHAUMVnW0ribpjzoMb2i+Cb+Q7IDuwEdcpdQWYnLQrd7DMHQRIjz0AiCuDZhN/TQ0k6GQY9YieVqZn4VYKq+ecGNFQ5Q0YZdlDgoLP2mCwBt3Fil0uVwX/7tbhJyjudmlm/V/myvsAC46MzuNJfEi41UufUbuZArRapflApkugjinXumHUggJSpVR4UnYn2fqZiU23XxkSRMAtW+Me2x4+12wvaaEAFZJ4KgFEgCYaVmDWGv2yprrzoYGjoGIIn4Zwafjgr0G9ttxdARA/PZsSz77Raad7A8SW9GuCxadJbkfJHK6k4/N4KaoRUvq4CzM3CFT6XZ99yO9H3Za61Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T3UhNqIR3yy7B93PVRyHLXesDZu144qkiMQnujW5v8I=;
+ b=Ny41aDYGxdUZQH9trzcOMQzpAE/nL1c87BCvhWknvkymkERPRZ3GjvKpvGHrgy2tAAamU1c8zUIen+YMtblzAmr3PU/iW/ZL7Im4IF8IZvyk7HEkiWm5osPlkTNg0cSpAeJ1eA4PhocJ/lg2lkksyO504pnEDpnCiZ7PObLEPaj5jul/kf45BoJA3Gd8GNnE3wZHbAskSY7ggEIsYZ9c6vnJ7pRQQSfTd/6z6vb/WIBaSH6XlvPJzQ3IPY8Mylchpflphs1ntcoikNuJsn8OXI46sG9920tjhz2fsbsFuUeomvj6iPvNS7K2LAfRq4A9m+/WGQvh/V1n162kZtljvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T3UhNqIR3yy7B93PVRyHLXesDZu144qkiMQnujW5v8I=;
+ b=klWLDHa3+6xJ7X1xEagROAyJrTYt6XwTcIF37r824EieAc44qmlQLyIv/4fsVxlBVygP1DwsEP5DxdKWDOUy61zrVGUQo5lrIwflofl5L4rQcfF5CdLerwQZP+sKW/sLQkJpv78V+QabQsrbvs5IN7c4oSEuuiNcO+PJ5Lxa+1k=
+Received: from MW4PR04CA0100.namprd04.prod.outlook.com (2603:10b6:303:83::15)
+ by LV2PR12MB5967.namprd12.prod.outlook.com (2603:10b6:408:170::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Fri, 30 Jun
+ 2023 21:27:20 +0000
+Received: from CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:83:cafe::ac) by MW4PR04CA0100.outlook.office365.com
+ (2603:10b6:303:83::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.22 via Frontend
+ Transport; Fri, 30 Jun 2023 21:27:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT067.mail.protection.outlook.com (10.13.174.212) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.49 via Frontend Transport; Fri, 30 Jun 2023 21:27:19 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 30 Jun
+ 2023 16:27:18 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd: Restore flashing support for PSP 13.0.10
+Date: Fri, 30 Jun 2023 16:27:08 -0500
+Message-ID: <20230630212708.19954-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230627132323.115440-1-andrealmeid@igalia.com>
- <CA+hFU4z1pc=KUVVqyqfXEceUqMXQgh-qUnuB=1nkPELghvQO7w@mail.gmail.com>
- <CADnq5_MNVdtdcWKSz6dgmsjg+kEu8p5FVE+fkw_5BaXeG3QGow@mail.gmail.com>
- <afab1f5a-e581-3416-e2c2-238ea120655b@mailbox.org>
-In-Reply-To: <afab1f5a-e581-3416-e2c2-238ea120655b@mailbox.org>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Fri, 30 Jun 2023 16:32:33 -0400
-Message-ID: <CAAxE2A5C96k5ua+r938VA_+w7gHHNTdF3n8LwDb98W0Bf9wCVA@mail.gmail.com>
-Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Type: multipart/alternative; boundary="000000000000a1f3c205ff5eb93b"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT067:EE_|LV2PR12MB5967:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb084803-adad-40db-849a-08db79b0c8d3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NxmQYCD3iagK5V768lzLYAFv5Guh84W0RUH8JNfjSKueulM3hc5CKj8nakGa0jnAIlL8cPn05tpdb3Bx0yLDgYSURvuB4KEIR2EZddxwGyCEKJGycZ3eGVi7y/NtSGZSDtia1sxpVE/juHRcDHS0t1PV9/wXQS5sY06+PfCmscK1shd4Ruc2hV06UVigFSvgqHxdaIlPtw7E2p2/SPa0HRvjleVc4b5VyDGp46SaMqRGqPpXO7XS5rpxZro0IEQzqef4Qjp65wINaaqss71gwN9EF3PixAFC0qw+toQOZLUYpFa9GYvHflBPTxhA0Lw3NlGa6+TDyjYzfSfiwSePlwa3htu3tfZm+BU+/dm2YBLF/O4n+J7C0rXjlPKae/Mq3mdd1OaT4Y7c5Ks9pRiIZIvnVAgJOb73HxjJB6K870JYZo+h/fw0i2C2MFipGgA1iVQe4Ga3eOkjxLwXJIAgNd5YMNRcFXgrgv9WTkNO/pD/kCN0JCQ21HSg50jbMh9h3xgjR1pxyXlBalRticOrce04bJGM9e09eipYvdcr+a4lbvXvDpn7WaZ4Uc4z9rvouXFw0L+5J2sO49CN+4Fke4JAroHJ9noTHJwmY8WYCzaeSwEhWVANpGMMKSg7grCW7nDQoYeJegsRoXei5tETtFdK9xx5RTiKboeug37cD+uT2BveHlyFmlLl9HAtGHPZStSTXEscxL3Nq812KZwq0UH+9F1XqBmExWiYxyW9Ptscel6VKJ4hmRr+O1JqK0GkZBXI/89LE6o5XKav+myqfQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(376002)(39860400002)(396003)(136003)(451199021)(36840700001)(46966006)(40470700004)(26005)(16526019)(6666004)(40460700003)(2906002)(186003)(40480700001)(82310400005)(7696005)(86362001)(83380400001)(82740400003)(2616005)(81166007)(426003)(336012)(47076005)(356005)(1076003)(36860700001)(41300700001)(54906003)(70206006)(316002)(36756003)(4326008)(6916009)(70586007)(44832011)(5660300002)(8676002)(478600001)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2023 21:27:19.1848 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb084803-adad-40db-849a-08db79b0c8d3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5967
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,179 +97,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- Pekka Paalanen <ppaalanen@gmail.com>,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>, kernel-dev@igalia.com,
- Alex Deucher <alexdeucher@gmail.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>, christian.koenig@amd.com
+Cc: Likun.Gao@amd.com, Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000a1f3c205ff5eb93b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This was accidentally lost by commit e6e3bee0bc9a3 ("drm/amd: Use
+attribute groups for PSP flashing attributes")
 
-That's a terrible idea. Ignoring API calls would be identical to a freeze.
-You might as well disable GPU recovery because the result would be the same=
-.
+Fixes: e6e3bee0bc9a ("drm/amd: Use attribute groups for PSP flashing attributes")
+Reported-by: Likun.Gao@amd.com
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-There are 2 scenarios:
-- robust contexts: report the GPU reset status and skip API calls; let the
-app recreate the context to recover
-- non-robust contexts: call exit(1) immediately, which is the best way to
-recover
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 270b5b5a3a6d1..c2508462e02f9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -201,7 +201,6 @@ static int psp_early_init(void *handle)
+ 	case IP_VERSION(13, 0, 3):
+ 	case IP_VERSION(13, 0, 5):
+ 	case IP_VERSION(13, 0, 8):
+-	case IP_VERSION(13, 0, 10):
+ 	case IP_VERSION(13, 0, 11):
+ 		psp_v13_0_set_psp_funcs(psp);
+ 		psp->autoload_supported = true;
+@@ -214,6 +213,7 @@ static int psp_early_init(void *handle)
+ 		break;
+ 	case IP_VERSION(13, 0, 0):
+ 	case IP_VERSION(13, 0, 7):
++	case IP_VERSION(13, 0, 10):
+ 		psp_v13_0_set_psp_funcs(psp);
+ 		psp->autoload_supported = true;
+ 		adev->psp.sup_ifwi_up = !amdgpu_sriov_vf(adev);
+-- 
+2.25.1
 
-Marek
-
-On Fri, Jun 30, 2023 at 11:11=E2=80=AFAM Michel D=C3=A4nzer <michel.daenzer=
-@mailbox.org>
-wrote:
-
-> On 6/30/23 16:59, Alex Deucher wrote:
-> > On Fri, Jun 30, 2023 at 10:49=E2=80=AFAM Sebastian Wick
-> > <sebastian.wick@redhat.com> wrote:
-> >> On Tue, Jun 27, 2023 at 3:23=E2=80=AFPM Andr=C3=A9 Almeida <andrealmei=
-d@igalia.com>
-> wrote:
-> >>>
-> >>> +Robustness
-> >>> +----------
-> >>> +
-> >>> +The only way to try to keep an application working after a reset is
-> if it
-> >>> +complies with the robustness aspects of the graphical API that it is
-> using.
-> >>> +
-> >>> +Graphical APIs provide ways to applications to deal with device
-> resets. However,
-> >>> +there is no guarantee that the app will use such features correctly,
-> and the
-> >>> +UMD can implement policies to close the app if it is a repeating
-> offender,
-> >>> +likely in a broken loop. This is done to ensure that it does not kee=
-p
-> blocking
-> >>> +the user interface from being correctly displayed. This should be
-> done even if
-> >>> +the app is correct but happens to trigger some bug in the
-> hardware/driver.
-> >>
-> >> I still don't think it's good to let the kernel arbitrarily kill
-> >> processes that it thinks are not well-behaved based on some heuristics
-> >> and policy.
-> >>
-> >> Can't this be outsourced to user space? Expose the information about
-> >> processes causing a device and let e.g. systemd deal with coming up
-> >> with a policy and with killing stuff.
-> >
-> > I don't think it's the kernel doing the killing, it would be the UMD.
-> > E.g., if the app is guilty and doesn't support robustness the UMD can
-> > just call exit().
->
-> It would be safer to just ignore API calls[0], similarly to what is done
-> until the application destroys the context with robustness. Calling exit(=
-)
-> likely results in losing any unsaved work, whereas at least some
-> applications might otherwise allow saving the work by other means.
->
->
-> [0] Possibly accompanied by a one-time message to stderr along the lines
-> of "GPU reset detected but robustness not enabled in context, ignoring
-> OpenGL API calls".
->
-> --
-> Earthling Michel D=C3=A4nzer            |                  https://redhat=
-.com
-> Libre software enthusiast          |         Mesa and Xwayland developer
->
->
-
---000000000000a1f3c205ff5eb93b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>That&#39;s a terrible idea. Ignoring API calls would =
-be identical to a freeze. You might as well disable GPU recovery because th=
-e result would be the same.</div><div><br></div><div>There are 2 scenarios:=
-</div><div>- robust contexts: report the GPU reset status and skip API call=
-s; let the app recreate the context to recover<br></div><div>- non-robust c=
-ontexts: call exit(1) immediately, which is the best way to recover<br></di=
-v><div></div><div></div><div><br></div><div>Marek<br></div></div><br><div c=
-lass=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jun 30, =
-2023 at 11:11=E2=80=AFAM Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel.da=
-enzer@mailbox.org">michel.daenzer@mailbox.org</a>&gt; wrote:<br></div><bloc=
-kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
-1px solid rgb(204,204,204);padding-left:1ex">On 6/30/23 16:59, Alex Deucher=
- wrote:<br>
-&gt; On Fri, Jun 30, 2023 at 10:49=E2=80=AFAM Sebastian Wick<br>
-&gt; &lt;<a href=3D"mailto:sebastian.wick@redhat.com" target=3D"_blank">seb=
-astian.wick@redhat.com</a>&gt; wrote:<br>
-&gt;&gt; On Tue, Jun 27, 2023 at 3:23=E2=80=AFPM Andr=C3=A9 Almeida &lt;<a =
-href=3D"mailto:andrealmeid@igalia.com" target=3D"_blank">andrealmeid@igalia=
-.com</a>&gt; wrote:<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; +Robustness<br>
-&gt;&gt;&gt; +----------<br>
-&gt;&gt;&gt; +<br>
-&gt;&gt;&gt; +The only way to try to keep an application working after a re=
-set is if it<br>
-&gt;&gt;&gt; +complies with the robustness aspects of the graphical API tha=
-t it is using.<br>
-&gt;&gt;&gt; +<br>
-&gt;&gt;&gt; +Graphical APIs provide ways to applications to deal with devi=
-ce resets. However,<br>
-&gt;&gt;&gt; +there is no guarantee that the app will use such features cor=
-rectly, and the<br>
-&gt;&gt;&gt; +UMD can implement policies to close the app if it is a repeat=
-ing offender,<br>
-&gt;&gt;&gt; +likely in a broken loop. This is done to ensure that it does =
-not keep blocking<br>
-&gt;&gt;&gt; +the user interface from being correctly displayed. This shoul=
-d be done even if<br>
-&gt;&gt;&gt; +the app is correct but happens to trigger some bug in the har=
-dware/driver.<br>
-&gt;&gt;<br>
-&gt;&gt; I still don&#39;t think it&#39;s good to let the kernel arbitraril=
-y kill<br>
-&gt;&gt; processes that it thinks are not well-behaved based on some heuris=
-tics<br>
-&gt;&gt; and policy.<br>
-&gt;&gt;<br>
-&gt;&gt; Can&#39;t this be outsourced to user space? Expose the information=
- about<br>
-&gt;&gt; processes causing a device and let e.g. systemd deal with coming u=
-p<br>
-&gt;&gt; with a policy and with killing stuff.<br>
-&gt; <br>
-&gt; I don&#39;t think it&#39;s the kernel doing the killing, it would be t=
-he UMD.<br>
-&gt; E.g., if the app is guilty and doesn&#39;t support robustness the UMD =
-can<br>
-&gt; just call exit().<br>
-<br>
-It would be safer to just ignore API calls[0], similarly to what is done un=
-til the application destroys the context with robustness. Calling exit() li=
-kely results in losing any unsaved work, whereas at least some applications=
- might otherwise allow saving the work by other means.<br>
-<br>
-<br>
-[0] Possibly accompanied by a one-time message to stderr along the lines of=
- &quot;GPU reset detected but robustness not enabled in context, ignoring O=
-penGL API calls&quot;.<br>
-<br>
--- <br>
-Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <a href=3D"http=
-s://redhat.com" rel=3D"noreferrer" target=3D"_blank">https://redhat.com</a>=
-<br>
-Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0Mesa and Xwayland developer<br>
-<br>
-</blockquote></div>
-
---000000000000a1f3c205ff5eb93b--
