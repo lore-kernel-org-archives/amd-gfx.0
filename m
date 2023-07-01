@@ -4,41 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35BF6C0015E
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 07:47:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DA46C001B3
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 07:47:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4BEE10E1B7;
-	Mon,  3 Jul 2023 07:47:22 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2C0410E010;
- Sun,  2 Jul 2023 16:44:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=xdktR0ZW1+7oS8vQFbhX1grTHS/llaOWJVaub2NlKLo=; b=h/1wX4JTdSgoA39p/4CtiC1YxJ
- pMr+Yws3D2BV796tGwWpTXSTjjgpRB1Zfp3tlDtcSiWyixm/wjXzcvdKDaBbhOzmBzv9bDC9g51qa
- NAtC4AXqEI9IWCxIr85iY/qjdC8LUX3eNrqJvt+Hn2oL5V2Rv9lFSg/1uJCv+YrRIKWHluqcYJngr
- uXdx7oT1sX7nIkELRQiWavIgyY8ksuPEP90+Cy0sSrUujRJDLmAvLD9CxlRZF6H7GhnbVdZquQcN9
- 4q5n/pOKDjqDsCuIu9CbczRRgimfDf+dRYmIgObzvsX3boSeEsO0PFvM3x0QaCYtA3+swhlBDnrWv
- Msy52OdA==;
-Received: from [191.205.188.225] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qG0BV-007AcG-Tm; Sun, 02 Jul 2023 18:44:26 +0200
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] Revert "drm/amd/display: Program OTG vtotal min/max selectors
- unconditionally for DCN1+"
-Date: Sun,  2 Jul 2023 13:44:07 -0300
-Message-Id: <20230702164407.6547-1-gpiccoli@igalia.com>
-X-Mailer: git-send-email 2.40.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8425110E1BD;
+	Mon,  3 Jul 2023 07:47:23 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5E4710E500;
+ Sat,  1 Jul 2023 00:20:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=RSoC/5hYUUQ3sGJr52lBB+aV7IzoV8b72rkry2pxCQg=; b=yAyplwTga+cJQhNVxS4WCa0avC
+ XATcUdMc7wgQTO46g7k9dcH2lTxfJGRCofunObU6mN+84w113eNMP2VoKVQEFW1R1wTRQT0i64hLW
+ KT9C9WzHFOqZAlNELVDobW+4G2P/rybEr2j3erhGyjDcrRq59amX2UprnR8BcrFLmzDQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1qFOKp-000LM8-66; Sat, 01 Jul 2023 02:19:31 +0200
+Date: Sat, 1 Jul 2023 02:19:31 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Evan Quan <evan.quan@amd.com>
+Subject: Re: [PATCH V5 1/9] drivers core: Add support for Wifi band RF
+ mitigations
+Message-ID: <7e7db6eb-4f46-407a-8d1f-16688554ad80@lunn.ch>
+References: <20230630103240.1557100-1-evan.quan@amd.com>
+ <20230630103240.1557100-2-evan.quan@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230630103240.1557100-2-evan.quan@amd.com>
 X-Mailman-Approved-At: Mon, 03 Jul 2023 07:47:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,102 +47,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, Xinhui.Pan@amd.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, dri-devel@lists.freedesktop.org,
- Melissa Wen <mwen@igalia.com>, cristian.ciocaltea@collabora.com,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, kernel-dev@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: jingyuwang_vip@163.com, bellosilicio@gmail.com, rafael@kernel.org,
+ trix@redhat.com, Lijo.Lazar@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, mdaenzer@redhat.com, Mario.Limonciello@amd.com,
+ airlied@gmail.com, amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, lenb@kernel.org, andrealmeid@igalia.com,
+ daniel@ffwll.ch, arnd@arndb.de, maarten.lankhorst@linux.intel.com,
+ hdegoede@redhat.com, jsg@jsg.id.au, jim.cromie@gmail.com,
+ netdev@vger.kernel.org, Xinhui.Pan@amd.com, linux-wireless@vger.kernel.org,
+ edumazet@google.com, Christian.Koenig@amd.com, tzimmermann@suse.de,
+ Alexander.Deucher@amd.com, johannes@sipsolutions.net, davem@davemloft.net
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 06c3a652a787efc960af7c8816036d25c4227c6c.
+> Drivers/subsystems contributing frequencies:
+> 
+> 1) During probe, check `wbrf_supported_producer` to see if WBRF supported
+>    for the device.
 
-After this commit, the Steam Deck cannot boot with graphics anymore;
-the following message is observed on dmesg:
+What is the purpose of this stage? Why would it not be supported for
+this device?
 
-"[drm] ERROR [CRTC:67:crtc-0] flip_done timed out"
+> +#ifdef CONFIG_WBRF
+> +bool wbrf_supported_producer(struct device *dev);
+> +int wbrf_add_exclusion(struct device *adev,
+> +		       struct wbrf_ranges_in *in);
+> +int wbrf_remove_exclusion(struct device *dev,
+> +			  struct wbrf_ranges_in *in);
+> +int wbrf_retrieve_exclusions(struct device *dev,
+> +			     struct wbrf_ranges_out *out);
+> +bool wbrf_supported_consumer(struct device *dev);
+> +
+> +int wbrf_register_notifier(struct notifier_block *nb);
+> +int wbrf_unregister_notifier(struct notifier_block *nb);
+> +#else
+> +static inline bool wbrf_supported_producer(struct device *dev) { return false; }
+> +static inline int wbrf_add_exclusion(struct device *adev,
+> +				     struct wbrf_ranges_in *in) { return -ENODEV; }
+> +static inline int wbrf_remove_exclusion(struct device *dev,
+> +					struct wbrf_ranges_in *in) { return -ENODEV; }
 
-No other error is observed, it just stays like that. After bisecting
-amd-staging-drm-next, we narrowed it down to this commit. Seems it
-makes sense to revert it to have the tree bootable until a proper
-solution is worked.
+The normal aim of stubs is that so long as it is not expected to be
+fatal if the functionality is missing, the caller should not care if
+it is missing. So i would expect these to return 0, indicating
+everything worked as expected.
 
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: André Almeida <andrealmeid@igalia.com>
-Cc: Melissa Wen <mwen@igalia.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
+> +static inline int wbrf_retrieve_exclusions(struct device *dev,
+> +					   struct wbrf_ranges_out *out) { return -ENODEV; }
 
----
+This is more complex. Ideally you want to return an empty set, so
+there is nothing to do. So i think the stub probably wants to do a
+memset and then return 0.
 
-Hi Alex / Aurabindo, we couldn't boot the Deck with in HEAD
-(amd-staging-drm-next), git bisect led to this commit. Since its
-description already mentions a potential proper solution, related
-to the DMCUB (and some complex state tracking), I thought it was
-more effective to revert it to allow booting the tree in Deck (and
-maybe other HW - I just tested the Deck BTW).
-Lemme know your thoughts.
+> +static inline bool wbrf_supported_consumer(struct device *dev) { return false; }
+> +static inline int wbrf_register_notifier(struct notifier_block *nb) { return -ENODEV; }
+> +static inline int wbrf_unregister_notifier(struct notifier_block *nb) { return -ENODEV; }
 
-Special thanks to André and Melissa for helping the debug / bisect!
-We're open to test alternative patches, feel free to ping.
-Cheers,
+And these can just return 0.
 
-Guilherme
-
-
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 15 ++++++++++++---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c | 10 ----------
- 2 files changed, 12 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-index 0e8f4f36c87c..27419cd98264 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
-@@ -945,10 +945,19 @@ void optc1_set_drr(
- 				OTG_FORCE_LOCK_ON_EVENT, 0,
- 				OTG_SET_V_TOTAL_MIN_MASK_EN, 0,
- 				OTG_SET_V_TOTAL_MIN_MASK, 0);
--	}
- 
--	// Setup manual flow control for EOF via TRIG_A
--	optc->funcs->setup_manual_trigger(optc);
-+		// Setup manual flow control for EOF via TRIG_A
-+		optc->funcs->setup_manual_trigger(optc);
-+
-+	} else {
-+		REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
-+				OTG_SET_V_TOTAL_MIN_MASK, 0,
-+				OTG_V_TOTAL_MIN_SEL, 0,
-+				OTG_V_TOTAL_MAX_SEL, 0,
-+				OTG_FORCE_LOCK_ON_EVENT, 0);
-+
-+		optc->funcs->set_vtotal_min_max(optc, 0, 0);
-+	}
- }
- 
- void optc1_set_vtotal_min_max(struct timing_generator *optc, int vtotal_min, int vtotal_max)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-index 58bdbd859bf9..d6f095b4555d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-@@ -462,16 +462,6 @@ void optc2_setup_manual_trigger(struct timing_generator *optc)
- {
- 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
- 
--	/* Set the min/max selectors unconditionally so that
--	 * DMCUB fw may change OTG timings when necessary
--	 * TODO: Remove the w/a after fixing the issue in DMCUB firmware
--	 */
--	REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
--				 OTG_V_TOTAL_MIN_SEL, 1,
--				 OTG_V_TOTAL_MAX_SEL, 1,
--				 OTG_FORCE_LOCK_ON_EVENT, 0,
--				 OTG_SET_V_TOTAL_MIN_MASK, (1 << 1)); /* TRIGA */
--
- 	REG_SET_8(OTG_TRIGA_CNTL, 0,
- 			OTG_TRIGA_SOURCE_SELECT, 21,
- 			OTG_TRIGA_SOURCE_PIPE_SELECT, optc->inst,
--- 
-2.40.1
-
+    Andrew
