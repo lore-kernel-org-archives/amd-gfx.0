@@ -4,58 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FF86EB64DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 21:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5807CEB64DA
+	for <amd-gfx@archiver.kernel.org>; Sat,  1 Jul 2023 02:09:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BECAC10E4F5;
-	Fri, 30 Jun 2023 21:31:02 +0000 (UTC)
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
- [IPv6:2607:f8b0:4864:20::c36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3515110E4F5
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 21:30:59 +0000 (UTC)
-Received: by mail-oo1-xc36.google.com with SMTP id
- 006d021491bc7-5634db21a78so1639689eaf.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 14:30:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688160658; x=1690752658;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OFp1Jo9Cm2aYbyxAt1CmOZ7y+HuTtn1FyIvvpvvHhec=;
- b=pUhMIn64plBdWUTKxBTBJH2N2cd8be1QfLaRn8aMOXc6X4fbPoSWGJqATgEwZ/17Y1
- uaAsiiQbIqJi5cAEHyLJFfce1HXnk3sZMJIeFsvihJ3G8FlX+8QnfsErkZUaXbTJLvZ5
- J1vKmIvIi900qhfx74njO8E/WXW9QuXNOG7qt7tUpFwFoO/2nnFssSkYPF472S0brquH
- m6Z9/y6d0f/X/K14qWdRKM/R9xUMVIVxp3YLQy7l21oRZM2oP1uIviypIpyoRrY8FVPM
- RQhSv6qgfyiSRhAocE7m0qFPM8Yo8Dm7Vwph99uYIkKLhdzRw4qmw/27N5wVg0ZNvRTA
- 48Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688160658; x=1690752658;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=OFp1Jo9Cm2aYbyxAt1CmOZ7y+HuTtn1FyIvvpvvHhec=;
- b=jT0RlhWDItnoVCV4xVRfTtZmW7qED04svVYHrIC2+ftiwjlG4bzhA4g9C5Xmd9Aw3T
- ZyF81L4pFgaZJd6h8qjMoMu4gJbYUFJlWNtWDGaHqf56IPpGrI1cG2S6C2YGOhc0f1E7
- 4xZLjzRsqT1bKi0RI261MUx69ImgdK55vCdA69LpwgtzIVY0h6oVdK8RirvbxEjweLBt
- pKU9TsTVrjM4cOl3InAHlX5Uu1N9oTY/EiksMiC3un2joFnBs/HB6ntUxqbdKXCnW9qV
- vmCTThCQH2mmCi8K0yG6IqSCozm/B/r65AX1n1lOoGuQkFE+VBTUJA96Uueyqt2YSRtw
- h4FA==
-X-Gm-Message-State: AC+VfDyXeBwjCahI+atTfgd6Q3BbHM7Lpowanc2H7IhuFbG3zD50IKGr
- 5q62Rh6ge2s1bCOJD7fpxmJ3Hm2bzoxnqP3y3F4zpzVU
-X-Google-Smtp-Source: ACHHUZ52w95cVTrPWL8ufuUcHkXkb3VevXRmJk/bp/s+bpFTXL2mEI3XPwQrM6oD3xjH03XW62TuJz4MsL7zpPuhjkc=
-X-Received: by 2002:a4a:4f0f:0:b0:562:f5ce:6632 with SMTP id
- c15-20020a4a4f0f000000b00562f5ce6632mr3401411oob.5.1688160657903; Fri, 30 Jun
- 2023 14:30:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A03C110E517;
+	Sat,  1 Jul 2023 02:09:34 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B96D10E516;
+ Sat,  1 Jul 2023 02:09:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=DTlH1QZL9ONljiaNmWd/MfYuknpYQs+KwTmRxFWAUtk=; b=E/uEgJcGxY/pqHuXM6OYTeki3A
+ aH2BZhcYQC+waPuCwq8HsR2t6fr9QaPiveu/LOYGgnSZZgasCvu/FOTDzCCGn6o07yklZ89L9Fxwv
+ 2tKFg3eC2UJlbfkuJ00GiLIKpLGWYqgm2XkkWXlX6Q+XHODzgvh3XLl3cukWq0igXytdDrxktj/pi
+ ALHch9yKcpUiG1Qc2JnWDdG2q5b/6BmQhqDMS9nIaenLIWbfV/ZBz4rV7HzRnRuIN5AXPxI1O+gRG
+ 2vlMIIPtJ2AjjXE6LhNLg38ykSZKzTbKQQXknUTQGG+1ABmqWkOQxxE7jy0pJf3TT1kMKiMKq7PwZ
+ sTjf6ZkQ==;
+Received: from [187.74.70.209] (helo=steammachine.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1qFQ3B-006abr-Ka; Sat, 01 Jul 2023 04:09:26 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, wayland-devel@lists.freedesktop.org
+Subject: [PATCH v4 0/6] drm: Add support for atomic async page-flip
+Date: Fri, 30 Jun 2023 23:09:11 -0300
+Message-ID: <20230701020917.143394-1-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-References: <20230630212708.19954-1-mario.limonciello@amd.com>
-In-Reply-To: <20230630212708.19954-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 30 Jun 2023 17:30:46 -0400
-Message-ID: <CADnq5_P0uizeU4C7p935KAbr46Zi6HE+K_MwYgyuUPzVzc4=uA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Restore flashing support for PSP 13.0.10
-To: Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,48 +50,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Likun.Gao@amd.com, amd-gfx@lists.freedesktop.org
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Simon Ser <contact@emersion.fr>, Italo Nicola <italonicola@collabora.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Pekka Paalanen <ppaalanen@gmail.com>,
+ Daniel Stone <daniel@fooishbar.org>, hwentlan@amd.com,
+ Rob Clark <robdclark@gmail.com>, ville.syrjala@linux.intel.com,
+ kernel-dev@igalia.com, alexander.deucher@amd.com,
+ Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com, joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 30, 2023 at 5:27=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> This was accidentally lost by commit e6e3bee0bc9a3 ("drm/amd: Use
-> attribute groups for PSP flashing attributes")
->
-> Fixes: e6e3bee0bc9a ("drm/amd: Use attribute groups for PSP flashing attr=
-ibutes")
-> Reported-by: Likun.Gao@amd.com
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Hi,
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+This work from me and Simon adds support for DRM_MODE_PAGE_FLIP_ASYNC through
+the atomic API. This feature is already available via the legacy API. The use
+case is to be able to present a new frame immediately (or as soon as
+possible), even if after missing a vblank. This might result in tearing, but
+it's useful when a high framerate is desired, such as for gaming.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index 270b5b5a3a6d1..c2508462e02f9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -201,7 +201,6 @@ static int psp_early_init(void *handle)
->         case IP_VERSION(13, 0, 3):
->         case IP_VERSION(13, 0, 5):
->         case IP_VERSION(13, 0, 8):
-> -       case IP_VERSION(13, 0, 10):
->         case IP_VERSION(13, 0, 11):
->                 psp_v13_0_set_psp_funcs(psp);
->                 psp->autoload_supported =3D true;
-> @@ -214,6 +213,7 @@ static int psp_early_init(void *handle)
->                 break;
->         case IP_VERSION(13, 0, 0):
->         case IP_VERSION(13, 0, 7):
-> +       case IP_VERSION(13, 0, 10):
->                 psp_v13_0_set_psp_funcs(psp);
->                 psp->autoload_supported =3D true;
->                 adev->psp.sup_ifwi_up =3D !amdgpu_sriov_vf(adev);
-> --
-> 2.25.1
->
+Differently from earlier versions, this one refuses to flip if any prop changes
+for async flips. The idea is that the fast path of immediate page flips doesn't
+play well with modeset changes, so only the fb_id can be changed. The exception
+is for mode_id changes, that might be referring to an identical mode (which
+would skip a modeset). This is done to make the async API more similar to the
+normal API.
+
+Thanks,
+	André
+
+Changes from v3:
+ - Add new patch to reject prop changes
+ - Add a documentation clarifying the KMS atomic state set
+
+v3: https://lore.kernel.org/dri-devel/20220929184307.258331-1-contact@emersion.fr/
+
+- User-space patch: https://github.com/Plagman/gamescope/pull/595
+- IGT tests: https://gitlab.freedesktop.org/andrealmeid/igt-gpu-tools/-/tree/atomic_async_page_flip
+
+André Almeida (2):
+  drm: Refuse to async flip with atomic prop changes
+  drm/doc: Define KMS atomic state set
+
+Simon Ser (4):
+  drm: allow DRM_MODE_PAGE_FLIP_ASYNC for atomic commits
+  drm: introduce DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
+  drm: introduce drm_mode_config.atomic_async_page_flip_not_supported
+  amd/display: indicate support for atomic async page-flips on DC
+
+ Documentation/gpu/drm-uapi.rst               | 19 +++++
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c |  1 +
+ drivers/gpu/drm/drm_atomic_helper.c          |  5 ++
+ drivers/gpu/drm/drm_atomic_uapi.c            | 80 ++++++++++++++++++--
+ drivers/gpu/drm/drm_crtc_internal.h          |  2 +-
+ drivers/gpu/drm/drm_ioctl.c                  |  5 ++
+ drivers/gpu/drm/drm_mode_object.c            |  2 +-
+ drivers/gpu/drm/i915/display/intel_display.c |  1 +
+ drivers/gpu/drm/nouveau/nouveau_display.c    |  1 +
+ include/drm/drm_mode_config.h                | 11 +++
+ include/uapi/drm/drm.h                       | 10 ++-
+ include/uapi/drm/drm_mode.h                  |  9 +++
+ 12 files changed, 137 insertions(+), 9 deletions(-)
+
+-- 
+2.41.0
+
