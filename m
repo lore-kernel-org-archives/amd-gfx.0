@@ -4,50 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F96CEB64DC
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 07:12:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2289C0015E
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 07:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D57A10E18C;
-	Mon,  3 Jul 2023 07:12:43 +0000 (UTC)
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org
- [IPv6:2001:67c:2050:0:465::101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABA5D10E0A6;
- Mon,  3 Jul 2023 07:12:40 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4QvcZ868zmz9sTc;
- Mon,  3 Jul 2023 09:12:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1688368352;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JDNJNCwhoG+0ydNvsWCgQAPOCFx9yNIpNg5RG4lrTFc=;
- b=uWzB5PEqTbeBjl2FMU9jiApj7p/ZTTvmBwYysJPhNe3nP2k+MMFSaV8oYukXBCgb+SXuMl
- 8+zLLt+byMxA4coMGnS66mLAvQC4Kf3JKGaUx/NHSMudjil7YmYLGyL4oZgVZBOkZakg8E
- ed1lZuSHky7P7pZBJmsgbNGKgI20ap2wGJNReVVtijfHSz68ljAMpY+YuzCiAeB6Qihx3M
- GgLhSrjYOeDYy+RH3CTd5udiosINbE3uGCJnRG7ilRZ1VQAibodlkoRxzQw/EkX5vFn6EL
- QpEtZmsPjumFqMty4ZT1IUeEmchWHxj03wd5ad+nCbEH6ax3ux7TuBEGlIx4TQ==
-Message-ID: <7c1e6df5-1ad4-be3c-b95d-92dc62a8c537@mailbox.org>
-Date: Mon, 3 Jul 2023 09:12:29 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62D3110E0D4;
+	Mon,  3 Jul 2023 07:47:16 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 731F910E50D;
+ Sat,  1 Jul 2023 00:51:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=q5d9fk0Kq4PVVfrVMmslbF5d31U7oc6/SS2DxBc28Hc=; b=vs8MTtvSbbgjYrbJogrzb1pxKW
+ JK+3fztnoVP53vLCXM0f7H6wjh4BpPRl3jsGz6wJhz7u2qPekaJMCnkf1U7Sfv33U2UCDK/9LE3wh
+ HdIAvAfxZ2goU2mx+r47OvElcUZKdaYBNRqpXI070OqEfM85L31oqAhbxqcWH7y0fOUQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1qFOpe-000LRM-Vz; Sat, 01 Jul 2023 02:51:22 +0200
+Date: Sat, 1 Jul 2023 02:51:22 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Evan Quan <evan.quan@amd.com>
+Subject: Re: [PATCH V5 2/9] driver core: add ACPI based WBRF mechanism
+ introduced by AMD
+Message-ID: <4b2d5e30-1962-40f4-8c36-bfc35eba503c@lunn.ch>
+References: <20230630103240.1557100-1-evan.quan@amd.com>
+ <20230630103240.1557100-3-evan.quan@amd.com>
 MIME-Version: 1.0
-Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
-Content-Language: de-CH-frami, en-CA
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-References: <20230627132323.115440-1-andrealmeid@igalia.com>
- <CA+hFU4z1pc=KUVVqyqfXEceUqMXQgh-qUnuB=1nkPELghvQO7w@mail.gmail.com>
- <CADnq5_MNVdtdcWKSz6dgmsjg+kEu8p5FVE+fkw_5BaXeG3QGow@mail.gmail.com>
- <afab1f5a-e581-3416-e2c2-238ea120655b@mailbox.org>
- <CAAxE2A5C96k5ua+r938VA_+w7gHHNTdF3n8LwDb98W0Bf9wCVA@mail.gmail.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <CAAxE2A5C96k5ua+r938VA_+w7gHHNTdF3n8LwDb98W0Bf9wCVA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: d01efb6d83f21620a65
-X-MBO-RS-META: 5z8b3itq5tq11yiwuxjwbw1bdzf74g3m
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230630103240.1557100-3-evan.quan@amd.com>
+X-Mailman-Approved-At: Mon, 03 Jul 2023 07:47:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,66 +47,107 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Sebastian Wick <sebastian.wick@redhat.com>,
- =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, alexander.deucher@amd.com,
- Pekka Paalanen <pekka.paalanen@collabora.com>, christian.koenig@amd.com
+Cc: jingyuwang_vip@163.com, bellosilicio@gmail.com, rafael@kernel.org,
+ trix@redhat.com, Lijo.Lazar@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, mdaenzer@redhat.com, Mario.Limonciello@amd.com,
+ airlied@gmail.com, amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, lenb@kernel.org, andrealmeid@igalia.com,
+ daniel@ffwll.ch, arnd@arndb.de, maarten.lankhorst@linux.intel.com,
+ hdegoede@redhat.com, jsg@jsg.id.au, jim.cromie@gmail.com,
+ netdev@vger.kernel.org, Xinhui.Pan@amd.com, linux-wireless@vger.kernel.org,
+ edumazet@google.com, Christian.Koenig@amd.com, tzimmermann@suse.de,
+ Alexander.Deucher@amd.com, johannes@sipsolutions.net, davem@davemloft.net
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 6/30/23 22:32, Marek Olšák wrote:
-> On Fri, Jun 30, 2023 at 11:11 AM Michel Dänzer <michel.daenzer@mailbox.org <mailto:michel.daenzer@mailbox.org>> wrote:
->> On 6/30/23 16:59, Alex Deucher wrote:
->>> On Fri, Jun 30, 2023 at 10:49 AM Sebastian Wick
->>> <sebastian.wick@redhat.com <mailto:sebastian.wick@redhat.com>> wrote:
->>>> On Tue, Jun 27, 2023 at 3:23 PM André Almeida <andrealmeid@igalia.com <mailto:andrealmeid@igalia.com>> wrote:
->>>>>
->>>>> +Robustness
->>>>> +----------
->>>>> +
->>>>> +The only way to try to keep an application working after a reset is if it
->>>>> +complies with the robustness aspects of the graphical API that it is using.
->>>>> +
->>>>> +Graphical APIs provide ways to applications to deal with device resets. However,
->>>>> +there is no guarantee that the app will use such features correctly, and the
->>>>> +UMD can implement policies to close the app if it is a repeating offender,
->>>>> +likely in a broken loop. This is done to ensure that it does not keep blocking
->>>>> +the user interface from being correctly displayed. This should be done even if
->>>>> +the app is correct but happens to trigger some bug in the hardware/driver.
->>>>
->>>> I still don't think it's good to let the kernel arbitrarily kill
->>>> processes that it thinks are not well-behaved based on some heuristics
->>>> and policy.
->>>>
->>>> Can't this be outsourced to user space? Expose the information about
->>>> processes causing a device and let e.g. systemd deal with coming up
->>>> with a policy and with killing stuff.
->>>
->>> I don't think it's the kernel doing the killing, it would be the UMD.
->>> E.g., if the app is guilty and doesn't support robustness the UMD can
->>> just call exit().
->>
->> It would be safer to just ignore API calls[0], similarly to what is done until the application destroys the context with robustness. Calling exit() likely results in losing any unsaved work, whereas at least some applications might otherwise allow saving the work by other means.
-> 
-> That's a terrible idea. Ignoring API calls would be identical to a freeze. You might as well disable GPU recovery because the result would be the same.
+> +	argv4 = kzalloc(sizeof(*argv4) * (2 * num_of_ranges + 2 + 1), GFP_KERNEL);
+> +	if (!argv4)
+> +		return -ENOMEM;
+> +
+> +	argv4[arg_idx].package.type = ACPI_TYPE_PACKAGE;
+> +	argv4[arg_idx].package.count = 2 + 2 * num_of_ranges;
+> +	argv4[arg_idx++].package.elements = &argv4[1];
+> +	argv4[arg_idx].integer.type = ACPI_TYPE_INTEGER;
+> +	argv4[arg_idx++].integer.value = num_of_ranges;
+> +	argv4[arg_idx].integer.type = ACPI_TYPE_INTEGER;
+> +	argv4[arg_idx++].integer.value = action;
 
-No GPU recovery would affect everything using the GPU, whereas this affects only non-robust applications.
+There is a lot of magic numbers in that kzalloc. It is being used as
+an array, kcalloc() would be a good start to make it more readable.
+Can some #define's be used to explain what the other numbers mean?
 
+> +	/*
+> +	 * Bit 0 indicates whether there's support for any functions other than
+> +	 * function 0.
+> +	 */
 
-> - non-robust contexts: call exit(1) immediately, which is the best way to recover
+Please make use of the BIT macro to give the different bits
+informative names.
 
-That's not the UMD's call to make.
+> +	if ((mask & 0x1) && (mask & funcs) == funcs)
+> +		return true;
+> +
+> +	return false;
+> +}
+> +
 
+> +int acpi_amd_wbrf_retrieve_exclusions(struct device *dev,
+> +				      struct wbrf_ranges_out *out)
+> +{
+> +	struct acpi_device *adev = ACPI_COMPANION(dev);
+> +	union acpi_object *obj;
+> +
+> +	if (!adev)
+> +		return -ENODEV;
+> +
+> +	obj = acpi_evaluate_wbrf(adev->handle,
+> +				 WBRF_REVISION,
+> +				 WBRF_RETRIEVE);
+> +	if (!obj)
+> +		return -EINVAL;
+> +
+> +	WARN(obj->buffer.length != sizeof(*out),
+> +		"Unexpected buffer length");
+> +	memcpy(out, obj->buffer.pointer, obj->buffer.length);
 
->>     [0] Possibly accompanied by a one-time message to stderr along the lines of "GPU reset detected but robustness not enabled in context, ignoring OpenGL API calls".
+You WARN, and then overwrite whatever i passed the end of out?  Please
+at least use min(obj->buffer.length, sizeof(*out)), but better still:
 
+   if (obj->buffer.length != sizeof(*out)) {
+         dev_err(dev, "BIOS FUBAR, ignoring wrong sized WBRT information");
+	 return -EINVAL;
+   }
 
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+> +#if defined(CONFIG_WBRF_GENERIC)
+>  static struct exclusion_range_pool wbrf_pool;
+>  
+>  static int _wbrf_add_exclusion_ranges(struct wbrf_ranges_in *in)
+> @@ -89,6 +92,7 @@ static int _wbrf_retrieve_exclusion_ranges(struct wbrf_ranges_out *out)
+>  
+>  	return 0;
+>  }
+> +#endif
 
+I was expecting you would keep these tables, and then call into the
+BIOS as well. Having this table in debugfs seems like a useful thing
+to have for debugging the BIOS.
+
+> +#ifdef CONFIG_WBRF_AMD_ACPI
+> +#else
+> +static inline bool
+> +acpi_amd_wbrf_supported_consumer(struct device *dev) { return false; }
+> +static inline bool
+> +acpi_amd_wbrf_supported_producer(struct device *dev) {return false; }
+> +static inline int
+> +acpi_amd_wbrf_remove_exclusion(struct device *dev,
+> +			       struct wbrf_ranges_in *in) { return -ENODEV; }
+> +static inline int
+> +acpi_amd_wbrf_add_exclusion(struct device *dev,
+> +			    struct wbrf_ranges_in *in) { return -ENODEV; }
+> +static inline int
+> +acpi_amd_wbrf_retrieve_exclusions(struct device *dev,
+> +				  struct wbrf_ranges_out *out) { return -ENODEV; }
+
+Do you actually need these stub versions?
+
+	Andrew
