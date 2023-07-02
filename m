@@ -4,38 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DCE6C001B3
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 07:47:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FAE5EB64DD
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 07:47:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B439710E1B3;
-	Mon,  3 Jul 2023 07:47:21 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BDCB10E500;
- Sat,  1 Jul 2023 00:25:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=2owrJhl/53WVtJVgmJGKRqOuXZ4S6pDn+bb6mrtUzX8=; b=iXIac+Icw9//iMR+dKqntn68Ys
- 3WjdD0oasj+rLfco8DYyXIqQBQZvsx5eVG2e5Z1tblnlctWFnWV14lQkggQTMJzkVGloV8SpaDQ30
- j125QMDSEsfvXbeY9hDlaBWN/qh3yhZG36D/+PoEXAkd2qr7Y51ew23f/7lB81H6Z5J0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1qFOQP-000LNE-R0; Sat, 01 Jul 2023 02:25:17 +0200
-Date: Sat, 1 Jul 2023 02:25:17 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Limonciello, Mario" <mario.limonciello@amd.com>
-Subject: Re: [PATCH V5 1/9] drivers core: Add support for Wifi band RF
- mitigations
-Message-ID: <0f18f4bf-dc38-49e3-a484-ca2456549f0b@lunn.ch>
-References: <20230630103240.1557100-1-evan.quan@amd.com>
- <20230630103240.1557100-2-evan.quan@amd.com>
- <3e095621-d7dc-9069-45dc-498c8f3bb4f4@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4381410E1B5;
+	Mon,  3 Jul 2023 07:47:22 +0000 (UTC)
+Received: from out-8.mta0.migadu.com (out-8.mta0.migadu.com [91.218.175.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB22710E175
+ for <amd-gfx@lists.freedesktop.org>; Sun,  2 Jul 2023 18:28:29 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1688322507;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=btfhp53flz2znRJhVRVROxzr2+xJwf5jWKVzzdMQNCg=;
+ b=oQKi6ID1afguP4x/ojsnsDHQmXUzv98pprbJoD3+O0SU3KQeHD02lyeKnjI1XcQu3Pa5Yo
+ KBMOMm5Ccwy6HtziwaVhZWyGV851AaNElUo1AcDBeEGL5hD9ef1eODvu1u4mvhKyY0fEBW
+ O5N2ZIaf//ItxdDMSQ/3hAiJPgHsTbs=
+From: Sui Jingfeng <sui.jingfeng@linux.dev>
+To: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v2 4/6] drm/radeon: Implement the is_boot_device callback
+ function
+Date: Mon,  3 Jul 2023 02:27:42 +0800
+Message-Id: <20230702182744.755467-5-sui.jingfeng@linux.dev>
+In-Reply-To: <20230702182744.755467-1-sui.jingfeng@linux.dev>
+References: <20230702182744.755467-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3e095621-d7dc-9069-45dc-498c8f3bb4f4@amd.com>
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Mon, 03 Jul 2023 07:47:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,39 +52,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jingyuwang_vip@163.com, bellosilicio@gmail.com, rafael@kernel.org,
- trix@redhat.com, Lijo.Lazar@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, mdaenzer@redhat.com, airlied@gmail.com,
- amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org, kuba@kernel.org,
- pabeni@redhat.com, lenb@kernel.org, andrealmeid@igalia.com, daniel@ffwll.ch,
- arnd@arndb.de, maarten.lankhorst@linux.intel.com, hdegoede@redhat.com,
- jsg@jsg.id.au, Evan Quan <evan.quan@amd.com>, jim.cromie@gmail.com,
- netdev@vger.kernel.org, Xinhui.Pan@amd.com, linux-wireless@vger.kernel.org,
- edumazet@google.com, Christian.Koenig@amd.com, tzimmermann@suse.de,
- Alexander.Deucher@amd.com, johannes@sipsolutions.net, davem@davemloft.net
+Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
+ kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, Pan Xinhui <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
+ Christian Konig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> Right now there are stubs for non CONFIG_WBRF as well as other patches are
-> using #ifdef CONFIG_WBRF or having their own stubs.  Like mac80211 patch
-> looks for #ifdef CONFIG_WBRF.
-> 
-> I think we should pick one or the other.
-> 
-> Having other subsystems #ifdef CONFIG_WBRF will make the series easier to
-> land through multiple trees; so I have a slight leaning in that direction.
+From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-#ifdef in C files is generally not liked because it makes build
-testing harder. There are more permutations to build. It is better to use
+[why]
 
-if (IS_ENABLED(CONFIG_WBTR)) {
-}
+The vga_is_firmware_default() defined in drivers/pci/vgaarb.c is
+arch-dependent, it's a dummy on non-x86 architectures currently.
+This made VGAARB lost an important condition for the arbitration.
+It could still be wrong even if we remove the #ifdef and #endif guards.
+because the PCI bar will move (resource re-allocation).
 
-so that the code is compiled, and them throw away because
-IS_ENABLED(CONFIG_WBTR) evaluates to false.
+[how]
 
-However, if the stubs are done correctly, the driver should not
-care. I doubt this is used in any sort of hot path where every
-instruction counts.
+The device that owns the firmware framebuffer should be the default boot
+device. This patch adds an arch-independent function to enforce this rule.
+The vgaarb subsystem will call back to radeon_is_boot_device() function
+when drm/radeon is successfully bound to a radeon GPU device.
 
-	Andrew
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian Konig <christian.koenig@amd.com>
+Cc: Pan Xinhui <Xinhui.Pan@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+---
+ drivers/gpu/drm/radeon/radeon_device.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index 71f2ff39d6a1..afb49000830c 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -34,6 +34,7 @@
+ #include <linux/vga_switcheroo.h>
+ #include <linux/vgaarb.h>
+ 
++#include <drm/drm_aperture.h>
+ #include <drm/drm_cache.h>
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/drm_device.h>
+@@ -1263,6 +1264,15 @@ static const struct vga_switcheroo_client_ops radeon_switcheroo_ops = {
+ 	.can_switch = radeon_switcheroo_can_switch,
+ };
+ 
++static bool radeon_is_boot_device(struct pci_dev *pdev)
++{
++	struct drm_device *dev = pci_get_drvdata(pdev);
++	struct radeon_device *rdev = dev->dev_private;
++	struct radeon_mc *gmc = &rdev->mc;
++
++	return drm_aperture_contain_firmware_fb(gmc->aper_base, gmc->aper_size);
++}
++
+ /**
+  * radeon_device_init - initialize the driver
+  *
+@@ -1425,7 +1435,7 @@ int radeon_device_init(struct radeon_device *rdev,
+ 	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
+ 	/* this will fail for cards that aren't VGA class devices, just
+ 	 * ignore it */
+-	vga_client_register(rdev->pdev, radeon_vga_set_decode, NULL);
++	vga_client_register(rdev->pdev, radeon_vga_set_decode, radeon_is_boot_device);
+ 
+ 	if (rdev->flags & RADEON_IS_PX)
+ 		runtime = true;
+-- 
+2.25.1
+
