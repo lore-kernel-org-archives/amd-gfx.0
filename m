@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E604EB64DC
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 07:47:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85C18C0015E
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 07:47:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7019910E1AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9109510E1AE;
 	Mon,  3 Jul 2023 07:47:21 +0000 (UTC)
-Received: from out-8.mta0.migadu.com (out-8.mta0.migadu.com
- [IPv6:2001:41d0:1004:224b::8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE3AF10E16C
- for <amd-gfx@lists.freedesktop.org>; Sun,  2 Jul 2023 18:28:25 +0000 (UTC)
+Received: from out-15.mta0.migadu.com (out-15.mta0.migadu.com
+ [IPv6:2001:41d0:1004:224b::f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AC2710E171;
+ Sun,  2 Jul 2023 18:28:39 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1688322503;
+ t=1688322516;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=9VT31crvj/hSyen+1yeJunQKIe6CJXCWJLM4jAJyVsI=;
- b=VWF57D2RseclrzcKi119DMJUFZtaHElS7q8jbbh1XWQr8bBCK8JJYFDv5kCFqfSUbl8Zxj
- OfeNWV8lWl7Z/3X4/oZsFJHS6v2PhXoEiYBdlpE02JaUy3Qqzzt1+3bGGp3Lm9+gp8wrVW
- 1d/YvTbmfmhNSt2c7WBL8ZsgF8ys6Yg=
+ bh=JD+BSfEOubeM4NaunZhKuggns+1jx3KG/ygiczCTpQY=;
+ b=hsPJDuYj9iRgllcgTdnKnVeIWHI4dbFO6cetTcGBRitOohcizdBhNOgpXttZSEDOrRYB5m
+ YFJNaZLsmoLXvdcfKsN/KjXlvPsWffQ20eToqWq6ZBWru43mzpRqHFZmlFwwfPaOHCHF4R
+ FpaJ05EzBAAFuai3Fohx7nkMzTFuZlM=
 From: Sui Jingfeng <sui.jingfeng@linux.dev>
 To: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
  Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -32,10 +32,10 @@ To: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
  Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
  Bjorn Helgaas <bhelgaas@google.com>,
  Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v2 3/6] drm/amdgpu: Implement the is_boot_device callback
- function
-Date: Mon,  3 Jul 2023 02:27:41 +0800
-Message-Id: <20230702182744.755467-4-sui.jingfeng@linux.dev>
+Subject: [PATCH v2 6/6] drm/ast: Register as a vga client to vgaarb by calling
+ vga_client_register()
+Date: Mon,  3 Jul 2023 02:27:44 +0800
+Message-Id: <20230702182744.755467-7-sui.jingfeng@linux.dev>
 In-Reply-To: <20230702182744.755467-1-sui.jingfeng@linux.dev>
 References: <20230702182744.755467-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
@@ -53,81 +53,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Lijo Lazar <lijo.lazar@amd.com>,
- Sui Jingfeng <suijingfeng@loongson.cn>, kvm@vger.kernel.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
- dri-devel@lists.freedesktop.org, Bokun Zhang <Bokun.Zhang@amd.com>,
- linux-pci@vger.kernel.org, Likun Gao <Likun.Gao@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
+ kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Jocelyn Falempe <jfalempe@redhat.com>,
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-[why]
+Becasuse the VGA Display Controller in the ASpeed BMC chip is also a PCIe
+device, the Software Programming guide of AST2400 say that it is Fully
+IBM VGA compliant, thus, it should also particiate in the arbitration.
 
-The vga_is_firmware_default() defined in drivers/pci/vgaarb.c is
-arch-dependent, it's a dummy on non-x86 architectures currently.
-This made VGAARB lost an important condition for the arbitration.
-It could still be wrong even if we remove the #ifdef and #endif guards.
-because the PCI bar will move (resource re-allocation).
-
-[how]
-
-The device that owns the firmware framebuffer should be the default boot
-device. This patch adds an arch-independent function to enforce this rule.
-The vgaarb subsystem will call back to amdgpu_is_boot_device() function
-when drm/amdgpu is successfully bound to an AMDGPU device.
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian Konig <christian.koenig@amd.com>
-Cc: Pan Xinhui <Xinhui.Pan@amd.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Lijo Lazar <lijo.lazar@amd.com>
-Cc: YiPeng Chai <YiPeng.Chai@amd.com>
-Cc: Bokun Zhang <Bokun.Zhang@amd.com>
-CC: Likun Gao <Likun.Gao@amd.com>
 Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/ast/ast_drv.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index c5bdf6eff29e..2f54250f9d58 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3673,6 +3673,15 @@ static const struct attribute *amdgpu_dev_attributes[] = {
- 	NULL
- };
+diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
+index e1224ef4ad83..5ce681142679 100644
+--- a/drivers/gpu/drm/ast/ast_drv.c
++++ b/drivers/gpu/drm/ast/ast_drv.c
+@@ -28,6 +28,7 @@
  
-+static bool amdgpu_is_boot_device(struct pci_dev *pdev)
+ #include <linux/module.h>
+ #include <linux/pci.h>
++#include <linux/vgaarb.h>
+ 
+ #include <drm/drm_aperture.h>
+ #include <drm/drm_atomic_helper.h>
+@@ -89,6 +90,32 @@ static const struct pci_device_id ast_pciidlist[] = {
+ 
+ MODULE_DEVICE_TABLE(pci, ast_pciidlist);
+ 
++static bool ast_is_boot_device(struct pci_dev *pdev)
 +{
-+	struct drm_device *dev = pci_get_drvdata(pdev);
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_gmc *gmc = &adev->gmc;
++	struct drm_device *drm = pci_get_drvdata(pdev);
++	struct ast_device *ast = to_ast_device(drm);
 +
-+	return drm_aperture_contain_firmware_fb(gmc->aper_base, gmc->aper_size);
++	return drm_aperture_contain_firmware_fb(ast->vram_base, ast->vram_size);
 +}
 +
- /**
-  * amdgpu_device_init - initialize the driver
-  *
-@@ -4082,7 +4091,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	/* this will fail for cards that aren't VGA class devices, just
- 	 * ignore it */
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
--		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode, NULL);
-+		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode,
-+				    amdgpu_is_boot_device);
++static unsigned int ast_vga_set_decode(struct pci_dev *pdev, bool state)
++{
++	struct drm_device *drm = pci_get_drvdata(pdev);
++	struct ast_device *ast = to_ast_device(drm);
++
++	if (state) {
++		/* Enable standard VGA decode and Enable normal VGA decode */
++		ast_set_index_reg(ast, AST_IO_CRTC_PORT, 0xa1, 0x04);
++
++		return VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM |
++		       VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
++	}
++
++	ast_set_index_reg(ast, AST_IO_CRTC_PORT, 0xa1, 0x07);
++
++	return VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
++}
++
+ static int ast_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ {
+ 	struct ast_device *ast;
+@@ -112,6 +139,8 @@ static int ast_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	if (ret)
+ 		return ret;
  
- 	px = amdgpu_device_supports_px(ddev);
++	vga_client_register(pdev, ast_vga_set_decode, ast_is_boot_device);
++
+ 	drm_fbdev_generic_setup(dev, 32);
  
+ 	return 0;
 -- 
 2.25.1
 
