@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FAE5EB64DD
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 07:47:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35BF6C0015E
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 07:47:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4381410E1B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4BEE10E1B7;
 	Mon,  3 Jul 2023 07:47:22 +0000 (UTC)
-Received: from out-8.mta0.migadu.com (out-8.mta0.migadu.com [91.218.175.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB22710E175
- for <amd-gfx@lists.freedesktop.org>; Sun,  2 Jul 2023 18:28:29 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1688322507;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=btfhp53flz2znRJhVRVROxzr2+xJwf5jWKVzzdMQNCg=;
- b=oQKi6ID1afguP4x/ojsnsDHQmXUzv98pprbJoD3+O0SU3KQeHD02lyeKnjI1XcQu3Pa5Yo
- KBMOMm5Ccwy6HtziwaVhZWyGV851AaNElUo1AcDBeEGL5hD9ef1eODvu1u4mvhKyY0fEBW
- O5N2ZIaf//ItxdDMSQ/3hAiJPgHsTbs=
-From: Sui Jingfeng <sui.jingfeng@linux.dev>
-To: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v2 4/6] drm/radeon: Implement the is_boot_device callback
- function
-Date: Mon,  3 Jul 2023 02:27:42 +0800
-Message-Id: <20230702182744.755467-5-sui.jingfeng@linux.dev>
-In-Reply-To: <20230702182744.755467-1-sui.jingfeng@linux.dev>
-References: <20230702182744.755467-1-sui.jingfeng@linux.dev>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2C0410E010;
+ Sun,  2 Jul 2023 16:44:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=xdktR0ZW1+7oS8vQFbhX1grTHS/llaOWJVaub2NlKLo=; b=h/1wX4JTdSgoA39p/4CtiC1YxJ
+ pMr+Yws3D2BV796tGwWpTXSTjjgpRB1Zfp3tlDtcSiWyixm/wjXzcvdKDaBbhOzmBzv9bDC9g51qa
+ NAtC4AXqEI9IWCxIr85iY/qjdC8LUX3eNrqJvt+Hn2oL5V2Rv9lFSg/1uJCv+YrRIKWHluqcYJngr
+ uXdx7oT1sX7nIkELRQiWavIgyY8ksuPEP90+Cy0sSrUujRJDLmAvLD9CxlRZF6H7GhnbVdZquQcN9
+ 4q5n/pOKDjqDsCuIu9CbczRRgimfDf+dRYmIgObzvsX3boSeEsO0PFvM3x0QaCYtA3+swhlBDnrWv
+ Msy52OdA==;
+Received: from [191.205.188.225] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1qG0BV-007AcG-Tm; Sun, 02 Jul 2023 18:44:26 +0200
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] Revert "drm/amd/display: Program OTG vtotal min/max selectors
+ unconditionally for DCN1+"
+Date: Sun,  2 Jul 2023 13:44:07 -0300
+Message-Id: <20230702164407.6547-1-gpiccoli@igalia.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Mon, 03 Jul 2023 07:47:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,79 +51,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
- kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, Pan Xinhui <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
- Christian Konig <christian.koenig@amd.com>
+Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, Xinhui.Pan@amd.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, dri-devel@lists.freedesktop.org,
+ Melissa Wen <mwen@igalia.com>, cristian.ciocaltea@collabora.com,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sui Jingfeng <suijingfeng@loongson.cn>
+This reverts commit 06c3a652a787efc960af7c8816036d25c4227c6c.
 
-[why]
+After this commit, the Steam Deck cannot boot with graphics anymore;
+the following message is observed on dmesg:
 
-The vga_is_firmware_default() defined in drivers/pci/vgaarb.c is
-arch-dependent, it's a dummy on non-x86 architectures currently.
-This made VGAARB lost an important condition for the arbitration.
-It could still be wrong even if we remove the #ifdef and #endif guards.
-because the PCI bar will move (resource re-allocation).
+"[drm] ERROR [CRTC:67:crtc-0] flip_done timed out"
 
-[how]
+No other error is observed, it just stays like that. After bisecting
+amd-staging-drm-next, we narrowed it down to this commit. Seems it
+makes sense to revert it to have the tree bootable until a proper
+solution is worked.
 
-The device that owns the firmware framebuffer should be the default boot
-device. This patch adds an arch-independent function to enforce this rule.
-The vgaarb subsystem will call back to radeon_is_boot_device() function
-when drm/radeon is successfully bound to a radeon GPU device.
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: André Almeida <andrealmeid@igalia.com>
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian Konig <christian.koenig@amd.com>
-Cc: Pan Xinhui <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 ---
- drivers/gpu/drm/radeon/radeon_device.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 71f2ff39d6a1..afb49000830c 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -34,6 +34,7 @@
- #include <linux/vga_switcheroo.h>
- #include <linux/vgaarb.h>
+Hi Alex / Aurabindo, we couldn't boot the Deck with in HEAD
+(amd-staging-drm-next), git bisect led to this commit. Since its
+description already mentions a potential proper solution, related
+to the DMCUB (and some complex state tracking), I thought it was
+more effective to revert it to allow booting the tree in Deck (and
+maybe other HW - I just tested the Deck BTW).
+Lemme know your thoughts.
+
+Special thanks to André and Melissa for helping the debug / bisect!
+We're open to test alternative patches, feel free to ping.
+Cheers,
+
+Guilherme
+
+
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 15 ++++++++++++---
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c | 10 ----------
+ 2 files changed, 12 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+index 0e8f4f36c87c..27419cd98264 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+@@ -945,10 +945,19 @@ void optc1_set_drr(
+ 				OTG_FORCE_LOCK_ON_EVENT, 0,
+ 				OTG_SET_V_TOTAL_MIN_MASK_EN, 0,
+ 				OTG_SET_V_TOTAL_MIN_MASK, 0);
+-	}
  
-+#include <drm/drm_aperture.h>
- #include <drm/drm_cache.h>
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_device.h>
-@@ -1263,6 +1264,15 @@ static const struct vga_switcheroo_client_ops radeon_switcheroo_ops = {
- 	.can_switch = radeon_switcheroo_can_switch,
- };
- 
-+static bool radeon_is_boot_device(struct pci_dev *pdev)
-+{
-+	struct drm_device *dev = pci_get_drvdata(pdev);
-+	struct radeon_device *rdev = dev->dev_private;
-+	struct radeon_mc *gmc = &rdev->mc;
+-	// Setup manual flow control for EOF via TRIG_A
+-	optc->funcs->setup_manual_trigger(optc);
++		// Setup manual flow control for EOF via TRIG_A
++		optc->funcs->setup_manual_trigger(optc);
 +
-+	return drm_aperture_contain_firmware_fb(gmc->aper_base, gmc->aper_size);
-+}
++	} else {
++		REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
++				OTG_SET_V_TOTAL_MIN_MASK, 0,
++				OTG_V_TOTAL_MIN_SEL, 0,
++				OTG_V_TOTAL_MAX_SEL, 0,
++				OTG_FORCE_LOCK_ON_EVENT, 0);
 +
- /**
-  * radeon_device_init - initialize the driver
-  *
-@@ -1425,7 +1435,7 @@ int radeon_device_init(struct radeon_device *rdev,
- 	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
- 	/* this will fail for cards that aren't VGA class devices, just
- 	 * ignore it */
--	vga_client_register(rdev->pdev, radeon_vga_set_decode, NULL);
-+	vga_client_register(rdev->pdev, radeon_vga_set_decode, radeon_is_boot_device);
++		optc->funcs->set_vtotal_min_max(optc, 0, 0);
++	}
+ }
  
- 	if (rdev->flags & RADEON_IS_PX)
- 		runtime = true;
+ void optc1_set_vtotal_min_max(struct timing_generator *optc, int vtotal_min, int vtotal_max)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+index 58bdbd859bf9..d6f095b4555d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+@@ -462,16 +462,6 @@ void optc2_setup_manual_trigger(struct timing_generator *optc)
+ {
+ 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
+ 
+-	/* Set the min/max selectors unconditionally so that
+-	 * DMCUB fw may change OTG timings when necessary
+-	 * TODO: Remove the w/a after fixing the issue in DMCUB firmware
+-	 */
+-	REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
+-				 OTG_V_TOTAL_MIN_SEL, 1,
+-				 OTG_V_TOTAL_MAX_SEL, 1,
+-				 OTG_FORCE_LOCK_ON_EVENT, 0,
+-				 OTG_SET_V_TOTAL_MIN_MASK, (1 << 1)); /* TRIGA */
+-
+ 	REG_SET_8(OTG_TRIGA_CNTL, 0,
+ 			OTG_TRIGA_SOURCE_SELECT, 21,
+ 			OTG_TRIGA_SOURCE_PIPE_SELECT, optc->inst,
 -- 
-2.25.1
+2.40.1
 
