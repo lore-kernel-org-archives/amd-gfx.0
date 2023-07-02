@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CF3AEB64DA
-	for <amd-gfx@archiver.kernel.org>; Sat,  1 Jul 2023 02:10:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C17B3EB64D9
+	for <amd-gfx@archiver.kernel.org>; Sun,  2 Jul 2023 22:30:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3609210E52C;
-	Sat,  1 Jul 2023 02:10:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F92510E011;
+	Sun,  2 Jul 2023 22:30:09 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B80DF10E530;
- Sat,  1 Jul 2023 02:09:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49A8510E02C;
+ Sun,  2 Jul 2023 22:30:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=FpvV1NRn92NjSFc/aa9HU0kB1fj/LcwCHP8r7t79LKQ=; b=IQwSBaK4dtvffDRp6/HaKl/E7a
- HJgIluzVyRfp+1nipl9ZO4ikcNp8vPJyIiK/sZ+AWWQz+fEHLF82HpYZdnE/xq61NQ0xOcAkPXuhj
- pNuMDYbZBfQX4QF3DdXJRehvlT1FOK1ExMYnBSGJvkYGAeE+wqpoqi7VxqUovfVXj7uiUZRvZ7oj+
- HIgVNImcyhMGUOTsesmF9Nc19mBFj+GqABzhb0pwSEHz3Udeit2RPm1/3ygDq4s42EMG4D4FvKMjA
- KYl6+k6jm1dmt0Z+IHtvyZSQP2YpdRPA/xy2zERwziURYskIVdOjutkBqjj87mWiK5IG4ArTQ9aVz
- oswa/ALg==;
-Received: from [187.74.70.209] (helo=steammachine.lan)
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=h63n3TGFz//UZsyuKJqTNmhbmzkY3RFuUbFl5dnSDO4=; b=oIvZ9HmNAc52cl+P5YD2iA1kDo
+ ZqFgIeKxO62GQYCTsJIvci99rwDXWEYFAmuqTZp7ekewoGc5uvQ71xDOUHupaiZwCSJG0FOJNt0DX
+ a+2m2gxTF2KwOFufD0zMKuh1vgy65xkObesL/yW2PHtc42kZE9nI9LBATRTPjgKSxn29FXAOwdA/B
+ +5QySboEnkUrHtv1Cea/kKfCo/5eDRAgehreNqJoGzIWZr7d/8HbxQK/CMhPkdBizESjJrbe0LarJ
+ rmo68F+TIBpHUFx86GMGVJYmg1W23I6N4R1XslPS0WSlDhBigyaDAzJ+01d81V63s3xfnA5pn8F2O
+ 5Yc+j6aQ==;
+Received: from [187.74.70.209] (helo=[192.168.1.111])
  by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qFQ3g-006abr-5T; Sat, 01 Jul 2023 04:09:56 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, wayland-devel@lists.freedesktop.org
-Subject: [PATCH v4 6/6] drm/doc: Define KMS atomic state set
-Date: Fri, 30 Jun 2023 23:09:17 -0300
-Message-ID: <20230701020917.143394-7-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230701020917.143394-1-andrealmeid@igalia.com>
-References: <20230701020917.143394-1-andrealmeid@igalia.com>
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1qG5Zx-007IRG-UZ; Mon, 03 Jul 2023 00:30:02 +0200
+Message-ID: <75cdded3-4ae3-43dd-4a0c-ad77a5b793e7@igalia.com>
+Date: Sun, 2 Jul 2023 19:29:57 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH] Revert "drm/amd/display: Program OTG vtotal min/max
+ selectors unconditionally for DCN1+"
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+References: <20230702164407.6547-1-gpiccoli@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20230702164407.6547-1-gpiccoli@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,57 +54,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>, Italo Nicola <italonicola@collabora.com>,
- Randy Dunlap <rdunlap@infradead.org>, Pekka Paalanen <ppaalanen@gmail.com>,
- Daniel Stone <daniel@fooishbar.org>, hwentlan@amd.com,
- Rob Clark <robdclark@gmail.com>, ville.syrjala@linux.intel.com,
- kernel-dev@igalia.com, alexander.deucher@amd.com,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com, joshua@froggi.es
+Cc: Xinhui.Pan@amd.com, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ dri-devel@lists.freedesktop.org, Melissa Wen <mwen@igalia.com>,
+ cristian.ciocaltea@collabora.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Specify how the atomic state is maintained between userspace and
-kernel, plus the special case for async flips.
+Hi Guilherme,
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
-v4: new patch
----
- Documentation/gpu/drm-uapi.rst | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+Em 02/07/2023 13:44, Guilherme G. Piccoli escreveu:
+> This reverts commit 06c3a652a787efc960af7c8816036d25c4227c6c.
+> 
+> After this commit, the Steam Deck cannot boot with graphics anymore;
+> the following message is observed on dmesg:
+> 
+> "[drm] ERROR [CRTC:67:crtc-0] flip_done timed out"
+> 
+> No other error is observed, it just stays like that. After bisecting
+> amd-staging-drm-next, we narrowed it down to this commit. Seems it
+> makes sense to revert it to have the tree bootable until a proper
+> solution is worked.
 
-diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-index 65fb3036a580..5464376051cc 100644
---- a/Documentation/gpu/drm-uapi.rst
-+++ b/Documentation/gpu/drm-uapi.rst
-@@ -486,3 +486,22 @@ and the CRTC index is its position in this array.
- 
- .. kernel-doc:: include/uapi/drm/drm_mode.h
-    :internal:
-+
-+KMS atomic state
-+================
-+
-+If a userspace using the DRM atomic API would like to change the modeset, it
-+needs to do in an atomic way, changing all desired properties in a single
-+commit. Following commits may contain the same properties again, as if they were
-+new. The kernel can then judge if those properties requires modesetting and real
-+changes, or it's just the same state as before. In summary, userspace commits do
-+not need to set the minimal state as possible and can commit redundant
-+information, and the kernel will ignore it.
-+
-+An observation must be made for atomic operations with DRM_MODE_PAGE_FLIP_ASYNC.
-+In such scenarios properties values can be sent, but the if they change
-+something, the kernel will reject the flip. This is done because property
-+changes can lead to modesetting, that would defeat the goal of flipping as fast
-+as possible. The only exceptions are the framebuffer ID to be flipped to and
-+mode IDs changes, which could be referring to an identical mode, thus not
-+requiring modeset.
--- 
-2.41.0
+Thank you for your patch, I confirm the exactly same behavior on my 
+Steam Deck.
 
+> 
+> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
+> 
+
+Reviewed-by: André Almeida <andrealmeid@igalia.com>
