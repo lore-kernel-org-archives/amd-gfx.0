@@ -4,45 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C17B3EB64D9
-	for <amd-gfx@archiver.kernel.org>; Sun,  2 Jul 2023 22:30:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F96CEB64DC
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 07:12:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F92510E011;
-	Sun,  2 Jul 2023 22:30:09 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49A8510E02C;
- Sun,  2 Jul 2023 22:30:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=h63n3TGFz//UZsyuKJqTNmhbmzkY3RFuUbFl5dnSDO4=; b=oIvZ9HmNAc52cl+P5YD2iA1kDo
- ZqFgIeKxO62GQYCTsJIvci99rwDXWEYFAmuqTZp7ekewoGc5uvQ71xDOUHupaiZwCSJG0FOJNt0DX
- a+2m2gxTF2KwOFufD0zMKuh1vgy65xkObesL/yW2PHtc42kZE9nI9LBATRTPjgKSxn29FXAOwdA/B
- +5QySboEnkUrHtv1Cea/kKfCo/5eDRAgehreNqJoGzIWZr7d/8HbxQK/CMhPkdBizESjJrbe0LarJ
- rmo68F+TIBpHUFx86GMGVJYmg1W23I6N4R1XslPS0WSlDhBigyaDAzJ+01d81V63s3xfnA5pn8F2O
- 5Yc+j6aQ==;
-Received: from [187.74.70.209] (helo=[192.168.1.111])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1qG5Zx-007IRG-UZ; Mon, 03 Jul 2023 00:30:02 +0200
-Message-ID: <75cdded3-4ae3-43dd-4a0c-ad77a5b793e7@igalia.com>
-Date: Sun, 2 Jul 2023 19:29:57 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D57A10E18C;
+	Mon,  3 Jul 2023 07:12:43 +0000 (UTC)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org
+ [IPv6:2001:67c:2050:0:465::101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABA5D10E0A6;
+ Mon,  3 Jul 2023 07:12:40 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4QvcZ868zmz9sTc;
+ Mon,  3 Jul 2023 09:12:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1688368352;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=JDNJNCwhoG+0ydNvsWCgQAPOCFx9yNIpNg5RG4lrTFc=;
+ b=uWzB5PEqTbeBjl2FMU9jiApj7p/ZTTvmBwYysJPhNe3nP2k+MMFSaV8oYukXBCgb+SXuMl
+ 8+zLLt+byMxA4coMGnS66mLAvQC4Kf3JKGaUx/NHSMudjil7YmYLGyL4oZgVZBOkZakg8E
+ ed1lZuSHky7P7pZBJmsgbNGKgI20ap2wGJNReVVtijfHSz68ljAMpY+YuzCiAeB6Qihx3M
+ GgLhSrjYOeDYy+RH3CTd5udiosINbE3uGCJnRG7ilRZ1VQAibodlkoRxzQw/EkX5vFn6EL
+ QpEtZmsPjumFqMty4ZT1IUeEmchWHxj03wd5ad+nCbEH6ax3ux7TuBEGlIx4TQ==
+Message-ID: <7c1e6df5-1ad4-be3c-b95d-92dc62a8c537@mailbox.org>
+Date: Mon, 3 Jul 2023 09:12:29 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH] Revert "drm/amd/display: Program OTG vtotal min/max
- selectors unconditionally for DCN1+"
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-References: <20230702164407.6547-1-gpiccoli@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <20230702164407.6547-1-gpiccoli@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
+Content-Language: de-CH-frami, en-CA
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+References: <20230627132323.115440-1-andrealmeid@igalia.com>
+ <CA+hFU4z1pc=KUVVqyqfXEceUqMXQgh-qUnuB=1nkPELghvQO7w@mail.gmail.com>
+ <CADnq5_MNVdtdcWKSz6dgmsjg+kEu8p5FVE+fkw_5BaXeG3QGow@mail.gmail.com>
+ <afab1f5a-e581-3416-e2c2-238ea120655b@mailbox.org>
+ <CAAxE2A5C96k5ua+r938VA_+w7gHHNTdF3n8LwDb98W0Bf9wCVA@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <CAAxE2A5C96k5ua+r938VA_+w7gHHNTdF3n8LwDb98W0Bf9wCVA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: d01efb6d83f21620a65
+X-MBO-RS-META: 5z8b3itq5tq11yiwuxjwbw1bdzf74g3m
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,34 +59,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- dri-devel@lists.freedesktop.org, Melissa Wen <mwen@igalia.com>,
- cristian.ciocaltea@collabora.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ Sebastian Wick <sebastian.wick@redhat.com>,
+ =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
+ =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, alexander.deucher@amd.com,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Guilherme,
+On 6/30/23 22:32, Marek Olšák wrote:
+> On Fri, Jun 30, 2023 at 11:11 AM Michel Dänzer <michel.daenzer@mailbox.org <mailto:michel.daenzer@mailbox.org>> wrote:
+>> On 6/30/23 16:59, Alex Deucher wrote:
+>>> On Fri, Jun 30, 2023 at 10:49 AM Sebastian Wick
+>>> <sebastian.wick@redhat.com <mailto:sebastian.wick@redhat.com>> wrote:
+>>>> On Tue, Jun 27, 2023 at 3:23 PM André Almeida <andrealmeid@igalia.com <mailto:andrealmeid@igalia.com>> wrote:
+>>>>>
+>>>>> +Robustness
+>>>>> +----------
+>>>>> +
+>>>>> +The only way to try to keep an application working after a reset is if it
+>>>>> +complies with the robustness aspects of the graphical API that it is using.
+>>>>> +
+>>>>> +Graphical APIs provide ways to applications to deal with device resets. However,
+>>>>> +there is no guarantee that the app will use such features correctly, and the
+>>>>> +UMD can implement policies to close the app if it is a repeating offender,
+>>>>> +likely in a broken loop. This is done to ensure that it does not keep blocking
+>>>>> +the user interface from being correctly displayed. This should be done even if
+>>>>> +the app is correct but happens to trigger some bug in the hardware/driver.
+>>>>
+>>>> I still don't think it's good to let the kernel arbitrarily kill
+>>>> processes that it thinks are not well-behaved based on some heuristics
+>>>> and policy.
+>>>>
+>>>> Can't this be outsourced to user space? Expose the information about
+>>>> processes causing a device and let e.g. systemd deal with coming up
+>>>> with a policy and with killing stuff.
+>>>
+>>> I don't think it's the kernel doing the killing, it would be the UMD.
+>>> E.g., if the app is guilty and doesn't support robustness the UMD can
+>>> just call exit().
+>>
+>> It would be safer to just ignore API calls[0], similarly to what is done until the application destroys the context with robustness. Calling exit() likely results in losing any unsaved work, whereas at least some applications might otherwise allow saving the work by other means.
+> 
+> That's a terrible idea. Ignoring API calls would be identical to a freeze. You might as well disable GPU recovery because the result would be the same.
 
-Em 02/07/2023 13:44, Guilherme G. Piccoli escreveu:
-> This reverts commit 06c3a652a787efc960af7c8816036d25c4227c6c.
-> 
-> After this commit, the Steam Deck cannot boot with graphics anymore;
-> the following message is observed on dmesg:
-> 
-> "[drm] ERROR [CRTC:67:crtc-0] flip_done timed out"
-> 
-> No other error is observed, it just stays like that. After bisecting
-> amd-staging-drm-next, we narrowed it down to this commit. Seems it
-> makes sense to revert it to have the tree bootable until a proper
-> solution is worked.
+No GPU recovery would affect everything using the GPU, whereas this affects only non-robust applications.
 
-Thank you for your patch, I confirm the exactly same behavior on my 
-Steam Deck.
 
-> 
-> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
-> 
+> - non-robust contexts: call exit(1) immediately, which is the best way to recover
 
-Reviewed-by: André Almeida <andrealmeid@igalia.com>
+That's not the UMD's call to make.
+
+
+>>     [0] Possibly accompanied by a one-time message to stderr along the lines of "GPU reset detected but robustness not enabled in context, ignoring OpenGL API calls".
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
