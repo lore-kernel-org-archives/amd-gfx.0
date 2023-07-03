@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C5B2EB64DD
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 15:00:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9FB3EB64DC
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 16:32:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D19110E046;
-	Mon,  3 Jul 2023 15:00:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1173510E074;
+	Mon,  3 Jul 2023 16:32:56 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2364E10E042;
- Mon,  3 Jul 2023 15:00:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B67C410E06A;
+ Mon,  3 Jul 2023 16:32:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -19,33 +19,29 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=lEjQPsDxtRvLE8zahWewvCEDc9M1w1GJ+mEScSJMMVI=; b=DCkVBEqraHjIzrkzpVAu1I1fMd
- x3M/MmqmMrkVCu9Ew6c43mRhieNKUGOms4QP8dpBCjOZAB0UWS8JNJcENWnCEtO/+uvs9T3VV24Xq
- NB+i1YpIkToHgtjWBn5P/VNcB3QRPnSEApYb3Gt3m+DFB1AlMRyDR6OjuPoJKq9pVl6AykNL+zf4R
- NpgK2Olt4YDPJkE0m4UsEZSwHol2ZztANfqDUJ14FhzAfzMDSqEXaFjXU39+Ek/9+rQX6/CKKbGm9
- 9hBkn1s0AKmt8gtoXeZRxNBo0Nk+iHLuJt+EC9N9OHFt+qW1Vyb3NyOgGHQdNuQr6UNq9cP0k5Zth
- EbyfCPUA==;
+ bh=BiYigt7zYTuTfpoKc6uqrwZviUtVf5LAgZDNhGxhXA4=; b=YXRILy88wcvchL4Qn3p6zh+sZ7
+ D732sKKK0mLOMPbBeqfJNF9enbwuVY++PhYphitoHulx7i3OL0JqnG4AZ3Ried/ye3jfohr0+lQwd
+ 1Dh/Tu0U/PQX23ub+qNoWMseUX2DdkKAT7GaHLKYyl13KR/2H/1kvl29aZk9RhZFtWXKKE7N0EjH+
+ cJxtqfo3JV1sZP2AyX19btqLOhDlvlSTfI828gy0REnWIQCvL4/lT7ySZBrEOq0LBRa7Ko7Q3c1ab
+ 8JPBv6S4WBZwQXuzzTnXQvABSc69samyzuxr03iZHqDxE8ZrMysVNnZjkih5RmywgqAeo7FYZ+ALy
+ hL2YU7Tw==;
 Received: from [187.74.70.209] (helo=[192.168.1.111])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1qGL2R-007fhp-7K; Mon, 03 Jul 2023 17:00:27 +0200
-Message-ID: <cedc57a5-779a-3ec6-cfbd-f51dfb17f2dc@igalia.com>
-Date: Mon, 3 Jul 2023 12:00:22 -0300
+ id 1qGMTo-007hfu-14; Mon, 03 Jul 2023 18:32:48 +0200
+Message-ID: <5bc889d4-bccc-9d6d-fe35-da3e9627eaa0@igalia.com>
+Date: Mon, 3 Jul 2023 13:32:41 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
-To: Pekka Paalanen <ppaalanen@gmail.com>
-References: <20230627132323.115440-1-andrealmeid@igalia.com>
- <CA+hFU4z1pc=KUVVqyqfXEceUqMXQgh-qUnuB=1nkPELghvQO7w@mail.gmail.com>
- <CADnq5_MNVdtdcWKSz6dgmsjg+kEu8p5FVE+fkw_5BaXeG3QGow@mail.gmail.com>
- <afab1f5a-e581-3416-e2c2-238ea120655b@mailbox.org>
- <CAAxE2A5C96k5ua+r938VA_+w7gHHNTdF3n8LwDb98W0Bf9wCVA@mail.gmail.com>
- <7c1e6df5-1ad4-be3c-b95d-92dc62a8c537@mailbox.org>
- <20230703114949.796c7498@eldfell>
+Subject: Re: [PATCH v4 6/6] drm/doc: Define KMS atomic state set
 Content-Language: en-US
+To: Pekka Paalanen <ppaalanen@gmail.com>
+References: <20230701020917.143394-1-andrealmeid@igalia.com>
+ <20230701020917.143394-7-andrealmeid@igalia.com>
+ <20230703113836.60869599@eldfell>
 From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <20230703114949.796c7498@eldfell>
+In-Reply-To: <20230703113836.60869599@eldfell>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -59,121 +55,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Sebastian Wick <sebastian.wick@redhat.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
+Cc: pierre-eric.pelloux-prayer@amd.com, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
  =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com
+ Simon Ser <contact@emersion.fr>, Italo Nicola <italonicola@collabora.com>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ hwentlan@amd.com, ville.syrjala@linux.intel.com,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, alexander.deucher@amd.com,
+ Daniel Stone <daniel@fooishbar.org>, Dave Airlie <airlied@gmail.com>,
+ christian.koenig@amd.com, joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-Em 03/07/2023 05:49, Pekka Paalanen escreveu:
-> On Mon, 3 Jul 2023 09:12:29 +0200
-> Michel Dänzer <michel.daenzer@mailbox.org> wrote:
+Em 03/07/2023 05:38, Pekka Paalanen escreveu:
+> On Fri, 30 Jun 2023 23:09:17 -0300
+> André Almeida <andrealmeid@igalia.com> wrote:
 > 
->> On 6/30/23 22:32, Marek Olšák wrote:
->>> On Fri, Jun 30, 2023 at 11:11 AM Michel Dänzer <michel.daenzer@mailbox.org <mailto:michel.daenzer@mailbox.org>> wrote:
->>>> On 6/30/23 16:59, Alex Deucher wrote:
->>>>> On Fri, Jun 30, 2023 at 10:49 AM Sebastian Wick
->>>>> <sebastian.wick@redhat.com <mailto:sebastian.wick@redhat.com>> wrote:
->>>>>> On Tue, Jun 27, 2023 at 3:23 PM André Almeida <andrealmeid@igalia.com <mailto:andrealmeid@igalia.com>> wrote:
->>>>>>>
->>>>>>> +Robustness
->>>>>>> +----------
->>>>>>> +
->>>>>>> +The only way to try to keep an application working after a reset is if it
->>>>>>> +complies with the robustness aspects of the graphical API that it is using.
->>>>>>> +
->>>>>>> +Graphical APIs provide ways to applications to deal with device resets. However,
->>>>>>> +there is no guarantee that the app will use such features correctly, and the
->>>>>>> +UMD can implement policies to close the app if it is a repeating offender,
->>>>>>> +likely in a broken loop. This is done to ensure that it does not keep blocking
->>>>>>> +the user interface from being correctly displayed. This should be done even if
->>>>>>> +the app is correct but happens to trigger some bug in the hardware/driver.
->>>>>>
->>>>>> I still don't think it's good to let the kernel arbitrarily kill
->>>>>> processes that it thinks are not well-behaved based on some heuristics
->>>>>> and policy.
->>>>>>
->>>>>> Can't this be outsourced to user space? Expose the information about
->>>>>> processes causing a device and let e.g. systemd deal with coming up
->>>>>> with a policy and with killing stuff.
->>>>>
->>>>> I don't think it's the kernel doing the killing, it would be the UMD.
->>>>> E.g., if the app is guilty and doesn't support robustness the UMD can
->>>>> just call exit().
->>>>
->>>> It would be safer to just ignore API calls[0], similarly to what
->>>> is done until the application destroys the context with
->>>> robustness. Calling exit() likely results in losing any unsaved
->>>> work, whereas at least some applications might otherwise allow
->>>> saving the work by other means.
->>>
->>> That's a terrible idea. Ignoring API calls would be identical to a
->>> freeze. You might as well disable GPU recovery because the result
->>> would be the same.
+>> Specify how the atomic state is maintained between userspace and
+>> kernel, plus the special case for async flips.
 >>
->> No GPU recovery would affect everything using the GPU, whereas this
->> affects only non-robust applications.
->>
->>
->>> - non-robust contexts: call exit(1) immediately, which is the best
->>> way to recover
->>
->> That's not the UMD's call to make.
->>
->>
->>>>      [0] Possibly accompanied by a one-time message to stderr along
->>>> the lines of "GPU reset detected but robustness not enabled in
->>>> context, ignoring OpenGL API calls".
->>
-> 
-> Hi,
-> 
-> Michel does have a point. It's not just games and display servers that
-> use GPU, but productivity tools as well. They may have periodic
-> autosave in anticipation of crashes, but being able to do the final
-> save before quitting would be nice. UMD killing the process would be
-> new behaviour, right? Previously either application's GPU thread hangs
-> or various API calls return errors, but it didn't kill the process, did
-> it?
-> 
+>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
 
-In Intel's Iris, UMD may call abort() for the reset guilty application:
-
-https://elixir.bootlin.com/mesa/mesa-23.0.4/source/src/gallium/drivers/iris/iris_batch.c#L1063
-
-I was pretty sure this was the same for RadeonSI, but I failed to find 
-the code for this, so I might be wrong.
-
-> If an application freezes, that's "no problem"; the end user can just
-> continue using everything else. Alt-tab away etc. if the app was
-> fullscreen. I do that already with games on even Xorg.
-> 
-> If a display server freezes, that's a desktop-wide problem, but so is
-> killing it.
-> 
-
-Interesting, what GPU do you use? In my experience (AMD RX 5600 XT), 
-hanging the GPU usually means that the rest of applications/compositor 
-can't use the GPU either, freezing all user interactions. So killing the 
-guilty app is one effective solution currently, but ignoring calls may 
-help as well.
-
-> OTOH, if UMD really does need to terminate the process, then please do
-> it in a way that causes a crash report to be recorded. _exit() with an
-> error code is not it.
-> 
-
-In the "Reporting causes of resets" subsection of this document I can 
-add something for UMD as well.
+[...]
 
 > 
+> If you want to take these and need my Sob, that would be
+> Signed-off-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+> 
+> 
+
+Thank you very much! Your version is way better than mine, I'll use it 
+in my next version.
+
 > Thanks,
 > pq
