@@ -4,66 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D7A2EB64DC
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 08:49:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51AABEB64DC
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 08:56:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6128A10E1E1;
-	Mon,  3 Jul 2023 08:49:58 +0000 (UTC)
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
- [IPv6:2a00:1450:4864:20::143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAE5110E1D6;
- Mon,  3 Jul 2023 08:49:54 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id
- 2adb3069b0e04-4fb94b1423eso6216381e87.1; 
- Mon, 03 Jul 2023 01:49:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688374192; x=1690966192;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=kROqTS8zYsaLySu7JmTcNK/xxL79gYyzV7R7X4O/qGA=;
- b=qNI/iJBjoHLQodbwGukdp+YEWxyJu+FgtY4iReU/kjJdN/2hm2zSSbELu9ewUBd75+
- Dw6BLdlldBbmnXWFMMox6V6ZNAx6LnMG8YFCzEOSSZhPA6WxAzqXgnfrOmfHzlF7rzM4
- uiuWwI5EllMz2xKm+MBaGDACNL6cz+Fjkjk1xk+5IJGgBsNTexLPnawJIvC3UyMxxisR
- Zkb3BXre50yRsVdsFjjjYsuj5A6bS5JP981/r9fxMw3azP54R49xMqQb/RHmGUCeeW0l
- SqFN1ecW4v6338Gmvtoy0ph+sQzJ+3lNu27cNE9sl7DN9/mYIEOJUJiR3Z/WOT2Vc+iq
- dIgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688374192; x=1690966192;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kROqTS8zYsaLySu7JmTcNK/xxL79gYyzV7R7X4O/qGA=;
- b=kTtZqWPaFpwuTlX4jksGFuIMLTzAYlzhVRZcYfYzsCYTBo40I+A79amYK9DN0gweiC
- Xuq/Rc6blM/szmH6Ft4O4k2KM8S86Ba9FiGGqXLmItGF8k/4mFMwoVnCEKhun5e7aYBH
- HwLdfoSWuXVCV70I83j56I3ZhxboFZpD0kVbEaoqsZnO3GIVc4mjmi8qtTc7dbzMhPyY
- j2GA07/SaX2filGJsxgTK6yAxdGWabHJpRDuYpU83KkwOFCLvbhuBeBFXrOgpeuZ1vPQ
- NzDpcYJC35x4V3fYopK+3lrRO3S6OyZXstgpjykS1WxJChQsNrStlhY0huOWq11zGWHu
- VRDA==
-X-Gm-Message-State: ABy/qLZfGpyPHBftAXU2mSzcd1iYUtaVhpJaJ6Ij56wBscRPxDdgeflK
- Zn8Y6RbPLFLArJ/uuTX9vwg=
-X-Google-Smtp-Source: APBJJlGUF/6v05+URsfL22sCMh95xPIoDszyQLCQudZPR1JQrvxoM7qdhZKZS/23un8sGFumwgSXDA==
-X-Received: by 2002:a05:6512:34cb:b0:4f8:d385:41bd with SMTP id
- w11-20020a05651234cb00b004f8d38541bdmr5657396lfr.8.1688374192115; 
- Mon, 03 Jul 2023 01:49:52 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- u27-20020a056512041b00b004fbacee6028sm1221785lfk.110.2023.07.03.01.49.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Jul 2023 01:49:51 -0700 (PDT)
-Date: Mon, 3 Jul 2023 11:49:49 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
-Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
-Message-ID: <20230703114949.796c7498@eldfell>
-In-Reply-To: <7c1e6df5-1ad4-be3c-b95d-92dc62a8c537@mailbox.org>
-References: <20230627132323.115440-1-andrealmeid@igalia.com>
- <CA+hFU4z1pc=KUVVqyqfXEceUqMXQgh-qUnuB=1nkPELghvQO7w@mail.gmail.com>
- <CADnq5_MNVdtdcWKSz6dgmsjg+kEu8p5FVE+fkw_5BaXeG3QGow@mail.gmail.com>
- <afab1f5a-e581-3416-e2c2-238ea120655b@mailbox.org>
- <CAAxE2A5C96k5ua+r938VA_+w7gHHNTdF3n8LwDb98W0Bf9wCVA@mail.gmail.com>
- <7c1e6df5-1ad4-be3c-b95d-92dc62a8c537@mailbox.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 605CB10E1E0;
+	Mon,  3 Jul 2023 08:56:02 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2055.outbound.protection.outlook.com [40.107.101.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A10710E1DF
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Jul 2023 08:56:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KyywDEi0BE5pZXyKdmz1REDVVPyER8mSxz977PUpt1rbw9qYkHvBfGFwj3HfOCK4hQxQ8kk/BOQxdRjAj6RdnlWmJxDig1m7pL7SeSU7T1a7btMgWY1l8DEmegqwhaJye9NWmyiD2pA7WIRbOi07Td64oYAXyv31ztKKuAVSYEnvdBg2MKwgA4XDUD19FADofBz/3WgAsLMA/y/UsFq2Wqv6wbxobTYFZ9j/9iJOzvs51OF1S5jJ1c1tkeZwZhF+coEDHvOoByJsniztZaFjQCIQH3VT0g0ea2b0P8mvZUhOls8HJIN3MyVJFWvqOb9E+nrdi91XsazBFaeD3W6xJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SSEie9Nx4x88/8BtVRnwcVC+GXeTLm2Mu7D2HtVdeRk=;
+ b=hnyIBEjayeDjIYvox1HFeCJcK/qbjI/X2njO2hrTy+eUptimwx3pXy2sZQg17LKAVkPmZTxVxYV7HZoiM3aIpavbCEaWGx5ULFLRD0D3MMYivB0SHIvgQV6vH+SSAXNYx/Oc25KhUr/ZZJ9lzFdWMpEMNfFSKSNnw+kHFAoz3pzTamgedyykg3n22fYocGMj4EIA6L/2O5IKP/o5plk4y1RBwBjMk4++yXyZTHN9jZA7DQe8Z4ssPArYSTszp7cjrpU6YtaHB+vYmEfyI6e/sWKlkWaO+T/vZkDmra7PNfbTb7NruVtoM1FmZQTN4/FQj/+paqRnTC4JUjssk4muGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SSEie9Nx4x88/8BtVRnwcVC+GXeTLm2Mu7D2HtVdeRk=;
+ b=XGV26jNoDAOsp8Xz1urr1r1bKomi0iioQZsREGtRxg9okkJkp2/i2VmTU7P5IGi9OTRHIn0m2pxIBgIKummp65ss8RS2eQ+5e1vVt0ur9fkt5NnHAZ/6YPBqOskQck5fdrKTCXKcqb117qLxJjLgjo4Ajnb6060rmTgnjB/aDZM=
+Received: from DM6PR13CA0036.namprd13.prod.outlook.com (2603:10b6:5:bc::49) by
+ MW4PR12MB6826.namprd12.prod.outlook.com (2603:10b6:303:20c::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6544.24; Mon, 3 Jul 2023 08:55:58 +0000
+Received: from DM6NAM11FT069.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:bc:cafe::f7) by DM6PR13CA0036.outlook.office365.com
+ (2603:10b6:5:bc::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17 via Frontend
+ Transport; Mon, 3 Jul 2023 08:55:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT069.mail.protection.outlook.com (10.13.173.202) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6521.43 via Frontend Transport; Mon, 3 Jul 2023 08:55:57 +0000
+Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23; Mon, 3 Jul 2023 03:55:55 -0500
+From: Hawking Zhang <Hawking.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, Tao Zhou <tao.zhou1@amd.com>, "Stanley
+ Yang" <Stanley.Yang@amd.com>, Thomas Chai <YiPeng.Chai@amd.com>, Candice Li
+ <Candice.Li@amd.com>
+Subject: [PATCH 1/3] drm/amdgpu: Apply poison mode check to GFX IP only
+Date: Mon, 3 Jul 2023 16:55:29 +0800
+Message-ID: <20230703085531.11563-1-Hawking.Zhang@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/C4YI/5tzC5DMxCBTI_3NuKt";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT069:EE_|MW4PR12MB6826:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4011cc72-3814-45a3-1a04-08db7ba35170
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 4YLbBnMYVZke2OFIDDBitGL1y4S/c2i8lt5IApeIbdOMiZ2weDtFA5glrLQVUnfv1RPAkVUOiTRKoIiBnlGrCyskWKCYGEYjILhzZCIV2FksO473Ug9uuFeHVgQH4jXS1YcQOEdHAKygwp/A/eCCWjuXkY6EoeLg6IKJZGCb1oVAZmh8xrQ5UK7EZIRvQHe8phV1dJ5WOLum1ZEDb3N1zf3Z27doHJEEe/SDsvg+hPmRLpvzDYlUg7QDNXH5Mw0S9lRhaJhl3r1FRMZhlVU5gX1IIZhBa/xsUmAbIDXCVR+OyiP/jzouQ8iI7l0uhLvK4fMTARfDNWZC0dLZlKBiojbgAHcQSDPSieGQA8OvhAEWCpHEJFqiWEjb3ONHSxYYusKMoiRTzjJHHTyWRezGhF13rwgRigTkPIuUY4YKdy5sPWArSWJVNn7HqgKS2E0lYcp1Hy9okloTTjGCGMrv+bhyFC20xj+vkyasxf67Ol4VPeL320DXyD4KirkbOeMCQ97zfGfJpHI8U2ehzrhFc+UBQhlTzQdu2kIZ7QTJPSN0O0wIRp9OLThqBjqQGlgnthYVH6gHjZzqwcZ+uA9DTFmvL1JvXhcR9Yq/u/ln4NG8CQmKhuwxg8GpbmckhdO5swwgmJ8s6RjW3WVPfNzIAvT60sjgA6QX/1ZhpSECvnw64kYZ5UFA5pEEpnBeYdRbtlqw6/x3tQYWi50A/Tmx4dlU1LCpV12guyaXUe1WccSLMWgP+g99TviG37SVdd9foj9uLRAOIUDdnAr/Sj1e/g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(376002)(451199021)(46966006)(40470700004)(36840700001)(316002)(40460700003)(70206006)(70586007)(81166007)(4326008)(82740400003)(356005)(6636002)(40480700001)(26005)(16526019)(186003)(1076003)(6666004)(7696005)(478600001)(36860700001)(110136005)(47076005)(82310400005)(336012)(2616005)(83380400001)(426003)(8936002)(2906002)(5660300002)(4744005)(86362001)(36756003)(8676002)(41300700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2023 08:55:57.8462 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4011cc72-3814-45a3-1a04-08db7ba35170
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT069.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6826
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,138 +98,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Sebastian Wick <sebastian.wick@redhat.com>,
- =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
- Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
- Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/C4YI/5tzC5DMxCBTI_3NuKt
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+For GFX IP that only supports poison consumption, GFX
+RAS won't be marked as enabled. i.e., hardware doesn't
+support gfx sram ecc. But driver still needs to issue
+firmware to enable poison consumption mode for GFX IP.
+In such case, check poison mode and treat GFX IP as
+RAS capable IP block.
 
-On Mon, 3 Jul 2023 09:12:29 +0200
-Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> On 6/30/23 22:32, Marek Ol=C5=A1=C3=A1k wrote:
-> > On Fri, Jun 30, 2023 at 11:11=E2=80=AFAM Michel D=C3=A4nzer <michel.dae=
-nzer@mailbox.org <mailto:michel.daenzer@mailbox.org>> wrote: =20
-> >> On 6/30/23 16:59, Alex Deucher wrote: =20
-> >>> On Fri, Jun 30, 2023 at 10:49=E2=80=AFAM Sebastian Wick
-> >>> <sebastian.wick@redhat.com <mailto:sebastian.wick@redhat.com>> wrote:=
- =20
-> >>>> On Tue, Jun 27, 2023 at 3:23=E2=80=AFPM Andr=C3=A9 Almeida <andrealm=
-eid@igalia.com <mailto:andrealmeid@igalia.com>> wrote: =20
-> >>>>>
-> >>>>> +Robustness
-> >>>>> +----------
-> >>>>> +
-> >>>>> +The only way to try to keep an application working after a reset i=
-s if it
-> >>>>> +complies with the robustness aspects of the graphical API that it =
-is using.
-> >>>>> +
-> >>>>> +Graphical APIs provide ways to applications to deal with device re=
-sets. However,
-> >>>>> +there is no guarantee that the app will use such features correctl=
-y, and the
-> >>>>> +UMD can implement policies to close the app if it is a repeating o=
-ffender,
-> >>>>> +likely in a broken loop. This is done to ensure that it does not k=
-eep blocking
-> >>>>> +the user interface from being correctly displayed. This should be =
-done even if
-> >>>>> +the app is correct but happens to trigger some bug in the hardware=
-/driver. =20
-> >>>>
-> >>>> I still don't think it's good to let the kernel arbitrarily kill
-> >>>> processes that it thinks are not well-behaved based on some heuristi=
-cs
-> >>>> and policy.
-> >>>>
-> >>>> Can't this be outsourced to user space? Expose the information about
-> >>>> processes causing a device and let e.g. systemd deal with coming up
-> >>>> with a policy and with killing stuff. =20
-> >>>
-> >>> I don't think it's the kernel doing the killing, it would be the UMD.
-> >>> E.g., if the app is guilty and doesn't support robustness the UMD can
-> >>> just call exit(). =20
-> >>
-> >> It would be safer to just ignore API calls[0], similarly to what
-> >> is done until the application destroys the context with
-> >> robustness. Calling exit() likely results in losing any unsaved
-> >> work, whereas at least some applications might otherwise allow
-> >> saving the work by other means. =20
-> >=20
-> > That's a terrible idea. Ignoring API calls would be identical to a
-> > freeze. You might as well disable GPU recovery because the result
-> > would be the same. =20
->=20
-> No GPU recovery would affect everything using the GPU, whereas this
-> affects only non-robust applications.
->=20
->=20
-> > - non-robust contexts: call exit(1) immediately, which is the best
-> > way to recover =20
->=20
-> That's not the UMD's call to make.
->=20
->=20
-> >>     [0] Possibly accompanied by a one-time message to stderr along
-> >> the lines of "GPU reset detected but robustness not enabled in
-> >> context, ignoring OpenGL API calls". =20
->=20
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 041112c7fbbd..8524365761b6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -3150,6 +3150,7 @@ int amdgpu_ras_is_supported(struct amdgpu_device *adev,
+ 	 * that the ras block supports ras function.
+ 	 */
+ 	if (!ret &&
++	    block == AMDGPU_RAS_BLOCK__GFX &&
+ 	    amdgpu_ras_is_poison_mode_supported(adev) &&
+ 	    amdgpu_ras_get_ras_block(adev, block, 0))
+ 		ret = 1;
+-- 
+2.17.1
 
-Hi,
-
-Michel does have a point. It's not just games and display servers that
-use GPU, but productivity tools as well. They may have periodic
-autosave in anticipation of crashes, but being able to do the final
-save before quitting would be nice. UMD killing the process would be
-new behaviour, right? Previously either application's GPU thread hangs
-or various API calls return errors, but it didn't kill the process, did
-it?
-
-If an application freezes, that's "no problem"; the end user can just
-continue using everything else. Alt-tab away etc. if the app was
-fullscreen. I do that already with games on even Xorg.
-
-If a display server freezes, that's a desktop-wide problem, but so is
-killing it.
-
-OTOH, if UMD really does need to terminate the process, then please do
-it in a way that causes a crash report to be recorded. _exit() with an
-error code is not it.
-
-
-Thanks,
-pq
-
---Sig_/C4YI/5tzC5DMxCBTI_3NuKt
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSii60ACgkQI1/ltBGq
-qqckqQ/7BrK4wgscUoPj6/oNTGTEMmR3qF02TonW2w2/6I3KEJbAMLEJK0m/k4yk
-XjyAi66YlQNEWpyLl+pNKLKGmsVkiBmPf23Y/16X0WeEQcpFkZb07NJ+uh7TOLx5
-LokNIV+wsQMv1udl+Z/f/iRsCR6UFyJwVa+BvX2eIGPfjfn4bgNuvEIbSyEWk0sd
-aPQV2c7gAAk+tTcfO9utVNWM04tFWfrqjCqvfj5vjj5B6on74Fzz4+gAlLm8XKfP
-zDtedNCPepl7s2phZwKf1OsHa7QTTtvZHqTh3pPYbtxNbSe9oVtGbog6rRo4JfRA
-ZqibRvEGrybLMMSqapQTGkTtYMBgr5wdLL4ZbweslAawlnIpW85krFJZgCji6z3z
-Y7X8ICSDNbFlIlPETgci4lADVrgMa+BmtvQE6ecY8IWuAbsvWNBYCmYloLiikjmG
-XwK9ZGujrWjJOZ6LGYGEPxHNHxrDY5so4w6vfs62iP0OJgqoAeQhrbxBUXuYBUOS
-ZhntMMtWXfdB2M8WsVuJuKixpDBol9IDPM+m83tfV20/iwzBpKhJ5eh+CEHN9THk
-DA+0I4XPTDl45hzoOneDMP1BvJePXTKvTb6V3jwK7KGrUhaEV4N/C/33LaJXUwZp
-KUQD3KOHMn6+P9rAG1UdqscSxfQpwl857PVqHg5EpMlkZ1sIzrw=
-=n6NT
------END PGP SIGNATURE-----
-
---Sig_/C4YI/5tzC5DMxCBTI_3NuKt--
