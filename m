@@ -4,61 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF72BEB64DC
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 08:38:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D7A2EB64DC
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 08:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA73A10E1D0;
-	Mon,  3 Jul 2023 08:38:43 +0000 (UTC)
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43B6B10E1D0;
- Mon,  3 Jul 2023 08:38:43 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-4f86e6e4038so5203507e87.0; 
- Mon, 03 Jul 2023 01:38:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6128A10E1E1;
+	Mon,  3 Jul 2023 08:49:58 +0000 (UTC)
+Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
+ [IPv6:2a00:1450:4864:20::143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAE5110E1D6;
+ Mon,  3 Jul 2023 08:49:54 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id
+ 2adb3069b0e04-4fb94b1423eso6216381e87.1; 
+ Mon, 03 Jul 2023 01:49:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688373520; x=1690965520;
+ d=gmail.com; s=20221208; t=1688374192; x=1690966192;
  h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=YZnnAEvZ9B9g4i8VAMZ/DauApccIpE58ul48uEXHG8U=;
- b=qR3dsSEmmqLOE5u+Ty/gBUk4+yDDWy1cyBw9FjACF/uOuOKtb//ImA0TYyuT9EDnKg
- RPVsazePL7zWYbqrmON9/MIaiUCoRN2U1RUxAlNShMiEi8ttzVoLC9onKcHjZf59rafB
- pEpzAtsaR9yVFh6rEkDfPY6OFulaNmM/d5HBT0JiXUx0ZMBTKDb6NvPASGsx6ssti045
- uA8AnNsf8ZVVaac5UnrDsis4adaLxXtsMczcoXIcAphKiq82vY2+Fh/4NNhpRADjj9o4
- NxzdN/7lG4kFDl3xdYI5OqkliSyNGub4rkJe3IIdFZf3hWelWJCfOEjWunHPSEDQ79Cl
- vZSQ==
+ bh=kROqTS8zYsaLySu7JmTcNK/xxL79gYyzV7R7X4O/qGA=;
+ b=qNI/iJBjoHLQodbwGukdp+YEWxyJu+FgtY4iReU/kjJdN/2hm2zSSbELu9ewUBd75+
+ Dw6BLdlldBbmnXWFMMox6V6ZNAx6LnMG8YFCzEOSSZhPA6WxAzqXgnfrOmfHzlF7rzM4
+ uiuWwI5EllMz2xKm+MBaGDACNL6cz+Fjkjk1xk+5IJGgBsNTexLPnawJIvC3UyMxxisR
+ Zkb3BXre50yRsVdsFjjjYsuj5A6bS5JP981/r9fxMw3azP54R49xMqQb/RHmGUCeeW0l
+ SqFN1ecW4v6338Gmvtoy0ph+sQzJ+3lNu27cNE9sl7DN9/mYIEOJUJiR3Z/WOT2Vc+iq
+ dIgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688373520; x=1690965520;
+ d=1e100.net; s=20221208; t=1688374192; x=1690966192;
  h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YZnnAEvZ9B9g4i8VAMZ/DauApccIpE58ul48uEXHG8U=;
- b=J63khJEAoJd4mrr33RoiniSHlAbJjOz07AV9Y6vwXaja1gAxl9DUCl0bTpW/2iSYe0
- 0CmzQvc2GjpCGKQDmakZZfY8E32CxcCkSfsnvaqHeugzYfHgEREszC/4wtqWULj28O65
- a+fntOevdqWesw7x7hTzBx18VbBZMsqjcgzvnr/Y5xFvbRqekz4QhlzR2WvkLvrXrr6F
- RUm65qkQX06z3DBNWAQSbIVuq9H1GGSHdjq7pmqgW6aBSrXHm5XU2GQnei/dgKHVhZ06
- TQ64trA7f0YSMmrnfCkQY773W0BMNraSdRYAoIwEZso2YbbNA1FQawZ10VGKDFuLOxZ9
- y/nA==
-X-Gm-Message-State: AC+VfDz0QgxLFvcGhlAYF4C8HKiwa1TCRabqLO2RP4dcj0v3hI2W22o3
- pukO+mHi6E1cdhayCM28Oc0=
-X-Google-Smtp-Source: ACHHUZ7xaz4IX8Po7Yofy+S268iDYgHHjOWb4q5Up/iGnzvKjYBKNE0N+bG67OTxS+ISwHjP6tLP/g==
-X-Received: by 2002:a05:6512:3a85:b0:4f8:5d2d:4941 with SMTP id
- q5-20020a0565123a8500b004f85d2d4941mr5096621lfu.34.1688373519599; 
- Mon, 03 Jul 2023 01:38:39 -0700 (PDT)
+ bh=kROqTS8zYsaLySu7JmTcNK/xxL79gYyzV7R7X4O/qGA=;
+ b=kTtZqWPaFpwuTlX4jksGFuIMLTzAYlzhVRZcYfYzsCYTBo40I+A79amYK9DN0gweiC
+ Xuq/Rc6blM/szmH6Ft4O4k2KM8S86Ba9FiGGqXLmItGF8k/4mFMwoVnCEKhun5e7aYBH
+ HwLdfoSWuXVCV70I83j56I3ZhxboFZpD0kVbEaoqsZnO3GIVc4mjmi8qtTc7dbzMhPyY
+ j2GA07/SaX2filGJsxgTK6yAxdGWabHJpRDuYpU83KkwOFCLvbhuBeBFXrOgpeuZ1vPQ
+ NzDpcYJC35x4V3fYopK+3lrRO3S6OyZXstgpjykS1WxJChQsNrStlhY0huOWq11zGWHu
+ VRDA==
+X-Gm-Message-State: ABy/qLZfGpyPHBftAXU2mSzcd1iYUtaVhpJaJ6Ij56wBscRPxDdgeflK
+ Zn8Y6RbPLFLArJ/uuTX9vwg=
+X-Google-Smtp-Source: APBJJlGUF/6v05+URsfL22sCMh95xPIoDszyQLCQudZPR1JQrvxoM7qdhZKZS/23un8sGFumwgSXDA==
+X-Received: by 2002:a05:6512:34cb:b0:4f8:d385:41bd with SMTP id
+ w11-20020a05651234cb00b004f8d38541bdmr5657396lfr.8.1688374192115; 
+ Mon, 03 Jul 2023 01:49:52 -0700 (PDT)
 Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- w23-20020ac254b7000000b004fb7359ab83sm3930480lfk.80.2023.07.03.01.38.39
+ u27-20020a056512041b00b004fbacee6028sm1221785lfk.110.2023.07.03.01.49.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Jul 2023 01:38:39 -0700 (PDT)
-Date: Mon, 3 Jul 2023 11:38:36 +0300
+ Mon, 03 Jul 2023 01:49:51 -0700 (PDT)
+Date: Mon, 3 Jul 2023 11:49:49 +0300
 From: Pekka Paalanen <ppaalanen@gmail.com>
-To: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Subject: Re: [PATCH v4 6/6] drm/doc: Define KMS atomic state set
-Message-ID: <20230703113836.60869599@eldfell>
-In-Reply-To: <20230701020917.143394-7-andrealmeid@igalia.com>
-References: <20230701020917.143394-1-andrealmeid@igalia.com>
- <20230701020917.143394-7-andrealmeid@igalia.com>
+To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
+Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
+Message-ID: <20230703114949.796c7498@eldfell>
+In-Reply-To: <7c1e6df5-1ad4-be3c-b95d-92dc62a8c537@mailbox.org>
+References: <20230627132323.115440-1-andrealmeid@igalia.com>
+ <CA+hFU4z1pc=KUVVqyqfXEceUqMXQgh-qUnuB=1nkPELghvQO7w@mail.gmail.com>
+ <CADnq5_MNVdtdcWKSz6dgmsjg+kEu8p5FVE+fkw_5BaXeG3QGow@mail.gmail.com>
+ <afab1f5a-e581-3416-e2c2-238ea120655b@mailbox.org>
+ <CAAxE2A5C96k5ua+r938VA_+w7gHHNTdF3n8LwDb98W0Bf9wCVA@mail.gmail.com>
+ <7c1e6df5-1ad4-be3c-b95d-92dc62a8c537@mailbox.org>
 X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/Oa+nzq.=YmEjNu82nsTyqLN";
+Content-Type: multipart/signed; boundary="Sig_/C4YI/5tzC5DMxCBTI_3NuKt";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,159 +75,138 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com, Daniel Vetter <daniel@ffwll.ch>,
- 'Marek =?UTF-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>, Italo Nicola <italonicola@collabora.com>,
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ Sebastian Wick <sebastian.wick@redhat.com>,
+ =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+ Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
+ Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>,
  Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
- hwentlan@amd.com, ville.syrjala@linux.intel.com,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, alexander.deucher@amd.com,
- Daniel Stone <daniel@fooishbar.org>, Dave Airlie <airlied@gmail.com>,
- christian.koenig@amd.com, joshua@froggi.es
+ amd-gfx@lists.freedesktop.org, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/Oa+nzq.=YmEjNu82nsTyqLN
+--Sig_/C4YI/5tzC5DMxCBTI_3NuKt
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 30 Jun 2023 23:09:17 -0300
-Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
+On Mon, 3 Jul 2023 09:12:29 +0200
+Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
 
-> Specify how the atomic state is maintained between userspace and
-> kernel, plus the special case for async flips.
+> On 6/30/23 22:32, Marek Ol=C5=A1=C3=A1k wrote:
+> > On Fri, Jun 30, 2023 at 11:11=E2=80=AFAM Michel D=C3=A4nzer <michel.dae=
+nzer@mailbox.org <mailto:michel.daenzer@mailbox.org>> wrote: =20
+> >> On 6/30/23 16:59, Alex Deucher wrote: =20
+> >>> On Fri, Jun 30, 2023 at 10:49=E2=80=AFAM Sebastian Wick
+> >>> <sebastian.wick@redhat.com <mailto:sebastian.wick@redhat.com>> wrote:=
+ =20
+> >>>> On Tue, Jun 27, 2023 at 3:23=E2=80=AFPM Andr=C3=A9 Almeida <andrealm=
+eid@igalia.com <mailto:andrealmeid@igalia.com>> wrote: =20
+> >>>>>
+> >>>>> +Robustness
+> >>>>> +----------
+> >>>>> +
+> >>>>> +The only way to try to keep an application working after a reset i=
+s if it
+> >>>>> +complies with the robustness aspects of the graphical API that it =
+is using.
+> >>>>> +
+> >>>>> +Graphical APIs provide ways to applications to deal with device re=
+sets. However,
+> >>>>> +there is no guarantee that the app will use such features correctl=
+y, and the
+> >>>>> +UMD can implement policies to close the app if it is a repeating o=
+ffender,
+> >>>>> +likely in a broken loop. This is done to ensure that it does not k=
+eep blocking
+> >>>>> +the user interface from being correctly displayed. This should be =
+done even if
+> >>>>> +the app is correct but happens to trigger some bug in the hardware=
+/driver. =20
+> >>>>
+> >>>> I still don't think it's good to let the kernel arbitrarily kill
+> >>>> processes that it thinks are not well-behaved based on some heuristi=
+cs
+> >>>> and policy.
+> >>>>
+> >>>> Can't this be outsourced to user space? Expose the information about
+> >>>> processes causing a device and let e.g. systemd deal with coming up
+> >>>> with a policy and with killing stuff. =20
+> >>>
+> >>> I don't think it's the kernel doing the killing, it would be the UMD.
+> >>> E.g., if the app is guilty and doesn't support robustness the UMD can
+> >>> just call exit(). =20
+> >>
+> >> It would be safer to just ignore API calls[0], similarly to what
+> >> is done until the application destroys the context with
+> >> robustness. Calling exit() likely results in losing any unsaved
+> >> work, whereas at least some applications might otherwise allow
+> >> saving the work by other means. =20
+> >=20
+> > That's a terrible idea. Ignoring API calls would be identical to a
+> > freeze. You might as well disable GPU recovery because the result
+> > would be the same. =20
 >=20
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> ---
-> v4: new patch
-> ---
->  Documentation/gpu/drm-uapi.rst | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
+> No GPU recovery would affect everything using the GPU, whereas this
+> affects only non-robust applications.
 >=20
-> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.=
-rst
-> index 65fb3036a580..5464376051cc 100644
-> --- a/Documentation/gpu/drm-uapi.rst
-> +++ b/Documentation/gpu/drm-uapi.rst
-> @@ -486,3 +486,22 @@ and the CRTC index is its position in this array.
-> =20
->  .. kernel-doc:: include/uapi/drm/drm_mode.h
->     :internal:
-> +
-> +KMS atomic state
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +If a userspace using the DRM atomic API would like to change the modeset=
-, it
+>=20
+> > - non-robust contexts: call exit(1) immediately, which is the best
+> > way to recover =20
+>=20
+> That's not the UMD's call to make.
+>=20
+>=20
+> >>     [0] Possibly accompanied by a one-time message to stderr along
+> >> the lines of "GPU reset detected but robustness not enabled in
+> >> context, ignoring OpenGL API calls". =20
+>=20
 
-s/modeset/video mode/
+Hi,
 
-> +needs to do in an atomic way, changing all desired properties in a single
-> +commit.
+Michel does have a point. It's not just games and display servers that
+use GPU, but productivity tools as well. They may have periodic
+autosave in anticipation of crashes, but being able to do the final
+save before quitting would be nice. UMD killing the process would be
+new behaviour, right? Previously either application's GPU thread hangs
+or various API calls return errors, but it didn't kill the process, did
+it?
 
-This applies any and all state changes, not only video modes. Plane
-configuration is a good example, where video mode does not change.
+If an application freezes, that's "no problem"; the end user can just
+continue using everything else. Alt-tab away etc. if the app was
+fullscreen. I do that already with games on even Xorg.
 
-> Following commits may contain the same properties again, as if they were
-> +new. The kernel can then judge if those properties requires modesetting =
-and real
-> +changes, or it's just the same state as before. In summary, userspace co=
-mmits do
-> +not need to set the minimal state as possible and can commit redundant
-> +information, and the kernel will ignore it.
+If a display server freezes, that's a desktop-wide problem, but so is
+killing it.
 
-Maybe the whole paragraph should be more like... ahem, looks I got a
-bit carried away in writing this. Please, take what's useful, I'm not
-sure if any of this has been actually documented before:
-
-
-An atomic commit can change multiple KMS properties in an atomic
-fashion, without ever applying intermediate or partial state changes.
-Either the whole commit succeeds or fails, and it will never be applied
-partially. This is the fundamental improvement of the atomic API over
-the older non-atomic API which is referred to as the "legacy API".
-Applying intermediate state could unexpectedly fail, cause visible
-glitches, or delay reaching the final state.
-
-An atomic commit can be flagged with DRM_MODE_ATOMIC_TEST_ONLY,
-which means the complete state change is validated but not applied.
-Userspace should use this flag to validate any state change before
-asking to apply it. If validation fails for any reason, userspace
-should attempt to fall back to another, perhaps simpler, final state.
-This allows userspace to probe for various configurations without
-causing visible glitches on screen and without the need to undo a
-probing change.
-
-The changes recorded in an atomic commit apply on top the current KMS
-state in the kernel. Hence, the complete new KMS state is the complete
-old KMS state with the committed property settings done on top. The
-kernel will automatically avoid no-operation changes, so it is safe and
-even expected for userspace to send redundant property settings.
-No-operation changes do not count towards actually needed changes, e.g.
-setting MODE_ID to a different blob with identical contents as the
-current KMS state shall not be a modeset on its own.
-
-A "modeset" is a change in KMS state that might enable, disable, or
-temporarily disrupt the emitted video signal, possibly causing visible
-glitches on screen. A modeset may also take considerably more time to
-complete than other kinds of changes, and the video sink might also
-need time to adapt to the new signal properties. Therefore a modeset
-must be explicitly allowed with the flag DRM_MODE_ATOMIC_ALLOW_MODESET.
-This in combination with DRM_MODE_ATOMIC_TEST_ONLY allows userspace to
-determine if a state change is likely to cause visible disruption on
-screen and avoid such changes when end users do not expect them.
-
-> +
-> +An observation must be made for atomic operations with DRM_MODE_PAGE_FLI=
-P_ASYNC.
-> +In such scenarios properties values can be sent, but the if they change
-> +something, the kernel will reject the flip. This is done because property
-> +changes can lead to modesetting, that would defeat the goal of flipping =
-as fast
-> +as possible. The only exceptions are the framebuffer ID to be flipped to=
- and
-> +mode IDs changes, which could be referring to an identical mode, thus not
-> +requiring modeset.
-
-That's a bit... roundabout way to describe it. Doesn't async flip want
-to prevent all kinds of other-than-FB changes, not only the modesetting
-ones? Modesets are already gated by ALLOW_MODESET anyway. How about
-something like:
-
-An atomic commit with the flag DRM_MODE_PAGE_FLIP_ASYNC is allowed to
-effectively change only the FB_ID property on any planes. No-operation
-changes are ignored as always. Changing any other property will cause
-the commit to be rejected.
-
-
-If you want to take these and need my Sob, that would be
-Signed-off-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+OTOH, if UMD really does need to terminate the process, then please do
+it in a way that causes a crash report to be recorded. _exit() with an
+error code is not it.
 
 
 Thanks,
 pq
 
---Sig_/Oa+nzq.=YmEjNu82nsTyqLN
+--Sig_/C4YI/5tzC5DMxCBTI_3NuKt
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSiiQwACgkQI1/ltBGq
-qqeAdBAAlomzBE3+6szSp9P9LvxA4DqFQfbjFpeQZ8zxHjo/4iofPX1/J0CarwnF
-GGGyViZVuTH2zV0EKqYTsn9QeJzcE1EEacyGq9My3HQBtOKYdKFhj3agzko4mGa6
-SZ1YggY8KSJbYqJCEkG8InHLLE6bJYFywtzAK9Qx5+Bs5pD9QAIIcYAJHiE8DZkA
-bvvhWBfgohfg0tiM0JNlTsRcd7Gu/FEL3ZHeChctGmC/CLrMTIdKgr/aMF4yJ3ot
-+XJv5PKd8eblC0vjsmar91pDDRf3WfF+P0lWTkDWSETL2XSBVJZZcf108/iPHqbo
-PesDCo1a4UmzfNBhgmnSMq3tluBXvt1s2TYxAdWVDOArgD40ftyHDoO08CWs/7nz
-ulm+h5lkIKAzLYCxTm4OVeOleZb2WmyUeN2ptz5EYRX0r7CdR0CF9Ca64Ay9xVqF
-qspj5fn/53ORD75NxSImgc+7sbnQjGFOMnKMBfU+2VthzjV1zn5FKvm4yW8dsJr7
-MoZYdg4L3U13SQqZY8AaP2+SYhdOiqnTraHzAFahjT7ZBHXdyaYz8/8YdWnNadZx
-7XEnvBtwOOy884X/szdFMIMdLi5O8or7vw/0/dx82aU5uUK3BPY+UOLgbuAUgnAd
-1xevVT/beB48mMJ1JC4z/SX8XGK2cnHCtjaRu1822W8y0OVbtQ4=
-=0f+d
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSii60ACgkQI1/ltBGq
+qqckqQ/7BrK4wgscUoPj6/oNTGTEMmR3qF02TonW2w2/6I3KEJbAMLEJK0m/k4yk
+XjyAi66YlQNEWpyLl+pNKLKGmsVkiBmPf23Y/16X0WeEQcpFkZb07NJ+uh7TOLx5
+LokNIV+wsQMv1udl+Z/f/iRsCR6UFyJwVa+BvX2eIGPfjfn4bgNuvEIbSyEWk0sd
+aPQV2c7gAAk+tTcfO9utVNWM04tFWfrqjCqvfj5vjj5B6on74Fzz4+gAlLm8XKfP
+zDtedNCPepl7s2phZwKf1OsHa7QTTtvZHqTh3pPYbtxNbSe9oVtGbog6rRo4JfRA
+ZqibRvEGrybLMMSqapQTGkTtYMBgr5wdLL4ZbweslAawlnIpW85krFJZgCji6z3z
+Y7X8ICSDNbFlIlPETgci4lADVrgMa+BmtvQE6ecY8IWuAbsvWNBYCmYloLiikjmG
+XwK9ZGujrWjJOZ6LGYGEPxHNHxrDY5so4w6vfs62iP0OJgqoAeQhrbxBUXuYBUOS
+ZhntMMtWXfdB2M8WsVuJuKixpDBol9IDPM+m83tfV20/iwzBpKhJ5eh+CEHN9THk
+DA+0I4XPTDl45hzoOneDMP1BvJePXTKvTb6V3jwK7KGrUhaEV4N/C/33LaJXUwZp
+KUQD3KOHMn6+P9rAG1UdqscSxfQpwl857PVqHg5EpMlkZ1sIzrw=
+=n6NT
 -----END PGP SIGNATURE-----
 
---Sig_/Oa+nzq.=YmEjNu82nsTyqLN--
+--Sig_/C4YI/5tzC5DMxCBTI_3NuKt--
