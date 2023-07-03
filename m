@@ -4,118 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AE80EB64D9
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jul 2023 06:54:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6122CEB64D9
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jul 2023 07:37:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D41C710E292;
-	Tue,  4 Jul 2023 06:54:13 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8E0710E291;
- Tue,  4 Jul 2023 06:54:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dvj1fwn2u1tHesNpp6W9ESBiAdtQ0zxemXtBjr7QJIoKicd/TshZbuYgHJjdiBpF7PzsH8SmjBNgQEPc3tCIpugCgt2KwGolHE4vy6dh7k7pV5gBGQhtFs/ib0fFvPaUF1ezjGfIzoSPm4CnF31/GuqFzn0LyqqJH4zU60su1nTe7DaYHa7ocM2KQ2B4FEJ4SHyB03o61FHrekO6dtcn5ufQA0lUK7zA9rlgCJXcZUtGZyp9m8GQO1K9xL5NBUvD8GztDRsHiD9YOYJ4taSh1IsDuLXcZ8ahafIeDNTpE3blVoOaWwMHA5hWWh9owGBKMAHPAG4dh5eEcJt4msbX2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9r+IcG9vMgkU43kV8nJK+/dmCKW2He5VnYhF+YcYv/I=;
- b=WjtMJpucL3m2ROfYGoNtRl08v8aaS78gHAm7jOuevYGTV0aTu/rZjipo5GtYDPbF8v6sA1jKI22RTP1DMc7bp3HmEyeu6JklB1GEBq9RRqIHFJ3RrT8iKvizjqhuQNrXDDMNTD4lqSnwlXox7JBr1haVpWYSGhGWgKfIR73ehib7WygkocK+lKFpRJ7bMR53ih+f37s4yDxseNgQTey3c3TK09561WBGxy7PQRvoZuzAm5DeMoVP5TrTvH/BdbPv4IUGc4kFlUT/VuP9N/CmG+7zDpOv1njat/DWnzTmvyUNwQ5t+UchKQzOU85Ojiwasx9kWL8lAttEXptA+MirKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9r+IcG9vMgkU43kV8nJK+/dmCKW2He5VnYhF+YcYv/I=;
- b=CvPhj5xX/klzoQzKPp77t4eNqlpTMXcA3LIJNtoADz1eam1wW4rfgA8bz9/HO7JTZqJHRi5q3hlyZzaR6WYvicJq6GJ/RfHWq91alOGBcWeZEXpJjJ7ODzNl/fzw+PfnHto34NeTWw8TYwKznrfXXauz56sbvWAqcRIsRcpa3gI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SA1PR12MB5671.namprd12.prod.outlook.com (2603:10b6:806:23b::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Tue, 4 Jul
- 2023 06:54:09 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::384a:95a4:8819:ee84]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::384a:95a4:8819:ee84%7]) with mapi id 15.20.6544.024; Tue, 4 Jul 2023
- 06:54:08 +0000
-Message-ID: <f4bc3739-3ff1-6fa7-5d7d-890f451315bf@amd.com>
-Date: Tue, 4 Jul 2023 08:54:03 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amdgpu: avoid integer overflow warning in
- amdgpu_device_resize_fb_bar()
-Content-Language: en-US
-To: Arnd Bergmann <arnd@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20230703123557.3355657-1-arnd@kernel.org>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230703123557.3355657-1-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0175.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::12) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E89D310E2A0;
+	Tue,  4 Jul 2023 07:37:41 +0000 (UTC)
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0F9610E05D;
+ Mon,  3 Jul 2023 15:01:52 +0000 (UTC)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-4f004cc54f4so6859770e87.3; 
+ Mon, 03 Jul 2023 08:01:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1688396509; x=1690988509;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4ACAehRo9Teq7otTL7t1DkhIRrNmVdicT9iRzjgjAX4=;
+ b=QY3WsCZGQOiafSVgFytHNVwB+PNMpe4yuH/ejzZdUhvt3pV6/5gfBrvHh5Uf+MrXLr
+ LGp0o4oh3Y6gcImedl6Bpr+A4WNjPq5z4EgXDOyNtjfiYKZlTQ6JpqlRkqd5QPbErWDq
+ fkcot1hoh9WTuaAlTGEMdgycbmc2C1OVtSvDRNFC+55PoMXFpm1Rwe1KCRaw5Fnr154Z
+ lYDXQnL5HmIsTcwpDW6zlSWsM6KGy4JucuxUtcwpvYDUg1yCXQ/IncW4qZQsxPs92RL3
+ eLN3efPGi8DOaNn8ZtGVR2KuI7OuMIVo9C3rh0vBOHkNcy5mBN0eDEaK6MKYqY3Pfveh
+ hzSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688396509; x=1690988509;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4ACAehRo9Teq7otTL7t1DkhIRrNmVdicT9iRzjgjAX4=;
+ b=X+iSq1SKTExJdlfY5HHBsfvppvWO/W1sW649V8qopCGzYeVnPx/DHWWhhcS3396v/b
+ I6AlhPgzNTo+b1hti9Bu6fxTFoqJQHMXAtOcIbe8dXLlbOK4pyxQ4zumfKicYCfbAP6V
+ 6YsLj3wRAmqPSH+wLkO0Ff8EMSkFZSCeNC7az6CcHo+JdWUBXvA+sAnttUvO5DhUeV4Y
+ KR5LB59b8h93l9RAkVneSvmQTnUTk4n2v5WWo+77tWo9x74MZy43W4EYgK0Isp4iDH++
+ NB3IAfaN+PNsEQ2l9kG7V+oF9Mrh2PhYuqNZiFTmaUDR+S+vLeKn09Bx+CHW3NsKIy+7
+ gZUg==
+X-Gm-Message-State: ABy/qLZSWCtbp0vJQUwBdKqGZbBaRSpfmuvQdhs+sM6RrgYMPf5IFCUv
+ +ZYGKSwoeamnWRuMSApg16DnNpWIc/Fi2A==
+X-Google-Smtp-Source: APBJJlEy07zEOHrJaTz7psAlLEzG3iQ1RXU/ezZ16Gu7PUkEO1A6MG/Olvbvbk+csfjrYJudmx71uw==
+X-Received: by 2002:a05:6512:3da5:b0:4f8:6e6e:3f42 with SMTP id
+ k37-20020a0565123da500b004f86e6e3f42mr11621655lfv.14.1688396508639; 
+ Mon, 03 Jul 2023 08:01:48 -0700 (PDT)
+Received: from localhost.localdomain ([46.248.82.114])
+ by smtp.gmail.com with ESMTPSA id
+ q7-20020aa7d447000000b005183ce42da9sm10477109edr.18.2023.07.03.08.01.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Jul 2023 08:01:48 -0700 (PDT)
+From: Uros Bizjak <ubizjak@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Use local64_try_cmpxchg in amdgpu_perf_read
+Date: Mon,  3 Jul 2023 17:00:59 +0200
+Message-ID: <20230703150135.5784-1-ubizjak@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SA1PR12MB5671:EE_
-X-MS-Office365-Filtering-Correlation-Id: 534ba420-5c21-439c-89d5-08db7c5b76f7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1FGdCCLtjMHfA7tO+khS/86HIeXPce12PftD+7xGoobf/W4f/oNqIM1WVgDyrxRf5+fOObQq8zDa+25uSIME3wsv3OqvWNS25FFBl9XgHk1qkU2n68h6KyPrsNvFnFIiRmLO83VF1NM5//ODx+0aBFy400gS3kIKk7bitW4EF50kaqOXgt2JsUIhqmYxTvJ5MYxDlysvds6FrIHcoTfICRG0m58fCsCLLEzwo3doGOL1JUnSF5Lild3CTgpIItjY94O8djPu+frxvDIp39jzPvVha8HMZ+Z8z1cabQX0PQMPVHAEb7qMwZTAp2bukZU6ACI/Raw3oRfEBak0LV/U5vxVBGvCBP/XC9ToMM37nX5C8m6oAwWJzZlpVUHum6/xulk51k4xW9y1LYo/YevoGRugucT5dVy+hCkiwxXN8ylSWoOJIlqbRTEKzSje9KM+d9ZJXqy9t5QmYC5nu4beH97dSTraZp54U1sIWCAcvz1GCa3H7f75n1AqoEvhnhpxVKWDCorw1XSJ50FGR0+rDaH50nIFYGjCsrQLD9n7YI9m6Z+SCmFaX8UM37X9qp86YYel+jVXV5nO8yTD3GCvt68ea6EkdMQwFjNUYwaNmNvFp17rW6DoGAjoP6K6rj/dpJsm9tR6XrNVm6DafbHM/Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(39860400002)(366004)(346002)(376002)(451199021)(31686004)(4326008)(66556008)(66946007)(66476007)(36756003)(316002)(478600001)(2906002)(8936002)(8676002)(5660300002)(86362001)(41300700001)(31696002)(6512007)(110136005)(54906003)(6666004)(38100700002)(6486002)(6506007)(186003)(2616005)(83380400001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Mk11Z051Zjcxd2VUd1QrT0ZodEdjdEFFWks2cnQ2eDBLbUl0ZzM2WDdqZGYw?=
- =?utf-8?B?Z0c1cUl5UFFCZlNrYXBRRUMrc244eVNhZDJyTXczeGpDZ1c1c3dOR3VoRjBN?=
- =?utf-8?B?UHpmdlNEMUdKM1JFeGhNSUQzTG5pcmFncXM1cjFuTkJWcUdPWjhuZ2UrcTY1?=
- =?utf-8?B?eEFTRzBHaHhod0xqUXlUaWpOU25meU9ZQXFZN1JRalNmMXRHcWxJYTFGUDc1?=
- =?utf-8?B?Y1ZNQkhheDluaDAyeFdqY1A5V0NPVTdiY3R4RGhqb3pCVWRiZDdCUzltaU1w?=
- =?utf-8?B?QklURm95cGVZVVpEZmRUV00wbldhZU9peFVjdGJRallPeXM3ZVZpVnhxUVhh?=
- =?utf-8?B?K1d6N3JKaXJuWHFENno3OXNIS0hqRW1Ga0lrRjNKRjd3NlZuN0kweDRUcEtG?=
- =?utf-8?B?cFhHQjNPdG9tUjRWUTcvcmoxeEZYdzB3MWpUQTFidGY0Ymc4ZGVzMzdibCs2?=
- =?utf-8?B?YVNkSHhUemQ0bnI4M1NuN2dPTUFjbHQyRU5NVzQ0Y1VqaUdGa2p0eTdValpv?=
- =?utf-8?B?OUZLZ1M5bVNlNnFyMDNlWS9TVCtNNFFGK05vQVVaSGhuNWQ4cjJMRXdTaVhH?=
- =?utf-8?B?MG05U2RoaXRCVDlYOEVnM29BTCtBTUNvY1QyMG9Vdmo2bXhXeDNoTytmK2E1?=
- =?utf-8?B?VXpjQ0RqazhjZXcyUFhJWWZuV2d2TEpaaEg0Skg0bE5YTDdqaGpoQldJTm1s?=
- =?utf-8?B?Wk1kcnNvY01iUmN6QjVMYzUyeG9SSHBLUHlYRW1yRm9mMnRvd1VjNW9waldX?=
- =?utf-8?B?bzYwOGE2VVB1bXFXZzFOOWhBWTdHQ2c3eFFWS1hTL3hzV0ZDeERMd0lDQnhW?=
- =?utf-8?B?ZHl1UW56T3c0VnZLS1p3MGc3VVlqMFAwYk5WYmRTZlpOb2s0aGROdHNDa1Vz?=
- =?utf-8?B?Ry9hYnNSQmRpUmZBNTNSQVFHUHYvTHRnYjBIUUNLM0F2aVNkWlVIbjc2Nlcy?=
- =?utf-8?B?SEF2ZVhPM055aGNxbmxnRGo2MHpTTkNGS3R0Z2RXelVydXNYYjQ5bS9DSllC?=
- =?utf-8?B?WGR2NjM2Q1IyNHhWcVFRdFVDUkI1YW8va24ycWxZRzhhNjN3NWlwQVRZY05v?=
- =?utf-8?B?ZW5rdmJTRHBocEtpaXAySHJndEpCaFZNbjI0L0tQWnBVTlgySkpzYVE4bTAv?=
- =?utf-8?B?N2FDUDFrL3U2aFMwZjMvdDJOaWxqNDdqS2tPL3VOc3hOTlFqU25nRGdoQXk3?=
- =?utf-8?B?SytoUzg3a0JPVklOZThXbGF5dVNtVVUxN0tkRmpZNThnOGZyYkwwQ3VBLzI0?=
- =?utf-8?B?TzlOM3p6SkNma1FBSG5lSjl3eUVhN2RZUFByd2dJNFRDbFRORFp6WGxiK1Qr?=
- =?utf-8?B?S3oyVktzVERIakkzaFJVWkRTWWZubnZPc01EZ0dTZ2poRUNib3ViM0FuNTQv?=
- =?utf-8?B?b2pxN25BVVBMWVNGNkNnUUtjQ1ZqZllBK2dsaHh5cGhLd2pVenNOay9BVWlh?=
- =?utf-8?B?YXpIa3NsZm1XZTdheFFtUHFaanBabEpBWHJZbkx3Ti9tYk9iSVRTL256dXJs?=
- =?utf-8?B?Q3M5L201L0FmY2xubFZRRngwbUFJTTRYRFQySndOeHF5VXJkb0Fad2ZHeXZJ?=
- =?utf-8?B?Q01peHBBSE8xYmRLbU9FNU1CbGpYY2E5akNjU3RZTm50Qm1pUWJpSTVIb0FE?=
- =?utf-8?B?N2VTU0tFRWlCYXREU2ZVQ1NLTURYUkE5ZkRGVHpoWU02cUhnVjdxUFhiUG8y?=
- =?utf-8?B?Q3FLd1BJaVRuNi9nZUxuNFdIRTRPd0JpUFNjeUEvbGl3TGhlakswcjRaWk1E?=
- =?utf-8?B?MEtsbitIeXR1YnlVOGdPTlFKNVhkWWtVemtWQkovZ2FiL0p3cm5OQjFuWUYv?=
- =?utf-8?B?VWd1ZVc5UzIycGNZVmNZeTlPTUFlMFh3L1FrNHFPb0FKSWpCaUYrRXUzbmgz?=
- =?utf-8?B?a0FCWFYrMTlmVEdZa05lckRyKzdndnZUdjFPb2ZJeURNd3g3TXlRYmpENVFD?=
- =?utf-8?B?VUdrNlI5TEZlZ3VoWFp2UVBObEVhOXBvY1N3MUpsQmE3VVdzNDhBelRhbmNW?=
- =?utf-8?B?YmdPVWc3bXFWbXVsRnVDbFRzWkNzOFllNG9PZG5CT0YwYmVIQTAyeGNTQ0Jx?=
- =?utf-8?B?V0ZnZHluanlEM21pSnM5TlRGNjRneEdIQi9TYWNsdnJJQ3dQMzcwK0xHdkcy?=
- =?utf-8?B?V1ordiszNzBzbTNHVmE0SjREd3h6MVRRRmRSd2UzczFSMWJmaDIvZnhQWXhF?=
- =?utf-8?Q?94PDmeq6LoJ3orLwme+wiFON6mESOSqeSyqkZ19n5bn2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 534ba420-5c21-439c-89d5-08db7c5b76f7
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2023 06:54:08.6309 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0yXJ86TZafMjfu5Qmc0NHpRJtbx8sqGyGBAA2+dBqhQW8hv3oBAuXgQM1i7NZkJb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5671
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 04 Jul 2023 07:37:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,57 +72,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Arnd Bergmann <arnd@arndb.de>, Bokun Zhang <Bokun.Zhang@amd.com>,
- dri-devel@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>,
- linux-kernel@vger.kernel.org, Shiwu Zhang <shiwu.zhang@amd.com>,
- Le Ma <le.ma@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Uros Bizjak <ubizjak@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 03.07.23 um 14:35 schrieb Arnd Bergmann:
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> On 32-bit architectures comparing a resource against a value larger than
-> U32_MAX can cause a warning:
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1344:18: error: result of comparison of constant 4294967296 with expression of type 'resource_size_t' (aka 'unsigned int') is always false [-Werror,-Wtautological-constant-out-of-range-compare]
->                      res->start > 0x100000000ull)
->                      ~~~~~~~~~~ ^ ~~~~~~~~~~~~~~
->
-> The compiler is right that this cannot happen in this configuration, which
-> is ok, so just add a cast to shut up the warning.
+Use local64_try_cmpxchg instead of local64_cmpxchg (*ptr, old, new) == old
+in amdgpu_perf_read.  x86 CMPXCHG instruction returns success in ZF flag,
+so this change saves a compare after cmpxchg (and related move instruction
+in front of cmpxchg).
 
-Well it doesn't make sense to compile that driver on systems with only 
-32bit phys_addr_t in the first place.
+Also, try_cmpxchg implicitly assigns old *ptr value to "old" when cmpxchg
+fails. There is no need to re-read the value in the loop.
 
-It might be cleaner to just not build the whole driver on such systems 
-or at least leave out this function.
+No functional change intended.
 
-Regards,
-Christian
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
->
-> Fixes: 31b8adab3247e ("drm/amdgpu: require a root bus window above 4GB for BAR resize")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 7f069e1731fee..abd13942aac5d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1341,7 +1341,7 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
->   
->   	pci_bus_for_each_resource(root, res, i) {
->   		if (res && res->flags & (IORESOURCE_MEM | IORESOURCE_MEM_64) &&
-> -		    res->start > 0x100000000ull)
-> +		    (u64)res->start > 0x100000000ull)
->   			break;
->   	}
->   
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+index 71ee361d0972..6e91ea1de5aa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+@@ -276,9 +276,8 @@ static void amdgpu_perf_read(struct perf_event *event)
+ 	    (!pe->adev->df.funcs->pmc_get_count))
+ 		return;
+ 
++	prev = local64_read(&hwc->prev_count);
+ 	do {
+-		prev = local64_read(&hwc->prev_count);
+-
+ 		switch (hwc->config_base) {
+ 		case AMDGPU_PMU_EVENT_CONFIG_TYPE_DF:
+ 		case AMDGPU_PMU_EVENT_CONFIG_TYPE_XGMI:
+@@ -289,7 +288,7 @@ static void amdgpu_perf_read(struct perf_event *event)
+ 			count = 0;
+ 			break;
+ 		}
+-	} while (local64_cmpxchg(&hwc->prev_count, prev, count) != prev);
++	} while (!local64_try_cmpxchg(&hwc->prev_count, &prev, count));
+ 
+ 	local64_add(count - prev, &event->count);
+ }
+-- 
+2.41.0
 
