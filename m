@@ -4,68 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7D59EB64DD
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 09:28:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27A5EEB64DC
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Jul 2023 12:36:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FA0210E1E9;
-	Mon,  3 Jul 2023 09:28:42 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2438010E1E9
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Jul 2023 09:28:40 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-3fbc0981756so39377595e9.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Jul 2023 02:28:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688376518; x=1690968518;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=r0zi7jujsmpYb8l5KEe2tFlRYKR7zyiW/q6w2B1Js8g=;
- b=cu51hTkh3HFUVlRYLGuo5/sfb5K6bwTEiWyiPsa/cGDx5de38bVtEHJtPF2uXgojmQ
- rXmGpzdcKPvPbtdwbrA0B2wU5YMRULXzdG9WeIfUsgY+T1whKmRKm0zxySW9TTWjv/sC
- JLKyPCuVl7EVYTtH+Zl4RotuEz/4rX/6dRd8NL/5oMNI/eBpIzLQjv2nkzlFy4Pa4r14
- iZPGw4NGyPgolvE1L09bx0BlrBLfFfOw3Z0G5jCM3tW2byUTNEbigPpbDpY3sx97MFPR
- 8WhU5XT7mAMzzBmzmkquISOVb2ACbVe8hGteycGc0fPWFFhFOWQQwM3yEsp0tnEY6gzl
- UnIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688376518; x=1690968518;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=r0zi7jujsmpYb8l5KEe2tFlRYKR7zyiW/q6w2B1Js8g=;
- b=lsBbcIFIb6tpaK5pEa4BjM33HChWqxVGdYIlv8JFWPm8Ljq1zys2JJC30XHlBg/W2r
- Z8HWZU/wdcEGxlgVZ5ZNbipDsxj/J+0Mk+PJ8UXlnDhXwxG18s1wNER3KcOxm/fpciKE
- oGZoIbHwQLhsI/zYQ0S52QLp5LQ9O/tLIN+36yjaoPmWNmzLnRUBOjq1DiIrYQNWHkaJ
- 52m2WgXeVsdplTUmKeG+WQ+tRbt1QZFGi2juBBUuSYs6jT90xrvx6D6Xxno8JedOpiV4
- hBfQjtgFTY6460eYB2c8lY+cDqrHyQQCeI/TiFzZABYA6vHqlQ/g65koZRFvBx2lpIZ4
- SYmQ==
-X-Gm-Message-State: AC+VfDyzEq1C9j6vDpFbxOhmDBhIxQVo7jk+ddMaocyYtYjiieAZgpU0
- qY1Ol4dB3myomU/LqNWDHXkfj8EbcPM=
-X-Google-Smtp-Source: ACHHUZ6D2tBb6VgXgmetX00FXYU3Al0c9HA4CD4J4v8zABt2n/0Nt5FUorQ7T40NghQMWBsG3d3dlg==
-X-Received: by 2002:a1c:7705:0:b0:3fa:8cd5:b64a with SMTP id
- t5-20020a1c7705000000b003fa8cd5b64amr7079335wmi.0.1688376517957; 
- Mon, 03 Jul 2023 02:28:37 -0700 (PDT)
-Received: from ?IPV6:2a00:e180:15db:7000:52d4:e05:b365:ad25?
- ([2a00:e180:15db:7000:52d4:e05:b365:ad25])
- by smtp.gmail.com with ESMTPSA id
- c23-20020a05600c0ad700b003fbc9371193sm8306660wmr.13.2023.07.03.02.28.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Jul 2023 02:28:37 -0700 (PDT)
-Message-ID: <97b4821b-a425-a376-503c-8a22212d323a@gmail.com>
-Date: Mon, 3 Jul 2023 11:28:36 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5977110E21C;
+	Mon,  3 Jul 2023 12:36:08 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D17E10E216;
+ Mon,  3 Jul 2023 12:36:06 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8716260C99;
+ Mon,  3 Jul 2023 12:36:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51115C433D9;
+ Mon,  3 Jul 2023 12:36:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1688387765;
+ bh=8pRVnz7l/AWZY8R6a2pMc6+C9qMNZAMoJ59TR8NJIO0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=DZLcDDKvSxSTlWD4URjmpKjyoA7HRwAyBFPaqyTHxpjhmm3nUChEjL5c73BbXSp33
+ QWU+n/0gPMEpL9fceFAujDyjMffuS1hzoQJsVI6j6ImASFy8SO0oSGq69uotxEhMCw
+ ag4fpWtODUz+PLLJX+iZRIdjp0lph64ubJnFcNprRVbBcpQVLXrecePaqIlJmUPnfw
+ kphGwx6UiNShSXEIjGtmuqJE45gnBCUlonNvSferCdcIOvHM3jSvheiwJ5nO8/WP9L
+ OPC5FB3WoWvY9d4MpwPSA9qKv9YqPYDl5D7+yuF+9GeX9Alj0lZw2kAr/lF6dyPc2S
+ S0J5j13mbhkmQ==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH] drm/amdgpu: avoid integer overflow warning in
+ amdgpu_device_resize_fb_bar()
+Date: Mon,  3 Jul 2023 14:35:49 +0200
+Message-Id: <20230703123557.3355657-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 0/6] Clean up patches in amdgpu/gmc_*.c
-Content-Language: en-US
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20230630155603.3388617-1-srinivasan.shanmugam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230630155603.3388617-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,28 +54,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Arnd Bergmann <arnd@arndb.de>, Bokun Zhang <Bokun.Zhang@amd.com>,
+ dri-devel@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>,
+ linux-kernel@vger.kernel.org, Shiwu Zhang <shiwu.zhang@amd.com>,
+ Le Ma <le.ma@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Christian König <christian.koenig@amd.com> for the entire series.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Am 30.06.23 um 17:55 schrieb Srinivasan Shanmugam:
-> Srinivasan Shanmugam (6):
->    drm/amdgpu: Fix warnings in gmc_v10_0.c
->    drm/amdgpu: Fix warnings in gmc_v11_0.c
->    drm/amdgpu: Fix errors & warnings in gmc_ v6_0, v7_0.c
->    drm/amdgpu: Fix error & warnings in gmc_v8_0.c
->    drm/amdgpu: Remove else after return statement in
->      'gmc_v8_0_check_soft_reset'
->    drm/amdgpu: Fix error & warnings in gmc_v9_0.c
->
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 35 ++++-------
->   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 30 +++++----
->   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c  | 52 ++++++++--------
->   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c  | 53 ++++++++--------
->   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c  | 86 ++++++++++++--------------
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 37 +++++------
->   6 files changed, 132 insertions(+), 161 deletions(-)
->
+On 32-bit architectures comparing a resource against a value larger than
+U32_MAX can cause a warning:
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1344:18: error: result of comparison of constant 4294967296 with expression of type 'resource_size_t' (aka 'unsigned int') is always false [-Werror,-Wtautological-constant-out-of-range-compare]
+                    res->start > 0x100000000ull)
+                    ~~~~~~~~~~ ^ ~~~~~~~~~~~~~~
+
+The compiler is right that this cannot happen in this configuration, which
+is ok, so just add a cast to shut up the warning.
+
+Fixes: 31b8adab3247e ("drm/amdgpu: require a root bus window above 4GB for BAR resize")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7f069e1731fee..abd13942aac5d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1341,7 +1341,7 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
+ 
+ 	pci_bus_for_each_resource(root, res, i) {
+ 		if (res && res->flags & (IORESOURCE_MEM | IORESOURCE_MEM_64) &&
+-		    res->start > 0x100000000ull)
++		    (u64)res->start > 0x100000000ull)
+ 			break;
+ 	}
+ 
+-- 
+2.39.2
 
