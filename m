@@ -4,84 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C3CFC0015E
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 12:18:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DA35EB64DA
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 12:18:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA04110E353;
-	Wed,  5 Jul 2023 12:18:26 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E523310E2CD;
- Tue,  4 Jul 2023 15:25:11 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 0CD3B5C0249;
- Tue,  4 Jul 2023 11:25:11 -0400 (EDT)
-Received: from imap51 ([10.202.2.101])
- by compute6.internal (MEProxy); Tue, 04 Jul 2023 11:25:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to; s=fm2; t=
- 1688484311; x=1688570711; bh=FXe15dxw2eFgPSPM36BqwI66nkQYl/9quUw
- AMMjIMFE=; b=JvFLQMO5JNMwLSZ/OQFor6bgUfFIJX9OqLmR8ixESZDtO77uACV
- oOerV31F+dAq7gzTumYj1kctdHh5EAkN5+g0T9BSUXQt7g3/eQ97jwONwtcOq0ex
- fQbEcjXwLvyS6oD/yZ6gSIqEJT3nOA6eFx+B7ThNgORgQ2VyJU1RtF8+M7xRUrXQ
- K5W/s/KV8CD4BYEIID/j5ZXrvy28TAksnIU0TBeQ4uiYKeGEbv/DnHcddmF+oOo9
- LwtX/PDSL83az+09o3c57dNul83+nDBezRS0/HMsaHAwJcP4tOQIeWkKf4/xwm3t
- kaMbmXeu4init/ytdnmt7RPj+qZ4Rfsrppg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
- 1688484311; x=1688570711; bh=FXe15dxw2eFgPSPM36BqwI66nkQYl/9quUw
- AMMjIMFE=; b=Czaof1ivS+YXaRXgZUUOXVXVw0pvLLS7gie8KOAZGkreqkin56f
- IhV0gueOTbxKn8BJGhjzndv0Ou7Tc2poh7PlXltQfDJ95sfaOVb3NsMaH/8zCUtI
- ErdQbV7/cOmJuBTzEcTLt1DQD7W/PI18Lxh61fbIEumLhO/nbfJcDMZpZn0YGvzw
- oMbZ1amym4RgQ4NPpzyqsvt7CR4oOZ01tEWhFVRz9bk+iQY1mGPLMc4xo5/4sQxa
- e3JPIv3TJeJyO2IqiiRpDlGcok9mdZ4UwnykbSCsANLXFC4qKR5A3audgoM1fHp+
- m4ML/ID2e/T2it5ylh4lFY83h7jciYvaejQ==
-X-ME-Sender: <xms:1jmkZIXzLiWbNhi7lNE_bt6_4633lOU6FyPcIY54IFXtTk-oHGTINg>
- <xme:1jmkZMlJWSDP7T4jFWjJEtJce53kWajG2SJbKpT2X3sFWtvKuuxY5cCjliH5DSpqc
- b9nr0vqW2tWgz2RMj4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrudeggdekjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvvefutgfgsehtqhertderreejnecuhfhrohhmpedftehr
- nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
- htvghrnhepgeefjeehvdelvdffieejieejiedvvdfhleeivdelveehjeelteegudektdfg
- jeevnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
- hrnhgusegrrhhnuggsrdguvg
-X-ME-Proxy: <xmx:1jmkZMZY-0gUqmNAwQWxCJaaKujGupPxcKARgQtZj2gkK7hEjXwl4g>
- <xmx:1jmkZHUcMrSC3vG_7ulWPPMhpTQsr2XjE_W1P2ThcBWBfBXdfIJVGw>
- <xmx:1jmkZCkAB62nYF3d4dz6rmsIQli_ObkTEgCpUDro_x7_d3iRMlsniQ>
- <xmx:1zmkZH9mHebHs5kceqG08Jt-G5MHETQ31zyBH8LisgUO3n1XlyryRw>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id C33BCB60089; Tue,  4 Jul 2023 11:25:10 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-527-gee7b8d90aa-fm-20230629.001-gee7b8d90
-Mime-Version: 1.0
-Message-Id: <2dff4d81-9b45-4d69-9e30-972f2c9318d9@app.fastmail.com>
-In-Reply-To: <7b55040f-f2d2-372e-cf8a-5ac4a456fdb1@amd.com>
-References: <20230703123557.3355657-1-arnd@kernel.org>
- <f4bc3739-3ff1-6fa7-5d7d-890f451315bf@amd.com>
- <788147c6-defd-496a-8174-1571b73d1a71@app.fastmail.com>
- <f1b190cb-3af7-178b-baeb-b59363868779@amd.com>
- <9b03246d-b46e-4b91-968a-e9ffc2fc26db@app.fastmail.com>
- <7b55040f-f2d2-372e-cf8a-5ac4a456fdb1@amd.com>
-Date: Tue, 04 Jul 2023 17:24:49 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Arnd Bergmann" <arnd@kernel.org>,
- "Alex Deucher" <alexander.deucher@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Dave Airlie" <airlied@gmail.com>,
- "Daniel Vetter" <daniel@ffwll.ch>
-Subject: Re: [PATCH] drm/amdgpu: avoid integer overflow warning in
- amdgpu_device_resize_fb_bar()
-Content-Type: text/plain;charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3C6810E35B;
+	Wed,  5 Jul 2023 12:18:27 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F17A410E164;
+ Tue,  4 Jul 2023 13:07:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=p2IeYQpGstyHc2o1uZoj5LpWskpFkCurknri7FAU7Sc=; b=doFCJ3+M2ZbnwCnNdylf69dbn7
+ dEt8U5JRYhixIcAX4/NUmMkQDZ4Yv1Hh/NkwBjC5ObE9o8vEoAfQPYw7wCHQQI5Yuja91bxFm+NbL
+ Blb/HMHvkbYn5Xo+/+e/pq8EDf7c9kn3U8xCg61HatQrAw8Kz3JHzRXB1XKbecqxHB30=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1qGfkR-000Ydd-1w; Tue, 04 Jul 2023 15:07:15 +0200
+Date: Tue, 4 Jul 2023 15:07:15 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Quan, Evan" <Evan.Quan@amd.com>
+Subject: Re: [PATCH V5 1/9] drivers core: Add support for Wifi band RF
+ mitigations
+Message-ID: <18dfe989-2610-4234-ade2-ffbc2f233c19@lunn.ch>
+References: <20230630103240.1557100-1-evan.quan@amd.com>
+ <20230630103240.1557100-2-evan.quan@amd.com>
+ <7e7db6eb-4f46-407a-8d1f-16688554ad80@lunn.ch>
+ <DM6PR12MB2619591A7706A30362E11DC5E42EA@DM6PR12MB2619.namprd12.prod.outlook.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM6PR12MB2619591A7706A30362E11DC5E42EA@DM6PR12MB2619.namprd12.prod.outlook.com>
 X-Mailman-Approved-At: Wed, 05 Jul 2023 12:18:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,59 +49,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Bokun Zhang <Bokun.Zhang@amd.com>, dri-devel@lists.freedesktop.org,
- Lijo Lazar <lijo.lazar@amd.com>, linux-kernel@vger.kernel.org,
- Shiwu Zhang <shiwu.zhang@amd.com>, Le Ma <le.ma@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "jingyuwang_vip@163.com" <jingyuwang_vip@163.com>,
+ "bellosilicio@gmail.com" <bellosilicio@gmail.com>,
+ "rafael@kernel.org" <rafael@kernel.org>, "trix@redhat.com" <trix@redhat.com>,
+ "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "mdaenzer@redhat.com" <mdaenzer@redhat.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+ "lenb@kernel.org" <lenb@kernel.org>,
+ "andrealmeid@igalia.com" <andrealmeid@igalia.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "arnd@arndb.de" <arnd@arndb.de>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "hdegoede@redhat.com" <hdegoede@redhat.com>, "jsg@jsg.id.au" <jsg@jsg.id.au>,
+ "jim.cromie@gmail.com" <jim.cromie@gmail.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "edumazet@google.com" <edumazet@google.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>,
+ "johannes@sipsolutions.net" <johannes@sipsolutions.net>,
+ "davem@davemloft.net" <davem@davemloft.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 4, 2023, at 16:51, Christian K=C3=B6nig wrote:
-> Am 04.07.23 um 16:31 schrieb Arnd Bergmann:
->> On Tue, Jul 4, 2023, at 14:33, Christian K=C3=B6nig wrote:
->>>
->>> Modern AMD GPUs have 16GiB of local memory (VRAM), making those
->>> accessible to a CPU which can only handle 32bit addresses by resizing
->>> the BAR is impossible to begin with.
->>>
->>> But going a step further even without resizing it is pretty hard to =
-get
->>> that hardware working on such an architecture.
->> I'd still like to understand this part better, as we have a lot of
->> arm64 chips with somewhat flawed PCIe implementations, often with
->> a tiny 64-bit memory space, but otherwise probably capable of
->> using a GPU.
->
-> Yeah, those are unfortunately very well known to us :(
->
->> What exactly do you expect to happen here?
->>
->> a) Use only part of the VRAM but otherwise work as expected
->> b) Access all of the VRAM, but at a performance cost for
->>     bank switching?
->
-> We have tons of x86 systems where we can't resize the BAR (because of=20
-> lack of BIOS setup of the root PCIe windows). So bank switching is sti=
-ll=20
-> perfectly supported.
+> > What is the purpose of this stage? Why would it not be supported for this
+> > device?
+> This is needed for wbrf support via ACPI mechanism. If BIOS(AML code) does not support the wbrf adding/removing for some device,
+> it should speak that out so that the device can be aware of that.
 
-Ok, good.
+How much overhead is this adding? How deep do you need to go to find
+the BIOS does not support it? And how often is this called?
 
-> After investigating (which sometimes even includes involving engineers=20
-> from ARM) we usually find that those boards doesn't even remotely comp=
-ly=20
-> to the PCIe specification, both regarding power as well as functional=20
-> things like DMA coherency.
+Where do we want to add complexity? In the generic API? Or maybe a
+little deeper in the ACPI specific code?
 
-Makes sense, the power usage is clearly going to make this
-impossible on a lot of boards. I would have expected noncoherent
-DMA to be a solvable problem, since that generally works with
-all drivers that use the dma-mapping interfaces correctly,
-but I understand that drivers/gpu/* often does its own thing
-here, which may make that harder.
+       Andrew
 
-     Arnd
