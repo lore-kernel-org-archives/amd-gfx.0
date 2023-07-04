@@ -4,58 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BAD6EB64DD
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 12:17:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEA9DEB64DD
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 12:18:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FDF510E16A;
-	Wed,  5 Jul 2023 12:17:36 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6515110E16A;
- Wed,  5 Jul 2023 12:17:34 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id
- 5614622812f47-3a1c162cdfeso4765091b6e.2; 
- Wed, 05 Jul 2023 05:17:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688559452; x=1691151452;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WHaJYkkoWiJSGGDBGpgeQFN7MbsuVxr7WFW0gmyjXTA=;
- b=Zs4B9aItH6VtyXrbhksxUuND8Db/AH9sGKaZHk0ln5kJWGDQ6WGZqC5VYjBjc0wfek
- cuwmHNFT9i4jHFWv4qisOeCaEn/VcrRmlC8P5eoRzTpQrThdqk07XlPCUXpdtoLGkFQl
- z7Hzys0waQ05tB63rjFs7boSvyZ8QIP80YkKtNbOOksrZp4BjwlZ+UCeqTdU73Qnbyp7
- uKUnDVbd7zNdIaghKtjQINDzroHtt6i8zkeRvu0vfqAwYBhehjN++OWHH2Sri1qotQUK
- yySLb6rOHvSF4mMK95TEUrHQbDEKWOjZJ0FnnXDAzrIjWFNfANDELdYstRAl488pYPiZ
- oCTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688559452; x=1691151452;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WHaJYkkoWiJSGGDBGpgeQFN7MbsuVxr7WFW0gmyjXTA=;
- b=LvKmABVUp46E7nVlh/NG+TFfaM4NHRkEwTIuAgt1aL3lOSTc2dl3MF51CWOxwEiW9F
- mJ/v3agVc8P9pR9V7hubY1WY+ICjDqXJdatxQzuR9cM4eo0asqg2Adu4CpoTbjJGDR7H
- ZY1EexFJoRshgYZgidE+b7a9EryeWew0P3+A8mFBrOfF7QHs2Y4cK4rSIMOFnOJzwAGB
- ubQzBEv734rxa8jzaK5nu1Q9mVoj3yQ70BvY4Lcy/y6WNrdGHfbBEhEcv6YAaQIjfhdm
- rVWQPU1zIGd8eG4gF558kLislxnN/yVXnLYPZQLb8oJUR1mb+VNjcVMu7IsFzZhUyQNC
- H9yA==
-X-Gm-Message-State: ABy/qLbaz+VOS8VLZ3um7cj2Jt/FXM8He4cWq6+KhMsH1nRp5wKTa/yN
- GZjPb32VfGOLfsNWqsWGXz5Y/o5WDo3pZIh+ZKQ=
-X-Google-Smtp-Source: APBJJlGmd2YQxHbMPcUXogLn1oSwHE63ZETeKN2G8EQbu7OgMbsrRzzXMdlHMBwBep/9zR9fd1mWHG4XSJ7SsZm4y/M=
-X-Received: by 2002:a05:6808:f14:b0:3a3:9ae0:efec with SMTP id
- m20-20020a0568080f1400b003a39ae0efecmr13526480oiw.14.1688559451929; Wed, 05
- Jul 2023 05:17:31 -0700 (PDT)
-MIME-Version: 1.0
-References: <87v8eyoouz.wl-tiwai@suse.de>
-In-Reply-To: <87v8eyoouz.wl-tiwai@suse.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 5 Jul 2023 08:17:20 -0400
-Message-ID: <CADnq5_Ps7NJ8NiK8s=aTtVjXjttOZtDVH96ToFu6co4DKRFPMg@mail.gmail.com>
-Subject: Re: Missing AMDGPU drm-fixes-6.4 merges
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CF4210E270;
+	Wed,  5 Jul 2023 12:18:25 +0000 (UTC)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6436110E148;
+ Tue,  4 Jul 2023 12:26:34 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id B5DCF5C035D;
+ Tue,  4 Jul 2023 08:26:32 -0400 (EDT)
+Received: from imap51 ([10.202.2.101])
+ by compute6.internal (MEProxy); Tue, 04 Jul 2023 08:26:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+ 1688473592; x=1688559992; bh=PyQ6plTYSpz3qzON9fE4kLUBzehylHzFdDq
+ XyOgLcvE=; b=W77S1TQLBvy4PGVojukXY3qROfvcIqKfpp/nBKGH7ekWnnc3mac
+ GXslhBK60I6NKAMd8sOg2loMZJyYKa5TDtel7hJQv16/1Ue9uuR3oZT5ypG3IoZO
+ Q9s9N44TMrGD/mvjXafzgFrFHimoi/WYU7i3cEnqN5qp6FA0oiAiK4khkbzpNdjk
+ 7tBQ0e2YlV9aGPRlu1OOfvqE54RRqNIdvE7d4V716wCqwjeidPYnXlZM7eZFLXfD
+ pua2W+yosiXEx9NkeljVm+f8spE1HBI2XL/aJa5h1PoGxwifAiGCZ7NlxwGHekUu
+ mQEjtn+YvQCHl4B7DOOhPWv7aGBeDTaiZEA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:sender:subject:subject:to:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+ 1688473592; x=1688559992; bh=PyQ6plTYSpz3qzON9fE4kLUBzehylHzFdDq
+ XyOgLcvE=; b=IPocYXY7TnafTvok9h1lETy4GCn/FhjYgMijmoCjvkOE3UfIZTk
+ UiSNhMXXS3BigYlIwW6RIFE1CpOEphaB1sStCz8s20dG3gRzbZg6UYPdOFi2rAnm
+ 0Z0mTeJ7zZgj/SKuZbMOA509ImEpZ73TE+W66RENpRF6g0hRInbaoXaCVejO1EY9
+ Nw/c2JK+j0yyNyPFEpFx0f2hKv+d6ASTfvg6AduwmwzZ41oG/hN+rXTe58SVvO3q
+ svEEAdmR2ON6GaX0y5KkawBi4XdgYS0BT8pGOytMZXdZN0OQaDtUH80Wzjo6CDGh
+ aT5J94WDzrb0Jmr0NU1KEzo3LNND+hZxUTw==
+X-ME-Sender: <xms:-A-kZAGiH5z4tS9ps_N9F_yGho1DcFLpTElwHhvdo51Y3EHTQaVt6Q>
+ <xme:-A-kZJX85mPqrG1j_i6mLFZ6vat0SF_TcP0AsWxh541mujfZ8v2QgXEYVB4OcUOGz
+ 8L1S-sGYi26NTFXGL4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrudeggdehvdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgggkfgjfhffhffvvefutgfgsehtqhertderreejnecuhfhrohhmpedftehr
+ nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
+ htvghrnhepgeefjeehvdelvdffieejieejiedvvdfhleeivdelveehjeelteegudektdfg
+ jeevnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
+ hrnhgusegrrhhnuggsrdguvg
+X-ME-Proxy: <xmx:-A-kZKLBAxdDoaIjkb9VkHBZXUaDP5GSWs9DJW0RlYDnzLhw_g-_dQ>
+ <xmx:-A-kZCFqzG5BZfZGEk72aIsC9mV8qyyuq2WHqf7kofy3mJGwpCEc3w>
+ <xmx:-A-kZGWaEoWiFM3DVnE_pIRVNfvOdunOcWzm3pKBMekHEvvTH1GgSg>
+ <xmx:-A-kZHtfA1FxCKncC-yJ6kkYFO3ldXBwf5BNX1MJdRwGbYbVs9hnSg>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 7578FB60086; Tue,  4 Jul 2023 08:26:32 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.9.0-alpha0-527-gee7b8d90aa-fm-20230629.001-gee7b8d90
+Mime-Version: 1.0
+Message-Id: <788147c6-defd-496a-8174-1571b73d1a71@app.fastmail.com>
+In-Reply-To: <f4bc3739-3ff1-6fa7-5d7d-890f451315bf@amd.com>
+References: <20230703123557.3355657-1-arnd@kernel.org>
+ <f4bc3739-3ff1-6fa7-5d7d-890f451315bf@amd.com>
+Date: Tue, 04 Jul 2023 14:24:09 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Arnd Bergmann" <arnd@kernel.org>,
+ "Alex Deucher" <alexander.deucher@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Dave Airlie" <airlied@gmail.com>,
+ "Daniel Vetter" <daniel@ffwll.ch>
+Subject: Re: [PATCH] drm/amdgpu: avoid integer overflow warning in
+ amdgpu_device_resize_fb_bar()
+Content-Type: text/plain;charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 05 Jul 2023 12:18:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,35 +90,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Bokun Zhang <Bokun.Zhang@amd.com>, dri-devel@lists.freedesktop.org,
+ Lijo Lazar <lijo.lazar@amd.com>, linux-kernel@vger.kernel.org,
+ Shiwu Zhang <shiwu.zhang@amd.com>, Le Ma <le.ma@amd.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 5, 2023 at 2:26=E2=80=AFAM Takashi Iwai <tiwai@suse.de> wrote:
+On Tue, Jul 4, 2023, at 08:54, Christian K=C3=B6nig wrote:
+> Am 03.07.23 um 14:35 schrieb Arnd Bergmann:
+>> From: Arnd Bergmann <arnd@arndb.de>
+>>
+>> On 32-bit architectures comparing a resource against a value larger t=
+han
+>> U32_MAX can cause a warning:
+>>
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1344:18: error: result of =
+comparison of constant 4294967296 with expression of type 'resource_size=
+_t' (aka 'unsigned int') is always false [-Werror,-Wtautological-constan=
+t-out-of-range-compare]
+>>                      res->start > 0x100000000ull)
+>>                      ~~~~~~~~~~ ^ ~~~~~~~~~~~~~~
+>>
+>> The compiler is right that this cannot happen in this configuration, =
+which
+>> is ok, so just add a cast to shut up the warning.
 >
-> Hi Dave, Alex,
->
-> it seems that the last PR for AMDGPU 6.4 fixes wasn't taken by Linus
-> due to the missing signed tag:
->   https://lore.kernel.org/lkml/CAHk-=3DwiOCgiwzVPOwORHPML9eBphnbtM2DhRcv+=
-v=3D-tnRrgbYg@mail.gmail.com/
->
-> And more importantly, this series isn't seen on linux-next, either; so
-> the whole fixes are missing in the upstream.  Could you check it?
+> Well it doesn't make sense to compile that driver on systems with only=20
+> 32bit phys_addr_t in the first place.
 
-I included all of the necessary changes in last week's 6.5 fixes PR.
-Once that lands, I'll make sure the necessary changes make it to
-stable.
+Not sure I understand the specific requirement. Do you mean the entire
+amdgpu driver requires 64-bit BAR addressing, or just the bits that
+resize the BARs?
 
-Alex
+> It might be cleaner to just not build the whole driver on such systems=20
+> or at least leave out this function.
 
->
-> FWIW, I stumbled on this due to a recent regression report on openSUSE
-> Tumbleweed:
->   https://bugzilla.suse.com/show_bug.cgi?id=3D1212848
->
->
-> thanks,
->
-> Takashi
+How about this version? This also addresses the build failure, but
+I don't know if this makes any sense:
+
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1325,6 +1325,9 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_devi=
+ce *adev)
+        u16 cmd;
+        int r;
+=20
++       if (!IS_ENABLED(CONFIG_PHYS_ADDR_T_64BIT))
++               return 0;
++
+        /* Bypass for VF */
+        if (amdgpu_sriov_vf(adev))
+                return 0;
+
+     Arnd
