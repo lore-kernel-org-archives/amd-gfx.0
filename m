@@ -4,39 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DA35EB64DA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEEDFEB64DD
 	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 12:18:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3C6810E35B;
-	Wed,  5 Jul 2023 12:18:27 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F17A410E164;
- Tue,  4 Jul 2023 13:07:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=p2IeYQpGstyHc2o1uZoj5LpWskpFkCurknri7FAU7Sc=; b=doFCJ3+M2ZbnwCnNdylf69dbn7
- dEt8U5JRYhixIcAX4/NUmMkQDZ4Yv1Hh/NkwBjC5ObE9o8vEoAfQPYw7wCHQQI5Yuja91bxFm+NbL
- Blb/HMHvkbYn5Xo+/+e/pq8EDf7c9kn3U8xCg61HatQrAw8Kz3JHzRXB1XKbecqxHB30=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1qGfkR-000Ydd-1w; Tue, 04 Jul 2023 15:07:15 +0200
-Date: Tue, 4 Jul 2023 15:07:15 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Quan, Evan" <Evan.Quan@amd.com>
-Subject: Re: [PATCH V5 1/9] drivers core: Add support for Wifi band RF
- mitigations
-Message-ID: <18dfe989-2610-4234-ade2-ffbc2f233c19@lunn.ch>
-References: <20230630103240.1557100-1-evan.quan@amd.com>
- <20230630103240.1557100-2-evan.quan@amd.com>
- <7e7db6eb-4f46-407a-8d1f-16688554ad80@lunn.ch>
- <DM6PR12MB2619591A7706A30362E11DC5E42EA@DM6PR12MB2619.namprd12.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM6PR12MB2619591A7706A30362E11DC5E42EA@DM6PR12MB2619.namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD8910E35C;
+	Wed,  5 Jul 2023 12:18:28 +0000 (UTC)
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F19910E1A8;
+ Tue,  4 Jul 2023 14:31:48 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 358AC5C022A;
+ Tue,  4 Jul 2023 10:31:47 -0400 (EDT)
+Received: from imap51 ([10.202.2.101])
+ by compute6.internal (MEProxy); Tue, 04 Jul 2023 10:31:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+ 1688481107; x=1688567507; bh=aqNsrJHVCnGS5M3xoGiJRBSxbIqtfC2tngp
+ dKmlsVZU=; b=RI/bfPN9cjPntRtrW/Dbhv9tP8VrrltI/MZdGagrm86vvoc0yef
+ NROG9VgHWAWe8NcWA0/rNzns3UCg72E4fB1KVUpbDy5OXb8AEMYx2rTC59zR2ERz
+ A+uaYnleg/oE9VVFjEBaX2szm5bvkYdnYZTQPYbhEi8f/E4IVGN75SBz82tAQkSs
+ 7pisihqSoBEZsKqTVHzm3yXOrIDLpYElPq1outbbZ8JpbBMggoYg3nsA/aN0GEWB
+ CR4qj9XPh6CbKSz3o9bg8YFBrZay3g871CZV8ZO0IRqtq3imdDxjLmtZgII+MxMi
+ LaMa/jHTqZYh4cvXDdghsGnkFZtA6mppE9w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:sender:subject:subject:to:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+ 1688481107; x=1688567507; bh=aqNsrJHVCnGS5M3xoGiJRBSxbIqtfC2tngp
+ dKmlsVZU=; b=BhdV1iWlRIff/+xmjml84Pc86sgHA5/c+T5LXLSssMgArI8+Icn
+ 0Ae0+dk9C0Va5vfQ5+jOVeHh0qOmIVcJl6DWBRWNbBgSyTlMrPV578a6YSNnRaOl
+ 72B+E3R+icS3raoq2yuuuwoYLf2Tu3/Vs2qU92ta7WZVt8Gb1t+GAqYf/PYoypfG
+ Vx7VKIc91RCJsFJcRcptvsPSSOQ9+xIU4qRAm7fd0gtUVv3Iwc5f0zExjrlh2ulx
+ J2DHGmtxjDRub9f5FyrNK8RLfcsKflgDFEtnMvfJ+JmRdcTVHKj3rYIBjbK0cT7D
+ DDTHF7eDTuYmg4d6I180VCWH2hjlj7ShjpA==
+X-ME-Sender: <xms:Ui2kZK_1c2_n9pzTTo159TkOPurTHtgChsVx8aJD-eEg3BtGspCgrg>
+ <xme:Ui2kZKvxZCobXlWGuYVd7UgFUlXL_GBLc1roQekMrWi3IfSEXkDgWFaaFu0ep4ebO
+ LFW8HKexD0VI6mLNaI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrudeggdejjecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgggkfgjfhffhffvvefutgfgsehtqhertderreejnecuhfhrohhmpedftehr
+ nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
+ htvghrnhepgeefjeehvdelvdffieejieejiedvvdfhleeivdelveehjeelteegudektdfg
+ jeevnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
+ hrnhgusegrrhhnuggsrdguvg
+X-ME-Proxy: <xmx:Ui2kZADgHsmy1cqQ5nP4hf74j7eG8GWrvM_I7laOXOVNWJReo1WaAg>
+ <xmx:Ui2kZCfMSCTn1lTPz5DwFSqwDoZMEmV_luDH77WrUdru9YiEs0faKg>
+ <xmx:Ui2kZPO6oRx3VYRPIOhgxIcC-HZjzfMMUYvU_XAZjdbP0mgaSIrbZw>
+ <xmx:Uy2kZGnyBsK_4CgKkxnKRlzGWU-sEmSj3XnCwzNaJqWE-0mi7fXQUg>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 525ACB60089; Tue,  4 Jul 2023 10:31:46 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.9.0-alpha0-527-gee7b8d90aa-fm-20230629.001-gee7b8d90
+Mime-Version: 1.0
+Message-Id: <9b03246d-b46e-4b91-968a-e9ffc2fc26db@app.fastmail.com>
+In-Reply-To: <f1b190cb-3af7-178b-baeb-b59363868779@amd.com>
+References: <20230703123557.3355657-1-arnd@kernel.org>
+ <f4bc3739-3ff1-6fa7-5d7d-890f451315bf@amd.com>
+ <788147c6-defd-496a-8174-1571b73d1a71@app.fastmail.com>
+ <f1b190cb-3af7-178b-baeb-b59363868779@amd.com>
+Date: Tue, 04 Jul 2023 16:31:25 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Arnd Bergmann" <arnd@kernel.org>,
+ "Alex Deucher" <alexander.deucher@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Dave Airlie" <airlied@gmail.com>,
+ "Daniel Vetter" <daniel@ffwll.ch>
+Subject: Re: [PATCH] drm/amdgpu: avoid integer overflow warning in
+ amdgpu_device_resize_fb_bar()
+Content-Type: text/plain;charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 05 Jul 2023 12:18:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,45 +92,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "jingyuwang_vip@163.com" <jingyuwang_vip@163.com>,
- "bellosilicio@gmail.com" <bellosilicio@gmail.com>,
- "rafael@kernel.org" <rafael@kernel.org>, "trix@redhat.com" <trix@redhat.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "mdaenzer@redhat.com" <mdaenzer@redhat.com>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
- "lenb@kernel.org" <lenb@kernel.org>,
- "andrealmeid@igalia.com" <andrealmeid@igalia.com>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "arnd@arndb.de" <arnd@arndb.de>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>, "jsg@jsg.id.au" <jsg@jsg.id.au>,
- "jim.cromie@gmail.com" <jim.cromie@gmail.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "edumazet@google.com" <edumazet@google.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- "johannes@sipsolutions.net" <johannes@sipsolutions.net>,
- "davem@davemloft.net" <davem@davemloft.net>
+Cc: amd-gfx@lists.freedesktop.org,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Bokun Zhang <Bokun.Zhang@amd.com>, dri-devel@lists.freedesktop.org,
+ Lijo Lazar <lijo.lazar@amd.com>, linux-kernel@vger.kernel.org,
+ Shiwu Zhang <shiwu.zhang@amd.com>, Le Ma <le.ma@amd.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> > What is the purpose of this stage? Why would it not be supported for this
-> > device?
-> This is needed for wbrf support via ACPI mechanism. If BIOS(AML code) does not support the wbrf adding/removing for some device,
-> it should speak that out so that the device can be aware of that.
+On Tue, Jul 4, 2023, at 14:33, Christian K=C3=B6nig wrote:
+> Am 04.07.23 um 14:24 schrieb Arnd Bergmann:
+>> On Tue, Jul 4, 2023, at 08:54, Christian K=C3=B6nig wrote:
+>>> Am 03.07.23 um 14:35 schrieb Arnd Bergmann:
+>> Not sure I understand the specific requirement. Do you mean the entire
+>> amdgpu driver requires 64-bit BAR addressing, or just the bits that
+>> resize the BARs?
+>
+> Well a bit of both.
+>
+> Modern AMD GPUs have 16GiB of local memory (VRAM), making those=20
+> accessible to a CPU which can only handle 32bit addresses by resizing=20
+> the BAR is impossible to begin with.
+>
+> But going a step further even without resizing it is pretty hard to ge=
+t=20
+> that hardware working on such an architecture.
 
-How much overhead is this adding? How deep do you need to go to find
-the BIOS does not support it? And how often is this called?
+I'd still like to understand this part better, as we have a lot of
+arm64 chips with somewhat flawed PCIe implementations, often with
+a tiny 64-bit memory space, but otherwise probably capable of
+using a GPU.
 
-Where do we want to add complexity? In the generic API? Or maybe a
-little deeper in the ACPI specific code?
+What exactly do you expect to happen here?
 
-       Andrew
+a) Use only part of the VRAM but otherwise work as expected
+b) Access all of the VRAM, but at a performance cost for
+   bank switching?
+c) Require kernel changes to make a) or b) work, otherwise
+   fail to load
+d) have no chance of working even with driver changes
 
+>>> It might be cleaner to just not build the whole driver on such syste=
+ms
+>>> or at least leave out this function.
+>> How about this version? This also addresses the build failure, but
+>> I don't know if this makes any sense:
+>>
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -1325,6 +1325,9 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_d=
+evice *adev)
+>>          u16 cmd;
+>>          int r;
+>>  =20
+>> +       if (!IS_ENABLED(CONFIG_PHYS_ADDR_T_64BIT))
+>> +               return 0;
+>> +
+>
+> Yes, if that suppresses the warning as well then that makes perfect=20
+> sense to me.
+
+Ok, I'll send that as a v2 then.
+
+    Arnd
