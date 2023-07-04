@@ -4,60 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6122CEB64D9
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jul 2023 07:37:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1437DEB64DD
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jul 2023 07:37:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E89D310E2A0;
-	Tue,  4 Jul 2023 07:37:41 +0000 (UTC)
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0F9610E05D;
- Mon,  3 Jul 2023 15:01:52 +0000 (UTC)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-4f004cc54f4so6859770e87.3; 
- Mon, 03 Jul 2023 08:01:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688396509; x=1690988509;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4ACAehRo9Teq7otTL7t1DkhIRrNmVdicT9iRzjgjAX4=;
- b=QY3WsCZGQOiafSVgFytHNVwB+PNMpe4yuH/ejzZdUhvt3pV6/5gfBrvHh5Uf+MrXLr
- LGp0o4oh3Y6gcImedl6Bpr+A4WNjPq5z4EgXDOyNtjfiYKZlTQ6JpqlRkqd5QPbErWDq
- fkcot1hoh9WTuaAlTGEMdgycbmc2C1OVtSvDRNFC+55PoMXFpm1Rwe1KCRaw5Fnr154Z
- lYDXQnL5HmIsTcwpDW6zlSWsM6KGy4JucuxUtcwpvYDUg1yCXQ/IncW4qZQsxPs92RL3
- eLN3efPGi8DOaNn8ZtGVR2KuI7OuMIVo9C3rh0vBOHkNcy5mBN0eDEaK6MKYqY3Pfveh
- hzSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688396509; x=1690988509;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4ACAehRo9Teq7otTL7t1DkhIRrNmVdicT9iRzjgjAX4=;
- b=X+iSq1SKTExJdlfY5HHBsfvppvWO/W1sW649V8qopCGzYeVnPx/DHWWhhcS3396v/b
- I6AlhPgzNTo+b1hti9Bu6fxTFoqJQHMXAtOcIbe8dXLlbOK4pyxQ4zumfKicYCfbAP6V
- 6YsLj3wRAmqPSH+wLkO0Ff8EMSkFZSCeNC7az6CcHo+JdWUBXvA+sAnttUvO5DhUeV4Y
- KR5LB59b8h93l9RAkVneSvmQTnUTk4n2v5WWo+77tWo9x74MZy43W4EYgK0Isp4iDH++
- NB3IAfaN+PNsEQ2l9kG7V+oF9Mrh2PhYuqNZiFTmaUDR+S+vLeKn09Bx+CHW3NsKIy+7
- gZUg==
-X-Gm-Message-State: ABy/qLZSWCtbp0vJQUwBdKqGZbBaRSpfmuvQdhs+sM6RrgYMPf5IFCUv
- +ZYGKSwoeamnWRuMSApg16DnNpWIc/Fi2A==
-X-Google-Smtp-Source: APBJJlEy07zEOHrJaTz7psAlLEzG3iQ1RXU/ezZ16Gu7PUkEO1A6MG/Olvbvbk+csfjrYJudmx71uw==
-X-Received: by 2002:a05:6512:3da5:b0:4f8:6e6e:3f42 with SMTP id
- k37-20020a0565123da500b004f86e6e3f42mr11621655lfv.14.1688396508639; 
- Mon, 03 Jul 2023 08:01:48 -0700 (PDT)
-Received: from localhost.localdomain ([46.248.82.114])
- by smtp.gmail.com with ESMTPSA id
- q7-20020aa7d447000000b005183ce42da9sm10477109edr.18.2023.07.03.08.01.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Jul 2023 08:01:48 -0700 (PDT)
-From: Uros Bizjak <ubizjak@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: Use local64_try_cmpxchg in amdgpu_perf_read
-Date: Mon,  3 Jul 2023 17:00:59 +0200
-Message-ID: <20230703150135.5784-1-ubizjak@gmail.com>
-X-Mailer: git-send-email 2.41.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D7A910E2A1;
+	Tue,  4 Jul 2023 07:37:42 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0988B10E25B;
+ Tue,  4 Jul 2023 02:38:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=f8RkJQKjsXoHsI7HcP1B4JZjrinjwR96VwvZQStcKHw=; b=gyfOHkOD5v5YlUW4rCaUykC/j/
+ q7135RUMhwLRvUsXyKA8+kUzIhKllXv1PZPh85UJYwpZAuQ42zHAd9k8DCwIFiiNJ7fMES1vy+3Ne
+ I6E5w3vZmC5IehUwHKq9ohLPiYGBO5WVhU0/qXa4ZQ3xr0tgpranDNcFpDjdtOjaQ9kunQBecwjS4
+ 2NnRiYULgPikpbSTs0EZtPUErL6Taier0ESMeffviK2ejosstSKvgcXotNYj38SDmZu/kLPVzOZzm
+ G/rLFWU6xHDj1XN7NyJPxxUzesrfNr+7nstk2kWCZFUmfpgXG0TMzX4SNumluWzVXSEszb/kH/4pu
+ dbFvSwTw==;
+Received: from [2601:1c2:980:9ec0::2764]
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qGVvz-00BwL5-0k; Tue, 04 Jul 2023 02:38:31 +0000
+Message-ID: <ca7ec187-ffbc-0779-0dbe-21238a566e7b@infradead.org>
+Date: Mon, 3 Jul 2023 19:38:29 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
+Content-Language: en-US
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+References: <20230627132323.115440-1-andrealmeid@igalia.com>
+ <CA+hFU4z1pc=KUVVqyqfXEceUqMXQgh-qUnuB=1nkPELghvQO7w@mail.gmail.com>
+ <CADnq5_MNVdtdcWKSz6dgmsjg+kEu8p5FVE+fkw_5BaXeG3QGow@mail.gmail.com>
+ <afab1f5a-e581-3416-e2c2-238ea120655b@mailbox.org>
+ <CAAxE2A5C96k5ua+r938VA_+w7gHHNTdF3n8LwDb98W0Bf9wCVA@mail.gmail.com>
+ <7c1e6df5-1ad4-be3c-b95d-92dc62a8c537@mailbox.org>
+ <CAAxE2A7RGDY4eRC85CsqfszNzyKvMU2MX1wa+3HZ1hgNeAw3cQ@mail.gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <CAAxE2A7RGDY4eRC85CsqfszNzyKvMU2MX1wa+3HZ1hgNeAw3cQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 04 Jul 2023 07:37:40 +0000
@@ -72,57 +58,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Uros Bizjak <ubizjak@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>,
+ =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
+ =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>, kernel-dev@igalia.com, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use local64_try_cmpxchg instead of local64_cmpxchg (*ptr, old, new) == old
-in amdgpu_perf_read.  x86 CMPXCHG instruction returns success in ZF flag,
-so this change saves a compare after cmpxchg (and related move instruction
-in front of cmpxchg).
 
-Also, try_cmpxchg implicitly assigns old *ptr value to "old" when cmpxchg
-fails. There is no need to re-read the value in the loop.
 
-No functional change intended.
+On 7/3/23 19:34, Marek Olšák wrote:
+> 
+> 
+> On Mon, Jul 3, 2023, 03:12 Michel Dänzer <michel.daenzer@mailbox.org <mailto:michel.daenzer@mailbox.org>> wrote:
+> 
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+Marek,
+Please stop sending html emails to the mailing lists.
+The mailing list software drops them.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-index 71ee361d0972..6e91ea1de5aa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-@@ -276,9 +276,8 @@ static void amdgpu_perf_read(struct perf_event *event)
- 	    (!pe->adev->df.funcs->pmc_get_count))
- 		return;
- 
-+	prev = local64_read(&hwc->prev_count);
- 	do {
--		prev = local64_read(&hwc->prev_count);
--
- 		switch (hwc->config_base) {
- 		case AMDGPU_PMU_EVENT_CONFIG_TYPE_DF:
- 		case AMDGPU_PMU_EVENT_CONFIG_TYPE_XGMI:
-@@ -289,7 +288,7 @@ static void amdgpu_perf_read(struct perf_event *event)
- 			count = 0;
- 			break;
- 		}
--	} while (local64_cmpxchg(&hwc->prev_count, prev, count) != prev);
-+	} while (!local64_try_cmpxchg(&hwc->prev_count, &prev, count));
- 
- 	local64_add(count - prev, &event->count);
- }
+Please set your email interface to use plain text mode instead.
+Thanks.
+
 -- 
-2.41.0
-
+~Randy
