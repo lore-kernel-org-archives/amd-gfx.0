@@ -4,123 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 062CDEB64D9
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jul 2023 14:51:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A67BEB64D9
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Jul 2023 15:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F384110E130;
-	Tue,  4 Jul 2023 14:51:21 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D422E10E0F8;
- Tue,  4 Jul 2023 14:51:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8FB410E2E7;
+	Tue,  4 Jul 2023 15:39:56 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2058.outbound.protection.outlook.com [40.107.243.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A92C10E2DC
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Jul 2023 15:39:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GM8am9BTfDgGi0JGWuZknq4kxJ18D8oFi+L8BhXnVFqDoV0SLQiqJ8CFe0rnXL0YBkDeC+2Suozj60Tc7l81k2FlbPAtX6lxQsRYWqDjbdCcNeV3vZaM+dmrGyhc6CyiP7X/1uDzWCUai1fniGv/nYmgJ1PvEltpIOtjRxDn9hUtXwE3OR7ftjUl41Myy2cJQK6P9/SaiSz9jbI8GK17F2BvcyYwgNtPU0ljKOm/tHMLChCQmJkh2oA87kyZZTTbTSanIWFUbQwlzS85hr/nQ0Wuv2SOnXM2lW6KBKpbzJSMQd9kTUjQSkLEnVPfXNkQ1RKnOOy+mxc1z6sAetOVHA==
+ b=gwGUyFRIGogoEeQ+XpALMJBG3+MvX0fyGB/AdF6/cZ3Ig4NSgzB9tDWH5l0FK05Fpy4MG45lr6HK8RIWAde71ynpBtDqIw3hv7chX55TNQ2GfGy0SWvjyLiRfJWC2Or4wKXEAunzeK3i3bwXAhjfVao/i+IPnkK00NlhGzE9RrVbapRXReVnIKT/eI0Ywlh6Q3c1RMVlEeZ116zBhHW07sFWZyYK3b5c8lmhSaE7XLvFQ0QHeCFKGLiwk280ZM/UPnUcrdjgTBmQSrO5xMx1IweDbodR9x/l5qmv7aOgY/895nuw8vwy71ZXMZf8UgeDYiGdn+0nuqNr2UGQv/xgKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cg1cgCdC9WQRnaMh9QyHJwbC1zbdDXeP3IFuMGvFkxw=;
- b=npmq0Ss5SyJ14rCrjpG/v0A6j/SU3yEJrwlcI+XLREhzzceJQHYC+W5jZ9ellgEmhPnSwB2a/HTz/UxHZuTAPS6HmZUyqoMjEQ8oS6wR3ivErRH8YCQFAWRBZjzxsx9Wa1Ni+x5UFeI8BFxH43lEM6QqwOD372QSqf1NLvZUGOl8GZgUmQ20+4BKrYmH8lstg/GhTatUntLkKTI9dk3YE+HBcivrHb+b69odyvQPR2LW17yZRaNQDkPv3e9mMuCTJzdFiUiYNg5DnrgqnzBe6r10AXPa8vPuyRRdTf0wRlw2pl6vi0JY84KLrlG2r4AjZmeZP8yAwiv4dqWDqbNBsw==
+ bh=/2ppJtamQcQhGaj+rIjdDbaPv2sozOQezMluO97WTsk=;
+ b=nbW1DM78Kmt0hvbyrzq8dLBwBRDJy7HGW0oTda91BALUmXuSPiuKtMoofFIYyO1JQcj2Ppumd+gPP03Amo22R7EXoFf/X8AM220C9azE9TzVjPmQ+1UAEgt5OGfK7Nk8mvFOLyWpVhf9QPqEIr6FvtM2voYXKEwBNGZHHbpCClTLZD8l5mUgMC6cWnl+1hVYAo0phWXS49+3sek0kqO60bkO2WyHemZI8rHLQ0bUj69FfXHIS1OkSyEaeU4+DjWbtInzaf4uePHIU/fAlq6avKg7Pz88K7LIycJoCZi5hLARecCwQObylzWQc5Y3jZqw8w+JlJGp0UWgoZcltnrn+g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cg1cgCdC9WQRnaMh9QyHJwbC1zbdDXeP3IFuMGvFkxw=;
- b=OWiN193/G/ALVAk64jMRp+PTQGiBSbfzt4KL2/lq/Hv4McYbijNdGatju4YBJDFctaIS6CwsVgSScNAcMeiR8KrFPfCPBTfsjwsIXOY5mR0vjAgoSkfa3Veopn6rG88bxkNoOF4FLxl+J1b2J3MsImqL+MS9GZW7hd/3HpRRyBk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SA3PR12MB8022.namprd12.prod.outlook.com (2603:10b6:806:307::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Tue, 4 Jul
- 2023 14:51:17 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::384a:95a4:8819:ee84]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::384a:95a4:8819:ee84%7]) with mapi id 15.20.6565.016; Tue, 4 Jul 2023
- 14:51:17 +0000
-Message-ID: <7b55040f-f2d2-372e-cf8a-5ac4a456fdb1@amd.com>
-Date: Tue, 4 Jul 2023 16:51:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amdgpu: avoid integer overflow warning in
- amdgpu_device_resize_fb_bar()
+ bh=/2ppJtamQcQhGaj+rIjdDbaPv2sozOQezMluO97WTsk=;
+ b=RM5MOAiOnDE9Uz1Et9wlCtMJGTgHTrbZxw3B2HwQRVFRg4yZvznzU6/VCWhtLA5wgUrpWKBHYwt/vJX7F6rjS/X4AWsER7r+ulrT1ylxFMZv7ODWgvL6dK0uBki2fmkCoUYAIlp/ixbOASza0xRhMJL5W9Ls1Tpnzglbf60m2sw=
+Received: from CY8PR12MB7435.namprd12.prod.outlook.com (2603:10b6:930:51::6)
+ by SJ0PR12MB6853.namprd12.prod.outlook.com (2603:10b6:a03:47b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Tue, 4 Jul
+ 2023 15:39:48 +0000
+Received: from CY8PR12MB7435.namprd12.prod.outlook.com
+ ([fe80::100e:1d82:bd2a:e05e]) by CY8PR12MB7435.namprd12.prod.outlook.com
+ ([fe80::100e:1d82:bd2a:e05e%3]) with mapi id 15.20.6565.016; Tue, 4 Jul 2023
+ 15:39:48 +0000
+From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
+To: "Huang, JinHuiEric" <JinHuiEric.Huang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/5] drm/amdgpu: add debugger support for GC v9.4.3
+Thread-Topic: [PATCH 1/5] drm/amdgpu: add debugger support for GC v9.4.3
+Thread-Index: AQHZqgbb9qh9O86EjUKHFZXFdfmnDa+pxNiw
+Date: Tue, 4 Jul 2023 15:39:48 +0000
+Message-ID: <CY8PR12MB74353A6E9B7BBEE471AE63D4852EA@CY8PR12MB7435.namprd12.prod.outlook.com>
+References: <20230628212323.248650-1-jinhuieric.huang@amd.com>
+ <20230628212323.248650-2-jinhuieric.huang@amd.com>
+In-Reply-To: <20230628212323.248650-2-jinhuieric.huang@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Arnd Bergmann <arnd@arndb.de>, Arnd Bergmann <arnd@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, Dave Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-References: <20230703123557.3355657-1-arnd@kernel.org>
- <f4bc3739-3ff1-6fa7-5d7d-890f451315bf@amd.com>
- <788147c6-defd-496a-8174-1571b73d1a71@app.fastmail.com>
- <f1b190cb-3af7-178b-baeb-b59363868779@amd.com>
- <9b03246d-b46e-4b91-968a-e9ffc2fc26db@app.fastmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <9b03246d-b46e-4b91-968a-e9ffc2fc26db@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0057.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::17) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SA3PR12MB8022:EE_
-X-MS-Office365-Filtering-Correlation-Id: de471d65-046e-42ed-8603-08db7c9e1ee4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7Bw1IUAFs0kLtk2IbxRANOubmQyWyynnDlM2QOdld3SG3FUUwffrcFgFSzB0uT+ZWbvm22/xzUrjP26slRUSblW0qBeda0JRXwMkh9G6XVAVtIxAXORXsjS0fJChNeiMTk5pjSoWYcuioMzfWtNQSfU2KOFT5tuxx65r8NQLHZWHYWERvIR0OrpKpBvU617Hw6JkneUe2aa+4tNg7GewGtNE0WGjn3J8ljdq2cBZK8M0OL0bcWw80ZmN6/OTOJ0YfNAeOc4W4VIBBdZSuCKoCjWuv3XFuBazpyrO+VPVROlo1af/GoCQs3JgNc6804IFtlMHcTd43TrN5wzPAcdZCq+K6Ne8bMAyw0q3Ewr8qhmFnrrr+R+zrw6JclJIbm+09JETVz+Ig5iTiAWomlNfCtWSKigyQAfZrjgLQ5BjbOkg+pyt7BlRbiYKfSm7L17fEXntoCJ2ilxeZ1Ps5ZEgEpfGaCPkgUsdQLCZfXF+vICVFNYNNL4rrqOMSaCPiC35TFws70wZ01vBCTGyBCrgOLVHtOZ0IJtyKuvd5OymuuH+jdoK1y3HKE/SGJIs+z0MKUMhk3xHn/aggn/eQFxeMS2SCgAMFEuRaVxuBzyIMiPeF6nOlZsd7eb4xPPZ7+ddZFMQ7VN05oEdVcpRimzmQw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(136003)(39860400002)(396003)(366004)(451199021)(31686004)(478600001)(6666004)(6512007)(6506007)(31696002)(86362001)(2616005)(186003)(38100700002)(54906003)(66476007)(66556008)(4326008)(66946007)(66574015)(110136005)(83380400001)(6486002)(316002)(8676002)(8936002)(41300700001)(2906002)(5660300002)(36756003)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=11652586-7c74-4b48-a7c4-41824ae80faa;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-07-04T15:30:31Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7435:EE_|SJ0PR12MB6853:EE_
+x-ms-office365-filtering-correlation-id: c1bdd3f2-658d-4a8b-7ef3-08db7ca4e635
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: wBMF48jLpBjMNJTGx/sFcgrzyNz5QovwMyOekJyGeYLEjq9LwrfQAows2LZnLfik/i80JTo6i4ewBKF0vZ/dqb6o568sxbdnJop+ar8ATCFebR/3l8rG4EnhuCNCPIZ8xixywBQHualbNtDg7LWP7dRNVePU6dy0hq+kCAFEiiifClz0DFze39+YgZmck0AUc7mm+D5IDymgz207do7ZoPOYAdoIFvcUJbfEty8eMWuFlDBlHBfeBIh4fTLFzIXpvBp0xNxvL0azfMErAKalr7eOEmHKTC8OaZxRQSAJxdDt4MBtNQoA8kGdVV3lUoaFWUkl+sLSFChA5lHO0jc81lXHTZhyN5xhdgl3XopFTlwMjMCS4lUQlMxzRre0JFaGbK96DU2h4zZhxV5naF94NnRXPBp4ZBCD/cd5wArrKrxVkIWz4lKoiijx90oqamPWEQj9eHmek+oU0m5nEmbzs8tWHC0D4VZGt6JbwB6Ae1VHHoBQxvHFOeFgSHgqD+sszGDzzViDJXWCZJ7YCasHfTt/JkLSRbsckbA+eiwUL2XR06otkEyaYmK9G6bZcGpkXzfddchDG3pX0iYTAobX/9K/EmYi3Ee9CvLCqx9gAt+gANlXSInbZGDZBkRLC/OK
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(366004)(376002)(136003)(396003)(346002)(451199021)(2906002)(7696005)(71200400001)(55016003)(122000001)(9686003)(86362001)(38100700002)(83380400001)(53546011)(6506007)(30864003)(110136005)(41300700001)(38070700005)(186003)(316002)(66946007)(66556008)(64756008)(66476007)(76116006)(66446008)(33656002)(5660300002)(52536014)(478600001)(8676002)(8936002)(66899021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Sit3ZTdDQndaTUF3KzUvRmtDN2plQzZYY2RRbUxYeVZEQ1VsV3dVVUtKWEpj?=
- =?utf-8?B?ZlI5WXdkWHM5UWdjQ3lRczU4Wjd0RWVKL01YRUJ5Q3dQNkZXcHhjVUp6UmtW?=
- =?utf-8?B?ci9IUEpWaWtnbjJaRGs5RGpSYVpyZDhmS3BuVU9UUDlMa2M3TXBaTTdRVmE1?=
- =?utf-8?B?K2hLb1pRU0h4dzJYanhhbWo1bXpVUlZaV05mTGE5MEhtVERnd2RpOHNKTHJM?=
- =?utf-8?B?TFE5YnJEaXovSU9qMzV3OFErZ2hkazdUNkQ4by9FZ1JoY0xNaEtTbWVhZmtn?=
- =?utf-8?B?NGc2K081Y3BBUWQweTVaODZ0bVRWSTNyRXpkQW5MMmJjc2xNd3ZMM1JMc0d4?=
- =?utf-8?B?UlhiUDZrOVN3V2Z1dzNkeW5YQjZCME9LSnpia2x4MEszMWVick16M3lFUk9j?=
- =?utf-8?B?NlZrek83R2ZXNlRrL00xelRBRU9WTi9udlo1Um1rQ2xud3hDU2NuODFEcG1s?=
- =?utf-8?B?aGtBcU0vQk5kK3c2QkE3cFBIWXNtRU10bytTSm9Od3ZseUNwcm1uK2dTYjNK?=
- =?utf-8?B?ejRGV242MDFrY1pJS3h2dnVLZlcrdlZvS2trMkNQK3ljL3Ezd0xIMTFTNjA0?=
- =?utf-8?B?c1djWUVyT2E1TE5SNVFDQ0pBMzZpQjVFTlNvZEhGbHlSWk9rdWlxRDhBNkdI?=
- =?utf-8?B?NmI4bnJsNFphMjF5UG1QbE5IVlFuS0RTRUFFbTM3RE9aREdtQ0ZZUzFsdUZB?=
- =?utf-8?B?K0NXaU5YV1hhUWo0SFhaTGhHRHFpamwzbFRPSldlbnB1ZnRJODdoSU5BMHhV?=
- =?utf-8?B?RWEvbVNKWHgwL0dmelpMZmt4UldHQjBEeHpMWkh1QnNwRmJLVGg4bEorTE5i?=
- =?utf-8?B?L3JZOEJzSWdYMEtuY05sUURjbXl6Z0Z2VGlCWVRabmZKbDZDYXJIUXA3azA5?=
- =?utf-8?B?cmtjOWx6L1QrTGxJQmtnMXVWejB2aGx6bnYzcVloMmJtTlh5L0xScHhHdERP?=
- =?utf-8?B?R3ZJRzVLTXg3V055dStrOXBSeTZtcnRadjd0cVNFaWtOZjQvcUh3VklXeWlD?=
- =?utf-8?B?d2ZTUUxuajNHVzRNdFU0d1pTUDdrcWtxWFNRUGpkRy8vRFJwdWxMVkwwNzBR?=
- =?utf-8?B?dU5VK0Y0M0R2Tmhnc1Jkb3ZhdDBpck10eHZhQWJuNWJ4bFlFZzdZbFExWk5z?=
- =?utf-8?B?NzRyb0JoU3ZXZGlvNzBCRWhGWG00RmE5b0hUNG1iRGFJMlRac2ZSbWJuYkxp?=
- =?utf-8?B?SzJ2MzhuTHNCZFpIMjRzV1Z2cE92aGY4aE1hMVNBK3lFdzNkN3NobEdQTDNE?=
- =?utf-8?B?T285OWFBTlN2bUVwSTd1enh0K2EwMzlNb2MweS91WUpYelBCdVIzMGh5Z1Jq?=
- =?utf-8?B?SVBqVElDeWlVdnJzQi9XSmgvbE1MN0tHL3JSZFVZNC9peC9SaTVERzMwVXVh?=
- =?utf-8?B?UUVCZWQ0SUdlVlYzaTM3aHlQRE96Qjc1RlNLc0Y1bmptUUdBOHltZTRCaDgy?=
- =?utf-8?B?K3dhWXlVaERrTGsycUsvT05xZTFHMXplWVY0TWhXVjNyNG9rQittWjBPTEZ6?=
- =?utf-8?B?UEEzcGpFR3VLaDNVY1ppR0xsZEJSTVEyMVpRTHRzaDR0cVZ6aEZseG51cXU0?=
- =?utf-8?B?OVoxRjI1dkhVYjEvbmVZMzdONXliSXVlUnViVTVFY3FuN1lnNWNicktoOHQv?=
- =?utf-8?B?UEhXZGl5ZjQyNDlscVZ6R1lOL1M1TWNxaVkrK3RONFlVbjhpelVtMCtKZCtF?=
- =?utf-8?B?dm81SDJTMm5HSXNoTUcxdkNwc3FsVTNXQ2lsL0RFVktDRG1FKzFkTUxGaTRa?=
- =?utf-8?B?NVM3anFCMXFZbUowbkdmQS9vaEdPNjBlT2tCSTRSWVNQUHdBY1Y4enM5WjNs?=
- =?utf-8?B?RGQ1M1NSaEE5dnZ3eWxxbnNMbDBuTFpyTklmTVJxV3AxZVNzWEQzWkp0OXRh?=
- =?utf-8?B?aEM2SEMvRVozcUMrSlNCQTlMZmpHcENCVWRvcWV4Y0ZHREFobndXQnFYaFd2?=
- =?utf-8?B?UUZEbm9lNGpaejY0NU84T08rZHYraXd0SGFwaWhINkhlUXlsQ0JFN2FwSmdx?=
- =?utf-8?B?eXZMMjQ1QnFvTzdnN3VqbnZtVjJta0FrZVdYM1F6a1F6QVp6T2xNa1lmZHFJ?=
- =?utf-8?B?MUs0Z1dMQ1VtMEgrTU91Ly8rWFg1MFRPMXpTTnVhenQ3N2hOUGJodDZia0Q5?=
- =?utf-8?B?ZkxhZ01PTnAyak10ZGJEYWRicU1NZHJuM2tRK3pycDEvM0lOV0VyQ21jdTVl?=
- =?utf-8?Q?umFMpI3ZykCk9K7WzxYMMbbzzrvpHNNtfqVsU9BJVmYz?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?S9JiWSjGGszBlqon9kYJGlokUGWl8hwqu+F/US9z6ihsVlWs7EMdX2PdmOVN?=
+ =?us-ascii?Q?eyvyi8GILOdLt9joZLNsVKbz4FiAuHhZPdws0C2D2R/Flfd4vK8Xf9XxkKXG?=
+ =?us-ascii?Q?yJPdj2UtmK/C51Vnxarp7spgz/vaFYh41qXuGxzlXhegozkcOSWIfs97FxgW?=
+ =?us-ascii?Q?lsK0FsNEIIzgWdHBpcbPi5Tpza1gejlzyUR9jYMqBc5IwJsz2djXpKtrdNmQ?=
+ =?us-ascii?Q?0TID2egfOZ0W1ddkIIe4ZyRh8vwdVnzzTsI2Nyp8GqSqeF9clUqIHFB7E4v1?=
+ =?us-ascii?Q?L22lj9SMGygHnSVSbxev1N50srTk6Lud8CJ3Y7Ig3ptDvoxAJDIkWCtoUglC?=
+ =?us-ascii?Q?fGBFfW3yESnn0roppcT8jJ9hqWZy4BzSxFbVt8pntLzvDAdJSrnJOFAb2gc+?=
+ =?us-ascii?Q?YtIY1EadGhNLndJQe3/13IbuxeZw8xTlr47lY8IyEg52Bizo3v9h8Vo8i5Q4?=
+ =?us-ascii?Q?eTxm2D+w2jiL6cLeQeMRldxSY/dW2ju58m2km7SkoN5kM6y0T7sqSZeX9G/X?=
+ =?us-ascii?Q?+cbvMa6BxnCTKSYY0+hpkmANqjtJ+Gwe0Kl01fenfOCivqPG0V2GhAYfVqim?=
+ =?us-ascii?Q?ugivi4uEVdmkcVE0h6IBBHn0Njj7EU2wVNgwq9MSY+UjAKQoYMwZ8ODZAlCv?=
+ =?us-ascii?Q?TMZLXkyJWwvwsfWrkP1WkdEmA9gyZIiL5RqenAXbcGujxAHT1mHDW9IhcHVo?=
+ =?us-ascii?Q?TLlxS/bzL2VOLIQuffsmfYNdyMKWrhkQ5Bm+1wpaccoNYC0LXuVb4POlqQBI?=
+ =?us-ascii?Q?9Rc/5+ZIbj2QvNcLiTJ0G3m+4PDrNx7ysZ4XfDCpzCZA/GcksJXGYysb1XXP?=
+ =?us-ascii?Q?NchkxmCn+eJJd1sI5AdrAuDbvtnRFpohWB8EMj8GzPtcDX7aVRNGdxVxjchS?=
+ =?us-ascii?Q?lWJNPwh7edtOmTcxPtAineo+xRMUOGO1kmITZac1XWgEFUiJujjtywtupB3U?=
+ =?us-ascii?Q?S5jcw5rNMrSvZgzCzvSaFOV+xTG+b7KmMi0dWgQsrmaxa32qdJji7pFFy0Uw?=
+ =?us-ascii?Q?gwT2WZxyBjsqWBWOCPb66/w1/08PYXm6rIQihSdQTgPgauzj9+RaK5Czq/b8?=
+ =?us-ascii?Q?5KkSk2KeqR03Ng8CZlJxbDzLpkI0zCVKICLT8XyRh2muoltSsek0Jh/l67s/?=
+ =?us-ascii?Q?6QantauUhRR4LOHdwq8D3Lvo1WighG3LkhuyWf08pV4sAMFizmep19t1BaCx?=
+ =?us-ascii?Q?m/nbwRx0YvNdG5YdNloa8psNaTPGt74sxNHK/yTU0iaWin6s6eKSnyCH+I5p?=
+ =?us-ascii?Q?j+d+sCBZTmEnnmumfe8nwC/oZwH5nmrFIXXzm3REO5ZcjR47lhMvq6J7lltk?=
+ =?us-ascii?Q?blHrpRa0z55TE1fRsYJc/kIFAaltluflmrjcIB1qEsHW+jP0q1lL+Xj55JIw?=
+ =?us-ascii?Q?aEF3MYvBNCt7YQ5EUFUdM2hiCoX+c8lp7kvDiJISXzKQRE1FuHbI6WftbRkp?=
+ =?us-ascii?Q?s2rgGjMfZTEZGHZrF5TC0lOpLZY7MP8SMfSwMFifWMt33oyCO30P5/ciT5N5?=
+ =?us-ascii?Q?v9G5rGYffZOwlUrssghRodJ3t4yngJld7lPuZYO5j60NouAjDM1v9jJX3K4g?=
+ =?us-ascii?Q?rfud0ogKPg86iurDsmdpDCYm85sKolt/uBbhj1JaEvHP6AS1/PCClF4DwqD5?=
+ =?us-ascii?Q?YUkA+/dFqmfTkPntu05kN1c=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de471d65-046e-42ed-8603-08db7c9e1ee4
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2023 14:51:16.9325 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PpaPvPofPZLFVLf/0LP9BNpD/QVBj2Vx6wDT5MbbWF3VtkJctbVv76Zfm0Y3yUD0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8022
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7435.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1bdd3f2-658d-4a8b-7ef3-08db7ca4e635
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jul 2023 15:39:48.1521 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MlSVhl1tREDRqUexSApcwpTjR7nck3CGaNwDg+SDZ6sv8c9wFsIYpVc44KJCX8//
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6853
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,87 +125,351 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Bokun Zhang <Bokun.Zhang@amd.com>, dri-devel@lists.freedesktop.org,
- Lijo Lazar <lijo.lazar@amd.com>, linux-kernel@vger.kernel.org,
- Shiwu Zhang <shiwu.zhang@amd.com>, Le Ma <le.ma@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 04.07.23 um 16:31 schrieb Arnd Bergmann:
-> On Tue, Jul 4, 2023, at 14:33, Christian König wrote:
->> Am 04.07.23 um 14:24 schrieb Arnd Bergmann:
->>> On Tue, Jul 4, 2023, at 08:54, Christian König wrote:
->>>> Am 03.07.23 um 14:35 schrieb Arnd Bergmann:
->>> Not sure I understand the specific requirement. Do you mean the entire
->>> amdgpu driver requires 64-bit BAR addressing, or just the bits that
->>> resize the BARs?
->> Well a bit of both.
->>
->> Modern AMD GPUs have 16GiB of local memory (VRAM), making those
->> accessible to a CPU which can only handle 32bit addresses by resizing
->> the BAR is impossible to begin with.
->>
->> But going a step further even without resizing it is pretty hard to get
->> that hardware working on such an architecture.
-> I'd still like to understand this part better, as we have a lot of
-> arm64 chips with somewhat flawed PCIe implementations, often with
-> a tiny 64-bit memory space, but otherwise probably capable of
-> using a GPU.
+[Public]
 
-Yeah, those are unfortunately very well known to us :(
+> -----Original Message-----
+> From: Huang, JinHuiEric <JinHuiEric.Huang@amd.com>
+> Sent: Wednesday, June 28, 2023 5:23 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Kim, Jonathan <Jonathan.Kim@amd.com>; Kim, Jonathan
+> <Jonathan.Kim@amd.com>; Huang, JinHuiEric <JinHuiEric.Huang@amd.com>
+> Subject: [PATCH 1/5] drm/amdgpu: add debugger support for GC v9.4.3
 
-> What exactly do you expect to happen here?
->
-> a) Use only part of the VRAM but otherwise work as expected
-> b) Access all of the VRAM, but at a performance cost for
->     bank switching?
-
-We have tons of x86 systems where we can't resize the BAR (because of 
-lack of BIOS setup of the root PCIe windows). So bank switching is still 
-perfectly supported.
-
-> c) Require kernel changes to make a) or b) work, otherwise
->     fail to load
-> d) have no chance of working even with driver changes
-
-Yeah, that is usually what happens on those arm64 system with flawed 
-PCIe implementations.
-
-The problem is not even BAR resize, basically we already had tons of 
-customers which came to us and complained that amdgpu doesn't load or 
-crashes the system after a few seconds.
-
-After investigating (which sometimes even includes involving engineers 
-from ARM) we usually find that those boards doesn't even remotely comply 
-to the PCIe specification, both regarding power as well as functional 
-things like DMA coherency.
-
-Regards,
-Christian.
+This patch doesn't add support but defines the KGD callbacks required for s=
+upport.
 
 >
->>>> It might be cleaner to just not build the whole driver on such systems
->>>> or at least leave out this function.
->>> How about this version? This also addresses the build failure, but
->>> I don't know if this makes any sense:
->>>
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> @@ -1325,6 +1325,9 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
->>>           u16 cmd;
->>>           int r;
->>>    
->>> +       if (!IS_ENABLED(CONFIG_PHYS_ADDR_T_64BIT))
->>> +               return 0;
->>> +
->> Yes, if that suppresses the warning as well then that makes perfect
->> sense to me.
-> Ok, I'll send that as a v2 then.
+> From: Jonathan Kim <jonathan.kim@amd.com>
 >
->      Arnd
+> Implement the similarities as GC v9.4.2, and the difference
+> for GC v9.4.3 HW spec.
+>
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+> ---
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  |   7 +-
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h  |  30 ++++
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c   | 146
+> +++++++++++++++++-
+>  3 files changed, 179 insertions(+), 4 deletions(-)
+>  create mode 100644
+> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> index 60f9e027fb66..f3f7e0437447 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+> @@ -23,6 +23,7 @@
+>  #include "amdgpu_amdkfd.h"
+>  #include "amdgpu_amdkfd_arcturus.h"
+>  #include "amdgpu_amdkfd_gfx_v9.h"
+> +#include "amdgpu_amdkfd_aldebaran.h"
+>  #include "gc/gc_9_4_2_offset.h"
+>  #include "gc/gc_9_4_2_sh_mask.h"
+>  #include <uapi/linux/kfd_ioctl.h>
+> @@ -36,7 +37,7 @@
+>   * initialize the debug mode registers after it has disabled GFX off dur=
+ing the
+>   * debug session.
+>   */
+> -static uint32_t kgd_aldebaran_enable_debug_trap(struct amdgpu_device
+> *adev,
+> +uint32_t kgd_aldebaran_enable_debug_trap(struct amdgpu_device *adev,
+>                                           bool restore_dbg_registers,
+>                                           uint32_t vmid)
+>  {
+> @@ -50,7 +51,7 @@ static uint32_t
+> kgd_aldebaran_enable_debug_trap(struct amdgpu_device *adev,
+>  }
+>
+>  /* returns TRAP_EN, EXCP_EN and EXCP_REPLACE. */
+> -static uint32_t kgd_aldebaran_disable_debug_trap(struct amdgpu_device
+> *adev,
+> +uint32_t kgd_aldebaran_disable_debug_trap(struct amdgpu_device *adev,
+>                                               bool keep_trap_enabled,
+>                                               uint32_t vmid)
+>  {
+> @@ -107,7 +108,7 @@ static uint32_t
+> kgd_aldebaran_set_wave_launch_trap_override(struct amdgpu_device
+>       return data;
+>  }
+>
+> -static uint32_t kgd_aldebaran_set_wave_launch_mode(struct
+> amdgpu_device *adev,
+> +uint32_t kgd_aldebaran_set_wave_launch_mode(struct amdgpu_device
+> *adev,
+>                                       uint8_t wave_launch_mode,
+>                                       uint32_t vmid)
+>  {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h
+> new file mode 100644
+> index 000000000000..5f776ede295e
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h
+> @@ -0,0 +1,30 @@
+> +/*
+> + * Copyright 2021 Advanced Micro Devices, Inc.
+
+Should be dated 2023.
+
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> + * copy of this software and associated documentation files (the "Softwa=
+re"),
+> + * to deal in the Software without restriction, including without limita=
+tion
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be includ=
+ed
+> in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+> EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+> MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
+> EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
+> DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+> OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+> USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + */
+> +uint32_t kgd_aldebaran_enable_debug_trap(struct amdgpu_device *adev,
+> +                                     bool restore_dbg_registers,
+> +                                     uint32_t vmid);
+> +uint32_t kgd_aldebaran_disable_debug_trap(struct amdgpu_device *adev,
+> +                                     bool keep_trap_enabled,
+> +                                     uint32_t vmid);
+> +uint32_t kgd_aldebaran_set_wave_launch_mode(struct amdgpu_device
+> *adev,
+> +                                     uint8_t wave_launch_mode,
+> +                                     uint32_t vmid);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+> index 5b4b7f8b92a5..7aab8dcf46e1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+> @@ -22,6 +22,7 @@
+>  #include "amdgpu.h"
+>  #include "amdgpu_amdkfd.h"
+>  #include "amdgpu_amdkfd_gfx_v9.h"
+> +#include "amdgpu_amdkfd_aldebaran.h"
+>  #include "gc/gc_9_4_3_offset.h"
+>  #include "gc/gc_9_4_3_sh_mask.h"
+>  #include "athub/athub_1_8_0_offset.h"
+> @@ -32,6 +33,7 @@
+>  #include "soc15.h"
+>  #include "sdma/sdma_4_4_2_offset.h"
+>  #include "sdma/sdma_4_4_2_sh_mask.h"
+> +#include <uapi/linux/kfd_ioctl.h>
+>
+>  static inline struct v9_sdma_mqd *get_sdma_mqd(void *mqd)
+>  {
+> @@ -361,6 +363,139 @@ static int kgd_gfx_v9_4_3_hqd_load(struct
+> amdgpu_device *adev, void *mqd,
+>       return 0;
+>  }
+>
+> +static int kgd_gfx_v9_4_3_validate_trap_override_request(
+> +                             struct amdgpu_device *adev,
+> +                             uint32_t trap_override,
+> +                             uint32_t *trap_mask_supported)
+> +{
+> +     *trap_mask_supported &=3D KFD_DBG_TRAP_MASK_FP_INVALID |
+> +                             KFD_DBG_TRAP_MASK_FP_INPUT_DENORMAL |
+> +                             KFD_DBG_TRAP_MASK_FP_DIVIDE_BY_ZERO |
+> +                             KFD_DBG_TRAP_MASK_FP_OVERFLOW |
+> +                             KFD_DBG_TRAP_MASK_FP_UNDERFLOW |
+> +                             KFD_DBG_TRAP_MASK_FP_INEXACT |
+> +                             KFD_DBG_TRAP_MASK_INT_DIVIDE_BY_ZERO |
+> +                             KFD_DBG_TRAP_MASK_DBG_ADDRESS_WATCH |
+> +                             KFD_DBG_TRAP_MASK_DBG_MEMORY_VIOLATION |
+> +                             KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_START |
+> +                             KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_END;
+> +
+> +     if (trap_override !=3D KFD_DBG_TRAP_OVERRIDE_OR &&
+> +                     trap_override !=3D
+> KFD_DBG_TRAP_OVERRIDE_REPLACE)
+> +             return -EPERM;
+> +
+> +     return 0;
+> +}
+> +
+> +static uint32_t trap_mask_map_sw_to_hw(uint32_t mask)
+> +{
+> +     uint32_t trap_on_start =3D (mask &
+> KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_START) ? 1 : 0;
+> +     uint32_t trap_on_end =3D (mask &
+> KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_END) ? 1 : 0;
+> +     uint32_t excp_en =3D mask & (KFD_DBG_TRAP_MASK_FP_INVALID |
+> +
+>       KFD_DBG_TRAP_MASK_FP_INPUT_DENORMAL |
+> +                             KFD_DBG_TRAP_MASK_FP_DIVIDE_BY_ZERO |
+> +                             KFD_DBG_TRAP_MASK_FP_OVERFLOW |
+> +                             KFD_DBG_TRAP_MASK_FP_UNDERFLOW |
+> +                             KFD_DBG_TRAP_MASK_FP_INEXACT |
+> +                             KFD_DBG_TRAP_MASK_INT_DIVIDE_BY_ZERO
+> |
+> +
+>       KFD_DBG_TRAP_MASK_DBG_ADDRESS_WATCH |
+> +
+>       KFD_DBG_TRAP_MASK_DBG_MEMORY_VIOLATION);
+> +     uint32_t ret;
+> +
+> +     ret =3D REG_SET_FIELD(0, SPI_GDBG_PER_VMID_CNTL, EXCP_EN,
+> excp_en);
+> +     ret =3D REG_SET_FIELD(ret, SPI_GDBG_PER_VMID_CNTL,
+> TRAP_ON_START, trap_on_start);
+> +     ret =3D REG_SET_FIELD(ret, SPI_GDBG_PER_VMID_CNTL,
+> TRAP_ON_END, trap_on_end);
+> +
+> +     return ret;
+> +}
+> +
+> +static uint32_t trap_mask_map_hw_to_sw(uint32_t mask)
+> +{
+> +     uint32_t ret =3D REG_GET_FIELD(mask, SPI_GDBG_PER_VMID_CNTL,
+> EXCP_EN);
+> +
+> +     if (REG_GET_FIELD(mask, SPI_GDBG_PER_VMID_CNTL,
+> TRAP_ON_START))
+> +             ret |=3D KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_START;
+> +
+> +     if (REG_GET_FIELD(mask, SPI_GDBG_PER_VMID_CNTL,
+> TRAP_ON_END))
+> +             ret |=3D KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_END;
+> +
+> +     return ret;
+> +}
+> +
+> +/* returns TRAP_EN, EXCP_EN and EXCP_RPLACE. */
+
+Typo.  EXCP_RPLACE should be EXCP_REPLACE.
+
+> +static uint32_t kgd_gfx_v9_4_3_set_wave_launch_trap_override(
+> +                             struct amdgpu_device *adev,
+> +                             uint32_t vmid,
+> +                             uint32_t trap_override,
+> +                             uint32_t trap_mask_bits,
+> +                             uint32_t trap_mask_request,
+> +                             uint32_t *trap_mask_prev,
+> +                             uint32_t kfd_dbg_trap_cntl_prev)
+> +
+> +{
+> +     uint32_t data =3D 0;
+> +
+> +     *trap_mask_prev =3D
+> trap_mask_map_hw_to_sw(kfd_dbg_trap_cntl_prev);
+> +
+> +     data =3D (trap_mask_bits & trap_mask_request) |
+> +            (*trap_mask_prev & ~trap_mask_request);
+> +     data =3D trap_mask_map_sw_to_hw(data);
+> +
+> +     data =3D REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, TRAP_EN,
+> 1);
+> +     data =3D REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL,
+> EXCP_REPLACE, trap_override);
+> +
+> +     return data;
+> +}
+> +
+> +#define TCP_WATCH_STRIDE (regTCP_WATCH1_ADDR_H -
+> regTCP_WATCH0_ADDR_H)
+> +static uint32_t kgd_gfx_v9_4_3_set_address_watch(
+> +                             struct amdgpu_device *adev,
+> +                             uint64_t watch_address,
+> +                             uint32_t watch_address_mask,
+> +                             uint32_t watch_id,
+> +                             uint32_t watch_mode,
+> +                             uint32_t debug_vmid)
+> +{
+> +     uint32_t watch_address_high;
+> +     uint32_t watch_address_low;
+> +     uint32_t watch_address_cntl;
+> +
+> +     watch_address_cntl =3D 0;
+> +     watch_address_low =3D lower_32_bits(watch_address);
+> +     watch_address_high =3D upper_32_bits(watch_address) & 0xffff;
+> +
+> +     watch_address_cntl =3D REG_SET_FIELD(watch_address_cntl,
+> +                     TCP_WATCH0_CNTL,
+> +                     MODE,
+> +                     watch_mode);
+> +
+> +     watch_address_cntl =3D REG_SET_FIELD(watch_address_cntl,
+> +                     TCP_WATCH0_CNTL,
+> +                     MASK,
+> +                     watch_address_mask >> 7);
+> +
+> +     watch_address_cntl =3D REG_SET_FIELD(watch_address_cntl,
+> +                     TCP_WATCH0_CNTL,
+> +                     VALID,
+> +                     1);
+> +
+> +     WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_H)
+> +
+> +                     (watch_id * TCP_WATCH_STRIDE)),
+> +                     watch_address_high);
+> +
+> +     WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_L)
+> +
+> +                     (watch_id * TCP_WATCH_STRIDE)),
+> +                     watch_address_low);
+> +
+> +     return watch_address_cntl;
+> +}
+> +
+> +static uint32_t kgd_gfx_v9_4_3_clear_address_watch(struct amdgpu_device
+> *adev,
+> +                             uint32_t watch_id)
+> +{
+> +     return 0;
+> +}
+> +
+>  const struct kfd2kgd_calls gc_9_4_3_kfd2kgd =3D {
+>       .program_sh_mem_settings =3D
+> kgd_gfx_v9_program_sh_mem_settings,
+>       .set_pasid_vmid_mapping =3D
+> kgd_gfx_v9_4_3_set_pasid_vmid_mapping,
+> @@ -380,5 +515,14 @@ const struct kfd2kgd_calls gc_9_4_3_kfd2kgd =3D {
+>       .set_vm_context_page_table_base =3D
+>
+>       kgd_gfx_v9_set_vm_context_page_table_base,
+>       .program_trap_handler_settings =3D
+> -                             kgd_gfx_v9_program_trap_handler_settings
+> +                             kgd_gfx_v9_program_trap_handler_settings,
+
+What happened to setting up the custom grace period?
+That should still be a requirement for the debugger.
+
+Thanks,
+
+Jon
+
+> +     .enable_debug_trap =3D kgd_aldebaran_enable_debug_trap,
+> +     .disable_debug_trap =3D kgd_aldebaran_disable_debug_trap,
+> +     .validate_trap_override_request =3D
+> +                     kgd_gfx_v9_4_3_validate_trap_override_request,
+> +     .set_wave_launch_trap_override =3D
+> +                     kgd_gfx_v9_4_3_set_wave_launch_trap_override,
+> +     .set_wave_launch_mode =3D kgd_aldebaran_set_wave_launch_mode,
+> +     .set_address_watch =3D kgd_gfx_v9_4_3_set_address_watch,
+> +     .clear_address_watch =3D kgd_gfx_v9_4_3_clear_address_watch
+>  };
+> --
+> 2.34.1
 
