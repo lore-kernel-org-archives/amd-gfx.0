@@ -4,59 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C67D0EB64DA
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 16:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9812FEB64DA
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 16:53:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5362C10E3AD;
-	Wed,  5 Jul 2023 16:09:02 +0000 (UTC)
-Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
- [209.85.219.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E79110E16D;
- Wed,  5 Jul 2023 16:00:50 +0000 (UTC)
-Received: by mail-yb1-f173.google.com with SMTP id
- 3f1490d57ef6-c4cb4919bb9so4799451276.3; 
- Wed, 05 Jul 2023 09:00:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688572849; x=1691164849;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=U4k16nrtVTp0StmZm35Nhjlm8cLixxMolvWHEm3DX98=;
- b=Ml4FQQfqLSZjCILF8T3IwT0cChbWoQekRexsfMLImAIgFv+/z17QECJVT4aEWVVu5r
- by8ts5HgBHKk0ivvxfzsdK/cdiKijipRbTntc3svXBNgZ621brlGQqcrBtmumtxWBoGF
- kFs4C2a5sqdxHoDdSz66dEizOQBXi7nqaE8kG21HBj9UNvx01kSXjkkyAUlFJ2g79tpG
- RAhad021XLoeRb0pSxA1DtuFZWAlX+vzbM3meGadmdZJzsliTOR3tFuNwVtj95YGWRHq
- 8vJrvX+tprXsPtPm1VV/7Z2wGYQNTSAXRzMc5YEPQ+/gcORbsEjWYaH5ccvuvANyoV40
- rDBw==
-X-Gm-Message-State: ABy/qLaavzzbHXH59lSRdE3g7X24TaBS2z5BXj8TfmwW9JUWa4voyLen
- uMTdtItCDCKLDltZBVA5XW912yXztbosBQ==
-X-Google-Smtp-Source: APBJJlGKKew7uZVjpDRiHqS0NVIFwjcRj3OrlbB//x/++2joJOfca/IC85XIqhAT16XP3SGdvsywyw==
-X-Received: by 2002:a25:4143:0:b0:c60:3b9a:5281 with SMTP id
- o64-20020a254143000000b00c603b9a5281mr3497516yba.32.1688572848809; 
- Wed, 05 Jul 2023 09:00:48 -0700 (PDT)
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com.
- [209.85.128.169]) by smtp.gmail.com with ESMTPSA id
- i1-20020a25b201000000b00c4788bfe468sm2365826ybj.1.2023.07.05.09.00.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Jul 2023 09:00:48 -0700 (PDT)
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-5700b15c12fso83093107b3.1; 
- Wed, 05 Jul 2023 09:00:48 -0700 (PDT)
-X-Received: by 2002:a25:e042:0:b0:bd0:8e5:d548 with SMTP id
- x63-20020a25e042000000b00bd008e5d548mr15284471ybg.39.1688572848445; Wed, 05
- Jul 2023 09:00:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ACBC10E0BE;
+	Wed,  5 Jul 2023 16:53:18 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5430910E0BE
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Jul 2023 16:53:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UzEwEwDXkRRGRbNrTxh7vtdqaAWwmkjFH7akVQk6v5/cq+iRUCog9E8zKop7r0+LFI59IBP7JVDVr3FXTUw6E/jKGOhvJRA3zJ8XoOKNL5z4MajlSQ4Gk2p8bKFFTTtQ0ZVgDPGpgDUiE/JcWzCZLbUxddBpYVNoHGLpnhXN7No/H6DHkv5Nquaguw7u4ODrQBlAhGUtadbFgVALzIVC7yocYjQWQRxSjj1SylVFrzE3lNeq/1d+4o3ljRCV3K4BLcwi8EtyYqGF9kpJOgA91r11USmLcK8uXn1whl4FKs+R8jLx5v/u6o7V6NCWKmje8YLS/76rIW0lT+hUgPdp6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=txjuudYTWLCBH0N+5DlzEMRwt+7d/vN+18JgWDKvw7Q=;
+ b=nKtvXWm1qdxbJ6zYes0vq7ETDvxqCTPvY9l8Kn1f/MPD93O01VPt2Qw94zp1sy8SJWWokVSyvoh8mtGw+TEfRaCC33I0oi1jU/RSatQNZCK0HnNKt51CEiEP29Zq1r8AW3ZS/vzyKPucPhwScS5yYEjmDlLb21LWDyC8o5aMaofrrHtBDuX4hvpIb9ml/R+kt7OFr1eL3vBamhk61dThgNGUAvVORTEpNhVL4Br/bffx9uSFp9mCHQK+k/GZOJPgJIrDkit3eya6BcIxuffuhIiLfbyYFKlmoEDUCYKhDCQmWSBNBgWAUlOSyZl/+Zd3Mp92tniYqrp6wMUCJm3Z8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=txjuudYTWLCBH0N+5DlzEMRwt+7d/vN+18JgWDKvw7Q=;
+ b=XqXy79tvC8+fx+ECdnJwnER1pcdrMlYvc4DKvqLVPQhmmn718chwSEUDceB7u9OK2Ae9xvSA2V0Zr29xjoCf1RTVYepcaVOgfxrvGjzCS9F6yHj4sJ5g1Alc6Pj4JiggSysS3ClQRQl4aqAI7DJrAZB2iF3xdbAx/BDKwxY69jk=
+Received: from DM6PR21CA0023.namprd21.prod.outlook.com (2603:10b6:5:174::33)
+ by SN7PR12MB8818.namprd12.prod.outlook.com (2603:10b6:806:34b::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Wed, 5 Jul
+ 2023 16:53:13 +0000
+Received: from DM6NAM11FT096.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:174:cafe::69) by DM6PR21CA0023.outlook.office365.com
+ (2603:10b6:5:174::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.11 via Frontend
+ Transport; Wed, 5 Jul 2023 16:53:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT096.mail.protection.outlook.com (10.13.173.145) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6521.45 via Frontend Transport; Wed, 5 Jul 2023 16:53:13 +0000
+Received: from SITE-L-T34-2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 5 Jul
+ 2023 11:53:11 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd: Avoid running psp_ras_initialize() on HW without RAS
+Date: Wed, 5 Jul 2023 11:52:49 -0500
+Message-ID: <20230705165249.2058-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <e77836236dfb6724aa95a8c2305a2d63762367be.1688570228.git.geert+renesas@glider.be>
-In-Reply-To: <e77836236dfb6724aa95a8c2305a2d63762367be.1688570228.git.geert+renesas@glider.be>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 5 Jul 2023 18:00:36 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVWy4h+rCBXSwONDs7KxRY7gEx8gLNk7eXtCRDEw1piEQ@mail.gmail.com>
-Message-ID: <CAMuHMdVWy4h+rCBXSwONDs7KxRY7gEx8gLNk7eXtCRDEw1piEQ@mail.gmail.com>
-Subject: Re: [PATCH libdrm] amdgpu: Use %ll to format 64-bit integers
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 05 Jul 2023 16:08:58 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT096:EE_|SN7PR12MB8818:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0df3b278-8e37-4fb2-d147-08db7d78523e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: HIAXKFtnSkyU4HpWxXz0aRC5cqB1ESbz9ut9a3NKPoh3YZj9Mnx/fBo0DvhXHg07vBEx9rPVYjieEAwXN8qQtZS23qynZISd+f3dHzBBBANbkbkuofmzNIEl1XHhmlRmLVaUCUihpIHo/rCN16RDq6Yg8Its9wmQwiJ2iR8lPv1IWWCG/1lMNz8ZtGwwhWAzGWVDal1cBPzjVhzxFzih7d1IBDV5fQk40Vaq+NwVPj5cNqP0u57L7liK3p9tlt2RJGmeh1Et2vBGBBICidYPg/lLocxE9kk10ngSy7IpmEmEUxEZVMDoeXKcXDOFmuYfGyW6YA7KbwYgqQgAG6DJHbyYtV1y1LDb7/qup+PIXha/MWftCvBVHbVQeu08PW9Waeb4vrragOPtBfnsbLpQS1zC0ui8pj+1n8tDtOxv0ebYzjAKnQDWebpb9Eq0dPIdmMRxLlOoYWXJ680EMD6mPRhAaz+lNzmzE3irjpWBTkGGTsXO2NdveZkGvoU5agt5TB9BYT8JzU/FhIMdYhOobe4bkeYFuabeXVR6cTUH8aIUQ8+6PQDqw8kdJpbh8WpZeHgCC+97018xCuJckfege5BooneB97Szeehk0HMvaEFtsBDbnkmYwq2yByjJjONo+33ZvDqBf3i3lzji2HWwLdTKCET7XOaEJukPeeQAu2IAkP1kM0M0MiQUOkR1Dj6/7W4b3y3iBO3/E0aYeExOm+8ZN/qbOP0htnrlzzzGpkn/Dj2/LtBPfYsAr5zFKj8e0cXSsjl3a+p/0PUoSdYi0ROY5Sy0PtPVxWAJrkl3sTM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(396003)(346002)(39860400002)(376002)(451199021)(36840700001)(46966006)(40470700004)(186003)(44832011)(70206006)(4326008)(6916009)(70586007)(316002)(478600001)(36756003)(8936002)(8676002)(5660300002)(2906002)(86362001)(40460700003)(336012)(41300700001)(40480700001)(36860700001)(966005)(7696005)(6666004)(82310400005)(26005)(426003)(2616005)(16526019)(1076003)(47076005)(83380400001)(82740400003)(81166007)(356005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2023 16:53:13.1671 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0df3b278-8e37-4fb2-d147-08db7d78523e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT096.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8818
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,173 +97,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org
+Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 5, 2023 at 5:17=E2=80=AFPM Geert Uytterhoeven
-<geert+renesas@glider.be> wrote:
->
-> On 32-bit:
->
->     ../tests/amdgpu/amdgpu_stress.c: In function =E2=80=98alloc_bo=E2=80=
-=99:
->     ../tests/amdgpu/amdgpu_stress.c:178:49: warning: format =E2=80=98%lx=
-=E2=80=99 expects argument of type =E2=80=98long unsigned int=E2=80=99, but=
- argument 4 has type =E2=80=98uint64_t=E2=80=99 {aka =E2=80=98long long uns=
-igned int=E2=80=99} [-Wformat=3D]
->       fprintf(stdout, "Allocated BO number %u at 0x%lx, domain 0x%x, size=
- %lu\n",
->                                                    ~~^
->                                                    %llx
->        num_buffers++, addr, domain, size);
->                       ~~~~
->     ../tests/amdgpu/amdgpu_stress.c:178:72: warning: format =E2=80=98%lu=
-=E2=80=99 expects argument of type =E2=80=98long unsigned int=E2=80=99, but=
- argument 6 has type =E2=80=98uint64_t=E2=80=99 {aka =E2=80=98long long uns=
-igned int=E2=80=99} [-Wformat=3D]
->       fprintf(stdout, "Allocated BO number %u at 0x%lx, domain 0x%x, size=
- %lu\n",
->                                                                          =
- ~~^
->                                                                          =
- %llu
->        num_buffers++, addr, domain, size);
->                                     ~~~~
->     ../tests/amdgpu/amdgpu_stress.c: In function =E2=80=98submit_ib=E2=80=
-=99:
->     ../tests/amdgpu/amdgpu_stress.c:276:54: warning: format =E2=80=98%lx=
-=E2=80=99 expects argument of type =E2=80=98long unsigned int=E2=80=99, but=
- argument 5 has type =E2=80=98uint64_t=E2=80=99 {aka =E2=80=98long long uns=
-igned int=E2=80=99} [-Wformat=3D]
->       fprintf(stdout, "Submitted %u IBs to copy from %u(%lx) to %u(%lx) %=
-lu bytes took %lu usec\n",
->                                                         ~~^
->                                                         %llx
->        count, from, virtual[from], to, virtual[to], copied, delta / 1000)=
-;
->                     ~~~~~~~~~~~~~
->     ../tests/amdgpu/amdgpu_stress.c:276:65: warning: format =E2=80=98%lx=
-=E2=80=99 expects argument of type =E2=80=98long unsigned int=E2=80=99, but=
- argument 7 has type =E2=80=98uint64_t=E2=80=99 {aka =E2=80=98long long uns=
-igned int=E2=80=99} [-Wformat=3D]
->       fprintf(stdout, "Submitted %u IBs to copy from %u(%lx) to %u(%lx) %=
-lu bytes took %lu usec\n",
->                                                                    ~~^
->                                                                    %llx
->        count, from, virtual[from], to, virtual[to], copied, delta / 1000)=
-;
->                                        ~~~~~~~~~~~
->     ../tests/amdgpu/amdgpu_stress.c:276:70: warning: format =E2=80=98%lu=
-=E2=80=99 expects argument of type =E2=80=98long unsigned int=E2=80=99, but=
- argument 8 has type =E2=80=98uint64_t=E2=80=99 {aka =E2=80=98long long uns=
-igned int=E2=80=99} [-Wformat=3D]
->       fprintf(stdout, "Submitted %u IBs to copy from %u(%lx) to %u(%lx) %=
-lu bytes took %lu usec\n",
->                                                                         ~=
-~^
->                                                                         %=
-llu
->        count, from, virtual[from], to, virtual[to], copied, delta / 1000)=
-;
->                                                     ~~~~~~
->     ../tests/amdgpu/amdgpu_stress.c:276:85: warning: format =E2=80=98%lu=
-=E2=80=99 expects argument of type =E2=80=98long unsigned int=E2=80=99, but=
- argument 9 has type =E2=80=98uint64_t=E2=80=99 {aka =E2=80=98long long uns=
-igned int=E2=80=99} [-Wformat=3D]
->       fprintf(stdout, "Submitted %u IBs to copy from %u(%lx) to %u(%lx) %=
-lu bytes took %lu usec\n",
->                                                                          =
-              ~~^
->                                                                          =
-              %llu
->        count, from, virtual[from], to, virtual[to], copied, delta / 1000)=
-;
->                                                             ~~~~~~~~~~~~
->     ../tests/amdgpu/amdgpu_stress.c: In function =E2=80=98parse_size=E2=
-=80=99:
->     ../tests/amdgpu/amdgpu_stress.c:296:24: warning: format =E2=80=98%li=
-=E2=80=99 expects argument of type =E2=80=98long int *=E2=80=99, but argume=
-nt 3 has type =E2=80=98uint64_t *=E2=80=99 {aka =E2=80=98long long unsigned=
- int *=E2=80=99} [-Wformat=3D]
->       if (sscanf(optarg, "%li%1[kmgKMG]", &size, ext) < 1) {
->                           ~~^             ~~~~~
->                           %lli
->     ../tests/amdgpu/amdgpu_stress.c: In function =E2=80=98main=E2=80=99:
->     ../tests/amdgpu/amdgpu_stress.c:378:45: warning: format =E2=80=98%lu=
-=E2=80=99 expects argument of type =E2=80=98long unsigned int=E2=80=99, but=
- argument 3 has type =E2=80=98uint64_t=E2=80=99 {aka =E2=80=98long long uns=
-igned int=E2=80=99} [-Wformat=3D]
->          fprintf(stderr, "Buffer size to small %lu\n", size);
->                                                ~~^     ~~~~
->                                                %llu
->
-> Fix this by using the proper "%ll" format specifier prefix.
->
-> Fixes: d77ccdf3ba6f5a39 ("amdgpu: add amdgpu_stress utility v2")
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+On hardware known not to have RAS or in cases that a user has disabled
+RAS via kernel module parameter, it makes no sense to try to run code
+from psp_ras_initialize().  Furthermore trying to run it shows the
+following message on every boot:
 
-Scrap it, now it fails on 64-bit :-(
+`RAS: optional ras ta ucode is not available`
 
-> --- a/tests/amdgpu/amdgpu_stress.c
-> +++ b/tests/amdgpu/amdgpu_stress.c
-> @@ -175,7 +175,7 @@ int alloc_bo(uint32_t domain, uint64_t size)
->
->         resources[num_buffers] =3D bo;
->         virtual[num_buffers] =3D addr;
-> -       fprintf(stdout, "Allocated BO number %u at 0x%lx, domain 0x%x, si=
-ze %lu\n",
-> +       fprintf(stdout, "Allocated BO number %u at 0x%llx, domain 0x%x, s=
-ize %llu\n",
->                 num_buffers++, addr, domain, size);
->         return 0;
->  }
-> @@ -273,7 +273,7 @@ int submit_ib(uint32_t from, uint32_t to, uint64_t si=
-ze, uint32_t count)
->         delta =3D stop.tv_nsec + stop.tv_sec * 1000000000UL;
->         delta -=3D start.tv_nsec + start.tv_sec * 1000000000UL;
->
-> -       fprintf(stdout, "Submitted %u IBs to copy from %u(%lx) to %u(%lx)=
- %lu bytes took %lu usec\n",
-> +       fprintf(stdout, "Submitted %u IBs to copy from %u(%llx) to %u(%ll=
-x) %llu bytes took %llu usec\n",
->                 count, from, virtual[from], to, virtual[to], copied, delt=
-a / 1000);
->         return 0;
->  }
-> @@ -293,7 +293,7 @@ uint64_t parse_size(void)
->         char ext[2];
->
->         ext[0] =3D 0;
-> -       if (sscanf(optarg, "%li%1[kmgKMG]", &size, ext) < 1) {
-> +       if (sscanf(optarg, "%lli%1[kmgKMG]", &size, ext) < 1) {
->                 fprintf(stderr, "Can't parse size arg: %s\n", optarg);
->                 exit(EXIT_FAILURE);
->         }
-> @@ -375,7 +375,7 @@ int main(int argc, char **argv)
->                         next_arg(argc, argv, "Missing buffer size");
->                         size =3D parse_size();
->                         if (size < getpagesize()) {
-> -                               fprintf(stderr, "Buffer size to small %lu=
-\n", size);
-> +                               fprintf(stderr, "Buffer size to small %ll=
-u\n", size);
->                                 exit(EXIT_FAILURE);
->                         }
->                         r =3D alloc_bo(domain, size);
+Avoid running the rest of the function is RAS is not available.
 
-Gr{oetje,eeting}s,
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1415
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2673
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-                        Geert
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index c2508462e02f..a87b6c761e78 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -1603,6 +1603,9 @@ int psp_ras_initialize(struct psp_context *psp)
+ 	if (amdgpu_sriov_vf(adev))
+ 		return 0;
+ 
++	if (!adev->ras_enabled)
++		return 0;
++
+ 	if (!adev->psp.ras_context.context.bin_desc.size_bytes ||
+ 	    !adev->psp.ras_context.context.bin_desc.start_addr) {
+ 		dev_info(adev->dev, "RAS: optional ras ta ucode is not available\n");
+-- 
+2.34.1
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
