@@ -4,80 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEA9DEB64DD
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 12:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC150EB64DA
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 12:18:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CF4210E270;
-	Wed,  5 Jul 2023 12:18:25 +0000 (UTC)
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6436110E148;
- Tue,  4 Jul 2023 12:26:34 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id B5DCF5C035D;
- Tue,  4 Jul 2023 08:26:32 -0400 (EDT)
-Received: from imap51 ([10.202.2.101])
- by compute6.internal (MEProxy); Tue, 04 Jul 2023 08:26:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to; s=fm2; t=
- 1688473592; x=1688559992; bh=PyQ6plTYSpz3qzON9fE4kLUBzehylHzFdDq
- XyOgLcvE=; b=W77S1TQLBvy4PGVojukXY3qROfvcIqKfpp/nBKGH7ekWnnc3mac
- GXslhBK60I6NKAMd8sOg2loMZJyYKa5TDtel7hJQv16/1Ue9uuR3oZT5ypG3IoZO
- Q9s9N44TMrGD/mvjXafzgFrFHimoi/WYU7i3cEnqN5qp6FA0oiAiK4khkbzpNdjk
- 7tBQ0e2YlV9aGPRlu1OOfvqE54RRqNIdvE7d4V716wCqwjeidPYnXlZM7eZFLXfD
- pua2W+yosiXEx9NkeljVm+f8spE1HBI2XL/aJa5h1PoGxwifAiGCZ7NlxwGHekUu
- mQEjtn+YvQCHl4B7DOOhPWv7aGBeDTaiZEA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
- 1688473592; x=1688559992; bh=PyQ6plTYSpz3qzON9fE4kLUBzehylHzFdDq
- XyOgLcvE=; b=IPocYXY7TnafTvok9h1lETy4GCn/FhjYgMijmoCjvkOE3UfIZTk
- UiSNhMXXS3BigYlIwW6RIFE1CpOEphaB1sStCz8s20dG3gRzbZg6UYPdOFi2rAnm
- 0Z0mTeJ7zZgj/SKuZbMOA509ImEpZ73TE+W66RENpRF6g0hRInbaoXaCVejO1EY9
- Nw/c2JK+j0yyNyPFEpFx0f2hKv+d6ASTfvg6AduwmwzZ41oG/hN+rXTe58SVvO3q
- svEEAdmR2ON6GaX0y5KkawBi4XdgYS0BT8pGOytMZXdZN0OQaDtUH80Wzjo6CDGh
- aT5J94WDzrb0Jmr0NU1KEzo3LNND+hZxUTw==
-X-ME-Sender: <xms:-A-kZAGiH5z4tS9ps_N9F_yGho1DcFLpTElwHhvdo51Y3EHTQaVt6Q>
- <xme:-A-kZJX85mPqrG1j_i6mLFZ6vat0SF_TcP0AsWxh541mujfZ8v2QgXEYVB4OcUOGz
- 8L1S-sGYi26NTFXGL4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrudeggdehvdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvvefutgfgsehtqhertderreejnecuhfhrohhmpedftehr
- nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
- htvghrnhepgeefjeehvdelvdffieejieejiedvvdfhleeivdelveehjeelteegudektdfg
- jeevnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
- hrnhgusegrrhhnuggsrdguvg
-X-ME-Proxy: <xmx:-A-kZKLBAxdDoaIjkb9VkHBZXUaDP5GSWs9DJW0RlYDnzLhw_g-_dQ>
- <xmx:-A-kZCFqzG5BZfZGEk72aIsC9mV8qyyuq2WHqf7kofy3mJGwpCEc3w>
- <xmx:-A-kZGWaEoWiFM3DVnE_pIRVNfvOdunOcWzm3pKBMekHEvvTH1GgSg>
- <xmx:-A-kZHtfA1FxCKncC-yJ6kkYFO3ldXBwf5BNX1MJdRwGbYbVs9hnSg>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 7578FB60086; Tue,  4 Jul 2023 08:26:32 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-527-gee7b8d90aa-fm-20230629.001-gee7b8d90
-Mime-Version: 1.0
-Message-Id: <788147c6-defd-496a-8174-1571b73d1a71@app.fastmail.com>
-In-Reply-To: <f4bc3739-3ff1-6fa7-5d7d-890f451315bf@amd.com>
-References: <20230703123557.3355657-1-arnd@kernel.org>
- <f4bc3739-3ff1-6fa7-5d7d-890f451315bf@amd.com>
-Date: Tue, 04 Jul 2023 14:24:09 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Arnd Bergmann" <arnd@kernel.org>,
- "Alex Deucher" <alexander.deucher@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Dave Airlie" <airlied@gmail.com>,
- "Daniel Vetter" <daniel@ffwll.ch>
-Subject: Re: [PATCH] drm/amdgpu: avoid integer overflow warning in
- amdgpu_device_resize_fb_bar()
-Content-Type: text/plain;charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 786A310E2BF;
+	Wed,  5 Jul 2023 12:18:26 +0000 (UTC)
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [IPv6:2607:f8b0:4864:20::b2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 432C610E134;
+ Wed,  5 Jul 2023 02:42:57 +0000 (UTC)
+Received: by mail-yb1-xb2c.google.com with SMTP id
+ 3f1490d57ef6-c17534f4c63so7093227276.0; 
+ Tue, 04 Jul 2023 19:42:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1688524975; x=1691116975;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=VHY1Zlzp65TvZiR0boe033bDVC9iew9qAHr8hQ5HK44=;
+ b=F2Imx01R9giMZddzkh9uY1nNb0+Iuc4PkiDccdGrPfyLUl7NVGC8lgFKB/+tfss3cC
+ hj16bHA7rNQDVS+JXJR0ogmbBovo39BVgjTlVJHERcysGqhHnaGme3x9FF7CRC8BsM0W
+ urY5SuS7GrtXSTvV7u0Y8WbM8no91vJtMBkd2GA7lHXsZEC5tcLu/M8xYyycxx1dfIQI
+ hVUf8jwxS6V8Vq63huiftkAy9VqIVAz5KGojBHASQwjS2DipyZEufGk1v8Zlx0A1dTjS
+ coU1x9d1Hip4kCZ2xN4pFWBbyqdCwYYgOpJ20FVqVxvC2zT47RRdnOiVTja31dMkvucG
+ ryhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688524975; x=1691116975;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=VHY1Zlzp65TvZiR0boe033bDVC9iew9qAHr8hQ5HK44=;
+ b=Wuuczk/gv6AeGGRABzYrOKY/cUPtSLzp9MGK6A8I04WlZIPMZPrKOWqR4Oe8XsTEbG
+ 58XQCW9lz0OSLpGxfE4Ff/ClswsP6ScmI74bwekVt1qgKc0EugNZ+38iqoacDJkNmVww
+ VTCNBHJtM+znlA4L9HT+KE2aSOAAFb7EdzHFwMlf31j2wRJwpX+w5i2Y+9MjxwHVLMy2
+ QGi02EWUgwzNUbptnXb0kQbdtGaNGPocCxRXRwME02BLyB4CTUPPD0QQKvpURkFuW5Pu
+ 53ZQ5L4BDLuYPLkNC9sEkOzLaD/sx9uv1yEifBYf58+AQgx9VuYGS9sFjlDcqwvtXPVA
+ 81+A==
+X-Gm-Message-State: ABy/qLbTmmmwaVxMTjse3zccd8/gW72ia9AeLsleq/0iKIXczG3bWSLF
+ 1bNT+VxtuWBjDvujKr/LqCR/4r/G5EwKQkln8/I=
+X-Google-Smtp-Source: APBJJlGI035ANDpYcO9uphsvVgfUxzA6K5kAZKgF2yLnxC++mnV0T1omNsS+ILv5TNYf804MrYBTtJKbCtneNIysylQ=
+X-Received: by 2002:a25:ac96:0:b0:c12:e809:69e7 with SMTP id
+ x22-20020a25ac96000000b00c12e80969e7mr12557646ybi.65.1688524975402; Tue, 04
+ Jul 2023 19:42:55 -0700 (PDT)
+MIME-Version: 1.0
+References: <20230701020917.143394-1-andrealmeid@igalia.com>
+ <20230701020917.143394-7-andrealmeid@igalia.com>
+ <20230703113836.60869599@eldfell>
+ <5bc889d4-bccc-9d6d-fe35-da3e9627eaa0@igalia.com>
+In-Reply-To: <5bc889d4-bccc-9d6d-fe35-da3e9627eaa0@igalia.com>
+From: James Braden olin <bradenolinjames@gmail.com>
+Date: Tue, 4 Jul 2023 21:42:43 -0500
+Message-ID: <CABCz0QONtWj7DHp6bdvQm=05XC=bvnUq3a9Wkee6n_mu9CJ73Q@mail.gmail.com>
+Subject: Re: [PATCH v4 6/6] drm/doc: Define KMS atomic state set
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Content-Type: multipart/alternative; boundary="0000000000005a744405ffb45bd7"
 X-Mailman-Approved-At: Wed, 05 Jul 2023 12:18:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,61 +69,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Bokun Zhang <Bokun.Zhang@amd.com>, dri-devel@lists.freedesktop.org,
- Lijo Lazar <lijo.lazar@amd.com>, linux-kernel@vger.kernel.org,
- Shiwu Zhang <shiwu.zhang@amd.com>, Le Ma <le.ma@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com, kernel-dev@igalia.com,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Dave Airlie <airlied@gmail.com>, Italo Nicola <italonicola@collabora.com>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ alexander.deucher@amd.com, joshua@froggi.es,
+ Daniel Stone <daniel@fooishbar.org>, hwentlan@amd.com,
+ christian.koenig@amd.com, ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 4, 2023, at 08:54, Christian K=C3=B6nig wrote:
-> Am 03.07.23 um 14:35 schrieb Arnd Bergmann:
->> From: Arnd Bergmann <arnd@arndb.de>
->>
->> On 32-bit architectures comparing a resource against a value larger t=
-han
->> U32_MAX can cause a warning:
->>
->> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1344:18: error: result of =
-comparison of constant 4294967296 with expression of type 'resource_size=
-_t' (aka 'unsigned int') is always false [-Werror,-Wtautological-constan=
-t-out-of-range-compare]
->>                      res->start > 0x100000000ull)
->>                      ~~~~~~~~~~ ^ ~~~~~~~~~~~~~~
->>
->> The compiler is right that this cannot happen in this configuration, =
-which
->> is ok, so just add a cast to shut up the warning.
+--0000000000005a744405ffb45bd7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Simulator cannot be changed
+
+To join the meeting on Google Meet, click this link:
+https://meet.google.com/ccm-jjwz-ehk
+
+Or open Meet and enter this code: ccm-jjwz-ehk
+
+On Mon, Jul 3, 2023, 11:33 AM Andr=C3=A9 Almeida <andrealmeid@igalia.com> w=
+rote:
+
 >
-> Well it doesn't make sense to compile that driver on systems with only=20
-> 32bit phys_addr_t in the first place.
+>
+> Em 03/07/2023 05:38, Pekka Paalanen escreveu:
+> > On Fri, 30 Jun 2023 23:09:17 -0300
+> > Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
+> >
+> >> Specify how the atomic state is maintained between userspace and
+> >> kernel, plus the special case for async flips.
+> >>
+> >> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+>
+> [...]
+>
+> >
+> > If you want to take these and need my Sob, that would be
+> > Signed-off-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+> >
+> >
+>
+> Thank you very much! Your version is way better than mine, I'll use it
+> in my next version.
+>
+> > Thanks,
+> > pq
+>
 
-Not sure I understand the specific requirement. Do you mean the entire
-amdgpu driver requires 64-bit BAR addressing, or just the bits that
-resize the BARs?
+--0000000000005a744405ffb45bd7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> It might be cleaner to just not build the whole driver on such systems=20
-> or at least leave out this function.
+<div dir=3D"auto">Simulator cannot be changed=C2=A0<br><br><div data-smartm=
+ail=3D"gmail_signature">To join the meeting on Google Meet, click this link=
+: <br><a href=3D"https://meet.google.com/ccm-jjwz-ehk">https://meet.google.=
+com/ccm-jjwz-ehk</a> <br> <br>Or open Meet and enter this code: ccm-jjwz-eh=
+k</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
+_attr">On Mon, Jul 3, 2023, 11:33 AM Andr=C3=A9 Almeida &lt;<a href=3D"mail=
+to:andrealmeid@igalia.com">andrealmeid@igalia.com</a>&gt; wrote:<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
+ #ccc solid;padding-left:1ex"><br>
+<br>
+Em 03/07/2023 05:38, Pekka Paalanen escreveu:<br>
+&gt; On Fri, 30 Jun 2023 23:09:17 -0300<br>
+&gt; Andr=C3=A9 Almeida &lt;<a href=3D"mailto:andrealmeid@igalia.com" targe=
+t=3D"_blank" rel=3D"noreferrer">andrealmeid@igalia.com</a>&gt; wrote:<br>
+&gt; <br>
+&gt;&gt; Specify how the atomic state is maintained between userspace and<b=
+r>
+&gt;&gt; kernel, plus the special case for async flips.<br>
+&gt;&gt;<br>
+&gt;&gt; Signed-off-by: Andr=C3=A9 Almeida &lt;<a href=3D"mailto:andrealmei=
+d@igalia.com" target=3D"_blank" rel=3D"noreferrer">andrealmeid@igalia.com</=
+a>&gt;<br>
+<br>
+[...]<br>
+<br>
+&gt; <br>
+&gt; If you want to take these and need my Sob, that would be<br>
+&gt; Signed-off-by: Pekka Paalanen &lt;<a href=3D"mailto:pekka.paalanen@col=
+labora.com" target=3D"_blank" rel=3D"noreferrer">pekka.paalanen@collabora.c=
+om</a>&gt;<br>
+&gt; <br>
+&gt; <br>
+<br>
+Thank you very much! Your version is way better than mine, I&#39;ll use it =
+<br>
+in my next version.<br>
+<br>
+&gt; Thanks,<br>
+&gt; pq<br>
+</blockquote></div>
 
-How about this version? This also addresses the build failure, but
-I don't know if this makes any sense:
-
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1325,6 +1325,9 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_devi=
-ce *adev)
-        u16 cmd;
-        int r;
-=20
-+       if (!IS_ENABLED(CONFIG_PHYS_ADDR_T_64BIT))
-+               return 0;
-+
-        /* Bypass for VF */
-        if (amdgpu_sriov_vf(adev))
-                return 0;
-
-     Arnd
+--0000000000005a744405ffb45bd7--
