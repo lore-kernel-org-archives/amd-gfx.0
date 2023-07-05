@@ -4,115 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A275EEB64DA
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 20:10:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F2B1EB64DA
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 22:59:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AFC710E3B7;
-	Wed,  5 Jul 2023 20:10:41 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2053.outbound.protection.outlook.com [40.107.237.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 410E810E3B7
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Jul 2023 20:10:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8249710E3C7;
+	Wed,  5 Jul 2023 22:58:59 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2076.outbound.protection.outlook.com [40.107.102.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A2D910E3C7
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Jul 2023 22:58:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U5xeGXoOwEgzinFI/2kXbuUaZeiyvkvlrCqq+KePx89KgJkJa8G/9bhvYzh5+iWKmnEK6Nc03r8XchXaEooLD15GDYo1J9bmoV4x0+sFzioKyCyJnk50CyD1c129a6B9poDIAz3scKB3y2Jh6eRHmTf+lf8cDBjlKSZlYMCEc2Wk9QfaQYs+LM8267h68xIHhMS/Z7OoXMr9W+9fQJObFAii0PCQdjmLXaYv5D7HQtp3X1o8v1w64xWzmRhJk9FvVBYAmWD1wy0pWY2cZkscKoWd9A8q0LY6CDQI3TYqdR7yQvDLkB4iQhpewho6GWjR5gfvpWQePY5WwiVVu18QPg==
+ b=RZ1IHaHd3rUn3cLKTPXBRvY1FGzOBCetltKu616g4Qpkx+WpnqIt0kQGUyl3x+pbvzPLEMIocviB9ijbhuURRi5CGTTFp2/5osPgkYCS4x3N5yDw288rysiWIw6m5Wr3hP6Blj7fiuwmOSPqKyydDgDgm1dyR8pI4rkjKuuOpYNsuorSNJo/amVgki47BV+av20W3zveu0wEINw22oARu1GkYAXPSoFoSpo5BtLVd8U3yibS/ripaVtK0RkKiroJ7O/r9chg0KiPk0+HGtxvPOzu9QkPEZMXva10ztUSl0KhgFvddpCNC2Oq9Btt3fIDC0UGgC7XDtf9Wl/CMpSkng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hhLyUzpR8fhezSRpG7MYzBhK2GR0uBy0mZde74RKOOQ=;
- b=Fr9t9zYK40TeW/HGW7tEZ/g7RkqmM7gGVOux4n8dik5tbzR8w/CDwEX2qU2WpdnqlHdJv1x9xB+b2gSJXybxnTSU2/Kmf4ITLW4KA6pXXiv3186DycHAbAN8Qk2wcCH2dporiHZ3LyyBzfD6D+PIc3uZM6wPJ5l1HqeugJmPGAalJNxY9yZZjwzZfSfv3QNCi4oxr2HfGFgGx3Wa5cqDmCY6f4B2n3zjGgjlOOTZfPZZ+XvSaNZecuY/44BVNHgBW2FdQfkIWSrksvmM4dAVNN4yS9wXVkZru3fQqHFh/8NLWwA+5Tzt9HkfwZUAod7DI2cPR+uRjPXE7SjIUS4GIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Gm6iFiCJL4ZfBLu2pur7x40MsCW/HH2FxJYF8bkFnYo=;
+ b=danj17N2YswTo/Wli/WtudsicwoswsIXihmiUA6IUSo+gCWDuYvaJ2gYN0pDBgkVvYyWxw6O5KSWkLrlg6D9CiuBIPXU96y0r7He04iqjob81pCh66xbxAhJLD7rL+IzOtrZzFntB+D2Qq548g32uWng4wT/k6fM0B6bTunoRP2Iu/BWl8KpADr9ZX3yhf41v1udJqZQBAm21LEFKdJe798hsy6kspphzjJ930gXZupbkNtrLoZKTSkaJhExPahvtDC31S1I8Dl2JltHh7NHq4NsSyPaNl5unZpbsISXMJtPij2BtFoM6qIk7bPZsi7OFuf04GIp1KbV+jUbOP0jkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hhLyUzpR8fhezSRpG7MYzBhK2GR0uBy0mZde74RKOOQ=;
- b=WW1WcKJ+0nVzLD33AFrBE8lc9pKxnUWRYO57YngyfzfmZjpBoT6baBDVYKDi8g7NyxU1fcW4S/V8oEkD3NltxhYtZkAl02dyvHL2RvXujKa9SFD0vbiPMhDU+/+pOaAQcixblKmCTrsV4DYjdENJu71xHn/FUvLVGELQ4oOAlkE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
- LV8PR12MB9156.namprd12.prod.outlook.com (2603:10b6:408:181::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6565.17; Wed, 5 Jul 2023 20:10:35 +0000
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::10e9:7f44:45ae:4f94]) by DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::10e9:7f44:45ae:4f94%5]) with mapi id 15.20.6565.016; Wed, 5 Jul 2023
- 20:10:35 +0000
-Message-ID: <b4226cad-4e19-0090-29cb-af138ddc33f9@amd.com>
-Date: Wed, 5 Jul 2023 16:10:33 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH 2/2] drm/amdgpu: use psp_execute_load_ip_fw_cmd_buf instead
-Content-Language: en-US
-To: Lang Yu <Lang.Yu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230627044833.3668402-1-Lang.Yu@amd.com>
- <20230627044833.3668402-2-Lang.Yu@amd.com>
-From: Leo Liu <leo.liu@amd.com>
-In-Reply-To: <20230627044833.3668402-2-Lang.Yu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0315.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10a::28) To DM8PR12MB5399.namprd12.prod.outlook.com
- (2603:10b6:8:34::5)
+ bh=Gm6iFiCJL4ZfBLu2pur7x40MsCW/HH2FxJYF8bkFnYo=;
+ b=5a+e67OZ1vHfiwJeLIjqEG6f9dvs0yW6+3sLcQuRwMCJPoQEs8d3uwe149IEjv1Z1alJufKizLXMfdx+J5M27xb9uOSk4hEypRO8xSpPKLX29jXiiYhLrbMPoOeQ379VhN/QJvLKBjV09oL2lzOpvmNVjPGhAD/PAIvNGu3jr7g=
+Received: from MW3PR06CA0029.namprd06.prod.outlook.com (2603:10b6:303:2a::34)
+ by CY8PR12MB7193.namprd12.prod.outlook.com (2603:10b6:930:5b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Wed, 5 Jul
+ 2023 22:58:54 +0000
+Received: from CO1NAM11FT106.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:2a:cafe::9c) by MW3PR06CA0029.outlook.office365.com
+ (2603:10b6:303:2a::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.18 via Frontend
+ Transport; Wed, 5 Jul 2023 22:58:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT106.mail.protection.outlook.com (10.13.175.44) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6521.45 via Frontend Transport; Wed, 5 Jul 2023 22:58:54 +0000
+Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23; Wed, 5 Jul 2023 17:58:52 -0500
+From: Eric Huang <jinhuieric.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/5] drm/amdgpu: add kfd2kgd debugger callbacks for GC v9.4.3
+Date: Wed, 5 Jul 2023 18:56:51 -0400
+Message-ID: <20230705225655.299335-2-jinhuieric.huang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230705225655.299335-1-jinhuieric.huang@amd.com>
+References: <20230705225655.299335-1-jinhuieric.huang@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR12MB5399:EE_|LV8PR12MB9156:EE_
-X-MS-Office365-Filtering-Correlation-Id: 310d816e-091a-42a6-bba5-08db7d93e492
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT106:EE_|CY8PR12MB7193:EE_
+X-MS-Office365-Filtering-Correlation-Id: 973d2078-3065-416c-e1db-08db7dab680d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: T/wcsAn4hPMZPuTjDRqjQc1GKTOxllSHJazcG7o1V31fi5kU4ve5JdqqL8csdo+ug5z/D0z7YFd0Y3sCcBHJ3f+CDZ9wBZzb/ZmUxH2JsZTmFXEoChZQGn5qXynovtaTjbQeQ1vKgG9DCWAB9Z/7kVab37DJIj0yUjqQKtGSQ8bu4zxRwdyqAVlvRv7mpNjqhQCnNiuvfueQfUl9EsdHgXP9aM3oCCbOmJir42CNM5aRyL84+1aPMi6pRj+v8rgPq1hL9J4zNste2Dfe7tzRxs0i/c13xKwsp8DEY3QTPIt3ff1788wq55olcsmU2dGeETUW+SjRCrfGgJkz2/t41u+DDEg92QcRxXBl/eSmCB1l+fDq8Vywo9C1zZBhCOSIgyV0QcUs9wJfPoRWDnhsX+e90XzG3d2JAICs4spZf8uM9PoqHu+49AQeApj079OmA1i+TtQnszDIC6OGNWT1jee0e6DkEpFWqXLO/dcKGE0wQiKcsybBA55Fq74yfXEuOTNvja1UQ8swifhZAN2Zm0kN8n14t63//FzOx1LR7msCLmk5ZruRwUqp79d4IcVGtwo1kkCfleYp6jizKHMQmU1ZSfrz34SZfMZNPsmq2cbPa2FsYTxnnP5hawctMErGo9ex6D9/slC/0yFZjFzvNA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(366004)(376002)(346002)(136003)(396003)(451199021)(41300700001)(66556008)(478600001)(6512007)(86362001)(31696002)(38100700002)(6486002)(66946007)(83380400001)(316002)(66476007)(36756003)(2906002)(8936002)(2616005)(5660300002)(8676002)(44832011)(186003)(31686004)(6506007)(53546011)(26005)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: wvj048NEr67v3NW0xWhiS8qz285o8hUIzSokao3/dd1PfFwwWqJMpcT8w8ZZoe5zI6jMfXykK0vyQGfATQdL1yR9j0F2Nq56Ghz1eeo/okgjQRUZAabzM7VyKLghxkSC+1GgB1jzDmEd/M/Mcl9Cnx4EldLiBjQf4Wpg3x4L91Vrwq2g4AS2mor56p+mDc4/3pG9u3/C7wQtqnem6RupfSt49h70j42xb17JMs//fGAIW0hpraKtcCt5c7BSzl/To9PbpxR9A6NzrqfCfVm02F1SQc+j3QUKptZp2MpCscjHe7yOjNUoD6KN77umk/V2etBeoXtQABTSRNJw3PPEzoyuMqjyqQwG2RIPdDsQvl2t0c1WZmmq8Bb1+fkR3nCqShAeeDFDnIbTdgJSzmtFfNpyPVyecS6+IGEBMlgtvlWX9leJxvsAUyDeCcYBVteoAsd5F5QijFYcMij2ltuQYFEwp/s16dJ4SOFIxSZZl3G7HCQTUqTEEAHcAcwsNZey5od/AYJXOy7FOTmCaPypSKbiMcp2ATlLQApqGYW+enoLBiSsqYiHBaN3ecpGn1/vneKp6bifmZoOMvrMNe5yIFq0WSQEvsy3lZhymLDaSYIYW5RkHT9bCnIe/RoCilP+vJ2g+Hl4TSV/Dl6N/1C+R11vqlw58D3vlGOjGQaxeEoHx7SCgraXOli6p5ngeZtlyaARMsYGhT6SRGs4O2MnRqKtNZSVipxQmIcxDT2OAD2DvCW9dZcJh6JPs0o2KqgWr+9FgFb28RihvOKZNm7vZA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(346002)(136003)(39860400002)(396003)(451199021)(40470700004)(46966006)(36840700001)(54906003)(7696005)(478600001)(336012)(186003)(26005)(1076003)(16526019)(2906002)(82310400005)(70586007)(6916009)(316002)(8936002)(82740400003)(41300700001)(8676002)(70206006)(5660300002)(356005)(4326008)(81166007)(40460700003)(86362001)(36756003)(426003)(47076005)(83380400001)(36860700001)(2616005)(40480700001)(66899021)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cityMTJOUkRJNkhkOElUaWYwVExzTGluNHJ3Smt5YUlKNlpSVno5UmljZHpQ?=
- =?utf-8?B?UkZ2NTdDSEJ1R0ZzYTlmcmNiNWxBZ3RKYzlsbHprTE1MalliVkc5cGFjVC9P?=
- =?utf-8?B?enNGL2dkRDR6dWhLYnBtYWhyaTNRV1F2aVV0QjNJOUdOZUVmNDNGU3d0K3hq?=
- =?utf-8?B?UHh3emhiWGpYc1A4cGhmaXZlUnZoMnU3N3pFclRqVGIrcjJaaVl0TUN0bGZw?=
- =?utf-8?B?WnFZaWl6WGt4QTlRRkRUMDdTRzJJNENkY3QxNG9tWmJ4ZyttSURDTzNISFV2?=
- =?utf-8?B?YUc1NEJici9XU0dmYUNaREpIU1ljSEJETmVDTHA5NE9RZFRHK2dXbVZtSUw5?=
- =?utf-8?B?VnZsUWJ4Y3JoamR0TXFOSFFQTGhPT2lQZVgrbVYvTE1DRjBHSEo4TGcvT3BY?=
- =?utf-8?B?cTd6dDRzNHhNRkEzQzRnV0hNL3RueVV0elRtdjlCYzhKOUNYZ0lIbGhnQ2p3?=
- =?utf-8?B?NWRyOHViYnVDdHRnNUpTZzhwOUhqWVhOdXp4Y3hZcEZ2eVFrTS9LQ2NMSzk1?=
- =?utf-8?B?VVZQNks3RitBeVFsQzBEU3M3UjFQZHZpQXFuOUtaT0tsc3U0NnZQcVQ0elJI?=
- =?utf-8?B?THlEVEtsN0cxbWNsWDhDWTJxbXh6SHBQN1U1Mm9XMkx6MjA5cVdPbjh4T2FW?=
- =?utf-8?B?ZW1JR2lKa3Fia2tCRUhmbTV2cjJ5Q044aHJNRDFBTitWNjJiWTBzTjVUSnQv?=
- =?utf-8?B?Rnp0ZjJsNy9iNWFhc09UZnd0VWloclVnb0NQSlZYaGhxaUtIUnh5TXF6VnpQ?=
- =?utf-8?B?YkpmNE03a3B0aUVUcXZyRlA4dHYrWjNPN0VEdlpsY2ZUWm9VTld0bkZ0U3BG?=
- =?utf-8?B?YWgvSEczd0pWYUJkdmJaNjRZVmdDNjFXUWNWZXJmeE50OVZFVXhPb0x3SFdp?=
- =?utf-8?B?MzJ3VUJiaENtT1pPZThjWDJMTnJxenVaRnZoUnVQelhNOEt2OFlRMjU0cmRP?=
- =?utf-8?B?THpDdVNJRkFtbVFPMUNrTjNaS3NrcmdFR1RITzc2U0lTMW1aL3RDcndWeE44?=
- =?utf-8?B?VWRHSEJsRXlEeWU3ajZKVXhlY3JNQmxjNUprblVYVDFsdldrU0dETEFERHB0?=
- =?utf-8?B?bkozUUZVZ2ZtV3ZaQjQwM1l1OWRxNURiUkdNY0ZoamlvVXR3cmVxUkhOY1J1?=
- =?utf-8?B?OFltVzBTUTZKbVVJUTg0MnR6MW1YSFhuNjhhWHJET1V1MGEvSXU1akxmZXMy?=
- =?utf-8?B?c2NEQVZjbU1WemtOaXkzYUsvbml1ZzFodWFxYnBHU0kxUmRMQXBwenQ0V1Vo?=
- =?utf-8?B?Ulg0NWdQKzZBazhMUmczMHFXQmgyeUV6TnhpOHJOVHhzdUpSZGFzRFZOQzNa?=
- =?utf-8?B?M2p5YkxuekZlSFo0N295VU04NkVtWGVEcDB6VXlCWVo3RnlXUlBSM2FBdExM?=
- =?utf-8?B?dE4wUC9GOUROQlllK0l1cVdQUzJQVFZJNGZ3dHpXMUJwdHAyVGNTTDJiR2JM?=
- =?utf-8?B?SG5VeXQxNDQvV2dMOS9FRlcydDdQbkJXOHVDSGh0UWpxM1NPd0hxbU5VWFZ6?=
- =?utf-8?B?SFo2RktiSFZmb1Y3QmpNNlpOeHl5SjVzS0RWZ0JLbWVmcUpKNkcwdWlJUUpX?=
- =?utf-8?B?SlRQbTliTlh5TzBGdzRtZ2tTWU4xdDl4VHVJVkFTcHh6UWRJdi90WVJueVdO?=
- =?utf-8?B?aXJRK3RsWGdacEI0cXVSOWhJSGR2THI2T0tMTmd4T0h0TVVwQkxyR2w0MnAv?=
- =?utf-8?B?RHdoa0xvSVRkbnFnVU1aeWxkcnUxYm1xMWkvdGlmVHB4dVErck85aCt0TCtJ?=
- =?utf-8?B?NENtcFNlanoxUGcwNkhUWFFWeFRPZHNkdTJIWlF4dXAvUDhaYUJBbjNaelZq?=
- =?utf-8?B?ZUtKM3NieTEwRWJ1U2ZMdG4rbHRWVnQyK0RlUEM4Q0ptbG8xd3hmQm5QRmkv?=
- =?utf-8?B?amQzaU5zS1JFdzMzR2E2d2pMV3NXbVovRGtDeUpXM0FIaCtEK09uQnlkeXBR?=
- =?utf-8?B?ejUxT3ZzUXBnNW80alZSbDRPSi92WlNybjBVWXBjaUxtTHhhUE1JQXd0bEhR?=
- =?utf-8?B?RitZWWlVUXZTS3hsOHdyZFNtaEQwS1Z0UTh1UWVOaStETGNYR2ZsWlNmOUcy?=
- =?utf-8?B?THRBWFZOWS9QemFGMzkyczc5K3pyMFo2TXZCb0pObjRMODdFNWo0MUIycndT?=
- =?utf-8?Q?H2+M=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 310d816e-091a-42a6-bba5-08db7d93e492
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2023 20:10:35.3534 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2023 22:58:54.0114 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 973d2078-3065-416c-e1db-08db7dab680d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MmDd07SL/6uHCsavOVQmTX66VVuoe+PW7xBpxPZexyAhjT3Y3bSwSwPtGUmrBfJ+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9156
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT106.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7193
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,192 +99,278 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Eric Huang <jinhuieric.huang@amd.com>, Jonathan Kim <jonathan.kim@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It looks good to me. The series is:
+From: Jonathan Kim <jonathan.kim@amd.com>
 
-Reviewed-by: Leo Liu <leo.liu@amd.com>
+Implement the similarities as GC v9.4.2, and the difference
+for GC v9.4.3 HW spec.
 
-On 2023-06-27 00:48, Lang Yu wrote:
-> Replace the old ones with psp_execute_load_ip_fw_cmd_buf.
->
-> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 31 ++++---------------------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  2 --
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c |  9 +++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  2 ++
->   drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   |  4 +---
->   drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   |  4 +---
->   drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   |  4 +---
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   |  4 +---
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c |  4 +---
->   9 files changed, 20 insertions(+), 44 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index a1cb541f315f..b61963112118 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -2474,21 +2474,11 @@ int psp_execute_load_ip_fw_cmd_buf(struct amdgpu_device *adev,
->   	return ret;
->   }
->   
-> -static int psp_execute_non_psp_fw_load(struct psp_context *psp,
-> -				  struct amdgpu_firmware_info *ucode)
-> +static inline
-> +int psp_execute_non_psp_fw_load(struct psp_context *psp,
-> +				struct amdgpu_firmware_info *ucode)
->   {
-> -	int ret = 0;
-> -	struct psp_gfx_cmd_resp *cmd = acquire_psp_cmd_buf(psp);
-> -
-> -	ret = psp_prep_load_ip_fw_cmd_buf(ucode, cmd);
-> -	if (!ret) {
-> -		ret = psp_cmd_submit_buf(psp, ucode, cmd,
-> -					 psp->fence_buf_mc_addr);
-> -	}
-> -
-> -	release_psp_cmd_buf(psp);
-> -
-> -	return ret;
-> +	return psp_execute_load_ip_fw_cmd_buf(psp->adev, ucode, 0, 0, 0);
->   }
->   
->   static int psp_load_smu_fw(struct psp_context *psp)
-> @@ -2946,19 +2936,6 @@ int psp_rlc_autoload_start(struct psp_context *psp)
->   	return ret;
->   }
->   
-> -int psp_update_vcn_sram(struct amdgpu_device *adev, int inst_idx,
-> -			uint64_t cmd_gpu_addr, int cmd_size)
-> -{
-> -	struct amdgpu_firmware_info ucode = {0};
-> -
-> -	ucode.ucode_id = inst_idx ? AMDGPU_UCODE_ID_VCN1_RAM :
-> -		AMDGPU_UCODE_ID_VCN0_RAM;
-> -	ucode.mc_addr = cmd_gpu_addr;
-> -	ucode.ucode_size = cmd_size;
-> -
-> -	return psp_execute_non_psp_fw_load(&adev->psp, &ucode);
-> -}
-> -
->   int psp_ring_cmd_submit(struct psp_context *psp,
->   			uint64_t cmd_buf_mc_addr,
->   			uint64_t fence_mc_addr,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> index bd324fed6237..e49984a9d570 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> @@ -459,8 +459,6 @@ extern int psp_wait_for_spirom_update(struct psp_context *psp, uint32_t reg_inde
->   			uint32_t field_val, uint32_t mask, uint32_t msec_timeout);
->   
->   int psp_gpu_reset(struct amdgpu_device *adev);
-> -int psp_update_vcn_sram(struct amdgpu_device *adev, int inst_idx,
-> -			uint64_t cmd_gpu_addr, int cmd_size);
->   
->   int psp_execute_load_ip_fw_cmd_buf(struct amdgpu_device *adev,
->   				   struct amdgpu_firmware_info *ucode,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index d37ebd4402ef..1805cd042d34 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -1257,3 +1257,12 @@ int amdgpu_vcn_ras_sw_init(struct amdgpu_device *adev)
->   
->   	return 0;
->   }
-> +
-> +int amdgpu_vcn_psp_update_sram(struct amdgpu_device *adev, int inst_idx)
-> +{
-> +	return psp_execute_load_ip_fw_cmd_buf(adev, NULL,
-> +		inst_idx ? AMDGPU_UCODE_ID_VCN1_RAM : AMDGPU_UCODE_ID_VCN0_RAM,
-> +		adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
-> +		(uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
-> +			   (uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> index 92d5534df5f4..3ac5ad91ed08 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> @@ -414,4 +414,6 @@ int amdgpu_vcn_ras_late_init(struct amdgpu_device *adev,
->   			struct ras_common_if *ras_block);
->   int amdgpu_vcn_ras_sw_init(struct amdgpu_device *adev);
->   
-> +int amdgpu_vcn_psp_update_sram(struct amdgpu_device *adev, int inst_idx);
-> +
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> index c975aed2f6c7..74cd1522067c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> @@ -881,9 +881,7 @@ static int vcn_v2_0_start_dpg_mode(struct amdgpu_device *adev, bool indirect)
->   		UVD_MASTINT_EN__VCPU_EN_MASK, 0, indirect);
->   
->   	if (indirect)
-> -		psp_update_vcn_sram(adev, 0, adev->vcn.inst->dpg_sram_gpu_addr,
-> -				    (uint32_t)((uintptr_t)adev->vcn.inst->dpg_sram_curr_addr -
-> -					       (uintptr_t)adev->vcn.inst->dpg_sram_cpu_addr));
-> +		amdgpu_vcn_psp_update_sram(adev, 0);
->   
->   	/* force RBC into idle state */
->   	rb_bufsz = order_base_2(ring->ring_size);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> index bb1875f926f1..79d40203c952 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -912,9 +912,7 @@ static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
->   		UVD_MASTINT_EN__VCPU_EN_MASK, 0, indirect);
->   
->   	if (indirect)
-> -		psp_update_vcn_sram(adev, inst_idx, adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
-> -				    (uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
-> -					       (uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
-> +		amdgpu_vcn_psp_update_sram(adev, inst_idx);
->   
->   	ring = &adev->vcn.inst[inst_idx].ring_dec;
->   	/* force RBC into idle state */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> index c8f63b3c6f69..9e1570648b6c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> @@ -1037,9 +1037,7 @@ static int vcn_v3_0_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
->   		VCN, inst_idx, mmUVD_VCPU_CNTL), tmp, 0, indirect);
->   
->   	if (indirect)
-> -		psp_update_vcn_sram(adev, inst_idx, adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
-> -			(uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
-> -				(uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
-> +		amdgpu_vcn_psp_update_sram(adev, inst_idx);
->   
->   	ring = &adev->vcn.inst[inst_idx].ring_dec;
->   	/* force RBC into idle state */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> index 2db73a964031..4febc7629512 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -993,9 +993,7 @@ static int vcn_v4_0_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
->   
->   
->   	if (indirect)
-> -		psp_update_vcn_sram(adev, inst_idx, adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
-> -			(uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
-> -				(uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
-> +		amdgpu_vcn_psp_update_sram(adev, inst_idx);
->   
->   	ring = &adev->vcn.inst[inst_idx].ring_enc[0];
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> index 5d67b8b8a3d6..ce8c766dcc73 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> @@ -778,9 +778,7 @@ static int vcn_v4_0_3_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, b
->   		UVD_MASTINT_EN__VCPU_EN_MASK, 0, indirect);
->   
->   	if (indirect)
-> -		psp_update_vcn_sram(adev, 0, adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
-> -			(uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
-> -				(uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
-> +		amdgpu_vcn_psp_update_sram(adev, inst_idx);
->   
->   	ring = &adev->vcn.inst[inst_idx].ring_enc[0];
->   
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+---
+ .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  |   7 +-
+ .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h  |  30 ++++
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c   | 149 +++++++++++++++++-
+ 3 files changed, 182 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+index 60f9e027fb66..f3f7e0437447 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
+@@ -23,6 +23,7 @@
+ #include "amdgpu_amdkfd.h"
+ #include "amdgpu_amdkfd_arcturus.h"
+ #include "amdgpu_amdkfd_gfx_v9.h"
++#include "amdgpu_amdkfd_aldebaran.h"
+ #include "gc/gc_9_4_2_offset.h"
+ #include "gc/gc_9_4_2_sh_mask.h"
+ #include <uapi/linux/kfd_ioctl.h>
+@@ -36,7 +37,7 @@
+  * initialize the debug mode registers after it has disabled GFX off during the
+  * debug session.
+  */
+-static uint32_t kgd_aldebaran_enable_debug_trap(struct amdgpu_device *adev,
++uint32_t kgd_aldebaran_enable_debug_trap(struct amdgpu_device *adev,
+ 					    bool restore_dbg_registers,
+ 					    uint32_t vmid)
+ {
+@@ -50,7 +51,7 @@ static uint32_t kgd_aldebaran_enable_debug_trap(struct amdgpu_device *adev,
+ }
+ 
+ /* returns TRAP_EN, EXCP_EN and EXCP_REPLACE. */
+-static uint32_t kgd_aldebaran_disable_debug_trap(struct amdgpu_device *adev,
++uint32_t kgd_aldebaran_disable_debug_trap(struct amdgpu_device *adev,
+ 						bool keep_trap_enabled,
+ 						uint32_t vmid)
+ {
+@@ -107,7 +108,7 @@ static uint32_t kgd_aldebaran_set_wave_launch_trap_override(struct amdgpu_device
+ 	return data;
+ }
+ 
+-static uint32_t kgd_aldebaran_set_wave_launch_mode(struct amdgpu_device *adev,
++uint32_t kgd_aldebaran_set_wave_launch_mode(struct amdgpu_device *adev,
+ 					uint8_t wave_launch_mode,
+ 					uint32_t vmid)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h
+new file mode 100644
+index 000000000000..ed349ff397bd
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.h
+@@ -0,0 +1,30 @@
++/*
++ * Copyright 2023 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++uint32_t kgd_aldebaran_enable_debug_trap(struct amdgpu_device *adev,
++					bool restore_dbg_registers,
++					uint32_t vmid);
++uint32_t kgd_aldebaran_disable_debug_trap(struct amdgpu_device *adev,
++					bool keep_trap_enabled,
++					uint32_t vmid);
++uint32_t kgd_aldebaran_set_wave_launch_mode(struct amdgpu_device *adev,
++					uint8_t wave_launch_mode,
++					uint32_t vmid);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+index 5b4b7f8b92a5..3299e268f234 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+@@ -22,6 +22,7 @@
+ #include "amdgpu.h"
+ #include "amdgpu_amdkfd.h"
+ #include "amdgpu_amdkfd_gfx_v9.h"
++#include "amdgpu_amdkfd_aldebaran.h"
+ #include "gc/gc_9_4_3_offset.h"
+ #include "gc/gc_9_4_3_sh_mask.h"
+ #include "athub/athub_1_8_0_offset.h"
+@@ -32,6 +33,7 @@
+ #include "soc15.h"
+ #include "sdma/sdma_4_4_2_offset.h"
+ #include "sdma/sdma_4_4_2_sh_mask.h"
++#include <uapi/linux/kfd_ioctl.h>
+ 
+ static inline struct v9_sdma_mqd *get_sdma_mqd(void *mqd)
+ {
+@@ -361,6 +363,139 @@ static int kgd_gfx_v9_4_3_hqd_load(struct amdgpu_device *adev, void *mqd,
+ 	return 0;
+ }
+ 
++static int kgd_gfx_v9_4_3_validate_trap_override_request(
++				struct amdgpu_device *adev,
++				uint32_t trap_override,
++				uint32_t *trap_mask_supported)
++{
++	*trap_mask_supported &= KFD_DBG_TRAP_MASK_FP_INVALID |
++	                        KFD_DBG_TRAP_MASK_FP_INPUT_DENORMAL |
++	                        KFD_DBG_TRAP_MASK_FP_DIVIDE_BY_ZERO |
++	                        KFD_DBG_TRAP_MASK_FP_OVERFLOW |
++	                        KFD_DBG_TRAP_MASK_FP_UNDERFLOW |
++	                        KFD_DBG_TRAP_MASK_FP_INEXACT |
++	                        KFD_DBG_TRAP_MASK_INT_DIVIDE_BY_ZERO |
++	                        KFD_DBG_TRAP_MASK_DBG_ADDRESS_WATCH |
++	                        KFD_DBG_TRAP_MASK_DBG_MEMORY_VIOLATION |
++	                        KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_START |
++	                        KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_END;
++
++	if (trap_override != KFD_DBG_TRAP_OVERRIDE_OR &&
++			trap_override != KFD_DBG_TRAP_OVERRIDE_REPLACE)
++		return -EPERM;
++
++	return 0;
++}
++
++static uint32_t trap_mask_map_sw_to_hw(uint32_t mask)
++{
++	uint32_t trap_on_start = (mask & KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_START) ? 1 : 0;
++	uint32_t trap_on_end = (mask & KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_END) ? 1 : 0;
++	uint32_t excp_en = mask & (KFD_DBG_TRAP_MASK_FP_INVALID |
++				KFD_DBG_TRAP_MASK_FP_INPUT_DENORMAL |
++				KFD_DBG_TRAP_MASK_FP_DIVIDE_BY_ZERO |
++				KFD_DBG_TRAP_MASK_FP_OVERFLOW |
++				KFD_DBG_TRAP_MASK_FP_UNDERFLOW |
++				KFD_DBG_TRAP_MASK_FP_INEXACT |
++				KFD_DBG_TRAP_MASK_INT_DIVIDE_BY_ZERO |
++				KFD_DBG_TRAP_MASK_DBG_ADDRESS_WATCH |
++				KFD_DBG_TRAP_MASK_DBG_MEMORY_VIOLATION);
++	uint32_t ret;
++
++	ret = REG_SET_FIELD(0, SPI_GDBG_PER_VMID_CNTL, EXCP_EN, excp_en);
++	ret = REG_SET_FIELD(ret, SPI_GDBG_PER_VMID_CNTL, TRAP_ON_START, trap_on_start);
++	ret = REG_SET_FIELD(ret, SPI_GDBG_PER_VMID_CNTL, TRAP_ON_END, trap_on_end);
++
++	return ret;
++}
++
++static uint32_t trap_mask_map_hw_to_sw(uint32_t mask)
++{
++	uint32_t ret = REG_GET_FIELD(mask, SPI_GDBG_PER_VMID_CNTL, EXCP_EN);
++
++	if (REG_GET_FIELD(mask, SPI_GDBG_PER_VMID_CNTL, TRAP_ON_START))
++		ret |= KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_START;
++
++	if (REG_GET_FIELD(mask, SPI_GDBG_PER_VMID_CNTL, TRAP_ON_END))
++		ret |= KFD_DBG_TRAP_MASK_TRAP_ON_WAVE_END;
++
++	return ret;
++}
++
++/* returns TRAP_EN, EXCP_EN and EXCP_REPLACE. */
++static uint32_t kgd_gfx_v9_4_3_set_wave_launch_trap_override(
++				struct amdgpu_device *adev,
++				uint32_t vmid,
++				uint32_t trap_override,
++				uint32_t trap_mask_bits,
++				uint32_t trap_mask_request,
++				uint32_t *trap_mask_prev,
++				uint32_t kfd_dbg_trap_cntl_prev)
++
++{
++	uint32_t data = 0;
++
++	*trap_mask_prev = trap_mask_map_hw_to_sw(kfd_dbg_trap_cntl_prev);
++
++	data = (trap_mask_bits & trap_mask_request) |
++	       (*trap_mask_prev & ~trap_mask_request);
++	data = trap_mask_map_sw_to_hw(data);
++
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, TRAP_EN, 1);
++	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, EXCP_REPLACE, trap_override);
++
++	return data;
++}
++
++#define TCP_WATCH_STRIDE (regTCP_WATCH1_ADDR_H - regTCP_WATCH0_ADDR_H)
++static uint32_t kgd_gfx_v9_4_3_set_address_watch(
++				struct amdgpu_device *adev,
++				uint64_t watch_address,
++				uint32_t watch_address_mask,
++				uint32_t watch_id,
++				uint32_t watch_mode,
++				uint32_t debug_vmid)
++{
++	uint32_t watch_address_high;
++	uint32_t watch_address_low;
++	uint32_t watch_address_cntl;
++
++	watch_address_cntl = 0;
++	watch_address_low = lower_32_bits(watch_address);
++	watch_address_high = upper_32_bits(watch_address) & 0xffff;
++
++	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
++			TCP_WATCH0_CNTL,
++			MODE,
++			watch_mode);
++
++	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
++			TCP_WATCH0_CNTL,
++			MASK,
++			watch_address_mask >> 7);
++
++	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
++			TCP_WATCH0_CNTL,
++			VALID,
++			1);
++
++	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_H) +
++			(watch_id * TCP_WATCH_STRIDE)),
++			watch_address_high);
++
++	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_L) +
++			(watch_id * TCP_WATCH_STRIDE)),
++			watch_address_low);
++
++	return watch_address_cntl;
++}
++
++static uint32_t kgd_gfx_v9_4_3_clear_address_watch(struct amdgpu_device *adev,
++				uint32_t watch_id)
++{
++	return 0;
++}
++
+ const struct kfd2kgd_calls gc_9_4_3_kfd2kgd = {
+ 	.program_sh_mem_settings = kgd_gfx_v9_program_sh_mem_settings,
+ 	.set_pasid_vmid_mapping = kgd_gfx_v9_4_3_set_pasid_vmid_mapping,
+@@ -380,5 +515,17 @@ const struct kfd2kgd_calls gc_9_4_3_kfd2kgd = {
+ 	.set_vm_context_page_table_base =
+ 				kgd_gfx_v9_set_vm_context_page_table_base,
+ 	.program_trap_handler_settings =
+-				kgd_gfx_v9_program_trap_handler_settings
++				kgd_gfx_v9_program_trap_handler_settings,
++	.build_grace_period_packet_info =
++				kgd_gfx_v9_build_grace_period_packet_info,
++	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
++	.enable_debug_trap = kgd_aldebaran_enable_debug_trap,
++	.disable_debug_trap = kgd_aldebaran_disable_debug_trap,
++	.validate_trap_override_request =
++			kgd_gfx_v9_4_3_validate_trap_override_request,
++	.set_wave_launch_trap_override =
++			kgd_gfx_v9_4_3_set_wave_launch_trap_override,
++	.set_wave_launch_mode = kgd_aldebaran_set_wave_launch_mode,
++	.set_address_watch = kgd_gfx_v9_4_3_set_address_watch,
++	.clear_address_watch = kgd_gfx_v9_4_3_clear_address_watch
+ };
+-- 
+2.34.1
+
