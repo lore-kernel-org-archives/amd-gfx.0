@@ -4,121 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF729EB64DA
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 03:09:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18F2DEB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 03:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 670D110E3D3;
-	Thu,  6 Jul 2023 03:09:11 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF5610E3CF;
- Thu,  6 Jul 2023 03:09:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CEDC10E3D8;
+	Thu,  6 Jul 2023 03:49:58 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::600])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01C0D10E3D8
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jul 2023 03:49:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vdfbgnnhqo3avu8uOej78n4vS6a1iOzQ/iNe4IKbV7rhAyWTD/oDXdqPwKDkPBALve8GCwNW84hq1/wUbf1O0e6YiyWimiFUfLFNfK4PhsXnjg2cDx2FpYOG5g7C85Cx/8mAEUNzudkVJNEDaC8ir+wvmnOwO2dWy6hUjTUBXQ4QVDnf4SbCQ/LkqrM9jwVnSj8Rtw8jrkcE4qLDn6kvyZmzktoRgwP2VbB2cE0w7qY9mzL3iV3v5PK/SqGjxymjGUkFpJOO5KGSC3Uq8ZDTaGNHp6W4hCq+86zsT1JkKMcFK9wUEeYmnaC+EgWD4keUPAuemvsBeuloYE5ZsHFeeg==
+ b=glbXL08EY7+5CcbK64O4oXMpMCaDP5T3e7Nk2wqDPypkSwIXfvwcJgQ6MoDcUmq5+zl/74pEp9CIvwELz5yU+VbSoawFBK7ZbViV7olqEFCeHSkiyHKdn3fslZunKqb6axok/9JyaM8oG12VO0xG8cW/JQpGPUmEMuE7wgOTM0S47581fk4A/MP1nuHP68Ab07kjZ48fuDi/AX5HV18y5vnjtDr72RqGxhFZLPvGhH/ouA9srlSo9JQE9ub2hd+WH3gytKsLVETd3JBbROJm0G8QxOog46l8JLW+vturSrnrZBHdkZGHv3xEhhXY9DCObPFLJzgel0wWyjIyqp2tuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/gEJsgs4IMZp5Q9MpQfjvQyuwdAhe6NQzk7JLGA1PqQ=;
- b=ZdXRNAfdfZMIDhAm3VA2DGAS6CfLxqndN3UwdpEDn7mZKtHy4vlJD0HTt5r1cTQuT2suPReiwS6d79UhHBG683VSSACjg36CJ/dOFF6JHAzypm0zP2odzsa7qz/6kl/CyrdkO2Bdkrrp8s0rCE+p//Ap0gCxHk8bblJ9fBk11PiBO0FCgvoC5NUqPS+07FyLNkoNKyLIwDXHu3Tfzlxm/ECFcfJyVDQJfyWk7OYc0Ii0rKU9oA0+Qp2c9g39kLov2rYLqYiCkp9/oW0RL5EjjwQl3f+X84tOgAZ932LkAuKhzWaJHEa5McikcXOciBHGVKiQRa1hXLc9ptngl4dMxA==
+ bh=7/o17u9gkNs6xJJW+tAaFrBLu2NIMZNT1+dsL0/E9jo=;
+ b=dTWziLQpnsqwWy4Jh16iIhsWaT1HV2LUlEGCOorbrxBqO2DFQPPHd3RQ+Qj+4Z39H1QUQVYcA7yNOjoGKpPi1jG8k7k8A7Nxe+9BMETgUYRCuri97WDJMKc4imWSOeTjTZtJ7LC4Gmlhbk/AFCXcyh0J/pwswwgL8oErHNaopxGP+3vOtYTfL9E/z+pcbP7GYjX7DE893btoO0HmqxeSod0MfV02NhIrk+NpkH8yltOS1xEpVdTLSBD7ICHtGca+XH1LWLw/GrPAwToi2bfj7ZWuCte2QXpYdTW5jjGgoZ3DCK9Y3v5bY4CLDT1i5nmFuVXUYVhWWPWyBrVbgTZAbQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/gEJsgs4IMZp5Q9MpQfjvQyuwdAhe6NQzk7JLGA1PqQ=;
- b=X+M+/wTlkREULk6v/Mhci9SGrUoFpA73s9sbAgK4+fB/HiFv9PQtQVydzf5WQF8TAwcX1EkWJiL9Cp9U0hu8Zt/M49U7RV32tA5pyuhEMHOf+aqv7E2sdoH+o1dByuSzqtlnFhz2+SYOFzQUun2fXIl5dIh0O7IXEeoR4GHozMc=
+ bh=7/o17u9gkNs6xJJW+tAaFrBLu2NIMZNT1+dsL0/E9jo=;
+ b=g2tTp082lJWXcl5i3GGD6r/wJcMIN7RtaSaYytHzD1u3yujY0qILdTq/D4Ktlos608SMITviVAbR+YqHbFtLanzAUTxCxBD5ZRfX9x1xMXaaK0TGc2uiA72xTjRvQXa88MGoL5AjKDy3Wzrl76NCKnyJEnaENk4f/EhfVOk2OGY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by PH7PR12MB6881.namprd12.prod.outlook.com (2603:10b6:510:1b7::10)
- with Microsoft SMTP Server (version=TLS1_2,
+ by CY5PR12MB6550.namprd12.prod.outlook.com (2603:10b6:930:42::6) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Thu, 6 Jul
- 2023 03:09:05 +0000
+ 2023 03:49:49 +0000
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::dfcf:f53c:c778:6f70]) by MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::dfcf:f53c:c778:6f70%5]) with mapi id 15.20.6565.016; Thu, 6 Jul 2023
- 03:09:05 +0000
-Message-ID: <f2612b12-5c9d-dcba-2221-220261ac7b44@amd.com>
-Date: Wed, 5 Jul 2023 22:09:00 -0500
+ 03:49:48 +0000
+Message-ID: <6880b81e-22bc-597b-5d01-ff6f84dde9ad@amd.com>
+Date: Wed, 5 Jul 2023 22:49:45 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH V5 1/9] drivers core: Add support for Wifi band RF
- mitigations
-To: "Quan, Evan" <Evan.Quan@amd.com>, Andrew Lunn <andrew@lunn.ch>
-References: <20230630103240.1557100-1-evan.quan@amd.com>
- <20230630103240.1557100-2-evan.quan@amd.com>
- <7e7db6eb-4f46-407a-8d1f-16688554ad80@lunn.ch>
- <DM6PR12MB2619591A7706A30362E11DC5E42EA@DM6PR12MB2619.namprd12.prod.outlook.com>
- <18dfe989-2610-4234-ade2-ffbc2f233c19@lunn.ch>
- <DM6PR12MB26198720EBBAAB8C989F8D4BE42CA@DM6PR12MB2619.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/amd: Avoid running psp_ras_initialize() on HW without
+ RAS
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20230705165249.2058-1-mario.limonciello@amd.com>
+ <BN9PR12MB525760145F1812231E109A72FC2CA@BN9PR12MB5257.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <DM6PR12MB26198720EBBAAB8C989F8D4BE42CA@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB525760145F1812231E109A72FC2CA@BN9PR12MB5257.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DS7PR03CA0052.namprd03.prod.outlook.com
- (2603:10b6:5:3b5::27) To MN0PR12MB6101.namprd12.prod.outlook.com
+X-ClientProxiedBy: SN1PR12CA0084.namprd12.prod.outlook.com
+ (2603:10b6:802:21::19) To MN0PR12MB6101.namprd12.prod.outlook.com
  (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|PH7PR12MB6881:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4440bdcc-b80a-4c7b-0cb9-08db7dce5b07
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|CY5PR12MB6550:EE_
+X-MS-Office365-Filtering-Correlation-Id: acc87b57-ab15-49a7-a9bb-08db7dd40b20
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AT+DpR9XkPzWwMV9rfPGSugp/iDMOvm+vECJ6ThKib0qRTQR4i8JiJKM5cgbSaA16oASj2kghkQHdOsTBsMkrwq0CQfxSaGrwfrOgoqtXgo8oNxRCwe02CZjGeE2ONHr2acBA6dKAshVyYM6n+GaZddiPp1LLDjn12tSX6JTNK8D8ysR9sr+ygYOxvagLQ3YbKLOszyVwkd2aRW8uOTiZKDP7mFWW+uYvuQCyxo7ms6gkBL67sKQzQxWQjAbQEZsWhBLO5Mj1hziYVQTs06KLH0c7E3MwW2qUNcG3aajQfISdP1TP8MBnU/uacWu7+0fY4FMOHmPI1dtGIojuISL95Tmd/kQxyJEBXBuWJ+shTMgIyycl3sdm6akq0jQ1calQpx7bKhedfnHIYhwJfsaOsTlZJqV0LlDtW7cTeyAfD0sevDaQ9FMuJvudN2eabwhduQV3T1WZaILWHdojxgsl7OURyGZt+mzoU3LqBR9MRW2eMTKXdaNsKzRS3lui5o8nB8uZyRzccwEBtGOjdWk37pOvUr5qEQjBH4JMFOWVcHMDj1ib77em8SwIpkPLS6nYVs8dNRITtQsDszlmnhybR9y5t1RHkfzNA9fydyuOCpCAbeDH2gbGk2aC2rhlBLIz+IjSMiFyYoNMkWspbC+OA==
+X-Microsoft-Antispam-Message-Info: t9ebl2BXbDD7gDTburLlJY/1ENji/O4fShLGZ0qHolQiwUo0vwrr/9zZ8LumXvDqWv80J5A/OOuTH6jOFLBRolm4mAFH3aYQbz568BygBhx8sFbtDXF9ws5AaP8VOaUGJo4XSwW2oFp7CEYD/Rh/9G0O/PZVMf+zg7bEtIHh22UWRBUoMCZFE4OE1q2fKnwHxhLNvVWO4qLfy8GL35X5/tgviOYg60qjCT7jBWbnc7kbPoj2Rjt0Jtk9Ay4pTAnynpkCiqwUiTqnGPkJ0Qy9S8+vH77ECYUid5nPGVSdQ1kVG5HqrwNmdDy8B4ISHJJOVm04OtvH13xRa+X7Zzdxu7I7+xjYJHmWZPgGcywoX0SFvmA7IYqH7BKzESThM3ih4Nv5qwFp8Ja0CmL/fep26KdFWEjkaSUcT5BITSxgaZdKnA7ZYQDD4fU0VYyYKfERIgLjQOKN1GHldonBVdb3vPtN+iF4eB2WAD0f44Eyt091MqucWdoz4YRJxzzWNrbscttB7jMI12INUpp1yJ5IcnvV/sM9WoazACBeluahireYMa7C4gP324I7V84kNExFmq8mgNTJ1rXlyS2psqXcecZlqf39BMbiMLNY/ZuRR/osZ9LdQDAWj5e5KUKXr+mHKit8hkCqVQBxxbUxYRYpfV/o+V47vXpTgbyYaTStOdQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(39860400002)(366004)(396003)(136003)(376002)(451199021)(53546011)(5660300002)(2616005)(8676002)(31696002)(86362001)(8936002)(54906003)(83380400001)(38100700002)(41300700001)(316002)(66556008)(66476007)(36756003)(4326008)(66946007)(6512007)(186003)(110136005)(6666004)(6486002)(478600001)(6506007)(2906002)(31686004)(44832011)(7416002)(43740500002)(45980500001);
+ SFS:(13230028)(4636009)(39860400002)(366004)(396003)(376002)(136003)(346002)(451199021)(31686004)(6486002)(6666004)(478600001)(110136005)(2616005)(83380400001)(36756003)(31696002)(86362001)(2906002)(66946007)(186003)(53546011)(6506007)(966005)(6512007)(38100700002)(66556008)(316002)(41300700001)(66476007)(8676002)(8936002)(5660300002)(44832011)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emtkdmJ0YUthbkFHN0VTUTBHM3lPNkordVREOW81STVoZm1XdGZCZmlwRURj?=
- =?utf-8?B?Tng5THptbUkrckoyZDE5cXUwdnR1OG9oNFZ6TTZtNHo5YnkvSVhWV1QzT0Z3?=
- =?utf-8?B?ZGRKdlN4NG1VZ3orbHZHY2FEWEt3SFBqUXNjTjM5a3hmamlRWjNjcnhVT2ZH?=
- =?utf-8?B?TVE3MDhjM1d2M0VLY29TV0gyZFFzVWZETWR0bXIrdDdXbXZCSmVkdVR2dFJE?=
- =?utf-8?B?L2JTWG4xSFhTY1lxdmV5aVVCcE10UEpBNmhUUVh5T1pZZXpXY2dNU094ZjUx?=
- =?utf-8?B?QjZXMGIrV3ByanJCcUhibVBkWlZOYXc1U0MxSlRRdjNoczdsclJLbG9aKzBZ?=
- =?utf-8?B?UHhBWUhZQURVUTI3UFJIUjRUbVpFc0M4a0x5T2c5Szd0a3dMZmk5ZWNFcGdF?=
- =?utf-8?B?NzhSbGtEa3J4WHIzT3FLMnlYZjNVUUNuMVErODVwajdaYmlNdVhYQ2xBM3h3?=
- =?utf-8?B?dE14UVZSbGV3bDhnUHlFaWZnL2dtYVVZT2FlS1pOa2FsZlhpL1gxdXU5M3Ny?=
- =?utf-8?B?NEJTS0FNRXZvWXZka2ZsV24xUHpUcEVpMXR6S0VUZ214ai94UXU4OUc3TEdU?=
- =?utf-8?B?RWgySXhCOHhxM21HckdHSTNQc25wS3ExcTFKRXdrM2xHSHlGSHVxeG9YZlIy?=
- =?utf-8?B?U2MyOFJYVmxoQjJUMG9Ya3F1TUI0RWt6L2JQZERtTTFLbWFTMVFvUWVqQUVx?=
- =?utf-8?B?dnN3bHpnQVFtcDhnVmhPU0s0eDVsTUR4V0xNSFBpUm9peFZPa1NqSXcwSURQ?=
- =?utf-8?B?bG1yUFlpY0Q0ZWR4cldYWEtydHh0bDUzb3dCQmRZQ091a0FUMEFpZ1EyeWxa?=
- =?utf-8?B?Z0VYUFdjOVVJUUVUM1oxRCt0VUxsUXhuWnVYTnF0aGxKYjVvblA3bVhZcFZt?=
- =?utf-8?B?KzRiMHhTejNjWHUvc0NjK1NHYjhUK0NYaitBMUFLeVFkT2ZKdlQxUVpUV29a?=
- =?utf-8?B?WldJT1FYWXF4dUFLdDhGZ2lsUWJtMzRBSkxiNDRUK1ZMZWlQd2JIRlRsNi93?=
- =?utf-8?B?YXcyeXJ4TmVIKy9mTFRhamd1U0lJa0dGZW50THVQRUFBeEVOakFBYnovYlV4?=
- =?utf-8?B?UTVZSXdDeVc3dUtrTEpzcnRIUkZpNDNXOGdSTkhrZVRYZ0MwRDYrVko2VW9R?=
- =?utf-8?B?Vjg0WjV1K1JXYU5FQ21WZHpab0tNNVFvSFpwdkdCb1cxekRlNnJzTHZMNDJo?=
- =?utf-8?B?aE0rOExaL3FSTmJ3ZTdOelNyYVZtbW0zenNQODNIOEJ1b1Z0K1NPY01lVm1V?=
- =?utf-8?B?VTJickhNZkZXMmxvMTFTa3AwVXlrVmRxemJIZFdPYnlxSXlwdHJiTGxjK25Z?=
- =?utf-8?B?ZFJKU1E2eXcvUXVvV0Q0aFVwWUZQM3NaRVk5MVhiRjdmaUJxVml6SlhFOTVl?=
- =?utf-8?B?bG5ZZHNNdk1oSzBNOWkrNDJnREFaZEJhTHYyamZRcVlNZFNBWWVLNDZyQ1Nx?=
- =?utf-8?B?dG9hSGxsM0UzQ09qemVmbnFyRWt4amg3emxvV3FSMHp1bTE0bWlCRXBnZFR3?=
- =?utf-8?B?cU9WNzVCSnFXcEMrNDJJVEIxcVRCbWQxUVZmY2Niek9tMHllQlRIaDRjaDRJ?=
- =?utf-8?B?UEFrYWRadU8zRVA3Z0hNRTNnSmF4Q1oybFZRaFVHemR6YmQ0UHJSSkpicUV6?=
- =?utf-8?B?R0FnZTVCcXMzdGVjRloyTEYvcExMYWp2dE1sME5tUkhhYWNKOThaZk1nbXRl?=
- =?utf-8?B?cjZBUE93NkEzL1JSVkVadzhhS0NHNUdKdU9NQ3gwN1JNN1lMdGx3Tm1wZHpD?=
- =?utf-8?B?eW9nMjN1ZEgxL3RFYWFyWkRQM241RkpMRTdPdjFUM0tCL3htTytjRUpvaGs3?=
- =?utf-8?B?VExPSUw3bGVGekQydkFGeGFGdzlCVGhKaTdJSlE2U3JGbk1tN1FvU1ZKTVc2?=
- =?utf-8?B?VXZwU0ZENGtlSGJ3S212dTlRekFJZjRYeU1OSWRiN0NmK211SFpLa3BpQnJB?=
- =?utf-8?B?SHNnckxQMFoxdlU2UjdibzIvZzZJcUpNNWgwRm1yWXlNVnBFbWx0ZERXdmIy?=
- =?utf-8?B?SjdrSnJsRmdZc200dmo1ZXNXLzZ4V3g5N2t4Z3doN0JZcm15MUVCZmd3K1hM?=
- =?utf-8?B?eHB3OFRCeFdBSzhwdUFReWtPTmVBZHZES0w2ZHRyUTdXeG5KZmk2bGhjSDNM?=
- =?utf-8?B?cHo2dzR2a09VUFBwOTRuZDhnbVp3RnR2MkFCcHJEVW5DWDZvcjhaYnpXL3dK?=
- =?utf-8?B?NkE9PQ==?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?emJyeXlzYWlGL1p1Q0ZJR05aZUwvdjVDcDBhaXgxZFRBenVNUSt3aFFJRVdO?=
+ =?utf-8?B?bW91anlvUlhKQUZaYUhmTXBkdmlQU3BzNVNxRnFSbmgyd1pQVW83REdKb3JD?=
+ =?utf-8?B?aU1iNmNwL1BVVUp6STl1QmliVitPaHluKyttaVErL09oamVxMi8xSU9uWngy?=
+ =?utf-8?B?cWIvUWhFYm15aXJibkE3ZXhySHNzQlVPS0phQlY3STJTeHN5b2RQT0pDQXFo?=
+ =?utf-8?B?M0taNk5YT2VqQnkyRmRwQ095QXR6TXlhb1dhMnJCeGlUNmJPLzQ2U2VrS3ho?=
+ =?utf-8?B?ajdKN3VYc3BDSTJweU9qQjA2WWc4Q0lsVmdaY014Mm9aRTdRVG5ScEVlLzNQ?=
+ =?utf-8?B?dUQrdWQ4Y2M5WFN6Nm1qWUpJUk9UYUJNZFlkekJaRk5NTWJoaVZoZGRicFZM?=
+ =?utf-8?B?TFdGVzBoeW55SWZaYkVBT3EraTlpMHlpU3dMVWZPdzIvVWRSbGlORlVqZHZs?=
+ =?utf-8?B?b1FIeHhkcVNyOTlCeTNpeSt4L001T3dJalBaRkExdmRZdVhZeWZQQnlFOENu?=
+ =?utf-8?B?cThER2x2SE13ZjV4ckNYK215YnZSQVdVYkZjb0QyQkJRQy9VQ2FySjl1Q3pn?=
+ =?utf-8?B?ZUg2ZDhscjhpSUxjTUVBWHpoRUxSa09WUmhpWFRGeUw0eVN0TlAwNm56N1lK?=
+ =?utf-8?B?aGM1M3QrUEc0cVFHdkJXbGE1OGlGclBuSVJPeFZDSTd5M0VPS3MvRVNheGtL?=
+ =?utf-8?B?azdqWjViTkZDUDVWWXBjcnVtNkZRak9VMFU2QkEvM3BGQ0FXNU9rRllsWUFL?=
+ =?utf-8?B?Tjh4WXpEVE9BODc2Z292SHVqYTU0Vm03aFhNZk5LNUJMbWlqZjdEZXBsM0Uz?=
+ =?utf-8?B?TWROVTIyNVJGSmJ0emNudHNpTUtReXZmRXdSdXlLeFJOaHpPYXRhUVNDaE1a?=
+ =?utf-8?B?Nmt5VUZjTHlpSkxrN1hTQXNOOFdwNUQzZFAyOWdmWVFhTVpSNFd6UG9IdUtJ?=
+ =?utf-8?B?N01FbTF2endFQWRvbGV5enBJOU9GdUVBRjdEYUswVmRoVDM3TDIxSExwUVhF?=
+ =?utf-8?B?N3g1cTlXb2M0b3paQ1NUWVNFRXZsa2t1WGUrdk9qWlBudldGT1hKTkJjN2ZV?=
+ =?utf-8?B?RW9OUnRTVmdQa2E2SHJ2cDlVbGVtUlBPc2EzNmRQS1hENS9qRjhxeHQ5TEkw?=
+ =?utf-8?B?S2w2bE1Zdlc0SWNWNEtxOHlGd3ZKeFZhcVM0N3dtU2ViajZRSWZWKzVGY1BT?=
+ =?utf-8?B?ZVVBeFdzNmFJc3ZRUEQxOXowVklGTXA5UFd6QnFHeC9NZmo4RXRQT2ZwNEFI?=
+ =?utf-8?B?UC9NdEdWdDVobTV1dGxsVVQwcll5angvME0xTHg3SHkyWVNsZGJNZ29sdy8y?=
+ =?utf-8?B?WWJNVG5OQnQvblcxQ1YvN0owb2xFZEJvOHBYNEQzazhVYVgwL3liRjRITm9t?=
+ =?utf-8?B?Y2d6WjkrZnF4UXhLdDhuTE15SVEvVzFORExDTUpBQmFSb0dKNDI5NVUrc29G?=
+ =?utf-8?B?TXZMVmlERFp5eFc2bGF2QUZKK09nOTF0dGNyY2lrdy9kMnpsUWpGZHRiM2ZT?=
+ =?utf-8?B?S2JUdyt2dXNHNlY2VW5wY24yYW40OG5XdjB6QXNtRCtLNlUza0hCNXVDK2o0?=
+ =?utf-8?B?R1IyOTYycEl0cHFUcW1qL09ubmlHeEpMak8xaitiNGxkTUh2WStrcUZvbjZp?=
+ =?utf-8?B?MEFUUklTbEZiZ1I0TkZmVEVabGQxdTBrVFdtbm8yQXlBSGsxbVRWWmRvRk1t?=
+ =?utf-8?B?T3MzUXM0ZGNVYnZMK1h5YmptakxXZjhEUk56c3Aya0tCaUVjNU5weGpwcllv?=
+ =?utf-8?B?WDFDRXFiUE9QUk96R3ptMktsa0gzUEt2L2hJNEU5REN0ZnRuRXlSSjhYclVP?=
+ =?utf-8?B?L2ZhUDVzL0hYQUxWdnJ6M1BzbEVDQzZ0NmFPeCtNc2p0b2drdlRTUk9oWWlk?=
+ =?utf-8?B?aU5BUU8reFZicytnZ2ZFL1RjT3pkVkh2TFFDV0NtTm1xSzd3ZjZYZklGekE4?=
+ =?utf-8?B?YjVWZGR3aGlIRVBFWjhhaFBRK3RsaWpDcExXS3FXa0JUYW1ybWhCSVA3QWpB?=
+ =?utf-8?B?aU9yeFlGRjRrM2pEYzk1NEt0QXpqdDBBRk42SEIxWXkvQktmL21yWnlNUXVI?=
+ =?utf-8?B?Y1dhS05QSklMalNybE5sOENFTkdPOHJyRzBTZFF3R1hzWVRSMkdGMXJuMUVt?=
+ =?utf-8?B?YVNXWUM1WmNIUElCVThPNitORi9HNE1LV2hYb3FKL2xJRVBqdFJiSkQvK3NI?=
+ =?utf-8?B?RVE9PQ==?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4440bdcc-b80a-4c7b-0cb9-08db7dce5b07
+X-MS-Exchange-CrossTenant-Network-Message-Id: acc87b57-ab15-49a7-a9bb-08db7dd40b20
 X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 03:09:04.9126 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 03:49:47.8386 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gcNGsvTp8Lwa/ccRYUc7CkMtIqfS2ZYLF9R5sVf3e9GiNT6FYjEyOKvIzZ4PE3JoTu/zhaggaTSbTQgpgrgsgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6881
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1PedEjcc+BN3Uw4zy9tP15dr5530yOpSGY8rZFmHM2ofBb9GzRBq9xCfDe3f0JJVX4hhedXnB4L6dSuLIkGPCg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6550
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,107 +128,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "jingyuwang_vip@163.com" <jingyuwang_vip@163.com>,
- "bellosilicio@gmail.com" <bellosilicio@gmail.com>,
- "rafael@kernel.org" <rafael@kernel.org>, "trix@redhat.com" <trix@redhat.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "mdaenzer@redhat.com" <mdaenzer@redhat.com>,
- "airlied@gmail.com" <airlied@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
- "lenb@kernel.org" <lenb@kernel.org>,
- "andrealmeid@igalia.com" <andrealmeid@igalia.com>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "arnd@arndb.de" <arnd@arndb.de>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>, "jsg@jsg.id.au" <jsg@jsg.id.au>,
- "jim.cromie@gmail.com" <jim.cromie@gmail.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "edumazet@google.com" <edumazet@google.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- "johannes@sipsolutions.net" <johannes@sipsolutions.net>,
- "davem@davemloft.net" <davem@davemloft.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/5/23 21:58, Quan, Evan wrote:
+On 7/5/23 19:28, Zhang, Hawking wrote:
 > [AMD Official Use Only - General]
 > 
-> Hi Andrew,
+> The change doesn't make sense at all, especially for some ASIC where it is allowed enable/disable RAS config through RAS TA. i.e. set ras_enable==0 and the issue commands to RAS TA to change the RAS config.
 > 
-> I discussed with Mario about your proposal/concerns here.
-> We believe some changes below might address your concerns.
-> - place/move the wbrf_supported_producer check inside acpi_amd_wbrf_add_exclusion and acpi_amd_wbrf_add_exclusion
-> - place the wbrf_supported_consumer check inside acpi_amd_wbrf_retrieve_exclusions
-> So that the wbrf_supported_producer and wbrf_supported_consumer can be dropped.
-> We made some prototypes and even performed some tests which showed technically it is absolutely practicable.
+> It doesn't matter whether ras code path is enabled or not, but ras firmware, as long as it is built-in for the asic, it needs to be loaded.
 > 
-> However, we found several issues with that.
-> - The overhead caused by the extra _producer/_consumer check on every calling of wbrf_add/remove/retrieve_ecxclusion.
->    Especially when you consider there might be multiple producers and consumers in the system at the same time. And some of
->    them might do in-use band/frequency switching frequently.
 
-One more piece of overhead that is in this same theme that Evan didn't 
-mention is the case of a system "without" AMD's ACPI WBRF but the kernel 
-was configured with it enabled.  Think like a distro kernel.
+OK - how about instead to use adev->ras_hw_enabled?
 
-Moving it into add/remove exclusion would mean that every single time 
-frequency changed by a producer the _DSM would attempt to be evaluated 
-and fail.  To avoid that extra call overhead after the first time would 
-mean needing to keep a variable somewhere, and at that point what did 
-you save?
-
-> - Some extra costs caused by the "know it only at the last minute". For example, to support WBRF, amdgpu driver needs some preparations: install the notification hander,
->    setup the delay workqueue(to handle possible events flooding) and even notify firmware engine to be ready. However, only on the 1st notification receiving,
->    it is realized(reported by wbrf_supported_consumer check) the WBRF feature is actually not supported. All those extra costs can be actually avoided if we can know the WBRF is not supported at first.
->    This could happen to other consumers and producers too.
+> Regards,
+> Hawking
 > 
-> After a careful consideration, we think the changes do not benefit us much. It does not deserve us to spend extra efforts.
-> Thus we would like to stick with original implementations. That is to have wbrf_supported_producer and wbrf_supported_consumer interfaces exposed.
-> Then other drivers/subsystems can do necessary wbrf support check in advance and coordinate their actions accordingly.
-> Please let us know your thoughts.
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mario Limonciello
+> Sent: Thursday, July 6, 2023 00:53
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Limonciello, Mario <Mario.Limonciello@amd.com>
+> Subject: [PATCH] drm/amd: Avoid running psp_ras_initialize() on HW without RAS
 > 
-> BR,
-> Evan
->> -----Original Message-----
->> From: Andrew Lunn <andrew@lunn.ch>
->> Sent: Tuesday, July 4, 2023 9:07 PM
->> To: Quan, Evan <Evan.Quan@amd.com>
->> Cc: rafael@kernel.org; lenb@kernel.org; Deucher, Alexander
->> <Alexander.Deucher@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>;
->> airlied@gmail.com; daniel@ffwll.ch; johannes@sipsolutions.net;
->> davem@davemloft.net; edumazet@google.com; kuba@kernel.org;
->> pabeni@redhat.com; Limonciello, Mario <Mario.Limonciello@amd.com>;
->> mdaenzer@redhat.com; maarten.lankhorst@linux.intel.com;
->> tzimmermann@suse.de; hdegoede@redhat.com; jingyuwang_vip@163.com;
->> Lazar, Lijo <Lijo.Lazar@amd.com>; jim.cromie@gmail.com;
->> bellosilicio@gmail.com; andrealmeid@igalia.com; trix@redhat.com;
->> jsg@jsg.id.au; arnd@arndb.de; linux-kernel@vger.kernel.org; linux-
->> acpi@vger.kernel.org; amd-gfx@lists.freedesktop.org; dri-
->> devel@lists.freedesktop.org; linux-wireless@vger.kernel.org;
->> netdev@vger.kernel.org
->> Subject: Re: [PATCH V5 1/9] drivers core: Add support for Wifi band RF
->> mitigations
->>
->>>> What is the purpose of this stage? Why would it not be supported for
->>>> this device?
->>> This is needed for wbrf support via ACPI mechanism. If BIOS(AML code)
->>> does not support the wbrf adding/removing for some device, it should
->> speak that out so that the device can be aware of that.
->>
->> How much overhead is this adding? How deep do you need to go to find the
->> BIOS does not support it? And how often is this called?
->>
->> Where do we want to add complexity? In the generic API? Or maybe a little
->> deeper in the ACPI specific code?
->>
->>         Andrew
+> On hardware known not to have RAS or in cases that a user has disabled RAS via kernel module parameter, it makes no sense to try to run code from psp_ras_initialize().  Furthermore trying to run it shows the following message on every boot:
+> 
+> `RAS: optional ras ta ucode is not available`
+> 
+> Avoid running the rest of the function is RAS is not available.
+> 
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1415
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2673
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index c2508462e02f..a87b6c761e78 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -1603,6 +1603,9 @@ int psp_ras_initialize(struct psp_context *psp)
+>          if (amdgpu_sriov_vf(adev))
+>                  return 0;
+> 
+> +       if (!adev->ras_enabled)
+> +               return 0;
+> +
+>          if (!adev->psp.ras_context.context.bin_desc.size_bytes ||
+>              !adev->psp.ras_context.context.bin_desc.start_addr) {
+>                  dev_info(adev->dev, "RAS: optional ras ta ucode is not available\n");
+> --
+> 2.34.1
 > 
 
