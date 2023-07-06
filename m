@@ -4,122 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49CA6EB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 07:38:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5AD0EB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 08:36:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD54B10E453;
-	Thu,  6 Jul 2023 07:38:57 +0000 (UTC)
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on20726.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:feae::726])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A1A310E1C6;
- Thu,  6 Jul 2023 02:11:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1572510E47E;
+	Thu,  6 Jul 2023 08:36:09 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2062f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA66910E47E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jul 2023 08:36:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HqyDwqrJDcpO5AaCSOlkBWDQbbIPNpxs3im2cIZKDeB4ZYKgzi6pPEM4OJSv/LinCUs8aPXJlAcBHH22I0lZBN0ImHkRu9YI8WSG9cQNNck/xlYFCq6MUJzVkI+3XpdJkrkkDMe8aPvnPrCxjZpCB1QMWuPnv+2fBaXBOE8Mxh0FL43m+OdCaC3d1/u3/KV/TAQ99FYWWYA7N4hUlo8n/SCdj6st4X1S2lTrjbYBlf5F6hk2dmSCbWHRBUbp0p3TybgRuPukvFo9f9U1qWBWvVUj0DSsojxeJmBGF60FAYxAGSuVDP9OUjFjfRiCOtgN/cu1WTf4l1oT9bcZ8wLXpw==
+ b=EivVddYOeU+ZoTp8BEtWmVa9niA768Y0ZGkkSHdt8ltrNZz4GGXziM+idm0aEelPYq2e5ujtmgwPNSbg7b9CZeJVZK0sA1+yzzCn9IR6GeMnLFzMu64q+2vKx8Qujoj50t7xP2WSDT9bG/hQr/MZxfOHKutCjmyJsJ8HvD7WqUiOB/Svk4Dks75VbOg43Ng8FUW+s/Ih5ZiJk0+5GTqJo6vHWae9Q9YqkSd7zSXUg+GVCtU9B2rNf57IqSyyjEMtSs38ocIZl1I6VZtSTQVc16ohqpHmscC0JkSHp4PCOyZl49FRPRdqIuetkv+QrVS5ll63z+4eamI4uVpBD75dYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1ugY+1ShlS7IIZZCnoXdEsWUabJWbbkhTdKnJL8m15c=;
- b=OJ8KBxvMceNIaQszYil5561rmue0YqEr6Q0wQxocBCdio2HinpMY0/7qX1A2qMvIEGya72KzNewrNzOu38Dax5Kv5FZrDzWeiGK8yeWgVagdncQzAbL0vlTecun1Uvzu1nA2+RIJ6mpQ2fRF664r9wn8qm5TW2LEtmUpdo0jQNpYrc+WGtGwLtEtw9/T5MbilYsUbeTfc78zg/xWbLkTwh3bnG68c4uIjgUt36mGiE71QVCE47W8n5ZUtb3px5YkVXgk8vCFX/2+vaGTsLwpYJY4e/1LwEiloUPDLX77124cSYLzLDKwW5kDdQXmluvQIZFTZbL3oKBzkg2bt3pLGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ bh=A+4ZP4C+N1dvOPtAMhapEDwkc12qUGadWwH51ifjzjw=;
+ b=cWLMRkmJgBmYvHU524exht1lYM2MxPJGrV4cVSYjoGWGi6eq9NwVfUjU6QuQ4xHYOv4qEc0yYha40hmg+wYpyIgVv2pdl5SkICriGENBxMUXA738PIv3e997H1QF9eDsyzNjC3TYTwTU9KFlxa6d2gb/5duws7bSUNnmN/2WPYwIPAYgYt0rMMQISkB2SWOWWHSQ9riKOlfXlE9Cq8ShTWQqqDri/JVecyCPVvcrXIjrf9hbTkVboBjRoYiQYVfzEZhO8IpdTmTirqqRIIO7/4cedZxgoKe+z/1UGBL2ahBRlLHtdh5/ih3tQ8L5B/yHQVQTU1S3Wfl4MhT0HYLB4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1ugY+1ShlS7IIZZCnoXdEsWUabJWbbkhTdKnJL8m15c=;
- b=FCsCO8RVzaJtXdkGzix83nnuP4AvSBPhVJsvN/cq+fdD7qet47XH9TFRA3wh5WBe51uhIniuSX13mh0wNiwAN8NCw33vnQZHuUzXT4q7+YM4/EX9ZqnK4TJy+3KTGZnfIL/p+/qrnyWGN1RRD5yZarvvOAJJmxJYRefXp/pj5sbmpL8isrQqNPx7Y3tOuo/0/RKmmn6X9wWX8UWJuUqiJH4nvytAQyoXn3JnzdUjcygeRe6CEI6mjdwfTFXdaURVGoD0Pv5Kg53718TlciEOFHabqW/zrXGYt+mQWJ9Iz2Q8aXhWp1ibWCzQ3KHltXCPLR/zAlTUnpnphxlMXEoigg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SEYPR06MB6615.apcprd06.prod.outlook.com (2603:1096:101:172::11)
- by SEZPR06MB6206.apcprd06.prod.outlook.com (2603:1096:101:e8::14)
+ bh=A+4ZP4C+N1dvOPtAMhapEDwkc12qUGadWwH51ifjzjw=;
+ b=sn+PVlzgWePhpNHacTutFSnFzdtLlY7OxL4KMRq02lIN8DAwzT9t+Y3zYvp/HJ7fdtTmxG1+ZNM61Rc5Qr78eYx1W+IiHkOYkEKtJk8Y2KteRGP2/YAHcmP0Cq/aDISppY4rpyvtikKDFRdlpfldR06RCvcnidGacrdaQMQgb/w=
+Received: from BN9PR03CA0848.namprd03.prod.outlook.com (2603:10b6:408:13d::13)
+ by BL1PR12MB5378.namprd12.prod.outlook.com (2603:10b6:208:31d::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Thu, 6 Jul
- 2023 02:11:24 +0000
-Received: from SEYPR06MB6615.apcprd06.prod.outlook.com
- ([fe80::c817:d237:dc0d:576]) by SEYPR06MB6615.apcprd06.prod.outlook.com
- ([fe80::c817:d237:dc0d:576%4]) with mapi id 15.20.6565.016; Thu, 6 Jul 2023
- 02:11:24 +0000
-From: Yang Rong <yangrong@vivo.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Jens Axboe <axboe@kernel.dk>,
- Pavel Begunkov <asml.silence@gmail.com>, Alvin Lee <Alvin.Lee2@amd.com>,
- Jun Lei <Jun.Lei@amd.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Max Tseng <Max.Tseng@amd.com>, Josip Pavic <Josip.Pavic@amd.com>,
- Cruise Hung <cruise.hung@amd.com>,
- amd-gfx@lists.freedesktop.org (open list:AMD DISPLAY CORE),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list),
- virtualization@lists.linux-foundation.org (open list:VIRTIO CORE AND NET
- DRIVERS), netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
- io-uring@vger.kernel.org (open list:IO_URING)
-Subject: [PATCH] Fix max/min warnings in virtio_net, amd/display, and io_uring
-Date: Thu,  6 Jul 2023 10:06:16 +0800
-Message-ID: <20230706021102.2066-1-yangrong@vivo.com>
-X-Mailer: git-send-email 2.41.0.windows.1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TYWPR01CA0021.jpnprd01.prod.outlook.com
- (2603:1096:400:aa::8) To SEYPR06MB6615.apcprd06.prod.outlook.com
- (2603:1096:101:172::11)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.24; Thu, 6 Jul
+ 2023 08:35:58 +0000
+Received: from BN8NAM11FT110.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13d:cafe::9) by BN9PR03CA0848.outlook.office365.com
+ (2603:10b6:408:13d::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.25 via Frontend
+ Transport; Thu, 6 Jul 2023 08:35:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT110.mail.protection.outlook.com (10.13.176.156) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.47 via Frontend Transport; Thu, 6 Jul 2023 08:35:57 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23; Thu, 6 Jul 2023 03:35:55 -0500
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
+ <hawking.zhang@amd.com>, <christian.koenig@amd.com>,
+ <dusica.milinkovic@amd.com>, <nikola.prica@amd.com>, <flora.cui@amd.com>
+Subject: [PATCH] drm/amdgpu/vkms: relax timer deactivation by
+ hrtimer_try_to_cancel
+Date: Thu, 6 Jul 2023 16:35:23 +0800
+Message-ID: <20230706083523.561741-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEYPR06MB6615:EE_|SEZPR06MB6206:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0665b1c4-1ffd-4c98-ffd7-08db7dc64be3
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT110:EE_|BL1PR12MB5378:EE_
+X-MS-Office365-Filtering-Correlation-Id: b543f075-adb7-484f-e94a-08db7dfc0566
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9h/oybtn2Ol+7Afg+l2R70jkdGdhTrOmwcUg/Pyf+2hmB0lH/VB4ff/AHFCRwRKOypVC4beBOUr8BMTZGB1H2y8d8qQfFhWoVZekrXeI6OtZGkG748KUYtNicKuUS22gbrIeU5CIB1meeA4McOx8urqbnY1SvtCoo8AYPMuV4si0Z/XlId1OET/WnPZ+tNX9ikI/+BMkmYtge5qXKQJDaJuP3n1XUIfAINQsgrlTkxO75LqAxZgAVM9rpvV9N11ssd7ul2BNQ/FzGLChk0mENozAtgx1elD0oNKvNNPiVMYqGh+k4wi7k+Zw3xltAZM1dlP0wvfwzgbhXJ7CbNMrblZvmFd49F+I06InV151OLT6DUuTLRudKZbYhSFtjTtBYNDFKzKl8Zh/sTTZ08DQmC4Fr+e9W2Iot7M5j7T+rccva8XYMeuDgu9QIEMbjg9dGX1TTqbt6/WsgLVIt9vu9/yU0y86PPWwIjz1RUq7FOiNwJWSljiooYkX9zNs6qwMf2uXOj4Anw7SR3+aiGFj7qRnTaVn7Q4NTc6bdtQWZG5X1q3z/LzbPXvqjjTBTkmfty8HUCtw6NEN8CiXmSZO1d8O6XmfD6K7UqaCMwC6rKk93C1L14mh7FaV3QuQ6ZOGwP2zR0h7WX7v9nupFXtEqQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SEYPR06MB6615.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(366004)(376002)(136003)(39860400002)(396003)(451199021)(110136005)(921005)(6486002)(52116002)(6666004)(478600001)(41300700001)(8936002)(8676002)(38100700002)(38350700002)(2616005)(4326008)(66556008)(66476007)(316002)(66946007)(186003)(83380400001)(6512007)(107886003)(26005)(1076003)(6506007)(86362001)(5660300002)(7416002)(2906002)(36756003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?xThDpyZ962z9nuD5jE8UpZfDeGujqMBlH9gr+d3+F9bgOytALtIh5DwMpdP3?=
- =?us-ascii?Q?QwZJQ75hMZNZxZ4IVQlXHzvyHfyXJNXGry3I/0BYsnz7rz9+o02Blh11CBc2?=
- =?us-ascii?Q?FPyvt4PRrV03GxTVKAlyFv70JDdgBavfHyvgPvqCEUy37UzelH7CdzHkJuEq?=
- =?us-ascii?Q?5P3Utd9Kt01n5k4tK8mcOQJbeY610uKvj7UOXPLOXQSMWPwETblN2FUbahSp?=
- =?us-ascii?Q?LL8spaUiZpepkCg+lWSPV3AtJ3nYrdSY/t3nDnXEBFUBfn/VaW/yT9o++hFX?=
- =?us-ascii?Q?iOFS2Oa9XSjHiyX2r9KHeKSBDFaVdqtWUl7+WgfECxTb/YK7ymHupwshGzTL?=
- =?us-ascii?Q?OpW45BpucGkbC43cCkQwQY2SkLpdcIKHuNGq+u+prnXTojXQSHgPfTxIyr+K?=
- =?us-ascii?Q?Y78EALA2bVNA7tZuCfub86g8Vt5ssCZUY/RD3b8MtnHDG53SGeMaER46Pump?=
- =?us-ascii?Q?kHHQw5Tv3ghBHpLTbWaRbo47pQLs3IlNsWeaaT4CVbCDtlSPBJgb9Baa9TEz?=
- =?us-ascii?Q?+sBBGITuKLIg/Htg/ShfIsh98BVZLqoiG8wXHERxNMBTWE6TINXquw6usFLx?=
- =?us-ascii?Q?QHHKtCwpttSA6vap69uBhSPCN0MqvlvSpRg7NEhOMS1HboVQIvRAjczkG0I2?=
- =?us-ascii?Q?JgovUP0KfJYratEwsWZDkiOsy28eTlO58af32JktwA4fvyKkPS2G7Rm3L0Fm?=
- =?us-ascii?Q?0CvifsRzawl14ThcQsQSdvUCfxSy5+dC+0ctI3GmukSdcoNFf08E+N/kMoC0?=
- =?us-ascii?Q?iS6absxos4Ve6W8a8qYfwhlvt69sdWq/BtQV6SQLOOOF3UXlg6echoKvzVGi?=
- =?us-ascii?Q?Q+FtxFQ9OGF5K13XEwDemVmz5VFYdrwY/srVzjbhs+3Thc/Bk9lh/UUNRaAm?=
- =?us-ascii?Q?PWg2KLY95152V8iutmb9rC6iKe8nzN9Uf2gYnMJl0p6tE3u3H8QguscUNh2N?=
- =?us-ascii?Q?zd1z3CyS7UimSF99SeRyQ0sz7BW3RiCp20/v9N+0CTUc63vC2hMqtaMpz2W5?=
- =?us-ascii?Q?CZGMPhtBrXl6XKEj0vipbUB7STtsJDsgSE+XRVZph18jVcbP+XK/TK+Ky5NW?=
- =?us-ascii?Q?faa4B5qzMlGV4yzn9EJDxZgoRT0RNwKiti9QeXl+o+unbN0wOybM+2J2KSG8?=
- =?us-ascii?Q?lD/+5TI3wrNB7107G7rWhSYP55AaFdBcgW6r87Rb7jgsPELhjfCz12APns8W?=
- =?us-ascii?Q?DXeFxQIt4c9lYkYrsEN1rGzraMokPefvqBUfNCJ4N6UOPDGgVjr6Jy+50pvL?=
- =?us-ascii?Q?4pfH3HF/M7aTvkStud0VOh+s3m7suZ1/nij+tHuKvnB+vFm88Ea9+SorSPbU?=
- =?us-ascii?Q?ugKBSrwOTWPQXaeaLaG6s4tMiTkTQYt5TjADTMPGugm3dIwFcvUg1RS45QGH?=
- =?us-ascii?Q?9kBIWHwxjdSCVtaS0g9WTjIx4NEuhrmLCc1CBouuGHMejP0gpz4CW5DJ1Ze0?=
- =?us-ascii?Q?5Xw0CZEfCGIHa/C87g4IZVs16dyZuhNxqvv8+Gp10im5Se6r86kMX6ro7xY9?=
- =?us-ascii?Q?/fb/bxa296mJM0ftUmUIgjOoPmIvuaR1KWLPWvGAyOT0/v8hZOE6i9/gj+F9?=
- =?us-ascii?Q?wPCWUaxa7+/0E+z1CsJklibbfaFF6OMsH3/Iv2GY?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0665b1c4-1ffd-4c98-ffd7-08db7dc64be3
-X-MS-Exchange-CrossTenant-AuthSource: SEYPR06MB6615.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 02:11:23.7184 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 60ruQpxSbu1kpyIyypa5KYoL9pBgwWl8keuWbdOtE66ykcEqGnufZHlrr1yY4R/hYyHB4ymcM0zidWvjEz6Yuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6206
-X-Mailman-Approved-At: Thu, 06 Jul 2023 07:38:55 +0000
+X-Microsoft-Antispam-Message-Info: HsppSpMKOq7THP8qL18OUZwvK+GxSTlF6tw6gC5jvxjcuGe1bUCrzhle/Ikmfj4PVqgJzXD/huWjoF2dJbvol6gvUZFUw56sD1D702oFLj6Y3uxbbijgAw9xRLmsfOj8I76aFdcpQSLx1KN7enlWWqOpdgIu9U/zMNjaYdg5zLmiTkrh7BOqW48rKzN+7kILpkoOI1UiFtFc/+lrIbONrnwmpPKMiKyWyBHjm/gjKd+oa/4pCpxgthEVraktXk79AqkMkAubHk2I+wK/uSIE9U/gAF93SSLKAwe4d67EfL2ZIoBY4agKi/bFDt0/5bPBytzLYhWSYafCDsVPiUqsDeQqocKY6wT/D/4XD3EWFMlo5Bg7IqdIrqTBYNpS4TNYC2Fz+DsIQdG2leJWDOp64Ia5YsX/Ct0M/9AuXEIqOUApbUBBdhKxoMrmLfH1YupHs1LVUNzBg56QZaiEkkZ2yDnUfDU8cwoMd5/skZ6mk0i5jsO4TbZqiiITirMNhwjA8kuveSkbG4Josnv54I9rkS9uzDkVE1kIvRqBFdKRr+Yj/JW1iGQo9iGleR6CxerBL3SpoGX4gdCKoBGjlJTWfxAV65lhOgS4ByB+0wzep29DE3BEBgGdJCdFfyZIovpNfrKLWR3m6OlZDWgdlZAgBOljUrW1jqTBaHNTfe13+U0XysNDO9bsVnDDmi2cxiyd+/wYnhUyXXjFc5z3M0uvf0/6kM7J/YD5FOU/UMebcdfrTNoYXlcbRvlNrkS4up0tL9fl180pnwUPfSByTwdPn9L0R9fr6OeWCHbCDbN5pls=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(39860400002)(346002)(136003)(396003)(451199021)(36840700001)(40470700004)(46966006)(44832011)(478600001)(5660300002)(8936002)(8676002)(70586007)(316002)(4326008)(70206006)(6636002)(2906002)(41300700001)(54906003)(110136005)(7696005)(6666004)(2616005)(26005)(1076003)(186003)(16526019)(36860700001)(356005)(82740400003)(83380400001)(66574015)(47076005)(336012)(426003)(81166007)(82310400005)(40460700003)(36756003)(86362001)(40480700001)(2101003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 08:35:57.8449 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b543f075-adb7-484f-e94a-08db7dfc0566
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT110.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5378
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,133 +101,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com, luhongfei@vivo.com,
- Yang Rong <yangrong@vivo.com>
+Cc: stable@vger.kernel.org, Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The files drivers/net/virtio_net.c, drivers/gpu/drm/amd/display/dc/dc_dmub_=
-srv.c, and io_uring/io_uring.c were modified to fix warnings.
-Specifically, the opportunities for max() and min() were utilized to addres=
-s the warnings.
+In below thousands of screen rotation loop tests with virtual display
+enabled, a CPU hard lockup issue may happen, leading system to unresponsive
+and crash.
 
-Signed-off-by: Yang Rong <yangrong@vivo.com>
+do {
+	xrandr --output Virtual --rotate inverted
+	xrandr --output Virtual --rotate right
+	xrandr --output Virtual --rotate left
+	xrandr --output Virtual --rotate normal
+} while (1);
+
+NMI watchdog: Watchdog detected hard LOCKUP on cpu 4
+
+? hrtimer_run_softirq+0x140/0x140
+? store_vblank+0xe0/0xe0 [drm]
+hrtimer_cancel+0x15/0x30
+amdgpu_vkms_disable_vblank+0x15/0x30 [amdgpu]
+drm_vblank_disable_and_save+0x185/0x1f0 [drm]
+drm_crtc_vblank_off+0x159/0x4c0 [drm]
+? record_print_text.cold+0x11/0x11
+? wait_for_completion_timeout+0x232/0x280
+? drm_crtc_wait_one_vblank+0x40/0x40 [drm]
+? bit_wait_io_timeout+0xe0/0xe0
+? wait_for_completion_interruptible+0x1d7/0x320
+? mutex_unlock+0x81/0xd0
+amdgpu_vkms_crtc_atomic_disable
+
+It's caused by a stuck in lock dependency in such scenario on different
+CPUs.
+
+CPU1                                             CPU2
+drm_crtc_vblank_off                              hrtimer_interrupt
+    grab event_lock (irq disabled)                   __hrtimer_run_queues
+        grab vbl_lock/vblank_time_block                  amdgpu_vkms_vblank_simulate
+            amdgpu_vkms_disable_vblank                       drm_handle_vblank
+                hrtimer_cancel                                   grab dev->event_lock
+
+So CPU1 stucks in hrtimer_cancel as timer callback is running endless on
+current clock base, as that timer queue on CPU2 has no chance to finish it
+because of failing to hold the lock. So NMI watchdog will throw the errors
+after its threshold, and all later CPUs are impacted/blocked.
+
+So use hrtimer_try_to_cancel to fix this, as disable_vblank callback
+does not need to wait the handler to finish. And also it's not necessary
+to check the return value of hrtimer_try_to_cancel, because even if it's
+-1 which means current timer callback is running, it will be reprogrammed
+in hrtimer_start with calling enable_vblank to make it works.
+
+Cc: stable@vger.kernel.org
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 6 +++---
- drivers/net/virtio_net.c                     | 3 ++-
- io_uring/io_uring.c                          | 3 ++-
- 3 files changed, 7 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm=
-/amd/display/dc/dc_dmub_srv.c
-index c753c6f30dd7..df79aea49a3c 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -22,7 +22,7 @@
-  * Authors: AMD
-  *
-  */
--
-+#include <linux/minmax.h>
- #include "dc.h"
- #include "dc_dmub_srv.h"
- #include "../dmub/dmub_srv.h"
-@@ -481,7 +481,7 @@ static void populate_subvp_cmd_drr_info(struct dc *dc,
-        max_drr_vblank_us =3D div64_u64((subvp_active_us - prefetch_us -
-                        dc->caps.subvp_fw_processing_delay_us - drr_active_=
-us), 2) + drr_active_us;
-        max_drr_mallregion_us =3D subvp_active_us - prefetch_us - mall_regi=
-on_us - dc->caps.subvp_fw_processing_delay_us;
--       max_drr_supported_us =3D max_drr_vblank_us > max_drr_mallregion_us =
-? max_drr_vblank_us : max_drr_mallregion_us;
-+       max_drr_supported_us =3D max(max_drr_vblank_us, max_drr_mallregion_=
-us);
-        max_vtotal_supported =3D div64_u64(((uint64_t)drr_timing->pix_clk_1=
-00hz * 100 * max_drr_supported_us),
-                        (((uint64_t)drr_timing->h_total * 1000000)));
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index 53ff91fc6cf6..70fb0df039e3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -81,7 +81,7 @@ static void amdgpu_vkms_disable_vblank(struct drm_crtc *crtc)
+ {
+ 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
+ 
+-	hrtimer_cancel(&amdgpu_crtc->vblank_timer);
++	hrtimer_try_to_cancel(&amdgpu_crtc->vblank_timer);
+ }
+ 
+ static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc *crtc,
+-- 
+2.25.1
 
-@@ -771,7 +771,7 @@ void dc_dmub_setup_subvp_dmub_command(struct dc *dc,
-                wm_val_refclk =3D context->bw_ctx.bw.dcn.watermarks.a.cstat=
-e_pstate.pstate_change_ns *
-                                (dc->res_pool->ref_clocks.dchub_ref_clock_i=
-nKhz / 1000) / 1000;
-
--               cmd.fw_assisted_mclk_switch_v2.config_data.watermark_a_cach=
-e =3D wm_val_refclk < 0xFFFF ? wm_val_refclk : 0xFFFF;
-+               cmd.fw_assisted_mclk_switch_v2.config_data.watermark_a_cach=
-e =3D min(wm_val_refclk, 0xFFFF);
-        }
-
-        dm_execute_dmub_cmd(dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
-diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index 9b3721424e71..5bb7da885f00 100644
---- a/drivers/net/virtio_net.c
-+++ b/drivers/net/virtio_net.c
-@@ -22,6 +22,7 @@
- #include <net/route.h>
- #include <net/xdp.h>
- #include <net/net_failover.h>
-+#include <linux/minmax.h>
-
- static int napi_weight =3D NAPI_POLL_WEIGHT;
- module_param(napi_weight, int, 0444);
-@@ -1291,7 +1292,7 @@ static struct sk_buff *build_skb_from_xdp_buff(struct=
- net_device *dev,
-        __skb_put(skb, data_len);
-
-        metasize =3D xdp->data - xdp->data_meta;
--       metasize =3D metasize > 0 ? metasize : 0;
-+       metasize =3D max(metasize, 0);
-        if (metasize)
-                skb_metadata_set(skb, metasize);
-
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index e8096d502a7c..875ca657227d 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -47,6 +47,7 @@
- #include <linux/refcount.h>
- #include <linux/uio.h>
- #include <linux/bits.h>
-+#include <linux/minmax.h>
-
- #include <linux/sched/signal.h>
- #include <linux/fs.h>
-@@ -2660,7 +2661,7 @@ static void *__io_uaddr_map(struct page ***pages, uns=
-igned short *npages,
-                                        page_array);
-        if (ret !=3D nr_pages) {
- err:
--               io_pages_free(&page_array, ret > 0 ? ret : 0);
-+               io_pages_free(&page_array, max(ret, 0));
-                return ret < 0 ? ERR_PTR(ret) : ERR_PTR(-EFAULT);
-        }
-        /*
---
-2.35.3
-
-
-________________________________
-=E6=9C=AC=E9=82=AE=E4=BB=B6=E5=8F=8A=E5=85=B6=E9=99=84=E4=BB=B6=E5=86=85=E5=
-=AE=B9=E5=8F=AF=E8=83=BD=E5=90=AB=E6=9C=89=E6=9C=BA=E5=AF=86=E5=92=8C/=E6=
-=88=96=E9=9A=90=E7=A7=81=E4=BF=A1=E6=81=AF=EF=BC=8C=E4=BB=85=E4=BE=9B=E6=8C=
-=87=E5=AE=9A=E4=B8=AA=E4=BA=BA=E6=88=96=E6=9C=BA=E6=9E=84=E4=BD=BF=E7=94=A8=
-=E3=80=82=E8=8B=A5=E6=82=A8=E9=9D=9E=E5=8F=91=E4=BB=B6=E4=BA=BA=E6=8C=87=E5=
-=AE=9A=E6=94=B6=E4=BB=B6=E4=BA=BA=E6=88=96=E5=85=B6=E4=BB=A3=E7=90=86=E4=BA=
-=BA=EF=BC=8C=E8=AF=B7=E5=8B=BF=E4=BD=BF=E7=94=A8=E3=80=81=E4=BC=A0=E6=92=AD=
-=E3=80=81=E5=A4=8D=E5=88=B6=E6=88=96=E5=AD=98=E5=82=A8=E6=AD=A4=E9=82=AE=E4=
-=BB=B6=E4=B9=8B=E4=BB=BB=E4=BD=95=E5=86=85=E5=AE=B9=E6=88=96=E5=85=B6=E9=99=
-=84=E4=BB=B6=E3=80=82=E5=A6=82=E6=82=A8=E8=AF=AF=E6=94=B6=E6=9C=AC=E9=82=AE=
-=E4=BB=B6=EF=BC=8C=E8=AF=B7=E5=8D=B3=E4=BB=A5=E5=9B=9E=E5=A4=8D=E6=88=96=E7=
-=94=B5=E8=AF=9D=E6=96=B9=E5=BC=8F=E9=80=9A=E7=9F=A5=E5=8F=91=E4=BB=B6=E4=BA=
-=BA=EF=BC=8C=E5=B9=B6=E5=B0=86=E5=8E=9F=E5=A7=8B=E9=82=AE=E4=BB=B6=E3=80=81=
-=E9=99=84=E4=BB=B6=E5=8F=8A=E5=85=B6=E6=89=80=E6=9C=89=E5=A4=8D=E6=9C=AC=E5=
-=88=A0=E9=99=A4=E3=80=82=E8=B0=A2=E8=B0=A2=E3=80=82
-The contents of this message and any attachments may contain confidential a=
-nd/or privileged information and are intended exclusively for the addressee=
-(s). If you are not the intended recipient of this message or their agent, =
-please note that any use, dissemination, copying, or storage of this messag=
-e or its attachments is not allowed. If you receive this message in error, =
-please notify the sender by reply the message or phone and delete this mess=
-age, any attachments and any copies immediately.
-Thank you
