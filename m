@@ -4,68 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 684DAEB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 06:48:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56469EB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 07:00:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84E1B10E42C;
-	Thu,  6 Jul 2023 06:48:12 +0000 (UTC)
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D8D410E42A;
- Thu,  6 Jul 2023 06:48:09 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-313e742a787so221026f8f.1; 
- Wed, 05 Jul 2023 23:48:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688626087; x=1691218087;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=iwTp8eJ6Q10EoOBSyGBUxkvLO8nXLMvu/9sN/vgabVY=;
- b=MyIVTLeRfthCc2qYQp67XuAs2Ey9vWYG6Q/OgxenZBFbuDrMIDUe4AX3Ad2E791ylL
- 40jScyvAf00cfkzMEtVJKLVDemiACN4fu5zRYcm2/LgnLmXGGyNWEcYm0g4nTXm5gUCj
- 84l2hQRK7EPhJnqdwJqJQD7VXLjHut5n3VG6OvoUCJM80VjEvboQDODZkV2yBIUGGBlZ
- QblNnTEtpiICYwgP+9Ve/BY/LFjm5bk8gYNC12MQ2vc0MrgYQSETDqQfQ5F0x4fQ53DY
- JyJ0T7SkoY8TumnEq26tB+1x8LQB8w5J4GKIL9fH5Vzrn3F2AA5+YRTYHivdXyc0mbtG
- SXqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688626087; x=1691218087;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=iwTp8eJ6Q10EoOBSyGBUxkvLO8nXLMvu/9sN/vgabVY=;
- b=L0S3oACz6jbi1O6PX+rHkhIGKLZljAKFYceDJOQDbc6FRZhxzdbqWsYqJijOHu8CmL
- dwmnMjVtUINhjjLbaTEr3T2637Sy86nNiceuNkDUJf+ALvTpHv2Iw15553xOdQsA7kFb
- ibeDGqR/0F/SPfIKe9lCeuzcQuqAOc3ua4UZzZbgJSKH3+z4d0SSfRfE172Sfu20uBco
- Z6gEthvPnJMxImNKkG4fIYApbsCrSlffWlzi/2ZQieIPhvMYwpmf3O0dzmYpehbtE/nR
- sVq40c98Yj/Guyc3Ir9lVPN/M2usKkJaoJS3ZuFErRL7KGKLJbXZoK71RT/AyXSbfZ3Q
- yvhQ==
-X-Gm-Message-State: ABy/qLawoU48rplxHqSWsXoUZmWHeRRxoMVLRzdIHse2tNbYY6hhRAHJ
- 5WJ011NzpK7Xdc5K0KLC/MY=
-X-Google-Smtp-Source: APBJJlGJrmTJGtSiwJiROjMI4nelEVFkh5NRgXHb0SdmRxHvl67t7NA7mWj2Pk+05nwehu3MQ/mY5g==
-X-Received: by 2002:a5d:6947:0:b0:314:2736:ba3e with SMTP id
- r7-20020a5d6947000000b003142736ba3emr4033127wrw.3.1688626086744; 
- Wed, 05 Jul 2023 23:48:06 -0700 (PDT)
-Received: from ?IPV6:2a00:e180:14cc:2700:ac8a:158b:7961:93a7?
- ([2a00:e180:14cc:2700:ac8a:158b:7961:93a7])
- by smtp.gmail.com with ESMTPSA id
- u15-20020a5d6acf000000b003143b7449ffsm997292wrw.25.2023.07.05.23.48.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Jul 2023 23:48:06 -0700 (PDT)
-Message-ID: <099bbbcb-c745-c3f0-38cb-4de00199b386@gmail.com>
-Date: Thu, 6 Jul 2023 08:48:05 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id A296E10E433;
+	Thu,  6 Jul 2023 07:00:58 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2082.outbound.protection.outlook.com [40.107.212.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A00DD10E433
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jul 2023 07:00:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TY+d3UoL+6kMQEaujVP0ul9RY1OmCGN/1f7Gp+wU6XTV3IFv7F8hkAoeUC/lGMHwUGpAIrNclOJA56ar2Yj2RJjItrRSqUZZGxiju8MI5wCQHJDghPg43L933LfHLeVymxl54GVTANEFeEob41TJ+62MQEnVwxHUZGHCULqrVrEtT3jFAhfQPtP3xQ99zffkaWPHBP04xBl73hrse2sp6kKUQhkEA8Ck3PZ7jFs8gDJGjNDz3hgDte72lYAKubdalNyw0Q48Bkv7cukZTYDYayHkrlYUZUwAv+j3o3CLxWoSlV6bH0RKKVh8myNdWKLeQY+mlsAtJwM/fCnEV4xUSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aPd167LVEKqhBwdFUMMVbv31JEt+bjRvMsKtyPfqoKI=;
+ b=eCFDj+vlzlv/4w5eTKjAinBKCMb3ia7U8YroMahhHLUb1z2ti4z+FI6kfRb4vjLGBK2x0XsdQIjbHSN/bcydZl7WKxLLjeuwmiGjVcEeJkO2jmYVEUZImUV5t9n0K5/yRgope2HHDBhbbD8c6XPVmguMkOOgHHDm1U5KqowQexzsd0BIBzlzcjkDytLA8yAp/T2K8eAwXKO8JnfmnZE+cckbAhRPiHFgAfSLbj/Cda7h0HwSupnjCTRyxk5ctVI8f2OIsBefUULccOx5QHUMy0M0lmcm5q/BsBBBey0yxc0kBgaJhzHjisF5546MEwEvrDfSJ98mIzc0nLzlwQSuUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aPd167LVEKqhBwdFUMMVbv31JEt+bjRvMsKtyPfqoKI=;
+ b=oTEbbyzZL4Xc5Q3xxetJvtte8Zc6pkVhImyZOKCF1fMYNlMHcyIHZS1u3uc7hePa+mfVlArvdXd/zgeq3xFphIx6Y/mQKYaWdkW8pTkz4DMM42b/yOSrSnRIufShdBXp2FVQA74ukjBSgDI9KnClHy7wFduhLDxp3xRqyzMPmPU=
+Received: from DS0PR17CA0004.namprd17.prod.outlook.com (2603:10b6:8:191::12)
+ by PH8PR12MB6819.namprd12.prod.outlook.com (2603:10b6:510:1ca::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Thu, 6 Jul
+ 2023 07:00:52 +0000
+Received: from DM6NAM11FT090.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:191:cafe::81) by DS0PR17CA0004.outlook.office365.com
+ (2603:10b6:8:191::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.24 via Frontend
+ Transport; Thu, 6 Jul 2023 07:00:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT090.mail.protection.outlook.com (10.13.172.184) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6521.45 via Frontend Transport; Thu, 6 Jul 2023 07:00:52 +0000
+Received: from stylon-rog.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 6 Jul
+ 2023 02:00:48 -0500
+From: Stylon Wang <stylon.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Add dcdebugmask option to enable DPIA trace
+Date: Thu, 6 Jul 2023 15:00:30 +0800
+Message-ID: <20230706070030.3970121-1-stylon.wang@amd.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/ttm: Use init_on_free to early release TTM BOs
-Content-Language: en-US
-To: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20230705195701.30141-1-rajneesh.bhardwaj@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230705195701.30141-1-rajneesh.bhardwaj@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT090:EE_|PH8PR12MB6819:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d1fe80d-2f0e-4195-e840-08db7deebca3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7Mew3dMdlkeA+d0qmpcIHb3uIl98gDtlOBCRufrHPAqoLXl72sdAAvk1/w4oeuSeGAOSRoCn/wT0VxanaEsMaQzjipcpYOroxvDaBNEVKP+7lQgNBreaxneFlyKHHh8BkbtebC/w6ZKvzgiR4hjCVlfRa9G/MOrau7CDkONO8SOQlKHK/phCqEwmFbTjXk8lXW667HixRSq2TXLu0/owQ7dj2/7GvOcIsLsr3cEbtZUzNRKwd21V9AFah5gaLF4sKptdqt5M/fNUf0TA8bf5N3MejkIP/b4IpoZdtShx3nbxhuU6l/SnBIL8s+k7VdSmFvO6vmPkC+NJRaa1WEWPhZvNwMKFv9zwDSf/9NNt34weS5tDSyV8SBawcRsSmnff/xWNLOzK31Cti4tYKYdzec11HD75/Q4nODDg1cnD3z5GhSRo+omIBYxImhyvsiE0epb5pdq3qN1bs5YvRD2YjHMj0HXb9hez9zDKDkEKHL/jBxP5thXsg8WadBgDwJju6nn2E+hrhXUG/zpCyB3JYIPa8Knnw3Bo32iiAMxsYfLpfUVadS/vmi9T10qRdk7Zh6Qnxz9p44yp+2NiDlm3cMqpkVI1dBaBTkwmuCy7m2N6UWBi9JR/vQkz9+lFTHWsG78hOB0JJymLCtUeEzsQnEY2l7YQyvnjzSUYobokBHiV25J4RCd1fjzg5JoUUB1BpcsdrsESMTECmucprGvQiudw9aEAZ+OrhtHHEm98ksMTlAN3pnbDrTd1hJDLnDe5yRlozQyJlLivuf2jD97yig==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(346002)(136003)(39860400002)(396003)(451199021)(40470700004)(46966006)(36840700001)(5660300002)(26005)(478600001)(82740400003)(1076003)(6666004)(2616005)(16526019)(186003)(54906003)(81166007)(4326008)(6916009)(70586007)(36860700001)(356005)(336012)(426003)(7696005)(70206006)(316002)(86362001)(47076005)(8676002)(8936002)(44832011)(4744005)(40460700003)(41300700001)(2906002)(40480700001)(82310400005)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 07:00:52.2823 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d1fe80d-2f0e-4195-e840-08db7deebca3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT090.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6819
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,48 +97,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: felix.kuehling@amd.com, Christian.Koenig@amd.com
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 05.07.23 um 21:57 schrieb Rajneesh Bhardwaj:
-> Early release TTM BOs when the kernel default setting is init_on_free to
-> wipe out and reinitialize system memory chunks.
+[Why & How]
+It's useful to be able to enable DPIA trace with dcdebugmask
+option, especially to debug DPIA issues involved in transition
+of system power states.
 
-"Delay release the TTM BO when the kernels init_on_free setting is used."
+This patch adds an option to amdgpu.dcdebugmask to be picked up
+by amdgpu DM to enable DPIA trace.
 
->   This could potentially
-> optimize performance when an application does a lot of malloc/free style
-> allocations with unified system memory.
+Signed-off-by: Stylon Wang <stylon.wang@amd.com>
+---
+ drivers/gpu/drm/amd/include/amd_shared.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-"This offloads the overhead of clearing the system memory to the work 
-item and potentially a different CPU. And is very beneficial when the 
-application does a lot of malloc/free style allocations of system memory."
-
-With those changes to the commit message the patch is Reviewed-by: 
-Christian König <christian.koenig@amd.com>.
-
-I'm going to push that to drm-misc-next when you send it out once more.
-
-Thanks,
-Christian.
-
->
-> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-> ---
->   drivers/gpu/drm/ttm/ttm_bo.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index 326a3d13a829..bd2e7e4f497a 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -347,6 +347,7 @@ static void ttm_bo_release(struct kref *kref)
->   
->   		if (!dma_resv_test_signaled(bo->base.resv,
->   					    DMA_RESV_USAGE_BOOKKEEP) ||
-> +		    (want_init_on_free() && (bo->ttm != NULL)) ||
->   		    !dma_resv_trylock(bo->base.resv)) {
->   			/* The BO is not idle, resurrect it for delayed destroy */
->   			ttm_bo_flush_all_fences(bo);
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index f175e65b853a..abe829bbd54a 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -250,6 +250,7 @@ enum DC_DEBUG_MASK {
+ 	DC_DISABLE_PSR = 0x10,
+ 	DC_FORCE_SUBVP_MCLK_SWITCH = 0x20,
+ 	DC_DISABLE_MPO = 0x40,
++	DC_ENABLE_DPIA_TRACE = 0x80,
+ };
+ 
+ enum amd_dpm_forced_level;
+-- 
+2.40.1
 
