@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E465BEB64DD
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 13:58:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F314EB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 14:05:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A54510E0C3;
-	Thu,  6 Jul 2023 13:58:41 +0000 (UTC)
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7B1410E096;
- Thu,  6 Jul 2023 13:58:38 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id
- 5614622812f47-3a1d9b64837so763290b6e.0; 
- Thu, 06 Jul 2023 06:58:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3764C10E408;
+	Thu,  6 Jul 2023 14:05:35 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4F610E408
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jul 2023 14:05:34 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id
+ 5614622812f47-3a1d9b64837so770584b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Jul 2023 07:05:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688651917; x=1691243917;
+ d=gmail.com; s=20221208; t=1688652333; x=1691244333;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5Hp8tU9cWu6R6f3sn+8A1XNNoAmV3ki5dbuL76Q7q/g=;
- b=jW8fZyoU3DO00/VknLBRC1h6kBMu8XI1LsUcKUKbG7uS5K1zHOZBpp0CDxgpvDTFKw
- +5FkbPG7Q9BwXmE1ZYHxTwB7BM4JadMfceYFtCn07I0gnGEOHbDw3Y4g3euxTJn17A6G
- NmkXaQsNHQ20wcd9dWE9ayH70yxcuwfl3TonKln0gWcCqgO3A7voL187FesbmfRYIg1b
- WIQvbCmy5b2Lo2HrqAjcbhWboCl225wSoQ+oL8U5+yMAKgb5dagv5oGgo7zCR0T9aWKy
- jRrdwXUITSOIUq9BgJvgnuKEX8bW1agbSp6/6Og0vPnJD79JI5iigu9n5yVyvcg3sRv9
- BPOA==
+ bh=pSNUlAfDQUYKP3k2dpSzGiIZ0Mz3C+qiMTVkZqlt6qQ=;
+ b=GXFMi6E+MFLWdsI+aDbg/UxI2Mg1Moq/XXW93h0rZrGY4rGjCw33YY4yXvPcfDOx9O
+ /BRS59zMKCjSSJI/jJML+tZbVZSr0rOqquFOXbUOZKpuPrXDGPorFMtOm8KLIqa06S0c
+ kbSTifsxYdZL1xK5c8009nbuOtCIPXByk0pJ45J+LwOd3u5YNZaiWcTUqtjk6IK+3Xol
+ uGJIO2WxAb+dQ7wQ1ETTvkBSusEHGgc5qqb3o26xFdaLApLlOrzFcYPrUsTUkBhcYOZa
+ qx96qMh3+VORCGAAZVxruJnY4ZmHaOfA/wMdqEyV/SajGgNCXacvekk/B+hKdVLmmyZy
+ LKIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688651917; x=1691243917;
+ d=1e100.net; s=20221208; t=1688652333; x=1691244333;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5Hp8tU9cWu6R6f3sn+8A1XNNoAmV3ki5dbuL76Q7q/g=;
- b=LHRY/IaF91TnGmjnygHSK3XkGNKMSgkDPRz2ne/E3s7i+ZukFg0lfSgDjJTJJG5zjT
- B4WNmctKpP2LVhQsLvEYOi63yydPBRl6buf5Q3lmVfioHLYHxhl+pN2WsC3PAP49cPru
- rHMKtrGOkWjgNNz7rCSNCX4Kg3r51OH7rwcg2fcqdqQpyq4R58hPFiQTKt4KsTDLs7ah
- f4SkPXwnV9tp1IGEXgnk7gyGArT2zh0bFp/Gyx9rBVQxjlL+DOHYEUItIDAT5PRHGU8/
- RVNJfSZNk7uNutHgvi/qWng953JE8n0/lGQcEfQHDvrX+fW3TIvJzMCeffGMXuuCAv7R
- 7BFA==
-X-Gm-Message-State: ABy/qLZuV6WnN5/+VXReiD+RY4jZJM5lQr9WDPisIEnGrz5B9n64E0P6
- N/ed/WbefL6jsLJDNu7v2L9AEdkyo5Dx4xpNJig=
-X-Google-Smtp-Source: APBJJlHwWrHIAzdFBa636bFDMNRZF9RFGE1HyH/tDHgJxsmdjuaeJ2kJEJRRwYbbDY70pb0vxaKHA7rj0kFXbVJUIRU=
-X-Received: by 2002:a05:6808:1d6:b0:3a0:4dc3:25ff with SMTP id
- x22-20020a05680801d600b003a04dc325ffmr2199089oic.7.1688651917567; Thu, 06 Jul
- 2023 06:58:37 -0700 (PDT)
+ bh=pSNUlAfDQUYKP3k2dpSzGiIZ0Mz3C+qiMTVkZqlt6qQ=;
+ b=ZtzmXj7ioDkUdmIwIwf8bYUqQOarYSJuzmSiK2xzmiaqu3VHsqslBvv460GNCUVN5V
+ NnRTTuvNXeJ/NSfMDIIOkZv2vYt4xTfR1cGpAi28E85TqwgORG+sRiC+jzJ/IuHzaGgU
+ c/jCm/yiGy8UCe4KuQVqOxYNi4cfp/b8jr9UGIj3nn/+EK+mN5BLpaOqNK3USd/G30//
+ Cnub4SNYHXZ2HI1ii2tu1XxBySz5CyDA1S+BAcwwuwnClmygJK3BnKphbI0ATZ4IV7lC
+ FPXNTwV0XPhcdCgANSn3x7ztUw2dR7d9Nyv+WsJmf5SQTVcGHPWxyUp1/hwsCvLNETmT
+ JC/A==
+X-Gm-Message-State: ABy/qLaffyPDtEumJjKPK1E2PJuDc9JZLVEOAol18GBOpMZ2WM70UjIW
+ z/gcBxprYLTKn7QYz+PYLh2rP3nn9ZMBQ1/BX2c=
+X-Google-Smtp-Source: APBJJlG2tA6vt+3ZKfVnXTfgUnnvQ4HJ25iAo3Gz479hmoq35K+T4XbP1lkdHSvrrOxH+w/0VKF7puY29nFTCIqgDRM=
+X-Received: by 2002:a05:6808:308:b0:3a3:9073:856f with SMTP id
+ i8-20020a056808030800b003a39073856fmr2365610oie.3.1688652332822; Thu, 06 Jul
+ 2023 07:05:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230706021102.2066-1-yangrong@vivo.com>
-In-Reply-To: <20230706021102.2066-1-yangrong@vivo.com>
+References: <20230706120102.2174734-1-danijel.slivka@amd.com>
+In-Reply-To: <20230706120102.2174734-1-danijel.slivka@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 6 Jul 2023 09:58:26 -0400
-Message-ID: <CADnq5_MSkJf=-QMPYNQp03=6mbb+OEHnPFW0=WKiS0VMc6ricQ@mail.gmail.com>
-Subject: Re: [PATCH] Fix max/min warnings in virtio_net, amd/display,
- and io_uring
-To: Yang Rong <yangrong@vivo.com>
+Date: Thu, 6 Jul 2023 10:05:21 -0400
+Message-ID: <CADnq5_OSxDQ=7Kpa6k5qwTbnTcfwtQ0e+EB0Wj9xfSEO-chCsA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: check whether smu is idle in sriov case
+To: Danijel Slivka <danijel.slivka@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,160 +67,204 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Max Tseng <Max.Tseng@amd.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:VIRTIO CORE AND NET DRIVERS"
- <virtualization@lists.linux-foundation.org>,
- Eric Dumazet <edumazet@google.com>, Jun Lei <Jun.Lei@amd.com>,
- Josip Pavic <Josip.Pavic@amd.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- David Airlie <airlied@gmail.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- "open list:AMD DISPLAY CORE" <amd-gfx@lists.freedesktop.org>,
- "open list:IO_URING" <io-uring@vger.kernel.org>,
- Alvin Lee <Alvin.Lee2@amd.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Harry Wentland <harry.wentland@amd.com>,
- opensource.kernel@vivo.com, Leo Li <sunpeng.li@amd.com>,
- Cruise Hung <cruise.hung@amd.com>, Jens Axboe <axboe@kernel.dk>,
- "open list:NETWORKING DRIVERS" <netdev@vger.kernel.org>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- open list <linux-kernel@vger.kernel.org>, luhongfei@vivo.com,
- "David S. Miller" <davem@davemloft.net>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Pavel Begunkov <asml.silence@gmail.com>
+Cc: Jingwen Chen <Jingwen.Chen2@amd.com>, Nikola Prica <nikola.prica@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 6, 2023 at 3:37=E2=80=AFAM Yang Rong <yangrong@vivo.com> wrote:
+On Thu, Jul 6, 2023 at 8:01=E2=80=AFAM Danijel Slivka <danijel.slivka@amd.c=
+om> wrote:
 >
-> The files drivers/net/virtio_net.c, drivers/gpu/drm/amd/display/dc/dc_dmu=
-b_srv.c, and io_uring/io_uring.c were modified to fix warnings.
-> Specifically, the opportunities for max() and min() were utilized to addr=
-ess the warnings.
+> Why:
+> If the reg mmMP1_SMN_C2PMSG_90 is being programed to 0x0 before
+> guest initialization, then modprobe amdgpu will fail at smu hw_init.
+> (the default mmMP1_SMN_C2PMSG_90 at a clean guest environment is 0x1).
+>
+> How to fix:
+> this patch is to check whether smu is idle by sending a test
+> message to smu. If smu is idle, it will respond.
+>
+> Signed-off-by: Danijel Slivka <danijel.slivka@amd.com>
+> Signed-off-by: Nikola Prica <nikola.prica@amd.com>
+> Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+> Signed-off-by: pengzhou <PengJu.Zhou@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  8 ++++
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  7 ++++
+>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h  |  2 +
+>  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  1 +
+>  .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  5 +++
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 40 +++++++++++++++++++
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  2 +
+>  7 files changed, 65 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
+amd/pm/swsmu/amdgpu_smu.c
+> index ce41a8309582..63ea4cd32ece 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -1443,6 +1443,14 @@ static int smu_start_smc_engine(struct smu_context=
+ *smu)
+>                 }
+>         }
+>
+> +       if (amdgpu_sriov_vf(adev) && smu->ppt_funcs->wait_smu_idle) {
+> +               ret =3D smu->ppt_funcs->wait_smu_idle(smu);
+> +               if (ret) {
+> +                       dev_err(adev->dev, "SMU is not idle\n");
+> +                       return ret;
+> +               }
+> +       }
+> +
+>         /*
+>          * Send msg GetDriverIfVersion to check if the return value is eq=
+ual
+>          * with DRIVER_IF_VERSION of smc header.
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/=
+drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index 6e2069dcb6b9..1bf87ad30d93 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -926,6 +926,13 @@ struct pptable_funcs {
+>          */
+>         int (*check_fw_status)(struct smu_context *smu);
+>
+> +       /**
+> +        * @wait_smu_idle: wait for SMU idle status.
+> +        *
+> +        * Return: Zero if check passes, negative errno on failure.
+> +        */
+> +       int (*wait_smu_idle)(struct smu_context *smu);
+> +
+>         /**
+>          * @set_mp1_state: put SMU into a correct state for comming
+>          *                 resume from runpm or gpu reset.
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h b/drivers/gpu/d=
+rm/amd/pm/swsmu/inc/smu_v11_0.h
+> index d466db6f0ad4..f3293ddd1a1b 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+> @@ -165,6 +165,8 @@ int smu_v11_0_fini_power(struct smu_context *smu);
+>
+>  int smu_v11_0_check_fw_status(struct smu_context *smu);
+>
+> +int smu_v11_0_wait_smu_idle(struct smu_context *smu);
+> +
+>  int smu_v11_0_setup_pptable(struct smu_context *smu);
+>
+>  int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
+u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> index c94d825a871b..f4e7596dcdcd 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+> @@ -3503,6 +3503,7 @@ static const struct pptable_funcs navi10_ppt_funcs =
+=3D {
+>         .init_power =3D smu_v11_0_init_power,
+>         .fini_power =3D smu_v11_0_fini_power,
+>         .check_fw_status =3D smu_v11_0_check_fw_status,
+> +       .wait_smu_idle =3D smu_v11_0_wait_smu_idle,
 
-Please split this into 3 patches, one for each component.
+Drop the smu_v11_0 wrapper and just use the cmn function directly.
+
+>         .setup_pptable =3D navi10_setup_pptable,
+>         .get_vbios_bootup_values =3D smu_v11_0_get_vbios_bootup_values,
+>         .check_fw_version =3D smu_v11_0_check_fw_version,
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> index aa4a5498a12f..059dc2243c06 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+> @@ -195,6 +195,11 @@ int smu_v11_0_check_fw_status(struct smu_context *sm=
+u)
+>         return -EIO;
+>  }
+>
+> +int smu_v11_0_wait_smu_idle(struct smu_context *smu)
+> +{
+> +       return smu_wait_smu_idle(smu);
+> +}
+
+Drop this.
+
+> +
+>  int smu_v11_0_check_fw_version(struct smu_context *smu)
+>  {
+>         struct amdgpu_device *adev =3D smu->adev;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd=
+/pm/swsmu/smu_cmn.c
+> index 3ecb900e6ecd..5dc81d7b04da 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -313,6 +313,46 @@ int smu_cmn_wait_for_response(struct smu_context *sm=
+u)
+>         return res;
+>  }
+>
+> +/**
+> + * smu_wait_smu_idle -- wait for smu to become idle
+> + * @smu: pointer to an SMU context
+> + *
+> + * Send SMU_MSG_TestMessage to check whether SMU is idle.
+> + * If SMU is idle, it will respond.
+> + * The returned parameter will be the param you pass + 1.
+> + *
+> + * Return 0 on success, -errno on error, indicating the execution
+> + * status and result of the message being waited for. See
+> + * __smu_cmn_reg2errno() for details of the -errno.
+> + */
+> +int smu_wait_smu_idle(struct smu_context *smu)
+
+Rename this smu_cmn_wait_smu_idle() for consistency.
 
 Alex
 
+> +{
+> +       u32 reg;
+> +       u32 param =3D 0xff00011;
+> +       uint32_t read_arg;
+> +       int res, index;
+> +
+> +       index =3D smu_cmn_to_asic_specific_index(smu,
+> +                                              CMN2ASIC_MAPPING_MSG,
+> +                                              SMU_MSG_TestMessage);
+> +
+> +       __smu_cmn_send_msg(smu, index, param);
+> +       reg =3D __smu_cmn_poll_stat(smu);
+> +       res =3D __smu_cmn_reg2errno(smu, reg);
+> +
+> +       if (unlikely(smu->adev->pm.smu_debug_mask & SMU_DEBUG_HALT_ON_ERR=
+OR) &&
+> +           res && (res !=3D -ETIME)) {
+> +               amdgpu_device_halt(smu->adev);
+> +               WARN_ON(1);
+> +       }
+> +
+> +       smu_cmn_read_arg(smu, &read_arg);
+> +       if (read_arg =3D=3D param + 1)
+> +               return 0;
+> +       return res;
+> +}
+> +
+> +
+>  /**
+>   * smu_cmn_send_smc_msg_with_param -- send a message with parameter
+>   * @smu: pointer to an SMU context
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd=
+/pm/swsmu/smu_cmn.h
+> index d7cd358a53bd..abe875513d77 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> @@ -50,6 +50,8 @@ int smu_cmn_send_debug_smc_msg_with_param(struct smu_co=
+ntext *smu,
 >
-> Signed-off-by: Yang Rong <yangrong@vivo.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 6 +++---
->  drivers/net/virtio_net.c                     | 3 ++-
->  io_uring/io_uring.c                          | 3 ++-
->  3 files changed, 7 insertions(+), 5 deletions(-)
+>  int smu_cmn_wait_for_response(struct smu_context *smu);
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/d=
-rm/amd/display/dc/dc_dmub_srv.c
-> index c753c6f30dd7..df79aea49a3c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-> @@ -22,7 +22,7 @@
->   * Authors: AMD
->   *
->   */
-> -
-> +#include <linux/minmax.h>
->  #include "dc.h"
->  #include "dc_dmub_srv.h"
->  #include "../dmub/dmub_srv.h"
-> @@ -481,7 +481,7 @@ static void populate_subvp_cmd_drr_info(struct dc *dc=
-,
->         max_drr_vblank_us =3D div64_u64((subvp_active_us - prefetch_us -
->                         dc->caps.subvp_fw_processing_delay_us - drr_activ=
-e_us), 2) + drr_active_us;
->         max_drr_mallregion_us =3D subvp_active_us - prefetch_us - mall_re=
-gion_us - dc->caps.subvp_fw_processing_delay_us;
-> -       max_drr_supported_us =3D max_drr_vblank_us > max_drr_mallregion_u=
-s ? max_drr_vblank_us : max_drr_mallregion_us;
-> +       max_drr_supported_us =3D max(max_drr_vblank_us, max_drr_mallregio=
-n_us);
->         max_vtotal_supported =3D div64_u64(((uint64_t)drr_timing->pix_clk=
-_100hz * 100 * max_drr_supported_us),
->                         (((uint64_t)drr_timing->h_total * 1000000)));
->
-> @@ -771,7 +771,7 @@ void dc_dmub_setup_subvp_dmub_command(struct dc *dc,
->                 wm_val_refclk =3D context->bw_ctx.bw.dcn.watermarks.a.cst=
-ate_pstate.pstate_change_ns *
->                                 (dc->res_pool->ref_clocks.dchub_ref_clock=
-_inKhz / 1000) / 1000;
->
-> -               cmd.fw_assisted_mclk_switch_v2.config_data.watermark_a_ca=
-che =3D wm_val_refclk < 0xFFFF ? wm_val_refclk : 0xFFFF;
-> +               cmd.fw_assisted_mclk_switch_v2.config_data.watermark_a_ca=
-che =3D min(wm_val_refclk, 0xFFFF);
->         }
->
->         dm_execute_dmub_cmd(dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
-> diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-> index 9b3721424e71..5bb7da885f00 100644
-> --- a/drivers/net/virtio_net.c
-> +++ b/drivers/net/virtio_net.c
-> @@ -22,6 +22,7 @@
->  #include <net/route.h>
->  #include <net/xdp.h>
->  #include <net/net_failover.h>
-> +#include <linux/minmax.h>
->
->  static int napi_weight =3D NAPI_POLL_WEIGHT;
->  module_param(napi_weight, int, 0444);
-> @@ -1291,7 +1292,7 @@ static struct sk_buff *build_skb_from_xdp_buff(stru=
-ct net_device *dev,
->         __skb_put(skb, data_len);
->
->         metasize =3D xdp->data - xdp->data_meta;
-> -       metasize =3D metasize > 0 ? metasize : 0;
-> +       metasize =3D max(metasize, 0);
->         if (metasize)
->                 skb_metadata_set(skb, metasize);
->
-> diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-> index e8096d502a7c..875ca657227d 100644
-> --- a/io_uring/io_uring.c
-> +++ b/io_uring/io_uring.c
-> @@ -47,6 +47,7 @@
->  #include <linux/refcount.h>
->  #include <linux/uio.h>
->  #include <linux/bits.h>
-> +#include <linux/minmax.h>
->
->  #include <linux/sched/signal.h>
->  #include <linux/fs.h>
-> @@ -2660,7 +2661,7 @@ static void *__io_uaddr_map(struct page ***pages, u=
-nsigned short *npages,
->                                         page_array);
->         if (ret !=3D nr_pages) {
->  err:
-> -               io_pages_free(&page_array, ret > 0 ? ret : 0);
-> +               io_pages_free(&page_array, max(ret, 0));
->                 return ret < 0 ? ERR_PTR(ret) : ERR_PTR(-EFAULT);
->         }
->         /*
+> +int smu_wait_smu_idle(struct smu_context *smu);
+> +
+>  int smu_cmn_to_asic_specific_index(struct smu_context *smu,
+>                                    enum smu_cmn2asic_mapping_type type,
+>                                    uint32_t index);
 > --
-> 2.35.3
+> 2.25.1
 >
->
-> ________________________________
-> =E6=9C=AC=E9=82=AE=E4=BB=B6=E5=8F=8A=E5=85=B6=E9=99=84=E4=BB=B6=E5=86=85=
-=E5=AE=B9=E5=8F=AF=E8=83=BD=E5=90=AB=E6=9C=89=E6=9C=BA=E5=AF=86=E5=92=8C/=
-=E6=88=96=E9=9A=90=E7=A7=81=E4=BF=A1=E6=81=AF=EF=BC=8C=E4=BB=85=E4=BE=9B=E6=
-=8C=87=E5=AE=9A=E4=B8=AA=E4=BA=BA=E6=88=96=E6=9C=BA=E6=9E=84=E4=BD=BF=E7=94=
-=A8=E3=80=82=E8=8B=A5=E6=82=A8=E9=9D=9E=E5=8F=91=E4=BB=B6=E4=BA=BA=E6=8C=87=
-=E5=AE=9A=E6=94=B6=E4=BB=B6=E4=BA=BA=E6=88=96=E5=85=B6=E4=BB=A3=E7=90=86=E4=
-=BA=BA=EF=BC=8C=E8=AF=B7=E5=8B=BF=E4=BD=BF=E7=94=A8=E3=80=81=E4=BC=A0=E6=92=
-=AD=E3=80=81=E5=A4=8D=E5=88=B6=E6=88=96=E5=AD=98=E5=82=A8=E6=AD=A4=E9=82=AE=
-=E4=BB=B6=E4=B9=8B=E4=BB=BB=E4=BD=95=E5=86=85=E5=AE=B9=E6=88=96=E5=85=B6=E9=
-=99=84=E4=BB=B6=E3=80=82=E5=A6=82=E6=82=A8=E8=AF=AF=E6=94=B6=E6=9C=AC=E9=82=
-=AE=E4=BB=B6=EF=BC=8C=E8=AF=B7=E5=8D=B3=E4=BB=A5=E5=9B=9E=E5=A4=8D=E6=88=96=
-=E7=94=B5=E8=AF=9D=E6=96=B9=E5=BC=8F=E9=80=9A=E7=9F=A5=E5=8F=91=E4=BB=B6=E4=
-=BA=BA=EF=BC=8C=E5=B9=B6=E5=B0=86=E5=8E=9F=E5=A7=8B=E9=82=AE=E4=BB=B6=E3=80=
-=81=E9=99=84=E4=BB=B6=E5=8F=8A=E5=85=B6=E6=89=80=E6=9C=89=E5=A4=8D=E6=9C=AC=
-=E5=88=A0=E9=99=A4=E3=80=82=E8=B0=A2=E8=B0=A2=E3=80=82
-> The contents of this message and any attachments may contain confidential=
- and/or privileged information and are intended exclusively for the address=
-ee(s). If you are not the intended recipient of this message or their agent=
-, please note that any use, dissemination, copying, or storage of this mess=
-age or its attachments is not allowed. If you receive this message in error=
-, please notify the sender by reply the message or phone and delete this me=
-ssage, any attachments and any copies immediately.
-> Thank you
