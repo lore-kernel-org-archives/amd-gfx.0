@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58056EB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 12:36:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4254EB64DD
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 12:36:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B8C710E3EE;
-	Thu,  6 Jul 2023 12:36:36 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9785C10E3EE
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jul 2023 12:36:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 368C310E427;
+	Thu,  6 Jul 2023 12:36:37 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E0FB10E050
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jul 2023 12:36:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mMF89mPuTalFk+/72tVRLaNPesdMyT/RA/YpOd8MqnlSwjtdNzR6bUXLcPsvfSn+oipjZKwQsptlZsiltteVpx5aPABOOBJsgWPaIm9+YM2jkvCcWB7Q9ywXRApzNpghZ7eib5w/5yUCsNWElH8JjlNgtOtRPCU1ImoEcytfsI0n3ljSv6rMolZrk9GILTvtkcpJ7+5wkZBtKZLWDaTD9LYfQm/AX9hPQZmWRxyAx15V4oGMWXNgw2P9cmzw6FXuzDorlos0sDop43mWzs2AfFh3oacnMMZ7S1fdZe987h8JHZSuaLBCX5afBFJ6aCbYejL/AUgqXpemZOIgmBYkGg==
+ b=TBYc1eR26qn8DX6p8bhsSI7q4bt74oPZMkHJm96GmFiokglALA9ZUh9NMedbPfc3yvskDel+y9MK7W4vQQ+FfAcD28tNKCbUYzCEyO3Xrl9Ag4EIbSpSrrCwO76XUe+1Kcq/eitQi1V9yNDlpdxfQPLDyiYjHMHt5wtbjcabizmyQHvRb6X34cfjiXGCjdHzTRi9bqWNtLJsS8hVvQC5WKLWVPScGmE+xxMN7TlIN4mzooHso9oRSgj+qkvasnwyDKP6hXurhTN2zhE1OyKIqEogOcoYQ9IuJPE+FdO7tXpGQOBQ4xD2Lr+00Tjyy0+W6D3FmXjH9wu0uQhnm6w/Ow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y0K2jLnZO3i2EL7PkXRSRlH3Oz5FbBzsLDCPN7IWwUE=;
- b=YL/h1h2jqR9q5mFNGnMXKYLAA0oBXdp3Td79woNm8CeipCWinLXhJCWP3gzoyVdb4o6htMJ0c1ti7tPXlKY6iwIguim/2mebGR5l4n8uS7hOJZkKg8fH5y/1Eqn8rBQZdOgahLIcJoA9tHxIeLYdXswteZ2RsYAboNfMeP7yayFobRI6Nmluob52vCxTHF4041vbiEJX78VK6wuvN6QP6HbQxYLv8w2uMjU/2Cs8DVF2fGdAz5SWiluG4f/SuF621xPMwiWmKKaPDS/bOE2/Ra09YYfhJCfyWj+LJ0XDmD4SPFK//xtsLaHu9mbdhei0iU51v2dC06qxGm9GkfsUyg==
+ bh=2+NQNBi5ZiYPLXZQ8+3lR7scz1UBrOZBahmDzLg2gOY=;
+ b=iedsrxym0mBtMlkPtTKYQ13i0q0bLXy1SPBkRU3DhQ6pV8s9ILR9m/T7eI8RsWxNyg2Xbb7LJxLs/P0csukqROrWD97SuozI/IzTr2BXMm8EPO1FphpF9+M6eTwcnQPuFNcYSOMVUz6GwpfuCr1JOVlb5NwkmDkyqaDg9F7M9anvnNqAOWaNiLdqQsBo6p2Zivm3W+uzGm6RRPwKovsTG2sRnJM7GECmr/2dKO5hOvgufRTyMzCkQ8wduJm4LJt0jGyQNYPQw4wlSrm6kaLtQf0Qsb+xtYln+YeVA+GcGR/Zq0pltvFgtKGTF0TnPTyO2LeKntg59E+M0Ixg7QElwQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y0K2jLnZO3i2EL7PkXRSRlH3Oz5FbBzsLDCPN7IWwUE=;
- b=VrQZNuKsv3x+gvb0wFgsjLH+leQziXk1A79onCobVYicTFC84sdk8cuua4VmiXaJNx1e17OZzuUNFkZXRksqWvTSq7C/4EBYRxozczINSNTH2yLL5F4TAoawm2aSr84pYQ9EozgZ3UF36I6jmfAT4xmaH3nR48mvhDJQ0LcqxqQ=
-Received: from DM6PR12CA0002.namprd12.prod.outlook.com (2603:10b6:5:1c0::15)
- by DS0PR12MB8768.namprd12.prod.outlook.com (2603:10b6:8:14f::20) with
+ bh=2+NQNBi5ZiYPLXZQ8+3lR7scz1UBrOZBahmDzLg2gOY=;
+ b=trOLb49dTDCmQiqAZtmIOmZ99U6io/2cwPtZRTawc/MPs8fPiZT9V9TFMxPWB7wc4T1Qo/KK3Q7zbtrU42zUdCVvYnfWBZopcIpIEdcT1ZqTYRd7hB/ZyN4eAueV3JjHmWJK8lxoUdrO5yB1laxVCmqLZJ+jHrf11P+Ygt03cJA=
+Received: from DM6PR12CA0035.namprd12.prod.outlook.com (2603:10b6:5:1c0::48)
+ by SJ1PR12MB6050.namprd12.prod.outlook.com (2603:10b6:a03:48b::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Thu, 6 Jul
- 2023 12:36:31 +0000
+ 2023 12:36:30 +0000
 Received: from DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1c0:cafe::ec) by DM6PR12CA0002.outlook.office365.com
- (2603:10b6:5:1c0::15) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:5:1c0:cafe::a8) by DM6PR12CA0035.outlook.office365.com
+ (2603:10b6:5:1c0::48) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.24 via Frontend
- Transport; Thu, 6 Jul 2023 12:36:31 +0000
+ Transport; Thu, 6 Jul 2023 12:36:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,47 +47,47 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT012.mail.protection.outlook.com (10.13.173.109) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6521.45 via Frontend Transport; Thu, 6 Jul 2023 12:36:31 +0000
+ 15.20.6521.45 via Frontend Transport; Thu, 6 Jul 2023 12:36:30 +0000
 Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 6 Jul
- 2023 07:36:28 -0500
+ 2023 07:36:27 -0500
 From: Shashank Sharma <shashank.sharma@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v5 02/10] drm/amdgpu: add usermode queue base code
-Date: Thu, 6 Jul 2023 14:35:54 +0200
-Message-ID: <20230706123602.2331-3-shashank.sharma@amd.com>
+Subject: [PATCH v5 01/10] drm/amdgpu: UAPI for user queue management
+Date: Thu, 6 Jul 2023 14:35:53 +0200
+Message-ID: <20230706123602.2331-2-shashank.sharma@amd.com>
 X-Mailer: git-send-email 2.38.0.windows.1
 In-Reply-To: <20230706123602.2331-1-shashank.sharma@amd.com>
 References: <20230706123602.2331-1-shashank.sharma@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT012:EE_|DS0PR12MB8768:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b54bf5a-0ce6-40f0-a616-08db7e1da066
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT012:EE_|SJ1PR12MB6050:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c655775-b6fd-423a-37ac-08db7e1d9ff4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2Dn0s1GVZmHdPo257CBYOqUwDTM20AfIHcq9YomhZZF74guPX+ljgS/M+pfpQCl8ce+aN3F92ic0zTWKR5utLY3iZyJpN0Zw429C8+Lc2/asfWvLovCL8uoFRlvzm6V5shFQHfwW4X3qMvl1nUwVsJttjvWNzSNFObSnobdivOmbSh9t+Lyj6w7D1Gr/CXd2UBJk80qhXb6HbLQSI3COEXYvecSzpGdMUMzGyZz4IprFrdKngE6wLKLc1zRwSm88zz81eBJA/Rby631KkdCpSHKfb3HRhTETTluw49moBa6M4BWyB0WDSCn4VXX6tg+LDC1KKNTUqs9pIW5ma/WIWcv8+vObzm1+jCuw+RGvCVc10nEmO77NAhXjRDqn/EBc8OlrdW9FXg6i44H/oTBIojdLf3Ufmp49zcJgdp46cKIK/038SgGsWHE9ChfdOIqzGp76SIIJA5TXFEzV6hIyPfaFPPhL0S0xXb5OdBNYGQX4KmpGphoL9a2tFy4+0NfTRTH++MP1+A2NvIEiLOWDW9QXf5a/jDF+3nAlz54Dj8VtjlIAqCoU21dlnFr4dTDuaqu9s7J5i4ZqVA6oMHZmiYquRvqUaeat7pvwRpkeML865XeLsWsJ/z0eq+2CTl5HNNdC1rPChu/folWX3cPu4ZB8FWQe5zdFnd7pnCuQBdZFg7QGyfB/7McYkPHL98J7pS034jj4e3kjGDH31evdOtKl9qyzQNCel7b0QKg6OXVMrTlP2l01iCRJ7DCTMk+o
+X-Microsoft-Antispam-Message-Info: 8pCCWec8XXo/z+OcjsmVW1Ix8/W3kX7z9kOpgi0XV36Ng+r72e7LWb+Cxd2vSZdHWMI93svWhGBxqHtWv18/h6cuojYWfHYiU3fzI6HYXCf13KOZjL4ENBUF7SDGBg7BXfQcBzO0ZZF2RBfdRHZTq+4Wrs/THNFkM1mAVDz9gWFGwpcuTpv/ZdZlBM5m2UnXxch0Rwmg1vgGLkRDdUlRjc79c5sQU1gBEgrVXQiW6Qe6GCYJITFvGTFvbOTYck41qDIUA7VBcfxKcEC88IBGCLKYWzZyi4X90vQv2QXcO2mjkiUkRwa4verWrutdPyrwZDXTHIY0pyTuKHTGrDRjKXDhMbfW6weVg1QFKY36JUAxHJ+XRIEAjeWcpb97lcgp/pCJwFfm4Y8HXQ6+b2HfC9BGxq3b6oZZLknwSCGCsaWXdRaVjh8A9V0YzWv8t+uftYEB+EjYCeGG3x/0ZUY/XLB7FvBpNtbknh0fDuf14mu1l8dXme4UtHtbqynaupoL3yFvjE9aWGofUvSGmyORIpwQXpuQmjKEBWdB4+WnbEcod4Kh7KL3q+zBzmp9uMWUuo1cPj/LWdTnTZHKyN5NSF7I9FA+WqvO7ETu57+fvLbncLYB/tWZuOl6gQZ+L/gHWLwN5LRN7yef94JLyz7206lnx1udMFIFYFrHBqqJCu3+dJ6hhsmqe7s1cRp7JjGhBSFiVFqvwkC302WsXNwNUMk4O6N70dkIAqTHacWh/lFYug0QgWlIKRZic8d3miZsXfuhQDpvh0sqZ78bBoSV5w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(136003)(396003)(39860400002)(451199021)(40470700004)(46966006)(36840700001)(54906003)(7696005)(478600001)(70586007)(6666004)(186003)(16526019)(26005)(70206006)(2906002)(82310400005)(6916009)(4326008)(8936002)(40460700003)(316002)(41300700001)(44832011)(82740400003)(5660300002)(81166007)(356005)(8676002)(36756003)(86362001)(2616005)(47076005)(83380400001)(426003)(1076003)(336012)(36860700001)(40480700001)(66899021)(36900700001);
+ SFS:(13230028)(4636009)(346002)(39860400002)(136003)(396003)(376002)(451199021)(40470700004)(46966006)(36840700001)(66574015)(426003)(356005)(44832011)(54906003)(47076005)(70586007)(70206006)(26005)(1076003)(83380400001)(478600001)(36860700001)(2616005)(86362001)(82740400003)(81166007)(6916009)(4326008)(2906002)(5660300002)(7696005)(8676002)(316002)(8936002)(40460700003)(6666004)(82310400005)(40480700001)(186003)(336012)(16526019)(36756003)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 12:36:31.2509 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b54bf5a-0ce6-40f0-a616-08db7e1da066
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 12:36:30.5009 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c655775-b6fd-423a-37ac-08db7e1d9ff4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8768
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6050
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,236 +105,174 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch adds skeleton code for amdgpu usermode queue.
-It contains:
-- A new files with init functions of usermode queues.
-- A queue context manager in driver private data.
+From: Alex Deucher <alexander.deucher@amd.com>
 
-V1: Worked on design review comments from RFC patch series:
-(https://patchwork.freedesktop.org/series/112214/)
-- Alex: Keep a list of queues, instead of single queue per process.
-- Christian: Use the queue manager instead of global ptrs,
-           Don't keep the queue structure in amdgpu_ctx
+This patch intorduces new UAPI/IOCTL for usermode graphics
+queue. The userspace app will fill this structure and request
+the graphics driver to add a graphics work queue for it. The
+output of this UAPI is a queue id.
 
-V2:
- - Reformatted code, split the big patch into two
+This UAPI maps the queue into GPU, so the graphics app can start
+submitting work to the queue as soon as the call returns.
 
-V3:
-- Integration with doorbell manager
+V2: Addressed review comments from Alex and Christian
+    - Make the doorbell offset's comment clearer
+    - Change the output parameter name to queue_id
+
+V3: Integration with doorbell manager
 
 V4:
-- Align the structure member names to the largest member's column
-  (Luben)
-- Added SPDX license (Luben)
-
+    - Updated the UAPI doc (Pierre-Eric)
+    - Created a Union for engine specific MQDs (Alex)
+    - Added Christian's R-B
 V5:
-- Do not add amdgpu.h in amdgpu_userqueue.h (Christian).
-- Move struct amdgpu_userq_mgr into amdgpu_userqueue.h (Christian).
+    - Add variables for GDS and CSA in MQD structure (Alex)
+    - Make MQD data a ptr-size pair instead of union (Alex)
 
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Christian Koenig <christian.koenig@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile           |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  6 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 40 ++++++++++++
- .../gpu/drm/amd/include/amdgpu_userqueue.h    | 62 +++++++++++++++++++
- 6 files changed, 113 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
- create mode 100644 drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+ include/uapi/drm/amdgpu_drm.h | 110 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 110 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 415a7fa395c4..4b9bae995094 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -216,6 +216,8 @@ amdgpu-y += \
- # add amdkfd interfaces
- amdgpu-y += amdgpu_amdkfd.o
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index b6eb90df5d05..4f1178c6ee34 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -54,6 +54,7 @@ extern "C" {
+ #define DRM_AMDGPU_VM			0x13
+ #define DRM_AMDGPU_FENCE_TO_HANDLE	0x14
+ #define DRM_AMDGPU_SCHED		0x15
++#define DRM_AMDGPU_USERQ		0x16
  
-+# add usermode queue
-+amdgpu-y += amdgpu_userqueue.o
+ #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+ #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+@@ -71,6 +72,7 @@ extern "C" {
+ #define DRM_IOCTL_AMDGPU_VM		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_VM, union drm_amdgpu_vm)
+ #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FENCE_TO_HANDLE, union drm_amdgpu_fence_to_handle)
+ #define DRM_IOCTL_AMDGPU_SCHED		DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
++#define DRM_IOCTL_AMDGPU_USERQ		DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ, union drm_amdgpu_userq)
  
- ifneq ($(CONFIG_HSA_AMD),)
- AMDKFD_PATH := ../amdkfd
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 02b827785e39..fab842138cd5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -107,6 +107,7 @@
- #include "amdgpu_fdinfo.h"
- #include "amdgpu_mca.h"
- #include "amdgpu_ras.h"
-+#include "amdgpu_userqueue.h"
- 
- #define MAX_GPU_INSTANCE		16
- 
-@@ -463,6 +464,7 @@ struct amdgpu_fpriv {
- 	struct mutex		bo_list_lock;
- 	struct idr		bo_list_handles;
- 	struct amdgpu_ctx_mgr	ctx_mgr;
-+	struct amdgpu_userq_mgr	userq_mgr;
+ /**
+  * DOC: memory domains
+@@ -302,6 +304,114 @@ union drm_amdgpu_ctx {
+ 	union drm_amdgpu_ctx_out out;
  };
  
- int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index b1ca1ab6d6ad..4c5e44d41652 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -50,6 +50,7 @@
- #include "amdgpu_ras.h"
- #include "amdgpu_xgmi.h"
- #include "amdgpu_reset.h"
-+#include "amdgpu_userqueue.h"
- 
- /*
-  * KMS wrapper.
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 0efb38539d70..68e5375b648b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -44,6 +44,7 @@
- #include "amdgpu_display.h"
- #include "amdgpu_ras.h"
- #include "amd_pcie.h"
-+#include "amdgpu_userqueue.h"
- 
- void amdgpu_unregister_gpu_instance(struct amdgpu_device *adev)
- {
-@@ -1234,6 +1235,10 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 
- 	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
- 
-+	r = amdgpu_userq_mgr_init(&fpriv->userq_mgr, adev);
-+	if (r)
-+		DRM_WARN("Can't setup usermode queues, use legacy workload submission only\n");
++/* user queue IOCTL */
++#define AMDGPU_USERQ_OP_CREATE	1
++#define AMDGPU_USERQ_OP_FREE	2
 +
- 	file_priv->driver_priv = fpriv;
- 	goto out_suspend;
- 
-@@ -1301,6 +1306,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
- 
- 	amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
- 	amdgpu_vm_fini(adev, &fpriv->vm);
-+	amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
- 
- 	if (pasid)
- 		amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-new file mode 100644
-index 000000000000..effc0c7c02cf
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: MIT
++/* Flag to indicate secure buffer related workload, unused for now */
++#define AMDGPU_USERQ_MQD_FLAGS_SECURE	(1 << 0)
++/* Flag to indicate AQL workload, unused for now */
++#define AMDGPU_USERQ_MQD_FLAGS_AQL	(1 << 1)
++
 +/*
-+ * Copyright 2023 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
++ * MQD (memory queue descriptor) is a set of parameters which allow
++ * the GPU to uniquely define and identify a usermode queue. This
++ * structure defines the MQD for GFX-V11 IP ver 0.
 + */
-+
-+#include "amdgpu.h"
-+
-+int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_device *adev)
-+{
-+	mutex_init(&userq_mgr->userq_mutex);
-+	idr_init_base(&userq_mgr->userq_idr, 1);
-+	userq_mgr->adev = adev;
-+
-+	return 0;
-+}
-+
-+void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
-+{
-+	idr_destroy(&userq_mgr->userq_idr);
-+	mutex_destroy(&userq_mgr->userq_mutex);
-+}
-diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-new file mode 100644
-index 000000000000..79ffa131a514
---- /dev/null
-+++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-@@ -0,0 +1,62 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright 2023 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef AMDGPU_USERQUEUE_H_
-+#define AMDGPU_USERQUEUE_H_
-+
-+#define AMDGPU_MAX_USERQ_COUNT 512
-+
-+struct amdgpu_mqd_prop;
-+
-+struct amdgpu_usermode_queue {
-+	int			queue_type;
-+	uint64_t		doorbell_handle;
-+	uint64_t		doorbell_index;
-+	uint64_t		flags;
-+	struct amdgpu_mqd_prop	*userq_prop;
-+	struct amdgpu_userq_mgr *userq_mgr;
-+	struct amdgpu_vm	*vm;
++struct drm_amdgpu_userq_mqd_gfx_v11_0 {
++	/**
++	 * @queue_va: Virtual address of the GPU memory which holds the queue
++	 * object. The queue holds the workload packets.
++	 */
++	__u64   queue_va;
++	/**
++	 * @queue_size: Size of the queue in bytes, this needs to be 256-byte
++	 * aligned.
++	 */
++	__u64   queue_size;
++	/**
++	 * @rptr_va : Virtual address of the GPU memory which holds the ring RPTR.
++	 * This object must be at least 8 byte in size and aligned to 8-byte offset.
++	 */
++	__u64   rptr_va;
++	/**
++	 * @wptr_va : Virtual address of the GPU memory which holds the ring WPTR.
++	 * This object must be at least 8 byte in size and aligned to 8-byte offset.
++	 *
++	 * Queue, RPTR and WPTR can come from the same object, as long as the size
++	 * and alignment related requirements are met.
++	 */
++	__u64   wptr_va;
++	/**
++	 * @shadow_va: Virtual address of the GPU memory to hold the shadow buffer.
++	 * This must be a from a separate GPU object, and must be at least 4-page
++	 * sized.
++	 */
++	__u64   shadow_va;
++	/**
++	 * @gds_va: Virtual address of the GPU memory to hold the GDS buffer.
++	 * This must be a from a separate GPU object, and must be at least 1-page
++	 * sized.
++	 */
++	__u64   gds_va;
++	/**
++	 * @csa_va: Virtual address of the GPU memory to hold the CSA buffer.
++	 * This must be a from a separate GPU object, and must be at least 1-page
++	 * sized.
++	 */
++	__u64   csa_va;
 +};
 +
-+struct amdgpu_userq_funcs {
-+	int (*mqd_create)(struct amdgpu_userq_mgr *uq_mgr,
-+			  struct drm_amdgpu_userq_in *args,
-+			  struct amdgpu_usermode_queue *queue);
-+	void (*mqd_destroy)(struct amdgpu_userq_mgr *uq_mgr,
-+			    struct amdgpu_usermode_queue *uq);
++struct drm_amdgpu_userq_in {
++	/** AMDGPU_USERQ_OP_* */
++	__u32	op;
++	/** Queue handle for USERQ_OP_FREE */
++	__u32	queue_id;
++	/** the target GPU engine to execute workload (AMDGPU_HW_IP_*) */
++	__u32   ip_type;
++	/**
++	 * @flags: flags to indicate special function for queue like secure
++	 * buffer (TMZ). Unused for now.
++	 */
++	__u32   flags;
++	/**
++	 * @doorbell_handle: the handle of doorbell GEM object
++	 * associated to this client.
++	 */
++	__u32   doorbell_handle;
++	/**
++	 * @doorbell_offset: 32-bit offset of the doorbell in the doorbell bo.
++	 * Kernel will generate absolute doorbell offset using doorbell_handle
++	 * and doorbell_offset in the doorbell bo.
++	 */
++	__u32   doorbell_offset;
++	/**
++	 * @mqd: Queue descriptor for USERQ_OP_CREATE
++	 * MQD data can be of different size for different GPU IP/engine and
++	 * their respective versions/revisions, so this points to a __u64 *
++	 * which holds MQD of this usermode queue.
++	 */
++	__u64 mqd;
++	/**
++	 * @size: size of MQD data in bytes, it must match the MQD structure
++	 * size of the respective engine/revision defined in UAPI for ex, for
++	 * gfx_v11 workloads, size = sizeof(drm_amdgpu_userq_mqd_gfx_v11).
++	 */
++	__u64 mqd_size;
 +};
 +
-+/* Usermode queues for gfx */
-+struct amdgpu_userq_mgr {
-+	struct idr			userq_idr;
-+	struct mutex			userq_mutex;
-+	struct amdgpu_device		*adev;
-+	const struct amdgpu_userq_funcs *userq_funcs[AMDGPU_HW_IP_NUM];
++struct drm_amdgpu_userq_out {
++	/** Queue handle */
++	__u32	queue_id;
++	/** Flags */
++	__u32	flags;
 +};
 +
-+int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_device *adev);
++union drm_amdgpu_userq {
++	struct drm_amdgpu_userq_in in;
++	struct drm_amdgpu_userq_out out;
++};
 +
-+void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
-+
-+#endif
+ /* vm ioctl */
+ #define AMDGPU_VM_OP_RESERVE_VMID	1
+ #define AMDGPU_VM_OP_UNRESERVE_VMID	2
 -- 
 2.40.1
 
