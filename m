@@ -4,118 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28B7BEB64D9
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 11:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1C2CEB64D9
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 12:01:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC51910E4E3;
-	Thu,  6 Jul 2023 11:25:05 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2076.outbound.protection.outlook.com [40.107.243.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D98FC10E4E3
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jul 2023 11:25:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B05010E4F7;
+	Thu,  6 Jul 2023 12:01:15 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2089.outbound.protection.outlook.com [40.107.220.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78AE310E4F7
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Jul 2023 12:01:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L9mx/79nw8wja0WQfhYuZ2DFxXMXeWudqq/gO1fTI9RdRTPbzyQ2LN5lByjbWpdPrKxQ5RKrGJAMV/Rw7pPpcodMX6Tyws1IbxpsVN1J7jwg8QAwfTF51Hd1ANelL/lrKJq3QYL4ccmDSmB+/mmWvmr3gKNxZkwVz954Sil40iZWItvHr9fOmk31DMkzxaPjlc7jjiRsk11pwE1lj+NTgyBotN4YMq+rcv8wkNczh4T0LPh39FqD1AZfmnh+J2DsjESskiaViSww49poK3cU5ulKoAMR9pFR+rgm6ml/nC7Hz/P91PuzlnrvPyG+eKmDi0Ws9srcpRiz8AbSAaYDYg==
+ b=dQ1G/GkjBJxMpkRFH5fHPSI3F+PKiPP6YN4+3tIXzb08p3QfLKDl+cly+f19pN7WjyLwYuQGajAQ0hTjgZef60tSDldrr/BajJu3/ZhwzKrCVk68KUhODByAEi3fFwaiCunAFcEo3YbR04UAVmD8ADQpbckQnmuJHfpCLC9c4dKBfZTLHUF2+akjnw2NuZ5TvG1Y5OhWVuPQ5yTPGEPR6JwrBBR2GNr9ksXxBF1RfkfGQiZlUDOQgMqVna18XBZ0UWi7nmjs26hfsNeW2FK3tbX4WheYm1+e98RYBEcCsmcgmnRUU96IAMi1PqKyskfHq23lxesLygfWxL4QIi4yRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QDd//e4FkTndI1i40OSa61BbdphVeB9Hw21J9licZJ8=;
- b=JkocwQxu559KONIDFiHGvXu6Vl6aQIIHJLhdQWes/1iI211UQczCBnABmVsneG37QRjh3drgHdRup0fkT4d0SUMjavvAZNhdnBb8kws70xr9awLmeOUBKurED/nIUpdHhxcLBWFrSgtrrSgYNDbbdCKwVMYFbcuXFHCd5pUnIi7ad8IRx8bfGrz+dBkkvw7SujdhHcNWe+7xhpLgdYk4dMT0w6N96R+oz0+NwiIULaTA8+MTpB4KSbifdq9dbjMHKITU6qute+a2VhLKQyBCTvJtyXX4kYjWS4rLwwFsC6cTEkbhFfRCnVrr89geRMOgxXhj+EYUmXOp4+/dAh3Ahw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=0MasuCVZlpe9Yx6mngdQxUwcyRJTkHBkMKoZ64nB1hE=;
+ b=S0SiNBH1aUvkIPkHrX7xjUBaCJ+T8H0UA3eQTmANdgAhZzpOh21sK3RY0AK/DAKgQF+LnvMbfFNJGvMAJrwdGcSCXijLbRhb3cKrS4xGGQwj+ng+N4s0a5QTOwQWNrIHcIqovUkLc41fKuSBKzkeiprcAFd/oONNYNT+xW7re/k22ZFyzqOMAnbXy9+Yk7zgJj98u9WguqDmIWvBEkrWYw5jchUiUXhGrI4wJBkhxwM6Vth6GzqrFySyNBh5GtmUos9p6wKgcFiLuB4ylIXEfnPooRz0wQhQcKfBx2WFIcGEQsbCsPsRm6dekD0pR6FSDzvNYJjeNnQVi0tF5Rc45Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QDd//e4FkTndI1i40OSa61BbdphVeB9Hw21J9licZJ8=;
- b=qQIpATbcO7HWe5U52SAZIym87rHnh+vOrSi5OE8xwdEgoAiAwJNOYMusz94cqo6C06gh0tI8mywEMo47G2fSiLAZN/u1KxPKtO8zjEJa2HghVaTCGLM/f/eb+e6FTzDA68exknopMIyJz3w9y/JgUHm3gS7JKVDqnvls6yRCPiA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM6PR12MB5517.namprd12.prod.outlook.com (2603:10b6:5:1be::8) with
+ bh=0MasuCVZlpe9Yx6mngdQxUwcyRJTkHBkMKoZ64nB1hE=;
+ b=R38vBbs61JJBsVg/IylzND8g7PBBVnmHXk2JpTWL3qqAGAqdcPP9Xy84p/oXNbU1vvt3nUL8mv1r0LqVm5gDk0po8OPI6IB1b7xsvwggg4z1GN8ZocGooHze0QoKSw3vtbm83Ty3mWLu/PUyI7Qlk+Ax0kXTo8S5S975wVuv8nE=
+Received: from BN0PR03CA0047.namprd03.prod.outlook.com (2603:10b6:408:e7::22)
+ by DS0PR12MB8367.namprd12.prod.outlook.com (2603:10b6:8:fd::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Thu, 6 Jul
- 2023 11:24:56 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::384a:95a4:8819:ee84]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::384a:95a4:8819:ee84%7]) with mapi id 15.20.6565.016; Thu, 6 Jul 2023
- 11:24:56 +0000
-Message-ID: <c2f4bf79-c41f-38b4-8843-28ad520f24a7@amd.com>
-Date: Thu, 6 Jul 2023 13:24:50 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amdgpu/vkms: relax timer deactivation by
- hrtimer_try_to_cancel
-Content-Language: en-US
-To: Guchun Chen <guchun.chen@amd.com>, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com, hawking.zhang@amd.com, dusica.milinkovic@amd.com,
- nikola.prica@amd.com, flora.cui@amd.com
-References: <20230706083523.561741-1-guchun.chen@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230706083523.561741-1-guchun.chen@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0001.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1d::10) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ 2023 12:01:11 +0000
+Received: from BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e7:cafe::ef) by BN0PR03CA0047.outlook.office365.com
+ (2603:10b6:408:e7::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.24 via Frontend
+ Transport; Thu, 6 Jul 2023 12:01:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT007.mail.protection.outlook.com (10.13.177.109) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6521.45 via Frontend Transport; Thu, 6 Jul 2023 12:01:10 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 6 Jul
+ 2023 07:01:09 -0500
+Received: from sriov-MILEVA-7.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
+ Transport; Thu, 6 Jul 2023 07:01:08 -0500
+From: Danijel Slivka <danijel.slivka@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: check whether smu is idle in sriov case
+Date: Thu, 6 Jul 2023 14:01:02 +0200
+Message-ID: <20230706120102.2174734-1-danijel.slivka@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM6PR12MB5517:EE_
-X-MS-Office365-Filtering-Correlation-Id: b1f08571-72e7-462e-d495-08db7e13a067
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT007:EE_|DS0PR12MB8367:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7048d4be-38ff-4c02-5aa4-08db7e18b080
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FaVJRxoclET67UbVnRINXM2Puru9wMlIkPieiWD4yPBq5M/DQtwIFGOCaDI0FDmiqpCLbgadQ85Kdo5rzX8xmLGRgscDndVwm2vztVWD/EJrOQd/vV4d95WKhqccVstq3pN9dOOGr8BWcvRerRy+FzqFDIGX3Lo9YIoCQEdxMGeAmODlVMC+B+LulfgxBMHgjF+uQgmFlAIFxT37dlJLkwk196H+nQAcOSCTb4H5ZxioiPKpzEqQOJJhmLdH4ieYYUWhJmwlDQrQq9zvHLHix1Qn21K6KUlgwPL04xpBg/2/lwRMfUg0+kAHHxcMJ6++iM4KuZefhHfc0cJw1TGmcLSuIazQMoAgFCRBePJVdbDNGhRJJcrguI1zQIF8FbJLRNSai7ho0qB7PhlmIN9lWunmBUkv6xVbz84rmjB70txngj+oS5gvmEP6mcBTAowprQHk2aym2r26kDjEOJETJE2ROPsgDIw5g993Q2gASwqBbYTL3/Xkpio+J5AjQW5YikFZ4iu5tUBYQqL8qTxBqSn8enmcQxX6fYH56xTuPEz7YXboNzsppEIIh6RrkF/H3tIlB5efOcX8lX9KRto0TkVwc4LKFItmQm1OsMUUkFkhrs9vTebtduC6QRJNAkArXOLmVwk8CW5kwG1rqaNVqw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(39860400002)(396003)(366004)(376002)(451199021)(83380400001)(66946007)(6486002)(6666004)(478600001)(6506007)(6512007)(186003)(2906002)(66556008)(41300700001)(66476007)(8936002)(8676002)(5660300002)(4326008)(316002)(38100700002)(6636002)(31696002)(36756003)(2616005)(66574015)(86362001)(31686004)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: 290DZvkH1qKa1O28VBAGH6CRvY+Edqea4U4BJpNKmQrAiCG8/SFowWlo5Vr7bHFJDF3b3UsiLMmlFfo/S9f1xDqsoW7f6J1W/AH8EauvM3PevUQK1GshFFafuISRhCkbgfBfv2YIX+USxSD5f7jGwsSRtWwxLd/os1RF+FQdLnSvMYHDtx8OfEolThud1LTwJfzCOWT7gsorC6fteUeA9fgjijpEpOX0E4p3P6dEpfWydW0j0J/BN+5EdynCzUkamfIEEWRWVlGQxh3tZV5UEGWi0uFmkjKIvS71dskhlPrS1Fp6Bs/Co47+Jl0o19sv6RhX8c0tnaiy4EniYfPjI6l3MLuYgf9wkfueSQlGBRUIWNwCBFJRchsamZbfXc2DxP6htEuPzyZGxKyOv/Hvnu0dtAVWkaiekLEs4Rf8JDefpONoKghZk8RE/fbSZwa7X+HB6bPmVavt2ctL6UCvG4HTqRKZdqha51CDSq4hOXfET99SnYbDVV1OkUzLqHP8ga10iynnvChoBA6DQ9vdjaUapyt+Cq5g7zbDsMt1kQZGCnLOmyv0hlEYWUtk/6HlxDTQfrSikoFPKyQOTq1muoNuCjM37gq5sO/31zGkzhHYW5CQ52D4tCE4C3WLB70tOxd2H7+SYHLcClIaTHNjUCqvgYM/riu7ncz+JiT37AX+KZS/HN3hERtivpxrnJCTs01JwbBaoyijyb7sEQgexRRGrCS0Y1rIledSToI5+51iEotma9tDCXixzyqVQKlWgY8hxFmRxm3mIo5bVZ4cXg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(39860400002)(136003)(396003)(376002)(451199021)(40470700004)(46966006)(36840700001)(426003)(356005)(44832011)(54906003)(47076005)(70586007)(70206006)(26005)(1076003)(83380400001)(478600001)(36860700001)(2616005)(86362001)(82740400003)(81166007)(6916009)(4326008)(2906002)(5660300002)(7696005)(8676002)(316002)(8936002)(40460700003)(6666004)(82310400005)(40480700001)(186003)(336012)(36756003)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SFBXbE0vOWZMSmNjSHJZcTIzYXZqWTNLSnZ0NDBuM2JhRTN0OGs2T2w4cldZ?=
- =?utf-8?B?NXJYUllDKzRLQW1GQU1rVmU5c2RCNGlkQjlKOW9OVXA1RzkvMGVDZXBxM3Na?=
- =?utf-8?B?enRIc25nMUJLaHBPRWVIcllkYnhmTXkraHd5WFpTajJUSHllNERLMlVBMkp4?=
- =?utf-8?B?MXdNbjNsaWhEbHBpOTZ4Rm5BOW9RRTYyQVBpYTlzL3pYZzlnbUY0T2F3THIr?=
- =?utf-8?B?azMzYXBJaDJaRy9IWFFmNGtFZlN1VHhweE9JMmRlejFxTmo4RjJOYTFRZGpo?=
- =?utf-8?B?NzhYNk5kYzR5cVBSQ1oyY01TSmNvM3hkSSs5K05nREM1SmtPTDd1Y3lvb2JC?=
- =?utf-8?B?NHlEbkpJOEtTS2YrOE56WHJXM2JQb2lsTTF3b1QyQWFQMjY3WDNTNERHQjNM?=
- =?utf-8?B?UkpPdTl2NnRGeU1IM2lKcG1maEJrRFlJRFpOYUZhWnl2Z0hNbTVmOHJ5NmYv?=
- =?utf-8?B?S2xOUm9aMURybzlYQTlaYWtwT2tkUmdsRHE5S2V1RDVMUzlYaVZwN25PUFkz?=
- =?utf-8?B?Nktpc0gxVGRVd1lYNTZwd1JJSVJKQmQyZlJ0eWtwQ1FvNUcrZVo2U1F6UGZW?=
- =?utf-8?B?ZkYyWjZqeWNmSHErNytUY2RtM3ZmcklSNzYyTUZHNDBJQk5OWGJiVGJwNWNk?=
- =?utf-8?B?R3gra2xya2NKOVdpY29jWmlJblUwdlJ4TmpKL041UTk5REhLTXhsc2JNQlBY?=
- =?utf-8?B?TU5UWGplNmZpTGRYUW0zQWFPc0RhR1gzeXloM2JVL0k3NkxROU5ybmthdGdE?=
- =?utf-8?B?NTJIUVNMV01EdFZYNDhoNlZDbG04TGhtSk83dytZa3FUM1V6akh1MllGZHI1?=
- =?utf-8?B?dUNqVXV5MStjQTJmVlV6ZmxINWN2ay9LU3l2V09ScGM4eWUrUVJMMjJNSDkv?=
- =?utf-8?B?S0pOa2o3UWpIaURTdzljd0Vzd2VDUDlVcEJqMGVMdUpXeW1BWEUyaWNNejgy?=
- =?utf-8?B?YkJIcVNTY0ljeEErcTFYcWt6eVZRcEwvSGhTaVZTQURwQTBXa1lOamdQWWM0?=
- =?utf-8?B?dzlpazZ2Uk1HVW5tMkg1SjNYL2RUSE9weXdWdUpYdnVzWUt0UXUyM25GZ0NL?=
- =?utf-8?B?ZEVwZHJpdG0xSWZLcHdGdzFvaGVTby9HWVdsY0V5d2pudlVCOVVsSEtydjVx?=
- =?utf-8?B?d0ROalRja0xHa2lKSWdtWkJuOVRXZUtpZmEwZkpoNzBDRWhjRzFELzdBRjdW?=
- =?utf-8?B?bHNla3p5RFlIMFpnSmhwaFFpRzhjV0pNN1VYU01pbmpvOXNObW9DeElFRlgv?=
- =?utf-8?B?L1FPS3MvQ2E3WWxxUmdlVkZVempGcGZMZGhsa01udkt4MERkUTJ2TklZVERY?=
- =?utf-8?B?aUpmdDJYZnFWTmhOa3lJUGU1clRKa3hUN2g5VmRHTE5ZK0lhajUzNnpTa0VI?=
- =?utf-8?B?SHQvTFRoSHhhbjNmd2ZDTUVQQmR3T1YxNzRPNkpCQ0lYaDlKaEhYSFFxbWtX?=
- =?utf-8?B?TkFrb2IzZzMzMWx6WXF1T2dXRU5sZmtaclk2eGNkaUtHTEVIUGZuRVZScHht?=
- =?utf-8?B?bXZtaktsYzNLTlg5UXpNYXV0TEQ1RFVYZmFiOHdkcVplTmVzdzdRVFBYTzBo?=
- =?utf-8?B?N2Z4Vk9JVXJWTWNsS1FTNVorNGRlNWZhYUQ0cVpsNDFSczBBY0J2TW4vRlRI?=
- =?utf-8?B?TlowTHpUTFVsbFJSSTVWaWxjTHNOMExSSmRrblhmWmdGbFpobXRZUTMwMUVt?=
- =?utf-8?B?clJoZjYveCtuVmlXSlFGMHRDM0tJbmdYN1grK1hVNU16dmp5bFpMOG1MckdX?=
- =?utf-8?B?RG9XbkhJSmgrYllEaUdWQ2N6cXhFUlZ4OW1MN3V6OHp4UDl0WTNWTkFCUU9W?=
- =?utf-8?B?eEY0eFVMU3FOQUErUlBXVGd4dE44dWs1MTA5eTdKQVU5cUxKRWZZSWp3eENp?=
- =?utf-8?B?cmdqdG5qMnlaSlJVamEzS2FvaXBPaEtOd1QraWdFOW9jUGt5Z0l6eDd6MkE0?=
- =?utf-8?B?eXVhWTI3R0xiTlFVMlpnQmFCbG9DR2d2QTh5SnJKdEV1Ym5vQVdVTTEzak5F?=
- =?utf-8?B?RzRKdVZNVklDRFZ5SHNQaWtVTFRQeXdlOGl0NWkvZzBqeDVabTkwcWVJQjhM?=
- =?utf-8?B?dFdJcFJRTjhQYUN1aVVEV3RrRmthdlJ5RmlEQW9QWklrZy82VWZXOE82anBO?=
- =?utf-8?B?Sjg5b00yOHJYazhrcW93bTNyemZrejRQWUFMTGlPOTJSeWk5WlNlczJ4ZlVj?=
- =?utf-8?Q?L3wferasP8OcnYOwESV8Ymc1uZlUincvZJfnCDtetI+j?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1f08571-72e7-462e-d495-08db7e13a067
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 11:24:56.6844 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 12:01:10.8261 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7048d4be-38ff-4c02-5aa4-08db7e18b080
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hYzddVFSVzJWwxmd5DPLa4aRIUs+Tm3JznoFzHX5JdhMt258WwuExoVuO7lX+G4C
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5517
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT007.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8367
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,90 +97,176 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org
+Cc: Danijel Slivka <danijel.slivka@amd.com>,
+ Jingwen Chen <Jingwen.Chen2@amd.com>, Nikola Prica <nikola.prica@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 06.07.23 um 10:35 schrieb Guchun Chen:
-> In below thousands of screen rotation loop tests with virtual display
-> enabled, a CPU hard lockup issue may happen, leading system to unresponsive
-> and crash.
->
-> do {
-> 	xrandr --output Virtual --rotate inverted
-> 	xrandr --output Virtual --rotate right
-> 	xrandr --output Virtual --rotate left
-> 	xrandr --output Virtual --rotate normal
-> } while (1);
->
-> NMI watchdog: Watchdog detected hard LOCKUP on cpu 4
->
-> ? hrtimer_run_softirq+0x140/0x140
-> ? store_vblank+0xe0/0xe0 [drm]
-> hrtimer_cancel+0x15/0x30
-> amdgpu_vkms_disable_vblank+0x15/0x30 [amdgpu]
-> drm_vblank_disable_and_save+0x185/0x1f0 [drm]
-> drm_crtc_vblank_off+0x159/0x4c0 [drm]
-> ? record_print_text.cold+0x11/0x11
-> ? wait_for_completion_timeout+0x232/0x280
-> ? drm_crtc_wait_one_vblank+0x40/0x40 [drm]
-> ? bit_wait_io_timeout+0xe0/0xe0
-> ? wait_for_completion_interruptible+0x1d7/0x320
-> ? mutex_unlock+0x81/0xd0
-> amdgpu_vkms_crtc_atomic_disable
->
-> It's caused by a stuck in lock dependency in such scenario on different
-> CPUs.
->
-> CPU1                                             CPU2
-> drm_crtc_vblank_off                              hrtimer_interrupt
->      grab event_lock (irq disabled)                   __hrtimer_run_queues
->          grab vbl_lock/vblank_time_block                  amdgpu_vkms_vblank_simulate
->              amdgpu_vkms_disable_vblank                       drm_handle_vblank
->                  hrtimer_cancel                                   grab dev->event_lock
->
-> So CPU1 stucks in hrtimer_cancel as timer callback is running endless on
-> current clock base, as that timer queue on CPU2 has no chance to finish it
-> because of failing to hold the lock. So NMI watchdog will throw the errors
-> after its threshold, and all later CPUs are impacted/blocked.
->
-> So use hrtimer_try_to_cancel to fix this, as disable_vblank callback
-> does not need to wait the handler to finish. And also it's not necessary
-> to check the return value of hrtimer_try_to_cancel, because even if it's
-> -1 which means current timer callback is running, it will be reprogrammed
-> in hrtimer_start with calling enable_vblank to make it works.
->
-> Cc: stable@vger.kernel.org
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> index 53ff91fc6cf6..70fb0df039e3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> @@ -81,7 +81,7 @@ static void amdgpu_vkms_disable_vblank(struct drm_crtc *crtc)
->   {
->   	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
->   
-> -	hrtimer_cancel(&amdgpu_crtc->vblank_timer);
-> +	hrtimer_try_to_cancel(&amdgpu_crtc->vblank_timer);
+Why:
+If the reg mmMP1_SMN_C2PMSG_90 is being programed to 0x0 before
+guest initialization, then modprobe amdgpu will fail at smu hw_init.
+(the default mmMP1_SMN_C2PMSG_90 at a clean guest environment is 0x1).
 
-That's a first step, but not sufficient.
+How to fix:
+this patch is to check whether smu is idle by sending a test
+message to smu. If smu is idle, it will respond.
 
-You also need to change the "return HRTIMER_RESTART;" in 
-amdgpu_vkms_vblank_simulate() to only re-arm the interrupt when it is 
-enabled.
+Signed-off-by: Danijel Slivka <danijel.slivka@amd.com>
+Signed-off-by: Nikola Prica <nikola.prica@amd.com>
+Signed-off-by: Jingwen Chen <Jingwen.Chen2@amd.com>
+Signed-off-by: pengzhou <PengJu.Zhou@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  8 ++++
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  7 ++++
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h  |  2 +
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  1 +
+ .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  5 +++
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 40 +++++++++++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  2 +
+ 7 files changed, 65 insertions(+)
 
-Finally I strongly suggest to implement a amdgpu_vkms_destroy() function 
-to make sure the HRTIMER is properly cleaned up.
-
-Regards,
-Christian.
-
->   }
->   
->   static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc *crtc,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index ce41a8309582..63ea4cd32ece 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1443,6 +1443,14 @@ static int smu_start_smc_engine(struct smu_context *smu)
+ 		}
+ 	}
+ 
++	if (amdgpu_sriov_vf(adev) && smu->ppt_funcs->wait_smu_idle) {
++		ret = smu->ppt_funcs->wait_smu_idle(smu);
++		if (ret) {
++			dev_err(adev->dev, "SMU is not idle\n");
++			return ret;
++		}
++	}
++
+ 	/*
+ 	 * Send msg GetDriverIfVersion to check if the return value is equal
+ 	 * with DRIVER_IF_VERSION of smc header.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index 6e2069dcb6b9..1bf87ad30d93 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -926,6 +926,13 @@ struct pptable_funcs {
+ 	 */
+ 	int (*check_fw_status)(struct smu_context *smu);
+ 
++	/**
++	 * @wait_smu_idle: wait for SMU idle status.
++	 *
++	 * Return: Zero if check passes, negative errno on failure.
++	 */
++	int (*wait_smu_idle)(struct smu_context *smu);
++
+ 	/**
+ 	 * @set_mp1_state: put SMU into a correct state for comming
+ 	 *                 resume from runpm or gpu reset.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+index d466db6f0ad4..f3293ddd1a1b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+@@ -165,6 +165,8 @@ int smu_v11_0_fini_power(struct smu_context *smu);
+ 
+ int smu_v11_0_check_fw_status(struct smu_context *smu);
+ 
++int smu_v11_0_wait_smu_idle(struct smu_context *smu);
++
+ int smu_v11_0_setup_pptable(struct smu_context *smu);
+ 
+ int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index c94d825a871b..f4e7596dcdcd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -3503,6 +3503,7 @@ static const struct pptable_funcs navi10_ppt_funcs = {
+ 	.init_power = smu_v11_0_init_power,
+ 	.fini_power = smu_v11_0_fini_power,
+ 	.check_fw_status = smu_v11_0_check_fw_status,
++	.wait_smu_idle = smu_v11_0_wait_smu_idle,
+ 	.setup_pptable = navi10_setup_pptable,
+ 	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
+ 	.check_fw_version = smu_v11_0_check_fw_version,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+index aa4a5498a12f..059dc2243c06 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+@@ -195,6 +195,11 @@ int smu_v11_0_check_fw_status(struct smu_context *smu)
+ 	return -EIO;
+ }
+ 
++int smu_v11_0_wait_smu_idle(struct smu_context *smu)
++{
++	return smu_wait_smu_idle(smu);
++}
++
+ int smu_v11_0_check_fw_version(struct smu_context *smu)
+ {
+ 	struct amdgpu_device *adev = smu->adev;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index 3ecb900e6ecd..5dc81d7b04da 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -313,6 +313,46 @@ int smu_cmn_wait_for_response(struct smu_context *smu)
+ 	return res;
+ }
+ 
++/**
++ * smu_wait_smu_idle -- wait for smu to become idle
++ * @smu: pointer to an SMU context
++ *
++ * Send SMU_MSG_TestMessage to check whether SMU is idle.
++ * If SMU is idle, it will respond.
++ * The returned parameter will be the param you pass + 1.
++ *
++ * Return 0 on success, -errno on error, indicating the execution
++ * status and result of the message being waited for. See
++ * __smu_cmn_reg2errno() for details of the -errno.
++ */
++int smu_wait_smu_idle(struct smu_context *smu)
++{
++	u32 reg;
++	u32 param = 0xff00011;
++	uint32_t read_arg;
++	int res, index;
++
++	index = smu_cmn_to_asic_specific_index(smu,
++					       CMN2ASIC_MAPPING_MSG,
++					       SMU_MSG_TestMessage);
++
++	__smu_cmn_send_msg(smu, index, param);
++	reg = __smu_cmn_poll_stat(smu);
++	res = __smu_cmn_reg2errno(smu, reg);
++
++	if (unlikely(smu->adev->pm.smu_debug_mask & SMU_DEBUG_HALT_ON_ERROR) &&
++	    res && (res != -ETIME)) {
++		amdgpu_device_halt(smu->adev);
++		WARN_ON(1);
++	}
++
++	smu_cmn_read_arg(smu, &read_arg);
++	if (read_arg == param + 1)
++		return 0;
++	return res;
++}
++
++
+ /**
+  * smu_cmn_send_smc_msg_with_param -- send a message with parameter
+  * @smu: pointer to an SMU context
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+index d7cd358a53bd..abe875513d77 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+@@ -50,6 +50,8 @@ int smu_cmn_send_debug_smc_msg_with_param(struct smu_context *smu,
+ 
+ int smu_cmn_wait_for_response(struct smu_context *smu);
+ 
++int smu_wait_smu_idle(struct smu_context *smu);
++
+ int smu_cmn_to_asic_specific_index(struct smu_context *smu,
+ 				   enum smu_cmn2asic_mapping_type type,
+ 				   uint32_t index);
+-- 
+2.25.1
 
