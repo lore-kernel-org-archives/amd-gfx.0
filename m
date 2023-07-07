@@ -4,56 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B0FCEB64D9
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 20:14:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 613C5EB64D9
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 22:26:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1B2010E01F;
-	Fri,  7 Jul 2023 20:14:24 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9CBA10E01F
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jul 2023 20:14:22 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id
- 5614622812f47-3a1ebb85f99so2076693b6e.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Jul 2023 13:14:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEAAF10E061;
+	Fri,  7 Jul 2023 22:26:44 +0000 (UTC)
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [IPv6:2607:f8b0:4864:20::f36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F08CF10E061
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jul 2023 22:26:43 +0000 (UTC)
+Received: by mail-qv1-xf36.google.com with SMTP id
+ 6a1803df08f44-637aaaf27f1so2600986d6.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Jul 2023 15:26:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688760862; x=1691352862;
+ d=gmail.com; s=20221208; t=1688768802; x=1691360802;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=s7MGBPvaDFS4ZqHihwhivXiHenO9erLkh9HU9xAV9oI=;
- b=dzDPjb/yvSe/qWo7DkkKjG3/9mU/sSQ9gKk2CQjeVhk5zwnMpBey43ezRPSiqzLNLB
- QIEiGgd3n0uS9R5Y/SnzyPoU102/95AGTSyBkKo1zQ+0kBmQK0qu9pt0JB4xOtyyDU7L
- ODQOCHMvJT6T+m7zjSZJ9kw2nDm+WBqUC0BuC51v7Rthir9oLFKIU1mBSJtPaQgTRm02
- IaH76zoUKqMSKCydpBanAOtxDK79emcYlRd5cYTlGZQ7xa4DfMj3BLeJHpNznG+G71XI
- yDaJrXneQHFdRiNrLO8/w21/AcMdlK8mF6TnDnNHNqhvaZChzjGMBLv+Q+2gfMI8evsr
- xmiw==
+ bh=ERPvct9F+gdPXMff8zw9isxkWp5br9C2rmUHZh0fgec=;
+ b=YkW+I0EPtZZH1y4qcBZkBcpiYK9+S4n74L7CY2CZ+xZveGNYPzWxMJzISKdIzKQf+c
+ Qi1rJySyuwTGziqyT5iCNCNAAu36O79mDh2ocu7kAxXb2YjBvPftnv1vtmBKO1qp03o8
+ ZThKoHjNQ4epnJ7sJj1A5SfZx1gqlJKyNz4IDhNHp40CYqTI6Od4Vi0BDH6GgHrPzmHR
+ J1MNu/r8x3dX0ZMd7s5jqsdFqM2E5xsBHIamMCFl8FxDEyRDk1ICP6o2IdA0Gl5v2o1F
+ otEoICtnek/eVZ2iGL/G4y22bwJBiclJ7rxQytZVRXtkE9F9YqthFgAFfjQp8FCPCyMg
+ NLJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688760862; x=1691352862;
+ d=1e100.net; s=20221208; t=1688768802; x=1691360802;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=s7MGBPvaDFS4ZqHihwhivXiHenO9erLkh9HU9xAV9oI=;
- b=KRy5Hegzxol+eVMqrOfZRoq5K5yjcM1Rx4/hWXvCbzZqeHtIdv45fnWHu90sode1I6
- hdB/19HK3jPt4fDjq86N0aA9OyjtP7GBcHO5WYJNEMHHlA/Nn4qNO6FwAK57PGNNumit
- 9+hreEAXHTaxIH2X1aOtKVWC3FG9ycQP7wF7cPdzUbJJp7dxsLsNC2ZYx6Ciw73HLmgX
- kvALsACyTv4N1VSygvD4nqYeSRbZ4CUJJ5XrH6cnSZssQJraEVkU2FGwW8wjJPHddAsT
- pyFmwYvVuotb0+Ehq27kcChB909Evz9IAlFmgRvdv+OBeD8qDgUehtQLjrTiW37nGCTA
- WyeQ==
-X-Gm-Message-State: ABy/qLZSdeep4+BhG5nbb3jfpra+7BOACnkBvqRNCX0VkXTI7FWV0aA3
- DG8wOfnvHyNb/vvw3OFeGcwFSy+MF0ag7iqQjow=
-X-Google-Smtp-Source: APBJJlGTlK1qNgdTrj3aV+UsqujYmBTltElaa/HLl7zNzVLxR4oMjDBLF2+nDNKIpY2DIqgKABKEyIESqngA//22CYY=
-X-Received: by 2002:a05:6808:221a:b0:3a2:ee9b:4232 with SMTP id
- bd26-20020a056808221a00b003a2ee9b4232mr6579760oib.58.1688760861825; Fri, 07
- Jul 2023 13:14:21 -0700 (PDT)
+ bh=ERPvct9F+gdPXMff8zw9isxkWp5br9C2rmUHZh0fgec=;
+ b=K20TjQRjiODXr3K7fsqdSH4cSKGUEaKRxgGWU+aFkQ8Dqx9ZcOKKp64kI5qMHgtfq7
+ YiAXXV2NE3M7DUYuSOvH0n2CZJiqvLUJ58wMVXFqxXMUnFtzABdHSYEYAuU8S4896P/9
+ w7/iq0I69ekJsBKQmd9QiFqWIDox+9U4zD8o+J/Op9PFWrKmNCZk7WLIflzAMyEup2/d
+ 5zgo7mWH2VTuat53Sl9oYi2lZMdu6JcfbGGjSuNRxWdDasllK8BHIDcZGmiNpKp1HfF9
+ 2z42vMzXvPrPBCfDxR1aOjCSUzJzEJsh+8Z69rwOpZxCp2U+nZMkLa0gm4VnAmEzn0wg
+ 9H1Q==
+X-Gm-Message-State: ABy/qLawu2uhOuj6RO8OSfvPI/wLhkCjhml3NX1ALh7AtJkXkwx24F0F
+ JrxvRtVL9MXf/VwVEuj48Qyd/Mx8VOO/GwDTD/g=
+X-Google-Smtp-Source: APBJJlF1jFXvxyTjjffEw9OCYrfWavrUWjtRagAx3ar4G/YT3YK9BR5srT+MOnZwvvnV6tgTBK6QNUnzBvfmpxRkmp4=
+X-Received: by 2002:a05:6214:ac8:b0:621:65de:f60c with SMTP id
+ g8-20020a0562140ac800b0062165def60cmr6658128qvi.3.1688768802285; Fri, 07 Jul
+ 2023 15:26:42 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230707193135.16716-1-mario.limonciello@amd.com>
-In-Reply-To: <20230707193135.16716-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 7 Jul 2023 16:14:10 -0400
-Message-ID: <CADnq5_Mz6PmTCioRqQUW5ZG0bGLBgnzQcT-zC59xpyAcp77Nhg@mail.gmail.com>
-Subject: Re: [PATCH 0/2] Disable dynamic switching for SMU13 on Intel hosts
-To: Mario Limonciello <mario.limonciello@amd.com>
+References: <CABXGCsN3LS2mvXOe5g8WFC=b3N=bF1u4RCQYJN-u+k=ZEWWrcA@mail.gmail.com>
+ <BL0PR12MB24653A38A6D914CFF3DB2342F12DA@BL0PR12MB2465.namprd12.prod.outlook.com>
+In-Reply-To: <BL0PR12MB24653A38A6D914CFF3DB2342F12DA@BL0PR12MB2465.namprd12.prod.outlook.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Sat, 8 Jul 2023 03:26:31 +0500
+Message-ID: <CABXGCsN1cnGgMn=Jg6nYfg1GccZhPX8sa=izrr9sMxZdzLiTJg@mail.gmail.com>
+Subject: Re: [regression][6.5] KASAN: slab-out-of-bounds in
+ amdgpu_vm_pt_create+0x555/0x670 [amdgpu] on Radeon 7900XTX
+To: "Chen, Guchun" <Guchun.Chen@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,45 +69,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 7, 2023 at 3:32=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
+On Fri, Jul 7, 2023 at 6:01=E2=80=AFAM Chen, Guchun <Guchun.Chen@amd.com> w=
+rote:
 >
-> When ASPM is enabled, DPM is used to perform dynamic switching.  When
-> connected to an Intel PCIe controller this causes malfunctions.
+> [Public]
 >
-> Identify this combination and disable dynamic switching in SMU13.
+> Hi Mike,
 >
-> This series superceeds my other series [1] and fixes it in a cleaner way.
+> Yes, we are aware of this problem, and we are working on that. The proble=
+m is caused by recent code stores xcp_id to amdgpu bo for accounting memory=
+ usage and so on. However, not all VMs are attached to that like the case i=
+n amdgpu_mes_self_test.
 >
-> [1] https://patchwork.freedesktop.org/series/120245/
->
-> Evan Quan (1):
->   drm/amd/pm: share the code around SMU13 pcie parameters update
->
-> Mario Limonciello (1):
->   drm/amd/pm: conditionally disable pcie lane/speed switching for SMU13
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+I would like to take part in testing the fix.
 
-We should also fix up the smu11 code in sienna_cichlid_ppt.c
-similarly.  We implemented a similar, but more limited fix there
-recently.
-
-Alex
-
-
->
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |  4 ++
->  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 67 +++++++++++++++++++
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 33 +--------
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 33 +--------
->  4 files changed, 73 insertions(+), 64 deletions(-)
->
-> --
-> 2.25.1
->
+--=20
+Best Regards,
+Mike Gavrilov.
