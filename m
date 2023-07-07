@@ -4,69 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC8D2EB64D9
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 07:06:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29635EB64D9
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 07:15:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0662F10E06E;
-	Fri,  7 Jul 2023 07:06:04 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAAFD10E06E
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jul 2023 07:06:01 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-51d9128494cso1876731a12.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Jul 2023 00:06:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688713558; x=1691305558;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=/iBHfox0Lle8GPgehpa77NSL6g+NO3B72O1NTvYQEZk=;
- b=bm+cTR7RQLMtxoNw236RVCJEb/pu3nPMANH9T9DjWFWJe7eg+DDceyOQ6MD87M1iZQ
- cb7nClsmazLkcy2GpOh9zU9bDktUzDppvKivFajunvQHKhEYsusV2NXdNbol3zrk3bHQ
- KlJJTR58u0aZBDXagBAa2CX7TfFWmE7HTBctSU2FWn4lkbHXXEQL0Pxo7WgKk0N33edb
- qU4tHx7B3dxAwNfJG384X5SrBYqFpsfWiXaTzrTid65nWScFfjW2crhZ7Be31y1v7OJo
- 8GmWsTYy5TRB3k0mwWkCKudkNUtDZZ6aoSrMD/Gs79pJsYrOJeCBef3O/drzVQ74g0Ep
- m/SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688713558; x=1691305558;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/iBHfox0Lle8GPgehpa77NSL6g+NO3B72O1NTvYQEZk=;
- b=Htr5vXreIznEmpKs4alOr4fRTIe8sIFnl/1wiczMKaA7SzM0p5Wa9lD2XfnTvBZ2eF
- gnC/XU+iNaXK4UustHIiOnSgPiJz/ZphjYWqhjcn+vE+5bmnD5+eDYa48iXaN1QfFTrX
- +BpmJEqwzGV3OCo8kJLr7aQbNxyQXhbpoU+EmdM/XxeWzHjZwcOTdy5tMnXhRkgISHJp
- HHOIzWSm4X62WQLlDtkHsQ1JoleJFiKnvQhw9rqSZAG8uMh8cc+pB329nU9NonZnxTPy
- PNSyjkH9SCui7DBMPCsba9zOZMBwdvqbEB9+cl2Ivq7uPHI0aOUERsySLsDoodG/Bi9x
- MAZA==
-X-Gm-Message-State: ABy/qLbN1P3W+Knpn3T2f4mUZnJnb7Q7s7Y1NnhTEgoQ2DaOGOzAqc6i
- /Og5Sz+JMyf9ge+vxBLeJvw=
-X-Google-Smtp-Source: APBJJlFl0vXIZBXxt9m76evXnulDyxOUMd/Gs3YuH61yLTGPhswkgzXdh7H4dDs0fVtQXSYcr7+4Nw==
-X-Received: by 2002:a05:6402:1645:b0:51e:34d5:a23f with SMTP id
- s5-20020a056402164500b0051e34d5a23fmr2759216edx.23.1688713558104; 
- Fri, 07 Jul 2023 00:05:58 -0700 (PDT)
-Received: from ?IPV6:2a00:e180:151d:fd00:ccd:1e13:686f:fcec?
- ([2a00:e180:151d:fd00:ccd:1e13:686f:fcec])
- by smtp.gmail.com with ESMTPSA id
- v7-20020a056402184700b0051de2455041sm1654800edy.24.2023.07.07.00.05.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Jul 2023 00:05:57 -0700 (PDT)
-Message-ID: <8f6f65d5-13b3-0798-7e0b-df502dfca2ce@gmail.com>
-Date: Fri, 7 Jul 2023 09:05:57 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id A63CB10E519;
+	Fri,  7 Jul 2023 07:15:20 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::61e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F07910E520
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jul 2023 07:15:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G3ksB8pbwBtGpi1HEusYGlvq2YpODePj1lsArzLwpAyscVv3mehsImN0rFz3hoPtGWzJYOwvBt+LeUy5707dJO7AcrwezQDagEIwbY7g3tDM1qErxslZ/UZ2q9avUwZM2Su/qm3p8+htwcfogw/vjwc6TBDTpfXgaYEZKWvh/5ABoge+M6bcKx9B/ve51aW3HJ4fJq+O7VksHmAXu/KHgPnrWgxgXb+zZPytJTcUL23PfY5HTHeiQt8VczOMy+g5etK5G9JYjsouHy2BywdyQiMYagMvIQEcmdIAEbF8wfI6v7HKVcvywsyPESwcaDfWmXgFsDA3ts4tjV0DOeYvUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BqFmL/smzpFrSl1ghAoCW1GnOV9Tv4C/9MrkYUbCfk4=;
+ b=F2uT1DZpk6TBYXBZp5Akbb0XDz/5mss/5N+UTXpShG4EY6W/8SLe54+VOhQfNTr1Wd2abgRrWFGLruh6e+Fq1yg3lxDIg5TtSzsIxPn0adSH5CvNYyBbXnk1l9NbFzPAYKdR6OhM/SDStROMVGa4zzTQfZEt6pBCK86N76qCkSf4oB43UAhyFFio0xKv1u4iyeSN5sIVx3H/GV90Qdv8IDnxdoomz9YX2Em33bpEaJ2+PJTvSuSYsEXs6Lw7lDa5MtgP/u2qjm4/7XhE6cMDw2aMViyHyfpnib0RgrHTX68naYPbEGxreeK44jBHHQN0mW51YUgwtY/U6rlTOwTB4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BqFmL/smzpFrSl1ghAoCW1GnOV9Tv4C/9MrkYUbCfk4=;
+ b=N/+tUlVoQEyjRb9frXwUCmMLk7ThSOFuYKuXOxt0FF2wztgVh9PZRYt5+nKREEy7lRlKd0FOOtYKLw9RPsId4Nj8SDohTEGugzLQjnrF4zXC2wQtBHlBN0EGdxxj/Wd10gR4xehI6Gz4iyhV6G0WlWpH7wdjfZLi9cXXaO5BJS4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MN6PR12MB8590.namprd12.prod.outlook.com (2603:10b6:208:47c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Fri, 7 Jul
+ 2023 07:15:14 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e8c1:b961:25c0:1fb0]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::e8c1:b961:25c0:1fb0%6]) with mapi id 15.20.6565.025; Fri, 7 Jul 2023
+ 07:15:14 +0000
+Message-ID: <2834445d-8da2-e853-50c2-2fececdb86e2@amd.com>
+Date: Fri, 7 Jul 2023 09:15:10 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v4] drm/amdgpu:update kernel vcn ring test
+Subject: Re: [PATCH v5 08/10] drm/amdgpu: generate doorbell index for userqueue
 Content-Language: en-US
-To: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, leo.liu@amd.com,
- veerabadhran.gopalakrishnan@amd.com, sathishkumar.sundararaju@amd.com
-References: <20230706144720.3841607-1-saleemkhan.jamadar@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230706144720.3841607-1-saleemkhan.jamadar@amd.com>
+To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230706123602.2331-1-shashank.sharma@amd.com>
+ <20230706123602.2331-9-shashank.sharma@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230706123602.2331-9-shashank.sharma@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0003.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::13) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MN6PR12MB8590:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3b58b99-39eb-4595-6735-08db7eb9e871
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: j7pPhYtXtQ3Yk/tjXxaERFds3zRfhp71m6bKr3J9pK1ZIjkGWw2r/IWU6//MB6EHV9l3YrYIRgL0Efrk6B1zoNj5B8bBCfJ8GKfnH86EkNonWXZ3sjsysN66KAs6G5TxJ6XhwovMHbDRZHGPTtDkleSPmEYZv3XAApShV27qTdmdSI2kSYUPE9H1qSK9LfKrHRKWffgM5aNrmSHyuXXp/KLf7D3N9a4Be6HaO7hYFMw7o4LZtK1J3YKgFqccRmazBCjMPiKh2Yx4dsrs+r7ggrmxR6ti1p0/8M80tIJiLWogmM48Xaqu/jD4KhPkMdQERS+PXMf5hLrDm7tY0mD/UlxtwdDVMyZjZTOhJp6Fk2ZpfnfN5fOdLelNRrGRJK0qYWKDe9ZCkJ5rc+U7PXtTC4tAqc85YY/DJ1Lm89MESfV7EkKCdNvU17Ur967EbKBW65wmR770TSBYSTCnHikzXIlkXJKjlynjOYVTNKgtgnKlUDj16hSjNmqXyxW62j6A0i6XwBwVD55fzrgOHkaaStYNZdwQ8q9R2siTRhI5/79hvHisY3xpPxgWz8EattnJoT0gB+Fn8mw8F/MDFVtSXL/5BCNJDJ46mW81BBcq0Tp1DgljmHW+h6t/wPy0SWys
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(396003)(376002)(136003)(366004)(346002)(451199021)(31686004)(6486002)(6666004)(478600001)(2616005)(83380400001)(86362001)(36756003)(31696002)(2906002)(66946007)(6506007)(186003)(966005)(6512007)(316002)(66556008)(38100700002)(41300700001)(66476007)(8936002)(8676002)(4326008)(5660300002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SW5Yb3U4T1hXcnJDN2NzUFgyOUNNdmpQQ0k5Q2dZc2I1cTNXWFpReC9jMzI0?=
+ =?utf-8?B?UTBkdk1PMXVlRGZFRmdzS29iRFlBZmpRZlNpRUttRi9iN05ZUHJwOEVINXh1?=
+ =?utf-8?B?b21pRjVhNDFGWjFObmhtV2FpMjVNQTBOL3QzazJEV2MwWVo2ZVI1OUtyeWxN?=
+ =?utf-8?B?cUVyWllsTk0xUGZXZTc4TG5KRHc3OXVtL2hNWDJKWFVmLzBiR1lHU2JMbEZl?=
+ =?utf-8?B?WjAzWFBiU2hVVmczOGFTM2w4U2J0cGV2Y1ZPL2NyaTJjNm11UWVONWkwVzNG?=
+ =?utf-8?B?OWJ3VmVUVitvMWFFdFVIZm5tSnZ3MEZOcVF6aStEREgwOFhTcG9nM2piMzJZ?=
+ =?utf-8?B?TGM0OE0wN0VRMUgvUXl1ZWZrQVR0dkJxWFdtcFFwTVJXTkVHL2x6ck1GbkRR?=
+ =?utf-8?B?R2ZPYkI2V1FDOVBuYkRuWEYzNlprNXhEM3RiTVRDWFZvTS8xZ3ZPbVFDWFli?=
+ =?utf-8?B?bjBDZWduT01tUXROZE5udmgyMXJIVXJxMnpISXdYYXRwSW1jY2JTbUlwWkFq?=
+ =?utf-8?B?OER6bzZweXF4R29hNkpaRDRic0ROVWlEemJCMjhvbDNOanBraDZFRytzZXh1?=
+ =?utf-8?B?cSs3RmV2UThsZHZsVkl2NjRKaWwxaDJld2FDK2NSV1BvbGoraFZ0VnlJM1dl?=
+ =?utf-8?B?NVAvU3hXdHRnSUFLUXRoYmZ3emExZFVNanBnbUlsdTVvbTZ3c0IzU0tMSUNa?=
+ =?utf-8?B?TENjOGlvdXM1U3dJbk5ZU1d0VC9sRE02aFBrL0htYVRIby9Ma2dZcE1aYnRv?=
+ =?utf-8?B?K0g5a1ZqTEMwWmFlUkg0Tm9Xa2ZMUVJna2lZMHh5WXpNZTlZUngySEQxclJJ?=
+ =?utf-8?B?cktYajhjYjdHZ2ZhanFZQ0dFS3hDSDh4YkY0YVpCRDZmUjZVMnNTN0YxSVdL?=
+ =?utf-8?B?dHEwWXBUMGtBRWxDclBYbllVNEt2dUdmbGliQXhHb3ZSN3pFRHpTb3JNa1FG?=
+ =?utf-8?B?anpRV2NTVDlTalh0ZndzeFZFTXB1bDYrbEdTb3hOUk1NRzZDZlVNUDc5ZDNH?=
+ =?utf-8?B?aEZsVmV6ejIyTFRaUnZTRkhvSytzNWpvWWIxOXZGNEM0YVZMc1hIMnZMVGhM?=
+ =?utf-8?B?THdIL0tpMFN2VVc3dk1GOURhMThPK0FFdTRacXZnb1piTWZoVEx1bW13ZUw3?=
+ =?utf-8?B?ZUtQWUQ1aWV0dE1JaUpxbE5iLzliOWN6VmxNbUJ3SlNkY3IzTjdXdjAxVDB4?=
+ =?utf-8?B?MStGNThnOUJxZUI1YXhpcEN1bzJPemNYdy91ejdXVlI0NDNFZUtZeW9DSjNo?=
+ =?utf-8?B?RU5Ma0JvWFBId0hpRFdseXhOckdOWjF4WVFvR1lMYWl4Y21MV2JOWEF1MmlX?=
+ =?utf-8?B?NDVRNldSQTU1WGQ4YWVCZ2xyUzR2dXZOQlZCYjBpalp4cGVVNWdwU0trbzhU?=
+ =?utf-8?B?LzBrbDcyNnFLYURvMUhxclVPUUxsR3FaL2JqK2xaVzJVTlpjQVIreUFWRVk4?=
+ =?utf-8?B?bU9NdTlYbmVFa2JZQSs2SWRYMUo5eGJNZ01Pb0JVRWFjdm5qT1FwVEc5MFNI?=
+ =?utf-8?B?OWRwK3NKT3ZFNW53YTlFbG1CVUtuQm5NVzFoWjNJSWFscFN3WFIrRVRpY0tv?=
+ =?utf-8?B?dzg2MVRJZTlZMGNtK2xHcklGbjhOb0pRbFF6eHgvay9CZElSOCt0RThjQmQv?=
+ =?utf-8?B?ZUVKQmxqMmFqdHkxTjl4MVg2a2Y1K1NHOXVwSG11ODNRTzBxRldSSmR2cER2?=
+ =?utf-8?B?VU05eTNuRW9Hd1pmL2l6cmhuRkN2YUhxbUJ0SHVtMG1GdW9FM3RFaFVjODRp?=
+ =?utf-8?B?ZDVFRXdOb04zL2d5aTVadXBWREc4czkxRDlmT3lsRmZZem5qVE1tZzl0TUMz?=
+ =?utf-8?B?NVhraElac3EvWG1JVy91RlZtekU1dmdsY1BaK0ZXR0UwMnJXMlhlUzN3LzA1?=
+ =?utf-8?B?ZmNLOXN2bmJxVEdXSlgzYk5VVTl5Q1RmNzBwblpxaVBiTGJEWkpDWFRlMGZY?=
+ =?utf-8?B?ZHFYbmcyWkt0ZmdqZldYYm5PS2JXUEZDMnZvS0g0ckZGeUZBTDVxUkpNMzZy?=
+ =?utf-8?B?b2s2R2FBYzIwM3Q0TERpYTdnTU1wdHVZaVRNL3VDN3cycVNqUHJ5RHJvMnNx?=
+ =?utf-8?B?SmpFZ0lKVHRDZDdZcnFSQlRvbkxRbk8wN2dSd3ZYSjVGb3FMelg2YWI3cDlM?=
+ =?utf-8?B?Sy9Ub3VrdVVEZlVHK0ZsbXVLVkhzZDVrTE5QYTBUWkthdGlseDVCSGU3MnB3?=
+ =?utf-8?Q?sKNUF8IRfm2Mgpaa2rXH9RByx050fp5P+48V5LmyAuKs?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3b58b99-39eb-4595-6735-08db7eb9e871
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 07:15:13.9289 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LAuXMJH1Pkv5LrClDqw1hkISKSkl4dnb3TyqzOHufFzCyQO5wu/jocm5xMqhhXfn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8590
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,100 +126,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: srinath.rao@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, arvind.yadav@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-Am 06.07.23 um 16:47 schrieb Saleemkhan Jamadar:
-> add session context buffer to decoder ring test.
+Am 06.07.23 um 14:36 schrieb Shashank Sharma:
+> The userspace sends us the doorbell object and the relative doobell
+> index in the object to be used for the usermode queue, but the FW
+> expects the absolute doorbell index on the PCI BAR in the MQD. This
+> patch adds a function to convert this relative doorbell index to
+> absolute doorbell index.
 >
-> v4 - data type, explain change of ib size change (Christian)
-> v3 - indent and  v2 changes correction. (Christian)
-> v2 - put the buffer at the end of the IB (Christian)
+> This patch is dependent on the doorbell manager series:
+> Link: https://patchwork.freedesktop.org/series/115802/
 >
-> Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
-> Acked-by: Leo Liu <leo.liu@amd.com>
+> V5: Fix the db object reference leak (Christian)
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 11 +++++++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  5 ++++-
->   2 files changed, 13 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 34 +++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  1 +
+>   2 files changed, 35 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index 2d94f1b63bd6..9bdfe665f603 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -573,7 +573,8 @@ static int amdgpu_vcn_dec_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
->   	int r, i;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> index bb774144c372..61064266c4f8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> @@ -32,6 +32,31 @@ amdgpu_userqueue_find(struct amdgpu_userq_mgr *uq_mgr, int qid)
+>   	return idr_find(&uq_mgr->userq_idr, qid);
+>   }
 >   
->   	memset(ib, 0, sizeof(*ib));
-> -	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 2,
-> +	/* 34 pages : 128KiB  session context buffer size and 8KiB ib msg */
-> +	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 34,
->   			AMDGPU_IB_POOL_DIRECT,
->   			ib);
->   	if (r)
-> @@ -608,7 +609,8 @@ static int amdgpu_vcn_dec_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
->   	int r, i;
->   
->   	memset(ib, 0, sizeof(*ib));
-> -	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 2,
-> +	/* 34 pages : 128KB  session context buffer size and 8KB ib msg */
-> +	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 34,
->   			AMDGPU_IB_POOL_DIRECT,
->   			ib);
+> +static uint64_t
+> +amdgpu_userqueue_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
+> +				     struct amdgpu_usermode_queue *queue,
+> +				     struct drm_file *filp,
+> +				     uint32_t doorbell_offset)
+> +{
+> +	struct drm_gem_object *gobj;
+> +	struct amdgpu_bo *db_bo;
+> +	uint64_t index;
+> +
+> +	gobj = drm_gem_object_lookup(filp, queue->doorbell_handle);
+> +	if (gobj == NULL) {
+> +		DRM_ERROR("Can't find GEM object for doorbell\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	db_bo = amdgpu_bo_ref(gem_to_amdgpu_bo(gobj));
+> +	drm_gem_object_put(gobj);
+> +
+> +	index = amdgpu_doorbell_index_on_bar(uq_mgr->adev, db_bo, doorbell_offset);
 
-One more question here: Does the create and destroy message need to 
-point to the same session context buffer or is it ok that we use a 
-separate dummy for both?
+This can only be done with the doorbell BO locked and as soon as you 
+unlock it the value becomes invalid unless you pin the BO.
 
-Either way we should probably clear the context buffer with zeros.
-
-Apart from that this now looks good to me,
+Regards,
 Christian.
 
->   	if (r)
-> @@ -700,6 +702,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
->   	struct amdgpu_job *job;
->   	struct amdgpu_ib *ib;
->   	uint64_t addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
-> +	uint64_t session_ctx_buf_gaddr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr + 8192);
->   	bool sq = amdgpu_vcn_using_unified_queue(ring);
->   	uint32_t *ib_checksum;
->   	uint32_t ib_pack_in_dw;
-> @@ -730,6 +733,10 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
->   	ib->length_dw += sizeof(struct amdgpu_vcn_decode_buffer) / 4;
->   	memset(decode_buffer, 0, sizeof(struct amdgpu_vcn_decode_buffer));
+> +	amdgpu_bo_unref(&db_bo);
+> +	DRM_DEBUG_DRIVER("[Usermode queues] doorbell index=%lld\n", index);
+> +	return index;
+> +}
+> +
+>   static int
+>   amdgpu_userqueue_destroy(struct drm_file *filp, int queue_id)
+>   {
+> @@ -64,6 +89,7 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>   	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
+>   	const struct amdgpu_userq_funcs *uq_funcs;
+>   	struct amdgpu_usermode_queue *queue;
+> +	uint64_t index;
+>   	int qid, r = 0;
 >   
-> +	decode_buffer->valid_buf_flag |=
-> +				cpu_to_le32(AMDGPU_VCN_CMD_FLAG_SESSION_CONTEXT_BUFFER);
-> +	decode_buffer->session_context_buffer_address_hi = upper_32_bits(session_ctx_buf_gaddr);
-> +	decode_buffer->session_context_buffer_address_lo = lower_32_bits(session_ctx_buf_gaddr);
->   	decode_buffer->valid_buf_flag |= cpu_to_le32(AMDGPU_VCN_CMD_FLAG_MSG_BUFFER);
->   	decode_buffer->msg_buffer_address_hi = cpu_to_le32(addr >> 32);
->   	decode_buffer->msg_buffer_address_lo = cpu_to_le32(addr);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> index f1397ef66fd7..2df43cd76c10 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> @@ -166,6 +166,7 @@
+>   	mutex_lock(&uq_mgr->userq_mutex);
+> @@ -87,6 +113,14 @@ amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>   	queue->flags = args->in.flags;
+>   	queue->vm = &fpriv->vm;
 >   
->   #define AMDGPU_VCN_IB_FLAG_DECODE_BUFFER	0x00000001
->   #define AMDGPU_VCN_CMD_FLAG_MSG_BUFFER		0x00000001
-> +#define AMDGPU_VCN_CMD_FLAG_SESSION_CONTEXT_BUFFER	0x00100000
+> +	/* Convert relative doorbell offset into absolute doorbell index */
+> +	index = amdgpu_userqueue_get_doorbell_index(uq_mgr, queue, filp, args->in.doorbell_offset);
+> +	if (index == (uint64_t)-EINVAL) {
+> +		DRM_ERROR("Failed to get doorbell for queue\n");
+> +		goto unlock;
+> +	}
+> +	queue->doorbell_index = index;
+> +
+>   	r = uq_funcs->mqd_create(uq_mgr, &args->in, queue);
+>   	if (r) {
+>   		DRM_ERROR("Failed to create Queue\n");
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index afaeecb9940a..8edb020683a1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -6719,6 +6719,7 @@ static int gfx_v11_0_userq_mqd_create(struct amdgpu_userq_mgr *uq_mgr,
+>   	userq_props.queue_size = mqd_user.queue_size;
+>   	userq_props.hqd_base_gpu_addr = mqd_user.queue_va;
+>   	userq_props.mqd_gpu_addr = queue->mqd.gpu_addr;
+> +	userq_props.doorbell_index = queue->doorbell_index;
+>   	userq_props.use_doorbell = true;
 >   
->   #define VCN_CODEC_DISABLE_MASK_AV1  (1 << 0)
->   #define VCN_CODEC_DISABLE_MASK_VP9  (1 << 1)
-> @@ -357,7 +358,9 @@ struct amdgpu_vcn_decode_buffer {
->   	uint32_t valid_buf_flag;
->   	uint32_t msg_buffer_address_hi;
->   	uint32_t msg_buffer_address_lo;
-> -	uint32_t pad[30];
-> +	uint32_t session_context_buffer_address_hi;
-> +	uint32_t session_context_buffer_address_lo;
-> +	uint32_t pad[28];
->   };
->   
->   #define VCN_BLOCK_ENCODE_DISABLE_MASK 0x80
+>   	r = mqd_gfx_generic->init_mqd(adev, (void *)queue->mqd.cpu_ptr, &userq_props);
 
