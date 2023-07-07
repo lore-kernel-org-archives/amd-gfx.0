@@ -4,60 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 875D8EB64D9
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 19:52:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B0FCEB64D9
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 20:14:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E996010E5E4;
-	Fri,  7 Jul 2023 19:52:45 +0000 (UTC)
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 338AF10E030;
- Fri,  7 Jul 2023 19:37:12 +0000 (UTC)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-c4e4c258ba9so2507268276.1; 
- Fri, 07 Jul 2023 12:37:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1B2010E01F;
+	Fri,  7 Jul 2023 20:14:24 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9CBA10E01F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jul 2023 20:14:22 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id
+ 5614622812f47-3a1ebb85f99so2076693b6e.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Jul 2023 13:14:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1688760862; x=1691352862;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=s7MGBPvaDFS4ZqHihwhivXiHenO9erLkh9HU9xAV9oI=;
+ b=dzDPjb/yvSe/qWo7DkkKjG3/9mU/sSQ9gKk2CQjeVhk5zwnMpBey43ezRPSiqzLNLB
+ QIEiGgd3n0uS9R5Y/SnzyPoU102/95AGTSyBkKo1zQ+0kBmQK0qu9pt0JB4xOtyyDU7L
+ ODQOCHMvJT6T+m7zjSZJ9kw2nDm+WBqUC0BuC51v7Rthir9oLFKIU1mBSJtPaQgTRm02
+ IaH76zoUKqMSKCydpBanAOtxDK79emcYlRd5cYTlGZQ7xa4DfMj3BLeJHpNznG+G71XI
+ yDaJrXneQHFdRiNrLO8/w21/AcMdlK8mF6TnDnNHNqhvaZChzjGMBLv+Q+2gfMI8evsr
+ xmiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688758630; x=1691350630;
+ d=1e100.net; s=20221208; t=1688760862; x=1691352862;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OWQQd+QTfcKD61lhZj5te5p5tmq1PqejPqHsprM5Iyw=;
- b=BpE0i/gma4W0+2IHlhR/ljxvndX77lGW+6PMOrhFASmVssFfp2Wgp3J6IEllIe5sVC
- cjBppEQmbSQI6oKlUe1vw9R71+6vJ1GqNPFredyskQfNpyfbTdd9iyEFBG1WmSpjxaFh
- 1lzCjhEHo/LIkhD2w/RFujmKDbxe+9Ho1ZKIM3UOna8ukYPtt6aTNmULpsD/5qxH4J2J
- H8Awj9TTUEWodjcm6Dw17FHRkmhf4K214PpHj37OFwoETV0DlS/Lx5z0vrVrbsEoeTWh
- fxHAlnqUTYF9+B6epiC5yGQeyUXxWXaOSislKfYY9jJNcDd4SYSjosEgu8r0Fa7YnM+e
- eSDg==
-X-Gm-Message-State: ABy/qLam36EGGqN1n6h3lPm0d+iWQufPpXzXxP+isXaaEWKB5odTKzZ0
- I43ygeKeNMnKK5n5QloEEZy8vDQCAl4dqQ==
-X-Google-Smtp-Source: APBJJlEFL76/c7L3kZubN4A0PKPIktnKSabDsMNS6hcsd6+BmXWGMeMYvWKxW6upxlcdDTUzrqbGAA==
-X-Received: by 2002:a25:c092:0:b0:bca:efc4:2ccf with SMTP id
- c140-20020a25c092000000b00bcaefc42ccfmr4965954ybf.44.1688758629978; 
- Fri, 07 Jul 2023 12:37:09 -0700 (PDT)
-Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com.
- [209.85.219.179]) by smtp.gmail.com with ESMTPSA id
- n76-20020a25d64f000000b00be45a29d440sm1113484ybg.12.2023.07.07.12.37.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Jul 2023 12:37:09 -0700 (PDT)
-Received: by mail-yb1-f179.google.com with SMTP id
- 3f1490d57ef6-c4e4c258ba9so2507253276.1; 
- Fri, 07 Jul 2023 12:37:09 -0700 (PDT)
-X-Received: by 2002:a25:a128:0:b0:c60:982f:680b with SMTP id
- z37-20020a25a128000000b00c60982f680bmr5226669ybh.46.1688758629284; Fri, 07
- Jul 2023 12:37:09 -0700 (PDT)
+ bh=s7MGBPvaDFS4ZqHihwhivXiHenO9erLkh9HU9xAV9oI=;
+ b=KRy5Hegzxol+eVMqrOfZRoq5K5yjcM1Rx4/hWXvCbzZqeHtIdv45fnWHu90sode1I6
+ hdB/19HK3jPt4fDjq86N0aA9OyjtP7GBcHO5WYJNEMHHlA/Nn4qNO6FwAK57PGNNumit
+ 9+hreEAXHTaxIH2X1aOtKVWC3FG9ycQP7wF7cPdzUbJJp7dxsLsNC2ZYx6Ciw73HLmgX
+ kvALsACyTv4N1VSygvD4nqYeSRbZ4CUJJ5XrH6cnSZssQJraEVkU2FGwW8wjJPHddAsT
+ pyFmwYvVuotb0+Ehq27kcChB909Evz9IAlFmgRvdv+OBeD8qDgUehtQLjrTiW37nGCTA
+ WyeQ==
+X-Gm-Message-State: ABy/qLZSdeep4+BhG5nbb3jfpra+7BOACnkBvqRNCX0VkXTI7FWV0aA3
+ DG8wOfnvHyNb/vvw3OFeGcwFSy+MF0ag7iqQjow=
+X-Google-Smtp-Source: APBJJlGTlK1qNgdTrj3aV+UsqujYmBTltElaa/HLl7zNzVLxR4oMjDBLF2+nDNKIpY2DIqgKABKEyIESqngA//22CYY=
+X-Received: by 2002:a05:6808:221a:b0:3a2:ee9b:4232 with SMTP id
+ bd26-20020a056808221a00b003a2ee9b4232mr6579760oib.58.1688760861825; Fri, 07
+ Jul 2023 13:14:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <8ffa3be3dc7b27345dde3bb32498c4cd3af050fa.1688632590.git.geert+renesas@glider.be>
- <c13c9974-8903-904a-55a8-4065b43a437b@gmail.com>
-In-Reply-To: <c13c9974-8903-904a-55a8-4065b43a437b@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 7 Jul 2023 21:36:57 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW226aZY_Nx9nfbS-ivsW2oarbNAjZB10O60W0SUQzmYg@mail.gmail.com>
-Message-ID: <CAMuHMdW226aZY_Nx9nfbS-ivsW2oarbNAjZB10O60W0SUQzmYg@mail.gmail.com>
-Subject: Re: [PATCH libdrm v2] amdgpu: Use PRI?64 to format uint64_t
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20230707193135.16716-1-mario.limonciello@amd.com>
+In-Reply-To: <20230707193135.16716-1-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 7 Jul 2023 16:14:10 -0400
+Message-ID: <CADnq5_Mz6PmTCioRqQUW5ZG0bGLBgnzQcT-zC59xpyAcp77Nhg@mail.gmail.com>
+Subject: Re: [PATCH 0/2] Disable dynamic switching for SMU13 on Intel hosts
+To: Mario Limonciello <mario.limonciello@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 07 Jul 2023 19:52:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,61 +67,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
-
-On Fri, Jul 7, 2023 at 2:06=E2=80=AFPM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
-> Am 06.07.23 um 10:36 schrieb Geert Uytterhoeven:
-> > On 32-bit:
-> >
-> >      ../tests/amdgpu/amdgpu_stress.c: In function =E2=80=98alloc_bo=E2=
-=80=99:
-> >      ../tests/amdgpu/amdgpu_stress.c:178:49: warning: format =E2=80=98%=
-lx=E2=80=99 expects argument of type =E2=80=98long unsigned int=E2=80=99, b=
-ut argument 4 has type =E2=80=98uint64_t=E2=80=99 {aka =E2=80=98long long u=
-nsigned int=E2=80=99} [-Wformat=3D]
-> >        fprintf(stdout, "Allocated BO number %u at 0x%lx, domain 0x%x, s=
-ize %lu\n",
-> >                                                     ~~^
-> >                                                     %llx
-> >         num_buffers++, addr, domain, size);
-> >                        ~~~~
-
-[...]
-
-> > Fix this by using the proper "PRI?64" format specifiers.
-> >
-> > Fixes: d77ccdf3ba6f5a39 ("amdgpu: add amdgpu_stress utility v2")
-> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+On Fri, Jul 7, 2023 at 3:32=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
 >
-> Well generally good patch, but libdrm changes are now reviewed by merge
-> request and not on the mailing list any more.
+> When ASPM is enabled, DPM is used to perform dynamic switching.  When
+> connected to an Intel PCIe controller this causes malfunctions.
+>
+> Identify this combination and disable dynamic switching in SMU13.
+>
+> This series superceeds my other series [1] and fixes it in a cleaner way.
+>
+> [1] https://patchwork.freedesktop.org/series/120245/
+>
+> Evan Quan (1):
+>   drm/amd/pm: share the code around SMU13 pcie parameters update
+>
+> Mario Limonciello (1):
+>   drm/amd/pm: conditionally disable pcie lane/speed switching for SMU13
 
-I heard such a rumor, too ;-)
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Unfortunately one year later, that process is still not documented in
-https://gitlab.freedesktop.org/mesa/drm/-/blob/main/CONTRIBUTING.rst
-which still instructs me (a casual drive-by developer) to just submit
-my patches to the mailing list...
+We should also fix up the smu11 code in sienna_cichlid_ppt.c
+similarly.  We implemented a similar, but more limited fix there
+recently.
 
-Thanks!
+Alex
 
-Gr{oetje,eeting}s,
 
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+>
+>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |  4 ++
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 67 +++++++++++++++++++
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 33 +--------
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 33 +--------
+>  4 files changed, 73 insertions(+), 64 deletions(-)
+>
+> --
+> 2.25.1
+>
