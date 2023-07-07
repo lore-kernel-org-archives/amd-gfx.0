@@ -4,60 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 613C5EB64D9
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 22:26:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFFB3EB64D9
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 22:41:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEAAF10E061;
-	Fri,  7 Jul 2023 22:26:44 +0000 (UTC)
-Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
- [IPv6:2607:f8b0:4864:20::f36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F08CF10E061
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jul 2023 22:26:43 +0000 (UTC)
-Received: by mail-qv1-xf36.google.com with SMTP id
- 6a1803df08f44-637aaaf27f1so2600986d6.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Jul 2023 15:26:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688768802; x=1691360802;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ERPvct9F+gdPXMff8zw9isxkWp5br9C2rmUHZh0fgec=;
- b=YkW+I0EPtZZH1y4qcBZkBcpiYK9+S4n74L7CY2CZ+xZveGNYPzWxMJzISKdIzKQf+c
- Qi1rJySyuwTGziqyT5iCNCNAAu36O79mDh2ocu7kAxXb2YjBvPftnv1vtmBKO1qp03o8
- ZThKoHjNQ4epnJ7sJj1A5SfZx1gqlJKyNz4IDhNHp40CYqTI6Od4Vi0BDH6GgHrPzmHR
- J1MNu/r8x3dX0ZMd7s5jqsdFqM2E5xsBHIamMCFl8FxDEyRDk1ICP6o2IdA0Gl5v2o1F
- otEoICtnek/eVZ2iGL/G4y22bwJBiclJ7rxQytZVRXtkE9F9YqthFgAFfjQp8FCPCyMg
- NLJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688768802; x=1691360802;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ERPvct9F+gdPXMff8zw9isxkWp5br9C2rmUHZh0fgec=;
- b=K20TjQRjiODXr3K7fsqdSH4cSKGUEaKRxgGWU+aFkQ8Dqx9ZcOKKp64kI5qMHgtfq7
- YiAXXV2NE3M7DUYuSOvH0n2CZJiqvLUJ58wMVXFqxXMUnFtzABdHSYEYAuU8S4896P/9
- w7/iq0I69ekJsBKQmd9QiFqWIDox+9U4zD8o+J/Op9PFWrKmNCZk7WLIflzAMyEup2/d
- 5zgo7mWH2VTuat53Sl9oYi2lZMdu6JcfbGGjSuNRxWdDasllK8BHIDcZGmiNpKp1HfF9
- 2z42vMzXvPrPBCfDxR1aOjCSUzJzEJsh+8Z69rwOpZxCp2U+nZMkLa0gm4VnAmEzn0wg
- 9H1Q==
-X-Gm-Message-State: ABy/qLawu2uhOuj6RO8OSfvPI/wLhkCjhml3NX1ALh7AtJkXkwx24F0F
- JrxvRtVL9MXf/VwVEuj48Qyd/Mx8VOO/GwDTD/g=
-X-Google-Smtp-Source: APBJJlF1jFXvxyTjjffEw9OCYrfWavrUWjtRagAx3ar4G/YT3YK9BR5srT+MOnZwvvnV6tgTBK6QNUnzBvfmpxRkmp4=
-X-Received: by 2002:a05:6214:ac8:b0:621:65de:f60c with SMTP id
- g8-20020a0562140ac800b0062165def60cmr6658128qvi.3.1688768802285; Fri, 07 Jul
- 2023 15:26:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1701710E5EC;
+	Fri,  7 Jul 2023 22:41:22 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C635C10E5EC;
+ Fri,  7 Jul 2023 22:41:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=/xdpnaJnTHtg5FSHdCoDQS8EallIvgOjIsBWKl9/fjk=; b=QYDDLzhIB0GVmvqlbo4ICBgXwm
+ S1qC68aLZyknYycWCrl0qwwIiLMxRRxOmQVR64lG1sLEGjxWMosbPYlp2LjFPK5wq/O7dBmxoOShv
+ Ei7iR9tlPvjyEeVTAizwz1g/Egv2Eu93E1m+Ryj7LVN1SQUO2c7HwO5hewlglfI8BvWI3XPdk9Fpv
+ qV9dDlP6VJiqM5R+FJRFywYJny/k8HgL5DzfWFUzhrP0nZeJ8GZvN72sqc8mghlctnUVDoJ+WeDpj
+ YYVmYpuNZ9NGFL6Hdiz9RctwUgiGtTeHnHKe4eE4lYtf9+hDmUcq5ImnHbT381ZUtRnp1sFEx7ZZI
+ rri8D0fA==;
+Received: from [187.74.70.209] (helo=steammachine.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1qHu8W-00AP6e-GO; Sat, 08 Jul 2023 00:41:12 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, wayland-devel@lists.freedesktop.org
+Subject: [PATCH v5 0/6] drm: Add support for atomic async page-flip
+Date: Fri,  7 Jul 2023 19:40:53 -0300
+Message-ID: <20230707224059.305474-1-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-References: <CABXGCsN3LS2mvXOe5g8WFC=b3N=bF1u4RCQYJN-u+k=ZEWWrcA@mail.gmail.com>
- <BL0PR12MB24653A38A6D914CFF3DB2342F12DA@BL0PR12MB2465.namprd12.prod.outlook.com>
-In-Reply-To: <BL0PR12MB24653A38A6D914CFF3DB2342F12DA@BL0PR12MB2465.namprd12.prod.outlook.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Sat, 8 Jul 2023 03:26:31 +0500
-Message-ID: <CABXGCsN1cnGgMn=Jg6nYfg1GccZhPX8sa=izrr9sMxZdzLiTJg@mail.gmail.com>
-Subject: Re: [regression][6.5] KASAN: slab-out-of-bounds in
- amdgpu_vm_pt_create+0x555/0x670 [amdgpu] on Radeon 7900XTX
-To: "Chen, Guchun" <Guchun.Chen@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,28 +50,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Simon Ser <contact@emersion.fr>, Randy Dunlap <rdunlap@infradead.org>,
+ Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
+ hwentlan@amd.com, Rob Clark <robdclark@gmail.com>,
+ ville.syrjala@linux.intel.com, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, Dave Airlie <airlied@gmail.com>,
+ christian.koenig@amd.com, joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 7, 2023 at 6:01=E2=80=AFAM Chen, Guchun <Guchun.Chen@amd.com> w=
-rote:
->
-> [Public]
->
-> Hi Mike,
->
-> Yes, we are aware of this problem, and we are working on that. The proble=
-m is caused by recent code stores xcp_id to amdgpu bo for accounting memory=
- usage and so on. However, not all VMs are attached to that like the case i=
-n amdgpu_mes_self_test.
->
+Hi,
 
-I would like to take part in testing the fix.
+This work from me and Simon adds support for DRM_MODE_PAGE_FLIP_ASYNC through
+the atomic API. This feature is already available via the legacy API. The use
+case is to be able to present a new frame immediately (or as soon as
+possible), even if after missing a vblank. This might result in tearing, but
+it's useful when a high framerate is desired, such as for gaming.
 
---=20
-Best Regards,
-Mike Gavrilov.
+Differently from earlier versions, this one refuses to flip if any prop changes
+for async flips. The idea is that the fast path of immediate page flips doesn't
+play well with modeset changes, so only the fb_id can be changed. The exception
+is for mode_id changes, that might be referring to an identical mode (which
+would skip a modeset). This is done to make the async API more similar to the
+normal API.
+
+Thanks,
+	André
+
+- User-space patch: https://github.com/Plagman/gamescope/pull/595
+- IGT tests: https://gitlab.freedesktop.org/andrealmeid/igt-gpu-tools/-/tree/atomic_async_page_flip
+
+Changes from v4:
+ - Documentation rewrote by Pekka Paalanen
+
+v4: https://lore.kernel.org/dri-devel/20230701020917.143394-1-andrealmeid@igalia.com/
+
+Changes from v3:
+ - Add new patch to reject prop changes
+ - Add a documentation clarifying the KMS atomic state set
+
+v3: https://lore.kernel.org/dri-devel/20220929184307.258331-1-contact@emersion.fr/
+
+André Almeida (1):
+  drm: Refuse to async flip with atomic prop changes
+
+Pekka Paalanen (1):
+  drm/doc: Define KMS atomic state set
+
+Simon Ser (4):
+  drm: allow DRM_MODE_PAGE_FLIP_ASYNC for atomic commits
+  drm: introduce DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP
+  drm: introduce drm_mode_config.atomic_async_page_flip_not_supported
+  amd/display: indicate support for atomic async page-flips on DC
+
+ Documentation/gpu/drm-uapi.rst               | 41 ++++++++++
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c |  1 +
+ drivers/gpu/drm/drm_atomic_helper.c          |  5 ++
+ drivers/gpu/drm/drm_atomic_uapi.c            | 80 ++++++++++++++++++--
+ drivers/gpu/drm/drm_crtc_internal.h          |  2 +-
+ drivers/gpu/drm/drm_ioctl.c                  |  5 ++
+ drivers/gpu/drm/drm_mode_object.c            |  2 +-
+ drivers/gpu/drm/i915/display/intel_display.c |  1 +
+ drivers/gpu/drm/nouveau/nouveau_display.c    |  1 +
+ include/drm/drm_mode_config.h                | 11 +++
+ include/uapi/drm/drm.h                       | 10 ++-
+ include/uapi/drm/drm_mode.h                  |  9 +++
+ 12 files changed, 159 insertions(+), 9 deletions(-)
+
+-- 
+2.41.0
+
