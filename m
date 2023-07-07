@@ -4,105 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 852B5EB64D9
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 11:49:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EE9DEB64D9
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 11:53:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE81210E567;
-	Fri,  7 Jul 2023 11:49:14 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20606.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::606])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0180010E567
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jul 2023 11:49:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCA2F10E568;
+	Fri,  7 Jul 2023 11:53:20 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2062.outbound.protection.outlook.com [40.107.223.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3628B10E56B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jul 2023 11:53:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UYD46hFLkF4ZSlf1L0EsQtiEONQaabZ6wqEoJof1IOpHJVOo9fpuusehgHxEplFKyRbIC53MQOxiT2mXTTWMJu4Ep+XOpSmqcFW2XG7Wab4IafKMC6hhF1s/UqKSSWZEv3o0NGAhywkzf9+3PtRN5Vb+1nFOJBY4Em/FP7mn4mqyqc908lktM4l0VCAfbQnC+m4JjpHvb+HPfqaMWdF8X9i5tvDUhmkjFKJc12enN4bLvafnao04VwaviMcW4a9nz4gUh1kJ6EvQkja7fygbrc/pR5eEReItG0QZeJNCIiEf7PWIKCG1DjetDMaPc31S60EkBMOLURbABBNRo3Y15w==
+ b=AF9y68xUAXZSV2G7pnHqu4p+yapM4O77Kl1kkleNommAzCNQ3dCCQHs+Vap2lMrrtofBKE7g8+RBwN4Cakx1/EnqIyxBJ/q7WJGsnB01BCzI4VhbM0Vnd28TQnbN/tdL405C5BmJc1mHXs0nm9bh6l3oEJD9796DNya/IN74ErYnnLVLayh9UL27q1vKNBTvn9GtPsTig1aqk/Um7t0m4JbD7OdnxC8SODxzHjnOdCZJRSetyTA2xkLcn6+m3PI6A3jKRbmeXnNOFOmke833sGpo2rplpk2apVeQBOMcYLO5aXVYvoAu9bWArtmygzkIvl+R89Blj9g9gus573k+pQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rmWiMX/HZ0PX00LUgLOhmtqAMb5E6YtuR4hFXqc30wg=;
- b=kQFMYhHohGZrMAgdV+aksdpuXv89LW6WXzVHitjELDytwCr13bPTEDc70PtGhvTjiJTrcYXl+XByfKqr20JITM+yjmgH4k75dCaybzFwScEMASLuGvK2X7fd6IRPVd4lcJFneUfaYHNGBdOk3opNdEcpLt30ltdXvE/WGgCt1NN+onyTwa79ltyfuJFUcTNhFjjUjNuEo54JKZZunZAyne1pMCIojuA03B+wAm6/nmN6dSWZIqDhVrET4Gm8dZExGzcbxRuU8mOgYSFpzE9RwVxCXzjRDzm6ppjgR2f1mVDnzjLSB0agV96gLQDVXvh93iUgV8fr4/Z4xIgxYPy50A==
+ bh=G/kXVbtlzr4uxsQGBcdeDDUGYtaZlEWWqsktxGQHT3o=;
+ b=I5KTPEDCayfHPtDCKmpTpMncVNA/qoR5UJsqddp7XG/EnBLtCNAW/iay0lQujujIjPzUYhZ1AMSMjgHOITsT6XYUtXJ6pXH/PHBfBgx5ZwsbIjWP5zPn1cRQxfy0x1zrcW39c5SFGHMi40xP9mu16GRYmW7k0cuTz9HHXzUeUqeR+3rZ+W5zigZlDGy+zT+qRSTiHUMBTd+zGaB+GNDUeiNtlmifITUMkgOpz3CQJ6ILwqCvc9T7n238OYnukXgnld4Ozvtk204bAnumCNebbZ9/j7eoHF+5e6To8OebvtnQNlXLWtHlCpex2IPrpbwPTHg2B2geJx6UWMj+6LFqRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rmWiMX/HZ0PX00LUgLOhmtqAMb5E6YtuR4hFXqc30wg=;
- b=DkgAuA8jEZizv6K/tm9mQx9cyXY1dZAjQNwW1VKhZGzN00qfXtENCiQfpLJi2XwWGZbL+beAwVZ15kBYS2z5fdcT4jxuLxsVFMyihq5WX+G9cD5tgH4IPJzdBTStPM2h4AxFmQfp1ZKEzIb7I/2USUtD8gS6zzF4UwqLBSTg1HA=
+ bh=G/kXVbtlzr4uxsQGBcdeDDUGYtaZlEWWqsktxGQHT3o=;
+ b=3mjxHdDd0LPze3Y3u/hu1AwRTRiXBMfvG7hXGgOzuHS5AXqplz96Ka0/qDzuGF64p8cdhLBjwjYb5Dc9fV7R10vYY3ZH7SHbOhd1O4HqgoyA2B278aPvyk244RafhhrQbULczpSi05wQNGEnQULkPFIcU1tAukdaOwPypJOAbQ0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
- SA1PR12MB6797.namprd12.prod.outlook.com (2603:10b6:806:259::21) with
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by DM3PR12MB9325.namprd12.prod.outlook.com (2603:10b6:0:46::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Fri, 7 Jul
- 2023 11:49:11 +0000
-Received: from DM6PR12MB4250.namprd12.prod.outlook.com
- ([fe80::c4f0:c05:8644:5637]) by DM6PR12MB4250.namprd12.prod.outlook.com
- ([fe80::c4f0:c05:8644:5637%3]) with mapi id 15.20.6565.025; Fri, 7 Jul 2023
- 11:49:10 +0000
-Date: Fri, 7 Jul 2023 19:49:00 +0800
-From: Lang Yu <Lang.Yu@amd.com>
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.8; Fri, 7 Jul
+ 2023 11:53:16 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::8f81:b929:d2f9:4ef0]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::8f81:b929:d2f9:4ef0%4]) with mapi id 15.20.6565.019; Fri, 7 Jul 2023
+ 11:53:15 +0000
+Message-ID: <c5870444-d0d0-aae6-5de0-177983f1f224@amd.com>
+Date: Fri, 7 Jul 2023 17:23:01 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
 Subject: Re: [PATCH] drm/amdgpu: correct the UCODE ID used for VCN 4.0.3 SRAM
  update
-Message-ID: <ZKf7rMHFKWOwwHME@lang-desktop>
+Content-Language: en-US
+To: Lang Yu <Lang.Yu@amd.com>
 References: <20230707113144.536043-1-Lang.Yu@amd.com>
  <cb85f638-50dc-e921-d7e1-726df48e5357@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cb85f638-50dc-e921-d7e1-726df48e5357@amd.com>
-X-ClientProxiedBy: SI1PR02CA0050.apcprd02.prod.outlook.com
- (2603:1096:4:1f5::12) To DM6PR12MB4250.namprd12.prod.outlook.com
- (2603:10b6:5:21a::9)
+ <ZKf7rMHFKWOwwHME@lang-desktop>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <ZKf7rMHFKWOwwHME@lang-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0114.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:96::23) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4250:EE_|SA1PR12MB6797:EE_
-X-MS-Office365-Filtering-Correlation-Id: 26bde4d0-e7b4-484a-0022-08db7ee02d50
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|DM3PR12MB9325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0bdade3a-a772-46d9-1a84-08db7ee0bf8f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hWdfvE9MYoGz1C1IxwNHciGr00FEHqOYOThEtOL1sc/VXTnXs1sihzXHMGveqvqTa9hAnhkMra2hdDHwoK66BzoZdl5cCcUqfqxjEItEvSxemD9VEPp8loQTIMIgOQ+mTFuEAf9cvtDoEFimtpTBjiq82sOQlMMFtksHZW+Py1aAyhDSey87o9a8e7XIegNIoK+JdQLYASWx7CrMkMCjZVsAY4YIX4nnPTO80iSoVKzhnSF359n2CCiCnaTy78jgkKh4l6Q+Vl1ho2og/rUsMeeV6tT4Q89giGMMTQJ2rYzZyCw+tnOBVjKxaGN3wzRv1TcYJEDkmkssBhSJMXuJRPRjadQgxThjv3+/9xtHhQOs90lS2NqoIxehgjEqjewh5bAvE+Qn4Ai7t+/6/Rs8PcQFC/fxr7hxEbfU9jSx0J7QQc0BSF6BVnTLblb7TWQvRBfhsX4BFejB+arKMw8UqeGl3BIB4pn+rvMFvYfWsg7R7bO+JzURfiXnN6lxDIzaHi2b52tYZPD1FA07b09fdSPaunzgwP+uncEu8UtejoXaJuzgdbTjzicM8z1uY70D
+X-Microsoft-Antispam-Message-Info: wWuL5ImUHc6Ncc7Tu1npfaXng1fSxgmv08m+uYbeAz3wIqJAk8BY3S+x0eCRt0T5gc3a4L4Vfr55BVFfmHG4zDLv5VpsyxdpzPOhAZ+aHgt+QvDzFiLKhtm6z7KNjpeMBYp5+oNoCgf0c4OMFmKQu/P0Ctf1MP1pEEgK1CkQlL1cytKtWJgdgDqAd/UcfoiFNQVMq1W7FaHuQpubas820dHb8Xnot8AZ6ktE7CiU1VbqaoTBZVFywGBkbASIJfv2WyX2SY/IjBWV3IkSLVZiVScK6cTYS7Oq5IqOl+xxgTmtA+QV2P094tY5PKwPaF1n4ARBr5BlozOUI3baOmPEh9BsVbOSLep4UOWZDP3FNrimFi/DjBmQmJkx05hAOLoso+gC1YjSZdIra2ArY8V4+tJsxQ4swbozog2P0suBkC/y59j1KQBhG04TUhFK2UDBv2sYPvoOKzHRFIuhTLZMG5r2oY7Zcz7AWZtD2/A+3WXdMnVt4Iy3WKdH6x0pGVhaPYE7zvIzbU1ymDfhJzP4pNFeB6egy94SqqZy/wtwcEB0Xoi0hz1AhusCsxG6bLqYIElVu3uplKM4Nm/L7djyL4EQg7B433RB0pSNl6GhPOnFMIYVRAun+py49HlAh6VvumI1Gqt2Bq4XiNNYTQgj+A==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(7916004)(4636009)(376002)(366004)(396003)(39860400002)(136003)(346002)(451199021)(66556008)(4326008)(6486002)(41300700001)(6666004)(6636002)(66946007)(8936002)(8676002)(38100700002)(66476007)(316002)(478600001)(83380400001)(186003)(6862004)(9686003)(6512007)(26005)(53546011)(6506007)(2906002)(33716001)(86362001)(5660300002);
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(396003)(39860400002)(346002)(376002)(136003)(451199021)(2906002)(41300700001)(8676002)(36756003)(6862004)(8936002)(31696002)(26005)(186003)(2616005)(478600001)(5660300002)(6506007)(6666004)(6512007)(31686004)(6486002)(53546011)(316002)(4326008)(66476007)(66946007)(66556008)(37006003)(6636002)(38100700002)(83380400001)(86362001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Tnm6G0kvbEBIdLC/Q4Awk/5VQwOLl5XxK87RjNjTczchBJyAViENV+LBYUrr?=
- =?us-ascii?Q?7Muh+PP5n34eLDd3/pyiG8LS+CQFcjCw4puRCStqfSi5eWUO0Bez6fMkm/Ct?=
- =?us-ascii?Q?XZ9tkFCzCTgVVD7kHBvXOdwW6VXZZw2rWgR0BHA3WTCGgomvPyjG0Z4N9258?=
- =?us-ascii?Q?2sjGjAF95DewI5BgInpxvnGjaIPPfL5aDU/gO3P8dt/EUt1cKofGmNFi6Zg0?=
- =?us-ascii?Q?E/VJ4tsjOT0mua1i1xpn5OrAyWWWcwJCMaIHlv84590/a67v5f4OA/l/zPBU?=
- =?us-ascii?Q?BaGUAP2NfzyPIilyW5xSwHYOwd83L7ENLuW+p+o2ddnE076hXFtNXufzqIhW?=
- =?us-ascii?Q?e6LFk5j3o/QYGdPjxASc5jOuF5k42wDlwcSPbN8FYnH0wuTQYW8daW9Lf6/a?=
- =?us-ascii?Q?igVG4ayZk29WCBc5Zgu3WQ+oOgvo1jDgVX1JZ5seSnJPE0/E3NFvQmQAfESU?=
- =?us-ascii?Q?R9EwT62YPk3ag3nfjaxb6SQDjOX1T2afMU4/WYp2jdMrnE1Hy0VALhxkl1oX?=
- =?us-ascii?Q?/YdZcyh2mNVkxfptxNcvpheANaGWmZ9dJk/kEP6jl4M+q7zOCiOgDCnVtWMn?=
- =?us-ascii?Q?7Y/wKyuWqXCPpBUHKJrg6qSSaMXqN2qg1qPzLUGLWTSxVPrDYQ+CQOcelCG/?=
- =?us-ascii?Q?64nAzOaRt8m4QNI0r1rAOIvySq2wV6Cs8EoQxqEEBwSrjQsjWs6e+Z603dbv?=
- =?us-ascii?Q?w2hgLJR2Ea+5Ydivo7/LyUcA/eCEZ15DI2cEYh2UftGUVKq0ctor7COtmant?=
- =?us-ascii?Q?5wRp7FggKAyH7oU88IFg6iSk7zwpr7+EaOfjhUVSgdT7tWhqMVmCtdbgxWwQ?=
- =?us-ascii?Q?dmRmvi7JOXJV3LEt+OZPfMRcOstGZE9dM9Z+JadBkKlO8ys10iOylxiZvp76?=
- =?us-ascii?Q?T5VyVnI5SYze/2PciQHy/OUiLDMohZH62VakVUXE0DSdJe6bkmgmYjrj4yN1?=
- =?us-ascii?Q?ERs9vJC9pJrLr7p5X/nZ0Psqv1wdDSXQirxYuJ2A3oFHWNGtq4WdplVqfzvP?=
- =?us-ascii?Q?vUDceLWv4LJAIloINYcfQ3xJSWmEEcR8IsBkz1UEeGqdswu/JduqMlmjX/zG?=
- =?us-ascii?Q?fj1aTRYXGrAZ3sEAzWcg/Eq0v9dYmniA6Z18OvpJG9CALjRCpwNbF4H/MZzn?=
- =?us-ascii?Q?mHjOgh94MzcMamp5Cac3K9wAJS8bFkYG5WoC9t9EHQI1/ahlHieEw2HNoCzG?=
- =?us-ascii?Q?IByjS90dVRR8KeU6pIUE0JLaEElHLCMiGwBO0Wun72ji+rCNQEoiWVI15wV/?=
- =?us-ascii?Q?dIPTNTHclSw8MqflQgeiOuoS0CrHLQrzyRllRadeKxeBxnJbem5yfyA/Xbfm?=
- =?us-ascii?Q?jGCBI60Q2DYZXMcEcXNnoJVruQXMukjtppZgBiXz9jvO2576IHXU3qdDFT0K?=
- =?us-ascii?Q?QXZ3toH0BhFwGKdhmWQ2fODYvQwyqgsUE26KLHJZTm9E9pOQhjnhBUyaZO5s?=
- =?us-ascii?Q?3sPbjd9OvjBEE3sWyNknPEcxsRuI3RxxD6+10TRR4jiI+Uc/D8n5WceJKEeV?=
- =?us-ascii?Q?HN7+JO57KxGizIpProM3cGk1RjSIn4jL1bo6pLmn8iENwtW7BE/TTJJM3Z2a?=
- =?us-ascii?Q?DqgcLlY7R2wiKwxtn2wrpHwQaRl2zPGNHz1mS/BN?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Zk9pVmRqazBHR1JTTlh2T3psNC9HQnJTbUlCTzNxWnZNazdZTmV3N1lnNXM4?=
+ =?utf-8?B?VkhaSHFVNkZyV1VQL2xvNWIyczF0WXZlSm1saTZQNTZWTGhJRVkyMmlLZWVm?=
+ =?utf-8?B?dW5DVyt4UWhjNlVGM3ZOS2pXUEo4YXhBeko0bVkwc3RCVXJnSnN2cVdjbzI2?=
+ =?utf-8?B?elBEZFp4aTdDMnBkYVEva3ZpNm5uYjZLbGJnUUhPRnVxdkorYkNaUDNKYnZt?=
+ =?utf-8?B?SkNVckhIZWNtdk9TSXhHMVVLWjFCL0hBb0VzWkNGdE1ndmp6R3Fmd0dOMC9U?=
+ =?utf-8?B?bzhoT3FuOHB4QkxhZ0d6QjRUanlpcEdIMllHOHR1QXplaE5MVDZTcUhpc3VD?=
+ =?utf-8?B?cmxxNkk0Qk4wbzMrT3NVNStqOE81WjBHaHhtcUN2L0JGZkE1WmdDQVlIQ05T?=
+ =?utf-8?B?Y2lsWHg5NExJTkdlMU5pMXlrMjFxRTk4ZlhSTUlwNGF3Q3VoZ2k0ODRJQlRD?=
+ =?utf-8?B?WTVNK2d1UkpWZlg5YTRBaW5iRHo1R2d4Zko1OTMwMVNteWhlUmg5NE5pbTJm?=
+ =?utf-8?B?SS9KTkhWdmVWV2lZa0NXUDVIcmhSRkIrQTRMUGNvMUdwU3laVDlXMkJJYllX?=
+ =?utf-8?B?US9JRFhIMVZ6dUtzNXkyUUZ2UlFaNFdjN3ZXZHh3UEdtS01NOXZzK2V4UGRZ?=
+ =?utf-8?B?Nm50MVkyVE5DT1hGZjVRNmpYV2ErQVk4RUxhcW9WSGhiR0xPRG42Ym1NdnBB?=
+ =?utf-8?B?N0plV3hwWnBkZnFqN0tCMkY5WGRpMTlnYXBSbjlhUnpYU0c5eHQzdWpHRUhI?=
+ =?utf-8?B?NFZ6ZEh6WTRrQmVxTVVZVlMwWVlYV3hQQmhXZG90UHlVcjJUY3NnSTZDMnZH?=
+ =?utf-8?B?d0swRXBLV2s3MHQ0TEI0d3lFVzRvM2xzS3dLclBuK2NwR2V0TFYwbE9sdm12?=
+ =?utf-8?B?ZlVDRVJINCt0aHpVdmYrWVVJMTg5UXFrQnhMOVdzOFpPQTQ1T09zNGZoclJJ?=
+ =?utf-8?B?MVRPS0xCS21la0t0eUUzZ25UK0o4NG9uS3VWWmcyS0Z2S3lzNmZnMUdheDNH?=
+ =?utf-8?B?aU4zNjVBVndacTBQMndhUDdOckNGTGJmLzRwUERCd29RT0F0a284L0VsWmpv?=
+ =?utf-8?B?OTRENjhWbHFJb1hMNzJHYTBTaHBRZjNkeUZ3VTAzd1BJZUdRTkdEakpKN2VI?=
+ =?utf-8?B?Y2ZsTE5lZW4xc3BFbm55M2NiN04vTVpMUFQyNjQ4TlpHWUpFS2o4aTZyMUZC?=
+ =?utf-8?B?MFl0Y09LOWxKZEQyUkZ1VnFrVmFObVhKUi9uUDdkemhQWVgxVUVCdE1kVVBT?=
+ =?utf-8?B?VWYwWEdmVmxGMDdyNURGR1lVV0d6c2JzKzBRa2RKS2g1NGkyRDdIbEROdktU?=
+ =?utf-8?B?S05kWEs1cFpoNE11bEdTMi9vaFk1ODIveG5ndFZjc0ROZXBSeEthVHU4LzRz?=
+ =?utf-8?B?TmVTUXdvNkZpejRPVGdWRTJmeE5ZbGFEdlFQNWwrNDRLQStpMHRmelhHUWcy?=
+ =?utf-8?B?dzk5OTFmUklJNk1vMUNSMXpXWWlHWHFZUGVodi84NG1TRzdtUzM1L1UyUnZ6?=
+ =?utf-8?B?VUhBcWdtL2NSdDdQYnBHSDQxc0hZU0JJUEozbWpPWHVSSDVTWUxESml0MGt3?=
+ =?utf-8?B?YUx5dDFieTBUWER3bWIrb1MwcDZZZiswaXBXdWRmWDFLNnQwcGRFSi9BK0hQ?=
+ =?utf-8?B?WDRqN0FrSHJsUmUvOUdWamdmOG5rdzdJb21EbUhPcndNLzQxM0dYeThzUUVW?=
+ =?utf-8?B?YWZxcW9nTTU0cG1TZFB2YnoyVnNQdGdyUDdxVGVGdk1yRlN0bStIS2FKOUVF?=
+ =?utf-8?B?dkltcDMwVTlZdVZwWDB2SDBvUG15RWJ5bGFkcy8xNFBsVUVZWWtYMTkzZ21r?=
+ =?utf-8?B?NDlFNGMzcytCeWtEbFhHZ2MrVnV5MFNBQU1HOTQ4N0l6eUtzZDZ4Tk5pYkxN?=
+ =?utf-8?B?Q0E4b21Wdk54WjArQTcreWRNaytUaHYzMks1bUE1ck40K2U1eDJ0UThLRG5S?=
+ =?utf-8?B?YzlWOGZRWWg0eEtLOVBPMEwrdmF2WjdHR2xKUG1qN2VDbGRvUUFGbjBVTWJl?=
+ =?utf-8?B?YWp5WDFNMkNvQWdWaUlVM1hlM3hEbTd6VlUxZUNNRXI0Q1lvdTVqMjVzQUQ4?=
+ =?utf-8?B?b243ZnZtWjEyWEgwblozcjNlSkNITFpnUFhoU3ExY0JBaGF0YUszcFF5YVJR?=
+ =?utf-8?Q?t6K5xLj46Ii5scRpecSmKS547?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26bde4d0-e7b4-484a-0022-08db7ee02d50
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bdade3a-a772-46d9-1a84-08db7ee0bf8f
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 11:49:10.2298 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 11:53:15.8029 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zUHh34F3+jzYIUV2sAKuWOcPnwmV2okd1s7ocFEJVuvTtc0NhzOpwfPyB7USPUQcFPLuR/SICZre5+4ZGRcuRg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6797
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7ruiWbNygOyMcUbGC7ISNwYvZD5ObhPtVnNDKH9NtyWqp2BciwjECwOuCQyqB5MC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9325
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,49 +130,59 @@ Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 07/07/ , Lazar, Lijo wrote:
+
+
+On 7/7/2023 5:19 PM, Lang Yu wrote:
+> On 07/07/ , Lazar, Lijo wrote:
+>>
+>>
+>> On 7/7/2023 5:01 PM, Lang Yu wrote:
+>>> It uses the same UCODE ID(VCN0_RAM) but differnet cmd buffers
+>>> for all instances.
+>>>
+>>> Fixes: e928b52c58dd ("drm/amdgpu: use psp_execute_load_ip_fw_cmd_buf instead")
+>>>
+>>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 2 +-
+>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+>>> index ce8c766dcc73..8ff814b6b656 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+>>> @@ -778,7 +778,7 @@ static int vcn_v4_0_3_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, b
+>>>    		UVD_MASTINT_EN__VCPU_EN_MASK, 0, indirect);
+>>>    	if (indirect)
+>>> -		amdgpu_vcn_psp_update_sram(adev, inst_idx);
+>>> +		amdgpu_vcn_psp_update_sram(adev, 0);
+>>
+>> This doesn't work either for passing the right buffer. Could you revert the
+>> two patches? Not seeing any simplification with those. Previously it was one
+>> psp API to be called.
+> 
+> Oh, thanks. I got it ...
+> 
+> The purpose of psp_execute_load_ip_fw_cmd_buf is to serve other IPs,
+> they have same use cases like what psp_update_vcn_sram does.
+> 
+> How about just call psp_execute_load_ip_fw_cmd_buf in VCN directly?
+> 
+> Or revert the two patches and add some functions
+> like psp_update_AAA, psp_update_BBB, ... for Other IPs.
+> 
+
+At least for now, I think VCN is the only case which requires an extra 
+specific ucode API. All other ucodes are loaded during psp hw_init.
+
+Thanks,
+Lijo
+
+> Regards,
+> Lang
 > 
 > 
-> On 7/7/2023 5:01 PM, Lang Yu wrote:
-> > It uses the same UCODE ID(VCN0_RAM) but differnet cmd buffers
-> > for all instances.
-> > 
-> > Fixes: e928b52c58dd ("drm/amdgpu: use psp_execute_load_ip_fw_cmd_buf instead")
-> > 
-> > Signed-off-by: Lang Yu <Lang.Yu@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> > index ce8c766dcc73..8ff814b6b656 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> > @@ -778,7 +778,7 @@ static int vcn_v4_0_3_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, b
-> >   		UVD_MASTINT_EN__VCPU_EN_MASK, 0, indirect);
-> >   	if (indirect)
-> > -		amdgpu_vcn_psp_update_sram(adev, inst_idx);
-> > +		amdgpu_vcn_psp_update_sram(adev, 0);
-> 
-> This doesn't work either for passing the right buffer. Could you revert the
-> two patches? Not seeing any simplification with those. Previously it was one
-> psp API to be called.
-
-Oh, thanks. I got it ...
-
-The purpose of psp_execute_load_ip_fw_cmd_buf is to serve other IPs,
-they have same use cases like what psp_update_vcn_sram does.
-
-How about just call psp_execute_load_ip_fw_cmd_buf in VCN directly?
-
-Or revert the two patches and add some functions
-like psp_update_AAA, psp_update_BBB, ... for Other IPs.
-
-Regards,
-Lang
-
-
-> Thanks,
-> Lijo
-> 
-> > >   	ring = &adev->vcn.inst[inst_idx].ring_enc[0];
+>> Thanks,
+>> Lijo
+>>
+>>>>    	ring = &adev->vcn.inst[inst_idx].ring_enc[0];
