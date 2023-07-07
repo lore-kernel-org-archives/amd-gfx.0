@@ -4,118 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BB05EB64D9
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 15:45:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB06DEB64D9
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 15:49:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 267B310E5B5;
-	Fri,  7 Jul 2023 15:45:39 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061b.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::61b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0970910E5B5
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jul 2023 15:45:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C40D10E5B7;
+	Fri,  7 Jul 2023 15:49:31 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31EF810E5B7
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jul 2023 15:49:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iSh5dY/yQ7D4j5SdBXDZIgLls0P1ANJhyLhkMpuhOWVqfR6NyoZT7RPf9eBO7/pULKCHHyLR906pyUZrTTBji4wQJ3wDHmkuqQWNDrzI3+ewqpMgA06HeakIKDgRxV4DyK3LUCd+50Owa3lwszG3uV8C5z2BhgjIzXW1+k9UREt28qScBB45kRexH8Tm5RPKhLG6RGODvf2Re6xT/eUz7NcyMxcy2PNNj+qrRKGfcqey08S0JXwu/BraRPtZMGBCtis51MorMADIofNrYOwzla75qTyMqhHOHTtqu+Czj9ZvFzTf1hmMCURH+1srIecE+/uNnxJpWxIGZ+KmgCktVw==
+ b=nmfCLJeXarq2dvvxe8II+CLPRQoe/edx9wZsKwVEwpKUllSi3Ur7eYypC1gtDiwaYPYABuK5OSfzAL0J4STfCHskt6bxVxeDCG3jrWajkd0DnyYdrlsiGqhZmHro5cMNeYQltgThnmwcc4abTZnLsn1sQlSoXoAgI/F01b1OZcbHqJJKSAM3PbkmVnH7AGQarQINU51UN6hZA5wsxXDTcz0lrTHZiv9kFtXIlis/26i449ws2614mN0rUV0bXVuQzt2w8iiR8z87KJdCjjiCqMYMbPFTygQoJ6SK5HZ/QN0ZZocN30a60oo8062TNyOD38nmHT8gZ8C8BQUSQJZV4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OkrNEbLoyexuUjS6qh7Iv77ErfnsOqX/9UpUQrJ5m8M=;
- b=VZUAIBVuZVszk0VdNyykpRChXpektIPtP1lpk9hHu0YBTOpOL+neR2hNNf1mqaCmFOfzosCMLEKslg7jY/s3IuDlOJyoY4F0j61JlZ+VMbWMPkRY+lT4CxxPikXj9GtJTDOONupqPEal85owPweTiTyvOu4YO8QxI2KC1Y98B/TgEb3MkwqJXNUq4MZv2HF7ZFxuhdXSfrERbDxqwipuJpVfNsSt1H1sv6sX7emOiUGAHdaPjzGrnEVB0r8U1auWW5uGxatEsh6qKSvnX+LfxR6PJkc7IjfPzPtGMdt+yZ55zH4pXnQykQCW1pz+Cxs5Ub0vHbH130ch8ZVo+i54hQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=YdF68HjkU0qfGGmtkXzAAYUSWZ+EnkEar3p/s46+57Q=;
+ b=cDXr07lwl1kCnq6DecOwOQj6j2uCyYYBDhFnFupKwUN7Hypp/uZjihwGjD02rL3LKHS8MFNloAFUfSMdPMu03zpgQ2xiYeEYk+WzrlhruuG8vId610fmfrs2C4Z0ldCyXEDcg218sxHDsHmuRVulpMdx0NoxvD0jjFmhng4tuFU+gzO+pY69MfGx5in8lvFMaQ3SdxxH5mhjEGDb4bCdotzw4fiA0ZwJeeILDb8j89aFtjq/4tOfo58/y0odEot+mfc3Kh1eU1TUhkzYpkEld0pmXb0LlQ0AMjZj7NQwQJ9wNTIaX+RDW38RZDtdR0zaRiKJA28+Lwqnujiz6BdSeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OkrNEbLoyexuUjS6qh7Iv77ErfnsOqX/9UpUQrJ5m8M=;
- b=bcg9A6gau4r4h/StTsSCVoi6paewusZQguAGJZ254cFIgX3mSCpglTo279GVjox2yhIiExDdpYxC1O4IFishwmXT+45MJbtfDJEoMvmQANX+kQQ7uIGltJHtIRr5/AH6WuHDFdnxNYujtOHUbTD/3JH/zYX/sUY5D/vbr32z1jE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5336.namprd12.prod.outlook.com (2603:10b6:208:314::8)
- by DM3PR12MB9326.namprd12.prod.outlook.com (2603:10b6:0:3d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.8; Fri, 7 Jul
- 2023 15:45:34 +0000
-Received: from BL1PR12MB5336.namprd12.prod.outlook.com
- ([fe80::d798:c26b:8d50:aa2c]) by BL1PR12MB5336.namprd12.prod.outlook.com
- ([fe80::d798:c26b:8d50:aa2c%5]) with mapi id 15.20.6565.025; Fri, 7 Jul 2023
- 15:45:34 +0000
-Message-ID: <ab49d1db-c386-993d-67d5-b638dad121f7@amd.com>
-Date: Fri, 7 Jul 2023 11:45:30 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH 4/6] drm/amdkfd: enable grace period for xcc instance
-To: "Kim, Jonathan" <Jonathan.Kim@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20230706181918.189722-1-jinhuieric.huang@amd.com>
- <20230706181918.189722-5-jinhuieric.huang@amd.com>
- <CY8PR12MB74359A316EAE92978FA47386852DA@CY8PR12MB7435.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Eric Huang <jinhuieric.huang@amd.com>
-In-Reply-To: <CY8PR12MB74359A316EAE92978FA47386852DA@CY8PR12MB7435.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9P220CA0019.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:408:13e::24) To BL1PR12MB5336.namprd12.prod.outlook.com
- (2603:10b6:208:314::8)
+ bh=YdF68HjkU0qfGGmtkXzAAYUSWZ+EnkEar3p/s46+57Q=;
+ b=LOxiUYLxjRj+yi9xSzMusgXSQXNoJKSU82vYmP4PvveAdZKbq4yr3kXLH+QTs4B96y+ULTTCk4DDcpB8vbqwQ0AEL8LM2VS/kcZE0NI7YhoYif/Hy+wlp+wh40MwVBZ1dr9outyD4V1H9alNS/j1ubL2tj9Qzq35h8BGtXN6n/I=
+Received: from BN8PR16CA0022.namprd16.prod.outlook.com (2603:10b6:408:4c::35)
+ by SA1PR12MB8885.namprd12.prod.outlook.com (2603:10b6:806:376::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Fri, 7 Jul
+ 2023 15:49:27 +0000
+Received: from BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:4c:cafe::b4) by BN8PR16CA0022.outlook.office365.com
+ (2603:10b6:408:4c::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.25 via Frontend
+ Transport; Fri, 7 Jul 2023 15:49:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT051.mail.protection.outlook.com (10.13.177.66) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6521.45 via Frontend Transport; Fri, 7 Jul 2023 15:49:26 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 7 Jul
+ 2023 10:49:26 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdgpu: Increase soft IH ring size
+Date: Fri, 7 Jul 2023 11:49:01 -0400
+Message-ID: <20230707154901.29568-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5336:EE_|DM3PR12MB9326:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11f4cc8a-bc19-4277-13f2-08db7f013389
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT051:EE_|SA1PR12MB8885:EE_
+X-MS-Office365-Filtering-Correlation-Id: 307b37ea-bef1-43c8-c9d4-08db7f01be5d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: y6J+B0PzX4C1dNrQww8lh+DXoH0DemGYerZjed1Pu/e7N9y+6L3Leevozwa7J5AEFAqBpmIcqSc1DbnBut23t3/5ttwJDTsKncHQEMxQE1JV1FJtcwqZMqMOfUnIXZgb0MLvxm3ho0fwqBndsdN3VNmcEth/KEkH7YkdWwahahvwpsecv7WecFaiL91SUSM4IYigLzHu6B+/fiTi6O2xe2tkypGTy7mWvH7qh3lifhWQAYpfFMc4RqxPxYtxnAAuC3HGcDxg47KnhavnQwtOyJsDFZDBuY+439mjncHf+MKPrlSPyflp07MqW4gw3d2ORslDQiu/Ulf38TgldaG9+l3oDOllKhlR2skVRLL/gtOE5DeZjDekPjbP4QPAeFrDF2LTJ/iNCHUqs7txeL4aMEe4ZApJjspZZmWGNuqTiGUs8luAfKEruE8y+amNQLcK1KXuFd+x9EAhNTWOc7X2qM5Wggu5utEuD4wr5bD06DZM+J60T2dkoi72nPKRb9f3VTn/fFqFhNVxr8AbshSFuqMJQVhc/By1vd3cJ+jGVULUYQXfo/nbORFGdVzbDUh8DrNSuRodhsdqqwCQ73ZJnruBmO82QTjZ8ueTxeG8yhqLJIXiwfG80Np9Veg8+97cYLQ38uKV/XSJ8O/0xZQxYA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5336.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(39860400002)(366004)(346002)(376002)(136003)(451199021)(2906002)(41300700001)(8676002)(36756003)(8936002)(31696002)(26005)(186003)(2616005)(5660300002)(6506007)(6666004)(6512007)(31686004)(478600001)(6486002)(53546011)(316002)(66476007)(66946007)(66556008)(38100700002)(110136005)(83380400001)(86362001)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: Fi/geDNrkwsJwkjT886S2Pl8CAHNLL5xWCt263BzBY28TUP/q/hUfzyb8Y8Xqcj0oi1JhNoR7rvZjYJSN2VNsgAxuXetCiyen8GYsBtH/+AVrMnwqrsIlCPOnHH/zEX2ZB5a0UfpCfln43e7LPGZ6IgDFAnEUb5iGpghyC7io6aTTHouj/nKDqZBXAWRwv8hnMLSs0T/mOvML4NEBQdJjYEJ37VwQ7Ao8HQ8M7mWx7zwyRh2CGYraa62Y5mqjbPOpniHW10FkMQhlVWmcohDyyeWwYW7XswCfVQY6xIqS8SMp4ianTdgoz4RuTYr2iH0mpvjlTjKtw1pjlstPLieMsZvOqYvWM761BP/gwi3ipUNwjpuJNnQ8qWxTHrPEbe9shkALUtHxXnL1/mqWnES/nvW1r7iw608laF5Ly4r+yzrbuqQRyw1R+U+ywXtesCn3JE/i0OqBkk/hj/n1VbQv7TFCWCGIJstUdB/qp9D59e3rOanLkJk2G201byf8mygUKKs6kaZbdI4uNziIrzGWxb00jou3s8MazQJRPeJGbCxF0MLpV/aqdCzJBVm6gnWoeWw4TwYijPiVK9I5a4nlt9HAwruQMeVnGvaZY1liqNdya6oIlNA38X49WqnlJva44mbMNQW8ufc5hkkNU2/tpKbjQl0PsVD/46ig9yflhlHBCFKSBI/6cB1B5s8INa2Z9Mnr47DbInD5lhMBswVTzMeG3e7yBZAJQYaehga7p0BDwBH8VABreyToHq8hYObHcixr44Nno0s3D3EdZ8Q6A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(396003)(376002)(136003)(346002)(451199021)(36840700001)(46966006)(40470700004)(82310400005)(7696005)(6666004)(40460700003)(316002)(8676002)(8936002)(41300700001)(186003)(40480700001)(36756003)(16526019)(336012)(1076003)(26005)(478600001)(83380400001)(47076005)(54906003)(70206006)(70586007)(426003)(356005)(81166007)(4326008)(6916009)(82740400003)(5660300002)(2906002)(36860700001)(2616005)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFltbDNKWllYL0xUUUFTQmhuNytkdUNOejJIMWtjaUpDTjFON2tNUUkvVzVF?=
- =?utf-8?B?Sjd4VWhuNE9ra1k3bTNIaVcxcVg0YUp4YzZMOGhVNk95MUk3MTIraU1YUS9t?=
- =?utf-8?B?VVh1a3JYS3VQUWwvMXJzQXlUMHpqUGlESDJLNk5kK01xNXhBODJSeVdzR1hT?=
- =?utf-8?B?bk85OVd0bDJHODRuUk11NGkvYmpUU05ZVlZkck4vNXQ2cDFGWUt2dkJHZ2xG?=
- =?utf-8?B?ZVV3dE9DR05UMTB4ckY3SU5keUh4SnNPU3N5ZnNYeGNzVmxKL3dvNm9pUlF0?=
- =?utf-8?B?cmtLaExRV1pyOHY5NWowQ2hOa3dFTlBUYy9jYzFodmY4OFFlN01zNExTZmps?=
- =?utf-8?B?ZS9lU0g3Mk84SVJkSjY2UTFRWk16WU9zNStZZVp2TlJmbmt4bEVQSUd0dW1h?=
- =?utf-8?B?NVBQcWhZeUJvcGR2L1RWVDhJMkxhLzBVelVZOHNJZmljUWp6S0xvc3BqOHdH?=
- =?utf-8?B?Rm5aV0VLTFE3QXZtZTZ1UmRRNndYSFVKL1NxbDgybzZ4QmNqUXZ0ZWM2ZXBM?=
- =?utf-8?B?NXNENDM0MDl2WkYyTStEM2FuZ1Fvek5TNFg0c05ZYXhNR2o4ajdxcUkySVRw?=
- =?utf-8?B?c3hDVWJPRTQ5YXA3K0Q5c0ZBL2owV1ZLSHNwUGhDQ2NVRHhIVWQyRHgwZ1d2?=
- =?utf-8?B?dFo3bUVGak1hcHZTSGR1a1hwSkQzYzN3L29LV3VwWER0VmdzdG9xMUF3b1ZG?=
- =?utf-8?B?eGlPMEpTTFJvVnU2dnRTYzIrSHhBa0R1elovK3ZpVjMzbkt3d2ZJS0ttMFRC?=
- =?utf-8?B?LzVFRktncUkrUXRpdCtnL2x2RHAxRW9JVzNNWEtFMTA5aFJFQnFORXJtRy84?=
- =?utf-8?B?ZHc4c2s2KzI0M0hKUWhwYXBQdG5jVXdsc3V0N3dsZFhmZzVTQWNxL0NwdXhQ?=
- =?utf-8?B?VS9RWHIwWHBIeko4c2FTT0l6dDFTQmo3c3d5RHpqczdWTTFVK3JxTmhsNHdo?=
- =?utf-8?B?RnpUNGNNTkp3WUhtQU9SN213SjJKTHBwU09EelY3ZlBubEVML1kyTHZ6dGxm?=
- =?utf-8?B?aWtzbHlvNmZPSFVrdmpGcnVhR0Y2Z3NBSzdvamxZcVJnTHlUbU5NeEF2bk8v?=
- =?utf-8?B?SjB6WUxKNE51bENkL3dqVElXU1dOanhiOFFGQ1ZVZ2VGVE9lTDhWS2l6d2ZS?=
- =?utf-8?B?Z0FBOXJVdktaSGEzTEdsS0NIbFFDVjg4Vnl3eXJ2aGxRYXlGQ0t6MXB4MjRJ?=
- =?utf-8?B?MWhEZk1LR0hGZC8yT3p4NXpQMVV4Q09Uak1UYUk4R2U0L013V0pianh0c3B2?=
- =?utf-8?B?ZVRWNWsxZnRhdWRyYWU2SGRPaW5sWUpqSlBKMitmOTYyeUM5aTBSdlRxZnlH?=
- =?utf-8?B?M0RhendCdDZudFBUMXhSdnN6M0w5aml2aGRON1B0OHhiZzRvaWYyZ0JpcXZX?=
- =?utf-8?B?a0pOQW9PZFo3YXJubFNEVHpGMTV3Z0VOZGQ4UytQRVcxQThLYXVuL0RUd0Zl?=
- =?utf-8?B?TDVsVUpUMDh3Y2VmeTRKME9yMXkxc0FId1pNMVRsckVjejNCQzNYVmh1bC9F?=
- =?utf-8?B?MGIwL0NkdFBjRDVkYnBDWXFQSG1lLys1ZFZYM3puL1hFbWgxelArZ2xoT3Rm?=
- =?utf-8?B?QUFYMlRNRndsVDFvKzBiZFNTUG9renQ4aitqVklKTU4yNktKemdpelc4dzhq?=
- =?utf-8?B?bVFLd2R2M2Y4UGltQU5YdzA1Q1U1NnRMbE9rSmJiMkZQU1A5TzRLdWJRQ0ho?=
- =?utf-8?B?eDRQVWd4SU1HMGpEZUJScURlWXFJbklEc01NSktVZFlVclVUWW8vYk5CODdn?=
- =?utf-8?B?ZmcyUVk5UUdJdE1nbERVWjhGdm9ITHU5eHVHM01VaHEwY3luNFJrSGxkSzFy?=
- =?utf-8?B?OXJRV3AxcVkzZ2pVM21JNk4wNm56R0FObC8xZGlsc2x2ZXNrM3Vvcms4c1Av?=
- =?utf-8?B?eDBvdXR6M0RpTzFhcFhPenIrR2dsV1NENnRxUXNrODFOQjk3Wjd5clBCMlVG?=
- =?utf-8?B?aUplRGJUTU5PbHNYeGhzT2RXcmtJWlNLUVZhWmtmWHE5amwzWHNHc201Z1Ez?=
- =?utf-8?B?L05PMWVEM2V5Vk96UGVHSGMyallRMDJGMmoyeXNiZEFmMkd4TjdlMm1ZRDk1?=
- =?utf-8?B?Tlk1UUEzc1lLaWlUZmtJb2d1Zm1pSkZMYzhRRnFTSEEwcEJXaTlrcklZeStF?=
- =?utf-8?Q?nZANEL0PoJgqK/fbhB+c6O3AD?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11f4cc8a-bc19-4277-13f2-08db7f013389
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5336.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 15:45:34.1672 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 15:49:26.8100 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 307b37ea-bef1-43c8-c9d4-08db7f01be5d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hqIxpwlzaTqynpYqdq+EAM04LOSUJAbchi3+ptEHdxNuazxp0C4JXMwvFk5fZ26Y0d8Sdy+w9A9FVGSRDHfS9A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9326
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8885
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,195 +97,196 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: mukul.joshi@amd.com, Felix.Kuehling@amd.com,
+ Philip Yang <Philip.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Retry faults are delegated to soft IH ring and then processed by
+deferred worker. Current soft IH ring size PAGE_SIZE can store 128
+entries, which may overflow and drop retry faults, causes HW stucks
+because the retry fault is not recovered.
 
-On 2023-07-07 10:59, Kim, Jonathan wrote:
-> [Public]
->
->> -----Original Message-----
->> From: Huang, JinHuiEric <JinHuiEric.Huang@amd.com>
->> Sent: Thursday, July 6, 2023 2:19 PM
->> To: amd-gfx@lists.freedesktop.org
->> Cc: Kim, Jonathan <Jonathan.Kim@amd.com>; Huang, JinHuiEric
->> <JinHuiEric.Huang@amd.com>
->> Subject: [PATCH 4/6] drm/amdkfd: enable grace period for xcc instance
->>
->> each xcc instance needs to get iq wait time and set
->> grace period accordingly.
->>
->> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
->> ---
->>   .../drm/amd/amdkfd/kfd_device_queue_manager.c |  9 ++++--
->>   .../drm/amd/amdkfd/kfd_device_queue_manager.h |  2 +-
->>   .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   | 32 +++++++++++--------
->>   .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |  9 +++---
->>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  2 +-
->>   5 files changed, 32 insertions(+), 22 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> index a2bff3f01359..0f12c1989e14 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> @@ -1606,6 +1606,8 @@ static int set_sched_resources(struct
->> device_queue_manager *dqm)
->>
->>   static int initialize_cpsch(struct device_queue_manager *dqm)
->>   {
->> +     uint32_t xcc_id, xcc_mask = dqm->dev->xcc_mask;
->> +
->>        pr_debug("num of pipes: %d\n", get_pipes_per_mec(dqm));
->>
->>        mutex_init(&dqm->lock_hidden);
->> @@ -1620,8 +1622,11 @@ static int initialize_cpsch(struct
->> device_queue_manager *dqm)
->>        init_sdma_bitmaps(dqm);
->>
->>        if (dqm->dev->kfd2kgd->get_iq_wait_times)
->> -             dqm->dev->kfd2kgd->get_iq_wait_times(dqm->dev->adev,
->> -                                     &dqm->wait_times, 0);
->> +             for_each_inst(xcc_id, xcc_mask)
->> +                     dqm->dev->kfd2kgd->get_iq_wait_times(
->> +                                     dqm->dev->adev,
->> +                                     &dqm->wait_times[xcc_id],
->> +                                     xcc_id);
->>        return 0;
->>   }
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
->> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
->> index 7dd4b177219d..62a6dc8d3032 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
->> @@ -262,7 +262,7 @@ struct device_queue_manager {
->>        /* used for GFX 9.4.3 only */
->>        uint32_t                current_logical_xcc_start;
->>
->> -     uint32_t                wait_times;
->> +     uint32_t                wait_times[32];
-> I think wait_times[16] should be sufficient.  We only get the hamming weight of 16 bits for NUM_XCC and I believe the xcc_mask is declared as a uint16_t in the KGD portion anyway.  We may as well align to that.
->
->>        wait_queue_head_t       destroy_wait;
->>   };
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
->> index 401096c103b2..f37ab4b6d88c 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
->> @@ -374,27 +374,31 @@ int pm_update_grace_period(struct
->> packet_manager *pm, uint32_t grace_period)
->>   {
->>        int retval = 0;
->>        uint32_t *buffer, size;
->> +     uint32_t xcc_id, xcc_mask = pm->dqm->dev->xcc_mask;
->>
->>        size = pm->pmf->set_grace_period_size;
->>
->>        mutex_lock(&pm->lock);
->>
->>        if (size) {
->> -             kq_acquire_packet_buffer(pm->priv_queue,
->> -                     size / sizeof(uint32_t),
->> -                     (unsigned int **)&buffer);
->> -
->> -             if (!buffer) {
->> -                     pr_err("Failed to allocate buffer on kernel queue\n");
->> -                     retval = -ENOMEM;
->> -                     goto out;
->> -             }
->> +             for_each_inst(xcc_id, xcc_mask) {
->> +                     kq_acquire_packet_buffer(pm->priv_queue,
->> +                                     size / sizeof(uint32_t),
->> +                                     (unsigned int **)&buffer);
->>
->> -             retval = pm->pmf->set_grace_period(pm, buffer,
->> grace_period);
->> -             if (!retval)
->> -                     kq_submit_packet(pm->priv_queue);
->> -             else
->> -                     kq_rollback_packet(pm->priv_queue);
->> +                     if (!buffer) {
->> +                             pr_err("Failed to allocate buffer on kernel
->> queue\n");
->> +                             retval = -ENOMEM;
->> +                             goto out;
->> +                     }
->> +
->> +                     retval = pm->pmf->set_grace_period(pm, buffer,
->> +                                     grace_period, xcc_id);
->> +                     if (!retval)
->> +                             kq_submit_packet(pm->priv_queue);
->> +                     else
->> +                             kq_rollback_packet(pm->priv_queue);
-> In the event of partial success do we need to roll back (i.e. resubmit default grace period) on failure?
-The function pm_set_grace_period_v9 always return 0, and it is not 
-complicate operation, it should be always successful. Partial success 
-will not be the case we should care about at this moment.
+Increase soft IH ring size to 8KB, enough to store 256 CAM entries
+because we clear the CAM entry after handling the retry fault from soft
+ring.
 
-Regards,
-Eric
-> I believe the default grace period is put in place for better CWSR performance in normal mode, so leaving fast preemption settings on failure could impact performance.
->
-> Thanks,
->
-> Jon
->
->> +             }
->>        }
->>
->>   out:
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
->> index 8fda16e6fee6..a9443d661957 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
->> @@ -287,7 +287,8 @@ static int pm_map_queues_v9(struct packet_manager
->> *pm, uint32_t *buffer,
->>
->>   static int pm_set_grace_period_v9(struct packet_manager *pm,
->>                uint32_t *buffer,
->> -             uint32_t grace_period)
->> +             uint32_t grace_period,
->> +             uint32_t inst)
->>   {
->>        struct pm4_mec_write_data_mmio *packet;
->>        uint32_t reg_offset = 0;
->> @@ -295,14 +296,14 @@ static int pm_set_grace_period_v9(struct
->> packet_manager *pm,
->>
->>        pm->dqm->dev->kfd2kgd->build_grace_period_packet_info(
->>                        pm->dqm->dev->adev,
->> -                     pm->dqm->wait_times,
->> +                     pm->dqm->wait_times[inst],
->>                        grace_period,
->>                        &reg_offset,
->>                        &reg_data,
->> -                     0);
->> +                     inst);
->>
->>        if (grace_period == USE_DEFAULT_GRACE_PERIOD)
->> -             reg_data = pm->dqm->wait_times;
->> +             reg_data = pm->dqm->wait_times[inst];
->>
->>        packet = (struct pm4_mec_write_data_mmio *)buffer;
->>        memset(buffer, 0, sizeof(struct pm4_mec_write_data_mmio));
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> index d4c9ee3f9953..22c4a403ddd7 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> @@ -1400,7 +1400,7 @@ struct packet_manager_funcs {
->>                        enum kfd_unmap_queues_filter mode,
->>                        uint32_t filter_param, bool reset);
->>        int (*set_grace_period)(struct packet_manager *pm, uint32_t *buffer,
->> -                     uint32_t grace_period);
->> +                     uint32_t grace_period, uint32_t inst);
->>        int (*query_status)(struct packet_manager *pm, uint32_t *buffer,
->>                        uint64_t fence_address, uint64_t
->> fence_value);
->>        int (*release_mem)(uint64_t gpu_addr, uint32_t *buffer);
->> --
->> 2.34.1
+Define macro IH_RING_SIZE and IH_SW_RING_SIZE to remove duplicate
+constant.
+
+Show warning message if soft IH ring overflows because this should not
+happen.
+
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c  | 8 ++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  | 7 +++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/ih_v6_0.c    | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c  | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c  | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c  | 4 ++--
+ 7 files changed, 20 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+index fceb3b384955..51a0dbd2358a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+@@ -138,6 +138,7 @@ void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+ /**
+  * amdgpu_ih_ring_write - write IV to the ring buffer
+  *
++ * @adev: amdgpu_device pointer
+  * @ih: ih ring to write to
+  * @iv: the iv to write
+  * @num_dw: size of the iv in dw
+@@ -145,8 +146,8 @@ void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+  * Writes an IV to the ring buffer using the CPU and increment the wptr.
+  * Used for testing and delegating IVs to a software ring.
+  */
+-void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+-			  unsigned int num_dw)
++void amdgpu_ih_ring_write(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
++			  const uint32_t *iv, unsigned int num_dw)
+ {
+ 	uint32_t wptr = le32_to_cpu(*ih->wptr_cpu) >> 2;
+ 	unsigned int i;
+@@ -161,6 +162,9 @@ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+ 	if (wptr != READ_ONCE(ih->rptr)) {
+ 		wmb();
+ 		WRITE_ONCE(*ih->wptr_cpu, cpu_to_le32(wptr));
++	} else {
++		dev_warn(adev->dev, "IH soft ring buffer overflow 0x%X, 0x%X\n",
++			 wptr, ih->rptr);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+index dd1c2eded6b9..6c6184f0dbc1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+@@ -27,6 +27,9 @@
+ /* Maximum number of IVs processed at once */
+ #define AMDGPU_IH_MAX_NUM_IVS	32
+ 
++#define IH_RING_SIZE	(256 * 1024)
++#define IH_SW_RING_SIZE	(8 * 1024)	/* enough for 256 CAM entries */
++
+ struct amdgpu_device;
+ struct amdgpu_iv_entry;
+ 
+@@ -97,8 +100,8 @@ struct amdgpu_ih_funcs {
+ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+ 			unsigned ring_size, bool use_bus_addr);
+ void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+-void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+-			  unsigned int num_dw);
++void amdgpu_ih_ring_write(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
++			  const uint32_t *iv, unsigned int num_dw);
+ int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
+ 					    struct amdgpu_ih_ring *ih);
+ int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+index 5273decc5753..fa6d0adcec20 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+@@ -493,7 +493,7 @@ void amdgpu_irq_delegate(struct amdgpu_device *adev,
+ 			 struct amdgpu_iv_entry *entry,
+ 			 unsigned int num_dw)
+ {
+-	amdgpu_ih_ring_write(&adev->irq.ih_soft, entry->iv_entry, num_dw);
++	amdgpu_ih_ring_write(adev, &adev->irq.ih_soft, entry->iv_entry, num_dw);
+ 	schedule_work(&adev->irq.ih_soft_work);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+index b02e1cef78a7..980b24120080 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+@@ -535,7 +535,7 @@ static int ih_v6_0_sw_init(void *handle)
+ 	 * use bus address for ih ring by psp bl */
+ 	use_bus_addr =
+ 		(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) ? false : true;
+-	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 256 * 1024, use_bus_addr);
++	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, IH_RING_SIZE, use_bus_addr);
+ 	if (r)
+ 		return r;
+ 
+@@ -548,7 +548,7 @@ static int ih_v6_0_sw_init(void *handle)
+ 	/* initialize ih control register offset */
+ 	ih_v6_0_init_register_offset(adev);
+ 
+-	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, PAGE_SIZE, true);
++	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, true);
+ 	if (r)
+ 		return r;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+index eec13cb5bf75..b6a8478dabf4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+@@ -565,7 +565,7 @@ static int navi10_ih_sw_init(void *handle)
+ 		use_bus_addr = false;
+ 	else
+ 		use_bus_addr = true;
+-	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 256 * 1024, use_bus_addr);
++	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, IH_RING_SIZE, use_bus_addr);
+ 	if (r)
+ 		return r;
+ 
+@@ -578,7 +578,7 @@ static int navi10_ih_sw_init(void *handle)
+ 	/* initialize ih control registers offset */
+ 	navi10_ih_init_register_offset(adev);
+ 
+-	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, PAGE_SIZE, true);
++	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, true);
+ 	if (r)
+ 		return r;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+index 1e83db0c5438..d364c6dd152c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+@@ -485,7 +485,7 @@ static int vega10_ih_sw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
+-	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 256 * 1024, true);
++	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, IH_RING_SIZE, true);
+ 	if (r)
+ 		return r;
+ 
+@@ -510,7 +510,7 @@ static int vega10_ih_sw_init(void *handle)
+ 	/* initialize ih control registers offset */
+ 	vega10_ih_init_register_offset(adev);
+ 
+-	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, PAGE_SIZE, true);
++	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, true);
+ 	if (r)
+ 		return r;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+index 4d719df376a7..544ee55a22da 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+@@ -539,7 +539,7 @@ static int vega20_ih_sw_init(void *handle)
+ 	    (adev->ip_versions[OSSSYS_HWIP][0] == IP_VERSION(4, 4, 2)))
+ 		use_bus_addr = false;
+ 
+-	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 256 * 1024, use_bus_addr);
++	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, IH_RING_SIZE, use_bus_addr);
+ 	if (r)
+ 		return r;
+ 
+@@ -565,7 +565,7 @@ static int vega20_ih_sw_init(void *handle)
+ 	/* initialize ih control registers offset */
+ 	vega20_ih_init_register_offset(adev);
+ 
+-	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, PAGE_SIZE, use_bus_addr);
++	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, use_bus_addr);
+ 	if (r)
+ 		return r;
+ 
+-- 
+2.35.1
 
