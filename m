@@ -4,90 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB0ADEB64D9
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 15:21:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BB05EB64D9
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 15:45:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ABFC10E14C;
-	Fri,  7 Jul 2023 15:21:22 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2044.outbound.protection.outlook.com [40.107.94.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49F4510E5B0
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jul 2023 15:21:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 267B310E5B5;
+	Fri,  7 Jul 2023 15:45:39 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2061b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::61b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0970910E5B5
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Jul 2023 15:45:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eMp/Flo6eMXKOL7KgAoBWh59g+EYnwle6GqhIahtl/1UJTE7cS9y9atrD3b996CyvEu7o+t77cigKiqRbrjdu26CrvbxmOQh2ji45hI4gj8dGWPgbWnrtTZ/zma44BgfFd8+GcaAMk+qG7oWVT6GkUiDGoqwezAxWcwXxdr+8JGkbGv83ELztbx14dbiTxA+J+GSFj5DdvcxA/V6tIfi11V8uzCPX9nPc6bgUMPnqPsRLvQ1tG8SPIT920XFHGCZwswNOR32lw7uXPb3EsSVeYyHx90OiLB0gBDh8IPftVOTuZ3avfpOgeUgChqAQZ2GVbtunndsSkAwkgGbV2I+7w==
+ b=iSh5dY/yQ7D4j5SdBXDZIgLls0P1ANJhyLhkMpuhOWVqfR6NyoZT7RPf9eBO7/pULKCHHyLR906pyUZrTTBji4wQJ3wDHmkuqQWNDrzI3+ewqpMgA06HeakIKDgRxV4DyK3LUCd+50Owa3lwszG3uV8C5z2BhgjIzXW1+k9UREt28qScBB45kRexH8Tm5RPKhLG6RGODvf2Re6xT/eUz7NcyMxcy2PNNj+qrRKGfcqey08S0JXwu/BraRPtZMGBCtis51MorMADIofNrYOwzla75qTyMqhHOHTtqu+Czj9ZvFzTf1hmMCURH+1srIecE+/uNnxJpWxIGZ+KmgCktVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VbwF42dezmyITdQNvCsQBCZ7jT8oKmGe4+lGTNV/4Vo=;
- b=URPxAerZA8c1VFCEEY5QF9BpcwX/3Vzk+KWvrgTKpvtIGsmVZvlqgoyK5E7nyKZ6+BWqEoTnkmEpcnJ4iVUlGJf12cOFyfTK1wmkXLCxrmisKdkv2c+itK5iNSB4qqvWXdDfxSvU0OKNb7Mf18szMguhHGzxmJjpS+QrkypB6f1IhrFxLB8n/E+n/d1F/ZN9Jm02KhvfsuQkcO+yPDEpPJKwjV1ioY4q1p70ibxsEdcoSehmj8N9LFQYgIIYeMVlSBiUodDU9ffBxIez55g7E3/BFSm8V7OPBcQYX8xiCHs+4lzK7jjPVBRjF5lZ/NBkgIAS3KEn7ClReTQ9tmL3HA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=OkrNEbLoyexuUjS6qh7Iv77ErfnsOqX/9UpUQrJ5m8M=;
+ b=VZUAIBVuZVszk0VdNyykpRChXpektIPtP1lpk9hHu0YBTOpOL+neR2hNNf1mqaCmFOfzosCMLEKslg7jY/s3IuDlOJyoY4F0j61JlZ+VMbWMPkRY+lT4CxxPikXj9GtJTDOONupqPEal85owPweTiTyvOu4YO8QxI2KC1Y98B/TgEb3MkwqJXNUq4MZv2HF7ZFxuhdXSfrERbDxqwipuJpVfNsSt1H1sv6sX7emOiUGAHdaPjzGrnEVB0r8U1auWW5uGxatEsh6qKSvnX+LfxR6PJkc7IjfPzPtGMdt+yZ55zH4pXnQykQCW1pz+Cxs5Ub0vHbH130ch8ZVo+i54hQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VbwF42dezmyITdQNvCsQBCZ7jT8oKmGe4+lGTNV/4Vo=;
- b=4t2MtuC77qhBtZi1HZkV+bTRvDfumERAIw7v5ImpTc+wDgpt+sUFxNjTHyRG9TBd86uk86XnY2+yRL18otZ9u+y3j71Sxfqfy+XiB941SRM1Fd78ASkRW+i6cGqFehZz0liE6YfG/IbMpyiON/LpEJ9np/0VOLUoLcp8Qb7uaB0=
-Received: from MW3PR06CA0004.namprd06.prod.outlook.com (2603:10b6:303:2a::9)
- by DM6PR12MB5519.namprd12.prod.outlook.com (2603:10b6:5:1b5::18) with
+ bh=OkrNEbLoyexuUjS6qh7Iv77ErfnsOqX/9UpUQrJ5m8M=;
+ b=bcg9A6gau4r4h/StTsSCVoi6paewusZQguAGJZ254cFIgX3mSCpglTo279GVjox2yhIiExDdpYxC1O4IFishwmXT+45MJbtfDJEoMvmQANX+kQQ7uIGltJHtIRr5/AH6WuHDFdnxNYujtOHUbTD/3JH/zYX/sUY5D/vbr32z1jE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5336.namprd12.prod.outlook.com (2603:10b6:208:314::8)
+ by DM3PR12MB9326.namprd12.prod.outlook.com (2603:10b6:0:3d::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.25; Fri, 7 Jul
- 2023 15:21:18 +0000
-Received: from CO1NAM11FT116.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:2a:cafe::3b) by MW3PR06CA0004.outlook.office365.com
- (2603:10b6:303:2a::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.25 via Frontend
- Transport; Fri, 7 Jul 2023 15:21:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT116.mail.protection.outlook.com (10.13.174.243) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6521.45 via Frontend Transport; Fri, 7 Jul 2023 15:21:17 +0000
-Received: from x570-ryzen9-5900x.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23; Fri, 7 Jul 2023 10:21:14 -0500
-From: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
-To: <saleemkhan.jamadar@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <christian.koenig@amd.com>, <leo.liu@amd.com>,
- <veerabadhran.gopalakrishnan@amd.com>, <sathishkumar.sundararaju@amd.com>
-Subject: [PATCH v5] drm/amdgpu:update kernel vcn ring test
-Date: Fri, 7 Jul 2023 20:50:46 +0530
-Message-ID: <20230707152046.48706-1-saleemkhan.jamadar@amd.com>
-X-Mailer: git-send-email 2.25.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.8; Fri, 7 Jul
+ 2023 15:45:34 +0000
+Received: from BL1PR12MB5336.namprd12.prod.outlook.com
+ ([fe80::d798:c26b:8d50:aa2c]) by BL1PR12MB5336.namprd12.prod.outlook.com
+ ([fe80::d798:c26b:8d50:aa2c%5]) with mapi id 15.20.6565.025; Fri, 7 Jul 2023
+ 15:45:34 +0000
+Message-ID: <ab49d1db-c386-993d-67d5-b638dad121f7@amd.com>
+Date: Fri, 7 Jul 2023 11:45:30 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH 4/6] drm/amdkfd: enable grace period for xcc instance
+To: "Kim, Jonathan" <Jonathan.Kim@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20230706181918.189722-1-jinhuieric.huang@amd.com>
+ <20230706181918.189722-5-jinhuieric.huang@amd.com>
+ <CY8PR12MB74359A316EAE92978FA47386852DA@CY8PR12MB7435.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Eric Huang <jinhuieric.huang@amd.com>
+In-Reply-To: <CY8PR12MB74359A316EAE92978FA47386852DA@CY8PR12MB7435.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN9P220CA0019.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:408:13e::24) To BL1PR12MB5336.namprd12.prod.outlook.com
+ (2603:10b6:208:314::8)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT116:EE_|DM6PR12MB5519:EE_
-X-MS-Office365-Filtering-Correlation-Id: 174ca35a-681b-4a80-72ed-08db7efdcf77
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5336:EE_|DM3PR12MB9326:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11f4cc8a-bc19-4277-13f2-08db7f013389
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6N1Fy8SL/CbefLqfEZCyBnYc21ryn0JNLHZv6Lr64+rp/c7jhwf+Yu6LamPPd/DEj9KY6ilHnWSULqcMy5786QEpZLRVR5l4HP6evjktjMDUUZqhwDGy7MMdrgVMhYN8uTg8f3wz9c3Tq4DZN0jqkgmyj8e+hX0TA6aQCL+mqyj3HEYaLEEnW7Kj05eQmPCeFqndtSHoEO2MCUWxeFJIgfPTlmbNaDM1QaMzXnngVaLDChUXzBI/zYvttf6OlAIYpqz3y5iIryQhMG0VZSbFa5VoEJ6mxjZXUbUUzbLBMCyCW32hNbZbfOt4Fxt9qf5P6TeATFJ4QRUl+ycbPvAK2mGHDfmjI6aVQ9DuxQPRnef7ks27AbFXoCzDP2quMh174b/y2SfTbsL/OZj10zMKsUbd2gRBYF8xGKcTukONuYkLtXeYf9ecPDrVwgHJ4v4Mix4nm7H3Kwoapgu7efbp3rc0SUKSizNUvimdIT+qySvPKHOc33Av3vJswzM3xHoWuXrPVH+gUT8BFPGL8WuA1VoZfHa3FTSG39Sk0mlyd9GZYfLmbPRYgVuO08xtnmXp8wLrjJOWP2nKV0HGkQnFJkM74ljU8w6xxN33H+0fAPQJ91KdVRYno1zl+8kAnXaGWAx5KtlgO9FyxZInji1eLHLdbrc+r6NS7e+yOYDrG0xy1sP0uRr9sxzDxxlLX0MFOG7gCLqtvOQmp8HzvM+DqfR//UkP6j/84xmsbc43S8SuU0ursL59lQQpW7P6bP+fGStYE6/SkhfSpte5vkwbRw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199021)(46966006)(36840700001)(40470700004)(6666004)(7696005)(478600001)(36860700001)(83380400001)(47076005)(86362001)(82740400003)(110136005)(70206006)(70586007)(81166007)(356005)(4326008)(6636002)(1076003)(26005)(16526019)(186003)(336012)(426003)(2616005)(5660300002)(44832011)(40460700003)(2906002)(41300700001)(8676002)(8936002)(316002)(40480700001)(36756003)(82310400005)(36900700001);
+X-Microsoft-Antispam-Message-Info: y6J+B0PzX4C1dNrQww8lh+DXoH0DemGYerZjed1Pu/e7N9y+6L3Leevozwa7J5AEFAqBpmIcqSc1DbnBut23t3/5ttwJDTsKncHQEMxQE1JV1FJtcwqZMqMOfUnIXZgb0MLvxm3ho0fwqBndsdN3VNmcEth/KEkH7YkdWwahahvwpsecv7WecFaiL91SUSM4IYigLzHu6B+/fiTi6O2xe2tkypGTy7mWvH7qh3lifhWQAYpfFMc4RqxPxYtxnAAuC3HGcDxg47KnhavnQwtOyJsDFZDBuY+439mjncHf+MKPrlSPyflp07MqW4gw3d2ORslDQiu/Ulf38TgldaG9+l3oDOllKhlR2skVRLL/gtOE5DeZjDekPjbP4QPAeFrDF2LTJ/iNCHUqs7txeL4aMEe4ZApJjspZZmWGNuqTiGUs8luAfKEruE8y+amNQLcK1KXuFd+x9EAhNTWOc7X2qM5Wggu5utEuD4wr5bD06DZM+J60T2dkoi72nPKRb9f3VTn/fFqFhNVxr8AbshSFuqMJQVhc/By1vd3cJ+jGVULUYQXfo/nbORFGdVzbDUh8DrNSuRodhsdqqwCQ73ZJnruBmO82QTjZ8ueTxeG8yhqLJIXiwfG80Np9Veg8+97cYLQ38uKV/XSJ8O/0xZQxYA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5336.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(39860400002)(366004)(346002)(376002)(136003)(451199021)(2906002)(41300700001)(8676002)(36756003)(8936002)(31696002)(26005)(186003)(2616005)(5660300002)(6506007)(6666004)(6512007)(31686004)(478600001)(6486002)(53546011)(316002)(66476007)(66946007)(66556008)(38100700002)(110136005)(83380400001)(86362001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFltbDNKWllYL0xUUUFTQmhuNytkdUNOejJIMWtjaUpDTjFON2tNUUkvVzVF?=
+ =?utf-8?B?Sjd4VWhuNE9ra1k3bTNIaVcxcVg0YUp4YzZMOGhVNk95MUk3MTIraU1YUS9t?=
+ =?utf-8?B?VVh1a3JYS3VQUWwvMXJzQXlUMHpqUGlESDJLNk5kK01xNXhBODJSeVdzR1hT?=
+ =?utf-8?B?bk85OVd0bDJHODRuUk11NGkvYmpUU05ZVlZkck4vNXQ2cDFGWUt2dkJHZ2xG?=
+ =?utf-8?B?ZVV3dE9DR05UMTB4ckY3SU5keUh4SnNPU3N5ZnNYeGNzVmxKL3dvNm9pUlF0?=
+ =?utf-8?B?cmtLaExRV1pyOHY5NWowQ2hOa3dFTlBUYy9jYzFodmY4OFFlN01zNExTZmps?=
+ =?utf-8?B?ZS9lU0g3Mk84SVJkSjY2UTFRWk16WU9zNStZZVp2TlJmbmt4bEVQSUd0dW1h?=
+ =?utf-8?B?NVBQcWhZeUJvcGR2L1RWVDhJMkxhLzBVelVZOHNJZmljUWp6S0xvc3BqOHdH?=
+ =?utf-8?B?Rm5aV0VLTFE3QXZtZTZ1UmRRNndYSFVKL1NxbDgybzZ4QmNqUXZ0ZWM2ZXBM?=
+ =?utf-8?B?NXNENDM0MDl2WkYyTStEM2FuZ1Fvek5TNFg0c05ZYXhNR2o4ajdxcUkySVRw?=
+ =?utf-8?B?c3hDVWJPRTQ5YXA3K0Q5c0ZBL2owV1ZLSHNwUGhDQ2NVRHhIVWQyRHgwZ1d2?=
+ =?utf-8?B?dFo3bUVGak1hcHZTSGR1a1hwSkQzYzN3L29LV3VwWER0VmdzdG9xMUF3b1ZG?=
+ =?utf-8?B?eGlPMEpTTFJvVnU2dnRTYzIrSHhBa0R1elovK3ZpVjMzbkt3d2ZJS0ttMFRC?=
+ =?utf-8?B?LzVFRktncUkrUXRpdCtnL2x2RHAxRW9JVzNNWEtFMTA5aFJFQnFORXJtRy84?=
+ =?utf-8?B?ZHc4c2s2KzI0M0hKUWhwYXBQdG5jVXdsc3V0N3dsZFhmZzVTQWNxL0NwdXhQ?=
+ =?utf-8?B?VS9RWHIwWHBIeko4c2FTT0l6dDFTQmo3c3d5RHpqczdWTTFVK3JxTmhsNHdo?=
+ =?utf-8?B?RnpUNGNNTkp3WUhtQU9SN213SjJKTHBwU09EelY3ZlBubEVML1kyTHZ6dGxm?=
+ =?utf-8?B?aWtzbHlvNmZPSFVrdmpGcnVhR0Y2Z3NBSzdvamxZcVJnTHlUbU5NeEF2bk8v?=
+ =?utf-8?B?SjB6WUxKNE51bENkL3dqVElXU1dOanhiOFFGQ1ZVZ2VGVE9lTDhWS2l6d2ZS?=
+ =?utf-8?B?Z0FBOXJVdktaSGEzTEdsS0NIbFFDVjg4Vnl3eXJ2aGxRYXlGQ0t6MXB4MjRJ?=
+ =?utf-8?B?MWhEZk1LR0hGZC8yT3p4NXpQMVV4Q09Uak1UYUk4R2U0L013V0pianh0c3B2?=
+ =?utf-8?B?ZVRWNWsxZnRhdWRyYWU2SGRPaW5sWUpqSlBKMitmOTYyeUM5aTBSdlRxZnlH?=
+ =?utf-8?B?M0RhendCdDZudFBUMXhSdnN6M0w5aml2aGRON1B0OHhiZzRvaWYyZ0JpcXZX?=
+ =?utf-8?B?a0pOQW9PZFo3YXJubFNEVHpGMTV3Z0VOZGQ4UytQRVcxQThLYXVuL0RUd0Zl?=
+ =?utf-8?B?TDVsVUpUMDh3Y2VmeTRKME9yMXkxc0FId1pNMVRsckVjejNCQzNYVmh1bC9F?=
+ =?utf-8?B?MGIwL0NkdFBjRDVkYnBDWXFQSG1lLys1ZFZYM3puL1hFbWgxelArZ2xoT3Rm?=
+ =?utf-8?B?QUFYMlRNRndsVDFvKzBiZFNTUG9renQ4aitqVklKTU4yNktKemdpelc4dzhq?=
+ =?utf-8?B?bVFLd2R2M2Y4UGltQU5YdzA1Q1U1NnRMbE9rSmJiMkZQU1A5TzRLdWJRQ0ho?=
+ =?utf-8?B?eDRQVWd4SU1HMGpEZUJScURlWXFJbklEc01NSktVZFlVclVUWW8vYk5CODdn?=
+ =?utf-8?B?ZmcyUVk5UUdJdE1nbERVWjhGdm9ITHU5eHVHM01VaHEwY3luNFJrSGxkSzFy?=
+ =?utf-8?B?OXJRV3AxcVkzZ2pVM21JNk4wNm56R0FObC8xZGlsc2x2ZXNrM3Vvcms4c1Av?=
+ =?utf-8?B?eDBvdXR6M0RpTzFhcFhPenIrR2dsV1NENnRxUXNrODFOQjk3Wjd5clBCMlVG?=
+ =?utf-8?B?aUplRGJUTU5PbHNYeGhzT2RXcmtJWlNLUVZhWmtmWHE5amwzWHNHc201Z1Ez?=
+ =?utf-8?B?L05PMWVEM2V5Vk96UGVHSGMyallRMDJGMmoyeXNiZEFmMkd4TjdlMm1ZRDk1?=
+ =?utf-8?B?Tlk1UUEzc1lLaWlUZmtJb2d1Zm1pSkZMYzhRRnFTSEEwcEJXaTlrcklZeStF?=
+ =?utf-8?Q?nZANEL0PoJgqK/fbhB+c6O3AD?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 15:21:17.4032 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 174ca35a-681b-4a80-72ed-08db7efdcf77
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11f4cc8a-bc19-4277-13f2-08db7f013389
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5336.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 15:45:34.1672 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT116.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5519
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hqIxpwlzaTqynpYqdq+EAM04LOSUJAbchi3+ptEHdxNuazxp0C4JXMwvFk5fZ26Y0d8Sdy+w9A9FVGSRDHfS9A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9326
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,104 +127,195 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: srinath.rao@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add session context buffer to decoder ring test.
 
-v5 - clear the session ct buffer (Christian)
-v4 - data type, explain change of ib size change (Christian)
-v3 - indent and  v2 changes correction. (Christian)
-v2 - put the buffer at the end of the IB (Christian)
+On 2023-07-07 10:59, Kim, Jonathan wrote:
+> [Public]
+>
+>> -----Original Message-----
+>> From: Huang, JinHuiEric <JinHuiEric.Huang@amd.com>
+>> Sent: Thursday, July 6, 2023 2:19 PM
+>> To: amd-gfx@lists.freedesktop.org
+>> Cc: Kim, Jonathan <Jonathan.Kim@amd.com>; Huang, JinHuiEric
+>> <JinHuiEric.Huang@amd.com>
+>> Subject: [PATCH 4/6] drm/amdkfd: enable grace period for xcc instance
+>>
+>> each xcc instance needs to get iq wait time and set
+>> grace period accordingly.
+>>
+>> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+>> ---
+>>   .../drm/amd/amdkfd/kfd_device_queue_manager.c |  9 ++++--
+>>   .../drm/amd/amdkfd/kfd_device_queue_manager.h |  2 +-
+>>   .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   | 32 +++++++++++--------
+>>   .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |  9 +++---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  2 +-
+>>   5 files changed, 32 insertions(+), 22 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>> index a2bff3f01359..0f12c1989e14 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>> @@ -1606,6 +1606,8 @@ static int set_sched_resources(struct
+>> device_queue_manager *dqm)
+>>
+>>   static int initialize_cpsch(struct device_queue_manager *dqm)
+>>   {
+>> +     uint32_t xcc_id, xcc_mask = dqm->dev->xcc_mask;
+>> +
+>>        pr_debug("num of pipes: %d\n", get_pipes_per_mec(dqm));
+>>
+>>        mutex_init(&dqm->lock_hidden);
+>> @@ -1620,8 +1622,11 @@ static int initialize_cpsch(struct
+>> device_queue_manager *dqm)
+>>        init_sdma_bitmaps(dqm);
+>>
+>>        if (dqm->dev->kfd2kgd->get_iq_wait_times)
+>> -             dqm->dev->kfd2kgd->get_iq_wait_times(dqm->dev->adev,
+>> -                                     &dqm->wait_times, 0);
+>> +             for_each_inst(xcc_id, xcc_mask)
+>> +                     dqm->dev->kfd2kgd->get_iq_wait_times(
+>> +                                     dqm->dev->adev,
+>> +                                     &dqm->wait_times[xcc_id],
+>> +                                     xcc_id);
+>>        return 0;
+>>   }
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+>> index 7dd4b177219d..62a6dc8d3032 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+>> @@ -262,7 +262,7 @@ struct device_queue_manager {
+>>        /* used for GFX 9.4.3 only */
+>>        uint32_t                current_logical_xcc_start;
+>>
+>> -     uint32_t                wait_times;
+>> +     uint32_t                wait_times[32];
+> I think wait_times[16] should be sufficient.  We only get the hamming weight of 16 bits for NUM_XCC and I believe the xcc_mask is declared as a uint16_t in the KGD portion anyway.  We may as well align to that.
+>
+>>        wait_queue_head_t       destroy_wait;
+>>   };
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+>> index 401096c103b2..f37ab4b6d88c 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+>> @@ -374,27 +374,31 @@ int pm_update_grace_period(struct
+>> packet_manager *pm, uint32_t grace_period)
+>>   {
+>>        int retval = 0;
+>>        uint32_t *buffer, size;
+>> +     uint32_t xcc_id, xcc_mask = pm->dqm->dev->xcc_mask;
+>>
+>>        size = pm->pmf->set_grace_period_size;
+>>
+>>        mutex_lock(&pm->lock);
+>>
+>>        if (size) {
+>> -             kq_acquire_packet_buffer(pm->priv_queue,
+>> -                     size / sizeof(uint32_t),
+>> -                     (unsigned int **)&buffer);
+>> -
+>> -             if (!buffer) {
+>> -                     pr_err("Failed to allocate buffer on kernel queue\n");
+>> -                     retval = -ENOMEM;
+>> -                     goto out;
+>> -             }
+>> +             for_each_inst(xcc_id, xcc_mask) {
+>> +                     kq_acquire_packet_buffer(pm->priv_queue,
+>> +                                     size / sizeof(uint32_t),
+>> +                                     (unsigned int **)&buffer);
+>>
+>> -             retval = pm->pmf->set_grace_period(pm, buffer,
+>> grace_period);
+>> -             if (!retval)
+>> -                     kq_submit_packet(pm->priv_queue);
+>> -             else
+>> -                     kq_rollback_packet(pm->priv_queue);
+>> +                     if (!buffer) {
+>> +                             pr_err("Failed to allocate buffer on kernel
+>> queue\n");
+>> +                             retval = -ENOMEM;
+>> +                             goto out;
+>> +                     }
+>> +
+>> +                     retval = pm->pmf->set_grace_period(pm, buffer,
+>> +                                     grace_period, xcc_id);
+>> +                     if (!retval)
+>> +                             kq_submit_packet(pm->priv_queue);
+>> +                     else
+>> +                             kq_rollback_packet(pm->priv_queue);
+> In the event of partial success do we need to roll back (i.e. resubmit default grace period) on failure?
+The function pm_set_grace_period_v9 always return 0, and it is not 
+complicate operation, it should be always successful. Partial success 
+will not be the case we should care about at this moment.
 
-Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
-Acked-by: Leo Liu <leo.liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 13 +++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  5 ++++-
- 2 files changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 2d94f1b63bd6..76e9a2418286 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -573,13 +573,15 @@ static int amdgpu_vcn_dec_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
- 	int r, i;
- 
- 	memset(ib, 0, sizeof(*ib));
--	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 2,
-+	/* 34 pages : 128KiB  session context buffer size and 8KiB ib msg */
-+	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 34,
- 			AMDGPU_IB_POOL_DIRECT,
- 			ib);
- 	if (r)
- 		return r;
- 
- 	msg = (uint32_t *)AMDGPU_GPU_PAGE_ALIGN((unsigned long)ib->ptr);
-+	memset(msg, 0, (AMDGPU_GPU_PAGE_SIZE * 34));
- 	msg[0] = cpu_to_le32(0x00000028);
- 	msg[1] = cpu_to_le32(0x00000038);
- 	msg[2] = cpu_to_le32(0x00000001);
-@@ -608,13 +610,15 @@ static int amdgpu_vcn_dec_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
- 	int r, i;
- 
- 	memset(ib, 0, sizeof(*ib));
--	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 2,
-+	/* 34 pages : 128KiB  session context buffer size and 8KiB ib msg */
-+	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 34,
- 			AMDGPU_IB_POOL_DIRECT,
- 			ib);
- 	if (r)
- 		return r;
- 
- 	msg = (uint32_t *)AMDGPU_GPU_PAGE_ALIGN((unsigned long)ib->ptr);
-+	memset(msg, 0, (AMDGPU_GPU_PAGE_SIZE * 34));
- 	msg[0] = cpu_to_le32(0x00000028);
- 	msg[1] = cpu_to_le32(0x00000018);
- 	msg[2] = cpu_to_le32(0x00000000);
-@@ -700,6 +704,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
- 	struct amdgpu_job *job;
- 	struct amdgpu_ib *ib;
- 	uint64_t addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
-+	uint64_t session_ctx_buf_gaddr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr + 8192);
- 	bool sq = amdgpu_vcn_using_unified_queue(ring);
- 	uint32_t *ib_checksum;
- 	uint32_t ib_pack_in_dw;
-@@ -730,6 +735,10 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
- 	ib->length_dw += sizeof(struct amdgpu_vcn_decode_buffer) / 4;
- 	memset(decode_buffer, 0, sizeof(struct amdgpu_vcn_decode_buffer));
- 
-+	decode_buffer->valid_buf_flag |=
-+				cpu_to_le32(AMDGPU_VCN_CMD_FLAG_SESSION_CONTEXT_BUFFER);
-+	decode_buffer->session_context_buffer_address_hi = upper_32_bits(session_ctx_buf_gaddr);
-+	decode_buffer->session_context_buffer_address_lo = lower_32_bits(session_ctx_buf_gaddr);
- 	decode_buffer->valid_buf_flag |= cpu_to_le32(AMDGPU_VCN_CMD_FLAG_MSG_BUFFER);
- 	decode_buffer->msg_buffer_address_hi = cpu_to_le32(addr >> 32);
- 	decode_buffer->msg_buffer_address_lo = cpu_to_le32(addr);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index f1397ef66fd7..2df43cd76c10 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -166,6 +166,7 @@
- 
- #define AMDGPU_VCN_IB_FLAG_DECODE_BUFFER	0x00000001
- #define AMDGPU_VCN_CMD_FLAG_MSG_BUFFER		0x00000001
-+#define AMDGPU_VCN_CMD_FLAG_SESSION_CONTEXT_BUFFER	0x00100000
- 
- #define VCN_CODEC_DISABLE_MASK_AV1  (1 << 0)
- #define VCN_CODEC_DISABLE_MASK_VP9  (1 << 1)
-@@ -357,7 +358,9 @@ struct amdgpu_vcn_decode_buffer {
- 	uint32_t valid_buf_flag;
- 	uint32_t msg_buffer_address_hi;
- 	uint32_t msg_buffer_address_lo;
--	uint32_t pad[30];
-+	uint32_t session_context_buffer_address_hi;
-+	uint32_t session_context_buffer_address_lo;
-+	uint32_t pad[28];
- };
- 
- #define VCN_BLOCK_ENCODE_DISABLE_MASK 0x80
--- 
-2.25.1
+Regards,
+Eric
+> I believe the default grace period is put in place for better CWSR performance in normal mode, so leaving fast preemption settings on failure could impact performance.
+>
+> Thanks,
+>
+> Jon
+>
+>> +             }
+>>        }
+>>
+>>   out:
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+>> index 8fda16e6fee6..a9443d661957 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+>> @@ -287,7 +287,8 @@ static int pm_map_queues_v9(struct packet_manager
+>> *pm, uint32_t *buffer,
+>>
+>>   static int pm_set_grace_period_v9(struct packet_manager *pm,
+>>                uint32_t *buffer,
+>> -             uint32_t grace_period)
+>> +             uint32_t grace_period,
+>> +             uint32_t inst)
+>>   {
+>>        struct pm4_mec_write_data_mmio *packet;
+>>        uint32_t reg_offset = 0;
+>> @@ -295,14 +296,14 @@ static int pm_set_grace_period_v9(struct
+>> packet_manager *pm,
+>>
+>>        pm->dqm->dev->kfd2kgd->build_grace_period_packet_info(
+>>                        pm->dqm->dev->adev,
+>> -                     pm->dqm->wait_times,
+>> +                     pm->dqm->wait_times[inst],
+>>                        grace_period,
+>>                        &reg_offset,
+>>                        &reg_data,
+>> -                     0);
+>> +                     inst);
+>>
+>>        if (grace_period == USE_DEFAULT_GRACE_PERIOD)
+>> -             reg_data = pm->dqm->wait_times;
+>> +             reg_data = pm->dqm->wait_times[inst];
+>>
+>>        packet = (struct pm4_mec_write_data_mmio *)buffer;
+>>        memset(buffer, 0, sizeof(struct pm4_mec_write_data_mmio));
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> index d4c9ee3f9953..22c4a403ddd7 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> @@ -1400,7 +1400,7 @@ struct packet_manager_funcs {
+>>                        enum kfd_unmap_queues_filter mode,
+>>                        uint32_t filter_param, bool reset);
+>>        int (*set_grace_period)(struct packet_manager *pm, uint32_t *buffer,
+>> -                     uint32_t grace_period);
+>> +                     uint32_t grace_period, uint32_t inst);
+>>        int (*query_status)(struct packet_manager *pm, uint32_t *buffer,
+>>                        uint64_t fence_address, uint64_t
+>> fence_value);
+>>        int (*release_mem)(uint64_t gpu_addr, uint32_t *buffer);
+>> --
+>> 2.34.1
 
