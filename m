@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED1ABEB64DA
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 22:41:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 449D3EB64D9
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Jul 2023 22:41:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E33110E5F9;
-	Fri,  7 Jul 2023 22:41:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0940410E615;
+	Fri,  7 Jul 2023 22:41:46 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBAD210E60C;
- Fri,  7 Jul 2023 22:41:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D993E10E60F;
+ Fri,  7 Jul 2023 22:41:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -19,23 +19,22 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=aypGJ9zKriwl5rC/G/jg2t+UqZhEdGjhBXoWEgZUCvg=; b=YoMIy1Ddi9+Na1Kzc4Ix/3xroM
- hl2Vjo47GexBs5ZIQHY9+0h8I54dZREpP1iEIz+NyOmu7jfs8OKpoEs3Rm1wO3YRUERnnJBazIWvB
- dOWcOg0sGoMEejQ8PZhrD3nwwp5qi11v1grM8Tjt5OdlI4eou4i8f/nPOYRkcSMJgtSseS0kdrVJa
- C0TmC4fSA/PvJCWa4wFVuiLxvvODsezvSylJ1ApB24yH8HnXvBfyiuzyVvTXae7dzp5HSmb/lLzvI
- yXCzVi0V6ZevOMIOj37NggzHcXPTEupDg8Hv+uEAszJGsQImLy9LgDFXkIdW/7TkfFzmaj2RCN5Ay
- qMCYsJAg==;
+ bh=ILhK3ntOSguFvvoL3dtIQ/0orxl4TRRaxUfEny2T4hQ=; b=luAS5a/ov3Z7w1pwXMMISdcq0X
+ CmkBLudpjLqOfv+LJLAAHgZSMAOwntplymB5St0mZV6gheeahYHsf0oKk1dEbckva2adI1sAtldg0
+ zSAfkyB5qESAnGy93JB4hhHc7vEiAIq1eGRa5uuHhV8Ye1zRG/hGSONknqFrN7KJDUsh41ixqVhCn
+ 7pEMfWtuB6/0Rb4vY44mVDt1yIc9YleiwG15e+Ed80YgxVvmPu+KiZZx1W017yqrMNixeQtYjnRJr
+ 5oOG8jA6fnQ2CMTbxf5k92qZOx0ViYm1r5jHbNCXCuZSKJ8sQ4SM5777oDp3S9kiK0I4V0eDj8DvU
+ bbpZeGCQ==;
 Received: from [187.74.70.209] (helo=steammachine.lan)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qHu8p-00AP6e-Vl; Sat, 08 Jul 2023 00:41:32 +0200
+ id 1qHu8z-00AP6e-SZ; Sat, 08 Jul 2023 00:41:42 +0200
 From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, wayland-devel@lists.freedesktop.org
-Subject: [PATCH v5 4/6] amd/display: indicate support for atomic async
- page-flips on DC
-Date: Fri,  7 Jul 2023 19:40:57 -0300
-Message-ID: <20230707224059.305474-5-andrealmeid@igalia.com>
+Subject: [PATCH v5 6/6] drm/doc: Define KMS atomic state set
+Date: Fri,  7 Jul 2023 19:40:59 -0300
+Message-ID: <20230707224059.305474-7-andrealmeid@igalia.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230707224059.305474-1-andrealmeid@igalia.com>
 References: <20230707224059.305474-1-andrealmeid@igalia.com>
@@ -54,48 +53,81 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: pierre-eric.pelloux-prayer@amd.com,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- Daniel Vetter <daniel@ffwll.ch>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, Daniel Vetter <daniel@ffwll.ch>,
  =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
  =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
  Simon Ser <contact@emersion.fr>, Randy Dunlap <rdunlap@infradead.org>,
  Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
  hwentlan@amd.com, Rob Clark <robdclark@gmail.com>,
  ville.syrjala@linux.intel.com, kernel-dev@igalia.com,
- alexander.deucher@amd.com, Dave Airlie <airlied@gmail.com>,
- christian.koenig@amd.com, joshua@froggi.es
+ alexander.deucher@amd.com,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com, joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Simon Ser <contact@emersion.fr>
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
 
-amdgpu_dm_commit_planes() already sets the flip_immediate flag for
-async page-flips. This flag is used to set the UNP_FLIP_CONTROL
-register. Thus, no additional change is required to handle async
-page-flips with the atomic uAPI.
+Specify how the atomic state is maintained between userspace and
+kernel, plus the special case for async flips.
 
-Signed-off-by: Simon Ser <contact@emersion.fr>
-Reviewed-by: André Almeida <andrealmeid@igalia.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Pekka Paalanen <pekka.paalanen@collabora.com>
 Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
-v4: no changes
+v4: total rework by Pekka
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 -
- 1 file changed, 1 deletion(-)
+ Documentation/gpu/drm-uapi.rst | 41 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 258461826140..7acd73e5004f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3970,7 +3970,6 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
- 		adev_to_drm(adev)->mode_config.prefer_shadow = 1;
- 	/* indicates support for immediate flip */
- 	adev_to_drm(adev)->mode_config.async_page_flip = true;
--	adev_to_drm(adev)->mode_config.atomic_async_page_flip_not_supported = true;
+diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+index 65fb3036a580..6a1662c08901 100644
+--- a/Documentation/gpu/drm-uapi.rst
++++ b/Documentation/gpu/drm-uapi.rst
+@@ -486,3 +486,44 @@ and the CRTC index is its position in this array.
  
- 	state = kzalloc(sizeof(*state), GFP_KERNEL);
- 	if (!state)
+ .. kernel-doc:: include/uapi/drm/drm_mode.h
+    :internal:
++
++KMS atomic state
++================
++
++An atomic commit can change multiple KMS properties in an atomic fashion,
++without ever applying intermediate or partial state changes.  Either the whole
++commit succeeds or fails, and it will never be applied partially. This is the
++fundamental improvement of the atomic API over the older non-atomic API which is
++referred to as the "legacy API".  Applying intermediate state could unexpectedly
++fail, cause visible glitches, or delay reaching the final state.
++
++An atomic commit can be flagged with DRM_MODE_ATOMIC_TEST_ONLY, which means the
++complete state change is validated but not applied.  Userspace should use this
++flag to validate any state change before asking to apply it. If validation fails
++for any reason, userspace should attempt to fall back to another, perhaps
++simpler, final state.  This allows userspace to probe for various configurations
++without causing visible glitches on screen and without the need to undo a
++probing change.
++
++The changes recorded in an atomic commit apply on top the current KMS state in
++the kernel. Hence, the complete new KMS state is the complete old KMS state with
++the committed property settings done on top. The kernel will automatically avoid
++no-operation changes, so it is safe and even expected for userspace to send
++redundant property settings.  No-operation changes do not count towards actually
++needed changes, e.g.  setting MODE_ID to a different blob with identical
++contents as the current KMS state shall not be a modeset on its own.
++
++A "modeset" is a change in KMS state that might enable, disable, or temporarily
++disrupt the emitted video signal, possibly causing visible glitches on screen. A
++modeset may also take considerably more time to complete than other kinds of
++changes, and the video sink might also need time to adapt to the new signal
++properties. Therefore a modeset must be explicitly allowed with the flag
++DRM_MODE_ATOMIC_ALLOW_MODESET.  This in combination with
++DRM_MODE_ATOMIC_TEST_ONLY allows userspace to determine if a state change is
++likely to cause visible disruption on screen and avoid such changes when end
++users do not expect them.
++
++An atomic commit with the flag DRM_MODE_PAGE_FLIP_ASYNC is allowed to
++effectively change only the FB_ID property on any planes. No-operation changes
++are ignored as always. Changing any other property will cause the commit to be
++rejected.
 -- 
 2.41.0
 
