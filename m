@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01B0FEB64DA
-	for <amd-gfx@archiver.kernel.org>; Sat,  8 Jul 2023 02:26:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7F66EB64D9
+	for <amd-gfx@archiver.kernel.org>; Sat,  8 Jul 2023 02:26:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A67C10E09B;
-	Sat,  8 Jul 2023 02:26:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62E0F10E069;
+	Sat,  8 Jul 2023 02:26:42 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2047.outbound.protection.outlook.com [40.107.223.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E32B10E066
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 Jul 2023 02:26:39 +0000 (UTC)
+ (mail-dm6nam11on2059.outbound.protection.outlook.com [40.107.223.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1730B10E069
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 Jul 2023 02:26:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HHMxgQjNno60ZT8C8HpeSi4i8VvQl+NsqYKDTFcIW2WqFS/5TVgTjSYUCCdX2d7DTohEX/bRO+ZZNYZhFf8L/8GYRqT32JXHR9FcFDiqQio3bPiFgCpf9BTi27FcBRwSQ8LKUKo2851yW7DSpQKzSMWSnI+1eUk6r6fiL63IDIA3dlAnE7FML0vWWGttQa9Y99ET9yjUs055hzikx6d5nxUn9UDSidmv/l30vOE9MlowgtNOKFHsVQEzsbma+fzhgFAR+xFAmvHzUCzr1P9Y+iE7Rjc8rDBN9dBUPRkAghrheCartBMBtVyutmuRpm2Jrf2iRJiPbCLNP6mYUG4HfA==
+ b=dVvIF1Si+V67F02DNNbqdr1D+c2AwWKVJHNFKLAVeTqGHAp4h2KUQUPOUPta5pmTaZIoGigkcjyQjPRquHW+bQlpxr4THORvoDTurGK6nFeeI800BEhFWgK2WJlT9K+Sni9Y0NgorxYVFs1y9obtfljEjQk0E7SpAZi8mXvsZhBBoSAMpmcZiLMnF/rf1+7Wyng5uzO/q35oJh1ko8VM6ghU06I+pOPbSOp+B2lqWmXzfr+/N8koLsk/xtMFKd0j7z2ILD9S90qkx95jsMf6731opvHhEQgMK6mfT8xPRykK+icGJrbZThpaXugW1s9NHzwCglucSWLPi6vI+iKN3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EUCjCtGzyoJMgmnKFp3U6C4TtHkuvQUOloeoefpXpdQ=;
- b=gLfsD2GDq7ZS0uJLTR+ecVYz9dJA4guAjZ3EHhivtnF91tNH4nx28HAyuKs/m5RxxyqnxwsEqax3ZVDlq0aXQWc3nGOndWQJdYr/OWkVmkRfSa3cCHV9xnq9oVKKa8uBBljkXjpMAGVGhoJum3pkqnaBjt36/ySaGurC0numqDuqNyYPwWmFkm8V3oImTu2lD6Yi+Q+fQYEbWdQ4oO7Mi4qfFVj05TWpwl1HVZOmD2VqcarVMmGuRTqrsN7wDphFDjKpQAx8LUB/FFfUsYvjWjiqxIG7PheERFyDktqy9Kisxj7ASdnT/aEMOzs8T/vdvN0XMhbdP92eWbBGI3550Q==
+ bh=9dlo9/IGLPODfSQ1yRW2SEafZfcI8L75zTL8tlnHHiE=;
+ b=RqXcmmpaEJKDKNqCZxF2jrgtyBzxfE1COf/xA/1vKRUICZYY0a9sk2xScYLdOLJWLLFt5SeVpwUJEkCzyNcim+8JbXcLKgO0ZwhnhmnEaZDHPSCWe+UM/4nOUeWpnxklWE34HLr/DAGy/lVQJwH/juv5oeYvR5bQ/8GKqnAlTYLtb1evfScrBBHKNwJIRTWbeSccF6IqH1csrYxRdxAgs45AsHQk+hs6aR6KRWGwkbQfCXuiM1Vd8F9vgNjbu3UQeF/bVxrhHq2hZjlsa9jy6/bDvovZIjtX5H4DF198c9rHzOY34LUBSShtZecHxxY6bTIDZVozIjB+w+ZbhXeuZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EUCjCtGzyoJMgmnKFp3U6C4TtHkuvQUOloeoefpXpdQ=;
- b=sd2eGqTKCVjQjw4TNFdPU4XeJvuB0FzimWKpmttsw3s86xL9RAxJX3BEV49HykNt+H/Bo9cx0FC2Ep1y5EyuITIVOo/KrLgAEhZXIiOGdbObwB2/88q5fZ4re1ZimmuS06U7QT0f4VZWWIOniUcSEPWjRpUm+x+UoXxRlv6m9tM=
-Received: from BN9PR03CA0966.namprd03.prod.outlook.com (2603:10b6:408:109::11)
- by SJ2PR12MB8690.namprd12.prod.outlook.com (2603:10b6:a03:540::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.26; Sat, 8 Jul
- 2023 02:26:36 +0000
+ bh=9dlo9/IGLPODfSQ1yRW2SEafZfcI8L75zTL8tlnHHiE=;
+ b=lm6cIBjnu5tXT8ARnScwkifXD8v8y5k8aszQ/Ovazz9OYnNoZHN3UhtoN93WaCtvSvOeaLlPD2l2HLvXz131zfLuJ4eZWvKfTCzHPFCO5u2eGzLueX1W9nV0qvTwfgjpSF30rXuYC8xk/uxUOh8If/5BApaKjuD6FwacQwek8sQ=
+Received: from BN9PR03CA0969.namprd03.prod.outlook.com (2603:10b6:408:109::14)
+ by DM4PR12MB5294.namprd12.prod.outlook.com (2603:10b6:5:39e::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.25; Sat, 8 Jul
+ 2023 02:26:34 +0000
 Received: from BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:109:cafe::93) by BN9PR03CA0966.outlook.office365.com
- (2603:10b6:408:109::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.26 via Frontend
- Transport; Sat, 8 Jul 2023 02:26:36 +0000
+ (2603:10b6:408:109:cafe::65) by BN9PR03CA0969.outlook.office365.com
+ (2603:10b6:408:109::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.25 via Frontend
+ Transport; Sat, 8 Jul 2023 02:26:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT066.mail.protection.outlook.com (10.13.177.138) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6521.45 via Frontend Transport; Sat, 8 Jul 2023 02:26:36 +0000
+ 15.20.6521.45 via Frontend Transport; Sat, 8 Jul 2023 02:26:34 +0000
 Received: from SITE-L-T34-2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 7 Jul
- 2023 21:26:34 -0500
+ 2023 21:26:33 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 4/4] drm/amd: Drop amdgpu_device_aspm_support_quirk()
-Date: Fri, 7 Jul 2023 21:26:11 -0500
-Message-ID: <20230708022611.50512-5-mario.limonciello@amd.com>
+Subject: [PATCH 2/4] drm/amd: Align SMU11 SMU_MSG_OverridePcieParameters
+ implementation with SMU13
+Date: Fri, 7 Jul 2023 21:26:09 -0500
+Message-ID: <20230708022611.50512-3-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230708022611.50512-1-mario.limonciello@amd.com>
 References: <20230708022611.50512-1-mario.limonciello@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT066:EE_|SJ2PR12MB8690:EE_
-X-MS-Office365-Filtering-Correlation-Id: c2eacd3c-3e9a-4442-75fc-08db7f5ac103
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT066:EE_|DM4PR12MB5294:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9667eaf9-fabc-48b0-9db3-08db7f5abfa2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lf8TMnNVgnGFECnhmr+S2gJk5GyeCbT1Iw7sVdwLq2QF3B7FFVOOqxqMe8VCP3cSyyWvr8sCBUW0Kk96LniQogbDsJOkz09k7F3tywLeyrDdLNHTDECOt/EQ/aU/Cqb7k0Bc6s0lszV1PXWCB+Ncow8AaF804XnvRb7PV5Sces0q1QoRDLRbJ+7pQNhj7INQiLHB6vb+NkTx0hLPeu84L7uBpSo7GKEsqTXg5OL0qX/w5BMIF0BV1lcquY/uxpEKcMUSUgvM0g3oAXdsQpTwyrOZHLM0pXMpM4+aR7iStn3dJZ4Tp6hiku25TRFTRRcJ1qCU/oWjmpbVhv93Q2l1BKt6pzFYr5kFTO85CjM0yzfqHRIQ55jDkO/A9oDDsGMxByLx4PeyMHhdEDgJtNy22x5PH4l36pT9zny3g9cC88ZMhjce8DXwJ8tXB7FiZ/leasqgB6TJ0+/3CgMR1c2aM/ka+a0DrxDpKZDAjebrBgXYgytDWfpYddXgy8vAaiWdOFFZ+uQa66F2Fw0zyW27R1OlOAYGsgdjrRzd1sOaDtX1OXQgKX+xy8h3XxGXXX1uP1lgP5ZydcqhpUzayZJbkoPi4FbKPgtOujo4g6a7eqPaCQLXlPIQac4fR18B0zKinKtFdity5+VyQgVW0+KCLrlkd3Z5qeEUxsCptQmL0X1mDneUZOzQHAwTM6C2Eb/5w0RcwfEnthmhhAJf3j1cfsCEB5nIlKr2D98Qgb+5u/pyzC2/ReffD6VMCIq6JAgJSpPLnZqGHgoiygnt5Y9/fw==
+X-Microsoft-Antispam-Message-Info: 5mS2k/IXEZFY52eVkW933lh83d3x4H3sU3aeT/QdBE0VdYnl+dxP94AQ13kpgucDJ+O7wOFClcBZWnSjb0b2egta47YFjPHx58K8iji+OF6+fzYXWoY8yukhgElopEAC4Wp60LZ7Uq487+0ERHlED73qiEHlIrIWWsrBsWxdLQaTK23NjrId9lyNecQDGKZBleuLSFkHvJlX5ruHcHa+sZa6Uo7m1Z1SsBzQtcZrdQl39HDECTOwnANUTIui+yJjegDi3G2uAKf4vtRFCN1Z1JYVx7D9OWGqh2KC+JEewg4n71dYsDoRks91CZZnpe+sIJvnF0A707gKbmvV/JxIKCmOX8DgT0j9DkOtd3LhjzcXKErtYUCbgrtlZ2OFEfhWTSXfEAVgjhFWjgtMJGJsx6imkN41sVgtx8NUqY+iKUIMwzSgxci2CMPxkwXudt5q79LCiU37HzceAs/dp+GuMAN6mqyvYCcCVAax3w58awMgfCFNyaw3q4tFA1jtpyr2LUypHK27b4YsA7v7E5YHwxpcqFVRM3/8L6mvec59Ai4mOJbmpKrwa1whNkmEbMir4gOfOomXUnHiBaWx7SDB6JVCTA0qJ4th8WrT5Ln8tfoWU+DyrvcUZAvHQg67bL+FF3JkeodX3KgaeLH2o8g3cvoRftMQFfalBp94/eyHXlwvC2Xv2g9BuvQXcGOh1GROEofiRRR5xCaPQ1J7zkrh35MD3GjZ0v/ZydRerUiQRNPL8V7Y8tFijwlsyTUgnm1pmvGYPRvY55BKJJ9ylGtKxA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(39860400002)(376002)(136003)(396003)(451199021)(46966006)(40470700004)(36840700001)(2906002)(82310400005)(356005)(82740400003)(16526019)(81166007)(336012)(426003)(47076005)(83380400001)(186003)(2616005)(40480700001)(26005)(36860700001)(5660300002)(1076003)(86362001)(40460700003)(44832011)(8676002)(54906003)(6666004)(7696005)(36756003)(478600001)(41300700001)(8936002)(6916009)(70586007)(70206006)(4326008)(316002)(36900700001);
+ SFS:(13230028)(4636009)(396003)(136003)(376002)(39860400002)(346002)(451199021)(40470700004)(36840700001)(46966006)(82310400005)(2906002)(478600001)(6666004)(54906003)(8676002)(44832011)(36756003)(4326008)(6916009)(8936002)(316002)(41300700001)(70206006)(70586007)(336012)(426003)(47076005)(83380400001)(82740400003)(81166007)(356005)(40460700003)(36860700001)(86362001)(1076003)(7696005)(5660300002)(16526019)(186003)(40480700001)(2616005)(26005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2023 02:26:36.4602 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2eacd3c-3e9a-4442-75fc-08db7f5ac103
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2023 02:26:34.1634 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9667eaf9-fabc-48b0-9db3-08db7f5abfa2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT066.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8690
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5294
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,86 +105,130 @@ Cc: Evan Quan <evan.quan@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-NV and VI currently set up a quirk to not enable ASPM on Alder Lake
-systems, but the issue appears to be tied to hosts without support
-for dynamic speed switching. Migrate both of these over to use
-amdgpu_device_pcie_dynamic_switching_supported() instead and drop
-amdgpu_device_aspm_support_quirk().
+SMU13 overrides dynamic PCIe lane width and dynamic speed by when on
+certain hosts. commit 87c617c72628 ("drm/amd/pm: conditionally disable
+pcie lane switching for some sienna_cichlid SKUs") worked around this
+issue by setting up certain SKUs to set up certain limits, but the same
+fundamental problem with those hosts affects all SMU11 implmentations
+as well, so align the SMU11 and SMU13 driver handling.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 -----------
- drivers/gpu/drm/amd/amdgpu/nv.c            |  5 ++++-
- drivers/gpu/drm/amd/amdgpu/vi.c            |  5 ++++-
- 4 files changed, 8 insertions(+), 14 deletions(-)
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 89 ++++---------------
+ 1 file changed, 18 insertions(+), 71 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 813713f42d5e..6ecf42c4c970 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1315,7 +1315,6 @@ int amdgpu_device_pci_reset(struct amdgpu_device *adev);
- bool amdgpu_device_need_post(struct amdgpu_device *adev);
- bool amdgpu_device_pcie_dynamic_switching_supported(void);
- bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev);
--bool amdgpu_device_aspm_support_quirk(void);
- 
- void amdgpu_cs_report_moved_bytes(struct amdgpu_device *adev, u64 num_bytes,
- 				  u64 num_vis_bytes);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 7314529553f6..a9e757f899f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1505,17 +1505,6 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
- 	return pcie_aspm_enabled(adev->pdev);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 8fe2e1716da4..f6599c00a6fd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -2077,89 +2077,36 @@ static int sienna_cichlid_display_disable_memory_clock_switch(struct smu_context
+ 	return ret;
  }
  
--bool amdgpu_device_aspm_support_quirk(void)
+-static void sienna_cichlid_get_override_pcie_settings(struct smu_context *smu,
+-						      uint32_t *gen_speed_override,
+-						      uint32_t *lane_width_override)
 -{
--#if IS_ENABLED(CONFIG_X86)
--	struct cpuinfo_x86 *c = &cpu_data(0);
+-	struct amdgpu_device *adev = smu->adev;
 -
--	return !(c->x86 == 6 && c->x86_model == INTEL_FAM6_ALDERLAKE);
--#else
--	return true;
--#endif
+-	*gen_speed_override = 0xff;
+-	*lane_width_override = 0xff;
+-
+-	switch (adev->pdev->device) {
+-	case 0x73A0:
+-	case 0x73A1:
+-	case 0x73A2:
+-	case 0x73A3:
+-	case 0x73AB:
+-	case 0x73AE:
+-		/* Bit 7:0: PCIE lane width, 1 to 7 corresponds is x1 to x32 */
+-		*lane_width_override = 6;
+-		break;
+-	case 0x73E0:
+-	case 0x73E1:
+-	case 0x73E3:
+-		*lane_width_override = 4;
+-		break;
+-	case 0x7420:
+-	case 0x7421:
+-	case 0x7422:
+-	case 0x7423:
+-	case 0x7424:
+-		*lane_width_override = 3;
+-		break;
+-	default:
+-		break;
+-	}
 -}
 -
- /* if we get transitioned to only one device, take VGA back */
- /**
-  * amdgpu_device_vga_set_decode - enable/disable vga decode
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 51523b27a186..71bc5b2f36cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -527,7 +527,10 @@ static int nv_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk)
- 
- static void nv_program_aspm(struct amdgpu_device *adev)
+-#define MAX(a, b)	((a) > (b) ? (a) : (b))
+-
+ static int sienna_cichlid_update_pcie_parameters(struct smu_context *smu,
+ 					 uint32_t pcie_gen_cap,
+ 					 uint32_t pcie_width_cap)
  {
--	if (!amdgpu_device_should_use_aspm(adev) || !amdgpu_device_aspm_support_quirk())
-+	if (!amdgpu_device_should_use_aspm(adev))
-+		return;
-+
-+	if (!amdgpu_device_pcie_dynamic_switching_supported())
- 		return;
+ 	struct smu_11_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
+ 	struct smu_11_0_pcie_table *pcie_table = &dpm_context->dpm_tables.pcie_table;
+-	uint32_t gen_speed_override, lane_width_override;
+-	uint8_t *table_member1, *table_member2;
+-	uint32_t min_gen_speed, max_gen_speed;
+-	uint32_t min_lane_width, max_lane_width;
+-	uint32_t smu_pcie_arg;
++	u32 smu_pcie_arg;
+ 	int ret, i;
  
- 	if (!(adev->flags & AMD_IS_APU) &&
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-index 6a8494f98d3e..f44c78e69b7f 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -1124,7 +1124,10 @@ static void vi_program_aspm(struct amdgpu_device *adev)
- 	bool bL1SS = false;
- 	bool bClkReqSupport = true;
+-	GET_PPTABLE_MEMBER(PcieGenSpeed, &table_member1);
+-	GET_PPTABLE_MEMBER(PcieLaneCount, &table_member2);
+-
+-	sienna_cichlid_get_override_pcie_settings(smu,
+-						  &gen_speed_override,
+-						  &lane_width_override);
++	/* PCIE gen speed and lane width override */
++	if (!amdgpu_device_pcie_dynamic_switching_supported()) {
++		if (pcie_table->pcie_gen[NUM_LINK_LEVELS - 1] < pcie_gen_cap)
++			pcie_gen_cap = pcie_table->pcie_gen[NUM_LINK_LEVELS - 1];
  
--	if (!amdgpu_device_should_use_aspm(adev) || !amdgpu_device_aspm_support_quirk())
-+	if (!amdgpu_device_should_use_aspm(adev))
-+		return;
-+
-+	if (!amdgpu_device_pcie_dynamic_switching_supported())
- 		return;
+-	/* PCIE gen speed override */
+-	if (gen_speed_override != 0xff) {
+-		min_gen_speed = MIN(pcie_gen_cap, gen_speed_override);
+-		max_gen_speed = MIN(pcie_gen_cap, gen_speed_override);
+-	} else {
+-		min_gen_speed = MAX(0, table_member1[0]);
+-		max_gen_speed = MIN(pcie_gen_cap, table_member1[1]);
+-		min_gen_speed = min_gen_speed > max_gen_speed ?
+-				max_gen_speed : min_gen_speed;
+-	}
+-	pcie_table->pcie_gen[0] = min_gen_speed;
+-	pcie_table->pcie_gen[1] = max_gen_speed;
++		if (pcie_table->pcie_lane[NUM_LINK_LEVELS - 1] < pcie_width_cap)
++			pcie_width_cap = pcie_table->pcie_lane[NUM_LINK_LEVELS - 1];
  
- 	if (adev->flags & AMD_IS_APU ||
+-	/* PCIE lane width override */
+-	if (lane_width_override != 0xff) {
+-		min_lane_width = MIN(pcie_width_cap, lane_width_override);
+-		max_lane_width = MIN(pcie_width_cap, lane_width_override);
++		/* Force all levels to use the same settings */
++		for (i = 0; i < NUM_LINK_LEVELS; i++) {
++			pcie_table->pcie_gen[i] = pcie_gen_cap;
++			pcie_table->pcie_lane[i] = pcie_width_cap;
++		}
+ 	} else {
+-		min_lane_width = MAX(1, table_member2[0]);
+-		max_lane_width = MIN(pcie_width_cap, table_member2[1]);
+-		min_lane_width = min_lane_width > max_lane_width ?
+-				 max_lane_width : min_lane_width;
++		for (i = 0; i < NUM_LINK_LEVELS; i++) {
++			if (pcie_table->pcie_gen[i] > pcie_gen_cap)
++				pcie_table->pcie_gen[i] = pcie_gen_cap;
++			if (pcie_table->pcie_lane[i] > pcie_width_cap)
++				pcie_table->pcie_lane[i] = pcie_width_cap;
++		}
+ 	}
+-	pcie_table->pcie_lane[0] = min_lane_width;
+-	pcie_table->pcie_lane[1] = max_lane_width;
+ 
+ 	for (i = 0; i < NUM_LINK_LEVELS; i++) {
+ 		smu_pcie_arg = (i << 16 |
 -- 
 2.34.1
 
