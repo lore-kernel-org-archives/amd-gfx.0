@@ -4,115 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8B18EB64DA
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jul 2023 20:19:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EFB5EB64D9
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jul 2023 21:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70D8110E22B;
-	Mon, 10 Jul 2023 20:19:24 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2071.outbound.protection.outlook.com [40.107.101.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B70A310E22B
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jul 2023 20:19:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dsRRCA1PXFzmc6xBIhAUG4rrcoAwfY0yh28fkYETFfcua+aR1DtIIiaToYei7gfwAvyHssGWzXHUS+jGCBpLyKGWPIkNLeRN+wPbGhrtADRwc0vMeYmAklCieUZELPKnfBRSDAeNdTgOasYoBwexBNV/NmVVDTZPrgwbbOmYUh4FZV6aKAlianLbvTyucdkj4Kv65re0XWzkIkGPbWLzxvUtQp9BiZw3SXO/70ZEQQlezJZdVZM+kyX2Cd9Yh81GJuP64m2beB1Yn3Dp7ZyOmkkGj9NucMu6eoii/k0Koo4ePuDoE1NxlZJFh9dYnZHVocozE+X1LvQUy6A97MH5AA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z526+vgPz2bYWCvuvAkcipiHsz22/LUi3I3ncj55GNk=;
- b=LcLy1U4FZk1HTTyxaC8jk5u6QOUoc7FN/5rhvKBvH2fSwPkB+7EAKyS4uTRNw31e7ipqlIxeDQkpTP3D1GVtdaP9pz5QN7RQSYfMuCrBFYuzLKncaHzLgZ5wabexgyCIhAfQOMVD1LWCiEePC7lKXQlryfDcvzFk3EybzuJZ+YWzPB2AYf7F0a00rgoWE45lCgHZZkK1oMa9m9zgFmzhNsWyWhqXW1JAGNhliK69bUZdsr5D2Y5btau9q4KC2oPMAOA5OibuIqe7mxMNjGIvyMGEcvu4GBrX3TICPCvPp0mvarpZ+61qZGYSzn+T6ybbqRJvqyiSfMS78m4Je3j/jQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z526+vgPz2bYWCvuvAkcipiHsz22/LUi3I3ncj55GNk=;
- b=3WyJQnGhm8Mef/xONhzt8dKN53c4TW0GcPZD9DMd1KlEDaE70WXa5qiSiBliPzpQVuU7wdMmEr6014deJCUI4V+RMm27NNS6u4KoRBYwJtHMMZRgy8bSnf0xIbUky9sxF1oa6k42g+1xoMhqssCgt7kQYV8BNg1NuXuPtR0d0vo=
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
- PH7PR12MB5805.namprd12.prod.outlook.com (2603:10b6:510:1d1::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30; Mon, 10 Jul
- 2023 20:19:19 +0000
-Received: from DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::10e9:7f44:45ae:4f94]) by DM8PR12MB5399.namprd12.prod.outlook.com
- ([fe80::10e9:7f44:45ae:4f94%5]) with mapi id 15.20.6565.028; Mon, 10 Jul 2023
- 20:19:19 +0000
-From: "Liu, Leo" <Leo.Liu@amd.com>
-To: "Jamadar, Saleemkhan" <Saleemkhan.Jamadar@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Gopalakrishnan, Veerabadhran (Veera)" <Veerabadhran.Gopalakrishnan@amd.com>, 
- "Sundararaju, Sathishkumar" <Sathishkumar.Sundararaju@amd.com>
-Subject: RE: [PATCH v3 2/2] drm/amdgpu: update kernel vcn ring test
-Thread-Topic: [PATCH v3 2/2] drm/amdgpu: update kernel vcn ring test
-Thread-Index: AQHZs08/5cpv8QaXLEqGCSnNGwimM6+zcJ0w
-Date: Mon, 10 Jul 2023 20:19:19 +0000
-Message-ID: <DM8PR12MB53998C8B2790D5B1F80BD9E5E530A@DM8PR12MB5399.namprd12.prod.outlook.com>
-References: <20230710165425.257696-1-saleemkhan.jamadar@amd.com>
-In-Reply-To: <20230710165425.257696-1-saleemkhan.jamadar@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=d1184877-3f18-4f30-8fcf-5ecae47b0bb6;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-10T20:17:57Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM8PR12MB5399:EE_|PH7PR12MB5805:EE_
-x-ms-office365-filtering-correlation-id: 2ee71841-a832-4d0b-ace3-08db8182f126
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: SkT3lq9M3yO8zWwzMn36eEhzGzhxWxTLe2EEYTXly3y9uHaVCk6CSb+lCco/VLBZv4lm+d/+SjvZnFuTqahu+XuJ5UVHPKvj6Kg/+P1sAhWZIDrTwjj08U79wXSHnRVSeClea0ftWwWje8a7AzHOBz11pN/1FlTFc7TJz0i3UsoHtY6gRhD5YfCs4ZKDrCRJszG9j/RjiCnJyj4MJsv40n+xDlhifNXQWcWHiQ+s5c9OjdHfrk0FnORqMhjP0gyZADQbC5RNwTbDHaE1BRNIZNy540zroiLII5h56TeRewYtqMG71fUGdBF/jxIV6M8smcPKHuDuMItNG57+ihoLLeDmeaSKejbwOCQxvge49dgXbMSoxTRqyo+0lDdRX6fvRkdRERvVD9S1xWFZcPJzAGb/mo0pvHwLomk493IS9sjTTj5jwHvCfs7fMwEo/GRxhwUJRFl3apmX3Tu0FBYmlvY2AohnDkNRKjGSf+y4P4/w48zFtgkFjPdZtQ5B0/rzBHwRCTJ7umabagGPOkDJf0+k4Rx6RHn2P0iqd0NwoogAoVhWHKy44vIeaIozyUWKr0pGlghzjj14wJL9sp51PGPDc7GuCbNxq7kjjKqwlQ6HB7gvnlE2yLKNOgyfO8Nh
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(366004)(346002)(376002)(136003)(39860400002)(451199021)(86362001)(38100700002)(38070700005)(33656002)(55016003)(76116006)(7696005)(110136005)(54906003)(71200400001)(122000001)(26005)(9686003)(6506007)(186003)(53546011)(5660300002)(316002)(66556008)(15650500001)(478600001)(66946007)(8936002)(8676002)(52536014)(2906002)(66476007)(83380400001)(4326008)(6636002)(64756008)(66446008)(41300700001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XR8mMJTLGUPVotn8FFYJlc+JyBEbQ39pzApZcwNyTkJo+s62b1BiGYTJtOMl?=
- =?us-ascii?Q?mvsePsePf7WR80rAhKxat7jqhnIN61VI8lbSc1ruqVDCV5hGijIfTQB5fNet?=
- =?us-ascii?Q?FpxpEQ5tFjOQQu6MLlKJeMlgXPxVYS3HmROSvDtI+3Wa8asAu3EOjuT0gNgf?=
- =?us-ascii?Q?4lNI1AMlPgAuVPchAcKerGKWaYXnoLeJ6vuvXgDrOX1y7XOdawDRbpVMM4BA?=
- =?us-ascii?Q?73x8dhkp7lWe+saKFeh7CV6TpYZSiE4s2u+0y8c7Xn6IFdNTTQfJ6H3A3SF7?=
- =?us-ascii?Q?x2mJXoNv5kSX9tEqfTEga4AesO3sGrhJJSshBOj39T4PvcCYuD9kr3ZF7wvC?=
- =?us-ascii?Q?pSxpuzRLDmXmqAYOYeK+QrZxRa+LJsalFQdRhRbFiyClqFBVCPxDOd/02JOp?=
- =?us-ascii?Q?3u9wEu98ITI0CBmKQU2ZAJe18710/pGWvYgNhFLZHCSkk98z+nqWvjNcGFo2?=
- =?us-ascii?Q?iQBFqVXPjwEzhD8H5qhbZPJH4jpjODi6cZkVCBDZN+q5X8G2xjQUuUuGe617?=
- =?us-ascii?Q?P8NBxjzQ4GMRmiL+/y7o8FlkBaFXhEScEW8liEDRr6O0Ie+DsUIUwUZA9DKk?=
- =?us-ascii?Q?GPLpmGnBwwvM9RmIHYJbA+Toosu+KuD6ZajmSmQb9RBbSAyhD5nTk/HifX9T?=
- =?us-ascii?Q?lz/4alX9dY93rFVx28RkkGngUAY+gMMlnWngo44G7Ch0AMoIJNCYMTlQ6/Fd?=
- =?us-ascii?Q?VZGXP6Y3rFpaJd8zWwIZrUNaqaET1gmgYb/BG8ghtGAD6XhGsvC1f1IThN2B?=
- =?us-ascii?Q?seCwPdqxqutuR0T0r7pvx1PlrQ9HStbnI22P+m3vev3JuFgOCv8XYBr3Wttk?=
- =?us-ascii?Q?4Ij63OU7FKlQEc14z/rAhj483wVsM8CAFGTzCVyiNpocevSHDfE24FSQwYBy?=
- =?us-ascii?Q?uVAtLEs+DAAa8WenrpjeWb41ADZ6SI1HWtBMilaoPrTTCSz6bT4GevCeFt9I?=
- =?us-ascii?Q?gf9B8BOggU7w91VdCI9MH4r2s/mi95MtYMREzNeplZ0VxJGJ5q5t1oixGh4G?=
- =?us-ascii?Q?ZVxM6m0fyGxDXT5WvptoVdKJ8caJ8LmZCC5R45wLx76oMXmYw7aHy6IlrKGt?=
- =?us-ascii?Q?bQvigaGbTqRVXl0pKkmQIfAEPAf693g2U6x+A4D4MpqOv7hejbfURNyYzdLS?=
- =?us-ascii?Q?aUS6a2blQE/N26uXHBJIjmjeiKvagw36uC2BaakvmjKrcpE/CDXMs7zEmiCe?=
- =?us-ascii?Q?0a4O1DayBtCjbxzn4StFi6qiJYfJkMDjMRGq/WXrs2UaEmywZVAoN7rHIIgm?=
- =?us-ascii?Q?H3YfmuxvNoYt7MBM5UpFejZmZfbcLm+t74R2oQGDSVsRe58ImDYIYtCHB5ax?=
- =?us-ascii?Q?y2zzf2DWqgUP1IOLItaP3BhhQsXgU85UMK1PfCdmluKvx/qrAMiL1iYkO63Z?=
- =?us-ascii?Q?eQzGA+X58tqWTFBNB41D5nf+t3Os7N4JgZ545VynFQRbfv58hhxiZ9vzO4hN?=
- =?us-ascii?Q?N1+nt0KRH7KqhfSyIYdtf5ANbA/kEIixPL51GJp18TycgTSWwakEu0pzTiHK?=
- =?us-ascii?Q?1zWB14wQjpnQLihIKAbw6VDYEfBzQ9sd+1mCB5JaYU1aFln2QEF8jMSC0whA?=
- =?us-ascii?Q?5qjfb/apNW5jfQvnXMI=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ACBA10E2D9;
+	Mon, 10 Jul 2023 21:33:35 +0000 (UTC)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B99510E149
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jul 2023 21:11:54 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2b702319893so78265651fa.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jul 2023 14:11:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1689023512; x=1691615512;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=GJenQ6f6ywLinDtg4prv44o2QMZjJQ5Y8NtEkgjX+F4=;
+ b=intrAPE1oGXQ5h0kGbkzl21JZwwqG7+xqKe2/OH+7oxAiorT6bS9ZO7mHkQgsgHsGq
+ L1L3N3e4SjqIDcxezdURCPzQu3fk+jZcB+yHa3ys16+shORr8u2MGgLc2NHEVTS8YDnd
+ ObqIIR++a2++vSYd+IuTPgrsfQdEb9gkNdUtAGqwRrZi+PlCR+6SuT1rfgt/B/BZZ9cv
+ j8frFuTe9QdAiiKqmWJbcScCl1I0sJv/H9ocC25IGHU+60n5foxintSmDz8f1Ohok8wk
+ GJU9SicCjy5ye1zt3W9ylisNst67BTMzgtxkh34oSqMvwKILbiCOZAmZEhSah9vELGho
+ 3Fwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689023512; x=1691615512;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=GJenQ6f6ywLinDtg4prv44o2QMZjJQ5Y8NtEkgjX+F4=;
+ b=ROLvTeUHTxEYGG6ar4WzDjSh4JXjRhKFOwVDhOARGFsK+SzJpZfggaMo2jphBCn8f+
+ w7mFdtiWO/0K/d6TPgjcgOSvD1BAXNVW74SlJRfNBxzAJebsT+FsNxyGV8bhv3wFese3
+ 9IFqCvctm0yCEZ3bLii0K+e1jOHUKWa+HIsXXjpWe2x7IsBfW4aLlV6UCZDYBK6NY8yp
+ 6KrZBG6GA9z4P3Y8V93UIPFCtt4bbQbfdE1IWwzsgauQV7DWQuDehvv5nKvFhcE4PLWM
+ mQRUuWR7OqWMSBxYGOeNRWf4LFWSPtbfHob3UiZYL+eHPURuIAaonu1G7SzMJCTvpZ2M
+ z7QA==
+X-Gm-Message-State: ABy/qLazN4BkU1YlTHOVdWTbhGTWr408G+JnWPuSW5xr9LnKdSUmT79l
+ LIPiohPNt/qbajQJYolvxuOlmQ==
+X-Google-Smtp-Source: APBJJlECknYOx1HT0pSCZAbvCXQdaniHuFh6q/nvRIAezFbLQ7Moab69lE7D8j1itiQh6IaRFQ/iFg==
+X-Received: by 2002:a2e:800b:0:b0:2b6:a344:29cf with SMTP id
+ j11-20020a2e800b000000b002b6a34429cfmr9781907ljg.17.1689023512008; 
+ Mon, 10 Jul 2023 14:11:52 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ r6-20020a2e9946000000b002b6d781b60esm138615ljj.82.2023.07.10.14.11.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Jul 2023 14:11:51 -0700 (PDT)
+Message-ID: <325dad0e-38ff-9f60-efc9-0fd711d63267@linaro.org>
+Date: Tue, 11 Jul 2023 00:11:50 +0300
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ee71841-a832-4d0b-ace3-08db8182f126
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jul 2023 20:19:19.4521 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hDP3a/tCP4r+HiFelJdrhYDG5J1XDdev0glvHdkscPu7carImuMxW35T1FvqhHXk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5805
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH] drm/client: Send hotplug event after registering a client
+Content-Language: en-GB
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ noralf@tronnes.org
+References: <20230710091029.27503-1-tzimmermann@suse.de>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230710091029.27503-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 10 Jul 2023 21:33:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,73 +78,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, "Rao,
- Srinath" <Srinath.rao@amd.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ amd-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ linux-samsung-soc@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Paul Schyska <pschyska@gmail.com>,
+ Torsten Krah <krah.tm@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ Inki Dae <inki.dae@samsung.com>, linux-tegra@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Moritz Duge <MoritzDuge@kolahilft.de>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+On 10/07/2023 12:10, Thomas Zimmermann wrote:
+> Generate a hotplug event after registering a client to allow the
+> client to configure its display. Remove the hotplug calls from the
+> existing clients for fbdev emulation. This change fixes a concurrency
+> bug between registering a client and receiving events from the DRM
+> core. The bug is present in the fbdev emulation of all drivers.
+> 
+> The fbdev emulation currently generates a hotplug event before
+> registering the client to the device. For each new output, the DRM
+> core sends an additional hotplug event to each registered client.
+> 
+> If the DRM core detects first output between sending the artificial
+> hotplug and registering the device, the output's hotplug event gets
+> lost. If this is the first output, the fbdev console display remains
+> dark. This has been observed with amdgpu and fbdev-generic.
+> 
+> Fix this by adding hotplug generation directly to the client's
+> register helper drm_client_register(). Registering the client and
+> receiving events are serialized by struct drm_device.clientlist_mutex.
+> So an output is either configured by the initial hotplug event, or
+> the client has already been registered.
+> 
+> The bug was originally added in commit 6e3f17ee73f7 ("drm/fb-helper:
+> generic: Call drm_client_add() after setup is done"), in which adding
+> a client and receiving a hotplug event switched order. It was hidden,
+> as most hardware and drivers have at least on static output configured.
+> Other drivers didn't use the internal DRM client or still had struct
+> drm_mode_config_funcs.output_poll_changed set. That callback handled
+> hotplug events as well. After not setting the callback in amdgpu in
+> commit 0e3172bac3f4 ("drm/amdgpu: Don't set struct
+> drm_driver.output_poll_changed"), amdgpu did not show a framebuffer
+> console if output events got lost. The bug got copy-pasted from
+> fbdev-generic into the other fbdev emulation.
+> 
+> Reported-by: Moritz Duge <MoritzDuge@kolahilft.de>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2649
+> Fixes: 6e3f17ee73f7 ("drm/fb-helper: generic: Call drm_client_add() after setup is done")
+> Fixes: 8ab59da26bc0 ("drm/fb-helper: Move generic fbdev emulation into separate source file")
+> Fixes: b79fe9abd58b ("drm/fbdev-dma: Implement fbdev emulation for GEM DMA helpers")
+> Fixes: 63c381552f69 ("drm/armada: Implement fbdev emulation as in-kernel client")
+> Fixes: 49953b70e7d3 ("drm/exynos: Implement fbdev emulation as in-kernel client")
+> Fixes: 8f1aaccb04b7 ("drm/gma500: Implement client-based fbdev emulation")
+> Fixes: 940b869c2f2f ("drm/msm: Implement fbdev emulation as in-kernel client")
+> Fixes: 9e69bcd88e45 ("drm/omapdrm: Implement fbdev emulation as in-kernel client")
+> Fixes: e317a69fe891 ("drm/radeon: Implement client-based fbdev emulation")
+> Fixes: 71ec16f45ef8 ("drm/tegra: Implement fbdev emulation as in-kernel client")
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Tested-by: Moritz Duge <MoritzDuge@kolahilft.de>
+> Tested-by: Torsten Krah <krah.tm@gmail.com>
+> Tested-by: Paul Schyska <pschyska@gmail.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Noralf Trønnes <noralf@tronnes.org>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Javier Martinez Canillas <javierm@redhat.com>
+> Cc: Russell King <linux@armlinux.org.uk>
+> Cc: Inki Dae <inki.dae@samsung.com>
+> Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
+> Cc: Kyungmin Park <kyungmin.park@samsung.com>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian König" <christian.koenig@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Cc: Thierry Reding <thierry.reding@gmail.com>
+> Cc: Mikko Perttunen <mperttunen@nvidia.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-samsung-soc@vger.kernel.org
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: linux-tegra@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v5.2+
+> ---
+>   drivers/gpu/drm/armada/armada_fbdev.c     |  4 ----
+>   drivers/gpu/drm/drm_client.c              | 21 +++++++++++++++++++++
+>   drivers/gpu/drm/drm_fbdev_dma.c           |  4 ----
+>   drivers/gpu/drm/drm_fbdev_generic.c       |  4 ----
+>   drivers/gpu/drm/exynos/exynos_drm_fbdev.c |  4 ----
+>   drivers/gpu/drm/gma500/fbdev.c            |  4 ----
+>   drivers/gpu/drm/msm/msm_fbdev.c           |  4 ----
 
------Original Message-----
-From: Jamadar, Saleemkhan <Saleemkhan.Jamadar@amd.com>
-Sent: Monday, July 10, 2023 12:54 PM
-To: Jamadar, Saleemkhan <Saleemkhan.Jamadar@amd.com>; amd-gfx@lists.freedes=
-ktop.org; Liu, Leo <Leo.Liu@amd.com>; Gopalakrishnan, Veerabadhran (Veera) =
-<Veerabadhran.Gopalakrishnan@amd.com>; Sundararaju, Sathishkumar <Sathishku=
-mar.Sundararaju@amd.com>
-Cc: Koenig, Christian <Christian.Koenig@amd.com>; Rao, Srinath <Srinath.rao=
-@amd.com>
-Subject: [PATCH v3 2/2] drm/amdgpu: update kernel vcn ring test
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # msm
 
-add session context buffer to decoder ring test fro vcn v1 to v3.
+>   drivers/gpu/drm/omapdrm/omap_fbdev.c      |  4 ----
+>   drivers/gpu/drm/radeon/radeon_fbdev.c     |  4 ----
+>   drivers/gpu/drm/tegra/fbdev.c             |  4 ----
+>   10 files changed, 21 insertions(+), 36 deletions(-)
 
-v3 - correct the cmd for sesssion ctx buf
-v2 - add the buffer into IB (Leo liu)
+BTW: As you have been clearing this area. I see that significant amount 
+of DRM drivers use exactly the same code for msm_fbdev_client_funcs and 
+for the significant part of foo_fbdev_setup(). Do you have any plans for 
+moving that into a library / generic code? If not, I can take a look at 
+crafting the patch.
 
-Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vcn.c
-index 76e9a2418286..4ee5f933e420 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -521,6 +521,7 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *=
-ring,
-                                   struct dma_fence **fence)
- {
-        u64 addr =3D AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
-+       uint64_t session_ctx_buf_gaddr =3D AMDGPU_GPU_PAGE_ALIGN(ib_msg->gp=
-u_addr + 8192);
-        struct amdgpu_device *adev =3D ring->adev;
-        struct dma_fence *f =3D NULL;
-        struct amdgpu_job *job;
-@@ -546,6 +547,19 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring =
-*ring,
-        }
-        ib->length_dw =3D 16;
-
-This line above can be removed. With that the patch is:
-Reviewed-by: Leo Liu <leo.liu@amd.com>
-
-+       ib->ptr[ib->length_dw++] =3D PACKET0(adev->vcn.internal.data0, 0);
-+       ib->ptr[ib->length_dw++] =3D lower_32_bits(session_ctx_buf_gaddr);
-+       ib->ptr[ib->length_dw++] =3D PACKET0(adev->vcn.internal.data1, 0);
-+       ib->ptr[ib->length_dw++] =3D upper_32_bits(session_ctx_buf_gaddr);
-+       /* session ctx buffer cmd */
-+       ib->ptr[ib->length_dw++] =3D PACKET0(adev->vcn.internal.cmd, 0xa);
-+       ib->ptr[ib->length_dw++] =3D 0;
-+       for (i =3D ib->length_dw; i < 32; i +=3D 2) {
-+               ib->ptr[i] =3D PACKET0(adev->vcn.internal.nop, 0);
-+               ib->ptr[i+1] =3D 0;
-+       }
-+       ib->length_dw =3D 32;
-+
-        r =3D amdgpu_job_submit_direct(job, ring, &f);
-        if (r)
-                goto err_free;
---
-2.25.1
+-- 
+With best wishes
+Dmitry
 
