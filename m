@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3390BC001B0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFF4EC001DE
 	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jul 2023 13:01:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 410AA10E15D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61AF110E24C;
 	Mon, 10 Jul 2023 13:01:25 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA90210E14A;
- Mon, 10 Jul 2023 13:01:18 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7966D10E0FC;
+ Mon, 10 Jul 2023 13:01:19 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C15CE221BA;
- Mon, 10 Jul 2023 13:01:15 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 042211FF7A;
+ Mon, 10 Jul 2023 13:01:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1688994075; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1688994078; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=88rPmDGaS5gKniv3Edf9SKUMMSNGLxAYotJPEpDKSY0=;
- b=iI+YdRNDj5roFr+qOpBW4pQiEAaBopdRUiHG5zuIRb1y0+ybtz/NnVxVBMa5EIJRu6ltWS
- +fc/WnmvzwBboWzDqmOj5Qob383Is/QvSeg41r5d75Sr0CU8Qf8Gzrsq/+f7Ssni6U/Qea
- O5hM6rasaSVFgFepwU9E2Sc7GM1WzHM=
+ bh=/zUoLo2iOzomOZ9vT6lH81AsiLcKSFTf6r6yeZLXs+I=;
+ b=XOuadsPfz67AOSh7Ed7yHanRtTkDg8+PQa5iqXvtYgoQ13QNaWanlTvotm22780rhMVc5c
+ XMZ5B5u7dGHYW1r6KrvKRtIBSeSQ9zvLvgzbuZZ6PwL5ac+OiNkeICP1qMsOV59reVFZic
+ /4J6NeP1sx0oElFAXxuxXMYooJuJ2rI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1688994075;
+ s=susede2_ed25519; t=1688994078;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=88rPmDGaS5gKniv3Edf9SKUMMSNGLxAYotJPEpDKSY0=;
- b=UtgwnR9WK2m89ypILgWLnJMM0a9zUC2f0u22B30PTkORSB9Ev+brG4x1VLnbIsxRmb0NOA
- jcaYZmAYjwgIieBg==
+ bh=/zUoLo2iOzomOZ9vT6lH81AsiLcKSFTf6r6yeZLXs+I=;
+ b=grGc3342L/FzeU0I0LmlEHzF8hTY8FFCaYR9DhKTHgmez1voinzZf/yiixCQrBjCiOz0Fx
+ V4hMFgMLnvYfh2Dg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 70DE313A05;
- Mon, 10 Jul 2023 13:01:15 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9C3FA13A05;
+ Mon, 10 Jul 2023 13:01:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mIWQGhsBrGTTFAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 10 Jul 2023 13:01:15 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2MfgJB0BrGTTFAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 10 Jul 2023 13:01:17 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de,
 	javierm@redhat.com
-Subject: [PATCH 02/17] fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
-Date: Mon, 10 Jul 2023 14:50:06 +0200
-Message-ID: <20230710130113.14563-3-tzimmermann@suse.de>
+Subject: [PATCH 07/17] vfio-mdev: Remove flag FBINFO_DEFAULT from fbdev sample
+ driver
+Date: Mon, 10 Jul 2023 14:50:11 +0200
+Message-ID: <20230710130113.14563-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230710130113.14563-1-tzimmermann@suse.de>
 References: <20230710130113.14563-1-tzimmermann@suse.de>
@@ -71,105 +72,38 @@ Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
  linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
  linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, linux-geode@lists.infradead.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-input@vger.kernel.org, linux-nvidia@lists.surfsouth.com,
- linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+ Kirti Wankhede <kwankhede@nvidia.com>, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-input@vger.kernel.org,
+ linux-nvidia@lists.surfsouth.com, linux-omap@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 The flag FBINFO_DEFAULT is 0 and has no effect, as struct fbinfo.flags
-has been allocated to zero by a static declaration. So do not set it.
+has been allocated to zero by framebuffer_alloc(). So do not set it.
 
 Flags should signal differences from the default values. After cleaning
 up all occurences of FBINFO_DEFAULT, the token can be removed.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Helge Deller <deller@gmx.de>
+Cc: Kirti Wankhede <kwankhede@nvidia.com>
 ---
- drivers/video/fbdev/68328fb.c  | 2 +-
- drivers/video/fbdev/acornfb.c  | 2 +-
- drivers/video/fbdev/g364fb.c   | 2 +-
- drivers/video/fbdev/hpfb.c     | 1 -
- drivers/video/fbdev/macfb.c    | 1 -
- drivers/video/fbdev/maxinefb.c | 1 -
- 6 files changed, 3 insertions(+), 6 deletions(-)
+ samples/vfio-mdev/mdpy-fb.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/video/fbdev/68328fb.c b/drivers/video/fbdev/68328fb.c
-index 07d6e8dc686b..956dd2399cc0 100644
---- a/drivers/video/fbdev/68328fb.c
-+++ b/drivers/video/fbdev/68328fb.c
-@@ -448,7 +448,7 @@ static int __init mc68x328fb_init(void)
- 		fb_info.var.red.offset = fb_info.var.green.offset = fb_info.var.blue.offset = 0;
+diff --git a/samples/vfio-mdev/mdpy-fb.c b/samples/vfio-mdev/mdpy-fb.c
+index 3c8001b9e407..cda477b28685 100644
+--- a/samples/vfio-mdev/mdpy-fb.c
++++ b/samples/vfio-mdev/mdpy-fb.c
+@@ -162,7 +162,6 @@ static int mdpy_fb_probe(struct pci_dev *pdev,
  	}
- 	fb_info.pseudo_palette = &mc68x328fb_pseudo_palette;
--	fb_info.flags = FBINFO_DEFAULT | FBINFO_HWACCEL_YPAN;
-+	fb_info.flags = FBINFO_HWACCEL_YPAN;
  
- 	if (fb_alloc_cmap(&fb_info.cmap, 256, 0))
- 		return -ENOMEM;
-diff --git a/drivers/video/fbdev/acornfb.c b/drivers/video/fbdev/acornfb.c
-index 1b72edc01cfb..8fec21dfca09 100644
---- a/drivers/video/fbdev/acornfb.c
-+++ b/drivers/video/fbdev/acornfb.c
-@@ -694,7 +694,7 @@ static void acornfb_init_fbinfo(void)
- 	first = 0;
+ 	info->fbops = &mdpy_fb_ops;
+-	info->flags = FBINFO_DEFAULT;
+ 	info->pseudo_palette = par->palette;
  
- 	fb_info.fbops		= &acornfb_ops;
--	fb_info.flags		= FBINFO_DEFAULT | FBINFO_HWACCEL_YPAN;
-+	fb_info.flags		= FBINFO_HWACCEL_YPAN;
- 	fb_info.pseudo_palette	= current_par.pseudo_palette;
- 
- 	strcpy(fb_info.fix.id, "Acorn");
-diff --git a/drivers/video/fbdev/g364fb.c b/drivers/video/fbdev/g364fb.c
-index c5b7673ddc6c..0825cbde116e 100644
---- a/drivers/video/fbdev/g364fb.c
-+++ b/drivers/video/fbdev/g364fb.c
-@@ -219,7 +219,7 @@ int __init g364fb_init(void)
- 	fb_info.screen_base = (char *) G364_MEM_BASE;	/* virtual kernel address */
- 	fb_info.var = fb_var;
- 	fb_info.fix = fb_fix;
--	fb_info.flags = FBINFO_DEFAULT | FBINFO_HWACCEL_YPAN;
-+	fb_info.flags = FBINFO_HWACCEL_YPAN;
- 
- 	fb_alloc_cmap(&fb_info.cmap, 255, 0);
- 
-diff --git a/drivers/video/fbdev/hpfb.c b/drivers/video/fbdev/hpfb.c
-index 77fbff47b1a8..406c1383cbda 100644
---- a/drivers/video/fbdev/hpfb.c
-+++ b/drivers/video/fbdev/hpfb.c
-@@ -287,7 +287,6 @@ static int hpfb_init_one(unsigned long phys_base, unsigned long virt_base)
- 	else
- 		strcat(fb_info.fix.id, "Catseye");
- 	fb_info.fbops = &hpfb_ops;
--	fb_info.flags = FBINFO_DEFAULT;
- 	fb_info.var   = hpfb_defined;
- 	fb_info.screen_base = (char *)fb_start;
- 
-diff --git a/drivers/video/fbdev/macfb.c b/drivers/video/fbdev/macfb.c
-index 44ff860a3f37..5ca208d992cc 100644
---- a/drivers/video/fbdev/macfb.c
-+++ b/drivers/video/fbdev/macfb.c
-@@ -876,7 +876,6 @@ static int __init macfb_init(void)
- 	fb_info.var		= macfb_defined;
- 	fb_info.fix		= macfb_fix;
- 	fb_info.pseudo_palette	= pseudo_palette;
--	fb_info.flags		= FBINFO_DEFAULT;
- 
- 	err = fb_alloc_cmap(&fb_info.cmap, video_cmap_len, 0);
- 	if (err)
-diff --git a/drivers/video/fbdev/maxinefb.c b/drivers/video/fbdev/maxinefb.c
-index 4e6b05232ae2..0ac1873b2acb 100644
---- a/drivers/video/fbdev/maxinefb.c
-+++ b/drivers/video/fbdev/maxinefb.c
-@@ -155,7 +155,6 @@ int __init maxinefb_init(void)
- 	fb_info.screen_base = (char *)maxinefb_fix.smem_start;
- 	fb_info.var = maxinefb_defined;
- 	fb_info.fix = maxinefb_fix;
--	fb_info.flags = FBINFO_DEFAULT;
- 
- 	fb_alloc_cmap(&fb_info.cmap, 256, 0);
- 
+ 	ret = register_framebuffer(info);
 -- 
 2.41.0
 
