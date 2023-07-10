@@ -4,118 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 665CFEB64D9
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jul 2023 10:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C76F3EB64D9
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jul 2023 10:54:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09D6710E275;
-	Mon, 10 Jul 2023 10:16:24 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2067.outbound.protection.outlook.com [40.107.220.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB53B10E083
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jul 2023 10:16:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RGvkFuFgiV8CV3St4a4U1qguuEj0xHNcqTpYBVuGnc+dYn7L61hJiq5x5a417t/0oX6x+u/T7TtiudDabe3QKh+0IEMNVBcHfS+DXneE5vl8UpiPtyExONocA9mjLpEXvH9X6ckSDR66VYn3Jf+HXNg7KUFwWS342HTI7+0khicoZ8SEO0cdEGksMb1WGpbG2e6TlNL20M3G77X2uLOiNF1mS34FDdl5LsfGJmrvyRAZ5YnBY3sFGEBtCzNBFeHO5lS9wNW4fhs16ErDBgsBbzrO4z5iihKLtFkojU7c1+aKw4Omh2fvXz8dJyxdLdFceN1mPbOCFpwIhvO4hrWk+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RybCK6969t055K2lYAWTZ12fsRiHPokV6Yt4/GVJZqU=;
- b=WOyaRvouww/w1imY7ztwfTwhCpMQTaEHPyjAaNu4tKgZAeU2w+uZPee/eMYra1fSI18XhuisdYS3pcBuGnixVMlFMKyge6BFiqXhKZWsvCiMHFeSmEzwpVCDp/7uQPWUrjJaJ4gttjduaXSJkClApcdOaDkaNYQhrJYSqurm9YdDQ2mtX0xjh8ZJmSFhdoQvLEVuLHuKycIRSPEqSvkYPgRSlOO1iVBSWRgNvwmo4IQ0ZlKnQpfgjpYpQ4RZKqRqGpwwTWK5tkVN4gcJ6amOk2Q4xCdIcmJy+EaJqAU1LQB3JziZLAKhC+fBvLaGJW0Imn3w+aFfpUbwg27tXXyw5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RybCK6969t055K2lYAWTZ12fsRiHPokV6Yt4/GVJZqU=;
- b=Mt94GlXF7RkniaHZ11LiNaQMUryQbIiqXqPrgHX1XYZPPrlH/H/8/fZnmkjW3pskH2wD9VwLYU+MNodApKtWv/IJ9FvobHlEe/LMXw2gf7IqJZONQEHTM4wWIAmolzYuicnUACCPv7A401G+AJRIol5YA4Te5I1efkywc+e6AKk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by CH0PR12MB5201.namprd12.prod.outlook.com (2603:10b6:610:b8::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30; Mon, 10 Jul
- 2023 10:16:19 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::669f:5dca:d38a:9921]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::669f:5dca:d38a:9921%4]) with mapi id 15.20.6565.028; Mon, 10 Jul 2023
- 10:16:19 +0000
-Message-ID: <0f034282-240d-684b-6677-a351e98d557e@amd.com>
-Date: Mon, 10 Jul 2023 12:16:13 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 637E010E26A;
+	Mon, 10 Jul 2023 10:54:55 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76A7610E26A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jul 2023 10:54:52 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-3fbc54cab6fso43964045e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jul 2023 03:54:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1688986489; x=1691578489;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=0QlSWQOPU4xuLQX9RH2AAQA4aP/k46qwYHiKIel9oRE=;
+ b=dADYrtl2jCWRZof5iA0hUpPI5vl93L3ONHo/v0c3A2/rzkrMqrKdtIVC0YvcBjY32i
+ Sfx3lZGf9wWRl3g4T86aFemOgmyVXz6abjyM8Z7RQ4XTVPF5NXeq4ZiaY0GFv2E2iJXO
+ tEvAuAIf86UlR2CZHTzZfHPcuTztqLUzUpfcufNkiK27XQjKIfdk+Yy0pbinCAqXmP0R
+ M46qiME6Rr8uSVJ98btj9Ohan5BCAVECYdo+PUKidgXGyVLGB+5QcVla/PIdgacwzp9u
+ h9pmBiZDlGYnNtfrO8N3bEBCbVIdcHw0W+FGh6CQn9F4b+M4XEG+cGLf9T+Os0yYHPV6
+ LBhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688986489; x=1691578489;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=0QlSWQOPU4xuLQX9RH2AAQA4aP/k46qwYHiKIel9oRE=;
+ b=b3nixih3Z5YtFyJVI9MRv5Sv02v/XkSe6rzV2Uu4E1aH3BMoHqpyPuUcS61GLsqg+E
+ YjgU6Z6JIXanXtjecaY3PEqrBVondCCdCJ6IpUkBtrmnps+1bXfj1JocbrGeDYW/OS7y
+ zd26e2h3wO5d4Lmp2Xdz4EdgH9kklA0tgNfZ1dF6xDYZrKD0v8D2xMzDjbiMNnkkdE+M
+ yXGCNyJMrwAXb5dhwWhu75in3kUuwa7FDqdrnI5eJfqKtuI/RWfAU/frKwPgfyebEWF9
+ OG+20Rx3PiVe//+kU+xReJdmd4cRCtz7j0uxClkmYK2+5sEewgasyuZJGgRW5Bz7jblo
+ pWeg==
+X-Gm-Message-State: ABy/qLbUdxrWhGJeb4BbM9AGzEz6pZctokNsY07oSL3is3aQwGwsm0Yu
+ dMiUW1zSapXNDBmEWmZ+YlI=
+X-Google-Smtp-Source: APBJJlH8lRn5AaxlZiDO4lEPiX71zO6RKPkF6axws5fATT5/YA9pAZ8+10X5cPnMPFa1a1bKKCqDdQ==
+X-Received: by 2002:a1c:730b:0:b0:3fb:e573:4171 with SMTP id
+ d11-20020a1c730b000000b003fbe5734171mr10310427wmb.40.1688986488803; 
+ Mon, 10 Jul 2023 03:54:48 -0700 (PDT)
+Received: from ?IPV6:2a00:e180:1547:3f00:8e7:36ed:d042:e823?
+ ([2a00:e180:1547:3f00:8e7:36ed:d042:e823])
+ by smtp.gmail.com with ESMTPSA id
+ q15-20020a7bce8f000000b003fbe791a0e8sm10106012wmj.0.2023.07.10.03.54.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Jul 2023 03:54:48 -0700 (PDT)
+Message-ID: <6ca6ce34-df6a-884a-0ab7-8fe9e3033f3a@gmail.com>
+Date: Mon, 10 Jul 2023 12:54:46 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v2] drm/amdgpu/vkms: relax timer deactivation by
- hrtimer_try_to_cancel
+Subject: Re: [PATCH v2] drm/amdgpu: Increase soft IH ring size
 Content-Language: en-US
-To: Guchun Chen <guchun.chen@amd.com>, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com, hawking.zhang@amd.com, dusica.milinkovic@amd.com,
- nikola.prica@amd.com, flora.cui@amd.com
-References: <20230710063808.1684914-1-guchun.chen@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230710063808.1684914-1-guchun.chen@amd.com>
+To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230707154901.29568-1-Philip.Yang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230707154901.29568-1-Philip.Yang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0155.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b3::18) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|CH0PR12MB5201:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00eafa7f-dae5-4f26-3f58-08db812eb3f8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3c6v839c4m0DutLTA8h7at3Q6o6XMXyNlg3iKdpC/4GovKwpwC03DOjM6yI3XWM0S+BlsZHa+v+lxs/pfgoz8PUsLaKoy6p+kbxYBOQtpLT5RK+GP5HURRjgOoUe4+RvvufQh9ZL1JXY7DE+zDehm1T1+O3MNGJEAXF4aq4A7BmTCP7IbWbsa892Oz/kZcVVyB8+oypn6EVInkAlYxLevF/lGIjgy1I3ZmnQJubYgrpBxyZfeYNDf9upejBZlM45vplVYljqHyIVSnWzt1O/L0ahWxji3zMOzCthIWmhmWnC7z7NKzWOuDAZ/s84Ffb1pXGj8sENRFfh27w7uu1KneVDLcWE7CML9viNDlmiuo3sIaQdzsVMErjz4KN3XvN4Gw+F5tB6UOBWzd7N4ZsEVa4RBfosmHxO3LJs/EzS+r8icCk2HIG0mUGqiKOJdfWQD8mha+Wfux2KawRG0t24S1QpcXEU8P400ybmv9tDhoDbd+0+n85mgLkeMGELVje5XoSN/8c8S54Ggn0QVvoZVzSf664AyvVQ1DoDCNRi1ZCcSnD35FF7qgWxHEnoE66r/Ilw8JBdNaWqvVeiogHMmFIgRfTw4F2IRLK++CwCzs/sTkqh/+xv7n8QiQzshLI8cRQJoAuyCaCww38bFqNfcQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(366004)(396003)(376002)(39860400002)(136003)(451199021)(86362001)(31696002)(38100700002)(31686004)(36756003)(6666004)(6486002)(6506007)(186003)(6512007)(2616005)(5660300002)(2906002)(66556008)(316002)(478600001)(66946007)(8936002)(66476007)(8676002)(66574015)(83380400001)(4326008)(6636002)(41300700001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QThBWjZJY1FWbDJHNzR5eEd6cGw5Q2tDVzZNdGZBaDJualN0alBRalRFUFpu?=
- =?utf-8?B?TEIrTnNJby95Q09GYVBtallrWkthZGh2WjExY3d3U3hXVkVDUkVocHpKOUhT?=
- =?utf-8?B?K2hDaTdhQ2tXcXRTYW05ZllOa3RhWmRub25RSjd6dWZrSk90ZjJGWGtjV01l?=
- =?utf-8?B?OHNLZCt0SWxuLzFldCt1ZDhONmJjOHVuRjd5cTRlc2xqRDJTbUpxTzlWSlpN?=
- =?utf-8?B?M3ZhV0RIUmowVldFYkQ1R1dCYktIV2hRSlMyUmlQb2pVaGtHVVhoUEZaTDE2?=
- =?utf-8?B?R3V5cGxnbGdxa0FxNVJ5NXRJSS9hZnh3UnRLN2QwTWx0Q05zVjBsY0ltRVJQ?=
- =?utf-8?B?dEx5WVN4TlJ1RWpUcUkwdnRzNXozYmVYRjVUbUxCYWRiSldhSS9mb0ZDb2d0?=
- =?utf-8?B?UkJnRzZ2c2EyeFFOV0sxdUdObjlqR1I4YzhZKysxTGRSeHQzV2dHOUhHbGhE?=
- =?utf-8?B?MmdqQUoxUTFJUHFYd3ptNXlVMWN0a2ZXbHR4TVhsdGNpaDFKc1lURDk0dlVC?=
- =?utf-8?B?SGYzRzU1U05QS0plSjM3ZW95emMveGluRWd3L3pobi8rWXBlQi9UbVp4clBC?=
- =?utf-8?B?VGlkMzNKZXNkY2IxbkdTRnNaWDVTcDNBMXI4YXRqblRXU2xITFhKb1lUVXJZ?=
- =?utf-8?B?SWtNUkxPY2hzT1g1MTVDMVJHNEdUVXVGVkJDdzVaaWcrR0dreUprM2RIcXFu?=
- =?utf-8?B?Mlh2azlTRzhlcURsSmt0M2YyR1AxRzVCL05WVkV4MzFDNVNEMmRQWnFuLzlB?=
- =?utf-8?B?cVFkY0Z5U3lOUEtqNkdZRFNtczdORTNDMStQRTlZcHpBMGZQSUZ2WDAyR0Ja?=
- =?utf-8?B?TXFWaUwyY2E5aW9LS2FiU0lHMGJEUzc0SXRkTDYyVUozOVd1b0plbGpSUFVG?=
- =?utf-8?B?cUNOdjZDT2M1Y1J0U0dKQXFoUUZOR1dsSUFMUTcxU1N1M1dNTWF1ZG1RTFdx?=
- =?utf-8?B?Q3ZMN3l3TTRYUlVyaitLNXR3bzVqRGJzVGZkeVkyNEZhSXRXN2JIVEhuN21p?=
- =?utf-8?B?amxRMk1oTXBtOXhOTjUrNUg5MnNJUEdCU1MwYkFPRGtLWDR2Sm9NQm51TVN6?=
- =?utf-8?B?WnQ5WlV1Z0tvMVNqWHNYZ3o0aUxEOGd6dVZxR3haY0wyc2tsQm40TFh0UGJ2?=
- =?utf-8?B?YjMwc1gyUU9iKzhVRnNlSnhRcFZNQnBsZlFWMVBQUlhYNk5peXB5VDFZdHRD?=
- =?utf-8?B?bG94NngrclNGWjl5cDY0U1U5TEJhRjRYUFkxVHhqbmVBcVY5a3VCV0JJTmpa?=
- =?utf-8?B?TG9kYzVNemoreG5Ea01HaVBTcWMwWXRHc2F6bGM2NHkxUXBiREZGendkQ0xZ?=
- =?utf-8?B?aEdOMlQyVlZHQVpRV1pIWHo2WEdLRm9XVUVoU1NOM3lKaFJMZ3JVRHYrL1NS?=
- =?utf-8?B?WWliZmhtUlBQUllWa0M3NjBCMzdiR0FDNDZQb2p3bWpCSGpqUXdIaWxIMDVL?=
- =?utf-8?B?bFFzRHJHNmllVFFVVWpiMURrd2orUTdqTzMxNWYyenBETEdNeFJZdFZWV0VS?=
- =?utf-8?B?THpxVWI2eXF0L2h4SXNqeU9QRGNBVml5Mk12U3pEZ2xUQ0VzVllLYXBubWRH?=
- =?utf-8?B?V2dNUHEzK0x1SWcrdzR4d3hmaDc3WUZCd2xCZmlVcWUxb0hmL1Bzc2RZWDF0?=
- =?utf-8?B?OEdpRlhzNGNnM0xKOGh1UWpPQnBNc2lISklJKzRDRXFCdVF3RTdVTkxncXNs?=
- =?utf-8?B?TkFwOVFROEoyaFFGa0FJUW4rMFhja1BZMnhxQlE0VllQb0E4RnJ6bm5vZG5u?=
- =?utf-8?B?NE4yRENOVnE1eG5mWTlZblRGb21zWm1makdkbWhNaXM1RHppWGEwQ1NjYjNz?=
- =?utf-8?B?K3k4dUo4U25MZXdpQnNKeDhjMkU5aERwRTg4TjNzM3FJMDhRb0E1V3RPaThR?=
- =?utf-8?B?VG9aY003QkcwV1BtWkxLVDBueHdiMDQvZURjaWpyK2VGZGpEdzV5ckFBTHYz?=
- =?utf-8?B?b0l5YTYvR2dXZWYxUEpCTXZhNG1wcWNhcVJ5QjFYTFQyci93eW9ITGNhVFZM?=
- =?utf-8?B?N3ZmTEQrVmNTTmVta0FBN2pabk1qYTdCWFhVRnhTdWdhRDBmamIzZ2VJcldI?=
- =?utf-8?B?V0RnQ3NOVEcyMi9FSnNHRTdsYXppSm9QUmtzYjVQS3FIMVYydytmOFFkTkpq?=
- =?utf-8?B?TCtyT0xsTm1oTmoyQWtaWTlwTWd5U1JjUEU5NEFuUDlWaDBpTzd3bENUSjZp?=
- =?utf-8?Q?ySjm9dpulIhxgGUuP2tQpLYmkDzSVtU8+NzyeQyNxo2E?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00eafa7f-dae5-4f26-3f58-08db812eb3f8
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2023 10:16:19.3634 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nNVAO/4aHY0p6FlK6naXlIDm0q20f0PYyEPskkU0JGnhC1ruHYv3bt5Dx0GpImuC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5201
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,121 +76,201 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org
+Cc: mukul.joshi@amd.com, Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-Am 10.07.23 um 08:38 schrieb Guchun Chen:
-> In below thousands of screen rotation loop tests with virtual display
-> enabled, a CPU hard lockup issue may happen, leading system to unresponsive
-> and crash.
+Am 07.07.23 um 17:49 schrieb Philip Yang:
+> Retry faults are delegated to soft IH ring and then processed by
+> deferred worker. Current soft IH ring size PAGE_SIZE can store 128
+> entries, which may overflow and drop retry faults, causes HW stucks
+> because the retry fault is not recovered.
 >
-> do {
-> 	xrandr --output Virtual --rotate inverted
-> 	xrandr --output Virtual --rotate right
-> 	xrandr --output Virtual --rotate left
-> 	xrandr --output Virtual --rotate normal
-> } while (1);
+> Increase soft IH ring size to 8KB, enough to store 256 CAM entries
+> because we clear the CAM entry after handling the retry fault from soft
+> ring.
 >
-> NMI watchdog: Watchdog detected hard LOCKUP on cpu 1
+> Define macro IH_RING_SIZE and IH_SW_RING_SIZE to remove duplicate
+> constant.
 >
-> ? hrtimer_run_softirq+0x140/0x140
-> ? store_vblank+0xe0/0xe0 [drm]
-> hrtimer_cancel+0x15/0x30
-> amdgpu_vkms_disable_vblank+0x15/0x30 [amdgpu]
-> drm_vblank_disable_and_save+0x185/0x1f0 [drm]
-> drm_crtc_vblank_off+0x159/0x4c0 [drm]
-> ? record_print_text.cold+0x11/0x11
-> ? wait_for_completion_timeout+0x232/0x280
-> ? drm_crtc_wait_one_vblank+0x40/0x40 [drm]
-> ? bit_wait_io_timeout+0xe0/0xe0
-> ? wait_for_completion_interruptible+0x1d7/0x320
-> ? mutex_unlock+0x81/0xd0
-> amdgpu_vkms_crtc_atomic_disable
+> Show warning message if soft IH ring overflows because this should not
+> happen.
 >
-> It's caused by a stuck in lock dependency in such scenario on different
-> CPUs.
->
-> CPU1                                             CPU2
-> drm_crtc_vblank_off                              hrtimer_interrupt
->      grab event_lock (irq disabled)                   __hrtimer_run_queues
->          grab vbl_lock/vblank_time_block                  amdgpu_vkms_vblank_simulate
->              amdgpu_vkms_disable_vblank                       drm_handle_vblank
->                  hrtimer_cancel                                       grab dev->event_lock
->
-> So CPU1 stucks in hrtimer_cancel as timer callback is running endless on
-> current clock base, as that timer queue on CPU2 has no chance to finish it
-> because of failing to hold the lock. So NMI watchdog will throw the errors
-> after its threshold, and all later CPUs are impacted/blocked.
->
-> So use hrtimer_try_to_cancel to fix this, as disable_vblank callback
-> does not need to wait the handler to finish. And also it's not necessary
-> to check the return value of hrtimer_try_to_cancel, because even if it's
-> -1 which means current timer callback is running, it will be reprogrammed
-> in hrtimer_start with calling enable_vblank to make it works.
->
-> v2: only re-arm timer when vblank is enabled (Christian) and add a Fixes
-> tag as well
->
-> Fixes: 84ec374bd580("drm/amdgpu: create amdgpu_vkms (v4)")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 15 ++++++++++++---
->   1 file changed, 12 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c  | 8 ++++++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h  | 7 +++++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 2 +-
+>   drivers/gpu/drm/amd/amdgpu/ih_v6_0.c    | 4 ++--
+>   drivers/gpu/drm/amd/amdgpu/navi10_ih.c  | 4 ++--
+>   drivers/gpu/drm/amd/amdgpu/vega10_ih.c  | 4 ++--
+>   drivers/gpu/drm/amd/amdgpu/vega20_ih.c  | 4 ++--
+>   7 files changed, 20 insertions(+), 13 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> index 53ff91fc6cf6..44d704306f44 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> @@ -46,7 +46,10 @@ static enum hrtimer_restart amdgpu_vkms_vblank_simulate(struct hrtimer *timer)
->   	struct amdgpu_crtc *amdgpu_crtc = container_of(timer, struct amdgpu_crtc, vblank_timer);
->   	struct drm_crtc *crtc = &amdgpu_crtc->base;
->   	struct amdgpu_vkms_output *output = drm_crtc_to_amdgpu_vkms_output(crtc);
-> +	struct drm_vblank_crtc *vblank;
-> +	struct drm_device *dev;
->   	u64 ret_overrun;
-> +	unsigned int pipe;
->   	bool ret;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> index fceb3b384955..51a0dbd2358a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> @@ -138,6 +138,7 @@ void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+>   /**
+>    * amdgpu_ih_ring_write - write IV to the ring buffer
+>    *
+> + * @adev: amdgpu_device pointer
+>    * @ih: ih ring to write to
+>    * @iv: the iv to write
+>    * @num_dw: size of the iv in dw
+> @@ -145,8 +146,8 @@ void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
+>    * Writes an IV to the ring buffer using the CPU and increment the wptr.
+>    * Used for testing and delegating IVs to a software ring.
+>    */
+> -void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+> -			  unsigned int num_dw)
+> +void amdgpu_ih_ring_write(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+> +			  const uint32_t *iv, unsigned int num_dw)
+>   {
+>   	uint32_t wptr = le32_to_cpu(*ih->wptr_cpu) >> 2;
+>   	unsigned int i;
+> @@ -161,6 +162,9 @@ void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+>   	if (wptr != READ_ONCE(ih->rptr)) {
+>   		wmb();
+>   		WRITE_ONCE(*ih->wptr_cpu, cpu_to_le32(wptr));
+> +	} else {
+> +		dev_warn(adev->dev, "IH soft ring buffer overflow 0x%X, 0x%X\n",
+> +			 wptr, ih->rptr);
+>   	}
+>   }
 >   
->   	ret_overrun = hrtimer_forward_now(&amdgpu_crtc->vblank_timer,
-> @@ -54,9 +57,15 @@ static enum hrtimer_restart amdgpu_vkms_vblank_simulate(struct hrtimer *timer)
->   	if (ret_overrun != 1)
->   		DRM_WARN("%s: vblank timer overrun\n", __func__);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> index dd1c2eded6b9..6c6184f0dbc1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
+> @@ -27,6 +27,9 @@
+>   /* Maximum number of IVs processed at once */
+>   #define AMDGPU_IH_MAX_NUM_IVS	32
 >   
-> +	dev = crtc->dev;
-> +	pipe = drm_crtc_index(crtc);
-> +	vblank = &dev->vblank[pipe];
->   	ret = drm_crtc_handle_vblank(crtc);
-> -	if (!ret)
-> -		DRM_ERROR("amdgpu_vkms failure on handling vblank");
-> +	if (!ret && !READ_ONCE(vblank->enabled)) {
-> +		/* Don't queue timer again when vblank is disabled. */
-> +		DRM_WARN("amdgpu_vkms failure on handling vblank\n");
+> +#define IH_RING_SIZE	(256 * 1024)
+> +#define IH_SW_RING_SIZE	(8 * 1024)	/* enough for 256 CAM entries */
+> +
 
-You should probably only print the warning when really an error happened.
-
-Disabling the vblank and not firing the timer again is a perfectly 
-normal operation.
+Please add an AMDGPU_ prefix to the macro name and don't put comments on 
+the same line as the macro.
 
 Apart from that looks good to me,
 Christian.
 
-> +		return HRTIMER_NORESTART;
-> +	}
+>   struct amdgpu_device;
+>   struct amdgpu_iv_entry;
 >   
->   	return HRTIMER_RESTART;
->   }
-> @@ -81,7 +90,7 @@ static void amdgpu_vkms_disable_vblank(struct drm_crtc *crtc)
+> @@ -97,8 +100,8 @@ struct amdgpu_ih_funcs {
+>   int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+>   			unsigned ring_size, bool use_bus_addr);
+>   void amdgpu_ih_ring_fini(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+> -void amdgpu_ih_ring_write(struct amdgpu_ih_ring *ih, const uint32_t *iv,
+> -			  unsigned int num_dw);
+> +void amdgpu_ih_ring_write(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
+> +			  const uint32_t *iv, unsigned int num_dw);
+>   int amdgpu_ih_wait_on_checkpoint_process_ts(struct amdgpu_device *adev,
+>   					    struct amdgpu_ih_ring *ih);
+>   int amdgpu_ih_process(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> index 5273decc5753..fa6d0adcec20 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> @@ -493,7 +493,7 @@ void amdgpu_irq_delegate(struct amdgpu_device *adev,
+>   			 struct amdgpu_iv_entry *entry,
+>   			 unsigned int num_dw)
 >   {
->   	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
->   
-> -	hrtimer_cancel(&amdgpu_crtc->vblank_timer);
-> +	hrtimer_try_to_cancel(&amdgpu_crtc->vblank_timer);
+> -	amdgpu_ih_ring_write(&adev->irq.ih_soft, entry->iv_entry, num_dw);
+> +	amdgpu_ih_ring_write(adev, &adev->irq.ih_soft, entry->iv_entry, num_dw);
+>   	schedule_work(&adev->irq.ih_soft_work);
 >   }
 >   
->   static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc *crtc,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> index b02e1cef78a7..980b24120080 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
+> @@ -535,7 +535,7 @@ static int ih_v6_0_sw_init(void *handle)
+>   	 * use bus address for ih ring by psp bl */
+>   	use_bus_addr =
+>   		(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) ? false : true;
+> -	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 256 * 1024, use_bus_addr);
+> +	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, IH_RING_SIZE, use_bus_addr);
+>   	if (r)
+>   		return r;
+>   
+> @@ -548,7 +548,7 @@ static int ih_v6_0_sw_init(void *handle)
+>   	/* initialize ih control register offset */
+>   	ih_v6_0_init_register_offset(adev);
+>   
+> -	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, PAGE_SIZE, true);
+> +	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, true);
+>   	if (r)
+>   		return r;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> index eec13cb5bf75..b6a8478dabf4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+> @@ -565,7 +565,7 @@ static int navi10_ih_sw_init(void *handle)
+>   		use_bus_addr = false;
+>   	else
+>   		use_bus_addr = true;
+> -	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 256 * 1024, use_bus_addr);
+> +	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, IH_RING_SIZE, use_bus_addr);
+>   	if (r)
+>   		return r;
+>   
+> @@ -578,7 +578,7 @@ static int navi10_ih_sw_init(void *handle)
+>   	/* initialize ih control registers offset */
+>   	navi10_ih_init_register_offset(adev);
+>   
+> -	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, PAGE_SIZE, true);
+> +	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, true);
+>   	if (r)
+>   		return r;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> index 1e83db0c5438..d364c6dd152c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+> @@ -485,7 +485,7 @@ static int vega10_ih_sw_init(void *handle)
+>   	if (r)
+>   		return r;
+>   
+> -	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 256 * 1024, true);
+> +	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, IH_RING_SIZE, true);
+>   	if (r)
+>   		return r;
+>   
+> @@ -510,7 +510,7 @@ static int vega10_ih_sw_init(void *handle)
+>   	/* initialize ih control registers offset */
+>   	vega10_ih_init_register_offset(adev);
+>   
+> -	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, PAGE_SIZE, true);
+> +	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, true);
+>   	if (r)
+>   		return r;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> index 4d719df376a7..544ee55a22da 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+> @@ -539,7 +539,7 @@ static int vega20_ih_sw_init(void *handle)
+>   	    (adev->ip_versions[OSSSYS_HWIP][0] == IP_VERSION(4, 4, 2)))
+>   		use_bus_addr = false;
+>   
+> -	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, 256 * 1024, use_bus_addr);
+> +	r = amdgpu_ih_ring_init(adev, &adev->irq.ih, IH_RING_SIZE, use_bus_addr);
+>   	if (r)
+>   		return r;
+>   
+> @@ -565,7 +565,7 @@ static int vega20_ih_sw_init(void *handle)
+>   	/* initialize ih control registers offset */
+>   	vega20_ih_init_register_offset(adev);
+>   
+> -	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, PAGE_SIZE, use_bus_addr);
+> +	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_soft, IH_SW_RING_SIZE, use_bus_addr);
+>   	if (r)
+>   		return r;
+>   
 
