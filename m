@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6009CEB64DC
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jul 2023 03:10:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19CD0EB64DC
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jul 2023 03:23:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2B5810E0A3;
-	Mon, 10 Jul 2023 03:10:58 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2044.outbound.protection.outlook.com [40.107.237.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A01FE10E0A3
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jul 2023 03:10:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7428710E044;
+	Mon, 10 Jul 2023 03:23:25 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2060b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eb2::60b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 449F110E044
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jul 2023 03:23:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fLxIAoi2cP6iihsyvHik2dmrxJMak/L4CbEZ6S8fjovNTHcxX4i/puulNW4H05WVmWuQfAqVibkQoh6DC2mFV5Tl/EeERnuV8gmUjmjP25IEjLLxyFQdjVaMV+LPmVC8FD1MupMNApGLrw7+bdbZhMqyxUdZYoRNsjddavpWhwoyRR00fC+x5J77uso/RKoKxBpgYJpfE0Hrm47ZChWNAyl0rGs1abtkkvZJaSMOsYqR4p1uuCjP3bbe2FmxcteimjiS7gujmwqGXnGqu5v98gC+SK82c2Q0Tv+oJrZOeATuMN48wMKKSguixxlOrSeVBvs4j4lU5WMLdLu0irfDrQ==
+ b=XZ0hc9+e1mLvuBlRSAWHTnNT6JuM+Cgi/1KOBFHs4EHzaLqpHa1Obq2nE+I/tB5PdDH2GdWipqR5ffmNo7RJhzLlWt+wLh1faVpYb6b3mmenG+HT/BNDbIo4FEekrOCxmSSkdcXYVCZh5YjviLd2UHLOUgK5+Ot0w8Jol01o100x6p10XIedRAMgvt1wpPGAdmW4VABJcOzzboYoprDuaK0fpL5LzFvFU9W6fQcAQG4IQYA+TTpu4l5Jj568gBZ8TEg5sox9g3Md/kQqSLfKNnKuTPDTHQmNCuVM77sVU7EYeI9qZZMceN6BBx942gkbGM7mkDe7Ccbv9nTsAuJ2Rg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZZmHSox6xJYTNEGhADegfkAb/S5YOBoJ8YrvWa7ekHM=;
- b=CHTl/40zUATLdrb5EvlP1OqjjZ2P/AkuSKlo3zYQRx4bDVpxNdR65dRjUwH8DMFrtDohQYNhbevIfWg1tzv9Q1ZpPFp7ZYHn3aVCJR5akMFmB7/SJMHiGNBdiarQZYCiP5+5PZfLk8hu83s/iyg8sH1ODHHQdPO/9zSdqzG89PvD06NPRJruS6paHZBz6arvoPkehxhoaWEp/ijzFc8moCzF46t5oRJqUYLEUZAYld3FmAnVy9AakVkVfH1WxsNBUwwO0llEpRl4Vgm+05Eztey9JkaeFnhPlzUKbH9umd7TkjlAJNZeiyEek7rcaoDoKYVWbT87AR/qSCmkOZ8H+g==
+ bh=R4hW89gYIMlHNMEBkApYIsv2HLchRg0ss9nrflRegMk=;
+ b=K1Z6rlgfuDvLAAR5AN7QTQ5KceE5MHC8zhxy4ubMQAcd85gCyYIcgu/nXoe9v9JxkNNQdsub9UpXWQR1Xh21HbqIBoGL/IB+0r+s3bOma1gTj/KjsqX0GmQrAf5oKTFVkq92/vrTYKQ5MVCyWZhJRuvPK50T2QMXDUSLLGTWK0pl72d0UfcMGv8uza+fj2Tw79T3aBbIzE0vgnm11lKxiI6KVouTKJp55n6rms1lVcCS/EWq567oEhu9pIj8mG2MeqLfpHZT/VnMFxPUBIrmsCibDMAH2ffvpVQ6+OT548XrMfzBS6wJH4VU3pmTBWmMTnpOSo2+IylWRZEISEM9Pw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZZmHSox6xJYTNEGhADegfkAb/S5YOBoJ8YrvWa7ekHM=;
- b=Crwi9iB5js8dc0qgym4uHtNaE/5e8tDAWG8dQduDI21jTT1bwi0dpZPND8dP69y68VGOtseGn5aTFiR/MTrXJmiPoN0gBwE2IqxVJE7WaE9O1UQOzN8vYtQ79KIM0iIf2AD3yrISvbulWAA/YyZiWcRv0BC3XVytTErAnZv/8XU=
-Received: from MW4PR03CA0139.namprd03.prod.outlook.com (2603:10b6:303:8c::24)
- by SA0PR12MB4446.namprd12.prod.outlook.com (2603:10b6:806:71::18)
+ bh=R4hW89gYIMlHNMEBkApYIsv2HLchRg0ss9nrflRegMk=;
+ b=NkI+wrw695KGMdd4Rtr3DdKqYkWyt0vWFdo7R5EhQkQWjwen9i6IiEJ5UxCEQOimhfEEALfwNLAqfisWrUGRkR2q0Al8mX/Yp9ZVWT8gs5+StPFqsE6t27w9es/hxaJMbuVqxZMlG328/VV4yUBjRGeRFX3n4wNo/oWUZou4Zt8=
+Received: from MW4PR02CA0005.namprd02.prod.outlook.com (2603:10b6:303:16d::14)
+ by MN6PR12MB8472.namprd12.prod.outlook.com (2603:10b6:208:46c::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30; Mon, 10 Jul
- 2023 03:10:53 +0000
-Received: from CO1NAM11FT103.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8c:cafe::e0) by MW4PR03CA0139.outlook.office365.com
- (2603:10b6:303:8c::24) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 03:23:16 +0000
+Received: from CO1NAM11FT049.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:16d:cafe::dd) by MW4PR02CA0005.outlook.office365.com
+ (2603:10b6:303:16d::14) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30 via Frontend
- Transport; Mon, 10 Jul 2023 03:10:53 +0000
+ Transport; Mon, 10 Jul 2023 03:23:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,49 +46,51 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT103.mail.protection.outlook.com (10.13.174.252) with Microsoft SMTP
+ CO1NAM11FT049.mail.protection.outlook.com (10.13.175.50) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6588.18 via Frontend Transport; Mon, 10 Jul 2023 03:10:52 +0000
-Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.6588.18 via Frontend Transport; Mon, 10 Jul 2023 03:23:16 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Sun, 9 Jul
- 2023 22:10:38 -0500
-From: Lang Yu <Lang.Yu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu: use psp_execute_load_ip_fw instead
-Date: Mon, 10 Jul 2023 11:10:04 +0800
-Message-ID: <20230710031004.1106582-2-Lang.Yu@amd.com>
+ 2023 22:22:51 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, Felix Kuehling
+ <Felix.Kuehling@amd.com>, Guchun Chen <guchun.chen@amd.com>
+Subject: [PATCH v3] drm/amdkfd: Fix stack size in 'amdgpu_amdkfd_unmap_hiq'
+Date: Mon, 10 Jul 2023 08:52:23 +0530
+Message-ID: <20230710032223.274800-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230710031004.1106582-1-Lang.Yu@amd.com>
-References: <20230710031004.1106582-1-Lang.Yu@amd.com>
+In-Reply-To: <20230709150506.255846-1-srinivasan.shanmugam@amd.com>
+References: <20230709150506.255846-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT103:EE_|SA0PR12MB4446:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e606233-cfdd-4139-54bd-08db80f3454e
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT049:EE_|MN6PR12MB8472:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ca38575-cf65-4829-0da5-08db80f50041
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0h+aOZcWmvmM6RUZpd50DvMY93nDVsXwN+EX0IpzdkPWSIvUx/8COBDK2GTszK3NdN8wJBpx6weXAMiZAr24meIJDxGkUdvOfL6NaKZZ3WuQiurqxc9kKzRsM78pxF4eZTZdhHT3GQNP5xKMtaARlea4ZuD+EAs14SKo5dx0RmdG7s76EuVh4Krz243IB4l4HPUiMPn5Txl8430DZYJHpRL2kbb1Vje/UMldZqjtysjTX87YRk5oY4iutmJzGccP/s3N6phQ/Pu9nFv8yu9QG5WueYgqTvAE/zhQ40JPfmGYuZI4fOqMb4cB89TppkL9r9KWAfMdx/F8FjIeui2VT+K5GdEUgyWQhcoNfzaaxubw3A0e+HV9BL40Nogn8rQOAVabGipH7q12WbdvqmA7+KLIIftOAiqJuE5YGkC86JXD2cvXXJHquxzcIFig/ZOynbm4xahNmiHd+VmFkwNdGo7qhLYntdHmEOFc2IvpgzfbqK9IrCNshkAXF/Ckh3EGP8IzzHUQfV4FUKiF6/I9X9/KMePigNJMFtgteb7R/MlzDkci1ZoiR9mmOrXjRk/guLid6txkmTqmLiPBPdmc+x2tld71hNOCoIXqeeBXY/Rc84ymfeNHk8P4NrxNqHmnbcH/vWhPT6GMPlVRcgLGjUKDGEPLenQqBASgqxqInxsFN9KOt/p/rdSG7BONG13/bs1JyRef45d+E1yDwEyAS2HZEGNAE9kXwSHSMTBQiqoj82AHwSdjBsM4RdG9VrfM6xDYYqa3qBjtiK5VkuVQyQ==
+X-Microsoft-Antispam-Message-Info: rd2CgnD/k8y+Rv9NzL3hP6de2rEI8Tdo7d0lZQX73LBBcAuWVZLOuV/7AZWRVQeuTN5Uqy98hMqezbU6zt4hJPfO3J0gpdFyQifj+r27JzQ065NEpLGSIkZ8TePxva+3swVzO1Ev3p5GZbtEbbLbQb9DfCvTyxtZiOh0MA6M2WRCr8kfKs7DFt0xiPK1UzDLf0sQ08VF/UgWKbdAnWYAaCE6kcqlMGrd4wDWXA1fKiiVjDbQ00nhgpD1pqfh8ETBvFgsiFmMzDPmpFoNHzDp+sJUIlak8sfkJ9yqPe5pgazczoA73KFMrh3piQS7fczptUn4uSBXZF7JP8y1a0+sn84MJDtfC8xEyDKH3HPPOmDLld0tt6iyVY/VUvDxvfKvoDhLm327Ez9yXKj7cLhisz1W4B8bfryMX548d9DEb7tBlQHwZrD70OPfh6zXGkK3IxHUbCYb2ZXCu6GIZnn3GA+kLBeYFTueQCnCBqVxs8Eu+XfFsUftrAcw5Ce5yAKCQa/+ZElC0ZbDafXCUrzl3ZvVwY7HK5j3hsXib01MiS3yojsyDokfUfSed1Zwe8nxBbxIUinV0erFCQdyW/l42PQU0s5vS+jgaA4HlI0mc3wGBm6Gh0AgubC+B3QEtMd9WNg/tCBx22arvOoLHucef+2iOxpP4kDF4QjLD5uD0gN4nl1rOsTp1BjrTHSdfeq3pbtVbRsjkFApHX4ugIhW8qVZBQrdKvCQ5qbEPye87Ss5os5khM4JEMKlxILmCYEYe81EYt9OI1vup2LQaNgiOg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(39860400002)(346002)(136003)(396003)(451199021)(46966006)(36840700001)(40470700004)(40460700003)(186003)(16526019)(26005)(2616005)(1076003)(36860700001)(336012)(426003)(83380400001)(47076005)(41300700001)(4326008)(6916009)(2906002)(316002)(5660300002)(8676002)(8936002)(478600001)(7696005)(6666004)(70206006)(70586007)(54906003)(40480700001)(36756003)(81166007)(356005)(82740400003)(86362001)(82310400005)(36900700001);
+ SFS:(13230028)(4636009)(376002)(346002)(136003)(39860400002)(396003)(451199021)(46966006)(36840700001)(40470700004)(478600001)(7696005)(6666004)(110136005)(54906003)(70586007)(1076003)(26005)(186003)(16526019)(336012)(70206006)(2906002)(82310400005)(41300700001)(316002)(6636002)(4326008)(5660300002)(44832011)(8936002)(8676002)(81166007)(356005)(82740400003)(40460700003)(86362001)(36756003)(47076005)(36860700001)(2616005)(83380400001)(66574015)(426003)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2023 03:10:52.9508 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e606233-cfdd-4139-54bd-08db80f3454e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2023 03:23:16.0944 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ca38575-cf65-4829-0da5-08db80f50041
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT103.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT049.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4446
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8472
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,175 +102,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Veerabadhran Gopalakrishnan <Veerabadhran.Gopalakrishnan@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Leo Liu <leo.liu@amd.com>,
- Lang Yu <Lang.Yu@amd.com>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace the old ones with psp_execute_load_ip_fw.
+Allocate large local variable on heap to avoid exceeding the
+stack size:
+drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c: In function ‘amdgpu_amdkfd_unmap_hiq’:
+drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c:868:1: warning: the frame size of 1280 bytes is larger than 1024 bytes [-Wframe-larger-than=]
 
-Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+Suggested-by: Guchun Chen <guchun.chen@amd.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 13 -------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  2 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 15 +++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  3 +++
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   |  4 +---
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   |  4 +---
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   |  4 +---
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   |  4 +---
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c |  4 +---
- 9 files changed, 23 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index a1a4408e524d..1b4d5f04d968 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -2920,19 +2920,6 @@ int psp_rlc_autoload_start(struct psp_context *psp)
- 	return ret;
+v3:
+ - free ring_funcs before 'return -ENOMEM' (Guchun).
+ - keep the check of ' kiq->pmf' and 'kiq->pmf->kiq_unmap_queues' ahead
+   of allocation of ring & ring_funcs (Guchun).
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 32 ++++++++++++++++------
+ 1 file changed, 23 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index 0040c63e2356..629ca1ad75a8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -836,33 +836,47 @@ int amdgpu_amdkfd_unmap_hiq(struct amdgpu_device *adev, u32 doorbell_off,
+ {
+ 	struct amdgpu_kiq *kiq = &adev->gfx.kiq[inst];
+ 	struct amdgpu_ring *kiq_ring = &kiq->ring;
+-	struct amdgpu_ring_funcs ring_funcs;
+-	struct amdgpu_ring ring;
++	struct amdgpu_ring_funcs *ring_funcs;
++	struct amdgpu_ring *ring;
+ 	int r = 0;
+ 
+ 	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+ 		return -EINVAL;
+ 
+-	memset(&ring, 0x0, sizeof(struct amdgpu_ring));
+-	memset(&ring_funcs, 0x0, sizeof(struct amdgpu_ring_funcs));
++	ring_funcs = kzalloc(sizeof(*ring_funcs), GFP_KERNEL);
++	if (!ring_funcs)
++		return -ENOMEM;
++
++	ring = kzalloc(sizeof(*ring), GFP_KERNEL);
++	if (!ring) {
++		r = -ENOMEM;
++		goto free_ring_funcs;
++	}
+ 
+-	ring_funcs.type = AMDGPU_RING_TYPE_COMPUTE;
+-	ring.doorbell_index = doorbell_off;
+-	ring.funcs = &ring_funcs;
++	ring_funcs->type = AMDGPU_RING_TYPE_COMPUTE;
++	ring->doorbell_index = doorbell_off;
++	ring->funcs = ring_funcs;
+ 
+ 	spin_lock(&kiq->ring_lock);
+ 
+ 	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
+ 		spin_unlock(&kiq->ring_lock);
+-		return -ENOMEM;
++		r = -ENOMEM;
++		goto free_ring;
+ 	}
+ 
+-	kiq->pmf->kiq_unmap_queues(kiq_ring, &ring, RESET_QUEUES, 0, 0);
++	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, RESET_QUEUES, 0, 0);
+ 
+ 	if (kiq_ring->sched.ready && !adev->job_hang)
+ 		r = amdgpu_ring_test_helper(kiq_ring);
+ 
+ 	spin_unlock(&kiq->ring_lock);
+ 
++free_ring:
++	kfree(ring);
++
++free_ring_funcs:
++	kfree(ring_funcs);
++
+ 	return r;
  }
- 
--int psp_update_vcn_sram(struct amdgpu_device *adev, int inst_idx,
--			uint64_t cmd_gpu_addr, int cmd_size)
--{
--	struct amdgpu_firmware_info ucode = {0};
--
--	ucode.ucode_id = inst_idx ? AMDGPU_UCODE_ID_VCN1_RAM :
--		AMDGPU_UCODE_ID_VCN0_RAM;
--	ucode.mc_addr = cmd_gpu_addr;
--	ucode.ucode_size = cmd_size;
--
--	return psp_execute_ip_fw_load(&adev->psp, &ucode);
--}
--
- int psp_ring_cmd_submit(struct psp_context *psp,
- 			uint64_t cmd_buf_mc_addr,
- 			uint64_t fence_mc_addr,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index efb3972bfebd..c3203de4a007 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -466,8 +466,6 @@ int psp_execute_ip_fw_load(struct psp_context *psp,
- 			   struct amdgpu_firmware_info *ucode);
- 
- int psp_gpu_reset(struct amdgpu_device *adev);
--int psp_update_vcn_sram(struct amdgpu_device *adev, int inst_idx,
--			uint64_t cmd_gpu_addr, int cmd_size);
- 
- int psp_ta_init_shared_buf(struct psp_context *psp,
- 				  struct ta_mem_context *mem_ctx);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index d37ebd4402ef..4e1256af80b6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -1257,3 +1257,18 @@ int amdgpu_vcn_ras_sw_init(struct amdgpu_device *adev)
- 
- 	return 0;
- }
-+
-+int amdgpu_vcn_psp_update_sram(struct amdgpu_device *adev, int inst_idx,
-+			       enum AMDGPU_UCODE_ID ucode_id)
-+{
-+	struct amdgpu_firmware_info ucode = {
-+		.ucode_id = (ucode_id ? ucode_id :
-+			    (inst_idx ? AMDGPU_UCODE_ID_VCN1_RAM :
-+					AMDGPU_UCODE_ID_VCN0_RAM)),
-+		.mc_addr = adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
-+		.ucode_size = ((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
-+			      (uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr),
-+	};
-+
-+	return psp_execute_ip_fw_load(&adev->psp, &ucode);
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index 92d5534df5f4..1f1d7dc94f90 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -414,4 +414,7 @@ int amdgpu_vcn_ras_late_init(struct amdgpu_device *adev,
- 			struct ras_common_if *ras_block);
- int amdgpu_vcn_ras_sw_init(struct amdgpu_device *adev);
- 
-+int amdgpu_vcn_psp_update_sram(struct amdgpu_device *adev, int inst_idx,
-+			       enum AMDGPU_UCODE_ID ucode_id);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-index c975aed2f6c7..18794394c5a0 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -881,9 +881,7 @@ static int vcn_v2_0_start_dpg_mode(struct amdgpu_device *adev, bool indirect)
- 		UVD_MASTINT_EN__VCPU_EN_MASK, 0, indirect);
- 
- 	if (indirect)
--		psp_update_vcn_sram(adev, 0, adev->vcn.inst->dpg_sram_gpu_addr,
--				    (uint32_t)((uintptr_t)adev->vcn.inst->dpg_sram_curr_addr -
--					       (uintptr_t)adev->vcn.inst->dpg_sram_cpu_addr));
-+		amdgpu_vcn_psp_update_sram(adev, 0, 0);
- 
- 	/* force RBC into idle state */
- 	rb_bufsz = order_base_2(ring->ring_size);
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index bb1875f926f1..6fbea38f4d3e 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -912,9 +912,7 @@ static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
- 		UVD_MASTINT_EN__VCPU_EN_MASK, 0, indirect);
- 
- 	if (indirect)
--		psp_update_vcn_sram(adev, inst_idx, adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
--				    (uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
--					       (uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
-+		amdgpu_vcn_psp_update_sram(adev, inst_idx, 0);
- 
- 	ring = &adev->vcn.inst[inst_idx].ring_dec;
- 	/* force RBC into idle state */
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index c8f63b3c6f69..b76ba21b5a89 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -1037,9 +1037,7 @@ static int vcn_v3_0_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
- 		VCN, inst_idx, mmUVD_VCPU_CNTL), tmp, 0, indirect);
- 
- 	if (indirect)
--		psp_update_vcn_sram(adev, inst_idx, adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
--			(uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
--				(uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
-+		amdgpu_vcn_psp_update_sram(adev, inst_idx, 0);
- 
- 	ring = &adev->vcn.inst[inst_idx].ring_dec;
- 	/* force RBC into idle state */
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index d96ff4acae35..e8c02ae10163 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -993,9 +993,7 @@ static int vcn_v4_0_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
- 
- 
- 	if (indirect)
--		psp_update_vcn_sram(adev, inst_idx, adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
--			(uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
--				(uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
-+		amdgpu_vcn_psp_update_sram(adev, inst_idx, 0);
- 
- 	ring = &adev->vcn.inst[inst_idx].ring_enc[0];
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index 5d67b8b8a3d6..550ac040b4be 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -778,9 +778,7 @@ static int vcn_v4_0_3_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, b
- 		UVD_MASTINT_EN__VCPU_EN_MASK, 0, indirect);
- 
- 	if (indirect)
--		psp_update_vcn_sram(adev, 0, adev->vcn.inst[inst_idx].dpg_sram_gpu_addr,
--			(uint32_t)((uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_curr_addr -
--				(uintptr_t)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr));
-+		amdgpu_vcn_psp_update_sram(adev, inst_idx, AMDGPU_UCODE_ID_VCN0_RAM);
- 
- 	ring = &adev->vcn.inst[inst_idx].ring_enc[0];
- 
 -- 
 2.25.1
 
