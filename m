@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72AFCEB64D9
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jul 2023 13:01:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35322EB64DA
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jul 2023 13:01:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1146B10E15A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69A4410E240;
 	Mon, 10 Jul 2023 13:01:24 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AEBB10E15A;
- Mon, 10 Jul 2023 13:01:21 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C23AF10E105;
+ Mon, 10 Jul 2023 13:01:18 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0D2DB1FF7D;
- Mon, 10 Jul 2023 13:01:20 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 267C9221BB;
+ Mon, 10 Jul 2023 13:01:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1688994080; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1688994076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=gRUywqxs5a29120EfN3Bn9mdZmuhBJWGIOQrCKZzgUM=;
- b=VoO60JR0vkBYYJEfiXCxbto+zB8LminaUWh5RiGEeHNwD6AK72Ls2YONMYilu1NhkZ6XaV
- IZa+TpEV5wr13aGSMukVpXTcvcVZcdGouOiq2kTZA/6Y8C/KuEv5NfxafZ4fsLYMn2xTf0
- IifhIRSVlSJAXstVMXHnhHpWIrvWg8I=
+ bh=xMXmZ1NNzOJDSERg6Ij7CzUCJhbAE0qzmKXhUXS3z9c=;
+ b=056eevBXKVE6K7e8Udic7TMKctkMoQzDJWfsflNubinHMzhKPUCPTUljOXhhD1XjcaluGs
+ 0/lWU6tE1SW5hLc/L5zAM88mNdqtfgqbkYmwUEpMOvUXUoWSxqU72MZyGJQGibL0iB7qjN
+ numBIfJc40XefF+xCNM6rAGI2Crsdd0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1688994080;
+ s=susede2_ed25519; t=1688994076;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=gRUywqxs5a29120EfN3Bn9mdZmuhBJWGIOQrCKZzgUM=;
- b=PThQ3ciLwYhPhcSmsJ7eCkxPJepdaQUYwZw1Qos1hKdfhILaEyy17W+y0NcGj7wVxyKDC+
- eJEdJkBM0jXYFxBg==
+ bh=xMXmZ1NNzOJDSERg6Ij7CzUCJhbAE0qzmKXhUXS3z9c=;
+ b=Wrch4FmeVdIs8b/l/PnTvvOuMUowrZjyBP1+a4S8cOFS+Dd2TWrMlMx6uZihpKEpo45fkd
+ 9vYlweJRCs+oDDDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A034913A6B;
- Mon, 10 Jul 2023 13:01:19 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C5FE813A6B;
+ Mon, 10 Jul 2023 13:01:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 6NgxJh8BrGTTFAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 10 Jul 2023 13:01:19 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id QIN2LxsBrGTTFAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 10 Jul 2023 13:01:15 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de,
 	javierm@redhat.com
-Subject: [PATCH 12/17] staging: Remove flag FBINFO_FLAG_DEFAULT from fbdev
- drivers
-Date: Mon, 10 Jul 2023 14:50:16 +0200
-Message-ID: <20230710130113.14563-13-tzimmermann@suse.de>
+Subject: [PATCH 03/17] fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
+Date: Mon, 10 Jul 2023 14:50:07 +0200
+Message-ID: <20230710130113.14563-4-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230710130113.14563-1-tzimmermann@suse.de>
 References: <20230710130113.14563-1-tzimmermann@suse.de>
@@ -70,58 +69,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
  linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-staging@lists.linux.dev,
+ Russell King <linux@armlinux.org.uk>, linux-staging@lists.linux.dev,
  linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, Teddy Wang <teddy.wang@siliconmotion.com>,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-input@vger.kernel.org, linux-nvidia@lists.surfsouth.com,
- linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+ linux-geode@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-input@vger.kernel.org,
+ linux-nvidia@lists.surfsouth.com, linux-omap@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The flag FBINFO_FLAG_DEFAULT is 0 and has no effect, as struct
-fbinfo.flags has been allocated to zero by framebuffer_alloc(). So do
-not set it.
+The flag FBINFO_DEFAULT is 0 and has no effect, as struct fbinfo.flags
+has been allocated to zero by kzalloc(). So do not set it.
 
 Flags should signal differences from the default values. After cleaning
-up all occurences of FBINFO_FLAG_DEFAULT, the token can be removed.
+up all occurences of FBINFO_DEFAULT, the token can be removed.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Cc: Teddy Wang <teddy.wang@siliconmotion.com>
+Cc: Helge Deller <deller@gmx.de>
+Cc: Russell King <linux@armlinux.org.uk>
 ---
- drivers/staging/fbtft/fbtft-core.c | 2 +-
- drivers/staging/sm750fb/sm750.c    | 1 -
- 2 files changed, 1 insertion(+), 2 deletions(-)
+ drivers/video/fbdev/controlfb.c           | 2 +-
+ drivers/video/fbdev/cyber2000fb.c         | 2 +-
+ drivers/video/fbdev/valkyriefb.c          | 1 -
+ drivers/video/fbdev/vermilion/vermilion.c | 2 +-
+ drivers/video/fbdev/vt8500lcdfb.c         | 3 +--
+ 5 files changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/staging/fbtft/fbtft-core.c b/drivers/staging/fbtft/fbtft-core.c
-index 3a4abf3bae40..eac1d570f437 100644
---- a/drivers/staging/fbtft/fbtft-core.c
-+++ b/drivers/staging/fbtft/fbtft-core.c
-@@ -684,7 +684,7 @@ struct fb_info *fbtft_framebuffer_alloc(struct fbtft_display *display,
- 	info->var.transp.offset =  0;
- 	info->var.transp.length =  0;
+diff --git a/drivers/video/fbdev/controlfb.c b/drivers/video/fbdev/controlfb.c
+index 82eeb139c4eb..717134c141ff 100644
+--- a/drivers/video/fbdev/controlfb.c
++++ b/drivers/video/fbdev/controlfb.c
+@@ -775,7 +775,7 @@ static void __init control_init_info(struct fb_info *info, struct fb_info_contro
+ 	info->par = &p->par;
+ 	info->fbops = &controlfb_ops;
+ 	info->pseudo_palette = p->pseudo_palette;
+-        info->flags = FBINFO_DEFAULT | FBINFO_HWACCEL_YPAN;
++	info->flags = FBINFO_HWACCEL_YPAN;
+ 	info->screen_base = p->frame_buffer + CTRLFB_OFF;
  
--	info->flags =              FBINFO_FLAG_DEFAULT | FBINFO_VIRTFB;
-+	info->flags =              FBINFO_VIRTFB;
+ 	fb_alloc_cmap(&info->cmap, 256, 0);
+diff --git a/drivers/video/fbdev/cyber2000fb.c b/drivers/video/fbdev/cyber2000fb.c
+index 38c0a6866d76..98ea56a9abf1 100644
+--- a/drivers/video/fbdev/cyber2000fb.c
++++ b/drivers/video/fbdev/cyber2000fb.c
+@@ -1459,7 +1459,7 @@ static struct cfb_info *cyberpro_alloc_fb_info(unsigned int id, char *name)
+ 	cfb->fb.var.accel_flags	= FB_ACCELF_TEXT;
  
- 	par = info->par;
- 	par->info = info;
-diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-index c260f73cf570..79bcd5bd4938 100644
---- a/drivers/staging/sm750fb/sm750.c
-+++ b/drivers/staging/sm750fb/sm750.c
-@@ -807,7 +807,6 @@ static int lynxfb_set_fbinfo(struct fb_info *info, int index)
- 	info->screen_base = crtc->v_screen;
- 	pr_debug("screen_base vaddr = %p\n", info->screen_base);
- 	info->screen_size = line_length * var->yres_virtual;
--	info->flags = FBINFO_FLAG_DEFAULT | 0;
+ 	cfb->fb.fbops		= &cyber2000fb_ops;
+-	cfb->fb.flags		= FBINFO_DEFAULT | FBINFO_HWACCEL_YPAN;
++	cfb->fb.flags		= FBINFO_HWACCEL_YPAN;
+ 	cfb->fb.pseudo_palette	= cfb->pseudo_palette;
  
- 	/* set info->fix */
- 	fix->type = FB_TYPE_PACKED_PIXELS;
+ 	spin_lock_init(&cfb->reg_b0_lock);
+diff --git a/drivers/video/fbdev/valkyriefb.c b/drivers/video/fbdev/valkyriefb.c
+index b166b7cfe0e5..fd4488777032 100644
+--- a/drivers/video/fbdev/valkyriefb.c
++++ b/drivers/video/fbdev/valkyriefb.c
+@@ -535,7 +535,6 @@ static int __init valkyrie_init_info(struct fb_info *info,
+ {
+ 	info->fbops = &valkyriefb_ops;
+ 	info->screen_base = p->frame_buffer + 0x1000;
+-	info->flags = FBINFO_DEFAULT;
+ 	info->pseudo_palette = p->pseudo_palette;
+ 	info->par = &p->par;
+ 	return fb_alloc_cmap(&info->cmap, 256, 0);
+diff --git a/drivers/video/fbdev/vermilion/vermilion.c b/drivers/video/fbdev/vermilion/vermilion.c
+index 32e74e02a02f..71584c775efd 100644
+--- a/drivers/video/fbdev/vermilion/vermilion.c
++++ b/drivers/video/fbdev/vermilion/vermilion.c
+@@ -477,7 +477,7 @@ static int vml_pci_probe(struct pci_dev *dev, const struct pci_device_id *id)
+ 	}
+ 
+ 	info = &vinfo->info;
+-	info->flags = FBINFO_DEFAULT | FBINFO_PARTIAL_PAN_OK;
++	info->flags = FBINFO_PARTIAL_PAN_OK;
+ 
+ 	err = vmlfb_enable_mmio(par);
+ 	if (err)
+diff --git a/drivers/video/fbdev/vt8500lcdfb.c b/drivers/video/fbdev/vt8500lcdfb.c
+index 31d4e85b220c..42d39a9d5130 100644
+--- a/drivers/video/fbdev/vt8500lcdfb.c
++++ b/drivers/video/fbdev/vt8500lcdfb.c
+@@ -300,8 +300,7 @@ static int vt8500lcd_probe(struct platform_device *pdev)
+ 	fbi->fb.var.vmode	= FB_VMODE_NONINTERLACED;
+ 
+ 	fbi->fb.fbops		= &vt8500lcd_ops;
+-	fbi->fb.flags		= FBINFO_DEFAULT
+-				| FBINFO_HWACCEL_COPYAREA
++	fbi->fb.flags		= FBINFO_HWACCEL_COPYAREA
+ 				| FBINFO_HWACCEL_FILLRECT
+ 				| FBINFO_HWACCEL_YPAN
+ 				| FBINFO_VIRTFB
 -- 
 2.41.0
 
