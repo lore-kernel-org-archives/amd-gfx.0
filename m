@@ -4,50 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 511A2EB64D9
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jul 2023 13:09:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76BF0EB64D9
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Jul 2023 13:09:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7A710E28A;
-	Mon, 10 Jul 2023 13:09:20 +0000 (UTC)
-Received: from mail.208.org (unknown [183.242.55.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E47310E220
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jul 2023 08:26:56 +0000 (UTC)
-Received: from mail.208.org (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTP id 4Qzxtj3Gn3zBHXh4
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jul 2023 16:26:53 +0800 (CST)
-Authentication-Results: mail.208.org (amavisd-new); dkim=pass
- reason="pass (just generated, assumed good)" header.d=208.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
- content-transfer-encoding:content-type:message-id:user-agent
- :references:in-reply-to:subject:to:from:date:mime-version; s=
- dkim; t=1688977613; x=1691569614; bh=5Vej+dXMd1ZoKmxJ2xQ73LD2u5v
- 65N0RUybJgRNbepE=; b=PU50xK1vmhNd6ANYnwm68oL8AGrTs00gHkm458ai71P
- 2XcQxiMyhua1stxu0sv4Zt2ocNrD63DZrDEENwU5XMKgMQPUtVO8fj2mMeEWO3qb
- z5+36ufFc0eGfpGxcI0u2PsccqjzT2MtTR8eCUiSJsEutz3Y6aplmMIf7l34xGTI
- hKtHQtDTC2hb/5jxkmzxv2AQJtry12t7wWT4HVcwPt4r1f6bDh0McDxEA1/aUqN6
- 1PKhHx4sj1aJdPmjpggal0Nm16VrOhPG0x30RoWvD+jX2PJe1G7nzTyCGiXeVn9c
- PrkiKxnTzVW3hoM4rAZk52AT0AJu4p6xro8VDKuUblA==
-X-Virus-Scanned: amavisd-new at mail.208.org
-Received: from mail.208.org ([127.0.0.1])
- by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id zHprIflBZltL for <amd-gfx@lists.freedesktop.org>;
- Mon, 10 Jul 2023 16:26:53 +0800 (CST)
-Received: from localhost (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTPSA id 4Qzxtj14DnzBHXgt;
- Mon, 10 Jul 2023 16:26:53 +0800 (CST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A99710E290;
+	Mon, 10 Jul 2023 13:09:21 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7133110E278
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jul 2023 13:05:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1688994333;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=cSSXjKtHNo2g+s4fKQO8ycwZ9VSR9y5qDmg/kPz0J+8=;
+ b=NDekGdoVFuvPxqBPm/p8URYHUEwrlee7pnACszE4CztEXS8QClMi+uhA/7W5iKi6rNAU7A
+ ImwAW4o9H6riexZj7hlloOSE6AgNJcBLna4YcmqgtWhnM3Q8sxoa2otZsO/plrPDDIJjjv
+ S03AAqBX54a0A6gBqFiIzhASVHqu3NQ=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-471-ihaNTTOWMnaclBDHcmYsQg-1; Mon, 10 Jul 2023 09:05:32 -0400
+X-MC-Unique: ihaNTTOWMnaclBDHcmYsQg-1
+Received: by mail-yb1-f199.google.com with SMTP id
+ 3f1490d57ef6-bacfa4ef059so5434321276.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Jul 2023 06:05:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688994331; x=1691586331;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cSSXjKtHNo2g+s4fKQO8ycwZ9VSR9y5qDmg/kPz0J+8=;
+ b=i1AVDkujAJPkBYJCleQXVFZ+ppz7qj6bKhCmnogVzWghy6ucYQCwoSoZyGXUJMhIim
+ 1OqkBDkuWQmeqbm1lqFAw5Gd66HUrGTfnt/sFXNvcNQkIvpxVEXbrzjM457MTJUfevn7
+ 7z+5NLCoPeGdO9RKpAsWfjpOJTAtm7MzXDBQ9XOb3y/zVFLOcFbRmCDlKmUaklQ2Kp6C
+ BJH9t4C0lNRjziGxx09DP32t7rs+INjBKOQx7qZJg2WIjd7Db3zIYt6QWu/Y3qJteIQn
+ kvcUT/5wLjmg7/duEeBVdHnOZq26zXHEBxVEjG8lvlinINPgnCYshMmWHefNxndoZiHF
+ EOoQ==
+X-Gm-Message-State: ABy/qLauta/1ZGD5vu+9vlOD+bmBVZkZf8FbBsgusjJ5PmWZvrl+x4p+
+ ixWmEG/fPEmK+3Znf/BUN42bUKhO1oX/z9Q4DetSN0CGpoRxkR7ycwIROFsF31UWLSbr0+bZFII
+ A7G5UGQWEADXCDPEwK1P7zVA3UzlB1Q9SNcT8XV1rig==
+X-Received: by 2002:a25:1f02:0:b0:c67:8903:532b with SMTP id
+ f2-20020a251f02000000b00c678903532bmr9557466ybf.44.1688994331563; 
+ Mon, 10 Jul 2023 06:05:31 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlFYCDVRqXESu2lKlw5OOq57+bm9EWCrFUc3sqkdq7rbGFO3X2AFRnXejnh8LqRK8eFbanSG74Fa5+uKsOptTgw=
+X-Received: by 2002:a25:1f02:0:b0:c67:8903:532b with SMTP id
+ f2-20020a251f02000000b00c678903532bmr9557452ybf.44.1688994331376; Mon, 10 Jul
+ 2023 06:05:31 -0700 (PDT)
 MIME-Version: 1.0
-Date: Mon, 10 Jul 2023 16:26:53 +0800
-From: sunran001@208suo.com
-To: airlied@gmail.com, daniel@ffwll.ch
-Subject: [PATCH] drm/radeon: ERROR: "(foo*)" should be "(foo *)"
-In-Reply-To: <20230710082515.54604-1-xujianghui@cdjrlc.com>
-References: <20230710082515.54604-1-xujianghui@cdjrlc.com>
-User-Agent: Roundcube Webmail
-Message-ID: <0cd737878affc60b7b34d58ea9e10e50@208suo.com>
-X-Sender: sunran001@208suo.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20230710130113.14563-1-tzimmermann@suse.de>
+ <20230710130113.14563-11-tzimmermann@suse.de>
+In-Reply-To: <20230710130113.14563-11-tzimmermann@suse.de>
+From: Benjamin Tissoires <benjamin.tissoires@redhat.com>
+Date: Mon, 10 Jul 2023 15:05:19 +0200
+Message-ID: <CAO-hwJLvBpNu1z4qM9+331-oUroh4g5HORL=EZS0nb+HHe+fdw@mail.gmail.com>
+Subject: Re: [PATCH 10/17] hid/picolcd: Remove flag FBINFO_FLAG_DEFAULT from
+ fbdev driver
+To: Thomas Zimmermann <tzimmermann@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 10 Jul 2023 13:09:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,66 +79,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: linux-fbdev@vger.kernel.org, Jiri Kosina <jikos@kernel.org>,
+ kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
+ deller@gmx.de, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, javierm@redhat.com,
+ =?UTF-8?Q?Bruno_Pr=C3=A9mont?= <bonbons@linux-vserver.org>,
+ dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
+ linux-nvidia@lists.surfsouth.com, linux-omap@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-geode@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix four occurrences of the checkpatch.pl error:
-ERROR: "(foo*)" should be "(foo *)"
+On Mon, Jul 10, 2023 at 3:01=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+>
+> The flag FBINFO_FLAG_DEFAULT is 0 and has no effect, as struct
+> fbinfo.flags has been allocated to zero by framebuffer_alloc(). So do
+> not set it.
+>
+> Flags should signal differences from the default values. After cleaning
+> up all occurences of FBINFO_FLAG_DEFAULT, the token can be removed.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: "Bruno Pr=C3=A9mont" <bonbons@linux-vserver.org>
+> Cc: Jiri Kosina <jikos@kernel.org>
+> Cc: Benjamin Tissoires <benjamin.tissoires@redhat.com>
 
-Signed-off-by: Ran Sun <sunran001@208suo.com>
----
-  drivers/gpu/drm/radeon/radeon_atombios.c | 8 ++++----
-  1 file changed, 4 insertions(+), 4 deletions(-)
+Acked-by: Benjamin Tissoires <benjamin.tissoires@redhat.com>
 
-diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c 
-b/drivers/gpu/drm/radeon/radeon_atombios.c
-index bf3c411a55c5..85c4bb186203 100644
---- a/drivers/gpu/drm/radeon/radeon_atombios.c
-+++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-@@ -1389,7 +1389,7 @@ bool radeon_atombios_get_ppll_ss_info(struct 
-radeon_device *rdev,
+Feel free to take this through the DRI tree (or any other that handles
+FB) with the rest of the series if you want.
 
-          num_indices = (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
-              sizeof(ATOM_SPREAD_SPECTRUM_ASSIGNMENT);
--        ss_assign = (struct _ATOM_SPREAD_SPECTRUM_ASSIGNMENT*)
-+        ss_assign = (struct _ATOM_SPREAD_SPECTRUM_ASSIGNMENT *)
-              ((u8 *)&ss_info->asSS_Info[0]);
-          for (i = 0; i < num_indices; i++) {
-              if (ss_assign->ucSS_Id == id) {
-@@ -1402,7 +1402,7 @@ bool radeon_atombios_get_ppll_ss_info(struct 
-radeon_device *rdev,
-                  ss->refdiv = ss_assign->ucRecommendedRef_Div;
-                  return true;
-              }
--            ss_assign = (struct _ATOM_SPREAD_SPECTRUM_ASSIGNMENT*)
-+            ss_assign = (struct _ATOM_SPREAD_SPECTRUM_ASSIGNMENT *)
-                  ((u8 *)ss_assign + sizeof(struct 
-_ATOM_SPREAD_SPECTRUM_ASSIGNMENT));
-          }
-      }
-@@ -3406,7 +3406,7 @@ static ATOM_VOLTAGE_OBJECT_V2 
-*atom_lookup_voltage_object_v2(ATOM_VOLTAGE_OBJECT
-  {
-      u32 size = le16_to_cpu(v2->sHeader.usStructureSize);
-      u32 offset = offsetof(ATOM_VOLTAGE_OBJECT_INFO_V2, 
-asVoltageObj[0]);
--    u8 *start = (u8*)v2;
-+    u8 *start = (u8 *)v2;
+Cheers,
+Benjamin
 
-      while (offset < size) {
-          ATOM_VOLTAGE_OBJECT_V2 *vo = (ATOM_VOLTAGE_OBJECT_V2 *)(start + 
-offset);
-@@ -3423,7 +3423,7 @@ static ATOM_VOLTAGE_OBJECT_V3 
-*atom_lookup_voltage_object_v3(ATOM_VOLTAGE_OBJECT
-  {
-      u32 size = le16_to_cpu(v3->sHeader.usStructureSize);
-      u32 offset = offsetof(ATOM_VOLTAGE_OBJECT_INFO_V3_1, 
-asVoltageObj[0]);
--    u8 *start = (u8*)v3;
-+    u8 *start = (u8 *)v3;
+> ---
+>  drivers/hid/hid-picolcd_fb.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/hid/hid-picolcd_fb.c b/drivers/hid/hid-picolcd_fb.c
+> index dabcd054dad9..d726aaafb146 100644
+> --- a/drivers/hid/hid-picolcd_fb.c
+> +++ b/drivers/hid/hid-picolcd_fb.c
+> @@ -527,7 +527,6 @@ int picolcd_init_framebuffer(struct picolcd_data *dat=
+a)
+>         info->var =3D picolcdfb_var;
+>         info->fix =3D picolcdfb_fix;
+>         info->fix.smem_len   =3D PICOLCDFB_SIZE*8;
+> -       info->flags =3D FBINFO_FLAG_DEFAULT;
+>
+>         fbdata =3D info->par;
+>         spin_lock_init(&fbdata->lock);
+> --
+> 2.41.0
+>
 
-      while (offset < size) {
-          ATOM_VOLTAGE_OBJECT_V3 *vo = (ATOM_VOLTAGE_OBJECT_V3 *)(start + 
-offset);
