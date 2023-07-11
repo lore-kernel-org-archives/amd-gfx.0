@@ -4,115 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 373CBEB64DC
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 18:15:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56D8BC001B0
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 18:23:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F63510E423;
-	Tue, 11 Jul 2023 18:15:30 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2074.outbound.protection.outlook.com [40.107.244.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 544BD10E0F4
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 18:15:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF6710E428;
+	Tue, 11 Jul 2023 18:23:47 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20630.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A841F10E047;
+ Tue, 11 Jul 2023 18:23:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WNDPFKydnq9xg9906Zx1QsdKir8cAHCz0uZSTjxP01GO8kscOZK3jh7C6/oQe3EvvsMl74NIzY5RzJ20jCWBhFa6w8Hb/WRvEAtny8GSVhlMuB+a7KkKEczpCpE2Em+7k6lAUKPkZjB936ZFtj637HTt3AwX4Zx9ItzyLJV8a2A3WD2zJk4Y0XQY22aDROE2xOVjiw//yGqyRwVvYy2+OKHpuwn2C5EuZD6Vn1zdusvi6N7RGKJYIKaec2tGzGmV3HRvNXWb50b31GBnJ8ZwBX0PehxUMNK2zs7ZmDajb9qIeC9PtKPQ0U3w7JM0kwZ1a0tf1nO7d4B9EP18efGCvQ==
+ b=Ul9MXvZ1j5t/T13deETrA71r5t0LQ9VH/23xSOJqGZwOrgrut8qdCC35bYQNTgmFCBunXPisPT+4JCx/p+Ua4M3YxG9zvkisrhIlXlJBsuGXUA2PeIi/SBVRdOo/V7i4Oh+XI4vCpqsX7ny3ypxuu7+fxcvot6+iRI4rIevBGnfnzNZkKeosbQlPfjz4zBtUuRhwLsYrugyeSyHU8To2HkcepM/QeA9Ku+O8GH/rDzfce4cPbgl+swkVmtpb6bhPLx9R/TiTejMIzG5xxE81TuM2h6ZcenmZp/Yu+YDQzVWfrHdcy1HDnBekSzhLZ4VkeCj2qc10z4J0AoC9jHUoQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5/EHHybeOnHLQdYhZGI779PASorU6f3gv9amKpWvCUg=;
- b=hH4U++s2hLJPxcDzrsJgcjHikQhxjUZBniO/guFGh0UyaHgfir8q7zoNGR3PUAgSD7NU4DYgsKQRGhIi8st8vVhCWM0bin79OGjj+oV0VeHZjX0JK/7axTR5Y39KnRbo0NkkY9F+U5IVBSMB9QzAaHt2Ws76dLo294Ad6jdjKgpWG8m1WvPWIhBgsT6bhHTnJ2v+j4XuZAlOMkmB4CBiPFjLgMx1ERs3EcB4uSijaAIjdCHRlOSVV6BHkStqBnhYGeeQFxPOB/oXi6CvUT1icgUCQZ6OnIkGup+qhdQ56CNGmHe59XS3YLl54puzuYKBXjTFwLEM1arhV4uVSssKbw==
+ bh=Q0dBdjLuZYHpiTGnkxvf5FvrK4/31OeS9cq1Y1e4FO4=;
+ b=LNU3C0N56C8pLoETIsmkLq7XLpaRn7SLOFVSkgTX03xnw753zjVQXXRLjMFOoFUmUtu4FY8f6xYzEJJTVfvQw2A3Xse79AKdWYsDoDCVG4VpAhKmSNW2O+bzIn3/eXasO5Q8PVqlzR1k/nU63J1+zQa7XJyhKx3E7PN45DTToPntp1o4qIbQMYLAcosYC3+5GJXZL2sk8fObmcA5IffomycsbKIfUIfJjMeMHznhcc6D0sqbqKx6iNZ8LcNLd+L4wkEh4b0ndvaVQ9kQPc0QxmtUeTC/b4crT40l9FFpMCXgTK3rk2jHWod6XRVJPS15d0jy4szNlqdjXi7QIw3Vgw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5/EHHybeOnHLQdYhZGI779PASorU6f3gv9amKpWvCUg=;
- b=Kz9lWxkBCp0Mosh1z0rqu/Fjf22df6V1dzELxlyNo2hvNfWyVW8FWKVcTsejCAgEABHyfQKoeoXRL7YS2K11FPuhEH2k3DhgctI/yGXO9+oSXhCihiNU6tb5/6sAbegd1T/LYJEsivEQZHjhY0I08NadTBfbOakbfcVXINI/gP8=
-Received: from BL1PR12MB5317.namprd12.prod.outlook.com (2603:10b6:208:31f::17)
- by IA0PR12MB8327.namprd12.prod.outlook.com (2603:10b6:208:40e::11)
+ bh=Q0dBdjLuZYHpiTGnkxvf5FvrK4/31OeS9cq1Y1e4FO4=;
+ b=nXccSRUy0EUq8Mi6xLV5hu/flF1PCy9scT8WjseaGDctWka4OYs5uekMMzATcYlccPRm5H8NsxHZ8t2FApNzArC5iXw0lA5KdzI8Zwl/JM05sjCuZi8ZKjK6QHe5a+cniWRmo6u8p/29pCTvdUuy7sl9Wp0TcetCpbqjoKWDhlA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by MN2PR12MB4287.namprd12.prod.outlook.com (2603:10b6:208:1dd::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30; Tue, 11 Jul
- 2023 18:15:24 +0000
-Received: from BL1PR12MB5317.namprd12.prod.outlook.com
- ([fe80::3e3c:cefb:f6a8:c1d5]) by BL1PR12MB5317.namprd12.prod.outlook.com
- ([fe80::3e3c:cefb:f6a8:c1d5%7]) with mapi id 15.20.6565.028; Tue, 11 Jul 2023
- 18:15:24 +0000
-From: "Luo, Zhigang" <Zhigang.Luo@amd.com>
-To: "Lu, Victor Cheng Chi (Victor)" <VictorChengChi.Lu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v3] drm/amdgpu: Add RLCG interface driver implementation
- for gfx v9.4.3 (v3)
-Thread-Topic: [PATCH v3] drm/amdgpu: Add RLCG interface driver implementation
- for gfx v9.4.3 (v3)
-Thread-Index: AQHZtAKzX2TcXmBWiUKtzE1vPDbnza+03lPQ
-Date: Tue, 11 Jul 2023 18:15:24 +0000
-Message-ID: <BL1PR12MB5317497CDD15DDB4D7174C49F131A@BL1PR12MB5317.namprd12.prod.outlook.com>
-References: <20230711141734.2033-1-victorchengchi.lu@amd.com>
-In-Reply-To: <20230711141734.2033-1-victorchengchi.lu@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=ac72c20f-18a5-4bdc-b010-ff4472be67dc;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-11T18:11:54Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5317:EE_|IA0PR12MB8327:EE_
-x-ms-office365-filtering-correlation-id: 79b071c0-de42-4baf-0406-08db823acbcd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: fqHnR/DikJSoVuc8HK6pYw+VwOl7vtMJh6I9bM6dLHjuQX2finz+MwSKlMlwvar5HY4KJjiPcd6nR0ej+/J8v/NAcfF0yjuf1LFW0uA/YyLnk4FHtWiIS36IvaxGai9zQ+qFViThvLzB+zvf5nIUW8MKKgp8+8ftA97+5kLjmCU5Tv5S2QuKodsZGpmF+R13D3jvzTWVrXjWNn+15aIjfzKqah2gfuHODyZ6q5RBrsMwcfL+E5DvSzu+tpzyepctZC4uYU+LqYLfOSLSxYI3tBxPrUbHTjPLTRjBCK6o02Y9suUXZ1bF5uMTdir81R5a2jbmjzO/sNW6Of2RdH9Ob/gQNrNLAq1cvCrX/JY5X/EAlcXIPCoUBsh6lad1jMHw0rFueVE8nX+a+zMuvmB3GucraN5ofA65POH8asFkNqDplJPKK2AcjlPZ9wK5lIJ8fnyLLR2Ft9TiSolghz45iUvbJDM6sbMvlmb1iA3M1uTnH8vlcYwlGgXYLO+UcrlyHw/wFTvAqpp2k05yqjOYkx3JXBTIqIgbwq+ncPxbN/Q74JeiRHV1GNIAKGmQoiH0YVEr6aeFf5Tnq90IrmgIiTYB7x6Ymhr4J44qWYGbJMKqf6dJJQXBs2yXmq+DzUMH
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5317.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(39860400002)(136003)(376002)(366004)(346002)(451199021)(76116006)(4326008)(478600001)(54906003)(110136005)(7696005)(71200400001)(83380400001)(33656002)(86362001)(38070700005)(55016003)(2906002)(30864003)(186003)(53546011)(6506007)(9686003)(26005)(38100700002)(122000001)(316002)(64756008)(66446008)(66476007)(8936002)(8676002)(41300700001)(66556008)(52536014)(66946007)(5660300002)(579004);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?unplWtBiDmQbG4hGHhImc885VjJwk/kQln6FiYsM8rxfIifCCJALWS6v+HDX?=
- =?us-ascii?Q?SCfzI3XRlf/t5kYRvnFStEKpKBVMdRLnJK7KgWHVLkLHpRhL/dij6zztQX8q?=
- =?us-ascii?Q?tT4KDn1+S+MRDwi2N2JCbC/xug/0jZcV+FlyAzeLZpQ0WzzCkLd4rjBBTYhG?=
- =?us-ascii?Q?FgQDDyV3z1e4ksVBcQd2Gd6Qi1+SvfslS30JHVbJ4xQq7XfGyRqxmdOl2T9p?=
- =?us-ascii?Q?FOKkVYBrtsWj4geMRFp8JefabiFgB8qs+luAWXjuSiNJ56wvuGbo4hVC5btN?=
- =?us-ascii?Q?pLDX//OoORm5maTEr7aFW7wbD1ZPz+BWF54FYnRQFubEHhc+PTYMHmhTZwde?=
- =?us-ascii?Q?84IhYSrhLwiY5w6g5HGmXnqM5HrWzkfwUh1du1GA6aaNKkgTRmnUzOWTLldY?=
- =?us-ascii?Q?GQV/gTFGkwUJMULdLLQUDfJfi2mPyX+0AYAWIyDfqHQSl48mXnUHP2t9opzy?=
- =?us-ascii?Q?uql+n/x9AI/BHI+GUBqxtqzHDpcvQoIuZQwevwuoc4DeafRdnQIWefxhdxBl?=
- =?us-ascii?Q?mQ0KxLbifjCYRAnndf6H0z3W+6sGhlTVNMnfym+DZ94PfXypPn6aUfoxgpK1?=
- =?us-ascii?Q?n3PefmgC38Yv6Pxwgru7Ep+wFIgjh5Y9TNjbtEHZpvKoe3sJVPyYtegnolu8?=
- =?us-ascii?Q?4TwDdnjNu+GVXlBfLTcYyUiYE1b4oN/4UfNjMK2Aa0QhBom0sB4vxK6x+x28?=
- =?us-ascii?Q?aAMTpS5BCyvxceMPyaXu+HXH9DXgomrQNuzJDFPPvhrNIjTkbFf9+4VPqCfu?=
- =?us-ascii?Q?v8F4OHQdhPRqISBkn6CGbbtHNQv4nutAKEEu4ohNuTOkTnyTzVGXKVb2eZKF?=
- =?us-ascii?Q?t56FwJBfx+Q1XcJIQJUZMVG8to2MJkec/Zxt4Gr0qys/cFessQB8eqDpu7sl?=
- =?us-ascii?Q?Nz0+713QSMPJNt1PlpR2pvVhcr4Mxz2srmSauyOyBoJnxRJj3kW4ux5AyeIE?=
- =?us-ascii?Q?L8l9oA4ENMSmDcBohNMLMFgJbW5nJIe7m6o7dlQwQGm6AIocrRQlWMdxLSSZ?=
- =?us-ascii?Q?XE9QMgtt8dxxGMhG8L55eRb+Rt+p68h+P6TvI7L2e+/f7vY+TyRArsApMoJ/?=
- =?us-ascii?Q?gfdxBjORWX/3zQmMD7YqU3K5czdWFWvdVt/zHTK3cxwOvcyE+PKeUP84m02W?=
- =?us-ascii?Q?4Lw3ezGOxZuW9QKiyw6fPuR2oLihKD4U8bZxgYlPNswHX0oKMMwU2wBSxjqO?=
- =?us-ascii?Q?/Kob9BBc9rNI2fG1WUCZpbmg8N68E4kS69+jSMaOWxZHQtmJueRiU4NtKoKh?=
- =?us-ascii?Q?DZhlA26zS4PSVRUuJDCCj62CIFYrGRkYQyMGUKJ/DQSxGFTUi2DjPHA/Q6Iy?=
- =?us-ascii?Q?erxbRfh2NEcdh5EQC3sIQlUuv6Yf6Rj24mDManxPcT9w6NAg1r3cFW4jixL7?=
- =?us-ascii?Q?wj15n3n705At9Egph1jE898DDmFFOHN0sEPplGxlhITnLZD3AVWrnwnQGJqi?=
- =?us-ascii?Q?1Rjx94hScvVslW12p2V9ZObi2NBaQ5OSkyg0wIf3/XO4P4QNjvgN9U/zo8rL?=
- =?us-ascii?Q?soRcAgDZF73JNXkxZjBrKSHxgDuHM6Yx6zSATNXYNVpSKZtllACU9EDI8EWr?=
- =?us-ascii?Q?WbdfOPDI82mfo2MvG64=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2023 18:23:41 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::e02a:b0f7:e051:10cd]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::e02a:b0f7:e051:10cd%5]) with mapi id 15.20.6588.017; Tue, 11 Jul 2023
+ 18:23:41 +0000
+Content-Type: multipart/mixed; boundary="------------UzHThacxvNeWQJr6pFjas4f2"
+Message-ID: <54092b91-a9c6-7276-1633-13b83a92524d@amd.com>
+Date: Tue, 11 Jul 2023 14:22:58 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH] Revert "drm/amd/display: Program OTG vtotal min/max
+ selectors unconditionally for DCN1+"
+Content-Language: en-US, en-CA
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>, amd-gfx@lists.freedesktop.org
+References: <20230702164407.6547-1-gpiccoli@igalia.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+In-Reply-To: <20230702164407.6547-1-gpiccoli@igalia.com>
+X-ClientProxiedBy: YQBPR0101CA0304.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6d::7) To CH0PR12MB5284.namprd12.prod.outlook.com
+ (2603:10b6:610:d7::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5284:EE_|MN2PR12MB4287:EE_
+X-MS-Office365-Filtering-Correlation-Id: f767b0e9-1f76-4dca-ac14-08db823bf3bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: rcDCE9596cOsmvT7PN/JQ8XBQ4ngP5JbBHmFgbHVfUn3Ktl+x8dWa8cybE53eQQIAGdrmbZVfqYn399qmdSHfHe4JvDqpULYEUIUP9WpAArFOCMESGSUNV2Kl8Ut0TR/YmPXwwz9pZzW60Lf+cE60snpuGOF++1jAb5o98Hh1671mTPAxBinh4sYag4RgkSStUPrlr4AL3syBrYs3Qip++PN1aHiBKot9HpazkFF1lndLH6c7APaPeszIEGSXCfx+7oohjZlhvdEQdbpnfSfPYag489NJIK+hf6uJMrtzg4X94EQZYWLi5ZRgU91zR8CejzdxRcgi0yWV/PrhNUry4Cn2PRuXuGoyYmHC57qaERTdQsojm36LosWtZTbJPBfDZOk1H4hcVrR3Zn1cUsvFNDz1cW80Qa9woiw5qbHFs03L6KPz+jTxJ+NSjO8li1ZXdwrCwi2kQZnWWxbNe0JwU/Mi13ZOEIDz7Xacr48E4Hd/VTxsISfH04/4IfpbeeON9bQI43Jxv4lFCJ8ZWZpt3wxXhV4xdVJIVgyKCCzscv4ynKMV3Zp/eMGU9J0tUI0ThUobsefTiKQiiqjqYBEHePV6rVv5AnDbVZRRcALfZECGYLoKE4aq9xwORxCYMSrz3y55mAbKD8Pc8KqUlDavA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(136003)(376002)(366004)(39860400002)(346002)(451199021)(6506007)(186003)(26005)(2616005)(6512007)(53546011)(478600001)(83380400001)(41300700001)(44832011)(4326008)(5660300002)(66556008)(2906002)(235185007)(316002)(8676002)(8936002)(66946007)(66476007)(33964004)(6486002)(6666004)(54906003)(36756003)(38100700002)(86362001)(31696002)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cnRLZVdjRXZlTVpibkJSejBobUs4MTVzb3hDVHVFRTBQVmNGT0ZHcHBDSDNB?=
+ =?utf-8?B?TGhCOFN6Wkh4UUlIeDlJa3dvV2Q2OG1PMm9jS3lTVnNld0JoUmFpNnpHczRS?=
+ =?utf-8?B?QjJONmwrbFhRUXo5RkY1S1VWK3dTVXN1K3lXSFBHRXQ4T1VzdVUzUVFQd25j?=
+ =?utf-8?B?RVd6TGFkM2FuSHMxQlJ6VXM5M21STmtENjgwOEg4REx0QVpvNU04SFM3dVA0?=
+ =?utf-8?B?c1llQmFZUHd1ZjQwSWpNZEd2bS9FaUw4NjNvVVJoMFphZHk1ZlZIZ0NQSllS?=
+ =?utf-8?B?eFMyL09FQk5SbVZMWHVrdzJkc2J5dE5XaFZqZk00dU8wdGVNeFhPSS9LaWNY?=
+ =?utf-8?B?NHd3ejZoK01xbWJqM1g5U215ai9SWjFCMUV0dFhVQ2gwbHEvVjFRTHVkeGRk?=
+ =?utf-8?B?RzE4aHZuRklaRmhYallrZzA4MmcrR1dxWDkvTW1mTkZlNVhiT2hKSzVXWW9P?=
+ =?utf-8?B?aFVnQStDMFhPQ1pQd2tTd2lsWkZnV1BBUFlpUHp0SVE4d3VjZEFoS25RMFl1?=
+ =?utf-8?B?NUlIeTVGd2lKa3FScUR4bFNWSUlQQVpZVXJYYW16TmUzbDc0S2NDMUw0bUpE?=
+ =?utf-8?B?Rm5qUEpRVUJGNS92MDNLVm5mMy9ySEdyNjZBemZmQkl1aEt3RUYrcno3SkRQ?=
+ =?utf-8?B?TEcyRHQ4RWdCTmJpYVZ6cEpJOUQvdjJWdTZYQXZQRVp4dll5ODZXMml6WWto?=
+ =?utf-8?B?S3BqeDJLN0NUZTJJS1FLUnFkQ2NpLzdhay9wdzNveVFZT01IdkI5WlM4S1RD?=
+ =?utf-8?B?THRPUFBhbUJmN0V5a2l1YUhwS2YwT00xUy9IK2hBaXlDUFRUTnFNbU9raEcr?=
+ =?utf-8?B?cWJ1VDJmMkdpYWY2a2RxNTR0TXF6dWpsT0FYTmc0b2RQK1RPQW52YmUxSm1p?=
+ =?utf-8?B?S01KUlI1MWx3R25KNDlxU0NaSDNxQjhxMElHdmFURU5lT3VBTHVidFVoTHYr?=
+ =?utf-8?B?dG16cThubGlxeE5ZR0VqanRwN3dQakJMTm9EZXE2My8zVHJvN1ZoMkVUMnhk?=
+ =?utf-8?B?UlZlb0U0MGR2WkdKSDVvSjJSVTZUL2JKUEdra1lXODFUVk0xWDNTa3c0VnRj?=
+ =?utf-8?B?aGlDc1NrT3Z4cGxvb044djRGVno5a1p6elFhdlZTSnZFdnBRM3dWbUNJQzJt?=
+ =?utf-8?B?U29VY0N0a09nQm9DbFNWOGNnWHJqbGNYYm56WGxIU1ZKRUVYTzhmOFpoKzk2?=
+ =?utf-8?B?UkRYNG1lZ0FScHJxMW5mNHpydndjM3ZXRUhybXlzcE4vUWh3OVcyTWVyT3Ra?=
+ =?utf-8?B?VjJNNDAxcFZ4WEd2bHRSWVFlMVlSMW5FNkhtNnFsenZLb2lPQ25iL2c2M21K?=
+ =?utf-8?B?UE90cjRHTEYvU1NycXdteTJ4RmE5MDdUcDNaeHpHMUpRSjJDeDVHQjQyei8x?=
+ =?utf-8?B?cHk2MktjN1RnOTAzS0E3elBwUTN5SUhILzdyeVFGVXVVSE5LcldyTXZhVEFL?=
+ =?utf-8?B?Z2J5NnlkWXlOd2tsWXgyTEE1WjhmcHY5SW1yT2RnUTJYN1pJYjllbkxiZUFh?=
+ =?utf-8?B?Y0M3eFZuclJHeGRpZEhvckt4dEE0bkpKbFNHRzdHYmlyTE4xVlNVaGJtK04w?=
+ =?utf-8?B?QWhBbFI4ako5TTdreG40MzcwdFdhL09kZUcxUExCbXpINVN2Vk5YV3djUDN5?=
+ =?utf-8?B?dk82Qm82N01aeDJ1N2lPd1RuYTY3eXA4UU1oRlFid2dVazd3VVR4KzVqbGpE?=
+ =?utf-8?B?eG92NmpnMUlWenhHK0FSRUNXT2VyTldyRnR6eThlaHV0RUxhcm9VY2NxUFVU?=
+ =?utf-8?B?VHRpZlhZU0xFOE5oMFVISFNCMVBzS0NNSDYycmVmLzVLRjU3bGV0RnFqdmZn?=
+ =?utf-8?B?a0R0aFlZU1lMUy95bnFPcGFXcjJtL0R2Qit6NXBNOG5ZcDRNS2RWR2VsTE84?=
+ =?utf-8?B?VEt4SEdRMkh5Q0xYdjJxS0FtN0JPYi9KeFA5bjUyQno2aVFLV3UxdnlqL0Rl?=
+ =?utf-8?B?c3p3K01BS0UydzJISDJQeCsxWTFKeFgrQkFxenQvZUMxd1pEcmM1MFkwaEJi?=
+ =?utf-8?B?RU5BclFUSHpEazJOUGZlVERBY0Q1YVc2OTEweWsvRUxMOWN0VjdXZGNSZzlx?=
+ =?utf-8?B?MnFGbW01U3dOREN3ZlFVck1vNWJrVzY1Z2pyeGQ0ZXJYSjVYVXJqKzlWNlY3?=
+ =?utf-8?Q?yJRepm2KW88VgoC/ovG9Xnaml?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f767b0e9-1f76-4dca-ac14-08db823bf3bd
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5317.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79b071c0-de42-4baf-0406-08db823acbcd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jul 2023 18:15:24.1902 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Ku2p1LFK9BKwIqGc5x7+mUZjr5/k0D1lRqtcLs0SiwPqPGESrrK/vVBMbh+qCMfJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8327
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2023 18:23:40.8870 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W1nWwt1dzTdXavrdjnB8YbZ7utcwUwIy20WViFuw/qm6romBjRGGXTyeymNMG80jBjR1p9HN9deRTG2tHUCPuQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4287
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,562 +124,353 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Skvortsov, Victor" <Victor.Skvortsov@amd.com>, "Ming,
- Davis" <Davis.Ming@amd.com>
+Cc: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>, Xinhui.Pan@amd.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, dri-devel@lists.freedesktop.org,
+ Melissa Wen <mwen@igalia.com>, cristian.ciocaltea@collabora.com,
+ kernel-dev@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+--------------UzHThacxvNeWQJr6pFjas4f2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Zhigang Luo <zhigang.luo@amd.com>
 
------Original Message-----
-From: Lu, Victor Cheng Chi (Victor) <VictorChengChi.Lu@amd.com>
-Sent: Tuesday, July 11, 2023 10:18 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com>; Ming, Davis <Davis.Ming@a=
-md.com>; Luo, Zhigang <Zhigang.Luo@amd.com>; Lu, Victor Cheng Chi (Victor) =
-<VictorChengChi.Lu@amd.com>
-Subject: [PATCH v3] drm/amdgpu: Add RLCG interface driver implementation fo=
-r gfx v9.4.3 (v3)
 
-Add RLCG interface support for gfx v9.4.3 and multiple XCCs.
-Do not enable it yet.
+On 7/2/23 12:44, Guilherme G. Piccoli wrote:
+> This reverts commit 06c3a652a787efc960af7c8816036d25c4227c6c.
+> 
+> After this commit, the Steam Deck cannot boot with graphics anymore;
+> the following message is observed on dmesg:
+> 
+> "[drm] ERROR [CRTC:67:crtc-0] flip_done timed out"
+> 
+> No other error is observed, it just stays like that. After bisecting
+> amd-staging-drm-next, we narrowed it down to this commit. Seems it
+> makes sense to revert it to have the tree bootable until a proper
+> solution is worked.
+> 
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Cc: André Almeida <andrealmeid@igalia.com>
+> Cc: Melissa Wen <mwen@igalia.com>
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
+> 
+> ---
+> 
+> Hi Alex / Aurabindo, we couldn't boot the Deck with in HEAD
+> (amd-staging-drm-next), git bisect led to this commit. Since its
+> description already mentions a potential proper solution, related
+> to the DMCUB (and some complex state tracking), I thought it was
+> more effective to revert it to allow booting the tree in Deck (and
+> maybe other HW - I just tested the Deck BTW).
+> Lemme know your thoughts.
+> 
+> Special thanks to André and Melissa for helping the debug / bisect!
+> We're open to test alternative patches, feel free to ping.
+> Cheers,
+> 
+> Guilherme
+> 
+> 
+>  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c | 15 ++++++++++++---
+>  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c | 10 ----------
+>  2 files changed, 12 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+> index 0e8f4f36c87c..27419cd98264 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+> @@ -945,10 +945,19 @@ void optc1_set_drr(
+>  				OTG_FORCE_LOCK_ON_EVENT, 0,
+>  				OTG_SET_V_TOTAL_MIN_MASK_EN, 0,
+>  				OTG_SET_V_TOTAL_MIN_MASK, 0);
+> -	}
+>  
+> -	// Setup manual flow control for EOF via TRIG_A
+> -	optc->funcs->setup_manual_trigger(optc);
+> +		// Setup manual flow control for EOF via TRIG_A
+> +		optc->funcs->setup_manual_trigger(optc);
+> +
+> +	} else {
+> +		REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
+> +				OTG_SET_V_TOTAL_MIN_MASK, 0,
+> +				OTG_V_TOTAL_MIN_SEL, 0,
+> +				OTG_V_TOTAL_MAX_SEL, 0,
+> +				OTG_FORCE_LOCK_ON_EVENT, 0);
+> +
+> +		optc->funcs->set_vtotal_min_max(optc, 0, 0);
+> +	}
+>  }
+>  
+>  void optc1_set_vtotal_min_max(struct timing_generator *optc, int vtotal_min, int vtotal_max)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+> index 58bdbd859bf9..d6f095b4555d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+> @@ -462,16 +462,6 @@ void optc2_setup_manual_trigger(struct timing_generator *optc)
+>  {
+>  	struct optc *optc1 = DCN10TG_FROM_TG(optc);
+>  
+> -	/* Set the min/max selectors unconditionally so that
+> -	 * DMCUB fw may change OTG timings when necessary
+> -	 * TODO: Remove the w/a after fixing the issue in DMCUB firmware
+> -	 */
+> -	REG_UPDATE_4(OTG_V_TOTAL_CONTROL,
+> -				 OTG_V_TOTAL_MIN_SEL, 1,
+> -				 OTG_V_TOTAL_MAX_SEL, 1,
+> -				 OTG_FORCE_LOCK_ON_EVENT, 0,
+> -				 OTG_SET_V_TOTAL_MIN_MASK, (1 << 1)); /* TRIGA */
+> -
+>  	REG_SET_8(OTG_TRIGA_CNTL, 0,
+>  			OTG_TRIGA_SOURCE_SELECT, 21,
+>  			OTG_TRIGA_SOURCE_PIPE_SELECT, optc->inst,
 
-v2: Fix amdgpu_rlcg_reg_access_ctrl init, add support for multiple XCCs
-    in amdgpu_mm_wreg_mmio_rlc
 
-v3: Use GET_INST() when indexing amdgpu_rlcg_reg_access_ctrl
+Hi,
 
-Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  4 +-  drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_device.c  |  5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h     |  6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    | 17 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h    |  4 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c      |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c      |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c     | 22 +++++++
- drivers/gpu/drm/amd/amdgpu/soc15_common.h   | 66 ++++++++++-----------
- 11 files changed, 81 insertions(+), 51 deletions(-)
+Sorry for the delayed response, this patch went unnoticed. This revert would break asics. Could you try the attached patch without reverting this one ?
+--------------UzHThacxvNeWQJr6pFjas4f2
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0002-drm-amd-display-add-DCN301-specific-logic-for-OTG-pr.patch"
+Content-Disposition: attachment;
+ filename*0="0002-drm-amd-display-add-DCN301-specific-logic-for-OTG-pr.pa";
+ filename*1="tch"
+Content-Transfer-Encoding: base64
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h
-index c578e07fd90a..a6647a1d13e0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1182,7 +1182,7 @@ void amdgpu_device_indirect_wreg_ext(struct amdgpu_de=
-vice *adev,
-                                 u32 pcie_index, u32 pcie_index_hi,
-                                 u32 pcie_data, u64 reg_addr, u32 reg_data)=
-;  void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev,
--                            uint32_t reg, uint32_t v);
-+                            uint32_t reg, uint32_t v, uint32_t xcc_id);
- void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t =
-value);  uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offse=
-t);
+RnJvbSA5YWM4YjgzNzkwMGFjMjQyZmNjOWU5NDhjOGRlN2FjYTUxYTViZTdlIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBdXJhYmluZG8gUGlsbGFpIDxhdXJhYmluZG8ucGlsbGFpQGFt
+ZC5jb20+CkRhdGU6IFR1ZSwgMTEgSnVsIDIwMjMgMTQ6MTY6MjcgLTA0MDAKU3ViamVjdDogW1BB
+VENIIDIvMl0gZHJtL2FtZC9kaXNwbGF5OiBhZGQgRENOMzAxIHNwZWNpZmljIGxvZ2ljIGZvciBP
+VEcKIHByb2dyYW1taW5nCgpbV2h5Jkhvd10KRENOMzAxIGRvZXMgbm90IGhhdmUgRkFNUyBoZW5j
+ZSB0aGUgd29ya2Fyb3VuZCBuZWVkZWQgb24gb3RoZXIgRENOM3gKdmFyaWFudHMgcmVsYXRlZCB0
+byBPVEcgbWluL21heCBzZWxlY3RvciBwcm9ncmFtbWluZyBpcyBub3QgYXBwbGljYWJsZSBmb3Ig
+aXQuCkhlbmNlIGlzb2xhdGUgaXQgYW5kIGhhdmUgaXQgdXNlIHRoZSBvbGQgc2VxdWVuY2Ugd2l0
+aG91dCB3b3JrYXJvdW5kLgoKU2lnbmVkLW9mZi1ieTogQXVyYWJpbmRvIFBpbGxhaSA8YXVyYWJp
+bmRvLnBpbGxhaUBhbWQuY29tPgotLS0KIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjMw
+MS9NYWtlZmlsZSAgICB8ICAgMyArLQogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kY24zMDEvZGNu
+MzAxX29wdGMuYyAgIHwgMTg1ICsrKysrKysrKysrKysrKysrKwogLi4uL2RybS9hbWQvZGlzcGxh
+eS9kYy9kY24zMDEvZGNuMzAxX29wdGMuaCAgIHwgIDM2ICsrKysKIDMgZmlsZXMgY2hhbmdlZCwg
+MjIzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMzAxL2RjbjMwMV9vcHRjLmMKIGNyZWF0ZSBt
+b2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMzAxL2RjbjMwMV9v
+cHRjLmgKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMzAx
+L01ha2VmaWxlIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjMwMS9NYWtlZmls
+ZQppbmRleCA3YWE2MjhjMjE5NzMuLjkwMDJjYjEwYTZhZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjMwMS9NYWtlZmlsZQorKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvZGMvZGNuMzAxL01ha2VmaWxlCkBAIC0xMSw3ICsxMSw4IEBACiAjIE1h
+a2VmaWxlIGZvciBkY24zMC4KIAogRENOMzAxID0gZGNuMzAxX2luaXQubyBkY24zMDFfcmVzb3Vy
+Y2UubyBkY24zMDFfZGNjZy5vIFwKLQkJZGNuMzAxX2Rpb19saW5rX2VuY29kZXIubyBkY24zMDFf
+aHdzZXEubyBkY24zMDFfcGFuZWxfY250bC5vIGRjbjMwMV9odWJidWIubworCQlkY24zMDFfZGlv
+X2xpbmtfZW5jb2Rlci5vIGRjbjMwMV9od3NlcS5vIGRjbjMwMV9wYW5lbF9jbnRsLm8gZGNuMzAx
+X2h1YmJ1Yi5vIFwKKwkJZGNuMzAxX29wdGMubwogCiBBTURfREFMX0RDTjMwMSA9ICQoYWRkcHJl
+Zml4ICQoQU1EREFMUEFUSCkvZGMvZGNuMzAxLywkKERDTjMwMSkpCiAKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24zMDEvZGNuMzAxX29wdGMuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24zMDEvZGNuMzAxX29wdGMuYwpuZXcgZmlsZSBt
+b2RlIDEwMDY0NAppbmRleCAwMDAwMDAwMDAwMDAuLmIzY2ZjYjg4NzkwNQotLS0gL2Rldi9udWxs
+CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24zMDEvZGNuMzAxX29wdGMu
+YwpAQCAtMCwwICsxLDE4NSBAQAorLyoKKyAqIENvcHlyaWdodCAyMDIwIEFkdmFuY2VkIE1pY3Jv
+IERldmljZXMsIEluYy4KKyAqCisgKiBQZXJtaXNzaW9uIGlzIGhlcmVieSBncmFudGVkLCBmcmVl
+IG9mIGNoYXJnZSwgdG8gYW55IHBlcnNvbiBvYnRhaW5pbmcgYQorICogY29weSBvZiB0aGlzIHNv
+ZnR3YXJlIGFuZCBhc3NvY2lhdGVkIGRvY3VtZW50YXRpb24gZmlsZXMgKHRoZSAiU29mdHdhcmUi
+KSwKKyAqIHRvIGRlYWwgaW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQgcmVzdHJpY3Rpb24sIGluY2x1
+ZGluZyB3aXRob3V0IGxpbWl0YXRpb24KKyAqIHRoZSByaWdodHMgdG8gdXNlLCBjb3B5LCBtb2Rp
+ZnksIG1lcmdlLCBwdWJsaXNoLCBkaXN0cmlidXRlLCBzdWJsaWNlbnNlLAorICogYW5kL29yIHNl
+bGwgY29waWVzIG9mIHRoZSBTb2Z0d2FyZSwgYW5kIHRvIHBlcm1pdCBwZXJzb25zIHRvIHdob20g
+dGhlCisgKiBTb2Z0d2FyZSBpcyBmdXJuaXNoZWQgdG8gZG8gc28sIHN1YmplY3QgdG8gdGhlIGZv
+bGxvd2luZyBjb25kaXRpb25zOgorICoKKyAqIFRoZSBhYm92ZSBjb3B5cmlnaHQgbm90aWNlIGFu
+ZCB0aGlzIHBlcm1pc3Npb24gbm90aWNlIHNoYWxsIGJlIGluY2x1ZGVkIGluCisgKiBhbGwgY29w
+aWVzIG9yIHN1YnN0YW50aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0d2FyZS4KKyAqCisgKiBUSEUg
+U09GVFdBUkUgSVMgUFJPVklERUQgIkFTIElTIiwgV0lUSE9VVCBXQVJSQU5UWSBPRiBBTlkgS0lO
+RCwgRVhQUkVTUyBPUgorICogSU1QTElFRCwgSU5DTFVESU5HIEJVVCBOT1QgTElNSVRFRCBUTyBU
+SEUgV0FSUkFOVElFUyBPRiBNRVJDSEFOVEFCSUxJVFksCisgKiBGSVRORVNTIEZPUiBBIFBBUlRJ
+Q1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiAgSU4gTk8gRVZFTlQgU0hBTEwKKyAq
+IFRIRSBDT1BZUklHSFQgSE9MREVSKFMpIE9SIEFVVEhPUihTKSBCRSBMSUFCTEUgRk9SIEFOWSBD
+TEFJTSwgREFNQUdFUyBPUgorICogT1RIRVIgTElBQklMSVRZLCBXSEVUSEVSIElOIEFOIEFDVElP
+TiBPRiBDT05UUkFDVCwgVE9SVCBPUiBPVEhFUldJU0UsCisgKiBBUklTSU5HIEZST00sIE9VVCBP
+RiBPUiBJTiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9SIFRIRSBVU0UgT1IKKyAqIE9U
+SEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4KKyAqCisgKiBBdXRob3JzOiBBTUQKKyAqCisg
+Ki8KKworI2luY2x1ZGUgInJlZ19oZWxwZXIuaCIKKyNpbmNsdWRlICJkY24zMDFfb3B0Yy5oIgor
+I2luY2x1ZGUgImRjLmgiCisjaW5jbHVkZSAiZGNuX2NhbGNfbWF0aC5oIgorI2luY2x1ZGUgImRj
+X2RtdWJfc3J2LmgiCisKKyNpbmNsdWRlICJkbWwvZGNuMzAvZGNuMzBfZnB1LmgiCisjaW5jbHVk
+ZSAiZGNfdHJhY2UuaCIKKworI2RlZmluZSBSRUcocmVnKVwKKwlvcHRjMS0+dGdfcmVncy0+cmVn
+CisKKyNkZWZpbmUgQ1RYIFwKKwlvcHRjMS0+YmFzZS5jdHgKKworI3VuZGVmIEZOCisjZGVmaW5l
+IEZOKHJlZ19uYW1lLCBmaWVsZF9uYW1lKSBcCisJb3B0YzEtPnRnX3NoaWZ0LT5maWVsZF9uYW1l
+LCBvcHRjMS0+dGdfbWFzay0+ZmllbGRfbmFtZQorCisKKy8qKgorICogb3B0YzMwMV9zZXRfZHJy
+KCkgLSBQcm9ncmFtIGR5bmFtaWMgcmVmcmVzaCByYXRlIHJlZ2lzdGVycyBtX09UR3hfT1RHX1Zf
+VE9UQUxfKi4KKyAqCisgKiBAb3B0YzogdGltaW5nX2dlbmVyYXRvciBpbnN0YW5jZS4KKyAqIEBw
+YXJhbXM6IHBhcmFtZXRlcnMgdXNlZCBmb3IgRHluYW1pYyBSZWZyZXNoIFJhdGUuCisgKi8KK3Zv
+aWQgb3B0YzMwMV9zZXRfZHJyKAorCXN0cnVjdCB0aW1pbmdfZ2VuZXJhdG9yICpvcHRjLAorCWNv
+bnN0IHN0cnVjdCBkcnJfcGFyYW1zICpwYXJhbXMpCit7CisJc3RydWN0IG9wdGMgKm9wdGMxID0g
+RENOMTBUR19GUk9NX1RHKG9wdGMpOworCisJaWYgKHBhcmFtcyAhPSBOVUxMICYmCisJCXBhcmFt
+cy0+dmVydGljYWxfdG90YWxfbWF4ID4gMCAmJgorCQlwYXJhbXMtPnZlcnRpY2FsX3RvdGFsX21p
+biA+IDApIHsKKworCQlpZiAocGFyYW1zLT52ZXJ0aWNhbF90b3RhbF9taWQgIT0gMCkgeworCisJ
+CQlSRUdfU0VUKE9UR19WX1RPVEFMX01JRCwgMCwKKwkJCQlPVEdfVl9UT1RBTF9NSUQsIHBhcmFt
+cy0+dmVydGljYWxfdG90YWxfbWlkIC0gMSk7CisKKwkJCVJFR19VUERBVEVfMihPVEdfVl9UT1RB
+TF9DT05UUk9MLAorCQkJCQlPVEdfVlRPVEFMX01JRF9SRVBMQUNJTkdfTUFYX0VOLCAxLAorCQkJ
+CQlPVEdfVlRPVEFMX01JRF9GUkFNRV9OVU0sCisJCQkJCSh1aW50OF90KXBhcmFtcy0+dmVydGlj
+YWxfdG90YWxfbWlkX2ZyYW1lX251bSk7CisKKwkJfQorCisJCW9wdGMtPmZ1bmNzLT5zZXRfdnRv
+dGFsX21pbl9tYXgob3B0YywgcGFyYW1zLT52ZXJ0aWNhbF90b3RhbF9taW4gLSAxLCBwYXJhbXMt
+PnZlcnRpY2FsX3RvdGFsX21heCAtIDEpOworCisJCVJFR19VUERBVEVfNShPVEdfVl9UT1RBTF9D
+T05UUk9MLAorCQkJCU9UR19WX1RPVEFMX01JTl9TRUwsIDEsCisJCQkJT1RHX1ZfVE9UQUxfTUFY
+X1NFTCwgMSwKKwkJCQlPVEdfRk9SQ0VfTE9DS19PTl9FVkVOVCwgMCwKKwkJCQlPVEdfU0VUX1Zf
+VE9UQUxfTUlOX01BU0tfRU4sIDAsCisJCQkJT1RHX1NFVF9WX1RPVEFMX01JTl9NQVNLLCAwKTsK
+KwkJLy8gU2V0dXAgbWFudWFsIGZsb3cgY29udHJvbCBmb3IgRU9GIHZpYSBUUklHX0EKKwkJb3B0
+Yy0+ZnVuY3MtPnNldHVwX21hbnVhbF90cmlnZ2VyKG9wdGMpOworCisJfSBlbHNlIHsKKwkJUkVH
+X1VQREFURV80KE9UR19WX1RPVEFMX0NPTlRST0wsCisJCQkJT1RHX1NFVF9WX1RPVEFMX01JTl9N
+QVNLLCAwLAorCQkJCU9UR19WX1RPVEFMX01JTl9TRUwsIDAsCisJCQkJT1RHX1ZfVE9UQUxfTUFY
+X1NFTCwgMCwKKwkJCQlPVEdfRk9SQ0VfTE9DS19PTl9FVkVOVCwgMCk7CisKKwkJb3B0Yy0+ZnVu
+Y3MtPnNldF92dG90YWxfbWluX21heChvcHRjLCAwLCAwKTsKKwl9Cit9CisKKwordm9pZCBvcHRj
+MzAxX3NldHVwX21hbnVhbF90cmlnZ2VyKHN0cnVjdCB0aW1pbmdfZ2VuZXJhdG9yICpvcHRjKQor
+eworCXN0cnVjdCBvcHRjICpvcHRjMSA9IERDTjEwVEdfRlJPTV9URyhvcHRjKTsKKworCVJFR19T
+RVRfOChPVEdfVFJJR0FfQ05UTCwgMCwKKwkJCU9UR19UUklHQV9TT1VSQ0VfU0VMRUNULCAyMSwK
+KwkJCU9UR19UUklHQV9TT1VSQ0VfUElQRV9TRUxFQ1QsIG9wdGMtPmluc3QsCisJCQlPVEdfVFJJ
+R0FfUklTSU5HX0VER0VfREVURUNUX0NOVEwsIDEsCisJCQlPVEdfVFJJR0FfRkFMTElOR19FREdF
+X0RFVEVDVF9DTlRMLCAwLAorCQkJT1RHX1RSSUdBX1BPTEFSSVRZX1NFTEVDVCwgMCwKKwkJCU9U
+R19UUklHQV9GUkVRVUVOQ1lfU0VMRUNULCAwLAorCQkJT1RHX1RSSUdBX0RFTEFZLCAwLAorCQkJ
+T1RHX1RSSUdBX0NMRUFSLCAxKTsKK30KKworc3RhdGljIHN0cnVjdCB0aW1pbmdfZ2VuZXJhdG9y
+X2Z1bmNzIGRjbjMwX3RnX2Z1bmNzID0geworCQkudmFsaWRhdGVfdGltaW5nID0gb3B0YzFfdmFs
+aWRhdGVfdGltaW5nLAorCQkucHJvZ3JhbV90aW1pbmcgPSBvcHRjMV9wcm9ncmFtX3RpbWluZywK
+KwkJLnNldHVwX3ZlcnRpY2FsX2ludGVycnVwdDAgPSBvcHRjMV9zZXR1cF92ZXJ0aWNhbF9pbnRl
+cnJ1cHQwLAorCQkuc2V0dXBfdmVydGljYWxfaW50ZXJydXB0MSA9IG9wdGMxX3NldHVwX3ZlcnRp
+Y2FsX2ludGVycnVwdDEsCisJCS5zZXR1cF92ZXJ0aWNhbF9pbnRlcnJ1cHQyID0gb3B0YzFfc2V0
+dXBfdmVydGljYWxfaW50ZXJydXB0MiwKKwkJLnByb2dyYW1fZ2xvYmFsX3N5bmMgPSBvcHRjMV9w
+cm9ncmFtX2dsb2JhbF9zeW5jLAorCQkuZW5hYmxlX2NydGMgPSBvcHRjMl9lbmFibGVfY3J0YywK
+KwkJLmRpc2FibGVfY3J0YyA9IG9wdGMxX2Rpc2FibGVfY3J0YywKKwkJLyogdXNlZCBieSBlbmFi
+bGVfdGltaW5nX3N5bmNocm9uaXphdGlvbi4gTm90IG5lZWQgZm9yIEZQR0EgKi8KKwkJLmlzX2Nv
+dW50ZXJfbW92aW5nID0gb3B0YzFfaXNfY291bnRlcl9tb3ZpbmcsCisJCS5nZXRfcG9zaXRpb24g
+PSBvcHRjMV9nZXRfcG9zaXRpb24sCisJCS5nZXRfZnJhbWVfY291bnQgPSBvcHRjMV9nZXRfdmJs
+YW5rX2NvdW50ZXIsCisJCS5nZXRfc2Nhbm91dHBvcyA9IG9wdGMxX2dldF9jcnRjX3NjYW5vdXRw
+b3MsCisJCS5nZXRfb3RnX2FjdGl2ZV9zaXplID0gb3B0YzFfZ2V0X290Z19hY3RpdmVfc2l6ZSwK
+KwkJLnNldF9lYXJseV9jb250cm9sID0gb3B0YzFfc2V0X2Vhcmx5X2NvbnRyb2wsCisJCS8qIHVz
+ZWQgYnkgZW5hYmxlX3RpbWluZ19zeW5jaHJvbml6YXRpb24uIE5vdCBuZWVkIGZvciBGUEdBICov
+CisJCS53YWl0X2Zvcl9zdGF0ZSA9IG9wdGMxX3dhaXRfZm9yX3N0YXRlLAorCQkuc2V0X2JsYW5r
+X2NvbG9yID0gb3B0YzNfcHJvZ3JhbV9ibGFua19jb2xvciwKKwkJLmRpZF90cmlnZ2VyZWRfcmVz
+ZXRfb2NjdXIgPSBvcHRjMV9kaWRfdHJpZ2dlcmVkX3Jlc2V0X29jY3VyLAorCQkudHJpcGxlYnVm
+ZmVyX2xvY2sgPSBvcHRjM190cmlwbGVidWZmZXJfbG9jaywKKwkJLnRyaXBsZWJ1ZmZlcl91bmxv
+Y2sgPSBvcHRjMl90cmlwbGVidWZmZXJfdW5sb2NrLAorCQkuZW5hYmxlX3Jlc2V0X3RyaWdnZXIg
+PSBvcHRjMV9lbmFibGVfcmVzZXRfdHJpZ2dlciwKKwkJLmVuYWJsZV9jcnRjX3Jlc2V0ID0gb3B0
+YzFfZW5hYmxlX2NydGNfcmVzZXQsCisJCS5kaXNhYmxlX3Jlc2V0X3RyaWdnZXIgPSBvcHRjMV9k
+aXNhYmxlX3Jlc2V0X3RyaWdnZXIsCisJCS5sb2NrID0gb3B0YzNfbG9jaywKKwkJLnVubG9jayA9
+IG9wdGMxX3VubG9jaywKKwkJLmxvY2tfZG91YmxlYnVmZmVyX2VuYWJsZSA9IG9wdGMzX2xvY2tf
+ZG91YmxlYnVmZmVyX2VuYWJsZSwKKwkJLmxvY2tfZG91YmxlYnVmZmVyX2Rpc2FibGUgPSBvcHRj
+M19sb2NrX2RvdWJsZWJ1ZmZlcl9kaXNhYmxlLAorCQkuZW5hYmxlX29wdGNfY2xvY2sgPSBvcHRj
+MV9lbmFibGVfb3B0Y19jbG9jaywKKwkJLnNldF9kcnIgPSBvcHRjMzAxX3NldF9kcnIsCisJCS5n
+ZXRfbGFzdF91c2VkX2Rycl92dG90YWwgPSBvcHRjMl9nZXRfbGFzdF91c2VkX2Rycl92dG90YWws
+CisJCS5zZXRfdnRvdGFsX21pbl9tYXggPSBvcHRjM19zZXRfdnRvdGFsX21pbl9tYXgsCisJCS5z
+ZXRfc3RhdGljX3NjcmVlbl9jb250cm9sID0gb3B0YzFfc2V0X3N0YXRpY19zY3JlZW5fY29udHJv
+bCwKKwkJLnByb2dyYW1fc3RlcmVvID0gb3B0YzFfcHJvZ3JhbV9zdGVyZW8sCisJCS5pc19zdGVy
+ZW9fbGVmdF9leWUgPSBvcHRjMV9pc19zdGVyZW9fbGVmdF9leWUsCisJCS50Z19pbml0ID0gb3B0
+YzNfdGdfaW5pdCwKKwkJLmlzX3RnX2VuYWJsZWQgPSBvcHRjMV9pc190Z19lbmFibGVkLAorCQku
+aXNfb3B0Y191bmRlcmZsb3dfb2NjdXJyZWQgPSBvcHRjMV9pc19vcHRjX3VuZGVyZmxvd19vY2N1
+cnJlZCwKKwkJLmNsZWFyX29wdGNfdW5kZXJmbG93ID0gb3B0YzFfY2xlYXJfb3B0Y191bmRlcmZs
+b3csCisJCS5zZXR1cF9nbG9iYWxfc3dhcF9sb2NrID0gTlVMTCwKKwkJLmdldF9jcmMgPSBvcHRj
+MV9nZXRfY3JjLAorCQkuY29uZmlndXJlX2NyYyA9IG9wdGMyX2NvbmZpZ3VyZV9jcmMsCisJCS5z
+ZXRfZHNjX2NvbmZpZyA9IG9wdGMzX3NldF9kc2NfY29uZmlnLAorCQkuZ2V0X2RzY19zdGF0dXMg
+PSBvcHRjMl9nZXRfZHNjX3N0YXR1cywKKwkJLnNldF9kd2Jfc291cmNlID0gTlVMTCwKKwkJLnNl
+dF9vZG1fYnlwYXNzID0gb3B0YzNfc2V0X29kbV9ieXBhc3MsCisJCS5zZXRfb2RtX2NvbWJpbmUg
+PSBvcHRjM19zZXRfb2RtX2NvbWJpbmUsCisJCS5nZXRfb3B0Y19zb3VyY2UgPSBvcHRjMl9nZXRf
+b3B0Y19zb3VyY2UsCisJCS5zZXRfb3V0X211eCA9IG9wdGMzX3NldF9vdXRfbXV4LAorCQkuc2V0
+X2Rycl90cmlnZ2VyX3dpbmRvdyA9IG9wdGMzX3NldF9kcnJfdHJpZ2dlcl93aW5kb3csCisJCS5z
+ZXRfdnRvdGFsX2NoYW5nZV9saW1pdCA9IG9wdGMzX3NldF92dG90YWxfY2hhbmdlX2xpbWl0LAor
+CQkuc2V0X2dzbCA9IG9wdGMyX3NldF9nc2wsCisJCS5zZXRfZ3NsX3NvdXJjZV9zZWxlY3QgPSBv
+cHRjMl9zZXRfZ3NsX3NvdXJjZV9zZWxlY3QsCisJCS5zZXRfdnRnX3BhcmFtcyA9IG9wdGMxX3Nl
+dF92dGdfcGFyYW1zLAorCQkucHJvZ3JhbV9tYW51YWxfdHJpZ2dlciA9IG9wdGMyX3Byb2dyYW1f
+bWFudWFsX3RyaWdnZXIsCisJCS5zZXR1cF9tYW51YWxfdHJpZ2dlciA9IG9wdGMzMDFfc2V0dXBf
+bWFudWFsX3RyaWdnZXIsCisJCS5nZXRfaHdfdGltaW5nID0gb3B0YzFfZ2V0X2h3X3RpbWluZywK
+KwkJLndhaXRfZHJyX2RvdWJsZWJ1ZmZlcl9wZW5kaW5nX2NsZWFyID0gb3B0YzNfd2FpdF9kcnJf
+ZG91YmxlYnVmZmVyX3BlbmRpbmdfY2xlYXIsCit9OworCit2b2lkIGRjbjMwMV90aW1pbmdfZ2Vu
+ZXJhdG9yX2luaXQoc3RydWN0IG9wdGMgKm9wdGMxKQoreworCW9wdGMxLT5iYXNlLmZ1bmNzID0g
+JmRjbjMwX3RnX2Z1bmNzOworCisJb3B0YzEtPm1heF9oX3RvdGFsID0gb3B0YzEtPnRnX21hc2st
+Pk9UR19IX1RPVEFMICsgMTsKKwlvcHRjMS0+bWF4X3ZfdG90YWwgPSBvcHRjMS0+dGdfbWFzay0+
+T1RHX1ZfVE9UQUwgKyAxOworCisJb3B0YzEtPm1pbl9oX2JsYW5rID0gMzI7CisJb3B0YzEtPm1p
+bl92X2JsYW5rID0gMzsKKwlvcHRjMS0+bWluX3ZfYmxhbmtfaW50ZXJsYWNlID0gNTsKKwlvcHRj
+MS0+bWluX2hfc3luY193aWR0aCA9IDQ7CisJb3B0YzEtPm1pbl92X3N5bmNfd2lkdGggPSAxOwor
+fQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjMwMS9kY24z
+MDFfb3B0Yy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjMwMS9kY24zMDFf
+b3B0Yy5oCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uYjQ5NTg1Njgy
+YTE1Ci0tLSAvZGV2L251bGwKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Rj
+bjMwMS9kY24zMDFfb3B0Yy5oCkBAIC0wLDAgKzEsMzYgQEAKKy8qCisgKiBDb3B5cmlnaHQgMjAy
+MCBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuCisgKgorICogUGVybWlzc2lvbiBpcyBoZXJl
+YnkgZ3JhbnRlZCwgZnJlZSBvZiBjaGFyZ2UsIHRvIGFueSBwZXJzb24gb2J0YWluaW5nIGEKKyAq
+IGNvcHkgb2YgdGhpcyBzb2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9uIGZpbGVz
+ICh0aGUgIlNvZnR3YXJlIiksCisgKiB0byBkZWFsIGluIHRoZSBTb2Z0d2FyZSB3aXRob3V0IHJl
+c3RyaWN0aW9uLCBpbmNsdWRpbmcgd2l0aG91dCBsaW1pdGF0aW9uCisgKiB0aGUgcmlnaHRzIHRv
+IHVzZSwgY29weSwgbW9kaWZ5LCBtZXJnZSwgcHVibGlzaCwgZGlzdHJpYnV0ZSwgc3VibGljZW5z
+ZSwKKyAqIGFuZC9vciBzZWxsIGNvcGllcyBvZiB0aGUgU29mdHdhcmUsIGFuZCB0byBwZXJtaXQg
+cGVyc29ucyB0byB3aG9tIHRoZQorICogU29mdHdhcmUgaXMgZnVybmlzaGVkIHRvIGRvIHNvLCBz
+dWJqZWN0IHRvIHRoZSBmb2xsb3dpbmcgY29uZGl0aW9uczoKKyAqCisgKiBUaGUgYWJvdmUgY29w
+eXJpZ2h0IG5vdGljZSBhbmQgdGhpcyBwZXJtaXNzaW9uIG5vdGljZSBzaGFsbCBiZSBpbmNsdWRl
+ZCBpbgorICogYWxsIGNvcGllcyBvciBzdWJzdGFudGlhbCBwb3J0aW9ucyBvZiB0aGUgU29mdHdh
+cmUuCisgKgorICogVEhFIFNPRlRXQVJFIElTIFBST1ZJREVEICJBUyBJUyIsIFdJVEhPVVQgV0FS
+UkFOVFkgT0YgQU5ZIEtJTkQsIEVYUFJFU1MgT1IKKyAqIElNUExJRUQsIElOQ0xVRElORyBCVVQg
+Tk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLAorICogRklU
+TkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UgQU5EIE5PTklORlJJTkdFTUVOVC4gIElOIE5P
+IEVWRU5UIFNIQUxMCisgKiBUSEUgQ09QWVJJR0hUIEhPTERFUihTKSBPUiBBVVRIT1IoUykgQkUg
+TElBQkxFIEZPUiBBTlkgQ0xBSU0sIERBTUFHRVMgT1IKKyAqIE9USEVSIExJQUJJTElUWSwgV0hF
+VEhFUiBJTiBBTiBBQ1RJT04gT0YgQ09OVFJBQ1QsIFRPUlQgT1IgT1RIRVJXSVNFLAorICogQVJJ
+U0lORyBGUk9NLCBPVVQgT0YgT1IgSU4gQ09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FSRSBPUiBU
+SEUgVVNFIE9SCisgKiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09GVFdBUkUuCisgKgorICogQXV0
+aG9yczogQU1ECisgKgorICovCisKKyNpZm5kZWYgX19EQ19PUFRDX0RDTjMwMV9IX18KKyNkZWZp
+bmUgX19EQ19PUFRDX0RDTjMwMV9IX18KKworI2luY2x1ZGUgImRjbjIwL2RjbjIwX29wdGMuaCIK
+KyNpbmNsdWRlICJkY24zMC9kY24zMF9vcHRjLmgiCisKK3ZvaWQgZGNuMzAxX3RpbWluZ19nZW5l
+cmF0b3JfaW5pdChzdHJ1Y3Qgb3B0YyAqb3B0YzEpOwordm9pZCBvcHRjMzAxX3NldHVwX21hbnVh
+bF90cmlnZ2VyKHN0cnVjdCB0aW1pbmdfZ2VuZXJhdG9yICpvcHRjKTsKK3ZvaWQgb3B0YzMwMV9z
+ZXRfZHJyKHN0cnVjdCB0aW1pbmdfZ2VuZXJhdG9yICpvcHRjLCBjb25zdCBzdHJ1Y3QgZHJyX3Bh
+cmFtcyAqcGFyYW1zKTsKKworI2VuZGlmIC8qIF9fRENfT1BUQ19EQ04zMDFfSF9fICovCi0tIAoy
+LjQxLjAKCg==
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_debugfs.c
-index 241d8c5da273..fc77bea72db7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -173,7 +173,7 @@ static int  amdgpu_debugfs_process_reg_op(bool read, st=
-ruct file *f,
-                } else {
-                        r =3D get_user(value, (uint32_t *)buf);
-                        if (!r)
--                               amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, va=
-lue);
-+                               amdgpu_mm_wreg_mmio_rlc(adev, *pos >> 2, va=
-lue, 0);
-                }
-                if (r) {
-                        result =3D r;
-@@ -301,7 +301,7 @@ static ssize_t amdgpu_debugfs_regs2_op(struct file *f, =
-char __user *buf, u32 off
-                } else {
-                        r =3D get_user(value, (uint32_t *)buf);
-                        if (!r)
--                               amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, =
-value);
-+                               amdgpu_mm_wreg_mmio_rlc(adev, offset >> 2, =
-value, rd->id.xcc_id);
-                }
-                if (r) {
-                        result =3D r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 45b335c766fd..abc56085b136 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -586,7 +586,8 @@ void amdgpu_device_wreg(struct amdgpu_device *adev,
-  * this function is invoked only for the debugfs register access
-  */
- void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev,
--                            uint32_t reg, uint32_t v)
-+                            uint32_t reg, uint32_t v,
-+                            uint32_t xcc_id)
- {
-        if (amdgpu_device_skip_hw_access(adev))
-                return;
-@@ -595,7 +596,7 @@ void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev=
-,
-            adev->gfx.rlc.funcs &&
-            adev->gfx.rlc.funcs->is_rlcg_access_range) {
-                if (adev->gfx.rlc.funcs->is_rlcg_access_range(adev, reg))
--                       return amdgpu_sriov_wreg(adev, reg, v, 0, 0);
-+                       return amdgpu_sriov_wreg(adev, reg, v, 0, 0, xcc_id=
-);
-        } else if ((reg * 4) >=3D adev->rmmio_size) {
-                adev->pcie_wreg(adev, reg * 4, v);
-        } else {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_rlc.h
-index 80b263646966..b591d33af264 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
-@@ -26,6 +26,8 @@
+--------------UzHThacxvNeWQJr6pFjas4f2
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-drm-amd-display-export-some-optc-function-for-reuse.patch"
+Content-Disposition: attachment;
+ filename*0="0001-drm-amd-display-export-some-optc-function-for-reuse.pat";
+ filename*1="ch"
+Content-Transfer-Encoding: base64
 
- #include "clearstate_defs.h"
+RnJvbSBmZmQzMGY1ZmRhMWZjNjFiOThiN2U0MTZkOGM3NGRhZjU5ZTBlYjYyIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBdXJhYmluZG8gUGlsbGFpIDxhdXJhYmluZG8ucGlsbGFpQGFt
+ZC5jb20+CkRhdGU6IFR1ZSwgMTEgSnVsIDIwMjMgMTQ6MTQ6NDMgLTA0MDAKU3ViamVjdDogW1BB
+VENIIDEvMl0gZHJtL2FtZC9kaXNwbGF5OiBleHBvcnQgc29tZSBvcHRjIGZ1bmN0aW9uIGZvciBy
+ZXVzZQoKW1doeSZIb3ddCk1ha2UgYSBmZXcgZnVuY3Rpb25zIG5vbiBzdGF0aWMgc28gdGhhdCB0
+aGV5IGNhbiBiZSByZXVzZWQgZm9yIG90aGVyCmFzaWMuIFRoaXMgaXMgaW4gcHJlcGFyYXRpb24g
+Zm9yIHNlcGFyYXRpbmcgb3V0IE9URyBwcm9ncmFtbWluZyBzZXF1ZW5jZQpmb3IgRENOMzAxCgpT
+aWduZWQtb2ZmLWJ5OiBBdXJhYmluZG8gUGlsbGFpIDxhdXJhYmluZG8ucGlsbGFpQGFtZC5jb20+
+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjMwL2RjbjMwX29wdGMuYyB8
+IDQgKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjMwL2RjbjMwX29wdGMu
+aCB8IDMgKysrCiAyIGZpbGVzIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
+LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMzAvZGNu
+MzBfb3B0Yy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjMwL2RjbjMwX29w
+dGMuYwppbmRleCBkZmI4ZjYyNzY1ZjIuLjViZjRkMGFhNjIzMCAxMDA2NDQKLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjMwL2RjbjMwX29wdGMuYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMzAvZGNuMzBfb3B0Yy5jCkBAIC0yMTUsNyArMjE1
+LDcgQEAgdm9pZCBvcHRjM19zZXRfb2RtX2J5cGFzcyhzdHJ1Y3QgdGltaW5nX2dlbmVyYXRvciAq
+b3B0YywKIAlvcHRjMS0+b3BwX2NvdW50ID0gMTsKIH0KIAotc3RhdGljIHZvaWQgb3B0YzNfc2V0
+X29kbV9jb21iaW5lKHN0cnVjdCB0aW1pbmdfZ2VuZXJhdG9yICpvcHRjLCBpbnQgKm9wcF9pZCwg
+aW50IG9wcF9jbnQsCit2b2lkIG9wdGMzX3NldF9vZG1fY29tYmluZShzdHJ1Y3QgdGltaW5nX2dl
+bmVyYXRvciAqb3B0YywgaW50ICpvcHBfaWQsIGludCBvcHBfY250LAogCQlzdHJ1Y3QgZGNfY3J0
+Y190aW1pbmcgKnRpbWluZykKIHsKIAlzdHJ1Y3Qgb3B0YyAqb3B0YzEgPSBEQ04xMFRHX0ZST01f
+VEcob3B0Yyk7CkBAIC0yOTMsNyArMjkzLDcgQEAgc3RhdGljIHZvaWQgb3B0YzNfc2V0X3RpbWlu
+Z19kb3VibGVfYnVmZmVyKHN0cnVjdCB0aW1pbmdfZ2VuZXJhdG9yICpvcHRjLCBib29sIGUKIAkJ
+ICAgT1RHX0RSUl9USU1JTkdfREJVRl9VUERBVEVfTU9ERSwgbW9kZSk7CiB9CiAKLXN0YXRpYyB2
+b2lkIG9wdGMzX3dhaXRfZHJyX2RvdWJsZWJ1ZmZlcl9wZW5kaW5nX2NsZWFyKHN0cnVjdCB0aW1p
+bmdfZ2VuZXJhdG9yICpvcHRjKQordm9pZCBvcHRjM193YWl0X2Rycl9kb3VibGVidWZmZXJfcGVu
+ZGluZ19jbGVhcihzdHJ1Y3QgdGltaW5nX2dlbmVyYXRvciAqb3B0YykKIHsKIAlzdHJ1Y3Qgb3B0
+YyAqb3B0YzEgPSBEQ04xMFRHX0ZST01fVEcob3B0Yyk7CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24zMC9kY24zMF9vcHRjLmggYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvZGMvZGNuMzAvZGNuMzBfb3B0Yy5oCmluZGV4IGZiMDZkYzlhNDg5My4u
+ZDNhMDU2YzEyYjBkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
+ZGNuMzAvZGNuMzBfb3B0Yy5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
+Y24zMC9kY24zMF9vcHRjLmgKQEAgLTM1MSw2ICszNTEsOSBAQCB2b2lkIG9wdGMzX3NldF90aW1p
+bmdfZGJfbW9kZShzdHJ1Y3QgdGltaW5nX2dlbmVyYXRvciAqb3B0YywgYm9vbCBlbmFibGUpOwog
+CiB2b2lkIG9wdGMzX3NldF9vZG1fYnlwYXNzKHN0cnVjdCB0aW1pbmdfZ2VuZXJhdG9yICpvcHRj
+LAogCQljb25zdCBzdHJ1Y3QgZGNfY3J0Y190aW1pbmcgKmRjX2NydGNfdGltaW5nKTsKK3ZvaWQg
+b3B0YzNfc2V0X29kbV9jb21iaW5lKHN0cnVjdCB0aW1pbmdfZ2VuZXJhdG9yICpvcHRjLCBpbnQg
+Km9wcF9pZCwgaW50IG9wcF9jbnQsCisJCXN0cnVjdCBkY19jcnRjX3RpbWluZyAqdGltaW5nKTsK
+K3ZvaWQgb3B0YzNfd2FpdF9kcnJfZG91YmxlYnVmZmVyX3BlbmRpbmdfY2xlYXIoc3RydWN0IHRp
+bWluZ19nZW5lcmF0b3IgKm9wdGMpOwogdm9pZCBvcHRjM190Z19pbml0KHN0cnVjdCB0aW1pbmdf
+Z2VuZXJhdG9yICpvcHRjKTsKIHZvaWQgb3B0YzNfc2V0X3Z0b3RhbF9taW5fbWF4KHN0cnVjdCB0
+aW1pbmdfZ2VuZXJhdG9yICpvcHRjLCBpbnQgdnRvdGFsX21pbiwgaW50IHZ0b3RhbF9tYXgpOwog
+I2VuZGlmIC8qIF9fRENfT1BUQ19EQ04zMF9IX18gKi8KLS0gCjIuNDEuMAoK
 
-+#define AMDGPU_MAX_RLC_INSTANCES       8
-+
- /* firmware ID used in rlc toc */
- typedef enum _FIRMWARE_ID_ {
-        FIRMWARE_ID_INVALID                                     =3D 0,
-@@ -201,7 +203,7 @@ struct amdgpu_rlc {
-        u32                     cp_table_size;
-
-        /* safe mode for updating CG/PG state */
--       bool in_safe_mode[8];
-+       bool in_safe_mode[AMDGPU_MAX_RLC_INSTANCES];
-        const struct amdgpu_rlc_funcs *funcs;
-
-        /* for firmware data */
-@@ -257,7 +259,7 @@ struct amdgpu_rlc {
-
-        bool rlcg_reg_access_supported;
-        /* registers for rlcg indirect reg access */
--       struct amdgpu_rlcg_reg_access_ctrl reg_access_ctrl;
-+       struct amdgpu_rlcg_reg_access_ctrl
-+reg_access_ctrl[AMDGPU_MAX_RLC_INSTANCES];
- };
-
- void amdgpu_gfx_rlc_enter_safe_mode(struct amdgpu_device *adev, int xcc_id=
-); diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_virt.c
-index 5731829964c2..b5c6c7435551 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -960,7 +960,7 @@ static bool amdgpu_virt_get_rlcg_reg_access_flag(struct=
- amdgpu_device *adev,
-        return ret;
- }
-
--static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset,=
- u32 v, u32 flag)
-+static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32
-+offset, u32 v, u32 flag, u32 xcc_id)
- {
-        struct amdgpu_rlcg_reg_access_ctrl *reg_access_ctrl;
-        uint32_t timeout =3D 50000;
-@@ -978,7 +978,12 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_devic=
-e *adev, u32 offset, u32 v
-                return 0;
-        }
-
--       reg_access_ctrl =3D &adev->gfx.rlc.reg_access_ctrl;
-+       if (adev->gfx.xcc_mask && (((1 << xcc_id) & adev->gfx.xcc_mask) =3D=
-=3D 0)) {
-+               dev_err(adev->dev, "invalid xcc\n");
-+               return 0;
-+       }
-+
-+       reg_access_ctrl =3D &adev->gfx.rlc.reg_access_ctrl[xcc_id];
-        scratch_reg0 =3D (void __iomem *)adev->rmmio + 4 * reg_access_ctrl-=
->scratch_reg0;
-        scratch_reg1 =3D (void __iomem *)adev->rmmio + 4 * reg_access_ctrl-=
->scratch_reg1;
-        scratch_reg2 =3D (void __iomem *)adev->rmmio + 4 * reg_access_ctrl-=
->scratch_reg2; @@ -1043,13 +1048,13 @@ static u32 amdgpu_virt_rlcg_reg_rw(s=
-truct amdgpu_device *adev, u32 offset, u32 v
-
- void amdgpu_sriov_wreg(struct amdgpu_device *adev,
-                       u32 offset, u32 value,
--                      u32 acc_flags, u32 hwip)
-+                      u32 acc_flags, u32 hwip, u32 xcc_id)
- {
-        u32 rlcg_flag;
-
-        if (!amdgpu_sriov_runtime(adev) &&
-                amdgpu_virt_get_rlcg_reg_access_flag(adev, acc_flags, hwip,=
- true, &rlcg_flag)) {
--               amdgpu_virt_rlcg_reg_rw(adev, offset, value, rlcg_flag);
-+               amdgpu_virt_rlcg_reg_rw(adev, offset, value, rlcg_flag, xcc=
-_id);
-                return;
-        }
-
-@@ -1060,13 +1065,13 @@ void amdgpu_sriov_wreg(struct amdgpu_device *adev, =
- }
-
- u32 amdgpu_sriov_rreg(struct amdgpu_device *adev,
--                     u32 offset, u32 acc_flags, u32 hwip)
-+                     u32 offset, u32 acc_flags, u32 hwip, u32 xcc_id)
- {
-        u32 rlcg_flag;
-
-        if (!amdgpu_sriov_runtime(adev) &&
-                amdgpu_virt_get_rlcg_reg_access_flag(adev, acc_flags, hwip,=
- false, &rlcg_flag))
--               return amdgpu_virt_rlcg_reg_rw(adev, offset, 0, rlcg_flag);
-+               return amdgpu_virt_rlcg_reg_rw(adev, offset, 0, rlcg_flag, =
-xcc_id);
-
-        if (acc_flags & AMDGPU_REGS_NO_KIQ)
-                return RREG32_NO_KIQ(offset);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_virt.h
-index 4f7bab52282a..d1f7509a44cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -355,9 +355,9 @@ void amdgpu_virt_update_sriov_video_codec(struct amdgpu=
-_device *adev,
-                        struct amdgpu_video_codec_info *decode, uint32_t de=
-code_array_size);  void amdgpu_sriov_wreg(struct amdgpu_device *adev,
-                       u32 offset, u32 value,
--                      u32 acc_flags, u32 hwip);
-+                      u32 acc_flags, u32 hwip, u32 xcc_id);
- u32 amdgpu_sriov_rreg(struct amdgpu_device *adev,
--                     u32 offset, u32 acc_flags, u32 hwip);
-+                     u32 offset, u32 acc_flags, u32 hwip, u32 xcc_id);
- bool amdgpu_virt_fw_load_skip_check(struct amdgpu_device *adev,
-                        uint32_t ucode_id);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c
-index c8291711dba3..7a1e7e3db2cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4151,7 +4151,7 @@ static void gfx_v10_0_init_rlcg_reg_access_ctrl(struc=
-t amdgpu_device *adev)  {
-        struct amdgpu_rlcg_reg_access_ctrl *reg_access_ctrl;
-
--       reg_access_ctrl =3D &adev->gfx.rlc.reg_access_ctrl;
-+       reg_access_ctrl =3D &adev->gfx.rlc.reg_access_ctrl[0];
-        reg_access_ctrl->scratch_reg0 =3D SOC15_REG_OFFSET(GC, 0, mmSCRATCH=
-_REG0);
-        reg_access_ctrl->scratch_reg1 =3D SOC15_REG_OFFSET(GC, 0, mmSCRATCH=
-_REG1);
-        reg_access_ctrl->scratch_reg2 =3D SOC15_REG_OFFSET(GC, 0, mmSCRATCH=
-_REG2); diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/d=
-rm/amd/amdgpu/gfx_v11_0.c
-index a9f008d0d5ab..f5b52d239eb9 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -645,7 +645,7 @@ static void gfx_v11_0_init_rlcg_reg_access_ctrl(struct =
-amdgpu_device *adev)  {
-        struct amdgpu_rlcg_reg_access_ctrl *reg_access_ctrl;
-
--       reg_access_ctrl =3D &adev->gfx.rlc.reg_access_ctrl;
-+       reg_access_ctrl =3D &adev->gfx.rlc.reg_access_ctrl[0];
-        reg_access_ctrl->scratch_reg0 =3D SOC15_REG_OFFSET(GC, 0, regSCRATC=
-H_REG0);
-        reg_access_ctrl->scratch_reg1 =3D SOC15_REG_OFFSET(GC, 0, regSCRATC=
-H_REG1);
-        reg_access_ctrl->scratch_reg2 =3D SOC15_REG_OFFSET(GC, 0, regSCRATC=
-H_REG2); diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/d=
-rm/amd/amdgpu/gfx_v9_0.c
-index de9a5c67e241..ebdc0f9200f7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -1636,7 +1636,7 @@ static void gfx_v9_0_init_rlcg_reg_access_ctrl(struct=
- amdgpu_device *adev)  {
-        struct amdgpu_rlcg_reg_access_ctrl *reg_access_ctrl;
-
--       reg_access_ctrl =3D &adev->gfx.rlc.reg_access_ctrl;
-+       reg_access_ctrl =3D &adev->gfx.rlc.reg_access_ctrl[0];
-        reg_access_ctrl->scratch_reg0 =3D SOC15_REG_OFFSET(GC, 0, mmSCRATCH=
-_REG0);
-        reg_access_ctrl->scratch_reg1 =3D SOC15_REG_OFFSET(GC, 0, mmSCRATCH=
-_REG1);
-        reg_access_ctrl->scratch_reg2 =3D SOC15_REG_OFFSET(GC, 0, mmSCRATCH=
-_REG2); diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/=
-drm/amd/amdgpu/gfx_v9_4_3.c
-index b41d6ae35c8a..1cd417034860 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -1126,6 +1126,25 @@ static void gfx_v9_4_3_xcc_unset_safe_mode(struct am=
-dgpu_device *adev,
-        WREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_SAFE_MODE, data);  }
-
-+static void gfx_v9_4_3_init_rlcg_reg_access_ctrl(struct amdgpu_device
-+*adev) {
-+       int xcc_id;
-+       struct amdgpu_rlcg_reg_access_ctrl *reg_access_ctrl;
-+
-+       for (xcc_id =3D 0; xcc_id < AMDGPU_MAX_RLC_INSTANCES; xcc_id++) {
-+               if (((1 << xcc_id) & adev->gfx.xcc_mask) =3D=3D 0)
-+                       continue;
-+               reg_access_ctrl =3D &adev->gfx.rlc.reg_access_ctrl[GET_INST=
-(GC, xcc_id)];
-+               reg_access_ctrl->scratch_reg0 =3D SOC15_REG_OFFSET(GC, GET_=
-INST(GC, xcc_id), regSCRATCH_REG0);
-+               reg_access_ctrl->scratch_reg1 =3D SOC15_REG_OFFSET(GC, GET_=
-INST(GC, xcc_id), regSCRATCH_REG1);
-+               reg_access_ctrl->scratch_reg2 =3D SOC15_REG_OFFSET(GC, GET_=
-INST(GC, xcc_id), regSCRATCH_REG2);
-+               reg_access_ctrl->scratch_reg3 =3D SOC15_REG_OFFSET(GC, GET_=
-INST(GC, xcc_id), regSCRATCH_REG3);
-+               reg_access_ctrl->grbm_cntl =3D SOC15_REG_OFFSET(GC, GET_INS=
-T(GC, xcc_id), regGRBM_GFX_CNTL);
-+               reg_access_ctrl->grbm_idx =3D SOC15_REG_OFFSET(GC, GET_INST=
-(GC, xcc_id), regGRBM_GFX_INDEX);
-+               reg_access_ctrl->spare_int =3D SOC15_REG_OFFSET(GC, GET_INS=
-T(GC, xcc_id), regRLC_SPARE_INT);
-+       }
-+}
-+
- static int gfx_v9_4_3_rlc_init(struct amdgpu_device *adev)  {
-        /* init spm vmid with 0xf */
-@@ -2319,6 +2338,9 @@ static int gfx_v9_4_3_early_init(void *handle)
-                        gfx_v9_4_3_xcc_rlc_smu_handshake_cntl(adev, false, =
-i);
-        }
-
-+       /* init rlcg reg access ctrl */
-+       gfx_v9_4_3_init_rlcg_reg_access_ctrl(adev);
-+
-        return gfx_v9_4_3_init_microcode(adev);  }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/am=
-d/amdgpu/soc15_common.h
-index 96948a59f8dd..da683afa0222 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
-@@ -37,65 +37,65 @@
- #define SOC15_REG_OFFSET1(ip, inst, reg, offset) \
-        (adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + (reg)+(offset)=
-)
-
--#define __WREG32_SOC15_RLC__(reg, value, flag, hwip) \
-+#define __WREG32_SOC15_RLC__(reg, value, flag, hwip, inst) \
-        ((amdgpu_sriov_vf(adev) && adev->gfx.rlc.funcs && adev->gfx.rlc.rlc=
-g_reg_access_supported) ? \
--        amdgpu_sriov_wreg(adev, reg, value, flag, hwip) : \
-+        amdgpu_sriov_wreg(adev, reg, value, flag, hwip, inst) : \
-         WREG32(reg, value))
-
--#define __RREG32_SOC15_RLC__(reg, flag, hwip) \
-+#define __RREG32_SOC15_RLC__(reg, flag, hwip, inst) \
-        ((amdgpu_sriov_vf(adev) && adev->gfx.rlc.funcs && adev->gfx.rlc.rlc=
-g_reg_access_supported) ? \
--        amdgpu_sriov_rreg(adev, reg, flag, hwip) : \
-+        amdgpu_sriov_rreg(adev, reg, flag, hwip, inst) : \
-         RREG32(reg))
-
- #define WREG32_FIELD15(ip, idx, reg, field, val)       \
-         __WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BA=
-SE_IDX] + mm##reg,   \
-                                (__RREG32_SOC15_RLC__( \
-                                        adev->reg_offset[ip##_HWIP][idx][mm=
-##reg##_BASE_IDX] + mm##reg, \
--                                       0, ip##_HWIP) & \
-+                                       0, ip##_HWIP, idx) & \
-                                ~REG_FIELD_MASK(reg, field)) | (val) << REG=
-_FIELD_SHIFT(reg, field), \
--                             0, ip##_HWIP)
-+                             0, ip##_HWIP, idx)
-
- #define WREG32_FIELD15_PREREG(ip, idx, reg_name, field, val)        \
-        __WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][reg##reg_name=
-##_BASE_IDX] + reg##reg_name,   \
-                        (__RREG32_SOC15_RLC__( \
-                                        adev->reg_offset[ip##_HWIP][idx][re=
-g##reg_name##_BASE_IDX] + reg##reg_name, \
--                                       0, ip##_HWIP) & \
-+                                       0, ip##_HWIP, idx) & \
-                                        ~REG_FIELD_MASK(reg_name, field)) |=
- (val) << REG_FIELD_SHIFT(reg_name, field), \
--                       0, ip##_HWIP)
-+                       0, ip##_HWIP, idx)
-
- #define RREG32_SOC15(ip, inst, reg) \
-        __RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_I=
-DX] + reg, \
--                        0, ip##_HWIP)
-+                        0, ip##_HWIP, inst)
-
--#define RREG32_SOC15_IP(ip, reg) __RREG32_SOC15_RLC__(reg, 0, ip##_HWIP)
-+#define RREG32_SOC15_IP(ip, reg) __RREG32_SOC15_RLC__(reg, 0,
-+ip##_HWIP, 0)
-
--#define RREG32_SOC15_IP_NO_KIQ(ip, reg) __RREG32_SOC15_RLC__(reg, AMDGPU_R=
-EGS_NO_KIQ, ip##_HWIP)
-+#define RREG32_SOC15_IP_NO_KIQ(ip, reg) __RREG32_SOC15_RLC__(reg,
-+AMDGPU_REGS_NO_KIQ, ip##_HWIP, 0)
-
- #define RREG32_SOC15_NO_KIQ(ip, inst, reg) \
-        __RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_I=
-DX] + reg, \
--                        AMDGPU_REGS_NO_KIQ, ip##_HWIP)
-+                        AMDGPU_REGS_NO_KIQ, ip##_HWIP, inst)
-
- #define RREG32_SOC15_OFFSET(ip, inst, reg, offset) \
-         __RREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][inst][reg##_BASE=
-_IDX] + (reg)) + \
--                        (offset), 0, ip##_HWIP)
-+                        (offset), 0, ip##_HWIP, inst)
-
- #define WREG32_SOC15(ip, inst, reg, value) \
-         __WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][inst][reg##_BASE=
-_IDX] + reg), \
--                         value, 0, ip##_HWIP)
-+                         value, 0, ip##_HWIP, inst)
-
- #define WREG32_SOC15_IP(ip, reg, value) \
--        __WREG32_SOC15_RLC__(reg, value, 0, ip##_HWIP)
-+        __WREG32_SOC15_RLC__(reg, value, 0, ip##_HWIP, 0)
-
- #define WREG32_SOC15_IP_NO_KIQ(ip, reg, value) \
--        __WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_NO_KIQ, ip##_HWIP)
-+        __WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_NO_KIQ, ip##_HWIP, 0)
-
- #define WREG32_SOC15_NO_KIQ(ip, inst, reg, value) \
-        __WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_I=
-DX] + reg, \
--                            value, AMDGPU_REGS_NO_KIQ, ip##_HWIP)
-+                            value, AMDGPU_REGS_NO_KIQ, ip##_HWIP, inst)
-
- #define WREG32_SOC15_OFFSET(ip, inst, reg, offset, value) \
-         __WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][inst][reg##_BASE=
-_IDX] + reg) + offset, \
--                         value, 0, ip##_HWIP)
-+                         value, 0, ip##_HWIP, inst)
-
- #define SOC15_WAIT_ON_RREG(ip, inst, reg, expected_value, mask)      \
-        amdgpu_device_wait_on_rreg(adev, inst,                       \
-@@ -108,16 +108,16 @@
-        #reg, expected_value, mask)
-
- #define WREG32_RLC(reg, value) \
--       __WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_RLC, GC_HWIP)
-+       __WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_RLC, GC_HWIP, 0)
-
--#define WREG32_RLC_EX(prefix, reg, value) \
-+#define WREG32_RLC_EX(prefix, reg, value, inst) \
-        do {                                                    \
-                if (amdgpu_sriov_fullaccess(adev)) {    \
-                        uint32_t i =3D 0; \
-                        uint32_t retries =3D 50000;       \
--                       uint32_t r0 =3D adev->reg_offset[GC_HWIP][0][prefix=
-##SCRATCH_REG0_BASE_IDX] + prefix##SCRATCH_REG0;       \
--                       uint32_t r1 =3D adev->reg_offset[GC_HWIP][0][prefix=
-##SCRATCH_REG1_BASE_IDX] + prefix##SCRATCH_REG1;       \
--                       uint32_t spare_int =3D adev->reg_offset[GC_HWIP][0]=
-[prefix##RLC_SPARE_INT_BASE_IDX] + prefix##RLC_SPARE_INT;      \
-+                       uint32_t r0 =3D adev->reg_offset[GC_HWIP][inst][pre=
-fix##SCRATCH_REG0_BASE_IDX] + prefix##SCRATCH_REG0;    \
-+                       uint32_t r1 =3D adev->reg_offset[GC_HWIP][inst][pre=
-fix##SCRATCH_REG1_BASE_IDX] + prefix##SCRATCH_REG1;    \
-+                       uint32_t spare_int =3D adev->reg_offset[GC_HWIP][in=
-st][prefix##RLC_SPARE_INT_BASE_IDX] + prefix##RLC_SPARE_INT;   \
-                        WREG32(r0, value);      \
-                        WREG32(r1, (reg | 0x80000000)); \
-                        WREG32(spare_int, 0x1); \
-@@ -136,17 +136,17 @@
-
- /* shadow the registers in the callback function */  #define WREG32_SOC15_=
-RLC_SHADOW(ip, inst, reg, value) \
--       __WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_=
-IDX] + reg), value, AMDGPU_REGS_RLC, GC_HWIP)
-+
-+__WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX]
-++ reg), value, AMDGPU_REGS_RLC, GC_HWIP, inst)
-
- /* for GC only */
- #define RREG32_RLC(reg) \
-        __RREG32_SOC15_RLC__(reg, AMDGPU_REGS_RLC, GC_HWIP)
-
- #define WREG32_RLC_NO_KIQ(reg, value, hwip) \
--       __WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_NO_KIQ | AMDGPU_REGS_R=
-LC, hwip)
-+       __WREG32_SOC15_RLC__(reg, value, AMDGPU_REGS_NO_KIQ | AMDGPU_REGS_R=
-LC,
-+hwip, 0)
-
- #define RREG32_RLC_NO_KIQ(reg, hwip) \
--       __RREG32_SOC15_RLC__(reg, AMDGPU_REGS_NO_KIQ | AMDGPU_REGS_RLC, hwi=
-p)
-+       __RREG32_SOC15_RLC__(reg, AMDGPU_REGS_NO_KIQ | AMDGPU_REGS_RLC, hwi=
-p,
-+0)
-
- #define WREG32_SOC15_RLC_SHADOW_EX(prefix, ip, inst, reg, value) \
-        do {                                                    \
-@@ -167,32 +167,32 @@
-        } while (0)
-
- #define RREG32_SOC15_RLC(ip, inst, reg) \
--       __RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_I=
-DX] + reg, AMDGPU_REGS_RLC, ip##_HWIP)
-+       __RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_I=
-DX]
-++ reg, AMDGPU_REGS_RLC, ip##_HWIP, inst)
-
- #define WREG32_SOC15_RLC(ip, inst, reg, value) \
-        do {                                                    \
-                uint32_t target_reg =3D adev->reg_offset[ip##_HWIP][inst][r=
-eg##_BASE_IDX] + reg;\
--               __WREG32_SOC15_RLC__(target_reg, value, AMDGPU_REGS_RLC, ip=
-##_HWIP); \
-+               __WREG32_SOC15_RLC__(target_reg, value, AMDGPU_REGS_RLC, ip=
-##_HWIP,
-+inst); \
-        } while (0)
-
- #define WREG32_SOC15_RLC_EX(prefix, ip, inst, reg, value) \
-        do {                                                    \
-                        uint32_t target_reg =3D adev->reg_offset[GC_HWIP][i=
-nst][reg##_BASE_IDX] + reg;\
--                       WREG32_RLC_EX(prefix, target_reg, value); \
-+                       WREG32_RLC_EX(prefix, target_reg, value, inst); \
-        } while (0)
-
- #define WREG32_FIELD15_RLC(ip, idx, reg, field, val)   \
-        __WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][idx][mm##reg##_BA=
-SE_IDX] + mm##reg), \
-                             (__RREG32_SOC15_RLC__(adev->reg_offset[ip##_HW=
-IP][idx][mm##reg##_BASE_IDX] + mm##reg, \
--                                                  AMDGPU_REGS_RLC, ip##_HW=
-IP) & \
-+                                                  AMDGPU_REGS_RLC, ip##_HW=
-IP, idx) & \
-                              ~REG_FIELD_MASK(reg, field)) | (val) << REG_F=
-IELD_SHIFT(reg, field), \
--                            AMDGPU_REGS_RLC, ip##_HWIP)
-+                            AMDGPU_REGS_RLC, ip##_HWIP, idx)
-
- #define WREG32_SOC15_OFFSET_RLC(ip, inst, reg, offset, value) \
--       __WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_=
-IDX] + reg) + offset, value, AMDGPU_REGS_RLC, ip##_HWIP)
-+
-+__WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX]
-++ reg) + offset, value, AMDGPU_REGS_RLC, ip##_HWIP, inst)
-
- #define RREG32_SOC15_OFFSET_RLC(ip, inst, reg, offset) \
--       __RREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_=
-IDX] + reg) + offset, AMDGPU_REGS_RLC, ip##_HWIP)
-+
-+__RREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX]
-++ reg) + offset, AMDGPU_REGS_RLC, ip##_HWIP, inst)
-
- /* inst equals to ext for some IPs */
- #define RREG32_SOC15_EXT(ip, inst, reg, ext) \
---
-2.34.1
-
+--------------UzHThacxvNeWQJr6pFjas4f2--
