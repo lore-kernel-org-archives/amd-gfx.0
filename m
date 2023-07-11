@@ -4,38 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C386EB64DD
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 17:06:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADE2AEB64DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 17:09:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E06010E406;
-	Tue, 11 Jul 2023 17:05:49 +0000 (UTC)
-Received: from out-43.mta1.migadu.com (out-43.mta1.migadu.com [95.215.58.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FE2E10E402
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 16:53:32 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1689093824;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NIlpd2OuXAqZBmAKqEiHOVF8G3KI4fwGrKLh4KCVTtk=;
- b=ecINMnuvOGXb9BbruD5LvN4Yp3H0QtakNbtBqZGtbF+uuD1Ia0wIToBo3dNnNdqp2wca3L
- /dYsRshA52X9SZ13jGxCqAkY/HzcvDJ4zQmkUC31Et0p3dmpUkcI+j+ErMq5ZjHq/6QDJz
- 5m4MiOwv+urTFm8EUQit+44ndOvrrvU=
-From: Sui Jingfeng <sui.jingfeng@linux.dev>
-To: David Airlie <airlied@gmail.com>
-Subject: [PATCH v3 5/9] drm/amdgpu: Implement the is_primary_gpu callback of
- vga_client_register()
-Date: Wed, 12 Jul 2023 00:43:06 +0800
-Message-Id: <20230711164310.791756-6-sui.jingfeng@linux.dev>
-In-Reply-To: <20230711164310.791756-1-sui.jingfeng@linux.dev>
-References: <20230711164310.791756-1-sui.jingfeng@linux.dev>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C68910E40C;
+	Tue, 11 Jul 2023 17:09:27 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8496610E40C;
+ Tue, 11 Jul 2023 17:09:25 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id
+ 5614622812f47-3a337ddff16so4560820b6e.0; 
+ Tue, 11 Jul 2023 10:09:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1689095364; x=1691687364;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=hV73qAM5jf9inKvx6csq0KqHjwvvDMcIY0RseRx4sHw=;
+ b=KsnguWp1cL02BOOOoJ1TaTf8Y0SafDGcsBF5GfTf6pumKDoV9KOB0sXU2v+Bhhh5BH
+ WJHTTADm9CJU58zMfwF3UemrqZc5RZatpYy6a6SdG5IKkQHyL/z5ggzAQQx4/6njGDo/
+ XqghiRvyFULKM2LCrRfrpLv3a/TJ/SbevxzYfup+8Px4XYB7l489NuGj9HKdUqUlMS+E
+ 5NzB8eF7AbmPKWdqzS3KL/DlySqUzi7jkR8+ZgK8XttrYJ12nJxBjTxnMF6xLaX2AXqq
+ ZgFlciYcpFEt3gju1mEhxoIrZx7Lyol5bWJV2+2tyBq4/dJhB0q4hSU+yVl1oAsfmOAs
+ 7a0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689095364; x=1691687364;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=hV73qAM5jf9inKvx6csq0KqHjwvvDMcIY0RseRx4sHw=;
+ b=VUdTgk4QHhzL6ho3nE+5WXcx5ZuIWUjM8bMOfoBoKErCowm6Fifn8k/vtGrMnrMkiN
+ oJSL3TKx7IxD1J20WJDfJONRTrhmKBv20CbXsaO40djhTpXKm3CMR2Fiiv2fZFvMYecC
+ cDm0vT/d8VzzTQ6EUqWwstfkLlC+s0qUPuaF+6ORc2eMWx6/w/5Kx03toZW70FYx92oI
+ o4rRAAk6g5IC4aTlIu/7MxunbUpS+tekE/8bzXOsdzaPRYQMiDg3xblDbwYrjfuwrsPD
+ 2bd9qx4O5ZVCDq3wdzRYuEPv7ojvsmGCH8zvD1dNKWuKj8r1YutiT608GA73mIb7tTL9
+ hgLA==
+X-Gm-Message-State: ABy/qLZOKyYRDEpiX4KCOzwaXn6YQmk0KsZyTOxaB7cB2e0XeFFvDK1x
+ vIER+Ps5CK5UnQ0FPEP2g4mZfabpKw7x2FIKlGs=
+X-Google-Smtp-Source: APBJJlFcGmgXTywqVKLKdpeTp/QyH1M6Jm5sM4BnLQk42aLUECLGYLnq5nAd87yE/9rrzgT2kkOqb0gmmexb9nhmbyo=
+X-Received: by 2002:a54:4d9a:0:b0:3a4:12ba:fde4 with SMTP id
+ y26-20020a544d9a000000b003a412bafde4mr2718510oix.33.1689095364314; Tue, 11
+ Jul 2023 10:09:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Tue, 11 Jul 2023 17:05:41 +0000
+References: <20230711133122.3710-1-christian.koenig@amd.com>
+In-Reply-To: <20230711133122.3710-1-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 11 Jul 2023 13:09:13 -0400
+Message-ID: <CADnq5_Mr-Fnt7H=SDxYSFcLSYxSyWeCK8At7QDtJh3CJLA09cA@mail.gmail.com>
+Subject: Re: drm_exec context for amdgpu
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,70 +67,19 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
- kvm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sui Jingfeng <suijingfeng@loongson.cn>
+On Tue, Jul 11, 2023 at 9:31=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Hi Alex,
+>
+> so apart from some RADV semaphore issue which seems to be unrelated to
+> this changes our CI systems are happy with the changes.
+>
+> Can I get some ack to push them through drm-misc-next?
 
-[why]
-
-The vga_is_firmware_default() function defined in drivers/pci/vgaarb.c is
-arch-dependent, it's a dummy on non-x86 architectures. This made VGAARB
-lost an important condition for the arbitration on non-x86 platform. The
-rules about which GPU is (or should be) the primary display device get used
-by userspace are obscure on non-x86 platform, let's made the things clear.
-
-[how]
-
-The device that owns the firmware framebuffer should be the default boot
-device. This patch adds an arch-independent function to implement this
-rule. The vgaarb subsystem will call back to amdgpu_is_primary_gpu() when
-drm/amdgpu is bound to an AMDGPU device successfully.
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian Konig <christian.koenig@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d98f0801ac77..b638eff58636 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3690,6 +3690,15 @@ static void amdgpu_device_set_mcbp(struct amdgpu_device *adev)
- 		DRM_INFO("MCBP is enabled\n");
- }
- 
-+static bool amdgpu_is_primary_gpu(struct pci_dev *pdev)
-+{
-+	struct drm_device *dev = pci_get_drvdata(pdev);
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_gmc *gmc = &adev->gmc;
-+
-+	return drm_aperture_contain_firmware_fb(gmc->aper_base, gmc->aper_size);
-+}
-+
- /**
-  * amdgpu_device_init - initialize the driver
-  *
-@@ -4103,7 +4112,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	/* this will fail for cards that aren't VGA class devices, just
- 	 * ignore it */
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
--		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode, NULL);
-+		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode,
-+				    amdgpu_is_primary_gpu);
- 
- 	px = amdgpu_device_supports_px(ddev);
- 
--- 
-2.25.1
-
+For the series:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
