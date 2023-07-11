@@ -4,33 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CB6EC001DE
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 17:05:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 200A7EB64DD
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 17:06:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54C0410E413;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F206310E415;
 	Tue, 11 Jul 2023 17:05:47 +0000 (UTC)
-Received: from out-22.mta1.migadu.com (out-22.mta1.migadu.com
- [IPv6:2001:41d0:203:375::16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5397310E3FD
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 16:53:33 +0000 (UTC)
+Received: from out-43.mta1.migadu.com (out-43.mta1.migadu.com [95.215.58.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 371B610E401
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 16:53:32 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1689093827;
+ t=1689093809;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=phlB5jeyUkvMxIpxSGgMhgloOsV1JgjnEjP6Y7xHuM8=;
- b=tpCdteZ5Ib+wxbxFaAWwfiWUSKgfPXeqdoI+n2yWg+cepHeniy4juvONgWOcLejop+jeC0
- PkigMOBJnABT1FN7Nc1r4q7XtVhHB/bxalYDRi/gFikN7sxsMDRAOv8gq9d4pRUrTFeRwf
- v6ZBO4PyK6QCCUJsme2hCie3x604P88=
+ bh=GBy5pJ1hlnJ55l3+0FoW8CoU4fx5kPQd0O17NeAPNiY=;
+ b=VLnHpbhmCbj+VytfP2De0A90dTbIOm7DbFncSWPFk5st0NBQu1Rgdl8iXr4M//w7gMNkg6
+ k82DFVKmL0UkqsJrG275lNVeqSYnUy+KXU/qz2KFRRtukDcsipHPOqzM3498Fm16a4DX4L
+ 10mrRoZDA7Sbop614INjogTPQZG6Ouw=
 From: Sui Jingfeng <sui.jingfeng@linux.dev>
 To: David Airlie <airlied@gmail.com>
-Subject: [PATCH v3 6/9] drm/radeon: Add an implement for the is_primary_gpu
- function callback
-Date: Wed, 12 Jul 2023 00:43:07 +0800
-Message-Id: <20230711164310.791756-7-sui.jingfeng@linux.dev>
+Subject: [PATCH v3 2/9] video/aperture: Add a helper for determining if an
+ unmoved aperture contain FB
+Date: Wed, 12 Jul 2023 00:43:03 +0800
+Message-Id: <20230711164310.791756-3-sui.jingfeng@linux.dev>
 In-Reply-To: <20230711164310.791756-1-sui.jingfeng@linux.dev>
 References: <20230711164310.791756-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
@@ -50,75 +49,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
  kvm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-[why]
+This patch is intended to form a uniform approach to determining if an
+unmoved aperture contains the firmware FB. I believe that the global
+screen_info is more about video-specific things.
 
-The vga_is_firmware_default() function defined in drivers/pci/vgaarb.c is
-arch-dependent, it's no-op on non-x86 architectures. The arbitration is
-not usabe on non-x86 platform.
+Putting it in video/aperture.c helps form a uniform approach.
 
-[how]
-
-The device that owns the firmware framebuffer should be the default boot
-device. This patch adds an arch-independent function to implement this
-rule. The vgaarb will call back to radeon_is_primary_gpu() when drm/radeon
-is bound to a ATI gpu device successfully.
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian Konig <christian.koenig@amd.com>
-Cc: Pan Xinhui <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Helge Deller <deller@gmx.de>
 Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 ---
- drivers/gpu/drm/radeon/radeon_device.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ drivers/video/aperture.c | 36 ++++++++++++++++++++++++++++++++++++
+ include/linux/aperture.h |  7 +++++++
+ 2 files changed, 43 insertions(+)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 71f2ff39d6a1..7db8dc5f79a9 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -34,6 +34,7 @@
- #include <linux/vga_switcheroo.h>
- #include <linux/vgaarb.h>
- 
-+#include <drm/drm_aperture.h>
- #include <drm/drm_cache.h>
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_device.h>
-@@ -1263,6 +1264,15 @@ static const struct vga_switcheroo_client_ops radeon_switcheroo_ops = {
- 	.can_switch = radeon_switcheroo_can_switch,
- };
- 
-+static bool radeon_vga_is_primary_gpu(struct pci_dev *pdev)
+diff --git a/drivers/video/aperture.c b/drivers/video/aperture.c
+index 34eb962cfae8..f03dfcabc303 100644
+--- a/drivers/video/aperture.c
++++ b/drivers/video/aperture.c
+@@ -6,6 +6,7 @@
+ #include <linux/mutex.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
++#include <linux/screen_info.h>
+ #include <linux/slab.h>
+ #include <linux/sysfb.h>
+ #include <linux/types.h>
+@@ -406,3 +407,38 @@ bool aperture_contain_firmware_fb(resource_size_t ap_start, resource_size_t ap_e
+ 	return false;
+ }
+ EXPORT_SYMBOL(aperture_contain_firmware_fb);
++
++/**
++ * aperture_contain_firmware_fb_nonreloc - Detect if the firmware framebuffer
++ * belong to a non-relocatable aperture, such as the aperture of platform
++ * device. Note that this function relay on the global screen info.
++ * @ap_start: the aperture's start address in physical memory
++ * @ap_end: the aperture's end address in physical memory
++ *
++ * Returns:
++ * true if there is a firmware framebuffer belong to the aperture passed in,
++ * or false otherwise.
++ */
++bool aperture_contain_firmware_fb_nonreloc(resource_size_t ap_start, resource_size_t ap_end)
 +{
-+	struct drm_device *dev = pci_get_drvdata(pdev);
-+	struct radeon_device *rdev = dev->dev_private;
-+	struct radeon_mc *gmc = &rdev->mc;
++	u64 fb_start;
++	u64 fb_end;
 +
-+	return drm_aperture_contain_firmware_fb(gmc->aper_base, gmc->aper_size);
++	if (screen_info.capabilities & VIDEO_CAPABILITY_64BIT_BASE) {
++		fb_start = (u64)screen_info.ext_lfb_base << 32 | screen_info.lfb_base;
++		fb_end = fb_start + screen_info.lfb_size;
++	} else {
++		fb_start = screen_info.lfb_base;
++		fb_end = fb_start + screen_info.lfb_size;
++	}
++
++	/* No firmware framebuffer support */
++	if (!fb_start || !fb_end)
++		return false;
++
++	if (fb_start >= ap_start && fb_end <= ap_end)
++		return true;
++
++	return false;
 +}
-+
- /**
-  * radeon_device_init - initialize the driver
-  *
-@@ -1425,7 +1435,7 @@ int radeon_device_init(struct radeon_device *rdev,
- 	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
- 	/* this will fail for cards that aren't VGA class devices, just
- 	 * ignore it */
--	vga_client_register(rdev->pdev, radeon_vga_set_decode, NULL);
-+	vga_client_register(rdev->pdev, radeon_vga_set_decode, radeon_vga_is_primary_gpu);
++EXPORT_SYMBOL(aperture_contain_firmware_fb_nonreloc);
+diff --git a/include/linux/aperture.h b/include/linux/aperture.h
+index d4dc5917c49b..906d23532b56 100644
+--- a/include/linux/aperture.h
++++ b/include/linux/aperture.h
+@@ -21,6 +21,8 @@ int __aperture_remove_legacy_vga_devices(struct pci_dev *pdev);
+ int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const char *name);
  
- 	if (rdev->flags & RADEON_IS_PX)
- 		runtime = true;
+ bool aperture_contain_firmware_fb(resource_size_t ap_start, resource_size_t ap_end);
++
++bool aperture_contain_firmware_fb_nonreloc(resource_size_t ap_start, resource_size_t ap_end);
+ #else
+ static inline int devm_aperture_acquire_for_platform_device(struct platform_device *pdev,
+ 							    resource_size_t base,
+@@ -49,6 +51,11 @@ static inline bool aperture_contain_firmware_fb(resource_size_t ap_start, resour
+ {
+ 	return false;
+ }
++
++static bool aperture_contain_firmware_fb_nonreloc(resource_size_t ap_start, resource_size_t ap_end)
++{
++	return false;
++}
+ #endif
+ 
+ /**
 -- 
 2.25.1
 
