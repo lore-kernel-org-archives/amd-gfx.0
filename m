@@ -4,45 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A617C001DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 17:05:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CB6EC001DE
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 17:05:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 197FD10E411;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54C0410E413;
 	Tue, 11 Jul 2023 17:05:47 +0000 (UTC)
-Received: from out-14.mta0.migadu.com (out-14.mta0.migadu.com [91.218.175.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4B9110E3F8
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 16:32:45 +0000 (UTC)
+Received: from out-22.mta1.migadu.com (out-22.mta1.migadu.com
+ [IPv6:2001:41d0:203:375::16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5397310E3FD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 16:53:33 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1689093163;
+ t=1689093827;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=QoMhwjFigAbTHq+HcB9GYpyFfpHDzGgLNmwruJkUmC8=;
- b=mjzopN32gkDIHH2DKeXPU4Uhh5gf5z6r2DVtvgerWF+e+HZlmhuYpklBE1idXQeZo+0qP6
- kmmBiis6yM0xkO0eQgkG3GzLPBwQlnlpbqo8JYOMgGxYMoHSFvkTp+dFbaI/Dx0l2tA5er
- DVLQ6sEcNFPLD8VVKk9IBe1o8Q3fX7c=
+ bh=phlB5jeyUkvMxIpxSGgMhgloOsV1JgjnEjP6Y7xHuM8=;
+ b=tpCdteZ5Ib+wxbxFaAWwfiWUSKgfPXeqdoI+n2yWg+cepHeniy4juvONgWOcLejop+jeC0
+ PkigMOBJnABT1FN7Nc1r4q7XtVhHB/bxalYDRi/gFikN7sxsMDRAOv8gq9d4pRUrTFeRwf
+ v6ZBO4PyK6QCCUJsme2hCie3x604P88=
 From: Sui Jingfeng <sui.jingfeng@linux.dev>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dave Airlie <airlied@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Maxime Ripard <mripard@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Ben Skeggs <bskeggs@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Helge Deller <deller@gmx.de>,
- Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v3 5/9] drm/amdgpu: Implement the is_primary_gpu callback of
- vga_client_register()
-Date: Wed, 12 Jul 2023 00:31:51 +0800
-Message-Id: <20230711163155.791522-6-sui.jingfeng@linux.dev>
-In-Reply-To: <20230711163155.791522-1-sui.jingfeng@linux.dev>
-References: <20230711163155.791522-1-sui.jingfeng@linux.dev>
+To: David Airlie <airlied@gmail.com>
+Subject: [PATCH v3 6/9] drm/radeon: Add an implement for the is_primary_gpu
+ function callback
+Date: Wed, 12 Jul 2023 00:43:07 +0800
+Message-Id: <20230711164310.791756-7-sui.jingfeng@linux.dev>
+In-Reply-To: <20230711164310.791756-1-sui.jingfeng@linux.dev>
+References: <20230711164310.791756-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -58,14 +48,12 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Lijo Lazar <lijo.lazar@amd.com>,
- Sui Jingfeng <suijingfeng@loongson.cn>, kvm@vger.kernel.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
+ kvm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
- amd-gfx@lists.freedesktop.org, Bokun Zhang <Bokun.Zhang@amd.com>,
- linux-pci@vger.kernel.org, Likun Gao <Likun.Gao@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -74,64 +62,63 @@ From: Sui Jingfeng <suijingfeng@loongson.cn>
 [why]
 
 The vga_is_firmware_default() function defined in drivers/pci/vgaarb.c is
-arch-dependent, it's a dummy on non-x86 architectures. This made VGAARB
-lost an important condition for the arbitration on non-x86 platform. The
-rules about which GPU is (or should be) the primary display device get used
-by userspace are obscure on non-x86 platform, let's made the things clear.
+arch-dependent, it's no-op on non-x86 architectures. The arbitration is
+not usabe on non-x86 platform.
 
 [how]
 
 The device that owns the firmware framebuffer should be the default boot
 device. This patch adds an arch-independent function to implement this
-rule. The vgaarb subsystem will call back to amdgpu_is_primary_gpu() when
-drm/amdgpu is bound to an AMDGPU device successfully.
+rule. The vgaarb will call back to radeon_is_primary_gpu() when drm/radeon
+is bound to a ATI gpu device successfully.
 
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Christian Konig <christian.koenig@amd.com>
 Cc: Pan Xinhui <Xinhui.Pan@amd.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Lijo Lazar <lijo.lazar@amd.com>
-Cc: YiPeng Chai <YiPeng.Chai@amd.com>
-Cc: Bokun Zhang <Bokun.Zhang@amd.com>
-CC: Likun Gao <Likun.Gao@amd.com>
 Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 +++++++++++-
+ drivers/gpu/drm/radeon/radeon_device.c | 12 +++++++++++-
  1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d98f0801ac77..b638eff58636 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3690,6 +3690,15 @@ static void amdgpu_device_set_mcbp(struct amdgpu_device *adev)
- 		DRM_INFO("MCBP is enabled\n");
- }
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index 71f2ff39d6a1..7db8dc5f79a9 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -34,6 +34,7 @@
+ #include <linux/vga_switcheroo.h>
+ #include <linux/vgaarb.h>
  
-+static bool amdgpu_is_primary_gpu(struct pci_dev *pdev)
++#include <drm/drm_aperture.h>
+ #include <drm/drm_cache.h>
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/drm_device.h>
+@@ -1263,6 +1264,15 @@ static const struct vga_switcheroo_client_ops radeon_switcheroo_ops = {
+ 	.can_switch = radeon_switcheroo_can_switch,
+ };
+ 
++static bool radeon_vga_is_primary_gpu(struct pci_dev *pdev)
 +{
 +	struct drm_device *dev = pci_get_drvdata(pdev);
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_gmc *gmc = &adev->gmc;
++	struct radeon_device *rdev = dev->dev_private;
++	struct radeon_mc *gmc = &rdev->mc;
 +
 +	return drm_aperture_contain_firmware_fb(gmc->aper_base, gmc->aper_size);
 +}
 +
  /**
-  * amdgpu_device_init - initialize the driver
+  * radeon_device_init - initialize the driver
   *
-@@ -4103,7 +4112,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+@@ -1425,7 +1435,7 @@ int radeon_device_init(struct radeon_device *rdev,
+ 	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
  	/* this will fail for cards that aren't VGA class devices, just
  	 * ignore it */
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
--		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode, NULL);
-+		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode,
-+				    amdgpu_is_primary_gpu);
+-	vga_client_register(rdev->pdev, radeon_vga_set_decode, NULL);
++	vga_client_register(rdev->pdev, radeon_vga_set_decode, radeon_vga_is_primary_gpu);
  
- 	px = amdgpu_device_supports_px(ddev);
- 
+ 	if (rdev->flags & RADEON_IS_PX)
+ 		runtime = true;
 -- 
 2.25.1
 
