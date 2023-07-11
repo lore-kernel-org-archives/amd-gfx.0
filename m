@@ -4,89 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99AC7EB64DC
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 07:28:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 410C9EB64DD
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 08:58:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A25310E324;
-	Tue, 11 Jul 2023 07:28:59 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC6FD10E324
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 07:28:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bBRPbyx+teaVdS0/C0GaIHqJuD9pSIbIH1FFgNlLMQ3kt2G6HNZwYXgh8V16eTFozRhz+xKzxzegRSbXtVgPCl/z8/OhyVhUIs44cMbrI1CMtCBGCwTQp8Lorhe4unVgke5fSUA3GGGAzCvre/AceC92mE5ZonWMA97QWw+lOQ+qxo0vfCITXd/FDmLu+ahmlk7L1Y6a8+mzspQoj/U+80je0PP2oqZhv5AqgWgLXfTsseIyafC1GHmGWH8k0HEBsSWodLEybq0ngDWUy6YLnqiDpwLgTTdpR0XDr71TaRgLgBzPNj0wgF1lMPSshMy0rjnuAmHuggL+VSd/G33Z3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tRiHF3tk30lhhEm/n1mUhjESP+SxA+4mub9RCy10atU=;
- b=P57+X8pht4raZT+Qbwvm0KhBepJDg95+VSY6F2b/c0fyZfrMy4eJY2MUpOHaNZLCIXSo8abQATdYhfvyU8xHS3pCUD7n/NstjkLYQ1bAxnvy+YeHy4KHVvAhJcRLUJ3HM8QMgAnT2zTCCACS+cwbEng7gCJeNA25TAUmZnnXK/fHt/eNSrBLN2s+UXSUs2JP9HxdDTpqayk+icAzSzwthblOUzxBUwntICecypfY3/k20vs8qnuqkcrEQ/ha8u3XkuFS3xTrW+FGg+tK5XPqTyRSO9QzKe0myiLGjKTlUAQkKUANGy6xzgMNBCrpSGWgwJc5S5GGMys2tutclthrsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tRiHF3tk30lhhEm/n1mUhjESP+SxA+4mub9RCy10atU=;
- b=HTVsk7+lLOMbdx/X6N1ieymDNjEJuEtGJU1me5f/V0myTZUH3dlxmGjY+zglH615xxdJonL347oekKaNstYo7w9BtIz7q1OttElyqeybNMkHSQ8dykmw8hwZsV2jX4HOiQJbOYqU50DrlP1CsRU0cJyOS/Y0CN4lx/iewjWImt4=
-Received: from MW4PR04CA0107.namprd04.prod.outlook.com (2603:10b6:303:83::22)
- by DM4PR12MB5232.namprd12.prod.outlook.com (2603:10b6:5:39c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30; Tue, 11 Jul
- 2023 07:28:55 +0000
-Received: from CO1NAM11FT047.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:83:cafe::51) by MW4PR04CA0107.outlook.office365.com
- (2603:10b6:303:83::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.31 via Frontend
- Transport; Tue, 11 Jul 2023 07:28:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT047.mail.protection.outlook.com (10.13.174.132) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6588.20 via Frontend Transport; Tue, 11 Jul 2023 07:28:55 +0000
-Received: from llvm-tr1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Tue, 11 Jul
- 2023 02:28:52 -0500
-From: Shirish S <shirish.s@amd.com>
-To: Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Hamza Mahfooz
- <hamza.mahfooz@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amd/display: enable/disable PSR feature at run time
-Date: Tue, 11 Jul 2023 12:58:37 +0530
-Message-ID: <20230711072837.41854-1-shirish.s@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6733410E33F;
+	Tue, 11 Jul 2023 08:58:07 +0000 (UTC)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA2710E338
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 08:58:02 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-4fb87828386so1608313e87.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 01:58:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1689065880; x=1689670680;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:mail-followup-to:message-id:subject:cc:to
+ :from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=vU/q9F+j7T29Ov8VGxEBf0ga2x1TW8QqZSc1uPgejXw=;
+ b=ZAYLsHz1srKC6rodvE90k3M2axRg9MqOhBHiSomPBA3k80qu6tnzcZLed105eqB3mB
+ 3jfffCy/8VP9kCx5f9oP9AeHHmIFOK4jenCBSFQXP3/mWEwmJRjABLQiok/pxYTeqkpr
+ 8ssAfAR+eXCL1meiVj6KmFQ8M6F4/m2s6q2CU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689065880; x=1689670680;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:mail-followup-to:message-id:subject:cc:to
+ :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=vU/q9F+j7T29Ov8VGxEBf0ga2x1TW8QqZSc1uPgejXw=;
+ b=dXDzEr9J3pdnLvM/XlGFrGQoQsSRweFboylfs0CodTGi1s0KbaY7Ubf9Um+/vjvUIG
+ 5eZUpL2OZ44gtuOYhzJiEbMIcyPHM5la1uFF/JYp6+oVvFUte2/csDmJdM+ht+rVjGLp
+ zV2YlmbH4sZ9RoAOF2UcoqAP5QEzt3h90cuZZgbEkftF66AALQhSCwYiGeMeFP26c1hT
+ Jd3RcY8kymv5vCprlDmmOMwDLKyWIhTOxyWkGqi+hmmEmKWMhpHCEK8N50gUENmN7TAr
+ aCFWGaT1GHe4hwWUNyM+lIlwpu2smkd5qH9+Ex5DjClVKZQHz9SlGr6UAbpBKtF0ha4i
+ KafA==
+X-Gm-Message-State: ABy/qLZNts/X4pRPkvvdBDsu0ATl6fvzpb6OMioe88oOyA2euo0VptJY
+ lgAnr6Bgu/s5NLXMDDoNf/SAeQ==
+X-Google-Smtp-Source: APBJJlFG4pTsS/5OU08doNJkGnPN/YPs+LTOaHjyktlkkHHgWCUC0uJHQGeiOEg+95dWXGz0oSUrhw==
+X-Received: by 2002:a19:a414:0:b0:4fb:8341:43d3 with SMTP id
+ q20-20020a19a414000000b004fb834143d3mr9326203lfc.5.1689065880058; 
+ Tue, 11 Jul 2023 01:58:00 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ v6-20020aa7cd46000000b0051e3385a395sm949732edw.3.2023.07.11.01.57.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Jul 2023 01:57:59 -0700 (PDT)
+Date: Tue, 11 Jul 2023 10:57:57 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
+Subject: Re: [PATCH v5 6/6] drm/doc: Define KMS atomic state set
+Message-ID: <ZK0ZlciR66oTO+Td@phenom.ffwll.local>
+Mail-Followup-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, wayland-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ Simon Ser <contact@emersion.fr>, Rob Clark <robdclark@gmail.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
+ Dave Airlie <airlied@gmail.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
+ Randy Dunlap <rdunlap@infradead.org>, hwentlan@amd.com,
+ joshua@froggi.es, ville.syrjala@linux.intel.com,
+ Pekka Paalanen <pekka.paalanen@collabora.com>
+References: <20230707224059.305474-1-andrealmeid@igalia.com>
+ <20230707224059.305474-7-andrealmeid@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT047:EE_|DM4PR12MB5232:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09001369-2386-4610-006f-08db81e07bc3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Z4LvvC8Jcb/Icvtc/MWg9VqOnd/yxWvGps3xZyIbt1pYT7iBKG55J46bGIbuWbsO2nrB5SumYdjwYbHUZnHmG0qRf1SA0BFymq/0FRoNtLm2jUrBxrAlwWBu1sOy7FpmGxtuCf4VHcQ3FmwofBmaC54nQ6d0/PivGZMAMVju9yrqufTZGJ2IQV0UQXt6V+xtOnNlwN47Qei9+ZQ9ex1xngFil+kt8BThD2qmo/IC8yw//FAtJoZGlqMKY1Kw5ZzXr3Y/GX4YAzIjCBsa/9jWFc+y9hpL+bMzuRRNeYP/ZUINCj0a23ysxJgWm+BsHgS/SeYoTrYFe/+RRHA6w7pgaLEiAXMLIam+R31FlbmV+vqw025H3YXb7vc2uPUhJt/qPqN2Gf/OwCrHlY3BXqWXHGLTezkaHt3N17BSosjXq7RWk4yAhJ6UlFQWYnZRGdiz28mykY7d3FNy+bno2SkRpysv5RtuTlNbGXNdoHvUu05DMhZ/HTk5clIeG/FfW4JZZL6hKt/f3XPeNQh7WYAjYp39LjH+5aBEFh7rnZ+MkCl294ZTMXQaDLAGhg85duBIUgm38wSP17aeE4BcI8LOp5M1NpWhjh+7XMadFMZRaHJjEYROaTX96mDPeJg7uzgY9DX6frpxBHS/xCsuu2AF1kpUUgdEvGsb+r6V7LxJ2HlL1+WlXFowFQa74hduaE7SC9dg7xd2hJxFzgT+/FAa5vXbG2i+2B5Wg3HWysxhRh8m82bDl/hqW/bRxzyO6ScDGSkZKODy14mTA4VuwtVHpA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(136003)(396003)(376002)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(86362001)(82310400005)(82740400003)(40460700003)(40480700001)(36756003)(7696005)(6666004)(54906003)(70206006)(110136005)(70586007)(356005)(81166007)(26005)(186003)(1076003)(2616005)(5660300002)(316002)(2906002)(8936002)(8676002)(16526019)(426003)(336012)(83380400001)(4326008)(36860700001)(6636002)(478600001)(41300700001)(47076005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2023 07:28:55.0529 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09001369-2386-4610-006f-08db81e07bc3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT047.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5232
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230707224059.305474-7-andrealmeid@igalia.com>
+X-Operating-System: Linux phenom 6.3.0-2-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,76 +87,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Shirish S <shirish.s@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com, Pekka Paalanen <ppaalanen@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
+ Simon Ser <contact@emersion.fr>, Randy Dunlap <rdunlap@infradead.org>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org, hwentlan@amd.com,
+ ville.syrjala@linux.intel.com, Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>, Dave Airlie <airlied@gmail.com>,
+ christian.koenig@amd.com, joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Per current architecture, PSR feature is disabled by default for DCN < 3.
-This makes it impossible for those pre-flashed device users to try newer
-(psr capable) panels without altering OS (boot params).
-Also on Chromebooks its not sustainable to have custom dc_feature_mask.
+On Fri, Jul 07, 2023 at 07:40:59PM -0300, André Almeida wrote:
+> From: Pekka Paalanen <pekka.paalanen@collabora.com>
+> 
+> Specify how the atomic state is maintained between userspace and
+> kernel, plus the special case for async flips.
+> 
+> Signed-off-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+> ---
+> v4: total rework by Pekka
+> ---
+>  Documentation/gpu/drm-uapi.rst | 41 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 41 insertions(+)
+> 
+> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+> index 65fb3036a580..6a1662c08901 100644
+> --- a/Documentation/gpu/drm-uapi.rst
+> +++ b/Documentation/gpu/drm-uapi.rst
+> @@ -486,3 +486,44 @@ and the CRTC index is its position in this array.
+>  
+>  .. kernel-doc:: include/uapi/drm/drm_mode.h
+>     :internal:
+> +
+> +KMS atomic state
+> +================
+> +
+> +An atomic commit can change multiple KMS properties in an atomic fashion,
+> +without ever applying intermediate or partial state changes.  Either the whole
+> +commit succeeds or fails, and it will never be applied partially. This is the
+> +fundamental improvement of the atomic API over the older non-atomic API which is
+> +referred to as the "legacy API".  Applying intermediate state could unexpectedly
+> +fail, cause visible glitches, or delay reaching the final state.
+> +
+> +An atomic commit can be flagged with DRM_MODE_ATOMIC_TEST_ONLY, which means the
+> +complete state change is validated but not applied.  Userspace should use this
+> +flag to validate any state change before asking to apply it. If validation fails
+> +for any reason, userspace should attempt to fall back to another, perhaps
+> +simpler, final state.  This allows userspace to probe for various configurations
+> +without causing visible glitches on screen and without the need to undo a
+> +probing change.
+> +
+> +The changes recorded in an atomic commit apply on top the current KMS state in
+> +the kernel. Hence, the complete new KMS state is the complete old KMS state with
+> +the committed property settings done on top. The kernel will automatically avoid
+> +no-operation changes, so it is safe and even expected for userspace to send
+> +redundant property settings.  No-operation changes do not count towards actually
+> +needed changes, e.g.  setting MODE_ID to a different blob with identical
+> +contents as the current KMS state shall not be a modeset on its own.
 
-[How]
-amdgpu_dm_set_psr_caps() in its current form does a decent job to evaluate
-and discard links that are not capable of PSR feature.
-If the current implementation has gap, going forward it needs to be
-addressed either by adding appropriate ways to detect and discard the
-panels or by iteratively blacklisting the same.
+Small clarification: The kernel indeed tries very hard to make redundant
+changes a no-op, and I think we should consider any issues here bugs. But
+it still has to check, which means it needs to acquire the right locks and
+put in the right (cross-crtc) synchronization points, and due to
+implmentation challenges it's very hard to try to avoid that in all cases.
+So adding redundant changes especially across crtc (and their connected
+planes/connectors) might result in some oversynchronization issues, and
+userspace should therefore avoid them if feasible.
 
-Signed-off-by: Shirish S <shirish.s@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 ++-----------------
- 1 file changed, 2 insertions(+), 21 deletions(-)
+With some sentences added to clarify this:
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 073bf00c6fdc..0fcafe1a071d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4313,7 +4313,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 	s32 primary_planes;
- 	enum dc_connection_type new_connection_type = dc_connection_none;
- 	const struct dc_plane_cap *plane;
--	bool psr_feature_enabled = false;
- 	int max_overlay = dm->dc->caps.max_slave_planes;
- 
- 	dm->display_indexes_num = dm->dc->caps.max_streams;
-@@ -4405,24 +4404,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 			      adev->ip_versions[DCE_HWIP][0]);
- 	}
- 
--	/* Determine whether to enable PSR support by default. */
--	if (!(amdgpu_dc_debug_mask & DC_DISABLE_PSR)) {
--		switch (adev->ip_versions[DCE_HWIP][0]) {
--		case IP_VERSION(3, 1, 2):
--		case IP_VERSION(3, 1, 3):
--		case IP_VERSION(3, 1, 4):
--		case IP_VERSION(3, 1, 5):
--		case IP_VERSION(3, 1, 6):
--		case IP_VERSION(3, 2, 0):
--		case IP_VERSION(3, 2, 1):
--			psr_feature_enabled = true;
--			break;
--		default:
--			psr_feature_enabled = amdgpu_dc_feature_mask & DC_PSR_MASK;
--			break;
--		}
--	}
--
- 	/* loops over all connectors on the board */
- 	for (i = 0; i < link_cnt; i++) {
- 		struct dc_link *link = NULL;
-@@ -4471,8 +4452,8 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
- 				amdgpu_dm_update_connector_after_detect(aconnector);
- 				setup_backlight_device(dm, aconnector);
- 
--				if (psr_feature_enabled)
--					amdgpu_dm_set_psr_caps(link);
-+				/* Determine & Set PSR caps*/
-+				amdgpu_dm_set_psr_caps(link);
- 
- 				/* TODO: Fix vblank control helpers to delay PSR entry to allow this when
- 				 * PSR is also supported.
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+> +
+> +A "modeset" is a change in KMS state that might enable, disable, or temporarily
+> +disrupt the emitted video signal, possibly causing visible glitches on screen. A
+> +modeset may also take considerably more time to complete than other kinds of
+> +changes, and the video sink might also need time to adapt to the new signal
+> +properties. Therefore a modeset must be explicitly allowed with the flag
+> +DRM_MODE_ATOMIC_ALLOW_MODESET.  This in combination with
+> +DRM_MODE_ATOMIC_TEST_ONLY allows userspace to determine if a state change is
+> +likely to cause visible disruption on screen and avoid such changes when end
+> +users do not expect them.
+> +
+> +An atomic commit with the flag DRM_MODE_PAGE_FLIP_ASYNC is allowed to
+> +effectively change only the FB_ID property on any planes. No-operation changes
+> +are ignored as always. Changing any other property will cause the commit to be
+> +rejected.
+> -- 
+> 2.41.0
+> 
+
 -- 
-2.17.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
