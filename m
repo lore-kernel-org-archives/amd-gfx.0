@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AFAFC0015E
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 13:31:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EDAAEB64DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 13:31:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41C1910E38F;
-	Tue, 11 Jul 2023 13:31:31 +0000 (UTC)
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6493810E07B;
- Tue, 11 Jul 2023 13:31:29 +0000 (UTC)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-99357737980so740536966b.2; 
- Tue, 11 Jul 2023 06:31:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F8DD10E399;
+	Tue, 11 Jul 2023 13:31:34 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36A8D10E38E;
+ Tue, 11 Jul 2023 13:31:31 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-51e57870becso2954248a12.2; 
+ Tue, 11 Jul 2023 06:31:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689082287; x=1691674287;
+ d=gmail.com; s=20221208; t=1689082289; x=1691674289;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=0Avvbo7QgV87GdttckYfM03/A5+265n0Zg5Q6MpJmJk=;
- b=XgAQWU9AYTjmH6BBf/oFjckEG6DGgtEwGaw2pZ6xY3MU8x7x+S6j9HHCA/iFMA6Wpp
- 5CqKeLJ5x0JozSk0lzhe0nQiVdVQzPrq0Ixcb8vvgSY8RKoLhtyz83QZi8MQ7aCWzles
- WaCbkyRU6RSbk3ZJ4KvNigkmED1I9rEnlVAKr9VW787wti74/oKEHupsis6uOXKQTJom
- memZ0NTISEDnhBNarKx8hq1YAJu58G9L+vMe8HPS+1rwuOsW+p/3vGoxQ+6WEYsm9PLg
- x+WLd6SbWYMztPLIYSQ7LI7c0jWWJZo/aGxgLLUFp1IxnKG0A/gA5kTM125+2yVlgoHV
- RPRg==
+ :reply-to; bh=ilgTrSNlmUYsHrWn+5bQ2FFg0cWYUcfgMI/Lgfzfbbk=;
+ b=VyTmH4qz4T+YDcv6Q7LPd7oG8jyDGbz9sJTdM+I3weoEjrUpw9sYUdAN1vZpbi2tbk
+ SVAT6C9ALJHN19Q33Z60c2G8n+lyg7XpOQ59p5WSk5JYa6iZHQc9hXMmR3VDFnzRuO52
+ Yn4Ds6jmRRLsIUYxLG9zWCQ0sQu5XwrK8wwNx7CaFbGkchncQ4gVsMXT56YGOm+HCtqc
+ tRGmaD6ENlhgCuto4iSMcMJUnnN9NDeypKBNjM4HruDawA6Jd7F1cSVynbO9YePHl28n
+ i2I5oAwfiUhEFuKfespEh5N3MPP0Y7SOJFw/2SYa7/yHRdbvE1IKOHmMgYPbKO+K2fGk
+ Ve1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689082287; x=1691674287;
+ d=1e100.net; s=20221208; t=1689082289; x=1691674289;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0Avvbo7QgV87GdttckYfM03/A5+265n0Zg5Q6MpJmJk=;
- b=bO5VqgaSdusTZVnZA2qOU9Y5x3Vt6YVBY8/R1yk53bRihCUxKSvSfPwmMz8jFZ2oo4
- 036zrJddSSFi3l6UslVBLb7IuHYess9nhUNefjovLyzBwE0bSd+GG8yl/Si/48Ohi2du
- 0RL0nQnS5wqNR9Xa65aN4cMbH132DXetnCGjKaZfxsln+EnQYm71dEHgWzcwcJfS535K
- 2/TNP5+HK4mT14rJZXM7u6XXVrjOw1UJmaLS3cm6iWhapUvDET+MA1vlNcDUVcOVq2Zu
- I4O6l5gbI/k5mI/RjIBZ68nI5NuAlNKhNndTNPfHXpNrL66+9YA8/5n5FwSrx1tJqVow
- pyig==
-X-Gm-Message-State: ABy/qLaCwvMzV3OJu2r0iN8i8EiU6wRYCB7GLk7W43GtwUv006I9orUw
- B3k74OPy1nWUUsRLuIseCbU=
-X-Google-Smtp-Source: APBJJlHodtTvly8XoZcKKmcEmH+hKR5XHndtsp22LvQalg38N1wF7dcTwjXLRAGW+LlmVa7S4lU+Ag==
-X-Received: by 2002:a17:906:198:b0:98d:f11e:4816 with SMTP id
- 24-20020a170906019800b0098df11e4816mr17602699ejb.29.1689082287295; 
- Tue, 11 Jul 2023 06:31:27 -0700 (PDT)
+ bh=ilgTrSNlmUYsHrWn+5bQ2FFg0cWYUcfgMI/Lgfzfbbk=;
+ b=Q0y+aDbWdsc+SusuTfr1S5HCqkMVdnEXmIXJbu8UcloyLp72Ooi/fjWt1+sKKK7jbu
+ 8e0bS5mONLOXius5+AetbV662jM0ySC8rkD6mH15aEo0AgAs6WOyEIhVlAW5kbaiUbUd
+ iWAFW4IlLrp5pa4c3qhUoljDK6rO4iKXFQCrk5PpWPIhEABTOdMesaHFofNBwvt93Tp7
+ x4KAgrOJ3FOrFM93mV9Yk6Dp3R1vjBLq4EzZnz5nYiq/aePp0xGTAeu35wffl8N2VNlz
+ 0gDAPrOByyDzoF28smM/Do/T5BXSbHZzcSdyLnTQ7+YtnbSFIqTuzknFc0YyPQVO9sCz
+ Nb4A==
+X-Gm-Message-State: ABy/qLbCdSq+w7Q3pl6o8yTMSQKiGgO3XcMTy9uNVVWBqVUnRZ6lqvLM
+ B4rJAly3uaTEQ/47Di+drably+HSFMU=
+X-Google-Smtp-Source: APBJJlHzzdNqMaQvZu+9vanCtOHBssZk1dF2gPjVRa/Zd3IyOqR/xP82zpQFeRgF0DrZ0OyyMxfHtQ==
+X-Received: by 2002:a17:906:2097:b0:993:f349:c98d with SMTP id
+ 23-20020a170906209700b00993f349c98dmr10091722ejq.1.1689082288919; 
+ Tue, 11 Jul 2023 06:31:28 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:154b:c600:448d:6e36:e62e:af18])
  by smtp.gmail.com with ESMTPSA id
- m27-20020a1709060d9b00b009932337747esm1176967eji.86.2023.07.11.06.31.26
+ m27-20020a1709060d9b00b009932337747esm1176967eji.86.2023.07.11.06.31.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Jul 2023 06:31:26 -0700 (PDT)
+ Tue, 11 Jul 2023 06:31:28 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: alexdeucher@gmail.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH 3/6] drm/amdkfd: switch over to using drm_exec v2
-Date: Tue, 11 Jul 2023 15:31:19 +0200
-Message-Id: <20230711133122.3710-4-christian.koenig@amd.com>
+Subject: [PATCH 5/6] drm/amdgpu: use drm_exec for MES testing
+Date: Tue, 11 Jul 2023 15:31:21 +0200
+Message-Id: <20230711133122.3710-6-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230711133122.3710-1-christian.koenig@amd.com>
 References: <20230711133122.3710-1-christian.koenig@amd.com>
@@ -78,689 +78,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Avoids quite a bit of logic and kmalloc overhead.
-
-v2: fix multiple problems pointed out by Felix
+Start using the new component here as well.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Kconfig            |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   5 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 299 +++++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  18 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |   4 +
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  45 ++-
- 6 files changed, 162 insertions(+), 210 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 90 ++++++++++++-------------
+ 1 file changed, 43 insertions(+), 47 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
-index b91e79c721e2..22d88f8ef527 100644
---- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-+++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-@@ -21,6 +21,7 @@ config DRM_AMDGPU
- 	select INTERVAL_TREE
- 	select DRM_BUDDY
- 	select DRM_SUBALLOC_HELPER
-+	select DRM_EXEC
- 	# amdgpu depends on ACPI_VIDEO when ACPI is enabled, for select to work
- 	# ACPI_VIDEO's dependencies must also be selected.
- 	select INPUT if ACPI
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 2d0406bff84e..1e4cc1fe88fc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -25,6 +25,7 @@
- #ifndef AMDGPU_AMDKFD_H_INCLUDED
- #define AMDGPU_AMDKFD_H_INCLUDED
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+index e9091ebfe230..3e3dadd6d0f3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -22,6 +22,7 @@
+  */
  
-+#include <linux/list.h>
- #include <linux/types.h>
- #include <linux/mm.h>
- #include <linux/kthread.h>
-@@ -32,7 +33,6 @@
- #include <linux/mmu_notifier.h>
- #include <linux/memremap.h>
- #include <kgd_kfd_interface.h>
--#include <drm/ttm/ttm_execbuf_util.h>
- #include "amdgpu_sync.h"
- #include "amdgpu_vm.h"
- #include "amdgpu_xcp.h"
-@@ -71,8 +71,7 @@ struct kgd_mem {
- 	struct hmm_range *range;
- 	struct list_head attachments;
- 	/* protected by amdkfd_process_info.lock */
--	struct ttm_validate_buffer validate_list;
--	struct ttm_validate_buffer resv_list;
-+	struct list_head validate_list;
- 	uint32_t domain;
- 	unsigned int mapped_to_gpu_memory;
- 	uint64_t va;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index f61527b800e6..27d331e9419d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -27,6 +27,8 @@
- #include <linux/sched/task.h>
- #include <drm/ttm/ttm_tt.h>
- 
+ #include <linux/firmware.h>
 +#include <drm/drm_exec.h>
-+
- #include "amdgpu_object.h"
- #include "amdgpu_gem.h"
- #include "amdgpu_vm.h"
-@@ -964,28 +966,20 @@ static void add_kgd_mem_to_kfd_bo_list(struct kgd_mem *mem,
- 				struct amdkfd_process_info *process_info,
- 				bool userptr)
+ 
+ #include "amdgpu_mes.h"
+ #include "amdgpu.h"
+@@ -1168,34 +1169,31 @@ int amdgpu_mes_ctx_map_meta_data(struct amdgpu_device *adev,
+ 				 struct amdgpu_mes_ctx_data *ctx_data)
  {
--	struct ttm_validate_buffer *entry = &mem->validate_list;
--	struct amdgpu_bo *bo = mem->bo;
--
--	INIT_LIST_HEAD(&entry->head);
--	entry->num_shared = 1;
--	entry->bo = &bo->tbo;
- 	mutex_lock(&process_info->lock);
- 	if (userptr)
--		list_add_tail(&entry->head, &process_info->userptr_valid_list);
-+		list_add_tail(&mem->validate_list,
-+			      &process_info->userptr_valid_list);
- 	else
--		list_add_tail(&entry->head, &process_info->kfd_bo_list);
-+		list_add_tail(&mem->validate_list, &process_info->kfd_bo_list);
- 	mutex_unlock(&process_info->lock);
- }
- 
- static void remove_kgd_mem_from_kfd_bo_list(struct kgd_mem *mem,
- 		struct amdkfd_process_info *process_info)
- {
--	struct ttm_validate_buffer *bo_list_entry;
--
--	bo_list_entry = &mem->validate_list;
- 	mutex_lock(&process_info->lock);
--	list_del(&bo_list_entry->head);
-+	list_del(&mem->validate_list);
- 	mutex_unlock(&process_info->lock);
- }
- 
-@@ -1072,13 +1066,12 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
-  * object can track VM updates.
-  */
- struct bo_vm_reservation_context {
--	struct amdgpu_bo_list_entry kfd_bo; /* BO list entry for the KFD BO */
--	unsigned int n_vms;		    /* Number of VMs reserved	    */
--	struct amdgpu_bo_list_entry *vm_pd; /* Array of VM BO list entries  */
--	struct ww_acquire_ctx ticket;	    /* Reservation ticket	    */
--	struct list_head list, duplicates;  /* BO lists			    */
--	struct amdgpu_sync *sync;	    /* Pointer to sync object	    */
--	bool reserved;			    /* Whether BOs are reserved	    */
-+	/* DRM execution context for the reservation */
-+	struct drm_exec exec;
-+	/* Number of VMs reserved */
-+	unsigned int n_vms;
-+	/* Pointer to sync object */
-+	struct amdgpu_sync *sync;
- };
- 
- enum bo_vm_match {
-@@ -1102,35 +1095,26 @@ static int reserve_bo_and_vm(struct kgd_mem *mem,
- 
- 	WARN_ON(!vm);
- 
--	ctx->reserved = false;
- 	ctx->n_vms = 1;
- 	ctx->sync = &mem->sync;
--
--	INIT_LIST_HEAD(&ctx->list);
--	INIT_LIST_HEAD(&ctx->duplicates);
--
--	ctx->vm_pd = kcalloc(ctx->n_vms, sizeof(*ctx->vm_pd), GFP_KERNEL);
--	if (!ctx->vm_pd)
--		return -ENOMEM;
--
--	ctx->kfd_bo.priority = 0;
--	ctx->kfd_bo.tv.bo = &bo->tbo;
--	ctx->kfd_bo.tv.num_shared = 1;
--	list_add(&ctx->kfd_bo.tv.head, &ctx->list);
--
--	amdgpu_vm_get_pd_bo(vm, &ctx->list, &ctx->vm_pd[0]);
--
--	ret = ttm_eu_reserve_buffers(&ctx->ticket, &ctx->list,
--				     false, &ctx->duplicates);
--	if (ret) {
--		pr_err("Failed to reserve buffers in ttm.\n");
--		kfree(ctx->vm_pd);
--		ctx->vm_pd = NULL;
--		return ret;
-+	drm_exec_init(&ctx->exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
-+	drm_exec_until_all_locked(&ctx->exec) {
-+		ret = amdgpu_vm_lock_pd(vm, &ctx->exec, 2);
-+		drm_exec_retry_on_contention(&ctx->exec);
-+		if (unlikely(ret))
-+			goto error;
-+
-+		ret = drm_exec_lock_obj(&ctx->exec, &bo->tbo.base);
-+		drm_exec_retry_on_contention(&ctx->exec);
-+		if (unlikely(ret))
-+			goto error;
- 	}
--
--	ctx->reserved = true;
- 	return 0;
-+
-+error:
-+	pr_err("Failed to reserve buffers in ttm.\n");
-+	drm_exec_fini(&ctx->exec);
-+	return ret;
- }
- 
- /**
-@@ -1147,63 +1131,39 @@ static int reserve_bo_and_cond_vms(struct kgd_mem *mem,
- 				struct amdgpu_vm *vm, enum bo_vm_match map_type,
- 				struct bo_vm_reservation_context *ctx)
- {
--	struct amdgpu_bo *bo = mem->bo;
- 	struct kfd_mem_attachment *entry;
--	unsigned int i;
-+	struct amdgpu_bo *bo = mem->bo;
- 	int ret;
- 
--	ctx->reserved = false;
--	ctx->n_vms = 0;
--	ctx->vm_pd = NULL;
- 	ctx->sync = &mem->sync;
-+	drm_exec_init(&ctx->exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
-+	drm_exec_until_all_locked(&ctx->exec) {
-+		ctx->n_vms = 0;
-+		list_for_each_entry(entry, &mem->attachments, list) {
-+			if ((vm && vm != entry->bo_va->base.vm) ||
-+				(entry->is_mapped != map_type
-+				&& map_type != BO_VM_ALL))
-+				continue;
- 
--	INIT_LIST_HEAD(&ctx->list);
--	INIT_LIST_HEAD(&ctx->duplicates);
--
--	list_for_each_entry(entry, &mem->attachments, list) {
--		if ((vm && vm != entry->bo_va->base.vm) ||
--			(entry->is_mapped != map_type
--			&& map_type != BO_VM_ALL))
--			continue;
--
--		ctx->n_vms++;
--	}
--
--	if (ctx->n_vms != 0) {
--		ctx->vm_pd = kcalloc(ctx->n_vms, sizeof(*ctx->vm_pd),
--				     GFP_KERNEL);
--		if (!ctx->vm_pd)
--			return -ENOMEM;
--	}
--
--	ctx->kfd_bo.priority = 0;
--	ctx->kfd_bo.tv.bo = &bo->tbo;
--	ctx->kfd_bo.tv.num_shared = 1;
--	list_add(&ctx->kfd_bo.tv.head, &ctx->list);
--
--	i = 0;
--	list_for_each_entry(entry, &mem->attachments, list) {
--		if ((vm && vm != entry->bo_va->base.vm) ||
--			(entry->is_mapped != map_type
--			&& map_type != BO_VM_ALL))
--			continue;
--
--		amdgpu_vm_get_pd_bo(entry->bo_va->base.vm, &ctx->list,
--				&ctx->vm_pd[i]);
--		i++;
--	}
-+			ret = amdgpu_vm_lock_pd(entry->bo_va->base.vm,
-+						&ctx->exec, 2);
-+			drm_exec_retry_on_contention(&ctx->exec);
-+			if (unlikely(ret))
-+				goto error;
-+			++ctx->n_vms;
-+		}
- 
--	ret = ttm_eu_reserve_buffers(&ctx->ticket, &ctx->list,
--				     false, &ctx->duplicates);
--	if (ret) {
--		pr_err("Failed to reserve buffers in ttm.\n");
--		kfree(ctx->vm_pd);
--		ctx->vm_pd = NULL;
--		return ret;
-+		ret = drm_exec_prepare_obj(&ctx->exec, &bo->tbo.base, 1);
-+		drm_exec_retry_on_contention(&ctx->exec);
-+		if (unlikely(ret))
-+			goto error;
- 	}
--
--	ctx->reserved = true;
- 	return 0;
-+
-+error:
-+	pr_err("Failed to reserve buffers in ttm.\n");
-+	drm_exec_fini(&ctx->exec);
-+	return ret;
- }
- 
- /**
-@@ -1224,15 +1184,8 @@ static int unreserve_bo_and_vms(struct bo_vm_reservation_context *ctx,
- 	if (wait)
- 		ret = amdgpu_sync_wait(ctx->sync, intr);
- 
--	if (ctx->reserved)
--		ttm_eu_backoff_reservation(&ctx->ticket, &ctx->list);
--	kfree(ctx->vm_pd);
--
-+	drm_exec_fini(&ctx->exec);
- 	ctx->sync = NULL;
--
--	ctx->reserved = false;
--	ctx->vm_pd = NULL;
--
- 	return ret;
- }
- 
-@@ -1854,7 +1807,6 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 	bool use_release_notifier = (mem->bo->kfd_bo == mem);
- 	struct kfd_mem_attachment *entry, *tmp;
- 	struct bo_vm_reservation_context ctx;
--	struct ttm_validate_buffer *bo_list_entry;
- 	unsigned int mapped_to_gpu_memory;
- 	int ret;
- 	bool is_imported = false;
-@@ -1882,9 +1834,8 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 	}
- 
- 	/* Make sure restore workers don't access the BO any more */
--	bo_list_entry = &mem->validate_list;
- 	mutex_lock(&process_info->lock);
--	list_del(&bo_list_entry->head);
-+	list_del(&mem->validate_list);
- 	mutex_unlock(&process_info->lock);
- 
- 	/* Cleanup user pages and MMU notifiers */
-@@ -2451,14 +2402,14 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
- 	/* Move all invalidated BOs to the userptr_inval_list */
- 	list_for_each_entry_safe(mem, tmp_mem,
- 				 &process_info->userptr_valid_list,
--				 validate_list.head)
-+				 validate_list)
- 		if (mem->invalid)
--			list_move_tail(&mem->validate_list.head,
-+			list_move_tail(&mem->validate_list,
- 				       &process_info->userptr_inval_list);
- 
- 	/* Go through userptr_inval_list and update any invalid user_pages */
- 	list_for_each_entry(mem, &process_info->userptr_inval_list,
--			    validate_list.head) {
-+			    validate_list) {
- 		invalid = mem->invalid;
- 		if (!invalid)
- 			/* BO hasn't been invalidated since the last
-@@ -2538,50 +2489,41 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
-  */
- static int validate_invalid_user_pages(struct amdkfd_process_info *process_info)
- {
--	struct amdgpu_bo_list_entry *pd_bo_list_entries;
--	struct list_head resv_list, duplicates;
+ 	struct amdgpu_bo_va *bo_va;
 -	struct ww_acquire_ctx ticket;
-+	struct ttm_operation_ctx ctx = { false, false };
+-	struct list_head list;
+-	struct amdgpu_bo_list_entry pd;
+-	struct ttm_validate_buffer csa_tv;
  	struct amdgpu_sync sync;
 +	struct drm_exec exec;
- 
- 	struct amdgpu_vm *peer_vm;
- 	struct kgd_mem *mem, *tmp_mem;
- 	struct amdgpu_bo *bo;
--	struct ttm_operation_ctx ctx = { false, false };
--	int i, ret;
--
--	pd_bo_list_entries = kcalloc(process_info->n_vms,
--				     sizeof(struct amdgpu_bo_list_entry),
--				     GFP_KERNEL);
--	if (!pd_bo_list_entries) {
--		pr_err("%s: Failed to allocate PD BO list entries\n", __func__);
--		ret = -ENOMEM;
--		goto out_no_mem;
--	}
--
--	INIT_LIST_HEAD(&resv_list);
--	INIT_LIST_HEAD(&duplicates);
-+	int ret;
- 
--	/* Get all the page directory BOs that need to be reserved */
--	i = 0;
--	list_for_each_entry(peer_vm, &process_info->vm_list_head,
--			    vm_list_node)
--		amdgpu_vm_get_pd_bo(peer_vm, &resv_list,
--				    &pd_bo_list_entries[i++]);
--	/* Add the userptr_inval_list entries to resv_list */
--	list_for_each_entry(mem, &process_info->userptr_inval_list,
--			    validate_list.head) {
--		list_add_tail(&mem->resv_list.head, &resv_list);
--		mem->resv_list.bo = mem->validate_list.bo;
--		mem->resv_list.num_shared = mem->validate_list.num_shared;
--	}
-+	amdgpu_sync_create(&sync);
- 
-+	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
- 	/* Reserve all BOs and page tables for validation */
--	ret = ttm_eu_reserve_buffers(&ticket, &resv_list, false, &duplicates);
--	WARN(!list_empty(&duplicates), "Duplicates should be empty");
--	if (ret)
--		goto out_free;
-+	drm_exec_until_all_locked(&exec) {
-+		/* Reserve all the page directories */
-+		list_for_each_entry(peer_vm, &process_info->vm_list_head,
-+				    vm_list_node) {
-+			ret = amdgpu_vm_lock_pd(peer_vm, &exec, 2);
-+			drm_exec_retry_on_contention(&exec);
-+			if (unlikely(ret))
-+				goto unreserve_out;
-+		}
- 
--	amdgpu_sync_create(&sync);
-+		/* Reserve the userptr_inval_list entries to resv_list */
-+		list_for_each_entry(mem, &process_info->userptr_inval_list,
-+				    validate_list) {
-+			struct drm_gem_object *gobj;
-+
-+			gobj = &mem->bo->tbo.base;
-+			ret = drm_exec_prepare_obj(&exec, gobj, 1);
-+			drm_exec_retry_on_contention(&exec);
-+			if (unlikely(ret))
-+				goto unreserve_out;
-+		}
-+	}
- 
- 	ret = process_validate_vms(process_info);
- 	if (ret)
-@@ -2590,7 +2532,7 @@ static int validate_invalid_user_pages(struct amdkfd_process_info *process_info)
- 	/* Validate BOs and update GPUVM page tables */
- 	list_for_each_entry_safe(mem, tmp_mem,
- 				 &process_info->userptr_inval_list,
--				 validate_list.head) {
-+				 validate_list) {
- 		struct kfd_mem_attachment *attachment;
- 
- 		bo = mem->bo;
-@@ -2632,12 +2574,9 @@ static int validate_invalid_user_pages(struct amdkfd_process_info *process_info)
- 	ret = process_update_pds(process_info, &sync);
- 
- unreserve_out:
--	ttm_eu_backoff_reservation(&ticket, &resv_list);
-+	drm_exec_fini(&exec);
- 	amdgpu_sync_wait(&sync, false);
- 	amdgpu_sync_free(&sync);
--out_free:
--	kfree(pd_bo_list_entries);
--out_no_mem:
- 
- 	return ret;
- }
-@@ -2653,7 +2592,7 @@ static int confirm_valid_user_pages_locked(struct amdkfd_process_info *process_i
- 
- 	list_for_each_entry_safe(mem, tmp_mem,
- 				 &process_info->userptr_inval_list,
--				 validate_list.head) {
-+				 validate_list) {
- 		bool valid;
- 
- 		/* keep mem without hmm range at userptr_inval_list */
-@@ -2677,7 +2616,7 @@ static int confirm_valid_user_pages_locked(struct amdkfd_process_info *process_i
- 			continue;
- 		}
- 
--		list_move_tail(&mem->validate_list.head,
-+		list_move_tail(&mem->validate_list,
- 			       &process_info->userptr_valid_list);
- 	}
- 
-@@ -2787,50 +2726,44 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
-  */
- int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence **ef)
- {
--	struct amdgpu_bo_list_entry *pd_bo_list;
- 	struct amdkfd_process_info *process_info = info;
- 	struct amdgpu_vm *peer_vm;
- 	struct kgd_mem *mem;
--	struct bo_vm_reservation_context ctx;
- 	struct amdgpu_amdkfd_fence *new_fence;
--	int ret = 0, i;
- 	struct list_head duplicate_save;
- 	struct amdgpu_sync sync_obj;
- 	unsigned long failed_size = 0;
- 	unsigned long total_size = 0;
-+	struct drm_exec exec;
-+	int ret;
- 
- 	INIT_LIST_HEAD(&duplicate_save);
--	INIT_LIST_HEAD(&ctx.list);
--	INIT_LIST_HEAD(&ctx.duplicates);
--
--	pd_bo_list = kcalloc(process_info->n_vms,
--			     sizeof(struct amdgpu_bo_list_entry),
--			     GFP_KERNEL);
--	if (!pd_bo_list)
--		return -ENOMEM;
- 
--	i = 0;
- 	mutex_lock(&process_info->lock);
--	list_for_each_entry(peer_vm, &process_info->vm_list_head,
--			vm_list_node)
--		amdgpu_vm_get_pd_bo(peer_vm, &ctx.list, &pd_bo_list[i++]);
- 
--	/* Reserve all BOs and page tables/directory. Add all BOs from
--	 * kfd_bo_list to ctx.list
--	 */
--	list_for_each_entry(mem, &process_info->kfd_bo_list,
--			    validate_list.head) {
--
--		list_add_tail(&mem->resv_list.head, &ctx.list);
--		mem->resv_list.bo = mem->validate_list.bo;
--		mem->resv_list.num_shared = mem->validate_list.num_shared;
--	}
-+	drm_exec_init(&exec, 0);
-+	drm_exec_until_all_locked(&exec) {
-+		list_for_each_entry(peer_vm, &process_info->vm_list_head,
-+				    vm_list_node) {
-+			ret = amdgpu_vm_lock_pd(peer_vm, &exec, 2);
-+			drm_exec_retry_on_contention(&exec);
-+			if (unlikely(ret))
-+				goto ttm_reserve_fail;
-+		}
- 
--	ret = ttm_eu_reserve_buffers(&ctx.ticket, &ctx.list,
--				     false, &duplicate_save);
--	if (ret) {
--		pr_debug("Memory eviction: TTM Reserve Failed. Try again\n");
--		goto ttm_reserve_fail;
-+		/* Reserve all BOs and page tables/directory. Add all BOs from
-+		 * kfd_bo_list to ctx.list
-+		 */
-+		list_for_each_entry(mem, &process_info->kfd_bo_list,
-+				    validate_list) {
-+			struct drm_gem_object *gobj;
-+
-+			gobj = &mem->bo->tbo.base;
-+			ret = drm_exec_prepare_obj(&exec, gobj, 1);
-+			drm_exec_retry_on_contention(&exec);
-+			if (unlikely(ret))
-+				goto ttm_reserve_fail;
-+		}
- 	}
- 
- 	amdgpu_sync_create(&sync_obj);
-@@ -2848,7 +2781,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence **ef)
- 
- 	/* Validate BOs and map them to GPUVM (update VM page tables). */
- 	list_for_each_entry(mem, &process_info->kfd_bo_list,
--			    validate_list.head) {
-+			    validate_list) {
- 
- 		struct amdgpu_bo *bo = mem->bo;
- 		uint32_t domain = mem->domain;
-@@ -2921,8 +2854,7 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence **ef)
- 	*ef = dma_fence_get(&new_fence->base);
- 
- 	/* Attach new eviction fence to all BOs except pinned ones */
--	list_for_each_entry(mem, &process_info->kfd_bo_list,
--		validate_list.head) {
-+	list_for_each_entry(mem, &process_info->kfd_bo_list, validate_list) {
- 		if (mem->bo->tbo.pin_count)
- 			continue;
- 
-@@ -2941,11 +2873,10 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence **ef)
- 	}
- 
- validate_map_fail:
--	ttm_eu_backoff_reservation(&ctx.ticket, &ctx.list);
- 	amdgpu_sync_free(&sync_obj);
- ttm_reserve_fail:
-+	drm_exec_fini(&exec);
- 	mutex_unlock(&process_info->lock);
--	kfree(pd_bo_list);
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 143d11afe0e5..c5c5f2eb76c5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -34,6 +34,7 @@
- #include <drm/amdgpu_drm.h>
- #include <drm/drm_drv.h>
- #include <drm/ttm/ttm_tt.h>
-+#include <drm/drm_exec.h>
- #include "amdgpu.h"
- #include "amdgpu_trace.h"
- #include "amdgpu_amdkfd.h"
-@@ -360,6 +361,23 @@ void amdgpu_vm_get_pd_bo(struct amdgpu_vm *vm,
- 	list_add(&entry->tv.head, validated);
- }
- 
-+/**
-+ * amdgpu_vm_lock_pd - lock PD in drm_exec
-+ *
-+ * @vm: vm providing the BOs
-+ * @exec: drm execution context
-+ * @num_fences: number of extra fences to reserve
-+ *
-+ * Lock the VM root PD in the DRM execution context.
-+ */
-+int amdgpu_vm_lock_pd(struct amdgpu_vm *vm, struct drm_exec *exec,
-+		      unsigned int num_fences)
-+{
-+	/* We need at least two fences for the VM PD/PT updates */
-+	return drm_exec_prepare_obj(exec, &vm->root.bo->tbo.base,
-+				    2 + num_fences);
-+}
-+
- /**
-  * amdgpu_vm_move_to_lru_tail - move all BOs to the end of LRU
-  *
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-index 9c85d494f2a2..3e29886e5535 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -36,6 +36,8 @@
- #include "amdgpu_ring.h"
- #include "amdgpu_ids.h"
- 
-+struct drm_exec;
-+
- struct amdgpu_bo_va;
- struct amdgpu_job;
- struct amdgpu_bo_list_entry;
-@@ -399,6 +401,8 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- void amdgpu_vm_get_pd_bo(struct amdgpu_vm *vm,
- 			 struct list_head *validated,
- 			 struct amdgpu_bo_list_entry *entry);
-+int amdgpu_vm_lock_pd(struct amdgpu_vm *vm, struct drm_exec *exec,
-+		      unsigned int num_fences);
- bool amdgpu_vm_ready(struct amdgpu_vm *vm);
- uint64_t amdgpu_vm_generation(struct amdgpu_device *adev, struct amdgpu_vm *vm);
- int amdgpu_vm_validate_pt_bos(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 5ff1a5a89d96..93c7a8c87113 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -24,6 +24,8 @@
- #include <linux/types.h>
- #include <linux/sched/task.h>
- #include <drm/ttm/ttm_tt.h>
-+#include <drm/drm_exec.h>
-+
- #include "amdgpu_sync.h"
- #include "amdgpu_object.h"
- #include "amdgpu_vm.h"
-@@ -1455,9 +1457,7 @@ struct svm_validate_context {
- 	struct svm_range *prange;
- 	bool intr;
- 	DECLARE_BITMAP(bitmap, MAX_GPU_INSTANCE);
--	struct ttm_validate_buffer tv[MAX_GPU_INSTANCE];
--	struct list_head validate_list;
--	struct ww_acquire_ctx ticket;
-+	struct drm_exec exec;
- };
- 
- static int svm_range_reserve_bos(struct svm_validate_context *ctx)
-@@ -1467,25 +1467,24 @@ static int svm_range_reserve_bos(struct svm_validate_context *ctx)
- 	uint32_t gpuidx;
  	int r;
  
--	INIT_LIST_HEAD(&ctx->validate_list);
--	for_each_set_bit(gpuidx, ctx->bitmap, MAX_GPU_INSTANCE) {
--		pdd = kfd_process_device_from_gpuidx(ctx->process, gpuidx);
--		if (!pdd) {
--			pr_debug("failed to find device idx %d\n", gpuidx);
--			return -EINVAL;
--		}
--		vm = drm_priv_to_vm(pdd->drm_priv);
--
--		ctx->tv[gpuidx].bo = &vm->root.bo->tbo;
--		ctx->tv[gpuidx].num_shared = 4;
--		list_add(&ctx->tv[gpuidx].head, &ctx->validate_list);
--	}
-+	drm_exec_init(&ctx->exec, DRM_EXEC_INTERRUPTIBLE_WAIT);
-+	drm_exec_until_all_locked(&ctx->exec) {
-+		for_each_set_bit(gpuidx, ctx->bitmap, MAX_GPU_INSTANCE) {
-+			pdd = kfd_process_device_from_gpuidx(ctx->process, gpuidx);
-+			if (!pdd) {
-+				pr_debug("failed to find device idx %d\n", gpuidx);
-+				r = -EINVAL;
-+				goto unreserve_out;
-+			}
-+			vm = drm_priv_to_vm(pdd->drm_priv);
+ 	amdgpu_sync_create(&sync);
+-	INIT_LIST_HEAD(&list);
+-	INIT_LIST_HEAD(&csa_tv.head);
  
--	r = ttm_eu_reserve_buffers(&ctx->ticket, &ctx->validate_list,
--				   ctx->intr, NULL);
+-	csa_tv.bo = &ctx_data->meta_data_obj->tbo;
+-	csa_tv.num_shared = 1;
+-
+-	list_add(&csa_tv.head, &list);
+-	amdgpu_vm_get_pd_bo(vm, &list, &pd);
+-
+-	r = ttm_eu_reserve_buffers(&ticket, &list, true, NULL);
 -	if (r) {
--		pr_debug("failed %d to reserve bo\n", r);
+-		DRM_ERROR("failed to reserve meta data BO: err=%d\n", r);
 -		return r;
-+			r = amdgpu_vm_lock_pd(vm, &ctx->exec, 2);
-+			drm_exec_retry_on_contention(&ctx->exec);
-+			if (unlikely(r)) {
-+				pr_debug("failed %d to reserve bo\n", r);
-+				goto unreserve_out;
-+			}
-+		}
++	drm_exec_init(&exec, 0);
++	drm_exec_until_all_locked(&exec) {
++		r = drm_exec_lock_obj(&exec,
++				      &ctx_data->meta_data_obj->tbo.base);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto error_fini_exec;
++
++		r = amdgpu_vm_lock_pd(vm, &exec, 0);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto error_fini_exec;
  	}
  
- 	for_each_set_bit(gpuidx, ctx->bitmap, MAX_GPU_INSTANCE) {
-@@ -1508,13 +1507,13 @@ static int svm_range_reserve_bos(struct svm_validate_context *ctx)
+ 	bo_va = amdgpu_vm_bo_add(adev, vm, ctx_data->meta_data_obj);
+ 	if (!bo_va) {
+-		ttm_eu_backoff_reservation(&ticket, &list);
+ 		DRM_ERROR("failed to create bo_va for meta data BO\n");
+-		return -ENOMEM;
++		r = -ENOMEM;
++		goto error_fini_exec;
+ 	}
+ 
+ 	r = amdgpu_vm_bo_map(adev, bo_va, ctx_data->meta_data_gpu_addr, 0,
+@@ -1205,33 +1203,35 @@ int amdgpu_mes_ctx_map_meta_data(struct amdgpu_device *adev,
+ 
+ 	if (r) {
+ 		DRM_ERROR("failed to do bo_map on meta data, err=%d\n", r);
+-		goto error;
++		goto error_del_bo_va;
+ 	}
+ 
+ 	r = amdgpu_vm_bo_update(adev, bo_va, false);
+ 	if (r) {
+ 		DRM_ERROR("failed to do vm_bo_update on meta data\n");
+-		goto error;
++		goto error_del_bo_va;
+ 	}
+ 	amdgpu_sync_fence(&sync, bo_va->last_pt_update);
+ 
+ 	r = amdgpu_vm_update_pdes(adev, vm, false);
+ 	if (r) {
+ 		DRM_ERROR("failed to update pdes on meta data\n");
+-		goto error;
++		goto error_del_bo_va;
+ 	}
+ 	amdgpu_sync_fence(&sync, vm->last_update);
+ 
+ 	amdgpu_sync_wait(&sync, false);
+-	ttm_eu_backoff_reservation(&ticket, &list);
++	drm_exec_fini(&exec);
+ 
+ 	amdgpu_sync_free(&sync);
+ 	ctx_data->meta_data_va = bo_va;
  	return 0;
  
- unreserve_out:
--	ttm_eu_backoff_reservation(&ctx->ticket, &ctx->validate_list);
-+	drm_exec_fini(&ctx->exec);
+-error:
++error_del_bo_va:
+ 	amdgpu_vm_bo_del(adev, bo_va);
+-	ttm_eu_backoff_reservation(&ticket, &list);
++
++error_fini_exec:
++	drm_exec_fini(&exec);
+ 	amdgpu_sync_free(&sync);
  	return r;
  }
+@@ -1242,34 +1242,30 @@ int amdgpu_mes_ctx_unmap_meta_data(struct amdgpu_device *adev,
+ 	struct amdgpu_bo_va *bo_va = ctx_data->meta_data_va;
+ 	struct amdgpu_bo *bo = ctx_data->meta_data_obj;
+ 	struct amdgpu_vm *vm = bo_va->base.vm;
+-	struct amdgpu_bo_list_entry vm_pd;
+-	struct list_head list, duplicates;
+-	struct dma_fence *fence = NULL;
+-	struct ttm_validate_buffer tv;
+-	struct ww_acquire_ctx ticket;
+-	long r = 0;
+-
+-	INIT_LIST_HEAD(&list);
+-	INIT_LIST_HEAD(&duplicates);
+-
+-	tv.bo = &bo->tbo;
+-	tv.num_shared = 2;
+-	list_add(&tv.head, &list);
+-
+-	amdgpu_vm_get_pd_bo(vm, &list, &vm_pd);
+-
+-	r = ttm_eu_reserve_buffers(&ticket, &list, false, &duplicates);
+-	if (r) {
+-		dev_err(adev->dev, "leaking bo va because "
+-			"we fail to reserve bo (%ld)\n", r);
+-		return r;
++	struct dma_fence *fence;
++	struct drm_exec exec;
++	long r;
++
++	drm_exec_init(&exec, 0);
++	drm_exec_until_all_locked(&exec) {
++		r = drm_exec_lock_obj(&exec,
++				      &ctx_data->meta_data_obj->tbo.base);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto out_unlock;
++
++		r = amdgpu_vm_lock_pd(vm, &exec, 0);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto out_unlock;
+ 	}
  
- static void svm_range_unreserve_bos(struct svm_validate_context *ctx)
- {
--	ttm_eu_backoff_reservation(&ctx->ticket, &ctx->validate_list);
-+	drm_exec_fini(&ctx->exec);
+ 	amdgpu_vm_bo_del(adev, bo_va);
+ 	if (!amdgpu_vm_ready(vm))
+ 		goto out_unlock;
+ 
+-	r = dma_resv_get_singleton(bo->tbo.base.resv, DMA_RESV_USAGE_BOOKKEEP, &fence);
++	r = dma_resv_get_singleton(bo->tbo.base.resv, DMA_RESV_USAGE_BOOKKEEP,
++				   &fence);
+ 	if (r)
+ 		goto out_unlock;
+ 	if (fence) {
+@@ -1288,7 +1284,7 @@ int amdgpu_mes_ctx_unmap_meta_data(struct amdgpu_device *adev,
+ out_unlock:
+ 	if (unlikely(r < 0))
+ 		dev_err(adev->dev, "failed to clear page tables (%ld)\n", r);
+-	ttm_eu_backoff_reservation(&ticket, &list);
++	drm_exec_fini(&exec);
+ 
+ 	return r;
  }
- 
- static void *kfd_svm_page_owner(struct kfd_process *p, int32_t gpuidx)
 -- 
 2.34.1
 
