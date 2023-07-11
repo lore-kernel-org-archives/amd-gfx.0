@@ -4,49 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADA63EB64DC
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 10:03:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 729A3EB64DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 10:43:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B72210E358;
-	Tue, 11 Jul 2023 10:03:47 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DC1110E358;
- Tue, 11 Jul 2023 10:03:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Qy38nSyAkc0qhzNnog8BBlXyEItM31ZP1dtbuk4NSas=; b=YzhsIwXDM/xfGCzRI0DCeI11qh
- CQIXsKrBKQsDwj1LStUbfcE25/lr4Y0GGCNp1ob90ewpSdjOOnK/6V0Y7Joh2pLt8alHCqv6Bhss7
- tRqQDEqCAu0zfnBRwUVuK1ERbrt/uCPTluyyZEY80K3/3D6az+oe9JZ1nPAOrwvqG9V5U3F30MIx1
- 4hjrpOvdIjXc2UrNUN0FPuVFHQ0ENxtp/V7lWWxXYINvcOAytQVoO47O9OMrMgWOIiMC09vjyGvrS
- n/iHpLS2tMBRMDrNQrIxXZUcNwLt9y/xxBHRlWhzfSPAp+azAJZ+AStXtMo+ExeWOhxH89/j6g3Bo
- K0mMqhlQ==;
-Received: from 55.red-83-52-4.dynamicip.rima-tde.net ([83.52.4.55]
- helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qJADd-00CLEz-HK; Tue, 11 Jul 2023 12:03:41 +0200
-Message-ID: <2c97b770da11457583c48b200e4f989c05ecc023.camel@igalia.com>
-Subject: Re: XDC 2023: Registration & Call for Proposals now open!
-From: Ricardo Garcia <rgarcia@igalia.com>
-To: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>, 
- events@lists.x.org, xorg-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- libre-soc-dev@lists.libre-soc.org, members@x.org
-Date: Tue, 11 Jul 2023 12:03:40 +0200
-In-Reply-To: <43ee9173619f841ab7aab965441114cf9a6263b5.camel@igalia.com>
-References: <249b7449-c47b-47e6-0582-d87bd323fbbe@igalia.com>
- <43ee9173619f841ab7aab965441114cf9a6263b5.camel@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.3 (3.48.3-1.fc38) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21C0A10E368;
+	Tue, 11 Jul 2023 10:43:34 +0000 (UTC)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85FC810E357
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 10:09:31 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-4fb960b7c9dso8744034e87.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 03:09:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1689070169; x=1691662169;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=7dRYhDe8BiVEV0EBlHbMEnxi5wvB4qWMFbFVB8lXRts=;
+ b=aFgnj794CZ/PSLsUzrOXSBGzhI4B7HswMutmsFqschHSz8cORA+/pDetACQMnLtiVf
+ SmrzCFCT/cs+yM6BikKD/fqtRXullzc+RV31vTmrAL7rMnzI7g16FM72t2KqZivXVtiL
+ fMRV7ruLnrIMLDcjsLJWEglSNQS1EXdKxUdtJ7xeV2OpYxq6LtL3o6/GCUCTxNGksEAq
+ OaXuZwr3JCMIQ1l/iQaAsAXZe5TMsMdztIpr3EeEXtf9nprw/1zwlBw+P4lNXSRt+M6k
+ rXc9W4f0n7upozPz3dJJtgCxGq6YYdfg3Q3boXohjB+hDA1PLH4SmzjbP61YS/E3XkvU
+ pJlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689070169; x=1691662169;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7dRYhDe8BiVEV0EBlHbMEnxi5wvB4qWMFbFVB8lXRts=;
+ b=UEyuZ0EGLb7/KAe4+11NBWpDtazf3xCxOALuGj8SQmY4hGO/io2LvOukEuVeMWrpTh
+ V5jf7ELFnB7nKn7nhXlBLXp4oHxvDdijx+6dL422p0DisFnNxGkpTO1vZIEJ5l3Fn1qX
+ N7hG93F42XfRQko9lM8XpfwuxjfmgIdeZMd05wUofr2G50lAI/y2MEPfX0Lx7IJceu9C
+ ZNUmyOH5JFb2W37cmz2wTMIhc8JJ2ADAbRj2kvVKVPd5/+0Q88egfxLJ1O4AjFa/KQwu
+ VY2CUtB9Oof4O48rjm1zjNT4rwsxDVqug32mC8JrCvhmLpJvswXlVRpN6n/9akmOVdX0
+ DaTg==
+X-Gm-Message-State: ABy/qLZOcal8WZxggmH32C8HKp0pLnvFfdR7Jvd8NfzRvs7C398yiJKu
+ h82IGi59IvymbzZPQSi9ayB7cA==
+X-Google-Smtp-Source: APBJJlHdaYP6KQEeXomKRN9uoCu1+yo8uHO71sdRJ/mNUCNoupGWQiJZQ4tH2nJN9kqa4WSAGURoBQ==
+X-Received: by 2002:a05:6512:2346:b0:4fb:7be5:8f4e with SMTP id
+ p6-20020a056512234600b004fb7be58f4emr3008339lfu.6.1689070168929; 
+ Tue, 11 Jul 2023 03:09:28 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ 15-20020ac2482f000000b004fb88fffd19sm256372lft.146.2023.07.11.03.09.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Jul 2023 03:09:28 -0700 (PDT)
+Message-ID: <1090089b-2fa9-9781-51a8-38957e261bfd@linaro.org>
+Date: Tue, 11 Jul 2023 13:09:27 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH] drm/client: Send hotplug event after registering a client
+Content-Language: en-GB
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ noralf@tronnes.org
+References: <20230710091029.27503-1-tzimmermann@suse.de>
+ <325dad0e-38ff-9f60-efc9-0fd711d63267@linaro.org>
+ <117aea3d-c316-509d-7be7-ade155b4ae85@suse.de>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <117aea3d-c316-509d-7be7-ade155b4ae85@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 11 Jul 2023 10:43:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,95 +80,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "board@foundation.x.org" <board@foundation.x.org>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-samsung-soc@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>, amd-gfx@lists.freedesktop.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Paul Schyska <pschyska@gmail.com>,
+ Torsten Krah <krah.tm@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
+ linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Moritz Duge <MoritzDuge@kolahilft.de>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-New reminder that the XDC 2023 Registration and Call for Proposals are
-open till the end of this week. The deadline is July 17. Please submit
-your proposals ASAP! You can find more information about XDC 2023 in
-previous emails below.
+On 11/07/2023 09:07, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 10.07.23 um 23:11 schrieb Dmitry Baryshkov:
+> [...]
+>>> ---
+>>>   drivers/gpu/drm/armada/armada_fbdev.c     |  4 ----
+>>>   drivers/gpu/drm/drm_client.c              | 21 +++++++++++++++++++++
+>>>   drivers/gpu/drm/drm_fbdev_dma.c           |  4 ----
+>>>   drivers/gpu/drm/drm_fbdev_generic.c       |  4 ----
+>>>   drivers/gpu/drm/exynos/exynos_drm_fbdev.c |  4 ----
+>>>   drivers/gpu/drm/gma500/fbdev.c            |  4 ----
+>>>   drivers/gpu/drm/msm/msm_fbdev.c           |  4 ----
+>>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # msm
+> 
+> Thanks.
+> 
+>>
+>>>   drivers/gpu/drm/omapdrm/omap_fbdev.c      |  4 ----
+>>>   drivers/gpu/drm/radeon/radeon_fbdev.c     |  4 ----
+>>>   drivers/gpu/drm/tegra/fbdev.c             |  4 ----
+>>>   10 files changed, 21 insertions(+), 36 deletions(-)
+>>
+>> BTW: As you have been clearing this area. I see that significant 
+>> amount of DRM drivers use exactly the same code for 
+>> msm_fbdev_client_funcs and for the significant part of 
+>> foo_fbdev_setup(). Do you have any plans for moving that into a 
+>> library / generic code? If not, I can take a look at crafting the patch.
+>>
+> 
+> You're not the first to ask. :) I've so far not attempted to address 
+> this duplication. I've been bitten by premature helperization before, so 
+> I wanted to wait a bit longer. A lot of the fbdev and client code is 
+> changing quite a bit. After things stabilized, I want to to try to do 
+> some more code sharing.
 
-Thanks again for your attention,
--Ricardo
+Ack, thank you for sharing this.
 
-On Tue, 2023-06-27 at 16:24 +0200, Ricardo Garcia wrote:
-> This is a reminder that the XDC 2023 Registration and the Call for
-> Proposals are still open and will be open for about 2 more weeks. Do not
-> forget to submit your proposals before the deadline (July 17)!
->=20
-> The conference will take place in A Coru=C3=B1a this year, from October 1=
-7 to
-> 19. You can find more information about the conference in the links
-> below and you can also follow us on Mastodon for the latest updates.
->=20
-> https://floss.social/@XOrgDevConf
->=20
-> Thanks for your attention,
-> -Ricardo
->=20
-> On Mon, 2023-04-17 at 13:41 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> > =C2=A0
-> > Hello!
-> > =C2=A0=C2=A0
-> > =C2=A0Registration & Call for Proposals are now open for XDC 2023, whic=
-h will
-> > =C2=A0take place on October 17-19, 2023.=20
-> > =C2=A0
-> > =C2=A0https://xdc2023.x.org
-> > =C2=A0=C2=A0
-> > =C2=A0As usual, the conference is free of charge and open to the genera=
-l
-> > =C2=A0public. If you plan on attending, please make sure to register as=
- early
-> > =C2=A0as possible!
-> > =C2=A0=C2=A0
-> > =C2=A0In order to register as attendee, you will therefore need to regi=
-ster
-> > =C2=A0via the XDC website.
-> > =C2=A0=C2=A0
-> > =C2=A0https://indico.freedesktop.org/event/4/registrations/
-> > =C2=A0=C2=A0
-> > =C2=A0In addition to registration, the CfP is now open for talks, works=
-hops
-> > =C2=A0and demos at XDC 2023. While any serious proposal will be gratefu=
-lly
-> > =C2=A0considered, topics of interest to X.Org and freedesktop.org devel=
-opers
-> > =C2=A0are encouraged. The program focus is on new development, ongoing
-> > =C2=A0challenges and anything else that will spark discussions among
-> > =C2=A0attendees in the hallway track.
-> > =C2=A0=C2=A0
-> > =C2=A0We are open to talks across all layers of the graphics stack, fro=
-m the
-> > =C2=A0kernel to desktop environments / graphical applications and about=
- how
-> > =C2=A0to make things better for the developers who build them. Head to =
-the
-> > =C2=A0CfP page to learn more:=20
-> > =C2=A0=C2=A0
-> > =C2=A0https://indico.freedesktop.org/event/4/abstracts/
-> > =C2=A0=C2=A0
-> > =C2=A0The deadline for submissions is Monday, 17 July 2023 (23:59 CEST)
-> > =C2=A0=C2=A0
-> > =C2=A0Check out our Reimbursement Policy to accept speaker expenses:
-> > =C2=A0=C2=A0
-> > =C2=A0https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
-> > =C2=A0=C2=A0
-> > =C2=A0If you have any questions, please send me an email to
-> > =C2=A0siglesias AT igalia.com, adding on Cc the X.org board (board
-> > =C2=A0at foundation.x.org).
-> > =C2=A0=C2=A0
-> > =C2=A0And please keep in mind, you can follow us on Twitter for all the=
- latest
-> > =C2=A0updates and to stay connected:
-> > =C2=A0=C2=A0
-> > =C2=A0https://twitter.com/XOrgDevConf
-> > =C2=A0=C2=A0
-> > =C2=A0Best,
-> > =C2=A0=C2=A0
-> > =C2=A0Sam
-> > =C2=A0
-> > =C2=A0
->=20
+-- 
+With best wishes
+Dmitry
 
