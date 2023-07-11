@@ -4,61 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CDF8EB64DC
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 06:07:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29B37EB64DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 06:10:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90ED510E306;
-	Tue, 11 Jul 2023 06:07:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 873A510E309;
+	Tue, 11 Jul 2023 06:10:26 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8F0A10E304;
- Tue, 11 Jul 2023 06:07:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F229310E309;
+ Tue, 11 Jul 2023 06:10:24 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7EC6C20462;
- Tue, 11 Jul 2023 06:07:26 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 83ADB20460;
+ Tue, 11 Jul 2023 06:10:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1689055646; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1689055823; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SNB82qjZdLZ7yUY3NNXPS6LIosP+r/Oq/i6spbJvFKk=;
- b=uGwAmGri6HCVTDVupX3AnI3pntTkCdCYgBe4MXKpKqrFFM9L58lddK9Gt4ijMk4oe12EKn
- wkZlNhXoT6cUArvw8yZhpNIa/MdNQ2aoLAzzkOX+GJZ8zZTBVtIho0NqepELBnDZss5J1q
- Qz4ED8AO8IXfoitx78CrV1zzRaCsFFs=
+ bh=RPjQbYTcnEX8d+ZHiNY3AzdcrgT2R+6Yye/BQ7ZmfHQ=;
+ b=QaV5A/trJhOG1b3SkzHoPmhXs2nCdEKiSDxQkMh3qjoCo2Gery2vzUWgCjhTX8tGZpSV4o
+ 3buhgz8HSc5jL7Y/Dyfv7DrXBc88ovFDOmIJNEB+7d/aL5Dt1S40QNPSr7SUb5EfkuxarM
+ rt/OVs6MUA/UqZZ2nQqTz3We4wmzThI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1689055646;
+ s=susede2_ed25519; t=1689055823;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SNB82qjZdLZ7yUY3NNXPS6LIosP+r/Oq/i6spbJvFKk=;
- b=GIPxzBl4JRtB2A6zRvJSVOga3qJTO27JVaOO67Q1PDgWQ8Q7AxmxjwVP1QcGLy5J5JrJYb
- 2W+F1yRrdWlZNaBA==
+ bh=RPjQbYTcnEX8d+ZHiNY3AzdcrgT2R+6Yye/BQ7ZmfHQ=;
+ b=pB9jkHIl2OK0OVlASCubh5aumrPJvcXE3e1e+WKLLusz1zFPk3AV6Ht4mp6kr2xq2y5coL
+ ZQgGE7GgK81Yc/Dg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F20F21391C;
- Tue, 11 Jul 2023 06:07:25 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 221F71391C;
+ Tue, 11 Jul 2023 06:10:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id fIv0OZ3xrGRCBwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 11 Jul 2023 06:07:25 +0000
-Message-ID: <117aea3d-c316-509d-7be7-ade155b4ae85@suse.de>
-Date: Tue, 11 Jul 2023 08:07:25 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id +lxaB0/yrGSeCAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 11 Jul 2023 06:10:23 +0000
+Message-ID: <745347ca-a369-eb01-eac4-75c09cf9e67f@suse.de>
+Date: Tue, 11 Jul 2023 08:10:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH] drm/client: Send hotplug event after registering a client
+Subject: Re: [PATCH 09/17] auxdisplay: Remove flag FBINFO_FLAG_DEFAULT from
+ fbdev drivers
 Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, javierm@redhat.com,
- noralf@tronnes.org
-References: <20230710091029.27503-1-tzimmermann@suse.de>
- <325dad0e-38ff-9f60-efc9-0fd711d63267@linaro.org>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+References: <20230710130113.14563-1-tzimmermann@suse.de>
+ <20230710130113.14563-10-tzimmermann@suse.de>
+ <CANiq72=9PoV3FOcXx9FdiSLePKXDG4BSY_5-jddBkqDL=ua3FA@mail.gmail.com>
+ <733273ad-89e1-d952-37ee-bb75c3ab8188@suse.de>
+ <CANiq72kPh2KE=ADUxhPyyr7noWhC0fkzmDu8EBn_20focnZqtw@mail.gmail.com>
 From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <325dad0e-38ff-9f60-efc9-0fd711d63267@linaro.org>
+In-Reply-To: <CANiq72kPh2KE=ADUxhPyyr7noWhC0fkzmDu8EBn_20focnZqtw@mail.gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------kv6LGauRuWxMfjHq4DW99D2e"
+ boundary="------------6Si403MGmxQSUjmayt9vH0Ol"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,112 +73,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-samsung-soc@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, amd-gfx@lists.freedesktop.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, Paul Schyska <pschyska@gmail.com>,
- Torsten Krah <krah.tm@gmail.com>, linux-arm-msm@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Maxime Ripard <mripard@kernel.org>,
- linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Moritz Duge <MoritzDuge@kolahilft.de>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
+ Robin van der Gracht <robin@protonic.nl>, deller@gmx.de,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, javierm@redhat.com,
+ dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>, linux-nvidia@lists.surfsouth.com,
+ linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-geode@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------kv6LGauRuWxMfjHq4DW99D2e
-Content-Type: multipart/mixed; boundary="------------0zZdJ0TsnxmlWUefzoq8m39A";
+--------------6Si403MGmxQSUjmayt9vH0Ol
+Content-Type: multipart/mixed; boundary="------------adUMzkBKIng1X9u516u02tq1";
  protected-headers="v1"
 From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, javierm@redhat.com,
- noralf@tronnes.org
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-samsung-soc@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, Paul Schyska
- <pschyska@gmail.com>, Torsten Krah <krah.tm@gmail.com>,
- linux-arm-msm@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Maxime Ripard <mripard@kernel.org>, linux-tegra@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Moritz Duge <MoritzDuge@kolahilft.de>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <117aea3d-c316-509d-7be7-ade155b4ae85@suse.de>
-Subject: Re: [PATCH] drm/client: Send hotplug event after registering a client
-References: <20230710091029.27503-1-tzimmermann@suse.de>
- <325dad0e-38ff-9f60-efc9-0fd711d63267@linaro.org>
-In-Reply-To: <325dad0e-38ff-9f60-efc9-0fd711d63267@linaro.org>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: deller@gmx.de, javierm@redhat.com, linux-sh@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-input@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-geode@lists.infradead.org, linux-nvidia@lists.surfsouth.com,
+ linux-hyperv@vger.kernel.org, linux-omap@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>, Robin van der Gracht <robin@protonic.nl>
+Message-ID: <745347ca-a369-eb01-eac4-75c09cf9e67f@suse.de>
+Subject: Re: [PATCH 09/17] auxdisplay: Remove flag FBINFO_FLAG_DEFAULT from
+ fbdev drivers
+References: <20230710130113.14563-1-tzimmermann@suse.de>
+ <20230710130113.14563-10-tzimmermann@suse.de>
+ <CANiq72=9PoV3FOcXx9FdiSLePKXDG4BSY_5-jddBkqDL=ua3FA@mail.gmail.com>
+ <733273ad-89e1-d952-37ee-bb75c3ab8188@suse.de>
+ <CANiq72kPh2KE=ADUxhPyyr7noWhC0fkzmDu8EBn_20focnZqtw@mail.gmail.com>
+In-Reply-To: <CANiq72kPh2KE=ADUxhPyyr7noWhC0fkzmDu8EBn_20focnZqtw@mail.gmail.com>
 
---------------0zZdJ0TsnxmlWUefzoq8m39A
+--------------adUMzkBKIng1X9u516u02tq1
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-SGkNCg0KQW0gMTAuMDcuMjMgdW0gMjM6MTEgc2NocmllYiBEbWl0cnkgQmFyeXNoa292Og0K
-Wy4uLl0NCj4+IC0tLQ0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2FybWFkYS9hcm1hZGFfZmJk
-ZXYuY8KgwqDCoMKgIHzCoCA0IC0tLS0NCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9kcm1fY2xp
-ZW50LmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8IDIxICsrKysrKysrKysrKysrKysr
-KysrKw0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2RybV9mYmRldl9kbWEuY8KgwqDCoMKgwqDC
-oMKgwqDCoMKgIHzCoCA0IC0tLS0NCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9kcm1fZmJkZXZf
-Z2VuZXJpYy5jwqDCoMKgwqDCoMKgIHzCoCA0IC0tLS0NCj4+IMKgIGRyaXZlcnMvZ3B1L2Ry
-bS9leHlub3MvZXh5bm9zX2RybV9mYmRldi5jIHzCoCA0IC0tLS0NCj4+IMKgIGRyaXZlcnMv
-Z3B1L2RybS9nbWE1MDAvZmJkZXYuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDQgLS0t
-LQ0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL21zbS9tc21fZmJkZXYuY8KgwqDCoMKgwqDCoMKg
-wqDCoMKgIHzCoCA0IC0tLS0NCj4gDQo+IFJldmlld2VkLWJ5OiBEbWl0cnkgQmFyeXNoa292
-IDxkbWl0cnkuYmFyeXNoa292QGxpbmFyby5vcmc+ICMgbXNtDQoNClRoYW5rcy4NCg0KPiAN
-Cj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9vbWFwZHJtL29tYXBfZmJkZXYuY8KgwqDCoMKgwqAg
-fMKgIDQgLS0tLQ0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZmJkZXYu
-Y8KgwqDCoMKgIHzCoCA0IC0tLS0NCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS90ZWdyYS9mYmRl
-di5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCA0IC0tLS0NCj4+IMKgIDEwIGZpbGVz
-IGNoYW5nZWQsIDIxIGluc2VydGlvbnMoKyksIDM2IGRlbGV0aW9ucygtKQ0KPiANCj4gQlRX
-OiBBcyB5b3UgaGF2ZSBiZWVuIGNsZWFyaW5nIHRoaXMgYXJlYS4gSSBzZWUgdGhhdCBzaWdu
-aWZpY2FudCBhbW91bnQgDQo+IG9mIERSTSBkcml2ZXJzIHVzZSBleGFjdGx5IHRoZSBzYW1l
-IGNvZGUgZm9yIG1zbV9mYmRldl9jbGllbnRfZnVuY3MgYW5kIA0KPiBmb3IgdGhlIHNpZ25p
-ZmljYW50IHBhcnQgb2YgZm9vX2ZiZGV2X3NldHVwKCkuIERvIHlvdSBoYXZlIGFueSBwbGFu
-cyBmb3IgDQo+IG1vdmluZyB0aGF0IGludG8gYSBsaWJyYXJ5IC8gZ2VuZXJpYyBjb2RlPyBJ
-ZiBub3QsIEkgY2FuIHRha2UgYSBsb29rIGF0IA0KPiBjcmFmdGluZyB0aGUgcGF0Y2guDQo+
-IA0KDQpZb3UncmUgbm90IHRoZSBmaXJzdCB0byBhc2suIDopIEkndmUgc28gZmFyIG5vdCBh
-dHRlbXB0ZWQgdG8gYWRkcmVzcyANCnRoaXMgZHVwbGljYXRpb24uIEkndmUgYmVlbiBiaXR0
-ZW4gYnkgcHJlbWF0dXJlIGhlbHBlcml6YXRpb24gYmVmb3JlLCBzbyANCkkgd2FudGVkIHRv
-IHdhaXQgYSBiaXQgbG9uZ2VyLiBBIGxvdCBvZiB0aGUgZmJkZXYgYW5kIGNsaWVudCBjb2Rl
-IGlzIA0KY2hhbmdpbmcgcXVpdGUgYSBiaXQuIEFmdGVyIHRoaW5ncyBzdGFiaWxpemVkLCBJ
-IHdhbnQgdG8gdG8gdHJ5IHRvIGRvIA0Kc29tZSBtb3JlIGNvZGUgc2hhcmluZy4NCg0KQmVz
-dCByZWdhcmRzDQpUaG9tYXMNCg0KLS0gDQpUaG9tYXMgWmltbWVybWFubg0KR3JhcGhpY3Mg
-RHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFueSBHbWJI
-DQpGcmFua2Vuc3RyYXNzZSAxNDYsIDkwNDYxIE51ZXJuYmVyZywgR2VybWFueQ0KR0Y6IEl2
-byBUb3RldiwgQW5kcmV3IE15ZXJzLCBBbmRyZXcgTWNEb25hbGQsIEJvdWRpZW4gTW9lcm1h
-bg0KSFJCIDM2ODA5IChBRyBOdWVybmJlcmcpDQo=
+SGkNCg0KQW0gMTAuMDcuMjMgdW0gMTg6MjUgc2NocmllYiBNaWd1ZWwgT2plZGE6DQo+IE9u
+IE1vbiwgSnVsIDEwLCAyMDIzIGF0IDU6MjLigK9QTSBUaG9tYXMgWmltbWVybWFubiA8dHpp
+bW1lcm1hbm5Ac3VzZS5kZT4gd3JvdGU6DQo+Pg0KPj4gSSdsbCBhcHBlbmQgYSBwYXRjaCB0
+byB0aGUgc2VyaWVzIHRoYXQgZG9jdW1lbnRzIHRoaXMuDQo+Pg0KPj4gU3VyZS4NCj4gDQo+
+IFRoYW5rcyENCj4gDQo+IElmIHlvdSBhcmUgcGxhbm5pbmcgdG8gdGFrZSBpdCBpbnRvIHNv
+bWUgb3RoZXIgdHJlZToNCj4gDQo+IEFja2VkLWJ5OiBNaWd1ZWwgT2plZGEgPG9qZWRhQGtl
+cm5lbC5vcmc+DQoNClRoYW5rcy4NCg0KPiANCj4gT3RoZXJ3aXNlLCBJIGNhbiB0YWtlIGl0
+IGludG8gdGhlIGBhdXhkaXNwbGF5YCB0cmVlLg0KDQpJJ2QgbGlrZSB0byB0YWtlIHRoZSBw
+YXRjaHNldCBpbnRvIGRybS1taXNjLiBJdCdzIHBhcnQgb2YgYSBsYXJnZXIgDQpjbGVhbnVw
+IG9mIHRoZSBmYmRldiBtb2R1bGVzIGFuZCBpdHMgaW50ZXJmYWNlcy4NCg0KQmVzdCByZWdh
+cmRzDQpUaG9tYXMNCg0KPiANCj4gQ2hlZXJzLA0KPiBNaWd1ZWwNCg0KLS0gDQpUaG9tYXMg
+WmltbWVybWFubg0KR3JhcGhpY3MgRHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBT
+b2x1dGlvbnMgR2VybWFueSBHbWJIDQpGcmFua2Vuc3RyYXNzZSAxNDYsIDkwNDYxIE51ZXJu
+YmVyZywgR2VybWFueQ0KR0Y6IEl2byBUb3RldiwgQW5kcmV3IE15ZXJzLCBBbmRyZXcgTWNE
+b25hbGQsIEJvdWRpZW4gTW9lcm1hbg0KSFJCIDM2ODA5IChBRyBOdWVybmJlcmcpDQo=
 
---------------0zZdJ0TsnxmlWUefzoq8m39A--
+--------------adUMzkBKIng1X9u516u02tq1--
 
---------------kv6LGauRuWxMfjHq4DW99D2e
+--------------6Si403MGmxQSUjmayt9vH0Ol
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmSs8Z0FAwAAAAAACgkQlh/E3EQov+Cd
-3RAAplv7WxkxYt9N5gWJ/rlj3B0OIploEOnOdhJzsoMpnmg5IExLL5tbSbEydTMAZy4OV1UbFNlu
-gB4XDUfES5IOfn/YMVl8L5uC+FXRrnZfbLqjBKsfycA6CdbMg3GEpiW0u/OUquqkTx7mT4+iICLD
-IrLoigA9AHh5KCeXC8aj9TTntbujd8PNfrP0QbBdjOm/81BEVpQTRwHNaqnJcvKXiq9kxARrnZ/1
-4TUkPXNiMLdVUX42yN5pEdnUESTsYu6aDCDGN2e67l86wZ4v2Wt5Pi2Y+F3Z5rRLVe0XU1vak1be
-vDHhEM5ZSvnJhI/jfJWnx+025vHZ0JqX1jTZ+OrMlREn13ktSJ1R6lQwLSSEMAXAscvvhWEejSGj
-xtWwmQ/bzfjuQ7/1TWZDu3MRqKby9U0LOcyOkUakhTKUX8VbZ3Rih7HFxZiEvloiYGVT68sfEyg+
-e4z0ahGgZ7gOKpSuIoN6iFfIFg3BfOoGe1UqJKcQLzhmUCv+FutskpJ8ZVZZ+5JeOCFF0Kfe/0AT
-kru8rxC7cOVpFqtUEtaX+PwdBAqM5sRLKBx4k+PpoqXzOSAfXgAQUk9Ga53GRQHgW3ekTBedj50a
-uGhCCyQHr0fj7qlDjwAbv9hBQ4eN4cDTeeRaHj81jnEeDTldB5P0QZIa+HjgCA8NUHSUEWQJ74zS
-dXk=
-=E/ok
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmSs8k4FAwAAAAAACgkQlh/E3EQov+By
+TA/6AzapxPiVh3ARFt/YSfDAvOrmktHT6CTi6i1Ub5i2Ym4BJUrgy8S99ghuFzqA3RHfz8ZHMF7z
+2+eTMi10OHXwHO+9dl+rKSeyQt36p7SkOf1fHmpn0EUBDVKIZnk8Et3duAwpo1ExPN/k0mMpug7q
+6IBW94bw8Ldux7ilsOmjCrHbBPPXsb8xo8ZRKro/4yNBA8/EBaMPnFJqFp6Y0W6lLh3VObxqAuke
+uUpZq7rwwvp5m3nrJRPQurEVYtSebmgZGWQur4kPIM2anuxpg9EFXoKW1mvdeNnnsTk91QvRDsDC
+A6zEhta2QJig3ZywCeQ26vAzoz6ckE5QJ89B7vMh+qAPloCCTG6hl2BpsBXYDyo0PFfsqswtihcy
+Q5Ghqsm2q6SO7oqAYzBFGj6rL0sXHiVKaQ4BSs0lu1U1bcNCDDSL5Ltyi7gHY1odER+B2POXmobz
+KD7DjGAhMSyD+P1NzWqFlitpR/Y+UB0aCvmScSbT5Wc6crZ8eWwXz8FHgn9Ahvf4rd/qk+e62gPR
+5we59IVjsvIvzb5N2Vd3I2dYrLMiqD7asdFHFkynejvj8lP6hFdmv0SuDqLq4xDOY9fifRhFlrX9
+tFpJW8RcfD2UeAYOOylhpmWtPJmVBWmXl7OexfCba2EcK9BRwhwpy2Jb8hJRATHDEfAQwi3uHdwf
+q5o=
+=5lcC
 -----END PGP SIGNATURE-----
 
---------------kv6LGauRuWxMfjHq4DW99D2e--
+--------------6Si403MGmxQSUjmayt9vH0Ol--
