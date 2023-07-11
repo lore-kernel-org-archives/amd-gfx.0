@@ -4,65 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1491C001B0
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 10:43:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28D31EB64DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 13:31:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE4C10E36A;
-	Tue, 11 Jul 2023 10:43:36 +0000 (UTC)
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E20110E356;
- Tue, 11 Jul 2023 10:03:39 +0000 (UTC)
-Received: by mail-ot1-x333.google.com with SMTP id
- 46e09a7af769-6b8b8de2c6bso4861447a34.0; 
- Tue, 11 Jul 2023 03:03:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B69A510E07B;
+	Tue, 11 Jul 2023 13:31:30 +0000 (UTC)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D79810E07B;
+ Tue, 11 Jul 2023 13:31:28 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-992dcae74e0so740484266b.3; 
+ Tue, 11 Jul 2023 06:31:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689069818; x=1691661818;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=f+EdWg+i/tz1eYpH9ck9/qmxGmzdGcH8THqJbinUddk=;
- b=NyI0NAaMqg06KA6hwBSQgBEB85LCB8gClAXi9s9KdtyJxX2aBORKelElCulIdppHS6
- B2KpbjTxVS2+wUc9g/u+o+ZwR99AGXRU021BosfNDYuk/lbxfTcwf4poeCIl1pjSfmvJ
- 5jkEpuK/djrhv1A7k5tWeHiTtBppXhqwoEPSSNpCFuvfRbFDru0owVW8nZGMH4e28CJA
- 37otT/of6vfb688RtJjgE4uuPquRo2iO+FPZYJPBc0xkoWD8nJuSeik7gJXt88UxhuU5
- ynGI8Mdwz40F9nADl3/OzgmP0F+m9xzz5dHEj+Nekn9xjmNXbRk7FYYufVHEanQb1xEP
- DNog==
+ d=gmail.com; s=20221208; t=1689082285; x=1691674285;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=RlJZ2SsUKhMssYjcshkRnhdOmrcJ96qc4qivUr8edK8=;
+ b=mAPwxS1OVjABhyQJWV4hC+1tmJv6pIZFdmmGrefkD6db3OO9cEZprQCDIffVwT/OLc
+ 3DWyGC8KaJWAILvtM6ck3F+vWqSfMwskd6WXw7DxBSX8jmMAjdksfKRXk84/1b7pTp/c
+ pl6nWRxdUZJhmMo1xe7ecEO9U1rcdYjlkGJzQw/aM3IhFnZQzf3DkK2zBuRZ2Hf5Qy7O
+ Jj55N/5kTR+qpPv2ldOclbf8e5HLSpRVSVEhNDxvjBV/w8x0h27yUzBI8VDTgNOUUv3J
+ 34/eQBHLOeHG/RBAw4cqLRdxAs67QuPUSZDBJ5Vt9j7j3/hhVz3Llyyyok150XlFqPYq
+ UHDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689069818; x=1691661818;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=f+EdWg+i/tz1eYpH9ck9/qmxGmzdGcH8THqJbinUddk=;
- b=e/16PJ7OamGAglrnNOrxfjQsyLG9C2/ijSk/0QxqWVNe7/0UvXmPm+88ouF7/mTQAn
- a5qu5eMwM0azjnWzNNOsirAUQu12qiVuEh47WJAqLTTHHqIC+6fcrXrKS7IwkRpxBP3a
- mfy/daolMv98TkL/OR8PSs9q43VV8Ewcdu1cDjGwVDLwsT3QejCKhod47ipei0l8tL8U
- gwpXNMMT7gp8zDETFycd83nD3PwiLx3P7X32XSHyhaAzG4cnmpjgwcprF9/Ohe6QlNE2
- 8DdJr00lfL0WCyD9CrDuTa4gaJkKOgX0JRyaJGqLsjJa/iLoqO1Fesg8p0Vc+Lmb1zQP
- GswQ==
-X-Gm-Message-State: ABy/qLbNRU+gaZ3k5RsMmFhujozk5oVgO8fp20B7OWrwuRS+5TyNOh9S
- rldfexqVPbwwfClI9bpfB3/ZAtM3NxL0oA5SnRQ=
-X-Google-Smtp-Source: APBJJlGGsUuf+V3qoT11Pogf+mqcTAutGtQX8L+sFbR9xMxcqCOg1dWiYkpNfhV8TDJxJAkM3OI/WYW3QCrNv2zauGo=
-X-Received: by 2002:a05:6870:420f:b0:1a5:4e57:e5d1 with SMTP id
- u15-20020a056870420f00b001a54e57e5d1mr19457972oac.49.1689069818163; Tue, 11
- Jul 2023 03:03:38 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1689082285; x=1691674285;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=RlJZ2SsUKhMssYjcshkRnhdOmrcJ96qc4qivUr8edK8=;
+ b=W9+YCK/UDUrT4mfJRuDTjLsYdBfAREgimoONxunsVui6mi3/7qiY0GOzOVyNP8sBXL
+ RM9oLe7rtlJL7X1twyzZW7hLyuIGpob5wsuSEqU+gAZmEZZXpl2li2l8gmepH+DYnLhP
+ T2ToGaf8lynGoQJ8PRM1zxAHQ2QN0cU08dsAQg+PGpRAoZVry/0sqtJ4lzilw7V/dwuk
+ kN2tyPc+G1OPutQTPsr2GhKLwPgafoxU7atZhm4Ke5NY9N0qntESp51rYt8C13YLkPxp
+ 3TQ87AIckqyLXk6jyLiKmzPrm5qKIa5q9fAoVBwU65CdFZCAinXG0W27Gm3PzUYLVtB1
+ fnQQ==
+X-Gm-Message-State: ABy/qLY7ERQfHS4/FGZVJ+JHAYDr1rMMiuC0AoZr9dqXzDU48+YEZLNR
+ K9MTrp6TllCi9TO9dc8HWlD4dDDCNNE=
+X-Google-Smtp-Source: APBJJlFJxYYwhwvvTXv1+mtFZlll7720TxwE5CughgYjlcfd/gPuULDcjb48OJM8zYu2+c8QAkABjQ==
+X-Received: by 2002:a17:907:7f89:b0:98d:cacb:888f with SMTP id
+ qk9-20020a1709077f8900b0098dcacb888fmr21780727ejc.49.1689082285119; 
+ Tue, 11 Jul 2023 06:31:25 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:154b:c600:448d:6e36:e62e:af18])
+ by smtp.gmail.com with ESMTPSA id
+ m27-20020a1709060d9b00b009932337747esm1176967eji.86.2023.07.11.06.31.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Jul 2023 06:31:24 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: alexdeucher@gmail.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: drm_exec context for amdgpu
+Date: Tue, 11 Jul 2023 15:31:16 +0200
+Message-Id: <20230711133122.3710-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20230710130113.14563-1-tzimmermann@suse.de>
- <20230710130113.14563-10-tzimmermann@suse.de>
- <CANiq72=9PoV3FOcXx9FdiSLePKXDG4BSY_5-jddBkqDL=ua3FA@mail.gmail.com>
- <733273ad-89e1-d952-37ee-bb75c3ab8188@suse.de>
- <CANiq72kPh2KE=ADUxhPyyr7noWhC0fkzmDu8EBn_20focnZqtw@mail.gmail.com>
- <745347ca-a369-eb01-eac4-75c09cf9e67f@suse.de>
-In-Reply-To: <745347ca-a369-eb01-eac4-75c09cf9e67f@suse.de>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 11 Jul 2023 12:03:27 +0200
-Message-ID: <CANiq72kg_2PxmSnyj_X7Rak0-fmPP+W-+2EKFjyXCetw7w+mGA@mail.gmail.com>
-Subject: Re: [PATCH 09/17] auxdisplay: Remove flag FBINFO_FLAG_DEFAULT from
- fbdev drivers
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 11 Jul 2023 10:43:33 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,26 +72,17 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
- Robin van der Gracht <robin@protonic.nl>, deller@gmx.de,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, javierm@redhat.com,
- dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, linux-nvidia@lists.surfsouth.com,
- linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-geode@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 11, 2023 at 8:10=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
-.de> wrote:
->
-> I'd like to take the patchset into drm-misc. It's part of a larger
-> cleanup of the fbdev modules and its interfaces.
+Hi Alex,
 
-Sounds good, thanks!
+so apart from some RADV semaphore issue which seems to be unrelated to
+this changes our CI systems are happy with the changes.
 
-Cheers,
-Miguel
+Can I get some ack to push them through drm-misc-next?
+
+Thanks,
+Christian.
+
+
