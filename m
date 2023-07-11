@@ -4,117 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F8F4EB64DC
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 17:26:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2ED0EB64DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 17:47:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E189410E41B;
-	Tue, 11 Jul 2023 17:26:19 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2040.outbound.protection.outlook.com [40.107.92.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2CEE10E41A
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 17:26:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0450810E41F;
+	Tue, 11 Jul 2023 17:47:54 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2074.outbound.protection.outlook.com [40.107.244.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9332A10E41F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 17:47:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A/3TzcfzSSkvrnzErkPlNfmPnUq3nJhiiGO/97IXH1QbiEvUKed39kICi9EQRyIlDH4NO+BCt04FYkd868/jqNePdpgRO0v2xIvzSRRTVBabmAJfZrexrPP/Xgs7mkKpT05MbCQ0QVugOOzG/W6X3P2vJs0XTgmz6SKQy/q9fu2Yykuz+yAJRt9C0r92GeDlgZ2Pk1ULotedAD2foLmSGnF3uhGujyZzNFnfwvbCHy4EGiYSDLma1KjF3koIfFDuBHJUkU6wCX1uq2UZz0wZgf2nXP4GDkWI1a+KOl+XWSsLMAQvG2+vJ2CqieqUNKhFabixoxWs0ZfwVcsuYvE0bA==
+ b=lYvDczahsVTHOPTWQ3u37l2njO/Okb6OHRpGfpg9SlsHX/oQUKA+LiBFMtQEA4kzQovjHIQawvc5OYVRZvV+7JUpzhevrOpohO0S/NAYvtqLEPHa3RiySuj5cXQ/uOmbG88xbcW8lRPt8NYLRUOTbDzttiGRIO8gumuxiABpDQFM5L3KwsMI9+LN8WpeUE79X2QHWpH3KC7I267l8GBK9pYEcPCj13as5RuHgHHGRWA593ZjAJPYx7dSJI+ncSXmcRcpwxi/8UPyyfyQW6Xpyf8dDUVzDoGDPoDKc37i7dhuk3T8rk3ECLFvRUdrpsEWDtnwbgYuI3ifwz8AbrChUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+Z1FBAacI/e8ui2NZLJlr3PMzmMdxDZgZnHxXIvhG5Y=;
- b=VJgKUeRcf1VcW7qJ3uH0yHXOP2SAHMYdQLmF2DI4dYOnqoEDvwdBzqhO6KIJthI29x9yDHJrjyU1NxFsMQMF4rmOXvx7WykLyNbYP/9d6OqWAYXwSqK4Agjog0O+LVZceOs1WAOsr6vW6Uk/Mc8zsFcwjcYiSsaL56da3pSNTGhly8I2AvGas0B2BJAS6Gf/J/gvrl7NXKm9iGXRoQ6T1BFaptYjZArGcswn8Rm1WGE4KWJx7h7rnvJ+vYesfv/s83TtgRMk/IT+gQflAqLCNL/O1xwAw10LS9zAXzo2t6ZqYfXbcX1R2hKM517R57W45LcfLnJmMtGRvKiqMFvbJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=qKR7+LMUugceDTJFGzcaLP/Tl7migp53BY6ikFbSepk=;
+ b=lZNLgEQFiZyWopvaToecNkGLn1NMiwWhmtfK/AFPZDpk48lnkWAWeN9Onj0Tl6hxNPPOiLcL+PG67s/hsiUnngt6S6n4yjzOlSnjsCw8eAiHJb9Kj3rJcb/I3YK9vxj0brseeg2VCdeRYscCIpFJ2Zo6nwiAuRxmSfSNvlDC7aKx6oz81sPUFjrbshm2Q/OKZ7phIR5uOJaaDGInztVkNCudK1bl/BZf7R2Imid0jwzUxuibwJTifuIaAoHyvJyzkMUnSwb6R0+5CJ5ECPlXR85hvWtkWAt6Y5kCWlscEiaPgYGfAezoKbwUXKCJ6r6xzvA17Ah+QPs6H0YdqI++pQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+Z1FBAacI/e8ui2NZLJlr3PMzmMdxDZgZnHxXIvhG5Y=;
- b=uCMOYJo27GhCkQPh9RkscrlbjJPdF/7GJHXJo9McryLopNC2TD3Putjp5W5azANn0E5/vranH1ErDIJ9+R+AGTWTHcN05bgQjaI0KV2C1l6lTd3q9pItlgZUgAIVMzhJXdntOX8zvoF4a5spS6kFuso7VAR9X/M/UNRlyASmN3k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- DM4PR12MB7672.namprd12.prod.outlook.com (2603:10b6:8:103::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6588.20; Tue, 11 Jul 2023 17:26:14 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::68b9:3f7d:ca38:31ba]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::68b9:3f7d:ca38:31ba%7]) with mapi id 15.20.6565.028; Tue, 11 Jul 2023
- 17:26:14 +0000
-Message-ID: <9ba47227-09d2-e7ad-3fce-2fe206eceb21@amd.com>
-Date: Tue, 11 Jul 2023 13:26:11 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH] drm/amd/display: enable/disable PSR feature at run time
-Content-Language: en-US
-To: Shirish S <shirish.s@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20230711072837.41854-1-shirish.s@amd.com>
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <20230711072837.41854-1-shirish.s@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0102.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:4::35) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+ bh=qKR7+LMUugceDTJFGzcaLP/Tl7migp53BY6ikFbSepk=;
+ b=vzKxr6N5GqITIebXl/YtAAk/9FSevxHRWZxoqPn2kNpjvB76cLBMrx++9AF0yLnIpx2t8BuR1K4CDJVLD9ypxrvRWzDxkx20q/h0BMYtKw4TOyUycvdO+DdOvck8naW2KIMWu3yJOvA8iKiTTYGrahQ47gWvtPl/UkmZQ+phu4c=
+Received: from BYAPR07CA0009.namprd07.prod.outlook.com (2603:10b6:a02:bc::22)
+ by DS7PR12MB6240.namprd12.prod.outlook.com (2603:10b6:8:94::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.20; Tue, 11 Jul
+ 2023 17:47:50 +0000
+Received: from DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:a02:bc:cafe::7e) by BYAPR07CA0009.outlook.office365.com
+ (2603:10b6:a02:bc::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.32 via Frontend
+ Transport; Tue, 11 Jul 2023 17:47:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT018.mail.protection.outlook.com (10.13.172.110) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6588.20 via Frontend Transport; Tue, 11 Jul 2023 17:47:49 +0000
+Received: from x570-ryzen9-5900x.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23; Tue, 11 Jul 2023 12:47:23 -0500
+From: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
+To: <saleemkhan.jamadar@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <christian.koenig@amd.com>, <leo.liu@amd.com>,
+ <veerabadhran.gopalakrishnan@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu:update kernel vcn ring test
+Date: Tue, 11 Jul 2023 23:17:04 +0530
+Message-ID: <20230711174705.3945441-1-saleemkhan.jamadar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|DM4PR12MB7672:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6cd445bc-c1a3-4721-c1c6-08db8233ed58
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT018:EE_|DS7PR12MB6240:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57c5a55f-b6d3-4b89-3dbf-08db8236f196
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CuK9SVevpiPi2CY5PmJNMchqbnJcLzft6pb0oCIdJ6XpI95a6trNdBBkxlf/3clbE4TnZuZu2+9EFDdPytMJsRsZlqC05+Cu0ILCC/LYtzfqAe6J8Xzf6UlLADGpXiCe/QHI2NXTWJRdixE8iGOW15KPEPfxS5rmcr9qRDztjiuzgjLLDfZ4YqaO3cxRKXUErG6/2y5ffeweJAbyY5CjQDFH7wqgdkdZMOOVUyrpjg5TRq+2Fx0uuBrEUJlwv3VNFJyUz45mi8HJfXQpq9pFrWXa7eL5P4IvGH4fcmxUYUYcJsUci80gRkqSS7sJXU+CoUcyDhtORr617NeSf9ORv6bKf/1kogBCtaDcX2+LzUWpDYAlIEJRPeTMprPP+g79zLbJv4oP1l+w+F9WXHKbRTuAF8tbLGpsQO6AeUD4AnJU86YTyXjqPKj5kkyjmbwzzEAtKVENQwoFgXKkBiRkxzdfjOO69NhplsSUOT3Bce91iNvnHMS7aCP2tuLvOSR8QcrrMLKxQe0K2TRZRsBA2/UFAUSlFWk1REjf6xkk27B/OKmhaQQD0CIRJ9cMKS8zEvVIorekL+7bVhXOWHRxrjZQ1eEbiWbsI2EKLgqdxMXi/uWKA/QTr9hqFp4ac3zsy5qPTeh809o9yS1treuPoA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(346002)(366004)(136003)(376002)(39860400002)(451199021)(6512007)(316002)(6666004)(6486002)(44832011)(4326008)(110136005)(38100700002)(478600001)(6636002)(36756003)(2906002)(66556008)(66476007)(66946007)(2616005)(83380400001)(186003)(5660300002)(8676002)(8936002)(31686004)(31696002)(41300700001)(86362001)(26005)(53546011)(6506007)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: V7JC6IZMANF/eGWn848CP3PA3HCMvvAogfQisqSGmpjb6rWg9BvYjw/ckNXVO8KFmppO4CdBrUOWfCLSgbtRRnU9n4UQcvkl9F5pyfbdfpu/7rXiaSFOllmFbABmJnQdTOvUU6B3IwZCUJSuonPMmIyV6q8oxkq1ev4WXonUtflbvz9VHsOM3GhdhLWfbPJw9ihGF16VmiCKddOt8nzE9tJy8WtxMO07K4/p3wUjLw5GPwyIiYyKkVTMoZwumU078T+gLNKx0LJSq/9Eoma21yhAuwg7KEgLS7gFtjfp5gF7OZc9aEbcXsKDPRZH1NQFMG/OV3khXqYQ3ZSwWq+3QlRfp8PV/ETyEQXf+0Orbkm+9KcFLQuZJdKzgwXfz5GLG8DrbTkKj/RrzPD4k7lf6WfGQehnms0tJAW65SUjCkaTlCszPftWZbWqpn5JJ5UJYLHQ2LVC7BxcPIjfKQTD0Ie/LW4ZjR3MSwRkhsQgO5By1vfkUdPLCdsotdejeCR38jWPwXGs2hqoAD1XYYXc74DdG/6BP8vDzRV12qg7kYZeQOz4vrROgtthThIuRQG13dobL5AqPIjCFFxzapRihWKtkaxd6OkekffdTE0J9Ocm0Zaocmkws2Z7mgydoekWLZQ2edr+TLPB+VsZ8zg+zsfC84ExXkVUYx0m49bZSFZBbPcPdiMnGFvzCFgwVh1nZ2jx4KAY68dmSPmVf7M+x/OLArs4ikJyaU2gC5tll0mfjN5B1ESkeLX6RmAlBwOW/BbgYoX41+uOMq2dF0QDpQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(39860400002)(396003)(136003)(346002)(451199021)(46966006)(40470700004)(36840700001)(86362001)(40460700003)(82310400005)(8676002)(8936002)(186003)(16526019)(36756003)(36860700001)(426003)(336012)(47076005)(2616005)(2906002)(83380400001)(5660300002)(44832011)(1076003)(40480700001)(26005)(82740400003)(356005)(81166007)(6666004)(54906003)(110136005)(70206006)(70586007)(7696005)(6636002)(4326008)(478600001)(316002)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ckg2TFFuZVk5V1pWU3MwOVFkcW9TbDdiYzV6b3NqV1JsaFFuRXhsZ3NnUFNX?=
- =?utf-8?B?bHgvZlZjV2ZoU1FsUTc4dExodGYrc2diUWtDZUtmNllhYkJHQTdVL1FUNXZp?=
- =?utf-8?B?bUJ1M2RNQXpZMjNJemw0QzdNckZDRmlaeEgrbXdSa2VIZVNrTitROFROUXow?=
- =?utf-8?B?UjN1NkpEa1RlbkpDV3E0R2FxTG91WG9vRHZ0YWJzREl2YVZZbVVZWFlTV0tj?=
- =?utf-8?B?NXVSelJxaXFPa0tYZE1hbE9zaW1rWmxxSVNsSVVUYU5ya3p4WHY5c1pFSWtu?=
- =?utf-8?B?T01lNHV3ZFZuSURWN3lRTkZ4WkhlMlhJNFZXaERGZWFTSEN6MzVWVFFQTUJi?=
- =?utf-8?B?TEY5aGVWUWphOWhVbzBueFlXQzBUekQ0OFhidU5WdlVJS3NzdEZWL2ZHOWZV?=
- =?utf-8?B?VVVQZjRGeWRIeUZsSHN2clMzWmMwci93ekp5cGlEeEF5N1pCK0lKc3duWHF3?=
- =?utf-8?B?ZnIydzh6Z0lyTlplY0E0WmtLR2duVmRZOXNTS3pMOHdUSHBIS2w3SGtzdUtS?=
- =?utf-8?B?ODAvY3hsSE1yN01SVnR1UFVxYjlEWHZQL2sxVXhzOC9LMmloSSszajB6VzFI?=
- =?utf-8?B?RHkyNzZPbWgzUWI3TE84VDB0c2FRdVNTR2syYTM3QzNiZVBwbXc4WDFQazZs?=
- =?utf-8?B?NmdhanQ2RFF5ZTBzTEc4MXA2MktONThiMkZhL1pZRUprbVMxVGFld09uaVR1?=
- =?utf-8?B?RE0zUmNJdGhvYjlvTy9RaU5YMDhWbzQ4RHhKRFZtMFZMVWdjOVA2YVNkdnEv?=
- =?utf-8?B?QlpRUlpaL1M0ZzhXNHJrdU5rVVIwajJOTGxxN2V6b2NKOEJKak42NG9qYkU3?=
- =?utf-8?B?NG1vZkE1S0hxcTN2NVBNV2MvUzN6Ynk2aDZWSnNGakxVVllBV3Q3ai8xWlE2?=
- =?utf-8?B?UHU0NXkzbytxNmIveVNkcy9JT0REZi80d0laNVhHKytKMUxOQTJFUllTZU9a?=
- =?utf-8?B?Z2dJN295dFRpWHFwZDJrMitCWWQ4ZjJnV0t6RHM4U3Y1bGtndFBDR3VibUZW?=
- =?utf-8?B?MjE5T0Vnb2NLeGFjak9nYU11ZFF1VjBycnFrVVpDNnl2TkdNWnN5S0Zlc1Zh?=
- =?utf-8?B?elo3eSttUG81ODM3eTVwYVc5bXY5RmtGVUYrRmpmUExFRTVPa1VKQ0l3U1FP?=
- =?utf-8?B?MGs3UWJGeHBMYzRMOWNsL2ZIV2ZaT3NzS2E5T2hhenZPN0dlZDhFNEJrTGp0?=
- =?utf-8?B?MVZ5R3ovc1RQeVFJTFJGb3NXV1BZS1habklObWQ1U000NGV5UEZUUzkrRFov?=
- =?utf-8?B?VXA2eWxEN01XbW5yVEtoVU5NOXBJa1cvMHBPYmEzaGlxdEpyR3EyNHg5T2xK?=
- =?utf-8?B?bDh6czhDc1BTaVBURml3eFpJdzFQSlAwdGNvSDJZZ2pnUWpyVnBUUmNqN3NF?=
- =?utf-8?B?NUVUUmVvR3QwZkVuZzZWVHNWdEdmR3pzQy9kbDM5UStvTXdPbG9PWUFuanlV?=
- =?utf-8?B?eUI1MjBhb3hQcTdzSWRCTnErMkwrV21tbklZdnRnT1E1NnE5bkNDd1diTlAr?=
- =?utf-8?B?dTNJUHBNYmY4cGI1b0ZRUGxSbGJTZ1I4UGtUT01EeDZQS0h6bWtySGQyMHpT?=
- =?utf-8?B?dWZNemQ5UFBFd1c4dW5Yc1RrLzYvWXByRmZOV2RWQVhwOGhxdDFFSTZoSktG?=
- =?utf-8?B?Q29paW5ocUpHZDNBYzRyQ0dyVHVyZmJuK3hGVkdlOUpKS3Z2L1ZnR0l1OEJz?=
- =?utf-8?B?MDMzK0FJYisrVlgrSGRKTW5nMjlJeUhoUTdxTVZsNkZDOTFHR29WWDFzKzZo?=
- =?utf-8?B?S05tcXluZGMrblpCZjl5Y0sySlRGcTZUWjRRbHpodjBVemxhQmR0cEpnRVNH?=
- =?utf-8?B?bTNEY3JGOEMwQWFRTXpMRUJZNjV2Mjdad1ExQTdyZ3lLYXU1UjBlTUtmRm9x?=
- =?utf-8?B?YTBEMStkM0Y1bEhPSjk2Yitrb2Jkcy9tcWVHNDZFazRLU3RMZXhoVGttS0gy?=
- =?utf-8?B?YzBIK01qTWN3LzErYVZaNW1KdkF4WXJ2ekFnRkMwcVFhVnljcDFmVVZSeVFF?=
- =?utf-8?B?UnJ2dFFUY2l6VmhxUlBZUVhmY3l2cEJPWTRlbU9PQy96R2E3dnZrbDA4RThw?=
- =?utf-8?B?Y1pwb1AxMXQ0QjBvMy80ck1scVNBZXlmTlRxSW42Z3Z0UTBHYUl1WHpQbjdO?=
- =?utf-8?Q?6EWlJqsRFkknAexnduuL6hKbV?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6cd445bc-c1a3-4721-c1c6-08db8233ed58
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2023 17:26:14.1607 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2023 17:47:49.5276 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57c5a55f-b6d3-4b89-3dbf-08db8236f196
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EjB+rSlZivxEfiTHeE0s9wTR8AhClsVTFS37UGc2q3TjK+HJ1AYpC7nyDVdiJpnsq/PsECZY9QcI8xponE5kZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7672
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT018.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6240
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,82 +99,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: sathishkumar.sundararaju@amd.com, srinath.rao@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+add session context buffer to decoder ring test.
 
-On 7/11/23 03:28, Shirish S wrote:
-> [Why]
-> Per current architecture, PSR feature is disabled by default for DCN < 3.
+v5 - clear the session ct buffer (Christian)
+v4 - data type, explain change of ib size change (Christian)
+v3 - indent and  v2 changes correction. (Christian)
+v2 - put the buffer at the end of the IB (Christian)
 
-There were issues in the past with enabling PSR for < DCN3 ASICs. So,
-unless we can prove those issues are gone I don't think this is advisable.
+Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
+Acked-by: Leo Liu <leo.liu@amd.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 13 +++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  5 ++++-
+ 2 files changed, 15 insertions(+), 3 deletions(-)
 
-> This makes it impossible for those pre-flashed device users to try newer
-> (psr capable) panels without altering OS (boot params).
-> Also on Chromebooks its not sustainable to have custom dc_feature_mask.
-> 
-> [How]
-> amdgpu_dm_set_psr_caps() in its current form does a decent job to evaluate
-> and discard links that are not capable of PSR feature.
-> If the current implementation has gap, going forward it needs to be
-> addressed either by adding appropriate ways to detect and discard the
-> panels or by iteratively blacklisting the same.
-> 
-> Signed-off-by: Shirish S <shirish.s@amd.com>
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 ++-----------------
->   1 file changed, 2 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 073bf00c6fdc..0fcafe1a071d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4313,7 +4313,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
->   	s32 primary_planes;
->   	enum dc_connection_type new_connection_type = dc_connection_none;
->   	const struct dc_plane_cap *plane;
-> -	bool psr_feature_enabled = false;
->   	int max_overlay = dm->dc->caps.max_slave_planes;
->   
->   	dm->display_indexes_num = dm->dc->caps.max_streams;
-> @@ -4405,24 +4404,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
->   			      adev->ip_versions[DCE_HWIP][0]);
->   	}
->   
-> -	/* Determine whether to enable PSR support by default. */
-> -	if (!(amdgpu_dc_debug_mask & DC_DISABLE_PSR)) {
-> -		switch (adev->ip_versions[DCE_HWIP][0]) {
-> -		case IP_VERSION(3, 1, 2):
-> -		case IP_VERSION(3, 1, 3):
-> -		case IP_VERSION(3, 1, 4):
-> -		case IP_VERSION(3, 1, 5):
-> -		case IP_VERSION(3, 1, 6):
-> -		case IP_VERSION(3, 2, 0):
-> -		case IP_VERSION(3, 2, 1):
-> -			psr_feature_enabled = true;
-> -			break;
-> -		default:
-> -			psr_feature_enabled = amdgpu_dc_feature_mask & DC_PSR_MASK;
-> -			break;
-> -		}
-> -	}
-> -
->   	/* loops over all connectors on the board */
->   	for (i = 0; i < link_cnt; i++) {
->   		struct dc_link *link = NULL;
-> @@ -4471,8 +4452,8 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
->   				amdgpu_dm_update_connector_after_detect(aconnector);
->   				setup_backlight_device(dm, aconnector);
->   
-> -				if (psr_feature_enabled)
-> -					amdgpu_dm_set_psr_caps(link);
-> +				/* Determine & Set PSR caps*/
-> +				amdgpu_dm_set_psr_caps(link);
->   
->   				/* TODO: Fix vblank control helpers to delay PSR entry to allow this when
->   				 * PSR is also supported.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 4e1256af80b6..8966ffb2f4a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -591,13 +591,15 @@ static int amdgpu_vcn_dec_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
+ 	int r, i;
+ 
+ 	memset(ib, 0, sizeof(*ib));
+-	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 2,
++	/* 34 pages : 128KiB  session context buffer size and 8KiB ib msg */
++	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 34,
+ 			AMDGPU_IB_POOL_DIRECT,
+ 			ib);
+ 	if (r)
+ 		return r;
+ 
+ 	msg = (uint32_t *)AMDGPU_GPU_PAGE_ALIGN((unsigned long)ib->ptr);
++	memset(msg, 0, (AMDGPU_GPU_PAGE_SIZE * 34));
+ 	msg[0] = cpu_to_le32(0x00000028);
+ 	msg[1] = cpu_to_le32(0x00000038);
+ 	msg[2] = cpu_to_le32(0x00000001);
+@@ -626,13 +628,15 @@ static int amdgpu_vcn_dec_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
+ 	int r, i;
+ 
+ 	memset(ib, 0, sizeof(*ib));
+-	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 2,
++	/* 34 pages : 128KiB  session context buffer size and 8KiB ib msg */
++	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 34,
+ 			AMDGPU_IB_POOL_DIRECT,
+ 			ib);
+ 	if (r)
+ 		return r;
+ 
+ 	msg = (uint32_t *)AMDGPU_GPU_PAGE_ALIGN((unsigned long)ib->ptr);
++	memset(msg, 0, (AMDGPU_GPU_PAGE_SIZE * 34));
+ 	msg[0] = cpu_to_le32(0x00000028);
+ 	msg[1] = cpu_to_le32(0x00000018);
+ 	msg[2] = cpu_to_le32(0x00000000);
+@@ -718,6 +722,7 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
+ 	struct amdgpu_job *job;
+ 	struct amdgpu_ib *ib;
+ 	uint64_t addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
++	uint64_t session_ctx_buf_gaddr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr + 8192);
+ 	bool sq = amdgpu_vcn_using_unified_queue(ring);
+ 	uint32_t *ib_checksum;
+ 	uint32_t ib_pack_in_dw;
+@@ -748,6 +753,10 @@ static int amdgpu_vcn_dec_sw_send_msg(struct amdgpu_ring *ring,
+ 	ib->length_dw += sizeof(struct amdgpu_vcn_decode_buffer) / 4;
+ 	memset(decode_buffer, 0, sizeof(struct amdgpu_vcn_decode_buffer));
+ 
++	decode_buffer->valid_buf_flag |=
++				cpu_to_le32(AMDGPU_VCN_CMD_FLAG_SESSION_CONTEXT_BUFFER);
++	decode_buffer->session_context_buffer_address_hi = upper_32_bits(session_ctx_buf_gaddr);
++	decode_buffer->session_context_buffer_address_lo = lower_32_bits(session_ctx_buf_gaddr);
+ 	decode_buffer->valid_buf_flag |= cpu_to_le32(AMDGPU_VCN_CMD_FLAG_MSG_BUFFER);
+ 	decode_buffer->msg_buffer_address_hi = cpu_to_le32(addr >> 32);
+ 	decode_buffer->msg_buffer_address_lo = cpu_to_le32(addr);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+index 1f1d7dc94f90..ba5fefd74197 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+@@ -171,6 +171,7 @@
+ 
+ #define AMDGPU_VCN_IB_FLAG_DECODE_BUFFER	0x00000001
+ #define AMDGPU_VCN_CMD_FLAG_MSG_BUFFER		0x00000001
++#define AMDGPU_VCN_CMD_FLAG_SESSION_CONTEXT_BUFFER	0x00100000
+ 
+ #define VCN_CODEC_DISABLE_MASK_AV1  (1 << 0)
+ #define VCN_CODEC_DISABLE_MASK_VP9  (1 << 1)
+@@ -366,7 +367,9 @@ struct amdgpu_vcn_decode_buffer {
+ 	uint32_t valid_buf_flag;
+ 	uint32_t msg_buffer_address_hi;
+ 	uint32_t msg_buffer_address_lo;
+-	uint32_t pad[30];
++	uint32_t session_context_buffer_address_hi;
++	uint32_t session_context_buffer_address_lo;
++	uint32_t pad[28];
+ };
+ 
+ #define VCN_BLOCK_ENCODE_DISABLE_MASK 0x80
 -- 
-Hamza
+2.25.1
 
