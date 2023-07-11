@@ -4,41 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 867EFEB64DD
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 17:05:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 591F1C001DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 17:05:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 754F610E405;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6A0C10E40D;
 	Tue, 11 Jul 2023 17:05:45 +0000 (UTC)
-Received: from out-38.mta0.migadu.com (out-38.mta0.migadu.com [91.218.175.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FEC310E3DE
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 16:32:16 +0000 (UTC)
+X-Greylist: delayed 306 seconds by postgrey-1.36 at gabe;
+ Tue, 11 Jul 2023 16:48:32 UTC
+Received: from out-11.mta1.migadu.com (out-11.mta1.migadu.com [95.215.58.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F9FF10E3F6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 16:48:32 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1689093133;
+ t=1689093803;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
  bh=AOe2sK5corMJVr8s18spKTEHFO7S6COQNSRgsjkc54A=;
- b=ixKAhLu28/nq1vazDkLtGsR/XEiVHt1ra2tNTmdDLo9BPHekHQ7OViZ9PZCadSk3DSxHL1
- 6Md7s5pSxG/rbDPk5WiAXKGCJ9q1jxF9DVPaEOAcGbdFMUXTFAqhY+mtay7NocxBghXDdE
- nl8Q8HRCQmWsB+O7po7KrEn9IlnkOKE=
+ b=HvE3n3cEhL+NyqDPKs/PppZJPBBvkJ6Z4GSVgABYNxQ2TNgTefhpbD3IAngGIGTrb5+KTM
+ icD3Y1kKySVnFd4+WbZ+s5x0ORowvdjlmISvzqeRR17HIuhuiCDtQTtAfWl+F7Idw7tj4L
+ vMOMD463UkpiH9xDww2GoIrwBEM6k90=
 From: Sui Jingfeng <sui.jingfeng@linux.dev>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Dave Airlie <airlied@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Maxime Ripard <mripard@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Ben Skeggs <bskeggs@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Helge Deller <deller@gmx.de>,
- Mario Limonciello <mario.limonciello@amd.com>
+To: David Airlie <airlied@gmail.com>
 Subject: [PATCH v3 0/9] PCI/VGA: Improve the default VGA device selection
-Date: Wed, 12 Jul 2023 00:31:46 +0800
-Message-Id: <20230711163155.791522-1-sui.jingfeng@linux.dev>
+Date: Wed, 12 Jul 2023 00:43:01 +0800
+Message-Id: <20230711164310.791756-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -56,10 +47,9 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
- kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org
+ kvm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
