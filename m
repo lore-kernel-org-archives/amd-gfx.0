@@ -4,89 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDFDEEB64DC
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 17:20:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85A60EB64DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 17:21:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72CE010E419;
-	Tue, 11 Jul 2023 17:20:10 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2066.outbound.protection.outlook.com [40.107.93.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9ED9B10E412
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 17:20:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CzPZeLCeUYtui/4yJHPMWhl0tmLcjnLo6wNe3KwpzlWA0T+2ZGm3C0AUK78kTHx8sxcjfzqpu6YzBF5jSdcieTmnf1SQE9eW7w2m/Mpm1P1QfFOq18gtyhGNz+shB+VnpQfOqwlsJm7t9b5znuHxUIGq0Lj35NrYUaxPfkB09Fc1BzZ328dLRogiGkzv3Y88ulDqoACnc3V50dMhDOAY7pQNJidbniSroi3hX8frNoxsZQRKh74pH7p2CdYTpsC3i/oYfGFPUUVQi0mIopnI+qRq1pSsRwXCDxzKWRoPB41gY9iAH/rF6uHoEeO0j4BUfAQGKlM3eAmNmnK/F5GCIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xz/YHLJFv8cpjTMv09BrMbvG1GT1Li1yb8wUC0iE1Ic=;
- b=Ir5mwaCiGoyrAL8ry7DxOk3TAltNIlohhb8jDlm4kFohhIRLCRuuLu0GKoWhPGMc9dQBgWyu1INvvY8FxhQRDThgoytZ2IJipdNCYvcsr1b1s4VtL96V5R3Sou8Jn26/8UBU+E/6yUjEIN9OKTtndFHXQRo1xeNAQ3R0hsAZe5Xx6nPgFBk0pco6JRWV3SSWvEXb/qGuptdkYa3xnWHCILc7K4otvtUsxIr57v5dWFj9Rbg1Hbopv76ii+b1LO4MU02cN3rc42wDu733BycY9IPsLMVfEMRaSQ2G287l363D/5+8VXFKaYlMA/p1hrwuQabTnJhV0ESvAt1qbJh0eA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xz/YHLJFv8cpjTMv09BrMbvG1GT1Li1yb8wUC0iE1Ic=;
- b=yxPxWk4kF/W4a96hyTDDYImOhGbBPQj3u9J2XXlkXrJafUUzVCtAfK9ARJrhFKDKMoFIltcVDrGkmQWAdVXqCytnK6nx/rnAuU9TBjj15RLyOyO4M8M1ste2QJK2viZ3bBIyUzIUbJ3KIUR1Urq07PgbxAiE8SwNuAYgk5Yc8pw=
-Received: from BN9PR03CA0219.namprd03.prod.outlook.com (2603:10b6:408:f8::14)
- by MW4PR12MB7335.namprd12.prod.outlook.com (2603:10b6:303:22b::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.20; Tue, 11 Jul
- 2023 17:20:05 +0000
-Received: from BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f8:cafe::cd) by BN9PR03CA0219.outlook.office365.com
- (2603:10b6:408:f8::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.32 via Frontend
- Transport; Tue, 11 Jul 2023 17:20:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT088.mail.protection.outlook.com (10.13.177.81) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6588.20 via Frontend Transport; Tue, 11 Jul 2023 17:20:05 +0000
-Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Tue, 11 Jul
- 2023 12:20:01 -0500
-From: Jonathan Kim <jonathan.kim@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: report dispatch id always saved in ttmps after
- gc9.4.2
-Date: Tue, 11 Jul 2023 13:19:47 -0400
-Message-ID: <20230711171947.2914493-1-jonathan.kim@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA19C10E418;
+	Tue, 11 Jul 2023 17:21:32 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33ADC10E412;
+ Tue, 11 Jul 2023 17:21:30 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36BGmrQ4004850; Tue, 11 Jul 2023 17:20:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=Dd4av3OA7sDfdLwFbUft5WszPcE37l6Zz5pV11nT7+w=;
+ b=oybR2R5GSqWmiD+UUCyYs9kMaH52iIobJcAe/POJSRCH1Yhmx/lidlfdKcy6LSxbx5Jr
+ S2mGuiAgr7scG9dkHZAEFA15XSpz6d6K7PzN83UKT1L60BUOMEsDXdL9974mUrhqwsv2
+ 9pWkOuNLhXb8UL7LKdNSnivTAAShFCYHVAn9a5JO3+kkjcWkPE4d+Ql2sWc7fUF5KZe9
+ 4gOd66qpRUNbdQGKcVhgyCLu1kxAOdxJw3JMQgJThdjvRN0XbLO3BDf6ctO43grqi2Uw
+ ehr5Kd0fLk2ieRwz/TK8nY45ePPOVmJrCDD18vzgSH/2hSh4euTvGAoLmj/ixCh8Fxa4 4g== 
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rsax482h9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Jul 2023 17:20:52 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 36BHKpXW018001
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Jul 2023 17:20:51 GMT
+Received: from [10.110.47.185] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.30; Tue, 11 Jul
+ 2023 10:20:50 -0700
+Message-ID: <7eaf29c9-c2bf-3979-687a-596d3ba538fa@quicinc.com>
+Date: Tue, 11 Jul 2023 10:20:50 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/client: Send hotplug event after registering a client
+Content-Language: en-US
+To: Thomas Zimmermann <tzimmermann@suse.de>, <javierm@redhat.com>,
+ <noralf@tronnes.org>
+References: <20230710091029.27503-1-tzimmermann@suse.de>
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <20230710091029.27503-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT088:EE_|MW4PR12MB7335:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85e20a0c-ffea-4b4b-e54c-08db82331178
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VVs1rgkY/1itrTdOKMRgXZ/mI0auWTk91/UMvfsbL7qRqpGs3yEcJliUU7wJJ41vY4Lto41w/XrWUw8ibvjn694uIp8T0uGlG+fzE9FLJObHu9NCCo3aJanNFQ0/EIbgmOes/TdeZ/+XxsGk7H5KrnYcU3HRXgU7Yfr/zPnvtGKafIDeCvwSyOpdAyxSvZ143M7eyhDWC7/5jy2qTs9j1TNAMvaqAnbl143RRCL+zVaEU0b/0in6Mc8RNz76Xp/+oqe/n+qoUfsmJpwn4mUdLmv6yFnZHYcXT9ztzYtuXNROp2ylM8PZXxAQBjJZDidpt5JvFTsi89Dzo8g4ZQFIhCMAZMVGdsg0tE1RXPNLuGY46zSus/K4w4dYXXmD0t2Gw1ZZ8F9eX8hKRu8sPcnP40el3EAL8wuFKxriTlScwAjiezj08MHt6Gkndffk7cqaFhlL3SQumD9JaWDWk+GU2trS/yaC6eo/7rC3jdx1XH9RMPpGPi6hJIlpQMvIE50N8uILj1KuHY6LN63qACBzTiDcVU/u1TAkkU4hsZfWwQ36+nAeyV1hNnLqpJ/3aMMfwVbDVfbJ4U4brEpzPKSziCMzCXVMXTAUx7IaIrNRTSnGBgNS6jeqO5x/N/95xIVcZs8LxF4UU6sYELi0YPwjUBWGcC2W8EXQYRrA89bWSxlOhm4DAFc9qXiPQOqSHCfMJfnFq8eBrfAwukzqga/AQ/K9ACSU0Um+5kjWu3k11Z5ED2mQQSOyuG8mmVa+KxdcBYBbmKahQD/6ffQ3ayk+3A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(39860400002)(396003)(136003)(376002)(451199021)(36840700001)(46966006)(40470700004)(2616005)(426003)(47076005)(7696005)(8936002)(8676002)(6666004)(478600001)(54906003)(2906002)(40460700003)(82740400003)(40480700001)(36860700001)(316002)(4326008)(6916009)(83380400001)(36756003)(44832011)(70586007)(356005)(70206006)(86362001)(5660300002)(82310400005)(26005)(81166007)(1076003)(336012)(186003)(41300700001)(16526019)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2023 17:20:05.0667 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85e20a0c-ffea-4b4b-e54c-08db82331178
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7335
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: n6Fnwihzb_lU2DPCKZ58uhtNAcMjQTE9
+X-Proofpoint-GUID: n6Fnwihzb_lU2DPCKZ58uhtNAcMjQTE9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-11_09,2023-07-11_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 mlxlogscore=999 spamscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1011 phishscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2305260000
+ definitions=main-2307110154
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,40 +82,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: JinHuiEric.Huang@amd.com, Jonathan Kim <jonathan.kim@amd.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Rob Clark <robdclark@gmail.com>,
+ amd-gfx@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ linux-samsung-soc@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Paul Schyska <pschyska@gmail.com>,
+ Torsten Krah <krah.tm@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Inki Dae <inki.dae@samsung.com>,
+ Alex Deucher <alexander.deucher@amd.com>, linux-tegra@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, freedreno@lists.freedesktop.org, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Moritz Duge <MoritzDuge@kolahilft.de>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The feature to save the dispatch ID in trap temporaries 6 & 7 on context
-save is unconditionally enabled during MQD initialization.
 
-Now that TTMPs are always setup regardless of debug mode for GC 9.4.3, we
-should report that the dispatch ID is always available for debug/trap
-handling.
 
-Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+On 7/10/2023 2:10 AM, Thomas Zimmermann wrote:
+> Generate a hotplug event after registering a client to allow the
+> client to configure its display. Remove the hotplug calls from the
+> existing clients for fbdev emulation. This change fixes a concurrency
+> bug between registering a client and receiving events from the DRM
+> core. The bug is present in the fbdev emulation of all drivers.
+> 
+> The fbdev emulation currently generates a hotplug event before
+> registering the client to the device. For each new output, the DRM
+> core sends an additional hotplug event to each registered client.
+> 
+> If the DRM core detects first output between sending the artificial
+> hotplug and registering the device, the output's hotplug event gets
+> lost. If this is the first output, the fbdev console display remains
+> dark. This has been observed with amdgpu and fbdev-generic.
+> 
+> Fix this by adding hotplug generation directly to the client's
+> register helper drm_client_register(). Registering the client and
+> receiving events are serialized by struct drm_device.clientlist_mutex.
+> So an output is either configured by the initial hotplug event, or
+> the client has already been registered.
+> 
+> The bug was originally added in commit 6e3f17ee73f7 ("drm/fb-helper:
+> generic: Call drm_client_add() after setup is done"), in which adding
+> a client and receiving a hotplug event switched order. It was hidden,
+> as most hardware and drivers have at least on static output configured.
+> Other drivers didn't use the internal DRM client or still had struct
+> drm_mode_config_funcs.output_poll_changed set. That callback handled
+> hotplug events as well. After not setting the callback in amdgpu in
+> commit 0e3172bac3f4 ("drm/amdgpu: Don't set struct
+> drm_driver.output_poll_changed"), amdgpu did not show a framebuffer
+> console if output events got lost. The bug got copy-pasted from
+> fbdev-generic into the other fbdev emulation.
+> 
+> Reported-by: Moritz Duge <MoritzDuge@kolahilft.de>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2649
+> Fixes: 6e3f17ee73f7 ("drm/fb-helper: generic: Call drm_client_add() after setup is done")
+> Fixes: 8ab59da26bc0 ("drm/fb-helper: Move generic fbdev emulation into separate source file")
+> Fixes: b79fe9abd58b ("drm/fbdev-dma: Implement fbdev emulation for GEM DMA helpers")
+> Fixes: 63c381552f69 ("drm/armada: Implement fbdev emulation as in-kernel client")
+> Fixes: 49953b70e7d3 ("drm/exynos: Implement fbdev emulation as in-kernel client")
+> Fixes: 8f1aaccb04b7 ("drm/gma500: Implement client-based fbdev emulation")
+> Fixes: 940b869c2f2f ("drm/msm: Implement fbdev emulation as in-kernel client")
+> Fixes: 9e69bcd88e45 ("drm/omapdrm: Implement fbdev emulation as in-kernel client")
+> Fixes: e317a69fe891 ("drm/radeon: Implement client-based fbdev emulation")
+> Fixes: 71ec16f45ef8 ("drm/tegra: Implement fbdev emulation as in-kernel client")
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Tested-by: Moritz Duge <MoritzDuge@kolahilft.de>
+> Tested-by: Torsten Krah <krah.tm@gmail.com>
+> Tested-by: Paul Schyska <pschyska@gmail.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Noralf Trønnes <noralf@tronnes.org>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Javier Martinez Canillas <javierm@redhat.com>
+> Cc: Russell King <linux@armlinux.org.uk>
+> Cc: Inki Dae <inki.dae@samsung.com>
+> Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
+> Cc: Kyungmin Park <kyungmin.park@samsung.com>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+> Cc: Rob Clark <robdclark@gmail.com>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian König" <christian.koenig@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Cc: Thierry Reding <thierry.reding@gmail.com>
+> Cc: Mikko Perttunen <mperttunen@nvidia.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-samsung-soc@vger.kernel.org
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: freedreno@lists.freedesktop.org
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: linux-tegra@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v5.2+
+> ---
+>   drivers/gpu/drm/armada/armada_fbdev.c     |  4 ----
+>   drivers/gpu/drm/drm_client.c              | 21 +++++++++++++++++++++
+>   drivers/gpu/drm/drm_fbdev_dma.c           |  4 ----
+>   drivers/gpu/drm/drm_fbdev_generic.c       |  4 ----
+>   drivers/gpu/drm/exynos/exynos_drm_fbdev.c |  4 ----
+>   drivers/gpu/drm/gma500/fbdev.c            |  4 ----
+>   drivers/gpu/drm/msm/msm_fbdev.c           |  4 ----
+>   drivers/gpu/drm/omapdrm/omap_fbdev.c      |  4 ----
+>   drivers/gpu/drm/radeon/radeon_fbdev.c     |  4 ----
+>   drivers/gpu/drm/tegra/fbdev.c             |  4 ----
+>   10 files changed, 21 insertions(+), 36 deletions(-)
+> 
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 1a4cdee86759..eeedc3ddffeb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1941,10 +1941,11 @@ static void kfd_topology_set_capabilities(struct kfd_topology_device *dev)
- 				HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX9 |
- 				HSA_DBG_WATCH_ADDR_MASK_HI_BIT;
- 
--		if (KFD_GC_VERSION(dev->gpu) < IP_VERSION(9, 4, 2))
-+		if (KFD_GC_VERSION(dev->gpu) != IP_VERSION(9, 4, 2))
- 			dev->node_props.debug_prop |=
- 				HSA_DBG_DISPATCH_INFO_ALWAYS_VALID;
--		else
-+
-+		if (KFD_GC_VERSION(dev->gpu) >= IP_VERSION(9, 4, 2))
- 			dev->node_props.capability |=
- 				HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED;
- 	} else {
--- 
-2.25.1
-
+Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
