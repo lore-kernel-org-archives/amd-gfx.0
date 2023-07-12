@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7520DEB64D9
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 10:46:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25F4AEB64DA
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 10:56:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E77B810E4D2;
-	Wed, 12 Jul 2023 10:46:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C334210E045;
+	Wed, 12 Jul 2023 10:56:16 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7716310E4DA
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jul 2023 10:46:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5345410E035
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jul 2023 10:56:14 +0000 (UTC)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
  helo=[IPv6:::1]) by metis.ext.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <l.stach@pengutronix.de>)
- id 1qJXMU-0004Hy-Ge; Wed, 12 Jul 2023 12:46:22 +0200
-Message-ID: <1a3f07cb473c520dcd23c4d214f3503441cd7a71.camel@pengutronix.de>
+ id 1qJXVx-0005cG-C5; Wed, 12 Jul 2023 12:56:09 +0200
+Message-ID: <a5a56eb095d124290b21cfb48fa1a9d002ba0c18.camel@pengutronix.de>
 Subject: Re: [PATCH 3/6] drm/amdgpu: Rework coredump to use memory dynamically
 From: Lucas Stach <l.stach@pengutronix.de>
 To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
  =?ISO-8859-1?Q?Andr=E9?= Almeida
  <andrealmeid@igalia.com>, dri-devel@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 12 Jul 2023 12:46:20 +0200
+Date: Wed, 12 Jul 2023 12:56:08 +0200
 In-Reply-To: <3764d627-d632-5754-0bcc-a150c157d9f9@amd.com>
 References: <20230711213501.526237-1-andrealmeid@igalia.com>
  <20230711213501.526237-4-andrealmeid@igalia.com>
@@ -60,6 +60,8 @@ Cc: pierre-eric.pelloux-prayer@amd.com,
  alexander.deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+Sorry, accidentally hit sent on the previous mail.
 
 Am Mittwoch, dem 12.07.2023 um 12:39 +0200 schrieb Christian K=C3=B6nig:
 > Am 12.07.23 um 10:59 schrieb Lucas Stach:
@@ -110,6 +112,19 @@ r,
 =20
 > allocating memory for coredumps.
 >=20
+Hm, if the problem is the direct reclaim path where we might recurse on
+a lock through those indirect dependencies then we should document this
+somewhere. kswapd reclaim should be fine as far as I can see, as we'll
+guarantee progress without waiting for the background reclaim.
+
+I don't think it's appropriate to dip into the atomic allocation
+reserves for a best-effort thing like writing the devcoredump, so I
+think this should be GFP_NOWAIT, which will also avoid the direct
+reclaim path.
+
+Regards,
+Lucas
+
 > Regards,
 > Christian.
 >=20
