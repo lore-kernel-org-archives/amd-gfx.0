@@ -4,89 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0C8CC0015E
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 12:05:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB470EB64D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 12:05:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF12E10E50F;
-	Wed, 12 Jul 2023 12:04:58 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE9D210E4C8
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jul 2023 09:48:35 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1qJWRJ-0001GB-8m; Wed, 12 Jul 2023 11:47:17 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qJWR8-00Dr3H-Ny; Wed, 12 Jul 2023 11:47:06 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qJWR7-004GS6-Io; Wed, 12 Jul 2023 11:47:05 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Guchun Chen <guchun.chen@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Evan Quan <evan.quan@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- =?utf-8?b?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
- David Francis <David.Francis@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Graham Sider <Graham.Sider@amd.com>,
- Lang Yu <Lang.Yu@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- Yifan Zhang <yifan1.zhang@amd.com>, Tim Huang <Tim.Huang@amd.com>,
- Zack Rusin <zackr@vmware.com>, Sam Ravnborg <sam@ravnborg.org>,
- Jani Nikula <jani.nikula@intel.com>, xurui <xurui@kylinos.cn>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- =?utf-8?q?Ma=C3=ADra_Canal?= <mairacanal@riseup.net>,
- =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
- Stylon Wang <stylon.wang@amd.com>, Alan Liu <haoping.liu@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>, Aaron Liu <aaron.liu@amd.com>,
- Melissa Wen <mwen@igalia.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- David Tadokoro <davidbtadokoro@usp.br>, Wenjing Liu <wenjing.liu@amd.com>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alexey Kodanev <aleksei.kodanev@bell-sw.com>, Roman Li <roman.li@amd.com>,
- =?utf-8?q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
- Dave Airlie <airlied@redhat.com>
-Subject: [PATCH RFC v1 03/52] drm/amd: Use struct drm_crtc::drm_dev instead of
- struct drm_crtc::dev
-Date: Wed, 12 Jul 2023 11:46:13 +0200
-Message-Id: <20230712094702.1770121-4-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6817B10E507;
+	Wed, 12 Jul 2023 12:04:59 +0000 (UTC)
+Received: from mslow1.mail.gandi.net (mslow1.mail.gandi.net [217.70.178.240])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DCEB10E4CD;
+ Wed, 12 Jul 2023 10:21:16 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (unknown [IPv6:2001:4b98:dc4:8::229])
+ by mslow1.mail.gandi.net (Postfix) with ESMTP id DCF28D083E;
+ Wed, 12 Jul 2023 10:14:31 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id A814DFF813;
+ Wed, 12 Jul 2023 10:13:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1689156863;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=pUZeSfojSh8tyQKh/pCOiQO/bJAvUa3k92qKX0dswKM=;
+ b=hdRvXwWhgslDICiCkZwZGbTfJKrpN1Anr48dpccrbV0vvt/TF1dEOrGo3SIhj0snd8e3kY
+ SrnIYyH49q2K5lQliRUQOpmQ10mxhIc5ivNuAnsUWBZQzqqXMrVjZ8gNBWVgkiYBLwYe9e
+ UxXPiD0+6i5/bzsvWCZ9UvPlHqvqryHi0UdAMHhHoe0qTkixfzoYvl5aqHYWfpTI211Xuy
+ aIgQBAcuoODejw5o2Z0fqZqIS0RzaKDcpWC15Bz+qrNSkoLKb3cjtnwZaBcDMH108gSwR2
+ 0qBheI52LJU215IQjQt4e4UxQ7sTp4VA1J0YxEXMmm0nY+tY0d2ZBoBosk6F2g==
+Date: Wed, 12 Jul 2023 12:13:38 +0200
+From: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Subject: Re: [PATCH RFC v1 00/52] drm/crtc: Rename struct drm_crtc::dev to
+ drm_dev
+Message-ID: <ZK580kHQrDp_JNCH@aptenodytes>
 References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=49428;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=AgXrC8HZMHNCwk279ieRH2XbWbVSSGC7Hqvw0FA6Lx8=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkrnZZUrwT3suBU8Te/9pzCwag5aAj6itkbTuoV
- 65+xYATZtmJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZK52WQAKCRCPgPtYfRL+
- TgJVCACGO1ejvxd0fVQRSn+USohu8x/1Q1yW4h/seS0cP6TmZZRItrr/NNs1Q5lbTNHl2yRofTH
- mAdfE2D9U/xzyPgxaDc1d0/X+nsqMBsjhKXyoq4/0pZniZIX1t7gX+WDEbfacZzM62mQz6gwfS1
- Y+fe8Atn6NUxEa23mBVcUxJS2BV3KQ9wKkwUzf+gLSAe+k5q3TwA26cnnhnvIyylGlcuGOLkf59
- pensZPkwqfWWAS6JpN9DrSFCM9XodHSpjFlWmXsTS0iA6Hva/IdL3zGxG01KgyBFRQZ8t1w5B+g
- FLH/Mup0fj47Rk2beK30yvewLnomCekZDN76O9iNdrY3vjh4
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: amd-gfx@lists.freedesktop.org
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="DbTmTNcmEZJ3sxG3"
+Content-Disposition: inline
+In-Reply-To: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+X-GND-Sasl: paul.kocialkowski@bootlin.com
 X-Mailman-Approved-At: Wed, 12 Jul 2023 12:04:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,1161 +53,541 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel@pengutronix.de, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Marian Cichy <m.cichy@pengutronix.de>, Xinliang Liu <xinliang.liu@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Alexey Kodanev <aleksei.kodanev@bell-sw.com>, dri-devel@lists.freedesktop.org,
+ Vandita Kulkarni <vandita.kulkarni@intel.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Arun R Murthy <arun.r.murthy@intel.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Liu Shixin <liushixin2@huawei.com>, linux-samsung-soc@vger.kernel.org,
+ Samuel Holland <samuel@sholland.org>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
+ Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
+ spice-devel@lists.freedesktop.org,
+ Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
+ linux-sunxi@lists.linux.dev, Stylon Wang <stylon.wang@amd.com>,
+ Tim Huang <Tim.Huang@amd.com>, Suraj Kandpal <suraj.kandpal@intel.com>,
+ =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, Yifan Zhang <yifan1.zhang@amd.com>,
+ Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ =?utf-8?Q?=C5=81ukasz?= Bartosik <lb@semihalf.com>,
+ Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Manasi Navare <manasi.d.navare@intel.com>,
+ Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin <zackr@vmware.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
+ Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+ Edmund Dea <edmund.j.dea@intel.com>,
+ =?utf-8?B?Sm9zw6k=?= Roberto de Souza <jose.souza@intel.com>,
+ virtualization@lists.linux-foundation.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ Mario Limonciello <mario.limonciello@amd.com>, Fei Yang <fei.yang@intel.com>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ David Lechner <david@lechnology.com>,
+ Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
+ "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>,
+ David Francis <David.Francis@amd.com>, Aaron Liu <aaron.liu@amd.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, linux-rockchip@lists.infradead.org,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>,
+ Jouni =?utf-8?B?SMO2Z2FuZGVy?= <jouni.hogander@intel.com>,
+ Dave Airlie <airlied@redhat.com>, linux-mips@vger.kernel.org,
+ Graham Sider <Graham.Sider@amd.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Animesh Manna <animesh.manna@intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-amlogic@lists.infradead.org,
+ Evan Quan <evan.quan@amd.com>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org, Sean Paul <sean@poorly.run>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Boris Brezillon <bbrezillon@kernel.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Sandy Huang <hjc@rock-chips.com>,
+ Swati Sharma <swati2.sharma@intel.com>, John Stultz <jstultz@google.com>,
+ linux-renesas-soc@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
+ Drew Davenport <ddavenport@chromium.org>, Kevin Hilman <khilman@baylibre.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Anusha Srivatsa <anusha.srivatsa@intel.com>, Dan Carpenter <error27@gmail.com>,
+ Karol Herbst <kherbst@redhat.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ linux-hyperv@vger.kernel.org, Stefan Agner <stefan@agner.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mairacanal@riseup.net>,
+ Luca Coelho <luciano.coelho@intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Alain Volmat <alain.volmat@foss.st.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Deepak Rawat <drawat.floss@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Joel Stanley <joel@jms.id.au>, xurui <xurui@kylinos.cn>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Alan Liu <haoping.liu@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>, intel-gfx@lists.freedesktop.org,
+ Alison Wang <alison.wang@nxp.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Gustavo Sousa <gustavo.sousa@intel.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Chia-I Wu <olvaffe@gmail.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Khaled Almahallawy <khaled.almahallawy@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Imre Deak <imre.deak@intel.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Roman Li <roman.li@amd.com>,
+ Paul Cercueil <paul@crapouillou.net>, Rob Clark <robdclark@gmail.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, David Airlie <airlied@gmail.com>,
+ Marek Vasut <marex@denx.de>, Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ xen-devel@lists.xenproject.org, Guchun Chen <guchun.chen@amd.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Russell King <linux@armlinux.org.uk>, Leo Li <sunpeng.li@amd.com>,
+ Uma Shankar <uma.shankar@intel.com>, Mika Kahola <mika.kahola@intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Vinod Govindapillai <vinod.govindapillai@intel.com>,
+ linux-tegra@vger.kernel.org,
+ Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ =?utf-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
+ Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
+ linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ David Tadokoro <davidbtadokoro@usp.br>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Orson Zhai <orsonzhai@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Jyri Sarha <jyri.sarha@iki.fi>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Philippe Cornu <philippe.cornu@foss.st.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Wayne Lin <Wayne.Lin@amd.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prepare dropping the alias "dev" for struct drm_crtc::drm_dev. "drm_dev"
-is the better name as "dev" is usually a struct device pointer.
 
-No semantic changes.
+--DbTmTNcmEZJ3sxG3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 18 ++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  6 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c       |  6 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |  8 ++---
- drivers/gpu/drm/amd/amdgpu/atombios_crtc.c    | 22 +++++++-------
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        | 26 ++++++++---------
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        | 28 +++++++++---------
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         | 26 ++++++++---------
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         | 26 ++++++++---------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 29 ++++++++++---------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 20 ++++++-------
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  8 ++---
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 22 +++++++-------
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  2 +-
- 14 files changed, 125 insertions(+), 122 deletions(-)
+Hi Uwe,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index b702f499f5fb..cc796e56c3d7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -147,14 +147,14 @@ static void amdgpu_display_flip_work_func(struct work_struct *__work)
- 	}
- 
- 	/* We borrow the event spin lock for protecting flip_status */
--	spin_lock_irqsave(&crtc->dev->event_lock, flags);
-+	spin_lock_irqsave(&crtc->drm_dev->event_lock, flags);
- 
- 	/* Do the flip (mmio) */
- 	adev->mode_info.funcs->page_flip(adev, work->crtc_id, work->base, work->async);
- 
- 	/* Set the flip status */
- 	amdgpu_crtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
--	spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
-+	spin_unlock_irqrestore(&crtc->drm_dev->event_lock, flags);
- 
- 
- 	drm_dbg_vbl(adev_to_drm(adev),
-@@ -191,7 +191,7 @@ int amdgpu_display_crtc_page_flip_target(struct drm_crtc *crtc,
- 				uint32_t page_flip_flags, uint32_t target,
- 				struct drm_modeset_acquire_ctx *ctx)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	struct drm_gem_object *obj;
-@@ -262,10 +262,10 @@ int amdgpu_display_crtc_page_flip_target(struct drm_crtc *crtc,
- 		amdgpu_get_vblank_counter_kms(crtc);
- 
- 	/* we borrow the event spin lock for protecting flip_wrok */
--	spin_lock_irqsave(&crtc->dev->event_lock, flags);
-+	spin_lock_irqsave(&crtc->drm_dev->event_lock, flags);
- 	if (amdgpu_crtc->pflip_status != AMDGPU_FLIP_NONE) {
- 		DRM_DEBUG_DRIVER("flip queue: crtc already busy\n");
--		spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
-+		spin_unlock_irqrestore(&crtc->drm_dev->event_lock, flags);
- 		r = -EBUSY;
- 		goto pflip_cleanup;
- 	}
-@@ -278,7 +278,7 @@ int amdgpu_display_crtc_page_flip_target(struct drm_crtc *crtc,
- 					 amdgpu_crtc->crtc_id, amdgpu_crtc, work);
- 	/* update crtc fb */
- 	crtc->primary->fb = fb;
--	spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
-+	spin_unlock_irqrestore(&crtc->drm_dev->event_lock, flags);
- 	amdgpu_display_flip_work_func(&work->flip_work.work);
- 	return 0;
- 
-@@ -316,7 +316,7 @@ int amdgpu_display_crtc_set_config(struct drm_mode_set *set,
- 	if (!set || !set->crtc)
- 		return -EINVAL;
- 
--	dev = set->crtc->dev;
-+	dev = set->crtc->drm_dev;
- 
- 	ret = pm_runtime_get_sync(dev->dev);
- 	if (ret < 0)
-@@ -1353,7 +1353,7 @@ bool amdgpu_display_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
- 					const struct drm_display_mode *mode,
- 					struct drm_display_mode *adjusted_mode)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct drm_encoder *encoder;
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	struct amdgpu_encoder *amdgpu_encoder;
-@@ -1587,7 +1587,7 @@ bool amdgpu_crtc_get_scanout_position(struct drm_crtc *crtc,
- 			int *hpos, ktime_t *stime, ktime_t *etime,
- 			const struct drm_display_mode *mode)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	unsigned int pipe = crtc->index;
- 
- 	return amdgpu_display_get_crtc_scanoutpos(dev, pipe, 0, vpos, hpos,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index cca5a495611f..4428876461f8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1368,7 +1368,7 @@ void amdgpu_driver_release_kms(struct drm_device *dev)
-  */
- u32 amdgpu_get_vblank_counter_kms(struct drm_crtc *crtc)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	unsigned int pipe = crtc->index;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	int vpos, hpos, stat;
-@@ -1436,7 +1436,7 @@ u32 amdgpu_get_vblank_counter_kms(struct drm_crtc *crtc)
-  */
- int amdgpu_enable_vblank_kms(struct drm_crtc *crtc)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	unsigned int pipe = crtc->index;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	int idx = amdgpu_display_crtc_idx_to_irq_type(adev, pipe);
-@@ -1453,7 +1453,7 @@ int amdgpu_enable_vblank_kms(struct drm_crtc *crtc)
-  */
- void amdgpu_disable_vblank_kms(struct drm_crtc *crtc)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	unsigned int pipe = crtc->index;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	int idx = amdgpu_display_crtc_idx_to_irq_type(adev, pipe);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
-index 0bb2466d539a..fb06bc8d1a93 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c
-@@ -268,7 +268,7 @@ void amdgpu_pll_compute(struct amdgpu_device *adev,
-  */
- u32 amdgpu_pll_get_use_mask(struct drm_crtc *crtc)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct drm_crtc *test_crtc;
- 	struct amdgpu_crtc *test_amdgpu_crtc;
- 	u32 pll_in_use = 0;
-@@ -295,7 +295,7 @@ u32 amdgpu_pll_get_use_mask(struct drm_crtc *crtc)
-  */
- int amdgpu_pll_get_shared_dp_ppll(struct drm_crtc *crtc)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct drm_crtc *test_crtc;
- 	struct amdgpu_crtc *test_amdgpu_crtc;
- 
-@@ -324,7 +324,7 @@ int amdgpu_pll_get_shared_dp_ppll(struct drm_crtc *crtc)
- int amdgpu_pll_get_shared_nondp_ppll(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct drm_crtc *test_crtc;
- 	struct amdgpu_crtc *test_amdgpu_crtc;
- 	u32 adjusted_clock, test_adjusted_clock;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index 53ff91fc6cf6..bd962b17b186 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -63,7 +63,7 @@ static enum hrtimer_restart amdgpu_vkms_vblank_simulate(struct hrtimer *timer)
- 
- static int amdgpu_vkms_enable_vblank(struct drm_crtc *crtc)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	unsigned int pipe = drm_crtc_index(crtc);
- 	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
- 	struct amdgpu_vkms_output *out = drm_crtc_to_amdgpu_vkms_output(crtc);
-@@ -89,7 +89,7 @@ static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc *crtc,
- 					     ktime_t *vblank_time,
- 					     bool in_vblank_irq)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	unsigned int pipe = crtc->index;
- 	struct amdgpu_vkms_output *output = drm_crtc_to_amdgpu_vkms_output(crtc);
- 	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
-@@ -146,14 +146,14 @@ static void amdgpu_vkms_crtc_atomic_flush(struct drm_crtc *crtc,
- {
- 	unsigned long flags;
- 	if (crtc->state->event) {
--		spin_lock_irqsave(&crtc->dev->event_lock, flags);
-+		spin_lock_irqsave(&crtc->drm_dev->event_lock, flags);
- 
- 		if (drm_crtc_vblank_get(crtc) != 0)
- 			drm_crtc_send_vblank_event(crtc, crtc->state->event);
- 		else
- 			drm_crtc_arm_vblank_event(crtc, crtc->state->event);
- 
--		spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
-+		spin_unlock_irqrestore(&crtc->drm_dev->event_lock, flags);
- 
- 		crtc->state->event = NULL;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c b/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c
-index 10098fdd33fc..89d90c0d1b5f 100644
---- a/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c
-@@ -39,7 +39,7 @@ void amdgpu_atombios_crtc_overscan_setup(struct drm_crtc *crtc,
- 				  struct drm_display_mode *mode,
- 				  struct drm_display_mode *adjusted_mode)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	SET_CRTC_OVERSCAN_PS_ALLOCATION args;
-@@ -82,7 +82,7 @@ void amdgpu_atombios_crtc_overscan_setup(struct drm_crtc *crtc,
- 
- void amdgpu_atombios_crtc_scaler_setup(struct drm_crtc *crtc)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	ENABLE_SCALER_PS_ALLOCATION args;
-@@ -112,7 +112,7 @@ void amdgpu_atombios_crtc_scaler_setup(struct drm_crtc *crtc)
- void amdgpu_atombios_crtc_lock(struct drm_crtc *crtc, int lock)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	int index =
- 	    GetIndexIntoMasterTable(COMMAND, UpdateCRTC_DoubleBufferRegisters);
-@@ -129,7 +129,7 @@ void amdgpu_atombios_crtc_lock(struct drm_crtc *crtc, int lock)
- void amdgpu_atombios_crtc_enable(struct drm_crtc *crtc, int state)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	int index = GetIndexIntoMasterTable(COMMAND, EnableCRTC);
- 	ENABLE_CRTC_PS_ALLOCATION args;
-@@ -145,7 +145,7 @@ void amdgpu_atombios_crtc_enable(struct drm_crtc *crtc, int state)
- void amdgpu_atombios_crtc_blank(struct drm_crtc *crtc, int state)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	int index = GetIndexIntoMasterTable(COMMAND, BlankCRTC);
- 	BLANK_CRTC_PS_ALLOCATION args;
-@@ -161,7 +161,7 @@ void amdgpu_atombios_crtc_blank(struct drm_crtc *crtc, int state)
- void amdgpu_atombios_crtc_powergate(struct drm_crtc *crtc, int state)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	int index = GetIndexIntoMasterTable(COMMAND, EnableDispPowerGating);
- 	ENABLE_DISP_POWER_GATING_PS_ALLOCATION args;
-@@ -190,7 +190,7 @@ void amdgpu_atombios_crtc_set_dtd_timing(struct drm_crtc *crtc,
- 				  struct drm_display_mode *mode)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	SET_CRTC_USING_DTD_TIMING_PARAMETERS args;
- 	int index = GetIndexIntoMasterTable(COMMAND, SetCRTC_UsingDTDTiming);
-@@ -305,7 +305,7 @@ static u32 amdgpu_atombios_crtc_adjust_pll(struct drm_crtc *crtc,
- 				    struct drm_display_mode *mode)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct drm_encoder *encoder = amdgpu_crtc->encoder;
- 	struct amdgpu_encoder *amdgpu_encoder = to_amdgpu_encoder(encoder);
-@@ -586,7 +586,7 @@ void amdgpu_atombios_crtc_program_pll(struct drm_crtc *crtc,
- 				      bool ss_enabled,
- 				      struct amdgpu_atom_ss *ss)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u8 frev, crev;
- 	int index = GetIndexIntoMasterTable(COMMAND, SetPixelClock);
-@@ -747,7 +747,7 @@ int amdgpu_atombios_crtc_prepare_pll(struct drm_crtc *crtc,
- 			      struct drm_display_mode *mode)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_encoder *amdgpu_encoder =
- 		to_amdgpu_encoder(amdgpu_crtc->encoder);
-@@ -816,7 +816,7 @@ int amdgpu_atombios_crtc_prepare_pll(struct drm_crtc *crtc,
- void amdgpu_atombios_crtc_set_pll(struct drm_crtc *crtc, struct drm_display_mode *mode)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_encoder *amdgpu_encoder =
- 		to_amdgpu_encoder(amdgpu_crtc->encoder);
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index 9a24ed463abd..9f232aebb3f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -1824,7 +1824,7 @@ static const u32 vga_control_regs[6] =
- static void dce_v10_0_vga_enable(struct drm_crtc *crtc, bool enable)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u32 vga_control;
- 
-@@ -1838,7 +1838,7 @@ static void dce_v10_0_vga_enable(struct drm_crtc *crtc, bool enable)
- static void dce_v10_0_grph_enable(struct drm_crtc *crtc, bool enable)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 
- 	if (enable)
-@@ -1852,7 +1852,7 @@ static int dce_v10_0_crtc_do_set_base(struct drm_crtc *crtc,
- 				     int x, int y, int atomic)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct drm_framebuffer *target_fb;
- 	struct drm_gem_object *obj;
-@@ -2096,7 +2096,7 @@ static int dce_v10_0_crtc_do_set_base(struct drm_crtc *crtc,
- static void dce_v10_0_set_interleave(struct drm_crtc *crtc,
- 				     struct drm_display_mode *mode)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	u32 tmp;
-@@ -2112,7 +2112,7 @@ static void dce_v10_0_set_interleave(struct drm_crtc *crtc,
- static void dce_v10_0_crtc_load_lut(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u16 *r, *g, *b;
- 	int i;
-@@ -2247,7 +2247,7 @@ static int dce_v10_0_pick_dig_encoder(struct drm_encoder *encoder)
- static u32 dce_v10_0_pick_pll(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u32 pll_in_use;
- 	int pll;
-@@ -2283,7 +2283,7 @@ static u32 dce_v10_0_pick_pll(struct drm_crtc *crtc)
- 
- static void dce_v10_0_lock_cursor(struct drm_crtc *crtc, bool lock)
- {
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	uint32_t cur_lock;
- 
-@@ -2298,7 +2298,7 @@ static void dce_v10_0_lock_cursor(struct drm_crtc *crtc, bool lock)
- static void dce_v10_0_hide_cursor(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	u32 tmp;
- 
- 	tmp = RREG32(mmCUR_CONTROL + amdgpu_crtc->crtc_offset);
-@@ -2309,7 +2309,7 @@ static void dce_v10_0_hide_cursor(struct drm_crtc *crtc)
- static void dce_v10_0_show_cursor(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	u32 tmp;
- 
- 	WREG32(mmCUR_SURFACE_ADDRESS_HIGH + amdgpu_crtc->crtc_offset,
-@@ -2327,7 +2327,7 @@ static int dce_v10_0_cursor_move_locked(struct drm_crtc *crtc,
- 					int x, int y)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	int xorigin = 0, yorigin = 0;
- 
- 	amdgpu_crtc->cursor_x = x;
-@@ -2500,7 +2500,7 @@ static const struct drm_crtc_funcs dce_v10_0_crtc_funcs = {
- 
- static void dce_v10_0_crtc_dpms(struct drm_crtc *crtc, int mode)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	unsigned type;
-@@ -2554,7 +2554,7 @@ static void dce_v10_0_crtc_commit(struct drm_crtc *crtc)
- static void dce_v10_0_crtc_disable(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_atom_ss ss;
- 	int i;
-@@ -2635,7 +2635,7 @@ static bool dce_v10_0_crtc_mode_fixup(struct drm_crtc *crtc,
- 				     struct drm_display_mode *adjusted_mode)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct drm_encoder *encoder;
- 
- 	/* assign the encoder to the amdgpu crtc to avoid repeated lookups later */
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-index c14b70350a51..a9b5549614b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-@@ -1866,7 +1866,7 @@ static const u32 vga_control_regs[6] =
- static void dce_v11_0_vga_enable(struct drm_crtc *crtc, bool enable)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u32 vga_control;
- 
-@@ -1880,7 +1880,7 @@ static void dce_v11_0_vga_enable(struct drm_crtc *crtc, bool enable)
- static void dce_v11_0_grph_enable(struct drm_crtc *crtc, bool enable)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 
- 	if (enable)
-@@ -1894,7 +1894,7 @@ static int dce_v11_0_crtc_do_set_base(struct drm_crtc *crtc,
- 				     int x, int y, int atomic)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct drm_framebuffer *target_fb;
- 	struct drm_gem_object *obj;
-@@ -2138,7 +2138,7 @@ static int dce_v11_0_crtc_do_set_base(struct drm_crtc *crtc,
- static void dce_v11_0_set_interleave(struct drm_crtc *crtc,
- 				     struct drm_display_mode *mode)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	u32 tmp;
-@@ -2154,7 +2154,7 @@ static void dce_v11_0_set_interleave(struct drm_crtc *crtc,
- static void dce_v11_0_crtc_load_lut(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u16 *r, *g, *b;
- 	int i;
-@@ -2280,7 +2280,7 @@ static int dce_v11_0_pick_dig_encoder(struct drm_encoder *encoder)
- static u32 dce_v11_0_pick_pll(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u32 pll_in_use;
- 	int pll;
-@@ -2359,7 +2359,7 @@ static u32 dce_v11_0_pick_pll(struct drm_crtc *crtc)
- 
- static void dce_v11_0_lock_cursor(struct drm_crtc *crtc, bool lock)
- {
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	uint32_t cur_lock;
- 
-@@ -2374,7 +2374,7 @@ static void dce_v11_0_lock_cursor(struct drm_crtc *crtc, bool lock)
- static void dce_v11_0_hide_cursor(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	u32 tmp;
- 
- 	tmp = RREG32(mmCUR_CONTROL + amdgpu_crtc->crtc_offset);
-@@ -2385,7 +2385,7 @@ static void dce_v11_0_hide_cursor(struct drm_crtc *crtc)
- static void dce_v11_0_show_cursor(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	u32 tmp;
- 
- 	WREG32(mmCUR_SURFACE_ADDRESS_HIGH + amdgpu_crtc->crtc_offset,
-@@ -2403,7 +2403,7 @@ static int dce_v11_0_cursor_move_locked(struct drm_crtc *crtc,
- 					int x, int y)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	int xorigin = 0, yorigin = 0;
- 
- 	amdgpu_crtc->cursor_x = x;
-@@ -2576,7 +2576,7 @@ static const struct drm_crtc_funcs dce_v11_0_crtc_funcs = {
- 
- static void dce_v11_0_crtc_dpms(struct drm_crtc *crtc, int mode)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	unsigned type;
-@@ -2630,7 +2630,7 @@ static void dce_v11_0_crtc_commit(struct drm_crtc *crtc)
- static void dce_v11_0_crtc_disable(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_atom_ss ss;
- 	int i;
-@@ -2700,7 +2700,7 @@ static int dce_v11_0_crtc_mode_set(struct drm_crtc *crtc,
- 				  int x, int y, struct drm_framebuffer *old_fb)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 
- 	if (!amdgpu_crtc->adjusted_clock)
-@@ -2740,7 +2740,7 @@ static bool dce_v11_0_crtc_mode_fixup(struct drm_crtc *crtc,
- 				     struct drm_display_mode *adjusted_mode)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct drm_encoder *encoder;
- 
- 	/* assign the encoder to the amdgpu crtc to avoid repeated lookups later */
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index 7f85ba5b726f..4c6a4d6cae02 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -1789,7 +1789,7 @@ static const u32 vga_control_regs[6] =
- static void dce_v6_0_vga_enable(struct drm_crtc *crtc, bool enable)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u32 vga_control;
- 
-@@ -1800,7 +1800,7 @@ static void dce_v6_0_vga_enable(struct drm_crtc *crtc, bool enable)
- static void dce_v6_0_grph_enable(struct drm_crtc *crtc, bool enable)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 
- 	WREG32(mmGRPH_ENABLE + amdgpu_crtc->crtc_offset, enable ? 1 : 0);
-@@ -1811,7 +1811,7 @@ static int dce_v6_0_crtc_do_set_base(struct drm_crtc *crtc,
- 				     int x, int y, int atomic)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct drm_framebuffer *target_fb;
- 	struct drm_gem_object *obj;
-@@ -2033,7 +2033,7 @@ static int dce_v6_0_crtc_do_set_base(struct drm_crtc *crtc,
- static void dce_v6_0_set_interleave(struct drm_crtc *crtc,
- 				    struct drm_display_mode *mode)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 
-@@ -2048,7 +2048,7 @@ static void dce_v6_0_crtc_load_lut(struct drm_crtc *crtc)
- {
- 
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u16 *r, *g, *b;
- 	int i;
-@@ -2148,7 +2148,7 @@ static int dce_v6_0_pick_dig_encoder(struct drm_encoder *encoder)
- static u32 dce_v6_0_pick_pll(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u32 pll_in_use;
- 	int pll;
-@@ -2178,7 +2178,7 @@ static u32 dce_v6_0_pick_pll(struct drm_crtc *crtc)
- 
- static void dce_v6_0_lock_cursor(struct drm_crtc *crtc, bool lock)
- {
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	uint32_t cur_lock;
- 
-@@ -2193,7 +2193,7 @@ static void dce_v6_0_lock_cursor(struct drm_crtc *crtc, bool lock)
- static void dce_v6_0_hide_cursor(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 
- 	WREG32(mmCUR_CONTROL + amdgpu_crtc->crtc_offset,
- 	       (CURSOR_24_8_PRE_MULT << CUR_CONTROL__CURSOR_MODE__SHIFT) |
-@@ -2205,7 +2205,7 @@ static void dce_v6_0_hide_cursor(struct drm_crtc *crtc)
- static void dce_v6_0_show_cursor(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 
- 	WREG32(mmCUR_SURFACE_ADDRESS_HIGH + amdgpu_crtc->crtc_offset,
- 	       upper_32_bits(amdgpu_crtc->cursor_addr));
-@@ -2223,7 +2223,7 @@ static int dce_v6_0_cursor_move_locked(struct drm_crtc *crtc,
- 				       int x, int y)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	int xorigin = 0, yorigin = 0;
- 
- 	int w = amdgpu_crtc->cursor_width;
-@@ -2397,7 +2397,7 @@ static const struct drm_crtc_funcs dce_v6_0_crtc_funcs = {
- 
- static void dce_v6_0_crtc_dpms(struct drm_crtc *crtc, int mode)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	unsigned type;
-@@ -2447,7 +2447,7 @@ static void dce_v6_0_crtc_disable(struct drm_crtc *crtc)
- {
- 
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_atom_ss ss;
- 	int i;
-@@ -2528,7 +2528,7 @@ static bool dce_v6_0_crtc_mode_fixup(struct drm_crtc *crtc,
- {
- 
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct drm_encoder *encoder;
- 
- 	/* assign the encoder to the amdgpu crtc to avoid repeated lookups later */
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index d421a268c9ff..b15152265909 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -1753,7 +1753,7 @@ static const u32 vga_control_regs[6] =
- static void dce_v8_0_vga_enable(struct drm_crtc *crtc, bool enable)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u32 vga_control;
- 
-@@ -1767,7 +1767,7 @@ static void dce_v8_0_vga_enable(struct drm_crtc *crtc, bool enable)
- static void dce_v8_0_grph_enable(struct drm_crtc *crtc, bool enable)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 
- 	if (enable)
-@@ -1781,7 +1781,7 @@ static int dce_v8_0_crtc_do_set_base(struct drm_crtc *crtc,
- 				     int x, int y, int atomic)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct drm_framebuffer *target_fb;
- 	struct drm_gem_object *obj;
-@@ -2005,7 +2005,7 @@ static int dce_v8_0_crtc_do_set_base(struct drm_crtc *crtc,
- static void dce_v8_0_set_interleave(struct drm_crtc *crtc,
- 				    struct drm_display_mode *mode)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 
-@@ -2019,7 +2019,7 @@ static void dce_v8_0_set_interleave(struct drm_crtc *crtc,
- static void dce_v8_0_crtc_load_lut(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u16 *r, *g, *b;
- 	int i;
-@@ -2137,7 +2137,7 @@ static int dce_v8_0_pick_dig_encoder(struct drm_encoder *encoder)
- static u32 dce_v8_0_pick_pll(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	u32 pll_in_use;
- 	int pll;
-@@ -2186,7 +2186,7 @@ static u32 dce_v8_0_pick_pll(struct drm_crtc *crtc)
- 
- static void dce_v8_0_lock_cursor(struct drm_crtc *crtc, bool lock)
- {
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	uint32_t cur_lock;
- 
-@@ -2201,7 +2201,7 @@ static void dce_v8_0_lock_cursor(struct drm_crtc *crtc, bool lock)
- static void dce_v8_0_hide_cursor(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 
- 	WREG32(mmCUR_CONTROL + amdgpu_crtc->crtc_offset,
- 	       (CURSOR_24_8_PRE_MULT << CUR_CONTROL__CURSOR_MODE__SHIFT) |
-@@ -2211,7 +2211,7 @@ static void dce_v8_0_hide_cursor(struct drm_crtc *crtc)
- static void dce_v8_0_show_cursor(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 
- 	WREG32(mmCUR_SURFACE_ADDRESS_HIGH + amdgpu_crtc->crtc_offset,
- 	       upper_32_bits(amdgpu_crtc->cursor_addr));
-@@ -2228,7 +2228,7 @@ static int dce_v8_0_cursor_move_locked(struct drm_crtc *crtc,
- 				       int x, int y)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	int xorigin = 0, yorigin = 0;
- 
- 	amdgpu_crtc->cursor_x = x;
-@@ -2401,7 +2401,7 @@ static const struct drm_crtc_funcs dce_v8_0_crtc_funcs = {
- 
- static void dce_v8_0_crtc_dpms(struct drm_crtc *crtc, int mode)
- {
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	unsigned type;
-@@ -2455,7 +2455,7 @@ static void dce_v8_0_crtc_commit(struct drm_crtc *crtc)
- static void dce_v8_0_crtc_disable(struct drm_crtc *crtc)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct amdgpu_device *adev = drm_to_adev(dev);
- 	struct amdgpu_atom_ss ss;
- 	int i;
-@@ -2543,7 +2543,7 @@ static bool dce_v8_0_crtc_mode_fixup(struct drm_crtc *crtc,
- 				     struct drm_display_mode *adjusted_mode)
- {
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct drm_encoder *encoder;
- 
- 	/* assign the encoder to the amdgpu crtc to avoid repeated lookups later */
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ff0a217b9d56..d4a4971b8f69 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -515,7 +515,7 @@ static void dm_vupdate_high_irq(void *interrupt_params)
- 
- 	if (acrtc) {
- 		vrr_active = amdgpu_dm_crtc_vrr_active_irq(acrtc);
--		drm_dev = acrtc->base.dev;
-+		drm_dev = acrtc->base.drm_dev;
- 		vblank = &drm_dev->vblank[acrtc->base.index];
- 		previous_timestamp = atomic64_read(&irq_params->previous_timestamp);
- 		frame_duration_ns = vblank->time - previous_timestamp;
-@@ -7760,7 +7760,7 @@ static void remove_stream(struct amdgpu_device *adev,
- static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
- {
- 
--	assert_spin_locked(&acrtc->base.dev->event_lock);
-+	assert_spin_locked(&acrtc->base.drm_dev->event_lock);
- 	WARN_ON(acrtc->event);
- 
- 	acrtc->event = acrtc->base.state->event;
-@@ -8178,9 +8178,10 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			 * timing control and more opportunity to avoid stutter
- 			 * on late submission of flips.
- 			 */
--			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
-+			spin_lock_irqsave(&pcrtc->drm_dev->event_lock, flags);
- 			last_flip_vblank = acrtc_attach->dm_irq_params.last_flip_vblank;
--			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
-+			spin_unlock_irqrestore(&pcrtc->drm_dev->event_lock,
-+					       flags);
- 		}
- 
- 		target_vblank = last_flip_vblank + wait_for_vblank;
-@@ -8212,12 +8213,13 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 		    acrtc_state->active_planes > 0) {
- 			drm_crtc_vblank_get(pcrtc);
- 
--			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
-+			spin_lock_irqsave(&pcrtc->drm_dev->event_lock, flags);
- 
- 			WARN_ON(acrtc_attach->pflip_status != AMDGPU_FLIP_NONE);
- 			prepare_flip_isr(acrtc_attach);
- 
--			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
-+			spin_unlock_irqrestore(&pcrtc->drm_dev->event_lock,
-+					       flags);
- 		}
- 
- 		if (acrtc_state->stream) {
-@@ -8229,12 +8231,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 		   acrtc_attach->base.state->event) {
- 		drm_crtc_vblank_get(pcrtc);
- 
--		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
-+		spin_lock_irqsave(&pcrtc->drm_dev->event_lock, flags);
- 
- 		acrtc_attach->event = acrtc_attach->base.state->event;
- 		acrtc_attach->base.state->event = NULL;
- 
--		spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
-+		spin_unlock_irqrestore(&pcrtc->drm_dev->event_lock, flags);
- 	}
- 
- 	/* Update the planes if changed or disable if we don't have any. */
-@@ -8282,11 +8284,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 		 * as part of commit.
- 		 */
- 		if (is_dc_timing_adjust_needed(dm_old_crtc_state, acrtc_state)) {
--			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
-+			spin_lock_irqsave(&pcrtc->drm_dev->event_lock, flags);
- 			dc_stream_adjust_vmin_vmax(
- 				dm->dc, acrtc_state->stream,
- 				&acrtc_attach->dm_irq_params.vrr_params.adjust);
--			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
-+			spin_unlock_irqrestore(&pcrtc->drm_dev->event_lock,
-+					       flags);
- 		}
- 		mutex_lock(&dm->dc_lock);
- 		update_planes_and_stream_adapter(dm->dc,
-@@ -9585,7 +9588,7 @@ static int dm_check_cursor_fb(struct amdgpu_crtc *new_acrtc,
- 			      struct drm_plane_state *new_plane_state,
- 			      struct drm_framebuffer *fb)
- {
--	struct amdgpu_device *adev = drm_to_adev(new_acrtc->base.dev);
-+	struct amdgpu_device *adev = drm_to_adev(new_acrtc->base.drm_dev);
- 	struct amdgpu_framebuffer *afb = to_amdgpu_framebuffer(fb);
- 	unsigned int pitch;
- 	bool linear;
-@@ -9770,7 +9773,7 @@ static int dm_update_plane_state(struct dc *dc,
- 				 plane->base.id, new_plane_crtc->base.id);
- 
- 		ret = fill_dc_plane_attributes(
--			drm_to_adev(new_plane_crtc->dev),
-+			drm_to_adev(new_plane_crtc->drm_dev),
- 			dc_new_plane_state,
- 			new_plane_state,
- 			new_crtc_state);
-@@ -9877,7 +9880,7 @@ static int dm_check_crtc_cursor(struct drm_atomic_state *state,
- 
- 		if (cursor_scale_w != underlying_scale_w ||
- 		    cursor_scale_h != underlying_scale_h) {
--			drm_dbg_atomic(crtc->dev,
-+			drm_dbg_atomic(crtc->drm_dev,
- 				       "Cursor [PLANE:%d:%s] scaling doesn't match underlying [PLANE:%d:%s]\n",
- 				       cursor->base.id, cursor->name, underlying->base.id, underlying->name);
- 			return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-index 0802f8e8fac5..502ace480b99 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-@@ -85,7 +85,7 @@ const char *const *amdgpu_dm_crtc_get_crc_sources(struct drm_crtc *crtc,
- #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
- static void amdgpu_dm_set_crc_window_default(struct drm_crtc *crtc, struct dc_stream_state *stream)
- {
--	struct drm_device *drm_dev = crtc->dev;
-+	struct drm_device *drm_dev = crtc->drm_dev;
- 	struct amdgpu_display_manager *dm = &drm_to_adev(drm_dev)->dm;
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
- 	bool was_activated;
-@@ -127,7 +127,7 @@ static void amdgpu_dm_crtc_notify_ta_to_read(struct work_struct *work)
- 		return;
- 	}
- 
--	psp = &drm_to_adev(crtc->dev)->psp;
-+	psp = &drm_to_adev(crtc->drm_dev)->psp;
- 
- 	if (!psp->securedisplay_context.context.initialized) {
- 		DRM_DEBUG_DRIVER("Secure Display fails to notify PSP TA\n");
-@@ -173,7 +173,7 @@ amdgpu_dm_forward_crc_window(struct work_struct *work)
- 	if (!crtc)
- 		return;
- 
--	dm = &drm_to_adev(crtc->dev)->dm;
-+	dm = &drm_to_adev(crtc->drm_dev)->dm;
- 	stream = to_amdgpu_crtc(crtc)->dm_irq_params.stream;
- 
- 	mutex_lock(&dm->dc_lock);
-@@ -183,7 +183,7 @@ amdgpu_dm_forward_crc_window(struct work_struct *work)
- 
- bool amdgpu_dm_crc_window_is_activated(struct drm_crtc *crtc)
- {
--	struct drm_device *drm_dev = crtc->dev;
-+	struct drm_device *drm_dev = crtc->drm_dev;
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
- 	bool ret = false;
- 
-@@ -215,7 +215,7 @@ int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc *crtc,
- 					struct dm_crtc_state *dm_crtc_state,
- 					enum amdgpu_dm_pipe_crc_source source)
- {
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	struct dc_stream_state *stream_state = dm_crtc_state->stream;
- 	bool enable = amdgpu_dm_is_valid_crc_source(source);
- 	int ret = 0;
-@@ -259,7 +259,7 @@ int amdgpu_dm_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- 	enum amdgpu_dm_pipe_crc_source cur_crc_src;
- 	struct drm_crtc_commit *commit;
- 	struct dm_crtc_state *crtc_state;
--	struct drm_device *drm_dev = crtc->dev;
-+	struct drm_device *drm_dev = crtc->drm_dev;
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
- 	struct drm_dp_aux *aux = NULL;
- 	bool enable = false;
-@@ -323,7 +323,7 @@ int amdgpu_dm_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- 		struct drm_connector *connector;
- 		struct drm_connector_list_iter conn_iter;
- 
--		drm_connector_list_iter_begin(crtc->dev, &conn_iter);
-+		drm_connector_list_iter_begin(crtc->drm_dev, &conn_iter);
- 		drm_for_each_connector_iter(connector, &conn_iter) {
- 			if (!connector->state || connector->state->crtc != crtc)
- 				continue;
-@@ -433,7 +433,7 @@ void amdgpu_dm_crtc_handle_crc_irq(struct drm_crtc *crtc)
- 	crtc_state = to_dm_crtc_state(crtc->state);
- 	stream_state = crtc_state->stream;
- 	acrtc = to_amdgpu_crtc(crtc);
--	drm_dev = crtc->dev;
-+	drm_dev = crtc->drm_dev;
- 
- 	spin_lock_irqsave(&drm_dev->event_lock, flags);
- 	cur_crc_src = acrtc->dm_irq_params.crc_src;
-@@ -478,8 +478,8 @@ void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc)
- 		return;
- 
- 	acrtc = to_amdgpu_crtc(crtc);
--	adev = drm_to_adev(crtc->dev);
--	drm_dev = crtc->dev;
-+	adev = drm_to_adev(crtc->drm_dev);
-+	drm_dev = crtc->drm_dev;
- 
- 	spin_lock_irqsave(&drm_dev->event_lock, flags1);
- 	cur_crc_src = acrtc->dm_irq_params.crc_src;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 440fc0869a34..791749d8bf7e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -37,7 +37,7 @@
- void amdgpu_dm_crtc_handle_vblank(struct amdgpu_crtc *acrtc)
- {
- 	struct drm_crtc *crtc = &acrtc->base;
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	unsigned long flags;
- 
- 	drm_crtc_handle_vblank(crtc);
-@@ -74,7 +74,7 @@ int amdgpu_dm_crtc_set_vupdate_irq(struct drm_crtc *crtc, bool enable)
- {
- 	enum dc_irq_source irq_source;
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	int rc;
- 
- 	if (acrtc->otg_inst == -1)
-@@ -147,7 +147,7 @@ static void vblank_control_worker(struct work_struct *work)
- static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
- {
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	struct dm_crtc_state *acrtc_state = to_dm_crtc_state(crtc->state);
- 	struct amdgpu_display_manager *dm = &adev->dm;
- 	struct vblank_control_work *work;
-@@ -372,7 +372,7 @@ static int dm_crtc_helper_atomic_check(struct drm_crtc *crtc,
- {
- 	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state,
- 										crtc);
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 	struct dc *dc = adev->dm.dc;
- 	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
- 	int ret = -EINVAL;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index d63ee636483b..37f619eabb59 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -1008,7 +1008,7 @@ static int psr_capability_show(struct seq_file *m, void *data)
- static int amdgpu_current_bpc_show(struct seq_file *m, void *data)
- {
- 	struct drm_crtc *crtc = m->private;
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct dm_crtc_state *dm_crtc_state = NULL;
- 	int res = -ENODEV;
- 	unsigned int bpc;
-@@ -1060,7 +1060,7 @@ DEFINE_SHOW_ATTRIBUTE(amdgpu_current_bpc);
- static int amdgpu_current_colorspace_show(struct seq_file *m, void *data)
- {
- 	struct drm_crtc *crtc = m->private;
--	struct drm_device *dev = crtc->dev;
-+	struct drm_device *dev = crtc->drm_dev;
- 	struct dm_crtc_state *dm_crtc_state = NULL;
- 	int res = -ENODEV;
- 
-@@ -3178,7 +3178,7 @@ void connector_debugfs_init(struct amdgpu_dm_connector *connector)
- static int crc_win_x_start_set(void *data, u64 val)
- {
- 	struct drm_crtc *crtc = data;
--	struct drm_device *drm_dev = crtc->dev;
-+	struct drm_device *drm_dev = crtc->drm_dev;
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
- 
- 	spin_lock_irq(&drm_dev->event_lock);
-@@ -3195,7 +3195,7 @@ static int crc_win_x_start_set(void *data, u64 val)
- static int crc_win_x_start_get(void *data, u64 *val)
- {
- 	struct drm_crtc *crtc = data;
--	struct drm_device *drm_dev = crtc->dev;
-+	struct drm_device *drm_dev = crtc->drm_dev;
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
- 
- 	spin_lock_irq(&drm_dev->event_lock);
-@@ -3215,7 +3215,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(crc_win_x_start_fops, crc_win_x_start_get,
- static int crc_win_y_start_set(void *data, u64 val)
- {
- 	struct drm_crtc *crtc = data;
--	struct drm_device *drm_dev = crtc->dev;
-+	struct drm_device *drm_dev = crtc->drm_dev;
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
- 
- 	spin_lock_irq(&drm_dev->event_lock);
-@@ -3232,7 +3232,7 @@ static int crc_win_y_start_set(void *data, u64 val)
- static int crc_win_y_start_get(void *data, u64 *val)
- {
- 	struct drm_crtc *crtc = data;
--	struct drm_device *drm_dev = crtc->dev;
-+	struct drm_device *drm_dev = crtc->drm_dev;
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
- 
- 	spin_lock_irq(&drm_dev->event_lock);
-@@ -3251,7 +3251,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(crc_win_y_start_fops, crc_win_y_start_get,
- static int crc_win_x_end_set(void *data, u64 val)
- {
- 	struct drm_crtc *crtc = data;
--	struct drm_device *drm_dev = crtc->dev;
-+	struct drm_device *drm_dev = crtc->drm_dev;
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
- 
- 	spin_lock_irq(&drm_dev->event_lock);
-@@ -3268,7 +3268,7 @@ static int crc_win_x_end_set(void *data, u64 val)
- static int crc_win_x_end_get(void *data, u64 *val)
- {
- 	struct drm_crtc *crtc = data;
--	struct drm_device *drm_dev = crtc->dev;
-+	struct drm_device *drm_dev = crtc->drm_dev;
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
- 
- 	spin_lock_irq(&drm_dev->event_lock);
-@@ -3287,7 +3287,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(crc_win_x_end_fops, crc_win_x_end_get,
- static int crc_win_y_end_set(void *data, u64 val)
- {
- 	struct drm_crtc *crtc = data;
--	struct drm_device *drm_dev = crtc->dev;
-+	struct drm_device *drm_dev = crtc->drm_dev;
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
- 
- 	spin_lock_irq(&drm_dev->event_lock);
-@@ -3304,7 +3304,7 @@ static int crc_win_y_end_set(void *data, u64 val)
- static int crc_win_y_end_get(void *data, u64 *val)
- {
- 	struct drm_crtc *crtc = data;
--	struct drm_device *drm_dev = crtc->dev;
-+	struct drm_device *drm_dev = crtc->drm_dev;
- 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
- 
- 	spin_lock_irq(&drm_dev->event_lock);
-@@ -3323,7 +3323,7 @@ static int crc_win_update_set(void *data, u64 val)
- {
- 	struct drm_crtc *crtc = data;
- 	struct amdgpu_crtc *acrtc;
--	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+	struct amdgpu_device *adev = drm_to_adev(crtc->drm_dev);
- 
- 	if (val) {
- 		acrtc = to_amdgpu_crtc(crtc);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 322668973747..aa286a71b6c7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1020,7 +1020,7 @@ int amdgpu_dm_plane_helper_check_state(struct drm_plane_state *state,
- 		}
- 
- 		/* Get min/max allowed scaling factors from plane caps. */
--		get_min_max_dc_plane_scaling(state->crtc->dev, fb,
-+		get_min_max_dc_plane_scaling(state->crtc->drm_dev, fb,
- 					     &min_downscale, &max_upscale);
- 		/*
- 		 * Convert to drm convention: 16.16 fixed point, instead of dc's
--- 
-2.39.2
+On Wed 12 Jul 23, 11:46, Uwe Kleine-K=C3=B6nig wrote:
+> Hello,
+>=20
+> while I debugged an issue in the imx-lcdc driver I was constantly
+> irritated about struct drm_device pointer variables being named "dev"
+> because with that name I usually expect a struct device pointer.
 
+Well personally I usually expect that the "dev" member of a subsystem-speci=
+fic
+struct refers to a device of that subsystem, so for me having "dev" refer to
+a drm_device for e.g. drm_crtc makes good sense.
+
+I would only expect dev to refer to a struct device in the subsystem-specif=
+ic
+device structure (drm_device). I don't think it makes much sense to carry
+the struct device in any other subsystem-specific structure anyway.
+
+So IMO things are fine as-is but this is not a very strong opinion either.
+
+> I think there is a big benefit when these are all renamed to "drm_dev".
+> I have no strong preference here though, so "drmdev" or "drm" are fine
+> for me, too. Let the bikesheding begin!
+
+I would definitely prefer "drm_dev" over "drmdev" (hard to read, feels like
+aborted camelcase, pretty ugly) or "drm" (too vague).
+
+Cheers,
+
+Paul
+
+> Some statistics:
+>=20
+> $ git grep -ohE 'struct drm_device *\* *[^ (),;]*' v6.5-rc1 | sort | uniq=
+ -c | sort -n
+>       1 struct drm_device *adev_to_drm
+>       1 struct drm_device *drm_
+>       1 struct drm_device          *drm_dev
+>       1 struct drm_device        *drm_dev
+>       1 struct drm_device *pdev
+>       1 struct drm_device *rdev
+>       1 struct drm_device *vdev
+>       2 struct drm_device *dcss_drv_dev_to_drm
+>       2 struct drm_device **ddev
+>       2 struct drm_device *drm_dev_alloc
+>       2 struct drm_device *mock
+>       2 struct drm_device *p_ddev
+>       5 struct drm_device *device
+>       9 struct drm_device * dev
+>      25 struct drm_device *d
+>      95 struct drm_device *
+>     216 struct drm_device *ddev
+>     234 struct drm_device *drm_dev
+>     611 struct drm_device *drm
+>    4190 struct drm_device *dev
+>=20
+> This series starts with renaming struct drm_crtc::dev to drm_dev. If
+> it's not only me and others like the result of this effort it should be
+> followed up by adapting the other structs and the individual usages in
+> the different drivers.
+>=20
+> To make this series a bit easier handleable, I first added an alias for
+> drm_crtc::dev, then converted the drivers one after another and the last
+> patch drops the "dev" name. This has the advantage of being easier to
+> review, and if I should have missed an instance only the last patch must
+> be dropped/reverted. Also this series might conflict with other patches,
+> in this case the remaining patches can still go in (apart from the last
+> one of course). Maybe it also makes sense to delay applying the last
+> patch by one development cycle?
+>=20
+> The series was compile tested for arm, arm64, powerpc and amd64 using an
+> allmodconfig (though I only build drivers/gpu/).
+>=20
+> Best regards
+> Uwe
+>=20
+> Uwe Kleine-K=C3=B6nig (52):
+>   drm/crtc: Start renaming struct drm_crtc::dev to drm_dev
+>   drm/core: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/amd: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/armada: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/arm: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/aspeed: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/ast: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/atmel-hlcdc: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/exynos: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/fsl-dcu: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/gma500: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/gud: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/hisilicon: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/hyperv: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/i915: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/imx: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/ingenic: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/kmb: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/logicvc: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/mcde: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/mediatek: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/meson: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/mgag200: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/msm: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/mxsfb: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/nouveau: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/omapdrm: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/panel-ili9341: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/pl111: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/qxl: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/radeon: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/renesas: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/rockchip: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/solomon: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/sprd: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/sti: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/stm: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/sun4i: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/tegra: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/tidss: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/tilcdc: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/tiny: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/tve200: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/udl: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/vboxvideo: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/vc4: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/virtio: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/vkms: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/vmwgfx: Use struct drm_crtc::drm_dev instead of struct
+>     drm_crtc::dev
+>   drm/xen: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/xlnx: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
+>   drm/crtc: Complete renaming struct drm_crtc::dev to drm_dev
+>=20
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  18 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c       |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/atombios_crtc.c    |  22 +--
+>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  26 +--
+>  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  28 ++--
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  26 +--
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  26 +--
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  29 ++--
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  20 +--
+>  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   8 +-
+>  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  22 +--
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |   2 +-
+>  .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  24 +--
+>  .../gpu/drm/arm/display/komeda/komeda_kms.c   |   2 +-
+>  drivers/gpu/drm/arm/hdlcd_crtc.c              |   4 +-
+>  drivers/gpu/drm/arm/malidp_crtc.c             |   7 +-
+>  drivers/gpu/drm/armada/armada_crtc.c          |  10 +-
+>  drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c      |   6 +-
+>  drivers/gpu/drm/ast/ast_dp.c                  |   2 +-
+>  drivers/gpu/drm/ast/ast_mode.c                |  26 +--
+>  .../gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c    |  10 +-
+>  drivers/gpu/drm/drm_atomic.c                  |  22 +--
+>  drivers/gpu/drm/drm_atomic_helper.c           |  20 ++-
+>  drivers/gpu/drm/drm_atomic_state_helper.c     |   2 +-
+>  drivers/gpu/drm/drm_atomic_uapi.c             |  22 +--
+>  drivers/gpu/drm/drm_blend.c                   |   2 +-
+>  drivers/gpu/drm/drm_color_mgmt.c              |  10 +-
+>  drivers/gpu/drm/drm_crtc.c                    |  19 ++-
+>  drivers/gpu/drm/drm_crtc_helper.c             |  10 +-
+>  drivers/gpu/drm/drm_debugfs.c                 |   2 +-
+>  drivers/gpu/drm/drm_debugfs_crc.c             |   2 +-
+>  drivers/gpu/drm/drm_fb_helper.c               |   6 +-
+>  drivers/gpu/drm/drm_mipi_dbi.c                |   4 +-
+>  drivers/gpu/drm/drm_plane.c                   |   2 +-
+>  drivers/gpu/drm/drm_plane_helper.c            |   2 +-
+>  drivers/gpu/drm/drm_self_refresh_helper.c     |   2 +-
+>  drivers/gpu/drm/drm_vblank.c                  |  40 ++---
+>  drivers/gpu/drm/drm_vblank_work.c             |   2 +-
+>  drivers/gpu/drm/exynos/exynos_drm_crtc.c      |   8 +-
+>  drivers/gpu/drm/exynos/exynos_drm_plane.c     |   4 +-
+>  drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_crtc.c    |  16 +-
+>  drivers/gpu/drm/gma500/cdv_intel_display.c    |   2 +-
+>  drivers/gpu/drm/gma500/cdv_intel_dp.c         |   2 +-
+>  drivers/gpu/drm/gma500/gma_display.c          |  20 +--
+>  drivers/gpu/drm/gma500/oaktrail_crtc.c        |   8 +-
+>  drivers/gpu/drm/gma500/oaktrail_hdmi.c        |   4 +-
+>  drivers/gpu/drm/gma500/psb_intel_display.c    |   2 +-
+>  drivers/gpu/drm/gma500/psb_irq.c              |   6 +-
+>  drivers/gpu/drm/gud/gud_pipe.c                |   6 +-
+>  .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    |  20 +--
+>  .../gpu/drm/hisilicon/kirin/kirin_drm_ade.c   |   4 +-
+>  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   6 +-
+>  drivers/gpu/drm/i915/display/g4x_dp.c         |   4 +-
+>  drivers/gpu/drm/i915/display/hsw_ips.c        |  16 +-
+>  drivers/gpu/drm/i915/display/i9xx_plane.c     |   4 +-
+>  drivers/gpu/drm/i915/display/i9xx_wm.c        |  40 ++---
+>  drivers/gpu/drm/i915/display/icl_dsi.c        |   2 +-
+>  drivers/gpu/drm/i915/display/intel_atomic.c   |   2 +-
+>  .../gpu/drm/i915/display/intel_atomic_plane.c |   4 +-
+>  drivers/gpu/drm/i915/display/intel_audio.c    |   2 +-
+>  drivers/gpu/drm/i915/display/intel_bw.c       |  10 +-
+>  drivers/gpu/drm/i915/display/intel_cdclk.c    |   6 +-
+>  drivers/gpu/drm/i915/display/intel_color.c    | 124 +++++++-------
+>  drivers/gpu/drm/i915/display/intel_crtc.c     |  20 +--
+>  .../drm/i915/display/intel_crtc_state_dump.c  |   4 +-
+>  drivers/gpu/drm/i915/display/intel_cursor.c   |   2 +-
+>  drivers/gpu/drm/i915/display/intel_ddi.c      |  28 ++--
+>  drivers/gpu/drm/i915/display/intel_display.c  | 154 +++++++++---------
+>  .../gpu/drm/i915/display/intel_display_irq.c  |  22 +--
+>  .../gpu/drm/i915/display/intel_display_rps.c  |   2 +-
+>  .../drm/i915/display/intel_display_trace.h    |  12 +-
+>  drivers/gpu/drm/i915/display/intel_dp.c       |   2 +-
+>  drivers/gpu/drm/i915/display/intel_dpll.c     |  38 ++---
+>  drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  44 ++---
+>  drivers/gpu/drm/i915/display/intel_dpt.c      |   2 +-
+>  drivers/gpu/drm/i915/display/intel_drrs.c     |  10 +-
+>  drivers/gpu/drm/i915/display/intel_dsb.c      |   8 +-
+>  drivers/gpu/drm/i915/display/intel_fbc.c      |   2 +-
+>  drivers/gpu/drm/i915/display/intel_fdi.c      |  22 +--
+>  .../drm/i915/display/intel_fifo_underrun.c    |   6 +-
+>  drivers/gpu/drm/i915/display/intel_hdmi.c     |   2 +-
+>  .../drm/i915/display/intel_modeset_setup.c    |  22 +--
+>  .../drm/i915/display/intel_modeset_verify.c   |   2 +-
+>  drivers/gpu/drm/i915/display/intel_panel.c    |   4 +-
+>  .../gpu/drm/i915/display/intel_pch_display.c  |  32 ++--
+>  .../gpu/drm/i915/display/intel_pch_refclk.c   |   2 +-
+>  drivers/gpu/drm/i915/display/intel_pipe_crc.c |  10 +-
+>  .../drm/i915/display/intel_plane_initial.c    |   6 +-
+>  drivers/gpu/drm/i915/display/intel_psr.c      |  14 +-
+>  drivers/gpu/drm/i915/display/intel_sdvo.c     |   2 +-
+>  drivers/gpu/drm/i915/display/intel_vblank.c   |  24 +--
+>  drivers/gpu/drm/i915/display/intel_vdsc.c     |  18 +-
+>  drivers/gpu/drm/i915/display/intel_vrr.c      |  18 +-
+>  drivers/gpu/drm/i915/display/skl_scaler.c     |  10 +-
+>  .../drm/i915/display/skl_universal_plane.c    |   6 +-
+>  drivers/gpu/drm/i915/display/skl_watermark.c  |  42 ++---
+>  drivers/gpu/drm/i915/display/vlv_dsi.c        |   2 +-
+>  drivers/gpu/drm/imx/dcss/dcss-crtc.c          |  20 +--
+>  drivers/gpu/drm/imx/ipuv3/ipuv3-crtc.c        |  15 +-
+>  drivers/gpu/drm/imx/lcdc/imx-lcdc.c           |  16 +-
+>  drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |   4 +-
+>  drivers/gpu/drm/kmb/kmb_crtc.c                |  16 +-
+>  drivers/gpu/drm/logicvc/logicvc_crtc.c        |  14 +-
+>  drivers/gpu/drm/mcde/mcde_display.c           |  18 +-
+>  drivers/gpu/drm/mediatek/mtk_drm_crtc.c       |  22 +--
+>  drivers/gpu/drm/meson/meson_crtc.c            |  12 +-
+>  drivers/gpu/drm/mgag200/mgag200_g200.c        |   4 +-
+>  drivers/gpu/drm/mgag200/mgag200_g200eh.c      |   2 +-
+>  drivers/gpu/drm/mgag200/mgag200_g200er.c      |   4 +-
+>  drivers/gpu/drm/mgag200/mgag200_g200ev.c      |   4 +-
+>  drivers/gpu/drm/mgag200/mgag200_g200se.c      |   6 +-
+>  drivers/gpu/drm/mgag200/mgag200_g200wb.c      |   2 +-
+>  drivers/gpu/drm/mgag200/mgag200_mode.c        |  10 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c |   6 +-
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  70 ++++----
+>  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   2 +-
+>  drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c     |  12 +-
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c     |  20 +--
+>  drivers/gpu/drm/msm/msm_drv.c                 |   4 +-
+>  drivers/gpu/drm/mxsfb/lcdif_kms.c             |  18 +-
+>  drivers/gpu/drm/mxsfb/mxsfb_kms.c             |  16 +-
+>  drivers/gpu/drm/nouveau/dispnv04/crtc.c       |  58 +++----
+>  drivers/gpu/drm/nouveau/dispnv04/cursor.c     |  10 +-
+>  drivers/gpu/drm/nouveau/dispnv50/atom.h       |   2 +-
+>  drivers/gpu/drm/nouveau/dispnv50/crc.c        |  30 ++--
+>  drivers/gpu/drm/nouveau/dispnv50/crc907d.c    |   6 +-
+>  drivers/gpu/drm/nouveau/dispnv50/crcc37d.c    |   6 +-
+>  drivers/gpu/drm/nouveau/dispnv50/crcc57d.c    |   2 +-
+>  drivers/gpu/drm/nouveau/dispnv50/disp.c       |   5 +-
+>  drivers/gpu/drm/nouveau/dispnv50/head.c       |   4 +-
+>  drivers/gpu/drm/nouveau/dispnv50/head507d.c   |  26 +--
+>  drivers/gpu/drm/nouveau/dispnv50/head827d.c   |  10 +-
+>  drivers/gpu/drm/nouveau/dispnv50/head907d.c   |  26 +--
+>  drivers/gpu/drm/nouveau/dispnv50/head917d.c   |   6 +-
+>  drivers/gpu/drm/nouveau/dispnv50/headc37d.c   |  18 +-
+>  drivers/gpu/drm/nouveau/dispnv50/headc57d.c   |  10 +-
+>  drivers/gpu/drm/nouveau/nouveau_connector.h   |   2 +-
+>  drivers/gpu/drm/nouveau/nouveau_display.c     |   2 +-
+>  drivers/gpu/drm/omapdrm/omap_crtc.c           |  56 +++----
+>  drivers/gpu/drm/omapdrm/omap_irq.c            |   6 +-
+>  drivers/gpu/drm/panel/panel-ilitek-ili9341.c  |   4 +-
+>  drivers/gpu/drm/pl111/pl111_display.c         |  16 +-
+>  drivers/gpu/drm/qxl/qxl_display.c             |   2 +-
+>  drivers/gpu/drm/radeon/atombios_crtc.c        |  54 +++---
+>  drivers/gpu/drm/radeon/radeon_cursor.c        |  14 +-
+>  drivers/gpu/drm/radeon/radeon_display.c       |  28 ++--
+>  drivers/gpu/drm/radeon/radeon_kms.c           |   6 +-
+>  drivers/gpu/drm/radeon/radeon_legacy_crtc.c   |  16 +-
+>  .../gpu/drm/renesas/rcar-du/rcar_du_crtc.c    |  14 +-
+>  .../gpu/drm/renesas/shmobile/shmob_drm_crtc.c |  20 +--
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop.c   |   8 +-
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c  |  15 +-
+>  drivers/gpu/drm/solomon/ssd130x.c             |   2 +-
+>  drivers/gpu/drm/sprd/sprd_dpu.c               |   6 +-
+>  drivers/gpu/drm/sti/sti_crtc.c                |  14 +-
+>  drivers/gpu/drm/stm/ltdc.c                    |  12 +-
+>  drivers/gpu/drm/sun4i/sun4i_crtc.c            |  12 +-
+>  drivers/gpu/drm/tegra/dc.c                    |  12 +-
+>  drivers/gpu/drm/tidss/tidss_crtc.c            |  19 ++-
+>  drivers/gpu/drm/tidss/tidss_irq.c             |   4 +-
+>  drivers/gpu/drm/tilcdc/tilcdc_crtc.c          |  43 ++---
+>  drivers/gpu/drm/tiny/bochs.c                  |   6 +-
+>  drivers/gpu/drm/tiny/cirrus.c                 |   2 +-
+>  drivers/gpu/drm/tiny/gm12u320.c               |   4 +-
+>  drivers/gpu/drm/tiny/hx8357d.c                |   4 +-
+>  drivers/gpu/drm/tiny/ili9163.c                |   4 +-
+>  drivers/gpu/drm/tiny/ili9225.c                |   8 +-
+>  drivers/gpu/drm/tiny/ili9341.c                |   4 +-
+>  drivers/gpu/drm/tiny/ili9486.c                |   4 +-
+>  drivers/gpu/drm/tiny/mi0283qt.c               |   4 +-
+>  drivers/gpu/drm/tiny/ofdrm.c                  |   8 +-
+>  drivers/gpu/drm/tiny/panel-mipi-dbi.c         |   6 +-
+>  drivers/gpu/drm/tiny/repaper.c                |   8 +-
+>  drivers/gpu/drm/tiny/simpledrm.c              |   2 +-
+>  drivers/gpu/drm/tiny/st7586.c                 |   6 +-
+>  drivers/gpu/drm/tiny/st7735r.c                |   4 +-
+>  drivers/gpu/drm/tve200/tve200_display.c       |  14 +-
+>  drivers/gpu/drm/udl/udl_modeset.c             |   4 +-
+>  drivers/gpu/drm/vboxvideo/vbox_mode.c         |   6 +-
+>  drivers/gpu/drm/vc4/vc4_crtc.c                |  38 ++---
+>  drivers/gpu/drm/vc4/vc4_hdmi.c                |   2 +-
+>  drivers/gpu/drm/vc4/vc4_hvs.c                 |  12 +-
+>  drivers/gpu/drm/vc4/vc4_txp.c                 |   2 +-
+>  drivers/gpu/drm/virtio/virtgpu_display.c      |   4 +-
+>  drivers/gpu/drm/vkms/vkms_crtc.c              |  12 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           |   4 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c          |  10 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c          |   8 +-
+>  drivers/gpu/drm/xen/xen_drm_front_kms.c       |  10 +-
+>  drivers/gpu/drm/xlnx/zynqmp_kms.c             |   8 +-
+>  include/drm/drm_atomic_helper.h               |   2 +-
+>  include/drm/drm_crtc.h                        |   4 +-
+>  194 files changed, 1296 insertions(+), 1264 deletions(-)
+>=20
+> base-commit: 06c2afb862f9da8dc5efa4b6076a0e48c3fbaaa5
+> --=20
+> 2.39.2
+>=20
+
+--=20
+Paul Kocialkowski, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
+--DbTmTNcmEZJ3sxG3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEJZpWjZeIetVBefti3cLmz3+fv9EFAmSufNEACgkQ3cLmz3+f
+v9FSMgf+JV6Salw2w4GLv+9asbGD6ik0oblmM2PMKoiE0lr5WJxx13dzR24bybN+
+/yLeBZDoIu/s7Q6LeqGCsxmFbec13qKaZGYBYkJLv+OMHbyh4REeRiAcb8UmsooR
+a6BhJiU9HH2PH5snsQ9nH1H5grb3DPvwgaqO2yXIOYSlF70H8t7zyD8zjlPAywwZ
+0xBkR+4qw63MDKu5RWTeaIjIpjKpEUFfhA323992hjshPmtNphRHKAw0w0jGQ33u
+yscku+iOuCxxEek3Mvf0VIc9wrVwGstUzFgAyNde+Hw9qWoe8r9L1igpwudGKgSK
+2EbKtFUVm+TGcuoAh1GijOyj9Fgf9A==
+=F3Xd
+-----END PGP SIGNATURE-----
+
+--DbTmTNcmEZJ3sxG3--
