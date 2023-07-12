@@ -4,44 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43AA3C0015E
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 07:15:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E70AEB64DD
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 07:15:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A140910E04C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 736C089BAC;
 	Wed, 12 Jul 2023 07:15:14 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3274D10E460;
- Tue, 11 Jul 2023 23:15:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=LFHQzkFS9wSPjknxSFQJfKSFRQvdUVhns9NnhJvkFr4=; b=L9RqovJsZckhw6FiUQoaWDpXn+
- dsm13nkF8awVzv72RC+745Zx0OfiQ2AAWt9UrFNwCL1Q28sg47MBN5u+bolzkt+mFfB1Xso2WacG3
- 7tnx9S3UAq0gxne7OuMsq/1udBh+EvFPUwSFiBqVsGd970edKZR/oxjO5AQf9Xj7ieq0a77HT9E19
- 6AvjN+SCRz44pw5NobIRoO25iQ59BZ8it7ze9Jqdbtf8SKRjlZ7/O7OsLxuusruULlsMFZFiE7NlR
- 9O0MejeyrTAZAUdWu2u/dCInymE7nW2x4UNnAZHKLdUGYQfC+znNRO9ruM1UDdUzNnp7lRFRE4yWd
- EcXy7t/A==;
-Received: from 201-27-237-219.dsl.telesp.net.br ([201.27.237.219]
- helo=[192.168.1.60]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1qJMa2-00CnWw-Ak; Wed, 12 Jul 2023 01:15:38 +0200
-Message-ID: <3e4892a5-f8a8-805b-aaf9-c9aec64d9607@igalia.com>
-Date: Tue, 11 Jul 2023 20:15:32 -0300
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFAB410E48B;
+ Wed, 12 Jul 2023 03:45:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=vhbVcfMKPrLrsHtGRck5zDkPlc+WWbTuWV1q+FmP9WE=; b=FSxLoc66Nj5DiR7dt34uSHbc7k
+ LX2WRfxF0zgX/LLGETmLjNk9tVRSu3aNGUdhoAisWJHyCJnkgbxsxNL1X9KCwFmwLmfTjT0Bg7Yjs
+ OSgzQZEGldVCQN8S7OkzFQMnMwgZUvhSse8wM+qPiM1xjJdb5vPYhSPB6nwcai4lvBNR+m75Ofuby
+ 0riHG4Pez2LrBscCC1RuAICmB/mqAYyIm8lAwY5f7CBLgbwx6pVEW4tJCfZfK39M5lmD+sdssTRFp
+ QRg5TvZsLyEr1iIhtYKoDwE9kOjMYYGuLu+bCz3qjDmQqhh71vIB/RYXBiW8ygKrGtQ04xKspgdVw
+ TmiekADw==;
+Received: from [2601:1c2:980:9ec0::2764]
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qJQn1-00GQ2y-0N; Wed, 12 Jul 2023 03:45:19 +0000
+Message-ID: <58cafdc0-0209-cfdd-c8e0-2dd25d73a184@infradead.org>
+Date: Tue, 11 Jul 2023 20:45:18 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] Revert "drm/amd/display: Program OTG vtotal min/max
- selectors unconditionally for DCN1+"
+ Thunderbird/102.12.0
+Subject: Re: scripts/kernel-doc does not handle duplicate struct & function
+ names (e.g., in amdgpu)
 Content-Language: en-US
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>, alexander.deucher@amd.com
-References: <20230702164407.6547-1-gpiccoli@igalia.com>
- <54092b91-a9c6-7276-1633-13b83a92524d@amd.com>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <54092b91-a9c6-7276-1633-13b83a92524d@amd.com>
+To: Akira Yokosawa <akiyks@gmail.com>
+References: <b5ebc891-ee63-1638-0377-7b512d34b823@infradead.org>
+ <0475d177-4c01-0988-0b34-3099dd703498@gmail.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <0475d177-4c01-0988-0b34-3099dd703498@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 12 Jul 2023 07:15:11 +0000
@@ -56,37 +53,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>, Xinhui.Pan@amd.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, dri-devel@lists.freedesktop.org,
- Melissa Wen <mwen@igalia.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, cristian.ciocaltea@collabora.com,
- christian.koenig@amd.com
+Cc: linux-doc@vger.kernel.org, corbet@lwn.net, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/07/2023 15:22, Aurabindo Pillai wrote:
-> [...]
-> Hi,
+
+
+On 7/11/23 20:32, Akira Yokosawa wrote:
+> Hi Randy,
 > 
-> Sorry for the delayed response, this patch went unnoticed. This revert would break asics. Could you try the attached patch without reverting this one ?
+>> [just documenting this for posterity or in case someone wants to fix it.]
+>>
+>> In drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c, one can find both
+>>
+>> struct amdgpu_vm_tlb_seq_cb {...};
+>>
+>> and
+>> static void amdgpu_vm_tlb_seq_cb(...)
+>>
+>> Of course C has no problem with this, but kernel-doc reports:
+>>
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:833: WARNING: Duplicate C declaration, also defined at gpu/amdgpu/driver-core:115.
+>>
+>> And of course, if the name of one of them is changed, kernel-doc is all happy...
+>> not that I am suggesting that one of them should be changed.
+>>
+>> I just want to make people aware of this. (or maybe people are already aware of this?)
+> 
+> The duplicate warning is emitted from Sphinx, not kernel-doc.
+> 
+> This is a bug of Sphinx >=3.1, first reported by Mauro back in September 2020 at:
+> 
+>     https://github.com/sphinx-doc/sphinx/issues/8241
+> 
+> It was closed when a local fix was presented.  Unfortunately, it was not
+> merged at the time and a subsequent pull request was opened at:
+> 
+>     https://github.com/sphinx-doc/sphinx/pull/8313
+> 
+> It is not merged yet and carries a milestone of Sphinx 7.x.
+> 
+> Looks like we need to wait patiently.
+> 
+>         Thanks, Akira
 
-Hi Aurabindo, thanks for your response!
+Ooooh, thanks for your assistance.  Waiting.... :)
 
-I've tried kernel 6.5-rc1, and it seems the issue is present, due to the
-patch being merged on Linus tree [as 1598fc576420 ("drm/amd/display:
-Program OTG vtotal min/max selectors unconditionally for DCN1+")].
-
-Then, I tried both your attached patches on top of that, and
-unfortunately, the behavior is the same: Steam Deck doesn't boot with
-graphics, and we can see the single error "amdgpu 0000:04:00.0: [drm]
-*ERROR* [CRTC:67:crtc-0] flip_done timed out" on dmesg.
-
-Do you / Alex think we could get this revert for 6.5-rc2, so at least we
-could boot mainline there while the issue is handled? It would be an
-intermediate fix. You mentioned it breaks some asics, but did they work
-until now, without your patch?
-
-Thanks,
-
-
-Guilherme
+-- 
+~Randy
