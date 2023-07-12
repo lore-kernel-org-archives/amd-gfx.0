@@ -4,46 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB996EB64D9
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 05:43:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58402EB64D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 06:44:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D95A710E491;
-	Wed, 12 Jul 2023 05:43:09 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A274210E48F;
- Wed, 12 Jul 2023 05:43:06 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C1E310E496;
+	Wed, 12 Jul 2023 06:44:47 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2779C10E495;
+ Wed, 12 Jul 2023 06:44:45 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D54C5615AE;
- Wed, 12 Jul 2023 05:43:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD1C4C433C8;
- Wed, 12 Jul 2023 05:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1689140584;
- bh=X5WCLxSc/gFxq+FunItuY2//SgfAsofnt1zHjwb5AiU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ah+DjOaiwgYFyKRzwtpHxRRyFxOm3D21AlLj9JHruB50mtI6ugoYM4kLSTM4YxY+9
- K/GIirYqpCorv2/f+20sFu1k2vOOM1FCVLBuJ1QNdDfyuspH3P2T/dIENIFqCYg6y/
- DBKqynmKpVqL3sNzGlxDLJDJO1za8OEAANcYU9dzGhTWHtNBoiT7kETY5FJn8a/7UC
- bIxEMbB5vsfsTGwtWHiwoLNDQmgDeuB0gSP3p2epeR4eq5d1FLbm442bytUXisBD16
- lN7m3txhCunJL2iT/aBJDDuk3qMFad3D9uyjhuFOBfD1ai8zk8CxkycsXyXKLKTwAV
- U8WqB7wUPsl2w==
-Date: Wed, 12 Jul 2023 07:42:58 +0200
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: scripts/kernel-doc does not handle duplicate struct & function
- names (e.g., in amdgpu)
-Message-ID: <20230712074258.3602b6e8@coco.lan>
-In-Reply-To: <58cafdc0-0209-cfdd-c8e0-2dd25d73a184@infradead.org>
-References: <b5ebc891-ee63-1638-0377-7b512d34b823@infradead.org>
- <0475d177-4c01-0988-0b34-3099dd703498@gmail.com>
- <58cafdc0-0209-cfdd-c8e0-2dd25d73a184@infradead.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 542932257C;
+ Wed, 12 Jul 2023 06:44:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1689144281; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=E3XnKIdyYzs9WzUUslFZfdtKZkW2mVfTAiy9Yfh4sv0=;
+ b=um9f/BNFht0hF6qfEMiGec1WN+rwJTel0EZVGynCUBznu+naWlk/+sSsvExpMvKu2fA+TF
+ e3cpze2sA7owkkecnk/V4YXnfwmlAxT6rqW7FxRf0F/0Af4v/KMvZvHVolenSGFhfbKMvY
+ d9RMt5QDxIw1HFGAPOtocjcVjh8L3q8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1689144281;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=E3XnKIdyYzs9WzUUslFZfdtKZkW2mVfTAiy9Yfh4sv0=;
+ b=QWOqGp5bh9cit+mxGXUzK2PdJyS+BJcR1fc5EKRw6uHa2kCnZ1oPtAWdiEqMdfRABSdVXt
+ 4TPwQ84Doc2bduBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EDE32133DD;
+ Wed, 12 Jul 2023 06:44:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id we7SONhLrmRTEgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 12 Jul 2023 06:44:40 +0000
+Message-ID: <b8d28b32-62ff-93fd-ad24-990f82efa38a@suse.de>
+Date: Wed, 12 Jul 2023 08:44:40 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH 00/17] fbdev: Remove FBINFO_DEFAULT and
+ FBINFO_FLAG_DEFAULT flags
+To: Sam Ravnborg <sam@ravnborg.org>
+References: <20230710130113.14563-1-tzimmermann@suse.de>
+ <20230710171903.GA14712@ravnborg.org>
+ <ab92f8d9-36ab-06bc-b85b-d52b7a1bfe9a@suse.de>
+ <20230711144744.GA117276@ravnborg.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <20230711144744.GA117276@ravnborg.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------K7I6QDTtJR3cKkqc48HZx2aU"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,68 +72,111 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: corbet@lwn.net, linux-doc@vger.kernel.org,
- Akira Yokosawa <akiyks@gmail.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: linux-hyperv@vger.kernel.org, linux-media@vger.kernel.org,
+ kvm@vger.kernel.org, linux-sh@vger.kernel.org, deller@gmx.de,
+ linux-staging@lists.linux.dev, javierm@redhat.com,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-nvidia@lists.surfsouth.com,
+ linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-geode@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Em Tue, 11 Jul 2023 20:45:18 -0700
-Randy Dunlap <rdunlap@infradead.org> escreveu:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------K7I6QDTtJR3cKkqc48HZx2aU
+Content-Type: multipart/mixed; boundary="------------O4sBmtVossZBjDercKZUVHqN";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Sam Ravnborg <sam@ravnborg.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-hyperv@vger.kernel.org,
+ kvm@vger.kernel.org, linux-sh@vger.kernel.org, deller@gmx.de,
+ linux-staging@lists.linux.dev, javierm@redhat.com,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-nvidia@lists.surfsouth.com,
+ linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-geode@lists.infradead.org, linux-media@vger.kernel.org
+Message-ID: <b8d28b32-62ff-93fd-ad24-990f82efa38a@suse.de>
+Subject: Re: [PATCH 00/17] fbdev: Remove FBINFO_DEFAULT and
+ FBINFO_FLAG_DEFAULT flags
+References: <20230710130113.14563-1-tzimmermann@suse.de>
+ <20230710171903.GA14712@ravnborg.org>
+ <ab92f8d9-36ab-06bc-b85b-d52b7a1bfe9a@suse.de>
+ <20230711144744.GA117276@ravnborg.org>
+In-Reply-To: <20230711144744.GA117276@ravnborg.org>
 
-> On 7/11/23 20:32, Akira Yokosawa wrote:
-> > Hi Randy,
-> >   
-> >> [just documenting this for posterity or in case someone wants to fix it.]
-> >>
-> >> In drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c, one can find both
-> >>
-> >> struct amdgpu_vm_tlb_seq_cb {...};
-> >>
-> >> and
-> >> static void amdgpu_vm_tlb_seq_cb(...)
-> >>
-> >> Of course C has no problem with this, but kernel-doc reports:
-> >>
-> >> drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:833: WARNING: Duplicate C declaration, also defined at gpu/amdgpu/driver-core:115.
-> >>
-> >> And of course, if the name of one of them is changed, kernel-doc is all happy...
-> >> not that I am suggesting that one of them should be changed.
-> >>
-> >> I just want to make people aware of this. (or maybe people are already aware of this?)  
-> > 
-> > The duplicate warning is emitted from Sphinx, not kernel-doc.
-> > 
-> > This is a bug of Sphinx >=3.1, first reported by Mauro back in September 2020 at:
-> > 
-> >     https://github.com/sphinx-doc/sphinx/issues/8241
-> > 
-> > It was closed when a local fix was presented.  Unfortunately, it was not
-> > merged at the time and a subsequent pull request was opened at:
-> > 
-> >     https://github.com/sphinx-doc/sphinx/pull/8313
-> > 
-> > It is not merged yet and carries a milestone of Sphinx 7.x.
-> > 
-> > Looks like we need to wait patiently.
-> > 
-> >         Thanks, Akira  
-> 
-> Ooooh, thanks for your assistance.  Waiting.... :)
+--------------O4sBmtVossZBjDercKZUVHqN
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Yeah, we've been waiting this since Sphinx version 3.x times :-(
+DQoNCkFtIDExLjA3LjIzIHVtIDE2OjQ3IHNjaHJpZWIgU2FtIFJhdm5ib3JnOg0KPiBIaSBU
+aG9tYXMsDQo+IA0KPiBPbiBUdWUsIEp1bCAxMSwgMjAyMyBhdCAwODoyNDo0MEFNICswMjAw
+LCBUaG9tYXMgWmltbWVybWFubiB3cm90ZToNCj4+IEhpIFNhbQ0KPj4NCj4+IEFtIDEwLjA3
+LjIzIHVtIDE5OjE5IHNjaHJpZWIgU2FtIFJhdm5ib3JnOg0KPj4+IEhpIFRob21hcywNCj4+
+Pg0KPj4+IE9uIE1vbiwgSnVsIDEwLCAyMDIzIGF0IDAyOjUwOjA0UE0gKzAyMDAsIFRob21h
+cyBaaW1tZXJtYW5uIHdyb3RlOg0KPj4+PiBSZW1vdmUgdGhlIHVudXNlZCBmbGFncyBGQklO
+Rk9fREVGQVVMVCBhbmQgRkJJTkZPX0ZMQUdfREVGQVVMVCBmcm9tDQo+Pj4+IGZiZGV2IGFu
+ZCBkcml2ZXJzLCBhcyBicmllZmx5IGRpc2N1c3NlZCBhdCBbMV0uIEJvdGggZmxhZ3Mgd2Vy
+ZSBtYXliZQ0KPj4+PiB1c2VmdWwgd2hlbiBmYmRldiBoYWQgc3BlY2lhbCBoYW5kbGluZyBm
+b3IgZHJpdmVyIG1vZHVsZXMuIFdpdGgNCj4+Pj4gY29tbWl0IDM3NmIzZmY1NGM5YSAoImZi
+ZGV2OiBOdWtlIEZCSU5GT19NT0RVTEUiKSwgdGhleSBhcmUgYm90aCAwDQo+Pj4+IGFuZCBo
+YXZlIG5vIGZ1cnRoZXIgZWZmZWN0Lg0KPj4+Pg0KPj4+PiBQYXRjaGVzIDEgdG8gNyByZW1v
+dmUgRkJJTkZPX0RFRkFVTFQgZnJvbSBkcml2ZXJzLiBQYXRjaGVzIDIgdG8gNQ0KPj4+PiBz
+cGxpdCB0aGlzIGJ5IHRoZSB3YXkgdGhlIGZiX2luZm8gc3RydWN0IGlzIGJlaW5nIGFsbG9j
+YXRlZC4gQWxsIGZsYWdzDQo+Pj4+IGFyZSBjbGVhcmVkIHRvIHplcm8gZHVyaW5nIHRoZSBh
+bGxvY2F0aW9uLg0KPj4+Pg0KPj4+PiBQYXRjaGVzIDggdG8gMTYgZG8gdGhlIHNhbWUgZm9y
+IEZCSU5GT19GTEFHX0RFRkFVTFQuIFBhdGNoIDggZml4ZXMNCj4+Pj4gYW4gYWN0dWFsIGJ1
+ZyBpbiBob3cgYXJjaC9zaCB1c2VzIHRoZSB0b2tuZSBmb3Igc3RydWN0IGZiX3ZpZGVvbW9k
+ZSwNCj4+Pj4gd2hpY2ggaXMgdW5yZWxhdGVkLg0KPj4+Pg0KPj4+PiBQYXRjaCAxNyByZW1v
+dmVzIGJvdGggZmxhZyBjb25zdGFudHMgZnJvbSA8bGludXgvZmIuaD4NCj4+Pg0KPj4+IFdl
+IGhhdmUgYSBmZXcgbW9yZSBmbGFncyB0aGF0IGFyZSB1bnVzZWQgLSBzaG91bGQgdGhleSBi
+ZSBudWtlZCB0b28/DQo+Pj4gRkJJTkZPX0hXQUNDRUxfRklMTFJFQ1QNCj4+PiBGQklORk9f
+SFdBQ0NFTF9ST1RBVEUNCj4+PiBGQklORk9fSFdBQ0NFTF9YUEFODQo+Pg0KPj4gSXQgc2Vl
+bXMgdGhvc2UgYXJlIHRoZXJlIGZvciBjb21wbGV0ZW5lc3MuIE5vdGhpbmcgc2V0cyBfUk9U
+QVRFLCB0aGUgb3RoZXJzDQo+PiBhcmUgc2ltcGx5IG5ldmVyIGNoZWNrZWQuIEFjY29yZGlu
+ZyB0byB0aGUgY29tbWVudHMsIHNvbWUgYXJlIHJlcXVpcmVkLCBzb21lDQo+PiBhcmUgb3B0
+aW9uYWwuIEkgZG9uJ3Qga25vdyB3aGF0IHRoYXQgbWVhbnMuDQo+Pg0KPj4gSUlSQyB0aGVy
+ZSB3ZXJlIGNvbXBsYWlucyBhYm91dCBwZXJmb3JtYW5jZSB3aGVuIERhbmllbCB0cmllZCB0
+byByZW1vdmUNCj4+IGZiY29uIGFjY2VsZXJhdGlvbiwgc28gbm90IGFsbCBfSFdBQ0NFTF8g
+ZmxhZ3MgYXJlIHVubmVlZGVkLg0KPj4NCj4+IExlYXZpbmcgdGhlbSBpbiBmb3IgcmVmZXJl
+bmNlL2NvbXBsZXRlbmVzcyBtaWdodCBiZSBhbiBvcHRpb247IG9yIG5vdC4gSQ0KPj4gaGF2
+ZSBubyBzdHJvbmcgZmVlbGluZ3MgYWJvdXQgdGhvc2UgZmxhZ3MuDQo+Pg0KPj4+DQo+Pj4g
+VW51c2VkIGFzIGluIG5vIHJlZmVyZW5jZXMgZnJvbSBmYmRldi9jb3JlLyoNCj4+Pg0KPj4+
+IEkgd291bGQgcmF0aGVyIHNlZSBvbmUgc2VyaWVzIG51a2UgYWxsIHVudXNlZCBGQklORk8g
+ZmxhZ3MgaW4gb25lIGdvLg0KPj4+IEFzc3VtaW5nIG15IHF1aWNrIGdyZXAgYXJlIHJpZ2h0
+IGFuZCB0aGUgYWJvdmUgY2FuIGJlIGRyb3BwZWQuDQo+Pg0KPj4gSSB3b3VsZCBub3Qgd2Fu
+dCB0byBleHRlbmQgdGhpcyBzZXJpZXMuIEknbSByZW1vdmluZyBfREVGQVVMVCBhcyBpdCdz
+DQo+PiBhYnNvbHV0ZWx5IHBvaW50bGVzcyBhbmQgY29uZnVzaW5nLg0KPiANCj4gT0ssIG1h
+a2VzIHNlbnNlIGFuZCB0aGFua3MgZm9yIHRoZSBleHBsYW5hdGlvbi4NCj4gDQo+IFRoZSBz
+ZXJpZXMgaXM6DQo+IEFja2VkLWJ5OiBTYW0gUmF2bmJvcmcgPHNhbUByYXZuYm9yZy5vcmc+
+DQoNClRoYW5rcyBhIGxvdC4NCg0KPiANCg0KLS0gDQpUaG9tYXMgWmltbWVybWFubg0KR3Jh
+cGhpY3MgRHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFu
+eSBHbWJIDQpGcmFua2Vuc3RyYXNzZSAxNDYsIDkwNDYxIE51ZXJuYmVyZywgR2VybWFueQ0K
+R0Y6IEl2byBUb3RldiwgQW5kcmV3IE15ZXJzLCBBbmRyZXcgTWNEb25hbGQsIEJvdWRpZW4g
+TW9lcm1hbg0KSFJCIDM2ODA5IChBRyBOdWVybmJlcmcpDQo=
 
-It seems that applying the fix would break an extension
-(intersphinx). We don't use at the Kernel, so it won't affect
-us, but it seems to be a popular extension, as it allows one
-web server to have cross-references to Sphinx docs produced
-elsewhere. Btw, such extension could be interesting on partial
-doc builds (e. g. make SPHNXDIRS="foo_dir" htmldocs), as the
-non-existing cross-references would be pointing, for instance,
-to the docs stored at kernel.doc latest docs.
+--------------O4sBmtVossZBjDercKZUVHqN--
 
-Btw, I'm still using version 2.4.4 when building the docs
-to avoid the wrong duplicate warnings with 3.1+ due to this bug.
+--------------K7I6QDTtJR3cKkqc48HZx2aU
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Thanks,
-Mauro
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmSuS9gFAwAAAAAACgkQlh/E3EQov+Bh
+IQ//T0PiPxd+GFmqKROILrPIawDb/I+fuq60CvxBHVfPPlvkdxBPBDUE4WuUFhGYCE/oZ6jRlZJX
+YKYHYEJ5vEcWCNRR8mfGpNGLyDbuJY9mqzUHWHqhbhHvrEPV2V7WnCjp7UrnMUvqnvnwDDifBkgA
+YXI94XN/fqrNmjRzAFvQitvZb1pz3pGlsldbPi/3va2wdNY2h4xtmY4WRd0I/wgVN5YfNjYGeEGb
+GQT466I6XnDIzQurY+q0dxDn3Ab3NQQZAr704nfyTZrFfOAJcIz89vrWU29+Qcr/yjEtFtdNamic
+WIEJ3DWexIdWBplaQDqxUySBlzU3c3pLLaFwE0SyVPwaUcI5qOpfhMeWgwEwZb1W6+Or4ehLxoIY
+muVgE8o2WeQSRihUXz0b/nAclqW/WDHaVhpjURRzviYnD+urODodyuQn0dt36yxciVfsmifL6PCe
+Y6X+ADFjH7mB4JZw4zJIl6XSOEGkMXRwkvU0WOXdNcsg8xYuZ8y2OI+ybBeWuLMyJcPQMlqRzbI8
+FZ0vgeM3VyTooQheJDh3psIr6oGhJabMlXIVsjocTCvbf9KjSQHwhF9qRcp30sh5PjRGBH4WRtua
+KmtCjiBbCfjcF8l9I4RiBoehwlJ4rIqyDx8KvMljftLG7YkgfWCariHTeYa7wA2l91erXQEi5RZc
+GMo=
+=HzCA
+-----END PGP SIGNATURE-----
+
+--------------K7I6QDTtJR3cKkqc48HZx2aU--
