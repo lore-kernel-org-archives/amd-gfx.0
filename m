@@ -4,65 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2562EB64D9
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 07:15:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 134F7EB64DD
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 07:15:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 017FE89B30;
-	Wed, 12 Jul 2023 07:15:14 +0000 (UTC)
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com
- [IPv6:2607:f8b0:4864:20::72f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3632E10E487;
- Wed, 12 Jul 2023 03:32:15 +0000 (UTC)
-Received: by mail-qk1-x72f.google.com with SMTP id
- af79cd13be357-7653bd3ff2fso711840485a.3; 
- Tue, 11 Jul 2023 20:32:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689132734; x=1691724734;
- h=content-transfer-encoding:in-reply-to:from:content-language:subject
- :references:cc:to:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to;
- bh=jvf0nF5ZRGZZqWs6AfvhMZd8lPGLYxeXrzMNbCUatcI=;
- b=SxWs7+NhmtFmcBIYeyB0DJkbyihTJ/eJTVplhF1PBnu+7xoaTjCtrLQrHuwdLeFQ78
- I3V+0ZV93yvXSyymfW23KSm49bdG2+cDQerjn3yUo7EY7/0mneaPnyICynnwfA41jpPA
- naFsV9h5672637AMbpuI5rKyDIB3JNrSXE1gmfIjsGRnHmGmIJya6kl1cK7Au5vlJ+o0
- qZ4wu7MQKjX1Qw9kEVfq2Uud8SykO3pPpDbkvH9aneGl/oxs8a+Tgu/ldl1ny5gWRfIK
- X1leUhBEIbA2PIMJjep3EInbKA1GWE9b1EsAy8+gD8hJkhSi7o6o9657r4Mm0u2QiaZh
- LL3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689132734; x=1691724734;
- h=content-transfer-encoding:in-reply-to:from:content-language:subject
- :references:cc:to:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jvf0nF5ZRGZZqWs6AfvhMZd8lPGLYxeXrzMNbCUatcI=;
- b=NAsQMsbOZKDyjx+k3vYhQCCLbeEN97ayEL74AZTwWOZPpJVyKl6eMIRi0fjnk+wOtk
- lDbt4aJv1IjlQ1N4LnGQ8TfLXsitYbGmo/fSRZOHURYf8D9G4OsGFgsZqb0g6z+PVZiq
- Bszdkq/iwvnxB88Y7DiWMuZ1C7fKTPOMrrxv5vFJMn3RCEqBGtYukWz+18/vdo7nNuKY
- 2LgH/N3uL8P6RCp8ZERXUGBiulNN0guaywzD60KkV7TpAIOceB5Rj7aJu/ZCMBXSmvT1
- XCWGCC735P3tfiGRMvb5X3dwHVswIn54LSnnZloxOGFr1Ua64vRniLHQvhCq82SurV88
- 3OJg==
-X-Gm-Message-State: ABy/qLbnhOSxiPZlpv/GrOKbENCdrDE/Yh9fkE9C3NdLUPXQ3Spzhz71
- 3f39sKkhugnoZzGEW1P/yac=
-X-Google-Smtp-Source: APBJJlEi9cxhyg3FYQSwltq1b2CBfAz1F+0jG2fDBkJz+XscIpuisGIVjUha+zJXqw5Cv3MbLPDerw==
-X-Received: by 2002:ac8:5cc8:0:b0:403:a770:e15a with SMTP id
- s8-20020ac85cc8000000b00403a770e15amr17034785qta.56.1689132733918; 
- Tue, 11 Jul 2023 20:32:13 -0700 (PDT)
-Received: from [192.168.11.9] (KD106167171201.ppp-bb.dion.ne.jp.
- [106.167.171.201]) by smtp.gmail.com with ESMTPSA id
- d7-20020aa78147000000b0067ea048cf83sm2419276pfn.186.2023.07.11.20.32.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 11 Jul 2023 20:32:13 -0700 (PDT)
-Message-ID: <0475d177-4c01-0988-0b34-3099dd703498@gmail.com>
-Date: Wed, 12 Jul 2023 12:32:10 +0900
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7AD589622;
+	Wed, 12 Jul 2023 07:15:13 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1976210E47F;
+ Wed, 12 Jul 2023 02:37:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:Subject:From:Cc:To:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=1ikivZ36R/uE4X28CUyULfRVxQJ2/mOsUaWRxJg8zPg=; b=BujmYURi3OAbwaG7VDTW1FPXFZ
+ Wcfmx8Wmt7XP+Dtt4zu95ZMEskptXJflbFKX+REjkGnlw0Bpa3ON8Zv2yOQMfTL8L+M9TG7cYcqj1
+ X1AMmyk67xkOGZfAkpA9ZN276NgiKrvIBZZoP882HdJGN/RioK7B6Hc4/ILWkTMqjgWAPxWsfcPOC
+ TZYzwQLsTAAJM1f92PN7qwKyjf2JMPSde+oy7i0dwx+6rexI+lhHV0IgqeVsQm4Shf1MI9poutBT7
+ mNAUpVx2EG4G19r3/akm3UySDKbU5vwq9FuYLjY8iBVb5PwEc72eocIXm8JLFsvxOqOOAXfRB9nSX
+ SyzRYWTg==;
+Received: from [2601:1c2:980:9ec0::2764]
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qJPiz-00GH5s-2o; Wed, 12 Jul 2023 02:37:05 +0000
+Message-ID: <b5ebc891-ee63-1638-0377-7b512d34b823@infradead.org>
+Date: Tue, 11 Jul 2023 19:37:03 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-To: rdunlap@infradead.org
-References: <b5ebc891-ee63-1638-0377-7b512d34b823@infradead.org>
-Subject: Re: scripts/kernel-doc does not handle duplicate struct & function
- names (e.g., in amdgpu)
+ Thunderbird/102.12.0
 Content-Language: en-US
-From: Akira Yokosawa <akiyks@gmail.com>
-In-Reply-To: <b5ebc891-ee63-1638-0377-7b512d34b823@infradead.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>
+From: Randy Dunlap <rdunlap@infradead.org>
+Subject: scripts/kernel-doc does not handle duplicate struct & function names
+ (e.g., in amdgpu)
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 12 Jul 2023 07:15:11 +0000
@@ -77,51 +51,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: corbet@lwn.net, linux-doc@vger.kernel.org,
- Akira Yokosawa <akiyks@gmail.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Randy,
+[just documenting this for posterity or in case someone wants to fix it.]
 
-> [just documenting this for posterity or in case someone wants to fix it.]
-> 
-> In drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c, one can find both
-> 
-> struct amdgpu_vm_tlb_seq_cb {...};
-> 
-> and
-> static void amdgpu_vm_tlb_seq_cb(...)
-> 
-> Of course C has no problem with this, but kernel-doc reports:
-> 
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:833: WARNING: Duplicate C declaration, also defined at gpu/amdgpu/driver-core:115.
-> 
-> And of course, if the name of one of them is changed, kernel-doc is all happy...
-> not that I am suggesting that one of them should be changed.
-> 
-> I just want to make people aware of this. (or maybe people are already aware of this?)
+In drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c, one can find both
 
-The duplicate warning is emitted from Sphinx, not kernel-doc.
+struct amdgpu_vm_tlb_seq_cb {...};
 
-This is a bug of Sphinx >=3.1, first reported by Mauro back in September 2020 at:
+and
+static void amdgpu_vm_tlb_seq_cb(...)
 
-    https://github.com/sphinx-doc/sphinx/issues/8241
+Of course C has no problem with this, but kernel-doc reports:
 
-It was closed when a local fix was presented.  Unfortunately, it was not
-merged at the time and a subsequent pull request was opened at:
+drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:833: WARNING: Duplicate C declaration, also defined at gpu/amdgpu/driver-core:115.
 
-    https://github.com/sphinx-doc/sphinx/pull/8313
+And of course, if the name of one of them is changed, kernel-doc is all happy...
+not that I am suggesting that one of them should be changed.
 
-It is not merged yet and carries a milestone of Sphinx 7.x.
+I just want to make people aware of this. (or maybe people are already aware of this?)
 
-Looks like we need to wait patiently.
-
-        Thanks, Akira
-
-> 
-> -- 
-> ~Randy
-
+-- 
+~Randy
