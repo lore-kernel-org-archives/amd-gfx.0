@@ -4,62 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1EDFEB64DD
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 17:12:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A558FEB64DD
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 17:12:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2693D10E5A5;
-	Wed, 12 Jul 2023 17:12:48 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34D9810E5A6
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jul 2023 17:12:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14C6510E5A7;
+	Wed, 12 Jul 2023 17:12:57 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20606.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::606])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5BAE10E5A6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jul 2023 17:12:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HDmRac6M1qzzWp/3slHIXAiKTqklMQCKPp1NJIPgmKZI1qhm+skX9iEC6lKCYcE62Mcvldjk6W9o+WgVCUHLo8FD79OCzK2JhiaoWWLC3bO4Wsf/XlBayF+5M2VDPcwLOE48hTxxwNAxyRDVORrfARdvat2l+sLX5f2yjtysjswUPtRPHlihtZJqYHQ1hCoqqiXNelMcvQx9p4zWJXrxuKP18wRhUhrEdS1IE8LsKMX6MrkFh8OlCxfvQWndY1kO7trA0P9w3QFGN30bnSV4Qfescav/j390bV5nluDExL1b5JrG0uJqTAdwCegWGL6XNak50jOJ9Qx63c84+0pUWA==
+ b=Wp+tIijMwxpBCacKKN66z2Pky6+uLX/AxQZvQ7v9UQ9+sXkNnzA+Lnq3nDvi7UWD4Cy5VFXM5LsNeKW/0kmBHd799UyJuKDH5+KZb3qjBc/VsPFl1AHGPiArrIETkjQjZFaYmd2qKhSGTS1BbvDGESscwxF+v8aBQfMsWya+Reg8wiHjFmwirZ8P7XcIq7mXAePRQc1N8D6j0DaTrNV+CIAqm+3bOCbbDcBJs/0vLh411VKjqSEMAIECOLfMNj0MEvqv+84okZnmPF2JGHxmB9b5gCdJC/jv8vF/R/26MSwpc4BLLoACFwiOZ3QrIFSMTjklHGGu4DneDY7g4E71kQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xCUE+ObADuRfqR1L96kbwyO9k2BoSUIAFJ42MFVTQog=;
- b=nQqcRN1N8Z5TEN1vSTtqO8QM5wisPXlh7IAZWbxwoDP7v0Rze64U1/71EHU5tVJ1wejJGFvopjBuiO+OdvdPhsJL1mVDyeYFxuAWjaJsjzEyPjHLhauzwsl7Uq8Aa9axZWLkpDnTkaF0YC25sm8oOflqnSPQ8eUR8KEVYKNgDrnx9YORhsf3PRE/4UObNQZekGvdkv4/B5QVo2pngFTblNcUPSaQN4gR9giaCmNVHeXPJCu/xSgBfs6n3Ltq6e/bmttZraHH8/dcP5tOz42hdVeq8fZzSz68TRJ34QITlsBwtLdrfuJfckOlSBIRew5GvMkIIs5KnP9zGhOLmPv54g==
+ bh=Y4VP2bAuiPynLYTGBKloNGfcu3nwFLw/DnRjPq4JcXU=;
+ b=IRRuiPdaUbJweQ/g0NJoyqLHfF0Fq8D4R197wck7Mtfn/o16CcH0Zkgnvj6eHVtNzjRo4F/1tbLB1H65d5MhMpDVQkgfTMNc+bWSAzRXp1rXsemNQoNhLGPrMqNbL6AfxIz/H8ZWXUTv5AxF72zSewR6ssZGtGWko5ILHQzWBAw6L3dcv5HHy3vhb2ZTtgrCafebiIwHybbT3bfOzsvZaEkbEiZS9KK3iqoQL0exe1v2jzZb+Uwegwuw+q+nwDi0l9SjaPWQQLOEmeWQJKhdVo1fweCopKTtDKh7tFjt+fqfbLP01yFRw2iIEGtwilPtkqZigX6tZ0F75GqMrPruJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xCUE+ObADuRfqR1L96kbwyO9k2BoSUIAFJ42MFVTQog=;
- b=mCR/yUX/fb5v+20BWIDQ7jjPCpFxQhV+/pYnRsVGFDyCkKRBh4VKatEZFxp60VX/1ZOBS3zsKiG8w4BnS7J4YpnOpcqKgBCYEGO5IiWrAC0tov+/88JTC6BIqpgDKjvIGz9G58zEY7BfPbuLJoHWNHhMtk7c/tq1OzB3w9pY6L0=
-Received: from BN9PR03CA0332.namprd03.prod.outlook.com (2603:10b6:408:f6::7)
- by DM4PR12MB6493.namprd12.prod.outlook.com (2603:10b6:8:b6::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.20; Wed, 12 Jul
- 2023 17:12:43 +0000
-Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f6:cafe::27) by BN9PR03CA0332.outlook.office365.com
- (2603:10b6:408:f6::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.22 via Frontend
- Transport; Wed, 12 Jul 2023 17:12:42 +0000
+ bh=Y4VP2bAuiPynLYTGBKloNGfcu3nwFLw/DnRjPq4JcXU=;
+ b=3mDkCA/lxElNvi5ZbyB6iFf0nbhhpxmZ14txR3nbJ6vSggyCxjvptVOkCHlWkGln0asyxoKMmJ2fp25Bsp9idrumA1dxLeyaO6wyDziT1+5II5yhjux1NfFEocovlePuHfdjLr4m2ClYYmlT0JTo64qBToVNWReaQdOBrP4T2Jc=
+Received: from BN8PR15CA0025.namprd15.prod.outlook.com (2603:10b6:408:c0::38)
+ by CY5PR12MB6033.namprd12.prod.outlook.com (2603:10b6:930:2f::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.35; Wed, 12 Jul
+ 2023 17:12:52 +0000
+Received: from BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:c0:cafe::8f) by BN8PR15CA0025.outlook.office365.com
+ (2603:10b6:408:c0::38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.32 via Frontend
+ Transport; Wed, 12 Jul 2023 17:12:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT062.mail.protection.outlook.com (10.13.177.34) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6588.20 via Frontend Transport; Wed, 12 Jul 2023 17:12:42 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6588.22 via Frontend Transport; Wed, 12 Jul 2023 17:12:51 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 12 Jul
- 2023 12:12:41 -0500
+ 2023 12:12:51 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 12 Jul
+ 2023 12:12:50 -0500
 Received: from alan-new-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
- Transport; Wed, 12 Jul 2023 12:12:32 -0500
+ Transport; Wed, 12 Jul 2023 12:12:42 -0500
 From: Alan Liu <HaoPing.Liu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/33] drm/amd/display: Add missing static
-Date: Thu, 13 Jul 2023 01:11:11 +0800
-Message-ID: <20230712171137.3398344-8-HaoPing.Liu@amd.com>
+Subject: [PATCH 08/33] drm/amd/display: Hardcode vco_freq for dcn316
+Date: Thu, 13 Jul 2023 01:11:12 +0800
+Message-ID: <20230712171137.3398344-9-HaoPing.Liu@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230712171137.3398344-1-HaoPing.Liu@amd.com>
 References: <20230712171137.3398344-1-HaoPing.Liu@amd.com>
@@ -68,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT012:EE_|DM4PR12MB6493:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8928a0b-a3e3-4d56-f85b-08db82fb33ee
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT062:EE_|CY5PR12MB6033:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7d5a802-15ab-46e5-7a3b-08db82fb39b9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: USrmrKNPQ7pZUV+toUtYEUs3bdppo/erd2EaM6WXb3qbE5QgFrbUJgFDiMjQTCfsGMIfFKo9xzdEpKIHoQdX/ClFqZy2CKgJPLV168IuKxcarJmdFvr71RqJZjNaP/qqbRq5/mNoXA1lI+utpMvnEMvbUc2T8/ogQSJKJoePK9y4gArECMAevIhN1OiGbEliYW5koT/qX9O7e/ayvGYb3RwpvZQ4Ie/Lff5ZbA3HFkfaB5irGhE/k+jgNcb1XBHK5dtI+E2qTR9MbavGAP1Kgu4p2H0i5v09fCYQcus5ZsQEun57G+RjgcGxATEd600vBEsPII0Bc+zrPua8ol16PgCMqOdc0CjAXN95dLu/7WXKXi1nk49FqLRU/OdupbDpI7e12Iei2uv09x5I1LTwpJK+aQW3xHPp45N00drlNabwvmLLvLyiqcojgzGmhBIAsez02PnuzONHEHJY7gb0ehenti1xXS7tBI6UqA318Dq7ewQta1OA0z2mJJEwDrX/Cn67pQPQyynT8pmVn7pBP27PuKKmgeduZDh6Q190xkEcXXJNMsAz57TwU9RXOKrFyf4VaDQv1GXMkfeV80rAsf8dHJIADX4/9sE6VBsmbCdCVHSmfWUYIV+2uZmGs7jRP0SV6BvHXSPQ+4JDMGeYmC+OX+uvYzO5kTYd/6W5fUyOYYrxTneem5RqxLvkBQwLdzwM+I0IwfCBd88FWwVG39CVZkkO9l3ENztg0z8pprshc0pxeGoY9RQcTf2c0Xti+jTNul8BPX4oVEUHUWT5kw==
+X-Microsoft-Antispam-Message-Info: KkbnuhufPsihcWfxtJ4Wyolkqk8VOCs9+kg5l4xXrocCzrDwfSUnckxHV/51iUMem5awTQgNrmM9O5BltXbqTANDp+cdGcPpWOxeHkaA+H7D2W4YuWJ6fvVXnYRdVUP17H9EflwC2bejY8QZkmmd04yB4wc4nd6otR6oEaL6Pcoa7y7JCpE3QxtPOmxMyBSraLdreZQqvHECBAedrNze8dRBFbSyxv5HrU3kvxf4Je0Q8Ob7gVa52whyyoPsdmH3eoB0ICkWRXE4AqU++vFtXBZcCgYOmd9igkaucWP5domDYuET00+VDFO1AgFyPkM58AaUoD/e8F3BqU+odEACQ/ifIXOWFDpCtwqIMr8TU5g0oRYd/9yG3efBUdPbtAbiIkt3n02M7NNYVK4CJPhLQiNOWId8Ks4twEqgFVg8lrpRQajFLsD6YYPv5TDtWNa9/rebA7E4hOE/DECVbaMvDFpQP3irXpMDe4LDB+mpLweq9NksaCHvaQNi9wBNLU382aJKPgr3Erf+1BBLOuqwUSCwzyWpshcTpdgWhYSJjvr3QXKfexUEBErgnMHGOOAbTq6+V1Kx9PU/wbUaDJgXd0PylaqqCVa7qDi7rECVix5yMCjbj91juy3QVpuvnVgDXN5ibNFEacMePhiSRA7sBTTSIfWX0FuN9jbr24VYp3NyysItI2iZdI7Q5HCZ6qfO8g41g6SOdc0zKCyNDojYYGlUs/jppx5/8QNMjmsxBhEbCUe/Gvuy7mtS1B67X2xiB9V+/dPjUnwuim9PU9y56w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(136003)(396003)(346002)(376002)(451199021)(40470700004)(46966006)(36840700001)(40460700003)(6916009)(4326008)(70586007)(70206006)(82310400005)(356005)(81166007)(86362001)(186003)(336012)(26005)(1076003)(2616005)(36860700001)(47076005)(82740400003)(83380400001)(426003)(36756003)(478600001)(7696005)(6666004)(54906003)(40480700001)(41300700001)(5660300002)(8676002)(8936002)(30864003)(316002)(2906002)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(136003)(376002)(346002)(39860400002)(451199021)(46966006)(40470700004)(36840700001)(478600001)(6666004)(7696005)(4326008)(54906003)(186003)(26005)(1076003)(2906002)(82310400005)(8676002)(8936002)(41300700001)(6916009)(19627235002)(70206006)(316002)(70586007)(5660300002)(81166007)(356005)(82740400003)(40460700003)(86362001)(2616005)(426003)(83380400001)(336012)(47076005)(36756003)(40480700001)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2023 17:12:42.2289 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8928a0b-a3e3-4d56-f85b-08db82fb33ee
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2023 17:12:51.9447 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7d5a802-15ab-46e5-7a3b-08db82fb39b9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6493
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6033
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,308 +105,102 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Alan Liu <haoping.liu@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ Harry Wentland <harry.wentland@amd.com>, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+From: Alan Liu <haoping.liu@amd.com>
 
-After enable DRM_AMDGPU_WERROR, clang highlight multiple functions that
-need to have `static`, and this commit address those issues and also
-improve the indents.
+There is no need to calculate the VCO frequency. In our internal branch
+we've hard-coded this for a while, so it's well-tested. This also allows
+us to remove the now unused code for calculating the VCO frequency.
 
-Reviewed-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Acked-by: Alan Liu <haoping.liu@amd.com>
-Signed-off-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Signed-off-by: Alan Liu <haoping.liu@amd.com>
 ---
- .../gpu/drm/amd/display/dc/basics/vector.c    | 11 +++++-----
- .../gpu/drm/amd/display/dc/bios/bios_parser.c | 16 +++++++--------
- .../drm/amd/display/dc/bios/bios_parser2.c    | 20 ++++++++-----------
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  6 ++++--
- .../drm/amd/display/dc/core/dc_hw_sequencer.c |  1 +
- drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c |  6 +++---
- .../gpu/drm/amd/display/dc/dce/dce_i2c_hw.c   | 16 +++++++--------
- .../gpu/drm/amd/display/dc/dce/dce_i2c_sw.c   | 16 ++++++---------
- .../gpu/drm/amd/display/dc/dcn21/dcn21_dccg.c |  2 +-
- .../gpu/drm/amd/display/dc/dcn21/dcn21_dccg.h |  1 -
- .../dc/irq/dcn314/irq_service_dcn314.c        |  7 +++----
- 11 files changed, 45 insertions(+), 57 deletions(-)
+ .../dc/clk_mgr/dcn316/dcn316_clk_mgr.c        | 44 +------------------
+ 1 file changed, 2 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/basics/vector.c b/drivers/gpu/drm/amd/display/dc/basics/vector.c
-index 84aeccf36b4b..6d2924114a3e 100644
---- a/drivers/gpu/drm/amd/display/dc/basics/vector.c
-+++ b/drivers/gpu/drm/amd/display/dc/basics/vector.c
-@@ -50,12 +50,11 @@ bool dal_vector_construct(
- 	return true;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+index d7de756301cf..0349631991b8 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+@@ -55,14 +55,6 @@ struct IP_BASE
+     struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
+ };
  
--static bool dal_vector_presized_costruct(
--	struct vector *vector,
--	struct dc_context *ctx,
--	uint32_t count,
--	void *initial_value,
--	uint32_t struct_size)
-+static bool dal_vector_presized_costruct(struct vector *vector,
-+					 struct dc_context *ctx,
-+					 uint32_t count,
-+					 void *initial_value,
-+					 uint32_t struct_size)
- {
- 	uint32_t i;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-index 27af9d3c2b73..4f005ae1516c 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-@@ -2593,11 +2593,10 @@ static struct integrated_info *bios_parser_create_integrated_info(
- 	return NULL;
- }
- 
--static enum bp_result update_slot_layout_info(
--	struct dc_bios *dcb,
--	unsigned int i,
--	struct slot_layout_info *slot_layout_info,
--	unsigned int record_offset)
-+static enum bp_result update_slot_layout_info(struct dc_bios *dcb,
-+					      unsigned int i,
-+					      struct slot_layout_info *slot_layout_info,
-+					      unsigned int record_offset)
- {
- 	unsigned int j;
- 	struct bios_parser *bp;
-@@ -2696,10 +2695,9 @@ static enum bp_result update_slot_layout_info(
- }
- 
- 
--static enum bp_result get_bracket_layout_record(
--	struct dc_bios *dcb,
--	unsigned int bracket_layout_id,
--	struct slot_layout_info *slot_layout_info)
-+static enum bp_result get_bracket_layout_record(struct dc_bios *dcb,
-+						unsigned int bracket_layout_id,
-+						struct slot_layout_info *slot_layout_info)
- {
- 	unsigned int i;
- 	unsigned int record_offset;
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index cce47d3f1a13..540d19efad8f 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -340,9 +340,8 @@ static struct atom_display_object_path_v2 *get_bios_object(
- }
- 
- /* from graphics_object_id, find display path which includes the object_id */
--static struct atom_display_object_path_v3 *get_bios_object_from_path_v3(
--	struct bios_parser *bp,
--	struct graphics_object_id id)
-+static struct atom_display_object_path_v3 *get_bios_object_from_path_v3(struct bios_parser *bp,
-+									struct graphics_object_id id)
- {
- 	unsigned int i;
- 	struct graphics_object_id obj_id = {0};
-@@ -521,9 +520,8 @@ static enum bp_result get_gpio_i2c_info(
- 	return BP_RESULT_OK;
- }
- 
--static struct atom_hpd_int_record *get_hpd_record_for_path_v3(
--	struct bios_parser *bp,
--	struct atom_display_object_path_v3 *object)
-+static struct atom_hpd_int_record *get_hpd_record_for_path_v3(struct bios_parser *bp,
-+							      struct atom_display_object_path_v3 *object)
- {
- 	struct atom_common_record_header *header;
- 	uint32_t offset;
-@@ -2175,9 +2173,8 @@ static struct atom_disp_connector_caps_record *get_disp_connector_caps_record(
- 	return NULL;
- }
- 
--static struct atom_connector_caps_record *get_connector_caps_record(
--	struct bios_parser *bp,
--	struct atom_display_object_path_v3 *object)
-+static struct atom_connector_caps_record *get_connector_caps_record(struct bios_parser *bp,
-+								    struct atom_display_object_path_v3 *object)
- {
- 	struct atom_common_record_header *header;
- 	uint32_t offset;
-@@ -2264,9 +2261,8 @@ static enum bp_result bios_parser_get_disp_connector_caps_info(
- 	return BP_RESULT_OK;
- }
- 
--static struct atom_connector_speed_record *get_connector_speed_cap_record(
--	struct bios_parser *bp,
--	struct atom_display_object_path_v3 *object)
-+static struct atom_connector_speed_record *get_connector_speed_cap_record(struct bios_parser *bp,
-+									  struct atom_display_object_path_v3 *object)
- {
- 	struct atom_common_record_header *header;
- 	uint32_t offset;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index d133e4186a52..de3b891cba51 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1047,8 +1047,10 @@ static void disable_all_writeback_pipes_for_stream(
- 		stream->writeback_info[i].wb_enabled = false;
- }
- 
--static void apply_ctx_interdependent_lock(struct dc *dc, struct dc_state *context,
--					  struct dc_stream_state *stream, bool lock)
-+static void apply_ctx_interdependent_lock(struct dc *dc,
-+					  struct dc_state *context,
-+					  struct dc_stream_state *stream,
-+					  bool lock)
- {
- 	int i;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index cb2bf9a466f5..f99ec1b0efaf 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -187,6 +187,7 @@ static bool is_ycbcr709_limited_type(
- 		ret = true;
- 	return ret;
- }
-+
- static enum dc_color_space_type get_color_space_type(enum dc_color_space color_space)
- {
- 	enum dc_color_space_type type = COLOR_SPACE_RGB_TYPE;
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
-index 63009db8b5a7..b87bfecb7755 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
-@@ -76,9 +76,9 @@ static bool dce_dmcu_init(struct dmcu *dmcu)
- }
- 
- static bool dce_dmcu_load_iram(struct dmcu *dmcu,
--		unsigned int start_offset,
--		const char *src,
--		unsigned int bytes)
-+			       unsigned int start_offset,
-+			       const char *src,
-+			       unsigned int bytes)
- {
- 	struct dce_dmcu *dmcu_dce = TO_DCE_DMCU(dmcu);
- 	unsigned int count = 0;
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-index 6d1b01c267b7..4f552c3e7663 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-@@ -442,10 +442,9 @@ struct dce_i2c_hw *acquire_i2c_hw_engine(
- 	return dce_i2c_hw;
- }
- 
--static enum i2c_channel_operation_result dce_i2c_hw_engine_wait_on_operation_result(
--	struct dce_i2c_hw *dce_i2c_hw,
--	uint32_t timeout,
--	enum i2c_channel_operation_result expected_result)
-+static enum i2c_channel_operation_result dce_i2c_hw_engine_wait_on_operation_result(struct dce_i2c_hw *dce_i2c_hw,
-+										    uint32_t timeout,
-+										    enum i2c_channel_operation_result expected_result)
- {
- 	enum i2c_channel_operation_result result;
- 	uint32_t i = 0;
-@@ -509,11 +508,10 @@ static uint32_t get_transaction_timeout_hw(
- 	return period_timeout * num_of_clock_stretches;
- }
- 
--static bool dce_i2c_hw_engine_submit_payload(
--	struct dce_i2c_hw *dce_i2c_hw,
--	struct i2c_payload *payload,
--	bool middle_of_transaction,
--	uint32_t speed)
-+static bool dce_i2c_hw_engine_submit_payload(struct dce_i2c_hw *dce_i2c_hw,
-+					     struct i2c_payload *payload,
-+					     bool middle_of_transaction,
-+					     uint32_t speed)
- {
- 
- 	struct i2c_request_transaction_data request;
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_sw.c b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_sw.c
-index f1aeb6d1967c..e188447c8156 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_sw.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_sw.c
-@@ -367,6 +367,7 @@ static bool dce_i2c_sw_engine_acquire_engine(
- 
- 	return true;
- }
-+
- bool dce_i2c_engine_acquire_sw(
- 	struct dce_i2c_sw *dce_i2c_sw,
- 	struct ddc *ddc_handle)
-@@ -392,12 +393,8 @@ bool dce_i2c_engine_acquire_sw(
- 	return result;
- }
- 
+-static const struct IP_BASE CLK_BASE = { { { { 0x00016C00, 0x02401800, 0, 0, 0, 0 } },
+-                                        { { 0x00016E00, 0x02401C00, 0, 0, 0, 0 } },
+-                                        { { 0x00017000, 0x02402000, 0, 0, 0, 0 } },
+-                                        { { 0x00017200, 0x02402400, 0, 0, 0, 0 } },
+-                                        { { 0x0001B000, 0x0242D800, 0, 0, 0, 0 } },
+-                                        { { 0x0001B200, 0x0242DC00, 0, 0, 0, 0 } },
+-                                        { { 0x0001B400, 0x0242E000, 0, 0, 0, 0 } } } };
 -
+ #define regCLK1_CLK_PLL_REQ						0x0237
+ #define regCLK1_CLK_PLL_REQ_BASE_IDX			0
+ 
+@@ -73,9 +65,6 @@ static const struct IP_BASE CLK_BASE = { { { { 0x00016C00, 0x02401800, 0, 0, 0,
+ #define CLK1_CLK_PLL_REQ__PllSpineDiv_MASK		0x0000F000L
+ #define CLK1_CLK_PLL_REQ__FbMult_frac_MASK		0xFFFF0000L
+ 
+-#define REG(reg_name) \
+-	(CLK_BASE.instance[0].segment[reg ## reg_name ## _BASE_IDX] + reg ## reg_name)
 -
+ #define TO_CLK_MGR_DCN316(clk_mgr)\
+ 	container_of(clk_mgr, struct clk_mgr_dcn316, base)
+ 
+@@ -577,36 +566,6 @@ static struct clk_mgr_funcs dcn316_funcs = {
+ };
+ extern struct clk_mgr_funcs dcn3_fpga_funcs;
+ 
+-static int get_vco_frequency_from_reg(struct clk_mgr_internal *clk_mgr)
+-{
+-	/* get FbMult value */
+-	struct fixed31_32 pll_req;
+-	unsigned int fbmult_frac_val = 0;
+-	unsigned int fbmult_int_val = 0;
 -
--static void dce_i2c_sw_engine_submit_channel_request(
--	struct dce_i2c_sw *engine,
--	struct i2c_request_transaction_data *req)
-+static void dce_i2c_sw_engine_submit_channel_request(struct dce_i2c_sw *engine,
-+						     struct i2c_request_transaction_data *req)
- {
- 	struct ddc *ddc = engine->ddc;
- 	uint16_t clock_delay_div_4 = engine->clock_delay >> 2;
-@@ -439,10 +436,9 @@ static void dce_i2c_sw_engine_submit_channel_request(
- 		I2C_CHANNEL_OPERATION_FAILED;
- }
+-	/*
+-	 * Register value of fbmult is in 8.16 format, we are converting to 31.32
+-	 * to leverage the fix point operations available in driver
+-	 */
+-
+-	REG_GET(CLK1_CLK_PLL_REQ, FbMult_frac, &fbmult_frac_val); /* 16 bit fractional part*/
+-	REG_GET(CLK1_CLK_PLL_REQ, FbMult_int, &fbmult_int_val); /* 8 bit integer part */
+-
+-	pll_req = dc_fixpt_from_int(fbmult_int_val);
+-
+-	/*
+-	 * since fractional part is only 16 bit in register definition but is 32 bit
+-	 * in our fix point definiton, need to shift left by 16 to obtain correct value
+-	 */
+-	pll_req.value |= fbmult_frac_val << 16;
+-
+-	/* multiply by REFCLK period */
+-	pll_req = dc_fixpt_mul_int(pll_req, clk_mgr->dfs_ref_freq_khz);
+-
+-	/* integer part is now VCO frequency in kHz */
+-	return dc_fixpt_floor(pll_req);
+-}
+-
+ void dcn316_clk_mgr_construct(
+ 		struct dc_context *ctx,
+ 		struct clk_mgr_dcn316 *clk_mgr,
+@@ -660,7 +619,8 @@ void dcn316_clk_mgr_construct(
+ 		clk_mgr->base.smu_present = true;
  
--static bool dce_i2c_sw_engine_submit_payload(
--	struct dce_i2c_sw *engine,
--	struct i2c_payload *payload,
--	bool middle_of_transaction)
-+static bool dce_i2c_sw_engine_submit_payload(struct dce_i2c_sw *engine,
-+					     struct i2c_payload *payload,
-+					     bool middle_of_transaction)
- {
- 	struct i2c_request_transaction_data request;
+ 	// Skip this for now as it did not work on DCN315, renable during bring up
+-	clk_mgr->base.base.dentist_vco_freq_khz = get_vco_frequency_from_reg(&clk_mgr->base);
++	//clk_mgr->base.base.dentist_vco_freq_khz = get_vco_frequency_from_reg(&clk_mgr->base);
++	clk_mgr->base.base.dentist_vco_freq_khz = 2500000;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_dccg.c
-index 33fc9aa8621b..d07c04458d31 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_dccg.c
-@@ -43,7 +43,7 @@
- #define DC_LOGGER \
- 	dccg->ctx->logger
- 
--void dccg21_update_dpp_dto(struct dccg *dccg, int dpp_inst, int req_dppclk)
-+static void dccg21_update_dpp_dto(struct dccg *dccg, int dpp_inst, int req_dppclk)
- {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_dccg.h b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_dccg.h
-index e44a37491c1e..b7efa777ec73 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_dccg.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_dccg.h
-@@ -32,6 +32,5 @@ struct dccg *dccg21_create(
- 	const struct dccg_shift *dccg_shift,
- 	const struct dccg_mask *dccg_mask);
- 
--void dccg21_update_dpp_dto(struct dccg *dccg, int dpp_inst, int req_dppclk);
- 
- #endif /* __DCN21_DCCG_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c b/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
-index c923b2af8510..37bc98faa7a0 100644
---- a/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
-+++ b/drivers/gpu/drm/amd/display/dc/irq/dcn314/irq_service_dcn314.c
-@@ -38,10 +38,9 @@
- 
- #define DCN_BASE__INST0_SEG2                       0x000034C0
- 
--static enum dc_irq_source to_dal_irq_source_dcn314(
--		struct irq_service *irq_service,
--		uint32_t src_id,
--		uint32_t ext_id)
-+static enum dc_irq_source to_dal_irq_source_dcn314(struct irq_service *irq_service,
-+						   uint32_t src_id,
-+						   uint32_t ext_id)
- {
- 	switch (src_id) {
- 	case DCN_1_0__SRCID__DC_D1_OTG_VSTARTUP:
+ 	/* in case we don't get a value from the register, use default */
+ 	if (clk_mgr->base.base.dentist_vco_freq_khz == 0)
 -- 
 2.34.1
 
