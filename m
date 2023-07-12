@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5F71EB64DA
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 17:12:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF17CEB64DA
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 17:12:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6987710E5A1;
-	Wed, 12 Jul 2023 17:12:22 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20620.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e89::620])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6AC510E5A1
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jul 2023 17:12:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50F4810E5A2;
+	Wed, 12 Jul 2023 17:12:25 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2051.outbound.protection.outlook.com [40.107.244.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9162C10E5A2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Jul 2023 17:12:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jKbYvDRhwvbh0kmtyYPVsH9kNuSlsKONObe8iSOv85PTPHr+kfxp2bX2eVlVn16dwrNOOoJzpVRO/QSMn/of6iL1ft+M2VTQRdgXXeEUCr7ul0a9ZkvjmnX2gzwTZxPvF9mLl5aVw0thor4g7Nw6BSA+SKFGOxdNoNfaFTaNU8jpM2TuFJMzC2L3WmkbSDikB8a/orWjeqUE6evMVgT84Ztf5liMRfTYahvRpS9EH0s+dZslUFBKjcOCSWQR1Ma9zo8KN4UZcjVmvngOXYwXquEn0cqLcnZ6X5rkV4R5G5/3FIY2XVVXlKpWT+zu2PshMBJXnWMNlpx57/x7yHtAew==
+ b=KvU/zzN0EHgRMu7g9aWCYibvmnicas+K4jdscrR6fWIiKPhFAacOiy9V0faFPbldW7UfbqbMts/boFPqm7y7GkSVNNtqLy4PeIcp/1nZfgB+8lakw88ehF44mv5u10YhdDY6RI/ICvKltEB6Ryd/XF+Qyn5LzcAtlIKOE780+fwM3399I3jcP7+2liTmdjANpuSHmO/zHGTSBidTpd+rpMMV7e7TY+Lva6LlqcR6jd3VrOclkiJe36CKklM7WYDGwXi4ri9mmEPoARTWJpI8lwkkQqyt5QZBaV88cMjE0i0R+e6l2pbrB6KMBLJH1KWLUIp76jxo/dV/XiqpqsDQzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RCIuiLcJiD709FkJPXKE9HINJQKSiJ0xdgBZpZdJ9y0=;
- b=UTcR+EzqW6wKqVZSPe5Y6JW2jL/5CtZzFWKpy3yVMcGmlp202VsRf/XVUO3UOyKuPPb+OwFrgpJER8rAPp5W7LjvJDyGyn7r3Iztk18uVU54w96+JOsuCU/Xm6OfmkRx1RqtmbmgjvdYrJo4egnOrqqAWLzJt42yQqbk+jMSuknASbcld0f94OCzgfiLiVzKHcIgrSlNal3usmb1+nCjTo3TDT8E8K5OAnIa8hfvvc6Vi70cPQcyiVyms4IZiP5kPPghOdyVvVowxBncp+fiiMsN4OFSYXTRa+BYI9mUWHckVU78S0J2jxUn6DaWyreHECsMhubuzHjo3nX4rk0hSQ==
+ bh=nGIHqRWTLNAlHe6hTw4p4gzMnhuizes3iwiNusUz9/o=;
+ b=BnLcjF4AEjzTp4zpXOsmsVvq21pHxGFmC48YJaga/pZnZFxikSx2xnCRoCVnZNWEItvWyriMInwzt8L007hnkIeDp0JjBYrSXv9MYHJZk/ZgH5zH7d0RkzcnVikyrQzwtSjACpNe+zWFDpfOrXA1FKRMUkjZFytWoNgPFmz5UDVoPt3y6VcQea8Q2GEMSZOCarqoyUxfUVJuqdwBsmepSTfa9NGmDKMbFtz5qbyWWLuqmf93Nn4ckr9jOU0Jk7nnDbrei4HCG3irflWB7oIOe/CNKtonChsd4Nq0b8Ze26z/wa4cCQwdI8Ym0GY8D1NBq99b1jAc5oso6/sA2sMP+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RCIuiLcJiD709FkJPXKE9HINJQKSiJ0xdgBZpZdJ9y0=;
- b=DNl4bP5wuNknoG+CDA20wlAWQsCWFORpodGsnWc2tcyEb4iHmnS+pcoHvwUY/VN7Fa7NbkK874m8lx6Atf2ckbbxWAsv7bResNb5m7uQG7CTfaC/ukpfnfoiRacbIPvR22Q5vWq777xdaWa4WVtKV4Z7w4oFRGiDOplRR7hl6P8=
-Received: from BN9PR03CA0662.namprd03.prod.outlook.com (2603:10b6:408:10e::7)
- by SA1PR12MB5670.namprd12.prod.outlook.com (2603:10b6:806:239::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.26; Wed, 12 Jul
- 2023 17:12:14 +0000
-Received: from BN8NAM11FT056.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10e:cafe::7f) by BN9PR03CA0662.outlook.office365.com
- (2603:10b6:408:10e::7) with Microsoft SMTP Server (version=TLS1_2,
+ bh=nGIHqRWTLNAlHe6hTw4p4gzMnhuizes3iwiNusUz9/o=;
+ b=xPwYHdrvgSTK7Nx3mfBLAfm6/vyVbP9GC3zGjoAd11MabD3RBmgDeXsfn/HS6n8lpdphgq2P1gJY3OjdgnmVvQXRDLuGNXOMJFSkvu5cyQHoKlEnK1BDCiEJu90Yd8G2WjzlFHPxyJWq8WuiIWkpEMIRqNqnxta9cF+es1DnhmQ=
+Received: from BN9PR03CA0274.namprd03.prod.outlook.com (2603:10b6:408:f5::9)
+ by CH3PR12MB9393.namprd12.prod.outlook.com (2603:10b6:610:1c5::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.22; Wed, 12 Jul
+ 2023 17:12:18 +0000
+Received: from BN8NAM11FT045.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:f5:cafe::e4) by BN9PR03CA0274.outlook.office365.com
+ (2603:10b6:408:f5::9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.22 via Frontend
- Transport; Wed, 12 Jul 2023 17:12:14 +0000
+ Transport; Wed, 12 Jul 2023 17:12:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,22 +45,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT056.mail.protection.outlook.com (10.13.177.26) with Microsoft SMTP
+ BN8NAM11FT045.mail.protection.outlook.com (10.13.177.47) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6588.22 via Frontend Transport; Wed, 12 Jul 2023 17:12:14 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ 15.20.6588.22 via Frontend Transport; Wed, 12 Jul 2023 17:12:18 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 12 Jul
- 2023 12:12:09 -0500
+ 2023 12:12:14 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.6; Wed, 12 Jul
+ 2023 10:12:14 -0700
 Received: from alan-new-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
- Transport; Wed, 12 Jul 2023 12:12:06 -0500
+ Transport; Wed, 12 Jul 2023 12:12:10 -0500
 From: Alan Liu <HaoPing.Liu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 03/33] drm/amd/display: Re-add aux intercept disable delay
- generically for 2+ LTTPRs
-Date: Thu, 13 Jul 2023 01:11:07 +0800
-Message-ID: <20230712171137.3398344-4-HaoPing.Liu@amd.com>
+Subject: [PATCH 04/33] drm/amd/display: Add polling method to handle MST reply
+ packet
+Date: Thu, 13 Jul 2023 01:11:08 +0800
+Message-ID: <20230712171137.3398344-5-HaoPing.Liu@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230712171137.3398344-1-HaoPing.Liu@amd.com>
 References: <20230712171137.3398344-1-HaoPing.Liu@amd.com>
@@ -70,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT056:EE_|SA1PR12MB5670:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d369483-fb47-48fd-b47e-08db82fb232d
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT045:EE_|CH3PR12MB9393:EE_
+X-MS-Office365-Filtering-Correlation-Id: c34c910c-41e0-4c15-38c4-08db82fb25b0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FivC+ePioX0RRNBugsnrdlh6BWBVhUHnxNq8uiOppD2iNTF5EegNfUvg98UbtYjkDylnqAsOsNDBa5fkQlLYkP6n4xZ6mCJ53GL9MSdByeJQy/VNX9DM8ktCDuh0AN2PM+7iIznUuduVna7JpzzlvWvIHZdteHi8K0Ul5FNRjaXpD2db+viVt95LcxFHkYEokATmsxgW+eC+EPkaZOna+9YpXcDoKtKZ+c5bRlppAzmVg2/KENYCzkBLixOMfL/Nf2VCQJuucEJp+N2jwa+PMwe9r0gjjHOzhtQu6T3T4Tq6V7DEfIZ5Tgo/GJToxt62GA/lVlr84mTRpgrSgpOFAW+T+h6JAulkHJsVHAYCnXxmCloUnI5oy1sjcXkWY8D39JFBYqGy5OXC/7Bs7tY/z0YipF7vyW5H5zCr4SwlNmitiNczntTTbNYR21AQLU7BY8mIZRC5gjtaio+lyJeDXJi0HGrSMechVX5KNQxEpOdpfd0GTOSaY8c0gBDbsuImv4/TYR8C00AiD+jQPF0xT4wspitByQO7tlInAVi8Kd4Y6zjaWzlT3DEjPZy5+azW3KwC3IadFE9QffH60TjeS88z7UuUcXPmaKGVA61y9aWEzOOaKuT7sal2qABSU806sr+SRwzlK+qbOz5aqefuAiajSCE00f9Zh5skBRwVNXTxFkMBdCSQeXyXomHU+Ik1Gt4Dyh3X1l+hycdfvkyVhadU8C6S/y9yZ8Gs0L7kWmSw1r7jSWi+2tqcpUVgOYXItytZPjW96bGfruYyQHBspA==
+X-Microsoft-Antispam-Message-Info: mNVUVjB+GWgushBOLiZw6uFgeCfySvtFaSpNhTWwFjvJurPXuCBoCtsijmOiU+Pp1pdYR810cvmZhbTq6B4KzmJuss2VCTFWq1v/smCp87MgK7ye3n+mwhCwgwjldoDJvnO3ojwvEdXmIIpYBF6nPirt3lshdZ30Focey3MiNZx7H015onTFiJsidP+NhpR9sve0f8AsifWv4AxQvSamRgJvBzxiyE4q8ZNKBGZSs11f4yvllZ4GbVnK4BPOK83QCjLJHHpvh94BU6Na4qRinhnOH2vpFloT0o1DBgHyNPr+mclgTmirrisVFxmkg+AsJghfA8P1pHwRjgN4USkzkP9WzOd2j0DLC6yU2/lyp0IkvxebLAE2sYHdKLHAwCoJGCTjavkwcpXfognobQA0g4xT2TBvdnLKnFXCSfl+AvXy3L4G2MBwsKpBcsAj4EKA8YGDzZtdlBn4E/tMTj8NWifl53jWs/6XjPdq92aRMyjC5zD4n5PBx+WcQTYYKJUcCLZsgp5zAnY64QzZfCQ0TZLPAwMt62/Lb1ApupQCMXL4c8P4duHGA0vFsg1MK8ghGI78KfHex/uNjTraPOpWmVTwCIFVoXd52nCbtytRYniWIRvMAzysNn2P6Y2GOBFflmLiH7IwMZAAZdlejP1l29JVHoFmb7BStLPswRCYlMa3TTP5Zkm8kehnngQJ8wXe9YDAkiq2/dofChwrMt6c2ULE8dfDZigLmsVPQMABW/N7mQPjEOMJiQh0sZa7T4ply3gEH+3MBJTbe2MKFPBJnQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(346002)(39860400002)(376002)(136003)(451199021)(40470700004)(46966006)(36840700001)(2616005)(81166007)(356005)(426003)(82740400003)(41300700001)(316002)(2906002)(8936002)(8676002)(5660300002)(82310400005)(4326008)(70206006)(70586007)(6916009)(40460700003)(36860700001)(47076005)(7696005)(83380400001)(478600001)(36756003)(54906003)(336012)(86362001)(1076003)(186003)(26005)(40480700001)(36900700001);
+ SFS:(13230028)(4636009)(346002)(39860400002)(396003)(136003)(376002)(451199021)(46966006)(36840700001)(40470700004)(426003)(336012)(30864003)(36756003)(2616005)(2906002)(36860700001)(41300700001)(83380400001)(47076005)(186003)(40480700001)(26005)(1076003)(5660300002)(40460700003)(8936002)(8676002)(82740400003)(356005)(81166007)(54906003)(70586007)(70206006)(4326008)(7696005)(6916009)(86362001)(82310400005)(478600001)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2023 17:12:14.1188 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d369483-fb47-48fd-b47e-08db82fb232d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2023 17:12:18.3296 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c34c910c-41e0-4c15-38c4-08db82fb25b0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT056.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT045.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5670
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9393
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,125 +105,374 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Alan Liu <haoping.liu@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- George Shen <george.shen@amd.com>, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- Michael Strauss <michael.strauss@amd.com>, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, stable@vger.kernel.org, solomon.chiu@amd.com,
+ Jerry Zuo <jerry.zuo@amd.com>, Aurabindo.Pillai@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>, wayne.lin@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michael Strauss <michael.strauss@amd.com>
+From: Wayne Lin <wayne.lin@amd.com>
 
-[WHY]
-Issue not display generic, required for multiple 2+ LTTPR link configurations.
+[Why]
+Specific TBT4 dock doesn't send out short HPD to notify source
+that IRQ event DOWN_REP_MSG_RDY is set. Which violates the spec
+and cause source can't send out streams to mst sinks.
 
-[HOW]
-Revert monitor patch change and remove delay for single LTTPR case
+[How]
+To cover this misbehavior, add an additional polling method to detect
+DOWN_REP_MSG_RDY is set. HPD driven handling method is still kept.
+Just hook up our handler to drm mgr->cbs->poll_hpd_irq().
 
-Reviewed-by: George Shen <george.shen@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
 Acked-by: Alan Liu <haoping.liu@amd.com>
-Signed-off-by: Michael Strauss <michael.strauss@amd.com>
+Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
- drivers/gpu/drm/amd/display/dc/dc_types.h     |  1 -
- .../link_dp_training_fixed_vs_pe_retimer.c    | 25 +++++++++----------
- 3 files changed, 13 insertions(+), 14 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 117 +++++-------------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   7 ++
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 110 ++++++++++++++++
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.h   |  11 ++
+ 4 files changed, 159 insertions(+), 86 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 358cfa86b7fa..194f185e7798 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -861,6 +861,7 @@ struct dc_debug_options {
- 	bool psr_skip_crtc_disable;
- 	union dpia_debug_options dpia_debug;
- 	bool disable_fixed_vs_aux_timeout_wa;
-+	uint32_t fixed_vs_aux_delay_config_wa;
- 	bool force_disable_subvp;
- 	bool force_subvp_mclk_switch;
- 	bool allow_sw_cursor_fallback;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index 0ce7728a5a4b..0564f55aa595 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -189,7 +189,6 @@ struct dc_panel_patch {
- 	unsigned int disable_fams;
- 	unsigned int skip_avmute;
- 	unsigned int mst_start_top_delay;
--	unsigned int delay_disable_aux_intercept_ms;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 28f8ac6007fb..42fa632523a2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1347,6 +1347,15 @@ static void dm_handle_hpd_rx_offload_work(struct work_struct *work)
+ 	if (amdgpu_in_reset(adev))
+ 		goto skip;
+ 
++	if (offload_work->data.bytes.device_service_irq.bits.UP_REQ_MSG_RDY ||
++		offload_work->data.bytes.device_service_irq.bits.DOWN_REP_MSG_RDY) {
++		dm_handle_mst_sideband_msg_ready_event(&aconnector->mst_mgr, DOWN_OR_UP_MSG_RDY_EVENT);
++		spin_lock_irqsave(&offload_work->offload_wq->offload_lock, flags);
++		offload_work->offload_wq->is_handling_mst_msg_rdy_event = false;
++		spin_unlock_irqrestore(&offload_work->offload_wq->offload_lock, flags);
++		goto skip;
++	}
++
+ 	mutex_lock(&adev->dm.dc_lock);
+ 	if (offload_work->data.bytes.device_service_irq.bits.AUTOMATED_TEST) {
+ 		dc_link_dp_handle_automated_test(dc_link);
+@@ -3232,87 +3241,6 @@ static void handle_hpd_irq(void *param)
+ 
+ }
+ 
+-static void dm_handle_mst_sideband_msg(struct amdgpu_dm_connector *aconnector)
+-{
+-	u8 esi[DP_PSR_ERROR_STATUS - DP_SINK_COUNT_ESI] = { 0 };
+-	u8 dret;
+-	bool new_irq_handled = false;
+-	int dpcd_addr;
+-	int dpcd_bytes_to_read;
+-
+-	const int max_process_count = 30;
+-	int process_count = 0;
+-
+-	const struct dc_link_status *link_status = dc_link_get_status(aconnector->dc_link);
+-
+-	if (link_status->dpcd_caps->dpcd_rev.raw < 0x12) {
+-		dpcd_bytes_to_read = DP_LANE0_1_STATUS - DP_SINK_COUNT;
+-		/* DPCD 0x200 - 0x201 for downstream IRQ */
+-		dpcd_addr = DP_SINK_COUNT;
+-	} else {
+-		dpcd_bytes_to_read = DP_PSR_ERROR_STATUS - DP_SINK_COUNT_ESI;
+-		/* DPCD 0x2002 - 0x2005 for downstream IRQ */
+-		dpcd_addr = DP_SINK_COUNT_ESI;
+-	}
+-
+-	dret = drm_dp_dpcd_read(
+-		&aconnector->dm_dp_aux.aux,
+-		dpcd_addr,
+-		esi,
+-		dpcd_bytes_to_read);
+-
+-	while (dret == dpcd_bytes_to_read &&
+-		process_count < max_process_count) {
+-		u8 ack[DP_PSR_ERROR_STATUS - DP_SINK_COUNT_ESI] = {};
+-		u8 retry;
+-
+-		dret = 0;
+-
+-		process_count++;
+-
+-		DRM_DEBUG_DRIVER("ESI %02x %02x %02x\n", esi[0], esi[1], esi[2]);
+-		/* handle HPD short pulse irq */
+-		if (aconnector->mst_mgr.mst_state)
+-			drm_dp_mst_hpd_irq_handle_event(&aconnector->mst_mgr,
+-							esi,
+-							ack,
+-							&new_irq_handled);
+-
+-		if (new_irq_handled) {
+-			/* ACK at DPCD to notify down stream */
+-			for (retry = 0; retry < 3; retry++) {
+-				ssize_t wret;
+-
+-				wret = drm_dp_dpcd_writeb(&aconnector->dm_dp_aux.aux,
+-							  dpcd_addr + 1,
+-							  ack[1]);
+-				if (wret == 1)
+-					break;
+-			}
+-
+-			if (retry == 3) {
+-				DRM_ERROR("Failed to ack MST event.\n");
+-				return;
+-			}
+-
+-			drm_dp_mst_hpd_irq_send_new_request(&aconnector->mst_mgr);
+-			/* check if there is new irq to be handled */
+-			dret = drm_dp_dpcd_read(
+-				&aconnector->dm_dp_aux.aux,
+-				dpcd_addr,
+-				esi,
+-				dpcd_bytes_to_read);
+-
+-			new_irq_handled = false;
+-		} else {
+-			break;
+-		}
+-	}
+-
+-	if (process_count == max_process_count)
+-		DRM_DEBUG_DRIVER("Loop exceeded max iterations\n");
+-}
+-
+ static void schedule_hpd_rx_offload_work(struct hpd_rx_irq_offload_work_queue *offload_wq,
+ 							union hpd_irq_data hpd_irq_data)
+ {
+@@ -3374,7 +3302,23 @@ static void handle_hpd_rx_irq(void *param)
+ 	if (dc_link_dp_allow_hpd_rx_irq(dc_link)) {
+ 		if (hpd_irq_data.bytes.device_service_irq.bits.UP_REQ_MSG_RDY ||
+ 			hpd_irq_data.bytes.device_service_irq.bits.DOWN_REP_MSG_RDY) {
+-			dm_handle_mst_sideband_msg(aconnector);
++			bool skip = false;
++
++			/*
++			 * DOWN_REP_MSG_RDY is also handled by polling method
++			 * mgr->cbs->poll_hpd_irq()
++			 */
++			spin_lock(&offload_wq->offload_lock);
++			skip = offload_wq->is_handling_mst_msg_rdy_event;
++
++			if (!skip)
++				offload_wq->is_handling_mst_msg_rdy_event = true;
++
++			spin_unlock(&offload_wq->offload_lock);
++
++			if (!skip)
++				schedule_hpd_rx_offload_work(offload_wq, hpd_irq_data);
++
+ 			goto out;
+ 		}
+ 
+@@ -3483,11 +3427,11 @@ static void register_hpd_handlers(struct amdgpu_device *adev)
+ 			amdgpu_dm_irq_register_interrupt(adev, &int_params,
+ 					handle_hpd_rx_irq,
+ 					(void *) aconnector);
+-
+-			if (adev->dm.hpd_rx_offload_wq)
+-				adev->dm.hpd_rx_offload_wq[dc_link->link_index].aconnector =
+-					aconnector;
+ 		}
++
++		if (adev->dm.hpd_rx_offload_wq)
++			adev->dm.hpd_rx_offload_wq[connector->index].aconnector =
++				aconnector;
+ 	}
+ }
+ 
+@@ -7300,6 +7244,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 	aconnector->as_type = ADAPTIVE_SYNC_TYPE_NONE;
+ 	memset(&aconnector->vsdb_info, 0, sizeof(aconnector->vsdb_info));
+ 	mutex_init(&aconnector->hpd_lock);
++	mutex_init(&aconnector->handle_mst_msg_ready);
+ 
+ 	/*
+ 	 * configure support HPD hot plug connector_>polled default value is 0
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 4561f55afa99..9fb5bb3a75a7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -194,6 +194,11 @@ struct hpd_rx_irq_offload_work_queue {
+ 	 * we're handling link loss
+ 	 */
+ 	bool is_handling_link_loss;
++	/**
++	 * @is_handling_mst_msg_rdy_event: Used to prevent inserting mst message
++	 * ready event when we're already handling mst message ready event
++	 */
++	bool is_handling_mst_msg_rdy_event;
+ 	/**
+ 	 * @aconnector: The aconnector that this work queue is attached to
+ 	 */
+@@ -638,6 +643,8 @@ struct amdgpu_dm_connector {
+ 	struct drm_dp_mst_port *mst_output_port;
+ 	struct amdgpu_dm_connector *mst_root;
+ 	struct drm_dp_aux *dsc_aux;
++	struct mutex handle_mst_msg_ready;
++
+ 	/* TODO see if we can merge with ddc_bus or make a dm_connector */
+ 	struct amdgpu_i2c_adapter *i2c;
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 95eefa6b4f2f..1d343f16e5b8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -620,8 +620,118 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	return connector;
+ }
+ 
++void dm_handle_mst_sideband_msg_ready_event(
++	struct drm_dp_mst_topology_mgr *mgr,
++	enum mst_msg_ready_type msg_rdy_type)
++{
++	uint8_t esi[DP_PSR_ERROR_STATUS - DP_SINK_COUNT_ESI] = { 0 };
++	uint8_t dret;
++	bool new_irq_handled = false;
++	int dpcd_addr;
++	uint8_t dpcd_bytes_to_read;
++	const uint8_t max_process_count = 30;
++	uint8_t process_count = 0;
++	u8 retry;
++	struct amdgpu_dm_connector *aconnector =
++			container_of(mgr, struct amdgpu_dm_connector, mst_mgr);
++
++
++	const struct dc_link_status *link_status = dc_link_get_status(aconnector->dc_link);
++
++	if (link_status->dpcd_caps->dpcd_rev.raw < 0x12) {
++		dpcd_bytes_to_read = DP_LANE0_1_STATUS - DP_SINK_COUNT;
++		/* DPCD 0x200 - 0x201 for downstream IRQ */
++		dpcd_addr = DP_SINK_COUNT;
++	} else {
++		dpcd_bytes_to_read = DP_PSR_ERROR_STATUS - DP_SINK_COUNT_ESI;
++		/* DPCD 0x2002 - 0x2005 for downstream IRQ */
++		dpcd_addr = DP_SINK_COUNT_ESI;
++	}
++
++	mutex_lock(&aconnector->handle_mst_msg_ready);
++
++	while (process_count < max_process_count) {
++		u8 ack[DP_PSR_ERROR_STATUS - DP_SINK_COUNT_ESI] = {};
++
++		process_count++;
++
++		dret = drm_dp_dpcd_read(
++			&aconnector->dm_dp_aux.aux,
++			dpcd_addr,
++			esi,
++			dpcd_bytes_to_read);
++
++		if (dret != dpcd_bytes_to_read) {
++			DRM_DEBUG_KMS("DPCD read and acked number is not as expected!");
++			break;
++		}
++
++		DRM_DEBUG_DRIVER("ESI %02x %02x %02x\n", esi[0], esi[1], esi[2]);
++
++		switch (msg_rdy_type) {
++		case DOWN_REP_MSG_RDY_EVENT:
++			/* Only handle DOWN_REP_MSG_RDY case*/
++			esi[1] &= DP_DOWN_REP_MSG_RDY;
++			break;
++		case UP_REQ_MSG_RDY_EVENT:
++			/* Only handle UP_REQ_MSG_RDY case*/
++			esi[1] &= DP_UP_REQ_MSG_RDY;
++			break;
++		default:
++			/* Handle both cases*/
++			esi[1] &= (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
++			break;
++		}
++
++		if (!esi[1])
++			break;
++
++		/* handle MST irq */
++		if (aconnector->mst_mgr.mst_state)
++			drm_dp_mst_hpd_irq_handle_event(&aconnector->mst_mgr,
++						 esi,
++						 ack,
++						 &new_irq_handled);
++
++		if (new_irq_handled) {
++			/* ACK at DPCD to notify down stream */
++			for (retry = 0; retry < 3; retry++) {
++				ssize_t wret;
++
++				wret = drm_dp_dpcd_writeb(&aconnector->dm_dp_aux.aux,
++							  dpcd_addr + 1,
++							  ack[1]);
++				if (wret == 1)
++					break;
++			}
++
++			if (retry == 3) {
++				DRM_ERROR("Failed to ack MST event.\n");
++				return;
++			}
++
++			drm_dp_mst_hpd_irq_send_new_request(&aconnector->mst_mgr);
++
++			new_irq_handled = false;
++		} else {
++			break;
++		}
++	}
++
++	mutex_unlock(&aconnector->handle_mst_msg_ready);
++
++	if (process_count == max_process_count)
++		DRM_DEBUG_DRIVER("Loop exceeded max iterations\n");
++}
++
++static void dm_handle_mst_down_rep_msg_ready(struct drm_dp_mst_topology_mgr *mgr)
++{
++	dm_handle_mst_sideband_msg_ready_event(mgr, DOWN_REP_MSG_RDY_EVENT);
++}
++
+ static const struct drm_dp_mst_topology_cbs dm_mst_cbs = {
+ 	.add_connector = dm_dp_add_mst_connector,
++	.poll_hpd_irq = dm_handle_mst_down_rep_msg_ready,
  };
  
- struct dc_edid_caps {
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
-index 15faaf645b14..2a4f70acc7fa 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
-@@ -244,10 +244,6 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence_legacy(
- 	uint8_t toggle_rate;
- 	uint8_t rate;
+ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+index 1e4ede1e57ab..37c820ab0fdb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+@@ -49,6 +49,13 @@
+ #define PBN_FEC_OVERHEAD_MULTIPLIER_8B_10B	1031
+ #define PBN_FEC_OVERHEAD_MULTIPLIER_128B_132B	1000
  
--	if (link->local_sink)
--		pre_disable_intercept_delay_ms =
--				link->local_sink->edid_caps.panel_patch.delay_disable_aux_intercept_ms;
--
- 	/* Only 8b/10b is supported */
- 	ASSERT(link_dp_get_encoding_format(&lt_settings->link_settings) ==
- 			DP_8b_10b_ENCODING);
-@@ -260,10 +256,13 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence_legacy(
- 	if (offset != 0xFF) {
- 		vendor_lttpr_write_address +=
- 				((DP_REPEATER_CONFIGURATION_AND_STATUS_SIZE) * (offset - 1));
-+		if (offset == 2) {
-+			pre_disable_intercept_delay_ms = link->dc->debug.fixed_vs_aux_delay_config_wa;
- 
- 		/* Certain display and cable configuration require extra delay */
--		if (offset > 2)
--			pre_disable_intercept_delay_ms = pre_disable_intercept_delay_ms * 2;
-+		} else if (offset > 2) {
-+			pre_disable_intercept_delay_ms = link->dc->debug.fixed_vs_aux_delay_config_wa * 2;
-+		}
- 	}
- 
- 	/* Vendor specific: Reset lane settings */
-@@ -596,9 +595,10 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence(
- 	const uint8_t vendor_lttpr_write_data_adicora_eq1[4] = {0x1, 0x55, 0x63, 0x2E};
- 	const uint8_t vendor_lttpr_write_data_adicora_eq2[4] = {0x1, 0x55, 0x63, 0x01};
- 	const uint8_t vendor_lttpr_write_data_adicora_eq3[4] = {0x1, 0x55, 0x63, 0x68};
-+	uint32_t pre_disable_intercept_delay_ms = 0;
- 	uint8_t vendor_lttpr_write_data_vs[4] = {0x1, 0x51, 0x63, 0x0};
- 	uint8_t vendor_lttpr_write_data_pe[4] = {0x1, 0x52, 0x63, 0x0};
--	uint32_t pre_disable_intercept_delay_ms = 0;
++enum mst_msg_ready_type {
++	NONE_MSG_RDY_EVENT = 0,
++	DOWN_REP_MSG_RDY_EVENT = 1,
++	UP_REQ_MSG_RDY_EVENT = 2,
++	DOWN_OR_UP_MSG_RDY_EVENT = 3
++};
 +
- 	uint32_t vendor_lttpr_write_address = 0xF004F;
- 	enum link_training_result status = LINK_TRAINING_SUCCESS;
- 	uint8_t lane = 0;
-@@ -607,10 +607,6 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence(
- 	uint8_t toggle_rate;
- 	uint8_t rate;
+ struct amdgpu_display_manager;
+ struct amdgpu_dm_connector;
  
--	if (link->local_sink)
--		pre_disable_intercept_delay_ms =
--				link->local_sink->edid_caps.panel_patch.delay_disable_aux_intercept_ms;
--
- 	/* Only 8b/10b is supported */
- 	ASSERT(link_dp_get_encoding_format(&lt_settings->link_settings) ==
- 			DP_8b_10b_ENCODING);
-@@ -623,10 +619,13 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence(
- 	if (offset != 0xFF) {
- 		vendor_lttpr_write_address +=
- 				((DP_REPEATER_CONFIGURATION_AND_STATUS_SIZE) * (offset - 1));
-+		if (offset == 2) {
-+			pre_disable_intercept_delay_ms = link->dc->debug.fixed_vs_aux_delay_config_wa;
+@@ -61,6 +68,10 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+ void
+ dm_dp_create_fake_mst_encoders(struct amdgpu_device *adev);
  
- 		/* Certain display and cable configuration require extra delay */
--		if (offset > 2)
--			pre_disable_intercept_delay_ms = pre_disable_intercept_delay_ms * 2;
-+		} else if (offset > 2) {
-+			pre_disable_intercept_delay_ms = link->dc->debug.fixed_vs_aux_delay_config_wa * 2;
-+		}
- 	}
- 
- 	/* Vendor specific: Reset lane settings */
++void dm_handle_mst_sideband_msg_ready_event(
++	struct drm_dp_mst_topology_mgr *mgr,
++	enum mst_msg_ready_type msg_rdy_type);
++
+ struct dsc_mst_fairness_vars {
+ 	int pbn;
+ 	bool dsc_enabled;
 -- 
 2.34.1
 
