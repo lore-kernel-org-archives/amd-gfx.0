@@ -4,63 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C32BC0015E
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 07:52:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DEC7EB64DD
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 10:16:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 781F510E621;
-	Thu, 13 Jul 2023 07:51:58 +0000 (UTC)
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [IPv6:2a00:1450:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA0E610E620;
- Thu, 13 Jul 2023 07:51:56 +0000 (UTC)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2b70bfc8db5so5048911fa.2; 
- Thu, 13 Jul 2023 00:51:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689234714; x=1691826714;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=4oZ68SaUqVH0D2Zc2sc1Hk+yQM9B+LeCSgmzfoPq70g=;
- b=oLIosKjpSzUdO2vaCQ859Xx47UjYRIJS9O0weHTp9nHxlFc4so+UTfBg0hxgvcsq4B
- dBQz5S0k8c2TUeWyFCks8AMzoHnKUoSEV4nGq2D9uRST09/hj5WIeGhQQTl7TbU0tkKp
- jusb4g3wdGG9PgclqInX9tSEDpsHh9Jk6q8XgZpLcqbsy17Balj019pXJRmF2Nllg6ue
- jiooqz3sfYbUqLs3zYsHg28FPRgrWoJG9WSvfnRyJlH5XZ9d5E1U3DfPIIjNO5AffJV5
- NA/gZPlKYPF4aF5ei2vqwsxk4GV3imoe4GGWVQ49rzChwdgxzfioDjwPSrtKndURVcfw
- cXdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689234714; x=1691826714;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4oZ68SaUqVH0D2Zc2sc1Hk+yQM9B+LeCSgmzfoPq70g=;
- b=FV20IJdNn1v1qDxfh07LhUp+S3Wm8WsQjZvyYXloyX3DffMgKRdVnzCWY3mKDam00Y
- 6mgeVin271lWD48zQTtQu3vsHzYB73eOrXdICMO7fXRXmmEQs2HKcNI299Gj21DPLlFj
- ygFWTA4uTrMM7hVtBWJTi2pDeYJcX6/k9wHZ6khM7TqUw1azTwLLU6h3+F1YIOtO1Evi
- IISyy9pYiIbkvLW/dcGa3mgFd92rsOlISV9E9j4D7olPdtPHWdJiVK/BqKW81uc8kLiR
- hCFdf2wxVQDpYVdvoktoU8X/zPOnZOzCNf7cA8g7kuzO7VpHjLI3q8jaaFDBLNVlwaey
- Sk3Q==
-X-Gm-Message-State: ABy/qLZh/oA0mjpNr9SUVTYvWqxZ3pdV+r9NdLt7+6XUdZYkZv+KOSSd
- zp24vELbwwWrVY3e0RrJZIU=
-X-Google-Smtp-Source: APBJJlFWdpdNCZjmxfbdUWTl4ESYDoRy84nBwhykBkLHk0plqvI1FvsVLw49fzew1qmRJ8dp0wfs5g==
-X-Received: by 2002:a2e:9f17:0:b0:2b6:cb0d:56ae with SMTP id
- u23-20020a2e9f17000000b002b6cb0d56aemr635204ljk.11.1689234713822; 
- Thu, 13 Jul 2023 00:51:53 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- l18-20020a2e7012000000b002b6c61bac2esm1374734ljc.92.2023.07.13.00.51.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jul 2023 00:51:53 -0700 (PDT)
-Date: Thu, 13 Jul 2023 10:51:42 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Subject: Re: [PATCH v5 6/6] drm/doc: Define KMS atomic state set
-Message-ID: <20230713105142.122a0cc1@eldfell>
-In-Reply-To: <ZK0ZlciR66oTO+Td@phenom.ffwll.local>
-References: <20230707224059.305474-1-andrealmeid@igalia.com>
- <20230707224059.305474-7-andrealmeid@igalia.com>
- <ZK0ZlciR66oTO+Td@phenom.ffwll.local>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 920A010E02D;
+	Thu, 13 Jul 2023 10:16:12 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2043.outbound.protection.outlook.com [40.107.243.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E8C110E02D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 10:16:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bw/0eLnnXaoaczoPRWHz/acv3nX4uaS9HylqIrNWA9qkf8UV810BhSyg+wEBajrEvZubKXenunkRPKNTlZKmQ+nTlr8z8AXIPLMjUT3D3yGyRzrXzGWlHMP0KlDVRqWUP1++FaVTXKQuRBmUvfrCqQe8cdgPRTGdJeOp6oINKwNM5xxr1Gpz+ntPBnOlNsTdNT6sSr2sO5+31NBFm+x2wN4z0iIj8EFRszasdAJ7DcUaK/N/4FaPaH2WJnh5iO3/vwlV56BpxmBEUBa7k4D12s+03csMWQxcY3VdbxTjgAk1c5EpVniZu2SUICsce6RTc+aZysRyzGk9eMPB4AebYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5nkEWLZNqB08c/wrR6i3pFplqF8STVVUuPo9yb6YidU=;
+ b=Ndf/VYT4h09KDW+19IsA4bdXS2nO/mW3mxMODonELcN3AoiTD/E9ZlqkSrt3SVehpCPAAZxAAfTf/KtILWVMXn6/wTz4CB6tcDZoOB58XojPc3vmSdkjAuLj6nO+8Xn2ToMy4+B1cazDApb+93GkryBbvPdREv+aj45pezY1xmHu3JKWH/dfbZ+a17S6Y7ACdITSLazuO3NkGPpNsVUkiZE0fNrEPqc+xoD5QaOT6m0At+l29c5fuGULQWo7E2vRv0U77wZjJW2DYNlArAXFC6xZDbtYezwTa/KMRbc94CYtCCGs9tpUB6GDPv4hVxKuZCSDaphPRWYXzUbZlHs3YQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5nkEWLZNqB08c/wrR6i3pFplqF8STVVUuPo9yb6YidU=;
+ b=ckfSspyQIQZxueGlgVVigzGmH86wd3R+t1yLeNuHsOmXCGoll8F0ZCIjs6WKsuKGflZahux1vhRo6dRScKSLK45ZHBgBOF36mqOW1XnLuyYusJLjzw3VRl1WCjcrZ8+76u2u2iHd9MJZ/wEo25lYDv2pC8c1utETD/vjwOAmlf4=
+Received: from BN9PR03CA0255.namprd03.prod.outlook.com (2603:10b6:408:ff::20)
+ by MN0PR12MB5907.namprd12.prod.outlook.com (2603:10b6:208:37b::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30; Thu, 13 Jul
+ 2023 10:16:07 +0000
+Received: from BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ff:cafe::98) by BN9PR03CA0255.outlook.office365.com
+ (2603:10b6:408:ff::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.22 via Frontend
+ Transport; Thu, 13 Jul 2023 10:16:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT057.mail.protection.outlook.com (10.13.177.49) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6588.24 via Frontend Transport; Thu, 13 Jul 2023 10:16:07 +0000
+Received: from mao-Super-Server.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 13 Jul
+ 2023 05:16:05 -0500
+From: YuanShang <YuanShang.Mao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: load sdma ucode in the guest machine
+Date: Thu, 13 Jul 2023 18:15:39 +0800
+Message-ID: <20230713101539.20608-1-YuanShang.Mao@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/s775lQ2oUepIq0FO_JB10fu";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT057:EE_|MN0PR12MB5907:EE_
+X-MS-Office365-Filtering-Correlation-Id: 458c4520-d59f-40a1-f76f-08db838a2c5b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uqD1TKs90UkKmsF6HRp7JHPY902KZTp7wdFbX53zaPEdgiT3XM5xexTa/qlPn+aQSfr0DcwPriwLLe+Uz30fs14WFBxEzOorNMNOSvmOJy/Pff2lI4PQeRhHHj6YbIVDD09Ah3RDJccyrqxu0CfQSTBWbSAMbTlyeOe5isjBLU33q0ewOTFOMFoHv7046YgkJvrU3WzrEm/Y/v1Ms77BNsgyHupHJx3Yqiw615u2mvvPxvUN348oFJcsGk350PKIr2X6BO2smxqbJSeTYE8p4a835pKyncc0D3o7YhF6ei5NMi9BK3EpDmi2qem3n/M+yRT+9ofI6gTmoqMT2eAZjl66x6fN+n+7O8bpSPz4SgvjaAdbIcErqdre9lbm8YS4Y7DQCip4Sq9hctUTgv4RJJu+nDfwp29YvZTO38zN8uVx425HyX2Vszh8cMYJLA+sYNK/SLjN3hnB6IZZRFbKiz68nwHxKEdCfPx+N/vOqTINsybtLW08/t9aPpwUFUpcxobKBLA1FqQcOhZ1qq05F77XqayIpHSPp52isl5qNww73SSBBO1WPF4E/a45xMIipT9UbcclJm/4crojZSeboExzdvMw7x2oONtb4C4/s/PkeDTLg23TF5Kx8t5hjRIYbTjitEzfjX/h0Pk/6r2WmPFuvflw99jZgWMrd758f0qT661eslU98HlEiBbcq4dBtpFoepKHoAH/skuXukeiYY+2uJ3cZE4yImVtDP5Eqc1VHiEDSmGcs8hlC3nX7vHefaayy8+1IjjwggEWRfZ3BQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(376002)(346002)(136003)(396003)(451199021)(36840700001)(46966006)(40470700004)(40460700003)(186003)(2616005)(2906002)(478600001)(26005)(1076003)(83380400001)(47076005)(336012)(4326008)(41300700001)(36860700001)(426003)(5660300002)(316002)(8676002)(16526019)(6916009)(8936002)(70206006)(7696005)(6666004)(70586007)(54906003)(36756003)(40480700001)(356005)(81166007)(82740400003)(82310400005)(86362001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2023 10:16:07.5538 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 458c4520-d59f-40a1-f76f-08db838a2c5b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT057.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5907
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,165 +97,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com, Daniel Vetter <daniel@ffwll.ch>,
- 'Marek =?UTF-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>, Randy Dunlap <rdunlap@infradead.org>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org, hwentlan@amd.com,
- ville.syrjala@linux.intel.com, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- alexander.deucher@amd.com, Daniel Stone <daniel@fooishbar.org>,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com, joshua@froggi.es
+Cc: zhenguo.yin@amd.com, YuanShang <YuanShang.Mao@amd.com>, horace.chen@amd.com,
+ haijun.chang@amd.com, yuansmao@amd.com, monk.liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/s775lQ2oUepIq0FO_JB10fu
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Load the sdma ucode in the guest machine CHIP_NAVI12
+and CHIP_SIENNA_CICHLID, so that the guest can check
+the version of current sdma ucode.
+It is used to support KFDTopologyTest.BasicTest,
+which need use the sdma ucode version to see whether
+the sdma engine support a new type of package (Barrier
+Value Packet).
 
-On Tue, 11 Jul 2023 10:57:57 +0200
-Daniel Vetter <daniel@ffwll.ch> wrote:
+Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c |  3 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 11 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   |  6 ++----
+ 3 files changed, 13 insertions(+), 7 deletions(-)
 
-> On Fri, Jul 07, 2023 at 07:40:59PM -0300, Andr=C3=A9 Almeida wrote:
-> > From: Pekka Paalanen <pekka.paalanen@collabora.com>
-> >=20
-> > Specify how the atomic state is maintained between userspace and
-> > kernel, plus the special case for async flips.
-> >=20
-> > Signed-off-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-> > Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> > ---
-> > v4: total rework by Pekka
-> > ---
-> >  Documentation/gpu/drm-uapi.rst | 41 ++++++++++++++++++++++++++++++++++
-> >  1 file changed, 41 insertions(+)
-> >=20
-> > diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uap=
-i.rst
-> > index 65fb3036a580..6a1662c08901 100644
-> > --- a/Documentation/gpu/drm-uapi.rst
-> > +++ b/Documentation/gpu/drm-uapi.rst
-> > @@ -486,3 +486,44 @@ and the CRTC index is its position in this array.
-> > =20
-> >  .. kernel-doc:: include/uapi/drm/drm_mode.h
-> >     :internal:
-> > +
-> > +KMS atomic state
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > +
-> > +An atomic commit can change multiple KMS properties in an atomic fashi=
-on,
-> > +without ever applying intermediate or partial state changes.  Either t=
-he whole
-> > +commit succeeds or fails, and it will never be applied partially. This=
- is the
-> > +fundamental improvement of the atomic API over the older non-atomic AP=
-I which is
-> > +referred to as the "legacy API".  Applying intermediate state could un=
-expectedly
-> > +fail, cause visible glitches, or delay reaching the final state.
-> > +
-> > +An atomic commit can be flagged with DRM_MODE_ATOMIC_TEST_ONLY, which =
-means the
-> > +complete state change is validated but not applied.  Userspace should =
-use this
-> > +flag to validate any state change before asking to apply it. If valida=
-tion fails
-> > +for any reason, userspace should attempt to fall back to another, perh=
-aps
-> > +simpler, final state.  This allows userspace to probe for various conf=
-igurations
-> > +without causing visible glitches on screen and without the need to und=
-o a
-> > +probing change.
-> > +
-> > +The changes recorded in an atomic commit apply on top the current KMS =
-state in
-> > +the kernel. Hence, the complete new KMS state is the complete old KMS =
-state with
-> > +the committed property settings done on top. The kernel will automatic=
-ally avoid
-> > +no-operation changes, so it is safe and even expected for userspace to=
- send
-> > +redundant property settings.  No-operation changes do not count toward=
-s actually
-> > +needed changes, e.g.  setting MODE_ID to a different blob with identic=
-al
-> > +contents as the current KMS state shall not be a modeset on its own. =
-=20
->=20
-> Small clarification: The kernel indeed tries very hard to make redundant
-> changes a no-op, and I think we should consider any issues here bugs. But
-> it still has to check, which means it needs to acquire the right locks and
-> put in the right (cross-crtc) synchronization points, and due to
-> implmentation challenges it's very hard to try to avoid that in all cases.
-> So adding redundant changes especially across crtc (and their connected
-> planes/connectors) might result in some oversynchronization issues, and
-> userspace should therefore avoid them if feasible.
->=20
-> With some sentences added to clarify this:
->=20
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+index dacf281d2b21..e2b9392d7f0d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -239,9 +239,6 @@ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
+ 			       sizeof(struct amdgpu_sdma_instance));
+ 	}
+ 
+-	if (amdgpu_sriov_vf(adev))
+-		return 0;
+-
+ 	DRM_DEBUG("psp_load == '%s'\n",
+ 		  adev->firmware.load_type == AMDGPU_FW_LOAD_PSP ? "true" : "false");
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 41aa853a07d2..16e4e30ee28e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -845,6 +845,17 @@ bool amdgpu_virt_fw_load_skip_check(struct amdgpu_device *adev, uint32_t ucode_i
+ 			return false;
+ 		else
+ 			return true;
++	case IP_VERSION(13, 0, 7):
++	case IP_VERSION(13, 0, 9):
++		/* black list for navi12 and navi21*/
++		if (ucode_id == AMDGPU_UCODE_ID_RLC_G
++		    || ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_CNTL
++		    || ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_GPM_MEM
++		    || ucode_id == AMDGPU_UCODE_ID_RLC_RESTORE_LIST_SRM_MEM
++		    || ucode_id == AMDGPU_UCODE_ID_SMC)
++			return true;
++		else
++			return false;
+ 	case IP_VERSION(13, 0, 10):
+ 		/* white list */
+ 		if (ucode_id == AMDGPU_UCODE_ID_CAP
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index 5c4d4df9cf94..aa6b7390a7a7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -237,10 +237,8 @@ static void sdma_v5_0_init_golden_registers(struct amdgpu_device *adev)
+ // emulation only, won't work on real chip
+ // navi10 real chip need to use PSP to load firmware
+ static int sdma_v5_0_init_microcode(struct amdgpu_device *adev)
+-{	int ret, i;
+-
+-	if (amdgpu_sriov_vf(adev) && (adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(5, 0, 5)))
+-		return 0;
++{
++	int ret, i;
+ 
+ 	for (i = 0; i < adev->sdma.num_instances; i++) {
+ 		ret = amdgpu_sdma_init_microcode(adev, i, false);
+-- 
+2.25.1
 
-After talking on IRC yesterday, we realized that the no-op rule is
-nowhere near as generic as I have believed. Roughly:
-https://oftc.irclog.whitequark.org/dri-devel/2023-07-12#1689152446-16891572=
-91;
-
-
-Thanks,
-pq
-
-> > +
-> > +A "modeset" is a change in KMS state that might enable, disable, or te=
-mporarily
-> > +disrupt the emitted video signal, possibly causing visible glitches on=
- screen. A
-> > +modeset may also take considerably more time to complete than other ki=
-nds of
-> > +changes, and the video sink might also need time to adapt to the new s=
-ignal
-> > +properties. Therefore a modeset must be explicitly allowed with the fl=
-ag
-> > +DRM_MODE_ATOMIC_ALLOW_MODESET.  This in combination with
-> > +DRM_MODE_ATOMIC_TEST_ONLY allows userspace to determine if a state cha=
-nge is
-> > +likely to cause visible disruption on screen and avoid such changes wh=
-en end
-> > +users do not expect them.
-> > +
-> > +An atomic commit with the flag DRM_MODE_PAGE_FLIP_ASYNC is allowed to
-> > +effectively change only the FB_ID property on any planes. No-operation=
- changes
-> > +are ignored as always. Changing any other property will cause the comm=
-it to be
-> > +rejected.
-> > --=20
-> > 2.41.0
-> >  =20
->=20
-
-
---Sig_/s775lQ2oUepIq0FO_JB10fu
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmSvrQ8ACgkQI1/ltBGq
-qqf1OA//fJK8h1tp8IR/16mqP3HqQeX16D7e0MdvIHc/y7KianjdxUSxVL33S2Q/
-vwnUlRT5XM6YFyMel8lqXj9W/kXQKFWKc4dZ32FV4nRKH7/Mq1T29qLbcuo72f4a
-toACgRxJuAxFuevU27PPH9CVNrxcBB8713PXVlwigRsM1csCokppguU6Kt5Gh5Hu
-YnS/oNhDzNbNfZhyX58epE38G3zdp9oUp0lgsx6k11Oe2ASEPX7mTTjNqLE5nQii
-JxsvoAv81RNqe4SvGDLex9pweeyXSItESL7lMJWXZFyIzFxu1H1CzImwtp+Zn3w5
-FuRheSx7WYlw/V+/M0dWr+uyZu9Tc49epPdQOfHjY40sKIMPJ7U4IMoxtLaJEHNp
-79Ghi5u0LuvqlS82ZdbrYLZzULau9gLUnM4kKi37W0m2NqBNbjBE8Oqrc4JyC3yj
-uvxB6kQa9679q7JC5q+um9qvTwFUjWy0JnK9RgMNgHTBDYjtj+O0k2V8jvxPMLXL
-Y+GrMq7jsJJmu35m6dpPtfLczX920qozJyiomkqDTvPD7oASF5NK0wn2QdjTvMjg
-hSm6HvG6CydwwszFVC/kFLDYXW0r1ErHMaV0wpqIQTsAVmQiER58oWX1k1+HtVyL
-UTr1gfmUhoEipv0DClFSWXntolF7QRFe2Z5jmO6fVWTLp1paKic=
-=hqk3
------END PGP SIGNATURE-----
-
---Sig_/s775lQ2oUepIq0FO_JB10fu--
