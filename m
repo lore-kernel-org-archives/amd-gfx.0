@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56513C04A6A
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 13:04:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF27EC04FE1
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 13:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87E5910E6CB;
-	Thu, 13 Jul 2023 13:04:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 823B410E6BD;
+	Thu, 13 Jul 2023 13:04:06 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC93810E6A9;
- Thu, 13 Jul 2023 13:03:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3C7A10E6A6;
+ Thu, 13 Jul 2023 13:03:48 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 57D3F1FDE9;
- Thu, 13 Jul 2023 13:03:49 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8A9A71FDD8;
+ Thu, 13 Jul 2023 13:03:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1689253429; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1689253427; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=IsudHL+kPXRnJx5x/UKWrjHzIvsH1WJ679RIcWPHmtc=;
- b=u0ovCl5n9MXop+Ezot8TRk5lVZ/nQUjpfCQyoMpnD+ml/blTy1EX6KSWhLsu459q0Eq2U8
- PIw8ttscCXkaHc70J9VBTCXNp6gk69BSsRmnFEDlT3OC5GOGaEaTJ5QqLucyQSlQ4FdI8T
- A3wuOF50BNKme5ap5wuNSPJD05OxYAM=
+ bh=8SrYfuYp2Zej0wYpXum9GiB3XZhSVLAFxOB80dQcWiA=;
+ b=ygTMARNxH5rZiRcOwOTU3ox2BZmWK7l5Y3TwBmbU71TcFwyGXdkzqTuGKxUMqtxyDjqoQj
+ iLxKzC6+Qkaa7aeAKpNWlViWmnFjLHDLf/JWqt7fz0n2MeZGzE7DdaYWN4pRYmYJh4FD+G
+ zM+O1d/zjQvOCjbFWxRomk8dILGObJI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1689253429;
+ s=susede2_ed25519; t=1689253427;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=IsudHL+kPXRnJx5x/UKWrjHzIvsH1WJ679RIcWPHmtc=;
- b=A51KravctEI4QKJ8lOtnEBJyCx51GonM0INWeFww81on0QVoAdctELm3OeK4Dpwibg0Sv7
- PgGihZTRQ5YvRaDQ==
+ bh=8SrYfuYp2Zej0wYpXum9GiB3XZhSVLAFxOB80dQcWiA=;
+ b=2OO4syrrldZK0Dmi06tmOl9dw0upP4oqmqYZ+l2cQkve4rv8hIuE2brlUULhx92b/bJ86+
+ NAdkvhyiPrs4CCDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EF5D513A94;
- Thu, 13 Jul 2023 13:03:48 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2184E13A94;
+ Thu, 13 Jul 2023 13:03:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2A2BOTT2r2TVPgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 13 Jul 2023 13:03:48 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id sMP9BjP2r2TVPgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 13 Jul 2023 13:03:47 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de,
 	javierm@redhat.com
-Subject: [PATCH v2 17/18] fbdev: Remove FBINFO_DEFAULT and FBINFO_FLAG_DEFAULT
-Date: Thu, 13 Jul 2023 14:58:37 +0200
-Message-ID: <20230713130338.31086-18-tzimmermann@suse.de>
+Subject: [PATCH v2 13/18] fbdev: Remove flag FBINFO_FLAG_DEFAULT from fbdev
+ drivers
+Date: Thu, 13 Jul 2023 14:58:33 +0200
+Message-ID: <20230713130338.31086-14-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230713130338.31086-1-tzimmermann@suse.de>
 References: <20230713130338.31086-1-tzimmermann@suse.de>
@@ -79,37 +80,52 @@ Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the unused flags FBINFO_DEFAULT and FBINFO_FLAG_DEFAULT. No
-functional changes.
+The flag FBINFO_FLAG_DEFAULT is 0 and has no effect, as struct
+fbinfo.flags has been allocated to zero by kzalloc(). So do not
+set it.
+
+Flags should signal differences from the default values. After cleaning
+up all occurrences of FBINFO_DEFAULT, the token will be removed.
+
+v2:
+	* fix commit message (Miguel)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Acked-by: Sam Ravnborg <sam@ravnborg.org>
 Cc: Helge Deller <deller@gmx.de>
 ---
- include/linux/fb.h | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/video/fbdev/amba-clcd.c             | 1 -
+ drivers/video/fbdev/matrox/matroxfb_crtc2.c | 5 ++---
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/fb.h b/include/linux/fb.h
-index 1d5c13f34b09..43458f582f35 100644
---- a/include/linux/fb.h
-+++ b/include/linux/fb.h
-@@ -383,7 +383,6 @@ struct fb_tile_ops {
- #endif /* CONFIG_FB_TILEBLITTING */
+diff --git a/drivers/video/fbdev/amba-clcd.c b/drivers/video/fbdev/amba-clcd.c
+index e45338227be6..24d89e6fb780 100644
+--- a/drivers/video/fbdev/amba-clcd.c
++++ b/drivers/video/fbdev/amba-clcd.c
+@@ -461,7 +461,6 @@ static int clcdfb_register(struct clcd_fb *fb)
+ 	}
  
- /* FBINFO_* = fb_info.flags bit flags */
--#define FBINFO_DEFAULT		0
- #define FBINFO_HWACCEL_DISABLED	0x0002
- 	/* When FBINFO_HWACCEL_DISABLED is set:
- 	 *  Hardware acceleration is turned off.  Software implementations
-@@ -504,8 +503,6 @@ struct fb_info {
- 	bool skip_vt_switch; /* no VT switch on suspend/resume required */
- };
+ 	fb->fb.fbops		= &clcdfb_ops;
+-	fb->fb.flags		= FBINFO_FLAG_DEFAULT;
+ 	fb->fb.pseudo_palette	= fb->cmap;
  
--#define FBINFO_FLAG_DEFAULT	FBINFO_DEFAULT
--
- /* This will go away
-  * fbset currently hacks in FB_ACCELF_TEXT into var.accel_flags
-  * when it wants to turn the acceleration engine on.  This is
+ 	strncpy(fb->fb.fix.id, clcd_name, sizeof(fb->fb.fix.id));
+diff --git a/drivers/video/fbdev/matrox/matroxfb_crtc2.c b/drivers/video/fbdev/matrox/matroxfb_crtc2.c
+index 7655afa3fd50..372197c124de 100644
+--- a/drivers/video/fbdev/matrox/matroxfb_crtc2.c
++++ b/drivers/video/fbdev/matrox/matroxfb_crtc2.c
+@@ -603,9 +603,8 @@ static int matroxfb_dh_regit(const struct matrox_fb_info *minfo,
+ 	void* oldcrtc2;
+ 
+ 	m2info->fbcon.fbops = &matroxfb_dh_ops;
+-	m2info->fbcon.flags = FBINFO_FLAG_DEFAULT;
+-	m2info->fbcon.flags |= FBINFO_HWACCEL_XPAN |
+-			       FBINFO_HWACCEL_YPAN;
++	m2info->fbcon.flags = FBINFO_HWACCEL_XPAN |
++			      FBINFO_HWACCEL_YPAN;
+ 	m2info->fbcon.pseudo_palette = m2info->cmap;
+ 	fb_alloc_cmap(&m2info->fbcon.cmap, 256, 1);
+ 
 -- 
 2.41.0
 
