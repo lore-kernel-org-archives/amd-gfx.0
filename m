@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5394C001DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 14:01:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A33DC0015E
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 14:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5744410E6E5;
-	Thu, 13 Jul 2023 14:01:50 +0000 (UTC)
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
- [130.133.4.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8F5010E0E0;
- Thu, 13 Jul 2023 13:56:32 +0000 (UTC)
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
- by outpost.zedat.fu-berlin.de (Exim 4.95) with esmtps (TLS1.3)
- tls TLS_AES_256_GCM_SHA384
- (envelope-from <glaubitz@zedat.fu-berlin.de>)
- id 1qJwo0-003uyK-7j; Thu, 13 Jul 2023 15:56:28 +0200
-Received: from p57bd9f0d.dip0.t-ipconnect.de ([87.189.159.13]
- helo=suse-laptop.fritz.box) by inpost2.zedat.fu-berlin.de (Exim 4.95)
- with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (envelope-from <glaubitz@physik.fu-berlin.de>)
- id 1qJwnz-002qWA-Vd; Thu, 13 Jul 2023 15:56:28 +0200
-Message-ID: <6d04a1b87a9820d8ae23191092665f2dcb17ce19.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH v2 08/18] sh: Assign FB_MODE_IS_UNKNOWN to struct
- fb_videomode.flag
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Thomas Zimmermann <tzimmermann@suse.de>, deller@gmx.de, javierm@redhat.com
-Date: Thu, 13 Jul 2023 15:56:26 +0200
-In-Reply-To: <4622810f8bceb66f212fa09d34b10f0d2d71a35d.camel@physik.fu-berlin.de>
-References: <20230713130338.31086-1-tzimmermann@suse.de>
- <20230713130338.31086-9-tzimmermann@suse.de>
- <4622810f8bceb66f212fa09d34b10f0d2d71a35d.camel@physik.fu-berlin.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EDF910E6EC;
+	Thu, 13 Jul 2023 14:33:36 +0000 (UTC)
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7BC210E6EC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 14:33:34 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id
+ 5614622812f47-3a412653352so680455b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 07:33:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1689258814; x=1691850814;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YZ04sF4LHeFgirV0fg1swBzlnsJWFY5CNBLSjTkYrhQ=;
+ b=amqKjLcVZkOftznfxPb2mfqsv7vk2JHbTlWyMRLQg0vl2WA/qZ3wKPo4GX4mEodhSE
+ IDQNJ0uiuD9che/Ky+MGHFyUx8gfvfL9/H8SDxJugMc+tDFIQukyWJ5XvZCiVOsgEu33
+ MUQa1gGOwm7WG6xkTxlsjllgp+8NHqXUEYMQBDI87Hg7juibEGTUehNIsSH2aljBW624
+ Gex0WB1w+ZbQZq7Qj3UyphxhKH1zRDVfRPxv4ucpK5Hd917dAAgRRJsjzywcPIvI0+Q5
+ HcuuceQYlHHfdJ4pJoK6Ge0Xc+dJnw6mlGQdybcav+tIAz8fqMwQhOO56ORxMG3x4U/j
+ Qjkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689258814; x=1691850814;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=YZ04sF4LHeFgirV0fg1swBzlnsJWFY5CNBLSjTkYrhQ=;
+ b=lAOorWrTSVIsyMG0TbeU16psDfKExllpqz3nVJRd70rrXQpRJwdBEbSqnj33C+CWMO
+ 2dxNnRRWriVcCOb6JQS13HC8udI8UBnii/5RkKWcvYGxuvqdlNKrBm5/t+4wg6Llk+We
+ K13uxJrP5uUpDLqX12hKUnWrR8lFI3BJCUxTp0Fl6z8Ykmntjh2Traq/kDh54bcKlgYt
+ JPTmV0TgxqrNLioQXloUm/xAG62vGBxEo1DiG6R2v8PqCo62q+8eeie8OA7mMTE8iLTC
+ MsKEn05qgDjJ8HnLIMmQRl+9j49fDcsUjhvIwtyPghw/uLsj7ge1qHOfvVxjQ4yr3HDe
+ KKdg==
+X-Gm-Message-State: ABy/qLaPNiEU2mQdsP6tIxcS98gi0ujEyzf3OhMA2ceqbJIv7Y039RMG
+ JXyzkKutTlu7DHZ9/7Y+w+1mVfoSAN9kjrr7M6w=
+X-Google-Smtp-Source: APBJJlFbVCZGgx7jA9UqEsRukAGfBKxt0yPPxQzoiKcHmvmyWTCDNum6EuHEc7DCro3Mi4PQ/Ir7X8srX3co/2jZ4Bo=
+X-Received: by 2002:a05:6808:19a5:b0:3a1:d656:21c with SMTP id
+ bj37-20020a05680819a500b003a1d656021cmr2242810oib.21.1689258813678; Thu, 13
+ Jul 2023 07:33:33 -0700 (PDT)
+MIME-Version: 1.0
+References: <20230613164148.2631132-1-alexander.deucher@amd.com>
+ <20230613164148.2631132-2-alexander.deucher@amd.com>
+In-Reply-To: <20230613164148.2631132-2-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 13 Jul 2023 10:33:22 -0400
+Message-ID: <CADnq5_NP5AR0X5k1ZAC-P-dX5CoUyZS_uftXyVPdPbpLCUkcFQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu/pm: make mclk consistent for smu 13.0.7
+To: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 
-MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-Originating-IP: 87.189.159.13
-X-ZEDAT-Hint: PO
-X-Mailman-Approved-At: Thu, 13 Jul 2023 14:01:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,71 +68,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
- kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
- Sam Ravnborg <sam@ravnborg.org>, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
- dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
- linux-nvidia@lists.surfsouth.com, linux-omap@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas!
+Ping on this series?
 
-On Thu, 2023-07-13 at 15:53 +0200, John Paul Adrian Glaubitz wrote:
-> On Thu, 2023-07-13 at 14:58 +0200, Thomas Zimmermann wrote:
-> > Assign FB_MODE_IS_UNKNOWN to sh7763fb_videomode.flag instead of
-> > FBINFO_FLAG_DEFAULT. Both are 0, so the stored value does not change.
-> >=20
-> > FBINFO_FLAG_DEFAULT is a flag for a framebuffer in struct fb_info.
-> > Flags for videomodes are prefixed with FB_MODE_.
-> >=20
-> > v2:
-> > 	* assign FB_MODE_IS_UNKNOWN (Adrian)
-> >=20
-> > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> > Acked-by: Sam Ravnborg <sam@ravnborg.org>
-> > Cc: Yoshinori Sato <ysato@users.sourceforge.jp>
-> > Cc: Rich Felker <dalias@libc.org>
-> > Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-> > ---
-> >  arch/sh/boards/mach-sh7763rdp/setup.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >=20
-> > diff --git a/arch/sh/boards/mach-sh7763rdp/setup.c b/arch/sh/boards/mac=
-h-sh7763rdp/setup.c
-> > index 97e715e4e9b3..e25193001ea0 100644
-> > --- a/arch/sh/boards/mach-sh7763rdp/setup.c
-> > +++ b/arch/sh/boards/mach-sh7763rdp/setup.c
-> > @@ -119,7 +119,7 @@ static struct fb_videomode sh7763fb_videomode =3D {
-> >  	.vsync_len =3D 1,
-> >  	.sync =3D 0,
-> >  	.vmode =3D FB_VMODE_NONINTERLACED,
-> > -	.flag =3D FBINFO_FLAG_DEFAULT,
-> > +	.flag =3D FB_MODE_IS_UNKNOWN,
-> >  };
-> > =20
-> >  static struct sh7760fb_platdata sh7763fb_def_pdata =3D {
->=20
-> Acked-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Alex
 
-Ah, just one tiny request: Could you change the subject to include the
-board name, i.e.:
-
-	sh: mach-sh7763rdp: Assign FB_MODE_IS_UNKNOWN to struct fb_videomode.flag
-
-?
-
-I wasn't paying close attention to the path of the file being changed when
-I first looked at your patch. Sorry for that.
-
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+On Tue, Jun 13, 2023 at 12:42=E2=80=AFPM Alex Deucher <alexander.deucher@am=
+d.com> wrote:
+>
+> Use current uclk to be consistent with other dGPUs.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> index cda4e818aab7..8eb8c30e6c69 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> @@ -949,7 +949,7 @@ static int smu_v13_0_7_read_sensor(struct smu_context=
+ *smu,
+>                 break;
+>         case AMDGPU_PP_SENSOR_GFX_MCLK:
+>                 ret =3D smu_v13_0_7_get_smu_metrics_data(smu,
+> -                                                      METRICS_AVERAGE_UC=
+LK,
+> +                                                      METRICS_CURR_UCLK,
+>                                                        (uint32_t *)data);
+>                 *(uint32_t *)data *=3D 100;
+>                 *size =3D 4;
+> --
+> 2.40.1
+>
