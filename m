@@ -4,115 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8940C001B0
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 18:03:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 803B7C001B0
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 18:22:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BE8410E084;
-	Thu, 13 Jul 2023 18:03:41 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2063.outbound.protection.outlook.com [40.107.237.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD46510E084
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 18:03:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D7F510E756;
+	Thu, 13 Jul 2023 18:22:46 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2081.outbound.protection.outlook.com [40.107.243.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6604E10E756
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 18:22:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VGzc6nv5c2wU9GiRKNO3+RBxpiaNsci9CNiEEejyX/5aMQti7zdZOyG8bAk8YTBpBryOyTPa/hNO6gPK8RFem1iBD9jx4Hz7Y89/Gz1au8wqv2+E+DHZ9/K437dhWEJmYJ3tmGqZG2qpc//gdjCLC7AZZ3Hq4Dp8yklNp2fEWDGq7lKO8/YagPJGNFFiQPNtr8H2QNYrEEnc7F+eCiK7cubgJPKFyWGdRm0JvSAvi3bKKOpk8ODnVIboCyxoahzJsRZ2bdi2B5plZYFl3tVbaR7OyBn94EcSpBKilpJiCsbHSB14RPvFydm/n8MVWjQTiY7ae5sqJ0KBcn2Wl05RWA==
+ b=RZazQrJssKMkO/ZeOorqNpD7SAJJHg+Ro5WQnGmKkB49WHJ15ruQLjTWliFTuZnSrtafeEYVaDZfrRHK3vZGbCABkWPdAd9PBwR8OWAOzDhMFuGTcBT7I7MP79nldlwHx3vU7LFyrUHACMImK3JqdsT3LleOHyiFCJlWsCUZ3Yxp7OzkNfpKT2Pq2n39pTy0iQTU4SkvVv16+weg2L9f6EPJTLuC0LKvbnY1AOwCKkby1JdD+ZgFY88ycRlM7cP+Z8ahTbKvOUhrwFqx2Pu6Dkzmcm4m3zD+UJJbLcSg4fdwm/MG7YkHukhBggHg4GVPJZ7eCJNoTSO10SK2NPDTrg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x2GtUn8fS71qeR7mRzxjsR4klJy2YkCfAygM+ZDpMw4=;
- b=Mz9EWH+1KVELgq5diMwZQzWSLCdxfitwVbyOYtYYuHZlFvxgJZtbLvc+qISf++pwNkrFGf5MsvDGcPVttr77tsA2KuzB+160/B0OSJhakhxcBZGIlii4lubWb2dt7uMljqTY4qlaqfo8/z+Jrtwojl71uNxHf6QEUWoaNW9g1U+v15b3CB+hNI4cg+9k2B/3FRqpCsKl/BvNOFodzOMX3jR0iTIW3Rvfs37tUYBYYt32Kn48QvKILHzF7VmYj8xlCIwUgx+gpH06WbpPrfufeGFTjkceJ+r/yvT0zUTUZwFyNqUOlCe0E0SmnVNqHh33m1v5EsDbACIWKANNB+Ad+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=OwtuPJD7ynGYR0cJvmVGN2a3tmYhCS9rLQ6SzTgmeFU=;
+ b=Qkb4jZbk6IXGUK7zCBW1ku5pW/3DMkjFkR9YoaCKeacn7AY8ZTa5ZUfjb22sFN/0CxEjxTkpBuSZPIdCkJL1n7n3m62YdR1OuIdxXvSiRwnGEdz7CVqxgifGvL/yqN3J0BuH4X/mLuq/dUlZnwCupH7nIBNmibCkUfJ/DuJEksncW79p5ML+Dd7KvSLdVtH+qD5QOLS/cQqXGpuMg8XHVsTXkL4wnceMgnaIGuFR7eXehMBLZkJ09jy/EYY6CwQszN0Kb/W/umT+zxI/3b2rcfEeqmmF73M9ZKx5H7riyxfozkudN5VyW8xmEftJB57RRn8Z4QZz+rSSWxhJDPj1Bg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x2GtUn8fS71qeR7mRzxjsR4klJy2YkCfAygM+ZDpMw4=;
- b=Agerkd/drwuU5ICRx9k9Iy6aN7DPgb++GzNJTNct8/jHUw3WbiIdzmi9gvNs/LjpBFE9xv32cDTKranJQqNyCSnUxTrppQ+rHozBhd4/5n3pCNEuIQFGbIkL6F9zCv6889fT8SHDXwODYOb5FpZ8HD48nip+lQMd0rJ2nZZ0na8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- DS0PR12MB8072.namprd12.prod.outlook.com (2603:10b6:8:dd::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6565.32; Thu, 13 Jul 2023 18:03:36 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::68b9:3f7d:ca38:31ba]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::68b9:3f7d:ca38:31ba%7]) with mapi id 15.20.6588.017; Thu, 13 Jul 2023
- 18:03:36 +0000
-Message-ID: <32bef6cd-7085-f6b5-ae4b-951c9de51504@amd.com>
-Date: Thu, 13 Jul 2023 14:03:33 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH 1/3] drm/amd/display: Expose more formats for overlay
- planes on DCN
-Content-Language: en-US
-To: Joshua Ashton <joshua@froggi.es>, amd-gfx@lists.freedesktop.org
-References: <20230709020700.3116749-1-joshua@froggi.es>
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <20230709020700.3116749-1-joshua@froggi.es>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR01CA0004.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::12)
- To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+ bh=OwtuPJD7ynGYR0cJvmVGN2a3tmYhCS9rLQ6SzTgmeFU=;
+ b=OF+m3/dM09oIjHpzHbfyE3gq0aWZCbHBuYbB4waHtCBdOzbfxMksk44GyztSuVgQllSoNUvk6UrRqNfwtPjh33yCNxVROM7kV7t/TvjsYGDXxQ0qvet6ym6FDXmUCHCh1Q/HwlDDrzUzZyu/3XIZlMote3NvTtYpxC2SQEt19RQ=
+Received: from DS0PR17CA0002.namprd17.prod.outlook.com (2603:10b6:8:191::25)
+ by MW3PR12MB4539.namprd12.prod.outlook.com (2603:10b6:303:59::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.24; Thu, 13 Jul
+ 2023 18:22:36 +0000
+Received: from DM6NAM11FT081.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:191:cafe::d0) by DS0PR17CA0002.outlook.office365.com
+ (2603:10b6:8:191::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.24 via Frontend
+ Transport; Thu, 13 Jul 2023 18:22:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT081.mail.protection.outlook.com (10.13.172.136) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6588.26 via Frontend Transport; Thu, 13 Jul 2023 18:22:35 +0000
+Received: from SITE-L-T34-2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 13 Jul
+ 2023 13:22:35 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd: Fix an error handling mistake in psp_sw_init()
+Date: Thu, 13 Jul 2023 00:14:59 -0500
+Message-ID: <20230713051459.74044-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|DS0PR12MB8072:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97a6139c-b7b7-4b5b-854a-08db83cb7a8c
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT081:EE_|MW3PR12MB4539:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a358beb-ba0d-43e5-f463-08db83ce2202
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sA8jld0IGYOrOc5sdH07MEmjmAZ2Eft5iI+ekI+GNuo1/c0O2qp10SESq9yDXujJalEpZKLfkbKks3OlKutl2AcKymHF/50s5FCp+/elkuO0LqWflPAw4xW95nL7ZfSo2WSODRHA3V5EabQkFgegFqJrOgDlARPlOARupav6FfM83EpkT80X3ffJ9XEkn0KvW6QNIWDanjAWIM2LiZ6c4VNBMfZ7MakOmr8HTh+4z/5COtdeuRRY2j0mdO/rK/TYXx5QTkJYrXeDDFxbRXqm8eP3nKp8wAFw0IUSFt50gmRRWPPbRYEtSX+DuSHRHRfmcTJDTI3ist5Z4tUmvjXuXOi3JvQoLLyTfDllfuUBLmTTOhUdFB2hExNoTL6Y9UWsDAf+W9XwYUFH2gdFMRb7dbS/OLB92YcruZH28+aFQ4ajeEMm9OKi0FS5MWLi9qVeZ+t/0SOG62AS0mHOozdX6d40aKj3byr2lM2PPyR6uB6lGeHLanxtp6VWQW4Fzy04yQ43KgEUQS3iTbRQlUH27Zo3DtMDQcXkJ5ARk/GmiokBLQNGNzTcfKzcuIzpRbzh+PuMuoarlmhQG52MzMl3YqsdPiTbwBxUOxzjsUUUwThXZFcvGU99iaBmo1aJQJ8wuBJzI+7a17iLMKsCa1mCAA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(136003)(366004)(396003)(39860400002)(451199021)(41300700001)(44832011)(31686004)(2906002)(66946007)(66556008)(66476007)(4326008)(5660300002)(478600001)(316002)(86362001)(31696002)(6486002)(8936002)(38100700002)(6666004)(8676002)(6512007)(36756003)(26005)(83380400001)(6506007)(53546011)(186003)(54906003)(2616005)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: YnygNiZm52V+vCFPU9DhbZ3+h5oGvDluDD153oKlAbfpaFSPf6n3L9+5Te5B51RXJdDuI8K8G6SJHuMgDbB200pcsYCcGRX08x88A3vTTSvYvqGkexbS4CABPFcv5acusd2cvDNenIw0nLhkc6o/5MfDblcgQRqcnOOm9znlxPIbTq9nqqUGEB86W5OrsPKAqNmQRs4FyxPhPp4bOeHTUeUOoIZ0RLdW2olJdQQ/NVk0bY7GTDbKg4N4XxYLVwwie3zONcREWu4Qo/4TG6coo/c2mOc+6OWcWI+a4JwVkDkpc4E8AHqYr2tPqjIN/QkduSWLsb0AjV6/wuLPkJSYZDnogG0jNiAZg9xyARF/ZTTv62E/pnyJYliRMpG2iBb3A79kXV966/oLKgSS79ToMTRb6lNLjDxfLZBoB9XRkEP60VbnpPLXvVxQdx6lJdGfwwc34HYhk7RXyf9b0Ihlf3cOYGvrQzKxs2p2Hzepf9RUCV9r8Q4JfWZORl+Jg0hpPCkdsyM+5olKDb4fxbXmPk06JFvTg5eoL26ZI08ZQc32pSb2thCZBZlkHNyX5JlrcDuioDX7XgBjxWuFiqADmXKpa6eF8+uaOv/PnBR2t2FGwAQywJWHwF7JZg/YNq35ALgKHW58pzZlsvxMOBuVic1OckHG6t8pmgFwWaMt/439SDqQ+DOVcWIZ68bCj2ogikePDtyCGh9fWDzFhV3IpH3wrtLI41H6OVUD2/TpTx6u+80iZYnpjiEvrQwndTcZUCTx8m/EYEZMOhMXWN6Oyg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199021)(36840700001)(40470700004)(46966006)(36860700001)(1076003)(26005)(41300700001)(336012)(426003)(6916009)(44832011)(4326008)(70206006)(70586007)(316002)(47076005)(82740400003)(356005)(36756003)(83380400001)(5660300002)(478600001)(2906002)(86362001)(186003)(40460700003)(16526019)(6666004)(7696005)(8936002)(82310400005)(2616005)(8676002)(81166007)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVZiUnBoS0ZFOXVtaTJnYmFXUG5lanRrLzhKVXNCMnU0WTEyanhUQlFXMmxP?=
- =?utf-8?B?RkV4Q2hKUGtJeFFQeUNsUnI4VnNxQUNiN2lkL1MzMGdYbUNTZWtIYWl1T2FX?=
- =?utf-8?B?RitHYUE4dVBxS1l4VmhGYVFVbFZhN0dQT1B0QjZ2Z2xLSzFLeVpKQUZZcEQr?=
- =?utf-8?B?Vm9SOHJESEdwQzhnbHFoTktvNGswV0ZGQ3F1a3VWaWt2Myt0L0FXaUducUlh?=
- =?utf-8?B?NjlhUjZocmtDUTAvVUpNWWxyb2l3THgxcmhXN0ljVTdIakZkT2gzaUFlL1Vu?=
- =?utf-8?B?VWw5clFSRzN3VGFvbnBCdjZZc09VMkNRSFA3RGFqdHJkcTFwYmUxa0EyTGg3?=
- =?utf-8?B?QmlIK2h4MWs5WVBad2FSMUxxcnd3RzJHY2IzanhERzZSdTBZZUxKMlhPVy9r?=
- =?utf-8?B?MXMrTngrcDRzQ3VFQlIxK1J3OVhyQVpoOE1YeVc3QTdFZ0NieEh4bTZnYmda?=
- =?utf-8?B?TmdpTzBJb0xOTnBDVTZqdHd2ZytNUDlYUWlUc1BoODBhVHFkZzZibHlDam9R?=
- =?utf-8?B?Wlg5RURMVEkvamlMeDN4VWpFU0pYNlhFNHkzc0lOcklXVGJKVDYxL29vRnA0?=
- =?utf-8?B?RWlCTm5TS010elBkbDlWQWNTT1NoRDRjYkljL3dXaXZLT0JQdGZXc0VYbGg1?=
- =?utf-8?B?d3BhN3BJc2xOclVZRlZRUjEzczhXUkxFejlCMzhPYUFncWR1TzR0QnFsQVpS?=
- =?utf-8?B?N25rbkd0MzZTV3RJOXl0cDlHT1pDUnNMQ0o3eXF5QzlhWE12Q001TWtad2dw?=
- =?utf-8?B?Y2RxNGJuWUdPV2l5SDZFdk1ScmdwK3FGYm14aWxHSUJKZ29nK29la3hiS090?=
- =?utf-8?B?cHZESjNzWGs0MTZKNmtjR3NtVGlRWU91emQ2MlBMYkFML0EvVUhoSGNIYlJ2?=
- =?utf-8?B?RTIwVUdXU1h5Tk5uTkwxNVVaZ01ib0lyUGtHMUFJdHBtdHN3RTY2Z21wMTNO?=
- =?utf-8?B?K2VHOERvbmdockY3UWNxVEFJSnl3VVdITTRDNUY1TDJscnFVTDg0R2ZJcFhp?=
- =?utf-8?B?ZGJpY2J6MWx4YThyTWgxcEZPQXpNOURIbXkyd1RlNjZpaHBZQ0JBZzI3OU5n?=
- =?utf-8?B?REVJdXp5TlJRSGsxaElGUmp0Z2pwZjVtbnEvZ2VZa0xTRG5sWWdYMFZOaDJR?=
- =?utf-8?B?L3JSN3NQMFR6c09mL0Z2bi9ySDgvb3c0SmZSWkxUWUZnTDdCaWtIQUJpUlhO?=
- =?utf-8?B?YzlVblE0Q0NzOHlYd0k4UUtJNXZmZWYrU3FJNmF4MWZsNnVNL3dXSEt1TlRN?=
- =?utf-8?B?bTBPVFlXaHhGQVhtYm1tb0JiZWQ0eWp5a0RqQ082eWhoNCtDdG5Xc0dMdnNC?=
- =?utf-8?B?R1BCTm9MQ21uNGFzbDlsdXdWVjQ1V2kwdTA4dkZKVXI1elV6VE9QSGVwaVVW?=
- =?utf-8?B?MGlHU2RrMTJRQS8zeWhBd292ZXBlWHM3WWdhNThxWXQ4bHJ4c0dPbWJaNGs3?=
- =?utf-8?B?OUlKZEU2dy81aVozQTNNR1l2RTFXS1FNeDJtb0ZUL2pVWnVhM3hNZ2RIVEpD?=
- =?utf-8?B?dEtuWDJicjJVS01aZTd1RUViNmlIUEE2S1lxRFpUSlBwODBLcE1iWmE5ejd3?=
- =?utf-8?B?SWZ0TE5Ga2I2UTFhOXZuZ1ZBSHhtVENDYUFzNWh4azBWYTc2L25yeU9BdmVG?=
- =?utf-8?B?SU5IVXYwQ3pYVzVkb3YxNndSSkFWVEEva2dhRXFHZTFaSVBuNnNPeEZiOUZW?=
- =?utf-8?B?bC9NY1lyVjBwYTVzUlpiUEZKVWxTTHRaWnFRUnY3UzY5ZEhuSUlBV1p6WjVB?=
- =?utf-8?B?TlFuVEhxNnp0cE8xNWttN01odlMwLzlEbmdGaFpoNmpONTNmUGZoaUVMVVNm?=
- =?utf-8?B?ZkVLOXlmUG1zUkFobFo0STRMVnp5SmRTaGU4T2wxNUc1eVNTR3ppUUx3QllQ?=
- =?utf-8?B?bkpOc0JxNVZTUUVRM0xlYjBYYW8xN3FwSGNxUkpDU2F3WTFWbUtIZmJEMDA4?=
- =?utf-8?B?VC9NSkxIaUtrY013cE5FNjFXNVdRdS9vL3FFMmdSTDc4a01xU2NsSWJvNU1o?=
- =?utf-8?B?WlREUVUvVTROdXgxcXR0aUlJU0RvQ1BGSSttc1VVTW1NUEFZSWR5R1FERUFZ?=
- =?utf-8?B?VE5YZyt6cjdPVG5YWnA1SkZjVndvRW4zNEJtZk5ibGYvcGFyQmUxV3JYOHB2?=
- =?utf-8?Q?eOonPyiSkhyJbOFCh171ybmFO?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97a6139c-b7b7-4b5b-854a-08db83cb7a8c
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2023 18:03:36.2669 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2023 18:22:35.8927 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a358beb-ba0d-43e5-f463-08db83ce2202
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mwwtHc8RJg5bCcrsmSlf4Nq6XXxHkVUJQUQSwocnnz4iGngRe3/IrOl/bZdDQx3UA7c4F0n9jzzk1hLKF21nTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8072
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT081.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4539
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,102 +97,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Melissa Wen <mwen@igalia.com>, Simon Ser <contact@emersion.fr>,
- Harry Wentland <harry.wentland@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/8/23 22:06, Joshua Ashton wrote:
-> DCN planes are universal and therefore overlay planes can use the same
-> formats as primary planes, unlike DCE.
-> 
-> Gamescope/Steam Deck would like to take advantage of this functionality
-> for partial composition which in some cases in our pipeline, can contain
-> negative values in some instances.
-> 
-> Signed-off-by: Joshua Ashton <joshua@froggi.es>
-> 
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Melissa Wen <mwen@igalia.com>
-> Cc: Simon Ser <contact@emersion.fr>
+If the second call to amdgpu_bo_create_kernel() fails, the memory
+allocated from the first call should be cleared.  If the third call
+fails, the memory from the second call should be cleared.
 
-I have applied the series, thanks!
+Fixes: b95b5391684b ("drm/amdgpu/psp: move PSP memory alloc from hw_init to sw_init")
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-> ---
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 41 +++++++++++--------
->   1 file changed, 25 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index de1c7026ffcd..8eeca160d434 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -113,6 +113,11 @@ void amdgpu_dm_plane_fill_blending_from_plane_state(const struct drm_plane_state
->   			DRM_FORMAT_ARGB8888,
->   			DRM_FORMAT_RGBA8888,
->   			DRM_FORMAT_ABGR8888,
-> +			DRM_FORMAT_ARGB2101010,
-> +			DRM_FORMAT_ABGR2101010,
-> +			DRM_FORMAT_ARGB16161616,
-> +			DRM_FORMAT_ABGR16161616,
-> +			DRM_FORMAT_ARGB16161616F,
->   		};
->   		uint32_t format = plane_state->fb->format->format;
->   		unsigned int i;
-> @@ -698,8 +703,8 @@ static int get_plane_formats(const struct drm_plane *plane,
->   	 * caps list.
->   	 */
->   
-> -	switch (plane->type) {
-> -	case DRM_PLANE_TYPE_PRIMARY:
-> +	if (plane->type == DRM_PLANE_TYPE_PRIMARY ||
-> +		(plane_cap && plane_cap->type == DC_PLANE_TYPE_DCN_UNIVERSAL && plane->type != DRM_PLANE_TYPE_CURSOR)) {
->   		for (i = 0; i < ARRAY_SIZE(rgb_formats); ++i) {
->   			if (num_formats >= max_formats)
->   				break;
-> @@ -717,25 +722,29 @@ static int get_plane_formats(const struct drm_plane *plane,
->   			formats[num_formats++] = DRM_FORMAT_XBGR16161616F;
->   			formats[num_formats++] = DRM_FORMAT_ABGR16161616F;
->   		}
-> -		break;
-> +	} else {
-> +		switch (plane->type) {
-> +		case DRM_PLANE_TYPE_OVERLAY:
-> +			for (i = 0; i < ARRAY_SIZE(overlay_formats); ++i) {
-> +				if (num_formats >= max_formats)
-> +					break;
->   
-> -	case DRM_PLANE_TYPE_OVERLAY:
-> -		for (i = 0; i < ARRAY_SIZE(overlay_formats); ++i) {
-> -			if (num_formats >= max_formats)
-> -				break;
-> +				formats[num_formats++] = overlay_formats[i];
-> +			}
-> +			break;
->   
-> -			formats[num_formats++] = overlay_formats[i];
-> -		}
-> -		break;
-> +		case DRM_PLANE_TYPE_CURSOR:
-> +			for (i = 0; i < ARRAY_SIZE(cursor_formats); ++i) {
-> +				if (num_formats >= max_formats)
-> +					break;
->   
-> -	case DRM_PLANE_TYPE_CURSOR:
-> -		for (i = 0; i < ARRAY_SIZE(cursor_formats); ++i) {
-> -			if (num_formats >= max_formats)
-> -				break;
-> +				formats[num_formats++] = cursor_formats[i];
-> +			}
-> +			break;
->   
-> -			formats[num_formats++] = cursor_formats[i];
-> +		default:
-> +			break;
->   		}
-> -		break;
->   	}
->   
->   	return num_formats;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 1b4d5f04d968..6ffc1a640d2d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -491,11 +491,11 @@ static int psp_sw_init(void *handle)
+ 	return 0;
+ 
+ failed2:
+-	amdgpu_bo_free_kernel(&psp->fw_pri_bo,
+-			      &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
+-failed1:
+ 	amdgpu_bo_free_kernel(&psp->fence_buf_bo,
+ 			      &psp->fence_buf_mc_addr, &psp->fence_buf);
++failed1:
++	amdgpu_bo_free_kernel(&psp->fw_pri_bo,
++			      &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
+ 	return ret;
+ }
+ 
 -- 
-Hamza
+2.34.1
 
