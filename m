@@ -4,61 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CC7FC0015E
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 13:22:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E39D8C0015E
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 13:27:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAC2F10E6D7;
-	Thu, 13 Jul 2023 13:22:09 +0000 (UTC)
-Received: from mail-oo1-xc2c.google.com (mail-oo1-xc2c.google.com
- [IPv6:2607:f8b0:4864:20::c2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3C9F10E6D2;
- Thu, 13 Jul 2023 13:21:46 +0000 (UTC)
-Received: by mail-oo1-xc2c.google.com with SMTP id
- 006d021491bc7-56584266c41so557094eaf.2; 
- Thu, 13 Jul 2023 06:21:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DE2810E6DA;
+	Thu, 13 Jul 2023 13:27:58 +0000 (UTC)
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6130D10E6DF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 13:27:56 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-1b060bce5b0so601974fac.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 06:27:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689254505; x=1691846505;
+ d=gmail.com; s=20221208; t=1689254875; x=1691846875;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nMl5dn5Xz12gXOMX3oC+kNdFlWhzCPfH45LFdGwDg+c=;
- b=eshePJRxBGfoEbxv/HATy/LbMrzsCDpyAiPdPWKP2+7M1zJL3N5KwDGRakUw3RzP4p
- q0Cnwz0fdaQ+HyxVhl+a/PdVIYgV40UvVYeo6oku2ew3IT0bTt6UYAHjOIS6Vb6t9Mla
- Zj8EL/FlPFPvHB5g71aE7gFP3zFqlG9d7Fbu8m/nhV/T9INJD8alH0sgU2iXPleyzim5
- lINS3JcD7J0TOIOFW4pf/x8/SEpIIASy3dTyyqXfKshxdSJS0TlF/u7bPTHA+oWf2AYl
- SPCY6gZL7ykEOqi+bfIKlTKf4FRPiV/L6IcHOgev/4QAZK/gwKYWQ5RBFTfBsMThGpXg
- EmsA==
+ bh=AmOimVlgrJ44SAbuQR5tp66hJC0+w7h8mp5M3Z7/x+w=;
+ b=KHaBrn+51DPb9TwJ+DpBoqQ1Ma6+Rxj4w494r+ACB0FHY09MwskPsgpuXVO00IXZbg
+ nXXr91eoFCQx+QdH+rf/Qw7t5LzIUyOElQc0m8qOkyhqoHWIBOyx8Z2NV6ww0DZ8KVLc
+ ZZxf5ZttNbYEgW0+aHaeb/TqcpxJSv9F5wc3yVcRON7uHz5vyrY9rg7DoviVaKDClEeX
+ IbPd0IteHcbQEbQhnbH7UI/dKZLmEFOEDZil622q/n1OW1zjgllVUDAtQ85kqscjlzzc
+ guVlLD+vY8o7v/RhmDUJZOXeU10wQovWrCPWRYc18Cu8s1mh+qkRzEv828TDyLfFP/SX
+ VL/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689254505; x=1691846505;
+ d=1e100.net; s=20221208; t=1689254875; x=1691846875;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nMl5dn5Xz12gXOMX3oC+kNdFlWhzCPfH45LFdGwDg+c=;
- b=bbRyokNQ9nAHoR51R3mwP27mPi+qCIyG9jKndpc6x6nWge8XOHoZkrOOTm+zN8wjUU
- BiSMuo7f3TCLpR/CeK3Jbwl53X7WvSz9b2dY5S0aLsXLBQUa5zFNwTEQ27+HxX3uJlf/
- X99xiX/z2Onibk3maqQU5+jLrhROrE8mgmx+/GODefGildJ0mYFL5mBofW2Mze4pL0p9
- I4Y4ZuNc76Ga8OdDgyXV1CFVK04lpi5FZT5Ny9kSPCDTnGGGua5ONXYj7ECgTzwZ6Yzy
- GVNzODbkgBN2F4Jaqg/bVmd//ifdGgFh2FLNhFIadIuP0XYS2yo90YSXIhzzwIMPQF4h
- /OCw==
-X-Gm-Message-State: ABy/qLaXIKtR+N1lcmjBwEocdthcDbwT10asnwFBE/5AxJz5eUkCCiGS
- gSVbAiZgGF22hhc2B292LYqX/WN1FlaPfil2ypQ=
-X-Google-Smtp-Source: APBJJlG+0WtfiM+r2sXZzO6HNFK4R91MA9ooy29hXDBdzlOr5q/1lWHuWptQzwph8RqHPwzWZYnIoYS2ozC9kDF6TM8=
-X-Received: by 2002:a05:6358:428e:b0:135:5934:2bba with SMTP id
- s14-20020a056358428e00b0013559342bbamr2356344rwc.8.1689254505432; Thu, 13 Jul
- 2023 06:21:45 -0700 (PDT)
+ bh=AmOimVlgrJ44SAbuQR5tp66hJC0+w7h8mp5M3Z7/x+w=;
+ b=GTsKYqCtldualLBFOp6W7kEgAPA9b+lmQFw1CIZxeEdzORi7sN0VV0xw6XIsF/XfLN
+ 10BlMezJDsbxm+LKigsCFzqaA1f9EWajoG2F6E18UfJiXE8UsFUICSUnzswnFJvfwSjO
+ TX1V33FXU4ax+wtj/kvACTdYPkwFgSAPQHPpu9pygYgJPLT8BPomM9jF4pzpkVPZ8vuQ
+ lXcjaQ4BQvfiZr3TbESoZtx1YfV+DY82pRRWc3crGg+y30LVb1l8wi7BQnI3StANUXvS
+ hPgZ+za4Rdndj+iyK/Jf6JNfKm4rBmw7kn4J+YA16IWoF01raOazdpRfWET5ctqu7OUm
+ HyDA==
+X-Gm-Message-State: ABy/qLbdoCST3SP33KxqHORKZ5jtf91LglN8Kz4ZnnLQFk0e+7Ws2vUv
+ gkwdTytg2s186CmKEqr8B1jgrlxYfvL/+iVLVV0=
+X-Google-Smtp-Source: APBJJlGiT94j+MswRh9C4MulsZ/32UwwrEr4W79aTv2VsqJ/zQbLb4gutUrzOh1d7H4gEy4grAPn8OI1X7J04w0htAU=
+X-Received: by 2002:a05:6870:c698:b0:1b0:151c:9b16 with SMTP id
+ cv24-20020a056870c69800b001b0151c9b16mr2067826oab.17.1689254875233; Thu, 13
+ Jul 2023 06:27:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230713130338.31086-1-tzimmermann@suse.de>
- <20230713130338.31086-19-tzimmermann@suse.de>
-In-Reply-To: <20230713130338.31086-19-tzimmermann@suse.de>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 13 Jul 2023 15:21:34 +0200
-Message-ID: <CANiq72mbLmMKph8aiz4apNF9n3MtVO-nhM9rEWYApZbSVAO9Qw@mail.gmail.com>
-Subject: Re: [PATCH v2 18/18] fbdev: Document that framebuffer_alloc() returns
- zero'ed data
-To: Thomas Zimmermann <tzimmermann@suse.de>
+References: <20230712184646.7955-1-alexander.deucher@amd.com>
+In-Reply-To: <20230712184646.7955-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 13 Jul 2023 09:27:44 -0400
+Message-ID: <CADnq5_PL4dAb2bRRfTdGgawAVNVCwBieAKtk36F8BBzXHA+5mw@mail.gmail.com>
+Subject: Re: [PATCH] Revert "drm/amdgpu: enable mcbp by default on gfx9"
+To: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 13 Jul 2023 13:22:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,38 +67,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org, deller@gmx.de,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, javierm@redhat.com,
- dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, linux-nvidia@lists.surfsouth.com,
- linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-geode@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
+Cc: candice.li@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 13, 2023 at 3:03=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse=
-.de> wrote:
+On Wed, Jul 12, 2023 at 2:47=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
 >
-> Most fbdev drivers depend on framebuffer_alloc() to initialize the
-> allocated memory to 0. Document this guarantee.
+> This reverts commit 50a7c8765ca69543ffdbf855de0fd69aea769ccf.
 >
-> Suggested-by: Miguel Ojeda <ojeda@kernel.org>
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Helge Deller <deller@gmx.de>
+> This breaks some SQA tests on gfx9 dGPUs.  Chistian
+> also reported problems.
 
-Thanks for sending this! Maybe this would be best earlier in the
-series, so that later patches make more sense (since they use the
-guarantee), but it is not a big deal.
+Apparently this is a bug in mesa which this change uncovered:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/24082/diffs
 
-> + * aligned to sizeof(long). Both, the instance of struct fb_info and
-> + * the driver private data, are cleared to zero.
+Alex
 
-I think both commas may be best omitted (but I am not a native speaker).
-
-Reviewed-by: Miguel Ojeda <ojeda@kernel.org>
-
-Cheers,
-Miguel
+>
+> Cc: candice.li@amd.com
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 -----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 6 +++---
+>  2 files changed, 3 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index bbe4ea93db611..3673015a7f93a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3699,11 +3699,6 @@ static void amdgpu_device_set_mcbp(struct amdgpu_d=
+evice *adev)
+>         if (amdgpu_mcbp =3D=3D 1)
+>                 adev->gfx.mcbp =3D true;
+>
+> -       if ((adev->ip_versions[GC_HWIP][0] >=3D IP_VERSION(9, 0, 0)) &&
+> -           (adev->ip_versions[GC_HWIP][0] < IP_VERSION(10, 0, 0)) &&
+> -           adev->gfx.num_gfx_rings)
+> -               adev->gfx.mcbp =3D true;
+> -
+>         if (amdgpu_sriov_vf(adev))
+>                 adev->gfx.mcbp =3D true;
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 33e370d998a87..f829a80e52924 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -180,7 +180,7 @@ uint amdgpu_dc_feature_mask =3D 2;
+>  uint amdgpu_dc_debug_mask;
+>  uint amdgpu_dc_visual_confirm;
+>  int amdgpu_async_gfx_ring =3D 1;
+> -int amdgpu_mcbp =3D -1;
+> +int amdgpu_mcbp;
+>  int amdgpu_discovery =3D -1;
+>  int amdgpu_mes;
+>  int amdgpu_mes_kiq;
+> @@ -635,10 +635,10 @@ module_param_named(async_gfx_ring, amdgpu_async_gfx=
+_ring, int, 0444);
+>
+>  /**
+>   * DOC: mcbp (int)
+> - * It is used to enable mid command buffer preemption. (0 =3D disabled, =
+1 =3D enabled, -1 auto (default))
+> + * It is used to enable mid command buffer preemption. (0 =3D disabled (=
+default), 1 =3D enabled)
+>   */
+>  MODULE_PARM_DESC(mcbp,
+> -       "Enable Mid-command buffer preemption (0 =3D disabled, 1 =3D enab=
+led), -1 =3D auto (default)");
+> +       "Enable Mid-command buffer preemption (0 =3D disabled (default), =
+1 =3D enabled)");
+>  module_param_named(mcbp, amdgpu_mcbp, int, 0444);
+>
+>  /**
+> --
+> 2.41.0
+>
