@@ -4,125 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37944C0015E
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 14:45:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F9BAC0015E
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 14:49:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86AC110E6ED;
-	Thu, 13 Jul 2023 14:44:59 +0000 (UTC)
-Received: from outbound.mail.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::600])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6689410E6ED
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 14:44:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wh5bFQoqs5i7CA5403XJJ0f7a0QVcXQj5A/q7B+uZJtgUcvCnXewigSqoH1AutiXDUz5doWwjhZfKwCMLOLlwLYK1jQfTx03daSgYM9aCnYSiOwXY6N8yEJGVHSuMaOwIDFHXI0043eFNChOIyrPhH/qg9g7HIc3IsjoSg4R55b4KU0E3a7JwTt1bEOukIJyZDFEreFlrX3neSCucd9CJKSmnhtbhNnXE0lJ1JWTo5r4tExwxEeaTPUOxiZb9ZJl+opSOsIHrVNOL4dBgtyW7n3mXJqR4FlsUUJBUBHUZ3UtNEX59bPV6MYjTUEqHOsJpOnsqBvQ8oZQKvh+X18ArQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Btkdp3RvcAoDUOnhrEFZQJE6PK2q0r73FOE0wzaybBo=;
- b=kRDuR0ixmbXNfjg9U0RKp9hDORo/at0YsuaM48NuTien42KT5jWV0mltJoiLDWmzdYEFTih+N5N/zDlzE+LyicGSQT35JcInUQ31AvOWRKDvTKJum60UKgAGe/Eud628XmxJ33XBG6JvCKVNxezZQk+f5ee+CuA2JTRc9Czd481KVXOzD/5v+kjSIRDfj5QPCRyZDLU91FDaGvT4hg+yb8bfgWWklGCVO6u7rI3WSmJhX9s8O1XTAYsLhMIXXFlRKJpCdg4XCUUucyyFqgo/JlDkLlN47fELPdgkuq8bSKY8tAIhE+Xi7M351ZtPyScoPYMsWHBJ4tnieOtQqaFugg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Btkdp3RvcAoDUOnhrEFZQJE6PK2q0r73FOE0wzaybBo=;
- b=pTp+9ckJWVp+zhafXCj8Kdgygr83NvPABwcblWY2tWkWPd2i93vxzIBfVP9NWJDoOdY18wBVlgA5K2i3kc0ahTkNemp/PwaODRdrYc1p+I8J7+JBL1iFjNdm51+lBgOACb7fuR7yvIxdU3Zm209WQ+/LYoVVBEklQMPqmDxHVkc=
-Received: from DM4PR12MB5165.namprd12.prod.outlook.com (2603:10b6:5:394::9) by
- SA1PR12MB8723.namprd12.prod.outlook.com (2603:10b6:806:385::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.26; Thu, 13 Jul
- 2023 14:44:51 +0000
-Received: from DM4PR12MB5165.namprd12.prod.outlook.com
- ([fe80::f0ee:c42e:fba1:4f02]) by DM4PR12MB5165.namprd12.prod.outlook.com
- ([fe80::f0ee:c42e:fba1:4f02%3]) with mapi id 15.20.6588.022; Thu, 13 Jul 2023
- 14:44:51 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdgpu/pm: make mclk consistent for smu 13.0.7
-Thread-Topic: [PATCH 2/2] drm/amdgpu/pm: make mclk consistent for smu 13.0.7
-Thread-Index: AQHZnhYDXO9iyPZO3kC3Zir1ftI33K+38ccAgAACrgA=
-Date: Thu, 13 Jul 2023 14:44:51 +0000
-Message-ID: <DM4PR12MB51657DCCCFF14F3DC1B5F8698E37A@DM4PR12MB5165.namprd12.prod.outlook.com>
-References: <20230613164148.2631132-1-alexander.deucher@amd.com>
- <20230613164148.2631132-2-alexander.deucher@amd.com>
- <CADnq5_NP5AR0X5k1ZAC-P-dX5CoUyZS_uftXyVPdPbpLCUkcFQ@mail.gmail.com>
-In-Reply-To: <CADnq5_NP5AR0X5k1ZAC-P-dX5CoUyZS_uftXyVPdPbpLCUkcFQ@mail.gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=5f6105c8-0f09-4276-b06d-1271e5327e36;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-13T14:42:58Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5165:EE_|SA1PR12MB8723:EE_
-x-ms-office365-filtering-correlation-id: 72516f43-77b5-4c67-5fc3-08db83afb6f2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: vc8AgKgeRSxP7XjvcLyB2glMDY+2DRlfwhYdu+T4w6ySwkONUZJkYsHwzM1ZoXAKI7FcUpTGXgHznkf721lzFueQSbIznL/omgEAkWcDWjmvSKHLWrPTvboLnHe2OtrwT6Vt1eP3C7FfkU9kHlOpqdxYbSDKCLFMqiihpgtX5NjFv2Y00fvchozajtwCv4/1sbd5saFezEXseRRHi7B19cPT8BL1ZkvbyludXwbPaMotQUQruTXr7lPfizcSX11XbwgTCfv5zi0w/kbWPl2kx3fD/d5GMzr+hytOBOaEYxpcz4pinJzGVoSQnBzGfQQ/TpY4WXk6JP2Qef6VWXvR8ce0rquPcg2WCjDZFN2vKJ53NlPR3xInf+bRl+RQTcCjPyJbp1b/uqiIVzmdWRA+SO1+VfPX+9B+zXFM39LK2J7/W1wFv9+ZsQoXkrlnyff4jiYDMsLySUUtwbvwg1FfpFk8sNgrz1naBKW4l0xK/bvR+yLeE6zY+XKkUzEpyBVADRQzuucas2oF5NaBq/h0knqDQpNRcdIYInQcOwkorAW3hN5iCON9koyLMNMuQ8lTYMtpYJS+hoD4nlU9f3U4tZrJynNiUYAEn1br8LDqUsg=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5165.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(136003)(366004)(396003)(39860400002)(451199021)(110136005)(41300700001)(55016003)(66476007)(66446008)(64756008)(6636002)(4326008)(76116006)(66946007)(66556008)(478600001)(5660300002)(52536014)(2906002)(8676002)(8936002)(316002)(71200400001)(7696005)(86362001)(26005)(9686003)(6506007)(53546011)(186003)(33656002)(83380400001)(38070700005)(38100700002)(122000001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?L2krMDhiTm5WN1ZtZVdmY3FDS1lmblpzYmlOQ2Jwc21FckZISzdiMU83WVRx?=
- =?utf-8?B?b2VlcUxsVnc1MWFXaDVXL0ZBbFc3OHVQK0hOck9ZMFlaU2tCWWRNL2tFekpT?=
- =?utf-8?B?SXd6bGdzeTZWMCt6ZnlFajMvWXVucVUwbmszdFpmckJLNEJkbjJBQkhySlhz?=
- =?utf-8?B?M2xQcGh4cy9RZnNaREhKR2ZIMFRYalhHdUtWWVVBdkZ1WkgwS2luV3hLc1Vm?=
- =?utf-8?B?Q2o2M3h3dXBueFFZV3NHQmhIa3l3cUdrRmFiMXNQMzVkM200eFdLYmVTL21O?=
- =?utf-8?B?d0pRelArNnVvSm13L25CNU1GYkIzMGd5b3diWm9TSVV5NG83UmZIN3lacTBO?=
- =?utf-8?B?cUtaMXR4QVBlN3NSQ2FQZnNVQi9FN1AvUUdKam4zLzd6aUV3ZjVHUHIzK0Y4?=
- =?utf-8?B?RGtDY2t0c1RvVzJONTJBTGtvTXVPMjB2WE1sbTNvUFprUlppZzhGeDBSQnYz?=
- =?utf-8?B?bHgvOTRQQ0hhcmlzWm9WWSt5eTkyNUlJbm5zQnVrcHErdUpTeFZ0TTI5aGN2?=
- =?utf-8?B?VnJPSisvc0NSR3JaRUhpbHhMejdJSW1oNHFVeVR2RGMrUkVweGsybjZsck5P?=
- =?utf-8?B?eDU5U0pPalZNbEFXRDZWSXJwSEJBazVNVmxOVWdwQm5vSTB1YTdsUzhmZWI3?=
- =?utf-8?B?YVF4alZoZXVrYnBGdG1Jckp5OWtiRjV2aWhVVzRreG43VjhxNmdQbzZGcnZm?=
- =?utf-8?B?SHhiQ1VEVlF0VzE3TDlBTTJGc2djbW4zUGRkZDZpTGhjMlBjYjVKbDFYSGtv?=
- =?utf-8?B?MENYa3RQQldGTGtqaEZrc0UwU043SEFEZkszcEh6OTFFaDc0OG9EVWpaM2hq?=
- =?utf-8?B?ckVwdnlWSTk0YVU5VFZYOWF2TXpwbzJaYXlMNHQvTTl6bkdLeklYR2xmTFNE?=
- =?utf-8?B?eSt3c21YbFV0by9sSlB6c01NYngrNWpUeUFQVXI5UVBVaTAvMW5Ea2ErMXQ3?=
- =?utf-8?B?NGhLckg5REtvZVgxNWpDRGhwcGJVN2orMEVTZ2hBYWg2Tk5NWmFSU3BWMlA4?=
- =?utf-8?B?bjZJRURCODZPejBMcThPZHFKM3oxODYrenRYWG15K1BuVW15KzdCVHJCZGZ6?=
- =?utf-8?B?TlhSNFI1TFNHN3BQTXNQSWJXL05Bb3FOL0VsVUg1ZzZOc2VBa3pxMzZxRjJT?=
- =?utf-8?B?NXJ1ZXlMd0hoVWExRE9CRGMxaTFtSUZqSFhOMnpVREtIZmdzRUVrOUJ2NW9U?=
- =?utf-8?B?Qyt2YW9WWTZQOC9mTm1ZTUh0VzlZL0V0dGlxTkJ0WHRnRVFlVjdJRU53c3BZ?=
- =?utf-8?B?UkZzOEZ5QVV3L0VQc0RRZU5FbzQ2RGJTZGxLK3h5ajhMUnRuRHd2aUtCQ05T?=
- =?utf-8?B?czdqRWh2enpCWVdkTkc3elU2TE5KTHlMcUpjcTFmRUZkdmVqL2h1S0l6dGlZ?=
- =?utf-8?B?Y2RldmZsVHB1VGlvYjRBUnc2RmZEWVZxb2VzSTY2cjNMZVdBRWthY1pJSDdh?=
- =?utf-8?B?ZjJweWtvWXcwckZQZTdBeVNUWEovVERTay9RQ0E0M2oyQ1N3MFUrQ1FoMDRN?=
- =?utf-8?B?YTJyREVveWtCRnVaL1lLME1hV0VmR0pqZEowUWd6ZC96UC93N25nTyt5RUxD?=
- =?utf-8?B?dUc5WHVxOUNMam1JcVhQeVJyQ3djaDZlR2taWDNaRnRMSzlrZS9OZTc0UEQx?=
- =?utf-8?B?YnRXTmhwVk93bzNQcE5VY2JpbVNrRE0zbHNTMVZrTFlmRHJvMW9qaWRaSS9o?=
- =?utf-8?B?RDEvaWdTb0Rya1JPSHJvYjdkazM4emUvY05yUWJ1eGlWQ0Q1Q0M1cjhUVElZ?=
- =?utf-8?B?OWxUbFNwT04rTEtYalZhakU1TE43cjl1SVliMVJZR2E3QnlTZWE0UmtZalU0?=
- =?utf-8?B?MXdXQ0xEQkJ6WWc1aVplem8zaG44bWpaeUl3eFhWR2RXczZqN010V2VoT1VR?=
- =?utf-8?B?ejZYUndqSG9TWktIWnFKd1RFK1BBMFlOYXZQMVF1V0lnUi9aV2htZEdHU3R3?=
- =?utf-8?B?T3ptWlBidUlHNEFUcmg1TWFMVmwybDBZOHJXL3hxYmVPOUNGUnQwUSt0N1Za?=
- =?utf-8?B?bDBnVXB4aDZQRTFWS0JYNzJiNG1pd3IwSWxxczVQNllYMWJLVTdiazM3bzVW?=
- =?utf-8?B?S3lEaEJUZzE1QTY5ZzNoTTlRcXBzbkh4V2k1NFFmTDdiQi9BR1lObTZQL01K?=
- =?utf-8?Q?qD3Q=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id B381410E6EE;
+	Thu, 13 Jul 2023 14:49:42 +0000 (UTC)
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
+ [IPv6:2001:4860:4864:20::29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E147110E6EE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 14:47:57 +0000 (UTC)
+Received: by mail-oa1-x29.google.com with SMTP id
+ 586e51a60fabf-1b060bce5b0so673527fac.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 07:47:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1689259676; x=1691851676;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vKItIj72hAMISxrHuiptAazhKs3+4zy1JRueUjGy5Ew=;
+ b=ft+c2Y+OREHpUASK3FgTHGclMWBy9qDdoaw9LWBx50WGa4jHxc+USYAkdUSGkwjpy7
+ FYKaYaMy4+U3htnMpF22/uiMLEbS9twZxg0ThIRTr3T5iG3X4tx5F7EWC999in7iDKHN
+ PEdQbx8Ed3G8c4zwK8DUMV4tuVIUDHjjBbEz4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689259676; x=1691851676;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=vKItIj72hAMISxrHuiptAazhKs3+4zy1JRueUjGy5Ew=;
+ b=EvaqzQ3Z6adWgnW2baL0uCNPCDo1eeyXZEV5FgPMjyVt+5u89VINu8xjJZeeisvZCc
+ ttmUeOl+aSN647NKxZT3xAsWmb2uKZ6YKRMEc/4djxM7ld/KWMJOLrq1ufdXN15GdmNL
+ DlkdQ29WlIX3CousLrwIwm5iHABdpGHYF6MYWXc78f311nlQDkm6gn1+BAetdWqLmOew
+ PsRZwKAU0cd/PVt59fSXaz6GhZ3QJCaHOYVD16watjfBa9yiS3cxM1F1BiuG2zcLSVC4
+ tG1reCntK5rI3Gs6cc6UYu27B5UtNiSKuw0LiaFFJwML6Alcovn9pRJha3k5hu4XGOV3
+ szbw==
+X-Gm-Message-State: ABy/qLY5triFi/G2tMEM++Mdb5gT1ZTOhBi8rTuc9nJYpIsm2PBIB2NC
+ NL0PeN4Pm5DpAIVhKlsgA87Ctz55eRjxWWrW5WaPKWwd
+X-Google-Smtp-Source: APBJJlGpUIFPzVAKGFvxeEtQKwC0VuIEI6AKlJFQKhsFIW7f8zXM2hdd93XJfndcMI+7TQbRpfWEUg==
+X-Received: by 2002:a05:6870:5b87:b0:1b0:5b04:ebec with SMTP id
+ em7-20020a0568705b8700b001b05b04ebecmr2199785oab.59.1689259676227; 
+ Thu, 13 Jul 2023 07:47:56 -0700 (PDT)
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com.
+ [209.85.161.43]) by smtp.gmail.com with ESMTPSA id
+ i3-20020a056870220300b00172ac40356csm3097734oaf.50.2023.07.13.07.47.55
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Jul 2023 07:47:55 -0700 (PDT)
+Received: by mail-oo1-f43.google.com with SMTP id
+ 006d021491bc7-5636426c1b3so593924eaf.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 07:47:55 -0700 (PDT)
+X-Received: by 2002:a05:6902:211:b0:c8b:3:e399 with SMTP id
+ j17-20020a056902021100b00c8b0003e399mr1398441ybs.44.1689259342555; Thu, 13
+ Jul 2023 07:42:22 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5165.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72516f43-77b5-4c67-5fc3-08db83afb6f2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jul 2023 14:44:51.4803 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: V84pCexPYY7Ci/vDnLh5ElvVwYLVOzY4zMrvtIKFa/hrXD2NzumXzvUCG/YBQQCt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8723
+References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+ <87fs5tgpvv.fsf@intel.com>
+ <CAOw6vbLO_UaXDbTCtAQJgthXOUMPqEV+c2MQhP-1DuK44OhGxw@mail.gmail.com>
+ <20230713130337.fd2l67r23g2irifx@pengutronix.de>
+In-Reply-To: <20230713130337.fd2l67r23g2irifx@pengutronix.de>
+From: Sean Paul <seanpaul@chromium.org>
+Date: Thu, 13 Jul 2023 10:41:45 -0400
+X-Gmail-Original-Message-ID: <CAOw6vbKtjyUm+OqO7LSV1hDOMQATwkEWP4GzBbbXib0i5EviUQ@mail.gmail.com>
+Message-ID: <CAOw6vbKtjyUm+OqO7LSV1hDOMQATwkEWP4GzBbbXib0i5EviUQ@mail.gmail.com>
+Subject: Re: [Freedreno] [PATCH RFC v1 00/52] drm/crtc: Rename struct
+ drm_crtc::dev to drm_dev
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 13 Jul 2023 14:49:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,38 +82,200 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alexey Kodanev <aleksei.kodanev@bell-sw.com>, dri-devel@lists.freedesktop.org,
+ Vandita Kulkarni <vandita.kulkarni@intel.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Arun R Murthy <arun.r.murthy@intel.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-samsung-soc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
+ Matt Roper <matthew.d.roper@intel.com>, Wenjing Liu <wenjing.liu@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
+ Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
+ spice-devel@lists.freedesktop.org,
+ Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, linux-sunxi@lists.linux.dev,
+ Matthias Brugger <matthias.bgg@gmail.com>, Stylon Wang <stylon.wang@amd.com>,
+ Tim Huang <Tim.Huang@amd.com>, Suraj Kandpal <suraj.kandpal@intel.com>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ Mika Kahola <mika.kahola@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Leo Li <sunpeng.li@amd.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, Dave Airlie <airlied@redhat.com>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ =?UTF-8?Q?=C5=81ukasz_Bartosik?= <lb@semihalf.com>,
+ Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin <zackr@vmware.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
+ Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+ =?UTF-8?Q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>,
+ virtualization@lists.linux-foundation.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ Mario Limonciello <mario.limonciello@amd.com>, Fei Yang <fei.yang@intel.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, David Francis <David.Francis@amd.com>,
+ Vinod Govindapillai <vinod.govindapillai@intel.com>,
+ Aaron Liu <aaron.liu@amd.com>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, linux-rockchip@lists.infradead.org,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>,
+ =?UTF-8?Q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Animesh Manna <animesh.manna@intel.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Tian Tao <tiantao6@hisilicon.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+ linux-amlogic@lists.infradead.org, Evan Quan <evan.quan@amd.com>,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Boris Brezillon <bbrezillon@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Sandy Huang <hjc@rock-chips.com>,
+ Swati Sharma <swati2.sharma@intel.com>, linux-renesas-soc@vger.kernel.org,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Anusha Srivatsa <anusha.srivatsa@intel.com>, Dan Carpenter <error27@gmail.com>,
+ Karol Herbst <kherbst@redhat.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ linux-hyperv@vger.kernel.org, Stefan Agner <stefan@agner.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>,
+ Luca Coelho <luciano.coelho@intel.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
+ "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>, Emma Anholt <emma@anholt.net>,
+ Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Deepak Rawat <drawat.floss@gmail.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, Joel Stanley <joel@jms.id.au>,
+ Orson Zhai <orsonzhai@gmail.com>, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Alan Liu <haoping.liu@amd.com>, Philip Yang <Philip.Yang@amd.com>,
+ intel-gfx@lists.freedesktop.org, Alison Wang <alison.wang@nxp.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Gustavo Sousa <gustavo.sousa@intel.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Mikko Perttunen <mperttunen@nvidia.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>,
+ Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ John Stultz <jstultz@google.com>, Roman Li <roman.li@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Khaled Almahallawy <khaled.almahallawy@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Sam Ravnborg <sam@ravnborg.org>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Imre Deak <imre.deak@intel.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Liu Shixin <liushixin2@huawei.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, David Airlie <airlied@gmail.com>,
+ Marek Vasut <marex@denx.de>, Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Lang Yu <Lang.Yu@amd.com>, xen-devel@lists.xenproject.org,
+ Guchun Chen <guchun.chen@amd.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Russell King <linux@armlinux.org.uk>, Jani Nikula <jani.nikula@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ David Lechner <david@lechnology.com>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ =?UTF-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
+ Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
+ linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
+ David Tadokoro <davidbtadokoro@usp.br>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, linux-mips@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Philippe Cornu <philippe.cornu@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Wayne Lin <Wayne.Lin@amd.com>,
+ Drew Davenport <ddavenport@chromium.org>, Nirmoy Das <nirmoy.das@intel.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>, Lucas Stach <l.stach@pengutronix.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNClJldmlld2VkLWJ5OiBLZW5uZXRo
-IEZlbmcgPGtlbm5ldGguZmVuZ0BhbWQuY29tPg0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
-LS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-PiBPbiBCZWhhbGYgT2YgQWxleCBEZXVjaGVyDQpTZW50OiBUaHVyc2RheSwgSnVseSAxMywgMjAy
-MyAxMDozMyBQTQ0KVG86IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1k
-LmNvbT4NCkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KU3ViamVjdDogUmU6IFtQ
-QVRDSCAyLzJdIGRybS9hbWRncHUvcG06IG1ha2UgbWNsayBjb25zaXN0ZW50IGZvciBzbXUgMTMu
-MC43DQoNCkNhdXRpb246IFRoaXMgbWVzc2FnZSBvcmlnaW5hdGVkIGZyb20gYW4gRXh0ZXJuYWwg
-U291cmNlLiBVc2UgcHJvcGVyIGNhdXRpb24gd2hlbiBvcGVuaW5nIGF0dGFjaG1lbnRzLCBjbGlj
-a2luZyBsaW5rcywgb3IgcmVzcG9uZGluZy4NCg0KDQpQaW5nIG9uIHRoaXMgc2VyaWVzPw0KDQpB
-bGV4DQoNCk9uIFR1ZSwgSnVuIDEzLCAyMDIzIGF0IDEyOjQy4oCvUE0gQWxleCBEZXVjaGVyIDxh
-bGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPiB3cm90ZToNCj4NCj4gVXNlIGN1cnJlbnQgdWNsayB0
-byBiZSBjb25zaXN0ZW50IHdpdGggb3RoZXIgZEdQVXMuDQo+DQo+IFNpZ25lZC1vZmYtYnk6IEFs
-ZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL3BtL3N3c211L3NtdTEzL3NtdV92MTNfMF83X3BwdC5jIHwgMiArLQ0KPiAg
-MSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pDQo+DQo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3N3c211L3NtdTEzL3NtdV92MTNfMF83X3Bw
-dC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMy9zbXVfdjEzXzBfN19wcHQu
-Yw0KPiBpbmRleCBjZGE0ZTgxOGFhYjcuLjhlYjhjMzBlNmM2OSAxMDA2NDQNCj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9zbXUxMy9zbXVfdjEzXzBfN19wcHQuYw0KPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3N3c211L3NtdTEzL3NtdV92MTNfMF83X3BwdC5jDQo+
-IEBAIC05NDksNyArOTQ5LDcgQEAgc3RhdGljIGludCBzbXVfdjEzXzBfN19yZWFkX3NlbnNvcihz
-dHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwNCj4gICAgICAgICAgICAgICAgIGJyZWFrOw0KPiAgICAg
-ICAgIGNhc2UgQU1ER1BVX1BQX1NFTlNPUl9HRlhfTUNMSzoNCj4gICAgICAgICAgICAgICAgIHJl
-dCA9IHNtdV92MTNfMF83X2dldF9zbXVfbWV0cmljc19kYXRhKHNtdSwNCj4gLSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE1FVFJJQ1NfQVZFUkFH
-RV9VQ0xLLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgTUVUUklDU19DVVJSX1VDTEssDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAodWludDMyX3QgKilkYXRhKTsNCj4gICAgICAg
-ICAgICAgICAgICoodWludDMyX3QgKilkYXRhICo9IDEwMDsNCj4gICAgICAgICAgICAgICAgICpz
-aXplID0gNDsNCj4gLS0NCj4gMi40MC4xDQo+DQo=
+On Thu, Jul 13, 2023 at 9:04=E2=80=AFAM Uwe Kleine-K=C3=B6nig
+<u.kleine-koenig@pengutronix.de> wrote:
+>
+> hello Sean,
+>
+> On Wed, Jul 12, 2023 at 02:31:02PM -0400, Sean Paul wrote:
+> > I'd really prefer this patch (series or single) is not accepted. This
+> > will cause problems for everyone cherry-picking patches to a
+> > downstream kernel (LTS or distro tree). I usually wouldn't expect
+> > sympathy here, but the questionable benefit does not outweigh the cost
+> > IM[biased]O.
+>
+> I agree that for backports this isn't so nice. However with the split
+> approach (that was argumented against here) it's not soo bad. Patch #1
+> (and similar changes for the other affected structures) could be
+> trivially backported and with that it doesn't matter if you write dev or
+> drm (or whatever name is chosen in the end); both work in the same way.
+
+Patch #1 avoids the need to backport the entire set, however every
+change occuring after the rename patches will cause conflicts on
+future cherry-picks. Downstream kernels will have to backport the
+whole set. Backporting the entire set will create an epoch in
+downstream kernels where cherry-picking patches preceding this set
+will need to undergo conflict resolution as well. As mentioned in my
+previous email, I don't expect sympathy here, it's part of maintaining
+a downstream kernel, but there is a real cost to kernel consumers.
+
+>
+> But even with the one-patch-per-rename approach I'd consider the
+> renaming a net win, because ease of understanding code has a big value.
+> It's value is not so easy measurable as "conflicts when backporting",
+> but it also matters in say two years from now, while backporting
+> shouldn't be an issue then any more.
+
+You've rightly identified the conjecture in your statement. I've been
+on both sides of the argument, having written/maintained drm code
+upstream and cherry-picked changes to a downstream kernel. Perhaps
+it's because drm's definition of dev is ingrained in my muscle memory,
+or maybe it's because I don't do a lot of upstream development these
+days, but I just have a hard time seeing the benefit here.
+
+I appreciate your engagement on the topic, thank you!
+
+Sean
+
+>
+> Thanks for your input, best regards
+> Uwe
+>
+> --
+> Pengutronix e.K.                           | Uwe Kleine-K=C3=B6nig       =
+     |
+> Industrial Linux Solutions                 | https://www.pengutronix.de/ =
+|
