@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E7E6C0015E
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 16:37:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34F13C001DE
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 16:37:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 718AE10E760;
-	Thu, 13 Jul 2023 16:37:08 +0000 (UTC)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1FD10E731;
- Thu, 13 Jul 2023 16:37:00 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id
- e9e14a558f8ab-345f3e28082so3674635ab.1; 
- Thu, 13 Jul 2023 09:37:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 283C310E71C;
+	Thu, 13 Jul 2023 16:37:09 +0000 (UTC)
+Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
+ [IPv6:2607:f8b0:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE0EE10E763;
+ Thu, 13 Jul 2023 16:37:04 +0000 (UTC)
+Received: by mail-il1-x12b.google.com with SMTP id
+ e9e14a558f8ab-3461053677eso1987805ab.0; 
+ Thu, 13 Jul 2023 09:37:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689266220; x=1691858220;
+ d=gmail.com; s=20221208; t=1689266223; x=1691858223;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=er10hRf8jzqmY/TOv8apCdhuiXnH4dQdxbq4v1bZDkk=;
- b=nUtZHBh03mIOJN4TWeLHRJ7jlkXD96Xyn30/rBF0dI6hQoIWMFxjppRngSnY1uXBml
- tiwPgfApv3SHpplOUnVzmGvrNcF0FA3keXhzN9fI3HUXnMPEZnsNdETwn9lLaDc0vDM2
- oFx2VZf8C8IMnrht7WmcehhH6e/oQ5e6/jlwzALoEuqshmQd6KDJWaHx2a1OldzEbiU8
- xaRXYa6xQINeBZUyiOtmcihHw/k+g7qBeSykmV7xieHlMRfmqIBBU8cpH0Eo19uBt1aa
- SyVbYMxHCIlQZPQ6q9k048SMN2a4TFnmi+AGvmIiVS660FSyRzceY4AmMaG85bRF9XgS
- iaGw==
+ bh=xtXcwS8d/IDIwtZ853/2GI+9Fn3yNRgVoZNcTx+O3Ew=;
+ b=HlYsuUhPgjpXCZ9henX1PDwU0cw3h2N3V5/vsfI3JqIAfhpOmkW+trSjYWT65U3nyC
+ jLebmc9PX5LkHYZtGISPEwFqP511fRUaV3p126UUUQ12cEoisYsRB0Ai0IFMoK/o+Zno
+ rGguAhVV1T0Xtt56BsYcD8yFiSs4AzNYqyvja+HjPwA8MdQrfo408bDsxt9OJHXJyZ3y
+ NcJt4Mr3dq/irqiTKq+AH7wN/d04UujVFnf3InP9dyq90JzGLKhF4XgF3DEE6WUMuJvX
+ hlybq+IReegFZ0TKYVW5nMEdCMyQ4uQvKHiCH6vc07xhaWaOnWfaVWviGizRleqeG3TT
+ UVIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689266220; x=1691858220;
+ d=1e100.net; s=20221208; t=1689266223; x=1691858223;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=er10hRf8jzqmY/TOv8apCdhuiXnH4dQdxbq4v1bZDkk=;
- b=TmGYro3F/VBRIyEh3t841hlcYwPbdxR2oDxXRL67r9KydX6ee1q8syDMNl7kkbj/4+
- 3ZCEImvjv5+tdiHu5roKY2eT7VEkKJs9JrRdlsr5o3R59Z7WRmTbsy63pnc9/44nO+bw
- EUE3xy5nT118y25ZXaFG+iBWP3DloBPUcMLLSghccW9lyovbc8RWpW0LrdEWnN8S6cI9
- SqzNj6cd3mR3JaDYXqaq3zaAkmnW9O8oi2hvmd9ka8uW5tUeEdMQcEjlhFAYHf/y8+kv
- KMo8MlL+g9E1UUDKdQJMQhhYhbFtthq5D6dp38cz3COhCy2KdqL08KJx4kcc7QgtWVgy
- 5UgA==
-X-Gm-Message-State: ABy/qLYbykSp6Fk13hU3UyeIHEQYS/VpumvIlFZa/y+iiyqmiEm9+/DZ
- 9zkkTHXXlajFwZbPYBl4VLY=
-X-Google-Smtp-Source: APBJJlG4Qzj7mKPAp8slrzRbfT1zmTByraCrPdJm0WqrcsUQ9RXcjiMSJVuxBqZcKEywaJiPbLLFWQ==
-X-Received: by 2002:a92:ce04:0:b0:345:d2fe:da92 with SMTP id
- b4-20020a92ce04000000b00345d2feda92mr2149751ilo.10.1689266219846; 
- Thu, 13 Jul 2023 09:36:59 -0700 (PDT)
+ bh=xtXcwS8d/IDIwtZ853/2GI+9Fn3yNRgVoZNcTx+O3Ew=;
+ b=FyJsAeMwCWA15s+i8GmABq62rfXCCrUi+5cMSiHu6WbDzcQA0QFs13cinll2lOcddZ
+ VsCAUYp90vR1jkthb6wItesV62QypkegzYkMInKV6ZQSSLO+uEgVI/QifWe7hg79TxUJ
+ 1LApAv6qpDvGXYmS5g0kNeBamoCcxZSjncMmBkgEaAz4bdLmBKPuD+gFLeeY51/xGRyD
+ 4CwIHZto9FjqL9AfODfWjbGatZ9QRtb9xM4rQ1eYyKkKyo4QdbeiCEgnxAnqlXIWPyIq
+ ghMktL690JXPhjGvphLEhX27ZO4erJmDKfuCDvFUMbUf9S65FI4TjIBFhd4NnJHLWyvJ
+ 6MuQ==
+X-Gm-Message-State: ABy/qLbAi8e1Emk1Yz/pK33KQTsSeBECVZ6Fiplwame19ae/t0K5+qRJ
+ ujzyAZ7tSh6rjxmvwZ7q1x8BV5rgqWj5sA==
+X-Google-Smtp-Source: APBJJlGKK8QkvWwdEzHjGRc5A1ATdY9Dfw8qrHFYEawb7ulcwGWCKqqAd0Mg8QH2SMEdwJLdP2dZ3w==
+X-Received: by 2002:a92:6c0f:0:b0:346:7fc:4fb8 with SMTP id
+ h15-20020a926c0f000000b0034607fc4fb8mr122786ilc.1.1689266223658; 
+ Thu, 13 Jul 2023 09:37:03 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- s7-20020a92d907000000b00345950d7e94sm2147571iln.20.2023.07.13.09.36.59
+ s7-20020a92d907000000b00345950d7e94sm2147571iln.20.2023.07.13.09.37.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jul 2023 09:36:59 -0700 (PDT)
+ Thu, 13 Jul 2023 09:37:03 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [PATCH v4 14/21] dyndbg: refactor ddebug_classparam_clamp_input
-Date: Thu, 13 Jul 2023 10:36:19 -0600
-Message-ID: <20230713163626.31338-15-jim.cromie@gmail.com>
+Subject: [PATCH v4 18/21] compiler.h: RFC - s/__LINE__/__COUNTER__/ in
+ __UNIQUE_ID fallback
+Date: Thu, 13 Jul 2023 10:36:23 -0600
+Message-ID: <20230713163626.31338-19-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230713163626.31338-1-jim.cromie@gmail.com>
 References: <20230713163626.31338-1-jim.cromie@gmail.com>
@@ -74,135 +75,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, gregkh@linuxfoundation.org,
- Jim Cromie <jim.cromie@gmail.com>, robdclark@gmail.com, seanpaul@chromium.org,
+Cc: jani.nikula@intel.com, gregkh@linuxfoundation.org, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-sparse@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>, Jim Cromie <jim.cromie@gmail.com>,
+ robdclark@gmail.com, seanpaul@chromium.org,
+ Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, Tom Rix <trix@redhat.com>,
  ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Extract input validation code, from param_set_dyndbg_module_classes()
-(the sys-node >handler) to new: ddebug_classparam_clamp_input(kp),
-call it from former.  It takes kernel-param arg, so it can complain
-about "foo: bad input".
+We currently have 3 defns for __UNIQUE_ID(); gcc and clang are using
+__COUNTER__ for real uniqueness, 3rd just uses __LINE__, which should
+fail on this (and harder to avoid situations):
 
-Reuse ddparam_clamp_input(kp) in ddebug_sync_classbits(),
-to validate inputs from parent's params, just like our own.
-To support that reuse, alter ddebug_sync_classbits() and caller to
-pass kp instead of kp->arg.
+  DECLARE_FOO(); DECLARE_FOO();
 
+Its 2023, can we haz a no-fallback __UNIQUE_ID ?
+
+NOTE:
+
+This also changes __UNIQUE_ID_ to _kaUID_.  Ive been getting
+lkp-reports of collisions on names which should be unique; this
+shouldnt happen on gcc & clang, but does on some older ones, on some
+platforms, on some allyes & rand-configs.  Like this:
+
+mips64-linux-ld:
+drivers/gpu/drm/display/drm_dp_helper.o:(__dyndbg_class_users+0x0):
+multiple definition of `__UNIQUE_ID_ddebug_class_user405';
+drivers/gpu/drm/drm_gem_shmem_helper.o:(__dyndbg_class_users+0x0):
+first defined here
+
+Like above, the collision reports appear to always be 3-digit
+counters, which look like line-numbers.  Changing to _kaUID_ in this
+defn should make it more obvious (in *.i file) when a fallback has
+happened.  To be clear, I havent seen it yet.  Nor have I seen the
+multiple-defn problem above since adding this patch.
+
+Lets see what lkp-robot says about this.
+
+CC: Luc Van Oostenryck <luc.vanoostenryck@gmail.com> (maintainer:SPARSE CHECKER)
+CC: Nathan Chancellor <nathan@kernel.org> (supporter:CLANG/LLVM BUILD SUPPORT)
+CC: Nick Desaulniers <ndesaulniers@google.com> (supporter:CLANG/LLVM BUILD SUPPORT)
+CC: Tom Rix <trix@redhat.com> (reviewer:CLANG/LLVM BUILD SUPPORT)
+CC: linux-sparse@vger.kernel.org (open list:SPARSE CHECKER)
+CC: linux-kernel@vger.kernel.org (open list)
+CC: llvm@lists.linux.dev (open list:CLANG/LLVM BUILD SUPPORT)
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 66 ++++++++++++++++++++++++++++++---------------
- 1 file changed, 45 insertions(+), 21 deletions(-)
+ include/linux/compiler.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 8e7bf5e9388b..4743ac2972b1 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -649,6 +649,30 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+diff --git a/include/linux/compiler.h b/include/linux/compiler.h
+index d7779a18b24f..677d6c47cd9e 100644
+--- a/include/linux/compiler.h
++++ b/include/linux/compiler.h
+@@ -177,9 +177,9 @@ void ftrace_likely_update(struct ftrace_likely_data *f, int val,
+ 	__asm__ ("" : "=r" (var) : "0" (var))
+ #endif
  
- #define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
+-/* Not-quite-unique ID. */
++/* JFTI: to fix Not-quite-unique ID */
+ #ifndef __UNIQUE_ID
+-# define __UNIQUE_ID(prefix) __PASTE(__PASTE(__UNIQUE_ID_, prefix), __LINE__)
++# define __UNIQUE_ID(prefix) __PASTE(__PASTE(_kaUID_, prefix), __COUNTER__)
+ #endif
  
-+static void ddebug_class_param_clamp_input(unsigned long *inrep, const struct kernel_param *kp)
-+{
-+	const struct ddebug_class_param *dcp = kp->arg;
-+	const struct ddebug_class_map *map = dcp->map;
-+
-+	switch (map->map_type) {
-+	case DD_CLASS_TYPE_DISJOINT_BITS:
-+		/* expect bits. mask and warn if too many */
-+		if (*inrep & ~CLASSMAP_BITMASK(map->length)) {
-+			pr_warn("%s: input: 0x%lx exceeds mask: 0x%lx, masking\n",
-+				KP_NAME(kp), *inrep, CLASSMAP_BITMASK(map->length));
-+			*inrep &= CLASSMAP_BITMASK(map->length);
-+		}
-+		break;
-+	case DD_CLASS_TYPE_LEVEL_NUM:
-+		/* input is bitpos, of highest verbosity to be enabled */
-+		if (*inrep > map->length) {
-+			pr_warn("%s: level:%ld exceeds max:%d, clamping\n",
-+				KP_NAME(kp), *inrep, map->length);
-+			*inrep = map->length;
-+		}
-+		break;
-+	}
-+}
- static int param_set_dyndbg_module_classes(const char *instr,
- 					   const struct kernel_param *kp,
- 					   const char *modnm)
-@@ -668,26 +692,15 @@ static int param_set_dyndbg_module_classes(const char *instr,
- 		pr_err("expecting numeric input, not: %s > %s\n", instr, KP_NAME(kp));
- 		return -EINVAL;
- 	}
-+	ddebug_class_param_clamp_input(&inrep, kp);
- 
- 	switch (map->map_type) {
- 	case DD_CLASS_TYPE_DISJOINT_BITS:
--		/* expect bits. mask and warn if too many */
--		if (inrep & ~CLASSMAP_BITMASK(map->length)) {
--			pr_warn("%s: input: 0x%lx exceeds mask: 0x%lx, masking\n",
--				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
--			inrep &= CLASSMAP_BITMASK(map->length);
--		}
- 		v2pr_info("bits:0x%lx > %s.%s\n", inrep, modnm ?: "*", KP_NAME(kp));
- 		totct += ddebug_apply_class_bitmap(dcp, &inrep, *dcp->bits, modnm);
- 		*dcp->bits = inrep;
- 		break;
- 	case DD_CLASS_TYPE_LEVEL_NUM:
--		/* input is bitpos, of highest verbosity to be enabled */
--		if (inrep > map->length) {
--			pr_warn("%s: level:%ld exceeds max:%d, clamping\n",
--				KP_NAME(kp), inrep, map->length);
--			inrep = map->length;
--		}
- 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
- 		new_bits = CLASSMAP_BITMASK(inrep);
- 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
-@@ -1147,16 +1160,27 @@ static const char* ddebug_classmap_typenames[] = {
- 	v2pr_info(_msg " module:%s base:%d len:%d type:%s\n", ##__VA_ARGS__, \
- 		  cm->mod_name, cm->base, cm->length, ddebug_classmap_typenames[cm->map_type])
- 
--static void ddebug_sync_classbits(const struct ddebug_class_param *dcp, const char *modname)
-+static void ddebug_sync_classbits(const struct kernel_param *kp, const char *modname)
- {
--	/* clamp initial bitvec, mask off hi-bits */
--	if (*dcp->bits & ~CLASSMAP_BITMASK(dcp->map->length)) {
--		*dcp->bits &= CLASSMAP_BITMASK(dcp->map->length);
--		v2pr_info("preset classbits: %lx\n", *dcp->bits);
-+	struct ddebug_class_param *dcp = kp->arg;
-+	unsigned long new_bits;
-+
-+	ddebug_class_param_clamp_input(dcp->bits, kp);
-+
-+	switch (dcp->map->map_type) {
-+	case DD_CLASS_TYPE_DISJOINT_BITS:
-+		v2pr_info("%s: classbits: 0x%lx\n", KP_NAME(kp), *dcp->bits);
-+		ddebug_apply_class_bitmap(dcp, dcp->bits, 0UL, modname);
-+		break;
-+	case DD_CLASS_TYPE_LEVEL_NUM:
-+		new_bits = CLASSMAP_BITMASK(*dcp->lvl);
-+		v2pr_info("%s: lvl:%ld bits:0x%lx \n", KP_NAME(kp), *dcp->lvl, new_bits);
-+		ddebug_apply_class_bitmap(dcp, &new_bits, 0UL, modname);
-+		break;
-+	default:
-+		pr_err("bad map type %d\n", dcp->map->map_type);
-+		return;
- 	}
--	/* force class'd prdbgs (in USEr module) to match (DEFINEr module) class-param */
--	ddebug_apply_class_bitmap(dcp, dcp->bits, ~0, modname);
--	ddebug_apply_class_bitmap(dcp, dcp->bits, 0, modname);
- }
- 
- static void ddebug_match_apply_kparam(const struct kernel_param *kp, const struct ddebug_class_map *map, const char *modnm)
-@@ -1171,7 +1195,7 @@ static void ddebug_match_apply_kparam(const struct kernel_param *kp, const struc
- 	if (map == dcp->map) {
- 		v2pr_info("found kp:%s =0x%lx", kp->name, *dcp->bits);
- 		vpr_cm_info(map, "mapped to:");
--		ddebug_sync_classbits(dcp, modnm);
-+		ddebug_sync_classbits(kp, modnm);
- 	}
- }
- 
+ /**
 -- 
 2.41.0
 
