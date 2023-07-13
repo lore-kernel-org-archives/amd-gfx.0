@@ -4,58 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E39D8C0015E
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 13:27:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82733C001B0
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 14:01:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DE2810E6DA;
-	Thu, 13 Jul 2023 13:27:58 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6130D10E6DF
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 13:27:56 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-1b060bce5b0so601974fac.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 06:27:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689254875; x=1691846875;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=AmOimVlgrJ44SAbuQR5tp66hJC0+w7h8mp5M3Z7/x+w=;
- b=KHaBrn+51DPb9TwJ+DpBoqQ1Ma6+Rxj4w494r+ACB0FHY09MwskPsgpuXVO00IXZbg
- nXXr91eoFCQx+QdH+rf/Qw7t5LzIUyOElQc0m8qOkyhqoHWIBOyx8Z2NV6ww0DZ8KVLc
- ZZxf5ZttNbYEgW0+aHaeb/TqcpxJSv9F5wc3yVcRON7uHz5vyrY9rg7DoviVaKDClEeX
- IbPd0IteHcbQEbQhnbH7UI/dKZLmEFOEDZil622q/n1OW1zjgllVUDAtQ85kqscjlzzc
- guVlLD+vY8o7v/RhmDUJZOXeU10wQovWrCPWRYc18Cu8s1mh+qkRzEv828TDyLfFP/SX
- VL/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689254875; x=1691846875;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=AmOimVlgrJ44SAbuQR5tp66hJC0+w7h8mp5M3Z7/x+w=;
- b=GTsKYqCtldualLBFOp6W7kEgAPA9b+lmQFw1CIZxeEdzORi7sN0VV0xw6XIsF/XfLN
- 10BlMezJDsbxm+LKigsCFzqaA1f9EWajoG2F6E18UfJiXE8UsFUICSUnzswnFJvfwSjO
- TX1V33FXU4ax+wtj/kvACTdYPkwFgSAPQHPpu9pygYgJPLT8BPomM9jF4pzpkVPZ8vuQ
- lXcjaQ4BQvfiZr3TbESoZtx1YfV+DY82pRRWc3crGg+y30LVb1l8wi7BQnI3StANUXvS
- hPgZ+za4Rdndj+iyK/Jf6JNfKm4rBmw7kn4J+YA16IWoF01raOazdpRfWET5ctqu7OUm
- HyDA==
-X-Gm-Message-State: ABy/qLbdoCST3SP33KxqHORKZ5jtf91LglN8Kz4ZnnLQFk0e+7Ws2vUv
- gkwdTytg2s186CmKEqr8B1jgrlxYfvL/+iVLVV0=
-X-Google-Smtp-Source: APBJJlGiT94j+MswRh9C4MulsZ/32UwwrEr4W79aTv2VsqJ/zQbLb4gutUrzOh1d7H4gEy4grAPn8OI1X7J04w0htAU=
-X-Received: by 2002:a05:6870:c698:b0:1b0:151c:9b16 with SMTP id
- cv24-20020a056870c69800b001b0151c9b16mr2067826oab.17.1689254875233; Thu, 13
- Jul 2023 06:27:55 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230712184646.7955-1-alexander.deucher@amd.com>
-In-Reply-To: <20230712184646.7955-1-alexander.deucher@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 13 Jul 2023 09:27:44 -0400
-Message-ID: <CADnq5_PL4dAb2bRRfTdGgawAVNVCwBieAKtk36F8BBzXHA+5mw@mail.gmail.com>
-Subject: Re: [PATCH] Revert "drm/amdgpu: enable mcbp by default on gfx9"
-To: Alex Deucher <alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1E8510E0E0;
+	Thu, 13 Jul 2023 14:01:48 +0000 (UTC)
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
+ [130.133.4.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0EC710E6E2;
+ Thu, 13 Jul 2023 13:53:54 +0000 (UTC)
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+ by outpost.zedat.fu-berlin.de (Exim 4.95) with esmtps (TLS1.3)
+ tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@zedat.fu-berlin.de>)
+ id 1qJwlO-003u9E-2D; Thu, 13 Jul 2023 15:53:46 +0200
+Received: from p57bd9f0d.dip0.t-ipconnect.de ([87.189.159.13]
+ helo=suse-laptop.fritz.box) by inpost2.zedat.fu-berlin.de (Exim 4.95)
+ with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@physik.fu-berlin.de>)
+ id 1qJwlN-002pvx-QH; Thu, 13 Jul 2023 15:53:45 +0200
+Message-ID: <4622810f8bceb66f212fa09d34b10f0d2d71a35d.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH v2 08/18] sh: Assign FB_MODE_IS_UNKNOWN to struct
+ fb_videomode.flag
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Thomas Zimmermann <tzimmermann@suse.de>, deller@gmx.de, javierm@redhat.com
+Date: Thu, 13 Jul 2023 15:53:44 +0200
+In-Reply-To: <20230713130338.31086-9-tzimmermann@suse.de>
+References: <20230713130338.31086-1-tzimmermann@suse.de>
+ <20230713130338.31086-9-tzimmermann@suse.de>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 
+MIME-Version: 1.0
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-Originating-IP: 87.189.159.13
+X-ZEDAT-Hint: PO
+X-Mailman-Approved-At: Thu, 13 Jul 2023 14:01:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,81 +51,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: candice.li@amd.com, amd-gfx@lists.freedesktop.org
+Cc: linux-fbdev@vger.kernel.org, Rich Felker <dalias@libc.org>,
+ kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
+ Sam Ravnborg <sam@ravnborg.org>, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-geode@lists.infradead.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
+ linux-nvidia@lists.surfsouth.com, linux-omap@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 12, 2023 at 2:47=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
-.com> wrote:
->
-> This reverts commit 50a7c8765ca69543ffdbf855de0fd69aea769ccf.
->
-> This breaks some SQA tests on gfx9 dGPUs.  Chistian
-> also reported problems.
-
-Apparently this is a bug in mesa which this change uncovered:
-https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/24082/diffs
-
-Alex
-
->
-> Cc: candice.li@amd.com
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+On Thu, 2023-07-13 at 14:58 +0200, Thomas Zimmermann wrote:
+> Assign FB_MODE_IS_UNKNOWN to sh7763fb_videomode.flag instead of
+> FBINFO_FLAG_DEFAULT. Both are 0, so the stored value does not change.
+>=20
+> FBINFO_FLAG_DEFAULT is a flag for a framebuffer in struct fb_info.
+> Flags for videomodes are prefixed with FB_MODE_.
+>=20
+> v2:
+> 	* assign FB_MODE_IS_UNKNOWN (Adrian)
+>=20
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Acked-by: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Yoshinori Sato <ysato@users.sourceforge.jp>
+> Cc: Rich Felker <dalias@libc.org>
+> Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 -----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 6 +++---
->  2 files changed, 3 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index bbe4ea93db611..3673015a7f93a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3699,11 +3699,6 @@ static void amdgpu_device_set_mcbp(struct amdgpu_d=
-evice *adev)
->         if (amdgpu_mcbp =3D=3D 1)
->                 adev->gfx.mcbp =3D true;
->
-> -       if ((adev->ip_versions[GC_HWIP][0] >=3D IP_VERSION(9, 0, 0)) &&
-> -           (adev->ip_versions[GC_HWIP][0] < IP_VERSION(10, 0, 0)) &&
-> -           adev->gfx.num_gfx_rings)
-> -               adev->gfx.mcbp =3D true;
-> -
->         if (amdgpu_sriov_vf(adev))
->                 adev->gfx.mcbp =3D true;
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 33e370d998a87..f829a80e52924 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -180,7 +180,7 @@ uint amdgpu_dc_feature_mask =3D 2;
->  uint amdgpu_dc_debug_mask;
->  uint amdgpu_dc_visual_confirm;
->  int amdgpu_async_gfx_ring =3D 1;
-> -int amdgpu_mcbp =3D -1;
-> +int amdgpu_mcbp;
->  int amdgpu_discovery =3D -1;
->  int amdgpu_mes;
->  int amdgpu_mes_kiq;
-> @@ -635,10 +635,10 @@ module_param_named(async_gfx_ring, amdgpu_async_gfx=
-_ring, int, 0444);
->
->  /**
->   * DOC: mcbp (int)
-> - * It is used to enable mid command buffer preemption. (0 =3D disabled, =
-1 =3D enabled, -1 auto (default))
-> + * It is used to enable mid command buffer preemption. (0 =3D disabled (=
-default), 1 =3D enabled)
->   */
->  MODULE_PARM_DESC(mcbp,
-> -       "Enable Mid-command buffer preemption (0 =3D disabled, 1 =3D enab=
-led), -1 =3D auto (default)");
-> +       "Enable Mid-command buffer preemption (0 =3D disabled (default), =
-1 =3D enabled)");
->  module_param_named(mcbp, amdgpu_mcbp, int, 0444);
->
->  /**
-> --
-> 2.41.0
->
+>  arch/sh/boards/mach-sh7763rdp/setup.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/arch/sh/boards/mach-sh7763rdp/setup.c b/arch/sh/boards/mach-=
+sh7763rdp/setup.c
+> index 97e715e4e9b3..e25193001ea0 100644
+> --- a/arch/sh/boards/mach-sh7763rdp/setup.c
+> +++ b/arch/sh/boards/mach-sh7763rdp/setup.c
+> @@ -119,7 +119,7 @@ static struct fb_videomode sh7763fb_videomode =3D {
+>  	.vsync_len =3D 1,
+>  	.sync =3D 0,
+>  	.vmode =3D FB_VMODE_NONINTERLACED,
+> -	.flag =3D FBINFO_FLAG_DEFAULT,
+> +	.flag =3D FB_MODE_IS_UNKNOWN,
+>  };
+> =20
+>  static struct sh7760fb_platdata sh7763fb_def_pdata =3D {
+
+Acked-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
