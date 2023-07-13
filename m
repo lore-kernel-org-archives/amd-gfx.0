@@ -4,65 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D57FC001DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 16:38:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C570EC001DD
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 16:52:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4798C10E76A;
-	Thu, 13 Jul 2023 16:37:12 +0000 (UTC)
-Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
- [IPv6:2607:f8b0:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEDAB10E723;
- Thu, 13 Jul 2023 16:37:07 +0000 (UTC)
-Received: by mail-il1-x135.google.com with SMTP id
- e9e14a558f8ab-346541baf2aso5038355ab.1; 
- Thu, 13 Jul 2023 09:37:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46B4F10E060;
+	Thu, 13 Jul 2023 16:52:18 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A72CC10E060
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 16:52:16 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-1b0156a1c4bso624547fac.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 09:52:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689266227; x=1691858227;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20221208; t=1689267134; x=1691859134;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8Hpk91v6S/H4Fewdz/m/7w0Z69KCGXKFXbB7sQFxvns=;
- b=PRuNxpUOgQyHdG8xAb7oyEAQApKzt/OLHL3fYGNizID2VWduiR5u3S3+Wnvy4l+AtN
- frn84bflDdi6dnSNf+aOa81Xl1ZzrzKKLQZIV1IE/2ZGqdkPME6E8eTKz6Dk+6pwdrLe
- 01S+bWkFSUjvwEBe7X9t2+oAHaa6XsLAamZi6ucAHAxiUrMkqhxpKEY2085K92Hw2VTI
- sJPPegg/RHBzbDtSCol+ucOtla+ncNYyX53N/jENknto+mTA61ROrAMVZj7yCSs5NP33
- MjbsoMaEmNVeuxk8RALTwFhCbAW4Wv5pOaetIVNa34thAybaO16J7MI7jqNFRBYAPCFs
- yxKA==
+ bh=0l4aFbs6x1KrEqxzH84MPXoMHlx5s5DolZ4+ZjYbEns=;
+ b=qmmL1eyTHEa0kVJY/K9S1cpGVrvr0VfA9kp2uIhaUqpOxChFEJtNp1f5BgLeyJAgrW
+ PNcrCoAUm9vpW6WYVOS0QqTnmzNlWTiNccV3OUS1T0ZLG3lMVy1bU5BpPSa0QXdPBrwj
+ bVa8/Ea9ybDWUw68UgIGgC4a7LrMAUXazA2rPrf+qLKlnhjgFidtzBBOB6wKIKssLtat
+ W4Z32DahO9wBzMVOMt9XilwfdmTXhVLPCkMSo6ga/2azsUEPm1m7IAjlUVztQ6Evps8r
+ FNAh8reRj1ZPcE3wCAC5ZT390clUgxESoZdD5vBpJ56LtvcLzpmXXAr47d4A/BOF7QVX
+ tr4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689266227; x=1691858227;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20221208; t=1689267134; x=1691859134;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8Hpk91v6S/H4Fewdz/m/7w0Z69KCGXKFXbB7sQFxvns=;
- b=fQ6aHjB470vmYdqa/gEJ+fVjV6PmVcp6P4dc0ZgbDMscBP/qFrplO51G3icAeuXMxK
- PNjJWn+uYuYZb5g6ZXglDp5rg2tV7Bv+7Az3yLJqLeQ95U8GNyZThrhHRzBHa5cVisKm
- 7RS9Ut7YCIyJ8Mx0dm4E+fwNOyQs8ZA5DxqkQ45s+pQE6H5Mo7HPUAb3kB9nhwr+J3cs
- 9Cv6ZTf0Hnb1CxxUII7ECETviL7P4xynO8v9pe/FUq7UmNpTlemEQlxKP/eLIQF+dTaD
- IPLgDUThfHeVxb/YxYtkts3dA1T4ws2xQPbuHWoP6VsqBkk3hZZgaiLwiAFr/k77KCTG
- 8qDg==
-X-Gm-Message-State: ABy/qLbgxZx4olR8dFl9HBN6sR7sOW/G9ryBfqdq1zI2/h2Jtc2qcvYw
- Hqds9Ab///WEFrp0nEC7Tm0=
-X-Google-Smtp-Source: APBJJlE5tiBFK09iMBObOy+YziX4QDegRnmRX3iwsn/S6s5XwYylCDlCasCpS2rPgLy5p+1Cj9b4Gw==
-X-Received: by 2002:a92:cccd:0:b0:346:3fc5:93e0 with SMTP id
- u13-20020a92cccd000000b003463fc593e0mr142862ilq.2.1689266227135; 
- Thu, 13 Jul 2023 09:37:07 -0700 (PDT)
-Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
- by smtp.googlemail.com with ESMTPSA id
- s7-20020a92d907000000b00345950d7e94sm2147571iln.20.2023.07.13.09.37.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jul 2023 09:37:06 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [PATCH v4 21/21] dyndbg-doc: add classmap info to howto
-Date: Thu, 13 Jul 2023 10:36:26 -0600
-Message-ID: <20230713163626.31338-22-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230713163626.31338-1-jim.cromie@gmail.com>
-References: <20230713163626.31338-1-jim.cromie@gmail.com>
+ bh=0l4aFbs6x1KrEqxzH84MPXoMHlx5s5DolZ4+ZjYbEns=;
+ b=K1NWtEXAtGEjLBtmpi6N7hBVDXlXYaPS7KkL5gpi7W117YtdN9CtK6b0pRrPKu5EyA
+ sipKA12CGB11IvkMKzDOtfuIG/HBL0yDBr/yPD6+z6dXgZ/5eC/QY4ceSuAY+CPpgHcI
+ zH4NxsRhWXt8GR8vtKr29cf7vHDvqLDSkllYx2zEHKRAA8zqKPTsyXnP40ShjEkx7iEE
+ oepfOPXQe8ZcJFtOmwkcTClLLMlKyYjAE4Yutp9rZ4kiCse1evH1VJzpDvA9HK3Nn825
+ 0iqV7SVgMHCESdipqafU4N4elS74uFmB9mQMUpmOonQcFlKR1e+SoPKZktB7fpjxJs09
+ PpWQ==
+X-Gm-Message-State: ABy/qLaQoaMEOWEUkL4kcmYTyugTWRucp5wXzzyYTlFQbk3zYUNra5mQ
+ 83L82hI/tLlK2zCYxCDgUhTGoWZZek5eYeAVjRQ=
+X-Google-Smtp-Source: APBJJlHt+VWn4LIc45IIgI8afUWrMfrikYT1cnOw1aM33a0zt1Tuda62YMuA0fQm9KoeT6f020DzPWppPcLgtJ3N+M4=
+X-Received: by 2002:a05:6870:2197:b0:195:f0bb:959e with SMTP id
+ l23-20020a056870219700b00195f0bb959emr2360737oae.50.1689267133597; Thu, 13
+ Jul 2023 09:52:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20230713051948.3952921-1-saleemkhan.jamadar@amd.com>
+In-Reply-To: <20230713051948.3952921-1-saleemkhan.jamadar@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 13 Jul 2023 12:52:02 -0400
+Message-ID: <CADnq5_OHhOzXz2y2V9zvQgRDoJdMnxPDf95iPQ7RjujYHFMnOw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] Revert "drm/amdgpu: update kernel vcn ring test"
+To: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,98 +67,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, gregkh@linuxfoundation.org,
- Jim Cromie <jim.cromie@gmail.com>, robdclark@gmail.com, seanpaul@chromium.org,
- ville.syrjala@linux.intel.com
+Cc: sathishkumar.sundararaju@amd.com, veerabadhran.gopalakrishnan@amd.com,
+ marek.olsak@amd.com, amd-gfx@lists.freedesktop.org, leo.liu@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add some basic info on classmap usage and api
+On Thu, Jul 13, 2023 at 1:20=E2=80=AFAM Saleemkhan Jamadar
+<saleemkhan.jamadar@amd.com> wrote:
+>
+> VCN FW depncencies revert it to unblock others
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- .../admin-guide/dynamic-debug-howto.rst       | 64 ++++++++++++++++++-
- 1 file changed, 63 insertions(+), 1 deletion(-)
+Alternatively, you could fix it by adding the appropriate firmware
+version checks if that is the underlying issue.
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 8dc668cc1216..878750ce8c1d 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -224,7 +224,6 @@ the ``p`` flag has meaning, other flags are ignored.
- Note the regexp ``^[-+=][flmpt_]+$`` matches a flags specification.
- To clear all flags at once, use ``=_`` or ``-flmpt``.
- 
--
- Debug messages during Boot Process
- ==================================
- 
-@@ -374,3 +373,66 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)``.
- For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format string is
- its ``prefix_str`` argument, if it is constant string; or ``hexdump``
- in case ``prefix_str`` is built dynamically.
-+
-+Dynamic Debug classmaps
-+=======================
-+
-+Dyndbg generally selects *prdbg* callsites using structural info:
-+module, file, function, line.  Using classmaps, user modules can
-+organize/select pr_debug()s as they like.
-+
-+- classes coordinates/spans multiple modules
-+- complements the mod,file,func attrs
-+- keeps pr_debug's 0-off-cost JUMP_LABEL goodness
-+- isolates from other class'd and un-class'd pr_debugs() 
-+  (one doesnt mix 2 clients bank accounts)
-+
-+  # IOW this doesn't change DRM.debug settings
-+  #> echo -p > /proc/dynamic_debug/control
-+
-+  # change the classes by naming them explicitly (no wildcard here)
-+  #> echo class DRM_UT_CORE +p > /proc/dynamic_debug/control
-+
-+To support DRM.debug (/sys/module/drm/parameters/debug), dyndbg
-+provides DYNDBG_CLASSMAP_PARAM*.  It maps the categories/classes:
-+DRM_UT_CORE.. to bits 0..N, allowing to set all classes at once.
-+
-+Dynamic Debug Classmap API
-+==========================
-+
-+DYNDBG_CLASSMAP_DEFINE - modules create CLASSMAPs, naming the classes
-+and type, and mapping the class-names to consecutive _class_ids.  By
-+doing so, they tell dyndbg that they are using those class_ids, and
-+authorize dyndbg to manipulate the callsites by their class-names.
-+
-+Its expected that client modules will follow the DRM.debug model:
-+1. define their debug-classes using an enum type, where the enum
-+symbol and its integer value define both the classnames and class-ids.
-+2. use or macro-wrap __pr_debug_cls(ENUM_VAL, "hello world\n")
-+   
-+There are 2 types of classmaps:
-+
-+ DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, ala DRM.debug
-+ DD_CLASS_TYPE_LEVEL_NUM: classes are relative (Verbose3 > Verbose2)
-+
-+Both these classmap-types use the class-names/ENUM_VALs to validate
-+commands into >control.
-+
-+DYNDBG_CLASSMAP_PARAM - refs a DEFINEd classmap, exposing the set of
-+defined classes to manipulation as a group.  This interface enforces
-+the relatedness of classes of DD_CLASS_TYPE_LEVEL_NUM typed classmaps;
-+all classes are independent in the >control parser itself.
-+
-+DYNDBG_CLASSMAP_USE - drm drivers use the CLASSMAP that drm DEFINEs.
-+This shares the classmap defn, and authorizes coordinated changes
-+amongst the CLASSMAP DEFINEr and multiple USErs.
-+
-+Modules or module-groups (drm & drivers) can define multiple
-+classmaps, as long as they share the limited 0..62 per-module-group
-+_class_id range, without overlap.
-+
-+``#define DEBUG`` will enable all pr_debugs in scope, including any
-+class'd ones (__pr_debug_cls(id,fmt..)).  This won't be reflected in
-+the PARAM readback value, but the pr_debug callsites can be toggled
-+into agreement with the param.
-+
--- 
-2.41.0
+Alex
 
+
+>
+> This reverts commit d0edfbe8bc2d18ede8f805c6eb71c63e0b40c1da.
+>
+> Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 25 +++++++------------------
+>  1 file changed, 7 insertions(+), 18 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_vcn.c
+> index 5c2aa925dd79..8966ffb2f4a0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> @@ -539,7 +539,6 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring=
+ *ring,
+>                                    struct dma_fence **fence)
+>  {
+>         u64 addr =3D AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
+> -       uint64_t session_ctx_buf_gaddr =3D AMDGPU_GPU_PAGE_ALIGN(ib_msg->=
+gpu_addr + 8192);
+>         struct amdgpu_device *adev =3D ring->adev;
+>         struct dma_fence *f =3D NULL;
+>         struct amdgpu_job *job;
+> @@ -553,23 +552,13 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ri=
+ng *ring,
+>                 goto err;
+>
+>         ib =3D &job->ibs[0];
+> -       ib->length_dw =3D 0;
+> -       ib->ptr[ib->length_dw++] =3D PACKET0(adev->vcn.internal.data0, 0)=
+;
+> -       ib->ptr[ib->length_dw++] =3D lower_32_bits(session_ctx_buf_gaddr)=
+;
+> -       ib->ptr[ib->length_dw++] =3D PACKET0(adev->vcn.internal.data1, 0)=
+;
+> -       ib->ptr[ib->length_dw++] =3D upper_32_bits(session_ctx_buf_gaddr)=
+;
+> -       /* session ctx buffer cmd */
+> -       ib->ptr[ib->length_dw++] =3D PACKET0(adev->vcn.internal.cmd, 0);
+> -       ib->ptr[ib->length_dw++] =3D 0xa;
+> -
+> -       ib->ptr[ib->length_dw++] =3D PACKET0(adev->vcn.internal.data0, 0)=
+;
+> -       ib->ptr[ib->length_dw++] =3D lower_32_bits(addr);
+> -       ib->ptr[ib->length_dw++] =3D PACKET0(adev->vcn.internal.data1, 0)=
+;
+> -       ib->ptr[ib->length_dw++] =3D upper_32_bits(addr);
+> -       ib->ptr[ib->length_dw++] =3D PACKET0(adev->vcn.internal.cmd, 0);
+> -       ib->ptr[ib->length_dw++] =3D 0;
+> -
+> -       for (i =3D ib->length_dw; i < 16; i +=3D 2) {
+> +       ib->ptr[0] =3D PACKET0(adev->vcn.internal.data0, 0);
+> +       ib->ptr[1] =3D addr;
+> +       ib->ptr[2] =3D PACKET0(adev->vcn.internal.data1, 0);
+> +       ib->ptr[3] =3D addr >> 32;
+> +       ib->ptr[4] =3D PACKET0(adev->vcn.internal.cmd, 0);
+> +       ib->ptr[5] =3D 0;
+> +       for (i =3D 6; i < 16; i +=3D 2) {
+>                 ib->ptr[i] =3D PACKET0(adev->vcn.internal.nop, 0);
+>                 ib->ptr[i+1] =3D 0;
+>         }
+> --
+> 2.25.1
+>
