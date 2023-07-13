@@ -4,59 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1FACC0015E
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 13:05:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EEE4C001DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 13:05:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCCA210E6BE;
-	Thu, 13 Jul 2023 13:05:23 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC1F510E129;
- Thu, 13 Jul 2023 12:46:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689252366; x=1720788366;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0Dt11mJGY3uST81NgKzX3Wy33nGbeSvB9w1sz8eDsQc=;
- b=CFDsze9/de8wFaomWGx/Sb+pkre/3tlZUVX1eIcwGGR+fEfHjKsvBxRr
- BUr/LrrSym5XWO5NLC151piTu0JndhzWh7uSSku+FhEcoLl8HnridYUW3
- 6T9ej6cLrTZfpLRKaeVbQ8eeldCJ3N/7QlHAmhmz0jKImbsR/Qead+Brf
- /r5mYEm75jxTB+1QnzNTYZNpf0w7+y6i7zPCKUIFIoBiYhoSeJbf1L28t
- w7qcjjoqVcArmXIVPLHpuwC6pLwn64rbRnEdEOJ3N/VEy0bnEQkqzuSLk
- sz13YDTpkvz587paivv5JXULBoSa2LNZqFzrasMCb34fb3fr5w82mYIyZ w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="367796916"
-X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="367796916"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2023 05:46:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="757144444"
-X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="757144444"
-Received: from ijarvine-mobl2.ger.corp.intel.com ([10.251.222.39])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2023 05:46:00 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Rob Herring <robh@kernel.org>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Heiner Kallweit <hkallweit1@gmail.com>, Lukas Wunner <lukas@wunner.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 06/11] drm/radeon: Use RMW accessors for changing LNKCTL
-Date: Thu, 13 Jul 2023 15:45:00 +0300
-Message-Id: <20230713124505.94866-7-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230713124505.94866-1-ilpo.jarvinen@linux.intel.com>
-References: <20230713124505.94866-1-ilpo.jarvinen@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58C9310E6BF;
+	Thu, 13 Jul 2023 13:05:24 +0000 (UTC)
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
+ [209.85.128.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBFE910E008;
+ Thu, 13 Jul 2023 09:30:14 +0000 (UTC)
+Received: by mail-yw1-f176.google.com with SMTP id
+ 00721157ae682-57a8080e4a7so4387507b3.0; 
+ Thu, 13 Jul 2023 02:30:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689240613; x=1691832613;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LHmbzhpkJKMYjCs3rLqCEOJxasGkKa4brFmr33oqUxc=;
+ b=PbYiOdQqLZ3j4+7dFe+P9YrVjGthohHtnqXYstD6aZXl8dZ7FlJq7lt12kNZq4GUgb
+ +3ORzrdDXkDXX8Ig0N9vJlnPJ1HH3Q+PAcTROvVnxbwKuqEX1ziaPwYi4FevPjiviraw
+ TzVo6TZpe335q4wzcGyLvPa5S8jT1oSk6qgox5dbThwGq/Bdw6bUmuoeNL+NOZlTKhfE
+ VWiF9nUWpWkcqPTQiYIkd0mr6mByRsz8fXsORNvFjnjiHIksIlw74SyjkKH0CNgBO8hZ
+ AarQRhRoG3kGwQLFNSm9plmdUKy8pSutpqSrw2YatiCAELNDlbBH6eLB7oK9WymKjl5z
+ k/ng==
+X-Gm-Message-State: ABy/qLb8+XFKbAI5UMUl402qpsCEeSKCHwxM/ovMvZcgZ2UIrrcrS+gD
+ SXCOY+jKPsrmtA5CffE/x+Mr17VBZm+4jALI
+X-Google-Smtp-Source: APBJJlHJB5nKRmpRQf1wy06DAHhKrjFe+fy76oeXPoVy1ckSHMOjEV6H7RmFMctufHxNmKGjvZ665w==
+X-Received: by 2002:a0d:ca0b:0:b0:577:2340:605f with SMTP id
+ m11-20020a0dca0b000000b005772340605fmr1207009ywd.2.1689240613131; 
+ Thu, 13 Jul 2023 02:30:13 -0700 (PDT)
+Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com.
+ [209.85.219.178]) by smtp.gmail.com with ESMTPSA id
+ b62-20020a816741000000b0054f56baf3f2sm1668378ywc.122.2023.07.13.02.30.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Jul 2023 02:30:11 -0700 (PDT)
+Received: by mail-yb1-f178.google.com with SMTP id
+ 3f1490d57ef6-c4cb4919bb9so450880276.3; 
+ Thu, 13 Jul 2023 02:30:11 -0700 (PDT)
+X-Received: by 2002:a0d:ef46:0:b0:56e:1df1:dc58 with SMTP id
+ y67-20020a0def46000000b0056e1df1dc58mr1228415ywe.45.1689240610993; Thu, 13
+ Jul 2023 02:30:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+ <87fs5tgpvv.fsf@intel.com> <20230712161025.22op3gtzgujrhytb@pengutronix.de>
+ <878rbkgp4m.fsf@intel.com>
+In-Reply-To: <878rbkgp4m.fsf@intel.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 13 Jul 2023 11:29:54 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV_CvSyF-dFpZwOkQ8PWXWphWxCm2Lwpx8ZXAfWDBafcQ@mail.gmail.com>
+Message-ID: <CAMuHMdV_CvSyF-dFpZwOkQ8PWXWphWxCm2Lwpx8ZXAfWDBafcQ@mail.gmail.com>
+Subject: Re: [PATCH RFC v1 00/52] drm/crtc: Rename struct drm_crtc::dev to
+ drm_dev
+To: Jani Nikula <jani.nikula@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 13 Jul 2023 13:05:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,140 +71,257 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dean Luick <dean.luick@cornelisnetworks.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, stable@vger.kernel.org,
- =?UTF-8?q?Jonas=20Dre=C3=9Fler?= <verdre@v0yd.nl>
+Cc: Xinliang Liu <xinliang.liu@linaro.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alexey Kodanev <aleksei.kodanev@bell-sw.com>, dri-devel@lists.freedesktop.org,
+ Vandita Kulkarni <vandita.kulkarni@intel.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Arun R Murthy <arun.r.murthy@intel.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-samsung-soc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
+ Matt Roper <matthew.d.roper@intel.com>, Wenjing Liu <wenjing.liu@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>,
+ Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ spice-devel@lists.freedesktop.org,
+ Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, linux-sunxi@lists.linux.dev,
+ Matthias Brugger <matthias.bgg@gmail.com>, Stylon Wang <stylon.wang@amd.com>,
+ Tim Huang <Tim.Huang@amd.com>, Suraj Kandpal <suraj.kandpal@intel.com>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ Mika Kahola <mika.kahola@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Leo Li <sunpeng.li@amd.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Hersen Wu <hersenxs.wu@amd.com>,
+ Dave Airlie <airlied@redhat.com>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ =?UTF-8?Q?=C5=81ukasz_Bartosik?= <lb@semihalf.com>,
+ Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
+ Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+ =?UTF-8?Q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>,
+ virtualization@lists.linux-foundation.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ Mario Limonciello <mario.limonciello@amd.com>, Fei Yang <fei.yang@intel.com>,
+ Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, David Francis <David.Francis@amd.com>,
+ Vinod Govindapillai <vinod.govindapillai@intel.com>,
+ Aaron Liu <aaron.liu@amd.com>, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ linux-rockchip@lists.infradead.org, Fangzhi Zuo <jerry.zuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>,
+ =?UTF-8?Q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Animesh Manna <animesh.manna@intel.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Tian Tao <tiantao6@hisilicon.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+ linux-amlogic@lists.infradead.org, Evan Quan <evan.quan@amd.com>,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Boris Brezillon <bbrezillon@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Sandy Huang <hjc@rock-chips.com>,
+ Swati Sharma <swati2.sharma@intel.com>, linux-renesas-soc@vger.kernel.org,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Anusha Srivatsa <anusha.srivatsa@intel.com>, Dan Carpenter <error27@gmail.com>,
+ Karol Herbst <kherbst@redhat.com>, linux-hyperv@vger.kernel.org,
+ Melissa Wen <melissa.srw@gmail.com>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>,
+ Luca Coelho <luciano.coelho@intel.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
+ "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>, Emma Anholt <emma@anholt.net>,
+ Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Deepak Rawat <drawat.floss@gmail.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, Joel Stanley <joel@jms.id.au>,
+ Orson Zhai <orsonzhai@gmail.com>, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Alan Liu <haoping.liu@amd.com>, Philip Yang <Philip.Yang@amd.com>,
+ intel-gfx@lists.freedesktop.org, Alison Wang <alison.wang@nxp.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Gustavo Sousa <gustavo.sousa@intel.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Yifan Zhang <yifan1.zhang@amd.com>,
+ Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ John Stultz <jstultz@google.com>, Roman Li <roman.li@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Khaled Almahallawy <khaled.almahallawy@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Sam Ravnborg <sam@ravnborg.org>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Liu Shixin <liushixin2@huawei.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Marek Vasut <marex@denx.de>, Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ xen-devel@lists.xenproject.org, Guchun Chen <guchun.chen@amd.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Russell King <linux@armlinux.org.uk>, Uma Shankar <uma.shankar@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ David Lechner <david@lechnology.com>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
+ =?UTF-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
+ Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
+ linux-mediatek@lists.infradead.org,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
+ David Tadokoro <davidbtadokoro@usp.br>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ amd-gfx@lists.freedesktop.org, Lang Yu <Lang.Yu@amd.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, linux-mips@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Wayne Lin <Wayne.Lin@amd.com>,
+ Drew Davenport <ddavenport@chromium.org>, Nirmoy Das <nirmoy.das@intel.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Don't assume that only the driver would be accessing LNKCTL. ASPM
-policy changes can trigger write to LNKCTL outside of driver's control.
-And in the case of upstream bridge, the driver does not even own the
-device it's changing the registers for.
+Hi Jani,
 
-Use RMW capability accessors which do proper locking to avoid losing
-concurrent updates to the register value.
+On Thu, Jul 13, 2023 at 11:03=E2=80=AFAM Jani Nikula <jani.nikula@intel.com=
+> wrote:
+> On Wed, 12 Jul 2023, Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.d=
+e> wrote:
+> > On Wed, Jul 12, 2023 at 05:34:28PM +0300, Jani Nikula wrote:
+> >> On Wed, 12 Jul 2023, Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutroni=
+x.de> wrote:
+> >> > while I debugged an issue in the imx-lcdc driver I was constantly
+> >> > irritated about struct drm_device pointer variables being named "dev=
+"
+> >> > because with that name I usually expect a struct device pointer.
+> >> >
+> >> > I think there is a big benefit when these are all renamed to "drm_de=
+v".
+> >> > I have no strong preference here though, so "drmdev" or "drm" are fi=
+ne
+> >> > for me, too. Let the bikesheding begin!
+> >> >
+> >> > Some statistics:
+> >> >
+> >> > $ git grep -ohE 'struct drm_device *\* *[^ (),;]*' v6.5-rc1 | sort |=
+ uniq -c | sort -n
+> >> >       1 struct drm_device *adev_to_drm
+> >> >       1 struct drm_device *drm_
+> >> >       1 struct drm_device          *drm_dev
+> >> >       1 struct drm_device        *drm_dev
+> >> >       1 struct drm_device *pdev
+> >> >       1 struct drm_device *rdev
+> >> >       1 struct drm_device *vdev
+> >> >       2 struct drm_device *dcss_drv_dev_to_drm
+> >> >       2 struct drm_device **ddev
+> >> >       2 struct drm_device *drm_dev_alloc
+> >> >       2 struct drm_device *mock
+> >> >       2 struct drm_device *p_ddev
+> >> >       5 struct drm_device *device
+> >> >       9 struct drm_device * dev
+> >> >      25 struct drm_device *d
+> >> >      95 struct drm_device *
+> >> >     216 struct drm_device *ddev
+> >> >     234 struct drm_device *drm_dev
+> >> >     611 struct drm_device *drm
+> >> >    4190 struct drm_device *dev
+> >> >
+> >> > This series starts with renaming struct drm_crtc::dev to drm_dev. If
+> >> > it's not only me and others like the result of this effort it should=
+ be
+> >> > followed up by adapting the other structs and the individual usages =
+in
+> >> > the different drivers.
+> >>
+> >> I think this is an unnecessary change. In drm, a dev is usually a drm
+> >> device, i.e. struct drm_device *.
+> >
+> > Well, unless it's not. Prominently there is
+> >
+> >       struct drm_device {
+> >               ...
+> >               struct device *dev;
+> >               ...
+> >       };
+> >
+> > which yields quite a few code locations using dev->dev which is
+> > IMHO unnecessary irritating:
+> >
+> >       $ git grep '\<dev->dev' v6.5-rc1 drivers/gpu/drm | wc -l
+> >       1633
+> >
+> > Also the functions that deal with both a struct device and a struct
+> > drm_device often use "dev" for the struct device and then "ddev" for
+> > the drm_device (see for example amdgpu_device_get_pcie_replay_count()).
+>
+> Why is specifically struct drm_device *dev so irritating to you?
+>
+> You lead us to believe it's an outlier in kernel, something that goes
+> against common kernel style, but it's really not:
+>
+> $ git grep -how "struct [A-Za-z0-9_]\+ \*dev" | sort | uniq -c | sort -rn=
+ | head -20
+>   38494 struct device *dev
+>   16388 struct net_device *dev
+>    4184 struct drm_device *dev
+>    2780 struct pci_dev *dev
+>    1916 struct comedi_device *dev
+>    1510 struct mlx5_core_dev *dev
+>    1057 struct mlx4_dev *dev
+>     894 struct b43_wldev *dev
+>     762 struct input_dev *dev
+>     623 struct usbnet *dev
+>     561 struct mlx5_ib_dev *dev
+>     525 struct mt76_dev *dev
+>     465 struct mt76x02_dev *dev
+>     435 struct platform_device *dev
+>     431 struct usb_device *dev
+>     411 struct mt7915_dev *dev
+>     398 struct cx231xx *dev
+>     378 struct mei_device *dev
+>     363 struct ksz_device *dev
+>     359 struct mthca_dev *dev
+>
+> A good portion of the above also have a dev member.
 
-Fixes: 8a7cd27679d0 ("drm/radeon/cik: add support for pcie gen1/2/3 switching")
-Fixes: b9d305dfb66c ("drm/radeon: implement pcie gen2/3 support for SI")
-Suggested-by: Lukas Wunner <lukas@wunner.de>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/radeon/cik.c | 36 ++++++++++-------------------------
- drivers/gpu/drm/radeon/si.c  | 37 ++++++++++--------------------------
- 2 files changed, 20 insertions(+), 53 deletions(-)
+Not all of them access both the foo_device and the device pointers.
 
-diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
-index 5819737c21c6..a6f3c811ceb8 100644
---- a/drivers/gpu/drm/radeon/cik.c
-+++ b/drivers/gpu/drm/radeon/cik.c
-@@ -9534,17 +9534,8 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- 			u16 bridge_cfg2, gpu_cfg2;
- 			u32 max_lw, current_lw, tmp;
- 
--			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--						  &bridge_cfg);
--			pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL,
--						  &gpu_cfg);
--
--			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
--
--			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL,
--						   tmp16);
-+			pcie_capability_set_word(root, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
-+			pcie_capability_set_word(rdev->pdev, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
- 
- 			tmp = RREG32_PCIE_PORT(PCIE_LC_STATUS1);
- 			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
-@@ -9591,21 +9582,14 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- 				msleep(100);
- 
- 				/* linkctl */
--				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(root, PCI_EXP_LNKCTL,
--							   tmp16);
--
--				pcie_capability_read_word(rdev->pdev,
--							  PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(rdev->pdev,
--							   PCI_EXP_LNKCTL,
--							   tmp16);
-+				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   bridge_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
-+				pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   gpu_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
- 
- 				/* linkctl2 */
- 				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
-diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
-index 8d5e4b25609d..a91012447b56 100644
---- a/drivers/gpu/drm/radeon/si.c
-+++ b/drivers/gpu/drm/radeon/si.c
-@@ -7131,17 +7131,8 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- 			u16 bridge_cfg2, gpu_cfg2;
- 			u32 max_lw, current_lw, tmp;
- 
--			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--						  &bridge_cfg);
--			pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL,
--						  &gpu_cfg);
--
--			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
--
--			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL,
--						   tmp16);
-+			pcie_capability_set_word(root, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
-+			pcie_capability_set_word(rdev->pdev, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
- 
- 			tmp = RREG32_PCIE(PCIE_LC_STATUS1);
- 			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
-@@ -7188,22 +7179,14 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- 				msleep(100);
- 
- 				/* linkctl */
--				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(root,
--							   PCI_EXP_LNKCTL,
--							   tmp16);
--
--				pcie_capability_read_word(rdev->pdev,
--							  PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(rdev->pdev,
--							   PCI_EXP_LNKCTL,
--							   tmp16);
-+				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   bridge_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
-+				pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   gpu_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
- 
- 				/* linkctl2 */
- 				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
--- 
-2.30.2
+Let's put the number of 435 platform_device pointers named "dev"
+into perspective:
 
+    10095 struct platform_device *pdev
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
