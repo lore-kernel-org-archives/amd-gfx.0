@@ -4,57 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC87FC18E72
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 07:52:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC57DC04FE0
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 07:52:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71B6010E81B;
-	Fri, 14 Jul 2023 07:52:10 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6185C10E803;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 291CC10E809;
+	Fri, 14 Jul 2023 07:52:11 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A7D410E809;
+ Fri, 14 Jul 2023 07:52:02 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 451F21FD83;
  Fri, 14 Jul 2023 07:52:01 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BB7BC1FD6E;
- Fri, 14 Jul 2023 07:51:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1689321119; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ t=1689321121; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fHWIv3bHRzrRKcyf/zVidbDkljZLPdxvWwq51ebKJX8=;
- b=Bfhup+SoqqGm/Pr8MMxWjewkwxH2agGKumPN9ufOQY+lQ89+34aYGx4g7+jlzwSYk2JlDp
- oEoMKzD4EF0nI6HnNp6zvVH49mFRwokARnLhgd358jfv9g+Wx1O8gHJuHbXaGePOhAo7Yh
- wQZiCrxXt3VWyqRDZ+XTmvLIbLWVTE8=
+ bh=LJyxHdcmj5FWZ0pZ0y2ioRq6mf/10a9++06DyYlIN00=;
+ b=i9AqcG6l6TJYknQQXzJFPwVoOdSDqr0JPZH3OmRfP3JT7Lpodu8TuTaYHu7h32kxPTUVMc
+ kxsGRh43rs6RGd57DEU+ODRpznOEtInnDkW+/VSgq+D029vjtoBBlGL6h6//G1PlftIj3H
+ +cZokcN9dblywO/7VwoedcJWq7V+UOk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1689321119;
+ s=susede2_ed25519; t=1689321121;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fHWIv3bHRzrRKcyf/zVidbDkljZLPdxvWwq51ebKJX8=;
- b=gjwnxcj+hE+7D1XdYMgmTJwalQL+sD6c9lOwxVHiERT/k/VMQ3HV9mhzr5dIm/CdSUAWmW
- eRCbJYrIOeoW4IBg==
+ bh=LJyxHdcmj5FWZ0pZ0y2ioRq6mf/10a9++06DyYlIN00=;
+ b=n9QXhMTyBELGT9OUcxRNRxh7l63pKzX1IEhDvJb87LqMfGDVtqhRxKqrlrbizZTgfl9jAN
+ qGt1Q2Zd4V+n77Cw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 616F813A92;
- Fri, 14 Jul 2023 07:51:59 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E30F313A15;
+ Fri, 14 Jul 2023 07:52:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kF/0Fp/+sGQCQwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Fri, 14 Jul 2023 07:51:59 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id uB2tNqD+sGQCQwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Fri, 14 Jul 2023 07:52:00 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de,
 	javierm@redhat.com
-Subject: [PATCH v3 06/18] fbdev/fsl-diu-fb: Remove flag FBINFO_DEFAULT
-Date: Fri, 14 Jul 2023 09:49:32 +0200
-Message-ID: <20230714075155.5686-7-tzimmermann@suse.de>
+Subject: [PATCH v3 10/18] hid/picolcd: Remove flag FBINFO_FLAG_DEFAULT from
+ fbdev driver
+Date: Fri, 14 Jul 2023 09:49:36 +0200
+Message-ID: <20230714075155.5686-11-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230714075155.5686-1-tzimmermann@suse.de>
 References: <20230714075155.5686-1-tzimmermann@suse.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,11 +69,13 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
+Cc: linux-fbdev@vger.kernel.org, Jiri Kosina <jikos@kernel.org>,
+ kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
  Sam Ravnborg <sam@ravnborg.org>, linux-staging@lists.linux.dev,
  linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, Timur Tabi <timur@kernel.org>,
+ linux-geode@lists.infradead.org,
+ =?UTF-8?q?Bruno=20Pr=C3=A9mont?= <bonbons@linux-vserver.org>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
  dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
  linux-input@vger.kernel.org, linux-nvidia@lists.surfsouth.com,
  linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
@@ -79,9 +83,9 @@ Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The flag FBINFO_DEFAULT is 0 and has no effect, as struct fbinfo.flags
-has been allocated to zero by dmam_alloc_coherent(__GFP_ZERO). So do not
-set it.
+The flag FBINFO_FLAG_DEFAULT is 0 and has no effect, as struct
+fbinfo.flags has been allocated to zero by framebuffer_alloc(). So do
+not set it.
 
 Flags should signal differences from the default values. After cleaning
 up all occurrences of FBINFO_DEFAULT, the token will be removed.
@@ -91,25 +95,27 @@ v2:
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Acked-by: Sam Ravnborg <sam@ravnborg.org>
-Cc: Timur Tabi <timur@kernel.org>
-Cc: Helge Deller <deller@gmx.de>
+Acked-by: Benjamin Tissoires <benjamin.tissoires@redhat.com>
+Acked-by: Bruno Prémont <bonbons@linux-vserver.org>
+Cc: "Bruno Prémont" <bonbons@linux-vserver.org>
+Cc: Jiri Kosina <jikos@kernel.org>
+Cc: Benjamin Tissoires <benjamin.tissoires@redhat.com>
 ---
- drivers/video/fbdev/fsl-diu-fb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/hid/hid-picolcd_fb.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/video/fbdev/fsl-diu-fb.c b/drivers/video/fbdev/fsl-diu-fb.c
-index 785eb8a06943..c62b48f27ba9 100644
---- a/drivers/video/fbdev/fsl-diu-fb.c
-+++ b/drivers/video/fbdev/fsl-diu-fb.c
-@@ -1476,7 +1476,7 @@ static int install_fb(struct fb_info *info)
+diff --git a/drivers/hid/hid-picolcd_fb.c b/drivers/hid/hid-picolcd_fb.c
+index dabcd054dad9..d726aaafb146 100644
+--- a/drivers/hid/hid-picolcd_fb.c
++++ b/drivers/hid/hid-picolcd_fb.c
+@@ -527,7 +527,6 @@ int picolcd_init_framebuffer(struct picolcd_data *data)
+ 	info->var = picolcdfb_var;
+ 	info->fix = picolcdfb_fix;
+ 	info->fix.smem_len   = PICOLCDFB_SIZE*8;
+-	info->flags = FBINFO_FLAG_DEFAULT;
  
- 	info->var.activate = FB_ACTIVATE_NOW;
- 	info->fbops = &fsl_diu_ops;
--	info->flags = FBINFO_DEFAULT | FBINFO_VIRTFB | FBINFO_PARTIAL_PAN_OK |
-+	info->flags = FBINFO_VIRTFB | FBINFO_PARTIAL_PAN_OK |
- 		FBINFO_READS_FAST;
- 	info->pseudo_palette = mfbi->pseudo_palette;
- 
+ 	fbdata = info->par;
+ 	spin_lock_init(&fbdata->lock);
 -- 
 2.41.0
 
