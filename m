@@ -4,60 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C5AEEB64DC
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 17:35:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF5AC001B0
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 18:24:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3452110E8C5;
-	Fri, 14 Jul 2023 17:35:07 +0000 (UTC)
-Received: from mail-ua1-x936.google.com (mail-ua1-x936.google.com
- [IPv6:2607:f8b0:4864:20::936])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A230510E8C5;
- Fri, 14 Jul 2023 17:35:05 +0000 (UTC)
-Received: by mail-ua1-x936.google.com with SMTP id
- a1e0cc1a2514c-7918b56b1e1so778270241.2; 
- Fri, 14 Jul 2023 10:35:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689356103; x=1691948103;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OV2Ug93Gav+8T58ju3y8+5YHTN9dRtivqYz5Rn6HN1A=;
- b=Sm9T+5FUWy9zTWEzVG78o87Iy6UsmlLRmNJgtucTulyYns58ZoWCv8w970rl1/Veyk
- pQ4NLkLFyNSd13q3i3b45TJraXrG9xSh4AjYUF10lBciIC0w+xExyhuyeBXs+6fxG/vo
- hA3bB7vFfEQXnyPAT5lqs1JvkIHQhxS3aGw61j59s3DkT9E4BwGeZksq99GQ7reN7UH/
- 0Ah30FOruU1Nll2XF+a8TGNd1gxd043C00oaHodwCqdDUqYB8ygGI5J3wLNW85t+ZfoF
- yl0PNvQhLOjs3oIeysJjAamBdZm04eyfNwI3ESXzlXRzPT/gVBriJqYVRjq31guxDrxf
- Wvng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689356103; x=1691948103;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=OV2Ug93Gav+8T58ju3y8+5YHTN9dRtivqYz5Rn6HN1A=;
- b=H5Upze9/xJcZX4lp9JMJaCnOyB1HkqqHAxT/sjZ7G6N74++NJidtk4BnunTFGHmjmb
- 5cSnmj2H2Iu/y50c+EJV9Y2iZf8r5KFDgZn8zmvjCKPNn0RPqJNRc2s2nmSDk2FL0CDI
- FxfI/M1wUvaYP4actSah3VnNbg38mV+YH6zBpGTmnIsSZHgyCStWf63tYcpyXm8dc/Lk
- A6tnFfbcFfAouwrzDzgHNomGMFPKk/UUdU09HvodpMJ/PSS+kOAz25z1FjAThR5phSKZ
- n6y+5377W7caEepvRMa/KJAuU3mgoU1Um4GQjW+qhNoBVPv3yS7+ll0spS/j17vrpMIY
- DAow==
-X-Gm-Message-State: ABy/qLZX2Cjtb+UGRlbTHh7zzdL7GvZOf+938FpBuWI1llQJD5JR4Sd7
- LhnTC6U7SYX9DF1knP5Ktg90s8xIsOb7Q29MxX2BfCl/
-X-Google-Smtp-Source: APBJJlHPWnkuzIUxdR+EPWCIw+Tcbf5bVSlQ7Yephhjpo0reZQAZ9ifJDHW1WXS2A1nan9Wfq45XF7N2gMqGphOO4CM=
-X-Received: by 2002:a67:f1c7:0:b0:443:895d:1b53 with SMTP id
- v7-20020a67f1c7000000b00443895d1b53mr3445086vsm.10.1689356103255; Fri, 14 Jul
- 2023 10:35:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D338710E02A;
+	Fri, 14 Jul 2023 18:24:22 +0000 (UTC)
+X-Greylist: delayed 428 seconds by postgrey-1.36 at gabe;
+ Fri, 14 Jul 2023 18:20:00 UTC
+Received: from omta038.useast.a.cloudfilter.net
+ (omta038.useast.a.cloudfilter.net [44.202.169.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17B2E10E02A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 18:19:59 +0000 (UTC)
+Received: from eig-obgw-5001a.ext.cloudfilter.net ([10.0.29.139])
+ by cmsmtp with ESMTP
+ id K11PqciA0WU1cKNHfq1S2f; Fri, 14 Jul 2023 18:12:51 +0000
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
+ id KNHdq19mIchhoKNHeq0xGT; Fri, 14 Jul 2023 18:12:50 +0000
+X-Authority-Analysis: v=2.4 cv=Tb+FCDch c=1 sm=1 tr=0 ts=64b19022
+ a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=WzbPXH4gqzPVN0x6HrNMNA==:17
+ a=OWjo9vPv0XrRhIrVQ50Ab3nP57M=:19 a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19
+ a=IkcTkHD0fZMA:10 a=ws7JD89P4LkA:10 a=wYkD_t78qR0A:10 a=QX4gbG5DAAAA:8
+ a=snExLxxF2foCdKK6ZiwA:9 a=QEXdDO2ut3YA:10 a=AbAUZ8qAyYyZVLSsDulk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=KCsVJp5qnfX7Jssk4LxDYEngrFE1DQACmhXzG+7FPBA=; b=M2IOJ51RbQeLWTH+hDTujo/BcT
+ FNGZuK6zQ5WsYaZHqy6e15H9gS0lstlxNAYl6nkOh9BrObTSI01DAmMJe+kH1UJWGrbwfRjKj3wVZ
+ w+XvmqONUISjI0gjmhcYyH0Shq8M7WpiSJLsFGokjDm3VPjHFrCKY2/l5PKU9/TZ7VaSJR3Kd7u1p
+ uTY2pS3Eb6v6ATGGsMcFTfxWmCiptiGBISG4owzTHEMkGc7IF+IN/YI17JqIeJf2KLdhqg8DfDyiN
+ J+jUs0Lu3d/IszVp55sQ2rf2wsCXnNhmQPTNBlgQqMxittAJ9wmHEw3lkzaCGock2N4feeHIM7DfP
+ vXjo6oYg==;
+Received: from 187-162-21-192.static.axtel.net ([187.162.21.192]:55814
+ helo=[192.168.15.8])
+ by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <gustavo@embeddedor.com>) id 1qKNHc-002I2a-1y;
+ Fri, 14 Jul 2023 13:12:49 -0500
+Message-ID: <442403e3-317e-8744-3348-dc9823c22074@embeddedor.com>
+Date: Fri, 14 Jul 2023 12:13:28 -0600
 MIME-Version: 1.0
-References: <20230713163626.31338-1-jim.cromie@gmail.com>
- <20230713163626.31338-22-jim.cromie@gmail.com>
- <76995421-a529-ac25-c306-2e4ac2844602@infradead.org>
-In-Reply-To: <76995421-a529-ac25-c306-2e4ac2844602@infradead.org>
-From: jim.cromie@gmail.com
-Date: Fri, 14 Jul 2023 11:34:37 -0600
-Message-ID: <CAJfuBxyUoVJU13cVxtp01PLfQ1v3PZVWD9vLLR1y+Fiz5Xd66A@mail.gmail.com>
-Subject: Re: [PATCH v4 21/21] dyndbg-doc: add classmap info to howto
-To: Randy Dunlap <rdunlap@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH] drm/amdgpu: replace 1-element arrays with flexible arrays
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Ricardo_Ca=c3=b1uelo?= <ricardo.canuelo@collabora.com>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+References: <20230712083137.1080883-1-ricardo.canuelo@collabora.com>
+ <CADnq5_OUS=JDfCdrCsuzTB0xD5yeX7piEDEqkRO-ffPTFVYs3g@mail.gmail.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+In-Reply-To: <CADnq5_OUS=JDfCdrCsuzTB0xD5yeX7piEDEqkRO-ffPTFVYs3g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 187.162.21.192
+X-Source-L: No
+X-Exim-ID: 1qKNHc-002I2a-1y
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 187-162-21-192.static.axtel.net ([192.168.15.8])
+ [187.162.21.192]:55814
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 2
+X-Org: HG=hgshared;ORG=hostgator;
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfFfZATea+8p9yUhfY3SaZ/S86Kq0zDUH37cltZGuiuh9JV4p49ErfmnP/r+L4WBdXGLv+xm0QXGIFm4nmAapT4kS9qBRvJBOUVauXRVhYLTPhhZohod5
+ hHVLk2BaWaqqNiOrB7VAf1qeD3ju4h6aUBcdGD/Y2y39U9pz8DnnK9bm3+iF4MiQOg/uYjRGRDqw2CML1G40haaQ2uIwExeXn4IT2n6m6fFwXEW54+fY1UrL
+X-Mailman-Approved-At: Fri, 14 Jul 2023 18:24:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,56 +94,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@gmail.com, jani.nikula@intel.com, daniel.vetter@ffwll.ch,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, jbaron@akamai.com, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- intel-gvt-dev@lists.freedesktop.org, ville.syrjala@linux.intel.com
+Cc: alexander.deucher@amd.com, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-hardening@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 13, 2023 at 1:13=E2=80=AFPM Randy Dunlap <rdunlap@infradead.org=
-> wrote:
->
->
->
-> On 7/13/23 09:36, Jim Cromie wrote:
-> > Add some basic info on classmap usage and api
-> >
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> > ---
-> >  .../admin-guide/dynamic-debug-howto.rst       | 64 ++++++++++++++++++-
-> >  1 file changed, 63 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Docume=
-ntation/admin-guide/dynamic-debug-howto.rst
-> > index 8dc668cc1216..878750ce8c1d 100644
-> > --- a/Documentation/admin-guide/dynamic-debug-howto.rst
-> > +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
->
-> > @@ -374,3 +373,66 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)``=
-.
-> >  For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format stri=
-ng is
-> >  its ``prefix_str`` argument, if it is constant string; or ``hexdump``
-> >  in case ``prefix_str`` is built dynamically.
-> > +
-> > +Dynamic Debug classmaps
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > +
-> > +Dyndbg generally selects *prdbg* callsites using structural info:
-> > +module, file, function, line.  Using classmaps, user modules can
-> > +organize/select pr_debug()s as they like.
-> > +
-> > +- classes coordinates/spans multiple modules
-> > +- complements the mod,file,func attrs
-> > +- keeps pr_debug's 0-off-cost JUMP_LABEL goodness
-> > +- isolates from other class'd and un-class'd pr_debugs()
-> > +  (one doesnt mix 2 clients bank accounts)
->
->           doesn't
->
 
 
-thanks Randy,
-got this, and the rest.
+On 7/12/23 08:12, Alex Deucher wrote:
+> On Wed, Jul 12, 2023 at 8:04 AM Ricardo Cañuelo
+> <ricardo.canuelo@collabora.com> wrote:
+>>
+>> UBSAN complains about out-of-bounds array indexes on all 1-element
+>> arrays defined on this driver:
+>>
+>> UBSAN: array-index-out-of-bounds in /home/rcn/work/repos/kernelci/kernelci-core/linux_kernel_mainline/drivers/gpu/drm/amd/amdgpu/../pm/powerplay/hwmgr/processpptables.c:1249:61
+>>
+>> Substitute them with proper flexible arrays.
+> 
+> + Gustavo, Paulo
+> 
+> I haven't kept up with the flexible arrays stuff.  Is this equivalent
+> to a zero sized array?  We've been bitten by these kind of changes in
+
+In terms of size, yes: the size of each array declaration does not
+contribute to the overall size of its containing structure.
+
+However, in these cases, using the DECLARE_FLEX_ARRAY() helper is not
+required. Simply removing the '1' from the array declaration will suffice.
+This helper was created to declare flex-array members in unions, as well
+as in structs that contain no other members aside from the array.
+
+In any case, these changes are not complete, as they're only modifying
+the struct declaration, hence the size of the struct is affected. Now
+the rest of the code where these structs are involved should be audited
+and adjusted to accommodate the change in the sizes of the structs.
+
+> the past.  These structures define the layout of data in a rom image
+> on the board.  If the struct size changes, that could lead to errors
+> in the code that deals with these structures.
+> 
+> Alex
+> 
+
+Thanks
+--
+Gustavo
