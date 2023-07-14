@@ -4,52 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05ADDC001DC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45131C001DF
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 07:16:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FBE410E7E0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 090D710E7DF;
 	Fri, 14 Jul 2023 07:16:18 +0000 (UTC)
-Received: from mail.208.org (unknown [183.242.55.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75D0A10E101
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 03:54:53 +0000 (UTC)
-Received: from mail.208.org (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTP id 4R2Hfy3kqBzBRSVn
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 11:54:50 +0800 (CST)
-Authentication-Results: mail.208.org (amavisd-new); dkim=pass
- reason="pass (just generated, assumed good)" header.d=208.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
- content-transfer-encoding:content-type:message-id:user-agent
- :references:in-reply-to:subject:to:from:date:mime-version; s=
- dkim; t=1689306890; x=1691898891; bh=iTXZlIcRdyK6o3+wDm/UapfqCgm
- g6WekFBy6SQamdR0=; b=Nok34jzjPVafwrRrSRNa78LuU/gf5f63GOJ39mTJ7LC
- cobjTiBXs/8nOmpsUZTvDxOmIOo+7cx3cgGhuNz+U6Zc9NAB9rxq8S3dirFxlHCm
- 7q87gKe04TpTQyfgHXfr/j7fP5RI4lbtjUqdfSNyru0rVZu7eN2riO0thnxCXBWy
- QHOI5tpTRy7twmcJUwFVCoCw/8CGybNDafhtqyzTVZ4BGt5xDsVH2zWKL7G25Ftn
- VLZCqOmCi1vEKOJtWyB3aosMjId51PyLTtyhTC/DzP7YuQvG1I+rsWxEA7rVm6bE
- +HcDd8XtTtwu5YbLWQ0iJAjsc1uQ072hQzlwOJHdzLg==
-X-Virus-Scanned: amavisd-new at mail.208.org
-Received: from mail.208.org ([127.0.0.1])
- by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id p7wo_brvv1KP for <amd-gfx@lists.freedesktop.org>;
- Fri, 14 Jul 2023 11:54:50 +0800 (CST)
-Received: from localhost (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTPSA id 4R2Hfy0G1bzBR7b2;
- Fri, 14 Jul 2023 11:54:50 +0800 (CST)
+X-Greylist: delayed 1820 seconds by postgrey-1.36 at gabe;
+ Fri, 14 Jul 2023 04:14:42 UTC
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48ABC10E1AE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 04:14:42 +0000 (UTC)
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1qK9iy-00066l-8O; Fri, 14 Jul 2023 05:44:08 +0200
+Message-ID: <55a3bbb1-5b3c-f454-b529-8ee9944cc67c@leemhuis.info>
+Date: Fri, 14 Jul 2023 05:44:07 +0200
 MIME-Version: 1.0
-Date: Fri, 14 Jul 2023 11:54:49 +0800
-From: shijie001@208suo.com
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-Subject: [PATCH] drm/radeon: ERROR: that open brace { should be on the
- previous line
-In-Reply-To: <tencent_996261255FBE1BF185353D65C90BFB5FDF0A@qq.com>
-References: <tencent_996261255FBE1BF185353D65C90BFB5FDF0A@qq.com>
-User-Agent: Roundcube Webmail
-Message-ID: <8d7c6d7599c0f56403c920985f646e34@208suo.com>
-X-Sender: shijie001@208suo.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: radeon.ko/i586: BUG: kernel NULL pointer dereference, address:
+ 00000004
+Content-Language: en-US, de-DE
+To: Bagas Sanjaya <bagasdotme@gmail.com>, Taketo Kabe <kkabe@vega.pgw.jp>
+References: <5f8d4aa5-3b23-8965-57e3-a28bd9aa8e87@gmail.com>
+ <20230713231250.35488431@rorschach.local.home>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <20230713231250.35488431@rorschach.local.home>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1689308082;
+ 45c8c55a; 
+X-HE-SMSGID: 1qK9iy-00066l-8O
 X-Mailman-Approved-At: Fri, 14 Jul 2023 07:16:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,85 +50,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+ Linux Regressions <regressions@lists.linux.dev>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux AMDGPU <amd-gfx@lists.freedesktop.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Steven Rostedt <rostedt@goodmis.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix eight occurrences of the checkpatch.pl error:
-ERROR: that open brace { should be on the previous line
-ERROR: space prohibited before that close parenthesis ')'
-ERROR: spaces required around that '?' (ctx:VxW)
+On 14.07.23 05:12, Steven Rostedt wrote:
+> On Fri, 14 Jul 2023 09:50:17 +0700
+> Bagas Sanjaya <bagasdotme@gmail.com> wrote:
+> 
+>> I notice a regression report on Bugzilla [1]. Quoting from it:
+>>
+>>
+>> See Bugzilla for the full thread and attached patches that fixes
+>> this regression.
+>>
+>> Later, when bisecting, the reporter got better kernel trace:
+>>
+>>> [  469.825305] BUG: kernel NULL pointer dereference, address: 00000004
+>>> [  469.830502] #PF: supervisor read access in kernel mode
+>>> [  469.830502] #PF: error_code(0x0000) - not-present page
+>>> [  469.830502] *pde = 00000000
+>>> [  469.830502] Oops: 0000 [#1] PREEMPT SMP
+>>> [  469.830502] CPU: 0 PID: 365 Comm: systemd-udevd Not tainted 5.14.0-221.el9.v1.i586 #1
+> 
+> This is a 5.14 kernel right?
 
-Signed-off-by: Jie Shi <shijie001@208suo.com>
----
-  drivers/gpu/drm/radeon/sumo_dpm.c | 18 ++++++++----------
-  1 file changed, 8 insertions(+), 10 deletions(-)
+And a vendor kernel that from the sound of the version number might be
+heavily patched. But apparently the reporter later bisected this on a
+newer kernel (Bagas, would have been good if this had been mentioned in
+your earlier mail):
 
-diff --git a/drivers/gpu/drm/radeon/sumo_dpm.c 
-b/drivers/gpu/drm/radeon/sumo_dpm.c
-index f74f381af05f..8af793c89fd1 100644
---- a/drivers/gpu/drm/radeon/sumo_dpm.c
-+++ b/drivers/gpu/drm/radeon/sumo_dpm.c
-@@ -33,8 +33,7 @@
-  #define SUMO_MINIMUM_ENGINE_CLOCK 800
-  #define BOOST_DPM_LEVEL 7
+https://bugzilla.kernel.org/show_bug.cgi?id=217669#c5
+```
+I succeeded to bisect down the regressing commit found in kernel-5.18.0-rc2:
 
--static const u32 sumo_utc[SUMO_PM_NUMBER_OF_TC] =
--{
-+static const u32 sumo_utc[SUMO_PM_NUMBER_OF_TC] = {
-      SUMO_UTC_DFLT_00,
-      SUMO_UTC_DFLT_01,
-      SUMO_UTC_DFLT_02,
-@@ -52,8 +51,7 @@ static const u32 sumo_utc[SUMO_PM_NUMBER_OF_TC] =
-      SUMO_UTC_DFLT_14,
-  };
+b39181f7c690 (refs/bisect/bad) ftrace: Add FTRACE_MCOUNT_MAX_OFFSET to
+avoid adding weak function
 
--static const u32 sumo_dtc[SUMO_PM_NUMBER_OF_TC] =
--{
-+static const u32 sumo_dtc[SUMO_PM_NUMBER_OF_TC] = {
-      SUMO_DTC_DFLT_00,
-      SUMO_DTC_DFLT_01,
-      SUMO_DTC_DFLT_02,
-@@ -109,11 +107,11 @@ static void sumo_mg_clockgating_enable(struct 
-radeon_device *rdev, bool enable)
-      local1 = RREG32(CG_CGTT_LOCAL_1);
+This at a glance does not relate to drm/kms code.
 
-      if (enable) {
--        WREG32(CG_CGTT_LOCAL_0, (0 & CGCG_CGTT_LOCAL0_MASK) | (local0 & 
-~CGCG_CGTT_LOCAL0_MASK) );
--        WREG32(CG_CGTT_LOCAL_1, (0 & CGCG_CGTT_LOCAL1_MASK) | (local1 & 
-~CGCG_CGTT_LOCAL1_MASK) );
-+        WREG32(CG_CGTT_LOCAL_0, (0 & CGCG_CGTT_LOCAL0_MASK) | (local0 & 
-~CGCG_CGTT_LOCAL0_MASK));
-+        WREG32(CG_CGTT_LOCAL_1, (0 & CGCG_CGTT_LOCAL1_MASK) | (local1 & 
-~CGCG_CGTT_LOCAL1_MASK));
-      } else {
--        WREG32(CG_CGTT_LOCAL_0, (0xFFFFFFFF & CGCG_CGTT_LOCAL0_MASK) | 
-(local0 & ~CGCG_CGTT_LOCAL0_MASK) );
--        WREG32(CG_CGTT_LOCAL_1, (0xFFFFCFFF & CGCG_CGTT_LOCAL1_MASK) | 
-(local1 & ~CGCG_CGTT_LOCAL1_MASK) );
-+        WREG32(CG_CGTT_LOCAL_0, (0xFFFFFFFF & CGCG_CGTT_LOCAL0_MASK) | 
-(local0 & ~CGCG_CGTT_LOCAL0_MASK));
-+        WREG32(CG_CGTT_LOCAL_1, (0xFFFFCFFF & CGCG_CGTT_LOCAL1_MASK) | 
-(local1 & ~CGCG_CGTT_LOCAL1_MASK));
-      }
+The attached patch effectively reverts the commit for 32bit.
+This fixed the problem on kernel-5.18.0, but not enough for kernel-6.4.3 ```
+
+That being said: That commit is not in 5.18, as Steve noticed:
+
+>> #regzbot introduced: b39181f7c6907d https://bugzilla.kernel.org/show_bug.cgi?id=217669
+>> #regzbot title: FTRACE_MCOUNT_MAX_OFFSET causes kernel NULL pointer dereference and virtual console (tty1) freeze
+> That commit was added in 5.19.
+> 
+> So I'm confused about why it's mentioned. Was it backported?
+
+Taketo Kabe, could you please help to clean this confusion up? Did you
+mean 5.19 in https://bugzilla.kernel.org/show_bug.cgi?id=217669#c5 ? And
+BTW: did you really use a vanilla kernel for your bisection?
+
+TWIMC, there is also
+https://bugzilla.kernel.org/show_bug.cgi?id=217669#c6 :
+```
+Attached patch sort of fixes the problem; it does not panic and
+KMS console works, but printk is triggered 4 times on radeon.ko load and
+when VGA connector is plugged in.
+
+I am sort of at loss now; I need advice from people which knows better.
+
+ --- ./drivers/gpu/drm/drm_internal.h.rd	2023-06-25 21:35:27.506967450 +0900
+ +++ ./drivers/gpu/drm/drm_internal.h.rd	2023-06-25 21:36:34.758055363 +0900
+ @@ -99,6 +99,10 @@ u64 drm_vblank_count(struct drm_device *
+  /* drm_vblank_work.c */
+  static inline void drm_vblank_flush_worker(struct drm_vblank_crtc *vblank)
+  {
+ +	if (!vblank->worker) {
+ +		printk(KERN_WARNING "%s: vblank->worker NULL? returning\n", __func__);
+ +		return;
+ +	}
+  	kthread_flush_worker(vblank->worker);
   }
+```
 
-@@ -702,9 +700,9 @@ static void sumo_post_notify_alt_vddnb_change(struct 
-radeon_device *rdev,
-      u32 nbps1_new = 0;
-
-      if (old_ps != NULL)
--        nbps1_old = (old_ps->flags & 
-SUMO_POWERSTATE_FLAGS_FORCE_NBPS1_STATE)? 1 : 0;
-+        nbps1_old = (old_ps->flags & 
-SUMO_POWERSTATE_FLAGS_FORCE_NBPS1_STATE) ? 1 : 0;
-
--    nbps1_new = (new_ps->flags & 
-SUMO_POWERSTATE_FLAGS_FORCE_NBPS1_STATE)? 1 : 0;
-+    nbps1_new = (new_ps->flags & 
-SUMO_POWERSTATE_FLAGS_FORCE_NBPS1_STATE) ? 1 : 0;
-
-      if (nbps1_old == 0 && nbps1_new == 1)
-          sumo_smu_notify_alt_vddnb_change(rdev, 1, 1);
+Ciao, Thorsten
