@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E03E7C27C44
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 07:52:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94A3AC25B75
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 07:52:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E337210E830;
-	Fri, 14 Jul 2023 07:52:12 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B536810E80F;
- Fri, 14 Jul 2023 07:52:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4082810E831;
+	Fri, 14 Jul 2023 07:52:13 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2740A10E800;
+ Fri, 14 Jul 2023 07:52:02 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 626D02215F;
- Fri, 14 Jul 2023 07:52:02 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DD8CA1FD82;
+ Fri, 14 Jul 2023 07:52:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1689321122; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1689321120; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8SrYfuYp2Zej0wYpXum9GiB3XZhSVLAFxOB80dQcWiA=;
- b=vX09X1Rk9IJ0SVYZLWISuMwW68/mjTDUM1z4Ts9/xT/CsG1vzvLpIlzeifJoCO+kwp/GyU
- vPTnCh5ekRNWcYclsZj1wF6/8Wb+hf4AwcHtObvan5bDEcwK8veYEqW99ie0TUol4uG8UG
- W91ne63a3qDYnWtrNnx3kZ2JWYXqhX8=
+ bh=YWl4r3MXDzIpXc1GMxrVHAXu9+tdMITd+1eR5phnaTY=;
+ b=asN4jXBhI2JnwiwV6m9qEbnKE6Z4Oc3L6Y4ATww+BqsaYS7uaZM+9SQSMvB7K4ptM8UVen
+ O4vu9DX6TkcqS6fNZR+Te45m5hhoE1GqHgY0RZoK/yj/sVKfMZ/xF16Vl8vjaaPsWheSm8
+ fJk0qsYzSaeeDOGdugbWt/iPt+uxIOc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1689321122;
+ s=susede2_ed25519; t=1689321120;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8SrYfuYp2Zej0wYpXum9GiB3XZhSVLAFxOB80dQcWiA=;
- b=Ntt+CCUtu+0A8DDmXsVVyaT0JAyRqgwl8rpzgyJxkB4ppT8aG+L/wqi6v9RQsPtpiJDCZE
- WpQb3HxoNFddh5Ag==
+ bh=YWl4r3MXDzIpXc1GMxrVHAXu9+tdMITd+1eR5phnaTY=;
+ b=bss22TCu6JS5gpff6CSCqj18ohWIMh0ca+BK3HIlzAgNTlfyZzGFs/kX3qlf3MyySKee1Y
+ g4nNnceri51mOWCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1332313A92;
- Fri, 14 Jul 2023 07:52:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 892CE13A15;
+ Fri, 14 Jul 2023 07:52:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id aOPiA6L+sGQCQwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Fri, 14 Jul 2023 07:52:02 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id IJCsIKD+sGQCQwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Fri, 14 Jul 2023 07:52:00 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de,
 	javierm@redhat.com
-Subject: [PATCH v3 13/18] fbdev: Remove flag FBINFO_FLAG_DEFAULT from fbdev
- drivers
-Date: Fri, 14 Jul 2023 09:49:39 +0200
-Message-ID: <20230714075155.5686-14-tzimmermann@suse.de>
+Subject: [PATCH v3 09/18] auxdisplay: Remove flag FBINFO_FLAG_DEFAULT from
+ fbdev drivers
+Date: Fri, 14 Jul 2023 09:49:35 +0200
+Message-ID: <20230714075155.5686-10-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230714075155.5686-1-tzimmermann@suse.de>
 References: <20230714075155.5686-1-tzimmermann@suse.de>
@@ -68,21 +68,21 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
+Cc: linux-fbdev@vger.kernel.org, Robin van der Gracht <robin@protonic.nl>,
+ kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
  Sam Ravnborg <sam@ravnborg.org>, linux-staging@lists.linux.dev,
  linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  linux-geode@lists.infradead.org, dri-devel@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>, linux-input@vger.kernel.org,
- linux-nvidia@lists.surfsouth.com, linux-omap@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
+ Miguel Ojeda <ojeda@kernel.org>, linux-nvidia@lists.surfsouth.com,
+ linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 The flag FBINFO_FLAG_DEFAULT is 0 and has no effect, as struct
-fbinfo.flags has been allocated to zero by kzalloc(). So do not
-set it.
+fbinfo.flags has been allocated to zero by framebuffer_alloc(). So do
+not set it.
 
 Flags should signal differences from the default values. After cleaning
 up all occurrences of FBINFO_DEFAULT, the token will be removed.
@@ -92,40 +92,38 @@ v2:
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Acked-by: Sam Ravnborg <sam@ravnborg.org>
-Cc: Helge Deller <deller@gmx.de>
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>
+Cc: Robin van der Gracht <robin@protonic.nl>
 ---
- drivers/video/fbdev/amba-clcd.c             | 1 -
- drivers/video/fbdev/matrox/matroxfb_crtc2.c | 5 ++---
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ drivers/auxdisplay/cfag12864bfb.c | 1 -
+ drivers/auxdisplay/ht16k33.c      | 1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/drivers/video/fbdev/amba-clcd.c b/drivers/video/fbdev/amba-clcd.c
-index e45338227be6..24d89e6fb780 100644
---- a/drivers/video/fbdev/amba-clcd.c
-+++ b/drivers/video/fbdev/amba-clcd.c
-@@ -461,7 +461,6 @@ static int clcdfb_register(struct clcd_fb *fb)
- 	}
+diff --git a/drivers/auxdisplay/cfag12864bfb.c b/drivers/auxdisplay/cfag12864bfb.c
+index c2cab7e2b126..729845bcc803 100644
+--- a/drivers/auxdisplay/cfag12864bfb.c
++++ b/drivers/auxdisplay/cfag12864bfb.c
+@@ -79,7 +79,6 @@ static int cfag12864bfb_probe(struct platform_device *device)
+ 	info->var = cfag12864bfb_var;
+ 	info->pseudo_palette = NULL;
+ 	info->par = NULL;
+-	info->flags = FBINFO_FLAG_DEFAULT;
  
- 	fb->fb.fbops		= &clcdfb_ops;
--	fb->fb.flags		= FBINFO_FLAG_DEFAULT;
- 	fb->fb.pseudo_palette	= fb->cmap;
+ 	if (register_framebuffer(info) < 0)
+ 		goto fballoced;
+diff --git a/drivers/auxdisplay/ht16k33.c b/drivers/auxdisplay/ht16k33.c
+index edaf92b7ea77..df3f37651e45 100644
+--- a/drivers/auxdisplay/ht16k33.c
++++ b/drivers/auxdisplay/ht16k33.c
+@@ -646,7 +646,6 @@ static int ht16k33_fbdev_probe(struct device *dev, struct ht16k33_priv *priv,
+ 	fbdev->info->var = ht16k33_fb_var;
+ 	fbdev->info->bl_dev = bl;
+ 	fbdev->info->pseudo_palette = NULL;
+-	fbdev->info->flags = FBINFO_FLAG_DEFAULT;
+ 	fbdev->info->par = priv;
  
- 	strncpy(fb->fb.fix.id, clcd_name, sizeof(fb->fb.fix.id));
-diff --git a/drivers/video/fbdev/matrox/matroxfb_crtc2.c b/drivers/video/fbdev/matrox/matroxfb_crtc2.c
-index 7655afa3fd50..372197c124de 100644
---- a/drivers/video/fbdev/matrox/matroxfb_crtc2.c
-+++ b/drivers/video/fbdev/matrox/matroxfb_crtc2.c
-@@ -603,9 +603,8 @@ static int matroxfb_dh_regit(const struct matrox_fb_info *minfo,
- 	void* oldcrtc2;
- 
- 	m2info->fbcon.fbops = &matroxfb_dh_ops;
--	m2info->fbcon.flags = FBINFO_FLAG_DEFAULT;
--	m2info->fbcon.flags |= FBINFO_HWACCEL_XPAN |
--			       FBINFO_HWACCEL_YPAN;
-+	m2info->fbcon.flags = FBINFO_HWACCEL_XPAN |
-+			      FBINFO_HWACCEL_YPAN;
- 	m2info->fbcon.pseudo_palette = m2info->cmap;
- 	fb_alloc_cmap(&m2info->fbcon.cmap, 256, 1);
- 
+ 	err = register_framebuffer(fbdev->info);
 -- 
 2.41.0
 
