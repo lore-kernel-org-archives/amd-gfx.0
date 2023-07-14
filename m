@@ -4,46 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A84BFC001B0
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 12:24:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44CFBEB64DA
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 13:08:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14A8810E87B;
-	Fri, 14 Jul 2023 12:24:05 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BD8610E87B;
- Fri, 14 Jul 2023 12:24:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=b1Gph0vuGXSeRBOUXNrnFyU+mX28k/NdwjFLIR6GaPw=; b=GmhqCPA6yfKkTaZwzAhwBcaA82
- 1wZqmYKBvGQs/NT6daPi0IramA0DwS0ycGIPhjFVw6itABCVfJlgifWaCVpnsFo2wU3bLBYQlWfAp
- iVhUrrrbp3ZX0i3JtzW8HaDg5AI3mKcstAkk99rP1S0YwEK1HzsSOHZN5ijwnUIP/TjrgN8T1lLmO
- Ef7XI4/i+dIh1CON8pHnkAj3Z6UxKrznt50Ie5GhwyUsyFKRoc0nQEVmtGA+LHVMRs5vQtVwciaGD
- aHRXkrdIMZU4EpRO+eNZhvqjDzqjH+Fi9E8baadyYXUqBx2F3NiydLssYawZJ55silcoDl+N1DG6I
- e9r/OqTw==;
-Received: from [187.74.70.209] (helo=[192.168.1.111])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1qKHq3-00EVOo-L8; Fri, 14 Jul 2023 14:23:59 +0200
-Message-ID: <50fa1365-ab6a-58a1-e82f-ebaf1b623010@igalia.com>
-Date: Fri, 14 Jul 2023 09:23:55 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA8410E898;
+	Fri, 14 Jul 2023 13:08:02 +0000 (UTC)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D5CE10E862
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 10:29:55 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-3fbc54cab6fso16171305e9.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 03:29:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1689330592; x=1691922592;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Mh5IM3hcbkTlsZ0QohBnPm9+/WljTdptQDAe3KRHGao=;
+ b=O5ufoN9bQiWKXDmCStIX+Io10WRu2B69Deqb5KVzrXV2sqgY9JCnNvyATagBuE+ark
+ IS32r2PfYWd5XlLUlJoSJAAAXm5+hxTEjMb0ZCe5fK3NGofpUv7OKY9G8Xf6nBs65XhV
+ mN24wwtq2SFoDgOh1XzRQP48JVgtE3qQg6DtMC8WgMhj9t2D3law3WPvQE1ujYDEF2HF
+ HQ2Wfv1wVIeu2S+ZqWDReHbCASDvhIqXVdLZ+6qiMuNgb/mQI71489JITRwjOarUlIKd
+ T4bv/caHqvEm2PmjsCWaoXFBLjd4pTJ0r4FnJChubfG5R2bSvz1FrPJ8nXiDNobJSVlf
+ ylLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689330592; x=1691922592;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Mh5IM3hcbkTlsZ0QohBnPm9+/WljTdptQDAe3KRHGao=;
+ b=cxn1D0kQPIUeYwsZGkWaaL9KH28MdRmRMGWTq02k1WetF08TDNHPUeU5QLP2A1pDoF
+ gv3YDGneBFcB6RN8KHxe1eF3G1eGTUAsycIL0X46+M1uR3WTzOD0DCBwwelUrLCw8x64
+ jTxXWoes2phRBzLwcFaJw8sdVl1PeBEFzqyA4p2zYn6qAFmiEHUpUpQ3PrUANCyMH1O8
+ E2KsXRPamfCheWVV15OfPVLDbMQB/pHKqobT+VaT6iNAxREtzhT88j4BmjlSswJQFFJ3
+ qoHGkdivDhPxcN8Cj/sssBFci0YY3TnFZCCPXhVb+Jq/8lwZQ5QcYhYHmlXAyN6TXGKH
+ vXJg==
+X-Gm-Message-State: ABy/qLbT/InlrzI0o/hgl3eBTSNh1R4D/c7RIKZTPdin8nyIYP1x3Q9Q
+ k0Uvwvo2R9hsysW///Q4khJlDg==
+X-Google-Smtp-Source: APBJJlFnsQ9uvLjsHZQ9SREHQ216HPPGjASy9AiZYJZlWwyGhQieiRuOjHKJ7s1mAu1WpSfMQoCtmw==
+X-Received: by 2002:a05:600c:2254:b0:3fa:984d:7e9f with SMTP id
+ a20-20020a05600c225400b003fa984d7e9fmr3534844wmm.6.1689330592448; 
+ Fri, 14 Jul 2023 03:29:52 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ p26-20020a7bcc9a000000b003fbb5506e54sm1094832wma.29.2023.07.14.03.29.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Jul 2023 03:29:50 -0700 (PDT)
+Date: Fri, 14 Jul 2023 13:29:47 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v3 00/18] fbdev: Remove FBINFO_DEFAULT and
+ FBINFO_FLAG_DEFAULT flags
+Message-ID: <b3c23ea3-f46c-43b9-b12a-9f55de2294c6@kadam.mountain>
+References: <20230714075155.5686-1-tzimmermann@suse.de>
+ <CAMuHMdWoeyJPAgPgFi545SJFcaVCgZi1-zW2N5cBeU9BnHgo1w@mail.gmail.com>
+ <47a3ab8d-5e8c-db2c-fcde-5c2b1bac32aa@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH v2 5/6] drm/amdgpu: Log IBs and ring name at coredump
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-References: <20230713213242.680944-1-andrealmeid@igalia.com>
- <20230713213242.680944-6-andrealmeid@igalia.com>
- <6485568b-da41-b549-f6bd-36139df59215@gmail.com>
-From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <6485568b-da41-b549-f6bd-36139df59215@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <47a3ab8d-5e8c-db2c-fcde-5c2b1bac32aa@suse.de>
+X-Mailman-Approved-At: Fri, 14 Jul 2023 13:08:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,128 +74,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
- =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
- michel.daenzer@mailbox.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org,
+ kvm@vger.kernel.org, linux-sh@vger.kernel.org, deller@gmx.de,
+ linux-staging@lists.linux.dev, linux-hyperv@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>, dri-devel@lists.freedesktop.org,
+ linux-input@vger.kernel.org, linux-nvidia@lists.surfsouth.com,
+ javierm@redhat.com, linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-geode@lists.infradead.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Fri, Jul 14, 2023 at 12:24:05PM +0200, Thomas Zimmermann wrote:
+> > 
+> > >    fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
+> > >    fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
+> > >    fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
+> > >    fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
+>
+>
+> I wasn't happy about this either. But I could not come up with a description
+> that fits into the 74-char limit for each commit. They only differ in the
+> method of memory allocation. Do you have any ideas?
 
+fbdev: Remove FBINFO_DEFAULT from static structs
+fbdev: Remove FBINFO_DEFAULT from kzalloc() structs
+fbdev: Remove FBINFO_DEFAULT from devm_kzalloc() structs
 
-Em 14/07/2023 04:57, Christian König escreveu:
-> Am 13.07.23 um 23:32 schrieb André Almeida:
->> Log the IB addresses used by the hung job along with the stuck ring
->> name. Note that due to nested IBs, the one that caused the reset itself
->> may be in not listed address.
->>
->> Signed-off-by: André Almeida <andrealmeid@igalia.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 +++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 31 +++++++++++++++++++++-
->>   2 files changed, 33 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> index e1cc83a89d46..cfeaf93934fd 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->> @@ -1086,6 +1086,9 @@ struct amdgpu_coredump_info {
->>       struct amdgpu_task_info         reset_task_info;
->>       struct timespec64               reset_time;
->>       bool                            reset_vram_lost;
->> +    u64                *ibs;
->> +    u32                num_ibs;
->> +    char                ring_name[16];
->>   };
->>   #endif
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index 07546781b8b8..431ccc3d7857 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -5008,12 +5008,24 @@ static ssize_t amdgpu_devcoredump_read(char 
->> *buffer, loff_t offset,
->>                      coredump->adev->reset_dump_reg_value[i]);
->>       }
->> +    if (coredump->num_ibs) {
->> +        drm_printf(&p, "IBs:\n");
->> +        for (i = 0; i < coredump->num_ibs; i++)
->> +            drm_printf(&p, "\t[%d] 0x%llx\n", i, coredump->ibs[i]);
->> +    }
->> +
->> +    if (coredump->ring_name[0] != '\0')
->> +        drm_printf(&p, "ring name: %s\n", coredump->ring_name);
->> +
->>       return count - iter.remain;
->>   }
->>   static void amdgpu_devcoredump_free(void *data)
->>   {
->> -    kfree(data);
->> +    struct amdgpu_coredump_info *coredump = data;
->> +
->> +    kfree(coredump->ibs);
->> +    kfree(coredump);
->>   }
->>   static void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
->> @@ -5021,6 +5033,8 @@ static void amdgpu_coredump(struct amdgpu_device 
->> *adev, bool vram_lost,
->>   {
->>       struct amdgpu_coredump_info *coredump;
->>       struct drm_device *dev = adev_to_drm(adev);
->> +    struct amdgpu_job *job = reset_context->job;
->> +    int i;
->>       coredump = kmalloc(sizeof(*coredump), GFP_NOWAIT);
->> @@ -5038,6 +5052,21 @@ static void amdgpu_coredump(struct 
->> amdgpu_device *adev, bool vram_lost,
->>       coredump->adev = adev;
->> +    if (job && job->num_ibs) {
-> 
-> I really really really don't want any dependency of the core dump 
-> feature towards the job.
-> 
+regards,
+dan carpenter
 
-Because of the lifetime of job?
-
-Do you think implementing amdgpu_job_get()/put() would help here?
-
-> What we could do is to record the first executed IB VAs in the hw fence, 
-> but I'm not sure how useful this is in the first place.
-> 
-
-I see, any hint here of the timedout job would be helpful AFAIK.
-
-> We have some internal feature in progress to query the VA of the draw 
-> command which cause the waves currently executing in the SQ to be 
-> retrieved.
-> 
->> +        struct amdgpu_ring *ring = to_amdgpu_ring(job->base.sched);
->> +        u32 num_ibs = job->num_ibs;
->> +
->> +        coredump->ibs = kmalloc_array(num_ibs, sizeof(coredump->ibs), 
->> GFP_NOWAIT);
-> 
-> This can fail pretty easily.
-
-Because of its size?
-
-> 
-> Christian.
-> 
->> +        if (coredump->ibs)
->> +            coredump->num_ibs = num_ibs;
->> +
->> +        for (i = 0; i < coredump->num_ibs; i++)
->> +            coredump->ibs[i] = job->ibs[i].gpu_addr;
->> +
->> +        if (ring)
->> +            strncpy(coredump->ring_name, ring->name, 16);
->> +    }
->> +
->>       ktime_get_ts64(&coredump->reset_time);
->>       dev_coredumpm(dev->dev, THIS_MODULE, coredump, 0, GFP_NOWAIT,
-> 
