@@ -4,35 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A8BBEB64DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 07:16:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 100D2C001B0
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 07:21:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3C6210E7ED;
-	Fri, 14 Jul 2023 07:16:38 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1AF010E013
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 03:12:56 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B8ABD61BCE;
- Fri, 14 Jul 2023 03:12:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B624C433C8;
- Fri, 14 Jul 2023 03:12:53 +0000 (UTC)
-Date: Thu, 13 Jul 2023 23:12:50 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Bagas Sanjaya <bagasdotme@gmail.com>
-Subject: Re: radeon.ko/i586: BUG: kernel NULL pointer dereference, address:
- 00000004
-Message-ID: <20230713231250.35488431@rorschach.local.home>
-In-Reply-To: <5f8d4aa5-3b23-8965-57e3-a28bd9aa8e87@gmail.com>
-References: <5f8d4aa5-3b23-8965-57e3-a28bd9aa8e87@gmail.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8507A10E808;
+	Fri, 14 Jul 2023 07:21:28 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2080.outbound.protection.outlook.com [40.107.92.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C24A010E7F8;
+ Fri, 14 Jul 2023 07:21:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iTSJ1xqefU13CJuOEQ1Qgc+H9jvw+CWPlPb0HFzVJt2QNDyZCf6U+ybEog6zigjNtjqwsdQ5XW0ESPouZH9aDqFGb6dSlTkqIA68W8UUX0l3yZWLGqacjrNDUDnCy8Ga62wLWnXbbyaBqnIyUWTQvsVHOUcfGpvXlTcCqjVNZf13SWw9hPPHu5klhRQq8rfsMQ7qwiaSxo618AUFD7hL64O6b3sHdzQTLEoKeC/AFzzRf5kK2wsrUq5WJRF3g+Ff8n//3Q2bVV2l4QvNrCdXIktq03SkOK7zZHjO7u0uNafbBSNKr+QxY7rhg+SUw5ytdOWBTbcVJSVfvah0KN10UA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pWKYFT0H8s3jaQ5oCLcDSEZvUEhAGiDCRFphioCjcY4=;
+ b=AvbkC1OFdS79vUrJAfEMPozAJGB6+n+8t2vOYSg1ZYeC3qHVa/NwHT9Maq/UvIesP/RqNuAOkbO0Vu/yT0lvm7q35WoytPlidLyu6mE5lLnNoFalw9wCRxRHKLnV9IKdFVObXPcUptdLFfav1BzKUO2wpgD9Kb7bilh1TJA2IUH+uRO2IWpaw0dy3Ga0cujDK0znwUJ06iuRWgmQ8g40UJ2FNSF6Unm1lPaAKtkDCFQZMsAPf1eYNgW5UXF0cphj0B0Yh5LCnRW9aiiK+rAbrxaREMbkcOb+vzfb5E4ukxwUgeWmt9YoJpMuo+aLm2inDsyilb1R6NbE4HwHTZod4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pWKYFT0H8s3jaQ5oCLcDSEZvUEhAGiDCRFphioCjcY4=;
+ b=ZQcn5mYLX1ZAQOpygD1Q0YCXvYqj+Fwv9C9FDRld+dTa41bSjlc2TOw/kqOMe9z1NSZyYvcCu5qXIC8s3t47QeKT13rHnz1RjgFcK2b9O//hUz/7zbHf3muGVWFrVF8JzoKHxJ3fPAWpPIn0Hajz+PXMohJKXqqg9rb4H6MFqLk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DS0PR12MB9038.namprd12.prod.outlook.com (2603:10b6:8:f2::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30; Fri, 14 Jul
+ 2023 07:21:23 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::669f:5dca:d38a:9921]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::669f:5dca:d38a:9921%4]) with mapi id 15.20.6588.027; Fri, 14 Jul 2023
+ 07:21:23 +0000
+Message-ID: <a96b79fb-3ad8-918f-d109-3da2121e4607@amd.com>
+Date: Fri, 14 Jul 2023 09:21:18 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH] drm/radeon: ERROR: "(foo*)" should be "(foo *)"
+Content-Language: en-US
+To: shijie001@208suo.com, alexander.deucher@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch
+References: <tencent_16FACBDCDA61595C4219E185613C85C8BF0A@qq.com>
+ <26d3424f83f1f394614e2a774d1bf1e9@208suo.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <26d3424f83f1f394614e2a774d1bf1e9@208suo.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0190.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::8) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 14 Jul 2023 07:16:15 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DS0PR12MB9038:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4f3ea81-86bc-445a-2015-08db843aed64
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: BXNzeQwTjnmKUS8Rdi2QBONJck0tmQSmNxQH+gge01e6pI8Vqi5FE62lZSexs/VLmBnXCckTKZzpNUBEuAOoYifsb2sdvoCg7armSpZhM4isYP1U7czFm+bKHCIof7P1S1/9H5AhPjCqhQDABq/SSRSBWSQ1JN0RkQndEfw5VyBaSs+FiZQpS2wbfm39B4y38Rt7wXcTpRhJSMfOCBVkoGSgjUQCdOoDjc4jXfyCyk1cP7/4vpD618fM0EH4BlBv9MuwUxWKMfBuifblA29d/MQs2+6mpek2/gKQI0FLY1Umn2dNnidgQ4z6nGzBBf/qnE3+ve/FDOObfG+hE+MY+Ac/C4oGttk4BJE32ocNLdmzC6nH1ZmapyqEo0s5rHKkpwJ9PcUZ7x5CP5XddGDSDMmHMcOTevgNye+oagZZgDRoEUat8iwCR7ZFnI5mSTTsdFQl3LFtfKhtUWmnkXDR+n6hLAa0J8El/fi1Y+ZFbPHox5cO/FD7R6acZ/LrbT5HgOjA0UGo+lFyWJW/utDXSPGGcsLIJd34oXquuQKE6yvIXdKv6G0JjK0XKH3I7d4dexrBZxGg3Mpsb3FS4jENSRJcMfE3RDe82cLBl+b1ND9FRhitYeOO8AVFXDA5ox1B42Y+robrArMsrJYmAYwMaw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(376002)(136003)(39860400002)(346002)(366004)(451199021)(31686004)(6506007)(4326008)(6666004)(478600001)(31696002)(83380400001)(2616005)(86362001)(36756003)(6512007)(38100700002)(6486002)(186003)(2906002)(8676002)(66946007)(316002)(8936002)(66556008)(41300700001)(66476007)(5660300002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MTFOUmpaNFlpNUVhemJZcHlKSlVxK09mSmpOcEZIYStYL3dJTmhCL3V4V1Ny?=
+ =?utf-8?B?OGRrQ0xFdzA3NUU0ckpobVo2TkhGQzdoOU11dHFab3hzNW5OSWYyRnlSVURX?=
+ =?utf-8?B?RUZibXdNOEkvNStiOURQSlcrN2RVM1d6K3pCVCs5QjBGcEVYWXBZSjQxRXRY?=
+ =?utf-8?B?ZUtQVktRSktJOFQ2aFYvTlQrVkhxTEpUUVlKSitIam4xMUpRbXhkVTBEZUt1?=
+ =?utf-8?B?ZEVJRTF1UHZ3cEtBamFjQkUwcjhrMHYxVmtnd3JtdHRFZy9zRjZ3eTRrUURV?=
+ =?utf-8?B?NjUwRXNqaHJJcDM5RjlWRGR1bXAvS2R3KzZlS2lzdmNzY1oxSU5YNkZrYmRm?=
+ =?utf-8?B?TzFQbFNYa3NPa0pIK210emFZWkZQa0NPb1NVNlYwYSt4VzhWRi94RTlXUzF2?=
+ =?utf-8?B?SkNzeGdBMFFndE4xLzBuS1RiSFQzbVdyR0FYUm1zdFJXemNlMUtiQ1AyMHQr?=
+ =?utf-8?B?NWNvWVVYMDBxY21Qa3locWVnWXkvOVBieDVEbXg0dC83UjBiSWI1SDhOa25R?=
+ =?utf-8?B?Z0kycmx4TlR1MEJzY291a2tmWFYwUFIxMWdaNDhyRDEvcmlWRWxGQ0N3NUNp?=
+ =?utf-8?B?T3ZhUkl6ZjhhanpuM29saXhGUEFhSTExMVhLYlBFbE44NDFmS3JqVFBPeTdH?=
+ =?utf-8?B?T2NQS0x5emRDaDFNZXZRNDl1T0RwM2dWR2dXb2VqUmZjTnI4SnlmbEl5emkv?=
+ =?utf-8?B?RnpHU1liM3VjMWtYSDIyYnR0RnhQZUcyT0puemZ3YlFOakdjQUNiblNpMnJS?=
+ =?utf-8?B?STdFTWk4YTNRRWx5dTNZcFBxajU3R2wzS3lReXhFTUdMS2dacXdHbkdPSWpx?=
+ =?utf-8?B?Y3FSbmhRWjYxZWtuNkN2b2lob2ZSWTFkbGRqOXk4Ykp3M1N3OXRiK1J3b0NP?=
+ =?utf-8?B?WVBWUkdzWGxOaDNrS1UyWXVNekZjNyt0eHVNdWNnUDMwQXdwRDF6bDgyREox?=
+ =?utf-8?B?blJhc3NQTElkUkpPL2tLLzBvTUFZSndTZ1hIT0JiVTRheWlZQy8wemQzemRX?=
+ =?utf-8?B?NGVwalEwYzJYYmFxOGJPUEZNc0t6bDUyMVJ1MUVyYjZTQW9DMFhHN2tuZ2JJ?=
+ =?utf-8?B?bnAwWEdIUFNwZHcvdHlSMXNYZTF0QkhvaVI2RTVURFpZVWJUMGRkNjlHWEt1?=
+ =?utf-8?B?MGJudUx6MCsyVHlzenRwWVg1VVV4VW56ZVViOTV4cm1tejlwNHJRNkhvVEdE?=
+ =?utf-8?B?djZYRHZ1RTR4aEdieU42V3d2OGh6YVNiMmxXUzNrTXp3TWJTUjVTOGtPSXgx?=
+ =?utf-8?B?TEtXZnNQZW5CTWI0VXNQVWV2K2RFRUhlK2x5dVF4Q2lqN2Jza0dtQmNCVDc4?=
+ =?utf-8?B?TXdtZ2FYbEV4RUttczVjbGxhdGFSU0dUQTN0c29XYXFmMEUwRXI1SjJIS0pJ?=
+ =?utf-8?B?WFJkL2syc09MSisvYk1uUm8wMkdCSTlmSnpJWVVQSW1IblQ1TU00UTUzOE9R?=
+ =?utf-8?B?a0NjVG5GVFdBVmJzSWRsM0d1Mmk1QlpwM0VScHEwclgxanI3eTVjalUvVHo0?=
+ =?utf-8?B?cWhIK2h0enNqb0dobS9hYkdqTEQ5dkd3TUFqYXdVSllidmpRUmsvNTRHWHZ3?=
+ =?utf-8?B?UmpRQ1lvK3h1ckRobVVDRktDdXR2NVk0RmVEcTBGVFl3eStBdkNYRjVPL2di?=
+ =?utf-8?B?cVh5d2JZdEFQWDEyT1c3RVpEdy8xMjRsL1NZUXljcCtpK2RLZGYwd0V3dFJ5?=
+ =?utf-8?B?Ni9pci8zS1JINStQMWNxSG9yeWFWTW5UZmZDWkFobWljQW12VnlMaFFnampO?=
+ =?utf-8?B?MDZGUkptbS80ZkVyWk9GVkF2NFBndTdaYXdXSnZJY1NkMjk2aEV2SzRYM3pS?=
+ =?utf-8?B?RlBkSUJ2ekZtVzYzNDNoT3lkT0xlVm1NMTk1TUMrQUlMR0ttMG5pazc1SzAz?=
+ =?utf-8?B?ejdEZDA5MDIzRzk1a1NZQ25RcStCRzBUOW43b0VIMEdZcVVEYjZwZzFhVGUw?=
+ =?utf-8?B?VzcrNFlpU0JoblN5L2VWcmFsU0RmS2Rrb2RseHNlWmJZeFY3a04zOFZFT2xB?=
+ =?utf-8?B?eE1OK01LbXJTZlFzU3VDMXVzM3dvWTBtNllRMnRkc0t4WklaL1dlUE1IMnAv?=
+ =?utf-8?B?eWpqTTBCMlFzbjFUeDF1ZjlNTHJoWGY1cGp2aGN1R204cEpDMlhvQjdPVEpK?=
+ =?utf-8?B?VmZmNGFuRDZ4UnBrSWxITEc0V0dwKytSbG1rZFVtZXI5YjhVY1c1bkxuRW9k?=
+ =?utf-8?Q?kh+hLXYI8g7BFQccugYQD9X2JOGgNMkdBAb+T5YUem50?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4f3ea81-86bc-445a-2015-08db843aed64
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2023 07:21:23.0344 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wve3EsJxPY9QhxDRQu8AqIgpLhJ0BJIzQCIvhae3LKpzwnLXsS66u8HfRiIrgOpz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9038
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,117 +126,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
- Linux Regressions <regressions@lists.linux.dev>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Alex Deucher <alexander.deucher@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
- Taketo Kabe <kkabe@vega.pgw.jp>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 14 Jul 2023 09:50:17 +0700
-Bagas Sanjaya <bagasdotme@gmail.com> wrote:
+Am 14.07.23 um 07:35 schrieb shijie001@208suo.com:
+> Fix one occurrence of the checkpatch.pl error:
+> ERROR: "(foo*)" should be "(foo *)"
 
-> Hi,
-> 
-> I notice a regression report on Bugzilla [1]. Quoting from it:
-> 
-> 
-> See Bugzilla for the full thread and attached patches that fixes
-> this regression.
-> 
-> Later, when bisecting, the reporter got better kernel trace:
-> 
-> > [  469.825305] BUG: kernel NULL pointer dereference, address: 00000004
-> > [  469.830502] #PF: supervisor read access in kernel mode
-> > [  469.830502] #PF: error_code(0x0000) - not-present page
-> > [  469.830502] *pde = 00000000
-> > [  469.830502] Oops: 0000 [#1] PREEMPT SMP
-> > [  469.830502] CPU: 0 PID: 365 Comm: systemd-udevd Not tainted 5.14.0-221.el9.v1.i586 #1
+It's nice to see all those little typos fixed, but I'm not sure how 
+feasible it is to send patches for each type individually.
 
-This is a 5.14 kernel right?
+Maybe just merge them together into one patch for the whole radeon code 
+base.
 
-> > [  469.830502] Hardware name: System Manufacturer System Name/ALADDIN5, BIOS 0626 07/15/95
-> > [  469.830502] EIP: _raw_spin_lock_irqsave+0x1f/0x40
-> > [  469.830502] Code: cc cc cc cc cc cc cc 3e cc cc cc 3e 55 89 c1 89 55 89 c1 89 5b fa 64 ff 5b fa 64 ff c2 31 d2 be c2 31 d2 be 89 d0 3e 0f 89 d0 <3e> 0f 89 d8 5b 5e 89 d8 5b 5e 26 00 90 89 26 00 90 89 b7 15 75 ff
-> > [  469.830502] EAX: 00000000 EBX: 00000246 ECX: 00000004 EDX: 00000000
-> > [  469.830502] ESI: 00000001 EDI: c3e71c40 EBP: c3e71c34 ESP: c3e71c2c
-> > [  469.830502] DS: 007b ES: 007b FS: 00d8 GS: 0033 SS: 0068 EFLAGS: 00010046
-> > [  469.830502] CR0: 80050033 CR2: 00000004 CR3: 057fa000 CR4: 00000010
-> > [  469.830502] Call Trace:
-> > [  469.830502]  kthread_flush_worker+0x52/0xa0
-> > [  469.830502]  ? kthread_should_park+0x40/0x40
-> > [  469.830502]  drm_crtc_vblank_off+0x1d7/0x230 [drm]
-> > [  469.830502]  radeon_crtc_dpms+0x197/0x1b0 [radeon]
-> > [  469.830502]  radeon_crtc_disable+0x16/0xa0 [radeon]
-> > [  469.830502]  __drm_helper_disable_unused_functions+0x74/0xc0 [drm_kms_helper]
-> > [  469.830502]  drm_helper_disable_unused_functions+0x3c/0x50 [drm_kms_helper]
-> > [  469.830502]  radeon_fbdev_init+0xb0/0x130 [radeon]
-> > [  469.830502]  radeon_modeset_init+0x25d/0x320 [radeon]
-> > [  469.830502]  radeon_driver_load_kms+0xc4/0x240 [radeon]
-> > [  469.830502]  drm_dev_register+0xb4/0x1a0 [drm]
-> > [  469.830502]  radeon_pci_probe+0xc0/0x100 [radeon]
-> > [  469.830502]  pci_device_probe+0xbc/0x150
-> > [  469.830502]  really_probe+0xb7/0x350
-> > [  469.830502]  __driver_probe_device+0x109/0x1e0
-> > [  469.830502]  driver_probe_device+0x1f/0x90
-> > [  469.830502]  __driver_attach+0x8a/0x1b0
-> > [  469.830502]  ? __device_attach_driver+0x100/0x100
-> > [  469.830502]  bus_for_each_dev+0x58/0x90
-> > [  469.830502]  driver_attach+0x19/0x20
-> > [  469.830502]  ? __device_attach_driver+0x100/0x100
-> > [  469.830502]  bus_add_driver+0x12f/0x1d0
-> > [  469.830502]  driver_register+0x79/0xd0
-> > [  469.830502]  ? 0xf7dde000
-> > [  469.830502]  __pci_register_driver+0x52/0x60
-> > [  469.830502]  radeon_module_init+0x5c/0x1000 [radeon]
-> > [  469.830502]  do_one_initcall+0x3e/0x1c0
-> > [  469.830502]  ? __vunmap+0x20b/0x2a0
-> > [  469.830502]  ? __vunmap+0x20b/0x2a0
-> > [  469.830502]  ? kmem_cache_alloc_trace+0x38/0x440
-> > [  469.830502]  do_init_module+0x52/0x260
-> > [  469.830502]  load_module+0x930/0x9b0
-> > [  469.830502]  __ia32_sys_init_module+0x15d/0x180
-> > [  469.830502]  do_int80_syscall_32+0x2e/0x80
-> > [  469.830502]  entry_INT80_32+0xf0/0xf0
-> > [  469.830502] EIP: 0xb79e7e4e
-> > [  469.830502] Code: 0f 83 d6 06 00 00 c3 66 90 66 90 90 57 56 53 8b 7c 24 20 8b 74 24 1c 8b 54 24 18 8b 4c 24 14 8b 5c 24 10 b8 80 00 00 00 cd 80 <5b> 5e 5f 3d 01 f0 ff ff 0f 83 a4 06 00 00 c3 66 90 90 53 8b 54 24
-> > [  469.830502] EAX: ffffffda EBX: b5526010 ECX: 0020d79c EDX: b7c26274
-> > [  469.830502] ESI: b7c20295 EDI: b7c2ddd8 EBP: 018af7c0 ESP: bfd2f810
-> > [  469.830502] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 007b EFLAGS: 00000292
-> > [  469.830502] Modules linked in: nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib radeon(+) nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 gpu_sched drm_buddy i2c_algo_bit drm_display_helper cec drm_ttm_helper ppdev ttm rfkill ip_set nf_tables libcrc32c nfnetlink drm_kms_helper pcspkr syscopyarea e100 sysfillrect parport_pc sysimgblt mii fb_sys_fops parport qrtr drm fuse ext4 mbcache jbd2 sd_mod t10_pi sr_mod crc64_rocksoft_generic cdrom crc64_rocksoft crc64 sg ata_generic pata_ali libata serio_raw
-> > [  469.830502] CR2: 0000000000000004
-> > [  469.830502] ---[ end trace 30555bd5ee4bee23 ]---
-> > [  469.830502] EIP: _raw_spin_lock_irqsave+0x1f/0x40
-> > [  469.830502] Code: cc cc cc cc cc cc cc 3e cc cc cc 3e 55 89 c1 89 55 89 c1 89 5b fa 64 ff 5b fa 64 ff c2 31 d2 be c2 31 d2 be 89 d0 3e 0f 89 d0 <3e> 0f 89 d8 5b 5e 89 d8 5b 5e 26 00 90 89 26 00 90 89 b7 15 75 ff
-> > [  469.830502] EAX: 00000000 EBX: 00000246 ECX: 00000004 EDX: 00000000
-> > [  469.830502] ESI: 00000001 EDI: c3e71c40 EBP: c3e71c34 ESP: c3e71c2c
-> > [  469.830502] DS: 007b ES: 007b FS: 00d8 GS: 0033 SS: 0068 EFLAGS: 00010046
-> > [  469.830502] CR0: 80050033 CR2: 00000004 CR3: 057fa000 CR4: 00000010
-> > [  469.830502] Kernel panic - not syncing: Fatal exception
-> > [  469.830502] Kernel Offset: disabled
-> > [  469.830502] ---[ end Kernel panic - not syncing: Fatal exception ]---  
-> 
-> Anyway, I'm adding it to regzbot to ensure it doesn't fall through cracks
-> unnoticed:
-> 
-> #regzbot introduced: b39181f7c6907d https://bugzilla.kernel.org/show_bug.cgi?id=217669
-> #regzbot title: FTRACE_MCOUNT_MAX_OFFSET causes kernel NULL pointer dereference and virtual console (tty1) freeze
+Additional to that I'm pretty sure that most of that stuff is already 
+fixed, so what base do you use for this?
 
-That commit was added in 5.19.
+Regards,
+Christian.
 
-So I'm confused about why it's mentioned. Was it backported?
-
--- Steve
-
-> #regzbot link: https://gitlab.freedesktop.org/drm/amd/-/issues/2615
-> 
-> Thanks.
-> 
-> [1]: https://bugzilla.kernel.org/show_bug.cgi?id=217669
-> 
+>
+> Signed-off-by: Jie Shi <shijie001@208suo.com>
+> ---
+>  drivers/gpu/drm/radeon/uvd_v1_0.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/uvd_v1_0.c 
+> b/drivers/gpu/drm/radeon/uvd_v1_0.c
+> index 58557c2263a7..5684639d20a6 100644
+> --- a/drivers/gpu/drm/radeon/uvd_v1_0.c
+> +++ b/drivers/gpu/drm/radeon/uvd_v1_0.c
+> @@ -142,7 +142,7 @@ int uvd_v1_0_resume(struct radeon_device *rdev)
+>      addr = (rdev->uvd.gpu_addr >> 32) & 0xFF;
+>      WREG32(UVD_LMI_EXT40_ADDR, addr | (0x9 << 16) | (0x1 << 31));
+>
+> -    WREG32(UVD_FW_START, *((uint32_t*)rdev->uvd.cpu_addr));
+> +    WREG32(UVD_FW_START, *((uint32_t *)rdev->uvd.cpu_addr));
+>
+>      return 0;
+>  }
 
