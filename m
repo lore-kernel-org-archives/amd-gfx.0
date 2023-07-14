@@ -4,70 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB260EB64DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 07:50:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22FAFEB64DC
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 07:52:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BAB410E7FD;
-	Fri, 14 Jul 2023 07:50:26 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5248210E7FD;
- Fri, 14 Jul 2023 07:50:25 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-9928abc11deso213646266b.1; 
- Fri, 14 Jul 2023 00:50:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689321023; x=1691913023;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=WS0uRbknENSFdhFyzOpTBxGUHhSmQi3/u5sdc2+cv28=;
- b=MT3RHzYfatlsktEfUwhZ4T41uHOlJSAajosy8POWYmo98w03os4GfagCgRREa7BoC9
- fOrX04cWgfF2dG+S82LR8SjlthNpsk1GCKfidm8Wy94xWWesDePrx6UyqlcETZwAZkK3
- 3IOLbLgNu7oGHbVBlZW0XizZCqCqwb1x/zLlebjSPLLu/McfGZzcUnMrcD3XKT9H7opS
- aP5hzkxQDYjPdCFij4pW1G2QfrozQwoN/0rDOyyAZYZWhKo0aGye4pBkg7Zk1e0ImmiB
- kVpMJnYrqElJietXYC4/HR5rTIfRJLf81Pd7yhFR+uwuV3+C30VdQvABzrp2Y9ARHsz3
- T9QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689321023; x=1691913023;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WS0uRbknENSFdhFyzOpTBxGUHhSmQi3/u5sdc2+cv28=;
- b=P6PbgBLO0xi+Izq27xvgE9MHRpLTCjmc9St+GT86OODwGS8VBOu5fqcdMlTPaTIaTc
- Z/HVh4xYPvBlXyboMjR7nvp3fERdilIA0nSBzVuwZ5wfQ5B/SOmYq2q6uQ06GegIVAl0
- VP5F23xVw/KrhCQiLXDq5FVVtXHkXSFWGqea37fZ85cpo+cj0rOdXTwNtDzlCHBMXulz
- OsK897LmLX0Tj/yKNHkw3pEVLRZlIv274wt8DlnTvkEIHb31x6wIDHtGpfts793ypjQ6
- /odTDsYaFAfLvq3MKBNWyfHv3NM6dj6f+FdoPSLO+WVLzrJ+DoCwIgPnPLXMxuCCkoXL
- TlOg==
-X-Gm-Message-State: ABy/qLYodu5WTI+yM3PhrnD+oEhfP4tfwt/3Czsb7nzzFilrv7YOoZF4
- 20b1zAT9FZCq6nl1IA3SrPY=
-X-Google-Smtp-Source: APBJJlGyf2JY/FhxaHjGybcshfi+GT0jf0yTIK77WHTzLdrH8owNW5XBn7XuYbFFeBUVUbLKK8JQjQ==
-X-Received: by 2002:a17:906:1009:b0:994:5340:22f4 with SMTP id
- 9-20020a170906100900b00994534022f4mr391867ejm.6.1689321023278; 
- Fri, 14 Jul 2023 00:50:23 -0700 (PDT)
-Received: from ?IPV6:2a00:e180:156e:8700:817e:6375:6a13:2da9?
- ([2a00:e180:156e:8700:817e:6375:6a13:2da9])
- by smtp.gmail.com with ESMTPSA id
- lc16-20020a170906f91000b0096f6a131b9fsm5041020ejb.23.2023.07.14.00.50.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Jul 2023 00:50:22 -0700 (PDT)
-Message-ID: <f5c72c41-5d36-710c-72a8-c06260a2df41@gmail.com>
-Date: Fri, 14 Jul 2023 09:50:21 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6F8810E802;
+	Fri, 14 Jul 2023 07:51:59 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C5AF10E801;
+ Fri, 14 Jul 2023 07:51:58 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0EE061F8D5;
+ Fri, 14 Jul 2023 07:51:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1689321117; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=HUxd2I1CvpKA4+clhziKfHP/fuVnOLROIjy/7JR+efc=;
+ b=d1pCTqnt4+bbACtUdUQXwvyCo6rRm/tyq1s7729TZGQtBcgqvLcXaKfxPhrtubpnXV0Jab
+ D2nOC2ARWyuiH++ZvdtA8cr/6Nc926wvES2TtK4nJW+jD2d9Jg0d+CGJZTkMDUTa6Qnv1P
+ 5/FFDhaO5ltU0xElyCs8B/uG+y3suOo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1689321117;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=HUxd2I1CvpKA4+clhziKfHP/fuVnOLROIjy/7JR+efc=;
+ b=UuffdXMhSPcyhA5XIonKDe7ip0VnmwttBNaPU0lptWk6vSmgwoAgRKHCqEtfQG0L/KuVnL
+ yg2bRadbQrN4lxCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A9B0F13A15;
+ Fri, 14 Jul 2023 07:51:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id X4d2KJz+sGQCQwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Fri, 14 Jul 2023 07:51:56 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: deller@gmx.de,
+	javierm@redhat.com
+Subject: [PATCH v3 00/18] fbdev: Remove FBINFO_DEFAULT and FBINFO_FLAG_DEFAULT
+ flags
+Date: Fri, 14 Jul 2023 09:49:26 +0200
+Message-ID: <20230714075155.5686-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v2 3/6] drm/amdgpu: Rework coredump to use memory
- dynamically
-Content-Language: en-US
-To: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20230713213242.680944-1-andrealmeid@igalia.com>
- <20230713213242.680944-4-andrealmeid@igalia.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230713213242.680944-4-andrealmeid@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,183 +65,187 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
- michel.daenzer@mailbox.org,
- =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>, kernel-dev@igalia.com,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, alexander.deucher@amd.com,
- christian.koenig@amd.com
+Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-geode@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-input@vger.kernel.org, linux-nvidia@lists.surfsouth.com,
+ linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.07.23 um 23:32 schrieb André Almeida:
-> Instead of storing coredump information inside amdgpu_device struct,
-> move if to a proper separated struct and allocate it dynamically. This
-> will make it easier to further expand the logged information.
->
-> Signed-off-by: André Almeida <andrealmeid@igalia.com>
-> ---
-> v2: Replace GFP_KERNEL with GPF_NOWAIT
+Remove the unused flags FBINFO_DEFAULT and FBINFO_FLAG_DEFAULT from
+fbdev and drivers, as briefly discussed at [1]. Both flags were maybe
+useful when fbdev had special handling for driver modules. With
+commit 376b3ff54c9a ("fbdev: Nuke FBINFO_MODULE"), they are both 0
+and have no further effect.
 
-Much better, thanks!
+Patches 1 to 7 remove FBINFO_DEFAULT from drivers. Patches 2 to 5
+split this by the way the fb_info struct is being allocated. All flags
+are cleared to zero during the allocation.
 
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 14 +++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 65 ++++++++++++++--------
->   2 files changed, 51 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index dbe062a087c5..e1cc83a89d46 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1068,11 +1068,6 @@ struct amdgpu_device {
->   	uint32_t                        *reset_dump_reg_list;
->   	uint32_t			*reset_dump_reg_value;
->   	int                             num_regs;
-> -#ifdef CONFIG_DEV_COREDUMP
-> -	struct amdgpu_task_info         reset_task_info;
-> -	bool                            reset_vram_lost;
-> -	struct timespec64               reset_time;
-> -#endif
->   
->   	bool                            scpm_enabled;
->   	uint32_t                        scpm_status;
-> @@ -1085,6 +1080,15 @@ struct amdgpu_device {
->   	uint32_t			aid_mask;
->   };
->   
-> +#ifdef CONFIG_DEV_COREDUMP
-> +struct amdgpu_coredump_info {
-> +	struct amdgpu_device		*adev;
-> +	struct amdgpu_task_info         reset_task_info;
-> +	struct timespec64               reset_time;
-> +	bool                            reset_vram_lost;
-> +};
-> +#endif
-> +
+Patches 8 to 16 do the same for FBINFO_FLAG_DEFAULT. Patch 8 fixes
+an actual bug in how arch/sh uses the token for struct fb_videomode,
+which is unrelated.
 
-We should probably put that into amdgpu_reset.h instead and move the 
-amdgpu_coredump_* functions into amdgpu_reset.c as well.
+Patch 17 removes both flag constants from <linux/fb.h> and patch 18
+documents the zero'ed memory returned by framebuffer_alloc().
 
-Apart from that this looks good of hand.
+v3:
+	* sh: include board name in commit message (Adrian)
+	* docs: reword text (Miguel)
+v2:
+	* sh: use FB_MODE_IS_UNKNOWN (Adrian)
+	* fix commit messages (Miguel)
+	* document framebuffer_alloc()'s zero'ed memory (Miguel)
 
-Thanks,
-Christian.
+[1] https://lore.kernel.org/dri-devel/877crer8fm.fsf@minerva.mail-host-address-is-not-set/
 
->   static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
->   {
->   	return container_of(ddev, struct amdgpu_device, ddev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index a824f844a984..e80670420586 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4963,12 +4963,17 @@ static int amdgpu_reset_reg_dumps(struct amdgpu_device *adev)
->   	return 0;
->   }
->   
-> -#ifdef CONFIG_DEV_COREDUMP
-> +#ifndef CONFIG_DEV_COREDUMP
-> +static void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
-> +			    struct amdgpu_reset_context *reset_context)
-> +{
-> +}
-> +#else
->   static ssize_t amdgpu_devcoredump_read(char *buffer, loff_t offset,
->   		size_t count, void *data, size_t datalen)
->   {
->   	struct drm_printer p;
-> -	struct amdgpu_device *adev = data;
-> +	struct amdgpu_coredump_info *coredump = data;
->   	struct drm_print_iterator iter;
->   	int i;
->   
-> @@ -4982,21 +4987,21 @@ static ssize_t amdgpu_devcoredump_read(char *buffer, loff_t offset,
->   	drm_printf(&p, "**** AMDGPU Device Coredump ****\n");
->   	drm_printf(&p, "kernel: " UTS_RELEASE "\n");
->   	drm_printf(&p, "module: " KBUILD_MODNAME "\n");
-> -	drm_printf(&p, "time: %lld.%09ld\n", adev->reset_time.tv_sec, adev->reset_time.tv_nsec);
-> -	if (adev->reset_task_info.pid)
-> +	drm_printf(&p, "time: %lld.%09ld\n", coredump->reset_time.tv_sec, coredump->reset_time.tv_nsec);
-> +	if (coredump->reset_task_info.pid)
->   		drm_printf(&p, "process_name: %s PID: %d\n",
-> -			   adev->reset_task_info.process_name,
-> -			   adev->reset_task_info.pid);
-> +			   coredump->reset_task_info.process_name,
-> +			   coredump->reset_task_info.pid);
->   
-> -	if (adev->reset_vram_lost)
-> +	if (coredump->reset_vram_lost)
->   		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
-> -	if (adev->num_regs) {
-> +	if (coredump->adev->num_regs) {
->   		drm_printf(&p, "AMDGPU register dumps:\nOffset:     Value:\n");
->   
-> -		for (i = 0; i < adev->num_regs; i++)
-> +		for (i = 0; i < coredump->adev->num_regs; i++)
->   			drm_printf(&p, "0x%08x: 0x%08x\n",
-> -				   adev->reset_dump_reg_list[i],
-> -				   adev->reset_dump_reg_value[i]);
-> +				   coredump->adev->reset_dump_reg_list[i],
-> +				   coredump->adev->reset_dump_reg_value[i]);
->   	}
->   
->   	return count - iter.remain;
-> @@ -5004,14 +5009,34 @@ static ssize_t amdgpu_devcoredump_read(char *buffer, loff_t offset,
->   
->   static void amdgpu_devcoredump_free(void *data)
->   {
-> +	kfree(data);
->   }
->   
-> -static void amdgpu_reset_capture_coredumpm(struct amdgpu_device *adev)
-> +static void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
-> +			    struct amdgpu_reset_context *reset_context)
->   {
-> +	struct amdgpu_coredump_info *coredump;
->   	struct drm_device *dev = adev_to_drm(adev);
->   
-> -	ktime_get_ts64(&adev->reset_time);
-> -	dev_coredumpm(dev->dev, THIS_MODULE, adev, 0, GFP_NOWAIT,
-> +	coredump = kmalloc(sizeof(*coredump), GFP_NOWAIT);
-> +
-> +	if (!coredump) {
-> +		DRM_ERROR("%s: failed to allocate memory for coredump\n", __func__);
-> +		return;
-> +	}
-> +
-> +	memset(coredump, 0, sizeof(*coredump));
-> +
-> +	coredump->reset_vram_lost = vram_lost;
-> +
-> +	if (reset_context->job && reset_context->job->vm)
-> +		coredump->reset_task_info = reset_context->job->vm->task_info;
-> +
-> +	coredump->adev = adev;
-> +
-> +	ktime_get_ts64(&coredump->reset_time);
-> +
-> +	dev_coredumpm(dev->dev, THIS_MODULE, coredump, 0, GFP_NOWAIT,
->   		      amdgpu_devcoredump_read, amdgpu_devcoredump_free);
->   }
->   #endif
-> @@ -5119,15 +5144,9 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
->   					goto out;
->   
->   				vram_lost = amdgpu_device_check_vram_lost(tmp_adev);
-> -#ifdef CONFIG_DEV_COREDUMP
-> -				tmp_adev->reset_vram_lost = vram_lost;
-> -				memset(&tmp_adev->reset_task_info, 0,
-> -						sizeof(tmp_adev->reset_task_info));
-> -				if (reset_context->job && reset_context->job->vm)
-> -					tmp_adev->reset_task_info =
-> -						reset_context->job->vm->task_info;
-> -				amdgpu_reset_capture_coredumpm(tmp_adev);
-> -#endif
-> +
-> +				amdgpu_coredump(tmp_adev, vram_lost, reset_context);
-> +
->   				if (vram_lost) {
->   					DRM_INFO("VRAM is lost due to GPU reset!\n");
->   					amdgpu_inc_vram_lost(tmp_adev);
+Thomas Zimmermann (18):
+  drm: Remove flag FBINFO_DEFAULT from fbdev emulation
+  fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
+  fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
+  fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
+  fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
+  fbdev/fsl-diu-fb: Remove flag FBINFO_DEFAULT
+  vfio-mdev: Remove flag FBINFO_DEFAULT from fbdev sample driver
+  sh: mach-sh7763rdp: Assign FB_MODE_IS_UNKNOWN to struct
+    fb_videomode.flag
+  auxdisplay: Remove flag FBINFO_FLAG_DEFAULT from fbdev drivers
+  hid/picolcd: Remove flag FBINFO_FLAG_DEFAULT from fbdev driver
+  media: Remove flag FBINFO_FLAG_DEFAULT from fbdev drivers
+  staging: Remove flag FBINFO_FLAG_DEFAULT from fbdev drivers
+  fbdev: Remove flag FBINFO_FLAG_DEFAULT from fbdev drivers
+  fbdev: Remove flag FBINFO_FLAG_DEFAULT from fbdev drivers
+  fbdev/atafb: Remove flag FBINFO_FLAG_DEFAULT
+  fbdev/pxafb: Remove flag FBINFO_FLAG_DEFAULT
+  fbdev: Remove FBINFO_DEFAULT and FBINFO_FLAG_DEFAULT
+  fbdev: Document that framebuffer_alloc() returns zero'ed data
+
+ arch/sh/boards/mach-sh7763rdp/setup.c          | 2 +-
+ drivers/auxdisplay/cfag12864bfb.c              | 1 -
+ drivers/auxdisplay/ht16k33.c                   | 1 -
+ drivers/gpu/drm/drm_fbdev_dma.c                | 1 -
+ drivers/gpu/drm/drm_fbdev_generic.c            | 1 -
+ drivers/gpu/drm/gma500/fbdev.c                 | 2 +-
+ drivers/gpu/drm/radeon/radeon_fbdev.c          | 2 +-
+ drivers/hid/hid-picolcd_fb.c                   | 1 -
+ drivers/media/pci/ivtv/ivtvfb.c                | 1 -
+ drivers/media/test-drivers/vivid/vivid-osd.c   | 1 -
+ drivers/staging/fbtft/fbtft-core.c             | 2 +-
+ drivers/staging/sm750fb/sm750.c                | 1 -
+ drivers/video/fbdev/68328fb.c                  | 2 +-
+ drivers/video/fbdev/acornfb.c                  | 2 +-
+ drivers/video/fbdev/amba-clcd.c                | 1 -
+ drivers/video/fbdev/amifb.c                    | 5 ++---
+ drivers/video/fbdev/arcfb.c                    | 1 -
+ drivers/video/fbdev/asiliantfb.c               | 1 -
+ drivers/video/fbdev/atafb.c                    | 1 -
+ drivers/video/fbdev/atmel_lcdfb.c              | 2 +-
+ drivers/video/fbdev/aty/aty128fb.c             | 1 -
+ drivers/video/fbdev/aty/atyfb_base.c           | 3 +--
+ drivers/video/fbdev/aty/radeon_base.c          | 3 +--
+ drivers/video/fbdev/broadsheetfb.c             | 2 +-
+ drivers/video/fbdev/bw2.c                      | 1 -
+ drivers/video/fbdev/carminefb.c                | 1 -
+ drivers/video/fbdev/cg14.c                     | 2 +-
+ drivers/video/fbdev/cg3.c                      | 1 -
+ drivers/video/fbdev/cg6.c                      | 2 +-
+ drivers/video/fbdev/chipsfb.c                  | 1 -
+ drivers/video/fbdev/cirrusfb.c                 | 3 +--
+ drivers/video/fbdev/clps711x-fb.c              | 1 -
+ drivers/video/fbdev/cobalt_lcdfb.c             | 1 -
+ drivers/video/fbdev/controlfb.c                | 2 +-
+ drivers/video/fbdev/core/fb_info.c             | 3 ++-
+ drivers/video/fbdev/cyber2000fb.c              | 2 +-
+ drivers/video/fbdev/da8xx-fb.c                 | 1 -
+ drivers/video/fbdev/efifb.c                    | 1 -
+ drivers/video/fbdev/ep93xx-fb.c                | 1 -
+ drivers/video/fbdev/ffb.c                      | 3 +--
+ drivers/video/fbdev/fm2fb.c                    | 1 -
+ drivers/video/fbdev/fsl-diu-fb.c               | 2 +-
+ drivers/video/fbdev/g364fb.c                   | 2 +-
+ drivers/video/fbdev/gbefb.c                    | 1 -
+ drivers/video/fbdev/geode/gx1fb_core.c         | 1 -
+ drivers/video/fbdev/geode/gxfb_core.c          | 1 -
+ drivers/video/fbdev/geode/lxfb_core.c          | 1 -
+ drivers/video/fbdev/goldfishfb.c               | 1 -
+ drivers/video/fbdev/grvga.c                    | 2 +-
+ drivers/video/fbdev/gxt4500.c                  | 3 +--
+ drivers/video/fbdev/hecubafb.c                 | 2 +-
+ drivers/video/fbdev/hgafb.c                    | 2 +-
+ drivers/video/fbdev/hitfb.c                    | 2 +-
+ drivers/video/fbdev/hpfb.c                     | 1 -
+ drivers/video/fbdev/hyperv_fb.c                | 2 --
+ drivers/video/fbdev/i740fb.c                   | 2 +-
+ drivers/video/fbdev/i810/i810_main.c           | 4 ++--
+ drivers/video/fbdev/imsttfb.c                  | 3 +--
+ drivers/video/fbdev/imxfb.c                    | 3 +--
+ drivers/video/fbdev/intelfb/intelfbdrv.c       | 5 ++---
+ drivers/video/fbdev/kyro/fbdev.c               | 1 -
+ drivers/video/fbdev/leo.c                      | 1 -
+ drivers/video/fbdev/macfb.c                    | 1 -
+ drivers/video/fbdev/matrox/matroxfb_crtc2.c    | 5 ++---
+ drivers/video/fbdev/maxinefb.c                 | 1 -
+ drivers/video/fbdev/mb862xx/mb862xxfbdrv.c     | 2 +-
+ drivers/video/fbdev/metronomefb.c              | 2 +-
+ drivers/video/fbdev/mmp/fb/mmpfb.c             | 2 +-
+ drivers/video/fbdev/mx3fb.c                    | 1 -
+ drivers/video/fbdev/neofb.c                    | 2 +-
+ drivers/video/fbdev/nvidia/nvidia.c            | 4 ++--
+ drivers/video/fbdev/offb.c                     | 2 +-
+ drivers/video/fbdev/omap/omapfb_main.c         | 1 -
+ drivers/video/fbdev/omap2/omapfb/omapfb-main.c | 1 -
+ drivers/video/fbdev/p9100.c                    | 1 -
+ drivers/video/fbdev/platinumfb.c               | 1 -
+ drivers/video/fbdev/pm2fb.c                    | 3 +--
+ drivers/video/fbdev/pm3fb.c                    | 3 +--
+ drivers/video/fbdev/pmag-aa-fb.c               | 1 -
+ drivers/video/fbdev/pmag-ba-fb.c               | 1 -
+ drivers/video/fbdev/pmagb-b-fb.c               | 1 -
+ drivers/video/fbdev/ps3fb.c                    | 2 +-
+ drivers/video/fbdev/pvr2fb.c                   | 2 +-
+ drivers/video/fbdev/pxa168fb.c                 | 2 +-
+ drivers/video/fbdev/pxafb.c                    | 2 --
+ drivers/video/fbdev/q40fb.c                    | 1 -
+ drivers/video/fbdev/riva/fbdev.c               | 3 +--
+ drivers/video/fbdev/s1d13xxxfb.c               | 4 ++--
+ drivers/video/fbdev/s3c-fb.c                   | 1 -
+ drivers/video/fbdev/sa1100fb.c                 | 1 -
+ drivers/video/fbdev/savage/savagefb_driver.c   | 3 +--
+ drivers/video/fbdev/sh_mobile_lcdcfb.c         | 2 --
+ drivers/video/fbdev/simplefb.c                 | 1 -
+ drivers/video/fbdev/sis/sis_main.c             | 5 +----
+ drivers/video/fbdev/skeletonfb.c               | 2 +-
+ drivers/video/fbdev/sm501fb.c                  | 2 +-
+ drivers/video/fbdev/sm712fb.c                  | 1 -
+ drivers/video/fbdev/smscufx.c                  | 2 +-
+ drivers/video/fbdev/sstfb.c                    | 1 -
+ drivers/video/fbdev/sunxvr1000.c               | 1 -
+ drivers/video/fbdev/sunxvr2500.c               | 1 -
+ drivers/video/fbdev/sunxvr500.c                | 1 -
+ drivers/video/fbdev/tcx.c                      | 1 -
+ drivers/video/fbdev/tdfxfb.c                   | 2 +-
+ drivers/video/fbdev/tgafb.c                    | 2 +-
+ drivers/video/fbdev/tridentfb.c                | 2 +-
+ drivers/video/fbdev/udlfb.c                    | 2 +-
+ drivers/video/fbdev/uvesafb.c                  | 3 +--
+ drivers/video/fbdev/valkyriefb.c               | 1 -
+ drivers/video/fbdev/vermilion/vermilion.c      | 2 +-
+ drivers/video/fbdev/vesafb.c                   | 2 +-
+ drivers/video/fbdev/vfb.c                      | 1 -
+ drivers/video/fbdev/vga16fb.c                  | 2 +-
+ drivers/video/fbdev/via/viafbdev.c             | 2 +-
+ drivers/video/fbdev/vt8500lcdfb.c              | 3 +--
+ drivers/video/fbdev/wm8505fb.c                 | 3 +--
+ drivers/video/fbdev/xen-fbfront.c              | 2 +-
+ drivers/video/fbdev/xilinxfb.c                 | 1 -
+ include/linux/fb.h                             | 3 ---
+ samples/vfio-mdev/mdpy-fb.c                    | 1 -
+ 120 files changed, 68 insertions(+), 151 deletions(-)
+
+-- 
+2.41.0
 
