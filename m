@@ -4,59 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20DECEB64DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 13:08:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D026EB64DC
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 13:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C027610E100;
-	Fri, 14 Jul 2023 13:08:10 +0000 (UTC)
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
- [209.85.160.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACB4510E852;
- Fri, 14 Jul 2023 10:04:20 +0000 (UTC)
-Received: by mail-oa1-f48.google.com with SMTP id
- 586e51a60fabf-1b3c503af99so1356077fac.0; 
- Fri, 14 Jul 2023 03:04:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689329059; x=1691921059;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cbFWyufa2I/dKrp5bYUBMB1ESShCcC04UZ0ziSB/4oc=;
- b=hKbnxzGdJObd50DkJBBchmjGNTVzmfFnJgu35PLS0Fgu2/dxb9yU+bOGXsh/auqch1
- 9JFvm+rCQLOI3U5sO9kNnPuKskOe37GtrzYZtiKlDdsQygRxryZMPhFCfpGbqWFRqIx/
- h5mVyb/CKEuxnpjCZLOQJrx1bGa2TQgKMcx6vksu/3ipy84vAzYJ1uUnk5BnTo20sbux
- RJRYPNC4Wts1S0M7RwvXlHZts0fTtiehTi5/hEr2kpLBz/y0eY78rNBOYb//beFaQzCm
- IA4Sv9eW6rbPcEhy/IALXbWzGju2dXxS4e/AIVfZM7V+5tKBhSFtqNiEwNtebJAUWpTc
- 3tYA==
-X-Gm-Message-State: ABy/qLZmQR67uHVFa6XLU02S73GxyXF1mK08kBfvsM5/Iqq7EKT+g7Sg
- ATroBAJiwpYHdQ/hkLfzfC+YZyM/EFRFPA==
-X-Google-Smtp-Source: APBJJlHF7Q7bUOWyzUiE+yZ8LEvZy8rXLRCdQUaj/8Xrd69NWvokzje7pPuW8z3iSEarQ+wQPJs+9g==
-X-Received: by 2002:aca:f1d6:0:b0:3a3:6f96:f15f with SMTP id
- p205-20020acaf1d6000000b003a36f96f15fmr3827307oih.15.1689329059192; 
- Fri, 14 Jul 2023 03:04:19 -0700 (PDT)
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com.
- [209.85.210.52]) by smtp.gmail.com with ESMTPSA id
- k2-20020a544702000000b003a422b6ff4csm2840587oik.49.2023.07.14.03.04.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Jul 2023 03:04:18 -0700 (PDT)
-Received: by mail-ot1-f52.google.com with SMTP id
- 46e09a7af769-6b9b89627c3so529055a34.1; 
- Fri, 14 Jul 2023 03:04:18 -0700 (PDT)
-X-Received: by 2002:a05:6358:591d:b0:135:43da:b16d with SMTP id
- g29-20020a056358591d00b0013543dab16dmr4868202rwf.11.1689329058168; Fri, 14
- Jul 2023 03:04:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A22F10E19D;
+	Fri, 14 Jul 2023 13:08:11 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6684E10E87B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 12:20:44 +0000 (UTC)
+Received: from localhost (unknown
+ [IPv6:2a0c:5a83:9100:a000:f3b4:c45b:fd64:e7b9])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested) (Authenticated sender: rcn)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 7574E6605954;
+ Fri, 14 Jul 2023 13:20:41 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1689337241;
+ bh=/QK1CvoIj4sPYbE24wl2osdOcD4Lks2qAy78j0SBdy4=;
+ h=From:To:Cc:Subject:References:In-reply-to:Date:From;
+ b=KI+v8ICaXYe0qBHunUu7ifXsoZFh1r1SckVzT9hMQMwjecy5kF+NRZAAbS9gav9y/
+ SCbi8kn9r/2R+/4Nc1wjt6JANiMyAPLZgZy7XOu20jzoCeZ8wl59PvmfU6YevsO3SX
+ ofYQUvoaGD68Qz1iUEkO1pUHV3petdAOlvQKBcVR5vLwDYTwwewTAmEdH7YjUdmIHd
+ ZYoG/MHdayycywJpSlPyA74BCC17CNdrcYHjd+jRMiSOy2By4PizahiOktBb9xo/k2
+ xIWtuP1b2++ufZgcQnS5yOHfFvKwQvRMnCnhCpFl8Fxkro45hbT7oFk3MI/g2DbHha
+ 1pkEmWD0Xss8g==
+From: Ricardo =?utf-8?Q?Ca=C3=B1uelo?= <ricardo.canuelo@collabora.com>
+To: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: replace 1-element arrays with flexible arrays
+References: <20230712083137.1080883-1-ricardo.canuelo@collabora.com>
+ <CADnq5_OUS=JDfCdrCsuzTB0xD5yeX7piEDEqkRO-ffPTFVYs3g@mail.gmail.com>
+ <ZLEmDBfklhfGCLGa@mail.google.com>
+In-reply-to: <ZLEmDBfklhfGCLGa@mail.google.com>
+Date: Fri, 14 Jul 2023 14:20:38 +0200
+Message-ID: <87ilamit0p.fsf@rcn-XPS-13-9305.i-did-not-set--mail-host-address--so-tickle-me>
 MIME-Version: 1.0
-References: <20230714075155.5686-1-tzimmermann@suse.de>
-In-Reply-To: <20230714075155.5686-1-tzimmermann@suse.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 14 Jul 2023 12:04:03 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWoeyJPAgPgFi545SJFcaVCgZi1-zW2N5cBeU9BnHgo1w@mail.gmail.com>
-Message-ID: <CAMuHMdWoeyJPAgPgFi545SJFcaVCgZi1-zW2N5cBeU9BnHgo1w@mail.gmail.com>
-Subject: Re: [PATCH v3 00/18] fbdev: Remove FBINFO_DEFAULT and
- FBINFO_FLAG_DEFAULT flags
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-Mailman-Approved-At: Fri, 14 Jul 2023 13:08:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,68 +54,24 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org, deller@gmx.de,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, javierm@redhat.com,
- dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
- linux-nvidia@lists.surfsouth.com, linux-omap@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-geode@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, alexander.deucher@amd.com,
+ kernel@collabora.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+Hi Paulo,
 
-On Fri, Jul 14, 2023 at 9:53=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
-.de> wrote:
-> Remove the unused flags FBINFO_DEFAULT and FBINFO_FLAG_DEFAULT from
-> fbdev and drivers, as briefly discussed at [1]. Both flags were maybe
-> useful when fbdev had special handling for driver modules. With
-> commit 376b3ff54c9a ("fbdev: Nuke FBINFO_MODULE"), they are both 0
-> and have no further effect.
->
-> Patches 1 to 7 remove FBINFO_DEFAULT from drivers. Patches 2 to 5
-> split this by the way the fb_info struct is being allocated. All flags
-> are cleared to zero during the allocation.
->
-> Patches 8 to 16 do the same for FBINFO_FLAG_DEFAULT. Patch 8 fixes
-> an actual bug in how arch/sh uses the token for struct fb_videomode,
-> which is unrelated.
->
-> Patch 17 removes both flag constants from <linux/fb.h> and patch 18
-> documents the zero'ed memory returned by framebuffer_alloc().
->
-> v3:
->         * sh: include board name in commit message (Adrian)
->         * docs: reword text (Miguel)
+> I didn't review all struct changes but I reckon that you got the train
+> of thought to be followed by now. Please count on me for reviewing those
+> changes :-)
 
-Thanks for the update!
+Thanks for reviewing the patch. It turned out that making these changes
+properly isn't so trivial as I thought and I'll need to spend more time
+working on it. Unfortunately I can't right now and I'll be away next
+week. Since this isn't really urgent I guess I can keep working on it
+after I come back. I'll take your suggestions into consideration for v2.
 
->   fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
->   fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
->   fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
->   fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
-
-Four patches with the exact same one-line summary. Please make them
-unique.
-
->   fbdev: Remove flag FBINFO_FLAG_DEFAULT from fbdev drivers
->   fbdev: Remove flag FBINFO_FLAG_DEFAULT from fbdev drivers
-
-Two patches with the exact same one-line summary. Please make them
-unique.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+Cheers,
+Ricardo
