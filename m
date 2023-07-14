@@ -4,64 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44CFBEB64DA
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 13:08:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B9FEC001B0
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 13:08:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA8410E898;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6632E10E8A3;
 	Fri, 14 Jul 2023 13:08:02 +0000 (UTC)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [IPv6:2a00:1450:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D5CE10E862
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 10:29:55 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-3fbc54cab6fso16171305e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 03:29:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689330592; x=1691922592;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Mh5IM3hcbkTlsZ0QohBnPm9+/WljTdptQDAe3KRHGao=;
- b=O5ufoN9bQiWKXDmCStIX+Io10WRu2B69Deqb5KVzrXV2sqgY9JCnNvyATagBuE+ark
- IS32r2PfYWd5XlLUlJoSJAAAXm5+hxTEjMb0ZCe5fK3NGofpUv7OKY9G8Xf6nBs65XhV
- mN24wwtq2SFoDgOh1XzRQP48JVgtE3qQg6DtMC8WgMhj9t2D3law3WPvQE1ujYDEF2HF
- HQ2Wfv1wVIeu2S+ZqWDReHbCASDvhIqXVdLZ+6qiMuNgb/mQI71489JITRwjOarUlIKd
- T4bv/caHqvEm2PmjsCWaoXFBLjd4pTJ0r4FnJChubfG5R2bSvz1FrPJ8nXiDNobJSVlf
- ylLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689330592; x=1691922592;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Mh5IM3hcbkTlsZ0QohBnPm9+/WljTdptQDAe3KRHGao=;
- b=cxn1D0kQPIUeYwsZGkWaaL9KH28MdRmRMGWTq02k1WetF08TDNHPUeU5QLP2A1pDoF
- gv3YDGneBFcB6RN8KHxe1eF3G1eGTUAsycIL0X46+M1uR3WTzOD0DCBwwelUrLCw8x64
- jTxXWoes2phRBzLwcFaJw8sdVl1PeBEFzqyA4p2zYn6qAFmiEHUpUpQ3PrUANCyMH1O8
- E2KsXRPamfCheWVV15OfPVLDbMQB/pHKqobT+VaT6iNAxREtzhT88j4BmjlSswJQFFJ3
- qoHGkdivDhPxcN8Cj/sssBFci0YY3TnFZCCPXhVb+Jq/8lwZQ5QcYhYHmlXAyN6TXGKH
- vXJg==
-X-Gm-Message-State: ABy/qLbT/InlrzI0o/hgl3eBTSNh1R4D/c7RIKZTPdin8nyIYP1x3Q9Q
- k0Uvwvo2R9hsysW///Q4khJlDg==
-X-Google-Smtp-Source: APBJJlFnsQ9uvLjsHZQ9SREHQ216HPPGjASy9AiZYJZlWwyGhQieiRuOjHKJ7s1mAu1WpSfMQoCtmw==
-X-Received: by 2002:a05:600c:2254:b0:3fa:984d:7e9f with SMTP id
- a20-20020a05600c225400b003fa984d7e9fmr3534844wmm.6.1689330592448; 
- Fri, 14 Jul 2023 03:29:52 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- p26-20020a7bcc9a000000b003fbb5506e54sm1094832wma.29.2023.07.14.03.29.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Jul 2023 03:29:50 -0700 (PDT)
-Date: Fri, 14 Jul 2023 13:29:47 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v3 00/18] fbdev: Remove FBINFO_DEFAULT and
- FBINFO_FLAG_DEFAULT flags
-Message-ID: <b3c23ea3-f46c-43b9-b12a-9f55de2294c6@kadam.mountain>
-References: <20230714075155.5686-1-tzimmermann@suse.de>
- <CAMuHMdWoeyJPAgPgFi545SJFcaVCgZi1-zW2N5cBeU9BnHgo1w@mail.gmail.com>
- <47a3ab8d-5e8c-db2c-fcde-5c2b1bac32aa@suse.de>
+Received: from out-4.mta0.migadu.com (out-4.mta0.migadu.com
+ [IPv6:2001:41d0:1004:224b::4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC87410E85E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 10:18:15 +0000 (UTC)
+Message-ID: <809f8391-c9e2-4432-12ec-9921360e3c8e@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1689329891;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vDi5jHcc6JX2dM3REdw3Ft0fz55Drq20U6og3UsNXvQ=;
+ b=xALtXC8/ROHasKXZMaOLj0zsiUq3d6orGjz1eoTZ1jYoIfLxy+er+4aCKpcbd9XxK/72Fv
+ KRVRN8cp4ei0ETtfaMci8s/7BCxay4Kgtrw1eY/mHz/QrTn8JRVj36+RIQUzGxVU6fdQ+Q
+ u1T/iNhdJHA2X2uvCVp0eGoYlglhYfM=
+Date: Fri, 14 Jul 2023 18:17:59 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <47a3ab8d-5e8c-db2c-fcde-5c2b1bac32aa@suse.de>
+Subject: Re: [v3,18/18] fbdev: Document that framebuffer_alloc() returns
+ zero'ed data
+To: Thomas Zimmermann <tzimmermann@suse.de>, deller@gmx.de, javierm@redhat.com
+References: <20230714075155.5686-19-tzimmermann@suse.de>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Sui JIngfeng <sui.jingfeng@linux.dev>
+In-Reply-To: <20230714075155.5686-19-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Fri, 14 Jul 2023 13:08:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,33 +50,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org,
- kvm@vger.kernel.org, linux-sh@vger.kernel.org, deller@gmx.de,
- linux-staging@lists.linux.dev, linux-hyperv@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Geert Uytterhoeven <geert@linux-m68k.org>, dri-devel@lists.freedesktop.org,
- linux-input@vger.kernel.org, linux-nvidia@lists.surfsouth.com,
- javierm@redhat.com, linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-geode@lists.infradead.org, linux-media@vger.kernel.org
+Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-geode@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>, linux-nvidia@lists.surfsouth.com,
+ linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 14, 2023 at 12:24:05PM +0200, Thomas Zimmermann wrote:
-> > 
-> > >    fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
-> > >    fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
-> > >    fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
-> > >    fbdev: Remove flag FBINFO_DEFAULT from fbdev drivers
+
+On 2023/7/14 15:49, Thomas Zimmermann wrote:
+> Most fbdev drivers depend on framebuffer_alloc() to initialize the
+> allocated memory to 0. Document this guarantee.
 >
+> v3:
+> 	* slightly reword the sentence (Miguel)
 >
-> I wasn't happy about this either. But I could not come up with a description
-> that fits into the 74-char limit for each commit. They only differ in the
-> method of memory allocation. Do you have any ideas?
+> Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Miguel Ojeda <ojeda@kernel.org>
 
-fbdev: Remove FBINFO_DEFAULT from static structs
-fbdev: Remove FBINFO_DEFAULT from kzalloc() structs
-fbdev: Remove FBINFO_DEFAULT from devm_kzalloc() structs
+Reviewed-by: Sui Jingfeng <suijingfeng@loongson.cn>
 
-regards,
-dan carpenter
-
+> Cc: Helge Deller <deller@gmx.de>
+> ---
+>   drivers/video/fbdev/core/fb_info.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/video/fbdev/core/fb_info.c b/drivers/video/fbdev/core/fb_info.c
+> index 8bdbefdd4b70..4847ebe50d7d 100644
+> --- a/drivers/video/fbdev/core/fb_info.c
+> +++ b/drivers/video/fbdev/core/fb_info.c
+> @@ -13,7 +13,8 @@
+>    *
+>    * Creates a new frame buffer info structure. Also reserves @size bytes
+>    * for driver private data (info->par). info->par (if any) will be
+> - * aligned to sizeof(long).
+> + * aligned to sizeof(long). The new instances of struct fb_info and
+> + * the driver private data are both cleared to zero.
+>    *
+>    * Returns the new structure, or NULL if an error occurred.
+>    *
