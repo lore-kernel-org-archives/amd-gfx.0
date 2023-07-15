@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85642C27C4F
-	for <amd-gfx@archiver.kernel.org>; Sat, 15 Jul 2023 18:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BD6EC001DF
+	for <amd-gfx@archiver.kernel.org>; Sat, 15 Jul 2023 18:54:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C01D710E1B1;
-	Sat, 15 Jul 2023 18:53:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1319810E1B4;
+	Sat, 15 Jul 2023 18:54:00 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E928410E1A4;
- Sat, 15 Jul 2023 18:53:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3347E10E18E;
+ Sat, 15 Jul 2023 18:53:55 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 942EA21AFF;
- Sat, 15 Jul 2023 18:53:52 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D31A621B48;
+ Sat, 15 Jul 2023 18:53:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1689447232; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1689447233; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ucmT+1GLTDoqupQ1pU8mLni2ss8QN6gSt8DgqXn9pcI=;
- b=U7I6Ofdn50Yf9J74ZtjzhcPb1eUY5MGKkR4WnpQVALNXaiKN//sbzJp0VKaiQDbFUHoJd+
- g3ibnCscc4eYNFuu3i/Ru6lDZdPewBUFWtEf61mf90/4BgfiZVPPepyAANBCDpp76mPVJN
- 76Of4SripwDbtbBMa+1AvurWqxMeTkw=
+ bh=rN7iXgHdNfoVTGsKEMlM6qhA1C0OhaHzC+3XBqWokqM=;
+ b=0CLO+Jl4RJxV02TQgGz1lVL0Z9mSQ1j0P+DgJ0nbU3UREBFXn2S5HeoaA8EFIUrK8+tzuG
+ kTXqLC5ehTyt80dsVHiDLOBo2qQe1dSoc8WH+TmzBpFIYDvstFzOhzYqpjWqEoNBLAnMl7
+ R7fqYYnu/SFLBf1BHOVJWcubFCaLJXE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1689447232;
+ s=susede2_ed25519; t=1689447233;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ucmT+1GLTDoqupQ1pU8mLni2ss8QN6gSt8DgqXn9pcI=;
- b=zodS/0MiChj1HWAYZLqS+sr/v4lQteaizZGRmmzdz1I7jh4YQE4fUcrEO0Ar1sQrfFjbYY
- l5Y1QWABgAvcaIBg==
+ bh=rN7iXgHdNfoVTGsKEMlM6qhA1C0OhaHzC+3XBqWokqM=;
+ b=+mXK0HAm21mj2g3flnXhM/kuVloOtSTQJd3/Y+ZO6agZVwZtFaRZLjGgxErCwRwNTikJWj
+ JChxhkeFZob60KAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3290A133F7;
- Sat, 15 Jul 2023 18:53:52 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7463E13A23;
+ Sat, 15 Jul 2023 18:53:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QMNzC0DrsmQCBwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Sat, 15 Jul 2023 18:53:52 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id UIB4G0HrsmQCBwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Sat, 15 Jul 2023 18:53:53 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: deller@gmx.de, javierm@redhat.com, geert@linux-m68k.org,
  dan.carpenter@linaro.org
-Subject: [PATCH v4 15/18] fbdev/atafb: Remove flag FBINFO_FLAG_DEFAULT
-Date: Sat, 15 Jul 2023 20:51:57 +0200
-Message-ID: <20230715185343.7193-16-tzimmermann@suse.de>
+Subject: [PATCH v4 18/18] fbdev: Document that framebuffer_alloc() returns
+ zero'ed data
+Date: Sat, 15 Jul 2023 20:52:00 +0200
+Message-ID: <20230715185343.7193-19-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230715185343.7193-1-tzimmermann@suse.de>
 References: <20230715185343.7193-1-tzimmermann@suse.de>
@@ -67,46 +68,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
- Sam Ravnborg <sam@ravnborg.org>, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-geode@lists.infradead.org, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-input@vger.kernel.org,
+Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
+ kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-geode@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
  linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The flag FBINFO_FLAG_DEFAULT is 0 and has no effect, as struct
-fbinfo.flags has been allocated to zero by a static declaration. So do
-not set it.
+Most fbdev drivers depend on framebuffer_alloc() to initialize the
+allocated memory to 0. Document this guarantee.
 
-Flags should signal differences from the default values. After cleaning
-up all occurrences of FBINFO_DEFAULT, the token will be removed.
+v3:
+	* slightly reword the sentence (Miguel)
 
-v2:
-	* fix commit message (Miguel)
-
+Suggested-by: Miguel Ojeda <ojeda@kernel.org>
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Acked-by: Sam Ravnborg <sam@ravnborg.org>
+Reviewed-by: Miguel Ojeda <ojeda@kernel.org>
+Reviewed-by: Sui Jingfeng <suijingfeng@loongson.cn>
 Cc: Helge Deller <deller@gmx.de>
 ---
- drivers/video/fbdev/atafb.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/video/fbdev/core/fb_info.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/video/fbdev/atafb.c b/drivers/video/fbdev/atafb.c
-index 2bc4089865e6..c4a420b791b9 100644
---- a/drivers/video/fbdev/atafb.c
-+++ b/drivers/video/fbdev/atafb.c
-@@ -3112,7 +3112,6 @@ static int __init atafb_probe(struct platform_device *pdev)
- #ifdef ATAFB_FALCON
- 	fb_info.pseudo_palette = current_par.hw.falcon.pseudo_palette;
- #endif
--	fb_info.flags = FBINFO_FLAG_DEFAULT;
- 
- 	if (!fb_find_mode(&fb_info.var, &fb_info, mode_option, atafb_modedb,
- 			  NUM_TOTAL_MODES, &atafb_modedb[defmode],
+diff --git a/drivers/video/fbdev/core/fb_info.c b/drivers/video/fbdev/core/fb_info.c
+index 8bdbefdd4b70..4847ebe50d7d 100644
+--- a/drivers/video/fbdev/core/fb_info.c
++++ b/drivers/video/fbdev/core/fb_info.c
+@@ -13,7 +13,8 @@
+  *
+  * Creates a new frame buffer info structure. Also reserves @size bytes
+  * for driver private data (info->par). info->par (if any) will be
+- * aligned to sizeof(long).
++ * aligned to sizeof(long). The new instances of struct fb_info and
++ * the driver private data are both cleared to zero.
+  *
+  * Returns the new structure, or NULL if an error occurred.
+  *
 -- 
 2.41.0
 
