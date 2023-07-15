@@ -4,85 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF5AC001B0
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 18:24:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE699EB64DC
+	for <amd-gfx@archiver.kernel.org>; Sat, 15 Jul 2023 05:10:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D338710E02A;
-	Fri, 14 Jul 2023 18:24:22 +0000 (UTC)
-X-Greylist: delayed 428 seconds by postgrey-1.36 at gabe;
- Fri, 14 Jul 2023 18:20:00 UTC
-Received: from omta038.useast.a.cloudfilter.net
- (omta038.useast.a.cloudfilter.net [44.202.169.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17B2E10E02A
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 18:19:59 +0000 (UTC)
-Received: from eig-obgw-5001a.ext.cloudfilter.net ([10.0.29.139])
- by cmsmtp with ESMTP
- id K11PqciA0WU1cKNHfq1S2f; Fri, 14 Jul 2023 18:12:51 +0000
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
- id KNHdq19mIchhoKNHeq0xGT; Fri, 14 Jul 2023 18:12:50 +0000
-X-Authority-Analysis: v=2.4 cv=Tb+FCDch c=1 sm=1 tr=0 ts=64b19022
- a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=WzbPXH4gqzPVN0x6HrNMNA==:17
- a=OWjo9vPv0XrRhIrVQ50Ab3nP57M=:19 a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19
- a=IkcTkHD0fZMA:10 a=ws7JD89P4LkA:10 a=wYkD_t78qR0A:10 a=QX4gbG5DAAAA:8
- a=snExLxxF2foCdKK6ZiwA:9 a=QEXdDO2ut3YA:10 a=AbAUZ8qAyYyZVLSsDulk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=KCsVJp5qnfX7Jssk4LxDYEngrFE1DQACmhXzG+7FPBA=; b=M2IOJ51RbQeLWTH+hDTujo/BcT
- FNGZuK6zQ5WsYaZHqy6e15H9gS0lstlxNAYl6nkOh9BrObTSI01DAmMJe+kH1UJWGrbwfRjKj3wVZ
- w+XvmqONUISjI0gjmhcYyH0Shq8M7WpiSJLsFGokjDm3VPjHFrCKY2/l5PKU9/TZ7VaSJR3Kd7u1p
- uTY2pS3Eb6v6ATGGsMcFTfxWmCiptiGBISG4owzTHEMkGc7IF+IN/YI17JqIeJf2KLdhqg8DfDyiN
- J+jUs0Lu3d/IszVp55sQ2rf2wsCXnNhmQPTNBlgQqMxittAJ9wmHEw3lkzaCGock2N4feeHIM7DfP
- vXjo6oYg==;
-Received: from 187-162-21-192.static.axtel.net ([187.162.21.192]:55814
- helo=[192.168.15.8])
- by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <gustavo@embeddedor.com>) id 1qKNHc-002I2a-1y;
- Fri, 14 Jul 2023 13:12:49 -0500
-Message-ID: <442403e3-317e-8744-3348-dc9823c22074@embeddedor.com>
-Date: Fri, 14 Jul 2023 12:13:28 -0600
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] drm/amdgpu: replace 1-element arrays with flexible arrays
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E4C210E041;
+	Sat, 15 Jul 2023 05:10:31 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11A7110E03B;
+ Sat, 15 Jul 2023 05:10:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Lza7S9xXeBSpafpLcSjixlRhVcLmXKJh4XViN7jfRJ6PdC8ScOx49jgy7f+eviHksGv46knjzLmsSkesHP+fQ5cR/+Sn6/qcIv6YOwfnMy3Bub3XyL8vOMWz++jcjl56d2yDRXVFvZt9w9N6vVQonBYYEw1H44FJWZQHCcY0fc0vInCSldm41hqKF2s/zfA1i2IBkpOa7oQyKX89C39Oth+XrtUc2jegU+h/iOrDR5+cdyFAi2egLu1teHjq9KUo0fV82v9n7ww2NjHp5PFK2iyaj8BCHSbXE7jx2lhVNboo8AbD0YiQEN8F6GE9IgdXu2rdFAa463L6AW4JmOtJiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uHQiPb1keYpPpdcZmLoiVbwy73vEJxvmTS9BjjAQt28=;
+ b=E5faBAZAepnhuLaTc4PoLf3j3amPHApckUWZug3Q15JpvlSBgpN5WVlkJAoRyHRwIDhge9VnX03Ep0TExPgEISJxxZDH2/V/i2SkQSxFYLezdxmv5Oe8KjTHUkbWtxx/ufR2Chxg7KlcK2MYNjbtgC0xD7dRusGOtH4gjVtqMqnUZGwHzqOaHPvvJL4xt80+fa5I51Q31Nl3Q1pFb6vC9NI7eZKBNjBIMlvGU+rG9HCQmnoPOwggEEQ5wARz0/zmIwwEhIZ5dWRf2FD+9yItfO+dfft12WHOEP8G0pBg4coNISFASWA3oY6e+i0KvDMWji2ySV4ldvrksIoXTNb5lA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uHQiPb1keYpPpdcZmLoiVbwy73vEJxvmTS9BjjAQt28=;
+ b=jQQm0kXlAdicLXZG/0UwEStaU/o8bL723Z3Gzeox4B+UaqQLXtpc5ote/ntfsofmVyjLe+l7uEm9TYAKHRltoGrPvE5E7zehNLaXL6wmKJ04Mei+mLm0dlWqxmeCXqH6QrL4jXF1xgIyW1ur1gUhWRRPuJA+Ybh7pAinGQGvJRY=
+Received: from MN2PR12MB4128.namprd12.prod.outlook.com (2603:10b6:208:1dd::15)
+ by LV8PR12MB9359.namprd12.prod.outlook.com (2603:10b6:408:1fe::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.28; Sat, 15 Jul
+ 2023 05:10:21 +0000
+Received: from MN2PR12MB4128.namprd12.prod.outlook.com
+ ([fe80::3739:2458:832b:bcbc]) by MN2PR12MB4128.namprd12.prod.outlook.com
+ ([fe80::3739:2458:832b:bcbc%3]) with mapi id 15.20.6588.028; Sat, 15 Jul 2023
+ 05:10:21 +0000
+From: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+To: "shijie001@208suo.com" <shijie001@208suo.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>
+Subject: RE: [PATCH] drm/radeon: ERROR: "foo* bar" should be "foo *bar"
+Thread-Topic: [PATCH] drm/radeon: ERROR: "foo* bar" should be "foo *bar"
+Thread-Index: AQHZtlRCcWt8DYZ9SUS9rfIqQ8pYVa+6SDkQ
+Date: Sat, 15 Jul 2023 05:10:21 +0000
+Message-ID: <MN2PR12MB4128493974ADD3F52EE304119035A@MN2PR12MB4128.namprd12.prod.outlook.com>
+References: <tencent_09B72958FF97A0465961F04F38F298FE6E08@qq.com>
+ <22e66975eb7b90c1e10527cc6dd76e99@208suo.com>
+In-Reply-To: <22e66975eb7b90c1e10527cc6dd76e99@208suo.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Ricardo_Ca=c3=b1uelo?= <ricardo.canuelo@collabora.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
-References: <20230712083137.1080883-1-ricardo.canuelo@collabora.com>
- <CADnq5_OUS=JDfCdrCsuzTB0xD5yeX7piEDEqkRO-ffPTFVYs3g@mail.gmail.com>
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <CADnq5_OUS=JDfCdrCsuzTB0xD5yeX7piEDEqkRO-ffPTFVYs3g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 187.162.21.192
-X-Source-L: No
-X-Exim-ID: 1qKNHc-002I2a-1y
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 187-162-21-192.static.axtel.net ([192.168.15.8])
- [187.162.21.192]:55814
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 2
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfFfZATea+8p9yUhfY3SaZ/S86Kq0zDUH37cltZGuiuh9JV4p49ErfmnP/r+L4WBdXGLv+xm0QXGIFm4nmAapT4kS9qBRvJBOUVauXRVhYLTPhhZohod5
- hHVLk2BaWaqqNiOrB7VAf1qeD3ju4h6aUBcdGD/Y2y39U9pz8DnnK9bm3+iF4MiQOg/uYjRGRDqw2CML1G40haaQ2uIwExeXn4IT2n6m6fFwXEW54+fY1UrL
-X-Mailman-Approved-At: Fri, 14 Jul 2023 18:24:21 +0000
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=04be9b7b-aa88-49d3-8273-4dfd9977871a;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-07-15T05:09:03Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR12MB4128:EE_|LV8PR12MB9359:EE_
+x-ms-office365-filtering-correlation-id: ae682383-4d85-4dba-18b5-08db84f1c9dd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: HNqWbzEKXPVCREDXbiSoXsL9LOL3Hf1YcBweDJEX0131IJFw5DmJifuDJqJ0wSbqCeDRf1YD7WkQf04g8nzlimZeCLC03kI5tZO/e19C7bIJ6+CPj54Fu9qYM5qBBF22Rv2DW3qmGKJ3gbW3WKTV9KYA/bxULUwix41rQQ6ooyAwoSf9POXjTfZwWZDrPwIkmQghCpaQFNeKqz7HQU1m9FmiKzZqNr3zORFgrCphh0tljbiX520Fk32eYRe+yp+ASGz83kip8EzW91rpyiwRnVey8thZ34odUenIrcdhLyJ0MX8t5Tzo4/U0pZUmZFKGL0Wtz1AwnZjjGVn0xj+6nV99BIXPCo5WMnLtI015qyFGs5T5Ep2yqGRXLG3rLFuqEXmRl6bYW3LWKWmXk133ohZBhQewsxkCu9znr5efEcHPfljm5xqvSPs2r4JMMFP9+6pBm7GYZ7frbIGW6yhqtFph2IrE7R99upxeAfADZY6RffpqNgQd8PrGwVRv/zugkRoLFAT9kYQvDx+3BLRCV4P/ylHLiEpf6Y7K4gPLn+uTSiojNRwOm+WJR7zltl/LhdqL9+kepJouYwmB2bmAyR9RuUwvHFpzKOgDv/mBCfvsgt7eK8lkn8fn0teLoh3F
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4128.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(346002)(366004)(136003)(39860400002)(396003)(451199021)(2906002)(83380400001)(38070700005)(52536014)(38100700002)(122000001)(55016003)(41300700001)(4326008)(7696005)(64756008)(66446008)(66476007)(66556008)(316002)(76116006)(66946007)(9686003)(8936002)(8676002)(86362001)(33656002)(478600001)(54906003)(110136005)(71200400001)(186003)(5660300002)(6506007)(53546011)(26005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?iqkWKMoCCdUw5Hp1p/Vnssnbb5eUMGiIJkvTLZdZ5AJY2NcOZtIyMrWbMwnq?=
+ =?us-ascii?Q?W1K43M7VpQ7yOmSzVwV6QJSIPIieGv/em5WHiDJV43SoPO+LKw0y04xBnNAG?=
+ =?us-ascii?Q?NHQqbu/9X7Jx9vORO4wGD3/vYhC/vj2BTZlSM52kktJedFkYrNW+tu6efneZ?=
+ =?us-ascii?Q?4AtnEQ3NpvORmi0QHv3m0TUQ4gRfQXO59hcTbGLUcpM0vbUjF7+mGelcYJjH?=
+ =?us-ascii?Q?3oiph86UUZHqKzyjMmZ6aeoC/UVVdzXpC4rUn7GZh0F/r/1TVc8pvnvudmEL?=
+ =?us-ascii?Q?U9XTac+jvFwvVnxHrjr335YaQudu9TDsbW05YYQb6ptqFxsEy5a1pnNVxMia?=
+ =?us-ascii?Q?GL3oIHkHvp9uXBQktjOQ6kbMzfO1Cm36l/pzXVIfl+1jrJPmyAtCUNEgfVSt?=
+ =?us-ascii?Q?nGpmvJALdD7iPVKKIbJUNa9TYkWZFt8cVaxfwHX/tYcVAf4tEriLW/YifQiy?=
+ =?us-ascii?Q?xLeeXm8mX2hYlxLTw6777hbX9BRmh3asYBA5p2WAPDUr7td9YKTzOFwevSAE?=
+ =?us-ascii?Q?PK7xaDhlsq6PXZGnhInIOafkiMMQ2w6jXC2aZnAGD7f0O4TTcCIT8I57nHdL?=
+ =?us-ascii?Q?r96v9n8fg11E2OywHkstm3Ecn70igc8s2+bdonOdpddgOdQ1LixQRcNnR2vW?=
+ =?us-ascii?Q?aizmZSozcKoHmo0EIr+vhdcbPg5tZx2kNyC4UJHdHVu8j3SWXprie6TSpWx3?=
+ =?us-ascii?Q?rR0sVkzWLHAXKyiuHWW3dQIaMhGw7WBr1xOAXzAdGn3w7ggIOjv6FV8dYJqy?=
+ =?us-ascii?Q?e89rtGFdepnqF056nCpxOqGz204VBJt0KMwh5pBoG/IJnq/GCc3g2nCnAj3u?=
+ =?us-ascii?Q?X6648fnUlfAf6WivvLzONuSpbase7n1Gs6DB4xY39DAdlOtDccOnVadGNKJZ?=
+ =?us-ascii?Q?JTR0Ujd0uA7hFMhMO8y149qE9ewIluVj6RYt74rv2H6FAiltE+OuAxCV32p9?=
+ =?us-ascii?Q?RUz0ghgMbpOYvsqEgoar6DmL4JsAbW2kLB1b26d4E/QDWliyWR5xkqAfFs8D?=
+ =?us-ascii?Q?Z5TzEBzbBTtxcW8EYPIyVhshRe6NmzFx4SF0+BPh818KmH2I+F3Y9DS5Fpu9?=
+ =?us-ascii?Q?+c6K2BZfLBCiUtxKK8MkgGE3huT2JAfPkhltVjjO0OEvYmx3Hhkb03t9h9EB?=
+ =?us-ascii?Q?sfK9Ea69TIx4wox/hYYdQq08/SpSxenA/FP/ONDddISAqqPFikIJVvKkVPNN?=
+ =?us-ascii?Q?/+G/c1M+dLyQGR7hfedwdEGnoNEzGWxyl5aKu6V2PWNJWZ9LtMDNMHncJFuL?=
+ =?us-ascii?Q?Hk/09wb4RjGYY64QTs5j2uQayDBK9YdGvhVtImFsun+zW85NOBCVssWpYGNL?=
+ =?us-ascii?Q?c0GNFHjnnHQb5W1QkE094f9ex4sGxd+hpn+L/dGlelGeO6sLyOsxKTxK51Tu?=
+ =?us-ascii?Q?jkgFYWjF3vROXoqcii4MwIBUGNgtB1+/xASI7hKRaiteO8AZ6PdAIXq8Cp6v?=
+ =?us-ascii?Q?/oRY6PqTInhSoI9GEa+WCpYuwTM90xNQ3gvw00AF9CpBqZj07xhuHmuwhb5N?=
+ =?us-ascii?Q?CQxAcEefdC0MhCX4bzE4yNMmKOh2c9sa1f5HhkJ0o5FxxL6Ksr/A0+Cm5V2k?=
+ =?us-ascii?Q?nHq/WxPJPaV1k7VBDAA=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4128.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae682383-4d85-4dba-18b5-08db84f1c9dd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jul 2023 05:10:21.1631 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Ftl5t+AcdnAO0syjEdBrHfd0y3jUzgGcBxLtdtJvozlj1GDI23WrDQ95XbT+dbCa3FWMQCs6X+KiIeVVFJVqFQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9359
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,50 +125,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, kernel@collabora.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-hardening@vger.kernel.org
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[Public]
 
+Reviewed-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-On 7/12/23 08:12, Alex Deucher wrote:
-> On Wed, Jul 12, 2023 at 8:04 AM Ricardo Cañuelo
-> <ricardo.canuelo@collabora.com> wrote:
->>
->> UBSAN complains about out-of-bounds array indexes on all 1-element
->> arrays defined on this driver:
->>
->> UBSAN: array-index-out-of-bounds in /home/rcn/work/repos/kernelci/kernelci-core/linux_kernel_mainline/drivers/gpu/drm/amd/amdgpu/../pm/powerplay/hwmgr/processpptables.c:1249:61
->>
->> Substitute them with proper flexible arrays.
-> 
-> + Gustavo, Paulo
-> 
-> I haven't kept up with the flexible arrays stuff.  Is this equivalent
-> to a zero sized array?  We've been bitten by these kind of changes in
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of shijie00=
+1@208suo.com
+Sent: Friday, July 14, 2023 1:36 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Pan, Xinhui <Xinhui.Pan=
+@amd.com>; airlied@gmail.com; daniel@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; linux-k=
+ernel@vger.kernel.org
+Subject: [PATCH] drm/radeon: ERROR: "foo* bar" should be "foo *bar"
 
-In terms of size, yes: the size of each array declaration does not
-contribute to the overall size of its containing structure.
+Fix five occurrences of the checkpatch.pl error:
+ERROR: "foo* bar" should be "foo *bar"
+ERROR: that open brace { should be on the previous line
 
-However, in these cases, using the DECLARE_FLEX_ARRAY() helper is not
-required. Simply removing the '1' from the array declaration will suffice.
-This helper was created to declare flex-array members in unions, as well
-as in structs that contain no other members aside from the array.
+Signed-off-by: Jie Shi <shijie001@208suo.com>
+---
+  drivers/gpu/drm/radeon/radeon_audio.c | 11 +++++------
+  1 file changed, 5 insertions(+), 6 deletions(-)
 
-In any case, these changes are not complete, as they're only modifying
-the struct declaration, hence the size of the struct is affected. Now
-the rest of the code where these structs are involved should be audited
-and adjusted to accommodate the change in the sizes of the structs.
+diff --git a/drivers/gpu/drm/radeon/radeon_audio.c
+b/drivers/gpu/drm/radeon/radeon_audio.c
+index d6ccaf24ee0c..a010bc2c155c 100644
+--- a/drivers/gpu/drm/radeon/radeon_audio.c
++++ b/drivers/gpu/drm/radeon/radeon_audio.c
+@@ -35,15 +35,14 @@
 
-> the past.  These structures define the layout of data in a rom image
-> on the board.  If the struct size changes, that could lead to errors
-> in the code that deals with these structures.
-> 
-> Alex
-> 
+  void dce6_audio_enable(struct radeon_device *rdev, struct r600_audio_pin =
+*pin,
+          u8 enable_mask);
+-struct r600_audio_pin* r600_audio_get_pin(struct radeon_device *rdev); -st=
+ruct r600_audio_pin* dce6_audio_get_pin(struct radeon_device *rdev);
++struct r600_audio_pin *r600_audio_get_pin(struct radeon_device *rdev);
++struct r600_audio_pin *dce6_audio_get_pin(struct radeon_device *rdev);
+  static void radeon_audio_hdmi_mode_set(struct drm_encoder *encoder,
+      struct drm_display_mode *mode);
+  static void radeon_audio_dp_mode_set(struct drm_encoder *encoder,
+      struct drm_display_mode *mode);
 
-Thanks
---
-Gustavo
+-static const u32 pin_offsets[7] =3D
+-{
++static const u32 pin_offsets[7] =3D {
+      (0x5e00 - 0x5e00),
+      (0x5e18 - 0x5e00),
+      (0x5e30 - 0x5e00),
+@@ -359,7 +358,7 @@ static void radeon_audio_write_latency_fields(struct
+drm_encoder *encoder,
+          radeon_encoder->audio->write_latency_fields(encoder, connector, m=
+ode);
+  }
+
+-struct r600_audio_pin* radeon_audio_get_pin(struct drm_encoder
+*encoder)
++struct r600_audio_pin *radeon_audio_get_pin(struct drm_encoder
+*encoder)
+  {
+      struct radeon_device *rdev =3D encoder->dev->dev_private;
+      struct radeon_encoder *radeon_encoder =3D to_radeon_encoder(encoder);=
+ @@ -526,7 +525,7 @@ static void radeon_audio_calc_cts(unsigned int clock, =
+int *CTS, int *N, int freq
+          *N, *CTS, freq);
+  }
+
+-static const struct radeon_hdmi_acr* radeon_audio_acr(unsigned int
+clock)
++static const struct radeon_hdmi_acr *radeon_audio_acr(unsigned int
+clock)
+  {
+      static struct radeon_hdmi_acr res;
+      u8 i;
