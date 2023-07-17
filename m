@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2DAAC001B0
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 17:28:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 564C9EB64DC
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 21:02:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC1210E28E;
-	Mon, 17 Jul 2023 17:28:04 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2049.outbound.protection.outlook.com [40.107.93.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7745910E03F;
- Mon, 17 Jul 2023 17:28:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB33C10E048;
+	Mon, 17 Jul 2023 21:02:04 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2080.outbound.protection.outlook.com [40.107.100.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0726410E2B7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 21:02:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lR8QWBFVJebMkGs9kHkgaJyP3nnBGz1OvcxcM3MwR5tcwky8xhrjtkujmF96+223liwS2VHDDPPcDLjl//lUoqa0nysv55UlNgUwQ5ZDzegsW+BcFvpuQSwRU1eLut9k9lRelrSdjNRGDtV4TSkt/V8Hy1f64vTYCKdYdyn9456+8RTzaRkZt1gf/CCflgFOpubvjFtGhyoRXdm2xmVefSYK8N+gq0tuGJVhq8fqPgKKoe1d3nMuLr1qDEae5Np9YEUT8fFnkRlHpoYMkMXm4rDeGIxUSgKWkdhb0PjUnfL334P99YE9TO/OvjoYxoe9FI4NuCrtAMjciawpFesT5g==
+ b=Rg5FbWA8hOVnpPqpUY2e98x/tJqNG+8UcYCA0aXcAt96yOaIl6l3p+O1fASvIEBadS/d61EeXQXGN/CBILqAAKZal6rTQbMih0WqhP3llStDAxYJT9ePXb9GL3FFY/8ZD/MA+YYXlDIfzwzsbfma9MHYLA9Evll4K5ltOyIyBK89Y6GutElg/hNlahjWZb3BxKnl8j5w+oNaQcvo+0oKuwN9i5gFuwYwv2snAnpoeHwk+gcf1OCOU/w+9kXnCUuHbw9DZlwAtj/QHvWBiN59rg2P8Fi4xkVVKmz9b5uGLTCBNgsTNzE2W9hPY+WKcJHFSFyOOHXpXL2fGrb1ckh7KA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gqDcIh3B9sOpYZYiKQzBixycYyJzN1tLgjjoyu/n2a4=;
- b=X8Nis8qgg4B9A/EE55xMHxeNbYhyPql2N4nnpZzVdZT+0FdHYU8OjSQBEIfU19dbpwEKy+Dflc4kTvE/zX3LrS5t44BMPUXRcTIjXKwa8l2i586zBVEDEoXSRWniUWhigiQ+sWZa6ie7jTmDIYw31ZZ73wtV3gLI0QD60CUybN8hLkVdDssPG2JQBaiafsB5lc7Snq+3Yw+alfMRvTspGp5n9IKYFkrbvSy+lyDYbqwI4WXVV17o3QKS+n+bO4Hq/kLfSemcbQSXUHLaLUYz7qRc2gXlvCmVSvEIfmyYgUURuj8xcFLCOdwCqWbWOosRPzTK1N2sILDVARnixa5kJw==
+ bh=FSoGZPlc5Ms7GOSbByThsQHOJCA7m8DfKHlXhhy4Jzc=;
+ b=CLLN7969fErqbSamjLW9GJVo0rjVlgpqBlwp1wRMxgqvh6qlwQ2f87RRiWYnMYzDXiO5OQT4KyoUkD49QrsCnLT9o1sfYCF1+HuKlH2ZB2uaqImqia9O3u2EbDm6BYa/Ru0hpvy/dtPoFdncvkzWwpsn4q7XwSm80w+EJ9iuAZBXaDUXVTMtDbf42zeZ48MUq8JMjVZGmzEh/wOfZQ2BHaQq9eOw24HS5TeNi4Px0DBb9unWUW6o4Yu4EV8uAo2WCxbRIrwr//6sXA8lHYxTk79ZDBb+lzjnjn8H6cWKzIzZDxpnS/lI754NlP8t4il3UMhdDs/1dKMqgBVEcZpP7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gqDcIh3B9sOpYZYiKQzBixycYyJzN1tLgjjoyu/n2a4=;
- b=Z1IvZzMCPTfRa5X6hzA72qL7P1FnuGR8OEpxWrasbvyeus3rB5fWhQjroKfyctU3P0ver7Xat7JzupdwuuTnMJyyxuU1krlL49x7Vo7ow1L/wQGb0G3Kc5yzjTqxoUvHGnrpH4ZDAlGW1vwTho1TeaHU7096dLKa2HTw7SwOFZs=
-Received: from MW4PR03CA0103.namprd03.prod.outlook.com (2603:10b6:303:b7::18)
- by CY8PR12MB7123.namprd12.prod.outlook.com (2603:10b6:930:60::18)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=FSoGZPlc5Ms7GOSbByThsQHOJCA7m8DfKHlXhhy4Jzc=;
+ b=HdUteOkHoM6/jiHEZLuvhvLfJNeC7+YL71Oknv06PpD2/pg5MZxIWqIz3K5Y+w1o9G5BCLPIZaqGYpSHnpnzmR3coQMmHPZosO+aRjxZBF7Fh+MyNQKyXcmA0nvE8yx462d8mEdqT8l0/iHnrxiZUTcF5NsEG1dWoAMrojFmqok=
+Received: from BYAPR08CA0002.namprd08.prod.outlook.com (2603:10b6:a03:100::15)
+ by CY8PR12MB9033.namprd12.prod.outlook.com (2603:10b6:930:71::7) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.31; Mon, 17 Jul
- 2023 17:27:58 +0000
-Received: from CO1NAM11FT050.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b7:cafe::84) by MW4PR03CA0103.outlook.office365.com
- (2603:10b6:303:b7::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.33 via Frontend
- Transport; Mon, 17 Jul 2023 17:27:58 +0000
+ 2023 21:01:56 +0000
+Received: from DM6NAM11FT114.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:a03:100:cafe::29) by BYAPR08CA0002.outlook.office365.com
+ (2603:10b6:a03:100::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.32 via Frontend
+ Transport; Mon, 17 Jul 2023 21:01:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,49 +45,51 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT050.mail.protection.outlook.com (10.13.174.79) with Microsoft SMTP
+ DM6NAM11FT114.mail.protection.outlook.com (10.13.172.206) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6588.33 via Frontend Transport; Mon, 17 Jul 2023 17:27:58 +0000
-Received: from ETHANOL.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.6588.33 via Frontend Transport; Mon, 17 Jul 2023 21:01:56 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 17 Jul
- 2023 12:27:51 -0500
-From: sguttula <Suresh.Guttula@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Leo Liu
- <leo.liu@amd.com>
-Subject: [PATCH] drm/amdgpu: allow secure submission on VCN4 ring
-Date: Mon, 17 Jul 2023 22:57:08 +0530
-Message-ID: <20230717172708.4044221-1-Suresh.Guttula@amd.com>
-X-Mailer: git-send-email 2.25.1
+ 2023 16:01:55 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.6; Mon, 17 Jul
+ 2023 14:01:55 -0700
+Received: from fedaura-ryzen.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
+ Transport; Mon, 17 Jul 2023 16:01:55 -0500
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: remove an unused file
+Date: Mon, 17 Jul 2023 17:01:55 -0400
+Message-ID: <20230717210155.1714239-1-aurabindo.pillai@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT050:EE_|CY8PR12MB7123:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc0774c8-cce5-4410-abfe-08db86eb29f8
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT114:EE_|CY8PR12MB9033:EE_
+X-MS-Office365-Filtering-Correlation-Id: eda50e22-a20b-4bba-d430-08db87090e14
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zI9Gfl3V9jC/D4zO1QuhgiBLsdViMaLfvnsy9AVkgyOFzzLNwvOeMsLe97w6ZHbKB7gMMF0vxOOR7fMxQ5q0E6DwQjFmTg/Q1tKfRoFIGu/AHf4SFavKN4/tqtIYmKWbYh6dMxmHptSIw1jKqJt1BTJ7f5eSNL9dfe8YuDPspRPtSaHaTZwTzw8hwo5eoRBmIBSWIgvLAtIVb5gNQ0VGLGCu4vNYwBJYHlhZAwfqwz0AShUP3ipfJ7dKGFisTMrSSDGuo9J+xocMKjO1IQnZ5bR8lB/vzHF17U0UBdpfU9wFD0CNCKQjP8S32XyRAqd/bkaXrKsJ+2D8gIQrpiYiLEQ1aVs4NdVFjE+GUNWq6vp21FBP3jcw1Iy5m5Nr1kJqHL8uJkODoje29VTmxM7aN+nXaS9pq8ZG54xipkHXEpaRDsMpuhNquoDk+1CUNffw7hGYRB1Z7y/lqMyxbGFA5oAy3FoTE5H28cMBc2uUV7R0RR1V3gfz6PwyNaLJTptMMScYqHcFZI+W6Zz63S8XraSHmNtUdIok4AsLaqRRz/ocdYABLxqpU+PlO4H0ToCUDm+ccspu41plomEM2OTuqXWgvwqPP0o5YUv3adv40FVtNmvGsFSj+OCgj/1ZK1GbOZDBPlzA0mccikN5U/kCi7waKC5eqoeaifnLNWUYC4pLZ5JJ5J5twav4vFNKsYh5k1qsEEi+IP2T5GeXZVLnrxw6BgOc1LhUl+/Y/zv8SOvLbp8NQAGmVJkb/8VqwFOD+es4+OKS76FZp0x2MPm0GMpH0tOAxHzAHXarb1xIb9o=
+X-Microsoft-Antispam-Message-Info: t1zyQVrxJGNhL0oo3YvrjI9k3ruMNqLnfPHwscQMu0gZAMHP2/wE6/qib43zlr3LKe9nPFovohuRd0lETSkAlNGhTFItiVjW+jwMqs1eYobhNh7rCcLrOmwnrQYDhKO1Z8E1ze0UBEdlrq14URAsvr+97/nQfG0HjaBM5pbERMa3zl9BDSGOFR7BQid2qPPXbM0KH1YzlYo01B+fIPsdLsft344ynJeyri/MmKQ4i/iW4JY0w3yVK1VTjwEgWU7t/7jPedzXgX5q8Avl3Nm1riTMjoJxKZK6oKNDO3V+YNyYmu6Gxj5VeibskODtOgQRtQypYid8tEo2BfdpJvEDkzrUnEzMdHcMJKMD2PddKhyIMTBwdxneO+LqOF354a0PA9RA1wxmGRvbD9jwCqtL/3IVUfa6Ro3lEbBgDPel2UUw4Xp5OAauTtUh9vBQSQtEzjuJjyk2uHoFdGMdQMQIggSOW4T+UFm6wF5/JZ0SDnsrWbv6QZfKwQqwhcofs/OqCHXoEZn2gkFI7eZB5/qpA1ns1whsxcvVw7UNAbEriDWoKYfQh+gpncNvXcw/1nsA/Tu9Y+xn857ODW7Id1ZYE9831W3tfg+jzQ8NntScELk/4ONuM1RgdVxxr8mPbGbB5EZ6t6dVs62v4is/qZEjiTy8BGxKRcwrnXklIOhgI3SSaXqbg/nNLICywIqf1hpBugbOVrnKStO9ccB0qMKbJ6p+ZTC2ex+Bgt3fg6fHZ43gOdsCSTCIiFhIA9GU68Bh7yHZwrIe+Q0CwOUn7mogCg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(346002)(376002)(396003)(136003)(451199021)(82310400008)(40470700004)(46966006)(36840700001)(2906002)(81166007)(356005)(82740400003)(336012)(426003)(47076005)(83380400001)(186003)(1076003)(36860700001)(26005)(40480700001)(2616005)(16526019)(86362001)(40460700003)(5660300002)(36756003)(8676002)(8936002)(7696005)(478600001)(110136005)(54906003)(6666004)(316002)(41300700001)(4326008)(6636002)(70206006)(70586007)(450100002)(43062005)(36900700001);
+ SFS:(13230028)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199021)(82310400008)(36840700001)(46966006)(40470700004)(40480700001)(40460700003)(54906003)(82740400003)(356005)(81166007)(7696005)(8676002)(8936002)(478600001)(5660300002)(41300700001)(70206006)(316002)(4326008)(70586007)(6916009)(336012)(426003)(36860700001)(83380400001)(186003)(47076005)(2616005)(1076003)(26005)(86362001)(36756003)(44832011)(2906002)(66899021)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2023 17:27:58.0937 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc0774c8-cce5-4410-abfe-08db86eb29f8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2023 21:01:56.2977 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eda50e22-a20b-4bba-d430-08db87090e14
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT050.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT114.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7123
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9033
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,49 +101,226 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- sguttula <Suresh.Guttula@amd.com>
+Cc: aurabindo.pillai@amd.com, rodrigo.siqueira@amd.com,
+ nicholas.kazlauskas@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch will enable secure decode playback on VCN4_0_2
+[Why&How]
+Internal subvp state is not referenced in driver code, so it can be removed.
 
-Signed-off-by: sguttula <Suresh.Guttula@amd.com>
-
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
-Changes in v2:
--updated commit message only enabling for VCN402
--updated the logic as per Leo's feedback
----
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |   2 -
+ .../amd/display/dmub/inc/dmub_subvp_state.h   | 183 ------------------
+ 2 files changed, 185 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/display/dmub/inc/dmub_subvp_state.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index e8c02ae10163..d2d89bb711b0 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -1801,7 +1801,7 @@ static int vcn_v4_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index d52d5feeb311..a87afb796f47 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -47,11 +47,9 @@
+ #include "clk_mgr.h"
+ #include "dsc.h"
+ #include "dcn20/dcn20_optc.h"
+-#include "dmub_subvp_state.h"
+ #include "dce/dmub_hw_lock_mgr.h"
+ #include "dcn32_resource.h"
+ #include "link.h"
+-#include "dmub/inc/dmub_subvp_state.h"
  
--static const struct amdgpu_ring_funcs vcn_v4_0_unified_ring_vm_funcs = {
-+static struct amdgpu_ring_funcs vcn_v4_0_unified_ring_vm_funcs = {
- 	.type = AMDGPU_RING_TYPE_VCN_ENC,
- 	.align_mask = 0x3f,
- 	.nop = VCN_ENC_CMD_NO_OP,
-@@ -1846,7 +1846,11 @@ static void vcn_v4_0_set_unified_ring_funcs(struct amdgpu_device *adev)
- 		if (adev->vcn.harvest_config & (1 << i))
- 			continue;
+ #define DC_LOGGER_INIT(logger)
  
--		adev->vcn.inst[i].ring_enc[0].funcs = &vcn_v4_0_unified_ring_vm_funcs;
-+		if (adev->ip_versions[VCN_HWIP][0] == IP_VERSION(4, 0, 2))
-+			vcn_v4_0_unified_ring_vm_funcs.secure_submission_supported = true;
-+
-+		adev->vcn.inst[i].ring_enc[0].funcs =
-+		       (const struct amdgpu_ring_funcs *)&vcn_v4_0_unified_ring_vm_funcs;
- 		adev->vcn.inst[i].ring_enc[0].me = i;
- 
- 		DRM_INFO("VCN(%d) encode/decode are enabled in VM mode\n", i);
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_subvp_state.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_subvp_state.h
+deleted file mode 100644
+index 21b02bad696f..000000000000
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_subvp_state.h
++++ /dev/null
+@@ -1,183 +0,0 @@
+-/*
+- * Copyright 2019 Advanced Micro Devices, Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
+- * Authors: AMD
+- *
+- */
+-
+-#ifndef DMUB_SUBVP_STATE_H
+-#define DMUB_SUBVP_STATE_H
+-
+-#include "dmub_cmd.h"
+-
+-#define DMUB_SUBVP_INST0 0
+-#define DMUB_SUBVP_INST1 1
+-#define SUBVP_MAX_WATERMARK 0xFFFF
+-
+-struct dmub_subvp_hubp_state {
+-	uint32_t CURSOR0_0_CURSOR_POSITION;
+-	uint32_t CURSOR0_0_CURSOR_HOT_SPOT;
+-	uint32_t CURSOR0_0_CURSOR_DST_OFFSET;
+-	uint32_t CURSOR0_0_CURSOR_SURFACE_ADDRESS_HIGH;
+-	uint32_t CURSOR0_0_CURSOR_SURFACE_ADDRESS;
+-	uint32_t CURSOR0_0_CURSOR_SIZE;
+-	uint32_t CURSOR0_0_CURSOR_CONTROL;
+-	uint32_t HUBPREQ0_CURSOR_SETTINGS;
+-	uint32_t HUBPREQ0_DCSURF_SURFACE_EARLIEST_INUSE_HIGH;
+-	uint32_t HUBPREQ0_DCSURF_SURFACE_EARLIEST_INUSE;
+-	uint32_t HUBPREQ0_DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH;
+-	uint32_t HUBPREQ0_DCSURF_PRIMARY_SURFACE_ADDRESS;
+-	uint32_t HUBPREQ0_DCSURF_PRIMARY_META_SURFACE_ADDRESS;
+-	uint32_t HUBPREQ0_DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH;
+-	uint32_t HUBPREQ0_DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH_C;
+-	uint32_t HUBPREQ0_DCSURF_PRIMARY_SURFACE_ADDRESS_C;
+-	uint32_t HUBPREQ0_DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH_C;
+-	uint32_t HUBPREQ0_DCSURF_PRIMARY_META_SURFACE_ADDRESS_C;
+-};
+-
+-enum subvp_error_code {
+-	DMUB_SUBVP_INVALID_STATE,
+-	DMUB_SUBVP_INVALID_TRANSITION,
+-};
+-
+-enum subvp_state {
+-	DMUB_SUBVP_DISABLED,
+-	DMUB_SUBVP_IDLE,
+-	DMUB_SUBVP_TRY_ACQUIRE_LOCKS,
+-	DMUB_SUBVP_WAIT_FOR_LOCKS,
+-	DMUB_SUBVP_PRECONFIGURE,
+-	DMUB_SUBVP_PREPARE,
+-	DMUB_SUBVP_ENABLE,
+-	DMUB_SUBVP_SWITCHING,
+-	DMUB_SUBVP_END,
+-	DMUB_SUBVP_RESTORE,
+-};
+-
+-/* Defines information for SUBVP to handle vertical interrupts. */
+-struct dmub_subvp_vertical_interrupt_event {
+-	/**
+-	 * @inst: Hardware instance of vertical interrupt.
+-	 */
+-	uint8_t otg_inst;
+-
+-	/**
+-	 * @pad: Align structure to 4 byte boundary.
+-	 */
+-	uint8_t pad[3];
+-
+-	enum subvp_state curr_state;
+-};
+-
+-struct dmub_subvp_vertical_interrupt_state {
+-	/**
+-	 * @events: Event list.
+-	 */
+-	struct dmub_subvp_vertical_interrupt_event events[DMUB_MAX_STREAMS];
+-};
+-
+-struct dmub_subvp_vline_interrupt_event {
+-
+-	uint8_t hubp_inst;
+-	uint8_t pad[3];
+-};
+-
+-struct dmub_subvp_vline_interrupt_state {
+-	struct dmub_subvp_vline_interrupt_event events[DMUB_MAX_PLANES];
+-};
+-
+-struct dmub_subvp_interrupt_ctx {
+-	struct dmub_subvp_vertical_interrupt_state vertical_int;
+-	struct dmub_subvp_vline_interrupt_state vline_int;
+-};
+-
+-struct dmub_subvp_pipe_state {
+-	uint32_t pix_clk_100hz;
+-	uint16_t main_vblank_start;
+-	uint16_t main_vblank_end;
+-	uint16_t mall_region_lines;
+-	uint16_t prefetch_lines;
+-	uint16_t prefetch_to_mall_start_lines;
+-	uint16_t processing_delay_lines;
+-	uint8_t main_pipe_index;
+-	uint8_t phantom_pipe_index;
+-	uint16_t htotal; // htotal for main / phantom pipe
+-	uint16_t vtotal;
+-	uint16_t optc_underflow_count;
+-	uint16_t hubp_underflow_count;
+-	uint8_t pad[2];
+-};
+-
+-/**
+- * struct dmub_subvp_vblank_drr_info - Store DRR state when handling
+- * SubVP + VBLANK with DRR multi-display case.
+- *
+- * The info stored in this struct is only valid if drr_in_use = 1.
+- */
+-struct dmub_subvp_vblank_drr_info {
+-	uint8_t drr_in_use;
+-	uint8_t drr_window_size_ms;	// DRR window size -- indicates largest VMIN/VMAX adjustment per frame
+-	uint16_t min_vtotal_supported;	// Min VTOTAL that supports switching in VBLANK
+-	uint16_t max_vtotal_supported;	// Max VTOTAL that can still support SubVP static scheduling requirements
+-	uint16_t prev_vmin;		// Store VMIN value before MCLK switch (used to restore after MCLK end)
+-	uint16_t prev_vmax;		// Store VMAX value before MCLK switch (used to restore after MCLK end)
+-	uint8_t use_ramping;		// Use ramping or not
+-	uint8_t pad[1];
+-};
+-
+-struct dmub_subvp_vblank_pipe_info {
+-	uint32_t pix_clk_100hz;
+-	uint16_t vblank_start;
+-	uint16_t vblank_end;
+-	uint16_t vstartup_start;
+-	uint16_t vtotal;
+-	uint16_t htotal;
+-	uint8_t pipe_index;
+-	uint8_t pad[1];
+-	struct dmub_subvp_vblank_drr_info drr_info;	// DRR considered as part of SubVP + VBLANK case
+-};
+-
+-enum subvp_switch_type {
+-	DMUB_SUBVP_ONLY, // Used for SubVP only, and SubVP + VACTIVE
+-	DMUB_SUBVP_AND_SUBVP, // 2 SubVP displays
+-	DMUB_SUBVP_AND_VBLANK,
+-	DMUB_SUBVP_AND_FPO,
+-};
+-
+-/* SubVP state. */
+-struct dmub_subvp_state {
+-	struct dmub_subvp_pipe_state pipe_state[DMUB_MAX_SUBVP_STREAMS];
+-	struct dmub_subvp_interrupt_ctx int_ctx;
+-	struct dmub_subvp_vblank_pipe_info vblank_info;
+-	enum subvp_state state; // current state
+-	enum subvp_switch_type switch_type; // enum take up 4 bytes (?)
+-	uint8_t mclk_pending;
+-	uint8_t num_subvp_streams;
+-	uint8_t vertical_int_margin_us;
+-	uint8_t pstate_allow_width_us;
+-	uint32_t subvp_mclk_switch_count;
+-	uint32_t subvp_wait_lock_count;
+-	uint32_t driver_wait_lock_count;
+-	uint32_t subvp_vblank_frame_count;
+-	uint16_t watermark_a_cache;
+-	uint8_t pad[2];
+-};
+-
+-#endif /* _DMUB_SUBVP_STATE_H_ */
 -- 
-2.25.1
+2.41.0
 
