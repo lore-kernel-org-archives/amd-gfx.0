@@ -4,61 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBFDEEB64DC
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 13:00:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58E70EB64DC
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 13:01:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67CD210E239;
-	Mon, 17 Jul 2023 13:00:59 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2768E10E142;
- Mon, 17 Jul 2023 12:06:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689595595; x=1721131595;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=0Dt11mJGY3uST81NgKzX3Wy33nGbeSvB9w1sz8eDsQc=;
- b=NyGjNeMoN9UCeieWl7/Zq9io1mwAsVV80l6e9QMhBYs/gN4dQoeHzLgT
- 6ajZfnMcAwbCfMT6YuvOzhu3dXMe5BYDSujHac9dT7ydfFZcvuxQKTbdK
- QJyw+IRv/qIJb/JIMTTjAsaY0LEpg6BOm3ANqbFjwAgzh6/exmkZkAWB7
- xxboahUllpCb1/G7Iw/QRQQ1SbJaeQ+w/2CRRCMM4bd+jMgXPRH9aH6+j
- BR3S7Ty4F8JhYtsilQtCl6ZyRtQIyaX4dawdLXHBzw+wgLsyacpsXa9p8
- 0N2EJKGJBiBFPMjGFdSzUxB1ANfmb1lj2/oeMybk+pxZPiOPMl8PC+WT8 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10773"; a="432081763"
-X-IronPort-AV: E=Sophos;i="6.01,211,1684825200"; d="scan'208";a="432081763"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2023 05:06:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10773"; a="752876238"
-X-IronPort-AV: E=Sophos;i="6.01,211,1684825200"; d="scan'208";a="752876238"
-Received: from dkravtso-mobl1.ccr.corp.intel.com (HELO
- ijarvine-mobl2.ger.corp.intel.com) ([10.252.45.233])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2023 05:06:28 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Rob Herring <robh@kernel.org>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Heiner Kallweit <hkallweit1@gmail.com>, Lukas Wunner <lukas@wunner.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5 06/11] drm/radeon: Use RMW accessors for changing LNKCTL
-Date: Mon, 17 Jul 2023 15:04:58 +0300
-Message-Id: <20230717120503.15276-7-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230717120503.15276-1-ilpo.jarvinen@linux.intel.com>
-References: <20230717120503.15276-1-ilpo.jarvinen@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C97F10E249;
+	Mon, 17 Jul 2023 13:01:00 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0116110E225
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 10:25:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1689589550;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=3ZxqwFcIYi400ycUN1jF1UBiOV7Go/IiKqR9OlilEKQ=;
+ b=C65o/auU4ShkAd4aAQ231+4cpgAPBT4XBKAjNYgSaSLn2wRIIGimgKSlKJCKO2FcbQkCEZ
+ gUEBcq4s7B4Em7SOyBdZtjLR8eAvfiWtglZRq14mPT6c3+LSlYLI0AqQa6IOflk3CuqhCV
+ ZkDTkrowCvFd4V/3gEll25h7vRXINH0=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-458-tCXpbpz4MlanBLNTCumrpA-1; Mon, 17 Jul 2023 06:25:46 -0400
+X-MC-Unique: tCXpbpz4MlanBLNTCumrpA-1
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-30e4943ca7fso2364627f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 03:25:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689589545; x=1692181545;
+ h=content-transfer-encoding:in-reply-to:organization:from:references
+ :cc:to:content-language:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3ZxqwFcIYi400ycUN1jF1UBiOV7Go/IiKqR9OlilEKQ=;
+ b=MNL9UJZHngkXQWZc0TXUcOunRZKT4K0ubc7aKvsAiWfsihQ1gwZ6n2AeCpm4ARNbzM
+ W2/jnq9YlisovTk9EWKZJths9c2gZhDbETe4+1Qpmmf6CMdyfMYuKsbzgkbCpt8gmV3D
+ hjD0IO4uuAt0fpxwVKQgzjlZGKU4vEzgAzRk8nY9lwjhyYrwvj7WemQRnHy/pF993WYB
+ TPYzjs8Q0QcPXWH97KHhIjdNWQZ8MuiDNW0O/XklXiKcXnOOwRfS9DgJedBDa9BDYIdK
+ 9kZIlphTdjxgk/SFNPuINws2Gh5OXA+posuoCCf2nU8hBYMeRWIgRiBFi8rk9twsBPn0
+ wbDQ==
+X-Gm-Message-State: ABy/qLb/x8ysjFkrJ73AInQtLaLKg63NrsSnR6d3IGXUrnbqfFNgxFIG
+ 6OixqniyzdEo1Z7uqn9BoewhjuSlJShyzNrqnF+KpDXZ2aq9a7fGGczK8BAhx5VvrtDZY/gBeU/
+ xhX78evBlUooVGJ5RhdSL9Oa5Og==
+X-Received: by 2002:a5d:6301:0:b0:313:f548:25b9 with SMTP id
+ i1-20020a5d6301000000b00313f54825b9mr10182300wru.40.1689589545445; 
+ Mon, 17 Jul 2023 03:25:45 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlEWwgj2gvrTcZVcFzDTLfBjRjMXpKrSXg5bhLw4PXADJbZO+n+htRPdtsID+emCjARx8zYmVw==
+X-Received: by 2002:a5d:6301:0:b0:313:f548:25b9 with SMTP id
+ i1-20020a5d6301000000b00313f54825b9mr10182288wru.40.1689589545080; 
+ Mon, 17 Jul 2023 03:25:45 -0700 (PDT)
+Received: from ?IPV6:2003:cb:c735:400:2501:5a2e:13c6:88da?
+ (p200300cbc735040025015a2e13c688da.dip0.t-ipconnect.de.
+ [2003:cb:c735:400:2501:5a2e:13c6:88da])
+ by smtp.gmail.com with ESMTPSA id
+ j1-20020a5d4641000000b0031434936f0dsm18732085wrs.68.2023.07.17.03.25.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Jul 2023 03:25:44 -0700 (PDT)
+Message-ID: <2000511c-d551-5b3d-a9a9-adb4ba3be1f1@redhat.com>
+Date: Mon, 17 Jul 2023 12:25:43 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH 2/5] mm: use vma_is_stack() and vma_is_heap()
+To: Kefeng Wang <wangkefeng.wang@huawei.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+References: <20230712143831.120701-1-wangkefeng.wang@huawei.com>
+ <20230712143831.120701-3-wangkefeng.wang@huawei.com>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+In-Reply-To: <20230712143831.120701-3-wangkefeng.wang@huawei.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 17 Jul 2023 13:00:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,139 +91,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dean Luick <dean.luick@cornelisnetworks.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- stable@vger.kernel.org, =?UTF-8?q?Jonas=20Dre=C3=9Fler?= <verdre@v0yd.nl>
+Cc: selinux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ linux-mm@kvack.org, amd-gfx@lists.freedesktop.org,
+ linux-fsdevel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Don't assume that only the driver would be accessing LNKCTL. ASPM
-policy changes can trigger write to LNKCTL outside of driver's control.
-And in the case of upstream bridge, the driver does not even own the
-device it's changing the registers for.
+On 12.07.23 16:38, Kefeng Wang wrote:
+> Use the helpers to simplify code.
+> 
+> Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
+> ---
+>   fs/proc/task_mmu.c   | 24 ++++--------------------
+>   fs/proc/task_nommu.c | 15 +--------------
+>   2 files changed, 5 insertions(+), 34 deletions(-)
+> 
 
-Use RMW capability accessors which do proper locking to avoid losing
-concurrent updates to the register value.
+Please squash patch #1 and this patch and call it something like
 
-Fixes: 8a7cd27679d0 ("drm/radeon/cik: add support for pcie gen1/2/3 switching")
-Fixes: b9d305dfb66c ("drm/radeon: implement pcie gen2/3 support for SI")
-Suggested-by: Lukas Wunner <lukas@wunner.de>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/radeon/cik.c | 36 ++++++++++-------------------------
- drivers/gpu/drm/radeon/si.c  | 37 ++++++++++--------------------------
- 2 files changed, 20 insertions(+), 53 deletions(-)
+"mm: factor out VMA stack and heap checks"
 
-diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
-index 5819737c21c6..a6f3c811ceb8 100644
---- a/drivers/gpu/drm/radeon/cik.c
-+++ b/drivers/gpu/drm/radeon/cik.c
-@@ -9534,17 +9534,8 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- 			u16 bridge_cfg2, gpu_cfg2;
- 			u32 max_lw, current_lw, tmp;
- 
--			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--						  &bridge_cfg);
--			pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL,
--						  &gpu_cfg);
--
--			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
--
--			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL,
--						   tmp16);
-+			pcie_capability_set_word(root, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
-+			pcie_capability_set_word(rdev->pdev, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
- 
- 			tmp = RREG32_PCIE_PORT(PCIE_LC_STATUS1);
- 			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
-@@ -9591,21 +9582,14 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- 				msleep(100);
- 
- 				/* linkctl */
--				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(root, PCI_EXP_LNKCTL,
--							   tmp16);
--
--				pcie_capability_read_word(rdev->pdev,
--							  PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(rdev->pdev,
--							   PCI_EXP_LNKCTL,
--							   tmp16);
-+				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   bridge_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
-+				pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   gpu_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
- 
- 				/* linkctl2 */
- 				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
-diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
-index 8d5e4b25609d..a91012447b56 100644
---- a/drivers/gpu/drm/radeon/si.c
-+++ b/drivers/gpu/drm/radeon/si.c
-@@ -7131,17 +7131,8 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- 			u16 bridge_cfg2, gpu_cfg2;
- 			u32 max_lw, current_lw, tmp;
- 
--			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--						  &bridge_cfg);
--			pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL,
--						  &gpu_cfg);
--
--			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
--
--			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
--			pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL,
--						   tmp16);
-+			pcie_capability_set_word(root, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
-+			pcie_capability_set_word(rdev->pdev, PCI_EXP_LNKCTL, PCI_EXP_LNKCTL_HAWD);
- 
- 			tmp = RREG32_PCIE(PCIE_LC_STATUS1);
- 			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
-@@ -7188,22 +7179,14 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- 				msleep(100);
- 
- 				/* linkctl */
--				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(root,
--							   PCI_EXP_LNKCTL,
--							   tmp16);
--
--				pcie_capability_read_word(rdev->pdev,
--							  PCI_EXP_LNKCTL,
--							  &tmp16);
--				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
--				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
--				pcie_capability_write_word(rdev->pdev,
--							   PCI_EXP_LNKCTL,
--							   tmp16);
-+				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   bridge_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
-+				pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL,
-+								   PCI_EXP_LNKCTL_HAWD,
-+								   gpu_cfg &
-+								   PCI_EXP_LNKCTL_HAWD);
- 
- 				/* linkctl2 */
- 				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
+And then, maybe also keep the comments in these functions, they sound 
+reasonable to have.
+
 -- 
-2.30.2
+Cheers,
+
+David / dhildenb
 
