@@ -4,61 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5925EB64DC
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 16:47:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2DAAC001B0
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 17:28:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49C9610E03E;
-	Mon, 17 Jul 2023 16:47:30 +0000 (UTC)
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
- [IPv6:2607:f8b0:4864:20::1129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4652C10E283
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 16:13:10 +0000 (UTC)
-Received: by mail-yw1-x1129.google.com with SMTP id
- 00721157ae682-5700b15c12fso47047737b3.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 09:13:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=paul-moore.com; s=google; t=1689610389; x=1692202389;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8CqPKH8zLjxPG0T2aNpKAIqJzacVH6EbJBb3LjExpjw=;
- b=cQpEj7wQVECv/U9cTpn+RN55ujAIWvks3MU4IX4Wr/hwnFIe0F/qx5YUKjSMpnx703
- CHzs0WWQ7uBihIAx5z5eiCKmCaltnArXhlaNRgavYeytVm5vSw/gQiRT1py2AerifbO6
- AiJnYOTJCz0R2HkNoD7T9Yf9t3z2uTFa83xyLrtRemXVRe2lrXcVvM5qyrJMMViUNE7U
- 6aLZBv3MPfrrvSHz+w10LReOyQijeOLBQAf/Jl5WjQxapxktKezBDH2erUpWfo+TfrZS
- RnuZ/YnESkQ6HSr7gO5+BgLJh/oDlySt0yQzLcBh/BGfPb0h9TdwTyAHNWQPywULEg7z
- BUVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689610389; x=1692202389;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8CqPKH8zLjxPG0T2aNpKAIqJzacVH6EbJBb3LjExpjw=;
- b=kBblM+WXiuiaQ6LLSoAgRwYFlQ4JMDuMh4R5deAIYyZFLj+FxFqouPPmuMNMQ30FLE
- sf54NpB9M23q2HAHBqWmy51Qay9cN+/5bPu81ZfIiWVyRPodbzBFRQ/1BBNThaRFnZlx
- 9P0z1prcH4T/4h/RaRZVcNO1URTw6nHDUQ7QwS2oOictWnWSCFaadMmpW3cSnHFDHyiK
- iLb+siAKRkRwlnQHgGLKROShodwiAYOZPLaSi4qzupHUW6o3zHaasTp7SGgua3OGbFmI
- 9/5iWq86kS3h7c1/Lk9aCqfCla/CZ1x2L96a496WJpu3oExryrajgWmn434L1vs6jkB/
- wH2g==
-X-Gm-Message-State: ABy/qLb7z4lGpV/EeIclqWgarH9anthNYM11sKUAG3ZUETO7RJsYYEar
- /d1064dZbqdTB0Ne6e/L0/mvhADWA8ENFzUIeLI0
-X-Google-Smtp-Source: APBJJlGog4dyfGlwFIS3iBtcrvJFLeH/ogm5YcXS+semC1utnZAcGzlBZgUKou2DvMgGuYXX4nNPAERtXRDz/TQJF88=
-X-Received: by 2002:a81:67c1:0:b0:577:2fda:f181 with SMTP id
- b184-20020a8167c1000000b005772fdaf181mr12551811ywc.44.1689610388723; Mon, 17
- Jul 2023 09:13:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC1210E28E;
+	Mon, 17 Jul 2023 17:28:04 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2049.outbound.protection.outlook.com [40.107.93.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7745910E03F;
+ Mon, 17 Jul 2023 17:28:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lR8QWBFVJebMkGs9kHkgaJyP3nnBGz1OvcxcM3MwR5tcwky8xhrjtkujmF96+223liwS2VHDDPPcDLjl//lUoqa0nysv55UlNgUwQ5ZDzegsW+BcFvpuQSwRU1eLut9k9lRelrSdjNRGDtV4TSkt/V8Hy1f64vTYCKdYdyn9456+8RTzaRkZt1gf/CCflgFOpubvjFtGhyoRXdm2xmVefSYK8N+gq0tuGJVhq8fqPgKKoe1d3nMuLr1qDEae5Np9YEUT8fFnkRlHpoYMkMXm4rDeGIxUSgKWkdhb0PjUnfL334P99YE9TO/OvjoYxoe9FI4NuCrtAMjciawpFesT5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gqDcIh3B9sOpYZYiKQzBixycYyJzN1tLgjjoyu/n2a4=;
+ b=X8Nis8qgg4B9A/EE55xMHxeNbYhyPql2N4nnpZzVdZT+0FdHYU8OjSQBEIfU19dbpwEKy+Dflc4kTvE/zX3LrS5t44BMPUXRcTIjXKwa8l2i586zBVEDEoXSRWniUWhigiQ+sWZa6ie7jTmDIYw31ZZ73wtV3gLI0QD60CUybN8hLkVdDssPG2JQBaiafsB5lc7Snq+3Yw+alfMRvTspGp5n9IKYFkrbvSy+lyDYbqwI4WXVV17o3QKS+n+bO4Hq/kLfSemcbQSXUHLaLUYz7qRc2gXlvCmVSvEIfmyYgUURuj8xcFLCOdwCqWbWOosRPzTK1N2sILDVARnixa5kJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gqDcIh3B9sOpYZYiKQzBixycYyJzN1tLgjjoyu/n2a4=;
+ b=Z1IvZzMCPTfRa5X6hzA72qL7P1FnuGR8OEpxWrasbvyeus3rB5fWhQjroKfyctU3P0ver7Xat7JzupdwuuTnMJyyxuU1krlL49x7Vo7ow1L/wQGb0G3Kc5yzjTqxoUvHGnrpH4ZDAlGW1vwTho1TeaHU7096dLKa2HTw7SwOFZs=
+Received: from MW4PR03CA0103.namprd03.prod.outlook.com (2603:10b6:303:b7::18)
+ by CY8PR12MB7123.namprd12.prod.outlook.com (2603:10b6:930:60::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.31; Mon, 17 Jul
+ 2023 17:27:58 +0000
+Received: from CO1NAM11FT050.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b7:cafe::84) by MW4PR03CA0103.outlook.office365.com
+ (2603:10b6:303:b7::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.33 via Frontend
+ Transport; Mon, 17 Jul 2023 17:27:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT050.mail.protection.outlook.com (10.13.174.79) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6588.33 via Frontend Transport; Mon, 17 Jul 2023 17:27:58 +0000
+Received: from ETHANOL.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 17 Jul
+ 2023 12:27:51 -0500
+From: sguttula <Suresh.Guttula@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Leo Liu
+ <leo.liu@amd.com>
+Subject: [PATCH] drm/amdgpu: allow secure submission on VCN4 ring
+Date: Mon, 17 Jul 2023 22:57:08 +0530
+Message-ID: <20230717172708.4044221-1-Suresh.Guttula@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230712143831.120701-1-wangkefeng.wang@huawei.com>
- <20230712143831.120701-5-wangkefeng.wang@huawei.com>
-In-Reply-To: <20230712143831.120701-5-wangkefeng.wang@huawei.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Mon, 17 Jul 2023 12:12:58 -0400
-Message-ID: <CAHC9VhSU=T5FEP=sZyNukykE-xRzWsqyddS2-+sEsy2bmfGHKQ@mail.gmail.com>
-Subject: Re: [PATCH 4/5] selinux: use vma_is_stack() and vma_is_heap()
-To: Kefeng Wang <wangkefeng.wang@huawei.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 17 Jul 2023 16:47:29 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT050:EE_|CY8PR12MB7123:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc0774c8-cce5-4410-abfe-08db86eb29f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zI9Gfl3V9jC/D4zO1QuhgiBLsdViMaLfvnsy9AVkgyOFzzLNwvOeMsLe97w6ZHbKB7gMMF0vxOOR7fMxQ5q0E6DwQjFmTg/Q1tKfRoFIGu/AHf4SFavKN4/tqtIYmKWbYh6dMxmHptSIw1jKqJt1BTJ7f5eSNL9dfe8YuDPspRPtSaHaTZwTzw8hwo5eoRBmIBSWIgvLAtIVb5gNQ0VGLGCu4vNYwBJYHlhZAwfqwz0AShUP3ipfJ7dKGFisTMrSSDGuo9J+xocMKjO1IQnZ5bR8lB/vzHF17U0UBdpfU9wFD0CNCKQjP8S32XyRAqd/bkaXrKsJ+2D8gIQrpiYiLEQ1aVs4NdVFjE+GUNWq6vp21FBP3jcw1Iy5m5Nr1kJqHL8uJkODoje29VTmxM7aN+nXaS9pq8ZG54xipkHXEpaRDsMpuhNquoDk+1CUNffw7hGYRB1Z7y/lqMyxbGFA5oAy3FoTE5H28cMBc2uUV7R0RR1V3gfz6PwyNaLJTptMMScYqHcFZI+W6Zz63S8XraSHmNtUdIok4AsLaqRRz/ocdYABLxqpU+PlO4H0ToCUDm+ccspu41plomEM2OTuqXWgvwqPP0o5YUv3adv40FVtNmvGsFSj+OCgj/1ZK1GbOZDBPlzA0mccikN5U/kCi7waKC5eqoeaifnLNWUYC4pLZ5JJ5J5twav4vFNKsYh5k1qsEEi+IP2T5GeXZVLnrxw6BgOc1LhUl+/Y/zv8SOvLbp8NQAGmVJkb/8VqwFOD+es4+OKS76FZp0x2MPm0GMpH0tOAxHzAHXarb1xIb9o=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(346002)(376002)(396003)(136003)(451199021)(82310400008)(40470700004)(46966006)(36840700001)(2906002)(81166007)(356005)(82740400003)(336012)(426003)(47076005)(83380400001)(186003)(1076003)(36860700001)(26005)(40480700001)(2616005)(16526019)(86362001)(40460700003)(5660300002)(36756003)(8676002)(8936002)(7696005)(478600001)(110136005)(54906003)(6666004)(316002)(41300700001)(4326008)(6636002)(70206006)(70586007)(450100002)(43062005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2023 17:27:58.0937 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc0774c8-cce5-4410-abfe-08db86eb29f8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT050.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7123
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,52 +99,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: selinux@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
- linux-mm@kvack.org, amd-gfx@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ sguttula <Suresh.Guttula@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 12, 2023 at 10:25=E2=80=AFAM Kefeng Wang <wangkefeng.wang@huawe=
-i.com> wrote:
->
-> Use the helpers to simplify code.
->
-> Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
-> ---
->  security/selinux/hooks.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
->
-> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> index 4e46cf3d67b6..289ef2d6a427 100644
-> --- a/security/selinux/hooks.c
-> +++ b/security/selinux/hooks.c
-> @@ -3775,13 +3775,10 @@ static int selinux_file_mprotect(struct vm_area_s=
-truct *vma,
->         if (default_noexec &&
->             (prot & PROT_EXEC) && !(vma->vm_flags & VM_EXEC)) {
->                 int rc =3D 0;
-> -               if (vma->vm_start >=3D vma->vm_mm->start_brk &&
-> -                   vma->vm_end <=3D vma->vm_mm->brk) {
-> +               if (vma_is_heap(vma)) {
->                         rc =3D avc_has_perm(sid, sid, SECCLASS_PROCESS,
->                                           PROCESS__EXECHEAP, NULL);
-> -               } else if (!vma->vm_file &&
-> -                          ((vma->vm_start <=3D vma->vm_mm->start_stack &=
-&
-> -                            vma->vm_end >=3D vma->vm_mm->start_stack) ||
-> +               } else if (!vma->vm_file && vma_is_stack(vma) ||
->                             vma_is_stack_for_current(vma))) {
+This patch will enable secure decode playback on VCN4_0_2
 
-With the parens fix that Andrew already provided.
+Signed-off-by: sguttula <Suresh.Guttula@amd.com>
 
-Acked-by: Paul Moore <paul@paul-moore.com>
+---
+Changes in v2:
+-updated commit message only enabling for VCN402
+-updated the logic as per Leo's feedback
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
->                         rc =3D avc_has_perm(sid, sid, SECCLASS_PROCESS,
->                                           PROCESS__EXECSTACK, NULL);
-> --
-> 2.41.0
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index e8c02ae10163..d2d89bb711b0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -1801,7 +1801,7 @@ static int vcn_v4_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
+ 	return 0;
+ }
+ 
+-static const struct amdgpu_ring_funcs vcn_v4_0_unified_ring_vm_funcs = {
++static struct amdgpu_ring_funcs vcn_v4_0_unified_ring_vm_funcs = {
+ 	.type = AMDGPU_RING_TYPE_VCN_ENC,
+ 	.align_mask = 0x3f,
+ 	.nop = VCN_ENC_CMD_NO_OP,
+@@ -1846,7 +1846,11 @@ static void vcn_v4_0_set_unified_ring_funcs(struct amdgpu_device *adev)
+ 		if (adev->vcn.harvest_config & (1 << i))
+ 			continue;
+ 
+-		adev->vcn.inst[i].ring_enc[0].funcs = &vcn_v4_0_unified_ring_vm_funcs;
++		if (adev->ip_versions[VCN_HWIP][0] == IP_VERSION(4, 0, 2))
++			vcn_v4_0_unified_ring_vm_funcs.secure_submission_supported = true;
++
++		adev->vcn.inst[i].ring_enc[0].funcs =
++		       (const struct amdgpu_ring_funcs *)&vcn_v4_0_unified_ring_vm_funcs;
+ 		adev->vcn.inst[i].ring_enc[0].me = i;
+ 
+ 		DRM_INFO("VCN(%d) encode/decode are enabled in VM mode\n", i);
+-- 
+2.25.1
 
---=20
-paul-moore.com
