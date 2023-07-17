@@ -4,90 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D687FEB64DC
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 15:59:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5925EB64DC
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 16:47:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5929D10E27D;
-	Mon, 17 Jul 2023 15:59:27 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2087.outbound.protection.outlook.com [40.107.212.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 253F410E282
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 15:59:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HLe9urTNzWHhDS/Pk2gwEcbHfatdDYTEr2cfHapdSOnuv5eY/91t+UwbkBUMwBillGZtJ3WnLHkEmz0UR9SophAuXg7XuBZ5zk5Glf7LKGtKJXHF38lg/Dt/A8T6aoyGu5NzTABA45pGnBk4CxpVlaeYk9gDoqXPKe0XGoso3NM4YV/TOjE/jXtt3i3tKKKhtbYrRFo14G7ZYBgkhSYFFnmr6EKsmSpnxeJrNzoLCbRdDp/IY5cxpydnfcmST3l9eIIBfYi3KBle7Eqn0HmuiGCrEARSTQu4+B0PQOMWVbh8lB36kBnyy9BwmIuuwbJDNgdjoP5BF2qrfT3VmoNw1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mxk8joNoi+AjOiSqmyXfuq/FfyqBLcwTvtX03DgCEUA=;
- b=lpAeVvRSoW9wCdww+SzMfhrnnt8IkRTO+uu49miA1k0g1zfZ7uBbQxJMOzkxtrYnMaceC/oVeABeLdlabkwbeg4oanTkmKo4c4UZZcr5kMLLgcMShtyy8pN/24oAcx9ihVlrrY8/p18S632pzQwl7e7mC0Fxbbosdt3g16Yv0+TOAJVqtLrqsTNhLeyeeVmRxavff9P6J14XdHVdED4lrEZndWfZOQcpa6lX89uQhZ4FJLXUGzHDouOlGmXf76GrhnAUXXl2cIbBMjk3jqEw+uDK2UBI6B3jCHPapCrpb3AJLQxmzT0F5oKrLbfpL/SsfwZhWVyNtJXo8DlF4mEwRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mxk8joNoi+AjOiSqmyXfuq/FfyqBLcwTvtX03DgCEUA=;
- b=wWuiWoRHmB1BiL2cTikw5jwMzcZQJNmMn2jZlZKEyM2GJecVxzU1y3f1WjgSeb9WzQPCn7rgg1+xJaiulLYlrItCt2UF1/Mrehe7YI1mx3gRv4cH0Z9SMURkggF3Qxws2rGQNl4TzJ8SbsXN4Gd5ARSxpmyZ0Xvr4pAWOG2tmFU=
-Received: from MW2PR16CA0061.namprd16.prod.outlook.com (2603:10b6:907:1::38)
- by PH8PR12MB7350.namprd12.prod.outlook.com (2603:10b6:510:216::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.33; Mon, 17 Jul
- 2023 15:59:20 +0000
-Received: from CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:1:cafe::9c) by MW2PR16CA0061.outlook.office365.com
- (2603:10b6:907:1::38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.20 via Frontend
- Transport; Mon, 17 Jul 2023 15:59:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT012.mail.protection.outlook.com (10.13.175.192) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6588.33 via Frontend Transport; Mon, 17 Jul 2023 15:59:19 +0000
-Received: from sdhume-SYS-7049GP-TRT.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23; Mon, 17 Jul 2023 10:59:18 -0500
-From: Samir Dhume <samir.dhume@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 7/7] drm/amdgpu/vcn: change end doorbell index for vcn_v4_0_3
-Date: Mon, 17 Jul 2023 11:58:41 -0400
-Message-ID: <20230717155841.758516-7-samir.dhume@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230717155841.758516-1-samir.dhume@amd.com>
-References: <20230717155841.758516-1-samir.dhume@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49C9610E03E;
+	Mon, 17 Jul 2023 16:47:30 +0000 (UTC)
+Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
+ [IPv6:2607:f8b0:4864:20::1129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4652C10E283
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 16:13:10 +0000 (UTC)
+Received: by mail-yw1-x1129.google.com with SMTP id
+ 00721157ae682-5700b15c12fso47047737b3.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 09:13:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=paul-moore.com; s=google; t=1689610389; x=1692202389;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8CqPKH8zLjxPG0T2aNpKAIqJzacVH6EbJBb3LjExpjw=;
+ b=cQpEj7wQVECv/U9cTpn+RN55ujAIWvks3MU4IX4Wr/hwnFIe0F/qx5YUKjSMpnx703
+ CHzs0WWQ7uBihIAx5z5eiCKmCaltnArXhlaNRgavYeytVm5vSw/gQiRT1py2AerifbO6
+ AiJnYOTJCz0R2HkNoD7T9Yf9t3z2uTFa83xyLrtRemXVRe2lrXcVvM5qyrJMMViUNE7U
+ 6aLZBv3MPfrrvSHz+w10LReOyQijeOLBQAf/Jl5WjQxapxktKezBDH2erUpWfo+TfrZS
+ RnuZ/YnESkQ6HSr7gO5+BgLJh/oDlySt0yQzLcBh/BGfPb0h9TdwTyAHNWQPywULEg7z
+ BUVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689610389; x=1692202389;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=8CqPKH8zLjxPG0T2aNpKAIqJzacVH6EbJBb3LjExpjw=;
+ b=kBblM+WXiuiaQ6LLSoAgRwYFlQ4JMDuMh4R5deAIYyZFLj+FxFqouPPmuMNMQ30FLE
+ sf54NpB9M23q2HAHBqWmy51Qay9cN+/5bPu81ZfIiWVyRPodbzBFRQ/1BBNThaRFnZlx
+ 9P0z1prcH4T/4h/RaRZVcNO1URTw6nHDUQ7QwS2oOictWnWSCFaadMmpW3cSnHFDHyiK
+ iLb+siAKRkRwlnQHgGLKROShodwiAYOZPLaSi4qzupHUW6o3zHaasTp7SGgua3OGbFmI
+ 9/5iWq86kS3h7c1/Lk9aCqfCla/CZ1x2L96a496WJpu3oExryrajgWmn434L1vs6jkB/
+ wH2g==
+X-Gm-Message-State: ABy/qLb7z4lGpV/EeIclqWgarH9anthNYM11sKUAG3ZUETO7RJsYYEar
+ /d1064dZbqdTB0Ne6e/L0/mvhADWA8ENFzUIeLI0
+X-Google-Smtp-Source: APBJJlGog4dyfGlwFIS3iBtcrvJFLeH/ogm5YcXS+semC1utnZAcGzlBZgUKou2DvMgGuYXX4nNPAERtXRDz/TQJF88=
+X-Received: by 2002:a81:67c1:0:b0:577:2fda:f181 with SMTP id
+ b184-20020a8167c1000000b005772fdaf181mr12551811ywc.44.1689610388723; Mon, 17
+ Jul 2023 09:13:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT012:EE_|PH8PR12MB7350:EE_
-X-MS-Office365-Filtering-Correlation-Id: 808954f2-2ece-47c5-1210-08db86dec7fd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DyRfZxiWviPdgOXERI6l/Jnmo6vIgDzN+NqkovpEbJ/b4t1tBfCXg0rFbjAepoE/+0YhFCyQ5MyjhQ6+pkERYngcLk6yuJ8quDu+CGHutTvNsC3qz5fberj7HezzcQpftEmDmvOda/w5QSYak+Dw/dw6NI3tlEoQ5LCAormNclPQKB0LNJwc2HMn4edl/IPgr+DGmSWinAc9+C3xYWejsyuMThRfNavn+aypYHszBlVgzv4KW7sXuRQE3DeCruwp0om8tAVTlA9zlBisNzGgNNbiVA9PbPuSbUKBkhKHuVqeZJHUVH4zRb2AjvYCvCdyubJrrsVCZcue+aobJ2XkYv2XpA81bHoDiCCGzLsHUG0sIv82AjnkUuEjrTXfiD2gpKGzxn9SjmZIIkdxFjeHcmIL0rpydHC7bSbxsZjUXfJ5UueyQRn3bNrT5i7K6S8yl5UOIKikoDcvxSYvvdIQa7HWfglnsyJndctpcLOif9lCBBpxi4D98le1h2zRTVAtXZfmrTsStj7YEQ5HF641tLYjvqpiaKDc7oUmBdl43OshmLHTreLr5bXDJkuqcrXdn25KZR2PaMxRN2Zr7satYS9y249j2+zvU3A+g0dlX3tID5KqdyV44on2FrcqEPv60ixoWO5IwU9s9ed++DbWhswY8jAvKjGbWQgGnu1W83khxPitn6qUM6IaC+GFsMG8oSf9TXOZdmfFwOQzRQF5sIw00WxO2CECT7jv/2YUoBrbBlb7bhIPfzq9UDAe3jQ+DzDpDgwrS1sZImNNUuGCiQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(396003)(39860400002)(346002)(136003)(451199021)(82310400008)(40470700004)(46966006)(36840700001)(41300700001)(40480700001)(478600001)(44832011)(2906002)(8936002)(8676002)(5660300002)(316002)(6916009)(70586007)(70206006)(4326008)(6666004)(1076003)(26005)(7696005)(40460700003)(186003)(82740400003)(356005)(81166007)(16526019)(47076005)(426003)(336012)(83380400001)(2616005)(36756003)(36860700001)(86362001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2023 15:59:19.6670 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 808954f2-2ece-47c5-1210-08db86dec7fd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7350
+References: <20230712143831.120701-1-wangkefeng.wang@huawei.com>
+ <20230712143831.120701-5-wangkefeng.wang@huawei.com>
+In-Reply-To: <20230712143831.120701-5-wangkefeng.wang@huawei.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Mon, 17 Jul 2023 12:12:58 -0400
+Message-ID: <CAHC9VhSU=T5FEP=sZyNukykE-xRzWsqyddS2-+sEsy2bmfGHKQ@mail.gmail.com>
+Subject: Re: [PATCH 4/5] selinux: use vma_is_stack() and vma_is_heap()
+To: Kefeng Wang <wangkefeng.wang@huawei.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 17 Jul 2023 16:47:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,40 +70,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Samir Dhume <samir.dhume@amd.com>
+Cc: selinux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ linux-mm@kvack.org, amd-gfx@lists.freedesktop.org,
+ linux-fsdevel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For sriov, doorbell index for vcn0 for AID needs to be on
-32 byte boundary so we need to move the vcn end doorbell
+On Wed, Jul 12, 2023 at 10:25=E2=80=AFAM Kefeng Wang <wangkefeng.wang@huawe=
+i.com> wrote:
+>
+> Use the helpers to simplify code.
+>
+> Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
+> ---
+>  security/selinux/hooks.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
+>
+> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+> index 4e46cf3d67b6..289ef2d6a427 100644
+> --- a/security/selinux/hooks.c
+> +++ b/security/selinux/hooks.c
+> @@ -3775,13 +3775,10 @@ static int selinux_file_mprotect(struct vm_area_s=
+truct *vma,
+>         if (default_noexec &&
+>             (prot & PROT_EXEC) && !(vma->vm_flags & VM_EXEC)) {
+>                 int rc =3D 0;
+> -               if (vma->vm_start >=3D vma->vm_mm->start_brk &&
+> -                   vma->vm_end <=3D vma->vm_mm->brk) {
+> +               if (vma_is_heap(vma)) {
+>                         rc =3D avc_has_perm(sid, sid, SECCLASS_PROCESS,
+>                                           PROCESS__EXECHEAP, NULL);
+> -               } else if (!vma->vm_file &&
+> -                          ((vma->vm_start <=3D vma->vm_mm->start_stack &=
+&
+> -                            vma->vm_end >=3D vma->vm_mm->start_stack) ||
+> +               } else if (!vma->vm_file && vma_is_stack(vma) ||
+>                             vma_is_stack_for_current(vma))) {
 
-Signed-off-by: Samir Dhume <samir.dhume@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+With the parens fix that Andrew already provided.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
-index f637574644c0..4a279960cd21 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
-@@ -330,14 +330,14 @@ typedef enum _AMDGPU_DOORBELL_ASSIGNMENT_LAYOUT1 {
- 	AMDGPU_DOORBELL_LAYOUT1_sDMA_ENGINE_END		= 0x19F,
- 	/* IH: 0x1A0 ~ 0x1AF */
- 	AMDGPU_DOORBELL_LAYOUT1_IH                      = 0x1A0,
--	/* VCN: 0x1B0 ~ 0x1D4 */
-+	/* VCN: 0x1B0 ~ 0x1E8 */
- 	AMDGPU_DOORBELL_LAYOUT1_VCN_START               = 0x1B0,
--	AMDGPU_DOORBELL_LAYOUT1_VCN_END                 = 0x1D4,
-+	AMDGPU_DOORBELL_LAYOUT1_VCN_END                 = 0x1E8,
- 
- 	AMDGPU_DOORBELL_LAYOUT1_FIRST_NON_CP		= AMDGPU_DOORBELL_LAYOUT1_sDMA_ENGINE_START,
- 	AMDGPU_DOORBELL_LAYOUT1_LAST_NON_CP		= AMDGPU_DOORBELL_LAYOUT1_VCN_END,
- 
--	AMDGPU_DOORBELL_LAYOUT1_MAX_ASSIGNMENT          = 0x1D4,
-+	AMDGPU_DOORBELL_LAYOUT1_MAX_ASSIGNMENT          = 0x1E8,
- 	AMDGPU_DOORBELL_LAYOUT1_INVALID                 = 0xFFFF
- } AMDGPU_DOORBELL_ASSIGNMENT_LAYOUT1;
- 
--- 
-2.34.1
+Acked-by: Paul Moore <paul@paul-moore.com>
 
+>                         rc =3D avc_has_perm(sid, sid, SECCLASS_PROCESS,
+>                                           PROCESS__EXECSTACK, NULL);
+> --
+> 2.41.0
+
+--=20
+paul-moore.com
