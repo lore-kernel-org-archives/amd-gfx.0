@@ -4,64 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D370EEB64DD
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 07:30:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C81CEB64DC
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 07:30:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A97B10E09F;
-	Tue, 18 Jul 2023 07:30:33 +0000 (UTC)
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [IPv6:2607:f8b0:4864:20::635])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AFF110E2BB
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 22:29:26 +0000 (UTC)
-Received: by mail-pl1-x635.google.com with SMTP id
- d9443c01a7336-1b8ad356f03so29626705ad.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 15:29:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sifive.com; s=google; t=1689632966; x=1692224966;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=XFPVhrUWRZQSAaKQnnj1TZG9poZqEqSu3fVdFJa8KKE=;
- b=YHbmAyIqg8BYpJU1Jk+XnlqKZH3UCVovE5VLeCN3tuNUrY/YLOl0HTKZydaosVQ0mi
- bZ/+W7LaITxuZQ7V0/ZvDUCbe8DuZA62WoXOTwBKy/EH1GOSsAU1WER+eLG5I3bcGQ8g
- 9RubTwXoJcDUl8g3IOnz3/GFqSZACjnxzTlCj+4JqoaaXj6mcm/Pbnow99OvOfjdCBkR
- juCPV3H7FJFjkVSd1lhUxp3cd0E0Pg7TUp1lyVgFshzwbhi8ju8hQFNSyiHsXMlks4Mu
- tF6014MG/tDwXw6owFkRGs3p712Y0TRM+xwwZ4ZAyVtu+hsrNEFxxR0Y0OuIfe9awYnk
- teCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689632966; x=1692224966;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=XFPVhrUWRZQSAaKQnnj1TZG9poZqEqSu3fVdFJa8KKE=;
- b=CXYnVK/iDa87yNjXba8qRPsadEq5PSa5JTXVylIQzXrfypURczAQ2bEHr7rh+hmmpT
- eBlu9iTgmInCbgQk2GYsZ3EBi8S1Bx9rbcgAkJvgaqNt/DzDvOv0qYO9BPoyUhHmvIRw
- SUgJZBOeyfPTyF04bpOIIxdutY4BOpP0PJgGrHwj7LSaRlx1D0zIa0Qw/b0l1wcquy4H
- b8nixUIrjwjDMcyGotRrk/aoJl1i81kpSVys2KP1vYTi0HY/yZC6FWrNnoi3oiVK2Su7
- PM2ojx/T4TJ1PpYOVVsv4XzzapT8BJ3AMh/FMpo38NYS/TyOdIipJLIqUSs4ujASE+KF
- P+Ug==
-X-Gm-Message-State: ABy/qLZqLV2yJdSvwFF2fVWQpsJiAm9BYcOVIm887fd+52fRB0pHZ09c
- k0vG1jDHC+FRSd0P7ihuW0AJhg==
-X-Google-Smtp-Source: APBJJlGcyS1478AzqSwi9033GBaEO4A6Ib9Gvs0E+TYvAHuX+SPIhJ/+F5b4vj5CO2kQ+M8+NIDK/A==
-X-Received: by 2002:a17:902:9a4b:b0:1b9:c03b:39d9 with SMTP id
- x11-20020a1709029a4b00b001b9c03b39d9mr10939188plv.53.1689632965727; 
- Mon, 17 Jul 2023 15:29:25 -0700 (PDT)
-Received: from sw06.internal.sifive.com ([64.62.193.194])
- by smtp.gmail.com with ESMTPSA id
- o15-20020a170902d4cf00b001b9e8e833f3sm375704plg.61.2023.07.17.15.29.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Jul 2023 15:29:25 -0700 (PDT)
-From: Samuel Holland <samuel.holland@sifive.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH] drm/amd/display: Allow building DC with clang on RISC-V
-Date: Mon, 17 Jul 2023 15:29:23 -0700
-Message-Id: <20230717222923.3026018-1-samuel.holland@sifive.com>
-X-Mailer: git-send-email 2.40.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 193CA10E2E0;
+	Tue, 18 Jul 2023 07:30:34 +0000 (UTC)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A4C210E2BD;
+ Tue, 18 Jul 2023 00:50:53 +0000 (UTC)
+Received: from dggpemm500001.china.huawei.com (unknown [172.30.72.55])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4R4gN02ZJyz18LXj;
+ Tue, 18 Jul 2023 08:50:08 +0800 (CST)
+Received: from [10.174.177.243] (10.174.177.243) by
+ dggpemm500001.china.huawei.com (7.185.36.107) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Tue, 18 Jul 2023 08:50:49 +0800
+Message-ID: <66b5cff0-3c06-222a-c8ab-af18dc7af7f1@huawei.com>
+Date: Tue, 18 Jul 2023 08:50:49 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [PATCH 2/5] mm: use vma_is_stack() and vma_is_heap()
+Content-Language: en-US
+To: David Hildenbrand <david@redhat.com>, Andrew Morton
+ <akpm@linux-foundation.org>
+References: <20230712143831.120701-1-wangkefeng.wang@huawei.com>
+ <20230712143831.120701-3-wangkefeng.wang@huawei.com>
+ <2000511c-d551-5b3d-a9a9-adb4ba3be1f1@redhat.com>
+From: Kefeng Wang <wangkefeng.wang@huawei.com>
+In-Reply-To: <2000511c-d551-5b3d-a9a9-adb4ba3be1f1@redhat.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.174.177.243]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ dggpemm500001.china.huawei.com (7.185.36.107)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Tue, 18 Jul 2023 07:30:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,39 +51,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, Tom Rix <trix@redhat.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Nick Desaulniers <ndesaulniers@google.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Samuel Holland <samuel.holland@sifive.com>,
- Nathan Chancellor <nathan@kernel.org>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+Cc: selinux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ linux-mm@kvack.org, amd-gfx@lists.freedesktop.org,
+ linux-fsdevel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-clang on RISC-V appears to be unaffected by the bug causing excessive
-stack usage in calculate_bandwidth(). clang 16 with -fstack-usage
-reports a 304 byte stack frame size with CONFIG_ARCH_RV32I, and 512
-bytes with CONFIG_ARCH_RV64I.
 
-Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
----
 
- drivers/gpu/drm/amd/display/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 2023/7/17 18:25, David Hildenbrand wrote:
+> On 12.07.23 16:38, Kefeng Wang wrote:
+>> Use the helpers to simplify code.
+>>
+>> Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
+>> ---
+>>   fs/proc/task_mmu.c   | 24 ++++--------------------
+>>   fs/proc/task_nommu.c | 15 +--------------
+>>   2 files changed, 5 insertions(+), 34 deletions(-)
+>>
+> 
+> Please squash patch #1 and this patch and call it something like
+> 
+> "mm: factor out VMA stack and heap checks"
+> 
+> And then, maybe also keep the comments in these functions, they sound 
+> reasonable to have.
 
-diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-index bf0a655d009e..901d1961b739 100644
---- a/drivers/gpu/drm/amd/display/Kconfig
-+++ b/drivers/gpu/drm/amd/display/Kconfig
-@@ -5,7 +5,7 @@ menu "Display Engine Configuration"
- config DRM_AMD_DC
- 	bool "AMD DC - Enable new display engine"
- 	default y
--	depends on BROKEN || !CC_IS_CLANG || X86_64 || SPARC64 || ARM64
-+	depends on BROKEN || !CC_IS_CLANG || ARM64 || RISCV || SPARC64 || X86_64
- 	select SND_HDA_COMPONENT if SND_HDA_CORE
- 	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
- 	select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
--- 
-2.40.1
-
+Thanks, will re-post them.
+> 
