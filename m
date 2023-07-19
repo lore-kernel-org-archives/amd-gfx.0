@@ -4,60 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78822EB64DA
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 13:10:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E4B7EB64DA
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 14:19:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 059B510E4A4;
-	Wed, 19 Jul 2023 13:10:50 +0000 (UTC)
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [IPv6:2607:f8b0:4864:20::c29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95BA810E4A4
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 13:10:47 +0000 (UTC)
-Received: by mail-oo1-xc29.google.com with SMTP id
- 006d021491bc7-56352146799so4630527eaf.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 06:10:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689772247; x=1692364247;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yjc8yTxv1YDiwufMZdokM2ZP50jJSc97lX44c55Ckhc=;
- b=XpQy7DXgnCfnW0YZu9bGGC9Qnylz1X3j6mMvurgHuY+cKrNHT0VeZOOQrNUzfmzdhp
- AV5se/4Xjb9r2HJBdP8Kar21Mra2W/k1PbV65a889aLsUqmviUEQExO8UBnh4uOTy1+g
- p7sGBzrMWoNIIrF9KlYaUy3aEBZZ2Bhw3Thajdqr5XsMuY/Wt9ISGvh+kGEwBNP2MN6E
- eR9DHyS/op5ewttfF7dN4MgaCWtmWChhfbcz7d8GCegwjJjgKVbZAUxSMdmCVv6UbSgm
- lEtp+YpQjAgzGVupGDoDG+FR6EjKVfkLMaAHo/kB5VdADdjnwNneFlN7V+F52A4MBfRH
- Ct2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689772247; x=1692364247;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yjc8yTxv1YDiwufMZdokM2ZP50jJSc97lX44c55Ckhc=;
- b=eFDHoV6IZoYXEdZJIcuzdX0kcIWiEWcy4aHnOphA9LqB9wq/g68t4v6gVOtpwhxqXX
- 7VHzg6DI//EyUZjEEHhVlXsAH4COz0rpqHR4cgJNSYnWylFVYgpxMcVJcgXTNYmetCvs
- Ai7qrPYky+kM2nMTrc0QH3WK3PLSmUPhXMQd5zJk3FcZZPEKAriU8PBUdr7asJNfn2p5
- Idcg4dUqoN8TTXoHWz4RE3ikPKO6IBexuskCw330uKG3TbbvUbK8sBUnZLeCU17fUyrB
- pUz8m2BNVVXoiMj7NAODOk7CzTRmHg0aA4QtZywugYJxFHc8B/ldNGEpaFS14ty+6hUX
- ePgQ==
-X-Gm-Message-State: ABy/qLbicXxJZ3GbZ186UFZ6tBAK6B6d0qePV6nxJ2cvYmKF1SBkS1x6
- 6E8+Rq2/IPQTJ2ly6Ryy/ZpQbZsFh4NWn4rS3McLyfq3
-X-Google-Smtp-Source: APBJJlGR1m9XZCiYB9r5NSIM9r3+ir1kFC7trG+cu+/TBkm+M761U+fn/GIe/M8Z/su2klAVXYSx8CDqfgdbwX8BrlU=
-X-Received: by 2002:a4a:91d6:0:b0:563:624b:430f with SMTP id
- e22-20020a4a91d6000000b00563624b430fmr9397365ooh.1.1689772246558; Wed, 19 Jul
- 2023 06:10:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D755B10E4B7;
+	Wed, 19 Jul 2023 14:19:20 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2055.outbound.protection.outlook.com [40.107.220.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9207E10E4B7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 14:19:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mUk01l6+V5UviSnv6PwV70g03snTZxkDKwPEQ4KA4w/BmKgza/+lmUagA9zfPVcupHKJhZyDVBpiN9rGiqhwjYa52JIMxIYU0MIio/STfsyFS5raJRK2bfTdO/SadpgGHHUQvknki1ek5N5d/xdWftI+zW26pSInTYb8e+4DCl2aYK0qSeyLI4SD4GuoQxRwlIJOshKg5kGonalu+XV9789wduNhAgLYKOfke/K5Xgj0O4ASnO/8jDxVaVN6j1TX06Y1eLxs0p2GtUkY6+EN6Db0YGOj0YNEEkdPgGW9qr5mWQjrGYsb2pzCaVhJHb1nUDmu36BvZm567DLfjuPDcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iXmgHa9eqKvV3tvKinR6zA6VA5J7Bk46xBmmZdZaiCU=;
+ b=daNqSKYAoFEgFaQT9QNS9agIonCpyNwYs490qtDuY145GfafmLMowMDkXZn8jGWV7/7uBshLxwTECCfxVg71hXSHids/2EM69N7iatZEw9HJkpNpMD8Lt3OhNXOM9fsO8oepJruZJ5PrcodvnDrF1tnkfxeCtdwIyvCZQFV2txmx072uk4Oki85HHmoQPc8drjMu7WnwN2XXmyUgrRnxJpo8oOTn7W02Uwd6sWLhvzf/0eSrNILh2V5vAqelbkvJlHiZBB4IHPPjdwjzf9vhZ/kONRsAeAtRsMQFw0WJIeeiZQTA7xw/RfQQdb4BZTRZXMkCVAvYJrEO9nHFSlVqxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iXmgHa9eqKvV3tvKinR6zA6VA5J7Bk46xBmmZdZaiCU=;
+ b=u8GGudMvej+Rn0bW6enqJUNco/6GsGx2MYKkApNIerT1FOprinBthChvr4GAYdb4I1ephYGI9fHybKx+sJOtyVfm83Y9hRySDCzzaGu+Cz1DVcJVZ5ZQtZyB+DQeIuE1OYMSif/0aTROVqaoXWGYFhrIyquDXKJsmw9UzMB9fgs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by CH3PR12MB8545.namprd12.prod.outlook.com (2603:10b6:610:163::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.23; Wed, 19 Jul
+ 2023 14:19:16 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::ca28:efb4:a838:58fb]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::ca28:efb4:a838:58fb%4]) with mapi id 15.20.6609.024; Wed, 19 Jul 2023
+ 14:19:16 +0000
+Message-ID: <e918f97c-e11f-3b7e-41c0-27cb9c1d479a@amd.com>
+Date: Wed, 19 Jul 2023 10:19:13 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 1/2] drm/amdkfd: fix trap handling work around for
+ debugging
+To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230714093759.3246343-1-jonathan.kim@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20230714093759.3246343-1-jonathan.kim@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0035.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:86::6) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20230719051939.811520-1-srinivasan.shanmugam@amd.com>
- <20230719051939.811520-2-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230719051939.811520-2-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 19 Jul 2023 09:10:35 -0400
-Message-ID: <CADnq5_MC7Wwf1V8Jd0gZPCN=n51GqoiyirUDkd3HHMykssdz0w@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amd/display: Convert macros to functions in
- amdgpu_display.c & amdgpu_display.h
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH3PR12MB8545:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4db877a-1a10-48f2-84ce-08db88632220
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6uxsFArX78UnPdytwsoU2TGbccVOzDZ/E5HrjJQ+CyDRIYUj3UyQFF75n2p6wwoE7wp0BJWAN5K2wy84pdEVB0B30SRpDXhabDtGnCHimMLA4xrufdhKV3Xgl1LHUGWCf5WZ6RgoSjyrd4RaBF+8gBDc8605qiPzihMx6kREf6uhmY7AmevVyP+IScbBsT9YvKdjFix99fxULvtXahJZzjhW5y92oFVJsn80XojWKK7EPn+XnnMN1GiB9p87FRovg72hn2hgMy95qUiJUtboCn5uHuKJUDHvx3HQl5Ko4NPq+W37j4sLgpwotH0bYqWUn0NQPyEM629jDA94h3CkQvjohjfK3tktSiVhTg3zq6TVmyVtiK2ZSo1Z8uy6WnwBWs04ALTIwVqU+xlVR2zYNBwIJI6CVuZL3ozKBUdPtzRIvq9lD4PLRIlTGyXeE1sYtPY/vEDrTt1lla7z5teeyk/JKjtCFjeHaoetYUY+bc+yVjjVk/k6O73S2GYhZgY/YrazpPS5UPninhVUqB4ot4EG5jaPiiZW1HQttmKWC//hiTilhqO4seauzcWZM0nOYO6E1aDGfXQqXi5m1czUAvcRNOauDZrdRQ+WIMqOv5dP9NPwjKmMKiSTpz+/nyN4tS3Z6OyDd6MswNwX1NQGJ1YLpLoGE0b8aKT7cO4DALydiIMSTZvjaHpOWaMrWXGA
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(136003)(376002)(366004)(396003)(39860400002)(451199021)(6512007)(6486002)(6666004)(478600001)(26005)(186003)(6506007)(2906002)(66946007)(2616005)(66476007)(66556008)(8936002)(316002)(44832011)(41300700001)(5660300002)(8676002)(38100700002)(83380400001)(86362001)(36756003)(31696002)(31686004)(43740500002)(45980500001)(309714004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cmh6eEJqbkE2cHdoMkpGOXlqWDFNUlhkK0hYUC9tQTRiSW5UUkRGc0NCYnpR?=
+ =?utf-8?B?T1lVUHJ3bzFqKzFhcGJUWE5lQVV1Ykcvbno1cThnSU9hZkZmVnRvMDV4T0Nz?=
+ =?utf-8?B?UDh5SzlJQmpLdDd4dDN4TmpTWGpwNUdKNUNIUXJRZjJrYXBERFo0SnBhNytX?=
+ =?utf-8?B?ZlRHU3dFQXUzZU1wVzQ5UWFqWFpCdk5ZRDRWUjFadHVVS3FKb2dYRHM3a09r?=
+ =?utf-8?B?VHhuMDhDZlZFWG55MmJMc204RFg4alBYL1pmaWJ2Qjg3L1pvL0M1VGFheFNO?=
+ =?utf-8?B?NkY5a2lja1RwN2FOOE1MbHhtWkUzTmw0Y2dtOGY0b2krVHpYUGcyN1VyUTdZ?=
+ =?utf-8?B?dFVXelBHeUpDSHlkejF3bnl1M011cXVsYVRCR29RaTZPSUg5SGtCVnE3UDdx?=
+ =?utf-8?B?a2lkcWtMbSs0S09ZVDhWbjdDSVMvdklJdG55Q2JPR1JFZ28xM0VCRTVpYmVr?=
+ =?utf-8?B?d0JsM0F0SGw4QnJFRzBGSWpQNVI3Q0lFMWJmUllla3ZnVVFwblVsWEZYVGUy?=
+ =?utf-8?B?a1o4WDUxN0hrN0FwWC9nNlNSdkxtZFdDOTFQWVdzQ1VvTEhxM2M2UlRtL2lI?=
+ =?utf-8?B?WXJ1cHkwSHRROTBuMjJvTXJhYWZvZnVxVTJFbk1zTEE5aE5ocW1ibG42TUI2?=
+ =?utf-8?B?OFJQWDR6NENoNVlFaDFDdk5sWmw1WkxXeUVhSmhPWnkyaWgrZkZ3emVheWRQ?=
+ =?utf-8?B?UFNFOVhRZXlkRjBncllGQnZWVUN2ZzZJcEVrS0pxNURlRHhxWVVUcTJUYnVR?=
+ =?utf-8?B?eHVjTkJRa3ZoSHV6K1JML1M4WnU4YWNrNWdDMmNXdE9YSDM4WjVnZkx1Yklk?=
+ =?utf-8?B?VXNPMjRLZmkxWGJudkQzTVFSdFNQM29ibFJTdlY3Y3JBRTUvbXVyUEd6bWZR?=
+ =?utf-8?B?bk9YRENQNUYzcmxlaDJ5OUhzaE1YNWIxRERIenc5SFJCT3BHdy9qV0Z3SDZW?=
+ =?utf-8?B?d1V0T2piUmwvd3NkUnMrWFErMTg1MnRZNmJTUmtCQjNtZklZWmtQMXFUVFYy?=
+ =?utf-8?B?K1FtcEJiWnVLMmpXNlo0ZnFTTWk2VlVZQVhrV3JDcHZ1bWo2M0FPY00xQWN5?=
+ =?utf-8?B?RE9aRk8zMlFFTnp5N1IrSzFzN1FVWk92dWt1UHhRdUJHem5JUmt1eEVid0c5?=
+ =?utf-8?B?V3lvcDZmZy9CRWVraTMyT1N6OGF5ZERWMi9FM2t0alFjV3lPakxRaG9lY2VO?=
+ =?utf-8?B?c0tueW9WWGYwWG9JSXFnZXBJS21pK1lqWWNEc09IKzN4UE45cGF6MC84S2dj?=
+ =?utf-8?B?R213Tk5BSTZJb0cwU0haTmMvbDBBaVBYNk5VbnVCVDBMYTZuY0NFWjlpUGZo?=
+ =?utf-8?B?SDVVRW1NY3c4S1V6ZEMxYVNDNkhaSW5PWFFWWEUwdjNTTFhBL3BoUUpBVzh4?=
+ =?utf-8?B?bVZQK05ZWXloelVZQ2xwbmlMWDR5SkJtQU05VXBBSEtUeVJac0E4WG5ac3dk?=
+ =?utf-8?B?U0JXOE1UMHQxRTJZWTVISVFTL2xxUFErbnhxNzZZTkQ5L0lHUGdqVXNDRVN3?=
+ =?utf-8?B?cDN4b0Fxa1hNeEF6N2dQV3d4Qjd2NkFOZTFTVWM4QStPbUR3TmFXaFZ4OXlU?=
+ =?utf-8?B?dkg5bFJYdVRVUjJZRUFrekluNnhBRmphNHZvNHBMcnQrRmI5MC8zRjkrem5B?=
+ =?utf-8?B?OVh2cWFRMDlHWnBoTUg0SWpCR3VoSG1TVGJEeEFWdTVLZFZWVU9JUDZFZ0xG?=
+ =?utf-8?B?V1hnbWNjYWgzQkhZYnJ5dUZZcVhXRzM3WFhrMmhwMVBtZzJjR0xxc05JeC9X?=
+ =?utf-8?B?ZWtWektZWnRHYURaazEzcEdScVJZSVVDejdlZ3A0aTdCOXZ6dVZGTGNZUXVO?=
+ =?utf-8?B?eUt1Qkhtd1ZEblZkdGVqM3N4QXNob1A0VTUyZGhwRVpzZm9HelVkenhYV2dN?=
+ =?utf-8?B?UEhqcThMYWhzakhhSW81ZGVEZHEwNUlGSklaVDFBMWZnd2J6ZDdYLzV4bFo3?=
+ =?utf-8?B?N0FTZjAxMTdkenhZQ1pRVyttZWloNWoybkhiOWtNQ29nZTNBbE1DVW92cHJG?=
+ =?utf-8?B?VFdDMXdEaHpFdWhOU0krb3ZLdDZSRXQvZFlHVWdCZHFDb2dCSm4vMnBsQkw0?=
+ =?utf-8?B?L21UbjgvZ1R4eXY4NFZPYXZWTmkxNmJuYmVnY09EMUMwNlFZa2dCY3FlUUlR?=
+ =?utf-8?Q?93oLT/IF7O8B1iOG73j4hmUyn?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4db877a-1a10-48f2-84ce-08db88632220
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2023 14:19:15.9895 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 34heDzHDp6OpRS2EfYQQIgKXAE/Kld1tph/H3A9ORgvs7UIJYusmtSHQxOc0uhyrsUMXXp0wALJIrdyRSDt6UA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8545
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,400 +124,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 19, 2023 at 1:20=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
+Am 2023-07-14 um 05:37 schrieb Jonathan Kim:
+> Update the list of devices that require the cwsr trap handling
+> workaround for debugging use cases.
 >
-> Convert macros to functions to fix the following & for better readability=
-:
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_display.h:26: Macro argument reuse 'ade=
-v' - possible side-effects?
-> drivers/gpu/drm/amd/amdgpu/amdgpu_display.h:32: Macro argument reuse 'ade=
-v' - possible side-effects?
-> drivers/gpu/drm/amd/amdgpu/amdgpu_display.h:34: Macro argument reuse 'ade=
-v' - possible side-effects?
-> drivers/gpu/drm/amd/amdgpu/amdgpu_display.h:36: Macro argument reuse 'ade=
-v' - possible side-effects?
-> drivers/gpu/drm/amd/amdgpu/amdgpu_display.h:38: Macro argument reuse 'ade=
-v' - possible side-effects?
-> drivers/gpu/drm/amd/amdgpu/amdgpu_display.h:40: Macro argument reuse 'ade=
-v' - possible side-effects?
-> drivers/gpu/drm/amd/amdgpu/amdgpu_display.h:42: Macro argument reuse 'ade=
-v' - possible side-effects?
-> drivers/gpu/drm/amd/amdgpu/amdgpu_display.h:44: Macro argument reuse 'ade=
-v' - possible side-effects?
->
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 
-I would drop this part.  I don't think it's a net win.
+This patch is
 
-> And other warnings:
->
-> WARNING: Block comments use * on subsequent lines
-> WARNING: Block comments use a trailing */ on a separate line
-> WARNING: suspect code indent for conditional statements (8, 12)
-> WARNING: braces {} are not necessary for single statement blocks
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
-This part looks good.  Maybe split this out as a separate patch.
 
-Alex
-
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 118 +++++++++++++++++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.h |  46 ++++++--
->  2 files changed, 136 insertions(+), 28 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_debug.c                | 5 ++---
+>   drivers/gpu/drm/amd/amdkfd/kfd_debug.h                | 6 ++++++
+>   drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 6 ++----
+>   3 files changed, 10 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_display.c
-> index b702f499f5fb..6eea92cef97c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -45,6 +45,82 @@
->  #include <drm/drm_modeset_helper.h>
->  #include <drm/drm_vblank.h>
->
-> +u32 amdgpu_display_vblank_get_counter(struct amdgpu_device *adev, int cr=
-tc)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> index 190b03efe5ff..ccfc81f085ce 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+> @@ -302,8 +302,7 @@ static int kfd_dbg_set_queue_workaround(struct queue *q, bool enable)
+>   	if (!q)
+>   		return 0;
+>   
+> -	if (KFD_GC_VERSION(q->device) < IP_VERSION(11, 0, 0) ||
+> -	    KFD_GC_VERSION(q->device) >= IP_VERSION(12, 0, 0))
+> +	if (!kfd_dbg_has_cwsr_workaround(q->device))
+>   		return 0;
+>   
+>   	if (enable && q->properties.is_user_cu_masked)
+> @@ -349,7 +348,7 @@ int kfd_dbg_set_mes_debug_mode(struct kfd_process_device *pdd)
+>   {
+>   	uint32_t spi_dbg_cntl = pdd->spi_dbg_override | pdd->spi_dbg_launch_mode;
+>   	uint32_t flags = pdd->process->dbg_flags;
+> -	bool sq_trap_en = !!spi_dbg_cntl;
+> +	bool sq_trap_en = !!spi_dbg_cntl || !kfd_dbg_has_cwsr_workaround(pdd->dev);
+>   
+>   	if (!kfd_dbg_is_per_vmid_supported(pdd->dev))
+>   		return 0;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+> index ba616ed17dee..586d7f886712 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+> @@ -101,6 +101,12 @@ static inline bool kfd_dbg_is_rlc_restore_supported(struct kfd_node *dev)
+>   		 KFD_GC_VERSION(dev) == IP_VERSION(10, 1, 1));
+>   }
+>   
+> +static inline bool kfd_dbg_has_cwsr_workaround(struct kfd_node *dev)
 > +{
-> +       return (adev)->mode_info.funcs->vblank_get_counter((adev), (crtc)=
-);
+> +	return KFD_GC_VERSION(dev) >= IP_VERSION(11, 0, 0) &&
+> +	       KFD_GC_VERSION(dev) <= IP_VERSION(11, 0, 3);
 > +}
 > +
-> +void amdgpu_display_backlight_set_level(struct amdgpu_device *adev,
-> +                                       struct amdgpu_encoder *amdgpu_enc=
-oder,
-> +                                       u8 level)
-> +{
-> +       (adev)->mode_info.funcs->backlight_set_level((amdgpu_encoder), (l=
-evel));
-> +}
-> +
-> +u8 amdgpu_display_backlight_get_level(struct amdgpu_device *adev,
-> +                                     struct amdgpu_encoder *amdgpu_encod=
-er)
-> +{
-> +       return (adev)->mode_info.funcs->backlight_get_level(amdgpu_encode=
-r);
-> +}
-> +
-> +bool amdgpu_display_hpd_sense(struct amdgpu_device *adev,
-> +                             enum amdgpu_hpd_id hpd)
-> +{
-> +       return (adev)->mode_info.funcs->hpd_sense((adev), (hpd));
-> +}
-> +
-> +void amdgpu_display_hpd_set_polarity(struct amdgpu_device *adev,
-> +                                    enum amdgpu_hpd_id hpd)
-> +{
-> +       (adev)->mode_info.funcs->hpd_set_polarity((adev), (hpd));
-> +}
-> +
-> +u32 amdgpu_display_hpd_get_gpio_reg(struct amdgpu_device *adev)
-> +{
-> +       return (adev)->mode_info.funcs->hpd_get_gpio_reg(adev);
-> +}
-> +
-> +void amdgpu_display_bandwidth_update(struct amdgpu_device *adev)
-> +{
-> +       (adev)->mode_info.funcs->bandwidth_update(adev);
-> +}
-> +
-> +void amdgpu_display_page_flip(struct amdgpu_device *adev,
-> +                             int crtc_id, u64 crtc_base,
-> +                             bool async)
-> +{
-> +       (adev)->mode_info.funcs->page_flip((adev), (crtc_id), (crtc_base)=
-, (async));
-> +}
-> +
-> +int amdgpu_display_page_flip_get_scanoutpos(struct amdgpu_device *adev, =
-int crtc,
-> +                                           u32 *vbl, u32 *pos)
-> +{
-> +       return (adev)->mode_info.funcs->page_flip_get_scanoutpos((adev), =
-(crtc), (vbl), (pos));
-> +}
-> +
-> +void amdgpu_display_add_encoder(struct amdgpu_device *adev,
-> +                               u32 encoder_enum,
-> +                               u32 supported_device,
-> +                               u16 caps)
-> +{
-> +       (adev)->mode_info.funcs->add_encoder((adev), (encoder_enum), (sup=
-ported_device), (caps));
-> +}
-> +
-> +void amdgpu_display_add_connector(struct amdgpu_device *adev,
-> +                                 u32 connector_id,
-> +                                 u32 supported_device,
-> +                                 int connector_type,
-> +                                 struct amdgpu_i2c_bus_rec *i2c_bus,
-> +                                 u16 connector_object_id,
-> +                                 struct amdgpu_hpd *hpd,
-> +                                 struct amdgpu_router *router)
-> +{
-> +       (adev)->mode_info.funcs->add_connector((adev), (connector_id),
-> +                                              (supported_device), (conne=
-ctor_type),
-> +                                              (i2c_bus), (connector_obje=
-ct_id),
-> +                                              (hpd), (router));
-> +}
-> +
->  /**
->   * amdgpu_display_hotplug_work_func - work handler for display hotplug e=
-vent
->   *
-> @@ -124,7 +200,7 @@ static void amdgpu_display_flip_work_func(struct work=
-_struct *__work)
->
->         struct drm_crtc *crtc =3D &amdgpu_crtc->base;
->         unsigned long flags;
-> -       unsigned i;
-> +       unsigned int i;
->         int vpos, hpos;
->
->         for (i =3D 0; i < work->shared_count; ++i)
-> @@ -201,7 +277,7 @@ int amdgpu_display_crtc_page_flip_target(struct drm_c=
-rtc *crtc,
->         u64 tiling_flags;
->         int i, r;
->
-> -       work =3D kzalloc(sizeof *work, GFP_KERNEL);
-> +       work =3D kzalloc(sizeof(*work), GFP_KERNEL);
->         if (work =3D=3D NULL)
->                 return -ENOMEM;
->
-> @@ -332,13 +408,15 @@ int amdgpu_display_crtc_set_config(struct drm_mode_=
-set *set,
->
->         adev =3D drm_to_adev(dev);
->         /* if we have active crtcs and we don't have a power ref,
-> -          take the current one */
-> +        * take the current one
-> +        */
->         if (active && !adev->have_disp_power_ref) {
->                 adev->have_disp_power_ref =3D true;
->                 return ret;
->         }
->         /* if we have no active crtcs, then drop the power ref
-> -          we got before */
-> +        * we got before
-> +        */
->         if (!active && adev->have_disp_power_ref) {
->                 pm_runtime_put_autosuspend(dev->dev);
->                 adev->have_disp_power_ref =3D false;
-> @@ -507,11 +585,10 @@ bool amdgpu_display_ddc_probe(struct amdgpu_connect=
-or *amdgpu_connector,
->         if (amdgpu_connector->router.ddc_valid)
->                 amdgpu_i2c_router_select_ddc_port(amdgpu_connector);
->
-> -       if (use_aux) {
-> +       if (use_aux)
->                 ret =3D i2c_transfer(&amdgpu_connector->ddc_bus->aux.ddc,=
- msgs, 2);
-> -       } else {
-> +       else
->                 ret =3D i2c_transfer(&amdgpu_connector->ddc_bus->adapter,=
- msgs, 2);
-> -       }
->
->         if (ret !=3D 2)
->                 /* Couldn't find an accessible DDC on this connector */
-> @@ -520,10 +597,12 @@ bool amdgpu_display_ddc_probe(struct amdgpu_connect=
-or *amdgpu_connector,
->          * EDID header starts with:
->          * 0x00,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0x00.
->          * Only the first 6 bytes must be valid as
-> -        * drm_edid_block_valid() can fix the last 2 bytes */
-> +        * drm_edid_block_valid() can fix the last 2 bytes
-> +        */
->         if (drm_edid_header_is_valid(buf) < 6) {
->                 /* Couldn't find an accessible EDID on this
-> -                * connector */
-> +                * connector
-> +                */
->                 return false;
->         }
->         return true;
-> @@ -1216,8 +1295,10 @@ amdgpu_display_user_framebuffer_create(struct drm_=
-device *dev,
->
->         obj =3D drm_gem_object_lookup(file_priv, mode_cmd->handles[0]);
->         if (obj =3D=3D  NULL) {
-> -               drm_dbg_kms(dev, "No GEM object associated to handle 0x%0=
-8X, "
-> -                           "can't create framebuffer\n", mode_cmd->handl=
-es[0]);
-> +               drm_dbg_kms(dev, "No GEM object associated to handle 0x%0=
-8X\n",
-> +                           mode_cmd->handles[0]);
-> +               drm_dbg_kms(dev, "  - Can't create framebuffer\n");
-> +
->                 return ERR_PTR(-ENOENT);
->         }
->
-> @@ -1410,6 +1491,7 @@ bool amdgpu_display_crtc_scaling_mode_fixup(struct =
-drm_crtc *crtc,
->         }
->         if (amdgpu_crtc->rmx_type !=3D RMX_OFF) {
->                 fixed20_12 a, b;
-> +
->                 a.full =3D dfixed_const(src_v);
->                 b.full =3D dfixed_const(dst_v);
->                 amdgpu_crtc->vsc.full =3D dfixed_div(a, b);
-> @@ -1429,7 +1511,7 @@ bool amdgpu_display_crtc_scaling_mode_fixup(struct =
-drm_crtc *crtc,
->   *
->   * \param dev Device to query.
->   * \param pipe Crtc to query.
-> - * \param flags Flags from caller (DRM_CALLED_FROM_VBLIRQ or 0).
-> + * \param flags from caller (DRM_CALLED_FROM_VBLIRQ or 0).
->   *              For driver internal use only also supports these flags:
->   *
->   *              USE_REAL_VBLANKSTART to use the real start of vblank ins=
-tead
-> @@ -1504,8 +1586,8 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_d=
-evice *dev,
->
->         /* Called from driver internal vblank counter query code? */
->         if (flags & GET_DISTANCE_TO_VBLANKSTART) {
-> -           /* Caller wants distance from real vbl_start in *hpos */
-> -           *hpos =3D *vpos - vbl_start;
-> +               /* Caller wants distance from real vbl_start in *hpos */
-> +               *hpos =3D *vpos - vbl_start;
->         }
->
->         /* Fudge vblank to start a few scanlines earlier to handle the
-> @@ -1527,7 +1609,7 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_d=
-evice *dev,
->
->         /* In vblank? */
->         if (in_vbl)
-> -           ret |=3D DRM_SCANOUTPOS_IN_VBLANK;
-> +               ret |=3D DRM_SCANOUTPOS_IN_VBLANK;
->
->         /* Called from driver internal vblank counter query code? */
->         if (flags & GET_DISTANCE_TO_VBLANKSTART) {
-> @@ -1635,6 +1717,7 @@ int amdgpu_display_suspend_helper(struct amdgpu_dev=
-ice *adev)
->
->                 if (amdgpu_crtc->cursor_bo && !adev->enable_virtual_displ=
-ay) {
->                         struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgp=
-u_crtc->cursor_bo);
-> +
->                         r =3D amdgpu_bo_reserve(aobj, true);
->                         if (r =3D=3D 0) {
->                                 amdgpu_bo_unpin(aobj);
-> @@ -1642,9 +1725,9 @@ int amdgpu_display_suspend_helper(struct amdgpu_dev=
-ice *adev)
->                         }
->                 }
->
-> -               if (fb =3D=3D NULL || fb->obj[0] =3D=3D NULL) {
-> +               if (!fb || !fb->obj[0])
->                         continue;
-> -               }
-> +
->                 robj =3D gem_to_amdgpu_bo(fb->obj[0]);
->                 if (!amdgpu_display_robj_is_fb(adev, robj)) {
->                         r =3D amdgpu_bo_reserve(robj, true);
-> @@ -1671,6 +1754,7 @@ int amdgpu_display_resume_helper(struct amdgpu_devi=
-ce *adev)
->
->                 if (amdgpu_crtc->cursor_bo && !adev->enable_virtual_displ=
-ay) {
->                         struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgp=
-u_crtc->cursor_bo);
-> +
->                         r =3D amdgpu_bo_reserve(aobj, true);
->                         if (r =3D=3D 0) {
->                                 r =3D amdgpu_bo_pin(aobj, AMDGPU_GEM_DOMA=
-IN_VRAM);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_display.h
-> index 9d19940f73c8..4cefaec6a495 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-> @@ -23,17 +23,41 @@
->  #ifndef __AMDGPU_DISPLAY_H__
->  #define __AMDGPU_DISPLAY_H__
->
-> -#define amdgpu_display_vblank_get_counter(adev, crtc) (adev)->mode_info.=
-funcs->vblank_get_counter((adev), (crtc))
-> -#define amdgpu_display_backlight_set_level(adev, e, l) (adev)->mode_info=
-.funcs->backlight_set_level((e), (l))
-> -#define amdgpu_display_backlight_get_level(adev, e) (adev)->mode_info.fu=
-ncs->backlight_get_level((e))
-> -#define amdgpu_display_hpd_sense(adev, h) (adev)->mode_info.funcs->hpd_s=
-ense((adev), (h))
-> -#define amdgpu_display_hpd_set_polarity(adev, h) (adev)->mode_info.funcs=
-->hpd_set_polarity((adev), (h))
-> -#define amdgpu_display_hpd_get_gpio_reg(adev) (adev)->mode_info.funcs->h=
-pd_get_gpio_reg((adev))
-> -#define amdgpu_display_bandwidth_update(adev) (adev)->mode_info.funcs->b=
-andwidth_update((adev))
-> -#define amdgpu_display_page_flip(adev, crtc, base, async) (adev)->mode_i=
-nfo.funcs->page_flip((adev), (crtc), (base), (async))
-> -#define amdgpu_display_page_flip_get_scanoutpos(adev, crtc, vbl, pos) (a=
-dev)->mode_info.funcs->page_flip_get_scanoutpos((adev), (crtc), (vbl), (pos=
-))
-> -#define amdgpu_display_add_encoder(adev, e, s, c) (adev)->mode_info.func=
-s->add_encoder((adev), (e), (s), (c))
-> -#define amdgpu_display_add_connector(adev, ci, sd, ct, ib, coi, h, r) (a=
-dev)->mode_info.funcs->add_connector((adev), (ci), (sd), (ct), (ib), (coi),=
- (h), (r))
-> +u32 amdgpu_display_vblank_get_counter(struct amdgpu_device *adev,
-> +                                     int crtc);
-> +bool amdgpu_display_hpd_sense(struct amdgpu_device *adev,
-> +                             enum amdgpu_hpd_id hpd);
-> +void amdgpu_display_hpd_set_polarity(struct amdgpu_device *adev,
-> +                                    enum amdgpu_hpd_id hpd);
-> +void amdgpu_display_backlight_set_level(struct amdgpu_device *adev,
-> +                                       struct amdgpu_encoder *amdgpu_enc=
-oder,
-> +                                       u8 level);
-> +u8 amdgpu_display_backlight_get_level(struct amdgpu_device *adev,
-> +                                     struct amdgpu_encoder *amdgpu_encod=
-er);
-> +bool amdgpu_display_hpd_sense(struct amdgpu_device *adev,
-> +                             enum amdgpu_hpd_id hpd);
-> +void amdgpu_display_hpd_set_polarity(struct amdgpu_device *adev,
-> +                                    enum amdgpu_hpd_id hpd);
-> +u32 amdgpu_display_hpd_get_gpio_reg(struct amdgpu_device *adev);
-> +void amdgpu_display_bandwidth_update(struct amdgpu_device *adev);
-> +void amdgpu_display_page_flip(struct amdgpu_device *adev,
-> +                             int crtc_id, u64 crtc_base,
-> +                              bool async);
-> +int amdgpu_display_page_flip_get_scanoutpos(struct amdgpu_device *adev, =
-int crtc,
-> +                                           u32 *vbl, u32 *position);
-> +
-> +void amdgpu_display_add_encoder(struct amdgpu_device *adev,
-> +                               u32 encoder_enum,
-> +                               u32 supported_device,
-> +                               u16 caps);
-> +void amdgpu_display_add_connector(struct amdgpu_device *adev,
-> +                                 u32 connector_id,
-> +                                 u32 supported_device,
-> +                                 int connector_type,
-> +                                 struct amdgpu_i2c_bus_rec *i2c_bus,
-> +                                 u16 connector_object_id,
-> +                                 struct amdgpu_hpd *hpd,
-> +                                 struct amdgpu_router *router);
->
->  void amdgpu_display_hotplug_work_func(struct work_struct *work);
->  void amdgpu_display_update_priority(struct amdgpu_device *adev);
-> --
-> 2.25.1
->
+>   static inline bool kfd_dbg_has_gws_support(struct kfd_node *dev)
+>   {
+>   	if ((KFD_GC_VERSION(dev) == IP_VERSION(9, 0, 1)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 31cac1fd0d58..761963ad6154 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -226,8 +226,7 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
+>   	queue_input.paging = false;
+>   	queue_input.tba_addr = qpd->tba_addr;
+>   	queue_input.tma_addr = qpd->tma_addr;
+> -	queue_input.trap_en = KFD_GC_VERSION(q->device) < IP_VERSION(11, 0, 0) ||
+> -			      KFD_GC_VERSION(q->device) > IP_VERSION(11, 0, 3);
+> +	queue_input.trap_en = !kfd_dbg_has_cwsr_workaround(q->device);
+>   	queue_input.skip_process_ctx_clear = qpd->pqm->process->debug_trap_enabled;
+>   
+>   	queue_type = convert_to_mes_queue_type(q->properties.type);
+> @@ -1827,8 +1826,7 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
+>   	 */
+>   	q->properties.is_evicted = !!qpd->evicted;
+>   	q->properties.is_dbg_wa = qpd->pqm->process->debug_trap_enabled &&
+> -			KFD_GC_VERSION(q->device) >= IP_VERSION(11, 0, 0) &&
+> -			KFD_GC_VERSION(q->device) <= IP_VERSION(11, 0, 3);
+> +				  kfd_dbg_has_cwsr_workaround(q->device);
+>   
+>   	if (qd)
+>   		mqd_mgr->restore_mqd(mqd_mgr, &q->mqd, q->mqd_mem_obj, &q->gart_mqd_addr,
