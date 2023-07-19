@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FBB7C001DC
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 12:54:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3434EB64DA
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 13:07:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F170110E49B;
-	Wed, 19 Jul 2023 12:54:49 +0000 (UTC)
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [IPv6:2607:f8b0:4864:20::c29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A73B10E49A;
- Wed, 19 Jul 2023 12:54:47 +0000 (UTC)
-Received: by mail-oo1-xc29.google.com with SMTP id
- 006d021491bc7-560b56b638eso511289eaf.0; 
- Wed, 19 Jul 2023 05:54:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CDEF10E4A3;
+	Wed, 19 Jul 2023 13:07:11 +0000 (UTC)
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFA410E4A2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 13:07:08 +0000 (UTC)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-1b056276889so4720873fac.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 06:07:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689771286; x=1692363286;
+ d=gmail.com; s=20221208; t=1689772026; x=1692364026;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+Ob33aJpEVflG5uQou9d1IRsAjTkbB0H29vIYmLFG+w=;
- b=Jj+8Q1YBMe8h479/EM5nnl3jJ5xPG0W7eLhHi2H+mcna+HquVrBIJMcD/smzGOmwM7
- ie3LZItQUxdSI0xMbCo1PJjzDdJsrHuwnNUU348rCV5T9FRW3dOxXa5K77hFvFKwyzF0
- Xq74ZvO0+Y76KYqOHLFf5E3TvLisnIgXaGCUG52Etj+JSehbCfm0tEAOhpnSBjemzxMs
- JM+cjERlRLPRT/vP1esVY1YcA0z4kcagF5bL9o/6aiG4wmsSXPHtJ5b3tdsJoJl3G0DK
- QVpC8kqCRTiFy2GtMCWsSON9lNGw1oPeFjUGcthkClYhI01n+UjS3kZGu/eshF8aq5MQ
- OlUw==
+ bh=bqOBZpcKF0B5xx+9yFMYQKkIdp4rSmAsPeN7uVTk3Uk=;
+ b=lI1sDCZyqcUfbZ99iEjf9cxsUwuDPqaSpjb0JyMzL0hMwm7G/eIliKCg6OzTLBVkJy
+ xoh4VzXO2tSukLF2dMcXYC92/i7ePNgx9cbH6Ng39UfHA83Ngb7MglwOB0afPC9xuUwk
+ cRsDKQbaG8s+xbWFGeNHKcqw8AMNVp2sd7W8QzROo2WbTfRja9sON1tpuqKIdg5E6s5k
+ c9D7nUUEiL5/oQgvRYOTRbvAFgUkWKRIb0KCA5QPVCNb8RRc05tKIipCOp8lCcEFy2XJ
+ kDLHwXw0N8uTDftnqhSR2bGsQitkU+lKum6Re35QJdvK+dAmlofB4bjg3nb27xip+IUQ
+ 3U0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689771286; x=1692363286;
+ d=1e100.net; s=20221208; t=1689772026; x=1692364026;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+Ob33aJpEVflG5uQou9d1IRsAjTkbB0H29vIYmLFG+w=;
- b=Xz4H8pZnqWbX8l4Y5FxWe/vt3QJOt0UhsO3z0vJLv2ByewBgHy/A5Z5QUs+mPuR4N7
- z0tGKqSXjw8ogcJotRUDfoGbA1tNnmRpcHgEIgGxFh+5VJrpI6yCx0bW6/S25kNU19cd
- Jv2IwUsRL393t6DtdGAaCTuk1KNkgYWEYwp0K0HRqSI2y27gtyepSqonnv58kbmksjQv
- NgisSjqrQklXOqeHGRBM34+vK3ZlXhEILta1vh0jQ/5moz5+EPmj85z5limlqeE/4Hmq
- GvQdlQtPEAowcmnE0kgtNnxcDMUb0QtIvmFje68/wkn6Ja++b53NmW7oSr42BBoPV2/A
- IMDQ==
-X-Gm-Message-State: ABy/qLZxZgK63ylg2AJSUlRsS+DLLnzH06NJ9vKosSdNXLq2riOnInWH
- hU+5YriFqynGXtGlhcTSPk4ITiVnIEM48bcbGXc=
-X-Google-Smtp-Source: APBJJlG6aZQXLfAUUa0d6UG0g2dC9Dy/0j5uRWDotnm031YoGltAGMBIqdyjCFS8p1vLbNoKJB5F8RQkl2HtXjmJDJA=
-X-Received: by 2002:a4a:3350:0:b0:564:e465:5d5c with SMTP id
- q77-20020a4a3350000000b00564e4655d5cmr1635961ooq.2.1689771286177; Wed, 19 Jul
- 2023 05:54:46 -0700 (PDT)
+ bh=bqOBZpcKF0B5xx+9yFMYQKkIdp4rSmAsPeN7uVTk3Uk=;
+ b=BnLKtAmu0mVhLT4y+mNE5ArAa2BzN/5Tdq2iHqsPzBAMJS/cT53a1q8xZ9/61PUYOd
+ jeGhbzxAmdUrX0Vn4Is4Dqpjv9Yo5ouUVljINwBvgu3FpXxZK8C6jEdjvCxSl/darAgG
+ neX+FQLn1zjTtjxrz5LIVvTwbWALwA0Bowxydb44uOPYC3/ayvbiX7Sz9X6780qgJ1ss
+ x5WWmJlC6s+3IAD4X6ykULWomZAUCBKVMMp+SzLkvggr1y3V+5eNoDeO1+aJpRVGqdyf
+ 8bCqmKLuYB6a2f1VS/dTXDm911/mLg46fDjNVBOQ6mg4ZTskGy9rd2/a9bmMX1XuLspx
+ rqOQ==
+X-Gm-Message-State: ABy/qLYvrMEg/OJrdR5L0WwK+9k0DXJaq5nJq+z+uWWX7TB2k4mtIyxb
+ j8JUn/qg96dptSlxkAMwRRme8xtaG8xFtjv+j0Q=
+X-Google-Smtp-Source: APBJJlFThQvebp4xJWwABsqS6Slr7QPl3c8BdRk6VM2Hnrly3dacTOt6MLEVI0zVvX10wka/jjpP1Jt7dl7Ixj4EpOc=
+X-Received: by 2002:a05:6870:610f:b0:1b0:2d25:f5ae with SMTP id
+ s15-20020a056870610f00b001b02d25f5aemr2614631oae.47.1689772026642; Wed, 19
+ Jul 2023 06:07:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230717222923.3026018-1-samuel.holland@sifive.com>
- <20230718163953.GA1279879@dev-arch.thelio-3990X>
-In-Reply-To: <20230718163953.GA1279879@dev-arch.thelio-3990X>
+References: <20230719051939.811520-1-srinivasan.shanmugam@amd.com>
+ <20230719051939.811520-3-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230719051939.811520-3-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 19 Jul 2023 08:54:34 -0400
-Message-ID: <CADnq5_N5raOvG+seU7MK2jXT5HVk1Wfp+m6yswQiOqdMpnVHAg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Allow building DC with clang on RISC-V
-To: Nathan Chancellor <nathan@kernel.org>
+Date: Wed, 19 Jul 2023 09:06:55 -0400
+Message-ID: <CADnq5_PGvVTXn_oTxvgS61C5b96Rtdu3UbDzpX24sYESHit2-g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/radeon: Prefer dev_warn over printk
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,58 +68,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: llvm@lists.linux.dev, Leo Li <sunpeng.li@amd.com>,
- Nick Desaulniers <ndesaulniers@google.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Samuel Holland <samuel.holland@sifive.com>,
- dri-devel@lists.freedesktop.org, Tom Rix <trix@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.corp-partner.google.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Wed, Jul 19, 2023 at 1:20=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
+>
+> From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.corp-partner.google.=
+com>
+>
+> Fixes the following checkpatch.pl:
+>
+> WARNING: printk() should include KERN_<LEVEL> facility level
 
-On Tue, Jul 18, 2023 at 12:40=E2=80=AFPM Nathan Chancellor <nathan@kernel.o=
-rg> wrote:
+Might be better to convert to dev_* variants so that we get better
+info when there are multiple GPUs in the system.
+
+Alex
+
 >
-> On Mon, Jul 17, 2023 at 03:29:23PM -0700, Samuel Holland wrote:
-> > clang on RISC-V appears to be unaffected by the bug causing excessive
-> > stack usage in calculate_bandwidth(). clang 16 with -fstack-usage
-> > reports a 304 byte stack frame size with CONFIG_ARCH_RV32I, and 512
-> > bytes with CONFIG_ARCH_RV64I.
-> >
-> > Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon_atpx_handler.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 >
-> I built ARCH=3Driscv allmodconfig drivers/gpu/drm/amd/amdgpu/ (confirming
-> that CONFIG_DRM_AMD_DC gets enabled) with LLVM 11 through 17 with and
-> without CONFIG_KASAN=3Dy and I never saw the -Wframe-larger-than instance
-> that this was disabled for, so I agree.
+> diff --git a/drivers/gpu/drm/radeon/radeon_atpx_handler.c b/drivers/gpu/d=
+rm/radeon/radeon_atpx_handler.c
+> index d0b450a06506..875a995fff66 100644
+> --- a/drivers/gpu/drm/radeon/radeon_atpx_handler.c
+> +++ b/drivers/gpu/drm/radeon/radeon_atpx_handler.c
+> @@ -115,7 +115,7 @@ static union acpi_object *radeon_atpx_call(acpi_handl=
+e handle, int function,
 >
-> Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-> Tested-by: Nathan Chancellor <nathan@kernel.org>
+>         /* Fail only if calling the method fails and ATPX is supported */
+>         if (ACPI_FAILURE(status) && status !=3D AE_NOT_FOUND) {
+> -               printk("failed to evaluate ATPX got %s\n",
+> +               pr_err("failed to evaluate ATPX got %s\n",
+>                        acpi_format_exception(status));
+>                 kfree(buffer.pointer);
+>                 return NULL;
+> @@ -171,7 +171,7 @@ static int radeon_atpx_validate(struct radeon_atpx *a=
+tpx)
 >
-> >
-> >  drivers/gpu/drm/amd/display/Kconfig | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/=
-display/Kconfig
-> > index bf0a655d009e..901d1961b739 100644
-> > --- a/drivers/gpu/drm/amd/display/Kconfig
-> > +++ b/drivers/gpu/drm/amd/display/Kconfig
-> > @@ -5,7 +5,7 @@ menu "Display Engine Configuration"
-> >  config DRM_AMD_DC
-> >       bool "AMD DC - Enable new display engine"
-> >       default y
-> > -     depends on BROKEN || !CC_IS_CLANG || X86_64 || SPARC64 || ARM64
-> > +     depends on BROKEN || !CC_IS_CLANG || ARM64 || RISCV || SPARC64 ||=
- X86_64
-> >       select SND_HDA_COMPONENT if SND_HDA_CORE
-> >       # !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1=
-752
-> >       select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) |=
-| (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
-> > --
-> > 2.40.1
-> >
+>                 size =3D *(u16 *) info->buffer.pointer;
+>                 if (size < 10) {
+> -                       printk("ATPX buffer is too small: %zu\n", size);
+> +                       pr_err("ATPX buffer is too small: %zu\n", size);
+>                         kfree(info);
+>                         return -EINVAL;
+>                 }
+> @@ -202,7 +202,7 @@ static int radeon_atpx_validate(struct radeon_atpx *a=
+tpx)
+>
+>         atpx->is_hybrid =3D false;
+>         if (valid_bits & ATPX_MS_HYBRID_GFX_SUPPORTED) {
+> -               printk("ATPX Hybrid Graphics\n");
+> +               pr_info("ATPX Hybrid Graphics\n");
+>                 /*
+>                  * Disable legacy PM methods only when pcie port PM is us=
+able,
+>                  * otherwise the device might fail to power off or power =
+on.
+> @@ -239,7 +239,7 @@ static int radeon_atpx_verify_interface(struct radeon=
+_atpx *atpx)
+>
+>         size =3D *(u16 *) info->buffer.pointer;
+>         if (size < 8) {
+> -               printk("ATPX buffer is too small: %zu\n", size);
+> +               pr_err("ATPX buffer is too small: %zu\n", size);
+>                 err =3D -EINVAL;
+>                 goto out;
+>         }
+> @@ -248,7 +248,7 @@ static int radeon_atpx_verify_interface(struct radeon=
+_atpx *atpx)
+>         memcpy(&output, info->buffer.pointer, size);
+>
+>         /* TODO: check version? */
+> -       printk("ATPX version %u, functions 0x%08x\n",
+> +       pr_info("ATPX version %u, functions 0x%08x\n",
+>                output.version, output.function_bits);
+>
+>         radeon_atpx_parse_functions(&atpx->functions, output.function_bit=
+s);
+> --
+> 2.25.1
+>
