@@ -4,114 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3CF2C001B0
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 16:26:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5314C0015E
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 16:30:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36D8610E4D4;
-	Wed, 19 Jul 2023 16:25:56 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0A510E0E5
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 16:25:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45B2310E0F9;
+	Wed, 19 Jul 2023 16:30:55 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB96210E0E8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 16:30:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q8zKLJlxGhDRidYPv4A2Q4ha51xLWbXaHMXgRYBPB0zXxH+gfRXyjCAX4/OjaikhSKmX/+YsHun9xPGpivx8HEYLvDUYNVx/Tx6P3xzbuNIhslJRw8Jm2XMeP1O4Y7yN4WCj5qhgGE8m84IpvjOhZGzGK00cnNUgFFfUIoeKm+UGqftEYa0XG8BumFqrZq1KGd0pbNR0UFPE4oBlrZPFUVMgMHZ/lvnlZXtwN8JlPkUgWXmwFz6yl+3qnRxgxE6V5kzfGcgiTyBFy/ZCKXe3uBZCEpSSyi7dR2mv3ob7JblnJiaecZjbkHvSsLf06RH40RoGCnLT509e/i8I0/L4rQ==
+ b=bmiEdsplvzc16w+kojmBt2pMmhIiapwEWW0JTsPo2ohpo3paRmyLeDiA2u2JcFTz+XIuElV36LiT1urfxpTZaW1oQM9YjHEhnDAxryfiPKPGGJ5lCGgrWrDUHe+yrIFCshVqwVafXGW0bwb2X3JKAnBGOnOkIcfZIQ2CGHOQ6nhb6E+quEVJKNIntvAbN4aX/3LxDKD5y/zGHRxlxRBs7G5WSKRVjpoezwgbdfSc/ExlN5bOWID8FMEduZ6Ax0pMR/WioVZdidOciq2rY8YN8dBBgI4dknU8KqPi4xBWfYHyC8qMRLxlNbVJovUtadlSxFtz8wY+nTbivJ8/730/yQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jkFdh5Fyo0TsQtcLlYm/YzLVKGFjkMwNErBHR9bunys=;
- b=jadSTd2VStFZXutbVloysTgi99VIH1aPQaJ2j/7oSalnUDz5oOgHXcjn2AYiuRmgf7Up8bWqwNVDGFnL/wKLT0KJZAjUeOxmSFdH8tkJO3KVDaO+CDwpYYO8spUzOqQiTktovXsfkQLVgKBmKdtgAeW5ZZ0jAR3BY4LtKCY93SKOZPAy21R4//1xvC13ed0JKKpI5H8PsDUeobZSBQOH8iBkHOtvI5NjEBuZEwpAHgbjXiOCaJLqKyBZzwelDBl9sOhGlZ8KuyN8ZrQ78x36hZbC26o8GJsSrqrOTpVg6/vo5E5F6t5dv04BDYfOS3Jb+pN6L4bW+Up3zaCTLfJ5Rg==
+ bh=+63E3ifL63yq2yoeFPwT3SwWCYjKSlJqxO8MR0KHRrA=;
+ b=X9j2yjJUzvMGL1gFHSzeulLHcrplNhwMguOmLX0KSBjD4D46zbc98VMvKVAlN+B/DxJsF/vgXMwFyoa+Czt5QTBXK5L/jlnOl5soPgJXTOxQagD9/cFzbIpH3X0UORWnnQAsLJx78lv2z+kDXqdKEUzAGg8NQyNvKvMuAa1jnZRGLeAe97q5FQTToe3YPdMP4UcCFYb3S8f0WCzS5vYadOlYi1xVmlCBd+314uttaPY7EuKN5EZ75s1nnPpey9TRKGDZg8W0oNuYxE3A964Eq0TUOxpbuabFIPcpSEwKw3oY+WkGkQZS1nZ5Vf8V0qMJ/g3eOv6ofZnCGKZ9VVdcew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jkFdh5Fyo0TsQtcLlYm/YzLVKGFjkMwNErBHR9bunys=;
- b=LDuGCJMMTj50rPjC/tpN1Kf0sqXyHJnusVciN9+k8hRqOU64BI05SJUtMqd0+QFO5ONTfNyeS22sV0zNeRu4+fnvDduXndnh/eKxTA6WWI+5b2CjYpADAWHFqaa3AfOpyD+C/uiEZIs2El38PSa9M9XaNfbWbgAOiWWpOnecwww=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by SN7PR12MB7345.namprd12.prod.outlook.com (2603:10b6:806:298::18)
+ bh=+63E3ifL63yq2yoeFPwT3SwWCYjKSlJqxO8MR0KHRrA=;
+ b=k3q7YNlcwi+oK9m4Yed2CfU4yehBuITObgg6HT+7Ra9E2Dyay5Tc6uo7IdNqr7BDuUqGZfZL3ErHrMM7GefQ3RMNNmIJ/xA4EzEOz5HHiqG1U3E7dNNjUaIcDctq0lJJZITacrxnPNKvngi9Qr0D5tZr29qCb19ro2Ipui47kIs=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by SJ2PR12MB8884.namprd12.prod.outlook.com (2603:10b6:a03:547::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.33; Wed, 19 Jul
- 2023 16:25:50 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb%4]) with mapi id 15.20.6609.024; Wed, 19 Jul 2023
- 16:25:50 +0000
-Message-ID: <2495d0fa-dc5b-7dfa-8fd7-6dd3fd3d3057@amd.com>
-Date: Wed, 19 Jul 2023 12:25:47 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] drm/amdkfd: enable cooperative groups for gfx11
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.24; Wed, 19 Jul
+ 2023 16:30:49 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::bcfa:7757:68bd:f905]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::bcfa:7757:68bd:f905%5]) with mapi id 15.20.6588.031; Wed, 19 Jul 2023
+ 16:30:49 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Lu, Victor Cheng Chi (Victor)" <VictorChengChi.Lu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v2] drm/amdgpu: Fix infinite loop in
+ gfxhub_v1_2_xcc_gart_enable (v2)
+Thread-Topic: [PATCH v2] drm/amdgpu: Fix infinite loop in
+ gfxhub_v1_2_xcc_gart_enable (v2)
+Thread-Index: AQHZulC7R+x1D0ix2U61EoXsBs4PQ6/BR+C5
+Date: Wed, 19 Jul 2023 16:30:49 +0000
+Message-ID: <BL1PR12MB5144EAD7988C1B060AAC54B7F739A@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20230719145208.3769-1-victorchengchi.lu@amd.com>
+In-Reply-To: <20230719145208.3769-1-victorchengchi.lu@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230719143609.3352043-1-jonathan.kim@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20230719143609.3352043-1-jonathan.kim@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0164.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:7e::27) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SN7PR12MB7345:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0915680-6605-47da-ff2d-08db8874d083
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J7RmMVkYbEe+CF2RG1VwSNVTI06GvZfrZFHgShlJVZ17blM6ALS9pu0MJPao71mtce+lnNnUyqxxlFhd1s/SP1DzS7yLfDcUsrvPS8mbbOJcyjl2qPZRG1rvjBMMWIO2VuO9MVqohwrHSuUPxfC3NxKiJE8hzPKkzeRV5l4QHiaq0kYTzILVKwQ6V11R77+Kq9Ol6JwhMtjHY82Te0CFAaNpvsq7Igsb9aWP6ESRr/V/vbVz+mEx8N2Rv8b7c94IblgwzPA0Tf6oLnV3rXK23KsHPxbYpTwnN1+cqs7DwWo7hRC2uKagqvLLGB9mhyyX0w2Fe8Khrktr3aubirzaQRZvziIXRQr3+Vo/RtLy3sjG/Bzpz96Lm79BR5nZIFOpI7LkMkoiT4w4GxVimbIaXShULdiuMvvyK+tE8PSpJnEnMtzSNRRdS+GunJVUyOEmV8X6jyBpsyMz0Oz1jxEr+7wEH5PYPMK/uVq/3zVoG7MLKTeQBbO5BYvH/j1R8/ZRvZJv9ncNg03jlvv7DS2bT8Civ62MtR63FPO3MWEaHe6DNy9Zjy3chgg2Nr1MTsGl5ai7+8uFjTbxxoumt1kaQwF+luoLX4fijH7S/XRNmgPhkTfHE7VkQF3bBxT0jKEWLhW69cUui03BtGGnHlYB6g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(39860400002)(396003)(366004)(136003)(346002)(451199021)(31686004)(66899021)(26005)(6506007)(38100700002)(44832011)(478600001)(31696002)(5660300002)(8676002)(8936002)(66476007)(66556008)(86362001)(66946007)(316002)(6512007)(6486002)(41300700001)(6666004)(2616005)(186003)(36756003)(2906002)(83380400001)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=True;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-07-19T16:30:48.794Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SJ2PR12MB8884:EE_
+x-ms-office365-filtering-correlation-id: 11816cd1-924b-45e1-8a1b-08db88758321
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: JCVqQ0sbGGchfJ9zXELFdQsaoTiGKMyDRAirhhWusne54JQbJHJuvckMvhXfYDRsjqdrzXGZRj8TMzg2XUJAK3J6fzdy1JPMRGH4BuuPHOCpW02ycCTmnVjoBfxnkW3eeB8Or6V0WvY4sW4y04ifJJk6hyJgOz/OVatImW5HrnPhAh3xGP920+6SoDWYvlOJXZQaWBmsUDor7MphTwUh25XeSovHvttgKLGyk0QulO8oT8tf1hvNtJ2VT6cLO2Or7ViUHsyDsEnP1oMMA5hRfzqrV2BmHcrJtL9tszrCkVLcpHVSgXw+ubJYhqAgIK2XtQ+iGbWMKFGmKQa6+lBQY0mVWRczXYvJVNYdi4tiuTrxVmI89u9NEvFb9Ca510V64iHovreWTryo8KisAUeZcM3OLcemdjUmwON3RwJf9soaczEAhyvFt+fjaw2ipc0wylFxApTzdw1dViNi3G/jnVXZFiYMmLDMfrUBtrB4I2rA55MAjYXjF+YSHxSwGO6FC2nMNdI+YuakZTbNGmsqF7EtTIWPnuCZZMOxl2fDc8KFp13iM4LftgOgh4NqeEDz9aZVzoPzUbTK+2PhKWX4JncSyirpR8BobnC92sVzt7tRaTO17bIhQpYoZBn8rFMQ
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(39860400002)(346002)(366004)(376002)(396003)(451199021)(76116006)(55016003)(38100700002)(66476007)(4326008)(5660300002)(64756008)(66446008)(41300700001)(66556008)(8936002)(66946007)(33656002)(86362001)(38070700005)(52536014)(2906002)(8676002)(316002)(186003)(7696005)(71200400001)(19627405001)(83380400001)(26005)(53546011)(6506007)(122000001)(9686003)(54906003)(478600001)(110136005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SEtqb0RKOTRKWTNGelh1aHF0V0pReDEyRFI5VFp1RUl1ek9OZG5hVmg4WjFx?=
- =?utf-8?B?MmhLUkorSU03R29KSkt2TldoNjhjL3ozNkdLNlE2SFZ3emlwOVBoaERHRGNy?=
- =?utf-8?B?Z0VNZkFlNFBZd01PK3g5TmZCcUorSHQ3RjNvZ3YxbWQrQ3FOZkVoZDNqbkps?=
- =?utf-8?B?VzEzR0hxNVl4QXdNQUVvR1RSUEdJbmNyWitLcngzeStBNHVJRDY1NS9yd01C?=
- =?utf-8?B?OENFRjg1ZlJkK1BVYlpBWmF5WUE0THcwNlJhNHNxeFFWbWtlYTREMUtoY1FF?=
- =?utf-8?B?Nzc2NjBWRHM1WVY3VjYzNnlDY0JMYXBvcjBmcnFDTjB1NXoyUUVEVC9iOFc4?=
- =?utf-8?B?VVM3TjZiN0c5U2cvMmRtRWJINmlKcDBEcWNZdE9Vc0EraVJWK1BScHdZNnFY?=
- =?utf-8?B?L2dUV0NXT1Y3N0RPUzhKZGdtOXJuZHhzbFlCMC9GTUprYXJGN2dYcU1Mb3h4?=
- =?utf-8?B?K0R2N2dQOUJuQVQ5SVZZY1RuS0kyWCtaSldrb296Skw0OHBKZDUxK1o3L0lw?=
- =?utf-8?B?YTVTTnl3eTA2N0hJRzFWYmF6dk80dlNZanErTG92bEYyQmJBaXFRZ1UyYm1M?=
- =?utf-8?B?bHFnQXhMTU16NHh5UW56bUR6M2hmenIrNkcwNDVXQjMzQ1R2blNoakNhZEFT?=
- =?utf-8?B?Nk5QY2lCNHBjVkRLQlRDUnJaSHMwRHdwRlZyaU5zT29XZTdJSHJ1RnJzL2p3?=
- =?utf-8?B?eWhtR3RpTDVWeFBpQ3R2NlU5ZGVlTkoxU2Z2cSs3TExaT0tKOThydFZPNi9I?=
- =?utf-8?B?eDVNbG1CbmY2Q0xCeHF4bHN0YkRRcGlja21YakZKVnpYQklLcG1EbDFha1Jx?=
- =?utf-8?B?VWZPM0Rpd3RuR3J1YXlBNk12SDgxQlFKbUZjUUJOUGdvV29wZmRnd2hKOWN3?=
- =?utf-8?B?YVh4ZDRiVE9Ic1N5aWZxSW4yOFZxOWhqY0lIM2c4ZE1jcDV5UjZUOS9PRmFP?=
- =?utf-8?B?VmdyOEtLT3YzS2hnUTRxU3JvV0VhQ1FmVFdFVnRzSzdJTkdXTjRPdGE3eFJy?=
- =?utf-8?B?SkNYUmI4WWdnT0M2ckNRRXdYUzh3Y0d4Ni9OZFQ3WGcraVNPYVNlNStMMmZm?=
- =?utf-8?B?enNoUURKNVo2TmErUHdVZVZzeG05d2NlSW1URG1XL1BzV1FGdGM5ME4rbFV3?=
- =?utf-8?B?ZnUzV1M3bWFvQ0Z1dEVVeWVoRmtOZmdlWUhnRjBkZTRpeXZCVk1PTVpuR01u?=
- =?utf-8?B?NHJLdHI4RC9hMCtDVE5jby9nbjhtWDJRSkx0T3FmNGtaK001V3FWK3lQcmgz?=
- =?utf-8?B?WmdqRDh0OVRJQllOZDdIZGlWK0JJdUsxTGpjdGRtQ3BSMVhtcGZFRUFtOURX?=
- =?utf-8?B?aVlLSi9INjIxSVU4YlJMU0xrVm55WWF6Z2d1S0JJdkxHcnZ5L2FpQzJOdW9q?=
- =?utf-8?B?TUUydUYyTE1vTkFlSkNlenFFRXBFcUtBVGdHNjdoblduUEwzWUJFQkNibWM1?=
- =?utf-8?B?eTRQQXlGbTVCWHlvTkZzQXVIdVlJbStjSzQzeUFVbWJUL2xnbDlnMlU1R01G?=
- =?utf-8?B?dGxVeUs1N050T3RQaE1hcmRuakxEOEx3Zi9mWE5UVkk0Q0ZuMWRWa0lzVDZM?=
- =?utf-8?B?UFlVRVM4dFNVSmFyeSsrSjRjSDJmYmhIRU5jb0MyUEJTV1dGOFBML2NuaG1S?=
- =?utf-8?B?UTdPN2Nwa2hlUERVaWNBTE5EZzI4Lys0L2NMRUYwZXBZYTlhN3RPTWVoaThr?=
- =?utf-8?B?YklldDhlNFBEbTh2WUY4b2hUam9GRlgwMHY4bDBFczYxbzRiMFF4TmhtRTg3?=
- =?utf-8?B?L3REYU13dDFMTWFKdkF2VUtwRGZ6QlRpTkx4a21OQS9CRCt2eW9Pd2cwNi9v?=
- =?utf-8?B?VkNQRFlrTisyZUZQQXZWQk1DMS9PWGNUaXQ0ZmpLMTFENGU0dXlLY3FWY3ow?=
- =?utf-8?B?ZTg1VGE1V0R1TGRvOU9vOHcwNTlLK01xRktrRU1XTmg2d1hjSUdZVHpMclFv?=
- =?utf-8?B?OGtuNUcxNjE5bXpVRkwreDdsRHVTTzQ0UXhRNUxsVy9JYWxkeTVUeUc3T3U1?=
- =?utf-8?B?d2tXOWpacWdiZjQ5Q2pMZTRDS0Q1N3k1UUlWZU1OdlQ3Tjk0OFVjVnhxRVJJ?=
- =?utf-8?B?RHNxVVhVcVZWdjFYbjllUlZSeU5vcXRVMG9xd3R1MjZGQ2poMktOVGJKTHli?=
- =?utf-8?Q?x1JzEIpSiGUp/Jtsz2EYz98uB?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?CEjDwomjAPECbJiqUfBU7TyD5HMRadfpTx3MgJYBfMoivhIG+LXdlZJF/ZZx?=
+ =?us-ascii?Q?QYok8+NXp8QwWHFtwuSl4N3xGp6P+uQNHIJ0MdGvDFiK+SXTpY/EUiu9+Dy9?=
+ =?us-ascii?Q?1CCLwUu0DrCMAJ7UTnDp6bfq+h/8LBGsC2Ex1hmzdqeDMwCLcZ2VJ19PPHvp?=
+ =?us-ascii?Q?tzo9i1n1G3NA71xx9OVMKaTT5d7miDGK7su2C08L/KAS5bVOnE1u95UZ7EDG?=
+ =?us-ascii?Q?5abD4CXMQ+42bCYIP5RThsAFE3xh+czYIpYJaXQBz1Od9vlC6accBiBHWIXV?=
+ =?us-ascii?Q?ukSHBc1u411gQeVQdNl2z2juf618T9ema+F7FVul0w1dVu6Q38lSn5/FpwRc?=
+ =?us-ascii?Q?cuMEd5yKwE0L9wkEUccS6t8b5k3kdNDgv6I1oWiiqKn9jZUnGzhf1RzyHLLk?=
+ =?us-ascii?Q?AagkkrXaI8R0nz/84IVq5fKShLKseqqSfoZ6Q5GU+AuT6psTi747iztMFsq9?=
+ =?us-ascii?Q?2UQBrN3HxlAxMXOEPjar+djK7ECHCkuVYyIIeVdBRvUZyfn8t7a7Mgc/fElz?=
+ =?us-ascii?Q?ql42lzKSK32Pv7nuIHSshAiw5CFg7AfwpEFjvuWdJOwVw4IRt1PswJeI8PAW?=
+ =?us-ascii?Q?BtdYbQzIordVjyWueu9bM52Jsiv5/cbcANsjTUSWLFl/FrseOWbISzzEfJiU?=
+ =?us-ascii?Q?CYS61j0NVXKq90kV6PdzB8vO8fWZ8+xDV/2OdHTcjAzqUfV6SKvK7Z/oAcfx?=
+ =?us-ascii?Q?6gAUzqK3FGyvoszqCJUULy8ILLFCS0vfreBSgyOJ+YSSP9ZbLAoeQCGVeKeL?=
+ =?us-ascii?Q?et1jGyNaciCKhMG3EMksMx9o2UncVEj9OY5L4Lj1iPmITRH3PsxZBlNtazux?=
+ =?us-ascii?Q?1pqZeBgmnc5vIebpNJWoA1R8x82nar/Ym3ThRdJMBQU7Q7tnfQGic+5f9jqu?=
+ =?us-ascii?Q?sgLIhM0JtZURONEQPS81ujJiodKPcXTl+nxIF+I3XoeC8pkXRVdFFVwQ4txW?=
+ =?us-ascii?Q?fka7eyH/eA5TJpJgfOXKaPcGxeNOSqWXHB8t8IFbHbXVf8ajPJrkrvS7UQC3?=
+ =?us-ascii?Q?QSRHZfMjLTR/X+7HDZlShAQJxJIbxSH4eMetfuJpUkjy6VuaTtrNNDZl4+dC?=
+ =?us-ascii?Q?4QNEwzDAVSNmsoK46LU5ZfOY705/ZuG9l+4BK7zlrV5j/puCFeUWwCkbh9kz?=
+ =?us-ascii?Q?xHGMM5Dom6wQA4pLakCMzfVnGXB89HK2I04CcLZz/DOQ/OtK7dtMZiIo4/td?=
+ =?us-ascii?Q?mLiUHmMFL2ACUnV2L0F5QdVBxLg2S+39UPNx8bxEWX1cNvAlmsMy9BYS2dVg?=
+ =?us-ascii?Q?zLN5YZBUJT47bNEdhdx+Bh8VndfGNHwJU5Tz4VoPunPbSNn6c3qZo/hVaCwM?=
+ =?us-ascii?Q?DnAuyPP4le8cYrdRSq1HN0lU/yEqqeMEqMSjAraANQmwMxjaZFdUNmcY4TVm?=
+ =?us-ascii?Q?tXQtQDRFQoQ04eysl9O54x1+TYomRRnUmtZXQ9U6mg1TttTqmOoqxsI564YK?=
+ =?us-ascii?Q?IuMkHKe6jfhhQkmsh0Cqqh//SiDsxcBMObzSg1G9xnZ51iV8Vfhl/VaXIIHH?=
+ =?us-ascii?Q?uFJPDKZ8fUEfdDLsIzOqTMPH2smq07nbU5Sa6C/SjL/yO/vGttO+Xs9e+9s+?=
+ =?us-ascii?Q?8vCZ+kjzewrb8RzpiB8=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB5144EAD7988C1B060AAC54B7F739ABL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0915680-6605-47da-ff2d-08db8874d083
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2023 16:25:50.0379 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: elsU86K+UlzSpB11hP00G7rGB2MZ75+AGaFK+kXs7ixd3qf7t+rHEG5KNu41OhPn6y4La0fSiaBfvXFtjk64Aw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7345
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11816cd1-924b-45e1-8a1b-08db88758321
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2023 16:30:49.5537 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: DRIwG+rpPlGcGei73I8E9AQu8KCPRK2h5Sb4Tvz5ijwcO8hr4lPqK2pcobQG+rR624eszmYq+7OFp0Oy59pYQg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8884
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,238 +123,420 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Zhou, Bob" <Bob.Zhou@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ "Skvortsov, Victor" <Victor.Skvortsov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2023-07-19 um 10:36 schrieb Jonathan Kim:
-> MES can concurrently schedule queues on the device that require
-> exclusive device access if marked exclusively_scheduled without the
-> requirement of GWS.  Similar to the F32 HWS, MES will manage
-> quality of service for these queues.
-> Use this for cooperative groups since cooperative groups are device
-> occupancy limited.
+--_000_BL1PR12MB5144EAD7988C1B060AAC54B7F739ABL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+With the scripts/package/builddeb changes dropped, the patch is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Victor L=
+u <victorchengchi.lu@amd.com>
+Sent: Wednesday, July 19, 2023 10:52 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Skvortsov, Victor <Victor.Skvortsov@amd.com>; Zhou, Bob <Bob.Zhou@amd.c=
+om>; Lazar, Lijo <Lijo.Lazar@amd.com>; Lu, Victor Cheng Chi (Victor) <Victo=
+rChengChi.Lu@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Fix infinite loop in gfxhub_v1_2_xcc_gart_e=
+nable (v2)
+
+An instance of for_each_inst() was not changed to match its new
+behaviour and is causing a loop.
+
+v2: remove tmp_mask variable
+
+Fixes: 50c1d81d6365 ("drm/amdgpu: Modify for_each_inst macro")
+Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c |  5 +-
+ scripts/package/builddeb                 | 60 ++++++++++++------------
+ 2 files changed, 31 insertions(+), 34 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd=
+/amdgpu/gfxhub_v1_2.c
+index 47f95ec218a3..dbdee1a0aefe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
+@@ -402,18 +402,15 @@ static void gfxhub_v1_2_xcc_program_invalidation(stru=
+ct amdgpu_device *adev,
+ static int gfxhub_v1_2_xcc_gart_enable(struct amdgpu_device *adev,
+                                        uint32_t xcc_mask)
+ {
+-       uint32_t tmp_mask;
+         int i;
+
+-       tmp_mask =3D xcc_mask;
+         /*
+          * MC_VM_FB_LOCATION_BASE/TOP is NULL for VF, because they are
+          * VF copy registers so vbios post doesn't program them, for
+          * SRIOV driver need to program them
+          */
+         if (amdgpu_sriov_vf(adev)) {
+-               for_each_inst(i, tmp_mask) {
+-                       i =3D ffs(tmp_mask) - 1;
++               for_each_inst(i, xcc_mask) {
+                         WREG32_SOC15_RLC(GC, GET_INST(GC, i), regMC_VM_FB_=
+LOCATION_BASE,
+                                      adev->gmc.vram_start >> 24);
+                         WREG32_SOC15_RLC(GC, GET_INST(GC, i), regMC_VM_FB_=
+LOCATION_TOP,
+diff --git a/scripts/package/builddeb b/scripts/package/builddeb
+index 67cd420dcf89..c5508054bfc8 100755
+--- a/scripts/package/builddeb
++++ b/scripts/package/builddeb
+@@ -164,23 +164,23 @@ if is_enabled CONFIG_MODULES; then
+                 mv "$tmpdir/lib/modules/$version"/* "$tmpdir/usr/lib/uml/m=
+odules/$version/"
+                 rmdir "$tmpdir/lib/modules/$version"
+         fi
+-       if [ -n "$BUILD_DEBUG" ] ; then
+-               for module in $(find $tmpdir/lib/modules/ -name *.ko -print=
+f '%P\n'); do
+-                       module=3Dlib/modules/$module
+-                       mkdir -p $(dirname $dbg_dir/usr/lib/debug/$module)
+-                       # only keep debug symbols in the debug file
+-                       $OBJCOPY --only-keep-debug $tmpdir/$module $dbg_dir=
+/usr/lib/debug/$module
+-                       # strip original module from debug symbols
+-                       $OBJCOPY --strip-debug $tmpdir/$module
+-                       # then add a link to those
+-                       $OBJCOPY --add-gnu-debuglink=3D$dbg_dir/usr/lib/deb=
+ug/$module $tmpdir/$module
+-               done
+-
+-               # resign stripped modules
+-               if is_enabled CONFIG_MODULE_SIG_ALL; then
+-                       INSTALL_MOD_PATH=3D"$tmpdir" $MAKE -f $srctree/Make=
+file modules_sign
+-               fi
+-       fi
++       #if [ -n "$BUILD_DEBUG" ] ; then
++       #       for module in $(find $tmpdir/lib/modules/ -name *.ko -print=
+f '%P\n'); do
++       #               module=3Dlib/modules/$module
++       #               mkdir -p $(dirname $dbg_dir/usr/lib/debug/$module)
++       #               # only keep debug symbols in the debug file
++       #               $OBJCOPY --only-keep-debug $tmpdir/$module $dbg_dir=
+/usr/lib/debug/$module
++       #               # strip original module from debug symbols
++       #               $OBJCOPY --strip-debug $tmpdir/$module
++       #               # then add a link to those
++       #               $OBJCOPY --add-gnu-debuglink=3D$dbg_dir/usr/lib/deb=
+ug/$module $tmpdir/$module
++       #       done
++
++       #       # resign stripped modules
++       #       if is_enabled CONFIG_MODULE_SIG_ALL; then
++       #               INSTALL_MOD_PATH=3D"$tmpdir" $MAKE -f $srctree/Make=
+file modules_sign
++       #       fi
++       #fi
+ fi
+
+ # Install the maintainer scripts
+@@ -220,18 +220,18 @@ fi
+
+ create_package "$packagename" "$tmpdir"
+
+-if [ -n "$BUILD_DEBUG" ] ; then
+-       # Build debug package
+-       # Different tools want the image in different locations
+-       # perf
+-       mkdir -p $dbg_dir/usr/lib/debug/lib/modules/$version/
+-       cp vmlinux $dbg_dir/usr/lib/debug/lib/modules/$version/
+-       # systemtap
+-       mkdir -p $dbg_dir/usr/lib/debug/boot/
+-       ln -s ../lib/modules/$version/vmlinux $dbg_dir/usr/lib/debug/boot/v=
+mlinux-$version
+-       # kdump-tools
+-       ln -s lib/modules/$version/vmlinux $dbg_dir/usr/lib/debug/vmlinux-$=
+version
+-       create_package "$dbg_packagename" "$dbg_dir"
+-fi
++#if [ -n "$BUILD_DEBUG" ] ; then
++#      # Build debug package
++#      # Different tools want the image in different locations
++#      # perf
++#      mkdir -p $dbg_dir/usr/lib/debug/lib/modules/$version/
++#      cp vmlinux $dbg_dir/usr/lib/debug/lib/modules/$version/
++#      # systemtap
++#      mkdir -p $dbg_dir/usr/lib/debug/boot/
++#      ln -s ../lib/modules/$version/vmlinux $dbg_dir/usr/lib/debug/boot/v=
+mlinux-$version
++#      # kdump-tools
++#      ln -s lib/modules/$version/vmlinux $dbg_dir/usr/lib/debug/vmlinux-$=
+version
++#      create_package "$dbg_packagename" "$dbg_dir"
++#fi
+
+ exit 0
+--
+2.34.1
+
+
+--_000_BL1PR12MB5144EAD7988C1B060AAC54B7F739ABL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> Since some GFX11 devices can only be debugged with partial CUs, do not
-> allow the debugging of cooperative groups on these devices as the CU
-> occupancy limit will change on attach.
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#008000;margin:15pt;font=
+-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+With the <font size=3D"2"><span style=3D"font-size:11pt" class=3D"ContentPa=
+sted0">scripts/package/builddeb</span></font> changes dropped, the patch is=
+:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Victor Lu &lt;victorchengchi.=
+lu@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, July 19, 2023 10:52 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Skvortsov, Victor &lt;Victor.Skvortsov@amd.com&gt;; Zhou, Bob &l=
+t;Bob.Zhou@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Lu, Victor =
+Cheng Chi (Victor) &lt;VictorChengChi.Lu@amd.com&gt;<br>
+<b>Subject:</b> [PATCH v2] drm/amdgpu: Fix infinite loop in gfxhub_v1_2_xcc=
+_gart_enable (v2)</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">An instance of for_each_inst() was not changed to =
+match its new<br>
+behaviour and is causing a loop.<br>
+<br>
+v2: remove tmp_mask variable<br>
+<br>
+Fixes: 50c1d81d6365 (&quot;drm/amdgpu: Modify for_each_inst macro&quot;)<br=
 >
-> In addition, zero initialize the MES add queue submission vector for MES
-> initialization tests as we do not want these to be cooperative
-> dispatches.
+Signed-off-by: Victor Lu &lt;victorchengchi.lu@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c |&nbsp; 5 +-<br>
+&nbsp;scripts/package/builddeb&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 60 ++++++++++++------=
+------<br>
+&nbsp;2 files changed, 31 insertions(+), 34 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd=
+/amdgpu/gfxhub_v1_2.c<br>
+index 47f95ec218a3..dbdee1a0aefe 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c<br>
+@@ -402,18 +402,15 @@ static void gfxhub_v1_2_xcc_program_invalidation(stru=
+ct amdgpu_device *adev,<br>
+&nbsp;static int gfxhub_v1_2_xcc_gart_enable(struct amdgpu_device *adev,<br=
 >
-> v2: fix up indentation and comments.
-> remove unnecessary perf warning on oversubscription.
-> change 0 init to 0 memset to deal with padding.
->
-> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; uint32_t xcc_mask)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t tmp_mask;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp_mask =3D xcc_mask;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * MC_VM_FB_LOCATION_=
+BASE/TOP is NULL for VF, because they are<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * VF copy registers =
+so vbios post doesn't program them, for<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * SRIOV driver need =
+to program them<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))=
+ {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; for_each_inst(i, tmp_mask) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i =3D ffs(tmp_ma=
+sk) - 1;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; for_each_inst(i, xcc_mask) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG3=
+2_SOC15_RLC(GC, GET_INST(GC, i), regMC_VM_FB_LOCATION_BASE,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ad=
+ev-&gt;gmc.vram_start &gt;&gt; 24);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG3=
+2_SOC15_RLC(GC, GET_INST(GC, i), regMC_VM_FB_LOCATION_TOP,<br>
+diff --git a/scripts/package/builddeb b/scripts/package/builddeb<br>
+index 67cd420dcf89..c5508054bfc8 100755<br>
+--- a/scripts/package/builddeb<br>
++++ b/scripts/package/builddeb<br>
+@@ -164,23 +164,23 @@ if is_enabled CONFIG_MODULES; then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; mv &quot;$tmpdir/lib/modules/$version&quot;/* &quot;$=
+tmpdir/usr/lib/uml/modules/$version/&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; rmdir &quot;$tmpdir/lib/modules/$version&quot;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fi<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if [ -n &quot;$BUILD_DEBUG&quot; ] ; =
+then<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; for module in $(find $tmpdir/lib/modules/ -name *.ko -printf '%P=
+\n'); do<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; module=3Dlib/mod=
+ules/$module<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mkdir -p $(dirna=
+me $dbg_dir/usr/lib/debug/$module)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # only keep debu=
+g symbols in the debug file<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $OBJCOPY --only-=
+keep-debug $tmpdir/$module $dbg_dir/usr/lib/debug/$module<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # strip original=
+ module from debug symbols<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $OBJCOPY --strip=
+-debug $tmpdir/$module<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # then add a lin=
+k to those<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $OBJCOPY --add-g=
+nu-debuglink=3D$dbg_dir/usr/lib/debug/$module $tmpdir/$module<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; done<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; # resign stripped modules<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if is_enabled CONFIG_MODULE_SIG_ALL; then<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INSTALL_MOD_PATH=
+=3D&quot;$tmpdir&quot; $MAKE -f $srctree/Makefile modules_sign<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; fi<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fi<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #if [ -n &quot;$BUILD_DEBUG&quot; ] ;=
+ then<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ for module in $(find $tmpdir/lib/modules/ -name *.ko -printf '%P\n'); do<b=
+r>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; module=3Dlib/modules/$modu=
+le<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mkdir -p $(dirname $dbg_di=
+r/usr/lib/debug/$module)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # only keep debug symbols =
+in the debug file<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $OBJCOPY --only-keep-debug=
+ $tmpdir/$module $dbg_dir/usr/lib/debug/$module<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # strip original module fr=
+om debug symbols<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $OBJCOPY --strip-debug $tm=
+pdir/$module<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # then add a link to those=
+<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $OBJCOPY --add-gnu-debugli=
+nk=3D$dbg_dir/usr/lib/debug/$module $tmpdir/$module<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ done<br>
++<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ # resign stripped modules<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ if is_enabled CONFIG_MODULE_SIG_ALL; then<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INSTALL_MOD_PATH=3D&quot;$=
+tmpdir&quot; $MAKE -f $srctree/Makefile modules_sign<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ fi<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #fi<br>
+&nbsp;fi<br>
+&nbsp;<br>
+&nbsp;# Install the maintainer scripts<br>
+@@ -220,18 +220,18 @@ fi<br>
+&nbsp;<br>
+&nbsp;create_package &quot;$packagename&quot; &quot;$tmpdir&quot;<br>
+&nbsp;<br>
+-if [ -n &quot;$BUILD_DEBUG&quot; ] ; then<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # Build debug package<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # Different tools want the image in d=
+ifferent locations<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # perf<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mkdir -p $dbg_dir/usr/lib/debug/lib/m=
+odules/$version/<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cp vmlinux $dbg_dir/usr/lib/debug/lib=
+/modules/$version/<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # systemtap<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mkdir -p $dbg_dir/usr/lib/debug/boot/=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ln -s ../lib/modules/$version/vmlinux=
+ $dbg_dir/usr/lib/debug/boot/vmlinux-$version<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # kdump-tools<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ln -s lib/modules/$version/vmlinux $d=
+bg_dir/usr/lib/debug/vmlinux-$version<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; create_package &quot;$dbg_packagename=
+&quot; &quot;$dbg_dir&quot;<br>
+-fi<br>
++#if [ -n &quot;$BUILD_DEBUG&quot; ] ; then<br>
++#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # Build debug package<br>
++#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # Different tools want the image in differ=
+ent locations<br>
++#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # perf<br>
++#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mkdir -p $dbg_dir/usr/lib/debug/lib/module=
+s/$version/<br>
++#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cp vmlinux $dbg_dir/usr/lib/debug/lib/modu=
+les/$version/<br>
++#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # systemtap<br>
++#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mkdir -p $dbg_dir/usr/lib/debug/boot/<br>
++#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ln -s ../lib/modules/$version/vmlinux $dbg=
+_dir/usr/lib/debug/boot/vmlinux-$version<br>
++#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # kdump-tools<br>
++#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ln -s lib/modules/$version/vmlinux $dbg_di=
+r/usr/lib/debug/vmlinux-$version<br>
++#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; create_package &quot;$dbg_packagename&quot=
+; &quot;$dbg_dir&quot;<br>
++#fi<br>
+&nbsp;<br>
+&nbsp;exit 0<br>
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
 
-Sorry. More indentation nit-picks inline. With those fixed, the patch is
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c              |  2 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h              |  1 +
->   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c               |  2 ++
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c             |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_debug.c               |  3 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_device.c              |  6 +++++-
->   .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c    |  7 ++-----
->   .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c   | 12 ++++++++----
->   drivers/gpu/drm/amd/include/mes_v11_api_def.h        |  4 +++-
->   9 files changed, 27 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> index f808841310fd..72ab6a838bb6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -642,6 +642,8 @@ int amdgpu_mes_add_hw_queue(struct amdgpu_device *adev, int gang_id,
->   	unsigned long flags;
->   	int r;
->   
-> +	memset(&queue_input, 0, sizeof(struct mes_add_queue_input));
-> +
->   	/* allocate the mes queue buffer */
->   	queue = kzalloc(sizeof(struct amdgpu_mes_queue), GFP_KERNEL);
->   	if (!queue) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> index 2d6ac30b7135..2053954a235c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> @@ -224,6 +224,7 @@ struct mes_add_queue_input {
->   	uint32_t	is_kfd_process;
->   	uint32_t	is_aql_queue;
->   	uint32_t	queue_size;
-> +	uint32_t	exclusively_scheduled;
->   };
->   
->   struct mes_remove_queue_input {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> index 1bdaa00c0b46..8e67e965f7ea 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -214,6 +214,8 @@ static int mes_v11_0_add_hw_queue(struct amdgpu_mes *mes,
->   	mes_add_queue_pkt.is_aql_queue = input->is_aql_queue;
->   	mes_add_queue_pkt.gds_size = input->queue_size;
->   
-> +	mes_add_queue_pkt.exclusively_scheduled = input->exclusively_scheduled;
-> +
->   	return mes_v11_0_submit_pkt_and_poll_completion(mes,
->   			&mes_add_queue_pkt, sizeof(mes_add_queue_pkt),
->   			offsetof(union MESAPI__ADD_QUEUE, api_status));
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 40ac093b5035..e0f9cf6dd8fd 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -1487,7 +1487,8 @@ static int kfd_ioctl_alloc_queue_gws(struct file *filep,
->   		goto out_unlock;
->   	}
->   
-> -	if (!kfd_dbg_has_gws_support(dev) && p->debug_trap_enabled) {
-> +	if (p->debug_trap_enabled && (!kfd_dbg_has_gws_support(dev) ||
-> +				      kfd_dbg_has_cwsr_workaround(dev))) {
->   		retval = -EBUSY;
->   		goto out_unlock;
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> index ccfc81f085ce..1f82caea59ba 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> @@ -753,7 +753,8 @@ int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
->   		if (!KFD_IS_SOC15(pdd->dev))
->   			return -ENODEV;
->   
-> -		if (!kfd_dbg_has_gws_support(pdd->dev) && pdd->qpd.num_gws)
-> +		if (pdd->qpd.num_gws && (!kfd_dbg_has_gws_support(pdd->dev) ||
-> +					 kfd_dbg_has_cwsr_workaround(pdd->dev)))
->   			return -EBUSY;
->   	}
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> index 0b3dc754e06b..ebc9674d3ce1 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -508,6 +508,7 @@ static int kfd_gws_init(struct kfd_node *node)
->   {
->   	int ret = 0;
->   	struct kfd_dev *kfd = node->kfd;
-> +	uint32_t mes_rev = node->adev->mes.sched_version & AMDGPU_MES_VERSION_MASK;
->   
->   	if (node->dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS)
->   		return 0;
-> @@ -524,7 +525,10 @@ static int kfd_gws_init(struct kfd_node *node)
->   		(KFD_GC_VERSION(node) == IP_VERSION(9, 4, 3)) ||
->   		(KFD_GC_VERSION(node) >= IP_VERSION(10, 3, 0)
->   			&& KFD_GC_VERSION(node) < IP_VERSION(11, 0, 0)
-> -			&& kfd->mec2_fw_version >= 0x6b))))
-> +			&& kfd->mec2_fw_version >= 0x6b) ||
-> +		(KFD_GC_VERSION(node) >= IP_VERSION(11, 0, 0)
-> +			&& KFD_GC_VERSION(node) < IP_VERSION(12, 0, 0)
-> +			&& mes_rev >= 68))))
->   		ret = amdgpu_amdkfd_alloc_gws(node->adev,
->   				node->adev->gds.gws_size, &node->gws);
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 761963ad6154..71b7f16c0173 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -237,10 +237,7 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
->   	}
->   	queue_input.queue_type = (uint32_t)queue_type;
->   
-> -	if (q->gws) {
-> -		queue_input.gws_base = 0;
-> -		queue_input.gws_size = qpd->num_gws;
-> -	}
-> +	queue_input.exclusively_scheduled = q->properties.is_gws;
->   
->   	amdgpu_mes_lock(&adev->mes);
->   	r = adev->mes.funcs->add_hw_queue(&adev->mes, &queue_input);
-> @@ -250,7 +247,7 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
->   			q->properties.doorbell_off);
->   		pr_err("MES might be in unrecoverable state, issue a GPU reset\n");
->   		kfd_hws_hang(dqm);
-> -}
-> +	}
->   
->   	return r;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> index ba9d69054119..e8ee52d70a19 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> @@ -123,7 +123,7 @@ int pqm_set_gws(struct process_queue_manager *pqm, unsigned int qid,
->   	if (!gws && pdd->qpd.num_gws == 0)
->   		return -EINVAL;
->   
-> -	if (KFD_GC_VERSION(dev) != IP_VERSION(9, 4, 3)) {
-> +	if (KFD_GC_VERSION(dev) != IP_VERSION(9, 4, 3) && !dev->kfd->shared_resources.enable_mes) {
->   		if (gws)
->   			ret = amdgpu_amdkfd_add_gws_to_process(pdd->process->kgd_process_info,
->   				gws, &mem);
-> @@ -136,7 +136,9 @@ int pqm_set_gws(struct process_queue_manager *pqm, unsigned int qid,
->   	} else {
->   		/*
->   		 * Intentionally set GWS to a non-NULL value
-> -		 * for GFX 9.4.3.
-> +		 * for devices that do not use GWS for global wave
-> +		 * synchronization but require the formality
-> +		 * of setting GWS for cooperative groups.
->   		 */
->   		pqn->q->gws = gws ? ERR_PTR(-ENOMEM) : NULL;
->   	}
-> @@ -173,7 +175,8 @@ void pqm_uninit(struct process_queue_manager *pqm)
->   
->   	list_for_each_entry_safe(pqn, next, &pqm->queues, process_queue_list) {
->   		if (pqn->q && pqn->q->gws &&
-> -		    KFD_GC_VERSION(pqn->q->device) != IP_VERSION(9, 4, 3))
-> +				KFD_GC_VERSION(pqn->q->device) != IP_VERSION(9, 4, 3) &&
-> +					!pqn->q->device->kfd->shared_resources.enable_mes)
-
-This still looks wrong. You have pieces of the same condition indented 3 
-different ways here. I'd prefer to see this (and hoping Thunderbird 
-won't mess it up):
-
-  		if (pqn->q && pqn->q->gws &&
-		    KFD_GC_VERSION(pqn->q->device) != IP_VERSION(9, 4, 3) &&
-		    !pqn->q->device->kfd->shared_resources.enable_mes)
-
-Everything indented to line up just behind the open ( on the first line.
-
-
->   			amdgpu_amdkfd_remove_gws_from_process(pqm->process->kgd_process_info,
->   				pqn->q->gws);
->   		kfd_procfs_del_queue(pqn->q);
-> @@ -455,7 +458,8 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
->   		}
->   
->   		if (pqn->q->gws) {
-> -			if (KFD_GC_VERSION(pqn->q->device) != IP_VERSION(9, 4, 3))
-> +			if (KFD_GC_VERSION(pqn->q->device) != IP_VERSION(9, 4, 3) &&
-> +						!dev->kfd->shared_resources.enable_mes)
-
-Same as above.
-
-Thanks,
-   Felix
-
-
->   				amdgpu_amdkfd_remove_gws_from_process(
->   						pqm->process->kgd_process_info,
->   						pqn->q->gws);
-> diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> index 0997e999416a..b1db2b190187 100644
-> --- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> +++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> @@ -275,7 +275,9 @@ union MESAPI__ADD_QUEUE {
->   			uint32_t trap_en		: 1;
->   			uint32_t is_aql_queue		: 1;
->   			uint32_t skip_process_ctx_clear : 1;
-> -			uint32_t reserved		: 19;
-> +			uint32_t map_legacy_kq		: 1;
-> +			uint32_t exclusively_scheduled	: 1;
-> +			uint32_t reserved		: 17;
->   		};
->   		struct MES_API_STATUS		api_status;
->   		uint64_t                        tma_addr;
+--_000_BL1PR12MB5144EAD7988C1B060AAC54B7F739ABL1PR12MB5144namp_--
