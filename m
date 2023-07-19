@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0635EC001DC
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 12:40:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86FD5EB64DA
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 12:40:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B3A510E497;
-	Wed, 19 Jul 2023 12:40:52 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2088.outbound.protection.outlook.com [40.107.220.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DBF510E494
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 12:40:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2DB410E495;
+	Wed, 19 Jul 2023 12:40:54 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2063.outbound.protection.outlook.com [40.107.93.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3189110E495
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 12:40:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Cy94dubuVqqsjsQAXc02nGo74GCw1t6J9Q+hWGFYolfIGrXlugcMJUrHrZ8fxFS9/l1GhDaBeoK2aVbzyipCGYBGypQbfczjDlq0kETULT3QBH/jXTWq1ogQTUQ/8H3fKcqxpYIDPrWiLs9X3kPWJisTs/vv9lI8aLdO/RcS7iOFyYLzGYKunTGNrCCIm6haPr4Kg5U43CS7ArnRG4Mq4QDIuYKlfrMpRwpjVcPKs0XJDtQLoIlz9qYw//dl6JnOXccUZB+19LImW/6l2MqNRj5yts/Ke2nfCnUS6VaVYq0r+FCp3Ho1z25R8sCGxkAL/VlqKKdbqWYijifdzrQT5Q==
+ b=TIBDqg79IXHGAdOYpRnaOADSOGWAlDL0tYXFXLY1xP3DN+sf5G/0AwD8oAfWPPq/VuxJRhgxFQmoOJjZO9XYZQokJytoz5QDyJghiSf3xrMxGBceI35ije86ONEzPMDnUcMK45xlIco3zMDu40Al9X59Rh10Zzmu07RFAtuMGl1I/Ni7cjq9j5n6ItX7CcZar4gidazeXkGx1vyE8gNuvjn52GmQ4damoW4FTSVimKkqJNZyE8ET2jilgniyHWzlAgcyL+tAbbdWnrARKdRcUsK6l+yImV3dNcriQUEth45d5cbRhkY3qDOKB+75VWwdAFKtjqBTsWdJ3Imzrt9+fw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nYSYMC/G3aVRV8+2PjPDhzyGmanAovNpKyNinSGGWHI=;
- b=dWo2HJATEsMLm8E1FLs1nlGowH6dgvduUoEuDffUUQaG5U9GV5ZyFQ1gR3mToa4Y/8rOFWn2ndtPojHP5ILhyh/X//IRyScYjOuX0nytnCaz1HYvSy7QRsMmrtl+kc9vpjp8oq8NJIlUCoyJhJBI1s24wWVIDs2WiA95Xv6QYOMpQ4i57CYFN8nuAomWnnNfrr7NqT45w3c0MhirIVQuxCMzqMRdQD5JAwJb2QNu8NI3uRFjdWQv+QI3E1RkwYlSiohxPgsZ8K7zIsPlcLjpplPznQGG0042UfnX6T250Gc1SRX0na75KVaNFLA441ixBi3rwoqWrGSOSXIgZXeomQ==
+ bh=vwk/tdqdUVmnUW4LYDRITls7rJugeMe23mkKRtTtDqY=;
+ b=N6V50rN+/GoSwmVlT4YRXtVKLZC+7c3UkqybAaMKe8DZzZR3ymPteCMqOLGfm/3KrzCws+d3R+yaq4VjrYKWG00yjQDZe8NtsV9c+CZx4W9NltqUhzvx0JSfBoPySNEvnmITCsYEIbwSoTI7+H37wSJ3iQyOI9FosLPsZkAtnM75davnBGdx+YOXVHk3Eps+5/0wvM+YitxkVVfAc/COJrz2N+l8JN9rwlrRapoKt8CukybiFBA30EvVITfZ55BcNta32/Qseg2r/u2Lwy4sPFjo3XiBjJgSMoCWi4tFNgtF+18FxqrVE6Y5CCeYS+c6oOr9V5jpOJ5P4Vovb0Xrvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nYSYMC/G3aVRV8+2PjPDhzyGmanAovNpKyNinSGGWHI=;
- b=lSjqXx9xljBXown62BiKPlkYdRYu1ctu1D0mSH1NAX3xC1/QWYCIOcfAEAVLEW9TkrUnlWGL7ntOsRYUTShJvjicc1uG32q1aNiYI8BhR56YXiJhrI3TtDgpRi1gCtfnvtwi4/DB5d8ZE5x11OgFydXZmnXAgkABFZw66FoETwM=
-Received: from BN9PR03CA0708.namprd03.prod.outlook.com (2603:10b6:408:ef::23)
- by PH8PR12MB7349.namprd12.prod.outlook.com (2603:10b6:510:217::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Wed, 19 Jul
- 2023 12:40:47 +0000
-Received: from BN8NAM11FT052.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ef:cafe::4e) by BN9PR03CA0708.outlook.office365.com
- (2603:10b6:408:ef::23) with Microsoft SMTP Server (version=TLS1_2,
+ bh=vwk/tdqdUVmnUW4LYDRITls7rJugeMe23mkKRtTtDqY=;
+ b=xJhZJx0D/1F34ag8Nhc4ZjEjLH8RMnAsGONPI9VhBxFuPAcn/gaDiCwPIewsEnq9vMbNMqi1Cj9EjN5IT94YK1VSRZmVR2wcLx6FCi92BxPsN6W0BwyeT1OK5JRSKToE+aVipliLX96AdRG7T69hNK7908TIWTINVLlY7Hmd1h8=
+Received: from BN6PR17CA0038.namprd17.prod.outlook.com (2603:10b6:405:75::27)
+ by DM4PR12MB6469.namprd12.prod.outlook.com (2603:10b6:8:b6::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6609.24; Wed, 19 Jul 2023 12:40:49 +0000
+Received: from BN8NAM11FT042.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:405:75:cafe::f5) by BN6PR17CA0038.outlook.office365.com
+ (2603:10b6:405:75::27) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24 via Frontend
- Transport; Wed, 19 Jul 2023 12:40:47 +0000
+ Transport; Wed, 19 Jul 2023 12:40:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT052.mail.protection.outlook.com (10.13.177.210) with Microsoft SMTP
+ BN8NAM11FT042.mail.protection.outlook.com (10.13.177.85) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6588.35 via Frontend Transport; Wed, 19 Jul 2023 12:40:47 +0000
+ 15.20.6588.34 via Frontend Transport; Wed, 19 Jul 2023 12:40:49 +0000
 Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 19 Jul
- 2023 07:40:45 -0500
+ 2023 07:40:47 -0500
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amdgpu: add ta initialization failure check condition
-Date: Wed, 19 Jul 2023 20:39:55 +0800
-Message-ID: <20230719123956.1163008-1-YiPeng.Chai@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: not update the same version ras ta
+Date: Wed, 19 Jul 2023 20:39:56 +0800
+Message-ID: <20230719123956.1163008-2-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230719123956.1163008-1-YiPeng.Chai@amd.com>
+References: <20230719123956.1163008-1-YiPeng.Chai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT052:EE_|PH8PR12MB7349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9af1b48e-b8c6-4d46-d7d0-08db8855605e
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT042:EE_|DM4PR12MB6469:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf131d00-119d-45b0-eddc-08db885561aa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vrXMu3TzYTViMsjZQCAPY1PG/H5/lJuvCAVP5H3dYW4wplw35l+L4E5xeAmd99mYZ3BRveFGD56gREIfTDZEDl0JQN8u4Yt6yGEuXhpGZxnB7fb3DVbrNbzxC+MIpy3E7UBPMEmzkBQONwq+Uv2KxYSaOw0C8l/jjI1dX+3D5Vf9p5ZJSNQNwvX9FWJmY+2s5LSf6wAEy4SQyjG+HjlNcELw3fVW3KMkm0d33cYYZ3AngW4ixr8BrX6ONdt7e+nzlpLiCkDrTLff7DtBLgUf5HiOqsCmlcEtkph+hP0eyUpRzwjvbdRVeHPQ975FVYmUVqZD7kGc1WpndAnDdJPtC+IbmQ0n/J975p3R/2c/UsD5rs2g0dmXlQyqFw84lLh/1Ca033EioGZZjHLHIbmjKySLIjRb69EHmevSMy9TZNaxBe1TkOElKegDbFsCBzPQuLmaa7etUY/Mgf7xGxiCjhWEzpznb3K7nv2E6JbJ1hb3F0yucN/XPzOBVGx23Csu3/SfUFrDPM0qXQ3R+oTW2DpH8oOrCsVrt9RYaZX+iMfN/417fiGiRnKNYFbrQfksrll+jDZtNWJ+GdgKhEMqFQT+Lh90pIVsfUTwy+GOMOmyXc/I2MiH06xzCtaK5PbpwDCvE0Gqwy0G+V8RlUqLQ3jwqzop+v8w84VLyuUQG1S+c1dj9J826F73rAMiTu7Zs09udvYjWrp6JUy/xFLweRiaCp8tohdjqQgwhJrXjrOFVazJh1Nct7782vGMWsIjjwKBXq5LfeymI6AsUBmSxQ==
+X-Microsoft-Antispam-Message-Info: I/9dD3l7uIf6ASv5QIPrW6FCLp1zNjyWj8q+tNCroRjx2pEAgZZEdm5frruDHhLNN2nLBDW3HpdEXFlYJpsuKjys6j6jfAwwH0EG5u11DTEjNL4e9Dx40bKEOrOC3l6urhN+se4O36qRFOfA4G3k/q0p4ejtpRO0eYa/Z1YYxWKzOeCcVdBmkgP3PJPZ+7GNsiYnOyEtnZ6HVSV8reIeo5Qnk9vnK+b6tEikbq9IbJ7GlYTuJQbk6dn2ecbkiXW0dTFkNkt5HYA2knNQknggjrwSSXmHSHafuE0e6GGftvNzRnG+rfNPxysUxS9B3ffGWrZZ+ksBkOQob8NzNcdv58cDbycYeRZVF7jOBX4vxhh3mA9iunsmiC2CEEiBFD1Y7EsxP6yqhKABh5oCavKUjTu15I4Y4wj8SEAseuAvWy/mSosxzUiBnvsWu2KqFGcVEJ9LPp8XP40NOew1P+CZERbVyIzwPNTep+dupH/eJjp3AktmHTXRntPJc8tOxHpDhGsVpP7vPmBZodRfAEdAGvKLc362ly7iFjAkeFbiHyiiMgRMx+4eqckWCKvWwcvuvsiPg90CSLEMugbs+1gX+uJESEtQXORgI921X/rKBbf7bbmEHN+EcdX6jL3dvHr+4Zn0XvKTNrFYJY/rsHLM7vxj+e0OJ24s52h9Tpd3wOYpbqJtYHhivsbKP1iwha+0ZaFsk7PbeKm8IJYIdRFOhOorfL0oT8OPPCmwkW3/Z7g58az0XOp+OL1sp3N1z14qlNSTNcUfk7I4PODVMmsgMQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(39860400002)(136003)(396003)(346002)(82310400008)(451199021)(40470700004)(36840700001)(46966006)(6666004)(7696005)(478600001)(54906003)(336012)(186003)(16526019)(26005)(1076003)(2906002)(4744005)(82740400003)(316002)(41300700001)(4326008)(6916009)(70206006)(5660300002)(70586007)(8936002)(8676002)(356005)(81166007)(86362001)(40460700003)(36756003)(36860700001)(426003)(2616005)(83380400001)(47076005)(40480700001)(36900700001);
+ SFS:(13230028)(4636009)(376002)(396003)(39860400002)(136003)(346002)(451199021)(82310400008)(46966006)(40470700004)(36840700001)(40480700001)(54906003)(40460700003)(478600001)(356005)(81166007)(7696005)(6666004)(82740400003)(41300700001)(5660300002)(8676002)(4326008)(6916009)(70586007)(8936002)(316002)(70206006)(2616005)(426003)(336012)(16526019)(186003)(36860700001)(83380400001)(47076005)(1076003)(26005)(86362001)(36756003)(15650500001)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2023 12:40:47.3014 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9af1b48e-b8c6-4d46-d7d0-08db8855605e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2023 12:40:49.4778 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf131d00-119d-45b0-eddc-08db885561aa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT052.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT042.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7349
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6469
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,26 +104,72 @@ Cc: Tao.Zhou1@amd.com, YiPeng Chai <YiPeng.Chai@amd.com>, Stanley.Yang@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add ta initialization failure check condition.
+not update the same version ras ta.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-index 468a67b302d4..049d34fd5ba0 100644
+index 049d34fd5ba0..c27574239fde 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-@@ -220,7 +220,7 @@ static ssize_t ta_if_load_debugfs_write(struct file *fp, const char *buf, size_t
+@@ -120,6 +120,7 @@ static const struct file_operations ta_invoke_debugfs_fops = {
+  *   Transmit buffer:
+  *    - TA type (4bytes)
+  *    - TA bin length (4bytes)
++ *    - TA bin version (4bytes)
+  *    - TA bin
+  *   Receive buffer:
+  *    - TA ID (4bytes)
+@@ -148,6 +149,7 @@ static ssize_t ta_if_load_debugfs_write(struct file *fp, const char *buf, size_t
+ 	uint8_t  *ta_bin    = NULL;
+ 	uint32_t copy_pos   = 0;
+ 	int      ret        = 0;
++	uint32_t ta_version = 0;
+ 
+ 	struct amdgpu_device *adev    = (struct amdgpu_device *)file_inode(fp)->i_private;
+ 	struct psp_context   *psp     = &adev->psp;
+@@ -168,6 +170,12 @@ static ssize_t ta_if_load_debugfs_write(struct file *fp, const char *buf, size_t
+ 
+ 	copy_pos += sizeof(uint32_t);
+ 
++	ret = copy_from_user((void *)&ta_version, &buf[copy_pos], sizeof(uint32_t));
++	if (ret)
++		return -EFAULT;
++
++	copy_pos += sizeof(uint32_t);
++
+ 	ta_bin = kzalloc(ta_bin_len, GFP_KERNEL);
+ 	if (!ta_bin)
+ 		return -ENOMEM;
+@@ -185,6 +193,16 @@ static ssize_t ta_if_load_debugfs_write(struct file *fp, const char *buf, size_t
+ 		goto err_free_bin;
  	}
  
- 	ret = psp_fn_ta_initialize(psp);
--	if (ret || context->resp_status) {
-+	if (ret || context->resp_status || !context->initialized) {
- 		dev_err(adev->dev, "Failed to load TA via debugfs (%d) and status (0x%X)\n",
- 			ret, context->resp_status);
- 		if (!ret)
++	if (ta_version == context->bin_desc.fw_version) {
++		dev_info(adev->dev,
++		   "new ta is same as running ta, running ta will not be updated!\n");
++		if (copy_to_user((char *)buf, (void *)&context->session_id, sizeof(uint32_t)))
++			ret = -EFAULT;
++		else
++			ret = len;
++		goto err_free_bin;
++	}
++
+ 	/*
+ 	 * Allocate TA shared buf in case shared buf was freed
+ 	 * due to loading TA failed before.
+@@ -209,7 +227,7 @@ static ssize_t ta_if_load_debugfs_write(struct file *fp, const char *buf, size_t
+ 
+ 	/* Prepare TA context for TA initialization */
+ 	context->ta_type                     = ta_type;
+-	context->bin_desc.fw_version         = get_bin_version(ta_bin);
++	context->bin_desc.fw_version         = ta_version;
+ 	context->bin_desc.size_bytes         = ta_bin_len;
+ 	context->bin_desc.start_addr         = ta_bin;
+ 
 -- 
 2.34.1
 
