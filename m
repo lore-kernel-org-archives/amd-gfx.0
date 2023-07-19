@@ -4,64 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35A57EB64DA
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 15:30:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F481EB64DA
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 16:21:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EDB310E4C9;
-	Wed, 19 Jul 2023 15:30:40 +0000 (UTC)
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
- [IPv6:2607:f8b0:4864:20::1129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCFD010E4D0
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 15:25:24 +0000 (UTC)
-Received: by mail-yw1-x1129.google.com with SMTP id
- 00721157ae682-579ed2829a8so69862917b3.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 08:25:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=paul-moore.com; s=google; t=1689780323; x=1692372323;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=E9cCLj0zM8JjUOyomZEKsWMrdNLR9qOvsZrkfrcN/wI=;
- b=OEkJOsaDK/Sdhd+3KExw0lzHKRrWqkDKbK3EdKZwnico2hN66bMte46sznr3D2q8Ij
- kbEqswBd4Nce8EcmHj//I9ODApZC3L90+sXmFcS3ViqD/041bQU+p1oZEBIpbGHxQdRW
- Bkx5xcshP6g0XlBXSCaQ//9PGUg4t0Ev53G19Jn7Bfe4HXMoys0m8SzehU1V6F7QP7eC
- 8lD4s/Cq7UyYFbJ2XhyBKI9zR6lTkAPuQK2Be95WCrVId1mNkjbCaiY+OoJI9U3Jthni
- rSjU8rQv78mbNQMwp1Pir4wiHsocaFkhglAJQrREt1ieUgUGlrDPdPr85ltO3yU7F7at
- iaVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689780323; x=1692372323;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=E9cCLj0zM8JjUOyomZEKsWMrdNLR9qOvsZrkfrcN/wI=;
- b=XekDzbrD3Nxbrknd/nG4igzoj+MTdfewmfgsnF2uF+ibFoYpfA1o2qrqknkH4wXR7t
- /0UPqO71dMDwgm2hWnnifI2SLPUlcIYCPZgBPhuUfbk8C5AohiW2OLYltO9sRKIftC04
- dpYTUSRbhHy+TwVTHo4mMcR4VA98zdpk69+rGJ2jIprBTydLtd1H5RB/huNZjmF+lY/M
- j80z98Omq73AuNRfwgMhwYxbf3QIUIrUHlIAnCndwhjdzkv6fV2TChyn9yr1Gq0+rGTH
- iDJ6Y6utAJhNKrPnSi9RjcVJuUYLZKqUt/YwiYbLIOM+AyPFCquIdtySyOuC4o0hc5qE
- zhPg==
-X-Gm-Message-State: ABy/qLY+BVE8VMaEsLeISAYqWtfOlz0n32j/29buGPOLjn7i67EJBIvB
- ZCaRh8LOucE4aJB1zLQ4OeVK6cg4JAOlSIvsltio
-X-Google-Smtp-Source: APBJJlEKuWkfr0ZOUpBDkgDJSGU1WICL7JKLe65DOhMheQvB+Dy8YyA22pUEoTNZB9gyg+Sk1cUZ7AumngsAXFfSIUo=
-X-Received: by 2002:a0d:cb10:0:b0:57a:8de9:29e7 with SMTP id
- n16-20020a0dcb10000000b0057a8de929e7mr18181677ywd.28.1689780323608; Wed, 19
- Jul 2023 08:25:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 047A910E0DD;
+	Wed, 19 Jul 2023 16:21:42 +0000 (UTC)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1474F10E0DD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 16:17:50 +0000 (UTC)
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1qM9s4-0006fi-6H; Wed, 19 Jul 2023 18:17:48 +0200
+Message-ID: <620b0254-cdf7-b3aa-adfc-d7bda286b641@leemhuis.info>
+Date: Wed, 19 Jul 2023 18:17:45 +0200
 MIME-Version: 1.0
-References: <20230719075127.47736-1-wangkefeng.wang@huawei.com>
- <20230719075127.47736-4-wangkefeng.wang@huawei.com>
- <CAJ2a_DfGvPeDuN38UBXD4f2928n9GZpHFgdiPo9MoSAY7YXeOg@mail.gmail.com>
- <dc8223db-b4ac-7bee-6f89-63475a7dcaf8@huawei.com>
-In-Reply-To: <dc8223db-b4ac-7bee-6f89-63475a7dcaf8@huawei.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Wed, 19 Jul 2023 11:25:12 -0400
-Message-ID: <CAHC9VhQzJ3J0kEymDUn3i+dnP_34GMNRjaCHXc4oddUCFb0Ygw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/4] selinux: use vma_is_initial_stack() and
- vma_is_initial_heap()
-To: Kefeng Wang <wangkefeng.wang@huawei.com>, 
- =?UTF-8?Q?Christian_G=C3=B6ttsche?= <cgzones@googlemail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 19 Jul 2023 15:30:39 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 28/29] drm/amdkfd: Refactor migrate init to support
+ partition switch
+Content-Language: en-US, de-DE
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ Philip Yang <Philip.Yang@amd.com>
+References: <20230510212333.2071373-28-alexander.deucher@amd.com>
+ <647beed4-9d0b-e351-6f66-756f73eb73a5@daenzer.net>
+From: "Linux regression tracking #adding (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <647beed4-9d0b-e351-6f66-756f73eb73a5@daenzer.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1689783471;
+ 48f62746; 
+X-HE-SMSGID: 1qM9s4-0006fi-6H
+X-Mailman-Approved-At: Wed, 19 Jul 2023 16:21:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,68 +49,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: selinux@vger.kernel.org, Stephen Smalley <stephen.smalley.work@gmail.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-perf-users@vger.kernel.org, linux-mm@kvack.org,
- amd-gfx@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
- Eric Paris <eparis@parisplace.org>, Andrew Morton <akpm@linux-foundation.org>
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 19, 2023 at 6:23=E2=80=AFAM Kefeng Wang <wangkefeng.wang@huawei=
-.com> wrote:
-> On 2023/7/19 17:02, Christian G=C3=B6ttsche wrote:
-> > On Wed, 19 Jul 2023 at 09:40, Kefeng Wang <wangkefeng.wang@huawei.com> =
-wrote:
-> >>
-> >> Use the helpers to simplify code.
-> >>
-> >> Cc: Paul Moore <paul@paul-moore.com>
-> >> Cc: Stephen Smalley <stephen.smalley.work@gmail.com>
-> >> Cc: Eric Paris <eparis@parisplace.org>
-> >> Acked-by: Paul Moore <paul@paul-moore.com>
-> >> Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
-> >> ---
-> >>   security/selinux/hooks.c | 7 ++-----
-> >>   1 file changed, 2 insertions(+), 5 deletions(-)
-> >>
-> >> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> >> index d06e350fedee..ee8575540a8e 100644
-> >> --- a/security/selinux/hooks.c
-> >> +++ b/security/selinux/hooks.c
-> >> @@ -3762,13 +3762,10 @@ static int selinux_file_mprotect(struct vm_are=
-a_struct *vma,
-> >>          if (default_noexec &&
-> >>              (prot & PROT_EXEC) && !(vma->vm_flags & VM_EXEC)) {
-> >>                  int rc =3D 0;
-> >> -               if (vma->vm_start >=3D vma->vm_mm->start_brk &&
-> >> -                   vma->vm_end <=3D vma->vm_mm->brk) {
-> >> +               if (vma_is_initial_heap(vma)) {
-> >
-> > This seems to change the condition from
-> >
-> >      vma->vm_start >=3D vma->vm_mm->start_brk && vma->vm_end <=3D vma->=
-vm_mm->brk
-> >
-> > to
-> >
-> >      vma->vm_start <=3D vma->vm_mm->brk && vma->vm_end >=3D vma->vm_mm-=
->start_brk
-> >
-> > (or AND arguments swapped)
-> >
-> >      vma->vm_end >=3D vma->vm_mm->start_brk && vma->vm_start <=3D vma->=
-vm_mm->brk
-> >
-> > Is this intended?
->
-> The new condition is to check whether there is intersection between
-> [startbrk,brk] and [vm_start,vm_end], it contains orignal check, so
-> I think it is ok, but for selinux check, I am not sure if there is
-> some other problem.
+[TLDR: I'm adding this report to the list of tracked Linux kernel
+regressions; the text you find below is based on a few templates
+paragraphs you might have encountered already in similar form.
+See link in footer if these mails annoy you.]
 
-This particular SELinux vma check is see if the vma falls within the
-heap; can you confirm that this change preserves this?
+On 17.07.23 15:09, Michel Dänzer wrote:
+> On 5/10/23 23:23, Alex Deucher wrote:
+>> From: Philip Yang <Philip.Yang@amd.com>
+>>
+>> Rename smv_migrate_init to a better name kgd2kfd_init_zone_device
+>> because it setup zone devive pgmap for page migration and keep it in
+>> kfd_migrate.c to access static functions svm_migrate_pgmap_ops. Call it
+>> only once in amdgpu_device_ip_init after adev ip blocks are initialized,
+>> but before amdgpu_amdkfd_device_init initialize kfd nodes which enable
+>> SVM support based on pgmap.
+>>
+>> svm_range_set_max_pages is called by kgd2kfd_device_init everytime after
+>> switching compute partition mode.
+>>
+>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+>> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> 
+> I bisected a regression to this commit, which broke HW acceleration on this ThinkPad E595 with Picasso APU.
+> 
+> The IB test fails for the compute rings, see dmesg below.
+> 
+> Reverting this commit on top of the DRM changes merged for 6.5 fixes the issue.
 
---=20
-paul-moore.com
+Thanks for the report. To be sure the issue doesn't fall through the
+cracks unnoticed, I'm adding it to regzbot, the Linux kernel regression
+tracking bot:
+
+#regzbot ^introduced 84b4dd3f84d
+#regzbot title drm: amdgpu: HW acceleration broke on ThinkPad E595
+#regzbot ignore-activity
+
+This isn't a regression? This issue or a fix for it are already
+discussed somewhere else? It was fixed already? You want to clarify when
+the regression started to happen? Or point out I got the title or
+something else totally wrong? Then just reply and tell me -- ideally
+while also telling regzbot about it, as explained by the page listed in
+the footer of this mail.
+
+Developers: When fixing the issue, remember to add 'Link:' tags pointing
+to the report (the parent of this mail). See page linked in footer for
+details.
+
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+--
+Everything you wanna know about Linux kernel regression tracking:
+https://linux-regtracking.leemhuis.info/about/#tldr
+That page also explains what to do if mails like this annoy you.
