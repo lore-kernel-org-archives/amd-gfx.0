@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA570C001DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 10:23:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5780CEB64DA
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 10:23:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB8FD10E59B;
-	Thu, 20 Jul 2023 10:23:21 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48C9510E57F;
- Thu, 20 Jul 2023 08:28:24 +0000 (UTC)
-Received: from dggpemm500001.china.huawei.com (unknown [172.30.72.53])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4R65N85vy8ztRZ2;
- Thu, 20 Jul 2023 16:25:12 +0800 (CST)
-Received: from [10.174.177.243] (10.174.177.243) by
- dggpemm500001.china.huawei.com (7.185.36.107) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Thu, 20 Jul 2023 16:28:20 +0800
-Message-ID: <1e839238-c78d-71e0-28ae-7efff0e04953@huawei.com>
-Date: Thu, 20 Jul 2023 16:28:19 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2DAC10E59C;
+	Thu, 20 Jul 2023 10:23:22 +0000 (UTC)
+Received: from mail.208.org (unknown [183.242.55.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6974710E550
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jul 2023 03:32:36 +0000 (UTC)
+Received: from mail.208.org (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTP id 4R5ytR6ZXJzBRDs2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jul 2023 11:32:31 +0800 (CST)
+Authentication-Results: mail.208.org (amavisd-new); dkim=pass
+ reason="pass (just generated, assumed good)" header.d=208.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
+ content-transfer-encoding:content-type:message-id:user-agent
+ :references:in-reply-to:subject:to:from:date:mime-version; s=
+ dkim; t=1689823951; x=1692415952; bh=7Vqv8tfjJj3dYvjSYbQJwUzBoso
+ 1s7DkYVwhfz0M8e0=; b=fn35EcSKLXg+nNIpxSp+KmT7Uowb+Kr68kH7cNzooWg
+ ELVkPMw3i0IeNXqdIp0LbAe0eNpxSbfLdIj0I+FCPFfruf5gchaNbEiQI2hiw/hI
+ VCOUehVRspCbmAH2FynAkGK6B7cimHdAG9FcaA/YvQH64vyNZZPgNNmQD5eJpKx+
+ BUGUqD+2WFNJT13n+GHx00au6cVJbqqx2AhFSb35dyaPRRNtBAE4ETKlG8MJgYpI
+ bo+vI/hChoPo+yenBX+t5M1p3Ufv1MUeXfLEqJgq6m1r1qwzslD0dSMAddzszT8b
+ 8Mc+QOZDiRyNouZpA+8QkI5T0pkBvdehJHngE3l0CPQ==
+X-Virus-Scanned: amavisd-new at mail.208.org
+Received: from mail.208.org ([127.0.0.1])
+ by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id uWM3M-uBizKH for <amd-gfx@lists.freedesktop.org>;
+ Thu, 20 Jul 2023 11:32:31 +0800 (CST)
+Received: from localhost (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTPSA id 4R5ytR3ywkzBR1P6;
+ Thu, 20 Jul 2023 11:32:31 +0800 (CST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: Re: [PATCH v2 3/4] selinux: use vma_is_initial_stack() and
- vma_is_initial_heap()
-Content-Language: en-US
-To: Paul Moore <paul@paul-moore.com>, =?UTF-8?Q?Christian_G=c3=b6ttsche?=
- <cgzones@googlemail.com>
-References: <20230719075127.47736-1-wangkefeng.wang@huawei.com>
- <20230719075127.47736-4-wangkefeng.wang@huawei.com>
- <CAJ2a_DfGvPeDuN38UBXD4f2928n9GZpHFgdiPo9MoSAY7YXeOg@mail.gmail.com>
- <dc8223db-b4ac-7bee-6f89-63475a7dcaf8@huawei.com>
- <CAHC9VhQzJ3J0kEymDUn3i+dnP_34GMNRjaCHXc4oddUCFb0Ygw@mail.gmail.com>
-From: Kefeng Wang <wangkefeng.wang@huawei.com>
-In-Reply-To: <CAHC9VhQzJ3J0kEymDUn3i+dnP_34GMNRjaCHXc4oddUCFb0Ygw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.174.177.243]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- dggpemm500001.china.huawei.com (7.185.36.107)
-X-CFilter-Loop: Reflected
+Date: Thu, 20 Jul 2023 11:32:31 +0800
+From: sunran001@208suo.com
+To: airlied@gmail.com, daniel@ffwll.ch
+Subject: [PATCH] vt: remove spaces after '*'
+In-Reply-To: <20230720032846.1980-1-xujianghui@cdjrlc.com>
+References: <20230720032846.1980-1-xujianghui@cdjrlc.com>
+User-Agent: Roundcube Webmail
+Message-ID: <ac611801abfacd368376321f259a577a@208suo.com>
+X-Sender: sunran001@208suo.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 20 Jul 2023 10:23:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,66 +60,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: selinux@vger.kernel.org, Stephen Smalley <stephen.smalley.work@gmail.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-perf-users@vger.kernel.org, linux-mm@kvack.org,
- amd-gfx@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
- Eric Paris <eparis@parisplace.org>, Andrew Morton <akpm@linux-foundation.org>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+remove redundant spaces to clear checkpatch errors.
 
+ERROR: "foo * bar" should be "foo *bar"
 
-On 2023/7/19 23:25, Paul Moore wrote:
-> On Wed, Jul 19, 2023 at 6:23 AM Kefeng Wang <wangkefeng.wang@huawei.com> wrote:
->> On 2023/7/19 17:02, Christian Göttsche wrote:
->>> On Wed, 19 Jul 2023 at 09:40, Kefeng Wang <wangkefeng.wang@huawei.com> wrote:
->>>>
->>>> Use the helpers to simplify code.
->>>>
->>>> Cc: Paul Moore <paul@paul-moore.com>
->>>> Cc: Stephen Smalley <stephen.smalley.work@gmail.com>
->>>> Cc: Eric Paris <eparis@parisplace.org>
->>>> Acked-by: Paul Moore <paul@paul-moore.com>
->>>> Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
->>>> ---
->>>>    security/selinux/hooks.c | 7 ++-----
->>>>    1 file changed, 2 insertions(+), 5 deletions(-)
->>>>
->>>> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
->>>> index d06e350fedee..ee8575540a8e 100644
->>>> --- a/security/selinux/hooks.c
->>>> +++ b/security/selinux/hooks.c
->>>> @@ -3762,13 +3762,10 @@ static int selinux_file_mprotect(struct vm_area_struct *vma,
->>>>           if (default_noexec &&
->>>>               (prot & PROT_EXEC) && !(vma->vm_flags & VM_EXEC)) {
->>>>                   int rc = 0;
->>>> -               if (vma->vm_start >= vma->vm_mm->start_brk &&
->>>> -                   vma->vm_end <= vma->vm_mm->brk) {
->>>> +               if (vma_is_initial_heap(vma)) {
->>>
->>> This seems to change the condition from
->>>
->>>       vma->vm_start >= vma->vm_mm->start_brk && vma->vm_end <= vma->vm_mm->brk
->>>
->>> to
->>>
->>>       vma->vm_start <= vma->vm_mm->brk && vma->vm_end >= vma->vm_mm->start_brk
->>>
->>> (or AND arguments swapped)
->>>
->>>       vma->vm_end >= vma->vm_mm->start_brk && vma->vm_start <= vma->vm_mm->brk
->>>
->>> Is this intended?
->>
->> The new condition is to check whether there is intersection between
->> [startbrk,brk] and [vm_start,vm_end], it contains orignal check, so
->> I think it is ok, but for selinux check, I am not sure if there is
->> some other problem.
-> 
-> This particular SELinux vma check is see if the vma falls within the
-> heap; can you confirm that this change preserves this?
+Signed-off-by: Ran Sun <sunran001@208suo.com>
+---
+  include/linux/kbd_kern.h | 20 ++++++++++----------
+  1 file changed, 10 insertions(+), 10 deletions(-)
 
-Yes, within is one case of new vma scope check.
+diff --git a/include/linux/kbd_kern.h b/include/linux/kbd_kern.h
+index c40811d79769..6cb4ab685a84 100644
+--- a/include/linux/kbd_kern.h
++++ b/include/linux/kbd_kern.h
+@@ -69,52 +69,52 @@ extern void (*kbd_ledfunc)(unsigned int led);
+  extern int set_console(int nr);
+  extern void schedule_console_callback(void);
 
-> 
+-static inline int vc_kbd_mode(struct kbd_struct * kbd, int flag)
++static inline int vc_kbd_mode(struct kbd_struct *kbd, int flag)
+  {
+  	return ((kbd->modeflags >> flag) & 1);
+  }
+
+-static inline int vc_kbd_led(struct kbd_struct * kbd, int flag)
++static inline int vc_kbd_led(struct kbd_struct *kbd, int flag)
+  {
+  	return ((kbd->ledflagstate >> flag) & 1);
+  }
+
+-static inline void set_vc_kbd_mode(struct kbd_struct * kbd, int flag)
++static inline void set_vc_kbd_mode(struct kbd_struct *kbd, int flag)
+  {
+  	kbd->modeflags |= 1 << flag;
+  }
+
+-static inline void set_vc_kbd_led(struct kbd_struct * kbd, int flag)
++static inline void set_vc_kbd_led(struct kbd_struct *kbd, int flag)
+  {
+  	kbd->ledflagstate |= 1 << flag;
+  }
+
+-static inline void clr_vc_kbd_mode(struct kbd_struct * kbd, int flag)
++static inline void clr_vc_kbd_mode(struct kbd_struct *kbd, int flag)
+  {
+  	kbd->modeflags &= ~(1 << flag);
+  }
+
+-static inline void clr_vc_kbd_led(struct kbd_struct * kbd, int flag)
++static inline void clr_vc_kbd_led(struct kbd_struct *kbd, int flag)
+  {
+  	kbd->ledflagstate &= ~(1 << flag);
+  }
+
+-static inline void chg_vc_kbd_lock(struct kbd_struct * kbd, int flag)
++static inline void chg_vc_kbd_lock(struct kbd_struct *kbd, int flag)
+  {
+  	kbd->lockstate ^= 1 << flag;
+  }
+
+-static inline void chg_vc_kbd_slock(struct kbd_struct * kbd, int flag)
++static inline void chg_vc_kbd_slock(struct kbd_struct *kbd, int flag)
+  {
+  	kbd->slockstate ^= 1 << flag;
+  }
+
+-static inline void chg_vc_kbd_mode(struct kbd_struct * kbd, int flag)
++static inline void chg_vc_kbd_mode(struct kbd_struct *kbd, int flag)
+  {
+  	kbd->modeflags ^= 1 << flag;
+  }
+
+-static inline void chg_vc_kbd_led(struct kbd_struct * kbd, int flag)
++static inline void chg_vc_kbd_led(struct kbd_struct *kbd, int flag)
+  {
+  	kbd->ledflagstate ^= 1 << flag;
+  }
