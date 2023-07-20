@@ -4,39 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23E34EB64DC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA570C001DF
 	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 10:23:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5534610E599;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB8FD10E59B;
 	Thu, 20 Jul 2023 10:23:21 +0000 (UTC)
-Received: from out-13.mta0.migadu.com (out-13.mta0.migadu.com
- [IPv6:2001:41d0:1004:224b::d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CA3C10E58C
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jul 2023 09:17:47 +0000 (UTC)
-Message-ID: <5c91b8dd-5342-0eb2-aef4-dbb865d6dfda@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1689844665;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=twWOXbWYEQiWDLte803PU4TQyX4ZqCM5632vlvyl10U=;
- b=DB4eeuEjhTPCPJI9o1K6etLTAH2GlZQ2jKXZfEFtglosq8nta+hFXp6Q19BwC13rtbePUk
- 4Xqaig9i/B8Qj2QmJCTE40PIJtYSpL9nzXN3Fq/R/yxGavRbtAQmKtatqPuKqCmNMKb0uF
- SIeyywuFj8e2ghKEwpEuU+vXBHjeWk8=
-Date: Thu, 20 Jul 2023 17:17:31 +0800
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48C9510E57F;
+ Thu, 20 Jul 2023 08:28:24 +0000 (UTC)
+Received: from dggpemm500001.china.huawei.com (unknown [172.30.72.53])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4R65N85vy8ztRZ2;
+ Thu, 20 Jul 2023 16:25:12 +0800 (CST)
+Received: from [10.174.177.243] (10.174.177.243) by
+ dggpemm500001.china.huawei.com (7.185.36.107) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Thu, 20 Jul 2023 16:28:20 +0800
+Message-ID: <1e839238-c78d-71e0-28ae-7efff0e04953@huawei.com>
+Date: Thu, 20 Jul 2023 16:28:19 +0800
 MIME-Version: 1.0
-Subject: Re: [PATCH v3 0/9] PCI/VGA: Improve the default VGA device selection
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [PATCH v2 3/4] selinux: use vma_is_initial_stack() and
+ vma_is_initial_heap()
 Content-Language: en-US
-To: Bjorn Helgaas <helgaas@kernel.org>
-References: <20230719193241.GA510805@bhelgaas>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Sui Jingfeng <sui.jingfeng@linux.dev>
-In-Reply-To: <20230719193241.GA510805@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+To: Paul Moore <paul@paul-moore.com>, =?UTF-8?Q?Christian_G=c3=b6ttsche?=
+ <cgzones@googlemail.com>
+References: <20230719075127.47736-1-wangkefeng.wang@huawei.com>
+ <20230719075127.47736-4-wangkefeng.wang@huawei.com>
+ <CAJ2a_DfGvPeDuN38UBXD4f2928n9GZpHFgdiPo9MoSAY7YXeOg@mail.gmail.com>
+ <dc8223db-b4ac-7bee-6f89-63475a7dcaf8@huawei.com>
+ <CAHC9VhQzJ3J0kEymDUn3i+dnP_34GMNRjaCHXc4oddUCFb0Ygw@mail.gmail.com>
+From: Kefeng Wang <wangkefeng.wang@huawei.com>
+In-Reply-To: <CAHC9VhQzJ3J0kEymDUn3i+dnP_34GMNRjaCHXc4oddUCFb0Ygw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.174.177.243]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ dggpemm500001.china.huawei.com (7.185.36.107)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Thu, 20 Jul 2023 10:23:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,34 +54,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: selinux@vger.kernel.org, Stephen Smalley <stephen.smalley.work@gmail.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-perf-users@vger.kernel.org, linux-mm@kvack.org,
+ amd-gfx@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+ Eric Paris <eparis@parisplace.org>, Andrew Morton <akpm@linux-foundation.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 2023/7/20 03:32, Bjorn Helgaas wrote:
->>    drm/amdgpu: Implement the is_primary_gpu callback of
->>      vga_client_register()
->>    drm/radeon: Add an implement for the is_primary_gpu function callback
->>    drm/i915: Add an implement for the is_primary_gpu hook
->>    drm/ast: Register as a vga client to vgaarb by calling
->>      vga_client_register()
->>    drm/loongson: Add an implement for the is_primary_gpu function
->>      callback
-> There's unnecessary variation in the subject lines (and the commit
-> logs) of these patches.  If they all do the same thing but in
-> different drivers, it's useful if the patches all*look*  the same.
->
-> You might be able to write these subjects as
-> "Implement .is_primary_gpu() callback" for brevity.
 
 
-This is a very good suggestion, I will adopt this.
+On 2023/7/19 23:25, Paul Moore wrote:
+> On Wed, Jul 19, 2023 at 6:23 AM Kefeng Wang <wangkefeng.wang@huawei.com> wrote:
+>> On 2023/7/19 17:02, Christian Göttsche wrote:
+>>> On Wed, 19 Jul 2023 at 09:40, Kefeng Wang <wangkefeng.wang@huawei.com> wrote:
+>>>>
+>>>> Use the helpers to simplify code.
+>>>>
+>>>> Cc: Paul Moore <paul@paul-moore.com>
+>>>> Cc: Stephen Smalley <stephen.smalley.work@gmail.com>
+>>>> Cc: Eric Paris <eparis@parisplace.org>
+>>>> Acked-by: Paul Moore <paul@paul-moore.com>
+>>>> Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
+>>>> ---
+>>>>    security/selinux/hooks.c | 7 ++-----
+>>>>    1 file changed, 2 insertions(+), 5 deletions(-)
+>>>>
+>>>> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+>>>> index d06e350fedee..ee8575540a8e 100644
+>>>> --- a/security/selinux/hooks.c
+>>>> +++ b/security/selinux/hooks.c
+>>>> @@ -3762,13 +3762,10 @@ static int selinux_file_mprotect(struct vm_area_struct *vma,
+>>>>           if (default_noexec &&
+>>>>               (prot & PROT_EXEC) && !(vma->vm_flags & VM_EXEC)) {
+>>>>                   int rc = 0;
+>>>> -               if (vma->vm_start >= vma->vm_mm->start_brk &&
+>>>> -                   vma->vm_end <= vma->vm_mm->brk) {
+>>>> +               if (vma_is_initial_heap(vma)) {
+>>>
+>>> This seems to change the condition from
+>>>
+>>>       vma->vm_start >= vma->vm_mm->start_brk && vma->vm_end <= vma->vm_mm->brk
+>>>
+>>> to
+>>>
+>>>       vma->vm_start <= vma->vm_mm->brk && vma->vm_end >= vma->vm_mm->start_brk
+>>>
+>>> (or AND arguments swapped)
+>>>
+>>>       vma->vm_end >= vma->vm_mm->start_brk && vma->vm_start <= vma->vm_mm->brk
+>>>
+>>> Is this intended?
+>>
+>> The new condition is to check whether there is intersection between
+>> [startbrk,brk] and [vm_start,vm_end], it contains orignal check, so
+>> I think it is ok, but for selinux check, I am not sure if there is
+>> some other problem.
+> 
+> This particular SELinux vma check is see if the vma falls within the
+> heap; can you confirm that this change preserves this?
 
-Thanks, really.
+Yes, within is one case of new vma scope check.
 
+> 
