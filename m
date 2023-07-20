@@ -4,51 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCF59C001DE
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 08:20:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98EEFC001DC
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 08:20:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A50810E630;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02EA310E62F;
 	Fri, 21 Jul 2023 08:20:49 +0000 (UTC)
-Received: from mail.208.org (unknown [183.242.55.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AADD310E618
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 03:53:30 +0000 (UTC)
-Received: from mail.208.org (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTP id 4R6bJ82nHxzBRDtB
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 11:53:28 +0800 (CST)
-Authentication-Results: mail.208.org (amavisd-new); dkim=pass
- reason="pass (just generated, assumed good)" header.d=208.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
- content-transfer-encoding:content-type:message-id:user-agent
- :references:in-reply-to:subject:to:from:date:mime-version; s=
- dkim; t=1689911608; x=1692503609; bh=EV1nMV2DEsYn3s4L7x/locP5eq+
- nsZH2TFRR4al9MOI=; b=P3hINwebdkVqLqRSRAURbCkxh+oG5TAgzlmV28pB8vx
- Ow99HynbMP32Ksri8TbAYYIacXwE2LQSETplBvAF+RdhIkJWxU4p8f7nL2LzLVCE
- svKWSjCoiQHug48PKTwSMDWTuxahbJhepMh37Dsyerjy+JO9xr8SaHkG1dXHNREv
- piGZJC9tOSVgszsGgxPII8wgH+vG92C2zRWzmJJ1b09MyokSzMZlBf9C53kucnBf
- YGmjV6hZ5Vlt1KZOx9GML11NDlb9GyhTwN5XnNscztrFRaNfELkhApXDZ+SWVZob
- HblGDIV/DgUKVvM5YZJlndmWBHeRiorF7uMOk5wTgBw==
-X-Virus-Scanned: amavisd-new at mail.208.org
-Received: from mail.208.org ([127.0.0.1])
- by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id WgJuFsBFPCIn for <amd-gfx@lists.freedesktop.org>;
- Fri, 21 Jul 2023 11:53:28 +0800 (CST)
-Received: from localhost (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTPSA id 4R6bJ80fkQzBHXhJ;
- Fri, 21 Jul 2023 11:53:28 +0800 (CST)
-MIME-Version: 1.0
-Date: Fri, 21 Jul 2023 11:53:28 +0800
-From: sunran001@208suo.com
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/pm: open brace '{' following struct go on the same
- line
-In-Reply-To: <20230721035225.4986-1-xujianghui@cdjrlc.com>
-References: <20230721035225.4986-1-xujianghui@cdjrlc.com>
-User-Agent: Roundcube Webmail
-Message-ID: <f2e8d7241330934429e19a960a232f9c@208suo.com>
-X-Sender: sunran001@208suo.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from mailgw.gate-on.net (auth.Gate-On.Net [210.197.74.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD28510E1C4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jul 2023 23:40:03 +0000 (UTC)
+Received: from vega.pgw.jp (unknown [49.135.109.134])
+ by mailgw.gate-on.net (Postfix) with ESMTP id B4DD0802A3;
+ Fri, 21 Jul 2023 08:39:58 +0900 (JST)
+Received: from localhost (vega.pgw.jp [10.5.0.30])
+ by vega.pgw.jp (Postfix) with SMTP
+ id BF312A53D; Fri, 21 Jul 2023 08:39:55 +0900 (JST)
+From: <kkabe@vega.pgw.jp>
+Content-Type: text/plain; charset=ISO-2022-JP
+To: rostedt@goodmis.org
+Subject: Re: radeon.ko/i586: BUG: kernel NULL pointer dereference,
+ address:00000004
+In-Reply-To: Your message of "Mon, 17 Jul 2023 11:36:23 -0400".
+ <20230717113623.41878887@gandalf.local.home>
+X-Mailer: mnews [version 1.22PL5] 2002-11-27(Wed)
+Date: Fri, 21 Jul 2023 08:39:55 +0900
+Message-ID: <230721083955.M0102626@vega.pgw.jp>
 X-Mailman-Approved-At: Fri, 21 Jul 2023 08:20:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,44 +40,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com, regressions@lists.linux.dev,
+ Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, mingo@redhat.com, bp@alien8.de,
+ bagasdotme@gmail.com, hpa@zytor.com, alexander.deucher@amd.com,
+ tglx@linutronix.de, kkabe@vega.pgw.jp, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ERROR: open brace '{' following struct go on the same line
+rostedt@goodmis.org sed in <20230717113623.41878887@gandalf.local.home>
 
-Signed-off-by: Ran Sun <sunran001@208suo.com>
----
-  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h | 8 ++++----
-  1 file changed, 4 insertions(+), 4 deletions(-)
+>> On Fri, 14 Jul 2023 14:34:04 +0900
+>> <kkabe@vega.pgw.jp> wrote:
+>> 
+>> > Patch in
+>> > https://bugzilla.kernel.org/show_bug.cgi?id=217669#c4
+>> > fixed the problem in freedesktop.org kernel 5.18.0-rc2 .
+>> > This may explain that in kernel.org tree, the said commit is in kernel-5.19.
+>> 
+>> You mean the patch that adds:
+>> 
+>> 	#if defined(FTRACE_MCOUNT_MAX_OFFSET) && (FTRACE_MCOUNT_MAX_OFFSET)
+>> 
+>> ?
+>> 
+>> Nothing should be setting FTRACE_MCOUNT_MAX_OFFSET to anything but non
+>> zero. But doing a grep, I now see:
+>> 
+>> # define FTRACE_MCOUNT_MAX_OFFSET ENDBR_INSN_SIZE
+>> 
+>> Where it breaks that assumption if ENDBR_INSN_SIZE == 0 :-p
+>>  (and that's my code!)
+>> 
+>> OK, does this fix it? (I haven't tested nor compiled this)
+>> 
+>> -- Steve
+>> 
+>> diff --git a/arch/x86/include/asm/ftrace.h b/arch/x86/include/asm/ftrace.h
+>> index 897cf02c20b1..801f4414da3e 100644
+>> --- a/arch/x86/include/asm/ftrace.h
+>> +++ b/arch/x86/include/asm/ftrace.h
+>> @@ -13,7 +13,7 @@
+>>  #ifdef CONFIG_HAVE_FENTRY
+>>  # include <asm/ibt.h>
+>>  /* Add offset for endbr64 if IBT enabled */
+>> -# define FTRACE_MCOUNT_MAX_OFFSET	ENDBR_INSN_SIZE
+>> +# define FTRACE_MCOUNT_MAX_OFFSET	(ENDBR_INSN_SIZE + MCOUNT_INSN_SIZE)
+>>  #endif
+>>  
+>>  #ifdef CONFIG_DYNAMIC_FTRACE
+>> 
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h 
-b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index ddc488251313..0cf564ea1ed8 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -429,10 +429,10 @@ int amdgpu_pm_load_smu_firmware(struct 
-amdgpu_device *adev, uint32_t *smu_versio
-  int amdgpu_dpm_handle_passthrough_sbr(struct amdgpu_device *adev, bool 
-enable);
-  int amdgpu_dpm_send_hbm_bad_pages_num(struct amdgpu_device *adev, 
-uint32_t size);
-  int amdgpu_dpm_send_hbm_bad_channel_flag(struct amdgpu_device *adev, 
-uint32_t size);
--int amdgpu_dpm_get_dpm_freq_range(struct amdgpu_device *adev,enum 
-pp_clock_type type,
--				  uint32_t *min,uint32_t *max);
--int amdgpu_dpm_set_soft_freq_range(struct amdgpu_device *adev,enum 
-pp_clock_type type,
--				   uint32_t min,uint32_t max);
-+int amdgpu_dpm_get_dpm_freq_range(struct amdgpu_device *adev, enum 
-pp_clock_type type,
-+				  uint32_t *min, uint32_t *max);
-+int amdgpu_dpm_set_soft_freq_range(struct amdgpu_device *adev, enum 
-pp_clock_type type,
-+				   uint32_t min, uint32_t max);
-  int amdgpu_dpm_write_watermarks_table(struct amdgpu_device *adev);
-  int amdgpu_dpm_wait_for_event(struct amdgpu_device *adev, enum 
-smu_event_type event,
-  		       	      uint64_t event_arg);
+Unfortunately this patch didn't fix freedesktop.org 5.18.0-rc2 tree.
+(vblank->worker == NULL check fires otherwise a panic)
+
+Applying this to kernel.org 6.4.3 results in totally different error as in 
+https://bugzilla.kernel.org/show_bug.cgi?id=217669#c0
+so there may be multiple regressions I'm chasing.
+
+-- 
+kabe
+
