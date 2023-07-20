@@ -4,115 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FC07EB64DA
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 07:35:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A25BEB64DA
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 07:37:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6956F10E56C;
-	Thu, 20 Jul 2023 07:35:10 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78B9910E56C
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jul 2023 07:35:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C49710E588;
+	Thu, 20 Jul 2023 07:37:46 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2053.outbound.protection.outlook.com [40.107.100.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 233D510E571
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jul 2023 07:37:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MqhWBqEf4QAmi0j88FcYop4vX19XEvzRGybOVLxKE6bkXh8RaRz2NPwFNsLx+Q/EHEU26GrjNORL5bt7kmaznP2nCNukGcaLMNJQtSNxulAvy2kO59aXweKG9Y2NU85fKknP6OgVY0PK/z7tVhCKrbKboKy7wasQtBky+PQEcSisHBTk93GP4jbWWeKUtOzjZjlo0abOQ5TsCKmf3ZRY2RiKmohVemUEdNo0o7TzdQJFAp6yLSRHp1MFhhXtF/iUiGDzcKurtPZCzwtSCetvr0pKyPhAcNXpSUaeaChlbFyml93oh5ceTjCs2Xs3HuVoC3LDkjayPwNCv+28lVlQ4Q==
+ b=Q+XPH5eR5Nk8EOcfUZO9MtysVUTfrIzF5WT6t+mj2oXf7VBXepYNAT748SoTZhMrMiI3ySQ+Ffo2S63W1CCR/QZmPHtg+F7AJBNKhRx/dU4OMg9dTpm7ckbs73Z+/albjwhvVaTWrlU8EjpBsia/jf+ZS7TlFMox8idKtIXArTUaY+cdQCLXlaRxPsYjLjdIjq5+XIlgJycsuzAtzlKIhoO0Pg0/2ndYE80AxkOoqExhpFVpr+j6rQjENkJw61rw/7Sv47Ho8MRf24VLHa2WnTeJQyqlBXqCj7kM/Wqim7fwxEhGXs4RtU9KG99qMQ4GbcZ20EU4Qliy5bPuvQPUkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+SmL9ZhbEi8ed8NuL/32IHX9hR3cX7wa8eRgD5jzla0=;
- b=YdMH8MDJlxu24AYKK2owV2hTCk3O0mcQI/ZZOJymtU2fzSQnYz/9ic76Dml769o3QOU1ummBz0GZRkG8nuqDrGv5wStAPlCfGBIk5z1PnPCzl/crI7Vn6/Q9MBWKfteg7zFKxk3XN8px+cdpvWWcsx3KDqsni0/EjodcWyDNcUnULUof+1ZcdsHxa0iFhBaCijWbZDLn35HEdwjQvwA3obhrFyhbqMgC0T1fOO1i+XoKHc0J4qq5y52+d9/RY7kppHFYJtx6pNolq6LT2pRy2G1TAy7mF+egyASMzpsn5whTT36lbpK2GS2r7gLe81QQDUoAmyqGA+Vj8tYbZAlK5A==
+ bh=eocTDSydLbr7QS8igaDjhRGiewbs9BEA6E5mNrSJpJs=;
+ b=hqZU7+atlmuH+24yYHJzAgjTw9/IXvU3duFSQIh61SK3YCDSHunphQGlS8tN6HPxi0lGMCxx4sc9aKDlb05GRjT7dEZT0Zo/ZDG+Z2Ft1A4AWxUWy4onabgicbyRRq4Fe8MuuHdgoTgu+56mvPbnRHJ2OX8JqHiLQtEIl7TpFbuiMbeqkAnVX6GKxnSUCp3gqhFAzULsffIUsq6lj41nRvxJ468BG9V8K9ul+pqS/hTRndmKLJr4c9zDeXwC8FGKl3FCTAjow3fKIwZpDsIqvGzOkEyboNnkaJEQzLGT5XBJOdjSscLbFYEq11lD/ChiaPRWSBhp/BK0s80/mI/ScA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+SmL9ZhbEi8ed8NuL/32IHX9hR3cX7wa8eRgD5jzla0=;
- b=NsHVaUR3C0uYDAMPig5P1buI2s0Rl8kn3yExDAXplBXx9vtXtqcfDz8vgyrz/jIhQLumGIvLYM930cEfuo8Aqm+8He0M8s1aYHvUczk9A4/YRy367C95qd/Pn/qS0eVpvqT7R0NiECAymdCkpR82wroakQAWJrHOpPZvXGGF/co=
+ bh=eocTDSydLbr7QS8igaDjhRGiewbs9BEA6E5mNrSJpJs=;
+ b=bhMkhGI1vulBfm+3KdHGFVdbeS79Ql/cMDsjG8Tqydz9IEL8VW9C7MDrT6VE2qu1hIE0UcY0Kb7z1GO4R095794Jg5qa4jCy8iu1QqwxDsuDKL2MjKkXGiyrEs0Ok4O3Ubj875thwAj1MjrEbEnChCnB0N/FRMGLl9Q7PhM5ego=
 Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
- by SA3PR12MB8802.namprd12.prod.outlook.com (2603:10b6:806:312::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.25; Thu, 20 Jul
- 2023 07:35:01 +0000
+ by DM6PR12MB4499.namprd12.prod.outlook.com (2603:10b6:5:2ab::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Thu, 20 Jul
+ 2023 07:37:39 +0000
 Received: from PH7PR12MB8796.namprd12.prod.outlook.com
  ([fe80::761d:1336:8dcc:b54a]) by PH7PR12MB8796.namprd12.prod.outlook.com
  ([fe80::761d:1336:8dcc:b54a%6]) with mapi id 15.20.6609.024; Thu, 20 Jul 2023
- 07:35:01 +0000
+ 07:37:38 +0000
 From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
 To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu: add ta initialization failure check
- condition
-Thread-Topic: [PATCH 1/2] drm/amdgpu: add ta initialization failure check
- condition
-Thread-Index: AQHZuj4+bxGIfYuGi0S1HtBF50P9bq/CRIig
-Date: Thu, 20 Jul 2023 07:35:00 +0000
-Message-ID: <PH7PR12MB87969DAD2E4E4AD5D76F94DBB03EA@PH7PR12MB8796.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: not update the same version ras ta
+Thread-Topic: [PATCH 2/2] drm/amdgpu: not update the same version ras ta
+Thread-Index: AQHZuj4/QBGxtr/Mx0+fm9paZ5kAnK/CROrQ
+Date: Thu, 20 Jul 2023 07:37:38 +0000
+Message-ID: <PH7PR12MB87962D96721FCDC365E2AC8FB03EA@PH7PR12MB8796.namprd12.prod.outlook.com>
 References: <20230719123956.1163008-1-YiPeng.Chai@amd.com>
-In-Reply-To: <20230719123956.1163008-1-YiPeng.Chai@amd.com>
+ <20230719123956.1163008-2-YiPeng.Chai@amd.com>
+In-Reply-To: <20230719123956.1163008-2-YiPeng.Chai@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=4908c7d3-210a-4cd5-89e3-631aab2f184d;
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=0b707937-66be-45e2-87fc-cff09e27fb5f;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-20T07:33:42Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-20T07:35:05Z;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|SA3PR12MB8802:EE_
-x-ms-office365-filtering-correlation-id: 08a002cc-5782-4585-5bd1-08db88f3d373
+x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|DM6PR12MB4499:EE_
+x-ms-office365-filtering-correlation-id: 03ae3c7d-fef3-4f35-1918-08db88f4319e
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: HIfNq7rnrRIVGEMFFCfABcJgjnNrYqK6nHmDQaDif4sRB1vC8sAZE9tHVhxoafCeC7rcZv1pZDL7uNp+Nl0MS3YFAO2RQ10GSNlyN6qyZZ5Kafg6YT49UlVvnYRwqy7jYjwx4HyIRBs2IDqJoqFO5zMN7kKc5bclCDWhY9/8ltnthVQaN1m9Q6oKibP2qIYjY/SJRu3jgVwqf1zWKP7I0DjGfik0caw4L6nUOVxYW63kK9T2jKftMFwn3sP72fxx85M1orwtPo6GfEwWPOUT4Xn2LkFeefsmGmA2/vp4wqRqflcRCGzOFMEQc9LCA5fsu/mieuWcY3v9pHLDkbNnf+K82YAKUBqExssEhQpo7wrrD8hRUsnA4BzLPfQNExs8D9Yyj0eTZiqWJxV0cEeoxKRhz/Rf8XyUdbONhAldnTnrhhTMXX358DkNSDCTjYYvObWUoWeCS7fLuTcYbVen5W20D9zMwfhvYWTLakO+tRYlbZcO4UG6RGu8gpvG9ZXhCYXVS6DSjI+EzmN4xNc43BPepfUce7v1KJwFDFaXB8bJ6HyaN51kGlXewFSeaA5TL6srGFjZAf3znYykkf6cbo8IA5GtxtGh2Mz7XMKnjP13ir+pmCj6D4gfT73hTNOI
+x-microsoft-antispam-message-info: 0rBRoBAm1ScEeloTriHUzFryKduuxJVBxBhP24LWIFvOHA3KQL/U/HJIa4cQfl8OIru78+S0qyv2k8LTSQoAlA224gS738GjZXqaKWXgj/iuO2rVU8ucLua+ZyaMSN4OtslW/DWpKRCNcEz/MM18SJM7qEgQa9fUzM4MtbeO7ElLwKEWjO2koH1VEkkBn0fEzFEJ5uTZptrYjgtshd/K1MoFYVmYnHGqmGxLJ1EO48rDUEjUR3UYLBj1IxAtPzZArkelTHJvuWNsznaDHB9XpUKOs4TZTKtr6FuZbLZ6isT5oi8GMAZ2g6P6LC4n5NPgFocc4gk8IhTMaxB7bFAsVybrQscL/pDGO+Qv6+8iOj3MYQ6ILfS8vv/K/ZSc+kYyTODBY0RLR685MTBtfSNG3Yi8sffviHukVhZf9o72Th9CS8EnyD+1H4x1/4leipVrt6JyB1xoNcwmGBRKc7I5K8ZEYJvgBWe2VIPZ9Ic9Az56aS5B94qdizOta+5R/X0J0aT097IVn5JdnOijZIoZb7inS1m5Z3Bh/iUyFNmRR/M+FaHu4gXjX2A/TwU4XZ7Xu8pAOgoKQUO6cWJpteW28sJkvwvGKwBkT6a7q/F9Chi7C2Ne4EoZyboc3w8/Whub
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(396003)(136003)(366004)(39860400002)(451199021)(2906002)(83380400001)(38070700005)(33656002)(86362001)(122000001)(38100700002)(55016003)(4326008)(316002)(71200400001)(76116006)(66946007)(64756008)(66446008)(66556008)(66476007)(26005)(186003)(6506007)(53546011)(41300700001)(110136005)(478600001)(7696005)(9686003)(54906003)(52536014)(8936002)(8676002)(5660300002);
+ SFS:(13230028)(4636009)(366004)(346002)(376002)(39860400002)(396003)(136003)(451199021)(2906002)(9686003)(38070700005)(71200400001)(86362001)(6506007)(53546011)(186003)(83380400001)(122000001)(38100700002)(26005)(55016003)(478600001)(7696005)(110136005)(33656002)(54906003)(66446008)(316002)(66556008)(41300700001)(66476007)(64756008)(4326008)(52536014)(8936002)(8676002)(5660300002)(15650500001)(66946007)(76116006);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LgD21tVYj16Fc7kzsr6EusY+evtI7rtKo/nDOOi3CwMp8LNRn1rxV3JZvDXD?=
- =?us-ascii?Q?/nkd1uHhfuydmIp6Rvr5OVEEArnQPtoS+nSCsIVhu8pwgbwucdcLASHXYx/f?=
- =?us-ascii?Q?omwInzupCFxB0mlfwd4NJFOGP/RshIxTAzMktNWzsl+Fch5QCgf3kYV5/vVu?=
- =?us-ascii?Q?aaSI9/yZml4K6/1of4DNJdO+rCryTkve2r2bMpXLTp5LqtWSbU/WgDMAGlrX?=
- =?us-ascii?Q?TW+m0amjgkHpxu86EqHGhmMx2CbK+cl4Ca0PPDRXeGLnc3pVTjGthKbRT4l0?=
- =?us-ascii?Q?DAjK89+hlJtLvC86pnP/haKZttKfKrN00JhdeSTkoEPN5fLArGKkIbxB1anz?=
- =?us-ascii?Q?7MqmdBxzoygNgqV9h6n2EEeADip+d2EFnlze/XgVQ7SMQCtxu4saKGyZFy8e?=
- =?us-ascii?Q?/3BfUm0qqNJGU3tbGN6R5KxrEMfW5CAWN97C7ecy8Ai2ZUF8zwBoql4vDMA1?=
- =?us-ascii?Q?F/cdoAV7XCR7P1SK/B96Wfw5hTtxXukZy5SEPZ0CDd7N0ZrjTRyksEtNLHLF?=
- =?us-ascii?Q?BPzWfhKJzDvSD25GUoFQcMsFYWwpq4aYPpbnhPioxCwyVD34/eAIlym320zt?=
- =?us-ascii?Q?Y8iKwmXPbEJ+eAX3Zs4ms6TJdtahQ8mdeEm+OoGHjy03884tDGSos/YrwoMN?=
- =?us-ascii?Q?VdKYu0gwR+e+Gpwe6ixM4n2bVhMUvgFCBG9svfu9+4c59C2iXGyQY8M1EsLY?=
- =?us-ascii?Q?Q8bUkpjhb1Dm3lfotjX361zrvT2PJCRlU70n1cUlOAQab7LGuIEhzZTq8HGo?=
- =?us-ascii?Q?BKnpc1q9ZoTyYXtBcUYuWu0WwKgQrxSpyTA3zS/JW4ztggTGPFxiIWlgJo3d?=
- =?us-ascii?Q?03mVciQjMqG+YoceHBhPApULOt7rgHpvTRDjdyZERgCJCZADE67sIZ/MzD83?=
- =?us-ascii?Q?JaDmqIN++PZlDf79Pb5IGWnkp8/rwvRtyTE5qz2EAItpK0KXN4srhdZQ+yYY?=
- =?us-ascii?Q?IGcyAZ355cq6WbWJ5pPrY19hRTEF/ArzoIqVUqjowjxq6JwBapsQJSuAz9+n?=
- =?us-ascii?Q?rLjYhFHXeuWVeIfOCPRF8K+MyOePH5AD9dupEabtY7u382XSIzk+fxClz6lk?=
- =?us-ascii?Q?v0SQhY4uVl5gxJFz+i+dE6DdQ9li8HJ0b3YIM7lFQp4bRlvVlTJ12E1i1ycF?=
- =?us-ascii?Q?SHFwUn6oxpJs83nNA7AmWS+SAhbn2G7s/1tzFwSUiWR8f0wVYtqYEAIShHE5?=
- =?us-ascii?Q?14pSATUhURtwb7LGHBShQNQI3EsVsBqdQA265H2kdNGdDrBcTaF5PIjEfU8U?=
- =?us-ascii?Q?oBwLINak0XX9ZAs5E72w2wAfiw83ems3OT7mS6BvDUoySUVcaADq5CmPkXrD?=
- =?us-ascii?Q?Bxy/hmJQ2Y99MSeTlT1T0YR/mBaSQyv5boFdDIdZxxqj4GPUX1c3iWcrj/QO?=
- =?us-ascii?Q?LuvqxIorK4u4X6KTGztQEPxU7VBnLkY5BIMNdBPvZjSqL3ZySZJgVUi2cTui?=
- =?us-ascii?Q?MDixprX5S5KuKBcdd1jIwlopV27AWBJRpL7QcRFc9JZBHqCgXLRanBNqSYoS?=
- =?us-ascii?Q?1enu5gplAR7p70PwOs9s4m/34y5fHA6YOQ3aOd3zYWa6n++EfzdYvfKxgHZb?=
- =?us-ascii?Q?hg7C7m8yCt3MsL0N0k4=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gPMG+SXf2TIH0C+LlN6YFSGIhs0EFXkl0zgfjYWnk2G+uCNtLNMB1j3IKCjd?=
+ =?us-ascii?Q?jToko96Uoa2TlPMUlHIE2cY7GKve5L3+8wwliGQ9ssl+tlAUHiiygEIxmRah?=
+ =?us-ascii?Q?s6bo6s7cGUOPhssCNIHHjkLSlR6x7CItyEyo/y2qcJQZOuG3PbZAysLnOYL0?=
+ =?us-ascii?Q?fcpxwxvB5L66Md0e0/YGoHKGmcNK/thHnISRWGukuNj2pCDp/edj81XqXsqn?=
+ =?us-ascii?Q?/4FWMWwHyjWVMZ9fGTGLpdWkLSZ/jyHu15YJ3S5mWL+sDXMfmia2MlwwNxkE?=
+ =?us-ascii?Q?gCzb4zNk7tujtf0Gkq4JS9s8NvKk0FO1RYRfwZ+DFVZmNGSuR3qr1TWc05UH?=
+ =?us-ascii?Q?6BxrjEzA3yYeQfRpMba3P05hHhWSb3KPJ9vS8KsaC2HMBDGenP4urUkeVlmR?=
+ =?us-ascii?Q?2tzygDh/5ocr/P+ycYnbnh5dnPPFrirT51t+ddhjE1z4NvBJoJcW2Yo8LRLI?=
+ =?us-ascii?Q?iYSTZzCxOwLpn18RseYG2Ro7pSLYKT/5smhH/76nnX83cG+jw1qfZVjjEIOe?=
+ =?us-ascii?Q?HYCA9XhTd6at0Uojeu+Y93ZSD732PPmE9mfUZjhEO6Usutx9EYBi2LMqbbmp?=
+ =?us-ascii?Q?Vbn8CfSsQRgVs+J96PpFDrsAfq0lfp5ka0xMhLqi0Cyfn1bZiqT9E2J05Frl?=
+ =?us-ascii?Q?XQLZijYhvLk5USps94L0NCNXHKYCvYYNMHvJ0vkE5KY/W4MKvR+A2CkoAMbF?=
+ =?us-ascii?Q?fXvConf4dyZLV1v2s7uFr3OYFN/HJu/qkb42Kjtd8olGUw9lkg0qJF4A2K6k?=
+ =?us-ascii?Q?H5Ei6mpzLaJ3mEJJ7N1yKowhqX3FH124PBTmWUqw7TXhHz+VK/I3jJi6l7YZ?=
+ =?us-ascii?Q?a2Oe/J5gUxXlKvJXplpGpxKcOcvvRffXy7/5lY5hPr/4mzuIcW/a/NAuiQK1?=
+ =?us-ascii?Q?/kpGwCuA4pwyH9/GWABHsj6qKLxbsp5HHaxOoOg7XqfokDioQtbXruyESphQ?=
+ =?us-ascii?Q?RCKzn7ckSobFt2zU3PeJpDgI25zWieK4X4iyUQxe3xG5vTgQba++rGcB325P?=
+ =?us-ascii?Q?oy4FVypKKEXoJYJfp95lz9qlsmpXKG5WDP7FUqOBJogi8y2ZyQWBcC4jP0l5?=
+ =?us-ascii?Q?rotn6PwDIGQBnS1/yhU8ZfCx0O+ZchZTvI8p/0/ovotFFXl63pXVdua9OLnc?=
+ =?us-ascii?Q?Wed8MSP7CFXRG3SOaMiqcJTHC8Grisoaa7LWCt2A0vd9m/SvVytfTdl5jljK?=
+ =?us-ascii?Q?rBmc3I5Ey7FVssZN+pr3eha2LIpHRPx7gCLvplXnFhIqy3EFrpMm6T9xdHAL?=
+ =?us-ascii?Q?SHKQXckkz43lJuApWZSzbI675QVs7Gp3FQaYlNpfoBPYPSTXBVv8hSJV48+r?=
+ =?us-ascii?Q?sLhQurIYd1pR+4yXBI4iqM8x3BiAn458HlTCmk6MUHdIlUGB2SuTsL1aEsaG?=
+ =?us-ascii?Q?R46aZUFv9TD9rtpZmvgAmTBfE5t+jIWbvbYyQuaaorKFPaQWf+87fplOrAuw?=
+ =?us-ascii?Q?XSFrCNykke2iLqfb2jQpwAOYuLSRwrOppUaEbRpbyZ6P9JzRPu+PzHeDat3O?=
+ =?us-ascii?Q?z8FlXKH4CfbsPIh3vCp5J9DsXPQZjRhj7vPo9Q9hX3633muYSHPnxQ72puvM?=
+ =?us-ascii?Q?RAi3SHUCsqrlFau5A1I=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08a002cc-5782-4585-5bd1-08db88f3d373
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jul 2023 07:35:00.9007 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03ae3c7d-fef3-4f35-1918-08db88f4319e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jul 2023 07:37:38.8349 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: H9bKQUzn+X60uzL8/Wg6mBMRAsIYivxob4XL7Hv1U/xIbDA9sMgNoip6fC2F3vUg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8802
+X-MS-Exchange-CrossTenant-userprincipalname: 98VRR6EacTcq86oSHxW1I/tiXs3DQWW8SsNAg8wZQFzMmMN3Ohzj9cEktwjL5chV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4499
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,37 +138,96 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 > <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Li, Candice
 > <Candice.Li@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas
 > <YiPeng.Chai@amd.com>
-> Subject: [PATCH 1/2] drm/amdgpu: add ta initialization failure check cond=
-ition
+> Subject: [PATCH 2/2] drm/amdgpu: not update the same version ras ta
 >
-> Add ta initialization failure check condition.
+> not update the same version ras ta.
 
-[Tao] better to say "Add condition check for ta initialization failure"
+[Tao] don't update ras ta with same version
 
 >
 > Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c | 20 +++++++++++++++++++-
+>  1 file changed, 19 insertions(+), 1 deletion(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
 > b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-> index 468a67b302d4..049d34fd5ba0 100644
+> index 049d34fd5ba0..c27574239fde 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c
-> @@ -220,7 +220,7 @@ static ssize_t ta_if_load_debugfs_write(struct file *=
+> @@ -120,6 +120,7 @@ static const struct file_operations
+> ta_invoke_debugfs_fops =3D {
+>   *   Transmit buffer:
+>   *    - TA type (4bytes)
+>   *    - TA bin length (4bytes)
+> + *    - TA bin version (4bytes)
+
+[Tao] the patch is fine for me, but since the bin structure is updated, do =
+we need to consider backward compatibility?
+
+>   *    - TA bin
+>   *   Receive buffer:
+>   *    - TA ID (4bytes)
+> @@ -148,6 +149,7 @@ static ssize_t ta_if_load_debugfs_write(struct file *=
 fp,
 > const char *buf, size_t
+>       uint8_t  *ta_bin    =3D NULL;
+>       uint32_t copy_pos   =3D 0;
+>       int      ret        =3D 0;
+> +     uint32_t ta_version =3D 0;
+>
+>       struct amdgpu_device *adev    =3D (struct amdgpu_device *)file_inod=
+e(fp)-
+> >i_private;
+>       struct psp_context   *psp     =3D &adev->psp;
+> @@ -168,6 +170,12 @@ static ssize_t ta_if_load_debugfs_write(struct file =
+*fp,
+> const char *buf, size_t
+>
+>       copy_pos +=3D sizeof(uint32_t);
+>
+> +     ret =3D copy_from_user((void *)&ta_version, &buf[copy_pos],
+> sizeof(uint32_t));
+> +     if (ret)
+> +             return -EFAULT;
+> +
+> +     copy_pos +=3D sizeof(uint32_t);
+> +
+>       ta_bin =3D kzalloc(ta_bin_len, GFP_KERNEL);
+>       if (!ta_bin)
+>               return -ENOMEM;
+> @@ -185,6 +193,16 @@ static ssize_t ta_if_load_debugfs_write(struct file =
+*fp,
+> const char *buf, size_t
+>               goto err_free_bin;
 >       }
 >
->       ret =3D psp_fn_ta_initialize(psp);
-> -     if (ret || context->resp_status) {
-> +     if (ret || context->resp_status || !context->initialized) {
->               dev_err(adev->dev, "Failed to load TA via debugfs (%d) and =
-status
-> (0x%X)\n",
->                       ret, context->resp_status);
->               if (!ret)
+> +     if (ta_version =3D=3D context->bin_desc.fw_version) {
+> +             dev_info(adev->dev,
+> +                "new ta is same as running ta, running ta will not be
+> updated!\n");
+> +             if (copy_to_user((char *)buf, (void *)&context->session_id,
+> sizeof(uint32_t)))
+> +                     ret =3D -EFAULT;
+> +             else
+> +                     ret =3D len;
+> +             goto err_free_bin;
+> +     }
+> +
+>       /*
+>        * Allocate TA shared buf in case shared buf was freed
+>        * due to loading TA failed before.
+> @@ -209,7 +227,7 @@ static ssize_t ta_if_load_debugfs_write(struct file *=
+fp,
+> const char *buf, size_t
+>
+>       /* Prepare TA context for TA initialization */
+>       context->ta_type                     =3D ta_type;
+> -     context->bin_desc.fw_version         =3D get_bin_version(ta_bin);
+> +     context->bin_desc.fw_version         =3D ta_version;
+>       context->bin_desc.size_bytes         =3D ta_bin_len;
+>       context->bin_desc.start_addr         =3D ta_bin;
+>
 > --
 > 2.34.1
 
