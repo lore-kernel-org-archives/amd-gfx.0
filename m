@@ -4,41 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B6E3EB64DA
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 10:23:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3BE2C0015E
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 10:23:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2C810E594;
-	Thu, 20 Jul 2023 10:23:19 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3456810E04D;
- Thu, 20 Jul 2023 01:26:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=jQLdsxFbnAMC4nR/W72mTiYv9HLed0M1Guz4BtHqyEM=; b=SLI38fmp1U2UeQ3ks37hefukSB
- gg7QHAbenf8pqm3Pq2w3zIFRYAlu9DtkcGr9HKuex2rnRwX7Wj2Eettz0nm2rOBfJpVJn/Bm4Q+X1
- znLnBEck3msM/4PTxXGUHD5K7yMSzeLgM3vlFiR3x5xCjPBhUPzX0c/5PGPLBOClUk6nKdZ9+nQz8
- tGtFW85TVvsR70mQR0jvLlYJ5jUX6zVUrvmUQzeKKZTM7k2mKPMCGYoDyPLxaKx8Z2NthqN7+pMWx
- hwxlYczEpmveEE0eBub+er7N71Yac7R5UizmXtIJyeQN3kkJCt8UDh9tC8vvuqZ7c7S4KneGao7m1
- woukI0Mg==;
-Received: from [2601:1c2:980:9ec0::2764]
- by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1qMIRP-009S7c-2b; Thu, 20 Jul 2023 01:26:51 +0000
-Message-ID: <9d8254b2-2e68-2e4a-055a-5afdb04bd115@infradead.org>
-Date: Wed, 19 Jul 2023 18:26:49 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 385D310E597;
+	Thu, 20 Jul 2023 10:23:20 +0000 (UTC)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36E3510E07F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jul 2023 08:59:54 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-3fb4146e8deso4683685e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jul 2023 01:59:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1689843592; x=1690448392;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=4JZ2SCUbxBizdeZIrNdjtWYCyJiy2KCeoSe2gDEk9EY=;
+ b=Y+JUum3nn5PhhS8K91O9St5QR4Mf6ITdUQCZYwZeOWBIqe3xmQoggf8zLMNHfSO92f
+ UBwAz0qU0bypkJbWxNW+/oKx/JZnr38yimm5+JAqtGk2Okqz2tVTHTE+qdpnfVABFJSI
+ 0OcVD1SQnTrIPo+OmaJVE4cC/O37pXaoCALe6elgt2mN+z57gWGI37kSzacA+ogYgp85
+ U0/N4i96Anpe1chCghtNVSUoDniniyXUvTaijPAeoHrOgIHr9H3XDFOlBrFw2hnuQ27P
+ n7kJ3A1ooeJOhkDeOdJbtxvxxHs1pGi6BOcwq8NX7KpLm899MO4r4gv7VNHMxRHlpIwm
+ qh8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689843592; x=1690448392;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=4JZ2SCUbxBizdeZIrNdjtWYCyJiy2KCeoSe2gDEk9EY=;
+ b=UkJaIm+qtvumzn+3wkI0u7dy/3iOQtwGBHY0OmNwYi0uSY5BDIgZjKyqTMsTzHH9CS
+ HqlkQTBR9J1K5ajVcpZy/YW2zs8wqhG69U8EvdnXs3eLu/dR3bs0LoMnym+saFD2zZ7w
+ Vlk4dLDJX+hFOWHTQwtsJmpThMA/QNIzyiireE+4eBNemDFwRVDWw1v5o41uiPuE4vpJ
+ VOS5BT1goWApsScGd2OAcVmQ1DhhKOJ6hVE4NyemhwhLPDK80BwoWytU1oAij+/+/Bs+
+ vlU9cgX/ISCQKZjg1gw+ZzglKMl2Gj8QFA7G/k7pmQDC/Ot6HV1b5C18V50BNbb+03fV
+ KDJQ==
+X-Gm-Message-State: ABy/qLaVWHBcY1KdMBYIVP8/QTyIqIy91NA29pWOaF41MckhXhv1/k0U
+ xKr0yaqm6sgoG2YKNRNX7X7EYXiDRcDfkjQczo0=
+X-Google-Smtp-Source: APBJJlFRR8OTJ/9sz9B3iHl7m6BOmnjLLNRbzG4MGZ71JbaAn15xK001iZ8Bh2jD305nyELiaHCO1w==
+X-Received: by 2002:a1c:ed08:0:b0:3fa:97ad:2b9f with SMTP id
+ l8-20020a1ced08000000b003fa97ad2b9fmr6639238wmh.16.1689843592522; 
+ Thu, 20 Jul 2023 01:59:52 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ a21-20020a05600c225500b003fbb8c7c799sm3436514wmm.30.2023.07.20.01.59.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Jul 2023 01:59:49 -0700 (PDT)
+Date: Thu, 20 Jul 2023 11:59:45 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: rodrigo.siqueira@amd.com
+Subject: [bug report] drm/amd/display: Reduce stack size
+Message-ID: <ade9a6f6-58b2-45f1-9900-8df5a43ab791@moroto.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH -next] drm/amdgpu: Fix one kernel-doc comment
-Content-Language: en-US
-To: Yang Li <yang.lee@linux.alibaba.com>, alexander.deucher@amd.com
-References: <20230720010514.54342-1-yang.lee@linux.alibaba.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20230720010514.54342-1-yang.lee@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Thu, 20 Jul 2023 10:23:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,41 +68,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hello Rodrigo Siqueira,
 
+The patch 135fd1b35690: "drm/amd/display: Reduce stack size" from Jun
+21, 2023 (linux-next), leads to the following Smatch static checker
+warning:
 
-On 7/19/23 18:05, Yang Li wrote:
-> Use colon to separate parameter name from their specific meaning.
-> silence the warning:
-> 
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c:793: warning: Function parameter or member 'adev' not described in 'amdgpu_vm_pte_update_noretry_flags'
-> 
-> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+	drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:8785 amdgpu_dm_atomic_commit_tail()
+	error: potential null dereference 'dummy_updates'.  (kzalloc returns null)
 
-Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-Thanks.
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
+    8771                 status = dc_stream_get_status(dm_new_crtc_state->stream);
+    8772 
+    8773                 if (WARN_ON(!status))
+    8774                         continue;
+    8775 
+    8776                 WARN_ON(!status->plane_count);
+    8777 
+    8778                 /*
+    8779                  * TODO: DC refuses to perform stream updates without a dc_surface_update.
+    8780                  * Here we create an empty update on each plane.
+    8781                  * To fix this, DC should permit updating only stream properties.
+    8782                  */
+    8783                 dummy_updates = kzalloc(sizeof(struct dc_surface_update) * MAX_SURFACES, GFP_ATOMIC);
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index 83e1923f6775..96d601e209b8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -783,7 +783,7 @@ int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
->  /**
->   * amdgpu_vm_pte_update_noretry_flags - Update PTE no-retry flags
->   *
-> - * @adev - amdgpu_device pointer
-> + * @adev: amdgpu_device pointer
->   * @flags: pointer to PTE flags
->   *
->   * Update PTE no-retry flags when TF is enabled.
+This needs a NULL check.
 
--- 
-~Randy
+    8784                 for (j = 0; j < status->plane_count; j++)
+--> 8785                         dummy_updates[j].surface = status->plane_states[0];
+                                 ^^^^^^^^^^^^^^^^
+Kaplooey!
+
+    8786 
+    8787 
+    8788                 mutex_lock(&dm->dc_lock);
+    8789                 dc_update_planes_and_stream(dm->dc,
+    8790                                             dummy_updates,
+    8791                                             status->plane_count,
+    8792                                             dm_new_crtc_state->stream,
+    8793                                             &stream_update);
+    8794                 mutex_unlock(&dm->dc_lock);
+    8795                 kfree(dummy_updates);
+
+regards,
+dan carpenter
