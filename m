@@ -4,32 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABF45EB64DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 10:23:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23E34EB64DC
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 10:23:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7C6510E596;
-	Thu, 20 Jul 2023 10:23:19 +0000 (UTC)
-X-Greylist: delayed 305 seconds by postgrey-1.36 at gabe;
- Thu, 20 Jul 2023 01:10:28 UTC
-Received: from out30-111.freemail.mail.aliyun.com
- (out30-111.freemail.mail.aliyun.com [115.124.30.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB97810E00A;
- Thu, 20 Jul 2023 01:10:28 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R121e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046049;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=7; SR=0;
- TI=SMTPD_---0VnnjpEl_1689815115; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VnnjpEl_1689815115) by smtp.aliyun-inc.com;
- Thu, 20 Jul 2023 09:05:16 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH -next] drm/amdgpu: Fix one kernel-doc comment
-Date: Thu, 20 Jul 2023 09:05:14 +0800
-Message-Id: <20230720010514.54342-1-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5534610E599;
+	Thu, 20 Jul 2023 10:23:21 +0000 (UTC)
+Received: from out-13.mta0.migadu.com (out-13.mta0.migadu.com
+ [IPv6:2001:41d0:1004:224b::d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CA3C10E58C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jul 2023 09:17:47 +0000 (UTC)
+Message-ID: <5c91b8dd-5342-0eb2-aef4-dbb865d6dfda@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1689844665;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=twWOXbWYEQiWDLte803PU4TQyX4ZqCM5632vlvyl10U=;
+ b=DB4eeuEjhTPCPJI9o1K6etLTAH2GlZQ2jKXZfEFtglosq8nta+hFXp6Q19BwC13rtbePUk
+ 4Xqaig9i/B8Qj2QmJCTE40PIJtYSpL9nzXN3Fq/R/yxGavRbtAQmKtatqPuKqCmNMKb0uF
+ SIeyywuFj8e2ghKEwpEuU+vXBHjeWk8=
+Date: Thu, 20 Jul 2023 17:17:31 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3 0/9] PCI/VGA: Improve the default VGA device selection
+Content-Language: en-US
+To: Bjorn Helgaas <helgaas@kernel.org>
+References: <20230719193241.GA510805@bhelgaas>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Sui Jingfeng <sui.jingfeng@linux.dev>
+In-Reply-To: <20230719193241.GA510805@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Thu, 20 Jul 2023 10:23:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -42,35 +49,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Yang Li <yang.lee@linux.alibaba.com>, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, airlied@gmail.com
+Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use colon to separate parameter name from their specific meaning.
-silence the warning:
+Hi,
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c:793: warning: Function parameter or member 'adev' not described in 'amdgpu_vm_pte_update_noretry_flags'
+On 2023/7/20 03:32, Bjorn Helgaas wrote:
+>>    drm/amdgpu: Implement the is_primary_gpu callback of
+>>      vga_client_register()
+>>    drm/radeon: Add an implement for the is_primary_gpu function callback
+>>    drm/i915: Add an implement for the is_primary_gpu hook
+>>    drm/ast: Register as a vga client to vgaarb by calling
+>>      vga_client_register()
+>>    drm/loongson: Add an implement for the is_primary_gpu function
+>>      callback
+> There's unnecessary variation in the subject lines (and the commit
+> logs) of these patches.  If they all do the same thing but in
+> different drivers, it's useful if the patches all*look*  the same.
+>
+> You might be able to write these subjects as
+> "Implement .is_primary_gpu() callback" for brevity.
 
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index 83e1923f6775..96d601e209b8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -783,7 +783,7 @@ int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
- /**
-  * amdgpu_vm_pte_update_noretry_flags - Update PTE no-retry flags
-  *
-- * @adev - amdgpu_device pointer
-+ * @adev: amdgpu_device pointer
-  * @flags: pointer to PTE flags
-  *
-  * Update PTE no-retry flags when TF is enabled.
--- 
-2.20.1.7.g153144c
+This is a very good suggestion, I will adopt this.
+
+Thanks, really.
 
