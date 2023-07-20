@@ -4,39 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB8ADEB64DC
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 10:23:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B6E3EB64DA
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 10:23:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 380A210E592;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2C810E594;
 	Thu, 20 Jul 2023 10:23:19 +0000 (UTC)
-Received: from out-61.mta1.migadu.com (out-61.mta1.migadu.com [95.215.58.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A270010E12A
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 22:44:51 +0000 (UTC)
-Message-ID: <74994ce2-c060-f662-9210-14d09a15162f@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1689806688;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fjbO79xlLNloGHqzkmh/GrwE5dqq196RqzVZxz+HQuY=;
- b=tyL+5EjVO88fUgTXUzZJvKY+JfMezNTNqLlky4Key7ELBF1/bJEXZwIzwfXEU5giFkbOHo
- bs2sLXFvTbu5KRkClnah41uJLYUoPnho/GiocT6aPhwta72XhksZVZ/iUoXF/ZG9ZHo7Cc
- K41KgUorxkZsDqez3UfEW48aM4qvmjI=
-Date: Thu, 20 Jul 2023 06:44:29 +0800
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3456810E04D;
+ Thu, 20 Jul 2023 01:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=jQLdsxFbnAMC4nR/W72mTiYv9HLed0M1Guz4BtHqyEM=; b=SLI38fmp1U2UeQ3ks37hefukSB
+ gg7QHAbenf8pqm3Pq2w3zIFRYAlu9DtkcGr9HKuex2rnRwX7Wj2Eettz0nm2rOBfJpVJn/Bm4Q+X1
+ znLnBEck3msM/4PTxXGUHD5K7yMSzeLgM3vlFiR3x5xCjPBhUPzX0c/5PGPLBOClUk6nKdZ9+nQz8
+ tGtFW85TVvsR70mQR0jvLlYJ5jUX6zVUrvmUQzeKKZTM7k2mKPMCGYoDyPLxaKx8Z2NthqN7+pMWx
+ hwxlYczEpmveEE0eBub+er7N71Yac7R5UizmXtIJyeQN3kkJCt8UDh9tC8vvuqZ7c7S4KneGao7m1
+ woukI0Mg==;
+Received: from [2601:1c2:980:9ec0::2764]
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qMIRP-009S7c-2b; Thu, 20 Jul 2023 01:26:51 +0000
+Message-ID: <9d8254b2-2e68-2e4a-055a-5afdb04bd115@infradead.org>
+Date: Wed, 19 Jul 2023 18:26:49 -0700
 MIME-Version: 1.0
-Subject: Re: [PATCH v3 4/9] PCI/VGA: Improve the default VGA device selection
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH -next] drm/amdgpu: Fix one kernel-doc comment
 Content-Language: en-US
-To: suijingfeng <suijingfeng@loongson.cn>, Bjorn Helgaas <helgaas@kernel.org>
-References: <20230719193233.GA511659@bhelgaas>
- <f87a48c6-909e-39ba-62b0-289e78798540@loongson.cn>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Sui Jingfeng <sui.jingfeng@linux.dev>
-In-Reply-To: <f87a48c6-909e-39ba-62b0-289e78798540@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Yang Li <yang.lee@linux.alibaba.com>, alexander.deucher@amd.com
+References: <20230720010514.54342-1-yang.lee@linux.alibaba.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20230720010514.54342-1-yang.lee@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Thu, 20 Jul 2023 10:23:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,48 +51,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Cornelia Huck <cohuck@redhat.com>,
- Karol Herbst <kherbst@redhat.com>, linux-pci@vger.kernel.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- David Airlie <airlied@gmail.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>, Yi Liu <yi.l.liu@intel.com>,
- kvm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- Kevin Tian <kevin.tian@intel.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula <jani.nikula@intel.com>,
- Bokun Zhang <Bokun.Zhang@amd.com>, intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Abhishek Sahu <abhsahu@nvidia.com>, Maxime Ripard <mripard@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Yishai Hadas <yishaih@nvidia.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2023/7/20 06:32, suijingfeng wrote:
-> it will be works no matter CONFIG_DRM_AST=m or CONFIG_DRM_AST=y
 
+On 7/19/23 18:05, Yang Li wrote:
+> Use colon to separate parameter name from their specific meaning.
+> silence the warning:
+> 
+> drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c:793: warning: Function parameter or member 'adev' not described in 'amdgpu_vm_pte_update_noretry_flags'
+> 
+> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 
-It will be works regardless of CONFIG_DRM_AST=m or CONFIG_DRM_AST=y.
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
 
-When vgaarb call to the device driver, device driver already loaded 
-successfully.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index 83e1923f6775..96d601e209b8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -783,7 +783,7 @@ int amdgpu_vm_pde_update(struct amdgpu_vm_update_params *params,
+>  /**
+>   * amdgpu_vm_pte_update_noretry_flags - Update PTE no-retry flags
+>   *
+> - * @adev - amdgpu_device pointer
+> + * @adev: amdgpu_device pointer
+>   * @flags: pointer to PTE flags
+>   *
+>   * Update PTE no-retry flags when TF is enabled.
 
-and the PCI(e) device emulation already finished.
-
-
-So the last change the vgaarb gave us to override is actually happen 
-very late.
-
-But it will be happen as long as the device driver get loaded successfully.
-
-
+-- 
+~Randy
