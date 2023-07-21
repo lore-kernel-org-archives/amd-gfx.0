@@ -4,90 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2828EB64DC
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 13:17:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A8F8EB64DC
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 13:24:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 546F410E14B;
-	Fri, 21 Jul 2023 13:17:59 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::61e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2ADC10E14B
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 13:17:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g2Nw+/yUu8qWZYd4JYCgnAIEKCYEdy799Afd8l7vWzfXXkvVGRgz7oeMLHkst/M96O2hyWZjjiicAMzYtx1A9pgqqgvbSMVhrh/NQbCNBkPrxFyO76/gJULQuontyYbwhgIuA8G5+nBJgK8koeGiRzSWolM/PiVBDXofGDI3jeWy410oDB3U8Kck+CfBOeiGgcYK8+GserD+Bn8CyEbvhaWLpGuuAMjAHesI/nSNHgiPysoHVeHeDON+bx+eG2IN86cmoZMb3ahlOjG8eaRG2WCzy1uGQQSmEajfY5gL9m+AtU1gPYue29Iucar+XDK6P7OThZwBuvSh7vfGG9bpaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z9nLiKrZkTc/whfgI6sV5R/VTxO68tzfjE8klg5fuBs=;
- b=UJzuEuknnSxV4uC5QB49j0BXKA0w5YeXiqATyBeRVOPwCjxwN6uQGe7HFcI/VCtE1mg7fd4O2vPZG2WTezSb/JmqIe6siVx6UfUBn0V+KBe+RfuLkYlZbshMb/sAXesMpuw0DKa2sWcnAOZJA0NtgJIRXbC5CPrzunQZHDw/NXbdf8FVhr6ndukFjJ/cQFqKHDE2J+8FkCOyhXLUN70qvirSMZNWPvI/5e9B+7qa66DF4YXs7FnaZIh/6S9Ft64AmDPqIq/AKcpmg5TxQZ2EcpoklcYVXTqxMmobAQHi/VB3wdq+e8OJG7JNZLK/JypWrw5+fN10WCrBMNShHIOk5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z9nLiKrZkTc/whfgI6sV5R/VTxO68tzfjE8klg5fuBs=;
- b=fbPab6wUtbTMl8VAU0mLjuxw/hGf+O57HijaCYHZoCfec6PdEijpGqWIL6iYbVXyyCIodpuzc4OqbE6AEAlHGgFnu0tX5o6BSTMX5GelyYm0iQLZ6qjqQmeF4YfYSJoCKjPhCOjvdyXkU6cWQsGSVL19pYR7tkzXgjvQhE3zYvc=
-Received: from BN0PR04CA0019.namprd04.prod.outlook.com (2603:10b6:408:ee::24)
- by MN2PR12MB4173.namprd12.prod.outlook.com (2603:10b6:208:1d8::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28; Fri, 21 Jul
- 2023 13:17:51 +0000
-Received: from BN8NAM11FT109.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ee:cafe::63) by BN0PR04CA0019.outlook.office365.com
- (2603:10b6:408:ee::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28 via Frontend
- Transport; Fri, 21 Jul 2023 13:17:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT109.mail.protection.outlook.com (10.13.176.221) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6609.25 via Frontend Transport; Fri, 21 Jul 2023 13:17:51 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 21 Jul
- 2023 08:17:51 -0500
-Received: from stanley-test.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
- Transport; Fri, 21 Jul 2023 08:17:49 -0500
-From: Stanley.Yang <Stanley.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Hawking.Zhang@amd.com>,
- <Tao.Zhou1@amd.com>, <YiPeng.Chai@amd.com>, <Candice.Li@amd.com>
-Subject: [PATCH Review 1/1] drm/amdgpu: Check APU flag to disable RAS
-Date: Fri, 21 Jul 2023 21:17:47 +0800
-Message-ID: <20230721131747.608514-1-Stanley.Yang@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A4F110E088;
+	Fri, 21 Jul 2023 13:24:41 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B39510E088;
+ Fri, 21 Jul 2023 13:24:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=e2WBsfQdtF53jEaskT1x/L0w3qneqs04eI7iCf3SKcc=; b=Lu7FKCXiyTE33Hnj/RpTRsJ/FQ
+ Enxi3FWAzrnJQTL4mGsJcRVXkSdZnOZcWYufd6Dhlo8ewaVKIEtxM9G+NfQ09cty5+P5kG+J9HcMi
+ iph7ecLJaBakYjgHaUroJ90T7W3F8ICm/lI1MZBimMUGA3Qw0HRGZQhG+hPWLoHh1k3CTuQXc5mij
+ rcUJmBXmC/pQiAtupas0EBsXbiZso7Cd2DnkiAL2VDK/KtWLpj8hD2cSvquWteOnMhNwX3afVDUtw
+ U2ad1QyIFZB2T00fUY8/W1TjQmsioexDwpOfvGJuAKiKKDa/hiH4AWp2y6HILt9uUDqLU97UaY+YJ
+ 1nP98eNg==;
+Received: from [38.44.68.151] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1qMq7U-001MbH-Rj; Fri, 21 Jul 2023 15:24:32 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch
+Subject: [PATCH] drm/amd/display: set stream gamut remap matrix to MPC for
+ DCN3+
+Date: Fri, 21 Jul 2023 12:24:31 -0100
+Message-Id: <20230721132431.692158-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT109:EE_|MN2PR12MB4173:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8a759e5-17cd-4140-80f8-08db89ece2ea
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8reytf7kJuZ7uUh2Mq5uaIuxo9krUPftEzIjBR1+hZNFfsXMVr993+0R82IShSCV2YfzLqoEushzIrHIf65LIe+kpidA0Gpyt+LeGXIdAPXNcPkSxWZnESTiRZ5pvr311fSlovqaugFJIhWc+D11cxzDUI86wn6m1RWRChoOtuLL/M8CEc17wi2Fd82QZyIsrxtZOaXs8b8UsBGbHl19aGTPZ43XDZAez4s4kTQV8ZCAqW328pw9xYUB/oKWSdTsxVLngozunwDXTOmrgvhFYJcvy7ZdMSBgk7FK9RqGKHOJZx6Jfr5I2gv3TeuRMKJEWm0OC74FUJjkezV+VP3EOv8TUUPqQaCcZTNwzZIANiOEncr4lhsf8EjBNczjTIdIst76JhKvNxsNGZJ59nXPFazUXn3N77K745gSA3rAlGJmXGY7S4WSrZaOn2P6cq2cJxsrHkWk2z+mUy4AfKGKR2F4RmeBoo0czCCMoILRL/ALHta7DhyIcYjU5y0ySw2WMmZYCFdHxMQazzzvGkPCHO377MXmiMz6RSPdstthyaLXXgtN8L3MAn4lelke18tuqrO+xWYjIi6dKs8u90JuehE3gXrC7TIelOaXO+KoVoZ6KkOeRcsJrt26kf7MTgn6xVLewAw6xSZqmQw1Wi5p6jJ+Nj6C03AwPqEyEEHAs2hBQPAJnHrXSig53g38s0ioDCQN+Z1HhOQIPjRZozSnA9Rt+i6nF5jETU3S5KdvJl+7pIHcaq4K00HeMrXQRTQi3HT5Te40yVhvBMUE6w1SrQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(376002)(136003)(346002)(396003)(82310400008)(451199021)(36840700001)(46966006)(40470700004)(86362001)(7696005)(82740400003)(81166007)(356005)(36860700001)(426003)(2616005)(2906002)(4744005)(83380400001)(47076005)(26005)(40460700003)(1076003)(336012)(40480700001)(186003)(478600001)(8936002)(8676002)(70206006)(5660300002)(110136005)(36756003)(41300700001)(70586007)(316002)(4326008)(6636002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2023 13:17:51.5051 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8a759e5-17cd-4140-80f8-08db89ece2ea
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT109.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4173
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,31 +51,179 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Stanley.Yang" <Stanley.Yang@amd.com>
+Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>, amd-gfx@lists.freedesktop.org,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, bhawanpreet.lakha@amd.com, Nicholas.Kazlauskas@amd.com,
+ sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Only disable RAS by default for aqua vanjaram on APU platform.
+dc->caps.color.mpc.gamut_remap says there is a post-blending color block
+for gamut remap matrix for DCN3 HW family and newer versions. However,
+those drivers still follow DCN10 programming that remap stream
+gamut_remap_matrix to DPP (pre-blending).
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+To enable pre-blending and post-blending gamut_remap matrix supports at
+the same time, set stream gamut_remap to MPC and plane gamut_remap to
+DPP for DCN families that support both.
+
+It was tested using IGT KMS color tests for DRM CRTC CTM property and it
+preserves test results.
+
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 2221460e23e4..00a3863a6017 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2529,7 +2529,8 @@ static void amdgpu_ras_check_supported(struct amdgpu_device *adev)
- 	 * Disable ras feature for aqua vanjaram
- 	 * by default on apu platform.
- 	 */
--	if (adev->ip_versions[MP0_HWIP][0] == IP_VERSION(13, 0, 6))
-+	if (adev->ip_versions[MP0_HWIP][0] == IP_VERSION(13, 0, 6) &&
-+	    adev->gmc.is_app_apu)
- 		adev->ras_enabled = amdgpu_ras_enable != 1 ? 0 :
- 			adev->ras_hw_enabled & amdgpu_ras_mask;
- 	else
+Hi,
+
+Two relevant things to consider for this change. One is that mapping DRM
+CRTC CTM to MPC is a more consistent way since CRTC CTM is a
+post-blending transformation. Second, programming stream
+gamut_remap_matrix on MPC enables us to provide support for both plane
+CTM and CRTC CTM color properties. If we don't make this separation, we
+would need to reject an atomic commit that tries to set both properties
+at the same time and userspace may also get unexpected results.
+
+Thanks in advance for any feeback,
+
+Melissa
+
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 37 +++++++++++++++++++
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.h    |  3 ++
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c |  2 +-
+ .../drm/amd/display/dc/dcn301/dcn301_init.c   |  2 +-
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_init.c |  2 +-
+ .../drm/amd/display/dc/dcn314/dcn314_init.c   |  2 +-
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |  2 +-
+ 7 files changed, 45 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index 4cd4ae07d73d..4fb4e9ec03f1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -186,6 +186,43 @@ bool dcn30_set_input_transfer_func(struct dc *dc,
+ 	return result;
+ }
+ 
++void dcn30_program_gamut_remap(struct pipe_ctx *pipe_ctx)
++{
++	int i = 0;
++	struct dpp_grph_csc_adjustment dpp_adjust;
++	struct mpc_grph_gamut_adjustment mpc_adjust;
++	int mpcc_id = pipe_ctx->plane_res.hubp->inst;
++	struct mpc *mpc = pipe_ctx->stream_res.opp->ctx->dc->res_pool->mpc;
++
++	memset(&dpp_adjust, 0, sizeof(dpp_adjust));
++	dpp_adjust.gamut_adjust_type = GRAPHICS_GAMUT_ADJUST_TYPE_BYPASS;
++
++	if (pipe_ctx->plane_state &&
++	    pipe_ctx->plane_state->gamut_remap_matrix.enable_remap == true) {
++		dpp_adjust.gamut_adjust_type = GRAPHICS_GAMUT_ADJUST_TYPE_SW;
++		for (i = 0; i < CSC_TEMPERATURE_MATRIX_SIZE; i++)
++			dpp_adjust.temperature_matrix[i] =
++				pipe_ctx->plane_state->gamut_remap_matrix.matrix[i];
++	}
++
++	pipe_ctx->plane_res.dpp->funcs->dpp_set_gamut_remap(pipe_ctx->plane_res.dpp,
++							    &dpp_adjust);
++
++	memset(&mpc_adjust, 0, sizeof(mpc_adjust));
++	mpc_adjust.gamut_adjust_type = GRAPHICS_GAMUT_ADJUST_TYPE_BYPASS;
++
++	if (pipe_ctx->top_pipe == NULL) {
++		if (pipe_ctx->stream->gamut_remap_matrix.enable_remap == true) {
++			mpc_adjust.gamut_adjust_type = GRAPHICS_GAMUT_ADJUST_TYPE_SW;
++			for (i = 0; i < CSC_TEMPERATURE_MATRIX_SIZE; i++)
++				mpc_adjust.temperature_matrix[i] =
++					pipe_ctx->stream->gamut_remap_matrix.matrix[i];
++		}
++	}
++
++	mpc->funcs->set_gamut_remap(mpc, mpcc_id, &mpc_adjust);
++}
++
+ bool dcn30_set_output_transfer_func(struct dc *dc,
+ 				struct pipe_ctx *pipe_ctx,
+ 				const struct dc_stream_state *stream)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+index a24a8e33a3d2..cb34ca932a5f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+@@ -58,6 +58,9 @@ bool dcn30_set_blend_lut(struct pipe_ctx *pipe_ctx,
+ bool dcn30_set_input_transfer_func(struct dc *dc,
+ 				struct pipe_ctx *pipe_ctx,
+ 				const struct dc_plane_state *plane_state);
++
++void dcn30_program_gamut_remap(struct pipe_ctx *pipe_ctx);
++
+ bool dcn30_set_output_transfer_func(struct dc *dc,
+ 				struct pipe_ctx *pipe_ctx,
+ 				const struct dc_stream_state *stream);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+index 3d19acaa12f3..5372eb76fcfc 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+@@ -32,7 +32,7 @@
+ #include "dcn30_init.h"
+ 
+ static const struct hw_sequencer_funcs dcn30_funcs = {
+-	.program_gamut_remap = dcn10_program_gamut_remap,
++	.program_gamut_remap = dcn30_program_gamut_remap,
+ 	.init_hw = dcn30_init_hw,
+ 	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+ 	.apply_ctx_for_surface = NULL,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+index 257df8660b4c..81fd50ee97c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+@@ -33,7 +33,7 @@
+ #include "dcn301_init.h"
+ 
+ static const struct hw_sequencer_funcs dcn301_funcs = {
+-	.program_gamut_remap = dcn10_program_gamut_remap,
++	.program_gamut_remap = dcn30_program_gamut_remap,
+ 	.init_hw = dcn10_init_hw,
+ 	.power_down_on_boot = dcn10_power_down_on_boot,
+ 	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
+index fc25cc300a17..4e724d52a68f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_init.c
+@@ -34,7 +34,7 @@
+ #include "dcn31_init.h"
+ 
+ static const struct hw_sequencer_funcs dcn31_funcs = {
+-	.program_gamut_remap = dcn10_program_gamut_remap,
++	.program_gamut_remap = dcn30_program_gamut_remap,
+ 	.init_hw = dcn31_init_hw,
+ 	.power_down_on_boot = dcn10_power_down_on_boot,
+ 	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_init.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_init.c
+index ca8fe55c33b8..01e03ecf2291 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_init.c
+@@ -36,7 +36,7 @@
+ #include "dcn314_init.h"
+ 
+ static const struct hw_sequencer_funcs dcn314_funcs = {
+-	.program_gamut_remap = dcn10_program_gamut_remap,
++	.program_gamut_remap = dcn30_program_gamut_remap,
+ 	.init_hw = dcn31_init_hw,
+ 	.power_down_on_boot = dcn10_power_down_on_boot,
+ 	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
+index 777b2fac20c4..625008d618fa 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
+@@ -33,7 +33,7 @@
+ #include "dcn32_init.h"
+ 
+ static const struct hw_sequencer_funcs dcn32_funcs = {
+-	.program_gamut_remap = dcn10_program_gamut_remap,
++	.program_gamut_remap = dcn30_program_gamut_remap,
+ 	.init_hw = dcn32_init_hw,
+ 	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
+ 	.apply_ctx_for_surface = NULL,
 -- 
-2.25.1
+2.40.1
 
