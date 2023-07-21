@@ -4,59 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98EEFEB64DC
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 14:53:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC4FFEB64DC
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 14:57:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE9C610E69E;
-	Fri, 21 Jul 2023 14:53:05 +0000 (UTC)
-Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
- [IPv6:2607:f8b0:4864:20::c2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7F7910E690;
- Fri, 21 Jul 2023 14:53:03 +0000 (UTC)
-Received: by mail-oo1-xc2a.google.com with SMTP id
- 006d021491bc7-56352146799so1337251eaf.3; 
- Fri, 21 Jul 2023 07:53:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41A1B10E694;
+	Fri, 21 Jul 2023 14:57:16 +0000 (UTC)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 281DF10E690
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 14:56:27 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2b701dee4bfso30908271fa.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 07:56:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689951183; x=1690555983;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JxlgaC60bco0Cm1BalXqc8WdAEfbZykARIUfMKPLvhI=;
- b=fbrUOeUpu4cBkbiAZ8xkJRDFN1rcYnsMEErgzZd4XvEaBZaOATyGRd9L8p9FgGsbK8
- U+Zn+fktiRE3+uRA4yMihQ80YP4CxgZmjQta6n9UbHs0hNxDWLcNahKHgan1YZ3vaypO
- rjkhifUHytGH989tDbfhfJZAOjXBwXXf2xR1Ghwg/MH+kmbMiVQ2B7DK7XIjLCJBAUTJ
- I3huXU6GXAWeGmzh2OSV892nyKHbIl7WefxoXpNrhSVfQBS8FZZdapZDV93EyGhLxTw1
- 05Clo3CyvPwJfKexVC7zk8Q+FkqVayvXRWiF18rdPm1I5eomz+HwkGYHFx47MX+E8rDh
- nwrg==
+ d=linaro.org; s=google; t=1689951385; x=1690556185;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=U4uPw584/Tdlq/aOQhdIYZ2NWWZUO8Cw8PlRqHsN9Fo=;
+ b=JyXtdWR89AuYMt8ebkpbk25d7ot90wKR+CGZh/1m+KMCbvze89anIZrvUjPBHvPZeb
+ 4xr1L4z3DmX4K2a+5vd2Dmt2AHNVquvN6ej9C99KCBRussfyUuuqNAmuEKPyBx9jAl67
+ 9LmQvARZTDhRVVq9/xskXgkDm1AanY4JEeWveP6iicOEwbZTfh79hM+I+ZdDu6N9hWm0
+ AadUtN8DhlZqXjGpCiI5F/gZAzMqHUx9G4PZrA6SInZOHc+lF82sH7jb6f6WBoplx5a3
+ 6kWrFO6DioTqSOOwPeykZSXEkU/1vkq3Bravdqwbz4Y1ydxHfbu25tTP5SROv2QLSlmo
+ rqGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689951183; x=1690555983;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JxlgaC60bco0Cm1BalXqc8WdAEfbZykARIUfMKPLvhI=;
- b=XCy9jqLDDMl7tsIxOhkoao5hGQEBekZNa2h9Np4gBodGLskdQlBIHwmMacUZMDvIvw
- CZ+ILka+Gh+PqMlUF2gCo8OnS5HL+IBMw8g2Cij4PDNIZ4HIFOWxJqq3egZcYhsBz3q/
- fZLE9z2w11rDLdgpUVXCYjqQb4LUCsIC1rHbaUlWc4SKZmVRE558PYKflGl7tfmfCq0P
- iyvMP9OWJLZ4JxRiXrv+/UkBxh8Y6Ivqe25jAgi1jxCzM+VX8/6KY20jDjTadNWH8Lhp
- 1LojtZcW/GGvN9ZJaF56MaeHlQlz+umlRv8C3ju2L9eoG8I1WrTiSUo/e+XfzMxCfP+r
- D7tg==
-X-Gm-Message-State: ABy/qLZDJ0H0vmHu5VgwsFnQMtvuq/hJZnAs2aXkSaE/14pu7/35+0CU
- PhXhIrAca98ExcQ9Kqq/BXCv7wSScrWZeAMxbc0=
-X-Google-Smtp-Source: APBJJlESC7Ai9Ycl0FQ+vntlvM+i6R3W0MWc3MK5MIQ1NKkGjXHAfFkEx56UUC7A/g25qJDMU+4MZ/Gil3pRk7P3MHM=
-X-Received: by 2002:a4a:d1c3:0:b0:563:53fa:324f with SMTP id
- a3-20020a4ad1c3000000b0056353fa324fmr1890890oos.6.1689951182938; Fri, 21 Jul
- 2023 07:53:02 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1689951385; x=1690556185;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=U4uPw584/Tdlq/aOQhdIYZ2NWWZUO8Cw8PlRqHsN9Fo=;
+ b=CDWW1cSKwJ8dcTpKY/s/WNpH/3esbgT1FHeo9lPqLMf8G0bbfGiHCz+8Ili/flg9Mg
+ /K8p2Tkri6zABeoHBqBuBs5aof0t/wGZzu6R3jPm8lp8WbK/gzxiE8IcvMTAAVFqt0MJ
+ lYSb8bc4Paxt1ph21pSMUlwJhZ/XAW9P98i/2zU0iRm84fTfQll5k5EXsyWQZfPxxLas
+ L83/WhXKkHtkhYko0igJHyqj4L9VRP/CPMreE/XWDOFba2knlIR+Co3M/VZ2byF6fGq7
+ Bm1mq7Wa1OtN/JCqdOoAMPNfPeaD9mt6JsyMec8hnletu3wI4gguVXB1FiyDSJb1w/sV
+ rW0A==
+X-Gm-Message-State: ABy/qLbFWbraCl6ttwIK1MDgOCEZmMk+0lmZgO51AulacFWWevjEt+fT
+ x5Axx/C5DgttMlTNfyl9gO2U0Q==
+X-Google-Smtp-Source: APBJJlFwVWEJ9HCYiiD4k+l7zWH5gfbXV1xm2Y6zHh5t+enoUzr93GJvhTbRarCClp80b1UNBFU3kA==
+X-Received: by 2002:a2e:a1cb:0:b0:2b7:842:a64c with SMTP id
+ c11-20020a2ea1cb000000b002b70842a64cmr1673222ljm.5.1689951385241; 
+ Fri, 21 Jul 2023 07:56:25 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ q17-20020a7bce91000000b003f91e32b1ebsm6300279wmj.17.2023.07.21.07.56.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Jul 2023 07:56:20 -0700 (PDT)
+Date: Fri, 21 Jul 2023 17:55:49 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Wayne Lin <wayne.lin@amd.com>
+Subject: [PATCH] drm/amd/display: Unlock on error path in
+ dm_handle_mst_sideband_msg_ready_event()
+Message-ID: <0a4b4a77-75e0-4a1f-a944-6ea5c75a2bb9@moroto.mountain>
 MIME-Version: 1.0
-References: <20230720215550.GA554900@bhelgaas>
- <eff193b-31ea-5c36-cbc-6b15a477f3b1@linux.intel.com>
-In-Reply-To: <eff193b-31ea-5c36-cbc-6b15a477f3b1@linux.intel.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 21 Jul 2023 10:52:51 -0400
-Message-ID: <CADnq5_MUyjAZoRBDvdBFDYdiA6nwsaup+MKM+ajo7HKTtez9DQ@mail.gmail.com>
-Subject: Re: [PATCH v5 05/11] drm/amdgpu: Use RMW accessors for changing LNKCTL
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Mailman-Approved-At: Fri, 21 Jul 2023 14:57:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,216 +70,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dean Luick <dean.luick@cornelisnetworks.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kw@linux.com>,
+Cc: Alan Liu <haoping.liu@amd.com>, kernel-janitors@vger.kernel.org,
+ Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
  Alex Deucher <alexander.deucher@amd.com>,
- Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
- Jammy Zhou <Jammy.Zhou@amd.com>, linux-pci@vger.kernel.org,
- =?UTF-8?Q?Jonas_Dre=C3=9Fler?= <verdre@v0yd.nl>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, dri-devel@lists.freedesktop.org,
- LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Bjorn Helgaas <helgaas@kernel.org>, amd-gfx@lists.freedesktop.org,
- Ken Wang <Qingqing.Wang@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- stable@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Heiner Kallweit <hkallweit1@gmail.com>
+ Harry Wentland <harry.wentland@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 21, 2023 at 4:18=E2=80=AFAM Ilpo J=C3=A4rvinen
-<ilpo.jarvinen@linux.intel.com> wrote:
->
-> On Thu, 20 Jul 2023, Bjorn Helgaas wrote:
->
-> > On Mon, Jul 17, 2023 at 03:04:57PM +0300, Ilpo J=C3=A4rvinen wrote:
-> > > Don't assume that only the driver would be accessing LNKCTL. ASPM
-> > > policy changes can trigger write to LNKCTL outside of driver's contro=
-l.
-> > > And in the case of upstream bridge, the driver does not even own the
-> > > device it's changing the registers for.
-> > >
-> > > Use RMW capability accessors which do proper locking to avoid losing
-> > > concurrent updates to the register value.
-> > >
-> > > Fixes: a2e73f56fa62 ("drm/amdgpu: Add support for CIK parts")
-> > > Fixes: 62a37553414a ("drm/amdgpu: add si implementation v10")
-> > > Suggested-by: Lukas Wunner <lukas@wunner.de>
-> > > Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> > > Cc: stable@vger.kernel.org
-> >
-> > Do we have any reports of problems that are fixed by this patch (or by
-> > others in the series)?  If not, I'm not sure it really fits the usual
-> > stable kernel criteria:
-> >
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/Documentation/process/stable-kernel-rules.rst?id=3Dv6.4
->
-> I was on the edge with this. The answer to your direct question is no,
-> there are no such reports so it would be okay to leave stable out I think=
-.
-> This applies to all patches in this series.
->
-> Basically, this series came to be after Lukas noted the potential
-> concurrency issues with how LNKCTL is unprotected when reviewing
-> (internally) my bandwidth controller series. Then I went to look around
-> all LNKCTL usage and realized existing things might alreary have similar
-> issues.
->
-> Do you want me to send another version w/o cc stable or you'll take care
-> of that?
->
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/cik.c | 36 +++++++++---------------------=
---
-> > >  drivers/gpu/drm/amd/amdgpu/si.c  | 36 +++++++++---------------------=
---
-> > >  2 files changed, 20 insertions(+), 52 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/a=
-mdgpu/cik.c
-> > > index 5641cf05d856..e63abdf52b6c 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/cik.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-> > > @@ -1574,17 +1574,8 @@ static void cik_pcie_gen3_enable(struct amdgpu=
-_device *adev)
-> > >                     u16 bridge_cfg2, gpu_cfg2;
-> > >                     u32 max_lw, current_lw, tmp;
-> > >
-> > > -                   pcie_capability_read_word(root, PCI_EXP_LNKCTL,
-> > > -                                             &bridge_cfg);
-> > > -                   pcie_capability_read_word(adev->pdev, PCI_EXP_LNK=
-CTL,
-> > > -                                             &gpu_cfg);
-> > > -
-> > > -                   tmp16 =3D bridge_cfg | PCI_EXP_LNKCTL_HAWD;
-> > > -                   pcie_capability_write_word(root, PCI_EXP_LNKCTL, =
-tmp16);
-> > > -
-> > > -                   tmp16 =3D gpu_cfg | PCI_EXP_LNKCTL_HAWD;
-> > > -                   pcie_capability_write_word(adev->pdev, PCI_EXP_LN=
-KCTL,
-> > > -                                              tmp16);
-> > > +                   pcie_capability_set_word(root, PCI_EXP_LNKCTL, PC=
-I_EXP_LNKCTL_HAWD);
-> > > +                   pcie_capability_set_word(adev->pdev, PCI_EXP_LNKC=
-TL, PCI_EXP_LNKCTL_HAWD);
-> > >
-> > >                     tmp =3D RREG32_PCIE(ixPCIE_LC_STATUS1);
-> > >                     max_lw =3D (tmp & PCIE_LC_STATUS1__LC_DETECTED_LI=
-NK_WIDTH_MASK) >>
-> > > @@ -1637,21 +1628,14 @@ static void cik_pcie_gen3_enable(struct amdgp=
-u_device *adev)
-> > >                             msleep(100);
-> > >
-> > >                             /* linkctl */
-> > > -                           pcie_capability_read_word(root, PCI_EXP_L=
-NKCTL,
-> > > -                                                     &tmp16);
-> > > -                           tmp16 &=3D ~PCI_EXP_LNKCTL_HAWD;
-> > > -                           tmp16 |=3D (bridge_cfg & PCI_EXP_LNKCTL_H=
-AWD);
-> > > -                           pcie_capability_write_word(root, PCI_EXP_=
-LNKCTL,
-> > > -                                                      tmp16);
-> > > -
-> > > -                           pcie_capability_read_word(adev->pdev,
-> > > -                                                     PCI_EXP_LNKCTL,
-> > > -                                                     &tmp16);
-> > > -                           tmp16 &=3D ~PCI_EXP_LNKCTL_HAWD;
-> > > -                           tmp16 |=3D (gpu_cfg & PCI_EXP_LNKCTL_HAWD=
-);
-> > > -                           pcie_capability_write_word(adev->pdev,
-> > > -                                                      PCI_EXP_LNKCTL=
-,
-> > > -                                                      tmp16);
-> > > +                           pcie_capability_clear_and_set_word(root, =
-PCI_EXP_LNKCTL,
-> > > +                                                              PCI_EX=
-P_LNKCTL_HAWD,
-> > > +                                                              bridge=
-_cfg &
-> > > +                                                              PCI_EX=
-P_LNKCTL_HAWD);
-> > > +                           pcie_capability_clear_and_set_word(adev->=
-pdev, PCI_EXP_LNKCTL,
-> > > +                                                              PCI_EX=
-P_LNKCTL_HAWD,
-> > > +                                                              gpu_cf=
-g &
-> > > +                                                              PCI_EX=
-P_LNKCTL_HAWD);
-> >
-> > Wow, there's a lot of pointless-looking work going on here:
-> >
-> >   set root PCI_EXP_LNKCTL_HAWD
-> >   set GPU  PCI_EXP_LNKCTL_HAWD
-> >
-> >   for (i =3D 0; i < 10; i++) {
-> >     read root PCI_EXP_LNKCTL
-> >     read GPU  PCI_EXP_LNKCTL
-> >
-> >     clear root PCI_EXP_LNKCTL_HAWD
-> >     if (root PCI_EXP_LNKCTL_HAWD was set)
-> >       set root PCI_EXP_LNKCTL_HAWD
-> >
-> >     clear GPU  PCI_EXP_LNKCTL_HAWD
-> >     if (GPU  PCI_EXP_LNKCTL_HAWD was set)
-> >       set GPU  PCI_EXP_LNKCTL_HAWD
-> >   }
-> >
-> > If it really *is* pointless, it would be nice to clean it up, but that
-> > wouldn't be material for this patch, so what you have looks good.
->
-> I really don't know if it's needed or not. There's stuff which looks hw
-> specific going on besides those things you point out and I've not really
-> understood what all that does.
->
-> One annoying thing is that this code has been copy-pasted to appear in
-> almost identical form in 4 files.
->
-> I agree it certainly looks there might be room for cleaning things up her=
-e
-> but such cleanups look a bit too scary to me w/o hw to test them.
->
-> > >                             /* linkctl2 */
-> > >                             pcie_capability_read_word(root, PCI_EXP_L=
-NKCTL2,
-> >
-> > The PCI_EXP_LNKCTL2 stuff also includes RMW updates.  I don't see any
-> > uses of PCI_EXP_LNKCTL2 outside this driver that look relevant, so I
-> > guess we don't care about making the PCI_EXP_LNKCTL2 updates atomic?
->
-> Currently no, which is why I left it out from this patchset.
->
-> It is going to change soon though as I intend to submit bandwidth
-> controller series after this series which will add RMW ops for LNKCTL2.
-> The LNKCTL2 RMW parts are now in that series rather than in this one.
->
-> After adding the bandwidth controller, this driver might be able to use
-> it instead of tweaking LNKCTL2 directly to alter PCIe link speed (but I
-> don't expect myself to be able to test these drivers and it feels too
-> risky to make such a change without testing it, unfortunately).
+This error path needs to unlock the "aconnector->handle_mst_msg_ready"
+mutex before returning.
 
-Thanks for the background.  It was not clear what the point of this
-patch set was.  This code and the similar code in radeon is just to
-change the link speed of the GPU.  Some older platforms used default
-to slower link on boot so we added this code to renegotiate the link
-to a faster speed when the driver loaded.  If you are adding core
-infrastructure to do that, we can switch to that.  This was just the
-programming sequence I got from the hardware team back when this code
-was written.  Most platforms I've seen these days come up at the max
-supported speed of the platform and endpoint so I don't think the code
-actually gets used much anymore.
+Fixes: bb4fa525f327 ("drm/amd/display: Add polling method to handle MST reply packet")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Taking a step back, what is the end goal of the bandwidth controller
-changes?  The reason I ask is that today, we look at the currently
-negotiated speed of the link and use that for the baseline in the
-driver.  The driver then enables PCIe dynamic power management where
-the system management unit on the GPU dynamically adjusts the link
-speed, width, and clock on demand based on the PCIe bandwidth
-requirements of the currently executing GPU jobs to save power.  This
-might conflict with software if the goal is for some software
-component to do something similar.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 1abdec14344e..943959012d04 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -707,7 +707,7 @@ void dm_handle_mst_sideband_msg_ready_event(
+ 
+ 			if (retry == 3) {
+ 				DRM_ERROR("Failed to ack MST event.\n");
+-				return;
++				break;
+ 			}
+ 
+ 			drm_dp_mst_hpd_irq_send_new_request(&aconnector->mst_mgr);
+-- 
+2.39.2
 
-Alex
