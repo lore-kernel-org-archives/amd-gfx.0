@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 549E0EB64DC
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 15:48:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C3BDEB64DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 15:55:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF9610E6AF;
-	Fri, 21 Jul 2023 15:47:59 +0000 (UTC)
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CEB610E6AF
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 15:47:57 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id
- 5614622812f47-3a479e7a37dso1461453b6e.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 08:47:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC0D10E6B3;
+	Fri, 21 Jul 2023 15:55:50 +0000 (UTC)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A02C010E6A0;
+ Fri, 21 Jul 2023 15:55:48 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-1b078b34df5so1598632fac.2; 
+ Fri, 21 Jul 2023 08:55:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689954477; x=1690559277;
+ d=gmail.com; s=20221208; t=1689954947; x=1690559747;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=85BEVu4yQdhInWHjBPNn/bUdJhVBiL/B5hoGlXbtQnQ=;
- b=UfU33fGHSy87HgdkmMlQAqg9vR7xlzd5Vcw+ZqIUVoOhV5ImK5apggHbgJ/etBauaU
- ptl/07DxVUxNst/MyBPQz7NI55XahpK8pXEia7IqBFWm1Oqo9YcSUGQbziudnlIXRWDl
- AKhgxvHZ09sB6i/rNb8++hvXuuAKD2KRP4T2U3hfXc3R7dzw253q1neb4J/2hlV9LloW
- BixP+2CmYaKXqp0lseNCN1lSojUIiTkWD6rHfzBDxDFpAT0bnLbKqiOqre0LPdUzlkOA
- rwToD6c4Jdrytl3eehvcdbnrZYs4dcXCinzdSHlIWvdA5ca1LTr9t1KA4KXc2PO9jUFF
- v8+Q==
+ bh=tl0eTAwzZMqhrxk94X5w3ULTemUp7A7rZI7DezrgeA0=;
+ b=kmuAo33/+EOAbBUeF2mJvFIvjHiyGDFqgVkxovydnyB+xcalD42PZFUywMTVcGNa8t
+ 5u4fevWpKgGGQiezFXTQkf7jwfFC0llQlpMIwAIQKM/BPDfdf20BfJkXkXGfurQ4gqAx
+ eiB0ljF43D5RmbBCizRa98SBKdhu0Il0FmJyzjX9EqMDxuvjvX2XddKQzWI6bxZraYXr
+ ffvqZ3CyBL2oRQ9Ut+ahEuZgU2oh5GtpQ3/nFq4l1IlFaYgG4+JADAloi03ppBV/aAu3
+ V1YZkFNO0TOnqwjf42Y+u61M4BM7CDldqMPhfQvtZn9QTvjfgzGaiPk2EziUpvYK2OWh
+ epGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689954477; x=1690559277;
+ d=1e100.net; s=20221208; t=1689954947; x=1690559747;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=85BEVu4yQdhInWHjBPNn/bUdJhVBiL/B5hoGlXbtQnQ=;
- b=koZjzGMBSercmEk7dy2JWzO5Lwai5aTBZOcqQv3DX9OUexBliuH/+HgoCmM6tAEiWJ
- jUOZk+sWVB53dPJlKoJXsoTt0tEBxKhcAellzywYmRMia7kld0NIH1kdd+rxQHarFt3n
- 0K/o12pnM5lbymJ8g2O7N9jkgsaqFIitwpsSQHs5Vm1jG5HObYhUjAn5Aq1GNwhvyhtx
- rQfuc2GzpZHr0YQq4ygfdpnJWV0MDWaJWZmmFqA5VFkk+Au/SZsK1FcQ5giihhN4YUsH
- S5QCbkSigQbwoxEnVH+uuGbM+rXVVp6yOUaOIkYQiHVNWOScb44nQJloqb8EGS9J0O2X
- KaQw==
-X-Gm-Message-State: ABy/qLZORS95+vHzrubPORyj1nhpEpzU21onxYygKGw/Y1KWgnG/fIk+
- eASYM/GNbaDZww06sPoGuaj3q1ZOHNHl93seMFU=
-X-Google-Smtp-Source: APBJJlE/RRfy/2JXiahuX+7/L9bWZm70AmvtHOV5SKdDHjS9uJ2Ijtsve26XT3f2xiOGU5p0ojQ03HpKbWXRlIhi4JE=
-X-Received: by 2002:a05:6808:14c9:b0:38e:a824:27d3 with SMTP id
- f9-20020a05680814c900b0038ea82427d3mr3154456oiw.27.1689954476846; Fri, 21 Jul
- 2023 08:47:56 -0700 (PDT)
+ bh=tl0eTAwzZMqhrxk94X5w3ULTemUp7A7rZI7DezrgeA0=;
+ b=Szb2xr32prbx1qemUGxGjbGD8bBJ4kS0lvqLCjFxmXKOs37sz5T7VXX2AzIKkGc3wW
+ RKORIt8dGDDLZaleDMcZgBEyv/iIpkW+4KlLN8pqyMpwCXMrDBPr2ADcySQYiCvEIynd
+ p77EuhwI7hjqCg/8zL7ZdBecgFDtmIPsosS5vievM9FiKXH/ucY6eOH7Lr9gmKm8zuGA
+ 488pAmstiUD1pUE7Xqjc5Kfml4QxvmmaBCP4Qm37uxn6x7tTR/Umhhb4I74uTE7xzGdq
+ qe42EjW3XlQZjFflWeDtCDE5XCVbtDeW/Wcwo4Pp2hJtS4nmLmWxKsmSszFEISnBka7a
+ KBGw==
+X-Gm-Message-State: ABy/qLbIfBSYmvtZLlZnjMyiCqM4ZZL+v28rR4FuVplAS1pap8jQ+aJC
+ gkq8N0BTKVbVcdfUTpYP016X769La83kgesYv+c=
+X-Google-Smtp-Source: APBJJlGM5h3R4hILd/o0pnv8AxWx2WjHbhsf+MePdcnfu8LONxoSi8vOo0ew6VGAU3e747yKPBDUS4PpIeBWd1GtK0c=
+X-Received: by 2002:a05:6870:7389:b0:1b0:89e4:e26b with SMTP id
+ z9-20020a056870738900b001b089e4e26bmr2799810oam.48.1689954947629; Fri, 21 Jul
+ 2023 08:55:47 -0700 (PDT)
 MIME-Version: 1.0
-References: <0a4b4a77-75e0-4a1f-a944-6ea5c75a2bb9@moroto.mountain>
-In-Reply-To: <0a4b4a77-75e0-4a1f-a944-6ea5c75a2bb9@moroto.mountain>
+References: <20230721012635.4552-1-xujianghui@cdjrlc.com>
+ <f9f0077b8f91d858777e9ad2db972db8@208suo.com>
+In-Reply-To: <f9f0077b8f91d858777e9ad2db972db8@208suo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 21 Jul 2023 11:47:45 -0400
-Message-ID: <CADnq5_Nnok5tPbcuVqTJX+t3u4mdTFFjiC60et=19O7=Rt5T+w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Unlock on error path in
- dm_handle_mst_sideband_msg_ready_event()
-To: Dan Carpenter <dan.carpenter@linaro.org>
+Date: Fri, 21 Jul 2023 11:55:36 -0400
+Message-ID: <CADnq5_O6HO70hXuoahwcnN6q0e1YbW8kLZbFT0uV=YeLPZwnmg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: open brace '{' following struct go on the same
+ line
+To: sunran001@208suo.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,51 +69,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Liu <haoping.liu@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <wayne.lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ airlied@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 21, 2023 at 10:57=E2=80=AFAM Dan Carpenter <dan.carpenter@linar=
-o.org> wrote:
+On Thu, Jul 20, 2023 at 9:31=E2=80=AFPM <sunran001@208suo.com> wrote:
 >
-> This error path needs to unlock the "aconnector->handle_mst_msg_ready"
-> mutex before returning.
+> Fix the checkpatch error as open brace '{' following struct should
+> go on the same line.
 >
-> Fixes: bb4fa525f327 ("drm/amd/display: Add polling method to handle MST r=
-eply packet")
-> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Signed-off-by: Ran Sun <sunran001@208suo.com>
 
-Applied.  Thanks!
+git am didn't seem to like the patch, but I was able to apply it
+cleanly manually with no fuzz.  Not sure what's up, but I've applied
+it.
 
 Alex
 
+
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/amd/include/yellow_carp_offset.h | 6 ++----
+>   1 file changed, 2 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> index 1abdec14344e..943959012d04 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> @@ -707,7 +707,7 @@ void dm_handle_mst_sideband_msg_ready_event(
+> diff --git a/drivers/gpu/drm/amd/include/yellow_carp_offset.h
+> b/drivers/gpu/drm/amd/include/yellow_carp_offset.h
+> index 0fea6a746611..a2c8dca2425e 100644
+> --- a/drivers/gpu/drm/amd/include/yellow_carp_offset.h
+> +++ b/drivers/gpu/drm/amd/include/yellow_carp_offset.h
+> @@ -7,13 +7,11 @@
+>   #define MAX_SEGMENT                                         6
 >
->                         if (retry =3D=3D 3) {
->                                 DRM_ERROR("Failed to ack MST event.\n");
-> -                               return;
-> +                               break;
->                         }
 >
->                         drm_dp_mst_hpd_irq_send_new_request(&aconnector->=
-mst_mgr);
-> --
-> 2.39.2
+> -struct IP_BASE_INSTANCE
+> -{
+> +struct IP_BASE_INSTANCE {
+>       unsigned int segment[MAX_SEGMENT];
+>   } __maybe_unused;
 >
+> -struct IP_BASE
+> -{
+> +struct IP_BASE {
+>       struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
+>   } __maybe_unused;
