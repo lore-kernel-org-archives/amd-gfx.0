@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0E0DEB64DD
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 08:20:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC8D1EB64DC
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 08:20:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 463E710E62D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCA5410E62E;
 	Fri, 21 Jul 2023 08:20:48 +0000 (UTC)
 Received: from mail.208.org (unknown [183.242.55.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B53F10E612
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 03:32:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29A9910E0D7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 06:10:35 +0000 (UTC)
 Received: from mail.208.org (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTP id 4R6ZqW0pwgzBRDtG
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 11:32:07 +0800 (CST)
+ by mail.208.org (Postfix) with ESMTP id 4R6fLJ3VDCzBRDt1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 14:10:32 +0800 (CST)
 Authentication-Results: mail.208.org (amavisd-new); dkim=pass
  reason="pass (just generated, assumed good)" header.d=208.org
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
  content-transfer-encoding:content-type:message-id:user-agent
  :references:in-reply-to:subject:to:from:date:mime-version; s=
- dkim; t=1689910326; x=1692502327; bh=DgngVkhS4Y2EpAg4Rz03E9/o90m
- U59SYiP+mSo3EkDk=; b=GoQ72x9nmd2y6OKp4qyJPmwiKCQ0W16YcKBSzA5ERLE
- PCRINd+rr5fLFyUcEp/rQqkbDvHn/LiXGofvX5wH19t0EOmfAqlIzrWbGNF/ZY7l
- CkqKrPu84naamPg8Q+HIL3gjurrZ4PAM/xAps54S0WU4YcquiYpFmurWuuSVdB/+
- 4QAGlqOqlPNsaA2B6t/8PrrRAv46SIT6Ii3S428gX4KKRDeNEYquBzReFZmo9kwB
- Nm2yEIgtMQIYbWGFQ/33ZEkbkZHUOiSUmJ9jGTz2EAwvS5/eH1aaUU2ssPX7hFhR
- FdpLndDyXlu/hQ91Fc1VvMjGA85edG35kZzlesik1gw==
+ dkim; t=1689919832; x=1692511833; bh=AY+u3jgn01B4/kF9DL4Qu4WGk/F
+ PohXQgFq0v8CHJFU=; b=r/gDt3KukI0P0Fe4QmY8Jzjf7BqYwxcU1lM181rpD+l
+ UU2k6h2q2BklYsFkfRXr6JrhMMoOjuUSzsj3f9jXQxUqcJZwNAeoS3kjlGFaBJ/t
+ 8aZMcUhz+YwAEYDl8+8InqnLkciGVv8dK+3TR0vdMEH5vwI/GKa5ccvmJMRylmj5
+ 0G0UtRVf904vwIEK3FkMru0RaWT6S0+4WF9f2JLpvPup6wzLpCCdlL1ajUYPgVFE
+ OiPzu5QS1oPbUq0lLp23ctkTsgxbJxBzI+cbgXZEOkCt9VSTKV4NJk6YpvBczNhd
+ pSUnhyuV5+PdLlAAl14YwrTHGXZU5OKciPWJyMo2+kg==
 X-Virus-Scanned: amavisd-new at mail.208.org
 Received: from mail.208.org ([127.0.0.1])
  by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id jjI-25dzcQUr for <amd-gfx@lists.freedesktop.org>;
- Fri, 21 Jul 2023 11:32:06 +0800 (CST)
+ with ESMTP id d9xv8i7ZQY7R for <amd-gfx@lists.freedesktop.org>;
+ Fri, 21 Jul 2023 14:10:32 +0800 (CST)
 Received: from localhost (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTPSA id 4R6ZqV5jSmzBRDrd;
- Fri, 21 Jul 2023 11:32:06 +0800 (CST)
+ by mail.208.org (Postfix) with ESMTPSA id 4R6fLJ171XzBJBHk;
+ Fri, 21 Jul 2023 14:10:32 +0800 (CST)
 MIME-Version: 1.0
-Date: Fri, 21 Jul 2023 11:32:06 +0800
+Date: Fri, 21 Jul 2023 06:10:32 +0000
 From: sunran001@208suo.com
-To: alexander.deucher@amd.com, airlied@gmail.com, daniel@ffwll.ch
-Subject: [PATCH] drm/amdgpu: open brace '{' following struct go on the same
- line
-In-Reply-To: <20230721033048.4840-1-xujianghui@cdjrlc.com>
-References: <20230721033048.4840-1-xujianghui@cdjrlc.com>
+To: airlied@gmail.com, daniel@ffwll.ch
+Subject: [PATCH] drm/radeon: ERROR: "foo * bar" should be "foo *bar"
+In-Reply-To: <20230721060919.5133-1-xujianghui@cdjrlc.com>
+References: <20230721060919.5133-1-xujianghui@cdjrlc.com>
 User-Agent: Roundcube Webmail
-Message-ID: <d0906df99cdf6f76220e298bebaa5029@208suo.com>
+Message-ID: <696ea9a46762e16d993f8fc4bf26fb7f@208suo.com>
 X-Sender: sunran001@208suo.com
 Content-Type: text/plain; charset=US-ASCII;
  format=flowed
@@ -66,25 +65,31 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ERROR: open brace '{' following struct go on the same line
+Fix nine occurrences of the checkpatch.pl error:
+ERROR: "foo * bar" should be "foo *bar"
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
-  drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h | 3 +--
-  1 file changed, 1 insertion(+), 2 deletions(-)
+  drivers/gpu/drm/radeon/atom.c | 4 ++--
+  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h 
-b/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
-index 52045ad59bed..eec816f0cbf9 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_pm.h
-@@ -24,8 +24,7 @@
-  #ifndef __AMDGPU_PM_H__
-  #define __AMDGPU_PM_H__
+diff --git a/drivers/gpu/drm/radeon/atom.c 
+b/drivers/gpu/drm/radeon/atom.c
+index 11a1940bb26d..93acb0e42bd6 100644
+--- a/drivers/gpu/drm/radeon/atom.c
++++ b/drivers/gpu/drm/radeon/atom.c
+@@ -68,8 +68,8 @@ typedef struct {
+  } atom_exec_context;
 
--struct cg_flag_name
--{
-+struct cg_flag_name {
-  	u64 flag;
-  	const char *name;
-  };
+  int atom_debug = 0;
+-static int atom_execute_table_locked(struct atom_context *ctx, int 
+index, uint32_t * params);
+-int atom_execute_table(struct atom_context *ctx, int index, uint32_t * 
+params);
++static int atom_execute_table_locked(struct atom_context *ctx, int 
+index, uint32_t *params);
++int atom_execute_table(struct atom_context *ctx, int index, uint32_t 
+*params);
+
+  static uint32_t atom_arg_mask[8] = {
+  	0xFFFFFFFF, 0x0000FFFF, 0x00FFFF00, 0xFFFF0000,
