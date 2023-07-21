@@ -4,30 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98EEFC001DC
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 08:20:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2436BC001DE
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 08:20:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02EA310E62F;
-	Fri, 21 Jul 2023 08:20:49 +0000 (UTC)
-Received: from mailgw.gate-on.net (auth.Gate-On.Net [210.197.74.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD28510E1C4
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Jul 2023 23:40:03 +0000 (UTC)
-Received: from vega.pgw.jp (unknown [49.135.109.134])
- by mailgw.gate-on.net (Postfix) with ESMTP id B4DD0802A3;
- Fri, 21 Jul 2023 08:39:58 +0900 (JST)
-Received: from localhost (vega.pgw.jp [10.5.0.30])
- by vega.pgw.jp (Postfix) with SMTP
- id BF312A53D; Fri, 21 Jul 2023 08:39:55 +0900 (JST)
-From: <kkabe@vega.pgw.jp>
-Content-Type: text/plain; charset=ISO-2022-JP
-To: rostedt@goodmis.org
-Subject: Re: radeon.ko/i586: BUG: kernel NULL pointer dereference,
- address:00000004
-In-Reply-To: Your message of "Mon, 17 Jul 2023 11:36:23 -0400".
- <20230717113623.41878887@gandalf.local.home>
-X-Mailer: mnews [version 1.22PL5] 2002-11-27(Wed)
-Date: Fri, 21 Jul 2023 08:39:55 +0900
-Message-ID: <230721083955.M0102626@vega.pgw.jp>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A7C110E633;
+	Fri, 21 Jul 2023 08:20:56 +0000 (UTC)
+Received: from mail.208.org (unknown [183.242.55.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF10F10E612
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 03:27:23 +0000 (UTC)
+Received: from mail.208.org (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTP id 4R6Zjy5RxLzBRDrh
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Jul 2023 11:27:18 +0800 (CST)
+Authentication-Results: mail.208.org (amavisd-new); dkim=pass
+ reason="pass (just generated, assumed good)" header.d=208.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
+ content-transfer-encoding:content-type:message-id:user-agent
+ :references:in-reply-to:subject:to:from:date:mime-version; s=
+ dkim; t=1689910038; x=1692502039; bh=GFS1RVSDskw7M+0vgWeM0LHygVB
+ jO70fllpv2LJSd1k=; b=yXTCfkw3FIFTiJtmRfrphb0qpChmyyT/UXr6szwaRcb
+ WVS+Q8RHbxpbJekhbcZ1KN6CQWuxSsgnSC2b7EqNgAQH3SxMKHkbj6fX1jChqBJu
+ pdQfshkyvOqhGCSAeW2LMgOnwG+dLrx751wIAtkrCAdF7Ta5d7Z6IVgUnp4/MK+2
+ Ssxb0citSIEOjRE/2wDu23VOF3aLIX5COjb/C8I5SAJOIzhcynSV5hJmvlyVMg+8
+ mJmCu/+lhQ+vlnbo8ZkAqtO88E+WjTqKkpXz+LCEXDO1hqz9Bc2geYo2bnvrD9OV
+ zK1gYQUKgUr1hXs5EIjU1CQPLKA4F3UqJywU0uO1ckA==
+X-Virus-Scanned: amavisd-new at mail.208.org
+Received: from mail.208.org ([127.0.0.1])
+ by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id vGY0P9qJszbL for <amd-gfx@lists.freedesktop.org>;
+ Fri, 21 Jul 2023 11:27:18 +0800 (CST)
+Received: from localhost (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTPSA id 4R6Zjy2tzYzBRDrd;
+ Fri, 21 Jul 2023 11:27:18 +0800 (CST)
+MIME-Version: 1.0
+Date: Fri, 21 Jul 2023 11:27:18 +0800
+From: sunran001@208suo.com
+To: alexander.deucher@amd.com, airlied@gmail.com, daniel@ffwll.ch
+Subject: [PATCH] drm/amd/pm: open brace '{' following struct go on the same
+ line
+In-Reply-To: <20230721032537.4727-1-xujianghui@cdjrlc.com>
+References: <20230721032537.4727-1-xujianghui@cdjrlc.com>
+User-Agent: Roundcube Webmail
+Message-ID: <9bb658b64109e1e60afdf82906ae3e03@208suo.com>
+X-Sender: sunran001@208suo.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 21 Jul 2023 08:20:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -40,64 +61,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dave.hansen@linux.intel.com, regressions@lists.linux.dev,
- Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, mingo@redhat.com, bp@alien8.de,
- bagasdotme@gmail.com, hpa@zytor.com, alexander.deucher@amd.com,
- tglx@linutronix.de, kkabe@vega.pgw.jp, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-rostedt@goodmis.org sed in <20230717113623.41878887@gandalf.local.home>
+ERROR: open brace '{' following struct go on the same line
 
->> On Fri, 14 Jul 2023 14:34:04 +0900
->> <kkabe@vega.pgw.jp> wrote:
->> 
->> > Patch in
->> > https://bugzilla.kernel.org/show_bug.cgi?id=217669#c4
->> > fixed the problem in freedesktop.org kernel 5.18.0-rc2 .
->> > This may explain that in kernel.org tree, the said commit is in kernel-5.19.
->> 
->> You mean the patch that adds:
->> 
->> 	#if defined(FTRACE_MCOUNT_MAX_OFFSET) && (FTRACE_MCOUNT_MAX_OFFSET)
->> 
->> ?
->> 
->> Nothing should be setting FTRACE_MCOUNT_MAX_OFFSET to anything but non
->> zero. But doing a grep, I now see:
->> 
->> # define FTRACE_MCOUNT_MAX_OFFSET ENDBR_INSN_SIZE
->> 
->> Where it breaks that assumption if ENDBR_INSN_SIZE == 0 :-p
->>  (and that's my code!)
->> 
->> OK, does this fix it? (I haven't tested nor compiled this)
->> 
->> -- Steve
->> 
->> diff --git a/arch/x86/include/asm/ftrace.h b/arch/x86/include/asm/ftrace.h
->> index 897cf02c20b1..801f4414da3e 100644
->> --- a/arch/x86/include/asm/ftrace.h
->> +++ b/arch/x86/include/asm/ftrace.h
->> @@ -13,7 +13,7 @@
->>  #ifdef CONFIG_HAVE_FENTRY
->>  # include <asm/ibt.h>
->>  /* Add offset for endbr64 if IBT enabled */
->> -# define FTRACE_MCOUNT_MAX_OFFSET	ENDBR_INSN_SIZE
->> +# define FTRACE_MCOUNT_MAX_OFFSET	(ENDBR_INSN_SIZE + MCOUNT_INSN_SIZE)
->>  #endif
->>  
->>  #ifdef CONFIG_DYNAMIC_FTRACE
->> 
+Signed-off-by: Ran Sun <sunran001@208suo.com>
+---
+  .../gpu/drm/amd/pm/inc/smu_v13_0_0_pptable.h  | 21 +++++++------------
+  1 file changed, 7 insertions(+), 14 deletions(-)
 
-Unfortunately this patch didn't fix freedesktop.org 5.18.0-rc2 tree.
-(vblank->worker == NULL check fires otherwise a panic)
+diff --git a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_0_pptable.h 
+b/drivers/gpu/drm/amd/pm/inc/smu_v13_0_0_pptable.h
+index 1dc7a065a6d4..251ed011b3b0 100644
+--- a/drivers/gpu/drm/amd/pm/inc/smu_v13_0_0_pptable.h
++++ b/drivers/gpu/drm/amd/pm/inc/smu_v13_0_0_pptable.h
+@@ -41,8 +41,7 @@
+  #define SMU_13_0_0_PP_OVERDRIVE_VERSION 0x83        // OverDrive 8 
+Table Version 0.2
+  #define SMU_13_0_0_PP_POWERSAVINGCLOCK_VERSION 0x01 // Power Saving 
+Clock Table Version 1.00
 
-Applying this to kernel.org 6.4.3 results in totally different error as in 
-https://bugzilla.kernel.org/show_bug.cgi?id=217669#c0
-so there may be multiple regressions I'm chasing.
+-enum SMU_13_0_0_ODFEATURE_CAP
+-{
++enum SMU_13_0_0_ODFEATURE_CAP {
+      SMU_13_0_0_ODCAP_GFXCLK_LIMITS = 0,
+      SMU_13_0_0_ODCAP_UCLK_LIMITS,
+      SMU_13_0_0_ODCAP_POWER_LIMIT,
+@@ -62,8 +61,7 @@ enum SMU_13_0_0_ODFEATURE_CAP
+      SMU_13_0_0_ODCAP_COUNT,
+  };
 
--- 
-kabe
+-enum SMU_13_0_0_ODFEATURE_ID
+-{
++enum SMU_13_0_0_ODFEATURE_ID {
+      SMU_13_0_0_ODFEATURE_GFXCLK_LIMITS           = 1 << 
+SMU_13_0_0_ODCAP_GFXCLK_LIMITS,           //GFXCLK Limit feature
+      SMU_13_0_0_ODFEATURE_UCLK_LIMITS             = 1 << 
+SMU_13_0_0_ODCAP_UCLK_LIMITS,             //UCLK Limit feature
+      SMU_13_0_0_ODFEATURE_POWER_LIMIT             = 1 << 
+SMU_13_0_0_ODCAP_POWER_LIMIT,             //Power Limit feature
+@@ -85,8 +83,7 @@ enum SMU_13_0_0_ODFEATURE_ID
 
+  #define SMU_13_0_0_MAX_ODFEATURE 32 //Maximum Number of OD Features
+
+-enum SMU_13_0_0_ODSETTING_ID
+-{
++enum SMU_13_0_0_ODSETTING_ID {
+      SMU_13_0_0_ODSETTING_GFXCLKFMAX = 0,
+      SMU_13_0_0_ODSETTING_GFXCLKFMIN,
+      SMU_13_0_0_ODSETTING_UCLKFMIN,
+@@ -123,8 +120,7 @@ enum SMU_13_0_0_ODSETTING_ID
+  };
+  #define SMU_13_0_0_MAX_ODSETTING 64 //Maximum Number of ODSettings
+
+-enum SMU_13_0_0_PWRMODE_SETTING
+-{
++enum SMU_13_0_0_PWRMODE_SETTING {
+      SMU_13_0_0_PMSETTING_POWER_LIMIT_QUIET = 0,
+      SMU_13_0_0_PMSETTING_POWER_LIMIT_BALANCE,
+      SMU_13_0_0_PMSETTING_POWER_LIMIT_TURBO,
+@@ -144,8 +140,7 @@ enum SMU_13_0_0_PWRMODE_SETTING
+  };
+  #define SMU_13_0_0_MAX_PMSETTING 32 //Maximum Number of PowerMode 
+Settings
+
+-struct smu_13_0_0_overdrive_table
+-{
++struct smu_13_0_0_overdrive_table {
+      uint8_t revision;                             //Revision = 
+SMU_13_0_0_PP_OVERDRIVE_VERSION
+      uint8_t reserve[3];                           //Zero filled field 
+reserved for future use
+      uint32_t feature_count;                       //Total number of 
+supported features
+@@ -156,8 +151,7 @@ struct smu_13_0_0_overdrive_table
+      int16_t pm_setting[SMU_13_0_0_MAX_PMSETTING]; //Optimized power 
+mode feature settings
+  };
+
+-enum SMU_13_0_0_PPCLOCK_ID
+-{
++enum SMU_13_0_0_PPCLOCK_ID {
+      SMU_13_0_0_PPCLOCK_GFXCLK = 0,
+      SMU_13_0_0_PPCLOCK_SOCCLK,
+      SMU_13_0_0_PPCLOCK_UCLK,
+@@ -175,8 +169,7 @@ enum SMU_13_0_0_PPCLOCK_ID
+  };
+  #define SMU_13_0_0_MAX_PPCLOCK 16 //Maximum Number of PP Clocks
+
+-struct smu_13_0_0_powerplay_table
+-{
++struct smu_13_0_0_powerplay_table {
+      struct atom_common_table_header header; //For SMU13, 
+header.format_revision = 15, header.content_revision = 0
+      uint8_t table_revision;                 //For SMU13, table_revision 
+= 2
+      uint8_t padding;
