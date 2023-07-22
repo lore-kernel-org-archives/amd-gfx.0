@@ -4,51 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDDD2C001B0
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28066C001DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46C1910E2F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C6A110E2F7;
 	Mon, 24 Jul 2023 12:58:35 +0000 (UTC)
-Received: from mail.208.org (unknown [183.242.55.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 840D810E021
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 07:12:16 +0000 (UTC)
-Received: from mail.208.org (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTP id 4R8WZ61xmHzBRx4d
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 15:12:14 +0800 (CST)
-Authentication-Results: mail.208.org (amavisd-new); dkim=pass
- reason="pass (just generated, assumed good)" header.d=208.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
- content-transfer-encoding:content-type:message-id:user-agent
- :references:in-reply-to:subject:to:from:date:mime-version; s=
- dkim; t=1690182734; x=1692774735; bh=GSjQh+24fDmg268C3FAmWe759o+
- e7JqjQBA0Ouu1xsQ=; b=nY50u1mioKgn6dyttJAUVTwcgoytrZJy3qN3w+Tc1cM
- DtRZIQvlXBRwDNxRlnIbtIE+jbS/QwSXqGQt5LYWM0L1AjS9Qt4juLLugXgcHSE9
- Wk37DJ1l+i3P/PEiYAf3k62Z1Kl4ibHmr6Q5Yv3DrGXmFMJYVl6o2ivUC+8rpQ7o
- aI+Lv3087KJzoakgW/VCdiHQ3yAOKlZdaeO07OBRAzAOubHLolK4dYsiFB+KnfdM
- 8MrcjL7KBdTmtoZnaVuAozJvpsnlmmeTs2kwR7u7yx24WvFnMhKw8rENdOmup/ne
- ZX36iP8GvEcAWo4p4h7OH3k/0V/XWx8zPEaA6dOMtqw==
-X-Virus-Scanned: amavisd-new at mail.208.org
-Received: from mail.208.org ([127.0.0.1])
- by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id rJecncUx8cu6 for <amd-gfx@lists.freedesktop.org>;
- Mon, 24 Jul 2023 15:12:14 +0800 (CST)
-Received: from localhost (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTPSA id 4R8WZ56rwWzBL0sr;
- Mon, 24 Jul 2023 15:12:13 +0800 (CST)
-MIME-Version: 1.0
-Date: Mon, 24 Jul 2023 15:12:13 +0800
-From: sunran001@208suo.com
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/pm:open brace '{' following function definitions go
- on the next line
-In-Reply-To: <20230724071121.8710-1-xujianghui@cdjrlc.com>
-References: <20230724071121.8710-1-xujianghui@cdjrlc.com>
-User-Agent: Roundcube Webmail
-Message-ID: <be6d6605aa504964eba3476910f7140a@208suo.com>
-X-Sender: sunran001@208suo.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from mailgw.gate-on.net (auth.Gate-On.Net [210.197.74.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F76D10E0D3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 22 Jul 2023 01:57:19 +0000 (UTC)
+Received: from vega.pgw.jp (unknown [49.135.109.134])
+ by mailgw.gate-on.net (Postfix) with ESMTP id 3DE47802A7;
+ Sat, 22 Jul 2023 10:57:17 +0900 (JST)
+Received: from localhost (vega.pgw.jp [10.5.0.30])
+ by vega.pgw.jp (Postfix) with SMTP
+ id 7059CA53D; Sat, 22 Jul 2023 10:57:14 +0900 (JST)
+From: <kkabe@vega.pgw.jp>
+Content-Type: text/plain; charset=ISO-2022-JP
+To: rostedt@goodmis.org
+Subject: Re: radeon.ko/i586: BUG: kernel NULL pointerdereference,
+ address:00000004
+In-Reply-To: Your message of "Mon, 17 Jul 2023 11:21:38 -0400".
+ <20230717112138.1fd48cca@gandalf.local.home>
+X-Mailer: mnews [version 1.22PL5] 2002-11-27(Wed)
+Date: Sat, 22 Jul 2023 10:57:14 +0900
+Message-ID: <230722105714.M0104460@vega.pgw.jp>
 X-Mailman-Approved-At: Mon, 24 Jul 2023 12:58:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,32 +40,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com, regressions@lists.linux.dev,
+ Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, mingo@redhat.com, bp@alien8.de,
+ bagasdotme@gmail.com, hpa@zytor.com, alexander.deucher@amd.com,
+ tglx@linutronix.de, kkabe@vega.pgw.jp, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ERROR: open brace '{' following function definitions go on the next line
+rostedt@goodmis.org sed in <20230717112138.1fd48cca@gandalf.local.home>
 
-Signed-off-by: Ran Sun <sunran001@208suo.com>
----
-  drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c | 3 ++-
-  1 file changed, 2 insertions(+), 1 deletion(-)
+>> On Sat, 15 Jul 2023 11:39:11 +0900
+>> <kkabe@vega.pgw.jp> wrote:
+>> 
+>> 
+>> > Yes, this is puzzling. That's why I need other people's opinion on this.
+>> > Does it matter the DUT is a slow machine (Pentium 120MHz)?
+>> > 
+>> 
+>> Hmm, I wonder because the workqueue is running __init functions, could it
+>> possibly be that it didn't finish before the end of boot, where it frees
+>> all the functions? It shouldn't do that because there's code to make sure
+>> it's done before it continues further.
+>> 
+>> But just in case something isn't working as planned, you could try this
+>> patch to see if the bug goes away.
+>> 
+>> -- Steve
+>> 
+>> diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+>> index 05c0024815bf..af5a40ef3be4 100644
+>> --- a/kernel/trace/ftrace.c
+>> +++ b/kernel/trace/ftrace.c
+>> @@ -3771,13 +3771,13 @@ static int test_for_valid_rec(struct dyn_ftrace *rec)
+>>  	return 1;
+>>  }
+>>  
+>> -static struct workqueue_struct *ftrace_check_wq __initdata;
+>> -static struct work_struct ftrace_check_work __initdata;
+>> +static struct workqueue_struct *ftrace_check_wq;
+>> +static struct work_struct ftrace_check_work;
+>>  
+>>  /*
+>>   * Scan all the mcount/fentry entries to make sure they are valid.
+>>   */
+>> -static __init void ftrace_check_work_func(struct work_struct *work)
+>> +static void ftrace_check_work_func(struct work_struct *work)
+>>  {
+>>  	struct ftrace_page *pg;
+>>  	struct dyn_ftrace *rec;
+>> 
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c 
-b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
-index c788aa7a99a9..5e408a195860 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
-@@ -205,7 +205,8 @@ int smu_v12_0_set_default_dpm_tables(struct 
-smu_context *smu)
-  	return smu_cmn_update_table(smu, SMU_TABLE_DPMCLOCKS, 0, 
-smu_table->clocks_table, false);
-  }
+Just in case I tried this patch too;
+no banana, it panics (vblank->worker == NULL check fires)
 
--int smu_v12_0_mode2_reset(struct smu_context *smu){
-+int smu_v12_0_mode2_reset(struct smu_context *smu)
-+{
-  	return smu_cmn_send_smc_msg_with_param(smu, 
-SMU_MSG_GfxDeviceDriverReset, SMU_RESET_MODE_2, NULL);
-  }
+-- 
+kabe
+
