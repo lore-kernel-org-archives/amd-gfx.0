@@ -4,53 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96ADFC001E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D73F4C001DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AA5310E2FC;
-	Mon, 24 Jul 2023 12:58:56 +0000 (UTC)
-Received: from mail.208.org (unknown [183.242.55.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3C8B10E28B
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 08:44:04 +0000 (UTC)
-Received: from mail.208.org (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTP id 4R8Yc24vtbzBRx5C
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 16:44:02 +0800 (CST)
-Authentication-Results: mail.208.org (amavisd-new); dkim=pass
- reason="pass (just generated, assumed good)" header.d=208.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
- content-transfer-encoding:content-type:message-id:user-agent
- :references:in-reply-to:subject:to:from:date:mime-version; s=
- dkim; t=1690188242; x=1692780243; bh=GSjQh+24fDmg268C3FAmWe759o+
- e7JqjQBA0Ouu1xsQ=; b=LOuLu5N3qJAUG+I53obzAL1Noiw+URzi25qlxflJmnM
- xwlZwQp4s13ZM5OGa+A1C5SWe0hG7pqJ9r/3gEgBsvtMkjFJtjiB2e46RoVNChTw
- GyHyria8Xz/yYLYExUiDzvw8TFt2lT9miSDretauoyUdJsV2fcdpaDKQIg1beqhv
- v9CFV8pwzsW2F0d5QCeTiBgtkbtzOz6lyjnh/a4zTu/OM070b8Ok6tLCdf0J9R0W
- WUrojCGYlhSSmPgyXhWWOEIKNg5RZRF4FmFXy7hmFEv2SCiUuIryheAznOE5dCWS
- io2+XHCDyy+vnQG8w4NP+CFx0kSbMBACfxvcW9OGezQ==
-X-Virus-Scanned: amavisd-new at mail.208.org
-Received: from mail.208.org ([127.0.0.1])
- by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 6wqlALlLoYfb for <amd-gfx@lists.freedesktop.org>;
- Mon, 24 Jul 2023 16:44:02 +0800 (CST)
-Received: from localhost (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTPSA id 4R8Yc23Y15zB7Bvn;
- Mon, 24 Jul 2023 16:44:02 +0800 (CST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAE6910E2F9;
+	Mon, 24 Jul 2023 12:58:55 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5196210E032
+ for <amd-gfx@lists.freedesktop.org>; Sun, 23 Jul 2023 14:32:14 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B90C160DC5;
+ Sun, 23 Jul 2023 14:32:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 934A5C433C8;
+ Sun, 23 Jul 2023 14:32:11 +0000 (UTC)
+Date: Sun, 23 Jul 2023 10:32:10 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: <kkabe@vega.pgw.jp>
+Subject: Re: radeon.ko/i586: BUG: kernel NULL pointer
+ dereference,address:00000004
+Message-ID: <20230723103210.4b1b032e@rorschach.local.home>
+In-Reply-To: <230723205506.M0106064@vega.pgw.jp>
+References: <230722113014.M0204460@vega.pgw.jp>
+ <230723205506.M0106064@vega.pgw.jp>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Date: Mon, 24 Jul 2023 16:44:02 +0800
-From: sunran001@208suo.com
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/pm: open brace '{' following function definitions go
- on the next line
-In-Reply-To: <be6d6605aa504964eba3476910f7140a@208suo.com>
-References: <20230724071121.8710-1-xujianghui@cdjrlc.com>
- <be6d6605aa504964eba3476910f7140a@208suo.com>
-User-Agent: Roundcube Webmail
-Message-ID: <a026386d6759911afbb1446a9145bdec@208suo.com>
-X-Sender: sunran001@208suo.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 24 Jul 2023 12:58:34 +0000
+X-Mailman-Approved-At: Mon, 24 Jul 2023 12:58:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,32 +46,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com, regressions@lists.linux.dev,
+ Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, mingo@redhat.com, bp@alien8.de,
+ bagasdotme@gmail.com, hpa@zytor.com, alexander.deucher@amd.com,
+ tglx@linutronix.de, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ERROR: open brace '{' following function definitions go on the next line
+On Sun, 23 Jul 2023 20:55:06 +0900
+<kkabe@vega.pgw.jp> wrote:
 
-Signed-off-by: Ran Sun <sunran001@208suo.com>
----
-  drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c | 3 ++-
-  1 file changed, 2 insertions(+), 1 deletion(-)
+> So I tried to trap NULL and return:
+> 
+> ================ patch-drm_vblank_cancel_pending_works-printk-NULL-ret.patch
+> diff -up ./drivers/gpu/drm/drm_vblank_work.c.pk2 ./drivers/gpu/drm/drm_vblank_work.c
+> --- ./drivers/gpu/drm/drm_vblank_work.c.pk2	2023-06-06 20:50:40.000000000 +0900
+> +++ ./drivers/gpu/drm/drm_vblank_work.c	2023-07-23 14:29:56.383093673 +0900
+> @@ -71,6 +71,10 @@ void drm_vblank_cancel_pending_works(str
+>  {
+>  	struct drm_vblank_work *work, *next;
+>  
+> +	if (!vblank->dev) {
+> +		printk(KERN_WARNING "%s: vblank->dev == NULL? returning\n", __func__);
+> +		return;
+> +	}
+>  	assert_spin_locked(&vblank->dev->event_lock);
+>  
+>  	list_for_each_entry_safe(work, next, &vblank->pending_work, node) {
+> ================
+> 
+> This time, the printk trap does not happen!! and radeon.ko works.
+> (NULL check for vblank->worker is still fireing though)
+> 
+> Now this is puzzling.
+> Is this a timing issue?
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c 
-b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
-index c788aa7a99a9..5e408a195860 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
-@@ -205,7 +205,8 @@ int smu_v12_0_set_default_dpm_tables(struct 
-smu_context *smu)
-  	return smu_cmn_update_table(smu, SMU_TABLE_DPMCLOCKS, 0, 
-smu_table->clocks_table, false);
-  }
+It could very well be. And the ftrace patch could possibly not be the
+cause at all. But the thread that is created to do the work is causing
+the race window to be opened up, which is why you see it with the patch
+and don't without it. It may not be the problem, it may just tickle the
+timings enough to trigger the bug, and is causing you to go on a wild
+goose chase in the wrong direction.
 
--int smu_v12_0_mode2_reset(struct smu_context *smu){
-+int smu_v12_0_mode2_reset(struct smu_context *smu)
-+{
-  	return smu_cmn_send_smc_msg_with_param(smu, 
-SMU_MSG_GfxDeviceDriverReset, SMU_RESET_MODE_2, NULL);
-  }
+-- Steve
+
+
+> Is systemd-udevd doing something not favaorble to kernel?
+> Is drm vblank code running without enough initialization?
+> 
+> Puzzling is, that purely useland activity
+> (logging in on tty1 before radeon.ko load)
+> is affecting kernel panic/no-panic.
+
