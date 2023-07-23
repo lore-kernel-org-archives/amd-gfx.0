@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84AD7C001DC
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Jul 2023 07:05:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5856BC001B0
+	for <amd-gfx@archiver.kernel.org>; Sun, 23 Jul 2023 09:32:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2D1010E061;
-	Sun, 23 Jul 2023 07:05:52 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2066.outbound.protection.outlook.com [40.107.93.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC75210E061
- for <amd-gfx@lists.freedesktop.org>; Sun, 23 Jul 2023 07:05:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBCEB10E169;
+	Sun, 23 Jul 2023 09:32:18 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20618.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::618])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB00B10E169
+ for <amd-gfx@lists.freedesktop.org>; Sun, 23 Jul 2023 09:32:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dSFx6FNaHrAoH8hicEsVwnYKJAdpkfiTT7NS/IHWjXEeSyRwu1I4Y5frZIlU2PhmNxFTr6el+u1GPwzYwke15DAMlJQITKk2n2wYtBDLnuifvEQllumoW6KhOSHbpC3XB0pOZmyvfcO3akSQQ+Bv/EtjXd112ahZovHXvzED4YFooZGCR9E9U1RBRLRS9TTIAr2425Wvw+Mp0eR4GKGq9kgBKjMDhLuKhVkQDsbI78qUjtcnBPEFgVHa1lWaecekQd34BTiFe7S/vmQR97Z/yXPeTWpcAZemMAyRKH5HOGHloRR/HCO8ajvljFTALzcbWyz36Us5cn8QK3mBcxnCUQ==
+ b=Mzlnj6+kl/EXSZMyX/v0TvhFN4czveVbAotrR1MmUqjKqpYbviyAHJ8FjJQHT3EyElkMl3mKHUf59aTTPbgbsF/zjjp4RJENcEO7f1SDX43/gJhbwCBsMd+MoLLlQJ8UE8X1WyOGA5qYdQekKyMtNmmSlp/MtcwWzNIWxFLRJyOg8fe8EOq61jaA3OcoTs1BNHayi1d6xYaoKowAaFBklV4pXxrgpJLrHTgfVF2PQQirmPS3uIWwjdwRRN0XjdrrlRdJk1Qe9jUKeWrYq84/EwteujlOATHV9oO6fYU6CqdBBHOqRedyv+rmqn0exS3BQL1IpAKGfbcuZnIBgpUSWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6UgYw7IQg5f5HoKGBOr9E8kF8h5JKLuj/96QVP1RALg=;
- b=Npsp2/ZFBIpLnuWQBZtleV4+UAQ6eZ72iwfySvPti3XvlorWtepz5trA53CNRrgN6DQDBRSPU17jGHUc7vfSSepmE39X7tUVQs0XP4DYKvDC1ec8lJsZtr2CFiy/uQ2pWKeJTG2WVYOKPxORy6UGfvl0GYrhDi1u4VSFQ0CbR9PApaCl0mDl5mm+WHpt5TL34Iz3uyoePm8e3WmjM5E973iQE063zza3C4shs1Vq0yDk7VL/Pvk01Zr7k9WjTaj3+PbNmm1AQjlIqpWLhdNpvWQ+YIcDB5jOrmsYMnBXEyGwU+JAMiABSPouxwTpqmrT2w4p0vqrql35adQqkTOYCA==
+ bh=wEsydnKcCBaDgJSVBplcGGu5hxPzHSGX1uqW5dAtwN8=;
+ b=R86M0ZaNO4ajkZctNxpbjUy2M5ZZylHdOygqaik9GqSO3+Bkm/axOgokLziV3ax+hf2Mv2Q/dkAllZUGLMKLSZMOQSKVEk3KuvhhjPrQr+wGAcb4cNz++jdxuHQ/VPh0TuyBqB0EjbQznBtDgeGw9MucKmdd8pQTD7KNdbtyqexVlPXGqQIjhmcz9CyML7jlt/kPWppeLr0waqbpIu5Qqr6/8AN5IpV1d0MWqEbqNE/StC2yQ9RxksANZjWVHYeU66N9OEiqHOK9IxEh4rUuoZWAfWGGHvsduljhPx0bb5UwWf0/NuVfvIdA7SU9WTz8aB1baEYXltZOVimW2dMxcg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6UgYw7IQg5f5HoKGBOr9E8kF8h5JKLuj/96QVP1RALg=;
- b=a3ZlsXrRBVWodk8g4mf7r0wN46SLEHmwRV07E1bUIv/71LUk/k1OFeAmVZ9wKOZKDp+vWr8hCzBHIZRMJMSnyV1dFO0Sk9EoRbY68XX588O9ngXUJHYg/o13CN1ROgfDUZAQjrXP7cSB9F1abG8MqxYkCrFai26YVOhHOqCEKz8=
-Received: from MW4P222CA0002.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::7)
- by PH0PR12MB7469.namprd12.prod.outlook.com (2603:10b6:510:1e9::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.30; Sun, 23 Jul
- 2023 07:05:47 +0000
-Received: from CO1NAM11FT061.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:114:cafe::68) by MW4P222CA0002.outlook.office365.com
- (2603:10b6:303:114::7) with Microsoft SMTP Server (version=TLS1_2,
+ bh=wEsydnKcCBaDgJSVBplcGGu5hxPzHSGX1uqW5dAtwN8=;
+ b=AuhpLUQhpjnINSj+grE6a8zgyLRiEim5JuhvEEj4YSvIxmCr1JWUxryoqvy63XU8a+oT+WlFoOVGe63yYBpr8dcAjw2d0h7PXTs4w9b3GOAV1G+Q9EXe/KhdXgr6n0g44Agl4hq5Yh1GDldE0m95BBKEZmfYjS7I9Gc8OPCfv2I=
+Received: from DM5PR08CA0030.namprd08.prod.outlook.com (2603:10b6:4:60::19) by
+ DS0PR12MB9060.namprd12.prod.outlook.com (2603:10b6:8:c4::12) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6609.24; Sun, 23 Jul 2023 09:32:14 +0000
+Received: from DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:60:cafe::18) by DM5PR08CA0030.outlook.office365.com
+ (2603:10b6:4:60::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.31 via Frontend
- Transport; Sun, 23 Jul 2023 07:05:47 +0000
+ Transport; Sun, 23 Jul 2023 09:32:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,48 +46,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT061.mail.protection.outlook.com (10.13.175.200) with Microsoft SMTP
+ DM6NAM11FT010.mail.protection.outlook.com (10.13.172.222) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6609.28 via Frontend Transport; Sun, 23 Jul 2023 07:05:46 +0000
+ 15.20.6631.22 via Frontend Transport; Sun, 23 Jul 2023 09:32:14 +0000
 Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Sun, 23 Jul
- 2023 02:05:44 -0500
+ 2023 04:32:12 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Update min() to min_t() in 'amdgpu_info_ioctl'
-Date: Sun, 23 Jul 2023 12:35:27 +0530
-Message-ID: <20230723070527.2024673-1-srinivasan.shanmugam@amd.com>
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Rodrigo Siqueira
+ <Rodrigo.Siqueira@amd.com>
+Subject: [PATCH] drm/amd/display: Remove else after return in
+ 'dm_vblank_get_counter' & 'amdgpu_dm_backlight_get_level'
+Date: Sun, 23 Jul 2023 15:01:58 +0530
+Message-ID: <20230723093158.2052531-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT061:EE_|PH0PR12MB7469:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b96f199-d4d6-4650-2361-08db8b4b3d62
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT010:EE_|DS0PR12MB9060:EE_
+X-MS-Office365-Filtering-Correlation-Id: 535be685-1aa3-45c3-2e59-08db8b5fb33e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: c3NDZlYblOIxxh0hMXoZoeZBYdJjGXKx5m25Dw3/ZuWyIAjWGgtgHAUU83SM8ctyZ6ScbDUiIuHEK5hVcohJ6m9PoxSD/Dadt7lKKhl3WbGkARalH0rNNjERafRtIu/FShK8KUSHYSMadBTdVc21PrBibjSU+NqqvdJSSz7PplzCtF+zMZhiKhqM3PeCcsfb6s22YQ7CmT571wOaec/66G/0NzmzmrG9LdIgJjuQM4TOvT/wHjzf3i32nQ0nG5ojzO9IhaskKlaLgqLOtknlHQypwJ2dMvePFfbaHSbaLFu3dw6m3w4r7Lfv33ZDHZZzq4q+2rn4WxZZquQnRUt6sNTPjKI1hCZOqmC/3f4YOlSKFoHC34Q8T5IftNjf7xwSZZ/BUP0+tiJVDuGScExkl5guVetCS7n0EQmjSCC+mUz1Q4se2GJkcJoF57moLkGqZW2BoEBx7TGsBM/1xidwf3wPVQn4KtRQn7Xfm9bBrR5VFrSHrEShT4s31gnSX0L1BAs/TFEFLbkJ+2M9Wkj9q8npuVu1uuQNBKuv5c2SZGJ0fOBB9C3u+EIC/Y6y0v2yH6U9Eqt4GfePbBo1TEc9mGtZUd+PlIBMC9ltYLj+O6zfkMhvS7Y1pD3LXPAkjJ6CLWpXNcYF/a3xwbKJ7eipnNVlQ0ZGLDt/YF14+HvBiR/qZLWQ1rZ2yuL3E6aYOvOFa3fEz4ErDitCwBnWo1l0NeX8555HYwGGnF5uto70k1oJrOQ21M2KUGaWNjRp4sLkigGsgzUVUv5hIQhROaGeOA==
+X-Microsoft-Antispam-Message-Info: dDWID99NWXk5qtWpOQswlKZjkOFaDs4cOrFetFCehmPHbMp4EOYJf9Ep/MDTCnSQ6GTDmBXFvhSHF8GsoVD5KImOyymwP1bCyxUmWzxZA0FEe/51xfr2X9914UJicnPdzSw3Nt9QdCnCQ70UHkSUlg8R82SNJeS2hYfcxbPqfm//9NGTFdq1cO5P+6kTPxslsNt/2hDU4qiCqut/SvzUH+FpQcsIjlxXfK/xJK4j5/aMCz1D86dSBkk3D1JgZexLjYmgl7SCFFiRcaWqqQ+d65EudwhBUO3v15UuzTVA5z3wiJN1pWDmV3V0JzNAu9i5aD+UxLeVxAVzGRbGWr5A5lorIiFYHsR471V1qZmalCWrbVdyNFTYXRlNLVs08h32G07xIIh2/tjM/mf4c/3D15WMbfiBLWEvcBwL7YlzJMsXvHfY03BsXOoOz34c583ZO/hDz6MtyZdelMnORDk9pRA9V1gUUul2sTKjk+EPltxolqkC5/wtypYqIGfrRb1CgkXH7cJxBLjBiJ6sD709CweURoyI5L3zhK0bhuVDAnKjRKz0cbhCSWC9Urm6tMKOB3rmoaa9qhRHLrJvzoKbuY5EcWy0mElm8ucfs+kfc20iyxJ8qN7wuYqy6OANSfsWntEPvnaej7+94jEcquf9AyjMKqbMJ+r+o3c1g0cL7wojOq/JbVht0BCAfPVCcHxh2YwUGNuZ0UToDCd5h6nm4YvfxlPlzdpkBAgoL2SjfD/fDxGSNR4WNZFI4+KIuRdDjchgI3ZuuIj4lumHNW/xVw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(376002)(346002)(136003)(82310400008)(451199021)(36840700001)(40470700004)(46966006)(86362001)(82740400003)(40480700001)(356005)(40460700003)(81166007)(110136005)(478600001)(6636002)(4326008)(41300700001)(316002)(70206006)(70586007)(5660300002)(54906003)(44832011)(8676002)(8936002)(16526019)(6666004)(7696005)(2906002)(26005)(186003)(336012)(1076003)(83380400001)(36756003)(36860700001)(66574015)(47076005)(426003)(2616005)(36900700001);
+ SFS:(13230028)(4636009)(346002)(396003)(136003)(376002)(39860400002)(82310400008)(451199021)(36840700001)(40470700004)(46966006)(86362001)(478600001)(83380400001)(336012)(1076003)(186003)(26005)(41300700001)(110136005)(40480700001)(54906003)(316002)(8936002)(4326008)(6636002)(356005)(2906002)(40460700003)(7696005)(16526019)(36860700001)(70206006)(6666004)(81166007)(426003)(2616005)(44832011)(8676002)(70586007)(36756003)(5660300002)(47076005)(82740400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2023 07:05:46.9988 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b96f199-d4d6-4650-2361-08db8b4b3d62
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2023 09:32:14.7626 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 535be685-1aa3-45c3-2e59-08db8b5fb33e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT061.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT010.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7469
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9060
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,76 +105,90 @@ Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Expressions under 'else' branch in function 'dm_vblank_get_counter' &
+'amdgpu_dm_backlight_get_level' are executed whenever the expression in
+'if' is False. Otherwise, return from case occurs. Therefore, there is
+no need in 'else', and it has been removed.
+
 Fixes the following:
 
-WARNING: min() should probably be min_t(size_t, size, sizeof(ip))
-+               ret = copy_to_user(out, &ip, min((size_t)size, sizeof(ip)));
+WARNING: else is not generally useful after a break or return
++               return 0;
++       else {
 
-And other style fixes:
+WARNING: else is not generally useful after a break or return
++               return convert_brightness_to_user(&caps, avg);
++       } else {
 
-WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
-WARNING: Missing a blank line after declarations
-
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 ++++++++++---------
+ 1 file changed, 17 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 12f3c7ad7d04..631c5ab3f7dc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -557,6 +557,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 			crtc = (struct drm_crtc *)minfo->crtcs[i];
- 			if (crtc && crtc->base.id == info->mode_crtc.id) {
- 				struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 1e1a38014475..77d970a2ee69 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -245,19 +245,20 @@ is_timing_unchanged_for_freesync(struct drm_crtc_state *old_crtc_state,
+  */
+ static u32 dm_vblank_get_counter(struct amdgpu_device *adev, int crtc)
+ {
++	struct amdgpu_crtc *acrtc = NULL;
 +
- 				ui32 = amdgpu_crtc->crtc_id;
- 				found = 1;
- 				break;
-@@ -575,7 +576,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		if (ret)
- 			return ret;
+ 	if (crtc >= adev->mode_info.num_crtc)
+ 		return 0;
+-	else {
+-		struct amdgpu_crtc *acrtc = adev->mode_info.crtcs[crtc];
  
--		ret = copy_to_user(out, &ip, min((size_t)size, sizeof(ip)));
-+		ret = copy_to_user(out, &ip, min_t(size_t, size, sizeof(ip)));
- 		return ret ? -EFAULT : 0;
- 	}
- 	case AMDGPU_INFO_HW_IP_COUNT: {
-@@ -721,17 +722,18 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 				    ? -EFAULT : 0;
- 	}
- 	case AMDGPU_INFO_READ_MMR_REG: {
--		unsigned n, alloc_size;
-+		unsigned int n, alloc_size;
- 		uint32_t *regs;
--		unsigned se_num = (info->read_mmr_reg.instance >>
-+		unsigned int se_num = (info->read_mmr_reg.instance >>
- 				   AMDGPU_INFO_MMR_SE_INDEX_SHIFT) &
- 				  AMDGPU_INFO_MMR_SE_INDEX_MASK;
--		unsigned sh_num = (info->read_mmr_reg.instance >>
-+		unsigned int sh_num = (info->read_mmr_reg.instance >>
- 				   AMDGPU_INFO_MMR_SH_INDEX_SHIFT) &
- 				  AMDGPU_INFO_MMR_SH_INDEX_MASK;
+-		if (acrtc->dm_irq_params.stream == NULL) {
+-			DRM_ERROR("dc_stream_state is NULL for crtc '%d'!\n",
+-				  crtc);
+-			return 0;
+-		}
++	acrtc = adev->mode_info.crtcs[crtc];
  
- 		/* set full masks if the userspace set all bits
--		 * in the bitfields */
-+		 * in the bitfields
-+		 */
- 		if (se_num == AMDGPU_INFO_MMR_SE_INDEX_MASK)
- 			se_num = 0xffffffff;
- 		else if (se_num >= AMDGPU_GFX_MAX_SE)
-@@ -896,7 +898,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		return ret;
+-		return dc_stream_get_vblank_counter(acrtc->dm_irq_params.stream);
++	if (!acrtc->dm_irq_params.stream) {
++		DRM_ERROR("dc_stream_state is NULL for crtc '%d'!\n",
++			  crtc);
++		return 0;
  	}
- 	case AMDGPU_INFO_VCE_CLOCK_TABLE: {
--		unsigned i;
-+		unsigned int i;
- 		struct drm_amdgpu_info_vce_clock_table vce_clk_table = {};
- 		struct amd_vce_state *vce_state;
++
++	return dc_stream_get_vblank_counter(acrtc->dm_irq_params.stream);
+ }
  
+ static int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
+@@ -4091,6 +4092,7 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
+ static u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm,
+ 					 int bl_idx)
+ {
++	int ret;
+ 	struct amdgpu_dm_backlight_caps caps;
+ 	struct dc_link *link = (struct dc_link *)dm->backlight_link[bl_idx];
+ 
+@@ -4105,13 +4107,14 @@ static u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm,
+ 		if (!rc)
+ 			return dm->brightness[bl_idx];
+ 		return convert_brightness_to_user(&caps, avg);
+-	} else {
+-		int ret = dc_link_get_backlight_level(link);
+-
+-		if (ret == DC_ERROR_UNEXPECTED)
+-			return dm->brightness[bl_idx];
+-		return convert_brightness_to_user(&caps, ret);
+ 	}
++
++	ret = dc_link_get_backlight_level(link);
++
++	if (ret == DC_ERROR_UNEXPECTED)
++		return dm->brightness[bl_idx];
++
++	return convert_brightness_to_user(&caps, ret);
+ }
+ 
+ static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
 -- 
 2.25.1
 
