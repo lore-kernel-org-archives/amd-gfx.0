@@ -4,37 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E4FDC001DE
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBBD7C001E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CE7F10E300;
-	Mon, 24 Jul 2023 12:58:43 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9249F88EBA;
- Mon, 24 Jul 2023 09:23:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=nHwERRNohuUhZsb3fsbGJZNV/wqpb0sJjOXJGxj/gFU=; b=0eTCGmkFvYRanCjqIruUc+gFHD
- eb0YjlozDEULA37j7v5qY4zn7oNzSJHyKS6Mu3lubDRF2RaMczkF4f0lJh//Gw6lfNr0hipZSgCGS
- JIWlEQVkw7RyvqjD3Uxd4RuJG7sAceLde0p86r2jFr/kdLPlkftX1hnSBOxxVBlLMicc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1qNrmC-0026m1-D4; Mon, 24 Jul 2023 11:22:48 +0200
-Date: Mon, 24 Jul 2023 11:22:48 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Evan Quan <evan.quan@amd.com>
-Subject: Re: [PATCH V7 4/9] wifi: mac80211: Add support for ACPI WBRF
-Message-ID: <9b1f45f9-02a3-4c03-b9d5-cc3b9ab3a058@lunn.ch>
-References: <20230719090020.2716892-1-evan.quan@amd.com>
- <20230719090020.2716892-5-evan.quan@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43C9810E2FE;
+	Mon, 24 Jul 2023 12:58:44 +0000 (UTC)
+Received: from mail.208.org (unknown [183.242.55.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A45BD10E12E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 07:32:46 +0000 (UTC)
+Received: from mail.208.org (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTP id 4R8X1l60m2zBRx56
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 15:32:43 +0800 (CST)
+Authentication-Results: mail.208.org (amavisd-new); dkim=pass
+ reason="pass (just generated, assumed good)" header.d=208.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
+ content-transfer-encoding:content-type:message-id:user-agent
+ :references:in-reply-to:subject:to:from:date:mime-version; s=
+ dkim; t=1690183963; x=1692775964; bh=S9tFFcFdxC3EfuKS841EZfUjDnN
+ 6RZk4grIKnUJ88MA=; b=JNpDSiJfxvqunsECsmaImwqu58zbRVWQG1PQDcBUhmr
+ UflbDfvmfrH7XhDSOSDAssxX8qJnNag8x57qDIdLQ5yxWBrWTvzVGiL9OZZVaTPD
+ LEyzotFQztuGIJo21LLojjgtsSxjKJyGhFbGLWMmM6nwJ34hNLMdR6BKJ+a1avrL
+ wGjP17Ppwk3/e8n01t73OKLhpUGaWqjpizx0gaSX+lVDCdguLAbcMg0BiG0yfxV5
+ xgx3psQwmEskqN4t0tMCI09oW/J43nmdZxql6OhgXn2YuGK2nzAqOBrvvKzYw2js
+ 8N4X/VL7OYZZpR+hGq/CTFJy8AMUZVCV4CNyaJk4Qqg==
+X-Virus-Scanned: amavisd-new at mail.208.org
+Received: from mail.208.org ([127.0.0.1])
+ by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id qetSpfLjTaFU for <amd-gfx@lists.freedesktop.org>;
+ Mon, 24 Jul 2023 15:32:43 +0800 (CST)
+Received: from localhost (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTPSA id 4R8X1l4TNBzBHBPw;
+ Mon, 24 Jul 2023 15:32:43 +0800 (CST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230719090020.2716892-5-evan.quan@amd.com>
-X-Mailman-Approved-At: Mon, 24 Jul 2023 12:58:33 +0000
+Date: Mon, 24 Jul 2023 15:32:43 +0800
+From: sunran001@208suo.com
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amd/pm: Clean up errors in arcturus_ppt.c
+In-Reply-To: <20230724073153.9003-1-xujianghui@cdjrlc.com>
+References: <20230724073153.9003-1-xujianghui@cdjrlc.com>
+User-Agent: Roundcube Webmail
+Message-ID: <71605c0ae02fcfd1d044aa9e52088543@208suo.com>
+X-Sender: sunran001@208suo.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 24 Jul 2023 12:58:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,58 +60,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jingyuwang_vip@163.com, bellosilicio@gmail.com, rafael@kernel.org,
- trix@redhat.com, Lijo.Lazar@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, mdaenzer@redhat.com, Mario.Limonciello@amd.com,
- airlied@gmail.com, amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org,
- kuba@kernel.org, pabeni@redhat.com, lenb@kernel.org, andrealmeid@igalia.com,
- daniel@ffwll.ch, arnd@arndb.de, maarten.lankhorst@linux.intel.com,
- hdegoede@redhat.com, jsg@jsg.id.au, jim.cromie@gmail.com,
- netdev@vger.kernel.org, Xinhui.Pan@amd.com, linux-wireless@vger.kernel.org,
- edumazet@google.com, Christian.Koenig@amd.com, tzimmermann@suse.de,
- Alexander.Deucher@amd.com, johannes@sipsolutions.net, davem@davemloft.net
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> @@ -1395,6 +1395,8 @@ int ieee80211_register_hw(struct ieee80211_hw *hw)
->  	debugfs_hw_add(local);
->  	rate_control_add_debugfs(local);
->  
-> +	ieee80211_check_wbrf_support(local);
-> +
->  	rtnl_lock();
->  	wiphy_lock(hw->wiphy);
->  
+Fix the following errors reported by checkpatch:
 
-> +void ieee80211_check_wbrf_support(struct ieee80211_local *local)
-> +{
-> +	struct wiphy *wiphy = local->hw.wiphy;
-> +	struct device *dev;
-> +
-> +	if (!wiphy)
-> +		return;
-> +
-> +	dev = wiphy->dev.parent;
-> +	if (!dev)
-> +		return;
-> +
-> +	local->wbrf_supported = wbrf_supported_producer(dev);
-> +	dev_dbg(dev, "WBRF is %s supported\n",
-> +		local->wbrf_supported ? "" : "not");
-> +}
+ERROR: spaces required around that '=' (ctx:VxW)
+ERROR: spaces required around that '>=' (ctx:WxV)
 
-This seems wrong. wbrf_supported_producer() is about "Should this
-device report the frequencies it is using?" The answer to that depends
-on a combination of: Are there consumers registered with the core, and
-is the policy set so WBRF should take actions.
+Signed-off-by: Ran Sun <sunran001@208suo.com>
+---
+  drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 4 ++--
+  1 file changed, 2 insertions(+), 2 deletions(-)
 
-The problem here is, you have no idea of the probe order. It could be
-this device probes before others, so wbrf_supported_producer() reports
-false, but a few second later would report true, once other devices
-have probed.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c 
+b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index 3bb18396d2f9..c49f770c97b3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -598,7 +598,7 @@ static int arcturus_get_smu_metrics_data(struct 
+smu_context *smu,
+  					 MetricsMember_t member,
+  					 uint32_t *value)
+  {
+-	struct smu_table_context *smu_table= &smu->smu_table;
++	struct smu_table_context *smu_table = &smu->smu_table;
+  	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table->metrics_table;
+  	int ret = 0;
 
-It should be an inexpensive call into the core, so can be made every
-time the channel changes. All the core needs to do is check if the
-list of consumers is empty, and if not, check a Boolean policy value.
+@@ -1482,7 +1482,7 @@ static int arcturus_set_power_profile_mode(struct 
+smu_context *smu,
+  		return ret;
 
-     Andrew
+  	if ((profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) &&
+-	     (smu_version >=0x360d00)) {
++	     (smu_version >= 0x360d00)) {
+  		ret = smu_cmn_update_table(smu,
+  				       SMU_TABLE_ACTIVITY_MONITOR_COEFF,
+  				       WORKLOAD_PPLIB_CUSTOM_BIT,
