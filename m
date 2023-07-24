@@ -4,49 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98E5AC0015E
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:04:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 317BBC0015E
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:16:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30F8F10E098;
-	Mon, 24 Jul 2023 12:04:55 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCD0E10E098;
- Mon, 24 Jul 2023 12:04:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1690200292; x=1721736292;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=58YmAVMNhM+69Uz4TSYJtTClde4BqyBdoWDlbcr2UFA=;
- b=FO31fJaquioOEDPAq/edPdyfcrXz99Q1zdxjfPiISNhPIson7oGFbwwW
- lYdj/kLLazbh2IaD97ND2L6otfCbJ527ZGxk19nPT11QE2/iI3rDOGU1q
- 9rP0EVtNRkMlA0UFVjPGB9ILSG9g8IJLJeLYyNJB5acK2f6UI9wEUvaun
- VpXlpkko5KwTxGhOA9ba16P/Ii+vwmMHKMbnJSJsI9nx95mVdFE7ROjMi
- sBy8gsT+/T/9ZHwEbJ0MRkJVs6RDZ/Vlrfmhd7fMBvRPbCqeGENPHq3OG
- eWMkgcJ9C5BtE6WoXxHmeIUYWMvAX/3e+cCd7lAIIDu+qmyM7Rw1hRAnJ w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="371022845"
-X-IronPort-AV: E=Sophos;i="6.01,228,1684825200"; d="scan'208";a="371022845"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2023 05:04:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10780"; a="795758415"
-X-IronPort-AV: E=Sophos;i="6.01,228,1684825200"; d="scan'208";a="795758415"
-Received: from lkp-server02.sh.intel.com (HELO 36946fcf73d7) ([10.239.97.151])
- by fmsmga004.fm.intel.com with ESMTP; 24 Jul 2023 05:04:12 -0700
-Received: from kbuild by 36946fcf73d7 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qNuI7-0009iG-1a;
- Mon, 24 Jul 2023 12:04:01 +0000
-Date: Mon, 24 Jul 2023 20:03:05 +0800
-From: kernel test robot <lkp@intel.com>
-To: sunran001@208suo.com, alexander.deucher@amd.com
-Subject: Re: [PATCH] drm/amd/pm: Clean up errors in sienna_cichlid_ppt.c
-Message-ID: <202307241921.8W1KDtYK-lkp@intel.com>
-References: <ea1cf43d5545fa917127694a294a57da@208suo.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 815E310E2DB;
+	Mon, 24 Jul 2023 12:16:27 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2960610E2DB;
+ Mon, 24 Jul 2023 12:16:24 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8Cxc_CXa75kLjQJAA--.23048S3;
+ Mon, 24 Jul 2023 20:16:23 +0800 (CST)
+Received: from [10.20.42.43] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8AxTSOSa75k+yg5AA--.5452S3; 
+ Mon, 24 Jul 2023 20:16:19 +0800 (CST)
+Message-ID: <5fbc1ec7-fb61-7e4d-960c-81cc11b706f5@loongson.cn>
+Date: Mon, 24 Jul 2023 20:16:18 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ea1cf43d5545fa917127694a294a57da@208suo.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v3 4/9] PCI/VGA: Improve the default VGA device selection
+Content-Language: en-US
+To: Bjorn Helgaas <helgaas@kernel.org>, Sui Jingfeng <sui.jingfeng@linux.dev>
+References: <20230719193233.GA511659@bhelgaas>
+From: suijingfeng <suijingfeng@loongson.cn>
+In-Reply-To: <20230719193233.GA511659@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID: AQAAf8AxTSOSa75k+yg5AA--.5452S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoW7uFWkGrykCF4rXw4rGr1xZwc_yoW8GFyxpa
+ 4a9Fy3KFZaqr4UJr9Fk348XF45Wa17Xas5Aw13Gryjkrs8X34qg34xK3yYk34kZFn3Wr1Y
+ vFWaka48ZFWqyacCm3ZEXasCq-sJn29KB7ZKAUJUUUU3529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUPSb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+ xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+ AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+ AVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
+ 8JMxk0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vI
+ r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_GFv_Wrylx2IqxVAqx4xG67
+ AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCI
+ c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+ AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+ Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUnsZ23
+ UUUUU==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,75 +63,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, oe-kbuild-all@lists.linux.dev
+Cc: linux-fbdev@vger.kernel.org, Cornelia Huck <cohuck@redhat.com>,
+ Karol Herbst <kherbst@redhat.com>, linux-pci@vger.kernel.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Likun Gao <Likun.Gao@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Ville Syrjala <ville.syrjala@linux.intel.com>, Yi Liu <yi.l.liu@intel.com>,
+ kvm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
+ Kevin Tian <kevin.tian@intel.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula <jani.nikula@intel.com>,
+ Bokun Zhang <Bokun.Zhang@amd.com>, intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Abhishek Sahu <abhsahu@nvidia.com>, Maxime Ripard <mripard@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Yishai Hadas <yishaih@nvidia.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Hi,
 
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.5-rc3 next-20230724]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/sunran001-208suo-com/drm-amd-pm-Clean-up-errors-in-sienna_cichlid_ppt-c/20230724-153134
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/ea1cf43d5545fa917127694a294a57da%40208suo.com
-patch subject: [PATCH] drm/amd/pm: Clean up errors in sienna_cichlid_ppt.c
-config: i386-buildonly-randconfig-r004-20230724 (https://download.01.org/0day-ci/archive/20230724/202307241921.8W1KDtYK-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce: (https://download.01.org/0day-ci/archive/20230724/202307241921.8W1KDtYK-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202307241921.8W1KDtYK-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/sienna_cichlid_ppt.c: In function 'sienna_cichlid_get_throttler_status_locked':
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/sienna_cichlid_ppt.c:595:42: error: 'smu_table' undeclared (first use in this function)
-     595 |                 (SmuMetricsExternal_t *)(smu_table->metrics_table);
-         |                                          ^~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/sienna_cichlid_ppt.c:595:42: note: each undeclared identifier is reported only once for each function it appears in
->> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/sienna_cichlid_ppt.c:593:35: warning: unused variable 'smu_tabl' [-Wunused-variable]
-     593 |         struct smu_table_context *smu_tabl = &smu->smu_table;
-         |                                   ^~~~~~~~
+On 2023/7/20 03:32, Bjorn Helgaas wrote:
+>> 2) It does not take the PCI Bar may get relocated into consideration.
+>> 3) It is not effective for the PCI device without a dedicated VRAM Bar.
+>> 4) It is device-agnostic, thus it has to waste the effort to iterate all
+>>     of the PCI Bar to find the VRAM aperture.
+>> 5) It has invented lots of methods to determine which one is the default
+>>     boot device, but this is still a policy because it doesn't give the
+>>     user a choice to override.
+> I don't think we need a list of*potential*  problems.  We need an
+> example of the specific problem this will solve, i.e., what currently
+> does not work?
 
 
-vim +/smu_tabl +593 drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/sienna_cichlid_ppt.c
+This version do allow the arbitration service works on non-x86 arch,
 
-   590	
-   591	static uint32_t sienna_cichlid_get_throttler_status_locked(struct smu_context *smu)
-   592	{
- > 593		struct smu_table_context *smu_tabl = &smu->smu_table;
-   594		SmuMetricsExternal_t *metrics_ext =
-   595			(SmuMetricsExternal_t *)(smu_table->metrics_table);
-   596		uint32_t throttler_status = 0;
-   597		int i;
-   598	
-   599		if ((smu->adev->ip_versions[MP1_HWIP][0] == IP_VERSION(11, 0, 7)) &&
-   600		     (smu->smc_fw_version >= 0x3A4900)) {
-   601			for (i = 0; i < THROTTLER_COUNT; i++)
-   602				throttler_status |=
-   603					(metrics_ext->SmuMetrics_V3.ThrottlingPercentage[i] ? 1U << i : 0);
-   604		} else if ((smu->adev->ip_versions[MP1_HWIP][0] == IP_VERSION(11, 0, 7)) &&
-   605		     (smu->smc_fw_version >= 0x3A4300)) {
-   606			for (i = 0; i < THROTTLER_COUNT; i++)
-   607				throttler_status |=
-   608					(metrics_ext->SmuMetrics_V2.ThrottlingPercentage[i] ? 1U << i : 0);
-   609		} else {
-   610			throttler_status = metrics_ext->SmuMetrics.ThrottlerStatus;
-   611		}
-   612	
-   613		return throttler_status;
-   614	}
-   615	
+which also allow me remove a arch-specific workaround.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+I will give more detail at the next version.
+
+
+But I want to provide one more drawback of vgaarb here:
+
+
+(6) It does not works for non VGA-compatible PCI(e) display controllers.
+
+
+Because, currently, vgaarb deal with PCI VGA compatible devices only.
+
+See another my patch set [1] for more elaborate discussion.
+
+It also ignore PCI_CLASS_NOT_DEFINED_VGA as Maciej puts it[2].
+
+While my approach do not required the display controller to be 
+VGA-compatible to enjoy the arbitration service.
+
+What do you think then?
+
+
+[1] https://patchwork.freedesktop.org/patch/546690/?series=120548&rev=1
+
+[2] https://lkml.org/lkml/2023/6/18/315
+
