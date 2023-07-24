@@ -4,30 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8707AC001DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 181A5C001B0
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A342510E30A;
-	Mon, 24 Jul 2023 12:58:43 +0000 (UTC)
-Received: from mailgw.gate-on.net (auth.Gate-On.Net [210.197.74.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC1F610E0D5
- for <amd-gfx@lists.freedesktop.org>; Sat, 22 Jul 2023 02:30:20 +0000 (UTC)
-Received: from vega.pgw.jp (unknown [49.135.109.134])
- by mailgw.gate-on.net (Postfix) with ESMTP id 96BCC802A7;
- Sat, 22 Jul 2023 11:30:18 +0900 (JST)
-Received: from localhost (vega.pgw.jp [10.5.0.30])
- by vega.pgw.jp (Postfix) with SMTP
- id 265E2A53D; Sat, 22 Jul 2023 11:30:14 +0900 (JST)
-From: <kabe@vega.pgw.jp>
-To: rostedt@goodmis.org
-Subject: Re: radeon.ko/i586: BUG: kernel NULL pointer dereference,
- address:00000004
-In-Reply-To: Your message of "Fri, 21 Jul 2023 08:39:55 +0900".
- <230721083955.M0102626@vega.pgw.jp>
-X-Mailer: mnews [version 1.22PL5] 2002-11-27(Wed)
-Date: Sat, 22 Jul 2023 11:30:14 +0900
-Message-ID: <230722113014.M0204460@vega.pgw.jp>
-X-Mailman-Approved-At: Mon, 24 Jul 2023 12:58:33 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F60510E2FB;
+	Mon, 24 Jul 2023 12:58:44 +0000 (UTC)
+Received: from mail.208.org (unknown [183.242.55.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 145B410E27B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 07:02:26 +0000 (UTC)
+Received: from mail.208.org (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTP id 4R8WLg1kLyzBRx4b
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 15:02:19 +0800 (CST)
+Authentication-Results: mail.208.org (amavisd-new); dkim=pass
+ reason="pass (just generated, assumed good)" header.d=208.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
+ content-transfer-encoding:content-type:message-id:user-agent
+ :references:in-reply-to:subject:to:from:date:mime-version; s=
+ dkim; t=1690182139; x=1692774140; bh=D+4P5p5qab67/2JnjNtYcP9Rkun
+ WsCExLiGCPkJOU9k=; b=jzyg4Ed4QSZ6URKfdmyUmjgSyc+iFU+jR8RBGOeUfSo
+ tJHjbKPHToRyMpccgA2nU98kEAsTgxrhfPaa988QNjx8IQFMO5y8kBl0yWdxwwYj
+ bLlkJOvx5ckGDo2XlTFqLZGeQ8t9QNpLDO7ewGngQfsvztd2VUwd9IN0JPzKJVP0
+ c/m6jrTVcgk6oG8QSxTHOq3dj37QmtWtDzq4BSVOkc2HbU6ZBQ8aPBcAgyWPp25c
+ 1mlQXWMdNBLmjv+KKMhL0BGaGEJAKgegBMrtIn7oSdDuQWr8EMScBP8jXC2rsbhD
+ xU3Lt4LsoaXbicQIxt0c0KjFQBzwOftvp/TvJdRCrGA==
+X-Virus-Scanned: amavisd-new at mail.208.org
+Received: from mail.208.org ([127.0.0.1])
+ by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id n6uvh7cLmzoO for <amd-gfx@lists.freedesktop.org>;
+ Mon, 24 Jul 2023 15:02:19 +0800 (CST)
+Received: from localhost (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTPSA id 4R8WLf5QW2zBRYmB;
+ Mon, 24 Jul 2023 15:02:18 +0800 (CST)
+MIME-Version: 1.0
+Date: Mon, 24 Jul 2023 15:02:18 +0800
+From: sunran001@208suo.com
+To: airlied@gmail.com, daniel@ffwll.ch, alexander.deucher@amd.com
+Subject: [PATCH] drm/amd/pm: add missing spaces before '('
+In-Reply-To: <20230724070049.8540-1-xujianghui@cdjrlc.com>
+References: <20230724070049.8540-1-xujianghui@cdjrlc.com>
+User-Agent: Roundcube Webmail
+Message-ID: <7ad78e88ddb94a0811947b48b04dfb2c@208suo.com>
+X-Sender: sunran001@208suo.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 24 Jul 2023 12:58:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,60 +60,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dave.hansen@linux.intel.com, regressions@lists.linux.dev,
- Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, mingo@redhat.com, bp@alien8.de,
- bagasdotme@gmail.com, hpa@zytor.com, alexander.deucher@amd.com,
- tglx@linutronix.de, kkabe@vega.pgw.jp, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-rostedt@goodmis.org sed in <20230717113623.41878887@gandalf.local.home>
+ERROR: space required before the open parenthesis '('
 
->> On Fri, 14 Jul 2023 14:34:04 +0900
->> <kkabe@vega.pgw.jp> wrote:
->> 
->> > Patch in
->> > https://bugzilla.kernel.org/show_bug.cgi?id=217669#c4
->> > fixed the problem in freedesktop.org kernel 5.18.0-rc2 .
->> > This may explain that in kernel.org tree, the said commit is in kernel-5.19.
->> 
->> You mean the patch that adds:
->> 
->> 	#if defined(FTRACE_MCOUNT_MAX_OFFSET) && (FTRACE_MCOUNT_MAX_OFFSET)
->> 
->> ?
->> 
->> Nothing should be setting FTRACE_MCOUNT_MAX_OFFSET to anything but non
->> zero. But doing a grep, I now see:
->> 
->> # define FTRACE_MCOUNT_MAX_OFFSET ENDBR_INSN_SIZE
->> 
->> Where it breaks that assumption if ENDBR_INSN_SIZE == 0 :-p
->>  (and that's my code!)
->> 
->> OK, does this fix it? (I haven't tested nor compiled this)
->> 
->> -- Steve
->> 
->> diff --git a/arch/x86/include/asm/ftrace.h b/arch/x86/include/asm/ftrace.h
->> index 897cf02c20b1..801f4414da3e 100644
->> --- a/arch/x86/include/asm/ftrace.h
->> +++ b/arch/x86/include/asm/ftrace.h
->> @@ -13,7 +13,7 @@
->>  #ifdef CONFIG_HAVE_FENTRY
->>  # include <asm/ibt.h>
->>  /* Add offset for endbr64 if IBT enabled */
->> -# define FTRACE_MCOUNT_MAX_OFFSET	ENDBR_INSN_SIZE
->> +# define FTRACE_MCOUNT_MAX_OFFSET	(ENDBR_INSN_SIZE + MCOUNT_INSN_SIZE)
->>  #endif
->>  
->>  #ifdef CONFIG_DYNAMIC_FTRACE
->> 
+Signed-off-by: Ran Sun <sunran001@208suo.com>
+---
+  drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c | 6 +++---
+  1 file changed, 3 insertions(+), 3 deletions(-)
 
-Above patch didn't work, but
-Does it matter that I am compiling with "gcc -fcf-protection=none"
-to not emit endbr32 instructions for i586?
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c 
+b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+index 8a8ba25c9ad7..a7569354229d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+@@ -262,15 +262,15 @@ static int renoir_get_profiling_clk_mask(struct 
+smu_context *smu,
+  			/* mclk levels are in reverse order */
+  			*mclk_mask = NUM_MEMCLK_DPM_LEVELS - 1;
+  	} else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK) {
+-		if(sclk_mask)
++		if (sclk_mask)
+  			/* The sclk as gfxclk and has three level about max/min/current */
+  			*sclk_mask = 3 - 1;
 
--- 
-kabe
+-		if(mclk_mask)
++		if (mclk_mask)
+  			/* mclk levels are in reverse order */
+  			*mclk_mask = 0;
+
+-		if(soc_mask)
++		if (soc_mask)
+  			*soc_mask = NUM_SOCCLK_DPM_LEVELS - 1;
+  	}
