@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02A74C0015E
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:48:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDDD2C001B0
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B4F810E2EE;
-	Mon, 24 Jul 2023 12:47:54 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id DB19410E2EC;
- Mon, 24 Jul 2023 12:47:50 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8BxIvD1cr5k_jUJAA--.22245S3;
- Mon, 24 Jul 2023 20:47:49 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8CxLCP0cr5kczY5AA--.5514S3; 
- Mon, 24 Jul 2023 20:47:48 +0800 (CST)
-Message-ID: <4cb6fd14-4661-4285-ac5f-c8f6ea1f4208@loongson.cn>
-Date: Mon, 24 Jul 2023 20:47:48 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46C1910E2F6;
+	Mon, 24 Jul 2023 12:58:35 +0000 (UTC)
+Received: from mail.208.org (unknown [183.242.55.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 840D810E021
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 07:12:16 +0000 (UTC)
+Received: from mail.208.org (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTP id 4R8WZ61xmHzBRx4d
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 15:12:14 +0800 (CST)
+Authentication-Results: mail.208.org (amavisd-new); dkim=pass
+ reason="pass (just generated, assumed good)" header.d=208.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
+ content-transfer-encoding:content-type:message-id:user-agent
+ :references:in-reply-to:subject:to:from:date:mime-version; s=
+ dkim; t=1690182734; x=1692774735; bh=GSjQh+24fDmg268C3FAmWe759o+
+ e7JqjQBA0Ouu1xsQ=; b=nY50u1mioKgn6dyttJAUVTwcgoytrZJy3qN3w+Tc1cM
+ DtRZIQvlXBRwDNxRlnIbtIE+jbS/QwSXqGQt5LYWM0L1AjS9Qt4juLLugXgcHSE9
+ Wk37DJ1l+i3P/PEiYAf3k62Z1Kl4ibHmr6Q5Yv3DrGXmFMJYVl6o2ivUC+8rpQ7o
+ aI+Lv3087KJzoakgW/VCdiHQ3yAOKlZdaeO07OBRAzAOubHLolK4dYsiFB+KnfdM
+ 8MrcjL7KBdTmtoZnaVuAozJvpsnlmmeTs2kwR7u7yx24WvFnMhKw8rENdOmup/ne
+ ZX36iP8GvEcAWo4p4h7OH3k/0V/XWx8zPEaA6dOMtqw==
+X-Virus-Scanned: amavisd-new at mail.208.org
+Received: from mail.208.org ([127.0.0.1])
+ by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id rJecncUx8cu6 for <amd-gfx@lists.freedesktop.org>;
+ Mon, 24 Jul 2023 15:12:14 +0800 (CST)
+Received: from localhost (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTPSA id 4R8WZ56rwWzBL0sr;
+ Mon, 24 Jul 2023 15:12:13 +0800 (CST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v3 0/9] PCI/VGA: Improve the default VGA device selection
-Content-Language: en-US
-To: Bjorn Helgaas <helgaas@kernel.org>, Sui Jingfeng <sui.jingfeng@linux.dev>
-References: <20230719193241.GA510805@bhelgaas>
-From: suijingfeng <suijingfeng@loongson.cn>
-In-Reply-To: <20230719193241.GA510805@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8CxLCP0cr5kczY5AA--.5514S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Cw4UGrWxCFWrXF1ftFyUXFc_yoW8Xr4Upr
- 1rXF4UKry8Jr18Jr1DJr1UJryDJF47J34UJr1UGF1UJr1UJryjq348Xr1jgr47Jr4kXr4U
- Xr4UJF1UZF1jywbCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUvab4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
- 1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv
- 67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
- AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
- F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
- ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
- xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
- 4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU
- cyxRUUUUU
+Date: Mon, 24 Jul 2023 15:12:13 +0800
+From: sunran001@208suo.com
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amd/pm:open brace '{' following function definitions go
+ on the next line
+In-Reply-To: <20230724071121.8710-1-xujianghui@cdjrlc.com>
+References: <20230724071121.8710-1-xujianghui@cdjrlc.com>
+User-Agent: Roundcube Webmail
+Message-ID: <be6d6605aa504964eba3476910f7140a@208suo.com>
+X-Sender: sunran001@208suo.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 24 Jul 2023 12:58:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,49 +61,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org, linux-pci@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+ERROR: open brace '{' following function definitions go on the next line
 
+Signed-off-by: Ran Sun <sunran001@208suo.com>
+---
+  drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c | 3 ++-
+  1 file changed, 2 insertions(+), 1 deletion(-)
 
-On 2023/7/20 03:32, Bjorn Helgaas wrote:
-> "drm/loongson: Add an implement for ..." also solves a problem, but it
-> lacks a commit log, so I don't know what the problem is.
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c 
+b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
+index c788aa7a99a9..5e408a195860 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
+@@ -205,7 +205,8 @@ int smu_v12_0_set_default_dpm_tables(struct 
+smu_context *smu)
+  	return smu_cmn_update_table(smu, SMU_TABLE_DPMCLOCKS, 0, 
+smu_table->clocks_table, false);
+  }
 
-
-I have already telling you one yeas ago.
-
-I want remove the pci_fixup_vgadev() function in arch/loongarch/pci/pci.c
-
-I was the original author of this workaround at our downstream kernel.
-
-While the time is not mature until this patch set be merged.
-
-I don't want mention this, as you asked this question.
-
-So, I think I have to explain.
-
-
--static void pci_fixup_vgadev(struct pci_dev *pdev)
--{
--       struct pci_dev *devp = NULL;
--
--       while ((devp = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, devp))) {
--               if (devp->vendor != PCI_VENDOR_ID_LOONGSON) {
--                       vga_set_default_device(devp);
--                       dev_info(&pdev->dev,
--                               "Overriding boot device as %X:%X\n",
--                               devp->vendor, devp->device);
--               }
--       }
--}
--DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_LOONGSON, 
-PCI_DEVICE_ID_LOONGSON_DC1, pci_fixup_vgadev);
--DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_LOONGSON, 
-PCI_DEVICE_ID_LOONGSON_DC2, pci_fixup_vgadev);
-
+-int smu_v12_0_mode2_reset(struct smu_context *smu){
++int smu_v12_0_mode2_reset(struct smu_context *smu)
++{
+  	return smu_cmn_send_smc_msg_with_param(smu, 
+SMU_MSG_GfxDeviceDriverReset, SMU_RESET_MODE_2, NULL);
+  }
