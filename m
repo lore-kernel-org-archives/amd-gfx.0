@@ -4,60 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E847C001B0
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 13:22:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4C65C0015E
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 13:26:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C508D10E313;
-	Mon, 24 Jul 2023 13:22:19 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69AAA10E313
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 13:22:17 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-1b449890ef5so3429877fac.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 06:22:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690204936; x=1690809736;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lReCM1Ng5R5l5rw6SUsay1V2ASZdcgW+9GTWja1MJxE=;
- b=Z7JHLiLZVrF/1EVqqWwgouLTDAOyvOaO3uM8ldKg9Cl1d3lnGaDSsoz3eBxwhHz3bw
- Cvf5y1FefUBQ+g85aalPr0iQrF2dc6lN3ThD4ZfDO2OmmsrPPCeu/5z0/1O74iqDV7Ml
- 4DexjZ1Kv8II1IPOEtybkkrXlB/W9bZhi3oZZ0xbGdBf44m7eETAYBijOcZLcmXFOvbT
- u2GS6HxIBSZft3zHWlxNjbUHAbMquBw+yIqIXHZgklp0C5MOK7HiBpQguvyenyA2xZ0o
- 1AGjlNyKT8wjWJTt2yEDZinKaAwWwibH/108pqVOfWd1LaWaE0HxAYVqq43wkzk4DZLP
- 2Lww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690204936; x=1690809736;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lReCM1Ng5R5l5rw6SUsay1V2ASZdcgW+9GTWja1MJxE=;
- b=TdRPPvt0vkiyJ7bla+0LK/Uj/KdKqYZ0sY+Rb2WFNqskvTUuVcEj1FVMUm7nHId5Kq
- 2E5TozlwdfiZKbkczFMweKvBPlknsfXDP1BTPSc1jnbwjcyG45XMMXY7inO171ZqS2HL
- 63YIAlmjzVaJsfof5ZhhyjutT5WDm7jys8agv9b56m67aMx/ui65idHKJjPnKO7WasGk
- aLaJqpvOQsQ/g7P1PaWrEmJEHrLKKUlpVG4wHhWo/a8p4U+7np7Go7OM08AkKkDB89Fr
- X7JR0z+3EdtayPSE79DZBl6OpWIGsEi37bV9MY2FhWT1bT0bqy0+KaVj4xU36aexYG//
- DpiQ==
-X-Gm-Message-State: ABy/qLZWivGEBo6wVeeBmGPJG2cNJAalZMDgG/yUqYEfeBIEaXLaB8fQ
- sN44DlcWRgjGUpW7cBRGSdbqyQ+MC2V8ba7mlMc=
-X-Google-Smtp-Source: APBJJlHVn5K/kUXVQKZPtpJXJvKOZEKXZMuT5vxWSVVRIvfMsdPhUqvch/ezdcdNsuNcPVLZsgBIckb7y1ekeZCQL1U=
-X-Received: by 2002:a05:6870:428e:b0:1b3:d39a:968f with SMTP id
- y14-20020a056870428e00b001b3d39a968fmr11339232oah.58.1690204936402; Mon, 24
- Jul 2023 06:22:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52E0510E316;
+	Mon, 24 Jul 2023 13:26:20 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20D6610E316;
+ Mon, 24 Jul 2023 13:26:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1690205178; x=1721741178;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=rRj9ZIINSZVCOZEchPBNGd+/TGphUXr/fqbiJ4Ays80=;
+ b=OgUOImOSsyXt44AhBRzxo/V4gGfQhIEuI1LiW5FsNMHSzzjdF/fRes9d
+ tkk2YMFjYioMgUEoXlJvee99cSK7Q77q2ATZt9fnToSXEMDgh+5mI1Y6T
+ 2uiHAdZ9F/ZuEzweasy3HVnIaUyOn+FcZa8IxBN94vuA2bSjw+7o6BcWE
+ DMpkfGoOmKLOTSFxq51BHK7h03x7ZoF4ft0U7KKp/GwkPqmOiObrmBSew
+ U+BGHS5IcqU2vM+goN19tb9KPHFDliGVtpYkFbc0RkL3iLaV05LsgXY/+
+ X+ibiaVc6CsIarjyvoatnMF8mGPuQL0UtQKK2nhKj+UZy8NQUZMLhkafk g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10781"; a="453816689"
+X-IronPort-AV: E=Sophos;i="6.01,228,1684825200"; d="scan'208";a="453816689"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2023 06:26:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10781"; a="790962677"
+X-IronPort-AV: E=Sophos;i="6.01,228,1684825200"; d="scan'208";a="790962677"
+Received: from lkp-server02.sh.intel.com (HELO 36946fcf73d7) ([10.239.97.151])
+ by fmsmga008.fm.intel.com with ESMTP; 24 Jul 2023 06:26:15 -0700
+Received: from kbuild by 36946fcf73d7 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qNvZi-0009jv-1T;
+ Mon, 24 Jul 2023 13:26:11 +0000
+Date: Mon, 24 Jul 2023 21:25:51 +0800
+From: kernel test robot <lkp@intel.com>
+To: sunran001@208suo.com, alexander.deucher@amd.com
+Subject: Re: [PATCH] drm/amd/pm: Clean up errors in sienna_cichlid_ppt.c
+Message-ID: <202307242115.Lz6daJQo-lkp@intel.com>
+References: <ea1cf43d5545fa917127694a294a57da@208suo.com>
 MIME-Version: 1.0
-References: <20230723094921.2054552-1-srinivasan.shanmugam@amd.com>
- <20230723125320.2059977-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230723125320.2059977-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 24 Jul 2023 09:22:05 -0400
-Message-ID: <CADnq5_OVK18pqJhQ6FYyBi21pt3NqQ4GzQ5gq+qoyjL0FLtS8A@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Add -ENOMEM error handling when there is
- no memory
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ea1cf43d5545fa917127694a294a57da@208suo.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,169 +58,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ oe-kbuild-all@lists.linux.dev
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jul 23, 2023 at 8:53=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> Return -ENOMEM, when there is no sufficient dynamically allocated memory
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Hi,
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+kernel test robot noticed the following build errors:
 
-> ---
->
-> v2:
->  - Added -ENOMEM - when it failed to create MQD backup,
->    while creating MQD for each KCQ
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  | 17 ++++++++++-------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c |  1 +
->  drivers/gpu/drm/amd/amdgpu/mes_v10_1.c   |  4 +++-
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c   |  4 +++-
->  4 files changed, 17 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index 6639fde5dd5c..c76b6bfc4dab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -110,9 +110,9 @@ bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_dev=
-ice *adev,
->   * The bitmask of CUs to be disabled in the shader array determined by s=
-e and
->   * sh is stored in mask[se * max_sh + sh].
->   */
-> -void amdgpu_gfx_parse_disable_cu(unsigned *mask, unsigned max_se, unsign=
-ed max_sh)
-> +void amdgpu_gfx_parse_disable_cu(unsigned int *mask, unsigned int max_se=
-, unsigned int max_sh)
->  {
-> -       unsigned se, sh, cu;
-> +       unsigned int se, sh, cu;
->         const char *p;
->
->         memset(mask, 0, sizeof(*mask) * max_se * max_sh);
-> @@ -124,6 +124,7 @@ void amdgpu_gfx_parse_disable_cu(unsigned *mask, unsi=
-gned max_se, unsigned max_s
->         for (;;) {
->                 char *next;
->                 int ret =3D sscanf(p, "%u.%u.%u", &se, &sh, &cu);
-> +
->                 if (ret < 3) {
->                         DRM_ERROR("amdgpu: could not parse disable_cu\n")=
-;
->                         return;
-> @@ -349,7 +350,7 @@ void amdgpu_gfx_kiq_fini(struct amdgpu_device *adev, =
-int xcc_id)
->  }
->
->  int amdgpu_gfx_kiq_init(struct amdgpu_device *adev,
-> -                       unsigned hpd_size, int xcc_id)
-> +                       unsigned int hpd_size, int xcc_id)
->  {
->         int r;
->         u32 *hpd;
-> @@ -376,7 +377,7 @@ int amdgpu_gfx_kiq_init(struct amdgpu_device *adev,
->
->  /* create MQD for each compute/gfx queue */
->  int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
-> -                          unsigned mqd_size, int xcc_id)
-> +                          unsigned int mqd_size, int xcc_id)
->  {
->         int r, i, j;
->         struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[xcc_id];
-> @@ -454,8 +455,10 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *ade=
-v,
->                         ring->mqd_size =3D mqd_size;
->                         /* prepare MQD backup */
->                         adev->gfx.mec.mqd_backup[j] =3D kmalloc(mqd_size,=
- GFP_KERNEL);
-> -                       if (!adev->gfx.mec.mqd_backup[j])
-> +                       if (!adev->gfx.mec.mqd_backup[j]) {
->                                 dev_warn(adev->dev, "no memory to create =
-MQD backup for ring %s\n", ring->name);
-> +                               return -ENOMEM;
-> +                       }
->                 }
->         }
->
-> @@ -1286,11 +1289,11 @@ static ssize_t amdgpu_gfx_get_available_compute_p=
-artition(struct device *dev,
->         return sysfs_emit(buf, "%s\n", supported_partition);
->  }
->
-> -static DEVICE_ATTR(current_compute_partition, S_IRUGO | S_IWUSR,
-> +static DEVICE_ATTR(current_compute_partition, 0644,
->                    amdgpu_gfx_get_current_compute_partition,
->                    amdgpu_gfx_set_compute_partition);
->
-> -static DEVICE_ATTR(available_compute_partition, S_IRUGO,
-> +static DEVICE_ATTR(available_compute_partition, 0444,
->                    amdgpu_gfx_get_available_compute_partition, NULL);
->
->  int amdgpu_gfx_sysfs_init(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_xgmi.c
-> index 03dc59cbe8aa..7e91b24784e5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -500,6 +500,7 @@ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct =
-amdgpu_device *adev)
->         hive =3D kzalloc(sizeof(*hive), GFP_KERNEL);
->         if (!hive) {
->                 dev_err(adev->dev, "XGMI: allocation failed\n");
-> +               ret =3D -ENOMEM;
->                 hive =3D NULL;
->                 goto pro_end;
->         }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v10_1.c
-> index 36a123e6c8ee..eb06d749876f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-> @@ -909,10 +909,12 @@ static int mes_v10_1_mqd_sw_init(struct amdgpu_devi=
-ce *adev,
->
->         /* prepare MQD backup */
->         adev->mes.mqd_backup[pipe] =3D kmalloc(mqd_size, GFP_KERNEL);
-> -       if (!adev->mes.mqd_backup[pipe])
-> +       if (!adev->mes.mqd_backup[pipe]) {
->                 dev_warn(adev->dev,
->                          "no memory to create MQD backup for ring %s\n",
->                          ring->name);
-> +               return -ENOMEM;
-> +       }
->
->         return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index 8e67e965f7ea..c8be534cc60d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -1021,10 +1021,12 @@ static int mes_v11_0_mqd_sw_init(struct amdgpu_de=
-vice *adev,
->
->         /* prepare MQD backup */
->         adev->mes.mqd_backup[pipe] =3D kmalloc(mqd_size, GFP_KERNEL);
-> -       if (!adev->mes.mqd_backup[pipe])
-> +       if (!adev->mes.mqd_backup[pipe]) {
->                 dev_warn(adev->dev,
->                          "no memory to create MQD backup for ring %s\n",
->                          ring->name);
-> +               return -ENOMEM;
-> +       }
->
->         return 0;
->  }
-> --
-> 2.25.1
->
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.5-rc3 next-20230724]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/sunran001-208suo-com/drm-amd-pm-Clean-up-errors-in-sienna_cichlid_ppt-c/20230724-153134
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/ea1cf43d5545fa917127694a294a57da%40208suo.com
+patch subject: [PATCH] drm/amd/pm: Clean up errors in sienna_cichlid_ppt.c
+config: riscv-randconfig-r014-20230724 (https://download.01.org/0day-ci/archive/20230724/202307242115.Lz6daJQo-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project.git f28c006a5895fc0e329fe15fead81e37457cb1d1)
+reproduce: (https://download.01.org/0day-ci/archive/20230724/202307242115.Lz6daJQo-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202307242115.Lz6daJQo-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/sienna_cichlid_ppt.c:595:28: error: use of undeclared identifier 'smu_table'; did you mean 'smu_tabl'?
+                   (SmuMetricsExternal_t *)(smu_table->metrics_table);
+                                            ^~~~~~~~~
+                                            smu_tabl
+   drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/sienna_cichlid_ppt.c:593:28: note: 'smu_tabl' declared here
+           struct smu_table_context *smu_tabl = &smu->smu_table;
+                                     ^
+   1 error generated.
+
+
+vim +595 drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/sienna_cichlid_ppt.c
+
+b455159c053130d drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c      Likun Gao            2020-05-29  590  
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  591  static uint32_t sienna_cichlid_get_throttler_status_locked(struct smu_context *smu)
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  592  {
+34af41f9a039153 drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c sunran001@208suo.com 2023-07-24  593  	struct smu_table_context *smu_tabl = &smu->smu_table;
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  594  	SmuMetricsExternal_t *metrics_ext =
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06 @595  		(SmuMetricsExternal_t *)(smu_table->metrics_table);
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  596  	uint32_t throttler_status = 0;
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  597  	int i;
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  598  
+1d789535a03679e drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Alex Deucher         2021-10-04  599  	if ((smu->adev->ip_versions[MP1_HWIP][0] == IP_VERSION(11, 0, 7)) &&
+7952fa0d3e18750 drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Danijel Slivka       2022-03-02  600  	     (smu->smc_fw_version >= 0x3A4900)) {
+7952fa0d3e18750 drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Danijel Slivka       2022-03-02  601  		for (i = 0; i < THROTTLER_COUNT; i++)
+7952fa0d3e18750 drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Danijel Slivka       2022-03-02  602  			throttler_status |=
+7952fa0d3e18750 drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Danijel Slivka       2022-03-02  603  				(metrics_ext->SmuMetrics_V3.ThrottlingPercentage[i] ? 1U << i : 0);
+7952fa0d3e18750 drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Danijel Slivka       2022-03-02  604  	} else if ((smu->adev->ip_versions[MP1_HWIP][0] == IP_VERSION(11, 0, 7)) &&
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  605  	     (smu->smc_fw_version >= 0x3A4300)) {
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  606  		for (i = 0; i < THROTTLER_COUNT; i++)
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  607  			throttler_status |=
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  608  				(metrics_ext->SmuMetrics_V2.ThrottlingPercentage[i] ? 1U << i : 0);
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  609  	} else {
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  610  		throttler_status = metrics_ext->SmuMetrics.ThrottlerStatus;
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  611  	}
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  612  
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  613  	return throttler_status;
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  614  }
+be22e2b9f4f92ed drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c Evan Quan            2021-07-06  615  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
