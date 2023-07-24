@@ -4,115 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26080C0015E
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 08:40:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 795DDC001B0
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 10:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 893B010E282;
-	Mon, 24 Jul 2023 08:40:05 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2046.outbound.protection.outlook.com [40.107.237.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7041610E282
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 08:40:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QbDVUAi0GCXULOvNgQ4DoyBm74JxrrwJdURNyIqzNf9Q8QoWgAXQttsK0RXYeNWHPjL10MaBgvKzG0lgh0tLHyjc39yP53OUxYLEyghn6pJpVjTAJqloQVG/QzClqPaJ2iEFzuibrZBchVWSPap26XmXYN5ft8e0J9TnHRDljGjNNDfzGzmxakA9iKdOB8pO9udc/jC8Y+yx4AqHAt8Oc1SRilNLjrd9Hx+lirslHGEgACHIxHLWhglV54C3XSD/EtiOrBfAxYt+jbNiih1Dzd5ucuxlgPpaU3+L5ZOqq4ytqh3iu0nZyLF0HPl5XAqGPF0BEti5nzhK4D/hg2O7vA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HAQm5hThI1nYIS2b+uUvkENY9e9X64+E6MiZmciDyRc=;
- b=juVbwJWnjwWTQNA/n1kQo+lvnoicuR+tbAk55JtJVxxsjmgQmeQJy7e6Uow1mzroK4maKIdYVR+EcgI7VB3Kjg/JcFUA77T4GehJs15xdjuhY9ek+JlHqi2nXyhYUoTe/dIzl0ZGCWo5r5E6mgVU66/apSRuHpKK7PTQw9h+dN2d1oPUOjgpTr8RsTURF/UBq6BhXVzNqlsCdIQOpMTbeZhRIloNhj+aUPT1jha0gJ2rTFTsBXm7bbIzuzB5Dbkd7qnARZHYseYCM8XA8iX753SiZpHzvsb0uiAG1wED3+RTBO+bJw0jLP4rPT3hhrtkuo8VcRaUP6KG/cnia6Z2aA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HAQm5hThI1nYIS2b+uUvkENY9e9X64+E6MiZmciDyRc=;
- b=mf2eXYWEYNZXhbIEHmWhwMZSOEA1KOC7q24H842xy5usezJmk0H8/ppanyHg+LZrtZIZZtuWh79RZxz1NaoEsXuUVrIepz9uXXpc5HqAApIGuPc6Q/6k3UBh5l8V+Ev0udmRsp3qDmZ2Vlzkry4O2j2QPpeJTojVCgzyKTmz+r8=
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
- CY8PR12MB8363.namprd12.prod.outlook.com (2603:10b6:930:7a::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6609.31; Mon, 24 Jul 2023 08:40:00 +0000
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::72dd:353e:4775:1225]) by DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::72dd:353e:4775:1225%3]) with mapi id 15.20.6609.031; Mon, 24 Jul 2023
- 08:40:00 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Zhou, Bob" <Bob.Zhou@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Pelloux-Prayer, Pierre-Eric"
- <Pierre-eric.Pelloux-prayer@amd.com>
-Subject: RE: [PATCH V2] drm/amdgpu: remove redundant variable declaration
-Thread-Topic: [PATCH V2] drm/amdgpu: remove redundant variable declaration
-Thread-Index: AQHZvgnj3ymCkt3cjk+i0QUoTy0pua/ImIwA
-Date: Mon, 24 Jul 2023 08:40:00 +0000
-Message-ID: <DM5PR12MB2469E0FF1D440563DB1CA946F102A@DM5PR12MB2469.namprd12.prod.outlook.com>
-References: <20230724083602.454512-1-bob.zhou@amd.com>
-In-Reply-To: <20230724083602.454512-1-bob.zhou@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=10e48459-bd05-4516-9d6e-bd94efb65ed8;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-07-24T08:39:27Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM5PR12MB2469:EE_|CY8PR12MB8363:EE_
-x-ms-office365-filtering-correlation-id: 12305cfb-2cb3-4d3b-5139-08db8c219167
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: EUT7Dub1F6bWQxh6crI9OI9zPqsEOa9BcNrozhI7TTl4kp97j+gpqBFqnIPqIgKojYq7a3Nh2nlRwcOPm1vxRY78o4fCZ8yjVXH1BaC10e4sPbYexRTyl+r8bkM24XpfQ7iWGio+OdTPra1wIJRiQyrpo+/xULYA+qPqHXkAb/njlIfUeGna0Tw8Z+5xO8Y9bFxKNyTRVmTGYCrIxExqDut9vBVC5W0vrWGFGpWRu3AodwJMeDEx7aFzdjwYFI+sSm8fFHqjEkeu5E5Hf1ozs2ACQ6tjxEg7kFhMAcY9O+eif1q9uxJzB60MMmaUUvja0Uo3BmImBIUxRjHTKace70dlW2F+c9zQMvzH4dU1MgSVNmAIDQ4iKrUEzvhaA2xo8iBV1z2IcRf5ofHxApy4xGIBBaf2nc6DtltIdPkj85vYmqfAtZFFV6HOkvk3K5uc1T8TFba7FgRW3Q3dPoP8AYtmknw+odv2eD2RhjnsyZJYdy6KRQzkbIzLYwfNLPZa7pA1nVJx2kmCO/g6jIJjOCMWs5cYzhY23VDL6jqroI9Gus4J5ZT+lq3SNZw7lmA5umjRSn1B41BloFkRwCsA4qm1VjSWThivzjgZ45Ftrb9n3/nboTtXP5HYDywwWcPK
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(376002)(396003)(136003)(366004)(346002)(451199021)(8676002)(8936002)(316002)(5660300002)(52536014)(66446008)(122000001)(6636002)(4326008)(66476007)(66556008)(64756008)(66946007)(76116006)(110136005)(38100700002)(26005)(33656002)(41300700001)(6506007)(53546011)(83380400001)(478600001)(186003)(2906002)(9686003)(86362001)(7696005)(71200400001)(38070700005)(55016003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Um8MGQKnfqPdy9HubmM5wVGOOLgWEfX9tNpjRq1Qm3KM2QO1sL9wGWMGitZJ?=
- =?us-ascii?Q?oJaJA5qxj9IWGRvepcYD14+9GvJuotHBHHo6AUAwM289B/SbRJ7Xf/6vleWe?=
- =?us-ascii?Q?Sv1uz46POf+KPbasXbeOTvnYDaAM2gngra3Aq68MSCkhctme80dSBQUelr86?=
- =?us-ascii?Q?o/DoItGfSm4wiKJHqDBMaaNWRlzuXUVk0ZRUrONxcESo2nD/ypL2TksCXYB2?=
- =?us-ascii?Q?GU3Lxv0IHORO4eC8ug+H7g+IkBIGF9saQe+W7STNOPUn8DgnaDKK2AAj8QPG?=
- =?us-ascii?Q?7d5JropWxux2dqsJln+FMws1LN5RVdSTOHpxHuWyAh7C/6IDey5Jvp2a4IKs?=
- =?us-ascii?Q?FulQLtVVTaiGVnrPzW02FcEtj++geg1h8nutnHaoEogUXfzBbwU85p/h7+4x?=
- =?us-ascii?Q?2KaBXaPOVANvdICL4hCId5rXm1cHMCLV3kh/uyns0ublrrEax6N/35uvJry2?=
- =?us-ascii?Q?bSlrf8BKA1HI3VjIsuEM3T2ZDPm8fb4H0VBLe5FMAFJfncHFmIP8UQ4vDIEL?=
- =?us-ascii?Q?1jSJqN9N+8rHxj6IAKR76Gwtmo9bqG6R07fAijCNHs0Z5wSk6DqsveFdhb/C?=
- =?us-ascii?Q?gNaqHKIoyE+92HrjKJCZy20NdJZW/aH8ODnd5ExrwRcQlJNKf3aWEkOiNjJE?=
- =?us-ascii?Q?YiC5h3LXMP4i44T0Fs+Jo6WV9h23m50OO8lJBUOBUVlGofiqWFPHFI0tELiq?=
- =?us-ascii?Q?sAXgcqWThQ47HNYcPG+IbR0Ksf8vsOjc06egxLq7yBVEgxDrp+OeTTFf4J9a?=
- =?us-ascii?Q?iS0JWSd19ogoTjLoOr/REtQFmlqSoj+u8Tx/+DghRyjO22eBGbwn24jpu2HG?=
- =?us-ascii?Q?i4u9NUXi7crmu/thJVONr39pw8Ll8OwlUXEk4ncUx2np0pfn6U//xzeKSIs1?=
- =?us-ascii?Q?xLElJR1+ANuA4/WF2TNlP25SfUoxvrFofKBEPb4bC1ovguxVVyvaKsXXauKc?=
- =?us-ascii?Q?2J/xDE04Kl3097Nj4McjWZKPgE44yrVJXqToj80ZMB989tPJgey6Kr6xv5np?=
- =?us-ascii?Q?I2nfuL9d0ZQYZpWnBENw+8QyYZOSQ2tTiFddymbq8rpuoabWOxTcG5LkaR+i?=
- =?us-ascii?Q?VoyiFKCev4F3rTF5zdN0bylcKlSXPYKpp4r/1zzDXu7M8s0O1v5FgKcUuCex?=
- =?us-ascii?Q?/aOAzLoXT1hC5kJZJV8KECQ+BEKf+wvLBQDk/ISQsOtMhwwz590QDtrfpcAK?=
- =?us-ascii?Q?ei8OwipZXF15a2MNA0iCsjo1hnaNXfTcgLBZ8thyQ083XYYbXcaHaDzZXrk7?=
- =?us-ascii?Q?i9ModGdnDhtUaUn0S68KURAR6+Ryu+nonL8CyYmk4uGxDvYR2rqtIW+e8aPD?=
- =?us-ascii?Q?DxkBdKfHfljLnkMcewDUgYaCfFM1JmPayOxbMWH0BISzFPzWLpcxWB27Mg2U?=
- =?us-ascii?Q?6410vWmVhbSADLFo6z5RTK8kNPi4pm4Pf3BSvWEmLqqGliGAliOFlDx3Np34?=
- =?us-ascii?Q?UuBC4MXdWsUCadr4Zd5Frs6NwnY86VrULTapvgD3uOnFRbfOfxFHyhWYkcNp?=
- =?us-ascii?Q?UqSdkDIDAJzkteTEeTVgejeh9zbp8YApLRCqFlLKdpJ+yoiOqeJLYedOoISV?=
- =?us-ascii?Q?pNzUYo+m13XmTGI+iXc=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id D31D310E1DA;
+	Mon, 24 Jul 2023 10:47:05 +0000 (UTC)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org
+ [IPv6:2001:67c:2050:0:465::101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E650C10E002;
+ Mon, 24 Jul 2023 10:47:02 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4R8cKv30xJz9t3y;
+ Mon, 24 Jul 2023 12:46:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1690195619;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=QRgDsdj4PRaBX4F+5NuwghTRwQQTxR0MoJRVxO8TmDM=;
+ b=hJZVWzSGSd27nZkk+77PknK0vznvbxJ0/csknIDZKtbuqocbGowTgvDTRp5kHwHq8VTNcN
+ sI6IlW31o4Bg7agxOLgIQv1FsKLi00x1uQSyGLFRClbvZZ6TctRU4GzTt+AYihA62RE90E
+ 8XoFTkdBXcRTITTVEEo8fa6PVq1Ug8zpqfzpnl4s/ZNyaV3lsfbncy16bsE0CGkN8y/xRp
+ GPdV0do0y4x+rT3b8fXqrISxwuL1j7sA3ewktGWABKEQxBdgD5hkQ/O0FQr2vlP/cI//4b
+ pRZHonfpIKk3994LbXC9WTO5Jtz06jIpRC5JGawPh2npyTY2EwJKBdM6nJ6F4A==
+Message-ID: <a31d3d49-1861-19a2-2bb4-8793c8eabee9@mailbox.org>
+Date: Mon, 24 Jul 2023 12:46:56 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12305cfb-2cb3-4d3b-5139-08db8c219167
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2023 08:40:00.4137 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: D8K/s+mUAlRtmU1AhdJ9w3FCKHmYM03bKftBlAl293SrFGuaPg72RD4rWxUCTILmPR+Oa0fX3M++1gNI7zrgWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8363
+Subject: Re: [PATCH AUTOSEL 6.1 28/41] Revert "drm/amd/display: Do not set drr
+ on pipe commit"
+Content-Language: en-CA
+To: Sasha Levin <sashal@kernel.org>
+References: <20230724012118.2316073-1-sashal@kernel.org>
+ <20230724012118.2316073-28-sashal@kernel.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <20230724012118.2316073-28-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 324e36e7dfef5be2138
+X-MBO-RS-META: ugp96btdxp5iatie16dfbs8fg661iw7g
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,51 +58,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhou, Bob" <Bob.Zhou@amd.com>
+Cc: Wesley.Chalmers@amd.com, sunpeng.li@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, christian.koenig@amd.com, airlied@linux.ie,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Dmytro.Laktyushkin@amd.com,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, wayne.lin@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
+ harry.wentland@amd.com, hugo.hu@amd.com, Hamza Mahfooz <hamza.mahfooz@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On 7/24/23 03:21, Sasha Levin wrote:
+> From: Michel Dänzer <mdaenzer@redhat.com>
+> 
+> [ Upstream commit 8e1b45c578b799510f9a01a9745a737e74f43cb1 ]
+> 
+> This reverts commit 474f01015ffdb74e01c2eb3584a2822c64e7b2be.
 
-Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+The reverted commit is the same as patch 1 in this series...
 
-> -----Original Message-----
-> From: Bob Zhou <bob.zhou@amd.com>
-> Sent: Monday, July 24, 2023 4:36 PM
-> To: amd-gfx@lists.freedesktop.org; Pelloux-Prayer, Pierre-Eric <Pierre-
-> eric.Pelloux-prayer@amd.com>
-> Cc: Chen, Guchun <Guchun.Chen@amd.com>; Zhou, Bob
-> <Bob.Zhou@amd.com>
-> Subject: [PATCH V2] drm/amdgpu: remove redundant variable declaration
->
-> building with gcc and W=3D1 reports
-> drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:1618:15:
-> error: unused variable 'domain' [-Werror=3Dunused-variable] unsigned int
-> domain;
->              ^~~~~~
->
-> The variable domain is repeated, so remove it.
->
-> Fixes: d769528e4649 ("drm/amdgpu: add VISIBLE info in
-> amdgpu_bo_print_info")
-> Signed-off-by: Bob Zhou <bob.zhou@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 5ac7544cc068..3f98174fb764 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1578,7 +1578,6 @@ u64 amdgpu_bo_print_info(int id, struct
-> amdgpu_bo *bo, struct seq_file *m)  {
->       struct dma_buf_attachment *attachment;
->       struct dma_buf *dma_buf;
-> -     unsigned int domain;
->       const char *placement;
->       unsigned int pin_count;
->       u64 size;
-> --
-> 2.34.1
+Same issue with the autosel patches for 6.4.
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
