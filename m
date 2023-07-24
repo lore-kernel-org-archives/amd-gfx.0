@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB8A4C001DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 01:13:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFF09C04A94
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 01:14:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9357710E1A5;
-	Mon, 24 Jul 2023 01:13:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C97C110E1C3;
+	Mon, 24 Jul 2023 01:13:57 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C88A10E0BA;
- Mon, 24 Jul 2023 01:13:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7094710E1C3;
+ Mon, 24 Jul 2023 01:13:56 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9502860EF4;
- Mon, 24 Jul 2023 01:13:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C281CC433C8;
- Mon, 24 Jul 2023 01:13:45 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E5D0660F02;
+ Mon, 24 Jul 2023 01:13:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C936C433CD;
+ Mon, 24 Jul 2023 01:13:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1690161228;
- bh=+TJGO4/ZmIlOp7lWICardyjuXbS+sdzOoTX6AM8rstw=;
+ s=k20201202; t=1690161235;
+ bh=MR2EvDrJL0Bk6+NTsd8NzZDnwywIyA72hJTwpoFwjhw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=bZaBemvMt+MONrryRz2F/+IQqwjJ9ot4/vNq0sQc2yJ0ayEG/YLSSD0jmZYb25mjQ
- JYHZPD8b6vxz0UEWyLXQyKDk80sDZlydkG8JHSGuKtMYN4WDCS0k1buMf+ko4+i2Nq
- Z8R1P8M7zuzGKSehNuTSOBUu+cvKZjC15KKH+LZ4pmdrtEq7cEIKPT+V4NSnRHe7NK
- +Bm2dRD24QWNdQr5d029A46Z8tUZk73GJFVpjfS+1C1S8DXKry1h6V+yPqPwzCKwWK
- vdq89+MSXpmaJroHZw5yn4XLLJbIraqAEBmrmCpCkgL4tDoCZPjgmV7xuzyrEUSS8/
- S2wchO3tsGX+A==
+ b=ruN7C1o6Am5jLEhtLmv7Z2JEi7LIlLgcQpC6JE6x9cd6a42JLwr1oq9RNRZlUgy9H
+ 44HlrsWWBqjH76wiPtNFxlQ/AFc0ALdpiWfpx7YqoMlK5ouGl/Vdae9fj8XpcVEX3P
+ t7XNO6MulskOuAOECha75q3R2/deSS1Z4VzC8kCUxQzmhHfhfhL5JvRaIA7hDf2f2k
+ frnP6MRMbhrOEi3jOfv5sXG3ts8ZEvLLsX3+PHZlQpiAIcZKg+o9p32rJ3ac9zOJby
+ 5+o+Tm+D49VuRZ2VpzGFPgZ97O3/3xnp7gjgyzIiL9RQSAxVXl2ddFOIUbBDgpXLc5
+ /3569i6lulRbQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.4 02/58] drm/amd/display: Update DTBCLK for DCN32
-Date: Sun, 23 Jul 2023 21:12:30 -0400
-Message-Id: <20230724011338.2298062-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.4 05/58] drm/radeon: Fix integer overflow in
+ radeon_cs_parser_init
+Date: Sun, 23 Jul 2023 21:12:33 -0400
+Message-Id: <20230724011338.2298062-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230724011338.2298062-1-sashal@kernel.org>
 References: <20230724011338.2298062-1-sashal@kernel.org>
@@ -57,82 +58,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Dillon.Varone@amd.com, Chris.Park@amd.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- sunpeng.li@amd.com, airlied@gmail.com, qingqing.zhuo@amd.com,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, samson.tam@amd.com,
- wenjing.liu@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, alvin.lee2@amd.com,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, jun.lei@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+ hackyzh002 <hackyzh002@gmail.com>, airlied@gmail.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: hackyzh002 <hackyzh002@gmail.com>
 
-[ Upstream commit 128c1ca0303fe764a4cde5f761e72810d9e40b6e ]
+[ Upstream commit f828b681d0cd566f86351c0b913e6cb6ed8c7b9c ]
 
-[Why&How]
-- Implement interface to program DTBCLK DTO’s
-  according to reference DTBCLK returned by PMFW
-- This is required because DTO programming
-  requires exact DTBCLK reference freq or it could
-  result in underflow
+The type of size is unsigned, if size is 0x40000000, there will be an
+integer overflow, size will be zero after size *= sizeof(uint32_t),
+will cause uninitialized memory to be referenced later
 
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: hackyzh002 <hackyzh002@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 27 +++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ drivers/gpu/drm/radeon/radeon_cs.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index 8d9444db092ab..eea103908b09f 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -233,6 +233,32 @@ void dcn32_init_clocks(struct clk_mgr *clk_mgr_base)
- 	DC_FP_END();
- }
+diff --git a/drivers/gpu/drm/radeon/radeon_cs.c b/drivers/gpu/drm/radeon/radeon_cs.c
+index 46a27ebf4588a..a6700d7278bf3 100644
+--- a/drivers/gpu/drm/radeon/radeon_cs.c
++++ b/drivers/gpu/drm/radeon/radeon_cs.c
+@@ -270,7 +270,8 @@ int radeon_cs_parser_init(struct radeon_cs_parser *p, void *data)
+ {
+ 	struct drm_radeon_cs *cs = data;
+ 	uint64_t *chunk_array_ptr;
+-	unsigned size, i;
++	u64 size;
++	unsigned i;
+ 	u32 ring = RADEON_CS_RING_GFX;
+ 	s32 priority = 0;
  
-+static void dcn32_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
-+			struct dc_state *context,
-+			int ref_dtbclk_khz)
-+{
-+	struct dccg *dccg = clk_mgr->dccg;
-+	uint32_t tg_mask = 0;
-+	int i;
-+
-+	for (i = 0; i < clk_mgr->base.ctx->dc->res_pool->pipe_count; i++) {
-+		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
-+		struct dtbclk_dto_params dto_params = {0};
-+
-+		/* use mask to program DTO once per tg */
-+		if (pipe_ctx->stream_res.tg &&
-+				!(tg_mask & (1 << pipe_ctx->stream_res.tg->inst))) {
-+			tg_mask |= (1 << pipe_ctx->stream_res.tg->inst);
-+
-+			dto_params.otg_inst = pipe_ctx->stream_res.tg->inst;
-+			dto_params.ref_dtbclk_khz = ref_dtbclk_khz;
-+
-+			dccg->funcs->set_dtbclk_dto(clk_mgr->dccg, &dto_params);
-+			//dccg->funcs->set_audio_dtbclk_dto(clk_mgr->dccg, &dto_params);
-+		}
-+	}
-+}
-+
- /* Since DPPCLK request to PMFW needs to be exact (due to DPP DTO programming),
-  * update DPPCLK to be the exact frequency that will be set after the DPPCLK
-  * divider is updated. This will prevent rounding issues that could cause DPP
-@@ -570,6 +596,7 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 		/* DCCG requires KHz precision for DTBCLK */
- 		clk_mgr_base->clks.ref_dtbclk_khz =
- 				dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DTBCLK, khz_to_mhz_ceil(new_clocks->ref_dtbclk_khz));
-+		dcn32_update_clocks_update_dtb_dto(clk_mgr, context, clk_mgr_base->clks.ref_dtbclk_khz);
- 	}
- 
- 	if (dc->config.forced_clocks == false || (force_reset && safe_to_lower)) {
 -- 
 2.39.2
 
