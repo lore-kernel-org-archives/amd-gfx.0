@@ -4,89 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 478A5C001B0
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 02:43:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B95C1C001DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 02:51:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84F7510E0BF;
-	Mon, 24 Jul 2023 02:43:05 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20605.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::605])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 859C610E0BF
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 02:43:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2719910E267;
+	Mon, 24 Jul 2023 02:51:02 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2080.outbound.protection.outlook.com [40.107.220.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6247210E267;
+ Mon, 24 Jul 2023 02:51:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iVtnU9hVDJNaQEoVctzBcDFX9Oodke14f5gyd3xjE202ShNNxIwA0A7u5nyUKF/ZiAxK6r0GgDVH+u93NZYyVt2mmsH4hU8TPTrTd4g1uTyU4pVK/rQaeHYS7ne6lZLePMzrXkeaR/wknVFHEW6g7VfCPZA4WjthGYASLS/YGIjozJy43i4FLWZo0GWRmFvZKc68BdxHCL5LXLQsm8BOY7MH8/VuLdrH7pwYC+4DwDwEE/4DIv2FHco7PCCicvnV4w+UeCRT/G0hZ9mcVO0/fHCp9eaYj6gBOegNi6dXnwIP2mlM1PZwYXfwSChskrfPchBzvyQ+DytfsVaBUw0A0Q==
+ b=LmbXic1d626F174bOB5hJ6vt/i9qw+vkPIHGgAInbN1LQ+ZnxCf9OSyeMHybjsIdYq0WG+wA0jjqkKozwUf+6NiJSHKFTaR7HUC+btBvX1My4b/1T471ALlMFwoNbDg9jmvAcfSwc00OiF869uGp7SE8rCQsRS/qglUQ5940WezO+EuGKLYd4XGLgSzAJ931X7UqPqJzUrL/RTts1csquiw42ftUMoDwecxPA/9sxtu0GBjVsUlzxTtFDSgqrj2LAYpvB6Fha1+IsERlTjBbYAZNj71eUqNDxdMAS5AXBhjLT6uEUo2/XRKUws4fG6t7v7Sgs/IIHwIIwhoiqAA1kQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R0nMiDBT1+TdjxRS9T+UiOrvxl1E4IxboORsJWJFQKU=;
- b=CfLjo6EWCO3diQ5iL5DbYlPGx24xmUKVmDXTN4wkxGyhf+4BJhjnMjNFWmsUWeihCf1O7hUwY7bHEBRapakBb3cYcb8mGvn8hPNZcAFDS36SocR2RiskNMqYlZy7+9Z3uJKsHYkAun4P6ZD5TYlim3du38tk4JfgWjOXDTOcAowqMCkEOEj3F9NvnH4j04UKAUav3LiAEsqCFZXg98sD81uAZupTs6FLNvx4TFo0pjG3Evj4ybNJPKaxEJUMvMdRg0u6qUZ2hHNaGELSOyQB6xiUjZ27GgEyahNM2GGbA94fK87vUKPSgdHkS8mD/XKnf+dtMEOcedUjoEgMAktj9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=pQHMARlxq46sbxzK0uQCVQHQRQZ+PYoWHO7U6Y+0lJs=;
+ b=fs0iTusaLo5OemP76lZd2vZG/qGlSuncInqMZpeGZC1INZsH9G+FDVoWBAOcqbTH+6J1Q0sc5pUAcRZib6IqAWOVGghBhZuUMUpvbM90seabY66EXOReJ6SL9nSh9RYm3r6HhBgNeE98kWvy0aMZgu7dV9/2RyAseVsC6BME2VP8PvekgAMfhdUqlNS/9Qdsl627PRRhQ4rB+CwoSCHzQguH3gPY4oQLGAtfgvxwkVxTzqjqh7KQ3YJEr6vP8sD2tTQtByUATq4JK1++75/3rvkoNTF0ukjQhulYwEsetf/Yl6Q/DOMypdvkspuJNTKAgig7icNHvaFqw6Dvp2faog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R0nMiDBT1+TdjxRS9T+UiOrvxl1E4IxboORsJWJFQKU=;
- b=fbuJiFpT/5MWtZtVdDnqjaHZsBHfiil9SMuqICrGqlRLEi2RRpQ6Fj/6GkZXxQIXDhjF8GlYG7ZbTQbB5jPwhDgWw3W+rN9BO3T+5tmN4gPnPj7+Ry7zq4pK9J/7O9Nv3z4vch+PMqo/rhabZjgYgKry0kCLunMLSPHbNqorxv0=
-Received: from BN0PR03CA0047.namprd03.prod.outlook.com (2603:10b6:408:e7::22)
- by DM6PR12MB4419.namprd12.prod.outlook.com (2603:10b6:5:2aa::20) with
+ bh=pQHMARlxq46sbxzK0uQCVQHQRQZ+PYoWHO7U6Y+0lJs=;
+ b=O+o2FPVHpyH8Lg5TaulTB5cMLSJ4wWa984XK7VyPtqveiQJzSHyjyb8WW/6QJmBiPQvMAYL2z/ivXM9ljLdJ7K82UJHidC+spXFprn4mkR+2jrbsZAhrww4wNtFOT/BmDNNRyl2tAtuEw2y+516Fns9Q81GsemIiTsxThI9WVV4=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ CO6PR12MB5459.namprd12.prod.outlook.com (2603:10b6:303:13b::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.32; Mon, 24 Jul
- 2023 02:43:00 +0000
-Received: from BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e7:cafe::69) by BN0PR03CA0047.outlook.office365.com
- (2603:10b6:408:e7::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28 via Frontend
- Transport; Mon, 24 Jul 2023 02:43:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT044.mail.protection.outlook.com (10.13.177.219) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6631.22 via Frontend Transport; Mon, 24 Jul 2023 02:43:00 +0000
-Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Sun, 23 Jul
- 2023 21:42:53 -0500
-From: Evan Quan <evan.quan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: disable the SMU13 OD feature support temporarily
-Date: Mon, 24 Jul 2023 10:41:59 +0800
-Message-ID: <20230724024159.501981-1-evan.quan@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT044:EE_|DM6PR12MB4419:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27d0b6eb-4292-450a-a770-08db8befb215
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hTttVbWBbrPZmyxKSFYriB2uD3b+quQGquW9+rrN+weuk8XNZnXh95W4meIDUmnPqfQQt2yBP2MDySADzfoQ4TiZ9x8ZBD1V5SY8xWaJne5ooXtX6UaRznw4bvrsFmDzg8PtISIxz27Ypa9Ht8ncw7fdHeUGnxRadruszEHAA9PnXMyJKw34NEpvP0fkm0jIkDxisoy2887lF7XLByaFa/gcf3K9hW/3oVX54/44oK1AZ2GZeTnrJTi3Y+4F3IVP3qJemx4qIZvHHXAM8RK5sCAgK8+3b2wRcQOwx2tG3bqalcJKMOtWi25MLCATOMN2eb8PrVtxFV89VnabHkW7OKDsvo2m+7Vbpu5NoGkKca36rpCQ0FC+blSl900zxJ1nykpeWp9Q023KsG9RfTcfbCvusFTBV+kEtPrUHDin5xwTF5UlOhDvZyXFiAknnJDqDHzVuo1iI8p+wV63PisPiJttG6KyOHyh1HaitAlAJ76Vv1upe2LBHH13fPp1In0PjAT1hxwqiZjWGWj+ksmsLj9N9LZ+pmr5dE4byjGUrenS+nARg9MQgXf3igCaNpJlmbGfv2EcgY28vG6ma98NZAKXasq0PC9Gk1fDTWzMP+NRyLRuTjdvB5jZkzvLH3DGk9WThhNPmmasmAptvqPfX5PV7Lsp3T5EwU6lcV0tawg29ZAan8cxJlh8RfBKCDlgl7nG1QXPdaoxdNyz0EVA7OwVB0szdbYa5kQDHgvqEbq6xDce2yE9YTWkcK5Bq9uDFAqQVwIhxW7WXKNccNUvoA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(136003)(39860400002)(346002)(396003)(82310400008)(451199021)(36840700001)(46966006)(40470700004)(36860700001)(83380400001)(81166007)(40480700001)(36756003)(86362001)(82740400003)(40460700003)(356005)(54906003)(2906002)(478600001)(336012)(186003)(26005)(1076003)(7696005)(5660300002)(44832011)(8676002)(8936002)(316002)(41300700001)(70586007)(70206006)(6916009)(4326008)(16526019)(47076005)(2616005)(426003)(36900700001);
+ 2023 02:50:58 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::ed2a:4807:1825:170f]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::ed2a:4807:1825:170f%5]) with mapi id 15.20.6609.031; Mon, 24 Jul 2023
+ 02:50:58 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "rafael@kernel.org" <rafael@kernel.org>, "lenb@kernel.org"
+ <lenb@kernel.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, 
+ Christian" <Christian.Koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>, 
+ "johannes@sipsolutions.net" <johannes@sipsolutions.net>,
+ "davem@davemloft.net" <davem@davemloft.net>, "edumazet@google.com"
+ <edumazet@google.com>, "kuba@kernel.org" <kuba@kernel.org>,
+ "pabeni@redhat.com" <pabeni@redhat.com>, "Limonciello, Mario"
+ <Mario.Limonciello@amd.com>, "mdaenzer@redhat.com" <mdaenzer@redhat.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>, "hdegoede@redhat.com"
+ <hdegoede@redhat.com>, "jingyuwang_vip@163.com" <jingyuwang_vip@163.com>,
+ "Lazar, Lijo" <Lijo.Lazar@amd.com>, "jim.cromie@gmail.com"
+ <jim.cromie@gmail.com>, "bellosilicio@gmail.com" <bellosilicio@gmail.com>,
+ "andrealmeid@igalia.com" <andrealmeid@igalia.com>, "trix@redhat.com"
+ <trix@redhat.com>, "jsg@jsg.id.au" <jsg@jsg.id.au>, "arnd@arndb.de"
+ <arnd@arndb.de>, "andrew@lunn.ch" <andrew@lunn.ch>
+Subject: RE: [PATCH V7 0/9] Enable Wifi RFI interference mitigation feature
+ support
+Thread-Topic: [PATCH V7 0/9] Enable Wifi RFI interference mitigation feature
+ support
+Thread-Index: AQHZuh+bU1agtU7QBUGPiE/gTc/eTK/IPmfQ
+Date: Mon, 24 Jul 2023 02:50:58 +0000
+Message-ID: <DM6PR12MB26196938844FBB1678754C8AE402A@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20230719090020.2716892-1-evan.quan@amd.com>
+In-Reply-To: <20230719090020.2716892-1-evan.quan@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=1d3b4eab-0a34-441f-903b-4abfb76c44ce;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-24T02:48:28Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|CO6PR12MB5459:EE_
+x-ms-office365-filtering-correlation-id: 79ba1727-e3f1-45c1-32b8-08db8bf0ced3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: AMKeM33EIaOwMU+flD84wyjmsmJTaF6SVXDphDl2JBNfjcMX68oAgBFAq2qXwR970nVAfBIHv1Qdcj1N9C2ird31oz+sI2FVVmBgy2ui/Pc+jffYsp0nyqL20OwGHgth5qimobik91pk3VTGjb2nvUgt8DfEHCrNgOWfy0sN6lpvdv5uYSMQCmS9Jtmzk9+wLficW9zy142qmPlWSlSWRn+TCnN5K8eqsYmN+qzd2F5bV2RccGF4L3Br1u99QekCScpaDF8Rr8jRoN9qsNpE1f3r1ZiTLv1OBpICVpiHtdNrQIMBlbKu6rOBbE0hTgbqKjmGewfdbUT9/O69f1STNhFQJoqmZRcW/oBJPSn7SP0xKWP2Fd4BUubvKUJj2zMlIF4Qz3jYCpnRxEKk/CYjCoBzRi7JBqqGRxkLrKjmaulioWzCevTwLH1aPgc2IPUSlxWl3arV+dXMS2ZEGZATAio8L00+VjzgY5r9c2gYri7txgWO4yKK3qxZq4mgLJowzkmZH7atyRJRMHKsou+itm5JpwjYkcHz7yHN+h2LWwq+5ruHig5LJgPLwDNGSnYFDMUlME/SvWjD1FtiEIi9ibnNFePzhGxdVpE+y6DaAIXoIhlqDMDY85PgnJ3Hx9O7kz56wHewhoQZThi0RzaNAQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(136003)(376002)(39860400002)(396003)(366004)(84040400005)(451199021)(55016003)(186003)(26005)(71200400001)(6506007)(53546011)(66476007)(64756008)(83380400001)(66556008)(66946007)(76116006)(66446008)(4326008)(316002)(52536014)(8676002)(7416002)(41300700001)(8936002)(5660300002)(7696005)(9686003)(54906003)(478600001)(2906002)(110136005)(38100700002)(122000001)(921005)(33656002)(86362001)(38070700005);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?CMBzjF8jqnatMj1D11QjZ/ZmOFJjRyi/WXZDapEv1Y5EoBsk5IL5GlYpHH/n?=
+ =?us-ascii?Q?CFN+rMvUTX1r217tlCyaDDzHUMeRKc4gROe5JUFU5a0CbW+FEx+YbDK3r4cU?=
+ =?us-ascii?Q?heIMyLIw4A/g+2ZC98radLYIw3NFkf6HFvCsvcLKljzz5Z8AroSbMkmha2rh?=
+ =?us-ascii?Q?l2CRvxL5A2FEAwYZWMiac4AgRlyMUOf2lzlwDOOXVu/OsffeVUfNKMr25QHD?=
+ =?us-ascii?Q?4dnQxRajjpUratSbAf+y1MqZ5hX79G0NaXmdhrqXWAYyY5pfenju5HKl4Z+Q?=
+ =?us-ascii?Q?2ttpHEO44s9qlQrJ9L711NBaVhU+haSyyggwUlQgPJaMic5uQ7ub8HQ1bQWA?=
+ =?us-ascii?Q?BTfSMG4z1d5Bg5FUhnkyAxhytMusw8LX07umjt2FpJwlkGHIV18lpGJAECow?=
+ =?us-ascii?Q?FBtITuVgdSTjAXV/tEuNMIlnH0LzyqrI+bfSEyxF/T/HcgZVyIupXEb+HfHL?=
+ =?us-ascii?Q?CzDeHpAF7PC+77t9MzjueO4M5hvuOJJpwQvO3irDhfOYKQnKrwT9B1sb/Ll7?=
+ =?us-ascii?Q?g5O5U7HruX0v/zLXOe7E7ILRaqVs8ejdSIPqdyqTUDJsJZjkl/cRVCEAJyWb?=
+ =?us-ascii?Q?HaPkn4S3DGRfzK3mUISB9YJHa5XtdE7mkIO6k5neIWTeFf2aQYCQhRotCI1z?=
+ =?us-ascii?Q?yjghxA8Yuvz4g8EWumKfaC3mG2+QB/gMdkiDM3Aq/d7+nqzT0UijkpezLv4c?=
+ =?us-ascii?Q?A10gUT0QiCRu8QcUgzIdYJ0Ykvkgk0eOvxKFMbmzLOmMMEv0B8bry2H5+eEf?=
+ =?us-ascii?Q?/vLWAud8wHB9Wj+BVR6pSfmJUKQtoU7kTI+nxKjxaJxcPhY6QLqtkucA2WQQ?=
+ =?us-ascii?Q?6Mkx1SiVdZWLCxSW00euEDZ0Ns6/+aMbu5gVUnkbt2zGndJN5AIk+MizKkoR?=
+ =?us-ascii?Q?XttfYKkqVXs5cK4Ubep+co5/dSDxRRWfwMAk+QgmTjM5mxZ7Pa8PNgvs2d6C?=
+ =?us-ascii?Q?A9OhUxWhL1LuTLtfNbTg5p579oeAgN2UkLBtmS9PfGXFWH8RsU/E2muOY/H4?=
+ =?us-ascii?Q?sHz5by+Dc+9rydgXVfIFBG86u3bnjjW1dEoVQg6L9jzcgoxJPynE3NcBXVxT?=
+ =?us-ascii?Q?YxAg/7xsL1XqXuK4X9E8+8yqA/1z0M573l4P7kmXurQ6nG7wUHmPIHelDbf3?=
+ =?us-ascii?Q?wE0k+6LyHtJA2fW+3nEMoFIdgPp9NU6jRyEJru7wwpKC7OM/1te1Z5uGl0gT?=
+ =?us-ascii?Q?zv0YxFP9caRwioF2eTYszvhlR1pilKIRERG+mu8ilukeB08sK9CxQdBhZUqE?=
+ =?us-ascii?Q?w5oCHRzDlzCWjLv35X24+HbQEFK72Zd9BZspOA9iWpWsfPdrEA/zOmNme9DC?=
+ =?us-ascii?Q?CGlFn10dzPB44HxaOi4kNhbptkcopT8B6khYbhXnUTrVtZDDhT9zIjY0UWWz?=
+ =?us-ascii?Q?N2vtxhlaDUIWvm1p/SYr+7IDXZ7oXTD5cW5TsU3uajPrFkLRrucTWeyCSfVR?=
+ =?us-ascii?Q?4reUobk+2O3Ebjevh7EsQVZYXU/jImSKo496yeR8ivFOJqTlbpVX1bY6Gfsu?=
+ =?us-ascii?Q?dscaRlYd0jS2Z/ZAQmhVDSU1NpzryM3p2CEBTUsD0NeMQePu4Z4UdOovHFqn?=
+ =?us-ascii?Q?ij2lzbYCYXQ/0jBtj7M=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2023 02:43:00.3796 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27d0b6eb-4292-450a-a770-08db8befb215
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4419
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79ba1727-e3f1-45c1-32b8-08db8bf0ced3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2023 02:50:58.0933 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 20dZrXCHnyynUOSq9v84G+FdfFTcnsIuUJRgAwUiOu6B3RMMrGTujjq/O3oS1+ja
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5459
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,62 +139,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The existing OD interface cannot support the growing demand for more
-OD features. We are in the transition to a new OD mechanism. So,
-disable the SMU13 OD feature support temporarily. And this should be
-reverted when the new OD mechanism online.
+[AMD Official Use Only - General]
 
-Signed-off-by: Evan Quan <evan.quan@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 9 +++++++++
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 4 ++++
- 2 files changed, 13 insertions(+)
+Gentle ping on this series.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index 60d2684478a0..a3e510981dc5 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -348,9 +348,18 @@ static int smu_v13_0_0_check_powerplay_table(struct smu_context *smu)
- 	if (powerplay_table->platform_caps & SMU_13_0_0_PP_PLATFORM_CAP_MACO)
- 		smu_baco->maco_support = true;
- 
-+	/*
-+	 * We are in the transition to a new OD mechanism.
-+	 * Disable the OD feature support for SMU13 temporarily.
-+	 * TODO: get this reverted when new OD mechanism online
-+	 */
-+#if 0
- 	if (!overdrive_lowerlimits->FeatureCtrlMask ||
- 	    !overdrive_upperlimits->FeatureCtrlMask)
- 		smu->od_enabled = false;
-+#else
-+		smu->od_enabled = false;
-+#endif
- 
- 	table_context->thermal_controller_type =
- 		powerplay_table->thermal_controller_type;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index ebb961f60316..44a3e2bf426b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -338,9 +338,13 @@ static int smu_v13_0_7_check_powerplay_table(struct smu_context *smu)
- 	if (smu_baco->platform_support && (BoardTable->HsrEnabled || BoardTable->VddqOffEnabled))
- 		smu_baco->maco_support = true;
- 
-+#if 0
- 	if (!overdrive_lowerlimits->FeatureCtrlMask ||
- 	    !overdrive_upperlimits->FeatureCtrlMask)
- 		smu->od_enabled = false;
-+#else
-+		smu->od_enabled = false;
-+#endif
- 
- 	table_context->thermal_controller_type =
- 		powerplay_table->thermal_controller_type;
--- 
-2.34.1
+Hi Rafael and Andrew,
+
+Can you help to check this latest series and share your thoughts if any?
+
+BR,
+Evan
+> -----Original Message-----
+> From: Quan, Evan <Evan.Quan@amd.com>
+> Sent: Wednesday, July 19, 2023 5:00 PM
+> To: rafael@kernel.org; lenb@kernel.org; Deucher, Alexander
+> <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>;
+> airlied@gmail.com; daniel@ffwll.ch; johannes@sipsolutions.net;
+> davem@davemloft.net; edumazet@google.com; kuba@kernel.org;
+> pabeni@redhat.com; Limonciello, Mario <Mario.Limonciello@amd.com>;
+> mdaenzer@redhat.com; maarten.lankhorst@linux.intel.com;
+> tzimmermann@suse.de; hdegoede@redhat.com; jingyuwang_vip@163.com;
+> Lazar, Lijo <Lijo.Lazar@amd.com>; jim.cromie@gmail.com;
+> bellosilicio@gmail.com; andrealmeid@igalia.com; trix@redhat.com;
+> jsg@jsg.id.au; arnd@arndb.de; andrew@lunn.ch
+> Cc: linux-kernel@vger.kernel.org; linux-acpi@vger.kernel.org; amd-
+> gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
+> wireless@vger.kernel.org; netdev@vger.kernel.org; Quan, Evan
+> <Evan.Quan@amd.com>
+> Subject: [PATCH V7 0/9] Enable Wifi RFI interference mitigation feature
+> support
+>
+> Due to electrical and mechanical constraints in certain platform designs =
+there
+> may
+> be likely interference of relatively high-powered harmonics of the (G-)DD=
+R
+> memory
+> clocks with local radio module frequency bands used by Wifi 6/6e/7. To
+> mitigate
+> possible RFI interference producers can advertise the frequencies in use =
+and
+> consumers can use this information to avoid using these frequencies for
+> sensitive features.
+>
+> The whole patch set is based on Linux 6.4. With some brief introductions =
+as
+> below:
+> Patch1 - 2:  Core functionality setup for WBRF feature support
+> Patch3 - 4:  Bring WBRF support to wifi subsystem.
+> Patch5 - 9:  Bring WBRF support to AMD graphics driver.
+>
+> Evan Quan (9):
+>   drivers core: Add support for Wifi band RF mitigations
+>   driver core: add ACPI based WBRF mechanism introduced by AMD
+>   cfg80211: expose nl80211_chan_width_to_mhz for wide sharing
+>   wifi: mac80211: Add support for ACPI WBRF
+>   drm/amd/pm: update driver_if and ppsmc headers for coming wbrf feature
+>   drm/amd/pm: setup the framework to support Wifi RFI mitigation feature
+>   drm/amd/pm: add flood detection for wbrf events
+>   drm/amd/pm: enable Wifi RFI mitigation feature support for SMU13.0.0
+>   drm/amd/pm: enable Wifi RFI mitigation feature support for SMU13.0.7
+>
+>  drivers/acpi/Makefile                         |   2 +
+>  drivers/acpi/amd_wbrf.c                       | 282 ++++++++++++++++++
+>  drivers/base/Kconfig                          |  37 +++
+>  drivers/base/Makefile                         |   1 +
+>  drivers/base/wbrf.c                           | 256 ++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  19 ++
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 213 +++++++++++++
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  33 ++
+>  .../inc/pmfw_if/smu13_driver_if_v13_0_0.h     |  14 +-
+>  .../inc/pmfw_if/smu13_driver_if_v13_0_7.h     |  14 +-
+>  .../pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h  |   3 +-
+>  .../pm/swsmu/inc/pmfw_if/smu_v13_0_7_ppsmc.h  |   3 +-
+>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |   3 +-
+>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |   3 +
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |   9 +
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  60 ++++
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  59 ++++
+>  drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |   3 +
+>  include/linux/acpi_amd_wbrf.h                 |  24 ++
+>  include/linux/ieee80211.h                     |   1 +
+>  include/linux/wbrf.h                          |  72 +++++
+>  include/net/cfg80211.h                        |   8 +
+>  net/mac80211/Makefile                         |   2 +
+>  net/mac80211/chan.c                           |   9 +
+>  net/mac80211/ieee80211_i.h                    |  19 ++
+>  net/mac80211/main.c                           |   2 +
+>  net/mac80211/wbrf.c                           | 103 +++++++
+>  net/wireless/chan.c                           |   3 +-
+>  29 files changed, 1252 insertions(+), 6 deletions(-)
+>  create mode 100644 drivers/acpi/amd_wbrf.c
+>  create mode 100644 drivers/base/wbrf.c
+>  create mode 100644 include/linux/acpi_amd_wbrf.h
+>  create mode 100644 include/linux/wbrf.h
+>  create mode 100644 net/mac80211/wbrf.c
+>
+> --
+> 2.34.1
 
