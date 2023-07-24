@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FD69C04FDF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D88E6C001DF
 	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:59:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B33610E311;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F43A10E310;
 	Mon, 24 Jul 2023 12:59:08 +0000 (UTC)
 Received: from mail.208.org (unknown [183.242.55.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BF0B10E1AE
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 07:49:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D869810E26F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 03:40:36 +0000 (UTC)
 Received: from mail.208.org (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTP id 4R8XNl4ZrDzBRDtD
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 15:49:11 +0800 (CST)
+ by mail.208.org (Postfix) with ESMTP id 4R8Qst0PzzzBRYmV
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 11:40:34 +0800 (CST)
 Authentication-Results: mail.208.org (amavisd-new); dkim=pass
  reason="pass (just generated, assumed good)" header.d=208.org
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
  content-transfer-encoding:content-type:message-id:user-agent
  :references:in-reply-to:subject:to:from:date:mime-version; s=
- dkim; t=1690184951; x=1692776952; bh=vVJ3bb7oMBjSr1+hADUC18TYJ4B
- 8OELU7j0ImBjB188=; b=AEIBg110l0BbLzgJd6nPytBbDM69Vbgy04pv8tHC2YP
- hNelaIt3d/efZCLpNVu/CzCqwfxjFQ/hjstWAXCGq5WAWGmYXkN1czq9OurgBVLd
- r70n0WF3bW6QJrrN/BJVzUWkm3QKyD27XXg4CbrGAUbkk+waLvNE6Fyj3xp6IQ3N
- MAprRne3s0xPaNi8JmM/K+WMZPG5113fYPo352pC1Edn0gK6q5xDdKRQR5Jg7C8/
- OMdS6QOsKdJWg5W8skBWHWnb67ZT1Uzl7kt13816WTP3STUdROg3loqRhhG0Uqp1
- 5kQThPqSImZ/3HZT81FPVTn5GzWayXGJXiqGoZ71NWA==
+ dkim; t=1690170033; x=1692762034; bh=KABsKwhWlx/kqYu0QsaS+UFrAdw
+ /erZjiOwJTTEi4ag=; b=agiJFlnJzEzP5+bDy/xKfQ+BLhY/qznmGP9OfLxQtta
+ NKQlHXWLH/m2gguSEt2Yl34VJ+EwNVXU6lGuXGqKzP8oUDP4M/5dfHucxEepxwMx
+ ElEYElXlzVYduJOdr00UQU/jO/PXYEqd5kvHxrQDIbz5KPD3FQbRZEum/bH/uZET
+ oU5IkzZeUHCq+L511Q6HwuM0z0nd6XDkIyvlkC49e8qwzn1CutJS5Q+cEowpVa+P
+ bd4DkYnBxULPt/n2kqeEwl7BBajpdjZPdThcBKZcpdU6B4BxPhtyhnLkGze6sJLg
+ vwUj2tUFVmXPa5esIEF5phCg0UgPbgx39lIBzZH2Jpg==
 X-Virus-Scanned: amavisd-new at mail.208.org
 Received: from mail.208.org ([127.0.0.1])
  by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id Xl0cCN5nNXJ5 for <amd-gfx@lists.freedesktop.org>;
- Mon, 24 Jul 2023 15:49:11 +0800 (CST)
+ with ESMTP id uRyaSBADVylp for <amd-gfx@lists.freedesktop.org>;
+ Mon, 24 Jul 2023 11:40:33 +0800 (CST)
 Received: from localhost (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTPSA id 4R8XNl31xyzBHBPw;
- Mon, 24 Jul 2023 15:49:11 +0800 (CST)
+ by mail.208.org (Postfix) with ESMTPSA id 4R8Qss5zx9zBJTF7;
+ Mon, 24 Jul 2023 11:40:33 +0800 (CST)
 MIME-Version: 1.0
-Date: Mon, 24 Jul 2023 15:49:11 +0800
+Date: Mon, 24 Jul 2023 11:40:33 +0800
 From: sunran001@208suo.com
 To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/pm: Clean up errors in arcturus_ppt.c
-In-Reply-To: <20230724074800.9099-1-xujianghui@cdjrlc.com>
-References: <20230724074800.9099-1-xujianghui@cdjrlc.com>
+Subject: [PATCH] drm/radeon: that open brace { should be on the previous line
+In-Reply-To: <20230724033939.8147-1-xujianghui@cdjrlc.com>
+References: <20230724033939.8147-1-xujianghui@cdjrlc.com>
 User-Agent: Roundcube Webmail
-Message-ID: <d6c3b91864b9f3f90d8a2d3cd952bada@208suo.com>
+Message-ID: <f558b5bf6037d0e0eadcaee9448ad4c6@208suo.com>
 X-Sender: sunran001@208suo.com
 Content-Type: text/plain; charset=US-ASCII;
  format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 24 Jul 2023 12:58:34 +0000
+X-Mailman-Approved-At: Mon, 24 Jul 2023 12:58:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,50 +65,135 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the following errors reported by checkpatch:
-
-ERROR: "foo* bar" should be "foo *bar"
-ERROR: spaces required around that '=' (ctx:VxW)
-ERROR: space prohibited before that close parenthesis ')'
+ERROR: that open brace { should be on the previous line
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
-  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 6 +++---
-  1 file changed, 3 insertions(+), 3 deletions(-)
+  drivers/gpu/drm/radeon/rv770_smc.c | 36 ++++++++++--------------------
+  1 file changed, 12 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c 
-b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-index 3ecb900e6ecd..b26e9ac1ac30 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -691,7 +691,7 @@ int smu_cmn_feature_set_enabled(struct smu_context 
-*smu,
+diff --git a/drivers/gpu/drm/radeon/rv770_smc.c 
+b/drivers/gpu/drm/radeon/rv770_smc.c
+index 45575c0d0a1d..09fa7f5e7c41 100644
+--- a/drivers/gpu/drm/radeon/rv770_smc.c
++++ b/drivers/gpu/drm/radeon/rv770_smc.c
+@@ -34,8 +34,7 @@
+  #define FIRST_SMC_INT_VECT_REG 0xFFD8
+  #define FIRST_INT_VECT_S19     0xFFC0
 
-  #undef __SMU_DUMMY_MAP
-  #define __SMU_DUMMY_MAP(fea)	#fea
--static const char* __smu_feature_names[] = {
-+static const char *__smu_feature_names[] = {
-  	SMU_FEATURE_MASKS
+-static const u8 rv770_smc_int_vectors[] =
+-{
++static const u8 rv770_smc_int_vectors[] = {
+  	0x08, 0x10, 0x08, 0x10,
+  	0x08, 0x10, 0x08, 0x10,
+  	0x08, 0x10, 0x08, 0x10,
+@@ -54,8 +53,7 @@ static const u8 rv770_smc_int_vectors[] =
+  	0x03, 0x51, 0x03, 0x51
   };
 
-@@ -927,7 +927,7 @@ int smu_cmn_get_metrics_table(struct smu_context 
-*smu,
-  			      void *metrics_table,
-  			      bool bypass_cache)
-  {
--	struct smu_table_context *smu_table= &smu->smu_table;
-+	struct smu_table_context *smu_table = &smu->smu_table;
-  	uint32_t table_size =
-  		smu_table->tables[SMU_TABLE_SMU_METRICS].size;
-  	int ret = 0;
-@@ -969,7 +969,7 @@ void smu_cmn_init_soft_gpu_metrics(void *table, 
-uint8_t frev, uint8_t crev)
-  	struct metrics_table_header *header = (struct metrics_table_header 
-*)table;
-  	uint16_t structure_size;
+-static const u8 rv730_smc_int_vectors[] =
+-{
++static const u8 rv730_smc_int_vectors[] = {
+  	0x08, 0x15, 0x08, 0x15,
+  	0x08, 0x15, 0x08, 0x15,
+  	0x08, 0x15, 0x08, 0x15,
+@@ -74,8 +72,7 @@ static const u8 rv730_smc_int_vectors[] =
+  	0x03, 0x56, 0x03, 0x56
+  };
 
--#define METRICS_VERSION(a, b)	((a << 16) | b )
-+#define METRICS_VERSION(a, b)	((a << 16) | b)
+-static const u8 rv710_smc_int_vectors[] =
+-{
++static const u8 rv710_smc_int_vectors[] = {
+  	0x08, 0x04, 0x08, 0x04,
+  	0x08, 0x04, 0x08, 0x04,
+  	0x08, 0x04, 0x08, 0x04,
+@@ -94,8 +91,7 @@ static const u8 rv710_smc_int_vectors[] =
+  	0x03, 0x51, 0x03, 0x51
+  };
 
-  	switch (METRICS_VERSION(frev, crev)) {
-  	case METRICS_VERSION(1, 0):
+-static const u8 rv740_smc_int_vectors[] =
+-{
++static const u8 rv740_smc_int_vectors[] = {
+  	0x08, 0x10, 0x08, 0x10,
+  	0x08, 0x10, 0x08, 0x10,
+  	0x08, 0x10, 0x08, 0x10,
+@@ -114,8 +110,7 @@ static const u8 rv740_smc_int_vectors[] =
+  	0x03, 0x51, 0x03, 0x51
+  };
+
+-static const u8 cedar_smc_int_vectors[] =
+-{
++static const u8 cedar_smc_int_vectors[] = {
+  	0x0B, 0x05, 0x0B, 0x05,
+  	0x0B, 0x05, 0x0B, 0x05,
+  	0x0B, 0x05, 0x0B, 0x05,
+@@ -134,8 +129,7 @@ static const u8 cedar_smc_int_vectors[] =
+  	0x04, 0xF6, 0x04, 0xF6
+  };
+
+-static const u8 redwood_smc_int_vectors[] =
+-{
++static const u8 redwood_smc_int_vectors[] = {
+  	0x0B, 0x05, 0x0B, 0x05,
+  	0x0B, 0x05, 0x0B, 0x05,
+  	0x0B, 0x05, 0x0B, 0x05,
+@@ -154,8 +148,7 @@ static const u8 redwood_smc_int_vectors[] =
+  	0x04, 0xF6, 0x04, 0xF6
+  };
+
+-static const u8 juniper_smc_int_vectors[] =
+-{
++static const u8 juniper_smc_int_vectors[] = {
+  	0x0B, 0x05, 0x0B, 0x05,
+  	0x0B, 0x05, 0x0B, 0x05,
+  	0x0B, 0x05, 0x0B, 0x05,
+@@ -174,8 +167,7 @@ static const u8 juniper_smc_int_vectors[] =
+  	0x04, 0xF6, 0x04, 0xF6
+  };
+
+-static const u8 cypress_smc_int_vectors[] =
+-{
++static const u8 cypress_smc_int_vectors[] = {
+  	0x0B, 0x05, 0x0B, 0x05,
+  	0x0B, 0x05, 0x0B, 0x05,
+  	0x0B, 0x05, 0x0B, 0x05,
+@@ -194,8 +186,7 @@ static const u8 cypress_smc_int_vectors[] =
+  	0x04, 0xF6, 0x04, 0xF6
+  };
+
+-static const u8 barts_smc_int_vectors[] =
+-{
++static const u8 barts_smc_int_vectors[] = {
+  	0x0C, 0x14, 0x0C, 0x14,
+  	0x0C, 0x14, 0x0C, 0x14,
+  	0x0C, 0x14, 0x0C, 0x14,
+@@ -214,8 +205,7 @@ static const u8 barts_smc_int_vectors[] =
+  	0x05, 0x0A, 0x05, 0x0A
+  };
+
+-static const u8 turks_smc_int_vectors[] =
+-{
++static const u8 turks_smc_int_vectors[] = {
+  	0x0C, 0x14, 0x0C, 0x14,
+  	0x0C, 0x14, 0x0C, 0x14,
+  	0x0C, 0x14, 0x0C, 0x14,
+@@ -234,8 +224,7 @@ static const u8 turks_smc_int_vectors[] =
+  	0x05, 0x0A, 0x05, 0x0A
+  };
+
+-static const u8 caicos_smc_int_vectors[] =
+-{
++static const u8 caicos_smc_int_vectors[] = {
+  	0x0C, 0x14, 0x0C, 0x14,
+  	0x0C, 0x14, 0x0C, 0x14,
+  	0x0C, 0x14, 0x0C, 0x14,
+@@ -254,8 +243,7 @@ static const u8 caicos_smc_int_vectors[] =
+  	0x05, 0x0A, 0x05, 0x0A
+  };
+
+-static const u8 cayman_smc_int_vectors[] =
+-{
++static const u8 cayman_smc_int_vectors[] = {
+  	0x12, 0x05, 0x12, 0x05,
+  	0x12, 0x05, 0x12, 0x05,
+  	0x12, 0x05, 0x12, 0x05,
