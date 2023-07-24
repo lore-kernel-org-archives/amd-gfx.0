@@ -4,114 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AB41C001DE
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 13:51:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24013C001B0
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 14:15:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8E3810E15B;
-	Mon, 24 Jul 2023 13:51:56 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43BE810E15B
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 13:51:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC7510E320;
+	Mon, 24 Jul 2023 14:15:11 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20620.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::620])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D46C10E320
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 14:15:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jQiAHX2mqmC9DpUzhekkoLhG+rbkg2WQWVBiwnPymO3S5oUWnnL/kGKQWggIpYJgIPCWGl4hMYyIbcIYY//ekehiEb69RrHQRJr5tgJuIF4oqXQYCa8LOXxBbinh/3+xTgV/fHs0zviwSp65CqI7TkGtN+O2y0Favj3+QYVqtwlMkcWIv4BBRuVQW/ix6SqfLq8nJkTyjmhgMwYwn4RfP89ggPpp+sJsPpnk+DusD36OlEuK3xlPP0DHd+5xlUZlCFoeJtLmpI2rerFG+tjN6Y5JZFGF6w3UYBNEKUMut3468hSCDYJuuIZMJXbicsDM6MG0r8yG38luwEkmfXs8zA==
+ b=MyCcskeXQNHtGCqEsgQ29jrOvYGUbjK8SPqsopehEgVM0mDSZfOwCTk8C+3TpAzpc8sm/6IOkSXRpmZ1RBSC4jDkL7JVkBZIZbTDi0FO3Y4RD337OLnsAe3SYDtFMgsTip+bnTsYatOXGn42qXJTwC/Jn3wb+3uljNlRbOD/ugHvhs93iXYwsSIyah4VNClP+acsBi14/pTezHNlpUJy9bDK93FfhYbQGH9CwQHp8Yq+rOGW4pWdAqXT+JcCGCU8bCOX6Q/gsj1AQ1RdqkRa3wdjaTmC270wWWxHGpmRsHbNaZfr0Lr7bmnBhQyrHYJlPlK0pscEGlhz1eWywej+fA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=63CQc882S+6sDa+ig02/EZsNJuRgf/W/i3r9TjaaMAg=;
- b=e2Rra8zM1MVwUkjm+0xRJj/lFh+5NEa6QSms0SUtrdpAJXcyhgM3h+yitMQspBUR0/iqWBtqfUV7DPPguD8sS1uy/du5JkLkwWOhnWavEA8+xaVxno11P6g/4OuV4gVaR1snmXDDryMuoQhFFxrOF3bGfvxxs05+EhtqZmHumcuvVlA68u4B+sqz2k+VCi2WjFSFZStq8QSMBfpZ2amYV/2aNF/Ef7K6IgCMhL5gbgFOkCEzaT0SH5RMCjtdsouzzLRCLcf/6ftPZ8Gs+A38TxRD8whF2/3Hv20VJM44BkQQLy+htzoiuQVLsRf+QnoJH11jeCrxq/Kktr6wVUp3eA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=aN3kj8GVA6iKKuNdvACjMN1F5qKldTgvTCwkUUV1Npc=;
+ b=Ias60JTOK7B49IWYodzS/GuGwDPwAgXW4yzsWlexqau1mrPEpi5KKIPW/R8SB5K0tRQ4tQ/CRf57duRKkpjjbCmJE4lllhVBwKEj3BTLyl38Z4UG4RyOfFJoggdmXenSK2pBX2HxkdZhfR4VmrE0zMvA7aI25wFB7JeCYgpLnWPejuP0FQKotLB77mMWtW34ZwHU7tO6DpNaXgAz3jRMvlP1RTXLRd/0bmzH5YqEjEpFqWvcOewQX642jmWouXLVzmAb2VgnYovpu5ayNJz1FbY/RrX8S2pC9SFmPemEiIkSHowtwi9yOyMp6Gr7TVx73oSXhwzT7Lu3Cjjllf725w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=63CQc882S+6sDa+ig02/EZsNJuRgf/W/i3r9TjaaMAg=;
- b=Tsn4eqZl2QuTfxuTpjOX21xSELgM4vbaOo5oyCrzEm7b/I0Qp7mNaQq9PxCo7efE9yIl2e9lt/BeyWBI77+weDVeaFMSoAvIHrgqomDmdsY7qyhE2L9x6hwdWxeuT2GIGi5xP1fbgyqsnZr2OckHeVBbvZJMJuxHHCBurOV+YDE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by SA0PR12MB4510.namprd12.prod.outlook.com (2603:10b6:806:94::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Mon, 24 Jul
- 2023 13:51:52 +0000
-Received: from MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::9fd8:53b3:2a30:5d93]) by MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::9fd8:53b3:2a30:5d93%5]) with mapi id 15.20.6609.031; Mon, 24 Jul 2023
- 13:51:52 +0000
-Message-ID: <76379126-6f45-b4bd-5f92-94304503a1ab@amd.com>
-Date: Mon, 24 Jul 2023 09:55:21 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Remove else after return in
- 'dm_vblank_get_counter' & 'amdgpu_dm_backlight_get_level'
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-References: <20230723093158.2052531-1-srinivasan.shanmugam@amd.com>
-Content-Language: en-US
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20230723093158.2052531-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CP5P284CA0112.BRAP284.PROD.OUTLOOK.COM
- (2603:10d6:103:228::17) To MN2PR12MB2941.namprd12.prod.outlook.com
- (2603:10b6:208:a9::12)
+ bh=aN3kj8GVA6iKKuNdvACjMN1F5qKldTgvTCwkUUV1Npc=;
+ b=puqG1JMzX19G1+Qtwi2P0WON3BfbebFxhkzZsf9WCvTKL6wp1lbW+wdD/j7RRqtfXxMh5WamVy7wSmmoSMzPjkfxUtW7Brl0lClogsk4SlDUONGEpFfJkd3p3+9imLLLZWXJJo6gu3BUBhzFLlMgIO/zDIYGwo30KuxGZJ9lWjg=
+Received: from MW4PR03CA0014.namprd03.prod.outlook.com (2603:10b6:303:8f::19)
+ by IA0PR12MB8693.namprd12.prod.outlook.com (2603:10b6:208:48e::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28; Mon, 24 Jul
+ 2023 14:15:06 +0000
+Received: from CO1NAM11FT084.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8f:cafe::4d) by MW4PR03CA0014.outlook.office365.com
+ (2603:10b6:303:8f::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33 via Frontend
+ Transport; Mon, 24 Jul 2023 14:15:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT084.mail.protection.outlook.com (10.13.174.194) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6631.25 via Frontend Transport; Mon, 24 Jul 2023 14:15:06 +0000
+Received: from fdavid-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 24 Jul
+ 2023 09:15:05 -0500
+From: David Francis <David.Francis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Add EXT_COHERENCE memory allocation flags
+Date: Mon, 24 Jul 2023 10:14:45 -0400
+Message-ID: <20230724141445.2451975-2-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230724141445.2451975-1-David.Francis@amd.com>
+References: <20230724141445.2451975-1-David.Francis@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|SA0PR12MB4510:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68edfe1a-4305-4396-23d1-08db8c4d223e
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT084:EE_|IA0PR12MB8693:EE_
+X-MS-Office365-Filtering-Correlation-Id: c296ab53-9d42-4bff-ff30-08db8c506175
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: muVdtGoebphpAn8qGVSlPT1jxjyveHWJ9i4QdPe1sviXYtelcg2MLTMkrjeHB4qwE0iCmcGSPzG3iOnNl/xyELcPdfmlAP6NK26Rbe5aNI/ev4ltnIyM8zbyaYYvjQroO24w56UN7vd2HQjAsvYBWAaeu4gfXOUk4c+385aZW2XD74jUX4pNcbEYyvL6V/CXt8/LOfPjypIOn7nJLX1K5rtXGPpo6x8LlTn1TkhOAS9Hm/IJqEjfljzWP5fKWnky9xKbaYNH0q/XsEEOrAR705R9H8PB3RkRyXV23q20xRsHZPea5et/CI6bloR1kYDqE0viqEGHh5e5I/lYx+F4Kc5vQH8g3NoXpBT9xUN8zmoJFBA07qYkHDhvTOuNd9Ak0FMkOj2fXC+wDrDA84L3OajYRIt+U4/yS0SGP9F3taPZcBLY8xPhWZ6kFATowZOq2BdLUUGl1J36Vva1YyMSwOK6fNRE5bOMntScs1pgxx+R4grfVekG7o+5woXhvf5lvL9FYMvOn6Tjeq7NKvC2pWT/e2AKXu7iUWeiDkoypwrSwnVzrO44EW4aohMuLPOvlTbrc1nK5aH89mLGHxYhhRrqJtMyiz5qiXmbmsPlL35DEaQikIkWx4Xwoohj7zIMR2eqZxIS9zAQH3ovzceorA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(396003)(39860400002)(346002)(136003)(376002)(451199021)(31686004)(38100700002)(31696002)(86362001)(36756003)(83380400001)(37006003)(478600001)(2616005)(53546011)(6506007)(26005)(186003)(6636002)(4326008)(66476007)(66556008)(6862004)(66946007)(316002)(41300700001)(8936002)(8676002)(5660300002)(6512007)(6486002)(6666004)(2906002)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: LCDd+7Bv9aVZ/xrgngSSGccBi1LLOYZ74pVo6ZeyyU5z1LCyIj+XzzYxo9rK8+JUjJrSL8jLg4zlmtRz5YG1p2CwvKNWt5cBhqD8RH/7kGjcCjHttVo87eI8EANzUPp5HWLEEPV6iIfL687fC+aIGUzJCmiOcFRCIvx4p01QS/nL/6NqFaY26hvSZFod/sEugxIz85Mv6eqVvIQNmvkE9m69NrOCHBCLiE/kVWEPeNVvgFQrEeGe9d+AgQ+dgg3KEGw/B7ZWVu2EKNeX93wOkbayEP7OkJAbROMWygWt41ModA8a5tGa7JE1Ma5kTjbK/Umk7ply49bamtUntpt2/6LOwLHvpZVdrnt2NW6gfNR5Rq69Wc3xb/LbYL6yB/sUPTP+Xr+hX9HBs5Zd3315JVsfQbBZFUAO370Puvgpb2curJh+s9QAG9BLp2Cv/fmfIt7KRTC1Ynm6xEuLEq31qtpqzdHhf3XEsiOrROchN4Sr2wA8nDv7cADDZ6UrJlsXBNfT6Giz6Uhae67YcpEpcAHaKM/Dd67CJYLRt+Cxb3jDr0V7mYMTdA5FH4BuoG4AUkU3FMqtwp4xQTgOgO1dQO8OMt4QXTbjLxYw+G1QHDAe8WlKBZ/GqOXyNhVqSIRx7UalA6D7FkgLtvWNykMYZGrIAgqfQO9+LBhJ1HE0+nK0DhtZTbc6dCQ92tg4uNJscEvv+Is6eJGqwFaHf8qKrVJRy/nkB7kSyPSu2IhDFLPNOCFWNYMfn6Vaj736L1+jP4gQTOhHdz2EwFQ3iS+rLw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(376002)(396003)(39860400002)(136003)(82310400008)(451199021)(40470700004)(46966006)(36840700001)(83380400001)(36860700001)(40480700001)(40460700003)(2906002)(2616005)(47076005)(426003)(82740400003)(356005)(81166007)(70206006)(70586007)(4326008)(316002)(6916009)(41300700001)(1076003)(36756003)(336012)(186003)(478600001)(26005)(16526019)(7696005)(6666004)(5660300002)(8676002)(8936002)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N250cDVCNHFtdWRPODB3TG5kZThpRzNiSVYxcS9BdGtmdTRIdjE2clkxZHh4?=
- =?utf-8?B?cHhhSTJVcnZNRmxJbjM0VGFTbFlvNy9tbzJxNDluN0lFVm14ZG5OU0FITHJV?=
- =?utf-8?B?d2VVZHQ0L1pmOTlBU3B5Z1p1aDh2dGhMckV2Kys0TkxpU0k0ZTNPc3AzWmMr?=
- =?utf-8?B?WXNqRG9ZbCtmT3gzNVlydFZoMjU3Ym9QbmdXcStXTzF1emgrdnB1Rzd0bkpm?=
- =?utf-8?B?cE1haDNUU2tVM2oycFE3Y3IzVUdyQnJVK1ArUE1zQW1WanEzdSsrVjNLeHRV?=
- =?utf-8?B?Tms4eFJWMHhudkdzQ0RJZVNtNVJudU43eU5GY3BZN3pmWXliUVUyWno5ekpX?=
- =?utf-8?B?akk1UHpFaGh2OWJEUWQxWE5jempiMmovcXlIK0RZQ051NkY1d25qMFlmUXBz?=
- =?utf-8?B?eFkyRXhKM0VWM09LTEc0M2s2K2NBZ3Z3SUJycE5abU5POXRENE1SZk9NNXh0?=
- =?utf-8?B?WjlKSUYvK05zMEdaQUFVQjM1d2NYQnNiekM4dHRBZnBNcDA3MkNmNUpINGNT?=
- =?utf-8?B?RWxBM051S1k5MG51bSswRTFCZlZmbk56MStIZWFEMXk4NWhGQjVicGg2bW1I?=
- =?utf-8?B?bkl5aTFHQWdyNk96dkIzUmEwdDlBRkRrRVBaWWtTdVZxcmYzbmFWWnJERGc1?=
- =?utf-8?B?MEsrbVl4UlVaZWpUOWVqSERKYWZBZW1MK3F1UHFWeFpSNS9Oa2hDNGJhcWpF?=
- =?utf-8?B?MG1TMURkSWdQUkxoZm1FWExjdm4vUzZZMlhaelgzVWtQLzh4LzBjODkxcDI1?=
- =?utf-8?B?TzhIa1A4am5FVDU0ajdodGZsY0w1MkxYMVVsdFRUSmF0SmpSRjRWejU5ZHp4?=
- =?utf-8?B?MDI0YXlaMnhlREh5K3VIOUVMWGlkZ3FJeHIzMGpnNklIV3BkNTZOSzdtckMy?=
- =?utf-8?B?YnN2MmlIOS9reGRXWmEyWUpQRnRDN0FXTDVYOGU3U1MvdEF0eFBJRlBqdURt?=
- =?utf-8?B?N09xbi9tdTJKVzNFSXZoNnkxTGZlejY2aVZ3TnZCYjZyUy82citWTDJJZU9s?=
- =?utf-8?B?c2VkYlB2b2NLMlZzWlZjaHJzZnpmTEhaaUZ6cjEwYittS3lBSkVzbjhOTXhI?=
- =?utf-8?B?ZUVFeDlKSFZoclc4MXplYWdYK2p6bWJIQUo4SlYvcGxtSmVWeDhHM2RZQWpX?=
- =?utf-8?B?dks1VjBoTmRmUWhjZUtmYnJHKyszelNSVFQrcU1ZTjdzWU5XNDlRb0lNWEk3?=
- =?utf-8?B?eFluajhablRaYndseU1xLzVRMTVsK2xtLzlra0JaUStXOHBsc2NMNzJhS21P?=
- =?utf-8?B?dkoxelVNOVlOcnh4bmJMYkJhTWEyMlZYSUh6U25HeUd2M05NUkpLTWw1NWFQ?=
- =?utf-8?B?YTY2QkZQQ2Yzb1kyNkVpaUYyWkkwUlpOS1pJcHV3d0hwRU15VThWNjZHa3lR?=
- =?utf-8?B?ZU11Wnk4bzl4bkluTzZTSnZCSDY5U0VtZUVPRFZVVjZ1bGhPajhsMjkxd1pE?=
- =?utf-8?B?aWFrNXhodVZxbnFDWkVWY0xlRVBFaUVqZW45bklSekhFM0hKTDZtSXQ3TTUv?=
- =?utf-8?B?YTdjbXpLSnF5SElpajJTYThNY0ZadzBJbXJKdmU5S3JFa1F3TmVhN0RYMW9x?=
- =?utf-8?B?OG1LMGp1MU5jSWMvN3BSU0N1b3pmRS9WOHBTdmhLd1dReUd6b0hmb09aNmM5?=
- =?utf-8?B?SHhOVkNmbFpmWWQ0WjdWQlphTGJ2a01qMTI4OGVjRWh3UFBqQXNPaWtTN2x1?=
- =?utf-8?B?QlNnQlBCYVp6SlVBS3pvOHkvZWdnT3B3NGRta0lEakh2VUNVYmxDWGpDbTFY?=
- =?utf-8?B?dDZ6KzE4ZFNhMXoydG5uNGorbDZOdS8yS3lLUG5tYzIwY2tzc01taVBJTnQ3?=
- =?utf-8?B?dVZLVXluSFVZczhxbU41NGF1cFpYQ3JGTmh3NnUrUFVFVGNpUUJKRDJHNjZj?=
- =?utf-8?B?SmFwajR6NS91ejJ2WGZXUWxMQjM4SllUSGNVaHcxb0pPWnRUNEZqYWRvTTZV?=
- =?utf-8?B?cyszdHpoU3RtejVGTmVhTTI0czhTUndEL0kxcVpmZGJLNTFLN0JTMnZ5Wlkr?=
- =?utf-8?B?RTlRcEZSMXJiT2wreGpMeEtLS0ZKY2JPOVZudERFOFI2WnlOdlFSaklXcUFJ?=
- =?utf-8?B?RHpPNWxOQ2RaQmRMNWR4bzhZclZSdkNpeUs2bWMvRlhlWVBlbUowN3ZFeDds?=
- =?utf-8?Q?1tOUMiR3IROwICvF5Z3+9HZrU?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68edfe1a-4305-4396-23d1-08db8c4d223e
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2023 13:51:52.0880 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2023 14:15:06.1733 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c296ab53-9d42-4bff-ff30-08db8c506175
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U7IxR1t7xrpH9G0Bd2CPxBXWp+XHKGnh9QIf9AqQpKZZ6LcHKDd2oSTdKDubOZf0sy+iCfsjkfI5UlEF/Eq0vA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4510
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT084.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8693
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,96 +100,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: David Francis <David.Francis@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+These flags (for GEM and SVM allocations) allocate
+memory that allows for system-scope atomic semantics.
 
+On GFX943 these flags cause caches to be avoided on
+non-local memory.
 
-On 7/23/23 05:31, Srinivasan Shanmugam wrote:
-> Expressions under 'else' branch in function 'dm_vblank_get_counter' &
-> 'amdgpu_dm_backlight_get_level' are executed whenever the expression in
-> 'if' is False. Otherwise, return from case occurs. Therefore, there is
-> no need in 'else', and it has been removed.
-> 
-> Fixes the following:
-> 
-> WARNING: else is not generally useful after a break or return
-> +               return 0;
-> +       else {
-> 
-> WARNING: else is not generally useful after a break or return
-> +               return convert_brightness_to_user(&caps, avg);
-> +       } else {
-> 
-> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 ++++++++++---------
->   1 file changed, 17 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 1e1a38014475..77d970a2ee69 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -245,19 +245,20 @@ is_timing_unchanged_for_freesync(struct drm_crtc_state *old_crtc_state,
->    */
->   static u32 dm_vblank_get_counter(struct amdgpu_device *adev, int crtc)
->   {
-> +	struct amdgpu_crtc *acrtc = NULL;
-> +
->   	if (crtc >= adev->mode_info.num_crtc)
->   		return 0;
-> -	else {
-> -		struct amdgpu_crtc *acrtc = adev->mode_info.crtcs[crtc];
->   
-> -		if (acrtc->dm_irq_params.stream == NULL) {
-> -			DRM_ERROR("dc_stream_state is NULL for crtc '%d'!\n",
-> -				  crtc);
-> -			return 0;
-> -		}
-> +	acrtc = adev->mode_info.crtcs[crtc];
->   
-> -		return dc_stream_get_vblank_counter(acrtc->dm_irq_params.stream);
-> +	if (!acrtc->dm_irq_params.stream) {
-> +		DRM_ERROR("dc_stream_state is NULL for crtc '%d'!\n",
-> +			  crtc);
-> +		return 0;
->   	}
-> +
-> +	return dc_stream_get_vblank_counter(acrtc->dm_irq_params.stream);
->   }
->   
->   static int dm_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
-> @@ -4091,6 +4092,7 @@ static int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
->   static u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm,
->   					 int bl_idx)
->   {
-> +	int ret;
->   	struct amdgpu_dm_backlight_caps caps;
->   	struct dc_link *link = (struct dc_link *)dm->backlight_link[bl_idx];
->   
-> @@ -4105,13 +4107,14 @@ static u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm,
->   		if (!rc)
->   			return dm->brightness[bl_idx];
->   		return convert_brightness_to_user(&caps, avg);
-> -	} else {
-> -		int ret = dc_link_get_backlight_level(link);
-> -
-> -		if (ret == DC_ERROR_UNEXPECTED)
-> -			return dm->brightness[bl_idx];
-> -		return convert_brightness_to_user(&caps, ret);
->   	}
-> +
-> +	ret = dc_link_get_backlight_level(link);
-> +
-> +	if (ret == DC_ERROR_UNEXPECTED)
-> +		return dm->brightness[bl_idx];
-> +
-> +	return convert_brightness_to_user(&caps, ret);
->   }
->   
->   static int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
+On all other ASICs they are identical in functionality to the
+equivalent COHERENT flags.
 
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: David Francis <David.Francis@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  2 ++
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c           |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c           |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c            |  5 ++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c             | 10 +++++++++-
+ include/uapi/drm/amdgpu_drm.h                    |  7 +++++++
+ include/uapi/linux/kfd_ioctl.h                   |  3 +++
+ 7 files changed, 27 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 9e18fe5eb190..67634e9f6466 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1790,6 +1790,8 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 
+ 	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_COHERENT)
+ 		alloc_flags |= AMDGPU_GEM_CREATE_COHERENT;
++	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_EXT_COHERENCE)
++		alloc_flags |= AMDGPU_GEM_CREATE_EXT_COHERENCE;
+ 	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED)
+ 		alloc_flags |= AMDGPU_GEM_CREATE_UNCACHED;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 1c07459e2bd2..6a6f6068bea0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -631,6 +631,7 @@ static void gmc_v10_0_get_vm_pte(struct amdgpu_device *adev,
+ 	}
+ 
+ 	if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
++			       AMDGPU_GEM_CREATE_EXT_COHERENCE |
+ 			       AMDGPU_GEM_CREATE_UNCACHED))
+ 		*flags = (*flags & ~AMDGPU_PTE_MTYPE_NV10_MASK) |
+ 			 AMDGPU_PTE_MTYPE_NV10(MTYPE_UC);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index a6ee0220db56..ff330c7c0232 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -540,6 +540,7 @@ static void gmc_v11_0_get_vm_pte(struct amdgpu_device *adev,
+ 	}
+ 
+ 	if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
++			       AMDGPU_GEM_CREATE_EXT_COHERENCE |
+ 			       AMDGPU_GEM_CREATE_UNCACHED))
+ 		*flags = (*flags & ~AMDGPU_PTE_MTYPE_NV10_MASK) |
+ 			 AMDGPU_PTE_MTYPE_NV10(MTYPE_UC);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 8447fcada8bb..17cf19c868e1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1180,7 +1180,8 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
+ {
+ 	struct amdgpu_device *bo_adev = amdgpu_ttm_adev(bo->tbo.bdev);
+ 	bool is_vram = bo->tbo.resource->mem_type == TTM_PL_VRAM;
+-	bool coherent = bo->flags & AMDGPU_GEM_CREATE_COHERENT;
++	bool coherent = bo->flags & (AMDGPU_GEM_CREATE_COHERENT | AMDGPU_GEM_CREATE_EXT_COHERENCE);
++	bool ext_coherence = bo->flags & AMDGPU_GEM_CREATE_EXT_COHERENCE;
+ 	bool uncached = bo->flags & AMDGPU_GEM_CREATE_UNCACHED;
+ 	struct amdgpu_vm *vm = mapping->bo_va->base.vm;
+ 	unsigned int mtype_local, mtype;
+@@ -1248,6 +1249,8 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
+ 		snoop = true;
+ 		if (uncached) {
+ 			mtype = MTYPE_UC;
++		} else if (ext_coherence) {
++			mtype = is_local ? MTYPE_CC : MTYPE_UC;
+ 		} else if (adev->flags & AMD_IS_APU) {
+ 			mtype = is_local ? mtype_local : MTYPE_NC;
+ 		} else {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 909f1ef8927d..acb87b2fe8df 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1157,7 +1157,8 @@ svm_range_get_pte_flags(struct kfd_node *node,
+ 	uint32_t mapping_flags = 0;
+ 	uint64_t pte_flags;
+ 	bool snoop = (domain != SVM_RANGE_VRAM_DOMAIN);
+-	bool coherent = flags & KFD_IOCTL_SVM_FLAG_COHERENT;
++	bool coherent = flags & (KFD_IOCTL_SVM_FLAG_COHERENT | KFD_IOCTL_SVM_FLAG_EXT_COHERENCE);
++	bool ext_coherence = flags & KFD_IOCTL_SVM_FLAG_EXT_COHERENCE;
+ 	bool uncached = false; /*flags & KFD_IOCTL_SVM_FLAG_UNCACHED;*/
+ 	unsigned int mtype_local;
+ 
+@@ -1205,6 +1206,13 @@ svm_range_get_pte_flags(struct kfd_node *node,
+ 		snoop = true;
+ 		if (uncached) {
+ 			mapping_flags |= AMDGPU_VM_MTYPE_UC;
++		} else if (ext_coherence) {
++			/* local HBM region close to partition */
++			if (bo_node->adev == node->adev &&
++			    (!bo_node->xcp || !node->xcp || bo_node->xcp->mem_id == node->xcp->mem_id))
++				mapping_flags |= AMDGPU_VM_MTYPE_CC;
++			else
++				mapping_flags |= AMDGPU_VM_MTYPE_UC;
+ 		} else if (domain == SVM_RANGE_VRAM_DOMAIN) {
+ 			/* local HBM region close to partition */
+ 			if (bo_node->adev == node->adev &&
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 3b98635bdfa8..7dbee3e3d9d1 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -173,6 +173,13 @@ extern "C" {
+  * may override the MTYPE selected in AMDGPU_VA_OP_MAP.
+  */
+ #define AMDGPU_GEM_CREATE_UNCACHED		(1 << 14)
++/* Flag that BO should be coherent across devices when using device-level
++ * atomics. May depend on GPU instructions to flush caches explicitly.
++ *
++ * This influences the choice of MTYPE in the PTEs on GFXv9 and later GPUs and
++ * may override the MTYPE selected in AMDGPU_VA_OP_MAP.
++ */
++#define AMDGPU_GEM_CREATE_EXT_COHERENCE		(1 << 15)
+ 
+ /* hybrid specific */
+ /* Flag that the memory should be in SPARSE resource */
+diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+index e467ac678ba9..7a4041ee5951 100644
+--- a/include/uapi/linux/kfd_ioctl.h
++++ b/include/uapi/linux/kfd_ioctl.h
+@@ -416,6 +416,7 @@ struct kfd_ioctl_acquire_vm_args {
+ #define KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_MEM	(1 << 27)
+ #define KFD_IOC_ALLOC_MEM_FLAGS_COHERENT	(1 << 26)
+ #define KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED	(1 << 25)
++#define KFD_IOC_ALLOC_MEM_FLAGS_EXT_COHERENCE	(1 << 24)
+ 
+ /* Allocate memory for later SVM (shared virtual memory) mapping.
+  *
+@@ -777,6 +778,8 @@ struct kfd_ioctl_cross_memory_copy_deprecated_args {
+ #define KFD_IOCTL_SVM_FLAG_GPU_READ_MOSTLY     0x00000020
+ /* Keep GPU memory mapping always valid as if XNACK is disable */
+ #define KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED   0x00000040
++/* Fine grained coherency between all devices using device-scope atomics */
++#define KFD_IOCTL_SVM_FLAG_EXT_COHERENCE       0x00000080
+ 
+ /**
+  * kfd_ioctl_svm_op - SVM ioctl operations
+-- 
+2.34.1
+
