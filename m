@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5C3AC04A94
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C2CFC001DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E81710E302;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5E6110E301;
 	Mon, 24 Jul 2023 12:58:44 +0000 (UTC)
 Received: from mail.208.org (unknown [183.242.55.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ABEA10E1C1
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 07:29:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94BB910E285
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 08:34:46 +0000 (UTC)
 Received: from mail.208.org (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTP id 4R8Wy81Y4GzBRx59
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 15:29:36 +0800 (CST)
+ by mail.208.org (Postfix) with ESMTP id 4R8YPH6FnKzBRx5B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 16:34:43 +0800 (CST)
 Authentication-Results: mail.208.org (amavisd-new); dkim=pass
  reason="pass (just generated, assumed good)" header.d=208.org
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
  content-transfer-encoding:content-type:message-id:user-agent
  :references:in-reply-to:subject:to:from:date:mime-version; s=
- dkim; t=1690183776; x=1692775777; bh=bZxSJWL9gZxd3WjJGHW8DK8u/U3
- 6n7xiHmXhkTl1aFY=; b=O8EsWJ9l91SgOoq9KBTYlK1s9g3UoKPqyiKS4HM2Rv4
- DWofj04WUFpj/76O4E8smi/ou+ZeNeKBv11YWE1cYrQsCdlgcmK/l/Z4cRvCEEVu
- 8+mh0LopektOMRigWAVKfAqIHRr1levUQmEq8L2pkyK3ERyFke/7/8xu7KF2LlRt
- jWwBUdMxQZf+irjwBUb7iolLxBeAzcf/EOE/p9rzfiZE/7FSL1rYnng3cvT11OWL
- vJOXrT+o633EsKNogWm15QNi5S4kt4qK/cV1LYHHipVNnk97pr0rF14AZ88SC4bl
- PEctlXF4NXrTPuicLRsOiL2Bs1CHOc80t49P/iMzY9g==
+ dkim; t=1690187683; x=1692779684; bh=xivezc9+8JHiL00mjjAuXmu9/dh
+ 6CnD4VSummcQwwCI=; b=oWaxq45Ozhy0XRIkwsph6ljsedBLPbXkY+NRRSkVFKn
+ pGajiMAgayA4DV00tcw6V5clYeTsa3Ykd6DTbajnm1UDDxRRABwdk0D2ScUnVas5
+ y5iFjuQcf0Xt3SUBardnqmDWZLfgpWg2EGGpmojPmBkeet8l1dJL7aoo6iY2tcr0
+ DJsE8ofwcGrSIs+DcrsfSJ40ktsvCR55NPFblEg2PCRvsd8CDzTS6RDWNpwNBxxd
+ RYOHO4qykFKSyEc/9Qo/inAvqSUvWBJ4/wuOSsysNznk9wkg/HDp/ZjAX5qugYcp
+ SisL4sERndhJxlskaCvk3DCO2mIa6FibhYW+6kx896A==
 X-Virus-Scanned: amavisd-new at mail.208.org
 Received: from mail.208.org ([127.0.0.1])
  by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id Eg9b_iuAVRWx for <amd-gfx@lists.freedesktop.org>;
- Mon, 24 Jul 2023 15:29:36 +0800 (CST)
+ with ESMTP id XMX0xiy0vXoN for <amd-gfx@lists.freedesktop.org>;
+ Mon, 24 Jul 2023 16:34:43 +0800 (CST)
 Received: from localhost (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTPSA id 4R8Wy76SW0zBRx4g;
- Mon, 24 Jul 2023 15:29:35 +0800 (CST)
+ by mail.208.org (Postfix) with ESMTPSA id 4R8YPH40vFzBR1P0;
+ Mon, 24 Jul 2023 16:34:43 +0800 (CST)
 MIME-Version: 1.0
-Date: Mon, 24 Jul 2023 15:29:35 +0800
+Date: Mon, 24 Jul 2023 16:34:43 +0800
 From: sunran001@208suo.com
 To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/pm: Clean up errors in sienna_cichlid_ppt.c
-In-Reply-To: <20230724072835.8913-1-xujianghui@cdjrlc.com>
-References: <20230724072835.8913-1-xujianghui@cdjrlc.com>
+Subject: [PATCH] drm/amd/pm: Clean up errors in
+ smu11_driver_if_sienna_cichlid.h
+In-Reply-To: <20230724083344.9285-1-xujianghui@cdjrlc.com>
+References: <20230724083344.9285-1-xujianghui@cdjrlc.com>
 User-Agent: Roundcube Webmail
-Message-ID: <ea1cf43d5545fa917127694a294a57da@208suo.com>
+Message-ID: <8e6eda082855e1b928253669fbb49316@208suo.com>
 X-Sender: sunran001@208suo.com
 Content-Type: text/plain; charset=US-ASCII;
  format=flowed
@@ -67,93 +68,33 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: space required after that ',' (ctx:VxV)
-ERROR: space required before the open parenthesis '('
-ERROR: spaces required around that '=' (ctx:VxW)
+ERROR: trailing whitespace
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
-  .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c  | 16 ++++++++--------
-  1 file changed, 8 insertions(+), 8 deletions(-)
+  drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_1_pmfw.h | 4 ++--
+  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c 
-b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 0cda3b276f61..5c233eda09ee 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -78,7 +78,7 @@
-  		(*member) = (smu->smu_table.driver_pptable + 
-offsetof(PPTable_beige_goby_t, field));\
-  	else\
-  		(*member) = (smu->smu_table.driver_pptable + offsetof(PPTable_t, 
-field));\
--} while(0)
-+} while (0)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_1_pmfw.h 
+b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_1_pmfw.h
+index c5e26d619bf0..8ec588248aac 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_1_pmfw.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_1_pmfw.h
+@@ -30,7 +30,7 @@
 
-  /* STB FIFO depth is in 64bit units */
-  #define SIENNA_CICHLID_STB_DEPTH_UNIT_BYTES 8
-@@ -590,7 +590,7 @@ static int sienna_cichlid_tables_init(struct 
-smu_context *smu)
+  #define ENABLE_DEBUG_FEATURES
 
-  static uint32_t sienna_cichlid_get_throttler_status_locked(struct 
-smu_context *smu)
-  {
--	struct smu_table_context *smu_table= &smu->smu_table;
-+	struct smu_table_context *smu_tabl = &smu->smu_table;
-  	SmuMetricsExternal_t *metrics_ext =
-  		(SmuMetricsExternal_t *)(smu_table->metrics_table);
-  	uint32_t throttler_status = 0;
-@@ -711,7 +711,7 @@ static int 
-sienna_cichlid_get_smu_metrics_data(struct smu_context *smu,
-  					       MetricsMember_t member,
-  					       uint32_t *value)
-  {
--	struct smu_table_context *smu_table= &smu->smu_table;
-+	struct smu_table_context *smu_table = &smu->smu_table;
-  	SmuMetrics_t *metrics =
-  		&(((SmuMetricsExternal_t *)(smu_table->metrics_table))->SmuMetrics);
-  	SmuMetrics_V2_t *metrics_v2 =
-@@ -1461,7 +1461,7 @@ static int sienna_cichlid_force_clk_levels(struct 
-smu_context *smu,
-  			goto forec_level_out;
-  		break;
-  	case SMU_DCEFCLK:
--		dev_info(smu->adev->dev,"Setting DCEFCLK min/max dpm level is not 
-supported!\n");
-+		dev_info(smu->adev->dev, "Setting DCEFCLK min/max dpm level is not 
-supported!\n");
-  		break;
-  	default:
-  		break;
-@@ -1881,7 +1881,7 @@ static int sienna_cichlid_read_sensor(struct 
-smu_context *smu,
-  	uint16_t *temp;
-  	struct amdgpu_device *adev = smu->adev;
+-// Firmware features
++// Firmware features
+  // Feature Control Defines
+  #define FEATURE_CCLK_DPM_BIT                 0
+  #define FEATURE_FAN_CONTROLLER_BIT           1
+@@ -92,7 +92,7 @@
+  #define FEATURE_ZSTATES_ECO_BIT             57
+  #define FEATURE_CC6_BIT                     58
+  #define FEATURE_DS_UMCCLK_BIT               59
+-#define FEATURE_DS_HSPCLK_BIT               60
++#define FEATURE_DS_HSPCLK_BIT               60
+  #define NUM_FEATURES                        61
 
--	if(!data || !size)
-+	if (!data || !size)
-  		return -EINVAL;
-
-  	switch (sensor) {
-@@ -2067,15 +2067,15 @@ static int 
-sienna_cichlid_display_disable_memory_clock_switch(struct smu_context
-  	uint32_t min_memory_clock = smu->hard_min_uclk_req_from_dal;
-  	uint32_t max_memory_clock = max_sustainable_clocks->uclock;
-
--	if(smu->disable_uclk_switch == disable_memory_clock_switch)
-+	if (smu->disable_uclk_switch == disable_memory_clock_switch)
-  		return 0;
-
--	if(disable_memory_clock_switch)
-+	if (disable_memory_clock_switch)
-  		ret = smu_v11_0_set_hard_freq_limited_range(smu, SMU_UCLK, 
-max_memory_clock, 0);
-  	else
-  		ret = smu_v11_0_set_hard_freq_limited_range(smu, SMU_UCLK, 
-min_memory_clock, 0);
-
--	if(!ret)
-+	if (!ret)
-  		smu->disable_uclk_switch = disable_memory_clock_switch;
-
-  	return ret;
+  typedef struct {
