@@ -4,51 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 181A5C001B0
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E4FDC001DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 12:58:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F60510E2FB;
-	Mon, 24 Jul 2023 12:58:44 +0000 (UTC)
-Received: from mail.208.org (unknown [183.242.55.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 145B410E27B
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 07:02:26 +0000 (UTC)
-Received: from mail.208.org (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTP id 4R8WLg1kLyzBRx4b
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 15:02:19 +0800 (CST)
-Authentication-Results: mail.208.org (amavisd-new); dkim=pass
- reason="pass (just generated, assumed good)" header.d=208.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
- content-transfer-encoding:content-type:message-id:user-agent
- :references:in-reply-to:subject:to:from:date:mime-version; s=
- dkim; t=1690182139; x=1692774140; bh=D+4P5p5qab67/2JnjNtYcP9Rkun
- WsCExLiGCPkJOU9k=; b=jzyg4Ed4QSZ6URKfdmyUmjgSyc+iFU+jR8RBGOeUfSo
- tJHjbKPHToRyMpccgA2nU98kEAsTgxrhfPaa988QNjx8IQFMO5y8kBl0yWdxwwYj
- bLlkJOvx5ckGDo2XlTFqLZGeQ8t9QNpLDO7ewGngQfsvztd2VUwd9IN0JPzKJVP0
- c/m6jrTVcgk6oG8QSxTHOq3dj37QmtWtDzq4BSVOkc2HbU6ZBQ8aPBcAgyWPp25c
- 1mlQXWMdNBLmjv+KKMhL0BGaGEJAKgegBMrtIn7oSdDuQWr8EMScBP8jXC2rsbhD
- xU3Lt4LsoaXbicQIxt0c0KjFQBzwOftvp/TvJdRCrGA==
-X-Virus-Scanned: amavisd-new at mail.208.org
-Received: from mail.208.org ([127.0.0.1])
- by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id n6uvh7cLmzoO for <amd-gfx@lists.freedesktop.org>;
- Mon, 24 Jul 2023 15:02:19 +0800 (CST)
-Received: from localhost (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTPSA id 4R8WLf5QW2zBRYmB;
- Mon, 24 Jul 2023 15:02:18 +0800 (CST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CE7F10E300;
+	Mon, 24 Jul 2023 12:58:43 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9249F88EBA;
+ Mon, 24 Jul 2023 09:23:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=nHwERRNohuUhZsb3fsbGJZNV/wqpb0sJjOXJGxj/gFU=; b=0eTCGmkFvYRanCjqIruUc+gFHD
+ eb0YjlozDEULA37j7v5qY4zn7oNzSJHyKS6Mu3lubDRF2RaMczkF4f0lJh//Gw6lfNr0hipZSgCGS
+ JIWlEQVkw7RyvqjD3Uxd4RuJG7sAceLde0p86r2jFr/kdLPlkftX1hnSBOxxVBlLMicc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1qNrmC-0026m1-D4; Mon, 24 Jul 2023 11:22:48 +0200
+Date: Mon, 24 Jul 2023 11:22:48 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Evan Quan <evan.quan@amd.com>
+Subject: Re: [PATCH V7 4/9] wifi: mac80211: Add support for ACPI WBRF
+Message-ID: <9b1f45f9-02a3-4c03-b9d5-cc3b9ab3a058@lunn.ch>
+References: <20230719090020.2716892-1-evan.quan@amd.com>
+ <20230719090020.2716892-5-evan.quan@amd.com>
 MIME-Version: 1.0
-Date: Mon, 24 Jul 2023 15:02:18 +0800
-From: sunran001@208suo.com
-To: airlied@gmail.com, daniel@ffwll.ch, alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/pm: add missing spaces before '('
-In-Reply-To: <20230724070049.8540-1-xujianghui@cdjrlc.com>
-References: <20230724070049.8540-1-xujianghui@cdjrlc.com>
-User-Agent: Roundcube Webmail
-Message-ID: <7ad78e88ddb94a0811947b48b04dfb2c@208suo.com>
-X-Sender: sunran001@208suo.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 24 Jul 2023 12:58:34 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230719090020.2716892-5-evan.quan@amd.com>
+X-Mailman-Approved-At: Mon, 24 Jul 2023 12:58:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,39 +46,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: jingyuwang_vip@163.com, bellosilicio@gmail.com, rafael@kernel.org,
+ trix@redhat.com, Lijo.Lazar@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, mdaenzer@redhat.com, Mario.Limonciello@amd.com,
+ airlied@gmail.com, amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, lenb@kernel.org, andrealmeid@igalia.com,
+ daniel@ffwll.ch, arnd@arndb.de, maarten.lankhorst@linux.intel.com,
+ hdegoede@redhat.com, jsg@jsg.id.au, jim.cromie@gmail.com,
+ netdev@vger.kernel.org, Xinhui.Pan@amd.com, linux-wireless@vger.kernel.org,
+ edumazet@google.com, Christian.Koenig@amd.com, tzimmermann@suse.de,
+ Alexander.Deucher@amd.com, johannes@sipsolutions.net, davem@davemloft.net
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ERROR: space required before the open parenthesis '('
+> @@ -1395,6 +1395,8 @@ int ieee80211_register_hw(struct ieee80211_hw *hw)
+>  	debugfs_hw_add(local);
+>  	rate_control_add_debugfs(local);
+>  
+> +	ieee80211_check_wbrf_support(local);
+> +
+>  	rtnl_lock();
+>  	wiphy_lock(hw->wiphy);
+>  
 
-Signed-off-by: Ran Sun <sunran001@208suo.com>
----
-  drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c | 6 +++---
-  1 file changed, 3 insertions(+), 3 deletions(-)
+> +void ieee80211_check_wbrf_support(struct ieee80211_local *local)
+> +{
+> +	struct wiphy *wiphy = local->hw.wiphy;
+> +	struct device *dev;
+> +
+> +	if (!wiphy)
+> +		return;
+> +
+> +	dev = wiphy->dev.parent;
+> +	if (!dev)
+> +		return;
+> +
+> +	local->wbrf_supported = wbrf_supported_producer(dev);
+> +	dev_dbg(dev, "WBRF is %s supported\n",
+> +		local->wbrf_supported ? "" : "not");
+> +}
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c 
-b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index 8a8ba25c9ad7..a7569354229d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -262,15 +262,15 @@ static int renoir_get_profiling_clk_mask(struct 
-smu_context *smu,
-  			/* mclk levels are in reverse order */
-  			*mclk_mask = NUM_MEMCLK_DPM_LEVELS - 1;
-  	} else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK) {
--		if(sclk_mask)
-+		if (sclk_mask)
-  			/* The sclk as gfxclk and has three level about max/min/current */
-  			*sclk_mask = 3 - 1;
+This seems wrong. wbrf_supported_producer() is about "Should this
+device report the frequencies it is using?" The answer to that depends
+on a combination of: Are there consumers registered with the core, and
+is the policy set so WBRF should take actions.
 
--		if(mclk_mask)
-+		if (mclk_mask)
-  			/* mclk levels are in reverse order */
-  			*mclk_mask = 0;
+The problem here is, you have no idea of the probe order. It could be
+this device probes before others, so wbrf_supported_producer() reports
+false, but a few second later would report true, once other devices
+have probed.
 
--		if(soc_mask)
-+		if (soc_mask)
-  			*soc_mask = NUM_SOCCLK_DPM_LEVELS - 1;
-  	}
+It should be an inexpensive call into the core, so can be made every
+time the channel changes. All the core needs to do is check if the
+list of consumers is empty, and if not, check a Boolean policy value.
+
+     Andrew
