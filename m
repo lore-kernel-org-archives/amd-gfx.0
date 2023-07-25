@@ -4,32 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 987D5C0015E
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 17:07:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 753C2C0015E
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 17:15:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E8C910E16A;
-	Tue, 25 Jul 2023 17:07:08 +0000 (UTC)
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB48D10E16A
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 17:07:06 +0000 (UTC)
-Received: from [192.168.1.137] ([213.144.156.170])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202307251907025095; Tue, 25 Jul 2023 19:07:02 +0200
-Message-ID: <497c1875-da06-38f1-8dae-002782840f99@daenzer.net>
-Date: Tue, 25 Jul 2023 19:06:54 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9548B10E3ED;
+	Tue, 25 Jul 2023 17:14:58 +0000 (UTC)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B16010E3E8;
+ Tue, 25 Jul 2023 17:14:56 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id
+ 46e09a7af769-6b9edef7993so4702470a34.2; 
+ Tue, 25 Jul 2023 10:14:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1690305295; x=1690910095;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LlPyW1B+Nnb+iK3S68PwCHo32yw0TdvXi8oVQXAv0ic=;
+ b=j65VVr23yiF5VnGY6kWS+6YzVVcPlItDDL7kFBCkVqJOPaA+nERASpDamyDM8d2zRv
+ /FHGu07eaCxp4nMrrQ9bELtBDlEBc1GKay8ERxrhDXWjaKBkqC+KPndgp8Bo57gpoJdk
+ qBRZwu9IxiMMcq2jNBzsMv7BxNgfpp0II+Mp4AKYwyfeM4djw5y3ZAQzBVk1xY8SMxNj
+ vvEzg0U3L9D275VpFMcoQ1KHFyRcqilXGrnrPNSBSirySfVQkor+yDvZ9G7LG8pFrRIc
+ 4XZQGS+9LG7Uunr1m7ufQ72AR6rv0xbdW9ZSr+YsKQ3zQAtjKKRj580gy9FyVo0fNoae
+ NVVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690305295; x=1690910095;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LlPyW1B+Nnb+iK3S68PwCHo32yw0TdvXi8oVQXAv0ic=;
+ b=UvsRL/hzsrxk7NbSImhZyFBbrSfY0NArCqcgkIwXOTyctoBw0rNjKOyRyCDUKCQYkW
+ ZpnFCVROk8mR+mz6Cvx+2gFTlbKMaWjkBOSiJitnmTUe+sua98lRL60EF86QaUmgBMRC
+ 7Hj9GnCTEtObn374HUHSLe24pgyuWbIDKSnxVl9CFS9c2W0BcjAp/RO1SYIJ8+gti9ti
+ JTF/q1Y9980SJZ++6urcMcJU8cdRM8iMUuf5njBB+HctpmTIEh5/gTUYZ4IYTrbI1XpG
+ Tn55gSuAbXHIsBF8O6eXgSF7KmlKdL2VS3UQrQN0KhmIq3fkAMX2hWv4m7SILbTgsy5c
+ TLtQ==
+X-Gm-Message-State: ABy/qLYFrqP7tAB/6O0BCEwLhptoqWPw/hNp+VhPty0VX5GliZc03cVp
+ N9DkyQbbeBw6wnPjoh7czriXni0cgPpsBUza+sU=
+X-Google-Smtp-Source: APBJJlHQoL+bV+I13AsdJoHS9f+/mt9mhCzycARA9DFPAA7VQgZNQgFCtlnutoP5ejmXKqukrVAx665/nX3TnHvVevk=
+X-Received: by 2002:a05:6870:9a05:b0:1ba:1998:1d23 with SMTP id
+ fo5-20020a0568709a0500b001ba19981d23mr15437466oab.35.1690305295510; Tue, 25
+ Jul 2023 10:14:55 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-CA
-To: Philip Yang <Philip.Yang@amd.com>
-References: <20230724175206.11054-1-Philip.Yang@amd.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH] drm/amdkfd: start_cpsch don't map queues
-In-Reply-To: <20230724175206.11054-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CTCH: RefID="str=0001.0A782F1A.64C00137.0030,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
- Spam="Unknown"; VOD="Unknown"
+References: <20230725130317.569535-1-yangyingliang@huawei.com>
+In-Reply-To: <20230725130317.569535-1-yangyingliang@huawei.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 25 Jul 2023 13:14:44 -0400
+Message-ID: <CADnq5_MvMceUiZ+_7pqMk-U+GmxZPZPzc6iCNkXnb5Wv=9WfcA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix missing unlock in
+ dm_handle_mst_sideband_msg_ready_event()
+To: Yang Yingliang <yangyingliang@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,28 +68,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
+Cc: haoping.liu@amd.com, daniel.wheeler@amd.com,
+ dri-devel@lists.freedesktop.org, jerry.zuo@amd.com,
+ amd-gfx@lists.freedesktop.org, wayne.lin@amd.com, alexander.deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/24/23 19:52, Philip Yang wrote:
-> start_cpsch map queues when kfd_init_node have race condition with
-> IOMMUv2 init, and cause the gfx ring test failed later. Remove it
-> from start_cpsch because map queues will be done when creating queues
-> and resume queues.
-> 
-> Reported-by: Michel Dänzer <michel@daenzer.net>
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-This patch doesn't help for any of the symptoms I've described I'm afraid.
+Already applied the fix for this from Dan.
 
+Thanks!
 
-iommu=pt on the kernel command line avoids the IB test failures for the compute rings, but doesn't help for any of the other symptoms either, which still leaves the system unusable overall.
+Alex
 
-
-Sorry I don't have better news,
-
-
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
-
+On Tue, Jul 25, 2023 at 9:21=E2=80=AFAM Yang Yingliang <yangyingliang@huawe=
+i.com> wrote:
+>
+> Add missing mutex_unlock() in error path in
+> dm_handle_mst_sideband_msg_ready_event().
+>
+> Fixes: 4f6d9e38c4d2 ("drm/amd/display: Add polling method to handle MST r=
+eply packet")
+> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 1abdec14344e..cddb91cf3dde 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -707,6 +707,7 @@ void dm_handle_mst_sideband_msg_ready_event(
+>
+>                         if (retry =3D=3D 3) {
+>                                 DRM_ERROR("Failed to ack MST event.\n");
+> +                               mutex_unlock(&aconnector->handle_mst_msg_=
+ready);
+>                                 return;
+>                         }
+>
+> --
+> 2.25.1
+>
