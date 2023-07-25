@@ -4,46 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6330CC001DE
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 13:02:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86CE5C001DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 13:16:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B945010E135;
-	Tue, 25 Jul 2023 13:02:41 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C718B10E135;
- Tue, 25 Jul 2023 13:02:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=vHFIoFaUOYTxKtsOTYJhM5rII5a+WpXzT2eCn/B2n6k=; b=SwYU54Kz4a5uv9Oj9TDviSYGoF
- GWrkAtz7jk7HbU1uIp9vw9s9+Tb190htxJLzlDQ8iRMw3cqV9YzkkVluyF+eTlPLyEqSznaa3VF5O
- FBFTCJRcwEawjKiAzRgdA8lSrrG4qJzGf22F5Vreuk7xTR1TEr1mDuFx9CBh8tMgO1OX74Mdn+25+
- rSBh60ZYpvWmviJEa0KdXdfqgId1rwvJzU3Ip/RLtsGCS0ZmtDSMx4eus7mEnlj088pahanY/HB4H
- 5HvWbbIbeenkuVlxuCzCSP2gm5iQYCrQvqZCAOsWE6g+MaCvN81yOyV6Fxtv0x55mSbpGg4dwyQTz
- xrQr6bMw==;
-Received: from [189.111.93.147] (helo=[192.168.1.111])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1qOHgC-003dOU-Jz; Tue, 25 Jul 2023 15:02:20 +0200
-Message-ID: <a1fecc5c-30c0-2754-70a1-2edb2fe118fb@igalia.com>
-Date: Tue, 25 Jul 2023 10:02:14 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D91710E13D;
+	Tue, 25 Jul 2023 13:16:02 +0000 (UTC)
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 673D010E13D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 13:15:59 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id
+ 5614622812f47-3a425ef874dso3859450b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 06:15:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1690290958; x=1690895758;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TYtYXO3YGC/lSWSx/QkJF1wFgyrMuWGsoLogarf8GnM=;
+ b=XENbLvBQQK9132ZZCBhW/bu14vMCmq8C2V7fRN04Lu5U5kinXbvUxnXu7mVSkbZRPB
+ ouO5jltlKNw/Swqhv3Hz00LhGy7UisMEIGkTFlkb5/7xlzVQB+lVPOXBIXeftJecnm2/
+ WVwMm6ZjNBkkBlJIWpK6sXRLWqsaA+jOvJnPzqA+VBGqi0fgFwFJUgoX9QvsbUdHEkby
+ RlhZZ2MQO7XNtFogKfO6gx6+FiE3kmvK8mCTDU+BwSpkseAR9h66SpP3GnIeSvUkSTLg
+ I6vCaeXqyUfu4SWqeB3F3WNRqkAODk00WOnaZqhj7Hq0tetszNMrKULAIYUreikieY6t
+ eySw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690290958; x=1690895758;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TYtYXO3YGC/lSWSx/QkJF1wFgyrMuWGsoLogarf8GnM=;
+ b=NHdtcYue/Dg+0CBPnnn0k4SgtyAWYa1zhap62nrPUDOrM5R9KJ37bbdZE+ZzKOEjie
+ 2LIxn1dYMsD+Q8F71Jf9QIRbtJUEIXyPCxDH3AEoqRbanoGKI3+3YWufNaAInKAIjdfp
+ q7fR3Sp3BHJ17b5u+lsWvIK2tu4JQp+z8uCNPjHmLbQ+/j8h4NVHaLdUoOUb4wRIRmcw
+ o92Urh72+mQTT/d19x6C0cvYokfoXwO438GvF2kY3qwtWD92mHrH1J5mn67SydXNp50R
+ 2tso15SwVOPVKLsIYGDkHc/oMhXTfJh0R9zOHiq+RISsD61aVL571QU4s7vPwrOh5OmM
+ h+jw==
+X-Gm-Message-State: ABy/qLYYloMDhgLGXBfUXHhBtm1/x96JCGHQLwthOXsheafOfL+72o8D
+ H4E7iLD0MMopiBq+sAeQy6AcIrJe2Bg2fTTky0FoD4qZ
+X-Google-Smtp-Source: APBJJlHWkqBsywbBaXV4/IHCRcCctITSB77+iAoO5FxYszXFGtr9Kfc+IfkotM3hry5ePv7OCxUWU1u3hrABwnQRglg=
+X-Received: by 2002:a05:6808:2119:b0:3a4:298f:b2e0 with SMTP id
+ r25-20020a056808211900b003a4298fb2e0mr16330265oiw.26.1690290958622; Tue, 25
+ Jul 2023 06:15:58 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Non-robust apps and resets (was Re: [PATCH v5 1/1] drm/doc:
- Document DRM device reset expectations)
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-References: <20230627132323.115440-1-andrealmeid@igalia.com>
- <e292a30f-5cad-1968-de4f-0d43c9c1e943@igalia.com>
- <45a1e527-f5dc-aa6f-9482-8958566ecb96@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <45a1e527-f5dc-aa6f-9482-8958566ecb96@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20230725092020.3777355-1-Prike.Liang@amd.com>
+In-Reply-To: <20230725092020.3777355-1-Prike.Liang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 25 Jul 2023 09:15:47 -0400
+Message-ID: <CADnq5_Pj9XqiggwpD2uA_rP0sEbV6JMYCh1hOWjG1L6MACdGzw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: enable SDMA MGCG for SDMA 5.2.x
+To: Prike Liang <Prike.Liang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,67 +67,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com, amd-gfx@lists.freedesktop.org,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>, kernel-dev@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ shikai.guo@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Michel,
+On Tue, Jul 25, 2023 at 5:20=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
+rote:
+>
+> Now the SDMA firmware support SDMA MGCG properly,
+> so let's enable it from the driver side.
 
-Em 25/07/2023 05:03, Michel Dänzer escreveu:
-> On 7/25/23 04:55, André Almeida wrote:
->> Hi everyone,
->>
->> It's not clear what we should do about non-robust OpenGL apps after GPU resets, so I'll try to summarize the topic, show some options and my proposal to move forward on that.
->>
->> Em 27/06/2023 10:23, André Almeida escreveu:
->>> +Robustness
->>> +----------
->>> +
->>> +The only way to try to keep an application working after a reset is if it
->>> +complies with the robustness aspects of the graphical API that it is using.
->>> +
->>> +Graphical APIs provide ways to applications to deal with device resets. However,
->>> +there is no guarantee that the app will use such features correctly, and the
->>> +UMD can implement policies to close the app if it is a repeating offender,
->>> +likely in a broken loop. This is done to ensure that it does not keep blocking
->>> +the user interface from being correctly displayed. This should be done even if
->>> +the app is correct but happens to trigger some bug in the hardware/driver.
->>> +
->> Depending on the OpenGL version, there are different robustness API available:
->>
->> - OpenGL ABR extension [0]
->> - OpenGL KHR extension [1]
->> - OpenGL ES extension  [2]
->>
->> Apps written in OpenGL should use whatever version is available for them to make the app robust for GPU resets. That usually means calling GetGraphicsResetStatusARB(), checking the status, and if it encounter something different from NO_ERROR, that means that a reset has happened, the context is considered lost and should be recreated. If an app follow this, it will likely succeed recovering a reset.
->>
->> What should non-robustness apps do then? They certainly will not be notified if a reset happens, and thus can't recover if their context is lost. OpenGL specification does not explicitly define what should be done in such situations[3], and I believe that usually when the spec mandates to close the app, it would explicitly note it.
->>
->> However, in reality there are different types of device resets, causing different results. A reset can be precise enough to damage only the guilty context, and keep others alive.
->>
->> Given that, I believe drivers have the following options:
->>
->> a) Kill all non-robust apps after a reset. This may lead to lose work from innocent applications.
->>
->> b) Ignore all non-robust apps OpenGL calls. That means that applications would still be alive, but the user interface would be freeze. The user would need to close it manually anyway, but in some corner cases, the app could autosave some work or the user might be able to interact with it using some alternative method (command line?).
->>
->> c) Kill just the affected non-robust applications. To do that, the driver need to be 100% sure on the impact of its resets.
->>
->> RadeonSI currently implements a), as can be seen at [4], while Iris implements what I think it's c)[5].
->>
->> For the user experience point-of-view, c) is clearly the best option, but it's the hardest to archive. There's not much gain on having b) over a), perhaps it could be an optional env var for such corner case applications.
-> 
-> I disagree on these conclusions.
-> 
-> c) is certainly better than a), but it's not "clearly the best" in all cases. The OpenGL UMD is not a privileged/special component and is in no position to decide whether or not the process as a whole (only some thread(s) of which may use OpenGL at all) gets to continue running or not.
-> 
+If this is only supported on certain firmware versions, do we need a
+version check?
 
-Thank you for the feedback. How do you think the documentation should 
-look like for this part?
+Alex
+
+
+>
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/nv.c        | 6 ++++--
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 1 +
+>  2 files changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu=
+/nv.c
+> index 6853b93ac82e..9bf7872e260d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> @@ -901,7 +901,8 @@ static int nv_common_early_init(void *handle)
+>                         AMD_CG_SUPPORT_ATHUB_LS |
+>                         AMD_CG_SUPPORT_IH_CG |
+>                         AMD_CG_SUPPORT_VCN_MGCG |
+> -                       AMD_CG_SUPPORT_JPEG_MGCG;
+> +                       AMD_CG_SUPPORT_JPEG_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG;
+>                 adev->pg_flags =3D AMD_PG_SUPPORT_GFX_PG |
+>                         AMD_PG_SUPPORT_VCN |
+>                         AMD_PG_SUPPORT_VCN_DPG |
+> @@ -962,7 +963,8 @@ static int nv_common_early_init(void *handle)
+>                         AMD_CG_SUPPORT_ATHUB_LS |
+>                         AMD_CG_SUPPORT_IH_CG |
+>                         AMD_CG_SUPPORT_VCN_MGCG |
+> -                       AMD_CG_SUPPORT_JPEG_MGCG;
+> +                       AMD_CG_SUPPORT_JPEG_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG;
+>                 adev->pg_flags =3D AMD_PG_SUPPORT_VCN |
+>                         AMD_PG_SUPPORT_VCN_DPG |
+>                         AMD_PG_SUPPORT_JPEG |
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v5_2.c
+> index 809eca54fc61..f8b6a2637d1d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> @@ -1653,6 +1653,7 @@ static int sdma_v5_2_set_clockgating_state(void *ha=
+ndle,
+>         case IP_VERSION(5, 2, 5):
+>         case IP_VERSION(5, 2, 6):
+>         case IP_VERSION(5, 2, 3):
+> +       case IP_VERSION(5, 2, 7):
+>                 sdma_v5_2_update_medium_grain_clock_gating(adev,
+>                                 state =3D=3D AMD_CG_STATE_GATE);
+>                 sdma_v5_2_update_medium_grain_light_sleep(adev,
+> --
+> 2.34.1
+>
