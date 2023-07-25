@@ -4,59 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E7E4C0015E
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 15:05:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36929C001DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 15:22:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A299F10E124;
-	Tue, 25 Jul 2023 15:05:40 +0000 (UTC)
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18C4D10E124;
- Tue, 25 Jul 2023 15:05:39 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4fdd31bf179so8708816e87.2; 
- Tue, 25 Jul 2023 08:05:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1342C10E148;
+	Tue, 25 Jul 2023 15:22:34 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8356910E140;
+ Tue, 25 Jul 2023 15:22:32 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id
+ 5614622812f47-3a5ac84718dso2223432b6e.0; 
+ Tue, 25 Jul 2023 08:22:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690297537; x=1690902337;
+ d=gmail.com; s=20221208; t=1690298551; x=1690903351;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=izSbvCwS33Nzu8WcsjFx0swOUhDCZ5hfgSwNc0cg4uM=;
- b=INwq7DEc2KTUbBH8qu1xUVJucRdHelF2FWT/7UoQM7/Crg1oHw0GTwilYzO+TR3aft
- izxyLQ4l49k5dZJjQM4o0xu4t1XK8BR1rbFGEANWFYDKDI01ACwGlDiQTpzgdhTLlC3m
- rZrWjVqTfOhnTN6nhjMA3MdLYrWJzCkpvDQ7IhQbTw1pNHg20xdcOm91Fs2enBPE9MgS
- iq7Uz7ik/cTqR1RK1TMiBscx+cC+MiMs1jYWLQMgbFBrWczHbLypcMWEyJoNRzW/5BOL
- VfqdvP9RJuVTAA7bFLNhC8SEsHc/qrOxEvDp0Ilr7jiOaoPO8Gq6HyJfY6aydjvO9zJu
- U7Xg==
+ bh=jBTTS5RF7AIv64GVj2b4Qc7prXLaZW3IGjOwlTzQwuo=;
+ b=lC8/Fq/kL5m6P1170AK5xtk0Zo8tWN7L+16SdgkjbX0m1p1bFbPzSfDQ85nvq4uhow
+ bmVViJgCbKdtExT7yseMBW5Dgkk95aSwnm+v2p0z68A6adWIBwMIDRsV9k1hZ/dh59qT
+ BF0ghVJj4PZvV7khI+sdW0LuDoXyU4wk1BiVMCuXHVgKil0C1UT/DgkM0xfscM8tTeDG
+ 80FxLV7yGk2PEZb14frViyEbbRlulFObqFm58sHDOU0q2PD9nB6fUMSVGXUhzQtywVTL
+ 0xmYZEwS/yVFNlB6tK0+h/hsOBWO8msdpDrRTVeAf/dnWPHREivrqCvqAsSqYpmyma+f
+ geOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690297537; x=1690902337;
+ d=1e100.net; s=20221208; t=1690298551; x=1690903351;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=izSbvCwS33Nzu8WcsjFx0swOUhDCZ5hfgSwNc0cg4uM=;
- b=jeqdFaFzxP0vvznky74gi3ds7c0ZI9DO+cFASlCgVUmb/9xRHVs2SZR1vOFI4DbX2i
- 20tftK48EDiTdbSpiq3aXkCGuLcVQOT+EVQn51t++eRQd3PScSN1KFX/FT8rs1P5RFOs
- qeVzazNrRleNc1avAdWD1Z0q3TumPsAmY9sD5U1KE1YDZT12KSAASWDkzc8ubJ9lf6+Z
- +JQpPiJp1iaOVTyPiRaNayyGyitasMA6YEL1F8T13D7dApBFf0XoXM75lXJRDSvkN1vj
- stcOsOShtU3srp9eduxESh/UC6Kub+iTVf6jDzwSbA4Demr6BeAVE8tUUNvNnCE31Kpe
- Pcjg==
-X-Gm-Message-State: ABy/qLaZXvGcEshku23jVK36CZZtryTGDHA3Y/IGTiZqufTKm+CEosS9
- 7qQfQuNSwTEHmDX52tGIc/AEcbDib0NEbg3SU3w=
-X-Google-Smtp-Source: APBJJlErgxAq0AM7XIRqNwjKdD9Sby9qr60ycVyvpIw0pM350sS8HYl7GbZot1w/EWlL49IB7nOENZntcNNTUTfgGvE=
-X-Received: by 2002:a05:6512:ac8:b0:4fb:89ac:a967 with SMTP id
- n8-20020a0565120ac800b004fb89aca967mr7157951lfu.56.1690297536906; Tue, 25 Jul
- 2023 08:05:36 -0700 (PDT)
+ bh=jBTTS5RF7AIv64GVj2b4Qc7prXLaZW3IGjOwlTzQwuo=;
+ b=hvqVBd/r5xkHZsJIqfQ9iBAgfGSb6DAGsJCNgSP7Rzh+oHzV0JO6xj2A7mw8IjIGbY
+ khaoAw5Fu43hWq3s/Jav82pQaRvp0ciQcD5LtAK+bkwGsENDFhqpOZ6jCxUtLiD6zq7X
+ Trjr/jxoyh+BKy3NBvcJ+sOo0MFhioFaoVkzU/WGMA0gfdDYqYQtgagRt6ynuVNwMxJL
+ JiybNAXXNRYBBsdONsxhdxzTGjmJOM1XPlTEg2iXY6dDnaYJGzFTWdw0GqH2fDd5n8Ca
+ 86iE+1cJrz0zRiMLOqzrTHW8ejCZfjTZIBsCwEUgz13IC4OjG7kqSQpT7IN6/YnViXXt
+ kSug==
+X-Gm-Message-State: ABy/qLaK8sw+HjAGZZbhvDGP2VbOQfYNNU+N0Vi+4u7FwxFUTqHdqfhu
+ 7p72yoAKakwsqSVFU4HRHvdE+vS36NG7BhpIpvs=
+X-Google-Smtp-Source: APBJJlFcdxcbcpR8u6vg6ikZOSDY7y4ippoWDRSFzG6NIvfv+Vvez0j9T9fTaD+gzpr4jjBxct3l5nG4o9AQ9xFFzp0=
+X-Received: by 2002:a05:6808:182a:b0:3a5:a78b:f773 with SMTP id
+ bh42-20020a056808182a00b003a5a78bf773mr12122118oib.6.1690298551704; Tue, 25
+ Jul 2023 08:22:31 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230627132323.115440-1-andrealmeid@igalia.com>
- <e292a30f-5cad-1968-de4f-0d43c9c1e943@igalia.com>
- <45a1e527-f5dc-aa6f-9482-8958566ecb96@mailbox.org>
-In-Reply-To: <45a1e527-f5dc-aa6f-9482-8958566ecb96@mailbox.org>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Tue, 25 Jul 2023 11:05:00 -0400
-Message-ID: <CAAxE2A6OhFVKSm8VY1iNJx_FvDH-ojfgxvSjTmJUwtcmouoLMw@mail.gmail.com>
-Subject: Re: Non-robust apps and resets (was Re: [PATCH v5 1/1] drm/doc:
- Document DRM device reset expectations)
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+References: <20230725080906.2028-1-zhanglibing@cdjrlc.com>
+ <b5933d7391b8e526894316b7e17b9637@208suo.com>
+In-Reply-To: <b5933d7391b8e526894316b7e17b9637@208suo.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 25 Jul 2023 11:22:20 -0400
+Message-ID: <CADnq5_NtPtoGDhdx8CwwPUdqrk-goJU4V-FOTPn5_pNv-hbjDg@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: ERROR: "foo * bar" should be "foo *bar"
+To: wuyonggang001@208suo.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -70,115 +68,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com, amd-gfx@lists.freedesktop.org,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, alexander.deucher@amd.com,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- christian.koenig@amd.com
+Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 25, 2023 at 4:03=E2=80=AFAM Michel D=C3=A4nzer
-<michel.daenzer@mailbox.org> wrote:
+I applied the same patch from Ran yesterday.
+
+Thanks!
+
+Alex
+
+On Tue, Jul 25, 2023 at 9:23=E2=80=AFAM <wuyonggang001@208suo.com> wrote:
 >
-> On 7/25/23 04:55, Andr=C3=A9 Almeida wrote:
-> > Hi everyone,
-> >
-> > It's not clear what we should do about non-robust OpenGL apps after GPU=
- resets, so I'll try to summarize the topic, show some options and my propo=
-sal to move forward on that.
-> >
-> > Em 27/06/2023 10:23, Andr=C3=A9 Almeida escreveu:
-> >> +Robustness
-> >> +----------
-> >> +
-> >> +The only way to try to keep an application working after a reset is i=
-f it
-> >> +complies with the robustness aspects of the graphical API that it is =
-using.
-> >> +
-> >> +Graphical APIs provide ways to applications to deal with device reset=
-s. However,
-> >> +there is no guarantee that the app will use such features correctly, =
-and the
-> >> +UMD can implement policies to close the app if it is a repeating offe=
-nder,
-> >> +likely in a broken loop. This is done to ensure that it does not keep=
- blocking
-> >> +the user interface from being correctly displayed. This should be don=
-e even if
-> >> +the app is correct but happens to trigger some bug in the hardware/dr=
-iver.
-> >> +
-> > Depending on the OpenGL version, there are different robustness API ava=
-ilable:
-> >
-> > - OpenGL ABR extension [0]
-> > - OpenGL KHR extension [1]
-> > - OpenGL ES extension  [2]
-> >
-> > Apps written in OpenGL should use whatever version is available for the=
-m to make the app robust for GPU resets. That usually means calling GetGrap=
-hicsResetStatusARB(), checking the status, and if it encounter something di=
-fferent from NO_ERROR, that means that a reset has happened, the context is=
- considered lost and should be recreated. If an app follow this, it will li=
-kely succeed recovering a reset.
-> >
-> > What should non-robustness apps do then? They certainly will not be not=
-ified if a reset happens, and thus can't recover if their context is lost. =
-OpenGL specification does not explicitly define what should be done in such=
- situations[3], and I believe that usually when the spec mandates to close =
-the app, it would explicitly note it.
-> >
-> > However, in reality there are different types of device resets, causing=
- different results. A reset can be precise enough to damage only the guilty=
- context, and keep others alive.
-> >
-> > Given that, I believe drivers have the following options:
-> >
-> > a) Kill all non-robust apps after a reset. This may lead to lose work f=
-rom innocent applications.
-> >
-> > b) Ignore all non-robust apps OpenGL calls. That means that application=
-s would still be alive, but the user interface would be freeze. The user wo=
-uld need to close it manually anyway, but in some corner cases, the app cou=
-ld autosave some work or the user might be able to interact with it using s=
-ome alternative method (command line?).
-> >
-> > c) Kill just the affected non-robust applications. To do that, the driv=
-er need to be 100% sure on the impact of its resets.
-> >
-> > RadeonSI currently implements a), as can be seen at [4], while Iris imp=
-lements what I think it's c)[5].
-> >
-> > For the user experience point-of-view, c) is clearly the best option, b=
-ut it's the hardest to archive. There's not much gain on having b) over a),=
- perhaps it could be an optional env var for such corner case applications.
+> Fix the error(s):
+> ERROR: "foo * bar" should be "foo *bar"
 >
-> I disagree on these conclusions.
+> Signed-off-by: Yonggang Wu <wuyonggang001@208suo.com>
+> ---
+>   drivers/gpu/drm/radeon/atom.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> c) is certainly better than a), but it's not "clearly the best" in all ca=
-ses. The OpenGL UMD is not a privileged/special component and is in no posi=
-tion to decide whether or not the process as a whole (only some thread(s) o=
-f which may use OpenGL at all) gets to continue running or not.
-
-That's not true. I recommend that you enable b) with your driver and
-then hang the GPU under different scenarios and see the result. Then
-enable a) and do the same and compare.
-
-Options a) and c) can be merged into one because they are not separate
-options to choose from.
-
-If Wayland wanted to grey out lost apps, they would appear as robust
-contexts in gallium, but the reset status would be piped through the
-Wayland protocol instead of the GL API.
-
-Marek
-
-
-
-Marek
+> diff --git a/drivers/gpu/drm/radeon/atom.c
+> b/drivers/gpu/drm/radeon/atom.c
+> index 11a1940bb26d..93acb0e42bd6 100644
+> --- a/drivers/gpu/drm/radeon/atom.c
+> +++ b/drivers/gpu/drm/radeon/atom.c
+> @@ -68,8 +68,8 @@ typedef struct {
+>   } atom_exec_context;
+>
+>   int atom_debug =3D 0;
+> -static int atom_execute_table_locked(struct atom_context *ctx, int
+> index, uint32_t * params);
+> -int atom_execute_table(struct atom_context *ctx, int index, uint32_t *
+> params);
+> +static int atom_execute_table_locked(struct atom_context *ctx, int
+> index, uint32_t *params);
+> +int atom_execute_table(struct atom_context *ctx, int index, uint32_t
+> *params);
+>
+>   static uint32_t atom_arg_mask[8] =3D {
+>         0xFFFFFFFF, 0x0000FFFF, 0x00FFFF00, 0xFFFF0000,
