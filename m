@@ -4,51 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A56BBC00528
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 07:19:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A673AC0015E
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 07:31:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 727E410E3A4;
-	Tue, 25 Jul 2023 07:19:22 +0000 (UTC)
-Received: from mail.208.org (unknown [183.242.55.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD99B10E1DF
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 04:43:54 +0000 (UTC)
-Received: from mail.208.org (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTP id 4R94DP2mkMzBRydc
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 12:43:49 +0800 (CST)
-Authentication-Results: mail.208.org (amavisd-new); dkim=pass
- reason="pass (just generated, assumed good)" header.d=208.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
- content-transfer-encoding:content-type:message-id:user-agent
- :references:in-reply-to:subject:to:from:date:mime-version; s=
- dkim; t=1690260229; x=1692852230; bh=yoXvsWFvf4lKS3sGNABj8yYPLom
- //8oxSw6PzoA5XC0=; b=cfdL1uME29Wi+vu6AB8vmDcXtRTcjiQtd491WU8OtKD
- Eq4UhKsYI78gbMHXrARnLoZCBoPrwDfqXWRup6h7le1dyQ6E9lgJ02hHPDyb22no
- U5aXzR00sAWLmJPF4kAEddNaontPwdns1JtIuQmCzd3jdlk/+EKlYxKHsfVLbWK7
- myVNDmYX19MrjlY/H3ynRg7ha8NmrHk1cib7blpapztwxUXjFJHTJGh8uqvPHfBE
- SCW1C0ceXdeQKLdWXDIFUKZttdnLQa2OdvrCBPfsdNVABlWiBTD6uFCVTDO2dNr4
- QR5cjGrFFvBpWL/zxgkrwnttEY49GI34LGnrChiSACw==
-X-Virus-Scanned: amavisd-new at mail.208.org
-Received: from mail.208.org ([127.0.0.1])
- by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id sz5aZBhEo2-o for <amd-gfx@lists.freedesktop.org>;
- Tue, 25 Jul 2023 12:43:49 +0800 (CST)
-Received: from localhost (email.208.org [127.0.0.1])
- by mail.208.org (Postfix) with ESMTPSA id 4R94DN6rDnzBRDrQ;
- Tue, 25 Jul 2023 12:43:48 +0800 (CST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3438E10E3A8;
+	Tue, 25 Jul 2023 07:31:50 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2056.outbound.protection.outlook.com [40.107.93.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71E1410E3A8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 07:31:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FTK6RkFY9Slbk1hOFJ13OKW5AXITwT894KzrD3C5Hr+JUF/Xz1xB5cTnnqL+KGAsXcyUmw774WqfqTZmgpuNCdokIoKi3dwyHuFms6+eQGfmy8yazSrxUe1uiMabiWpJ8hariBGJloHgKfMexOAhcSBKiPl/9PE5LZDKWcieb6+mR6tNcADYDWdymfEMYfrQb45VtG+M0CRLRsArIbASBNBz6r5Wqb6LrZXlPyddqWGxy88EISITjNnlzhQq0b3NzU7X/wztEEvYlzxf5SOyCUzV95K3C/W9mOIszMB/7+ohu3rFrHh2txJ5IEOhF/P62+lle3bihLpMYEfe4lYYCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=R96eJpDvw/2WhoSHxwcQqxjrOz9KklNnvFTIlqgwF1c=;
+ b=NrkEpaDjOW/v9lPYa0aFiw9GljuuACG5VglVKWAsBK7FtIL0sOx8lWoQBJAYv6yrLg4bR7RGlrwFLSxLqEMUNAso3whC3Rj67b0JZ8IZFN8UwCgD9Wu3m7bnQe7OfqluBJDUaP7jYLCL3HNmOcycVwAOBccO4qigMc+WE6pTAYwJC9Tp8CYIwtl0kdrrWrEI97wSrcA9jXez7P4ulWEAcjZv7CBW3Hzh3b65dHjlf0SxlUsI0tdLDVis1gn1Hpwsd98nBpdv1bK8H8V5Rlnu/xvFkkcYxPbpb0Gq2VHegugzf1GRXJudRQGYi0LRUShJy+FtCTPuuq4+J6inwViwgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=R96eJpDvw/2WhoSHxwcQqxjrOz9KklNnvFTIlqgwF1c=;
+ b=O6tEyji9K0uMMx8VdpMnxIi1VkbS+7vleHc2GrNsljDFdRrwvUke4aRNF/4quBEJ52/m1VG2A4q8qdhT0OwslWRtKEYet86yr83hA3F92UNL3IsA+Gm4CX+43u/57Z5YKs95uxLvDkt9C1GF3lq3QT7LLCwoV/k8pZY6R6nHFjs=
+Received: from DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) by
+ LV2PR12MB5726.namprd12.prod.outlook.com (2603:10b6:408:17e::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6609.32; Tue, 25 Jul 2023 07:31:45 +0000
+Received: from DS7PR12MB6071.namprd12.prod.outlook.com
+ ([fe80::c363:292a:63cc:ccf4]) by DS7PR12MB6071.namprd12.prod.outlook.com
+ ([fe80::c363:292a:63cc:ccf4%3]) with mapi id 15.20.6609.032; Tue, 25 Jul 2023
+ 07:31:44 +0000
+From: "Kamal, Asad" <Asad.Kamal@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Lazar, Lijo"
+ <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Restore HQD persistent state register
+Thread-Topic: [PATCH] drm/amdgpu: Restore HQD persistent state register
+Thread-Index: AQHZvrtRS7Hph8dIaEqzH+MDKYnQsK/J+y0AgAAbZnA=
+Date: Tue, 25 Jul 2023 07:31:44 +0000
+Message-ID: <DS7PR12MB6071A03BEDB9E315CCCD1C8C8E03A@DS7PR12MB6071.namprd12.prod.outlook.com>
+References: <20230725054554.3188083-1-lijo.lazar@amd.com>
+ <BN9PR12MB5257B87F32FCDE34AE5A4A44FC03A@BN9PR12MB5257.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB5257B87F32FCDE34AE5A4A44FC03A@BN9PR12MB5257.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=a5d44ce7-5c5d-40b5-aed4-faaf0a6b99e6;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-25T05:53:00Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6071:EE_|LV2PR12MB5726:EE_
+x-ms-office365-filtering-correlation-id: 99d13211-c571-400b-5f7d-08db8ce132ac
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: SB/iwFQWNpqiWBB82IWFtjnnmoTfsLs1P92ot7PUKLy5k+NXEJJM8uJLYiIWl5xiwkcm37nvI90lOp/ngbx5H7EupUbh4qADQpcgyNCp8lYAyBKsQR0pBZftl8IhnzqTELVyoPNmxL9M67Ft0DzBA3MWtGBtEPifMl/6rKE1KMmnWqMny3J9++W3pHc/bEn+gxgE7tVNPUKj/AchpXMa/KGZfw66Ty+mA94m2kZJSEf271khcnLWoGJNpxq9AzhssKkGBVBesS7WPn3UFsUWmPbu1Vng9smdGQWfl6yhsOyzpIiTeHn4FfKbKTHxdMIQ4lqcn7a/laG16+7bBLT00fnKoUdCDzYSoRk1rjxjcqozKZWMenVHHqqmb4dBt+nB99r1GvNlbzrq7Th6GrABcjnmRkg+T8h/I3WN+DlaMdCpcCX/hxsq6BSg0QQiLO05xarLHlJgUckSIPWGb/K94mNY/kQnSE3i4a3wWWdW6Q5emyOl92BFtKAbLCxWbZWrKeju3DJFNWg4B3B+o3jmpgQZ1GeVg2iuNe7wC0XIpuvMxRVJ2/jFydRY2kr6j8VScb7pJi0+ogTD9DOsFWU2TTSBwWInhk5xKAvaczVt3e3ufffh54ZNK/pMT4vVweGJ
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6071.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(366004)(39860400002)(376002)(136003)(346002)(451199021)(33656002)(38070700005)(86362001)(38100700002)(122000001)(66476007)(64756008)(316002)(4326008)(110136005)(478600001)(41300700001)(66946007)(76116006)(5660300002)(52536014)(8936002)(8676002)(9686003)(7696005)(2906002)(186003)(6506007)(71200400001)(26005)(66446008)(66556008)(55016003)(83380400001)(53546011);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Fn1jBDk3v6zOIv66CQZvx8DYRbyARFzLITlOg1uOskDJUrMORyZIGStMIKcz?=
+ =?us-ascii?Q?QD34LBjHdCNxZUIt8VfHEpOgImTLZGEyf1KeMi61EcVDqict4IF4q+iZ4BE8?=
+ =?us-ascii?Q?BjVvVPMF4xZa0I0P1maBAzPYJz9i89GX02fcwdzPgqN/Q3eH173R0juBK6Gg?=
+ =?us-ascii?Q?RRGVNCzqfLKEZXSIrOjqNzGQGnRzuAfKz0swAeKkrhoP6cxJcfiYumvHqdX6?=
+ =?us-ascii?Q?DIH2MIKSltYo2QS3aAKOmcpjzKJpSeU6cOeeCFglgVDNKK3boDbm/Qhg6XzG?=
+ =?us-ascii?Q?OfJVF2L6QB9CK8QRXNDFWVAh5fd5h535Y68P+KMkObZK8KmZuh3ZaVMZyZ4X?=
+ =?us-ascii?Q?sjTffjHcUYeFxPmvlPT9BcBLr9Fsn4mpxCyMUqL3TtZ1EEsJgMAPKQ501FIO?=
+ =?us-ascii?Q?INyN2yCJ8cr26YwAQ1wvWO6SQdAuTEM1bCSu/aTodZH2SFbEw1gPSfUZSq1M?=
+ =?us-ascii?Q?sfPa0RMcGAgOePz9ZoCLfvP+iTw9o0p02XOu2xqI1KY2K74Ba6d7RvlFSfHn?=
+ =?us-ascii?Q?i5trGocn2XIfO9hxPricMmlWOkw0KJvIMrFmUxPaWQ3fbW5SSxZhLAEh/aoR?=
+ =?us-ascii?Q?+amqjt/Ij4NZBuejuIwhPfDhIXbST54JVLiuYa6e+3eDNCHKNeSxs2dAP+0V?=
+ =?us-ascii?Q?7bKSjJ6uh4JPnSmcINUCJK4qlZD9FA9U7Ea60qsRU2GgBV2LB0EuhKUAI5Ek?=
+ =?us-ascii?Q?wUDNvg5VTQ4dhIRU+GV11upfYs/hMHok0BkfsP66S8xPdpOyCirbiyvpvAdP?=
+ =?us-ascii?Q?h1qb2dUGY1s5HINnjSfwJexqz2DAHNZg7+TR6sBkW4dkWLZtz3mH6Dx5CpTk?=
+ =?us-ascii?Q?VvgnIyP4UqCV7mS1ExzuzlINgQNM0jLpy2fATAMMAYTpXwD+hANjHYbUoWz+?=
+ =?us-ascii?Q?pa8ONGUuGe/bfA/XFeXR5Oc3ZiNSfLEEBuD2zjT2XPVZM4mGtj4xc2ofTnbX?=
+ =?us-ascii?Q?lAN1ap9TXJb7YFs3rtzhbvFM3fjta9mrHko5dgVQ8z952/J9qnIjE++GdReD?=
+ =?us-ascii?Q?9oir+tUVCGEet4LyzRQfrtFceCUbwLL5S9vmN7CYCMkkdpi4UsZ9N0evgWOu?=
+ =?us-ascii?Q?bHcfqQ0xHu0MM4V4+7b61VIt9EpGQFtPGHHndEOmXrl719gHk5hYP1MFzcF3?=
+ =?us-ascii?Q?iw1SkcdC9CqmD7bIrrapg+5jWNjFjvFC0bzwE2SBB2zi/FgnJC98hyVuVskG?=
+ =?us-ascii?Q?nj4S9KpZMZxGhc+EnG4b8wm3qTpG2XiCNFp0MlbT00mVWvYKF1TexO8/dEU7?=
+ =?us-ascii?Q?q59dkyAE6MsU7292hE9lrOd/Ba9XVC5Gz4eT8J2c5OVi3uNxCF3Y2ejI/aER?=
+ =?us-ascii?Q?wgcvZONeNYAOD7JwTp148EkpQ5WBF/yWZh71rt/vfYEwo0fgXD5ssHKckJco?=
+ =?us-ascii?Q?HwrPne4Gc1hAqRN2qOUhgmGqGCiymq9Pft27db7xbM3hZ14u/jJ2KjAJYtkM?=
+ =?us-ascii?Q?VI54PFSaYVKMDhHuFvxuyn/AK1Ak7WRBzeZblmPyN5W9vOWiopvyJ3+AKWq7?=
+ =?us-ascii?Q?r0jkZ8VP7Q3KaA5FDuyW2ZjKKlE3y8px/ThHccUHAsFY9niG6w9shhk2sWJi?=
+ =?us-ascii?Q?qM9LRH7fi7duc6nf3Qg=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Date: Tue, 25 Jul 2023 12:43:48 +0800
-From: wuyonggang001@208suo.com
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/radeon: Fix format error
-In-Reply-To: <20230725043946.33470-1-zhanglibing@cdjrlc.com>
-References: <20230725043946.33470-1-zhanglibing@cdjrlc.com>
-User-Agent: Roundcube Webmail
-Message-ID: <6bf7217253d188c37004e8793bd58c88@208suo.com>
-X-Sender: wuyonggang001@208suo.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 25 Jul 2023 07:19:19 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6071.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99d13211-c571-400b-5f7d-08db8ce132ac
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jul 2023 07:31:44.8597 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0qRxIUGorCiLSSAoMvPb8Hj0sBymAHkFEKgW5F7A+FkUQwJD7tPO2rhk+Rz759Cnp4h5ZMYwwRJB3peJs57BRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5726
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,52 +124,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the error(s):
+[AMD Official Use Only - General]
 
-ERROR: space required before the open parenthesis '('
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
 
-Signed-off-by: Yonggang Wu <wuyonggang001@208suo.com>
+Thanks & Regards
+Asad
+
+-----Original Message-----
+From: Zhang, Hawking <Hawking.Zhang@amd.com>
+Sent: Tuesday, July 25, 2023 11:23 AM
+To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Kamal, Asad <Asad.Kamal=
+@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Restore HQD persistent state register
+
+[AMD Official Use Only - General]
+
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+
+Regards,
+Hawking
+
+-----Original Message-----
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Tuesday, July 25, 2023 13:46
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
+Subject: [PATCH] drm/amdgpu: Restore HQD persistent state register
+
+On GFX v9.4.3, compute queue MQD is populated using the values in HQD persi=
+stent state register. Hence don't clear the values on module unload, instea=
+d restore it to the default reset value so that MQD is initialized correctl=
+y during next module load. In particular, preload flag needs to be set on c=
+ompute queue MQD, otherwise it could cause uninitialized values being used =
+at device reset state resulting in EDC.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
-  drivers/gpu/drm/radeon/r300.c | 6 +++---
-  1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/r300.c 
-b/drivers/gpu/drm/radeon/r300.c
-index 9c1a92fa2af6..25201b9a5aae 100644
---- a/drivers/gpu/drm/radeon/r300.c
-+++ b/drivers/gpu/drm/radeon/r300.c
-@@ -249,7 +249,7 @@ void r300_ring_start(struct radeon_device *rdev, 
-struct radeon_ring *ring)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_4_3.c
+index 8b361aa87d01..306dc6533397 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -46,6 +46,7 @@ MODULE_FIRMWARE("amdgpu/gc_9_4_3_rlc.bin");
+ #define RLCG_UCODE_LOADING_START_ADDRESS 0x00002000L
 
-  	/* Sub pixel 1/12 so we can have 4K rendering according to doc */
-  	gb_tile_config = (R300_ENABLE_TILING | R300_TILE_SIZE_16);
--	switch(rdev->num_gb_pipes) {
-+	switch (rdev->num_gb_pipes) {
-  	case 2:
-  		gb_tile_config |= R300_PIPE_COUNT_R300;
-  		break;
-@@ -638,7 +638,7 @@ static int r300_packet0_check(struct 
-radeon_cs_parser *p,
-  	track = (struct r100_cs_track *)p->track;
-  	idx_value = radeon_get_ib_value(p, idx);
+ #define GOLDEN_GB_ADDR_CONFIG 0x2a114042
++#define CP_HQD_PERSISTENT_STATE_DEFAULT 0xbe05301
 
--	switch(reg) {
-+	switch (reg) {
-  	case AVIVO_D1MODE_VLINE_START_END:
-  	case RADEON_CRTC_GUI_TRIG_VLINE:
-  		r = r100_cs_packet_parse_vline(p);
-@@ -1180,7 +1180,7 @@ static int r300_packet3_check(struct 
-radeon_cs_parser *p,
-  	ib = p->ib.ptr;
-  	idx = pkt->idx + 1;
-  	track = (struct r100_cs_track *)p->track;
--	switch(pkt->opcode) {
-+	switch (pkt->opcode) {
-  	case PACKET3_3D_LOAD_VBPNTR:
-  		r = r100_packet3_load_vbpntr(p, pkt, idx);
-  		if (r)
+ struct amdgpu_gfx_ras gfx_v9_4_3_ras;
+
+@@ -1726,7 +1727,7 @@ static int gfx_v9_4_3_xcc_q_fini_register(struct amdg=
+pu_ring *ring,
+
+        WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regCP_HQD_IQ_TIMER, 0);
+        WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regCP_HQD_IB_CONTROL, 0)=
+;
+-       WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regCP_HQD_PERSISTENT_STA=
+TE, 0);
++       WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id),
++regCP_HQD_PERSISTENT_STATE, CP_HQD_PERSISTENT_STATE_DEFAULT);
+        WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_DOORBELL_CO=
+NTROL, 0x40000000);
+        WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_DOORBELL_CO=
+NTROL, 0);
+        WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regCP_HQD_PQ_RPTR, 0);
+--
+2.25.1
+
+
