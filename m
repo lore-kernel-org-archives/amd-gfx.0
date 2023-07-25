@@ -4,117 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 195C6C0015E
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 20:24:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BF9FEB64DD
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 20:24:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4E0310E17C;
-	Tue, 25 Jul 2023 20:24:07 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2080.outbound.protection.outlook.com [40.107.223.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54DBE10E17C
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 20:24:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h7s6c9ra6B6MdDrdI8BKZptmUz+9KUnFM6anmylFCRyF35cAe0JGXslUokWgoDiq7mB2D5hfjh7Nf7Xvh/ccZQJTBHD0QDPkgh8k4EVTCOvatB7kwMvd1vOyMFE9odBM+ZClMeBd88QCncxipky1QUS6Z2ClGdVgx9xLE/XmWr4or9ZXCYQuRWUoVaDU1nu53+2upsrW9pC1ZvLjSSYHH3gPZ7A17r7DArtjlkSOTs/1Tu4busyQdTJSlRkpe7hC0g0oEa9JMJwcYt8WpzqPIH3B/K87bdJcVKc9Lc+BbK8DDdUpDJXp9ArMuLvAt+uE11uc4UIWQGBG//7oF7Ea1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eSPtYB2RBzFnlUH/okjyu1hK9MWCehc8qxI4RkLwsjE=;
- b=PYG0OtE6iHYOnyVbUblhZd0VdOAr1+f5b4sT8WdlqIhmNfssnSftUZN37HVl6CDIq6Wor6prSN80pQQ8fXaZwuJJCe38r2QgrFd3tpsGfMe+YCqAIx8LET37Nvf3xSDg5xnb+9VQ02FiueGC6+0reK80hBlt/X3NGW9btoCAh4dtC/yrHamKec5KxzB06mUifqo6OLapleqcuAeX0/wM3BtK1EzIaRhB1vQyjtdpjWgDEcRMTzivSff24JM9z6DiHbctWni12PKLDqU1WYx5sUfYkvlWmM/i3+XFf8E6h6NawJ9XDVx5tVgi4HpFP1MbeZViS3rwo6DZraC+1t9uDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eSPtYB2RBzFnlUH/okjyu1hK9MWCehc8qxI4RkLwsjE=;
- b=X66UTGIsd9U5RFup87fPIbgCiiPMpiMWXIDIfzna8g/ujdmqBUp5MO6w2VoInuKG9N7QWtYSWug8Y1STLOqfuy8qRhsiBi/0lmhPW6AbE1T0Uzj6EFraxPJ5P0/Hy/5DeN3BwTOQI+4BpBUO+/rAMDWltzI/qJwrStYg9I2j2Zk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MW4PR12MB6777.namprd12.prod.outlook.com (2603:10b6:303:1e9::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.31; Tue, 25 Jul
- 2023 20:24:01 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb%4]) with mapi id 15.20.6609.032; Tue, 25 Jul 2023
- 20:24:01 +0000
-Message-ID: <2a326be1-1779-b1dd-ed1a-70ad94290dc3@amd.com>
-Date: Tue, 25 Jul 2023 16:23:58 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] drm/amdgpu: Checkpoint and Restore VRAM BOs without VA
-Content-Language: en-US
-To: "Errabolu, Ramesh" <Ramesh.Errabolu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20230724155721.1974726-1-Ramesh.Errabolu@amd.com>
- <7d3bdae7-817b-79e0-a404-096ab089400e@amd.com>
- <SN1PR12MB257513927F7396C5E57E7136E303A@SN1PR12MB2575.namprd12.prod.outlook.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <SN1PR12MB257513927F7396C5E57E7136E303A@SN1PR12MB2575.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0107.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::16) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E70210E1A8;
+	Tue, 25 Jul 2023 20:24:39 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4470588EF0;
+ Tue, 25 Jul 2023 20:10:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=hcL2mqqsLeV3tZhZn+BYSnnk2Sx4D0F1irDuol7LTQc=; b=i/IcwdgcbJcVBOpP7tnZosGJDw
+ F6rJ2JciP99M4OcSqvkRiuSqtR1CUyga7uLDKceFxgh7kKo8+FQMFcjzcAlr7KXVM/Dkp06RuEvRm
+ XCSyTPcUWcYSQGGsXl2oZmdxkpwWTOrRm1hEJhmeSdIrlcG26NbctxNi4LPWv+AyY5Qg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1qOOLt-002IlW-Ae; Tue, 25 Jul 2023 22:09:49 +0200
+Date: Tue, 25 Jul 2023 22:09:49 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH V7 4/9] wifi: mac80211: Add support for ACPI WBRF
+Message-ID: <5e92b45a-d99b-4a8a-9987-46c75a5fcb3c@lunn.ch>
+References: <20230719090020.2716892-1-evan.quan@amd.com>
+ <20230719090020.2716892-5-evan.quan@amd.com>
+ <9b1f45f9-02a3-4c03-b9d5-cc3b9ab3a058@lunn.ch>
+ <7d059aed-fac0-cdcd-63d5-58185bb345db@amd.com>
+ <DM6PR12MB26196A993B3BA93392AA0FEDE403A@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <d4cfbbae-9cd0-4767-8c80-ec09d1dbaf9c@lunn.ch>
+ <6aa9061b-1702-b8f2-9cb8-982895b9def4@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW4PR12MB6777:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3657c087-4d53-4c0d-2c47-08db8d4d1531
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AFJOVGIu1yHIJ/AWED9S8le2xHOF6Gos//n2ITDQpwapVvmTr/au6s0PKh7OVkoveFQXjlA0oKGu3c8XksLEO7j4gP8TwLCiFStb0n4YUgXgNKRoHwDiAX2UjnUBYrXFddbHhFkfzxUuup4jex1s+dEie/fNzJz2uTUZQcLSc01KcFFN/8jJ5p9mLRDk4NyTbtH9gIzbdyebNMKIcajJLbUJiBwLALFSnDSlWdC0QW1Gzi/pTbfWfz17q3gmpfaN9pKwpeZwMck2ct52pB50KFL2JFlbvXAaYXQfyRRFhQtFruAX4WQJKTKp7U6mSKfGY/ZqyOMDbo3H//FXcasgmLehFZqcZIfR7KL2PFfRXWIxcars5iq6/8w4SLwJgJHjMvPJXZyO3AOTZsmXSNM/C+6LiVdc8/bfQFKX1aRWM3lGx063jNjhVLdPL8cLhw11zXMwkvi3NYl6jO4EiiCSJQp2fXcvIzb3+J8Y9SoXlsq6yeKuUNh4J0Yeldm5+XrVVYogTKRIDXcyrb7H87uAkHlnKNQg9YgHx2PZsi5vE+mrM5e4qOUqmXgPkNmhDNk3ssM5N3DcRFGWOMYHQ2UJXVAXJr8HKAENB+A42FTg3txurv7yfiH/HLCCyuMzXXG0nrR9IWQEzIVZ+nursZgI+w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(366004)(39860400002)(346002)(396003)(376002)(451199021)(83380400001)(38100700002)(36756003)(31696002)(86362001)(110136005)(478600001)(2906002)(186003)(26005)(6506007)(6512007)(6666004)(6486002)(31686004)(8936002)(5660300002)(44832011)(8676002)(316002)(41300700001)(66556008)(66476007)(66946007)(53546011)(2616005)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UmVSVUczNlRWSGMrcERWMW1aUjRBUERpTWpSRnhHdnNPdTJOQU1rV0JGN01h?=
- =?utf-8?B?S3V2MExDaFJBVmJGRncrUWZaaFFpalVBNWgzdHR6dWRDS1JhdkRYb3BHOXJ1?=
- =?utf-8?B?dkR0NTRBN1pzWC9MTW0xODdIN21oemY4c3RZcmNiRDVtUTlhZlo5NWl3NWQz?=
- =?utf-8?B?amw4TGRaUElPK2Y0OGdwRkpNTitmU2NPRFgwamlyS1Y3UldZcTlkM0RBaTRE?=
- =?utf-8?B?ZWU5NVplZzRiK21KUnlYRENSL0VSZmR6SGlOU0YrVTgyZjFJRnZQREl0Sk5k?=
- =?utf-8?B?dDAyNVBYV21mS2x5b3hBMS93ams1d29iTkpUZmQ1TjVLRU43OWxmUy8vby9H?=
- =?utf-8?B?UjFSVGNjSWlGN0o0NWRrSkxuQml6M1N4TkhXcmdyT2NHM3puQnh4K0QzeEg4?=
- =?utf-8?B?N3VrSHNEMTN6V2dzdVh0TmxUYVhnd3NCanNzZjNadktYNGJlUTYrdzNZN0FB?=
- =?utf-8?B?dWtRNU1Mdzd4bG94QXYzOFltTWYrN2xLeUpySkxEMm9Ha09IODIzZE13aGpL?=
- =?utf-8?B?RnFPYzRjTnJsUFh3dzFsbFQ0NGpRV1BTYXM2alhRdkxZQ0NWN3hNUW1mdDJr?=
- =?utf-8?B?TVFsUStoK1YvdmJON1dTL0hwTWM1WS9ERW9DVldyRmpxVCtZbkdlTW9DL2RM?=
- =?utf-8?B?Uk1Cc3ozbUc3cWhyWSt2dmVqRTBUM25SRGh5TkVXV2NQVkRjM21pR2FQbFpp?=
- =?utf-8?B?Y1AyMkR6Y2NLUjUxV0dLbG9uaFdrS3ZYeHUxNFVkNXFjbEg0QUx4QUM4V21B?=
- =?utf-8?B?SElpb3g1Qk15TWE5L0ZudWxCUEhFRStkS3BMWDdBb3ErL3d6dStwRUF2aFJU?=
- =?utf-8?B?bDJTd3NnRktzR0NyaVNZMm9yWXNTZE1ucVJXaTFXTXNWY2FBNld1bnhNSUtj?=
- =?utf-8?B?eXZnTXVWcnE0WVREeFFLSnZYdExDTnlkREh1cFJWSll4UHplYjR1cWpSS2Rv?=
- =?utf-8?B?YXFocFBFVzVZRlpFd3AvSWRNMUlqZDQxNjlVa0lHMVVpRFAvbEE1UHNJZTZr?=
- =?utf-8?B?WlJhL09Ec01uUWg4WkFSTTUyODFCajExV1VzZ2xLa0R4SEdmNyszeDRwL1VP?=
- =?utf-8?B?enVHT1FQTGpsWjJ2Ry9Qb1FWOEsvSXFscHZnU0xBMGx1Y1djRmlSU1lFMlVw?=
- =?utf-8?B?Q3dIS2ZJM1huNys2UzcvQWUxdkI1WWlhVlBPVXFpY1UyRFNscklKVEdNRnQz?=
- =?utf-8?B?WTBDZ2pBWGw3WjEramJZam9tTXpocGgyZmVqY25lS3dFWk9PSUtNcmFBMXhl?=
- =?utf-8?B?VFJOcDhnZEZNUTdjMStsc0t6SStjdDZCbG0zeDlYMkl5NkRJbHEyUUlqckRJ?=
- =?utf-8?B?SUU3SzZCVTFsc21YbkFkVmtwdGsrL1padE5kbzh1R2E5KzRyV2pKeDZ0MnJX?=
- =?utf-8?B?M1BJRGdaWjJ6V2xSb285NkExNTRPYkYzcEFFNm0xeldmMFF5cmNRaDVWTDly?=
- =?utf-8?B?Q08xV1haRGFqeEt3QkRtSmlFKy9YVlNlWlNsVlBMZlkxYm5YaFNWZk1lejRP?=
- =?utf-8?B?RG5VN01PdFJpbUtnc1h2d1lqY0JSUlhTcUM1azlld25BUlhndi9rZmpDQkh1?=
- =?utf-8?B?dVJpS0t5Nk0rZG9tSFJBd3RVU2RzSHJMWVd1d1UwUlhoVVV6aWNZZ2hGRlJ2?=
- =?utf-8?B?bHNSdGtRbHp5R2tIcjU5ckdQcEcrVnBFbU9qK0Jkd0FXN3RxeXZmTTUrZ05y?=
- =?utf-8?B?aDV5WmhDM3poWW93S0RuQnR6VDFoL3V0dDFqV1B2cnZnR1pTeEh6TjRSSWpa?=
- =?utf-8?B?RlJiakFBa1BjakNrMk96MEw3Qy9aak9BeDdsbU9TZWRjU2gwTWZHSzlOdjY5?=
- =?utf-8?B?ME94cTRXODR3OFIwcWdXeU8rMUtxZVJnK09nWXBZNlEwUWFISWtCL1d6WW5V?=
- =?utf-8?B?TjljVFduZExBYzdVRFU4RytCTUovckZ2Nlo0b2o3c2Y5RUJmd0psdjBUcXNv?=
- =?utf-8?B?Qy9IalRXbjNaV00zVi9oSjZhSVFUSFoyMEs5c1dwYUNzbHptemxxVXE2YkE3?=
- =?utf-8?B?WlhkVk8yeXVYTld4dEJUOU15dUd3Rmx4QlFnNWZJYk1ZV1BVVFo2bkUwKzkz?=
- =?utf-8?B?VDhYc013ZC9iYUs0eDFHWlMvS3RnUm5XZkpyMGNaYjdTcHlNQkpCUGNGVnJL?=
- =?utf-8?Q?0RxKwAwWIXTAcBNugIebsTJ7x?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3657c087-4d53-4c0d-2c47-08db8d4d1531
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2023 20:24:01.2343 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AAb2nw/Fv6G0dKoMPgqu5fiqPSdGb99GoJGhcDOZ9l7cNMZ2sA3cTW3lnHYMNmtq74GjSTQXc/3kFrEWQSOM9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6777
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6aa9061b-1702-b8f2-9cb8-982895b9def4@amd.com>
+X-Mailman-Approved-At: Tue, 25 Jul 2023 20:24:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,81 +51,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "jingyuwang_vip@163.com" <jingyuwang_vip@163.com>,
+ "bellosilicio@gmail.com" <bellosilicio@gmail.com>,
+ "rafael@kernel.org" <rafael@kernel.org>, "trix@redhat.com" <trix@redhat.com>,
+ "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "mdaenzer@redhat.com" <mdaenzer@redhat.com>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+ "lenb@kernel.org" <lenb@kernel.org>,
+ "andrealmeid@igalia.com" <andrealmeid@igalia.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "arnd@arndb.de" <arnd@arndb.de>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "hdegoede@redhat.com" <hdegoede@redhat.com>, "jsg@jsg.id.au" <jsg@jsg.id.au>,
+ "Quan, Evan" <Evan.Quan@amd.com>,
+ "jim.cromie@gmail.com" <jim.cromie@gmail.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "edumazet@google.com" <edumazet@google.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>,
+ "johannes@sipsolutions.net" <johannes@sipsolutions.net>,
+ "davem@davemloft.net" <davem@davemloft.net>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2023-07-25 um 16:04 schrieb Errabolu, Ramesh:
-> [AMD Official Use Only - General]
->
-> Responses inline.
->
-> -----Original Message-----
-> From: Kuehling, Felix <Felix.Kuehling@amd.com>
-> Sent: Monday, July 24, 2023 2:51 PM
-> To: amd-gfx@lists.freedesktop.org; Errabolu, Ramesh <Ramesh.Errabolu@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu: Checkpoint and Restore VRAM BOs without VA
->
->
-> On 2023-07-24 11:57, Ramesh Errabolu wrote:
->> Extend checkpoint logic to allow inclusion of VRAM BOs that do not
->> have a VA attached
->>
->> Signed-off-by: Ramesh Errabolu <Ramesh.Errabolu@amd.com>
->> ---
->>    drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 6 ++++--
->>    1 file changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> index 40ac093b5035..5cc00ff4b635 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> @@ -1845,7 +1845,8 @@ static uint32_t get_process_num_bos(struct kfd_process *p)
->>                idr_for_each_entry(&pdd->alloc_idr, mem, id) {
->>                        struct kgd_mem *kgd_mem = (struct kgd_mem *)mem;
->>
->> -                     if ((uint64_t)kgd_mem->va > pdd->gpuvm_base)
->> +                     if (((uint64_t)kgd_mem->va > pdd->gpuvm_base) ||
->> +                         (kgd_mem->va == 0))
-> I'm trying to remember what this condition is there to protect against, because it almost looks like we could drop the entire condition. I think it's there to avoid checkpointing the TMA/TBA BOs allocated by KFD itself.
->
-> Ramesh: I am unsure as to how we can detect TMA/TBA BOs if we don't want them checkpointed. Alternatively we can checkpoint and restore TMA/TBA BOs without loss of function. If this o.k. we can drop the check that determines BO qualification.
+> This comes back to the point that was mentioned by Johannes - you need to
+> have deep design understanding of the hardware to know whether or not you
+> will have producers that a consumer need to react to.
 
-It's OK. Currently they have a VA > 0 and < gpuvm_base. So this check 
-will still work if you only allow BOs with VA == 0.
+Yes, this is the policy is keep referring to. I would expect that
+there is something somewhere in ACPI which says for this machine, the
+policy is Yes/No.
 
-There is a patch in the works to move the TMA and TBA to the upper half 
-of the virtual address space. Then we'll need to update this check to 
-exclude anything that has bit 63 of the VA set.
+It could well be that AMD based machine has a different ACPI extension
+to indicate this policy to what Intel machine has. As far as i
+understand it, you have not submitted this yet for formal approval,
+this is all vendor specific, so Intel could do it completely
+differently. Hence i would expect a generic API to tell the core what
+the policy is, and your glue code can call into ACPI to find out that
+information, and then tell the core.
 
-Regards,
-   Felix
+> If all producers indicate their frequency and all consumers react to it you
+> may have activated mitigations that are unnecessary. The hardware designer
+> may have added extra shielding or done the layout such that they're not
+> needed.
 
+And the policy will indicate No, nothing needs to be done. The core
+can then tell produces and consumes not to bother telling the core
+anything.
 
->
-> That said, you have some unnecessary parentheses in this expression. And just using !x to check for 0 is usually preferred in the kernel. This should work and is more readable IMO:
->
-> +                       if ((uint64_t)kgd_mem->va > pdd->gpuvm_base || !kgd_mem->va)
->
->
->>                                num_of_bos++;
->>                }
->>        }
->> @@ -1917,7 +1918,8 @@ static int criu_checkpoint_bos(struct kfd_process *p,
->>                        kgd_mem = (struct kgd_mem *)mem;
->>                        dumper_bo = kgd_mem->bo;
->>
->> -                     if ((uint64_t)kgd_mem->va <= pdd->gpuvm_base)
->> +                     if (((uint64_t)kgd_mem->va <= pdd->gpuvm_base) &&
->> +                             !(kgd_mem->va == 0))
-> Similar to above:
->
-> +                       if (kgd_mem->va && (uint64_t)kgd_mem->va <= pdd->gpuvm_base)
->
-> Regards,
->     Felix
->
->
->>                                continue;
->>
->>                        bo_bucket = &bo_buckets[bo_index];
+> So I don't think we're ever going to be in a situation that the generic
+> implementation should be turned on by default.  It's a "developer knob".
+
+Wrong. You should have a generic core, which your AMD CPU DDR device
+plugs into. The Intel CPU DDR device can plug into, the nvidea GPU can
+plug into, your Radeon GPU can plug into, the intel ARC can plug into,
+the generic WiFi core plugs into, etc.
+
+> If needed these can then be enabled using the AMD ACPI interface, a DT one
+> if one is developed or maybe even an allow-list of SMBIOS strings.
+
+Notice i've not mentioned DT for a while. I just want a generic core,
+which AMD, Intel, nvidea, Ampare, Graviton, Qualcomm, Marvell, ...,
+etc can use. We should be solving this problem once, for everybody,
+not adding a solution for just one vendor.
+
+      Andrew
