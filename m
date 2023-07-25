@@ -4,50 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 028DFC00528
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 08:03:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5984EC001DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 08:10:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A120C10E3BC;
-	Tue, 25 Jul 2023 08:03:47 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org
- [IPv6:2001:67c:2050:0:465::102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 264CD10E3BC;
- Tue, 25 Jul 2023 08:03:46 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4R98g24n4pz9slt;
- Tue, 25 Jul 2023 10:03:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1690272222;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=buprnnb3RBHF65zwm/IwwS5+aARu3i5003bm80ROWy0=;
- b=SMCmyN7j9PVny7FrxgViukvSyWbJbnyin+9i3/syIV7wvZj88g0WycRcQdex1QetW2IciC
- VvV997rgBQ04GtsEi4afak6/oJ82q/EP1Sixhh4AozCWGrfscEbJB5oTuq/drdllrij4U4
- 3zBEKDeJLCCszasmOi80lQfR5HgHc45T8vVfJBdOhs8Wr4zB1nMYunNGiY3+i6xh2vbj9+
- 8cOGV8gNDxujBtcO3eNKtmSJeygLwfbmRJcnC4TOoeO0lWo/7rfBd5Wd+BtvBLFcVT2JCO
- dLGp1OX7zh4wg9xXKCIAcrm5fscLWqpIxn+KTZppI0hJig7zyPFqvZHd+55hig==
-Message-ID: <45a1e527-f5dc-aa6f-9482-8958566ecb96@mailbox.org>
-Date: Tue, 25 Jul 2023 10:03:39 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2AB910E3C0;
+	Tue, 25 Jul 2023 08:10:58 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9323E10E3BE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 08:10:56 +0000 (UTC)
+Received: from [192.168.1.137] ([213.144.156.170])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202307251009485562; Tue, 25 Jul 2023 10:09:48 +0200
+Message-ID: <926a5c59-9827-3a25-4d5f-eb781e84f3e3@daenzer.net>
+Date: Tue, 25 Jul 2023 10:09:42 +0200
 MIME-Version: 1.0
-Subject: Re: Non-robust apps and resets (was Re: [PATCH v5 1/1] drm/doc:
- Document DRM device reset expectations)
-Content-Language: de-CH-frami, en-CA
-To: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- dri-devel@lists.freedesktop.org
-References: <20230627132323.115440-1-andrealmeid@igalia.com>
- <e292a30f-5cad-1968-de4f-0d43c9c1e943@igalia.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <e292a30f-5cad-1968-de4f-0d43c9c1e943@igalia.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 28/29] drm/amdkfd: Refactor migrate init to support
+ partition switch
+Content-Language: en-CA
+To: Philip Yang <yangp@amd.com>, Philip Yang <Philip.Yang@amd.com>
+References: <20230510212333.2071373-28-alexander.deucher@amd.com>
+ <647beed4-9d0b-e351-6f66-756f73eb73a5@daenzer.net>
+ <1da36164-7cd9-c2a3-a42f-558942257727@daenzer.net>
+ <f8c83922-f3d4-34d8-6ae1-3112b52bcdf3@amd.com>
+ <d515206e-ab58-a8c4-ef3a-e93fc61ba37d@daenzer.net>
+ <0a99c609-c5c2-25fc-4ceb-52a0b4a49f29@amd.com>
+ <219fc41b-13f2-8517-1720-eb92fe02083c@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+In-Reply-To: <219fc41b-13f2-8517-1720-eb92fe02083c@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 5k4x7euhw4r53ugwmd8sug3xp1cxcoqf
-X-MBO-RS-ID: 9afac7eeae3d16ec584
+X-CTCH: RefID="str=0001.0A782F20.64BF838B.000B,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,71 +48,18 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
- =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/25/23 04:55, André Almeida wrote:
-> Hi everyone,
+On 7/24/23 22:04, Philip Yang wrote:
+> Hi Michel,
 > 
-> It's not clear what we should do about non-robust OpenGL apps after GPU resets, so I'll try to summarize the topic, show some options and my proposal to move forward on that.
-> 
-> Em 27/06/2023 10:23, André Almeida escreveu:
->> +Robustness
->> +----------
->> +
->> +The only way to try to keep an application working after a reset is if it
->> +complies with the robustness aspects of the graphical API that it is using.
->> +
->> +Graphical APIs provide ways to applications to deal with device resets. However,
->> +there is no guarantee that the app will use such features correctly, and the
->> +UMD can implement policies to close the app if it is a repeating offender,
->> +likely in a broken loop. This is done to ensure that it does not keep blocking
->> +the user interface from being correctly displayed. This should be done even if
->> +the app is correct but happens to trigger some bug in the hardware/driver.
->> +
-> Depending on the OpenGL version, there are different robustness API available:
-> 
-> - OpenGL ABR extension [0]
-> - OpenGL KHR extension [1]
-> - OpenGL ES extension  [2]
-> 
-> Apps written in OpenGL should use whatever version is available for them to make the app robust for GPU resets. That usually means calling GetGraphicsResetStatusARB(), checking the status, and if it encounter something different from NO_ERROR, that means that a reset has happened, the context is considered lost and should be recreated. If an app follow this, it will likely succeed recovering a reset.
-> 
-> What should non-robustness apps do then? They certainly will not be notified if a reset happens, and thus can't recover if their context is lost. OpenGL specification does not explicitly define what should be done in such situations[3], and I believe that usually when the spec mandates to close the app, it would explicitly note it.
-> 
-> However, in reality there are different types of device resets, causing different results. A reset can be precise enough to damage only the guilty context, and keep others alive.
-> 
-> Given that, I believe drivers have the following options:
-> 
-> a) Kill all non-robust apps after a reset. This may lead to lose work from innocent applications.
-> 
-> b) Ignore all non-robust apps OpenGL calls. That means that applications would still be alive, but the user interface would be freeze. The user would need to close it manually anyway, but in some corner cases, the app could autosave some work or the user might be able to interact with it using some alternative method (command line?).
-> 
-> c) Kill just the affected non-robust applications. To do that, the driver need to be 100% sure on the impact of its resets.
-> 
-> RadeonSI currently implements a), as can be seen at [4], while Iris implements what I think it's c)[5].
-> 
-> For the user experience point-of-view, c) is clearly the best option, but it's the hardest to archive. There's not much gain on having b) over a), perhaps it could be an optional env var for such corner case applications.
+> Please check if this patch "drm/amdkfd: start_cpsch don't map queues" can fix the driver loading ring test failed issue on your system, I am still not able to repro the issue.
 
-I disagree on these conclusions.
+I'm planning to test it this week, thanks for the heads up.
 
-c) is certainly better than a), but it's not "clearly the best" in all cases. The OpenGL UMD is not a privileged/special component and is in no position to decide whether or not the process as a whole (only some thread(s) of which may use OpenGL at all) gets to continue running or not.
-
-
-> [0] https://registry.khronos.org/OpenGL/extensions/ARB/ARB_robustness.txt
-> [1] https://registry.khronos.org/OpenGL/extensions/KHR/KHR_robustness.txt
-> [2] https://registry.khronos.org/OpenGL/extensions/EXT/EXT_robustness.txt
-> [3] https://registry.khronos.org/OpenGL/specs/gl/glspec46.core.pdf
-> [4] https://gitlab.freedesktop.org/mesa/mesa/-/blob/23.1/src/gallium/winsys/amdgpu/drm/amdgpu_cs.c#L1657
-> [5] https://gitlab.freedesktop.org/mesa/mesa/-/blob/23.1/src/gallium/drivers/iris/iris_batch.c#L842
 
 -- 
 Earthling Michel Dänzer            |                  https://redhat.com
