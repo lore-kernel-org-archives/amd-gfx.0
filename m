@@ -4,43 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81824C00528
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 07:02:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A56BBC00528
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 07:19:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA5C610E39A;
-	Tue, 25 Jul 2023 07:02:43 +0000 (UTC)
-Received: from mail-41104.protonmail.ch (mail-41104.protonmail.ch
- [185.70.41.104])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 396E810E39A
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 07:02:41 +0000 (UTC)
-Date: Tue, 25 Jul 2023 07:02:22 +0000
-Authentication-Results: mail-41104.protonmail.ch;
- dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
- header.b="C/QrTcc6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1690268554; x=1690527754;
- bh=wDy2s35D0p2BYX5LDcVStPxYTQbKkfPe7M8mZSirl80=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=C/QrTcc6LF7MUrxxEU4w7LuUmfGcP6biTF5cnnbZRRV7yOdC9Hb32Nzep8K18ax47
- 3IbjBcExeyvR6MlSUPHftJxhFw240B8cxkupHTvD2G5fMsPFIwNm60wfuByX4lmJ2q
- H6Eqy/mo9oeiYsEA0wkmtGCDUvqeR3RWw64QufcSS+JLcFQeS3m5W8rnCWbA2OM/uP
- ZZ2yqgTTKz8J/I+NP/X44QomuBhP9Wsm+LkZDuvWZYdxY4wfRf3qQgrh/QWbxmHUwV
- L7QWHYP910cHxbNBrY8RuxioFjTEywHmf9oPyhZ1s5bG59YQyS33Zbejjk42GLqX+L
- yXlmDbN1HtJPw==
-To: =?utf-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-From: Simon Ser <contact@emersion.fr>
-Subject: Re: Non-robust apps and resets (was Re: [PATCH v5 1/1] drm/doc:
- Document DRM device reset expectations)
-Message-ID: <4ImkvYT8BoTiT_R4YqwMS2k20KRuGBvPF05lQX9R_zDtLKNRP646_V2VnGid__mG_h1cI8cL-uco3aXd9cpFnaBlfbwCaQOVwRYCthEhuQI=@emersion.fr>
-In-Reply-To: <e292a30f-5cad-1968-de4f-0d43c9c1e943@igalia.com>
-References: <20230627132323.115440-1-andrealmeid@igalia.com>
- <e292a30f-5cad-1968-de4f-0d43c9c1e943@igalia.com>
-Feedback-ID: 1358184:user:proton
+	by gabe.freedesktop.org (Postfix) with ESMTP id 727E410E3A4;
+	Tue, 25 Jul 2023 07:19:22 +0000 (UTC)
+Received: from mail.208.org (unknown [183.242.55.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD99B10E1DF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 04:43:54 +0000 (UTC)
+Received: from mail.208.org (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTP id 4R94DP2mkMzBRydc
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 12:43:49 +0800 (CST)
+Authentication-Results: mail.208.org (amavisd-new); dkim=pass
+ reason="pass (just generated, assumed good)" header.d=208.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=208.org; h=
+ content-transfer-encoding:content-type:message-id:user-agent
+ :references:in-reply-to:subject:to:from:date:mime-version; s=
+ dkim; t=1690260229; x=1692852230; bh=yoXvsWFvf4lKS3sGNABj8yYPLom
+ //8oxSw6PzoA5XC0=; b=cfdL1uME29Wi+vu6AB8vmDcXtRTcjiQtd491WU8OtKD
+ Eq4UhKsYI78gbMHXrARnLoZCBoPrwDfqXWRup6h7le1dyQ6E9lgJ02hHPDyb22no
+ U5aXzR00sAWLmJPF4kAEddNaontPwdns1JtIuQmCzd3jdlk/+EKlYxKHsfVLbWK7
+ myVNDmYX19MrjlY/H3ynRg7ha8NmrHk1cib7blpapztwxUXjFJHTJGh8uqvPHfBE
+ SCW1C0ceXdeQKLdWXDIFUKZttdnLQa2OdvrCBPfsdNVABlWiBTD6uFCVTDO2dNr4
+ QR5cjGrFFvBpWL/zxgkrwnttEY49GI34LGnrChiSACw==
+X-Virus-Scanned: amavisd-new at mail.208.org
+Received: from mail.208.org ([127.0.0.1])
+ by mail.208.org (mail.208.org [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id sz5aZBhEo2-o for <amd-gfx@lists.freedesktop.org>;
+ Tue, 25 Jul 2023 12:43:49 +0800 (CST)
+Received: from localhost (email.208.org [127.0.0.1])
+ by mail.208.org (Postfix) with ESMTPSA id 4R94DN6rDnzBRDrQ;
+ Tue, 25 Jul 2023 12:43:48 +0800 (CST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Jul 2023 12:43:48 +0800
+From: wuyonggang001@208suo.com
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/radeon: Fix format error
+In-Reply-To: <20230725043946.33470-1-zhanglibing@cdjrlc.com>
+References: <20230725043946.33470-1-zhanglibing@cdjrlc.com>
+User-Agent: Roundcube Webmail
+Message-ID: <6bf7217253d188c37004e8793bd58c88@208suo.com>
+X-Sender: wuyonggang001@208suo.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 25 Jul 2023 07:19:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,95 +60,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>, Daniel Vetter <daniel@ffwll.ch>,
- =?utf-8?Q?=27Marek_Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
- =?utf-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- =?utf-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, alexander.deucher@amd.com,
- Daniel Stone <daniel@fooishbar.org>, Dave Airlie <airlied@gmail.com>,
- christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, July 25th, 2023 at 04:55, Andr=C3=A9 Almeida <andrealmeid@igali=
-a.com> wrote:
+Fix the error(s):
 
-> It's not clear what we should do about non-robust OpenGL apps after GPU
-> resets, so I'll try to summarize the topic, show some options and my
-> proposal to move forward on that.
->=20
-> Em 27/06/2023 10:23, Andr=C3=A9 Almeida escreveu:
->=20
-> > +Robustness
-> > +----------
-> > +
-> > +The only way to try to keep an application working after a reset is if=
- it
-> > +complies with the robustness aspects of the graphical API that it is u=
-sing.
-> > +
-> > +Graphical APIs provide ways to applications to deal with device resets=
-. However,
-> > +there is no guarantee that the app will use such features correctly, a=
-nd the
-> > +UMD can implement policies to close the app if it is a repeating offen=
-der,
-> > +likely in a broken loop. This is done to ensure that it does not keep =
-blocking
-> > +the user interface from being correctly displayed. This should be done=
- even if
-> > +the app is correct but happens to trigger some bug in the hardware/dri=
-ver.
-> > +
->=20
-> Depending on the OpenGL version, there are different robustness API
-> available:
->=20
-> - OpenGL ABR extension [0]
-> - OpenGL KHR extension [1]
-> - OpenGL ES extension [2]
->=20
-> Apps written in OpenGL should use whatever version is available for them
-> to make the app robust for GPU resets. That usually means calling
-> GetGraphicsResetStatusARB(), checking the status, and if it encounter
-> something different from NO_ERROR, that means that a reset has happened,
-> the context is considered lost and should be recreated. If an app follow
-> this, it will likely succeed recovering a reset.
->=20
-> What should non-robustness apps do then? They certainly will not be
-> notified if a reset happens, and thus can't recover if their context is
-> lost. OpenGL specification does not explicitly define what should be
-> done in such situations[3], and I believe that usually when the spec
-> mandates to close the app, it would explicitly note it.
->=20
-> However, in reality there are different types of device resets, causing
-> different results. A reset can be precise enough to damage only the
-> guilty context, and keep others alive.
->=20
-> Given that, I believe drivers have the following options:
->=20
-> a) Kill all non-robust apps after a reset. This may lead to lose work
-> from innocent applications.
->=20
-> b) Ignore all non-robust apps OpenGL calls. That means that applications
-> would still be alive, but the user interface would be freeze. The user
-> would need to close it manually anyway, but in some corner cases, the
-> app could autosave some work or the user might be able to interact with
-> it using some alternative method (command line?).
->=20
-> c) Kill just the affected non-robust applications. To do that, the
-> driver need to be 100% sure on the impact of its resets.
+ERROR: space required before the open parenthesis '('
 
-We've discussed this a while back on #dri-devel IIRC. I think the best
-experience would be for the Wayland compositor to gray out apps which
-lost their GL context, and display an information dialog to explain
-what happened to the user and a button to kill the app. I'm not exactly
-sure how that would translate to a kernel or Mesa uAPI, and if there's
-appetite to do a lot of work to get "the best GPU reset UX" (IOW: maybe
-it's not worth all of the trouble).
+Signed-off-by: Yonggang Wu <wuyonggang001@208suo.com>
+---
+  drivers/gpu/drm/radeon/r300.c | 6 +++---
+  1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/r300.c 
+b/drivers/gpu/drm/radeon/r300.c
+index 9c1a92fa2af6..25201b9a5aae 100644
+--- a/drivers/gpu/drm/radeon/r300.c
++++ b/drivers/gpu/drm/radeon/r300.c
+@@ -249,7 +249,7 @@ void r300_ring_start(struct radeon_device *rdev, 
+struct radeon_ring *ring)
+
+  	/* Sub pixel 1/12 so we can have 4K rendering according to doc */
+  	gb_tile_config = (R300_ENABLE_TILING | R300_TILE_SIZE_16);
+-	switch(rdev->num_gb_pipes) {
++	switch (rdev->num_gb_pipes) {
+  	case 2:
+  		gb_tile_config |= R300_PIPE_COUNT_R300;
+  		break;
+@@ -638,7 +638,7 @@ static int r300_packet0_check(struct 
+radeon_cs_parser *p,
+  	track = (struct r100_cs_track *)p->track;
+  	idx_value = radeon_get_ib_value(p, idx);
+
+-	switch(reg) {
++	switch (reg) {
+  	case AVIVO_D1MODE_VLINE_START_END:
+  	case RADEON_CRTC_GUI_TRIG_VLINE:
+  		r = r100_cs_packet_parse_vline(p);
+@@ -1180,7 +1180,7 @@ static int r300_packet3_check(struct 
+radeon_cs_parser *p,
+  	ib = p->ib.ptr;
+  	idx = pkt->idx + 1;
+  	track = (struct r100_cs_track *)p->track;
+-	switch(pkt->opcode) {
++	switch (pkt->opcode) {
+  	case PACKET3_3D_LOAD_VBPNTR:
+  		r = r100_packet3_load_vbpntr(p, pkt, idx);
+  		if (r)
