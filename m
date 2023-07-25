@@ -4,90 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1CF0C001DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 14:28:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E7E4C0015E
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Jul 2023 15:05:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2117710E105;
-	Tue, 25 Jul 2023 14:28:30 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2062b.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e89::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B0D110E105
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 14:28:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cwYwdJRY2Uga3Tlq+jfVJneuQMp50roxef5rjoGDMYXQQs7HoBA+vHRL2FCrv55f1uFr3gXfzagf5GGU+VIPpscLVEqV1FFfMO+mbIO5Apba34mhOKpsJlLTw81IaLzIzq/03rg2fEAxz35hupSK4Yps4CdqW9pYQ0vFf3f8Pyqxex3HLmPmhXKdSkLGmDPEV57L+s64Q6MfWcjm3JxKhzqGUI76NERwGBzBMwPSZ5CiO/ERJaE7KN9dJS8KOsokDL4vFbhue2bbC64x3XFgff372eSzoPi4zTSNeS73u7+47r6FmjvRQlOdutEO7Phk4mxOjfIMS0UUuwj5laYrrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SSfVtqokqO4GS1BZh0Z8W9TFe7C1KXmY9Q/zxIiIqFQ=;
- b=NeTqCluJDENSFAi8unj5ytFHwPQux62WLwsYbvd8LdbxkPwslN2aCMpC0LrNqdge0cn0I/psPZ5IDYe2DiOHP1YD5KmhU+k0gY0kjdWbaYRqVRtvHxKJFRlBE4i9BYG+J1qzc8q2D57KujWgi6caWqeaTMtPikNsKv1wgQpRbl7Syg5sgiIKAN/CA8V6e76AaFAqa1bVS5eTsDPfNfuV2u19RsLUQ7w+cbEflKgpgYQuaruXYltGi4mcGxzSVEEx+7A4pQ41K2sjvTEUCwaRDWVA1fE/xXRXQy5AfMMTi5aTLoCYbe67GTsC999lSRPN7pfUH3ACa4x0ch6Rdn2YPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SSfVtqokqO4GS1BZh0Z8W9TFe7C1KXmY9Q/zxIiIqFQ=;
- b=CaQzktujgn70u10x79PRrZ6oFd7kM2chCTiMvVu1IZV4yd9LlGOTCJDMs1e4r8hTW6p0snlcrGFkhNuhqU6xfP93DxCkSVs/zXQsHcu9IuaLO37Wvp3UgeEzeHXK37Pb4IHuuvT8f01EmX1HdiN/tI2gcrXed28oR9JmkE477X8=
-Received: from BN0PR07CA0015.namprd07.prod.outlook.com (2603:10b6:408:141::30)
- by LV2PR12MB5941.namprd12.prod.outlook.com (2603:10b6:408:172::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Tue, 25 Jul
- 2023 14:28:22 +0000
-Received: from BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:141:cafe::e3) by BN0PR07CA0015.outlook.office365.com
- (2603:10b6:408:141::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33 via Frontend
- Transport; Tue, 25 Jul 2023 14:28:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT054.mail.protection.outlook.com (10.13.177.102) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6631.29 via Frontend Transport; Tue, 25 Jul 2023 14:28:22 +0000
-Received: from x570-ryzen9-5900x.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Tue, 25 Jul 2023 09:28:19 -0500
-From: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
-To: <saleemkhan.jamadar@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <leo.liu@amd.com>, <veerabadhran.gopalakrishnan@amd.com>
-Subject: [PATCH] drm/amdgpu: update kernel vcn ring test
-Date: Tue, 25 Jul 2023 19:58:01 +0530
-Message-ID: <20230725142801.3042029-1-saleemkhan.jamadar@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A299F10E124;
+	Tue, 25 Jul 2023 15:05:40 +0000 (UTC)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18C4D10E124;
+ Tue, 25 Jul 2023 15:05:39 +0000 (UTC)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-4fdd31bf179so8708816e87.2; 
+ Tue, 25 Jul 2023 08:05:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1690297537; x=1690902337;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=izSbvCwS33Nzu8WcsjFx0swOUhDCZ5hfgSwNc0cg4uM=;
+ b=INwq7DEc2KTUbBH8qu1xUVJucRdHelF2FWT/7UoQM7/Crg1oHw0GTwilYzO+TR3aft
+ izxyLQ4l49k5dZJjQM4o0xu4t1XK8BR1rbFGEANWFYDKDI01ACwGlDiQTpzgdhTLlC3m
+ rZrWjVqTfOhnTN6nhjMA3MdLYrWJzCkpvDQ7IhQbTw1pNHg20xdcOm91Fs2enBPE9MgS
+ iq7Uz7ik/cTqR1RK1TMiBscx+cC+MiMs1jYWLQMgbFBrWczHbLypcMWEyJoNRzW/5BOL
+ VfqdvP9RJuVTAA7bFLNhC8SEsHc/qrOxEvDp0Ilr7jiOaoPO8Gq6HyJfY6aydjvO9zJu
+ U7Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690297537; x=1690902337;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=izSbvCwS33Nzu8WcsjFx0swOUhDCZ5hfgSwNc0cg4uM=;
+ b=jeqdFaFzxP0vvznky74gi3ds7c0ZI9DO+cFASlCgVUmb/9xRHVs2SZR1vOFI4DbX2i
+ 20tftK48EDiTdbSpiq3aXkCGuLcVQOT+EVQn51t++eRQd3PScSN1KFX/FT8rs1P5RFOs
+ qeVzazNrRleNc1avAdWD1Z0q3TumPsAmY9sD5U1KE1YDZT12KSAASWDkzc8ubJ9lf6+Z
+ +JQpPiJp1iaOVTyPiRaNayyGyitasMA6YEL1F8T13D7dApBFf0XoXM75lXJRDSvkN1vj
+ stcOsOShtU3srp9eduxESh/UC6Kub+iTVf6jDzwSbA4Demr6BeAVE8tUUNvNnCE31Kpe
+ Pcjg==
+X-Gm-Message-State: ABy/qLaZXvGcEshku23jVK36CZZtryTGDHA3Y/IGTiZqufTKm+CEosS9
+ 7qQfQuNSwTEHmDX52tGIc/AEcbDib0NEbg3SU3w=
+X-Google-Smtp-Source: APBJJlErgxAq0AM7XIRqNwjKdD9Sby9qr60ycVyvpIw0pM350sS8HYl7GbZot1w/EWlL49IB7nOENZntcNNTUTfgGvE=
+X-Received: by 2002:a05:6512:ac8:b0:4fb:89ac:a967 with SMTP id
+ n8-20020a0565120ac800b004fb89aca967mr7157951lfu.56.1690297536906; Tue, 25 Jul
+ 2023 08:05:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT054:EE_|LV2PR12MB5941:EE_
-X-MS-Office365-Filtering-Correlation-Id: 599a5f11-f59c-4a78-add2-08db8d1b665d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: //tz2a7pCy06UQU3tkGNtO1oY7GxGoSLJFPDyOlnRtPj4M8RXAMC0dEwbM83hz7WV7cm3K+TLJuuwCBZoHHSgLPx6TYuauKDPXLisDvxoutLVcx48KvnT6/3u2y1zc6AN1U51d31laDhlZo6VvZ3o/0N2+sd8N+MG7O8dopTkwYKKeHRJoYeXWHcIshpBVJ8nlxE1rr4QKd8VQ62MP6gKmLT6ZZ5CkIZ4vnz8RlENBSgMdghaIdb0vCxbNPPI22/WDdbkGM9Cm7v6cwhIXumGYNF8cjMjbXFZaQs5QZngQoaKXkfPrYWCdv++t3/L8+F8ERaJLTbCHnrU+fhALjNZfZcsp89F4zYbnCRrSBiWWNWuuIhfYxdC1/WGUddQA3lO/me9UAcXIIyIWk5ASK1FiAY+8eqmEISbJc4TCti/x7oLCNd4iXzQYjQR9R1SArQ07et3IVOyjIpEWsgAUPvWSFNN3YmQXrG6xTkcYgsaswCgMA+k6t3132Mwu70xZJCybBNh7GlCR6cckGBvf8nDsZHRZTEG6iqXGDyNyuusfOolu2NeB3qKfAIObhnDYncFC7uMR4UG2nIifAN46CHIupyyq3VNDqPRsS2RRhxmWRcTIBIgzxExADBN7fE1Gjx11wOXVvH1qFhG0BlfyFTWxdSMvlVqDKBZM8jembFZzHFojd74VC3cUL4c7W8S0AvXQpiEByL0a/kCT4I+u5hVDHsvwvwrtBvuYN3G3u0C3dnD8lw4IzgFK60NoId2vm3L3j38u65M7TVA+SY+bdoLA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(376002)(39860400002)(396003)(346002)(82310400008)(451199021)(36840700001)(46966006)(40470700004)(7696005)(2616005)(40480700001)(426003)(40460700003)(6666004)(478600001)(356005)(86362001)(81166007)(82740400003)(36756003)(26005)(1076003)(5660300002)(44832011)(41300700001)(316002)(8676002)(8936002)(4326008)(70206006)(2906002)(54906003)(110136005)(70586007)(6636002)(16526019)(186003)(336012)(83380400001)(47076005)(36860700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2023 14:28:22.3793 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 599a5f11-f59c-4a78-add2-08db8d1b665d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT054.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5941
+References: <20230627132323.115440-1-andrealmeid@igalia.com>
+ <e292a30f-5cad-1968-de4f-0d43c9c1e943@igalia.com>
+ <45a1e527-f5dc-aa6f-9482-8958566ecb96@mailbox.org>
+In-Reply-To: <45a1e527-f5dc-aa6f-9482-8958566ecb96@mailbox.org>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Tue, 25 Jul 2023 11:05:00 -0400
+Message-ID: <CAAxE2A6OhFVKSm8VY1iNJx_FvDH-ojfgxvSjTmJUwtcmouoLMw@mail.gmail.com>
+Subject: Re: Non-robust apps and resets (was Re: [PATCH v5 1/1] drm/doc:
+ Document DRM device reset expectations)
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,120 +70,115 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sathishkumar.sundararaju@amd.com, christian.koenig@amd.com,
- Veerabadhran Gopalakrishnan <Veerabadhran.Gopalakrishnan@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com, amd-gfx@lists.freedesktop.org,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, alexander.deucher@amd.com,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add session context buffer to decoder ring test for vcn v1 to v3.
+On Tue, Jul 25, 2023 at 4:03=E2=80=AFAM Michel D=C3=A4nzer
+<michel.daenzer@mailbox.org> wrote:
+>
+> On 7/25/23 04:55, Andr=C3=A9 Almeida wrote:
+> > Hi everyone,
+> >
+> > It's not clear what we should do about non-robust OpenGL apps after GPU=
+ resets, so I'll try to summarize the topic, show some options and my propo=
+sal to move forward on that.
+> >
+> > Em 27/06/2023 10:23, Andr=C3=A9 Almeida escreveu:
+> >> +Robustness
+> >> +----------
+> >> +
+> >> +The only way to try to keep an application working after a reset is i=
+f it
+> >> +complies with the robustness aspects of the graphical API that it is =
+using.
+> >> +
+> >> +Graphical APIs provide ways to applications to deal with device reset=
+s. However,
+> >> +there is no guarantee that the app will use such features correctly, =
+and the
+> >> +UMD can implement policies to close the app if it is a repeating offe=
+nder,
+> >> +likely in a broken loop. This is done to ensure that it does not keep=
+ blocking
+> >> +the user interface from being correctly displayed. This should be don=
+e even if
+> >> +the app is correct but happens to trigger some bug in the hardware/dr=
+iver.
+> >> +
+> > Depending on the OpenGL version, there are different robustness API ava=
+ilable:
+> >
+> > - OpenGL ABR extension [0]
+> > - OpenGL KHR extension [1]
+> > - OpenGL ES extension  [2]
+> >
+> > Apps written in OpenGL should use whatever version is available for the=
+m to make the app robust for GPU resets. That usually means calling GetGrap=
+hicsResetStatusARB(), checking the status, and if it encounter something di=
+fferent from NO_ERROR, that means that a reset has happened, the context is=
+ considered lost and should be recreated. If an app follow this, it will li=
+kely succeed recovering a reset.
+> >
+> > What should non-robustness apps do then? They certainly will not be not=
+ified if a reset happens, and thus can't recover if their context is lost. =
+OpenGL specification does not explicitly define what should be done in such=
+ situations[3], and I believe that usually when the spec mandates to close =
+the app, it would explicitly note it.
+> >
+> > However, in reality there are different types of device resets, causing=
+ different results. A reset can be precise enough to damage only the guilty=
+ context, and keep others alive.
+> >
+> > Given that, I believe drivers have the following options:
+> >
+> > a) Kill all non-robust apps after a reset. This may lead to lose work f=
+rom innocent applications.
+> >
+> > b) Ignore all non-robust apps OpenGL calls. That means that application=
+s would still be alive, but the user interface would be freeze. The user wo=
+uld need to close it manually anyway, but in some corner cases, the app cou=
+ld autosave some work or the user might be able to interact with it using s=
+ome alternative method (command line?).
+> >
+> > c) Kill just the affected non-robust applications. To do that, the driv=
+er need to be 100% sure on the impact of its resets.
+> >
+> > RadeonSI currently implements a), as can be seen at [4], while Iris imp=
+lements what I think it's c)[5].
+> >
+> > For the user experience point-of-view, c) is clearly the best option, b=
+ut it's the hardest to archive. There's not much gain on having b) over a),=
+ perhaps it could be an optional env var for such corner case applications.
+>
+> I disagree on these conclusions.
+>
+> c) is certainly better than a), but it's not "clearly the best" in all ca=
+ses. The OpenGL UMD is not a privileged/special component and is in no posi=
+tion to decide whether or not the process as a whole (only some thread(s) o=
+f which may use OpenGL at all) gets to continue running or not.
 
-Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
-Reviewed-by: Veerabadhran Gopalakrishnan <Veerabadhran.Gopalakrishnan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 33 ++++++++++++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  5 +++-
- 2 files changed, 28 insertions(+), 10 deletions(-)
+That's not true. I recommend that you enable b) with your driver and
+then hang the GPU under different scenarios and see the result. Then
+enable a) and do the same and compare.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 4e1256af80b6..56fb66f1d2d9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -539,6 +539,7 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
- 				   struct dma_fence **fence)
- {
- 	u64 addr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr);
-+	uint64_t session_ctx_buf_gaddr = AMDGPU_GPU_PAGE_ALIGN(ib_msg->gpu_addr + 8192);
- 	struct amdgpu_device *adev = ring->adev;
- 	struct dma_fence *f = NULL;
- 	struct amdgpu_job *job;
-@@ -552,13 +553,23 @@ static int amdgpu_vcn_dec_send_msg(struct amdgpu_ring *ring,
- 		goto err;
- 
- 	ib = &job->ibs[0];
--	ib->ptr[0] = PACKET0(adev->vcn.internal.data0, 0);
--	ib->ptr[1] = addr;
--	ib->ptr[2] = PACKET0(adev->vcn.internal.data1, 0);
--	ib->ptr[3] = addr >> 32;
--	ib->ptr[4] = PACKET0(adev->vcn.internal.cmd, 0);
--	ib->ptr[5] = 0;
--	for (i = 6; i < 16; i += 2) {
-+	ib->length_dw = 0;
-+	ib->ptr[ib->length_dw++] = PACKET0(adev->vcn.internal.data0, 0);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(session_ctx_buf_gaddr);
-+	ib->ptr[ib->length_dw++] = PACKET0(adev->vcn.internal.data1, 0);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(session_ctx_buf_gaddr);
-+	/* session ctx buffer cmd */
-+	ib->ptr[ib->length_dw++] = PACKET0(adev->vcn.internal.cmd, 0);
-+	ib->ptr[ib->length_dw++] = 0xa;
-+
-+	ib->ptr[ib->length_dw++] = PACKET0(adev->vcn.internal.data0, 0);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(addr);
-+	ib->ptr[ib->length_dw++] = PACKET0(adev->vcn.internal.data1, 0);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(addr);
-+	ib->ptr[ib->length_dw++] = PACKET0(adev->vcn.internal.cmd, 0);
-+	ib->ptr[ib->length_dw++] = 0;
-+
-+	for (i = ib->length_dw; i < 16; i += 2) {
- 		ib->ptr[i] = PACKET0(adev->vcn.internal.nop, 0);
- 		ib->ptr[i+1] = 0;
- 	}
-@@ -591,13 +602,15 @@ static int amdgpu_vcn_dec_get_create_msg(struct amdgpu_ring *ring, uint32_t hand
- 	int r, i;
- 
- 	memset(ib, 0, sizeof(*ib));
--	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 2,
-+	/* 34 pages : 128KiB  session context buffer size and 8KiB ib msg */
-+	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 34,
- 			AMDGPU_IB_POOL_DIRECT,
- 			ib);
- 	if (r)
- 		return r;
- 
- 	msg = (uint32_t *)AMDGPU_GPU_PAGE_ALIGN((unsigned long)ib->ptr);
-+	memset(msg, 0, (AMDGPU_GPU_PAGE_SIZE * 34));
- 	msg[0] = cpu_to_le32(0x00000028);
- 	msg[1] = cpu_to_le32(0x00000038);
- 	msg[2] = cpu_to_le32(0x00000001);
-@@ -626,13 +639,15 @@ static int amdgpu_vcn_dec_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
- 	int r, i;
- 
- 	memset(ib, 0, sizeof(*ib));
--	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 2,
-+	/* 34 pages : 128KiB  session context buffer size and 8KiB ib msg */
-+	r = amdgpu_ib_get(adev, NULL, AMDGPU_GPU_PAGE_SIZE * 34,
- 			AMDGPU_IB_POOL_DIRECT,
- 			ib);
- 	if (r)
- 		return r;
- 
- 	msg = (uint32_t *)AMDGPU_GPU_PAGE_ALIGN((unsigned long)ib->ptr);
-+	memset(msg, 0, (AMDGPU_GPU_PAGE_SIZE * 34));
- 	msg[0] = cpu_to_le32(0x00000028);
- 	msg[1] = cpu_to_le32(0x00000018);
- 	msg[2] = cpu_to_le32(0x00000000);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index a3eed90b6af0..23a80e656ddc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -172,6 +172,7 @@
- 
- #define AMDGPU_VCN_IB_FLAG_DECODE_BUFFER	0x00000001
- #define AMDGPU_VCN_CMD_FLAG_MSG_BUFFER		0x00000001
-+#define AMDGPU_VCN_CMD_FLAG_SESSION_CONTEXT_BUFFER	0x00100000
- 
- #define VCN_CODEC_DISABLE_MASK_AV1  (1 << 0)
- #define VCN_CODEC_DISABLE_MASK_VP9  (1 << 1)
-@@ -375,7 +376,9 @@ struct amdgpu_vcn_decode_buffer {
- 	uint32_t valid_buf_flag;
- 	uint32_t msg_buffer_address_hi;
- 	uint32_t msg_buffer_address_lo;
--	uint32_t pad[30];
-+	uint32_t session_context_buffer_address_hi;
-+	uint32_t session_context_buffer_address_lo;
-+	uint32_t pad[28];
- };
- 
- #define VCN_BLOCK_ENCODE_DISABLE_MASK 0x80
--- 
-2.25.1
+Options a) and c) can be merged into one because they are not separate
+options to choose from.
 
+If Wayland wanted to grey out lost apps, they would appear as robust
+contexts in gallium, but the reset status would be piped through the
+Wayland protocol instead of the GL API.
+
+Marek
+
+
+
+Marek
