@@ -4,50 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 951B7C001DE
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 08:07:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A81A2C001DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 08:24:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1452410E42F;
-	Wed, 26 Jul 2023 08:07:27 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org
- [IPv6:2001:67c:2050:0:465::102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61A9610E42F;
- Wed, 26 Jul 2023 08:07:25 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4R9mhn71bVz9slb;
- Wed, 26 Jul 2023 10:07:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1690358842;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xHAU2WtxLXCpVwOzHZxYiWNoKZatMkP5oCbz6WI4SPA=;
- b=vMEbZRzJAQ3lUXTzas65sGQJH7SiTk2H9+hGxGPfZBgaoNnDDESraZNFpqi+KbbBY3Bn76
- pg3PEa4GhMsndYsMHpjPfNTK54A1xOPLLgp+dfcWlaWMem0PuTXRoCsFRDHqtxtZcX6Jur
- Q/HIIU1v8MR3O5Ii0s72NZnFWy8/W/zKsmiKeYGAVbdkmMVb4pNpzZZFxv6TTg92E83vVQ
- QOPqcNW1EBrlF3HSifSTgscVfHRV1vfMQKlpGoMnGSaZB9gM7YROGdoUXkiU2QdrnLen3Z
- l5YzlmE1/iDJypA4/AkNcR/1B6s5Rc7/yATifP8rv4TJHBjWZh86d4MpPq/nnw==
-Message-ID: <8eb58a5f-02d0-fadf-1d5a-790b6af2d81e@mailbox.org>
-Date: Wed, 26 Jul 2023 10:07:19 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 320A210E193;
+	Wed, 26 Jul 2023 08:24:44 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5769810E193
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jul 2023 08:24:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SQTn/GSq1oK705qrQAQrM2EZacZRuYpe12EUrVQUSqHmQl4DmvzEhvP9Jo5UGoVvMD/oyLHjWVZR1ntI6IJqNMGYEsWZ1JP0vVw6nwVdFsezD6TaUsgIixPAR4qsXye5j7Dr8boH9G5ptniWexEFpUPtp6HFRi8fksJRNORSCfkLOD52wUmLZUH29sy/0xawr/D6u/BpUL+Iv6dCOonPQOqMnKQETI16+TZl3a3PrTulO9V2e230wweqf3GuOcOKRqPgIMv12VzUP+b5n5Btz+td1BHEfVTxBJ1Z1Qo8kXVe+XqBCSwUKGsR+X21xqL+VISwdEuuEgx+gER0ynvaqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vaiIdUa8uI29uYPn8m6SmioDZp991FsjUUt00Pq5Vso=;
+ b=SoColsaDjEbuB+GT/kHWfk7hkiOOzvOq5Gf22o9iHZyOv5CEGilpicLskt8qIoHjmLsc+r5I+sHOA1gmUsnNbUtas+PY+ZNtoKa4SNFyo9RlVy5f/LyMfHzQZVueAvIFQ4bZ3Jy26AozySz9lkj/s20F5bSjF8SLFQxBAmHEwKdg1sSN3MDKHWeFnhhvRFUZ7vhBVfSmZhrOHoRl84G0/V4KeEa3tskTKXxZIz9/01r8kGNt8D/2ZsNG6PJmnOdZKpVgyOnbgMMj+60pHDXgp2MZNMwoviMlgoAGZKUMYDBZj5V90lkaaCCGbpTBcjuaimAaf8aelzBN5M9tGqAmxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vaiIdUa8uI29uYPn8m6SmioDZp991FsjUUt00Pq5Vso=;
+ b=gIwyJXOJWJL1xoD8yZeQnBpqMl3NiVrXESDOcgjKjHzjba0Qq8qbKs5PkUxM8cC48icu03MEoAcjYTPdtSWgXJTMEVG/yU1FTimsB2n9VvAgR9bTvwo7k7TpmmYs5Gv9fgbe9G1mSNsWAshFuNsHgiI+gB0MF6o6Ez/voz+OWbQ=
+Received: from BN8PR04CA0031.namprd04.prod.outlook.com (2603:10b6:408:70::44)
+ by IA1PR12MB7757.namprd12.prod.outlook.com (2603:10b6:208:422::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Wed, 26 Jul
+ 2023 08:24:39 +0000
+Received: from BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:70:cafe::1a) by BN8PR04CA0031.outlook.office365.com
+ (2603:10b6:408:70::44) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.31 via Frontend
+ Transport; Wed, 26 Jul 2023 08:24:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT015.mail.protection.outlook.com (10.13.176.90) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6631.29 via Frontend Transport; Wed, 26 Jul 2023 08:24:39 +0000
+Received: from jenkins-jiadong-1.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Wed, 26 Jul 2023 03:24:38 -0500
+From: <jiadong.zhu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: set completion status as preempted for the
+ resubmission
+Date: Wed, 26 Jul 2023 16:24:11 +0800
+Message-ID: <20230726082411.3861012-1-jiadong.zhu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: Re: Non-robust apps and resets (was Re: [PATCH v5 1/1] drm/doc:
- Document DRM device reset expectations)
-To: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
-References: <20230627132323.115440-1-andrealmeid@igalia.com>
- <e292a30f-5cad-1968-de4f-0d43c9c1e943@igalia.com>
- <45a1e527-f5dc-aa6f-9482-8958566ecb96@mailbox.org>
- <a1fecc5c-30c0-2754-70a1-2edb2fe118fb@igalia.com>
-Content-Language: de-CH-frami, en-CA
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <a1fecc5c-30c0-2754-70a1-2edb2fe118fb@igalia.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: c99f3890bef0434ccc7
-X-MBO-RS-META: 7uaxsifuwngj5cyzfa3ngxf83jx37585
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT015:EE_|IA1PR12MB7757:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b61d60b-ebb2-4156-ec06-08db8db1c175
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 9ULXlBp/dXJDiqCbm+F4bBY0tcgCkKsedW3w+zi8M/td6Tn3Of/3wtfwZi69y7WZDqitXtx0GvXtR6+7gYfhG+MCMRUZHC37OVKGZHG3iMJmMVFT6BuCZxfLJj1/D63L7g3WlbHLrxI6bp1F3O3lSBpUuvnrOi1N61idCGFzNl9FWoClQTxjAn6YLaDfIjaIqiPfkwr4ZxmJrpn95V6MWGl0om8Xd4vVLYPcnS0bVBUtAIT7B3e4KGzUMhAmFq1mjOsfWcZpizRgzlOwA+WfDCvHUwKK1MP97xV0c6+FhDji2aP0HFfvNbTCltO3Ug8SyhW+pgEPp1dka6/9CDoW6YhCAmATWvs61e3EhaMWLNdB0vjThDfGH6bRlxLpqdvxyepLaAmUXbeQL/1vLHrybOaX0UpqoaeQckov9iILHM5/fhegiPCcWiqvkLKgrnzsdIZ5W2lTy3fYM7OZ+u6QphAv7HGWqMSU1edASj7t181yUi8h+eL9zDvhoCjPPGGrSEW1/101QJXl50H9Lr2oSA4bDa5jhrzVTvRVhZdPPs+ehpw2lwIjWo400HAqOhymPik339m4ZMiCQsytQLNKeZAUwe8oYEuw9lEMtUy9qb2vCUmJkIZAtOeAp3ocLKsNrX/2Nnnt7tlQ44iJ9yXuUgmvo0va68F6JXksS8EZAxQMqpL1i9pU1tLFq2qjmpJ9zPSp2LJaBGCjnG62xteVvyqfi33YcIWLXD17JPFfL0csapPWTOS5L6DvGNPQQDdO5yfZKY2i4dPOWSf9Xrqonw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(39860400002)(346002)(396003)(136003)(82310400008)(451199021)(36840700001)(40470700004)(46966006)(81166007)(40480700001)(40460700003)(82740400003)(356005)(7696005)(6666004)(186003)(26005)(16526019)(1076003)(86362001)(8676002)(336012)(41300700001)(316002)(70586007)(6916009)(4326008)(5660300002)(70206006)(2876002)(2906002)(8936002)(83380400001)(2616005)(36860700001)(36756003)(47076005)(426003)(478600001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2023 08:24:39.7203 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b61d60b-ebb2-4156-ec06-08db8db1c175
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7757
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,77 +98,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
- =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: Jiadong Zhu <Jiadong.Zhu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/25/23 15:02, André Almeida wrote:
-> Em 25/07/2023 05:03, Michel Dänzer escreveu:
->> On 7/25/23 04:55, André Almeida wrote:
->>> Hi everyone,
->>>
->>> It's not clear what we should do about non-robust OpenGL apps after GPU resets, so I'll try to summarize the topic, show some options and my proposal to move forward on that.
->>>
->>> Em 27/06/2023 10:23, André Almeida escreveu:
->>>> +Robustness
->>>> +----------
->>>> +
->>>> +The only way to try to keep an application working after a reset is if it
->>>> +complies with the robustness aspects of the graphical API that it is using.
->>>> +
->>>> +Graphical APIs provide ways to applications to deal with device resets. However,
->>>> +there is no guarantee that the app will use such features correctly, and the
->>>> +UMD can implement policies to close the app if it is a repeating offender,
->>>> +likely in a broken loop. This is done to ensure that it does not keep blocking
->>>> +the user interface from being correctly displayed. This should be done even if
->>>> +the app is correct but happens to trigger some bug in the hardware/driver.
->>>> +
->>> Depending on the OpenGL version, there are different robustness API available:
->>>
->>> - OpenGL ABR extension [0]
->>> - OpenGL KHR extension [1]
->>> - OpenGL ES extension  [2]
->>>
->>> Apps written in OpenGL should use whatever version is available for them to make the app robust for GPU resets. That usually means calling GetGraphicsResetStatusARB(), checking the status, and if it encounter something different from NO_ERROR, that means that a reset has happened, the context is considered lost and should be recreated. If an app follow this, it will likely succeed recovering a reset.
->>>
->>> What should non-robustness apps do then? They certainly will not be notified if a reset happens, and thus can't recover if their context is lost. OpenGL specification does not explicitly define what should be done in such situations[3], and I believe that usually when the spec mandates to close the app, it would explicitly note it.
->>>
->>> However, in reality there are different types of device resets, causing different results. A reset can be precise enough to damage only the guilty context, and keep others alive.
->>>
->>> Given that, I believe drivers have the following options:
->>>
->>> a) Kill all non-robust apps after a reset. This may lead to lose work from innocent applications.
->>>
->>> b) Ignore all non-robust apps OpenGL calls. That means that applications would still be alive, but the user interface would be freeze. The user would need to close it manually anyway, but in some corner cases, the app could autosave some work or the user might be able to interact with it using some alternative method (command line?).
->>>
->>> c) Kill just the affected non-robust applications. To do that, the driver need to be 100% sure on the impact of its resets.
->>>
->>> RadeonSI currently implements a), as can be seen at [4], while Iris implements what I think it's c)[5].
->>>
->>> For the user experience point-of-view, c) is clearly the best option, but it's the hardest to archive. There's not much gain on having b) over a), perhaps it could be an optional env var for such corner case applications.
->>
->> I disagree on these conclusions.
->>
->> c) is certainly better than a), but it's not "clearly the best" in all cases. The OpenGL UMD is not a privileged/special component and is in no position to decide whether or not the process as a whole (only some thread(s) of which may use OpenGL at all) gets to continue running or not.
->>
-> 
-> Thank you for the feedback. How do you think the documentation should look like for this part?
+From: Jiadong Zhu <Jiadong.Zhu@amd.com>
 
-The initial paragraph about robustness should say "keep OpenGL working" instead of "keep an application working". If an OpenGL context stops working, it doesn't necessarily mean the application stops working altogether.
+The driver's CSA buffer is shared by all the ibs. When the high priority ib
+is submitted after the preempted ib, CP overrides the ib_completion_status
+as completed in the csa buffer. After that the preempted ib is resubmitted,
+CP would clear some locals stored for ib resume when reading the completed
+status, which causes gpu hang in some cases.
 
+Always set status as preempted for those resubmitted ib instead of reading
+everything from the CSA buffer.
 
-If the application doesn't use the robustness extensions, your option b) is what should happen by default whenever possible. And it really has to be possible if the robustness extensions are supported.
+Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h | 9 +++++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c        | 4 +++-
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+index b22d4fb2a847..d3186b570b82 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.h
+@@ -56,6 +56,15 @@ enum amdgpu_ring_mux_offset_type {
+ 	AMDGPU_MUX_OFFSET_TYPE_CE,
+ };
+ 
++enum ib_complete_status {
++	/* IB not started/reset value, default value. */
++	IB_COMPLETION_STATUS_DEFAULT = 0,
++	/* IB preempted, started but not completed. */
++	IB_COMPLETION_STATUS_PREEMPTED = 1,
++	/* IB completed. */
++	IB_COMPLETION_STATUS_COMPLETED = 2,
++};
++
+ struct amdgpu_ring_mux {
+ 	struct amdgpu_ring      *real_ring;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index fc179e5f8dc1..272f206042bf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -5169,7 +5169,6 @@ static void gfx_v9_0_ring_patch_cntl(struct amdgpu_ring *ring,
+ 				     unsigned offset)
+ {
+ 	u32 control = ring->ring[offset];
+-
+ 	control |= INDIRECT_BUFFER_PRE_RESUME(1);
+ 	ring->ring[offset] = control;
+ }
+@@ -5226,6 +5225,9 @@ static void gfx_v9_0_ring_patch_de_meta(struct amdgpu_ring *ring,
+ 		de_payload_cpu_addr = adev->virt.csa_cpu_addr + payload_offset;
+ 	}
+ 
++	((struct v9_de_ib_state *)de_payload_cpu_addr)->ib_completion_status =
++		IB_COMPLETION_STATUS_PREEMPTED;
++
+ 	if (offset + (payload_size >> 2) <= ring->buf_mask + 1) {
+ 		memcpy((void *)&ring->ring[offset], de_payload_cpu_addr, payload_size);
+ 	} else {
 -- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+2.25.1
 
