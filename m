@@ -4,88 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84AC5C001B0
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Jul 2023 14:15:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C3F3C0015E
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 18:28:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9298510E100;
-	Mon, 24 Jul 2023 14:15:06 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2059.outbound.protection.outlook.com [40.107.93.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC96610E100
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Jul 2023 14:15:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RC0sdT2KcdtDvboW6aMmOphBp5FBIQfDkIRuxUNeeOi3a7P1nnrSPyYeR4Dx6tdsjVb51fsau/hZIkh6ScGBTmTwNXJwYz+Ua1BW8MfFxhAvQSFqDsrv+ZVx2NyjXC+DyudO9QSpz4vP6EcZx8/opb20SFGAy7nPAwm1pO7ikkwGpYxMqmyUbtHfXvhnHvrvLa6yX55omZZdfbrx8xZrKTZNp/V0knxZjAPFiWUloVOfoYIH2RGB72IA8yESSiLdO1gU6q6RBnLAZkrgraw7efpC0udoGsNeDyWzUd+Ncn+5ejKJfNaU9Vi5vJcZF+QnLGwIIvEF1CyQjGRNf7XnRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9WR6PaoQVcJDWAtei5DAaP+yBxekKbnL82ZIILtWhh4=;
- b=Pj+2NveYwTNCT63lzSP/vXmUHZBDLixLOW9ulYgHVYqfemrtcHBmh8NLxuhhzvPQ7JhvmAk2nehx3JrwKYrhvW6Fw3zJQ/01ICHcuaIxkhxjrCMUI2G1eu4bCbQZqS0uuxm7S4L/GgrYgV1ItfJjMT0nOvKVWza/k3eKdgnKRjGlVMT8FPDO8vAV7kattJ/SW2Ar9rbhDp2/qrmFsrjRfhd5boVQnZBskmaoNC+ErQAsmcpKRpIf0X8R5po4xKbRFS8F2Nol3Ez30BmM1seV0fGyS2+U7COvWbTxhbyFTrx+W8CjRxMeO4fkWLI5dJdxAfD1tsxC9JJ995JEH0PcWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9WR6PaoQVcJDWAtei5DAaP+yBxekKbnL82ZIILtWhh4=;
- b=lUzz2TnRWCxkQvVHoSlrF7r9sHQC42XMIo1Ll8ASFvGBLSnl7zgaUS27gcvrrNe9WMK9WUS9Yz3xJ5FTkZGL7kkgqgD4eTQfELxTe4eevVSjXrz+MTDrbX0ZCN+ohJ2plo8tRNoQad4W1jdSUonblZg9OBys+h5gCbOR/rGmJI8=
-Received: from MW4PR04CA0298.namprd04.prod.outlook.com (2603:10b6:303:89::33)
- by DS0PR12MB7583.namprd12.prod.outlook.com (2603:10b6:8:13f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Mon, 24 Jul
- 2023 14:15:01 +0000
-Received: from CO1NAM11FT074.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:89:cafe::d3) by MW4PR04CA0298.outlook.office365.com
- (2603:10b6:303:89::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33 via Frontend
- Transport; Mon, 24 Jul 2023 14:15:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT074.mail.protection.outlook.com (10.13.174.254) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6631.25 via Frontend Transport; Mon, 24 Jul 2023 14:15:01 +0000
-Received: from fdavid-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 24 Jul
- 2023 09:15:00 -0500
-From: David Francis <David.Francis@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: 
-Date: Mon, 24 Jul 2023 10:14:44 -0400
-Message-ID: <20230724141445.2451975-1-David.Francis@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 340FE10E05F;
+	Wed, 26 Jul 2023 18:28:59 +0000 (UTC)
+Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
+ [IPv6:2607:f8b0:4864:20::c2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1542310E0A2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jul 2023 18:28:57 +0000 (UTC)
+Received: by mail-oo1-xc2d.google.com with SMTP id
+ 006d021491bc7-563531a3ad2so97168eaf.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jul 2023 11:28:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1690396136; x=1691000936;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HUXCgeCnHAy7zyC+ckmLy83WnDmeDIT+nJd6zDJdjRs=;
+ b=VsSj4UMQzgsz76VTeXQaGbs74a61lUNZYaWruaMVKnrfiVM6lN9SE04f8iC+6LRlWo
+ BltWGRo5rwoCU9deTkdgYtD4FejY5yEC0WmmZKROBZwiLwI4rx00OOuAOt7LV26VYHaW
+ oF0EJg2sEC8S1/QaIL1MxwWHScHSrCtm3cVM4XEzHHahfa60jJM0NifT0vT1oa7EgIbd
+ tRyt++mUNl9GgAhyb9y63Gf0P4k5ozoDZIuTiaoI9G/tjEYxx1Bkrjd6/xbSmf9wxp5Q
+ 50VTrzrMj20NP4TIunUy0/KOg18G5fxvlNExx+FlgqDA6T+YJaspsHgCeTFrEbbesX0F
+ DIcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690396136; x=1691000936;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=HUXCgeCnHAy7zyC+ckmLy83WnDmeDIT+nJd6zDJdjRs=;
+ b=dbNRILsG8KJZdHypTJ5v2QRp7ehjTmsY8S8whL5ZhYWnMxR5QiRAKZAgYH2acoA4+U
+ 3Mm0ItCk8DwcU89YH6jtkzBFNmL3bc5+eXhyPBqMBkt9k7gn2ixjrgwsZBY0GwrLeY7S
+ 8Ucnk0x9Y3AYx4xaIAx1OdtjweXDMsTcDl3hbA0T/fRsE6Z7uTN4/LrDNoAdoiW19I/+
+ adjXY1RPFghO5jmfYvQ9tfkhnUYYyQkKDe6ufHiAO6ieK5hhbIN2fJJpbxz3Ms/21b9U
+ sjTOTClyd1z5bRPL6B2tILBoXNdjEVSQCkSkp1WcENOxYCLcyv4ysNnHgvC8Zbg3+GGz
+ 8Cjw==
+X-Gm-Message-State: ABy/qLa97V9GI9VD3Fc3caTZFTOI/4xtNxfFc4LW5/Onsi4reHfEM70n
+ HWstrujlwjcJBysHObTht4SSMT4qT4koDE7SpbkWNwZ+
+X-Google-Smtp-Source: APBJJlFTyAT11+hdkilSrie2w9VKzU6mGSS0FgO/ZnFTmFJza6GvdYeytDVkReDdvxqHDAYtGHFBoSLJ6lP7wT03EjU=
+X-Received: by 2002:a05:6820:285:b0:566:fa3f:82af with SMTP id
+ q5-20020a056820028500b00566fa3f82afmr2081211ood.5.1690396136107; Wed, 26 Jul
+ 2023 11:28:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT074:EE_|DS0PR12MB7583:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0794729-2192-4c5b-c415-08db8c505e90
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FRz0YnRB6+zJUQpSejFPLRMofTADBinHBoJKXc3x5WLxixR/cS9LJ+rI+LO8kz3CeqSs8fsMCwVDywGKR8tnRaiGahL+FlNiqAFQHWf6jJ4cIFZjuGfgF60q3zizXBZ0gSCpDgjye0utnA6oQoZoh8UW0Dt5oxkiVDMGjijf+IHPGemHw/CMkOXH42cFsBG1fq41tcIsfUxXQKZT9Uj8D//N5Z9KdcEKPZDeZE72QMP5TQTT+lT8qIp06jnVxeBgyWkPMudTiNeSlPLuDHSnh4dYBqAVwi1BtViA73N5X83e/tsop0CqwJJg1DRdwOiOhkz1leMv4gHYpRufA0yaDdltcaRBvXVCbwOCkAJCrP3CxBkUcYr7KWN8aVVg7os7ucWYOli6uRvfRwkXiA12O86IYGO1vtXmi2j++9DXjssGtfHdkw10rdtPVf8W1dUq8JBjbeHWfaY7yevF0Nxjt7ToFaLgIHZtOX69QEbWetteIiiUSZpBGBYJAGXpl18Q8TBslRmYrFPrFzI3Xb8l8Bes/jIRWSU1fDre53pFlknJL8rXye5sG4xrJy79B0MQ3c3MV0kXgh3duRvZg/gmmrRJFtoKAkEjp+N/9/GanplMHqQ274ZPJIKoxnxoQXpiMZxfl1meG2lCQxjkUkvOR/MLLYfkupOrTj25GHiH4UUkfc8ube3V0tijP64k/xnYi7OLHlYRpI23NETmp94pvMEtp3iakGR36L9OlmLVABTWJcg6c6ZfWCX5GjxrTjPcEWZXbr+0HmR/wK3HgKCh8w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(376002)(346002)(39860400002)(396003)(82310400008)(451199021)(36840700001)(40470700004)(46966006)(40480700001)(6666004)(7696005)(81166007)(356005)(40460700003)(82740400003)(478600001)(5406001)(8936002)(5660300002)(36756003)(2906002)(558084003)(86362001)(6916009)(70206006)(70586007)(41300700001)(316002)(336012)(186003)(16526019)(1076003)(26005)(966005)(47076005)(2616005)(36860700001)(426003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2023 14:15:01.2062 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0794729-2192-4c5b-c415-08db8c505e90
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT074.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7583
+References: <20230726145119.2482465-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230726145119.2482465-1-srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 26 Jul 2023 14:28:44 -0400
+Message-ID: <CADnq5_M+DA5fu4+J29XtJ4qhs0GceQqNuUpDW=9U+cnCW+A4cg@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: Prefer strscpy over strlcpy in
+ 'radeon_combios_get_power_modes'
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,13 +68,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is in support of a RCCL change that requires specific
-coherence behaviour.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Corresponding Thunk patch is at
-https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/pull/88
-
-
+On Wed, Jul 26, 2023 at 10:51=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
+>
+> strlcpy() reads the entire source buffer first. This read may exceed the
+> destination size limit. This is both inefficient and can lead to linear
+> read overflows if a source string is not NUL-terminated. The safe
+> replacement is strscpy() [1].
+>
+> cleanup to remove the strlcpy() function entirely from the kernel [2].
+>
+> [1] https://www.kernel.org/doc/html/latest/process/deprecated.html#strlcp=
+y
+> [2] https://github.com/KSPP/linux/issues/89
+>
+> Fixes the following:
+>
+> WARNING: Prefer strscpy over strlcpy
+> +                               strlcpy(info.type, name, sizeof(info.type=
+));
+>
+> WARNING: Prefer strscpy over strlcpy
+> +                               strlcpy(info.type, name, sizeof(info.type=
+));
+>
+> Cc: Guchun Chen <guchun.chen@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon_combios.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/ra=
+deon/radeon_combios.c
+> index 783a6b8802d5..795c3667f6d6 100644
+> --- a/drivers/gpu/drm/radeon/radeon_combios.c
+> +++ b/drivers/gpu/drm/radeon/radeon_combios.c
+> @@ -2702,7 +2702,7 @@ void radeon_combios_get_power_modes(struct radeon_d=
+evice *rdev)
+>                                 struct i2c_board_info info =3D { };
+>                                 const char *name =3D thermal_controller_n=
+ames[thermal_controller];
+>                                 info.addr =3D i2c_addr >> 1;
+> -                               strlcpy(info.type, name, sizeof(info.type=
+));
+> +                               strscpy(info.type, name, sizeof(info.type=
+));
+>                                 i2c_new_client_device(&rdev->pm.i2c_bus->=
+adapter, &info);
+>                         }
+>                 }
+> @@ -2719,7 +2719,7 @@ void radeon_combios_get_power_modes(struct radeon_d=
+evice *rdev)
+>                                 struct i2c_board_info info =3D { };
+>                                 const char *name =3D "f75375";
+>                                 info.addr =3D 0x28;
+> -                               strlcpy(info.type, name, sizeof(info.type=
+));
+> +                               strscpy(info.type, name, sizeof(info.type=
+));
+>                                 i2c_new_client_device(&rdev->pm.i2c_bus->=
+adapter, &info);
+>                                 DRM_INFO("Possible %s thermal controller =
+at 0x%02x\n",
+>                                          name, info.addr);
+> --
+> 2.25.1
+>
