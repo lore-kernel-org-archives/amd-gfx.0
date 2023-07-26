@@ -4,114 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7CADC001B0
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 12:02:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F8D9C001DC
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 12:07:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6592C10E465;
-	Wed, 26 Jul 2023 12:02:39 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B82410E465
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jul 2023 12:02:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n7uWVlGMF16tmgbVDUTzZR9DFoej3AacfvFB0e1kkq4dOj/gV3I+/NyZQXt1EENMTJPE5boQnkOabhJJrNrduGZI195z1PoIZoMU2WrfTrImX453yLSEA1avEE2GFVzP+6VGnlyLg36IA6EQ0pAdhyv+SASXw3SsBYZpgCe+zceWc4IGBsLwjAo63MJoSZFg/aF7QQbUca2By2vykayY6kxlgoLw+LTaUuOa9tHErYuLzeBVUlO4KCRZUhM4rZwuQMvLh0sRwmSBDuQ6xqLhx/YkmKnc1fJVvytxdb5JLqLnOt+ci1Qotloi5wuPq4uWwdI7UUaf6QnGCldnccTe7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Pmqp0IZ+ZinnMdI55eLprVGalZjJxPjRVYgbIrwRhw4=;
- b=c8NURZRoiqjn2okPvKCziGNCezursh2JjhID3UxN92dhqO2MHbxmR1Mu5JxwDDEYRm2fiRUkVT9xfqtOa8nsySbgI7pi3g8pdQdIc+tcc2ZGx4LM+eA642gRNlCz0N2I3XslaBppVCySCXGcv9A0Q5yu6tgydhr79j2nGgHxdhQg297V8oylcZZVZlgjk6C4diq8EYfIoCkCRC0/lBukEG7wAFfzBQXC1BgpEKgDGqspSZQJT0FMHcb2Ek+GSyMtg4YBLk7JHa3J9ZIwq3Zaq0iQJgwLHuCXOh10Yl2avG7EgPk45+lq3+yLjXD8HxsK7qUsIdfdl87Maw+4ptrRdg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Pmqp0IZ+ZinnMdI55eLprVGalZjJxPjRVYgbIrwRhw4=;
- b=v6m+tO+ffNz0+x7gILEgpPndAmBnv8bS2+p4yVGY8u3DEG+1/RTfE/6fpGnGfwhkdWyomio+a2KvYB8+BtZyIG2p1YE3SsidoZkbYNB5nW3gDMq1s+MZDJXHf7pHbzU3xQ0HlqXIMNbWOLKe8EM5kAj0YBsdFfb0pQQIufzuWDQ=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by CH3PR12MB9250.namprd12.prod.outlook.com (2603:10b6:610:1ae::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Wed, 26 Jul
- 2023 12:02:32 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::4d17:c920:ea2e:3b2d]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::4d17:c920:ea2e:3b2d%4]) with mapi id 15.20.6631.026; Wed, 26 Jul 2023
- 12:02:32 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Yu, Lang" <Lang.Yu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Chai, Thomas" <YiPeng.Chai@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: correct vmid_src -> vmhub_index mapping
-Thread-Topic: [PATCH] drm/amdgpu: correct vmid_src -> vmhub_index mapping
-Thread-Index: AQHZv7PW0entoNuCNEGQaWONAy70lK/L8ihQ
-Date: Wed, 26 Jul 2023 12:02:32 +0000
-Message-ID: <BN9PR12MB525798EF052541B0EF1E518DFC00A@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20230726112446.653625-1-Lang.Yu@amd.com>
-In-Reply-To: <20230726112446.653625-1-Lang.Yu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-Mentions: YiPeng.Chai@amd.com
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=07298222-9798-4e79-a706-bad4ead32963;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-26T12:00:33Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|CH3PR12MB9250:EE_
-x-ms-office365-filtering-correlation-id: c6ddad29-514c-44a0-1a0a-08db8dd0315f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 3zUuxqyF0Y6TFjgDurlHHkluapxlMjvaOqw2hPBblNO3NxWjAPK3tmPsZTC+SuLDEpSXkTz21bBfqBTl6ZCTa5S4CVNyGCNt9RNR8Wb48gTDblo/m1U1opWiRc1O+9kuzihD6IoNjSac8K9KYRceyj6ruwGvjMWCM/MVZ9EWJkXcTzGUHhPwRd+LFNHq0SfIE0hnJtX2SMrR+A26mUkew11uS4EzL6WH5mu8Z6STf6oylrpW9gmp0lb64aJrGj3PcPPXjOF0CjMeA97e+jlQy+3SeaR0P8H13cY/hznoxPRYLAREyUxUd5rNNbsnSZw3mlO8VbIE6KAMH29jzhKtV2Aoe/fuD47wCrAIWLqyc0lMP6oN6wuDTDRG6RmIo4FBcTouRYg/Gzw66pHEx270/DcflVwHWLvM38EXS5hwAU83ajtVPxzQ1LETcXPZ/vPU8/436hu5sLD8TCDAX1/gGSOymmeODIrI74RZFvKolHBU6E+o5+WLXHBFNrsMNamTfLoKS8oBUhGtmSFpdk0xL7mNCPjk8MFpoIAYPK72/Lrj7rHuRIfuYDtlOiO+e1ZrHWtu+4KeovRICLhAW749tFPVwv83rXCFx2ErMpZ1K888IRfKzk2+XPWGTgWoNbYv
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(396003)(136003)(366004)(39860400002)(451199021)(54906003)(110136005)(478600001)(7696005)(9686003)(83380400001)(33656002)(86362001)(55016003)(38070700005)(2906002)(66556008)(66476007)(53546011)(186003)(6506007)(71200400001)(26005)(66446008)(64756008)(122000001)(38100700002)(76116006)(66946007)(6636002)(316002)(4326008)(52536014)(41300700001)(8936002)(8676002)(5660300002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kM+iurzou8WPURmfBQeW/3UDfTbpyMLv9l71kH0tEXUgUUZGSgvSoG+3KoqM?=
- =?us-ascii?Q?IEzR54NtdtOosOr7M/otDQvntobGHhSlMkGaQRYI4fnqPDnP7ATbCeEHEItZ?=
- =?us-ascii?Q?J6TLHVaAjelVZQbaeF/Ay3eFrxUY4ugrFM7W185OX9ydOJgA4RWyhBM+a+ef?=
- =?us-ascii?Q?j559c1XCs2pB/Z04YaVn8xTCcTDXfBY5Ay1mMyCaZgl/auV5k1kT3DG2zC2d?=
- =?us-ascii?Q?XEPqUqB6pPoKEPZUsmHDUrHIwO46eE/sqtsmkA4uCN7ZIEs19domXyiXyF/D?=
- =?us-ascii?Q?rO4ZyGM7BCii1oT2kRPAqD3nO8y6xIVSSghn29Zm0m/lO3r0pMG1Cevxiwik?=
- =?us-ascii?Q?NEe6MhJcpckcF+Rn+32RdY1lBdqOcstGGKI8spG/TtEd8OT6HziShyVzeRsx?=
- =?us-ascii?Q?TkBYlicAQdx5sVJX7tj4W1DRhZ54fGHREyKNJAY4O5hh3E4yIjGwvgvc+eFR?=
- =?us-ascii?Q?e+AzUTOQRv+v1k0wBk54AvhTEp8uNdvzUTFR8pGyN15u1p4cD/3pR30o6QIg?=
- =?us-ascii?Q?NstxhpU3nDVg4j5I3F4jhXAiz16OrmMJxYytxwRahWuEZ6QFSGmbSULnI+0t?=
- =?us-ascii?Q?34GcpMkIeJssLxm8NDNggGnTdusNS93qQfv9+aiUODSNfFEa6T/asAlkngRu?=
- =?us-ascii?Q?JpCSz4Y87MeqdjWKcYb0XxTongy+Pt/OwHu0dc16xpVxituoczsP9pz9Z2FN?=
- =?us-ascii?Q?cCoXOi2CpOJ3sO7g2UpPll/H3EbotsCeyHUvmDwl+03PKalT83JrbL7d03Cc?=
- =?us-ascii?Q?8DBUlNx0RScsTc/jiXT3o6CUEN1pxw7s7MShydFKeYxa5q9XSUagy2VezluM?=
- =?us-ascii?Q?inXV2bkZpGgb/6ov3WpRrH4JX4a884cL22gL106wG7twSjKxhZyuVjw3omcC?=
- =?us-ascii?Q?CwqFYhn7/jmLFrdkr49FvE1V72Rpn4sYb0wgfMZS/9NQP/dkQpNtOTG+sGiH?=
- =?us-ascii?Q?V3lQcSjGQ5v4M773nFjx1jstavbLkx3pwoARoLNRYjaSKg9aT8DFKwTuXFkI?=
- =?us-ascii?Q?Xo7ItsHP8+vQLYfhjLDrq1xw2RHDnKuwnUuuVRmsnfhaQ7dzvvfysLBlxaaj?=
- =?us-ascii?Q?DiJouyM3drocWApj4kxGKe8zjldyxLtjoB2WsVvmLaWPYbHFmJ1pa3yHI0qi?=
- =?us-ascii?Q?GkMR8JMaR6sulj77Zn6mihJQ55UWbTDdhF8OLQc5UF+twgJyBRXbwnkm5a8j?=
- =?us-ascii?Q?FPWa/F37T8oUTpbdGxeikZgr2BPQ1DgmuQaexJETAydVRoIkkffPQsIIhmM3?=
- =?us-ascii?Q?yIrzSuuBgCbOsUSorhRHmNwXuC0DqZJgTQJnvSxhzs518GYgTDC9f5QFLXG1?=
- =?us-ascii?Q?YL9Rz9CJb34spRzYmUzgtI+7yCgykNgvn2m3ZnDsEFbBWNhO0Dna6BPh/DlP?=
- =?us-ascii?Q?u2yalAi9VcIZFL3vpfZ+lwdORlFgY3BFxTO8eySPVUrn0eO795rI9DpZW4+T?=
- =?us-ascii?Q?PrPbAe0K0S1+fBfH3msjdXS07NDrLTCt2cSk/U9NOqA78R3jQPQvaHAMBlHy?=
- =?us-ascii?Q?rhvuXWLuLBICYfHcto0Sn/NPY9WM3MYN1EM2GrjpDzbgtNbpBUnSUDt9D8UE?=
- =?us-ascii?Q?Z3yrZu/kdla+kNeFHrc=3D?=
-Content-Type: text/plain; charset="us-ascii"
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC17D10E467;
+	Wed, 26 Jul 2023 12:07:05 +0000 (UTC)
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5637910E0D7;
+ Wed, 26 Jul 2023 07:55:14 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5222bc916acso4156060a12.3; 
+ Wed, 26 Jul 2023 00:55:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1690358113; x=1690962913;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=d7QOnvKrfMfPuvNBhOGu4xW+tXNWmX6DFQBAZIM9kfY=;
+ b=Wy+TCQdL26knY2e/j2nECKLaAva/TSyOE44TwASfTFzw6xb6+V10JP/EhFIL+jmgK/
+ YsiwCG6NkVzHjALq5yvV3oBAne8C2vCaDcAndSerFKb4MZmaHBlbh0A/q3kESukVAQUR
+ JdCYQyopYirbr0yYto58cviQKxN0nBpC4fK0JEE2KyFi0F6d2Vcy8Po9iZ0OvX/NLhU2
+ FWbtzer7SBgPsTuo4RTr7FwxmwqFFfIpErEbKiXsnoD6PEFnEjRWT9Mni+dSelZN5k1n
+ bsGHInDQZceizHj7HPUSE2mPkII+jQEsXD49jExn70v45Sxgr58+3iHa8Ib2XFMlYo7s
+ s+UQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690358113; x=1690962913;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=d7QOnvKrfMfPuvNBhOGu4xW+tXNWmX6DFQBAZIM9kfY=;
+ b=Ja4lrT9Hlb7Vd3r4FiYfxPGp/uM4R11zLjsSKXWBbVPCm6umtcscP2PmUp2N+e8HLG
+ bZb3U3Groh8eAe8+3i+RlimFIV2PIR/5O8wSj1ZGMov/hmgKGexSYkM3NllECY5PCtMl
+ 2tUdk/LZsMdoe3prHlC581afX97zNyLNXKBhRd2cq5MHEWoL/kEE9hj5trnACL2xICg4
+ jQh8fEqDXhcklfPWuHmfF5RHHYiDHixCPuUPQbltO883tM/OhBJ6tgeNQJ1bWRnxmApy
+ I5nqEo8e8VxF0VVlHliHu1TV8lgvA3RZv2OgFGaDAYohL52AykqwujWxTEsKeUT3gGPG
+ 9pww==
+X-Gm-Message-State: ABy/qLY7p5LPeQIMQyy/I0WwW7g8julObbjOxsSV539bDHcLdATd5zYW
+ OVgZGuK1+tFWkvNrs6mQtSm62MhHql2WWA==
+X-Google-Smtp-Source: APBJJlFGocUFJ8sh5KJvcCwa5CUXeceoVuzHq1oJnaq5n25KmyNR0wLVUki587Ec9KEKVMq8B33Eag==
+X-Received: by 2002:a17:906:3296:b0:970:c9f:2db6 with SMTP id
+ 22-20020a170906329600b009700c9f2db6mr992284ejw.63.1690358112373; 
+ Wed, 26 Jul 2023 00:55:12 -0700 (PDT)
+Received: from ?IPv6:2a0a:f640:1900:2df4:8cfd:779f:f22d:4029?
+ ([2a0a:f640:1900:2df4:8cfd:779f:f22d:4029])
+ by smtp.gmail.com with ESMTPSA id
+ va6-20020a17090711c600b00992c4103cb5sm9192980ejb.129.2023.07.26.00.55.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Jul 2023 00:55:11 -0700 (PDT)
+Message-ID: <3e38ebb1695d0b5df8c2ebbae37eccab2fcfdc39.camel@gmail.com>
+Subject: Re: Non-robust apps and resets (was Re: [PATCH v5 1/1] drm/doc:
+ Document DRM device reset expectations)
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Michel =?ISO-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>, Marek
+ =?UTF-8?Q?Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>
+Date: Wed, 26 Jul 2023 09:55:08 +0200
+In-Reply-To: <36bc5f30-dc72-10a3-c9cb-de9cb5400eb3@mailbox.org>
+References: <20230627132323.115440-1-andrealmeid@igalia.com>
+ <e292a30f-5cad-1968-de4f-0d43c9c1e943@igalia.com>
+ <45a1e527-f5dc-aa6f-9482-8958566ecb96@mailbox.org>
+ <CAAxE2A6OhFVKSm8VY1iNJx_FvDH-ojfgxvSjTmJUwtcmouoLMw@mail.gmail.com>
+ <36bc5f30-dc72-10a3-c9cb-de9cb5400eb3@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6ddad29-514c-44a0-1a0a-08db8dd0315f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jul 2023 12:02:32.3959 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Xsij45qmhBQcfbByuuEF6EyYqw7v9nJSIarGp0vzIiQVDqd3OB7PftQ5p0A/YTeyJnn2TioC47dW0LBkrwW25w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9250
+X-Mailman-Approved-At: Wed, 26 Jul 2023 12:07:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,72 +81,124 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
- Yifan" <Yifan1.Zhang@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, dri-devel@lists.freedesktop.org,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>, kernel-dev@igalia.com,
+ alexander.deucher@amd.com,
+ =?ISO-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+On Tue, 2023-07-25 at 19:00 +0200, Michel D=C3=A4nzer wrote:
+> On 7/25/23 17:05, Marek Ol=C5=A1=C3=A1k wrote:
+> > On Tue, Jul 25, 2023 at 4:03=E2=80=AFAM Michel D=C3=A4nzer
+> > <michel.daenzer@mailbox.org> wrote:
+> > > On 7/25/23 04:55, Andr=C3=A9 Almeida wrote:
+> > > > Hi everyone,
+> > > >=20
+> > > > It's not clear what we should do about non-robust OpenGL apps
+> > > > after GPU resets, so I'll try to summarize the topic, show some
+> > > > options and my proposal to move forward on that.
+> > > >=20
+> > > > Em 27/06/2023 10:23, Andr=C3=A9 Almeida escreveu:
+> > > > > +Robustness
+> > > > > +----------
+> > > > > +
+> > > > > +The only way to try to keep an application working after a
+> > > > > reset is if it
+> > > > > +complies with the robustness aspects of the graphical API
+> > > > > that it is using.
+> > > > > +
+> > > > > +Graphical APIs provide ways to applications to deal with
+> > > > > device resets. However,
+> > > > > +there is no guarantee that the app will use such features
+> > > > > correctly, and the
+> > > > > +UMD can implement policies to close the app if it is a
+> > > > > repeating offender,
+> > > > > +likely in a broken loop. This is done to ensure that it does
+> > > > > not keep blocking
+> > > > > +the user interface from being correctly displayed. This
+> > > > > should be done even if
+> > > > > +the app is correct but happens to trigger some bug in the
+> > > > > hardware/driver.
+> > > > > +
+> > > > Depending on the OpenGL version, there are different robustness
+> > > > API available:
+> > > >=20
+> > > > - OpenGL ABR extension [0]
+> > > > - OpenGL KHR extension [1]
+> > > > - OpenGL ES extension=C2=A0 [2]
+> > > >=20
+> > > > Apps written in OpenGL should use whatever version is available
+> > > > for them to make the app robust for GPU resets. That usually
+> > > > means calling GetGraphicsResetStatusARB(), checking the status,
+> > > > and if it encounter something different from NO_ERROR, that
+> > > > means that a reset has happened, the context is considered lost
+> > > > and should be recreated. If an app follow this, it will likely
+> > > > succeed recovering a reset.
+> > > >=20
+> > > > What should non-robustness apps do then? They certainly will
+> > > > not be notified if a reset happens, and thus can't recover if
+> > > > their context is lost. OpenGL specification does not explicitly
+> > > > define what should be done in such situations[3], and I believe
+> > > > that usually when the spec mandates to close the app, it would
+> > > > explicitly note it.
+> > > >=20
+> > > > However, in reality there are different types of device resets,
+> > > > causing different results. A reset can be precise enough to
+> > > > damage only the guilty context, and keep others alive.
+> > > >=20
+> > > > Given that, I believe drivers have the following options:
+> > > >=20
+> > > > a) Kill all non-robust apps after a reset. This may lead to
+> > > > lose work from innocent applications.
+> > > >=20
+> > > > b) Ignore all non-robust apps OpenGL calls. That means that
+> > > > applications would still be alive, but the user interface would
+> > > > be freeze. The user would need to close it manually anyway, but
+> > > > in some corner cases, the app could autosave some work or the
+> > > > user might be able to interact with it using some alternative
+> > > > method (command line?).
+> > > >=20
+> > > > c) Kill just the affected non-robust applications. To do that,
+> > > > the driver need to be 100% sure on the impact of its resets.
+> > > >=20
+> > > > RadeonSI currently implements a), as can be seen at [4], while
+> > > > Iris implements what I think it's c)[5].
+> > > >=20
+> > > > For the user experience point-of-view, c) is clearly the best
+> > > > option, but it's the hardest to archive. There's not much gain
+> > > > on having b) over a), perhaps it could be an optional env var
+> > > > for such corner case applications.
+> > >=20
+> > > I disagree on these conclusions.
+> > >=20
+> > > c) is certainly better than a), but it's not "clearly the best"
+> > > in all cases. The OpenGL UMD is not a privileged/special
+> > > component and is in no position to decide whether or not the
+> > > process as a whole (only some thread(s) of which may use OpenGL
+> > > at all) gets to continue running or not.
+> >=20
+> > That's not true.
+>=20
+> Which part of what I wrote are you referring to?
+>=20
+>=20
+> > I recommend that you enable b) with your driver and then hang the
+> > GPU under different scenarios and see the result.
+>=20
+> I've been doing GPU driver development for over two decades, I'm
+> perfectly aware what it means. It doesn't change what I wrote above.
+>=20
 
-@Chai, Thomas sent the same fix for the review if I remember correctly. Mig=
-ht check with him to see when he push the fixes.
+Michel, I understand that you disagree with the proposed solutions in
+this email thread but from your mails it is unclear to me what exactly
+is the solution that you would actually recommend, can you please
+clarify?
 
-Regards,
-Hawking
-
------Original Message-----
-From: Yu, Lang <Lang.Yu@amd.com>
-Sent: Wednesday, July 26, 2023 19:25
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>; Yu, Lang <Lang.Yu@amd=
-.com>
-Subject: [PATCH] drm/amdgpu: correct vmid_src -> vmhub_index mapping
-
-Align with new vmhub definition.
-vmid_src 0 -> AMDGPU_GFXHUB(0).
-vmid_src 1 -> AMDGPU_MMHUB0(0).
-
-Signed-off-by: Lang Yu <Lang.Yu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 3 ++-  drivers/gpu/drm/amd/amdgpu=
-/gmc_v11_0.c | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gmc_v10_0.c
-index 6b430e10d38e..9c4e084da99a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -102,9 +102,10 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_d=
-evice *adev,
-                                       struct amdgpu_irq_src *source,
-                                       struct amdgpu_iv_entry *entry)  {
-+       struct amdgpu_vmhub *hub =3D
-+               &adev->vmhub[entry->vmid_src ? AMDGPU_MMHUB0(0) : AMDGPU_GF=
-XHUB(0)];
-        bool retry_fault =3D !!(entry->src_data[1] & 0x80);
-        bool write_fault =3D !!(entry->src_data[1] & 0x20);
--       struct amdgpu_vmhub *hub =3D &adev->vmhub[entry->vmid_src];
-        struct amdgpu_task_info task_info;
-        uint32_t status =3D 0;
-        u64 addr;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gmc_v11_0.c
-index 604522f70d03..47f5ced12ba2 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -99,7 +99,8 @@ static int gmc_v11_0_process_interrupt(struct amdgpu_devi=
-ce *adev,
-                                       struct amdgpu_irq_src *source,
-                                       struct amdgpu_iv_entry *entry)  {
--       struct amdgpu_vmhub *hub =3D &adev->vmhub[entry->vmid_src];
-+       struct amdgpu_vmhub *hub =3D
-+               &adev->vmhub[entry->vmid_src ? AMDGPU_MMHUB0(0) : AMDGPU_GF=
-XHUB(0)];
-        uint32_t status =3D 0;
-        u64 addr;
-
---
-2.25.1
+Thanks,
+Timur
 
