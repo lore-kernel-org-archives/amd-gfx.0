@@ -4,57 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95D33C0015E
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 18:29:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05EC8C001DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 18:29:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 237B710E121;
-	Wed, 26 Jul 2023 18:29:25 +0000 (UTC)
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3FAB10E0A2
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jul 2023 18:29:23 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-1bb575a6ed3so130290fac.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jul 2023 11:29:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B93910E082;
+	Wed, 26 Jul 2023 18:29:39 +0000 (UTC)
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [IPv6:2001:4860:4864:20::2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FFF610E082
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jul 2023 18:29:38 +0000 (UTC)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-1bb98474b8cso144973fac.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jul 2023 11:29:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690396163; x=1691000963;
+ d=gmail.com; s=20221208; t=1690396177; x=1691000977;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+ySdnOu5hoyGSjnds2jMu3NvnyWts7wmUDUgtkj4wQg=;
- b=QONBJuAMELADqbM1o/nM990ZL//B3dx3GMR4ezHRxXJInDVEFyRHcNy8bSyBBTHOmE
- 2VVpPR/hA47N19aj/71sPocQieV9Q6I6+JMDEwGOJqVCK/8jIOXlwzIN2wUP0VqApfPf
- J3DvDjTaUEAaRghbrBlkafuQEal3n/LLFtLqz956Z/ipLsYn7tlr1YEA6ZHpeoAkQvMJ
- kmHRzsv5P+vkzFKyBsIPJabls+COnLmsjXaBcqvhhE2N5NZGPjVy93pjS8OSsvxjzuWu
- XTeQo9iVqodC2PDQaNX+w+5MZnPZco4DWKHbdLQeqDn3DjDLErAdMiVYwNTGQZFyu6My
- FGkg==
+ bh=zc3oHflsf+w4HsGIT7nlh5gwtqQ0j+vZyaFkBuqK94o=;
+ b=Tt/RToipcSnKFxNL/2DibbcjJgx00wxForsOLTUITAUad+Rj8e3fG++rEGzhmzobV1
+ rarg8Vst8oeWDr2ZRNY2i/yLis8n6jAUP8cwFKnTdr8molPEqYTuCkyCBoKYG2kg2u2b
+ vy2FLPBo2xz07tfNmW3DJufX7B2YFMHji0fgWvo+Fj9SsxHdIXSS7awkZZKfdocT+iuH
+ ZPq/LNmZHNLafU8zdhdZt1CN7hDFAt6HrnHaNdTrhBxyfspNuCyltkhXybjkVMk8a79i
+ fBY3EGkbgvK2HTluqaIT/Fs+DoJaI+PPtH9tznd9nqVNSte6w8GuNWWWdEqAM6LeumU0
+ D7Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690396163; x=1691000963;
+ d=1e100.net; s=20221208; t=1690396177; x=1691000977;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+ySdnOu5hoyGSjnds2jMu3NvnyWts7wmUDUgtkj4wQg=;
- b=Hh3sVeZ//UTbkAIpzoYeob1pUT+0ixF86mRqUwOLZRDUp1Uf7b5lwVHlwHDqyBaePl
- 4NeX6vWBaq5Wa5jadSQ8wn6SErnbKp+A1HHSUz0PB92ZDJ5s2BOKuEiZARIg6OM3Nlu3
- n08B1wRTdj0IRBRLBvYEc09w2TGPK/54J4dunfk1kqvHz1YGqUY81G+QrqQLJTRZrPTu
- h9WUQ2FpBRC1Pv8O7ly8Z835k8swS/UON0gIV5RFt6cLLrSwES+7gbvcRcYUieYtr5jQ
- 6Ibrcg7IsFo/jTy/immOUo7Ivx80c7Md+l8aYQdIxhtdwwVnnlU3iHVGVbkLvGfZ4jdk
- ozCQ==
-X-Gm-Message-State: ABy/qLYjn5SHqHzW7hEB5OFwW5zR9XWEgFtutPbAZuShB6hU5Gk5RunF
- arElGah7hbzBVLpRti34WV5mUnRRX1Lw4gb9HHw=
-X-Google-Smtp-Source: APBJJlEURmy09D4k0T7d7nvYUiMgm+3SRSevnS59Kt6HbaSKpAyGxKF+niGGUO5vu04ruB9RnI3nh2mT6MtERxsKo44=
-X-Received: by 2002:a05:6870:6122:b0:1b7:3ddb:aa31 with SMTP id
- s34-20020a056870612200b001b73ddbaa31mr373742oae.21.1690396162828; Wed, 26 Jul
- 2023 11:29:22 -0700 (PDT)
+ bh=zc3oHflsf+w4HsGIT7nlh5gwtqQ0j+vZyaFkBuqK94o=;
+ b=JNrxKN1Kfb9NSJQFdW+nARGPnhTeReUHXrHTvITotHywTP7SNg6kGm1zm+ly5QPYlg
+ 69d2KQ6EBlWJ/cdcrIsCe+IobGtWfPzbw3hYdGkv6hD4J/ULkptpN55HFvwvwABw1XmA
+ 9FxnZGRNiVVMrs5HI2Z/3ZJnLeiqfU9I29bCWj9rIYZlmNlWw188lrd5XX6TP532/yn7
+ p/KlYXdkIu1HTIbGoOl+xEmdJ/DVcxGPTSICyExUUhDcYdyh5qh7e7R1Wz6Kg1j3AtOS
+ tkKMUj96+8xicG7eDm66SP4JadEz2XQed1XMlhhzuYreAGR0FUlrBOnCKv9r3YUcNNf2
+ X75g==
+X-Gm-Message-State: ABy/qLYp54OufWvw+JXbwFrnSM9a2Y/p/hwAr4McKaFgl19nG/F8b953
+ iAdBdfhrSKtsv/FA9T8wjokeKZ5zW+WY4y2ew7pKHNBAxmc=
+X-Google-Smtp-Source: APBJJlEd/AuMZu7UMmmfoRNA9Kzp1APQ5c8wBQ3LQrp6yrvBYsotPbrujDxvi3MdILtuW/f2YaB2G5WMeM24Rtg/Dg0=
+X-Received: by 2002:a05:6871:295:b0:1bb:6485:7988 with SMTP id
+ i21-20020a056871029500b001bb64857988mr405751oae.35.1690396177517; Wed, 26 Jul
+ 2023 11:29:37 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230726150211.2489890-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230726150211.2489890-1-srinivasan.shanmugam@amd.com>
+References: <20230726153851.2219088-1-Praful.Swarnakar@amd.com>
+In-Reply-To: <20230726153851.2219088-1-Praful.Swarnakar@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 26 Jul 2023 14:29:11 -0400
-Message-ID: <CADnq5_NAqZOhRPYRr1T4AJHxSdjYwevN8+KA0vKY-warz2ZRVQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: Prefer strscpy over strlcpy calls in
- radeon_atombios.c
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Date: Wed, 26 Jul 2023 14:29:26 -0400
+Message-ID: <CADnq5_PcNWfRF=MsvduFFT9-xmmOr2GJNkCE-rDu3A-o_3_7vA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix style issues in amdgpu_debugfs.c
+To: Praful Swarnakar <Praful.Swarnakar@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,56 +75,47 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Wed, Jul 26, 2023 at 11:02=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
+On Wed, Jul 26, 2023 at 11:45=E2=80=AFAM Praful Swarnakar
+<Praful.Swarnakar@amd.com> wrote:
 >
-> Use the strscpy method instead of strlcpy method.
+> Fixes the following to align to linux coding style:
 >
-> Fixes the below:
->
-> WARNING: Prefer strscpy over strlcpy
+> WARNING: Missing a blank line after declarations
+> WARNING: sizeof *rd should be sizeof(*rd)
 >
 > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
 > Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> Cc: Guchun Chen <guchun.chen@amd.com>
+> Signed-off-by: Praful Swarnakar <Praful.Swarnakar@amd.com>
 > ---
->  drivers/gpu/drm/radeon/radeon_atombios.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/r=
-adeon/radeon_atombios.c
-> index 697a5989c045..85c4bb186203 100644
-> --- a/drivers/gpu/drm/radeon/radeon_atombios.c
-> +++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-> @@ -2105,7 +2105,7 @@ static int radeon_atombios_parse_power_table_1_3(st=
-ruct radeon_device *rdev)
->                         const char *name =3D thermal_controller_names[pow=
-er_info->info.
->                                                                     ucOve=
-rdriveThermalController];
->                         info.addr =3D power_info->info.ucOverdriveControl=
-lerAddress >> 1;
-> -                       strlcpy(info.type, name, sizeof(info.type));
-> +                       strscpy(info.type, name, sizeof(info.type));
->                         i2c_new_client_device(&rdev->pm.i2c_bus->adapter,=
- &info);
->                 }
->         }
-> @@ -2355,7 +2355,7 @@ static void radeon_atombios_add_pplib_thermal_contr=
-oller(struct radeon_device *r
->                                 struct i2c_board_info info =3D { };
->                                 const char *name =3D pp_lib_thermal_contr=
-oller_names[controller->ucType];
->                                 info.addr =3D controller->ucI2cAddress >>=
- 1;
-> -                               strlcpy(info.type, name, sizeof(info.type=
-));
-> +                               strscpy(info.type, name, sizeof(info.type=
-));
->                                 i2c_new_client_device(&rdev->pm.i2c_bus->=
-adapter, &info);
->                         }
->                 } else {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_debugfs.c
+> index 00ab0b3c8277..a4faea4fa0b5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -375,7 +375,7 @@ static int amdgpu_debugfs_gprwave_open(struct inode *=
+inode, struct file *file)
+>  {
+>         struct amdgpu_debugfs_gprwave_data *rd;
+>
+> -       rd =3D kzalloc(sizeof *rd, GFP_KERNEL);
+> +       rd =3D kzalloc(sizeof(*rd), GFP_KERNEL);
+>         if (!rd)
+>                 return -ENOMEM;
+>         rd->adev =3D file_inode(file)->i_private;
+> @@ -388,6 +388,7 @@ static int amdgpu_debugfs_gprwave_open(struct inode *=
+inode, struct file *file)
+>  static int amdgpu_debugfs_gprwave_release(struct inode *inode, struct fi=
+le *file)
+>  {
+>         struct amdgpu_debugfs_gprwave_data *rd =3D file->private_data;
+> +
+>         mutex_destroy(&rd->lock);
+>         kfree(file->private_data);
+>         return 0;
 > --
 > 2.25.1
 >
