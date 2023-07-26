@@ -4,126 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5880FC001DC
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 07:52:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 951B7C001DE
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 08:07:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBBDF10E149;
-	Wed, 26 Jul 2023 07:52:56 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C7A710E149
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Jul 2023 07:52:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CxEtWjVeuwrisdqSwlAP720QaoglYhGK0chpFfTD/2PS6zKz7BxiofZFmjp4ODza2YwxwmJgWDwIopn08RCYRwlKF1XCO2Is92xaPnLesVHFxpsPhv8A5NaHC290yctCg3DrG2vA3ZJejznvtwdLLDKjnXdfLMUusukTMYjRxNalGFSplwhXzyZNrFilrGQMKSsqKCQxkF/GIOF3YYTlAH8BiTrhKi5mMa5et2Z+4Ad8F0oxsfbOxaYZvj2pN6DjDXQSYCax4ezqt+0E7dPYW99RpGNDtAzIdFaQgrU3yCHXXAfBgecwaEy8J8W0QQLczN7FqLZuAIIYuOtPz6NJXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yaWSCTE1zHuAMFuFcaNQFClWKJGBTo2qdkjOoAQWxLQ=;
- b=mC0Lmnf/Dkb9TsCbXdOggOJD2/fAh3wbLgTNU1fA5Kh6zXBqddXcMzw9V+//C4go2NesPVDYM9ruIMxgy4VVG8xTZ2NjFOCQW6CDCv4mm5rCUR5yTYqlS0oB9y1TlJ56jstq8x/ofZKYbmeMpGPp+UtNotnXpFWr9NLCvLyIgdZiWnAc1aKUTwjA7C+qjAxZgQ/rfuqY1ytr8Q+WafNi/OGVB7XLsylJwvtONbHwGy6rYhHr4emepN1vGFm95ebyoyATMiE7hid8rwpo7TCobOLvl3rBGcCCX7K8OilXxXhscYVaTJ/8e8kboGkPysILFShyoTtGHaWq0Q4syRNDpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yaWSCTE1zHuAMFuFcaNQFClWKJGBTo2qdkjOoAQWxLQ=;
- b=qHH+Y/8sZUAT6tQTzpBoOYZOFt8/SHCudlhtV9z/iBM6GQmoYzfkFrAUIV71DKW4cFGTSqP5PVa5NzCNA3hJd/UcAxmU/mc+zMZ99iNVbPiZFqWo4DiNtJDns/MtXlF/6S8tXGBxUVZKY1Ev664UIhkSJXHhkp5hwTJ4FCe2LSw=
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
- SA3PR12MB8812.namprd12.prod.outlook.com (2603:10b6:806:312::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24; Wed, 26 Jul
- 2023 07:52:53 +0000
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::72dd:353e:4775:1225]) by DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::72dd:353e:4775:1225%3]) with mapi id 15.20.6609.032; Wed, 26 Jul 2023
- 07:52:53 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Fix non-standard format specifiers in
- 'amdgpu_show_fdinfo'
-Thread-Topic: [PATCH] drm/amdgpu: Fix non-standard format specifiers in
- 'amdgpu_show_fdinfo'
-Thread-Index: AQHZv5L1dD0WCZMcxkiQXzyocpn+Jq/LrRJg
-Date: Wed, 26 Jul 2023 07:52:53 +0000
-Message-ID: <DM5PR12MB2469E06EC3286DF588D85931F100A@DM5PR12MB2469.namprd12.prod.outlook.com>
-References: <20230726072918.2455771-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230726072918.2455771-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=536a3dff-9ca7-4338-9ea5-01af1dbdbd85;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-07-26T07:52:26Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM5PR12MB2469:EE_|SA3PR12MB8812:EE_
-x-ms-office365-filtering-correlation-id: da5eba4b-d91f-4db1-69e8-08db8dad512b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: khnbgt+XG/7/57iVjsdGOtSD05lKb1hYyOoy3Py1/pPar2aGseNFd4yN0mJWcdpF9Msy/hfDpeIJY1NBq3PFAMO3/xG3Q3hZO1SlDfgLJPpJTGDD5aHUPEqV4hwImHQPf9b0MUR5OVx+HWqeMMGM8ikUEHAma94PwwQoL4dmheYZq9l2q9LKdH2MeZ+dquGfguXGLqr5qCLJ9zlq07Lv98uxSzysIrUcanFtNpDVT+/g7irtEBZzPFISV8pRBUbNg2e4vm4nF5TX0z75UC4gUzK9lwxyvaRBDm7h51ol+8GVffldMFwtNgPIdc6Dp1ZYjiaXBHSlLpKukztP7CBHni9YUX8e2DS92UamWblbriOgSg5NC3kJrbWgy6+LCOwHUwclqrk0nfq8QCkv05mpTGX8EoWBnv/htzet2EtJbVkTGchT3Otkrl1IIDSATmf9MFDtW1pnIpIY7QPlukhxUnpufDRzMYDW/ofFnln6WkKbD8+waRi1a/DHJ47sZ61PaRRNj4N3rcGLrdlgE1J/8rQqUOTzk2JBVDhG/Dhi3qIA0eLf47YtaarDb6WBNRjszAEezrf2DKGky1CxzxkilbWG6C/R1XzXc1d3w6yAkWvu/gFqEpr5je3JJxZlRnB9
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(376002)(39860400002)(366004)(396003)(346002)(451199021)(33656002)(41300700001)(55016003)(2906002)(66574015)(8936002)(26005)(186003)(71200400001)(4326008)(6506007)(5660300002)(83380400001)(53546011)(64756008)(76116006)(66946007)(6636002)(52536014)(8676002)(66476007)(316002)(7696005)(66556008)(66446008)(110136005)(9686003)(478600001)(38100700002)(86362001)(38070700005)(122000001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SE83dVJDYXF2dTc0WUt4ckNvRkpxTHNzaDBxMTh0aVk5SjdsYTlqSGRhWEE5?=
- =?utf-8?B?VEN0VnFoV2NrTGx2a0NuQzVnZytRcHBkOXRzMkNoSTkrTlBJK2ZoUWJLdEJ1?=
- =?utf-8?B?VVRYTnp4eEhjUkU3Wk5PRFg1VHA0aTRtR3I1SlkwWkpYZW9KRXRneXdwOWhF?=
- =?utf-8?B?OHMySzlVVTloZFhYQ3FVb1dZMTlsNW1DblYxTXR3NnlaQlRJTGVYc3o3TldJ?=
- =?utf-8?B?Yzh5Q1cvSHk4WlYzeGZya2VrOENXa1NjbnUzcE9CZHArT1hTektiK2tBVmNL?=
- =?utf-8?B?TFh1NHI1VGtGbjZPRVRwcUhZcFVhTzVscVBYRHZvRUMwalRsVkp0dG5kNTho?=
- =?utf-8?B?UUlHK2JleVhUemNBSXk4NHU5MTZMZkJvSlc4Mi9SeEVodFJvM0hXVG9DL29V?=
- =?utf-8?B?YWQ3WERBZ3d2S0l2MTh3NFpZTkhxSjg3Ym9HdmJpMksvcm4wdC80MXViQWRH?=
- =?utf-8?B?ckswT0NyQnhPQytBampwQ0dzci90cDN3amRGVVNEdDVTRkFYVllYQmJsQTdo?=
- =?utf-8?B?RmNuajNMaXVmYXRmTEFpcFN2Sy9TeUZ3bXZQR0dWQ1VGUFRtN0RCTEVvQU5v?=
- =?utf-8?B?czhaVVcwWVZjMEZ1UlJHWkxZWk5pSVJWZXpqNW1pVW91dmQ4WHZoY3JORGt3?=
- =?utf-8?B?WFZ4WUV6NVcvYUEwaE1IK29XWVRGSmdqR2lodFJXRDRCMzFIcEJSSCthaGJx?=
- =?utf-8?B?d014MzVqMmR2eUw1SElKeWV0ZU92UlkvOUY3N2hqY2doTGlhU3g4U01aVVBa?=
- =?utf-8?B?NnlMQis1Y3VHMW9xRVh1S2NQb0I0QTJMRFJPT01ObjFoTjE1TWExNWZMRVlG?=
- =?utf-8?B?alJYeHlLaTZNTVlZcnBNazdPQUQwVVUzS3g5S2ZWRHptRFIwaCtRUkNwQ1RJ?=
- =?utf-8?B?QVEvc1JkcHZDUDNpT2NCQUNoUmVOL0FjSkpXZ3NGa0NsL0o0REMwUzZINlVx?=
- =?utf-8?B?dHNyOXBuWjRkZkNHd2Z3cTUzSG5KdlFucC9oUER1ZFVQand0WjBadW92TUlV?=
- =?utf-8?B?VzFTWFRlbVI4eVpDc1ZwS0tQQ3A5ZGkvZC9oWXpiNDlxMC9aK1JFUXFnem82?=
- =?utf-8?B?UFlIREdYNHZGVWFBdyt1KyszenpBajRIK0xzVUtlUS85VXhRU09SRFl5cm51?=
- =?utf-8?B?UlpRVFRyRXl0MlRQbC9KMm5QUjZEOWNxbk9Rc2J3cElleGpCcFZUNlFWN0d3?=
- =?utf-8?B?Uy91Y0RiVi91UnRiMnJwYllqcmpRWk1SM09GR2RCVzFiOEFSYUF2cUN5YWdY?=
- =?utf-8?B?RHpLM0NpNi8ycStFbGdtZ0ljZE8vRFlrSGRlVyszYzV0a1FqdFNsYkVTdjhI?=
- =?utf-8?B?SlkwQkxtbWQ3RHZubmV5Ynl3eVRPSk4wcXVHdU40V1QrU2pKNXFpaHF3QkpH?=
- =?utf-8?B?a3FQeGU5ZnRBMEJ2dmZKVkdWOWE1cnVEdUpobFFRUEtqWGtDaFdFVml6ZGhE?=
- =?utf-8?B?OGRaY2pucXR3VXYwaGltcVdaUkludmNBYnRiNHFkVFd6NXljYlNSSkhsRjIy?=
- =?utf-8?B?M1ZLVDdxcFlab2xSWFc4eHV6K3dRbkM4UGxFdHNpdU1oREhxaGxLVkhMdGl6?=
- =?utf-8?B?U21sTkZXcjNqMUJnOUJic3hKbjhmOTVZYUZsMTAxdVhsVlB6eExLNHlSY1ZB?=
- =?utf-8?B?QWI3V2g2ZmZCSUw2Mmd0SVE1NnBKK21WYW5rTmxGKzhXVjcySjhFT1RWUTIx?=
- =?utf-8?B?anhhL21SSmFtcUNEMnd0dUx0N1FBYUNHakF4cjJ6Qnp0dDE2MjUxSENZSVQ5?=
- =?utf-8?B?QktNQy9rVDlIcXU1MHNFeTlzOEF0N1RsNUpoWmVWYzZwR1ZXQXJ5WHVZbmdL?=
- =?utf-8?B?bHlzNDAyUFcyUnhyaUs3UDlSS2txRzFmSkw1dkdNQzY5a1NRWlA0d2FpY2pO?=
- =?utf-8?B?VWRLT2tsTVRROG4xYjBMVDdBM0MyekxFOUpFaTI3RU9lZHpWUGJhUWtuKzRC?=
- =?utf-8?B?eWlFMkVIYi8vaDJRaisyN1ZPSHBTVzNERSt5TGhpdER5RkxvODZyUWNWVi9D?=
- =?utf-8?B?VXZ3aVBmay8rNWN6NU1wMXVWWHJtRXJaOTg5Yk5QNTBQekN0akV2UHBySDdQ?=
- =?utf-8?B?eTFnN3BibHZMM3dxUWtWMllpazlnMi9kM3lndDMyYytTMVg0QitOVldEYlZy?=
- =?utf-8?Q?1wPE=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1452410E42F;
+	Wed, 26 Jul 2023 08:07:27 +0000 (UTC)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org
+ [IPv6:2001:67c:2050:0:465::102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61A9610E42F;
+ Wed, 26 Jul 2023 08:07:25 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4R9mhn71bVz9slb;
+ Wed, 26 Jul 2023 10:07:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1690358842;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=xHAU2WtxLXCpVwOzHZxYiWNoKZatMkP5oCbz6WI4SPA=;
+ b=vMEbZRzJAQ3lUXTzas65sGQJH7SiTk2H9+hGxGPfZBgaoNnDDESraZNFpqi+KbbBY3Bn76
+ pg3PEa4GhMsndYsMHpjPfNTK54A1xOPLLgp+dfcWlaWMem0PuTXRoCsFRDHqtxtZcX6Jur
+ Q/HIIU1v8MR3O5Ii0s72NZnFWy8/W/zKsmiKeYGAVbdkmMVb4pNpzZZFxv6TTg92E83vVQ
+ QOPqcNW1EBrlF3HSifSTgscVfHRV1vfMQKlpGoMnGSaZB9gM7YROGdoUXkiU2QdrnLen3Z
+ l5YzlmE1/iDJypA4/AkNcR/1B6s5Rc7/yATifP8rv4TJHBjWZh86d4MpPq/nnw==
+Message-ID: <8eb58a5f-02d0-fadf-1d5a-790b6af2d81e@mailbox.org>
+Date: Wed, 26 Jul 2023 10:07:19 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da5eba4b-d91f-4db1-69e8-08db8dad512b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jul 2023 07:52:53.3142 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xhKnIM6b7iKPgD3kysZ31xVoXAb0juWtYuWbMP+FIKTqZWgIAiJQhKvPTKTf5QEmzxA+wiOrR+4ra53JuphXfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8812
+Subject: Re: Non-robust apps and resets (was Re: [PATCH v5 1/1] drm/doc:
+ Document DRM device reset expectations)
+To: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+References: <20230627132323.115440-1-andrealmeid@igalia.com>
+ <e292a30f-5cad-1968-de4f-0d43c9c1e943@igalia.com>
+ <45a1e527-f5dc-aa6f-9482-8958566ecb96@mailbox.org>
+ <a1fecc5c-30c0-2754-70a1-2edb2fe118fb@igalia.com>
+Content-Language: de-CH-frami, en-CA
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <a1fecc5c-30c0-2754-70a1-2edb2fe118fb@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: c99f3890bef0434ccc7
+X-MBO-RS-META: 7uaxsifuwngj5cyzfa3ngxf83jx37585
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,52 +59,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1B1YmxpY10NCg0KUmV2aWV3ZWQtYnk6IEd1Y2h1biBDaGVuIDxndWNodW4uY2hlbkBhbWQuY29t
-Pg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFNIQU5NVUdBTSwgU1JJ
-TklWQVNBTiA8U1JJTklWQVNBTi5TSEFOTVVHQU1AYW1kLmNvbT4NCj4gU2VudDogV2VkbmVzZGF5
-LCBKdWx5IDI2LCAyMDIzIDM6MjkgUE0NCj4gVG86IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3Rp
-YW4uS29lbmlnQGFtZC5jb20+OyBEZXVjaGVyLCBBbGV4YW5kZXINCj4gPEFsZXhhbmRlci5EZXVj
-aGVyQGFtZC5jb20+OyBDaGVuLCBHdWNodW4gPEd1Y2h1bi5DaGVuQGFtZC5jb20+DQo+IENjOiBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgU0hBTk1VR0FNLCBTUklOSVZBU0FODQo+IDxT
-UklOSVZBU0FOLlNIQU5NVUdBTUBhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRn
-cHU6IEZpeCBub24tc3RhbmRhcmQgZm9ybWF0IHNwZWNpZmllcnMgaW4NCj4gJ2FtZGdwdV9zaG93
-X2ZkaW5mbycNCj4NCj4gRml4ZXMgdGhlIGZvbGxvd2luZzoNCj4NCj4gV0FSTklORzogJUx1IGlz
-IG5vbi1zdGFuZGFyZCBDLCB1c2UgJWxsdQ0KPiArICAgICAgIHNlcV9wcmludGYobSwgImRybS1j
-bGllbnQtaWQ6XHQlTHVcbiIsDQo+ICsgdm0tPmltbWVkaWF0ZS5mZW5jZV9jb250ZXh0KTsNCj4N
-Cj4gV0FSTklORzogJUxkIGlzIG5vbi1zdGFuZGFyZCBDLCB1c2UgJWxsZA0KPiArICAgICAgICAg
-ICAgICAgc2VxX3ByaW50ZihtLCAiZHJtLWVuZ2luZS0lczpcdCVMZCBuc1xuIiwNCj4gKyBhbWRn
-cHVfaXBfbmFtZVtod19pcF0sDQo+DQo+IENjOiBHdWNodW4gQ2hlbiA8Z3VjaHVuLmNoZW5AYW1k
-LmNvbT4NCj4gQ2M6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4N
-Cj4gQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4gU2lnbmVk
-LW9mZi1ieTogU3Jpbml2YXNhbiBTaGFubXVnYW0gPHNyaW5pdmFzYW4uc2hhbm11Z2FtQGFtZC5j
-b20+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZkaW5mby5j
-IHwgNCArKy0tDQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9u
-cygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2ZkaW5mby5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZkaW5mby5j
-DQo+IGluZGV4IGM1NzI1MmYwMDRlOC4uNWIyNTNlM2JlNTZiIDEwMDY0NA0KPiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmRpbmZvLmMNCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZkaW5mby5jDQo+IEBAIC05MCw3ICs5MCw3IEBAIHZv
-aWQgYW1kZ3B1X3Nob3dfZmRpbmZvKHN0cnVjdCBzZXFfZmlsZSAqbSwgc3RydWN0DQo+IGZpbGUg
-KmYpDQo+ICAgICAgIHNlcV9wcmludGYobSwgInBhc2lkOlx0JXVcbiIsIGZwcml2LT52bS5wYXNp
-ZCk7DQo+ICAgICAgIHNlcV9wcmludGYobSwgImRybS1kcml2ZXI6XHQlc1xuIiwgZmlsZS0+bWlu
-b3ItPmRldi0+ZHJpdmVyLT5uYW1lKTsNCj4gICAgICAgc2VxX3ByaW50ZihtLCAiZHJtLXBkZXY6
-XHQlMDR4OiUwMng6JTAyeC4lZFxuIiwgZG9tYWluLCBidXMsDQo+IGRldiwgZm4pOw0KPiAtICAg
-ICBzZXFfcHJpbnRmKG0sICJkcm0tY2xpZW50LWlkOlx0JUx1XG4iLCB2bS0NCj4gPmltbWVkaWF0
-ZS5mZW5jZV9jb250ZXh0KTsNCj4gKyAgICAgc2VxX3ByaW50ZihtLCAiZHJtLWNsaWVudC1pZDpc
-dCVsbHVcbiIsIHZtLQ0KPiA+aW1tZWRpYXRlLmZlbmNlX2NvbnRleHQpOw0KPiAgICAgICBzZXFf
-cHJpbnRmKG0sICJkcm0tbWVtb3J5LXZyYW06XHQlbGx1IEtpQlxuIiwgc3RhdHMudnJhbS8xMDI0
-VUwpOw0KPiAgICAgICBzZXFfcHJpbnRmKG0sICJkcm0tbWVtb3J5LWd0dDogXHQlbGx1IEtpQlxu
-Iiwgc3RhdHMuZ3R0LzEwMjRVTCk7DQo+ICAgICAgIHNlcV9wcmludGYobSwgImRybS1tZW1vcnkt
-Y3B1OiBcdCVsbHUgS2lCXG4iLCBzdGF0cy5jcHUvMTAyNFVMKTsNCj4gQEAgLTExMSw3ICsxMTEs
-NyBAQCB2b2lkIGFtZGdwdV9zaG93X2ZkaW5mbyhzdHJ1Y3Qgc2VxX2ZpbGUgKm0sIHN0cnVjdA0K
-PiBmaWxlICpmKQ0KPiAgICAgICAgICAgICAgIGlmICghdXNhZ2VbaHdfaXBdKQ0KPiAgICAgICAg
-ICAgICAgICAgICAgICAgY29udGludWU7DQo+DQo+IC0gICAgICAgICAgICAgc2VxX3ByaW50Ziht
-LCAiZHJtLWVuZ2luZS0lczpcdCVMZCBuc1xuIiwNCj4gYW1kZ3B1X2lwX25hbWVbaHdfaXBdLA0K
-PiArICAgICAgICAgICAgIHNlcV9wcmludGYobSwgImRybS1lbmdpbmUtJXM6XHQlbGxkIG5zXG4i
-LA0KPiBhbWRncHVfaXBfbmFtZVtod19pcF0sDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICBr
-dGltZV90b19ucyh1c2FnZVtod19pcF0pKTsNCj4gICAgICAgfQ0KPiAgfQ0KPiAtLQ0KPiAyLjI1
-LjENCg0K
+On 7/25/23 15:02, André Almeida wrote:
+> Em 25/07/2023 05:03, Michel Dänzer escreveu:
+>> On 7/25/23 04:55, André Almeida wrote:
+>>> Hi everyone,
+>>>
+>>> It's not clear what we should do about non-robust OpenGL apps after GPU resets, so I'll try to summarize the topic, show some options and my proposal to move forward on that.
+>>>
+>>> Em 27/06/2023 10:23, André Almeida escreveu:
+>>>> +Robustness
+>>>> +----------
+>>>> +
+>>>> +The only way to try to keep an application working after a reset is if it
+>>>> +complies with the robustness aspects of the graphical API that it is using.
+>>>> +
+>>>> +Graphical APIs provide ways to applications to deal with device resets. However,
+>>>> +there is no guarantee that the app will use such features correctly, and the
+>>>> +UMD can implement policies to close the app if it is a repeating offender,
+>>>> +likely in a broken loop. This is done to ensure that it does not keep blocking
+>>>> +the user interface from being correctly displayed. This should be done even if
+>>>> +the app is correct but happens to trigger some bug in the hardware/driver.
+>>>> +
+>>> Depending on the OpenGL version, there are different robustness API available:
+>>>
+>>> - OpenGL ABR extension [0]
+>>> - OpenGL KHR extension [1]
+>>> - OpenGL ES extension  [2]
+>>>
+>>> Apps written in OpenGL should use whatever version is available for them to make the app robust for GPU resets. That usually means calling GetGraphicsResetStatusARB(), checking the status, and if it encounter something different from NO_ERROR, that means that a reset has happened, the context is considered lost and should be recreated. If an app follow this, it will likely succeed recovering a reset.
+>>>
+>>> What should non-robustness apps do then? They certainly will not be notified if a reset happens, and thus can't recover if their context is lost. OpenGL specification does not explicitly define what should be done in such situations[3], and I believe that usually when the spec mandates to close the app, it would explicitly note it.
+>>>
+>>> However, in reality there are different types of device resets, causing different results. A reset can be precise enough to damage only the guilty context, and keep others alive.
+>>>
+>>> Given that, I believe drivers have the following options:
+>>>
+>>> a) Kill all non-robust apps after a reset. This may lead to lose work from innocent applications.
+>>>
+>>> b) Ignore all non-robust apps OpenGL calls. That means that applications would still be alive, but the user interface would be freeze. The user would need to close it manually anyway, but in some corner cases, the app could autosave some work or the user might be able to interact with it using some alternative method (command line?).
+>>>
+>>> c) Kill just the affected non-robust applications. To do that, the driver need to be 100% sure on the impact of its resets.
+>>>
+>>> RadeonSI currently implements a), as can be seen at [4], while Iris implements what I think it's c)[5].
+>>>
+>>> For the user experience point-of-view, c) is clearly the best option, but it's the hardest to archive. There's not much gain on having b) over a), perhaps it could be an optional env var for such corner case applications.
+>>
+>> I disagree on these conclusions.
+>>
+>> c) is certainly better than a), but it's not "clearly the best" in all cases. The OpenGL UMD is not a privileged/special component and is in no position to decide whether or not the process as a whole (only some thread(s) of which may use OpenGL at all) gets to continue running or not.
+>>
+> 
+> Thank you for the feedback. How do you think the documentation should look like for this part?
+
+The initial paragraph about robustness should say "keep OpenGL working" instead of "keep an application working". If an OpenGL context stops working, it doesn't necessarily mean the application stops working altogether.
+
+
+If the application doesn't use the robustness extensions, your option b) is what should happen by default whenever possible. And it really has to be possible if the robustness extensions are supported.
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
