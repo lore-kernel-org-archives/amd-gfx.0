@@ -4,118 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A294C001DC
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jul 2023 07:33:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06926C0015E
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jul 2023 07:56:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0974510E4F3;
-	Thu, 27 Jul 2023 07:33:16 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E88AC10E4F3
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 07:33:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75A2D10E505;
+	Thu, 27 Jul 2023 07:56:44 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2062e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8b::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D40C010E505
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 07:56:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z7vrtiXZLuozASON+zmLCiH2HkRpxbppTjNRDgcszb8sdj7F4MGYPMGocekqgK+DGOteK0aa4F2VOSX86LhYnvt5OQ1aiYIcn8hNl1n9cN8RRHv7eqe9JGHPKrM/1zP0C8xHQFcPigccdHmW8E2hrage9O/SPQUf6HtHrZUHYMJSPX2CBPDDLjl7Vxp7yygJT9ZB8UHujjA2bMq6ULlw2edhSACgJcAumKtatp6i70bCvsVW7TyrIVRPnWalWd1qmmmPAkTLBHTyX+27+X+glKon4n6osNSbJVDPr1FmKHm39hdaFYOXwNxztA89IPcYTz6tk5f5FGr5w7ymf6LKsQ==
+ b=BDuxt+XwnzcTHj10jIhaF/aBwIYWgWDHX35SPy2yKhiCcvDbAcLrF/O4PgC1cB8neQiLM5gqxmNffPRWmOtVr+voCjgyiah28J7LNuTf0kunCOPdoPWoolPsVH0Wa7V0C46A8uRT1Ksky/inYUXjhGPuWR8FU7ZJnbLP+TY+3yrxXKsFUqJ1uykEMtZKPaxz+4sToY327USth5udjfawGcrt6MVSu1TrOkKX+p7GN4gEWf02mCdt/g7BF0jc0tcOELr5d+MxrkYWjaI07dBotQbObA+rqr8PLHlK0BzcUesOdHfVwGB+4hfacc+9r2mXRQtu4rnGerELv85iiaclBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9tfkdMWnjShioD3Agf1AmWslZvzXWKu7Vl+wHRcHn5o=;
- b=WgfhhUIkN7HXbWLVG5Bj4bw8vIgCjrrQuNpeykaKG6NhE2EyW5DlkmVnuHUS/H4i/wmxnUoCZUj95z6frvtIX3GsjPC2T1kjPleTzI8r9OH+V9VTCBdefu1BSbjINc8N8oWliGyrlS2B2zdfIb6Dhsj8S3mWXVGDX5NqDiCwsH8McJM4D9gT5LIfGumsAI+o7KuIFz6RoGFpSTD3a3TtAKCexTHRSbduICGdo+r6oiq6EUo15wZzpTU1QVJC/S/a9KkHjfiJgvZb3eyAkpvUyNhjIY5C4NVHcBBErxzBtp4vQP9esB1JNUpExulsWmInbu6r660kMl6Ca0Yb0528QA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=vOW7L8BMDyCqNzY2CjknM4hjPvIILvglfi6wvx0nmUE=;
+ b=l9TLVJoGd0MoHxNpfLoxcZL9PqYcv96GgNmDK4bVXXZbta8iOFQmHrRIiVjZEQXnHAc3ktazIapLClDSmh8xXIcaVvvIZBEBoIJb1I/zYHKod3+YJpJT8lHOYM43acrVX46XdTRIVmm+5AaW6MjUo73X4injHSZ8Fqcw+Dszp7CD5hNTRUXYDNdNzZb5LsfN7D3u9bOfG0+YfwH4Afp6JBYkJylYshypswJjYJaLvzyj6dI+qXeigDlDkuW+k+TXWzN564OMcKLnF+NUAOXob9eC2Jd/R4jf4ZRpW9JVLB0DWJdzvf6Ew8w6UkLQr4ye2aTXbbAiMhcozbtCNpGNfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9tfkdMWnjShioD3Agf1AmWslZvzXWKu7Vl+wHRcHn5o=;
- b=dwb6wpi7JOi3+neq6J78kAQ0EWWROXDP+6rTq778qIVrMNMIe8dC6PIkLgPtzF9WAHPhopnY/L1axg7K7vw8ogDYwTBmLx2OO3JRjPFW/q+MSccv+xcnIIbtUEqsQuK6/C7DIvK0ObM+wBafnAmnn7N4xC3QQ3VUb1f6cIunIJw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SA3PR12MB9178.namprd12.prod.outlook.com (2603:10b6:806:396::7)
+ bh=vOW7L8BMDyCqNzY2CjknM4hjPvIILvglfi6wvx0nmUE=;
+ b=X3BJ7SsNqt3yl8dHJdNf4fpNXiloK1n3AvSqs15Sgt9i/TnuT92VzodQU1xOmc+oEYLikD3RcrqaRgrarKIswBb+B7CSXs/AeZzygXFyK/iGF7KSjOH7RWg5Y4mAGU0drNRYebwfFCHc+AFucAYYHNkIe0LUa32wc4CicbtoszI=
+Received: from MW4PR03CA0051.namprd03.prod.outlook.com (2603:10b6:303:8e::26)
+ by CY5PR12MB6036.namprd12.prod.outlook.com (2603:10b6:930:2c::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Thu, 27 Jul
- 2023 07:33:09 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::3d:c14:667a:1c81]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::3d:c14:667a:1c81%4]) with mapi id 15.20.6631.026; Thu, 27 Jul 2023
- 07:33:09 +0000
-Message-ID: <98b569a4-0547-bb09-cecb-ef715b426b4d@amd.com>
-Date: Thu, 27 Jul 2023 09:33:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v2] drm/amdgpu: Move externs to amdgpu.h file from
- amdgpu_drv.c
-Content-Language: en-US
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20230725044143.2246047-1-srinivasan.shanmugam@amd.com>
- <20230725045159.2246417-1-srinivasan.shanmugam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230725045159.2246417-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0154.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::9) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Thu, 27 Jul
+ 2023 07:56:40 +0000
+Received: from CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8e:cafe::d2) by MW4PR03CA0051.outlook.office365.com
+ (2603:10b6:303:8e::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29 via Frontend
+ Transport; Thu, 27 Jul 2023 07:56:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT025.mail.protection.outlook.com (10.13.175.232) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6631.29 via Frontend Transport; Thu, 27 Jul 2023 07:56:39 +0000
+Received: from lang-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 27 Jul
+ 2023 02:56:36 -0500
+From: Lang Yu <Lang.Yu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: refine amdgpu_bo_create_kernel_at()
+Date: Thu, 27 Jul 2023 15:56:19 +0800
+Message-ID: <20230727075620.728235-1-Lang.Yu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SA3PR12MB9178:EE_
-X-MS-Office365-Filtering-Correlation-Id: 264c39af-3af7-46bc-843c-08db8e73b9e0
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT025:EE_|CY5PR12MB6036:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf7fd268-1ff8-442c-511c-08db8e7702b7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IqWY7CG0VpGb6JqqBMputW24FKbryL5Xrq06GTfBTxwIDdIK5DgTO8amWss/EDZzLhd378OESaEWBgoayBp0PIg+UhcW27yQJdv+e+LpThDvf2NtRcvvNO0iaki4ByPBaBkhjBd4xldug8wbkVwuZQ2o2YMMm+/ZGuIiN6SH/rztA6NGz5005Yyaz2Cd9YfXf/68BX0BPuAi9pmY88CPePo0bRKsxj+UDkUmRfvf6NK0evv7JQqhwv7CsCNHtDkdC8DfOqUE3lGPSROrUAQocrmRo9GoObYIqHag6wfR0DZ1aowCbGvvhm+YrPyDPeN4EBMHu/UoTqvbWqVg6lB/gwJUW9EcwF0tCrHVe1AZmmAnKrSVbunRsqsFE7xoj3gSkXfzdZtDs+uIqYLDJE3RMnvYC/hy4UgmUsQ7VJrkIlGbbQBNF11xEFALLfLzdZ3dRqRBQAtYoZngjf52msqIOoWRm5q43xU1ny5mOkUZxy4cgU+gFK8GzFAEbc7Ab96gDdGssC8aoQhGoGe/HoQIobP7zqyV7QslMSGuA8BB7R6wZQ465QqqCIKVlHib1x8L3a1QqG/qISlOzPXseeT46lTCj2qLNHLQ3dcU/h3YOChCsHy417zcb+xFppJK3oPKAMQGylqwa+/XSx4iSHuPuQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(366004)(376002)(451199021)(86362001)(31696002)(36756003)(31686004)(2906002)(478600001)(110136005)(38100700002)(6506007)(66574015)(186003)(2616005)(5660300002)(6666004)(8676002)(6512007)(83380400001)(6486002)(41300700001)(66476007)(316002)(6636002)(8936002)(4326008)(66946007)(66556008)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: LI4e4gqLBxb95P6D9Ol/ubASQWkg0OSeHmaVIbrHmcMODW6ZgEciVTH1j7+Zd4fzyAOIgeIhjJ3PaFibCFugp7wSq12FEHGWwCDWypXQKHFkW6eEktZsbO89bq6y0Y1guNQ4nJ+VVMnVpDY7ifDJluqZULwP/Cf3pZg6Qi5ff9rRle4HzjHCT0AdLbs367hWyU5wX0T0N8FDJe1ilYcH3dioay0cHcIe5PSBAzff+b1sC6zjCWntbGbqyF3UXnLL5UtjcW39xy2lGomRbZmHzk+cMGXCZXVusHy1Mly7E4YtwlbGOy8s1/oUK9XmDOItTTt7tmUoS04BpVh0HHqsMGix3b5qSANzulKK8lPoW1giieOjGziLfgv/9wH7TyqKLfd1pXE8QvnpYVmG08ZwFON/emJoP61quAGdNkKZWPgM0/HqKhZpjKoSvGletzV7rfwjMCWOTK1iCGoQXhP+jTKsm7UmdU5fy9GLgDeBj/WjL+vYa0zoRdQlpTSJjfgA9x1a18IABNg9o+zVc2zTO5JgVfrHdKsXSvEc2YcQQu727qIdr374QR5LnZzZvtco/LszXNk54kD1ZMOXCXDn0Ke/bqK1IB3EcXwsdgyov1ijlzfoFZGfKxOZHkfmG6yoIYuHzMNQQIshleRoPKtR445zgks3WkRAq9p9nH/Ws74c5Ck/A20Fx/FLf25l6yjAa/vTnRaumoiJG2IgtHJ2mD/lp8j8j6nfusU8H6AnhndjfiN1m2rFcpkTIOiZMcN90dTH9H+ooCX9HT4DF5oRYg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(136003)(39860400002)(346002)(376002)(451199021)(82310400008)(46966006)(36840700001)(40470700004)(40480700001)(7696005)(6666004)(478600001)(2616005)(86362001)(426003)(8676002)(16526019)(54906003)(5660300002)(8936002)(41300700001)(26005)(1076003)(186003)(336012)(2906002)(81166007)(82740400003)(356005)(36756003)(4326008)(316002)(6916009)(70206006)(70586007)(47076005)(40460700003)(36860700001)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VjRuSkJHZlpWODRTQk9MZXoxMU5WOE9VM3Nyb2FVcXl3TjkrN3pUWGgyM3VJ?=
- =?utf-8?B?d2VRcVdJN0ZUZ3dKa1dzMVpBOHpvM21xa2U2aWhxMnVmZlp6TmY4ak9HRjYv?=
- =?utf-8?B?NVY1TkEzT2h5Nnd6bVc0U2E5N21aZFo2OVpsV0ZmaWEvajkyMkYwd2RscFZy?=
- =?utf-8?B?ZkQwUGhaRE5KREl4cGI3clk0UVFFZGFhdkYrYzBlWG1qamVBb3BIVFZ2ZGRV?=
- =?utf-8?B?U1hKVWNPSnJSbTFkZHhqQUthNUlwUVprRjAyQmpNdE9Zb2VPd1Q5VlNxV2Jw?=
- =?utf-8?B?aWVuY1NPNXJsb1VUUFMzcnI4MyttNHNmMTZTbkZMQ25VekE1WU5XT2hxNXZ3?=
- =?utf-8?B?dTdBY25kVEpySjR2TEdWM2l2aUJKanhnbzFpZ0UrWFlVK24vSXNVcnE5L0E3?=
- =?utf-8?B?YmlUYlk2Y1ZsZTk3TWhlZGRRUTNEaDVIREFlV3p4YTBaNXRhZHdlRmFLN3hC?=
- =?utf-8?B?SXpzK2tBT1pCYnZjcXZIWXUveUY1cWZNR2xmWFl6d0FMWHFyQUFjNGN5ZFR5?=
- =?utf-8?B?amduaW8ybHJXVEFnZXROaTJLMWlxc0I0S2EvRXk1bUx2dmdhZVNITm80RG0w?=
- =?utf-8?B?S1dVSTZ5QUQyYjJhcC9NQ3NlVTlrR1d3bVVPSWdZLzVyREw2enNBQWkyNWtD?=
- =?utf-8?B?UXIzM0pncTYwa2lGc1RBdjNpZk80RHpOR3AxYXZHN0pMVlhxNWR6UzN3dXlv?=
- =?utf-8?B?NmphM3Nyd3VURXhLNXB5aGhPVTJGaHFSd0N6bmdvQ0NvODFJTUdkdDRXN2Ix?=
- =?utf-8?B?Tmk2b3ZNc0xLamJCenRoSTFLYWpnckI1WlI5M3I4YkRZZ0lwVFZueXR2dUUr?=
- =?utf-8?B?QkJLVmxNR21NRXBqdVVHREhBcndOZWx0c1FWN21FQXMyN1ZYSXlUaU1kV3lF?=
- =?utf-8?B?VENEVjNmZVNiaytwT0Q1WjZqL2dyaTBFVUhBam1NS294NkpvWU94UC9BUTZn?=
- =?utf-8?B?SDNsbTZGelJYdldrdE1PTEwrY1V3NUVuMzZCR0hKdnRvVnRSQkQ1MnNrRk0x?=
- =?utf-8?B?bHpiZDJ4cTVObTIwVGNsdUVGMWdIN0V4R3lEeCtrOVBCRzl4QUVyR1dUbWZl?=
- =?utf-8?B?c1huSHU0L3lZZkxDbEh3di9yN0Z1RGZrQVRsTk9jd0RWY3A2NXhxMGFZVkpB?=
- =?utf-8?B?Rm93R3lZVnBLUk53RFJZU0hIcGw2Z0cxRGlIdVRCeGZZZk4xWkxBNHdKcXha?=
- =?utf-8?B?TForcjN4M2xIbytDYWpwckkwVTlZUWdyTjhSNGo3VFdXQUZPL1V4TVc5cGZk?=
- =?utf-8?B?a0p0S1Y1Y002Vk02MXhRQTlBMVh1TmFxM1ZiNFFjdEN6eTN5aWlVWEphdkow?=
- =?utf-8?B?VTRVU2hrL0dlbkV5UUxydTQvRUd3SHl0aStHWDlGb3FzZ1pnTldPdmhwNG42?=
- =?utf-8?B?alRTdTc0WVhZM3VVenpnaVVBOWRuK3IrOGRNczVFRkhreXU1SDNRSkdrQWVV?=
- =?utf-8?B?ekprTUVqdTk2aEcxcUdmb2JvQUN4VmNKUkpkZzdRaUZNbHRmYThlNmlQUVE2?=
- =?utf-8?B?SW5VTmhJOXpQN2NNbEFOOVR0ODdhZ0djM2F3TExGcEgxT05aQkxHRUtoRGJt?=
- =?utf-8?B?MXdLb3VKSW5nS1VidS9UZnl1c2xFSjAxKzY3WmFFSnBYcXhWV3QyT0U3cDgy?=
- =?utf-8?B?S3VZemhFZXUyZ2hDQmk5aXh5OWU1cGhIQnZEY2o1b1JNNnBmK3JSYlFXSHVV?=
- =?utf-8?B?M3kyaGtrQXVCdGJmLzJqNlVyODJqVFRnR2pqYmx1SVFMWlZQMG5KL0V0RlJ4?=
- =?utf-8?B?aTJxcllpV3REaDZ3OEJXQlVuSXJzazhrY3VyMm40Rlh6RHlVTytsVVVSbG90?=
- =?utf-8?B?dGFuWUh3K21MWXVldEkvS0FRSGx5bTh3eEk1TVBRTzRzMk1zQml4YnJFWTBY?=
- =?utf-8?B?UDlQVHlDUXZkSVh0TzBOMWNQNWRWeHo5TnhNUERGY1NDM3VrREVvdjhZWDBx?=
- =?utf-8?B?b2U2NlJLNGg0Mk52LzZ6UFh1bS9WTnpoMUFFamxkdHJHSmZqbmhyZ010UXc1?=
- =?utf-8?B?MjlrQm12Qm54ZGZYRjJoM1RNNjdpSDhVdEtVanRPV2dIWlY0RmZ6S01VVGtm?=
- =?utf-8?B?bXRzYm1MYWhSVDVBVWwweGZMazFLUGpWd3phR2VUa1IwbDRNTm5IRTRaQ1Nm?=
- =?utf-8?B?c3BEVWoyWDYwd0hnZVlyNHhhd0luc0FyaDdsVjhEMTNIZnArM1Rxa2szcFpo?=
- =?utf-8?Q?4MZ//MGgxubgNJAisWrJpKFWAp1c+c5TGf9osVgqqYOq?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 264c39af-3af7-46bc-843c-08db8e73b9e0
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2023 07:33:09.5556 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2023 07:56:39.9315 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf7fd268-1ff8-442c-511c-08db8e7702b7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ag/12MiDUD5VdgyQe35Vd+OLqjODtk1Hod2Ebo63yVoRzHI/dJeG0mWlkZcLN+L9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9178
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT025.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6036
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,173 +98,196 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>, Lang
+ Yu <Lang.Yu@amd.com>, Christian Koenig <christian.koenig@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 25.07.23 um 06:51 schrieb Srinivasan Shanmugam:
-> Fixes the following:
->
-> WARNING: externs should be avoided in .c files
-> +extern const struct attribute_group amdgpu_vram_mgr_attr_group;
->
-> WARNING: externs should be avoided in .c files
-> +extern const struct attribute_group amdgpu_gtt_mgr_attr_group;
->
-> WARNING: externs should be avoided in .c files
-> +extern const struct attribute_group amdgpu_flash_attr_group;
->
-> And other style fixes:
->
-> ERROR: do not initialise globals to 0
-> WARNING: Block comments should align the * on each line
-> WARNING: void function return statements are not generally useful
-> WARNING: braces {} are not necessary for single statement blocks
+amdgpu_bo_create_kernel_at() is used to create a physical
+contiguous VRAM BO at the specific offset. It calls
+amdgpu_bo_create_reserved() to create a VRAM BO first,
+then frees its old memory and allocates new memory at
+the specific offset. But amdgpu_bo_create_reserved() would
+fail if requested VRAM BO size is too large(>128MB) on
+APU which usually has a small default VRAM size(512MB).
 
-In general good idea, but we want to slowly decompose amdgpu.h and not 
-add new stuff.
+That is because VRAM fragmentation and DRM_BUDDY_RANGE_ALLOCATION
+is not natively supported by amdgpu_bo_create().
 
-Please move the vram and gtt defines into amdgpu_ttm.h and take a look 
-where the flash extern can be moved instead.
+The approach is using amdgpu_bo_create_reserved() to
+create a BO in CPU domain first, it will always succeed.
+Then use amdgpu_bo_pin_restricted() to move the BO to
+requested domain and location.
 
-Thanks,
-Christian.
+Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 30 ++++++++--------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 15 +++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   |  2 +-
+ 4 files changed, 21 insertions(+), 29 deletions(-)
 
->
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->
-> v2:
->   - Updated commit message - Added "ERROR: do not initialise globals to
->     0"
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  4 ++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 28 +++++++++----------------
->   2 files changed, 14 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index a046160b6a0e..93d0f4c7b560 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1524,4 +1524,8 @@ static inline bool amdgpu_is_tmz(struct amdgpu_device *adev)
->   
->   int amdgpu_in_reset(struct amdgpu_device *adev);
->   
-> +extern const struct attribute_group amdgpu_vram_mgr_attr_group;
-> +extern const struct attribute_group amdgpu_gtt_mgr_attr_group;
-> +extern const struct attribute_group amdgpu_flash_attr_group;
-> +
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index c315fe390e71..84446bbc3509 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -313,9 +313,7 @@ module_param_named(msi, amdgpu_msi, int, 0444);
->    * jobs is 10000. The timeout for compute is 60000.
->    */
->   MODULE_PARM_DESC(lockup_timeout, "GPU lockup timeout in ms (default: for bare metal 10000 for non-compute jobs and 60000 for compute jobs; "
-> -		"for passthrough or sriov, 10000 for all jobs."
-> -		" 0: keep default value. negative: infinity timeout), "
-> -		"format: for bare metal [Non-Compute] or [GFX,Compute,SDMA,Video]; "
-> +		"for passthrough or sriov, 10000 for all jobs. 0: keep default value. negative: infinity timeout), format: for bare metal [Non-Compute] or [GFX,Compute,SDMA,Video]; "
->   		"for passthrough or sriov [all jobs] or [GFX,Compute,SDMA,Video].");
->   module_param_string(lockup_timeout, amdgpu_lockup_timeout, sizeof(amdgpu_lockup_timeout), 0444);
->   
-> @@ -585,7 +583,7 @@ module_param_named(timeout_period, amdgpu_watchdog_timer.period, uint, 0644);
->   #ifdef CONFIG_DRM_AMDGPU_SI
->   
->   #if IS_ENABLED(CONFIG_DRM_RADEON) || IS_ENABLED(CONFIG_DRM_RADEON_MODULE)
-> -int amdgpu_si_support = 0;
-> +int amdgpu_si_support;
->   MODULE_PARM_DESC(si_support, "SI support (1 = enabled, 0 = disabled (default))");
->   #else
->   int amdgpu_si_support = 1;
-> @@ -604,7 +602,7 @@ module_param_named(si_support, amdgpu_si_support, int, 0444);
->   #ifdef CONFIG_DRM_AMDGPU_CIK
->   
->   #if IS_ENABLED(CONFIG_DRM_RADEON) || IS_ENABLED(CONFIG_DRM_RADEON_MODULE)
-> -int amdgpu_cik_support = 0;
-> +int amdgpu_cik_support;
->   MODULE_PARM_DESC(cik_support, "CIK support (1 = enabled, 0 = disabled (default))");
->   #else
->   int amdgpu_cik_support = 1;
-> @@ -620,8 +618,7 @@ module_param_named(cik_support, amdgpu_cik_support, int, 0444);
->    * E.g. 0x1 = 256Mbyte, 0x2 = 512Mbyte, 0x4 = 1 Gbyte, 0x8 = 2GByte. The default is 0 (disabled).
->    */
->   MODULE_PARM_DESC(smu_memory_pool_size,
-> -	"reserve gtt for smu debug usage, 0 = disable,"
-> -		"0x1 = 256Mbyte, 0x2 = 512Mbyte, 0x4 = 1 Gbyte, 0x8 = 2GByte");
-> +	"reserve gtt for smu debug usage, 0 = disable,0x1 = 256Mbyte, 0x2 = 512Mbyte, 0x4 = 1 Gbyte, 0x8 = 2GByte");
->   module_param_named(smu_memory_pool_size, amdgpu_smu_memory_pool_size, uint, 0444);
->   
->   /**
-> @@ -791,9 +788,9 @@ module_param(hws_gws_support, bool, 0444);
->   MODULE_PARM_DESC(hws_gws_support, "Assume MEC2 FW supports GWS barriers (false = rely on FW version check (Default), true = force supported)");
->   
->   /**
-> -  * DOC: queue_preemption_timeout_ms (int)
-> -  * queue preemption timeout in ms (1 = Minimum, 9000 = default)
-> -  */
-> + * DOC: queue_preemption_timeout_ms (int)
-> + * queue preemption timeout in ms (1 = Minimum, 9000 = default)
-> + */
->   int queue_preemption_timeout_ms = 9000;
->   module_param(queue_preemption_timeout_ms, int, 0644);
->   MODULE_PARM_DESC(queue_preemption_timeout_ms, "queue preemption timeout in ms (1 = Minimum, 9000 = default)");
-> @@ -2417,7 +2414,6 @@ static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work)
->   			amdgpu_amdkfd_device_init(adev);
->   		amdgpu_ttm_set_buffer_funcs_status(adev, true);
->   	}
-> -	return;
->   }
->   
->   static int amdgpu_pmops_prepare(struct device *dev)
-> @@ -2614,6 +2610,7 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
->   	/* wait for all rings to drain before suspending */
->   	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
->   		struct amdgpu_ring *ring = adev->rings[i];
-> +
->   		if (ring && ring->sched.ready) {
->   			ret = amdgpu_fence_wait_empty(ring);
->   			if (ret)
-> @@ -2738,6 +2735,7 @@ long amdgpu_drm_ioctl(struct file *filp,
->   	struct drm_file *file_priv = filp->private_data;
->   	struct drm_device *dev;
->   	long ret;
-> +
->   	dev = file_priv->minor->dev;
->   	ret = pm_runtime_get_sync(dev->dev);
->   	if (ret < 0)
-> @@ -2802,9 +2800,8 @@ int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv)
->   	if (!filp)
->   		return -EINVAL;
->   
-> -	if (filp->f_op != &amdgpu_driver_kms_fops) {
-> +	if (filp->f_op != &amdgpu_driver_kms_fops)
->   		return -EINVAL;
-> -	}
->   
->   	file = filp->private_data;
->   	*fpriv = file->driver_priv;
-> @@ -2894,10 +2891,6 @@ static struct pci_error_handlers amdgpu_pci_err_handler = {
->   	.resume		= amdgpu_pci_resume,
->   };
->   
-> -extern const struct attribute_group amdgpu_vram_mgr_attr_group;
-> -extern const struct attribute_group amdgpu_gtt_mgr_attr_group;
-> -extern const struct attribute_group amdgpu_flash_attr_group;
-> -
->   static const struct attribute_group *amdgpu_sysfs_groups[] = {
->   	&amdgpu_vram_mgr_attr_group,
->   	&amdgpu_gtt_mgr_attr_group,
-> @@ -2905,7 +2898,6 @@ static const struct attribute_group *amdgpu_sysfs_groups[] = {
->   	NULL,
->   };
->   
-> -
->   static struct pci_driver amdgpu_kms_pci_driver = {
->   	.name = DRIVER_NAME,
->   	.id_table = pciidlist,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index ff73cc11d47e..331daa47a444 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -358,6 +358,7 @@ int amdgpu_bo_create_kernel(struct amdgpu_device *adev,
+  * @offset: offset of the BO
+  * @size: size of the BO
+  * @bo_ptr:  used to initialize BOs in structures
++ * @gpu_addr: GPU addr of the pinned BO
+  * @cpu_addr: optional CPU address mapping
+  *
+  * Creates a kernel BO at a specific offset in VRAM.
+@@ -367,42 +368,33 @@ int amdgpu_bo_create_kernel(struct amdgpu_device *adev,
+  */
+ int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
+ 			       uint64_t offset, uint64_t size,
+-			       struct amdgpu_bo **bo_ptr, void **cpu_addr)
++			       struct amdgpu_bo **bo_ptr,
++			       u64 *gpu_addr, void **cpu_addr)
+ {
+-	struct ttm_operation_ctx ctx = { false, false };
+-	unsigned int i;
+ 	int r;
+ 
+ 	offset &= PAGE_MASK;
+ 	size = ALIGN(size, PAGE_SIZE);
+ 
+ 	r = amdgpu_bo_create_reserved(adev, size, PAGE_SIZE,
+-				      AMDGPU_GEM_DOMAIN_VRAM, bo_ptr, NULL,
+-				      cpu_addr);
++				      AMDGPU_GEM_DOMAIN_CPU,
++				      bo_ptr, NULL, cpu_addr);
+ 	if (r)
+ 		return r;
+ 
+ 	if ((*bo_ptr) == NULL)
+ 		return 0;
+ 
+-	/*
+-	 * Remove the original mem node and create a new one at the request
+-	 * position.
+-	 */
+-	if (cpu_addr)
+-		amdgpu_bo_kunmap(*bo_ptr);
+-
+-	ttm_resource_free(&(*bo_ptr)->tbo, &(*bo_ptr)->tbo.resource);
++	amdgpu_bo_unpin(*bo_ptr);
+ 
+-	for (i = 0; i < (*bo_ptr)->placement.num_placement; ++i) {
+-		(*bo_ptr)->placements[i].fpfn = offset >> PAGE_SHIFT;
+-		(*bo_ptr)->placements[i].lpfn = (offset + size) >> PAGE_SHIFT;
+-	}
+-	r = ttm_bo_mem_space(&(*bo_ptr)->tbo, &(*bo_ptr)->placement,
+-			     &(*bo_ptr)->tbo.resource, &ctx);
++	r = amdgpu_bo_pin_restricted(*bo_ptr, AMDGPU_GEM_DOMAIN_VRAM,
++				     offset, offset + size);
+ 	if (r)
+ 		goto error;
+ 
++	if (gpu_addr)
++		*gpu_addr = amdgpu_bo_gpu_offset(*bo_ptr);
++
+ 	if (cpu_addr) {
+ 		r = amdgpu_bo_kmap(*bo_ptr, cpu_addr);
+ 		if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index 5d3440d719e4..8f5b5664a1b6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -315,7 +315,8 @@ int amdgpu_bo_create_kernel(struct amdgpu_device *adev,
+ 			    u64 *gpu_addr, void **cpu_addr);
+ int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
+ 			       uint64_t offset, uint64_t size,
+-			       struct amdgpu_bo **bo_ptr, void **cpu_addr);
++			       struct amdgpu_bo **bo_ptr,
++			       u64 *gpu_addr, void **cpu_addr);
+ int amdgpu_bo_create_user(struct amdgpu_device *adev,
+ 			  struct amdgpu_bo_param *bp,
+ 			  struct amdgpu_bo_user **ubo_ptr);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 7c6dd3de1867..a210c243dac0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1619,7 +1619,7 @@ static int amdgpu_ttm_fw_reserve_vram_init(struct amdgpu_device *adev)
+ 					  adev->mman.fw_vram_usage_start_offset,
+ 					  adev->mman.fw_vram_usage_size,
+ 					  &adev->mman.fw_vram_usage_reserved_bo,
+-					  &adev->mman.fw_vram_usage_va);
++					  NULL, &adev->mman.fw_vram_usage_va);
+ }
+ 
+ /**
+@@ -1644,7 +1644,7 @@ static int amdgpu_ttm_drv_reserve_vram_init(struct amdgpu_device *adev)
+ 					  adev->mman.drv_vram_usage_start_offset,
+ 					  adev->mman.drv_vram_usage_size,
+ 					  &adev->mman.drv_vram_usage_reserved_bo,
+-					  &adev->mman.drv_vram_usage_va);
++					  NULL, &adev->mman.drv_vram_usage_va);
+ }
+ 
+ /*
+@@ -1729,8 +1729,7 @@ static int amdgpu_ttm_reserve_tmr(struct amdgpu_device *adev)
+ 		ret = amdgpu_bo_create_kernel_at(adev,
+ 						 ctx->c2p_train_data_offset,
+ 						 ctx->train_data_size,
+-						 &ctx->c2p_bo,
+-						 NULL);
++						 &ctx->c2p_bo, NULL, NULL);
+ 		if (ret) {
+ 			DRM_ERROR("alloc c2p_bo failed(%d)!\n", ret);
+ 			amdgpu_ttm_training_reserve_vram_fini(adev);
+@@ -1742,7 +1741,7 @@ static int amdgpu_ttm_reserve_tmr(struct amdgpu_device *adev)
+ 	if (!adev->gmc.is_app_apu) {
+ 		ret = amdgpu_bo_create_kernel_at(
+ 			adev, adev->gmc.real_vram_size - reserve_size,
+-			reserve_size, &adev->mman.fw_reserved_memory, NULL);
++			reserve_size, &adev->mman.fw_reserved_memory, NULL, NULL);
+ 		if (ret) {
+ 			DRM_ERROR("alloc tmr failed(%d)!\n", ret);
+ 			amdgpu_bo_free_kernel(&adev->mman.fw_reserved_memory,
+@@ -1885,14 +1884,14 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 		r = amdgpu_bo_create_kernel_at(adev, 0,
+ 					       adev->mman.stolen_vga_size,
+ 					       &adev->mman.stolen_vga_memory,
+-					       NULL);
++					       NULL, NULL);
+ 		if (r)
+ 			return r;
+ 
+ 		r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_vga_size,
+ 					       adev->mman.stolen_extended_size,
+ 					       &adev->mman.stolen_extended_memory,
+-					       NULL);
++					       NULL, NULL);
+ 
+ 		if (r)
+ 			return r;
+@@ -1901,7 +1900,7 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 					       adev->mman.stolen_reserved_offset,
+ 					       adev->mman.stolen_reserved_size,
+ 					       &adev->mman.stolen_reserved_memory,
+-					       NULL);
++					       NULL, NULL);
+ 		if (r)
+ 			return r;
+ 	} else {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 41aa853a07d2..b93b42b916ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -397,7 +397,7 @@ static void amdgpu_virt_ras_reserve_bps(struct amdgpu_device *adev)
+ 		 */
+ 		if (amdgpu_bo_create_kernel_at(adev, bp << AMDGPU_GPU_PAGE_SHIFT,
+ 					       AMDGPU_GPU_PAGE_SIZE,
+-					       &bo, NULL))
++					       &bo, NULL, NULL))
+ 			DRM_DEBUG("RAS WARN: reserve vram for retired page %llx fail\n", bp);
+ 
+ 		data->bps_bo[i] = bo;
+-- 
+2.25.1
 
