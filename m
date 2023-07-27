@@ -4,112 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78C66C001DC
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jul 2023 13:29:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B038C001DC
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jul 2023 13:47:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A95E10E57C;
-	Thu, 27 Jul 2023 13:29:59 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2041.outbound.protection.outlook.com [40.107.244.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ED6110E57C
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 13:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B72E210E587;
+	Thu, 27 Jul 2023 13:47:37 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2062.outbound.protection.outlook.com [40.107.94.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D274810E587
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 13:47:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KLPlgrlz2DWAPUC3kzUkilojX2b5OJl6cEOP5e4czzwBZh3zgg7clyTF18yNXtCmzoN0/ZzhYtl0+mNgGOrUeHzdL5+aTGH+IQareBl9DiVopnFHP+nNmeJFLKJo4m+K1h0BkMzIOvfPaA74R9tg1sAjtLJwcgcvdaMox0TbrQOOO7IULu8paZ+Eu6JQ2ABKoxhPU27nfNMPIAcny9Y0uwT3vqCBswPFcWrwnAVzkspyTrh04IE8ZfjcJQmGnOrumlz7mv8ZvoMZfu2iNEw6tBhPs7IeVDy1V6X1swkoYLK0CiCDOo9UAHqe6X8rDR/Rrm9NsfB9e0R/kFQ44U1ngA==
+ b=mB+qCrprFEnIgSlnBN/J2GEKluVTuVEjEEO2R/QzIhmZxvs3miRjw3vGxRvFPvCjwZru9xo+wVHyRCfvzWwCre0PVZRtEXJ36Olhk740MhU6d1ZRxeAVmjBBsv0PsvFHiBFddLymno+mXqW6YyuLrZHODjpNBN4eNFccfcRwKWrTN8fBDlVxdRPM3oHHWpHwpnOLIyuzq6rTeaYLVsscr7i3QGgi1PbBz7ep2V55VJJJAzNn6zm9mVb8Z36hMfuQKQh4LdqPWD95l5u1K574C+1Wh61rjyJqTlUOw1mAQ9zQ2bZN6qW+ZenUlEEtJfKSvUapCl5Ekb7YNc27oX2c2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NrQQC+ma/0wDCLdoMByLXV0opb9fJQO63wGNVP2W+VQ=;
- b=SwbHRpnjZp+19YzWPwBgIk8CIT+gPSVhzDAVkZOq6luFO1AjaM70Zb9L86KFV/wgpbxfd0ReSB78OX6DEtv4ES0OlcIrkGfPka9ovPKKgkbnLKyVYIsLUPueY6lajr5Tyv53MnvqUA5yg+LklsSWmrvKvDqF9vbGxVddCEwGHy+ww8RQR1oNYWkpWz3VWMy3OYT4NJipX36PUS+0KR9gpN45UCevbXkfeGGQSoIofAdOqIx/bwBNb2jFv3ykQiRf5M3bnp2V0dlLtmPSbSi0kS++QfIWeS5jHm1oex+UvtGjFYQa4xuDRk/xi1YVlGdqkIOaypU9jV6VRluCYay8fQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=JBWHA4vph/qzAs9d/kLXE+UlUR3ybvemiX+Pk15Q30U=;
+ b=HzQ/08LUPQGler5XJOol+kODaKgAI1EBMvRPWGN7pRA4qjGcENgtOplXIDPXqAkyr2kYYtmXB6NmrbwPq0WFEmyKIbebmcV+Y40hv5+PBQj3efuss98zldircyPxwmJth3k09XpD8ogI01EQdaX8of7G+dluHCcl0pctLvmuRjeYvanwO2YOjb2UPSaUt3utzujgzfRIHR/k1HpuQ9QIzx/yu4N/XPJwGx7sI2snTMqXhRm7jr/hY1rmF3PsLPyFoAPxuNR/O27FDVHL0cJiIicWgwyKHICmcWO7kqTYtpdIdQ4S0izUJlBaWCmBAXB/UHXrA9yTrgkzXLyKBOLHIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NrQQC+ma/0wDCLdoMByLXV0opb9fJQO63wGNVP2W+VQ=;
- b=mBz8bNG+fbnM2AKYfQEoS4xEJmF/LeiWsHCfPLq4WcXIdXO/8KD/HB/hkvn0cBshQjaUmRos1UdbN7dWfJGxow9+ep7i2b1rMPsifxnRR4uvwsydZxFnsCggUDAkvFfhXyVdHznSA3NVCd+a6rDl9X1M8vfUCewEes43ztObVbI=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by BN9PR12MB5036.namprd12.prod.outlook.com (2603:10b6:408:135::8)
+ bh=JBWHA4vph/qzAs9d/kLXE+UlUR3ybvemiX+Pk15Q30U=;
+ b=P9TH/IViO08Yu1uVE+cu/Kc/KOXk9WGSQd0r1NahahjR+Q05uBOmUCGb9bBbvr+MWVhymYIMzfPIht7PZmz7HjhlafAOKsTEQsSvQmACCzdHZnAkOLxZ1o4COAOYsMckcWGi0/voN5Ub5iQ2FOi97LD3D5i4z+jMqDVCvZdKGCA=
+Received: from MW4PR03CA0169.namprd03.prod.outlook.com (2603:10b6:303:8d::24)
+ by SN7PR12MB6838.namprd12.prod.outlook.com (2603:10b6:806:266::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Thu, 27 Jul
- 2023 13:29:54 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::bcfa:7757:68bd:f905]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::bcfa:7757:68bd:f905%5]) with mapi id 15.20.6631.026; Thu, 27 Jul 2023
- 13:29:54 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/pm: correct the pcie width for smu 13.0.0
-Thread-Topic: [PATCH] drm/amd/pm: correct the pcie width for smu 13.0.0
-Thread-Index: AQHZwH9wx8nRCOBsQUGscXKP5eit5K/Nm8sK
-Date: Thu, 27 Jul 2023 13:29:53 +0000
-Message-ID: <BL1PR12MB5144B27DEB701CD55D1F3136F701A@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20230727114125.3891244-1-kenneth.feng@amd.com>
-In-Reply-To: <20230727114125.3891244-1-kenneth.feng@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-27T13:29:53.220Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|BN9PR12MB5036:EE_
-x-ms-office365-filtering-correlation-id: bf2ebd41-7176-4cfe-7158-08db8ea59007
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: bYxXlAH5aJ6uINTcfymFzuJ/bhLyJb05TbGBbmMzsqNEKL8Yha10uaGGwCAe2O0V4gNR9ZVsf3bCzlFBgl+YtG4iY84MpDZ58gnXkesFmQDX1817lULR5BmEbo5jaCNVFe5ApFBjW4lN9/FmcFkg/be3J2U5zj0DNHIe0Lm5+S9v/XtFi+qdRKWYnarJCD7NGaIuBNrLWphWab6zmudEeoMn0p0xPulYnYVosfQNlsLEcricN0hUcNy7JVeeLJNnYv67f0CoZIl2YBU4MIvzNk2gCPKqaZdFEriZII3neYFkQVqziKnR0PX55uz6Vt/tzbupN3ttgagDhxeFQ98HN+4R2Q6UafNEeBGXGZacBSC4+IDbihNVl+gaAo4pMXXhZh+UMbgLWW4Zpj51YB5OKapVC35nOQgC9oQF78IfZAk+eJCOFCfXVxUhsn7TquheT9Ao5OwAadGq8EcIEL1RCoEuqdMyQ81BqBbj8pNL4qy5wYksXZcKE5LTOLfnf1pJ675mlELwVZ/qu2XEQqZeTlUujVJ4H291GotcVhkeXZ2YQu6sAo30g+Kx43f0YN7R/9RwXt6wPJc138zEBvyiqwbCsfpMUwI75lYzFMCfdI8=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(376002)(366004)(346002)(136003)(451199021)(19627405001)(41300700001)(26005)(53546011)(71200400001)(38100700002)(122000001)(478600001)(9686003)(86362001)(4326008)(8936002)(8676002)(76116006)(186003)(316002)(66446008)(66556008)(66476007)(66946007)(33656002)(64756008)(6506007)(5660300002)(2906002)(110136005)(83380400001)(52536014)(38070700005)(55016003)(7696005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nu6K3c8dfEzGQoIJNdnnlu6Y6aLVWBU42kk41amdt2bUyb0UsgtQzBIi11IG?=
- =?us-ascii?Q?8vx9jfbaay1yZcERgB3ylDsQ1hs6O2Igxwt0q8hZdY/EiypxK6NkrfivrD9D?=
- =?us-ascii?Q?ONu+GCcn7buNCbh7K7IXJvoDck3TcgPsbvvE8edzg5cLgaYiSlqXzTLxOcRL?=
- =?us-ascii?Q?SMd+KebePAwvK8fxEcanUz6zLmkZ4OgornDQFq88hc5R5XHFFv1EP1Tvash9?=
- =?us-ascii?Q?/ZcEMnFzxE1sDjlQJKtzMfEup2mkWay4+MeMaQNgr/W/95uc9xw/i+3mmi6o?=
- =?us-ascii?Q?SDOW2mR/VMvN37nK5z7WixetY9aRxJ2LCz+G7nTMnjelwDkNA864BOfOxhgu?=
- =?us-ascii?Q?JxuEgs1efBj3prdxL0095xz144bC7mhkLvkM0Lm4/nr7d7BOhfSeYcYHJ//4?=
- =?us-ascii?Q?tzYXM8N50hCb10Q6dnvQSFTZzSR8LexbkXZSjVVy48aPJeGqNaSmdzL9aT6i?=
- =?us-ascii?Q?XotoMznXrooTkx5FNkl+lJjUIcVVnvcwC/OiewSBsy6/ewaKyU399b0iXXBU?=
- =?us-ascii?Q?YsaQ3Z8862XQHzM1Yi82XK9YLEde1Lh32l2JWiwVWoQf4ex9kir27aBkaFNr?=
- =?us-ascii?Q?WoplmM9wYggl8Ec1tw+XJ9/txUKIfx92axcWTlvOoQy+r4cda7Xm2P0soKqo?=
- =?us-ascii?Q?UngATTIe9gzejDmF65qCmUUK8RwxHYJ2TLhLQAAschkL1fTNDI5m3bk69Fb3?=
- =?us-ascii?Q?XgP7Jz5LmkOL2cFF4ywX3UZOvTKJ36OMSPH6vllosDQnM2YT8gBYgR84QhSD?=
- =?us-ascii?Q?6ZbPcfnJboi+iSb+kRjPEjmdfAzW8eJdCVRIScjs0iPHenzcEx58ryiE2Peu?=
- =?us-ascii?Q?ofahEjjySqlW4+X45uMlH9ZrTd79h5s+ydlPV0KaeoIIe3+LpSSP7/k9MgHw?=
- =?us-ascii?Q?bUKKCIfLT5yxUH62N1e2FETQFzJir7DtLGrHrZAD/eCN9BkjD8koXuO8DWyi?=
- =?us-ascii?Q?PIyJDZlIGXRQ32c9XnUAFPgoGGTMnpPuMqzjJtQO3F9p2J/h2HEgqkEfa/5u?=
- =?us-ascii?Q?4Qd8+n3tV5EoQ673ArU2xmKl8luKl0I8g+42FqXqFzkCONcntgb/Re9XrNlt?=
- =?us-ascii?Q?oifR3UhHU/gpPaWeUQY5Hv00JBmi/M3qxOKeNgBRJE+LagpwjpBn81OLIyWK?=
- =?us-ascii?Q?DZ+AsLxE42gs+a08kSZ8O0PYM3YVquqcbUZjiwYhG9vqZdlaAdrS81ScUy1x?=
- =?us-ascii?Q?AdKxuhimWY5S/8BSo9Zd0mbGDXoyhzPtAP7DwQX0lqAYfjF6i7uIyuqSzZVa?=
- =?us-ascii?Q?qbHzh6gi8h9rjbL2KjONp3NZ3toLPBxfJlTC3tuEMDbFYKPNdpNKRWM255q6?=
- =?us-ascii?Q?NixGfxC4eTb9WwRcSp6gOX7I5L8WoqwngGA0IMY0iaSIBBNLtZcXlzkYvKkj?=
- =?us-ascii?Q?otQif+K28AMoYWVkdFQSD5jgCdETDCfnGXaseP+kjfw0uhJtehD7bG4qAKpO?=
- =?us-ascii?Q?HCZx45rOOxZxnX6aysAgCZYxycLRZZ1zi7BjRykyFcFlay+54HNqd3/uBCgL?=
- =?us-ascii?Q?yed1CbiOvl0ukveqYyF1/ghXZuMXTnvuK9tvGgVa6Zp3bPPn8LPP5tqzT/nI?=
- =?us-ascii?Q?xXKumNgxH8s9S4oNYG0=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB5144B27DEB701CD55D1F3136F701ABL1PR12MB5144namp_"
+ 2023 13:47:32 +0000
+Received: from CO1NAM11FT088.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8d:cafe::74) by MW4PR03CA0169.outlook.office365.com
+ (2603:10b6:303:8d::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29 via Frontend
+ Transport; Thu, 27 Jul 2023 13:47:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT088.mail.protection.outlook.com (10.13.175.131) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6631.29 via Frontend Transport; Thu, 27 Jul 2023 13:47:32 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 27 Jul
+ 2023 08:47:29 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+Subject: [PATCH] drm/radeon: Remove the references of radeon_gem_ pread &
+ pwrite ioctls
+Date: Thu, 27 Jul 2023 19:17:12 +0530
+Message-ID: <20230727134712.2577353-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT088:EE_|SN7PR12MB6838:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44478bf3-7f83-43ca-e34c-08db8ea806c5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: L1bvQxShBIBsV6vAF1Kceid1mj+kKQVM01VY0OolifoJrloCY/MjA2d83WnZKcAe3x05wY/ZQ5l6cEaIZCxkzCd5InjAKQrviOvJTwOUQtuAdcOBX3H90EGsBqUOediNtfUObhjOt/5p7SZgzKdqgdXnk+KTE/MGaxonRtTk0GpxxTQ0cT4Iw2KRZ0R7xOXlBNRjeXsQDxYEA4PzzjtTxnbulRLaldYnD/wIHWuyaJNcl6q6+3DWkdjAYcX0OA1ot7IL+ezvvKThZALk1lLw+/UiPPFIQemdXZl2unw0p975ea+EsAzVADmc42HFV1KngJ7JzQht2oOSd4Zatwp2b9DSDm5ZiHr0oedZ0K0BR4jIdECYvRsoO64Kae7IJHO2o+93p0he1S4dUCu2S/+KD4kMoPM3zlIWPGshP4bBeD2Xdb6Jo7luoCDni4DMHKEXt4GyWCTTJ4U7UPa6iJSiAg39AWiO/TU9X8GZwgRhCUly8tB9p1gSv6cTQNjz9Ndq3xzK886DDDvPrG6g93OZLI+DJPrbp8f91dJQ5LxJJXEIR4Siktho8QBnlAq5uSxwI6a+2oNc3NN84tT44RF66lzWvE61NY2q/X1y9/HeoUENMmhUaTS1Qj/OU36PRuVCe4o5WThE2OAiYmZiARzpamMwOL48oayR6mFRP2nRJm1llVbsfqjXqyPzbqJRtEKvay6k+ncV0zbmw+6qrVwv/KPZLzWE1U7X2w2DiD48GIib5dtQN2fgx5BValLbsuVYYGBbDiaKpKDZgS9KckYfwg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(136003)(396003)(376002)(39860400002)(451199021)(82310400008)(36840700001)(40470700004)(46966006)(83380400001)(44832011)(356005)(54906003)(2906002)(110136005)(40460700003)(47076005)(2616005)(6666004)(426003)(7696005)(40480700001)(1076003)(26005)(66574015)(86362001)(478600001)(36860700001)(5660300002)(41300700001)(336012)(316002)(186003)(82740400003)(70206006)(70586007)(81166007)(8936002)(8676002)(36756003)(4326008)(6636002)(16526019)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf2ebd41-7176-4cfe-7158-08db8ea59007
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jul 2023 13:29:53.9927 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LIDPtuhoFQAwLm4UjoNVBNyuruO4QkEPpCJv/VV0YttVhR+/YMsfq0SLlY/9SQjzf0Cimm5Ogol+lYUUZ/k99g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5036
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2023 13:47:32.0776 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44478bf3-7f83-43ca-e34c-08db8ea806c5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT088.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6838
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,174 +99,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Quan, Evan" <Evan.Quan@amd.com>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB5144B27DEB701CD55D1F3136F701ABL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Removing the functions of pread & pwrite & IOCTL defines, as their
+existence allows an authorized client to spam the system logs.
 
-[AMD Official Use Only - General]
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Kenneth =
-Feng <kenneth.feng@amd.com>
-Sent: Thursday, July 27, 2023 7:41 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Quan, Evan <Evan.Quan@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amd/pm: correct the pcie width for smu 13.0.0
-
-correct the pcie width value in pp_dpm_pcie for smu 13.0.0
-
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+'Fixes: 6f9e0e87b71f ("drm/radeon: Fix ENOSYS with better fitting error codes in radeon_gem.c")'
+Suggested-by: Christian König <christian.koenig@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/radeon.h     |  4 ----
+ drivers/gpu/drm/radeon/radeon_drv.c |  2 --
+ drivers/gpu/drm/radeon/radeon_gem.c | 16 ----------------
+ 3 files changed, 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index 232274423f9e..4bdbd3910e1f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -1140,7 +1140,6 @@ static int smu_v13_0_0_print_clk_levels(struct smu_co=
-ntext *smu,
-                 (OverDriveTableExternal_t *)smu->smu_table.overdrive_table=
-;
-         struct smu_13_0_dpm_table *single_dpm_table;
-         struct smu_13_0_pcie_table *pcie_table;
--       const int link_width[] =3D {0, 1, 2, 4, 8, 12, 16};
-         uint32_t gen_speed, lane_width;
-         int i, curr_freq, size =3D 0;
-         int32_t min_value, max_value;
-@@ -1256,7 +1255,7 @@ static int smu_v13_0_0_print_clk_levels(struct smu_co=
-ntext *smu,
-                                         (pcie_table->pcie_lane[i] =3D=3D 6=
-) ? "x16" : "",
-                                         pcie_table->clk_freq[i],
-                                         (gen_speed =3D=3D DECODE_GEN_SPEED=
-(pcie_table->pcie_gen[i])) &&
--                                       (lane_width =3D=3D DECODE_LANE_WIDT=
-H(link_width[pcie_table->pcie_lane[i]])) ?
-+                                       (lane_width =3D=3D DECODE_LANE_WIDT=
-H(pcie_table->pcie_lane[i])) ?
-                                         "*" : "");
-                 break;
+diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+index b1c3871f2a67..102f7e25faa6 100644
+--- a/drivers/gpu/drm/radeon/radeon.h
++++ b/drivers/gpu/drm/radeon/radeon.h
+@@ -2254,10 +2254,6 @@ int radeon_gem_pin_ioctl(struct drm_device *dev, void *data,
+ 			 struct drm_file *file_priv);
+ int radeon_gem_unpin_ioctl(struct drm_device *dev, void *data,
+ 			   struct drm_file *file_priv);
+-int radeon_gem_pwrite_ioctl(struct drm_device *dev, void *data,
+-			    struct drm_file *file_priv);
+-int radeon_gem_pread_ioctl(struct drm_device *dev, void *data,
+-			   struct drm_file *file_priv);
+ int radeon_gem_set_domain_ioctl(struct drm_device *dev, void *data,
+ 				struct drm_file *filp);
+ int radeon_gem_mmap_ioctl(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index aa02697e5ea3..7fea9edafa67 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -555,8 +555,6 @@ static const struct drm_ioctl_desc radeon_ioctls_kms[] = {
+ 	DRM_IOCTL_DEF_DRV(RADEON_GEM_CREATE, radeon_gem_create_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(RADEON_GEM_MMAP, radeon_gem_mmap_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(RADEON_GEM_SET_DOMAIN, radeon_gem_set_domain_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+-	DRM_IOCTL_DEF_DRV(RADEON_GEM_PREAD, radeon_gem_pread_ioctl, DRM_AUTH),
+-	DRM_IOCTL_DEF_DRV(RADEON_GEM_PWRITE, radeon_gem_pwrite_ioctl, DRM_AUTH),
+ 	DRM_IOCTL_DEF_DRV(RADEON_GEM_WAIT_IDLE, radeon_gem_wait_idle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(RADEON_CS, radeon_cs_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(RADEON_INFO, radeon_info_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+index 358d19242f4b..3fec3acdaf28 100644
+--- a/drivers/gpu/drm/radeon/radeon_gem.c
++++ b/drivers/gpu/drm/radeon/radeon_gem.c
+@@ -311,22 +311,6 @@ int radeon_gem_info_ioctl(struct drm_device *dev, void *data,
+ 	return 0;
+ }
+ 
+-int radeon_gem_pread_ioctl(struct drm_device *dev, void *data,
+-			   struct drm_file *filp)
+-{
+-	/* TODO: implement */
+-	DRM_ERROR("unimplemented %s\n", __func__);
+-	return -EOPNOTSUPP;
+-}
+-
+-int radeon_gem_pwrite_ioctl(struct drm_device *dev, void *data,
+-			    struct drm_file *filp)
+-{
+-	/* TODO: implement */
+-	DRM_ERROR("unimplemented %s\n", __func__);
+-	return -EOPNOTSUPP;
+-}
+-
+ int radeon_gem_create_ioctl(struct drm_device *dev, void *data,
+ 			    struct drm_file *filp)
+ {
+-- 
+2.25.1
 
---
-2.34.1
-
-
---_000_BL1PR12MB5144B27DEB701CD55D1F3136F701ABL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Kenneth Feng &lt;kenneth.feng=
-@amd.com&gt;<br>
-<b>Sent:</b> Thursday, July 27, 2023 7:41 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Quan, Evan &lt;Evan.Quan@amd.com&gt;; Feng, Kenneth &lt;Kenneth.=
-Feng@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/pm: correct the pcie width for smu 13.0.0</=
-font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">correct the pcie width value in pp_dpm_pcie for sm=
-u 13.0.0<br>
-<br>
-Signed-off-by: Kenneth Feng &lt;kenneth.feng@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 3 +--<br>
-&nbsp;1 file changed, 1 insertion(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c<br>
-index 232274423f9e..4bdbd3910e1f 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c<br>
-@@ -1140,7 +1140,6 @@ static int smu_v13_0_0_print_clk_levels(struct smu_co=
-ntext *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; (OverDriveTableExternal_t *)smu-&gt;smu_table.overdri=
-ve_table;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_13_0_dpm_table =
-*single_dpm_table;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_13_0_pcie_table=
- *pcie_table;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const int link_width[] =3D {0, 1, 2, =
-4, 8, 12, 16};<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t gen_speed, lane_w=
-idth;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, curr_freq, size =3D=
- 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int32_t min_value, max_val=
-ue;<br>
-@@ -1256,7 +1255,7 @@ static int smu_v13_0_0_print_clk_levels(struct smu_co=
-ntext *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; (pcie_table-&gt;pcie_lane[i] =3D=3D 6) ? &quot;x16&quot; : =
-&quot;&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; pcie_table-&gt;clk_freq[i],<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; (gen_speed =3D=3D DECODE_GEN_SPEED(pcie_table-&gt;pcie_gen[=
-i])) &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; (lane_width =3D=3D DECODE_LANE_WIDTH(link_width[pcie_table-&gt;pcie_la=
-ne[i]])) ?<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; (lane_width =3D=3D DECODE_LANE_WIDTH(pcie_table-&gt;pcie_lane[i])) ?<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; &quot;*&quot; : &quot;&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB5144B27DEB701CD55D1F3136F701ABL1PR12MB5144namp_--
