@@ -4,59 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 360A4C00528
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jul 2023 18:02:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F23F5C0015E
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jul 2023 18:11:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D12A610E5D9;
-	Thu, 27 Jul 2023 18:02:30 +0000 (UTC)
-Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
- [IPv6:2607:f8b0:4864:20::c2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1F510E5D9
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 18:02:28 +0000 (UTC)
-Received: by mail-oo1-xc2b.google.com with SMTP id
- 006d021491bc7-565a8d74daeso760076eaf.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 11:02:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690480947; x=1691085747;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uciLMjWxRGQ4hsAralhUZgwU70hmgX933XcfCJy/huk=;
- b=U7W79ZK5BF23xfAWERLfFnzJfPnlJi+1+7rBwNanJSz2efE7XgtYfoXAyn4L21VKQF
- PS1AMSvf19maNuUnszfc60RuXhulCN8kvkzyGGwZDp4qI6puuNlYGhMXJxgMwIi65ZoV
- Ipid3m5tV8y7UcMi3UW6yvG3hiOupVSDMhUMBVUFoChOGgGdI9uqI3UIGWK+hoP9+0v4
- xV/DlXrcIz6q0oMpnMu0YVg45QjYYYDs351gyQpJB42JP6Wb81po/QMbSvHqt2ZCu2Wm
- gCTVjUDcee0yjJ8uIuXwBtgNKupAYSNSIsnJaiGilVD4nsmJJBbEnI4FqLAHRtaywyrT
- jc0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690480947; x=1691085747;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uciLMjWxRGQ4hsAralhUZgwU70hmgX933XcfCJy/huk=;
- b=AI9M8izn9LjWJoJg7iyzMuK97k3fl0oj5H5xR2DiNNTvBNflIBJzyJ0o+Bc1yPNVAK
- 3Dgv6AJFCijBm2lsaGdcac3+fMbAI7+wsqy2C61GEBwPWS7SavDvs/HVICRP5kurZ1pr
- 5Xb121EuqDG/qUotpgMUoqFBuZRpqUKhTCV1/2HKuTJ7XTQ9YU4Ljr/srV50iHeDY9St
- Lgf5xSkOAm3tDSly/ZNhV1n3zPfmUXy5HJWEe71IcE+5+ZVW9Lb7bXUfT990DV8HCq1r
- 2sHobUXybSjwLz7IScoj3VRmchaxwdqxsz9OmWPLZuAC1ZqfgUkSPJO7ke2TJEF4CdK0
- dzjQ==
-X-Gm-Message-State: ABy/qLbQi9iCAhf68/Rpg/eEc0bq9JZ2P7xkK2LQ1mtGGAB7HZgKKQFB
- 3lE24RQf3lHPzKJpnsgbE2wQ1/LIP5iHjLAOuu5CB9vZRe0=
-X-Google-Smtp-Source: APBJJlEnYE7fiQPBQ9nbg6byQxQjtXQ7b11gPwwomoF1WfAQRKctixYEgcjoUzy/tS+qL9j62PhFFXY5ZyMzk5Deq4A=
-X-Received: by 2002:a4a:e791:0:b0:569:aaaf:ed1c with SMTP id
- x17-20020a4ae791000000b00569aaafed1cmr2909163oov.2.1690480947240; Thu, 27 Jul
- 2023 11:02:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8113C10E5DF;
+	Thu, 27 Jul 2023 18:11:22 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2083.outbound.protection.outlook.com [40.107.223.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FACF10E5DF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 18:11:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UeNpQPpjfNzzQzO7SvlPknJ1+8W2vb6+M0o9y18wAFRekfTJykM1HPmP3jczByN0hwAw0db0dNjuxmxd9XE0eJJkjJLpRqfR+rPZeak99zF32L6Xao0E46qsC6hR1Om4ci0/XhBmVhp4aZY4JKu0Kl19fuxX4t96z+xHTFy3qxFwcaIrjFpj5y86mPjW7VHDn9DXfTj9SYFk2mBFmTswJlh04jSCzhjX1h/xPXJxbXqDQl/SqusInH9hUTqmYB8B6EYDPczsH31iOybRZ8kn76cDxMzuCyPqAH0FSz4z3ujARmwAYaJh6HP0wElHVbf4VTyk4Mb+q+5nZ8qZSXqQ5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cAweF72OjZxX59/K38XsD4/iDF35v7UgZkFGt62C9Y0=;
+ b=DYMVD4eR/fDfWeEPQ9j8cdJfrRYQMs31lecdiGHMiYm1HXyhxWB4jE8senMYmZBJLXs+i1LxxrC6w4cW22e1VAstpzKAHZ5B1CmixfpFDr36wtuPY+TRfcR1XHNIhsovtvxPPDun2nfeM3DdBxStakgj+SV/tI07aYcRfvHzGMcJYjK7Pz01BbahxVpK+vxGTaZcjF+CVnVOaPOL01MvdixWCsnubHnOg1Y106wYmQj5ZGiXO6vNEq0vFqN0ly4Ckk3xvzJ9AX04z8RmFGcvXykUHAb7PzkWayVCvzW9coxA5c6nIXocX/NJ+paKNV1caMBhR0UBayNlFfkvmqXHug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cAweF72OjZxX59/K38XsD4/iDF35v7UgZkFGt62C9Y0=;
+ b=wgv4a52ECku7/WecmIAvroYYiCKEJf7VJaGjKQ7jxQvvs/dR38o4ukDg6069oKeVUwdYE4M+9Sgbgg2emf3njmD0teFRR0oEbqNZAbEF2smo24uRr/7FvL4EAqp2yXIkEXUhK2zvqgIc9qwMGR2QEhhHfLsU+T+CouQk8HU6KPA=
+Received: from BN0PR04CA0087.namprd04.prod.outlook.com (2603:10b6:408:ea::32)
+ by CY5PR12MB6036.namprd12.prod.outlook.com (2603:10b6:930:2c::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Thu, 27 Jul
+ 2023 18:11:19 +0000
+Received: from BN8NAM11FT029.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ea:cafe::90) by BN0PR04CA0087.outlook.office365.com
+ (2603:10b6:408:ea::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29 via Frontend
+ Transport; Thu, 27 Jul 2023 18:11:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT029.mail.protection.outlook.com (10.13.177.68) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6631.29 via Frontend Transport; Thu, 27 Jul 2023 18:11:18 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 27 Jul
+ 2023 13:11:15 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3 0/4] Add GPU page fault query interface
+Date: Thu, 27 Jul 2023 14:10:44 -0400
+Message-ID: <20230727181048.1222388-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-References: <20230727172857.12780-1-mario.limonciello@amd.com>
-In-Reply-To: <20230727172857.12780-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 27 Jul 2023 14:02:16 -0400
-Message-ID: <CADnq5_OJ86xy3LOJo44tCWGWsGGAPc87epc3gSpkpbQefYKi5A@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd: Disable S/G for APUs when 64GB or more host
- memory
-To: Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT029:EE_|CY5PR12MB6036:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23e74d9e-c773-4c59-1ef1-08db8ecce001
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: GGrf1zLzgTeV18ndZpDeeUrMriA8f4G7H/b1ExDHR+n8aHl7+rUn4Fxrw/XKt1axByt+MzPFdJ6TcEqew7bJn+eUvJznr/No8Fqj9PFCxLqdtksMgQHmVZsm2xxxFx5ENtUI56qC+Sj3E+2PWxTcrBhoOELm56TruaniUQeOxsW8kIokPAgzEBVI0i+6gGYcza8VFEs6IX04WMf3r1DsQbinUG+67UDaH9mWCZsJdnJpSaCVGirsK45vfqSyRASnQRUk8Fpp3PtrR1rWCQCAUQTQZz/JzUMnYhfMSGonjmJT5JaigLr1MVf4m3MZhydB+aRjIJL3/B7KZgvFsFHWkp6XFXjmbxWNMOXfhmOj8+Ba33rLJSLZV4WWR/gBGCi1ZL4VXaxLMbBI691kyjDSVZ1khBYmp91z/bePWHnJBi+hSMGJXARonACtbU/I1IskCVDWIY4uy+o4wnONlwU1/Z2yiz3klcrQoA4XK2P8GvkptvpAKUMnafbirLlM9KF2OyfS1IMhDhYs2rINwi+Mr63AEQhdHhmNlobs+i9QpY/TRxhzoQYjM7UIetQuylUTNljk8/STV2sYoDMSFlULBlOSFk4YMwC9Spx1xZhlCEDBjkwMmaW2vvMc3YG+Fn5/nHJm+956P8TH7X83mjPpgva6yrm5R8bT6ap7pu7vRqU802ASjSH0ls3xv1GgXRIXFWBjzC7RRveHQgcROZjBGPJLVmuevOe0saBmiEA59cFMxmm9wWTyvkG6PkfZG0HFF0fn5TheYhT5td8l92Y7V9N1uj+ya5WDTrHHgA+qgiU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(376002)(136003)(346002)(39860400002)(451199021)(82310400008)(40470700004)(36840700001)(46966006)(966005)(40480700001)(7696005)(478600001)(6666004)(86362001)(2616005)(426003)(8676002)(16526019)(5660300002)(54906003)(8936002)(41300700001)(26005)(1076003)(186003)(2906002)(336012)(356005)(82740400003)(81166007)(36756003)(4326008)(6916009)(70586007)(47076005)(70206006)(316002)(40460700003)(36860700001)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2023 18:11:18.5230 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23e74d9e-c773-4c59-1ef1-08db8ecce001
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT029.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6036
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,123 +97,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: roman.li@amd.com, amd-gfx@lists.freedesktop.org, Hamza.Mahfooz@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, samuel.pitoiset@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 27, 2023 at 1:29=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> Users report a white flickering screen on multiple systems that
-> is tied to having 64GB or more memory.  When S/G is enabled pages
-> will get pinned to both VRAM carve out and system RAM leading to
-> this.
->
-> Until it can be fixed properly, disable S/G when 64GB of memory or
-> more is detected.  This will force pages to be pinned into VRAM.
-> This should fix white screen flickers but if VRAM pressure is
-> encountered may lead to black screens.  It's a trade-off for now.
->
-> Fixes: 81d0bcf990093 ("drm/amdgpu: make display pinning more flexible (v2=
-)")
-> Cc: Hamza Mahfooz <Hamza.Mahfooz@amd.com>
-> Cc: Roman Li <roman.li@amd.com>
-> Cc: <stable@vger.kernel.org> # 6.1.y: bf0207e172703 ("drm/amdgpu: add S/G=
- display parameter")
-> Cc: <stable@vger.kernel.org> # 6.4.y
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2735
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2354
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
-> v1->v2:
->  * Fix updating mode_info as well
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 25 +++++++++++++++++++
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 ++--
->  3 files changed, 28 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 93d0f4c7b560e..2e3c7c15cb8e3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1313,6 +1313,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device =
-*adev,
->  void amdgpu_device_pci_config_reset(struct amdgpu_device *adev);
->  int amdgpu_device_pci_reset(struct amdgpu_device *adev);
->  bool amdgpu_device_need_post(struct amdgpu_device *adev);
-> +bool amdgpu_sg_display_supported(struct amdgpu_device *adev);
->  bool amdgpu_device_pcie_dynamic_switching_supported(void);
->  bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev);
->  bool amdgpu_device_aspm_support_quirk(void);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index dc0e5227119b1..a4e36b178d86c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1296,6 +1296,31 @@ bool amdgpu_device_need_post(struct amdgpu_device =
-*adev)
->         return true;
->  }
->
-> +/*
-> + * On APUs with >=3D 64GB white flickering has been observed w/ SG enabl=
-ed.
-> + * Disable S/G on such systems until we have a proper fix.
-> + * https://gitlab.freedesktop.org/drm/amd/-/issues/2354
-> + * https://gitlab.freedesktop.org/drm/amd/-/issues/2735
-> + */
-> +bool amdgpu_sg_display_supported(struct amdgpu_device *adev)
-> +{
-> +       switch (amdgpu_sg_display) {
-> +       case -1:
-> +               break;
-> +       case 0:
-> +               return false;
-> +       case 1:
-> +               return true;
-> +       default:
-> +               return false;
-> +       }
-> +       if (totalram_pages() << (PAGE_SHIFT - 10) >=3D 64000000) {
+This patch set adds support for an application to query GPU
+page faults.  It's useful for debugging and there are
+vulkan extensions that could make use of this.  Preliminary
+user space code which uses this can be found here:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/23238
+https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/298
 
-Does totalram_pages() return the amount of physical ram or the amount
-of usable ram (i.e., minus carveout, firmware reservations, etc.)?
-Assuming it does the right thing here:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Note, that I made a small change to the vmhub definition to
+decouple it from how the kernel tracks vmhubs so that we have
+a consistent user view even if we decide to add more vmhubs
+like we recently did for gfx 9.4.3.
 
+I've also pushed the changed to:
+https://gitlab.freedesktop.org/agd5f/linux/-/commits/gpu_fault_info_ioctl
 
-> +               DRM_WARN("Disabling S/G due to >=3D64GB RAM\n");
-> +               return false;
-> +       }
-> +       return true;
-> +}
-> +
->  /*
->   * Intel hosts such as Raptor Lake and Sapphire Rapids don't support dyn=
-amic
->   * speed switching. Until we have confirmation from Intel that a specifi=
-c host
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 77d970a2ee693..26c3eb7a9f882 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1639,9 +1639,8 @@ static int amdgpu_dm_init(struct amdgpu_device *ade=
-v)
->                 }
->                 break;
->         }
-> -       if (init_data.flags.gpu_vm_support &&
-> -           (amdgpu_sg_display =3D=3D 0))
-> -               init_data.flags.gpu_vm_support =3D false;
-> +       if (init_data.flags.gpu_vm_support)
-> +               init_data.flags.gpu_vm_support =3D amdgpu_sg_display_supp=
-orted(adev);
->
->         if (init_data.flags.gpu_vm_support)
->                 adev->mode_info.gpu_vm_support =3D true;
-> --
-> 2.25.1
->
+Open question, currently we just expose the raw GPU fault status
+register value for each GPU so UMDs need GPU specific knowlege to decode
+it, although it's largely the same across generations.  One option would be to
+translate to a generic GPU independent fault status.  Opinions?
+
+v2:
+- Fix spelling typos noted by Guchun
+v3:
+- Add locking in IOCTL query
+- Only update cache if fault status is valid
+
+Alex Deucher (4):
+  drm/amdgpu: add cached GPU fault structure to vm struct
+  drm/amdgpu: cache gpuvm fault information for gmc7+
+  drm/amdgpu: add new INFO ioctl query for the last GPU page fault
+  drm/amdgpu: refine fault cache updates
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 20 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 50 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  | 31 +++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  3 ++
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  |  3 ++
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   |  3 ++
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   |  3 ++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 11 ++++--
+ include/uapi/drm/amdgpu_drm.h           | 16 ++++++++
+ 10 files changed, 135 insertions(+), 8 deletions(-)
+
+-- 
+2.41.0
+
