@@ -4,107 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07594C0015E
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jul 2023 08:24:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA0EC001E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jul 2023 08:59:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2168E10E566;
-	Thu, 27 Jul 2023 08:24:45 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2058.outbound.protection.outlook.com [40.107.94.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA2410E1D7
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 08:24:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFA4E10E1CA;
+	Thu, 27 Jul 2023 08:59:40 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20614.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8d::614])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24B5610E1CA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 08:59:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lDuILmREqde4Aaq+gtavV42FDMIAtjQN/NuxYY1jL/1Eelsw+IedfrXj0JtyOjYNU+jYSZLHz7yqPPRjgByNSAmxlkht6uAP14wjojyC7CoTTGS/4BBE1+K8+GhjChJjioTPp+B5hlCD2Kq6O+ktJ4aceEu+1psR4ZbluuZPSm5KowLeFCDpIK9c4hyk4J5Arwm3iz1cW9Zj0Az34NziGycXElmJtzNvApDIerNSlaEKmYpIAU9v/zg6EqBNKalkqxH1EsRHVRJhghlG25ECjOGpCyHmjQ2r6/HkSz3SqT7vCIVHV2cz2Wf3AnjEER6QwuZC34ltoSsgMXA/LHlfog==
+ b=MLVj5mRdRvfoo+5cjZkBO99tCoC3kVFgVAdoRuP/RVEJMKJTUy6WfEVZmANYWOtediLTTJlRzQzE7S6bi4SajxmiDrQvlfNABN09LgUChY+QVsp806fOIXCko94xyFv0uX5lmN3Xp11HDu4fu60yOhohZMKwAezSL75rL+xhXMNOPOrBzSVy9kHbWzE0Q/uLE0fgcDh7ZY+Pcc/Pt88FcvXpUDdV3x0YS7udIJzFXQmhdsxDZfjMJqqJS/9ZxcvCSHxvW45agN8SqjDbSuHbT6jZn7rZpsK23oN20wsMQTZN68DXhWhjsxfcChP43XDPrRCvQ3v94tnF2gS0AiJryA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xaxcGmxZbYftPHpzC14aEZiSpttHfEqJLPNXwTuYFGQ=;
- b=h3IT3jWhVvvAN+PAdXpQO/zGS//AWT+cpYAnbyfq4vjrLTjRQiayoJ65obKzRvoiO1cUukkgQZfDdNimV+x4ajWW9iFRwVY6PATC3+48AewJUSbOOkLoNgzzmNY1L2l/fltz4/leT26qVGY0j6vXa6CKX0sfmcNsdkhPZ5VpxmzdUD5IjBxEsWZKAYYksHVt28KyjRGXb6p8vO2CSOm7rLC+olz5yPCRNYaLnTAZHlHVEYLg6Z+2XkNkZM7NlwDTZiAfkVLj/QzUfCcokIEJahBiKAfrntbEnwA9mCsEk3AsJ9HV7n6JFQmaGUlPhYIu+ERjnoh2YFTu9aGqzpMk5w==
+ bh=/A6seUuvKel/9AnSRs2NrwaimgjBKmGuyYRB7RyhGs0=;
+ b=DlRodtMhD1KhKJAT9n+rgAypYkyRtF19AKBGM+7g2ohCbMiEN+nnG8PCpe7kAqdcKXebuqJR2DtaJNQ/cmyLg8cXUYVVEW35NxRfO0jHPl2r9M7bOTIqci4l/8ju2k30qPuCM3kipG46VvcaUh1ZLLQq9T0EH8DwYSee1LLSZ+1ThUa6VRld9Z3xZg6HvFtKKYTgs7n0TotxUiCR31MX9E19Z0PzVHe5JxD/+/2MUX2dkzpiTNLCfih/jK8J8GBvjBrR2SOsY7IPU+GHQx2IJJF4lLb5eAa/z9xYquFjCnusIUzsPaTNyg6JAeRWerUqipjai6r6q7CugL0hnKi0Fw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xaxcGmxZbYftPHpzC14aEZiSpttHfEqJLPNXwTuYFGQ=;
- b=yMsvVsk1+c83o+nr4f6SWk0Vkjvhl/wH2HzOt6XMai135hE4A8otgfd3iP+5p7DPFu1FN0JlerwkZQt/n3fuKi4qjpEyjPGP84tJ7k/nO24F/GPTa6X7CC65dxD+g06LAD5Wwi6FPPVdArCgfcoiXuwEgBgwqEIMGv156XE6abA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
- BL1PR12MB5239.namprd12.prod.outlook.com (2603:10b6:208:315::24) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=/A6seUuvKel/9AnSRs2NrwaimgjBKmGuyYRB7RyhGs0=;
+ b=YRcXb0zPNgmOvowSKLVfm42bkMbtkTYQV72fD0t/1bh58iHehvIb/eg6Z1H0xJdmDFVMuEaV+1jhqgNL3RpcJq+w4F7TMD3pZTprx8uu5yh0e1K3xK4OyVITgEFKhprJjmcnM4TccCSV74aXx4yrZ8C80km6A2FVQV/KYUE+NdI=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by BL1PR12MB5223.namprd12.prod.outlook.com (2603:10b6:208:315::21)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Thu, 27 Jul
- 2023 08:24:40 +0000
-Received: from DM6PR12MB4250.namprd12.prod.outlook.com
- ([fe80::279:f29f:4831:9482]) by DM6PR12MB4250.namprd12.prod.outlook.com
- ([fe80::279:f29f:4831:9482%4]) with mapi id 15.20.6631.026; Thu, 27 Jul 2023
- 08:24:39 +0000
-Date: Thu, 27 Jul 2023 16:24:28 +0800
-From: Lang Yu <Lang.Yu@amd.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: use amdgpu_bo_create_kernel_at() to
- create large TMR for APU
-Message-ID: <ZMIpvO4RynD1J1VW@lang-desktop>
-References: <20230727075620.728235-1-Lang.Yu@amd.com>
- <20230727075620.728235-2-Lang.Yu@amd.com>
- <f786e262-4d64-2274-c740-8a69cc7b8ea7@amd.com>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f786e262-4d64-2274-c740-8a69cc7b8ea7@amd.com>
-X-ClientProxiedBy: SG2PR03CA0118.apcprd03.prod.outlook.com
- (2603:1096:4:91::22) To DM6PR12MB4250.namprd12.prod.outlook.com
- (2603:10b6:5:21a::9)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4250:EE_|BL1PR12MB5239:EE_
-X-MS-Office365-Filtering-Correlation-Id: b782608b-109f-400d-dd0f-08db8e7aebe7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1h9L+EKVZ+P6+HSKbBvgvp9f2vHCuQxg85LMEZHxqjs40m/fX4nCsc5laqqzy77H9pHuIlk2NmVfm2PAwGSf7g5hSyaapYo6s8DAJqzOIf+CQ5zdU7IORQtGjU9n25iC6U6aN2H5ytVyNotVyEuj2toHeBIj/GA23EnJLM+eETcRKPFw/egCbuC/5twNTbW7+EB+hF/Bxp90V10I1o2OomZJL9jnmSFlXzFvu8VixPZt8xq9khI8R6WbvYwNJ5VwTNPOHkhNSHdUeFLtqqfh9HY0/1+KQiN8vi6nIKSaWyfkH1r77cyu602310pj095HyjK6aoWfaA3+Cp4s6RBWjTy/CB9AO48xfoMHOA+RMQaw95snZjllUX0TLaC8IsRRO04qBXQ/xCh1pmbQmLALulCnMHEMAkqloTjhwAqfkyN3SKoP1GMS8p0hu+nzKx9nOhCq72CAnza5HBPy4YbIpcKN+tHX9izgOLginTFGGjs387buKLCZ2Xk+eJesO5MMF3oN024A2/RvTBMr9/TMHpLZxVOEIuEz+/sV/hVJwHFT0cHJV7Syh6auXe1eDSqS
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(7916004)(366004)(136003)(346002)(39860400002)(376002)(396003)(451199021)(83380400001)(54906003)(478600001)(66574015)(8676002)(8936002)(6862004)(5660300002)(41300700001)(2906002)(6506007)(316002)(66946007)(38100700002)(86362001)(33716001)(66556008)(66476007)(4326008)(6636002)(26005)(186003)(6666004)(6486002)(6512007)(9686003);
+ 2023 08:59:35 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::4d17:c920:ea2e:3b2d]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::4d17:c920:ea2e:3b2d%4]) with mapi id 15.20.6631.026; Thu, 27 Jul 2023
+ 08:59:35 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Yu, Lang" <Lang.Yu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: correct vmhub index in GMC v10/11
+Thread-Topic: [PATCH] drm/amdgpu: correct vmhub index in GMC v10/11
+Thread-Index: AQHZwDbQr4YSKLUSyUSyB27QrWNOy6/NUM1A
+Date: Thu, 27 Jul 2023 08:59:35 +0000
+Message-ID: <BN9PR12MB5257490A5040F5BA97EF4173FC01A@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20230727030222.698498-1-Lang.Yu@amd.com>
+In-Reply-To: <20230727030222.698498-1-Lang.Yu@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=d022e9a1-705b-4d0d-b045-26126d4de288;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-27T08:59:13Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|BL1PR12MB5223:EE_
+x-ms-office365-filtering-correlation-id: 904e4ac3-b574-46ee-26f6-08db8e7fccf0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: gZZupMvcx9/JxNashOmWiojlw75MO7ogkq5W7GROW0QpkUE3JZND2P1zAWw5AYjVXYe/rZl9Ud37t5kXlyiqxAwUP/2OezZc32jaw4+bJW9FscgywvseuePYLAamsVhuKDo9DvBWqk8UQbbSZSTu6smYUx7L3q5KHf0qV5CradtcY2/VD2lVUFRCfYszo5YgsJh0Qu6qPFSs+zef3J47FG3tO2QnhHOEMgQznV6/SO1erfeT57W6LYOLxpYKzD+Zg7EPRQubOz03myI+UvaozH12l2dGJRDajZemxBeU/j4TgMdsSErCPTjs3rbhH/nQ+2b8//gpdbgpUcG4roGTNVl2Kdy5IPJi6leItNzxXVQg99uvEHIYAkrsYkvdqMf3VA31h5D1hojKK1Rydo+rVZPTyzGoP4PGGf2S+7BhzApLCB0XhHDyryzMcw0E7hoeX6SIQC6Ab8RQW6YR1oJysJDheon++EQUgvGyQiPcmm7yZaMvpLnM2t2yi9qUQR8Frnat0uGEPL0A+hSuUIlMXLmrB2qprjJFQtVJiGrvIt60IiA9UOhRc2N+46mwPxMdUuOaIiQKqCLN+tAzgh6GrSJl99lNPnaAGqhIwvXHeQxaG7t0UHvN2S9aAIp6FhDR
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(396003)(366004)(136003)(346002)(376002)(451199021)(8676002)(8936002)(52536014)(5660300002)(316002)(53546011)(33656002)(26005)(6506007)(186003)(86362001)(4326008)(64756008)(110136005)(38070700005)(66556008)(66446008)(66476007)(71200400001)(7696005)(66946007)(76116006)(9686003)(122000001)(41300700001)(83380400001)(478600001)(2906002)(55016003)(38100700002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?PM4hdYcGu2gUcdU9nUoZ+CANy6oYo53dgn8oUcBtGMQMf6blnBpq0/bvWN?=
- =?iso-8859-1?Q?QAoM8tFtv4EG43fTfJCwA0ygb217Uk4i5eudhb1b6JlwtNzds+MdPt03rR?=
- =?iso-8859-1?Q?7/+9w9k7mo9o3XQX7qA1kd+rPPbOfdAietk8bgojpzeYqKABgMwQxpmNxd?=
- =?iso-8859-1?Q?1gSNr8WgOC6+93neNEtOeiBZRy5q14vV9wzxHVSnwySTt24I5et+4I3q8Y?=
- =?iso-8859-1?Q?ryqrLBAweecqk6cM5k0FTkW0BQpjwoNizgN4EMvsgMQghvrvuVYnzzatIy?=
- =?iso-8859-1?Q?veHgpWhjMLAy0K1lNZIK7HOh9xObvNflqwtCentM020g61lP09+15Nj+1V?=
- =?iso-8859-1?Q?4TApQDOHmRh+hTC2Ux/vGKwYxXhdIKMDXac/Fh9VRUKsF7M2mmPFMHMtxz?=
- =?iso-8859-1?Q?bK13IhbAxxcj69PVRMJs+VaJzXyMyvKMtMU+jFr23zR3S0+4UAuFE813b6?=
- =?iso-8859-1?Q?t7q87z0GfwHdgvk6IhRjB9szV5r/m9sOEgo1nAxf57HGn7o3lW2yFHBleu?=
- =?iso-8859-1?Q?DhqjD7Qm3uNPLynhpmr8r2TN6ZW2TVnOOqEmL3s2+3AhKJF/FvlAw32rVp?=
- =?iso-8859-1?Q?p1iaZFL1dATv4F13hFBEHYSkYenZPKOyjQrTU1N+2TkDg0MlEFcvZrLPCb?=
- =?iso-8859-1?Q?HUzuMmsDPZHUtJZUjLZE4XJuwQMvs+7pu/u8BpSBn224ADJVxdgUFL4Vr/?=
- =?iso-8859-1?Q?py5XVzLXob69NhqdmWb7vSdfSffK1mzw/h60FC1Hdm9gArN57qQUtuv1UV?=
- =?iso-8859-1?Q?zuRm/Xp6S8Tf2aIrHvHaOaghXMrUCcpFybfnv9ua1o5oEaYSZQtN/QjO1p?=
- =?iso-8859-1?Q?UJ0UxDa1v73HbYPK26tJMCmaeS/JjMsCjldgHFDHsU1Wwu2ra2ytQE+7AI?=
- =?iso-8859-1?Q?GbcTCkXQN6Lj9aetsO5Ns4sGg3mGP4MCkxKKgc9Z6hi2HXN0mXMPWMCFZh?=
- =?iso-8859-1?Q?wlgPNkZT/FVmbp9qHv96hpkIAi3bPXKLxlfGq40hwevNmRhO6GZGNtc07I?=
- =?iso-8859-1?Q?fGEtn8F6Q0YRNr3g8b6rCRXcXaGygrkG3p6RgSOaznxTQ+Ql1apOe/JvQZ?=
- =?iso-8859-1?Q?5Nx73n9St/2dcPS6K2nD9MhWL8T2gfcMLYEd2/kEZz7X+7j1/iBdy8JMka?=
- =?iso-8859-1?Q?FHJ+hLsmcOdX+BPS9jHDC68Mg47uOFDh+S/KgIauGvblKxlomAnD9wE7MC?=
- =?iso-8859-1?Q?KPU0QDGb98LTUw0fhTnIk/cUGaIiqBFsm2EoXi7o/CBxJwuXVD9Gn4E8Q9?=
- =?iso-8859-1?Q?vChcCTsIPHhSSunAzSch+rcOsY2puk8A47x/V24lYXLt2iViJgmUng4LMp?=
- =?iso-8859-1?Q?uN1rcQU7dNug8e2zelB4TLOggvrO95wjzQ9ryWuInTHg8npLwrExq8f3Nu?=
- =?iso-8859-1?Q?bR4rJs+fSJi+fQ0aRrrxD25rHegYmQy0xFE4XUemIOx0rvzH7xk09/v55O?=
- =?iso-8859-1?Q?siJlXf5njV6JucbZG/R+lUxf73En8YPo8O0xYgZin+EW1JXQgPbu0r73lB?=
- =?iso-8859-1?Q?tp3To0uUdAgOkr1Ky8LVGPyFTkUC3TPoxjk2t1zbWjbKlfG5AlUehuT3D4?=
- =?iso-8859-1?Q?64zYdEis11Olt6iLy4JiRK0yys9RUw7woNZvK9RR6PiTNxPYnjug6lefDV?=
- =?iso-8859-1?Q?yU0/OGdIQu1OrI0FVTTJopdfFc9NwntBNI?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fT0DAog26xc4qrtSZ7cM3qIegs9YkOQ6QL7NOPGQR07B3QJnCXyZGSnhrDUu?=
+ =?us-ascii?Q?c1PRexq6gfUZ8vbC3xgIHse2EhMEtagxEWLydcdEw47Wp29LWzyN/9VMSiL7?=
+ =?us-ascii?Q?LdeYf9PQhYNjfgIiM+/GLfjAjf+ZeeQKRZUMu49U4Yzgt+wNW7u8jLILqbP2?=
+ =?us-ascii?Q?3IvU+KnOC2OZa2FDpkqk9SAfbf3kXG0s6rhBsDohrNBWwvkIT8zp04hCoYeT?=
+ =?us-ascii?Q?iMOKBDBQns4te6VC51xTcpxL58gFud2ONaSoJRUMIaDE08wVVQShqqvxw1u8?=
+ =?us-ascii?Q?Stgex3I8D6VrNtrfX6PrNwET8hhxtTfAJ0MPLE/PgsUNrkbiZzZDz3wqRsIQ?=
+ =?us-ascii?Q?6UFHF1+z9YB6rT5cp6hsp63CGZ8sH7AH5cQ3pg8TQLADHZOwGu58f2TmRKLV?=
+ =?us-ascii?Q?awClcSCuhSbmeC39cxLJuOcTUfChf6kyt8rd4OUgAMwQkUCtmy1jhVT0tUCC?=
+ =?us-ascii?Q?HdkcmjeOq/hx0LI1mFDv8xAjn6RTFgvyzX3P4NPiglnqG+QK2uwKTVW9e0Sp?=
+ =?us-ascii?Q?d4iFNCkY4DoS8tcjltZFB72pPM4xrYD5odyAAWrwW1XLnmtkpt9+7d9SRbgQ?=
+ =?us-ascii?Q?NcG4AVEmXdk2q90iE+e0lm/abyBosI24lgwW1ypaJsONfP4dVDTWZ9pUdrY9?=
+ =?us-ascii?Q?YKrChag0wpN3Gwg68lVTd23Eui2IUEm90p21CfNsqdW3O/bsJpZun5xCueOq?=
+ =?us-ascii?Q?Ie19mdjkbILfkP4N/Onrun4FtH7MpyqF0+uXgXM+VEV9ZS3a5bhH1wv0nwZ0?=
+ =?us-ascii?Q?khTzYWmTPFGw/Qq4LFiSOBJyzt3gOEoxhAHCeJO0fxmdVlOqa/x34DBzyr7P?=
+ =?us-ascii?Q?rHO313qpZclH+LCG32G9XY/yTfvHmHvi6ZMvtuAN3OMxvfBaMoZM1BJWDlnJ?=
+ =?us-ascii?Q?KWg9fV/VsywcCdVUB1spPBcTrJ0YFyfCyl0eKqB4+C+Pm0Sndfg+K7jgSZ2g?=
+ =?us-ascii?Q?MYneK0jetICQ41UaKYNlrBtTm/hYSpfylELCKIWUb06Lqlo+M7kwj3KsY/wT?=
+ =?us-ascii?Q?pY6Q22rj5/5zGf1XI1YK8oSMtl5VGt4R3p+BUeeX6cN+RhDnswyXy/+yetYn?=
+ =?us-ascii?Q?aBYi/Tso/XXrIRlChO+QSw2Lru2hAx2HhEw1p8dy5IaAwFxUZjqSWGi8fG6p?=
+ =?us-ascii?Q?oXqexztycFOh+mEvt2H8lvCubdg5cWddsVLN02eFSlDsEaYsmkPWuDqTWj7Y?=
+ =?us-ascii?Q?S/GsL0bgeVryd+547aqgKi2LztzBsIpIZLMx2cqZyoX1v3j6+q7+waS2LIBm?=
+ =?us-ascii?Q?rtp0HGXods4iKfbr77yNRDDR7epjCRxjRGm2MmJDv0F04Q6p1ioiFnZLSBnb?=
+ =?us-ascii?Q?tg9Mulxr4nLizwqL5NTOm4dF8et43v6nv7s9McsJdmDlwiRlgeUEPGMqHMvd?=
+ =?us-ascii?Q?lAZQUaL8+DYsAj6UyMCQY+sTK5sGoFHOjyg+lWmhJL2Zg/bbdkG7sBvVfzmc?=
+ =?us-ascii?Q?NWUwI1CiTvEf5ghIYL/PWukD1nIOLq6rV+5wNl3LevMzPngiTe5/yTt9fBFk?=
+ =?us-ascii?Q?QcV4SETCQuX7vWca+xg0Ysj2Mld+hCfSaQyP+MIkOpp+wRym/PO6feWVtZuQ?=
+ =?us-ascii?Q?0tt8dpuB1POXTzU7sCC9o9RIb/Yub7s7g9Qb1Srt?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b782608b-109f-400d-dd0f-08db8e7aebe7
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2023 08:24:39.9197 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U8actmIF+h4OFIyUtmgaRYEBKXw29XJ7eOhpVxti7bYHHLj715Fb7Jzl9VnZDrwp25KXGMzKHYKuWG/09uNJ+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5239
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 904e4ac3-b574-46ee-26f6-08db8e7fccf0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jul 2023 08:59:35.3255 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PuBN6tC4t+ffIelHNm6PRKmA5nJVFRZ0ssQn0W8YO0s8RLa0MwADjFe/E225heafqJGxc2N7gOrbJIEktfY5+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5223
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,99 +123,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: "Chai, Thomas" <YiPeng.Chai@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 07/27/ , Christian König wrote:
-> Am 27.07.23 um 09:56 schrieb Lang Yu:
-> > TMR requires physical contiguous memory, amdgpu_bo_create_kernel()
-> > can't satisfy large(>128MB) physical contiguous memory allocation
-> > request with default 512MB VRAM on APU.
-> > 
-> > When requested TMR size > 128MB, use amdgpu_bo_create_kernel_at()
-> > to create the TMR BO at offset 64MB.
-> 
-> Well complete NAK, you have misunderstood what amdgpu_bo_create_kernel_at()
-> is doing.
+[AMD Official Use Only - General]
 
-  OK. Either taking over or creating memory area, amdgpu_bo_create series
-  functions should satisfy the client's memory request.
-  Anyway, amdgpu_bo_create_kernel_at() just works.
-  
-  Regards,
-  Lang
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-> Regards,
-> Christian.
-> 
-> > 
-> > Signed-off-by: Lang Yu <Lang.Yu@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 42 ++++++++++++++++---------
-> >   1 file changed, 28 insertions(+), 14 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > index 15217e33b51d..2eac82113d34 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > @@ -783,13 +783,38 @@ static bool psp_boottime_tmr(struct psp_context *psp)
-> >   	}
-> >   }
-> > +static inline int psp_create_tmr_bo(struct psp_context *psp, int tmr_size)
-> > +{
-> > +	void *tmr_buf;
-> > +	void **pptr;
-> > +	int ret;
-> > +
-> > +	if (psp->tmr_bo)
-> > +		return 0;
-> > +
-> > +	pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
-> > +
-> > +	if (psp->adev->flags & AMD_IS_APU && tmr_size > 0x8000000)
-> > +		ret = amdgpu_bo_create_kernel_at(psp->adev, 0x4000000, tmr_size,
-> > +						 &psp->tmr_bo, &psp->tmr_mc_addr,
-> > +						 pptr);
-> > +	else
-> > +		ret = amdgpu_bo_create_kernel(psp->adev, tmr_size,
-> > +					      PSP_TMR_ALIGNMENT,
-> > +					      AMDGPU_HAS_VRAM(psp->adev) ?
-> > +					      AMDGPU_GEM_DOMAIN_VRAM :
-> > +					      AMDGPU_GEM_DOMAIN_GTT,
-> > +					      &psp->tmr_bo, &psp->tmr_mc_addr,
-> > +					      pptr);
-> > +
-> > +	return ret;
-> > +}
-> > +
-> >   /* Set up Trusted Memory Region */
-> >   static int psp_tmr_init(struct psp_context *psp)
-> >   {
-> >   	int ret = 0;
-> >   	int tmr_size;
-> > -	void *tmr_buf;
-> > -	void **pptr;
-> >   	/*
-> >   	 * According to HW engineer, they prefer the TMR address be "naturally
-> > @@ -813,18 +838,7 @@ static int psp_tmr_init(struct psp_context *psp)
-> >   		}
-> >   	}
-> > -	if (!psp->tmr_bo) {
-> > -		pptr = amdgpu_sriov_vf(psp->adev) ? &tmr_buf : NULL;
-> > -		ret = amdgpu_bo_create_kernel(psp->adev, tmr_size,
-> > -					      PSP_TMR_ALIGNMENT,
-> > -					      AMDGPU_HAS_VRAM(psp->adev) ?
-> > -					      AMDGPU_GEM_DOMAIN_VRAM :
-> > -					      AMDGPU_GEM_DOMAIN_GTT,
-> > -					      &psp->tmr_bo, &psp->tmr_mc_addr,
-> > -					      pptr);
-> > -	}
-> > -
-> > -	return ret;
-> > +	return psp_create_tmr_bo(psp, tmr_size);
-> >   }
-> >   static bool psp_skip_tmr(struct psp_context *psp)
-> 
+Regards,
+Hawking
+-----Original Message-----
+From: Yu, Lang <Lang.Yu@amd.com>
+Sent: Thursday, July 27, 2023 11:02
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.c=
+om>; Yu, Lang <Lang.Yu@amd.com>
+Subject: [PATCH] drm/amdgpu: correct vmhub index in GMC v10/11
+
+Align with new vmhub definition.
+
+v2: use client_id =3D=3D VMC to decide vmhub(Hawking)
+
+Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 4 +++-  drivers/gpu/drm/amd/amdgp=
+u/gmc_v11_0.c | 4 +++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gmc_v10_0.c
+index 6b430e10d38e..fa87a85e1017 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -102,9 +102,11 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_d=
+evice *adev,
+                                       struct amdgpu_irq_src *source,
+                                       struct amdgpu_iv_entry *entry)  {
++       uint32_t vmhub_index =3D entry->client_id =3D=3D SOC15_IH_CLIENTID_=
+VMC ?
++                              AMDGPU_MMHUB0(0) : AMDGPU_GFXHUB(0);
++       struct amdgpu_vmhub *hub =3D &adev->vmhub[vmhub_index];
+        bool retry_fault =3D !!(entry->src_data[1] & 0x80);
+        bool write_fault =3D !!(entry->src_data[1] & 0x20);
+-       struct amdgpu_vmhub *hub =3D &adev->vmhub[entry->vmid_src];
+        struct amdgpu_task_info task_info;
+        uint32_t status =3D 0;
+        u64 addr;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gmc_v11_0.c
+index 604522f70d03..593f110921fe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -99,7 +99,9 @@ static int gmc_v11_0_process_interrupt(struct amdgpu_devi=
+ce *adev,
+                                       struct amdgpu_irq_src *source,
+                                       struct amdgpu_iv_entry *entry)  {
+-       struct amdgpu_vmhub *hub =3D &adev->vmhub[entry->vmid_src];
++       uint32_t vmhub_index =3D entry->client_id =3D=3D SOC21_IH_CLIENTID_=
+VMC ?
++                              AMDGPU_MMHUB0(0) : AMDGPU_GFXHUB(0);
++       struct amdgpu_vmhub *hub =3D &adev->vmhub[vmhub_index];
+        uint32_t status =3D 0;
+        u64 addr;
+
+--
+2.25.1
+
