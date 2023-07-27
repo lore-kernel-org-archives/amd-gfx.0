@@ -4,61 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7719DC0015E
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jul 2023 13:04:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B47FC0015E
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jul 2023 13:05:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEA4610E57E;
-	Thu, 27 Jul 2023 13:04:12 +0000 (UTC)
-Received: from mail-vk1-xa30.google.com (mail-vk1-xa30.google.com
- [IPv6:2607:f8b0:4864:20::a30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 999F810E565
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 10:08:15 +0000 (UTC)
-Received: by mail-vk1-xa30.google.com with SMTP id
- 71dfb90a1353d-486486724e7so277169e0c.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 03:08:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85C4588FBD;
+	Thu, 27 Jul 2023 13:05:20 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0746788FBD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 13:05:18 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id
+ 5614622812f47-3a5ad4477a7so781050b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 06:05:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690452494; x=1691057294;
+ d=gmail.com; s=20221208; t=1690463117; x=1691067917;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Zcl6BwQRr5tucmG2DEZSo0kunSZ6siQNkNbMkfRPkVY=;
- b=JycG6n7pB2Sc4gu9itmnznIyAZyAdQIB07CNiP83m7hNl6udqjYylENv/mySowU910
- qRCdjGSpnRdz9zybYyllYUvG7uLY71hoFmSRW9B/7FdDM8eqlgvZpfYW87kkgcjqQchu
- ku3eAGzrBFUf8PfFTXxW4SCxeHStHNX23nhKp1c+Kmhoyy/V2AZF3GxE6uayejTpxdSh
- sd0HHoDo2cxHqGsA9aClc4E8DVw5NUOGmWR/6Dn8DVkUUjNlYLi1hJthWYqyWv54pIEU
- 9q/pJxdiX5l1Lfabf6iXseMzPGBap3Uzt800tmGpGB39uWz8kV0wHn9NedIznGjVpTgI
- +RoA==
+ bh=302L3tKva5fyhYvE5RjrUWClyuxctQWR+BgkZ4eHlRQ=;
+ b=d6bN8v81tTe0bE9HguR8dlAVrnkw1QWErEfQBONHRkIhRVRKviTrw4c9/C79ABoOf7
+ ZnU4BcM6wHrAxI1mRL/N/pZwAj7nVQtAFeSzC6l9gX3damXKGp4M9J58Vmby6/aJROuf
+ ykIZqw8sS53lXpiOKj8QrYriGeOgVnqbFkWQi625RCEERBijXxcupvnEzFhH1MGvd5bO
+ TdpwXnUpgSYJQpCiTyBT/W0xfjEeR8VT5/LsW1hakFECARFQblOj/apv7l+NlpxOUVQs
+ YBxrc34fq8l3SWKhK4zz7mfxxNQqZ/eFJd7zFbiXb4F1vMnv+B10nkR3x4X2b7XUOjnD
+ HRKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690452494; x=1691057294;
+ d=1e100.net; s=20221208; t=1690463117; x=1691067917;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Zcl6BwQRr5tucmG2DEZSo0kunSZ6siQNkNbMkfRPkVY=;
- b=dejuef/WZvCvF7nD0jWhITzVOlmxLoXIRcWuOwiILIc7At3c/qcocktBcrpH+fArLW
- nTwR65MGY8vYNovJ1wqHhGPwiuI/YV78dIK/w6mv/ggfJOh2HfMdMV2E3ep0NXoGylxD
- Z64jeUk694x66LjtFy58Wdj8ELL5+SyxrffMkb2L6+8xQsgQFPws+BeYJ56wtQguC86m
- 6pSG888yYoKeqDQF/uFz0kAG11bRHpfaEanMzdWjkfBrUlRBygMu4p/SShjQ+w23HsuX
- PTNahwk8QP1eTstCfuuDaxEGo+loDHjbBIaHh7Q8GCcL3fr/Oo1SeUd+4E+GXSwxq1RL
- +Vxg==
-X-Gm-Message-State: ABy/qLb0VIc1uwGe3WBpfqCQY9IjAcwUBEhzjdSnHEK8yxTqoPC/RLx5
- j04djYN70xKCELpnog/k7ANQJITxLdgr/6G3WGquSw==
-X-Google-Smtp-Source: APBJJlHfFpoELAVK4ktLR6yeOkc2l8FGvVMK1919cwae7SwaJre72xp+rCBY5EOc7fMCZvRi0x4FP5bwzauhHaoJROw=
-X-Received: by 2002:a1f:6058:0:b0:486:3e81:9b8a with SMTP id
- u85-20020a1f6058000000b004863e819b8amr243950vkb.13.1690452494531; Thu, 27 Jul
- 2023 03:08:14 -0700 (PDT)
+ bh=302L3tKva5fyhYvE5RjrUWClyuxctQWR+BgkZ4eHlRQ=;
+ b=Xsw7FF+hy9ArTiRtE1JOEIAya+GGTssTuH+VpgXt9rZzi/ijb9Vbm4BFe/Q4qg7IL9
+ SDPMc64FN96Q2N0jfmJyPMlVubuiJ9GLQjTyxdNzy2ErUGmaNY8HaIFg+Piz82SlS9Mw
+ Fp6EEYyZiBZSXc4MIf4mmHbbKUNyi/DNEbVcsVN2P5IHnv7a4T8JEn3gHaO7PYbrFyj9
+ i/Hnb7cVDZ43cgArGTphaFWo7gRQZ/BRHExaBfmWVYGhpSKKHm6ZSzaZklGeWY0B6oAC
+ MnR79ySfiikLsnZcL0XhpvDIxUWibcfRG1uS9GetJfW5BcUeZfZUWJJwuf9ZcS2C6BQt
+ edyQ==
+X-Gm-Message-State: ABy/qLZe/Ye+xgDhUa1wvi0peYTKuAJS5xFsQdfBVeP6uDA+dlI6ea3f
+ O/m/hZ5NfmbmB4+vougAsrsiW3JZKcZ/J0Zc0Cg=
+X-Google-Smtp-Source: APBJJlEWXiXXiyOTbmmU/iv8OHoF1PTqgLDNrq8dWM+AeV+hYjdf5z8duFz+bYPWEtRnjUsoV0mJ9A1CqKRBHW94I9E=
+X-Received: by 2002:a05:6808:48:b0:3a1:c75d:b6ab with SMTP id
+ v8-20020a056808004800b003a1c75db6abmr2757623oic.40.1690463117096; Thu, 27 Jul
+ 2023 06:05:17 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230711133122.3710-1-christian.koenig@amd.com>
- <20230711133122.3710-2-christian.koenig@amd.com>
- <20230722220637.GA138486@dev-arch.thelio-3990X>
-In-Reply-To: <20230722220637.GA138486@dev-arch.thelio-3990X>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Thu, 27 Jul 2023 15:38:03 +0530
-Message-ID: <CA+G9fYuEah=Kp9DzQf1xmG6XQCUY8f869C87MnDSQocGORV1JA@mail.gmail.com>
-Subject: Re: [PATCH 1/6] drm: execution context for GEM buffers v7
-To: Nathan Chancellor <nathan@kernel.org>
+References: <20230727094922.1958587-1-Prike.Liang@amd.com>
+In-Reply-To: <20230727094922.1958587-1-Prike.Liang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 27 Jul 2023 09:05:05 -0400
+Message-ID: <CADnq5_MEP-85KPMyVQ2e+fZ8a3g5KS4W0tnJoox5P-RYQ7Kg3Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: enable SDMA MGCG for SDMA 5.2.x
+To: Prike Liang <Prike.Liang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 27 Jul 2023 13:04:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,131 +67,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexdeucher@gmail.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, shikaguo@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 23 Jul 2023 at 03:36, Nathan Chancellor <nathan@kernel.org> wrote:
+On Thu, Jul 27, 2023 at 5:49=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
+rote:
 >
-> Hi Christian,
+> Now the SDMA firmware support SDMA MGCG properly,
+> so let's enable it from the driver side.
 >
-> On Tue, Jul 11, 2023 at 03:31:17PM +0200, Christian K=C3=B6nig wrote:
-> > This adds the infrastructure for an execution context for GEM buffers
-> > which is similar to the existing TTMs execbuf util and intended to repl=
-ace
-> > it in the long term.
-> >
-> > The basic functionality is that we abstracts the necessary loop to lock
-> > many different GEM buffers with automated deadlock and duplicate handli=
-ng.
-> >
-> > v2: drop xarray and use dynamic resized array instead, the locking
-> >     overhead is unnecessary and measurable.
-> > v3: drop duplicate tracking, radeon is really the only one needing that=
-.
-> > v4: fixes issues pointed out by Danilo, some typos in comments and a
-> >     helper for lock arrays of GEM objects.
-> > v5: some suggestions by Boris Brezillon, especially just use one retry
-> >     macro, drop loop in prepare_array, use flags instead of bool
-> > v6: minor changes suggested by Thomas, Boris and Danilo
-> > v7: minor typos pointed out by checkpatch.pl fixed
-> >
-> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > Reviewed-by: Danilo Krummrich <dakr@redhat.com>
-> > Tested-by: Danilo Krummrich <dakr@redhat.com>
->
-> <snip>
->
-> > diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> > new file mode 100644
-> > index 000000000000..73205afec162
-> > --- /dev/null
-> > +++ b/include/drm/drm_exec.h
->
-> <snip>
->
-> > + * Since labels can't be defined local to the loops body we use a jump=
- pointer
-> > + * to make sure that the retry is only used from within the loops body=
-.
-> > + */
-> > +#define drm_exec_until_all_locked(exec)                              \
-> > +     for (void *__drm_exec_retry_ptr; ({                     \
-> > +             __label__ __drm_exec_retry;                     \
-> > +__drm_exec_retry:                                            \
-> > +             __drm_exec_retry_ptr =3D &&__drm_exec_retry;      \
-> > +             (void)__drm_exec_retry_ptr;                     \
-> > +             drm_exec_cleanup(exec);                         \
-> > +     });)
-> > +
-> > +/**
-> > + * drm_exec_retry_on_contention - restart the loop to grap all locks
-> > + * @exec: drm_exec object
-> > + *
-> > + * Control flow helper to continue when a contention was detected and =
-we need to
-> > + * clean up and re-start the loop to prepare all GEM objects.
-> > + */
-> > +#define drm_exec_retry_on_contention(exec)                   \
-> > +     do {                                                    \
-> > +             if (unlikely(drm_exec_is_contended(exec)))      \
-> > +                     goto *__drm_exec_retry_ptr;             \
-> > +     } while (0)
->
-> This construct of using a label as a value and goto to jump into a GNU
-> C statement expression is explicitly documented in GCC's manual [1] as
-> undefined behavior:
->
-> "Jumping into a statement expression with a computed goto (see Labels as
-> Values [2]) has undefined behavior. "
->
-> A recent change in clang [3] to prohibit this altogether points this out,=
- so
-> builds using clang-17 and newer will break with this change applied:
->
->   drivers/gpu/drm/tests/drm_exec_test.c:41:3: error: cannot jump from thi=
-s indirect goto statement to one of its possible targets
->      41 |                 drm_exec_retry_on_contention(&exec);
->         |                 ^
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 
-LKFT also noticed these build failures on arm and arm64 with clang nightly.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-
->   include/drm/drm_exec.h:96:4: note: expanded from macro 'drm_exec_retry_=
-on_contention'
->      96 |                         goto *__drm_exec_retry_ptr;            =
- \
->         |                         ^
->   drivers/gpu/drm/tests/drm_exec_test.c:39:2: note: possible target of in=
-direct goto statement
->      39 |         drm_exec_until_all_locked(&exec) {
->         |         ^
->   include/drm/drm_exec.h:79:33: note: expanded from macro 'drm_exec_until=
-_all_locked'
->      79 |                 __label__ __drm_exec_retry;                    =
- \
->         |                                                                =
- ^
->   drivers/gpu/drm/tests/drm_exec_test.c:39:2: note: jump enters a stateme=
-nt expression
+> ---
+>  drivers/gpu/drm/amd/amdgpu/nv.c        |  6 ++++--
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 27 +++++++++++++++++++++++++-
+>  2 files changed, 30 insertions(+), 3 deletions(-)
 >
-> It seems like if this construct works, it is by chance, although I am
-> not sure if there is another solution.
-
-Thanks for looking into this problem.
-
-
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu=
+/nv.c
+> index 877989278290..e768ea34a2da 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> @@ -902,7 +902,8 @@ static int nv_common_early_init(void *handle)
+>                         AMD_CG_SUPPORT_ATHUB_LS |
+>                         AMD_CG_SUPPORT_IH_CG |
+>                         AMD_CG_SUPPORT_VCN_MGCG |
+> -                       AMD_CG_SUPPORT_JPEG_MGCG;
+> +                       AMD_CG_SUPPORT_JPEG_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG;
+>                 adev->pg_flags =3D AMD_PG_SUPPORT_GFX_PG |
+>                         AMD_PG_SUPPORT_VCN |
+>                         AMD_PG_SUPPORT_VCN_DPG |
+> @@ -963,7 +964,8 @@ static int nv_common_early_init(void *handle)
+>                         AMD_CG_SUPPORT_ATHUB_LS |
+>                         AMD_CG_SUPPORT_IH_CG |
+>                         AMD_CG_SUPPORT_VCN_MGCG |
+> -                       AMD_CG_SUPPORT_JPEG_MGCG;
+> +                       AMD_CG_SUPPORT_JPEG_MGCG |
+> +                       AMD_CG_SUPPORT_SDMA_MGCG;
+>                 adev->pg_flags =3D AMD_PG_SUPPORT_VCN |
+>                         AMD_PG_SUPPORT_VCN_DPG |
+>                         AMD_PG_SUPPORT_JPEG |
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd=
+/amdgpu/sdma_v5_2.c
+> index 809eca54fc61..9779e146d37e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+> @@ -1571,6 +1571,30 @@ static int sdma_v5_2_process_illegal_inst_irq(stru=
+ct amdgpu_device *adev,
+>         return 0;
+>  }
 >
-> [1]: https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html
-> [2]: https://gcc.gnu.org/onlinedocs/gcc/Labels-as-Values.html
-> [3]: https://github.com/llvm/llvm-project/commit/20219106060208f0c2f5d096=
-eb3aed7b712f5067
+> +static bool sdma_v5_2_firmware_mgcg_support(struct amdgpu_device *adev,
+> +                                                    int i)
+> +{
+> +       switch (adev->ip_versions[SDMA0_HWIP][0]) {
+> +       case IP_VERSION(5, 2, 1):
+> +               if (adev->sdma.instance[i].fw_version < 70)
+> +                       return false;
+> +               break;
+> +       case IP_VERSION(5, 2, 3):
+> +               if (adev->sdma.instance[i].fw_version < 47)
+> +                       return false;
+> +               break;
+> +       case IP_VERSION(5, 2, 7):
+> +               if (adev->sdma.instance[i].fw_version < 9)
+> +                       return false;
+> +               break;
+> +       default:
+> +               return true;
+> +       }
+> +
+> +       return true;
+> +
+> +}
+> +
+>  static void sdma_v5_2_update_medium_grain_clock_gating(struct amdgpu_dev=
+ice *adev,
+>                                                        bool enable)
+>  {
+> @@ -1579,7 +1603,7 @@ static void sdma_v5_2_update_medium_grain_clock_gat=
+ing(struct amdgpu_device *ade
 >
-> Cheers,
-> Nathan
-
-- Naresh
+>         for (i =3D 0; i < adev->sdma.num_instances; i++) {
+>
+> -               if (adev->sdma.instance[i].fw_version < 70 && adev->ip_ve=
+rsions[SDMA0_HWIP][0] =3D=3D IP_VERSION(5, 2, 1))
+> +               if (!sdma_v5_2_firmware_mgcg_support(adev, i))
+>                         adev->cg_flags &=3D ~AMD_CG_SUPPORT_SDMA_MGCG;
+>
+>                 if (enable && (adev->cg_flags & AMD_CG_SUPPORT_SDMA_MGCG)=
+) {
+> @@ -1653,6 +1677,7 @@ static int sdma_v5_2_set_clockgating_state(void *ha=
+ndle,
+>         case IP_VERSION(5, 2, 5):
+>         case IP_VERSION(5, 2, 6):
+>         case IP_VERSION(5, 2, 3):
+> +       case IP_VERSION(5, 2, 7):
+>                 sdma_v5_2_update_medium_grain_clock_gating(adev,
+>                                 state =3D=3D AMD_CG_STATE_GATE);
+>                 sdma_v5_2_update_medium_grain_light_sleep(adev,
+> --
+> 2.34.1
+>
