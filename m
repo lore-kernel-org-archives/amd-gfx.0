@@ -4,115 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97817C0015E
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jul 2023 22:01:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01A0EEB64DD
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Jul 2023 23:43:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD9210E61C;
-	Thu, 27 Jul 2023 22:01:37 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2076.outbound.protection.outlook.com [40.107.237.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65CFC10E618
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 22:01:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B693110E632;
+	Thu, 27 Jul 2023 23:43:28 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C28AD10E632
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Jul 2023 23:43:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hQAu0ghnj/ff3ow3TwFBTSqbLDp+mc/54D1eqMKMfBjUTOpmNOo+kRzzCMGSe+HJFtiFkinG3t+blKPUECKYR5xuetFHVACxL1alVIyf9EvFZ/YuyU0E0pyUWfkqQWb2LnaPLhHVDCcBbKkgQZBd9hWX10klzgnUCd19YG+jynkAteeGmlr+LoU/v1+jorhC/kfoyrLukAu0n0dGPP6d9N3wetyLDBN+Jm4cPEp9vwC0e7IgdwdHae6vx+lgHDbuBNTKyn1ShZXs1oOus61KKsckpcXwCK0Mv30V024wd4E+nN8OM7VvtFPmreKVjANsk38ew1MHYBJQheeJ+1ipEw==
+ b=JSFZNu2wyI1wc8D8U8fYZ9MTUcqLhazsFfsF8PIScLxlRd0cTO94jaQouxQMrWsaqPxqClT+uXoUlRn6OeSB6+8wuckRLrj9C+CNuaUatTlEYl4pbAo8xbDcxTHt9xAHPtWG8AyqzvOf/H0nUEw8J/Wa7ZKTMk/ZbkD7wKXJiYQ0cgjLcM0R5iPxt9j6Vbqcf8IsmjnZhSyA2e55vTu/PwHPqa8nohUxcHkamEfRXZyPKjCIF5fEY0XMgngHD9NclXG7tadIM8tAI+fa92RNH3Vkx/CowyhYH8cyeNqKOwMkwaO4KBKWEOgRwy4a8+kBLxsjSBtzKPIOjXUvTNpjEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7NDuWTUJZKgjO3XfoIJqRXmk+BpoiEYTRiKAzbT6qpk=;
- b=QsDEEUhq6J5f+qJlTfT1TqQ9GgJj2iMFfjyCXlNii4Tnfz1qt9QA7IbTsg8L7I6sXbYMsDcCYvKyQZmRh9svWRo2QQm0UgHFTzhTHCejj7YpOe6WLFQNDk/6k+4FpfX2shsLG+mzAbmWoLCDaPMKaNLFJU/An4egIpS6BFYjaNq0n9EZkyXK4B4DxLFecC6S31uIKDLdsxg8mXkjdYHt2INfWhzpziNLZq8uk/3niV9vHOvG5pyLlx+QMFXcsrt0zw6AB5qBqDQ4pz+Bgi08C609py2keixXc0nRqRxiB5CbmKTxvK2Kl3NIItZPeRjh7WOg8ci8FwKRsdxOpgcDhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=jfAvrzEwgKaswgIK+sAz27XeUWkTNt2Jqneyo31194o=;
+ b=O7VLgxWSPOPLS8NVLdTdCwE+WmWLJCZwGsfvxP5jn0I1deWCnbL3jR59CXgIShdxrHZTVntQe9yHSS8zV+Ae1mzTuPFO7zk61OpiLSDBDSs2EYrON6xg1WLzxmMMcwt8KcGyK7kCyThxVMwkUhAZLxYIz3uw/FfxiRD3wKO1OA/46euzSwQPL0GlImnPMvnNEjvskesNb069HN+qKt+lXr0PamJefbosYx+H1toEMldODqvS/TTBOmgYIS2vu1gJdV0ySfk5nOEQT4ygBL4yHXr5eGnre6Vbg8nGLGzbT49MG6p+G4yt1AXLNyLCDvYNNR2HYZ9Mq0PZutJxnoGiOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7NDuWTUJZKgjO3XfoIJqRXmk+BpoiEYTRiKAzbT6qpk=;
- b=UU/XRV1s9xStdeFi2VkYp+zKEDmsqmFElt/bT5u7YKxo9Gw475GzFLrmuzYpLjeHxSfaHGp2ndkiD4W0mabPCXAxKeEZdAW02w8ChLN9rT+sycSOCzm2CEKiKbRi5YF7U6QsRShvNP6hd3/AwSyQQLF4/yXFPvbtoq3DVndkoBk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CY5PR12MB6479.namprd12.prod.outlook.com (2603:10b6:930:34::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Thu, 27 Jul
- 2023 22:01:32 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb%4]) with mapi id 15.20.6631.026; Thu, 27 Jul 2023
- 22:01:31 +0000
-Message-ID: <185f2f14-5ac2-21b8-0a75-5eb3b9746a12@amd.com>
-Date: Thu, 27 Jul 2023 18:01:30 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v3] drm/amdgpu: Add EXT_COHERENCE memory allocation flags
-Content-Language: en-US
-To: David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org,
- "Yat Sin, David" <David.YatSin@amd.com>
-References: <20230726133402.2516737-1-David.Francis@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20230726133402.2516737-1-David.Francis@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0055.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:111::18) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ bh=jfAvrzEwgKaswgIK+sAz27XeUWkTNt2Jqneyo31194o=;
+ b=eI2M9awKKHShKzsRNF7N88eiH5kKD8BQhhtyGXwu/Pm9QsVF3NefCzB6FyVokQgCPLyQJACHbgOpk/KoSQBF8woKRRdqbsIZtHJeHGdeA0hClAieSeCQ5iNyAPPa7IIEeAVIT2S1BwW4ThlDqRQ879Aty8BNmVg8yjHduJWvwhA=
+Received: from CY5PR22CA0012.namprd22.prod.outlook.com (2603:10b6:930:16::32)
+ by DM6PR12MB4861.namprd12.prod.outlook.com (2603:10b6:5:1bd::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Thu, 27 Jul
+ 2023 23:43:22 +0000
+Received: from CY4PEPF0000EE38.namprd03.prod.outlook.com
+ (2603:10b6:930:16:cafe::ee) by CY5PR22CA0012.outlook.office365.com
+ (2603:10b6:930:16::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29 via Frontend
+ Transport; Thu, 27 Jul 2023 23:43:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE38.mail.protection.outlook.com (10.167.242.12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6631.22 via Frontend Transport; Thu, 27 Jul 2023 23:43:22 +0000
+Received: from alex-MS-7B09.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 27 Jul
+ 2023 18:43:18 -0500
+From: Alex Sierra <alex.sierra@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>
+Subject: [PATCH] drm/amdkfd: avoid unmap dma address when svm_ranges are split
+Date: Thu, 27 Jul 2023 18:43:06 -0500
+Message-ID: <20230727234306.15862-1-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CY5PR12MB6479:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2130a880-a11a-4ce3-6d13-08db8eed093b
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE38:EE_|DM6PR12MB4861:EE_
+X-MS-Office365-Filtering-Correlation-Id: 491261d5-d203-458e-9b61-08db8efb437f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BQdwLPNR9QJO2BuvtYnHa6/EfzP4pbwJNZp1evud1X/qiMbhDYWR4TJBBiFEDrtDP+G0UznBUgRZ7VelVHK9CxFNbD3Rlze+KzLNbcKyFvGsTc81YrizZm8BWMG9fCbnOeyHdiOg1bC7MEIOBY1rXBUIasvHM59146Hn6rRJEPDMyFAWgI47iDk+N67Zut9t9CpAnhuvHSBYbUNKArHymZfyBbrMkHjo1NIbJyu8TjDPdp1KXKoVsExKjo58ytxQ4CRANCu81Mi4Fz6qFQT5REF4KyojXjzbfzNtpY33IxNZZe0y+uhLq9fRTlAJTPu55CfxGWh6uxZiMA2n1fzQtAkemTD6ksYIKQsTLNylvlSYk93OnnId0UP1loghAaYjucEzm4GzP81kPMAEQS4cO6Jp2PetcxCb4aed6EGosogJ1IwFNk7vg0TQKfda+yiHrMeDAYfNDGpcwTKpfWEBtsRtaawu6VAYGjrxJCqoM470+2rw4rTQg9hcbsqksT8Fz1fZIlkBOu1UxghOTiWq3gYQIotlhfBYieODpQGIIx3BGK1LA9WNnSIjsxldpVhjci7iVwAvYPSIOanrlwj0E2+O3nqoDGKYk9J7+daIAeJ3K7gE4pFLXokARA1dyfshqitjjFWmkKCOBYHnkbNhiA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(39860400002)(346002)(376002)(366004)(396003)(451199021)(31696002)(36756003)(86362001)(31686004)(38100700002)(478600001)(110136005)(2906002)(41300700001)(2616005)(6506007)(26005)(186003)(8676002)(966005)(6486002)(8936002)(6512007)(5660300002)(66556008)(316002)(66476007)(6636002)(66946007)(83380400001)(44832011)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: s93Y2cHKEqlvpLhZwruLks9te8VdGd+fKxuqUZ4tXPiiTo7YQVB3wqpoxd/5qIOwzWLDpKy9UcgNbizp0E/wVOiEZU7ZHpWRF59MFYsjGFlUPuioWW8bBzFK9PF7t0gPb7aYu7SKR7MBEYB7tlpaJ4vkHuLIbrwcMw6HbfEAlXyGtOl7TrI24jnYqoY7g+X9HG5QIhVkQNFh4pZDBkC7ksniqA4WPV8TP5+KRiQaTRV4jyCH2LrIMVUFCQ6uKh/jNoNmAt+3XA/+mG6fwmInH+sdw4W8ertQ/IT7GOQaOgSZD2Lk9yR4NbGYNvQR6ibx08mQ5cnBu7NhUprs6P5Zo1YvYjp1Rq4Z12P4DUZRbiUkD5qcO0OSmAFlExtLQHmgtu7zUStO+0LQGhw/UqXSO4dahGurgizsgqaLXAtUjCbSEbkI86FybR6WgM9d6FKGIX4rBftloTHh7F1DWEPKaxtkWclsEgu2Ls5vGptQFQss5yJx7A4dD9gbtpQ0RfmCmBhGX6IUtBumd0NMZkMPBsGTaq9pzzyF3YpyYZcDX/wqkQa/1p0QR+vmjfoXzIcrljHU+3pQBqR8sLrWhLAgO+XkDercZOP7aHZ1GAQPCKYNLPKvK1Oe1voa+6CT6inSlRanEazZxar89DNfWn/iVLrtI1x+8r+AZkYgIqJVyxwqKzJ/RL4+BsOYSAVGX5MK+r5C2TEnGJI8lW6qu/9xbgPIhZYnNrJ/9nLws7V1L7mQeNQeqtMM6EQZL6Vy3mPI1ZI8Gkkh4Q8jDKajDj0iUA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(136003)(376002)(396003)(346002)(82310400008)(451199021)(46966006)(40470700004)(36840700001)(2906002)(316002)(8936002)(8676002)(40460700003)(5660300002)(44832011)(41300700001)(36756003)(86362001)(40480700001)(7696005)(6666004)(426003)(81166007)(54906003)(82740400003)(478600001)(356005)(26005)(1076003)(186003)(16526019)(336012)(110136005)(2616005)(83380400001)(70206006)(70586007)(36860700001)(47076005)(4326008)(6636002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2VnSC9tRyszZHVxZ3lsamU1TTFLOHVpRlkycG52QkMyU2huOHc1OEhlcjQ5?=
- =?utf-8?B?V0poZFhaWXFTQWNJQUxSTkRTajJVdXYzV0ZkNTdNa2NadVlwTFF5K2k4V2dz?=
- =?utf-8?B?UFd4ZE4wVldmTGV5bXd3ZmtWN1FweVNHSVJ5RnQxcTJCNVpQdG5PdkNVakd1?=
- =?utf-8?B?akp6c0prbXJiOG53TDEvRi85MWVUYm1tdlZwMjUzY1FQKzVscEtENW1HQTV5?=
- =?utf-8?B?dGFJSjEzTVdBRDYxWHNpYU9VS25UTlAvSVFvMW01NkU4dlZHbkZoVWh1dmN5?=
- =?utf-8?B?TW8vMmxhS0dVWEtESnBxbXRpcjA4T2ZZK2J0VEU1R0ZKOHdqQzJJaTVtM3BS?=
- =?utf-8?B?dnMvb0NxZHZUblBmM05YU2lzYWNOWjZOS0xXUTVJdmgzSU93TXlUQkFYbEVN?=
- =?utf-8?B?cnF1dFk4cjhDcXVPdklaUElMT3hXRlV1c0EyS2lOVXMwSTFLc1RjaEg4UmZS?=
- =?utf-8?B?TjZnZUI2RnBLNWJqMkZRNEdMSG9FTDNUUUw2OWx6dXorNHpVVXZjK3RoZGpI?=
- =?utf-8?B?ZmhrY0lac3JYY2ZWb085VWx6T3NaK3FFL1FNdks3N3EvbHdDdlZ4NGlqYUZn?=
- =?utf-8?B?UWtmYU03eGhsUlR2ODd5cTYyMHRTNWNwdmN4MUR6ZXhVU2RpV09ITjJKV29T?=
- =?utf-8?B?RlY4SEJuUUN0K1ROM1FRcXM2VFhZRldsb3Q2djBqVEk0czhyRW9DbzVoalBn?=
- =?utf-8?B?QmgxbUs0Zk9mNDFkcWJINklVcGs3MHR5TFZ4dlIybS9GYU9EY2pESnFwQ1Vj?=
- =?utf-8?B?SjFkY3JSbFVjd1BpVStPYjdkcFUvbEVJSTlzcU5ERXRSSmhISXZvYkJublRm?=
- =?utf-8?B?WFUxeGVoTnVpbW1aYmZvODhERTlLTGUybXk5NnY4bnpmRjAzZU92dzhlaElX?=
- =?utf-8?B?V090VCtJcVVQWVBNZHRJOGZpOHE1QUJFcm1WVXN2UW1LNVROT1Q5UVFweWV5?=
- =?utf-8?B?aVEra3FlTlJhNE93bkdocWVnSUlrMU55djhKV2lCYTI0VXdLVFdHL01reE5n?=
- =?utf-8?B?YnFOWDRWVmFNYjlLVnB0Z2kwSk5LNzZqcWVXTk5XZUFucnRuczFRQ2UyQ0Ez?=
- =?utf-8?B?djk1UEMvVkJJdHl4OU9kaGpyaUFXNkI4MmpXZkh1K0tLTExhL2FQOFdYaGRq?=
- =?utf-8?B?SnQ5Wko2UExkdFN3N3FhM0Vld0IxNUt3Sm1XaG03cmFQeHNOb1ptcjMrTHpq?=
- =?utf-8?B?Q05KUWFJU3FjZWV0ZlF2MnBqUzkzWUNxUWRMbG5CaXBxTW9TSG92bUlJV3pX?=
- =?utf-8?B?QWxiandGSndyZGxLdmI2ZUJ2a0xKZGVkVDRlVkluY3dFOGRnc3h6SlhXcVNP?=
- =?utf-8?B?QVdGaTd1Z3diTDkrcmlkcU1yZmRpMU9sMzMzNnlPT2dsaCtaK3dlcVd3Smg2?=
- =?utf-8?B?bW8zd21uK0tjZWRHSmxjRXF0RXkyYnBQa0owaHFVRDEyWHJISFlHNUpweXdF?=
- =?utf-8?B?WmtjYWNJMWRhOHdmbHpQSkJ0TjNCck1MVFA4eWJocGhWcjZ3d1pvWFVrbnpS?=
- =?utf-8?B?Yk9iVlNwa1J1M2dvWHRPdVIzbEZQRCtqRWRPZlFsTDVnUE0zZTliNjUzTkp2?=
- =?utf-8?B?SzVlcDZ0enFHN0REaWsxTDlLdnhZOWhUeVJnTTBlWFI0MDk1dmxaTWl5b0NO?=
- =?utf-8?B?NXVzT2lQQWMyZllCUWg0TGhwNnpqVFlHRytUY1FkOTBXcnhwK0h4U001bm1q?=
- =?utf-8?B?c2pQNmdaeDJ3Wmx4RWQzMmtxOUIyZmxlZ3ovdDZIQ3NkbXhZSzJVTUhxMENs?=
- =?utf-8?B?TnV1TUx4SFNXeFJjdzBZVHZIdENyME1Oa3IvZ3kwejB6OGx1eGJ6NnJVbGhS?=
- =?utf-8?B?R1kvVzFZNTltOGRTSC95QlB5RHE5Z1Q0TS90YnhKUmtGNW1veXNZdDJvM1Ey?=
- =?utf-8?B?T3EvSXVRNjIvYUNQMldvdEx2d2dFQXpTREFDU1FMMkZaTHNYWERzSnd6QnEz?=
- =?utf-8?B?NjdIZ2x1L3VxMlI5Q1NISXZQYndzdEdqVllVdFZLNHVRTUNrL0xGaFNDdStY?=
- =?utf-8?B?UXp3T1FVeEl3eERjaktUUXc4ZEg3b0pjcnBKS0FFU0FBK3ZPZEplRVMvUTR0?=
- =?utf-8?B?LytTVnI2d2JBcXdaYlhoYkxNUHNwNUxLQ3phWXRHMUlUMTIyV0RRK2d0T3VQ?=
- =?utf-8?Q?YcBB8nWti3AETz3OaVfBmM86S?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2130a880-a11a-4ce3-6d13-08db8eed093b
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2023 22:01:31.8870 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2023 23:43:22.2335 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 491261d5-d203-458e-9b61-08db8efb437f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uFCeNXs1QkcUgGYo7iYf6vfz2qJo44P7Nrh8tRGdB8iPmJ79xC5WGnG0OwMSKgVPNg8ImkfLUg35mLLGbSHfag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6479
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE38.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4861
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,186 +97,172 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: xiaogang.chen@amd.com, Philip.Yang@amd.com,
+ Alex Sierra <alex.sierra@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In amdgpu_dma_buf_create_obj we copy the coherence-related flags to the 
-SG BO that's used to attach the BO to the importer device. You need to 
-add the new flag to the list.
+DMA address reference within svm_ranges should be unmapped only after
+the memory has been released from the system. In case of range
+splitting, the DMA address information should be copied to the
+corresponding range after this has split. But leaving dma mapping
+intact.
 
-Some more nit-picks inline.
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 67 ++++++++++++++++++------
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |  2 +-
+ 3 files changed, 52 insertions(+), 19 deletions(-)
 
-Am 2023-07-26 um 09:34 schrieb David Francis:
-> These flags (for GEM and SVM allocations) allocate
-> memory that allows for system-scope atomic semantics.
->
-> On GFX943 these flags cause caches to be avoided on
-> non-local memory.
->
-> On all other ASICs they are identical in functionality to the
-> equivalent COHERENT flags.
->
-> Corresponding Thunk patch is at
-> https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/pull/88
->
-> Signed-off-by: David Francis <David.Francis@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  2 ++
->   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c           |  1 +
->   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c           |  1 +
->   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c            |  5 ++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c             | 10 +++++++++-
->   include/uapi/drm/amdgpu_drm.h                    |  7 +++++++
->   include/uapi/linux/kfd_ioctl.h                   |  3 +++
->   7 files changed, 27 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index d34c3ef8f3ed..7f23bc0ee592 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1738,6 +1738,8 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
->   
->   	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_COHERENT)
->   		alloc_flags |= AMDGPU_GEM_CREATE_COHERENT;
-> +	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_EXT_COHERENCE)
-> +		alloc_flags |= AMDGPU_GEM_CREATE_EXT_COHERENCE;
->   	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED)
->   		alloc_flags |= AMDGPU_GEM_CREATE_UNCACHED;
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> index 6b430e10d38e..8e951688668b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-> @@ -632,6 +632,7 @@ static void gmc_v10_0_get_vm_pte(struct amdgpu_device *adev,
->   	}
->   
->   	if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
-> +			       AMDGPU_GEM_CREATE_EXT_COHERENCE |
->   			       AMDGPU_GEM_CREATE_UNCACHED))
->   		*flags = (*flags & ~AMDGPU_PTE_MTYPE_NV10_MASK) |
->   			 AMDGPU_PTE_MTYPE_NV10(MTYPE_UC);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> index a6ee0220db56..ff330c7c0232 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -540,6 +540,7 @@ static void gmc_v11_0_get_vm_pte(struct amdgpu_device *adev,
->   	}
->   
->   	if (bo && bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
-> +			       AMDGPU_GEM_CREATE_EXT_COHERENCE |
->   			       AMDGPU_GEM_CREATE_UNCACHED))
->   		*flags = (*flags & ~AMDGPU_PTE_MTYPE_NV10_MASK) |
->   			 AMDGPU_PTE_MTYPE_NV10(MTYPE_UC);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index 880460cd3239..e40fcfc1a3f3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1183,7 +1183,8 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
->   {
->   	struct amdgpu_device *bo_adev = amdgpu_ttm_adev(bo->tbo.bdev);
->   	bool is_vram = bo->tbo.resource->mem_type == TTM_PL_VRAM;
-> -	bool coherent = bo->flags & AMDGPU_GEM_CREATE_COHERENT;
-> +	bool coherent = bo->flags & (AMDGPU_GEM_CREATE_COHERENT | AMDGPU_GEM_CREATE_EXT_COHERENCE);
-> +	bool ext_coherence = bo->flags & AMDGPU_GEM_CREATE_EXT_COHERENCE;
->   	bool uncached = bo->flags & AMDGPU_GEM_CREATE_UNCACHED;
->   	struct amdgpu_vm *vm = mapping->bo_va->base.vm;
->   	unsigned int mtype_local, mtype;
-> @@ -1251,6 +1252,8 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
->   		snoop = true;
->   		if (uncached) {
->   			mtype = MTYPE_UC;
-> +		} else if (ext_coherence) {
-> +			mtype = is_local ? MTYPE_CC : MTYPE_UC;
->   		} else if (adev->flags & AMD_IS_APU) {
->   			mtype = is_local ? mtype_local : MTYPE_NC;
->   		} else {
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 1b50eae051a4..28304b93a990 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -1155,7 +1155,8 @@ svm_range_get_pte_flags(struct kfd_node *node,
->   	uint32_t mapping_flags = 0;
->   	uint64_t pte_flags;
->   	bool snoop = (domain != SVM_RANGE_VRAM_DOMAIN);
-> -	bool coherent = flags & KFD_IOCTL_SVM_FLAG_COHERENT;
-> +	bool coherent = flags & (KFD_IOCTL_SVM_FLAG_COHERENT | KFD_IOCTL_SVM_FLAG_EXT_COHERENCE);
-> +	bool ext_coherence = flags & KFD_IOCTL_SVM_FLAG_EXT_COHERENCE;
->   	bool uncached = false; /*flags & KFD_IOCTL_SVM_FLAG_UNCACHED;*/
->   	unsigned int mtype_local;
->   
-> @@ -1203,6 +1204,13 @@ svm_range_get_pte_flags(struct kfd_node *node,
->   		snoop = true;
->   		if (uncached) {
->   			mapping_flags |= AMDGPU_VM_MTYPE_UC;
-> +		} else if (ext_coherence) {
-> +			/* local HBM region close to partition */
-> +			if (bo_node->adev == node->adev &&
-> +			    (!bo_node->xcp || !node->xcp || bo_node->xcp->mem_id == node->xcp->mem_id))
-> +				mapping_flags |= AMDGPU_VM_MTYPE_CC;
-> +			else
-> +				mapping_flags |= AMDGPU_VM_MTYPE_UC;
->   		} else if (domain == SVM_RANGE_VRAM_DOMAIN) {
->   			/* local HBM region close to partition */
->   			if (bo_node->adev == node->adev &&
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index 79b14828d542..d67102dc214a 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -158,6 +158,13 @@ extern "C" {
->    * may override the MTYPE selected in AMDGPU_VA_OP_MAP.
->    */
->   #define AMDGPU_GEM_CREATE_UNCACHED		(1 << 14)
-> +/* Flag that BO should be coherent across devices when using device-level
-> + * atomics. May depend on GPU instructions to flush caches explicitly.
-> + *
-> + * This influences the choice of MTYPE in the PTEs on GFXv9 and later GPUs and
-> + * may override the MTYPE selected in AMDGPU_VA_OP_MAP.
-> + */
-> +#define AMDGPU_GEM_CREATE_EXT_COHERENCE		(1 << 15)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 709ac885ca6d..2586ac070190 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -461,7 +461,7 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
+ 				    0, node->id, trigger);
+ 
+ 	svm_range_dma_unmap(adev->dev, scratch, 0, npages);
+-	svm_range_free_dma_mappings(prange);
++	svm_range_free_dma_mappings(prange, true);
+ 
+ out_free:
+ 	kvfree(buf);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 1b50eae051a4..d1ff1c7e96d0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -241,7 +241,7 @@ void svm_range_dma_unmap(struct device *dev, dma_addr_t *dma_addr,
+ 	}
+ }
+ 
+-void svm_range_free_dma_mappings(struct svm_range *prange)
++void svm_range_free_dma_mappings(struct svm_range *prange, bool unmap_dma)
+ {
+ 	struct kfd_process_device *pdd;
+ 	dma_addr_t *dma_addr;
+@@ -262,7 +262,8 @@ void svm_range_free_dma_mappings(struct svm_range *prange)
+ 			continue;
+ 		}
+ 		dev = &pdd->dev->adev->pdev->dev;
+-		svm_range_dma_unmap(dev, dma_addr, 0, prange->npages);
++		if (unmap_dma)
++			svm_range_dma_unmap(dev, dma_addr, 0, prange->npages);
+ 		kvfree(dma_addr);
+ 		prange->dma_addr[gpuidx] = NULL;
+ 	}
+@@ -277,7 +278,7 @@ static void svm_range_free(struct svm_range *prange, bool update_mem_usage)
+ 		 prange->start, prange->last);
+ 
+ 	svm_range_vram_node_free(prange);
+-	svm_range_free_dma_mappings(prange);
++	svm_range_free_dma_mappings(prange, update_mem_usage);
+ 
+ 	if (update_mem_usage && !p->xnack_enabled) {
+ 		pr_debug("unreserve prange 0x%p size: 0x%llx\n", prange, size);
+@@ -851,12 +852,46 @@ static void svm_range_debug_dump(struct svm_range_list *svms)
+ 	}
+ }
+ 
++static int
++svm_range_copy_array(void *ppdst, void *ppsrc, size_t size,
++		     uint64_t num_elements, uint64_t offset)
++{
++	unsigned char *dst, *psrc;
++
++	psrc = *(unsigned char **)ppsrc;
++	dst = kvmalloc_array(num_elements, size, GFP_KERNEL);
++	if (!dst)
++		return -ENOMEM;
++	memcpy(dst, psrc + offset, num_elements * size);
++	*(void **)ppdst = dst;
++
++	return 0;
++}
++
++static int
++svm_range_copy_dma_addrs(struct svm_range *dst, struct svm_range *src)
++{
++	int i, r;
++
++	for (i = 0; i < MAX_GPU_INSTANCE; i++) {
++		if (!src->dma_addr[i])
++			continue;
++		r = svm_range_copy_array(&dst->dma_addr[i], &src->dma_addr[i],
++					 sizeof(*src->dma_addr[i]), src->npages, 0);
++		if (r)
++			return r;
++	}
++
++	return 0;
++}
++
+ static int
+ svm_range_split_array(void *ppnew, void *ppold, size_t size,
+ 		      uint64_t old_start, uint64_t old_n,
+ 		      uint64_t new_start, uint64_t new_n)
+ {
+ 	unsigned char *new, *old, *pold;
++	int r;
+ 	uint64_t d;
+ 
+ 	if (!ppold)
+@@ -865,22 +900,16 @@ svm_range_split_array(void *ppnew, void *ppold, size_t size,
+ 	if (!pold)
+ 		return 0;
+ 
+-	new = kvmalloc_array(new_n, size, GFP_KERNEL);
+-	if (!new)
+-		return -ENOMEM;
+-
+ 	d = (new_start - old_start) * size;
+-	memcpy(new, pold + d, new_n * size);
+-
+-	old = kvmalloc_array(old_n, size, GFP_KERNEL);
+-	if (!old) {
++	r = svm_range_copy_array(&new, ppold, size, new_n, d);
++	if (r)
++		return r;
++	d = (new_start == old_start) ? new_n * size : 0;
++	r = svm_range_copy_array(&old, ppold, size, old_n, d);
++	if (r) {
+ 		kvfree(new);
+-		return -ENOMEM;
++		return r;
+ 	}
+-
+-	d = (new_start == old_start) ? new_n * size : 0;
+-	memcpy(old, pold + d, old_n * size);
+-
+ 	kvfree(pold);
+ 	*(void **)ppold = old;
+ 	*(void **)ppnew = new;
+@@ -2075,7 +2104,11 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
+ 				r = -ENOMEM;
+ 				goto out;
+ 			}
+-
++			r = svm_range_copy_dma_addrs(prange, old);
++			if (r) {
++				svm_range_free(prange, false);
++				goto out;
++			}
+ 			list_add(&old->update_list, remove_list);
+ 			list_add(&prange->list, insert_list);
+ 			list_add(&prange->update_list, update_list);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index 21b14510882b..9e668eeefb32 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -183,7 +183,7 @@ void svm_range_add_list_work(struct svm_range_list *svms,
+ void schedule_deferred_list_work(struct svm_range_list *svms);
+ void svm_range_dma_unmap(struct device *dev, dma_addr_t *dma_addr,
+ 			 unsigned long offset, unsigned long npages);
+-void svm_range_free_dma_mappings(struct svm_range *prange);
++void svm_range_free_dma_mappings(struct svm_range *prange, bool unmap_dma);
+ int svm_range_get_info(struct kfd_process *p, uint32_t *num_svm_ranges,
+ 		       uint64_t *svm_priv_data_size);
+ int kfd_criu_checkpoint_svm(struct kfd_process *p,
+-- 
+2.32.0
 
-The name of this flag is a noun, which is inconsistent with the existing 
-flag AMDGPU_GEM_CREATE_COHERENT (adjective). Please change the name to 
-KFD_IOC_ALLOC_MEM_FLAGS_EXT_COHERENT
-
-The comment should say something about how these two flags differ. I'd 
-update the comment for AMDGPU_GEM_CREATE_COHERENT to say "May depend on 
-GPU instructions to flush caches to system scope explicitly". And this 
-one to say "May depend on GPU instructions to flush caches to device 
-scope explicitly, promoting them to system scope automatically".
-
-
->   
->   struct drm_amdgpu_gem_create_in  {
->   	/** the requested memory size */
-> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-> index eeb2fdcbdcb7..dd8f0dba7631 100644
-> --- a/include/uapi/linux/kfd_ioctl.h
-> +++ b/include/uapi/linux/kfd_ioctl.h
-> @@ -405,6 +405,7 @@ struct kfd_ioctl_acquire_vm_args {
->   #define KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_MEM	(1 << 27)
->   #define KFD_IOC_ALLOC_MEM_FLAGS_COHERENT	(1 << 26)
->   #define KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED	(1 << 25)
-> +#define KFD_IOC_ALLOC_MEM_FLAGS_EXT_COHERENCE	(1 << 24)
-
-..._COHERENT
-
-
->   
->   /* Allocate memory for later SVM (shared virtual memory) mapping.
->    *
-> @@ -659,6 +660,8 @@ enum kfd_mmio_remap {
->   #define KFD_IOCTL_SVM_FLAG_GPU_READ_MOSTLY     0x00000020
->   /* Keep GPU memory mapping always valid as if XNACK is disable */
->   #define KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED   0x00000040
-> +/* Fine grained coherency between all devices using device-scope atomics */
-> +#define KFD_IOCTL_SVM_FLAG_EXT_COHERENCE       0x00000080
-
-..._COHERENT
-
-Regards,
-   Felix
-
-
->   
->   /**
->    * kfd_ioctl_svm_op - SVM ioctl operations
