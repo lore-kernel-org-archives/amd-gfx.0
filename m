@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E44EBC001E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 14:36:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BD34C0015E
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 14:36:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6257F10E707;
-	Fri, 28 Jul 2023 14:36:54 +0000 (UTC)
-Received: from out28-127.mail.aliyun.com (out28-127.mail.aliyun.com
- [115.124.28.127])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1749A10E706;
- Fri, 28 Jul 2023 14:35:24 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.08700002|-1;
- BR=01201311R131S69rulernew998_84748_2000303; CH=blue; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_alarm|0.00311369-0.000355902-0.99653; FP=0|0|0|0|0|-1|-1|-1;
- HT=ay29a033018047212; MF=sunran001@208suo.com; NM=1; PH=DW; RN=6; RT=6; SR=0;
- TI=W4_0.2.3_v5_212501EE_1690554907535_o7001c54a; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89A9F10E708;
+	Fri, 28 Jul 2023 14:36:55 +0000 (UTC)
+Received: from out28-91.mail.aliyun.com (out28-91.mail.aliyun.com
+ [115.124.28.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FC3010E703;
+ Fri, 28 Jul 2023 14:29:19 +0000 (UTC)
+X-Alimail-AntiSpam: AC=SUSPECT; BC=0.6153257|-1; BR=01201311R941b1; CH=blue;
+ DM=|SUSPECT|false|;
+ DS=CONTINUE|ham_regular_dialog|0.00967824-0.00041684-0.989905;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047193; MF=sunran001@208suo.com; NM=1;
+ PH=DW; RN=6; RT=6; SR=0; TI=W4_0.2.3_v5_212D0486_1690553504444_o7001c346e; 
 Received: from WS-web
- (sunran001@208suo.com[W4_0.2.3_v5_212501EE_1690554907535_o7001c54a]) at Fri,
- 28 Jul 2023 22:35:19 +0800
-Date: Fri, 28 Jul 2023 22:35:19 +0800
+ (sunran001@208suo.com[W4_0.2.3_v5_212D0486_1690553504444_o7001c346e]) at Fri,
+ 28 Jul 2023 22:12:26 +0800
+Date: Fri, 28 Jul 2023 22:12:26 +0800
 From: "=?UTF-8?B?5a2Z5YaJ?=" <sunran001@208suo.com>
 To: "airlied" <airlied@gmail.com>, "daniel" <daniel@ffwll.ch>,
  "alexander.deucher" <alexander.deucher@amd.com>
-Message-ID: <3a4bebc5-79fb-4799-8743-14a0dde97a4f.sunran001@208suo.com>
-Subject: =?UTF-8?B?W1BBVENIXSBkcm0vcmFkZW9uOiBQcmVmZXIgJ3Vuc2lnbmVkIGludCcgdG8gYmFyZSB1c2Ug?=
- =?UTF-8?B?b2YgJ3Vuc2lnbmVkJw==?=
+Message-ID: <161bd3d4-5faf-4b49-afb1-ea4791a9bc51.sunran001@208suo.com>
+Subject: =?UTF-8?B?W1BBVENIXSBkcm0vcmFkZW9uL2V2ZXJncmVlbl9jczogQ2xlYW4gdXAgZXJyb3JzIGluIGV2?=
+ =?UTF-8?B?ZXJncmVlbl9jcy5j?=
 X-Mailer: [Alimail-Mailagent][W4_0.2.3][v5][Chrome]
 MIME-Version: 1.0
 x-aliyun-mail-creator: W4_0.2.3_v5_TCwTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzExNS4wLjAuMCBTYWZhcmkvNTM3LjM2IEVkZy8xMTUuMC4xOTAxLjE4Mw==FR
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/alternative;
+ boundary="----=ALIBOUNDARY_59651_7efc293ff700_64c3ccca_18bca8"
 X-Mailman-Approved-At: Fri, 28 Jul 2023 14:36:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,33 +52,54 @@ Cc: dri-devel <dri-devel@lists.freedesktop.org>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-V0FSTklORzogUHJlZmVyICd1bnNpZ25lZCBpbnQnIHRvIGJhcmUgdXNlIG9mICd1bnNpZ25lZCcK
-ClNpZ25lZC1vZmYtYnk6IFJhbiBTdW4gPHN1bnJhbjAwMUAyMDhzdW8uY29tPgotLS0KIGRyaXZl
-cnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX29iamVjdC5oIHwgOCArKysrLS0tLQogMSBmaWxlIGNo
-YW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuaCBiL2RyaXZlcnMvZ3B1L2RybS9yYWRl
-b24vcmFkZW9uX29iamVjdC5oCmluZGV4IDM5Y2M4N2E1OWE5YS4uOWI1NWE3MTAzY2ZkIDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuaAorKysgYi9kcml2
-ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuaApAQCAtMzcsNyArMzcsNyBAQAogICoK
-ICAqIFJldHVybnMgY29ycmVzcG9uZGluZyBkb21haW4gb2YgdGhlIHR0bSBtZW1fdHlwZQogICov
-Ci1zdGF0aWMgaW5saW5lIHVuc2lnbmVkIHJhZGVvbl9tZW1fdHlwZV90b19kb21haW4odTMyIG1l
-bV90eXBlKQorc3RhdGljIGlubGluZSB1bnNpZ25lZCBpbnQgcmFkZW9uX21lbV90eXBlX3RvX2Rv
-bWFpbih1MzIgbWVtX3R5cGUpCiB7CiAgc3dpdGNoIChtZW1fdHlwZSkgewogIGNhc2UgVFRNX1BM
-X1ZSQU06CkBAIC0xMTIsMTIgKzExMiwxMiBAQCBzdGF0aWMgaW5saW5lIHVuc2lnbmVkIGxvbmcg
-cmFkZW9uX2JvX3NpemUoc3RydWN0IHJhZGVvbl9ibyAqYm8pCiAgcmV0dXJuIGJvLT50Ym8uYmFz
-ZS5zaXplOwogfQogCi1zdGF0aWMgaW5saW5lIHVuc2lnbmVkIHJhZGVvbl9ib19uZ3B1X3BhZ2Vz
-KHN0cnVjdCByYWRlb25fYm8gKmJvKQorc3RhdGljIGlubGluZSB1bnNpZ25lZCBpbnQgcmFkZW9u
-X2JvX25ncHVfcGFnZXMoc3RydWN0IHJhZGVvbl9ibyAqYm8pCiB7CiAgcmV0dXJuIGJvLT50Ym8u
-YmFzZS5zaXplIC8gUkFERU9OX0dQVV9QQUdFX1NJWkU7CiB9CiAKLXN0YXRpYyBpbmxpbmUgdW5z
-aWduZWQgcmFkZW9uX2JvX2dwdV9wYWdlX2FsaWdubWVudChzdHJ1Y3QgcmFkZW9uX2JvICpibykK
-K3N0YXRpYyBpbmxpbmUgdW5zaWduZWQgaW50IHJhZGVvbl9ib19ncHVfcGFnZV9hbGlnbm1lbnQo
-c3RydWN0IHJhZGVvbl9ibyAqYm8pCiB7CiAgcmV0dXJuIChiby0+dGJvLnBhZ2VfYWxpZ25tZW50
-IDw8IFBBR0VfU0hJRlQpIC8gUkFERU9OX0dQVV9QQUdFX1NJWkU7CiB9CkBAIC0xODksNyArMTg5
-LDcgQEAgc3RhdGljIGlubGluZSB2b2lkICpyYWRlb25fc2FfYm9fY3B1X2FkZHIoc3RydWN0IGRy
-bV9zdWJhbGxvYyAqc2FfYm8pCiAKIGV4dGVybiBpbnQgcmFkZW9uX3NhX2JvX21hbmFnZXJfaW5p
-dChzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldiwKICAgICAgICAgIHN0cnVjdCByYWRlb25fc2Ff
-bWFuYWdlciAqc2FfbWFuYWdlciwKLSAgICAgICAgIHVuc2lnbmVkIHNpemUsIHUzMiBhbGlnbiwg
-dTMyIGRvbWFpbiwKKyAgICAgICAgIHVuc2lnbmVkIGludCBzaXplLCB1MzIgYWxpZ24sIHUzMiBk
-b21haW4sCiAgICAgICAgICB1MzIgZmxhZ3MpOwogZXh0ZXJuIHZvaWQgcmFkZW9uX3NhX2JvX21h
-bmFnZXJfZmluaShzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldiwKICAgICAgICAgICBzdHJ1Y3Qg
-cmFkZW9uX3NhX21hbmFnZXIgKnNhX21hbmFnZXIpOwotLSAKMi4xNy4xCgo=
+------=ALIBOUNDARY_59651_7efc293ff700_64c3ccca_18bca8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+Rml4IHRoZSBmb2xsb3dpbmcgZXJyb3JzIHJlcG9ydGVkIGJ5IGNoZWNrcGF0Y2g6CkVSUk9SOiBz
+cGFjZSByZXF1aXJlZCBhZnRlciB0aGF0ICcsJyAoY3R4OlZ4VikKRVJST1I6IHNwYWNlcyByZXF1
+aXJlZCBhcm91bmQgdGhhdCAnPicgKGN0eDpWeFYpClNpZ25lZC1vZmYtYnk6IFJhbiBTdW4gPHN1
+bnJhbjAwMUAyMDhzdW8uY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vZXZlcmdyZWVu
+X2NzLmMgfCA0ICsrLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRp
+b25zKC0pCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2V2ZXJncmVlbl9jcy5j
+IGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9ldmVyZ3JlZW5fY3MuYwppbmRleCAwZGU3OWYzYTdl
+M2YuLmQ4NTc3MTJhNTI1NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9ldmVy
+Z3JlZW5fY3MuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2V2ZXJncmVlbl9jcy5jCkBA
+IC0zMyw4ICszMyw4IEBACiAjaW5jbHVkZSAiZXZlcmdyZWVuX3JlZ19zYWZlLmgiCiAjaW5jbHVk
+ZSAiY2F5bWFuX3JlZ19zYWZlLmgiCi0jZGVmaW5lIE1BWChhLGIpICgoKGEpPihiKSk/KGEpOihi
+KSkKLSNkZWZpbmUgTUlOKGEsYikgKCgoYSk8KGIpKT8oYSk6KGIpKQorI2RlZmluZSBNQVgoYSwg
+YikgKCgoYSkgPiAoYikpPyhhKTooYikpCisjZGVmaW5lIE1JTihhLCBiKSAoKChhKSA8IChiKSk/
+KGEpOihiKSkKICNkZWZpbmUgUkVHX1NBRkVfQk1fU0laRSBBUlJBWV9TSVpFKGV2ZXJncmVlbl9y
+ZWdfc2FmZV9ibSkKLS0gCjIuMTcuMQo=
+------=ALIBOUNDARY_59651_7efc293ff700_64c3ccca_18bca8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+PGRpdiBjbGFzcz0iX19hbGl5dW5fZW1haWxfYm9keV9ibG9jayI+PGRpdiAgc3R5bGU9ImxpbmUt
+aGVpZ2h0OjEuNztmb250LWZhbWlseTpUYWhvbWEsQXJpYWwsU1RIZWl0aSxTaW1TdW47Zm9udC1z
+aXplOjE0LjBweDtjb2xvcjojMDAwMDAwOyI+Rml4IHRoZSBmb2xsb3dpbmcgZXJyb3JzIHJlcG9y
+dGVkIGJ5IGNoZWNrcGF0Y2g6PGJyID48YnIgPkVSUk9SOiBzcGFjZSByZXF1aXJlZCBhZnRlciB0
+aGF0ICcsJyAoY3R4OlZ4Vik8YnIgPkVSUk9SOiBzcGFjZXMgcmVxdWlyZWQgYXJvdW5kIHRoYXQg
+JyZndDsnIChjdHg6VnhWKTxiciA+PGJyID5TaWduZWQtb2ZmLWJ5OiA8c3BhbiA+UmFuIFN1biAm
+bHQ7c3VucmFuMDAxQDIwOHN1by5jb20mZ3Q7PC9zcGFuPjxiciA+LS0tPGJyID4gZHJpdmVycy9n
+cHUvZHJtL3JhZGVvbi9ldmVyZ3JlZW5fY3MuYyB8IDQgKystLTxiciA+IDEgZmlsZSBjaGFuZ2Vk
+LCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pPGJyID48YnIgPmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL2V2ZXJncmVlbl9jcy5jIGIvZHJpdmVycy9ncHUvZHJtL3Jh
+ZGVvbi9ldmVyZ3JlZW5fY3MuYzxiciA+aW5kZXggMGRlNzlmM2E3ZTNmLi5kODU3NzEyYTUyNTcg
+MTAwNjQ0PGJyID4tLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2V2ZXJncmVlbl9jcy5jPGJy
+ID4rKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2V2ZXJncmVlbl9jcy5jPGJyID5AQCAtMzMs
+OCArMzMsOCBAQDxiciA+ICNpbmNsdWRlICJldmVyZ3JlZW5fcmVnX3NhZmUuaCI8YnIgPiAjaW5j
+bHVkZSAiY2F5bWFuX3JlZ19zYWZlLmgiPGJyID4gPGJyID4tI2RlZmluZSBNQVgoYSxiKSAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAoKChhKSZndDsoYikpPyhhKTooYikpPGJyID4tI2RlZmluZSBNSU4oYSxiKSAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAoKChh
+KSZsdDsoYikpPyhhKTooYikpPGJyID4rI2RlZmluZSBNQVgoYSwgYikgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgKCgoYSkgJmd0
+OyAoYikpPyhhKTooYikpPGJyID4rI2RlZmluZSBNSU4oYSwgYikgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgKCgoYSkgJmx0OyAo
+YikpPyhhKTooYikpPGJyID4gPGJyID4gI2RlZmluZSBSRUdfU0FGRV9CTV9TSVpFIEFSUkFZX1NJ
+WkUoZXZlcmdyZWVuX3JlZ19zYWZlX2JtKTxiciA+IDxiciA+LS0gPGJyID4yLjE3LjE8ZGl2ICBz
+dHlsZT0ibGluZS1oZWlnaHQ6MjAuMHB4O2NsZWFyOmJvdGg7Ij48YnIgPjwvZGl2PjwvZGl2Pjwv
+ZGl2Pg==
+------=ALIBOUNDARY_59651_7efc293ff700_64c3ccca_18bca8--
+
