@@ -4,117 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45F0CC001DC
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 02:49:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16E1FC001DC
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 03:41:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFF6B10E011;
-	Fri, 28 Jul 2023 02:49:17 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::600])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F082410E011
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 02:49:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90E7510E028;
+	Fri, 28 Jul 2023 03:41:09 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2047.outbound.protection.outlook.com [40.107.93.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2064F10E028
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 03:41:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j58f4u4dtC7l1AOews6b+aAG+qTYBZxbULR5oVjgtp/qnxi4J7P3BxEHqt/OHt68WWaac6ynQh9sn1L8VScuSDRutRCp/LTMkDqEeVW4bFPECLoPJagkz2xikU1PhkvC5m97sPv3r9YwLq5aSDaQUyHrbtHSN+Uj5rwVi/lXeWDo3ZMhsOwb7nAHYL6Q2VP1o/TGhKSyDJpYfM660RvnibOgpe4zJqtbMn+KSFU3nW/Y9VlfwDCpAG2Ank1CrZniR/Ybfed1gn/0HVT0juirkGwGbgvGInFx0PkDbDLr4Ps5EQ/hLt7/JAhqNwDGZaQs+ApzPtdhFll7AmBglRAVDw==
+ b=fovy1gQOoLoRqgbrgnDaPzhL95O2mmrj4HqxyxBr01sf8C2pujRzEXUIOCxJZsOl2QDFtm7oVy7GaUZ9s8pSNOmNwRyKPeKgkkIVITgoqiPqGBlvqShsvThK9VoYB+L+iXAX3+2Ye6aPZ6Qv27KEhslASldOy2c2TZXDrLFEjOrvF4ednq6hkHt7OLF/0fH5gwD2ES7USuEkydTIkTlnWaO3MGiTRaWtrshPW3xZMXnfEGPTyHhLIu9/Xwj+wp5D2A2KfyePp+cduLgGMSWTCaCS7OcT1z+0RKkyu4+0NuR1Tp96yZAPyDqss2x5h5a7I9r6v53CiL3RAuJS/HyEsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y07E2Z6elokUA3O9efe70H1Akf+bWUh/thzh8MHDcw0=;
- b=WnMylPdd44XS7oWLKUcG2YtU0ffJd1BcD74EkCRkDVFjcNI/dJZ5Il/eF9JsoCfLsgR/BP4Wb4LGReRSyroLWCVx8nphcKVT3VQronjpyEfSIJp+QgGCOidhUanC77B4OWhxpyP0bt91vMTIfHLCcJ1+WFKaVuXpgHv5gbiOZcy1rjYygOb6lkSoeFSeO4ptxhj3UtUvgeWa2McMJZSVmAFVx9t6ZDk4uzAY36QSpyUmYZ1Ks0il5FhgJfw4tK7FvKRZm3MLejsdq5RruzidRexpc5dZArEaOVwLXtWr9c+gIDsPlrOrPYiBe72rNd2B4Vy3FKkPrUgUEsZ7Yta9vQ==
+ bh=saxPNJjPHZsoKOEO/Wl1ep/rZL6CaIObyA3d53zlfKk=;
+ b=CZ5WWIPU2cgi+CiqDpHvDGP87FETLB5P03bd4k2lpHWDqmoVO5Plb9qYKeWvBjR7SsdG0Ls2TAd5U61OWb4vAxmmvQ3qjRT+K50S7QX5oRX4TUonMQR0Y1HgKK9EICeLAGZkDjHWhN7vJUrqrqeYgEt+nS4xZUTlPRUKlL/PXuzrOj4un/YZzBhftYAQReB3cjlARJFEByMGnHe8pQW1L2ku3/ZS/i2h9/vUcvVE5ZUt+2xRd5MHiikUjAgg85wvAH5G8XAg87BTKDeY/FT/Sfw2pEp7mxbD6IRZWXwUa0v/3IoVKeAPYdwi24yuKvaqBvBNLnxqyevKFui3MlI3HA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y07E2Z6elokUA3O9efe70H1Akf+bWUh/thzh8MHDcw0=;
- b=niJ+VUm6Bw8GUHuGOFLjoJvi+74eq1CK8JWgUVcrdp/jKu5zDOhdZBFVJmH+gqapKRgmy8l8ca85YGDumZR6DeGMfAayNRU03P2K7dc+MHuFzNo+VSvt991yMrifppJNbN91Ysz2Ks6x2pCkzTyCX6XFflmE2f2wPcIG1Yd5Jdg=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- MN2PR12MB4406.namprd12.prod.outlook.com (2603:10b6:208:268::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Fri, 28 Jul
- 2023 02:49:12 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::ed2a:4807:1825:170f]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::ed2a:4807:1825:170f%5]) with mapi id 15.20.6631.026; Fri, 28 Jul 2023
- 02:49:12 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Powell, Darren" <Darren.Powell@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 0/8] amdgpu/pm: Implement emit_clock_levels for
- arcturus,aldebaran
-Thread-Topic: [PATCH 0/8] amdgpu/pm: Implement emit_clock_levels for
- arcturus,aldebaran
-Thread-Index: AQHZeNFnQBJu0qzp6kyRwcXnfWrTmq/OldCAgABzVPA=
-Date: Fri, 28 Jul 2023 02:49:11 +0000
-Message-ID: <DM6PR12MB2619FC59D7F573DC95D8D1D2E406A@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20230427062718.1172269-1-darren.powell@amd.com>
- <CH0PR12MB5387598198E7CE8281D5F77AF001A@CH0PR12MB5387.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB5387598198E7CE8281D5F77AF001A@CH0PR12MB5387.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
+ bh=saxPNJjPHZsoKOEO/Wl1ep/rZL6CaIObyA3d53zlfKk=;
+ b=eLrWPh+7rp9iSCzvz3s5ST/QPYg+KbY7rH0mIpb9zw2mepi7bEMA7AQu7SjdW8nQ40B5cBWJjWj9L0CMrUiSnyfBkh2a14G3wS3Bu5O41RCKmawnf1zUUWFzUHU71A5Pq5L5lXh5AznBeLS5X8BvG1FXlEhCk9Ae2wCyz5bVqzQ=
+Received: from BY5PR12MB3873.namprd12.prod.outlook.com (2603:10b6:a03:1a3::18)
+ by LV3PR12MB9213.namprd12.prod.outlook.com (2603:10b6:408:1a6::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.32; Fri, 28 Jul
+ 2023 03:41:05 +0000
+Received: from BY5PR12MB3873.namprd12.prod.outlook.com
+ ([fe80::151a:deaf:fc88:ab6b]) by BY5PR12MB3873.namprd12.prod.outlook.com
+ ([fe80::151a:deaf:fc88:ab6b%6]) with mapi id 15.20.6631.026; Fri, 28 Jul 2023
+ 03:41:04 +0000
+From: "Huang, Tim" <Tim.Huang@amd.com>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amd/pm: skip the RLC stop when S0i3 suspend for SMU
+ v13.0.4/11
+Thread-Topic: [PATCH] drm/amd/pm: skip the RLC stop when S0i3 suspend for SMU
+ v13.0.4/11
+Thread-Index: AQHZwO/cPE+4GwfmvEWxlR2Jigotna/OX9MAgAASFu2AAAWXAIAADNjQ
+Date: Fri, 28 Jul 2023 03:41:04 +0000
+Message-ID: <BY5PR12MB3873DFD25AA068E593F046FEF606A@BY5PR12MB3873.namprd12.prod.outlook.com>
+References: <20230728010504.532158-1-tim.huang@amd.com>
+ <e751765e-9ec2-83e0-90f6-c7d96943dac2@amd.com>
+ <BY5PR12MB3873A8ADD1B0CE858527D041F606A@BY5PR12MB3873.namprd12.prod.outlook.com>
+ <99aa09fc-4f63-0529-c029-a4f5a8f49bf0@amd.com>
+In-Reply-To: <99aa09fc-4f63-0529-c029-a4f5a8f49bf0@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=e12c32a9-fed0-4ad5-a8d4-fd150497abab;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-28T02:44:11Z;
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-28T03:40:56.874Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|MN2PR12MB4406:EE_
-x-ms-office365-filtering-correlation-id: cf75c65f-174f-4e9a-ede9-08db8f153930
+x-ms-traffictypediagnostic: BY5PR12MB3873:EE_|LV3PR12MB9213:EE_
+x-ms-office365-filtering-correlation-id: ae3268fb-e542-4203-76dc-08db8f1c786a
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gmi+3ZHW8QLpIof3oB+AeinlhEBjQ18rRqmnMAPUB8/pYcHVdf0mbjANqXozZ0jBeJPKlORsfRcE+y4FsDTYQ8HiNVTrifMnnHrddSNjeEPKSBJO4fWDrecvJMYvIgzMtRkE2vmoaw9fDmV/80/qV6wSIpBIhYITUPe6er8SdPT71qQC0pH47u9hcl8TqHqUlPCOPVhD/O2bkBmqO0xKYu6RU4DI7ubHGFNERUKxqmba+WWZVUGgy4evsvBAO/VD1amUuP2rQz9sSqxvBS8aLJ+UYGrWE+ThDnHTczA9LutgKDkJmvpAG0975z82dfPxg/2IpcexcVmjKza2DhKlrhH5zRE3S2zVeKfvikqOsoQWjKCeaVg7uR2WQD4K/m97cW88eEJdnJ/FnDWztpDIO5asFfMhn43ks3h5IUVpG4PqlZ/rTQ2JjadCVxc1P4fb6rVTLcD7Y9BZEV9hZgx6ow+C3sUClk2ITIwNwgbkOc87IoFBmG1uNkqmYTnN9pRikrguXKTE6cVYcj8glOvxCg3/PdElWMtDu3c5Z7u2BpLWwyOdElb3w8DgM9w0c6nB2mv8ejmbvb/GVjpUxYnANRPa8b42fduktubaTvIbvTza5CVk9UkoRGA5SeE5drZs
+x-microsoft-antispam-message-info: Q9m6/F6vEzYF4PZMyGgRqzc0kCBam05zoGg6OWNCYpV1J+FGFPC71uARm/4vq3zJLG9RmHMpWuMK0de3S1eFD54QHc35RVC18i8xPP7XDonJktKfBgYIC3GL19q+eHwOVjwarA7tcbRgP6EjamDPYCfi6PgiG1QNnEe/t3mib72VYY+Tr0KeQFL5wqn3pLU1iPsp1FmG0SmTYtMLcXmVyr4nipaO48u0kTqJuow1jjchUd5coLwQXz2fGR4pgQsXTctb5nYLfYXP5MBuBVCuchHNMCS6RSxpt2/P1Gzw0ToRNtCrvyFmxBG5h+yd0k4xso8UvGj7JgVDBOaarFb334494kX468xKGG8mwQOpKjD1mCnu32VpMvcjATbepgpaf839eK4KdVZkimFaD0kaa3b54H1HHJNS+UC0gaKPh3pRvpaY1ceuw+ax26alWkRUZefm5sOHsfrlvFLtoKu1bDnE6r1NIpUW2pPSwrzMJeK5nrvjZSqJ8fQzm7gvk6CTwFJl3DwwQnBIkqULXW1aUTnvMxSNg6tZKyMMJheEWPJ73wf97L6hjgcmXMN6HW3IApALedHSOEKMQ1puFPpJ/Dh1BOKcB0p/SMXhqADVYPs=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(346002)(396003)(376002)(136003)(366004)(451199021)(110136005)(9686003)(478600001)(54906003)(7696005)(6506007)(71200400001)(53546011)(66476007)(26005)(2906002)(66556008)(66446008)(8936002)(316002)(52536014)(76116006)(8676002)(5660300002)(41300700001)(66946007)(64756008)(38100700002)(122000001)(55016003)(38070700005)(86362001)(83380400001)(33656002)(4326008)(186003);
+ IPV:NLI; SFV:NSPM; H:BY5PR12MB3873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(39860400002)(366004)(136003)(346002)(376002)(451199021)(19627405001)(66446008)(41300700001)(26005)(86362001)(66556008)(53546011)(71200400001)(38100700002)(478600001)(122000001)(91956017)(966005)(9686003)(4326008)(8676002)(8936002)(166002)(186003)(316002)(66946007)(64756008)(66476007)(76116006)(33656002)(6506007)(5660300002)(110136005)(83380400001)(54906003)(52536014)(38070700005)(55016003)(7696005)(15650500001)(2906002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jFBgGgB1PQRVuKhsMyRjJF6y8adMkFwwRXTbquk7VLojqS/N9dgIFNVg2at/?=
- =?us-ascii?Q?7fuADidvrw7sB7Jw5kNaTtMwEUlIO5j2IsqRceYBxjlpoEpix+vOvcqgBBM6?=
- =?us-ascii?Q?7mZirXuaeij3bsGVA3nRp2eTn4CRTxZfih/6TuTSkicTZ2PGx6Zd7e1FsNw3?=
- =?us-ascii?Q?CSUT3qcH0s6hyqO0bJVPxk1WLN0G9935FoVrNOl+M3W9WTRkjhy+C2p0cvTy?=
- =?us-ascii?Q?MYIvnwOaQKcTXm/LIQB5s+xXcetJqhOd7O2jozxlItQJox8TpRv+9vRHr63n?=
- =?us-ascii?Q?ya8dUSgMAdyy+ueOr4i3DYX34N7iNf7Tvm3OiEa45um0Rk4ihFV/T3Ag6OpO?=
- =?us-ascii?Q?fEP37o2EnVJ1sYW19tonGBcRvMmPEFuEBwUuz3aG+oyJc9kXcYJzoXh+lViW?=
- =?us-ascii?Q?z5eZ8FObkh1KqL/c+5Ycx3rX6iXdyRtirRcqm4S1R0LI0aczVUDv+K64QKPt?=
- =?us-ascii?Q?9SeZRn/Qj4wnMWO/5WDR854f0LV1/+J5ZT34CGYULXVEVGxrn/Z69WVD7U6E?=
- =?us-ascii?Q?W6MbKgciM9uwbIADZKqSt0cLHAXJjy7ch+NZxmOkilNfMMS1MDWWlvGuJSfX?=
- =?us-ascii?Q?8v7qn8Aa63Kv4Dpn3YZr9tf5WxtyDSmVmrZcKxCHmxFprtVL74vg9k+HfsEn?=
- =?us-ascii?Q?CZKcMspvs93V+sEMeb/GvnQtqpzIss/0eqMbxhPNw0+U7Lb6yQK4q4AjPxat?=
- =?us-ascii?Q?rChJVogl0vsPKMMH6lcQ4vPhYe8ZS9zij7XAxvnLfgID+nlqi+nVnIrw4kDj?=
- =?us-ascii?Q?2vTgqOkcFTqsJr+nx25NE8RdMcBx8SxUfe36hwrtpbapqnGxbrIwNftXsewR?=
- =?us-ascii?Q?jKUx+uoqIY3g5635FPwd597ODi8k4MfSBtGkI7P5ZI9zuQ2UXYlbt2Q/qPgJ?=
- =?us-ascii?Q?+SS9hdSuiVHsz2bAV3G2KMNnyqPT2q6Z5tJAxHLzM11bQd13fczxhVwZUbID?=
- =?us-ascii?Q?GViuCanDszZoPR0BXV4ll1au3uvIZybOG1AQVUAdk03uu9HEaJJZCnzqj/cz?=
- =?us-ascii?Q?U4O9lOaFcYf9yrIxOjBmv/jOLsBlYMBIOePx33Gflb9yuCJEw89xY4h5ENqD?=
- =?us-ascii?Q?EAV+0haz7Sn93IeTSrXuRKko7OOlE+zpLoUOx4/PhrdxEa+NlQiPu3e8laFs?=
- =?us-ascii?Q?ZDPAENq89IQRfUHh1RkQUhzPB1gxRnbs9KVAZMNmhW7quwS0eeyxF7Ls8cfK?=
- =?us-ascii?Q?ZLfud15NrhsUAVaHbkJXF7Z4yiNBD9PoadaYwuUKg+KBQ9q53CH1wiRYwpXf?=
- =?us-ascii?Q?kTPeWR2It1P5Gx3WSOCxmxLQ6DZDns9F90JUeBedp1SfxVjzTmTXTB9+8la9?=
- =?us-ascii?Q?28/w8cNcAOw1+Bw79YjzP7RsEfBfREejwkHlDMd8QohmNxEa4ws2QFGFEkIR?=
- =?us-ascii?Q?GOABJqJEtW/Wy/IXoqfHuSwbID7mlfTdTALMnEshGbr37lNeRP//gRCB4slS?=
- =?us-ascii?Q?lrOEqpu/z8b1FzWhHTDQuAikNTMkBuLF9JjP+/fPScL2aHs0Hh9AzsBE6/ce?=
- =?us-ascii?Q?pRcEY0aKKxkLFdvtCTmDlPW7pJ+SXmr2ST9nJd1cZcZ/JrJl/BuSctEKqjk/?=
- =?us-ascii?Q?ykd1WySTLcTrkKhP7Yk=3D?=
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?3VrCrcu9iUFSiOorvGfZpRQtBd+soDf7T1oz5SaQgdQqv/jAd2K7GhxScL?=
+ =?iso-8859-1?Q?HBB0s+lAM8XC39uF57a8dFe+4kQG/C9onSQx0V7dDPjUEm5FZcQTWfmuA/?=
+ =?iso-8859-1?Q?eXBGOaO62t3Xt/fhUgypqhVWKXBjOfIfSXLtPjNb3kzLSo7XcM7SEbv3Km?=
+ =?iso-8859-1?Q?Z39fESep2n6TiQqHePXcOxbnBm8O+4H7SJARKl2H1vDHkrdOMEkEi6ahAV?=
+ =?iso-8859-1?Q?mopfU3qyRBibqg6nGBKoHMkWot008zLL4wZOr6hLYMXSu54y/5uM3ZZqE1?=
+ =?iso-8859-1?Q?fXORJpldhJeNzvUKLYdIpPn6uRxMIg2ojzSn6NMevoxkgIXv/vAuyX+RjP?=
+ =?iso-8859-1?Q?Mc0FSVUR5osn1GdFaEgjG6sGpnKfGpF2tYk4KRz6wTmFv7miBGWFZYNcsL?=
+ =?iso-8859-1?Q?YFcbRiM1vBz9DmhN/z2XIY9QrevYiuQSv+SRtT+kemPazrVwv7wOW4MQXm?=
+ =?iso-8859-1?Q?Ap5t7jiZtX2ZkCWN1MbFu2TIgoGH1AQNmxn2sFR8fSVuiXMMuw316RFSaX?=
+ =?iso-8859-1?Q?/2wVN0oMnh7Kf4oHkTFvOgUzNJusloOFwYM+yuBEW49cyFOZT/8lqXjwip?=
+ =?iso-8859-1?Q?STSlkpnf2/tPmh4Efr5jaYYvl4Hsru7X7hFL62LfACPJP0qsd1IsiBNYSz?=
+ =?iso-8859-1?Q?gsNYFhMT/8ijeB40AMNUPq3C4IFwffNBheE6iRZYRiyZ8gQMDXOI1VEteK?=
+ =?iso-8859-1?Q?z/UF9AA1DzVU4nDcA3ldqtbqp5dhWj5uQVTn+NWqL6ETnnaWzZqnzC5rLc?=
+ =?iso-8859-1?Q?E/Y1eStwnXyHlxcMKZp3BNDZx5LWpepfceABVzGkzqQ51Fo9ABKJGSodfq?=
+ =?iso-8859-1?Q?Im67JaULgS3ZzcHScw/gOqpA8gMQbxur2/0vPcDaT7UQQG+wRrzmnh0s6S?=
+ =?iso-8859-1?Q?sf7O9Mb6T2QrwB/A+c39cGv+bGBstRgWm+onSq9EEM7kuUmqMbipaKeJtb?=
+ =?iso-8859-1?Q?vcgnwLGb+vlj5vGkZuPB0kIBSqATCMpK2UaKm97OcJgMY2oO3806bkFiWQ?=
+ =?iso-8859-1?Q?2NjHWehy9G9kLk/4kZhED266HaCv9uKdhvjrmgNw5Fhu3oBOjuYWubgx1s?=
+ =?iso-8859-1?Q?g3JY2qqrSm1+4rnbpbPeuvCC8Ab7sndZDRONWC8LHlfcu5nBYW3s39GtHS?=
+ =?iso-8859-1?Q?kqbXrlVNKm0busgVGxdpthfGbY/6ll9dde/xpanNe34ZE9vVssg+X3zVE4?=
+ =?iso-8859-1?Q?g4uquWHUwT2uwHvlGcu0Lbq5Sy66BwKzM6umjDqi/zhSFJI3C9xjdbTFec?=
+ =?iso-8859-1?Q?B+WopIw8Zzf8UHNpDF+k7dtwghhqmSBDNKNEnvjqChE29WMxQwzQHBW3uk?=
+ =?iso-8859-1?Q?+63tzP+GXvvNrSAg5WpLSSL1wuyneGxVUtRop6tNJmBCBFZgTeYQSPlLtf?=
+ =?iso-8859-1?Q?ZmdONOUDScKI14q/IEXdiaIhV/R+d9aqBmJsDrdVDxqfmHPNz5nFI0/+/0?=
+ =?iso-8859-1?Q?F2lizNZOin5J619TuDueoVuXJryj7QlZydUIBnIW1TJ+v2aD0kh9a7ACHL?=
+ =?iso-8859-1?Q?kVjklb8rrvZIroJA5ajQXbiZtMJ3qG8aUJPtr9d+6FpvuPJJDXwSo1/iCa?=
+ =?iso-8859-1?Q?07n3jo86liEZ/xJq4o3KojZ+de04AG+pReTT94li5kUejBXd5WIdzrnEwi?=
+ =?iso-8859-1?Q?Syo69GQ/qNiNk=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB2619FC59D7F573DC95D8D1D2E406ADM6PR12MB2619namp_"
+ boundary="_000_BY5PR12MB3873DFD25AA068E593F046FEF606ABY5PR12MB3873namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf75c65f-174f-4e9a-ede9-08db8f153930
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jul 2023 02:49:11.9490 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB3873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae3268fb-e542-4203-76dc-08db8f1c786a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jul 2023 03:41:04.4729 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 3BG4wceh0gpye14RbPEht9gV7G7M8abd3vB7D0CnT7YmOs2xNEPI3+TTwxzupWMw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4406
+X-MS-Exchange-CrossTenant-userprincipalname: 9L3fBgAgQ0r8+TS7OSLqoFndPecMLZdFix8xc7Qc+GcXa4wZWAkpqG0jZZrI6MY/Xi3H9UbYMckTH6K5cfXjxw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9213
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,456 +127,282 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Yu,
- Lang" <Lang.Yu@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
+ Yifan" <Yifan1.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB2619FC59D7F573DC95D8D1D2E406ADM6PR12MB2619namp_
-Content-Type: text/plain; charset="us-ascii"
+--_000_BY5PR12MB3873DFD25AA068E593F046FEF606ABY5PR12MB3873namp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Official Use Only - General]
 
-The series looks good to me.
-Reviewed-by: Evan Quan evan.quan@amd.com<mailto:evan.quan@amd.com>
 
-However better to split the changes of patch1 into two separate patches on =
-your submission.
-Replace print_clock_levels with emit_clock_levels for arcturus
-  * replace .print_clk_levels with .emit_clk_levels in arcturus_ppt_funcs
-  * added extra parameter int *offset
-  * removed var size, uses arg *offset instead
-  * removed call to smu_cmn_get_sysfs_buf
-  * errors are returned to caller
-  * returns 0 on success
-Those changes are included in one patch.
-additional incidental changes
-  * changed type of var i, now to remove comparing mismatch types
-  * renamed var s/now/cur_value/
-  * switch statement default now returns -EINVAL
-  * RAS Recovery returns -EBUSY
-While those are included in another patch.
+From: Limonciello, Mario <Mario.Limonciello@amd.com>
+Sent: Friday, July 28, 2023 10:39 AM
+To: Huang, Tim <Tim.Huang@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@=
+lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zh=
+ang@amd.com>
+Subject: Re: [PATCH] drm/amd/pm: skip the RLC stop when S0i3 suspend for SM=
+U v13.0.4/11
 
-Same applied to patch5.
+On 7/27/23 21:21, Huang, Tim wrote:
+> [AMD Official Use Only - General]
+>
+>
+>
+> *From:* Limonciello, Mario <Mario.Limonciello@amd.com>
+> *Sent:* Friday, July 28, 2023 9:14 AM
+> *To:* Huang, Tim <Tim.Huang@amd.com>; amd-gfx@lists.freedesktop.org
+> <amd-gfx@lists.freedesktop.org>
+> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Yifan
+> <Yifan1.Zhang@amd.com>
+> *Subject:* Re: [PATCH] drm/amd/pm: skip the RLC stop when S0i3 suspend
+> for SMU v13.0.4/11
+> On 7/27/23 20:05, Tim Huang wrote:
+>> From: Tim Huang <Tim.Huang@amd.com>
+>>
+>> For SMU v13.0.4/11, driver does not need to stop RLC for S0i3,
+>> the firmwares will handle that properly.
+>> Conceptually I'm aligned to this.
+>> But, just to confirm, have you already run some testing with this
+>> with current GPU F/W, BIOS and either 6.1.y, 6.4.y or ASDN?
+>
+>> I checked with this on my side and saw success but I'm fearful
+>> that it introduces some of the fence expiration problems we
+>> had in the past and I'm just not seeing them for some reason.
+>
+> Yes, verified based on current BIOS and latest drm-next kernel and the
+> working FWs as the latest FWs
+> may have some new issues.
+> For this patch, it is asked by the FW guys, driver should not touch
+> RLC_CNTL in S0i3, let RLC FW to do that. If driver programs RLC_CNTL to
+> halt RLC, RLC cannot go GFXOFF exit sequence.
+>
+> The fence expiration should be still there by the delayed GFXOFF , but
+> this patch should be useful to help debug it as it avoids the system
+> hang when the issue happens.
 
-BR,
-Evan
-From: Powell, Darren <Darren.Powell@amd.com>
-Sent: Friday, July 28, 2023 3:51 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Lazar, Lijo <Lijo.Lazar@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Yu, L=
-ang <Lang.Yu@amd.com>; Huang, Ray <Ray.Huang@amd.com>
-Subject: Re: [PATCH 0/8] amdgpu/pm: Implement emit_clock_levels for arcturu=
-s,aldebaran
+> So in that case you think that when the driver programs RLC_CNTL  but
+> GFXOFF was delayed sequence was going out of order and it triggered
+> system hang.  But now with this patch it will not hang but fences expire.
 
-Hi all,
-  Just looking for anyone who could RB or ACK this patch set so I can submi=
-t it?
-Thanks
-Darren
-________________________________
-From: Powell, Darren <Darren.Powell@amd.com<mailto:Darren.Powell@amd.com>>
-Sent: Thursday, April 27, 2023 2:27 AM
-To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>; Quan, Evan=
- <Evan.Quan@amd.com<mailto:Evan.Quan@amd.com>>; Yu, Lang <Lang.Yu@amd.com<m=
-ailto:Lang.Yu@amd.com>>; Huang, Ray <Ray.Huang@amd.com<mailto:Ray.Huang@amd=
-.com>>; david.nieto@amd.com<mailto:david.nieto@amd.com> <david.nieto@amd.co=
-m<mailto:david.nieto@amd.com>>; Powell, Darren <Darren.Powell@amd.com<mailt=
-o:Darren.Powell@amd.com>>
-Subject: [PATCH 0/8] amdgpu/pm: Implement emit_clock_levels for arcturus,al=
-debaran
+> It makes sense to me.  This patch shouldn't be any "more" harmful then.
 
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 
-amdgpu/pm: Implement emit_clock_levels for arcturus,aldebaran
+> For the delayed GFXOFF issue maybe we should revisit my previous idea
+> for flushing GFXOFF requests.  IIRC the most recent version was:
+>
+> https://patchwork.freedesktop.org/patch/537888/?series=3D117965&rev=3D1
 
-=3D=3D Description =3D=3D
-Scnprintf use within the kernel is not recommended, but simple sysfs_emit r=
-eplacement has
-not been successful due to the page alignment requirement of the function. =
-This patch
-set implements a new api "emit_clock_levels" to facilitate passing both the=
- base and
-offset to the device rather than just the write pointer.
+ I agree.  We can add this patch to the latest test build and check whether=
+ the issue is gone.
 
-This patch set replaces print_clock_levels for arcturus and aldebaran platf=
-orms with
-emit_clock_levels, and also optimizes the code to reduce the code duplicati=
-on for each
-different clock. This was spread into three parts to show more clearly the =
-changes made
-to the code, followed by combining the common code into a second switch sta=
-tement.
-It is similar to previous work on vega10 to implement emit_clk_levels
- commit a63e6b83 ("amdgpu/pm: Implement emit_clk_levels for vega10")
-with the addition of the optimization to reduce code duplication.
+ Thanks.
 
-=3D=3D Patch Summary =3D=3D
-   linux: (git@gitlab.freedesktop.org:agd5f<mailto:git@gitlab.freedesktop.o=
-rg:agd5f>) origin/amd-staging-drm-next @ 2d8c6b82e241
-    + 9a269da4c047 amdgpu/pm: Replace print_clock_levels with emit_clock_le=
-vels for arcturus
-    + 51ce0fcc9599 amdgpu/pm: Optimize emit_clock_levels for arcturus - par=
-t 1
-    + dcaa5b7551dd amdgpu/pm: Optimize emit_clock_levels for arcturus - par=
-t 2
-    + 1d16d820e4ee amdgpu/pm: Optimize emit_clock_levels for arcturus - par=
-t 3
-    + b374fbf6013d amdgpu/pm: Replace print_clock_levels with emit_clock_le=
-vels for aldebaran
-    + 2ecf48d3e83c amdgpu/pm: Optimize emit_clock_levels for aldebaran - pa=
-rt 1
-    + fd8c21e1d1e4 amdgpu/pm: Optimize emit_clock_levels for aldebaran - pa=
-rt 2
-    + a67ce808f18c amdgpu/pm: Optimize emit_clock_levels for aldebaran - pa=
-rt 3
-
-=3D=3D System Summary =3D=3D
- * DESKTOP(AMD Ryzen9 7900 + NAVI10(731f/ca), BIOS: 1.11)
-  + ISO(Ubuntu 22.04.2 LTS)
-  + Kernel(6.1.11-20230412-fdoagd5f-g2d8c6b82e241)
-
-=3D=3D Test =3D=3D
-AMDGPU_PCI_ADDR=3D`lspci -nn | grep "VGA\|Display" | cut -d " " -f 1`
-AMDGPU_HWMON=3D`ls -la /sys/class/hwmon | grep $AMDGPU_PCI_ADDR | awk '{pri=
-nt $9}'`
-HWMON_DIR=3D/sys/class/hwmon/${AMDGPU_HWMON}
-
-lspci -nn | grep "VGA\|Display"  > $LOGFILE
-printf 'OD enabled =3D %X\n' "$(( `cat /sys/module/amdgpu/parameters/ppfeat=
-uremask` & 0x4000 ))" >> $LOGFILE
-FILES=3D"pp_od_clk_voltage
-pp_dpm_sclk
-pp_dpm_mclk
-pp_dpm_pcie
-pp_dpm_socclk
-pp_dpm_fclk
-pp_dpm_dcefclk
-pp_dpm_vclk
-pp_dpm_dclk "
-
-for f in $FILES
-do
-  echo =3D=3D=3D $f =3D=3D=3D >> $LOGFILE
-  cat $HWMON_DIR/device/$f >> $LOGFILE
-done
-cat $LOGFILE
-
-Darren Powell (8):
-  amdgpu/pm: Replace print_clock_levels with emit_clock_levels for
-    arcturus
-  amdgpu/pm: Optimize emit_clock_levels for arcturus - part 1
-  amdgpu/pm: Optimize emit_clock_levels for arcturus - part 2
-  amdgpu/pm: Optimize emit_clock_levels for arcturus - part 3
-  amdgpu/pm: Replace print_clock_levels with emit_clock_levels for
-    aldebaran
-  amdgpu/pm: Optimize emit_clock_levels for aldebaran - part 1
-  amdgpu/pm: Optimize emit_clock_levels for aldebaran - part 2
-  amdgpu/pm: Optimize emit_clock_levels for aldebaran - part 3
-
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 166 ++++++----------
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 181 +++++++-----------
- 2 files changed, 132 insertions(+), 215 deletions(-)
+>
+> Best Regards,
+> Tim
+>
+>>
+>> Signed-off-by: Tim Huang <Tim.Huang@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm=
+/amd/pm/swsmu/amdgpu_smu.c
+>> index ce41a8309582..222af2fae745 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>> @@ -1581,9 +1581,9 @@ static int smu_disable_dpms(struct smu_context *sm=
+u)
+>>
+>>        /*
+>>         * For SMU 13.0.4/11, PMFW will handle the features disablement p=
+roperly
+>> -      * for gpu reset case. Driver involvement is unnecessary.
+>> +      * for gpu reset and S0i3 cases. Driver involvement is unnecessary=
+.
+>>         */
+>> -     if (amdgpu_in_reset(adev)) {
+>> +     if (amdgpu_in_reset(adev) || adev->in_s0ix) {
+>>                switch (adev->ip_versions[MP1_HWIP][0]) {
+>>                case IP_VERSION(13, 0, 4):
+>>                case IP_VERSION(13, 0, 11):
+>
 
 
-base-commit: 2d8c6b82e241f2d1a802ae6bbc24c127e689c724
---
-2.34.1
-
---_000_DM6PR12MB2619FC59D7F573DC95D8D1D2E406ADM6PR12MB2619namp_
-Content-Type: text/html; charset="us-ascii"
+--_000_BY5PR12MB3873DFD25AA068E593F046FEF606ABY5PR12MB3873namp_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
+<body dir=3D"ltr">
 <p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-=
 style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
 [AMD Official Use Only - General]<br>
 </p>
 <br>
 <div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">The series looks good to me. <o:p></o:p></p>
-<p class=3D"MsoNormal">Reviewed-by: Evan Quan <a href=3D"mailto:evan.quan@a=
-md.com">evan.quan@amd.com</a><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">However better to split the changes of patch1 into t=
-wo separate patches on your submission.<o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-urier New&quot;;color:black">Replace print_clock_levels with emit_clock_lev=
-els for arcturus<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-urier New&quot;;color:black">&nbsp; * replace .print_clk_levels with .emit_=
-clk_levels in arcturus_ppt_funcs<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-urier New&quot;;color:black">&nbsp; * added extra parameter int *offset<o:p=
-></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-urier New&quot;;color:black">&nbsp; * removed var size, uses arg *offset in=
-stead<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-urier New&quot;;color:black">&nbsp; * removed call to smu_cmn_get_sysfs_buf=
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-urier New&quot;;color:black">&nbsp; * errors are returned to caller<o:p></o=
-:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-urier New&quot;;color:black">&nbsp; * returns 0 on success<o:p></o:p></span=
-></p>
-<p class=3D"MsoNormal"><i><span style=3D"font-size:10.0pt;font-family:&quot=
-;Courier New&quot;;color:red">Those changes are included in one patch.<o:p>=
-</o:p></span></i></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-urier New&quot;;color:black">additional incidental changes<o:p></o:p></span=
-></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-urier New&quot;;color:black">&nbsp; * changed type of var i, now to remove =
-comparing mismatch types<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-urier New&quot;;color:black">&nbsp; * renamed var s/now/cur_value/<o:p></o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-urier New&quot;;color:black">&nbsp; * switch statement default now returns =
--EINVAL<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Co=
-urier New&quot;;color:black">&nbsp; * RAS Recovery returns -EBUSY<o:p></o:p=
-></span></p>
-<p class=3D"MsoNormal"><i><span style=3D"font-size:10.0pt;font-family:&quot=
-;Courier New&quot;;color:red">While those are included in another patch.<o:=
-p></o:p></span></i></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Same applied to patch5.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">BR,<o:p></o:p></p>
-<p class=3D"MsoNormal">Evan<o:p></o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Powell, Darren &lt;Darren.Powell@amd.co=
-m&gt; <br>
-<b>Sent:</b> Friday, July 28, 2023 3:51 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org<br>
-<b>Cc:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Quan, Evan &lt;Evan.Quan=
-@amd.com&gt;; Yu, Lang &lt;Lang.Yu@amd.com&gt;; Huang, Ray &lt;Ray.Huang@am=
-d.com&gt;<br>
-<b>Subject:</b> Re: [PATCH 0/8] amdgpu/pm: Implement emit_clock_levels for =
-arcturus,aldebaran<o:p></o:p></p>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 11pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+<br>
 </div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 11pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
+<b style=3D"font-size: 11pt; font-family: Calibri, sans-serif; font-style: =
+inherit; font-variant-ligatures: inherit; font-variant-caps: inherit;">From=
+:</b><span style=3D"font-size: 11pt; font-family: Calibri, sans-serif; colo=
+r: rgb(0, 0, 0);"> Limonciello, Mario
+ &lt;Mario.Limonciello@amd.com&gt;</span><br>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Hi all,=
-&nbsp;<o:p></o:p></span></p>
+<div dir=3D"ltr"><font face=3D"Calibri, sans-serif" style=3D"font-size: 11p=
+t; color: rgb(0, 0, 0);"><b>Sent:</b> Friday, July 28, 2023 10:39 AM<br>
+<b>To:</b> Huang, Tim &lt;Tim.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.=
+org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Yif=
+an &lt;Yifan1.Zhang@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/pm: skip the RLC stop when S0i3 suspend=
+ for SMU v13.0.4/11</font>
+<div>&nbsp;</div>
 </div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
-Just looking for anyone who could RB or ACK this patch set so I can submit =
-it?<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Thanks<=
-o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Darren<=
-o:p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> Powell, Darren &lt;<a href=3D"mailto:Darren.Powell@=
-amd.com">Darren.Powell@amd.com</a>&gt;<br>
-<b>Sent:</b> Thursday, April 27, 2023 2:27 AM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
-reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
--gfx@lists.freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">Lijo.Lazar=
-@amd.com</a>&gt;; Quan, Evan &lt;<a href=3D"mailto:Evan.Quan@amd.com">Evan.=
-Quan@amd.com</a>&gt;; Yu, Lang &lt;<a href=3D"mailto:Lang.Yu@amd.com">Lang.=
-Yu@amd.com</a>&gt;; Huang, Ray &lt;<a href=3D"mailto:Ray.Huang@amd.com">Ray=
-.Huang@amd.com</a>&gt;;
-<a href=3D"mailto:david.nieto@amd.com">david.nieto@amd.com</a> &lt;<a href=
-=3D"mailto:david.nieto@amd.com">david.nieto@amd.com</a>&gt;; Powell, Darren=
- &lt;<a href=3D"mailto:Darren.Powell@amd.com">Darren.Powell@amd.com</a>&gt;=
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText elementToProof">On 7/27/23 21:21, Huang, Tim wrote:=
 <br>
-<b>Subject:</b> [PATCH 0/8] amdgpu/pm: Implement emit_clock_levels for arct=
-urus,aldebaran</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
-amdgpu/pm: Implement emit_clock_levels for arcturus,aldebaran<br>
-<br>
-=3D=3D Description =3D=3D<br>
-Scnprintf use within the kernel is not recommended, but simple sysfs_emit r=
-eplacement has<br>
-not been successful due to the page alignment requirement of the function. =
-This patch<br>
-set implements a new api &quot;emit_clock_levels&quot; to facilitate passin=
-g both the base and<br>
-offset to the device rather than just the write pointer.<br>
-<br>
-This patch set replaces print_clock_levels for arcturus and aldebaran platf=
-orms with
-<br>
-emit_clock_levels, and also optimizes the code to reduce the code duplicati=
-on for each
-<br>
-different clock. This was spread into three parts to show more clearly the =
-changes made<br>
-to the code, followed by combining the common code into a second switch sta=
-tement.<br>
-It is similar to previous work on vega10 to implement emit_clk_levels<br>
-&nbsp;commit a63e6b83 (&quot;amdgpu/pm: Implement emit_clk_levels for vega1=
-0&quot;)<br>
-with the addition of the optimization to reduce code duplication.<br>
-<br>
-=3D=3D Patch Summary =3D=3D<br>
-&nbsp;&nbsp; linux: (<a href=3D"mailto:git@gitlab.freedesktop.org:agd5f">gi=
-t@gitlab.freedesktop.org:agd5f</a>) origin/amd-staging-drm-next @ 2d8c6b82e=
-241<br>
-&nbsp;&nbsp;&nbsp; + 9a269da4c047 amdgpu/pm: Replace print_clock_levels wit=
-h emit_clock_levels for arcturus<br>
-&nbsp;&nbsp;&nbsp; + 51ce0fcc9599 amdgpu/pm: Optimize emit_clock_levels for=
- arcturus - part 1<br>
-&nbsp;&nbsp;&nbsp; + dcaa5b7551dd amdgpu/pm: Optimize emit_clock_levels for=
- arcturus - part 2<br>
-&nbsp;&nbsp;&nbsp; + 1d16d820e4ee amdgpu/pm: Optimize emit_clock_levels for=
- arcturus - part 3<br>
-&nbsp;&nbsp;&nbsp; + b374fbf6013d amdgpu/pm: Replace print_clock_levels wit=
-h emit_clock_levels for aldebaran<br>
-&nbsp;&nbsp;&nbsp; + 2ecf48d3e83c amdgpu/pm: Optimize emit_clock_levels for=
- aldebaran - part 1<br>
-&nbsp;&nbsp;&nbsp; + fd8c21e1d1e4 amdgpu/pm: Optimize emit_clock_levels for=
- aldebaran - part 2<br>
-&nbsp;&nbsp;&nbsp; + a67ce808f18c amdgpu/pm: Optimize emit_clock_levels for=
- aldebaran - part 3<br>
-<br>
-=3D=3D System Summary =3D=3D<br>
-&nbsp;* DESKTOP(AMD Ryzen9 7900 + NAVI10(731f/ca), BIOS: 1.11)<br>
-&nbsp; + ISO(Ubuntu 22.04.2 LTS)<br>
-&nbsp; + Kernel(6.1.11-20230412-fdoagd5f-g2d8c6b82e241)<br>
-<br>
-=3D=3D Test =3D=3D<br>
-AMDGPU_PCI_ADDR=3D`lspci -nn | grep &quot;VGA\|Display&quot; | cut -d &quot=
-; &quot; -f 1`<br>
-AMDGPU_HWMON=3D`ls -la /sys/class/hwmon | grep $AMDGPU_PCI_ADDR | awk '{pri=
-nt $9}'`<br>
-HWMON_DIR=3D/sys/class/hwmon/${AMDGPU_HWMON}<br>
-<br>
-lspci -nn | grep &quot;VGA\|Display&quot;&nbsp; &gt; $LOGFILE<br>
-printf 'OD enabled =3D %X\n' &quot;$(( `cat /sys/module/amdgpu/parameters/p=
-pfeaturemask` &amp; 0x4000 ))&quot; &gt;&gt; $LOGFILE<br>
-FILES=3D&quot;pp_od_clk_voltage<br>
-pp_dpm_sclk<br>
-pp_dpm_mclk<br>
-pp_dpm_pcie<br>
-pp_dpm_socclk<br>
-pp_dpm_fclk<br>
-pp_dpm_dcefclk<br>
-pp_dpm_vclk<br>
-pp_dpm_dclk &quot;<br>
-<br>
-for f in $FILES<br>
-do<br>
-&nbsp; echo =3D=3D=3D $f =3D=3D=3D &gt;&gt; $LOGFILE<br>
-&nbsp; cat $HWMON_DIR/device/$f &gt;&gt; $LOGFILE<br>
-done<br>
-cat $LOGFILE<br>
-<br>
-Darren Powell (8):<br>
-&nbsp; amdgpu/pm: Replace print_clock_levels with emit_clock_levels for<br>
-&nbsp;&nbsp;&nbsp; arcturus<br>
-&nbsp; amdgpu/pm: Optimize emit_clock_levels for arcturus - part 1<br>
-&nbsp; amdgpu/pm: Optimize emit_clock_levels for arcturus - part 2<br>
-&nbsp; amdgpu/pm: Optimize emit_clock_levels for arcturus - part 3<br>
-&nbsp; amdgpu/pm: Replace print_clock_levels with emit_clock_levels for<br>
-&nbsp;&nbsp;&nbsp; aldebaran<br>
-&nbsp; amdgpu/pm: Optimize emit_clock_levels for aldebaran - part 1<br>
-&nbsp; amdgpu/pm: Optimize emit_clock_levels for aldebaran - part 2<br>
-&nbsp; amdgpu/pm: Optimize emit_clock_levels for aldebaran - part 3<br>
-<br>
-&nbsp;.../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 166 ++++++----------<=
+&gt; [AMD Official Use Only - General]<br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt; *From:* Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;<br>
+&gt; *Sent:* Friday, July 28, 2023 9:14 AM<br>
+&gt; *To:* Huang, Tim &lt;Tim.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.=
+org <br>
+&gt; &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+&gt; *Cc:* Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Yif=
+an <br>
+&gt; &lt;Yifan1.Zhang@amd.com&gt;<br>
+&gt; *Subject:* Re: [PATCH] drm/amd/pm: skip the RLC stop when S0i3 suspend=
+ <br>
+&gt; for SMU v13.0.4/11<br>
+&gt; On 7/27/23 20:05, Tim Huang wrote:<br>
+&gt;&gt; From: Tim Huang &lt;Tim.Huang@amd.com&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; For SMU v13.0.4/11, driver does not need to stop RLC for S0i3,<br>
+&gt;&gt; the firmwares will handle that properly.<br>
+&gt;&gt;&nbsp;Conceptually I'm aligned to this.<br>
+&gt;&gt;&nbsp;But, just to confirm, have you already run some testing with =
+this<br>
+&gt;&gt; with current GPU F/W, BIOS and either 6.1.y, 6.4.y or ASDN?<br>
+&gt; <br>
+&gt;&gt; I checked with this on my side and saw success but I'm fearful<br>
+&gt;&gt; that it introduces some of the fence expiration problems we<br>
+&gt;&gt; had in the past and I'm just not seeing them for some reason.<br>
+&gt; <br>
+&gt; Yes, verified based on current BIOS and latest drm-next kernel and the=
+ <br>
+&gt; working FWs as the latest FWs<br>
+&gt; may have some new issues.<br>
+&gt; For this patch, it is asked by the FW guys, driver should not touch <b=
+r>
+&gt; RLC_CNTL in S0i3, let RLC FW to do that. If driver programs RLC_CNTL t=
+o <br>
+&gt; halt RLC, RLC cannot go GFXOFF exit sequence.<br>
+&gt; <br>
+&gt; The fence expiration should be still there by the delayed GFXOFF , but=
+ <br>
+&gt; this patch should be useful to help debug it as it avoids the system <=
 br>
-&nbsp;.../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c&nbsp;&nbsp;&nbsp; | 181 ++=
-+++++-----------<br>
-&nbsp;2 files changed, 132 insertions(+), 215 deletions(-)<br>
+&gt; hang when the issue happens.<br>
 <br>
+&gt;&nbsp;So in that case you think that when the driver programs RLC_CNTL&=
+nbsp; but <br>
+&gt;&nbsp;GFXOFF was delayed sequence was going out of order and it trigger=
+ed <br>
+</div>
+<div class=3D"PlainText elementToProof">
+<div><span style=3D"">&gt;&nbsp;system hang.&nbsp; But now with this patch =
+it will not hang but fences expire.</span><br>
+</div>
+</div>
+<div class=3D"PlainText elementToProof"><br>
+&gt;&nbsp;It makes sense to me.&nbsp; This patch shouldn't be any &quot;mor=
+e&quot; harmful then.<br>
 <br>
-base-commit: 2d8c6b82e241f2d1a802ae6bbc24c127e689c724<br>
--- <br>
-2.34.1<o:p></o:p></p>
+&gt;&nbsp;Reviewed-by: Mario Limonciello &lt;mario.limonciello@amd.com&gt;<=
+br>
+<br>
+&gt;&nbsp;For the delayed GFXOFF issue maybe we should revisit my previous =
+idea <br>
+&gt;&nbsp;for flushing GFXOFF requests.&nbsp; IIRC the most recent version =
+was:<br>
+&gt;&nbsp;</div>
+<div class=3D"PlainText elementToProof">&gt;&nbsp;<a href=3D"https://patchw=
+ork.freedesktop.org/patch/537888/?series=3D117965&amp;rev=3D1" data-auth=3D=
+"NotApplicable">https://patchwork.freedesktop.org/patch/537888/?series=3D11=
+7965&amp;rev=3D1</a><br>
 </div>
+<div class=3D"PlainText elementToProof"><br>
 </div>
+<div class=3D"PlainText elementToProof">&nbsp;I agree.&nbsp; We can add thi=
+s patch to the latest test build and check whether the issue is gone.</div>
+<div class=3D"PlainText elementToProof"><br>
 </div>
+<div class=3D"PlainText elementToProof">&nbsp;Thanks.</div>
+<div class=3D"PlainText elementToProof"><br>
 </div>
+<div class=3D"PlainText elementToProof">&gt; <br>
+&gt; Best Regards,<br>
+&gt; Tim<br>
+&gt; <br>
+&gt;&gt;<br>
+&gt;&gt; Signed-off-by: Tim Huang &lt;Tim.Huang@amd.com&gt;<br>
+&gt;&gt; ---<br>
+&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 4 ++--<br>
+&gt;&gt;&nbsp;&nbsp; 1 file changed, 2 insertions(+), 2 deletions(-)<br>
+&gt;&gt;<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/g=
+pu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
+&gt;&gt; index ce41a8309582..222af2fae745 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
+&gt;&gt; +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
+&gt;&gt; @@ -1581,9 +1581,9 @@ static int smu_disable_dpms(struct smu_conte=
+xt *smu)<br>
+&gt;&gt;&nbsp;&nbsp; <br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * For SMU 13.0.4/1=
+1, PMFW will handle the features disablement properly<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * for gpu reset case. Driver invol=
+vement is unnecessary.<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * for gpu reset and S0i3 cases. Dr=
+iver involvement is unnecessary.<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_in_reset(adev)) {<br>
+&gt;&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_in_reset(adev) || adev-&gt;in=
+_s0ix) {<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;ip_versions[MP1_HWIP][0]) {<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(13, 0, 4):<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSION(13, 0, 11):<br>
+&gt; <br>
+<br>
+</div>
+</span></font></div>
 </div>
 </body>
 </html>
 
---_000_DM6PR12MB2619FC59D7F573DC95D8D1D2E406ADM6PR12MB2619namp_--
+--_000_BY5PR12MB3873DFD25AA068E593F046FEF606ABY5PR12MB3873namp_--
