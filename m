@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 013B1C04A94
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 07:45:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE54C00528
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 07:45:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB52910E673;
-	Fri, 28 Jul 2023 07:45:20 +0000 (UTC)
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5377A10E63C;
- Fri, 28 Jul 2023 04:48:29 +0000 (UTC)
-Received: from dggpemm100001.china.huawei.com (unknown [172.30.72.56])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4RBw9H5nhFz1GDJX;
- Fri, 28 Jul 2023 12:47:31 +0800 (CST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40C2B10E674;
+	Fri, 28 Jul 2023 07:45:21 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60F4610E63C;
+ Fri, 28 Jul 2023 04:48:31 +0000 (UTC)
+Received: from dggpemm100001.china.huawei.com (unknown [172.30.72.55])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RBw6T19T8zNm4t;
+ Fri, 28 Jul 2023 12:45:05 +0800 (CST)
 Received: from localhost.localdomain.localdomain (10.175.113.25) by
  dggpemm100001.china.huawei.com (7.185.36.93) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Fri, 28 Jul 2023 12:48:26 +0800
+ 15.1.2507.27; Fri, 28 Jul 2023 12:48:27 +0800
 From: Kefeng Wang <wangkefeng.wang@huawei.com>
 To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v3 2/4] drm/amdkfd: use vma_is_initial_stack() and
+Subject: [PATCH v3 4/4] perf/core: use vma_is_initial_stack() and
  vma_is_initial_heap()
-Date: Fri, 28 Jul 2023 13:00:41 +0800
-Message-ID: <20230728050043.59880-3-wangkefeng.wang@huawei.com>
+Date: Fri, 28 Jul 2023 13:00:43 +0800
+Message-ID: <20230728050043.59880-5-wangkefeng.wang@huawei.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230728050043.59880-1-wangkefeng.wang@huawei.com>
 References: <20230728050043.59880-1-wangkefeng.wang@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.175.113.25]
 X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
  dggpemm100001.china.huawei.com (7.185.36.93)
@@ -60,37 +60,69 @@ Cc: stephen.smalley.work@gmail.com, Kefeng Wang <wangkefeng.wang@huawei.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the helpers to simplify code.
+Use the helpers to simplify code, also kill unneeded goto cpy_name.
 
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>
 Reviewed-by: David Hildenbrand <david@redhat.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Kefeng Wang <wangkefeng.wang@huawei.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ kernel/events/core.c | 33 +++++++++++----------------------
+ 1 file changed, 11 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 01c7de2d6e19..308384dbc502 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -2624,10 +2624,7 @@ svm_range_get_range_boundaries(struct kfd_process *p, int64_t addr,
- 		return -EFAULT;
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index f84e2640ea2f..b36d0823ff33 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -8631,7 +8631,7 @@ static void perf_event_mmap_event(struct perf_mmap_event *mmap_event)
+ 	unsigned int size;
+ 	char tmp[16];
+ 	char *buf = NULL;
+-	char *name;
++	char *name = NULL;
+ 
+ 	if (vma->vm_flags & VM_READ)
+ 		prot |= PROT_READ;
+@@ -8678,29 +8678,18 @@ static void perf_event_mmap_event(struct perf_mmap_event *mmap_event)
+ 
+ 		goto got_name;
+ 	} else {
+-		if (vma->vm_ops && vma->vm_ops->name) {
++		if (vma->vm_ops && vma->vm_ops->name)
+ 			name = (char *) vma->vm_ops->name(vma);
+-			if (name)
+-				goto cpy_name;
++		if (!name)
++			name = (char *)arch_vma_name(vma);
++		if (!name) {
++			if (vma_is_initial_heap(vma))
++				name = "[heap]";
++			else if (vma_is_initial_stack(vma))
++				name = "[stack]";
++			else
++				name = "//anon";
+ 		}
+-
+-		name = (char *)arch_vma_name(vma);
+-		if (name)
+-			goto cpy_name;
+-
+-		if (vma->vm_start <= vma->vm_mm->start_brk &&
+-				vma->vm_end >= vma->vm_mm->brk) {
+-			name = "[heap]";
+-			goto cpy_name;
+-		}
+-		if (vma->vm_start <= vma->vm_mm->start_stack &&
+-				vma->vm_end >= vma->vm_mm->start_stack) {
+-			name = "[stack]";
+-			goto cpy_name;
+-		}
+-
+-		name = "//anon";
+-		goto cpy_name;
  	}
  
--	*is_heap_stack = (vma->vm_start <= vma->vm_mm->brk &&
--			  vma->vm_end >= vma->vm_mm->start_brk) ||
--			 (vma->vm_start <= vma->vm_mm->start_stack &&
--			  vma->vm_end >= vma->vm_mm->start_stack);
-+	*is_heap_stack = vma_is_initial_heap(vma) || vma_is_initial_stack(vma);
- 
- 	start_limit = max(vma->vm_start >> PAGE_SHIFT,
- 		      (unsigned long)ALIGN_DOWN(addr, 2UL << 8));
+ cpy_name:
 -- 
 2.41.0
 
