@@ -4,46 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15134C001E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 10:56:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A69DC001DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 14:25:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A29C810E181;
-	Fri, 28 Jul 2023 10:56:35 +0000 (UTC)
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D70410E181
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 10:56:33 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4RC4M13R90z9stN;
- Fri, 28 Jul 2023 12:56:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1690541789;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5hEPLoqfE400Hx7CzA6V5N5eofZ4eL6nZVe4GAa1lt8=;
- b=lgPeODzlFiLyKYgwuJOhutG0AhftmIL08n4h+2VEcjp6PcZSd7gSh99zlTWVvaarHKy5ly
- jUBauyl/z7rstkzAARjspPkYQ7k8xW4vT9iW+lZWHJVHw+O9GnetjdVyxOhIOKDcHx9FIA
- JA5MQHTxyfhV1zgmFx0PeU4UPlHhH+YXH6lD9dtMRxobtYKPqYRS05c5aRFPSzx85YSwtm
- ZEYtVLm2l8rBvzAp8IrnHRevSFYwyRU1rr1VdbqWHeKSaNILaJgvboCmAfSjqyCWg664Fh
- a2VJpKS/2Yd5v1N8v0DZ4qTKBVyWmgNa6QpFQvqOAsk/UH4zD6mZ0HMgFzjgrA==
-Content-Type: multipart/mixed; boundary="------------NAyugCMDRDovcKgz4UNkpx7m"
-Message-ID: <acfde12d-e6b3-f95c-bd1d-94c0930a1bb7@mailbox.org>
-Date: Fri, 28 Jul 2023 12:56:28 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id C99C910E700;
+	Fri, 28 Jul 2023 14:25:24 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0318E10E702
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 14:25:21 +0000 (UTC)
+Received: from [192.168.1.137] ([213.144.156.170])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202307281625178489; Fri, 28 Jul 2023 16:25:17 +0200
+Message-ID: <493a9ab5-1665-0188-8bab-69086f7d94a6@daenzer.net>
+Date: Fri, 28 Jul 2023 16:25:16 +0200
 MIME-Version: 1.0
-Subject: Re: [PATCH v2] drm/amd/display: Use root connector's colorspace
- property for MST
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-To: Harry Wentland <harry.wentland@amd.com>
-References: <20230713195850.165198-1-harry.wentland@amd.com>
- <47c218ef-2844-1e9b-0e67-c0aae1cb8e9d@mailbox.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Subject: Re: [PATCH 28/29] drm/amdkfd: Refactor migrate init to support
+ partition switch
 Content-Language: en-CA
-In-Reply-To: <47c218ef-2844-1e9b-0e67-c0aae1cb8e9d@mailbox.org>
-X-MBO-RS-META: rb4xhd9qfh8aa7eqjd3rhzxcdw5is88w
-X-MBO-RS-ID: 18516e12f99d3fa938e
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>,
+ "Yang, Philip" <Philip.Yang@amd.com>
+References: <20230510212333.2071373-28-alexander.deucher@amd.com>
+ <647beed4-9d0b-e351-6f66-756f73eb73a5@daenzer.net>
+ <1da36164-7cd9-c2a3-a42f-558942257727@daenzer.net>
+ <f8c83922-f3d4-34d8-6ae1-3112b52bcdf3@amd.com>
+ <d515206e-ab58-a8c4-ef3a-e93fc61ba37d@daenzer.net>
+ <0a99c609-c5c2-25fc-4ceb-52a0b4a49f29@amd.com>
+ <219fc41b-13f2-8517-1720-eb92fe02083c@amd.com>
+ <DM4PR12MB5152DC2873CB6726977F45C9E301A@DM4PR12MB5152.namprd12.prod.outlook.com>
+ <DM4PR12MB5152E173B970C3974F071E76E306A@DM4PR12MB5152.namprd12.prod.outlook.com>
+ <063f67cc-241d-f92f-1c6b-1ec20795690a@daenzer.net>
+In-Reply-To: <063f67cc-241d-f92f-1c6b-1ec20795690a@daenzer.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CTCH: RefID="str=0001.0A782F25.64C3CFCE.0061,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,75 +52,27 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------NAyugCMDRDovcKgz4UNkpx7m
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-On 7/14/23 18:52, Michel Dänzer wrote:
-> On 7/13/23 21:58, Harry Wentland wrote:
->> After driver init we shouldn't create new properties. Doing so
->> will lead to a warning storm from __drm_mode_object_add.
+On 7/28/23 11:30, Michel Dänzer wrote:
+> On 7/28/23 03:38, Zhang, Jesse(Jie) wrote:
 >>
->> We don't really need to create the property for MST connectors.
->> Re-using the mst_root connector's property is fine.
+>> Could you try the patch again ?  That work for me.
 >>
->> v2: Add curly braces to avoid possibly 'else' confusion
+>> https://patchwork.freedesktop.org/patch/549605/ <https://patchwork.freedesktop.org/patch/549605/>
 > 
-> I'm still hitting WARNINGs with this, see attachment.
+> This patch fixes the symptoms described in https://gitlab.freedesktop.org/drm/amd/-/issues/2659 for me as well.
+> 
+> However, it does not fix the IOMMU page faults[0] or the IB test failures on the compute rings. Should I try amdgpu.ignore_crat=1 for these symptoms as well?
 
-It's because drm_connector_attach_colorspace_property tries attaching the property to the MST root connector again, instead of to the newly created MST connector.
-
-I tried the attached patch on top and didn't get any WARNINGs, but for some reason the MST connector for my external monitor never showed up to user space. Not sure what's going on there.
+I tried ignore_crat=1, it avoids the remaining symptoms as well.
 
 
 -- 
 Earthling Michel Dänzer            |                  https://redhat.com
 Libre software enthusiast          |         Mesa and Xwayland developer
 
---------------NAyugCMDRDovcKgz4UNkpx7m
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-drm-amd-display-Fix-attaching-root-colorspace-proper.patch"
-Content-Disposition: attachment;
- filename*0="0001-drm-amd-display-Fix-attaching-root-colorspace-proper.pa";
- filename*1="tch"
-Content-Transfer-Encoding: base64
-
-RnJvbSAxOGVkYjkyZGRkYjY3ZTIzNGZlNzAwMmFlN2QwZmI4YmZkNzQ2NDJmIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiA9P1VURi04P3E/TWljaGVsPTIwRD1DMz1BNG56ZXI/
-PSA8bWRhZW56ZXJAcmVkaGF0LmNvbT4KRGF0ZTogRnJpLCAyOCBKdWwgMjAyMyAxMjoyMzox
-MyArMDIwMApTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWQvZGlzcGxheTogRml4IGF0dGFjaGlu
-ZyByb290IGNvbG9yc3BhY2UgcHJvcGVydHkgdG8KIE1TVCBjb25uZWN0b3IKTUlNRS1WZXJz
-aW9uOiAxLjAKQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PVVURi04CkNvbnRl
-bnQtVHJhbnNmZXItRW5jb2Rpbmc6IDhiaXQKCmRybV9jb25uZWN0b3JfYXR0YWNoX2NvbG9y
-c3BhY2VfcHJvcGVydHkgdHJpZWQgYXR0YWNoaW5nIHRoZSBwcm9wZXJ0eQp0byB0aGUgbXN0
-X3Jvb3QgY29ubmVjdG9yIGFnYWluLCB3aGljaCBoaXQgYSBXQVJOSU5HIGluCmRybV9vYmpl
-Y3RfYXR0YWNoX3Byb3BlcnR5LgoKRml4IHRoaXMgYnkgY2FsbGluZyBkcm1fb2JqZWN0X2F0
-dGFjaF9wcm9wZXJ0eSBkaXJlY3RseSB3aXRoIGFwcHJvcHJpYXRlCnBhcmFtZXRlcnMuCgpT
-aWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWRhZW56ZXJAcmVkaGF0LmNvbT4KLS0t
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwg
-NyArKysrKy0tCiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9u
-cygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2Rt
-L2FtZGdwdV9kbS5jCmluZGV4IGRmMzAyMDRhMmExYS4uNDQ3NTc2ZmI3NDIwIDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
-LmMKQEAgLTczMDIsOCArNzMwMiwxMSBAQCB2b2lkIGFtZGdwdV9kbV9jb25uZWN0b3JfaW5p
-dF9oZWxwZXIoc3RydWN0IGFtZGdwdV9kaXNwbGF5X21hbmFnZXIgKmRtLAogCQkJaWYgKCFk
-cm1fbW9kZV9jcmVhdGVfZHBfY29sb3JzcGFjZV9wcm9wZXJ0eSgmYWNvbm5lY3Rvci0+YmFz
-ZSwgc3VwcG9ydGVkX2NvbG9yc3BhY2VzKSkKIAkJCQlkcm1fY29ubmVjdG9yX2F0dGFjaF9j
-b2xvcnNwYWNlX3Byb3BlcnR5KCZhY29ubmVjdG9yLT5iYXNlKTsKIAkJfSBlbHNlIHsgLyog
-dXNlIHJvb3QgY29ubmVjdG9yJ3MgcHJvcGVydHkgKi8KLQkJCWlmIChhY29ubmVjdG9yLT5t
-c3Rfcm9vdC0+YmFzZS5jb2xvcnNwYWNlX3Byb3BlcnR5KQotCQkJCWRybV9jb25uZWN0b3Jf
-YXR0YWNoX2NvbG9yc3BhY2VfcHJvcGVydHkoJmFjb25uZWN0b3ItPm1zdF9yb290LT5iYXNl
-KTsKKwkJCWlmIChhY29ubmVjdG9yLT5tc3Rfcm9vdC0+YmFzZS5jb2xvcnNwYWNlX3Byb3Bl
-cnR5KSB7CisJCQkJZHJtX29iamVjdF9hdHRhY2hfcHJvcGVydHkoJmFjb25uZWN0b3ItPmJh
-c2UuYmFzZSwKKwkJCQkJCQkgICBhY29ubmVjdG9yLT5tc3Rfcm9vdC0+YmFzZS5jb2xvcnNw
-YWNlX3Byb3BlcnR5LAorCQkJCQkJCSAgIERSTV9NT0RFX0NPTE9SSU1FVFJZX0RFRkFVTFQp
-OworCQkJfQogCQl9CiAKIAl9Ci0tIAoyLjQwLjEKCg==
-
---------------NAyugCMDRDovcKgz4UNkpx7m--
