@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B15DAC001DE
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 15:23:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7090EC0015E
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 16:01:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C84E10E713;
-	Fri, 28 Jul 2023 15:23:08 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A0C210E713
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 15:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 083C610E038;
+	Fri, 28 Jul 2023 16:01:50 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2054.outbound.protection.outlook.com [40.107.101.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A63E910E038
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 16:01:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MxPl7TgHPDICOchkxSeEuqDLlkNHesK2UVVjHwgFw2O/b7eI65LSZsTuBYt4PT72AaQ+UPr8xA33nNrGs+OpZ5auWnHQ3tX/E8FzpE8r+KOm8J5qJy7ZElgQ98Y7AzNOcEPLZHI0SIlIIy+mXwLddl5pWl+rN1DMHquh6d/sGJFRq5MRaPG/s/bPjv2GuDkiZjxSzG4J84b5sYDcMDe+PTbcwLGqsXciv35iuiOm80jGGMJKnaaZ4DRdZAwgdG4TSL6vN87d0nyouk89scHBc4BgFsrk4dUC97EDgX1mQHnIWFiAv58jmPaeCg12BLEZS+VEWdjLX6RKuWLvqqFO7g==
+ b=lkHzrNscJbPqHs2BQUTzOpe+SpXPF2UyDCdwGMYgWGxMb+wlOzrCliPhY7QvIOUpCP1xCYQ/cG4/YpGsvs4qJYQLomnJ75WRifpPb0+gvLZ0aBaLAmF3QA51d0MybQgORVAwjEbi4J+fcT0gaxo683OcxMXanEUmSDgl+p4zWtpgU5zWVpTcb9Q/Fm8J3NUGfaWD2o+/+Oo3arUffj1/kbnRU4lhMnxm7uEC/MEPhL4RaAMD8zk2jGteFbceLJpKqdJ/g8Lf4jgjrZBU0Q5rK2cMWhoyuVLtbyC/yay323stpk8LaV9kHU8vSwxyKOd3RmbH5btubPvda0BLl31l0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WwZzjc2PWvUHmR9jwzP7FcFnw3ipN4qkRdJNhiAkXzI=;
- b=Idt5SgAxUSMnH1Mltb2jhOZSLBPb0dIxbY8lPU/afEB1sbho9KHrnXkVzxePfdt3rT0lHNFsOAwvGp9yStTaW7JTYLmPvDgkvOtQ1q/qlaNDE/KeyHLvSzhT17/No1Efdk25tgxYZAFft9Mg0ZmvUyL16TGwt/r52OBI84glN3ptpMdKtQrlACE86uedz/0f1ayROXckqyn2M1yQavIFc1r9dvBDzsZdsJenvJMaQk9ks3533JkPx4tTcAum8buID01FLONHdNH+VVPwNXcdzntV8rUvc2gtcaC3nppUVJnAUbqgV7ffMo1l35gF7ABum1kx/2/9CIbYKmtwAW1guA==
+ bh=o8JXFmNWU3QX4oMwaxhWeq0T91NOOkjQkNjeaB+3wZk=;
+ b=SrNcANkE8aLMeGlCKFU5M55itaKtErR8TiP71pZLyQ82Ng16klKLwxdncQMSUggbTLma7rS9bTU7U13KrCSzecONLCrkYtJZBobX6tcVAsVeKAuaqHqzcHvnz8X5YuxZ97O3PYjkaDtoLZwR+rY5UbNNe4Iq75W4ps8gDGBBZWSoKkl9DPvuH3t3AZsQr9g+DZ/mN1D5WPonpMU0NVt+VsjoGrBU8djpueo7jCEPharg92ft3kf+tAMyXYV6Ikew8uDCRqomTAVWtxJEyThHaz7jGmbEKmiQhiFpx08qaoruTeThqvdSftv02oNgI7PsGxchD0bMHbvPHNvQuPYh8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WwZzjc2PWvUHmR9jwzP7FcFnw3ipN4qkRdJNhiAkXzI=;
- b=kL55QoUidBZI0mRMxeJeqWbEZYNQZSpar6SvzS132YuwKpK4sBihOzRLGYOVwEf3HOFoVMJ6LMNgRyaJGvO82jyg4bkTVpa0AVuG1kYt3gDOWbd9qS70u3lNVBN4rimZKmt0/zWVNjnw+XUzDkra3T/mjjsrEY6az7fyUwWX6o4=
-Received: from SJ0PR03CA0086.namprd03.prod.outlook.com (2603:10b6:a03:331::31)
- by SJ0PR12MB6686.namprd12.prod.outlook.com (2603:10b6:a03:479::22)
+ bh=o8JXFmNWU3QX4oMwaxhWeq0T91NOOkjQkNjeaB+3wZk=;
+ b=T1We7QJbIcz2rnRDQqUAo5Wf1uEqUPo2RaOZ8o07txjLVsVNoeRo1O1Y87pk2LCP3E29eKR2OK8AGHWOe1LUgYmEFtVuDkYEz/OX1eOj94wKF8LTNSb/Jzt5hJHNi4gtK3zNZI/bqxlnKuOx79bw/X5O5i3b2cJ6yszJGiVB2os=
+Received: from MW4PR03CA0317.namprd03.prod.outlook.com (2603:10b6:303:dd::22)
+ by SA3PR12MB9105.namprd12.prod.outlook.com (2603:10b6:806:382::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Fri, 28 Jul
- 2023 15:23:04 +0000
-Received: from CO1PEPF000042A7.namprd03.prod.outlook.com
- (2603:10b6:a03:331:cafe::2d) by SJ0PR03CA0086.outlook.office365.com
- (2603:10b6:a03:331::31) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 16:01:44 +0000
+Received: from CO1NAM11FT058.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:dd:cafe::8d) by MW4PR03CA0317.outlook.office365.com
+ (2603:10b6:303:dd::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29 via Frontend
- Transport; Fri, 28 Jul 2023 15:23:04 +0000
+ Transport; Fri, 28 Jul 2023 16:01:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042A7.mail.protection.outlook.com (10.167.243.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6631.22 via Frontend Transport; Fri, 28 Jul 2023 15:23:04 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ CO1NAM11FT058.mail.protection.outlook.com (10.13.174.164) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6631.29 via Frontend Transport; Fri, 28 Jul 2023 16:01:44 +0000
+Received: from OriUbuntu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 28 Jul
- 2023 10:23:03 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
+ 2023 11:01:42 -0500
+From: Ori Messinger <Ori.Messinger@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: fix possible UAF in amdgpu_cs_pass1()
-Date: Fri, 28 Jul 2023 11:22:48 -0400
-Message-ID: <20230728152248.3290911-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.41.0
+Subject: [PATCH] drm/amdgpu: Report Missing MES Firmware Versions with Sysfs
+Date: Fri, 28 Jul 2023 12:00:29 -0400
+Message-ID: <20230728160029.863681-1-Ori.Messinger@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +66,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A7:EE_|SJ0PR12MB6686:EE_
-X-MS-Office365-Filtering-Correlation-Id: 866ef88b-0100-4b41-85fe-08db8f7e89f4
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT058:EE_|SA3PR12MB9105:EE_
+X-MS-Office365-Filtering-Correlation-Id: fde64bdf-0fa9-4134-3583-08db8f83f082
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wVt/ubYsUHh5+IIJtSkIOqS1LsjkTYsWOPduiBliAWmAV73zbQZHbqd15ViABy7c0i6AfMTnPI0TrfPjxQ6moJtGHpXnUCNgolQmXqOjOluGXlkt0Fvzi8GiqmOc9VicHBjObOmJ/B4jIwUfaiTX95sz7QzMMpjv03O3k5fyaWFYsNk+CnyLsiSGQ1n+Z4eEIjx92p1uEuJUOgsAXJvThWQ69QWZkQnJC3Lp3U5LcFP4wP80NB+0pjZf3C/tOB0VInGPgTmSKE+EMiWH8TjmJgPJ6hQIjge+rBZgskQpOqsfgsbtjUaBpUV0QymF3/6xEDg4C2bdcipwhMvQ3la3C2BmZBofktMxKeUpD7pLUlMqKVL5T8UyW9rnyje17U2pmSwUqZDlLbd1gnYNQt+PJNULpZeSB/6eINj+AuyUl94LFiP3/S6fsYREsmXVgeQI51AN/hXD3G8K0wNTew6CwPysCj6G3bgzE0S+RKE8B7CJ7jRHXzZ6h26RKSc4S1SM5et1PjHhalDU+YiF1e13IYIZg/D+DVNrIrgBXr8shE3d8xGqHSTOY+vA0VwLgMYrJ29YgQ1naIrYF4f8qsfpR9Wgu7+6x3M2VUfpcSp2rLIgazZ3iMHxqx46aKaNebsJZ20bseFOGnKsOqPZABt2lM2Yp6SJvwAPjxoH1weecM99hfBEmMDq5eUENYcjOFQQ/SpRIYooRrjrkjntmQ2W+TRQ/7r3qbAScTPbr2Xp9ydyWZT0t0b0XtoX7QL2a8e1xaSNeP/Bhs7KcCbbEnSyfA==
+X-Microsoft-Antispam-Message-Info: 438sSLFJdvIdH3lgbEKeAVzCPdSh0o6ouW+hVOGeVTp5RSsgAQZQTK1db5+ehrgm5NYpcuVata7xiif/APPBpPgC6VMa1ymr7n837o1w86BceHjk6SzKCWLj2zTSwRHmdDvPNjLfwp7E9fUbh4hg8WxW08F4fcF9CY+9PuL3OZCgS/0V4jOBb/82Gp0z8fl59G5vNwReSWNW08BScmvPP7bAhMPfjyfb2dDUhCw1Stvl/ZkbuaC15IXFvvG2koGvxrMg/Xp2Ks/En9Rx/vj11ebWpITec4d63WzQER7rfIs++YlDGeAk9tSRdzEKPjaN7I0BLhyMjEfPd5QDdGwW3JJQ3Zwsyi0kBZdFAMzcndyjrwXrlqoAZgth+mpyM4cLiDYEqS3mAFxj9PDOoj5mx6ZVUlJOLnomIjCFu5KIls87E/LYt10d7eiuY0+e8tv1q1g74+VZ0aDux0V4d7bcB8TjKI2rnM4trActodeklIkUlEIdKSpEnURCTikbbNyh46fNIoT3MfSq4X4AOBqDOf6UOiyjoL9jEqAlqAZRkQDT0JLte/PScyRles4VA0BnjTUGQjQqc2c/BK+jW14jJFh1tQ37pXwKrXrOT35kt8rGUV/dMMEoFtr38xr0+2eoK3S+TLOtLx6Lcol1bQch1nHgdF8t9IFzLGRih92thmAExYDkbx41Tmr61XIQXWoLwn6tgWvsWdRIVYa0wrht+MEH/EjzXnyQu2yTWUuCfQbONbBwkJ3vieGdFUgRV0hKAa4suInfvEmvXH6PkagfGQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(376002)(136003)(396003)(39860400002)(82310400008)(451199021)(40470700004)(36840700001)(46966006)(7696005)(6666004)(82740400003)(478600001)(356005)(83380400001)(47076005)(26005)(1076003)(6916009)(70586007)(70206006)(81166007)(336012)(186003)(426003)(36860700001)(16526019)(4326008)(2616005)(5660300002)(86362001)(41300700001)(40460700003)(316002)(2906002)(4744005)(8676002)(8936002)(40480700001)(36756003)(36900700001);
+ SFS:(13230028)(4636009)(136003)(376002)(346002)(39860400002)(396003)(82310400008)(451199021)(36840700001)(46966006)(40470700004)(16526019)(6666004)(7696005)(82740400003)(478600001)(356005)(83380400001)(47076005)(36860700001)(1076003)(26005)(70586007)(70206006)(54906003)(81166007)(186003)(336012)(426003)(2616005)(6916009)(4326008)(5660300002)(40460700003)(41300700001)(316002)(2906002)(8676002)(8936002)(86362001)(40480700001)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2023 15:23:04.4805 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 866ef88b-0100-4b41-85fe-08db8f7e89f4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2023 16:01:44.0047 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fde64bdf-0fa9-4134-3583-08db8f83f082
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042A7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT058.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6686
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9105
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,31 +97,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Ori Messinger <ori.messinger@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since the gang_size check is outside of chunk parsing
-loop, we need to reset i before we free the chunk data.
+Added missing MES firmware versions to the 'fw_version' sysfs directory,
+they should now exist as a files named "mes_fw_version" and "mes_kiq_fw_version"
+found at:
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+/sys/class/drm/cardX/device/fw_version/mes_fw_version
+/sys/class/drm/cardX/device/fw_version/mes_kiq_fw_version
+Where X is the card number, and the version is displayed in hexadecimal.
+
+Signed-off-by: Ori Messinger <ori.messinger@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 040f4cb6ab2d0..fb78a8f475879 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -295,7 +295,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index 16807ff96dc9..6a15a84ecfcd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -703,6 +703,8 @@ FW_VERSION_ATTR(sdma_fw_version, 0444, sdma.instance[0].fw_version);
+ FW_VERSION_ATTR(sdma2_fw_version, 0444, sdma.instance[1].fw_version);
+ FW_VERSION_ATTR(vcn_fw_version, 0444, vcn.fw_version);
+ FW_VERSION_ATTR(dmcu_fw_version, 0444, dm.dmcu_fw_version);
++FW_VERSION_ATTR(mes_fw_version, 0444, mes.sched_version & AMDGPU_MES_VERSION_MASK);
++FW_VERSION_ATTR(mes_kiq_fw_version, 0444, mes.kiq_version & AMDGPU_MES_VERSION_MASK);
  
- 	if (!p->gang_size) {
- 		ret = -EINVAL;
--		goto free_partial_kdata;
-+		goto free_all_kdata;
- 	}
+ static struct attribute *fw_attrs[] = {
+ 	&dev_attr_vce_fw_version.attr, &dev_attr_uvd_fw_version.attr,
+@@ -711,11 +713,12 @@ static struct attribute *fw_attrs[] = {
+ 	&dev_attr_rlc_fw_version.attr, &dev_attr_rlc_srlc_fw_version.attr,
+ 	&dev_attr_rlc_srlg_fw_version.attr, &dev_attr_rlc_srls_fw_version.attr,
+ 	&dev_attr_mec_fw_version.attr, &dev_attr_mec2_fw_version.attr,
+-	&dev_attr_sos_fw_version.attr, &dev_attr_asd_fw_version.attr,
+-	&dev_attr_ta_ras_fw_version.attr, &dev_attr_ta_xgmi_fw_version.attr,
+-	&dev_attr_smc_fw_version.attr, &dev_attr_sdma_fw_version.attr,
+-	&dev_attr_sdma2_fw_version.attr, &dev_attr_vcn_fw_version.attr,
+-	&dev_attr_dmcu_fw_version.attr, &dev_attr_imu_fw_version.attr,
++	&dev_attr_imu_fw_version.attr, &dev_attr_sos_fw_version.attr,
++	&dev_attr_asd_fw_version.attr, &dev_attr_ta_ras_fw_version.attr,
++	&dev_attr_ta_xgmi_fw_version.attr, &dev_attr_smc_fw_version.attr,
++	&dev_attr_sdma_fw_version.attr, &dev_attr_sdma2_fw_version.attr,
++	&dev_attr_vcn_fw_version.attr, &dev_attr_dmcu_fw_version.attr,
++	&dev_attr_mes_fw_version.attr, &dev_attr_mes_kiq_fw_version.attr,
+ 	NULL
+ };
  
- 	for (i = 0; i < p->gang_size; ++i) {
 -- 
-2.41.0
+2.25.1
 
