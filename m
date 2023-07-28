@@ -4,71 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 475F5C0015E
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 17:20:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FE92C0015E
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 18:04:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C220110E176;
-	Fri, 28 Jul 2023 17:20:45 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0AF610E176
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 17:20:43 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-1bb89ac2013so1740464fac.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 10:20:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690564843; x=1691169643;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LY0Suu3bDXihE2Scz0yFPmObbniBl18mn9zVOGEkkX8=;
- b=dFyNqcDVqpBfyXxDqesG9m8gbvKTDGMA9V1oVHVOmMQoajty7D14c/kooK6rbKCvF4
- 1ccgJ+JLu2x93BoBc+T8pS+lDmVm1tMm693DJ/bC+BzFzmscFU/V1YAgO9du932djcnJ
- ArCqn35rrebEhooMovctKWohb48Tz6QygMeItB+HIHklnTfQH2Vp15VVyatKDbk3ciL1
- Z4jebBYI83GteChUlYBuMWvy3N9RrE7Kxk6WpEg6AMYH2QJa1LUIL9Clr8vwzTXUqeqH
- 2geMJh+ovZPsXgnbf9IllI0RvR/FJcb1NVJ0/MqTc/KsHhWmYtToAOxiET53CHHyg3tV
- hPkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690564843; x=1691169643;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LY0Suu3bDXihE2Scz0yFPmObbniBl18mn9zVOGEkkX8=;
- b=NTNJtdY8ARPTP0sqRNMuCqrJl8BttL86S40UPdtUzL7z49v6WDceaUypMOiSB6HB79
- KEZ90ytDZ59zkHhPFMuczqVlJm+upu8AukAZGq9V7QsTDQ7d1/0BjMu4jUk6jJCUspnb
- jYj/aPxKDfeYds32/lgm9gMThJHSfIfNq3xswX+97p4G7Q12H4KTaZr6X4qvmDGPwG/7
- l5Sv8hIVTD1rSZN7aXG4jhkj+hbi9zy5CNpr5nvoitRceoaG/o1ki0fAPovlLBk28SKX
- liW0uWseyBDBgb2L52P1F6U6yjT7DgfT9urLxnzgTbJ8WLF1sIWw8dA9F53bn8Nmnreq
- 4Vdw==
-X-Gm-Message-State: ABy/qLZxNCDWiB92jIrtFL7Us3bsbIwiJ7a5tD1Xru766ehha6xavFA9
- KxWmG5wpTqAKoGUlE8Z0e8qncVmlHH2aoSCV6ww=
-X-Google-Smtp-Source: APBJJlE+koMhTNML1hAWeSZL3uOIA9jdF8qPpJGKWypt2Nh3/rjyq9nHJGP9ijOouHIqI9U98+cS3obklaekLBG1ztw=
-X-Received: by 2002:a05:6871:520b:b0:1b0:5baf:a4c3 with SMTP id
- ht11-20020a056871520b00b001b05bafa4c3mr3880703oac.35.1690564843081; Fri, 28
- Jul 2023 10:20:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC4C810E151;
+	Fri, 28 Jul 2023 18:04:53 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2086.outbound.protection.outlook.com [40.107.93.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D9A410E151
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 18:04:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G1O+v1ZQTSmkdUuf/MQoCLPKsH9Hn9khix2fSPCGyJDeLhZS3AZLxIyfN1j/0Kp3wTMpOc2B/qtFqzEf+4Qfu/e7sWDS4TK54ELZ4EnqZ8pMYFLN+EHugFMdWkjRO3I6Q7hNAGc7E8Sf0K1hEOx6oJwFu72gxJt3524/7Z7rApstdhLSODn/itZnoMgriOCxO0OF/rWNwYHHPcwn0dD6ycfd+OjVQct9inTHazS7bao0FIyZVDl3mE39GjqpXVWGsCFiSokjYEC0DHOZFV62rjBFDd9QYJ7ucPfVayThOyt5F/ilVljoM4wTBHdknZku7YAdX5FoFHYKPpx7Ui98gQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KQGgjxOrq5vcArbxZ//Tqj41ONhrI2Tfb40aSHEH4sk=;
+ b=J/w98Tic5PS6IWpgjpxkYwhTcEXPmID8vwfL+6f19Vsr+HIrB7Yvpqqyt5RV1ZiydkSJhwDc7gz/UBcxskXhbAp8gZomtRRyBxCoAT3Yao17k/QYECXbIFBfphQPKxToJLVedDwYUvtwz/FfiQVbU94SHsuvHrsLfr8Mu6l0xiVtMz91LcumfKP09GCznCDT1DEwuX+lyobGGBE15v9gWXgDDpQdoroExBMxNM3eGS/DKfPcwRjXRenSVXUj3BZRY+vFtUG4s95WxXU1vBT77I+JghXVhFwI0S58QI2aUwpWQZL2CZ+n6UBJ4ZTtW/h3u9x6EsxvBFPABsgJqtzPNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KQGgjxOrq5vcArbxZ//Tqj41ONhrI2Tfb40aSHEH4sk=;
+ b=OnXXQmTP7fFKVfXqoBepB0Hj7SFDxdGKePInHzeDup04ov+02AOw1wlZhUj1+9pShRYtHTHr7kl/GYlAvugMwHdTaTl1iSYoocZxSIOBt9Im3CkA+bUk9sZDE1EAzMoo7vcazMm2BDMHVYi89Q1De1I7sHvHWfuDZYECMsBUfaQ=
+Received: from SN7PR18CA0016.namprd18.prod.outlook.com (2603:10b6:806:f3::20)
+ by BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Fri, 28 Jul
+ 2023 18:04:47 +0000
+Received: from SA2PEPF00001509.namprd04.prod.outlook.com
+ (2603:10b6:806:f3:cafe::d) by SN7PR18CA0016.outlook.office365.com
+ (2603:10b6:806:f3::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29 via Frontend
+ Transport; Fri, 28 Jul 2023 18:04:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00001509.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6631.22 via Frontend Transport; Fri, 28 Jul 2023 18:04:46 +0000
+Received: from OriUbuntu.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 28 Jul
+ 2023 13:04:45 -0500
+From: Ori Messinger <Ori.Messinger@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Report Missing MES Firmware Versions with Sysfs
+Date: Fri, 28 Jul 2023 14:04:23 -0400
+Message-ID: <20230728180423.864002-1-Ori.Messinger@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230510212333.2071373-28-alexander.deucher@amd.com>
- <647beed4-9d0b-e351-6f66-756f73eb73a5@daenzer.net>
- <1da36164-7cd9-c2a3-a42f-558942257727@daenzer.net>
- <f8c83922-f3d4-34d8-6ae1-3112b52bcdf3@amd.com>
- <d515206e-ab58-a8c4-ef3a-e93fc61ba37d@daenzer.net>
- <0a99c609-c5c2-25fc-4ceb-52a0b4a49f29@amd.com>
- <219fc41b-13f2-8517-1720-eb92fe02083c@amd.com>
- <DM4PR12MB5152DC2873CB6726977F45C9E301A@DM4PR12MB5152.namprd12.prod.outlook.com>
- <DM4PR12MB5152E173B970C3974F071E76E306A@DM4PR12MB5152.namprd12.prod.outlook.com>
- <063f67cc-241d-f92f-1c6b-1ec20795690a@daenzer.net>
- <493a9ab5-1665-0188-8bab-69086f7d94a6@daenzer.net>
- <CADnq5_N-5MNq1YjU1w5AgsqFVTc0_nJ+XWgkifhRAzKKiftHZg@mail.gmail.com>
- <e654d536-54c0-258d-c80b-129f95c048cc@daenzer.net>
-In-Reply-To: <e654d536-54c0-258d-c80b-129f95c048cc@daenzer.net>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 28 Jul 2023 13:20:31 -0400
-Message-ID: <CADnq5_Np7QqvdER3+ayJQB1_7DvL5ddR447q_x1Yp5Ku8yOsTg@mail.gmail.com>
-Subject: Re: [PATCH 28/29] drm/amdkfd: Refactor migrate init to support
- partition switch
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001509:EE_|BL1PR12MB5144:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3bc060a-f04b-4394-393c-08db8f95210e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Hj/IalYpsAi+uEmAod3BO00uFcRdlLUjHNQ0uSOhcVMrZ5PGiJCl8EGxXRQ+JeGQ2uogXEp5nBbBW8kPReKWHMr1Bu8gBmgICXhG2zhzMeOEi556blgd0j2gVKPbsBHwrtro9kDBMXPgegRguPwZOb9jsxfpjTWCMVlxLRDh1xijGU2l/IYZti0gjYkg3uY3MIsc25gq8qj5c2kIT5iFre06pkvX1+lw8FovdDUDI3Xph28g5fuIi3us4fgD6N/FG2bLkRRWbt+05S6hpWNJ6m3cRgiiMEpj86GHP3adjjWsozfDkKyVbDQKYLkO8rK1fn0WFiC2558IV6eSfZUUdYDnJdu/7Y2EybljRgYdVNHj9GB1k8t98Ad+e9Gh0TgqMjmZtlvkWEj3nlglI+atfJ1pbos04XKImeBV6HRYXM30qxZoADIfEWNB3E4CvZsCFpAUPc9yD1bQXxcBEKs/bwo5x6V6WcwUfZjy9VqLEpPq/I6VwOOGxNbZS/WgkwLK9ByemUB8Dkc2AzcN/bleTwz8efwEbTW1P+Ihbn4F74qhI7mlJQ1Tuz9/r5okgtrrptqUcP07FM1/bh/wHmQTIcZG+Peo4DZwuRF/GMdtmUcjDRspze2whqWdPXIdw8N/eYjpYecHpAttwaRqsZG973R71X2Xsjxfqlp00RGwgQzM+W0yM8ODx3yORyXRsJR88Cke+dUkRkaYfonSFVpx2CQXbqkvlP+gmVkukmmatPmAR/WZFEKF08f54epR/QDSwyqdVIN3UVHyALvzLcfLrA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199021)(82310400008)(36840700001)(40470700004)(46966006)(47076005)(356005)(54906003)(478600001)(86362001)(6916009)(70586007)(316002)(4326008)(1076003)(81166007)(16526019)(70206006)(40480700001)(186003)(40460700003)(6666004)(82740400003)(336012)(26005)(7696005)(5660300002)(8676002)(8936002)(2616005)(426003)(41300700001)(2906002)(36756003)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2023 18:04:46.9911 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3bc060a-f04b-4394-393c-08db8f95210e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001509.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5144
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,43 +97,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Yang,
- Philip" <Philip.Yang@amd.com>, "Zhang, Jesse\(Jie\)" <Jesse.Zhang@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Ori Messinger <ori.messinger@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 28, 2023 at 1:19=E2=80=AFPM Michel D=C3=A4nzer <michel@daenzer.=
-net> wrote:
->
-> On 7/28/23 18:43, Alex Deucher wrote:
-> > On Fri, Jul 28, 2023 at 10:25=E2=80=AFAM Michel D=C3=A4nzer <michel@dae=
-nzer.net> wrote:
-> >> On 7/28/23 11:30, Michel D=C3=A4nzer wrote:
-> >>> On 7/28/23 03:38, Zhang, Jesse(Jie) wrote:
-> >>>>
-> >>>> Could you try the patch again ?  That work for me.
-> >>>>
-> >>>> https://patchwork.freedesktop.org/patch/549605/ <https://patchwork.f=
-reedesktop.org/patch/549605/>
-> >>>
-> >>> This patch fixes the symptoms described in https://gitlab.freedesktop=
-.org/drm/amd/-/issues/2659 for me as well.
-> >>>
-> >>> However, it does not fix the IOMMU page faults[0] or the IB test fail=
-ures on the compute rings. Should I try amdgpu.ignore_crat=3D1 for these sy=
-mptoms as well?
-> >>
-> >> I tried ignore_crat=3D1, it avoids the remaining symptoms as well.
-> >
-> > The first 3 patches of this set may also fix it:
-> > https://patchwork.freedesktop.org/series/121538/
->
-> They do fix all symptoms I'm seeing.
->
-> Is this a feasible solution for the final 6.5 release?
+Added missing MES firmware versions to the 'fw_version' sysfs
+directory, they should now exist as a files named "mes_fw_version"
+and "mes_kiq_fw_version" found at:
 
-I think the first3 are.  The 4th will have to wait for 6.6.
+/sys/class/drm/cardX/device/fw_version/mes_fw_version
+/sys/class/drm/cardX/device/fw_version/mes_kiq_fw_version
+Where X is the card number, and the version is displayed in hexadecimal.
 
-Alex
+Signed-off-by: Ori Messinger <ori.messinger@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index 16807ff96dc9..8beefc045e14 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -703,6 +703,8 @@ FW_VERSION_ATTR(sdma_fw_version, 0444, sdma.instance[0].fw_version);
+ FW_VERSION_ATTR(sdma2_fw_version, 0444, sdma.instance[1].fw_version);
+ FW_VERSION_ATTR(vcn_fw_version, 0444, vcn.fw_version);
+ FW_VERSION_ATTR(dmcu_fw_version, 0444, dm.dmcu_fw_version);
++FW_VERSION_ATTR(mes_fw_version, 0444, mes.sched_version & AMDGPU_MES_VERSION_MASK);
++FW_VERSION_ATTR(mes_kiq_fw_version, 0444, mes.kiq_version & AMDGPU_MES_VERSION_MASK);
+ 
+ static struct attribute *fw_attrs[] = {
+ 	&dev_attr_vce_fw_version.attr, &dev_attr_uvd_fw_version.attr,
+@@ -716,6 +718,7 @@ static struct attribute *fw_attrs[] = {
+ 	&dev_attr_smc_fw_version.attr, &dev_attr_sdma_fw_version.attr,
+ 	&dev_attr_sdma2_fw_version.attr, &dev_attr_vcn_fw_version.attr,
+ 	&dev_attr_dmcu_fw_version.attr, &dev_attr_imu_fw_version.attr,
++	&dev_attr_mes_fw_version.attr, &dev_attr_mes_kiq_fw_version.attr,
+ 	NULL
+ };
+ 
+-- 
+2.25.1
+
