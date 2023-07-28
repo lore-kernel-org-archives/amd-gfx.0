@@ -4,49 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C75DFC001DE
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 16:43:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DCCEC001DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 17:19:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60CEB10E726;
-	Fri, 28 Jul 2023 16:43:22 +0000 (UTC)
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FFFA10E726
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 16:43:19 +0000 (UTC)
-Received: by mail-ot1-x32d.google.com with SMTP id
- 46e09a7af769-6bb14015560so1996126a34.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 09:43:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690562599; x=1691167399;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3J265gu/8FQfCRdoUcvQuQsZLZApH12qQl8/EPKTQ48=;
- b=j/+XvjDIsgL9hgBV1+3T50LXFh6t5O1tTAqr8ecR1EgRiuwnfMS0XyALyXYWWe4gOL
- XlKgddLevD0Gxkv7z8e3hWhlagGHllcaMXBFQT5vVs0BZL2d9jI4Gip026s2fkpaNycO
- zSnEXUIX0BCTjsHAF/vCQPdd6aMdP1KyLM/kfhilG0oqHnziCKdqaBwCRkXyxJ0nlcFi
- iRUTWJxJyWTesXqv5X2uTeCTzITaqMcriFWa3ocu6OrlGUG1/FXE8cRhRuhRb0VpRW5F
- 6xw6puorIaqHMjGID++X/Tnkv4xL4n1aFFLBgEdF2wu//gY2GhkC9PqQR8WX3eNvdCfJ
- E1SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690562599; x=1691167399;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=3J265gu/8FQfCRdoUcvQuQsZLZApH12qQl8/EPKTQ48=;
- b=ajQ2ahAt4yTw5Ze/MLwlERzuxu0oQSBiiiotTch3F6maQDN8tICoWdAP2UtK+PATRc
- 9lA5azFw2prD05XXO6lCiyq/1rkObV+338cu3MUFEPjRO4exgbXo5PwqGap/Z5Vcc0/X
- HzePxYEviLF05Sf1HsFQe9D0YX+YRY5iBiBFCHtVPbYyVze0/N9YUrmsLoh1ruJ6LOOh
- NwmWt+wV5KZOjn9n0SFDErXUxQWeiP7PnfoiWMRhCWuDZjKFcnck4qhMReUKm3usFBI0
- exiFtekdjSf0JGPv2qImuqvC15HP/2NDGSalon0uMwSNsWMfnrct0LapETxCtOPEYfjG
- ZD8g==
-X-Gm-Message-State: ABy/qLYq7hwSsK7osexLT56TFka1W914NXF2dJl2ZvahHPpRSUnt/iRg
- h7MoLHFd3E2HBrGn+CoLticm8GcZU73f4eFToPXkBou/Ulk=
-X-Google-Smtp-Source: APBJJlEyUAfuE4CT9BC7UZQBPqu0w9oE0VsTdV3fjdaHl5uajAoAbpta8AyOZY074SQFswl9fPa9imC/TiN+1jiummk=
-X-Received: by 2002:a05:6870:3510:b0:1bb:6ee1:114e with SMTP id
- k16-20020a056870351000b001bb6ee1114emr3572253oah.28.1690562598859; Fri, 28
- Jul 2023 09:43:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B331610E20B;
+	Fri, 28 Jul 2023 17:19:08 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B99E10E0E0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 17:19:05 +0000 (UTC)
+Received: from [192.168.1.137] ([213.144.156.170])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202307281919008180; Fri, 28 Jul 2023 19:19:00 +0200
+Message-ID: <e654d536-54c0-258d-c80b-129f95c048cc@daenzer.net>
+Date: Fri, 28 Jul 2023 19:18:59 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+To: Alex Deucher <alexdeucher@gmail.com>
 References: <20230510212333.2071373-28-alexander.deucher@amd.com>
  <647beed4-9d0b-e351-6f66-756f73eb73a5@daenzer.net>
  <1da36164-7cd9-c2a3-a42f-558942257727@daenzer.net>
@@ -58,15 +32,16 @@ References: <20230510212333.2071373-28-alexander.deucher@amd.com>
  <DM4PR12MB5152E173B970C3974F071E76E306A@DM4PR12MB5152.namprd12.prod.outlook.com>
  <063f67cc-241d-f92f-1c6b-1ec20795690a@daenzer.net>
  <493a9ab5-1665-0188-8bab-69086f7d94a6@daenzer.net>
-In-Reply-To: <493a9ab5-1665-0188-8bab-69086f7d94a6@daenzer.net>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 28 Jul 2023 12:43:07 -0400
-Message-ID: <CADnq5_N-5MNq1YjU1w5AgsqFVTc0_nJ+XWgkifhRAzKKiftHZg@mail.gmail.com>
+ <CADnq5_N-5MNq1YjU1w5AgsqFVTc0_nJ+XWgkifhRAzKKiftHZg@mail.gmail.com>
+Content-Language: en-CA
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
 Subject: Re: [PATCH 28/29] drm/amdkfd: Refactor migrate init to support
  partition switch
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CADnq5_N-5MNq1YjU1w5AgsqFVTc0_nJ+XWgkifhRAzKKiftHZg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CTCH: RefID="str=0001.0A782F1B.64C3F885.0042,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,27 +60,30 @@ Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Yang,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 28, 2023 at 10:25=E2=80=AFAM Michel D=C3=A4nzer <michel@daenzer=
-.net> wrote:
->
-> On 7/28/23 11:30, Michel D=C3=A4nzer wrote:
-> > On 7/28/23 03:38, Zhang, Jesse(Jie) wrote:
-> >>
-> >> Could you try the patch again ?  That work for me.
-> >>
-> >> https://patchwork.freedesktop.org/patch/549605/ <https://patchwork.fre=
-edesktop.org/patch/549605/>
-> >
-> > This patch fixes the symptoms described in https://gitlab.freedesktop.o=
-rg/drm/amd/-/issues/2659 for me as well.
-> >
-> > However, it does not fix the IOMMU page faults[0] or the IB test failur=
-es on the compute rings. Should I try amdgpu.ignore_crat=3D1 for these symp=
-toms as well?
->
-> I tried ignore_crat=3D1, it avoids the remaining symptoms as well.
+On 7/28/23 18:43, Alex Deucher wrote:
+> On Fri, Jul 28, 2023 at 10:25 AM Michel Dänzer <michel@daenzer.net> wrote:
+>> On 7/28/23 11:30, Michel Dänzer wrote:
+>>> On 7/28/23 03:38, Zhang, Jesse(Jie) wrote:
+>>>>
+>>>> Could you try the patch again ?  That work for me.
+>>>>
+>>>> https://patchwork.freedesktop.org/patch/549605/ <https://patchwork.freedesktop.org/patch/549605/>
+>>>
+>>> This patch fixes the symptoms described in https://gitlab.freedesktop.org/drm/amd/-/issues/2659 for me as well.
+>>>
+>>> However, it does not fix the IOMMU page faults[0] or the IB test failures on the compute rings. Should I try amdgpu.ignore_crat=1 for these symptoms as well?
+>>
+>> I tried ignore_crat=1, it avoids the remaining symptoms as well.
+> 
+> The first 3 patches of this set may also fix it:
+> https://patchwork.freedesktop.org/series/121538/
 
-The first 3 patches of this set may also fix it:
-https://patchwork.freedesktop.org/series/121538/
+They do fix all symptoms I'm seeing.
 
-Alex
+Is this a feasible solution for the final 6.5 release?
+
+
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
