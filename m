@@ -4,71 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 771DFC0015E
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Jul 2023 19:10:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2E9DC001DC
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Jul 2023 19:33:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C16910E210;
-	Sat, 29 Jul 2023 19:10:11 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA4BA10E117
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Jul 2023 19:10:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1690657805;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=YOCFbmaqJDliMmq4qRXmQzpcNBbZ0rghMQxEBFeZeig=;
- b=JEXB2HrUkMgCyeFCzoeQ5LcomrPt1WYJyQMBmhgpUnN6b5jBHpvYXNi2dCZjFTl1wLJlXX
- nd4/8gIYNqPwHNu6+XoQ3wIqO6DN/dv0coPGs6eWkPdwAjWR7hK9o9kjuLtKPYZ6jhtatU
- xuJhTDZB+AFuXBgTeCtUFQEQwJlWhmg=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-570-bqIunHubMoqa_A4Y2HOkfg-1; Sat, 29 Jul 2023 15:10:04 -0400
-X-MC-Unique: bqIunHubMoqa_A4Y2HOkfg-1
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-3fe11910e46so7645065e9.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Jul 2023 12:10:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690657802; x=1691262602;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YOCFbmaqJDliMmq4qRXmQzpcNBbZ0rghMQxEBFeZeig=;
- b=EPvMeCJ6kaSDevxkbWc8LAImGEex37AOdzTvUDWkCeViRdC+X8p319F56rNZHgj3kv
- SByISJy32YLC4WUDnoZkXuvOrY53dIjQ9o23Fevq1LgC3TVvmiL6+N2ytL3vKBgT0kLF
- 1mHT+HzsS3r22f1SzXoixSSkJpok+CpOSS2QBqfJFQXymJ8wv1SjDt1bvUCWzv48EKea
- 2d5EaWXjozhahsuF9uLD/TVm/jwbab2VPbb7VDc50TtvkTuBfliU0AXSmaYwOVmuNqjO
- RQ0/P2+pyliOXtER7DndSJqO8zqpAHeVZwf7Uh1K8+tK7hE6INU7iWB5M8SQ0nZ6kxNC
- eHpg==
-X-Gm-Message-State: ABy/qLa/tXmkFYX6a6WH/6UFomdiugg1ZPRlss375q+yJQiB5LCxej3R
- HwhOhMXSvbipYzUDtdQby1bZw9OQv2ExE9ojfVmQ81xzCYlyf+OkxFYG+72rLjfLozPZcF+W3J2
- vWuekTVrMPXTkmr+MvG+gn/HDuqIe5zx3iA==
-X-Received: by 2002:a05:600c:22c6:b0:3fc:1a6:79a9 with SMTP id
- 6-20020a05600c22c600b003fc01a679a9mr4764486wmg.16.1690657802669; 
- Sat, 29 Jul 2023 12:10:02 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlHLhWwdb9e5stl9mtFYazDKO5IGT18IwiQdgIdt9oSkXWPDup+CMG32gUcSUxlzRYbRdSzBsA==
-X-Received: by 2002:a05:600c:22c6:b0:3fc:1a6:79a9 with SMTP id
- 6-20020a05600c22c600b003fc01a679a9mr4764469wmg.16.1690657802420; 
- Sat, 29 Jul 2023 12:10:02 -0700 (PDT)
-Received: from localhost (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- x20-20020a1c7c14000000b003fc01f7b415sm9897722wmc.39.2023.07.29.12.10.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 29 Jul 2023 12:10:02 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v2] drm: Spelling s/sempahore/semaphore/
-In-Reply-To: <8b0542c12a2427f34a792c41ac2d2a2922874bfa.1689600102.git.geert+renesas@glider.be>
-References: <8b0542c12a2427f34a792c41ac2d2a2922874bfa.1689600102.git.geert+renesas@glider.be>
-Date: Sat, 29 Jul 2023 21:10:01 +0200
-Message-ID: <877cqiy1o6.fsf@minerva.mail-host-address-is-not-set>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9341210E21C;
+	Sat, 29 Jul 2023 19:33:17 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45CD410E21C;
+ Sat, 29 Jul 2023 19:33:16 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5B461601FE;
+ Sat, 29 Jul 2023 19:33:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526BBC433C8;
+ Sat, 29 Jul 2023 19:33:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1690659194;
+ bh=WoTBW2RInEWVN7BYf6Qj0vtLh2X+0pwyjuY2u3J4390=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uYVNNPMJrTg64eF+spfl+vwH4skqcYBOMk3kuSR/lkoXEOfQshJTY+Ll8rstVQCGY
+ AMDTrcQJtLS7P0E80EGyejLSXk19zLdxLx0+QWQ4u3go90th3fXTp7H9tiFCsNprpB
+ hYH89px4tQw2QA9jR1pS+wGFeA2T/T6D/uoJJ1vEohY2S1O7+EMJcTrZ4AtLKSXKO+
+ jQefcmW/Vb4zma6pOOOpE0fFEs4XJo+ArEEv0efr33bbA2Ixqkv6ECKff5KamFAQ5l
+ Vm0eCIvzIfArwrApqSAQCu/XHOV0DL9KFIetjGumiTu1zc1Z84Jqqn8fOKGXvbFKDj
+ 6ulLV+FQfbyDg==
+Date: Sat, 29 Jul 2023 12:33:12 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Bagas Sanjaya <bagasdotme@gmail.com>
+Subject: Re: [PATCH] drm/radeon: Prefer 'unsigned int' to bare use of
+ 'unsigned'
+Message-ID: <20230729193312.GA2844869@dev-arch.thelio-3990X>
+References: <3a4bebc5-79fb-4799-8743-14a0dde97a4f.sunran001@208suo.com>
+ <ZMUeNehNb52Qu/Cp@debian.me>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZMUeNehNb52Qu/Cp@debian.me>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,29 +55,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-kernel@vger.kernel.org
+Cc: =?utf-8?B?5a2Z5YaJ?= <sunran001@208suo.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx <amd-gfx@lists.freedesktop.org>, daniel <daniel@ffwll.ch>,
+ "alexander.deucher" <alexander.deucher@amd.com>, airlied <airlied@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Geert Uytterhoeven <geert+renesas@glider.be> writes:
+On Sat, Jul 29, 2023 at 09:12:05PM +0700, Bagas Sanjaya wrote:
+> On Fri, Jul 28, 2023 at 10:35:19PM +0800, 孙冉 wrote:
+> > WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
+> > 
+> > Signed-off-by: Ran Sun <sunran001@208suo.com>
+> 
+> Your From: address != SoB identity
 
-> Fix misspellings of "semaphore".
->
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Reviewed-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> ---
-> v2:
->   - Add Reviewed-by.
-> ---
+While the comment below is a completely valid complaint, I think this
+comment is being rather pedantic. Google Translate will tell you that
+孙冉 is Sun Ran, so while the name does not strictly match, it is
+clearly the same...
 
-Pushed to drm-misc (drm-misc-next). Thanks!
+> > ---
+> >  drivers/gpu/drm/radeon/radeon_object.h | 8 ++++----
+> >  1 file changed, 4 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/radeon/radeon_object.h b/drivers/gpu/drm/radeon/radeon_object.h
+> > index 39cc87a59a9a..9b55a7103cfd 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_object.h
+> > +++ b/drivers/gpu/drm/radeon/radeon_object.h
+> > @@ -37,7 +37,7 @@
+> >   *
+> >   * Returns corresponding domain of the ttm mem_type
+> >   */
+> > -static inline unsigned radeon_mem_type_to_domain(u32 mem_type)
+> > +static inline unsigned int radeon_mem_type_to_domain(u32 mem_type)
+> >  {
+> >   switch (mem_type) {
+> >   case TTM_PL_VRAM:
+> > @@ -112,12 +112,12 @@ static inline unsigned long radeon_bo_size(struct radeon_bo *bo)
+> >   return bo->tbo.base.size;
+> >  }
+> >  
+> > -static inline unsigned radeon_bo_ngpu_pages(struct radeon_bo *bo)
+> > +static inline unsigned int radeon_bo_ngpu_pages(struct radeon_bo *bo)
+> >  {
+> >   return bo->tbo.base.size / RADEON_GPU_PAGE_SIZE;
+> >  }
+> >  
+> > -static inline unsigned radeon_bo_gpu_page_alignment(struct radeon_bo *bo)
+> > +static inline unsigned int radeon_bo_gpu_page_alignment(struct radeon_bo *bo)
+> >  {
+> >   return (bo->tbo.page_alignment << PAGE_SHIFT) / RADEON_GPU_PAGE_SIZE;
+> >  }
+> > @@ -189,7 +189,7 @@ static inline void *radeon_sa_bo_cpu_addr(struct drm_suballoc *sa_bo)
+> >  
+> >  extern int radeon_sa_bo_manager_init(struct radeon_device *rdev,
+> >           struct radeon_sa_manager *sa_manager,
+> > -         unsigned size, u32 align, u32 domain,
+> > +         unsigned int size, u32 align, u32 domain,
+> >           u32 flags);
+> >  extern void radeon_sa_bo_manager_fini(struct radeon_device *rdev,
+> >            struct radeon_sa_manager *sa_manager);
+> 
+> The patch is whitespace-corrupted. Use git-send-email(1) to submit patches.
+> Also, your patch is also MIME-encoded, hence the corruption.
+> 
+> To Alex: Please don't apply this patch due to reasons above.
+> 
+> Thanks.
+> 
+> -- 
+> An old man doll... just what I always wanted! - Clara
 
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
 
