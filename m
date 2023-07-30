@@ -4,46 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2E9DC001DC
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Jul 2023 19:33:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD4CDC001DE
+	for <amd-gfx@archiver.kernel.org>; Sun, 30 Jul 2023 21:58:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9341210E21C;
-	Sat, 29 Jul 2023 19:33:17 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45CD410E21C;
- Sat, 29 Jul 2023 19:33:16 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5B461601FE;
- Sat, 29 Jul 2023 19:33:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526BBC433C8;
- Sat, 29 Jul 2023 19:33:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1690659194;
- bh=WoTBW2RInEWVN7BYf6Qj0vtLh2X+0pwyjuY2u3J4390=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uYVNNPMJrTg64eF+spfl+vwH4skqcYBOMk3kuSR/lkoXEOfQshJTY+Ll8rstVQCGY
- AMDTrcQJtLS7P0E80EGyejLSXk19zLdxLx0+QWQ4u3go90th3fXTp7H9tiFCsNprpB
- hYH89px4tQw2QA9jR1pS+wGFeA2T/T6D/uoJJ1vEohY2S1O7+EMJcTrZ4AtLKSXKO+
- jQefcmW/Vb4zma6pOOOpE0fFEs4XJo+ArEEv0efr33bbA2Ixqkv6ECKff5KamFAQ5l
- Vm0eCIvzIfArwrApqSAQCu/XHOV0DL9KFIetjGumiTu1zc1Z84Jqqn8fOKGXvbFKDj
- 6ulLV+FQfbyDg==
-Date: Sat, 29 Jul 2023 12:33:12 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Bagas Sanjaya <bagasdotme@gmail.com>
-Subject: Re: [PATCH] drm/radeon: Prefer 'unsigned int' to bare use of
- 'unsigned'
-Message-ID: <20230729193312.GA2844869@dev-arch.thelio-3990X>
-References: <3a4bebc5-79fb-4799-8743-14a0dde97a4f.sunran001@208suo.com>
- <ZMUeNehNb52Qu/Cp@debian.me>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB57D10E13D;
+	Sun, 30 Jul 2023 21:58:10 +0000 (UTC)
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A41F10E137;
+ Sun, 30 Jul 2023 21:58:08 +0000 (UTC)
+Received: by mail-io1-xd29.google.com with SMTP id
+ ca18e2360f4ac-78374596182so194101039f.0; 
+ Sun, 30 Jul 2023 14:58:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1690754288; x=1691359088;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=sbjSrC6Xf1t1eELbOkTAbrw9X9H2Qkj1asQL3Gv+d0E=;
+ b=e78us4E31/EL62UZ/d9+AODTGy4BAUAFfV/mOVAI1f7OuzhGI7L9s9Cffk6GEAGUzj
+ flQmFys6JKiOTGkIbq4G2tiE7U2AFeDQHqkKr8m1Vvsde4OFKFam4d0VqxMmMVVmVj9i
+ ldXocJQ5x5L+N9Xbdrh620sFNpoZhT3sv8uEvZv726Q7w5zbio6nNdBVufDhiRKPoLEp
+ C+lwP2uLHzLPz2itzwwW8nrLbFA52rmYM5HpUGVIgLS/KvK4oJigCTyCv3Qsa5zPJwHN
+ RwtmKzqOy9wAxsw/yD4F/AGTF2IPnVvXyOQfnUZXoCdyoFrsreXjLCeTIv3SiP+14HEO
+ T0pQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690754288; x=1691359088;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=sbjSrC6Xf1t1eELbOkTAbrw9X9H2Qkj1asQL3Gv+d0E=;
+ b=W3pdx+9Z43sALT6cHMigwQLgp7kZ7W1RI+LGwSk4wF685NGPAzOM3Q2Cl6X/XPivhQ
+ sb1+d8C7Jm21FhDrfI6Zt6C1W10LJa6O45r9HqnzIRmNawftMgvsmPHAuTPoBG2TU4SJ
+ nWYH6pexP1gg5sU615q9GJ/M2UIpXuIkSI2hn2yWCJHNbNzLeTTMkMUkG3i0Xr/WTOf8
+ EId1fafksVXPrjEKQHFA36ptNwWTVMzM/pD//kDqhMMlxj4clR2VjPv4I01fKHrSpqGS
+ tV38S3KiMCpqivD8UZn3t2GXGx62Vgkij+AnsBNabHoRYX1nZvzIUvJQUM0Z5pfYi4AO
+ EQyg==
+X-Gm-Message-State: ABy/qLYwm3oeKi5/wZm6b3g/U+In760Sco0WN2bEefYEXUuLp4Hv1wDZ
+ /A/p7xGvWiGtDzPFmiUNzLY=
+X-Google-Smtp-Source: APBJJlFchddN9xbU7X/x2AFLj9rBNk/j1Rd+vYRHyhhp+pMib63heddhIZTf6UnPFwMoD8dQfYHUPA==
+X-Received: by 2002:a92:cd86:0:b0:348:8da1:891c with SMTP id
+ r6-20020a92cd86000000b003488da1891cmr7544893ilb.24.1690754288186; 
+ Sun, 30 Jul 2023 14:58:08 -0700 (PDT)
+Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
+ by smtp.googlemail.com with ESMTPSA id
+ e18-20020a92de52000000b003424b3d6d37sm2747520ilr.24.2023.07.30.14.58.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 30 Jul 2023 14:58:07 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: daniel@ffwll.ch, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: [PATCH 0/5] drm_dbg: add trailing newlines where missing
+Date: Sun, 30 Jul 2023 15:57:49 -0600
+Message-ID: <20230730215758.54010-1-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZMUeNehNb52Qu/Cp@debian.me>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,77 +71,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?utf-8?B?5a2Z5YaJ?= <sunran001@208suo.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx <amd-gfx@lists.freedesktop.org>, daniel <daniel@ffwll.ch>,
- "alexander.deucher" <alexander.deucher@amd.com>, airlied <airlied@gmail.com>
+Cc: Jim Cromie <jim.cromie@gmail.com>, David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Jul 29, 2023 at 09:12:05PM +0700, Bagas Sanjaya wrote:
-> On Fri, Jul 28, 2023 at 10:35:19PM +0800, 孙冉 wrote:
-> > WARNING: Prefer 'unsigned int' to bare use of 'unsigned'
-> > 
-> > Signed-off-by: Ran Sun <sunran001@208suo.com>
-> 
-> Your From: address != SoB identity
+Most of the (~1500) DRM.debug callsites provide a trailing newline in
+their format-strings.  Fix the remainder to do the same.
 
-While the comment below is a completely valid complaint, I think this
-comment is being rather pedantic. Google Translate will tell you that
-孙冉 is Sun Ran, so while the name does not strictly match, it is
-clearly the same...
+no functional changes
 
-> > ---
-> >  drivers/gpu/drm/radeon/radeon_object.h | 8 ++++----
-> >  1 file changed, 4 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/radeon/radeon_object.h b/drivers/gpu/drm/radeon/radeon_object.h
-> > index 39cc87a59a9a..9b55a7103cfd 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_object.h
-> > +++ b/drivers/gpu/drm/radeon/radeon_object.h
-> > @@ -37,7 +37,7 @@
-> >   *
-> >   * Returns corresponding domain of the ttm mem_type
-> >   */
-> > -static inline unsigned radeon_mem_type_to_domain(u32 mem_type)
-> > +static inline unsigned int radeon_mem_type_to_domain(u32 mem_type)
-> >  {
-> >   switch (mem_type) {
-> >   case TTM_PL_VRAM:
-> > @@ -112,12 +112,12 @@ static inline unsigned long radeon_bo_size(struct radeon_bo *bo)
-> >   return bo->tbo.base.size;
-> >  }
-> >  
-> > -static inline unsigned radeon_bo_ngpu_pages(struct radeon_bo *bo)
-> > +static inline unsigned int radeon_bo_ngpu_pages(struct radeon_bo *bo)
-> >  {
-> >   return bo->tbo.base.size / RADEON_GPU_PAGE_SIZE;
-> >  }
-> >  
-> > -static inline unsigned radeon_bo_gpu_page_alignment(struct radeon_bo *bo)
-> > +static inline unsigned int radeon_bo_gpu_page_alignment(struct radeon_bo *bo)
-> >  {
-> >   return (bo->tbo.page_alignment << PAGE_SHIFT) / RADEON_GPU_PAGE_SIZE;
-> >  }
-> > @@ -189,7 +189,7 @@ static inline void *radeon_sa_bo_cpu_addr(struct drm_suballoc *sa_bo)
-> >  
-> >  extern int radeon_sa_bo_manager_init(struct radeon_device *rdev,
-> >           struct radeon_sa_manager *sa_manager,
-> > -         unsigned size, u32 align, u32 domain,
-> > +         unsigned int size, u32 align, u32 domain,
-> >           u32 flags);
-> >  extern void radeon_sa_bo_manager_fini(struct radeon_device *rdev,
-> >            struct radeon_sa_manager *sa_manager);
-> 
-> The patch is whitespace-corrupted. Use git-send-email(1) to submit patches.
-> Also, your patch is also MIME-encoded, hence the corruption.
-> 
-> To Alex: Please don't apply this patch due to reasons above.
-> 
-> Thanks.
-> 
-> -- 
-> An old man doll... just what I always wanted! - Clara
+Jim Cromie (5):
+  drm_dbg: add trailing newlines to remaining callsites
+  drm_dbg: add trailing newlines
+  drm_dbg: add trailing newlines
+  drm_dbg: add trailing newlines
+  drm_dbg: add trailing newlines
 
+ drivers/gpu/drm/drm_connector.c                |  4 +++-
+ drivers/gpu/drm/i915/display/intel_ddi.c       |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c |  4 ++--
+ drivers/gpu/drm/kmb/kmb_crtc.c                 | 10 +++++-----
+ drivers/gpu/drm/kmb/kmb_plane.c                |  6 +++---
+ drivers/gpu/drm/msm/msm_fb.c                   |  6 +++---
+ drivers/gpu/drm/vc4/vc4_crtc.c                 |  4 ++--
+ 7 files changed, 19 insertions(+), 17 deletions(-)
+
+-- 
+2.41.0
 
