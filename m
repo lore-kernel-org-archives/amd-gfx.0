@@ -4,45 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04E9EEB64DD
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jul 2023 02:01:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7205AEB64DD
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jul 2023 03:33:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3933E10E15C;
-	Mon, 31 Jul 2023 02:01:12 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50C2710E159;
- Mon, 31 Jul 2023 02:01:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
- Cc:To:Subject:From:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=moHci8shG8kLdpyJfiqGNs2yvu+A/oWWcGTVvGHpmA4=; b=nQIpReVUxiINcewGH84N2iwpId
- r46e73TugbymzBRbIHjbc9MqR5HIlvzTnhTx0PH/sbA/5lHnTer0SCRRwvziEJbxLWIRA1umtak3S
- XYq5KRKWy3shNO6WTjhX1HlUUI4uFiFm1y5XskQDSQ/sqr9tpafvQ/PN7/YjZEDGg60Red+TuYDeU
- vjQHqgZcOwtc6rgdXcGmdNCawpyfknlu7SEhHfAV22oRgVSVv3cI7RwjJSjttq3T5S5co4tBJU/vV
- V2l9blN27TZ69ONHgKyU2H+tRMj9IfptbcVrjqqOymyALNSOrYUlAz+j+O17Hd1YQK4DpqCEsQEdE
- A6LyywVw==;
-Received: from [191.193.131.122] (helo=[192.168.1.111])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1qQIDW-0072kP-Cy; Mon, 31 Jul 2023 04:01:02 +0200
-Message-ID: <35a8e502-c36c-e67e-29ba-a20ae6134c6d@igalia.com>
-Date: Sun, 30 Jul 2023 23:00:56 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECAFC10E0CC;
+	Mon, 31 Jul 2023 03:33:04 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA2E710E0CC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jul 2023 03:33:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=R9b2/fOeZkYmIKIhiU+MoyYS/GopA5c6B+fGeNHdEMNNXjRoMMs1zpjftsuGqH/Pf8CnGh+zkCEV3wSCntKnN3ef6f+we+oHsqhWJZRHv2tA/6bthEKxxUmHLyuYerWjmEpKJaM2w1c/l/668WIqnpyIS8y0dN+8oLrbpo+SVIEsgHNog01qV7/3EYBbE/9M3wVe1RrYhTyp9EP2otDi5iYLJDkpepAt9B5+/VI4ZDng8oikKRlTLrtRu5rqB0SMZPLRSfLs2x0CbZUHg3Sxg5xmJ4LxI+EsoWNubEh2zS7bny/+S9V3fsV/xLSm6CWxTbDbGBK8hlGGgn0uZaKf0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6hx4sEgikQT+xhv7Kmrb2OrB0b2lXu5CmNdaSCSWrrQ=;
+ b=ZjfjM7VtNfpk6Cb5Ov3pJ+QwkHMhMiTIoH7zzAA6lPCKhGfaEQMzMGDAuoNw4R3lnOWzbkuoA+3DXoqS7QEPu3AjqpYYZSJDhZVNtqI6xPD9jYvB8mjiSNqs+QelINY0OVRAoxVe7Xbcv8cNsZIqdS9nXCvdGFie3wrBDhpsF7aPIi/ThWIqOB4RKazxIpcvsDVvNQIcocv8iOhdP17dPQ8cfqXYqFaXQD+Nr5SLo8iB8h4pJeY+vJbJov96LQpgAhbTeeTYiU5c8dvdEjpeywWsQu8fDSo6QhrO9cuSACsQBv9Ca4F7I3TSBh8+N45tUfwWti58MXe030VrZ+GX/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6hx4sEgikQT+xhv7Kmrb2OrB0b2lXu5CmNdaSCSWrrQ=;
+ b=3mVcU9EO1lP0DhPDBzBHcBr5S1QQ7ZWV6ky3G0n3B9vbgcb0YyVvucph1/zEbVVv81/VJokmQ+CEiqvCj74MxjAyl5FskjkNggih6qbp3wZsy2736CvqFPzq4wnb04X6b+cXcFQmenL4hhdnlkzSBlHQ4jlRWO3gjg/maN/cxg8=
+Received: from MW2PR16CA0070.namprd16.prod.outlook.com (2603:10b6:907:1::47)
+ by PH8PR12MB7303.namprd12.prod.outlook.com (2603:10b6:510:220::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.42; Mon, 31 Jul
+ 2023 03:32:58 +0000
+Received: from CO1PEPF000044F7.namprd21.prod.outlook.com
+ (2603:10b6:907:1:cafe::58) by MW2PR16CA0070.outlook.office365.com
+ (2603:10b6:907:1::47) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.43 via Frontend
+ Transport; Mon, 31 Jul 2023 03:32:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044F7.mail.protection.outlook.com (10.167.241.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6652.5 via Frontend Transport; Mon, 31 Jul 2023 03:32:57 +0000
+Received: from alin.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Sun, 30 Jul
+ 2023 22:32:56 -0500
+From: Amber Lin <Amber.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: GC_9.4.3 requires at least 280MB TMR
+Date: Sun, 30 Jul 2023 23:32:13 -0400
+Message-ID: <20230731033213.3128180-1-Amber.Lin@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Subject: Re: [PATCH v5 6/6] drm/doc: Define KMS atomic state set
-To: Pekka Paalanen <ppaalanen@gmail.com>
-References: <20230707224059.305474-1-andrealmeid@igalia.com>
- <20230707224059.305474-7-andrealmeid@igalia.com>
- <ZK0ZlciR66oTO+Td@phenom.ffwll.local> <20230713105142.122a0cc1@eldfell>
-Content-Language: en-US
-In-Reply-To: <20230713105142.122a0cc1@eldfell>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F7:EE_|PH8PR12MB7303:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3951bf34-d299-443f-1392-08db9176d58d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qoMHwk7js+4vogqbACI4S5HHNHC28s86VbqSIj7vmnz05QtWcobkeQqKYHuHyk/KriIvbYtdh703ig0hMML127mYZY0HohjF5pAg7gYC745hYJGwbzeRvtsx6hAN4C+0k458KUtuMmWVlZEf2mhSay3J+lN05as8nKRin0NoRJd/OcDWn5IKgb7EHShf62+dcA6Zskd60kdDKU0EeT5svYBrc4lQFIFhTPa7gmS1ivL/3QzJYZHIzlUjqyh2P6jd4KFlz7FFReptpNQD1T+4EiXveFGvNTq/wQ3jWUt947wSb1PD1HAQjqFF4EpPkpfb0RDiMwiiCpv5L90D4EkyycLgXWKh1lYVXjW/clTP6Sbb0tcUOLEg+VwzJvHTVUJjXPosovaUiUTUZBb26sZamRoedo5Yx/l0M22Yqq7BSJvK/wPWocTWtPDiZKk7p8U7kxA7qk4WfdluTWlDVjGq1ug+eXCTef8DBCMMY0LXxTzrymCs/SuWXBKXCIH8DUiFd1A5DVRMq0wzbBEW75OXKe31XrbqoqVlykNVNaEXKVaOnTYOJN1p3sQdBAT+vdqYQMsTCw0Y0Z1cmV9nOOAVNwHq2WgcAuaoIEzLs68Ro6K8bGTCdhO1N8wtMc/UP0zy9+5L0kGWbLaPMhSOKlzSH94ClZup4Y0efnMhDpzO5ja7X5Ut9Iskj+3uc0fy0atR2IGq4mgrxI3HM5RWkRRQ/KXqWC990ySJBhdnsB3YwxkCXHBdkcVh/KHg6DPC7RcCIZQB7NDsxGVL7kb9RnvIWQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(396003)(376002)(346002)(39860400002)(82310400008)(451199021)(40470700004)(46966006)(36840700001)(356005)(81166007)(82740400003)(40480700001)(86362001)(36756003)(40460700003)(478600001)(7696005)(6666004)(16526019)(2616005)(336012)(186003)(1076003)(26005)(8676002)(8936002)(5660300002)(70586007)(4326008)(6916009)(70206006)(2906002)(54906003)(41300700001)(316002)(36860700001)(426003)(83380400001)(47076005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2023 03:32:57.6611 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3951bf34-d299-443f-1392-08db9176d58d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F7.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7303
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,124 +97,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com, Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>, Randy Dunlap <rdunlap@infradead.org>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org, hwentlan@amd.com,
- ville.syrjala@linux.intel.com, Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- alexander.deucher@amd.com, Daniel Stone <daniel@fooishbar.org>,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com, joshua@froggi.es
+Cc: Amber Lin <amber.lin@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Em 13/07/2023 04:51, Pekka Paalanen escreveu:
-> On Tue, 11 Jul 2023 10:57:57 +0200
-> Daniel Vetter <daniel@ffwll.ch> wrote:
-> 
->> On Fri, Jul 07, 2023 at 07:40:59PM -0300, André Almeida wrote:
->>> From: Pekka Paalanen <pekka.paalanen@collabora.com>
->>>
->>> Specify how the atomic state is maintained between userspace and
->>> kernel, plus the special case for async flips.
->>>
->>> Signed-off-by: Pekka Paalanen <pekka.paalanen@collabora.com>
->>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
->>> ---
->>> v4: total rework by Pekka
->>> ---
->>>   Documentation/gpu/drm-uapi.rst | 41 ++++++++++++++++++++++++++++++++++
->>>   1 file changed, 41 insertions(+)
->>>
->>> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
->>> index 65fb3036a580..6a1662c08901 100644
->>> --- a/Documentation/gpu/drm-uapi.rst
->>> +++ b/Documentation/gpu/drm-uapi.rst
->>> @@ -486,3 +486,44 @@ and the CRTC index is its position in this array.
->>>   
->>>   .. kernel-doc:: include/uapi/drm/drm_mode.h
->>>      :internal:
->>> +
->>> +KMS atomic state
->>> +================
->>> +
->>> +An atomic commit can change multiple KMS properties in an atomic fashion,
->>> +without ever applying intermediate or partial state changes.  Either the whole
->>> +commit succeeds or fails, and it will never be applied partially. This is the
->>> +fundamental improvement of the atomic API over the older non-atomic API which is
->>> +referred to as the "legacy API".  Applying intermediate state could unexpectedly
->>> +fail, cause visible glitches, or delay reaching the final state.
->>> +
->>> +An atomic commit can be flagged with DRM_MODE_ATOMIC_TEST_ONLY, which means the
->>> +complete state change is validated but not applied.  Userspace should use this
->>> +flag to validate any state change before asking to apply it. If validation fails
->>> +for any reason, userspace should attempt to fall back to another, perhaps
->>> +simpler, final state.  This allows userspace to probe for various configurations
->>> +without causing visible glitches on screen and without the need to undo a
->>> +probing change.
->>> +
->>> +The changes recorded in an atomic commit apply on top the current KMS state in
->>> +the kernel. Hence, the complete new KMS state is the complete old KMS state with
->>> +the committed property settings done on top. The kernel will automatically avoid
->>> +no-operation changes, so it is safe and even expected for userspace to send
->>> +redundant property settings.  No-operation changes do not count towards actually
->>> +needed changes, e.g.  setting MODE_ID to a different blob with identical
->>> +contents as the current KMS state shall not be a modeset on its own.
->>
->> Small clarification: The kernel indeed tries very hard to make redundant
->> changes a no-op, and I think we should consider any issues here bugs. But
->> it still has to check, which means it needs to acquire the right locks and
->> put in the right (cross-crtc) synchronization points, and due to
->> implmentation challenges it's very hard to try to avoid that in all cases.
->> So adding redundant changes especially across crtc (and their connected
->> planes/connectors) might result in some oversynchronization issues, and
->> userspace should therefore avoid them if feasible.
->>
->> With some sentences added to clarify this:
->>
->> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> 
-> After talking on IRC yesterday, we realized that the no-op rule is
-> nowhere near as generic as I have believed. Roughly:
-> https://oftc.irclog.whitequark.org/dri-devel/2023-07-12#1689152446-1689157291;
-> 
-> 
+On GC_9.4.3, if atombios reports TMR size less than 280MB, firmware area
+will be overwritten by driver or user application use. Remove !adev->bios
+condition since reserve_size is initialized as 0, it'll fail into
+else if (!reserve_size) condition.
 
-How about:
+Signed-off-by: Amber Lin <amber.lin@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The changes recorded in an atomic commit apply on top the current KMS 
-state in the kernel. Hence, the complete new KMS state is the complete 
-old KMS state with the committed property settings done on top. The 
-kernel will try to avoid no-operation changes, so it is safe for 
-userspace to send redundant property settings. However, the kernel can 
-not assure that every redundant information will always result in a 
-no-op, giving the need to take locks to check par of the state. Giving 
-that, some redundant information can lead to a full damage path. This is 
-not something bad by itself, but userspace need to be aware of that side 
-effect.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 7c6dd3de1867..fa5721b3139c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1718,7 +1718,7 @@ static int amdgpu_ttm_reserve_tmr(struct amdgpu_device *adev)
+ 		reserve_size =
+ 			amdgpu_atomfirmware_get_fw_reserved_fb_size(adev);
+ 
+-	if (!adev->bios && adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3))
++	if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3))
+ 		reserve_size = max(reserve_size, (uint32_t)280 << 20);
+ 	else if (!reserve_size)
+ 		reserve_size = DISCOVERY_TMR_OFFSET;
+-- 
+2.25.1
 
-> Thanks,
-> pq
-> 
->>> +
->>> +A "modeset" is a change in KMS state that might enable, disable, or temporarily
->>> +disrupt the emitted video signal, possibly causing visible glitches on screen. A
->>> +modeset may also take considerably more time to complete than other kinds of
->>> +changes, and the video sink might also need time to adapt to the new signal
->>> +properties. Therefore a modeset must be explicitly allowed with the flag
->>> +DRM_MODE_ATOMIC_ALLOW_MODESET.  This in combination with
->>> +DRM_MODE_ATOMIC_TEST_ONLY allows userspace to determine if a state change is
->>> +likely to cause visible disruption on screen and avoid such changes when end
->>> +users do not expect them.
->>> +
->>> +An atomic commit with the flag DRM_MODE_PAGE_FLIP_ASYNC is allowed to
->>> +effectively change only the FB_ID property on any planes. No-operation changes
->>> +are ignored as always. Changing any other property will cause the commit to be
->>> +rejected.
->>> -- 
->>> 2.41.0
->>>    
->>
-> 
