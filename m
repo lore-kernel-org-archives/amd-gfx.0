@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3E3FC001E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jul 2023 18:02:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7679C001E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jul 2023 18:06:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1C1510E2DC;
-	Mon, 31 Jul 2023 18:02:42 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2081.outbound.protection.outlook.com [40.107.96.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B75E10E2DC
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jul 2023 18:02:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DBB010E2DE;
+	Mon, 31 Jul 2023 18:06:48 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2048.outbound.protection.outlook.com [40.107.95.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B607110E2DE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jul 2023 18:06:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=na4073pcBGKL62BPoBrJct8YmtH6FcigjHED/ZyxfqQ6ePZQNLcLOaxhZeB3L3oulE+j4Hg4uiOsI75GvEAUFUvvA7J18gTMeJJaa4I6yB95YUvZajg8+TkxDZ96I27UPR5O5oaNVpambEaXSBRI0MKles/OzyqD7vOSMU7EtKSLNa3CFzEcMI9WoUZlq910Kfk0RabmLcPd40LrECXEv4vyLuBstrviBoP/JfRmWgq18AjACkqqj6Gf6mzjH0s5UvY8tq1DP7F7ASd3jQCkLSHhrPzPPM7yvPCR446C1+pyaNIsVNHDRQkYsHTbs+dcnKRMtiaettiuC+ABixnkIg==
+ b=VgUBoigchML61FgTISEl6/3216Q2Wga+jaTPUdYaqmzp9W/9nIK/996mNH6a/y0FNufTX3Ji9tf/kIGolQ3dK6Uyd93e4echDg/sTOf/4/d6s8y3T36+iLQW2107VV9PMNZ5oLPtH0DBhgEkCfVvXDAg+sDG1JS9k284ZDf3Hb2mkFkXew/ckBsEpa0JXXhmDCQMKKdchSJZwZjzm/f0AsGKtv99Jmb+iMFsFxzsp4SLpdIMv2wDDs+FlWgFmeXJuGn8LWljg8jX9iwKVuRHob6+85sRfGCtVqrIi3jptCw6dbfZ2I82cwOysWnRroyvJHMLlw6W0XJLOGOfc5iuEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/o4frQCDA0MjbejiINb3Z49w1rQVv76PtQ8QPAk1s7A=;
- b=Kqwu4817iTlWQcSDJ7gql7lTb6QfTsPm6j0E/S7lFmkQePno/CHnfQk+IgjGuTlerHKbfi8ctz7fKFTbWqvhF5GqhzX3GU+n4pEJtfHn6hpFSwrPyFO5RyrSqMO2yP8YsTlzC8XoBze3BDhEzvHttyZUa0L1aWhfjva2nP9hr4Dzl16semt9Ymvk4JvP5zGpLmu/74arWWPlrZL4RLL1qm4SumphaBJFBWj6ZvD4dq/+p4j7w8zXV0uaKQLUPMADSS0QmuRf8EHR3sbSBIIaisCgvwJF/VqWYe96pH6OwhJFYbYxz1GspIxXRuiMs2V2KD4z4UA2zM5g7zI/Z3w4Fw==
+ bh=+ApFH1hvYJ1CB4ePlEzZba57zHsFr+D1VYapK+tWl8Q=;
+ b=JU4i6YK1o57zGwppOx7Lp+FqqXP1X6NWmw2Om3GD8Pzq4jbk5GUPZJ9gP6nNWSolhsYWtfA2q+zFhOzIvAJa1u46hr/71RwVLB9yrVve/mx2IC0N4VLxbRcLggnCS+PmHkfBxasFvOE+yMP6KbPbxZ8xtm3XXYOvS1v0esgZfCA3QPtnmED7nZ/D61FYe06X2l1BI2LH6c2dv2OLcu7OC1bbriD47iA4z+cHUQiD2z8amo4fD8oU+LV15A+MoyA55PtQQeRYtdHbb5hYC1N9+0ZGIyr6cEqO5XJO2jLcjXWj3hbc5nSSx9Op7CQQ+UxwZDsNKBkBaQqGYjTtOzgyZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/o4frQCDA0MjbejiINb3Z49w1rQVv76PtQ8QPAk1s7A=;
- b=PBZOtMS8uxwl18FjkSxRQR0lX/j/SwCEt0iFkBrra8HYUIOkibtl6v2qPyXRN8/8qJEkXipQEndzA4ThC2UccvEQgJXLdpG+W0BEbgDI8WZzqZqq0PUO1qcLo52ZVsENvFMXhlaE49FRT3Svg2gzAtC5Xst9NceDUYtiowBUhNo=
+ bh=+ApFH1hvYJ1CB4ePlEzZba57zHsFr+D1VYapK+tWl8Q=;
+ b=l2ao4rgD6Os04Pe+x0M1bE1BuGNl+7BIPA+xAei+ApDsuvAQe9eIYdphSWkq1CNTdpxvy8CBQZJbZMadZqDvccsWr84PIGtYTHF8YP9uiVUUfpfPb2AXq6UWmUSI1Hi0yhmV7J7JlHtyCS/PsnFS8sw7wZ88Q1jWyti7W4Wznyg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- PH0PR12MB8031.namprd12.prod.outlook.com (2603:10b6:510:28e::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6631.42; Mon, 31 Jul 2023 18:02:36 +0000
+ IA0PR12MB8983.namprd12.prod.outlook.com (2603:10b6:208:490::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Mon, 31 Jul
+ 2023 18:06:43 +0000
 Received: from DM6PR12MB3370.namprd12.prod.outlook.com
  ([fe80::8a67:3bbe:8309:4f87]) by DM6PR12MB3370.namprd12.prod.outlook.com
  ([fe80::8a67:3bbe:8309:4f87%3]) with mapi id 15.20.6631.043; Mon, 31 Jul 2023
- 18:02:36 +0000
-Message-ID: <90282859-6439-9a83-0bcd-b1cc1e5be8ba@amd.com>
-Date: Mon, 31 Jul 2023 14:02:32 -0400
+ 18:06:43 +0000
+Message-ID: <8718cf98-e0c0-5154-9fe8-824c7c4293ef@amd.com>
+Date: Mon, 31 Jul 2023 14:06:40 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "drm/radeon: Prefer dev_* variant over printk"
+Subject: Re: [PATCH] drm/amdgpu: Prefer pr_err/_info over printk in
+ amdgpu_atpx_handler.c
 Content-Language: en-CA, en-US
 To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Guchun Chen <guchun.chen@amd.com>
-References: <20230731120416.2850594-1-srinivasan.shanmugam@amd.com>
+References: <20230731121815.2852832-1-srinivasan.shanmugam@amd.com>
 From: Luben Tuikov <luben.tuikov@amd.com>
 Autocrypt: addr=luben.tuikov@amd.com; keydata=
  xjMEY1i6jxYJKwYBBAHaRw8BAQdAhfD+Cc+P5t/fiF08Vw25EMLiwUuxULYRiDQAP6H50MTN
@@ -57,71 +58,71 @@ Autocrypt: addr=luben.tuikov@amd.com; keydata=
  a2EtvvIwd09NckBLSTarSLNDkUthmqPnwolwiDYDAQgHwn4EGBYKACYWIQQyyR05VSHwx45E
  /SoppxulNG8HhgUCY1i6jwIbDAUJCWYBgAAKCRAppxulNG8HhnBLAP4yjSGpK6PE1mapKhrq
  8bSl9reo+F6EqdhE8X2TTHPycAEAt8EkTEstSiaOpM66gneU7r+xxzOYULo1b1XjXayGvwM=
-In-Reply-To: <20230731120416.2850594-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230731121815.2852832-1-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0051.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:88::25) To DM6PR12MB3370.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT4PR01CA0335.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10a::26) To DM6PR12MB3370.namprd12.prod.outlook.com
  (2603:10b6:5:38::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|PH0PR12MB8031:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22ac2bca-ffe8-4fef-9ebb-08db91f05245
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|IA0PR12MB8983:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02ecb128-0909-4c4b-d945-08db91f0e56d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: z6t1BwqKwtXT+QhHu9p08vSw/8sL/agUVYTDgme3KOTuf2p+FFYx9Gz5vW4il0hEiQtwW2bo049QaGBbCJJg5uflEtfAGdE8QJkV/kgaO1P8oY6G/cmcmMdeZgbAI3XwAKPIPZntp689NYKedrLe/pPUOvmfTuMNNIyHZIKKRTirI9GMz4atHYMrllF1UDSglQO5+3gL4MJkKrkYf5DJO2w1ggQRV5vviSMUErAG2PChBbbLr3UF/xH7ecQojH5bGz2bQtsVPI1zfs+4ZJ1E2uUqo7Pqq4c+A41/7DUD8u41ollGbrr771+yfKB5nW6ktLu4a5aaK2QSMPh2eWjEeLiRNYb8TDeGBGhIhISWqRrS0Si7mdPsIlpPaqlg+9Vr97J9F+T/fT3ITbN5dZEsYEq2z11YSQ+MH1/ZmF/K+2afDOLLeGYYqiKl1TD9L/0lm1DKknagWBRokpoRauovWbDw9ekWScbqQG+5cLl8h4s1gQ6/WI0JnSQ9UHVd1Rb8g4j1WLKINI98RlwwfLqh9I3eYIzbNx7cCpmfZ84K9ALO/5r7PuDRZWO+r9m1Gg74eUkSoJzsItGUzMT9ehpV/OoIq4mP/t3Z81hyNgouZgFHCeAT6Z4XnEMG0aTzRycSXs1K+8/YesJTcUZqzp+t62iYtOos9vWL4L8TYkqKJbQ=
+X-Microsoft-Antispam-Message-Info: 6rKdpKhLc6E84FX+Zl7PgfyLV56ZcbmRe3vEqofbgWrjJBx0/qFiRS9EmQY/NsM4pXwFqKmzQdjNMjfey+R9390UX1aHuXHQQwXyexDzCZerdE8Qlr9LCXhaLzrndXKo9sn7/npfJVZOxM02O1IMT1dCJx7/mMf9pqnbnrGZNgXukneo8ZUYML4MroQ8oxqRIvIgL5rxG1EQY0MRBc8OcJGMfBbhVzqXasECAB26Ozx/tfuR4e8h1TPgo9KEQiaI1X5xn1EEYikPzN5xqwppDmRnF5DZ+jm5j/4nrS4mESuyafifG5dNgOKKoMZQo5MC/j/RtkyQmeV9RbFJuz4JyX9twkreSc4UVR9W4j42Cr87JrslcaxyOiHfgDl/rEXDxhh9dte/6p+rJXql3c6eFMYlr+GVqQiq2Zto3GuoubHKBkNVHsXgms7wvbY+7f4c9WNPmC238hHq1SrWV68DYtBC4c5dLOHCIQCRrBPEU6ExqUWhott/qewxJF5Aeb5r4qCNEuTWmJZ9kdA+tniXwYEXojB9xeAAdIJ9Bu8YlTlOriTGRwPTywTrHPvMwqWccSS7RUkrK98SxF0zzsezS5mSJc3pA7Yluv4ZfAkMUYymZCrGPH3TZABazjqPB/ceFcLy+71ISmkqmmq/uDoZsA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(396003)(136003)(366004)(346002)(39860400002)(451199021)(38100700002)(66476007)(86362001)(31696002)(8676002)(31686004)(8936002)(316002)(5660300002)(6636002)(4326008)(41300700001)(66556008)(66946007)(110136005)(478600001)(2906002)(6666004)(36756003)(44832011)(966005)(6512007)(6486002)(6506007)(26005)(83380400001)(66574015)(186003)(53546011)(2616005)(45980500001)(43740500002);
+ SFS:(13230028)(4636009)(366004)(136003)(346002)(376002)(396003)(39860400002)(451199021)(86362001)(316002)(2906002)(8936002)(8676002)(44832011)(41300700001)(5660300002)(36756003)(31696002)(6486002)(478600001)(66574015)(26005)(6506007)(53546011)(186003)(110136005)(31686004)(2616005)(66556008)(66946007)(83380400001)(6512007)(6636002)(38100700002)(66476007)(4326008)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a0FmUmRDcnkyOE8ybXNOMkV0a0h5UG8vcU9DVUVML1NFZ2VydTN5U24vRVAx?=
- =?utf-8?B?OFZxSXpWNFgyS2dIVWJ5VzVTdjZNRFVvL1JkVGdrZnBhUHdYaW5BM2RZMVlJ?=
- =?utf-8?B?c3NhVUQ5dUtPZkNVSnppSzNvcXlSSk40MTR5MkpTQ1JoalJpdFo4R3M5NGNJ?=
- =?utf-8?B?R2Y1eHVnTjNkaXpPdTRHOVB1NzFDVmtIZUdXWThRcmpCTGtRWUhKS3RvUXlH?=
- =?utf-8?B?THdwakJoTlZybWcwOUdEQzhpOGZDZ2FGQVk5YjNzU1g4SmVzT2FSMVFLLzlJ?=
- =?utf-8?B?Q1k3NEJmZ0QyYkVaRXgxdDM2SFpVWThHVGdQVjJUOXNlYkRNaWQ0NzU4YmVu?=
- =?utf-8?B?aFpTWTlBV1E5VkF2UG9rc0Y1QlZsNEhlbk4xRU9wU05IbC9hekNSckhvZE5u?=
- =?utf-8?B?Z25QMVo3MEFvL2pRb0pycUJBYUN3WlBLSkM4VCtlMlF3Rk5nRUNtZEpwdWw0?=
- =?utf-8?B?OWhNSEltMUxydUoxWEloWFNZNUVjcnJvK3YrYWZYTlltUVpmVzZJYmRvVk04?=
- =?utf-8?B?eVdtWEFjeXQvMGw1L1IzMW1vTkhmQ3ZEd0FpMVRtbWRLZTE2c0g2TlYvTzds?=
- =?utf-8?B?aGhyYzJxR0VQZWxYMHNHRFBCUjlWRHM5QmF5aDBoVmhqMkdrQmdTLzRtTVlB?=
- =?utf-8?B?QjlNWUg4K3FUVUh6Qm5rUTRyd2RaNDdNR2g4T2FnTXhMQTFHWjRhR1JCTFNo?=
- =?utf-8?B?Rk1aa0xXYjgrZjhRSU51OFU2UzAzNWtwbmlCUHhsMlJPNUdjL3RuMW5Lb3VD?=
- =?utf-8?B?WDR5bFh6WFhkOVVBbWQxb0NnaVlZWWl5ZTAvWVA4cVdEbzVkZGFGWXNiQkVP?=
- =?utf-8?B?RFZxMDRYc1YrbXVBQTY0MFkrQmxIUWk3ZXVIUmIxU096SEhma2xkMU9heFJD?=
- =?utf-8?B?ZGllaXczVDZQYUtxZWEreUhUWkhxcithNnp3THIxM3oxNThIRFZ0RnV6dWxP?=
- =?utf-8?B?dTkxRGF0VnVzWVI3TzQwdWRib2FjVm8xaEVFUGNNckZZejRaWEw4ZXF6elFW?=
- =?utf-8?B?L1QrRHEvUjEwQTAwWWNYUzFGeUE3aFNFWEpwSWIwWHJwVHQ5RWNBdFdqSEZj?=
- =?utf-8?B?dWhwd2lYQkxlRUxvOFJXQ0pXL1I3UUR1TUxaOHEwdGhPT0cvb3VVcGdVTDF2?=
- =?utf-8?B?b01QSDRJZjZvWkhsZ05lQ1d0T3VHOUFCeHQ0VEMyV1Y1c3pjbElIbTJwc1Fx?=
- =?utf-8?B?T0wzRXdhRFlnZExkZzl4V0YxQkhQUnR5OSt3cCtTY2tHU1lXdndRV01naTdt?=
- =?utf-8?B?ZmthNmVwOEJ2Z05nZHhqSTZUcHZPOGdNa2NRTkRqNEZTVXpoQTRYczRqZHhT?=
- =?utf-8?B?SEVKRUZ6TXN5dmlMZERqUTluUUc5MGptMXJrWmpCcndpckpoRXpXQjArVTM4?=
- =?utf-8?B?cTRKK1VWMERJUTBLbk9kWVhRNHZPWjBXc0JCS2JjeEF2bWREQ09rZzVZZWF4?=
- =?utf-8?B?cmJlTlY1Tkg1MXIrTHEvd3Jwbnl6MWRCMXBFTXZIYVd5ZUo5Y2tQeXdEYm9C?=
- =?utf-8?B?MjY5cGYxeGdGRXorTjFXdTBtZWl2TDBWamJGVG83QmkwVGZnYjFFemkvRVN5?=
- =?utf-8?B?T0RVWG5IRHh6U3FRcDd1cmRYYmo5K2sydmpnNFlKTWM1L0FWaXNLMzJkUGNK?=
- =?utf-8?B?YU82Sng5UzFZUjRGQ2NGY3Rwb2RvRjZ1MmxmR2hTQU5TV3V1STRjWEpDMENI?=
- =?utf-8?B?TXFUbG9vdW1tOWg1MzZoTG1jT09VMVhWNC9NZDhOcCtCcEhucWYrV1ZMbEY0?=
- =?utf-8?B?d2c5cXlaaXdrMHdyZVZYbXVwLzRCRUYzTkZWcHMvcmxFT09XYkI3bnBaNEQ1?=
- =?utf-8?B?N0tUTjQ2ajcwVjBsZ0tkYUR6ZUtxTlFkVHh1cnNYN0pCNzJaRExydFhTRUJl?=
- =?utf-8?B?amNzYk4rMW1KSjlBaG1DSUtiUHp1QjlnZzgrNVVZczB4MUNTdktJODRsWU5r?=
- =?utf-8?B?M1BOa0VmeTBXOUlzcVI0YUprUW9CZnhKL2Z4cmZZcHd1RzExdFIyQWdHZDVV?=
- =?utf-8?B?cmtFdUkxTjIwUFpNQmsrVTdWUFJSaFI5Um1tZlZjMW84NHE0L2VqM24wdUdY?=
- =?utf-8?B?S0VrSXlHcy9XeW5UenFoak1Gd0VOKzk3U0NZL3k2dnkyS09TdU5OU2E0eHZT?=
- =?utf-8?Q?QknQWfwngrx17eYmDRQ0Nbny5?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3JtUks2Ni9zTkE2MUhjQ1g4WFE0TmZGSnRLL0xZSldpbEtzWks2TG1VVGow?=
+ =?utf-8?B?ZzVMT2NFTFdIcnIxQU1HUkxLVVR6aWI2RE1TUWdtaVRxRk50L0toVTlwZC9t?=
+ =?utf-8?B?cGVxVjdDck1FcHozRHphTHBpZlZhanBOMi9YU1ZJSVQ1YmZvMFR3d0dZWExL?=
+ =?utf-8?B?MlVKbHNuOXZFMTZvdDVEV1kvYWZQY3ZJMm5SU1RLOHpoeGZIS0lQYTRRcUJ2?=
+ =?utf-8?B?Q29MSjV1c3puTWVsaCt5ZzQyQ1RYcW9sTDZNMm1FU3hYUHB3NVRtK2FuVXU1?=
+ =?utf-8?B?RndSdDVyRXhPNWNxZ0lBM0JNTDhyYjRLNlpOTmRnZS9EU1Z1MGlybk5acVFv?=
+ =?utf-8?B?dWhSYUxvdWVIRk1xNjRBY0YvaVBlWWU4MUpNKy9LUHU5bXNOYnovTERnS2Vu?=
+ =?utf-8?B?NDJUZksxcTJrYVh2UzQ4QWdoaE1adGtWcmdzbjFCcG83cTdrTzZ1Sk5uVmYz?=
+ =?utf-8?B?aGVXNFo2RUFrS21OR1oxMjJzTTF4bXRhMU5lNEZzaGRwVk10elQ1MWMxcGF6?=
+ =?utf-8?B?YWtjVFBaMHUwNUR6V29IZWZCcGVzMDZHVC9WMHZDNzhrT3c1OHdPOWxMVG91?=
+ =?utf-8?B?Q0QwbFE5RjA2cjNOdUZaZFc4WExRV2FEUUthdzZEdGlXY1o4RnFNQWpFa1hC?=
+ =?utf-8?B?enNFdmpGbnJ4dVF3eXMyVmRtTW5sc0VRNlNKQnUzWXpVOXkzZ3g0amJVV3Vo?=
+ =?utf-8?B?citiT2x1L1Bhc0lvZVJjSnNVbFZSS3VybTdqWmxsOHBwNmFyb0J3aW54aFZO?=
+ =?utf-8?B?UmhIbEJlZXlacTIzYTNOWFp3d1JZNTlKM2ZOU2JlMit4aE8vdXNzcVN6THl2?=
+ =?utf-8?B?c1QvbzFsdW1YU3duYVlWRFBGMUlMRDZ2UGJvZjY2bTlNWENhblQxTTY5ZjND?=
+ =?utf-8?B?MjY5N3R3OTdpZCtDRitCeXBobURhRDU5WFUyRjZ6TzNBT1RBam5LQ240alFQ?=
+ =?utf-8?B?eXhrNWxxbjkwSXpVcUNGMVdjYWtteE9ITktmVVpnUzA1Ymp0c2tpdXlPd2FC?=
+ =?utf-8?B?RE5YTEJwdURMRDhVNmxxeFBiNzZ4UGhoMmlCZFhGbGw4ZGk0VGhWelFJaXc2?=
+ =?utf-8?B?cnpLVXFiL2l3OU9UY3dFN3U0RkFYUXkwZHh6UlRTU3VMcjhXZU5mV25hbWdL?=
+ =?utf-8?B?bEQ1VEZyRzBOUVNvOVRIcklNZEhoL3IwRFpKNCtBSi9wWEJtcm96Szd2elVl?=
+ =?utf-8?B?OTNrSkhvcXYyVVdHd3NIVmZTMDEzQW1SUkN1NklFbEJYS1YzNVNWVFB6M0gr?=
+ =?utf-8?B?RVRCbHcyRFMyL3lkc1lXQUxxY2VaclBrZ1huTllPQUFINDF5VytLZENIbjF1?=
+ =?utf-8?B?Y28vYk56cXFmQ3I0dWthSjBucThQTEVGeFZjN09ya2dLSkdPT01QZC84RE9r?=
+ =?utf-8?B?Z3RrZ0RFUlFLTC9hM3RYWWVuQzg4SGt6UU0vaytGQ1FYOEVVZjVpbnpuWWtl?=
+ =?utf-8?B?Snp4UVR6K3NtUFdSa2hHNjMySUkrWkdrMWcyUW9MQmNkVWNTQjRvSmdrNUlE?=
+ =?utf-8?B?Z2FZZklPdXFGMW81Z1h4SVRFdU5JUE1ReVF2T2xBUnl0VEx3RXF5TVpyK2FS?=
+ =?utf-8?B?ZmpFN3dyQ3B1M0IyQndrWWg5ODlaazBRNjlxc21odytPRlF2YzVYTzBWWDdZ?=
+ =?utf-8?B?dTlmTThGbG9zdEZ1aGoxYkpWTG5CRUUvUGFoc3Zjb3haeWVSQjRXNXhnS2pX?=
+ =?utf-8?B?WHkvamxJUnhSbUR6NHBENUkvckJpRjhVWTNBaWNRbFhKQkpwVHVYeG1kRGVr?=
+ =?utf-8?B?TU5HSUs2VWtsOUtSb1hNL0JTT0pmNWpGdmRQd0pscW5CdlVoZVVxdHR2U0pP?=
+ =?utf-8?B?TlhKcE1DQll0eWxJU1k5WGErOWNxZUN5YjRROE5jcWwyeTVrK21OdjRBTnll?=
+ =?utf-8?B?OHRtUkwxeWtCMjdvVjRQelhKOUVzcElRSEtCZ3Y2LzYvcXc1LzZnM2Z2NWls?=
+ =?utf-8?B?cDZUdDBqdTVPdXNBOVplaTVNM1hKY1d1QnZYdllIS2o4S0dWU3k2SURWeGpC?=
+ =?utf-8?B?KzJaT0Rja2lWa0s0VUVmSEtTUFhGTVFBTklPbTNScllJSVFPbUhDbTFOZG1J?=
+ =?utf-8?B?NWljRHZVbk5FTDRLVUgxWEtReFgwbnRpTTZleVBGc1dRdlBza3hLQTgvTTRI?=
+ =?utf-8?Q?zARifFhNnx7plvv3HOYV4N6k2?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22ac2bca-ffe8-4fef-9ebb-08db91f05245
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02ecb128-0909-4c4b-d945-08db91f0e56d
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2023 18:02:36.2812 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2023 18:06:43.1445 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dw3ZxmJ+VMQHp+Hu6bHYS2+Qsnftlr5euBjrMTcUyA0K/9Amp0NWEzPyU/mxBP5e
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8031
+X-MS-Exchange-CrossTenant-UserPrincipalName: K62RLtjEGXqaX2eC0SVU9RffVB/I0Y3nTztcR9GDANrDS+LVsGgWBTsZ55z4Tx1p
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8983
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,89 +138,121 @@ Cc: Bert Karwatzki <spasswolf@web.de>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-07-31 08:04, Srinivasan Shanmugam wrote:
-> Usage of container_of is wrong here.
-> struct acpi_device *adev = container_of(handle, struct acpi_device, handle)
+On 2023-07-31 08:18, Srinivasan Shanmugam wrote:
+> Fixes the following style issues:
 > 
-> References: https://gitlab.freedesktop.org/drm/amd/-/issues/2744
+> ERROR: open brace '{' following function definitions go on the next line
+> WARNING: printk() should include KERN_<LEVEL> facility level
+> 
 > Cc: Guchun Chen <guchun.chen@amd.com>
 > Cc: Christian König <christian.koenig@amd.com>
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Bert Karwatzki <spasswolf@web.de>
 > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-
-Why are there two reverts?
-Which commit is _this_ patch reverting?
-
-You should have a single revert commit for a single commit, like what you have
-here:
-
-https://lore.kernel.org/r/20230731115828.2850334-1-srinivasan.shanmugam@amd.com
-
-Either this or that, but not both.
-
-If you're reverting a commit, you should list the commit you're reverting,
-and it is missing here in the description of this revert.
-
-Regards,
-Luben
-
-
 > ---
->  drivers/gpu/drm/radeon/radeon_atpx_handler.c | 12 ++++--------
->  1 file changed, 4 insertions(+), 8 deletions(-)
+>  .../gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c  | 29 +++++++++++--------
+>  1 file changed, 17 insertions(+), 12 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/radeon/radeon_atpx_handler.c b/drivers/gpu/drm/radeon/radeon_atpx_handler.c
-> index fb4d931fdf18..595354e3ce0b 100644
-> --- a/drivers/gpu/drm/radeon/radeon_atpx_handler.c
-> +++ b/drivers/gpu/drm/radeon/radeon_atpx_handler.c
-> @@ -94,8 +94,6 @@ static union acpi_object *radeon_atpx_call(acpi_handle handle, int function,
->  	union acpi_object atpx_arg_elements[2];
->  	struct acpi_object_list atpx_arg;
->  	struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
-> -	struct acpi_device *adev = container_of(handle, struct acpi_device, handle);
-> -	struct device *dev = &adev->dev;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> index d6d986be906a..9ba49a1b7c34 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> @@ -74,24 +74,29 @@ struct atpx_mux {
+>  	u16 mux;
+>  } __packed;
 >  
->  	atpx_arg.count = 2;
->  	atpx_arg.pointer = &atpx_arg_elements[0];
-> @@ -117,8 +115,8 @@ static union acpi_object *radeon_atpx_call(acpi_handle handle, int function,
+> -bool amdgpu_has_atpx(void) {
+> +bool amdgpu_has_atpx(void)
+> +{
+>  	return amdgpu_atpx_priv.atpx_detected;
+>  }
+>  
+> -bool amdgpu_has_atpx_dgpu_power_cntl(void) {
+> +bool amdgpu_has_atpx_dgpu_power_cntl(void)
+> +{
+>  	return amdgpu_atpx_priv.atpx.functions.power_cntl;
+>  }
+>  
+> -bool amdgpu_is_atpx_hybrid(void) {
+> +bool amdgpu_is_atpx_hybrid(void)
+> +{
+>  	return amdgpu_atpx_priv.atpx.is_hybrid;
+>  }
+>  
+> -bool amdgpu_atpx_dgpu_req_power_for_displays(void) {
+> +bool amdgpu_atpx_dgpu_req_power_for_displays(void)
+> +{
+>  	return amdgpu_atpx_priv.atpx.dgpu_req_power_for_displays;
+>  }
+>  
+>  #if defined(CONFIG_ACPI)
+> -void *amdgpu_atpx_get_dhandle(void) {
+> +void *amdgpu_atpx_get_dhandle(void)
+> +{
+>  	return amdgpu_atpx_priv.dhandle;
+>  }
+>  #endif
+> @@ -134,7 +139,7 @@ static union acpi_object *amdgpu_atpx_call(acpi_handle handle, int function,
 >  
 >  	/* Fail only if calling the method fails and ATPX is supported */
 >  	if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
-> -		dev_err(dev, "failed to evaluate ATPX got %s\n",
-> -			acpi_format_exception(status));
+> -		printk("failed to evaluate ATPX got %s\n",
 > +		pr_err("failed to evaluate ATPX got %s\n",
-> +		       acpi_format_exception(status));
+>  		       acpi_format_exception(status));
 >  		kfree(buffer.pointer);
 >  		return NULL;
->  	}
-> @@ -159,8 +157,6 @@ static void radeon_atpx_parse_functions(struct radeon_atpx_functions *f, u32 mas
->  static int radeon_atpx_validate(struct radeon_atpx *atpx)
->  {
->  	u32 valid_bits = 0;
-> -	struct acpi_device *adev = container_of(atpx->handle, struct acpi_device, handle);
-> -	struct device *dev = &adev->dev;
->  
->  	if (atpx->functions.px_params) {
->  		union acpi_object *info;
-> @@ -175,7 +171,7 @@ static int radeon_atpx_validate(struct radeon_atpx *atpx)
+> @@ -190,7 +195,7 @@ static int amdgpu_atpx_validate(struct amdgpu_atpx *atpx)
 >  
 >  		size = *(u16 *) info->buffer.pointer;
 >  		if (size < 10) {
-> -			dev_err(dev, "ATPX buffer is too small: %zu\n", size);
+> -			printk("ATPX buffer is too small: %zu\n", size);
 > +			pr_err("ATPX buffer is too small: %zu\n", size);
 >  			kfree(info);
 >  			return -EINVAL;
 >  		}
-> @@ -206,7 +202,7 @@ static int radeon_atpx_validate(struct radeon_atpx *atpx)
->  
+> @@ -223,11 +228,11 @@ static int amdgpu_atpx_validate(struct amdgpu_atpx *atpx)
 >  	atpx->is_hybrid = false;
 >  	if (valid_bits & ATPX_MS_HYBRID_GFX_SUPPORTED) {
-> -		dev_info(dev, "ATPX Hybrid Graphics\n");
-> +		pr_info("ATPX Hybrid Graphics\n");
->  		/*
->  		 * Disable legacy PM methods only when pcie port PM is usable,
->  		 * otherwise the device might fail to power off or power on.
+>  		if (amdgpu_atpx_priv.quirks & AMDGPU_PX_QUIRK_FORCE_ATPX) {
+> -			printk("ATPX Hybrid Graphics, forcing to ATPX\n");
+> +			pr_info("ATPX Hybrid Graphics, forcing to ATPX\n");
+
+This should be a pr_warn().
+
+>  			atpx->functions.power_cntl = true;
+>  			atpx->is_hybrid = false;
+>  		} else {
+> -			printk("ATPX Hybrid Graphics\n");
+> +			pr_info("ATPX Hybrid Graphics\n");
+
+I'd use pr_notice() here.
+
+>  			/*
+>  			 * Disable legacy PM methods only when pcie port PM is usable,
+>  			 * otherwise the device might fail to power off or power on.
+> @@ -269,7 +274,7 @@ static int amdgpu_atpx_verify_interface(struct amdgpu_atpx *atpx)
+>  
+>  	size = *(u16 *) info->buffer.pointer;
+>  	if (size < 8) {
+> -		printk("ATPX buffer is too small: %zu\n", size);
+> +		pr_err("ATPX buffer is too small: %zu\n", size);
+>  		err = -EINVAL;
+>  		goto out;
+>  	}
+> @@ -278,8 +283,8 @@ static int amdgpu_atpx_verify_interface(struct amdgpu_atpx *atpx)
+>  	memcpy(&output, info->buffer.pointer, size);
+>  
+>  	/* TODO: check version? */
+> -	printk("ATPX version %u, functions 0x%08x\n",
+> -	       output.version, output.function_bits);
+> +	pr_info("ATPX version %u, functions 0x%08x\n",
+> +		output.version, output.function_bits);
+
+Probably pr_notice().
+
+>  
+>  	amdgpu_atpx_parse_functions(&atpx->functions, output.function_bits);
+>  
 
 -- 
 Regards,
