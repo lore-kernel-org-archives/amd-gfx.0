@@ -4,30 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3EDCC04FDF
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:27:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1943EB64DD
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:27:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B823F10E32C;
-	Tue,  1 Aug 2023 08:27:48 +0000 (UTC)
-Received: from out28-145.mail.aliyun.com (out28-145.mail.aliyun.com
- [115.124.28.145])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBB7A10E2FB;
- Tue,  1 Aug 2023 02:11:39 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1111192|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_alarm|0.0123702-0.000752526-0.986877; FP=0|0|0|0|0|-1|-1|-1;
- HT=ay29a033018047204; MF=sunran001@208suo.com; NM=1; PH=DS; RN=7; RT=7; SR=0;
- TI=SMTPD_---.U5FqyPn_1690855890; 
-Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5FqyPn_1690855890) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 10:11:32 +0800
-From: Ran Sun <sunran001@208suo.com>
-To: alexander.deucher@amd.com,
-	airlied@gmail.com,
-	daniel@ffwll.ch
-Subject: [PATCH] drm/amd: Clean up errors in smu_v13_0_5_ppt.c
-Date: Tue,  1 Aug 2023 02:11:29 +0000
-Message-Id: <20230801021129.4458-1-sunran001@208suo.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF2E610E333;
+	Tue,  1 Aug 2023 08:27:47 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CF8B10E2A5;
+ Mon, 31 Jul 2023 13:47:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=phaaJIZq1BLWmPqCytuBa+h2XJylFF98eK0c+HuebO4=; b=Fr1NrfcLzdpJVpmcOBL17zaxcV
+ zEYs26Dbdcqza8yQ2T/gXt6eJXboPEJDuFGznraLpotq5X7rjBlo3FpAmzHfseZRvk68l8JasNeG0
+ +WtScm3eUB5qzFnSVptSpdbfn3qDJe20ysVK0l4UYj/pksK8xkHmndNPZ00AHymM1PT3Pm8xhyoDY
+ P+N/gRHEh7Tq3zv150c3HLMnk43p8seEmT9AypoQn+WvEN1JpoUi0OMnBGLkKxGj2S7ARg8vVk7DS
+ ncdBCZlrKI1aVZGJJBi4u8phMp2+tpPtCrQZpp5BoEk7L6K4hd2fVmDuvQ7SjuHtMjV1S1M4MQvp1
+ CtbLs/0Q==;
+Received: from j130084.upc-j.chello.nl ([24.132.130.84]
+ helo=noisy.programming.kicks-ass.net)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1qQTEs-001wMI-Lv; Mon, 31 Jul 2023 13:47:11 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 0F9B93001DD;
+ Mon, 31 Jul 2023 15:47:10 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id EB506203EA053; Mon, 31 Jul 2023 15:47:09 +0200 (CEST)
+Date: Mon, 31 Jul 2023 15:47:09 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Kefeng Wang <wangkefeng.wang@huawei.com>
+Subject: Re: [PATCH v3 0/4] mm: convert to vma_is_initial_heap/stack()
+Message-ID: <20230731134709.GJ29590@hirez.programming.kicks-ass.net>
+References: <20230728050043.59880-1-wangkefeng.wang@huawei.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230728050043.59880-1-wangkefeng.wang@huawei.com>
 X-Mailman-Approved-At: Tue, 01 Aug 2023 08:27:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -40,41 +58,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ran Sun <sunran001@208suo.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: stephen.smalley.work@gmail.com, paul@paul-moore.com,
+ David Hildenbrand <david@redhat.com>, selinux@vger.kernel.org,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com, acme@kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-perf-users@vger.kernel.org, linux-mm@kvack.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, eparis@parisplace.org,
+ linux-fsdevel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, airlied@gmail.com,
+ christian.koenig@amd.com,
+ Christian =?iso-8859-1?Q?G=F6ttsche?= <cgzones@googlemail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the following errors reported by checkpatch:
+On Fri, Jul 28, 2023 at 01:00:39PM +0800, Kefeng Wang wrote:
 
-ERROR: space prohibited before that ',' (ctx:WxW)
+> Kefeng Wang (4):
+>   mm: factor out VMA stack and heap checks
+>   drm/amdkfd: use vma_is_initial_stack() and vma_is_initial_heap()
+>   selinux: use vma_is_initial_stack() and vma_is_initial_heap()
+>   perf/core: use vma_is_initial_stack() and vma_is_initial_heap()
+> 
+>  drivers/gpu/drm/amd/amdkfd/kfd_svm.c |  5 +----
+>  fs/proc/task_mmu.c                   | 24 ++++----------------
+>  fs/proc/task_nommu.c                 | 15 +------------
+>  include/linux/mm.h                   | 25 +++++++++++++++++++++
+>  kernel/events/core.c                 | 33 ++++++++++------------------
+>  security/selinux/hooks.c             |  7 ++----
+>  6 files changed, 44 insertions(+), 65 deletions(-)
 
-Signed-off-by: Ran Sun <sunran001@208suo.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu_internal.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-index ceb13c838067..bcc42abfc768 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-@@ -61,14 +61,14 @@
- #define smu_feature_get_enabled_mask(smu, mask)				smu_ppt_funcs(get_enabled_mask, -EOPNOTSUPP, smu, mask)
- #define smu_feature_is_enabled(smu, mask)				smu_ppt_funcs(feature_is_enabled, 0, smu, mask)
- #define smu_disable_all_features_with_exception(smu, mask)		smu_ppt_funcs(disable_all_features_with_exception, 0, smu, mask)
--#define smu_is_dpm_running(smu)						smu_ppt_funcs(is_dpm_running, 0 , smu)
-+#define smu_is_dpm_running(smu)						smu_ppt_funcs(is_dpm_running, 0, smu)
- #define smu_notify_display_change(smu)					smu_ppt_funcs(notify_display_change, 0, smu)
- #define smu_populate_umd_state_clk(smu)					smu_ppt_funcs(populate_umd_state_clk, 0, smu)
- #define smu_enable_thermal_alert(smu)					smu_ppt_funcs(enable_thermal_alert, 0, smu)
- #define smu_disable_thermal_alert(smu)					smu_ppt_funcs(disable_thermal_alert, 0, smu)
- #define smu_smc_read_sensor(smu, sensor, data, size)			smu_ppt_funcs(read_sensor, -EINVAL, smu, sensor, data, size)
- #define smu_pre_display_config_changed(smu)				smu_ppt_funcs(pre_display_config_changed, 0, smu)
--#define smu_display_config_changed(smu)					smu_ppt_funcs(display_config_changed, 0 , smu)
-+#define smu_display_config_changed(smu)					smu_ppt_funcs(display_config_changed, 0, smu)
- #define smu_apply_clocks_adjust_rules(smu)				smu_ppt_funcs(apply_clocks_adjust_rules, 0, smu)
- #define smu_notify_smc_display_config(smu)				smu_ppt_funcs(notify_smc_display_config, 0, smu)
- #define smu_run_btc(smu)						smu_ppt_funcs(run_btc, 0, smu)
--- 
-2.17.1
-
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
