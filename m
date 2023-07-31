@@ -4,29 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB47DEB64DD
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D9DC04FDF
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26DF310E34C;
-	Tue,  1 Aug 2023 08:28:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3428A10E34E;
+	Tue,  1 Aug 2023 08:28:03 +0000 (UTC)
 Received: from out28-195.mail.aliyun.com (out28-195.mail.aliyun.com
  [115.124.28.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4381010E30B;
- Tue,  1 Aug 2023 05:58:46 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1285285|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_regular_dialog|0.0182949-0.000150213-0.981555;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047211; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5e9L-1_1690869507; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 150E010E185;
+ Mon, 31 Jul 2023 09:30:20 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07457395|-1; CH=green;
+ DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.101045-0.00203573-0.896919;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047212; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U4m6pBV_1690795811; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5e9L-1_1690869507) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 13:58:29 +0800
+ fp:SMTPD_---.U4m6pBV_1690795811) by smtp.aliyun-inc.com;
+ Mon, 31 Jul 2023 17:30:13 +0800
 From: Ran Sun <sunran001@208suo.com>
-To: alexander.deucher@amd.com,
-	airlied@gmail.com,
-	daniel@ffwll.ch
-Subject: [PATCH] drm/amd/pm: Clean up errors in vega10_hwmgr.c
-Date: Tue,  1 Aug 2023 05:58:26 +0000
-Message-Id: <20230801055826.6000-1-sunran001@208suo.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amd/pm: Clean up errors in amdgpu_smu.h
+Date: Mon, 31 Jul 2023 09:30:09 +0000
+Message-Id: <20230731093009.3243-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Tue, 01 Aug 2023 08:27:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -47,49 +46,126 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: trailing statements should be on next line
-ERROR: space required before the open brace '{'
-ERROR: space required before the open parenthesis '('
-ERROR: space required after that ',' (ctx:VxV)
+ERROR: open brace '{' following enum go on the same line
+ERROR: open brace '{' following struct go on the same line
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 36 +++++++------------
+ 1 file changed, 12 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index 08518bc1cbbe..ba7294daddfe 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -670,17 +670,23 @@ static int vega10_patch_voltage_dependency_tables_with_lookup_table(
- 	for (i = 0; i < 6; i++) {
- 		struct phm_ppt_v1_clock_voltage_dependency_table *vdt;
- 		switch (i) {
--		case 0: vdt = table_info->vdd_dep_on_socclk;
-+		case 0:
-+			vdt = table_info->vdd_dep_on_socclk;
- 			break;
--		case 1: vdt = table_info->vdd_dep_on_sclk;
-+		case 1:
-+			vdt = table_info->vdd_dep_on_sclk;
- 			break;
--		case 2: vdt = table_info->vdd_dep_on_dcefclk;
-+		case 2:
-+			vdt = table_info->vdd_dep_on_dcefclk;
- 			break;
--		case 3: vdt = table_info->vdd_dep_on_pixclk;
-+		case 3:
-+			vdt = table_info->vdd_dep_on_pixclk;
- 			break;
--		case 4: vdt = table_info->vdd_dep_on_dispclk;
-+		case 4:
-+			vdt = table_info->vdd_dep_on_dispclk;
- 			break;
--		case 5: vdt = table_info->vdd_dep_on_phyclk;
-+		case 5:
-+			vdt = table_info->vdd_dep_on_phyclk;
- 			break;
- 		}
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index 6e2069dcb6b9..190a90b24d74 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -200,29 +200,25 @@ struct smu_power_state {
+ 	struct smu_hw_power_state                     hardware;
+ };
+ 
+-enum smu_power_src_type
+-{
++enum smu_power_src_type {
+ 	SMU_POWER_SOURCE_AC,
+ 	SMU_POWER_SOURCE_DC,
+ 	SMU_POWER_SOURCE_COUNT,
+ };
+ 
+-enum smu_ppt_limit_type
+-{
++enum smu_ppt_limit_type {
+ 	SMU_DEFAULT_PPT_LIMIT = 0,
+ 	SMU_FAST_PPT_LIMIT,
+ };
+ 
+-enum smu_ppt_limit_level
+-{
++enum smu_ppt_limit_level {
+ 	SMU_PPT_LIMIT_MIN = -1,
+ 	SMU_PPT_LIMIT_CURRENT,
+ 	SMU_PPT_LIMIT_DEFAULT,
+ 	SMU_PPT_LIMIT_MAX,
+ };
+ 
+-enum smu_memory_pool_size
+-{
++enum smu_memory_pool_size {
+     SMU_MEMORY_POOL_SIZE_ZERO   = 0,
+     SMU_MEMORY_POOL_SIZE_256_MB = 0x10000000,
+     SMU_MEMORY_POOL_SIZE_512_MB = 0x20000000,
+@@ -282,8 +278,7 @@ struct smu_clock_info {
+ 	uint32_t max_bus_bandwidth;
+ };
+ 
+-struct smu_bios_boot_up_values
+-{
++struct smu_bios_boot_up_values {
+ 	uint32_t			revision;
+ 	uint32_t			gfxclk;
+ 	uint32_t			uclk;
+@@ -305,8 +300,7 @@ struct smu_bios_boot_up_values
+ 	uint32_t			firmware_caps;
+ };
+ 
+-enum smu_table_id
+-{
++enum smu_table_id {
+ 	SMU_TABLE_PPTABLE = 0,
+ 	SMU_TABLE_WATERMARKS,
+ 	SMU_TABLE_CUSTOM_DPM,
+@@ -326,8 +320,7 @@ enum smu_table_id
+ 	SMU_TABLE_COUNT,
+ };
+ 
+-struct smu_table_context
+-{
++struct smu_table_context {
+ 	void				*power_play_table;
+ 	uint32_t			power_play_table_size;
+ 	void				*hardcode_pptable;
+@@ -390,8 +383,7 @@ struct smu_power_context {
+ };
+ 
+ #define SMU_FEATURE_MAX	(64)
+-struct smu_feature
+-{
++struct smu_feature {
+ 	uint32_t feature_num;
+ 	DECLARE_BITMAP(supported, SMU_FEATURE_MAX);
+ 	DECLARE_BITMAP(allowed, SMU_FEATURE_MAX);
+@@ -416,21 +408,18 @@ struct mclock_latency_table {
+ 	struct mclk_latency_entries  entries[MAX_REGULAR_DPM_NUM];
+ };
+ 
+-enum smu_reset_mode
+-{
++enum smu_reset_mode {
+     SMU_RESET_MODE_0,
+     SMU_RESET_MODE_1,
+     SMU_RESET_MODE_2,
+ };
+ 
+-enum smu_baco_state
+-{
++enum smu_baco_state {
+ 	SMU_BACO_STATE_ENTER = 0,
+ 	SMU_BACO_STATE_EXIT,
+ };
+ 
+-struct smu_baco_context
+-{
++struct smu_baco_context {
+ 	uint32_t state;
+ 	bool platform_support;
+ 	bool maco_support;
+@@ -478,8 +467,7 @@ struct stb_context {
+ 
+ #define WORKLOAD_POLICY_MAX 7
+ 
+-struct smu_context
+-{
++struct smu_context {
+ 	struct amdgpu_device            *adev;
+ 	struct amdgpu_irq_src		irq_source;
  
 -- 
 2.17.1
