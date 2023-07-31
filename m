@@ -4,90 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 765FFC00528
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jul 2023 20:41:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23B94C00528
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Jul 2023 21:16:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12BE710E2E1;
-	Mon, 31 Jul 2023 20:41:43 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::600])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2885F10E2E1
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jul 2023 20:41:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE9410E303;
+	Mon, 31 Jul 2023 21:16:17 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20627.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::627])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03E7510E2F0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jul 2023 21:16:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TkbECXTuJS9fpPGYDzfyxos89dN2i8HQOg39T1nxVDSpX9k3YXLiEhXRc2FPGn/EMzPUOPfLUKBykul+RloyemL9JpNIBf4p4+0+5zwVxoLDwtB7mmOThIV+4nBZtisQxTKjwxgfhCtxWhYUsknqZBQLKyYNLiL1WXVvXsv2GjgMkvJPD0t/oLHHKZt3AFI05RL3G9JmWYk0sZLL89h4HNdW9RgshtUOpIOAb64vK4KkfWEws3YA+ytoqGjkBYZMlC8MzvfCSFAkc308qdEEEUO+W/bwcYdLHLv8tKITPhnOySREYrTjo2YFCe59bh+RwWD75ANFGvTLN4wPRgJuRg==
+ b=XPFr8kaHfhzs7q+yXNY3X/ZxkURy+JjFo/oEwCUfG/dyl5M6iRn4vni1y270fv+8eTQDyHfmeYz/Y/gK23TxnfdQz7y9jmLLpyyvP+x2KPtoSDUg1vHl35eMq7lUKGpSbmIcEvEA09sBVvfS6JVRys+cJEE0MhWWwtAJFRChPD9upPL1Hx4JQqitF/Duv3oM4xSXizgWFG6gg2cXvc+Ns3jsA34QKDFacPjHTqurJnUJ1Twne3wM14834zpiDvV39EkJ8/8+PuNqPWeP32T35hL4IMs8WO6+B/XGc+56khjycFm9KrukidoXZ/63v48f+bxucu1aK134vYTt6p967g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VBxPig6Hopmc+/MzxH4SCPs0wXdTZA2PYApu5pbzYgo=;
- b=T1ySQh8ABrDtzKuTb68aC/pGRyhUgRrq3vhqAF62xt3CP2lITvOBV0vjiu/KHO96MIKojZlYR+MLQ5wjsCKc0JpZrDqFcz53i9fx/04oieLn6M8wo1ykRF1pDmTUt5VZHpan+OYt0/mMAEYKXP4Trs3AMTB3sn94nV0Aauecd5v376wjggpHk1/fEsRIv4P1HIRt9Y69QooE2p712wlOlLoO1QKZk7MPPCUjkKezzjln/FE5vNQKnU/IR2caRIVBHdaR1nXLhPm9EK4C+dfkxzb8RiomYJycV/Oj4o88n84w9ghdr/ORMZQ9+sEY2b8U8V5nSAQQ9QaAcAHzgKrSBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=X1xSt/7aR0Z3OUlsI6tQFH7sksHZ53G6Ez3knGXUeCw=;
+ b=fkknRoo5sfiCUBlq0uaUSFOJwa9zl91eNTpZer6W+kDCJQF1Y9Z2zLK4wY+HyRUzL041rBbeq36zyWHaY7eeWB7kfIXoZiHADB0mBZbPz3CLsTYoedJ9fLTBBiM28evDtJQvXjwD26oJorS8SsTkBdqazVo1G3NLcVGXwsr/AgGb4q0pYZIkJVjToMLuleWgxAFTVnJ/Y+EQn/vH7iIn0tfgYKaC3PSSsHTtgTMFfzwM9mVpvdB44iyzzJwAloG25pQPxhbFK7IMiXcBqz9ckRH0wQJ11nkhfS/1yMXnKQ906xMCtIGcGI+MPGrfNXInsFlwqfwSsRl0cixh3go8Vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VBxPig6Hopmc+/MzxH4SCPs0wXdTZA2PYApu5pbzYgo=;
- b=UTdifH0v03P7ZUeRpGGapJbIWxSyFdH3f+c4yajsoDv1QdLUI4wgDdQp/FYdnRFZfDnBDFbhfN4dUwYAPuqUcAgbu+7oguwGpKsP43pN+rwBOVU1o0Wo2joEEDEcJflTyZHdqccp/nH0NlhSodPjOr6M06YHhu9/r5GA5eKfSEs=
-Received: from DS7PR03CA0277.namprd03.prod.outlook.com (2603:10b6:5:3ad::12)
- by DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6631.44; Mon, 31 Jul 2023 20:41:35 +0000
-Received: from MWH0EPF000971E6.namprd02.prod.outlook.com
- (2603:10b6:5:3ad:cafe::ee) by DS7PR03CA0277.outlook.office365.com
- (2603:10b6:5:3ad::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.44 via Frontend
- Transport; Mon, 31 Jul 2023 20:41:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E6.mail.protection.outlook.com (10.167.243.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6631.25 via Frontend Transport; Mon, 31 Jul 2023 20:41:35 +0000
-Received: from jc-d.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 31 Jul
- 2023 15:41:34 -0500
-From: Jay Cornwall <jay.cornwall@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/3] drm/amdkfd: Relocate TBA/TMA to opposite side of VM hole
-Date: Mon, 31 Jul 2023 15:40:19 -0500
-Message-ID: <20230731204019.9519-3-jay.cornwall@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230731204019.9519-1-jay.cornwall@amd.com>
-References: <20230731204019.9519-1-jay.cornwall@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E6:EE_|DM3PR12MB9416:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5274dbd8-7821-4769-61f9-08db92068840
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fZnp+lmUF/kT+7qoeS89QVy6iJ/OufKRDs4skASdtYFFDnOeWiJ/vQPCKtQEzSu7KleDmkhCDiaHut8Aj1zGKg0Vd66kzWGpSpBp22uRbh0kv9gXjX+oYMTHAzPTBvCZBls9klv7z8Sq33gljdPYjR4B/I0uo3KfjAoQEEHEH9MUUeWU/qlRqO7lJzhw4MQZzHp07DlCJtxIuHEY5QOtAuMvsUqLSsmicKGYL2sOQcEXzxJshGFg/bmNOjERt6AOlYsJCXpWK4RSGm/f9aq8FWVdpQMoiIEYhvoFIXnjqCEnD7/vp++CnIDF2O3rXL9UBRhVH03u6mAqlfVJIo/sFwTJhHTMoYru9SW33oCS8pqfDHVgEEfn7dSAP6SWiOJZkSMme+Q7s5hZ+N4iVJ2PwGnO3tqyaPFQbJfHS58YSUiquPSqll7XI5iCPvqwGNmmJ4YiwNf/8uvGfWmi4cgo7NnPiOCxEIClWwoCQPe6VKLtBxMAbL8TeucORXcsy95whglUBDfM3V48f9smFFqrL9tHfYH3JX7OHg8QsZ2NGlKWeUtwp7ZAutrWV+wgQboc7Mr0fOX6yQZoO7uS5AhLNm0howltw/QasOtuDitOqT6bBQj6LYAy5gx/p9Itu9jCAZ1LkXP89LyEC9d35IUZ6OlSk7TH/0aLFOOcBP7Nf+htKLT63rR6L7RjvMfrx8wrZUpWOesntUGgPDBsatjZ66yw736KZUzGiRHpTWVt/9/aiiZsMHa3Q1+eOkDnAobhH8Bf1qbyyKBLyJzZ6Oex/w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(396003)(376002)(346002)(39860400002)(451199021)(82310400008)(40470700004)(46966006)(36840700001)(5660300002)(70206006)(6916009)(2906002)(4326008)(70586007)(41300700001)(316002)(2616005)(16526019)(6666004)(7696005)(8936002)(8676002)(1076003)(26005)(336012)(186003)(44832011)(426003)(36860700001)(47076005)(83380400001)(81166007)(356005)(82740400003)(478600001)(36756003)(40460700003)(40480700001)(86362001)(36900700001);
+ bh=X1xSt/7aR0Z3OUlsI6tQFH7sksHZ53G6Ez3knGXUeCw=;
+ b=TFpDQM/zzA5eZ7kNWKVIu00Y8cNaRKoAU+CHyVdUbDDn40hVoIeu8OeKwNr0c0LTeKFZjt5Dr6kZdGCRcDYN+hoWLo2J605Op74hx2Ljbc3gyK3I9H0yRn3xd1xOxSuDeoramnwEco5alkqt7TmFuhzIyeJoEkfe13Gg8g6E9y4=
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
+ by IA0PR12MB8864.namprd12.prod.outlook.com (2603:10b6:208:485::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.39; Mon, 31 Jul
+ 2023 21:16:14 +0000
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::a5f3:e7b0:83dd:c832]) by CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::a5f3:e7b0:83dd:c832%6]) with mapi id 15.20.6631.042; Mon, 31 Jul 2023
+ 21:16:13 +0000
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+To: "Messinger, Ori" <Ori.Messinger@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Report Missing MES Firmware Versions with
+ Sysfs
+Thread-Topic: [PATCH] drm/amdgpu: Report Missing MES Firmware Versions with
+ Sysfs
+Thread-Index: AQHZwX4IuIK8r1NaWkCy714VDLHiC6/UZV5g
+Date: Mon, 31 Jul 2023 21:16:13 +0000
+Message-ID: <CY8PR12MB7099D8342EC80851D5D7F2768C05A@CY8PR12MB7099.namprd12.prod.outlook.com>
+References: <20230728180423.864002-1-Ori.Messinger@amd.com>
+In-Reply-To: <20230728180423.864002-1-Ori.Messinger@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=e54f38c1-627c-46bb-9ddf-df24aa71f80d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-07-31T21:15:48Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7099:EE_|IA0PR12MB8864:EE_
+x-ms-office365-filtering-correlation-id: d0e7d7c2-14c3-4b2c-c5f3-08db920b5ede
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: lvvanOHDSc3YO1gqUGXF2AH9qKm6JpQxmcLac74jIVS7XQd6kBnNt6+dJgMvNan04Hu2meS51vCG1xHlTMvQMeU3br8/R7bn+Nwmp6HhIGcO6DaIuRrvp4Zg/sHzLq/OV9JKqrkAj8joYF0cK4T/O04hFWLh8yM6qofv63qpVvo7lwkzCMUwi95fxDRR++JqYGe6GTI2P7pGnJ1+9N76AVm7tyIps9csYxl/YM7xfsYu68dkgWpbFkFq95onrHa6a7ML5HzDbqcFgiMnQonkMZrF3iIYMT9wyiHPtSL9KpPQcKtBeyq6NHl09hQKywb3VmVP7hj8vo4uI7wM9FgINm/ntVHyZ3fNWh2fSWpC0V1BFs5cpKj/raSjBQs8/GxwdkPqnNfS0kfM5U45EfMl1WAtk69BLviNp4mLrf+TW9uz9+cEAJLFkOk5EdsBWSSI9225fNZLv44p594p4PW2rV8Zd7CLP8vxFPDCFPn7Dv+sk8pP0ZHA0mjf3BokspuoSfiZxMAy7YFfqMbsuJ3+gyYTV4Y4EsrIRwmxTx9fi0OsU5ncxr+ZPN6qmV/EugvqTaLXps1VvmZ38XKsw7Hrg3e+EIC8qrj9j10KuTCb9MTJXPhcUCioyHlw663FWMIf
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(346002)(396003)(136003)(366004)(39860400002)(451199021)(38100700002)(86362001)(66476007)(8676002)(8936002)(64756008)(5660300002)(316002)(4326008)(66446008)(122000001)(33656002)(76116006)(52536014)(66556008)(66946007)(110136005)(41300700001)(38070700005)(478600001)(2906002)(71200400001)(9686003)(7696005)(6506007)(26005)(83380400001)(186003)(53546011)(55016003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/dDgGNTsCth0tOqyorQEDvyb++VaPGDe+WrpSuBiK1+EpZQgQK67ZTZpYkG/?=
+ =?us-ascii?Q?jorPetCr32ZToj1kWcJ5X/5jXx+mQa/Dd3LBqAsbdkvSwA9txqxCZ1PmWsCJ?=
+ =?us-ascii?Q?b4dAvWaRqxkMUswBKZULJCUOXm5QsFTX5X2DY3ESroGStaaSLYAuCaZdJ1eG?=
+ =?us-ascii?Q?eXzkDcXxFUvirLrSY87HcpTiwSnAfq0JqqlKzX6O28T0OjhZbte3RBa6BaeB?=
+ =?us-ascii?Q?wF2Kc64s7L+JGT/jpEgmAvdezxQ9Nr93fnugDvwiMXhD5ZY+R5fZ7y1Z3Bx2?=
+ =?us-ascii?Q?81J7tEBOTzLmYd0FmPDVxhDz+fTpOUowf69cwXZaPWGuzpvn1lMdnG1JxlWZ?=
+ =?us-ascii?Q?4EDjkXwRO342xoGIvM0MtMwEa/fA6+P+Ui93afEpp8nCrEv9mFG/C4Zuuw4z?=
+ =?us-ascii?Q?b3MiKdVvVv8su+/4mndPFgeQ0IZre/4FMnD3hvGCMD78edyoP+XxStaMr1Dz?=
+ =?us-ascii?Q?XxvLptA8IReOziLL3HJHRFH1IiuvbdxQfvEn1/txA/wEHNSGIKUH30eU2lT8?=
+ =?us-ascii?Q?Hcih5leYYROyxCacNJmCTlaNsas/Df8sYAVGh4gGk/IScYh3jzrlaChlI3QI?=
+ =?us-ascii?Q?JxIIghaJ+uobOXD0YjvtuU36Ku9rW51ngFbvmpDn/y0DKlaXDcDPoH/QUXRG?=
+ =?us-ascii?Q?D1mSxNlcDRpp34y1e4vJ7Uh2+we9vT4/LYtctkrbonLVDiEITXizWsYsb+P/?=
+ =?us-ascii?Q?yjbpfd7zC8PEIcK8hk9Ro0m3UYDrz2ki9QnATeTYIC4FewavjyR4vJv1CLZ+?=
+ =?us-ascii?Q?292X9R8tF7mc/sDK0/BPADl+aJlQogdz3F5hvDISugED/qD6IQQJp+JCBVkA?=
+ =?us-ascii?Q?hCev01pmHJOcDgYbKKNFhDhNyE2rn0KKNk5qmxFvY6p9uD9Fhsb57hwn4A7X?=
+ =?us-ascii?Q?vZkBnLmd1m8Tyteihme1PXouQ4uMfGatFttoLrFOKl1CWwzioOBs/nT1Qwx6?=
+ =?us-ascii?Q?XEd5cteg6HV7knTc+xyso0ZbzSHn2arKOJoacihZDEuuOtJrZzL9IZxeFmO5?=
+ =?us-ascii?Q?oI3DYQNKD5sVdxkoPm1epQyWGv9reXXecojn5pi5kd6ZO+ndjIDS25tNKaTx?=
+ =?us-ascii?Q?USXtA9T1zRWGJiK/YAx7OqPdI/5uEmAQcG1gpNzVzEkcmqGCvR1V3miiLsH5?=
+ =?us-ascii?Q?b91cm29seYa9mhoz0KmiQWPXrZt++iQZANnUhcvV4oj4TzUmaHfgmb4kcBVv?=
+ =?us-ascii?Q?vTqPRa7HEgjxgYqlLHCrmeMlpn4oEDQGysh1ftIFLzVtKdnqgX+jJT8wKBX0?=
+ =?us-ascii?Q?6+sy9UYb8UZCmOWYkldNpNcn79gM5tVJkFEfpLOH87jXOvoFKdvw1r/cVH36?=
+ =?us-ascii?Q?hnKXBddELnzsahgyCH3zg5QljmWz8R++Sv2bwcz92wDBcD/N6i4rN4zeRUdi?=
+ =?us-ascii?Q?RYjuQR+Tg9V1HWbjL5v8bN25JJA/CfBH1lenWKxGM08ysy+JC9mUOS9ZLQp9?=
+ =?us-ascii?Q?LtwYg6rzVsmdiQzctxALX/H/3yh3ZEM7bgKcHk6jrGbvur64oNL3CyORWmZx?=
+ =?us-ascii?Q?fFC2mhioXxEYAmlPR3NbyJ1v3P2xOo3HMoYLFvlT5HACG4k6XBCm1I3tKNUD?=
+ =?us-ascii?Q?hmrB3C2+aVn4jIRcKH0=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2023 20:41:35.4874 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5274dbd8-7821-4769-61f9-08db92068840
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9416
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0e7d7c2-14c3-4b2c-c5f3-08db920b5ede
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2023 21:16:13.6736 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lkLVXUKU20oDk3+BDA0jtd8lK/k91YgQ/bvzUTe0t7k2OBNcXQ8b+YV1rdoVnFakKrDU8PJ0Rb7vTgQsLLgP0g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8864
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,87 +125,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jay Cornwall <jay.cornwall@amd.com>
+Cc: "Messinger, Ori" <Ori.Messinger@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The TBA and TMA, along with an unused IB allocation, reside at low
-addresses in the VM address space. A stray VM fault which hits these
-pages must be serviced by making their page table entries invalid.
-The scheduler depends upon these pages being resident and fails,
-preventing a debugger from inspecting the failure state.
+[AMD Official Use Only - General]
 
-By relocating these pages above 47 bits in the VM address space they
-can only be reached when bits [63:48] are set to 1. This makes it much
-less likely for a misbehaving program to generate accesses to them.
-The current placement at VA (PAGE_SIZE*2) is readily hit by a NULL
-access with a small offset.
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 
-Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Ori Mess=
+inger
+Sent: Friday, July 28, 2023 2:04 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Messinger, Ori <Ori.Messinger@amd.com>
+Subject: [PATCH] drm/amdgpu: Report Missing MES Firmware Versions with Sysf=
+s
+
+Added missing MES firmware versions to the 'fw_version' sysfs
+directory, they should now exist as a files named "mes_fw_version"
+and "mes_kiq_fw_version" found at:
+
+/sys/class/drm/cardX/device/fw_version/mes_fw_version
+/sys/class/drm/cardX/device/fw_version/mes_kiq_fw_version
+Where X is the card number, and the version is displayed in hexadecimal.
+
+Signed-off-by: Ori Messinger <ori.messinger@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c | 30 ++++++++++----------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-index da2ca00d79e5..dd6984c785ad 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-@@ -330,6 +330,12 @@ static void kfd_init_apertures_vi(struct kfd_process_device *pdd, uint8_t id)
- 		pdd->gpuvm_base = SVM_USER_BASE;
- 		pdd->gpuvm_limit =
- 			pdd->dev->kfd->shared_resources.gpuvm_size - 1;
-+
-+		/* dGPUs: the reserved space for kernel
-+		 * before SVM
-+		 */
-+		pdd->qpd.cwsr_base = SVM_CWSR_BASE;
-+		pdd->qpd.ib_base = SVM_IB_BASE;
- 	} else {
- 		/* set them to non CANONICAL addresses, and no SVM is
- 		 * allocated.
-@@ -348,18 +354,20 @@ static void kfd_init_apertures_v9(struct kfd_process_device *pdd, uint8_t id)
- 	pdd->lds_base = MAKE_LDS_APP_BASE_V9();
- 	pdd->lds_limit = MAKE_LDS_APP_LIMIT(pdd->lds_base);
- 
--	/* Raven needs SVM to support graphic handle, etc. Leave the small
--	 * reserved space before SVM on Raven as well, even though we don't
--	 * have to.
--	 * Set gpuvm_base and gpuvm_limit to CANONICAL addresses so that they
--	 * are used in Thunk to reserve SVM.
--	 */
--	pdd->gpuvm_base = SVM_USER_BASE;
-+	pdd->gpuvm_base = PAGE_SIZE;
- 	pdd->gpuvm_limit =
- 		pdd->dev->kfd->shared_resources.gpuvm_size - 1;
- 
- 	pdd->scratch_base = MAKE_SCRATCH_APP_BASE_V9();
- 	pdd->scratch_limit = MAKE_SCRATCH_APP_LIMIT(pdd->scratch_base);
-+
-+	if (!pdd->dev->kfd->use_iommu_v2) {
-+		/*
-+		 * Place TBA/TMA on opposite side of VM hole to prevent
-+		 * stray faults from triggering SVM on these pages.
-+		 */
-+		pdd->qpd.cwsr_base = pdd->dev->kfd->shared_resources.gpuvm_size;
-+	}
- }
- 
- int kfd_init_apertures(struct kfd_process *process)
-@@ -416,14 +424,6 @@ int kfd_init_apertures(struct kfd_process *process)
- 					return -EINVAL;
- 				}
- 			}
--
--			if (!dev->kfd->use_iommu_v2) {
--				/* dGPUs: the reserved space for kernel
--				 * before SVM
--				 */
--				pdd->qpd.cwsr_base = SVM_CWSR_BASE;
--				pdd->qpd.ib_base = SVM_IB_BASE;
--			}
- 		}
- 
- 		dev_dbg(kfd_device, "node id %u\n", id);
--- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ucode.c
+index 16807ff96dc9..8beefc045e14 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -703,6 +703,8 @@ FW_VERSION_ATTR(sdma_fw_version, 0444, sdma.instance[0]=
+.fw_version);
+ FW_VERSION_ATTR(sdma2_fw_version, 0444, sdma.instance[1].fw_version);
+ FW_VERSION_ATTR(vcn_fw_version, 0444, vcn.fw_version);
+ FW_VERSION_ATTR(dmcu_fw_version, 0444, dm.dmcu_fw_version);
++FW_VERSION_ATTR(mes_fw_version, 0444, mes.sched_version & AMDGPU_MES_VERSI=
+ON_MASK);
++FW_VERSION_ATTR(mes_kiq_fw_version, 0444, mes.kiq_version & AMDGPU_MES_VER=
+SION_MASK);
+
+ static struct attribute *fw_attrs[] =3D {
+        &dev_attr_vce_fw_version.attr, &dev_attr_uvd_fw_version.attr,
+@@ -716,6 +718,7 @@ static struct attribute *fw_attrs[] =3D {
+        &dev_attr_smc_fw_version.attr, &dev_attr_sdma_fw_version.attr,
+        &dev_attr_sdma2_fw_version.attr, &dev_attr_vcn_fw_version.attr,
+        &dev_attr_dmcu_fw_version.attr, &dev_attr_imu_fw_version.attr,
++       &dev_attr_mes_fw_version.attr, &dev_attr_mes_kiq_fw_version.attr,
+        NULL
+ };
+
+--
 2.25.1
 
