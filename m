@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ACA8C05051
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62AF3C001DF
 	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C2AA10E4F7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C67E10E4EA;
 	Wed,  2 Aug 2023 07:20:14 +0000 (UTC)
-Received: from out28-115.mail.aliyun.com (out28-115.mail.aliyun.com
- [115.124.28.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FBDD10E36F;
- Tue,  1 Aug 2023 09:22:24 +0000 (UTC)
-X-Alimail-AntiSpam: AC=SUSPECT; BC=0.6030169|-1; BR=01201311R211b1; CH=blue;
- DM=|SUSPECT|false|; DS=CONTINUE|ham_alarm|0.122626-0.119945-0.757429;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047198; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5qaegt_1690881734; 
+Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com
+ [115.124.28.121])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31B7D10E37B;
+ Tue,  1 Aug 2023 09:38:47 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.5111754|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_alarm|0.0993225-0.000355378-0.900322; FP=0|0|0|0|0|-1|-1|-1;
+ HT=ay29a033018047192; MF=sunran001@208suo.com; NM=1; PH=DS; RN=7; RT=7; SR=0;
+ TI=SMTPD_---.U5s-DtI_1690882719; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5qaegt_1690881734) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 17:22:17 +0800
+ fp:SMTPD_---.U5s-DtI_1690882719) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 17:38:40 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com,
 	airlied@gmail.com,
 	daniel@ffwll.ch
-Subject: [PATCH] drm/amdgpu/powerplay: Clean up errors in smu_helper.h
-Date: Tue,  1 Aug 2023 09:22:13 +0000
-Message-Id: <20230801092213.7360-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amd/pm: Clean up errors in vega12_hwmgr.h
+Date: Tue,  1 Aug 2023 09:38:32 +0000
+Message-Id: <20230801093832.7849-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -47,26 +47,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: space prohibited before that close parenthesis ')'
+ERROR: open brace '{' following enum go on the same line
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.h
-index 2a75da1e9f03..83b3c9315143 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.h
-@@ -194,7 +194,7 @@ int smu_set_watermarks_for_clocks_ranges(void *wt_table,
- #define PHM_WAIT_INDIRECT_FIELD_UNEQUAL(hwmgr, port, reg, field, fieldval)                          \
- 		PHM_WAIT_INDIRECT_REGISTER_UNEQUAL(hwmgr, port, reg, \
- 				(fieldval) << PHM_FIELD_SHIFT(reg, field), \
--					PHM_FIELD_MASK(reg, field) )
-+					PHM_FIELD_MASK(reg, field))
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.h
+index aa63ae41942d..9f2ce4308548 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.h
+@@ -38,8 +38,7 @@
+ #define VG12_PSUEDO_NUM_DCEFCLK_DPM_LEVELS  8
+ #define VG12_PSUEDO_NUM_UCLK_DPM_LEVELS     4
  
- 
- #define PHM_WAIT_VFPF_INDIRECT_REGISTER_UNEQUAL_GIVEN_INDEX(hwmgr,	\
+-enum
+-{
++enum {
+ 	GNLD_DPM_PREFETCHER = 0,
+ 	GNLD_DPM_GFXCLK,
+ 	GNLD_DPM_UCLK,
 -- 
 2.17.1
 
