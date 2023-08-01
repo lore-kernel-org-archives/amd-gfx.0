@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 586B0C001E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DDBCC0015E
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 635BB10E348;
-	Tue,  1 Aug 2023 08:27:49 +0000 (UTC)
-Received: from out28-218.mail.aliyun.com (out28-218.mail.aliyun.com
- [115.124.28.218])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CD3310E2FE;
- Tue,  1 Aug 2023 02:44:59 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1403262|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.0171721-0.000360176-0.982468;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047212; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5HG1hv_1690857889; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D2FD10E34A;
+	Tue,  1 Aug 2023 08:28:01 +0000 (UTC)
+Received: from out28-219.mail.aliyun.com (out28-219.mail.aliyun.com
+ [115.124.28.219])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 288A610E0C1;
+ Tue,  1 Aug 2023 02:57:14 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.09616855|-1; CH=green;
+ DM=|CONTINUE|false|; DS=CONTINUE|ham_alarm|0.0129007-0.000684149-0.986415;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047202; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5ISByU_1690858625; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5HG1hv_1690857889) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 10:44:51 +0800
+ fp:SMTPD_---.U5ISByU_1690858625) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 10:57:07 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com,
 	airlied@gmail.com,
 	daniel@ffwll.ch
-Subject: [PATCH] drm/amd/pm: Clean up errors in vega10_baco.c
-Date: Tue,  1 Aug 2023 02:44:48 +0000
-Message-Id: <20230801024448.4848-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amd/pm: Clean up errors in vega12_hwmgr.c
+Date: Tue,  1 Aug 2023 02:57:03 +0000
+Message-Id: <20230801025703.4979-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Tue, 01 Aug 2023 08:27:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -47,83 +47,54 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: that open brace { should be on the previous line
-ERROR: space required after that ',' (ctx:VxV)
-ERROR: space prohibited before that ',' (ctx:WxV)
+ERROR: need consistent spacing around '/' (ctx:WxV)
+ERROR: code indent should use tabs where possible
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- .../drm/amd/pm/powerplay/hwmgr/vega10_baco.c  | 26 ++++++++-----------
- 1 file changed, 11 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_baco.c
-index 46bb16c29cf6..6836e98d37be 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_baco.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_baco.c
-@@ -31,24 +31,22 @@
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+index 1937be1cf5b4..4bd573d815ff 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+@@ -1623,13 +1623,13 @@ static int vega12_notify_smc_display_config_after_ps_adjustment(
  
+ 	if (data->smu_features[GNLD_DPM_DCEFCLK].supported) {
+ 		clock_req.clock_type = amd_pp_dcef_clock;
+-		clock_req.clock_freq_in_khz = min_clocks.dcefClock/10;
++		clock_req.clock_freq_in_khz = min_clocks.dcefClock / 10;
+ 		if (!vega12_display_clock_voltage_request(hwmgr, &clock_req)) {
+ 			if (data->smu_features[GNLD_DS_DCEFCLK].supported)
+ 				PP_ASSERT_WITH_CODE(
+ 					!smum_send_msg_to_smc_with_parameter(
+ 					hwmgr, PPSMC_MSG_SetMinDeepSleepDcefclk,
+-					min_clocks.dcefClockInSR /100,
++					min_clocks.dcefClockInSR / 100,
+ 					NULL),
+ 					"Attempt to set divider for DCEFCLK Failed!",
+ 					return -1);
+@@ -2354,8 +2354,8 @@ static int vega12_apply_clocks_adjust_rules(struct pp_hwmgr *hwmgr)
+ 	uint32_t i, latency;
  
+ 	disable_mclk_switching = ((1 < hwmgr->display_config->num_display) &&
+-			          !hwmgr->display_config->multi_monitor_in_sync) ||
+-			          vblank_too_short;
++				!hwmgr->display_config->multi_monitor_in_sync) ||
++				vblank_too_short;
+ 	latency = hwmgr->display_config->dce_tolerable_mclk_in_active_latency;
  
--static const struct soc15_baco_cmd_entry  pre_baco_tbl[] =
--{
-+static const struct soc15_baco_cmd_entry  pre_baco_tbl[] = {
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBIF_DOORBELL_CNTL), BIF_DOORBELL_CNTL__DOORBELL_MONITOR_EN_MASK, BIF_DOORBELL_CNTL__DOORBELL_MONITOR_EN__SHIFT, 0, 1},
- 	{CMD_WRITE, SOC15_REG_ENTRY(NBIF, 0, mmBIF_FB_EN), 0, 0, 0, 0},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_DSTATE_BYPASS_MASK, BACO_CNTL__BACO_DSTATE_BYPASS__SHIFT, 0, 1},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_RST_INTR_MASK_MASK, BACO_CNTL__BACO_RST_INTR_MASK__SHIFT, 0, 1}
- };
- 
--static const struct soc15_baco_cmd_entry enter_baco_tbl[] =
--{
-+static const struct soc15_baco_cmd_entry enter_baco_tbl[] = {
- 	{CMD_WAITFOR, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__SOC_DOMAIN_IDLE_MASK, THM_BACO_CNTL__SOC_DOMAIN_IDLE__SHIFT, 0xffffffff, 0x80000000},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_EN_MASK, BACO_CNTL__BACO_EN__SHIFT, 0, 1},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_BIF_LCLK_SWITCH_MASK, BACO_CNTL__BACO_BIF_LCLK_SWITCH__SHIFT, 0, 1},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_DUMMY_EN_MASK, BACO_CNTL__BACO_DUMMY_EN__SHIFT, 0, 1},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_SOC_VDCI_RESET_MASK, THM_BACO_CNTL__BACO_SOC_VDCI_RESET__SHIFT, 0, 1},
--	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_SMNCLK_MUX_MASK, THM_BACO_CNTL__BACO_SMNCLK_MUX__SHIFT,0, 1},
-+	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_SMNCLK_MUX_MASK, THM_BACO_CNTL__BACO_SMNCLK_MUX__SHIFT, 0, 1},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_ISO_EN_MASK, THM_BACO_CNTL__BACO_ISO_EN__SHIFT, 0, 1},
--	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_AEB_ISO_EN_MASK, THM_BACO_CNTL__BACO_AEB_ISO_EN__SHIFT,0, 1},
-+	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_AEB_ISO_EN_MASK, THM_BACO_CNTL__BACO_AEB_ISO_EN__SHIFT, 0, 1},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_ANA_ISO_EN_MASK, THM_BACO_CNTL__BACO_ANA_ISO_EN__SHIFT, 0, 1},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_SOC_REFCLK_OFF_MASK,     THM_BACO_CNTL__BACO_SOC_REFCLK_OFF__SHIFT, 0, 1},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_POWER_OFF_MASK, BACO_CNTL__BACO_POWER_OFF__SHIFT, 0, 1},
-@@ -58,13 +56,12 @@ static const struct soc15_baco_cmd_entry enter_baco_tbl[] =
- 	{CMD_WAITFOR, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_MODE_MASK, BACO_CNTL__BACO_MODE__SHIFT, 0xffffffff, 0x100}
- };
- 
--static const struct soc15_baco_cmd_entry exit_baco_tbl[] =
--{
-+static const struct soc15_baco_cmd_entry exit_baco_tbl[] = {
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_POWER_OFF_MASK, BACO_CNTL__BACO_POWER_OFF__SHIFT, 0, 0},
--	{CMD_DELAY_MS, 0, 0, 0, 0, 0, 0, 10,0},
--	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_SOC_REFCLK_OFF_MASK, THM_BACO_CNTL__BACO_SOC_REFCLK_OFF__SHIFT, 0,0},
-+	{CMD_DELAY_MS, 0, 0, 0, 0, 0, 0, 10, 0},
-+	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_SOC_REFCLK_OFF_MASK, THM_BACO_CNTL__BACO_SOC_REFCLK_OFF__SHIFT, 0, 0},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_ANA_ISO_EN_MASK, THM_BACO_CNTL__BACO_ANA_ISO_EN__SHIFT, 0, 0},
--	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_AEB_ISO_EN_MASK, THM_BACO_CNTL__BACO_AEB_ISO_EN__SHIFT,0, 0},
-+	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_AEB_ISO_EN_MASK, THM_BACO_CNTL__BACO_AEB_ISO_EN__SHIFT, 0, 0},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_ISO_EN_MASK, THM_BACO_CNTL__BACO_ISO_EN__SHIFT, 0, 0},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_PWROKRAW_CNTL_MASK, THM_BACO_CNTL__BACO_PWROKRAW_CNTL__SHIFT, 0, 1},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_SMNCLK_MUX_MASK, THM_BACO_CNTL__BACO_SMNCLK_MUX__SHIFT, 0, 0},
-@@ -74,13 +71,12 @@ static const struct soc15_baco_cmd_entry exit_baco_tbl[] =
- 	{CMD_WAITFOR, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_EXIT_MASK, 0, 0xffffffff, 0},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(THM, 0, mmTHM_BACO_CNTL), THM_BACO_CNTL__BACO_SB_AXI_FENCE_MASK, THM_BACO_CNTL__BACO_SB_AXI_FENCE__SHIFT, 0, 0},
- 	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_DUMMY_EN_MASK, BACO_CNTL__BACO_DUMMY_EN__SHIFT,  0, 0},
--	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_BIF_LCLK_SWITCH_MASK ,BACO_CNTL__BACO_BIF_LCLK_SWITCH__SHIFT, 0, 0},
--	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_EN_MASK , BACO_CNTL__BACO_EN__SHIFT, 0,0},
-+	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_BIF_LCLK_SWITCH_MASK, BACO_CNTL__BACO_BIF_LCLK_SWITCH__SHIFT, 0, 0},
-+	{CMD_READMODIFYWRITE, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_EN_MASK, BACO_CNTL__BACO_EN__SHIFT, 0, 0},
- 	{CMD_WAITFOR, SOC15_REG_ENTRY(NBIF, 0, mmBACO_CNTL), BACO_CNTL__BACO_MODE_MASK, 0, 0xffffffff, 0}
-  };
- 
--static const struct soc15_baco_cmd_entry clean_baco_tbl[] =
--{
-+static const struct soc15_baco_cmd_entry clean_baco_tbl[] = {
- 	{CMD_WRITE, SOC15_REG_ENTRY(NBIF, 0, mmBIOS_SCRATCH_6), 0, 0, 0, 0},
- 	{CMD_WRITE, SOC15_REG_ENTRY(NBIF, 0, mmBIOS_SCRATCH_7), 0, 0, 0, 0},
- };
+ 	/* gfxclk */
+@@ -2522,7 +2522,7 @@ static int vega12_set_uclk_to_highest_dpm_level(struct pp_hwmgr *hwmgr,
+ 		dpm_table->dpm_state.hard_min_level = dpm_table->dpm_levels[dpm_table->count - 1].value;
+ 		PP_ASSERT_WITH_CODE(!(ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 				PPSMC_MSG_SetHardMinByFreq,
+-				(PPCLK_UCLK << 16 ) | dpm_table->dpm_state.hard_min_level,
++				(PPCLK_UCLK << 16) | dpm_table->dpm_state.hard_min_level,
+ 				NULL)),
+ 				"[SetUclkToHightestDpmLevel] Set hard min uclk failed!",
+ 				return ret);
 -- 
 2.17.1
 
