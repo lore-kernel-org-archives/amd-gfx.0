@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 082FAC00528
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 17:03:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 896BBC04E69
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 17:03:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 897B610E431;
-	Tue,  1 Aug 2023 17:03:32 +0000 (UTC)
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4323410E41C;
- Tue,  1 Aug 2023 17:03:27 +0000 (UTC)
-Received: by mail-pl1-x62f.google.com with SMTP id
- d9443c01a7336-1bbf0f36ce4so26374095ad.0; 
- Tue, 01 Aug 2023 10:03:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2049B10E42C;
+	Tue,  1 Aug 2023 17:03:36 +0000 (UTC)
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68F0310E428;
+ Tue,  1 Aug 2023 17:03:32 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-1bb7e083783so4526601fac.2; 
+ Tue, 01 Aug 2023 10:03:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690909407; x=1691514207;
+ d=gmail.com; s=20221208; t=1690909411; x=1691514211;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Hr0izLtdjBWZs3ssGzIYb8V7ACsieJ7DKGhBAk7WDOQ=;
- b=jWWdJzMrPYvkgaO0xWPXoih1FqyV7zm6uZ1Sq1Wcnjf8XClyCyFXOnovj9beSLYvRp
- H5OKOKF0GL9opY8SuxZjGZmJvofGWQgaguj2fXaLGZf/+XbPgMTnixx2rkHJO1X19NW3
- 2Hrnwe2qi+Gfc1wqjM+MJ0Zesfw00Wzcjt+YLES9S8Y+CXM/QtoX6HaMURJG3pj3Au9B
- hW7Ct0YfNsTbvj91TIs0SqpInbYaLBZhwaYu0zp+rAUqnatcrks0WEdJYuV8Kc/UFk6d
- 6K41LRuh8NZzFJefKttt74qDM956AdHqerLCn/WXbdVVlATsmxI9jLJH9+MKiEpkpDMb
- 5wgw==
+ bh=p+1GuJCShDFcAnu3Rt/esJZ1+/xltgRApQJJKXLv5HA=;
+ b=HzKI8jwVyBockTJ3E7ia/Wh/USsHoxvBwCsc09/TYbl5wV36S4guDYN8TUzljUvS7T
+ DxP4nJu++XOxx16ZDoEjAP679YQJHtwybsdt/I8tqtY4DuhsD2KKs9ig/uGTB0Ct7vHw
+ uTq8+j0Pc2tB3PJ31FAiXRVV1mzTx+c573xSviel0eavnGwbt01YO8oJFOsWzq4TRiiv
+ Sodx0loTWeHHpn94tJFGcJ+NMQFLvZUrEyNBzQzYLqdjrcB/s0KAP+pisy7gYgenA31W
+ 5iIom/DhSvpJkfaahc2JCmAd5WnXr6amDCmzYSXhok3jbfCJWmgd4xqcTSwOG3ZKfSwi
+ C4iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690909407; x=1691514207;
+ d=1e100.net; s=20221208; t=1690909411; x=1691514211;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Hr0izLtdjBWZs3ssGzIYb8V7ACsieJ7DKGhBAk7WDOQ=;
- b=KMUxVkkV/vs/6FYvhCIlrXxKxkwjTU0afgHZc1o/cmmtMLIF9AjPLzXlu74kaylTJo
- XEc6hF5t8bflGd70Zyq4/ZoIoEstGOQKG52yM78nU7iq28+pp/U7Qo+BtKvNM327uhsD
- MKx6mBD1mBpkERSZEYyr2hlVRmU+9P3Bm+/9U/W0OpcaXC8QmDg1bPrbF07R9laGLuLo
- RLu2kxXvlsmUFUFLStUE+ORi2O6sxKSOeox5LyRHbUVLblawfL07aA1f5N/R2yYy3gt8
- +hxTtcdxLWl1qHunZwx0L9na7dEyYPk2YohEXMltz+mB+3ffpXJVYZntLVqllsZU4+NW
- DqRw==
-X-Gm-Message-State: ABy/qLYX7rapv/Qs9dCBrjgEktOFYse60mCWwpoMi+FAo1BswV7c7U3w
- reutxANAt3V9C+G1RwSsU6M=
-X-Google-Smtp-Source: APBJJlFGkHfQdy7T1ViQb9dzHaVdo9mSUvH3xAwGTxaHlDh3BJxmO1qB3S7o6sIj1QBFR5d7d0xCPQ==
-X-Received: by 2002:a17:902:e543:b0:1bb:8725:f537 with SMTP id
- n3-20020a170902e54300b001bb8725f537mr14519195plf.66.1690909406602; 
- Tue, 01 Aug 2023 10:03:26 -0700 (PDT)
+ bh=p+1GuJCShDFcAnu3Rt/esJZ1+/xltgRApQJJKXLv5HA=;
+ b=SerBv4zOb8VXtIZBE1jRd3HxFN1TXZHQwjy1srALSp/qOl7z63QTmVd9Ha33glN5RD
+ AXz9z2NqYOhCsfmYfwai0CU6YguyeOymsOxQAPK3Sfo84z69K/Iee21UbDfiqFZiogBL
+ 9RTCcy6vZs8yc3P1gribQW59dTugSl3IyOAaWY6Yh5VkpZEMuQksqUSvz4ZZMcPO/T9V
+ QjVVsrXysRsLHzySHSbsZ0PURpoImxhbfH4aWg0at0PNRRRhVt2+CrO/0/KdbwhDo0I0
+ fOP0bzL4c1Hw/Q9MRlHrfsZ2RrfeGUFitWTO+0TWYu5B1HUPkqi/JI2Y6Ph3tatI6ZOM
+ kmsQ==
+X-Gm-Message-State: ABy/qLYtuLzstsfLY+IBjyXQKxgYQxSUyaLVdCgzD473RHHfTIBj/LjI
+ 8NACZWBvMZwCik8LkReTN1Q=
+X-Google-Smtp-Source: APBJJlFoQ6CtrSOuV3m8GK6ZRAmSVy+9iQ7lx15x5THUYzSbB0IcQ4iOtUGep5vQzntc3/Mh98xmHg==
+X-Received: by 2002:a05:6870:538c:b0:19f:4dc2:428e with SMTP id
+ h12-20020a056870538c00b0019f4dc2428emr14352861oan.14.1690909411466; 
+ Tue, 01 Aug 2023 10:03:31 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o20-20020a02c6b4000000b0042b144abf71sm3768577jan.179.2023.08.01.10.03.25
+ o20-20020a02c6b4000000b0042b144abf71sm3768577jan.179.2023.08.01.10.03.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Aug 2023 10:03:26 -0700 (PDT)
+ Tue, 01 Aug 2023 10:03:31 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, daniel@ffwll.ch, jbaron@akamai.com,
  gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [PATCH v5 08/22] dyndbg: reduce verbose/debug clutter
-Date: Tue,  1 Aug 2023 11:02:40 -0600
-Message-ID: <20230801170255.163237-9-jim.cromie@gmail.com>
+Subject: [PATCH v5 12/22] dyndbg-API: remove
+ DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
+Date: Tue,  1 Aug 2023 11:02:44 -0600
+Message-ID: <20230801170255.163237-13-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230801170255.163237-1-jim.cromie@gmail.com>
 References: <20230801170255.163237-1-jim.cromie@gmail.com>
@@ -81,91 +82,217 @@ Cc: jani.nikula@intel.com, linux@rasmusvillemoes.dk,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-currently, for verbose=3, these are logged (blank lines for clarity):
+Remove the NAMED class types; these 2 classmap types accept class
+names at the PARAM interface, for example:
 
- dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+  echo +DRM_UT_CORE,-DRM_UT_KMS > /sys/module/drm/parameters/debug_names
 
- dyndbg: op='+'
- dyndbg: flags=0x1
- dyndbg: *flagsp=0x1 *maskp=0xffffffff
-
- dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: no matches for query
- dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: processed 1 queries, with 0 matches, 0 errs
-
-That is excessive, so this patch:
- - shrinks 3 lines of 2nd stanza to single line
- - drops 1st 2 lines of 3rd stanza
-   3rd is like 1st, with result, not procedure.
-   2nd is just status, retold in 4th, with more info.
+The code works, but its only used by test-dynamic-debug, and wasn't
+asked for by anyone else, so simplify things for now.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 14 +++-----------
- 1 file changed, 3 insertions(+), 11 deletions(-)
+ include/linux/dynamic_debug.h |  19 ++-----
+ lib/dynamic_debug.c           | 103 +++-------------------------------
+ lib/test_dynamic_debug.c      |  12 ----
+ 3 files changed, 12 insertions(+), 122 deletions(-)
 
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 719c5b6ad0f9..b927dfacc429 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -59,24 +59,13 @@ struct _ddebug {
+ enum class_map_type {
+ 	DD_CLASS_TYPE_DISJOINT_BITS,
+ 	/**
+-	 * DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, one per bit.
+-	 * expecting hex input. Built for drm.debug, basis for other types.
++	 * DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, mapped to bits[0..N].
++	 * Expects hex input. Built for drm.debug, basis for other types.
+ 	 */
+ 	DD_CLASS_TYPE_LEVEL_NUM,
+ 	/**
+-	 * DD_CLASS_TYPE_LEVEL_NUM: input is numeric level, 0-N.
+-	 * N turns on just bits N-1 .. 0, so N=0 turns all bits off.
+-	 */
+-	DD_CLASS_TYPE_DISJOINT_NAMES,
+-	/**
+-	 * DD_CLASS_TYPE_DISJOINT_NAMES: input is a CSV of [+-]CLASS_NAMES,
+-	 * classes are independent, like _DISJOINT_BITS.
+-	 */
+-	DD_CLASS_TYPE_LEVEL_NAMES,
+-	/**
+-	 * DD_CLASS_TYPE_LEVEL_NAMES: input is a CSV of [+-]CLASS_NAMES,
+-	 * intended for names like: INFO,DEBUG,TRACE, with a module prefix
+-	 * avoid EMERG,ALERT,CRIT,ERR,WARNING: they're not debug
++	 * DD_CLASS_TYPE_LEVEL_NUM: input is numeric level, 0..N.
++	 * Input N turns on bits 0..N-1
+ 	 */
+ };
+ 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 6070d37c24ac..2a5cbb68d88d 100644
+index abdb54e3ddfa..42320689e283 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -265,9 +265,6 @@ static int ddebug_change(const struct ddebug_query *query,
- 	}
- 	mutex_unlock(&ddebug_lock);
+@@ -631,77 +631,6 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
  
--	if (!nfound && verbose)
--		pr_info("no matches for query\n");
+ #define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
+ 
+-/* accept comma-separated-list of [+-] classnames */
+-static int param_set_dyndbg_classnames(const char *instr, const struct kernel_param *kp)
+-{
+-	const struct ddebug_class_param *dcp = kp->arg;
+-	const struct ddebug_class_map *map = dcp->map;
+-	unsigned long curr_bits, old_bits;
+-	char *cl_str, *p, *tmp;
+-	int cls_id, totct = 0;
+-	bool wanted;
 -
- 	return nfound;
- }
- 
-@@ -496,7 +493,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
+-	cl_str = tmp = kstrdup(instr, GFP_KERNEL);
+-	p = strchr(cl_str, '\n');
+-	if (p)
+-		*p = '\0';
+-
+-	/* start with previously set state-bits, then modify */
+-	curr_bits = old_bits = *dcp->bits;
+-	vpr_info("\"%s\" > %s:0x%lx\n", cl_str, KP_NAME(kp), curr_bits);
+-
+-	for (; cl_str; cl_str = p) {
+-		p = strchr(cl_str, ',');
+-		if (p)
+-			*p++ = '\0';
+-
+-		if (*cl_str == '-') {
+-			wanted = false;
+-			cl_str++;
+-		} else {
+-			wanted = true;
+-			if (*cl_str == '+')
+-				cl_str++;
+-		}
+-		cls_id = match_string(map->class_names, map->length, cl_str);
+-		if (cls_id < 0) {
+-			pr_err("%s unknown to %s\n", cl_str, KP_NAME(kp));
+-			continue;
+-		}
+-
+-		/* have one or more valid class_ids of one *_NAMES type */
+-		switch (map->map_type) {
+-		case DD_CLASS_TYPE_DISJOINT_NAMES:
+-			/* the +/- pertains to a single bit */
+-			if (test_bit(cls_id, &curr_bits) == wanted) {
+-				v3pr_info("no change on %s\n", cl_str);
+-				continue;
+-			}
+-			curr_bits ^= BIT(cls_id);
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, *dcp->bits, NULL);
+-			*dcp->bits = curr_bits;
+-			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
+-				  map->class_names[cls_id]);
+-			break;
+-		case DD_CLASS_TYPE_LEVEL_NAMES:
+-			/* cls_id = N in 0..max. wanted +/- determines N or N-1 */
+-			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+-			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
+-
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, old_bits, NULL);
+-			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
+-			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
+-				  map->class_names[cls_id], old_bits, curr_bits);
+-			break;
+-		default:
+-			pr_err("illegal map-type value %d\n", map->map_type);
+-		}
+-	}
+-	kfree(tmp);
+-	vpr_info("total matches: %d\n", totct);
+-	return 0;
+-}
+-
+ static int param_set_dyndbg_module_classes(const char *instr,
+ 					   const struct kernel_param *kp,
+ 					   const char *modnm)
+@@ -710,29 +639,17 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ 	const struct ddebug_class_map *map = dcp->map;
+ 	unsigned long inrep, new_bits, old_bits;
+ 	int rc, totct = 0;
+-
+-	switch (map->map_type) {
+-
+-	case DD_CLASS_TYPE_DISJOINT_NAMES:
+-	case DD_CLASS_TYPE_LEVEL_NAMES:
+-		/* handle [+-]classnames list separately, we are done here */
+-		return param_set_dyndbg_classnames(instr, kp);
+-
+-	case DD_CLASS_TYPE_DISJOINT_BITS:
+-	case DD_CLASS_TYPE_LEVEL_NUM:
+-		/* numeric input, accept and fall-thru */
+-		rc = kstrtoul(instr, 0, &inrep);
+-		if (rc) {
+-			pr_err("expecting numeric input: %s > %s\n", instr, KP_NAME(kp));
+-			return -EINVAL;
+-		}
+-		break;
+-	default:
+-		pr_err("%s: bad map type: %d\n", KP_NAME(kp), map->map_type);
++	char *nl;
++
++	rc = kstrtoul(instr, 0, &inrep);
++	if (rc) {
++		nl = strchr(instr, '\n');
++		if (nl)
++			*nl = '\0';
++		pr_err("expecting numeric input, not: %s > %s\n", instr, KP_NAME(kp));
  		return -EINVAL;
  	}
--	v3pr_info("op='%c'\n", op);
  
- 	for (; *str ; ++str) {
- 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
-@@ -510,7 +506,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 			return -EINVAL;
- 		}
- 	}
--	v3pr_info("flags=0x%x\n", modifiers->flags);
+-	/* only _BITS,_NUM (numeric) map-types get here */
+ 	switch (map->map_type) {
+ 	case DD_CLASS_TYPE_DISJOINT_BITS:
+ 		/* expect bits. mask and warn if too many */
+@@ -796,12 +713,8 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+ 	const struct ddebug_class_map *map = dcp->map;
  
- 	/* calculate final flags, mask based upon op */
- 	switch (op) {
-@@ -526,7 +521,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		modifiers->flags = 0;
- 		break;
- 	}
--	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
-+	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
- 
- 	return 0;
- }
-@@ -536,7 +531,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 	struct flag_settings modifiers = {};
- 	struct ddebug_query query = {};
- #define MAXWORDS 9
--	int nwords, nfound;
-+	int nwords;
- 	char *words[MAXWORDS];
- 
- 	nwords = ddebug_tokenize(query_string, words, MAXWORDS);
-@@ -554,10 +549,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 		return -EINVAL;
- 	}
- 	/* actually go and implement the change */
--	nfound = ddebug_change(&query, &modifiers);
--	vpr_info_dq(&query, nfound ? "applied" : "no-match");
+ 	switch (map->map_type) {
 -
--	return nfound;
-+	return ddebug_change(&query, &modifiers);
+-	case DD_CLASS_TYPE_DISJOINT_NAMES:
+ 	case DD_CLASS_TYPE_DISJOINT_BITS:
+ 		return scnprintf(buffer, PAGE_SIZE, "0x%lx\n", *dcp->bits);
+-
+-	case DD_CLASS_TYPE_LEVEL_NAMES:
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+ 		return scnprintf(buffer, PAGE_SIZE, "%ld\n", *dcp->lvl);
+ 	default:
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index a01f0193a419..229eaadee838 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -102,10 +102,6 @@ static void do_cats(void)
+ {
+ 	pr_debug("doing categories\n");
+ 
+-	prdbg(LOW);
+-	prdbg(MID);
+-	prdbg(HI);
+-
+ 	prdbg(D2_CORE);
+ 	prdbg(D2_DRIVER);
+ 	prdbg(D2_KMS);
+@@ -129,14 +125,6 @@ static void do_levels(void)
+ 	prdbg(V5);
+ 	prdbg(V6);
+ 	prdbg(V7);
+-
+-	prdbg(L1);
+-	prdbg(L2);
+-	prdbg(L3);
+-	prdbg(L4);
+-	prdbg(L5);
+-	prdbg(L6);
+-	prdbg(L7);
  }
  
- /* handle multiple queries in query string, continue on error, return
+ static void do_prints(void)
 -- 
 2.41.0
 
