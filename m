@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C6EEC0015E
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11F89EB64DD
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E55CC10E353;
-	Tue,  1 Aug 2023 08:28:07 +0000 (UTC)
-Received: from out28-122.mail.aliyun.com (out28-122.mail.aliyun.com
- [115.124.28.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1195510E08B;
- Tue,  1 Aug 2023 02:08:49 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.4466546|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_alarm|0.0186576-0.00180561-0.979537; FP=0|0|0|0|0|-1|-1|-1;
- HT=ay29a033018047213; MF=sunran001@208suo.com; NM=1; PH=DS; RN=7; RT=7; SR=0;
- TI=SMTPD_---.U5DrTdc_1690855720; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33C4B10E355;
+	Tue,  1 Aug 2023 08:28:08 +0000 (UTC)
+Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com
+ [115.124.28.121])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D58210E316;
+ Tue,  1 Aug 2023 07:55:19 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.3847548|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_alarm|0.00255057-0.000655741-0.996794; FP=0|0|0|0|0|-1|-1|-1;
+ HT=ay29a033018047199; MF=sunran001@208suo.com; NM=1; PH=DS; RN=7; RT=7; SR=0;
+ TI=SMTPD_---.U5l-U8X_1690876509; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5DrTdc_1690855720) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 10:08:42 +0800
+ fp:SMTPD_---.U5l-U8X_1690876509) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 15:55:11 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com,
 	airlied@gmail.com,
 	daniel@ffwll.ch
-Subject: [PATCH] drm/amd/pm: Clean up errors in smu_v13_0_5_ppt.c
-Date: Tue,  1 Aug 2023 02:08:39 +0000
-Message-Id: <20230801020839.4369-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amdgpu: Clean up errors in common_baco.c
+Date: Tue,  1 Aug 2023 07:55:07 +0000
+Message-Id: <20230801075507.6377-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Tue, 01 Aug 2023 08:27:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -47,26 +47,26 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: space prohibited before that ',' (ctx:WxW)
+ERROR: code indent should use tabs where possible
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c | 2 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/common_baco.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
-index 42f110602eb1..87a79e6f983b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
-@@ -75,7 +75,7 @@ static struct cmn2asic_msg_mapping smu_v13_0_5_message_map[SMU_MSG_MAX_COUNT] =
- 	MSG_MAP(SetDriverDramAddrHigh,            PPSMC_MSG_SetDriverDramAddrHigh,      1),
- 	MSG_MAP(SetDriverDramAddrLow,          PPSMC_MSG_SetDriverDramAddrLow,	1),
- 	MSG_MAP(TransferTableSmu2Dram,           PPSMC_MSG_TransferTableSmu2Dram,		1),
--	MSG_MAP(TransferTableDram2Smu,          PPSMC_MSG_TransferTableDram2Smu ,	1),
-+	MSG_MAP(TransferTableDram2Smu,          PPSMC_MSG_TransferTableDram2Smu,	1),
- 	MSG_MAP(GetGfxclkFrequency,          PPSMC_MSG_GetGfxclkFrequency,	1),
- 	MSG_MAP(GetEnabledSmuFeatures,           PPSMC_MSG_GetEnabledSmuFeatures,		1),
- 	MSG_MAP(SetSoftMaxVcn,          PPSMC_MSG_SetSoftMaxVcn,	1),
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/common_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/common_baco.c
+index 1c73776bd606..fd79337a3536 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/common_baco.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/common_baco.c
+@@ -42,7 +42,7 @@ static bool baco_wait_register(struct pp_hwmgr *hwmgr, u32 reg, u32 mask, u32 va
+ }
+ 
+ static bool baco_cmd_handler(struct pp_hwmgr *hwmgr, u32 command, u32 reg, u32 mask,
+-			        u32 shift, u32 value, u32 timeout)
++				u32 shift, u32 value, u32 timeout)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
+ 	u32 data;
 -- 
 2.17.1
 
