@@ -4,28 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D9DC04FDF
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7639DC04FE0
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3428A10E34E;
-	Tue,  1 Aug 2023 08:28:03 +0000 (UTC)
-Received: from out28-195.mail.aliyun.com (out28-195.mail.aliyun.com
- [115.124.28.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 150E010E185;
- Mon, 31 Jul 2023 09:30:20 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07457395|-1; CH=green;
- DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.101045-0.00203573-0.896919;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047212; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U4m6pBV_1690795811; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id E26FE10E350;
+	Tue,  1 Aug 2023 08:28:02 +0000 (UTC)
+Received: from out28-145.mail.aliyun.com (out28-145.mail.aliyun.com
+ [115.124.28.145])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5D3810E0A5;
+ Tue,  1 Aug 2023 01:43:30 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.0994977|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.0138158-0.000495978-0.985688;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047201; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5Ch.34_1690854200; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U4m6pBV_1690795811) by smtp.aliyun-inc.com;
- Mon, 31 Jul 2023 17:30:13 +0800
+ fp:SMTPD_---.U5Ch.34_1690854200) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 09:43:22 +0800
 From: Ran Sun <sunran001@208suo.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/pm: Clean up errors in amdgpu_smu.h
-Date: Mon, 31 Jul 2023 09:30:09 +0000
-Message-Id: <20230731093009.3243-1-sunran001@208suo.com>
+To: alexander.deucher@amd.com,
+	airlied@gmail.com,
+	daniel@ffwll.ch
+Subject: [PATCH] drm/amd/pm: Clean up errors in smu_v13_0.c
+Date: Tue,  1 Aug 2023 01:43:18 +0000
+Message-Id: <20230801014318.4097-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Tue, 01 Aug 2023 08:27:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -46,127 +47,46 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: open brace '{' following enum go on the same line
-ERROR: open brace '{' following struct go on the same line
+ERROR: space required before the open parenthesis '('
+ERROR: that open brace { should be on the previous line
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 36 +++++++------------
- 1 file changed, 12 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index 6e2069dcb6b9..190a90b24d74 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -200,29 +200,25 @@ struct smu_power_state {
- 	struct smu_hw_power_state                     hardware;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index 9b62b45ebb7f..895cda8e6934 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -1121,7 +1121,7 @@ smu_v13_0_display_clock_voltage_request(struct smu_context *smu,
+ 
+ 		ret = smu_v13_0_set_hard_freq_limited_range(smu, clk_select, clk_freq, 0);
+ 
+-		if(clk_select == SMU_UCLK)
++		if (clk_select == SMU_UCLK)
+ 			smu->hard_min_uclk_req_from_dal = clk_freq;
+ 	}
+ 
+@@ -1437,8 +1437,7 @@ static int smu_v13_0_irq_process(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-static const struct amdgpu_irq_src_funcs smu_v13_0_irq_funcs =
+-{
++static const struct amdgpu_irq_src_funcs smu_v13_0_irq_funcs = {
+ 	.set = smu_v13_0_set_irq_state,
+ 	.process = smu_v13_0_irq_process,
  };
+@@ -1933,7 +1932,7 @@ static int smu_v13_0_get_dpm_level_count(struct smu_context *smu,
  
--enum smu_power_src_type
--{
-+enum smu_power_src_type {
- 	SMU_POWER_SOURCE_AC,
- 	SMU_POWER_SOURCE_DC,
- 	SMU_POWER_SOURCE_COUNT,
- };
+ 	ret = smu_v13_0_get_dpm_freq_by_index(smu, clk_type, 0xff, value);
+ 	/* SMU v13.0.2 FW returns 0 based max level, increment by one for it */
+-	if((smu->adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 2)) && (!ret && value))
++	if ((smu->adev->ip_versions[MP1_HWIP][0] == IP_VERSION(13, 0, 2)) && (!ret && value))
+ 		++(*value);
  
--enum smu_ppt_limit_type
--{
-+enum smu_ppt_limit_type {
- 	SMU_DEFAULT_PPT_LIMIT = 0,
- 	SMU_FAST_PPT_LIMIT,
- };
- 
--enum smu_ppt_limit_level
--{
-+enum smu_ppt_limit_level {
- 	SMU_PPT_LIMIT_MIN = -1,
- 	SMU_PPT_LIMIT_CURRENT,
- 	SMU_PPT_LIMIT_DEFAULT,
- 	SMU_PPT_LIMIT_MAX,
- };
- 
--enum smu_memory_pool_size
--{
-+enum smu_memory_pool_size {
-     SMU_MEMORY_POOL_SIZE_ZERO   = 0,
-     SMU_MEMORY_POOL_SIZE_256_MB = 0x10000000,
-     SMU_MEMORY_POOL_SIZE_512_MB = 0x20000000,
-@@ -282,8 +278,7 @@ struct smu_clock_info {
- 	uint32_t max_bus_bandwidth;
- };
- 
--struct smu_bios_boot_up_values
--{
-+struct smu_bios_boot_up_values {
- 	uint32_t			revision;
- 	uint32_t			gfxclk;
- 	uint32_t			uclk;
-@@ -305,8 +300,7 @@ struct smu_bios_boot_up_values
- 	uint32_t			firmware_caps;
- };
- 
--enum smu_table_id
--{
-+enum smu_table_id {
- 	SMU_TABLE_PPTABLE = 0,
- 	SMU_TABLE_WATERMARKS,
- 	SMU_TABLE_CUSTOM_DPM,
-@@ -326,8 +320,7 @@ enum smu_table_id
- 	SMU_TABLE_COUNT,
- };
- 
--struct smu_table_context
--{
-+struct smu_table_context {
- 	void				*power_play_table;
- 	uint32_t			power_play_table_size;
- 	void				*hardcode_pptable;
-@@ -390,8 +383,7 @@ struct smu_power_context {
- };
- 
- #define SMU_FEATURE_MAX	(64)
--struct smu_feature
--{
-+struct smu_feature {
- 	uint32_t feature_num;
- 	DECLARE_BITMAP(supported, SMU_FEATURE_MAX);
- 	DECLARE_BITMAP(allowed, SMU_FEATURE_MAX);
-@@ -416,21 +408,18 @@ struct mclock_latency_table {
- 	struct mclk_latency_entries  entries[MAX_REGULAR_DPM_NUM];
- };
- 
--enum smu_reset_mode
--{
-+enum smu_reset_mode {
-     SMU_RESET_MODE_0,
-     SMU_RESET_MODE_1,
-     SMU_RESET_MODE_2,
- };
- 
--enum smu_baco_state
--{
-+enum smu_baco_state {
- 	SMU_BACO_STATE_ENTER = 0,
- 	SMU_BACO_STATE_EXIT,
- };
- 
--struct smu_baco_context
--{
-+struct smu_baco_context {
- 	uint32_t state;
- 	bool platform_support;
- 	bool maco_support;
-@@ -478,8 +467,7 @@ struct stb_context {
- 
- #define WORKLOAD_POLICY_MAX 7
- 
--struct smu_context
--{
-+struct smu_context {
- 	struct amdgpu_device            *adev;
- 	struct amdgpu_irq_src		irq_source;
- 
+ 	return ret;
 -- 
 2.17.1
 
