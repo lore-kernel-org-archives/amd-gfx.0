@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9D76C04FE1
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21ECFC04FDF
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C734510E4E7;
-	Wed,  2 Aug 2023 07:20:14 +0000 (UTC)
-Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com
- [115.124.28.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9123010E37E;
- Tue,  1 Aug 2023 09:47:53 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07778209|-1; CH=green;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA1210E4FA;
+	Wed,  2 Aug 2023 07:20:15 +0000 (UTC)
+Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com
+ [115.124.28.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32C0C10E1CA;
+ Tue,  1 Aug 2023 10:00:33 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436259|-1; CH=green;
  DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.00228266-0.000301776-0.997416;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047206; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5t4Bqw_1690883263; 
+ DS=CONTINUE|ham_system_inform|0.0317584-1.51847e-05-0.968226;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047198; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5tYPZM_1690884025; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5t4Bqw_1690883263) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 17:47:46 +0800
+ fp:SMTPD_---.U5tYPZM_1690884025) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 18:00:27 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com,
 	airlied@gmail.com,
 	daniel@ffwll.ch
-Subject: [PATCH] drm/amd/pm: Clean up errors in polaris_baco.c
-Date: Tue,  1 Aug 2023 09:47:42 +0000
-Message-Id: <20230801094742.8032-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amd/pm: Clean up errors in smu73_discrete.h
+Date: Tue,  1 Aug 2023 10:00:24 +0000
+Message-Id: <20230801100024.8215-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -48,112 +48,223 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: that open brace { should be on the previous line
+ERROR: open brace '{' following struct go on the same line
+ERROR: trailing whitespace
+ERROR: space prohibited before open square bracket '['
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- .../drm/amd/pm/powerplay/hwmgr/polaris_baco.c | 30 +++++++------------
- 1 file changed, 10 insertions(+), 20 deletions(-)
+ .../drm/amd/pm/powerplay/inc/smu73_discrete.h | 73 ++++++++-----------
+ 1 file changed, 29 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/polaris_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/polaris_baco.c
-index 8f8e296f2fe9..a6a6d43b09f8 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/polaris_baco.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/polaris_baco.c
-@@ -35,8 +35,7 @@
- #include "smu/smu_7_1_3_d.h"
- #include "smu/smu_7_1_3_sh_mask.h"
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/smu73_discrete.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu73_discrete.h
+index 5916be08a7fe..fd0964ac465e 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/inc/smu73_discrete.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/inc/smu73_discrete.h
+@@ -27,8 +27,7 @@
  
--static const struct baco_cmd_entry gpio_tbl[] =
+ #pragma pack(push, 1)
+ 
+-struct SMIO_Pattern
 -{
-+static const struct baco_cmd_entry gpio_tbl[] = {
- 	{ CMD_WRITE, mmGPIOPAD_EN, 0, 0, 0, 0x0 },
- 	{ CMD_WRITE, mmGPIOPAD_PD_EN, 0, 0, 0, 0x0 },
- 	{ CMD_WRITE, mmGPIOPAD_PU_EN, 0, 0, 0, 0x0 },
-@@ -49,15 +48,13 @@ static const struct baco_cmd_entry gpio_tbl[] =
- 	{ CMD_READMODIFYWRITE, mmDC_GPIO_SYNCA_MASK, 0, 0, 0, 0x00001111 }
++struct SMIO_Pattern {
+   uint16_t Voltage;
+   uint8_t  Smio;
+   uint8_t  padding;
+@@ -36,8 +35,7 @@ struct SMIO_Pattern
+ 
+ typedef struct SMIO_Pattern SMIO_Pattern;
+ 
+-struct SMIO_Table
+-{
++struct SMIO_Table {
+   SMIO_Pattern Pattern[SMU_MAX_SMIO_LEVELS];
  };
  
--static const struct baco_cmd_entry enable_fb_req_rej_tbl[] =
+@@ -100,8 +98,7 @@ struct SMU73_Discrete_Ulv {
+ 
+ typedef struct SMU73_Discrete_Ulv SMU73_Discrete_Ulv;
+ 
+-struct SMU73_Discrete_MemoryLevel
 -{
-+static const struct baco_cmd_entry enable_fb_req_rej_tbl[] = {
- 	{ CMD_WRITE, mmGCK_SMC_IND_INDEX, 0, 0, 0, 0xC0300024 },
- 	{ CMD_READMODIFYWRITE, mmGCK_SMC_IND_DATA, 0x1, 0x0, 0, 0x1 },
- 	{ CMD_WRITE, mmBIF_FB_EN, 0, 0, 0, 0x0 }
++struct SMU73_Discrete_MemoryLevel {
+     uint32_t MinVoltage;
+     uint32_t    MinMvdd;
+ 
+@@ -124,10 +121,9 @@ struct SMU73_Discrete_MemoryLevel
+ 
+ typedef struct SMU73_Discrete_MemoryLevel SMU73_Discrete_MemoryLevel;
+ 
+-struct SMU73_Discrete_LinkLevel
+-{
++struct SMU73_Discrete_LinkLevel {
+     uint8_t     PcieGenSpeed;           ///< 0:PciE-gen1 1:PciE-gen2 2:PciE-gen3
+-    uint8_t     PcieLaneCount;          ///< 1=x1, 2=x2, 3=x4, 4=x8, 5=x12, 6=x16 
++    uint8_t     PcieLaneCount;          ///< 1=x1, 2=x2, 3=x4, 4=x8, 5=x12, 6=x16
+     uint8_t     EnabledForActivity;
+     uint8_t     SPC;
+     uint32_t    DownThreshold;
+@@ -139,8 +135,7 @@ typedef struct SMU73_Discrete_LinkLevel SMU73_Discrete_LinkLevel;
+ 
+ 
+ // MC ARB DRAM Timing registers.
+-struct SMU73_Discrete_MCArbDramTimingTableEntry
+-{
++struct SMU73_Discrete_MCArbDramTimingTableEntry {
+     uint32_t McArbDramTiming;
+     uint32_t McArbDramTiming2;
+     uint8_t  McArbBurstTime;
+@@ -151,16 +146,14 @@ struct SMU73_Discrete_MCArbDramTimingTableEntry
+ 
+ typedef struct SMU73_Discrete_MCArbDramTimingTableEntry SMU73_Discrete_MCArbDramTimingTableEntry;
+ 
+-struct SMU73_Discrete_MCArbDramTimingTable
+-{
++struct SMU73_Discrete_MCArbDramTimingTable {
+     SMU73_Discrete_MCArbDramTimingTableEntry entries[SMU__NUM_SCLK_DPM_STATE][SMU__NUM_MCLK_DPM_LEVELS];
  };
  
--static const struct baco_cmd_entry use_bclk_tbl[] =
--{
-+static const struct baco_cmd_entry use_bclk_tbl[] = {
- 	{ CMD_WRITE, mmGCK_SMC_IND_INDEX, 0, 0, 0, ixCG_SPLL_FUNC_CNTL },
- 	{ CMD_READMODIFYWRITE, mmGCK_SMC_IND_DATA, CG_SPLL_FUNC_CNTL__SPLL_BYPASS_EN_MASK, CG_SPLL_FUNC_CNTL__SPLL_BYPASS_EN__SHIFT, 0, 0x1 },
- 	{ CMD_WRITE, mmGCK_SMC_IND_INDEX, 0, 0, 0, 0xC0500170 },
-@@ -70,8 +67,7 @@ static const struct baco_cmd_entry use_bclk_tbl[] =
- 	{ CMD_READMODIFYWRITE, mmMPLL_CNTL_MODE, MPLL_CNTL_MODE__MPLL_MCLK_SEL_MASK, MPLL_CNTL_MODE__MPLL_MCLK_SEL__SHIFT, 0, 0x0 }
- };
+ typedef struct SMU73_Discrete_MCArbDramTimingTable SMU73_Discrete_MCArbDramTimingTable;
  
--static const struct baco_cmd_entry turn_off_plls_tbl[] =
+ // UVD VCLK/DCLK state (level) definition.
+-struct SMU73_Discrete_UvdLevel
 -{
-+static const struct baco_cmd_entry turn_off_plls_tbl[] = {
- 	{ CMD_READMODIFYWRITE, mmDC_GPIO_PAD_STRENGTH_1, DC_GPIO_PAD_STRENGTH_1__GENLK_STRENGTH_SP_MASK, DC_GPIO_PAD_STRENGTH_1__GENLK_STRENGTH_SP__SHIFT, 0, 0x1 },
- 	{ CMD_DELAY_US, 0, 0, 0, 1, 0x0 },
- 	{ CMD_READMODIFYWRITE, mmMC_SEQ_DRAM, MC_SEQ_DRAM__RST_CTL_MASK, MC_SEQ_DRAM__RST_CTL__SHIFT, 0, 0x1 },
-@@ -92,8 +88,7 @@ static const struct baco_cmd_entry turn_off_plls_tbl[] =
- 	{ CMD_DELAY_US, 0, 0, 0, 5, 0x0 }
- };
++struct SMU73_Discrete_UvdLevel {
+     uint32_t VclkFrequency;
+     uint32_t DclkFrequency;
+     uint32_t MinVoltage;
+@@ -172,8 +165,7 @@ struct SMU73_Discrete_UvdLevel
+ typedef struct SMU73_Discrete_UvdLevel SMU73_Discrete_UvdLevel;
  
--static const struct baco_cmd_entry clk_req_b_tbl[] =
+ // Clocks for other external blocks (VCE, ACP, SAMU).
+-struct SMU73_Discrete_ExtClkLevel
 -{
-+static const struct baco_cmd_entry clk_req_b_tbl[] = {
- 	{ CMD_WRITE, mmGCK_SMC_IND_INDEX, 0, 0, 0, ixTHM_CLK_CNTL },
- 	{ CMD_READMODIFYWRITE, mmGCK_SMC_IND_DATA, THM_CLK_CNTL__CMON_CLK_SEL_MASK, THM_CLK_CNTL__CMON_CLK_SEL__SHIFT, 0, 0x1 },
- 	{ CMD_READMODIFYWRITE, mmGCK_SMC_IND_DATA, THM_CLK_CNTL__TMON_CLK_SEL_MASK, THM_CLK_CNTL__TMON_CLK_SEL__SHIFT, 0, 0x1 },
-@@ -108,8 +103,7 @@ static const struct baco_cmd_entry clk_req_b_tbl[] =
- 	{ CMD_READMODIFYWRITE, mmGCK_SMC_IND_DATA, MPLL_BYPASSCLK_SEL__MPLL_CLKOUT_SEL_MASK, MPLL_BYPASSCLK_SEL__MPLL_CLKOUT_SEL__SHIFT, 0,     0x4 }
- };
++struct SMU73_Discrete_ExtClkLevel {
+     uint32_t Frequency;
+     uint32_t MinVoltage;
+     uint8_t  Divider;
+@@ -182,8 +174,7 @@ struct SMU73_Discrete_ExtClkLevel
  
--static const struct baco_cmd_entry enter_baco_tbl[] =
+ typedef struct SMU73_Discrete_ExtClkLevel SMU73_Discrete_ExtClkLevel;
+ 
+-struct SMU73_Discrete_StateInfo
 -{
-+static const struct baco_cmd_entry enter_baco_tbl[] = {
- 	{ CMD_READMODIFYWRITE, mmBACO_CNTL, BACO_CNTL__BACO_EN_MASK, BACO_CNTL__BACO_EN__SHIFT, 0, 0x01 },
- 	{ CMD_READMODIFYWRITE, mmBACO_CNTL, BACO_CNTL__BACO_BIF_SCLK_SWITCH_MASK, BACO_CNTL__BACO_BIF_SCLK_SWITCH__SHIFT, 0, 0x01 },
- 	{ CMD_WAITFOR, mmBACO_CNTL, BACO_CNTL__BACO_BIF_SCLK_SWITCH_MASK, 0, 5, 0x40000 },
-@@ -126,8 +120,7 @@ static const struct baco_cmd_entry enter_baco_tbl[] =
++struct SMU73_Discrete_StateInfo {
+     uint32_t SclkFrequency;
+     uint32_t MclkFrequency;
+     uint32_t VclkFrequency;
+@@ -206,8 +197,7 @@ struct SMU73_Discrete_StateInfo
  
- #define BACO_CNTL__PWRGOOD_MASK  BACO_CNTL__PWRGOOD_GPIO_MASK+BACO_CNTL__PWRGOOD_MEM_MASK+BACO_CNTL__PWRGOOD_DVO_MASK
+ typedef struct SMU73_Discrete_StateInfo SMU73_Discrete_StateInfo;
  
--static const struct baco_cmd_entry exit_baco_tbl[] =
+-struct SMU73_Discrete_DpmTable
 -{
-+static const struct baco_cmd_entry exit_baco_tbl[] = {
- 	{ CMD_READMODIFYWRITE, mmBACO_CNTL, BACO_CNTL__BACO_RESET_EN_MASK, BACO_CNTL__BACO_RESET_EN__SHIFT, 0, 0x01 },
- 	{ CMD_READMODIFYWRITE, mmBACO_CNTL, BACO_CNTL__BACO_BCLK_OFF_MASK, BACO_CNTL__BACO_BCLK_OFF__SHIFT, 0, 0x00 },
- 	{ CMD_READMODIFYWRITE, mmBACO_CNTL, BACO_CNTL__BACO_POWER_OFF_MASK, BACO_CNTL__BACO_POWER_OFF__SHIFT, 0, 0x00 },
-@@ -142,14 +135,12 @@ static const struct baco_cmd_entry exit_baco_tbl[] =
- 	{ CMD_WAITFOR, mmBACO_CNTL, BACO_CNTL__BACO_MODE_MASK, 0, 0xffffffff, 0x00 }
- };
++struct SMU73_Discrete_DpmTable {
+     // Multi-DPM controller settings
+     SMU73_PIDController                  GraphicsPIDController;
+     SMU73_PIDController                  MemoryPIDController;
+@@ -225,9 +215,9 @@ struct SMU73_Discrete_DpmTable
+     uint32_t                            MvddLevelCount;
  
--static const struct baco_cmd_entry clean_baco_tbl[] =
--{
-+static const struct baco_cmd_entry clean_baco_tbl[] = {
- 	{ CMD_WRITE, mmBIOS_SCRATCH_6, 0, 0, 0, 0 },
- 	{ CMD_WRITE, mmBIOS_SCRATCH_7, 0, 0, 0, 0 }
- };
  
--static const struct baco_cmd_entry use_bclk_tbl_vg[] =
--{
-+static const struct baco_cmd_entry use_bclk_tbl_vg[] = {
- 	{ CMD_WRITE, mmGCK_SMC_IND_INDEX, 0, 0, 0, ixCG_SPLL_FUNC_CNTL },
- 	{ CMD_READMODIFYWRITE, mmGCK_SMC_IND_DATA, CG_SPLL_FUNC_CNTL__SPLL_BYPASS_EN_MASK, CG_SPLL_FUNC_CNTL__SPLL_BYPASS_EN__SHIFT, 0, 0x1 },
- 	{ CMD_WRITE, mmGCK_SMC_IND_INDEX, 0, 0, 0, 0xC0500170 },
-@@ -160,8 +151,7 @@ static const struct baco_cmd_entry use_bclk_tbl_vg[] =
- 	{ CMD_READMODIFYWRITE, mmGCK_SMC_IND_DATA, MPLL_BYPASSCLK_SEL__MPLL_CLKOUT_SEL_MASK, MPLL_BYPASSCLK_SEL__MPLL_CLKOUT_SEL__SHIFT, 0, 0x2 }
- };
+-    uint8_t                             BapmVddcVidHiSidd        [SMU73_MAX_LEVELS_VDDC];
+-    uint8_t                             BapmVddcVidLoSidd        [SMU73_MAX_LEVELS_VDDC];
+-    uint8_t                             BapmVddcVidHiSidd2       [SMU73_MAX_LEVELS_VDDC];
++    uint8_t                             BapmVddcVidHiSidd[SMU73_MAX_LEVELS_VDDC];
++    uint8_t                             BapmVddcVidLoSidd[SMU73_MAX_LEVELS_VDDC];
++    uint8_t                             BapmVddcVidHiSidd2[SMU73_MAX_LEVELS_VDDC];
  
--static const struct baco_cmd_entry turn_off_plls_tbl_vg[] =
+     uint8_t                             GraphicsDpmLevelCount;
+     uint8_t                             MemoryDpmLevelCount;
+@@ -246,19 +236,19 @@ struct SMU73_Discrete_DpmTable
+     uint32_t                            Reserved[4];
+ 
+     // State table entries for each DPM state
+-    SMU73_Discrete_GraphicsLevel        GraphicsLevel           [SMU73_MAX_LEVELS_GRAPHICS];
++    SMU73_Discrete_GraphicsLevel        GraphicsLevel[SMU73_MAX_LEVELS_GRAPHICS];
+     SMU73_Discrete_MemoryLevel          MemoryACPILevel;
+-    SMU73_Discrete_MemoryLevel          MemoryLevel             [SMU73_MAX_LEVELS_MEMORY];
+-    SMU73_Discrete_LinkLevel            LinkLevel               [SMU73_MAX_LEVELS_LINK];
++    SMU73_Discrete_MemoryLevel          MemoryLevel[SMU73_MAX_LEVELS_MEMORY];
++    SMU73_Discrete_LinkLevel            LinkLevel[SMU73_MAX_LEVELS_LINK];
+     SMU73_Discrete_ACPILevel            ACPILevel;
+-    SMU73_Discrete_UvdLevel             UvdLevel                [SMU73_MAX_LEVELS_UVD];
+-    SMU73_Discrete_ExtClkLevel          VceLevel                [SMU73_MAX_LEVELS_VCE];
+-    SMU73_Discrete_ExtClkLevel          AcpLevel                [SMU73_MAX_LEVELS_ACP];
+-    SMU73_Discrete_ExtClkLevel          SamuLevel               [SMU73_MAX_LEVELS_SAMU];
++    SMU73_Discrete_UvdLevel             UvdLevel[SMU73_MAX_LEVELS_UVD];
++    SMU73_Discrete_ExtClkLevel          VceLevel[SMU73_MAX_LEVELS_VCE];
++    SMU73_Discrete_ExtClkLevel          AcpLevel[SMU73_MAX_LEVELS_ACP];
++    SMU73_Discrete_ExtClkLevel          SamuLevel[SMU73_MAX_LEVELS_SAMU];
+     SMU73_Discrete_Ulv                  Ulv;
+ 
+     uint32_t                            SclkStepSize;
+-    uint32_t                            Smio                    [SMU73_MAX_ENTRIES_SMIO];
++    uint32_t                            Smio[SMU73_MAX_ENTRIES_SMIO];
+ 
+     uint8_t                             UvdBootLevel;
+     uint8_t                             VceBootLevel;
+@@ -368,8 +358,7 @@ typedef struct SMU73_Discrete_DpmTable SMU73_Discrete_DpmTable;
+ 
+ 
+ // --------------------------------------------------- Fan Table -----------------------------------------------------------
+-struct SMU73_Discrete_FanTable
 -{
-+static const struct baco_cmd_entry turn_off_plls_tbl_vg[] = {
- 	{ CMD_READMODIFYWRITE, mmDC_GPIO_PAD_STRENGTH_1, DC_GPIO_PAD_STRENGTH_1__GENLK_STRENGTH_SP_MASK, DC_GPIO_PAD_STRENGTH_1__GENLK_STRENGTH_SP__SHIFT, 0, 0x1 },
- 	{ CMD_DELAY_US, 0, 0, 0, 1, 0x0 },
- 	{ CMD_READMODIFYWRITE, mmMC_SEQ_DRAM, MC_SEQ_DRAM__RST_CTL_MASK, MC_SEQ_DRAM__RST_CTL__SHIFT, 0, 0x1 },
++struct SMU73_Discrete_FanTable {
+     uint16_t FdoMode;
+     int16_t  TempMin;
+     int16_t  TempMed;
+@@ -397,8 +386,7 @@ typedef struct SMU73_Discrete_FanTable SMU73_Discrete_FanTable;
+ 
+ 
+ 
+-struct SMU7_MclkDpmScoreboard
+-{
++struct SMU7_MclkDpmScoreboard {
+ 
+     uint32_t PercentageBusy;
+ 
+@@ -448,8 +436,8 @@ struct SMU7_MclkDpmScoreboard
+     uint8_t  VbiWaitCounter;
+     uint8_t  EnabledLevelsChange;
+ 
+-    uint16_t LevelResidencyCounters [SMU73_MAX_LEVELS_MEMORY];
+-    uint16_t LevelSwitchCounters [SMU73_MAX_LEVELS_MEMORY];
++    uint16_t LevelResidencyCounters[SMU73_MAX_LEVELS_MEMORY];
++    uint16_t LevelSwitchCounters[SMU73_MAX_LEVELS_MEMORY];
+ 
+     void     (*TargetStateCalculator)(uint8_t);
+     void     (*SavedTargetStateCalculator)(uint8_t);
+@@ -469,8 +457,7 @@ struct SMU7_MclkDpmScoreboard
+ 
+ typedef struct SMU7_MclkDpmScoreboard SMU7_MclkDpmScoreboard;
+ 
+-struct SMU7_UlvScoreboard
+-{
++struct SMU7_UlvScoreboard {
+     uint8_t     EnterUlv;
+     uint8_t     ExitUlv;
+     uint8_t     UlvActive;
+@@ -485,8 +472,7 @@ struct SMU7_UlvScoreboard
+ 
+ typedef struct SMU7_UlvScoreboard SMU7_UlvScoreboard;
+ 
+-struct VddgfxSavedRegisters
+-{
++struct VddgfxSavedRegisters {
+   uint32_t GPU_DBG[3];
+   uint32_t MEC_BaseAddress_Hi;
+   uint32_t MEC_BaseAddress_Lo;
+@@ -497,8 +483,7 @@ struct VddgfxSavedRegisters
+ 
+ typedef struct VddgfxSavedRegisters VddgfxSavedRegisters;
+ 
+-struct SMU7_VddGfxScoreboard
+-{
++struct SMU7_VddGfxScoreboard {
+     uint8_t     VddGfxEnable;
+     uint8_t     VddGfxActive;
+     uint8_t     VPUResetOccured;
 -- 
 2.17.1
 
