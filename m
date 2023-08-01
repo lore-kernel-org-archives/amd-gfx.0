@@ -4,28 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8366BC04FE1
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F58C04A94
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C59010E502;
-	Wed,  2 Aug 2023 07:20:18 +0000 (UTC)
-Received: from out28-172.mail.aliyun.com (out28-172.mail.aliyun.com
- [115.124.28.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9533410E4A5;
- Wed,  2 Aug 2023 06:46:19 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.4706627|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_alarm|0.0490271-0.00171531-0.949258; FP=0|0|0|0|0|-1|-1|-1;
- HT=ay29a033018047202; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
- TI=SMTPD_---.U6Z6Jsd_1690958768; 
-Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6Z6Jsd_1690958768) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 14:46:09 +0800
-From: Ran Sun <sunran001@208suo.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in vega20_ih.c
-Date: Wed,  2 Aug 2023 06:46:06 +0000
-Message-Id: <20230802064606.12005-1-sunran001@208suo.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48C2210E509;
+	Wed,  2 Aug 2023 07:20:19 +0000 (UTC)
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25F8E10E089;
+ Tue,  1 Aug 2023 11:16:56 +0000 (UTC)
+Received: by mail-pf1-x430.google.com with SMTP id
+ d2e1a72fcca58-686fa3fc860so3521900b3a.1; 
+ Tue, 01 Aug 2023 04:16:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1690888615; x=1691493415;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=g/d9qVu/YgKMVuhjhU0hWbA0JqMw1Dt0pNaA2X8wmek=;
+ b=cLEpu1fpZif6atTb1LkbVf4G1i4TPB+OFiE4RXQUZPg+A6ZhoAg10LUcbLPsvJYl3l
+ 7SBxpqYOzAt7LORxMkUuizMhJkXLNFsCm8w4nQemSEWYL9YeZkWOxVu/zuotfsSBWINF
+ EuufoRgkUgF99WWvDddKTyIp8pAVcWkOnUWpb5yY48mHMc++5MIuw7yr23XxGuyMhFc+
+ yhrRP8+PUv8GKmqwR51imhJ7Vgx9THntr+BrInKefmeXLMrrKUfqvaZMXnQjIICmonlS
+ OO+bzooj95qi9tGLIRykfm8RMBvIplz+Kt4R8xVY3hBxz7/iu7pIYAg06Mt290ewUDmR
+ wH1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690888615; x=1691493415;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=g/d9qVu/YgKMVuhjhU0hWbA0JqMw1Dt0pNaA2X8wmek=;
+ b=f3JOhNlawmnsgIYHS2XqHd2NzY0GTJy003XkAUa9M1S+s5IHxKyVWtxMt7evQaL1JU
+ WSNX8zwM2ntmrRJEWTXphmzZqzfhpOaf4u6xRnvG1ynusV1Al+jTkPM6S23pUk5NSPvs
+ QwBGmHlO7bBCDk1g9Dfnk8e9Lt1ebUZ5KFjhKCVYvy0/FRw4mwx7f3NUPM+epdEN4PHT
+ QM696/g+E3jIccBxTUqNxE9Rfig4p8xlj0Rcg2owZk2wGVFhdNirzj9xDYhbksU4awsx
+ WA0Ac1WTz/GTlwacKAS9KdllwrATHQ1xxDs1I72bhDb6e/Klv3sGLZ5xKyxFulWQ/sCl
+ W1ug==
+X-Gm-Message-State: ABy/qLaE2OWYOaRkTd+A2sZKPTLoZmAn/JgNFRKxy2675iXy8SVGKyMS
+ 2hrqYKPSUqy3W2/g3E4hsXM=
+X-Google-Smtp-Source: APBJJlEQT4wLJEIOI4URIWAZ3XaBcZXevHviTbAHc+v8I5MziVFXsXSF6IISkcsOmV4HCiEhGp9bEg==
+X-Received: by 2002:a05:6a00:16c4:b0:668:99aa:3f17 with SMTP id
+ l4-20020a056a0016c400b0066899aa3f17mr16050243pfc.16.1690888615498; 
+ Tue, 01 Aug 2023 04:16:55 -0700 (PDT)
+Received: from debian.me ([103.131.18.64]) by smtp.gmail.com with ESMTPSA id
+ d9-20020aa78689000000b0064fa2fdfa9esm9084667pfo.81.2023.08.01.04.16.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Aug 2023 04:16:54 -0700 (PDT)
+Received: by debian.me (Postfix, from userid 1000)
+ id C9A89801D541; Tue,  1 Aug 2023 18:16:50 +0700 (WIB)
+Date: Tue, 1 Aug 2023 18:16:50 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Ran Sun <sunran001@208suo.com>, alexander.deucher@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch
+Subject: Re: [PATCH] drm/amd/pm: Clean up errors in smu73_discrete.h
+Message-ID: <ZMjposYeMFxU5nE9@debian.me>
+References: <20230801100024.8215-1-sunran001@208suo.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Oz9nExZewyCtXaET"
+Content-Disposition: inline
+In-Reply-To: <20230801100024.8215-1-sunran001@208suo.com>
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -38,45 +75,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ran Sun <sunran001@208suo.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the following errors reported by checkpatch:
 
-ERROR: trailing statements should be on next line
-ERROR: that open brace { should be on the previous line
+--Oz9nExZewyCtXaET
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Ran Sun <sunran001@208suo.com>
----
- drivers/gpu/drm/amd/amdgpu/vega20_ih.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+On Tue, Aug 01, 2023 at 10:00:24AM +0000, Ran Sun wrote:
+> Fix the following errors reported by checkpatch:
+>=20
+> ERROR: open brace '{' following struct go on the same line
+> ERROR: trailing whitespace
+> ERROR: space prohibited before open square bracket '['
+>=20
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-index 544ee55a22da..dbc99536440f 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-@@ -500,7 +500,8 @@ static int vega20_ih_self_irq(struct amdgpu_device *adev,
- 	case 2:
- 		schedule_work(&adev->irq.ih2_work);
- 		break;
--	default: break;
-+	default:
-+		break;
- 	}
- 	return 0;
- }
-@@ -710,8 +711,7 @@ static void vega20_ih_set_interrupt_funcs(struct amdgpu_device *adev)
- 	adev->irq.ih_funcs = &vega20_ih_funcs;
- }
- 
--const struct amdgpu_ip_block_version vega20_ih_ip_block =
--{
-+const struct amdgpu_ip_block_version vega20_ih_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_IH,
- 	.major = 4,
- 	.minor = 2,
--- 
-2.17.1
+Thanks for fixing up your tooling to use git-send-email(1). However, it'd
+been great to send a patch series touching whole drm/amd subsystem, with ea=
+ch
+patch fixes one error (assuming the subsystem permits checkpatch fixup
+like this) instead of spamming maintainers with >=3D 70 single patches like
+this.
 
+And it is unfortunate that you and @208suo.com people doesn't reply to
+review comments (try searching lore.kernel.org), which makes me wonder:
+what does prevent you from replying to the mailing lists like LKML? Your
+mail infrastructure?
+
+Thanks anyway.
+
+--=20
+An old man doll... just what I always wanted! - Clara
+
+--Oz9nExZewyCtXaET
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZMjpnAAKCRD2uYlJVVFO
+o8eVAQC8i8w0oMagTUhlWHqTriRwuWmnzpcrsbkdtwpX3Jlw9wEAtX2Mn1Ie6sWq
+Fjq3EI7u1q5SRe7QS9q9ZY3WCOoWRAY=
+=mCUh
+-----END PGP SIGNATURE-----
+
+--Oz9nExZewyCtXaET--
