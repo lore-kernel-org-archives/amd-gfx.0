@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5390AC001E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C6EEC0015E
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDB6D10E338;
-	Tue,  1 Aug 2023 08:28:06 +0000 (UTC)
-Received: from out28-171.mail.aliyun.com (out28-171.mail.aliyun.com
- [115.124.28.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89A0910E205;
- Tue,  1 Aug 2023 01:12:49 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07465538|-1; CH=green;
- DM=|CONTINUE|false|; DS=CONTINUE|ham_alarm|0.0922483-0.000575133-0.907177;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047192; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=8; RT=8; SR=0; TI=SMTPD_---.U5BYNI3_1690852358; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id E55CC10E353;
+	Tue,  1 Aug 2023 08:28:07 +0000 (UTC)
+Received: from out28-122.mail.aliyun.com (out28-122.mail.aliyun.com
+ [115.124.28.122])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1195510E08B;
+ Tue,  1 Aug 2023 02:08:49 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.4466546|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_alarm|0.0186576-0.00180561-0.979537; FP=0|0|0|0|0|-1|-1|-1;
+ HT=ay29a033018047213; MF=sunran001@208suo.com; NM=1; PH=DS; RN=7; RT=7; SR=0;
+ TI=SMTPD_---.U5DrTdc_1690855720; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5BYNI3_1690852358) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 09:12:41 +0800
+ fp:SMTPD_---.U5DrTdc_1690855720) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 10:08:42 +0800
 From: Ran Sun <sunran001@208suo.com>
-To: apw@canonical.com,
-	joe@perches.com,
-	alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/pm: Clean up errors in smu_v11_0.h
-Date: Tue,  1 Aug 2023 01:12:37 +0000
-Message-Id: <20230801011237.3913-1-sunran001@208suo.com>
+To: alexander.deucher@amd.com,
+	airlied@gmail.com,
+	daniel@ffwll.ch
+Subject: [PATCH] drm/amd/pm: Clean up errors in smu_v13_0_5_ppt.c
+Date: Tue,  1 Aug 2023 02:08:39 +0000
+Message-Id: <20230801020839.4369-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Tue, 01 Aug 2023 08:27:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -40,91 +40,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: bpf@vger.kernel.org, Ran Sun <sunran001@208suo.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Ran Sun <sunran001@208suo.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: that open brace { should be on the previous line
-ERROR: code indent should use tabs where possible
+ERROR: space prohibited before that ',' (ctx:WxW)
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h |  7 +++---
- scripts/checkpatch.pl                        | 23 --------------------
- 2 files changed, 3 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-index d466db6f0ad4..1b4e0e4716ea 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
-@@ -67,8 +67,7 @@ static const __maybe_unused uint16_t link_width[] = {0, 1, 2, 4, 8, 12, 16};
- static const __maybe_unused uint16_t link_speed[] = {25, 50, 80, 160};
- 
- static const
--struct smu_temperature_range __maybe_unused smu11_thermal_policy[] =
--{
-+struct smu_temperature_range __maybe_unused smu11_thermal_policy[] = {
- 	{-273150,  99000, 99000, -273150, 99000, 99000, -273150, 99000, 99000},
- 	{ 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000},
- };
-@@ -96,8 +95,8 @@ struct smu_11_0_dpm_table {
- };
- 
- struct smu_11_0_pcie_table {
--        uint8_t  pcie_gen[MAX_PCIE_CONF];
--        uint8_t  pcie_lane[MAX_PCIE_CONF];
-+	uint8_t  pcie_gen[MAX_PCIE_CONF];
-+	uint8_t  pcie_lane[MAX_PCIE_CONF];
- };
- 
- struct smu_11_0_dpm_tables {
-diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index 85a0598bf723..528f619520eb 100755
---- a/scripts/checkpatch.pl
-+++ b/scripts/checkpatch.pl
-@@ -7449,23 +7449,6 @@ sub process {
- 		}
- 
- # Complain about RCU Tasks Trace used outside of BPF (and of course, RCU).
--<<<<<<< HEAD
--<<<<<<< HEAD
--		if ($line =~ /\brcu_read_lock_trace\s*\(/ ||
--		    $line =~ /\brcu_read_lock_trace_held\s*\(/ ||
--		    $line =~ /\brcu_read_unlock_trace\s*\(/ ||
--		    $line =~ /\bcall_rcu_tasks_trace\s*\(/ ||
--		    $line =~ /\bsynchronize_rcu_tasks_trace\s*\(/ ||
--		    $line =~ /\brcu_barrier_tasks_trace\s*\(/ ||
--		    $line =~ /\brcu_request_urgent_qs_task\s*\(/) {
--			if ($realfile !~ m@^kernel/bpf@ &&
--			    $realfile !~ m@^include/linux/bpf@ &&
--			    $realfile !~ m@^net/bpf@ &&
--			    $realfile !~ m@^kernel/rcu@ &&
--			    $realfile !~ m@^include/linux/rcu@) {
--=======
--=======
-->>>>>>> d7b3af5a77e8d8da28f435f313e069aea5bcf172
- 		our $rcu_trace_funcs = qr{(?x:
- 			rcu_read_lock_trace |
- 			rcu_read_lock_trace_held |
-@@ -7482,14 +7465,8 @@ sub process {
- 			kernel/rcu/ |
- 			include/linux/rcu
- 		)};
--<<<<<<< HEAD
--		if ($line =~ /\b$rcu_trace_funcs\s*\(/) {
--			if ($realfile !~ m@^$rcu_trace_paths@) {
-->>>>>>> 4d2c646ac07cf4a35ef1c4a935a1a4fd6c6b1a36
--=======
- 		if ($line =~ /\b($rcu_trace_funcs)\s*\(/) {
- 			if ($realfile !~ m{^$rcu_trace_paths}) {
-->>>>>>> d7b3af5a77e8d8da28f435f313e069aea5bcf172
- 				WARN("RCU_TASKS_TRACE",
- 				     "use of RCU tasks trace is incorrect outside BPF or core RCU code\n" . $herecurr);
- 			}
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
+index 42f110602eb1..87a79e6f983b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
+@@ -75,7 +75,7 @@ static struct cmn2asic_msg_mapping smu_v13_0_5_message_map[SMU_MSG_MAX_COUNT] =
+ 	MSG_MAP(SetDriverDramAddrHigh,            PPSMC_MSG_SetDriverDramAddrHigh,      1),
+ 	MSG_MAP(SetDriverDramAddrLow,          PPSMC_MSG_SetDriverDramAddrLow,	1),
+ 	MSG_MAP(TransferTableSmu2Dram,           PPSMC_MSG_TransferTableSmu2Dram,		1),
+-	MSG_MAP(TransferTableDram2Smu,          PPSMC_MSG_TransferTableDram2Smu ,	1),
++	MSG_MAP(TransferTableDram2Smu,          PPSMC_MSG_TransferTableDram2Smu,	1),
+ 	MSG_MAP(GetGfxclkFrequency,          PPSMC_MSG_GetGfxclkFrequency,	1),
+ 	MSG_MAP(GetEnabledSmuFeatures,           PPSMC_MSG_GetEnabledSmuFeatures,		1),
+ 	MSG_MAP(SetSoftMaxVcn,          PPSMC_MSG_SetSoftMaxVcn,	1),
 -- 
 2.17.1
 
