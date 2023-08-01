@@ -4,29 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3018C0015E
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FC60EB64DD
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E00F10E35D;
-	Tue,  1 Aug 2023 08:28:09 +0000 (UTC)
-Received: from out28-5.mail.aliyun.com (out28-5.mail.aliyun.com [115.124.28.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38D5C10E068;
- Tue,  1 Aug 2023 02:37:08 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07440288|-1; CH=green;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84AB210E362;
+	Tue,  1 Aug 2023 08:28:10 +0000 (UTC)
+Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com
+ [115.124.28.121])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 012BA10E301;
+ Tue,  1 Aug 2023 03:03:44 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07467062|-1; CH=green;
  DM=|CONTINUE|false|;
- DS=CONTINUE|ham_regular_dialog|0.241969-0.00335738-0.754673;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047194; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5Gdet3_1690857420; 
+ DS=CONTINUE|ham_regular_dialog|0.0381289-0.00205072-0.95982;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047190; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5JFwAS_1690859016; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5Gdet3_1690857420) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 10:37:01 +0800
+ fp:SMTPD_---.U5JFwAS_1690859016) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 11:03:38 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com,
 	airlied@gmail.com,
 	daniel@ffwll.ch
-Subject: [PATCH] drm/amd/pm: Clean up errors in amd_powerplay.c
-Date: Tue,  1 Aug 2023 02:36:58 +0000
-Message-Id: <20230801023658.4667-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amd/pm/powerplay/hwmgr/ppevvmath: Clean up errors in
+ ppevvmath.h
+Date: Tue,  1 Aug 2023 03:03:34 +0000
+Message-Id: <20230801030334.5069-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Tue, 01 Aug 2023 08:27:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -47,90 +49,82 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: that open brace { should be on the previous line
-ERROR: spaces required around that '||' (ctx:WxO)
+ERROR: return is not a function, parentheses are not required
+ERROR: space required after that ',' (ctx:VxV)
+ERROR: space required before the open parenthesis '('
+ERROR: need consistent spacing around '-' (ctx:WxV)
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index ff360c699171..9e4f8a4104a3 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -612,7 +612,7 @@ static int pp_dpm_get_pp_num_states(void *handle,
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
+index dac29fe6cfc6..6f54c410c2f9 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h
+@@ -166,7 +166,7 @@ static fInt fNaturalLog(fInt value)
  
- 	memset(data, 0, sizeof(*data));
+ 	error_term = fAdd(fNegativeOne, value);
  
--	if (!hwmgr || !hwmgr->pm_en ||!hwmgr->ps)
-+	if (!hwmgr || !hwmgr->pm_en || !hwmgr->ps)
- 		return -EINVAL;
+-	return (fAdd(solution, error_term));
++	return fAdd(solution, error_term);
+ }
  
- 	data->nums = hwmgr->num_ps;
-@@ -644,7 +644,7 @@ static int pp_dpm_get_pp_table(void *handle, char **table)
+ static fInt fDecodeLinearFuse(uint32_t fuse_value, fInt f_min, fInt f_range, uint32_t bitlength)
+@@ -230,7 +230,7 @@ static fInt ConvertToFraction(int X) /*Add all range checking here. Is it possib
+ static fInt fNegate(fInt X)
  {
- 	struct pp_hwmgr *hwmgr = handle;
+ 	fInt CONSTANT_NEGONE = ConvertToFraction(-1);
+-	return (fMultiply(X, CONSTANT_NEGONE));
++	return fMultiply(X, CONSTANT_NEGONE);
+ }
  
--	if (!hwmgr || !hwmgr->pm_en ||!hwmgr->soft_pp_table)
-+	if (!hwmgr || !hwmgr->pm_en || !hwmgr->soft_pp_table)
- 		return -EINVAL;
+ static fInt Convert_ULONG_ToFraction(uint32_t X)
+@@ -382,14 +382,14 @@ static int ConvertBackToInteger (fInt A) /*THIS is the function that will be use
  
- 	*table = (char *)hwmgr->soft_pp_table;
-@@ -1002,7 +1002,7 @@ static int pp_get_power_limit(void *handle, uint32_t *limit,
- 	struct pp_hwmgr *hwmgr = handle;
- 	int ret = 0;
+ 	scaledDecimal.full = uGetScaledDecimal(A);
  
--	if (!hwmgr || !hwmgr->pm_en ||!limit)
-+	if (!hwmgr || !hwmgr->pm_en || !limit)
- 		return -EINVAL;
+-	fullNumber = fAdd(scaledDecimal,scaledReal);
++	fullNumber = fAdd(scaledDecimal, scaledReal);
  
- 	if (power_type != PP_PWR_TYPE_SUSTAINED)
-@@ -1047,7 +1047,7 @@ static int pp_get_display_power_level(void *handle,
+ 	return fullNumber.full;
+ }
+ 
+ static fInt fGetSquare(fInt A)
  {
- 	struct pp_hwmgr *hwmgr = handle;
+-	return fMultiply(A,A);
++	return fMultiply(A, A);
+ }
  
--	if (!hwmgr || !hwmgr->pm_en ||!output)
-+	if (!hwmgr || !hwmgr->pm_en || !output)
- 		return -EINVAL;
+ /* x_new = x_old - (x_old^2 - C) / (2 * x_old) */
+@@ -447,7 +447,7 @@ static fInt fSqrt(fInt num)
  
- 	return phm_get_dal_power_level(hwmgr, output);
-@@ -1120,7 +1120,7 @@ static int pp_get_clock_by_type_with_latency(void *handle,
- {
- 	struct pp_hwmgr *hwmgr = handle;
+ 	} while (uAbs(error) > 0);
  
--	if (!hwmgr || !hwmgr->pm_en ||!clocks)
-+	if (!hwmgr || !hwmgr->pm_en || !clocks)
- 		return -EINVAL;
+-	return (x_new);
++	return x_new;
+ }
  
- 	return phm_get_clock_by_type_with_latency(hwmgr, type, clocks);
-@@ -1132,7 +1132,7 @@ static int pp_get_clock_by_type_with_voltage(void *handle,
- {
- 	struct pp_hwmgr *hwmgr = handle;
+ static void SolveQuadracticEqn(fInt A, fInt B, fInt C, fInt Roots[])
+@@ -459,7 +459,7 @@ static void SolveQuadracticEqn(fInt A, fInt B, fInt C, fInt Roots[])
+ 	f_CONSTANT100 = ConvertToFraction(100);
+ 	f_CONSTANT10 = ConvertToFraction(10);
  
--	if (!hwmgr || !hwmgr->pm_en ||!clocks)
-+	if (!hwmgr || !hwmgr->pm_en || !clocks)
- 		return -EINVAL;
+-	while(GreaterThan(A, f_CONSTANT100) || GreaterThan(B, f_CONSTANT100) || GreaterThan(C, f_CONSTANT100)) {
++	while (GreaterThan(A, f_CONSTANT100) || GreaterThan(B, f_CONSTANT100) || GreaterThan(C, f_CONSTANT100)) {
+ 		A = fDivide(A, f_CONSTANT10);
+ 		B = fDivide(B, f_CONSTANT10);
+ 		C = fDivide(C, f_CONSTANT10);
+@@ -515,7 +515,7 @@ static int uGetScaledDecimal (fInt A) /*Converts the fractional portion to whole
+ 		dec[i] = tmp / (1 << SHIFT_AMOUNT);
+ 		tmp = tmp - ((1 << SHIFT_AMOUNT)*dec[i]);
+ 		tmp *= 10;
+-		scaledDecimal = scaledDecimal + dec[i]*uPow(10, PRECISION - 1 -i);
++		scaledDecimal = scaledDecimal + dec[i]*uPow(10, PRECISION - 1 - i);
+ 	}
  
- 	return phm_get_clock_by_type_with_voltage(hwmgr, type, clocks);
-@@ -1155,7 +1155,7 @@ static int pp_display_clock_voltage_request(void *handle,
- {
- 	struct pp_hwmgr *hwmgr = handle;
- 
--	if (!hwmgr || !hwmgr->pm_en ||!clock)
-+	if (!hwmgr || !hwmgr->pm_en || !clock)
- 		return -EINVAL;
- 
- 	return phm_display_clock_voltage_request(hwmgr, clock);
-@@ -1167,7 +1167,7 @@ static int pp_get_display_mode_validation_clocks(void *handle,
- 	struct pp_hwmgr *hwmgr = handle;
- 	int ret = 0;
- 
--	if (!hwmgr || !hwmgr->pm_en ||!clocks)
-+	if (!hwmgr || !hwmgr->pm_en || !clocks)
- 		return -EINVAL;
- 
- 	clocks->level = PP_DAL_POWERLEVEL_7;
+ 	return scaledDecimal;
 -- 
 2.17.1
 
