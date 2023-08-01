@@ -4,29 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 299A3C04FE2
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B27DAC05051
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D527610E4DB;
-	Wed,  2 Aug 2023 07:20:10 +0000 (UTC)
-Received: from out28-53.mail.aliyun.com (out28-53.mail.aliyun.com
- [115.124.28.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57DA410E365;
- Tue,  1 Aug 2023 08:37:21 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1057698|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_alarm|0.0623579-0.000287539-0.937355; FP=0|0|0|0|0|-1|-1|-1;
- HT=ay29a033018047212; MF=sunran001@208suo.com; NM=1; PH=DS; RN=7; RT=7; SR=0;
- TI=SMTPD_---.U5ob-Yq_1690879031; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4202410E4E0;
+	Wed,  2 Aug 2023 07:20:11 +0000 (UTC)
+Received: from out28-146.mail.aliyun.com (out28-146.mail.aliyun.com
+ [115.124.28.146])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB8410E368;
+ Tue,  1 Aug 2023 09:02:48 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.08914465|-1; CH=green;
+ DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_enroll_verification|0.0343368-0.000303458-0.96536;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047212; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5pdWgb_1690880559; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5ob-Yq_1690879031) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 16:37:13 +0800
+ fp:SMTPD_---.U5pdWgb_1690880559) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 17:02:42 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com,
 	airlied@gmail.com,
 	daniel@ffwll.ch
-Subject: [PATCH] drm/amdgpu: Clean up errors in ppatomctrl.h
-Date: Tue,  1 Aug 2023 08:37:10 +0000
-Message-Id: <20230801083710.6738-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amd: Clean up errors in pptable_v1_0.h
+Date: Tue,  1 Aug 2023 09:02:37 +0000
+Message-Id: <20230801090237.7011-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -51,32 +52,23 @@ ERROR: open brace '{' following struct go on the same line
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.h | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.h
-index b3103bd4be42..1f987e846628 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.h
-@@ -278,16 +278,14 @@ struct pp_atom_ctrl__avfs_parameters {
- 	uint8_t  ucReserved;
- };
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
+index b0ac4d121adc..7a31cfa5e7fb 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h
+@@ -419,8 +419,7 @@ typedef struct _ATOM_Fiji_PowerTune_Table {
+ 	USHORT usReserved;
+ } ATOM_Fiji_PowerTune_Table;
  
--struct _AtomCtrl_HiLoLeakageOffsetTable
+-typedef struct _ATOM_Polaris_PowerTune_Table
 -{
-+struct _AtomCtrl_HiLoLeakageOffsetTable {
-     USHORT usHiLoLeakageThreshold;
-     USHORT usEdcDidtLoDpm7TableOffset;
-     USHORT usEdcDidtHiDpm7TableOffset;
- };
- typedef struct _AtomCtrl_HiLoLeakageOffsetTable AtomCtrl_HiLoLeakageOffsetTable;
- 
--struct _AtomCtrl_EDCLeakgeTable
--{
-+struct _AtomCtrl_EDCLeakgeTable {
-     ULONG DIDT_REG[24];
- };
- typedef struct _AtomCtrl_EDCLeakgeTable AtomCtrl_EDCLeakgeTable;
++typedef struct _ATOM_Polaris_PowerTune_Table {
+     UCHAR  ucRevId;
+     USHORT usTDP;
+     USHORT usConfigurableTDP;
 -- 
 2.17.1
 
