@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79CDEC04A94
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 17:03:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D1F6C04FE0
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 17:03:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6979210E439;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A7E210E43A;
 	Tue,  1 Aug 2023 17:03:37 +0000 (UTC)
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
- [IPv6:2607:f8b0:4864:20::c35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25A9510E421;
- Tue,  1 Aug 2023 17:03:30 +0000 (UTC)
-Received: by mail-oo1-xc35.google.com with SMTP id
- 006d021491bc7-56ca9a337caso1564446eaf.1; 
- Tue, 01 Aug 2023 10:03:30 -0700 (PDT)
+Received: from mail-il1-x133.google.com (mail-il1-x133.google.com
+ [IPv6:2607:f8b0:4864:20::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7123210E427;
+ Tue,  1 Aug 2023 17:03:33 +0000 (UTC)
+Received: by mail-il1-x133.google.com with SMTP id
+ e9e14a558f8ab-349099fce6dso21714765ab.2; 
+ Tue, 01 Aug 2023 10:03:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690909409; x=1691514209;
+ d=gmail.com; s=20221208; t=1690909412; x=1691514212;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9fCryleot7DYJMVCUstKegVHZxdFt0UcbYK1dV/Zx9Y=;
- b=kROfNG8LDRCn7UgNyAgqsZx6rWtyVz4JtO0DqGP4BXmprbgnYl0ZfixoqPBvhGkHOU
- EU95RXDWQ9rUb+HVd3GNUq5Hhbfo+Jd63RduLoThfH63By1HGzM3fIIxH5EYZOA3fk1t
- xOSTQM1hGCm9bPNXS8l7jMFe1NzNjNFOXY+5SkbgAmGdOlrhPlkff3D8T+xCJJVVxMZj
- jSey6N4JABae7aNdBp+Z9ivpSWuvs286z11haAnSUP+OoJ14dm8baX2yH1+ViERfCHyf
- Pm6D9+hWoxJ40Q/bygWehp4Y0CPgMIZXI7WopcauzC6ikHCTgD5CIAQpne4kQVO0JQKY
- rXwA==
+ bh=HTIptaY1Q1Cw8tbq8hqtoZUus2V/66qWUMbxjps5ClE=;
+ b=DBM1VlojjC1c4IaxOfDZLDxXUxA9E6CwSVUV5iPtJGlh/jhdn+Z1O05pTkM+QpLBGd
+ msg8B6RQKG2RxTePtA5nAQBJyXNXbckAw+s0K0Re2jABj6rfI07mGBxEfg5A9UuYDUmM
+ +PJWL/pt2POaLEHJd/QKlpgeed76hBWankEcMkTwPSykYwD7m7ifqA59TLeLGxvj0GrK
+ N/lh/wouZUbdd3mOIBlmF6L0Okwdh+P4LSQz2TKwF4BB58nZfScsk6lB8ptXZLGEzqTI
+ VYoJhmoF0AbGxZPzTXkTK8IIMc1OmgZf7+Hlh7kBaKjps/x00BFy3aXCNb1xNrN2zrTC
+ r3qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690909409; x=1691514209;
+ d=1e100.net; s=20221208; t=1690909412; x=1691514212;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9fCryleot7DYJMVCUstKegVHZxdFt0UcbYK1dV/Zx9Y=;
- b=AmO7PdaDtBmyWCr9tEab1R7qXMuuyPBjR4SnBjOrFAoy0jAfhUL4D3OGNS9bLLiJHm
- hDIF45Ve7pVm2ONnFeGCHGJIpumyvsBoK+cJKqj0scV1FjqnRX656DEO9t2COzeygjmA
- srVAwZbn6kp137xO5NQtJfr5lKt34pBKMRRrO/Wgg9IaM4xfsPY29EMuTCmt2USY3mAi
- tJMyx+r7zdpR+mIQCUco0o6ExrvzcUGcrLpcOQbgaENkcez6MbvuG09W3VVsIVOSjOQM
- 8Eyo4E2xaapbbJl+g+jDizPR7sEtgxH5E1UKRUYglXiOeMPmJTwKsdrBqNA0riTYz1O9
- LKCg==
-X-Gm-Message-State: ABy/qLYOWRAd0Jq77Pc+sBcZaMk9A7rNweJ6Y3JBiPaNoIihs0AgYg+0
- IxDEWJHHGbDh/fSmT7vQpJY=
-X-Google-Smtp-Source: APBJJlGGypX+v5MzycUzumx+CRUCdd0/RZ51+QF02i+R9Xx9KDzdU4X8EgAM+zTDxV9IMoWuyMcmsg==
-X-Received: by 2002:a05:6870:82a4:b0:1be:d3a1:fd9 with SMTP id
- q36-20020a05687082a400b001bed3a10fd9mr7622319oae.9.1690909409285; 
- Tue, 01 Aug 2023 10:03:29 -0700 (PDT)
+ bh=HTIptaY1Q1Cw8tbq8hqtoZUus2V/66qWUMbxjps5ClE=;
+ b=ETWIEAvapceX/DbYi81JbHB3F04KmPfCTWPI1QQrT0IqWop8I1ZvZuLY6oRWmqgzbO
+ 76VlAzmuf4RCZvYN/XGCL1xSwqDN6VDXmwfhsH9im6MeTw37vJwfI5yoTwUGKHPE+WHq
+ +bE1eHAi8vI7GQp3qtCxhpmMynRpKgayN3NFtU9V2DuYtdirwbmpsQNPik9ltBUlUptG
+ IGMlFH1EzbMF5/jl3mFgwmHHUKXT9vSbHlGdmGuMPKING9bpuDJiaJfgh0m1emMYHuzo
+ I/KumX1TG88X2MhfFGtyhyWysujAmMZo24ajExYt3XjXvV8IBSF5QYG2PimjPjxkrPv4
+ roaA==
+X-Gm-Message-State: ABy/qLarDTVUHkBScSV3K6+BCoQLzpfQZz50ql2eC3vuhNNvue2Rd3cR
+ GasQREzEoXocJQiQvY2PoaA=
+X-Google-Smtp-Source: APBJJlEvxEOAmmWhBekjDXEKP44F1wzy+JOf74gmXKw6CXVXw+vjRTBjU6kykBbo/XVcjPeJ6tQHdQ==
+X-Received: by 2002:a05:6e02:1068:b0:348:ec12:fb31 with SMTP id
+ q8-20020a056e02106800b00348ec12fb31mr12258462ilj.0.1690909412652; 
+ Tue, 01 Aug 2023 10:03:32 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o20-20020a02c6b4000000b0042b144abf71sm3768577jan.179.2023.08.01.10.03.27
+ o20-20020a02c6b4000000b0042b144abf71sm3768577jan.179.2023.08.01.10.03.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Aug 2023 10:03:28 -0700 (PDT)
+ Tue, 01 Aug 2023 10:03:32 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, daniel@ffwll.ch, jbaron@akamai.com,
  gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [PATCH v5 10/22] dyndbg: tighten ddebug_class_name() 1st arg type
-Date: Tue,  1 Aug 2023 11:02:42 -0600
-Message-ID: <20230801170255.163237-11-jim.cromie@gmail.com>
+Subject: [PATCH v5 13/22] checkpatch: file-scoped extern special case for
+ linker-symbol
+Date: Tue,  1 Aug 2023 11:02:45 -0600
+Message-ID: <20230801170255.163237-14-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230801170255.163237-1-jim.cromie@gmail.com>
 References: <20230801170255.163237-1-jim.cromie@gmail.com>
@@ -75,52 +76,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, linux@rasmusvillemoes.dk,
+Cc: apw@canonical.com, jani.nikula@intel.com, linux@rasmusvillemoes.dk,
  Jim Cromie <jim.cromie@gmail.com>, robdclark@gmail.com, seanpaul@chromium.org,
  joe@perches.com, ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Change function's 1st arg-type, and deref in the caller.
-The fn doesn't need any other fields in the struct.
+"externs should be avoided in .c files" needs an exception for linker
+symbols, like those that mark the start, stop of many kernel sections.
 
-no functional change.
+Since code already checks REALNAME to avoid linker-scripts entirely,
+add a new else-if block to look at them instead.  As a simple
+heuristic, treat all words (in the patch-line) as possible symbols,
+and save them to screen the WARN quoted above.  For my test case, this
+included BOUNDED_BY (a macro), which is extra, but not troublesome.
 
+Where the WARN is issued, precede it with an else-if block to catch
+one common extern-in-c use case: "extern struct foo bar[]".  Here we
+can at least issue a softer warning, after checking for a match with a
+maybe-linker-symbol parsed earlier from the patch.  Though heuristic,
+it worked for my test-case, allowing both (start|stop)$symbol's,
+matched by $symbol, it wasn't thrown by noise (BOUNDED_BY) in the
+maybe-linker-symbols.
+
+NB: git diff ordering dependence on vmlinux.lds.h before c files ?
+
+Cc: apw@canonical.com
+Cc: joe@perches.com
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ scripts/checkpatch.pl | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index a8973d1a6896..f392f692b452 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1112,12 +1112,12 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- #define class_in_range(class_id, map)					\
- 	(class_id >= map->base && class_id < map->base + map->length)
+diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+index b30114d637c4..f6b6b2a50dfe 100755
+--- a/scripts/checkpatch.pl
++++ b/scripts/checkpatch.pl
+@@ -74,6 +74,8 @@ my $git_command ='export LANGUAGE=en_US.UTF-8; git';
+ my $tabsize = 8;
+ my ${CONFIG_} = "CONFIG_";
  
--static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
-+static const char *ddebug_class_name(struct ddebug_table *dt, struct _ddebug *dp)
- {
--	struct ddebug_class_map *map = iter->table->classes;
--	int i, nc = iter->table->num_classes;
-+	struct ddebug_class_map *map = dt->classes;
-+	int i;
++my %maybe_linker_symbol; # for externs in c exceptions, when seen in *vmlinux.lds.h
++
+ sub help {
+ 	my ($exitcode) = @_;
  
--	for (i = 0; i < nc; i++, map++)
-+	for (i = 0; i < dt->num_classes; i++, map++)
- 		if (class_in_range(dp->class_id, map))
- 			return map->class_names[dp->class_id - map->base];
+@@ -6051,6 +6053,9 @@ sub process {
  
-@@ -1151,7 +1151,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 	seq_puts(m, "\"");
+ # check for line continuations outside of #defines, preprocessor #, and asm
  
- 	if (dp->class_id != _DPRINTK_CLASS_DFLT) {
--		class = ddebug_class_name(iter, dp);
-+		class = ddebug_class_name(iter->table, dp);
- 		if (class)
- 			seq_printf(m, " class:%s", class);
- 		else
++		} elsif ($realfile =~ m@/vmlinux.lds.h$@) {
++		    $line =~ s/(\w+)/$maybe_linker_symbol{$1}++/ge;
++		    #print "REAL: $realfile\nln: $line\nkeys:", sort keys %maybe_linker_symbol;
+ 		} else {
+ 			if ($prevline !~ /^..*\\$/ &&
+ 			    $line !~ /^\+\s*\#.*\\$/ &&		# preprocessor
+@@ -7107,6 +7112,21 @@ sub process {
+ 				     "arguments for function declarations should follow identifier\n" . $herecurr);
+ 			}
+ 
++		} elsif ($realfile =~ /\.c$/ && defined $stat &&
++		    $stat =~ /^\+extern struct\s+(\w+)\s+(\w+)\[\];/)
++		{
++			my ($st_type, $st_name) = ($1, $2);
++
++			for my $s (keys %maybe_linker_symbol) {
++			    #print "Linker symbol? $st_name : $s\n";
++			    goto LIKELY_LINKER_SYMBOL
++				if $st_name =~ /$s/;
++			}
++			WARN("AVOID_EXTERNS",
++			     "found a file-scoped extern type:$st_type name:$st_name in .c file\n"
++			     . "is this a linker symbol ?\n" . $herecurr);
++		  LIKELY_LINKER_SYMBOL:
++
+ 		} elsif ($realfile =~ /\.c$/ && defined $stat &&
+ 		    $stat =~ /^.\s*extern\s+/)
+ 		{
 -- 
 2.41.0
 
