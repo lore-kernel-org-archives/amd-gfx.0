@@ -4,51 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 726B0C04FDF
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:27:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53E7EC04E69
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E448810E33A;
-	Tue,  1 Aug 2023 08:27:48 +0000 (UTC)
-X-Greylist: delayed 1129 seconds by postgrey-1.36 at gabe;
- Mon, 31 Jul 2023 13:45:41 UTC
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 134A010E2A5
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Jul 2023 13:45:41 +0000 (UTC)
-Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.53])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4RDzTz1bhyzLnxT;
- Mon, 31 Jul 2023 21:24:07 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemi500008.china.huawei.com
- (7.221.188.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 31 Jul
- 2023 21:26:46 +0800
-From: Ruan Jinjie <ruanjinjie@huawei.com>
-To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <harry.wentland@amd.com>, <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
- <evan.quan@amd.com>, <ruanjinjie@huawei.com>, <srinivasan.shanmugam@amd.com>, 
- <wangxiongfeng2@huawei.com>, <Hawking.Zhang@amd.com>, <James.Zhu@amd.com>,
- <Veerabadhran.Gopalakrishnan@amd.com>, <saleemkhan.jamadar@amd.com>,
- <le.ma@amd.com>, <tao.zhou1@amd.com>, <Jane.Jian@amd.com>,
- <Hongkun.Zhang@amd.com>, <leo.liu@amd.com>, <lijo.lazar@amd.com>,
- <mario.limonciello@amd.com>, <Lang.Yu@amd.com>, <ruijing.dong@amd.com>,
- <trix@redhat.com>, <Suresh.Guttula@amd.com>, <David.Wu3@amd.com>,
- <sonny.jiang@amd.com>, <wenjing.liu@amd.com>, <Jun.Lei@amd.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <drv@mailo.com>,
- <Shiwu.Zhang@amd.com>, <aleksei.kodanev@bell-sw.com>,
- <ye.xingchen@zte.com.cn>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>
-Subject: [PATCH -next] drm/amdgpu: Remove a lot of unnecessary ternary
- operators
-Date: Mon, 31 Jul 2023 21:26:10 +0800
-Message-ID: <20230731132610.2675314-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
- kwepemi500008.china.huawei.com (7.221.188.139)
-X-CFilter-Loop: Reflected
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25C6910E341;
+	Tue,  1 Aug 2023 08:27:49 +0000 (UTC)
+Received: from out28-99.mail.aliyun.com (out28-99.mail.aliyun.com
+ [115.124.28.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED81710E068;
+ Tue,  1 Aug 2023 02:39:24 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.2376815|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_alarm|0.0270291-0.000544939-0.972426; FP=0|0|0|0|0|-1|-1|-1;
+ HT=ay29a033018047187; MF=sunran001@208suo.com; NM=1; PH=DS; RN=7; RT=7; SR=0;
+ TI=SMTPD_---.U5H.BoE_1690857556; 
+Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
+ fp:SMTPD_---.U5H.BoE_1690857556) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 10:39:18 +0800
+From: Ran Sun <sunran001@208suo.com>
+To: alexander.deucher@amd.com,
+	airlied@gmail.com,
+	daniel@ffwll.ch
+Subject: [PATCH] drm/amd/pm: Clean up errors in vega20_hwmgr.h
+Date: Tue,  1 Aug 2023 02:39:15 +0000
+Message-Id: <20230801023915.4756-1-sunran001@208suo.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Tue, 01 Aug 2023 08:27:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,277 +40,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Ran Sun <sunran001@208suo.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ther are many ternary operators, the true or false judgement
-of which is unnecessary in C language semantics.
+Fix the following errors reported by checkpatch:
 
-Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
+ERROR: open brace '{' following enum go on the same line
+
+Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c         |  2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c         |  2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c          |  2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c          |  2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c        |  2 +-
- .../drm/amd/display/dc/dce/dce_link_encoder.c  |  4 +---
- .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |  6 +++---
- .../amd/pm/powerplay/hwmgr/smu7_powertune.c    |  2 +-
- .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  | 18 +++++++-----------
- .../amd/pm/powerplay/smumgr/polaris10_smumgr.c |  2 +-
- .../drm/amd/pm/powerplay/smumgr/vegam_smumgr.c |  7 +++----
- 13 files changed, 23 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-index b582b83c4984..38ccec913f00 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-@@ -460,7 +460,7 @@ bool amdgpu_get_bios(struct amdgpu_device *adev)
- 	return false;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.h
+index 075c0094da9c..1ba9b5fe2a5d 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.h
+@@ -385,8 +385,7 @@ struct vega20_odn_data {
+ 	struct vega20_odn_temp_table	odn_temp_table;
+ };
  
- success:
--	adev->is_atom_fw = (adev->asic_type >= CHIP_VEGA10) ? true : false;
-+	adev->is_atom_fw = adev->asic_type >= CHIP_VEGA10;
- 	return true;
- }
+-enum OD8_FEATURE_ID
+-{
++enum OD8_FEATURE_ID {
+ 	OD8_GFXCLK_LIMITS               = 1 << 0,
+ 	OD8_GFXCLK_CURVE                = 1 << 1,
+ 	OD8_UCLK_MAX                    = 1 << 2,
+@@ -399,8 +398,7 @@ enum OD8_FEATURE_ID
+ 	OD8_FAN_ZERO_RPM_CONTROL        = 1 << 9
+ };
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-index 79791379fc2b..df4440c21bbf 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-@@ -479,7 +479,7 @@ static int jpeg_v3_0_set_clockgating_state(void *handle,
- 					  enum amd_clockgating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_CG_STATE_GATE;
- 
- 	if (enable) {
- 		if (!jpeg_v3_0_is_idle(handle))
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-index a707d407fbd0..3eb3dcd56b57 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-@@ -626,7 +626,7 @@ static int jpeg_v4_0_set_clockgating_state(void *handle,
- 					  enum amd_clockgating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_CG_STATE_GATE;
- 
- 	if (enable) {
- 		if (!jpeg_v4_0_is_idle(handle))
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-index ce2b22f7e4e4..153731d6ce8b 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-@@ -785,7 +785,7 @@ static int jpeg_v4_0_3_set_clockgating_state(void *handle,
- 					  enum amd_clockgating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_CG_STATE_GATE;
- 	int i;
- 
- 	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index b76ba21b5a89..9b662b105cc1 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -2095,7 +2095,7 @@ static int vcn_v3_0_set_clockgating_state(void *handle,
- 					  enum amd_clockgating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_CG_STATE_GATE;
- 	int i;
- 
- 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index 6089c7deba8a..7c486745bece 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -1918,7 +1918,7 @@ static int vcn_v4_0_wait_for_idle(void *handle)
- static int vcn_v4_0_set_clockgating_state(void *handle, enum amd_clockgating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_CG_STATE_GATE;
- 	int i;
- 
- 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index 550ac040b4be..e62472e6e7b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -1287,7 +1287,7 @@ static int vcn_v4_0_3_set_clockgating_state(void *handle,
- 					  enum amd_clockgating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_CG_STATE_GATE;
- 	int i;
- 
- 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-index fa314493ffc5..e4d65de2d0bb 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-@@ -941,9 +941,7 @@ bool dce110_link_encoder_validate_output_with_stream(
- 	break;
- 	case SIGNAL_TYPE_EDP:
- 	case SIGNAL_TYPE_LVDS:
--		is_valid =
--			(stream->timing.
--				pixel_encoding == PIXEL_ENCODING_RGB) ? true : false;
-+		is_valid = stream->timing.pixel_encoding == PIXEL_ENCODING_RGB;
- 	break;
- 	case SIGNAL_TYPE_VIRTUAL:
- 		is_valid = true;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 1cb402264497..8c73016d2d17 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -904,7 +904,7 @@ static int smu7_setup_dpm_tables_v1(struct pp_hwmgr *hwmgr)
- 					dep_sclk_table->entries[i].clk;
- 
- 			data->dpm_table.sclk_table.dpm_levels[data->dpm_table.sclk_table.count].enabled =
--					(i == 0) ? true : false;
-+					i == 0;
- 			data->dpm_table.sclk_table.count++;
- 		}
- 	}
-@@ -919,7 +919,7 @@ static int smu7_setup_dpm_tables_v1(struct pp_hwmgr *hwmgr)
- 			data->dpm_table.mclk_table.dpm_levels[data->dpm_table.mclk_table.count].value =
- 							dep_mclk_table->entries[i].clk;
- 			data->dpm_table.mclk_table.dpm_levels[data->dpm_table.mclk_table.count].enabled =
--							(i == 0) ? true : false;
-+							i == 0;
- 			data->dpm_table.mclk_table.count++;
- 		}
- 	}
-@@ -1833,7 +1833,7 @@ static void smu7_init_dpm_defaults(struct pp_hwmgr *hwmgr)
- 	data->enable_tdc_limit_feature = true;
- 	data->enable_pkg_pwr_tracking_feature = true;
- 	data->force_pcie_gen = PP_PCIEGenInvalid;
--	data->ulv_supported = hwmgr->feature_mask & PP_ULV_MASK ? true : false;
-+	data->ulv_supported = hwmgr->feature_mask & PP_ULV_MASK;
- 	data->current_profile_setting.bupdate_sclk = 1;
- 	data->current_profile_setting.sclk_up_hyst = 0;
- 	data->current_profile_setting.sclk_down_hyst = 100;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
-index 21be23ec3c79..d6eeef3c58f7 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
-@@ -1103,7 +1103,7 @@ int smu7_enable_smc_cac(struct pp_hwmgr *hwmgr)
- 		PP_ASSERT_WITH_CODE((0 == smc_result),
- 				"Failed to enable CAC in SMC.", result = -1);
- 
--		data->cac_enabled = (0 == smc_result) ? true : false;
-+		data->cac_enabled = smc_result == 0;
- 	}
- 	return result;
- }
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index c51dd4c74fe9..dfb9573e3f55 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -135,13 +135,12 @@ static void vega10_set_default_registry_data(struct pp_hwmgr *hwmgr)
- 	}
- 
- 	data->registry_data.clock_stretcher_support =
--			hwmgr->feature_mask & PP_CLOCK_STRETCH_MASK ? true : false;
-+			hwmgr->feature_mask & PP_CLOCK_STRETCH_MASK;
- 
--	data->registry_data.ulv_support =
--			hwmgr->feature_mask & PP_ULV_MASK ? true : false;
-+	data->registry_data.ulv_support = hwmgr->feature_mask & PP_ULV_MASK;
- 
- 	data->registry_data.sclk_deep_sleep_support =
--			hwmgr->feature_mask & PP_SCLK_DEEP_SLEEP_MASK ? true : false;
-+			hwmgr->feature_mask & PP_SCLK_DEEP_SLEEP_MASK;
- 
- 	data->registry_data.disable_water_mark = 0;
- 
-@@ -150,7 +149,7 @@ static void vega10_set_default_registry_data(struct pp_hwmgr *hwmgr)
- 	data->registry_data.fw_ctf_enabled = 1;
- 
- 	data->registry_data.avfs_support =
--		hwmgr->feature_mask & PP_AVFS_MASK ? true : false;
-+		hwmgr->feature_mask & PP_AVFS_MASK;
- 	data->registry_data.led_dpm_enabled = 1;
- 
- 	data->registry_data.vr0hot_enabled = 1;
-@@ -1375,8 +1374,7 @@ static int vega10_setup_default_dpm_tables(struct pp_hwmgr *hwmgr)
- 						dep_mm_table->entries[i].eclk) {
- 			dpm_table->dpm_levels[dpm_table->count].value =
- 					dep_mm_table->entries[i].eclk;
--			dpm_table->dpm_levels[dpm_table->count].enabled =
--					(i == 0) ? true : false;
-+			dpm_table->dpm_levels[dpm_table->count].enabled = i == 0;
- 			dpm_table->count++;
- 		}
- 	}
-@@ -1391,8 +1389,7 @@ static int vega10_setup_default_dpm_tables(struct pp_hwmgr *hwmgr)
- 						dep_mm_table->entries[i].vclk) {
- 			dpm_table->dpm_levels[dpm_table->count].value =
- 					dep_mm_table->entries[i].vclk;
--			dpm_table->dpm_levels[dpm_table->count].enabled =
--					(i == 0) ? true : false;
-+			dpm_table->dpm_levels[dpm_table->count].enabled = i == 0;
- 			dpm_table->count++;
- 		}
- 	}
-@@ -1405,8 +1402,7 @@ static int vega10_setup_default_dpm_tables(struct pp_hwmgr *hwmgr)
- 						dep_mm_table->entries[i].dclk) {
- 			dpm_table->dpm_levels[dpm_table->count].value =
- 					dep_mm_table->entries[i].dclk;
--			dpm_table->dpm_levels[dpm_table->count].enabled =
--					(i == 0) ? true : false;
-+			dpm_table->dpm_levels[dpm_table->count].enabled = i == 0;
- 			dpm_table->count++;
- 		}
- 	}
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-index e7ed2a7adf8f..ff6b563ecbf5 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-@@ -1888,7 +1888,7 @@ static int polaris10_populate_avfs_parameters(struct pp_hwmgr *hwmgr)
- 						(avfs_params.ucEnableGB_VDROOP_TABLE_CKSOFF << BTCGB1_Vdroop_Enable_SHIFT) |
- 						(avfs_params.ucEnableGB_FUSE_TABLE_CKSON << AVFSGB0_Vdroop_Enable_SHIFT) |
- 						(avfs_params.ucEnableGB_FUSE_TABLE_CKSOFF << AVFSGB1_Vdroop_Enable_SHIFT);
--		data->apply_avfs_cks_off_voltage = (avfs_params.ucEnableApplyAVFS_CKS_OFF_Voltage == 1) ? true : false;
-+		data->apply_avfs_cks_off_voltage = avfs_params.ucEnableApplyAVFS_CKS_OFF_Voltage == 1;
- 	}
- 	return result;
- }
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c
-index 7d024d3facef..34c9f59b889a 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c
-@@ -295,9 +295,8 @@ static int vegam_process_firmware_header(struct pp_hwmgr *hwmgr)
- 
- static bool vegam_is_dpm_running(struct pp_hwmgr *hwmgr)
- {
--	return (1 == PHM_READ_INDIRECT_FIELD(hwmgr->device,
--			CGS_IND_REG__SMC, FEATURE_STATUS, VOLTAGE_CONTROLLER_ON))
--			? true : false;
-+	return 1 == PHM_READ_INDIRECT_FIELD(hwmgr->device,
-+			CGS_IND_REG__SMC, FEATURE_STATUS, VOLTAGE_CONTROLLER_ON);
- }
- 
- static uint32_t vegam_get_mac_definition(uint32_t value)
-@@ -1660,7 +1659,7 @@ static int vegam_populate_avfs_parameters(struct pp_hwmgr *hwmgr)
- 				(avfs_params.ucEnableGB_FUSE_TABLE_CKSON << AVFSGB0_Vdroop_Enable_SHIFT) |
- 				(avfs_params.ucEnableGB_FUSE_TABLE_CKSOFF << AVFSGB1_Vdroop_Enable_SHIFT);
- 		data->apply_avfs_cks_off_voltage =
--				(avfs_params.ucEnableApplyAVFS_CKS_OFF_Voltage == 1) ? true : false;
-+				avfs_params.ucEnableApplyAVFS_CKS_OFF_Voltage == 1;
- 	}
- 	return result;
- }
+-enum OD8_SETTING_ID
+-{
++enum OD8_SETTING_ID {
+ 	OD8_SETTING_GFXCLK_FMIN = 0,
+ 	OD8_SETTING_GFXCLK_FMAX,
+ 	OD8_SETTING_GFXCLK_FREQ1,
 -- 
-2.34.1
+2.17.1
 
