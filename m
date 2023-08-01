@@ -4,27 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AE9DC04E69
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D2BFC05051
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37C3210E4DF;
-	Wed,  2 Aug 2023 07:20:11 +0000 (UTC)
-Received: from out28-112.mail.aliyun.com (out28-112.mail.aliyun.com
- [115.124.28.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1542B10E465;
- Wed,  2 Aug 2023 01:31:27 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1514801|-1; CH=blue; DM=|OVERLOAD|false|;
- DS=CONTINUE|ham_alarm|0.00456796-0.000204693-0.995227; FP=0|0|0|0|0|-1|-1|-1;
- HT=ay29a033018047198; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
- TI=SMTPD_---.U6Iyu6P_1690939879; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7BF10E4D8;
+	Wed,  2 Aug 2023 07:20:10 +0000 (UTC)
+Received: from out28-98.mail.aliyun.com (out28-98.mail.aliyun.com
+ [115.124.28.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A28D410E374;
+ Tue,  1 Aug 2023 09:28:32 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07480418|-1; CH=green;
+ DM=|CONTINUE|false|; DS=CONTINUE|ham_alarm|0.0163373-0.000708181-0.982955;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047194; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5rUvp6_1690882103; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6Iyu6P_1690939879) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 09:31:21 +0800
+ fp:SMTPD_---.U5rUvp6_1690882103) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 17:28:25 +0800
 From: Ran Sun <sunran001@208suo.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/pm: Clean up errors in smu7.h
-Date: Wed,  2 Aug 2023 01:31:18 +0000
-Message-Id: <20230802013118.8677-1-sunran001@208suo.com>
+To: alexander.deucher@amd.com,
+	airlied@gmail.com,
+	daniel@ffwll.ch
+Subject: [PATCH] drm/amdgpu/powerplay: Clean up errors in vega20_hwmgr.c
+Date: Tue,  1 Aug 2023 09:28:21 +0000
+Message-Id: <20230801092821.7495-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,37 +47,66 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: open brace '{' following struct go on the same line
+ERROR: code indent should use tabs where possible
+ERROR: space required before the open parenthesis '('
+ERROR: space prohibited before that close parenthesis ')'
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c    | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h
-index e14072d45918..bfce9087a47f 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h
-@@ -101,8 +101,7 @@
- #define VR_SMIO_PATTERN_2        4
- #define VR_STATIC_VOLTAGE        5
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+index 4e19ccbdb807..492ca33637d6 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+@@ -1402,7 +1402,7 @@ static int vega20_od8_set_settings(
+ 			"Failed to export over drive table!",
+ 			return ret);
  
--struct SMU7_PIDController
--{
-+struct SMU7_PIDController {
-     uint32_t Ki;
-     int32_t LFWindupUL;
-     int32_t LFWindupLL;
-@@ -136,8 +135,7 @@ typedef struct SMU7_PIDController SMU7_PIDController;
- #define SMU7_VCE_MCLK_HANDSHAKE_DISABLE                  0x00010000
- #define SMU7_VCE_SCLK_HANDSHAKE_DISABLE                  0x00020000
+-	switch(index) {
++	switch (index) {
+ 	case OD8_SETTING_GFXCLK_FMIN:
+ 		od_table.GfxclkFmin = (uint16_t)value;
+ 		break;
+@@ -2360,7 +2360,7 @@ static int vega20_notify_smc_display_config_after_ps_adjustment(
+ 		dpm_table->dpm_state.hard_min_level = min_clocks.memoryClock / 100;
+ 		PP_ASSERT_WITH_CODE(!(ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 				PPSMC_MSG_SetHardMinByFreq,
+-				(PPCLK_UCLK << 16 ) | dpm_table->dpm_state.hard_min_level,
++				(PPCLK_UCLK << 16) | dpm_table->dpm_state.hard_min_level,
+ 				NULL)),
+ 				"[SetHardMinFreq] Set hard min uclk failed!",
+ 				return ret);
+@@ -3579,7 +3579,7 @@ static int vega20_set_uclk_to_highest_dpm_level(struct pp_hwmgr *hwmgr,
+ 		dpm_table->dpm_state.hard_min_level = dpm_table->dpm_levels[dpm_table->count - 1].value;
+ 		PP_ASSERT_WITH_CODE(!(ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 				PPSMC_MSG_SetHardMinByFreq,
+-				(PPCLK_UCLK << 16 ) | dpm_table->dpm_state.hard_min_level,
++				(PPCLK_UCLK << 16) | dpm_table->dpm_state.hard_min_level,
+ 				NULL)),
+ 				"[SetUclkToHightestDpmLevel] Set hard min uclk failed!",
+ 				return ret);
+@@ -3605,7 +3605,7 @@ static int vega20_set_fclk_to_highest_dpm_level(struct pp_hwmgr *hwmgr)
+ 		dpm_table->dpm_state.soft_min_level = dpm_table->dpm_levels[dpm_table->count - 1].value;
+ 		PP_ASSERT_WITH_CODE(!(ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 				PPSMC_MSG_SetSoftMinByFreq,
+-				(PPCLK_FCLK << 16 ) | dpm_table->dpm_state.soft_min_level,
++				(PPCLK_FCLK << 16) | dpm_table->dpm_state.soft_min_level,
+ 				NULL)),
+ 				"[SetFclkToHightestDpmLevel] Set soft min fclk failed!",
+ 				return ret);
+@@ -3727,8 +3727,8 @@ static int vega20_apply_clocks_adjust_rules(struct pp_hwmgr *hwmgr)
+ 	uint32_t i, latency;
  
--struct SMU7_Firmware_Header
--{
-+struct SMU7_Firmware_Header {
-     uint32_t Digest[5];
-     uint32_t Version;
-     uint32_t HeaderSize;
+ 	disable_mclk_switching = ((1 < hwmgr->display_config->num_display) &&
+-                           !hwmgr->display_config->multi_monitor_in_sync) ||
+-                            vblank_too_short;
++				!hwmgr->display_config->multi_monitor_in_sync) ||
++				vblank_too_short;
+ 	latency = hwmgr->display_config->dce_tolerable_mclk_in_active_latency;
+ 
+ 	/* gfxclk */
 -- 
 2.17.1
 
