@@ -4,30 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A0E4EB64DD
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5390AC001E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB73A10E351;
-	Tue,  1 Aug 2023 08:28:05 +0000 (UTC)
-Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com
- [115.124.28.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7FD410E0CD;
- Tue,  1 Aug 2023 03:09:03 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07528824|-1; CH=green;
- DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.00859234-0.000375804-0.991032;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047187; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5IZH8f_1690859332; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDB6D10E338;
+	Tue,  1 Aug 2023 08:28:06 +0000 (UTC)
+Received: from out28-171.mail.aliyun.com (out28-171.mail.aliyun.com
+ [115.124.28.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89A0910E205;
+ Tue,  1 Aug 2023 01:12:49 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07465538|-1; CH=green;
+ DM=|CONTINUE|false|; DS=CONTINUE|ham_alarm|0.0922483-0.000575133-0.907177;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047192; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=8; RT=8; SR=0; TI=SMTPD_---.U5BYNI3_1690852358; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5IZH8f_1690859332) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 11:08:55 +0800
+ fp:SMTPD_---.U5BYNI3_1690852358) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 09:12:41 +0800
 From: Ran Sun <sunran001@208suo.com>
-To: alexander.deucher@amd.com,
-	airlied@gmail.com,
-	daniel@ffwll.ch
-Subject: [PATCH] drm/amd/pm: Clean up errors in smu10_hwmgr.c
-Date: Tue,  1 Aug 2023 03:08:51 +0000
-Message-Id: <20230801030851.5158-1-sunran001@208suo.com>
+To: apw@canonical.com,
+	joe@perches.com,
+	alexander.deucher@amd.com
+Subject: [PATCH] drm/amd/pm: Clean up errors in smu_v11_0.h
+Date: Tue,  1 Aug 2023 01:12:37 +0000
+Message-Id: <20230801011237.3913-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Tue, 01 Aug 2023 08:27:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -41,87 +40,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ran Sun <sunran001@208suo.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: bpf@vger.kernel.org, Ran Sun <sunran001@208suo.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: spaces required around that '=' (ctx:VxW)
-ERROR: space required after that ',' (ctx:VxV)
+ERROR: that open brace { should be on the previous line
+ERROR: code indent should use tabs where possible
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h |  7 +++---
+ scripts/checkpatch.pl                        | 23 --------------------
+ 2 files changed, 3 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-index 86d6e88c7386..02ba68d7c654 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c
-@@ -430,37 +430,37 @@ static int smu10_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
- }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+index d466db6f0ad4..1b4e0e4716ea 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h
+@@ -67,8 +67,7 @@ static const __maybe_unused uint16_t link_width[] = {0, 1, 2, 4, 8, 12, 16};
+ static const __maybe_unused uint16_t link_speed[] = {25, 50, 80, 160};
  
- /* temporary hardcoded clock voltage breakdown tables */
--static const DpmClock_t VddDcfClk[]= {
-+static const DpmClock_t VddDcfClk[] = {
- 	{ 300, 2600},
- 	{ 600, 3200},
- 	{ 600, 3600},
+ static const
+-struct smu_temperature_range __maybe_unused smu11_thermal_policy[] =
+-{
++struct smu_temperature_range __maybe_unused smu11_thermal_policy[] = {
+ 	{-273150,  99000, 99000, -273150, 99000, 99000, -273150, 99000, 99000},
+ 	{ 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000},
+ };
+@@ -96,8 +95,8 @@ struct smu_11_0_dpm_table {
  };
  
--static const DpmClock_t VddSocClk[]= {
-+static const DpmClock_t VddSocClk[] = {
- 	{ 478, 2600},
- 	{ 722, 3200},
- 	{ 722, 3600},
+ struct smu_11_0_pcie_table {
+-        uint8_t  pcie_gen[MAX_PCIE_CONF];
+-        uint8_t  pcie_lane[MAX_PCIE_CONF];
++	uint8_t  pcie_gen[MAX_PCIE_CONF];
++	uint8_t  pcie_lane[MAX_PCIE_CONF];
  };
  
--static const DpmClock_t VddFClk[]= {
-+static const DpmClock_t VddFClk[] = {
- 	{ 400, 2600},
- 	{1200, 3200},
- 	{1200, 3600},
- };
+ struct smu_11_0_dpm_tables {
+diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+index 85a0598bf723..528f619520eb 100755
+--- a/scripts/checkpatch.pl
++++ b/scripts/checkpatch.pl
+@@ -7449,23 +7449,6 @@ sub process {
+ 		}
  
--static const DpmClock_t VddDispClk[]= {
-+static const DpmClock_t VddDispClk[] = {
- 	{ 435, 2600},
- 	{ 661, 3200},
- 	{1086, 3600},
- };
- 
--static const DpmClock_t VddDppClk[]= {
-+static const DpmClock_t VddDppClk[] = {
- 	{ 435, 2600},
- 	{ 661, 3200},
- 	{ 661, 3600},
- };
- 
--static const DpmClock_t VddPhyClk[]= {
-+static const DpmClock_t VddPhyClk[] = {
- 	{ 540, 2600},
- 	{ 810, 3200},
- 	{ 810, 3600},
-@@ -1358,7 +1358,7 @@ static int smu10_set_watermarks_for_clocks_ranges(struct pp_hwmgr *hwmgr,
- 	struct amdgpu_device *adev = hwmgr->adev;
- 	int i;
- 
--	smu_set_watermarks_for_clocks_ranges(table,wm_with_clock_ranges);
-+	smu_set_watermarks_for_clocks_ranges(table, wm_with_clock_ranges);
- 
- 	if (adev->apu_flags & AMD_APU_IS_RAVEN2) {
- 		for (i = 0; i < NUM_WM_RANGES; i++)
-@@ -1461,7 +1461,7 @@ static int smu10_get_power_profile_mode(struct pp_hwmgr *hwmgr, char *buf)
- 
- 	phm_get_sysfs_buf(&buf, &size);
- 
--	size += sysfs_emit_at(buf, size, "%s %16s %s %s %s %s\n",title[0],
-+	size += sysfs_emit_at(buf, size, "%s %16s %s %s %s %s\n", title[0],
- 			title[1], title[2], title[3], title[4], title[5]);
- 
- 	for (i = 0; i <= PP_SMC_POWER_PROFILE_COMPUTE; i++)
+ # Complain about RCU Tasks Trace used outside of BPF (and of course, RCU).
+-<<<<<<< HEAD
+-<<<<<<< HEAD
+-		if ($line =~ /\brcu_read_lock_trace\s*\(/ ||
+-		    $line =~ /\brcu_read_lock_trace_held\s*\(/ ||
+-		    $line =~ /\brcu_read_unlock_trace\s*\(/ ||
+-		    $line =~ /\bcall_rcu_tasks_trace\s*\(/ ||
+-		    $line =~ /\bsynchronize_rcu_tasks_trace\s*\(/ ||
+-		    $line =~ /\brcu_barrier_tasks_trace\s*\(/ ||
+-		    $line =~ /\brcu_request_urgent_qs_task\s*\(/) {
+-			if ($realfile !~ m@^kernel/bpf@ &&
+-			    $realfile !~ m@^include/linux/bpf@ &&
+-			    $realfile !~ m@^net/bpf@ &&
+-			    $realfile !~ m@^kernel/rcu@ &&
+-			    $realfile !~ m@^include/linux/rcu@) {
+-=======
+-=======
+->>>>>>> d7b3af5a77e8d8da28f435f313e069aea5bcf172
+ 		our $rcu_trace_funcs = qr{(?x:
+ 			rcu_read_lock_trace |
+ 			rcu_read_lock_trace_held |
+@@ -7482,14 +7465,8 @@ sub process {
+ 			kernel/rcu/ |
+ 			include/linux/rcu
+ 		)};
+-<<<<<<< HEAD
+-		if ($line =~ /\b$rcu_trace_funcs\s*\(/) {
+-			if ($realfile !~ m@^$rcu_trace_paths@) {
+->>>>>>> 4d2c646ac07cf4a35ef1c4a935a1a4fd6c6b1a36
+-=======
+ 		if ($line =~ /\b($rcu_trace_funcs)\s*\(/) {
+ 			if ($realfile !~ m{^$rcu_trace_paths}) {
+->>>>>>> d7b3af5a77e8d8da28f435f313e069aea5bcf172
+ 				WARN("RCU_TASKS_TRACE",
+ 				     "use of RCU tasks trace is incorrect outside BPF or core RCU code\n" . $herecurr);
+ 			}
 -- 
 2.17.1
 
