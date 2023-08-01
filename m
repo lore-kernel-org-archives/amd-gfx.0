@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 899DCC04A6A
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA407C001DF
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8520D10E4C6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE91010E4C8;
 	Wed,  2 Aug 2023 07:20:08 +0000 (UTC)
-Received: from out28-194.mail.aliyun.com (out28-194.mail.aliyun.com
- [115.124.28.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D32010E37E;
- Tue,  1 Aug 2023 09:44:54 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.0743643|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_alarm|0.0623864-0.000420737-0.937193; FP=0|0|0|0|0|-1|-1|-1;
- HT=ay29a033018047211; MF=sunran001@208suo.com; NM=1; PH=DS; RN=7; RT=7; SR=0;
- TI=SMTPD_---.U5rttun_1690883085; 
+Received: from out28-100.mail.aliyun.com (out28-100.mail.aliyun.com
+ [115.124.28.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3C5F10E366;
+ Tue,  1 Aug 2023 08:40:33 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436259|-1; CH=green;
+ DM=|CONTINUE|false|; DS=CONTINUE|ham_system_inform|0.167007-0.0010792-0.831913;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047187; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5oPFEH_1690879225; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5rttun_1690883085) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 17:44:47 +0800
+ fp:SMTPD_---.U5oPFEH_1690879225) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 16:40:28 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com,
 	airlied@gmail.com,
 	daniel@ffwll.ch
-Subject: [PATCH] drm/amd/pm: Clean up errors in vega20_pptable.h
-Date: Tue,  1 Aug 2023 09:44:43 +0000
-Message-Id: <20230801094443.7942-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amd/pm: Clean up errors in vega10_pptable.h
+Date: Tue,  1 Aug 2023 08:40:24 +0000
+Message-Id: <20230801084024.6826-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -48,57 +48,73 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Fix the following errors reported by checkpatch:
 
 ERROR: open brace '{' following struct go on the same line
-ERROR: space prohibited before open square bracket '['
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- .../amd/pm/powerplay/hwmgr/vega20_pptable.h   | 19 ++++++++-----------
- 1 file changed, 8 insertions(+), 11 deletions(-)
+ .../amd/pm/powerplay/hwmgr/vega10_pptable.h    | 18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_pptable.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_pptable.h
-index 2222e29405c6..b468dddbefff 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_pptable.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_pptable.h
-@@ -73,14 +73,13 @@ enum ATOM_VEGA20_ODSETTING_ID {
- };
- typedef enum ATOM_VEGA20_ODSETTING_ID ATOM_VEGA20_ODSETTING_ID;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_pptable.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_pptable.h
+index 9c479bd9a786..8b0590b834cc 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_pptable.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_pptable.h
+@@ -317,16 +317,14 @@ typedef struct _ATOM_Vega10_Thermal_Controller {
+     UCHAR ucFlags;          /* to be defined */
+ } ATOM_Vega10_Thermal_Controller;
  
--typedef struct _ATOM_VEGA20_OVERDRIVE8_RECORD
+-typedef struct _ATOM_Vega10_VCE_State_Record
 -{
-+typedef struct _ATOM_VEGA20_OVERDRIVE8_RECORD {
-   UCHAR ucODTableRevision;
-   ULONG ODFeatureCount;
--  UCHAR ODFeatureCapabilities [ATOM_VEGA20_ODFEATURE_MAX_COUNT];   //OD feature support flags
-+  UCHAR ODFeatureCapabilities[ATOM_VEGA20_ODFEATURE_MAX_COUNT];   //OD feature support flags
-   ULONG ODSettingCount;
--  ULONG ODSettingsMax [ATOM_VEGA20_ODSETTING_MAX_COUNT];           //Upper Limit for each OD Setting
--  ULONG ODSettingsMin [ATOM_VEGA20_ODSETTING_MAX_COUNT];           //Lower Limit for each OD Setting
-+  ULONG ODSettingsMax[ATOM_VEGA20_ODSETTING_MAX_COUNT];           //Upper Limit for each OD Setting
-+  ULONG ODSettingsMin[ATOM_VEGA20_ODSETTING_MAX_COUNT];           //Lower Limit for each OD Setting
- } ATOM_VEGA20_OVERDRIVE8_RECORD;
++typedef struct _ATOM_Vega10_VCE_State_Record {
+     UCHAR  ucVCEClockIndex;         /*index into usVCEDependencyTableOffset of 'ATOM_Vega10_MM_Dependency_Table' type */
+     UCHAR  ucFlag;                  /* 2 bits indicates memory p-states */
+     UCHAR  ucSCLKIndex;             /* index into ATOM_Vega10_SCLK_Dependency_Table */
+     UCHAR  ucMCLKIndex;             /* index into ATOM_Vega10_MCLK_Dependency_Table */
+ } ATOM_Vega10_VCE_State_Record;
  
- enum ATOM_VEGA20_PPCLOCK_ID {
-@@ -99,16 +98,14 @@ enum ATOM_VEGA20_PPCLOCK_ID {
- };
- typedef enum ATOM_VEGA20_PPCLOCK_ID ATOM_VEGA20_PPCLOCK_ID;
- 
--typedef struct _ATOM_VEGA20_POWER_SAVING_CLOCK_RECORD
+-typedef struct _ATOM_Vega10_VCE_State_Table
 -{
-+typedef struct _ATOM_VEGA20_POWER_SAVING_CLOCK_RECORD {
-   UCHAR ucTableRevision;
-   ULONG PowerSavingClockCount;                                 // Count of PowerSavingClock Mode
--  ULONG PowerSavingClockMax  [ATOM_VEGA20_PPCLOCK_MAX_COUNT];      // PowerSavingClock Mode Clock Maximum array In MHz
--  ULONG PowerSavingClockMin  [ATOM_VEGA20_PPCLOCK_MAX_COUNT];      // PowerSavingClock Mode Clock Minimum array In MHz
-+  ULONG PowerSavingClockMax[ATOM_VEGA20_PPCLOCK_MAX_COUNT];      // PowerSavingClock Mode Clock Maximum array In MHz
-+  ULONG PowerSavingClockMin[ATOM_VEGA20_PPCLOCK_MAX_COUNT];      // PowerSavingClock Mode Clock Minimum array In MHz
- } ATOM_VEGA20_POWER_SAVING_CLOCK_RECORD;
++typedef struct _ATOM_Vega10_VCE_State_Table {
+     UCHAR ucRevId;
+     UCHAR ucNumEntries;
+     ATOM_Vega10_VCE_State_Record entries[1];
+@@ -361,8 +359,7 @@ typedef struct _ATOM_Vega10_PowerTune_Table {
+ 	USHORT usTemperatureLimitTedge;
+ } ATOM_Vega10_PowerTune_Table;
  
--typedef struct _ATOM_VEGA20_POWERPLAYTABLE
+-typedef struct _ATOM_Vega10_PowerTune_Table_V2
 -{
-+typedef struct _ATOM_VEGA20_POWERPLAYTABLE {
-       struct atom_common_table_header sHeader;
-       UCHAR  ucTableRevision;
-       USHORT usTableSize;
++typedef struct _ATOM_Vega10_PowerTune_Table_V2 {
+ 	UCHAR  ucRevId;
+ 	USHORT usSocketPowerLimit;
+ 	USHORT usBatteryPowerLimit;
+@@ -388,8 +385,7 @@ typedef struct _ATOM_Vega10_PowerTune_Table_V2
+ 	USHORT usTemperatureLimitTedge;
+ } ATOM_Vega10_PowerTune_Table_V2;
+ 
+-typedef struct _ATOM_Vega10_PowerTune_Table_V3
+-{
++typedef struct _ATOM_Vega10_PowerTune_Table_V3 {
+ 	UCHAR  ucRevId;
+ 	USHORT usSocketPowerLimit;
+ 	USHORT usBatteryPowerLimit;
+@@ -428,15 +424,13 @@ typedef struct _ATOM_Vega10_Hard_Limit_Record {
+     USHORT usVddMemLimit;
+ } ATOM_Vega10_Hard_Limit_Record;
+ 
+-typedef struct _ATOM_Vega10_Hard_Limit_Table
+-{
++typedef struct _ATOM_Vega10_Hard_Limit_Table {
+     UCHAR ucRevId;
+     UCHAR ucNumEntries;
+     ATOM_Vega10_Hard_Limit_Record entries[1];
+ } ATOM_Vega10_Hard_Limit_Table;
+ 
+-typedef struct _Vega10_PPTable_Generic_SubTable_Header
+-{
++typedef struct _Vega10_PPTable_Generic_SubTable_Header {
+     UCHAR  ucRevId;
+ } Vega10_PPTable_Generic_SubTable_Header;
+ 
 -- 
 2.17.1
 
