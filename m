@@ -4,29 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E52B0C04E69
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D295C04FDF
 	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 08:28:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1AE110E359;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 396CB10E356;
 	Tue,  1 Aug 2023 08:28:08 +0000 (UTC)
-Received: from out28-74.mail.aliyun.com (out28-74.mail.aliyun.com
- [115.124.28.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B38F310E31E;
- Tue,  1 Aug 2023 08:02:56 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.3852659|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_alarm|0.00401577-0.000669347-0.995315; FP=0|0|0|0|0|-1|-1|-1;
- HT=ay29a033018047211; MF=sunran001@208suo.com; NM=1; PH=DS; RN=7; RT=7; SR=0;
- TI=SMTPD_---.U5lXUi6_1690876967; 
+Received: from out28-148.mail.aliyun.com (out28-148.mail.aliyun.com
+ [115.124.28.148])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72C9610E2E8;
+ Tue,  1 Aug 2023 01:26:19 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07736829|-1; CH=green;
+ DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.0982606-0.000258943-0.90148;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047203; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=8; RT=8; SR=0; TI=SMTPD_---.U5CBZxW_1690853169; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5lXUi6_1690876967) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 16:02:49 +0800
+ fp:SMTPD_---.U5CBZxW_1690853169) by smtp.aliyun-inc.com;
+ Tue, 01 Aug 2023 09:26:12 +0800
 From: Ran Sun <sunran001@208suo.com>
-To: alexander.deucher@amd.com,
-	airlied@gmail.com,
-	daniel@ffwll.ch
-Subject: [PATCH] drm/amdgpu: Clean up errors in vega20_baco.c
-Date: Tue,  1 Aug 2023 08:02:46 +0000
-Message-Id: <20230801080246.6556-1-sunran001@208suo.com>
+To: apw@canonical.com,
+	joe@perches.com,
+	alexander.deucher@amd.com
+Subject: [PATCH] drm/amd/pm: Clean up errors in smu_v13_0_7_ppt.c
+Date: Tue,  1 Aug 2023 01:26:08 +0000
+Message-Id: <20230801012608.4003-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Tue, 01 Aug 2023 08:27:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -40,49 +41,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ran Sun <sunran001@208suo.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: bpf@vger.kernel.org, Ran Sun <sunran001@208suo.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
+ERROR: open brace '{' following struct go on the same line
+ERROR: spaces required around that '=' (ctx:VxW)
 ERROR: that open brace { should be on the previous line
-ERROR: space required before the open parenthesis '('
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
-index 8d99c7a5abf8..994c0d374bfa 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c
-@@ -31,8 +31,7 @@
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index b1f0937ccade..26ba51ec0567 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -386,8 +386,7 @@ static int smu_v13_0_7_check_fw_status(struct smu_context *smu)
+ }
  
- #include "amdgpu_ras.h"
- 
--static const struct soc15_baco_cmd_entry clean_baco_tbl[] =
+ #ifndef atom_smc_dpm_info_table_13_0_7
+-struct atom_smc_dpm_info_table_13_0_7
 -{
-+static const struct soc15_baco_cmd_entry clean_baco_tbl[] = {
- 	{CMD_WRITE, SOC15_REG_ENTRY(NBIF, 0, mmBIOS_SCRATCH_6), 0, 0, 0, 0},
- 	{CMD_WRITE, SOC15_REG_ENTRY(NBIF, 0, mmBIOS_SCRATCH_7), 0, 0, 0, 0},
++struct atom_smc_dpm_info_table_13_0_7 {
+ 	struct atom_common_table_header table_header;
+ 	BoardTable_t BoardTable;
  };
-@@ -90,11 +89,11 @@ int vega20_baco_set_state(struct pp_hwmgr *hwmgr, enum BACO_STATE state)
- 			data |= 0x80000000;
- 			WREG32_SOC15(THM, 0, mmTHM_BACO_CNTL, data);
+@@ -494,7 +493,7 @@ static int smu_v13_0_7_tables_init(struct smu_context *smu)
+ 		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+ 	SMU_TABLE_INIT(tables, SMU_TABLE_ACTIVITY_MONITOR_COEFF,
+ 		       sizeof(DpmActivityMonitorCoeffIntExternal_t), PAGE_SIZE,
+-	               AMDGPU_GEM_DOMAIN_VRAM);
++		       AMDGPU_GEM_DOMAIN_VRAM);
+ 	SMU_TABLE_INIT(tables, SMU_TABLE_COMBO_PPTABLE, MP0_MP1_DATA_REGION_SIZE_COMBOPPTABLE,
+ 			PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
  
--			if(smum_send_msg_to_smc_with_parameter(hwmgr,
-+			if (smum_send_msg_to_smc_with_parameter(hwmgr,
- 					PPSMC_MSG_EnterBaco, 0, NULL))
- 				return -EINVAL;
- 		} else {
--			if(smum_send_msg_to_smc_with_parameter(hwmgr,
-+			if (smum_send_msg_to_smc_with_parameter(hwmgr,
- 					PPSMC_MSG_EnterBaco, 1, NULL))
- 				return -EINVAL;
- 		}
+@@ -728,7 +727,7 @@ static int smu_v13_0_7_get_smu_metrics_data(struct smu_context *smu,
+ 					    MetricsMember_t member,
+ 					    uint32_t *value)
+ {
+-	struct smu_table_context *smu_table= &smu->smu_table;
++	struct smu_table_context *smu_table = &smu->smu_table;
+ 	SmuMetrics_t *metrics =
+ 		&(((SmuMetricsExternal_t *)(smu_table->metrics_table))->SmuMetrics);
+ 	int ret = 0;
+@@ -1635,8 +1634,7 @@ static int smu_v13_0_7_force_clk_levels(struct smu_context *smu,
+ 	return ret;
+ }
+ 
+-static const struct smu_temperature_range smu13_thermal_policy[] =
+-{
++static const struct smu_temperature_range smu13_thermal_policy[] = {
+ 	{-273150,  99000, 99000, -273150, 99000, 99000, -273150, 99000, 99000},
+ 	{ 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000},
+ };
 -- 
 2.17.1
 
