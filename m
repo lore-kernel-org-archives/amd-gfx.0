@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE149C04E69
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 17:04:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F9BFC04A94
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 17:04:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8B5910E44F;
-	Tue,  1 Aug 2023 17:03:45 +0000 (UTC)
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [IPv6:2607:f8b0:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D4FF10E427;
- Tue,  1 Aug 2023 17:03:41 +0000 (UTC)
-Received: by mail-pl1-x630.google.com with SMTP id
- d9443c01a7336-1b8ad907ba4so37232815ad.0; 
- Tue, 01 Aug 2023 10:03:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6718C10E458;
+	Tue,  1 Aug 2023 17:03:48 +0000 (UTC)
+Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
+ [IPv6:2607:f8b0:4864:20::d2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0EB810E44F;
+ Tue,  1 Aug 2023 17:03:43 +0000 (UTC)
+Received: by mail-io1-xd2b.google.com with SMTP id
+ ca18e2360f4ac-790a590237aso109542639f.3; 
+ Tue, 01 Aug 2023 10:03:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690909421; x=1691514221;
+ d=gmail.com; s=20221208; t=1690909423; x=1691514223;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nqTzNELHRtLIMmnQe4IjBi2Pg9cHOtSAwPPFPZ1pbxQ=;
- b=DqQYslUARFkvpK1vwVZZmKxOQSYTZOhPIzf+014DE3xPfhfS2z+eEgQ2Epz5O3LqlA
- 7BOeyJeELxsdiat2q/p9KY1PIpat7Bk7pEvC6Ty1ZpzBoRp85q9IxWo9qhfE6I1W6YZo
- DRCR18HwB4rx8quTql2hLfzZceDC1weH0j/72kCqR37ctCKr0kWMjb4fokiTaun7U0NI
- ifhA5ukAVoD8lQ9AzK56Bg1n46jA5c65QerE/eKK9kwfTF4SaPIcTUX5ocUwF2M8vgO+
- DvPikXjIaYxXAQfX+Q3HGflzXFkCWuzsBgtzfzdOM/SOTKlVv17KwOY4cg+v3458AB2Q
- y3+g==
+ bh=wL9Yvt6lFDnfNd4BQOyeUpo+9dRZLSznvXpX/TGbKdQ=;
+ b=G+KTZ3ySCfE2EInfZgtZHIyd9GrSwUplSnTdna7YBgnzr73IqfKFv6jPOuqevnIJUx
+ sDJN0t3GCypYgvnOUzNLXifQbfQGNHFG3KxOsZvseVZCMmKkMfQe+YF9wnASwXgubj5a
+ XasY/5mdlXNr9yasq8n3IPY9hIuIs3WT1TqoRSRkdd840yJGF53c5rSCysZrK3Oloxzs
+ XFTaZfLoHQlpR9ArCDuQISkYNJ3GyaYGsYXs9gNXspXqI1H/EDdDVuzYqb8tVIIb0m+f
+ 5tRt//BCklgc/dTLKjEk33NrCmVjVSDb35oooVuwBVmu7UgRbcLscrGW0/zwZPSVkN+k
+ J7+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690909421; x=1691514221;
+ d=1e100.net; s=20221208; t=1690909423; x=1691514223;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nqTzNELHRtLIMmnQe4IjBi2Pg9cHOtSAwPPFPZ1pbxQ=;
- b=gVzDgJomo2PLeJzCMtERgweQntp5S6w6EsX0NuGsUc4Uyt4iOvDxiKh/Tsp4UvEtfy
- NVaw5sa7mxp14zCLHC2dHQGoc+rhM6/IKHfV13HJPwxHDkr1m/8MFVVmEJ8/2u2NgDHP
- VDnl+EzAt3hd850JQDIHN5790n0zS44vHh8WO6IrESCQYz/kPLoWduCgokXlYdIZfRYY
- 95i9JWQKCw0DgtwXcHUlsLuONbyJaTXKUG+4B1Vhz3sb9pVPj1kovGShIkjiBoBWQG1Z
- keolQA90HOyFaRJe+kdzi6OEiJyQohmefhb8fSuJJqfBYlxemHoBgBQrcGACSRF3K455
- C55Q==
-X-Gm-Message-State: ABy/qLawslr63AzridjW8lw+ryH9ChZR+wlCyO/e79Vr9h5GVwz3iDH2
- mjvlXpDypC83uogPBo7rX3E=
-X-Google-Smtp-Source: APBJJlGBC/pkTqfaofa3HRqJHDYvxiYCmGJoY97jdUvLmblEt0DaAuSeyNfKmxlve04DiaFeZ/p56A==
-X-Received: by 2002:a17:902:700c:b0:1bc:2036:2219 with SMTP id
- y12-20020a170902700c00b001bc20362219mr3106819plk.41.1690909420776; 
- Tue, 01 Aug 2023 10:03:40 -0700 (PDT)
+ bh=wL9Yvt6lFDnfNd4BQOyeUpo+9dRZLSznvXpX/TGbKdQ=;
+ b=gsWzocrFbXQnURQYy3OWZk81pFdkUfTptGWGSitflroLqAc5Bewix35XhdpOom4bvA
+ jOEi4sXB7oCy8nUEbZaHuhf1vzO5AGrkAxFkwrja0JQ3aR3mEQtSpJ1llbfL0eHq1G5Y
+ jU05pLuhUXXRpf2zcX8IokAHC8tPdKcDcLjwvRv+WIfaBoj6zZBZ5pnrVsUwiz39UMu6
+ pY29HiJWpADiySxbxJcDtf+WgneiEutTdGLiMVmTSI2XjQyNrM2qdEwjvNyTestChCmp
+ me+kFpY3CJ08rv/ELk6I7SkKhempVHW6dH10VmX2+GMME/Ii5/ty1avtnQ20tM7Gh5OA
+ hQaw==
+X-Gm-Message-State: ABy/qLY0CpVSLlbG9Lwto2cr57v41eyGKDmur3bFpdWsm8aGGgmyu9UC
+ ls+RdG/lsvD1Y167oyNv7Is=
+X-Google-Smtp-Source: APBJJlH0ylxlPCmzk/iMy+1Pcu2EOa9iYLbZjTfSk9Z8qalRrKS/Tf0HrFr23i/w77Wi3wiNqUnMXQ==
+X-Received: by 2002:a05:6e02:1090:b0:349:3896:d931 with SMTP id
+ r16-20020a056e02109000b003493896d931mr1014708ilj.18.1690909423162; 
+ Tue, 01 Aug 2023 10:03:43 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o20-20020a02c6b4000000b0042b144abf71sm3768577jan.179.2023.08.01.10.03.39
+ o20-20020a02c6b4000000b0042b144abf71sm3768577jan.179.2023.08.01.10.03.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Aug 2023 10:03:40 -0700 (PDT)
+ Tue, 01 Aug 2023 10:03:42 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, daniel@ffwll.ch, jbaron@akamai.com,
  gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Subject: [PATCH v5 18/22] dyndbg-test: build it with just
- CONFIG_DYNAMIC_DEBUG_CORE
-Date: Tue,  1 Aug 2023 11:02:51 -0600
-Message-ID: <20230801170255.163237-20-jim.cromie@gmail.com>
+Subject: [PATCH v5 20/22] drm-drivers: DRM_CLASSMAP_USE in 2nd batch of
+ drivers, helpers
+Date: Tue,  1 Aug 2023 11:02:53 -0600
+Message-ID: <20230801170255.163237-22-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230801170255.163237-1-jim.cromie@gmail.com>
 References: <20230801170255.163237-1-jim.cromie@gmail.com>
@@ -82,52 +82,142 @@ Cc: jani.nikula@intel.com, linux@rasmusvillemoes.dk,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make the test-module buildable with CONFIG_DYNAMIC_DEBUG_CORE; add
-CFLAGS_$ofile defns to supply -DDYNAMIC_DEBUG_MODULE to cc.  Change
-the Kconfig entry to allow building with just _CORE, and fix the help
-text.
+Add a DRM_CLASSMAP_USE declaration to 2nd batch of helpers and *_drv.c
+files.  For drivers, add the decl just above the module's PARAMs,
+since it identifies the "inherited" drm.debug param.
+
+Note: with CONFIG_DRM_USE_DYNAMIC_DEBUG=y, a module not also declaring
+DRM_CLASSMAP_USE will have its class'd prdbgs stuck in the initial
+(disabled, but for DEBUG) state.
+
+The stuck sites are evident in /proc/dynamic_debug/control as:
+
+   class unknown, _id:N		# control's last column
+
+rather than a proper "enumeration":
+
+   class:DRM_UT_CORE
+
+This set of updates was found by choosing M for all DRM-config items I
+found (not allmodconfig), building & modprobing them, and grepping
+"class unknown," control.  There may yet be others.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/Kconfig.debug | 10 +++++-----
- lib/Makefile      |  2 ++
- 2 files changed, 7 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 2 ++
+ drivers/gpu/drm/gud/gud_drv.c          | 2 ++
+ drivers/gpu/drm/mgag200/mgag200_drv.c  | 2 ++
+ drivers/gpu/drm/qxl/qxl_drv.c          | 2 ++
+ drivers/gpu/drm/radeon/radeon_drv.c    | 2 ++
+ drivers/gpu/drm/udl/udl_main.c         | 2 ++
+ drivers/gpu/drm/vkms/vkms_drv.c        | 2 ++
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c    | 2 ++
+ 8 files changed, 16 insertions(+)
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index ce51d4dc6803..22e022ceb9a1 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2695,12 +2695,12 @@ config TEST_STATIC_KEYS
- 	  If unsure, say N.
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 4ea6507a77e5..5e02df98327b 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -23,6 +23,8 @@
+ #include <drm/drm_prime.h>
+ #include <drm/drm_print.h>
  
- config TEST_DYNAMIC_DEBUG
--	tristate "Test DYNAMIC_DEBUG"
--	depends on DYNAMIC_DEBUG
-+	tristate "Build test-dynamic-debug module"
-+	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	help
--	  This module registers a tracer callback to count enabled
--	  pr_debugs in a 'do_debugging' function, then alters their
--	  enablements, calls the function, and compares counts.
-+	  This module works/demo's the dyndbg's classmap API, by
-+	  creating 2 classes: a DISJOINT classmap (like DRM.debug)
-+	  and a LEVELS/VERBOSE classmap (like verbose2 > verbose1).
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ MODULE_IMPORT_NS(DMA_BUF);
  
- 	  If unsure, say N.
+ /**
+diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+index 9d7bf8ee45f1..5b555045fce4 100644
+--- a/drivers/gpu/drm/gud/gud_drv.c
++++ b/drivers/gpu/drm/gud/gud_drv.c
+@@ -31,6 +31,8 @@
  
-diff --git a/lib/Makefile b/lib/Makefile
-index f36048371dd2..8411015a57c1 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -233,6 +233,8 @@ obj-$(CONFIG_HAVE_ARCH_TRACEHOOK) += syscall.o
- obj-$(CONFIG_DYNAMIC_DEBUG_CORE) += dynamic_debug.o
- #ensure exported functions have prototypes
- CFLAGS_dynamic_debug.o := -DDYNAMIC_DEBUG_MODULE
-+CFLAGS_test_dynamic_debug.o := -DDYNAMIC_DEBUG_MODULE
-+CFLAGS_test_dynamic_debug_submod.o := -DDYNAMIC_DEBUG_MODULE
+ #include "gud_internal.h"
  
- obj-$(CONFIG_SYMBOLIC_ERRNAME) += errname.o
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ /* Only used internally */
+ static const struct drm_format_info gud_drm_format_r1 = {
+ 	.format = GUD_DRM_FORMAT_R1,
+diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
+index 976f0ab2006b..a1b2be1c27f6 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_drv.c
++++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
+@@ -24,6 +24,8 @@ int mgag200_modeset = -1;
+ MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
+ module_param_named(modeset, mgag200_modeset, int, 0400);
  
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ int mgag200_init_pci_options(struct pci_dev *pdev, u32 option, u32 option2)
+ {
+ 	struct device *dev = &pdev->dev;
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+index a3b83f89e061..12600f557c23 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.c
++++ b/drivers/gpu/drm/qxl/qxl_drv.c
+@@ -65,6 +65,8 @@ module_param_named(modeset, qxl_modeset, int, 0400);
+ MODULE_PARM_DESC(num_heads, "Number of virtual crtcs to expose (default 4)");
+ module_param_named(num_heads, qxl_num_crtc, int, 0400);
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ static struct drm_driver qxl_driver;
+ static struct pci_driver qxl_pci_driver;
+ 
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index e4374814f0ef..4219276ade6a 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -274,6 +274,8 @@ int radeon_cik_support = 1;
+ MODULE_PARM_DESC(cik_support, "CIK support (1 = enabled (default), 0 = disabled)");
+ module_param_named(cik_support, radeon_cik_support, int, 0444);
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ static struct pci_device_id pciidlist[] = {
+ 	radeon_PCI_IDS
+ };
+diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
+index 061cb88c08a2..8f9dfe89f64a 100644
+--- a/drivers/gpu/drm/udl/udl_main.c
++++ b/drivers/gpu/drm/udl/udl_main.c
+@@ -19,6 +19,8 @@
+ 
+ #define NR_USB_REQUEST_CHANNEL 0x12
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ #define MAX_TRANSFER (PAGE_SIZE*16 - BULK_SIZE)
+ #define WRITES_IN_FLIGHT (20)
+ #define MAX_VENDOR_DESCRIPTOR_SIZE 256
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
+index 6d3a2d57d992..086a9933fcdf 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.c
++++ b/drivers/gpu/drm/vkms/vkms_drv.c
+@@ -39,6 +39,8 @@
+ 
+ static struct vkms_config *default_config;
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ static bool enable_cursor = true;
+ module_param_named(enable_cursor, enable_cursor, bool, 0444);
+ MODULE_PARM_DESC(enable_cursor, "Enable/Disable cursor support");
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+index 8b24ecf60e3e..9cb6be422621 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+@@ -275,6 +275,8 @@ static int vmw_probe(struct pci_dev *, const struct pci_device_id *);
+ static int vmwgfx_pm_notifier(struct notifier_block *nb, unsigned long val,
+ 			      void *ptr);
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ MODULE_PARM_DESC(restrict_iommu, "Try to limit IOMMU usage for TTM pages");
+ module_param_named(restrict_iommu, vmw_restrict_iommu, int, 0600);
+ MODULE_PARM_DESC(force_coherent, "Force coherent TTM pages");
 -- 
 2.41.0
 
