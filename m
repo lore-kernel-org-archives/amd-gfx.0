@@ -4,27 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 933D9C04A6A
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44C78C04FE1
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9CE410E4E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98B8310E4E4;
 	Wed,  2 Aug 2023 07:20:11 +0000 (UTC)
-Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E814E10E4BE;
- Wed,  2 Aug 2023 06:55:28 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.4842786|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_enroll_verification|0.00285167-8.57873e-06-0.99714;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047201; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6ZgWu6_1690959319; 
-Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6ZgWu6_1690959319) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 14:55:21 +0800
-From: Ran Sun <sunran001@208suo.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd: Clean up errors in amdgpu_cgs.c
-Date: Wed,  2 Aug 2023 06:55:18 +0000
-Message-Id: <20230802065518.12271-1-sunran001@208suo.com>
-X-Mailer: git-send-email 2.17.1
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86E3B10E07E;
+ Tue,  1 Aug 2023 12:55:55 +0000 (UTC)
+Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.55])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RFZkw33NLzNmbP;
+ Tue,  1 Aug 2023 20:52:24 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemi500008.china.huawei.com
+ (7.221.188.139) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 1 Aug
+ 2023 20:55:49 +0800
+From: Ruan Jinjie <ruanjinjie@huawei.com>
+To: <evan.quan@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
+ <daniel@ffwll.ch>, <mripard@kernel.org>, <tzimmermann@suse.de>,
+ <drv@mailo.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+Subject: [PATCH -next] drm/amd/pm: Remove many unnecessary NULL values
+Date: Tue, 1 Aug 2023 20:55:14 +0800
+Message-ID: <20230801125514.378451-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.90.53.73]
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
+ kwepemi500008.china.huawei.com (7.221.188.139)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -37,95 +48,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ran Sun <sunran001@208suo.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: ruanjinjie@huawei.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the following errors reported by checkpatch:
+Ther are many pointers assigned first, which need not to be initialized, so
+remove the NULL assignment.
 
-ERROR: switch and case should be at the same indent
-
-Signed-off-by: Ran Sun <sunran001@208suo.com>
+Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c | 64 ++++++++++++-------------
- 1 file changed, 32 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c | 2 +-
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c      | 2 +-
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c    | 2 +-
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c | 2 +-
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c   | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-index 456e385333b6..fafe7057a8c9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-@@ -163,38 +163,38 @@ static uint16_t amdgpu_get_firmware_version(struct cgs_device *cgs_device,
- 	uint16_t fw_version = 0;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
+index 182118e3fd5f..5794b64507bf 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
+@@ -1237,7 +1237,7 @@ static int get_vce_clock_voltage_limit_table(struct pp_hwmgr *hwmgr,
+ 		const VCEClockInfoArray    *array)
+ {
+ 	unsigned long i;
+-	struct phm_vce_clock_voltage_dependency_table *vce_table = NULL;
++	struct phm_vce_clock_voltage_dependency_table *vce_table;
  
- 	switch (type) {
--		case CGS_UCODE_ID_SDMA0:
--			fw_version = adev->sdma.instance[0].fw_version;
--			break;
--		case CGS_UCODE_ID_SDMA1:
--			fw_version = adev->sdma.instance[1].fw_version;
--			break;
--		case CGS_UCODE_ID_CP_CE:
--			fw_version = adev->gfx.ce_fw_version;
--			break;
--		case CGS_UCODE_ID_CP_PFP:
--			fw_version = adev->gfx.pfp_fw_version;
--			break;
--		case CGS_UCODE_ID_CP_ME:
--			fw_version = adev->gfx.me_fw_version;
--			break;
--		case CGS_UCODE_ID_CP_MEC:
--			fw_version = adev->gfx.mec_fw_version;
--			break;
--		case CGS_UCODE_ID_CP_MEC_JT1:
--			fw_version = adev->gfx.mec_fw_version;
--			break;
--		case CGS_UCODE_ID_CP_MEC_JT2:
--			fw_version = adev->gfx.mec_fw_version;
--			break;
--		case CGS_UCODE_ID_RLC_G:
--			fw_version = adev->gfx.rlc_fw_version;
--			break;
--		case CGS_UCODE_ID_STORAGE:
--			break;
--		default:
--			DRM_ERROR("firmware type %d do not have version\n", type);
--			break;
-+	case CGS_UCODE_ID_SDMA0:
-+		fw_version = adev->sdma.instance[0].fw_version;
-+		break;
-+	case CGS_UCODE_ID_SDMA1:
-+		fw_version = adev->sdma.instance[1].fw_version;
-+		break;
-+	case CGS_UCODE_ID_CP_CE:
-+		fw_version = adev->gfx.ce_fw_version;
-+		break;
-+	case CGS_UCODE_ID_CP_PFP:
-+		fw_version = adev->gfx.pfp_fw_version;
-+		break;
-+	case CGS_UCODE_ID_CP_ME:
-+		fw_version = adev->gfx.me_fw_version;
-+		break;
-+	case CGS_UCODE_ID_CP_MEC:
-+		fw_version = adev->gfx.mec_fw_version;
-+		break;
-+	case CGS_UCODE_ID_CP_MEC_JT1:
-+		fw_version = adev->gfx.mec_fw_version;
-+		break;
-+	case CGS_UCODE_ID_CP_MEC_JT2:
-+		fw_version = adev->gfx.mec_fw_version;
-+		break;
-+	case CGS_UCODE_ID_RLC_G:
-+		fw_version = adev->gfx.rlc_fw_version;
-+		break;
-+	case CGS_UCODE_ID_STORAGE:
-+		break;
-+	default:
-+		DRM_ERROR("firmware type %d do not have version\n", type);
-+		break;
- 	}
- 	return fw_version;
- }
+ 	vce_table = kzalloc(struct_size(vce_table, entries, table->numEntries),
+ 			    GFP_KERNEL);
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
+index 4bc8db1be738..9e4228232f02 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
+@@ -2732,7 +2732,7 @@ static bool ci_is_dpm_running(struct pp_hwmgr *hwmgr)
+ 
+ static int ci_smu_init(struct pp_hwmgr *hwmgr)
+ {
+-	struct ci_smumgr *ci_priv = NULL;
++	struct ci_smumgr *ci_priv;
+ 
+ 	ci_priv = kzalloc(sizeof(struct ci_smumgr), GFP_KERNEL);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
+index 02c094a06605..5e43ad2b2956 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c
+@@ -332,7 +332,7 @@ static bool fiji_is_hw_avfs_present(struct pp_hwmgr *hwmgr)
+ 
+ static int fiji_smu_init(struct pp_hwmgr *hwmgr)
+ {
+-	struct fiji_smumgr *fiji_priv = NULL;
++	struct fiji_smumgr *fiji_priv;
+ 
+ 	fiji_priv = kzalloc(sizeof(struct fiji_smumgr), GFP_KERNEL);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c
+index 060fc140c574..97d9802fe673 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c
+@@ -259,7 +259,7 @@ static int iceland_start_smu(struct pp_hwmgr *hwmgr)
+ 
+ static int iceland_smu_init(struct pp_hwmgr *hwmgr)
+ {
+-	struct iceland_smumgr *iceland_priv = NULL;
++	struct iceland_smumgr *iceland_priv;
+ 
+ 	iceland_priv = kzalloc(sizeof(struct iceland_smumgr), GFP_KERNEL);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
+index acbe41174d7e..6fe6e6abb5d8 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
+@@ -226,7 +226,7 @@ static int tonga_start_smu(struct pp_hwmgr *hwmgr)
+ 
+ static int tonga_smu_init(struct pp_hwmgr *hwmgr)
+ {
+-	struct tonga_smumgr *tonga_priv = NULL;
++	struct tonga_smumgr *tonga_priv;
+ 
+ 	tonga_priv = kzalloc(sizeof(struct tonga_smumgr), GFP_KERNEL);
+ 	if (tonga_priv == NULL)
 -- 
-2.17.1
+2.34.1
 
