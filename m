@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AABEC0015E
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 09:36:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 188DFC0015E
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 11:34:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 184F910E37C;
-	Tue,  1 Aug 2023 09:36:55 +0000 (UTC)
-Received: from mgamail.intel.com (unknown [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62C8D10E379;
- Tue,  1 Aug 2023 09:36:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1114610E3E2;
+	Tue,  1 Aug 2023 11:34:16 +0000 (UTC)
+Received: from mgamail.intel.com (unknown [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4639410E3DE;
+ Tue,  1 Aug 2023 11:34:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1690882612; x=1722418612;
+ t=1690889654; x=1722425654;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=cVFmk5CKy6gTo0w9aV0IK8bC22Agg5xvhy/Cu1YAVQE=;
- b=ejbtK0t/usBmLfvj0Lk4MxOhO5TZ0Znb68cSvyRQ1UaUhNhcDRcwLqIT
- J6yApTRrdI4XaGXi2J7hk8ZlmaOeWDHL66PMSXxEm5kPVosA9Rqvic1OE
- DhOVuW9/21FvieX0prhpcNrI4MQHRnfRtpLtPfZHJkTKsFfJ7c6kcBPQF
- BRSPnu6ghhx2PeIwR3CtN/BKqkDdtS/cph9fw49rHiiVqxKtN5A9IJQMu
- PjzHk1sK5siXU2Sx71/OgfMeulct6lzCpW4z94KZMd4eAcoTXs4pEDgd5
- I8OAq37Pz7OAaHDoSawTvsRSP/LslG/YuvOvIGaL/EmGFwkVf6di/BdWl A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="368149827"
-X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; d="scan'208";a="368149827"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2023 02:36:51 -0700
+ bh=ZFlr8Ova1lel+95XhQpbpQvUr8pBCW/k2p17P2zQdT0=;
+ b=RFyGAsj0aMitqyhvPmMC7hQII6LHphNjPu8F6m4iCfp4V/0WrylEolSz
+ m4YdCGydYYPisMhinXbsjBTN2vIsZX525i/MirbkvaGIPlhYYakACU3Oj
+ W3zK69rkcHQ9owv+h8RACennMfkOtfJ+Vt7/w2kdHhkt6bXEWcFrKFVnj
+ ov89ymtxurl9vZtyDDiJlktmk7ToIKDRC2hDWf+RVVVAxPLrwbMNDrb2W
+ bAc5Hh+Aqs4ccM2CKi4A+eq9d76F47J/VRJLBlsBjWFiByCrTQ8V2ng8A
+ UATwnn4MqhxpWdCM7i55jnb/fi5+nspeOA0b+Jaw5oxwbldbDc4zK9l8F A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="349568223"
+X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; d="scan'208";a="349568223"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2023 04:34:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="722428493"
-X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; d="scan'208";a="722428493"
+X-IronPort-AV: E=McAfee;i="6600,9927,10788"; a="731944500"
+X-IronPort-AV: E=Sophos;i="6.01,246,1684825200"; d="scan'208";a="731944500"
 Received: from igorban-mobl1.ccr.corp.intel.com (HELO localhost)
  ([10.252.36.188])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2023 02:36:49 -0700
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2023 04:34:11 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ran Sun <sunran001@208suo.com>, alexander.deucher@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-Subject: Re: [PATCH] drm/amd: Clean up errors in processpptables.c
-In-Reply-To: <20230801091425.7181-1-sunran001@208suo.com>
+To: Bagas Sanjaya <bagasdotme@gmail.com>, Ran Sun <sunran001@208suo.com>,
+ alexander.deucher@amd.com, airlied@gmail.com, daniel@ffwll.ch
+Subject: Re: [PATCH] drm/amd/pm: Clean up errors in smu73_discrete.h
+In-Reply-To: <ZMjposYeMFxU5nE9@debian.me>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230801091425.7181-1-sunran001@208suo.com>
-Date: Tue, 01 Aug 2023 12:36:47 +0300
-Message-ID: <87leevw1cg.fsf@intel.com>
+References: <20230801100024.8215-1-sunran001@208suo.com>
+ <ZMjposYeMFxU5nE9@debian.me>
+Date: Tue, 01 Aug 2023 14:34:09 +0300
+Message-ID: <87cz07vvwu.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -58,50 +59,24 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Ran Sun <sunran001@208suo.com>, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 01 Aug 2023, Ran Sun <sunran001@208suo.com> wrote:
-> Fix the following errors reported by checkpatch:
->
-> ERROR: open brace '{' following function definitions go on the next line
-> ERROR: code indent should use tabs where possible
-> ERROR: space required before the open parenthesis '('
+On Tue, 01 Aug 2023, Bagas Sanjaya <bagasdotme@gmail.com> wrote:
+> And it is unfortunate that you and @208suo.com people doesn't reply to
+> review comments (try searching lore.kernel.org)
 
-The commit message does not match the patch.
-
->
-> Signed-off-by: Ran Sun <sunran001@208suo.com>
-> ---
->  drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
-> index 1866fe20f9e2..f05f011c78be 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/processpptables.c
-> @@ -676,7 +676,7 @@ static PP_StateClassificationFlags make_classification_flags(
->  static int init_non_clock_fields(struct pp_hwmgr *hwmgr,
->  						struct pp_power_state *ps,
->  							    uint8_t version,
-> -			 const ATOM_PPLIB_NONCLOCK_INFO *pnon_clock_info) 
-> +			 const ATOM_PPLIB_NONCLOCK_INFO *pnon_clock_info)
-
-How about fixing *all* the style problems in the above in one go?
-
-How about sending these fixes in a threaded series instead of filling
-everyone's inboxes with individual patches? It's 30+ patches just today
-already.
+Essentially a one-way firehose of patches pointed at our general
+direction is not benefitial to the community. It's not participation,
+it's not co-operation. If the review gets ignored, why should we invest
+our time on *any* of the patches?
 
 
 BR,
 Jani.
 
->  {
->  	unsigned long rrr_index;
->  	unsigned long tmp;
 
 -- 
 Jani Nikula, Intel Open Source Graphics Center
