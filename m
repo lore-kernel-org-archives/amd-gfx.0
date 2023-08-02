@@ -4,63 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4021C00528
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:39:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC3C8C001DE
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 08:34:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E65210E513;
-	Wed,  2 Aug 2023 07:39:16 +0000 (UTC)
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 861E610E513;
- Wed,  2 Aug 2023 07:39:14 +0000 (UTC)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-4fe1c285690so9497229e87.3; 
- Wed, 02 Aug 2023 00:39:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690961953; x=1691566753;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0Wu+ajQyRgIN0Emiwp7sguZBZB+ZCl4Y83l4Rcy5bsA=;
- b=bzlONBjURYW4qGGnnzHXuoPtxWB3/pqAmj7uXC143EG89y9cKhrAB/QmY8HmcZqWZi
- uLXcd08R2OWcwV9B3bGZfTC/zcx3WS9It8KPKCQPYCo5HAAl/HL/WDMheUk2qssGXGSw
- aXh4KUscuvOvXip/H9njIk9+rNRqyTqUnxZYmunRXNkCsZ37B8ZZwGss8V2SaenxOVle
- C12Q475TyaS9K/vgoouh+KERHbzeNJ4YxVur6eNNnioRo6XI8nCYs7tlWJ+m9uiQCV98
- lpu57U5Nt+K7E1XKJ6xPRik+XK+/NzW0FKp9MTkpi8xa9pkj2yQ0xGFo+kZ4tj8kdkBg
- F5iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690961953; x=1691566753;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=0Wu+ajQyRgIN0Emiwp7sguZBZB+ZCl4Y83l4Rcy5bsA=;
- b=JTgTUkZy7unPWk81cp5dW5AWMm9qetvD2NpwmhgcBMN+n3JHbAMzk/k4thsDG1sAQ5
- B7PxHlSKhbjAg9DxN9KBNhAozIU2nN0kw9wZOlV18tEaF5n8L/1K5UI9IRzCZhFLQdk9
- qu+2rigVpiSuPqu56SxPYr5F4BwyCBU24Vt7bN1j1bkGu+NZBxddrd1SYsJeLsXuOkjY
- 3LeSozOyTD0hBsMPd+qyRDmleLy8lzENe2i8H4njsulYkp7LvQR5fFAUfmKjbUe/ILCn
- VzVchyt2q6scxOy8iyK4R/YxIbY+L7+/F8ubGiE+b2xlFpgpD/Fg4Ao7DgJgb08OMGJ/
- PzQw==
-X-Gm-Message-State: ABy/qLZ8WQQ6Q9zM5HGaIMIppuR0OPFEnw//rOsEjQTedg+cVmYaEroQ
- Tgo2hWE9tpVCui4vtNYe/IhNdnAtV3NBZnDFzEk=
-X-Google-Smtp-Source: APBJJlGj6n1AQt5CK0flz5hFWYdPmceWBg9cQU3umZ++tCTzukPeb/1viPtGEVGRL9DGEubLvO9hj4lGai0eGPDrdE0=
-X-Received: by 2002:ac2:4e07:0:b0:4fe:ec5:2698 with SMTP id
- e7-20020ac24e07000000b004fe0ec52698mr4893493lfr.50.1690961952440; Wed, 02 Aug
- 2023 00:39:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5167310E51B;
+	Wed,  2 Aug 2023 08:34:35 +0000 (UTC)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org
+ [IPv6:2001:67c:2050:0:465::102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B6B610E51B;
+ Wed,  2 Aug 2023 08:34:33 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4RG4ys2vdcz9sTy;
+ Wed,  2 Aug 2023 10:34:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1690965269;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fPZCXWwaboiCsosFBV+TGKPHI0NZRD50bC97h4h0b6M=;
+ b=xrKrYKWk7/9Bk+7eCol7EaX/N4y3Pz1aH1PnjKD71QZcedm26Jh9Mm9niIonqFhr8MDYkn
+ AbjGhgo3g0szGmjT/aAR+YWy764hlSZsWlQFQ4Cmjh9RAcJBUmhQxm9jAmT4sv/V8MNZBO
+ UJzI35F4HJ7rIZMtfrUPGaAxwYg8WAKsHeTmdK0tIxfDLzxV1z045Yt2AkOVaq4bc77G38
+ Hn+OYwq8wIhN0HgrT6P8A0NghZJOs6mmAR7VHQzyWfGdlA+qrhgdrbjYAj6c8gsFwo5USl
+ 8te9MAgp+Mk+D3iYHoG4S/WRdVlWsyg7dHktbEof5M2Th6a6N8G1oUqWoad6eA==
+Message-ID: <a9f88c90-5777-02b0-09b1-26979432b3bc@mailbox.org>
+Date: Wed, 2 Aug 2023 10:34:26 +0200
 MIME-Version: 1.0
+Subject: Re: Non-robust apps and resets (was Re: [PATCH v5 1/1] drm/doc:
+ Document DRM device reset expectations)
+Content-Language: de-CH-frami, en-CA
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
 References: <20230627132323.115440-1-andrealmeid@igalia.com>
  <e292a30f-5cad-1968-de4f-0d43c9c1e943@igalia.com>
  <45a1e527-f5dc-aa6f-9482-8958566ecb96@mailbox.org>
  <a1fecc5c-30c0-2754-70a1-2edb2fe118fb@igalia.com>
  <8eb58a5f-02d0-fadf-1d5a-790b6af2d81e@mailbox.org>
-In-Reply-To: <8eb58a5f-02d0-fadf-1d5a-790b6af2d81e@mailbox.org>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Wed, 2 Aug 2023 03:38:36 -0400
-Message-ID: <CAAxE2A6xy5yi7yMH-tzEfC2f3AgL7aesYQNpr=1oZ8Rx0K4=Ug@mail.gmail.com>
-Subject: Re: Non-robust apps and resets (was Re: [PATCH v5 1/1] drm/doc:
- Document DRM device reset expectations)
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <CAAxE2A6xy5yi7yMH-tzEfC2f3AgL7aesYQNpr=1oZ8Rx0K4=Ug@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <CAAxE2A6xy5yi7yMH-tzEfC2f3AgL7aesYQNpr=1oZ8Rx0K4=Ug@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 6a027a11499082f043b
+X-MBO-RS-META: qnjcf7y89rjz4khb5t5tdbymgemp7ina
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,147 +62,30 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: pierre-eric.pelloux-prayer@amd.com,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- alexander.deucher@amd.com, Pekka Paalanen <pekka.paalanen@collabora.com>,
- christian.koenig@amd.com
+ =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
+ =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
+ dri-devel@lists.freedesktop.org, Randy Dunlap <rdunlap@infradead.org>,
+ linux-kernel@vger.kernel.org, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, alexander.deucher@amd.com,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A screen that doesn't update isn't usable. Killing the window system
-and returning to the login screen is one option. Killing the window
-system manually from a terminal or over ssh and then returning to the
-login screen is another option, but 99% of users either hard-reset the
-machine or do sysrq+REISUB anyway because it's faster that way. Those
-are all your options. If we don't do the kill, users might decide to
-do a hard reset with an unsync'd file system, which can cause more
-damage.
+On 8/2/23 09:38, Marek Olšák wrote:
+> 
+> The precedent from the CPU land is pretty strong here. There is
+> SIGSEGV for invalid CPU memory access and SIGILL for invalid CPU
+> instructions, yet we do nothing for invalid GPU memory access and
+> invalid GPU instructions. Sending a terminating signal from the kernel
+> would be the most natural thing to do.
 
-The precedent from the CPU land is pretty strong here. There is
-SIGSEGV for invalid CPU memory access and SIGILL for invalid CPU
-instructions, yet we do nothing for invalid GPU memory access and
-invalid GPU instructions. Sending a terminating signal from the kernel
-would be the most natural thing to do. Instead, we just keep a frozen
-GUI to keep users helpless, or we continue command submission and then
-the hanging app can cause an infinite cycle of GPU hangs and resets,
-making the GPU unusable until somebody kills the app over ssh.
+After an unhandled SIGSEGV or SIGILL, the process is in an inconsistent state and cannot safely continue executing. That's why the process is terminated by default in those cases.
 
-That's why GL/Vulkan robustness is required - either robust apps, or a
-robust compositor that greys out lost windows and pops up a diagnostic
-message with a list of actions to choose from. That's the direction we
-should be taking. Non-robust apps under a non-robust compositor should
-just be killed if they crash the GPU.
+The same is not true when an OpenGL context stops working. Any threads / other parts of the process not using that OpenGL context continue working normally. And any attempts to use that OpenGL context can be safely ignored (or the OpenGL implementation couldn't support the robustness extensions).
 
 
-Marek
+-- 
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
-On Wed, Jul 26, 2023 at 4:07=E2=80=AFAM Michel D=C3=A4nzer
-<michel.daenzer@mailbox.org> wrote:
->
-> On 7/25/23 15:02, Andr=C3=A9 Almeida wrote:
-> > Em 25/07/2023 05:03, Michel D=C3=A4nzer escreveu:
-> >> On 7/25/23 04:55, Andr=C3=A9 Almeida wrote:
-> >>> Hi everyone,
-> >>>
-> >>> It's not clear what we should do about non-robust OpenGL apps after G=
-PU resets, so I'll try to summarize the topic, show some options and my pro=
-posal to move forward on that.
-> >>>
-> >>> Em 27/06/2023 10:23, Andr=C3=A9 Almeida escreveu:
-> >>>> +Robustness
-> >>>> +----------
-> >>>> +
-> >>>> +The only way to try to keep an application working after a reset is=
- if it
-> >>>> +complies with the robustness aspects of the graphical API that it i=
-s using.
-> >>>> +
-> >>>> +Graphical APIs provide ways to applications to deal with device res=
-ets. However,
-> >>>> +there is no guarantee that the app will use such features correctly=
-, and the
-> >>>> +UMD can implement policies to close the app if it is a repeating of=
-fender,
-> >>>> +likely in a broken loop. This is done to ensure that it does not ke=
-ep blocking
-> >>>> +the user interface from being correctly displayed. This should be d=
-one even if
-> >>>> +the app is correct but happens to trigger some bug in the hardware/=
-driver.
-> >>>> +
-> >>> Depending on the OpenGL version, there are different robustness API a=
-vailable:
-> >>>
-> >>> - OpenGL ABR extension [0]
-> >>> - OpenGL KHR extension [1]
-> >>> - OpenGL ES extension  [2]
-> >>>
-> >>> Apps written in OpenGL should use whatever version is available for t=
-hem to make the app robust for GPU resets. That usually means calling GetGr=
-aphicsResetStatusARB(), checking the status, and if it encounter something =
-different from NO_ERROR, that means that a reset has happened, the context =
-is considered lost and should be recreated. If an app follow this, it will =
-likely succeed recovering a reset.
-> >>>
-> >>> What should non-robustness apps do then? They certainly will not be n=
-otified if a reset happens, and thus can't recover if their context is lost=
-. OpenGL specification does not explicitly define what should be done in su=
-ch situations[3], and I believe that usually when the spec mandates to clos=
-e the app, it would explicitly note it.
-> >>>
-> >>> However, in reality there are different types of device resets, causi=
-ng different results. A reset can be precise enough to damage only the guil=
-ty context, and keep others alive.
-> >>>
-> >>> Given that, I believe drivers have the following options:
-> >>>
-> >>> a) Kill all non-robust apps after a reset. This may lead to lose work=
- from innocent applications.
-> >>>
-> >>> b) Ignore all non-robust apps OpenGL calls. That means that applicati=
-ons would still be alive, but the user interface would be freeze. The user =
-would need to close it manually anyway, but in some corner cases, the app c=
-ould autosave some work or the user might be able to interact with it using=
- some alternative method (command line?).
-> >>>
-> >>> c) Kill just the affected non-robust applications. To do that, the dr=
-iver need to be 100% sure on the impact of its resets.
-> >>>
-> >>> RadeonSI currently implements a), as can be seen at [4], while Iris i=
-mplements what I think it's c)[5].
-> >>>
-> >>> For the user experience point-of-view, c) is clearly the best option,=
- but it's the hardest to archive. There's not much gain on having b) over a=
-), perhaps it could be an optional env var for such corner case application=
-s.
-> >>
-> >> I disagree on these conclusions.
-> >>
-> >> c) is certainly better than a), but it's not "clearly the best" in all=
- cases. The OpenGL UMD is not a privileged/special component and is in no p=
-osition to decide whether or not the process as a whole (only some thread(s=
-) of which may use OpenGL at all) gets to continue running or not.
-> >>
-> >
-> > Thank you for the feedback. How do you think the documentation should l=
-ook like for this part?
->
-> The initial paragraph about robustness should say "keep OpenGL working" i=
-nstead of "keep an application working". If an OpenGL context stops working=
-, it doesn't necessarily mean the application stops working altogether.
->
->
-> If the application doesn't use the robustness extensions, your option b) =
-is what should happen by default whenever possible. And it really has to be=
- possible if the robustness extensions are supported.
->
->
-> --
-> Earthling Michel D=C3=A4nzer            |                  https://redhat=
-.com
-> Libre software enthusiast          |         Mesa and Xwayland developer
->
