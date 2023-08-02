@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27642C04FDF
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E99C05051
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD0A510E505;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84F4610E4F2;
 	Wed,  2 Aug 2023 07:20:18 +0000 (UTC)
-Received: from out28-129.mail.aliyun.com (out28-129.mail.aliyun.com
- [115.124.28.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45DE410E496;
- Wed,  2 Aug 2023 06:16:48 +0000 (UTC)
-X-Alimail-AntiSpam: AC=SUSPECT; BC=0.6541337|-1; BR=01201311R791b1; CH=blue;
- DM=|SUSPECT|false|; DS=CONTINUE|ham_alarm|0.028097-0.000655634-0.971247;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047203; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6WzUYo_1690956999; 
+Received: from out28-52.mail.aliyun.com (out28-52.mail.aliyun.com
+ [115.124.28.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D27410E4C5;
+ Wed,  2 Aug 2023 07:06:43 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.4053487|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_alarm|0.00345508-0.000378098-0.996167; FP=0|0|0|0|0|-1|-1|-1;
+ HT=ay29a033018047207; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
+ TI=SMTPD_---.U6aqPgd_1690959995; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6WzUYo_1690956999) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 14:16:41 +0800
+ fp:SMTPD_---.U6aqPgd_1690959995) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 15:06:36 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/display: Clean up errors in dcn10_dpp_dscl.c
-Date: Wed,  2 Aug 2023 06:16:35 +0000
-Message-Id: <20230802061635.11243-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amdgpu: Clean up errors in mxgpu_nv.c
+Date: Wed,  2 Aug 2023 07:06:32 +0000
+Message-Id: <20230802070632.12626-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -46,26 +46,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Fix the following errors reported by checkpatch:
 
 ERROR: else should follow close brace '}'
+ERROR: that open brace { should be on the previous line
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c
-index 7e140c35a0ce..5ca9ab8a76e8 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c
-@@ -197,8 +197,7 @@ static void dpp1_dscl_set_lb(
- 			DITHER_EN, 0, /* Dithering enable: Disabled */
- 			INTERLEAVE_EN, lb_params->interleave_en, /* Interleave source enable */
- 			LB_DATA_FORMAT__ALPHA_EN, lb_params->alpha_en); /* Alpha enable */
--	}
--	else {
-+	} else {
- 		/* DSCL caps: pixel data processed in float format */
- 		REG_SET_2(LB_DATA_FORMAT, 0,
- 			INTERLEAVE_EN, lb_params->interleave_en, /* Interleave source enable */
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+index cae1aaa4ddb6..6a68ee946f1c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+@@ -183,12 +183,10 @@ static int xgpu_nv_send_access_requests(struct amdgpu_device *adev,
+ 			if (req != IDH_REQ_GPU_INIT_DATA) {
+ 				pr_err("Doesn't get msg:%d from pf, error=%d\n", event, r);
+ 				return r;
+-			}
+-			else /* host doesn't support REQ_GPU_INIT_DATA handshake */
++			} else /* host doesn't support REQ_GPU_INIT_DATA handshake */
+ 				adev->virt.req_init_data_ver = 0;
+ 		} else {
+-			if (req == IDH_REQ_GPU_INIT_DATA)
+-			{
++			if (req == IDH_REQ_GPU_INIT_DATA) {
+ 				adev->virt.req_init_data_ver =
+ 					RREG32_NO_KIQ(mmMAILBOX_MSGBUF_RCV_DW1);
+ 
 -- 
 2.17.1
 
