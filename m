@@ -4,28 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13005C001DF
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 07:25:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D8BC001E0
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 07:25:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C87AE10E59B;
-	Thu,  3 Aug 2023 07:25:04 +0000 (UTC)
-Received: from out28-93.mail.aliyun.com (out28-93.mail.aliyun.com
- [115.124.28.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FCED10E055;
- Wed,  2 Aug 2023 07:48:56 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07469802|-1; CH=blue; DM=|OVERLOAD|false|;
- DS=CONTINUE|ham_system_inform|0.324824-0.00276745-0.672408;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047193; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6ccNrv_1690962528; 
-Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6ccNrv_1690962528) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 15:48:49 +0800
-From: Ran Sun <sunran001@208suo.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in gfx_v7_0.c
-Date: Wed,  2 Aug 2023 07:48:44 +0000
-Message-Id: <20230802074844.13773-1-sunran001@208suo.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36B1D10E5A3;
+	Thu,  3 Aug 2023 07:25:05 +0000 (UTC)
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9833310E56E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Aug 2023 18:51:18 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-52164adea19so81802a12.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Aug 2023 11:51:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1691002277; x=1691607077;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=RCZLkToae8HL/gFbPITWXu017CVf8yll8/Ph2yV1gks=;
+ b=LLaJKHTScW1OzORT7eJ90XsCAveSMO3hgLq4BhDjo5rFyd+zY48YP54sl+LgglI2T2
+ DIPcYmbsIsfIPktFOeJWDTXhpVMK8leXyQa1JOuxC+SAZkcLoUb35Vi4qGa0MRY13iBb
+ KMBUOznC5Lr9+iRZsSy/Ur41pIlA2nXd7Q5978Z9TVMKq6+Fb5bQf9iThsS19Oe9b1y3
+ NCzFUPKDd+2v/YzTuleIsCczy/Px2mIV0I0fIYRhjPVPGrSBInasEbtjT339c8zq6619
+ WCBupX6moTa54Odj9Qu6H1ucnExqf4bYgtBbpeqpgL5xuiIl2qQANNVbx2W1Ug52sIKa
+ OIRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691002277; x=1691607077;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=RCZLkToae8HL/gFbPITWXu017CVf8yll8/Ph2yV1gks=;
+ b=RNcDa4MMXeEi+lcMFAc+jgCyfDoIyx0a8vQzumeyWlhVqfFWq0kldCdSKgq2kFMT3T
+ ZYf8sW3ux+5ri+q6GzOy9sfXo9IybhMURS97ywhmPYQ/1jyXeFBfAY7mh3lZwLQk+xTU
+ RknFsbDN9QVLIPrqli9zp6evFqeh9XFtxHVIbjd8TdAQOCLZOToCM79O/d64Wcs6ZRCk
+ +RgBAiqMpjZeQFVvLpldUuL+yfP8DSvLChYnjxC0sCGfYqLURuH5GfKd1L4/OqcVOs/z
+ XVUV7IMC1gWbMvhmDIS2qpWBJ56IF+jNgMBog+QAAHSfJ9VkfShmLODcuEQtW3SUaUBC
+ ymYA==
+X-Gm-Message-State: ABy/qLbWByCNe3dY4AYZBAxV6ARX6Ks8XmLsRakTPMqrrVeChC2LMBnG
+ MP1MXmsjVMqFVCr9883DQ6KGwg==
+X-Google-Smtp-Source: APBJJlFjCx8kfwFZvnJkNHp2O2anUpJ/yeTbP3psosO7PM0zLVpeLW1pMmnOeSIkXwO7X4DYFdRRfQ==
+X-Received: by 2002:aa7:dad2:0:b0:522:1fd1:1035 with SMTP id
+ x18-20020aa7dad2000000b005221fd11035mr5209756eds.6.1691002277001; 
+ Wed, 02 Aug 2023 11:51:17 -0700 (PDT)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ bo9-20020a0564020b2900b0052284228e3bsm9004448edb.8.2023.08.02.11.51.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Aug 2023 11:51:16 -0700 (PDT)
+Message-ID: <5464f068-d157-36b3-a1f1-a92ca993511a@linaro.org>
+Date: Wed, 2 Aug 2023 21:51:14 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 2/4] drm/bridge-connector: handle subconnector types
+Content-Language: en-GB
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+References: <20230729004913.215872-1-dmitry.baryshkov@linaro.org>
+ <20230729004913.215872-3-dmitry.baryshkov@linaro.org>
+ <0cc04d99-d7aa-68ff-b304-7d42ae7f0dde@linaro.org>
+ <CAA8EJpoMC-YbWvyfCsdAHOL9aw3nfQ=g8BgLp2mb9iozeRgBpg@mail.gmail.com>
+ <20230802184622.GA32500@pendragon.ideasonboard.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230802184622.GA32500@pendragon.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 03 Aug 2023 07:25:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -38,121 +80,159 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ran Sun <sunran001@208suo.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonas Karlman <jonas@kwiboo.se>,
+ Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ neil.armstrong@linaro.org, Simon Ser <contact@emersion.fr>,
+ Bjorn Andersson <andersson@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the following errors reported by checkpatch:
+On 02/08/2023 21:46, Laurent Pinchart wrote:
+> On Wed, Aug 02, 2023 at 12:05:50PM +0300, Dmitry Baryshkov wrote:
+>> On Wed, 2 Aug 2023 at 11:35, Neil Armstrong wrote:
+>>> On 29/07/2023 02:49, Dmitry Baryshkov wrote:
+>>>> If the created connector type supports subconnector type property,
+>>>> create and attach corresponding it. The default subtype value is 0,
+>>>> which maps to the DRM_MODE_SUBCONNECTOR_Unknown type.
+>>>>
+>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>>> ---
+>>>>    drivers/gpu/drm/drm_bridge_connector.c | 33 +++++++++++++++++++++++++-
+>>>>    include/drm/drm_bridge.h               |  4 ++++
+>>>>    2 files changed, 36 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
+>>>> index 07b5930b1282..a7b92f0d2430 100644
+>>>> --- a/drivers/gpu/drm/drm_bridge_connector.c
+>>>> +++ b/drivers/gpu/drm/drm_bridge_connector.c
+>>>> @@ -329,7 +329,9 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+>>>>        struct drm_connector *connector;
+>>>>        struct i2c_adapter *ddc = NULL;
+>>>>        struct drm_bridge *bridge, *panel_bridge = NULL;
+>>>> +     enum drm_mode_subconnector subconnector;
+>>>>        int connector_type;
+>>>> +     int ret;
+>>>>
+>>>>        bridge_connector = kzalloc(sizeof(*bridge_connector), GFP_KERNEL);
+>>>>        if (!bridge_connector)
+>>>> @@ -365,8 +367,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+>>>>                if (bridge->ops & DRM_BRIDGE_OP_MODES)
+>>>>                        bridge_connector->bridge_modes = bridge;
+>>>>
+>>>> -             if (!drm_bridge_get_next_bridge(bridge))
+>>>> +             if (!drm_bridge_get_next_bridge(bridge)) {
+>>>>                        connector_type = bridge->type;
+>>>> +                     subconnector = bridge->subtype;
+>>>> +             }
+>>>>
+>>>>    #ifdef CONFIG_OF
+>>>>                if (!drm_bridge_get_next_bridge(bridge) &&
+>>>> @@ -399,6 +403,33 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+>>>>        if (panel_bridge)
+>>>>                drm_panel_bridge_set_orientation(connector, panel_bridge);
+>>>>
+>>>> +     if (connector_type == DRM_MODE_CONNECTOR_DisplayPort) {
+>>>> +             drm_connector_attach_dp_subconnector_property(connector, subconnector);
+>>>> +     } else if (connector_type == DRM_MODE_CONNECTOR_DVII) {
+>>>> +             ret = drm_mode_create_dvi_i_properties(drm);
+>>>> +             if (ret)
+>>>> +                     return ERR_PTR(ret);
+>>>> +
+>>>> +             drm_object_attach_property(&connector->base,
+>>>> +                                        drm->mode_config.dvi_i_subconnector_property,
+>>>> +                                        subconnector);
+>>>> +     } else if (connector_type == DRM_MODE_CONNECTOR_TV) {
+>>>> +             ret = drm_mode_create_tv_properties(drm,
+>>>> +                                                 BIT(DRM_MODE_TV_MODE_NTSC) |
+>>>> +                                                 BIT(DRM_MODE_TV_MODE_NTSC_443) |
+>>>> +                                                 BIT(DRM_MODE_TV_MODE_NTSC_J) |
+>>>> +                                                 BIT(DRM_MODE_TV_MODE_PAL) |
+>>>> +                                                 BIT(DRM_MODE_TV_MODE_PAL_M) |
+>>>> +                                                 BIT(DRM_MODE_TV_MODE_PAL_N) |
+>>>> +                                                 BIT(DRM_MODE_TV_MODE_SECAM));
+>>>> +             if (ret)
+>>>> +                     return ERR_PTR(ret);
+>>>
+>>> I don't think this is right, this should be called from the appropriate encoder
+>>> device depending on the analog tv mode capabilities.
+>>
+>> Good question. My logic was the following: the DRM device can have
+>> different TV out ports with different capabilities (yeah, pure
+>> theoretical construct). In this case it might be impossible to create
+>> a single subset of values. Thus it is more correct to create the
+>> property listing all possible values. The property is immutable anyway
+>> (and so the user doesn't have control over the value).
+> 
+> Those ports would correspond to different connectors, so I agree with
+> Neil, I don't think it's right to create a single property with all
+> modes and attach it to all analog output connectors.
 
-ERROR: that open brace { should be on the previous line
-ERROR: trailing statements should be on next line
-ERROR: open brace '{' following struct go on the same line
-ERROR: space prohibited before that '++' (ctx:WxB)
+I agree that this case is mishandled currently (as current design 
+assumes a single property that fits for the complete device).
 
-Signed-off-by: Ran Sun <sunran001@208suo.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 28 +++++++++++----------------
- 1 file changed, 11 insertions(+), 17 deletions(-)
+> 
+> If you want to support multiple analog outputs that have different
+> capabilities, this will need changes to drm_mode_create_tv_properties()
+> to allow creating multiple properties. If you don't want to do so now,
+> and prefer limiting support to devices where all ports support the same
+> modes (which includes devices with a single analog output), then the
+> modes should reflect what the device supports.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 8c174c11eaee..90b034b173c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -90,8 +90,7 @@ MODULE_FIRMWARE("amdgpu/mullins_ce.bin");
- MODULE_FIRMWARE("amdgpu/mullins_rlc.bin");
- MODULE_FIRMWARE("amdgpu/mullins_mec.bin");
- 
--static const struct amdgpu_gds_reg_offset amdgpu_gds_reg_offset[] =
--{
-+static const struct amdgpu_gds_reg_offset amdgpu_gds_reg_offset[] = {
- 	{mmGDS_VMID0_BASE, mmGDS_VMID0_SIZE, mmGDS_GWS_VMID0, mmGDS_OA_VMID0},
- 	{mmGDS_VMID1_BASE, mmGDS_VMID1_SIZE, mmGDS_GWS_VMID1, mmGDS_OA_VMID1},
- 	{mmGDS_VMID2_BASE, mmGDS_VMID2_SIZE, mmGDS_GWS_VMID2, mmGDS_OA_VMID2},
-@@ -110,8 +109,7 @@ static const struct amdgpu_gds_reg_offset amdgpu_gds_reg_offset[] =
- 	{mmGDS_VMID15_BASE, mmGDS_VMID15_SIZE, mmGDS_GWS_VMID15, mmGDS_OA_VMID15}
- };
- 
--static const u32 spectre_rlc_save_restore_register_list[] =
--{
-+static const u32 spectre_rlc_save_restore_register_list[] = {
- 	(0x0e00 << 16) | (0xc12c >> 2),
- 	0x00000000,
- 	(0x0e00 << 16) | (0xc140 >> 2),
-@@ -557,8 +555,7 @@ static const u32 spectre_rlc_save_restore_register_list[] =
- 	(0x0e00 << 16) | (0x9600 >> 2),
- };
- 
--static const u32 kalindi_rlc_save_restore_register_list[] =
--{
-+static const u32 kalindi_rlc_save_restore_register_list[] = {
- 	(0x0e00 << 16) | (0xc12c >> 2),
- 	0x00000000,
- 	(0x0e00 << 16) | (0xc140 >> 2),
-@@ -933,7 +930,8 @@ static int gfx_v7_0_init_microcode(struct amdgpu_device *adev)
- 	case CHIP_MULLINS:
- 		chip_name = "mullins";
- 		break;
--	default: BUG();
-+	default:
-+		BUG();
- 	}
- 
- 	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_pfp.bin", chip_name);
-@@ -2759,8 +2757,7 @@ static int gfx_v7_0_mec_init(struct amdgpu_device *adev)
- 	return 0;
- }
- 
--struct hqd_registers
--{
-+struct hqd_registers {
- 	u32 cp_mqd_base_addr;
- 	u32 cp_mqd_base_addr_hi;
- 	u32 cp_hqd_active;
-@@ -5124,11 +5121,11 @@ static void gfx_v7_0_get_cu_info(struct amdgpu_device *adev)
- 			bitmap = gfx_v7_0_get_cu_active_bitmap(adev);
- 			cu_info->bitmap[i][j] = bitmap;
- 
--			for (k = 0; k < adev->gfx.config.max_cu_per_sh; k ++) {
-+			for (k = 0; k < adev->gfx.config.max_cu_per_sh; k++) {
- 				if (bitmap & mask) {
- 					if (counter < ao_cu_num)
- 						ao_bitmap |= mask;
--					counter ++;
-+					counter++;
- 				}
- 				mask <<= 1;
- 			}
-@@ -5150,8 +5147,7 @@ static void gfx_v7_0_get_cu_info(struct amdgpu_device *adev)
- 	cu_info->lds_size = 64;
- }
- 
--const struct amdgpu_ip_block_version gfx_v7_1_ip_block =
--{
-+const struct amdgpu_ip_block_version gfx_v7_1_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_GFX,
- 	.major = 7,
- 	.minor = 1,
-@@ -5159,8 +5155,7 @@ const struct amdgpu_ip_block_version gfx_v7_1_ip_block =
- 	.funcs = &gfx_v7_0_ip_funcs,
- };
- 
--const struct amdgpu_ip_block_version gfx_v7_2_ip_block =
--{
-+const struct amdgpu_ip_block_version gfx_v7_2_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_GFX,
- 	.major = 7,
- 	.minor = 2,
-@@ -5168,8 +5163,7 @@ const struct amdgpu_ip_block_version gfx_v7_2_ip_block =
- 	.funcs = &gfx_v7_0_ip_funcs,
- };
- 
--const struct amdgpu_ip_block_version gfx_v7_3_ip_block =
--{
-+const struct amdgpu_ip_block_version gfx_v7_3_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_GFX,
- 	.major = 7,
- 	.minor = 3,
+Ack, I'll drop the create call and check for the property existence 
+before attaching it.
+
+> 
+>>>> +
+>>>> +             drm_object_attach_property(&connector->base,
+>>>> +                                        drm->mode_config.tv_subconnector_property,
+>>>> +                                        subconnector);
+>>>
+>>> Here, only add the property if drm->mode_config.tv_subconnector_property exists,
+>>> and perhaps add a warning if not.
+>>
+>> This property is created in the previous call,
+>> drm_mode_create_tv_properties() ->
+>> drm_mode_create_tv_properties_legacy().
+>>
+>>> AFAIK same for DRM_MODE_CONNECTOR_DVII.
+>>>
+>>>> +     }
+>>>> +
+>>>>        return connector;
+>>>>    }
+>>>>    EXPORT_SYMBOL_GPL(drm_bridge_connector_init);
+>>>> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+>>>> index bf964cdfb330..68b14ac5ac0d 100644
+>>>> --- a/include/drm/drm_bridge.h
+>>>> +++ b/include/drm/drm_bridge.h
+>>>> @@ -739,6 +739,10 @@ struct drm_bridge {
+>>>>         * identifies the type of connected display.
+>>>>         */
+>>>>        int type;
+>>>> +     /**
+>>>> +      * @subtype: the subtype of the connector for the DP/TV/DVI-I cases.
+>>>> +      */
+>>>> +     enum drm_mode_subconnector subtype;
+>>>>        /**
+>>>>         * @interlace_allowed: Indicate that the bridge can handle interlaced
+>>>>         * modes.
+> 
+
 -- 
-2.17.1
+With best wishes
+Dmitry
 
