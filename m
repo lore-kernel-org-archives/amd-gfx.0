@@ -4,97 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB08DC001DE
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 10:29:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68583C04E69
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 14:59:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C77110E53E;
-	Wed,  2 Aug 2023 10:29:08 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12D5910E546
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Aug 2023 10:29:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.de;
- s=s31663417; t=1690972141; x=1691576941; i=friedrich.vock@gmx.de;
- bh=Kl8Kn05E4tUJ0KXSFip/rgMEFFRZZg9EuK/Y9iTnhok=;
- h=X-UI-Sender-Class:Date:Subject:From:To:Cc:References:In-Reply-To;
- b=o+FvOqLjo3CrLbi7qArWgkrMkC7NJuuQrDfYDyi6KtUpfx2CHhf32NuTbMPg5O5hLIbkpX6
- VKHEE+Sj7o12MGTN5giW693DdBw2ftqQRLe2z8YbBZjvYIUzeZ+w8bB5AAUcja7c3lYj9CeXa
- dWcpPvwa4WwWW9fIJ6hmhmFiL53fxcPBlHymyZs0esKmQ/XqX9+Hc0d0rkHIQ2aC3aaDDosIa
- h9+m6uKc/fw9fypDOyRapcHGpRbGPQI3WICMQRx+sn1KhGD15h36/4wq2mLGuNPBmbclOkAf3
- GiDNkp57rbUWl8bEaE3B4TbT5Xqm5Q3QwMHe2LwRhBM1ioY/WrXw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.177.3] ([213.152.118.22]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MnJhU-1q1wgT2ZwS-00jEw4; Wed, 02
- Aug 2023 12:29:01 +0200
-Message-ID: <c56713d4-d702-e0ca-7876-01df5ff76d55@gmx.de>
-Date: Wed, 2 Aug 2023 12:29:01 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2055A10E54D;
+	Wed,  2 Aug 2023 14:59:07 +0000 (UTC)
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E64110E129
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Aug 2023 14:59:05 +0000 (UTC)
+Received: by mail-oi1-x233.google.com with SMTP id
+ 5614622812f47-3a707bc2397so561357b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Aug 2023 07:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1690988344; x=1691593144;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Pkmn55yZh1Rz2MwlfyBOzuu4eBd6dwrDT9L9Cwq53pI=;
+ b=OtTCxZ1uO6KGb/7Vy+iET/QDAClw9bYJdjMQW2anIJXeLYWTLukaWJ5plk49aE85YL
+ TNMMtTu6wuQf5Iyoz6rgoIVSDddrA79p8WUKfWw9xTOiK9Oy9KQHBTvEro6vYv2K0Wz1
+ rCA1DBZoDP9ZSyC8RT8C7A5MHk2Pq+iZgGNDQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690988344; x=1691593144;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Pkmn55yZh1Rz2MwlfyBOzuu4eBd6dwrDT9L9Cwq53pI=;
+ b=apeKzTTts48YGIqe+wR5js/w/iD8QACaAMAEiMgvB/8aPi6H6miICQmR6VVhWN17JN
+ x702KRsC/xYqWa66XiVEGhJxpoDYqc4RA98NVx4CeHfxPRZkstWZXR9Tstd+ZEboKdB6
+ nQOABleB2ickS/K4S6OjeeWoLCWzfreuCHpeRiQKRmU1DCtc2bheZqR+JdkDpS+fYeZg
+ eaXTHSzLHVUyY9PJ76oWdi9nyO0bUmmSbbCreOfCdb7Ex0bdSxp6HmpOEHIU1/5u3OH6
+ 3fdJm/eU/4F2JYD6rnud1NaIOKEhU0vuQi0WyhnI7ou1OQEhLUbp0myUknMMS/1Sl737
+ Ii8A==
+X-Gm-Message-State: ABy/qLYotkqwlIyLQ4CBJNuhN600if5G/GVPwVYoPYmOgkPdourCCAqF
+ 83LQqb3eOJx6cAkBhDy9kBe3GXZl/MYRRj1+dt9NgQ==
+X-Google-Smtp-Source: APBJJlG7s6LInHyvHFYr1Mc+JjNw0wI3JAe6FASZYgSUHMNQkbDcagsLdus2tHIGWJRIhFSeeDhMRcI3pXptt+vnN3w=
+X-Received: by 2002:a05:6808:1926:b0:3a7:16f3:a46e with SMTP id
+ bf38-20020a056808192600b003a716f3a46emr12040217oib.2.1690988344485; Wed, 02
+ Aug 2023 07:59:04 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Always emit GDS switch when GDS/GWS/OA is used
-Content-Language: en-US
-From: Friedrich Vock <friedrich.vock@gmx.de>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230707062908.9470-2-friedrich.vock@gmx.de>
- <a625bd04-1ae6-536d-d255-c3efa6351312@amd.com>
- <ef348f8d-27a6-06b2-210c-da1d8c8f3cca@gmx.de>
- <46b18e49-13e4-f5a3-e500-c4aa5bb8820a@amd.com>
- <a13f0c63-1937-2093-602e-9282d44dd840@gmx.de>
-Autocrypt: addr=friedrich.vock@gmx.de; keydata=
- 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
- f7+xmX0X3AMtWz/15Y+7cPO2
-In-Reply-To: <a13f0c63-1937-2093-602e-9282d44dd840@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: <20230707224059.305474-1-andrealmeid@igalia.com>
+ <20230707224059.305474-7-andrealmeid@igalia.com>
+ <ZK0ZlciR66oTO+Td@phenom.ffwll.local>
+ <20230713105142.122a0cc1@eldfell>
+ <35a8e502-c36c-e67e-29ba-a20ae6134c6d@igalia.com>
+In-Reply-To: <35a8e502-c36c-e67e-29ba-a20ae6134c6d@igalia.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 2 Aug 2023 16:58:52 +0200
+Message-ID: <CAKMK7uFMYjueTT8DTE5MER6wPNCHCS8gJriQsAR=4WnzAXRp8w@mail.gmail.com>
+Subject: Re: [PATCH v5 6/6] drm/doc: Define KMS atomic state set
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:qQV2kzqNZ3+utiqG+0i00TKLWH9oAtici/Q9VPNDINtyINyiBSO
- I8JC3q1oyG3zbPwxiqCdsngsjZkqHCPoAecWk5fNTlARtU7aSh0utq+8W06u8g5i/RvukGr
- Y9PKrqQOEQuuL/dXRpdJ1SHgFj6+5SOkLBAnKxo8aPnmueoWLn0P3CTesVxaFve7MObWo1Y
- boHzTB3Z/KnNoLoR8DvtQ==
-UI-OutboundReport: notjunk:1;M01:P0:HzLuAjOelWM=;6FvFxT0p5Qc61fPPwQdc/pLx9s0
- 5vHY6OCY2loRn+mSgJZ5JLoiQEONm7HWbrI5hUPo3fc0ZqiamMeqq7azHdH3Hqyu4wlJogBeI
- P5LfpI3zwgacipzOMXjwc491AzyZ4BDaqXp47L531iSASS25iTWUe68Hzk7OYRpCmHUAmvIUG
- o9cWmKW1XIr+LPhm8pzxhle/RRlwvCMjvnncUhfuR0JuyRbWWsKfD+RUo7bBclRrhDC1cX7lV
- P7ia1KUxbU5xB+ap/J7XreO5+BLuzWccDEkq/OdYIDuewEdmvhjkQUnIcNPCubhf84WP1ZLY3
- CY5Br3C4i+AHFS5NN6Xfz/+9OIMPIExrJjM2qLO+Tb93ufwPSWW2BgnMP8bWc6ydGzrUqdoyZ
- 43qByQcNReCaRZ4o3IXu/4rkUR8Ytex0xV56k2lMwcKLh8IFAe4lE+Seu+xczpZHBtpEOvE2Q
- PCB/4FMycFQ0sq+AV6hoOakcXAX5IOPjQrybDXv+0oso9LVZprjccGFewCeQEFnAoScnXbVER
- m8ru73AFLNKevyd5I5YYaoU/4LCKWrhob2jiwdqe3ULwe/QfU2nbc/g7e87qLUk90bOmXLi21
- y+3Mi2Zxc29cDyQI8sn+d2znfvTr0x8CcMJXyFQNqKK9RKEgVT80XTvt7yp/THVz59M8KuYrm
- 0J0mPJ43ZX5dG68lVNqm2nNFifv0lgr8rvoISwLAbiO/GRC+gm4so9DbgwG9RTcQ/uU0fdh2i
- DocEisrGhuQDcivlHO97Pt5sosJMA//qMPQrHRNPPkYAUZmBLF9PGuq8aN4Re4cjJbUhcsc+3
- CgfR8LJjhElxViermcMVPcqyu31Fm1JkD5AFnb2UKZSK7UYua/69I77KlMosU9G//ZfUUzZEM
- OehHZa5NBuJHFjDUsVmHLDmjN0xd/+dkBrFtkNhBqExpQ6yyz1cgdhCa9Gy1yTIS5csI+zob6
- MfOtijvX2lX2ODy6Ew7EXOnbax4=
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,272 +68,194 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Simon Ser <contact@emersion.fr>, Randy Dunlap <rdunlap@infradead.org>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org, hwentlan@amd.com,
+ ville.syrjala@linux.intel.com, Pekka Paalanen <ppaalanen@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, alexander.deucher@amd.com,
+ Daniel Stone <daniel@fooishbar.org>, Dave Airlie <airlied@gmail.com>,
+ christian.koenig@amd.com, joshua@froggi.es
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Gentle ping. Any updates on this yet?
+On Mon, 31 Jul 2023 at 04:01, Andr=C3=A9 Almeida <andrealmeid@igalia.com> w=
+rote:
+>
+> Em 13/07/2023 04:51, Pekka Paalanen escreveu:
+> > On Tue, 11 Jul 2023 10:57:57 +0200
+> > Daniel Vetter <daniel@ffwll.ch> wrote:
+> >
+> >> On Fri, Jul 07, 2023 at 07:40:59PM -0300, Andr=C3=A9 Almeida wrote:
+> >>> From: Pekka Paalanen <pekka.paalanen@collabora.com>
+> >>>
+> >>> Specify how the atomic state is maintained between userspace and
+> >>> kernel, plus the special case for async flips.
+> >>>
+> >>> Signed-off-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+> >>> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> >>> ---
+> >>> v4: total rework by Pekka
+> >>> ---
+> >>>   Documentation/gpu/drm-uapi.rst | 41 +++++++++++++++++++++++++++++++=
++++
+> >>>   1 file changed, 41 insertions(+)
+> >>>
+> >>> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-u=
+api.rst
+> >>> index 65fb3036a580..6a1662c08901 100644
+> >>> --- a/Documentation/gpu/drm-uapi.rst
+> >>> +++ b/Documentation/gpu/drm-uapi.rst
+> >>> @@ -486,3 +486,44 @@ and the CRTC index is its position in this array=
+.
+> >>>
+> >>>   .. kernel-doc:: include/uapi/drm/drm_mode.h
+> >>>      :internal:
+> >>> +
+> >>> +KMS atomic state
+> >>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >>> +
+> >>> +An atomic commit can change multiple KMS properties in an atomic fas=
+hion,
+> >>> +without ever applying intermediate or partial state changes.  Either=
+ the whole
+> >>> +commit succeeds or fails, and it will never be applied partially. Th=
+is is the
+> >>> +fundamental improvement of the atomic API over the older non-atomic =
+API which is
+> >>> +referred to as the "legacy API".  Applying intermediate state could =
+unexpectedly
+> >>> +fail, cause visible glitches, or delay reaching the final state.
+> >>> +
+> >>> +An atomic commit can be flagged with DRM_MODE_ATOMIC_TEST_ONLY, whic=
+h means the
+> >>> +complete state change is validated but not applied.  Userspace shoul=
+d use this
+> >>> +flag to validate any state change before asking to apply it. If vali=
+dation fails
+> >>> +for any reason, userspace should attempt to fall back to another, pe=
+rhaps
+> >>> +simpler, final state.  This allows userspace to probe for various co=
+nfigurations
+> >>> +without causing visible glitches on screen and without the need to u=
+ndo a
+> >>> +probing change.
+> >>> +
+> >>> +The changes recorded in an atomic commit apply on top the current KM=
+S state in
+> >>> +the kernel. Hence, the complete new KMS state is the complete old KM=
+S state with
+> >>> +the committed property settings done on top. The kernel will automat=
+ically avoid
+> >>> +no-operation changes, so it is safe and even expected for userspace =
+to send
+> >>> +redundant property settings.  No-operation changes do not count towa=
+rds actually
+> >>> +needed changes, e.g.  setting MODE_ID to a different blob with ident=
+ical
+> >>> +contents as the current KMS state shall not be a modeset on its own.
+> >>
+> >> Small clarification: The kernel indeed tries very hard to make redunda=
+nt
+> >> changes a no-op, and I think we should consider any issues here bugs. =
+But
+> >> it still has to check, which means it needs to acquire the right locks=
+ and
+> >> put in the right (cross-crtc) synchronization points, and due to
+> >> implmentation challenges it's very hard to try to avoid that in all ca=
+ses.
+> >> So adding redundant changes especially across crtc (and their connecte=
+d
+> >> planes/connectors) might result in some oversynchronization issues, an=
+d
+> >> userspace should therefore avoid them if feasible.
+> >>
+> >> With some sentences added to clarify this:
+> >>
+> >> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> >
+> > After talking on IRC yesterday, we realized that the no-op rule is
+> > nowhere near as generic as I have believed. Roughly:
+> > https://oftc.irclog.whitequark.org/dri-devel/2023-07-12#1689152446-1689=
+157291;
+> >
+> >
+>
+> How about:
+>
+> The changes recorded in an atomic commit apply on top the current KMS
+> state in the kernel. Hence, the complete new KMS state is the complete
+> old KMS state with the committed property settings done on top. The
+> kernel will try to avoid no-operation changes, so it is safe for
+> userspace to send redundant property settings. However, the kernel can
+> not assure that every redundant information will always result in a
+> no-op, giving the need to take locks to check par of the state. Giving
+> that, some redundant information can lead to a full damage path. This is
+> not something bad by itself, but userspace need to be aware of that side
+> effect.
 
-Thanks,
-Friedrich
+I think the addition about damage tracking should be a separate
+paragraph, and not mixed in with the general explanation that no-op
+updates might lead to oversync/overlocking issues. Because the damage
+tracking issue is more a question of efficiency/power usage, but
+should not (for most drivers/hw at least) result in delays and missed
+updates due to oversynchronization of updates.
 
-On 20.07.23 23:25, Friedrich Vock wrote:
-> Hi,
+Also in my opinion the exact damage update rules are more a plane
+property issue, and should probably be clarified there if the current
+documentation is not clear enough. Since it's not about whether no-op
+updates get avoided by the kernel, but what exact damage is implied in
+various cases (and that implied damage has to exist, otherwise
+backwards compatibility is broken, but userspace can avoid these
+issues by setting an empty damage property for that plane update
+explicitly).
+
+So I think for this doc part here the discussed text is still good
+enough, but we might need more in other places.
+-Sima
+
+
 >
-> On 07.07.23 10:21, Christian K=C3=B6nig wrote:
->> Am 07.07.23 um 09:28 schrieb Friedrich Vock:
->>> Hi Christian,
->>>
->>> On 07.07.23 08:56, Christian K=C3=B6nig wrote:
->>>>
->>>>
->>>> Am 07.07.23 um 08:28 schrieb Friedrich Vock:
->>>>> During gfxoff, the per-VMID GDS registers are reset and not restored
->>>>> afterwards.
->>>>
->>>> Hui? Since when? Those registers should be part of the saved ones.
->>>>
->>>> Have you found that by observation?
->>>
->>> yes. I tested this on my RX 6700 XT and the Steam Deck (Vangogh). In
->>> the
->>> bug report I linked, a test program using GWS I developed hangs becaus=
-e
->>> of this.
->>>
->>> The hang occurs as soon as the kernel re-uses a VMID on which GWS was
->>> already used once. In the hung state, inspecting the per-VMID GWS
->>> registers shows that the values have been reset to 0.
->>> The hang does not occur when gfxoff is disabled.
->>>
->>> Even without causing hangs, you can confirm the behaviour by doing the
->>> following:
->>> 1. Disable gfxoff.
->>> 2. Set some GWS registers.
->>> 3. Enable gfxoff and wait a bit.
->>> 4. Disable gfxoff and read the registers again. The GWS registers have
->>> been reset.
->>>
->>> I performed this test for the GDS_BASE/SIZE registers and it seems
->>> these
->>> aren't affected, so it's only GWS that is buggy here.
->>
->> That's most like a bug in the FW then. I'm going to ask around
->> internally.
->
-> Did the talks with the FW team result in anything yet? It's not that
-> high-priority, but it'd be nice to know if this is going to be fixed in
-> the firmware or if I should make a v2 (or if this isn't going to be
-> fixed at all).
->
-> Thanks,
-> Friedrich
->
->>
->>> I should probably make a v2 that combines the behaviour before this
->>> patch for GDS and OA, and the patched behaviour for GWS.
->>
->> Yeah, that sounds like a good idea to me. But let me ping the fw teams
->> first.
->>
->>>
->>> I'm not aware of userspace using GWS (yet, I had some ideas for
->>> using it
->>> in RADV which is what I've been writing these tests for),
->>> so perhaps the Cc to stable can also be omitted.
->>
->> Depends on what the fw teams says. As far as I know GWS has never been
->> used widely on Linux.
->>
->> Could be that they say there is a hw bug and we deprecated it for this
->> generation, or it's simply not handled by the fw and the driver needs
->> to take care of this (like this patch does) or whatever.
->>
->> Thanks for the notice,
->> Christian.
->>
->>>
->>> Thanks,
->>> Friedrich
->>>
->>>>
->>>> Thanks,
->>>> Christian.
->>>>
->>>>
->>>>> =C2=A0 The kernel needs to emit a GDS switch to manually update the
->>>>> GWS registers in this case. Since gfxoff can happen between any two
->>>>> submissions and the kernel has no way of knowing, emit the GDS switc=
-h
->>>>> before every submission.
->>>>>
->>>>> Fixes: 56b0989e29 ("drm/amdgpu: fix GDS/GWS/OA switch handling")
->>>>> Cc: stable@vger.kernel.org
->>>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2530
->>>>> Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
->>>>> ---
->>>>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 22 +++++++---------=
-------
->>>>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_job.h |=C2=A0 1 -
->>>>> =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c=C2=A0 | 10 ++++++++--
->>>>> =C2=A0 3 files changed, 15 insertions(+), 18 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
->>>>> index ff1ea99292fb..de73797e9279 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
->>>>> @@ -165,24 +165,17 @@ bool amdgpu_vmid_had_gpu_reset(struct
->>>>> amdgpu_device *adev,
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 atomic_read(&=
-adev->gpu_reset_counter);
->>>>> =C2=A0 }
->>>>>
->>>>> -/* Check if we need to switch to another set of resources */
->>>>> -static bool amdgpu_vmid_gds_switch_needed(struct amdgpu_vmid *id,
->>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu=
-_job *job)
->>>>> -{
->>>>> -=C2=A0=C2=A0=C2=A0 return id->gds_base !=3D job->gds_base ||
->>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 id->gds_size !=3D job->g=
-ds_size ||
->>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 id->gws_base !=3D job->g=
-ws_base ||
->>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 id->gws_size !=3D job->g=
-ws_size ||
->>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 id->oa_base !=3D job->oa=
-_base ||
->>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 id->oa_size !=3D job->oa=
-_size;
->>>>> -}
->>>>> -
->>>>> =C2=A0 /* Check if the id is compatible with the job */
->>>>> =C2=A0 static bool amdgpu_vmid_compatible(struct amdgpu_vmid *id,
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_job *=
-job)
->>>>> =C2=A0 {
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return=C2=A0 id->pd_gpu_addr =3D=3D j=
-ob->vm_pd_addr &&
->>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !amdgpu_vmid_gds_switch_=
-needed(id, job);
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 id->gds_base =3D=3D job-=
->gds_base &&
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 id->gds_size =3D=3D job-=
->gds_size &&
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 id->gws_base =3D=3D job-=
->gws_base &&
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 id->gws_size =3D=3D job-=
->gws_size &&
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 id->oa_base =3D=3D job->=
-oa_base &&
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 id->oa_size =3D=3D job->=
-oa_size;
->>>>> =C2=A0 }
->>>>>
->>>>> =C2=A0 /**
->>>>> @@ -434,7 +427,6 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struc=
-t
->>>>> amdgpu_ring *ring,
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 list_move_tai=
-l(&id->list, &id_mgr->ids_lru);
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>>
->>>>> -=C2=A0=C2=A0=C2=A0 job->gds_switch_needed =3D amdgpu_vmid_gds_switc=
-h_needed(id, job);
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (job->vm_needs_flush) {
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 id->flushed_u=
-pdates =3D amdgpu_vm_tlb_seq(vm);
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma_fence_put=
-(id->last_flush);
->>>>> @@ -503,7 +495,7 @@ void amdgpu_vmid_free_reserved(struct
->>>>> amdgpu_device *adev,
->>>>> =C2=A0=C2=A0 * @vmhub: vmhub type
->>>>> =C2=A0=C2=A0 * @vmid: vmid number to use
->>>>> =C2=A0=C2=A0 *
->>>>> - * Reset saved GDW, GWS and OA to force switch on next flush.
->>>>> + * Reset saved GDS, GWS and OA data.
->>>>> =C2=A0=C2=A0 */
->>>>> =C2=A0 void amdgpu_vmid_reset(struct amdgpu_device *adev, unsigned v=
-mhub,
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned vmid)
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>>>> index a963a25ddd62..2898508b1ce4 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
->>>>> @@ -53,7 +53,6 @@ struct amdgpu_job {
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uint32_t=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 preamble_status;
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uint32_t=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 preemption=
-_status;
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 vm_needs_flush;
->>>>> -=C2=A0=C2=A0=C2=A0 bool=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 gds_switch_needed;
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spm_update_needed;
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uint64_t=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 vm_pd_addr;
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 vmid;
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> index 291977b93b1d..61856040cae2 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> @@ -557,6 +557,12 @@ void amdgpu_vm_check_compute_bug(struct
->>>>> amdgpu_device *adev)
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>> =C2=A0 }
->>>>>
->>>>> +/* Check if the job needs a GDS switch */
->>>>> +static bool amdgpu_vm_need_gds_switch(struct amdgpu_job *job)
->>>>> +{
->>>>> +=C2=A0=C2=A0=C2=A0 return job->gds_size || job->gws_size || job->oa=
-_size;
->>>>> +}
->>>>> +
->>>>> =C2=A0 /**
->>>>> =C2=A0=C2=A0 * amdgpu_vm_need_pipeline_sync - Check if pipe sync is =
-needed for
->>>>> job.
->>>>> =C2=A0=C2=A0 *
->>>>> @@ -579,7 +585,7 @@ bool amdgpu_vm_need_pipeline_sync(struct
->>>>> amdgpu_ring *ring,
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (job->vm_needs_flush || ring->has_=
-compute_vm_bug)
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return true;
->>>>>
->>>>> -=C2=A0=C2=A0=C2=A0 if (ring->funcs->emit_gds_switch && job->gds_swi=
-tch_needed)
->>>>> +=C2=A0=C2=A0=C2=A0 if (ring->funcs->emit_gds_switch &&
->>>>> amdgpu_vm_need_gds_switch(job))
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return true;
->>>>>
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (amdgpu_vmid_had_gpu_reset(adev, &=
-id_mgr->ids[job->vmid]))
->>>>> @@ -609,7 +615,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring,
->>>>> struct amdgpu_job *job,
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct amdgpu_vmid *id =3D &id_mgr->i=
-ds[job->vmid];
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool spm_update_needed =3D job->spm_u=
-pdate_needed;
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool gds_switch_needed =3D ring->func=
-s->emit_gds_switch &&
->>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 job->gds_switch_needed;
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 amdgpu_vm_need_gds_switc=
-h(job);
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool vm_flush_needed =3D job->vm_need=
-s_flush;
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct dma_fence *fence =3D NULL;
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool pasid_mapping_needed =3D false;
->>>>> --
->>>>> 2.41.0
->>>>>
->>>>
->>
+> > Thanks,
+> > pq
+> >
+> >>> +
+> >>> +A "modeset" is a change in KMS state that might enable, disable, or =
+temporarily
+> >>> +disrupt the emitted video signal, possibly causing visible glitches =
+on screen. A
+> >>> +modeset may also take considerably more time to complete than other =
+kinds of
+> >>> +changes, and the video sink might also need time to adapt to the new=
+ signal
+> >>> +properties. Therefore a modeset must be explicitly allowed with the =
+flag
+> >>> +DRM_MODE_ATOMIC_ALLOW_MODESET.  This in combination with
+> >>> +DRM_MODE_ATOMIC_TEST_ONLY allows userspace to determine if a state c=
+hange is
+> >>> +likely to cause visible disruption on screen and avoid such changes =
+when end
+> >>> +users do not expect them.
+> >>> +
+> >>> +An atomic commit with the flag DRM_MODE_PAGE_FLIP_ASYNC is allowed t=
+o
+> >>> +effectively change only the FB_ID property on any planes. No-operati=
+on changes
+> >>> +are ignored as always. Changing any other property will cause the co=
+mmit to be
+> >>> +rejected.
+> >>> --
+> >>> 2.41.0
+> >>>
+> >>
+> >
+
+
+
+--=20
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
