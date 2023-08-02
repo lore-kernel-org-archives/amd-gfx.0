@@ -4,70 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D8BC001E0
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 07:25:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16635C04E69
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 07:25:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36B1D10E5A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9BE10E5AC;
 	Thu,  3 Aug 2023 07:25:05 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9833310E56E
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Aug 2023 18:51:18 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-52164adea19so81802a12.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Aug 2023 11:51:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1691002277; x=1691607077;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=RCZLkToae8HL/gFbPITWXu017CVf8yll8/Ph2yV1gks=;
- b=LLaJKHTScW1OzORT7eJ90XsCAveSMO3hgLq4BhDjo5rFyd+zY48YP54sl+LgglI2T2
- DIPcYmbsIsfIPktFOeJWDTXhpVMK8leXyQa1JOuxC+SAZkcLoUb35Vi4qGa0MRY13iBb
- KMBUOznC5Lr9+iRZsSy/Ur41pIlA2nXd7Q5978Z9TVMKq6+Fb5bQf9iThsS19Oe9b1y3
- NCzFUPKDd+2v/YzTuleIsCczy/Px2mIV0I0fIYRhjPVPGrSBInasEbtjT339c8zq6619
- WCBupX6moTa54Odj9Qu6H1ucnExqf4bYgtBbpeqpgL5xuiIl2qQANNVbx2W1Ug52sIKa
- OIRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691002277; x=1691607077;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RCZLkToae8HL/gFbPITWXu017CVf8yll8/Ph2yV1gks=;
- b=RNcDa4MMXeEi+lcMFAc+jgCyfDoIyx0a8vQzumeyWlhVqfFWq0kldCdSKgq2kFMT3T
- ZYf8sW3ux+5ri+q6GzOy9sfXo9IybhMURS97ywhmPYQ/1jyXeFBfAY7mh3lZwLQk+xTU
- RknFsbDN9QVLIPrqli9zp6evFqeh9XFtxHVIbjd8TdAQOCLZOToCM79O/d64Wcs6ZRCk
- +RgBAiqMpjZeQFVvLpldUuL+yfP8DSvLChYnjxC0sCGfYqLURuH5GfKd1L4/OqcVOs/z
- XVUV7IMC1gWbMvhmDIS2qpWBJ56IF+jNgMBog+QAAHSfJ9VkfShmLODcuEQtW3SUaUBC
- ymYA==
-X-Gm-Message-State: ABy/qLbWByCNe3dY4AYZBAxV6ARX6Ks8XmLsRakTPMqrrVeChC2LMBnG
- MP1MXmsjVMqFVCr9883DQ6KGwg==
-X-Google-Smtp-Source: APBJJlFjCx8kfwFZvnJkNHp2O2anUpJ/yeTbP3psosO7PM0zLVpeLW1pMmnOeSIkXwO7X4DYFdRRfQ==
-X-Received: by 2002:aa7:dad2:0:b0:522:1fd1:1035 with SMTP id
- x18-20020aa7dad2000000b005221fd11035mr5209756eds.6.1691002277001; 
- Wed, 02 Aug 2023 11:51:17 -0700 (PDT)
-Received: from [10.10.15.130] ([192.130.178.91])
- by smtp.gmail.com with ESMTPSA id
- bo9-20020a0564020b2900b0052284228e3bsm9004448edb.8.2023.08.02.11.51.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Aug 2023 11:51:16 -0700 (PDT)
-Message-ID: <5464f068-d157-36b3-a1f1-a92ca993511a@linaro.org>
-Date: Wed, 2 Aug 2023 21:51:14 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 2/4] drm/bridge-connector: handle subconnector types
-Content-Language: en-GB
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <20230729004913.215872-1-dmitry.baryshkov@linaro.org>
- <20230729004913.215872-3-dmitry.baryshkov@linaro.org>
- <0cc04d99-d7aa-68ff-b304-7d42ae7f0dde@linaro.org>
- <CAA8EJpoMC-YbWvyfCsdAHOL9aw3nfQ=g8BgLp2mb9iozeRgBpg@mail.gmail.com>
- <20230802184622.GA32500@pendragon.ideasonboard.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-In-Reply-To: <20230802184622.GA32500@pendragon.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from out28-124.mail.aliyun.com (out28-124.mail.aliyun.com
+ [115.124.28.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B072B10E4EE;
+ Wed,  2 Aug 2023 07:21:36 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1354293|-1;
+ BR=01201311R561S88ruler371_34042_170602; CH=green; DM=|CONTINUE|false|;
+ DS=SPAM|spam_lottery|0.83807-0.00132883-0.160601; FP=0|0|0|0|0|-1|-1|-1;
+ HT=ay29a033018047202; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
+ TI=SMTPD_---.U6bfrYW_1690960888; 
+Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
+ fp:SMTPD_---.U6bfrYW_1690960888) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 15:21:29 +0800
+From: Ran Sun <sunran001@208suo.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amdgpu: Clean up errors in soc21.c
+Date: Wed,  2 Aug 2023 07:21:27 +0000
+Message-Id: <20230802072127.12896-1-sunran001@208suo.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Thu, 03 Aug 2023 07:25:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,159 +39,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
- Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jonas Karlman <jonas@kwiboo.se>,
- Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- neil.armstrong@linaro.org, Simon Ser <contact@emersion.fr>,
- Bjorn Andersson <andersson@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Ran Sun <sunran001@208suo.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 02/08/2023 21:46, Laurent Pinchart wrote:
-> On Wed, Aug 02, 2023 at 12:05:50PM +0300, Dmitry Baryshkov wrote:
->> On Wed, 2 Aug 2023 at 11:35, Neil Armstrong wrote:
->>> On 29/07/2023 02:49, Dmitry Baryshkov wrote:
->>>> If the created connector type supports subconnector type property,
->>>> create and attach corresponding it. The default subtype value is 0,
->>>> which maps to the DRM_MODE_SUBCONNECTOR_Unknown type.
->>>>
->>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>> ---
->>>>    drivers/gpu/drm/drm_bridge_connector.c | 33 +++++++++++++++++++++++++-
->>>>    include/drm/drm_bridge.h               |  4 ++++
->>>>    2 files changed, 36 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
->>>> index 07b5930b1282..a7b92f0d2430 100644
->>>> --- a/drivers/gpu/drm/drm_bridge_connector.c
->>>> +++ b/drivers/gpu/drm/drm_bridge_connector.c
->>>> @@ -329,7 +329,9 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
->>>>        struct drm_connector *connector;
->>>>        struct i2c_adapter *ddc = NULL;
->>>>        struct drm_bridge *bridge, *panel_bridge = NULL;
->>>> +     enum drm_mode_subconnector subconnector;
->>>>        int connector_type;
->>>> +     int ret;
->>>>
->>>>        bridge_connector = kzalloc(sizeof(*bridge_connector), GFP_KERNEL);
->>>>        if (!bridge_connector)
->>>> @@ -365,8 +367,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
->>>>                if (bridge->ops & DRM_BRIDGE_OP_MODES)
->>>>                        bridge_connector->bridge_modes = bridge;
->>>>
->>>> -             if (!drm_bridge_get_next_bridge(bridge))
->>>> +             if (!drm_bridge_get_next_bridge(bridge)) {
->>>>                        connector_type = bridge->type;
->>>> +                     subconnector = bridge->subtype;
->>>> +             }
->>>>
->>>>    #ifdef CONFIG_OF
->>>>                if (!drm_bridge_get_next_bridge(bridge) &&
->>>> @@ -399,6 +403,33 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
->>>>        if (panel_bridge)
->>>>                drm_panel_bridge_set_orientation(connector, panel_bridge);
->>>>
->>>> +     if (connector_type == DRM_MODE_CONNECTOR_DisplayPort) {
->>>> +             drm_connector_attach_dp_subconnector_property(connector, subconnector);
->>>> +     } else if (connector_type == DRM_MODE_CONNECTOR_DVII) {
->>>> +             ret = drm_mode_create_dvi_i_properties(drm);
->>>> +             if (ret)
->>>> +                     return ERR_PTR(ret);
->>>> +
->>>> +             drm_object_attach_property(&connector->base,
->>>> +                                        drm->mode_config.dvi_i_subconnector_property,
->>>> +                                        subconnector);
->>>> +     } else if (connector_type == DRM_MODE_CONNECTOR_TV) {
->>>> +             ret = drm_mode_create_tv_properties(drm,
->>>> +                                                 BIT(DRM_MODE_TV_MODE_NTSC) |
->>>> +                                                 BIT(DRM_MODE_TV_MODE_NTSC_443) |
->>>> +                                                 BIT(DRM_MODE_TV_MODE_NTSC_J) |
->>>> +                                                 BIT(DRM_MODE_TV_MODE_PAL) |
->>>> +                                                 BIT(DRM_MODE_TV_MODE_PAL_M) |
->>>> +                                                 BIT(DRM_MODE_TV_MODE_PAL_N) |
->>>> +                                                 BIT(DRM_MODE_TV_MODE_SECAM));
->>>> +             if (ret)
->>>> +                     return ERR_PTR(ret);
->>>
->>> I don't think this is right, this should be called from the appropriate encoder
->>> device depending on the analog tv mode capabilities.
->>
->> Good question. My logic was the following: the DRM device can have
->> different TV out ports with different capabilities (yeah, pure
->> theoretical construct). In this case it might be impossible to create
->> a single subset of values. Thus it is more correct to create the
->> property listing all possible values. The property is immutable anyway
->> (and so the user doesn't have control over the value).
-> 
-> Those ports would correspond to different connectors, so I agree with
-> Neil, I don't think it's right to create a single property with all
-> modes and attach it to all analog output connectors.
+Fix the following errors reported by checkpatch:
 
-I agree that this case is mishandled currently (as current design 
-assumes a single property that fits for the complete device).
+ERROR: that open brace { should be on the previous line
 
-> 
-> If you want to support multiple analog outputs that have different
-> capabilities, this will need changes to drm_mode_create_tv_properties()
-> to allow creating multiple properties. If you don't want to do so now,
-> and prefer limiting support to devices where all ports support the same
-> modes (which includes devices with a single analog output), then the
-> modes should reflect what the device supports.
+Signed-off-by: Ran Sun <sunran001@208suo.com>
+---
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 30 ++++++++++--------------------
+ 1 file changed, 10 insertions(+), 20 deletions(-)
 
-Ack, I'll drop the create call and check for the property existence 
-before attaching it.
-
-> 
->>>> +
->>>> +             drm_object_attach_property(&connector->base,
->>>> +                                        drm->mode_config.tv_subconnector_property,
->>>> +                                        subconnector);
->>>
->>> Here, only add the property if drm->mode_config.tv_subconnector_property exists,
->>> and perhaps add a warning if not.
->>
->> This property is created in the previous call,
->> drm_mode_create_tv_properties() ->
->> drm_mode_create_tv_properties_legacy().
->>
->>> AFAIK same for DRM_MODE_CONNECTOR_DVII.
->>>
->>>> +     }
->>>> +
->>>>        return connector;
->>>>    }
->>>>    EXPORT_SYMBOL_GPL(drm_bridge_connector_init);
->>>> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
->>>> index bf964cdfb330..68b14ac5ac0d 100644
->>>> --- a/include/drm/drm_bridge.h
->>>> +++ b/include/drm/drm_bridge.h
->>>> @@ -739,6 +739,10 @@ struct drm_bridge {
->>>>         * identifies the type of connected display.
->>>>         */
->>>>        int type;
->>>> +     /**
->>>> +      * @subtype: the subtype of the connector for the DP/TV/DVI-I cases.
->>>> +      */
->>>> +     enum drm_mode_subconnector subtype;
->>>>        /**
->>>>         * @interlace_allowed: Indicate that the bridge can handle interlaced
->>>>         * modes.
-> 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index e5e5d68a4d70..4f3ecd66eb6b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -48,33 +48,28 @@
+ static const struct amd_ip_funcs soc21_common_ip_funcs;
+ 
+ /* SOC21 */
+-static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_encode_array_vcn0[] =
+-{
++static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_encode_array_vcn0[] = {
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, 8192, 4352, 0)},
+ };
+ 
+-static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_encode_array_vcn1[] =
+-{
++static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_encode_array_vcn1[] = {
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304, 0)},
+ };
+ 
+-static const struct amdgpu_video_codecs vcn_4_0_0_video_codecs_encode_vcn0 =
+-{
++static const struct amdgpu_video_codecs vcn_4_0_0_video_codecs_encode_vcn0 = {
+ 	.codec_count = ARRAY_SIZE(vcn_4_0_0_video_codecs_encode_array_vcn0),
+ 	.codec_array = vcn_4_0_0_video_codecs_encode_array_vcn0,
+ };
+ 
+-static const struct amdgpu_video_codecs vcn_4_0_0_video_codecs_encode_vcn1 =
+-{
++static const struct amdgpu_video_codecs vcn_4_0_0_video_codecs_encode_vcn1 = {
+ 	.codec_count = ARRAY_SIZE(vcn_4_0_0_video_codecs_encode_array_vcn1),
+ 	.codec_array = vcn_4_0_0_video_codecs_encode_array_vcn1,
+ };
+ 
+-static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_decode_array_vcn0[] =
+-{
++static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_decode_array_vcn0[] = {
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
+@@ -82,22 +77,19 @@ static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_decode_array_
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, 8192, 4352, 0)},
+ };
+ 
+-static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_decode_array_vcn1[] =
+-{
++static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_decode_array_vcn1[] = {
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 52)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 186)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, 4096, 4096, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9, 8192, 4352, 0)},
+ };
+ 
+-static const struct amdgpu_video_codecs vcn_4_0_0_video_codecs_decode_vcn0 =
+-{
++static const struct amdgpu_video_codecs vcn_4_0_0_video_codecs_decode_vcn0 = {
+ 	.codec_count = ARRAY_SIZE(vcn_4_0_0_video_codecs_decode_array_vcn0),
+ 	.codec_array = vcn_4_0_0_video_codecs_decode_array_vcn0,
+ };
+ 
+-static const struct amdgpu_video_codecs vcn_4_0_0_video_codecs_decode_vcn1 =
+-{
++static const struct amdgpu_video_codecs vcn_4_0_0_video_codecs_decode_vcn1 = {
+ 	.codec_count = ARRAY_SIZE(vcn_4_0_0_video_codecs_decode_array_vcn1),
+ 	.codec_array = vcn_4_0_0_video_codecs_decode_array_vcn1,
+ };
+@@ -445,8 +437,7 @@ static void soc21_program_aspm(struct amdgpu_device *adev)
+ 		adev->nbio.funcs->program_aspm(adev);
+ }
+ 
+-const struct amdgpu_ip_block_version soc21_common_ip_block =
+-{
++const struct amdgpu_ip_block_version soc21_common_ip_block = {
+ 	.type = AMD_IP_BLOCK_TYPE_COMMON,
+ 	.major = 1,
+ 	.minor = 0,
+@@ -547,8 +538,7 @@ static int soc21_update_umd_stable_pstate(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-static const struct amdgpu_asic_funcs soc21_asic_funcs =
+-{
++static const struct amdgpu_asic_funcs soc21_asic_funcs = {
+ 	.read_disabled_bios = &soc21_read_disabled_bios,
+ 	.read_bios_from_rom = &amdgpu_soc15_read_bios_from_rom,
+ 	.read_register = &soc21_read_register,
 -- 
-With best wishes
-Dmitry
+2.17.1
 
