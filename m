@@ -4,29 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA407C001DF
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09135C04A94
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE91010E4C8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E90C410E4CF;
 	Wed,  2 Aug 2023 07:20:08 +0000 (UTC)
-Received: from out28-100.mail.aliyun.com (out28-100.mail.aliyun.com
- [115.124.28.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3C5F10E366;
- Tue,  1 Aug 2023 08:40:33 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436259|-1; CH=green;
- DM=|CONTINUE|false|; DS=CONTINUE|ham_system_inform|0.167007-0.0010792-0.831913;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047187; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5oPFEH_1690879225; 
+Received: from out28-171.mail.aliyun.com (out28-171.mail.aliyun.com
+ [115.124.28.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3719B10E1ED;
+ Wed,  2 Aug 2023 02:58:25 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.4185161|-1;
+ BR=01201311R171S39rulernew2018_352553_221103; CH=green; DM=|CONTINUE|false|;
+ DS=SPAM|spam_ad|0.839017-0.000101946-0.160881; FP=0|0|0|0|0|-1|-1|-1;
+ HT=ay29a033018047190; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
+ TI=SMTPD_---.U6NpUjh_1690945096; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5oPFEH_1690879225) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 16:40:28 +0800
+ fp:SMTPD_---.U6NpUjh_1690945096) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 10:58:18 +0800
 From: Ran Sun <sunran001@208suo.com>
-To: alexander.deucher@amd.com,
-	airlied@gmail.com,
-	daniel@ffwll.ch
-Subject: [PATCH] drm/amd/pm: Clean up errors in vega10_pptable.h
-Date: Tue,  1 Aug 2023 08:40:24 +0000
-Message-Id: <20230801084024.6826-1-sunran001@208suo.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amd/display: Clean up errors in dcn315_smu.c
+Date: Wed,  2 Aug 2023 02:58:14 +0000
+Message-Id: <20230802025814.10569-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -48,73 +47,58 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Fix the following errors reported by checkpatch:
 
 ERROR: open brace '{' following struct go on the same line
+ERROR: code indent should use tabs where possible
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- .../amd/pm/powerplay/hwmgr/vega10_pptable.h    | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
+ .../display/dc/clk_mgr/dcn315/dcn315_smu.c    | 26 +++++++++----------
+ 1 file changed, 12 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_pptable.h b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_pptable.h
-index 9c479bd9a786..8b0590b834cc 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_pptable.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_pptable.h
-@@ -317,16 +317,14 @@ typedef struct _ATOM_Vega10_Thermal_Controller {
-     UCHAR ucFlags;          /* to be defined */
- } ATOM_Vega10_Thermal_Controller;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
+index 925d6e13620e..3e0da873cf4c 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
+@@ -33,28 +33,26 @@
+ #define MAX_INSTANCE                                        6
+ #define MAX_SEGMENT                                         6
  
--typedef struct _ATOM_Vega10_VCE_State_Record
+-struct IP_BASE_INSTANCE
 -{
-+typedef struct _ATOM_Vega10_VCE_State_Record {
-     UCHAR  ucVCEClockIndex;         /*index into usVCEDependencyTableOffset of 'ATOM_Vega10_MM_Dependency_Table' type */
-     UCHAR  ucFlag;                  /* 2 bits indicates memory p-states */
-     UCHAR  ucSCLKIndex;             /* index into ATOM_Vega10_SCLK_Dependency_Table */
-     UCHAR  ucMCLKIndex;             /* index into ATOM_Vega10_MCLK_Dependency_Table */
- } ATOM_Vega10_VCE_State_Record;
++struct IP_BASE_INSTANCE {
+     unsigned int segment[MAX_SEGMENT];
+ };
  
--typedef struct _ATOM_Vega10_VCE_State_Table
+-struct IP_BASE
 -{
-+typedef struct _ATOM_Vega10_VCE_State_Table {
-     UCHAR ucRevId;
-     UCHAR ucNumEntries;
-     ATOM_Vega10_VCE_State_Record entries[1];
-@@ -361,8 +359,7 @@ typedef struct _ATOM_Vega10_PowerTune_Table {
- 	USHORT usTemperatureLimitTedge;
- } ATOM_Vega10_PowerTune_Table;
++struct IP_BASE {
+     struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
+ };
  
--typedef struct _ATOM_Vega10_PowerTune_Table_V2
--{
-+typedef struct _ATOM_Vega10_PowerTune_Table_V2 {
- 	UCHAR  ucRevId;
- 	USHORT usSocketPowerLimit;
- 	USHORT usBatteryPowerLimit;
-@@ -388,8 +385,7 @@ typedef struct _ATOM_Vega10_PowerTune_Table_V2
- 	USHORT usTemperatureLimitTedge;
- } ATOM_Vega10_PowerTune_Table_V2;
+ static const struct IP_BASE MP0_BASE = { { { { 0x00016000, 0x00DC0000, 0x00E00000, 0x00E40000, 0x0243FC00, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } } } };
++					{ { 0, 0, 0, 0, 0, 0 } },
++					{ { 0, 0, 0, 0, 0, 0 } },
++					{ { 0, 0, 0, 0, 0, 0 } },
++					{ { 0, 0, 0, 0, 0, 0 } },
++					{ { 0, 0, 0, 0, 0, 0 } } } };
+ static const struct IP_BASE NBIO_BASE = { { { { 0x00000000, 0x00000014, 0x00000D20, 0x00010400, 0x0241B000, 0x04040000 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } },
+-                                        { { 0, 0, 0, 0, 0, 0 } } } };
++					{ { 0, 0, 0, 0, 0, 0 } },
++					{ { 0, 0, 0, 0, 0, 0 } },
++					{ { 0, 0, 0, 0, 0, 0 } },
++					{ { 0, 0, 0, 0, 0, 0 } },
++					{ { 0, 0, 0, 0, 0, 0 } } } };
  
--typedef struct _ATOM_Vega10_PowerTune_Table_V3
--{
-+typedef struct _ATOM_Vega10_PowerTune_Table_V3 {
- 	UCHAR  ucRevId;
- 	USHORT usSocketPowerLimit;
- 	USHORT usBatteryPowerLimit;
-@@ -428,15 +424,13 @@ typedef struct _ATOM_Vega10_Hard_Limit_Record {
-     USHORT usVddMemLimit;
- } ATOM_Vega10_Hard_Limit_Record;
- 
--typedef struct _ATOM_Vega10_Hard_Limit_Table
--{
-+typedef struct _ATOM_Vega10_Hard_Limit_Table {
-     UCHAR ucRevId;
-     UCHAR ucNumEntries;
-     ATOM_Vega10_Hard_Limit_Record entries[1];
- } ATOM_Vega10_Hard_Limit_Table;
- 
--typedef struct _Vega10_PPTable_Generic_SubTable_Header
--{
-+typedef struct _Vega10_PPTable_Generic_SubTable_Header {
-     UCHAR  ucRevId;
- } Vega10_PPTable_Generic_SubTable_Header;
- 
+ #define regBIF_BX_PF2_RSMU_INDEX                                                                        0x0000
+ #define regBIF_BX_PF2_RSMU_INDEX_BASE_IDX                                                               1
 -- 
 2.17.1
 
