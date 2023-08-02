@@ -4,59 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68583C04E69
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 14:59:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A52AC04A6A
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 15:36:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2055A10E54D;
-	Wed,  2 Aug 2023 14:59:07 +0000 (UTC)
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E64110E129
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Aug 2023 14:59:05 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id
- 5614622812f47-3a707bc2397so561357b6e.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Aug 2023 07:59:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1690988344; x=1691593144;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Pkmn55yZh1Rz2MwlfyBOzuu4eBd6dwrDT9L9Cwq53pI=;
- b=OtTCxZ1uO6KGb/7Vy+iET/QDAClw9bYJdjMQW2anIJXeLYWTLukaWJ5plk49aE85YL
- TNMMtTu6wuQf5Iyoz6rgoIVSDddrA79p8WUKfWw9xTOiK9Oy9KQHBTvEro6vYv2K0Wz1
- rCA1DBZoDP9ZSyC8RT8C7A5MHk2Pq+iZgGNDQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690988344; x=1691593144;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Pkmn55yZh1Rz2MwlfyBOzuu4eBd6dwrDT9L9Cwq53pI=;
- b=apeKzTTts48YGIqe+wR5js/w/iD8QACaAMAEiMgvB/8aPi6H6miICQmR6VVhWN17JN
- x702KRsC/xYqWa66XiVEGhJxpoDYqc4RA98NVx4CeHfxPRZkstWZXR9Tstd+ZEboKdB6
- nQOABleB2ickS/K4S6OjeeWoLCWzfreuCHpeRiQKRmU1DCtc2bheZqR+JdkDpS+fYeZg
- eaXTHSzLHVUyY9PJ76oWdi9nyO0bUmmSbbCreOfCdb7Ex0bdSxp6HmpOEHIU1/5u3OH6
- 3fdJm/eU/4F2JYD6rnud1NaIOKEhU0vuQi0WyhnI7ou1OQEhLUbp0myUknMMS/1Sl737
- Ii8A==
-X-Gm-Message-State: ABy/qLYotkqwlIyLQ4CBJNuhN600if5G/GVPwVYoPYmOgkPdourCCAqF
- 83LQqb3eOJx6cAkBhDy9kBe3GXZl/MYRRj1+dt9NgQ==
-X-Google-Smtp-Source: APBJJlG7s6LInHyvHFYr1Mc+JjNw0wI3JAe6FASZYgSUHMNQkbDcagsLdus2tHIGWJRIhFSeeDhMRcI3pXptt+vnN3w=
-X-Received: by 2002:a05:6808:1926:b0:3a7:16f3:a46e with SMTP id
- bf38-20020a056808192600b003a716f3a46emr12040217oib.2.1690988344485; Wed, 02
- Aug 2023 07:59:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDB0710E18C;
+	Wed,  2 Aug 2023 15:36:06 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20623.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::623])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E209410E18C;
+ Wed,  2 Aug 2023 15:36:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LiJ2yOazJaagWtx92y1q/OiZfXjVpSFvtgqrUzZS5fJzKQEuGVK4KbfJy9NL5Pa4DUBxnsX7L+3xF8PsZYvUOY79vsabt7D1JP6SkMXvRU5OLl+ErKrjuEJyGky3guTeMsW64fksKrIw+3IKNKb5O9AbTGrOfFh9JjOChwy7gqfNscKHKxMC2mvQfvjW/NjOs/v0uQ2FaM9jCPA79M6F7jroIbrny+GptoVDJ8F/3T7qXlp0U5r1PWMXMDaTLzp7359MIyprnvnbZ3/8QT+ncB1ZTZ0kq5kkudA27RSLghuLIALcVjNOEu2L/NHNQpdrsS0mgyUIpkLPywTU6C9Vkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QbUGAJ+MQgXWVeUqLPiQ3O0Xl4sA9YscV+BAigRCeas=;
+ b=E7xXKExW5HiQWmXvTBRfp9eKtP2tNPyZQ2qT8jHYRqwENbGBBmkSUvXq5x85gGMR2Jbtvhr5eZ3Iq3bk5zsHuJD9eD90rrpr0v0AiTApn41uGwLb0Uk0hUX2lisxAuz43SnzWu5zxXt0g2iwYX5eVFgxvgV9pfNg5k9+t0NMGxRHb4QX0uvs6ZC3ZQQW9S0fQJL3+yNoZ4v4AAAY5oJ0XsAkLuCchx9jG/y8Kr+dPMpRL0KJnYIw5wY6CHfrAJ8udMJe+61O+xxl7ikghm0kdgqBPwEmNBWVwMBNQemxTyB04jZKgwc+Hf1UOz7Ult4WXxYBiO0QHxZdeiMrI/3oAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QbUGAJ+MQgXWVeUqLPiQ3O0Xl4sA9YscV+BAigRCeas=;
+ b=kN+BHLNF2jrZIcBkd2jJjSxhoiDD6IV5g2GKkWuVbOUNPDUE/z/ET9S6OKEynRth+gDAr5EuQuTyI7+ajoXGivQJLALI/Yu0VnIDGhMDJsGHf5aYDKTk0hpYFiv4O3lCkF8hvqXyMKJtpdHgH5evcKefYqW/0foJRYqYlBRZ/RU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by PH8PR12MB6818.namprd12.prod.outlook.com (2603:10b6:510:1c9::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.45; Wed, 2 Aug
+ 2023 15:36:01 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::236b:d4e2:6fbf:6c2b]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::236b:d4e2:6fbf:6c2b%4]) with mapi id 15.20.6631.045; Wed, 2 Aug 2023
+ 15:36:01 +0000
+Message-ID: <63837c06-ad5b-9c60-f4c7-7c9507777a49@amd.com>
+Date: Wed, 2 Aug 2023 11:35:56 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: check attr flag before set cursor
+ degamma on DCN3+
+To: Alex Hung <alex.hung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com
+References: <20230731083505.1500965-1-mwen@igalia.com>
+ <913fb434-a6f6-5320-bb08-89ddf1b242f9@amd.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <913fb434-a6f6-5320-bb08-89ddf1b242f9@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0286.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:109::6) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <20230707224059.305474-1-andrealmeid@igalia.com>
- <20230707224059.305474-7-andrealmeid@igalia.com>
- <ZK0ZlciR66oTO+Td@phenom.ffwll.local>
- <20230713105142.122a0cc1@eldfell>
- <35a8e502-c36c-e67e-29ba-a20ae6134c6d@igalia.com>
-In-Reply-To: <35a8e502-c36c-e67e-29ba-a20ae6134c6d@igalia.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Wed, 2 Aug 2023 16:58:52 +0200
-Message-ID: <CAKMK7uFMYjueTT8DTE5MER6wPNCHCS8gJriQsAR=4WnzAXRp8w@mail.gmail.com>
-Subject: Re: [PATCH v5 6/6] drm/doc: Define KMS atomic state set
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|PH8PR12MB6818:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42a47bcb-0984-4cd8-bb9e-08db936e2cf7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wOAjaUwq+mBr9nG1MKYglcXmtGxI/UrfqeN2sY4VrgmBvcpTBzxjPz9O/V75WDUj4fSeD7KbAQqpMUrqctQcTDvNZRpTPycECUcFUSzOBgTddPisCdIKbAxZNVQfWzNmLHQemEuMk0lEHxWRe/PB2DZjac1CzxM8cWX3ucguaaQc+uH6bui0flgxVuXXP79ZhteU1N8M943lUeYR4AF65CB0lvGimf8azfxiwsG0oJAtsAVRLlQGqOGiLPzo3HXf3gmX/az8oss2VWA8/SBjK5QXPUZvsuvF9idJY7sd5WRD9OBe9TbcDFvVbs2XP/z5F015ETVq9UzwlZPUt7uEuThUl73FZm+RacDIwoKlTgPVK370LqNb4r4tExhDYjY0coagYZSNpg9Z6uFC1RxT0ZQNP5nkAmyKJUpcoj5LpqCK6HnEQjpJHLYObL96ys10p7uiPkiuBLTa4GC//FwFJ912xKBUhSXDWXN0e/y6DgWz4TGd8f18iRcwSl7vSJqdeG0mmbCtfjidmj/uq7I2FGHhBuEkKbtImr6dL7oWwZxxgPZqhNqmonrrcZWs4hHyhf6VeL8OqXaivPW0Ac9LYNTsi3hO1k/9pGd6S7PgLuS7BgmI7R/IzTyiEw8zlPGeSQvvMF9fvlCd5QdLfVWVUQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(39860400002)(366004)(136003)(396003)(376002)(451199021)(7416002)(8676002)(5660300002)(83380400001)(2616005)(921005)(41300700001)(38100700002)(316002)(186003)(8936002)(53546011)(6506007)(26005)(31686004)(4326008)(6636002)(86362001)(66946007)(31696002)(66556008)(66476007)(6512007)(966005)(2906002)(6486002)(6666004)(36756003)(478600001)(110136005)(54906003)(44832011)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QTI3d2ZaVk5wOGw1QUd1OGtzc25uU3VhNGNFZVlqYmJJNFNUc01QTzFLUmcw?=
+ =?utf-8?B?d3BOY2YraUFIVXZTTzVQWm5rbENtOHd5Vy81RkluMGFGSG8rM3JpRTN0NDR0?=
+ =?utf-8?B?VVZxeDZyWHgzTUUyQm9FYWlQOHo5MStOVCtqNmplMzVmbDgzN0p5VnY4ck9l?=
+ =?utf-8?B?V2JMWlUrdEZhbk5OVDY3K2EzSWFVQVgvNk5jK21PY04zWlNUR2FiRlNzc0tL?=
+ =?utf-8?B?c0dKTUI4blJ1eVFEZGF3ZnhlcUJnS1lIWGRub3hyUHYzaXl0SWN6MDhOaEhH?=
+ =?utf-8?B?akVxbnV3S1Nmb2sxMlQ2amttanA5QTU1a3UvNThNVjREUDU5dWk1UER3UHVB?=
+ =?utf-8?B?RlRUdVE3WWwwZzYvWXpGL0lzcG54SjI2N1Nuci85VE1tTndKbjlKNzhpaVc4?=
+ =?utf-8?B?TjRaZER2Z0hreWovY0UwU2dldE1tWUptb2Zoamt1M1o1alFIcTc3UnZTU1hk?=
+ =?utf-8?B?WDkxWkNMblZzV2VrQjRYKzZWOGpZM1R3M1BaenRDUTE0TTVsZUQ0TjVwMkFw?=
+ =?utf-8?B?MUd4L0ZTdDEzMEs1VmdrSC9XOGhXdUJNelR4N05ndjBOZWlJNnVJekRPZHNW?=
+ =?utf-8?B?bWFLbXpLSHZ6YlIwMkI2WlRLNmpDVFNBUEFoVlhxZ0lqdkxUakhxbHBnazlH?=
+ =?utf-8?B?WlZha3NIQ0wvOGNoNE9hLzd2ZXBweVN6SDhLUTFJeFUxbjBOK1NhQW5YL1hO?=
+ =?utf-8?B?djdkdzB1elFUcS9YbXY4VHNVR290R3dLR1Q5cmw2NmdrcDRNQTRmbisvRDFh?=
+ =?utf-8?B?ZUQxVHdGUUJGTGd5amVzT1BZa1lxbzhlRWM4SkVyczJrd0tWRUlQV2FlMnZI?=
+ =?utf-8?B?RFV1QTR0QTNocys2cnZhTTN1SEY2eEJnUzFjcHNIcmhETXYzd2hzZmgvTWl6?=
+ =?utf-8?B?eXhUZU5OalI0bE41QWcyemJpbmdsVkxrSCtQZ01oNGpnNDRnT2NaUUFaaWZS?=
+ =?utf-8?B?ejlxd3RHWlVXMXZVMWgzVk9MV1BkLzV5Q0F0MVh5R2t4S2l0ZUtPamtONTQ3?=
+ =?utf-8?B?bUxsK1FtREVDU2tUVFdkS0JOY2xQT2twdGhpV2JrQzduNzZHQXZjQmhUTWIw?=
+ =?utf-8?B?VHg5aGViRFl3UCtqNnNGY2hvSGU0eWlwNFJaVVo4SzZMK0FZT3N1S2FhNGlu?=
+ =?utf-8?B?T1R6cXBZRjVKUUVVbTZCVWh2YkE5TkFuTXV0UUxCa2NhQVpsOUNwejE4cnUr?=
+ =?utf-8?B?UVpFaUJYS1A1VStEc1ZrcXE3ZEF5RE1OYlFSamRhYlp4QXNqNG5tNjRVa25o?=
+ =?utf-8?B?ckVYYURwT05kMWZJQUFRRUN6SkYwS3BpZUE4SVJVdG5QWVFDb1I5UmZ4L1lQ?=
+ =?utf-8?B?bmVKazlFU1pqWG90RGpFUHBhdWcwUi9FTm5pSzhBcy8zdTB6QTlWNitlamp4?=
+ =?utf-8?B?M3JGa0hVMzh4bVF5S3BmWGNIcUZLcnZJeSsyVkMwZ0NuRVJMQkVMN2FvSFF1?=
+ =?utf-8?B?WGRJTGtJU2h4SmFTSDFGdE9kVGxEakV3clFnMTcwMGhWK29TUjVHamxhRjU2?=
+ =?utf-8?B?UlFZWFJXM004UzMyV2RZN0JDVFE4SGFWZ1ZBQkVVYWxkemxpRS9ESXlTdm9m?=
+ =?utf-8?B?MTVsL01QN0NVKzVhcjUxVzNpYzZlMHZRQTcxbG9wbU4rb1hmSzlmRmVaYmJW?=
+ =?utf-8?B?bEozTFpJd3czQm1Ockh5OXA4Nm16Kzh5Sm85RVVYSktPVGxvU2ZtQ3FzeEJN?=
+ =?utf-8?B?dm9WUFE2VXBHUTMvVkNsaENpUG1IUE5ycHA5ZG96Zk10TmVrRWxHWXhtUmtY?=
+ =?utf-8?B?NnJmVHZJRXBIZjAxeG5DVmptemJYK2VsVHdsUFZONThCd0plRjhseWpuYzZZ?=
+ =?utf-8?B?aERldEtXcWEwS1EzTXpqNTU2bk1Qcmdnb09kMktlWXkwSFVSR0tpT3Jkb0RB?=
+ =?utf-8?B?elJ2YmV4clpvT3F4bmNHYTJCdlZmRTlWZGh3MWltalZESDU1VWpKL2c1VEV3?=
+ =?utf-8?B?N3l2SGlpNE4yM3luOC9aUnlYU0I0aG5SK0gwWk1TZGFidklmQS9FcFB6NkZk?=
+ =?utf-8?B?Z2g1VUdIY1NBSUNobzg4SzNwTFpuTVpsSUk0YmUwQzZmZ3FzMm5tVEZNWXpp?=
+ =?utf-8?B?NDdYeXBvak8yTW9aRVQ4TlJ3WnhNNWdSMG9YUDRpa1VCaDVZVzB2N1doaTIx?=
+ =?utf-8?Q?+FzsqO/lDbL3Ka86mSRoq2zVg?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42a47bcb-0984-4cd8-bb9e-08db936e2cf7
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2023 15:36:01.5820 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: veUZh6VN3JSFbj3K/2z1Do0hPm3YDFejQD4iNn/u9R04hhJvoUTU9Sx4qo87vm+AEswluxzZwVODMWDbWtazdg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6818
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,194 +128,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>, Randy Dunlap <rdunlap@infradead.org>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org, hwentlan@amd.com,
- ville.syrjala@linux.intel.com, Pekka Paalanen <ppaalanen@gmail.com>,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, alexander.deucher@amd.com,
- Daniel Stone <daniel@fooishbar.org>, Dave Airlie <airlied@gmail.com>,
- christian.koenig@amd.com, joshua@froggi.es
+Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>, Simon Ser <contact@emersion.fr>,
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Michel Danzer <mdaenzer@redhat.com>, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Nicholas.Kazlauskas@amd.com,
+ Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 31 Jul 2023 at 04:01, Andr=C3=A9 Almeida <andrealmeid@igalia.com> w=
-rote:
->
-> Em 13/07/2023 04:51, Pekka Paalanen escreveu:
-> > On Tue, 11 Jul 2023 10:57:57 +0200
-> > Daniel Vetter <daniel@ffwll.ch> wrote:
-> >
-> >> On Fri, Jul 07, 2023 at 07:40:59PM -0300, Andr=C3=A9 Almeida wrote:
-> >>> From: Pekka Paalanen <pekka.paalanen@collabora.com>
-> >>>
-> >>> Specify how the atomic state is maintained between userspace and
-> >>> kernel, plus the special case for async flips.
-> >>>
-> >>> Signed-off-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-> >>> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> >>> ---
-> >>> v4: total rework by Pekka
-> >>> ---
-> >>>   Documentation/gpu/drm-uapi.rst | 41 +++++++++++++++++++++++++++++++=
-+++
-> >>>   1 file changed, 41 insertions(+)
-> >>>
-> >>> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-u=
-api.rst
-> >>> index 65fb3036a580..6a1662c08901 100644
-> >>> --- a/Documentation/gpu/drm-uapi.rst
-> >>> +++ b/Documentation/gpu/drm-uapi.rst
-> >>> @@ -486,3 +486,44 @@ and the CRTC index is its position in this array=
-.
-> >>>
-> >>>   .. kernel-doc:: include/uapi/drm/drm_mode.h
-> >>>      :internal:
-> >>> +
-> >>> +KMS atomic state
-> >>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>> +
-> >>> +An atomic commit can change multiple KMS properties in an atomic fas=
-hion,
-> >>> +without ever applying intermediate or partial state changes.  Either=
- the whole
-> >>> +commit succeeds or fails, and it will never be applied partially. Th=
-is is the
-> >>> +fundamental improvement of the atomic API over the older non-atomic =
-API which is
-> >>> +referred to as the "legacy API".  Applying intermediate state could =
-unexpectedly
-> >>> +fail, cause visible glitches, or delay reaching the final state.
-> >>> +
-> >>> +An atomic commit can be flagged with DRM_MODE_ATOMIC_TEST_ONLY, whic=
-h means the
-> >>> +complete state change is validated but not applied.  Userspace shoul=
-d use this
-> >>> +flag to validate any state change before asking to apply it. If vali=
-dation fails
-> >>> +for any reason, userspace should attempt to fall back to another, pe=
-rhaps
-> >>> +simpler, final state.  This allows userspace to probe for various co=
-nfigurations
-> >>> +without causing visible glitches on screen and without the need to u=
-ndo a
-> >>> +probing change.
-> >>> +
-> >>> +The changes recorded in an atomic commit apply on top the current KM=
-S state in
-> >>> +the kernel. Hence, the complete new KMS state is the complete old KM=
-S state with
-> >>> +the committed property settings done on top. The kernel will automat=
-ically avoid
-> >>> +no-operation changes, so it is safe and even expected for userspace =
-to send
-> >>> +redundant property settings.  No-operation changes do not count towa=
-rds actually
-> >>> +needed changes, e.g.  setting MODE_ID to a different blob with ident=
-ical
-> >>> +contents as the current KMS state shall not be a modeset on its own.
-> >>
-> >> Small clarification: The kernel indeed tries very hard to make redunda=
-nt
-> >> changes a no-op, and I think we should consider any issues here bugs. =
-But
-> >> it still has to check, which means it needs to acquire the right locks=
- and
-> >> put in the right (cross-crtc) synchronization points, and due to
-> >> implmentation challenges it's very hard to try to avoid that in all ca=
-ses.
-> >> So adding redundant changes especially across crtc (and their connecte=
-d
-> >> planes/connectors) might result in some oversynchronization issues, an=
-d
-> >> userspace should therefore avoid them if feasible.
-> >>
-> >> With some sentences added to clarify this:
-> >>
-> >> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> >
-> > After talking on IRC yesterday, we realized that the no-op rule is
-> > nowhere near as generic as I have believed. Roughly:
-> > https://oftc.irclog.whitequark.org/dri-devel/2023-07-12#1689152446-1689=
-157291;
-> >
-> >
->
-> How about:
->
-> The changes recorded in an atomic commit apply on top the current KMS
-> state in the kernel. Hence, the complete new KMS state is the complete
-> old KMS state with the committed property settings done on top. The
-> kernel will try to avoid no-operation changes, so it is safe for
-> userspace to send redundant property settings. However, the kernel can
-> not assure that every redundant information will always result in a
-> no-op, giving the need to take locks to check par of the state. Giving
-> that, some redundant information can lead to a full damage path. This is
-> not something bad by itself, but userspace need to be aware of that side
-> effect.
+Thanks. Change is merged to amd-staging-drm-next.
 
-I think the addition about damage tracking should be a separate
-paragraph, and not mixed in with the general explanation that no-op
-updates might lead to oversync/overlocking issues. Because the damage
-tracking issue is more a question of efficiency/power usage, but
-should not (for most drivers/hw at least) result in delays and missed
-updates due to oversynchronization of updates.
+Harry
 
-Also in my opinion the exact damage update rules are more a plane
-property issue, and should probably be clarified there if the current
-documentation is not clear enough. Since it's not about whether no-op
-updates get avoided by the kernel, but what exact damage is implied in
-various cases (and that implied damage has to exist, otherwise
-backwards compatibility is broken, but userspace can avoid these
-issues by setting an empty damage property for that plane update
-explicitly).
+On 2023-08-01 00:07, Alex Hung wrote:
+> Tested-by: Alex Hung <alex.hung@amd.com>
+> 
+> On 2023-07-31 02:35, Melissa Wen wrote:
+>> Don't set predefined degamma curve to cursor plane if the cursor
+>> attribute flag is not set. Applying a degamma curve to the cursor by
+>> default breaks userspace expectation. Checking the flag before
+>> performing any color transformation prevents too dark cursor gamma in
+>> DCN3+ on many Linux desktop environment (KDE Plasma, GNOME,
+>> wlroots-based, etc.) as reported at:
+>> - https://gitlab.freedesktop.org/drm/amd/-/issues/1513
+>>
+>> This is the same approach followed by DCN2 drivers where the issue is
+>> not present.
+>>
+>> Fixes: 03f54d7d3448 ("drm/amd/display: Add DCN3 DPP")
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>> ---
+>>   drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c | 7 +++++--
+>>   1 file changed, 5 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+>> index e5b7ef7422b8..50dc83404644 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+>> @@ -357,8 +357,11 @@ void dpp3_set_cursor_attributes(
+>>       int cur_rom_en = 0;
+>>         if (color_format == CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA ||
+>> -        color_format == CURSOR_MODE_COLOR_UN_PRE_MULTIPLIED_ALPHA)
+>> -        cur_rom_en = 1;
+>> +        color_format == CURSOR_MODE_COLOR_UN_PRE_MULTIPLIED_ALPHA) {
+>> +        if (cursor_attributes->attribute_flags.bits.ENABLE_CURSOR_DEGAMMA) {
+>> +            cur_rom_en = 1;
+>> +        }
+>> +    }
+>>         REG_UPDATE_3(CURSOR0_CONTROL,
+>>               CUR0_MODE, color_format,
 
-So I think for this doc part here the discussed text is still good
-enough, but we might need more in other places.
--Sima
-
-
->
-> > Thanks,
-> > pq
-> >
-> >>> +
-> >>> +A "modeset" is a change in KMS state that might enable, disable, or =
-temporarily
-> >>> +disrupt the emitted video signal, possibly causing visible glitches =
-on screen. A
-> >>> +modeset may also take considerably more time to complete than other =
-kinds of
-> >>> +changes, and the video sink might also need time to adapt to the new=
- signal
-> >>> +properties. Therefore a modeset must be explicitly allowed with the =
-flag
-> >>> +DRM_MODE_ATOMIC_ALLOW_MODESET.  This in combination with
-> >>> +DRM_MODE_ATOMIC_TEST_ONLY allows userspace to determine if a state c=
-hange is
-> >>> +likely to cause visible disruption on screen and avoid such changes =
-when end
-> >>> +users do not expect them.
-> >>> +
-> >>> +An atomic commit with the flag DRM_MODE_PAGE_FLIP_ASYNC is allowed t=
-o
-> >>> +effectively change only the FB_ID property on any planes. No-operati=
-on changes
-> >>> +are ignored as always. Changing any other property will cause the co=
-mmit to be
-> >>> +rejected.
-> >>> --
-> >>> 2.41.0
-> >>>
-> >>
-> >
-
-
-
---=20
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
