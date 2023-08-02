@@ -4,26 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5954FC04FDF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0D00C04A94
 	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E64C10E4DE;
-	Wed,  2 Aug 2023 07:20:13 +0000 (UTC)
-Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0110110E4A0;
- Wed,  2 Aug 2023 06:37:56 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.5040528|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.103306-0.00202804-0.894666;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047208; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6YtKML_1690958263; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFE3410E4F3;
+	Wed,  2 Aug 2023 07:20:12 +0000 (UTC)
+Received: from out28-171.mail.aliyun.com (out28-171.mail.aliyun.com
+ [115.124.28.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91FB510E4A6;
+ Wed,  2 Aug 2023 06:48:33 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.3444751|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_alarm|0.00639894-4.13957e-05-0.99356; FP=0|0|0|0|0|-1|-1|-1;
+ HT=ay29a033018047193; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
+ TI=SMTPD_---.U6YuGG9_1690958904; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6YtKML_1690958263) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 14:37:45 +0800
+ fp:SMTPD_---.U6YuGG9_1690958904) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 14:48:25 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in vce_v3_0.c
-Date: Wed,  2 Aug 2023 06:37:42 +0000
-Message-Id: <20230802063742.11697-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amdgpu: Clean up errors in mmhub_v9_4.c
+Date: Wed,  2 Aug 2023 06:48:22 +0000
+Message-Id: <20230802064822.12093-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -44,47 +45,36 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: that open brace { should be on the previous line
+ERROR: code indent should use tabs where possible
+ERROR: space required before the open parenthesis '('
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-index 8def62c83ffd..18f6e62af339 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-@@ -998,8 +998,7 @@ static void vce_v3_0_set_irq_funcs(struct amdgpu_device *adev)
- 	adev->vce.irq.funcs = &vce_v3_0_irq_funcs;
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+index e790f890aec6..5718e4d40e66 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+@@ -108,7 +108,7 @@ static void mmhub_v9_4_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmi
+ }
  
--const struct amdgpu_ip_block_version vce_v3_0_ip_block =
--{
-+const struct amdgpu_ip_block_version vce_v3_0_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_VCE,
- 	.major = 3,
- 	.minor = 0,
-@@ -1007,8 +1006,7 @@ const struct amdgpu_ip_block_version vce_v3_0_ip_block =
- 	.funcs = &vce_v3_0_ip_funcs,
- };
+ static void mmhub_v9_4_init_system_aperture_regs(struct amdgpu_device *adev,
+-					         int hubid)
++						int hubid)
+ {
+ 	uint64_t value;
+ 	uint32_t tmp;
+@@ -1568,7 +1568,7 @@ static int mmhub_v9_4_get_ras_error_count(struct amdgpu_device *adev,
+ 	uint32_t sec_cnt, ded_cnt;
  
--const struct amdgpu_ip_block_version vce_v3_1_ip_block =
--{
-+const struct amdgpu_ip_block_version vce_v3_1_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_VCE,
- 	.major = 3,
- 	.minor = 1,
-@@ -1016,8 +1014,7 @@ const struct amdgpu_ip_block_version vce_v3_1_ip_block =
- 	.funcs = &vce_v3_0_ip_funcs,
- };
+ 	for (i = 0; i < ARRAY_SIZE(mmhub_v9_4_ras_fields); i++) {
+-		if(mmhub_v9_4_ras_fields[i].reg_offset != reg->reg_offset)
++		if (mmhub_v9_4_ras_fields[i].reg_offset != reg->reg_offset)
+ 			continue;
  
--const struct amdgpu_ip_block_version vce_v3_4_ip_block =
--{
-+const struct amdgpu_ip_block_version vce_v3_4_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_VCE,
- 	.major = 3,
- 	.minor = 4,
+ 		sec_cnt = (value &
 -- 
 2.17.1
 
