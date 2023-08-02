@@ -4,28 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09135C04A94
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14529C04A6A
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E90C410E4CF;
-	Wed,  2 Aug 2023 07:20:08 +0000 (UTC)
-Received: from out28-171.mail.aliyun.com (out28-171.mail.aliyun.com
- [115.124.28.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3719B10E1ED;
- Wed,  2 Aug 2023 02:58:25 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.4185161|-1;
- BR=01201311R171S39rulernew2018_352553_221103; CH=green; DM=|CONTINUE|false|;
- DS=SPAM|spam_ad|0.839017-0.000101946-0.160881; FP=0|0|0|0|0|-1|-1|-1;
- HT=ay29a033018047190; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
- TI=SMTPD_---.U6NpUjh_1690945096; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F4FA10E4D2;
+	Wed,  2 Aug 2023 07:20:09 +0000 (UTC)
+Received: from out28-149.mail.aliyun.com (out28-149.mail.aliyun.com
+ [115.124.28.149])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CE0410E489;
+ Wed,  2 Aug 2023 02:54:52 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.6822839|0.6520798; CH=green;
+ DM=|SPAM|false|; DS=CONTINUE|ham_alarm|0.168779-0.00358723-0.827634;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047202; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6NGrmo_1690944884; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6NpUjh_1690945096) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 10:58:18 +0800
+ fp:SMTPD_---.U6NGrmo_1690944884) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 10:54:46 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/display: Clean up errors in dcn315_smu.c
-Date: Wed,  2 Aug 2023 02:58:14 +0000
-Message-Id: <20230802025814.10569-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amd/display: Clean up errors in dce112_hw_sequencer.c
+Date: Wed,  2 Aug 2023 02:54:43 +0000
+Message-Id: <20230802025443.10458-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -46,59 +45,26 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: open brace '{' following struct go on the same line
-ERROR: code indent should use tabs where possible
+ERROR: space required before the open brace '{'
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- .../display/dc/clk_mgr/dcn315/dcn315_smu.c    | 26 +++++++++----------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce112/dce112_hw_sequencer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-index 925d6e13620e..3e0da873cf4c 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-@@ -33,28 +33,26 @@
- #define MAX_INSTANCE                                        6
- #define MAX_SEGMENT                                         6
+diff --git a/drivers/gpu/drm/amd/display/dc/dce112/dce112_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce112/dce112_hw_sequencer.c
+index 690caaaff019..0ef9ebb3c1e2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce112/dce112_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce112/dce112_hw_sequencer.c
+@@ -127,7 +127,7 @@ static bool dce112_enable_display_power_gating(
+ 	else
+ 		cntl = ASIC_PIPE_DISABLE;
  
--struct IP_BASE_INSTANCE
--{
-+struct IP_BASE_INSTANCE {
-     unsigned int segment[MAX_SEGMENT];
- };
+-	if (power_gating != PIPE_GATING_CONTROL_INIT || controller_id == 0){
++	if (power_gating != PIPE_GATING_CONTROL_INIT || controller_id == 0) {
  
--struct IP_BASE
--{
-+struct IP_BASE {
-     struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
- };
- 
- static const struct IP_BASE MP0_BASE = { { { { 0x00016000, 0x00DC0000, 0x00E00000, 0x00E40000, 0x0243FC00, 0 } },
--                                        { { 0, 0, 0, 0, 0, 0 } },
--                                        { { 0, 0, 0, 0, 0, 0 } },
--                                        { { 0, 0, 0, 0, 0, 0 } },
--                                        { { 0, 0, 0, 0, 0, 0 } },
--                                        { { 0, 0, 0, 0, 0, 0 } } } };
-+					{ { 0, 0, 0, 0, 0, 0 } },
-+					{ { 0, 0, 0, 0, 0, 0 } },
-+					{ { 0, 0, 0, 0, 0, 0 } },
-+					{ { 0, 0, 0, 0, 0, 0 } },
-+					{ { 0, 0, 0, 0, 0, 0 } } } };
- static const struct IP_BASE NBIO_BASE = { { { { 0x00000000, 0x00000014, 0x00000D20, 0x00010400, 0x0241B000, 0x04040000 } },
--                                        { { 0, 0, 0, 0, 0, 0 } },
--                                        { { 0, 0, 0, 0, 0, 0 } },
--                                        { { 0, 0, 0, 0, 0, 0 } },
--                                        { { 0, 0, 0, 0, 0, 0 } },
--                                        { { 0, 0, 0, 0, 0, 0 } } } };
-+					{ { 0, 0, 0, 0, 0, 0 } },
-+					{ { 0, 0, 0, 0, 0, 0 } },
-+					{ { 0, 0, 0, 0, 0, 0 } },
-+					{ { 0, 0, 0, 0, 0, 0 } },
-+					{ { 0, 0, 0, 0, 0, 0 } } } };
- 
- #define regBIF_BX_PF2_RSMU_INDEX                                                                        0x0000
- #define regBIF_BX_PF2_RSMU_INDEX_BASE_IDX                                                               1
+ 		bp_result = dcb->funcs->enable_disp_power_gating(
+ 						dcb, controller_id + 1, cntl);
 -- 
 2.17.1
 
