@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A01CC05052
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F8F1C04FE1
 	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE55910E4F4;
-	Wed,  2 Aug 2023 07:20:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2170C10E4F6;
+	Wed,  2 Aug 2023 07:20:13 +0000 (UTC)
 Received: from out28-146.mail.aliyun.com (out28-146.mail.aliyun.com
  [115.124.28.146])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7B1310E488;
- Wed,  2 Aug 2023 02:53:38 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.7130933|0.6509981; CH=green;
- DM=|SPAM|false|; DS=CONTINUE|ham_alarm|0.161067-0.00309727-0.835836;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047193; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6NOR6j_1690944809; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F30210E4A2;
+ Wed,  2 Aug 2023 06:40:37 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.2407244|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_alarm|0.00221003-7.23864e-05-0.997718; FP=0|0|0|0|0|-1|-1|-1;
+ HT=ay29a033018047204; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
+ TI=SMTPD_---.U6YguAj_1690958427; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6NOR6j_1690944809) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 10:53:31 +0800
+ fp:SMTPD_---.U6YguAj_1690958427) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 14:40:29 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/display: Clean up errors in dce110_hw_sequencer.c
-Date: Wed,  2 Aug 2023 02:53:27 +0000
-Message-Id: <20230802025327.10370-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amdgpu: Clean up errors in amdgpu_psp.h
+Date: Wed,  2 Aug 2023 06:40:24 +0000
+Message-Id: <20230802064024.11806-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,26 +45,58 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: space required before the open brace '{'
+ERROR: open brace '{' following struct go on the same line
+ERROR: open brace '{' following enum go on the same line
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 20d4d08a6a2f..7f306d979c63 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -219,7 +219,7 @@ static bool dce110_enable_display_power_gating(
- 	if (controller_id == underlay_idx)
- 		controller_id = CONTROLLER_ID_UNDERLAY0 - 1;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index c3203de4a007..feef988bf0c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -78,8 +78,7 @@ enum psp_bootloader_cmd {
+ 	PSP_BL__LOAD_TOS_SPL_TABLE	= 0x10000000,
+ };
  
--	if (power_gating != PIPE_GATING_CONTROL_INIT || controller_id == 0){
-+	if (power_gating != PIPE_GATING_CONTROL_INIT || controller_id == 0) {
+-enum psp_ring_type
+-{
++enum psp_ring_type {
+ 	PSP_RING_TYPE__INVALID = 0,
+ 	/*
+ 	 * These values map to the way the PSP kernel identifies the
+@@ -89,8 +88,7 @@ enum psp_ring_type
+ 	PSP_RING_TYPE__KM = 2  /* Kernel mode ring (formerly called GPCOM) */
+ };
  
- 		bp_result = dcb->funcs->enable_disp_power_gating(
- 						dcb, controller_id + 1, cntl);
+-struct psp_ring
+-{
++struct psp_ring {
+ 	enum psp_ring_type		ring_type;
+ 	struct psp_gfx_rb_frame		*ring_mem;
+ 	uint64_t			ring_mem_mc_addr;
+@@ -107,8 +105,7 @@ enum psp_reg_prog_id {
+ 	PSP_REG_LAST
+ };
+ 
+-struct psp_funcs
+-{
++struct psp_funcs {
+ 	int (*init_microcode)(struct psp_context *psp);
+ 	int (*bootloader_load_kdb)(struct psp_context *psp);
+ 	int (*bootloader_load_spl)(struct psp_context *psp);
+@@ -307,8 +304,7 @@ struct psp_runtime_scpm_entry {
+ 	enum psp_runtime_scpm_authentication scpm_status;
+ };
+ 
+-struct psp_context
+-{
++struct psp_context {
+ 	struct amdgpu_device		*adev;
+ 	struct psp_ring			km_ring;
+ 	struct psp_gfx_cmd_resp		*cmd;
 -- 
 2.17.1
 
