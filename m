@@ -4,29 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC572C04FE0
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AE9DC04E69
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F227B10E4DD;
-	Wed,  2 Aug 2023 07:20:10 +0000 (UTC)
-Received: from out28-122.mail.aliyun.com (out28-122.mail.aliyun.com
- [115.124.28.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 771AB10E37A;
- Tue,  1 Aug 2023 09:37:06 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.4581243|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.00723545-0.000549839-0.992215;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047207; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5rVQNr_1690882617; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37C3210E4DF;
+	Wed,  2 Aug 2023 07:20:11 +0000 (UTC)
+Received: from out28-112.mail.aliyun.com (out28-112.mail.aliyun.com
+ [115.124.28.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1542B10E465;
+ Wed,  2 Aug 2023 01:31:27 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1514801|-1; CH=blue; DM=|OVERLOAD|false|;
+ DS=CONTINUE|ham_alarm|0.00456796-0.000204693-0.995227; FP=0|0|0|0|0|-1|-1|-1;
+ HT=ay29a033018047198; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
+ TI=SMTPD_---.U6Iyu6P_1690939879; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5rVQNr_1690882617) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 17:36:59 +0800
+ fp:SMTPD_---.U6Iyu6P_1690939879) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 09:31:21 +0800
 From: Ran Sun <sunran001@208suo.com>
-To: alexander.deucher@amd.com,
-	airlied@gmail.com,
-	daniel@ffwll.ch
-Subject: [PATCH] drm/amd/pm/powerplay/hwmgr/hwmgr: Clean up errors in hwmgr.c
-Date: Tue,  1 Aug 2023 09:36:56 +0000
-Message-Id: <20230801093656.7761-1-sunran001@208suo.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amd/pm: Clean up errors in smu7.h
+Date: Wed,  2 Aug 2023 01:31:18 +0000
+Message-Id: <20230802013118.8677-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -47,45 +45,37 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: space prohibited after that '~' (ctx:WxW)
-ERROR: spaces required around that '||' (ctx:VxW)
+ERROR: open brace '{' following struct go on the same line
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
-index f2cef0930aa9..2b5ac21fee39 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c
-@@ -120,7 +120,7 @@ int hwmgr_early_init(struct pp_hwmgr *hwmgr)
- 		case CHIP_TOPAZ:
- 			hwmgr->smumgr_funcs = &iceland_smu_funcs;
- 			topaz_set_asic_special_caps(hwmgr);
--			hwmgr->feature_mask &= ~ (PP_VBI_TIME_SUPPORT_MASK |
-+			hwmgr->feature_mask &= ~(PP_VBI_TIME_SUPPORT_MASK |
- 						PP_ENABLE_GFX_CG_THRU_SMU);
- 			hwmgr->pp_table_version = PP_TABLE_V0;
- 			hwmgr->od_enabled = false;
-@@ -133,7 +133,7 @@ int hwmgr_early_init(struct pp_hwmgr *hwmgr)
- 		case CHIP_FIJI:
- 			hwmgr->smumgr_funcs = &fiji_smu_funcs;
- 			fiji_set_asic_special_caps(hwmgr);
--			hwmgr->feature_mask &= ~ (PP_VBI_TIME_SUPPORT_MASK |
-+			hwmgr->feature_mask &= ~(PP_VBI_TIME_SUPPORT_MASK |
- 						PP_ENABLE_GFX_CG_THRU_SMU);
- 			break;
- 		case CHIP_POLARIS11:
-@@ -195,7 +195,7 @@ int hwmgr_early_init(struct pp_hwmgr *hwmgr)
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h
+index e14072d45918..bfce9087a47f 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h
+@@ -101,8 +101,7 @@
+ #define VR_SMIO_PATTERN_2        4
+ #define VR_STATIC_VOLTAGE        5
  
- int hwmgr_sw_init(struct pp_hwmgr *hwmgr)
- {
--	if (!hwmgr|| !hwmgr->smumgr_funcs || !hwmgr->smumgr_funcs->smu_init)
-+	if (!hwmgr || !hwmgr->smumgr_funcs || !hwmgr->smumgr_funcs->smu_init)
- 		return -EINVAL;
+-struct SMU7_PIDController
+-{
++struct SMU7_PIDController {
+     uint32_t Ki;
+     int32_t LFWindupUL;
+     int32_t LFWindupLL;
+@@ -136,8 +135,7 @@ typedef struct SMU7_PIDController SMU7_PIDController;
+ #define SMU7_VCE_MCLK_HANDSHAKE_DISABLE                  0x00010000
+ #define SMU7_VCE_SCLK_HANDSHAKE_DISABLE                  0x00020000
  
- 	phm_register_irq_handlers(hwmgr);
+-struct SMU7_Firmware_Header
+-{
++struct SMU7_Firmware_Header {
+     uint32_t Digest[5];
+     uint32_t Version;
+     uint32_t HeaderSize;
 -- 
 2.17.1
 
