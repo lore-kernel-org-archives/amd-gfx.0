@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02BD3C04A6A
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C34CFC001DF
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5A5210E507;
-	Wed,  2 Aug 2023 07:20:19 +0000 (UTC)
-Received: from out28-128.mail.aliyun.com (out28-128.mail.aliyun.com
- [115.124.28.128])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09CB610E1E5;
- Wed,  2 Aug 2023 02:09:52 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07440748|-1; CH=blue; DM=|OVERLOAD|false|;
- DS=CONTINUE|ham_system_inform|0.0531706-0.0119323-0.934897;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047192; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6LRrkh_1690942184; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 091CB10E4EF;
+	Wed,  2 Aug 2023 07:20:38 +0000 (UTC)
+Received: from out28-104.mail.aliyun.com (out28-104.mail.aliyun.com
+ [115.124.28.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97EEA10E14F;
+ Wed,  2 Aug 2023 01:29:14 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.0743626|-1; CH=blue; DM=|OVERLOAD|false|;
+ DS=CONTINUE|ham_system_inform|0.0504505-0.0256508-0.923899;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047202; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6J0HG2_1690939745; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6LRrkh_1690942184) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 10:09:45 +0800
+ fp:SMTPD_---.U6J0HG2_1690939745) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 09:29:07 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH] drivers/amd/pm: Clean up errors in smu8_smumgr.h
-Date: Wed,  2 Aug 2023 02:09:43 +0000
-Message-Id: <20230802020943.9322-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amd/pm: Clean up errors in smu7_fusion.h
+Date: Wed,  2 Aug 2023 01:29:03 +0000
+Message-Id: <20230802012903.8589-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,144 +45,139 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: that open brace { should be on the previous line
-ERROR: space prohibited before that ',' (ctx:WxW)
+ERROR: open brace '{' following struct go on the same line
+ERROR: space prohibited before open square bracket '['
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c | 48 ++++++++--------------
- 1 file changed, 17 insertions(+), 31 deletions(-)
+ .../drm/amd/pm/powerplay/inc/smu7_fusion.h    | 42 +++++++------------
+ 1 file changed, 16 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-index 36c831b280ed..5d28c951a319 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-@@ -191,8 +191,7 @@ static void sumo_construct_vid_mapping_table(struct amdgpu_device *adev,
- }
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_fusion.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_fusion.h
+index 78ada9ffd508..e130f52fe8d6 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_fusion.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/inc/smu7_fusion.h
+@@ -36,8 +36,7 @@
+ #define SMU7_NUM_NON_TES 2
  
- #if 0
--static const struct kv_lcac_config_values sx_local_cac_cfg_kv[] =
+ // All 'soft registers' should be uint32_t.
+-struct SMU7_SoftRegisters
 -{
-+static const struct kv_lcac_config_values sx_local_cac_cfg_kv[] = {
- 	{  0,       4,        1    },
- 	{  1,       4,        1    },
- 	{  2,       5,        1    },
-@@ -204,32 +203,27 @@ static const struct kv_lcac_config_values sx_local_cac_cfg_kv[] =
- 	{ 0xffffffff }
++struct SMU7_SoftRegisters {
+     uint32_t        RefClockFrequency;
+     uint32_t        PmTimerP;
+     uint32_t        FeatureEnables;
+@@ -80,8 +79,7 @@ struct SMU7_SoftRegisters
+ 
+ typedef struct SMU7_SoftRegisters SMU7_SoftRegisters;
+ 
+-struct SMU7_Fusion_GraphicsLevel
+-{
++struct SMU7_Fusion_GraphicsLevel {
+     uint32_t    MinVddNb;
+ 
+     uint32_t    SclkFrequency;
+@@ -111,8 +109,7 @@ struct SMU7_Fusion_GraphicsLevel
+ 
+ typedef struct SMU7_Fusion_GraphicsLevel SMU7_Fusion_GraphicsLevel;
+ 
+-struct SMU7_Fusion_GIOLevel
+-{
++struct SMU7_Fusion_GIOLevel {
+     uint8_t     EnabledForActivity;
+     uint8_t     LclkDid;
+     uint8_t     Vid;
+@@ -137,8 +134,7 @@ struct SMU7_Fusion_GIOLevel
+ typedef struct SMU7_Fusion_GIOLevel SMU7_Fusion_GIOLevel;
+ 
+ // UVD VCLK/DCLK state (level) definition.
+-struct SMU7_Fusion_UvdLevel
+-{
++struct SMU7_Fusion_UvdLevel {
+     uint32_t VclkFrequency;
+     uint32_t DclkFrequency;
+     uint16_t MinVddNb;
+@@ -155,8 +151,7 @@ struct SMU7_Fusion_UvdLevel
+ typedef struct SMU7_Fusion_UvdLevel SMU7_Fusion_UvdLevel;
+ 
+ // Clocks for other external blocks (VCE, ACP, SAMU).
+-struct SMU7_Fusion_ExtClkLevel
+-{
++struct SMU7_Fusion_ExtClkLevel {
+     uint32_t Frequency;
+     uint16_t MinVoltage;
+     uint8_t  Divider;
+@@ -166,8 +161,7 @@ struct SMU7_Fusion_ExtClkLevel
+ };
+ typedef struct SMU7_Fusion_ExtClkLevel SMU7_Fusion_ExtClkLevel;
+ 
+-struct SMU7_Fusion_ACPILevel
+-{
++struct SMU7_Fusion_ACPILevel {
+     uint32_t    Flags;
+     uint32_t    MinVddNb;
+     uint32_t    SclkFrequency;
+@@ -181,8 +175,7 @@ struct SMU7_Fusion_ACPILevel
+ 
+ typedef struct SMU7_Fusion_ACPILevel SMU7_Fusion_ACPILevel;
+ 
+-struct SMU7_Fusion_NbDpm
+-{
++struct SMU7_Fusion_NbDpm {
+     uint8_t DpmXNbPsHi;
+     uint8_t DpmXNbPsLo;
+     uint8_t Dpm0PgNbPsHi;
+@@ -197,8 +190,7 @@ struct SMU7_Fusion_NbDpm
+ 
+ typedef struct SMU7_Fusion_NbDpm SMU7_Fusion_NbDpm;
+ 
+-struct SMU7_Fusion_StateInfo
+-{
++struct SMU7_Fusion_StateInfo {
+     uint32_t SclkFrequency;
+     uint32_t LclkFrequency;
+     uint32_t VclkFrequency;
+@@ -214,8 +206,7 @@ struct SMU7_Fusion_StateInfo
+ 
+ typedef struct SMU7_Fusion_StateInfo SMU7_Fusion_StateInfo;
+ 
+-struct SMU7_Fusion_DpmTable
+-{
++struct SMU7_Fusion_DpmTable {
+     uint32_t                            SystemFlags;
+ 
+     SMU7_PIDController                  GraphicsPIDController;
+@@ -230,12 +221,12 @@ struct SMU7_Fusion_DpmTable
+     uint8_t                            SamuLevelCount;
+     uint16_t                           FpsHighT;
+ 
+-    SMU7_Fusion_GraphicsLevel         GraphicsLevel           [SMU__NUM_SCLK_DPM_STATE];
++    SMU7_Fusion_GraphicsLevel         GraphicsLevel[SMU__NUM_SCLK_DPM_STATE];
+     SMU7_Fusion_ACPILevel             ACPILevel;
+-    SMU7_Fusion_UvdLevel              UvdLevel                [SMU7_MAX_LEVELS_UVD];
+-    SMU7_Fusion_ExtClkLevel           VceLevel                [SMU7_MAX_LEVELS_VCE];
+-    SMU7_Fusion_ExtClkLevel           AcpLevel                [SMU7_MAX_LEVELS_ACP];
+-    SMU7_Fusion_ExtClkLevel           SamuLevel               [SMU7_MAX_LEVELS_SAMU];
++    SMU7_Fusion_UvdLevel              UvdLevel[SMU7_MAX_LEVELS_UVD];
++    SMU7_Fusion_ExtClkLevel           VceLevel[SMU7_MAX_LEVELS_VCE];
++    SMU7_Fusion_ExtClkLevel           AcpLevel[SMU7_MAX_LEVELS_ACP];
++    SMU7_Fusion_ExtClkLevel           SamuLevel[SMU7_MAX_LEVELS_SAMU];
+ 
+     uint8_t                           UvdBootLevel;
+     uint8_t                           VceBootLevel;
+@@ -266,10 +257,9 @@ struct SMU7_Fusion_DpmTable
+ 
  };
  
--static const struct kv_lcac_config_values mc0_local_cac_cfg_kv[] =
+-struct SMU7_Fusion_GIODpmTable
 -{
-+static const struct kv_lcac_config_values mc0_local_cac_cfg_kv[] = {
- 	{  0,       4,        1    },
- 	{ 0xffffffff }
- };
++struct SMU7_Fusion_GIODpmTable {
  
--static const struct kv_lcac_config_values mc1_local_cac_cfg_kv[] =
--{
-+static const struct kv_lcac_config_values mc1_local_cac_cfg_kv[] = {
- 	{  0,       4,        1    },
- 	{ 0xffffffff }
- };
+-    SMU7_Fusion_GIOLevel              GIOLevel                [SMU7_MAX_LEVELS_GIO];
++    SMU7_Fusion_GIOLevel              GIOLevel[SMU7_MAX_LEVELS_GIO];
  
--static const struct kv_lcac_config_values mc2_local_cac_cfg_kv[] =
--{
-+static const struct kv_lcac_config_values mc2_local_cac_cfg_kv[] = {
- 	{  0,       4,        1    },
- 	{ 0xffffffff }
- };
+     SMU7_PIDController                GioPIDController;
  
--static const struct kv_lcac_config_values mc3_local_cac_cfg_kv[] =
--{
-+static const struct kv_lcac_config_values mc3_local_cac_cfg_kv[] = {
- 	{  0,       4,        1    },
- 	{ 0xffffffff }
- };
- 
--static const struct kv_lcac_config_values cpl_local_cac_cfg_kv[] =
--{
-+static const struct kv_lcac_config_values cpl_local_cac_cfg_kv[] = {
- 	{  0,       4,        1    },
- 	{  1,       4,        1    },
- 	{  2,       5,        1    },
-@@ -260,39 +254,32 @@ static const struct kv_lcac_config_values cpl_local_cac_cfg_kv[] =
- 	{ 0xffffffff }
- };
- 
--static const struct kv_lcac_config_reg sx0_cac_config_reg[] =
--{
-+static const struct kv_lcac_config_reg sx0_cac_config_reg[] = {
- 	{ 0xc0400d00, 0x003e0000, 17, 0x3fc00000, 22, 0x0001fffe, 1, 0x00000001, 0 }
- };
- 
--static const struct kv_lcac_config_reg mc0_cac_config_reg[] =
--{
-+static const struct kv_lcac_config_reg mc0_cac_config_reg[] = {
- 	{ 0xc0400d30, 0x003e0000, 17, 0x3fc00000, 22, 0x0001fffe, 1, 0x00000001, 0 }
- };
- 
--static const struct kv_lcac_config_reg mc1_cac_config_reg[] =
--{
-+static const struct kv_lcac_config_reg mc1_cac_config_reg[] = {
- 	{ 0xc0400d3c, 0x003e0000, 17, 0x3fc00000, 22, 0x0001fffe, 1, 0x00000001, 0 }
- };
- 
--static const struct kv_lcac_config_reg mc2_cac_config_reg[] =
--{
-+static const struct kv_lcac_config_reg mc2_cac_config_reg[] = {
- 	{ 0xc0400d48, 0x003e0000, 17, 0x3fc00000, 22, 0x0001fffe, 1, 0x00000001, 0 }
- };
- 
--static const struct kv_lcac_config_reg mc3_cac_config_reg[] =
--{
-+static const struct kv_lcac_config_reg mc3_cac_config_reg[] = {
- 	{ 0xc0400d54, 0x003e0000, 17, 0x3fc00000, 22, 0x0001fffe, 1, 0x00000001, 0 }
- };
- 
--static const struct kv_lcac_config_reg cpl_cac_config_reg[] =
--{
-+static const struct kv_lcac_config_reg cpl_cac_config_reg[] = {
- 	{ 0xc0400d80, 0x003e0000, 17, 0x3fc00000, 22, 0x0001fffe, 1, 0x00000001, 0 }
- };
- #endif
- 
--static const struct kv_pt_config_reg didt_config_kv[] =
--{
-+static const struct kv_pt_config_reg didt_config_kv[] = {
- 	{ 0x10, 0x000000ff, 0, 0x0, KV_CONFIGREG_DIDT_IND },
- 	{ 0x10, 0x0000ff00, 8, 0x0, KV_CONFIGREG_DIDT_IND },
- 	{ 0x10, 0x00ff0000, 16, 0x0, KV_CONFIGREG_DIDT_IND },
-@@ -1173,9 +1160,9 @@ static void kv_calculate_dfs_bypass_settings(struct amdgpu_device *adev)
- 					pi->graphics_level[i].ClkBypassCntl = 2;
- 				else if (kv_get_clock_difference(table->entries[i].clk, 26600) < 200)
- 					pi->graphics_level[i].ClkBypassCntl = 7;
--				else if (kv_get_clock_difference(table->entries[i].clk , 20000) < 200)
-+				else if (kv_get_clock_difference(table->entries[i].clk, 20000) < 200)
- 					pi->graphics_level[i].ClkBypassCntl = 6;
--				else if (kv_get_clock_difference(table->entries[i].clk , 10000) < 200)
-+				else if (kv_get_clock_difference(table->entries[i].clk, 10000) < 200)
- 					pi->graphics_level[i].ClkBypassCntl = 8;
- 				else
- 					pi->graphics_level[i].ClkBypassCntl = 0;
-@@ -1825,7 +1812,7 @@ static void kv_set_valid_clock_range(struct amdgpu_device *adev,
- 			if ((new_ps->levels[0].sclk -
- 			     table->entries[pi->highest_valid].sclk_frequency) >
- 			    (table->entries[pi->lowest_valid].sclk_frequency -
--			     new_ps->levels[new_ps->num_levels -1].sclk))
-+			     new_ps->levels[new_ps->num_levels - 1].sclk))
- 				pi->highest_valid = pi->lowest_valid;
- 			else
- 				pi->lowest_valid =  pi->highest_valid;
-@@ -3333,8 +3320,7 @@ static const struct amd_ip_funcs kv_dpm_ip_funcs = {
- 	.set_powergating_state = kv_dpm_set_powergating_state,
- };
- 
--const struct amdgpu_ip_block_version kv_smu_ip_block =
--{
-+const struct amdgpu_ip_block_version kv_smu_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_SMC,
- 	.major = 1,
- 	.minor = 0,
 -- 
 2.17.1
 
