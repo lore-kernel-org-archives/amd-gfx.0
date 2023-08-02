@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3471BC001DF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9279C04A94
 	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 07:25:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 300DE10E5B4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DB9310E5B7;
 	Thu,  3 Aug 2023 07:25:07 +0000 (UTC)
-Received: from out28-112.mail.aliyun.com (out28-112.mail.aliyun.com
- [115.124.28.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73D6F10E50E;
- Wed,  2 Aug 2023 07:28:22 +0000 (UTC)
-X-Alimail-AntiSpam: AC=SUSPECT; BC=0.6037459|-1; BR=01201311R621b1; CH=blue;
- DM=|SUSPECT|false|; DS=CONTINUE|ham_alarm|0.161814-0.00328592-0.8349;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047193; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6biHA-_1690961293; 
+Received: from out28-49.mail.aliyun.com (out28-49.mail.aliyun.com
+ [115.124.28.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6B6F10E512;
+ Wed,  2 Aug 2023 07:37:25 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.6682332|0.5811412; CH=green;
+ DM=|SPAM|false|; DS=CONTINUE|ham_alarm|0.05409-0.00146338-0.944447;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047206; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6cMZwp_1690961835; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6biHA-_1690961293) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 15:28:15 +0800
+ fp:SMTPD_---.U6cMZwp_1690961835) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 15:37:17 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in amdgpu_ring.h
-Date: Wed,  2 Aug 2023 07:28:13 +0000
-Message-Id: <20230802072813.13252-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amdgpu: Clean up errors in uvd_v3_1.c
+Date: Wed,  2 Aug 2023 07:37:15 +0000
+Message-Id: <20230802073715.13598-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Thu, 03 Aug 2023 07:25:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,26 +45,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: spaces required around that ':' (ctx:VxW)
+ERROR: that open brace { should be on the previous line
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 028ff075db51..e2ab303ad270 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -389,7 +389,7 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
- 	occupied = ring->wptr & ring->buf_mask;
- 	dst = (void *)&ring->ring[occupied];
- 	chunk1 = ring->buf_mask + 1 - occupied;
--	chunk1 = (chunk1 >= count_dw) ? count_dw: chunk1;
-+	chunk1 = (chunk1 >= count_dw) ? count_dw : chunk1;
- 	chunk2 = count_dw - chunk1;
- 	chunk1 <<= 2;
- 	chunk2 <<= 2;
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+index 0fef925b6602..5534c769b655 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+@@ -815,8 +815,7 @@ static const struct amd_ip_funcs uvd_v3_1_ip_funcs = {
+ 	.set_powergating_state = uvd_v3_1_set_powergating_state,
+ };
+ 
+-const struct amdgpu_ip_block_version uvd_v3_1_ip_block =
+-{
++const struct amdgpu_ip_block_version uvd_v3_1_ip_block = {
+ 	.type = AMD_IP_BLOCK_TYPE_UVD,
+ 	.major = 3,
+ 	.minor = 1,
 -- 
 2.17.1
 
