@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D447C04FE2
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27642C04FDF
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 361FC10E501;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD0A510E505;
 	Wed,  2 Aug 2023 07:20:18 +0000 (UTC)
-Received: from out28-127.mail.aliyun.com (out28-127.mail.aliyun.com
- [115.124.28.127])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA42A10E47D;
- Wed,  2 Aug 2023 01:39:49 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.5120696|-1; CH=blue; DM=|OVERLOAD|false|;
- DS=CONTINUE|ham_alarm|0.141021-0.000878557-0.858101; FP=0|0|0|0|0|-1|-1|-1;
- HT=ay29a033018047201; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
- TI=SMTPD_---.U6Iz1dD_1690940380; 
+Received: from out28-129.mail.aliyun.com (out28-129.mail.aliyun.com
+ [115.124.28.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45DE410E496;
+ Wed,  2 Aug 2023 06:16:48 +0000 (UTC)
+X-Alimail-AntiSpam: AC=SUSPECT; BC=0.6541337|-1; BR=01201311R791b1; CH=blue;
+ DM=|SUSPECT|false|; DS=CONTINUE|ham_alarm|0.028097-0.000655634-0.971247;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047203; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6WzUYo_1690956999; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6Iz1dD_1690940380) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 09:39:42 +0800
+ fp:SMTPD_---.U6WzUYo_1690956999) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 14:16:41 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amd/pm: Clean up errors in hardwaremanager.h
-Date: Wed,  2 Aug 2023 01:39:39 +0000
-Message-Id: <20230802013939.8855-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amd/display: Clean up errors in dcn10_dpp_dscl.c
+Date: Wed,  2 Aug 2023 06:16:35 +0000
+Message-Id: <20230802061635.11243-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,27 +45,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: open brace '{' following struct go on the same line
+ERROR: else should follow close brace '}'
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h | 3 +--
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h
-index 01a7d66864f2..f4f9a104d170 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h
-@@ -44,8 +44,7 @@ struct phm_fan_speed_info {
- };
- 
- /* Automatic Power State Throttling */
--enum PHM_AutoThrottleSource
--{
-+enum PHM_AutoThrottleSource {
-     PHM_AutoThrottleSource_Thermal,
-     PHM_AutoThrottleSource_External
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c
+index 7e140c35a0ce..5ca9ab8a76e8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c
+@@ -197,8 +197,7 @@ static void dpp1_dscl_set_lb(
+ 			DITHER_EN, 0, /* Dithering enable: Disabled */
+ 			INTERLEAVE_EN, lb_params->interleave_en, /* Interleave source enable */
+ 			LB_DATA_FORMAT__ALPHA_EN, lb_params->alpha_en); /* Alpha enable */
+-	}
+-	else {
++	} else {
+ 		/* DSCL caps: pixel data processed in float format */
+ 		REG_SET_2(LB_DATA_FORMAT, 0,
+ 			INTERLEAVE_EN, lb_params->interleave_en, /* Interleave source enable */
 -- 
 2.17.1
 
