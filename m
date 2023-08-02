@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84ADFC001E0
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 07:25:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D36C6C04A94
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 07:25:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B06EB10E5A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E819510E5A7;
 	Thu,  3 Aug 2023 07:25:03 +0000 (UTC)
-Received: from out28-105.mail.aliyun.com (out28-105.mail.aliyun.com
- [115.124.28.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA81110E4DC;
- Wed,  2 Aug 2023 07:43:24 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1447226|-1; CH=blue; DM=|OVERLOAD|false|;
- DS=CONTINUE|ham_system_inform|0.180895-0.00661834-0.812487;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047211; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6d8ofZ_1690962195; 
+Received: from out28-77.mail.aliyun.com (out28-77.mail.aliyun.com
+ [115.124.28.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62687892AE;
+ Wed,  2 Aug 2023 07:50:25 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.6725605|0.7344689; CH=green;
+ DM=|SPAM|false|; DS=CONTINUE|ham_alarm|0.0713018-0.00290472-0.925793;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047201; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6dLqGx_1690962615; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6d8ofZ_1690962195) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 15:43:17 +0800
+ fp:SMTPD_---.U6dLqGx_1690962615) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 15:50:17 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in vcn_v4_0.c
-Date: Wed,  2 Aug 2023 07:43:15 +0000
-Message-Id: <20230802074315.13688-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amdgpu: Clean up errors in tonga_ih.c
+Date: Wed,  2 Aug 2023 07:50:14 +0000
+Message-Id: <20230802075014.13861-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Thu, 03 Aug 2023 07:25:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,60 +45,26 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-spaces required around that '==' (ctx:VxV)
-ERROR: space required before the open parenthesis '('
 ERROR: that open brace { should be on the previous line
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/tonga_ih.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index 6089c7deba8a..ef5b16061e96 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -1139,11 +1139,11 @@ static int vcn_v4_0_start(struct amdgpu_device *adev)
- 				if (status & 2)
- 					break;
- 				mdelay(10);
--				if (amdgpu_emu_mode==1)
-+				if (amdgpu_emu_mode == 1)
- 					msleep(1);
- 			}
+diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+index b08905d1c00f..917707bba7f3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
+@@ -493,8 +493,7 @@ static void tonga_ih_set_interrupt_funcs(struct amdgpu_device *adev)
+ 	adev->irq.ih_funcs = &tonga_ih_funcs;
+ }
  
--			if (amdgpu_emu_mode==1) {
-+			if (amdgpu_emu_mode == 1) {
- 				r = -1;
- 				if (status & 2) {
- 					r = 0;
-@@ -1959,7 +1959,7 @@ static int vcn_v4_0_set_powergating_state(void *handle, enum amd_powergating_sta
- 		return 0;
- 	}
- 
--	if(state == adev->vcn.cur_state)
-+	if (state == adev->vcn.cur_state)
- 		return 0;
- 
- 	if (state == AMD_PG_STATE_GATE)
-@@ -1967,7 +1967,7 @@ static int vcn_v4_0_set_powergating_state(void *handle, enum amd_powergating_sta
- 	else
- 		ret = vcn_v4_0_start(adev);
- 
--	if(!ret)
-+	if (!ret)
- 		adev->vcn.cur_state = state;
- 
- 	return ret;
-@@ -2101,8 +2101,7 @@ static const struct amd_ip_funcs vcn_v4_0_ip_funcs = {
- 	.set_powergating_state = vcn_v4_0_set_powergating_state,
- };
- 
--const struct amdgpu_ip_block_version vcn_v4_0_ip_block =
+-const struct amdgpu_ip_block_version tonga_ih_ip_block =
 -{
-+const struct amdgpu_ip_block_version vcn_v4_0_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_VCN,
- 	.major = 4,
++const struct amdgpu_ip_block_version tonga_ih_ip_block = {
+ 	.type = AMD_IP_BLOCK_TYPE_IH,
+ 	.major = 3,
  	.minor = 0,
 -- 
 2.17.1
