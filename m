@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64641C001DE
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 06:52:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B640AC001DE
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 06:52:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD16410E4AD;
-	Wed,  2 Aug 2023 06:52:24 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2051.outbound.protection.outlook.com [40.107.220.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E2C610E4AB
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Aug 2023 06:52:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 620D310E4AB;
+	Wed,  2 Aug 2023 06:52:28 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B455610E4AB
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Aug 2023 06:52:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U6oyVDQyhaf13+up0pukl2MJ0hyV3jKPXNIzTHNcooMoew5ncfhlOIp0FbdMC5GU63+UkfnPHDkf99SBFdQiAY4A52Ehl/DzN39s3axtImhNUG4v7W5alnjnk+15wh59+zzuW4INblzXzg2pmwa3+k8EVp45hD21/WedRT7QMoun9FdZvI7F+XXDchO+GoNKP7uE43e4ZYMWmK5k+nv+OtThd01P3RvCQpaUWp5x9QjRDX81tJEqo3I0jjcfNWw+6XT8iIaAD73AgUeLMqX6IF4pZ/oFIgy+FPewDrk/QLJeukTGEclZKWaDWgSNHtubgi/HtjPvSiwFXyod32OMYg==
+ b=D2TzjtW51sBZMTLdBrvJr8BtDbhySA8+rsGwRwP8kL/gBYyXI+1C1Qm+FJOQFpDMyfYvyrixX9NXs1xd6wlTDC45yv8//tfVYglTwwFv24/zHAzGlBEPzBlVSilyFAAXfBTvF5VTMvlss8cv9XmYGZwH/D7s4hSBWWmBCz2n2C/iRQi9qb0g9rfQB0cdncC3cO0AsG069G0dlAh5fJc24vF8nsJFnteMBk5igSb3SQ6emnyorg2m8L8vLd7BJ1XOIprXz5bZaXUdHztCqhXAlNjQmKDEPJqF7HuD/5m2oNQ4Zj67lqWYc9XvAq9QFiJPF/nXGH1RPEZNO2D+pC5XAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0AKs1hx5WS72Cheto71Jusrlya89yysqcWB5XGUPGF4=;
- b=Z5skxtkesbsnnD++Wzex7fzF3vgNgT0JHxHScKD7Z3e1da36Y/rFxBdvFjSJr9romBylP1M1sTl5ZJj6A0YYSjycdhwV+p2fJAXgfDCeEL2TSvxvNRJmQGRJDxCHb6nNoXPu1+pS5QWpcnVe/S/RqXzgiYpcAOLXHtzm8iRJ9Nggbk1sch+lax/LeLS6oLUaeAmwermekFOBD8LFMnvSXj4Yl3ZNCBaUedKwoyCXBVeWbTyeYcaEtaKOK6eejtRjbZ8/6+sz1zdA5u8rH8Mv9XoDnfLaSK4PFl2baQiDzjEv6Zgm1wNG3Ax0SVnzNcwq4vxqOnYC3bJGc2kyg0B1Rg==
+ bh=gNF3XgUsTBaxmKaoHD2oDZ+PP7nBGrUzLc1VjWgUDn4=;
+ b=kajan4e+5dp456yG+G7m7atawuL5QcrbK84MgHaEZ2Yddat4zzBdnhjaKAw/j9lDumnTlHr4HWcS+tasuDQVt+4f1LHv5oRU8OtOBsykNytEBBQQb83IWKdbuoY1JP2wtStUOJDJSb1/ME+lfXFoeeIX5756HbpNRhbIa6SVRTfk+LObNuD1wnBRdLrhk0hgR89Kg553t5HNYR5HO8mXyfiI92ibhQgmb0QD8bYjtdCcxyQ6YxKi1m3J4/VV1zzazCgoWFjKhQ5TOLXi4c4Xgv/nQmWMd2CytfB2Qx/R7fYt1VVg3knOErTguOOKI3pR8ujHImnac21J+6F8K5WMtA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0AKs1hx5WS72Cheto71Jusrlya89yysqcWB5XGUPGF4=;
- b=qE75oP5X9pk7bnXnIpUqY8CQS3d1zWpxAMRxk5LMRE3coa7BB/gIWvlfMSPs4+Pkja+ptrz687AdTOIN6ZF8BiFZPNtbqgHPlHlQo9b0Aq48cmU2Pu5WenWILfeacDDJ/BjwbkVZqqBLvTIxZRH2QgcwQYnq2huTZJcHR8fpflE=
-Received: from DM6PR08CA0013.namprd08.prod.outlook.com (2603:10b6:5:80::26) by
- LV8PR12MB9208.namprd12.prod.outlook.com (2603:10b6:408:182::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.45; Wed, 2 Aug
- 2023 06:52:19 +0000
-Received: from CY4PEPF0000EE3D.namprd03.prod.outlook.com
- (2603:10b6:5:80:cafe::27) by DM6PR08CA0013.outlook.office365.com
- (2603:10b6:5:80::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.19 via Frontend
- Transport; Wed, 2 Aug 2023 06:52:18 +0000
+ bh=gNF3XgUsTBaxmKaoHD2oDZ+PP7nBGrUzLc1VjWgUDn4=;
+ b=2FxbDZsMWOs1bHTt8iO9Tlf0k+/hg8D9NiNdfSTuZicpRnN0E4N6pz0PCdPF/wLssmNAxlimMf/K2DUgWsDd33Cj5ANgSXOJqUSHh2teD9xh5WKIxbF/PjcwqGN8RfXPp0MQOs2H14vS4PzbyBCNopY2Ao+3N/730wB8oI9CNE4=
+Received: from DS7PR05CA0001.namprd05.prod.outlook.com (2603:10b6:5:3b9::6) by
+ DM4PR12MB6038.namprd12.prod.outlook.com (2603:10b6:8:ab::12) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6631.45; Wed, 2 Aug 2023 06:52:23 +0000
+Received: from CY4PEPF0000EE3C.namprd03.prod.outlook.com
+ (2603:10b6:5:3b9:cafe::f4) by DS7PR05CA0001.outlook.office365.com
+ (2603:10b6:5:3b9::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.18 via Frontend
+ Transport; Wed, 2 Aug 2023 06:52:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,26 +45,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000EE3D.mail.protection.outlook.com (10.167.242.17) with Microsoft
+ CY4PEPF0000EE3C.mail.protection.outlook.com (10.167.242.16) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6652.19 via Frontend Transport; Wed, 2 Aug 2023 06:52:18 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ 15.20.6652.19 via Frontend Transport; Wed, 2 Aug 2023 06:52:22 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 2 Aug
- 2023 01:52:18 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 2 Aug
- 2023 01:52:17 -0500
+ 2023 01:52:22 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 1 Aug
+ 2023 23:52:21 -0700
 Received: from tom-HP.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Wed, 2 Aug 2023 01:52:13 -0500
+ Transport; Wed, 2 Aug 2023 01:52:18 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 04/22] drm/amd/display: Fix a bug when searching for
- insert_above_mpcc
-Date: Wed, 2 Aug 2023 14:51:14 +0800
-Message-ID: <20230802065132.3129932-5-chiahsuan.chung@amd.com>
+Subject: [PATCH 05/22] drm/amd/display: Make mpc32 functions available to
+ future DCNs
+Date: Wed, 2 Aug 2023 14:51:15 +0800
+Message-ID: <20230802065132.3129932-6-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230802065132.3129932-1-chiahsuan.chung@amd.com>
 References: <20230802065132.3129932-1-chiahsuan.chung@amd.com>
@@ -73,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3D:EE_|LV8PR12MB9208:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b3cb77a-9809-445f-f713-08db932503a4
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3C:EE_|DM4PR12MB6038:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71932fc1-2321-4f06-b490-08db93250623
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: S5UbH5l+Abz+TT+UwX0cwldU80V4j7C4VGIr6xTmW1WLwfRsLp9sPpLYI+alpewrWBoL+IYqQeJkbK8CCBC7xHqGfqthgAsaCZS7230JvvnpofEXYOTrxjMn0cPYbbR4E/AfGeX2dRStwCdBZ/KXsjSxtMxDwvHxste2F5pQHlYJwjLNnvzO5HEjgXAKMsitLDgRYxhejqFtdaKl9bTdNchPeCYobyv48BMMz4usvR6mrpZeg9c7AudRFjZvlRRmR8oUk0krDkpoyMXFe08exaSSxVKQWSqm77S+q8SP01I6UFvC9VsICeKcXN33Xbu864jb+WnWNu69T05rJz18/Ujsu2y6G4lrgONIhuPhxzcy9nWHmcfevPb+uArJ1Gbhs1Jyfmmn0/ydw2QuavUGQuqVyD/qKOjucY8yNF8DlDYgfpsIKjdcngPEU6J4JHqldly6E0fk/8WuqXI5IXM5TidcPBodhswH+5UNsAzcBMJ6iKMW1s9ZmAo/UPku8sZ3A35lr4EToJAaEiC4cll2HrVOfj3uaoev9nDb/i4rOpkBB2kaMOFwzVnoqFsfObGxltm6to4tHPbPLMefzpI9dufgwd+0YU7307CSEKSaECiumH16QsXey6wKDKeNQzVBqY6aRffzRQ8OgzHIE2+NqrmSO+/FesjVNxqTwulAct8dY55EBMtyUvmSnmaVuv1xUlEJXUyFWhVKE9Z8DP4spSvuVcUzFfWp1/h1lmnNf+qMYfeHTBv+wZEqND9+bCqyL4CDlMvWToPVFetFjNomE/6PNrsC7KvbsSCH1ey1YjI=
+X-Microsoft-Antispam-Message-Info: SDzHceIgdidbn6TJmuJnGlcNfdYB+DgVsrzABLiJPXoPPqXFGJuPIMc1uyDA983mLiNtTHrIxZvvDbN1mGKRo0kB2DBzJfMxSAHNsKZvF2qUtOG/HGh54F5pZweIfoP1M+5RDZxEf/UM+9RBNxR1yiW0gNWrlFPt3sMQKm7T31msJUPDpNqeNn8cKXKEkPdb+wSa0MtrFilE78pf80+0/0UyhKmDoGKK2DEk0hOqC/gAbq11plxCh14gAurJsbUABUJKhGXFo47ezomUObHdSZ9vJULlAlBdcskISoaCFpxWZiD7v82+RV0N0nhID8dzB8a3X4eFW7ct/lWZ2o67x9EWnqtjApPvGSKEBcNZv1L0nh80HxiKIMmkC/IdWUg3s/qa6TvkDmCaqmjUqNLF/zhpCTFsyxILK6YmHnfgIUFhdnjYYATe8x1eyP0zdAhokGzDsKbWhM7QdSD+DjCnyhi00ZRwzoypINNnpxKDIA3Lj9cq6YfdgyFbONFY1XeVBU+Id92vbt3i8qsJbwIrorWfaK3IpPd/GPDtuLTDrohVXgbGpqzlQxZCm7gCStKT2pkDFaOFCJBiLTNNG5mrrZapRczRWDZV8VbwhCYutQczBJglyfmdSIrGqoD4ttGM1LwzwmWzI+2+r4L/P9IFTA4WRC5QvjMov8fc9fqXAHqSIpiohZ/+SWjj6iHz97UNTx3Wy5glIn74QWee8JzfX00p3p8/GVB7Wm4vR5lDUezFJJZPVowLwMqKVFxjEjLM3ymJkel/JA2s7Z58K5WVuw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(376002)(82310400008)(451199021)(46966006)(36840700001)(40470700004)(6916009)(4326008)(40460700003)(70586007)(70206006)(2906002)(426003)(2616005)(81166007)(82740400003)(356005)(336012)(186003)(1076003)(26005)(83380400001)(47076005)(36860700001)(54906003)(40480700001)(86362001)(36756003)(478600001)(7696005)(41300700001)(8936002)(8676002)(5660300002)(316002)(51383001)(36900700001);
+ SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(376002)(82310400008)(451199021)(46966006)(36840700001)(40470700004)(6916009)(4326008)(40460700003)(70586007)(70206006)(2906002)(426003)(2616005)(81166007)(82740400003)(356005)(336012)(186003)(1076003)(26005)(83380400001)(47076005)(36860700001)(54906003)(40480700001)(86362001)(36756003)(478600001)(6666004)(7696005)(41300700001)(8936002)(8676002)(5660300002)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2023 06:52:18.6179 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b3cb77a-9809-445f-f713-08db932503a4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2023 06:52:22.7727 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71932fc1-2321-4f06-b490-08db93250623
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3C.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9208
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6038
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,49 +107,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: stylon.wang@amd.com, Tom Chung <chiahsuan.chung@amd.com>,
  Wesley Chalmers <wesley.chalmers@amd.com>, Sunpeng.Li@amd.com,
  Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, stable@vger.kernel.org, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, Mario Limonciello <mario.limonciello@amd.com>,
- wayne.lin@amd.com, Alex Deucher <alexander.deucher@amd.com>,
- Jun Lei <jun.lei@amd.com>, Bhawanpreet.Lakha@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Jun Lei <jun.lei@amd.com>, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Wesley Chalmers <wesley.chalmers@amd.com>
 
-[WHY]
-Currently, when insert_plane is called with insert_above_mpcc
-parameter that is equal to tree->opp_list, the function returns NULL.
+Make the mpc32 functions available for future DCNs to use
 
-[HOW]
-Instead, the function should insert the plane at the top of the tree.
-
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
 Reviewed-by: Jun Lei <jun.lei@amd.com>
 Acked-by: Tom Chung <chiahsuan.chung@amd.com>
 Signed-off-by: Wesley Chalmers <wesley.chalmers@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c  | 28 ++++-----
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_mpc.h  | 61 +++++++++++++++++++
+ 2 files changed, 75 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c
-index 8e9384094f6d..f2f55565e98a 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c
-@@ -212,8 +212,9 @@ struct mpcc *mpc1_insert_plane(
- 		/* check insert_above_mpcc exist in tree->opp_list */
- 		struct mpcc *temp_mpcc = tree->opp_list;
- 
--		while (temp_mpcc && temp_mpcc->mpcc_bot != insert_above_mpcc)
--			temp_mpcc = temp_mpcc->mpcc_bot;
-+		if (temp_mpcc != insert_above_mpcc)
-+			while (temp_mpcc && temp_mpcc->mpcc_bot != insert_above_mpcc)
-+				temp_mpcc = temp_mpcc->mpcc_bot;
- 		if (temp_mpcc == NULL)
- 			return NULL;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c
+index c8041cfd594d..3082da04a63d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c
+@@ -64,7 +64,7 @@ void mpc32_mpc_init(struct mpc *mpc)
  	}
+ }
+ 
+-static void mpc32_power_on_blnd_lut(
++void mpc32_power_on_blnd_lut(
+ 	struct mpc *mpc,
+ 	uint32_t mpcc_id,
+ 	bool power_on)
+@@ -120,7 +120,7 @@ static enum dc_lut_mode mpc32_get_post1dlut_current(struct mpc *mpc, uint32_t mp
+ 	return mode;
+ }
+ 
+-static void mpc32_configure_post1dlut(
++void mpc32_configure_post1dlut(
+ 		struct mpc *mpc,
+ 		uint32_t mpcc_id,
+ 		bool is_ram_a)
+@@ -163,7 +163,7 @@ static void mpc32_post1dlut_get_reg_field(
+ }
+ 
+ /*program blnd lut RAM A*/
+-static void mpc32_program_post1dluta_settings(
++void mpc32_program_post1dluta_settings(
+ 		struct mpc *mpc,
+ 		uint32_t mpcc_id,
+ 		const struct pwl_params *params)
+@@ -192,7 +192,7 @@ static void mpc32_program_post1dluta_settings(
+ }
+ 
+ /*program blnd lut RAM B*/
+-static void mpc32_program_post1dlutb_settings(
++void mpc32_program_post1dlutb_settings(
+ 		struct mpc *mpc,
+ 		uint32_t mpcc_id,
+ 		const struct pwl_params *params)
+@@ -220,7 +220,7 @@ static void mpc32_program_post1dlutb_settings(
+ 	cm_helper_program_gamcor_xfer_func(mpc->ctx, params, &gam_regs);
+ }
+ 
+-static void mpc32_program_post1dlut_pwl(
++void mpc32_program_post1dlut_pwl(
+ 		struct mpc *mpc,
+ 		uint32_t mpcc_id,
+ 		const struct pwl_result_data *rgb,
+@@ -321,7 +321,7 @@ static enum dc_lut_mode mpc32_get_shaper_current(struct mpc *mpc, uint32_t mpcc_
+ }
+ 
+ 
+-static void mpc32_configure_shaper_lut(
++void mpc32_configure_shaper_lut(
+ 		struct mpc *mpc,
+ 		bool is_ram_a,
+ 		uint32_t mpcc_id)
+@@ -336,7 +336,7 @@ static void mpc32_configure_shaper_lut(
+ }
+ 
+ 
+-static void mpc32_program_shaper_luta_settings(
++void mpc32_program_shaper_luta_settings(
+ 		struct mpc *mpc,
+ 		const struct pwl_params *params,
+ 		uint32_t mpcc_id)
+@@ -486,7 +486,7 @@ static void mpc32_program_shaper_luta_settings(
+ }
+ 
+ 
+-static void mpc32_program_shaper_lutb_settings(
++void mpc32_program_shaper_lutb_settings(
+ 		struct mpc *mpc,
+ 		const struct pwl_params *params,
+ 		uint32_t mpcc_id)
+@@ -637,7 +637,7 @@ static void mpc32_program_shaper_lutb_settings(
+ }
+ 
+ 
+-static void mpc32_program_shaper_lut(
++void mpc32_program_shaper_lut(
+ 		struct mpc *mpc,
+ 		const struct pwl_result_data *rgb,
+ 		uint32_t num,
+@@ -671,7 +671,7 @@ static void mpc32_program_shaper_lut(
+ }
+ 
+ 
+-static void mpc32_power_on_shaper_3dlut(
++void mpc32_power_on_shaper_3dlut(
+ 		struct mpc *mpc,
+ 		uint32_t mpcc_id,
+ 		bool power_on)
+@@ -789,7 +789,7 @@ static enum dc_lut_mode get3dlut_config(
+ }
+ 
+ 
+-static void mpc32_select_3dlut_ram(
++void mpc32_select_3dlut_ram(
+ 		struct mpc *mpc,
+ 		enum dc_lut_mode mode,
+ 		bool is_color_channel_12bits,
+@@ -803,7 +803,7 @@ static void mpc32_select_3dlut_ram(
+ }
+ 
+ 
+-static void mpc32_select_3dlut_ram_mask(
++void mpc32_select_3dlut_ram_mask(
+ 		struct mpc *mpc,
+ 		uint32_t ram_selection_mask,
+ 		uint32_t mpcc_id)
+@@ -816,7 +816,7 @@ static void mpc32_select_3dlut_ram_mask(
+ }
+ 
+ 
+-static void mpc32_set3dlut_ram12(
++void mpc32_set3dlut_ram12(
+ 		struct mpc *mpc,
+ 		const struct dc_rgb *lut,
+ 		uint32_t entries,
+@@ -848,7 +848,7 @@ static void mpc32_set3dlut_ram12(
+ }
+ 
+ 
+-static void mpc32_set3dlut_ram10(
++void mpc32_set3dlut_ram10(
+ 		struct mpc *mpc,
+ 		const struct dc_rgb *lut,
+ 		uint32_t entries,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.h
+index 2c2ecd053806..9ac584fa89ce 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.h
+@@ -332,4 +332,65 @@ void dcn32_mpc_construct(struct dcn30_mpc *mpc30,
+ 	int num_mpcc,
+ 	int num_rmu);
+ 
++void mpc32_power_on_blnd_lut(
++	struct mpc *mpc,
++	uint32_t mpcc_id,
++	bool power_on);
++void mpc32_program_post1dlut_pwl(
++		struct mpc *mpc,
++		uint32_t mpcc_id,
++		const struct pwl_result_data *rgb,
++		uint32_t num);
++void mpc32_program_post1dlutb_settings(
++		struct mpc *mpc,
++		uint32_t mpcc_id,
++		const struct pwl_params *params);
++void mpc32_program_post1dluta_settings(
++		struct mpc *mpc,
++		uint32_t mpcc_id,
++		const struct pwl_params *params);
++void mpc32_configure_post1dlut(
++		struct mpc *mpc,
++		uint32_t mpcc_id,
++		bool is_ram_a);
++void mpc32_program_shaper_lut(
++		struct mpc *mpc,
++		const struct pwl_result_data *rgb,
++		uint32_t num,
++		uint32_t mpcc_id);
++void mpc32_program_shaper_lutb_settings(
++		struct mpc *mpc,
++		const struct pwl_params *params,
++		uint32_t mpcc_id);
++void mpc32_program_shaper_luta_settings(
++		struct mpc *mpc,
++		const struct pwl_params *params,
++		uint32_t mpcc_id);
++void mpc32_configure_shaper_lut(
++		struct mpc *mpc,
++		bool is_ram_a,
++		uint32_t mpcc_id);
++void mpc32_power_on_shaper_3dlut(
++		struct mpc *mpc,
++		uint32_t mpcc_id,
++		bool power_on);
++void mpc32_set3dlut_ram10(
++		struct mpc *mpc,
++		const struct dc_rgb *lut,
++		uint32_t entries,
++		uint32_t mpcc_id);
++void mpc32_set3dlut_ram12(
++		struct mpc *mpc,
++		const struct dc_rgb *lut,
++		uint32_t entries,
++		uint32_t mpcc_id);
++void mpc32_select_3dlut_ram_mask(
++		struct mpc *mpc,
++		uint32_t ram_selection_mask,
++		uint32_t mpcc_id);
++void mpc32_select_3dlut_ram(
++		struct mpc *mpc,
++		enum dc_lut_mode mode,
++		bool is_color_channel_12bits,
++		uint32_t mpcc_id);
+ #endif		//__DC_MPCC_DCN32_H__
 -- 
 2.25.1
 
