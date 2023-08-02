@@ -4,28 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83F2AC04A6A
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F8F6C04A94
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D674F10E4D4;
-	Wed,  2 Aug 2023 07:20:09 +0000 (UTC)
-Received: from out28-5.mail.aliyun.com (out28-5.mail.aliyun.com [115.124.28.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B32010E386;
- Tue,  1 Aug 2023 09:51:05 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.0973273|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.0380037-4.3357e-05-0.961953;
- FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047208; MF=sunran001@208suo.com; NM=1;
- PH=DS; RN=7; RT=7; SR=0; TI=SMTPD_---.U5shFFo_1690883457; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC0D10E4D5;
+	Wed,  2 Aug 2023 07:20:10 +0000 (UTC)
+Received: from out28-133.mail.aliyun.com (out28-133.mail.aliyun.com
+ [115.124.28.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 066CE10E485;
+ Wed,  2 Aug 2023 02:40:05 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.4055942|-1; CH=blue; DM=|OVERLOAD|false|;
+ DS=CONTINUE|ham_alarm|0.00105794-0.000121474-0.998821; FP=0|0|0|0|0|-1|-1|-1;
+ HT=ay29a033018047199; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
+ TI=SMTPD_---.U6N4oZg_1690943996; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U5shFFo_1690883457) by smtp.aliyun-inc.com;
- Tue, 01 Aug 2023 17:50:58 +0800
+ fp:SMTPD_---.U6N4oZg_1690943996) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 10:39:58 +0800
 From: Ran Sun <sunran001@208suo.com>
-To: alexander.deucher@amd.com,
-	airlied@gmail.com,
-	daniel@ffwll.ch
-Subject: [PATCH] drm/amd/pm: Clean up errors in smu9_driver_if.h
-Date: Tue,  1 Aug 2023 09:50:56 +0000
-Message-Id: <20230801095056.8120-1-sunran001@208suo.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amd/display: Clean up errors in color_gamma.c
+Date: Wed,  2 Aug 2023 02:39:55 +0000
+Message-Id: <20230802023955.10014-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -46,48 +45,37 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: space prohibited before open square bracket '['
+ERROR: trailing whitespace
+ERROR: else should follow close brace '}'
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- .../drm/amd/pm/powerplay/inc/smu9_driver_if.h | 20 +++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/smu9_driver_if.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu9_driver_if.h
-index faae4b918d90..2c69a5694f94 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/inc/smu9_driver_if.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/inc/smu9_driver_if.h
-@@ -178,20 +178,20 @@ typedef struct {
-   uint8_t      padding8_2[2];
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+index 67a062af3ab0..ff8e5708735d 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+@@ -359,7 +359,7 @@ static struct fixed31_32 translate_from_linear_space(
+ 		scratch_1 = dc_fixpt_add(one, args->a3);
+ 		/* In the first region (first 16 points) and in the
+ 		 * region delimited by START/END we calculate with
+-		 * full precision to avoid error accumulation. 
++		 * full precision to avoid error accumulation.
+ 		 */
+ 		if ((cal_buffer->buffer_index >= PRECISE_LUT_REGION_START &&
+ 			cal_buffer->buffer_index <= PRECISE_LUT_REGION_END) ||
+@@ -379,8 +379,7 @@ static struct fixed31_32 translate_from_linear_space(
+ 		scratch_1 = dc_fixpt_sub(scratch_1, args->a2);
  
-   /* SOC Frequencies */
--  PllSetting_t GfxclkLevel        [NUM_GFXCLK_DPM_LEVELS];
-+  PllSetting_t GfxclkLevel[NUM_GFXCLK_DPM_LEVELS];
+ 		return scratch_1;
+-	}
+-	else
++	} else
+ 		return dc_fixpt_mul(args->arg, args->a1);
+ }
  
--  uint8_t      SocclkDid          [NUM_SOCCLK_DPM_LEVELS];          /* DID */
--  uint8_t      SocDpmVoltageIndex [NUM_SOCCLK_DPM_LEVELS];
-+  uint8_t      SocclkDid[NUM_SOCCLK_DPM_LEVELS];          /* DID */
-+  uint8_t      SocDpmVoltageIndex[NUM_SOCCLK_DPM_LEVELS];
- 
--  uint8_t      VclkDid            [NUM_UVD_DPM_LEVELS];            /* DID */
--  uint8_t      DclkDid            [NUM_UVD_DPM_LEVELS];            /* DID */
--  uint8_t      UvdDpmVoltageIndex [NUM_UVD_DPM_LEVELS];
-+  uint8_t      VclkDid[NUM_UVD_DPM_LEVELS];            /* DID */
-+  uint8_t      DclkDid[NUM_UVD_DPM_LEVELS];            /* DID */
-+  uint8_t      UvdDpmVoltageIndex[NUM_UVD_DPM_LEVELS];
- 
--  uint8_t      EclkDid            [NUM_VCE_DPM_LEVELS];            /* DID */
--  uint8_t      VceDpmVoltageIndex [NUM_VCE_DPM_LEVELS];
-+  uint8_t      EclkDid[NUM_VCE_DPM_LEVELS];            /* DID */
-+  uint8_t      VceDpmVoltageIndex[NUM_VCE_DPM_LEVELS];
- 
--  uint8_t      Mp0clkDid          [NUM_MP0CLK_DPM_LEVELS];          /* DID */
--  uint8_t      Mp0DpmVoltageIndex [NUM_MP0CLK_DPM_LEVELS];
-+  uint8_t      Mp0clkDid[NUM_MP0CLK_DPM_LEVELS];          /* DID */
-+  uint8_t      Mp0DpmVoltageIndex[NUM_MP0CLK_DPM_LEVELS];
- 
-   DisplayClockTable_t DisplayClockTable[DSPCLK_COUNT][NUM_DSPCLK_LEVELS];
-   QuadraticInt_t      DisplayClock2Gfxclk[DSPCLK_COUNT];
 -- 
 2.17.1
 
