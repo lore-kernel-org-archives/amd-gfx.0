@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6080C04FE0
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E59C04A6A
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 620E810E4EC;
-	Wed,  2 Aug 2023 07:20:12 +0000 (UTC)
-Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com
- [115.124.28.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 081DB10E4A4;
- Wed,  2 Aug 2023 06:43:46 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.5251083|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_alarm|0.0292899-0.00261234-0.968098; FP=0|0|0|0|0|-1|-1|-1;
- HT=ay29a033018047211; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
- TI=SMTPD_---.U6YPSJs_1690958616; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3453010E4F8;
+	Wed,  2 Aug 2023 07:20:14 +0000 (UTC)
+Received: from out28-102.mail.aliyun.com (out28-102.mail.aliyun.com
+ [115.124.28.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B02FC10E47F;
+ Wed,  2 Aug 2023 01:59:52 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.1085532|-1; CH=blue; DM=|OVERLOAD|false|;
+ DS=CONTINUE|ham_system_inform|0.0392941-0.000118786-0.960587;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047199; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6KNjwR_1690941582; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6YPSJs_1690958616) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 14:43:38 +0800
+ fp:SMTPD_---.U6KNjwR_1690941582) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 09:59:44 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in ih_v6_0.c
-Date: Wed,  2 Aug 2023 06:43:33 +0000
-Message-Id: <20230802064333.11895-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amd/pm: Clean up errors in smu75.h
+Date: Wed,  2 Aug 2023 01:59:41 +0000
+Message-Id: <20230802015941.9124-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,38 +45,51 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: trailing statements should be on next line
-ERROR: that open brace { should be on the previous line
+ERROR: space prohibited before open square bracket '['
+ERROR: "foo * bar" should be "foo *bar"
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/amdgpu/ih_v6_0.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/inc/smu75.h | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-index 980b24120080..ec0c8f8b465a 100644
---- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-@@ -494,7 +494,8 @@ static int ih_v6_0_self_irq(struct amdgpu_device *adev,
- 		*adev->irq.ih1.wptr_cpu = wptr;
- 		schedule_work(&adev->irq.ih1_work);
- 		break;
--	default: break;
-+	default:
-+		break;
- 	}
- 	return 0;
- }
-@@ -759,8 +760,7 @@ static void ih_v6_0_set_interrupt_funcs(struct amdgpu_device *adev)
- 	adev->irq.ih_funcs = &ih_v6_0_funcs;
- }
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/smu75.h b/drivers/gpu/drm/amd/pm/powerplay/inc/smu75.h
+index 771523001533..7d5ed7751976 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/inc/smu75.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/inc/smu75.h
+@@ -224,8 +224,8 @@ struct SMU7_LocalDpmScoreboard {
+ 	uint8_t  DteClampMode;
+ 	uint8_t  FpsClampMode;
  
--const struct amdgpu_ip_block_version ih_v6_0_ip_block =
--{
-+const struct amdgpu_ip_block_version ih_v6_0_ip_block = {
- 	.type = AMD_IP_BLOCK_TYPE_IH,
- 	.major = 6,
- 	.minor = 0,
+-	uint16_t LevelResidencyCounters [SMU75_MAX_LEVELS_GRAPHICS];
+-	uint16_t LevelSwitchCounters [SMU75_MAX_LEVELS_GRAPHICS];
++	uint16_t LevelResidencyCounters[SMU75_MAX_LEVELS_GRAPHICS];
++	uint16_t LevelSwitchCounters[SMU75_MAX_LEVELS_GRAPHICS];
+ 
+ 	void     (*TargetStateCalculator)(uint8_t);
+ 	void     (*SavedTargetStateCalculator)(uint8_t);
+@@ -316,7 +316,7 @@ struct SMU7_VoltageScoreboard {
+ 
+ 	VoltageChangeHandler_t functionLinks[6];
+ 
+-	uint16_t * VddcFollower1;
++	uint16_t *VddcFollower1;
+ 	int16_t  Driver_OD_RequestedVidOffset1;
+ 	int16_t  Driver_OD_RequestedVidOffset2;
+ };
+@@ -677,9 +677,9 @@ typedef struct SCS_CELL_t SCS_CELL_t;
+ 
+ struct VFT_TABLE_t {
+ 	VFT_CELL_t    Cell[TEMP_RANGE_MAXSTEPS][NUM_VFT_COLUMNS];
+-	uint16_t      AvfsGbv [NUM_VFT_COLUMNS];
+-	uint16_t      BtcGbv  [NUM_VFT_COLUMNS];
+-	int16_t       Temperature [TEMP_RANGE_MAXSTEPS];
++	uint16_t      AvfsGbv[NUM_VFT_COLUMNS];
++	uint16_t      BtcGbv[NUM_VFT_COLUMNS];
++	int16_t       Temperature[TEMP_RANGE_MAXSTEPS];
+ 
+ #ifdef SMU__FIRMWARE_SCKS_PRESENT__1
+ 	SCS_CELL_t    ScksCell[TEMP_RANGE_MAXSTEPS][NUM_VFT_COLUMNS];
 -- 
 2.17.1
 
