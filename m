@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F8F1C04FE1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6832C001DF
 	for <amd-gfx@archiver.kernel.org>; Wed,  2 Aug 2023 07:20:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2170C10E4F6;
-	Wed,  2 Aug 2023 07:20:13 +0000 (UTC)
-Received: from out28-146.mail.aliyun.com (out28-146.mail.aliyun.com
- [115.124.28.146])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F30210E4A2;
- Wed,  2 Aug 2023 06:40:37 +0000 (UTC)
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.2407244|-1; CH=green; DM=|CONTINUE|false|;
- DS=CONTINUE|ham_alarm|0.00221003-7.23864e-05-0.997718; FP=0|0|0|0|0|-1|-1|-1;
- HT=ay29a033018047204; MF=sunran001@208suo.com; NM=1; PH=DS; RN=5; RT=5; SR=0;
- TI=SMTPD_---.U6YguAj_1690958427; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B35210E4ED;
+	Wed,  2 Aug 2023 07:20:12 +0000 (UTC)
+Received: from out28-195.mail.aliyun.com (out28-195.mail.aliyun.com
+ [115.124.28.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C135D10E1E9;
+ Wed,  2 Aug 2023 02:47:37 +0000 (UTC)
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.8370208|0.1542419; CH=green;
+ DM=|AD|false|; DS=CONTINUE|ham_system_inform|0.128715-0.00524152-0.866043;
+ FP=0|0|0|0|0|-1|-1|-1; HT=ay29a033018047213; MF=sunran001@208suo.com; NM=1;
+ PH=DS; RN=5; RT=5; SR=0; TI=SMTPD_---.U6NjZXx_1690944447; 
 Received: from localhost.localdomain(mailfrom:sunran001@208suo.com
- fp:SMTPD_---.U6YguAj_1690958427) by smtp.aliyun-inc.com;
- Wed, 02 Aug 2023 14:40:29 +0800
+ fp:SMTPD_---.U6NjZXx_1690944447) by smtp.aliyun-inc.com;
+ Wed, 02 Aug 2023 10:47:29 +0800
 From: Ran Sun <sunran001@208suo.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: Clean up errors in amdgpu_psp.h
-Date: Wed,  2 Aug 2023 06:40:24 +0000
-Message-Id: <20230802064024.11806-1-sunran001@208suo.com>
+Subject: [PATCH] drm/amd/dc: Clean up errors in hpd_regs.h
+Date: Wed,  2 Aug 2023 02:47:25 +0000
+Message-Id: <20230802024725.10192-1-sunran001@208suo.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Wed, 02 Aug 2023 07:20:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,58 +45,40 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fix the following errors reported by checkpatch:
 
-ERROR: open brace '{' following struct go on the same line
-ERROR: open brace '{' following enum go on the same line
+ERROR: space required after that ',' (ctx:VxV)
 
 Signed-off-by: Ran Sun <sunran001@208suo.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/gpio/hpd_regs.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index c3203de4a007..feef988bf0c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -78,8 +78,7 @@ enum psp_bootloader_cmd {
- 	PSP_BL__LOAD_TOS_SPL_TABLE	= 0x10000000,
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hpd_regs.h b/drivers/gpu/drm/amd/display/dc/gpio/hpd_regs.h
+index dcfdd71b2304..debb363cfcf4 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/hpd_regs.h
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hpd_regs.h
+@@ -36,17 +36,17 @@
+ #define ONE_MORE_5 6
  
--enum psp_ring_type
--{
-+enum psp_ring_type {
- 	PSP_RING_TYPE__INVALID = 0,
- 	/*
- 	 * These values map to the way the PSP kernel identifies the
-@@ -89,8 +88,7 @@ enum psp_ring_type
- 	PSP_RING_TYPE__KM = 2  /* Kernel mode ring (formerly called GPCOM) */
- };
  
--struct psp_ring
--{
-+struct psp_ring {
- 	enum psp_ring_type		ring_type;
- 	struct psp_gfx_rb_frame		*ring_mem;
- 	uint64_t			ring_mem_mc_addr;
-@@ -107,8 +105,7 @@ enum psp_reg_prog_id {
- 	PSP_REG_LAST
- };
+-#define HPD_GPIO_REG_LIST_ENTRY(type,cd,id) \
++#define HPD_GPIO_REG_LIST_ENTRY(type, cd, id) \
+ 	.type ## _reg =  REG(DC_GPIO_HPD_## type),\
+ 	.type ## _mask =  DC_GPIO_HPD_ ## type ## __DC_GPIO_HPD ## id ## _ ## type ## _MASK,\
+ 	.type ## _shift = DC_GPIO_HPD_ ## type ## __DC_GPIO_HPD ## id ## _ ## type ## __SHIFT
  
--struct psp_funcs
--{
-+struct psp_funcs {
- 	int (*init_microcode)(struct psp_context *psp);
- 	int (*bootloader_load_kdb)(struct psp_context *psp);
- 	int (*bootloader_load_spl)(struct psp_context *psp);
-@@ -307,8 +304,7 @@ struct psp_runtime_scpm_entry {
- 	enum psp_runtime_scpm_authentication scpm_status;
- };
+ #define HPD_GPIO_REG_LIST(id) \
+ 	{\
+-	HPD_GPIO_REG_LIST_ENTRY(MASK,cd,id),\
+-	HPD_GPIO_REG_LIST_ENTRY(A,cd,id),\
+-	HPD_GPIO_REG_LIST_ENTRY(EN,cd,id),\
+-	HPD_GPIO_REG_LIST_ENTRY(Y,cd,id)\
++	HPD_GPIO_REG_LIST_ENTRY(MASK, cd, id),\
++	HPD_GPIO_REG_LIST_ENTRY(A, cd, id),\
++	HPD_GPIO_REG_LIST_ENTRY(EN, cd, id),\
++	HPD_GPIO_REG_LIST_ENTRY(Y, cd, id)\
+ 	}
  
--struct psp_context
--{
-+struct psp_context {
- 	struct amdgpu_device		*adev;
- 	struct psp_ring			km_ring;
- 	struct psp_gfx_cmd_resp		*cmd;
+ #define HPD_REG_LIST(id) \
 -- 
 2.17.1
 
