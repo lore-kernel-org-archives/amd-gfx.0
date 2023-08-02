@@ -4,58 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22F5FC001DF
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 07:25:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D0E0C001DF
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 07:25:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4750710E5A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 601D310E5A2;
 	Thu,  3 Aug 2023 07:25:03 +0000 (UTC)
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
- [IPv6:2607:f8b0:4864:20::112b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E955510E527
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Aug 2023 09:06:02 +0000 (UTC)
-Received: by mail-yw1-x112b.google.com with SMTP id
- 00721157ae682-583f99641adso65166837b3.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 02 Aug 2023 02:06:02 -0700 (PDT)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 937F510E570
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Aug 2023 19:01:24 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-99c3c8adb27so21476766b.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 02 Aug 2023 12:01:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690967162; x=1691571962;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=zJo1GDVdxjuEF3GZ0h8NCedqxxr4bUpTzfP363f04Q4=;
- b=xRGySJsX/O0+HhQkS9s1TftOkx+w+jubWByoUFUKefpw2nDpcBsHdp4/xIaD7QpT9W
- TiwMdHCvVtHdYongyJOBpuXq9XO/tcdXjHuZFW04WbnaXyUddsEFo4j6pnIcKkNUIE/3
- fKXlk2nD7GNIo/jtR9qQKQu6WBZdrsKXUHJDp7kQd2ObGjRwkn63H9quVg2vCFUd2RvC
- 0+12chHxSUHVCM9NV0pIyZyEV6PgBAC3PZLtGCrweEf+xP1wmH2U4WsqScSnaLwx5sz1
- sVQ60Cud/S6wfOFT8336s4uRw25oh8Eu2f34Izfj+y+t35fWiGxgniykI0EU0+L76kGS
- Q7fA==
+ d=linaro.org; s=google; t=1691002883; x=1691607683;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=osatjqbzo6JXPILQNRf8QUtP7yGmhdrE/e+FRS4B8NY=;
+ b=Q6qrnGQGmpFmn2tv1ponn9yGlDVg5Ek+b3lggx0DNPLeBggUAlhbvMr1jJ2Ka7dNhi
+ EEO4CJJvjy4VIrpKL6pI/J2TUDtvSFOmlKswXNY7IoA6QeSKZGt9NJeazaCdp1PP7YXb
+ mR8U5/2w+nMEXBSsJgfzBrMxnzD2Vbkwuuir6dp2XKYLGB1VmY+ekoThUGmjK26/illo
+ JOGea7UmxK5ojg1+U/pPGCpk7DAO+JkK9NoPODmRXJQ9+je6mMqZYQFbxwtt4to8tEy7
+ YmvuW/fuj0b81Z4nrzQ4beKqyq+cO9MEtE8gCh8O9KOU5jTN/+UglZ/BHznwjUGJiYVB
+ iT8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690967162; x=1691571962;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=zJo1GDVdxjuEF3GZ0h8NCedqxxr4bUpTzfP363f04Q4=;
- b=AbAvvevJtmMhTr7mFU5Cmfip4xA4reKUdw+dcKXEd2IS3HPxuY+GYqXSzYJZZGYN7r
- RqeeM9wZDdLxiAXxJLU1T1y0wcqQZBJQ5r108wyM89mSWSBB9Va64zrCC+s9vSncJczA
- Xl2EmSzvMJgEG+IUn8XqR83QIroiJvJ+eT7WEoMJTUt+1ACEYgihj3hdmtSioqhRceWE
- ByT0rMm+ehiovNe1Ax326/fyFJ/TW/aLSaesSSt44FSj6WllA4zvSRHOIACbkAnMc+mc
- zKA9Uky3IT2ySfPcXY4s8eCe9xIj88dD5Bhh6YWzayPnCn+rmwGOBHK5GJs/x8RMft2T
- juAA==
-X-Gm-Message-State: ABy/qLbxDmvcDvn08AIx+osZ65EZs+tAqhLD6+moo8MsmzvLqUhjz2Qi
- qhK2tkVsxoMgsX13PWg2jAtUpqHTy8sKQWiZ6bIZIQ==
-X-Google-Smtp-Source: APBJJlHe54V6RwR/aD4wxBit+WMtsfxJlYINs/ZT5LNjHwEGqkD1LUetUBnjUZ1FiOdGz7XZoUX8Xtdd8QI/8ZkfVZQ=
-X-Received: by 2002:a81:6c52:0:b0:573:9e0a:b8bf with SMTP id
- h79-20020a816c52000000b005739e0ab8bfmr13033940ywc.9.1690967161816; Wed, 02
- Aug 2023 02:06:01 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1691002883; x=1691607683;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=osatjqbzo6JXPILQNRf8QUtP7yGmhdrE/e+FRS4B8NY=;
+ b=clU3dgvxEf3nyYx0ODL6U6QdxkoARR+WOfWXISht0ZkjPhvRTl4eaHtAuSO9wilgUS
+ tz67C29sOszfSubTN4fASFeUaHTtaTmcsHupfQR62hMJUV6xUiafZMyKVU2E0QLrXLr1
+ KeuarOsn2PkhjSJc5ueVDKPrdRVUvc7g5CRUjL+htm6M6qOCxVk0z2Sm4G+GOJaWzFS+
+ 5JUVtLq2rPbY4iRVHf6JvK/iYkiVHpHKNHK95kPuO6dCpn61icKo3OBGCHYoT1uUvwsJ
+ 4B5VVgIh5iR5J8gwQ6g0eRiEeHVJ/Qabp7yK0w+d7r1VUORqPWAjcevKI4Ih+wIr9+PR
+ nnYg==
+X-Gm-Message-State: ABy/qLYx/9lGqO2tiV5EqgffpBr21rWs2Gj1br/197ORYPKzq36vN7M5
+ MnPCoR8HKzagaRPaPquPa/lmXw==
+X-Google-Smtp-Source: APBJJlGQs27IGKD1hLzqWX1o2A+XRPg/fCz8VX60XxBKLLEPVEnAqXC7Ba2YEC7T9oK7L8iZwnYR8w==
+X-Received: by 2002:a17:906:224b:b0:99b:d435:e994 with SMTP id
+ 11-20020a170906224b00b0099bd435e994mr5895647ejr.32.1691002883015; 
+ Wed, 02 Aug 2023 12:01:23 -0700 (PDT)
+Received: from [10.10.15.130] ([192.130.178.91])
+ by smtp.gmail.com with ESMTPSA id
+ jp21-20020a170906f75500b00988c0c175c6sm9441808ejb.189.2023.08.02.12.01.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Aug 2023 12:01:22 -0700 (PDT)
+Message-ID: <a32ce695-038f-0ef8-3584-5bd1ba528131@linaro.org>
+Date: Wed, 2 Aug 2023 22:01:19 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 3/4] drm/uapi: document the USB subconnector type
+Content-Language: en-GB
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 References: <20230729004913.215872-1-dmitry.baryshkov@linaro.org>
- <20230729004913.215872-3-dmitry.baryshkov@linaro.org>
- <0cc04d99-d7aa-68ff-b304-7d42ae7f0dde@linaro.org>
-In-Reply-To: <0cc04d99-d7aa-68ff-b304-7d42ae7f0dde@linaro.org>
+ <20230729004913.215872-4-dmitry.baryshkov@linaro.org>
+ <20230802185547.GC32500@pendragon.ideasonboard.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 2 Aug 2023 12:05:50 +0300
-Message-ID: <CAA8EJpoMC-YbWvyfCsdAHOL9aw3nfQ=g8BgLp2mb9iozeRgBpg@mail.gmail.com>
-Subject: Re: [PATCH 2/4] drm/bridge-connector: handle subconnector types
-To: neil.armstrong@linaro.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20230802185547.GC32500@pendragon.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 03 Aug 2023 07:25:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,8 +79,7 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
  Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
@@ -79,131 +88,69 @@ Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, Jonas Karlman <jonas@kwiboo.se>,
  Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, amd-gfx@lists.freedesktop.org,
- Simon Ser <contact@emersion.fr>, Bjorn Andersson <andersson@kernel.org>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Simon Ser <contact@emersion.fr>,
+ Bjorn Andersson <andersson@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2 Aug 2023 at 11:35, Neil Armstrong <neil.armstrong@linaro.org> wrote:
->
-> On 29/07/2023 02:49, Dmitry Baryshkov wrote:
-> > If the created connector type supports subconnector type property,
-> > create and attach corresponding it. The default subtype value is 0,
-> > which maps to the DRM_MODE_SUBCONNECTOR_Unknown type.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >   drivers/gpu/drm/drm_bridge_connector.c | 33 +++++++++++++++++++++++++-
-> >   include/drm/drm_bridge.h               |  4 ++++
-> >   2 files changed, 36 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
-> > index 07b5930b1282..a7b92f0d2430 100644
-> > --- a/drivers/gpu/drm/drm_bridge_connector.c
-> > +++ b/drivers/gpu/drm/drm_bridge_connector.c
-> > @@ -329,7 +329,9 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
-> >       struct drm_connector *connector;
-> >       struct i2c_adapter *ddc = NULL;
-> >       struct drm_bridge *bridge, *panel_bridge = NULL;
-> > +     enum drm_mode_subconnector subconnector;
-> >       int connector_type;
-> > +     int ret;
-> >
-> >       bridge_connector = kzalloc(sizeof(*bridge_connector), GFP_KERNEL);
-> >       if (!bridge_connector)
-> > @@ -365,8 +367,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
-> >               if (bridge->ops & DRM_BRIDGE_OP_MODES)
-> >                       bridge_connector->bridge_modes = bridge;
-> >
-> > -             if (!drm_bridge_get_next_bridge(bridge))
-> > +             if (!drm_bridge_get_next_bridge(bridge)) {
-> >                       connector_type = bridge->type;
-> > +                     subconnector = bridge->subtype;
-> > +             }
-> >
-> >   #ifdef CONFIG_OF
-> >               if (!drm_bridge_get_next_bridge(bridge) &&
-> > @@ -399,6 +403,33 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
-> >       if (panel_bridge)
-> >               drm_panel_bridge_set_orientation(connector, panel_bridge);
-> >
-> > +     if (connector_type == DRM_MODE_CONNECTOR_DisplayPort) {
-> > +             drm_connector_attach_dp_subconnector_property(connector, subconnector);
-> > +     } else if (connector_type == DRM_MODE_CONNECTOR_DVII) {
-> > +             ret = drm_mode_create_dvi_i_properties(drm);
-> > +             if (ret)
-> > +                     return ERR_PTR(ret);
-> > +
-> > +             drm_object_attach_property(&connector->base,
-> > +                                        drm->mode_config.dvi_i_subconnector_property,
-> > +                                        subconnector);
-> > +     } else if (connector_type == DRM_MODE_CONNECTOR_TV) {
-> > +             ret = drm_mode_create_tv_properties(drm,
-> > +                                                 BIT(DRM_MODE_TV_MODE_NTSC) |
-> > +                                                 BIT(DRM_MODE_TV_MODE_NTSC_443) |
-> > +                                                 BIT(DRM_MODE_TV_MODE_NTSC_J) |
-> > +                                                 BIT(DRM_MODE_TV_MODE_PAL) |
-> > +                                                 BIT(DRM_MODE_TV_MODE_PAL_M) |
-> > +                                                 BIT(DRM_MODE_TV_MODE_PAL_N) |
-> > +                                                 BIT(DRM_MODE_TV_MODE_SECAM));
-> > +             if (ret)
-> > +                     return ERR_PTR(ret);
->
-> I don't think this is right, this should be called from the appropriate encoder
-> device depending on the analog tv mode capabilities.
+On 02/08/2023 21:55, Laurent Pinchart wrote:
+> Hi Dmitry,
+> 
+> Thank you for the patch.
+> 
+> On Sat, Jul 29, 2023 at 03:49:12AM +0300, Dmitry Baryshkov wrote:
+>> To properly define the USB-C DP altmode connectors, add the USB
+>> subconnector type.
+>>
+>> Suggested-by: Simon Ser <contact@emersion.fr>
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> ---
+>>   drivers/gpu/drm/drm_connector.c | 1 +
+>>   include/uapi/drm/drm_mode.h     | 1 +
+>>   2 files changed, 2 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+>> index a6066e4a5e9a..9e96b038f5d0 100644
+>> --- a/drivers/gpu/drm/drm_connector.c
+>> +++ b/drivers/gpu/drm/drm_connector.c
+>> @@ -1050,6 +1050,7 @@ static const struct drm_prop_enum_list drm_dp_subconnector_enum_list[] = {
+>>   	{ DRM_MODE_SUBCONNECTOR_DisplayPort, "DP"        }, /* DP */
+>>   	{ DRM_MODE_SUBCONNECTOR_Wireless,    "Wireless"  }, /* DP */
+>>   	{ DRM_MODE_SUBCONNECTOR_Native,	     "Native"    }, /* DP */
+>> +	{ DRM_MODE_SUBCONNECTOR_USB,	     "USB"       }, /* DP */
+> 
+> Should this be DRM_MODE_SUBCONNECTOR_USB_C and "USB-C", in case we get
+> another USB type later ?
 
-Good question. My logic was the following: the DRM device can have
-different TV out ports with different capabilities (yeah, pure
-theoretical construct). In this case it might be impossible to create
-a single subset of values. Thus it is more correct to create the
-property listing all possible values. The property is immutable anyway
-(and so the user doesn't have control over the value).
+Hmm, which id should I use for micro-USB then? (consider anx7808, 
+SlimPort). I thought about using DRM_MODE_SUBCONNECTOR_USB for both of 
+them. But maybe I should add another subtype for SlimPort.
 
-
-> > +
-> > +             drm_object_attach_property(&connector->base,
-> > +                                        drm->mode_config.tv_subconnector_property,
-> > +                                        subconnector);
->
-> Here, only add the property if drm->mode_config.tv_subconnector_property exists,
-> and perhaps add a warning if not.
-
-This property is created in the previous call,
-drm_mode_create_tv_properties() ->
-drm_mode_create_tv_properties_legacy().
-
->
-> AFAIK same for DRM_MODE_CONNECTOR_DVII.
->
-> > +     }
-> > +
-> >       return connector;
-> >   }
-> >   EXPORT_SYMBOL_GPL(drm_bridge_connector_init);
-> > diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> > index bf964cdfb330..68b14ac5ac0d 100644
-> > --- a/include/drm/drm_bridge.h
-> > +++ b/include/drm/drm_bridge.h
-> > @@ -739,6 +739,10 @@ struct drm_bridge {
-> >        * identifies the type of connected display.
-> >        */
-> >       int type;
-> > +     /**
-> > +      * @subtype: the subtype of the connector for the DP/TV/DVI-I cases.
-> > +      */
-> > +     enum drm_mode_subconnector subtype;
-> >       /**
-> >        * @interlace_allowed: Indicate that the bridge can handle interlaced
-> >        * modes.
->
-
+> 
+>>   };
+>>   
+>>   DRM_ENUM_NAME_FN(drm_get_dp_subconnector_name,
+>> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+>> index 92d96a2b6763..0f74918b011c 100644
+>> --- a/include/uapi/drm/drm_mode.h
+>> +++ b/include/uapi/drm/drm_mode.h
+>> @@ -398,6 +398,7 @@ enum drm_mode_subconnector {
+>>   	DRM_MODE_SUBCONNECTOR_HDMIA       = 11, /*            DP */
+>>   	DRM_MODE_SUBCONNECTOR_Native      = 15, /*            DP */
+>>   	DRM_MODE_SUBCONNECTOR_Wireless    = 18, /*            DP */
+>> +	DRM_MODE_SUBCONNECTOR_USB         = 20, /*            DP */
+>>   };
+>>   
+>>   #define DRM_MODE_CONNECTOR_Unknown	0
+> 
 
 -- 
 With best wishes
 Dmitry
+
