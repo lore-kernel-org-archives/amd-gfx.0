@@ -4,40 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E31DC001DE
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Aug 2023 07:18:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 346BFC41513
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Aug 2023 07:18:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 019BB10E6A0;
-	Fri,  4 Aug 2023 07:18:46 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E546910E1DE;
- Fri,  4 Aug 2023 02:47:40 +0000 (UTC)
-Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.54])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RH98S2XdjzrS6h;
- Fri,  4 Aug 2023 10:46:32 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemi500008.china.huawei.com
- (7.221.188.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 4 Aug
- 2023 10:47:36 +0800
-From: Ruan Jinjie <ruanjinjie@huawei.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, Alex
- Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
- <Rodrigo.Siqueira@amd.com>, Evan Quan <evan.quan@amd.com>
-Subject: [PATCH -next v2] drm/amdgpu: Remove a lot of unnecessary ternary
- operators
-Date: Fri, 4 Aug 2023 10:46:48 +0800
-Message-ID: <20230804024649.1650556-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C93F210E6A1;
+	Fri,  4 Aug 2023 07:18:49 +0000 (UTC)
+Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
+ [IPv6:2607:f8b0:4864:20::b2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2ED010E61D
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Aug 2023 15:36:35 +0000 (UTC)
+Received: by mail-yb1-xb2b.google.com with SMTP id
+ 3f1490d57ef6-bcb6dbc477eso1114770276.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Aug 2023 08:36:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1691076995; x=1691681795;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=F0RiJFEC2TyWpgAWWlJd3Y77KTp5pRBuPs5ibASU4PI=;
+ b=msm0BrH5ifzTm01PEG8loMj+Dv1GrOKfhgu/XSIx1g+nFlN4UO80QOmhBgbUGHLOET
+ maNjsAY+vGJJgwH/4V+q274S7lxVJ/o1g++CATTAcBMW68NExx464ohZxTreY1fYRZL9
+ JbA/OcyXEEyywWi2COfWs6+oNKRJ06biZaviM8/KGRJfrpmWZWNddjeqEDPGvdDyXIdq
+ onfSG/O6E5wBSjEE4dpknFYoFiabzYeUYTekvYoYg1mkfzN879EnqlJ1Z25Iul8WbTXR
+ 7wEeb8bfakbUlapSQzWb7Twa/r6JvEBEYvwDEoi+KyEk7sG3EuSL9+cYm2WtLuKINiY3
+ 2wGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691076995; x=1691681795;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=F0RiJFEC2TyWpgAWWlJd3Y77KTp5pRBuPs5ibASU4PI=;
+ b=JyhMdl2DybFNFqgcH6g8ntSxdodmXxa4Ig6wU/6Tkp9SDEGgWM7x/tp7GYQ+x8wW3P
+ xDsnNQAljDxmStzKStXvJmEZXJqKpgAZ+UzRsrtxxw0/N0xQZTJR43ORqy402gM71d5I
+ oeb5OE37H+SChNE8G/kDtuPvpnPmIUJO6rJEEStM+XSFa/9SzkDBSdwqKZZl3LybviDB
+ DqBsgTCK6xrTuost49aojPJa59UBCM/pbXQKxtleUGvBu5bXtc4vMwCf5mbROcIpmk9N
+ IdDOvivf9uhwma5WWePR5W2e52Qz70fOTfTBApCYxFWeQfeMCwfbq/kdTom34hHfW5vq
+ xytg==
+X-Gm-Message-State: ABy/qLb8ePrXsloTFhuDuoihGbrZ1f9uoa8n/4rk5v5nRZJpN+HaxtsL
+ BIpr5ivRAuoHcqm0INmmnY5F//eD8LUMjO7+M7carQ==
+X-Google-Smtp-Source: APBJJlFYQquHXzrsKhhJGfCCxFrZ+hdH5p9FtN6ueneVgQ9/HLwNKPKeUcb1fuSTmM6kdAbJLQt1skEwUHmvVNRluF4=
+X-Received: by 2002:a25:738f:0:b0:d04:caf3:261e with SMTP id
+ o137-20020a25738f000000b00d04caf3261emr16385250ybc.53.1691076994786; Thu, 03
+ Aug 2023 08:36:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- kwepemi500008.china.huawei.com (7.221.188.139)
-X-CFilter-Loop: Reflected
+References: <20230729004913.215872-1-dmitry.baryshkov@linaro.org>
+ <20230729004913.215872-4-dmitry.baryshkov@linaro.org>
+ <20230802185547.GC32500@pendragon.ideasonboard.com>
+ <a32ce695-038f-0ef8-3584-5bd1ba528131@linaro.org>
+ <20230802191351.GA1407@pendragon.ideasonboard.com>
+ <DE2B4523-D16C-4AFC-8352-212B23548DD5@linaro.org>
+ <b6oOVz2YMIG4hJDWhq9lTh6R2HYcrpRwHENhplig9KSQMD8dIjTgC5KdH1Ij3URgV2HESp67Ax7QUsByGjMLouvbs-5q7PiPRdLkgJz6Fwk=@emersion.fr>
+ <ADjuOeqA6575DKutMPaR9mW9rLhm-wjLc4ruoUkNwImf-GB90FdwDB7v7y6LFdzVG3BC4R52A0RUtStK4_smmGYTUs3UPDOX4T4Zl2YHkxE=@emersion.fr>
+In-Reply-To: <ADjuOeqA6575DKutMPaR9mW9rLhm-wjLc4ruoUkNwImf-GB90FdwDB7v7y6LFdzVG3BC4R52A0RUtStK4_smmGYTUs3UPDOX4T4Zl2YHkxE=@emersion.fr>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Thu, 3 Aug 2023 18:36:23 +0300
+Message-ID: <CAA8EJppCECObEe5UG3LsHUsmYfKzakWzVw33S4nVc=DB9sA0ig@mail.gmail.com>
+Subject: Re: [PATCH 3/4] drm/uapi: document the USB subconnector type
+To: Simon Ser <contact@emersion.fr>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 04 Aug 2023 07:18:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,247 +75,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ruanjinjie@huawei.com
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonas Karlman <jonas@kwiboo.se>,
+ Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, amd-gfx@lists.freedesktop.org,
+ Bjorn Andersson <andersson@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are many ternary operators, the true or false judgement
-of which is unnecessary in C language semantics.
+On Thu, 3 Aug 2023 at 18:31, Simon Ser <contact@emersion.fr> wrote:
+>
+> On Thursday, August 3rd, 2023 at 17:22, Simon Ser <contact@emersion.fr> w=
+rote:
+>
+> > The KMS docs describe "subconnector" to be defined as "downstream port"=
+ for DP.
+> > Can USB-C (or USB) be seen as a DP downstream port?
+>
+> To expand on this a bit: I'm wondering if we're mixing apples and
+> oranges here. The current values of "subconnector" typically describe
+> the lower-level protocol tunneled inside DP. For instance, VGA can be
+> tunneled inside the DP cable when using DP =E2=86=92 VGA adapter.
 
-Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
----
-v2:
-- add the wrong removed true or false judgement hunk code
-- Update the commit message, Ther -> There
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c                 | 2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c                   | 2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c                   | 2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c                 | 2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c                    | 2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c                    | 2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c                  | 2 +-
- drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c    | 4 +---
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c      | 4 ++--
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c  | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c    | 9 +++------
- .../gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c   | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c   | 7 +++----
- 13 files changed, 18 insertions(+), 24 deletions(-)
+My opinion hasn't changed: I think this should be the USB connector
+with proper DP / DVI / HDMI / etc. subconnector type (or lack of it).
+In the end, the physical connector on the side of laptop is USB-C.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-index b582b83c4984..38ccec913f00 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-@@ -460,7 +460,7 @@ bool amdgpu_get_bios(struct amdgpu_device *adev)
- 	return false;
- 
- success:
--	adev->is_atom_fw = (adev->asic_type >= CHIP_VEGA10) ? true : false;
-+	adev->is_atom_fw = adev->asic_type >= CHIP_VEGA10;
- 	return true;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-index 79791379fc2b..df4440c21bbf 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
-@@ -479,7 +479,7 @@ static int jpeg_v3_0_set_clockgating_state(void *handle,
- 					  enum amd_clockgating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_CG_STATE_GATE;
- 
- 	if (enable) {
- 		if (!jpeg_v3_0_is_idle(handle))
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-index a707d407fbd0..3eb3dcd56b57 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-@@ -626,7 +626,7 @@ static int jpeg_v4_0_set_clockgating_state(void *handle,
- 					  enum amd_clockgating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_CG_STATE_GATE;
- 
- 	if (enable) {
- 		if (!jpeg_v4_0_is_idle(handle))
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-index ce2b22f7e4e4..153731d6ce8b 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-@@ -785,7 +785,7 @@ static int jpeg_v4_0_3_set_clockgating_state(void *handle,
- 					  enum amd_clockgating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_CG_STATE_GATE;
- 	int i;
- 
- 	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index b76ba21b5a89..9b662b105cc1 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -2095,7 +2095,7 @@ static int vcn_v3_0_set_clockgating_state(void *handle,
- 					  enum amd_clockgating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_CG_STATE_GATE;
- 	int i;
- 
- 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index 6089c7deba8a..7c486745bece 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -1918,7 +1918,7 @@ static int vcn_v4_0_wait_for_idle(void *handle)
- static int vcn_v4_0_set_clockgating_state(void *handle, enum amd_clockgating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_CG_STATE_GATE;
- 	int i;
- 
- 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index 550ac040b4be..e62472e6e7b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -1287,7 +1287,7 @@ static int vcn_v4_0_3_set_clockgating_state(void *handle,
- 					  enum amd_clockgating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_CG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_CG_STATE_GATE;
- 	int i;
- 
- 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-index fa314493ffc5..e4d65de2d0bb 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
-@@ -941,9 +941,7 @@ bool dce110_link_encoder_validate_output_with_stream(
- 	break;
- 	case SIGNAL_TYPE_EDP:
- 	case SIGNAL_TYPE_LVDS:
--		is_valid =
--			(stream->timing.
--				pixel_encoding == PIXEL_ENCODING_RGB) ? true : false;
-+		is_valid = stream->timing.pixel_encoding == PIXEL_ENCODING_RGB;
- 	break;
- 	case SIGNAL_TYPE_VIRTUAL:
- 		is_valid = true;
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 1cb402264497..3d61489209dd 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -904,7 +904,7 @@ static int smu7_setup_dpm_tables_v1(struct pp_hwmgr *hwmgr)
- 					dep_sclk_table->entries[i].clk;
- 
- 			data->dpm_table.sclk_table.dpm_levels[data->dpm_table.sclk_table.count].enabled =
--					(i == 0) ? true : false;
-+					i == 0;
- 			data->dpm_table.sclk_table.count++;
- 		}
- 	}
-@@ -919,7 +919,7 @@ static int smu7_setup_dpm_tables_v1(struct pp_hwmgr *hwmgr)
- 			data->dpm_table.mclk_table.dpm_levels[data->dpm_table.mclk_table.count].value =
- 							dep_mclk_table->entries[i].clk;
- 			data->dpm_table.mclk_table.dpm_levels[data->dpm_table.mclk_table.count].enabled =
--							(i == 0) ? true : false;
-+							i == 0;
- 			data->dpm_table.mclk_table.count++;
- 		}
- 	}
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
-index 21be23ec3c79..d6eeef3c58f7 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_powertune.c
-@@ -1103,7 +1103,7 @@ int smu7_enable_smc_cac(struct pp_hwmgr *hwmgr)
- 		PP_ASSERT_WITH_CODE((0 == smc_result),
- 				"Failed to enable CAC in SMC.", result = -1);
- 
--		data->cac_enabled = (0 == smc_result) ? true : false;
-+		data->cac_enabled = smc_result == 0;
- 	}
- 	return result;
- }
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-index c51dd4c74fe9..52ae6fa2d2a6 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-@@ -1375,8 +1375,7 @@ static int vega10_setup_default_dpm_tables(struct pp_hwmgr *hwmgr)
- 						dep_mm_table->entries[i].eclk) {
- 			dpm_table->dpm_levels[dpm_table->count].value =
- 					dep_mm_table->entries[i].eclk;
--			dpm_table->dpm_levels[dpm_table->count].enabled =
--					(i == 0) ? true : false;
-+			dpm_table->dpm_levels[dpm_table->count].enabled = i == 0;
- 			dpm_table->count++;
- 		}
- 	}
-@@ -1391,8 +1390,7 @@ static int vega10_setup_default_dpm_tables(struct pp_hwmgr *hwmgr)
- 						dep_mm_table->entries[i].vclk) {
- 			dpm_table->dpm_levels[dpm_table->count].value =
- 					dep_mm_table->entries[i].vclk;
--			dpm_table->dpm_levels[dpm_table->count].enabled =
--					(i == 0) ? true : false;
-+			dpm_table->dpm_levels[dpm_table->count].enabled = i == 0;
- 			dpm_table->count++;
- 		}
- 	}
-@@ -1405,8 +1403,7 @@ static int vega10_setup_default_dpm_tables(struct pp_hwmgr *hwmgr)
- 						dep_mm_table->entries[i].dclk) {
- 			dpm_table->dpm_levels[dpm_table->count].value =
- 					dep_mm_table->entries[i].dclk;
--			dpm_table->dpm_levels[dpm_table->count].enabled =
--					(i == 0) ? true : false;
-+			dpm_table->dpm_levels[dpm_table->count].enabled = i == 0;
- 			dpm_table->count++;
- 		}
- 	}
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-index e7ed2a7adf8f..ff6b563ecbf5 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c
-@@ -1888,7 +1888,7 @@ static int polaris10_populate_avfs_parameters(struct pp_hwmgr *hwmgr)
- 						(avfs_params.ucEnableGB_VDROOP_TABLE_CKSOFF << BTCGB1_Vdroop_Enable_SHIFT) |
- 						(avfs_params.ucEnableGB_FUSE_TABLE_CKSON << AVFSGB0_Vdroop_Enable_SHIFT) |
- 						(avfs_params.ucEnableGB_FUSE_TABLE_CKSOFF << AVFSGB1_Vdroop_Enable_SHIFT);
--		data->apply_avfs_cks_off_voltage = (avfs_params.ucEnableApplyAVFS_CKS_OFF_Voltage == 1) ? true : false;
-+		data->apply_avfs_cks_off_voltage = avfs_params.ucEnableApplyAVFS_CKS_OFF_Voltage == 1;
- 	}
- 	return result;
- }
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c
-index 7d024d3facef..34c9f59b889a 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c
-@@ -295,9 +295,8 @@ static int vegam_process_firmware_header(struct pp_hwmgr *hwmgr)
- 
- static bool vegam_is_dpm_running(struct pp_hwmgr *hwmgr)
- {
--	return (1 == PHM_READ_INDIRECT_FIELD(hwmgr->device,
--			CGS_IND_REG__SMC, FEATURE_STATUS, VOLTAGE_CONTROLLER_ON))
--			? true : false;
-+	return 1 == PHM_READ_INDIRECT_FIELD(hwmgr->device,
-+			CGS_IND_REG__SMC, FEATURE_STATUS, VOLTAGE_CONTROLLER_ON);
- }
- 
- static uint32_t vegam_get_mac_definition(uint32_t value)
-@@ -1660,7 +1659,7 @@ static int vegam_populate_avfs_parameters(struct pp_hwmgr *hwmgr)
- 				(avfs_params.ucEnableGB_FUSE_TABLE_CKSON << AVFSGB0_Vdroop_Enable_SHIFT) |
- 				(avfs_params.ucEnableGB_FUSE_TABLE_CKSOFF << AVFSGB1_Vdroop_Enable_SHIFT);
- 		data->apply_avfs_cks_off_voltage =
--				(avfs_params.ucEnableApplyAVFS_CKS_OFF_Voltage == 1) ? true : false;
-+				avfs_params.ucEnableApplyAVFS_CKS_OFF_Voltage == 1;
- 	}
- 	return result;
- }
--- 
-2.34.1
+If we want to make it different from GUD, we might want to define a
+USB-DP connector type (which would also include SlimPort).
 
+>
+> However, in the USB-C case, DP itself is tunneled inside USB-C. And you
+> might use a USB-C =E2=86=92 DP adapter. So it's not really *sub*connector=
+, it's
+> more of a *super*connector, right?
+>
+> I think [1] is somewhat related, since it also allows user-space to
+> discover whether a connector uses USB-C. But relying on sysfs to figure
+> this out isn't super optimal perhaps.
+>
+> [1]: https://lore.kernel.org/dri-devel/20221108185004.2263578-1-wonchung@=
+google.com/
+
+
+
+--=20
+With best wishes
+Dmitry
