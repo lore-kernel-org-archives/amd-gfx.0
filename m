@@ -4,70 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FA9DC04A6A
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 09:59:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB35FEB64DD
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 15:22:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A83E810E0F5;
-	Thu,  3 Aug 2023 09:59:25 +0000 (UTC)
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A45910E1EC
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Aug 2023 09:59:23 +0000 (UTC)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-3fbea14700bso7669255e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Aug 2023 02:59:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691056762; x=1691661562;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=CCAqhvoC3w09/L9KLPF1IHqw+257jwjEFUKcBuqpeBE=;
- b=X2zmTVOJanfOW92qwlJnPyY7bJ7tKWbhwInomFPh6yd5H7gHfu+iCuIMFX/B99r1I9
- Ir4NzFBrTpNmwM3X2vifkW4Nl+LcKKeOmNhGNpsrnSjXw5nhMn2eyYQGXckeeKKixtIw
- eb64emHHX8HSZv5draJPg2UGP2Cu7mJ672y1r8hAT5YVeFB4e2XAl8M1xvj/4dxJn01O
- VFY4t1WNIMAwNQjzXdC1h7NInEvrNMMCKLj4IWhOhHPtX0XdzKwCjOEcI6VlukyvKwle
- 484wAPte5NrIvyqqANKIyncGya272mmPgv1ceOugPjSnYzgJ1dQ0umY8O2XWpdLrFmWC
- uCCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691056762; x=1691661562;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=CCAqhvoC3w09/L9KLPF1IHqw+257jwjEFUKcBuqpeBE=;
- b=LXOsK4mlg56mv89U/vKDaa/O9J2TpaF0mLu4nJJvtfJe3R9hR8Flu8pNcxcXUeUCIO
- IruiOju4KomKVzm0LBRd9TlVmhenfyk1yfkSVhaHVqhBZNbhdgXw8hX9kaAJPkqkoRjb
- StxCwAXxm7Canut5vNDuF42T4+Snm3biIEt+1E7lfAF+pQPronzxt9YA1KkE0hkVj8/Y
- qwsMjj6Mkm44jEzK5d1lqZEH/oeZ3ydLlH5Rq0+zXPgGGDML/n8nLBDSGEuFcLB3p5y8
- he+7JlFmdXRznONaHwVAgSDqrIYuuQviz93FviOSMTdKJDNeMFWkO51TF6DnBmCdR8fo
- PQNQ==
-X-Gm-Message-State: ABy/qLYNOeo2C0ayGuc+8Kv6P4TVXxC3v8DElNQxqh+YlqIYEqfkmuNU
- Wq3MwmpE8NzhwIxLVYuLBOiLwAZWfHc=
-X-Google-Smtp-Source: APBJJlFsucJPOpTtudVDGcEepRvmDqMzHM/HuDf2vQ870dWGYPpsldEGCG/B/wTwtStn+sn3eATrIg==
-X-Received: by 2002:a05:600c:204f:b0:3fe:108d:7f88 with SMTP id
- p15-20020a05600c204f00b003fe108d7f88mr7014952wmg.36.1691056761744; 
- Thu, 03 Aug 2023 02:59:21 -0700 (PDT)
-Received: from ?IPV6:2a00:e180:1569:4500:df4b:1bb:b0ec:33a0?
- ([2a00:e180:1569:4500:df4b:1bb:b0ec:33a0])
- by smtp.gmail.com with ESMTPSA id
- f2-20020a7bc8c2000000b003fe29f6b61bsm3827503wml.46.2023.08.03.02.59.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Aug 2023 02:59:21 -0700 (PDT)
-Message-ID: <96e86dc6-1bbe-972f-88b2-7b0c5c1be073@gmail.com>
-Date: Thu, 3 Aug 2023 11:59:20 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ECD310E616;
+	Thu,  3 Aug 2023 15:22:24 +0000 (UTC)
+Received: from mail-4317.proton.ch (mail-4317.proton.ch [185.70.43.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4727E10E15B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Aug 2023 15:22:22 +0000 (UTC)
+Date: Thu, 03 Aug 2023 15:22:05 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail2; t=1691076139; x=1691335339;
+ bh=k5I++nvJ7Xqg3Fp+Q+60Yxv68PVfC3iWMrivxLIDp90=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=n0lAB4Sl1hGuc7fNVTs22fy2VshY42XLwZbz2alwhPOc8N46hQt40qVPZVcT/V/hS
+ S4PC4ARMfSbJdpomhr8ohgPUk5a17ax6lWt1Uk5b7iYsZ280gdNYw/xx2kfd9sMiEC
+ ITQuwAoysOAVumyAbEJZ2OFov3Z2nwNtRYbm8CY1RVoEdw05lXSLvTlxsjtzafBuhq
+ FYJV6hByuV6MXBKMiPEl+oAYW/BGQLYBODnGiBD2yYbKljFaCwg++9U2/z7N1o8878
+ mWXa4xMgoe0Qtj0eU6R6p8mKggYnoOMIiGdVu/TVv8BTpBOjCqJ57srI3k5/iRtJ05
+ 7rnaacE2kZ8uA==
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+From: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH 3/4] drm/uapi: document the USB subconnector type
+Message-ID: <b6oOVz2YMIG4hJDWhq9lTh6R2HYcrpRwHENhplig9KSQMD8dIjTgC5KdH1Ij3URgV2HESp67Ax7QUsByGjMLouvbs-5q7PiPRdLkgJz6Fwk=@emersion.fr>
+In-Reply-To: <DE2B4523-D16C-4AFC-8352-212B23548DD5@linaro.org>
+References: <20230729004913.215872-1-dmitry.baryshkov@linaro.org>
+ <20230729004913.215872-4-dmitry.baryshkov@linaro.org>
+ <20230802185547.GC32500@pendragon.ideasonboard.com>
+ <a32ce695-038f-0ef8-3584-5bd1ba528131@linaro.org>
+ <20230802191351.GA1407@pendragon.ideasonboard.com>
+ <DE2B4523-D16C-4AFC-8352-212B23548DD5@linaro.org>
+Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] drm/amdgpu: fix possible UAF in amdgpu_cs_pass1()
-Content-Language: en-US
-To: "Chen, Guchun" <Guchun.Chen@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20230728152248.3290911-1-alexander.deucher@amd.com>
- <DM5PR12MB2469E784A786056B85067B85F105A@DM5PR12MB2469.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <DM5PR12MB2469E784A786056B85067B85F105A@DM5PR12MB2469.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,55 +51,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Janne Grunau <j@jannau.net>,
+ Robert Foss <rfoss@kernel.org>, David Airlie <airlied@gmail.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Andy Gross <agross@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonas Karlman <jonas@kwiboo.se>,
+ Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, amd-gfx@lists.freedesktop.org,
+ Bjorn Andersson <andersson@kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 31.07.23 um 03:41 schrieb Chen, Guchun:
-> [Public]
->
->> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
->> Deucher
->> Sent: Friday, July 28, 2023 11:23 PM
->> To: amd-gfx@lists.freedesktop.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
->> Subject: [PATCH] drm/amdgpu: fix possible UAF in amdgpu_cs_pass1()
->>
->> Since the gang_size check is outside of chunk parsing loop, we need to reset i
->> before we free the chunk data.
->>
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+On Wednesday, August 2nd, 2023 at 21:23, Dmitry Baryshkov <dmitry.baryshkov=
+@linaro.org> wrote:
 
-Might have already been landed, but the patch is Reviewed-by: Christian 
-König <christian.koenig@amd.com>
+> >> >> +=09{ DRM_MODE_SUBCONNECTOR_USB,=09     "USB"       }, /* DP */
+> >> >
+> >> > Should this be DRM_MODE_SUBCONNECTOR_USB_C and "USB-C", in case we g=
+et
+> >> > another USB type later ?
+> >>
+> >> Hmm, which id should I use for micro-USB then? (consider anx7808,
+> >> SlimPort). I thought about using DRM_MODE_SUBCONNECTOR_USB for both of
+> >> them. But maybe I should add another subtype for SlimPort.
+> >
+> >I suppose it depends on whether userspace needs a way to differentiate
+> >those. Do you have a good visibility on the userspace use cases ?
+>=20
+> No. I'm not even sure, which userspace handles subtypes properly.
 
-Regards,
-Christian.
+wlroots uses it for human-readable output descriptions, e.g.
 
->
-> Regards,
-> Guchun
->
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> index 040f4cb6ab2d0..fb78a8f475879 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> @@ -295,7 +295,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser
->> *p,
->>
->>        if (!p->gang_size) {
->>                ret = -EINVAL;
->> -             goto free_partial_kdata;
->> +             goto free_all_kdata;
->>        }
->>
->>        for (i = 0; i < p->gang_size; ++i) {
->> --
->> 2.41.0
+    > wayland-info
+    interface: 'wl_output',                                  version:  4, n=
+ame: 49
+    =09name: DP-3
+    =09description: Samsung Electric Company SyncMaster HS3P505873 (DP-3 vi=
+a DVI-D)
 
+The "via DVI-D" bit comes from subconnector.
+
+The description is displayed to the user when picking an output to screen
+capture, among other things. It is helpful to users because they can better
+understand why their output connected via DVI shows up as "DP".
+
+The KMS docs describe "subconnector" to be defined as "downstream port" for=
+ DP.
+Can USB-C (or USB) be seen as a DP downstream port?
