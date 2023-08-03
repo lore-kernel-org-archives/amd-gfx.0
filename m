@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFC09C001DE
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 01:36:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53C25C001DF
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 01:36:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1707710E0A9;
-	Thu,  3 Aug 2023 01:36:24 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2062f.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8a::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAB7310E0A9
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Aug 2023 01:36:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 921A810E1BE;
+	Thu,  3 Aug 2023 01:36:26 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2045.outbound.protection.outlook.com [40.107.94.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 821A710E0A9
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Aug 2023 01:36:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OM4qwFz/qJJjuRi4iGBuxsXfL2wD4J1lKZVEOzbNugmfaWEA6/aYNssFkRHLaDZPg9L3fmd+DKlJZYy1Sg1AB4MxSg/FmTTrVskWdnhmzB66u8TxszDZgSZJf0EWJCAtiriFm6FPB85IdnFiLkgHiphZAltOwU745e3x0SvjEwMA172L0DLr3DuQhlknqrQ+4X08eu9O3BhByp92bfzja30W7ZAfkJsOmURN9xQ57EuDwQnMqbdYDZRznx0tfkrkKxOtmXTTBM6j8Tuq01Uh4TbjX1xZDjl0FbYdRfAjni+RKeKsJb0ay64yIcOfxF19lfSu76k4UGQDjqscUR2CQQ==
+ b=mliedXpZR4kcIIu4twf1nUyAx6igj6YFUAycuxz+aRnSJRkc91VugHsmG0oRzjZvNt4sgF+O0DbH3FnIl+m0i30jbqaX5TAuCK6iBsNUbQwC2P93TsUCZFQbuc6kN43+Pg/TVPJNhk66uzt20dX6b/DdBdJNGdP3RX2CKkIqk3aQoz/ypZ+RrwUc8wichQyWLJ79p7ZxxQpf0802r0GqU06lfr7KAqc1AJV+CzH4h3te4Et1tUTdW21vRCJur/Z7jVLxqgMnVEckMm8G84x5g64gIzUy4X+rMolTxxH/q6Izopd1UrlPelqS1l8ftfBY+2rgN1+nrEuqvo+Y7ntvfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RdrwfKb4Swr366OCp/dB7musC3DbQ0gF75MK8wP0qXU=;
- b=f+u2XhKbEw+zhQsTVlcty6/0lcX09L0kV5qBlS8Mi0RTnx455Xs4UIzDpQdyzPJUJUWL7WwtDJDxpzSVfrUYFYTMlmbqQlySapWDc1EUxC8lgS+xSHnjjA9z3+wr5YlS/Az5VgjqpZyaPTtQKQP5Hc+AwVWxr4fX3M5POmoB5gxTysKMPY53QKrKqsecAOhN9V8P3EX6yt+YsvcTljTvCXnuPY8/2wyNvikXoLbvCHWcr1MHFcSyijFdiHb9Lwg2NuHLJMcCieEOptlWJ7VBC1VUxgzy3mI/t1Cwtg7hYZA+bx3vI3bjSCz28cbnfg7QPd+g2huLc7CDZjPdUy+ieg==
+ bh=CQC2nkBWKsO2iMAUEuUE+hydUUfdLBauV45nVXoA7AU=;
+ b=nreeiuZys79dqFlMEBZt+eo7oEyiYK21YTLv9AdHg9h1Ru24Ne6Z1e7FDahXshWNPfAcFN6idQKo/D8ju1KvngSQIQtGKrlz9yOD2DrVy6USvReesPzaAx4LH6zO09BF64sMWvlclOlW82rMOugPxCAiC1Fz+yXSORTak8L4Dnfb+AZD7FnmAw2xpOalASInJx7FSM6OFWCP8DS29mnJ4twrx32GRR3Md8s6iEBTVvNWgjHiI9ok5+MRPMtEGvhIDxkwTTN86ep0tXMAXRMd1Kso+V/xHoSjChnQhcqc5iWtctIpCUfG/QzKUbozz0FtGpguYqpAKiuegYxgPejSXQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RdrwfKb4Swr366OCp/dB7musC3DbQ0gF75MK8wP0qXU=;
- b=Z7u229Sj0KPwP1Kcv68k7KtMYrBPLTG+CRYAYBoYfH8KHUNZqVCpo/g5PtI4gcn2Fb3CbCEPJMy3A0WqA6bLNXMCspFU0f8lBtytxDno7QvU1pU9z+Xa87s3iTC+VV4F7qiD2aq5YPvqDfpw9GCqhth+MVQbhilOqqPDb//PbqM=
-Received: from SA1P222CA0131.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c2::12)
- by BL1PR12MB5334.namprd12.prod.outlook.com (2603:10b6:208:31d::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.19; Thu, 3 Aug
- 2023 01:36:19 +0000
-Received: from SN1PEPF00026369.namprd02.prod.outlook.com
- (2603:10b6:806:3c2:cafe::ee) by SA1P222CA0131.outlook.office365.com
- (2603:10b6:806:3c2::12) with Microsoft SMTP Server (version=TLS1_2,
+ bh=CQC2nkBWKsO2iMAUEuUE+hydUUfdLBauV45nVXoA7AU=;
+ b=RP9O7bQGFKATbYu4w9qM5ZuHTwxwvoyNQvXCaW8YBDwyL4X33l5ecZVhOQLF3NayAJIgQ95lsai2eV+jTwPwowscQGfbhY6zQnqnUaWVI+wg/+iJMlnp/WWNH2zmSUeS6gbTY3HQqA5ONWQ6zUgkb5HTWXLbSF0VB/v+a0gf52U=
+Received: from SA0PR11CA0184.namprd11.prod.outlook.com (2603:10b6:806:1bc::9)
+ by DS0PR12MB7803.namprd12.prod.outlook.com (2603:10b6:8:144::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.47; Thu, 3 Aug
+ 2023 01:36:21 +0000
+Received: from SN1PEPF0002636E.namprd02.prod.outlook.com
+ (2603:10b6:806:1bc:cafe::b8) by SA0PR11CA0184.outlook.office365.com
+ (2603:10b6:806:1bc::9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.19 via Frontend
- Transport; Thu, 3 Aug 2023 01:36:19 +0000
+ Transport; Thu, 3 Aug 2023 01:36:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,20 +45,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF00026369.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SN1PEPF0002636E.mail.protection.outlook.com (10.167.241.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6652.19 via Frontend Transport; Thu, 3 Aug 2023 01:36:19 +0000
+ 15.20.6652.19 via Frontend Transport; Thu, 3 Aug 2023 01:36:20 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 2 Aug
- 2023 20:36:17 -0500
+ 2023 20:36:19 -0500
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amd/pm: correct the way for checking custom OD
- settings
-Date: Thu, 3 Aug 2023 09:35:58 +0800
-Message-ID: <20230803013559.506617-1-evan.quan@amd.com>
+Subject: [PATCH 2/2] drm/amd/pm: correct the logics for retreiving SMU13 OD
+ setting limits
+Date: Thu, 3 Aug 2023 09:35:59 +0800
+Message-ID: <20230803013559.506617-2-evan.quan@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230803013559.506617-1-evan.quan@amd.com>
+References: <20230803013559.506617-1-evan.quan@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026369:EE_|BL1PR12MB5334:EE_
-X-MS-Office365-Filtering-Correlation-Id: cef0dad2-d35c-45a1-318f-08db93c20949
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636E:EE_|DS0PR12MB7803:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d6698e8-b052-4d36-14c6-08db93c20a43
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pv819frt+m91Qoucy4aR4igRczZNmEI2FCi/Y/7Gtw7O25im1E6sWK20nNJEkyk6ZU3/4eb8byNlYKRC6I1w0HYE1x+E2KiShTE/5VxBVHrbSk8A+uw2dEAPIWuB+O3exkVgzi4aGwKwjCwi7E3pe8P2cUI4SITtGYQJ7SG8IzVmkYtHc1lemJNmHf0MvJENwJWB3zfsIF99YEvKuXbKPeVknTu1NG6a8AjQmohWuSMqrQ9ZhcZ3gy8RR03rx9wvGuIXMGrzK1Kf1SRTc48NBR/nB6jMAueOM+mTSYGOI/NBH4zucSL4eE4QHzxuMjVWfOkBxPcr+Rwo980tiaVTeg5YzcIYumpvbC09cacNZA78iMBCxUBPffmQbRWAPLd2SBfqS0Qj27hDzlyJdvL3hp+P6zy8qa4sA5Eu6ka7MeynYmgFx/YLvvS2os6aXSzlsjj/mAlJneaKt+RZdZbTba//aVsqdIZOAnTo8JBulOAq9COzTIYsVFWilapws/s8PARsyT+Xio6K9OUdPiIEjjtggfo9LDaPn0l8odMeJiNUXWyyDRypN7xxpmurnDwXvanXaNzK7pG9VifbkGSjv+2cKxIqryxIL6gJsIqUvxlHKvAp3jVFPsD1MXUZEnk2SvXs/TmzkOj05TCqoJlEeUjOkfipp01NiPOD4U0fOiFzhpOxDfvlnYBzPuwHoWb2xBv5QSPpmV/s86OI0q5eAU+n6v56+cT0FCxI7pen5d6xPJCY9kjWBykfaLo/+yYwcq2QRZqBBycy4Ib8JfvhWQ==
+X-Microsoft-Antispam-Message-Info: M4gg8B4rUDFyXMaicAQwp+pfcQxe7EZG9mbGuyC9vP8jMwKAPxa3Mtb5qzfCHUQ9TWIoaP2mCKNrbKGFMDaPR72JL1y6f9umnOyeJYxJJqhPHoSt7qVf2gxgvfzIXBXfR1/KhZHYosH1zedQc+ullEbIDrLu6WFQW+lbzuAd2qROl0KzhF8pABb6OEqW/Az8IVQu0ckj6hF6lZPRJxZUSHSanAPP3wLtngYRgscW/3wt9ugZvw5FL7aIuTSXXKQ3SeqyU3Zc6eg3C4zDm3DQwHM6w3sLvUppSKJlgopCZU79VnN62H5PjHXRXCAELz/A3wdTRFGmZiTV5SG63yz2NKgLu9Uik0jFGuIytUZiCFYiyprFWxVSCGg2ZaKEP9OQ7uiGh25aHM5re1tjym8Ww3a0Uy2IY7m6qijb9C39j8xKpWIScnMPD1CZGLNYCP/ZuK5FLSn5NbTW8AfZq6C6wS3/MpmYxWLfKuvRKL9e8+y40DBxLSWvYfw/UclDgdjEHzsjjj1SF67LmpQOZng0QLKlV7TBpC8D3kdz4zxUCjpLrWkp+KDlZ0NuNhIdlwMp4gPGlWh+u7N1upoAJFyRbm7ODWs6PFqAlJ1mvpM3hnfucM5JqPwmfAn5OIkwgFgw2B7MqMQ7B4onBsVpvbgvFnXmW8pNmv3AsizE9HsXuY+MsUho5hAHobeGuZ1CmVLJU6zU4eaxVBw+NWxrDTEeoy9OhUSEFaDzgYP539Ti34I5EG/HOhqy0m1YYrmN6qg5YvBLL+8GlXtrevTE6j+z5w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(39860400002)(346002)(376002)(396003)(82310400008)(451199021)(36840700001)(40470700004)(46966006)(44832011)(4326008)(6916009)(40460700003)(426003)(70206006)(70586007)(2616005)(186003)(81166007)(356005)(82740400003)(16526019)(2906002)(336012)(26005)(1076003)(83380400001)(36860700001)(47076005)(54906003)(40480700001)(478600001)(86362001)(36756003)(6666004)(7696005)(41300700001)(8676002)(8936002)(5660300002)(316002)(36900700001);
+ SFS:(13230028)(4636009)(136003)(396003)(346002)(39860400002)(376002)(82310400008)(451199021)(46966006)(36840700001)(40470700004)(40460700003)(16526019)(426003)(2616005)(336012)(1076003)(83380400001)(26005)(186003)(47076005)(36860700001)(316002)(30864003)(70206006)(70586007)(2906002)(4326008)(6916009)(5660300002)(44832011)(41300700001)(8676002)(8936002)(6666004)(7696005)(478600001)(54906003)(40480700001)(356005)(81166007)(86362001)(36756003)(82740400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2023 01:36:19.1162 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cef0dad2-d35c-45a1-318f-08db93c20949
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2023 01:36:20.7539 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d6698e8-b052-4d36-14c6-08db93c20a43
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026369.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5334
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7803
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,96 +104,340 @@ Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-`FeatureCtrlMask` should not be included in those settings interested.
+To better meet the growing demainds for more OD features.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 16 ++++++++--------
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 16 ++++++++--------
- 2 files changed, 16 insertions(+), 16 deletions(-)
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 70 +++++++++----------
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 70 +++++++++----------
+ 2 files changed, 64 insertions(+), 76 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index e2265f50bacc..2570e03e0fa7 100644
+index 2570e03e0fa7..f636a127983a 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -1360,7 +1360,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
- 	OverDriveTableExternal_t *od_table =
- 		(OverDriveTableExternal_t *)table_context->overdrive_table;
- 	struct amdgpu_device *adev = smu->adev;
--	uint32_t offset_of_featurectrlmask;
-+	uint32_t offset_of_voltageoffset;
- 	int32_t minimum, maximum;
- 	uint32_t feature_ctrlmask;
- 	int i, ret = 0;
-@@ -1534,10 +1534,10 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
- 		 * It does not contain actual informations about user's custom
- 		 * settings. Thus we do not cache it.
- 		 */
--		offset_of_featurectrlmask = offsetof(OverDriveTable_t, FeatureCtrlMask);
--		if (memcmp((u8 *)od_table + offset_of_featurectrlmask,
--			   table_context->user_overdrive_table + offset_of_featurectrlmask,
--			   sizeof(OverDriveTableExternal_t) - offset_of_featurectrlmask)) {
-+		offset_of_voltageoffset = offsetof(OverDriveTable_t, VoltageOffsetPerZoneBoundary);
-+		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
-+			   table_context->user_overdrive_table + offset_of_voltageoffset,
-+			   sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset)) {
- 			smu_v13_0_0_dump_od_table(smu, od_table);
+@@ -97,6 +97,12 @@
+  */
+ #define SUPPORT_ECCTABLE_SMU_13_0_10_VERSION 0x00502200
  
- 			ret = smu_v13_0_0_upload_overdrive_table(smu, od_table);
-@@ -1547,9 +1547,9 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
- 			}
++#define PP_OD_FEATURE_GFXCLK_FMIN			0
++#define PP_OD_FEATURE_GFXCLK_FMAX			1
++#define PP_OD_FEATURE_UCLK_FMIN				2
++#define PP_OD_FEATURE_UCLK_FMAX				3
++#define PP_OD_FEATURE_GFX_VF_CURVE			4
++
+ static struct cmn2asic_msg_mapping smu_v13_0_0_message_map[SMU_MSG_MAX_COUNT] = {
+ 	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
+ 	MSG_MAP(GetSmuVersion,			PPSMC_MSG_GetSmuVersion,               1),
+@@ -1044,7 +1050,6 @@ static bool smu_v13_0_0_is_od_feature_supported(struct smu_context *smu,
  
- 			od_table->OverDriveTable.FeatureCtrlMask = 0;
--			memcpy(table_context->user_overdrive_table + offset_of_featurectrlmask,
--			       (u8 *)od_table + offset_of_featurectrlmask,
--			       sizeof(OverDriveTableExternal_t) - offset_of_featurectrlmask);
-+			memcpy(table_context->user_overdrive_table + offset_of_voltageoffset,
-+			       (u8 *)od_table + offset_of_voltageoffset,
-+			       sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset);
+ static void smu_v13_0_0_get_od_setting_limits(struct smu_context *smu,
+ 					      int od_feature_bit,
+-					      bool lower_boundary,
+ 					      int32_t *min,
+ 					      int32_t *max)
+ {
+@@ -1056,29 +1061,28 @@ static void smu_v13_0_0_get_od_setting_limits(struct smu_context *smu,
+ 	int32_t od_min_setting, od_max_setting;
  
- 			if (!memcmp(table_context->user_overdrive_table,
- 				    table_context->boot_overdrive_table,
+ 	switch (od_feature_bit) {
+-	case PP_OD_FEATURE_GFXCLK_BIT:
+-		if (lower_boundary) {
+-			od_min_setting = overdrive_lowerlimits->GfxclkFmin;
+-			od_max_setting = overdrive_upperlimits->GfxclkFmin;
+-		} else {
+-			od_min_setting = overdrive_lowerlimits->GfxclkFmax;
+-			od_max_setting = overdrive_upperlimits->GfxclkFmax;
+-		}
++	case PP_OD_FEATURE_GFXCLK_FMIN:
++		od_min_setting = overdrive_lowerlimits->GfxclkFmin;
++		od_max_setting = overdrive_upperlimits->GfxclkFmin;
+ 		break;
+-	case PP_OD_FEATURE_UCLK_BIT:
+-		if (lower_boundary) {
+-			od_min_setting = overdrive_lowerlimits->UclkFmin;
+-			od_max_setting = overdrive_upperlimits->UclkFmin;
+-		} else {
+-			od_min_setting = overdrive_lowerlimits->UclkFmax;
+-			od_max_setting = overdrive_upperlimits->UclkFmax;
+-		}
++	case PP_OD_FEATURE_GFXCLK_FMAX:
++		od_min_setting = overdrive_lowerlimits->GfxclkFmax;
++		od_max_setting = overdrive_upperlimits->GfxclkFmax;
++		break;
++	case PP_OD_FEATURE_UCLK_FMIN:
++		od_min_setting = overdrive_lowerlimits->UclkFmin;
++		od_max_setting = overdrive_upperlimits->UclkFmin;
++		break;
++	case PP_OD_FEATURE_UCLK_FMAX:
++		od_min_setting = overdrive_lowerlimits->UclkFmax;
++		od_max_setting = overdrive_upperlimits->UclkFmax;
+ 		break;
+-	case PP_OD_FEATURE_GFX_VF_CURVE_BIT:
++	case PP_OD_FEATURE_GFX_VF_CURVE:
+ 		od_min_setting = overdrive_lowerlimits->VoltageOffsetPerZoneBoundary;
+ 		od_max_setting = overdrive_upperlimits->VoltageOffsetPerZoneBoundary;
+ 		break;
+ 	default:
++		od_min_setting = od_max_setting = INT_MAX;
+ 		break;
+ 	}
+ 
+@@ -1305,13 +1309,11 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
+ 
+ 		if (smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_GFXCLK_BIT)) {
+ 			smu_v13_0_0_get_od_setting_limits(smu,
+-							  PP_OD_FEATURE_GFXCLK_BIT,
+-							  true,
++							  PP_OD_FEATURE_GFXCLK_FMIN,
+ 							  &min_value,
+ 							  NULL);
+ 			smu_v13_0_0_get_od_setting_limits(smu,
+-							  PP_OD_FEATURE_GFXCLK_BIT,
+-							  false,
++							  PP_OD_FEATURE_GFXCLK_FMAX,
+ 							  NULL,
+ 							  &max_value);
+ 			size += sysfs_emit_at(buf, size, "SCLK: %7uMhz %10uMhz\n",
+@@ -1320,13 +1322,11 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
+ 
+ 		if (smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_UCLK_BIT)) {
+ 			smu_v13_0_0_get_od_setting_limits(smu,
+-							  PP_OD_FEATURE_UCLK_BIT,
+-							  true,
++							  PP_OD_FEATURE_UCLK_FMIN,
+ 							  &min_value,
+ 							  NULL);
+ 			smu_v13_0_0_get_od_setting_limits(smu,
+-							  PP_OD_FEATURE_UCLK_BIT,
+-							  false,
++							  PP_OD_FEATURE_UCLK_FMAX,
+ 							  NULL,
+ 							  &max_value);
+ 			size += sysfs_emit_at(buf, size, "MCLK: %7uMhz %10uMhz\n",
+@@ -1335,8 +1335,7 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
+ 
+ 		if (smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_GFX_VF_CURVE_BIT)) {
+ 			smu_v13_0_0_get_od_setting_limits(smu,
+-							  PP_OD_FEATURE_GFX_VF_CURVE_BIT,
+-							  true,
++							  PP_OD_FEATURE_GFX_VF_CURVE,
+ 							  &min_value,
+ 							  &max_value);
+ 			size += sysfs_emit_at(buf, size, "VDDC_CURVE: %7dmv %10dmv\n",
+@@ -1381,8 +1380,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 			switch (input[i]) {
+ 			case 0:
+ 				smu_v13_0_0_get_od_setting_limits(smu,
+-								  PP_OD_FEATURE_GFXCLK_BIT,
+-								  true,
++								  PP_OD_FEATURE_GFXCLK_FMIN,
+ 								  &minimum,
+ 								  &maximum);
+ 				if (input[i + 1] < minimum ||
+@@ -1398,8 +1396,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 
+ 			case 1:
+ 				smu_v13_0_0_get_od_setting_limits(smu,
+-								  PP_OD_FEATURE_GFXCLK_BIT,
+-								  false,
++								  PP_OD_FEATURE_GFXCLK_FMAX,
+ 								  &minimum,
+ 								  &maximum);
+ 				if (input[i + 1] < minimum ||
+@@ -1444,8 +1441,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 			switch (input[i]) {
+ 			case 0:
+ 				smu_v13_0_0_get_od_setting_limits(smu,
+-								  PP_OD_FEATURE_UCLK_BIT,
+-								  true,
++								  PP_OD_FEATURE_UCLK_FMIN,
+ 								  &minimum,
+ 								  &maximum);
+ 				if (input[i + 1] < minimum ||
+@@ -1461,8 +1457,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 
+ 			case 1:
+ 				smu_v13_0_0_get_od_setting_limits(smu,
+-								  PP_OD_FEATURE_UCLK_BIT,
+-								  false,
++								  PP_OD_FEATURE_UCLK_FMAX,
+ 								  &minimum,
+ 								  &maximum);
+ 				if (input[i + 1] < minimum ||
+@@ -1503,8 +1498,7 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 			return -EINVAL;
+ 
+ 		smu_v13_0_0_get_od_setting_limits(smu,
+-						  PP_OD_FEATURE_GFX_VF_CURVE_BIT,
+-						  true,
++						  PP_OD_FEATURE_GFX_VF_CURVE,
+ 						  &minimum,
+ 						  &maximum);
+ 		if (input[1] < minimum ||
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index ebb961f60316..aa381991dede 100644
+index aa381991dede..708d977103ed 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -1349,7 +1349,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
- 	OverDriveTableExternal_t *od_table =
- 		(OverDriveTableExternal_t *)table_context->overdrive_table;
- 	struct amdgpu_device *adev = smu->adev;
--	uint32_t offset_of_featurectrlmask;
-+	uint32_t offset_of_voltageoffset;
- 	int32_t minimum, maximum;
- 	uint32_t feature_ctrlmask;
- 	int i, ret = 0;
-@@ -1523,10 +1523,10 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
- 		 * It does not contain actual informations about user's custom
- 		 * settings. Thus we do not cache it.
- 		 */
--		offset_of_featurectrlmask = offsetof(OverDriveTable_t, FeatureCtrlMask);
--		if (memcmp((u8 *)od_table + offset_of_featurectrlmask,
--			   table_context->user_overdrive_table + offset_of_featurectrlmask,
--			   sizeof(OverDriveTableExternal_t) - offset_of_featurectrlmask)) {
-+		offset_of_voltageoffset = offsetof(OverDriveTable_t, VoltageOffsetPerZoneBoundary);
-+		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
-+			   table_context->user_overdrive_table + offset_of_voltageoffset,
-+			   sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset)) {
- 			smu_v13_0_7_dump_od_table(smu, od_table);
+@@ -72,6 +72,12 @@
  
- 			ret = smu_v13_0_7_upload_overdrive_table(smu, od_table);
-@@ -1536,9 +1536,9 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
- 			}
+ #define MP0_MP1_DATA_REGION_SIZE_COMBOPPTABLE	0x4000
  
- 			od_table->OverDriveTable.FeatureCtrlMask = 0;
--			memcpy(table_context->user_overdrive_table + offset_of_featurectrlmask,
--			       (u8 *)od_table + offset_of_featurectrlmask,
--			       sizeof(OverDriveTableExternal_t) - offset_of_featurectrlmask);
-+			memcpy(table_context->user_overdrive_table + offset_of_voltageoffset,
-+			       (u8 *)od_table + offset_of_voltageoffset,
-+			       sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset);
++#define PP_OD_FEATURE_GFXCLK_FMIN			0
++#define PP_OD_FEATURE_GFXCLK_FMAX			1
++#define PP_OD_FEATURE_UCLK_FMIN				2
++#define PP_OD_FEATURE_UCLK_FMAX				3
++#define PP_OD_FEATURE_GFX_VF_CURVE			4
++
+ static struct cmn2asic_msg_mapping smu_v13_0_7_message_map[SMU_MSG_MAX_COUNT] = {
+ 	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
+ 	MSG_MAP(GetSmuVersion,			PPSMC_MSG_GetSmuVersion,               1),
+@@ -1034,7 +1040,6 @@ static bool smu_v13_0_7_is_od_feature_supported(struct smu_context *smu,
  
- 			if (!memcmp(table_context->user_overdrive_table,
- 				    table_context->boot_overdrive_table,
+ static void smu_v13_0_7_get_od_setting_limits(struct smu_context *smu,
+ 					      int od_feature_bit,
+-					      bool lower_boundary,
+ 					      int32_t *min,
+ 					      int32_t *max)
+ {
+@@ -1046,29 +1051,28 @@ static void smu_v13_0_7_get_od_setting_limits(struct smu_context *smu,
+ 	int32_t od_min_setting, od_max_setting;
+ 
+ 	switch (od_feature_bit) {
+-	case PP_OD_FEATURE_GFXCLK_BIT:
+-		if (lower_boundary) {
+-			od_min_setting = overdrive_lowerlimits->GfxclkFmin;
+-			od_max_setting = overdrive_upperlimits->GfxclkFmin;
+-		} else {
+-			od_min_setting = overdrive_lowerlimits->GfxclkFmax;
+-			od_max_setting = overdrive_upperlimits->GfxclkFmax;
+-		}
++	case PP_OD_FEATURE_GFXCLK_FMIN:
++		od_min_setting = overdrive_lowerlimits->GfxclkFmin;
++		od_max_setting = overdrive_upperlimits->GfxclkFmin;
+ 		break;
+-	case PP_OD_FEATURE_UCLK_BIT:
+-		if (lower_boundary) {
+-			od_min_setting = overdrive_lowerlimits->UclkFmin;
+-			od_max_setting = overdrive_upperlimits->UclkFmin;
+-		} else {
+-			od_min_setting = overdrive_lowerlimits->UclkFmax;
+-			od_max_setting = overdrive_upperlimits->UclkFmax;
+-		}
++	case PP_OD_FEATURE_GFXCLK_FMAX:
++		od_min_setting = overdrive_lowerlimits->GfxclkFmax;
++		od_max_setting = overdrive_upperlimits->GfxclkFmax;
++		break;
++	case PP_OD_FEATURE_UCLK_FMIN:
++		od_min_setting = overdrive_lowerlimits->UclkFmin;
++		od_max_setting = overdrive_upperlimits->UclkFmin;
++		break;
++	case PP_OD_FEATURE_UCLK_FMAX:
++		od_min_setting = overdrive_lowerlimits->UclkFmax;
++		od_max_setting = overdrive_upperlimits->UclkFmax;
+ 		break;
+-	case PP_OD_FEATURE_GFX_VF_CURVE_BIT:
++	case PP_OD_FEATURE_GFX_VF_CURVE:
+ 		od_min_setting = overdrive_lowerlimits->VoltageOffsetPerZoneBoundary;
+ 		od_max_setting = overdrive_upperlimits->VoltageOffsetPerZoneBoundary;
+ 		break;
+ 	default:
++		od_min_setting = od_max_setting = INT_MAX;
+ 		break;
+ 	}
+ 
+@@ -1294,13 +1298,11 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
+ 
+ 		if (smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_GFXCLK_BIT)) {
+ 			smu_v13_0_7_get_od_setting_limits(smu,
+-							  PP_OD_FEATURE_GFXCLK_BIT,
+-							  true,
++							  PP_OD_FEATURE_GFXCLK_FMIN,
+ 							  &min_value,
+ 							  NULL);
+ 			smu_v13_0_7_get_od_setting_limits(smu,
+-							  PP_OD_FEATURE_GFXCLK_BIT,
+-							  false,
++							  PP_OD_FEATURE_GFXCLK_FMAX,
+ 							  NULL,
+ 							  &max_value);
+ 			size += sysfs_emit_at(buf, size, "SCLK: %7uMhz %10uMhz\n",
+@@ -1309,13 +1311,11 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
+ 
+ 		if (smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_UCLK_BIT)) {
+ 			smu_v13_0_7_get_od_setting_limits(smu,
+-							  PP_OD_FEATURE_UCLK_BIT,
+-							  true,
++							  PP_OD_FEATURE_UCLK_FMIN,
+ 							  &min_value,
+ 							  NULL);
+ 			smu_v13_0_7_get_od_setting_limits(smu,
+-							  PP_OD_FEATURE_UCLK_BIT,
+-							  false,
++							  PP_OD_FEATURE_UCLK_FMAX,
+ 							  NULL,
+ 							  &max_value);
+ 			size += sysfs_emit_at(buf, size, "MCLK: %7uMhz %10uMhz\n",
+@@ -1324,8 +1324,7 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
+ 
+ 		if (smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_GFX_VF_CURVE_BIT)) {
+ 			smu_v13_0_7_get_od_setting_limits(smu,
+-							  PP_OD_FEATURE_GFX_VF_CURVE_BIT,
+-							  true,
++							  PP_OD_FEATURE_GFX_VF_CURVE,
+ 							  &min_value,
+ 							  &max_value);
+ 			size += sysfs_emit_at(buf, size, "VDDC_CURVE: %7dmv %10dmv\n",
+@@ -1370,8 +1369,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 			switch (input[i]) {
+ 			case 0:
+ 				smu_v13_0_7_get_od_setting_limits(smu,
+-								  PP_OD_FEATURE_GFXCLK_BIT,
+-								  true,
++								  PP_OD_FEATURE_GFXCLK_FMIN,
+ 								  &minimum,
+ 								  &maximum);
+ 				if (input[i + 1] < minimum ||
+@@ -1387,8 +1385,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 
+ 			case 1:
+ 				smu_v13_0_7_get_od_setting_limits(smu,
+-								  PP_OD_FEATURE_GFXCLK_BIT,
+-								  false,
++								  PP_OD_FEATURE_GFXCLK_FMAX,
+ 								  &minimum,
+ 								  &maximum);
+ 				if (input[i + 1] < minimum ||
+@@ -1433,8 +1430,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 			switch (input[i]) {
+ 			case 0:
+ 				smu_v13_0_7_get_od_setting_limits(smu,
+-								  PP_OD_FEATURE_UCLK_BIT,
+-								  true,
++								  PP_OD_FEATURE_UCLK_FMIN,
+ 								  &minimum,
+ 								  &maximum);
+ 				if (input[i + 1] < minimum ||
+@@ -1450,8 +1446,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 
+ 			case 1:
+ 				smu_v13_0_7_get_od_setting_limits(smu,
+-								  PP_OD_FEATURE_UCLK_BIT,
+-								  false,
++								  PP_OD_FEATURE_UCLK_FMAX,
+ 								  &minimum,
+ 								  &maximum);
+ 				if (input[i + 1] < minimum ||
+@@ -1492,8 +1487,7 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 			return -EINVAL;
+ 
+ 		smu_v13_0_7_get_od_setting_limits(smu,
+-						  PP_OD_FEATURE_GFX_VF_CURVE_BIT,
+-						  true,
++						  PP_OD_FEATURE_GFX_VF_CURVE,
+ 						  &minimum,
+ 						  &maximum);
+ 		if (input[1] < minimum ||
 -- 
 2.34.1
 
