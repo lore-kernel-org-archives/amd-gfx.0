@@ -4,116 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0DA2C001DF
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 19:43:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B197EC001DB
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 20:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE42010E214;
-	Thu,  3 Aug 2023 19:43:10 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2050.outbound.protection.outlook.com [40.107.95.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 692E110E0E8
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Aug 2023 19:43:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D663/dYa3gZjg6BGOlI8jmS9fRC/RbMMwfnivs5b5uy5MLRwLJgsHYT+KauDmP5xhwWWWMVsqANJh7RVGBTO8Bf4xCO8BIQljYicBXpcnGSW4WnSiGdyOsvnDO0u9SjK3zJ+9JmmcQ03ARWId0yg9dIWiJJ77DQyo+EcaB4f+I9fzJCytekPinG8NX7D1uUmOmqm493uUFrvewK1vDEQowTvM/B+Z7EenYie7IDOMLa/zz2vseX2yiUglQ2nsBsgIjuPYds2/uysQpFlsu5SewtXdSJi+MpnZPmEEEVg9W+QzHN37Q1PN6JJKTlNmDSE9x7Ik4wD1t0Lt0VMgFiNqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Me3qONMwo0pshOY9S0IYuBo6ZRwHDV7zy6j03TEAtm4=;
- b=OedJk3boiu3fIXtXHvXa/pnjbDNdvr/vrrXv4cGSCc/yXYsSfvWTLZ0VQMk8NWRyqGQP20Z+UKVC0MPTdpAV9X9de7KbjdV1gJmhOEl8gRnSeUOyIoI+CKmqdmS7v6RJi1GgxHwYw2xYKYbwN6jh+nFtMLG2RnEztroudjvhH2aEgwwhd47xJcDqALQdYOerOo7ttz/mhE68WYf7ToGWhzLbjeY7VFvP5AnpG0rCiEtmR9yOI1h/eqgA2K1SW6h0kxc8gMJnhcZkCYU+4dwlcxLjhImlJwMx2aOq1nNHLlEjHRfEi1VzEizuAxPzkdhU/+O89uA8RpGU6VXaxmwv2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Me3qONMwo0pshOY9S0IYuBo6ZRwHDV7zy6j03TEAtm4=;
- b=p8ebzNm7toTtuS/z7D6MpAupmqMbvMcFvnZYuOAzmSpKDP81BN8lojEEVyQX29Y1EDNgzxHgIl6maz233ELpyiuUl+S4y230lYqnPovjOd6ZyLFI5HD7WuzDVdsLPTNLK4XFtSsvVbmI+L1QM1GA08tLX84NEuUuCYny2GM1Bd0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DS0PR12MB6536.namprd12.prod.outlook.com (2603:10b6:8:d3::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.47; Thu, 3 Aug
- 2023 19:43:07 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb%4]) with mapi id 15.20.6652.020; Thu, 3 Aug 2023
- 19:43:07 +0000
-Message-ID: <844e90ef-01ec-2ccd-de37-f383c9bb24f7@amd.com>
-Date: Thu, 3 Aug 2023 15:43:04 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] drm/amdkfd: avoid svm dump when dynamic debug disabled
-Content-Language: en-US
-To: Mike Lothian <mike@fireburn.co.uk>
-References: <20230719212255.30960-1-alex.sierra@amd.com>
- <11fa116f-87a7-38c4-f266-d19354bf69fc@amd.com>
- <CAHbf0-HZNEvSN0d2Ddnwg6z500WYDd5zzbTx69bBQmOc7GF=6w@mail.gmail.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <CAHbf0-HZNEvSN0d2Ddnwg6z500WYDd5zzbTx69bBQmOc7GF=6w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0079.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:84::25) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9AE110E0F6;
+	Thu,  3 Aug 2023 20:04:39 +0000 (UTC)
+Received: from mail-ua1-x933.google.com (mail-ua1-x933.google.com
+ [IPv6:2607:f8b0:4864:20::933])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 308F810E0E8;
+ Thu,  3 Aug 2023 20:04:38 +0000 (UTC)
+Received: by mail-ua1-x933.google.com with SMTP id
+ a1e0cc1a2514c-791c27bb91dso918776241.0; 
+ Thu, 03 Aug 2023 13:04:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1691093077; x=1691697877;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ApfWi0t4jty7JeS4yL2vS1J6JB48ODRK1f0RMIx0PtQ=;
+ b=fZDqaXw6QplzIVfcMJM6ZOYKZfo4O++l29jDpsXiJsS0y790Tw6n7qRql8UNHGW5hu
+ hIMAITgcVSxhks3eH/31jsAnUui224j7BDqiqIpHzBTTt3KihnW/a0FMsqfQnqCy0x+M
+ ZnM1Og7oklXOoZY4wxH7G/Wcu0xQTZPMMls699505L9X2Kd7nmNE1nuTN2zISxY9J6QX
+ rG86BEnpVrAIv0s/ycU+mXFW2z35Qs4faUru1UqWdjS9/pbNAb3lyHSoJZQ+T81H/P3n
+ /ghlJoYE2jbO98sraCbBi6MPQAOLAQQil4W6x7LWf3Iygf7g49Sp1/HEjjmJgPgLsZv7
+ YkCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691093077; x=1691697877;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ApfWi0t4jty7JeS4yL2vS1J6JB48ODRK1f0RMIx0PtQ=;
+ b=O/7K52kyHC/ptyUJs2au/Mjfwk11/9VG1QlbIYjkE+aJqfsQGONq5Z5FG9XE7kgfvm
+ kxpfwbCpYNpDLyWFFea/X4oKtsmJm9/yoSnslAMs4nH60xWKNweGWV1ppoK21/6qDhc1
+ +Mr/9ZLkD/4SGpmQJFdix2Jq796kTo9vFIBtQcZrFAHfz7lUSun+/s67RLX9AOvDrbYQ
+ bZv7avGKQfgt5Jv/pHg2m8SPXtCClPgflvBVAgwp/bFAoiJG3RVsn5WvJY5pUQROLM6e
+ qX8bR26+U1c+FR6POjjXa0C9MMrXKi3yD1bxhImjvecgzYjL7Fd4TJRUHhBL6XVAAinJ
+ yqiA==
+X-Gm-Message-State: ABy/qLaWQLVybURPZJjjaUP1r8jtJHRw8uteyZ7yyna/sHOB+hGos5yb
+ N5BgAa6B5gfY06pVSCAR/Rq84QEcrn68eKr1kbQ=
+X-Google-Smtp-Source: APBJJlGD7rFuynuZ0oNK7SxxdLxXgaUuaS7EyHYFHk2sJVKXReQv79vIo32qBP4WKum2zu+eK6p/UeNQxnqRpXmktKM=
+X-Received: by 2002:a05:6102:33d3:b0:443:8053:f969 with SMTP id
+ w19-20020a05610233d300b004438053f969mr4001661vsh.17.1691093077007; Thu, 03
+ Aug 2023 13:04:37 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS0PR12MB6536:EE_
-X-MS-Office365-Filtering-Correlation-Id: b46e6c02-36f7-4a5e-e678-08db9459dc0e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sM8jMXuICrw7EJ5aMBV2xEPFSgsWhYgWBsv0x5imVpFeoVwg8MbT2g20QnjKa2avisAAq5maRBaHN+M0WH7hUyRVc2Vmh3SRDnezJ86UeoWDX8bKLLU9rehuBMkmeZd+C/VmeNLr/FjJJXDyWWhuWRDtnAbN8uTy9asaff1xDqCQ4rDuCl9Be7vSf04wGvZURon97OMH1xAfSomM3IsYRj1BnjtKEWgBndLcEPmJVKbPIoQvy2+6+XL/JGLGBwT/ttzOgldfLReD64TW2/rqSB1/mygky/ZMz/KF8XwLBhRReIaKQhlKIti+sBYFh/BGwkMFFJwKPflgyxtGNkFdB/OZyzDpm/2DYvK/piVzESCKyrd3W4powpi1epnfOjJyRpGqxIMq/tRRK+URXSEcy+wmvFobLdNEIqUmoeI+/loSIoUqb6GNxaKcSgSmO8boKu0KlHBKShCh/R2DLIyGPyUn08gsh8wm7PGUco4qBIolXaJijmIeuRjiULa7n4y5E6EE7WM9MOYY8kQUSgMnN4KiRAJ7yKf4HMS/HG1xBFljZQ39Y+c09tHZyVltI8PBmLgGfaYj25ST/9d3qI7FOuqK/52QhEAFLrcJrxvP59NqUCa4ds+Wjb1TBiDut18nAFVioD8KWB+E+qotoUZ29A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(39860400002)(136003)(376002)(366004)(396003)(451199021)(2616005)(6506007)(83380400001)(186003)(26005)(8676002)(66556008)(316002)(2906002)(4326008)(5660300002)(66946007)(66476007)(6916009)(41300700001)(44832011)(8936002)(6486002)(6512007)(6666004)(478600001)(38100700002)(31696002)(86362001)(36756003)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YWhMc2NxWFF6bGd6ek9HMWpRYzluT0o3ZUpVK2RPL0Frc1NCUFNiTFgySEdK?=
- =?utf-8?B?NDhUclFvRWsrTkVJam1nUm1HS1hPc3VBTEs1WnlkZlpKU05nVEhYSUtYdFBJ?=
- =?utf-8?B?M1BGZ3NTN3pDWFUzTGx1Z0JSVDVnalkxK2FMUVBRMC9DaFZHbkRqYmNRbi82?=
- =?utf-8?B?c2hzdGtZTm8yRHViU0dLTjdhNjFDTWx5Zkx1OVhCcmpXRWpVR1B5aEFGVnF6?=
- =?utf-8?B?dTZJNzVQUXdNTk1vWWliUitad3NHc2EwOFhFYkdoOE0wMFdBOGxoa2JRN1ht?=
- =?utf-8?B?S0pBSDR0VkRmaG12ZFBnb0t4UVNzYjJIWTJ4NkE3OW5VN1lZVFZhMGc1cTd0?=
- =?utf-8?B?YVBOanIwRGhoN3Y5djZlbXp0U2xaMlo0RXhGQ3pxYzhENFprL0tQK2FVckE0?=
- =?utf-8?B?U0Jsa1UvVGQ3R1ZoNkNmRVZMV21PM2VoK3U1QXF2N3k5T3dxa0xjZ0NJZGU3?=
- =?utf-8?B?SXY2REV5TGpOY2w3SXUxbUMraUJEcmh0Q1lFRStxclE3N1lLV0YzbmlGYVdk?=
- =?utf-8?B?ZW9aR0tNa3Z6MDVlWHlrdFhqNWx3ZjJ3WmJaY1FaaTV5WmhhZUdONmsyV2RI?=
- =?utf-8?B?MjJDYXZva0ZHU2ExeEVuR08reW90aUJ6RU5DOExyTFNuSWYxTGhMWG5qTGhn?=
- =?utf-8?B?ZHNCb0VsN2hEVmZZa2FNQzc2eEhFaWU5bTluc2hWTEdIWVNPVW8vQWIxTlZB?=
- =?utf-8?B?WEdhYkRnRmc2djB5UHNQc1MxeVlaTWw5YVdIQWswN0lMOW5FNHN4V2FNcHJ0?=
- =?utf-8?B?QnA3UnVSbUFlQ0xjbzVzcnV6b05yT25DbVJ2UHV2a0lHSzY0djhsNWdjZytz?=
- =?utf-8?B?eEo3dkpWTTJDTDlycWpnOW1QR1NXaGxtL3hENVBMQTFzODlKOHgydzRZRmVP?=
- =?utf-8?B?SmlDOG1HdzA4OWs1NDdPT1gxSVErTGdzTUFxVnBUdjlveHliUVB5aTMzQ3Fx?=
- =?utf-8?B?OURvZVJ3aWVIejF6eUN3bDEvYzFQY2NhTy93T3BRQTdrOENVU0w1b0grSngv?=
- =?utf-8?B?L2h1YklhL0xpNlIreUVnV0c2OTJ0VlNtb2hZYVYxWUVXR3RoRUNYbmdLRmkv?=
- =?utf-8?B?MUo4ZjJTbTlJMno0Mm9PRVN4V3BNZWhHZVBocGJ2R1dQUlQ4bytXSGZEM0hp?=
- =?utf-8?B?bWh1eVo2MExJTjA5Y09EWlFLWmk3STVQTlJGS3NsSkhJTmUwcXlrek9aa2Rz?=
- =?utf-8?B?dWg5KzRwRnZ0eENEZ2dDOXpmRTZ0Wm9MY0Y5Y3RlMVlyN1dvZWFTY1JMMmdJ?=
- =?utf-8?B?Tk4zeC90WWNUV0c1ZWZiN0tKRWVjaFhnWXE4N3phcDJiRWhQTU9RU1pqWXNG?=
- =?utf-8?B?U2dMa2NOOHg2dnpEZks3OWNKSlB3Qk9ZNUV1OGtVT3Zvb1ZtRUl5WC9xSElL?=
- =?utf-8?B?d0lWNjNXSCswaEIzcmJrbDcwOTJOVzVGY0IwcVhxVXJKNm1lb1Bma3NsMlZC?=
- =?utf-8?B?aWNKK3RXYXA2cUNUcWpQN0dVL2x5dzNQZExJWU9IalM5TXh4WU84SGN0cnBa?=
- =?utf-8?B?UnIrTDJYQUsySGt2WUVjUDhJcE4zTThNamdzVjM1M0NVU1lQUEVjYkJIM2ZS?=
- =?utf-8?B?VmlSRU02UFFFQ0lKR0FqcVJveitBODZFVmpkdlZjOG1GY2JGTVRHampUVnd6?=
- =?utf-8?B?NjZlTkZnajhnTEt4dGVPak9MTVdxL0RxTi9Xb2x6aERFN3dvQ0g4bWdpM3dU?=
- =?utf-8?B?RURnWE9JT3lWMmJWMVY3WEkrNlVzOXRtYTZpaFBoTVp6Z1BrWHdoODRzU3hB?=
- =?utf-8?B?MXpJMCt6c0x6UW51OGl6ME05OGFTcSsvYmIyejQwR1ZqWUExYjVEdzVLUDND?=
- =?utf-8?B?R1VXVW84U29UNStpa1lydFczdkJtMzZ6Z0llNG1hdGhwQm05ZDV1aDdPZFBS?=
- =?utf-8?B?TDE0SEtXL2ZFeXRsNTFLWlVJbmdRZnY5YlJYVS95d3BLaldRUDhIY1h1c0or?=
- =?utf-8?B?ZWhmZVhta3J3YnY0cUc5MlAwcC8vcGkyNnRMSFlLWHNpK2JGMTBaUEFlU2hH?=
- =?utf-8?B?dXNHTTdSTmd6S0pESVpYMTZnVXRvQW91NlF2MkkyUWFFSUxOSTdYeXBhcTJr?=
- =?utf-8?B?eEhqcVNJZzZjcFpXZTZEaDU1MFNZaThHcDM4NWVSYkdZdnR6cnRIRGdsWEVC?=
- =?utf-8?Q?7EpZLwnhASQ9PgFApZNsbX+Br?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b46e6c02-36f7-4a5e-e678-08db9459dc0e
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2023 19:43:06.9966 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GiWZVBv2r5lUXw9LGBcZpTCar4jbdmGhjcJDTWK8X0apnB8AwoItxGToex5XXkn/+tQ5gIqyeHBf+4oeexBqSw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6536
+References: <20230801170255.163237-21-jim.cromie@gmail.com>
+ <202308031432.fcb4197-oliver.sang@intel.com>
+In-Reply-To: <202308031432.fcb4197-oliver.sang@intel.com>
+From: jim.cromie@gmail.com
+Date: Thu, 3 Aug 2023 14:04:10 -0600
+Message-ID: <CAJfuBxz1RT-U_Pphz11CPv4u+SOioBTkOYOVmDvscZJ-jM7Wng@mail.gmail.com>
+Subject: Re: [Intel-gfx] [PATCH v5 19/22] drm: restore
+ CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
+To: kernel test robot <oliver.sang@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,81 +69,183 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>, Philip.Yang@amd.com,
- jakub.kurzak@amd.com, amd-gfx@lists.freedesktop.org
+Cc: lkp@intel.com, jani.nikula@intel.com, daniel.vetter@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, linux@rasmusvillemoes.dk,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, joe@perches.com,
+ jbaron@akamai.com, seanpaul@chromium.org, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, gregkh@linuxfoundation.org, oe-lkp@lists.linux.dev,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Is your kernel configured without dynamic debugging? Maybe we need to 
-wrap this in some #if defined(CONFIG_DYNAMIC_DEBUG_CORE).
+On Thu, Aug 3, 2023 at 1:14=E2=80=AFAM kernel test robot <oliver.sang@intel=
+.com> wrote:
+>
+>
+> hi, Jim Cromie,
+>
+> we send this report to you to consult that if there is any limitation to =
+use
+> this CONFIG_DRM_USE_DYNAMIC_DEBUG?
+> attached config is a randconfig which has CONFIG_DRM_USE_DYNAMIC_DEBUG, t=
+he
+> kernel built with it failed to boot in our tests, but we also tested with=
+ some
+> other config then the issue cannot reproduce.
+>
+> below full report FYI.
+>
 
-Regards,
-   Felix
 
 
-Am 2023-08-03 um 15:38 schrieb Mike Lothian:
-> Hi
+> To reproduce:
 >
-> I'm seeing a compiler failure with Clang 16
+>         # build kernel
+>         cd linux
+>         cp config-6.5.0-rc2-00390-gfb82a8bb4e30 .config
+>         make HOSTCC=3Dgcc-12 CC=3Dgcc-12 ARCH=3Dx86_64 olddefconfig prepa=
+re modules_prepare bzImage modules
+>         make HOSTCC=3Dgcc-12 CC=3Dgcc-12 ARCH=3Dx86_64 INSTALL_MOD_PATH=
+=3D<mod-install-dir> modules_install
+>         cd <mod-install-dir>
+>         find lib/ | cpio -o -H newc --quiet | gzip > modules.cgz
 >
->    CC      drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_svm.o
-> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_svm.c:3568:2: error: call to
-> undeclared function '_dynamic_func_call_no_desc'; ISO C99 and later do
-> not support implicit function declarations
-> [-Wimplicit-function-declaration]
->         dynamic_svm_range_dump(svms);
->         ^
-> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_svm.c:50:2: note: expanded
-> from macro 'dynamic_svm_range_dump'
->         _dynamic_func_call_no_desc("svm_range_dump", svm_range_debug_dump, svms)
->         ^
-> 1 error generated.
 >
-> Cheers
+>         git clone https://github.com/intel/lkp-tests.git
+>         cd lkp-tests
+>         bin/lkp qemu -k <bzImage> -m modules.cgz job-script # job-script =
+is attached in this email
 >
-> Mike
+>         # if come across any failure that blocks the test,
+>         # please remove ~/.lkp and /lkp dir to run from a clean state.
 >
-> On Wed, 19 Jul 2023 at 22:27, Felix Kuehling <felix.kuehling@amd.com> wrote:
->> Am 2023-07-19 um 17:22 schrieb Alex Sierra:
->>> Set dynamic_svm_range_dump macro to avoid iterating over SVM lists
->>> from svm_range_debug_dump when dynamic debug is disabled. Otherwise,
->>> it could drop performance, specially with big number of SVM ranges.
->>> Make sure both svm_range_set_attr and svm_range_debug_dump functions
->>> are dynamically enabled to print svm_range_debug_dump debug traces.
->>>
->>> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
->>> Tested-by: Alex Sierra <alex.sierra@amd.com>
->>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
->>> Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
->> I don't think my name on a Signed-off-by is appropriate here. I didn't
->> write the patch. And I'm not submitting it. However, the patch is
->>
->> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
->>
->>
->>> ---
->>>    drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 4 +++-
->>>    1 file changed, 3 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> index 479c4f66afa7..1b50eae051a4 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> @@ -46,6 +46,8 @@
->>>     * page table is updated.
->>>     */
->>>    #define AMDGPU_SVM_RANGE_RETRY_FAULT_PENDING        (2UL * NSEC_PER_MSEC)
->>> +#define dynamic_svm_range_dump(svms) \
->>> +     _dynamic_func_call_no_desc("svm_range_dump", svm_range_debug_dump, svms)
->>>
->>>    /* Giant svm range split into smaller ranges based on this, it is decided using
->>>     * minimum of all dGPU/APU 1/32 VRAM size, between 2MB to 1GB and alignment to
->>> @@ -3563,7 +3565,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->>>                        break;
->>>        }
->>>
->>> -     svm_range_debug_dump(svms);
->>> +     dynamic_svm_range_dump(svms);
->>>
->>>        mutex_unlock(&svms->lock);
->>>        mmap_read_unlock(mm);
+
+I have recapitulated this, except I used make.cross , and the gcc I
+had that was close.
+If I can get the test to run, maybe I can get the same error.
+If I run to completion, I'll return to get a closer match on gcc version.
+
+Ive gotten to qemu, but its failing on "initrd is too large"
+
+[jimc@frodo lkp-tests]$ bin/lkp qemu -k
+/home/jimc/projects/lx/wk-suren/builds/8-3-lkp/./arch/x86_64/boot/bzImage
+-m /home/jimc/projects/lx/wk-suren/builds/8-3-lkp/Imods/modules.cgz
+~/Downloads/job-script
+try-run: /home/jimc/projects/lkp-tests/bin/qemu
+try-run: /home/jimc/projects/lkp-tests/sbin/qemu
+try-run: /home/jimc/projects/lkp-tests/tools/qemu
+try-run: /home/jimc/projects/lkp-tests/lkp-exec/qemu
+~/projects/lkp-tests/pkg/lkp-src ~/projects/lkp-tests
+x86_64
+=3D=3D> Making package: lkp-src 0-1 (Thu Aug  3 01:37:51 PM MDT 2023)
+=3D=3D> Checking runtime dependencies...
+=3D=3D> Checking buildtime dependencies...
+=3D=3D> WARNING: Using existing $srcdir/ tree
+=3D=3D> Removing existing $pkgdir/ directory...
+=3D=3D> Starting build()...
+make: Entering directory '/home/jimc/projects/lkp-tests/bin/event'
+gcc  -D_FORTIFY_SOURCE=3D2  -c -o wakeup.o wakeup.c
+In file included from /usr/include/sys/types.h:25,
+                 from wakeup.c:1:
+/usr/include/features.h:413:4: warning: #warning _FORTIFY_SOURCE
+requires compiling with optimization (-O) [-Wcpp]
+  413 | #  warning _FORTIFY_SOURCE requires compiling with optimization (-O=
+)
+      |    ^~~~~~~
+gcc  -Wl,-O1,--sort-common,--as-needed,-z,relro -static -o wakeup wakeup.o
+rm -f wakeup.o
+strip wakeup
+make: Leaving directory '/home/jimc/projects/lkp-tests/bin/event'
+=3D=3D> Entering fakeroot environment...
+x86_64
+=3D=3D> Starting package()...
+=3D=3D> Creating package "lkp-src"...
+14610330 blocks
+renamed '/home/jimc/.lkp/cache/lkp-x86_64.cgz.tmp' ->
+'/home/jimc/.lkp/cache/lkp-x86_64.cgz'
+=3D=3D> Leaving fakeroot environment.
+=3D=3D> Finished making: lkp-src 0-1 (Thu Aug  3 01:42:18 PM MDT 2023)
+~/projects/lkp-tests
+result_root: /home/jimc/.lkp//result/boot/1/vm-snb/yocto-i386-minimal-20190=
+520.cgz/x86_64-randconfig-x015-20230731/gcc-12/fb82a8bb4e30dcf042c48563987a=
+d3a24a416f5d/8
+downloading initrds ...
+use local modules: /home/jimc/.lkp/cache/modules.cgz
+skip downloading
+/home/jimc/.lkp/cache/osimage/yocto/yocto-i386-minimal-20190520.cgz
+17916 blocks
+exec command: qemu-system-x86_64 -enable-kvm -cpu SandyBridge -m 8G
+-fsdev local,id=3Dtest_dev,path=3D/home/jimc/.lkp//result/boot/1/vm-snb/yoc=
+to-i386-minimal-20190520.cgz/x86_64-randconfig-x015-20230731/gcc-12/fb82a8b=
+b4e30dcf042c48563987ad3a24a416f5d/8,security_model=3Dnone
+-device virtio-9p-pci,fsdev=3Dtest_dev,mount_tag=3D9p/virtfs_mount -kernel
+/home/jimc/projects/lx/wk-suren/builds/8-3-lkp/./arch/x86_64/boot/bzImage
+-append root=3D/dev/ram0
+RESULT_ROOT=3D/result/boot/1/vm-snb/yocto-i386-minimal-20190520.cgz/x86_64-=
+randconfig-x015-20230731/gcc-12/fb82a8bb4e30dcf042c48563987ad3a24a416f5d/3
+BOOT_IMAGE=3D/pkg/linux/x86_64-randconfig-x015-20230731/gcc-12/fb82a8bb4e30=
+dcf042c48563987ad3a24a416f5d/vmlinuz-6.5.0-rc2-00390-gfb82a8bb4e30
+branch=3Dlinux-review/Jim-Cromie/drm-use-correct-ccflags-y-syntax/20230802-=
+010749
+job=3D/lkp/jobs/scheduled/vm-meta-58/boot-1-yocto-i386-minimal-20190520.cgz=
+-x86_64-randconfig-x015-20230731-fb82a8bb4e30-20230803-93950-6g16ti-3.yaml
+user=3Dlkp ARCH=3Dx86_64 kconfig=3Dx86_64-randconfig-x015-20230731
+commit=3Dfb82a8bb4e30dcf042c48563987ad3a24a416f5d nmi_watchdog=3D0
+vmalloc=3D256M initramfs_async=3D0 page_owner=3Don max_uptime=3D600
+LKP_LOCAL_RUN=3D1 selinux=3D0 debug apic=3Ddebug sysrq_always_enabled
+rcupdate.rcu_cpu_stall_timeout=3D100 net.ifnames=3D0 printk.devkmsg=3Don
+panic=3D-1 softlockup_panic=3D1 nmi_watchdog=3Dpanic oops=3Dpanic
+load_ramdisk=3D2 prompt_ramdisk=3D0 drbd.minor_count=3D8
+systemd.log_level=3Derr ignore_loglevel console=3Dtty0
+earlyprintk=3DttyS0,115200 console=3DttyS0,115200 vga=3Dnormal rw  ip=3Ddhc=
+p
+result_service=3D9p/virtfs_mount -initrd
+/home/jimc/.lkp/cache/final_initrd -smp 2 -m 1312M -no-reboot -device
+i6300esb -rtc base=3Dlocaltime -device e1000,netdev=3Dnet0 -netdev
+user,id=3Dnet0 -display none -monitor null -serial stdio
+qemu: initrd is too large, cannot support.(max: 1375567871, need 6117354712=
+)
+
+
+looking at qemu.git src  (Im probly running fedora's version) but its
+gotta be close..
+
+[jimc@frodo qemu]$ ack -B3 -A3 'initrd is too large'
+hw/i386/x86.c
+878-                initrd_size =3D g_mapped_file_get_length(mapped_file);
+879-                initrd_max =3D x86ms->below_4g_mem_size - acpi_data_siz=
+e - 1;
+880-                if (initrd_size >=3D initrd_max) {
+881:                    fprintf(stderr, "qemu: initrd is too large,
+cannot support."
+882-                            "(max: %"PRIu32", need %"PRId64")\n",
+883-                            initrd_max, (uint64_t)initrd_size);
+884-                    exit(1);
+--
+1023-        initrd_data =3D g_mapped_file_get_contents(mapped_file);
+1024-        initrd_size =3D g_mapped_file_get_length(mapped_file);
+1025-        if (initrd_size >=3D initrd_max) {
+1026:            fprintf(stderr, "qemu: initrd is too large, cannot support=
+."
+1027-                    "(max: %"PRIu32", need %"PRId64")\n",
+1028-                    initrd_max, (uint64_t)initrd_size);
+1029-            exit(1);
+
+
+This doesnt seem like this is a limitation I can just hack around.
+
+why is it in i386 anyway ?
+
+Im surprised JUMP_LABEL is supported on i386
+
+
+
+
+
+>
+>
+> --
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
+>
+>
