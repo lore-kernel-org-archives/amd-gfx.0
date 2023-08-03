@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29038C001DE
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Aug 2023 07:18:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94C91C04FDF
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Aug 2023 07:18:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BBEF10E69E;
-	Fri,  4 Aug 2023 07:18:43 +0000 (UTC)
-Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
- [IPv6:2607:f8b0:4864:20::b30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50F0110E629
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Aug 2023 15:50:00 +0000 (UTC)
-Received: by mail-yb1-xb30.google.com with SMTP id
- 3f1490d57ef6-d2b8437d825so1153990276.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 03 Aug 2023 08:50:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8B3210E69F;
+	Fri,  4 Aug 2023 07:18:44 +0000 (UTC)
+Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
+ [IPv6:2607:f8b0:4864:20::b35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C63410E665
+ for <amd-gfx@lists.freedesktop.org>; Thu,  3 Aug 2023 20:58:26 +0000 (UTC)
+Received: by mail-yb1-xb35.google.com with SMTP id
+ 3f1490d57ef6-d3522283441so1468221276.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 03 Aug 2023 13:58:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1691077799; x=1691682599;
+ d=linaro.org; s=google; t=1691096305; x=1691701105;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=l+4Wzr5DVMlZc1pH6QeuSNiApXly7C56WNxj8x1bVeY=;
- b=gzhMq4KPHvG6ZhunE/V3Y0xg8sylBue0aRsl06ODKlaEdf3szqY3SrKaupRovtgbEK
- gKga/H3lpF5ch1m5g1NEqcopsbgdHkGl2WoU7JzehexLVIizdIATMrp2SFRGWJruTrgg
- UBpbPjc05NN313xxV3WERtnbE/ed1k0uf4DrRFCRJd0+CPiz8VPjLjOBvAPxK821Flhk
- e4owjgBBtLtSqSibLWbbtcOCQ7uf7nzrlQSmj8ZdqZ1Ja+buMt93gdzCs8MLM3T48sZc
- WdO4MuDaut0np4XNQJx7tR5vIYqV3rSpdNmLkqisODn+QLJbe6KUROS5fwxkIpvd+kUL
- mNZA==
+ bh=fjlEpLtDWCaHQNzIvw/oWVXI8qmod6Vrc/lqAa0yowI=;
+ b=Nso93zDPNd9CWURgtwFyh541rO0TyxlgyuXiyB0fEEnZVy5ZAY0tDaa7W8PLmPzE+n
+ gT27euh6OiICUtZAuKZVgnAjzArG49TTON9Bj5BhaoPTDdfVR10nfaoTGqAvVIC0ULih
+ k3K7XcxDHT8v5ElP5kMCoWcnZ4WnnZnGRb0Oewo1KZgNkx2tHoi3zma2gY3xFth8CWa8
+ 5xVrdJusxDwRRtC49EWWZ0wacy5Y+apZHnl93elCYPnxZ1P2EcnXrMbbWAGguZfkKzv/
+ myp9kUH6XOSv1Uz8MwVt3lQlAOD0MPLaUvFr0ID//EjpFjtlZuYKEnbFDAUh2Ojc1MRA
+ lLZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691077799; x=1691682599;
+ d=1e100.net; s=20221208; t=1691096305; x=1691701105;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=l+4Wzr5DVMlZc1pH6QeuSNiApXly7C56WNxj8x1bVeY=;
- b=KhVY4YDKIXxXW4I5AZ848YHY0eV/OFiKoX3dpthmyHK00r4mHLTMX0nQocQKTcsTzd
- /6rZJp0/AP1wYzEWIEgoa6/NfHjNKKnOd+G+tjeFsJpvPT02OjZUbdlPlhu/YqSzv7zr
- e6qigzpVrzMWTE0JRv5+Kfsmu9r7eWFBk+lI/prOaIQ936dk9EkCYZc6bwy9M80JDPyi
- N15Iq5qCyXpWVVVH4dbgjYIjaG+462D7OwnSPyTCd1l+2wmbTcfVYXBynUf1mJQqEisX
- USQRTgrHQrhK/Bd/5d5GuLP61LWa5gfHeqSdzrClIEAWrM8LhuYAn3muF5iqii5nGlpk
- Z+hA==
-X-Gm-Message-State: ABy/qLaUBWaIqd75ELXOJhV+mvIHvcdjSLFxv94hMcPbP16Qh1Yml3cx
- b7m5D4SdZB6SJMy+W2tRpR7DeUXmeHcHuvmhOwF3Jw==
-X-Google-Smtp-Source: APBJJlGqe5OwfFXTkIX8KjflNZxLCJaBlCJcozkLSMt9bNI1VvyZ4ueyHK5KDKBhNWN4ugZ27MKACXtQew4zW6psAas=
-X-Received: by 2002:a25:2386:0:b0:cae:d40f:5934 with SMTP id
- j128-20020a252386000000b00caed40f5934mr18670211ybj.27.1691077799474; Thu, 03
- Aug 2023 08:49:59 -0700 (PDT)
+ bh=fjlEpLtDWCaHQNzIvw/oWVXI8qmod6Vrc/lqAa0yowI=;
+ b=b6i5S7dw+xMxwa8sd8WADKo3hXB3EVXg+Gjd1B5NDPb6j2nJ83OPBOA/YVzeJmoNbD
+ 8wXAb+2DzGSih8KIh9mQWS7xCYAdH6Am+jRu0EvOwtyf9XmbFBNEOuoS1eZgy0ySpeMA
+ Jc5cly6LKJIO03+iK2fE6wqJRkkopexbPpHdSyO+hIwvuuow7qa8yYQH31dwOpxulogd
+ dUg3j/h0rSu2CFaBQkF7SJIA2LHBmJjbGU6tD2RgRmerFeZnHZjyTN4A1vI4PRhRRyVu
+ uwUB0gzmG2qN/nVALBWBx8eXcVQf8Qdsz8AC1nPAfMVyFTlG8y2IgmZdADzIihCtSRGD
+ 0GQQ==
+X-Gm-Message-State: ABy/qLaLIrhZpiyZ3TfJt6zcwFc1WAtHJBhdu80/zM4wFU02Ff6LsiK6
+ ZMAYGNs6EQYHwdEZKu0LMvhZ/72iUihSRnsZKQ+SSQ==
+X-Google-Smtp-Source: APBJJlGuzq0NckuzDre5BL3koRxawetNy79lFnqnqYa5pONMwFSUF1VrGzcKpqSgJGLFHDL//ysKWqTSE3Z8qR4tkqw=
+X-Received: by 2002:a25:86ca:0:b0:d06:d1ae:dcf2 with SMTP id
+ y10-20020a2586ca000000b00d06d1aedcf2mr15364225ybm.13.1691096305166; Thu, 03
+ Aug 2023 13:58:25 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230729004913.215872-1-dmitry.baryshkov@linaro.org>
  <20230729004913.215872-4-dmitry.baryshkov@linaro.org>
@@ -55,17 +55,17 @@ References: <20230729004913.215872-1-dmitry.baryshkov@linaro.org>
  <DE2B4523-D16C-4AFC-8352-212B23548DD5@linaro.org>
  <b6oOVz2YMIG4hJDWhq9lTh6R2HYcrpRwHENhplig9KSQMD8dIjTgC5KdH1Ij3URgV2HESp67Ax7QUsByGjMLouvbs-5q7PiPRdLkgJz6Fwk=@emersion.fr>
  <ADjuOeqA6575DKutMPaR9mW9rLhm-wjLc4ruoUkNwImf-GB90FdwDB7v7y6LFdzVG3BC4R52A0RUtStK4_smmGYTUs3UPDOX4T4Zl2YHkxE=@emersion.fr>
- <CAA8EJppCECObEe5UG3LsHUsmYfKzakWzVw33S4nVc=DB9sA0ig@mail.gmail.com>
- <C-Fu9j3hts_YcQxukEbidrKyTdqYNxYuWUX-694HnmYKiJGZip24s6R8-dULdTvb2VE972he3PZlju2K9wFNkA9j-XKUGemuWiFLGT1eUu0=@emersion.fr>
-In-Reply-To: <C-Fu9j3hts_YcQxukEbidrKyTdqYNxYuWUX-694HnmYKiJGZip24s6R8-dULdTvb2VE972he3PZlju2K9wFNkA9j-XKUGemuWiFLGT1eUu0=@emersion.fr>
+ <20230803204459.GD27752@pendragon.ideasonboard.com>
+ <TR8IBdXbd0C4U8Z4zf9ZLEH66QMutWs0QAAkPnMlKiOvgEZCk6AfEIPcIfRC555XWs8eSzeCCCW9R-3NwxZg6hDhPvPseAgAULAdUQ6epDA=@emersion.fr>
+In-Reply-To: <TR8IBdXbd0C4U8Z4zf9ZLEH66QMutWs0QAAkPnMlKiOvgEZCk6AfEIPcIfRC555XWs8eSzeCCCW9R-3NwxZg6hDhPvPseAgAULAdUQ6epDA=@emersion.fr>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Thu, 3 Aug 2023 18:49:48 +0300
-Message-ID: <CAA8EJpqvTV8yhf-xC5vbRuzhNjQ2qp5yxhTWWN6AdxX1-+JszA@mail.gmail.com>
+Date: Thu, 3 Aug 2023 23:57:27 +0300
+Message-ID: <CAA8EJpo_HKMFya-OTVFK9hK6RTzWqZyVS-1u230eXM1XW5N24Q@mail.gmail.com>
 Subject: Re: [PATCH 3/4] drm/uapi: document the USB subconnector type
 To: Simon Ser <contact@emersion.fr>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 04 Aug 2023 07:18:41 +0000
+X-Mailman-Approved-At: Fri, 04 Aug 2023 07:18:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,12 +100,12 @@ Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 3 Aug 2023 at 18:43, Simon Ser <contact@emersion.fr> wrote:
+On Thu, 3 Aug 2023 at 23:47, Simon Ser <contact@emersion.fr> wrote:
 >
-> On Thursday, August 3rd, 2023 at 17:36, Dmitry Baryshkov <dmitry.baryshko=
-v@linaro.org> wrote:
+> On Thursday, August 3rd, 2023 at 22:44, Laurent Pinchart <laurent.pinchar=
+t@ideasonboard.com> wrote:
 >
-> > On Thu, 3 Aug 2023 at 18:31, Simon Ser contact@emersion.fr wrote:
+> > On Thu, Aug 03, 2023 at 03:31:16PM +0000, Simon Ser wrote:
 > >
 > > > On Thursday, August 3rd, 2023 at 17:22, Simon Ser contact@emersion.fr=
  wrote:
@@ -119,24 +119,18 @@ ort" for DP.
 > > > the lower-level protocol tunneled inside DP. For instance, VGA can be
 > > > tunneled inside the DP cable when using DP =E2=86=92 VGA adapter.
 > >
-> > My opinion hasn't changed: I think this should be the USB connector
-> > with proper DP / DVI / HDMI / etc. subconnector type (or lack of it).
-> > In the end, the physical connector on the side of laptop is USB-C.
+> > Doesn't this contradict the example use case you gave in your previous
+> > e-mail, with wlroots stating "DP-3 via DVI-D" ? I understand that as DP
+> > carried over a DVI-D physical connector, did I get it wrong ?
 >
-> - Even if the connector is USB-C, the protocol used for display is
->   still DP. There's also the case of Thunderbolt.
+> No, this is DVI carried over DP. DP cannot be carried over VGA/DVI/HDMI,
+> but VGA/DVI/HDMI can be carried over DP.
 
-Yes. But the connector type is not about the protocol.
-
-> - This is inconsistent with existing drivers. i915 and amdgpu expose
->   DP ports for their USB-C ports. Changing that isn't possible without
->   causing user-space regressions (compositor config files use the
->   connector type).
-
-Yes, I know. Consider my phrase as a personal opinion or minority report.
-
-I think that using DisplayPort for USB-C connectors was a mistake,
-which we now have to cope with somehow.
+Well, not quite. It means that the sink (display) connected to this
+port identifies itself as an VGA / DVI / HDMI monitor.
+E.g. on if connect HDMI/DVI monitor through the DP-DVI dongle (native
+DP connector), AMD driver still identifies it as 'subconnector HDMI',
+despite dongle a DVI connector on the other side.
 
 --=20
 With best wishes
