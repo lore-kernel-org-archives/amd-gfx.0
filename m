@@ -4,36 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D693FEB64DD
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 15:31:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D8F0EB64DD
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 15:43:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3AF310E61C;
-	Thu,  3 Aug 2023 15:31:32 +0000 (UTC)
-Received: from mail-41103.protonmail.ch (mail-41103.protonmail.ch
- [185.70.41.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ACAB10E61A
- for <amd-gfx@lists.freedesktop.org>; Thu,  3 Aug 2023 15:31:30 +0000 (UTC)
-Date: Thu, 03 Aug 2023 15:31:16 +0000
-Authentication-Results: mail-41103.protonmail.ch;
- dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
- header.b="YMYeMmkP"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0152310E61F;
+	Thu,  3 Aug 2023 15:43:37 +0000 (UTC)
+X-Greylist: delayed 731 seconds by postgrey-1.36 at gabe;
+ Thu, 03 Aug 2023 15:43:36 UTC
+Received: from mail-4018.proton.ch (mail-4018.proton.ch [185.70.40.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FBE510E61F;
+ Thu,  3 Aug 2023 15:43:36 +0000 (UTC)
+Date: Thu, 03 Aug 2023 15:43:25 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1691076683; x=1691335883;
- bh=g6RwxWabpbF2BP/ZwpgNOS6SF1FbztL0pxDaVUDDMX8=;
+ s=protonmail2; t=1691077413; x=1691336613;
+ bh=BBP2N35iv+TqeJMWI2iqlYWFErJ4Za6QEiZFTOjdzB4=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=YMYeMmkP7B8lXECs60rEbVbPbNAGIdW6SdLyouTIqv6YmJLK/wBVabMePZZWt8edL
- tqXIWtuZ7vioLbjwLXcgFjbWM02PrqkJF2fGQO4rokHVj39qc1SvO6YohCdX7c3Krp
- e0aVaNOLoLcb8QXIfsQWroTr0+23jw6sjuu1NbkwWyQu+6WtIhkr9rI2q6gwuhaDp1
- luDVKn0C0Y/dYhsD/ICO3vD5U25dPP2o+cvWajuYNQvS6jPrJyH70lxyN/dxumG/IL
- HEhgXQCuUFzyqiR3hlEAQMNM1ynJqpLns2vOigYUtmbwHs3P5OkxjjRVuPKrI+yVp0
- rvyl8tRaTdZsg==
+ b=KNGQPx6R1J+TwnF3ps8/cb5fj9VHSkxvb70Ugdd4tV0JhCAsxXrvTf4bDR3FHqseC
+ W9QcBbsHbAdQKtmf3VBkPWfNn0UJW0G6RZWgVUc1LvgDsDpcctNkHNqZ/7OGCOILzx
+ cmDzkQZ/jRcj5WxRysh6hyGmaygkL5/ehTz1Sv0BVENcquG0xlr5gGkSWnh4fOri+Q
+ Fatbm7ylCTgLxJicogPX3bZ40LCtTHgwitXsVsFtiiPEOYE7LegoPHcvKApf1wus41
+ wIP9NydXUtkpMgP18K5sgU9Mrzc9PN4Zchb65roXha2CAeEwMHJp+/MuJD7C9EWg6g
+ +rYCknq4JHNSA==
 To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 From: Simon Ser <contact@emersion.fr>
 Subject: Re: [PATCH 3/4] drm/uapi: document the USB subconnector type
-Message-ID: <ADjuOeqA6575DKutMPaR9mW9rLhm-wjLc4ruoUkNwImf-GB90FdwDB7v7y6LFdzVG3BC4R52A0RUtStK4_smmGYTUs3UPDOX4T4Zl2YHkxE=@emersion.fr>
-In-Reply-To: <b6oOVz2YMIG4hJDWhq9lTh6R2HYcrpRwHENhplig9KSQMD8dIjTgC5KdH1Ij3URgV2HESp67Ax7QUsByGjMLouvbs-5q7PiPRdLkgJz6Fwk=@emersion.fr>
+Message-ID: <C-Fu9j3hts_YcQxukEbidrKyTdqYNxYuWUX-694HnmYKiJGZip24s6R8-dULdTvb2VE972he3PZlju2K9wFNkA9j-XKUGemuWiFLGT1eUu0=@emersion.fr>
+In-Reply-To: <CAA8EJppCECObEe5UG3LsHUsmYfKzakWzVw33S4nVc=DB9sA0ig@mail.gmail.com>
 References: <20230729004913.215872-1-dmitry.baryshkov@linaro.org>
  <20230729004913.215872-4-dmitry.baryshkov@linaro.org>
  <20230802185547.GC32500@pendragon.ideasonboard.com>
@@ -41,6 +39,8 @@ References: <20230729004913.215872-1-dmitry.baryshkov@linaro.org>
  <20230802191351.GA1407@pendragon.ideasonboard.com>
  <DE2B4523-D16C-4AFC-8352-212B23548DD5@linaro.org>
  <b6oOVz2YMIG4hJDWhq9lTh6R2HYcrpRwHENhplig9KSQMD8dIjTgC5KdH1Ij3URgV2HESp67Ax7QUsByGjMLouvbs-5q7PiPRdLkgJz6Fwk=@emersion.fr>
+ <ADjuOeqA6575DKutMPaR9mW9rLhm-wjLc4ruoUkNwImf-GB90FdwDB7v7y6LFdzVG3BC4R52A0RUtStK4_smmGYTUs3UPDOX4T4Zl2YHkxE=@emersion.fr>
+ <CAA8EJppCECObEe5UG3LsHUsmYfKzakWzVw33S4nVc=DB9sA0ig@mail.gmail.com>
 Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -79,26 +79,30 @@ Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thursday, August 3rd, 2023 at 17:22, Simon Ser <contact@emersion.fr> wro=
-te:
+On Thursday, August 3rd, 2023 at 17:36, Dmitry Baryshkov <dmitry.baryshkov@=
+linaro.org> wrote:
 
-> The KMS docs describe "subconnector" to be defined as "downstream port" f=
-or DP.
-> Can USB-C (or USB) be seen as a DP downstream port?
+> On Thu, 3 Aug 2023 at 18:31, Simon Ser contact@emersion.fr wrote:
+>=20
+> > On Thursday, August 3rd, 2023 at 17:22, Simon Ser contact@emersion.fr w=
+rote:
+> >=20
+> > > The KMS docs describe "subconnector" to be defined as "downstream por=
+t" for DP.
+> > > Can USB-C (or USB) be seen as a DP downstream port?
+> >=20
+> > To expand on this a bit: I'm wondering if we're mixing apples and
+> > oranges here. The current values of "subconnector" typically describe
+> > the lower-level protocol tunneled inside DP. For instance, VGA can be
+> > tunneled inside the DP cable when using DP =E2=86=92 VGA adapter.
+>=20
+> My opinion hasn't changed: I think this should be the USB connector
+> with proper DP / DVI / HDMI / etc. subconnector type (or lack of it).
+> In the end, the physical connector on the side of laptop is USB-C.
 
-To expand on this a bit: I'm wondering if we're mixing apples and
-oranges here. The current values of "subconnector" typically describe
-the lower-level protocol tunneled inside DP. For instance, VGA can be
-tunneled inside the DP cable when using DP =E2=86=92 VGA adapter.
-
-However, in the USB-C case, DP itself is tunneled inside USB-C. And you
-might use a USB-C =E2=86=92 DP adapter. So it's not really *sub*connector, =
-it's
-more of a *super*connector, right?
-
-I think [1] is somewhat related, since it also allows user-space to
-discover whether a connector uses USB-C. But relying on sysfs to figure
-this out isn't super optimal perhaps.
-
-[1]: https://lore.kernel.org/dri-devel/20221108185004.2263578-1-wonchung@go=
-ogle.com/
+- Even if the connector is USB-C, the protocol used for display is
+  still DP. There's also the case of Thunderbolt.
+- This is inconsistent with existing drivers. i915 and amdgpu expose
+  DP ports for their USB-C ports. Changing that isn't possible without
+  causing user-space regressions (compositor config files use the
+  connector type).
