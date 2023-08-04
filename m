@@ -4,79 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA73C001DB
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Aug 2023 13:03:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 723B9C00528
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Aug 2023 13:05:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5584C10E6F9;
-	Fri,  4 Aug 2023 13:03:37 +0000 (UTC)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF94210E6F9
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Aug 2023 13:03:34 +0000 (UTC)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-522a9e0e6e9so563178a12.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Aug 2023 06:03:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1691154213; x=1691759013;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=UxwSpue8VcAl4rE+L12cx6ELVuEpMdkrFAwiPdnoGX8=;
- b=U/pzLmSSesV857mBeI0TU4dda7CF1a53EmSDTCN5EXDBpHwAhnQdZYYDjRFBK7DHut
- wFpW1JgdQGXS+FiE+B4dM0RiRZIqsz0VOUhMms4n3ikoNUEcNpr6trv6Bkd78d2Is0Gu
- T4NrzbcM10n0APMABvxNnLufUODd7ew9gdA7Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691154213; x=1691759013;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:mail-followup-to:message-id:subject:cc:to
- :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=UxwSpue8VcAl4rE+L12cx6ELVuEpMdkrFAwiPdnoGX8=;
- b=Q97l2CCfg/6Z0HAk+tWopai5ow9oFqtxfEc3Zl7MZuksDrNySosZ33yhZvtk0Im4hZ
- 8VA944PI69KuZIjKzYrcWct1jr5rS9+zYAZbklBPZx3EWKenas9YVuF/hhfyZDhKPpbo
- dIeHRWQQ8iSldPQgvyaz5sWRoKXNQNC3/ue/I+KX2G+dM6YsTvRc8yBzBOR1IRZwfBaC
- pAlVR4aA/aM+/tAp4qQdXQ6Vq6GTP7CrR1BTJOwADoK6ewnVZEDEtkDk6s+fwsoKDDby
- uvNPftdZld6rrwcr4TGV7etqij2U/QwJ59HofZyoqeM+Iqm0WaQNrbOpuryQZ3Ld9njS
- GvIw==
-X-Gm-Message-State: ABy/qLZpD3G4IvDadVPZ7kuGOdt6TRkVbwknpqcALMSp7tGEjJ6Sa29F
- 3g04J9RvECoSD7HBHpfqRlQzWQ==
-X-Google-Smtp-Source: APBJJlFlOCcJwTgxssVeh0x3dNinWRfduyp0bspmJezvbNPSgW6Gd9/PiTQBd6YeAKu1zIJmVFmQdQ==
-X-Received: by 2002:a05:6402:270b:b0:522:582f:9194 with SMTP id
- y11-20020a056402270b00b00522582f9194mr17071722edd.4.1691154213096; 
- Fri, 04 Aug 2023 06:03:33 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- d12-20020aa7ce0c000000b005230724b2b1sm1232776edv.45.2023.08.04.06.03.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Aug 2023 06:03:31 -0700 (PDT)
-Date: Fri, 4 Aug 2023 15:03:29 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
-Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
-Message-ID: <ZMz3IXIzXS5gNK3G@phenom.ffwll.local>
-Mail-Followup-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- pierre-eric.pelloux-prayer@amd.com, Simon Ser <contact@emersion.fr>,
- Rob Clark <robdclark@gmail.com>,
- Pekka Paalanen <ppaalanen@gmail.com>,
- Daniel Stone <daniel@fooishbar.org>,
- 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
- Dave Airlie <airlied@gmail.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Randy Dunlap <rdunlap@infradead.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>
-References: <20230627132323.115440-1-andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 395EC10E07F;
+	Fri,  4 Aug 2023 13:05:52 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2087.outbound.protection.outlook.com [40.107.93.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2F0110E07F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Aug 2023 13:05:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=b03KjXn3SLJM0Zki+vDbhT+RPZbPllqiQUbTqPqCNE3qPd5gt8RgOu5XjQRF6/pp8PTVW+uaPu4v1vxwFHO+pIrjpGQps98HWJV3tTa263+LOgN8clcPb/JMOuz365rj0M2f4ha7gYzMzes1O8SsOmyxtgkF8BxnW91tb2KCeqop+wbkZc0nM3EQeuIScK5T/Smonwv0QkQSt10Sl2hbA7Ne5J6xqs7JqhFyXXujh3eBWcPv3/eiBZ7AJOWA7Y/0vKa6rAG4ebh2cL8dhYqUaygYYEOImi+QB6r0aZf//qcpkmMlFS+FvMtpyodcMCiG1BvnvCJs6xqwPIOoMmFkww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hyXfCYBdMXKg2uu9TS1rhqJFQjY5rMtF/Ic6YeIAbeY=;
+ b=cF7HGdnBRne1+EYy4p3wfW/ivZMQCjtUIX9HYABvnPW1wFDWTJLyNRIF+5V7r+DqxnIcXmSIb7PsIdLX8nDx36dPjD+d1gTeH5TdKcgtGWzyYedaaS62PzYOmnCGyMFc0LbkAaNzPbFNf/zlUPS4LSAyh6RTiAMeRa7exS7WiwohTwaZ3b1gaAoTeZRes5yE8xH/xjgmkyB/MAGgZbP0WZww1Abi02piChvTfdfuxqPWLq/cPMIAYXpLT5FPDlj2FptulMRnNIfmNGm02tzmjv7AJA3dSfiGHb+iLV0y83YPZzVheaOPv7atI5AzOVGzPlehj8DhpSw7NzxWj5pJgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hyXfCYBdMXKg2uu9TS1rhqJFQjY5rMtF/Ic6YeIAbeY=;
+ b=KbaafHwIvmwbuEa/TyWOi85WtUn0uav4rhAeK4+FVrpz2U0j2fCQzRh8oZPT09/XnjC1Yn1d9iN9vsIkMCZayPFi6Mo2qirtoJwDB+hXgixeBa4YvtyH9jC4LZOg618x/2nvuATmY6a1O0RwozUS3wPT39MIgScO2LhkjobxkH8=
+Received: from MW4PR03CA0267.namprd03.prod.outlook.com (2603:10b6:303:b4::32)
+ by CYYPR12MB8871.namprd12.prod.outlook.com (2603:10b6:930:c2::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.21; Fri, 4 Aug
+ 2023 13:05:37 +0000
+Received: from CO1PEPF000044F6.namprd21.prod.outlook.com
+ (2603:10b6:303:b4:cafe::40) by MW4PR03CA0267.outlook.office365.com
+ (2603:10b6:303:b4::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.19 via Frontend
+ Transport; Fri, 4 Aug 2023 13:05:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044F6.mail.protection.outlook.com (10.167.241.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6652.21 via Frontend Transport; Fri, 4 Aug 2023 13:05:37 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 4 Aug
+ 2023 08:05:34 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Add FRU sysfs nodes only if needed
+Date: Fri, 4 Aug 2023 18:35:16 +0530
+Message-ID: <20230804130516.351861-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230627132323.115440-1-andrealmeid@igalia.com>
-X-Operating-System: Linux phenom 6.3.0-2-amd64 
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F6:EE_|CYYPR12MB8871:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3be040a4-0ee8-4251-e2bb-08db94eb7f25
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Nwk+KG1czB304bF74cyIaUKQkkGOzdG1Syeh7KnDVrVmnBSfnVV14OTsZGk/RKakgQMNi8Xe2sGq0iQlNry22dLPBxZ1woGsFXMdUUymY2x/DQGYGvkcFdwf4IVverUjPye8A4h41Yyc+XOcF1S7N30Ld/5uWr0piI7iRYPIb3xmConAupCPyR9hFSFUCW4n4o+Fp8+7yz/jZqNLVmm/HYvH5jDaLF3lxBzyt1ajkQsyOOssGYJNE0fqSXjNTM6q7sqLd+F0hj4MAwxHRzxQwNk1qd3eW4NM/b/hxyZEm7sA04/alvyXWkGK4qRAAAxy+rbLUnW8z+CfCyp/mJM1a7EmZt/MJZUbawsX5H4yCBoI8NsbvRXqkeo4dKJcA+5agPB/iyi/77K0yhKpTGh4qYozJ9iCMgZz5QA87EcAeRbUgOQdRmhy6C9MfdP3JKt1EnaS3j4+BDSnR1yDmqBKxQQXxWg5SmNleEeiciaKFcpupHg9+lIOVIsDDo01FEj7uWG6VUACyJTGpC5sr91dt4qET/0oTcqZf+PQj7+9x2Egz+eG37470hV3sqZzhyQpIzBl5mRwB79dqiBcnLBfyxUvOS/+w3EtMPtbg7CcpWd6Zy/yCha2CEJek8Ls+n2bpMLMYcrZW9JG1S0wvO8IpVwKQoZDMjhsPFya1iFVxb7Co15EGLeHnthR2jHAWuuDjn+IkOCIq/CUf8qabyVrNQ6nuV26Q1G5yeQWujAvlEI0TKAAgGRLNR4vZPcrdAukzN1a/mVdk5DZcJTew0ohzw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(136003)(376002)(346002)(396003)(451199021)(186006)(82310400008)(1800799003)(40470700004)(36840700001)(46966006)(7696005)(6666004)(40460700003)(86362001)(40480700001)(1076003)(36860700001)(26005)(426003)(16526019)(336012)(36756003)(2616005)(83380400001)(47076005)(81166007)(82740400003)(356005)(5660300002)(41300700001)(8936002)(8676002)(4326008)(6916009)(2906002)(70586007)(70206006)(316002)(478600001)(44832011)(54906003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2023 13:05:37.2440 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3be040a4-0ee8-4251-e2bb-08db94eb7f25
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F6.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8871
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,161 +97,215 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>, Pekka Paalanen <ppaalanen@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>,
- Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- alexander.deucher@amd.com, Pekka Paalanen <pekka.paalanen@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>, Dave Airlie <airlied@gmail.com>,
- christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 27, 2023 at 10:23:23AM -0300, André Almeida wrote:
-> Create a section that specifies how to deal with DRM device resets for
-> kernel and userspace drivers.
-> 
-> Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-> Signed-off-by: André Almeida <andrealmeid@igalia.com>
-> ---
-> 
-> v4: https://lore.kernel.org/lkml/20230626183347.55118-1-andrealmeid@igalia.com/
-> 
-> Changes:
->  - Grammar fixes (Randy)
-> 
->  Documentation/gpu/drm-uapi.rst | 68 ++++++++++++++++++++++++++++++++++
->  1 file changed, 68 insertions(+)
-> 
-> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-> index 65fb3036a580..3cbffa25ed93 100644
-> --- a/Documentation/gpu/drm-uapi.rst
-> +++ b/Documentation/gpu/drm-uapi.rst
-> @@ -285,6 +285,74 @@ for GPU1 and GPU2 from different vendors, and a third handler for
->  mmapped regular files. Threads cause additional pain with signal
->  handling as well.
->  
-> +Device reset
-> +============
-> +
-> +The GPU stack is really complex and is prone to errors, from hardware bugs,
-> +faulty applications and everything in between the many layers. Some errors
-> +require resetting the device in order to make the device usable again. This
-> +sections describes the expectations for DRM and usermode drivers when a
-> +device resets and how to propagate the reset status.
-> +
-> +Kernel Mode Driver
-> +------------------
-> +
-> +The KMD is responsible for checking if the device needs a reset, and to perform
-> +it as needed. Usually a hang is detected when a job gets stuck executing. KMD
-> +should keep track of resets, because userspace can query any time about the
-> +reset stats for an specific context. This is needed to propagate to the rest of
-> +the stack that a reset has happened. Currently, this is implemented by each
-> +driver separately, with no common DRM interface.
-> +
-> +User Mode Driver
-> +----------------
-> +
-> +The UMD should check before submitting new commands to the KMD if the device has
-> +been reset, and this can be checked more often if the UMD requires it. After
-> +detecting a reset, UMD will then proceed to report it to the application using
-> +the appropriate API error code, as explained in the section below about
-> +robustness.
-> +
-> +Robustness
-> +----------
-> +
-> +The only way to try to keep an application working after a reset is if it
-> +complies with the robustness aspects of the graphical API that it is using.
-> +
-> +Graphical APIs provide ways to applications to deal with device resets. However,
-> +there is no guarantee that the app will use such features correctly, and the
-> +UMD can implement policies to close the app if it is a repeating offender,
+Create sysfs nodes for FRU data only if FRU data is available. Move the
+logic to FRU specific file.
 
-Not sure whether this one here is due to my input, but s/UMD/KMD. Repeat
-offender killing is more a policy where the kernel enforces policy, and no
-longer up to userspace to dtrt (because very clearly userspace is not
-really doing the right thing anymore when it's just hanging the gpu in an
-endless loop). Also maybe tune it down further to something like "the
-kernel driver may implemnent ..."
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 70 +---------------
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 81 +++++++++++++++++++
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h    |  1 +
+ 3 files changed, 84 insertions(+), 68 deletions(-)
 
-In my opinion the umd shouldn't implement these kind of magic guesses, the
-entire point of robustness apis is to delegate responsibility for
-correctly recovering to the application. And the kernel is left with
-enforcing fair resource usage policies (which eventually might be a
-cgroups limit on how much gpu time you're allowed to waste with gpu
-resets).
-
-> +likely in a broken loop. This is done to ensure that it does not keep blocking
-> +the user interface from being correctly displayed. This should be done even if
-> +the app is correct but happens to trigger some bug in the hardware/driver.
-> +
-> +OpenGL
-> +~~~~~~
-> +
-> +Apps using OpenGL should use the available robust interfaces, like the
-> +extension ``GL_ARB_robustness`` (or ``GL_EXT_robustness`` for OpenGL ES). This
-> +interface tells if a reset has happened, and if so, all the context state is
-> +considered lost and the app proceeds by creating new ones. If it is possible to
-> +determine that robustness is not in use, the UMD will terminate the app when a
-> +reset is detected, giving that the contexts are lost and the app won't be able
-> +to figure this out and recreate the contexts.
-> +
-> +Vulkan
-> +~~~~~~
-> +
-> +Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for submissions.
-> +This error code means, among other things, that a device reset has happened and
-> +it needs to recreate the contexts to keep going.
-> +
-> +Reporting causes of resets
-> +--------------------------
-> +
-> +Apart from propagating the reset through the stack so apps can recover, it's
-> +really useful for driver developers to learn more about what caused the reset in
-> +first place. DRM devices should make use of devcoredump to store relevant
-> +information about the reset, so this information can be added to user bug
-> +reports.
-
-Since we do not seem to have a solid consensus in the community about
-non-robust userspace, maybe we could just document that lack of consensus
-to unblock this patch? Something like this:
-
-Non-Robust Userspace
---------------------
-
-Userspace that doesn't support robust interfaces (like an non-robust
-OpenGL context or API without any robustness support like libva) leave the
-robustness handling entirely to the userspace driver. There is no strong
-community consensus on what the userspace driver should do in that case,
-since all reasonable approaches have some clear downsides.
-
-With the s/UMD/KMD/ further up and maybe something added to record the
-non-robustness non-consensus:
-
-Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-Cheers, Daniel
-
-
-
-> +
->  .. _drm_driver_ioctl:
->  
->  IOCTL Support on Device Nodes
-> -- 
-> 2.41.0
-> 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 0d602abd32ba..37bc6ebb7fad 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -164,71 +164,6 @@ static DEVICE_ATTR(pcie_replay_count, 0444,
+ 
+ static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev);
+ 
+-/**
+- * DOC: product_name
+- *
+- * The amdgpu driver provides a sysfs API for reporting the product name
+- * for the device
+- * The file product_name is used for this and returns the product name
+- * as returned from the FRU.
+- * NOTE: This is only available for certain server cards
+- */
+-
+-static ssize_t amdgpu_device_get_product_name(struct device *dev,
+-		struct device_attribute *attr, char *buf)
+-{
+-	struct drm_device *ddev = dev_get_drvdata(dev);
+-	struct amdgpu_device *adev = drm_to_adev(ddev);
+-
+-	return sysfs_emit(buf, "%s\n", adev->product_name);
+-}
+-
+-static DEVICE_ATTR(product_name, 0444,
+-		amdgpu_device_get_product_name, NULL);
+-
+-/**
+- * DOC: product_number
+- *
+- * The amdgpu driver provides a sysfs API for reporting the part number
+- * for the device
+- * The file product_number is used for this and returns the part number
+- * as returned from the FRU.
+- * NOTE: This is only available for certain server cards
+- */
+-
+-static ssize_t amdgpu_device_get_product_number(struct device *dev,
+-		struct device_attribute *attr, char *buf)
+-{
+-	struct drm_device *ddev = dev_get_drvdata(dev);
+-	struct amdgpu_device *adev = drm_to_adev(ddev);
+-
+-	return sysfs_emit(buf, "%s\n", adev->product_number);
+-}
+-
+-static DEVICE_ATTR(product_number, 0444,
+-		amdgpu_device_get_product_number, NULL);
+-
+-/**
+- * DOC: serial_number
+- *
+- * The amdgpu driver provides a sysfs API for reporting the serial number
+- * for the device
+- * The file serial_number is used for this and returns the serial number
+- * as returned from the FRU.
+- * NOTE: This is only available for certain server cards
+- */
+-
+-static ssize_t amdgpu_device_get_serial_number(struct device *dev,
+-		struct device_attribute *attr, char *buf)
+-{
+-	struct drm_device *ddev = dev_get_drvdata(dev);
+-	struct amdgpu_device *adev = drm_to_adev(ddev);
+-
+-	return sysfs_emit(buf, "%s\n", adev->serial);
+-}
+-
+-static DEVICE_ATTR(serial_number, 0444,
+-		amdgpu_device_get_serial_number, NULL);
+ 
+ /**
+  * amdgpu_device_supports_px - Is the device a dGPU with ATPX power control
+@@ -3550,9 +3485,6 @@ static void amdgpu_device_check_iommu_direct_map(struct amdgpu_device *adev)
+ }
+ 
+ static const struct attribute *amdgpu_dev_attributes[] = {
+-	&dev_attr_product_name.attr,
+-	&dev_attr_product_number.attr,
+-	&dev_attr_serial_number.attr,
+ 	&dev_attr_pcie_replay_count.attr,
+ 	NULL
+ };
+@@ -3967,6 +3899,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	if (r)
+ 		dev_err(adev->dev, "Could not create amdgpu device attr\n");
+ 
++	amdgpu_fru_sysfs_init(adev);
++
+ 	if (IS_ENABLED(CONFIG_PERF_EVENTS))
+ 		r = amdgpu_pmu_init(adev);
+ 	if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+index 8c3ee042556a..bb1cc6830a12 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+@@ -212,3 +212,84 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+ 	kfree(pia);
+ 	return 0;
+ }
++
++/**
++ * DOC: product_name
++ *
++ * The amdgpu driver provides a sysfs API for reporting the product name
++ * for the device
++ * The file product_name is used for this and returns the product name
++ * as returned from the FRU.
++ * NOTE: This is only available for certain server cards
++ */
++
++static ssize_t amdgpu_fru_get_product_name(struct device *dev,
++					      struct device_attribute *attr,
++					      char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	return sysfs_emit(buf, "%s\n", adev->product_name);
++}
++
++static DEVICE_ATTR(product_name, 0444, amdgpu_fru_get_product_name, NULL);
++
++/**
++ * DOC: product_number
++ *
++ * The amdgpu driver provides a sysfs API for reporting the part number
++ * for the device
++ * The file product_number is used for this and returns the part number
++ * as returned from the FRU.
++ * NOTE: This is only available for certain server cards
++ */
++
++static ssize_t amdgpu_fru_get_product_number(struct device *dev,
++						struct device_attribute *attr,
++						char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	return sysfs_emit(buf, "%s\n", adev->product_number);
++}
++
++static DEVICE_ATTR(product_number, 0444, amdgpu_fru_get_product_number,
++		   NULL);
++
++/**
++ * DOC: serial_number
++ *
++ * The amdgpu driver provides a sysfs API for reporting the serial number
++ * for the device
++ * The file serial_number is used for this and returns the serial number
++ * as returned from the FRU.
++ * NOTE: This is only available for certain server cards
++ */
++
++static ssize_t amdgpu_fru_get_serial_number(struct device *dev,
++					       struct device_attribute *attr,
++					       char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	return sysfs_emit(buf, "%s\n", adev->serial);
++}
++
++static DEVICE_ATTR(serial_number, 0444, amdgpu_fru_get_serial_number, NULL);
++
++static const struct attribute *amdgpu_fru_attributes[] = {
++	&dev_attr_product_name.attr,
++	&dev_attr_product_number.attr,
++	&dev_attr_serial_number.attr, NULL
++};
++
++int amdgpu_fru_sysfs_init(struct amdgpu_device *adev)
++{
++	if (!is_fru_eeprom_supported(adev, NULL))
++		return 0;
++
++	return sysfs_create_files(&adev->dev->kobj, amdgpu_fru_attributes);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h
+index 1308d976d60e..1bfac9300ed5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h
+@@ -25,5 +25,6 @@
+ #define __AMDGPU_FRU_EEPROM_H__
+ 
+ int amdgpu_fru_get_product_info(struct amdgpu_device *adev);
++int amdgpu_fru_sysfs_init(struct amdgpu_device *adev);
+ 
+ #endif  // __AMDGPU_FRU_EEPROM_H__
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.25.1
+
