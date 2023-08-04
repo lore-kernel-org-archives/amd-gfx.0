@@ -4,116 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC192C001DF
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Aug 2023 14:37:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F04F8C04A6A
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Aug 2023 14:47:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 509CF10E0BC;
-	Fri,  4 Aug 2023 14:37:30 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20617.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::617])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A71F10E0BC
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Aug 2023 14:37:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f9RCdhKZyoqVeFZeee5o8y2Y+bUSb9vxnCA7yEHNu3n1c+xK8rA5/BF2u1XJzgEeq/HMrsZDH4ld6kRxPwhA3Od5deUDyHqd2X6ZeeNaH/zVm2mcE9PsJLLQQXsJ9zhPJLk82QUcAgbK0rXbsZnG5g63haTstKgd7DHZz9OReYVtZwNcfLNDO2PSYbyq+HFGgXBiRT9FrfU55w1E8zpjiVGIebyTpUzf+Mu8gW9bYVW7PNFBB0fUyWCjUHcE9kLvhy4XC9lXqtjGcDH0BvpRO1BXIX2tFqsbzlqQCEaRk4Fl/LKOs1V2nnUbouJ80oyMmbUW+w52okQLklMZC78bQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Etr9QG5XyF2JQBMmLgKL7Ueifup7CGRd8PqL2Mu0gAQ=;
- b=HB+eYszOD93bpJeJaVdlkiILrwo2mQvEnczlD8m2ip8PVhcml4tXVjz7/Ofwm5n5HDugGZQvVr109oRcgdg1xChTOCjQo62COKtwij0VSpPhBSLzKKGag4Z/AXFSFjxEqhfLAXDQKg/5jWc0mSBsGnFwvPB5pd8g5Jo7dso58p4yfEDRIwyXSWgXj5MDptU+qYc6SRb7nBszShph0+EuwabAmsFc3jRXeeB7RIj9to+rAHxVJXXepmfzw95sreQtHpzIwyYZVGxtxoMge4OSI7LPwN+KrGwklCaGC9TxJKREFNsYPwJrNUCiqmkjAC7EZoc2SQUQqtgBR+/5/bgvZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Etr9QG5XyF2JQBMmLgKL7Ueifup7CGRd8PqL2Mu0gAQ=;
- b=MKrc4Q89P6vF79eFIp26AiK8ij3iMrtquDCYchMO9qzuN08dnZCz+lCCh/qscyfo0W6Sy//jOMJXErDbJ37QyvUtZHf6IawJmJiXnRtuUMHvHCEoJUsqzLrZUHAVbXEu2WcXO6RU5HWXTUCjRx73VpXZ5WiD2jnkf7cJkZooc/M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by DM4PR12MB5101.namprd12.prod.outlook.com (2603:10b6:5:390::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.21; Fri, 4 Aug
- 2023 14:37:23 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::ba40:7dba:9b00:ff16]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::ba40:7dba:9b00:ff16%4]) with mapi id 15.20.6652.020; Fri, 4 Aug 2023
- 14:37:23 +0000
-Message-ID: <b7a6f60c-4b3f-e8fe-36f5-d4f329a2a666@amd.com>
-Date: Fri, 4 Aug 2023 20:07:11 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH] drm/amd/pm: avoid driver getting empty metrics table for
- the first time
-Content-Language: en-US
-To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230804143258.1992824-1-kevinyang.wang@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20230804143258.1992824-1-kevinyang.wang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0085.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9a::21) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54D5010E09C;
+	Fri,  4 Aug 2023 14:47:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 622FA10E09C;
+ Fri,  4 Aug 2023 14:47:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1691160466; x=1722696466;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=OkOv3ZD33zY4/JDbpRTOuyRV+qPqy96F3mLKrDbYlgs=;
+ b=Uf5VvRUIWIjbMz+IOeooeXVljmEhUJY01OsADSJ6wNAnLY1ezym9F1Is
+ L6h3evK1/N8tSLhqUj6vOyVyAH+xhEjo4RDLp7D3fbd44pNcbMXs2y2FW
+ 9VbJHRGaG250TvSOR0irDhohq7/aYqIW7R5x3WR5zIaiE3LMF1/mMBCYn
+ h4jPqSvGJqU6KgvHi9DENSaZhi/YPiZbSdytUQVpUOocFwD0o1wXzqW2+
+ KHn5BbsoiCfYCg5eptqUz402Jzxgx+H9OiY0asxlD85er0rga683WHZIm
+ 0OyzfAkjYDvr3va6mpFq1HhBGa3HZ4fhO85LjT/9GLxss0OWj/E0lmOoa w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10792"; a="369067648"
+X-IronPort-AV: E=Sophos;i="6.01,255,1684825200"; d="scan'208";a="369067648"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2023 07:47:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10792"; a="976615208"
+X-IronPort-AV: E=Sophos;i="6.01,255,1684825200"; d="scan'208";a="976615208"
+Received: from lkp-server01.sh.intel.com (HELO d1ccc7e87e8f) ([10.239.97.150])
+ by fmsmga006.fm.intel.com with ESMTP; 04 Aug 2023 07:47:35 -0700
+Received: from kbuild by d1ccc7e87e8f with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qRw5X-0002uA-0O;
+ Fri, 04 Aug 2023 14:47:35 +0000
+Date: Fri, 4 Aug 2023 22:47:28 +0800
+From: kernel test robot <lkp@intel.com>
+To: Wayne Lin <Wayne.Lin@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/3] drm/mst: Refactor the flow for payload
+ allocation/removement
+Message-ID: <202308042253.lM5xMnnA-lkp@intel.com>
+References: <20230804062029.5686-3-Wayne.Lin@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|DM4PR12MB5101:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98db3a20-3c32-4d05-f0a9-08db94f8506f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aeAKEPaOB2GnQKUSpEOw5Q3aRqobMDrTbg1f90WOqjspXoK134q4RNLbBQcX+KqqK971es0HnGTA2o+tgf2VqgBZNfN1ta5+/w0+r60Ev4ss4YgC4sywrnG2FRSJKjkCUQidej1nz0+YxZbeQPO4hN/I+eox4eo72Z+/7WVjXfGZcCEdu+SwwCQlXhucAOP4sAMLKzwQm2DNTMy3gPgQy8Q5BEb3D9QH+nglMnLCVSabgjAsQrCnh1z6fzkwQwhYnF5pPUI1gNo1ZuWw8wG1KiW+NwkSVZogfcgfjSPtZi+fTniO6YjoaTJYeRxQorXnksobC1z0LFrqUor0rMYSzypNrLgNLnZB2uKpV+g0vzZAHV0t8F5oIu0ksSKdrpg8wyZX+BnvZXHqlKl6hMn8J6mrvildDnruhCB119VbM7q9m6pDaVZZjvMnWeLmVkMLu+8jqpwCzfhyUhPJdz+qJsrsbfzlmdm5vCBy4dV9/Tf8AYFomWjR1Nbz/D9hjZkE4t1C4BQNrOHPdWuzl8ELr6qAEyX2u/KzAgr26Iw30uEa7rvsGtDqpYnH7xZh3wlBH50WwPtpnGqDhAw9D7W59gHrYl9YbmJhX29WnVf348D9ctijhot75BkzlS4udD5wyRTxSiq8joTcj4ni4N759A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(366004)(136003)(376002)(346002)(451199021)(1800799003)(186006)(2906002)(26005)(38100700002)(53546011)(2616005)(6506007)(83380400001)(5660300002)(8676002)(8936002)(66476007)(66556008)(66946007)(4326008)(316002)(41300700001)(36756003)(6486002)(6512007)(6666004)(86362001)(31696002)(478600001)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEFkd0I4TmFUQ1kvNFRKdTRKalZGcVpseXV3ZUxWOG5NNHlYL3BpL2pMa0Nn?=
- =?utf-8?B?Q3hNamV0aXhrRkhLTkpqd2JHT0k1aTNrZWNaWTZldHVMYTR5YVRRZEtkWDNm?=
- =?utf-8?B?Tk1GQVhQaTVkRDhoVG1VYm5VM0VCT0lvSlR6L3NZWGRuUTQ2VzhVQjg0TU5G?=
- =?utf-8?B?QVNHYVV2MmlLQURRV2FDcEFyVGNsNDdERDNFWVVOZnNuUnlxZ0U2ZFkyWXFy?=
- =?utf-8?B?cjFTSUdOZVZuMllRNmNuQVNaVjRsZGttWGRJeDhhQnFsdGx2Vk1PdEY0R1Na?=
- =?utf-8?B?RXFWZlhJREgzU1l0bXN4ai94cDRyeVZPSkx6eXdpa0tURlNaYjJlR2VxYUR5?=
- =?utf-8?B?SVNISW5DUjRzeDR3dCt4U3dteG1aWjdZclNTYkpFWVhYVGJLNWNmeGR6YmpG?=
- =?utf-8?B?ZkdKT09vMWZja1g5SzB0dm0xamxPSVdNMXhwZldmU2N1QjhkNmFHZi9PQkJp?=
- =?utf-8?B?ci9BVUhlWEJGcExKanVGWkQzcFdLK2JWYjVhSXc2MU9mdHN5UWdqdXo3VjQ0?=
- =?utf-8?B?ZXZkR2pIekt4a0F0ZFFtRzlIdWpxWlZBeVZ5Rm82ditNM0hwSmZJWnRTTUFN?=
- =?utf-8?B?bUhObFJ0R0QzS1V5LzFPVGRGRlczQllZamlkcWJjNDVvLzJqV05ycUZEeXda?=
- =?utf-8?B?eUZab0kxdVBYa1U1WmZYS0tSR0tWRDRqam1zMFJCdTIvR1EyZk9paGl5eUN3?=
- =?utf-8?B?MEpjUkk2UHV5Y0szYTZEZkNJdnRaT0I3Y1lnbXFBeEk4YmJ6Zk1CNVZMM0dP?=
- =?utf-8?B?MnFpVWEvNXBSdnN1L3M5aW5NU2pFb0MyaVgwN3dOSGZBc2U1aklJcFI1a0tt?=
- =?utf-8?B?Z3d1QXk1MjRiRzh0QTNGODIwNUVHdDdLVkRKODM1WDJ0OVRtbFB4R293aFNr?=
- =?utf-8?B?bWhrTzZQM1VJbkN3YmJBZVhWNk95VWV3aXJhR0lJckp4cFVYNXVUK1FlSWp1?=
- =?utf-8?B?cml4bG0wYW9HZXlJcTh3WXRGc2tlc2RIVWx6VHpuK093THdEOEZKKzRtbUdp?=
- =?utf-8?B?QnZHZlBIY3VKd05oWmpSN0JkVTJqVTRLVlJDVjlZR3gyZTNKNVJyTVJsSG9r?=
- =?utf-8?B?WUxoZHQvNXBBL05HU2E3RnkyTWdZSldwUnYwZCt4bVRzVjNlQnovUFFra1Ar?=
- =?utf-8?B?L0hHN2dOQ3FMRU1lV3RudkJLNEhhWTgxbWxZQldLU3F1WGxEbDFPUWVFVXVj?=
- =?utf-8?B?QUVOT1FVOEhma3ZyY0dvcGUydi9GT3p1Q2p1SzNGUm9zOTl0NkU0L3JoeDha?=
- =?utf-8?B?NGxPN05BY1YvTmxpSEo5N2VGTG1JbDFuQ09naVBLWEVoM0VSNXVhbWtPMVQy?=
- =?utf-8?B?MXFmbHdteFJ6bFhMTk4vWlNZMFlYOURqQURPYXJmMmtxRGN3SEdHZjBuZzc0?=
- =?utf-8?B?OUFLRnVCU2kyV0JKLzFQanF1WFVJOEw4NEp0Q1pGb1ZGeDlWaWphUUQvZ2hh?=
- =?utf-8?B?b2hFTW9HU3BQYmRxckVJanFVc2E1YmdzbFVqSFptelc2NDZCWldkY2c5YjF2?=
- =?utf-8?B?K2c1VWMxQ0h5SDhacklidjBxN2wwSy9teHM1Z2UybmUwSURnaFptRU5wKzdX?=
- =?utf-8?B?TFRzdjZqcmJINUN4cmlqRWh5dTZKNit6bnVSazIyZ0xyQUFJZkZKaWhwS1cy?=
- =?utf-8?B?Y3NHb0hUaVdGNU5YcFFjRGtXMzFxMmp2WWtnbDFXV25pSkpJZ2IzKzQraTlK?=
- =?utf-8?B?U3pOcW5yOUN6UDZhSDV6N2xLcHBzL3NsUGwzb1hPSVR5QnhsUUxsOGRTcVdS?=
- =?utf-8?B?b3lPRTZoMjRwdlVpWFpLMU90ZTFqdDJOamd2UW04aVVCNmp4SWZGdEt5dU9I?=
- =?utf-8?B?N2FMaDlRbEZvVkg4dlNoclpTRFZaeGhYNkZocmpoenlSSmN4bXFubDJoeXV4?=
- =?utf-8?B?RDlySytpcVluWHRFaVJHbDRUanlWMzZ2cVZySzJzamt5bVlRRFJrNHRBR3cy?=
- =?utf-8?B?ZHY4dUN0VFNoTC9rcERnbUZ6Yk5mQ3gzcmVueDZsdHowcStBdUZadGVVUy9U?=
- =?utf-8?B?ZjFSL0phZnRUUWlyN094aW9qcEhEeUptVzZ0NVpSbS9NQnRYc095dXpoVEJi?=
- =?utf-8?B?dVFURzAwMUlIdXdwT0lUR0tSZWFDa3RIdnRzVUVTRStXTVNML25jMjlhOVcz?=
- =?utf-8?Q?w7XlbQcvfeZC0SjGfOFGfnfr0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98db3a20-3c32-4d05-f0a9-08db94f8506f
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2023 14:37:22.9634 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3ZGKwyQjYWMs1QANXr0IKV6EdfB8zYKVPo/9esQbthUvZ1nDfNJhF9WCLywYYXT/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5101
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230804062029.5686-3-Wayne.Lin@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,62 +60,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Asad Kamal <asad.kamal@amd.com>
+Cc: jani.nikula@intel.com, jerry.zuo@amd.com, llvm@lists.linux.dev,
+ Wayne Lin <Wayne.Lin@amd.com>, oe-kbuild-all@lists.linux.dev
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Wayne,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on drm-intel/for-linux-next-fixes drm/drm-next linus/master v6.5-rc4 next-20230804]
+[cannot apply to drm-intel/for-linux-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Wayne-Lin/drm-mst-delete-unnecessary-case-in-drm_dp_add_payload_part2/20230804-142405
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20230804062029.5686-3-Wayne.Lin%40amd.com
+patch subject: [PATCH 2/3] drm/mst: Refactor the flow for payload allocation/removement
+config: s390-randconfig-r044-20230731 (https://download.01.org/0day-ci/archive/20230804/202308042253.lM5xMnnA-lkp@intel.com/config)
+compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project.git 4a5ac14ee968ff0ad5d2cc1ffa0299048db4c88a)
+reproduce: (https://download.01.org/0day-ci/archive/20230804/202308042253.lM5xMnnA-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202308042253.lM5xMnnA-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   In file included from drivers/gpu/drm/nouveau/dispnv50/disp.c:24:
+   In file included from drivers/gpu/drm/nouveau/dispnv50/disp.h:4:
+   In file included from drivers/gpu/drm/nouveau/include/nvif/mem.h:3:
+   In file included from drivers/gpu/drm/nouveau/include/nvif/mmu.h:3:
+   In file included from drivers/gpu/drm/nouveau/include/nvif/object.h:4:
+   In file included from drivers/gpu/drm/nouveau/include/nvif/os.h:8:
+   In file included from include/linux/pci.h:39:
+   In file included from include/linux/io.h:13:
+   In file included from arch/s390/include/asm/io.h:75:
+   include/asm-generic/io.h:547:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     547 |         val = __raw_readb(PCI_IOBASE + addr);
+         |                           ~~~~~~~~~~ ^
+   include/asm-generic/io.h:560:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     560 |         val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
+         |                                                         ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/big_endian.h:37:59: note: expanded from macro '__le16_to_cpu'
+      37 | #define __le16_to_cpu(x) __swab16((__force __u16)(__le16)(x))
+         |                                                           ^
+   include/uapi/linux/swab.h:102:54: note: expanded from macro '__swab16'
+     102 | #define __swab16(x) (__u16)__builtin_bswap16((__u16)(x))
+         |                                                      ^
+   In file included from drivers/gpu/drm/nouveau/dispnv50/disp.c:24:
+   In file included from drivers/gpu/drm/nouveau/dispnv50/disp.h:4:
+   In file included from drivers/gpu/drm/nouveau/include/nvif/mem.h:3:
+   In file included from drivers/gpu/drm/nouveau/include/nvif/mmu.h:3:
+   In file included from drivers/gpu/drm/nouveau/include/nvif/object.h:4:
+   In file included from drivers/gpu/drm/nouveau/include/nvif/os.h:8:
+   In file included from include/linux/pci.h:39:
+   In file included from include/linux/io.h:13:
+   In file included from arch/s390/include/asm/io.h:75:
+   include/asm-generic/io.h:573:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     573 |         val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
+         |                                                         ~~~~~~~~~~ ^
+   include/uapi/linux/byteorder/big_endian.h:35:59: note: expanded from macro '__le32_to_cpu'
+      35 | #define __le32_to_cpu(x) __swab32((__force __u32)(__le32)(x))
+         |                                                           ^
+   include/uapi/linux/swab.h:115:54: note: expanded from macro '__swab32'
+     115 | #define __swab32(x) (__u32)__builtin_bswap32((__u32)(x))
+         |                                                      ^
+   In file included from drivers/gpu/drm/nouveau/dispnv50/disp.c:24:
+   In file included from drivers/gpu/drm/nouveau/dispnv50/disp.h:4:
+   In file included from drivers/gpu/drm/nouveau/include/nvif/mem.h:3:
+   In file included from drivers/gpu/drm/nouveau/include/nvif/mmu.h:3:
+   In file included from drivers/gpu/drm/nouveau/include/nvif/object.h:4:
+   In file included from drivers/gpu/drm/nouveau/include/nvif/os.h:8:
+   In file included from include/linux/pci.h:39:
+   In file included from include/linux/io.h:13:
+   In file included from arch/s390/include/asm/io.h:75:
+   include/asm-generic/io.h:584:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     584 |         __raw_writeb(value, PCI_IOBASE + addr);
+         |                             ~~~~~~~~~~ ^
+   include/asm-generic/io.h:594:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     594 |         __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
+         |                                                       ~~~~~~~~~~ ^
+   include/asm-generic/io.h:604:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     604 |         __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
+         |                                                       ~~~~~~~~~~ ^
+   include/asm-generic/io.h:692:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     692 |         readsb(PCI_IOBASE + addr, buffer, count);
+         |                ~~~~~~~~~~ ^
+   include/asm-generic/io.h:700:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     700 |         readsw(PCI_IOBASE + addr, buffer, count);
+         |                ~~~~~~~~~~ ^
+   include/asm-generic/io.h:708:20: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     708 |         readsl(PCI_IOBASE + addr, buffer, count);
+         |                ~~~~~~~~~~ ^
+   include/asm-generic/io.h:717:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     717 |         writesb(PCI_IOBASE + addr, buffer, count);
+         |                 ~~~~~~~~~~ ^
+   include/asm-generic/io.h:726:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     726 |         writesw(PCI_IOBASE + addr, buffer, count);
+         |                 ~~~~~~~~~~ ^
+   include/asm-generic/io.h:735:21: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
+     735 |         writesl(PCI_IOBASE + addr, buffer, count);
+         |                 ~~~~~~~~~~ ^
+>> drivers/gpu/drm/nouveau/dispnv50/disp.c:919:46: warning: variable 'old_payload' set but not used [-Wunused-but-set-variable]
+     919 |         struct drm_dp_mst_atomic_payload *payload, *old_payload;
+         |                                                     ^
+   13 warnings generated.
 
 
-On 8/4/2023 8:02 PM, Yang Wang wrote:
-> From: Yang Wang <KevinYang.Wang@amd.com>
-> 
-> add metrics.AccumulationCouter check to avoid driver getting an empty
-> metrics data since metrics table not updated completely in pmfw side.
-> 
-> Signed-off-by: Yang Wang <KevinYang.Wang@amd.com>
-> Reviewed-by: Asad Kamal <asad.kamal@amd.com>
-> Tested-by: Asad Kamal <asad.kamal@amd.com>
+vim +/old_payload +919 drivers/gpu/drm/nouveau/dispnv50/disp.c
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+f479c0ba4a170a drivers/gpu/drm/nouveau/nv50_display.c  Ben Skeggs 2016-11-04  908  
+f479c0ba4a170a drivers/gpu/drm/nouveau/nv50_display.c  Ben Skeggs 2016-11-04  909  static void
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  910  nv50_msto_prepare(struct drm_atomic_state *state,
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  911  		  struct drm_dp_mst_topology_state *mst_state,
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  912  		  struct drm_dp_mst_topology_mgr *mgr,
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  913  		  struct nv50_msto *msto)
+f479c0ba4a170a drivers/gpu/drm/nouveau/nv50_display.c  Ben Skeggs 2016-11-04  914  {
+f479c0ba4a170a drivers/gpu/drm/nouveau/nv50_display.c  Ben Skeggs 2016-11-04  915  	struct nouveau_drm *drm = nouveau_drm(msto->encoder.dev);
+f479c0ba4a170a drivers/gpu/drm/nouveau/nv50_display.c  Ben Skeggs 2016-11-04  916  	struct nv50_mstc *mstc = msto->mstc;
+f479c0ba4a170a drivers/gpu/drm/nouveau/nv50_display.c  Ben Skeggs 2016-11-04  917  	struct nv50_mstm *mstm = mstc->mstm;
+8fb3e25c3dd1a2 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2023-06-13  918  	struct drm_dp_mst_topology_state *old_mst_state;
+8fb3e25c3dd1a2 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2023-06-13 @919  	struct drm_dp_mst_atomic_payload *payload, *old_payload;
+f479c0ba4a170a drivers/gpu/drm/nouveau/nv50_display.c  Ben Skeggs 2016-11-04  920  
+f479c0ba4a170a drivers/gpu/drm/nouveau/nv50_display.c  Ben Skeggs 2016-11-04  921  	NV_ATOMIC(drm, "%s: msto prepare\n", msto->encoder.name);
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  922  
+8fb3e25c3dd1a2 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2023-06-13  923  	old_mst_state = drm_atomic_get_old_mst_topology_state(state, mgr);
+8fb3e25c3dd1a2 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2023-06-13  924  
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  925  	payload = drm_atomic_get_mst_payload_state(mst_state, mstc->port);
+8fb3e25c3dd1a2 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2023-06-13  926  	old_payload = drm_atomic_get_mst_payload_state(old_mst_state, mstc->port);
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  927  
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  928  	// TODO: Figure out if we want to do a better job of handling VCPI allocation failures here?
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  929  	if (msto->disabled) {
+c9e8c7f37133c0 drivers/gpu/drm/nouveau/dispnv50/disp.c Wayne Lin  2023-08-04  930  		drm_dp_remove_payload_part1(mgr, mst_state, payload);
+8c7d980da9ba3e drivers/gpu/drm/nouveau/dispnv50/disp.c Ben Skeggs 2022-06-01  931  
+8c7d980da9ba3e drivers/gpu/drm/nouveau/dispnv50/disp.c Ben Skeggs 2022-06-01  932  		nvif_outp_dp_mst_vcpi(&mstm->outp->outp, msto->head->base.index, 0, 0, 0, 0);
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  933  	} else {
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  934  		if (msto->enabled)
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  935  			drm_dp_add_payload_part1(mgr, mst_state, payload);
+4d07b0bc403403 drivers/gpu/drm/nouveau/dispnv50/disp.c Lyude Paul 2022-08-17  936  
+8c7d980da9ba3e drivers/gpu/drm/nouveau/dispnv50/disp.c Ben Skeggs 2022-06-01  937  		nvif_outp_dp_mst_vcpi(&mstm->outp->outp, msto->head->base.index,
+8c7d980da9ba3e drivers/gpu/drm/nouveau/dispnv50/disp.c Ben Skeggs 2022-06-01  938  				      payload->vc_start_slot, payload->time_slots,
+8c7d980da9ba3e drivers/gpu/drm/nouveau/dispnv50/disp.c Ben Skeggs 2022-06-01  939  				      payload->pbn, payload->time_slots * mst_state->pbn_div);
+f479c0ba4a170a drivers/gpu/drm/nouveau/nv50_display.c  Ben Skeggs 2016-11-04  940  	}
+f479c0ba4a170a drivers/gpu/drm/nouveau/nv50_display.c  Ben Skeggs 2016-11-04  941  }
+f479c0ba4a170a drivers/gpu/drm/nouveau/nv50_display.c  Ben Skeggs 2016-11-04  942  
 
-Thanks,
-Lijo
-
-> ---
->   .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 20 ++++++++++++++-----
->   1 file changed, 15 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> index 6253ad13833c..5adc6b92bc49 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> @@ -325,14 +325,24 @@ static int smu_v13_0_6_setup_driver_pptable(struct smu_context *smu)
->   	MetricsTable_t *metrics = (MetricsTable_t *)smu_table->metrics_table;
->   	struct PPTable_t *pptable =
->   		(struct PPTable_t *)smu_table->driver_pptable;
-> -	int ret;
-> -	int i;
-> +	int ret, i, retry = 100;
->   
->   	/* Store one-time values in driver PPTable */
->   	if (!pptable->Init) {
-> -		ret = smu_v13_0_6_get_metrics_table(smu, NULL, false);
-> -		if (ret)
-> -			return ret;
-> +		while (retry--) {
-> +			ret = smu_v13_0_6_get_metrics_table(smu, NULL, true);
-> +			if (ret)
-> +				return ret;
-> +
-> +			/* Ensure that metrics have been updated */
-> +			if (metrics->AccumulationCounter)
-> +				break;
-> +
-> +			msleep(1);
-> +		}
-> +
-> +		if (!retry)
-> +			return -ETIME;
->   
->   		pptable->MaxSocketPowerLimit =
->   			SMUQ10_TO_UINT(metrics->MaxSocketPowerLimit);
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
