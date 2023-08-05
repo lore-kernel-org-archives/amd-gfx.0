@@ -4,114 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7F0EC04A94
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Aug 2023 18:24:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E881C0015E
+	for <amd-gfx@archiver.kernel.org>; Sat,  5 Aug 2023 12:33:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24D1710E74D;
-	Fri,  4 Aug 2023 18:24:42 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2085.outbound.protection.outlook.com [40.107.243.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B11510E748;
- Fri,  4 Aug 2023 18:24:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0067610E192;
+	Sat,  5 Aug 2023 12:33:22 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20625.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eab::625])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C79810E192
+ for <amd-gfx@lists.freedesktop.org>; Sat,  5 Aug 2023 12:33:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UF0CFC4OeLxx1VvbsrB511rlePCi54zwuef1h2PtvYbfWuRHspXydTZFrkOOXJuVjVlxwxWAfwglO61NpOYWnfcHs/fPYWnnjx5HzA09mjtz6eyVL4o06bjBQwZ9zNTwghysLyq6S8cNPqYDt4LH38GZ5wzQMAKZv8DKhZ5D7ZVv5YXZU6HArdUViwMcaUgXuSguMdO8yiBsUNGeqWdi9xOrmxRlkteTPX+Kk74n+g9m/7Xf05I3VS9n4EBJ2falErItn7AGvZqdQjvSzjYNV97sLy+0d4Pcg8dZTQ9t7iv7vUQd8MKC48W0k8Tp74sS3C168OgUifNXJqiyiLfedw==
+ b=GK73kfibAP9PZMCZkhR9RH/MWavum39cUEBIik5hTE3GpauBh2vyWeQwlzYbs5Hw8CI3NkUOZ9oLFK3Zxs6bEe3mZJcbJUfj7xvFbCv0I1wAfJ6Lugm2jwFIcQzasSRIDL0iQyPDIEPXrzOSgMOiO9sKyLjbwH0UzcNaZ9xJla3+yvVMeBQYriitBahs5gHaSuN3wnT68gABxOwPAR3PtjXDnVxKpmwrwMfV4x08o7dS5umjfjSjx1+tU2ZQ02KgAwuW2NASlXXv+D4aSw2H/B/02erK3xbSZAlQWS+QVa4XfpaIUhX8O0NwYUhH0NPfVG/E4O+qwPSXtB8hv/F6Ag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hcAW4Nh2XMjSdF4T6qJnglHOPLH5WR5neNFSt7bL3U8=;
- b=Tfdn4PKjg2BonzH9xNAZnGhTvkmQkJHKXuSSrbwZvfysM2g31oshSMAu/2f1aEAuQ7HdtfgQhQC9QOjGq3aLUXsRX37vcIE89QPZHCsrswVRIHSPBSNUVVFrrass8jpODsdCedHo3UwuTwmAu0l/OdcQM8eCFLJxk5GLmPY8rVWsTilxTSQx2g92YeCkqNaJzzfu0ZtXd2dTZS+tTa+r5yFKbMjpd5LqjOoY6viZ449RbH8E1tsCuVPtEcIDt+9AHfemIVF8nr1O9OAaXkYfJp9JOHppBEcbjAJanKYQkxAsu9GTahK3TnpsL4xwTg8fDSVQdq5euhmnG5nc0LUk6Q==
+ bh=OPyWVzyl35oPb8Q5ClNElNELIzu9YyMF/kvtcrrGrqo=;
+ b=EglastqCkW1yQeSNg+l6Mb2e5qNdatR7+Lt9MD5qj20Lh6FAl3GuJOhwu5FWWsuXOL9aM/cydqnDftF/eyxrqFZifVRTugR9o/I2i0WWy9zwdY+gsDpmtkDQmjOk284Gnqcr8BtKF9LfWrLu4Fs7s+8g6HdTTbHgoMGcNCoUZe3Q3Qm7YntlxMbwZUw459r98GnwxbFwgrSl39LnDEaBo69SuoWoleI8hkWZ2985ahGjdc8xa9OwosD/ujCWJT+ur04zJW4Csu2NvAa8/hx1gkcR0o0kB+27b3cTSZoiHtquRf7RxFTKqAXmkeXLO6e2S4cZcbuqO8ZUExgCqpGOWA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hcAW4Nh2XMjSdF4T6qJnglHOPLH5WR5neNFSt7bL3U8=;
- b=TpV2c/cFogH9N3GLC94jgz1F+CXUQuvGT9nT52msf8N9qTPFw5EmzjpmcnJIIyo9Qut/jomzbNt4YNI/4kRLVSUwAkNiZKSaXzLVmo2GaMWwUoiN7qvkn978aUzIZydRzVrYkctc9A0+OBFPrLkfI0VOPXyMKNnrsCmudqilT90=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by DM6PR12MB4483.namprd12.prod.outlook.com (2603:10b6:5:2a2::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.21; Fri, 4 Aug
- 2023 18:24:33 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::236b:d4e2:6fbf:6c2b]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::236b:d4e2:6fbf:6c2b%5]) with mapi id 15.20.6652.021; Fri, 4 Aug 2023
- 18:24:33 +0000
-Message-ID: <93602cd6-a03d-4124-8bb3-de21136d9589@amd.com>
-Date: Fri, 4 Aug 2023 14:24:28 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: ensure async flips are only accepted
- for fast updates
+ bh=OPyWVzyl35oPb8Q5ClNElNELIzu9YyMF/kvtcrrGrqo=;
+ b=fcMsFLJvP/0/wUMg0j+7UQmtbf6yVCtzfgv6TdAITxMhDTvZf7dIu41S3ZnHcqMuCNmnrSf28BEidai7fgA7OTJndn9Q1iefBmMRwUiynHba13c6IOboREwsStO+oHxFc1o5vtFdANxEzWJKykN+ZT6Lbk/IVG4XZ5hwFdoz5y0=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by CH3PR12MB8755.namprd12.prod.outlook.com (2603:10b6:610:17e::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.28; Sat, 5 Aug
+ 2023 12:33:16 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::4d17:c920:ea2e:3b2d]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::4d17:c920:ea2e:3b2d%4]) with mapi id 15.20.6652.022; Sat, 5 Aug 2023
+ 12:33:16 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Add FRU sysfs nodes only if needed
+Thread-Topic: [PATCH] drm/amdgpu: Add FRU sysfs nodes only if needed
+Thread-Index: AQHZxtRdVjm0Kii770Sr4yoOy7PVlq/bodbQ
+Date: Sat, 5 Aug 2023 12:33:16 +0000
+Message-ID: <BN9PR12MB5257D2E351CFC35DF87BD393FC0EA@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20230804130516.351861-1-lijo.lazar@amd.com>
+In-Reply-To: <20230804130516.351861-1-lijo.lazar@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230804182054.142988-1-hamza.mahfooz@amd.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20230804182054.142988-1-hamza.mahfooz@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0053.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:82::20) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DM6PR12MB4483:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0abcdd5f-366c-49ae-0ee4-08db95180c9c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: V1zysCtwtqj07orG1iAcHMaStvUMBUP06YvvbeTQTk5ifOpIJNxFtbCbf6OuKfAa36U+slPMe4jSPiNSkU/bn3VbeZWhU1KbYguOm0Auoymc8ZpaAS7qgDjtsw8+Ch8QLsrRTmEFaJ4sP96YNqGU9Nv8+vFMFyUALxl1+lMyEWCJ/xMTCgcXLcFtHPSROlX7YpOJvAgZymJBKVGjJP803UO/vhftrbYYI8ydO3/Lgqbmy7oe+aYnaMeWpym5S1qEHOwuYh40f8hMvwD6Cv9PwO5tU1DjnfbC7xfHFu/asvwfe0ow6Vuy0c0hbb5DjNn4nS2E3P9EiTEVGBeGLjXPX6V8TolzulwuNK+lfA2QtyRJU1iDkf0uV+4m2aAsYH8/h64ND8SYVpt8OD8q40zLemUDjrNWFoiPXgqwTZAfxAKTyKE/hvVRRUh4Z/LZButeoeWcY9RMZIfPINDu/gr5p2s7dFejoL502vMXfVpJso7j0kx/9gWDyzqyA0m95TWGrtUwbyZ3qvktoKzFk5BtKdlZUZtl5hJ8UkX88AlvB+h9NdhmvJ6bxXnZ1qR67XISzlKm1CLb/RhzUh6LI/r4JS+PMSflblww/ON0gEpFqK6mdsAmjiJImkLRq4ru8WNV
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(39860400002)(136003)(376002)(346002)(366004)(1800799003)(186006)(451199021)(8936002)(8676002)(26005)(36756003)(478600001)(966005)(31696002)(6512007)(86362001)(6486002)(6666004)(316002)(31686004)(15650500001)(41300700001)(5660300002)(4326008)(66476007)(66946007)(66556008)(44832011)(83380400001)(7416002)(54906003)(2906002)(6506007)(2616005)(38100700002)(53546011)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=2de080f1-03a8-4640-8947-98f6ce71ae66;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-08-05T12:24:15Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|CH3PR12MB8755:EE_
+x-ms-office365-filtering-correlation-id: 0dd7e19e-231f-49ef-4ea8-08db95b024b0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: nFK6IBpgG7f/82hDbHSAz2EMXnGSiPMmX41MJiYUxdtSHHPcDxHfNPL5r8MGJyoz4fHAGQ+W/eQsZJgwOJngVoeNvGUzZefm7Q5yrCUKp6k4MnMBVAEERV81aHCnVKS43947npmA7JP62fH4J8OglbCMdRFspCprfFnmb4qW6dj4pkWIfImZD0bUdVl+H1AXZRWcVS1b7/xjIuKC51wMCwdVo89X7LjPA3VM4yXAlAOeqJjvJO7xFWRA4npyXlPfeDqrjkEh1qbNfDY1mfuamJverkgKYcCJ12jmlwC+0s4jeU4tRfjGBBvWIwbkWG2jsuuYQFEi/x5pPcOhyyohaNjXPRRQCxX3k0jN6uiYwAWDydKykRVfHA6a3cNxrdNgKPdVRmBjrW8dZP5q3GUhtepqTrh+JIh80m4vwD9keB3VKw38Iiq4SLVk6KAc5XiST8A71L5QH0EBjcQsQL3DG1ItT9vFTSle5YZcr2RbwonO0IzTWuJQsQSE7UeevjID7yxzoG8PsTSloJh8v2Vv+x0VPRD/iI+TjiHGhSfEzJfMZcIVJcAy8EunvjKunwDnJc1Bqqd6lH0LBwaln2UCBCHIFRvfWI+CgRUBfCOWRuVG3KpaTbScYuNkGO43xyOL
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(136003)(39860400002)(396003)(366004)(346002)(1800799003)(186006)(451199021)(55016003)(4326008)(316002)(76116006)(66476007)(66556008)(66946007)(64756008)(66446008)(122000001)(38100700002)(9686003)(7696005)(38070700005)(83380400001)(71200400001)(53546011)(6506007)(33656002)(2906002)(86362001)(478600001)(110136005)(8936002)(8676002)(52536014)(41300700001)(5660300002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0VvRDZRQ2xaOUZXblllUjV4S0J4eml0VzlsaExSdU1UVUhjalMzejlFcXc4?=
- =?utf-8?B?MzBsU3BLS1hQNDh3N2lUQnRyRk9tSjRrZjM5Smg4Z1lXaVlVUUpyL04zb3p3?=
- =?utf-8?B?TmtldnpzQVNJbFh2a1hadFhLcHdVcFJBWDRtUVliRmtneFVTS3Rlb1dNTmJj?=
- =?utf-8?B?VzlpQVZtS1FiWlo0Wm1pMGdvNGdickZocFAzWjVzamVpTUVOZDMrNWFkdDRT?=
- =?utf-8?B?d2dKZUs5RkZhYUx5V3ZNem9IenVLYmZ0Mmg4Y3ZPcVVHdEZKVWZrZW5UZ3VR?=
- =?utf-8?B?MGVvZlNSczFIM0xYRXpxcUQ1UnZ6N1B5dU14UDVTNWlyY0NWeEZiWXh4N0o2?=
- =?utf-8?B?RVlUajF1aUU2RXB1eFdSTUJVN2UrWWlGYUxzVGhNaEZySTdra1Z4RFpheis5?=
- =?utf-8?B?QUFvd1JwdFA5aGg4V0RkaER4NDVQYmNmVnBXZ3M1REoxMzNxb2doTUZjWmps?=
- =?utf-8?B?dEhocm1YQWgzdDV2NW9lN1d3WXdIRE5mUysvWFU5Y3ZkeDZ4VXdGazZnaEt0?=
- =?utf-8?B?TUpZVEdoNlk4ZCtUd1c3OUhwWWFqZ1BHaC9maWsxbzJnUS93UEd1Zk5TcFBq?=
- =?utf-8?B?blJhdk5TeFVvNmJaMkVWMWxlc3o4RTM1dXJKUmtJaVNjdk5WL3BSWkcxR24v?=
- =?utf-8?B?cjg4dkZ5S0lKUzhxMG4zMDZuVHIwU0ltQ095TnJvTzdMMzFGdzVvNVJoVUE3?=
- =?utf-8?B?MmJVUnRPQXZNbVd1QjA1ZHVVU0k0NVlOQUpiZzFpbDIrNkNaUHlrRHJYdDdi?=
- =?utf-8?B?bW9NWXBmNUozSXRqYU1Uek5pRm9KSVVUSUtMclRXMzBrRHIwRjBMWTEwTWtR?=
- =?utf-8?B?eklQQnpXdjRnaks2TFozMzkrWnFsWndPMC95TjRySWYvMGlJVEg5M28xVjRK?=
- =?utf-8?B?WDFQMkNGT1hRVGhOaTMwK2puYTdXUnltMEhNMXZEb1htbFNsMG16Q3JoTHR0?=
- =?utf-8?B?ME40dnBRYWhmU0dRWDZaay9yRlpVTG0zTE1xRmJhbDNKUUI2bGV6d0xacVNF?=
- =?utf-8?B?L2RMR2h1ek9hZkhKZkVzMTl6L0swVzRWSjVvNm5YSVVqU1NxOVpyNDFsQ0dO?=
- =?utf-8?B?ZHpMODIyMGppVUlZeTBtcmVKWkg3L1RNZzI2Z093MFZld1dkRkVHNmN4cWZq?=
- =?utf-8?B?ZjlIdVlhZGNCOU9tdklSYU4vZzU2ZW04WkZ0aVdlZ3VLL21CUTkwT1pxbjMr?=
- =?utf-8?B?TnVUeFJVQ2JPdGZkNEp5Z1ljOTZpUmswd1A4Z0dmbStaemg0eGFwWFlER1FN?=
- =?utf-8?B?Y2k2NjIvRmIwbHI5QTdQSGlYNXd4bmxYOFl1YTczS3NYZy8yd29rbjhIVG53?=
- =?utf-8?B?dkhIT016S3l2QUlhYmdvSjFzekNzcTNGU2t3aC9NeEw1UTdhckdOY0QyZkFi?=
- =?utf-8?B?Q20xbXh1OEFHQVplRVlBcHRWejJuaURKMzdwdHpobGQ2WGZhR1J0a2xuN0tZ?=
- =?utf-8?B?d0NoUjlyZmpLU3RzbS9BbGlCTmtGMXdqUjk4ZEpNQk1iUGlXcXJvM2k3dFA3?=
- =?utf-8?B?VzcxeHFPMisxZ3lzR2ZMbHBqTExzTDd0UXRWdlRmdlZ1ckVKSDNpUGVoaEY5?=
- =?utf-8?B?K1VXaGVneTdHdWgwT1VsdEJpWkRPWmpyem5QYThpZURZS1V2bU93bUlBTHNo?=
- =?utf-8?B?Qm9KRGpKVDVCQUJSY3BLc2QwWEJ4dyt4bXB4M0xDOFJteDJ5QVRKc29MRG1T?=
- =?utf-8?B?WnlDaVNOMXhSRFZoWjlOem5Ddit3b1htcGgvaTBSRXdmTTUzRGMwTEdSUTBO?=
- =?utf-8?B?N2xWYUNVaU9KMkxrT2xuRG40R1JmWVd5bU1pbkVKRzMrekxmVkFsN0NGN00v?=
- =?utf-8?B?L3l6OVN0NEIyNEkzNy83b0F3ZEpYcjkwOHU1VTVMTlQ3KzJxOUJCS3pLRW55?=
- =?utf-8?B?VVgwQUo2WmRrMGtoYW81S3dSNG9kdDFkenZHWS9Fby9zRDhESTQ1MGhLZ2E5?=
- =?utf-8?B?N2VmNGpicWR0NyttVzhqc2ZGZ2VEdnVmYm1KVFZlUnl3ckg0Z2xYSGtEU1F0?=
- =?utf-8?B?WVpDVmR6NDhFRjluT2UzajNPUXd2T2NxaUEvZ05PUkVZaTAybUNlRHlLWWl1?=
- =?utf-8?B?dHBrVXRSVTZkR0R4ak04Y2lDV3VVWVBoTjZHVWlNRkZ4dFd0Z05LMUNkUEV2?=
- =?utf-8?Q?IlCnQ7fUofQuvWEhF/UMkk+2v?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LRqIeh4Thr7urfoxx3sKXUe4XkeENQeAc9WN/iYHhqGneaZu6REEmbqsZmsN?=
+ =?us-ascii?Q?emOUjtpUBZ3Mgmbtz6dPTMWXk+LGItjsGYaK7yqwf5en+toImtYGz/gd/Muo?=
+ =?us-ascii?Q?/nESSLs05Tpv0H+N+GHlqv9VkKPmXt3/GCRSHIj0ji6u7mamcMbkw86pLkrw?=
+ =?us-ascii?Q?Q5/b4gyCw0mnRLaHu9uPaOiMo6idEMeZzy713Vpc9swUZLGnSLIlgrFln6oZ?=
+ =?us-ascii?Q?wir9i1uOYYsP8lXjQxFPI0slJGSKJIAN+JgDI4D105GWi36Hxfd7mRc/TFrz?=
+ =?us-ascii?Q?ckTO0TFVRN2BDKj20pARNxWfWa0MnTlClbpD0agzaqcrrUWJxBCmlwfbdoHk?=
+ =?us-ascii?Q?IthpPYGWQIng7/h6Lxz1h2ta6d/j6Qp9hneel/xf34P9Y/gu7s/eb9itCfiA?=
+ =?us-ascii?Q?wuUi2zi1VGM/4YuFTz2/n8kv541jrnql9Y5aMNl2bqGNIwLNSoxbgi74e+ik?=
+ =?us-ascii?Q?zUOJaNuV83AukHrnr3K2QEx+yurTKKiK3OUerUYv6MGHt2tWZQ4GPrI8/VZk?=
+ =?us-ascii?Q?1oBenqp006RMOUV3gRHLi339Mj9dDEBT+NFuC0rkDiusqW52ovIl5ppsbsan?=
+ =?us-ascii?Q?bEybsKjskW0su/DS08xg4OpHGTSQ3Rppp35HtJgFlX2GQX3OJlD/ORRzjlmr?=
+ =?us-ascii?Q?3+3vL4vQ6nr0in/aHoiBmxkNxSqj5fczGszhQ2t2b5sABtpb7xoF6B+l20HR?=
+ =?us-ascii?Q?4LZUQ2giQJ5tWIJLwGWts060Vsc21DecNzcROq1/dKHvyzv03x4O3ACmVRo9?=
+ =?us-ascii?Q?eRMCeWUTlYo/lyLUcIxZSfv+7Ea7K5rnq3P1ONqGiqPFvhsAPu4pG02Xh8hL?=
+ =?us-ascii?Q?Q8nk6nTSwuZCoTG64qB88oka2hMjQKR/v6VWpWQFnN3kp5QR2a0R8g2MirzF?=
+ =?us-ascii?Q?DYsqsNVoIPep4xSX3Z1B0WAqeWt0CrgdOURqsow2BaOex39L8E3gMeLQm3+Y?=
+ =?us-ascii?Q?NZ+hN72fgO2RkK4bbNMzYsaulHs8TUlBnf/zp/1/osaf2KTcZmMAWis4KYJa?=
+ =?us-ascii?Q?DlqyW0c8yulw+4WCFwPOPmUVJdHZ27i0WhvUm8DH41eXbkBBTM1nOuQ8GZy9?=
+ =?us-ascii?Q?liBknaPADENrhu8z52N2hfX6AtEfkUzOVdvuu8BC5jts2/oPhbdKhHFQBZkd?=
+ =?us-ascii?Q?p0iB+e/qozSdCwcuYZf/DxDpgPITz5ou7k8myGmncTNPi4S1HnG8mng9FDoh?=
+ =?us-ascii?Q?WbRZjYHgws/SBk0XeL3OwIqM7yjpnNaUT+UbVFS/N8ukO7lgXVT9cqOorkuX?=
+ =?us-ascii?Q?rQ55oT9eF4EgEcQLaFlIBg5hWhc1ZXwc4z5iwYx8giJAG7luVWh8qno6JasE?=
+ =?us-ascii?Q?A1FeQIVgv5jsHaM2x7I+sAC7HKcqyg55Pc7SEgbmspgvQrgRrQzow09RXTYO?=
+ =?us-ascii?Q?s5nU4b6wzkdkJb7eML7/iJuQqkk/C1LHbwwf2WyRA14cQVSK6MumlUuGdOqT?=
+ =?us-ascii?Q?86rRtjYBWJ1XwW8ryjnEmetv/valTJRYS4HFwydSYzEueTWthNVew0BDGnVZ?=
+ =?us-ascii?Q?4tku4mbIAWiumRvKR3YeWsK1OAKRuMp4OQ0AaXnD4Fkzfo4XlfoIjfwS5A?=
+ =?us-ascii?Q?=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0abcdd5f-366c-49ae-0ee4-08db95180c9c
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2023 18:24:32.8766 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sfS3hLduXQb7bnIjmGylvdmEevo9UA+xB5RIbvtHCkreVhUZ2Tf4J+hG9dYgcZATi/9FDOrjmlYo6cNSOfJcYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4483
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0dd7e19e-231f-49ef-4ea8-08db95b024b0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Aug 2023 12:33:16.5224 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lpI7hvUnFfRJGDJMC9p0tJxdlUmDvAWWf8UE/PDKU2q6oV/7TWbowi104NQ6ssy/EobjkoJpFXiashiyMpKjvQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8755
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,122 +123,239 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Alan Liu <haoping.liu@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Simon Ser <contact@emersion.fr>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, David Tadokoro <davidbtadokoro@usp.br>,
- Melissa Wen <mwen@igalia.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <wayne.lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - General]
 
++       return sysfs_create_files(&adev->dev->kobj, amdgpu_fru_attributes);=
+ }
 
-On 2023-08-04 14:20, Hamza Mahfooz wrote:
-> We should be checking to see if async flips are supported in
-> amdgpu_dm_atomic_check() (i.e. not dm_crtc_helper_atomic_check()). Also,
-> async flipping isn't supported if a plane's framebuffer changes memory
-> domains during an atomic commit. So, move the check from
-> dm_crtc_helper_atomic_check() to amdgpu_dm_atomic_check() and check if
-> the memory domain has changed in amdgpu_dm_atomic_check().
-> 
-> Cc: stable@vger.kernel.org
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2733
-> Fixes: 3f86b60691e6 ("drm/amd/display: only accept async flips for fast updates")
-> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+We need to remove the fru sysfs nodes in hw_fini phase.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Regards,
+Hawking
 
-Harry
+-----Original Message-----
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Friday, August 4, 2023 21:05
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>
+Subject: [PATCH] drm/amdgpu: Add FRU sysfs nodes only if needed
 
-> ---
-> v2: link issue and revert back to the old way of setting update_type.
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 24 ++++++++++++++++---
->  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 12 ----------
->  2 files changed, 21 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 32fb551862b0..1d3afab5bc85 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -8086,10 +8086,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->  		 * fast updates.
->  		 */
->  		if (crtc->state->async_flip &&
-> -		    acrtc_state->update_type != UPDATE_TYPE_FAST)
-> +		    (acrtc_state->update_type != UPDATE_TYPE_FAST ||
-> +		     get_mem_type(old_plane_state->fb) != get_mem_type(fb)))
->  			drm_warn_once(state->dev,
->  				      "[PLANE:%d:%s] async flip with non-fast update\n",
->  				      plane->base.id, plane->name);
-> +
->  		bundle->flip_addrs[planes_count].flip_immediate =
->  			crtc->state->async_flip &&
->  			acrtc_state->update_type == UPDATE_TYPE_FAST &&
-> @@ -10050,6 +10052,11 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
->  
->  	/* Remove exiting planes if they are modified */
->  	for_each_oldnew_plane_in_state_reverse(state, plane, old_plane_state, new_plane_state, i) {
-> +		if (old_plane_state->fb && new_plane_state->fb &&
-> +		    get_mem_type(old_plane_state->fb) !=
-> +		    get_mem_type(new_plane_state->fb))
-> +			lock_and_validation_needed = true;
-> +
->  		ret = dm_update_plane_state(dc, state, plane,
->  					    old_plane_state,
->  					    new_plane_state,
-> @@ -10297,9 +10304,20 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
->  		struct dm_crtc_state *dm_new_crtc_state =
->  			to_dm_crtc_state(new_crtc_state);
->  
-> +		/*
-> +		 * Only allow async flips for fast updates that don't change
-> +		 * the FB pitch, the DCC state, rotation, etc.
-> +		 */
-> +		if (new_crtc_state->async_flip && lock_and_validation_needed) {
-> +			drm_dbg_atomic(crtc->dev,
-> +				       "[CRTC:%d:%s] async flips are only supported for fast updates\n",
-> +				       crtc->base.id, crtc->name);
-> +			ret = -EINVAL;
-> +			goto fail;
-> +		}
-> +
->  		dm_new_crtc_state->update_type = lock_and_validation_needed ?
-> -							 UPDATE_TYPE_FULL :
-> -							 UPDATE_TYPE_FAST;
-> +			UPDATE_TYPE_FULL : UPDATE_TYPE_FAST;
->  	}
->  
->  	/* Must be success */
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> index 30d4c6fd95f5..440fc0869a34 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> @@ -398,18 +398,6 @@ static int dm_crtc_helper_atomic_check(struct drm_crtc *crtc,
->  		return -EINVAL;
->  	}
->  
-> -	/*
-> -	 * Only allow async flips for fast updates that don't change the FB
-> -	 * pitch, the DCC state, rotation, etc.
-> -	 */
-> -	if (crtc_state->async_flip &&
-> -	    dm_crtc_state->update_type != UPDATE_TYPE_FAST) {
-> -		drm_dbg_atomic(crtc->dev,
-> -			       "[CRTC:%d:%s] async flips are only supported for fast updates\n",
-> -			       crtc->base.id, crtc->name);
-> -		return -EINVAL;
-> -	}
-> -
->  	/* In some use cases, like reset, no stream is attached */
->  	if (!dm_crtc_state->stream)
->  		return 0;
+Create sysfs nodes for FRU data only if FRU data is available. Move the log=
+ic to FRU specific file.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 70 +---------------
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 81 +++++++++++++++++++
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h    |  1 +
+ 3 files changed, 84 insertions(+), 68 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 0d602abd32ba..37bc6ebb7fad 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -164,71 +164,6 @@ static DEVICE_ATTR(pcie_replay_count, 0444,
+
+ static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev);
+
+-/**
+- * DOC: product_name
+- *
+- * The amdgpu driver provides a sysfs API for reporting the product name
+- * for the device
+- * The file product_name is used for this and returns the product name
+- * as returned from the FRU.
+- * NOTE: This is only available for certain server cards
+- */
+-
+-static ssize_t amdgpu_device_get_product_name(struct device *dev,
+-               struct device_attribute *attr, char *buf)
+-{
+-       struct drm_device *ddev =3D dev_get_drvdata(dev);
+-       struct amdgpu_device *adev =3D drm_to_adev(ddev);
+-
+-       return sysfs_emit(buf, "%s\n", adev->product_name);
+-}
+-
+-static DEVICE_ATTR(product_name, 0444,
+-               amdgpu_device_get_product_name, NULL);
+-
+-/**
+- * DOC: product_number
+- *
+- * The amdgpu driver provides a sysfs API for reporting the part number
+- * for the device
+- * The file product_number is used for this and returns the part number
+- * as returned from the FRU.
+- * NOTE: This is only available for certain server cards
+- */
+-
+-static ssize_t amdgpu_device_get_product_number(struct device *dev,
+-               struct device_attribute *attr, char *buf)
+-{
+-       struct drm_device *ddev =3D dev_get_drvdata(dev);
+-       struct amdgpu_device *adev =3D drm_to_adev(ddev);
+-
+-       return sysfs_emit(buf, "%s\n", adev->product_number);
+-}
+-
+-static DEVICE_ATTR(product_number, 0444,
+-               amdgpu_device_get_product_number, NULL);
+-
+-/**
+- * DOC: serial_number
+- *
+- * The amdgpu driver provides a sysfs API for reporting the serial number
+- * for the device
+- * The file serial_number is used for this and returns the serial number
+- * as returned from the FRU.
+- * NOTE: This is only available for certain server cards
+- */
+-
+-static ssize_t amdgpu_device_get_serial_number(struct device *dev,
+-               struct device_attribute *attr, char *buf)
+-{
+-       struct drm_device *ddev =3D dev_get_drvdata(dev);
+-       struct amdgpu_device *adev =3D drm_to_adev(ddev);
+-
+-       return sysfs_emit(buf, "%s\n", adev->serial);
+-}
+-
+-static DEVICE_ATTR(serial_number, 0444,
+-               amdgpu_device_get_serial_number, NULL);
+
+ /**
+  * amdgpu_device_supports_px - Is the device a dGPU with ATPX power contro=
+l @@ -3550,9 +3485,6 @@ static void amdgpu_device_check_iommu_direct_map(st=
+ruct amdgpu_device *adev)  }
+
+ static const struct attribute *amdgpu_dev_attributes[] =3D {
+-       &dev_attr_product_name.attr,
+-       &dev_attr_product_number.attr,
+-       &dev_attr_serial_number.attr,
+        &dev_attr_pcie_replay_count.attr,
+        NULL
+ };
+@@ -3967,6 +3899,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+        if (r)
+                dev_err(adev->dev, "Could not create amdgpu device attr\n")=
+;
+
++       amdgpu_fru_sysfs_init(adev);
++
+        if (IS_ENABLED(CONFIG_PERF_EVENTS))
+                r =3D amdgpu_pmu_init(adev);
+        if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_fru_eeprom.c
+index 8c3ee042556a..bb1cc6830a12 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+@@ -212,3 +212,84 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *=
+adev)
+        kfree(pia);
+        return 0;
+ }
++
++/**
++ * DOC: product_name
++ *
++ * The amdgpu driver provides a sysfs API for reporting the product
++name
++ * for the device
++ * The file product_name is used for this and returns the product name
++ * as returned from the FRU.
++ * NOTE: This is only available for certain server cards  */
++
++static ssize_t amdgpu_fru_get_product_name(struct device *dev,
++                                             struct device_attribute *attr=
+,
++                                             char *buf)
++{
++       struct drm_device *ddev =3D dev_get_drvdata(dev);
++       struct amdgpu_device *adev =3D drm_to_adev(ddev);
++
++       return sysfs_emit(buf, "%s\n", adev->product_name); }
++
++static DEVICE_ATTR(product_name, 0444, amdgpu_fru_get_product_name,
++NULL);
++
++/**
++ * DOC: product_number
++ *
++ * The amdgpu driver provides a sysfs API for reporting the part number
++ * for the device
++ * The file product_number is used for this and returns the part number
++ * as returned from the FRU.
++ * NOTE: This is only available for certain server cards  */
++
++static ssize_t amdgpu_fru_get_product_number(struct device *dev,
++                                               struct device_attribute *at=
+tr,
++                                               char *buf)
++{
++       struct drm_device *ddev =3D dev_get_drvdata(dev);
++       struct amdgpu_device *adev =3D drm_to_adev(ddev);
++
++       return sysfs_emit(buf, "%s\n", adev->product_number); }
++
++static DEVICE_ATTR(product_number, 0444, amdgpu_fru_get_product_number,
++                  NULL);
++
++/**
++ * DOC: serial_number
++ *
++ * The amdgpu driver provides a sysfs API for reporting the serial
++number
++ * for the device
++ * The file serial_number is used for this and returns the serial
++number
++ * as returned from the FRU.
++ * NOTE: This is only available for certain server cards  */
++
++static ssize_t amdgpu_fru_get_serial_number(struct device *dev,
++                                              struct device_attribute *att=
+r,
++                                              char *buf)
++{
++       struct drm_device *ddev =3D dev_get_drvdata(dev);
++       struct amdgpu_device *adev =3D drm_to_adev(ddev);
++
++       return sysfs_emit(buf, "%s\n", adev->serial); }
++
++static DEVICE_ATTR(serial_number, 0444, amdgpu_fru_get_serial_number,
++NULL);
++
++static const struct attribute *amdgpu_fru_attributes[] =3D {
++       &dev_attr_product_name.attr,
++       &dev_attr_product_number.attr,
++       &dev_attr_serial_number.attr, NULL
++};
++
++int amdgpu_fru_sysfs_init(struct amdgpu_device *adev) {
++       if (!is_fru_eeprom_supported(adev, NULL))
++               return 0;
++
++       return sysfs_create_files(&adev->dev->kobj, amdgpu_fru_attributes);=
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_fru_eeprom.h
+index 1308d976d60e..1bfac9300ed5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h
+@@ -25,5 +25,6 @@
+ #define __AMDGPU_FRU_EEPROM_H__
+
+ int amdgpu_fru_get_product_info(struct amdgpu_device *adev);
++int amdgpu_fru_sysfs_init(struct amdgpu_device *adev);
+
+ #endif  // __AMDGPU_FRU_EEPROM_H__
+--
+2.25.1
 
