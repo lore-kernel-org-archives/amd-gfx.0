@@ -4,59 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C95AC001DB
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 15:24:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F248C001B0
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 15:59:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA84510E1EF;
-	Mon,  7 Aug 2023 15:24:06 +0000 (UTC)
-Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
- [IPv6:2607:f8b0:4864:20::c33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55D4310E1EF
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Aug 2023 15:24:04 +0000 (UTC)
-Received: by mail-oo1-xc33.google.com with SMTP id
- 006d021491bc7-56c85b723cfso2729687eaf.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Aug 2023 08:24:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691421843; x=1692026643;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rO+1l2DIMZ6/qNx0WN4VcE/HP7ueMq9zSUfnPrGUnY0=;
- b=hllQhAw02VcYUD4UCnI+6orzIgAabvEjVxWcSgZ5E3emZERV+b4ADwFH/brLun60rB
- 5xeaV2y2yibNpkCyjkN5eTAaHSU8cpZNyMd4paAemGq5a5/y40IBjT9ESIMVla2tlVZE
- gC+LFZ3CUufONl8c9AfVhtyPipJc/fw5Hi6LhslkmVHi8QT2izlLaUkc4AgoMRM+4PE1
- OdWz3a0wz9tuc7Cy6vAUa07BCsufOiIEqzhjgDM4gLoNWAlzgwTl9+n72dmynxSXaSzh
- atNhEQDl1kKcr8UBiGdfi4TrTZfczg2FvkTaa2TbfWB/sYr9KjMPmzDVBKAlPNpAifAL
- 3GWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691421843; x=1692026643;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rO+1l2DIMZ6/qNx0WN4VcE/HP7ueMq9zSUfnPrGUnY0=;
- b=fyzbvlLVVghnayG6gn8hTzRpzqZ9k4UYM5sA30XikcRDiZxeYBp8wUBPTjT2apOb4N
- L6gGP1OmNF7HuMCxNJ3VsqEVKG4GOqRdXoN+fx+zBbcIbD1oACXi7vNa0oiVqCZvkVMf
- EUcPA+I/3kuqzjaTBoyASHXY2xzF8v4allwZS9x/AMK6wCMuau1f9uawL8eMISssChYh
- 7R40dijUg69Cl/ixkF39SZsYxMbFJpicq5Jf4M15PytiMbyYhbAkQTM8o2knnqgeW/oV
- MkhuDqnKhs8XdwLzHiS+mwJ4xR+73JVG+KtBpEW2LJ4KTu5vG/S2okT4ph1K09SQAaoD
- mVTg==
-X-Gm-Message-State: AOJu0YwgZpQbujBSMBWUBIlb5PAvryQwX1+YT2nQOJp8rYrP8W/58zYB
- edEp3WqNTx7asH3OxuHz/a8SJVKD+rp7smD7NUWHf29u
-X-Google-Smtp-Source: AGHT+IHgjEyJcYfsQyiiLv+CzCLwM6QUbwlXsnn4Iy7gBiH+QRC643dwfywQOCQpYhiqE5HH0w1Tu4O0bzKFhaPF99k=
-X-Received: by 2002:a4a:9208:0:b0:56c:e554:d7e6 with SMTP id
- f8-20020a4a9208000000b0056ce554d7e6mr8342947ooh.3.1691421843446; Mon, 07 Aug
- 2023 08:24:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9354A10E18C;
+	Mon,  7 Aug 2023 15:59:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFBD910E18C;
+ Mon,  7 Aug 2023 15:59:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1691423977; x=1722959977;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ mime-version:in-reply-to;
+ bh=i6dTcUgaWIywgs9j44XtoWP56Hj1AfSyrA8dFT0O45k=;
+ b=B8CESpmV0oJqEx1+qy55e2Jc42NK+D0B8md1iFpodBFE/nOItqqpq8LS
+ nJ24ZxKJeMMc+5L2J6HXtXfB6eDR3FV2ACYJNlp5vI2dIqd5jkJ5qzs0v
+ 20Z7vf0ny11foR5FpL6NQ8TX3xfq++WzIz4UImWI8KSZNsYRUlgjLppSZ
+ AJtNcD0WH4CLshKq63vaCiR4uh9w8+5an5fKp1Y5az5DR4DeE+zLvTV02
+ W5/nZdURHtmR3cbo6trnt4YFvSjU9s3OreJNe0mXAKhTTU8DM99ZqR3Yf
+ hejx9mAKy5FZTnDqdmhbhSMbiuunKb3Pq0kkDi6hw8OXsPmadZEU6wW6n w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="370581171"
+X-IronPort-AV: E=Sophos;i="6.01,262,1684825200"; d="scan'208";a="370581171"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2023 08:59:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="766044424"
+X-IronPort-AV: E=Sophos;i="6.01,262,1684825200"; d="scan'208";a="766044424"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2023 08:59:34 -0700
+Date: Mon, 7 Aug 2023 18:59:46 +0300
+From: Imre Deak <imre.deak@intel.com>
+To: "Lin, Wayne" <Wayne.Lin@amd.com>
+Subject: Re: [PATCH 3/3] drm/mst: adjust the function
+ drm_dp_remove_payload_part2()
+Message-ID: <ZNEU8j6OR3KirIcS@ideak-desk.fi.intel.com>
+References: <20230804062029.5686-1-Wayne.Lin@amd.com>
+ <20230804062029.5686-4-Wayne.Lin@amd.com>
+ <ZM0Z3sZEYMcMTnuP@ideak-desk.fi.intel.com>
+ <CO6PR12MB5489306FA44F5F107180E57DFC0CA@CO6PR12MB5489.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-References: <20230727134712.2577353-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230727134712.2577353-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Aug 2023 11:23:52 -0400
-Message-ID: <CADnq5_MWN_cKdSFKfdEjLYx-66B9b+HgNG0jdyvpf+_iY=4S1w@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: Remove the references of radeon_gem_ pread &
- pwrite ioctls
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CO6PR12MB5489306FA44F5F107180E57DFC0CA@CO6PR12MB5489.namprd12.prod.outlook.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,102 +60,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Reply-To: imre.deak@intel.com
+Cc: "jani.nikula@intel.com" <jani.nikula@intel.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zuo,
+ Jerry" <Jerry.Zuo@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>,
+ "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 27, 2023 at 9:48=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
+On Mon, Aug 07, 2023 at 02:43:02AM +0000, Lin, Wayne wrote:
+> [AMD Official Use Only - General]
+> 
+> > -----Original Message-----
+> > From: Imre Deak <imre.deak@intel.com>
+> > Sent: Friday, August 4, 2023 11:32 PM
+> > To: Lin, Wayne <Wayne.Lin@amd.com>
+> > Cc: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org;
+> > lyude@redhat.com; jani.nikula@intel.com; ville.syrjala@linux.intel.com;
+> > Wentland, Harry <Harry.Wentland@amd.com>; Zuo, Jerry
+> > <Jerry.Zuo@amd.com>
+> > Subject: Re: [PATCH 3/3] drm/mst: adjust the function
+> > drm_dp_remove_payload_part2()
+> >
+> > On Fri, Aug 04, 2023 at 02:20:29PM +0800, Wayne Lin wrote:
+> > > [...]
+> > > diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > > b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > > index e04f87ff755a..4270178f95f6 100644
+> > > --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > > +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > > @@ -3382,8 +3382,7 @@
+> > EXPORT_SYMBOL(drm_dp_remove_payload_part1);
+> > >   * drm_dp_remove_payload_part2() - Remove an MST payload locally
+> > >   * @mgr: Manager to use.
+> > >   * @mst_state: The MST atomic state
+> > > - * @old_payload: The payload with its old state
+> > > - * @new_payload: The payload with its latest state
+> > > + * @payload: The payload with its latest state
+> > >   *
+> > >   * Updates the starting time slots of all other payloads which would have
+> > been shifted towards
+> > >   * the start of the payload ID table as a result of removing a
+> > > payload. Driver should call this @@ -3392,25 +3391,36 @@
+> > EXPORT_SYMBOL(drm_dp_remove_payload_part1);
+> > >   */
+> > >  void drm_dp_remove_payload_part2(struct drm_dp_mst_topology_mgr
+> > *mgr,
+> > >                              struct drm_dp_mst_topology_state
+> > *mst_state,
+> > > -                            const struct drm_dp_mst_atomic_payload
+> > *old_payload,
+> > > -                            struct drm_dp_mst_atomic_payload
+> > *new_payload)
+> > > +                            struct drm_dp_mst_atomic_payload
+> > *payload)
+> > >  {
+> > >     struct drm_dp_mst_atomic_payload *pos;
+> > > +   u8 time_slots_to_remove;
+> > > +   u8 next_payload_vc_start = mgr->next_start_slot;
+> > > +
+> > > +   /* Find the current allocated time slot number of the payload */
+> > > +   list_for_each_entry(pos, &mst_state->payloads, next) {
+> > > +           if (pos != payload &&
+> > > +               pos->vc_start_slot > payload->vc_start_slot &&
+> > > +               pos->vc_start_slot < next_payload_vc_start)
+> > > +                   next_payload_vc_start = pos->vc_start_slot;
+> > > +   }
+> > > +
+> > > +   time_slots_to_remove = next_payload_vc_start -
+> > > +payload->vc_start_slot;
+> >
+> > Imo, the intuitive way would be to pass the old payload state to this function -
+> > which already contains the required time_slots param - and refactor things
+> > instead moving vc_start_slot from the payload state to mgr suggested by Ville
+> > earlier.
+> >
+> > --Imre
+> 
+> Hi Imre,
+> Thanks for your feedback!
 >
-> Removing the functions of pread & pwrite & IOCTL defines, as their
-> existence allows an authorized client to spam the system logs.
->
-> 'Fixes: 6f9e0e87b71f ("drm/radeon: Fix ENOSYS with better fitting error c=
-odes in radeon_gem.c")'
-> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> I understand it's functionally correct. But IMHO, it's still a bit
+> conceptually different between the time slot in old state and the time
+> slot in current payload table. My thought is the time slot at the
+> moment when we are removing the payload would be a better choice.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Yes, they are different. The old state contains the time slot the
+payload was added with in a preceding commit and so the time slot value
+which should be used when removing the same payload in the current
+commit.
 
-> ---
->  drivers/gpu/drm/radeon/radeon.h     |  4 ----
->  drivers/gpu/drm/radeon/radeon_drv.c |  2 --
->  drivers/gpu/drm/radeon/radeon_gem.c | 16 ----------------
->  3 files changed, 22 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/rad=
-eon.h
-> index b1c3871f2a67..102f7e25faa6 100644
-> --- a/drivers/gpu/drm/radeon/radeon.h
-> +++ b/drivers/gpu/drm/radeon/radeon.h
-> @@ -2254,10 +2254,6 @@ int radeon_gem_pin_ioctl(struct drm_device *dev, v=
-oid *data,
->                          struct drm_file *file_priv);
->  int radeon_gem_unpin_ioctl(struct drm_device *dev, void *data,
->                            struct drm_file *file_priv);
-> -int radeon_gem_pwrite_ioctl(struct drm_device *dev, void *data,
-> -                           struct drm_file *file_priv);
-> -int radeon_gem_pread_ioctl(struct drm_device *dev, void *data,
-> -                          struct drm_file *file_priv);
->  int radeon_gem_set_domain_ioctl(struct drm_device *dev, void *data,
->                                 struct drm_file *filp);
->  int radeon_gem_mmap_ioctl(struct drm_device *dev, void *data,
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon=
-/radeon_drv.c
-> index aa02697e5ea3..7fea9edafa67 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -555,8 +555,6 @@ static const struct drm_ioctl_desc radeon_ioctls_kms[=
-] =3D {
->         DRM_IOCTL_DEF_DRV(RADEON_GEM_CREATE, radeon_gem_create_ioctl, DRM=
-_AUTH|DRM_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(RADEON_GEM_MMAP, radeon_gem_mmap_ioctl, DRM_AUT=
-H|DRM_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(RADEON_GEM_SET_DOMAIN, radeon_gem_set_domain_io=
-ctl, DRM_AUTH|DRM_RENDER_ALLOW),
-> -       DRM_IOCTL_DEF_DRV(RADEON_GEM_PREAD, radeon_gem_pread_ioctl, DRM_A=
-UTH),
-> -       DRM_IOCTL_DEF_DRV(RADEON_GEM_PWRITE, radeon_gem_pwrite_ioctl, DRM=
-_AUTH),
->         DRM_IOCTL_DEF_DRV(RADEON_GEM_WAIT_IDLE, radeon_gem_wait_idle_ioct=
-l, DRM_AUTH|DRM_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(RADEON_CS, radeon_cs_ioctl, DRM_AUTH|DRM_RENDER=
-_ALLOW),
->         DRM_IOCTL_DEF_DRV(RADEON_INFO, radeon_info_ioctl, DRM_AUTH|DRM_RE=
-NDER_ALLOW),
-> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon=
-/radeon_gem.c
-> index 358d19242f4b..3fec3acdaf28 100644
-> --- a/drivers/gpu/drm/radeon/radeon_gem.c
-> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
-> @@ -311,22 +311,6 @@ int radeon_gem_info_ioctl(struct drm_device *dev, vo=
-id *data,
->         return 0;
->  }
->
-> -int radeon_gem_pread_ioctl(struct drm_device *dev, void *data,
-> -                          struct drm_file *filp)
-> -{
-> -       /* TODO: implement */
-> -       DRM_ERROR("unimplemented %s\n", __func__);
-> -       return -EOPNOTSUPP;
-> -}
-> -
-> -int radeon_gem_pwrite_ioctl(struct drm_device *dev, void *data,
-> -                           struct drm_file *filp)
-> -{
-> -       /* TODO: implement */
-> -       DRM_ERROR("unimplemented %s\n", __func__);
-> -       return -EOPNOTSUPP;
-> -}
-> -
->  int radeon_gem_create_ioctl(struct drm_device *dev, void *data,
->                             struct drm_file *filp)
->  {
+The new state contains a time slot value with which the payload will be
+added in the current commit and can be different than the one in the old
+state if the current commit has changed the payload size (meaning that
+the same atomic commit will first remove the payload using the time slot
+value in the old state and afterwards will add back the same payload
+using the time slot value in the new state).
+
+> And with this, we can also simplify some codes. Especially remove
+> workaround in amd driver. In fact, DRM mst code maintains the payload
+> table and all the time slot info is in it already. We don't really
+> have to pass a new parameter.
+
+I agree that drm_dp_remove_payload() could be simplified, but this
+should be done so that the drivers can pass the old payload state to it
+(without having to pass the new state). This would be possible if
+vc_start_slot was not tracked in the payload state (which is really not
+an atomic state that can be precomputed as all other atomic state),
+rather it would be tracked in struct drm_dp_mst_topology_mgr.
+
+It looks like AMD has to reconstruct the old state in
+dm_helpers_construct_old_payload(). Could you explain why it couldn't
+instead just pass old_payload acquired by
+
+old_mst_state = drm_atomic_get_old_mst_topology_state();
+old_payload = drm_atomic_get_mst_payload_state(old_mst_state);
+
+?
+
+> > >     /* Remove local payload allocation */
+> > >     list_for_each_entry(pos, &mst_state->payloads, next) {
+> > > -           if (pos != new_payload && pos->vc_start_slot > new_payload-
+> > >vc_start_slot)
+> > > -                   pos->vc_start_slot -= old_payload->time_slots;
+> > > +           if (pos != payload && pos->vc_start_slot > payload-
+> > >vc_start_slot)
+> > > +                   pos->vc_start_slot -= time_slots_to_remove;
+> > >     }
+> > > -   new_payload->vc_start_slot = -1;
+> > > +   payload->vc_start_slot = -1;
+> > >
+> > >     mgr->payload_count--;
+> > > -   mgr->next_start_slot -= old_payload->time_slots;
+> > > +   mgr->next_start_slot -= time_slots_to_remove;
+> > >
+> > > -   if (new_payload->delete)
+> > > -           drm_dp_mst_put_port_malloc(new_payload->port);
+> > > +   if (payload->delete)
+> > > +           drm_dp_mst_put_port_malloc(payload->port);
+> > >
+> > > -   new_payload->payload_allocation_status =
+> > DRM_DP_MST_PAYLOAD_ALLOCATION_NONE;
+> > > +   payload->payload_allocation_status =
+> > > +DRM_DP_MST_PAYLOAD_ALLOCATION_NONE;
+> > >  }
+> 
 > --
-> 2.25.1
->
+> Regards,
+> Wayne
