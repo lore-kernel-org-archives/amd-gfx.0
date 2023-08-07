@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B869FC001DB
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 16:32:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10B47C00528
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 16:33:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2820210E1DD;
-	Mon,  7 Aug 2023 16:32:28 +0000 (UTC)
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E03F910E1DD;
- Mon,  7 Aug 2023 16:32:25 +0000 (UTC)
-Received: by mail-ot1-x334.google.com with SMTP id
- 46e09a7af769-6bc9254a1baso3838775a34.2; 
- Mon, 07 Aug 2023 09:32:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69B3A10E2C3;
+	Mon,  7 Aug 2023 16:33:05 +0000 (UTC)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAA1F10E2C8;
+ Mon,  7 Aug 2023 16:33:02 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-1bef8f0904eso3460325fac.2; 
+ Mon, 07 Aug 2023 09:33:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691425945; x=1692030745;
+ d=gmail.com; s=20221208; t=1691425982; x=1692030782;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ygTIUkZv7ZsC1Ak6vtB58w1LRxko3ruoE1DG7vp7o7g=;
- b=LAXiJfRVuW487oHewQhGBJPinFMxMoTRw/6b/moPXJpsf1IV75KV9K92HO/autzoOR
- rRg0qd7U7Rch7Wyf05kMunfAcflWrTpZGS9VV080lDEDu+ZywvmMy7A8gT0slXNWrPOe
- VGhzlgOl2baKd3H6Y0Dqk1IvndoCx0uzmJ5fYVvf10TVZ9mIbR3WgwKEoIf15uhtr396
- g8OpYuIEtz1oW37MOQbIRoZUsuF9g6VwQHNKQpH0H2IF/L9A0cZ6mmMT9DXr5lwXXGXT
- dmvkYZG6pmghrVNBKPdjcPL8+A5MZfAaP7jF0+JZrPvfYJvw9ZtPhd8VI7tmcNLTh3A6
- Xl2Q==
+ bh=Xyv2Ai8G6V59y/N5vBsqZfF6gA3n7Ds45WJJHRAYVC8=;
+ b=NQX76BCOk/+2efqOSj8cNKLVHOsCRIJbntEvlmB9b3zrcky5wgMTIUcaw4wQEJSAr6
+ qJ6/EElIlKUr4ztPrd++6fJ6AyAFE0j8CMyuLZKbXiJpQu3jzBOjtGWsvRFNxYFx6yxD
+ 4WGHGe3DbsX4B1dJtrr19XyXtind4830Qb1N8CrNdp7BDSZd4IFfw+kXugYlFFls7ADW
+ RK3SnyyshNV1AwxMSjYuA1Vap77n9x2ogpHMOdAu+AI5Mm1KvB3SCUj1VqkMckKi40om
+ ba1wZ/bQp6IBo/SkdGh1Ex+8KT5mXVBxFyy7xAopNTs3em6aZCcpV6h66QIKPr/nmvnK
+ Ggcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691425945; x=1692030745;
+ d=1e100.net; s=20221208; t=1691425982; x=1692030782;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ygTIUkZv7ZsC1Ak6vtB58w1LRxko3ruoE1DG7vp7o7g=;
- b=HjP2fiEViIDnEhVRKOcCZ59bZeNgMG6W9yEZKcCeesAhKmtjKyjQeVI+gvsL2Qgz/w
- jZQnLs2QY6BRXz5bOvryYbmLmqqSJyIxHNTvJQmlFt6n2BXAoEn5C5kTfZe7VMvcgdaF
- sYzw1zmstL/Zu+8ZLKMwq1eyy0cOpROT0wqZlq/TrRd9Kg2LyhQ7beLknc0PPzKpSxUI
- 4PJHuCvi2vnAbnToV9pt+WGnSULfl6azgr0saXTDDah8srtvRkG8tR/0tHEdZCW4XKFj
- 4Lf3bycsrWjh2ws9uYhsTcX8MqXpyI9Oh3+jiKR0fTVl/EikgSTsV3NPCBnt4tMQ9a70
- GF0g==
-X-Gm-Message-State: AOJu0YwMhI6mJ/RtGcBH4Hk+Oecs6l6L7vLmwo/rv6DH4In2EXNAGu5x
- 7TF218MFvBSNA/qNEzp9zefwPhFa8vRtZ34lYQs=
-X-Google-Smtp-Source: AGHT+IFADLzDrmJBNqD0h6jZKZIbu6BHvz8y++9SQhxMWpdkTVMzHfELTGfP1WMkMgGjfOdSRul6Lm9Zr3/E55f5C9o=
-X-Received: by 2002:a05:6870:8294:b0:1bb:8333:ab8a with SMTP id
- q20-20020a056870829400b001bb8333ab8amr10538221oae.4.1691425945123; Mon, 07
- Aug 2023 09:32:25 -0700 (PDT)
+ bh=Xyv2Ai8G6V59y/N5vBsqZfF6gA3n7Ds45WJJHRAYVC8=;
+ b=F9rwZBBoPqsX40eLNsgu+a5znEII68d1Uuxab9W9pCeij9jAdCnq/ZqVimby0bsVCX
+ xlibzth2Irh/QdZ+FEe05DxwBhav0KxTpIL/kJvizLqWJSR35EkORYWEHGej8nztAOvb
+ GHyfWphXqKuXJGxX8O972+BrIhwGpuB0ZRAmW7mdPPB5i/GpOS1QUpj1Pa2Kq+dURCDP
+ 5F6xua/6Gt26QcQe9dTNmGYqYaWobw86xjjGOeP6tXogvNiJVNgttUuCknhT3hywEM/u
+ oj6L94OXXHMkvZTehpf8RWJCXc9eaQMcbXcxwYnnyJkPLG3no18kNOfYwP24wSUFV/uq
+ UvEA==
+X-Gm-Message-State: AOJu0Yym62DAT8pu/I7dfGWTpZ0+MLkhGHzlkHMDR9XW/Tp383q4JVQS
+ 6t4zBt02+cM2eGhLP2z3cUWuLYZiHfXU+b0rY8ik/6JM
+X-Google-Smtp-Source: AGHT+IEv0wSPqpzLjRH4T7IC9t0Cqdza37V3DEkz92T/k1+NQ5jEsfTCnO6IqACa6NIHr+9PGfuSxtBa+FwOnLb0sdo=
+X-Received: by 2002:a05:6870:5494:b0:1be:cf5d:6f7b with SMTP id
+ f20-20020a056870549400b001becf5d6f7bmr11550277oan.17.1691425981935; Mon, 07
+ Aug 2023 09:33:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230801055826.6000-1-sunran001@208suo.com>
-In-Reply-To: <20230801055826.6000-1-sunran001@208suo.com>
+References: <20230801060443.6090-1-sunran001@208suo.com>
+In-Reply-To: <20230801060443.6090-1-sunran001@208suo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Aug 2023 12:32:14 -0400
-Message-ID: <CADnq5_PJZ-vS+p8ky1C2LFPEfp6bVfTMveL7wFeKKytwvqePgw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: Clean up errors in vega10_hwmgr.c
+Date: Mon, 7 Aug 2023 12:32:51 -0400
+Message-ID: <CADnq5_OEG9hHxR7wgse7x3ibzH9q=bL66wCAhS2fDyTmRjeKqQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Clean up errors in vega12_pptable.h
 To: Ran Sun <sunran001@208suo.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -73,60 +73,51 @@ Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This one doesn't apply due to whitespace differences.
+Applied.  Thanks!
 
-Alex
-
-On Tue, Aug 1, 2023 at 1:58=E2=80=AFAM Ran Sun <sunran001@208suo.com> wrote=
+On Tue, Aug 1, 2023 at 2:04=E2=80=AFAM Ran Sun <sunran001@208suo.com> wrote=
 :
 >
 > Fix the following errors reported by checkpatch:
 >
-> ERROR: trailing statements should be on next line
-> ERROR: space required before the open brace '{'
-> ERROR: space required before the open parenthesis '('
-> ERROR: space required after that ',' (ctx:VxV)
+> ERROR: open brace '{' following struct go on the same line
+> ERROR: space prohibited before open square bracket '['
 >
 > Signed-off-by: Ran Sun <sunran001@208suo.com>
 > ---
->  .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  | 18 ++++++++++++------
->  1 file changed, 12 insertions(+), 6 deletions(-)
+>  .../gpu/drm/amd/pm/powerplay/hwmgr/vega12_pptable.h   | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/driv=
-ers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-> index 08518bc1cbbe..ba7294daddfe 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
-> @@ -670,17 +670,23 @@ static int vega10_patch_voltage_dependency_tables_w=
-ith_lookup_table(
->         for (i =3D 0; i < 6; i++) {
->                 struct phm_ppt_v1_clock_voltage_dependency_table *vdt;
->                 switch (i) {
-> -               case 0: vdt =3D table_info->vdd_dep_on_socclk;
-> +               case 0:
-> +                       vdt =3D table_info->vdd_dep_on_socclk;
->                         break;
-> -               case 1: vdt =3D table_info->vdd_dep_on_sclk;
-> +               case 1:
-> +                       vdt =3D table_info->vdd_dep_on_sclk;
->                         break;
-> -               case 2: vdt =3D table_info->vdd_dep_on_dcefclk;
-> +               case 2:
-> +                       vdt =3D table_info->vdd_dep_on_dcefclk;
->                         break;
-> -               case 3: vdt =3D table_info->vdd_dep_on_pixclk;
-> +               case 3:
-> +                       vdt =3D table_info->vdd_dep_on_pixclk;
->                         break;
-> -               case 4: vdt =3D table_info->vdd_dep_on_dispclk;
-> +               case 4:
-> +                       vdt =3D table_info->vdd_dep_on_dispclk;
->                         break;
-> -               case 5: vdt =3D table_info->vdd_dep_on_phyclk;
-> +               case 5:
-> +                       vdt =3D table_info->vdd_dep_on_phyclk;
->                         break;
->                 }
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_pptable.h b/dr=
+ivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_pptable.h
+> index bf4f5095b80d..9b8435a4d306 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_pptable.h
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_pptable.h
+> @@ -72,8 +72,7 @@ enum ATOM_VEGA12_PPCLOCK_ID {
+>  typedef enum ATOM_VEGA12_PPCLOCK_ID ATOM_VEGA12_PPCLOCK_ID;
+>
+>
+> -typedef struct _ATOM_VEGA12_POWERPLAYTABLE
+> -{
+> +typedef struct _ATOM_VEGA12_POWERPLAYTABLE {
+>        struct atom_common_table_header sHeader;
+>        UCHAR  ucTableRevision;
+>        USHORT usTableSize;
+> @@ -92,11 +91,11 @@ typedef struct _ATOM_VEGA12_POWERPLAYTABLE
+>        USHORT usODPowerSavePowerLimit;
+>        USHORT usSoftwareShutdownTemp;
+>
+> -      ULONG PowerSavingClockMax  [ATOM_VEGA12_PPCLOCK_COUNT];
+> -      ULONG PowerSavingClockMin  [ATOM_VEGA12_PPCLOCK_COUNT];
+> +      ULONG PowerSavingClockMax[ATOM_VEGA12_PPCLOCK_COUNT];
+> +      ULONG PowerSavingClockMin[ATOM_VEGA12_PPCLOCK_COUNT];
+>
+> -      ULONG ODSettingsMax [ATOM_VEGA12_ODSETTING_COUNT];
+> -      ULONG ODSettingsMin [ATOM_VEGA12_ODSETTING_COUNT];
+> +      ULONG ODSettingsMax[ATOM_VEGA12_ODSETTING_COUNT];
+> +      ULONG ODSettingsMin[ATOM_VEGA12_ODSETTING_COUNT];
+>
+>        USHORT usReserve[5];
 >
 > --
 > 2.17.1
