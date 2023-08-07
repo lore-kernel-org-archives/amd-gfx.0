@@ -4,126 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E395FEB64DD
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 08:37:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA4AEB64DD
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 09:09:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3A3410E051;
-	Mon,  7 Aug 2023 08:37:12 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 320CF10E051
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Aug 2023 08:37:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0466F10E1CB;
+	Mon,  7 Aug 2023 09:09:29 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF28B10E1CB
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Aug 2023 09:09:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VwuFTyJ6YvP4XWkakeItkjATM/G9iDIK0dmk9qSk1B9D2EVmsgfVEmqdwLbXfy078RUF89klu6GZcOeRvmlbTlIK8jJYbFyOv5EAWgAolvi6EJFm0uJbr8NUZ20Gtl1uUJsr+EeOOJXakvYwAncG4QfmDV5zDAI0owYKp14z9+bnGxYyZSprZl+M8bUVghvZFv3vDg57pEeU+YQ7qCTLoKbVmFVZgnCp/OKL6/PkeEcbmEvDsGSKlGp0N1ngevcCfbzB2q4qZigZJihx5C3IZooGR3eyGoMmtRhA1fG/Tszocq4mSDdsA8z3VoTuOXhotmptZzAM780vYagk5+SIVg==
+ b=jvIY+ZsWvfyvxM++YZxmVOYTXTvXuQoEnrr806F4UoCb0sFFImNghXuzPxDL9AQDJuUAgkDdZ6c8r0Zn2n/tlMowqCkbXq/8r/0Tm/ms9KPDJYqrV4DuLf/zYEPqZCIKKwVIdpRaReWrNGNf50ZSBpSoOxgyCDIjttwN8mzwQ/yhewAHeSHwOSp3Xl9l9YZMuo9RSi3JVU+CtKlyxYglLLOuKgTwWyDOiWQY8XMDthWxs+MWFDhIzgdxW9l7sfyYVMWc5lcpy15jWIJcmYfwWk/ArE25kHNLPq26EV/8NzPtyq1seulxueZHxPa511Pmf/34+erpayqIwOmtGIQvoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IGup40ajg1hB0PZmFcsov0RwvRIbfz64KKF8GKlqQGs=;
- b=KqLtXkpYjvMc7PEBdqWvl1+wVOEtaHvdif4rr0YSRkvWsZSGRXeddwBpKeQa9KADj91O2emLE3I41oUkCyl7o+YagLzBdgDPQ18wLtqJLTwtkM6hVStpqQieKOgis/fWa1ntDK8M31YGdAKqHcnZ8dP+ucuRYW7bdoYH0sEyl2G8w5cFfPf68L2el4ywcphosxcHorX49xMu6SL41/WPkVth+zzpfDDoVEsHNPXt1oz5Wtu2xWQdX+Id++Eg+mnT/fNouB6Bsvypv3PTKG/kHI5nZImrfXoGGAzJwq0/JCf+tdIygzNa5RdgrGRsXGaKJxMJS7rdT68VFRGC22kR1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=fgZcOaxrhtospsSqGUeaSk0JEQDef7wfhrlTtaYVVkI=;
+ b=hLKYABb31+NmY9AYisJEPG2euIn8Yh6eGBotLZri+h4YS411JmFO5QrScI7mYe/Le/MtuUp5CpbU47HT1YCoidh22TykYWhzKScvSTxbhpDRJH1AY74YdZTlXQpjVS5zhxQpoeaZFi2AerB27T5Q9OvME56kNPm9y4k2YXYYxMEsWTSI3XfP8pEprYJnFozMD+fjGiNJyPTTUlmRcN5v2Sht0pUjjemQHYzgi6jRymrJAIRsUJpymGdLqT9F1GC845ljDbTb7ifCq/5LQ+m56AlRzBZ4R+22fS5yQb8Sb0ugEV1tynT0LJheucdgz3/OkR882KufFHwPbB4OfZb0XQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IGup40ajg1hB0PZmFcsov0RwvRIbfz64KKF8GKlqQGs=;
- b=PLPhpEk0KsTL/O7bAT3Cyv6wk+ya2du2WBRqOZ8bDK5tVPU7iBnJ5sNzOBU6/hROfhvVtwHihEdQZSs3Wyb+lG7/IXx/CS4BOz8/JqZXvmzd+YMQVy4bkYk57fpP5ienJxWm7vJVjXRIKZXuexgPYNA1288pJ7vRyYQ8yo+f+b4=
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
- PH7PR12MB5656.namprd12.prod.outlook.com (2603:10b6:510:13b::10) with
+ bh=fgZcOaxrhtospsSqGUeaSk0JEQDef7wfhrlTtaYVVkI=;
+ b=m10NSjXF06OAAEG5o7O8yyoDG8Z8VGb3CMPCpKa5CUFvPjUf95IH9S1/2I+Eb+qRp14EdVczC1zO61bytG4yaQ2y8dkhF/rFwy8MaowHUPUiYnhkvNsr26nH9J6noQJMARLzDMoQmQYvDxLhXrBWo2sYqy8YVhy6sOHb3Isqofw=
+Received: from DM6PR14CA0059.namprd14.prod.outlook.com (2603:10b6:5:18f::36)
+ by LV8PR12MB9110.namprd12.prod.outlook.com (2603:10b6:408:18b::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.26; Mon, 7 Aug
- 2023 08:37:05 +0000
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::72dd:353e:4775:1225]) by DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::72dd:353e:4775:1225%3]) with mapi id 15.20.6652.022; Mon, 7 Aug 2023
- 08:37:05 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Fix identifier names to function definition
- arguments in atom.h
-Thread-Topic: [PATCH] drm/amdgpu: Fix identifier names to function definition
- arguments in atom.h
-Thread-Index: AQHZyQjwwXwgX1tXW0OZf9tCff6cHa/egl3Q
-Date: Mon, 7 Aug 2023 08:37:04 +0000
-Message-ID: <DM5PR12MB24691F99C43C56880C6FD03FF10CA@DM5PR12MB2469.namprd12.prod.outlook.com>
-References: <20230807082639.135375-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230807082639.135375-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=94054d06-1dde-4d8a-8cd0-7ecb6cd01282;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-08-07T08:36:14Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM5PR12MB2469:EE_|PH7PR12MB5656:EE_
-x-ms-office365-filtering-correlation-id: 57ae1aae-0e8d-4501-8c4a-08db97217a83
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Ug+gduyc12BedtJzdZwpwcHfHxma1vePbqAJNCgaxvtmIX0Jfus+y5XQ1CijjnspnjVXo0n6rTqiUfsN2nAjP3KTgNUi/hNJNGdivFfJTHNeQZBY5aOCXcTK1ZHc0kVkN52st4otYJnJhit1+sKXKSznVvl360AWmd2tOMm3zTdd+DONNMM9zSFPYe0ypKhSBRyy+xCyK3cHMsH+DQk1mY4/S0DfdtMarbCrOk8oyVZJFk9KfBtIP67Ksow/mToN2nyN3X8TMIL4BaRUHFUbZYRF67wAKerESU8zD8GQy+lDXXPzpS/rx6eLlUVdMdk5ive9Xx0dHjCBvC8IYsO0gdR8KMsMgC7hp/QSj1IXMhvUIupTit39FJXEysL7GeireLFqtvp0mNLiqyDQBxM28SXI116ahvbqn3/zcvA+nW0/5agOXGRUBgsWhohnYfG2S6bON+y+/GlQgokadhvw5uF/lsPmKxV1PyQ5rrXpsK5m9qlWix6ogBHIurWPdUQeXz1lOgvq+R7ki+2MdKF8mgNIr2spdKQ6gERTFoVw5B/poiQFBTLqxx9ZOqHwl9ug1CfhTauowbvDL+GQz7YAlq6BW/kGQScmztO/DlCpaxqoeX3gLEr3RBzRywvutlt1
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(136003)(346002)(376002)(366004)(451199021)(186006)(1800799003)(55016003)(9686003)(4326008)(6636002)(316002)(86362001)(478600001)(122000001)(110136005)(38100700002)(76116006)(71200400001)(66946007)(66446008)(64756008)(66556008)(66476007)(33656002)(53546011)(7696005)(6506007)(41300700001)(26005)(52536014)(38070700005)(66574015)(8676002)(8936002)(2906002)(83380400001)(5660300002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UFpnQ0M0UHdVemdHMi91c2pnSzhLUS9OM1l2QmxhdURtTE9GMTFwbHdYaXdT?=
- =?utf-8?B?Syt3Qno2L213b1p1UUtkeEVOUThzemVmNWN5RE5ITVRFM24rMnU3TGFtVmRZ?=
- =?utf-8?B?SzNLdnNNQmhOSU5DVzBMdmJuL2IwUG5hQ0pwb1IxeElqU01KUVR4Z3Vyd0ZM?=
- =?utf-8?B?bGpmRzJlVnUvMHBENCtMV3k2NlBvbllxWlJIQ2hlUTBXSFlvN0NLYW9HZHhD?=
- =?utf-8?B?TWFCYzlCUk9Gdy95VG1iSGJpczEvZGV2RVlCczBjLzF0Vm91OVNQajBob2NG?=
- =?utf-8?B?bU5UQzEyeXVaTGY3OFcwc282Tm84RU01SjFybDkyU0ZFalFPWncyY2lQSkRY?=
- =?utf-8?B?UXpaMHF6NElpQ3pFU2QrODlYQXhqWkd2TXBLNVZUcFl3NURNQnBFV1Bxa3Z1?=
- =?utf-8?B?Y2MyY0VzTFdnMEI3Yjg3aEtIU1h3Vm1yZDVMeTNIdXBnd0s4L1FZaHVTQzF1?=
- =?utf-8?B?ZmtJTExxZ013Ni9BR2NocktYdkYzYkZ5Lyt3T2ZQZXlkWWJNdjBaNTV1TGlT?=
- =?utf-8?B?NFdwNXJlQldzQmMydmtVUktsMHdiQ2xvNHVxOTZvVU1XQjZuamxaZHorS3kr?=
- =?utf-8?B?U2RaMHlORk9OUitLbCtXelVLYU42Z3ZaMzZRbWtuNVdveXppQnVVRVVsQW9m?=
- =?utf-8?B?QUU2Z0dKeERSQ1l5OU5iM0tXd1RXdFNEb0xEUFdNUTlBakpsbW55RGwvRm9D?=
- =?utf-8?B?amt5eTJhMlozc2NBdHh0bGxtSjRlWldVSHJaQ0xVbEdvb3RENDNjTFJaS001?=
- =?utf-8?B?NG9tUjVGdXhNT0t3S0E3OHBqREZFVkxyMm5QWVU1L2psbzF1VW1GYUg5ZnFx?=
- =?utf-8?B?V0dnVGRmblJvUU9wMmhyYTdkRG96RmMrNG52RGU5LytQQW4raE1JRlNOMWdB?=
- =?utf-8?B?R2ZiZ0JGeXZJaEgwWk44eUVDcmZXQ24zNHR5UFBGazlWL01HWFh6T0w5ZGcr?=
- =?utf-8?B?TmhVaXBwem02dmNDZ1hnTkZQcFRnR0VqN0dwdjkvL1NaMGZoMVNJZXIyY2li?=
- =?utf-8?B?U2RyWlA2bzU2bnluKzZWalZhRjFJTFJXMW9BYUJZZVFwejFFdTExTGRKRHV2?=
- =?utf-8?B?YVpOY05ZMlg2aGJ4VnhXVkVUNlhGZUhkR3hXbzJYM1pNVUNaeWppVnZSTjd5?=
- =?utf-8?B?L0ZGd2k1UCtScytuOUJVczlLZWtqbkRHNUQwaUVsa0tVa0g0NWxnTnJzdkh6?=
- =?utf-8?B?UVVMdmE0NTNhbVAyNCt6Y1dob3l6V3V1VHZlMEh6TnhxMkFLMHhCSVNQQVFB?=
- =?utf-8?B?UXlGem5vWGxmSGlwNDJzR1o1RlRyMXN1S0w1bVdEZHZRenhGRmh1bWM3bjdX?=
- =?utf-8?B?Q2lWMWx2c3RsWUoxLzJnbUFWVmVFS01zdmtqelBjTUc4NUNzU3ZQN3lKOTVG?=
- =?utf-8?B?QmY2Q1plb1VxSEtDNzNlUUJ3S1F0bmNhVjFQNHYxQVZaM1lEVkt2QXl0VXM2?=
- =?utf-8?B?bFIzU1pPRDB6aHUzVE9EV0YwNVk1UWFzbS9qMjVDZGFyOGxXSlVyRXVrQnhx?=
- =?utf-8?B?VHFGUXNsK1NaRGNITGVKdkFTdHhxOHJXZWJUcnhxRW9oa01UTEpaWkZvbENK?=
- =?utf-8?B?R2NUM3RQN2t5WTljZmFmT2pFVjh4ZlpRK1Z3WGhkNkZuUzc1eHBUenJhZkVq?=
- =?utf-8?B?UUJ0ZEt1Q0xrSjlPWTc1Q2xSRVpuaDhIWkkwRTFvUmY2RXZrTHE4V0VhQXdv?=
- =?utf-8?B?amlyU2ltNDdyb2llL29lYlU2NjI5T0xFQzNneDg2Q2NTYWxxMHJjZ0ZiYmc5?=
- =?utf-8?B?R3ROWEdLK2ZHMlNUSGNHeTJYTG9RZ1VXd2V1N2dGV1R0UjNRUlI1dDJ3aU5I?=
- =?utf-8?B?KzMyQWN1alhUQmNaSk00TEs2MHJLa2RCM1pwOFhxR1ByMm43K05lSU1kRy92?=
- =?utf-8?B?QnVkdVgyQkxZQXBHSVlpTnA4ZlI1TFR2ajZYb294NmtrOVdGMUR0b0pSejFw?=
- =?utf-8?B?UTh6NjNSbGNpTEs5L3BGOEs2dWloTFdBbjBFZExWSUpLYVdGblFMWEZFdzBE?=
- =?utf-8?B?SE9hUE1mRkt0V2VDL1ZzRXFaVHRBanRra0lCQ01iL0xLTTFpdktkV2hDY0NO?=
- =?utf-8?B?OG5sT1NFNTNGVW1pMldhOEtEbTI5TWwzMncvTVFYc2x6TGF4RTlhaExKK0Nt?=
- =?utf-8?Q?DS/g=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.25; Mon, 7 Aug
+ 2023 09:09:24 +0000
+Received: from CY4PEPF0000EDD7.namprd03.prod.outlook.com
+ (2603:10b6:5:18f:cafe::99) by DM6PR14CA0059.outlook.office365.com
+ (2603:10b6:5:18f::36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.26 via Frontend
+ Transport; Mon, 7 Aug 2023 09:09:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD7.mail.protection.outlook.com (10.167.241.211) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6652.19 via Frontend Transport; Mon, 7 Aug 2023 09:09:24 +0000
+Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 7 Aug
+ 2023 04:09:21 -0500
+From: Tao Zhou <tao.zhou1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <stanley.yang@amd.com>,
+ <hawking.zhang@amd.com>, <candice.li@amd.com>, <yipeng.chai@amd.com>
+Subject: [PATCH] drm/amdgpu: add RAS fatal error handler for NBIO v7.9
+Date: Mon, 7 Aug 2023 17:09:12 +0800
+Message-ID: <20230807090912.12145-1-tao.zhou1@amd.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD7:EE_|LV8PR12MB9110:EE_
+X-MS-Office365-Filtering-Correlation-Id: 542d1264-e9fb-4a08-649c-08db9725feac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: lFo/n1Se6VO1CxQnzwj1NrYuoAdoEyd31sQqJe+aYLSP7hpEF12P0aAzfp+AU0r4sJpBlyOAmWFWIG5X6bK+dR9sngmcNZXn7JOtwhRWaYW7DULNh8rzVb0EbSaotVr+wncIAMFOm5zyCOLyLPBELU5GL5YuOnC83J9dPTW1HSES64SgUMkUU8AJefkSOcakIqu5FxvsoxHCXLFR83O0ncCMzfkZyFKUXanYLo5p1cJa7V/VK1a0EJiqnJS5atCQ9Y0ytGWHzhhcqvIqay50dvQ0mNuk/rzIib//AXUNzzAAo1o18WFnqbAZrkID4V0161PG0O3op2rG8VmzSWq0pCe5/uXm5F8Zk2BUeJBR62ViHn+pM+tvu4x/HHxkJJXu42HjpjJcLe4VazfLPB5/VwDH7lw0NMheVGlcPpp0w89qDMef5qxK3MS+SPHmPl2mdIlLa9S/s1p5M0P/XQBHhPda1Lbu6sSFdbYTHmt7DhGL0RdseI93zleSS292fHDYxALxkoaBh3SUR34n3L1/zMTOPO2IAQcXkvqYn+LKPTWnI4cohTaCAPX7w/gdiGM+7tbO7qhfqTKrC+pqTNqIB8Fyc2vUhhQz9eb4yi1l4Yn5c0m32UdM6Xo1UpX7nkx6G3lThhewuuYbXcXeTXL1k5IfE0IEhsdhs+l6QYs5aiFK1oV9YOiA3vd2RQQUFAz5L9BOsU6g34fzO3QsMH0WTRqJOHQ9gY/8/cPjVs171SfGUiklpUA5LlJ+zhmboh73XNNs7ZKCuWnsXmX4g3DIIw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(376002)(346002)(39860400002)(396003)(186006)(1800799003)(82310400008)(451199021)(46966006)(40470700004)(36840700001)(83380400001)(426003)(47076005)(36860700001)(2616005)(40460700003)(40480700001)(54906003)(110136005)(2906002)(6636002)(4326008)(316002)(5660300002)(8936002)(8676002)(336012)(70206006)(70586007)(16526019)(86362001)(478600001)(82740400003)(81166007)(6666004)(7696005)(356005)(41300700001)(36756003)(26005)(1076003)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57ae1aae-0e8d-4501-8c4a-08db97217a83
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2023 08:37:04.7731 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5+IeIbYYNKHEsjJubx7bJiaUWfTXVPQdQUKpGTHaLVcildCf6xbtTK9lve2Y1k+hTmTN6dK3L5xnh4jCidgxGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5656
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2023 09:09:24.4258 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 542d1264-e9fb-4a08-649c-08db9725feac
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9110
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,82 +98,253 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Tao Zhou <tao.zhou1@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBTSEFOTVVH
-QU0sIFNSSU5JVkFTQU4gPFNSSU5JVkFTQU4uU0hBTk1VR0FNQGFtZC5jb20+DQo+IFNlbnQ6IE1v
-bmRheSwgQXVndXN0IDcsIDIwMjMgNDoyNyBQTQ0KPiBUbzogS29lbmlnLCBDaHJpc3RpYW4gPENo
-cmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IERldWNoZXIsIEFsZXhhbmRlcg0KPiA8QWxleGFuZGVy
-LkRldWNoZXJAYW1kLmNvbT47IENoZW4sIEd1Y2h1biA8R3VjaHVuLkNoZW5AYW1kLmNvbT47DQo+
-IFBhbiwgWGluaHVpIDxYaW5odWkuUGFuQGFtZC5jb20+DQo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZzsgU0hBTk1VR0FNLCBTUklOSVZBU0FODQo+IDxTUklOSVZBU0FOLlNIQU5N
-VUdBTUBhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IEZpeCBpZGVudGlm
-aWVyIG5hbWVzIHRvIGZ1bmN0aW9uIGRlZmluaXRpb24NCj4gYXJndW1lbnRzIGluIGF0b20uaA0K
-Pg0KPiBGaXhlcyB0aGUgZm9sbG93aW5nOg0KPg0KPiBXQVJOSU5HOiBmdW5jdGlvbiBkZWZpbml0
-aW9uIGFyZ3VtZW50ICdzdHJ1Y3QgY2FyZF9pbmZvIConIHNob3VsZCBhbHNvIGhhdmUNCj4gYW4g
-aWRlbnRpZmllciBuYW1lDQo+IFdBUk5JTkc6IGZ1bmN0aW9uIGRlZmluaXRpb24gYXJndW1lbnQg
-J3VpbnQzMl90JyBzaG91bGQgYWxzbyBoYXZlIGFuDQo+IGlkZW50aWZpZXIgbmFtZQ0KPiBXQVJO
-SU5HOiBmdW5jdGlvbiBkZWZpbml0aW9uIGFyZ3VtZW50ICd2b2lkIConIHNob3VsZCBhbHNvIGhh
-dmUgYW4NCj4gaWRlbnRpZmllciBuYW1lDQo+IFdBUk5JTkc6IGZ1bmN0aW9uIGRlZmluaXRpb24g
-YXJndW1lbnQgJ3N0cnVjdCBhdG9tX2NvbnRleHQgKicgc2hvdWxkIGFsc28NCj4gaGF2ZSBhbiBp
-ZGVudGlmaWVyIG5hbWUNCj4gV0FSTklORzogZnVuY3Rpb24gZGVmaW5pdGlvbiBhcmd1bWVudCAn
-aW50JyBzaG91bGQgYWxzbyBoYXZlIGFuIGlkZW50aWZpZXINCj4gbmFtZQ0KPiBXQVJOSU5HOiBm
-dW5jdGlvbiBkZWZpbml0aW9uIGFyZ3VtZW50ICd1aW50MzJfdCAqJyBzaG91bGQgYWxzbyBoYXZl
-IGFuDQo+IGlkZW50aWZpZXIgbmFtZQ0KPiBXQVJOSU5HOiBVbm5lY2Vzc2FyeSBzcGFjZSBiZWZv
-cmUgZnVuY3Rpb24gcG9pbnRlciBuYW1lDQo+IEVSUk9SOiBzcGFjZSBwcm9oaWJpdGVkIGFmdGVy
-IHRoYXQgJyonIChjdHg6QnhXKQ0KPiBDSEVDSzogUHJlZmVyIGtlcm5lbCB0eXBlICd1MzInIG92
-ZXIgJ3VpbnQzMl90Jw0KPg0KPiBDYzogR3VjaHVuIENoZW4gPGd1Y2h1bi5jaGVuQGFtZC5jb20+
-DQo+IENjOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+IENj
-OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+IENjOiAiUGFuLCBY
-aW5odWkiIDxYaW5odWkuUGFuQGFtZC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IFNyaW5pdmFzYW4g
-U2hhbm11Z2FtIDxzcmluaXZhc2FuLnNoYW5tdWdhbUBhbWQuY29tPg0KDQpSZXZpZXdlZC1ieTog
-R3VjaHVuIENoZW4gPGd1Y2h1bi5jaGVuQGFtZC5jb20+DQoNClJlZ2FyZHMsDQpHdWNodW4NCg0K
-PiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2F0b20uaCB8IDIzICsrKysrKysr
-KysrKystLS0tLS0tLS0tDQo+ICAxIGZpbGUgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgMTAg
-ZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hdG9tLmgNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hdG9tLmgNCj4gaW5kZXgg
-NTViZjk5ZDUyODhkLi5jMTFjZjE4YTBmMTggMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2F0b20uaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-dG9tLmgNCj4gQEAgLTExNywxMiArMTE3LDE1IEBAIHN0cnVjdCBkcm1fZGV2aWNlOw0KPg0KPiAg
-c3RydWN0IGNhcmRfaW5mbyB7DQo+ICAgICAgIHN0cnVjdCBkcm1fZGV2aWNlICpkZXY7DQo+IC0g
-ICAgIHZvaWQgKCogcmVnX3dyaXRlKShzdHJ1Y3QgY2FyZF9pbmZvICosIHVpbnQzMl90LCB1aW50
-MzJfdCk7ICAgLyogIGZpbGxlZCBieQ0KPiBkcml2ZXIgKi8NCj4gLSAgICAgdWludDMyX3QgKCog
-cmVnX3JlYWQpKHN0cnVjdCBjYXJkX2luZm8gKiwgdWludDMyX3QpOyAgICAgICAgICAvKiAgZmls
-bGVkIGJ5DQo+IGRyaXZlciAqLw0KPiAtICAgICB2b2lkICgqIG1jX3dyaXRlKShzdHJ1Y3QgY2Fy
-ZF9pbmZvICosIHVpbnQzMl90LCB1aW50MzJfdCk7ICAgLyogIGZpbGxlZCBieQ0KPiBkcml2ZXIg
-Ki8NCj4gLSAgICAgdWludDMyX3QgKCogbWNfcmVhZCkoc3RydWN0IGNhcmRfaW5mbyAqLCB1aW50
-MzJfdCk7ICAgICAgICAgIC8qICBmaWxsZWQgYnkNCj4gZHJpdmVyICovDQo+IC0gICAgIHZvaWQg
-KCogcGxsX3dyaXRlKShzdHJ1Y3QgY2FyZF9pbmZvICosIHVpbnQzMl90LCB1aW50MzJfdCk7ICAg
-LyogIGZpbGxlZCBieQ0KPiBkcml2ZXIgKi8NCj4gLSAgICAgdWludDMyX3QgKCogcGxsX3JlYWQp
-KHN0cnVjdCBjYXJkX2luZm8gKiwgdWludDMyX3QpOyAgICAgICAgICAvKiAgZmlsbGVkIGJ5DQo+
-IGRyaXZlciAqLw0KPiArICAgICB2b2lkICgqcmVnX3dyaXRlKShzdHJ1Y3QgY2FyZF9pbmZvICpp
-bmZvLA0KPiArICAgICAgICAgICAgICAgICAgICAgICB1MzIgcmVnLCB1aW50MzJfdCB2YWwpOyAg
-IC8qICBmaWxsZWQgYnkgZHJpdmVyICovDQo+ICsgICAgIHVpbnQzMl90ICgqcmVnX3JlYWQpKHN0
-cnVjdCBjYXJkX2luZm8gKmluZm8sIHVpbnQzMl90IHJlZyk7ICAgICAgICAgIC8qDQo+IGZpbGxl
-ZCBieSBkcml2ZXIgKi8NCj4gKyAgICAgdm9pZCAoKm1jX3dyaXRlKShzdHJ1Y3QgY2FyZF9pbmZv
-ICppbmZvLA0KPiArICAgICAgICAgICAgICAgICAgICAgIHUzMiByZWcsIHVpbnQzMl90IHZhbCk7
-ICAgLyogIGZpbGxlZCBieSBkcml2ZXIgKi8NCj4gKyAgICAgdWludDMyX3QgKCptY19yZWFkKShz
-dHJ1Y3QgY2FyZF9pbmZvICppbmZvLCB1aW50MzJfdCByZWcpOyAgICAgICAgICAvKg0KPiBmaWxs
-ZWQgYnkgZHJpdmVyICovDQo+ICsgICAgIHZvaWQgKCpwbGxfd3JpdGUpKHN0cnVjdCBjYXJkX2lu
-Zm8gKmluZm8sDQo+ICsgICAgICAgICAgICAgICAgICAgICAgIHUzMiByZWcsIHVpbnQzMl90IHZh
-bCk7ICAgLyogIGZpbGxlZCBieSBkcml2ZXIgKi8NCj4gKyAgICAgdWludDMyX3QgKCpwbGxfcmVh
-ZCkoc3RydWN0IGNhcmRfaW5mbyAqaW5mbywgdWludDMyX3QgcmVnKTsgICAgICAgICAgLyoNCj4g
-ZmlsbGVkIGJ5IGRyaXZlciAqLw0KPiAgfTsNCj4NCj4gIHN0cnVjdCBhdG9tX2NvbnRleHQgew0K
-PiBAQCAtMTUyLDEwICsxNTUsMTAgQEAgc3RydWN0IGF0b21fY29udGV4dCB7DQo+DQo+ICBleHRl
-cm4gaW50IGFtZGdwdV9hdG9tX2RlYnVnOw0KPg0KPiAtc3RydWN0IGF0b21fY29udGV4dCAqYW1k
-Z3B1X2F0b21fcGFyc2Uoc3RydWN0IGNhcmRfaW5mbyAqLCB2b2lkICopOyAtaW50DQo+IGFtZGdw
-dV9hdG9tX2V4ZWN1dGVfdGFibGUoc3RydWN0IGF0b21fY29udGV4dCAqLCBpbnQsIHVpbnQzMl90
-ICopOyAtaW50DQo+IGFtZGdwdV9hdG9tX2FzaWNfaW5pdChzdHJ1Y3QgYXRvbV9jb250ZXh0ICop
-OyAtdm9pZA0KPiBhbWRncHVfYXRvbV9kZXN0cm95KHN0cnVjdCBhdG9tX2NvbnRleHQgKik7DQo+
-ICtzdHJ1Y3QgYXRvbV9jb250ZXh0ICphbWRncHVfYXRvbV9wYXJzZShzdHJ1Y3QgY2FyZF9pbmZv
-ICpjYXJkLCB2b2lkDQo+ICsqYmlvcyk7IGludCBhbWRncHVfYXRvbV9leGVjdXRlX3RhYmxlKHN0
-cnVjdCBhdG9tX2NvbnRleHQgKmN0eCwgaW50DQo+ICtpbmRleCwgdWludDMyX3QgKnBhcmFtcyk7
-IGludCBhbWRncHVfYXRvbV9hc2ljX2luaXQoc3RydWN0IGF0b21fY29udGV4dA0KPiArKmN0eCk7
-IHZvaWQgYW1kZ3B1X2F0b21fZGVzdHJveShzdHJ1Y3QgYXRvbV9jb250ZXh0ICpjdHgpOw0KPiAg
-Ym9vbCBhbWRncHVfYXRvbV9wYXJzZV9kYXRhX2hlYWRlcihzdHJ1Y3QgYXRvbV9jb250ZXh0ICpj
-dHgsIGludCBpbmRleCwNCj4gdWludDE2X3QgKnNpemUsDQo+ICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgdWludDhfdCAqZnJldiwgdWludDhfdCAqY3JldiwgdWludDE2X3QgKmRhdGFfc3RhcnQp
-Ow0KPiBib29sIGFtZGdwdV9hdG9tX3BhcnNlX2NtZF9oZWFkZXIoc3RydWN0IGF0b21fY29udGV4
-dCAqY3R4LCBpbnQgaW5kZXgsDQo+IC0tDQo+IDIuMjUuMQ0KDQo=
+Register RAS fatal error interrupt and add handler.
+
+v2: only register NBIO RAS for dGPU platform.
+    change nbio_v7_9_set_ras_controller_irq_state and nbio_v7_9_set_ras_err_event_athub_irq_state
+    to dummy functions.
+
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |   5 +
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c  | 187 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.h  |   1 +
+ 3 files changed, 193 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index bb29cb57add5..00658c2816dc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -35,6 +35,7 @@
+ #include "amdgpu_xgmi.h"
+ #include "ivsrcid/nbio/irqsrcs_nbif_7_4.h"
+ #include "nbio_v4_3.h"
++#include "nbio_v7_9.h"
+ #include "atom.h"
+ #include "amdgpu_reset.h"
+ 
+@@ -2644,6 +2645,10 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 			 * check DF RAS */
+ 			adev->nbio.ras = &nbio_v4_3_ras;
+ 		break;
++	case IP_VERSION(7, 9, 0):
++		if (!adev->gmc.is_app_apu)
++			adev->nbio.ras = &nbio_v7_9_ras;
++		break;
+ 	default:
+ 		/* nbio ras is not available */
+ 		break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+index 1d1ab188ef15..781f98655567 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+@@ -471,3 +471,190 @@ const struct amdgpu_nbio_funcs nbio_v7_9_funcs = {
+ 	.init_registers = nbio_v7_9_init_registers,
+ 	.get_pcie_replay_count = nbio_v7_9_get_pcie_replay_count,
+ };
++
++static void nbio_v7_9_query_ras_error_count(struct amdgpu_device *adev,
++					void *ras_error_status)
++{
++	return;
++}
++
++static void nbio_v7_9_handle_ras_controller_intr_no_bifring(struct amdgpu_device *adev)
++{
++	uint32_t bif_doorbell_intr_cntl;
++	struct ras_manager *obj = amdgpu_ras_find_obj(adev, adev->nbio.ras_if);
++	struct ras_err_data err_data = {0, 0, 0, NULL};
++	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
++
++	bif_doorbell_intr_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL);
++
++	if (REG_GET_FIELD(bif_doorbell_intr_cntl,
++		BIF_BX0_BIF_DOORBELL_INT_CNTL, RAS_CNTLR_INTERRUPT_STATUS)) {
++		/* driver has to clear the interrupt status when bif ring is disabled */
++		bif_doorbell_intr_cntl = REG_SET_FIELD(bif_doorbell_intr_cntl,
++						BIF_BX0_BIF_DOORBELL_INT_CNTL,
++						RAS_CNTLR_INTERRUPT_CLEAR, 1);
++		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_intr_cntl);
++
++		if (!ras->disable_ras_err_cnt_harvest) {
++			/*
++			 * clear error status after ras_controller_intr
++			 * according to hw team and count ue number
++			 * for query
++			 */
++			nbio_v7_9_query_ras_error_count(adev, &err_data);
++
++			/* logging on error cnt and printing for awareness */
++			obj->err_data.ue_count += err_data.ue_count;
++			obj->err_data.ce_count += err_data.ce_count;
++
++			if (err_data.ce_count)
++				dev_info(adev->dev, "%ld correctable hardware "
++						"errors detected in %s block, "
++						"no user action is needed.\n",
++						obj->err_data.ce_count,
++						get_ras_block_str(adev->nbio.ras_if));
++
++			if (err_data.ue_count)
++				dev_info(adev->dev, "%ld uncorrectable hardware "
++						"errors detected in %s block\n",
++						obj->err_data.ue_count,
++						get_ras_block_str(adev->nbio.ras_if));
++		}
++
++		dev_info(adev->dev, "RAS controller interrupt triggered "
++					"by NBIF error\n");
++
++		/* ras_controller_int is dedicated for nbif ras error,
++		 * not the global interrupt for sync flood
++		 */
++		amdgpu_ras_reset_gpu(adev);
++	}
++}
++
++static void nbio_v7_9_handle_ras_err_event_athub_intr_no_bifring(struct amdgpu_device *adev)
++{
++	uint32_t bif_doorbell_intr_cntl;
++
++	bif_doorbell_intr_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL);
++
++	if (REG_GET_FIELD(bif_doorbell_intr_cntl,
++		BIF_BX0_BIF_DOORBELL_INT_CNTL, RAS_ATHUB_ERR_EVENT_INTERRUPT_STATUS)) {
++		/* driver has to clear the interrupt status when bif ring is disabled */
++		bif_doorbell_intr_cntl = REG_SET_FIELD(bif_doorbell_intr_cntl,
++						BIF_BX0_BIF_DOORBELL_INT_CNTL,
++						RAS_ATHUB_ERR_EVENT_INTERRUPT_CLEAR, 1);
++
++		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_intr_cntl);
++
++		amdgpu_ras_global_ras_isr(adev);
++	}
++}
++
++static int nbio_v7_9_set_ras_controller_irq_state(struct amdgpu_device *adev,
++						  struct amdgpu_irq_src *src,
++						  unsigned type,
++						  enum amdgpu_interrupt_state state)
++{
++	/* Dummy function, there is no initialization operation in driver */
++
++	return 0;
++}
++
++static int nbio_v7_9_process_ras_controller_irq(struct amdgpu_device *adev,
++						struct amdgpu_irq_src *source,
++						struct amdgpu_iv_entry *entry)
++{
++	/* By design, the ih cookie for ras_controller_irq should be written
++	 * to BIFring instead of general iv ring. However, due to known bif ring
++	 * hw bug, it has to be disabled. There is no chance the process function
++	 * will be involked. Just left it as a dummy one.
++	 */
++	return 0;
++}
++
++static int nbio_v7_9_set_ras_err_event_athub_irq_state(struct amdgpu_device *adev,
++						       struct amdgpu_irq_src *src,
++						       unsigned type,
++						       enum amdgpu_interrupt_state state)
++{
++	/* Dummy function, there is no initialization operation in driver */
++
++	return 0;
++}
++
++static int nbio_v7_9_process_err_event_athub_irq(struct amdgpu_device *adev,
++						 struct amdgpu_irq_src *source,
++						 struct amdgpu_iv_entry *entry)
++{
++	/* By design, the ih cookie for err_event_athub_irq should be written
++	 * to BIFring instead of general iv ring. However, due to known bif ring
++	 * hw bug, it has to be disabled. There is no chance the process function
++	 * will be involked. Just left it as a dummy one.
++	 */
++	return 0;
++}
++
++static const struct amdgpu_irq_src_funcs nbio_v7_9_ras_controller_irq_funcs = {
++	.set = nbio_v7_9_set_ras_controller_irq_state,
++	.process = nbio_v7_9_process_ras_controller_irq,
++};
++
++static const struct amdgpu_irq_src_funcs nbio_v7_9_ras_err_event_athub_irq_funcs = {
++	.set = nbio_v7_9_set_ras_err_event_athub_irq_state,
++	.process = nbio_v7_9_process_err_event_athub_irq,
++};
++
++static int nbio_v7_9_init_ras_controller_interrupt (struct amdgpu_device *adev)
++{
++	int r;
++
++	/* init the irq funcs */
++	adev->nbio.ras_controller_irq.funcs =
++		&nbio_v7_9_ras_controller_irq_funcs;
++	adev->nbio.ras_controller_irq.num_types = 1;
++
++	/* register ras controller interrupt */
++	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_BIF,
++			      NBIF_7_4__SRCID__RAS_CONTROLLER_INTERRUPT,
++			      &adev->nbio.ras_controller_irq);
++
++	return r;
++}
++
++static int nbio_v7_9_init_ras_err_event_athub_interrupt (struct amdgpu_device *adev)
++{
++
++	int r;
++
++	/* init the irq funcs */
++	adev->nbio.ras_err_event_athub_irq.funcs =
++		&nbio_v7_9_ras_err_event_athub_irq_funcs;
++	adev->nbio.ras_err_event_athub_irq.num_types = 1;
++
++	/* register ras err event athub interrupt */
++	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_BIF,
++			      NBIF_7_4__SRCID__ERREVENT_ATHUB_INTERRUPT,
++			      &adev->nbio.ras_err_event_athub_irq);
++
++	return r;
++}
++
++const struct amdgpu_ras_block_hw_ops nbio_v7_9_ras_hw_ops = {
++	.query_ras_error_count = nbio_v7_9_query_ras_error_count,
++};
++
++struct amdgpu_nbio_ras nbio_v7_9_ras = {
++	.ras_block = {
++		.ras_comm = {
++			.name = "pcie_bif",
++			.block = AMDGPU_RAS_BLOCK__PCIE_BIF,
++			.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE,
++		},
++		.hw_ops = &nbio_v7_9_ras_hw_ops,
++		.ras_late_init = amdgpu_nbio_ras_late_init,
++	},
++	.handle_ras_controller_intr_no_bifring = nbio_v7_9_handle_ras_controller_intr_no_bifring,
++	.handle_ras_err_event_athub_intr_no_bifring = nbio_v7_9_handle_ras_err_event_athub_intr_no_bifring,
++	.init_ras_controller_interrupt = nbio_v7_9_init_ras_controller_interrupt,
++	.init_ras_err_event_athub_interrupt = nbio_v7_9_init_ras_err_event_athub_interrupt,
++};
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.h b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.h
+index 8e04eb484328..73709771950d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.h
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.h
+@@ -28,5 +28,6 @@
+ 
+ extern const struct nbio_hdp_flush_reg nbio_v7_9_hdp_flush_reg;
+ extern const struct amdgpu_nbio_funcs nbio_v7_9_funcs;
++extern struct amdgpu_nbio_ras nbio_v7_9_ras;
+ 
+ #endif
+-- 
+2.35.1
+
