@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 260DCC04A6A
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 16:59:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACF60C001B0
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 17:01:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9BC110E305;
-	Mon,  7 Aug 2023 16:59:51 +0000 (UTC)
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B62FA10E301;
- Mon,  7 Aug 2023 16:59:47 +0000 (UTC)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-1bc479cc815so3711260fac.1; 
- Mon, 07 Aug 2023 09:59:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D96610E30B;
+	Mon,  7 Aug 2023 17:01:02 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C18F10E304;
+ Mon,  7 Aug 2023 17:00:31 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ 46e09a7af769-6bd011dc2e7so194194a34.3; 
+ Mon, 07 Aug 2023 10:00:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691427587; x=1692032387;
+ d=gmail.com; s=20221208; t=1691427630; x=1692032430;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7ax9C43p8yvCgXdr8o1/JSyuVrQ/jKmhK3V7gAOikHI=;
- b=N+jfvJK8Hv+xuffyYqQQ/xDO4j1Pib9L9fTUxisONol4F/95bG9aAb0ruUDAkLphce
- KYdoIC61zE4e2iWAgT5gEoodXPh0XsnBAqqkJHutbIv0b4nsozjUPKR2bod1hdYflDi+
- ijg/gTRvb7xF8+8thNNf4ZxccNzUfCsuCmWPv/jVzMHLhI3gk1xTs45d8Nl/tb8GNDCH
- e/W9Zhpp1On2fZmRJ2slgL/B1Yij7thbKfK+9JOyCMHl73Xmm82vAfVtpBCsVEbg/+5U
- o5Oc1wvySZyqwxkGMStRNlivbzpYheyzahPCvDPq5VAqULiNQGAeGc61bP66lF1Tzf5f
- fT1Q==
+ bh=lku3mSpHphjbjAm2T6u+ieCGGFFROzE48as9JT2wvy4=;
+ b=SX2EKjGXvall0/Z2aQXKNN40J9iu/5gt62fnBonYd4iTXwBUf+sCVaAzpVbMH5uCmM
+ DJlUFt8PlDKS55Zjo2N8AKfj2T1amMgkvj0zCQizOhpTsXUvuFRFyzFgGJLy9xeUeET5
+ Hg2ncSBCSFb04yEUlZDxCa13Eww314wCAWL9HMo7GoJjjwS+tI6e1kmH3AcDu9qfDhra
+ hklB5dk0bpx4pg7+p1acdPn1J2RoTCfrTLNOmUeONPjXtd8Tv6VtQXMzaebsWGMXM8kN
+ BahYXF0ckqo2jPL8pslZKxEKnrvj/1/k+BzuLLeI4MewshQC4I/cSV5tV4lSK03Ogn4A
+ YkoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691427587; x=1692032387;
+ d=1e100.net; s=20221208; t=1691427630; x=1692032430;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=7ax9C43p8yvCgXdr8o1/JSyuVrQ/jKmhK3V7gAOikHI=;
- b=Hr44qkvIGum6C7sG51zGKIWY3dKJ0ZIJxXwlgufTNMEM85reqLhKY+A5zjBTTcolHU
- b7Osp2YzUobu+kV6AcCS7+MxoQ2FGYucsP+EUYXt42d+aTrt2TQzmjHKeQobYqKVfLNJ
- gmSLNfzD2nuZxZTB3tiXuggNZAmBaapBn1u9qKhcjf9fS6Gl2WQmrIfb/PiJiePvMV42
- u71KJcH/ohzdIAvkDYg67lq6xX+9FxlpNSUiN/9FMacDxQ9JQZ+e+kvQ99/INdk3prJW
- j/LmQ/lBsgdFKAjVH/wIMiocJ1Ede3FMrK1qr4AaS/6U0kbY5DnsYJEySPvfvydXC1Zp
- Wydg==
-X-Gm-Message-State: AOJu0YxLwkvz3gBMV87NF3N1qG4oNHmRKz16x9+m3d664OeD4Ewnync2
- a+AFS7cT+eOs13qoDsBC/HeZ5SnxqWUeK4U9n4c=
-X-Google-Smtp-Source: AGHT+IFmme4ushlh2m2FZxt8mISEYn+sHW9P8tCSwnkoeWtKO4qfTLMRlv9PUG+aufP2O3fRjzdFNcv0UOVJGV0GRnk=
-X-Received: by 2002:a05:6870:fbaa:b0:1b4:7191:6d62 with SMTP id
- kv42-20020a056870fbaa00b001b471916d62mr11720054oab.35.1691427587021; Mon, 07
- Aug 2023 09:59:47 -0700 (PDT)
+ bh=lku3mSpHphjbjAm2T6u+ieCGGFFROzE48as9JT2wvy4=;
+ b=i4q8EnMPS633jrradYvY8arCjfO9S501OIzOJC4qjX43LYjNq14iS/gigktE+G4nTT
+ 57b+Usq+G1evNGlu2JxyqV2ZiHmOXbe9A9DDYZ5wrjtAzKK3A7yelhkT5oLJep1KrRF7
+ 167QqKUJy9yeqiDFXPRGSR8YUd+abp+6cvlRiuNgcK7mZMOElhoYTZ1moqbn2IehLJe7
+ W+GCca2lywNhmM9Um4M4aY47oozJbbJrBOiglNdmE3hbxLdlWWxzWNBXlfLOA5lS5FT4
+ ZxGFVQsarzkYMI8prx/wPWnynKDFahI1jRfzwoikS6vv+Z5uhn26hBsis5E2474FdJCU
+ y7yw==
+X-Gm-Message-State: AOJu0YxtMjKL5ivNqwAlkNlc/tpPoMcyrdvGw4rRYdx0kINa70P1mmac
+ XzHcaGULuM73FMZD/E5t8IcJ+c68tL0Q/mph670=
+X-Google-Smtp-Source: AGHT+IEmC/Wgxm1ABfio+rgysFi4QGc2WlU+VbH6VcqTcPPP94QUOhpIpKpBepbgXQyZs7IiZs06eybqfXGakEDOmi4=
+X-Received: by 2002:a9d:6449:0:b0:6b9:c7de:68e0 with SMTP id
+ m9-20020a9d6449000000b006b9c7de68e0mr7794469otl.29.1691427630302; Mon, 07 Aug
+ 2023 10:00:30 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230802014800.8945-1-sunran001@208suo.com>
-In-Reply-To: <20230802014800.8945-1-sunran001@208suo.com>
+References: <20230802015557.9034-1-sunran001@208suo.com>
+In-Reply-To: <20230802015557.9034-1-sunran001@208suo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Aug 2023 12:59:36 -0400
-Message-ID: <CADnq5_N5jZMTTBCkEZ8YBY=ab01biGi0LstzrQzCzJ_xUnB30A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: Clean up errors in hwmgr.h
+Date: Mon, 7 Aug 2023 13:00:19 -0400
+Message-ID: <CADnq5_PdmvM_hNcpJRgg1DLCO9TfPJ2krHtAWFBZYLY6wZOxcA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Clean up errors in smu73.h
 To: Ran Sun <sunran001@208suo.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -74,53 +74,173 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Tue, Aug 1, 2023 at 9:48=E2=80=AFPM Ran Sun <sunran001@208suo.com> wrote=
+On Tue, Aug 1, 2023 at 9:56=E2=80=AFPM Ran Sun <sunran001@208suo.com> wrote=
 :
 >
 > Fix the following errors reported by checkpatch:
 >
 > ERROR: open brace '{' following struct go on the same line
-> ERROR: Use C99 flexible arrays
+> ERROR: space prohibited before open square bracket '['
+> ERROR: "foo * bar" should be "foo *bar"
 >
 > Signed-off-by: Ran Sun <sunran001@208suo.com>
 > ---
->  drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h | 8 +++-----
->  1 file changed, 3 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/amd/pm/powerplay/inc/smu73.h | 45 ++++++++------------
+>  1 file changed, 17 insertions(+), 28 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/d=
-rm/amd/pm/powerplay/inc/hwmgr.h
-> index 612d66aeaab9..81650727a5de 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-> @@ -190,8 +190,7 @@ struct phm_vce_clock_voltage_dependency_table {
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/smu73.h b/drivers/gpu/d=
+rm/amd/pm/powerplay/inc/smu73.h
+> index c6b12a4c00db..cf4b2c3c65bc 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/inc/smu73.h
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/inc/smu73.h
+> @@ -37,8 +37,7 @@ enum Poly3rdOrderCoeff {
+>      POLY_3RD_ORDER_COUNT
 >  };
 >
->
-> -enum SMU_ASIC_RESET_MODE
+> -struct SMU7_Poly3rdOrder_Data
 > -{
-> +enum SMU_ASIC_RESET_MODE {
->      SMU_ASIC_RESET_MODE_0,
->      SMU_ASIC_RESET_MODE_1,
->      SMU_ASIC_RESET_MODE_2,
-> @@ -516,7 +515,7 @@ struct phm_vq_budgeting_record {
+> +struct SMU7_Poly3rdOrder_Data {
+>      int32_t a;
+>      int32_t b;
+>      int32_t c;
+> @@ -51,8 +50,7 @@ struct SMU7_Poly3rdOrder_Data
 >
->  struct phm_vq_budgeting_table {
->         uint8_t numEntries;
-> -       struct phm_vq_budgeting_record entries[1];
-> +       struct phm_vq_budgeting_record entries[0];
->  };
+>  typedef struct SMU7_Poly3rdOrder_Data SMU7_Poly3rdOrder_Data;
 >
->  struct phm_clock_and_voltage_limits {
-> @@ -607,8 +606,7 @@ struct phm_ppt_v2_information {
->         uint8_t  uc_dcef_dpm_voltage_mode;
->  };
->
-> -struct phm_ppt_v3_information
+> -struct Power_Calculator_Data
 > -{
-> +struct phm_ppt_v3_information {
->         uint8_t uc_thermal_controller_type;
+> +struct Power_Calculator_Data {
+>    uint16_t NoLoadVoltage;
+>    uint16_t LoadVoltage;
+>    uint16_t Resistance;
+> @@ -71,8 +69,7 @@ struct Power_Calculator_Data
 >
->         uint16_t us_small_power_limit1;
+>  typedef struct Power_Calculator_Data PowerCalculatorData_t;
+>
+> -struct Gc_Cac_Weight_Data
+> -{
+> +struct Gc_Cac_Weight_Data {
+>    uint8_t index;
+>    uint32_t value;
+>  };
+> @@ -187,8 +184,7 @@ typedef struct {
+>  #define SMU73_THERMAL_CLAMP_MODE_COUNT 8
+>
+>
+> -struct SMU7_HystController_Data
+> -{
+> +struct SMU7_HystController_Data {
+>      uint16_t waterfall_up;
+>      uint16_t waterfall_down;
+>      uint16_t waterfall_limit;
+> @@ -199,8 +195,7 @@ struct SMU7_HystController_Data
+>
+>  typedef struct SMU7_HystController_Data SMU7_HystController_Data;
+>
+> -struct SMU73_PIDController
+> -{
+> +struct SMU73_PIDController {
+>      uint32_t Ki;
+>      int32_t LFWindupUpperLim;
+>      int32_t LFWindupLowerLim;
+> @@ -215,8 +210,7 @@ struct SMU73_PIDController
+>
+>  typedef struct SMU73_PIDController SMU73_PIDController;
+>
+> -struct SMU7_LocalDpmScoreboard
+> -{
+> +struct SMU7_LocalDpmScoreboard {
+>      uint32_t PercentageBusy;
+>
+>      int32_t  PIDError;
+> @@ -261,8 +255,8 @@ struct SMU7_LocalDpmScoreboard
+>      uint8_t  DteClampMode;
+>      uint8_t  FpsClampMode;
+>
+> -    uint16_t LevelResidencyCounters [SMU73_MAX_LEVELS_GRAPHICS];
+> -    uint16_t LevelSwitchCounters [SMU73_MAX_LEVELS_GRAPHICS];
+> +    uint16_t LevelResidencyCounters[SMU73_MAX_LEVELS_GRAPHICS];
+> +    uint16_t LevelSwitchCounters[SMU73_MAX_LEVELS_GRAPHICS];
+>
+>      void     (*TargetStateCalculator)(uint8_t);
+>      void     (*SavedTargetStateCalculator)(uint8_t);
+> @@ -315,8 +309,7 @@ typedef uint8_t (*VoltageChangeHandler_t)(uint16_t, u=
+int8_t);
+>
+>  typedef uint32_t SMU_VoltageLevel;
+>
+> -struct SMU7_VoltageScoreboard
+> -{
+> +struct SMU7_VoltageScoreboard {
+>      SMU_VoltageLevel TargetVoltage;
+>      uint16_t MaxVid;
+>      uint8_t  HighestVidOffset;
+> @@ -354,7 +347,7 @@ struct SMU7_VoltageScoreboard
+>
+>      VoltageChangeHandler_t functionLinks[6];
+>
+> -    uint16_t * VddcFollower1;
+> +    uint16_t *VddcFollower1;
+>
+>      int16_t  Driver_OD_RequestedVidOffset1;
+>      int16_t  Driver_OD_RequestedVidOffset2;
+> @@ -366,8 +359,7 @@ typedef struct SMU7_VoltageScoreboard SMU7_VoltageSco=
+reboard;
+>  // ---------------------------------------------------------------------=
+----------------------------------------------------
+>  #define SMU7_MAX_PCIE_LINK_SPEEDS 3 /* 0:Gen1 1:Gen2 2:Gen3 */
+>
+> -struct SMU7_PCIeLinkSpeedScoreboard
+> -{
+> +struct SMU7_PCIeLinkSpeedScoreboard {
+>      uint8_t     DpmEnable;
+>      uint8_t     DpmRunning;
+>      uint8_t     DpmForce;
+> @@ -396,8 +388,7 @@ typedef struct SMU7_PCIeLinkSpeedScoreboard SMU7_PCIe=
+LinkSpeedScoreboard;
+>  #define SMU7_SCALE_I  7
+>  #define SMU7_SCALE_R 12
+>
+> -struct SMU7_PowerScoreboard
+> -{
+> +struct SMU7_PowerScoreboard {
+>      uint32_t GpuPower;
+>
+>      uint32_t VddcPower;
+> @@ -436,8 +427,7 @@ typedef struct SMU7_PowerScoreboard SMU7_PowerScorebo=
+ard;
+>  #define SMU7_VCE_SCLK_HANDSHAKE_DISABLE                  0x00020000
+>
+>  // All 'soft registers' should be uint32_t.
+> -struct SMU73_SoftRegisters
+> -{
+> +struct SMU73_SoftRegisters {
+>      uint32_t        RefClockFrequency;
+>      uint32_t        PmTimerPeriod;
+>      uint32_t        FeatureEnables;
+> @@ -493,8 +483,7 @@ struct SMU73_SoftRegisters
+>
+>  typedef struct SMU73_SoftRegisters SMU73_SoftRegisters;
+>
+> -struct SMU73_Firmware_Header
+> -{
+> +struct SMU73_Firmware_Header {
+>      uint32_t Digest[5];
+>      uint32_t Version;
+>      uint32_t HeaderSize;
+> @@ -708,9 +697,9 @@ typedef struct VFT_CELL_t VFT_CELL_t;
+>
+>  struct VFT_TABLE_t {
+>    VFT_CELL_t    Cell[TEMP_RANGE_MAXSTEPS][NUM_VFT_COLUMNS];
+> -  uint16_t      AvfsGbv [NUM_VFT_COLUMNS];
+> -  uint16_t      BtcGbv  [NUM_VFT_COLUMNS];
+> -  uint16_t      Temperature [TEMP_RANGE_MAXSTEPS];
+> +  uint16_t      AvfsGbv[NUM_VFT_COLUMNS];
+> +  uint16_t      BtcGbv[NUM_VFT_COLUMNS];
+> +  uint16_t      Temperature[TEMP_RANGE_MAXSTEPS];
+>
+>    uint8_t       NumTemperatureSteps;
+>    uint8_t       padding[3];
 > --
 > 2.17.1
 >
