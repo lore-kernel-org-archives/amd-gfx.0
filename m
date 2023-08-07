@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62F8DC001DE
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 17:11:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95EF9C001B0
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 17:11:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88FD310E32A;
-	Mon,  7 Aug 2023 17:11:20 +0000 (UTC)
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
- [IPv6:2607:f8b0:4864:20::c2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B62810E323;
- Mon,  7 Aug 2023 17:11:08 +0000 (UTC)
-Received: by mail-oo1-xc2e.google.com with SMTP id
- 006d021491bc7-56d6879dcaaso1355130eaf.3; 
- Mon, 07 Aug 2023 10:11:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04B3310E325;
+	Mon,  7 Aug 2023 17:11:41 +0000 (UTC)
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
+ [IPv6:2607:f8b0:4864:20::c36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33DB010E324;
+ Mon,  7 Aug 2023 17:11:36 +0000 (UTC)
+Received: by mail-oo1-xc36.google.com with SMTP id
+ 006d021491bc7-56cc461f34fso2815045eaf.0; 
+ Mon, 07 Aug 2023 10:11:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691428266; x=1692033066;
+ d=gmail.com; s=20221208; t=1691428295; x=1692033095;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=m16fJSelMd4HZcAn1Zx8fvrGuQ+wWIhwtRhDA7myOIk=;
- b=MSYUk2F8V927UzOSmS+4fdZ/330PbUEqDcZWJVNyRRIp9V6BPcn2m0AmB74eqD1M8x
- z0/qzM7eRkxnPVmq3Ch2bhLig/AFhcec/LAVgsAPiyZqPrGIqqVmw+eASt47JkTcht2h
- eMF1YRIkHsN5x5ZGhA39FqaAPr4HCsuZupYPB+yc8N84NnQAy4qJaTbf4MD8fUUdA05K
- FB6fC383Ff6S4GIedCwd25vetvo1EhDYEJFnIqE96l3b0TFbgwKjBz28O69wQ9jJNxZd
- dKRgbnpStZBSuJWUmSdmIUe9EoR57gILkXm9RN/jJtuem6Jw99xiLkSXGmlyXBXA5B0/
- 7NZA==
+ bh=0cb719TiPSFcf9uKZA1yFMTUpQqmltNXq0TvmhepyQ0=;
+ b=iZPqUxsoLXrPzqwuobnTpx/R9Sgwl9x0cdvCVM9Ne1AdS7BMX+OcpQlLyA9Whfray6
+ fyq3f66qtgIZIbEh55XMI4dTChcsaqdiAeeprULuVuhouJ0hX4I9JEGxd6pb/q3WNQSV
+ RRFznkugFVEmfoIQ4F3IYFnlo0t9u/fK0syCFU92gvm1iQ3HkOHydOhlADPajgl748aC
+ YRYIOkLYCUDVZhJdEgkA7ww+Odmj6zFXVerp21sL+cjfuCPab9zi554KuiDHwmnAS3df
+ klyPA48fAd3uIA0rqyxXa/C3QLbAGWsSWoaJFsL/Jx1l0F8Loo1p4ejJ7lvrVvV6y/jS
+ ln6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691428266; x=1692033066;
+ d=1e100.net; s=20221208; t=1691428295; x=1692033095;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=m16fJSelMd4HZcAn1Zx8fvrGuQ+wWIhwtRhDA7myOIk=;
- b=AlqmP1FKRsdPPTYqIJ9BgVkxHwF9lcWnh+ax4nbrzuc/E7vEMDEE4d7FqjqZfecB/I
- QXQad8UomMrh2YHShGzB8XWTzLsACTOotlbyh9uN6y3EKKguQplbcKjqUsjJdx3CHfCQ
- gWh7u5GEIhGkQFCUVp4mhAEXduVau3Al/h/D6iIk0YoZaR08hyrDcm/nXvSvTOwSHioZ
- KWlQKPqhj00ofC6PCpoQY09JE/uAeVJxC0wyJyGhaG6Wpc1vzZP5HOxradh+H9s9dy4o
- aBBF5o64KOZmYf4Z4gGEuFZz2nuBE+FanUt48c27N/hJ5fswcW/6EqBEP6tan80mhmhL
- gM8w==
-X-Gm-Message-State: AOJu0YycejKVvpxnFIlquaORytX8nTDY///X+MbRT3V6n9BB1WGCa2Zm
- TKC7DZnZt1Rz9GlWMET7RyDeTIPqYJOgp4Waaz7EyRdr
-X-Google-Smtp-Source: AGHT+IE0ZWcy0BkKo64iUNra5AF7PwpsSxZjrCHZVah+Pvj31QkLtbNxbEUX8K0sOKFs700TnsTyDte7eqb6HgPsrbs=
-X-Received: by 2002:a4a:3818:0:b0:567:154:25dc with SMTP id
- c24-20020a4a3818000000b00567015425dcmr9049143ooa.7.1691428266104; Mon, 07 Aug
- 2023 10:11:06 -0700 (PDT)
+ bh=0cb719TiPSFcf9uKZA1yFMTUpQqmltNXq0TvmhepyQ0=;
+ b=Q9Wcf0fTSYqRP/owIQWOSdf2O2S7oHIe2J9zZBzZakX1Kr973ca6KLvoIzn5pUvGd3
+ KMhXSxIeutqJTHPZx8KQSG2Kpke7NKXmjn2A2PfYHXUPLYJ2tgUeEk1FL0pTvAQfDXQd
+ NM0zqfXXxXhqWNWFnhIFgXEWFKamhqO68N+CnWfGueDWWdOV1eud3AP8O5ZOW3EyDdKK
+ dQ+2UfFGl6mqjzq5ldPnUOaqFlHeAwbxuRIj3rKEz3o0cNIEGQhfFku4Q9m4uzXxuJem
+ BOfnwbpM0wuZIMp4PXpQlejB0l2loN8ZlzzR09YrF5EtyNQveT7lWwr/JJyjBwVUBf9F
+ hWvA==
+X-Gm-Message-State: AOJu0YytuyNHjBHH4EUMR8VLpeNCT0WhivV/LN4qpuAJAQot9+tAsDaU
+ LwAzHJPJuS4exzRVWBZwUxWCc5xR79kHjgenCiU=
+X-Google-Smtp-Source: AGHT+IFUJnFHo3CrequPs1Hcxl1cl53hPeVVld+cCrZ+J+VseiFurZ9BnY7NzcqbAfK/hR5QJ2sFjOC6SCbHU+UB3mI=
+X-Received: by 2002:a05:6870:350f:b0:1b4:685d:55e4 with SMTP id
+ k15-20020a056870350f00b001b4685d55e4mr11879096oah.39.1691428295449; Mon, 07
+ Aug 2023 10:11:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230802025814.10569-1-sunran001@208suo.com>
-In-Reply-To: <20230802025814.10569-1-sunran001@208suo.com>
+References: <20230802030111.10658-1-sunran001@208suo.com>
+In-Reply-To: <20230802030111.10658-1-sunran001@208suo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Aug 2023 13:10:55 -0400
-Message-ID: <CADnq5_O0O47XB0pbHFTX=afGcfa1LpD1rVVL4a+xbf1w8emEmA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Clean up errors in dcn315_smu.c
+Date: Mon, 7 Aug 2023 13:11:24 -0400
+Message-ID: <CADnq5_OZnaYnTkz7zNEDjsHxrRMXoS3HwXbtT3tuj8gL7fmzfw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Clean up errors in dcn316_clk_mgr.c
 To: Ran Sun <sunran001@208suo.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -74,26 +74,25 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Tue, Aug 1, 2023 at 10:58=E2=80=AFPM Ran Sun <sunran001@208suo.com> wrot=
+On Tue, Aug 1, 2023 at 11:01=E2=80=AFPM Ran Sun <sunran001@208suo.com> wrot=
 e:
 >
 > Fix the following errors reported by checkpatch:
 >
 > ERROR: open brace '{' following struct go on the same line
-> ERROR: code indent should use tabs where possible
 >
 > Signed-off-by: Ran Sun <sunran001@208suo.com>
 > ---
->  .../display/dc/clk_mgr/dcn315/dcn315_smu.c    | 26 +++++++++----------
->  1 file changed, 12 insertions(+), 14 deletions(-)
+>  .../gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c  | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c b=
-/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-> index 925d6e13620e..3e0da873cf4c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c
-> @@ -33,28 +33,26 @@
->  #define MAX_INSTANCE                                        6
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr=
+.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+> index 0349631991b8..09151cc56ce4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
+> @@ -45,13 +45,11 @@
+>  #define MAX_INSTANCE                                        7
 >  #define MAX_SEGMENT                                         6
 >
 > -struct IP_BASE_INSTANCE
@@ -108,35 +107,6 @@ e:
 >      struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
 >  };
 >
->  static const struct IP_BASE MP0_BASE =3D { { { { 0x00016000, 0x00DC0000,=
- 0x00E00000, 0x00E40000, 0x0243FC00, 0 } },
-> -                                        { { 0, 0, 0, 0, 0, 0 } },
-> -                                        { { 0, 0, 0, 0, 0, 0 } },
-> -                                        { { 0, 0, 0, 0, 0, 0 } },
-> -                                        { { 0, 0, 0, 0, 0, 0 } },
-> -                                        { { 0, 0, 0, 0, 0, 0 } } } };
-> +                                       { { 0, 0, 0, 0, 0, 0 } },
-> +                                       { { 0, 0, 0, 0, 0, 0 } },
-> +                                       { { 0, 0, 0, 0, 0, 0 } },
-> +                                       { { 0, 0, 0, 0, 0, 0 } },
-> +                                       { { 0, 0, 0, 0, 0, 0 } } } };
->  static const struct IP_BASE NBIO_BASE =3D { { { { 0x00000000, 0x00000014=
-, 0x00000D20, 0x00010400, 0x0241B000, 0x04040000 } },
-> -                                        { { 0, 0, 0, 0, 0, 0 } },
-> -                                        { { 0, 0, 0, 0, 0, 0 } },
-> -                                        { { 0, 0, 0, 0, 0, 0 } },
-> -                                        { { 0, 0, 0, 0, 0, 0 } },
-> -                                        { { 0, 0, 0, 0, 0, 0 } } } };
-> +                                       { { 0, 0, 0, 0, 0, 0 } },
-> +                                       { { 0, 0, 0, 0, 0, 0 } },
-> +                                       { { 0, 0, 0, 0, 0, 0 } },
-> +                                       { { 0, 0, 0, 0, 0, 0 } },
-> +                                       { { 0, 0, 0, 0, 0, 0 } } } };
->
->  #define regBIF_BX_PF2_RSMU_INDEX                                        =
-                                0x0000
->  #define regBIF_BX_PF2_RSMU_INDEX_BASE_IDX                               =
-                                1
 > --
 > 2.17.1
 >
