@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5B9FC001DB
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 17:28:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89063C04A6A
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 17:28:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A07510E364;
-	Mon,  7 Aug 2023 17:28:23 +0000 (UTC)
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5A2E10E360;
- Mon,  7 Aug 2023 17:28:19 +0000 (UTC)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-1bfafe8a425so2310107fac.3; 
- Mon, 07 Aug 2023 10:28:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39C9510E361;
+	Mon,  7 Aug 2023 17:28:57 +0000 (UTC)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5562410E35F;
+ Mon,  7 Aug 2023 17:28:53 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ 46e09a7af769-6b9defb36a2so4519472a34.2; 
+ Mon, 07 Aug 2023 10:28:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691429299; x=1692034099;
+ d=gmail.com; s=20221208; t=1691429332; x=1692034132;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=u6FY/UHSIx30Eyl3JB6lbFhNoI7t76m1Z5h0FHFcD3Q=;
- b=MYw0o2mS1cTy+1qyqEKIAgKE7BzKVVUvpaT2XZdx3nB2IZEHgOkKbL4BfL/tAT7lw1
- jHMMyGzKb6oFcXfvnBa0iAYbORSMk/1ne/+3Xe7qWFQTGEc3Jjn6TrYcQeY8R1fML0Uj
- j77kIqGN3ChpU5cD/a1rHQnpHZ4Wlkc0ezRVwJYA5srFGs58eCGn2F88hXA7++wHYCzH
- tnjFbNBppzC4A86iRy71wFSdtTYfUnoJSzCCFmLOAoPr/Qh/pZUmXFeKfIPBnFcORbx1
- VTSC1vQ1pzw5JngwVdeZr0vaXuchbTwneqGKn1cKiPsf9gPdE4MHzZMDeuvWuLIlQyWF
- Er+A==
+ bh=QfKREUB/ze/gPaxCIXzG9vbzEZPQ/IuHH12Y4Awob7s=;
+ b=bxty7KM+L7WPzdm3wHFGTYyysg+SYH9BXSLV007seXB5Q19wt8VQlX8oeXht3QmZf1
+ Y/OlgyVCs8kpIpvICbPmjbcdzA2U1M2vkRhCABjMfR5Yz1dDerNBN+EEBKw/B2nBn/OK
+ TV+XH2r598HMG0LhdZkGZCA4JgKUpVUJqxkr5/i2J+bRFGaq8rIag2FYyO0Wgs8JNpNY
+ /eWlmwjtEKJVLZsOr6SSqT/aZqkpFtGCEtcklMHw9WD1ECaS3dkayeo98EvX1vkghs03
+ OuM1UA82Fygy2vXkuDnhpQfLa8PeL3KuT8IYjcOUkNXkh9e2DaJFFGMOxxn4+ycN+380
+ nN5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691429299; x=1692034099;
+ d=1e100.net; s=20221208; t=1691429332; x=1692034132;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=u6FY/UHSIx30Eyl3JB6lbFhNoI7t76m1Z5h0FHFcD3Q=;
- b=MVB4xdVY3QAuprEy536lUf/dlneGXoT1g/1A654GuysVdm8lBuvg+2rrB9177c8Chx
- 3XKha1d6MYKB9pvC63ioLtpR63Gu+rqTAsOR1c4DNgVvNQMyxe/2XmKLCcog+flKpu35
- /fKm+ugtO6mUUWwuliXrfUr0wEZGDrWFTHwf0AscQyTyC4oAvDZKZxBXagTnpE6SDc8m
- wK3fgYMfVQPYlHyzxDxPA8BdNesVsz9FW7t2iwUP7ofmLye0zFpDN71Ok8Dfd03688VV
- 0u1t3t7o0P3v7TLcc65FT963uvSwFskMYuRVfhJ689Fh2tzsdBwuINn6H/ukrSf0ebu2
- JM6A==
-X-Gm-Message-State: AOJu0YxIGZPqRNhZWymqXNahh/kEbV4KK7rBY1z2V3ra1p0BYEChZF/C
- ACkJyLmGj5ylGUzKyri326ERrxBUlR126MoRYqfLPARr
-X-Google-Smtp-Source: AGHT+IHASMiUy5XrNmZvfsMZItI1yzQbhJ7cbtQGgY7fuzl77I6Cwqlpqrq0rHwSHjFykof0W4qkKe9uQC7EKB45UoU=
-X-Received: by 2002:a05:6870:4694:b0:1be:cc5b:6ce with SMTP id
- a20-20020a056870469400b001becc5b06cemr11564723oap.20.1691429299068; Mon, 07
- Aug 2023 10:28:19 -0700 (PDT)
+ bh=QfKREUB/ze/gPaxCIXzG9vbzEZPQ/IuHH12Y4Awob7s=;
+ b=alepllugtdDISBtqTgouFPek6JPpfgBKM0A6mFtzsmWsuoE2sAgehzdW/1uEXNkUFb
+ rIKu9tmrFV0BJ8q2AajGOVPhMIdwYeqkijRP3p1bqf0bm4FhCA204VbNmWaDEStTMKXa
+ TYVUj9SKLNvDsnP4vwv+SWKf1tOoOHHz1vMgKZwqeh1dvYyqP5ARocsN9v/jc1AuvTX3
+ +WTgrYrSpLMSak8QvzHcflgjdseBFjS7bcCdrxWAf7brOHKUfFwXr5Bsuf13XgU8YoUV
+ 19C5E3gIIVHdjH5wWja7t503CsTtxaOVWr1xc7RAO51FbtlvkwawgLGtLmPPwjqmgIQU
+ 33HQ==
+X-Gm-Message-State: AOJu0YxmxYji/ZxlkUA9r2GmJSihVm1JIC/77LSTnw4RoGlqTOiDN673
+ qTInBf20IT2jLDo8aN+9CIOJySJ5+Q7i3zhmOAfkqLlw
+X-Google-Smtp-Source: AGHT+IEGDjI/OhRxZswgmS5XS3cRKcjbbEKil1UqockkIM0pWFuIygjmrKnTeLBH5/k2i/hodn6aQ45KdNBTTbqHyzQ=
+X-Received: by 2002:a05:6870:ac22:b0:1bb:9c27:c7e6 with SMTP id
+ kw34-20020a056870ac2200b001bb9c27c7e6mr13777329oab.41.1691429332553; Mon, 07
+ Aug 2023 10:28:52 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230802072621.13162-1-sunran001@208suo.com>
-In-Reply-To: <20230802072621.13162-1-sunran001@208suo.com>
+References: <20230802072813.13252-1-sunran001@208suo.com>
+In-Reply-To: <20230802072813.13252-1-sunran001@208suo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Aug 2023 13:28:08 -0400
-Message-ID: <CADnq5_NS0yx5pu3S1WE38OaYV=O2-Tp1QGgfWD+v2r6AJWoSiA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Clean up errors in amdgpu_trace.h
+Date: Mon, 7 Aug 2023 13:28:41 -0400
+Message-ID: <CADnq5_P__8hWvVZfUzck8cd6-5aHD9P=G+FiCCw8c978gi32dg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Clean up errors in amdgpu_ring.h
 To: Ran Sun <sunran001@208suo.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -74,44 +74,33 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Wed, Aug 2, 2023 at 3:26=E2=80=AFAM Ran Sun <sunran001@208suo.com> wrote=
+On Wed, Aug 2, 2023 at 3:28=E2=80=AFAM Ran Sun <sunran001@208suo.com> wrote=
 :
 >
 > Fix the following errors reported by checkpatch:
 >
-> ERROR: space required after that ',' (ctx:VxV)
-> ERROR: "foo* bar" should be "foo *bar"
+> ERROR: spaces required around that ':' (ctx:VxW)
 >
 > Signed-off-by: Ran Sun <sunran001@208suo.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_trace.h
-> index 525dffbe046a..2fd1bfb35916 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> @@ -432,7 +432,7 @@ TRACE_EVENT(amdgpu_vm_flush,
->                            ),
->             TP_printk("ring=3D%s, id=3D%u, hub=3D%u, pd_addr=3D%010Lx",
->                       __get_str(ring), __entry->vmid,
-> -                     __entry->vm_hub,__entry->pd_addr)
-> +                     __entry->vm_hub, __entry->pd_addr)
->  );
->
->  DECLARE_EVENT_CLASS(amdgpu_pasid,
-> @@ -494,7 +494,7 @@ TRACE_EVENT(amdgpu_cs_bo_status,
->  );
->
->  TRACE_EVENT(amdgpu_bo_move,
-> -           TP_PROTO(struct amdgpu_bo* bo, uint32_t new_placement, uint32=
-_t old_placement),
-> +           TP_PROTO(struct amdgpu_bo *bo, uint32_t new_placement, uint32=
-_t old_placement),
->             TP_ARGS(bo, new_placement, old_placement),
->             TP_STRUCT__entry(
->                         __field(struct amdgpu_bo *, bo)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ring.h
+> index 028ff075db51..e2ab303ad270 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -389,7 +389,7 @@ static inline void amdgpu_ring_write_multiple(struct =
+amdgpu_ring *ring,
+>         occupied =3D ring->wptr & ring->buf_mask;
+>         dst =3D (void *)&ring->ring[occupied];
+>         chunk1 =3D ring->buf_mask + 1 - occupied;
+> -       chunk1 =3D (chunk1 >=3D count_dw) ? count_dw: chunk1;
+> +       chunk1 =3D (chunk1 >=3D count_dw) ? count_dw : chunk1;
+>         chunk2 =3D count_dw - chunk1;
+>         chunk1 <<=3D 2;
+>         chunk2 <<=3D 2;
 > --
 > 2.17.1
 >
