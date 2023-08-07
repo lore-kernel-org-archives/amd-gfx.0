@@ -4,89 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA4AEB64DD
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 09:09:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74985C001DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 10:23:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0466F10E1CB;
-	Mon,  7 Aug 2023 09:09:29 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2046.outbound.protection.outlook.com [40.107.243.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF28B10E1CB
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Aug 2023 09:09:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D076610E22A;
+	Mon,  7 Aug 2023 10:23:00 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2078.outbound.protection.outlook.com [40.107.220.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66AF810E204
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Aug 2023 10:22:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jvIY+ZsWvfyvxM++YZxmVOYTXTvXuQoEnrr806F4UoCb0sFFImNghXuzPxDL9AQDJuUAgkDdZ6c8r0Zn2n/tlMowqCkbXq/8r/0Tm/ms9KPDJYqrV4DuLf/zYEPqZCIKKwVIdpRaReWrNGNf50ZSBpSoOxgyCDIjttwN8mzwQ/yhewAHeSHwOSp3Xl9l9YZMuo9RSi3JVU+CtKlyxYglLLOuKgTwWyDOiWQY8XMDthWxs+MWFDhIzgdxW9l7sfyYVMWc5lcpy15jWIJcmYfwWk/ArE25kHNLPq26EV/8NzPtyq1seulxueZHxPa511Pmf/34+erpayqIwOmtGIQvoA==
+ b=QLyAqP90MTMjmL+xoectfECzvPKDGG+XFSeBU/MWp3Gn9VOD2mP61hVPGXmOFgbmi8bVCHLzuiEDGrDXFe5TXf9u/jzInSd9vThi6PV85Pehx2ul2MfSxA5fJo+YTzPM4HzUd0zuMy9Med5yxVppJEoELnKIc2lrIfNc/AW/i/A7vE2JVlVzosB7NhUGjngvj/zjzKxJx5dxC+0jo1DpDgXOMEVef6BK/5f7ieChceFkFsiQtvWsrHXg8wrCwwSzLzfVyuSQzSdk0StVWAoXtQRq12namv6GfTZvnmgv2qL9cMCsOb8YbsyMCD+0HDao5VZ/i7RxyKIkCitl2EP08Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fgZcOaxrhtospsSqGUeaSk0JEQDef7wfhrlTtaYVVkI=;
- b=hLKYABb31+NmY9AYisJEPG2euIn8Yh6eGBotLZri+h4YS411JmFO5QrScI7mYe/Le/MtuUp5CpbU47HT1YCoidh22TykYWhzKScvSTxbhpDRJH1AY74YdZTlXQpjVS5zhxQpoeaZFi2AerB27T5Q9OvME56kNPm9y4k2YXYYxMEsWTSI3XfP8pEprYJnFozMD+fjGiNJyPTTUlmRcN5v2Sht0pUjjemQHYzgi6jRymrJAIRsUJpymGdLqT9F1GC845ljDbTb7ifCq/5LQ+m56AlRzBZ4R+22fS5yQb8Sb0ugEV1tynT0LJheucdgz3/OkR882KufFHwPbB4OfZb0XQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=oNF4FvGafQxKg01uKEWhw9naG7mImrYVfCCZPnmJyro=;
+ b=Q/rgpAXCn6DLO8ol6m+bUlq37ZQlTkrnAjSWiLLy8D9iVTcs7orUFh7fmqREpV5fiR/xRWdPpPvJ5TpZeGIzcXr6wUfVJgod1XGcyHc5Kx6knN8vPXFDmOyzn+s5FxKNwuifAK2jH4V+lAKSJZIGwRZGsB7zLYcPLiNIbx/ar0/2jVn+D73f7AOOpSCO4q1YqfBH6zeLgIp0IVR78nB8C+0C5gh2Qk+WjVzMTyhFkq8XNbhdLKZGAmj2KbuKSBA7JfV2droYog8G85soxbDqCTV8jb6uwWV8Lxww0dwFJPnWUy0wl5HRBsnM5thQXPeFcxf683pfW69Kxtta84AEbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fgZcOaxrhtospsSqGUeaSk0JEQDef7wfhrlTtaYVVkI=;
- b=m10NSjXF06OAAEG5o7O8yyoDG8Z8VGb3CMPCpKa5CUFvPjUf95IH9S1/2I+Eb+qRp14EdVczC1zO61bytG4yaQ2y8dkhF/rFwy8MaowHUPUiYnhkvNsr26nH9J6noQJMARLzDMoQmQYvDxLhXrBWo2sYqy8YVhy6sOHb3Isqofw=
-Received: from DM6PR14CA0059.namprd14.prod.outlook.com (2603:10b6:5:18f::36)
- by LV8PR12MB9110.namprd12.prod.outlook.com (2603:10b6:408:18b::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.25; Mon, 7 Aug
- 2023 09:09:24 +0000
-Received: from CY4PEPF0000EDD7.namprd03.prod.outlook.com
- (2603:10b6:5:18f:cafe::99) by DM6PR14CA0059.outlook.office365.com
- (2603:10b6:5:18f::36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.26 via Frontend
- Transport; Mon, 7 Aug 2023 09:09:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD7.mail.protection.outlook.com (10.167.241.211) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6652.19 via Frontend Transport; Mon, 7 Aug 2023 09:09:24 +0000
-Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 7 Aug
- 2023 04:09:21 -0500
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <stanley.yang@amd.com>,
- <hawking.zhang@amd.com>, <candice.li@amd.com>, <yipeng.chai@amd.com>
-Subject: [PATCH] drm/amdgpu: add RAS fatal error handler for NBIO v7.9
-Date: Mon, 7 Aug 2023 17:09:12 +0800
-Message-ID: <20230807090912.12145-1-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.35.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD7:EE_|LV8PR12MB9110:EE_
-X-MS-Office365-Filtering-Correlation-Id: 542d1264-e9fb-4a08-649c-08db9725feac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lFo/n1Se6VO1CxQnzwj1NrYuoAdoEyd31sQqJe+aYLSP7hpEF12P0aAzfp+AU0r4sJpBlyOAmWFWIG5X6bK+dR9sngmcNZXn7JOtwhRWaYW7DULNh8rzVb0EbSaotVr+wncIAMFOm5zyCOLyLPBELU5GL5YuOnC83J9dPTW1HSES64SgUMkUU8AJefkSOcakIqu5FxvsoxHCXLFR83O0ncCMzfkZyFKUXanYLo5p1cJa7V/VK1a0EJiqnJS5atCQ9Y0ytGWHzhhcqvIqay50dvQ0mNuk/rzIib//AXUNzzAAo1o18WFnqbAZrkID4V0161PG0O3op2rG8VmzSWq0pCe5/uXm5F8Zk2BUeJBR62ViHn+pM+tvu4x/HHxkJJXu42HjpjJcLe4VazfLPB5/VwDH7lw0NMheVGlcPpp0w89qDMef5qxK3MS+SPHmPl2mdIlLa9S/s1p5M0P/XQBHhPda1Lbu6sSFdbYTHmt7DhGL0RdseI93zleSS292fHDYxALxkoaBh3SUR34n3L1/zMTOPO2IAQcXkvqYn+LKPTWnI4cohTaCAPX7w/gdiGM+7tbO7qhfqTKrC+pqTNqIB8Fyc2vUhhQz9eb4yi1l4Yn5c0m32UdM6Xo1UpX7nkx6G3lThhewuuYbXcXeTXL1k5IfE0IEhsdhs+l6QYs5aiFK1oV9YOiA3vd2RQQUFAz5L9BOsU6g34fzO3QsMH0WTRqJOHQ9gY/8/cPjVs171SfGUiklpUA5LlJ+zhmboh73XNNs7ZKCuWnsXmX4g3DIIw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(376002)(346002)(39860400002)(396003)(186006)(1800799003)(82310400008)(451199021)(46966006)(40470700004)(36840700001)(83380400001)(426003)(47076005)(36860700001)(2616005)(40460700003)(40480700001)(54906003)(110136005)(2906002)(6636002)(4326008)(316002)(5660300002)(8936002)(8676002)(336012)(70206006)(70586007)(16526019)(86362001)(478600001)(82740400003)(81166007)(6666004)(7696005)(356005)(41300700001)(36756003)(26005)(1076003)(36900700001);
+ bh=oNF4FvGafQxKg01uKEWhw9naG7mImrYVfCCZPnmJyro=;
+ b=YHKR4DUeLB8/rsPIJGt6NXw1YCGJDxKhoTP+aca8d6PzsP4QjPZD4tEKoHp6ukDxMHnWm2bvwthmbPz3m9GvKGUFNvKReH65+yBN+OX7W8mfB6wg60MK3fAunoEw4wgBkJMgSyYybQrU70+C2w3HHisZkQvDYqMpI9KwdeSyiuU=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by SN7PR12MB6929.namprd12.prod.outlook.com (2603:10b6:806:263::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.27; Mon, 7 Aug
+ 2023 10:22:52 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::4d17:c920:ea2e:3b2d]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::4d17:c920:ea2e:3b2d%4]) with mapi id 15.20.6652.026; Mon, 7 Aug 2023
+ 10:22:51 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2] drm/amdgpu: Add FRU sysfs nodes only if needed
+Thread-Topic: [PATCH v2] drm/amdgpu: Add FRU sysfs nodes only if needed
+Thread-Index: AQHZyQmsDKcw2x67wUq/eaxOj6Yvg6/eoBSA
+Date: Mon, 7 Aug 2023 10:22:51 +0000
+Message-ID: <BN9PR12MB5257A820DFE4F997077BCDCCFC0CA@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20230807083153.509539-1-lijo.lazar@amd.com>
+In-Reply-To: <20230807083153.509539-1-lijo.lazar@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=8e439437-67d2-42a6-a78d-5b8441c218a3;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-08-07T10:22:33Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SN7PR12MB6929:EE_
+x-ms-office365-filtering-correlation-id: 2b1b0f5b-3b72-49c2-2506-08db9730419c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 5yU5eVK9IG6JSbrRjktbfLBZ41YeUdPTCnOF/IDviUo1/zhXue3YO9UR4sceG9peIPv2kk/dz8R9+aWpdQWG8R0A2sBAon3bxGWrOumRybYGS54eBFDdmXBZy+1CE4S5fk5YMkHnyNhXeM1TztemYf+FLPXsOBBK7PXqUqoCHtOzBu6tX5t4TZdBx9AtpLHGZrYb3wiGRd1CMcC7WqNyQGtYcYZK/4nk7oBmlM5VkTy2c5/cC9cS553AcIzTQWdkZAQuWMoliddxH85EjDVQXN42btxHW6EpDxn473Yj3Mt9ZBllYCrpGLiqFo3oyDC8zR3ZxRgCM9lkKAbS3U+6B0DGMr/CrGr3CD9qh3z0P90Fo4zC8JdO302jd+tTz5ZQ/MI/TOo/oiuA2hstSAklfoL3LosbfsiW0Kl6zDClu4KSYukyqf+db2uHNGtPUUH7CxLRg1vxDKGrJsk9fRh+rRw+njecJfXpQfa2ioPRFkN1cRwNOYrW29tX8cPc3Bxu7JsdfCHKunlRUVXAB/gQi/sJmlCRypl4pbMUB65inrLmQXhE9l/A6ZruOSEwvaBsL/ETXoUE8InM7ES2ctijbpIRu6fXTCu4wp1dNMTCUWiOL1qQC0lVZ/gSC5cMyyqo
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(39860400002)(396003)(346002)(376002)(366004)(451199021)(186006)(1800799003)(41300700001)(7696005)(9686003)(71200400001)(122000001)(38100700002)(83380400001)(6506007)(26005)(53546011)(55016003)(316002)(110136005)(33656002)(86362001)(38070700005)(478600001)(2906002)(66556008)(66476007)(66446008)(64756008)(4326008)(76116006)(66946007)(8676002)(8936002)(5660300002)(52536014);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ufs4g2VQlmOuFRQOVCdPAYzSkzJeOJygTs2KnRXvWSoSF1iIKXj8Cy7wPRtA?=
+ =?us-ascii?Q?LxVK2Xk7w9O5qeikoxlCJjPuNdREpvo3APoOUc+UuevX5wwMjYQpqQoVv4bc?=
+ =?us-ascii?Q?9uycQcqXXcr1MKRUKRe1UcCxTj5884fah/O58muZxjWT+rsKWtX6abc22Vg1?=
+ =?us-ascii?Q?+utqV9BlOzVwbaKcghnk1BS6nG2f0NmQblIJNdzQB6PAACDP8PFaMI2AfZjX?=
+ =?us-ascii?Q?7xNOQ8IOJRlTdi2nvJa8aSrUsQ/7xAQotZxLR0p8p1A5o1vHXwXFrYyM/FoQ?=
+ =?us-ascii?Q?LkKSgG2pnmdMUNx6FBUbH1b0D6s9IFB1KfA/dHlnIrQznzojOeTsUXF+uCPO?=
+ =?us-ascii?Q?CUnoL0vdVOTdZxKyFxIimn8Wdqaj7eDMflAVD0ZcbCrsA95VITlUp91nNmOS?=
+ =?us-ascii?Q?5V/P7brcXvOduqwm3uKoMe7S0U0yVaTboOE37flXBU5MelunKSwBQrhg0N4U?=
+ =?us-ascii?Q?JZIrSmSsFbSM79rXv93ZJfwG5N1dY3FQos09oaSY5LM+g6PQ04UHGZune0uL?=
+ =?us-ascii?Q?buJ77/VmlUvYhIojF/1G3aN1u1lZr9cW6a4I2Hqid4vviLPiz4jtyMWpatFK?=
+ =?us-ascii?Q?5WY5KDttFAOPCNTIgctynl3DK1jSK15u2SxJ1E9e1UCIKnwHpA5uhQJ8wtAL?=
+ =?us-ascii?Q?4vDSpCE/opjahsVpIW6w7FoicfhVPr2R58nQGyuIt9O8VaEMGPSml8w2kyda?=
+ =?us-ascii?Q?Klbv5XYA35D9ijZFy3+ygETSIOg5eotp2YgDTte7bahkmGpzvhrV2EXavqBP?=
+ =?us-ascii?Q?CByDAPnZdQHR4K65S2FRBZh51wBobNRTrE7zQuDS8RavCMEJIYWdmOsVEXUR?=
+ =?us-ascii?Q?GDr6aA4k4TUkaJ4teUZFJLCx4pcCOovHZxCY1nOSd7qcMAjLLXJGJmXQLP0H?=
+ =?us-ascii?Q?cBQ24K7acT6tJdLifdf7pil1MwUxRVhO5e0GeLoBB5ZtsaLGTWJqvH9n8omu?=
+ =?us-ascii?Q?UrUF5HtPzz0yGKaIPaWroaB+Qbgan2P6DISIf2Nyv+RCvEIj2n17lyOvhHdw?=
+ =?us-ascii?Q?INnwTW/DiN0q1AdoFFr+0RMf+sG8lX5tc/3aikKbrG11iKYCNYsaUJm7/zwu?=
+ =?us-ascii?Q?QdbLcLTksKbUoLTb6MhmU8bEqpCsLne8aWtYq5YInJHQs+vnXynTOMGth84+?=
+ =?us-ascii?Q?5+GW2kaJV9QXlLxkWBv3DYDpzgOtMqj5vIib4ZVokkRt5pn5YF5JNqoYj0Tg?=
+ =?us-ascii?Q?TrayUZ51pnlunHyXm40BBQuG0BwkGSStJVXHqSj0IQgtPqyMzKwt6vKqqOxv?=
+ =?us-ascii?Q?BDDet1qVZecdTcAxqNboAFJuMYKFGD7U84ZHNXx9Sjnbg+g3zcO4XnZu9yU6?=
+ =?us-ascii?Q?q51U8/lXrrsdVtcs+K4X1yT49o5K6HlDudkDED6WadYKbXQ+aV1DVgw4WJg0?=
+ =?us-ascii?Q?cl2sg5h7tPXjjAEUaSlnh0JmRNGmd8/0De7FMkOQGoQQ08apl1uEsIMHAMMy?=
+ =?us-ascii?Q?dKkEZof+2rDwHiMcVcQERZNA4HIYGvTkQl4L88hDRoTVpAl/TzPA2w3K5gGK?=
+ =?us-ascii?Q?mIepF2/+BvwhOFZn6KMlp6DzkWeycWD86BNOJCr4JgVNYrf0379T598jJA3+?=
+ =?us-ascii?Q?Rdc6+CruPFj7LZTlZfw=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2023 09:09:24.4258 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 542d1264-e9fb-4a08-649c-08db9725feac
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD7.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9110
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b1b0f5b-3b72-49c2-2506-08db9730419c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2023 10:22:51.7577 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 5CMTonuWBFlHq5Ulj6F7P0D03VpgSMDbpsBKjgnsyAB36MHzgful8VdBx31pDoO9Z8npoSBSv8fE+4HcIG6DNA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6929
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,253 +122,253 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Register RAS fatal error interrupt and add handler.
+[AMD Official Use Only - General]
 
-v2: only register NBIO RAS for dGPU platform.
-    change nbio_v7_9_set_ras_controller_irq_state and nbio_v7_9_set_ras_err_event_athub_irq_state
-    to dummy functions.
-
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |   5 +
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c  | 187 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.h  |   1 +
- 3 files changed, 193 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index bb29cb57add5..00658c2816dc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -35,6 +35,7 @@
- #include "amdgpu_xgmi.h"
- #include "ivsrcid/nbio/irqsrcs_nbif_7_4.h"
- #include "nbio_v4_3.h"
-+#include "nbio_v7_9.h"
- #include "atom.h"
- #include "amdgpu_reset.h"
- 
-@@ -2644,6 +2645,10 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- 			 * check DF RAS */
- 			adev->nbio.ras = &nbio_v4_3_ras;
- 		break;
-+	case IP_VERSION(7, 9, 0):
-+		if (!adev->gmc.is_app_apu)
-+			adev->nbio.ras = &nbio_v7_9_ras;
-+		break;
- 	default:
- 		/* nbio ras is not available */
- 		break;
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-index 1d1ab188ef15..781f98655567 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-@@ -471,3 +471,190 @@ const struct amdgpu_nbio_funcs nbio_v7_9_funcs = {
- 	.init_registers = nbio_v7_9_init_registers,
- 	.get_pcie_replay_count = nbio_v7_9_get_pcie_replay_count,
+Regards,
+Hawking
+-----Original Message-----
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Monday, August 7, 2023 16:32
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Add FRU sysfs nodes only if needed
+
+Create sysfs nodes for FRU data only if FRU data is available. Move the log=
+ic to FRU specific file.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+
+v2: Add fru sysfs fini to take care of removing files (Hawking)
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 71 +--------------
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 89 +++++++++++++++++++
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h    |  2 +
+ 3 files changed, 94 insertions(+), 68 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 0d602abd32ba..4f818f13dc9d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -164,71 +164,6 @@ static DEVICE_ATTR(pcie_replay_count, 0444,
+
+ static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev);
+
+-/**
+- * DOC: product_name
+- *
+- * The amdgpu driver provides a sysfs API for reporting the product name
+- * for the device
+- * The file product_name is used for this and returns the product name
+- * as returned from the FRU.
+- * NOTE: This is only available for certain server cards
+- */
+-
+-static ssize_t amdgpu_device_get_product_name(struct device *dev,
+-               struct device_attribute *attr, char *buf)
+-{
+-       struct drm_device *ddev =3D dev_get_drvdata(dev);
+-       struct amdgpu_device *adev =3D drm_to_adev(ddev);
+-
+-       return sysfs_emit(buf, "%s\n", adev->product_name);
+-}
+-
+-static DEVICE_ATTR(product_name, 0444,
+-               amdgpu_device_get_product_name, NULL);
+-
+-/**
+- * DOC: product_number
+- *
+- * The amdgpu driver provides a sysfs API for reporting the part number
+- * for the device
+- * The file product_number is used for this and returns the part number
+- * as returned from the FRU.
+- * NOTE: This is only available for certain server cards
+- */
+-
+-static ssize_t amdgpu_device_get_product_number(struct device *dev,
+-               struct device_attribute *attr, char *buf)
+-{
+-       struct drm_device *ddev =3D dev_get_drvdata(dev);
+-       struct amdgpu_device *adev =3D drm_to_adev(ddev);
+-
+-       return sysfs_emit(buf, "%s\n", adev->product_number);
+-}
+-
+-static DEVICE_ATTR(product_number, 0444,
+-               amdgpu_device_get_product_number, NULL);
+-
+-/**
+- * DOC: serial_number
+- *
+- * The amdgpu driver provides a sysfs API for reporting the serial number
+- * for the device
+- * The file serial_number is used for this and returns the serial number
+- * as returned from the FRU.
+- * NOTE: This is only available for certain server cards
+- */
+-
+-static ssize_t amdgpu_device_get_serial_number(struct device *dev,
+-               struct device_attribute *attr, char *buf)
+-{
+-       struct drm_device *ddev =3D dev_get_drvdata(dev);
+-       struct amdgpu_device *adev =3D drm_to_adev(ddev);
+-
+-       return sysfs_emit(buf, "%s\n", adev->serial);
+-}
+-
+-static DEVICE_ATTR(serial_number, 0444,
+-               amdgpu_device_get_serial_number, NULL);
+
+ /**
+  * amdgpu_device_supports_px - Is the device a dGPU with ATPX power contro=
+l @@ -3550,9 +3485,6 @@ static void amdgpu_device_check_iommu_direct_map(st=
+ruct amdgpu_device *adev)  }
+
+ static const struct attribute *amdgpu_dev_attributes[] =3D {
+-       &dev_attr_product_name.attr,
+-       &dev_attr_product_number.attr,
+-       &dev_attr_serial_number.attr,
+        &dev_attr_pcie_replay_count.attr,
+        NULL
  };
+@@ -3967,6 +3899,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+        if (r)
+                dev_err(adev->dev, "Could not create amdgpu device attr\n")=
+;
+
++       amdgpu_fru_sysfs_init(adev);
 +
-+static void nbio_v7_9_query_ras_error_count(struct amdgpu_device *adev,
-+					void *ras_error_status)
+        if (IS_ENABLED(CONFIG_PERF_EVENTS))
+                r =3D amdgpu_pmu_init(adev);
+        if (r)
+@@ -4086,6 +4020,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev=
+)
+        if (adev->ucode_sysfs_en)
+                amdgpu_ucode_sysfs_fini(adev);
+        sysfs_remove_files(&adev->dev->kobj, amdgpu_dev_attributes);
++       amdgpu_fru_sysfs_fini(adev);
+
+        /* disable ras feature must before hw fini */
+        amdgpu_ras_pre_fini(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_fru_eeprom.c
+index 8c3ee042556a..9c66d98af6d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+@@ -212,3 +212,92 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *=
+adev)
+        kfree(pia);
+        return 0;
+ }
++
++/**
++ * DOC: product_name
++ *
++ * The amdgpu driver provides a sysfs API for reporting the product
++name
++ * for the device
++ * The file product_name is used for this and returns the product name
++ * as returned from the FRU.
++ * NOTE: This is only available for certain server cards  */
++
++static ssize_t amdgpu_fru_product_name_show(struct device *dev,
++                                           struct device_attribute *attr,
++                                           char *buf)
 +{
-+	return;
-+}
++       struct drm_device *ddev =3D dev_get_drvdata(dev);
++       struct amdgpu_device *adev =3D drm_to_adev(ddev);
 +
-+static void nbio_v7_9_handle_ras_controller_intr_no_bifring(struct amdgpu_device *adev)
++       return sysfs_emit(buf, "%s\n", adev->product_name); }
++
++static DEVICE_ATTR(product_name, 0444, amdgpu_fru_product_name_show,
++NULL);
++
++/**
++ * DOC: product_number
++ *
++ * The amdgpu driver provides a sysfs API for reporting the part number
++ * for the device
++ * The file product_number is used for this and returns the part number
++ * as returned from the FRU.
++ * NOTE: This is only available for certain server cards  */
++
++static ssize_t amdgpu_fru_product_number_show(struct device *dev,
++                                             struct device_attribute *attr=
+,
++                                             char *buf)
 +{
-+	uint32_t bif_doorbell_intr_cntl;
-+	struct ras_manager *obj = amdgpu_ras_find_obj(adev, adev->nbio.ras_if);
-+	struct ras_err_data err_data = {0, 0, 0, NULL};
-+	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
++       struct drm_device *ddev =3D dev_get_drvdata(dev);
++       struct amdgpu_device *adev =3D drm_to_adev(ddev);
 +
-+	bif_doorbell_intr_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL);
++       return sysfs_emit(buf, "%s\n", adev->product_number); }
 +
-+	if (REG_GET_FIELD(bif_doorbell_intr_cntl,
-+		BIF_BX0_BIF_DOORBELL_INT_CNTL, RAS_CNTLR_INTERRUPT_STATUS)) {
-+		/* driver has to clear the interrupt status when bif ring is disabled */
-+		bif_doorbell_intr_cntl = REG_SET_FIELD(bif_doorbell_intr_cntl,
-+						BIF_BX0_BIF_DOORBELL_INT_CNTL,
-+						RAS_CNTLR_INTERRUPT_CLEAR, 1);
-+		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_intr_cntl);
++static DEVICE_ATTR(product_number, 0444,
++amdgpu_fru_product_number_show, NULL);
 +
-+		if (!ras->disable_ras_err_cnt_harvest) {
-+			/*
-+			 * clear error status after ras_controller_intr
-+			 * according to hw team and count ue number
-+			 * for query
-+			 */
-+			nbio_v7_9_query_ras_error_count(adev, &err_data);
++/**
++ * DOC: serial_number
++ *
++ * The amdgpu driver provides a sysfs API for reporting the serial
++number
++ * for the device
++ * The file serial_number is used for this and returns the serial
++number
++ * as returned from the FRU.
++ * NOTE: This is only available for certain server cards  */
 +
-+			/* logging on error cnt and printing for awareness */
-+			obj->err_data.ue_count += err_data.ue_count;
-+			obj->err_data.ce_count += err_data.ce_count;
-+
-+			if (err_data.ce_count)
-+				dev_info(adev->dev, "%ld correctable hardware "
-+						"errors detected in %s block, "
-+						"no user action is needed.\n",
-+						obj->err_data.ce_count,
-+						get_ras_block_str(adev->nbio.ras_if));
-+
-+			if (err_data.ue_count)
-+				dev_info(adev->dev, "%ld uncorrectable hardware "
-+						"errors detected in %s block\n",
-+						obj->err_data.ue_count,
-+						get_ras_block_str(adev->nbio.ras_if));
-+		}
-+
-+		dev_info(adev->dev, "RAS controller interrupt triggered "
-+					"by NBIF error\n");
-+
-+		/* ras_controller_int is dedicated for nbif ras error,
-+		 * not the global interrupt for sync flood
-+		 */
-+		amdgpu_ras_reset_gpu(adev);
-+	}
-+}
-+
-+static void nbio_v7_9_handle_ras_err_event_athub_intr_no_bifring(struct amdgpu_device *adev)
++static ssize_t amdgpu_fru_serial_number_show(struct device *dev,
++                                            struct device_attribute *attr,
++                                            char *buf)
 +{
-+	uint32_t bif_doorbell_intr_cntl;
++       struct drm_device *ddev =3D dev_get_drvdata(dev);
++       struct amdgpu_device *adev =3D drm_to_adev(ddev);
 +
-+	bif_doorbell_intr_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL);
++       return sysfs_emit(buf, "%s\n", adev->serial); }
 +
-+	if (REG_GET_FIELD(bif_doorbell_intr_cntl,
-+		BIF_BX0_BIF_DOORBELL_INT_CNTL, RAS_ATHUB_ERR_EVENT_INTERRUPT_STATUS)) {
-+		/* driver has to clear the interrupt status when bif ring is disabled */
-+		bif_doorbell_intr_cntl = REG_SET_FIELD(bif_doorbell_intr_cntl,
-+						BIF_BX0_BIF_DOORBELL_INT_CNTL,
-+						RAS_ATHUB_ERR_EVENT_INTERRUPT_CLEAR, 1);
++static DEVICE_ATTR(serial_number, 0444, amdgpu_fru_serial_number_show,
++NULL);
 +
-+		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_intr_cntl);
-+
-+		amdgpu_ras_global_ras_isr(adev);
-+	}
-+}
-+
-+static int nbio_v7_9_set_ras_controller_irq_state(struct amdgpu_device *adev,
-+						  struct amdgpu_irq_src *src,
-+						  unsigned type,
-+						  enum amdgpu_interrupt_state state)
-+{
-+	/* Dummy function, there is no initialization operation in driver */
-+
-+	return 0;
-+}
-+
-+static int nbio_v7_9_process_ras_controller_irq(struct amdgpu_device *adev,
-+						struct amdgpu_irq_src *source,
-+						struct amdgpu_iv_entry *entry)
-+{
-+	/* By design, the ih cookie for ras_controller_irq should be written
-+	 * to BIFring instead of general iv ring. However, due to known bif ring
-+	 * hw bug, it has to be disabled. There is no chance the process function
-+	 * will be involked. Just left it as a dummy one.
-+	 */
-+	return 0;
-+}
-+
-+static int nbio_v7_9_set_ras_err_event_athub_irq_state(struct amdgpu_device *adev,
-+						       struct amdgpu_irq_src *src,
-+						       unsigned type,
-+						       enum amdgpu_interrupt_state state)
-+{
-+	/* Dummy function, there is no initialization operation in driver */
-+
-+	return 0;
-+}
-+
-+static int nbio_v7_9_process_err_event_athub_irq(struct amdgpu_device *adev,
-+						 struct amdgpu_irq_src *source,
-+						 struct amdgpu_iv_entry *entry)
-+{
-+	/* By design, the ih cookie for err_event_athub_irq should be written
-+	 * to BIFring instead of general iv ring. However, due to known bif ring
-+	 * hw bug, it has to be disabled. There is no chance the process function
-+	 * will be involked. Just left it as a dummy one.
-+	 */
-+	return 0;
-+}
-+
-+static const struct amdgpu_irq_src_funcs nbio_v7_9_ras_controller_irq_funcs = {
-+	.set = nbio_v7_9_set_ras_controller_irq_state,
-+	.process = nbio_v7_9_process_ras_controller_irq,
++static const struct attribute *amdgpu_fru_attributes[] =3D {
++       &dev_attr_product_name.attr,
++       &dev_attr_product_number.attr,
++       &dev_attr_serial_number.attr,
++       NULL
 +};
 +
-+static const struct amdgpu_irq_src_funcs nbio_v7_9_ras_err_event_athub_irq_funcs = {
-+	.set = nbio_v7_9_set_ras_err_event_athub_irq_state,
-+	.process = nbio_v7_9_process_err_event_athub_irq,
-+};
++int amdgpu_fru_sysfs_init(struct amdgpu_device *adev) {
++       if (!is_fru_eeprom_supported(adev, NULL))
++               return 0;
 +
-+static int nbio_v7_9_init_ras_controller_interrupt (struct amdgpu_device *adev)
-+{
-+	int r;
++       return sysfs_create_files(&adev->dev->kobj, amdgpu_fru_attributes);=
+ }
 +
-+	/* init the irq funcs */
-+	adev->nbio.ras_controller_irq.funcs =
-+		&nbio_v7_9_ras_controller_irq_funcs;
-+	adev->nbio.ras_controller_irq.num_types = 1;
++void amdgpu_fru_sysfs_fini(struct amdgpu_device *adev) {
++       if (!is_fru_eeprom_supported(adev, NULL))
++               return;
 +
-+	/* register ras controller interrupt */
-+	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_BIF,
-+			      NBIF_7_4__SRCID__RAS_CONTROLLER_INTERRUPT,
-+			      &adev->nbio.ras_controller_irq);
-+
-+	return r;
-+}
-+
-+static int nbio_v7_9_init_ras_err_event_athub_interrupt (struct amdgpu_device *adev)
-+{
-+
-+	int r;
-+
-+	/* init the irq funcs */
-+	adev->nbio.ras_err_event_athub_irq.funcs =
-+		&nbio_v7_9_ras_err_event_athub_irq_funcs;
-+	adev->nbio.ras_err_event_athub_irq.num_types = 1;
-+
-+	/* register ras err event athub interrupt */
-+	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_BIF,
-+			      NBIF_7_4__SRCID__ERREVENT_ATHUB_INTERRUPT,
-+			      &adev->nbio.ras_err_event_athub_irq);
-+
-+	return r;
-+}
-+
-+const struct amdgpu_ras_block_hw_ops nbio_v7_9_ras_hw_ops = {
-+	.query_ras_error_count = nbio_v7_9_query_ras_error_count,
-+};
-+
-+struct amdgpu_nbio_ras nbio_v7_9_ras = {
-+	.ras_block = {
-+		.ras_comm = {
-+			.name = "pcie_bif",
-+			.block = AMDGPU_RAS_BLOCK__PCIE_BIF,
-+			.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE,
-+		},
-+		.hw_ops = &nbio_v7_9_ras_hw_ops,
-+		.ras_late_init = amdgpu_nbio_ras_late_init,
-+	},
-+	.handle_ras_controller_intr_no_bifring = nbio_v7_9_handle_ras_controller_intr_no_bifring,
-+	.handle_ras_err_event_athub_intr_no_bifring = nbio_v7_9_handle_ras_err_event_athub_intr_no_bifring,
-+	.init_ras_controller_interrupt = nbio_v7_9_init_ras_controller_interrupt,
-+	.init_ras_err_event_athub_interrupt = nbio_v7_9_init_ras_err_event_athub_interrupt,
-+};
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.h b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.h
-index 8e04eb484328..73709771950d 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.h
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.h
-@@ -28,5 +28,6 @@
- 
- extern const struct nbio_hdp_flush_reg nbio_v7_9_hdp_flush_reg;
- extern const struct amdgpu_nbio_funcs nbio_v7_9_funcs;
-+extern struct amdgpu_nbio_ras nbio_v7_9_ras;
- 
- #endif
--- 
-2.35.1
++       sysfs_remove_files(&adev->dev->kobj, amdgpu_fru_attributes); }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_fru_eeprom.h
+index 1308d976d60e..c817db17cfa7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h
+@@ -25,5 +25,7 @@
+ #define __AMDGPU_FRU_EEPROM_H__
+
+ int amdgpu_fru_get_product_info(struct amdgpu_device *adev);
++int amdgpu_fru_sysfs_init(struct amdgpu_device *adev); void
++amdgpu_fru_sysfs_fini(struct amdgpu_device *adev);
+
+ #endif  // __AMDGPU_FRU_EEPROM_H__
+--
+2.25.1
 
