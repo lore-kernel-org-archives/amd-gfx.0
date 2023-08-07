@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95EF9C001B0
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 17:11:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DAB1C04A6A
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 17:12:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04B3310E325;
-	Mon,  7 Aug 2023 17:11:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5475B10E32E;
+	Mon,  7 Aug 2023 17:12:09 +0000 (UTC)
 Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
  [IPv6:2607:f8b0:4864:20::c36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33DB010E324;
- Mon,  7 Aug 2023 17:11:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCF8010E32D;
+ Mon,  7 Aug 2023 17:12:04 +0000 (UTC)
 Received: by mail-oo1-xc36.google.com with SMTP id
- 006d021491bc7-56cc461f34fso2815045eaf.0; 
- Mon, 07 Aug 2023 10:11:36 -0700 (PDT)
+ 006d021491bc7-56d455462c2so2249478eaf.2; 
+ Mon, 07 Aug 2023 10:12:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691428295; x=1692033095;
+ d=gmail.com; s=20221208; t=1691428324; x=1692033124;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0cb719TiPSFcf9uKZA1yFMTUpQqmltNXq0TvmhepyQ0=;
- b=iZPqUxsoLXrPzqwuobnTpx/R9Sgwl9x0cdvCVM9Ne1AdS7BMX+OcpQlLyA9Whfray6
- fyq3f66qtgIZIbEh55XMI4dTChcsaqdiAeeprULuVuhouJ0hX4I9JEGxd6pb/q3WNQSV
- RRFznkugFVEmfoIQ4F3IYFnlo0t9u/fK0syCFU92gvm1iQ3HkOHydOhlADPajgl748aC
- YRYIOkLYCUDVZhJdEgkA7ww+Odmj6zFXVerp21sL+cjfuCPab9zi554KuiDHwmnAS3df
- klyPA48fAd3uIA0rqyxXa/C3QLbAGWsSWoaJFsL/Jx1l0F8Loo1p4ejJ7lvrVvV6y/jS
- ln6A==
+ bh=n1fFiDl47tj0kGpFVmy5pI63q4LR33axRCdbXWh8XXc=;
+ b=Dxv/yJ1pcK4dyFHi2blaRWsooeHDuJVqxDYsmx3LVyICVQ7gUd+DO1ddjkZHSLAk7f
+ EcxaoiFdT0G5F01Nqg1UQLjI17n0RqJ1PrreI5L5bucMQSsGhxHM/HMhGi9abKNaK3oi
+ f2luBXDYx9BylQ9olG46Veb8eHXZk0R/H/+sTGBCop3G113iOGbO3Kjax+nWjniQ20DW
+ Hr7l0lV1iBzGVMs4o+lz0bQeCGPz/ajvCu2D8xpgYomMEy43wFFoIud812IjIKYwNTGe
+ eQfU3W1uOdvk59laOm5gtyrOaMigl4L9H72rvRJkEl6Mj5fDCa0sCF5kpteaTHbu6ucT
+ f4qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691428295; x=1692033095;
+ d=1e100.net; s=20221208; t=1691428324; x=1692033124;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0cb719TiPSFcf9uKZA1yFMTUpQqmltNXq0TvmhepyQ0=;
- b=Q9Wcf0fTSYqRP/owIQWOSdf2O2S7oHIe2J9zZBzZakX1Kr973ca6KLvoIzn5pUvGd3
- KMhXSxIeutqJTHPZx8KQSG2Kpke7NKXmjn2A2PfYHXUPLYJ2tgUeEk1FL0pTvAQfDXQd
- NM0zqfXXxXhqWNWFnhIFgXEWFKamhqO68N+CnWfGueDWWdOV1eud3AP8O5ZOW3EyDdKK
- dQ+2UfFGl6mqjzq5ldPnUOaqFlHeAwbxuRIj3rKEz3o0cNIEGQhfFku4Q9m4uzXxuJem
- BOfnwbpM0wuZIMp4PXpQlejB0l2loN8ZlzzR09YrF5EtyNQveT7lWwr/JJyjBwVUBf9F
- hWvA==
-X-Gm-Message-State: AOJu0YytuyNHjBHH4EUMR8VLpeNCT0WhivV/LN4qpuAJAQot9+tAsDaU
- LwAzHJPJuS4exzRVWBZwUxWCc5xR79kHjgenCiU=
-X-Google-Smtp-Source: AGHT+IFUJnFHo3CrequPs1Hcxl1cl53hPeVVld+cCrZ+J+VseiFurZ9BnY7NzcqbAfK/hR5QJ2sFjOC6SCbHU+UB3mI=
-X-Received: by 2002:a05:6870:350f:b0:1b4:685d:55e4 with SMTP id
- k15-20020a056870350f00b001b4685d55e4mr11879096oah.39.1691428295449; Mon, 07
- Aug 2023 10:11:35 -0700 (PDT)
+ bh=n1fFiDl47tj0kGpFVmy5pI63q4LR33axRCdbXWh8XXc=;
+ b=h7qGWJXnJ5zGXObWyfYs7xg6DVZPK21/3dPYpp4cd269Wk+iCk5k/9ZwvUb6UA7t/X
+ Lf2VzaIaXVCJkfDvj8oX41X6yk0KjqODIOnzFfAvRurTnq8F3plMII1sVmmu4OrKiFqm
+ s1I5YbLJQr9R6VWDd7xB7c5yO33xuA/iSsStYVXoSm0eDigQten/lIKoXrFpXVZmxCep
+ HUu9JGtWxTWohUMPbEOrcJ2yFcEynDILlD3u0TPBUvluZlAdbrFEA6/GLbeRO7gdYPzZ
+ uHiv0FX6Nv08q/nr4zUxTvTP5CFOjsq+WA33Msufmz2T5U0WwVqod1OuJbJcLIvb1mo3
+ 3Tsg==
+X-Gm-Message-State: AOJu0YzMQTIZB1i4o/OEuHc9dukLDuCbmIdmHIq4Frt4m7qS44awHwA2
+ Mtn2ZLIZFNnsveF/O9BXrJQwUUoLSIxHrMpB6y4=
+X-Google-Smtp-Source: AGHT+IHzkSIlb9qWb8fkuZr8pkIIw3XgHtPA3sONL8H7DYzco0Urpf/mPFc/8HIKfCJlsmFJ0Z5tso9FusLyZUVB+WI=
+X-Received: by 2002:a4a:d2dc:0:b0:56c:43cd:7267 with SMTP id
+ j28-20020a4ad2dc000000b0056c43cd7267mr8345158oos.8.1691428324097; Mon, 07 Aug
+ 2023 10:12:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230802030111.10658-1-sunran001@208suo.com>
-In-Reply-To: <20230802030111.10658-1-sunran001@208suo.com>
+References: <20230802030311.10746-1-sunran001@208suo.com>
+In-Reply-To: <20230802030311.10746-1-sunran001@208suo.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 7 Aug 2023 13:11:24 -0400
-Message-ID: <CADnq5_OZnaYnTkz7zNEDjsHxrRMXoS3HwXbtT3tuj8gL7fmzfw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Clean up errors in dcn316_clk_mgr.c
+Date: Mon, 7 Aug 2023 13:11:53 -0400
+Message-ID: <CADnq5_PfyEZEWw1T-9RBvVtNrkHS=UB36nF8-M9TyEOFaCX3Eg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Clean up errors in dcn316_smu.c
 To: Ran Sun <sunran001@208suo.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -74,24 +74,25 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Tue, Aug 1, 2023 at 11:01=E2=80=AFPM Ran Sun <sunran001@208suo.com> wrot=
+On Tue, Aug 1, 2023 at 11:03=E2=80=AFPM Ran Sun <sunran001@208suo.com> wrot=
 e:
 >
 > Fix the following errors reported by checkpatch:
 >
 > ERROR: open brace '{' following struct go on the same line
+> ERROR: code indent should use tabs where possible
 >
 > Signed-off-by: Ran Sun <sunran001@208suo.com>
 > ---
->  .../gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c  | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
+>  .../amd/display/dc/clk_mgr/dcn316/dcn316_smu.c | 18 ++++++++----------
+>  1 file changed, 8 insertions(+), 10 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr=
-.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-> index 0349631991b8..09151cc56ce4 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c
-> @@ -45,13 +45,11 @@
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_smu.c b=
+/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_smu.c
+> index 457a9254ae1c..3ed19197a755 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_smu.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn316/dcn316_smu.c
+> @@ -34,23 +34,21 @@
 >  #define MAX_INSTANCE                                        7
 >  #define MAX_SEGMENT                                         6
 >
@@ -107,6 +108,24 @@ e:
 >      struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
 >  };
 >
+>  static const struct IP_BASE MP0_BASE =3D { { { { 0x00016000, 0x00DC0000,=
+ 0x00E00000, 0x00E40000, 0x0243FC00, 0 } },
+> -                                        { { 0, 0, 0, 0, 0, 0 } },
+> -                                        { { 0, 0, 0, 0, 0, 0 } },
+> -                                        { { 0, 0, 0, 0, 0, 0 } },
+> -                                        { { 0, 0, 0, 0, 0, 0 } },
+> -                                        { { 0, 0, 0, 0, 0, 0 } },
+> -                                        { { 0, 0, 0, 0, 0, 0 } } } };
+> +                                       { { 0, 0, 0, 0, 0, 0 } },
+> +                                       { { 0, 0, 0, 0, 0, 0 } },
+> +                                       { { 0, 0, 0, 0, 0, 0 } },
+> +                                       { { 0, 0, 0, 0, 0, 0 } },
+> +                                       { { 0, 0, 0, 0, 0, 0 } },
+> +                                       { { 0, 0, 0, 0, 0, 0 } } } };
+>
+>  #define REG(reg_name) \
+>         (MP0_BASE.instance[0].segment[reg ## reg_name ## _BASE_IDX] + reg=
+ ## reg_name)
 > --
 > 2.17.1
 >
