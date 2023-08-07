@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C000CEB64DD
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 08:27:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B36BC001B0
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 08:32:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FCC610E055;
-	Mon,  7 Aug 2023 08:27:10 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20607.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::607])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38D2610E055
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Aug 2023 08:27:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D10AC10E05C;
+	Mon,  7 Aug 2023 08:32:28 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1D0310E05C
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Aug 2023 08:32:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a/J8ad9hukmas3qJECWU7NjdzPdy3snNVpOgQ1TeNfE8G8yWQOg+yc45P994XfTq/mwOzIV8xGDMFWMeYlg9//apLO+Nkpz5vub+3TZuTYLhvg9iXeVzQAEcfr2ycHZU9+uR7DwihrpxRMecKLDaQ4WmMz8Dni7/1UZCo92XW2MHgb8B8SnN4VzPdLCT9bO/dTSKL/v2TapEWCw2+i0wp1sr06Qj6T4rilvPzvJwR7Wsk1wckR6TmGr4876/LRQFdH19sJLfXn1lGfxXQz3PdJCH6tZza5K3YwQcQwr4AeWWVI17JeNyc36665smrkr8dRPYCLK9Ww9Z2/5OvB8Fwg==
+ b=mqRdfz6RHvie+yWkMOi4H0X8kCgYYMu+CVk9dncxFq9mBmofkf1FWLuwmX5vty55PUGBjbWaoxQQHTc+LsGOL7sc18+edOjuIKnpZ3aPVWN4TLP6R5iTtRljGMipj1fUHERSH+BA4Y5PZXJXVjeeVnkhqQl69C+zh9R6flgm53VsAwqEOJsa2ki+u3UmVCYAgQhVbMUklqbEghqmviq0CWgUEcbQe6DtfsQp80y8hLI22KAwQwfqKAoZKl2wgQhstEqSzvghcLiN9rlCUOWFYGwdM8boKMa4VkscQMJ1GrPzpj2yELeb+MD5Ylpih68hRwPHFtgY0IitJExVivfXTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3aDbqT0OHLRH4hRT7uRiYbOyv0c9CD6Juw4cZX2z6Rc=;
- b=UwmgJwx+/6vRbm0GbNNB1Z16rB9IWUo9RaFYhgXYJUqXQsrchxAQHVRI5xxpFtftt2zazTGStbfGrH/2BRUL/hjWOWW0KIBihgdpa62bgqd/g4yaDY3IED/LS34Flga8PJAMr35opCd1ghWOgkiNqO0VwNdVdTjX3ihi/Cfh1xAJfNufwHnqLm6DPuNOyE+AUratNozUR8Cph5dDkTs3sOl2oAkIpzR7G5yprrmw0J9YU7Qd9hwuFqRsmAW82C8Q1C+lXpgrAemKSFvH4hQE+mPka0hvDKbsx8DZH5JnwoEYjfBYUXepXq5sEvgnwgYxf+4stLIv12SIPawIS9/ZMA==
+ bh=jWtI8EoVqtiLRmp4J0OqaeQv9gkftlbN3VU8+PfojbQ=;
+ b=MUBDB3scF75JLEVHa6ONQZ+iHY2O5XBv80eeGWfdYDhBfVOu0ODeuTPldaOhoRkDTMyO++PNl5LainldTDn8Tf3Jb4RRzzHwSd4fj0W5BsZ7ysOLoFdKo6W54ecXmnGRLEgQGHS8r1Wy6oFYZxp26HeCOORmWZ1sHcmNc/qMUeSpijivVbAdvWqJZlvm2C9ew2E+7MD1X5Ipd0ce0Y1fqevo05Rinz7Tupw3kWhTQBWVdeSrrddAon3pT3EyIT4FKKB8qEhv6TpO7725sWXsFxGIL4Bkw+IdvzHjhSqkStwtUCUJx9SXlie40LTBdohSnnRz1w/LPkCc5+iCSfxV5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3aDbqT0OHLRH4hRT7uRiYbOyv0c9CD6Juw4cZX2z6Rc=;
- b=Cno0lUulWEiGT57ibWajA/OtYfAHSmD3QthKzZyYjyqGZczOFcFoMDWmRp7Jws5UdkcJiWYZNt3hCb+FKL5MMaNCym5n2IjcyfoGPU13PYIzlHJ70rkvXw2ae0pxE4zd/EuGNzOU7Upch++iAzJFNeeZ0gRgpCh9fMVtMRwld00=
-Received: from MWH0EPF00056D0D.namprd21.prod.outlook.com
- (2603:10b6:30f:fff2:0:1:0:6) by DM6PR12MB4387.namprd12.prod.outlook.com
- (2603:10b6:5:2ac::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.27; Mon, 7 Aug
- 2023 08:27:04 +0000
-Received: from MWH0EPF000971E9.namprd02.prod.outlook.com
- (2a01:111:f403:c903::1) by MWH0EPF00056D0D.outlook.office365.com
- (2603:1036:d20::b) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.3 via Frontend
- Transport; Mon, 7 Aug 2023 08:27:03 +0000
+ bh=jWtI8EoVqtiLRmp4J0OqaeQv9gkftlbN3VU8+PfojbQ=;
+ b=qsO06KLIDOL0CGGxQx3t8YUTIVJh0hg5YhqJ0mzTOHTemz7mHj8XRT+2oHwQ7IPmlXCzMavKwOIw2+HuoaPb2ZLvpN9Fa4fmwHTu/08X0VgFKuLmIU0DzKThrHDBgwTxfsV6o7gnzlISkAIALWiEIVLovSfKSt+yl/SswgC3CIQ=
+Received: from MW4P222CA0006.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::11)
+ by SJ0PR12MB6781.namprd12.prod.outlook.com (2603:10b6:a03:44b::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.25; Mon, 7 Aug
+ 2023 08:32:14 +0000
+Received: from MWH0EPF000971E3.namprd02.prod.outlook.com
+ (2603:10b6:303:114:cafe::e6) by MW4P222CA0006.outlook.office365.com
+ (2603:10b6:303:114::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.26 via Frontend
+ Transport; Mon, 7 Aug 2023 08:32:17 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,50 +45,47 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E9.mail.protection.outlook.com (10.167.243.71) with Microsoft
+ MWH0EPF000971E3.mail.protection.outlook.com (10.167.243.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6652.19 via Frontend Transport; Mon, 7 Aug 2023 08:27:03 +0000
-Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.6652.20 via Frontend Transport; Mon, 7 Aug 2023 08:32:16 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 7 Aug
- 2023 03:26:57 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, Guchun Chen <guchun.chen@amd.com>, "Pan
- Xinhui" <Xinhui.Pan@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix identifier names to function definition
- arguments in atom.h
-Date: Mon, 7 Aug 2023 13:56:39 +0530
-Message-ID: <20230807082639.135375-1-srinivasan.shanmugam@amd.com>
+ 2023 03:32:13 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdgpu: Add FRU sysfs nodes only if needed
+Date: Mon, 7 Aug 2023 14:01:53 +0530
+Message-ID: <20230807083153.509539-1-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E9:EE_|DM6PR12MB4387:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75a6c278-0750-48e8-c27c-08db97201457
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E3:EE_|SJ0PR12MB6781:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5aa6b65a-8171-409f-1768-08db9720cf08
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: urp57KL2bTlbv19GUjLp8HRTLOn4CsOsbIqbzwXYx8YJ2VHs0E0VoyjSKREAsdvAfZosKxMpTbkIn51Vkj4fhR/RooR6cpeltcGerx7ZIevDBfyvaIX82DPqV+dnoglsC+LKrYUcSPmpKnLRTBEYFH0rXsmuwNGZaC1H3at/8g+Rr1N8XvCXeJugTZ3ox2UJeGZzA8HE8ZTIhyGJEfKfuO4nHoah8x6x1+aYwts8NCvFQftLmUJlHq4WP46Sgqkc+sNQalPMt1itt5L1/qNSvjXEjj+lmK2/XvR58Tx8KLpgFSFH+dWw954a8xr1CL/Fxw40bT116eCog1MqDDcn67jHb0LFtYaYY/Ayct/b52otgwqxXpUm3bocE2L93PY7EP6nZJjatKiijXod0E+/kLyOAFPsKS+avph/MjQSBc14BG8QONt7auCscmx2GFBl5ylrZ2+wX91Mn/235oWumxi+4qCL6xh6MrgWQHHLJu7Tjf97nb8mUdb2zWjP5jBKvdH7b5Qwc5YbAW65tROajQ1DojoiyLALvg4UOhpFWjx3zg+07di0bEfj4/f5izVBjjfJxF/Roa0gLx5rCwv+KqsQAaNThRdmDaJX/5UwT3SKIUdVTH9GtI9SXN6fqmlhW4yLQwo1h4N1WWb5whjOZ0aw6rE2g9WM7azkYL/OgRGZXNA/OGPEab4YMsADWgdNwydqK9LUeyGKGiv119H1+NlxhiDn2sfs9g7POisC4Rmv5soGKEReWu9a2355d6ic0gwbdyv75qeg7Ks0elzSRA==
+X-Microsoft-Antispam-Message-Info: +Z8E3UQN0jtsKCRfj4FO4waabCA9xHG9+V/Xr5G4NlfRqw8m5iZQX6VqFmzLqOjIvPORCZvcUVYSGtwgVxBrzFkrVGykV9L2jdvlY09KvUk7WpF1s9r1girkCL/Pvex2cAyXDs9A1e7KoQ1H2g8qNuQdDpazFjgSJubAfmAgiCirxXJCujNG9raD3K2szjRXChqVZ0lIUH6ZvldX8Z2NO0J5l94XrtrEghvAUdZPYzRtSi6MkRixo5g8dSHMkfTM3GeEonGsgM/Zoe2zR7C5lwi5BmMX4vDq0rm10nkLAxH/DLdKhkPtwbrpLPZcOg1vTO8ZPO8Yfvp5quzmjgwsbKOBqHZ7NYq1HD1T3cZHDCxp/r2kOn7LrSGA69sfWE5zcA8txR1u9B3AnKbAVxRXKCQVKPEo6qWIIG+V1K0/7NnKBIPgr7w6sTUqOpb2l92ToQQRw/iIRKirLiIWjds53cjWR78BGQslG8mj5CL73ao0Ifw5IyHlLj3M8DoRqjIklukRZNvfEmNbr9TWU36mamY+rNftCtnkSbVBPvxzPzbPH3Wxyr1IXEfSXoIJykZJLS0y/GvJeIc0xkFhWc71lHNh+YwAPol1wOWC2bef7y4/VjHNDc4mGx/mVXbYt+QLUJX3S9woF/Htz6361MDqlWOLyAWjq5ZLOlS+hgdgUc8zj6NHOX2NwsMJFhiLCmNsBtlaGpQaL3lcknqWIxpkCr0Sln8wszqdXl74TbWIqZUKHPgTDCMPkfaAhyd9/hcUUFn1PpN6N69LljP1DN+tLw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(376002)(396003)(39860400002)(82310400008)(451199021)(1800799003)(186006)(46966006)(40470700004)(36840700001)(86362001)(44832011)(40480700001)(41300700001)(16526019)(336012)(478600001)(40460700003)(1076003)(26005)(8936002)(8676002)(7696005)(6666004)(426003)(66574015)(2616005)(5660300002)(47076005)(36756003)(83380400001)(2906002)(54906003)(110136005)(36860700001)(316002)(356005)(70586007)(70206006)(6636002)(81166007)(4326008)(82740400003)(36900700001);
+ SFS:(13230028)(4636009)(39860400002)(396003)(346002)(376002)(136003)(451199021)(1800799003)(186006)(82310400008)(46966006)(40470700004)(36840700001)(47076005)(83380400001)(2906002)(36756003)(5660300002)(426003)(2616005)(36860700001)(54906003)(6666004)(7696005)(70206006)(6916009)(70586007)(356005)(4326008)(82740400003)(81166007)(316002)(40480700001)(41300700001)(86362001)(44832011)(40460700003)(8936002)(8676002)(26005)(1076003)(16526019)(336012)(478600001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2023 08:27:03.7538 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75a6c278-0750-48e8-c27c-08db97201457
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2023 08:32:16.9812 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5aa6b65a-8171-409f-1768-08db9720cf08
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E3.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4387
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6781
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,73 +97,235 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes the following:
+Create sysfs nodes for FRU data only if FRU data is available. Move the
+logic to FRU specific file.
 
-WARNING: function definition argument 'struct card_info *' should also have an identifier name
-WARNING: function definition argument 'uint32_t' should also have an identifier name
-WARNING: function definition argument 'void *' should also have an identifier name
-WARNING: function definition argument 'struct atom_context *' should also have an identifier name
-WARNING: function definition argument 'int' should also have an identifier name
-WARNING: function definition argument 'uint32_t *' should also have an identifier name
-WARNING: Unnecessary space before function pointer name
-ERROR: space prohibited after that '*' (ctx:BxW)
-CHECK: Prefer kernel type 'u32' over 'uint32_t'
-
-Cc: Guchun Chen <guchun.chen@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/atom.h | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.h b/drivers/gpu/drm/amd/amdgpu/atom.h
-index 55bf99d5288d..c11cf18a0f18 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.h
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.h
-@@ -117,12 +117,15 @@ struct drm_device;
+v2: Add fru sysfs fini to take care of removing files (Hawking)
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 71 +--------------
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 89 +++++++++++++++++++
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h    |  2 +
+ 3 files changed, 94 insertions(+), 68 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 0d602abd32ba..4f818f13dc9d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -164,71 +164,6 @@ static DEVICE_ATTR(pcie_replay_count, 0444,
  
- struct card_info {
- 	struct drm_device *dev;
--	void (* reg_write)(struct card_info *, uint32_t, uint32_t);   /*  filled by driver */
--	uint32_t (* reg_read)(struct card_info *, uint32_t);          /*  filled by driver */
--	void (* mc_write)(struct card_info *, uint32_t, uint32_t);   /*  filled by driver */
--	uint32_t (* mc_read)(struct card_info *, uint32_t);          /*  filled by driver */
--	void (* pll_write)(struct card_info *, uint32_t, uint32_t);   /*  filled by driver */
--	uint32_t (* pll_read)(struct card_info *, uint32_t);          /*  filled by driver */
-+	void (*reg_write)(struct card_info *info,
-+			  u32 reg, uint32_t val);   /*  filled by driver */
-+	uint32_t (*reg_read)(struct card_info *info, uint32_t reg);          /*  filled by driver */
-+	void (*mc_write)(struct card_info *info,
-+			 u32 reg, uint32_t val);   /*  filled by driver */
-+	uint32_t (*mc_read)(struct card_info *info, uint32_t reg);          /*  filled by driver */
-+	void (*pll_write)(struct card_info *info,
-+			  u32 reg, uint32_t val);   /*  filled by driver */
-+	uint32_t (*pll_read)(struct card_info *info, uint32_t reg);          /*  filled by driver */
+ static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev);
+ 
+-/**
+- * DOC: product_name
+- *
+- * The amdgpu driver provides a sysfs API for reporting the product name
+- * for the device
+- * The file product_name is used for this and returns the product name
+- * as returned from the FRU.
+- * NOTE: This is only available for certain server cards
+- */
+-
+-static ssize_t amdgpu_device_get_product_name(struct device *dev,
+-		struct device_attribute *attr, char *buf)
+-{
+-	struct drm_device *ddev = dev_get_drvdata(dev);
+-	struct amdgpu_device *adev = drm_to_adev(ddev);
+-
+-	return sysfs_emit(buf, "%s\n", adev->product_name);
+-}
+-
+-static DEVICE_ATTR(product_name, 0444,
+-		amdgpu_device_get_product_name, NULL);
+-
+-/**
+- * DOC: product_number
+- *
+- * The amdgpu driver provides a sysfs API for reporting the part number
+- * for the device
+- * The file product_number is used for this and returns the part number
+- * as returned from the FRU.
+- * NOTE: This is only available for certain server cards
+- */
+-
+-static ssize_t amdgpu_device_get_product_number(struct device *dev,
+-		struct device_attribute *attr, char *buf)
+-{
+-	struct drm_device *ddev = dev_get_drvdata(dev);
+-	struct amdgpu_device *adev = drm_to_adev(ddev);
+-
+-	return sysfs_emit(buf, "%s\n", adev->product_number);
+-}
+-
+-static DEVICE_ATTR(product_number, 0444,
+-		amdgpu_device_get_product_number, NULL);
+-
+-/**
+- * DOC: serial_number
+- *
+- * The amdgpu driver provides a sysfs API for reporting the serial number
+- * for the device
+- * The file serial_number is used for this and returns the serial number
+- * as returned from the FRU.
+- * NOTE: This is only available for certain server cards
+- */
+-
+-static ssize_t amdgpu_device_get_serial_number(struct device *dev,
+-		struct device_attribute *attr, char *buf)
+-{
+-	struct drm_device *ddev = dev_get_drvdata(dev);
+-	struct amdgpu_device *adev = drm_to_adev(ddev);
+-
+-	return sysfs_emit(buf, "%s\n", adev->serial);
+-}
+-
+-static DEVICE_ATTR(serial_number, 0444,
+-		amdgpu_device_get_serial_number, NULL);
+ 
+ /**
+  * amdgpu_device_supports_px - Is the device a dGPU with ATPX power control
+@@ -3550,9 +3485,6 @@ static void amdgpu_device_check_iommu_direct_map(struct amdgpu_device *adev)
+ }
+ 
+ static const struct attribute *amdgpu_dev_attributes[] = {
+-	&dev_attr_product_name.attr,
+-	&dev_attr_product_number.attr,
+-	&dev_attr_serial_number.attr,
+ 	&dev_attr_pcie_replay_count.attr,
+ 	NULL
  };
+@@ -3967,6 +3899,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	if (r)
+ 		dev_err(adev->dev, "Could not create amdgpu device attr\n");
  
- struct atom_context {
-@@ -152,10 +155,10 @@ struct atom_context {
++	amdgpu_fru_sysfs_init(adev);
++
+ 	if (IS_ENABLED(CONFIG_PERF_EVENTS))
+ 		r = amdgpu_pmu_init(adev);
+ 	if (r)
+@@ -4086,6 +4020,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ 	if (adev->ucode_sysfs_en)
+ 		amdgpu_ucode_sysfs_fini(adev);
+ 	sysfs_remove_files(&adev->dev->kobj, amdgpu_dev_attributes);
++	amdgpu_fru_sysfs_fini(adev);
  
- extern int amdgpu_atom_debug;
+ 	/* disable ras feature must before hw fini */
+ 	amdgpu_ras_pre_fini(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+index 8c3ee042556a..9c66d98af6d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+@@ -212,3 +212,92 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+ 	kfree(pia);
+ 	return 0;
+ }
++
++/**
++ * DOC: product_name
++ *
++ * The amdgpu driver provides a sysfs API for reporting the product name
++ * for the device
++ * The file product_name is used for this and returns the product name
++ * as returned from the FRU.
++ * NOTE: This is only available for certain server cards
++ */
++
++static ssize_t amdgpu_fru_product_name_show(struct device *dev,
++					    struct device_attribute *attr,
++					    char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	return sysfs_emit(buf, "%s\n", adev->product_name);
++}
++
++static DEVICE_ATTR(product_name, 0444, amdgpu_fru_product_name_show, NULL);
++
++/**
++ * DOC: product_number
++ *
++ * The amdgpu driver provides a sysfs API for reporting the part number
++ * for the device
++ * The file product_number is used for this and returns the part number
++ * as returned from the FRU.
++ * NOTE: This is only available for certain server cards
++ */
++
++static ssize_t amdgpu_fru_product_number_show(struct device *dev,
++					      struct device_attribute *attr,
++					      char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	return sysfs_emit(buf, "%s\n", adev->product_number);
++}
++
++static DEVICE_ATTR(product_number, 0444, amdgpu_fru_product_number_show, NULL);
++
++/**
++ * DOC: serial_number
++ *
++ * The amdgpu driver provides a sysfs API for reporting the serial number
++ * for the device
++ * The file serial_number is used for this and returns the serial number
++ * as returned from the FRU.
++ * NOTE: This is only available for certain server cards
++ */
++
++static ssize_t amdgpu_fru_serial_number_show(struct device *dev,
++					     struct device_attribute *attr,
++					     char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	return sysfs_emit(buf, "%s\n", adev->serial);
++}
++
++static DEVICE_ATTR(serial_number, 0444, amdgpu_fru_serial_number_show, NULL);
++
++static const struct attribute *amdgpu_fru_attributes[] = {
++	&dev_attr_product_name.attr,
++	&dev_attr_product_number.attr,
++	&dev_attr_serial_number.attr,
++	NULL
++};
++
++int amdgpu_fru_sysfs_init(struct amdgpu_device *adev)
++{
++	if (!is_fru_eeprom_supported(adev, NULL))
++		return 0;
++
++	return sysfs_create_files(&adev->dev->kobj, amdgpu_fru_attributes);
++}
++
++void amdgpu_fru_sysfs_fini(struct amdgpu_device *adev)
++{
++	if (!is_fru_eeprom_supported(adev, NULL))
++		return;
++
++	sysfs_remove_files(&adev->dev->kobj, amdgpu_fru_attributes);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h
+index 1308d976d60e..c817db17cfa7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h
+@@ -25,5 +25,7 @@
+ #define __AMDGPU_FRU_EEPROM_H__
  
--struct atom_context *amdgpu_atom_parse(struct card_info *, void *);
--int amdgpu_atom_execute_table(struct atom_context *, int, uint32_t *);
--int amdgpu_atom_asic_init(struct atom_context *);
--void amdgpu_atom_destroy(struct atom_context *);
-+struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bios);
-+int amdgpu_atom_execute_table(struct atom_context *ctx, int index, uint32_t *params);
-+int amdgpu_atom_asic_init(struct atom_context *ctx);
-+void amdgpu_atom_destroy(struct atom_context *ctx);
- bool amdgpu_atom_parse_data_header(struct atom_context *ctx, int index, uint16_t *size,
- 			    uint8_t *frev, uint8_t *crev, uint16_t *data_start);
- bool amdgpu_atom_parse_cmd_header(struct atom_context *ctx, int index,
+ int amdgpu_fru_get_product_info(struct amdgpu_device *adev);
++int amdgpu_fru_sysfs_init(struct amdgpu_device *adev);
++void amdgpu_fru_sysfs_fini(struct amdgpu_device *adev);
+ 
+ #endif  // __AMDGPU_FRU_EEPROM_H__
 -- 
 2.25.1
 
