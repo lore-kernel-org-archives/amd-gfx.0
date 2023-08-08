@@ -4,34 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74460C04A94
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Aug 2023 07:40:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21C46C001B0
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Aug 2023 07:40:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 175F710E3AE;
-	Tue,  8 Aug 2023 07:40:25 +0000 (UTC)
-Received: from mail-41103.protonmail.ch (mail-41103.protonmail.ch
- [185.70.41.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F021B10E094
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Aug 2023 06:40:57 +0000 (UTC)
-Date: Tue, 08 Aug 2023 06:40:42 +0000
-Authentication-Results: mail-41103.protonmail.ch;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B041110E3B0;
+	Tue,  8 Aug 2023 07:40:27 +0000 (UTC)
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54FF310E3A9
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Aug 2023 02:27:44 +0000 (UTC)
+Date: Tue, 08 Aug 2023 02:27:31 +0000
+Authentication-Results: mail-4321.protonmail.ch;
  dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com
- header.b="PpUcRl+Q"
+ header.b="otsiRUdY"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1691476851; x=1691736051;
+ s=protonmail3; t=1691461658; x=1691720858;
  bh=rLyqhqtc/MDZ2VUlG4CH6NUh7rXYVmwrFO5WIOp1Wv0=;
  h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
  Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=PpUcRl+QCCH8VQQTilrvzfFeQsLP9st5SaVucMJyUkTUCUClrq6MB6Njhm8ew+8kG
- RfEHf2/R5IogGt3Dw/F5wKWk1AAlQnytSBFsV39Y/yWQGL6JexkPkwEDEWTTQYWu7l
- dCx9UgDrNUS7U4cE8/Vt8mgwzy7T3lo8h4AjIFbN0tZPieeqg0a060hagzrg16xY7v
- VZmxobXOSg0tFv4iBP9nQ3DhP43aF5Yw37k1N1s0FxIXQTQjVyMPmQdqYK5lguh4X+
- BeLrvZgsG1ZFhO87xcFpmKs2v6P/AMqzXkyLuLGTTSrrbskvTJcVyOlXGNWcYZ4oHR
- PYwPAI/IjbAJw==
+ b=otsiRUdY5h8BITQCPYdaCzwvIu7vzn8bKD7YEbLivLx08aJO/vScubQSXQ3mXnEQM
+ RHfmn4019bbwxtrhCmXArvt74WEeDhIiLewjJ5E2de2Zgqzcnd9VHiIw7YgU9UmhEi
+ zPgRkwZBoXEHEKGaxj0iYYcZXiszdgV6GGWR2lkEm4IaaFZZtrKLZsa7Ej93FY86aZ
+ t3mxj7NsAi9sx80npzJv3pcBbgGlhA11OjMVvRklsPo78oqNI5baCjLwy4rKyipCmj
+ GJV5qLXHCzCKaSg11vIF1KzuGZVau/mbQPJEjLa7kRPZkRu3cb4FppFrj7sOuYogym
+ agNPxxLj0gzOg==
 To: amd-gfx@lists.freedesktop.org
 From: Umio Yasuno <coelacanth_dream@protonmail.com>
 Subject: [PATCH] fix throttle_status for other than MP0 11.0.7
-Message-ID: <20230808064025.1008680-1-coelacanth_dream@protonmail.com>
+Message-ID: <20230808022713.776023-1-coelacanth_dream@protonmail.com>
 Feedback-ID: 19510729:user:proton
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -48,8 +47,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: Umio Yasuno <coelacanth_dream@protonmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
