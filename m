@@ -4,60 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D70EC04A6A
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Aug 2023 17:03:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 363F0C001B0
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Aug 2023 17:37:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3FA410E1FD;
-	Tue,  8 Aug 2023 17:03:50 +0000 (UTC)
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C0BA10E1FD;
- Tue,  8 Aug 2023 17:03:49 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5217ad95029so7626139a12.2; 
- Tue, 08 Aug 2023 10:03:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691514228; x=1692119028;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MCtF+tlL9RHfHxmqFs9C5rEqPpa4jyBqd3r5LEKKols=;
- b=aBZltA2/j9gJFH0DRcIaD9UZ+V275GL4XmWvgdVWIUuVgUcK27xI5Ww5ou0S7ZgVMr
- snr8roKmVsjyHHP11xm9jT1M/Zp+uryGzqDuWIWnEzOxZ7D0ygH5UFIvdvX3eFJIMWIH
- G3VOIqnsf8GUXZY1dL3Bzcj3/Z8a8eGMNdO3vIFIJqH3hfYVuF5F0lXDnqZ1uE4LtLuX
- CDgwjYrk3+fPOwLG8R+U4eN3LV6sSG1M0xr7TjY1vQIQaz5YSfS66mP8qo23BCxne606
- h1CAp1VACppO8pFyUmq4aByRHoPBHz1f4Uf7NWs4wvGQfUPrmGlFOcMrNqTFl3go/TMV
- 8Fqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691514228; x=1692119028;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MCtF+tlL9RHfHxmqFs9C5rEqPpa4jyBqd3r5LEKKols=;
- b=EwuwRRxChxyP9pXC1nTcnVlvuaujXh3dpNL4l1TkRtnqsWPmMve5dAsJL0ybQymJcT
- JmXXky8pV+1qucEqOWumwrVmfbC0Eqsryf6+scT+4YoOk0V+Y7UJrBb1hoeXET2bRwUd
- Vct3kXy38qo7yCrIJzXHnvsy+n+29jJb/ZfD9KYAgdfLIJshWXwgMfhGg2VFkRwJcQ8b
- j41Lc5cTTbiwOMaLccIpy8n+XAd9JLXrq0MBD8eXXa39OLyFxIs56CTnpcR+eEaKdmjR
- GAsF+am9a/7erUGsaanki/gdTUIzurEMioWzUwn2pBgmRCu7G5wbsGDFJF+Vs0Mklaxd
- Lumg==
-X-Gm-Message-State: AOJu0YxZUYgNVXBErTNtkyinrgmh8kdr4BNrZFkRpRHkn6xOsd8k1l3G
- WbOZ7j/OY9rlHZNKznbubaRYDVpKpWzvh8BCaAn2kbgd
-X-Google-Smtp-Source: AGHT+IGiRf3LjW21hBgVZPw8p0E39D05fmYq9Nt6u/oqdz7fmoq9LG0DSAo2VVHnZ97EOoXBgYqFG2/wFndCouOjoWo=
-X-Received: by 2002:aa7:d04c:0:b0:523:9c4:544f with SMTP id
- n12-20020aa7d04c000000b0052309c4544fmr386743edo.31.1691514227607; Tue, 08 Aug
- 2023 10:03:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DE4F10E3CE;
+	Tue,  8 Aug 2023 17:37:09 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eab::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FAE110E3E6
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Aug 2023 17:37:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bg+rKQnUUOTmEyV4oy007/5B2ciOHjy87Xodzt1sHInRnLFlRS7sjoubernJUpHdjhsnqGCU1OODXWAFYM9jQc/7+Ooob68PzBt2JmPEAJs886lJEibX33ZTuwldx/F1S40Q5/bhqDfZ5GooRH1DtffO41kVHWyqJWsaNn0qIWomb3DUSzjDOCZaLhBouJLxipiJQ1EG9vCTzEDzigMaUHaW6H0rizFndFRXQ81irYUm92RzaOH377Jpk7o9zY/72+qtsUenwuO8Kqh5FX5/wacwOHlNQ8/Mi15wF0kPq5GRinZ6fuJbO24n8jdgxkcB+gz/1P8oXOrWCUBDcp86xQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=igFgYmlJOH5aa587e/T8h9C+TSzwQjRgEi+OSdHob38=;
+ b=NJZEjpUMfcGxBlSqRJWWGh/Q+qTno8GbBY9nE1NlzSKI1YdCMtaVohisSox2A7tMQe351IiQh//ovpWkCbNZaWlS8/egixxWOqVPeYj4vSgb2B2vEPKGq2THegG9seAel3nXdGYsX1xbZJY552fT+L/EKHtOlS0dfZCDkoh4Vspz9ocpzvQ+lnFeyfrLnD45Ip+9q4LkGG0Si8qf4V43E/bdm9PgNeJntW0L9j2EUdw6ApaYDNAinqi51MFN7SoU9JJk5a2lrAzvux7LPPixpHh47jUz5lOTSL1ApIUXKRlkJWQy4ci+brkKepYftGkMssH4TXz9yhhshSh4bpoGDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=igFgYmlJOH5aa587e/T8h9C+TSzwQjRgEi+OSdHob38=;
+ b=eanwuBwuSHQnyMkBTCB5HRZx5Z2UVG+N2ndoqfb3B17gz68fzPZ3jg0HipjlzRO6hgjw+5ltBku9+J7pv9qh0tMQhbSotvH5eaFrQA57ZX5YeXJaZP1y5co1Aik1JwVnzimmFOVa7+Gq5rhaXi7xtaduSQHahyAPiPl4TzYCCgs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM8PR12MB5399.namprd12.prod.outlook.com (2603:10b6:8:34::5) by
+ CH0PR12MB5297.namprd12.prod.outlook.com (2603:10b6:610:d4::24) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6652.27; Tue, 8 Aug 2023 17:37:06 +0000
+Received: from DM8PR12MB5399.namprd12.prod.outlook.com
+ ([fe80::6017:888c:bd65:cc08]) by DM8PR12MB5399.namprd12.prod.outlook.com
+ ([fe80::6017:888c:bd65:cc08%4]) with mapi id 15.20.6652.026; Tue, 8 Aug 2023
+ 17:37:06 +0000
+Message-ID: <f46e79bb-a858-36b1-f69e-94f772ae5e75@amd.com>
+Date: Tue, 8 Aug 2023 13:37:03 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v4 1/7] drm/amdgpu/vcn: Add MMSCH v4_0_3 support for sriov
+To: Samir Dhume <samir.dhume@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230808162622.74937-1-samir.dhume@amd.com>
+Content-Language: en-US
+From: Leo Liu <leo.liu@amd.com>
+In-Reply-To: <20230808162622.74937-1-samir.dhume@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0472.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d6::15) To DM8PR12MB5399.namprd12.prod.outlook.com
+ (2603:10b6:8:34::5)
 MIME-Version: 1.0
-References: <20230627132323.115440-1-andrealmeid@igalia.com>
- <ZMz3IXIzXS5gNK3G@phenom.ffwll.local>
- <CA+hFU4wbn=efbS10c14A9sLTf9GYJ_O12kowh76ELLdo2+x5fA@mail.gmail.com>
-In-Reply-To: <CA+hFU4wbn=efbS10c14A9sLTf9GYJ_O12kowh76ELLdo2+x5fA@mail.gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Tue, 8 Aug 2023 13:03:11 -0400
-Message-ID: <CAAxE2A48uybsU6DY+fLTzQ9K2b0Ln+SW6bt3capbGAGb7L8fvQ@mail.gmail.com>
-Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
-To: Sebastian Wick <sebastian.wick@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM8PR12MB5399:EE_|CH0PR12MB5297:EE_
+X-MS-Office365-Filtering-Correlation-Id: 26b395b4-7eb4-4a10-d16f-08db983615ac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7jqyd6TyfW3wxOC65JXFVG4f9tqRAFRbxJhuTMJsk58bChmkbJdffQX7XqQfPvE4/jonkUkHDTgxdQsLtXSENRhnr1eKlvkCYHvGUs0pO7lLAqqA+xExh3Y2m9EfFQFDpUMpbSYH3VRBwCKDQ+vaVxEc0MrWHJUgs+kFceJK7MPfEKTNLJ/jvHaARE6DU+aWAQKlka7KxxA2jkR/BhK2OfZeX99rZzTp3nQIGZWTFllCAIF5j7azKnHb2aAnMRMMJKW+ljWX/WTeEjIQ267DQvgsVAUFALE+G6BK9BqCAqSyMW+AZKy6NjUTndsWGkqm3vHZeXHVky+e/Oggf21723of8aTxosArSuiforccstwNiEdDMDGTd9Uv5NcpmoW3w6Uvpi1ufnyUeDfJFgZebIsEWjI9ePbz8hO2pvHJ98eKgJa6OIhmOAkNxv5PR9gfLaMz2J2GFb++CfDdBbWCiASZlF+ihJNZz367CU3V+YbiSVMlAfT4mNGUinYGg6z0d6h1g/GB/XwsLUkZM+DSg4FwZNQsclw0deWV7wAKft+0oba1dPWiwO4uHLfBlx9r/rMXG3Q5tscfCbOeLIPci6+/5242Uqv+aNTuSIPntY6/MG8t7zf1OlO/fQFccUnkd+vL8dIgW7GVNXtYV8yqgA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM8PR12MB5399.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(346002)(366004)(376002)(39860400002)(396003)(136003)(1800799003)(186006)(451199021)(2616005)(53546011)(36756003)(6506007)(26005)(6486002)(6512007)(6666004)(31686004)(478600001)(38100700002)(66476007)(66946007)(66556008)(4326008)(316002)(66899021)(41300700001)(8676002)(5660300002)(44832011)(8936002)(2906002)(83380400001)(86362001)(31696002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MndnNVVwWm5XSXhUa1VWYzJoaUxLOGZzYUZKTlJLMTAvTWN6ZUN2bmxzVldV?=
+ =?utf-8?B?V3Rqc1JyQnR2K09uRkdUZFlkTFFJSlBnUmh0cWg2dXJZNjNMbGxzenhLdkhz?=
+ =?utf-8?B?d1hQRzdlbGxqMHR3RjRGbGF1ak5IM3JjdWJyM1cvU01tYVh3bHl2RHppanBp?=
+ =?utf-8?B?TlhWT0NBU1VuR3h3N01qeUpqZ3k3bE1DZXVObWxKdk44WFNpWm1xeVFsL0V5?=
+ =?utf-8?B?S1hIOWRrRG5HelhWSFl0dnVIZ1lQWjhBYjhEc1hFeWJ5a1cwOUxpZmd1eXVs?=
+ =?utf-8?B?cGZwR01tTUNRYmt4ZlZSYmZRbVBuOEczdVR5ZkNjb0dPMVNSbG5XbjRjUzF3?=
+ =?utf-8?B?RGV5RUFRNE1zbnM5MmxldjkzeE9pa1BleVZuTGJ1SWhPeWRKNmluRDNwWVo2?=
+ =?utf-8?B?Si9ua0lmZG1LaUM0WVMzcmdlWUd6dXBkL2hOYnJaY1dkaERObVA5bDE1anZz?=
+ =?utf-8?B?Wi9GV3hnaDZUNUhaL3VQTHhET3cxR1VaSGFrZHBBOUNRMUc3RjZOZGxndGtK?=
+ =?utf-8?B?YXVWcEJibVEraXNqZWsvcTE0a1YzVXJ2b1BiRFZDdjVJRzlYR2xSYnRZMzh3?=
+ =?utf-8?B?dWViWGhPU29hV1FWc3UwajJRNGkxOFgzbFpiYzR6UE5aeFlOVmxRelp4Q3JN?=
+ =?utf-8?B?SmxyUnBqNWZLd2lkcXZmM1BDa2xMOUFMR0ljSDRDMG5tRFNKcUZnbDN3ZGwx?=
+ =?utf-8?B?OEV5M3plZDE4RVQ3TkNBRE40TXhUSWsydXBwcVlDSC9QMkswdy9CYyt5bEQ4?=
+ =?utf-8?B?OForRG5CYXhScmRuNzI3d2tXVkQ2WGhDMFNRSStTTlQzazZvWVlBSUtvYzZh?=
+ =?utf-8?B?NXl3b1hPRVVYZkgzS0pGQUUyUm1HUVVyK0cvQXgxK3VmdkVsMFppM0R0L3Vo?=
+ =?utf-8?B?NzgxN1dIT1Nrdk5xVkE1Nk44Z1AzdVNDWDZPY1JHSm9uckR4Q21ldS9WS1do?=
+ =?utf-8?B?VXdXSUxlT3I0NkJRWE5tWDlKMVJNTDZUZVY3RWthd1VvQ3dXbUpjcFZDaWt3?=
+ =?utf-8?B?UjNvYmdyUDhkVHViajdzTk4rRVJFMFZ2bFFFOHRhR21zQ3FIN2JRUERNakxy?=
+ =?utf-8?B?RjhNV3hJZVZKZi9XT2RUSDBVVDA2aTEyZVNTNG9LZ3NrRkt4RTVCeHRpclV5?=
+ =?utf-8?B?RlVUS2RDNDJFaXZVcTZ2OXNzS1pQUFo2Q2svbmhEU3RBeGxtTFFyVFE0aG9U?=
+ =?utf-8?B?aWpQQjhkdzl4TlYrNFMvcjkxcEF1ZjhDd25EaHBTcjBlR2pCcERFWDA4MHhj?=
+ =?utf-8?B?RWtqb0NiS29ZZ2IzNVVaUElreG4xT1VqWWJjNFlyR1hUOW1rUmkzOHdVQjYx?=
+ =?utf-8?B?NkNCZmZOZ1VzRG52WUVjQk9MVEcxYUdTU2ltNFlGN3NlL08rQWxEZ0tvSWVC?=
+ =?utf-8?B?OTkweEp4dC9hbW5kZnFURFgyK0RVay8wQWVmanlHS0crZ1ZmWHF6WWZQViti?=
+ =?utf-8?B?c3FBWTdUeFhxTkhvZlZwMlAvNjBwSDg4L0NVOFJwNk05TDhMdlFJRUd4VzdO?=
+ =?utf-8?B?Y0tRMUx4YUM1dGEzMGdROWljUlZIQWp6UUhxazFKU1dHeGJ6SCtGTFZ0U2RX?=
+ =?utf-8?B?RHhsRFJXM2Roa2NZUjQ5SUJSQVpjVmZIZ3gxWUlRN0FsbDFOVkFHSHNGaEgr?=
+ =?utf-8?B?R0J5U0t0UURPakFmMEhTZFFLOWNaMDNoY1UzcUVTMFR2QThFYnJDWitxVU51?=
+ =?utf-8?B?a3plUjRYbEdjOUNMcEZvQlpFN2h4TDRoV0hqK1FqZzdZRUtTeFF2S0tmVlVr?=
+ =?utf-8?B?anRUQmlwN0pnVjdmb3JLRmhqbms1cURIUFJ1YTNseThyMmw0dDFrTy9Lcktp?=
+ =?utf-8?B?WGxEVFdMbCtGOFB6RzYvdVZtVU5qMzViNUkxbTdDOENUUEE5ZlBhb1RYdFZ5?=
+ =?utf-8?B?U251dHdvM1NjWDF5YmRMV1FLdzExajRiNm9FYzh5b2F6dVRUM0Uzcy9wNUJo?=
+ =?utf-8?B?dXRDSDRlcFVSS2lrd20wRG5QS1ZycjFtWWlBREtkTk1mMEN3K0tMYW1pUlZm?=
+ =?utf-8?B?b0MzcTBBbUpSaXRuQWVCenF2UHFHSmYxUEFyd3QrSEVraGVUOFg4b0dpWkdv?=
+ =?utf-8?B?UXVOV3dNVnM4OW1nYkFQS0xnL3J5bnYzSDlOY3k1MlQwZWt4ZVkzOTF6VnVx?=
+ =?utf-8?Q?suxs=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26b395b4-7eb4-4a10-d16f-08db983615ac
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5399.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2023 17:37:06.3797 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oEvtGJe92CS1cKfvYlE2IhLJZUGwL+/uFiFBtKg1pr+Ese+NNCP5vBUy39enV3QZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5297
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,233 +124,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>, Pekka Paalanen <ppaalanen@gmail.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, alexander.deucher@amd.com,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>, Dave Airlie <airlied@gmail.com>,
- christian.koenig@amd.com
+Cc: zhigang.luo@amd.com, guchun.chen@amd.com, gavin.wan@amd.com,
+ lijo.lazar@amd.com, emily.deng@amd.com, alexander.deucher@amd.com,
+ frank.min@amd.com, monk.liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-It's the same situation as SIGSEGV. A process can catch the signal,
-but if it doesn't, it gets killed. GL and Vulkan APIs give you a way
-to catch the GPU error and prevent the process termination. If you
-don't use the API, you'll get undefined behavior, which means anything
-can happen, including process termination.
+The series is:
+
+Acked-by: Leo Liu <leo.liu@amd.com>.
 
 
-
-Marek
-
-On Tue, Aug 8, 2023 at 8:14=E2=80=AFAM Sebastian Wick <sebastian.wick@redha=
-t.com> wrote:
+On 2023-08-08 12:26, Samir Dhume wrote:
+>      The structures are the same as v4_0 except for the
+>      init header
 >
-> On Fri, Aug 4, 2023 at 3:03=E2=80=AFPM Daniel Vetter <daniel@ffwll.ch> wr=
-ote:
-> >
-> > On Tue, Jun 27, 2023 at 10:23:23AM -0300, Andr=C3=A9 Almeida wrote:
-> > > Create a section that specifies how to deal with DRM device resets fo=
-r
-> > > kernel and userspace drivers.
-> > >
-> > > Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-> > > Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> > > ---
-> > >
-> > > v4: https://lore.kernel.org/lkml/20230626183347.55118-1-andrealmeid@i=
-galia.com/
-> > >
-> > > Changes:
-> > >  - Grammar fixes (Randy)
-> > >
-> > >  Documentation/gpu/drm-uapi.rst | 68 ++++++++++++++++++++++++++++++++=
-++
-> > >  1 file changed, 68 insertions(+)
-> > >
-> > > diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-u=
-api.rst
-> > > index 65fb3036a580..3cbffa25ed93 100644
-> > > --- a/Documentation/gpu/drm-uapi.rst
-> > > +++ b/Documentation/gpu/drm-uapi.rst
-> > > @@ -285,6 +285,74 @@ for GPU1 and GPU2 from different vendors, and a =
-third handler for
-> > >  mmapped regular files. Threads cause additional pain with signal
-> > >  handling as well.
-> > >
-> > > +Device reset
-> > > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > +
-> > > +The GPU stack is really complex and is prone to errors, from hardwar=
-e bugs,
-> > > +faulty applications and everything in between the many layers. Some =
-errors
-> > > +require resetting the device in order to make the device usable agai=
-n. This
-> > > +sections describes the expectations for DRM and usermode drivers whe=
-n a
-> > > +device resets and how to propagate the reset status.
-> > > +
-> > > +Kernel Mode Driver
-> > > +------------------
-> > > +
-> > > +The KMD is responsible for checking if the device needs a reset, and=
- to perform
-> > > +it as needed. Usually a hang is detected when a job gets stuck execu=
-ting. KMD
-> > > +should keep track of resets, because userspace can query any time ab=
-out the
-> > > +reset stats for an specific context. This is needed to propagate to =
-the rest of
-> > > +the stack that a reset has happened. Currently, this is implemented =
-by each
-> > > +driver separately, with no common DRM interface.
-> > > +
-> > > +User Mode Driver
-> > > +----------------
-> > > +
-> > > +The UMD should check before submitting new commands to the KMD if th=
-e device has
-> > > +been reset, and this can be checked more often if the UMD requires i=
-t. After
-> > > +detecting a reset, UMD will then proceed to report it to the applica=
-tion using
-> > > +the appropriate API error code, as explained in the section below ab=
-out
-> > > +robustness.
-> > > +
-> > > +Robustness
-> > > +----------
-> > > +
-> > > +The only way to try to keep an application working after a reset is =
-if it
-> > > +complies with the robustness aspects of the graphical API that it is=
- using.
-> > > +
-> > > +Graphical APIs provide ways to applications to deal with device rese=
-ts. However,
-> > > +there is no guarantee that the app will use such features correctly,=
- and the
-> > > +UMD can implement policies to close the app if it is a repeating off=
-ender,
-> >
-> > Not sure whether this one here is due to my input, but s/UMD/KMD. Repea=
-t
-> > offender killing is more a policy where the kernel enforces policy, and=
- no
-> > longer up to userspace to dtrt (because very clearly userspace is not
-> > really doing the right thing anymore when it's just hanging the gpu in =
-an
-> > endless loop). Also maybe tune it down further to something like "the
-> > kernel driver may implemnent ..."
-> >
-> > In my opinion the umd shouldn't implement these kind of magic guesses, =
-the
-> > entire point of robustness apis is to delegate responsibility for
-> > correctly recovering to the application. And the kernel is left with
-> > enforcing fair resource usage policies (which eventually might be a
-> > cgroups limit on how much gpu time you're allowed to waste with gpu
-> > resets).
+> Signed-off-by: Samir Dhume <samir.dhume@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/mmsch_v4_0_3.h | 37 +++++++++++++++++++++++
+>   1 file changed, 37 insertions(+)
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/mmsch_v4_0_3.h
 >
-> Killing apps that the kernel thinks are misbehaving really doesn't
-> seem like a good idea to me. What if the process is a service getting
-> restarted after getting killed? What if killing that process leaves
-> the system in a bad state?
->
-> Can't the kernel provide some information to user space so that e.g.
-> systemd can handle those situations?
->
-> > > +likely in a broken loop. This is done to ensure that it does not kee=
-p blocking
-> > > +the user interface from being correctly displayed. This should be do=
-ne even if
-> > > +the app is correct but happens to trigger some bug in the hardware/d=
-river.
-> > > +
-> > > +OpenGL
-> > > +~~~~~~
-> > > +
-> > > +Apps using OpenGL should use the available robust interfaces, like t=
-he
-> > > +extension ``GL_ARB_robustness`` (or ``GL_EXT_robustness`` for OpenGL=
- ES). This
-> > > +interface tells if a reset has happened, and if so, all the context =
-state is
-> > > +considered lost and the app proceeds by creating new ones. If it is =
-possible to
-> > > +determine that robustness is not in use, the UMD will terminate the =
-app when a
-> > > +reset is detected, giving that the contexts are lost and the app won=
-'t be able
-> > > +to figure this out and recreate the contexts.
-> > > +
-> > > +Vulkan
-> > > +~~~~~~
-> > > +
-> > > +Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for subm=
-issions.
-> > > +This error code means, among other things, that a device reset has h=
-appened and
-> > > +it needs to recreate the contexts to keep going.
-> > > +
-> > > +Reporting causes of resets
-> > > +--------------------------
-> > > +
-> > > +Apart from propagating the reset through the stack so apps can recov=
-er, it's
-> > > +really useful for driver developers to learn more about what caused =
-the reset in
-> > > +first place. DRM devices should make use of devcoredump to store rel=
-evant
-> > > +information about the reset, so this information can be added to use=
-r bug
-> > > +reports.
-> >
-> > Since we do not seem to have a solid consensus in the community about
-> > non-robust userspace, maybe we could just document that lack of consens=
-us
-> > to unblock this patch? Something like this:
-> >
-> > Non-Robust Userspace
-> > --------------------
-> >
-> > Userspace that doesn't support robust interfaces (like an non-robust
-> > OpenGL context or API without any robustness support like libva) leave =
-the
-> > robustness handling entirely to the userspace driver. There is no stron=
-g
-> > community consensus on what the userspace driver should do in that case=
-,
-> > since all reasonable approaches have some clear downsides.
-> >
-> > With the s/UMD/KMD/ further up and maybe something added to record the
-> > non-robustness non-consensus:
-> >
-> > Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> >
-> > Cheers, Daniel
-> >
-> >
-> >
-> > > +
-> > >  .. _drm_driver_ioctl:
-> > >
-> > >  IOCTL Support on Device Nodes
-> > > --
-> > > 2.41.0
-> > >
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
-> >
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmsch_v4_0_3.h b/drivers/gpu/drm/amd/amdgpu/mmsch_v4_0_3.h
+> new file mode 100644
+> index 000000000000..db7eb5260295
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmsch_v4_0_3.h
+> @@ -0,0 +1,37 @@
+> +/*
+> + * Copyright 2023 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#ifndef __MMSCH_V4_0_3_H__
+> +#define __MMSCH_V4_0_3_H__
+> +
+> +#include "amdgpu_vcn.h"
+> +#include "mmsch_v4_0.h"
+> +
+> +struct mmsch_v4_0_3_init_header {
+> +	uint32_t version;
+> +	uint32_t total_size;
+> +	struct mmsch_v4_0_table_info vcn0;
+> +	struct mmsch_v4_0_table_info mjpegdec0[4];
+> +	struct mmsch_v4_0_table_info mjpegdec1[4];
+> +};
+> +#endif
