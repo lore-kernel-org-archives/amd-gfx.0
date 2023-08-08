@@ -4,38 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21C46C001B0
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Aug 2023 07:40:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 997B4C001B0
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Aug 2023 07:52:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B041110E3B0;
-	Tue,  8 Aug 2023 07:40:27 +0000 (UTC)
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54FF310E3A9
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Aug 2023 02:27:44 +0000 (UTC)
-Date: Tue, 08 Aug 2023 02:27:31 +0000
-Authentication-Results: mail-4321.protonmail.ch;
- dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com
- header.b="otsiRUdY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1691461658; x=1691720858;
- bh=rLyqhqtc/MDZ2VUlG4CH6NUh7rXYVmwrFO5WIOp1Wv0=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=otsiRUdY5h8BITQCPYdaCzwvIu7vzn8bKD7YEbLivLx08aJO/vScubQSXQ3mXnEQM
- RHfmn4019bbwxtrhCmXArvt74WEeDhIiLewjJ5E2de2Zgqzcnd9VHiIw7YgU9UmhEi
- zPgRkwZBoXEHEKGaxj0iYYcZXiszdgV6GGWR2lkEm4IaaFZZtrKLZsa7Ej93FY86aZ
- t3mxj7NsAi9sx80npzJv3pcBbgGlhA11OjMVvRklsPo78oqNI5baCjLwy4rKyipCmj
- GJV5qLXHCzCKaSg11vIF1KzuGZVau/mbQPJEjLa7kRPZkRu3cb4FppFrj7sOuYogym
- agNPxxLj0gzOg==
-To: amd-gfx@lists.freedesktop.org
-From: Umio Yasuno <coelacanth_dream@protonmail.com>
-Subject: [PATCH] fix throttle_status for other than MP0 11.0.7
-Message-ID: <20230808022713.776023-1-coelacanth_dream@protonmail.com>
-Feedback-ID: 19510729:user:proton
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B60410E39D;
+	Tue,  8 Aug 2023 07:52:00 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89B1710E39D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Aug 2023 07:51:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Jzb7nZOt+nA+JosL45R9JNvlLuxdFOrJw8aIfHPYalh4MV74EbhfA4FcB8oVCsQzcJUFai3B8Ds7BniPBYtLAKztsAnkIooDrz7CJcj1xewmpNXfWFyHhJwQSu6vRXN4Or3/wxJH6pC7wSvk6YGeUh96QojvG4obxhcHDHDh+y8q18shILT6uxgVa1C+0E4tqx1RuEkypOc9IqEWWY+Rdc49s7tnbmFQyTGRwrP1l0WnMZPY7bcZx/hZt2TVQIO6tJXxXnqW1XCPwCkUMrr6VHeZlpIvzchWlnKfNFXhjHZ87ejnuvZyM8zqvW6HdDe7+qsYLfFyFqtKBnq0A4Y8iQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0/YlYyuLRsuQsU+3RJWDD9s68ER+jAfyKRHWFZT720o=;
+ b=eJvGUME6nsWvs3DwwmL/pdjV5tNGBgrVx1dvaS4Do7rBzWz7o2IYQRRIErVJ5fibVpIQm5BLKF6zcb0NVZJ0oCAcMVVY61XR666WDrChJ39PxYKXtlr0CqE04h73e25xmVOuwdkjSE6eDvCgZZ5XmGVBhz1CyNtAwQ7vcbR7E/1d9JNmB8AxjbU48XMsIqytZPXaNgPy5mY+jxGSplThB5qOnWukvCTz0Ty+CjkV4i/FFMrt2KZAzHjdal6dZ1XZF3QWTl91PbYP0I2vPI5hrxZhctm9DXXd+cM5urk7HDhFh6GaSvNCaRW4QzpMacuHiUHHHFHkB5bxO5eyNsd+TQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0/YlYyuLRsuQsU+3RJWDD9s68ER+jAfyKRHWFZT720o=;
+ b=018EwrF68djfU+qugsM6DIs6ko6b/wxzZE29xw2gmpt2w7IZon6JsLqauVLhhLGmRbDYeq9rPpoVcQ0nR+4yU7VfMbsBl0RZVA98BrS3GqhzujO4o/2Y0nVjAs6iLY8XdfTSYoVJwznTfwgt0OjakDZnZIiKB5ScDuoLWrPtDh0=
+Received: from DM6PR03CA0020.namprd03.prod.outlook.com (2603:10b6:5:40::33) by
+ MN2PR12MB4519.namprd12.prod.outlook.com (2603:10b6:208:262::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.27; Tue, 8 Aug
+ 2023 07:51:51 +0000
+Received: from CY4PEPF0000EE3B.namprd03.prod.outlook.com
+ (2603:10b6:5:40:cafe::28) by DM6PR03CA0020.outlook.office365.com
+ (2603:10b6:5:40::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.27 via Frontend
+ Transport; Tue, 8 Aug 2023 07:51:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3B.mail.protection.outlook.com (10.167.242.15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6652.19 via Frontend Transport; Tue, 8 Aug 2023 07:51:55 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 8 Aug
+ 2023 02:51:53 -0500
+Received: from kenneth-mlse-vm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.27 via
+ Frontend Transport; Tue, 8 Aug 2023 02:51:52 -0500
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: disallow the fan setting if there is no fan on
+ smu13
+Date: Tue, 8 Aug 2023 15:51:50 +0800
+Message-ID: <20230808075150.227155-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 08 Aug 2023 07:40:23 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|MN2PR12MB4519:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6af0de13-d568-44b8-3514-08db97e45625
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tndWPsw2YvVacUOY7kjI61nO6yPnwcrqYZwvDWMTB75g2BDwt2auPOLg3n2xbZegTH/0kWqpqSkxlqUqHzv6HoBopRHrUZq7vKewqbU3MWK932aGEZ3ryk5qXIacgJYcMEFbiEj2FfwUnmCd/tfTrn1+FmWBGnOjYM8EQatTHBpcN0dUyn6VhYdXF4nPoXNMwU/QPKsQ9P5lUsLbfnXzDt1hGwm5lHtfllHd9+kXZSt+vuHqSwDy4ndNV+wePd5orNEZQSBbLz97jj1iKuDFafCcUeOGzMxapodgs3uJXAh1xGt8u6THjjB+JUjT5ysfA+37rMX4ebcjmJnL8Te9oRbfGPkJZy1X0tv2iXyY0+yuMAoF/iGFoptWEoEwLHX5lG8yA3M91UtZwCTW6CA5UQ5Sxf6wMxUx/MQaBy4AuSBWPitfmomDdiYmHxrpOecOs/AvguASyV8EaB+B60aefqJnWOJbJGRZ0Mnf4lxlBssi0KGkzQOUXl5m8mFbVgF0UErHMmYOQlXsh9S6qR08NxOkOwSStWtfiUEWpeG41JVMnm1fMqcFAETSurog4Ci09UyxhiqoFd/JU6idV/w13yKVxrIfQYWUCUVSLwbqR58siSsBDNoUMxmu7uLnWS0D089qbakKT3oQMxq1hSQY59Y6dwAZDzvJXqXxIZ/Q+3bC7gBkqraOc5iLvMhFdkUMqI6x0zxxjV8u6wexjfgQaG7QKxJJSCCmx+BOdkJkfQHhEEka/YSQhJZq1tbuip7FxNju8bL5R65jSe9pDGWxJNyA3iya3DBL3hBjoG1m9VjBqza+wumy09wvMvNtvPOMI7i5Iwd/wQGtyWxGklK5Pw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(346002)(396003)(136003)(39860400002)(90011799007)(451199021)(82310400008)(90021799007)(1800799003)(186006)(46966006)(40470700004)(36840700001)(44832011)(8676002)(8936002)(5660300002)(6916009)(4326008)(41300700001)(426003)(316002)(47076005)(83380400001)(40480700001)(86362001)(40460700003)(36860700001)(2906002)(7696005)(2616005)(26005)(1076003)(36756003)(336012)(70586007)(70206006)(356005)(81166007)(478600001)(82740400003)(54906003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2023 07:51:55.5580 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6af0de13-d568-44b8-3514-08db97e45625
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3B.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4519
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,83 +98,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Umio Yasuno <coelacanth_dream@protonmail.com>
+Cc: Kenneth Feng <kenneth.feng@amd.com>, maisam.arif@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2720
-Signed-off-by: Umio Yasuno <coelacanth_dream@protonmail.com>
+disallow the fan setting if there is no fan on smu13
+
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 ---
- .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/driv=
-ers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 85d53597e..548d25cf3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -578,7 +578,9 @@ static int sienna_cichlid_tables_init(struct smu_contex=
-t *smu)
- =09return -ENOMEM;
- }
-=20
--static uint32_t sienna_cichlid_get_throttler_status_locked(struct smu_cont=
-ext *smu)
-+static uint32_t sienna_cichlid_get_throttler_status_locked(struct smu_cont=
-ext *smu,
-+=09=09=09=09=09=09=09   bool use_metrics_v3,
-+=09=09=09=09=09=09=09   bool use_metrics_v2)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index 9b62b45ebb7f..09ef0a7e7679 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -1131,7 +1131,9 @@ smu_v13_0_display_clock_voltage_request(struct smu_context *smu,
+ 
+ uint32_t smu_v13_0_get_fan_control_mode(struct smu_context *smu)
  {
- =09struct smu_table_context *smu_table=3D &smu->smu_table;
- =09SmuMetricsExternal_t *metrics_ext =3D
-@@ -586,13 +588,11 @@ static uint32_t sienna_cichlid_get_throttler_status_l=
-ocked(struct smu_context *s
- =09uint32_t throttler_status =3D 0;
- =09int i;
-=20
--=09if ((smu->adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(11, 0, 7)) &=
-&
--=09     (smu->smc_fw_version >=3D 0x3A4900)) {
-+=09if (use_metrics_v3) {
- =09=09for (i =3D 0; i < THROTTLER_COUNT; i++)
- =09=09=09throttler_status |=3D
- =09=09=09=09(metrics_ext->SmuMetrics_V3.ThrottlingPercentage[i] ? 1U << i =
-: 0);
--=09} else if ((smu->adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(11, 0=
-, 7)) &&
--=09     (smu->smc_fw_version >=3D 0x3A4300)) {
-+=09} else if (use_metrics_v2) {
- =09=09for (i =3D 0; i < THROTTLER_COUNT; i++)
- =09=09=09throttler_status |=3D
- =09=09=09=09(metrics_ext->SmuMetrics_V2.ThrottlingPercentage[i] ? 1U << i =
-: 0);
-@@ -854,7 +854,7 @@ static int sienna_cichlid_get_smu_metrics_data(struct s=
-mu_context *smu,
- =09=09=09metrics->TemperatureVrSoc) * SMU_TEMPERATURE_UNITS_PER_CENTIGRADE=
-S;
- =09=09break;
- =09case METRICS_THROTTLER_STATUS:
--=09=09*value =3D sienna_cichlid_get_throttler_status_locked(smu);
-+=09=09*value =3D sienna_cichlid_get_throttler_status_locked(smu, use_metri=
-cs_v3, use_metrics_v2);
- =09=09break;
- =09case METRICS_CURR_FANSPEED:
- =09=09*value =3D use_metrics_v3 ? metrics_v3->CurrFanSpeed :
-@@ -4056,7 +4056,7 @@ static ssize_t sienna_cichlid_get_gpu_metrics(struct =
-smu_context *smu,
- =09gpu_metrics->current_dclk1 =3D use_metrics_v3 ? metrics_v3->CurrClock[P=
-PCLK_DCLK_1] :
- =09=09use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_DCLK_1] : metrics->Curr=
-Clock[PPCLK_DCLK_1];
-=20
--=09gpu_metrics->throttle_status =3D sienna_cichlid_get_throttler_status_lo=
-cked(smu);
-+=09gpu_metrics->throttle_status =3D sienna_cichlid_get_throttler_status_lo=
-cked(smu, use_metrics_v3, use_metrics_v2);
- =09gpu_metrics->indep_throttle_status =3D
- =09=09=09smu_cmn_get_indep_throttler_status(gpu_metrics->throttle_status,
- =09=09=09=09=09=09=09   sienna_cichlid_throttler_map);
---=20
-2.40.1
-
+-	if (!smu_cmn_feature_is_enabled(smu, SMU_FEATURE_FAN_CONTROL_BIT))
++	if (!smu_cmn_feature_is_supported(smu, SMU_FEATURE_FAN_CONTROL_BIT))
++		return AMD_FAN_CTRL_NONE;
++	else if (!smu_cmn_feature_is_enabled(smu, SMU_FEATURE_FAN_CONTROL_BIT))
+ 		return AMD_FAN_CTRL_MANUAL;
+ 	else
+ 		return AMD_FAN_CTRL_AUTO;
+@@ -1143,7 +1145,7 @@ smu_v13_0_auto_fan_control(struct smu_context *smu, bool auto_fan_control)
+ 	int ret = 0;
+ 
+ 	if (!smu_cmn_feature_is_supported(smu, SMU_FEATURE_FAN_CONTROL_BIT))
+-		return 0;
++		return -EINVAL;
+ 
+ 	ret = smu_cmn_feature_set_enabled(smu, SMU_FEATURE_FAN_CONTROL_BIT, auto_fan_control);
+ 	if (ret)
+@@ -1204,7 +1206,8 @@ smu_v13_0_set_fan_control_mode(struct smu_context *smu,
+ 
+ 	switch (mode) {
+ 	case AMD_FAN_CTRL_NONE:
+-		ret = smu_v13_0_set_fan_speed_pwm(smu, 255);
++		if (smu_cmn_feature_is_supported(smu, SMU_FEATURE_FAN_CONTROL_BIT))
++			ret = -EINVAL;
+ 		break;
+ 	case AMD_FAN_CTRL_MANUAL:
+ 		ret = smu_v13_0_auto_fan_control(smu, 0);
+-- 
+2.34.1
 
