@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30DA6C001B0
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Aug 2023 16:43:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D70EC04A6A
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Aug 2023 17:03:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5C0E10E1DA;
-	Tue,  8 Aug 2023 16:43:32 +0000 (UTC)
-Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
- [IPv6:2607:f8b0:4864:20::c32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14F4B10E1DA
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Aug 2023 16:43:31 +0000 (UTC)
-Received: by mail-oo1-xc32.google.com with SMTP id
- 006d021491bc7-56cca35d8c3so3171346eaf.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Aug 2023 09:43:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3FA410E1FD;
+	Tue,  8 Aug 2023 17:03:50 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C0BA10E1FD;
+ Tue,  8 Aug 2023 17:03:49 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5217ad95029so7626139a12.2; 
+ Tue, 08 Aug 2023 10:03:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691513010; x=1692117810;
+ d=gmail.com; s=20221208; t=1691514228; x=1692119028;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=AV2llAvpGWS4YFm4dzatLYVkWQQgvQvM8ERcCwjUdJA=;
- b=n4PDU8fJW8qYhaZGSvx4qgyywvmVjK8p9TJy2HpUnNMFpXgrT4k1uOgRYgVOJfUKLq
- v4jZah+1JklBnaGVsA7TbS3MOKp6MO9k7/HuWZ9YhE9DpoqCu/OnZsfSuN/7frlQs9Us
- 5dmGhuxkBi56l7SjHTqAlAoo0LrwZLEZHXKE5Sw1VnjtD7DROV6fn8NYjkWaBkWUFUyp
- nfs42tg6/oFOd/AFOeEhTGneRmnCJNBZQzE6UcOCd13ysva1UkRW2n5LV3GLP1ING6f6
- E5yUyW8i4rD4Hxl149TR+qMYQ57dW8PZUkrj8vpGuMuDq9xsVpOdH4jUvZaDY49noMkR
- d/ow==
+ bh=MCtF+tlL9RHfHxmqFs9C5rEqPpa4jyBqd3r5LEKKols=;
+ b=aBZltA2/j9gJFH0DRcIaD9UZ+V275GL4XmWvgdVWIUuVgUcK27xI5Ww5ou0S7ZgVMr
+ snr8roKmVsjyHHP11xm9jT1M/Zp+uryGzqDuWIWnEzOxZ7D0ygH5UFIvdvX3eFJIMWIH
+ G3VOIqnsf8GUXZY1dL3Bzcj3/Z8a8eGMNdO3vIFIJqH3hfYVuF5F0lXDnqZ1uE4LtLuX
+ CDgwjYrk3+fPOwLG8R+U4eN3LV6sSG1M0xr7TjY1vQIQaz5YSfS66mP8qo23BCxne606
+ h1CAp1VACppO8pFyUmq4aByRHoPBHz1f4Uf7NWs4wvGQfUPrmGlFOcMrNqTFl3go/TMV
+ 8Fqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691513010; x=1692117810;
+ d=1e100.net; s=20221208; t=1691514228; x=1692119028;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=AV2llAvpGWS4YFm4dzatLYVkWQQgvQvM8ERcCwjUdJA=;
- b=lgtaqnG4J+uIgFDEBTAE12bN2x1ZkzZjb7biMm2QxUgiSBGSwszKc7jmKedQ5k3/r5
- eKX9o0UufT0RPDo455zbRRr9XNb9t4iKwfcryPr8GrPAFxYfd+SAtxDMdlTRIjBua5fI
- SbO1JWjnRoRg6Cj5JMliS3Yn/E8citELqYVuktejlj2UZHyOgMjbXdX2D8nrEUkoy/Cd
- cRHrg9A1osmMFnHe0jxpkxgAa7zaZOlcEpmwSc1BpgX+6DSEmkE9/FJyNdom//AnzdyK
- V3X9vXjYeOGF+uUukZCU/GVnYXSD7GZ3c8I2Q8wl0FrSBeXdiel/phjYghYkOtFGCK4P
- JO3g==
-X-Gm-Message-State: AOJu0Yygd+xsak6irKrzqcJo13tzcasb9iyMB8XoDFLCnEqzIGyUXCYt
- xo3o2P9JcratnLkhsk1hWBdT5TCn2VYnxYgBzUA=
-X-Google-Smtp-Source: AGHT+IF25d5D9qfekQp6CgUDlGTtGlpckP1hQU9W8Z1DU+goXVzzsvcs5hBMA0k3HgBVWZkvbYP7AHzVT9LZyHI1wQg=
-X-Received: by 2002:a05:6871:54f:b0:1bf:dc26:4947 with SMTP id
- t15-20020a056871054f00b001bfdc264947mr122019oal.46.1691513010029; Tue, 08 Aug
- 2023 09:43:30 -0700 (PDT)
+ bh=MCtF+tlL9RHfHxmqFs9C5rEqPpa4jyBqd3r5LEKKols=;
+ b=EwuwRRxChxyP9pXC1nTcnVlvuaujXh3dpNL4l1TkRtnqsWPmMve5dAsJL0ybQymJcT
+ JmXXky8pV+1qucEqOWumwrVmfbC0Eqsryf6+scT+4YoOk0V+Y7UJrBb1hoeXET2bRwUd
+ Vct3kXy38qo7yCrIJzXHnvsy+n+29jJb/ZfD9KYAgdfLIJshWXwgMfhGg2VFkRwJcQ8b
+ j41Lc5cTTbiwOMaLccIpy8n+XAd9JLXrq0MBD8eXXa39OLyFxIs56CTnpcR+eEaKdmjR
+ GAsF+am9a/7erUGsaanki/gdTUIzurEMioWzUwn2pBgmRCu7G5wbsGDFJF+Vs0Mklaxd
+ Lumg==
+X-Gm-Message-State: AOJu0YxZUYgNVXBErTNtkyinrgmh8kdr4BNrZFkRpRHkn6xOsd8k1l3G
+ WbOZ7j/OY9rlHZNKznbubaRYDVpKpWzvh8BCaAn2kbgd
+X-Google-Smtp-Source: AGHT+IGiRf3LjW21hBgVZPw8p0E39D05fmYq9Nt6u/oqdz7fmoq9LG0DSAo2VVHnZ97EOoXBgYqFG2/wFndCouOjoWo=
+X-Received: by 2002:aa7:d04c:0:b0:523:9c4:544f with SMTP id
+ n12-20020aa7d04c000000b0052309c4544fmr386743edo.31.1691514227607; Tue, 08 Aug
+ 2023 10:03:47 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230808064025.1008680-1-coelacanth_dream@protonmail.com>
- <DM6PR12MB26194F879FCE037C745B6D97E40DA@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB26194F879FCE037C745B6D97E40DA@DM6PR12MB2619.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 8 Aug 2023 12:43:18 -0400
-Message-ID: <CADnq5_NdZzofSAoaEg+fZbbn1weELA8acJ++RuekVWH13+YLeA@mail.gmail.com>
-Subject: Re: [PATCH] fix throttle_status for other than MP0 11.0.7
-To: "Quan, Evan" <Evan.Quan@amd.com>
+References: <20230627132323.115440-1-andrealmeid@igalia.com>
+ <ZMz3IXIzXS5gNK3G@phenom.ffwll.local>
+ <CA+hFU4wbn=efbS10c14A9sLTf9GYJ_O12kowh76ELLdo2+x5fA@mail.gmail.com>
+In-Reply-To: <CA+hFU4wbn=efbS10c14A9sLTf9GYJ_O12kowh76ELLdo2+x5fA@mail.gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Tue, 8 Aug 2023 13:03:11 -0400
+Message-ID: <CAAxE2A48uybsU6DY+fLTzQ9K2b0Ln+SW6bt3capbGAGb7L8fvQ@mail.gmail.com>
+Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
+To: Sebastian Wick <sebastian.wick@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,115 +69,233 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Umio Yasuno <coelacanth_dream@protonmail.com>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Simon Ser <contact@emersion.fr>, Pekka Paalanen <ppaalanen@gmail.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, alexander.deucher@amd.com,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>, Dave Airlie <airlied@gmail.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+It's the same situation as SIGSEGV. A process can catch the signal,
+but if it doesn't, it gets killed. GL and Vulkan APIs give you a way
+to catch the GPU error and prevent the process termination. If you
+don't use the API, you'll get undefined behavior, which means anything
+can happen, including process termination.
 
-Alex
 
-On Tue, Aug 8, 2023 at 4:38=E2=80=AFAM Quan, Evan <Evan.Quan@amd.com> wrote=
-:
+
+Marek
+
+On Tue, Aug 8, 2023 at 8:14=E2=80=AFAM Sebastian Wick <sebastian.wick@redha=
+t.com> wrote:
 >
-> [AMD Official Use Only - General]
+> On Fri, Aug 4, 2023 at 3:03=E2=80=AFPM Daniel Vetter <daniel@ffwll.ch> wr=
+ote:
+> >
+> > On Tue, Jun 27, 2023 at 10:23:23AM -0300, Andr=C3=A9 Almeida wrote:
+> > > Create a section that specifies how to deal with DRM device resets fo=
+r
+> > > kernel and userspace drivers.
+> > >
+> > > Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+> > > Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> > > ---
+> > >
+> > > v4: https://lore.kernel.org/lkml/20230626183347.55118-1-andrealmeid@i=
+galia.com/
+> > >
+> > > Changes:
+> > >  - Grammar fixes (Randy)
+> > >
+> > >  Documentation/gpu/drm-uapi.rst | 68 ++++++++++++++++++++++++++++++++=
+++
+> > >  1 file changed, 68 insertions(+)
+> > >
+> > > diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-u=
+api.rst
+> > > index 65fb3036a580..3cbffa25ed93 100644
+> > > --- a/Documentation/gpu/drm-uapi.rst
+> > > +++ b/Documentation/gpu/drm-uapi.rst
+> > > @@ -285,6 +285,74 @@ for GPU1 and GPU2 from different vendors, and a =
+third handler for
+> > >  mmapped regular files. Threads cause additional pain with signal
+> > >  handling as well.
+> > >
+> > > +Device reset
+> > > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > +
+> > > +The GPU stack is really complex and is prone to errors, from hardwar=
+e bugs,
+> > > +faulty applications and everything in between the many layers. Some =
+errors
+> > > +require resetting the device in order to make the device usable agai=
+n. This
+> > > +sections describes the expectations for DRM and usermode drivers whe=
+n a
+> > > +device resets and how to propagate the reset status.
+> > > +
+> > > +Kernel Mode Driver
+> > > +------------------
+> > > +
+> > > +The KMD is responsible for checking if the device needs a reset, and=
+ to perform
+> > > +it as needed. Usually a hang is detected when a job gets stuck execu=
+ting. KMD
+> > > +should keep track of resets, because userspace can query any time ab=
+out the
+> > > +reset stats for an specific context. This is needed to propagate to =
+the rest of
+> > > +the stack that a reset has happened. Currently, this is implemented =
+by each
+> > > +driver separately, with no common DRM interface.
+> > > +
+> > > +User Mode Driver
+> > > +----------------
+> > > +
+> > > +The UMD should check before submitting new commands to the KMD if th=
+e device has
+> > > +been reset, and this can be checked more often if the UMD requires i=
+t. After
+> > > +detecting a reset, UMD will then proceed to report it to the applica=
+tion using
+> > > +the appropriate API error code, as explained in the section below ab=
+out
+> > > +robustness.
+> > > +
+> > > +Robustness
+> > > +----------
+> > > +
+> > > +The only way to try to keep an application working after a reset is =
+if it
+> > > +complies with the robustness aspects of the graphical API that it is=
+ using.
+> > > +
+> > > +Graphical APIs provide ways to applications to deal with device rese=
+ts. However,
+> > > +there is no guarantee that the app will use such features correctly,=
+ and the
+> > > +UMD can implement policies to close the app if it is a repeating off=
+ender,
+> >
+> > Not sure whether this one here is due to my input, but s/UMD/KMD. Repea=
+t
+> > offender killing is more a policy where the kernel enforces policy, and=
+ no
+> > longer up to userspace to dtrt (because very clearly userspace is not
+> > really doing the right thing anymore when it's just hanging the gpu in =
+an
+> > endless loop). Also maybe tune it down further to something like "the
+> > kernel driver may implemnent ..."
+> >
+> > In my opinion the umd shouldn't implement these kind of magic guesses, =
+the
+> > entire point of robustness apis is to delegate responsibility for
+> > correctly recovering to the application. And the kernel is left with
+> > enforcing fair resource usage policies (which eventually might be a
+> > cgroups limit on how much gpu time you're allowed to waste with gpu
+> > resets).
 >
-> Reviewed-by: Evan Quan <evan.quan@amd.com>
+> Killing apps that the kernel thinks are misbehaving really doesn't
+> seem like a good idea to me. What if the process is a service getting
+> restarted after getting killed? What if killing that process leaves
+> the system in a bad state?
 >
-> > -----Original Message-----
-> > From: Umio Yasuno <coelacanth_dream@protonmail.com>
-> > Sent: Tuesday, August 8, 2023 2:41 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Quan, Evan
-> > <Evan.Quan@amd.com>; Limonciello, Mario <Mario.Limonciello@amd.com>
-> > Subject: [PATCH] fix throttle_status for other than MP0 11.0.7
+> Can't the kernel provide some information to user space so that e.g.
+> systemd can handle those situations?
+>
+> > > +likely in a broken loop. This is done to ensure that it does not kee=
+p blocking
+> > > +the user interface from being correctly displayed. This should be do=
+ne even if
+> > > +the app is correct but happens to trigger some bug in the hardware/d=
+river.
+> > > +
+> > > +OpenGL
+> > > +~~~~~~
+> > > +
+> > > +Apps using OpenGL should use the available robust interfaces, like t=
+he
+> > > +extension ``GL_ARB_robustness`` (or ``GL_EXT_robustness`` for OpenGL=
+ ES). This
+> > > +interface tells if a reset has happened, and if so, all the context =
+state is
+> > > +considered lost and the app proceeds by creating new ones. If it is =
+possible to
+> > > +determine that robustness is not in use, the UMD will terminate the =
+app when a
+> > > +reset is detected, giving that the contexts are lost and the app won=
+'t be able
+> > > +to figure this out and recreate the contexts.
+> > > +
+> > > +Vulkan
+> > > +~~~~~~
+> > > +
+> > > +Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for subm=
+issions.
+> > > +This error code means, among other things, that a device reset has h=
+appened and
+> > > +it needs to recreate the contexts to keep going.
+> > > +
+> > > +Reporting causes of resets
+> > > +--------------------------
+> > > +
+> > > +Apart from propagating the reset through the stack so apps can recov=
+er, it's
+> > > +really useful for driver developers to learn more about what caused =
+the reset in
+> > > +first place. DRM devices should make use of devcoredump to store rel=
+evant
+> > > +information about the reset, so this information can be added to use=
+r bug
+> > > +reports.
 > >
-> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2720
-> > Signed-off-by: Umio Yasuno <coelacanth_dream@protonmail.com>
-> > ---
-> >  .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 14 +++++++-------
-> >  1 file changed, 7 insertions(+), 7 deletions(-)
+> > Since we do not seem to have a solid consensus in the community about
+> > non-robust userspace, maybe we could just document that lack of consens=
+us
+> > to unblock this patch? Something like this:
 > >
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > index 85d53597e..548d25cf3 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> > @@ -578,7 +578,9 @@ static int sienna_cichlid_tables_init(struct
-> > smu_context *smu)
-> >       return -ENOMEM;
-> >  }
+> > Non-Robust Userspace
+> > --------------------
 > >
-> > -static uint32_t sienna_cichlid_get_throttler_status_locked(struct
-> > smu_context *smu)
-> > +static uint32_t sienna_cichlid_get_throttler_status_locked(struct
-> > smu_context *smu,
-> > +                                                        bool
-> > use_metrics_v3,
-> > +                                                        bool
-> > use_metrics_v2)
-> >  {
-> >       struct smu_table_context *smu_table=3D &smu->smu_table;
-> >       SmuMetricsExternal_t *metrics_ext =3D
-> > @@ -586,13 +588,11 @@ static uint32_t
-> > sienna_cichlid_get_throttler_status_locked(struct smu_context *s
-> >       uint32_t throttler_status =3D 0;
-> >       int i;
-> >
-> > -     if ((smu->adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(11, 0,=
- 7))
-> > &&
-> > -          (smu->smc_fw_version >=3D 0x3A4900)) {
-> > +     if (use_metrics_v3) {
-> >               for (i =3D 0; i < THROTTLER_COUNT; i++)
-> >                       throttler_status |=3D
-> >                               (metrics_ext-
-> > >SmuMetrics_V3.ThrottlingPercentage[i] ? 1U << i : 0);
-> > -     } else if ((smu->adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION=
-(11,
-> > 0, 7)) &&
-> > -          (smu->smc_fw_version >=3D 0x3A4300)) {
-> > +     } else if (use_metrics_v2) {
-> >               for (i =3D 0; i < THROTTLER_COUNT; i++)
-> >                       throttler_status |=3D
-> >                               (metrics_ext-
-> > >SmuMetrics_V2.ThrottlingPercentage[i] ? 1U << i : 0);
-> > @@ -854,7 +854,7 @@ static int sienna_cichlid_get_smu_metrics_data(stru=
-ct
-> > smu_context *smu,
-> >                       metrics->TemperatureVrSoc) *
-> > SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-> >               break;
-> >       case METRICS_THROTTLER_STATUS:
-> > -             *value =3D sienna_cichlid_get_throttler_status_locked(smu=
-);
-> > +             *value =3D sienna_cichlid_get_throttler_status_locked(smu=
+> > Userspace that doesn't support robust interfaces (like an non-robust
+> > OpenGL context or API without any robustness support like libva) leave =
+the
+> > robustness handling entirely to the userspace driver. There is no stron=
+g
+> > community consensus on what the userspace driver should do in that case=
 ,
-> > use_metrics_v3, use_metrics_v2);
-> >               break;
-> >       case METRICS_CURR_FANSPEED:
-> >               *value =3D use_metrics_v3 ? metrics_v3->CurrFanSpeed :
-> > @@ -4056,7 +4056,7 @@ static ssize_t
-> > sienna_cichlid_get_gpu_metrics(struct smu_context *smu,
-> >       gpu_metrics->current_dclk1 =3D use_metrics_v3 ? metrics_v3-
-> > >CurrClock[PPCLK_DCLK_1] :
-> >               use_metrics_v2 ? metrics_v2->CurrClock[PPCLK_DCLK_1] :
-> > metrics->CurrClock[PPCLK_DCLK_1];
+> > since all reasonable approaches have some clear downsides.
 > >
-> > -     gpu_metrics->throttle_status =3D
-> > sienna_cichlid_get_throttler_status_locked(smu);
-> > +     gpu_metrics->throttle_status =3D
-> > sienna_cichlid_get_throttler_status_locked(smu, use_metrics_v3,
-> > use_metrics_v2);
-> >       gpu_metrics->indep_throttle_status =3D
-> >                       smu_cmn_get_indep_throttler_status(gpu_metrics-
-> > >throttle_status,
+> > With the s/UMD/KMD/ further up and maybe something added to record the
+> > non-robustness non-consensus:
 > >
-> > sienna_cichlid_throttler_map);
+> > Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> >
+> > Cheers, Daniel
+> >
+> >
+> >
+> > > +
+> > >  .. _drm_driver_ioctl:
+> > >
+> > >  IOCTL Support on Device Nodes
+> > > --
+> > > 2.41.0
+> > >
+> >
 > > --
-> > 2.40.1
+> > Daniel Vetter
+> > Software Engineer, Intel Corporation
+> > http://blog.ffwll.ch
 > >
 >
