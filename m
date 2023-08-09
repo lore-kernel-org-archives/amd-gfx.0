@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D885FEB64DD
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 07:14:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 175BDC001E0
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 07:14:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58F8510E241;
-	Wed,  9 Aug 2023 07:14:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7DE610E244;
+	Wed,  9 Aug 2023 07:14:52 +0000 (UTC)
 Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09B1310E12A;
- Wed,  9 Aug 2023 03:45:27 +0000 (UTC)
-Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.53])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RLGBh4Rl9zmXD6;
- Wed,  9 Aug 2023 11:44:12 +0800 (CST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A92D010E130;
+ Wed,  9 Aug 2023 03:45:31 +0000 (UTC)
+Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.55])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RLGBn0R4ZzmXGL;
+ Wed,  9 Aug 2023 11:44:17 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemi500008.china.huawei.com
  (7.221.188.139) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 9 Aug
- 2023 11:45:22 +0800
+ 2023 11:45:26 +0800
 From: Ruan Jinjie <ruanjinjie@huawei.com>
 To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
  <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
@@ -43,9 +43,9 @@ To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
  <linux-arm-kernel@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
  <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
  <nouveau@lists.freedesktop.org>, <virtualization@lists.linux-foundation.org>
-Subject: [PATCH -next 1/7] drm/amdkfd: Remove unnecessary NULL values
-Date: Wed, 9 Aug 2023 11:44:39 +0800
-Message-ID: <20230809034445.434902-2-ruanjinjie@huawei.com>
+Subject: [PATCH -next 3/7] drm/msm: Remove unnecessary NULL values
+Date: Wed, 9 Aug 2023 11:44:41 +0800
+Message-ID: <20230809034445.434902-4-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230809034445.434902-1-ruanjinjie@huawei.com>
 References: <20230809034445.434902-1-ruanjinjie@huawei.com>
@@ -78,31 +78,36 @@ assigned NULL, otherwise it works as usual. so remove it.
 
 Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 2 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-index 863cf060af48..d01bb57733b3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-@@ -48,7 +48,7 @@ int pipe_priority_map[] = {
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 8ce7586e2ddf..3c475f8042b0 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1466,7 +1466,7 @@ struct drm_crtc *dpu_crtc_init(struct drm_device *dev, struct drm_plane *plane,
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct dpu_kms *dpu_kms = to_dpu_kms(priv->kms);
+ 	struct drm_crtc *crtc = NULL;
+-	struct dpu_crtc *dpu_crtc = NULL;
++	struct dpu_crtc *dpu_crtc;
+ 	int i, ret;
  
- struct kfd_mem_obj *allocate_hiq_mqd(struct kfd_node *dev, struct queue_properties *q)
+ 	dpu_crtc = kzalloc(sizeof(*dpu_crtc), GFP_KERNEL);
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
+index 56a3063545ec..b68682c1b5bc 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c
+@@ -379,7 +379,7 @@ struct mdp5_smp *mdp5_smp_init(struct mdp5_kms *mdp5_kms, const struct mdp5_smp_
  {
--	struct kfd_mem_obj *mqd_mem_obj = NULL;
-+	struct kfd_mem_obj *mqd_mem_obj;
+ 	struct mdp5_smp_state *state;
+ 	struct mdp5_global_state *global_state;
+-	struct mdp5_smp *smp = NULL;
++	struct mdp5_smp *smp;
+ 	int ret;
  
- 	mqd_mem_obj = kzalloc(sizeof(struct kfd_mem_obj), GFP_KERNEL);
- 	if (!mqd_mem_obj)
-@@ -64,7 +64,7 @@ struct kfd_mem_obj *allocate_hiq_mqd(struct kfd_node *dev, struct queue_properti
- struct kfd_mem_obj *allocate_sdma_mqd(struct kfd_node *dev,
- 					struct queue_properties *q)
- {
--	struct kfd_mem_obj *mqd_mem_obj = NULL;
-+	struct kfd_mem_obj *mqd_mem_obj;
- 	uint64_t offset;
- 
- 	mqd_mem_obj = kzalloc(sizeof(struct kfd_mem_obj), GFP_KERNEL);
+ 	smp = kzalloc(sizeof(*smp), GFP_KERNEL);
 -- 
 2.34.1
 
