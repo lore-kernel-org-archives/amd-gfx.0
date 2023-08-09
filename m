@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B734C001B0
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 07:14:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60116C001E0
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 07:15:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B276F10E24F;
-	Wed,  9 Aug 2023 07:14:53 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76F2F10E130;
- Wed,  9 Aug 2023 03:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CD9D10E254;
+	Wed,  9 Aug 2023 07:14:57 +0000 (UTC)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90D0B10E130;
+ Wed,  9 Aug 2023 03:45:29 +0000 (UTC)
 Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.57])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RLG8B1Qrsz9tDG;
- Wed,  9 Aug 2023 11:42:02 +0800 (CST)
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4RLGBl4YvDz1GDtg;
+ Wed,  9 Aug 2023 11:44:15 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemi500008.china.huawei.com
  (7.221.188.139) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 9 Aug
- 2023 11:45:29 +0800
+ 2023 11:45:24 +0800
 From: Ruan Jinjie <ruanjinjie@huawei.com>
 To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
  <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
@@ -43,9 +43,9 @@ To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
  <linux-arm-kernel@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
  <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
  <nouveau@lists.freedesktop.org>, <virtualization@lists.linux-foundation.org>
-Subject: [PATCH -next 4/7] drm/radeon: Remove unnecessary NULL values
-Date: Wed, 9 Aug 2023 11:44:42 +0800
-Message-ID: <20230809034445.434902-5-ruanjinjie@huawei.com>
+Subject: [PATCH -next 2/7] drm/amd/display: Remove unnecessary NULL values
+Date: Wed, 9 Aug 2023 11:44:40 +0800
+Message-ID: <20230809034445.434902-3-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230809034445.434902-1-ruanjinjie@huawei.com>
 References: <20230809034445.434902-1-ruanjinjie@huawei.com>
@@ -78,77 +78,54 @@ assigned NULL, otherwise it works as usual. so remove it.
 
 Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
 ---
- drivers/gpu/drm/radeon/radeon_agp.c             | 2 +-
- drivers/gpu/drm/radeon/radeon_combios.c         | 6 +++---
- drivers/gpu/drm/radeon/radeon_legacy_encoders.c | 4 ++--
- 3 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser.c  | 4 ++--
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_agp.c b/drivers/gpu/drm/radeon/radeon_agp.c
-index d124600b5f58..a3d749e350f9 100644
---- a/drivers/gpu/drm/radeon/radeon_agp.c
-+++ b/drivers/gpu/drm/radeon/radeon_agp.c
-@@ -130,7 +130,7 @@ static struct radeon_agpmode_quirk radeon_agpmode_quirk_list[] = {
- struct radeon_agp_head *radeon_agp_head_init(struct drm_device *dev)
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+index 4f005ae1516c..6b3190447581 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
+@@ -96,7 +96,7 @@ struct dc_bios *bios_parser_create(
+ 	struct bp_init_data *init,
+ 	enum dce_version dce_version)
  {
- 	struct pci_dev *pdev = to_pci_dev(dev->dev);
--	struct radeon_agp_head *head = NULL;
-+	struct radeon_agp_head *head;
+-	struct bios_parser *bp = NULL;
++	struct bios_parser *bp;
  
- 	head = kzalloc(sizeof(*head), GFP_KERNEL);
- 	if (!head)
-diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
-index 795c3667f6d6..2620efc7c675 100644
---- a/drivers/gpu/drm/radeon/radeon_combios.c
-+++ b/drivers/gpu/drm/radeon/radeon_combios.c
-@@ -863,7 +863,7 @@ struct radeon_encoder_primary_dac *radeon_combios_get_primary_dac_info(struct
- 	struct radeon_device *rdev = dev->dev_private;
- 	uint16_t dac_info;
- 	uint8_t rev, bg, dac;
--	struct radeon_encoder_primary_dac *p_dac = NULL;
-+	struct radeon_encoder_primary_dac *p_dac;
- 	int found = 0;
- 
- 	p_dac = kzalloc(sizeof(struct radeon_encoder_primary_dac),
-@@ -1014,7 +1014,7 @@ struct radeon_encoder_tv_dac *radeon_combios_get_tv_dac_info(struct
- 	struct radeon_device *rdev = dev->dev_private;
- 	uint16_t dac_info;
- 	uint8_t rev, bg, dac;
--	struct radeon_encoder_tv_dac *tv_dac = NULL;
-+	struct radeon_encoder_tv_dac *tv_dac;
- 	int found = 0;
- 
- 	tv_dac = kzalloc(sizeof(struct radeon_encoder_tv_dac), GFP_KERNEL);
-@@ -1100,7 +1100,7 @@ static struct radeon_encoder_lvds *radeon_legacy_get_lvds_info_from_regs(struct
- 									 radeon_device
- 									 *rdev)
+ 	bp = kzalloc(sizeof(struct bios_parser), GFP_KERNEL);
+ 	if (!bp)
+@@ -2576,7 +2576,7 @@ static struct integrated_info *bios_parser_create_integrated_info(
+ 	struct dc_bios *dcb)
  {
--	struct radeon_encoder_lvds *lvds = NULL;
-+	struct radeon_encoder_lvds *lvds;
- 	uint32_t fp_vert_stretch, fp_horz_stretch;
- 	uint32_t ppll_div_sel, ppll_val;
- 	uint32_t lvds_ss_gen_cntl = RREG32(RADEON_LVDS_SS_GEN_CNTL);
-diff --git a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
-index 601d35d34eab..c4350ac2b3d2 100644
---- a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
-+++ b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
-@@ -1692,7 +1692,7 @@ static struct radeon_encoder_int_tmds *radeon_legacy_get_tmds_info(struct radeon
- {
- 	struct drm_device *dev = encoder->base.dev;
- 	struct radeon_device *rdev = dev->dev_private;
--	struct radeon_encoder_int_tmds *tmds = NULL;
-+	struct radeon_encoder_int_tmds *tmds;
- 	bool ret;
+ 	struct bios_parser *bp = BP_FROM_DCB(dcb);
+-	struct integrated_info *info = NULL;
++	struct integrated_info *info;
  
- 	tmds = kzalloc(sizeof(struct radeon_encoder_int_tmds), GFP_KERNEL);
-@@ -1715,7 +1715,7 @@ static struct radeon_encoder_ext_tmds *radeon_legacy_get_ext_tmds_info(struct ra
- {
- 	struct drm_device *dev = encoder->base.dev;
- 	struct radeon_device *rdev = dev->dev_private;
--	struct radeon_encoder_ext_tmds *tmds = NULL;
-+	struct radeon_encoder_ext_tmds *tmds;
- 	bool ret;
+ 	info = kzalloc(sizeof(struct integrated_info), GFP_KERNEL);
  
- 	if (rdev->is_atom_bios)
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 540d19efad8f..c7b3359f1e1d 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -3086,7 +3086,7 @@ static struct integrated_info *bios_parser_create_integrated_info(
+ 	struct dc_bios *dcb)
+ {
+ 	struct bios_parser *bp = BP_FROM_DCB(dcb);
+-	struct integrated_info *info = NULL;
++	struct integrated_info *info;
+ 
+ 	info = kzalloc(sizeof(struct integrated_info), GFP_KERNEL);
+ 
+@@ -3675,7 +3675,7 @@ struct dc_bios *firmware_parser_create(
+ 	struct bp_init_data *init,
+ 	enum dce_version dce_version)
+ {
+-	struct bios_parser *bp = NULL;
++	struct bios_parser *bp;
+ 
+ 	bp = kzalloc(sizeof(struct bios_parser), GFP_KERNEL);
+ 	if (!bp)
 -- 
 2.34.1
 
