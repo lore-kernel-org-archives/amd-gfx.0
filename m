@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A9A1C04A6A
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 13:38:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99CCDC0015E
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 13:55:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1076610E0B9;
-	Wed,  9 Aug 2023 13:38:33 +0000 (UTC)
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E321B10E0B9
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 13:38:30 +0000 (UTC)
-Received: by mail-oi1-x236.google.com with SMTP id
- 5614622812f47-3a6f3ef3155so5317247b6e.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Aug 2023 06:38:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E62210E443;
+	Wed,  9 Aug 2023 13:55:35 +0000 (UTC)
+Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
+ [IPv6:2607:f8b0:4864:20::c35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1733710E443
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 13:55:33 +0000 (UTC)
+Received: by mail-oo1-xc35.google.com with SMTP id
+ 006d021491bc7-5633b7e5f90so4919553eaf.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Aug 2023 06:55:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691588310; x=1692193110;
+ d=gmail.com; s=20221208; t=1691589332; x=1692194132;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8dQbzo8agGxYvvNGoV5RVHvvC2CVz5pXcZdvcuh2hEs=;
- b=sbODj9OzVYXn/0ciinqNcVhhqCnQf2eGruUBv7BsSSvj0FV/wTwQdK5PLpIDAuKUln
- YQGfv8rkg9GD7O/szrmf59ciFYctu6n352JZPmEOuPNn1VQ/pEXQkieV6Ul7LG8igVmo
- 7MiOgIY4P9pr1IHBaDW4/B/t1BAvJSwODlwEqNv40XHCuKqNvUxt5CUhgkcWvwVk0JFQ
- G6wcS0KrpTG7PerShffL4aXT7iCl8a+IigAbWq2NeNXQuqZg3pN92SZci60b2M1RY4CH
- Q3g9RpFXIrinMfu2qEug7TLV3fa3vX4tbzbPeEC6EGCWrB1NQJa7lPYp3sCrth1adP3z
- fViQ==
+ bh=YOCB79KjMhqBfgq1ZV5SurafAjJMRV6Gq6YnbdsoZeA=;
+ b=jHIfj+RjH0dTcdN3BWd2/ZNbXi3qLW5r7WQO2s4TSX4Nr46+Wuw68o+BiVyISmtKS4
+ c/tnn0inw4X0SxKxBujfLzAxEn+obZzXfKC17yMhe18ypDVNmss6C1Rr7ZTZ6f/tqx4o
+ pFrPOXwhBEhFUVW8oVW+5tGD980drS3w6xJBG5oXdZxzJ0qDt/dgD8Cq4VmZInW9FvLN
+ YTgNlQeWeKk1pq3dCb/8v0w5hd/hhbejeysnYawl0z2SQjkeKzida35DsVaHJBmgO+dQ
+ wehtABE/htcqHU+MtR0GXyY51vUgjd9Y2nos4E+4/YZII6lFZ36Oiml3Ndoyl3Sj66Yi
+ AaaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691588310; x=1692193110;
+ d=1e100.net; s=20221208; t=1691589332; x=1692194132;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8dQbzo8agGxYvvNGoV5RVHvvC2CVz5pXcZdvcuh2hEs=;
- b=dLZX0OT1v/KaboVWB5pWlFbZjGTZiXXtHsaXPVGbmakGRXjHgOnHErbIE0z3oIiDOT
- u8eU9t19TdB3qjYh/tTrIQHOFEHy20B35bODjrp0E/a3aWc3vHDISpnsXg/+8nPBL8Mo
- yIl9bo/ipOWmyNZ9ch7MpdWQFKPYq7nxLcJW33/T626mwhv03VDfu9p2WeUbl6CtOg7q
- 7NmGdIxqtsvzgAaoPRpHN1RVM60YRCh6BZdhFnbyWzP+TmznreEyE8SPx1NY5Hs5jArm
- REjsxBXPb8wLJdq1AXOVjvwfyVdhQgmqbH5yqa0gHHowetCdp9qXU4+Ds1kNOoYWsoes
- aYfQ==
-X-Gm-Message-State: AOJu0YxrChQI1BUcdjOP88IrvFaEV6dnCC7Cb/HZA1My/M5frUAnzW+H
- rMGWHN1B1BFxD/ZSS0vEOLj0Bf5/+BfwUjI5Gec=
-X-Google-Smtp-Source: AGHT+IENQ2CWK72lmQE12sXUxX41hhYGDamgD/pdE0IRaS2hat/ivEaqO7ty+dBWwgKmttG2PAr8zENEdKxJPNeKFvo=
-X-Received: by 2002:aca:650a:0:b0:3a7:4dd0:d4db with SMTP id
- m10-20020aca650a000000b003a74dd0d4dbmr2627451oim.11.1691588310039; Wed, 09
- Aug 2023 06:38:30 -0700 (PDT)
+ bh=YOCB79KjMhqBfgq1ZV5SurafAjJMRV6Gq6YnbdsoZeA=;
+ b=W33sG/hJxqlcf7lmnwDHB2lZHvjWFsVC96nDfooQlnNpDLPS6+YRWWXwCpEMAy0Vyf
+ 7rsETpVLIXRc8yA7q0e/X/SOh7oa5sE2Y6IJRIgOkDBdQSF3U8rgPXCUyEOxtuWvQCO3
+ BeEER4ZjOHPPzkqSIBANg8hg/gGswwGBhuOy/R7+2dTUf0ZxOOHP/vsrzOBfOuyGSC27
+ ubpe3NOeBAZNX9Tl/pnJl0Atd7rSLHvTg8jvL4qN7qWsALmwONUbUa7M3nNmFGeDjK0G
+ Vb7AlU8de4S+Q2uX0a+u7LaWb/LuDVCWGGfBguCvFRWpxfNJWzKibeWeQtKBOi2+rMkr
+ YVuQ==
+X-Gm-Message-State: AOJu0YyCnYPoV0DA801CurZz/HaDdaLksDkhlJ8FFau3WYP3n1QKUsY+
+ n0McKhoqe69ktiwDJwoGIR3ixO0Rq+FaqgNXvbg=
+X-Google-Smtp-Source: AGHT+IHVPIwKfYTAFAqk6JTp27JHz0I1NTTLN8yiaA8oZwZ0Ohxa2j+ha+GvImyceg+Ikp+usNEHnbHrb8Nf+X86dxM=
+X-Received: by 2002:a05:6808:1313:b0:3a7:57a6:e077 with SMTP id
+ y19-20020a056808131300b003a757a6e077mr3210124oiv.37.1691589332173; Wed, 09
+ Aug 2023 06:55:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230712155245.2940715-1-alexander.deucher@amd.com>
-In-Reply-To: <20230712155245.2940715-1-alexander.deucher@amd.com>
+References: <20230809032036.533108-1-jiadong.zhu@amd.com>
+In-Reply-To: <20230809032036.533108-1-jiadong.zhu@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 9 Aug 2023 09:38:18 -0400
-Message-ID: <CADnq5_N34NX8q=qSv6s-ntz1JFRyxzS5Q80um-TTNs0VR8pgGQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: expand runpm parameter
-To: Alex Deucher <alexander.deucher@amd.com>
+Date: Wed, 9 Aug 2023 09:55:21 -0400
+Message-ID: <CADnq5_O=1PG7e9ObJNh+UoaXNC74M6hiMmA8Ayk=Z2e1+rqfkw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: disable mcbp if parameter zero is set
+To: jiadong.zhu@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,102 +71,64 @@ Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+On Tue, Aug 8, 2023 at 11:21=E2=80=AFPM <jiadong.zhu@amd.com> wrote:
+>
+> From: Jiadong Zhu <Jiadong.Zhu@amd.com>
+>
+> The parameter amdgpu_mcbp shall have priority against the default value
+> calculated from the chip version.
+> User could disable mcbp by setting the parameter mcbp as zero.
+>
+> v2: do not trigger preemption in sw ring muxer when mcbp is disabled.
+>
+> Signed-off-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
 
-On Wed, Jul 12, 2023 at 11:53=E2=80=AFAM Alex Deucher <alexander.deucher@am=
-d.com> wrote:
->
-> Allow the user to specify -2 as auto enabled with displays.
->
-> By default we don't enter runtime suspend when there are
-> displays attached because it does not work well in some
-> desktop environments due to the driver sending hotplug
-> events on resume in case any new displays were attached
-> while the GPU was powered down.  Some users still want
-> this functionality though, so this lets you enable it.
->
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2428
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 37 +++++++++++++------------
->  1 file changed, 20 insertions(+), 17 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 9 +++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c | 2 +-
+>  2 files changed, 6 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 721f3c6160bcb..33e370d998a87 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -350,8 +350,9 @@ module_param_named(aspm, amdgpu_aspm, int, 0444);
->   * Override for runtime power management control for dGPUs. The amdgpu d=
-river can dynamically power down
->   * the dGPUs when they are idle if supported. The default is -1 (auto en=
-able).
->   * Setting the value to 0 disables this functionality.
-> + * Setting the value to -2 is auto enabled with power down when displays=
- are attached.
->   */
-> -MODULE_PARM_DESC(runpm, "PX runtime pm (2 =3D force enable with BAMACO, =
-1 =3D force enable with BACO, 0 =3D disable, -1 =3D auto)");
-> +MODULE_PARM_DESC(runpm, "PX runtime pm (2 =3D force enable with BAMACO, =
-1 =3D force enable with BACO, 0 =3D disable, -1 =3D auto, -2 =3D autowith d=
-isplays)");
->  module_param_named(runpm, amdgpu_runtime_pm, int, 0444);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 7314529553f6..615669dcabc2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3699,10 +3699,11 @@ static void amdgpu_device_set_mcbp(struct amdgpu_=
+device *adev)
+>  {
+>         if (amdgpu_mcbp =3D=3D 1)
+>                 adev->gfx.mcbp =3D true;
+> -
+> -       if ((adev->ip_versions[GC_HWIP][0] >=3D IP_VERSION(9, 0, 0)) &&
+> -           (adev->ip_versions[GC_HWIP][0] < IP_VERSION(10, 0, 0)) &&
+> -           adev->gfx.num_gfx_rings)
+> +       else if (amdgpu_mcbp =3D=3D 0)
+> +               adev->gfx.mcbp =3D false;
+> +       else if ((adev->ip_versions[GC_HWIP][0] >=3D IP_VERSION(9, 0, 0))=
+ &&
+> +                (adev->ip_versions[GC_HWIP][0] < IP_VERSION(10, 0, 0)) &=
+&
+> +                adev->gfx.num_gfx_rings)
+>                 adev->gfx.mcbp =3D true;
 >
->  /**
-> @@ -2657,24 +2658,26 @@ static int amdgpu_runtime_idle_check_display(stru=
-ct device *dev)
->                 struct drm_connector_list_iter iter;
->                 int ret =3D 0;
+>         if (amdgpu_sriov_vf(adev))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_ring_mux.c
+> index b779ee4bbaa7..e1ee1c7117fb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c
+> @@ -397,7 +397,7 @@ void amdgpu_sw_ring_ib_begin(struct amdgpu_ring *ring=
+)
+>         struct amdgpu_ring_mux *mux =3D &adev->gfx.muxer;
 >
-> -               /* XXX: Return busy if any displays are connected to avoi=
-d
-> -                * possible display wakeups after runtime resume due to
-> -                * hotplug events in case any displays were connected whi=
-le
-> -                * the GPU was in suspend.  Remove this once that is fixe=
-d.
-> -                */
-> -               mutex_lock(&drm_dev->mode_config.mutex);
-> -               drm_connector_list_iter_begin(drm_dev, &iter);
-> -               drm_for_each_connector_iter(list_connector, &iter) {
-> -                       if (list_connector->status =3D=3D connector_statu=
-s_connected) {
-> -                               ret =3D -EBUSY;
-> -                               break;
-> +               if (amdgpu_runtime_pm !=3D -2) {
-> +                       /* XXX: Return busy if any displays are connected=
- to avoid
-> +                        * possible display wakeups after runtime resume =
-due to
-> +                        * hotplug events in case any displays were conne=
-cted while
-> +                        * the GPU was in suspend.  Remove this once that=
- is fixed.
-> +                        */
-> +                       mutex_lock(&drm_dev->mode_config.mutex);
-> +                       drm_connector_list_iter_begin(drm_dev, &iter);
-> +                       drm_for_each_connector_iter(list_connector, &iter=
-) {
-> +                               if (list_connector->status =3D=3D connect=
-or_status_connected) {
-> +                                       ret =3D -EBUSY;
-> +                                       break;
-> +                               }
->                         }
-> -               }
-> -               drm_connector_list_iter_end(&iter);
-> -               mutex_unlock(&drm_dev->mode_config.mutex);
-> +                       drm_connector_list_iter_end(&iter);
-> +                       mutex_unlock(&drm_dev->mode_config.mutex);
->
-> -               if (ret)
-> -                       return ret;
-> +                       if (ret)
-> +                               return ret;
-> +               }
->
->                 if (adev->dc_enabled) {
->                         struct drm_crtc *crtc;
+>         WARN_ON(!ring->is_sw_ring);
+> -       if (ring->hw_prio > AMDGPU_RING_PRIO_DEFAULT) {
+> +       if (adev->gfx.mcbp && ring->hw_prio > AMDGPU_RING_PRIO_DEFAULT) {
+>                 if (amdgpu_mcbp_scan(mux) > 0)
+>                         amdgpu_mcbp_trigger_preempt(mux);
+>                 return;
 > --
-> 2.41.0
+> 2.25.1
 >
