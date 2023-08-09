@@ -4,91 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C6AAC0015E
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 07:29:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80698C0015E
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 07:35:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1D1110E252;
-	Wed,  9 Aug 2023 07:29:43 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2057.outbound.protection.outlook.com [40.107.243.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 540E510E252
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 07:29:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AgGtV8WxpJjcysrz9q7e8ZcDXe4SB4XTMG6dWUAfw+7tZLp50kmSQw79Hy8mGSTli5oeUEIjj2vXGGCGUjlymO0tI032KqfLJCjzyk4kPCAqprZdmvhmE7ZK1Mrtq4UUvRdc7XEhTYZoCrvrIpn5W8faoknAHbLPHLecsp2t2jA9iwyrPMUpwYuUaPviPYWl7LiFYVFB8ZIML4cVOuaaDzReOr5AsU/drdAjL5eFsu6Ri4wpmZNy4L/nr2gXxeWyCy3oWVgyGiGH+BzPlThzS3NXwb2Afq8NNWXLxhTvuZiE4VGay/McN4GdU5+y/1lzym3aVnnddRh7vUBkf9pZLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=afw6ebQtkLR5KQ8YQ9M2s3F+P1wYIDNn1rkizb33kSM=;
- b=DP3Gs7vYV+KWUljoSDT18aAv/bQxvsseED73dQBL+FzrGVDBW22QkFmIgtN3A9pifRh0NM4X/USfb9esc59ZmaAZ3+Pl/GWohK2+YJLReZF6Bh0C5zZJ8u/+Ekh67zpKvnVUjgp9ZjYOMHlDAsCEMIAnw0Dd/RUWD+rItBjQpj14xcsWayHKafxuCj+TdLwzHuwa/o7E87L8TNSicotdp6KPrGCoJfdQkDTklc+qCJY1TI3w8u+UxoY7gxoX4uJxu4agXe0BBx4loop539SB8WhbjSynHtZo/XNwCLZ/Fr58VCiW4Ry2K9OCl50z5gFRfDdN+A7TKT5kpcZ6xC8RkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=afw6ebQtkLR5KQ8YQ9M2s3F+P1wYIDNn1rkizb33kSM=;
- b=5EhbhkrEBo18P/TYUbETf5nPbiXkvuNM0l9K6tZXMyGialYTL+jVWmQi5sq7jtMnhpFDqMM7uxheJvhDtK5SFezyaE2qet2wsYAVmFVB5HS0RuVwxZLE5PWPECacDCjHVMDDHxWe8mzOGNFYBBUSL1jRkDCc0mZqTFXwc9RCHG0=
-Received: from CYZPR10CA0019.namprd10.prod.outlook.com (2603:10b6:930:8a::28)
- by DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.27; Wed, 9 Aug
- 2023 07:29:40 +0000
-Received: from CY4PEPF0000EE35.namprd05.prod.outlook.com
- (2603:10b6:930:8a:cafe::61) by CYZPR10CA0019.outlook.office365.com
- (2603:10b6:930:8a::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.28 via Frontend
- Transport; Wed, 9 Aug 2023 07:29:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE35.mail.protection.outlook.com (10.167.242.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6652.19 via Frontend Transport; Wed, 9 Aug 2023 07:29:40 +0000
-Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 9 Aug
- 2023 02:29:36 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, Guchun Chen <guchun.chen@amd.com>, "Pan
- Xinhui" <Xinhui.Pan@amd.com>
-Subject: [PATCH v4] drm/amdgpu: Fix missing comment for mb() in
- 'amdgpu_device_aper_access'
-Date: Wed, 9 Aug 2023 12:59:17 +0530
-Message-ID: <20230809072917.242488-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6D4C10E255;
+	Wed,  9 Aug 2023 07:35:18 +0000 (UTC)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org
+ [IPv6:2001:67c:2050:0:465::102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A1BC10E24C;
+ Wed,  9 Aug 2023 07:35:16 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4RLMKD6qZSz9v00;
+ Wed,  9 Aug 2023 09:35:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1691566512;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=DEzjFcmaNxZugcucpOuDAjcZ34NVz+o1bZiw2+i32OM=;
+ b=R29Dtl0S1qAUj0JAGUt5pGA9u6ILeV85p8T9JYHMhnC39jns2UGHKleZmk9QQkcRvBTO6p
+ kZoX0MI7lTOEcraNsrKV+d+NLtyjTreUK8LAhKwxzmhY8mypZXp7PWl7OoBh1hOHG98qx2
+ /XrF/03v7niPWKnhZWewyn+1NIHMIG5qCKJKq0pYb9riQiP7Aqe/aLYPR4QHoGzRLYYSDX
+ NaCkb/sNVuqyKCZpk2zu5K4dmiIET8vgHUaOQpIYvmcz+zoPMEzIdf/AbOijzqLA2e1upb
+ 29G0gcGn6yxfM+fRNZlDaZku0TEPvK4f8AC44UMK+wC/VlhkWp9IihoJLNiwSg==
+Message-ID: <3ca7a141-1385-351e-9186-00874e254165@mailbox.org>
+Date: Wed, 9 Aug 2023 09:35:10 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH v5 1/1] drm/doc: Document DRM device reset expectations
+Content-Language: de-CH-frami, en-CA
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>
+References: <20230627132323.115440-1-andrealmeid@igalia.com>
+ <ZMz3IXIzXS5gNK3G@phenom.ffwll.local>
+ <CA+hFU4wbn=efbS10c14A9sLTf9GYJ_O12kowh76ELLdo2+x5fA@mail.gmail.com>
+ <CAAxE2A48uybsU6DY+fLTzQ9K2b0Ln+SW6bt3capbGAGb7L8fvQ@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <CAAxE2A48uybsU6DY+fLTzQ9K2b0Ln+SW6bt3capbGAGb7L8fvQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE35:EE_|DS0PR12MB7804:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65e89f14-b082-4a7e-a799-08db98aa6486
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ud0ibMxWTzhd2wjJpXEyHHfj4zavTWFeXKG6upX+jWlHYoTCBBdQzEPUyB149Y7DG4f1uImQl3BWl5YgoiTb1UsCjWUGfdg5M4EQiLJ/J6DMHMJRKRRl8QeGMAVvtNYi4/JJ6zjLvp3lwHM5u/YHPFqzyCPlyjqKLikKy9HpZvRP7PGvp6W0JEtkzVzq94Qcd2vUypnWv/tzZny7GYFphAy4q3R1jQBLRvf1lUTB0QkG2GIyd4TjVe+bQw5f+/F9sHBPeAqe33/S5ycLPQg4G7ozZIp8fotE0WkFEekF+w1ceBfpUz+ISUgwFwT1JEEYjM1GOSPUSRaiNzIKbZRicQzlV211SWg/AnvgMQXiU6VJUamaqlV+g40VM1DH9UJXfBubSpnGHFVElU8kwG9endw4ooTZvZ/3tUwnj4Tpuk8ZW/swAPma2tWphxIi/ZI/GEy2G9dTUwZPnK6A+kyMsk1I8mY5yVK6ofVm2iOO/wfNcOqwQHf5pPdYlwxd3ZiGXU+bFMUDa7JYQ1xzrWgr+GfZFVlQqqbrcavA2Em7DVtBn9+VzVEPonx4wybF7iQ2rAPTVE4NwpCqlMCk1QMU2gAYTa/3gorEQdT6oc3YG5eDd5rq01xEBU2Ekrh5hw2oj3L4teDTKQdXv2xZ8B26qKMQhEhWvpe5vJiHf3Bv0C0WCEIf8cZjpCt2yO2unsVQyo8zGmZbn0hhwC/CgDrbK45Uw6c4nhxFend+pPMwQ/PVxSVNXpiB+SVqbLVCBVj7SWplU8/1OG2azxnjfcjPkQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(39860400002)(136003)(396003)(376002)(186006)(82310400008)(1800799006)(451199021)(36840700001)(46966006)(40470700004)(2616005)(36756003)(26005)(1076003)(81166007)(7696005)(6666004)(478600001)(356005)(54906003)(110136005)(82740400003)(336012)(16526019)(70586007)(70206006)(6636002)(4326008)(316002)(41300700001)(426003)(8676002)(5660300002)(44832011)(8936002)(40460700003)(2906002)(66574015)(36860700001)(83380400001)(86362001)(47076005)(40480700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2023 07:29:40.0372 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65e89f14-b082-4a7e-a799-08db98aa6486
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE35.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7804
+X-MBO-RS-ID: 2bdccb62d3f6edce11c
+X-MBO-RS-META: xh66k1zp6rbw13e8n5k4ceq5xbddgups
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,52 +59,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
+ =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
+ dri-devel@lists.freedesktop.org, Randy Dunlap <rdunlap@infradead.org>,
+ linux-kernel@vger.kernel.org, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, alexander.deucher@amd.com,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch adds the missing code comment for memory barrier
+On 8/8/23 19:03, Marek Olšák wrote:
+> It's the same situation as SIGSEGV. A process can catch the signal,
+> but if it doesn't, it gets killed. GL and Vulkan APIs give you a way
+> to catch the GPU error and prevent the process termination. If you
+> don't use the API, you'll get undefined behavior, which means anything
+> can happen, including process termination.
 
-WARNING: memory barrier without comment
-+                       mb();
+Got a spec reference for that?
 
-WARNING: memory barrier without comment
-+                       mb();
+I know the spec allows process termination in response to e.g. out of bounds buffer access by the application (which corresponds to SIGSEGV). There are other causes for GPU hangs though, e.g. driver bugs. The ARB_robustness spec says:
 
-Cc: Guchun Chen <guchun.chen@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
-v4:
- - Incorporated comments from (Lijo)
- 
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+    If the reset notification behavior is NO_RESET_NOTIFICATION_ARB,
+    then the implementation will never deliver notification of reset
+    events, and GetGraphicsResetStatusARB will always return
+    NO_ERROR[fn1].
+       [fn1: In this case it is recommended that implementations should
+        not allow loss of context state no matter what events occur.
+        However, this is only a recommendation, and cannot be relied
+        upon by applications.]
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 4f818f13dc9d..65c36987f7d6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -305,10 +305,16 @@ size_t amdgpu_device_aper_access(struct amdgpu_device *adev, loff_t pos,
- 
- 		if (write) {
- 			memcpy_toio(addr, buf, count);
-+			/* Make sure HDP write cache flush happens without any reordering
-+			 * after the system memory contents are sent over PCIe device
-+			 */
- 			mb();
- 			amdgpu_device_flush_hdp(adev, NULL);
- 		} else {
- 			amdgpu_device_invalidate_hdp(adev, NULL);
-+			/* Make sure HDP read cache is invalidated before issuing a read
-+			 * to the PCIe device
-+			 */
- 			mb();
- 			memcpy_fromio(buf, addr, count);
- 		}
+No mention of process termination, that rather sounds to me like the GL implementation should do its best to keep the application running.
+
+
 -- 
-2.25.1
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
