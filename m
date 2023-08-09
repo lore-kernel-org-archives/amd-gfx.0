@@ -4,59 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10179EB64DD
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 12:20:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDD5FC04A94
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 12:21:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1C3710E423;
-	Wed,  9 Aug 2023 12:20:23 +0000 (UTC)
-Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
- [IPv6:2607:f8b0:4864:20::c32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF8710E423
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 12:20:22 +0000 (UTC)
-Received: by mail-oo1-xc32.google.com with SMTP id
- 006d021491bc7-56c7f47ec42so4820297eaf.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Aug 2023 05:20:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691583621; x=1692188421;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=k11+OSwdJjYLMuvlahKsy7p54ybUxXGfOC2pjlBLcms=;
- b=mb2/iCMFBPmf5EIVU+KTVfXd3i180kdg0SxiwvQPdr2kGXNC2/VvpxyE4MZfhdkm5R
- f01Xnq1nyMLZwlAehvZx0VbxuUdIU3KqoRU5MQGM8kC2/YfYajlmx+2ZXxJbHRziDSXP
- NCAgUE11isON4O1Y41m9hngEqVKwWAYmawZH/hBPCzOOuM38bUjbkgmzt0kk/P0h6vND
- xn9MJNM11PUoJQHwHa6FEwtD9Q1HfICBJU8wUbM3v8Fd8jn+zy7Gc+EotWBn3SyWxU4P
- ftd6BKS+AZ3gMXC5ujvSN8d8ZmoR2AzxH1Ljl3vEnVoPDfv4yKa9ML+55U/rX0R4qmu+
- C5rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691583621; x=1692188421;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=k11+OSwdJjYLMuvlahKsy7p54ybUxXGfOC2pjlBLcms=;
- b=lu/aTVTr1HI22Jz+ALivwaDPzlTtrqo1FeVA5nQjrz4mSqEk+Q2lUrsAMJ9OVftSDz
- 8X2mJxlJdfyEf3HHdmJJm4oxjDbeVQC+k/IBHmjk68yBidEZ1oNF32XPDkJ3B9mUI8rM
- 4zV5/62lXry4uUY7lyhE/tndYK1/rC/TKkI3fiAWYNg1gFD1NyoUofpiTDlC9YUJuySH
- L5olhs/k3Zf11os39mILyMRvr7JrEEPZjn1pjlXPeoh1CTR6GYA586pgHuUj2UX+K7TK
- XJkK67NwAcR9ms3fW930JjE0VOt9D6APtGoZMd5F29ly3eRrN7t4AUTj2On2ILc6uzFf
- m8fw==
-X-Gm-Message-State: AOJu0YzvB7V73aPhp2JbobfeUu9VmCm9WSABl8KwtDJOzFKG5XKa7Zk+
- JUjy+jS/bfFmi71VOvDxoOZJ8jCaXgyXigEoUCRgopp4
-X-Google-Smtp-Source: AGHT+IFuFFn4eB2wnExAr+dA3ZjlAGzlWXY+l5HXwXloUqrmA+CkRfk/ENTur013KRc3rW0C+llZMX8ndxsbk0HlCVw=
-X-Received: by 2002:a05:6808:3a6:b0:3a7:8e05:1697 with SMTP id
- n6-20020a05680803a600b003a78e051697mr2448774oie.59.1691583621231; Wed, 09 Aug
- 2023 05:20:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AE0410E429;
+	Wed,  9 Aug 2023 12:21:13 +0000 (UTC)
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5851810E428;
+ Wed,  9 Aug 2023 12:21:11 +0000 (UTC)
+Received: from mx0.riseup.net (mx0-pn.riseup.net [10.0.1.42])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx1.riseup.net (Postfix) with ESMTPS id 4RLTgC0Y1rzDqP5;
+ Wed,  9 Aug 2023 12:21:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+ t=1691583671; bh=tOT1osPBkbssLomMjoThRwJE147WBpwQAMeRtw90GuY=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=S/AL4VGuEf38y8ho9WfSp26FJUJ9VXV0gA8V3Db5onRGJmQlkRZzdpB1XAQLt8A5c
+ GkNufgPDhTRkjNX5kzjhOpAtz3ktcSC6yIJqZwBvAp59rUbG00gJOCKZCD4O/OcYYH
+ fCiXHKHTMXc28WfLrtiVWiZwg3P+RdVbzskpktug=
+Received: from fews01-sea.riseup.net (fews01-sea-pn.riseup.net [10.0.1.109])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx0.riseup.net (Postfix) with ESMTPS id 4RLTg92cT2z9tDM;
+ Wed,  9 Aug 2023 12:21:09 +0000 (UTC)
+X-Riseup-User-ID: 1B173ED595774DAA80A1634FEEC2C579ED06EC718622D16C28AC21164FC3FA17
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews01-sea.riseup.net (Postfix) with ESMTPSA id 4RLTfs23FLzJmsF;
+ Wed,  9 Aug 2023 12:20:52 +0000 (UTC)
+Message-ID: <28268a1b-090c-237a-79dd-ca58de712a1e@riseup.net>
+Date: Wed, 9 Aug 2023 09:20:50 -0300
 MIME-Version: 1.0
-References: <20230809101235.285114-1-kenneth.feng@amd.com>
-In-Reply-To: <20230809101235.285114-1-kenneth.feng@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 9 Aug 2023 08:20:09 -0400
-Message-ID: <CADnq5_Ot96o8RdopafMVOT6jZKgfkuxTOT4CVQJ6k8aBVPNBSw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/pm: disallow the fan setting if there is no
- fan on smu 13.0.0
-To: Kenneth Feng <kenneth.feng@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH -next 6/7] drm/format-helper: Remove unnecessary NULL
+ values
+Content-Language: en-US
+To: Ruan Jinjie <ruanjinjie@huawei.com>, Felix.Kuehling@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, harry.wentland@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ inki.dae@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
+ krzysztof.kozlowski@linaro.org, alim.akhtar@samsung.com,
+ robdclark@gmail.com, quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
+ sean@poorly.run, marijn.suijten@somainline.org, bskeggs@redhat.com,
+ kherbst@redhat.com, lyude@redhat.com, kraxel@redhat.com,
+ gurchetansingh@chromium.org, olvaffe@gmail.com,
+ paulo.miguel.almeida.rodenas@gmail.com, wenjing.liu@amd.com,
+ haoping.liu@amd.com, Charlene.Liu@amd.com, chiahsuan.chung@amd.com,
+ george.shen@amd.com, sancchen@amd.com, tony.tascioglu@amd.com,
+ jaehyun.chung@amd.com, tales.aparecida@gmail.com, drv@mailo.com,
+ aurabindo.pillai@amd.com, quic_vpolimer@quicinc.com, jiasheng@iscas.ac.cn,
+ noralf@tronnes.org, jose.exposito89@gmail.com, javierm@redhat.com,
+ mairacanal@riseup.net, davidgow@google.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org
+References: <20230809034445.434902-1-ruanjinjie@huawei.com>
+ <20230809034445.434902-7-ruanjinjie@huawei.com>
+From: Arthur Grillo <arthurgrillo@riseup.net>
+In-Reply-To: <20230809034445.434902-7-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,53 +79,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lijo.lazar@amd.com, maisam.arif@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 9, 2023 at 6:12=E2=80=AFAM Kenneth Feng <kenneth.feng@amd.com> =
-wrote:
->
-> drm/amd/pm: disallow the fan setting if there is no fan on smu 13.0.0
-> V2: depend on pm.no_fan to check
->
-> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 
-You can still read the fan speed though right?  Don't we want to just
-not expose the ability to manually set the fan speed?
 
-Alex
-
+On 09/08/23 00:44, Ruan Jinjie wrote:
+> The NULL initialization of the pointers assigned by
+> kunit_kzalloc() first is not necessary, because if kunit_kzalloc()
+> failed, the pointers will be assigned NULL, otherwise it works
+> as usual. so remove it.
+> 
+> Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
 > ---
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index fddcd834bcec..0fb6be11a0cc 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -331,6 +331,7 @@ static int smu_v13_0_0_check_powerplay_table(struct s=
-mu_context *smu)
->         struct smu_13_0_0_powerplay_table *powerplay_table =3D
->                 table_context->power_play_table;
->         struct smu_baco_context *smu_baco =3D &smu->smu_baco;
-> +       PPTable_t *pptable =3D smu->smu_table.driver_pptable;
->  #if 0
->         PPTable_t *pptable =3D smu->smu_table.driver_pptable;
->         const OverDriveLimits_t * const overdrive_upperlimits =3D
-> @@ -371,6 +372,9 @@ static int smu_v13_0_0_check_powerplay_table(struct s=
-mu_context *smu)
->         table_context->thermal_controller_type =3D
->                 powerplay_table->thermal_controller_type;
->
-> +       smu->adev->pm.no_fan =3D
-> +               !(pptable->SkuTable.FeaturesToRun[0] & (1 << FEATURE_FAN_=
-CONTROL_BIT));
-> +
->         return 0;
->  }
->
-> --
-> 2.34.1
->
+>  .../gpu/drm/tests/drm_format_helper_test.c    | 28 +++++++++----------
+>  1 file changed, 14 insertions(+), 14 deletions(-)
+
+Reviewed-by: Arthur Grillo <arthurgrillo@riseup.net>
+
+Best Regards,
+~Arthur Grillo
+
+> 
+> diff --git a/drivers/gpu/drm/tests/drm_format_helper_test.c b/drivers/gpu/drm/tests/drm_format_helper_test.c
+> index 474bb7a1c4ee..1db12d8ed23c 100644
+> --- a/drivers/gpu/drm/tests/drm_format_helper_test.c
+> +++ b/drivers/gpu/drm/tests/drm_format_helper_test.c
+> @@ -452,7 +452,7 @@ static size_t conversion_buf_size(u32 dst_format, unsigned int dst_pitch,
+>  
+>  static u16 *le16buf_to_cpu(struct kunit *test, const __le16 *buf, size_t buf_size)
+>  {
+> -	u16 *dst = NULL;
+> +	u16 *dst;
+>  	int n;
+>  
+>  	dst = kunit_kzalloc(test, sizeof(*dst) * buf_size, GFP_KERNEL);
+> @@ -467,7 +467,7 @@ static u16 *le16buf_to_cpu(struct kunit *test, const __le16 *buf, size_t buf_siz
+>  
+>  static u32 *le32buf_to_cpu(struct kunit *test, const __le32 *buf, size_t buf_size)
+>  {
+> -	u32 *dst = NULL;
+> +	u32 *dst;
+>  	int n;
+>  
+>  	dst = kunit_kzalloc(test, sizeof(*dst) * buf_size, GFP_KERNEL);
+> @@ -482,7 +482,7 @@ static u32 *le32buf_to_cpu(struct kunit *test, const __le32 *buf, size_t buf_siz
+>  
+>  static __le32 *cpubuf_to_le32(struct kunit *test, const u32 *buf, size_t buf_size)
+>  {
+> -	__le32 *dst = NULL;
+> +	__le32 *dst;
+>  	int n;
+>  
+>  	dst = kunit_kzalloc(test, sizeof(*dst) * buf_size, GFP_KERNEL);
+> @@ -509,7 +509,7 @@ static void drm_test_fb_xrgb8888_to_gray8(struct kunit *test)
+>  	const struct convert_xrgb8888_case *params = test->param_value;
+>  	const struct convert_to_gray8_result *result = &params->gray8_result;
+>  	size_t dst_size;
+> -	u8 *buf = NULL;
+> +	u8 *buf;
+>  	__le32 *xrgb8888 = NULL;
+>  	struct iosys_map dst, src;
+>  
+> @@ -539,7 +539,7 @@ static void drm_test_fb_xrgb8888_to_rgb332(struct kunit *test)
+>  	const struct convert_xrgb8888_case *params = test->param_value;
+>  	const struct convert_to_rgb332_result *result = &params->rgb332_result;
+>  	size_t dst_size;
+> -	u8 *buf = NULL;
+> +	u8 *buf;
+>  	__le32 *xrgb8888 = NULL;
+>  	struct iosys_map dst, src;
+>  
+> @@ -569,7 +569,7 @@ static void drm_test_fb_xrgb8888_to_rgb565(struct kunit *test)
+>  	const struct convert_xrgb8888_case *params = test->param_value;
+>  	const struct convert_to_rgb565_result *result = &params->rgb565_result;
+>  	size_t dst_size;
+> -	u16 *buf = NULL;
+> +	u16 *buf;
+>  	__le32 *xrgb8888 = NULL;
+>  	struct iosys_map dst, src;
+>  
+> @@ -605,7 +605,7 @@ static void drm_test_fb_xrgb8888_to_xrgb1555(struct kunit *test)
+>  	const struct convert_xrgb8888_case *params = test->param_value;
+>  	const struct convert_to_xrgb1555_result *result = &params->xrgb1555_result;
+>  	size_t dst_size;
+> -	u16 *buf = NULL;
+> +	u16 *buf;
+>  	__le32 *xrgb8888 = NULL;
+>  	struct iosys_map dst, src;
+>  
+> @@ -636,7 +636,7 @@ static void drm_test_fb_xrgb8888_to_argb1555(struct kunit *test)
+>  	const struct convert_xrgb8888_case *params = test->param_value;
+>  	const struct convert_to_argb1555_result *result = &params->argb1555_result;
+>  	size_t dst_size;
+> -	u16 *buf = NULL;
+> +	u16 *buf;
+>  	__le32 *xrgb8888 = NULL;
+>  	struct iosys_map dst, src;
+>  
+> @@ -667,7 +667,7 @@ static void drm_test_fb_xrgb8888_to_rgba5551(struct kunit *test)
+>  	const struct convert_xrgb8888_case *params = test->param_value;
+>  	const struct convert_to_rgba5551_result *result = &params->rgba5551_result;
+>  	size_t dst_size;
+> -	u16 *buf = NULL;
+> +	u16 *buf;
+>  	__le32 *xrgb8888 = NULL;
+>  	struct iosys_map dst, src;
+>  
+> @@ -698,7 +698,7 @@ static void drm_test_fb_xrgb8888_to_rgb888(struct kunit *test)
+>  	const struct convert_xrgb8888_case *params = test->param_value;
+>  	const struct convert_to_rgb888_result *result = &params->rgb888_result;
+>  	size_t dst_size;
+> -	u8 *buf = NULL;
+> +	u8 *buf;
+>  	__le32 *xrgb8888 = NULL;
+>  	struct iosys_map dst, src;
+>  
+> @@ -732,7 +732,7 @@ static void drm_test_fb_xrgb8888_to_argb8888(struct kunit *test)
+>  	const struct convert_xrgb8888_case *params = test->param_value;
+>  	const struct convert_to_argb8888_result *result = &params->argb8888_result;
+>  	size_t dst_size;
+> -	u32 *buf = NULL;
+> +	u32 *buf;
+>  	__le32 *xrgb8888 = NULL;
+>  	struct iosys_map dst, src;
+>  
+> @@ -763,7 +763,7 @@ static void drm_test_fb_xrgb8888_to_xrgb2101010(struct kunit *test)
+>  	const struct convert_xrgb8888_case *params = test->param_value;
+>  	const struct convert_to_xrgb2101010_result *result = &params->xrgb2101010_result;
+>  	size_t dst_size;
+> -	u32 *buf = NULL;
+> +	u32 *buf;
+>  	__le32 *xrgb8888 = NULL;
+>  	struct iosys_map dst, src;
+>  
+> @@ -794,7 +794,7 @@ static void drm_test_fb_xrgb8888_to_argb2101010(struct kunit *test)
+>  	const struct convert_xrgb8888_case *params = test->param_value;
+>  	const struct convert_to_argb2101010_result *result = &params->argb2101010_result;
+>  	size_t dst_size;
+> -	u32 *buf = NULL;
+> +	u32 *buf;
+>  	__le32 *xrgb8888 = NULL;
+>  	struct iosys_map dst, src;
+>  
+> @@ -825,7 +825,7 @@ static void drm_test_fb_xrgb8888_to_mono(struct kunit *test)
+>  	const struct convert_xrgb8888_case *params = test->param_value;
+>  	const struct convert_to_mono_result *result = &params->mono_result;
+>  	size_t dst_size;
+> -	u8 *buf = NULL;
+> +	u8 *buf;
+>  	__le32 *xrgb8888 = NULL;
+>  	struct iosys_map dst, src;
+>  
