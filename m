@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA102C04A94
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 15:08:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D596EC04A6A
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 15:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FEE010E457;
-	Wed,  9 Aug 2023 15:08:20 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e89::60e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9D8D10E458
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 15:08:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 525AB10E458;
+	Wed,  9 Aug 2023 15:08:25 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2071.outbound.protection.outlook.com [40.107.220.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AC9710E458
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 15:08:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eQxm27y5Qxv/FVEQM92cQcYqukdDPnCJLWkH4geqrAEI8P50o5+gtcnAuaJLCiTCLshrXNQ91zJxzyhIXA2OAlK0CnFQdghDTqJqJO90I0j4Pn4raLZKmHuLWzBT5rlACFtosdBlugbmHhVd2UOkvLwD7qtpELw+BS3j7zjjbyyJXGbUzXZZ3OTrySDgRVt2E0FuytQhAox0G/umAzQHQiVjN9BsqX9rgmyU0gK6iqNmQo0DnboOAsdH1fSscnLS3Vpt8m9baJ61i1HS0EgIEVh51RCT/9nmEQQTfEV+8rrppW6SCGw1+6sO0APr4GEnA+xhDNPjmuKJ81W6aqre1A==
+ b=VTq2Q2zFWv1sazIndOLWrmgTdSksN4bcgRu6VC8KpGVgPYVBEDh2RRdAHAFCYZnJnK6+Kw+mLihTSX3Rl/+wXTDIA231F/ymJ5jcW9dngAY8C6Q1bXSr3e3V6xv6GardgC0pQ31JaOp3s70ZgZ8KhrK3UOAEnqkMQAV0gEFGBxY2Mi2mGc12vr/PL15Ra5bx6IHM+NsWwPg1zr86Lgr/iWJ2PgWO89jEBvjScqdB0olYt9/rhC5BGx4JBmoSpJg6Q2Thide6dwgdDe+rxBRrfTxKmdV6YLu5s+IjgsfDtcv2Bamr5tSRqRn2g3z22NQlXTpAhCAPEDbLz2qVLAxR4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LmATQsddFE//GnTYByWuClnDQ+Y66mo4EZOaIsVg7TM=;
- b=NCLcW6qkP/cG8Dqore2BCdfhtHsPHXDaTB6DgKx4c+X+XCxrL4M8sfKyZVzOWffv3EI90m73UFSN14AE8G6OojvG3Gi8Whh+ofe6aq6VKgyQlaRlKXO9iOkNZ5frz9vRRmKkP1o6e7PwMMO3hz3ltIgl6mcpOqbqifOMOPz9Ml+QmcHZh8WZl3H3u/nYVoRbteepgn6Pw0buLGwjFd2ype4EClx9qKpTOVZP3J2CZP0TagWti0gm7kk1dLilAQSXrQtTRdeOUtOG0sszjyPHaij+Ut2uPRp9ylmzFZfyVhWT2YxI+HCFNIAu4vk1Pvdair06YBLfx8MzTEVXfqIX9g==
+ bh=Zbkc0jpjxDGKEMRf/8R/CY93YNu5i6WNjRCoqgXZdvE=;
+ b=WpMXjnQ/WS34D+HciVv7rP/6I1APX3Zp6stYo6iPXzEZa55+E4cQoW/vDerAMknwlaksxpgD49Hs9lQzM/FcwVdp5BQWC/UK+2uE5SrDvyqpsyZd6hyzloRzsLIHJMt+cThIF37+4C6J1bW42U9zbqwuQ641LyRNDQ5hVqbHrs2UPysBPMg1+DX3fMe69Z6N3n201RIXdd2hEv1pmTVsTTRz3SmJk7+67V/XkTHMOx5OGSI/IGHr/I4rf3TwLmVJKZKRhH0MbjMyeqtL4KFgJDEwct5yHemRdkRKt/kcseL99cBS/iU4KqDfmWd9MOz5aGvUAYXUTGUXe0qYHasQlQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LmATQsddFE//GnTYByWuClnDQ+Y66mo4EZOaIsVg7TM=;
- b=pAkwfqN0L2L4CYhx/yEKoovRdd+6I7KNH84yd2TggEAK/m1e26oP9Z1vf1NEO5SdXoSX06HDWF6Om4olAWi2J3b9w5HKKP3j1G6yLC5fZb7ME07VsEc4amjMMv9o9sF6hTfsClUI3roRsBtQEAHGZFtQrc72AyP+EBSE1wxJtwU=
-Received: from CYZPR05CA0032.namprd05.prod.outlook.com (2603:10b6:930:a3::14)
- by DS7PR12MB5861.namprd12.prod.outlook.com (2603:10b6:8:78::12) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=Zbkc0jpjxDGKEMRf/8R/CY93YNu5i6WNjRCoqgXZdvE=;
+ b=FCNMBdRdUvbLfRTpU41Zs0RtzVQaHbRBUPlTgQY0LY1gt9zAKWedX7z1izvubJPyo2o3f/40JrACxraNhDEYihIBWyU4ei/sbzhr6FQ/GdNJwPFWhXxQO/Hlaqml9lsnN9C/iahfVi3d4OVMKWcT0kCfAPz6di0q+x4CZS0qNW8=
+Received: from CYZPR19CA0012.namprd19.prod.outlook.com (2603:10b6:930:8e::21)
+ by PH7PR12MB5950.namprd12.prod.outlook.com (2603:10b6:510:1d9::9)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.27; Wed, 9 Aug
- 2023 15:08:16 +0000
-Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
- (2603:10b6:930:a3:cafe::41) by CYZPR05CA0032.outlook.office365.com
- (2603:10b6:930:a3::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.18 via Frontend
- Transport; Wed, 9 Aug 2023 15:08:16 +0000
+ 2023 15:08:21 +0000
+Received: from CY4PEPF0000EE38.namprd03.prod.outlook.com
+ (2603:10b6:930:8e:cafe::bd) by CYZPR19CA0012.outlook.office365.com
+ (2603:10b6:930:8e::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.28 via Frontend
+ Transport; Wed, 9 Aug 2023 15:08:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.19) with Microsoft
+ CY4PEPF0000EE38.mail.protection.outlook.com (10.167.242.12) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6652.19 via Frontend Transport; Wed, 9 Aug 2023 15:08:16 +0000
+ 15.20.6652.19 via Frontend Transport; Wed, 9 Aug 2023 15:08:21 +0000
 Received: from stylon-EliteDesk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 9 Aug
- 2023 10:08:12 -0500
+ 2023 10:08:16 -0500
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/15] drm/amd/display: fix incorrect stream_res allocation
- for older ASIC
-Date: Wed, 9 Aug 2023 23:04:57 +0800
-Message-ID: <20230809150620.1071566-8-stylon.wang@amd.com>
+Subject: [PATCH 08/15] drm/amd/display: Adjust the resume flow
+Date: Wed, 9 Aug 2023 23:04:58 +0800
+Message-ID: <20230809150620.1071566-9-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230809150620.1071566-1-stylon.wang@amd.com>
 References: <20230809150620.1071566-1-stylon.wang@amd.com>
@@ -70,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|DS7PR12MB5861:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff6c5213-bc27-41f2-f0e3-08db98ea759d
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE38:EE_|PH7PR12MB5950:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee426464-f6c2-42da-5fb0-08db98ea784f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: M3fFPvZiZ4/Cc18ObJ1cgO697YzQL1gntBotykXmXHGFFUPm04tb+i3kbTVQPC5LkCdrWmGlqTHsor/PUcNfiGTluhrVDr8uRdszQiGEs/HxOGYW9lchLBUpKrCfShhBcvqFueHRsaBHdvxKkHC7nXNFK6aqT5JAI1UhaKjCVkC+HyDECgaJW6zrY6V9cRLxG4TsugYe+lFcOi2ELhydR6N15xWpo/VE1xztfHNMEj8yb5YoNnH3Ver/51r4UaMz+1zT+n+/s52Nb2iHFiDjJsUJQfwaLR5HV+Et+ao5bAiGSZO134q+aiXsPw2KhrzEOO4ALXZnsZ0bL20jyh1s6tj7UEIqHGAtej7dGWPfJof+TWLgU2NF8G/BSR3qY0SWuoIW+Q/P5MCRBe/9I6LCBLE2iMNWNEmbFsAGl94j7wvwbW499ZUMR4gxrOqsaKBjm3RNp7sWsjWsXO4ooKNNVByEIFf2gOxEwJKCrBT2+QmpJaWHRExBVua6ErrX4Xorqbi7Al4kaF0MvqxJCFAtzUrMzXum0Xwb0gsiL4TisKSxw8sNcSPbugmHTwYTKsCjNv/r4AX7kIqaFF0FYvm8WiNFGlTWGh2VExaKS9inrRh6q+6fekQ/Y7cLCiNItCVe4mcRBlxKcsexfLxWjv9bBH7rIg/J8BuUEP0jpKG57UsXhtusfTATkNf2NITLACeItBOxidYSS+8Jz7RoIOvMpqCmeN6ZTgrZEgtpHgdbFrPeeHsZLtAIuG/55yjIRq/9XgAWak9kjq75vDYqAiERpg==
+X-Microsoft-Antispam-Message-Info: UfRVPXj+2UyZ5xxpM2t1sWJ8AQ7gfCbTyGGLSdMTGMA/h9q0lWzCoEs+3HFDpxYBmqz5BinhMufzIjmqirv5DVcl+NqMnzA1Ggtc8rwjJBJ8TJDEoEY7ix/OCfewZwb6c77F/oJMsjRVbZq8/mbbjYEoXHYn/d7sJtpraEu+pzRdZyf/tZtKCTk/KjN0AKOOG8P4W88+pAXkyyvegtCg+QSL1vB0ISUwXXdCvsGSnzVfPtNCvEU/o6z52zc1e3hVFIPhtoSgFKXPXJfo53bLo1a2/iSGOFyg24XCM/hR+uiC9QhiaXcrz0HfjeSKFHO2Xxz1sT4Re2xBLdskHRTN953MhAJGCd6penFkjO2IfIEZsgMCnT/vHc73p2wypG6j6xsFET4LUbD9NvfqIT2VpSt47HYKu/bP74D+W122epW7l9sL/2lDM2A5kRtn6pq0DPBmEq78u9b368YkiwWoEEgboo8HYcxg9r1BEkbX0g8wf2vju5fr1xwf8HMcyUuBuffOExGBBsEd2R0UV5YQUOyDpq0ItinhdGty4fuRaVYR2f/3XYs3pAnaKgOx7WFSBDz+fi00bUvn/8uUcc/5FobHpvg0pW98hFrwChh37R3qQsb/TXST8YHSNdi3CNdmHjC23wo/FBcc7mMgyv+yVwV8AlqOOoX3JEllCisa3ZFkwq2rEPpih5vav9XRuJsGUcEb1Y4+9/PQRymR4vUZtVZpA8cBeL9cH8kyP1hoMNTOyLAbqLfyfzbeTXT0eUnNBj7u6d4+vr7VwDKOvDQy9Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(396003)(376002)(39860400002)(346002)(1800799006)(82310400008)(186006)(451199021)(36840700001)(46966006)(40470700004)(2906002)(8936002)(41300700001)(316002)(8676002)(5660300002)(40460700003)(36756003)(40480700001)(86362001)(44832011)(82740400003)(356005)(2616005)(6666004)(54906003)(81166007)(478600001)(1076003)(336012)(26005)(16526019)(7696005)(70586007)(426003)(36860700001)(4326008)(70206006)(6916009)(83380400001)(47076005)(36900700001);
+ SFS:(13230028)(4636009)(396003)(39860400002)(376002)(136003)(346002)(1800799006)(451199021)(82310400008)(186006)(36840700001)(40470700004)(46966006)(2906002)(41300700001)(316002)(40460700003)(44832011)(5660300002)(8936002)(8676002)(36756003)(40480700001)(86362001)(82740400003)(356005)(54906003)(478600001)(81166007)(1076003)(7696005)(6666004)(26005)(16526019)(336012)(36860700001)(2616005)(47076005)(4326008)(6916009)(70206006)(83380400001)(70586007)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2023 15:08:16.5017 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff6c5213-bc27-41f2-f0e3-08db98ea759d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2023 15:08:21.0356 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee426464-f6c2-42da-5fb0-08db98ea784f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE38.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5861
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5950
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,87 +100,295 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Martin Leung <martin.leung@amd.com>,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, Wenjing Liu <wenjing.liu@amd.com>,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ stable@vger.kernel.org, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>, wayne.lin@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Wayne Lin <wayne.lin@amd.com>
 
-[why]
-There is a recent work for developing a new pipe resource allocation
-policy used for new ASIC. The new code change needs to modify asic
-independent pipe resource allocation flow and hook up the new allocation
-policy in asic dependent layer. Unfortunately this change revealed a
-hidden bug in the old pipe resource allocation sequence used for older
-asics. In the older version of acquiring pipe for layer, we are always
-assigning otg master's opp and tg to the newly allocated secondary dpp
-pipe. This logic is incorrect when the secodnary dpp
-pipe is connected to a secondary opp head pipe in ODM combine
-configuration. Before the recent change, we will overwrite this wrong
-assignement in asic independent layer again. This covers up the issue.
-With the recent change, we will no longer cover up this in upper layer
-and therefore causes wrong tg and opp assignement to the secondary
-dpp pipe connected to a secondary opp head.
+[Why]
+In current dm_resume, dm->cached_state is restored after link get
+detected and updated which will cause problems especially for MST
+case.
 
-[how]
-Always assign tg and opp from its own opp head instead of otg master.
+In drm_dp_mst_topology_mgr_resume() today, it will resume the
+mst branch to be ready handling mst mode and also consecutively do
+the mst topology probing. Which will cause the dirver have chance
+to fire hotplug event before restoring the old state. Then Userspace
+will react to the hotplug event based on a wrong state.
 
-Reviewed-by: Martin Leung <martin.leung@amd.com>
+[How]
+Adjust the resume flow as:
+1. restore old state first
+2. link detect/topology probing and notify userspace
+3. userspace commits new state
+
+For drm_dp_mst_topology_mgr_resume(), it's better to adjust it to
+pull out topology probing work into a 2nd part procedure of the mst
+resume. Will have a follow up patch in drm.
+
+Reviewed-by: Stylon Wang <stylon.wang@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
 Acked-by: Stylon Wang <stylon.wang@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- .../drm/amd/display/dc/dcn20/dcn20_resource.c | 27 +++++++++----------
- 1 file changed, 13 insertions(+), 14 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 185 +++++++++++++-----
+ 1 file changed, 131 insertions(+), 54 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index dfecb9602f49..efa600e46194 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -2151,28 +2151,27 @@ struct pipe_ctx *dcn20_acquire_free_pipe_for_layer(
- 		const struct dc_state *cur_ctx,
- 		struct dc_state *new_ctx,
- 		const struct resource_pool *pool,
--		const struct pipe_ctx *opp_head_pipe)
-+		const struct pipe_ctx *opp_head)
- {
- 	struct resource_context *res_ctx = &new_ctx->res_ctx;
--	struct pipe_ctx *head_pipe = resource_get_head_pipe_for_stream(res_ctx, opp_head_pipe->stream);
--	struct pipe_ctx *idle_pipe = find_free_secondary_pipe_legacy(res_ctx, pool, head_pipe);
-+	struct pipe_ctx *otg_master = resource_get_head_pipe_for_stream(res_ctx, opp_head->stream);
-+	struct pipe_ctx *sec_dpp_pipe = find_free_secondary_pipe_legacy(res_ctx, pool, otg_master);
- 
--	if (!head_pipe)
--		ASSERT(0);
-+	ASSERT(otg_master);
- 
--	if (!idle_pipe)
-+	if (!sec_dpp_pipe)
- 		return NULL;
- 
--	idle_pipe->stream = head_pipe->stream;
--	idle_pipe->stream_res.tg = head_pipe->stream_res.tg;
--	idle_pipe->stream_res.opp = head_pipe->stream_res.opp;
-+	sec_dpp_pipe->stream = opp_head->stream;
-+	sec_dpp_pipe->stream_res.tg = opp_head->stream_res.tg;
-+	sec_dpp_pipe->stream_res.opp = opp_head->stream_res.opp;
- 
--	idle_pipe->plane_res.hubp = pool->hubps[idle_pipe->pipe_idx];
--	idle_pipe->plane_res.ipp = pool->ipps[idle_pipe->pipe_idx];
--	idle_pipe->plane_res.dpp = pool->dpps[idle_pipe->pipe_idx];
--	idle_pipe->plane_res.mpcc_inst = pool->dpps[idle_pipe->pipe_idx]->inst;
-+	sec_dpp_pipe->plane_res.hubp = pool->hubps[sec_dpp_pipe->pipe_idx];
-+	sec_dpp_pipe->plane_res.ipp = pool->ipps[sec_dpp_pipe->pipe_idx];
-+	sec_dpp_pipe->plane_res.dpp = pool->dpps[sec_dpp_pipe->pipe_idx];
-+	sec_dpp_pipe->plane_res.mpcc_inst = pool->dpps[sec_dpp_pipe->pipe_idx]->inst;
- 
--	return idle_pipe;
-+	return sec_dpp_pipe;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a4d57289d07a..2a6ffe11be72 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2334,14 +2334,62 @@ static int dm_late_init(void *handle)
+ 	return detect_mst_link_for_all_connectors(adev_to_drm(adev));
  }
  
- bool dcn20_get_dcc_compression_cap(const struct dc *dc,
++static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
++{
++	int ret;
++	u8 guid[16];
++	u64 tmp64;
++
++	mutex_lock(&mgr->lock);
++	if (!mgr->mst_primary)
++		goto out_fail;
++
++	if (drm_dp_read_dpcd_caps(mgr->aux, mgr->dpcd) < 0) {
++		drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?\n");
++		goto out_fail;
++	}
++
++	ret = drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL,
++				 DP_MST_EN |
++				 DP_UP_REQ_EN |
++				 DP_UPSTREAM_IS_SRC);
++	if (ret < 0) {
++		drm_dbg_kms(mgr->dev, "mst write failed - undocked during suspend?\n");
++		goto out_fail;
++	}
++
++	/* Some hubs forget their guids after they resume */
++	ret = drm_dp_dpcd_read(mgr->aux, DP_GUID, guid, 16);
++	if (ret != 16) {
++		drm_dbg_kms(mgr->dev, "dpcd read failed - undocked during suspend?\n");
++		goto out_fail;
++	}
++
++	if (memchr_inv(guid, 0, 16) == NULL) {
++		tmp64 = get_jiffies_64();
++		memcpy(&guid[0], &tmp64, sizeof(u64));
++		memcpy(&guid[8], &tmp64, sizeof(u64));
++
++		ret = drm_dp_dpcd_write(mgr->aux, DP_GUID, guid, 16);
++
++		if (ret != 16) {
++			drm_dbg_kms(mgr->dev, "check mstb guid failed - undocked during suspend?\n");
++			goto out_fail;
++		}
++	}
++
++	memcpy(mgr->mst_primary->guid, guid, 16);
++
++out_fail:
++	mutex_unlock(&mgr->lock);
++}
++
+ static void s3_handle_mst(struct drm_device *dev, bool suspend)
+ {
+ 	struct amdgpu_dm_connector *aconnector;
+ 	struct drm_connector *connector;
+ 	struct drm_connector_list_iter iter;
+ 	struct drm_dp_mst_topology_mgr *mgr;
+-	int ret;
+-	bool need_hotplug = false;
+ 
+ 	drm_connector_list_iter_begin(dev, &iter);
+ 	drm_for_each_connector_iter(connector, &iter) {
+@@ -2363,18 +2411,15 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
+ 			if (!dp_is_lttpr_present(aconnector->dc_link))
+ 				try_to_configure_aux_timeout(aconnector->dc_link->ddc, LINK_AUX_DEFAULT_TIMEOUT_PERIOD);
+ 
+-			ret = drm_dp_mst_topology_mgr_resume(mgr, true);
+-			if (ret < 0) {
+-				dm_helpers_dp_mst_stop_top_mgr(aconnector->dc_link->ctx,
+-					aconnector->dc_link);
+-				need_hotplug = true;
+-			}
++			/* TODO: move resume_mst_branch_status() into drm mst resume again
++			 * once topology probing work is pulled out from mst resume into mst
++			 * resume 2nd step. mst resume 2nd step should be called after old
++			 * state getting restored (i.e. drm_atomic_helper_resume()).
++			 */
++			resume_mst_branch_status(mgr);
+ 		}
+ 	}
+ 	drm_connector_list_iter_end(&iter);
+-
+-	if (need_hotplug)
+-		drm_kms_helper_hotplug_event(dev);
+ }
+ 
+ static int amdgpu_dm_smu_write_watermarks_table(struct amdgpu_device *adev)
+@@ -2751,14 +2796,80 @@ static void dm_gpureset_commit_state(struct dc_state *dc_state,
+ 	kfree(bundle);
+ }
+ 
++static void link_detect_and_update_connectors(struct amdgpu_device *adev)
++{
++	struct drm_device *dev = adev_to_drm(adev);
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_connector *connector;
++	struct drm_connector_list_iter iter;
++	struct drm_dp_mst_topology_mgr *mgr;
++	struct amdgpu_display_manager *dm = &adev->dm;
++	enum dc_connection_type new_connection_type = dc_connection_none;
++	int ret;
++
++	/* link detection and update. Skip those MST end sink connectors but do
++	 * detection for mst root connectors
++	 */
++	drm_connector_list_iter_begin(dev, &iter);
++	drm_for_each_connector_iter(connector, &iter) {
++		aconnector = to_amdgpu_dm_connector(connector);
++
++		if (!aconnector->dc_link)
++			continue;
++
++		/*
++		 * this is the case when traversing through created end sink
++		 * MST connectors, should be skipped
++		 */
++		if (aconnector && aconnector->mst_root)
++			continue;
++
++		mutex_lock(&aconnector->hpd_lock);
++		if (!dc_link_detect_connection_type(aconnector->dc_link, &new_connection_type))
++			DRM_ERROR("KMS: Failed to detect connector\n");
++
++		if (aconnector->base.force && new_connection_type == dc_connection_none) {
++			emulated_link_detect(aconnector->dc_link);
++		} else {
++			mutex_lock(&dm->dc_lock);
++			dc_link_detect(aconnector->dc_link, DETECT_REASON_HPD);
++			mutex_unlock(&dm->dc_lock);
++		}
++
++		if (aconnector->fake_enable && aconnector->dc_link->local_sink)
++			aconnector->fake_enable = false;
++
++		if (aconnector->dc_sink)
++			dc_sink_release(aconnector->dc_sink);
++		aconnector->dc_sink = NULL;
++		amdgpu_dm_update_connector_after_detect(aconnector);
++		mutex_unlock(&aconnector->hpd_lock);
++	}
++	drm_connector_list_iter_end(&iter);
++
++	/* MST topology probing*/
++	drm_connector_list_iter_begin(dev, &iter);
++	drm_for_each_connector_iter(connector, &iter) {
++		aconnector = to_amdgpu_dm_connector(connector);
++		if (aconnector->dc_link->type != dc_connection_mst_branch ||
++		    aconnector->mst_root)
++			continue;
++
++		mgr = &aconnector->mst_mgr;
++
++		ret = drm_dp_mst_topology_mgr_resume(mgr, true);
++		if (ret < 0)
++			dm_helpers_dp_mst_stop_top_mgr(aconnector->dc_link->ctx,
++					aconnector->dc_link);
++	}
++	drm_connector_list_iter_end(&iter);
++}
++
+ static int dm_resume(void *handle)
+ {
+ 	struct amdgpu_device *adev = handle;
+ 	struct drm_device *ddev = adev_to_drm(adev);
+ 	struct amdgpu_display_manager *dm = &adev->dm;
+-	struct amdgpu_dm_connector *aconnector;
+-	struct drm_connector *connector;
+-	struct drm_connector_list_iter iter;
+ 	struct drm_crtc *crtc;
+ 	struct drm_crtc_state *new_crtc_state;
+ 	struct dm_crtc_state *dm_new_crtc_state;
+@@ -2766,7 +2877,6 @@ static int dm_resume(void *handle)
+ 	struct drm_plane_state *new_plane_state;
+ 	struct dm_plane_state *dm_new_plane_state;
+ 	struct dm_atomic_state *dm_state = to_dm_atomic_state(dm->atomic_obj.state);
+-	enum dc_connection_type new_connection_type = dc_connection_none;
+ 	struct dc_state *dc_state;
+ 	int i, r, j;
+ 
+@@ -2857,44 +2967,6 @@ static int dm_resume(void *handle)
+ 	/* On resume we need to rewrite the MSTM control bits to enable MST*/
+ 	s3_handle_mst(ddev, false);
+ 
+-	/* Do detection*/
+-	drm_connector_list_iter_begin(ddev, &iter);
+-	drm_for_each_connector_iter(connector, &iter) {
+-		aconnector = to_amdgpu_dm_connector(connector);
+-
+-		if (!aconnector->dc_link)
+-			continue;
+-
+-		/*
+-		 * this is the case when traversing through already created
+-		 * MST connectors, should be skipped
+-		 */
+-		if (aconnector && aconnector->mst_root)
+-			continue;
+-
+-		mutex_lock(&aconnector->hpd_lock);
+-		if (!dc_link_detect_connection_type(aconnector->dc_link, &new_connection_type))
+-			DRM_ERROR("KMS: Failed to detect connector\n");
+-
+-		if (aconnector->base.force && new_connection_type == dc_connection_none) {
+-			emulated_link_detect(aconnector->dc_link);
+-		} else {
+-			mutex_lock(&dm->dc_lock);
+-			dc_link_detect(aconnector->dc_link, DETECT_REASON_HPD);
+-			mutex_unlock(&dm->dc_lock);
+-		}
+-
+-		if (aconnector->fake_enable && aconnector->dc_link->local_sink)
+-			aconnector->fake_enable = false;
+-
+-		if (aconnector->dc_sink)
+-			dc_sink_release(aconnector->dc_sink);
+-		aconnector->dc_sink = NULL;
+-		amdgpu_dm_update_connector_after_detect(aconnector);
+-		mutex_unlock(&aconnector->hpd_lock);
+-	}
+-	drm_connector_list_iter_end(&iter);
+-
+ 	/* Force mode set in atomic commit */
+ 	for_each_new_crtc_in_state(dm->cached_state, crtc, new_crtc_state, i)
+ 		new_crtc_state->active_changed = true;
+@@ -2926,10 +2998,15 @@ static int dm_resume(void *handle)
+ 
+ 	dm->cached_state = NULL;
+ 
++	/* Do link detection and update to upper layer */
++	link_detect_and_update_connectors(adev);
++
++	/* Fire hotplug event anyway */
++	drm_kms_helper_hotplug_event(ddev);
++
+ 	amdgpu_dm_irq_resume_late(adev);
+ 
+ 	amdgpu_dm_smu_write_watermarks_table(adev);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.41.0
 
