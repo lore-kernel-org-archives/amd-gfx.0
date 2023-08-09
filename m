@@ -4,58 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4EE7C001B0
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 07:14:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6557DC001E0
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 07:14:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B90010E243;
-	Wed,  9 Aug 2023 07:14:52 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97B4B10E3F5;
- Wed,  9 Aug 2023 03:45:38 +0000 (UTC)
-Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RLGBv5JPJzmXGH;
- Wed,  9 Aug 2023 11:44:23 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemi500008.china.huawei.com
- (7.221.188.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 9 Aug
- 2023 11:45:33 +0800
-From: Ruan Jinjie <ruanjinjie@huawei.com>
-To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
- <daniel@ffwll.ch>, <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <Rodrigo.Siqueira@amd.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <inki.dae@samsung.com>,
- <sw0312.kim@samsung.com>, <kyungmin.park@samsung.com>,
- <krzysztof.kozlowski@linaro.org>, <alim.akhtar@samsung.com>,
- <robdclark@gmail.com>, <quic_abhinavk@quicinc.com>,
- <dmitry.baryshkov@linaro.org>, <sean@poorly.run>,
- <marijn.suijten@somainline.org>, <bskeggs@redhat.com>, <kherbst@redhat.com>,
- <lyude@redhat.com>, <kraxel@redhat.com>, <gurchetansingh@chromium.org>,
- <olvaffe@gmail.com>, <paulo.miguel.almeida.rodenas@gmail.com>,
- <wenjing.liu@amd.com>, <haoping.liu@amd.com>, <Charlene.Liu@amd.com>,
- <chiahsuan.chung@amd.com>, <george.shen@amd.com>, <sancchen@amd.com>,
- <tony.tascioglu@amd.com>, <jaehyun.chung@amd.com>,
- <tales.aparecida@gmail.com>, <drv@mailo.com>, <aurabindo.pillai@amd.com>,
- <quic_vpolimer@quicinc.com>, <jiasheng@iscas.ac.cn>, <noralf@tronnes.org>,
- <jose.exposito89@gmail.com>, <javierm@redhat.com>, <mairacanal@riseup.net>,
- <davidgow@google.com>, <arthurgrillo@riseup.net>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <virtualization@lists.linux-foundation.org>
-Subject: [PATCH -next 6/7] drm/format-helper: Remove unnecessary NULL values
-Date: Wed, 9 Aug 2023 11:44:44 +0800
-Message-ID: <20230809034445.434902-7-ruanjinjie@huawei.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1F110E24E;
+	Wed,  9 Aug 2023 07:14:53 +0000 (UTC)
+Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
+ [IPv6:2607:f8b0:4864:20::429])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C2D010E232
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 05:30:43 +0000 (UTC)
+Received: by mail-pf1-x429.google.com with SMTP id
+ d2e1a72fcca58-687ca37628eso1866329b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Aug 2023 22:30:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1691559043; x=1692163843;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=jqVBe5pt9GZ7aYDqfwkD/WWrE8SCWRSIo2SjG3OVAgU=;
+ b=MM7eLh7HIOK4VQ7mjvl2km+GxCVraxI3FmtGC/e1X2dlLHwM2wunzn0PO+39GW7XGB
+ xYNheiS7f/b0DBUVWJLT+uSRKTs5Opoy5211SCFtPyrRspa8BbSjcq1V+nDofiWqI+jl
+ ArdNg4OSo/89hx8QQRXKRV9ycRGdIEnzg2zlfHCGotYUJ1nq4Rh4cWvV+gCaLnnD5JWd
+ rc1aWa3En8/OLn/pDEev6iep/0ZT2RXMU5tXzWxgnnDeyz2Is0CP/lQDHxTPz5kEZwd0
+ bdZwToWnkeIEwhdTYcHCey4kJJXxIhdgXWDQeYK04ose9NlVPINiu06/waL5RuKHRDbI
+ HW9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691559043; x=1692163843;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=jqVBe5pt9GZ7aYDqfwkD/WWrE8SCWRSIo2SjG3OVAgU=;
+ b=T3EJRlKoZQsrHE0TjhHR8Ax6Xtih3At7U2ocegvpzkHKi5huE/HhKnC6Ru8vTN1Wa+
+ 1A3/KpDbgstOxErYtOXRTDAq6RA4pFB6POgOzKPnE5D7FwYaWo/YTQprr/gtQ/GSKa6f
+ MxmCh+yD0ggAxPP1TZLjgR0yGxenQD1Y+D1YN8gulUbFq+wT29IN4kTSIIcM5C2Vn0nt
+ QR1LqRmgHGK6FFyNtp7lpQ3CmmjBpb3CcBbDumruAIAeXzaFAxNyOk/ou8+t6LVWx8TD
+ XOWiE2HajbEaurNL9co6WRUpsj6ASPyAamVX6I6qgk53cyvqvnPcTi2f7+jLVtwSgdwf
+ 2bLg==
+X-Gm-Message-State: AOJu0Yw9y1in8zUJCQ1dGxB34A+VZAbW7N+Zo4y33Q+d2Y226MGe20Sc
+ VAfsR6k9uFMEKpMbgvN4aBgOJ9EWjr7J4g==
+X-Google-Smtp-Source: AGHT+IF8YXJ5+u1OlAQhMTZIOC/FvpTkv+YYhZbdzEmzkD6hXk2WE0zkQSSRVA4O3SYOMJGDlXJtrw==
+X-Received: by 2002:a05:6a20:3251:b0:13e:e053:1050 with SMTP id
+ hm17-20020a056a20325100b0013ee0531050mr1475021pzc.56.1691559042883; 
+ Tue, 08 Aug 2023 22:30:42 -0700 (PDT)
+Received: from rajgad.hsd1.ca.comcast.net
+ ([2601:204:df00:9cd0:d26e:9bde:5e8b:6cb6])
+ by smtp.gmail.com with ESMTPSA id
+ e16-20020a62ee10000000b00686940bfb77sm8986255pfi.71.2023.08.08.22.30.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Aug 2023 22:30:42 -0700 (PDT)
+From: Atul Raut <rauji.raut@gmail.com>
+To: Felix.Kuehling@amd.com
+Subject: [PATCH v2] drm/amdkfd: Use memdup_user() rather than duplicating its
+ implementation
+Date: Tue,  8 Aug 2023 22:30:18 -0700
+Message-Id: <20230809053018.88004-1-rauji.raut@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230809034445.434902-1-ruanjinjie@huawei.com>
-References: <20230809034445.434902-1-ruanjinjie@huawei.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- kwepemi500008.china.huawei.com (7.221.188.139)
-X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Wed, 09 Aug 2023 07:14:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,150 +72,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ruanjinjie@huawei.com
+Cc: linux-kernel-mentees@lists.linuxfoundation.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The NULL initialization of the pointers assigned by
-kunit_kzalloc() first is not necessary, because if kunit_kzalloc()
-failed, the pointers will be assigned NULL, otherwise it works
-as usual. so remove it.
+To prevent its redundant implementation and streamline
+code, use memdup_user.
 
-Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
+This fixes warnings reported by Coccinelle:
+./drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:2811:13-20: WARNING opportunity for memdup_user
+
+Signed-off-by: Atul Raut <rauji.raut@gmail.com>
 ---
- .../gpu/drm/tests/drm_format_helper_test.c    | 28 +++++++++----------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+v1 -> v2
+  caller checks for errors, hence removed
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_format_helper_test.c b/drivers/gpu/drm/tests/drm_format_helper_test.c
-index 474bb7a1c4ee..1db12d8ed23c 100644
---- a/drivers/gpu/drm/tests/drm_format_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_format_helper_test.c
-@@ -452,7 +452,7 @@ static size_t conversion_buf_size(u32 dst_format, unsigned int dst_pitch,
- 
- static u16 *le16buf_to_cpu(struct kunit *test, const __le16 *buf, size_t buf_size)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 2df153828ff4..df9b618756e6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -2803,19 +2803,11 @@ static void copy_context_work_handler (struct work_struct *work)
+ static uint32_t *get_queue_ids(uint32_t num_queues, uint32_t *usr_queue_id_array)
  {
--	u16 *dst = NULL;
-+	u16 *dst;
- 	int n;
+ 	size_t array_size = num_queues * sizeof(uint32_t);
+-	uint32_t *queue_ids = NULL;
  
- 	dst = kunit_kzalloc(test, sizeof(*dst) * buf_size, GFP_KERNEL);
-@@ -467,7 +467,7 @@ static u16 *le16buf_to_cpu(struct kunit *test, const __le16 *buf, size_t buf_siz
+ 	if (!usr_queue_id_array)
+ 		return NULL;
  
- static u32 *le32buf_to_cpu(struct kunit *test, const __le32 *buf, size_t buf_size)
- {
--	u32 *dst = NULL;
-+	u32 *dst;
- 	int n;
+-	queue_ids = kzalloc(array_size, GFP_KERNEL);
+-	if (!queue_ids)
+-		return ERR_PTR(-ENOMEM);
+-
+-	if (copy_from_user(queue_ids, usr_queue_id_array, array_size))
+-		return ERR_PTR(-EFAULT);
+-
+-	return queue_ids;
++	return memdup_user(usr_queue_id_array, array_size);
+ }
  
- 	dst = kunit_kzalloc(test, sizeof(*dst) * buf_size, GFP_KERNEL);
-@@ -482,7 +482,7 @@ static u32 *le32buf_to_cpu(struct kunit *test, const __le32 *buf, size_t buf_siz
- 
- static __le32 *cpubuf_to_le32(struct kunit *test, const u32 *buf, size_t buf_size)
- {
--	__le32 *dst = NULL;
-+	__le32 *dst;
- 	int n;
- 
- 	dst = kunit_kzalloc(test, sizeof(*dst) * buf_size, GFP_KERNEL);
-@@ -509,7 +509,7 @@ static void drm_test_fb_xrgb8888_to_gray8(struct kunit *test)
- 	const struct convert_xrgb8888_case *params = test->param_value;
- 	const struct convert_to_gray8_result *result = &params->gray8_result;
- 	size_t dst_size;
--	u8 *buf = NULL;
-+	u8 *buf;
- 	__le32 *xrgb8888 = NULL;
- 	struct iosys_map dst, src;
- 
-@@ -539,7 +539,7 @@ static void drm_test_fb_xrgb8888_to_rgb332(struct kunit *test)
- 	const struct convert_xrgb8888_case *params = test->param_value;
- 	const struct convert_to_rgb332_result *result = &params->rgb332_result;
- 	size_t dst_size;
--	u8 *buf = NULL;
-+	u8 *buf;
- 	__le32 *xrgb8888 = NULL;
- 	struct iosys_map dst, src;
- 
-@@ -569,7 +569,7 @@ static void drm_test_fb_xrgb8888_to_rgb565(struct kunit *test)
- 	const struct convert_xrgb8888_case *params = test->param_value;
- 	const struct convert_to_rgb565_result *result = &params->rgb565_result;
- 	size_t dst_size;
--	u16 *buf = NULL;
-+	u16 *buf;
- 	__le32 *xrgb8888 = NULL;
- 	struct iosys_map dst, src;
- 
-@@ -605,7 +605,7 @@ static void drm_test_fb_xrgb8888_to_xrgb1555(struct kunit *test)
- 	const struct convert_xrgb8888_case *params = test->param_value;
- 	const struct convert_to_xrgb1555_result *result = &params->xrgb1555_result;
- 	size_t dst_size;
--	u16 *buf = NULL;
-+	u16 *buf;
- 	__le32 *xrgb8888 = NULL;
- 	struct iosys_map dst, src;
- 
-@@ -636,7 +636,7 @@ static void drm_test_fb_xrgb8888_to_argb1555(struct kunit *test)
- 	const struct convert_xrgb8888_case *params = test->param_value;
- 	const struct convert_to_argb1555_result *result = &params->argb1555_result;
- 	size_t dst_size;
--	u16 *buf = NULL;
-+	u16 *buf;
- 	__le32 *xrgb8888 = NULL;
- 	struct iosys_map dst, src;
- 
-@@ -667,7 +667,7 @@ static void drm_test_fb_xrgb8888_to_rgba5551(struct kunit *test)
- 	const struct convert_xrgb8888_case *params = test->param_value;
- 	const struct convert_to_rgba5551_result *result = &params->rgba5551_result;
- 	size_t dst_size;
--	u16 *buf = NULL;
-+	u16 *buf;
- 	__le32 *xrgb8888 = NULL;
- 	struct iosys_map dst, src;
- 
-@@ -698,7 +698,7 @@ static void drm_test_fb_xrgb8888_to_rgb888(struct kunit *test)
- 	const struct convert_xrgb8888_case *params = test->param_value;
- 	const struct convert_to_rgb888_result *result = &params->rgb888_result;
- 	size_t dst_size;
--	u8 *buf = NULL;
-+	u8 *buf;
- 	__le32 *xrgb8888 = NULL;
- 	struct iosys_map dst, src;
- 
-@@ -732,7 +732,7 @@ static void drm_test_fb_xrgb8888_to_argb8888(struct kunit *test)
- 	const struct convert_xrgb8888_case *params = test->param_value;
- 	const struct convert_to_argb8888_result *result = &params->argb8888_result;
- 	size_t dst_size;
--	u32 *buf = NULL;
-+	u32 *buf;
- 	__le32 *xrgb8888 = NULL;
- 	struct iosys_map dst, src;
- 
-@@ -763,7 +763,7 @@ static void drm_test_fb_xrgb8888_to_xrgb2101010(struct kunit *test)
- 	const struct convert_xrgb8888_case *params = test->param_value;
- 	const struct convert_to_xrgb2101010_result *result = &params->xrgb2101010_result;
- 	size_t dst_size;
--	u32 *buf = NULL;
-+	u32 *buf;
- 	__le32 *xrgb8888 = NULL;
- 	struct iosys_map dst, src;
- 
-@@ -794,7 +794,7 @@ static void drm_test_fb_xrgb8888_to_argb2101010(struct kunit *test)
- 	const struct convert_xrgb8888_case *params = test->param_value;
- 	const struct convert_to_argb2101010_result *result = &params->argb2101010_result;
- 	size_t dst_size;
--	u32 *buf = NULL;
-+	u32 *buf;
- 	__le32 *xrgb8888 = NULL;
- 	struct iosys_map dst, src;
- 
-@@ -825,7 +825,7 @@ static void drm_test_fb_xrgb8888_to_mono(struct kunit *test)
- 	const struct convert_xrgb8888_case *params = test->param_value;
- 	const struct convert_to_mono_result *result = &params->mono_result;
- 	size_t dst_size;
--	u8 *buf = NULL;
-+	u8 *buf;
- 	__le32 *xrgb8888 = NULL;
- 	struct iosys_map dst, src;
- 
+ int resume_queues(struct kfd_process *p,
 -- 
 2.34.1
 
