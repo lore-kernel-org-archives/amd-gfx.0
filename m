@@ -4,59 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14483C0015E
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 12:37:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D37DEB64DD
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 12:40:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA9CD10E42E;
-	Wed,  9 Aug 2023 12:37:29 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42B7410E42E
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 12:37:28 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-1bc479cc815so5347582fac.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Aug 2023 05:37:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2013410E433;
+	Wed,  9 Aug 2023 12:40:28 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9BA510E433
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 12:40:25 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id
+ 5614622812f47-3a74d759be4so5047793b6e.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Aug 2023 05:40:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691584647; x=1692189447;
+ d=gmail.com; s=20221208; t=1691584825; x=1692189625;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lz7NQzVV5j5CzsEjbcRpZPi0q5UgnN+ZwxooL2cDqB8=;
- b=CWEMfti9vJm6dg2NxIZQnIDW7H6MaqtKf9+JSbWGViecvkUtpUgz+nSd80rVksJkZG
- JiZhnlFvOU0G+ZtPgTW3+WjUHMVOjX69CymB3iK7saVTp6hOn6IYpo8VuW4hEF5Q28O5
- ENmum0zQMW1rLS3MhHV7DS2fsxFBOBTUeOvf//ZOE00Yltuflq3viZSFhmE9E6uZK1Rd
- r5LE5Vf80NaErSBDeFMn/oNO69TJVMGXHy3mlbxRoJRFX0JaLbX0BHLYPMiOu3LpmJ24
- jsdlJe/cWcRV6wmfGwOBfrV6FmwrExd57qoeii+G6q/XNbsyTE31zKyv2PTbMFfp0SdA
- cHWQ==
+ bh=SbUL3BvMfqdHIuVGd1qzVon0yi9gavvOVwbJdzOYK6U=;
+ b=lHj4DZ/EXOmD4gujwyY+UJl+WqB8fygXEGJ+mh4vf6qY6k1xM5fBR99ZGf7uQad+UD
+ 5QsSJ9U+06og5avwc00TnFnhOuT/K2ox70+mycAutbgDnB8bieC/8ZKUVTgbfDtLJMe/
+ d0eF7SDt8Ja7Nm0EZ1l15qpelpVarQDvMjiA8BesotLeDMG+FmAqCQVFvU00hcaMnGSH
+ muXhV1w0SLF0xWEAT7OrXRnx31DicbG/MINL0FEqau/fgDYvDUtHO50K7Zt/tW07XwRr
+ tPxuVX07Lo5ZxdpHS7J8MNxTZR3otvfKmrHqiTJzG8ZLTiPmlFlJnk6fJl+cC6xHq+7Z
+ LnxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691584647; x=1692189447;
+ d=1e100.net; s=20221208; t=1691584825; x=1692189625;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=lz7NQzVV5j5CzsEjbcRpZPi0q5UgnN+ZwxooL2cDqB8=;
- b=V5KfxxrUQe6BH9v3Ryc2HhyGu/ZHzv31T1wqB5sxLMwqtbAMq+BGzI702s5HN/2HdR
- Q1kw32jnDTQwY4p/f449RTwNFaEpalL9kOaBRGJo9EqN1A8wz0W0q5206hVmgRCWgzYq
- 6xc1JCz0PyuHZJ2U3pT3wjCJPL/lMnUNr6T87r8z5EPmr9uywjcQWX57uf1bxd83QKcm
- yCPmoQpwzepf2yCCyp6MTUjMDcv1T/wBhXuWEpF6eQ2tYuY68adqQQW14BmTg53vJFR/
- 5PK6GYM+eVCmE7RVBhf6N5J1g4U/dP7THv3mB6SmfAexNQPVTHGD6hfy4P9Mmjdq67fa
- Zsgw==
-X-Gm-Message-State: AOJu0YxhYUZ36x/io7rpIfz6dc4cVuOKH8ymwUHkED/v9czJ2mFKYCnd
- U9vTjyW/BYENuvravXczITazvROJ9q5U8GLMBxQ=
-X-Google-Smtp-Source: AGHT+IHAPN9P1b1OXKDbiCauaIaYCvCuawCWc4wCrHE0HsVUJjvqIyTVmlQIOAlGsgPLhXmd+xc1uIOjGGLCjerkReU=
-X-Received: by 2002:a05:6870:d14f:b0:1c0:3110:12cc with SMTP id
- f15-20020a056870d14f00b001c0311012ccmr3166402oac.55.1691584647502; Wed, 09
- Aug 2023 05:37:27 -0700 (PDT)
+ bh=SbUL3BvMfqdHIuVGd1qzVon0yi9gavvOVwbJdzOYK6U=;
+ b=IyJ/YGmnEujFuI5IJdJtKkTT+1W86EShrT6Y8KdtdgbiChdw4h/I+pQYpW7BaY3fAq
+ Kb55t4agd/X0Cg9qaUi3UzVSKsJDjs+Wi+cN9IPV0RGtZaVQLAobz/eDbz1TJ8iqBV4V
+ StBnNvTkob8PcHfjc37W+tiSRCQhQ3NniNIo3t38La9h7OKDxkRkcl+lT58+KNR/nIJT
+ Q1Fly45cOA+WVWdKtJC9MU6BnAOK46Eb72dubui4wdRhEdcbwiFL2w8o+AuPUygJCNjX
+ LnN1PJaMvMITd7eI8Zto/cKtXCaXfKXioOTXs6Xeg4qacm/WfghqX4MtoLd8tUmOZSAw
+ px8w==
+X-Gm-Message-State: AOJu0YxS4JpjRV6J1+f+o7DfEj4VVe+ZauDlTgdj7lsmvphOI7RqDKQU
+ de1Jh86DIAgiC2pBlFidS8MpVIr6Sc87LZOMDec=
+X-Google-Smtp-Source: AGHT+IEnlYwg8ZcJxyOqvGaTSxrxciVxM7tqmQ4OgKjahhAC6g98OvOQHR9So/VPYTnrggRbUPOKrokqeH+uhB2CHsI=
+X-Received: by 2002:a05:6808:218e:b0:3a7:2efb:cb71 with SMTP id
+ be14-20020a056808218e00b003a72efbcb71mr3320227oib.25.1691584825118; Wed, 09
+ Aug 2023 05:40:25 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230809101235.285114-1-kenneth.feng@amd.com>
- <CADnq5_Ot96o8RdopafMVOT6jZKgfkuxTOT4CVQJ6k8aBVPNBSw@mail.gmail.com>
- <d98258e6-ae06-f353-0fc8-a2add9cfb1e4@amd.com>
-In-Reply-To: <d98258e6-ae06-f353-0fc8-a2add9cfb1e4@amd.com>
+References: <20230809095006.253119-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230809095006.253119-1-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 9 Aug 2023 08:37:16 -0400
-Message-ID: <CADnq5_Oe2rG58c3LSCnP9S_xA4Xh+=2Aqqr-uv3j6CeoZCF95w@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/pm: disallow the fan setting if there is no
- fan on smu 13.0.0
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Date: Wed, 9 Aug 2023 08:40:13 -0400
+Message-ID: <CADnq5_OdX=HUfxMhqg9hFSn+VbjNoX+vH8LtcY1KRpZrnRDXfw@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: Fix multiple line dereference in
+ 'atom_iio_execute'
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -70,74 +68,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kenneth Feng <kenneth.feng@amd.com>, maisam.arif@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ amd-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 9, 2023 at 8:28=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wro=
-te:
+On Wed, Aug 9, 2023 at 5:50=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
 >
+> Fixes the following:
 >
+> WARNING: Avoid multiple line dereference - prefer 'ctx->io_attr'
+> +                           ((ctx->
+> +                             io_attr >> CU8(base + 2)) & (0xFFFFFFFF >> =
+(32 -
 >
-> On 8/9/2023 5:50 PM, Alex Deucher wrote:
-> > On Wed, Aug 9, 2023 at 6:12=E2=80=AFAM Kenneth Feng <kenneth.feng@amd.c=
-om> wrote:
-> >>
-> >> drm/amd/pm: disallow the fan setting if there is no fan on smu 13.0.0
-> >> V2: depend on pm.no_fan to check
-> >>
-> >> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> >
-> > You can still read the fan speed though right?  Don't we want to just
-> > not expose the ability to manually set the fan speed?
->
-> If PMFW is not controlling fan, there is no guarantee that the cooling
-> solution (any other external one) is using GPU's fan controller itself.
-> In that way, reading the speed from controller doesn't make sense.
->
-
-Ah, ok, I misunderstood.  My brain isn't working yet.  This is for the
-case of the PMFW not controlling the fan.
+> Cc: Guchun Chen <guchun.chen@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> Thanks,
-> Lijo
+> ---
+>  drivers/gpu/drm/radeon/atom.c | 10 +++-------
+>  1 file changed, 3 insertions(+), 7 deletions(-)
 >
-> >
-> > Alex
-> >
-> >> ---
-> >>   drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 4 ++++
-> >>   1 file changed, 4 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/dr=
-ivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> >> index fddcd834bcec..0fb6be11a0cc 100644
-> >> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> >> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> >> @@ -331,6 +331,7 @@ static int smu_v13_0_0_check_powerplay_table(struc=
-t smu_context *smu)
-> >>          struct smu_13_0_0_powerplay_table *powerplay_table =3D
-> >>                  table_context->power_play_table;
-> >>          struct smu_baco_context *smu_baco =3D &smu->smu_baco;
-> >> +       PPTable_t *pptable =3D smu->smu_table.driver_pptable;
-> >>   #if 0
-> >>          PPTable_t *pptable =3D smu->smu_table.driver_pptable;
-> >>          const OverDriveLimits_t * const overdrive_upperlimits =3D
-> >> @@ -371,6 +372,9 @@ static int smu_v13_0_0_check_powerplay_table(struc=
-t smu_context *smu)
-> >>          table_context->thermal_controller_type =3D
-> >>                  powerplay_table->thermal_controller_type;
-> >>
-> >> +       smu->adev->pm.no_fan =3D
-> >> +               !(pptable->SkuTable.FeaturesToRun[0] & (1 << FEATURE_F=
-AN_CONTROL_BIT));
-> >> +
-> >>          return 0;
-> >>   }
-> >>
-> >> --
-> >> 2.34.1
-> >>
+> diff --git a/drivers/gpu/drm/radeon/atom.c b/drivers/gpu/drm/radeon/atom.=
+c
+> index 93acb0e42bd6..ceb6d772ef94 100644
+> --- a/drivers/gpu/drm/radeon/atom.c
+> +++ b/drivers/gpu/drm/radeon/atom.c
+> @@ -163,13 +163,9 @@ static uint32_t atom_iio_execute(struct atom_context=
+ *ctx, int base,
+>                             ~((0xFFFFFFFF >> (32 - CU8(base + 1))) <<
+>                               CU8(base + 3));
+>                         temp |=3D
+> -                           ((ctx->
+> -                             io_attr >> CU8(base + 2)) & (0xFFFFFFFF >> =
+(32 -
+> -                                                                        =
+ CU8
+> -                                                                        =
+ (base
+> -                                                                        =
+  +
+> -                                                                        =
+  1))))
+> -                           << CU8(base + 3);
+> +                           ((ctx->io_attr >> CU8(base + 2)) &
+> +                            (0xFFFFFFFF >> (32 - CU8(base + 1)))) <<
+> +                            CU8(base + 3);
+>                         base +=3D 4;
+>                         break;
+>                 case ATOM_IIO_END:
+> --
+> 2.25.1
+>
