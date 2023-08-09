@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 562F0EB64DD
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 12:07:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16736C001B0
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 12:07:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C619810E420;
-	Wed,  9 Aug 2023 12:07:47 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1343310E407
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 09:09:57 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3FE706307A;
- Wed,  9 Aug 2023 09:09:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD38C433C8;
- Wed,  9 Aug 2023 09:09:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1691572195;
- bh=vfMI07lbwQqzPWUEbcLGTfTZhAGUNzN/8h37gCFR36c=;
- h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=thCQIQzVsvetqrTqD/aWxpwy8h3bHqj9+qC0nJMkh/mQT5V54/XJaA8Bk7OY3uZhE
- R9V6e802fhQMSECvldfvxOgCtV2sxx/JlAaXRK2Eck8NMCXACQzxDmLAg9SrPTd8TF
- sBhu8Wah9sYvDj1YMLnoW4xEYwOf/dMOGKvs0n94=
-Subject: Patch "drm/amdgpu: Remove unnecessary domain argument" has been added
- to the 6.1-stable tree
-To: Alexander.Deucher@amd.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- gregkh@linuxfoundation.org, luben.tuikov@amd.com, mario.limonciello@amd.com
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 09 Aug 2023 11:09:44 +0200
-In-Reply-To: <20230808175055.3761-3-mario.limonciello@amd.com>
-Message-ID: <2023080944-unfounded-outgrow-03c6@gregkh>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5269010E422;
+	Wed,  9 Aug 2023 12:07:49 +0000 (UTC)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A88110E3FC
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 08:12:45 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-317716a4622so5124672f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Aug 2023 01:12:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1691568764; x=1692173564;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=K77ZM1EV6CQY4o9X0wlpaU8dMwrRj5046b396XAXHck=;
+ b=ENQ+7oshNk9aSh5msgIw9c9z51+3+fTG8RGPN97Ak66sBXhhnFf4LvgXdWmz/wHePX
+ GqpssFjqSVwsXvqgRsHsX8IMv6jnk+UB05K881JwVdPsyZ5RtkUklL/eqFmc8IAsB6n+
+ RuxNZB5FI/z93pQpMNoZou+3azd5XJjI2cSJTgg/u7NMSs6wzSfQAqZO2a+gJu/aoqbl
+ k3XbsGGln9HEdtqtXOLP3PRZrzfYTsmWeBh0hWyN7Mgens+hV2EmW3facm6LBb6vTRMK
+ sJedJb8MA9WLZzgindsOgLPxQgHkZ9f0w0ycjXHxL6rAtskTrFwdfWl1ATfZ9jUiXnjK
+ /i+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691568764; x=1692173564;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=K77ZM1EV6CQY4o9X0wlpaU8dMwrRj5046b396XAXHck=;
+ b=jRdLKeViW+g6lPZIcW0Z0TRQLq+Xy4SpgqxFgJh41yfuLR1I8wTQ/NACZOYt/AkNGR
+ IC/0Tn/bCuZVK3s/Vry1fMPI3b/dzFwaUFVmtSaw/rU4w0daR1rNmPDvx1x0/lnb0KJJ
+ 5Df4dD4B6dmxny242o8puPsskWtK4wA9A7rf+VpQZxiUcs5rVuhJ7fb/k08W8J2bp1ds
+ 4biD0dwkTIErdDxKZKrimcqglRtfd4RM3NiNGZqahDMbm/yv+TDiPYPeqr8/iEnPHJp0
+ sTgpmnka9KsdGyfFp0BBfryOWc0V9aiWz3/AVI0sTswOfX2KlJhn42oBJP88Job/ZU84
+ W1gQ==
+X-Gm-Message-State: AOJu0Yx7NZAfXctc36QZWaQsfW4r86BVuLN83H3ZuJ8ZPSM5AzN62ATM
+ KEHahbyeVePHjDg27q40wvXG63zYzXtIdGaVIQ4=
+X-Google-Smtp-Source: AGHT+IH+5NL1JJdLH1MsKZPC6rT4NGAWSMs87MFevgJlgrmu7TsQ6xs+caJyd7dRWzI7F54hHGntSg==
+X-Received: by 2002:adf:dd84:0:b0:314:5376:f0d6 with SMTP id
+ x4-20020adfdd84000000b003145376f0d6mr1351481wrl.52.1691568763762; 
+ Wed, 09 Aug 2023 01:12:43 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ k18-20020a5d5192000000b003143b7449ffsm15988143wrv.25.2023.08.09.01.12.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Aug 2023 01:12:43 -0700 (PDT)
+Date: Wed, 9 Aug 2023 11:12:39 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Bhawanpreet.Lakha@amd.com
+Subject: [bug report] drm/amd/display: Add Functions to enable Freesync Panel
+ Replay
+Message-ID: <71737db4-e9f8-476c-837f-3163aabe7dc1@moroto.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Wed, 09 Aug 2023 12:07:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,177 +69,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable-commits@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hello Bhawanpreet Lakha,
 
-This is a note to let you know that I've just added the patch titled
+The patch c7ddc0a800bc: "drm/amd/display: Add Functions to enable
+Freesync Panel Replay" from May 12, 2023 (linux-next), leads to the
+following Smatch static checker warning:
 
-    drm/amdgpu: Remove unnecessary domain argument
+    drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_control.c:849
+    edp_set_replay_allow_active()
+    error: we previously assumed 'replay' could be null (see line 841)
 
-to the 6.1-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+    drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_control.c:932
+    edp_setup_replay()
+    warn: duplicate check 'replay' (previous on line 904)
 
-The filename of the patch is:
-     drm-amdgpu-remove-unnecessary-domain-argument.patch
-and it can be found in the queue-6.1 subdirectory.
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_control.c
+    834 bool edp_set_replay_allow_active(struct dc_link *link, const bool *allow_active,
+    835         bool wait, bool force_static, const unsigned int *power_opts)
+    836 {
+    837         struct dc  *dc = link->ctx->dc;
+    838         struct dmub_replay *replay = dc->res_pool->replay;
+    839         unsigned int panel_inst;
+    840 
+    841         if (replay == NULL && force_static)
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+replay is allow to be NULL if force_static is false.
 
+    842                 return false;
+    843 
+    844         if (!dc_get_edp_link_panel_inst(dc, link, &panel_inst))
+    845                 return false;
+    846 
+    847         /* Set power optimization flag */
+    848         if (power_opts && link->replay_settings.replay_power_opt_active != *power_opts) {
+--> 849                 if (link->replay_settings.replay_feature_enabled && replay->funcs->replay_set_power_opt) {
+                                                                            ^^^^^^^^
+Unchecked dereference.
 
-From stable-owner@vger.kernel.org Tue Aug  8 20:31:33 2023
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Tue, 8 Aug 2023 12:50:54 -0500
-Subject: drm/amdgpu: Remove unnecessary domain argument
-To: <stable@vger.kernel.org>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Message-ID: <20230808175055.3761-3-mario.limonciello@amd.com>
+    850                         replay->funcs->replay_set_power_opt(replay, *power_opts, panel_inst);
+    851                         link->replay_settings.replay_power_opt_active = *power_opts;
+    852                 }
+    853         }
+    854 
+    855         /* Activate or deactivate Replay */
+    856         if (allow_active && link->replay_settings.replay_allow_active != *allow_active) {
+    857                 // TODO: Handle mux change case if force_static is set
+    858                 // If force_static is set, just change the replay_allow_active state directly
+    859                 if (replay != NULL && link->replay_settings.replay_feature_enabled)
+    860                         replay->funcs->replay_enable(replay, *allow_active, wait, panel_inst);
+    861                 link->replay_settings.replay_allow_active = *allow_active;
+    862         }
+    863 
+    864         return true;
+    865 }
 
-From: Luben Tuikov <luben.tuikov@amd.com>
-
-commit 3273f11675ef11959d25a56df3279f712bcd41b7 upstream
-
-Remove the "domain" argument to amdgpu_bo_create_kernel_at() since this
-function takes an "offset" argument which is the offset off of VRAM, and as
-such allocation always takes place in VRAM. Thus, the "domain" argument is
-unnecessary.
-
-Cc: Alex Deucher <Alexander.Deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: AMD Graphics <amd-gfx@lists.freedesktop.org>
-Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |   10 +++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |    2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |    7 -------
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   |    1 -
- 4 files changed, 6 insertions(+), 14 deletions(-)
-
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -347,17 +347,16 @@ int amdgpu_bo_create_kernel(struct amdgp
-  * @adev: amdgpu device object
-  * @offset: offset of the BO
-  * @size: size of the BO
-- * @domain: where to place it
-  * @bo_ptr:  used to initialize BOs in structures
-  * @cpu_addr: optional CPU address mapping
-  *
-- * Creates a kernel BO at a specific offset in the address space of the domain.
-+ * Creates a kernel BO at a specific offset in VRAM.
-  *
-  * Returns:
-  * 0 on success, negative error code otherwise.
-  */
- int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
--			       uint64_t offset, uint64_t size, uint32_t domain,
-+			       uint64_t offset, uint64_t size,
- 			       struct amdgpu_bo **bo_ptr, void **cpu_addr)
- {
- 	struct ttm_operation_ctx ctx = { false, false };
-@@ -367,8 +366,9 @@ int amdgpu_bo_create_kernel_at(struct am
- 	offset &= PAGE_MASK;
- 	size = ALIGN(size, PAGE_SIZE);
- 
--	r = amdgpu_bo_create_reserved(adev, size, PAGE_SIZE, domain, bo_ptr,
--				      NULL, cpu_addr);
-+	r = amdgpu_bo_create_reserved(adev, size, PAGE_SIZE,
-+				      AMDGPU_GEM_DOMAIN_VRAM, bo_ptr, NULL,
-+				      cpu_addr);
- 	if (r)
- 		return r;
- 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -284,7 +284,7 @@ int amdgpu_bo_create_kernel(struct amdgp
- 			    u32 domain, struct amdgpu_bo **bo_ptr,
- 			    u64 *gpu_addr, void **cpu_addr);
- int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
--			       uint64_t offset, uint64_t size, uint32_t domain,
-+			       uint64_t offset, uint64_t size,
- 			       struct amdgpu_bo **bo_ptr, void **cpu_addr);
- int amdgpu_bo_create_user(struct amdgpu_device *adev,
- 			  struct amdgpu_bo_param *bp,
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1575,7 +1575,6 @@ static int amdgpu_ttm_fw_reserve_vram_in
- 	return amdgpu_bo_create_kernel_at(adev,
- 					  adev->mman.fw_vram_usage_start_offset,
- 					  adev->mman.fw_vram_usage_size,
--					  AMDGPU_GEM_DOMAIN_VRAM,
- 					  &adev->mman.fw_vram_usage_reserved_bo,
- 					  &adev->mman.fw_vram_usage_va);
- }
-@@ -1600,7 +1599,6 @@ static int amdgpu_ttm_drv_reserve_vram_i
- 	return amdgpu_bo_create_kernel_at(adev,
- 					  adev->mman.drv_vram_usage_start_offset,
- 					  adev->mman.drv_vram_usage_size,
--					  AMDGPU_GEM_DOMAIN_VRAM,
- 					  &adev->mman.drv_vram_usage_reserved_bo,
- 					  NULL);
- }
-@@ -1681,7 +1679,6 @@ static int amdgpu_ttm_reserve_tmr(struct
- 		ret = amdgpu_bo_create_kernel_at(adev,
- 					 ctx->c2p_train_data_offset,
- 					 ctx->train_data_size,
--					 AMDGPU_GEM_DOMAIN_VRAM,
- 					 &ctx->c2p_bo,
- 					 NULL);
- 		if (ret) {
-@@ -1695,7 +1692,6 @@ static int amdgpu_ttm_reserve_tmr(struct
- 	ret = amdgpu_bo_create_kernel_at(adev,
- 				adev->gmc.real_vram_size - adev->mman.discovery_tmr_size,
- 				adev->mman.discovery_tmr_size,
--				AMDGPU_GEM_DOMAIN_VRAM,
- 				&adev->mman.discovery_memory,
- 				NULL);
- 	if (ret) {
-@@ -1796,21 +1792,18 @@ int amdgpu_ttm_init(struct amdgpu_device
- 	 * avoid display artifacts while transitioning between pre-OS
- 	 * and driver.  */
- 	r = amdgpu_bo_create_kernel_at(adev, 0, adev->mman.stolen_vga_size,
--				       AMDGPU_GEM_DOMAIN_VRAM,
- 				       &adev->mman.stolen_vga_memory,
- 				       NULL);
- 	if (r)
- 		return r;
- 	r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_vga_size,
- 				       adev->mman.stolen_extended_size,
--				       AMDGPU_GEM_DOMAIN_VRAM,
- 				       &adev->mman.stolen_extended_memory,
- 				       NULL);
- 	if (r)
- 		return r;
- 	r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_reserved_offset,
- 				       adev->mman.stolen_reserved_size,
--				       AMDGPU_GEM_DOMAIN_VRAM,
- 				       &adev->mman.stolen_reserved_memory,
- 				       NULL);
- 	if (r)
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -391,7 +391,6 @@ static void amdgpu_virt_ras_reserve_bps(
- 		 */
- 		if (amdgpu_bo_create_kernel_at(adev, bp << AMDGPU_GPU_PAGE_SHIFT,
- 					       AMDGPU_GPU_PAGE_SIZE,
--					       AMDGPU_GEM_DOMAIN_VRAM,
- 					       &bo, NULL))
- 			DRM_DEBUG("RAS WARN: reserve vram for retired page %llx fail\n", bp);
- 
-
-
-Patches currently in stable-queue which might be from stable-owner@vger.kernel.org are
-
-queue-6.1/iommu-arm-smmu-v3-add-explicit-feature-for-nesting.patch
-queue-6.1/drm-amdgpu-remove-unnecessary-domain-argument.patch
-queue-6.1/iommu-arm-smmu-v3-document-mmu-700-erratum-2812531.patch
-queue-6.1/iommu-arm-smmu-v3-document-nesting-related-errata.patch
-queue-6.1/drm-amdgpu-use-apt-name-for-fw-reserved-region.patch
-queue-6.1/drm-amdgpu-add-vram-reservation-based-on-vram_usagebyfirmware_v2_2.patch
-queue-6.1/iommu-arm-smmu-v3-work-around-mmu-600-erratum-1076982.patch
+regards,
+dan carpenter
