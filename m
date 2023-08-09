@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08899EB64DD
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 13:11:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A9A1C04A6A
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 13:38:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 338AC10E43A;
-	Wed,  9 Aug 2023 13:11:43 +0000 (UTC)
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10E4310E438;
- Wed,  9 Aug 2023 13:11:41 +0000 (UTC)
-Received: by mail-oi1-x235.google.com with SMTP id
- 5614622812f47-3a7556e4edcso583934b6e.1; 
- Wed, 09 Aug 2023 06:11:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1076610E0B9;
+	Wed,  9 Aug 2023 13:38:33 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E321B10E0B9
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 13:38:30 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id
+ 5614622812f47-3a6f3ef3155so5317247b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Aug 2023 06:38:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691586700; x=1692191500;
+ d=gmail.com; s=20221208; t=1691588310; x=1692193110;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=0bsfHSbir+1N3BPwsEF83+v9jo06cZjJVauWxQE2x88=;
- b=X39VyQ81ASYk/nBdQF2k0zkOJr/0vtM4ZpjXBKvnXgqH0R4bVOzYwN862VOzrR+xcj
- x3FpupRMsRy7LDq7LpyqF25wC6tbW75E04I9YjPO14TSPjRX6C5prULvlJsGvEEptNVm
- +KaJ1dgo9yDYvvU9xgG4hPh/jBo2jN+cWTaB9vM2sw0taGzXVXkI09vm9gjv3YdsbQfq
- fVPylz6eN+KR5L6QcKAbs2scRSlOmKkbZMpF9eiAuRUCeeiue3+fNiq6cua13K7CE3MR
- iwhCAiADw5MAtzoz2nRqhIRpteROYyPsV+/Zu+9qMzuIk9n/JNtv02kFrJu5jM+1rnUx
- ohVA==
+ bh=8dQbzo8agGxYvvNGoV5RVHvvC2CVz5pXcZdvcuh2hEs=;
+ b=sbODj9OzVYXn/0ciinqNcVhhqCnQf2eGruUBv7BsSSvj0FV/wTwQdK5PLpIDAuKUln
+ YQGfv8rkg9GD7O/szrmf59ciFYctu6n352JZPmEOuPNn1VQ/pEXQkieV6Ul7LG8igVmo
+ 7MiOgIY4P9pr1IHBaDW4/B/t1BAvJSwODlwEqNv40XHCuKqNvUxt5CUhgkcWvwVk0JFQ
+ G6wcS0KrpTG7PerShffL4aXT7iCl8a+IigAbWq2NeNXQuqZg3pN92SZci60b2M1RY4CH
+ Q3g9RpFXIrinMfu2qEug7TLV3fa3vX4tbzbPeEC6EGCWrB1NQJa7lPYp3sCrth1adP3z
+ fViQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691586700; x=1692191500;
+ d=1e100.net; s=20221208; t=1691588310; x=1692193110;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0bsfHSbir+1N3BPwsEF83+v9jo06cZjJVauWxQE2x88=;
- b=fILUE4SrgWDIHSkLDf61gx/XFaEU5i7KWqgj059q6AddGOk0O9HuzrGHMLGpLG2rUV
- PS38aYZdlPFj8NoJqhD4T3G7gFN4F80i4OrmgabUAM6N5WFtVcNe3liAn6njApr7zXgr
- omuwhDcmq66GYuSmQGRUYI10QPPBdUbZhSuAqLz4dk/mWEWt/3IfrZ6fHsnP1HXiN77L
- 0CfZWvFu4FJG8nvW94SUWiRe2KfgMiW3QDkdr6+3hfxMwBJ55uzl19E9kfxHgB0//8/p
- Uk4nqSJkHpbqJ93jQmU7I9B5GuLK7LU34QqcCSq6hbKq9mUBAmz44oJwtg0PX1LDhYXa
- hoXA==
-X-Gm-Message-State: AOJu0YyDpKzzsluzgpc/5bTJDpcaYeE0c3vDoAamfbRFfiOeQDXbIIvQ
- qq6vxMMbT2pSYioTP3CVJ32FUi+NKpBapS8tK+k=
-X-Google-Smtp-Source: AGHT+IGr/N7x0qp/tLHJD9vnx3F+mQLn8Qo3mYlXKDAIof/DZHtBXv2c6gcV9z6BHmLltXrWKyQrwzMGuJze0KPjlPM=
-X-Received: by 2002:aca:bb0b:0:b0:3a7:46c4:e8cd with SMTP id
- l11-20020acabb0b000000b003a746c4e8cdmr8330814oif.12.1691586700314; Wed, 09
- Aug 2023 06:11:40 -0700 (PDT)
+ bh=8dQbzo8agGxYvvNGoV5RVHvvC2CVz5pXcZdvcuh2hEs=;
+ b=dLZX0OT1v/KaboVWB5pWlFbZjGTZiXXtHsaXPVGbmakGRXjHgOnHErbIE0z3oIiDOT
+ u8eU9t19TdB3qjYh/tTrIQHOFEHy20B35bODjrp0E/a3aWc3vHDISpnsXg/+8nPBL8Mo
+ yIl9bo/ipOWmyNZ9ch7MpdWQFKPYq7nxLcJW33/T626mwhv03VDfu9p2WeUbl6CtOg7q
+ 7NmGdIxqtsvzgAaoPRpHN1RVM60YRCh6BZdhFnbyWzP+TmznreEyE8SPx1NY5Hs5jArm
+ REjsxBXPb8wLJdq1AXOVjvwfyVdhQgmqbH5yqa0gHHowetCdp9qXU4+Ds1kNOoYWsoes
+ aYfQ==
+X-Gm-Message-State: AOJu0YxrChQI1BUcdjOP88IrvFaEV6dnCC7Cb/HZA1My/M5frUAnzW+H
+ rMGWHN1B1BFxD/ZSS0vEOLj0Bf5/+BfwUjI5Gec=
+X-Google-Smtp-Source: AGHT+IENQ2CWK72lmQE12sXUxX41hhYGDamgD/pdE0IRaS2hat/ivEaqO7ty+dBWwgKmttG2PAr8zENEdKxJPNeKFvo=
+X-Received: by 2002:aca:650a:0:b0:3a7:4dd0:d4db with SMTP id
+ m10-20020aca650a000000b003a74dd0d4dbmr2627451oim.11.1691588310039; Wed, 09
+ Aug 2023 06:38:30 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230809034445.434902-1-ruanjinjie@huawei.com>
- <20230809034445.434902-2-ruanjinjie@huawei.com>
- <c2b0d96e-b768-b295-c672-3ae52e14b10b@amd.com>
-In-Reply-To: <c2b0d96e-b768-b295-c672-3ae52e14b10b@amd.com>
+References: <20230712155245.2940715-1-alexander.deucher@amd.com>
+In-Reply-To: <20230712155245.2940715-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 9 Aug 2023 09:11:29 -0400
-Message-ID: <CADnq5_MZXYBmxr3dJn4vmW2qAbzUDM0eL48anjCot77LinE8tg@mail.gmail.com>
-Subject: Re: [PATCH -next 1/7] drm/amdkfd: Remove unnecessary NULL values
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Date: Wed, 9 Aug 2023 09:38:18 -0400
+Message-ID: <CADnq5_N34NX8q=qSv6s-ntz1JFRyxzS5Q80um-TTNs0VR8pgGQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: expand runpm parameter
+To: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,76 +67,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kherbst@redhat.com, wenjing.liu@amd.com, dri-devel@lists.freedesktop.org,
- gurchetansingh@chromium.org, mairacanal@riseup.net, kraxel@redhat.com,
- alim.akhtar@samsung.com, marijn.suijten@somainline.org, airlied@gmail.com,
- arthurgrillo@riseup.net, Charlene.Liu@amd.com,
- linux-samsung-soc@vger.kernel.org, Ruan Jinjie <ruanjinjie@huawei.com>,
- Rodrigo.Siqueira@amd.com, krzysztof.kozlowski@linaro.org,
- amd-gfx@lists.freedesktop.org, quic_vpolimer@quicinc.com,
- tony.tascioglu@amd.com, aurabindo.pillai@amd.com, bskeggs@redhat.com,
- george.shen@amd.com, kyungmin.park@samsung.com, harry.wentland@amd.com,
- olvaffe@gmail.com, haoping.liu@amd.com, daniel@ffwll.ch, javierm@redhat.com,
- sunpeng.li@amd.com, linux-arm-msm@vger.kernel.org, jiasheng@iscas.ac.cn,
- maarten.lankhorst@linux.intel.com, quic_abhinavk@quicinc.com,
- mripard@kernel.org, inki.dae@samsung.com, alexander.deucher@amd.com,
- davidgow@google.com, nouveau@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, sean@poorly.run,
- linux-arm-kernel@lists.infradead.org, noralf@tronnes.org,
- paulo.miguel.almeida.rodenas@gmail.com, chiahsuan.chung@amd.com, drv@mailo.com,
- tales.aparecida@gmail.com, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
- sw0312.kim@samsung.com, robdclark@gmail.com, jaehyun.chung@amd.com,
- tzimmermann@suse.de, dmitry.baryshkov@linaro.org, jose.exposito89@gmail.com,
- freedreno@lists.freedesktop.org, sancchen@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Ping?
 
-On Wed, Aug 9, 2023 at 2:15=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
-ig@amd.com> wrote:
+On Wed, Jul 12, 2023 at 11:53=E2=80=AFAM Alex Deucher <alexander.deucher@am=
+d.com> wrote:
 >
-> Am 09.08.23 um 05:44 schrieb Ruan Jinjie:
-> > The NULL initialization of the pointers assigned by kzalloc() first is
-> > not necessary, because if the kzalloc() failed, the pointers will be
-> > assigned NULL, otherwise it works as usual. so remove it.
-> >
-> > Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
+> Allow the user to specify -2 as auto enabled with displays.
 >
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com> for this one=
-,
-> the amd display code and the radeon stuff.
+> By default we don't enter runtime suspend when there are
+> displays attached because it does not work well in some
+> desktop environments due to the driver sending hotplug
+> events on resume in case any new displays were attached
+> while the GPU was powered down.  Some users still want
+> this functionality though, so this lets you enable it.
 >
-> Thanks,
-> Christian.
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2428
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 37 +++++++++++++------------
+>  1 file changed, 20 insertions(+), 17 deletions(-)
 >
-> > ---
-> >   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c | 4 ++--
-> >   1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu=
-/drm/amd/amdkfd/kfd_mqd_manager.c
-> > index 863cf060af48..d01bb57733b3 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
-> > @@ -48,7 +48,7 @@ int pipe_priority_map[] =3D {
-> >
-> >   struct kfd_mem_obj *allocate_hiq_mqd(struct kfd_node *dev, struct que=
-ue_properties *q)
-> >   {
-> > -     struct kfd_mem_obj *mqd_mem_obj =3D NULL;
-> > +     struct kfd_mem_obj *mqd_mem_obj;
-> >
-> >       mqd_mem_obj =3D kzalloc(sizeof(struct kfd_mem_obj), GFP_KERNEL);
-> >       if (!mqd_mem_obj)
-> > @@ -64,7 +64,7 @@ struct kfd_mem_obj *allocate_hiq_mqd(struct kfd_node =
-*dev, struct queue_properti
-> >   struct kfd_mem_obj *allocate_sdma_mqd(struct kfd_node *dev,
-> >                                       struct queue_properties *q)
-> >   {
-> > -     struct kfd_mem_obj *mqd_mem_obj =3D NULL;
-> > +     struct kfd_mem_obj *mqd_mem_obj;
-> >       uint64_t offset;
-> >
-> >       mqd_mem_obj =3D kzalloc(sizeof(struct kfd_mem_obj), GFP_KERNEL);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 721f3c6160bcb..33e370d998a87 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -350,8 +350,9 @@ module_param_named(aspm, amdgpu_aspm, int, 0444);
+>   * Override for runtime power management control for dGPUs. The amdgpu d=
+river can dynamically power down
+>   * the dGPUs when they are idle if supported. The default is -1 (auto en=
+able).
+>   * Setting the value to 0 disables this functionality.
+> + * Setting the value to -2 is auto enabled with power down when displays=
+ are attached.
+>   */
+> -MODULE_PARM_DESC(runpm, "PX runtime pm (2 =3D force enable with BAMACO, =
+1 =3D force enable with BACO, 0 =3D disable, -1 =3D auto)");
+> +MODULE_PARM_DESC(runpm, "PX runtime pm (2 =3D force enable with BAMACO, =
+1 =3D force enable with BACO, 0 =3D disable, -1 =3D auto, -2 =3D autowith d=
+isplays)");
+>  module_param_named(runpm, amdgpu_runtime_pm, int, 0444);
+>
+>  /**
+> @@ -2657,24 +2658,26 @@ static int amdgpu_runtime_idle_check_display(stru=
+ct device *dev)
+>                 struct drm_connector_list_iter iter;
+>                 int ret =3D 0;
+>
+> -               /* XXX: Return busy if any displays are connected to avoi=
+d
+> -                * possible display wakeups after runtime resume due to
+> -                * hotplug events in case any displays were connected whi=
+le
+> -                * the GPU was in suspend.  Remove this once that is fixe=
+d.
+> -                */
+> -               mutex_lock(&drm_dev->mode_config.mutex);
+> -               drm_connector_list_iter_begin(drm_dev, &iter);
+> -               drm_for_each_connector_iter(list_connector, &iter) {
+> -                       if (list_connector->status =3D=3D connector_statu=
+s_connected) {
+> -                               ret =3D -EBUSY;
+> -                               break;
+> +               if (amdgpu_runtime_pm !=3D -2) {
+> +                       /* XXX: Return busy if any displays are connected=
+ to avoid
+> +                        * possible display wakeups after runtime resume =
+due to
+> +                        * hotplug events in case any displays were conne=
+cted while
+> +                        * the GPU was in suspend.  Remove this once that=
+ is fixed.
+> +                        */
+> +                       mutex_lock(&drm_dev->mode_config.mutex);
+> +                       drm_connector_list_iter_begin(drm_dev, &iter);
+> +                       drm_for_each_connector_iter(list_connector, &iter=
+) {
+> +                               if (list_connector->status =3D=3D connect=
+or_status_connected) {
+> +                                       ret =3D -EBUSY;
+> +                                       break;
+> +                               }
+>                         }
+> -               }
+> -               drm_connector_list_iter_end(&iter);
+> -               mutex_unlock(&drm_dev->mode_config.mutex);
+> +                       drm_connector_list_iter_end(&iter);
+> +                       mutex_unlock(&drm_dev->mode_config.mutex);
+>
+> -               if (ret)
+> -                       return ret;
+> +                       if (ret)
+> +                               return ret;
+> +               }
+>
+>                 if (adev->dc_enabled) {
+>                         struct drm_crtc *crtc;
+> --
+> 2.41.0
 >
