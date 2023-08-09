@@ -4,61 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C2DFEB64DD
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 12:07:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74009C41513
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 12:07:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFB9910E41E;
-	Wed,  9 Aug 2023 12:07:00 +0000 (UTC)
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAB5110E41E
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 12:06:58 +0000 (UTC)
-Received: by mail-oi1-x236.google.com with SMTP id
- 5614622812f47-3a7a180c3faso2036678b6e.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Aug 2023 05:06:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691582818; x=1692187618;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jbPL3f/SKGrfWLo1kR/zfzIUMY28L8Hb67rotPOMQu4=;
- b=BSlz9i1RwHpC+oohRnKMw+KZQUXXCTxsGknvsffe8eOsFjWEGyrihkfx+hkVmIpmRc
- 3wo2w9CxVUt6cQXMA02vyX1M3ajLj2ERi/Yrd8ydRT26eGtL+EeFcNx0sJPhpgOwI6Og
- OmLYvExRoibqDbStZJWIw5qX8kDltLQViHINzUr33vtlQTY7odkE/7ghsfpYGTjFq8St
- fKXvSLHRwHYYOQa6cdOxyZs5FXW9qZ0BxSC5AVbfdPeEsn82SNFbIvDFU4hongXc7vaW
- MwrxAiLLTaVD6yJRdx9xa+r1gdD9I3A0ig7lDmIsu5+Nl1UEN8Gr3BDn0sqvdoM8PYFw
- S0/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691582818; x=1692187618;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=jbPL3f/SKGrfWLo1kR/zfzIUMY28L8Hb67rotPOMQu4=;
- b=EAqn6prVPqHK8CuWHV3LF1Ih8iD4FoADA/leUMazLWpnwyPsyqHMAYZ5gbbsX2zRiJ
- CbUDEZeaK/arBe2aA9uHqwj6nFjfZoGosdM9Mc3Ra8ihHwMLWHrbjPk9XU6KOhQX8AIC
- 3B4h5BG6qNWu372F8wy70uuT1/SAiuTZ8ie0CRQlcTE7Bnr3kkPrN9QgtNi6LqQpGTtL
- IIaZUsV8GE8tOxWTpGbr3/37DiOSkbaKlmjLwuUXjw/cyvksyj7k5gRHOkWc/ZCDDq6L
- dELMjLHPnVw2+QSWHBWoVHdTBhv5nz+riblN/XHxSFwEuW+mKG3CWyiJwMCG3P0JEcOq
- spfA==
-X-Gm-Message-State: AOJu0YzG4NpRCJ27Tt98BtprGyDvZ0ecOU8S19A032laGFW0X9P7ZPtO
- XylVyBNPn0wfssUmoDXfOBt1LoJdvkab4HYG4LpBDJuX
-X-Google-Smtp-Source: AGHT+IHl2AjV0vGVyGNzmsaw5zEsQMqooCC2+EkBkSOhv3i3VEsiTi+XqD4ELvwnqXsVSGJxIDGUHPskNIbZlOtFjy8=
-X-Received: by 2002:a05:6808:649:b0:3a7:8510:ecaa with SMTP id
- z9-20020a056808064900b003a78510ecaamr2467695oih.27.1691582818121; Wed, 09 Aug
- 2023 05:06:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D438410E421;
+	Wed,  9 Aug 2023 12:07:47 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43DEC10E402
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 10:57:03 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A2DF262BD5;
+ Wed,  9 Aug 2023 10:57:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6661C433C8;
+ Wed,  9 Aug 2023 10:57:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1691578622;
+ bh=w83JBWnLbCdEyXcGMhBuD7QPY5MpWujUSQxL4zK+sJs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=dWbBd0QbSSWH7wUxIUUvziyL0pLjGZkHqreuK3ci9EMkJnsuRd+rpjYgpWllX3pNk
+ 30sKGKTictHpc26ojYVjAhWKf6EG6CROLYnutXx0UJc3vNLKYzdNSg6YDYG3K/Iq2w
+ w7An3pBR/VR+BlbmCNZLKptCP6pZWAodj62eJo0c=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.1 125/127] drm/amdgpu: Remove unnecessary domain argument
+Date: Wed,  9 Aug 2023 12:41:52 +0200
+Message-ID: <20230809103640.735137300@linuxfoundation.org>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230809103636.615294317@linuxfoundation.org>
+References: <20230809103636.615294317@linuxfoundation.org>
+User-Agent: quilt/0.67
 MIME-Version: 1.0
-References: <20230808064025.1008680-1-coelacanth_dream@protonmail.com>
- <DM6PR12MB26194F879FCE037C745B6D97E40DA@DM6PR12MB2619.namprd12.prod.outlook.com>
- <CADnq5_NdZzofSAoaEg+fZbbn1weELA8acJ++RuekVWH13+YLeA@mail.gmail.com>
- <20230809062525.2346797-1-coelacanth_dream@protonmail.com>
-In-Reply-To: <20230809062525.2346797-1-coelacanth_dream@protonmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 9 Aug 2023 08:06:46 -0400
-Message-ID: <CADnq5_OEAmaiOHRnOSey1k5qmgkh6VuPkWq6GUGDFjRnJM8zvQ@mail.gmail.com>
-Subject: Re: [PATCH] fix throttle_status for other than MP0 11.0.7
-To: Umio Yasuno <coelacanth_dream@protonmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 09 Aug 2023 12:07:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,24 +51,149 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ AMD Graphics <amd-gfx@lists.freedesktop.org>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 9, 2023 at 3:15=E2=80=AFAM Umio Yasuno
-<coelacanth_dream@protonmail.com> wrote:
->
-> Sorry, I had mistaken MP1 for MP0.
-> Also, should I add an `drm/amdgpu:` or `drm/amdgpu/swsmu` or `drm/amdgpu/=
-pm` to
-> the prefix of the patch title?
+From: Luben Tuikov <luben.tuikov@amd.com>
 
-I fixed it up when I applied it.
+commit 3273f11675ef11959d25a56df3279f712bcd41b7 upstream
 
-Thanks,
+Remove the "domain" argument to amdgpu_bo_create_kernel_at() since this
+function takes an "offset" argument which is the offset off of VRAM, and as
+such allocation always takes place in VRAM. Thus, the "domain" argument is
+unnecessary.
 
-Alex
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: AMD Graphics <amd-gfx@lists.freedesktop.org>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |   10 +++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |    7 -------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   |    1 -
+ 4 files changed, 6 insertions(+), 14 deletions(-)
+
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -347,17 +347,16 @@ int amdgpu_bo_create_kernel(struct amdgp
+  * @adev: amdgpu device object
+  * @offset: offset of the BO
+  * @size: size of the BO
+- * @domain: where to place it
+  * @bo_ptr:  used to initialize BOs in structures
+  * @cpu_addr: optional CPU address mapping
+  *
+- * Creates a kernel BO at a specific offset in the address space of the domain.
++ * Creates a kernel BO at a specific offset in VRAM.
+  *
+  * Returns:
+  * 0 on success, negative error code otherwise.
+  */
+ int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
+-			       uint64_t offset, uint64_t size, uint32_t domain,
++			       uint64_t offset, uint64_t size,
+ 			       struct amdgpu_bo **bo_ptr, void **cpu_addr)
+ {
+ 	struct ttm_operation_ctx ctx = { false, false };
+@@ -367,8 +366,9 @@ int amdgpu_bo_create_kernel_at(struct am
+ 	offset &= PAGE_MASK;
+ 	size = ALIGN(size, PAGE_SIZE);
+ 
+-	r = amdgpu_bo_create_reserved(adev, size, PAGE_SIZE, domain, bo_ptr,
+-				      NULL, cpu_addr);
++	r = amdgpu_bo_create_reserved(adev, size, PAGE_SIZE,
++				      AMDGPU_GEM_DOMAIN_VRAM, bo_ptr, NULL,
++				      cpu_addr);
+ 	if (r)
+ 		return r;
+ 
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -284,7 +284,7 @@ int amdgpu_bo_create_kernel(struct amdgp
+ 			    u32 domain, struct amdgpu_bo **bo_ptr,
+ 			    u64 *gpu_addr, void **cpu_addr);
+ int amdgpu_bo_create_kernel_at(struct amdgpu_device *adev,
+-			       uint64_t offset, uint64_t size, uint32_t domain,
++			       uint64_t offset, uint64_t size,
+ 			       struct amdgpu_bo **bo_ptr, void **cpu_addr);
+ int amdgpu_bo_create_user(struct amdgpu_device *adev,
+ 			  struct amdgpu_bo_param *bp,
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1575,7 +1575,6 @@ static int amdgpu_ttm_fw_reserve_vram_in
+ 	return amdgpu_bo_create_kernel_at(adev,
+ 					  adev->mman.fw_vram_usage_start_offset,
+ 					  adev->mman.fw_vram_usage_size,
+-					  AMDGPU_GEM_DOMAIN_VRAM,
+ 					  &adev->mman.fw_vram_usage_reserved_bo,
+ 					  &adev->mman.fw_vram_usage_va);
+ }
+@@ -1600,7 +1599,6 @@ static int amdgpu_ttm_drv_reserve_vram_i
+ 	return amdgpu_bo_create_kernel_at(adev,
+ 					  adev->mman.drv_vram_usage_start_offset,
+ 					  adev->mman.drv_vram_usage_size,
+-					  AMDGPU_GEM_DOMAIN_VRAM,
+ 					  &adev->mman.drv_vram_usage_reserved_bo,
+ 					  NULL);
+ }
+@@ -1681,7 +1679,6 @@ static int amdgpu_ttm_reserve_tmr(struct
+ 		ret = amdgpu_bo_create_kernel_at(adev,
+ 					 ctx->c2p_train_data_offset,
+ 					 ctx->train_data_size,
+-					 AMDGPU_GEM_DOMAIN_VRAM,
+ 					 &ctx->c2p_bo,
+ 					 NULL);
+ 		if (ret) {
+@@ -1695,7 +1692,6 @@ static int amdgpu_ttm_reserve_tmr(struct
+ 	ret = amdgpu_bo_create_kernel_at(adev,
+ 				adev->gmc.real_vram_size - adev->mman.discovery_tmr_size,
+ 				adev->mman.discovery_tmr_size,
+-				AMDGPU_GEM_DOMAIN_VRAM,
+ 				&adev->mman.discovery_memory,
+ 				NULL);
+ 	if (ret) {
+@@ -1796,21 +1792,18 @@ int amdgpu_ttm_init(struct amdgpu_device
+ 	 * avoid display artifacts while transitioning between pre-OS
+ 	 * and driver.  */
+ 	r = amdgpu_bo_create_kernel_at(adev, 0, adev->mman.stolen_vga_size,
+-				       AMDGPU_GEM_DOMAIN_VRAM,
+ 				       &adev->mman.stolen_vga_memory,
+ 				       NULL);
+ 	if (r)
+ 		return r;
+ 	r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_vga_size,
+ 				       adev->mman.stolen_extended_size,
+-				       AMDGPU_GEM_DOMAIN_VRAM,
+ 				       &adev->mman.stolen_extended_memory,
+ 				       NULL);
+ 	if (r)
+ 		return r;
+ 	r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_reserved_offset,
+ 				       adev->mman.stolen_reserved_size,
+-				       AMDGPU_GEM_DOMAIN_VRAM,
+ 				       &adev->mman.stolen_reserved_memory,
+ 				       NULL);
+ 	if (r)
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -391,7 +391,6 @@ static void amdgpu_virt_ras_reserve_bps(
+ 		 */
+ 		if (amdgpu_bo_create_kernel_at(adev, bp << AMDGPU_GPU_PAGE_SHIFT,
+ 					       AMDGPU_GPU_PAGE_SIZE,
+-					       AMDGPU_GEM_DOMAIN_VRAM,
+ 					       &bo, NULL))
+ 			DRM_DEBUG("RAS WARN: reserve vram for retired page %llx fail\n", bp);
+ 
 
 
->
