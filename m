@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4792BEB64DD
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 07:14:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C334C04A94
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 07:14:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC57910E247;
-	Wed,  9 Aug 2023 07:14:52 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3A910E145;
- Wed,  9 Aug 2023 03:45:41 +0000 (UTC)
-Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.56])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RLGB70k3szVklh;
- Wed,  9 Aug 2023 11:43:43 +0800 (CST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9213B10E249;
+	Wed,  9 Aug 2023 07:14:53 +0000 (UTC)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 319A910E12A;
+ Wed,  9 Aug 2023 03:45:25 +0000 (UTC)
+Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.53])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4RLGBf426Tz1GDtx;
+ Wed,  9 Aug 2023 11:44:10 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemi500008.china.huawei.com
  (7.221.188.139) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 9 Aug
- 2023 11:45:35 +0800
+ 2023 11:45:19 +0800
 From: Ruan Jinjie <ruanjinjie@huawei.com>
 To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
  <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
@@ -43,12 +43,10 @@ To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
  <linux-arm-kernel@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
  <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
  <nouveau@lists.freedesktop.org>, <virtualization@lists.linux-foundation.org>
-Subject: [PATCH -next 7/7] drm: Remove unnecessary NULL values
-Date: Wed, 9 Aug 2023 11:44:45 +0800
-Message-ID: <20230809034445.434902-8-ruanjinjie@huawei.com>
+Subject: [PATCH -next 0/7] drm: Remove many unnecessary NULL values
+Date: Wed, 9 Aug 2023 11:44:38 +0800
+Message-ID: <20230809034445.434902-1-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230809034445.434902-1-ruanjinjie@huawei.com>
-References: <20230809034445.434902-1-ruanjinjie@huawei.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -72,70 +70,36 @@ Cc: ruanjinjie@huawei.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The NULL initialization of the pointers assigned by kzalloc() first is
-not necessary, because if the kzalloc() failed, the pointers will be
-assigned NULL, otherwise it works as usual. so remove it.
+The NULL initialization of the pointers assigned by kzalloc() or
+kunit_kzalloc() first is not necessary, because if the kzalloc() or
+kunit_kzalloc() failed, the pointers will be assigned NULL, otherwise
+it works as usual. so remove it.
 
-Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
----
- drivers/gpu/drm/drm_agpsupport.c          | 2 +-
- drivers/gpu/drm/drm_atomic_uapi.c         | 2 +-
- drivers/gpu/drm/exynos/exynos_drm_ipp.c   | 2 +-
- drivers/gpu/drm/nouveau/dispnv04/tvnv17.c | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+Ruan Jinjie (7):
+  drm/amdkfd: Remove unnecessary NULL values
+  drm/amd/display: Remove unnecessary NULL values
+  drm/msm: Remove unnecessary NULL values
+  drm/radeon: Remove unnecessary NULL values
+  drm/virtio: Remove an unnecessary NULL value
+  drm/format-helper: Remove unnecessary NULL values
+  drm: Remove unnecessary NULL values
 
-diff --git a/drivers/gpu/drm/drm_agpsupport.c b/drivers/gpu/drm/drm_agpsupport.c
-index a4ad6fd13abc..158709849481 100644
---- a/drivers/gpu/drm/drm_agpsupport.c
-+++ b/drivers/gpu/drm/drm_agpsupport.c
-@@ -384,7 +384,7 @@ int drm_legacy_agp_free_ioctl(struct drm_device *dev, void *data,
- struct drm_agp_head *drm_legacy_agp_init(struct drm_device *dev)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev->dev);
--	struct drm_agp_head *head = NULL;
-+	struct drm_agp_head *head;
- 
- 	head = kzalloc(sizeof(*head), GFP_KERNEL);
- 	if (!head)
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 98d3b10c08ae..5a433af75132 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -942,7 +942,7 @@ int drm_atomic_get_property(struct drm_mode_object *obj,
- static struct drm_pending_vblank_event *create_vblank_event(
- 		struct drm_crtc *crtc, uint64_t user_data)
- {
--	struct drm_pending_vblank_event *e = NULL;
-+	struct drm_pending_vblank_event *e;
- 
- 	e = kzalloc(sizeof *e, GFP_KERNEL);
- 	if (!e)
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_ipp.c b/drivers/gpu/drm/exynos/exynos_drm_ipp.c
-index ea9f66037600..419d0afccdb9 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_ipp.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_ipp.c
-@@ -695,7 +695,7 @@ static int exynos_drm_ipp_task_setup_buffers(struct exynos_drm_ipp_task *task,
- static int exynos_drm_ipp_event_create(struct exynos_drm_ipp_task *task,
- 				 struct drm_file *file_priv, uint64_t user_data)
- {
--	struct drm_pending_exynos_ipp_event *e = NULL;
-+	struct drm_pending_exynos_ipp_event *e;
- 	int ret;
- 
- 	e = kzalloc(sizeof(*e), GFP_KERNEL);
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c b/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
-index 670c9739e5e1..9accb2a12719 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
-@@ -789,7 +789,7 @@ nv17_tv_create(struct drm_connector *connector, struct dcb_output *entry)
- {
- 	struct drm_device *dev = connector->dev;
- 	struct drm_encoder *encoder;
--	struct nv17_tv_encoder *tv_enc = NULL;
-+	struct nv17_tv_encoder *tv_enc;
- 
- 	tv_enc = kzalloc(sizeof(*tv_enc), GFP_KERNEL);
- 	if (!tv_enc)
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  |  4 +--
+ .../gpu/drm/amd/display/dc/bios/bios_parser.c |  4 +--
+ .../drm/amd/display/dc/bios/bios_parser2.c    |  4 +--
+ drivers/gpu/drm/drm_agpsupport.c              |  2 +-
+ drivers/gpu/drm/drm_atomic_uapi.c             |  2 +-
+ drivers/gpu/drm/exynos/exynos_drm_ipp.c       |  2 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  2 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_smp.c      |  2 +-
+ drivers/gpu/drm/nouveau/dispnv04/tvnv17.c     |  2 +-
+ drivers/gpu/drm/radeon/radeon_agp.c           |  2 +-
+ drivers/gpu/drm/radeon/radeon_combios.c       |  6 ++--
+ .../gpu/drm/radeon/radeon_legacy_encoders.c   |  4 +--
+ .../gpu/drm/tests/drm_format_helper_test.c    | 28 +++++++++----------
+ drivers/gpu/drm/virtio/virtgpu_submit.c       |  2 +-
+ 14 files changed, 33 insertions(+), 33 deletions(-)
+
 -- 
 2.34.1
 
