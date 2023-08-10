@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DDE6C04FDF
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 16:04:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A73C04A6A
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 16:04:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E85110E595;
-	Thu, 10 Aug 2023 16:04:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5890D10E58B;
+	Thu, 10 Aug 2023 16:04:05 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCBC310E586;
- Thu, 10 Aug 2023 16:03:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DA1E10E58B;
+ Thu, 10 Aug 2023 16:03:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,26 +19,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=jHZ39nOiWNLuUcZxnNLJc24b5oV7xLgRtpwx3i1dlkA=; b=sVX+iW8VoXBFM+HvUD/I2W3aqB
- erwTXAFPg/RCab1XT3IxUXsEcVpXDOC345wdys+buPFSM5OjPQBBSvXE7JsbKT4+58EgyOeMWHSZ9
- w2leZZivtA1WhnV6QmxE9fcZH1jumVUOvj899ZsJQo6yv3jHo01KnAf0EdQ9awX6AJzFfuv4ps1eK
- GqzNFJ5yYbFMFgrq/G+s79csLWgfIrzKt2IBd1OCwu2aEyxY5eZa8fus6jk6IAgO5Az6gdKOdJg6F
- XWPlqKX6LHNYqI4UNYBCCakvwgTxhJFYpH3psczxQZWxFI0Q9v3k54N3mAd7+a9yVJzzgegAJK8iT
- M1k9nbUA==;
+ bh=nmKo6EG4yJEeg3szQnnM47rtZ1BHlAw2Ggsh0JxPp4k=; b=fqDAb0Ysn7t4QTFhUBfw5PxJdm
+ 61jvFta8P0CVulsInztQcTgMcKsDsyogBEIoqsBSfVSzEzlbQILPAMjV8yfJWsnXKgfgNHDWF/svW
+ Dkc8oLlyr9+qp5ZnJSrtVkgzJzZFLFDdQdDP++7Pv8jLmnmt4/3Mx3zPSVZYiGr511nc870TWHZ/F
+ 8lhCQl0n4GzIKqWnaPxnGgRWptvCwaskcpbrhlc2DRqT/0qPlzcLjbTLLM4BssfxdFLFsdVkGvLmB
+ iovr8l2MxWglCoM/rjSlLg8rL4wK5b9IMItmlKfs7XdUPxzTcDWOQnDxIGsL8+7kn+RLhoodzr9G0
+ D7BkA+sg==;
 Received: from [38.44.68.151] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qU88a-00GjYD-GP; Thu, 10 Aug 2023 18:03:48 +0200
+ id 1qU88j-00GjYD-5c; Thu, 10 Aug 2023 18:03:57 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v2 14/34] drm/amd/display: add comments to describe DM crtc
- color mgmt behavior
-Date: Thu, 10 Aug 2023 15:02:54 -0100
-Message-Id: <20230810160314.48225-15-mwen@igalia.com>
+Subject: [PATCH v2 18/34] drm/amd/display: mark plane as needing reset if
+ color props change
+Date: Thu, 10 Aug 2023 15:02:58 -0100
+Message-Id: <20230810160314.48225-19-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230810160314.48225-1-mwen@igalia.com>
 References: <20230810160314.48225-1-mwen@igalia.com>
@@ -65,42 +65,52 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Describe some expected behavior of the AMD DM color mgmt programming.
+From: Joshua Ashton <joshua@froggi.es>
 
+We should reset a plane state if at least one of the color management
+properties differs from old and new state.
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
+Co-developed-by: Melissa Wen <mwen@igalia.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 841e0391f7fb..0a9aa162d4a0 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -640,12 +640,23 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
- 		stream->out_transfer_func->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		stream->out_transfer_func->tf = TRANSFER_FUNCTION_SRGB;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 272974b88cda..78fdd0b95ae8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9524,6 +9524,10 @@ static bool should_reset_plane(struct drm_atomic_state *state,
+ 	 */
+ 	for_each_oldnew_plane_in_state(state, other, old_other_state, new_other_state, i) {
+ 		struct amdgpu_framebuffer *old_afb, *new_afb;
++		struct dm_plane_state *dm_new_other_state, *dm_old_other_state;
++
++		dm_new_other_state = to_dm_plane_state(new_other_state);
++		dm_old_other_state = to_dm_plane_state(old_other_state);
  
-+		/* Note: although we pass has_rom as parameter here, we never
-+		 * actually use ROM because the color module only takes the ROM
-+		 * path if transfer_func->type == PREDEFINED.
-+		 *
-+		 * See more in mod_color_calculate_regamma_params()
-+		 */
- 		r = __set_legacy_tf(stream->out_transfer_func, regamma_lut,
- 				    regamma_size, has_rom);
- 		if (r)
- 			return r;
- 	} else if (has_regamma) {
--		/* If atomic regamma, CRTC RGM goes into RGM LUT. */
-+		/* CRTC RGM goes into RGM LUT.
-+		 *
-+		 * Note: there is no implicit sRGB regamma here. We are using
-+		 * degamma calculation from color module to calculate the curve
-+		 * from a linear base.
-+		 */
- 		stream->out_transfer_func->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		stream->out_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
+ 		if (other->type == DRM_PLANE_TYPE_CURSOR)
+ 			continue;
+@@ -9560,6 +9564,17 @@ static bool should_reset_plane(struct drm_atomic_state *state,
+ 		    old_other_state->color_encoding != new_other_state->color_encoding)
+ 			return true;
  
++		/* HDR/Transfer Function changes. */
++		if (dm_old_other_state->degamma_tf != dm_new_other_state->degamma_tf ||
++		    dm_old_other_state->degamma_lut != dm_new_other_state->degamma_lut ||
++		    dm_old_other_state->hdr_mult != dm_new_other_state->hdr_mult ||
++		    dm_old_other_state->shaper_lut != dm_new_other_state->shaper_lut ||
++		    dm_old_other_state->shaper_tf != dm_new_other_state->shaper_tf ||
++		    dm_old_other_state->lut3d != dm_new_other_state->lut3d ||
++		    dm_old_other_state->blend_lut != dm_new_other_state->blend_lut ||
++		    dm_old_other_state->blend_tf != dm_new_other_state->blend_tf)
++			return true;
++
+ 		/* Framebuffer checks fall at the end. */
+ 		if (!old_other_state->fb || !new_other_state->fb)
+ 			continue;
 -- 
 2.40.1
 
