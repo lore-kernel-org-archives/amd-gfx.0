@@ -4,88 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E737C001DB
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 11:44:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 509D5C001DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 12:33:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2523D10E509;
-	Thu, 10 Aug 2023 11:44:56 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2051.outbound.protection.outlook.com [40.107.93.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1CB610E509
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Aug 2023 11:44:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hm70fKWs6A83ZoAqr3Mtpv7Ro50CTrJSJhJs+tSL58IbM6O4vc0jTr/wtApiq5H/t1aZED9wUzS2yNeX5SDZE1LwlYN3l+tAvWxekvvwpVdkZqMgRKla2KlYo0+IdsaIQCvK/WZE4O7kYmEhrfxYUS9/zm/TVruQeSC0WhRcqH0DGMvkKtuUjhBGlt19h0d1fsBzoB1DnbP8rM0xwn1Fxg4GMnedFlSGyy2qIgvEAu7XkK+kpb67HwDUorM4DumEKk0GMCrPWRjbohykkcOsQNCGFCRu9vc6Vp3sozkgEXQp9Ut5VnuN7Fq4sumlz42oD2SwACf/iAEdy5LXwXi4Sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kqCB2GwqKIYwA73fI1tXxLyFUPz+jkkTadKvqTPLhRw=;
- b=SDy+w2feLV18h50bibhB6XxZDWy86ZUVjxoW0KmLoYy9x9UFNQyBXeRyB2NEXleNOCc9GwbQAFfk+P1MGE3WNDZpmwtgEBQPhcGEnqTopTl+2CXLMSH3Yp9m8Hgpf9Fs0R0FX1CRSnihJ0oRmx3QYTmS+sDxz64bJMA2UQYnc30AUy1to9Tr5jkgjd520r5+L+DXl1/xdY21NoIj/IbYFmTwVNX//GjqZbdnmUHQXZ26H1S9FhvvKuLtba+aIwg7Nk4uU3nfi9A0iaRRMMiZymoUJSITO9ANYIQuBuprIpKDeH1qY8eFs1GQsmG22whJlepmGBSSqhKWpk685NeDZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kqCB2GwqKIYwA73fI1tXxLyFUPz+jkkTadKvqTPLhRw=;
- b=jUpNFmvNlFjtLsto3C1wpTYEQyY9NuH+sDtpt4YlNbmTt4EWczRUJI+qIbfS2Gk/tc//Qws4+FWvJ2k2vGq9VMxBf3NlaXyiBg2UTfN6j83pFX617SliNXAUtaiNP+qP+VVWcRziOUW68BndaMQVJ7D4Jx4mwqP7g15bmKAKPAY=
-Received: from MW4PR03CA0319.namprd03.prod.outlook.com (2603:10b6:303:dd::24)
- by SA3PR12MB7903.namprd12.prod.outlook.com (2603:10b6:806:307::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30; Thu, 10 Aug
- 2023 11:44:50 +0000
-Received: from MWH0EPF000971E5.namprd02.prod.outlook.com
- (2603:10b6:303:dd:cafe::27) by MW4PR03CA0319.outlook.office365.com
- (2603:10b6:303:dd::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30 via Frontend
- Transport; Thu, 10 Aug 2023 11:44:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E5.mail.protection.outlook.com (10.167.243.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6652.19 via Frontend Transport; Thu, 10 Aug 2023 11:44:50 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 10 Aug
- 2023 06:44:47 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Keep reset handlers shared
-Date: Thu, 10 Aug 2023 17:14:25 +0530
-Message-ID: <20230810114425.645209-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E5:EE_|SA3PR12MB7903:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca8caa10-126a-432d-be24-08db99973479
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HzcIlaXu/S1qF9LmqfW59yfiGiR1uW8/Enu5lKSCDKHFy0Vif1SesjN80wx2bC9XxE5NaiDpLdgAt1YElj6Ao0BsERYUbLydzmWOxlGuj0eGS5SzUofiI5V/cH2kgtEh+Gp5KJPDejd5yCIgOTIcNMKrLWa85e6XhKI8GMTbsCuK9SsWlxYErgYB479FIt8z03Tl0+mf53FY7f1vO4yNZt99BN2zFWcDNEooapp8dvnzwDmrYw2bPHnhSx6qeZSF4Y8V68hz3lRZViUFqMbagngN/XMWu9EtW8jNPN7oYva81fCLyTAREC2W4ou6VWz5dDzyNfqpKShVexDuGyRWjdDMMP1d8n3HbvWThV8PrUh9AnfiYddFbhSCPUcq2U/X7OCBoexcTe/FpRh+oHpjddZPdbtlkEVRQW4UjOuGYxggRSqUbLe/LE9qp5KDX3JHMrzRLVLl6l5UgPM5DqtwpxlyK08I7UIQa2MvVbcQYLfjJ5H+uLwewRKaxe6VBYpuQB3rWnltU8lFpH5Y8RFLh5sCYC66yfCz8MmMRWKZu/zCWN1O89VqDv6baocjQd5sxzEHp5PM5W/1FKNBFb8eL3AzgzLuqmaOrxpaF2QSs1HON3aVQKCMu40keJVv1/oWosgsxjDILDTV+IhrnwIok5VyyMT8n9DSFIWfm4C6x8wygq5PLmOY9Pi/mWEeMIQedsJzRiNfsBaa7OXzlQzyV8WcirgdSQCKY8Qdz6VNWLXTTagzLKPprLhTKR44FC95WXCzXJw7CGINvvkWV/ogsA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(346002)(136003)(376002)(396003)(82310400008)(451199021)(186006)(1800799006)(46966006)(36840700001)(40470700004)(2616005)(16526019)(478600001)(44832011)(426003)(86362001)(40480700001)(30864003)(6666004)(36756003)(2906002)(7696005)(336012)(40460700003)(1076003)(26005)(83380400001)(356005)(54906003)(81166007)(316002)(70206006)(70586007)(6916009)(4326008)(41300700001)(47076005)(5660300002)(8936002)(8676002)(36860700001)(82740400003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2023 11:44:50.0999 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca8caa10-126a-432d-be24-08db99973479
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7903
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBDFB10E193;
+	Thu, 10 Aug 2023 12:33:25 +0000 (UTC)
+Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
+ [IPv6:2607:f8b0:4864:20::f2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5792D10E17C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Aug 2023 09:35:05 +0000 (UTC)
+Received: by mail-qv1-xf2b.google.com with SMTP id
+ 6a1803df08f44-64189860374so38226d6.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Aug 2023 02:35:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=vt-edu.20221208.gappssmtp.com; s=20221208; t=1691660104; x=1692264904;
+ h=message-id:date:content-transfer-encoding:mime-version:subject:cc
+ :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+ bh=uv75qCkyt70o1hFf27odc+wG4oxSQqlvtrl2bhz3v38=;
+ b=h/aQepaqe8G6werpjapm8vSeIHEHJhZvVGJaNztMkf+t/3RKvwP+yqjEepfGiIJt6+
+ 840gtkuBvOJMGOf9ofEbzlk/VTCWbgSu/AZyZSOiB9ULD+BGLQJ+AFLwcM2h0y7QBAQQ
+ X/Bx1YyZiVe8Cx4HVNtXiRQP9/H+fjsUs8KpX5GLjaBBuefzPdyPInei9h+tQfcGPrmp
+ gNHBroUZstm7HbykFqw64vSuUpcDl6EDhHOuk/WVYLygODPl5CSiheZD95AI/41YXKCg
+ oQ6thSo3V0gOMw5ouBelf3JCYzvr+itdhqOs1cYxX8CvXZYf9V+0qyaaETpFm4w7cPA7
+ ZCjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691660104; x=1692264904;
+ h=message-id:date:content-transfer-encoding:mime-version:subject:cc
+ :to:from:sender:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uv75qCkyt70o1hFf27odc+wG4oxSQqlvtrl2bhz3v38=;
+ b=S1lEHWDsLZC57yoTJh30DhzwGfyehbLPcSqNQzVzRx/wka1aKjszS3o3xhjuOxLr4D
+ P1gE0tdMVUAwJb+8NMYL3HmFgWvpMLJzVA+ffOkekH1V9XwFC1hXQHGOSPrpIhaydbIU
+ R/lll3KJeKDGmw1Rwlr6HOMlVZ9LeMGFFgsnd/94ZTF29lyuSSyzPWk+Xjr3JcwotQQr
+ Pf5K+U+VEUsxDUsVj+AcGfFkSqUeTrBZG4PUERhG0ZEFi1Dm5yVj7fCsJnTBiww43TtZ
+ aclMa5dFyy5/ePnfCZJunHoADD12xmrV6NkeJbNjSetneIOq4BIsDbuAs1PaS8vw5w1f
+ 05tA==
+X-Gm-Message-State: AOJu0Yy5DdAvY7arxKLG7O8HIKPLvWghZ9cAb4dqDjjEU1hwggY2+XJE
+ GoocLUcqdZHxKJ1IVPd8HZAbtA==
+X-Google-Smtp-Source: AGHT+IG1K2Swh2PzdHs3WkS6Xi5SbU9PeB4bSFiR14I1Uh+7gTsmkUMUkv7zR2CwtXuH/HJN66RREA==
+X-Received: by 2002:a05:6214:21a9:b0:636:d181:46ec with SMTP id
+ t9-20020a05621421a900b00636d18146ecmr1543732qvc.32.1691660104293; 
+ Thu, 10 Aug 2023 02:35:04 -0700 (PDT)
+Received: from turing-police (c-174-179-75-62.hsd1.va.comcast.net.
+ [174.179.75.62]) by smtp.gmail.com with ESMTPSA id
+ d6-20020a0ce446000000b0063c71b62239sm350146qvm.42.2023.08.10.02.35.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Aug 2023 02:35:03 -0700 (PDT)
+From: "Valdis =?utf-8?Q?Kl=c4=93tnieks?=" <valdis.kletnieks@vt.edu>
+X-Google-Original-From: "Valdis =?utf-8?Q?Kl=c4=93tnieks?="
+ <Valdis.Kletnieks@vt.edu>
+X-Mailer: exmh version 2.10.0-pre 07/05/2021 with nmh-1.8+dev
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Subject: next-20230726 and later - crash in radeon module during init
+Mime-Version: 1.0
+Content-Type: multipart/signed; boundary="==_Exmh_1691660102_2972P";
+ micalg=pgp-sha256; protocol="application/pgp-signature"
+Content-Transfer-Encoding: 7bit
+Date: Thu, 10 Aug 2023 05:35:02 -0400
+Message-ID: <129403.1691660102@turing-police>
+X-Mailman-Approved-At: Thu, 10 Aug 2023 12:33:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,285 +74,93 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Asad.Kamal@amd.com, Hawking.Zhang@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of maintaining a list per device, keep the reset handlers common
-per ASIC family. A pointer to the list of handlers is maintained in
-reset control.
+--==_Exmh_1691660102_2972P
+Content-Type: text/plain; charset=us-ascii
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/aldebaran.c      | 19 +++++++++++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c   |  8 --------
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h   | 16 ++++++++++++----
- drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c | 20 +++++++++++---------
- drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c   | 19 +++++++++++--------
- 5 files changed, 45 insertions(+), 37 deletions(-)
+I am seeing the following consistent crash at boot:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-index 2b97b8a96fb4..82e1c83a7ccc 100644
---- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-+++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-@@ -48,20 +48,19 @@ aldebaran_get_reset_handler(struct amdgpu_reset_control *reset_ctl,
- {
- 	struct amdgpu_reset_handler *handler;
- 	struct amdgpu_device *adev = (struct amdgpu_device *)reset_ctl->handle;
-+	int i;
- 
- 	if (reset_context->method != AMD_RESET_METHOD_NONE) {
- 		dev_dbg(adev->dev, "Getting reset handler for method %d\n",
- 			reset_context->method);
--		list_for_each_entry(handler, &reset_ctl->reset_handlers,
--				     handler_list) {
-+		for_each_handler(i, handler, reset_ctl) {
- 			if (handler->reset_method == reset_context->method)
- 				return handler;
- 		}
- 	}
- 
- 	if (aldebaran_is_mode2_default(reset_ctl)) {
--		list_for_each_entry(handler, &reset_ctl->reset_handlers,
--				     handler_list) {
-+		for_each_handler(i, handler, reset_ctl)	{
- 			if (handler->reset_method == AMD_RESET_METHOD_MODE2) {
- 				reset_context->method = AMD_RESET_METHOD_MODE2;
- 				return handler;
-@@ -124,9 +123,9 @@ static void aldebaran_async_reset(struct work_struct *work)
- 	struct amdgpu_reset_control *reset_ctl =
- 		container_of(work, struct amdgpu_reset_control, reset_work);
- 	struct amdgpu_device *adev = (struct amdgpu_device *)reset_ctl->handle;
-+	int i;
- 
--	list_for_each_entry(handler, &reset_ctl->reset_handlers,
--			     handler_list) {
-+	for_each_handler(i, handler, reset_ctl)	{
- 		if (handler->reset_method == reset_ctl->active_reset) {
- 			dev_dbg(adev->dev, "Resetting device\n");
- 			handler->do_reset(adev);
-@@ -395,6 +394,11 @@ static struct amdgpu_reset_handler aldebaran_mode2_handler = {
- 	.do_reset		= aldebaran_mode2_reset,
- };
- 
-+static struct amdgpu_reset_handler
-+	*aldebaran_rst_handlers[AMDGPU_RESET_MAX_HANDLERS] = {
-+		&aldebaran_mode2_handler,
-+	};
-+
- int aldebaran_reset_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_reset_control *reset_ctl;
-@@ -408,10 +412,9 @@ int aldebaran_reset_init(struct amdgpu_device *adev)
- 	reset_ctl->active_reset = AMD_RESET_METHOD_NONE;
- 	reset_ctl->get_reset_handler = aldebaran_get_reset_handler;
- 
--	INIT_LIST_HEAD(&reset_ctl->reset_handlers);
- 	INIT_WORK(&reset_ctl->reset_work, reset_ctl->async_reset);
- 	/* Only mode2 is handled through reset control now */
--	amdgpu_reset_add_handler(reset_ctl, &aldebaran_mode2_handler);
-+	reset_ctl->reset_handlers = &aldebaran_rst_handlers;
- 
- 	adev->reset_cntl = reset_ctl;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-index 5fed06ffcc6b..02d874799c16 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-@@ -26,14 +26,6 @@
- #include "sienna_cichlid.h"
- #include "smu_v13_0_10.h"
- 
--int amdgpu_reset_add_handler(struct amdgpu_reset_control *reset_ctl,
--			     struct amdgpu_reset_handler *handler)
--{
--	/* TODO: Check if handler exists? */
--	list_add_tail(&handler->handler_list, &reset_ctl->reset_handlers);
--	return 0;
--}
--
- int amdgpu_reset_init(struct amdgpu_device *adev)
- {
- 	int ret = 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-index f4a501ff87d9..471d789b33a5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-@@ -26,6 +26,8 @@
- 
- #include "amdgpu.h"
- 
-+#define AMDGPU_RESET_MAX_HANDLERS 5
-+
- enum AMDGPU_RESET_FLAGS {
- 
- 	AMDGPU_NEED_FULL_RESET = 0,
-@@ -44,7 +46,6 @@ struct amdgpu_reset_context {
- 
- struct amdgpu_reset_handler {
- 	enum amd_reset_method reset_method;
--	struct list_head handler_list;
- 	int (*prepare_env)(struct amdgpu_reset_control *reset_ctl,
- 			   struct amdgpu_reset_context *context);
- 	int (*prepare_hwcontext)(struct amdgpu_reset_control *reset_ctl,
-@@ -63,7 +64,8 @@ struct amdgpu_reset_control {
- 	void *handle;
- 	struct work_struct reset_work;
- 	struct mutex reset_lock;
--	struct list_head reset_handlers;
-+	struct amdgpu_reset_handler *(
-+		*reset_handlers)[AMDGPU_RESET_MAX_HANDLERS];
- 	atomic_t in_reset;
- 	enum amd_reset_method active_reset;
- 	struct amdgpu_reset_handler *(*get_reset_handler)(
-@@ -97,8 +99,10 @@ int amdgpu_reset_prepare_hwcontext(struct amdgpu_device *adev,
- int amdgpu_reset_perform_reset(struct amdgpu_device *adev,
- 			       struct amdgpu_reset_context *reset_context);
- 
--int amdgpu_reset_add_handler(struct amdgpu_reset_control *reset_ctl,
--			     struct amdgpu_reset_handler *handler);
-+int amdgpu_reset_prepare_env(struct amdgpu_device *adev,
-+			     struct amdgpu_reset_context *reset_context);
-+int amdgpu_reset_restore_env(struct amdgpu_device *adev,
-+			     struct amdgpu_reset_context *reset_context);
- 
- struct amdgpu_reset_domain *amdgpu_reset_create_reset_domain(enum amdgpu_reset_domain_type type,
- 							     char *wq_name);
-@@ -126,4 +130,8 @@ void amdgpu_device_lock_reset_domain(struct amdgpu_reset_domain *reset_domain);
- 
- void amdgpu_device_unlock_reset_domain(struct amdgpu_reset_domain *reset_domain);
- 
-+#define for_each_handler(i, handler, reset_ctl)                  \
-+	for (i = 0; (i < AMDGPU_RESET_MAX_HANDLERS) &&           \
-+		    (handler = (*reset_ctl->reset_handlers)[i]); \
-+	     ++i)
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
-index 8b8086d5c864..07ded70f4df9 100644
---- a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
-@@ -48,18 +48,17 @@ sienna_cichlid_get_reset_handler(struct amdgpu_reset_control *reset_ctl,
- 			    struct amdgpu_reset_context *reset_context)
- {
- 	struct amdgpu_reset_handler *handler;
-+	int i;
- 
- 	if (reset_context->method != AMD_RESET_METHOD_NONE) {
--		list_for_each_entry(handler, &reset_ctl->reset_handlers,
--				     handler_list) {
-+		for_each_handler(i, handler, reset_ctl)	{
- 			if (handler->reset_method == reset_context->method)
- 				return handler;
- 		}
- 	}
- 
- 	if (sienna_cichlid_is_mode2_default(reset_ctl)) {
--		list_for_each_entry (handler, &reset_ctl->reset_handlers,
--				     handler_list) {
-+		for_each_handler(i, handler, reset_ctl)	{
- 			if (handler->reset_method == AMD_RESET_METHOD_MODE2)
- 				return handler;
- 		}
-@@ -120,9 +119,9 @@ static void sienna_cichlid_async_reset(struct work_struct *work)
- 	struct amdgpu_reset_control *reset_ctl =
- 		container_of(work, struct amdgpu_reset_control, reset_work);
- 	struct amdgpu_device *adev = (struct amdgpu_device *)reset_ctl->handle;
-+	int i;
- 
--	list_for_each_entry(handler, &reset_ctl->reset_handlers,
--			     handler_list) {
-+	for_each_handler(i, handler, reset_ctl)	{
- 		if (handler->reset_method == reset_ctl->active_reset) {
- 			dev_dbg(adev->dev, "Resetting device\n");
- 			handler->do_reset(adev);
-@@ -281,6 +280,11 @@ static struct amdgpu_reset_handler sienna_cichlid_mode2_handler = {
- 	.do_reset		= sienna_cichlid_mode2_reset,
- };
- 
-+static struct amdgpu_reset_handler
-+	*sienna_cichlid_rst_handlers[AMDGPU_RESET_MAX_HANDLERS] = {
-+		&sienna_cichlid_mode2_handler,
-+	};
-+
- int sienna_cichlid_reset_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_reset_control *reset_ctl;
-@@ -294,11 +298,9 @@ int sienna_cichlid_reset_init(struct amdgpu_device *adev)
- 	reset_ctl->active_reset = AMD_RESET_METHOD_NONE;
- 	reset_ctl->get_reset_handler = sienna_cichlid_get_reset_handler;
- 
--	INIT_LIST_HEAD(&reset_ctl->reset_handlers);
- 	INIT_WORK(&reset_ctl->reset_work, reset_ctl->async_reset);
- 	/* Only mode2 is handled through reset control now */
--	amdgpu_reset_add_handler(reset_ctl, &sienna_cichlid_mode2_handler);
--
-+	reset_ctl->reset_handlers = &sienna_cichlid_rst_handlers;
- 	adev->reset_cntl = reset_ctl;
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
-index ae29620b1ea4..04c797d54511 100644
---- a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
-+++ b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
-@@ -44,10 +44,10 @@ smu_v13_0_10_get_reset_handler(struct amdgpu_reset_control *reset_ctl,
- {
- 	struct amdgpu_reset_handler *handler;
- 	struct amdgpu_device *adev = (struct amdgpu_device *)reset_ctl->handle;
-+	int i;
- 
- 	if (reset_context->method != AMD_RESET_METHOD_NONE) {
--		list_for_each_entry(handler, &reset_ctl->reset_handlers,
--				     handler_list) {
-+		for_each_handler(i, handler, reset_ctl) {
- 			if (handler->reset_method == reset_context->method)
- 				return handler;
- 		}
-@@ -55,8 +55,7 @@ smu_v13_0_10_get_reset_handler(struct amdgpu_reset_control *reset_ctl,
- 
- 	if (smu_v13_0_10_is_mode2_default(reset_ctl) &&
- 		amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_MODE2) {
--		list_for_each_entry (handler, &reset_ctl->reset_handlers,
--				     handler_list) {
-+		for_each_handler(i, handler, reset_ctl)	{
- 			if (handler->reset_method == AMD_RESET_METHOD_MODE2)
- 				return handler;
- 		}
-@@ -119,9 +118,9 @@ static void smu_v13_0_10_async_reset(struct work_struct *work)
- 	struct amdgpu_reset_control *reset_ctl =
- 		container_of(work, struct amdgpu_reset_control, reset_work);
- 	struct amdgpu_device *adev = (struct amdgpu_device *)reset_ctl->handle;
-+	int i;
- 
--	list_for_each_entry(handler, &reset_ctl->reset_handlers,
--			     handler_list) {
-+	for_each_handler(i, handler, reset_ctl)	{
- 		if (handler->reset_method == reset_ctl->active_reset) {
- 			dev_dbg(adev->dev, "Resetting device\n");
- 			handler->do_reset(adev);
-@@ -272,6 +271,11 @@ static struct amdgpu_reset_handler smu_v13_0_10_mode2_handler = {
- 	.do_reset		= smu_v13_0_10_mode2_reset,
- };
- 
-+static struct amdgpu_reset_handler
-+	*smu_v13_0_10_rst_handlers[AMDGPU_RESET_MAX_HANDLERS] = {
-+		&smu_v13_0_10_mode2_handler,
-+	};
-+
- int smu_v13_0_10_reset_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_reset_control *reset_ctl;
-@@ -285,10 +289,9 @@ int smu_v13_0_10_reset_init(struct amdgpu_device *adev)
- 	reset_ctl->active_reset = AMD_RESET_METHOD_NONE;
- 	reset_ctl->get_reset_handler = smu_v13_0_10_get_reset_handler;
- 
--	INIT_LIST_HEAD(&reset_ctl->reset_handlers);
- 	INIT_WORK(&reset_ctl->reset_work, reset_ctl->async_reset);
- 	/* Only mode2 is handled through reset control now */
--	amdgpu_reset_add_handler(reset_ctl, &smu_v13_0_10_mode2_handler);
-+	reset_ctl->reset_handlers = &smu_v13_0_10_rst_handlers;
- 
- 	adev->reset_cntl = reset_ctl;
- 
--- 
-2.25.1
+[   61.211213][  T819] [drm] radeon kernel modesetting enabled.
+[   61.584870][  T819] vga_switcheroo: detected switching method \_SB_.PCI0.GFX0.ATPX handle
+[   61.667507][  T819] ATPX version 1, functions 0x00000033
+[   61.748228][  T819] general protection fault, probably for non-canonical address 0x54080068930549a0: 0000 [#1] PREEMPT SMP
+[   61.829840][  T819] CPU: 3 PID: 819 Comm: (udev-worker) Tainted: G          I     T  6.5.0-rc4-next-20230804 #58 5cce04b101a5bb4a6c0368bfff037f6f096b3d3e
+[   61.911411][  T819] Hardware name: Dell Inc. Inspiron 5559/052K07, BIOS 1.9.0 09/07/2020
+[   61.993285][  T819] RIP: 0010:strnlen+0x21/0x40
+[   62.074885][  T819] Code: 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 55 48 89 e5 48 8d 14 37 31 c0 48 85 f6 74 16 48 89 f8 eb 09 48 83 c0 01 48 39 c2 74 0e <80> 38 00 75 f2 48 29 f8 5d c3
+cc cc cc cc 48 89 d0 5d 48 29 f8 c3
+[   62.156529][  T819] RSP: 0018:ffffa310419979b8 EFLAGS: 00010202
+[   62.318407][  T819] RAX: 54080068930549a0 RBX: ffffa31041997a20 RCX: 0000000000000000
+[   62.400015][  T819] RDX: 54080068930549b0 RSI: 0000000000000010 RDI: 54080068930549a0
+[   62.481624][  T819] RBP: ffffa310419979b8 R08: ffff937b85579990 R09: ffffa31041997ad8
+[   62.563644][  T819] R10: ffff937b86ddae00 R11: 0000000000000000 R12: 54080068930549a0
+[   62.645194][  T819] R13: ffff937b814291b8 R14: 0000000000000001 R15: ffffa31041997b81
+[   62.726753][  T819] FS:  00007efd50479600(0000) GS:ffff937ef2e00000(0000) knlGS:0000000000000000
+[   62.808312][  T819] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   62.889830][  T819] CR2: 00007f125d30ee70 CR3: 0000000105644002 CR4: 00000000003706e0
+[   62.971390][  T819] Call Trace:
+[   63.052954][  T819]  <TASK>
+[   63.134501][  T819]  ? show_regs+0x64/0x70
+[   63.216058][  T819]  ? die_addr+0x36/0x90
+[   63.297594][  T819]  ? exc_general_protection+0x1c1/0x440
+[   63.379112][  T819]  ? asm_exc_general_protection+0x2b/0x30
+[   63.460650][  T819]  ? strnlen+0x21/0x40
+[   63.542209][  T819]  set_dev_info+0x40/0x170
+[   63.623762][  T819]  dev_printk_emit+0xa8/0xe0
+[   63.705308][  T819]  __dev_printk+0x34/0x80
+[   63.786806][  T819]  _dev_info+0x7a/0xa0
+[   63.868304][  T819]  radeon_atpx_validate.constprop.0.isra.0+0xbc/0x100 [radeon f030e9a708043a486415a94978106b28cd7cb9a2]
+[   63.949952][  T819]  radeon_atpx_detect+0x17b/0x190 [radeon f030e9a708043a486415a94978106b28cd7cb9a2]
+[   64.031547][  T819]  ? __pfx_radeon_module_init+0x10/0x10 [radeon f030e9a708043a486415a94978106b28cd7cb9a2]
+[   64.113102][  T819]  radeon_register_atpx_handler+0xd/0x30 [radeon f030e9a708043a486415a94978106b28cd7cb9a2]
+[   64.194721][  T819]  radeon_module_init+0x84/0xff0 [radeon f030e9a708043a486415a94978106b28cd7cb9a2]
+[   64.276365][  T819]  do_one_initcall+0x86/0x380
+[   64.357865][  T819]  do_init_module+0x63/0x220
+[   64.439342][  T819]  load_module+0x99d/0xa90
 
+Some quick digging indicates the most likely culprit is:
+
+commit cbd0606e6a776bf2ba10d4a6957bb7628c0da947
+Author: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Date:   Thu Jul 20 15:39:24 2023 +0530
+
+    drm/radeon: Prefer dev_* variant over printk
+
+    Changed from pr_err/info to dev_* variants so that
+    we get better debug info when there are multiple GPUs
+    in the system.
+
+Looks like this is the failure point because 'dev' is trashed:
+
++               dev_info(dev, "ATPX Hybrid Graphics\n");
+
+But  I admit I don't know the APCI stuff well enough to see what, if
+anything, is wrong with this:
+
++       struct acpi_device *adev = container_of(atpx->handle, struct acpi_device, handle);
++       struct device *dev = &adev->dev;
+
+Any ideas?
+
+
+--==_Exmh_1691660102_2972P
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Comment: Exmh version 2.9.0 11/07/2018
+
+iQEcBAEBCAAGBQJk1K9GAAoJEI0DS38y7CIcoOcH/iX3E8PPH2G3XQ+oniqGDCtF
+02VFIZed9EEMB8M5gpF4bahpxcjEzuO0BPtYqOhN+6L1na1j+cEvzXuRd1FyUEdn
+DszLR7EzDRd6gmFJcwGpUn53YbE/LU/afXi4tDFFlABV6yg9XL4kdqFzVlSVgsgP
+2pu4nsJjQlFcz9TSmvkvFOLcyjY+Ew57xkkvdy3JD0dqAhow/UhKCMuWQFPVKUFZ
+i+ynDjNJKPHoaEJ5LffVqxW5VCRMFatcCJvuXJBdnOJNZi+2tJSTJLrmGM1m8Mwf
+styef7V6eyhIBI2f9d0p06dVkw2KufUIzFcdTuBHwXdDScCyrFNvd+6Dxl2SuOo=
+=bD3h
+-----END PGP SIGNATURE-----
+
+--==_Exmh_1691660102_2972P--
