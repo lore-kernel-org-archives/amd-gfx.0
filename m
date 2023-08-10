@@ -4,38 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78A5FC04A94
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 12:33:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46935C001DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 12:33:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DA6510E512;
-	Thu, 10 Aug 2023 12:33:27 +0000 (UTC)
-Received: from exchange.fintech.ru (exchange.fintech.ru [195.54.195.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A47210E506;
- Thu, 10 Aug 2023 11:42:29 +0000 (UTC)
-Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
- (195.54.195.169) with Microsoft SMTP Server (TLS) id 14.3.498.0; Thu, 10 Aug
- 2023 14:42:26 +0300
-Received: from [192.168.211.130] (10.0.253.138) by Ex16-01.fintech.ru
- (10.0.10.18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 10 Aug
- 2023 14:42:25 +0300
-Message-ID: <8a547455-1f5b-f3bf-3fcc-553760940deb@fintech.ru>
-Date: Thu, 10 Aug 2023 04:42:25 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] video/hdmi: convert *_infoframe_init() functions to void
-Content-Language: en-US
-To: Maxime Ripard <mripard@kernel.org>
-References: <20230808180245.7474-1-n.zhandarovich@fintech.ru>
- <ibwl2bpz5bs72co4ivkvjcc35lv5mqyuvj2hbr3p54hliujklm@uje662ldqfdw>
-From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-In-Reply-To: <ibwl2bpz5bs72co4ivkvjcc35lv5mqyuvj2hbr3p54hliujklm@uje662ldqfdw>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE6010E187;
+	Thu, 10 Aug 2023 12:33:31 +0000 (UTC)
+Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
+ [IPv6:2607:f8b0:4864:20::f34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 990C710E4B0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Aug 2023 09:44:26 +0000 (UTC)
+Received: by mail-qv1-xf34.google.com with SMTP id
+ 6a1803df08f44-63d48c3d242so4383656d6.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Aug 2023 02:44:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=vt-edu.20221208.gappssmtp.com; s=20221208; t=1691660665; x=1692265465;
+ h=message-id:date:content-transfer-encoding:mime-version:references
+ :in-reply-to:subject:cc:from:sender:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=u8N5qvppFagZ3/tTB5uDHm2P4arYErRxqlmJ6dmhhhE=;
+ b=xN6cFEhFHyEsngG5emJdOap4+V+nE6gFuMUzdro7EScDcVOWsmda4a5Yw6aRYSrt8n
+ jm6Qhipnw5nThRxhfFbcBO1m2y5tY2Ujx3HgkIjezxPQVeIv1v9hHy1pHLyfoDsAnXGj
+ /Ylx9F9FHNKWVrZBMKqTl26kNfACgEs9xzcd5TJ4orblhIamQjkHYgTfnXWo1XhtIBmj
+ y1VFqUqNVnZLVgbDuZbbxpiacez7Vyr+rjFYdLFRKFbS0UnsgVHbOGIHGLNOgQnVTd/Q
+ UL3HE11PZFFHeTizd0aJPaX5X2DsdjBvoj1OOfHioowZCvCVBUbZ5sR5HHbzdGe+8wFu
+ o7GQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691660665; x=1692265465;
+ h=message-id:date:content-transfer-encoding:mime-version:references
+ :in-reply-to:subject:cc:from:sender:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=u8N5qvppFagZ3/tTB5uDHm2P4arYErRxqlmJ6dmhhhE=;
+ b=IC8QWaO0x3uShzK7xSUI7ocRFObAWOd5G3sqgIcvcL83OTnN4tXFWD6Bz1HCrVLD1r
+ kAtIDg67IknoCsCnZ0uYi3urnaUV5vaTPVC5A9y4cKun5lFDZyEdAsDceElb+2IHNcSh
+ H5tV7yLJ6mMBBjC60XdsJVW2hnjxOoFyBkAEAmdpfbZZ784gPbMLW9Ys7ocwScfX9TAB
+ w/SYZ0zRF4bOkM/skv0qHI2V6Qh2iZ051D9yaaExQy9fIseaRgUwy5ylC8lgWrtDKiHz
+ azUD2WM5LZPe8opn4fSyTx8PASaHjI+6mXAmbT4C8LVS1aJSv5shBKmCqt/XdRfeKwcx
+ zAtA==
+X-Gm-Message-State: AOJu0Yz+SiN8Vwhzprh4eO4N/nVS4xgIEu9CFVLY91AL0eu5QcUY7Qvr
+ T1VNqRPGO9COEF3D2RdaT/aIHw==
+X-Google-Smtp-Source: AGHT+IEESh4xDID3zF+wAoEy9DnzJiY8LmKtY7N2rL3KylyDhQ2C7CAYIv8R76yPbkgFvDGO0D11aA==
+X-Received: by 2002:a0c:edc7:0:b0:636:60c6:2034 with SMTP id
+ i7-20020a0cedc7000000b0063660c62034mr1813651qvr.38.1691660665704; 
+ Thu, 10 Aug 2023 02:44:25 -0700 (PDT)
+Received: from turing-police (c-174-179-75-62.hsd1.va.comcast.net.
+ [174.179.75.62]) by smtp.gmail.com with ESMTPSA id
+ x6-20020a0cda06000000b00631f02c2279sm352804qvj.90.2023.08.10.02.44.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Aug 2023 02:44:25 -0700 (PDT)
+From: "Valdis Kl=?utf-8?Q?=c4=93?=tnieks" <valdis.kletnieks@vt.edu>
+X-Google-Original-From: "Valdis Kl=?utf-8?Q?=c4=93?=tnieks"
+ <Valdis.Kletnieks@vt.edu>
+X-Mailer: exmh version 2.10.0-pre 07/05/2021 with nmh-1.8+dev
+Subject: Re: next-20230726 and later - crash in radeon module during init
+In-Reply-To: <129403.1691660102@turing-police>
+References: <129403.1691660102@turing-police>
+Mime-Version: 1.0
+Content-Type: multipart/signed; boundary="==_Exmh_1691660664_2972P";
+ micalg=pgp-sha256; protocol="application/pgp-signature"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.0.253.138]
-X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
- (10.0.10.18)
+Date: Thu, 10 Aug 2023 05:44:24 -0400
+Message-ID: <130185.1691660664@turing-police>
 X-Mailman-Approved-At: Thu, 10 Aug 2023 12:33:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,77 +76,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, lvc-project@linuxtesting.org,
- Emma Anholt <emma@anholt.net>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Mikko Perttunen <mperttunen@nvidia.com>,
- linux-tegra@vger.kernel.org, Thierry
- Reding <thierry.reding@gmail.com>, David Airlie <airlied@gmail.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Helge Deller <deller@gmx.de>, amd-gfx@lists.freedesktop.org,
- Jonathan Hunter <jonathanh@nvidia.com>, Alain
- Volmat <alain.volmat@foss.st.com>, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- linux-arm-kernel@lists.infradead.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+--==_Exmh_1691660664_2972P
+Content-Type: text/plain; charset=us-ascii
 
-On 8/10/23 01:13, Maxime Ripard wrote:
-> Hi,
-> 
-> On Tue, Aug 08, 2023 at 11:02:45AM -0700, Nikita Zhandarovich wrote:
->> Four hdmi_*_infoframe_init() functions that initialize different
->> types of hdmi infoframes only return the default 0 value, contrary to
->> their descriptions. Yet these functions are still unnecessarily checked
->> against possible errors in case of failure.
->>
->> Remove redundant error checks in calls to following functions:
->> - hdmi_spd_infoframe_init
->> - hdmi_audio_infoframe_init
->> - hdmi_vendor_infoframe_init
->> - hdmi_drm_infoframe_init
->> Also, convert these functions to 'void' and fix their descriptions.
-> 
-> I'm not sure what value it actually adds. None of them return any
-> errors, but very well might if we started to be a bit serious about it.
-> 
-> Since the error handling is already there, then I'd rather leave it
-> there.
+On Thu, 10 Aug 2023 05:35:02 -0400, "Valdis Klētnieks" said:
 
-There is definitely no particular urgency to this change.
+> I am seeing the following consistent crash at boot:
 
-Since these functions don't perform anything complex and aren't updated
-regularly, my main goal was to remove unnecessary (at the moment) checks
-and fix up their somewhat misleading descriptions. Cleaning up, in other
-words. But I understand your point of view.
+> Some quick digging indicates the most likely culprit is:
+>
+> commit cbd0606e6a776bf2ba10d4a6957bb7628c0da947
+> Author: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> Date:   Thu Jul 20 15:39:24 2023 +0530
+>
+>     drm/radeon: Prefer dev_* variant over printk
 
-If you don't think this patch is warranted at this point, I totally
-understand.
+Nevermind - I see it was already reverted...
 
-> 
->> Fixes: 2c676f378edb ("[media] hdmi: added unpack and logging functions for InfoFrames")
-> 
-> I'm confused about that part. What does it fix exactly?
-> 
-> Maxime
+--==_Exmh_1691660664_2972P
+Content-Type: application/pgp-signature
 
-I added the 'Fixes:' tag mostly as a requirement for patch's
-description. Once again, it doesn't "fix" anything broken as much as it
-cleans up stuff.
+-----BEGIN PGP SIGNATURE-----
+Comment: Exmh version 2.9.0 11/07/2018
 
-Best regards,
-Nikita
+iQEcBAEBCAAGBQJk1LF4AAoJEI0DS38y7CIcCQMH/0Z74jwPSDcxxmLstOYKJ7lY
+ApFXhH94MxeGEa7o0qtmysWn54I7/MmPHQMOZ3ZZWHHOF0QqpgahtO9Dm7XpFG9j
+jwlFr+vODziew8p4dBjJ4BEZk9TpVoE8BOA2yUMpSylOGmw5t8uz3fUjEVGhtG8a
+x/i+mZ/adPxymbtZ0h0NnhLabGXMYF5VZ2R2ZAbBwKOYR82UcNMEzm/IIWUOtapw
+sa0+tgnGXe4PasXSXvx/TOaGJVIsPLLy2DwMu8EKwLT/KelLDS+cTPYlwZ06A1pg
+CmYDOTTaB7cl0UxTmSfOduHo9o+Twx5ziyAuBfJ2540A2LXa2zDlgU//mb28jA4=
+=kY7M
+-----END PGP SIGNATURE-----
 
-
-
-
-
+--==_Exmh_1691660664_2972P--
