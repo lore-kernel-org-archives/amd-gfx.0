@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14D21C04A94
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 03:40:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8637AC001DE
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 03:40:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D91310E631;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 230FE10E630;
 	Fri, 11 Aug 2023 03:40:51 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2049.outbound.protection.outlook.com [40.107.243.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B39710E630
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Aug 2023 03:40:49 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::600])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9954810E630
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Aug 2023 03:40:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IZm151rBuG7EJSWZPAC/qBMeW47iRs0KKQtL46ijPyfjgS/LmPT1+Q/TAootwynOsprh71/KClLZOopqpL4/T96rOvPmmtlE+U0EwIcPFBFHVm4yrTilVlc38hivZw3Ic8zlWbixC50ySnxMB9h+Hr/dat4gldCiFe1gqD/16fSSLCrUOPvTVnlnRTTBRrKaivYONHlFi9A9RaJLmg5obTBZ+0xBYMc0IQCiZfDxUk5ljKdzKF87MJ3m/YlNZuNvJiq8v2EgJ4L4FU5BvTzPAuZQqiQV9wTTnddEvoetp9jHa0bjWf8pLtwoco+w+3WH4UG0IitFzUZy0QOnMBDhPA==
+ b=hnFJ+PLM6QWEb/CX5MNjHUAf6DnkNHoDheUBc2QVwKTIBkCBD5oLlV2LD0aGyYI00Gm0kikiLKGkSLLHyHGJsW21sT7b/1ryOSkNDe64fXlMt0FuhKJOrwakNMYy8FyS8NqQf8wgtjQODu1siSSiv2c2AD0etHxYGWHmPWCYRG1B1JPwFyhYWkUowM8UbVBpMd97XHX4INhQn3zlY71kUg7fCsnEV8jbDmjscuQz7Kp5YCutQPuz6pgEruO6F8rvEHqCqz569lOiBw92iY5KIYqKXrasuFQ+eAxlrkQinWO6KVXRLP7IISs1IrBKooDDJzbszeHplIugs6oums7tPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pMNNmYgmaa2x6uwAF/l/MsJ7jLcZMXKDkamhy+lQvyA=;
- b=GMiV9YAodbVBMMc5sP+ixUD8cbsxsvhQ8kgomWPYm6IyFZSq04Igf6aLsXemP1qHRxyRVHr2xCsYoOTk2oCqC1bTBhRe1WkSxOOrpq/oXs4euhxwnAxiHatfF5Y/l1n4vXka/FF8F/M9ufxywd6FlZYadoN3m72B6C2/j+DbiMRiDhxS0XEYNUVZHDDFxoX+VrkjMlljKy/RDEMdtuxSwnYJEtElhnT59orTR4qZ0zF44ENG5XNafFE0sAFBPN/Rjk73JXdH74Ow2GZwvZVD/3/olu8OEIkHzeWsrrqxjx8SAKkdQS7IvyD4DT8Gi6R6tyXWcGgJMSE0YFb8rxCxYA==
+ bh=936xcVoFs5fAPbJO2m6hNiOxoKV64mmTxAJMJl/19ZE=;
+ b=Yo6PZoToHeOnMYoJlezCDhAbfXpYYKE3awNJKcgATctQqnvWCEUucgHD7DnpTXf35jWcZrr4J/nQvYUZy0CgSR2tENXyJXdveGvnDfHwpThAms00UUOogZLIy1hCPvpnxRqOioPz6w8/LLlQ5TmnZQGynkYoVip9+4M9CBp0m32XRo+DRHW5Sjy5C8Ykd81Uee+sQqoTeTgG1rPMTh6yOeLxJ6tbiba8yXABakYmMkQdDMi6bKohMYYF4puJQXSV3jezZ3NrZNe+aOJWbJuCULrIBA5ovh8Ac2qXg/da63Rr0kt8MGtHuJY9O76UDeQplLCE00aHrUmdU3iGREN+Mw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pMNNmYgmaa2x6uwAF/l/MsJ7jLcZMXKDkamhy+lQvyA=;
- b=P3DJAGYVTIXGWjF7Ri7rt4KVnFptS1MPshpDBqyXxsOpmgS1nBKCP+Lkl0gpYsz8omdcC9HhQFZ+AJspOpH/uyO7jFT21D5H3rMCsZoq+CrA76Yk12nzbiEivuFWWhF7FWz7PfbWcJenGxZvKdlAG7nFx3Luc+9Bs7m8mwUUSqQ=
-Received: from MW4PR03CA0243.namprd03.prod.outlook.com (2603:10b6:303:b4::8)
- by CH0PR12MB5089.namprd12.prod.outlook.com (2603:10b6:610:bc::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30; Fri, 11 Aug
- 2023 03:40:47 +0000
+ bh=936xcVoFs5fAPbJO2m6hNiOxoKV64mmTxAJMJl/19ZE=;
+ b=RQ4IKbyngQZeBxmsG2T8CavMGxrXONGW8M++NMf5zV2v+X++yfupe1KilhRP6CP2kljrEILc3xo5CA73J1G7IgEK3HFo7k4U0Q20pNHIC1sc9gq2JZSgzoQevjB4vNCio4JL04mj7767FTwcpsObjp7Bb0DI9kcQS8gsjjVbr2w=
+Received: from MW4PR03CA0247.namprd03.prod.outlook.com (2603:10b6:303:b4::12)
+ by SJ0PR12MB6942.namprd12.prod.outlook.com (2603:10b6:a03:449::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.19; Fri, 11 Aug
+ 2023 03:40:45 +0000
 Received: from CO1PEPF000042AE.namprd03.prod.outlook.com
- (2603:10b6:303:b4:cafe::1d) by MW4PR03CA0243.outlook.office365.com
- (2603:10b6:303:b4::8) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:303:b4:cafe::6b) by MW4PR03CA0247.outlook.office365.com
+ (2603:10b6:303:b4::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30 via Frontend
- Transport; Fri, 11 Aug 2023 03:40:46 +0000
+ Transport; Fri, 11 Aug 2023 03:40:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000042AE.mail.protection.outlook.com (10.167.243.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6652.20 via Frontend Transport; Fri, 11 Aug 2023 03:40:46 +0000
+ 15.20.6652.20 via Frontend Transport; Fri, 11 Aug 2023 03:40:45 +0000
 Received: from SITE-L-T34-2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 10 Aug
- 2023 22:40:11 -0500
+ 2023 22:40:10 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 6/9] drm/amd: Fix the return for average power on aldebaran
-Date: Thu, 10 Aug 2023 05:31:59 -0500
-Message-ID: <20230810103202.141225-6-mario.limonciello@amd.com>
+Subject: [PATCH 3/9] drm/amd: Introduce `AMDGPU_PP_SENSOR_GPU_INPUT_POWER`
+Date: Thu, 10 Aug 2023 05:31:56 -0500
+Message-ID: <20230810103202.141225-3-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230810103202.141225-1-mario.limonciello@amd.com>
 References: <20230810103202.141225-1-mario.limonciello@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AE:EE_|CH0PR12MB5089:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85d6778a-3049-4371-6303-08db9a1cbfb8
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AE:EE_|SJ0PR12MB6942:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba72a37a-5976-4ca3-bda2-08db9a1cbece
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: laVG7aIkx4MSUdRFC6DvZI+hRUGeHpl/XeFsI9VAv2JMAfjt/0XLzokjzUCF3fH5pvEZcLBQrj3I9nSH8hg9YMNFGQbNWYu+wKsfe4f8nwHV2s5nDbqj7SPUn+31wqQT5ZBqlId0Tsbg+drajMvn6Jp/cOub8ADtYK5eZjjHEp5IOd5dgnRCAxWhyc5lbqV+MK9WyrLJ6YkZbq3wGu31tdRlmQp0LRanfrUXvOprf5ri3JS6vpX4TkSbDG5fPhNaUiaeM3gqZJy4lA7Fhj25mgx8tOF4tz+IQsWjGr2TzGZmL0yjK/c5oPU/SVXNMoidwjLOBSmqMO/pluYiPjZTm3fgBTMEE5IolcI0GE6EhUNzWQc9SHTt72aW8WUEr3awtm5q8MjHxyXCB6XAeps2Nzwm1VjeLE0/N+t3IwEpdjrejYzXMzsCaJX5jnB8HIj6cGB1FVnE0ffH2olVpSF8NUngc7wk6GY1ySIerTVy+WW9E0JmnCM4V1OkViq091resXF0Ag8985gKOH2sNNsU89OYG+oNnGBtytZ3+xOUPjFrh7GKuYb/T2Fro8PMq/KmPWXzi4HvGNEqY4CnPdhs2xrlSsjhse4OyN4D7kgSpJKfqPznJlc7m3A+HOe3dqQks7Z1peCZNn+5yI9RW/9nXZQHk+1sIqq7Aoa4HR021SN7KmqTEq2AYlV05ERsApp0MSQl9G3ggxr5E0kFzY8ADQK0J0OXBAQWC9WWXzaFmq042V6A00DvNOH9tG6KCARFPev7n634GEMciy2q14pZ5A==
+X-Microsoft-Antispam-Message-Info: KYJGZFE/uaWZdaMJr7r0VOjQ/eulwn9WT/YJolVkzgY+zdZ2FRCcIp6Dj/zCYGo+ddN1t+pJpBRy/xe/gVGOe3Sp+UiPpvOSH2dLlq0zSW7lJhGPQ7KnKnB5xiGuwL4e5KU6Zx7RbLBMIFB1u0L9e5QRmnMaWMehj79YX44+Kmg9AypCdCMWut0CjIGlTg2Y41fg6V9OWdXP6jhZbip/HrUUVhl/M3itSZnnfuB7O/hwOdn7s2zfrqcz8TgEgsit1gyUyf8wWcNJzI8Njc3eoMJF8AK/6oRSXZSKw2Tu0yeMQBNsWZduvni8ryDMxGiGHHXidhmSMJpYXic3ibnHbJK8SOTcGNqqW31Efc32zKNAVH+1nIDmr5XEB79bZ67o1KPQioFMFdzDnRQV+j7rw3L8NQNvswmCeRepUwCMGHlRD0/+TBUdc47HQZy/EX9aXbVPzTJKfzPeqyZH/VkLQL+mTK7UfnG2l7tyYr+utegNl9vZSQY8N0Mghi1BKKpEIG+FNW/Qff2SeWL/x+eXTycRPDeQDhqFUOIqxxaesqm0kumuPJgVsdGuLl+cKLiFPra1LM+AF/eSAeGi3JdnEq3XCfV92sZqol31HIckJECRVKLj3fD9LQzAIViPxyXeVLgEEANvSH7WNxWhNLNYVapNEpOQZwg4t0v4ec/9twgr+WQLhXiofs2bvuM/I9MKt9uGCRoSuu2vBKSlBb/9YVdctyvXXKGD3Gy3DFbIKPKqGqoBXbQq3c7UKwmbFJqEcmwED+ZDpuEJ8kF6llMy4fdYVqweibjH29MK+MjfYQI=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(376002)(136003)(396003)(346002)(186006)(451199021)(1800799006)(82310400008)(36840700001)(40470700004)(46966006)(6666004)(16526019)(36860700001)(2906002)(336012)(47076005)(7696005)(82740400003)(2616005)(83380400001)(26005)(1076003)(81166007)(356005)(426003)(478600001)(316002)(70206006)(4326008)(6916009)(41300700001)(70586007)(40460700003)(8676002)(8936002)(5660300002)(40480700001)(44832011)(36756003)(86362001)(36900700001);
+ SFS:(13230028)(4636009)(396003)(136003)(39860400002)(346002)(376002)(1800799006)(82310400008)(451199021)(186006)(36840700001)(46966006)(40470700004)(47076005)(40460700003)(336012)(426003)(83380400001)(30864003)(2906002)(36860700001)(81166007)(82740400003)(36756003)(86362001)(356005)(40480700001)(4326008)(5660300002)(2616005)(6666004)(70586007)(70206006)(478600001)(6916009)(8676002)(7696005)(8936002)(316002)(1076003)(41300700001)(26005)(16526019)(44832011)(81973001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2023 03:40:46.7632 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85d6778a-3049-4371-6303-08db9a1cbfb8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2023 03:40:45.2320 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba72a37a-5976-4ca3-bda2-08db9a1cbece
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AE.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5089
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6942
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,33 +104,401 @@ Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Aldebaran can only return average socket power for the first die.
-The other dies return 0.  Instead of returning a bad value, return
--EOPNOTSUPP so that the attribute will be hidden.
+Some GPUs have been overloading average power values and input power
+values. To disambiguate these, introduce a new
+`AMDGPU_PP_SENSOR_GPU_INPUT_POWER` and the GPUs that share input
+power update to use this instead of average power.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h  |  1 +
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c              |  2 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c |  2 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c   |  2 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c   |  2 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c   |  2 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h   |  1 +
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c   |  1 +
+ .../drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c | 12 +++++++++++-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c |  1 +
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c |  1 +
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c    | 10 ++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c |  6 +++---
+ .../gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c  |  1 +
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c    |  1 +
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c    |  9 +++++++++
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c    |  6 +++---
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c    | 17 +++++------------
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c    |  1 +
+ .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c    |  6 +++---
+ 20 files changed, 57 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index 0dbb1a1c25d24..1341363ab01a8 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -625,9 +625,10 @@ static int aldebaran_get_smu_metrics_data(struct smu_context *smu,
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index 90989405eddcf..6582cdf2736f3 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -133,6 +133,7 @@ enum amd_pp_sensors {
+ 	AMDGPU_PP_SENSOR_VCE_POWER,
+ 	AMDGPU_PP_SENSOR_UVD_POWER,
+ 	AMDGPU_PP_SENSOR_GPU_POWER,
++	AMDGPU_PP_SENSOR_GPU_INPUT_POWER,
+ 	AMDGPU_PP_SENSOR_SS_APU_SHARE,
+ 	AMDGPU_PP_SENSOR_SS_DGPU_SHARE,
+ 	AMDGPU_PP_SENSOR_STABLE_PSTATE_SCLK,
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 816f034cfe3f1..bb42851592291 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -2809,7 +2809,7 @@ static ssize_t amdgpu_hwmon_show_power_input(struct device *dev,
+ {
+ 	unsigned int val;
+ 
+-	val = amdgpu_hwmon_get_power(dev, AMDGPU_PP_SENSOR_GPU_POWER);
++	val = amdgpu_hwmon_get_power(dev, AMDGPU_PP_SENSOR_GPU_INPUT_POWER);
+ 	if (val < 0)
+ 		return val;
+ 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index c91b2a3966cdb..5a2371484a58c 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -4039,7 +4039,7 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 		*((uint32_t *)value) = data->vce_power_gated ? 0 : 1;
+ 		*size = 4;
+ 		return 0;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 		return smu7_get_gpu_power(hwmgr, (uint32_t *)value);
+ 	case AMDGPU_PP_SENSOR_VDDGFX:
+ 		if ((data->vr_config & VRCONF_VDDGFX_MASK) ==
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index 52ae6fa2d2a6d..6d6bc6a380b36 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -3966,7 +3966,7 @@ static int vega10_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 		*((uint32_t *)value) = data->vce_power_gated ? 0 : 1;
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 		ret = vega10_get_gpu_power(hwmgr, (uint32_t *)value);
+ 		break;
+ 	case AMDGPU_PP_SENSOR_VDDGFX:
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+index 4bd573d815ff5..460067933de2e 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+@@ -1529,7 +1529,7 @@ static int vega12_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 		*((uint32_t *)value) = data->vce_power_gated ? 0 : 1;
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 		ret = vega12_get_gpu_power(hwmgr, (uint32_t *)value);
+ 		if (!ret)
+ 			*size = 4;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+index 492ca33637d6f..b6dd7f8daf725 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+@@ -2253,7 +2253,7 @@ static int vega20_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 		*((uint32_t *)value) = data->vce_power_gated ? 0 : 1;
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 		*size = 16;
+ 		ret = vega20_get_gpu_power(hwmgr, (uint32_t *)value);
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index 6e2069dcb6b9d..6b5e220affdf2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -1398,6 +1398,7 @@ typedef enum {
+ 	METRICS_PCIE_RATE,
+ 	METRICS_PCIE_WIDTH,
+ 	METRICS_CURR_FANPWM,
++	METRICS_CURR_SOCKETPOWER,
+ } MetricsMember_t;
+ 
+ enum smu_cmn2asic_mapping_type {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index c49f770c97b38..e5f629a23db6b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -1169,6 +1169,7 @@ static int arcturus_read_sensor(struct smu_context *smu,
+ 		ret = smu_v11_0_get_gfx_vdd(smu, (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+index ca4d97b7f576c..4840e4d69b106 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+@@ -154,10 +154,14 @@ cyan_skillfish_get_smu_metrics_data(struct smu_context *smu,
+ 	case METRICS_CURR_UCLK:
+ 		*value = metrics->Current.MemclkFrequency;
+ 		break;
+-	case METRICS_AVERAGE_SOCKETPOWER:
++	case METRICS_CURR_SOCKETPOWER:
+ 		*value = (metrics->Current.CurrentSocketPower << 8) /
+ 				1000;
+ 		break;
++	case METRICS_AVERAGE_SOCKETPOWER:
++		*value = (metrics->Average.CurrentSocketPower << 8) /
++				1000;
++		break;
+ 	case METRICS_TEMPERATURE_EDGE:
+ 		*value = metrics->Current.GfxTemperature / 100 *
+ 				SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+@@ -214,6 +218,12 @@ static int cyan_skillfish_read_sensor(struct smu_context *smu,
+ 						   (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
++		ret = cyan_skillfish_get_smu_metrics_data(smu,
++						   METRICS_CURR_SOCKETPOWER,
++						   (uint32_t *)data);
++		*size = 4;
++		break;
+ 	case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
+ 		ret = cyan_skillfish_get_smu_metrics_data(smu,
+ 						   METRICS_TEMPERATURE_HOTSPOT,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index e655071516b73..06474bbb73829 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -2240,6 +2240,7 @@ static int navi10_read_sensor(struct smu_context *smu,
+ 		ret = smu_v11_0_get_gfx_vdd(smu, (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index f0800c0c5168c..6dead62095bb1 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1962,6 +1962,7 @@ static int sienna_cichlid_read_sensor(struct smu_context *smu,
+ 			ret = -EOPNOTSUPP;
+ 		}
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index 185d0b50ee8ea..8a2c9c7abea6d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -390,6 +390,10 @@ static int vangogh_get_smu_metrics_data(struct smu_context *smu,
+ 		*value = metrics->Current.UvdActivity;
  		break;
  	case METRICS_AVERAGE_SOCKETPOWER:
- 		/* Valid power data is available only from primary die */
--		*value = aldebaran_is_primary(smu) ?
--				 metrics->AverageSocketPower << 8 :
--				 0;
-+		if (aldebaran_is_primary(smu))
-+			*value = metrics->AverageSocketPower << 8;
-+		else
-+			ret = -EOPNOTSUPP;
++		*value = (metrics->Average.CurrentSocketPower << 8) /
++		1000;
++		break;
++	case METRICS_CURR_SOCKETPOWER:
+ 		*value = (metrics->Current.CurrentSocketPower << 8) /
+ 		1000;
+ 		break;
+@@ -1542,6 +1546,12 @@ static int vangogh_read_sensor(struct smu_context *smu,
+ 						   (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
++		ret = vangogh_common_get_smu_metrics_data(smu,
++						   METRICS_CURR_SOCKETPOWER,
++						   (uint32_t *)data);
++		*size = 4;
++		break;
+ 	case AMDGPU_PP_SENSOR_EDGE_TEMP:
+ 		ret = vangogh_common_get_smu_metrics_data(smu,
+ 						   METRICS_TEMPERATURE_EDGE,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+index a7569354229de..7b5ccb935fc01 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+@@ -1197,7 +1197,7 @@ static int renoir_get_smu_metrics_data(struct smu_context *smu,
+ 	case METRICS_AVERAGE_VCNACTIVITY:
+ 		*value = metrics->AverageUvdActivity / 100;
+ 		break;
+-	case METRICS_AVERAGE_SOCKETPOWER:
++	case METRICS_CURR_SOCKETPOWER:
+ 		if (((adev->ip_versions[MP1_HWIP][0] == IP_VERSION(12, 0, 1)) && (adev->pm.fw_version >= 0x40000f)) ||
+ 		((adev->ip_versions[MP1_HWIP][0] == IP_VERSION(12, 0, 0)) && (adev->pm.fw_version >= 0x373200)))
+ 			*value = metrics->CurrentSocketPower << 8;
+@@ -1297,9 +1297,9 @@ static int renoir_read_sensor(struct smu_context *smu,
+ 						  (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 		ret = renoir_get_smu_metrics_data(smu,
+-						  METRICS_AVERAGE_SOCKETPOWER,
++						  METRICS_CURR_SOCKETPOWER,
+ 						  (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 8f26123ac7031..4e5043b6ce40b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -1183,6 +1183,7 @@ static int aldebaran_read_sensor(struct smu_context *smu,
+ 		ret = smu_v13_0_get_gfx_vdd(smu, (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 0fb6be11a0cc7..3af4f3aa1eb2a 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -991,6 +991,7 @@ static int smu_v13_0_0_read_sensor(struct smu_context *smu,
+ 						       (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
+index ef37dda9908fa..a4e87984645ec 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
+@@ -321,6 +321,9 @@ static int smu_v13_0_4_get_smu_metrics_data(struct smu_context *smu,
+ 		*value = metrics->UvdActivity;
+ 		break;
+ 	case METRICS_AVERAGE_SOCKETPOWER:
++		*value = (metrics->AverageSocketPower << 8) / 1000;
++		break;
++	case METRICS_CURR_SOCKETPOWER:
+ 		*value = (metrics->CurrentSocketPower << 8) / 1000;
  		break;
  	case METRICS_TEMPERATURE_EDGE:
- 		*value = metrics->TemperatureEdge *
+@@ -575,6 +578,12 @@ static int smu_v13_0_4_read_sensor(struct smu_context *smu,
+ 						       (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
++		ret = smu_v13_0_4_get_smu_metrics_data(smu,
++						       METRICS_CURR_SOCKETPOWER,
++						       (uint32_t *)data);
++		*size = 4;
++		break;
+ 	case AMDGPU_PP_SENSOR_EDGE_TEMP:
+ 		ret = smu_v13_0_4_get_smu_metrics_data(smu,
+ 						       METRICS_TEMPERATURE_EDGE,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
+index 87a79e6f983b5..5f8e70d4c467e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
+@@ -288,7 +288,7 @@ static int smu_v13_0_5_get_smu_metrics_data(struct smu_context *smu,
+ 	case METRICS_AVERAGE_VCNACTIVITY:
+ 		*value = metrics->UvdActivity;
+ 		break;
+-	case METRICS_AVERAGE_SOCKETPOWER:
++	case METRICS_CURR_SOCKETPOWER:
+ 		*value = (metrics->CurrentSocketPower << 8) / 1000;
+ 		break;
+ 	case METRICS_TEMPERATURE_EDGE:
+@@ -332,9 +332,9 @@ static int smu_v13_0_5_read_sensor(struct smu_context *smu,
+ 								(uint32_t *)data);
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 		ret = smu_v13_0_5_get_smu_metrics_data(smu,
+-								METRICS_AVERAGE_SOCKETPOWER,
++								METRICS_CURR_SOCKETPOWER,
+ 								(uint32_t *)data);
+ 		*size = 4;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 2898e9c0295e7..af4375f50c72c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -714,7 +714,7 @@ static int smu_v13_0_6_get_smu_metrics_data(struct smu_context *smu,
+ 	case METRICS_AVERAGE_MEMACTIVITY:
+ 		*value = SMUQ10_TO_UINT(metrics->DramBandwidthUtilization);
+ 		break;
+-	case METRICS_AVERAGE_SOCKETPOWER:
++	case METRICS_CURR_SOCKETPOWER:
+ 		*value = SMUQ10_TO_UINT(metrics->SocketPower) << 8;
+ 		break;
+ 	case METRICS_TEMPERATURE_HOTSPOT:
+@@ -1136,15 +1136,6 @@ static int smu_v13_0_6_get_current_activity_percent(struct smu_context *smu,
+ 	return ret;
+ }
+ 
+-static int smu_v13_0_6_get_gpu_power(struct smu_context *smu, uint32_t *value)
+-{
+-	if (!value)
+-		return -EINVAL;
+-
+-	return smu_v13_0_6_get_smu_metrics_data(smu, METRICS_AVERAGE_SOCKETPOWER,
+-					       value);
+-}
+-
+ static int smu_v13_0_6_thermal_get_temperature(struct smu_context *smu,
+ 					       enum amd_pp_sensors sensor,
+ 					       uint32_t *value)
+@@ -1190,8 +1181,10 @@ static int smu_v13_0_6_read_sensor(struct smu_context *smu,
+ 							       (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
+-		ret = smu_v13_0_6_get_gpu_power(smu, (uint32_t *)data);
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
++		ret = smu_v13_0_6_get_smu_metrics_data(smu,
++						       METRICS_CURR_SOCKETPOWER,
++						       (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+ 	case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index b43c5d13f8d9c..0b899b9a718f3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -972,6 +972,7 @@ static int smu_v13_0_7_read_sensor(struct smu_context *smu,
+ 						       (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+index a1be2029ba4ab..14fe45d3b7b7d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+@@ -365,7 +365,7 @@ static int yellow_carp_get_smu_metrics_data(struct smu_context *smu,
+ 	case METRICS_AVERAGE_VCNACTIVITY:
+ 		*value = metrics->UvdActivity;
+ 		break;
+-	case METRICS_AVERAGE_SOCKETPOWER:
++	case METRICS_CURR_SOCKETPOWER:
+ 		*value = (metrics->CurrentSocketPower << 8) / 1000;
+ 		break;
+ 	case METRICS_TEMPERATURE_EDGE:
+@@ -423,9 +423,9 @@ static int yellow_carp_read_sensor(struct smu_context *smu,
+ 								(uint32_t *)data);
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
+ 		ret = yellow_carp_get_smu_metrics_data(smu,
+-								METRICS_AVERAGE_SOCKETPOWER,
++								METRICS_CURR_SOCKETPOWER,
+ 								(uint32_t *)data);
+ 		*size = 4;
+ 		break;
 -- 
 2.34.1
 
