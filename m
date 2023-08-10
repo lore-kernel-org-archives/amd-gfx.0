@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 016A7C04FDF
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 16:03:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 895E6C04A6A
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 16:03:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1F8B10E580;
-	Thu, 10 Aug 2023 16:03:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DF0210E585;
+	Thu, 10 Aug 2023 16:03:50 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CA5C10E57B;
- Thu, 10 Aug 2023 16:03:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86EFE10E581;
+ Thu, 10 Aug 2023 16:03:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,26 +19,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=3AVBAr082q4rBxH/YVFTkGB+6GGW8BMoNEmTi8POMDI=; b=emCa+ELd7sUevg0Gt2NRd1TfVo
- eyYtxXAdfc88eLJfj7Ad5Clgjf5Of358FE2opYeAHju30p+zI2pUqzytLs9tEZT0dEzkLyz6RaVbo
- PZU4EYZN+kcCxAy/4/Xu03w/2NtRH3+klTNg3QUE/Ps5+oIZS0EghK4sT2wOK8Y0haA5jL8DILb9j
- C3D0+gQPdTow6xqOQ+UAEHGcoQRJQm+aQCWDPVCFc2Pg/6NHmnMl7Q1ox1KYP57zApuEJDsPDj4EE
- P0ryqs0zqX1GoQB9qPis+97qsLLve3QR3sje+L2s8jflGmKOyPaWU6q8W49DH4q7QjKuWkM93GH7d
- KcNhvIqA==;
+ bh=Yk1fmgrMxRR+sDWoIK2EYoMphG2xAfewLHFq20bzWTQ=; b=MfSE3jHPG3ezhxfUJXuC/icQQS
+ nBeeIvVbjftMicVqMhYluyV3weF6Jgz0/ToW8lFMRGd3aNY7zhjKL/XXPuOrDzWqGJLZsqNpIYhMJ
+ x/qBcUMOsUgBJnFne0TjXhFUVmdZ3iPOVwamGSq5KnqKu071HUzUkEBDPAQIEhgVjDEBhwRKwOu+G
+ wUBxhr2aslu1Jdvj+hEBBYz8Hwlf447QoI8AnRxm/bcf/Hs/NXFyLKZwNIRV9R2hwVqySvzuz21qx
+ SD9oynyg43z+NU1cyLcoQoWAluQ+LDpqZ3bGpl2wF19yBHilpTzMkBmdKvAA9BnOn+lTsglf3cX8P
+ 8gyOdDiw==;
 Received: from [38.44.68.151] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qU88U-00GjYD-00; Thu, 10 Aug 2023 18:03:42 +0200
+ id 1qU88Y-00GjYD-BM; Thu, 10 Aug 2023 18:03:46 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v2 11/34] drm/amd/display: add plane shaper LUT and TF
- driver-specific properties
-Date: Thu, 10 Aug 2023 15:02:51 -0100
-Message-Id: <20230810160314.48225-12-mwen@igalia.com>
+Subject: [PATCH v2 13/34] drm/amd/display: add CRTC gamma TF driver-specific
+ property
+Date: Thu, 10 Aug 2023 15:02:53 -0100
+Message-Id: <20230810160314.48225-14-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230810160314.48225-1-mwen@igalia.com>
 References: <20230810160314.48225-1-mwen@igalia.com>
@@ -65,206 +65,181 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On AMD HW, 3D LUT always assumes a preceding shaper 1D LUT used for
-delinearizing and/or normalizing the color space before applying a 3D
-LUT. Add pre-defined transfer function to enable delinearizing content
-with or without shaper LUT, where AMD color module calculates the
-resulted shaper curve. We apply an inverse EOTF to go from linear values
-to encoded values. If we are already in a non-linear space and/or don't
-need to normalize values, we can bypass shaper LUT with a linear
-transfer function that is also the default TF value.
+Add AMD pre-defined transfer function property to default DRM CRTC
+gamma to convert to wire encoding with or without a user gamma LUT.
 
 v2:
-- squash commits for shaper LUT and shaper TF
-- define inverse EOTF as supported shaper TFs
+- enable CRTC prop in the end of driver-specific prop sequence
+- define inverse EOTFs as supported regamma TFs
+- reword driver-specific function doc to remove shaper/3D LUT
 
+Co-developed-by: Joshua Ashton <joshua@froggi.es>
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      | 16 ++++++++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 11 +++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 29 +++++++++++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 32 +++++++++++++++++++
- 4 files changed, 88 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  5 ++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  8 +++
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  7 ++
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 72 +++++++++++++++++++
+ 4 files changed, 92 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index 730a88236501..4fb164204ee6 100644
+index fd0b7047d56b..abb871a912d7 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -363,6 +363,22 @@ struct amdgpu_mode_info {
- 	 * @plane_hdr_mult_property:
+@@ -407,6 +407,11 @@ struct amdgpu_mode_info {
+ 	 * with or without LUT.
  	 */
- 	struct drm_property *plane_hdr_mult_property;
-+	/**
-+	 * @shaper_lut_property: Plane property to set pre-blending shaper LUT
-+	 * that converts color content before 3D LUT.
+ 	struct drm_property *plane_blend_tf_property;
++	/* @regamma_tf_property: Transfer function for CRTC regamma
++	 * (post-blending). Possible values are defined by `enum
++	 * amdgpu_transfer_function`.
 +	 */
-+	struct drm_property *plane_shaper_lut_property;
-+	/**
-+	 * @shaper_lut_size_property: Plane property for the size of
-+	 * pre-blending shaper LUT as supported by the driver (read-only).
-+	 */
-+	struct drm_property *plane_shaper_lut_size_property;
-+	/**
-+	 * @plane_shaper_tf_property: Plane property to set a predefined
-+	 * transfer function for pre-blending shaper (before applying 3D LUT)
-+	 * with or without LUT.
-+	 */
-+	struct drm_property *plane_shaper_tf_property;
- 	/**
- 	 * @plane_lut3d_property: Plane property for gamma correction using a
- 	 * 3D LUT (pre-blending).
++	struct drm_property *regamma_tf_property;
+ };
+ 
+ #define AMDGPU_MAX_BL_LEVEL 0xFF
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index deea90212e31..6b6c2980f0af 100644
+index b6fa271ab0dd..51471675c298 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -769,6 +769,17 @@ struct dm_plane_state {
- 	 * S31.32 sign-magnitude.
- 	 */
- 	__u64 hdr_mult;
-+	/**
-+	 * @shaper_lut: shaper lookup table blob. The blob (if not NULL) is an
-+	 * array of &struct drm_color_lut.
-+	 */
-+	struct drm_property_blob *shaper_lut;
-+	/**
-+	 * @shaper_tf:
+@@ -821,6 +821,14 @@ struct dm_crtc_state {
+ 	struct dc_info_packet vrr_infopacket;
+ 
+ 	int abm_level;
++
++        /**
++	 * @regamma_tf:
 +	 *
-+	 * Predefined transfer function to delinearize color space.
++	 * Pre-defined transfer function for converting internal FB -> wire
++	 * encoding.
 +	 */
-+	enum amdgpu_transfer_function shaper_tf;
- 	/**
- 	 * @lut3d: 3D lookup table blob. The blob (if not NULL) is an array of
- 	 * &struct drm_color_lut.
++	enum amdgpu_transfer_function regamma_tf;
+ };
+ 
+ #define to_dm_crtc_state(x) container_of(x, struct dm_crtc_state, base)
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 7e6d4df99a0c..fbcee717bf0a 100644
+index 2d64332e6b80..841e0391f7fb 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -151,6 +151,14 @@ static const u32 amdgpu_eotf =
- 	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF) |
- 	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF);
- 
-+static const u32 amdgpu_inv_eotf =
-+	BIT(AMDGPU_TRANSFER_FUNCTION_SRGB_INV_EOTF) |
-+	BIT(AMDGPU_TRANSFER_FUNCTION_BT709_INV_EOTF) |
-+	BIT(AMDGPU_TRANSFER_FUNCTION_PQ_INV_EOTF) |
-+	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA22_INV_EOTF) |
-+	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA24_INV_EOTF) |
-+	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA26_INV_EOTF);
-+
- static struct drm_property *
- amdgpu_create_tf_property(struct drm_device *dev,
- 			  const char *name,
-@@ -209,6 +217,27 @@ amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
+@@ -273,6 +273,13 @@ amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
  		return -ENOMEM;
- 	adev->mode_info.plane_hdr_mult_property = prop;
+ 	adev->mode_info.plane_blend_tf_property = prop;
  
-+	prop = drm_property_create(adev_to_drm(adev),
-+				   DRM_MODE_PROP_BLOB,
-+				   "AMD_PLANE_SHAPER_LUT", 0);
-+	if (!prop)
-+		return -ENOMEM;
-+	adev->mode_info.plane_shaper_lut_property = prop;
-+
-+	prop = drm_property_create_range(adev_to_drm(adev),
-+					 DRM_MODE_PROP_IMMUTABLE,
-+					 "AMD_PLANE_SHAPER_LUT_SIZE", 0, UINT_MAX);
-+	if (!prop)
-+		return -ENOMEM;
-+	adev->mode_info.plane_shaper_lut_size_property = prop;
-+
 +	prop = amdgpu_create_tf_property(adev_to_drm(adev),
-+					 "AMD_PLANE_SHAPER_TF",
++					 "AMD_CRTC_REGAMMA_TF",
 +					 amdgpu_inv_eotf);
 +	if (!prop)
 +		return -ENOMEM;
-+	adev->mode_info.plane_shaper_tf_property = prop;
++	adev->mode_info.regamma_tf_property = prop;
 +
- 	prop = drm_property_create(adev_to_drm(adev),
- 				   DRM_MODE_PROP_BLOB,
- 				   "AMD_PLANE_LUT3D", 0);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 882391f7add6..8d6ddf19bb87 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1332,6 +1332,7 @@ static void dm_drm_plane_reset(struct drm_plane *plane)
- 	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
- 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
- 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
-+	amdgpu_state->shaper_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	return 0;
  }
- 
- static struct drm_plane_state *
-@@ -1353,11 +1354,14 @@ dm_drm_plane_duplicate_state(struct drm_plane *plane)
- 
- 	if (dm_plane_state->degamma_lut)
- 		drm_property_blob_get(dm_plane_state->degamma_lut);
-+	if (dm_plane_state->shaper_lut)
-+		drm_property_blob_get(dm_plane_state->shaper_lut);
- 	if (dm_plane_state->lut3d)
- 		drm_property_blob_get(dm_plane_state->lut3d);
- 
- 	dm_plane_state->degamma_tf = old_dm_plane_state->degamma_tf;
- 	dm_plane_state->hdr_mult = old_dm_plane_state->hdr_mult;
-+	dm_plane_state->shaper_tf = old_dm_plane_state->shaper_tf;
- 
- 	return &dm_plane_state->base;
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 440fc0869a34..d746f0aa0f11 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -253,6 +253,7 @@ static struct drm_crtc_state *dm_crtc_duplicate_state(struct drm_crtc *crtc)
+ 	state->freesync_config = cur->freesync_config;
+ 	state->cm_has_degamma = cur->cm_has_degamma;
+ 	state->cm_is_degamma_srgb = cur->cm_is_degamma_srgb;
++	state->regamma_tf = cur->regamma_tf;
+ 	state->crc_skip_count = cur->crc_skip_count;
+ 	state->mpo_requested = cur->mpo_requested;
+ 	/* TODO Duplicate dc_stream after objects are stream object is flattened */
+@@ -289,6 +290,70 @@ static int amdgpu_dm_crtc_late_register(struct drm_crtc *crtc)
  }
-@@ -1430,6 +1434,8 @@ static void dm_drm_plane_destroy_state(struct drm_plane *plane,
- 		drm_property_blob_put(dm_plane_state->degamma_lut);
- 	if (dm_plane_state->lut3d)
- 		drm_property_blob_put(dm_plane_state->lut3d);
-+	if (dm_plane_state->shaper_lut)
-+		drm_property_blob_put(dm_plane_state->shaper_lut);
+ #endif
  
- 	if (dm_plane_state->dc_state)
- 		dc_plane_state_release(dm_plane_state->dc_state);
-@@ -1462,6 +1468,14 @@ dm_atomic_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
- 				   AMDGPU_HDR_MULT_DEFAULT);
- 
- 	if (dpp_color_caps.hw_3d_lut) {
-+		drm_object_attach_property(&plane->base,
-+					   mode_info.plane_shaper_lut_property, 0);
-+		drm_object_attach_property(&plane->base,
-+					   mode_info.plane_shaper_lut_size_property,
-+					   MAX_COLOR_LUT_ENTRIES);
-+		drm_object_attach_property(&plane->base,
-+					   mode_info.plane_shaper_tf_property,
++#ifdef AMD_PRIVATE_COLOR
++/**
++ * drm_crtc_additional_color_mgmt - enable additional color properties
++ * @crtc: DRM CRTC
++ *
++ * This function lets the driver enable post-blending CRTC regamma transfer
++ * function property in addition to DRM CRTC gamma LUT. Default value means
++ * linear transfer function, which is the default CRTC gamma LUT behaviour
++ * without this property.
++ */
++static void
++dm_crtc_additional_color_mgmt(struct drm_crtc *crtc)
++{
++	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
++
++	if(adev->dm.dc->caps.color.mpc.ogam_ram)
++		drm_object_attach_property(&crtc->base,
++					   adev->mode_info.regamma_tf_property,
 +					   AMDGPU_TRANSFER_FUNCTION_DEFAULT);
- 		drm_object_attach_property(&plane->base,
- 					   mode_info.plane_lut3d_property, 0);
- 		drm_object_attach_property(&plane->base,
-@@ -1499,6 +1513,19 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
- 			dm_plane_state->hdr_mult = val;
- 			dm_plane_state->base.color_mgmt_changed = 1;
- 		}
-+	} else if (property == adev->mode_info.plane_shaper_lut_property) {
-+		ret = drm_property_replace_blob_from_id(plane->dev,
-+							&dm_plane_state->shaper_lut,
-+							val, -1,
-+							sizeof(struct drm_color_lut),
-+							&replaced);
-+		dm_plane_state->base.color_mgmt_changed |= replaced;
-+		return ret;
-+	} else if (property == adev->mode_info.plane_shaper_tf_property) {
-+		if (dm_plane_state->shaper_tf != val) {
-+			dm_plane_state->shaper_tf = val;
-+			dm_plane_state->base.color_mgmt_changed = 1;
++}
++
++static int
++amdgpu_dm_atomic_crtc_set_property(struct drm_crtc *crtc,
++				   struct drm_crtc_state *state,
++				   struct drm_property *property,
++				   uint64_t val)
++{
++	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
++	struct dm_crtc_state *acrtc_state = to_dm_crtc_state(state);
++
++	if (property == adev->mode_info.regamma_tf_property) {
++		if (acrtc_state->regamma_tf != val) {
++			acrtc_state->regamma_tf = val;
++			acrtc_state->base.color_mgmt_changed |= 1;
 +		}
- 	} else if (property == adev->mode_info.plane_lut3d_property) {
- 		ret = drm_property_replace_blob_from_id(plane->dev,
- 							&dm_plane_state->lut3d,
-@@ -1534,6 +1561,11 @@ dm_atomic_plane_get_property(struct drm_plane *plane,
- 		*val = dm_plane_state->degamma_tf;
- 	} else if (property == adev->mode_info.plane_hdr_mult_property) {
- 		*val = dm_plane_state->hdr_mult;
-+	} else 	if (property == adev->mode_info.plane_shaper_lut_property) {
-+		*val = (dm_plane_state->shaper_lut) ?
-+			dm_plane_state->shaper_lut->base.id : 0;
-+	} else if (property == adev->mode_info.plane_shaper_tf_property) {
-+		*val = dm_plane_state->shaper_tf;
- 	} else 	if (property == adev->mode_info.plane_lut3d_property) {
- 		*val = (dm_plane_state->lut3d) ?
- 			dm_plane_state->lut3d->base.id : 0;
++	} else {
++		drm_dbg_atomic(crtc->dev,
++			       "[CRTC:%d:%s] unknown property [PROP:%d:%s]]\n",
++			       crtc->base.id, crtc->name,
++			       property->base.id, property->name);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int
++amdgpu_dm_atomic_crtc_get_property(struct drm_crtc *crtc,
++				   const struct drm_crtc_state *state,
++				   struct drm_property *property,
++				   uint64_t *val)
++{
++	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
++	struct dm_crtc_state *acrtc_state = to_dm_crtc_state(state);
++
++	if (property == adev->mode_info.regamma_tf_property)
++		*val = acrtc_state->regamma_tf;
++	else
++		return -EINVAL;
++
++	return 0;
++}
++#endif
++
+ /* Implemented only the options currently available for the driver */
+ static const struct drm_crtc_funcs amdgpu_dm_crtc_funcs = {
+ 	.reset = dm_crtc_reset_state,
+@@ -307,6 +372,10 @@ static const struct drm_crtc_funcs amdgpu_dm_crtc_funcs = {
+ #if defined(CONFIG_DEBUG_FS)
+ 	.late_register = amdgpu_dm_crtc_late_register,
+ #endif
++#ifdef AMD_PRIVATE_COLOR
++	.atomic_set_property = amdgpu_dm_atomic_crtc_set_property,
++	.atomic_get_property = amdgpu_dm_atomic_crtc_get_property,
++#endif
+ };
+ 
+ static void dm_crtc_helper_disable(struct drm_crtc *crtc)
+@@ -470,6 +539,9 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
+ 
+ 	drm_mode_crtc_set_gamma_size(&acrtc->base, MAX_COLOR_LEGACY_LUT_ENTRIES);
+ 
++#ifdef AMD_PRIVATE_COLOR
++	dm_crtc_additional_color_mgmt(&acrtc->base);
++#endif
+ 	return 0;
+ 
+ fail:
 -- 
 2.40.1
 
