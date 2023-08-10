@@ -4,43 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F10AFC001B0
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 19:23:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30517C001DE
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 19:36:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E93F10E5F2;
-	Thu, 10 Aug 2023 19:23:56 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87AEE10E5EF;
- Thu, 10 Aug 2023 19:23:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=dcuRWjKEibu5/0vjSaykxKjeqvQgt2SPzDx/e4NVNvc=; b=XqtCUJC7LDhNyQMtH8Jj9RzZ18
- WtDOO7H0+xFyDiaruEhXLmN8wER5+9/ifQLTZt1F6EeP385ZQFuBDwdscfJjUqgjqazyHXyPyUYMF
- ljNui/3agCH426yetDYS+HYR5VmlWWkaBRhihcg0KsnbD8AWULVbp+nvx9y3fMRpyaWBM03KjI0yc
- iYVmibZpeD47K2R3Y39YKSt8OPg5VINi+T/wJ3LHmrVYgue0XE43RKVCfABk3+KX13IdDtAmeSpBG
- gYcMMtsFgCWdgqBcAYKSQu00nd8zMbDYXu4ALs2rH6c8/EQgVrhiF9gXvc0K8Y/GgSQrzfH+Z/yjc
- yIK3ZPlw==;
-Received: from [191.193.179.209] (helo=steammachine.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qUBGA-00Gp5H-VE; Thu, 10 Aug 2023 21:23:51 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [RESEND v3 5/5] drm/amdgpu: Create version number for coredumps
-Date: Thu, 10 Aug 2023 16:23:30 -0300
-Message-ID: <20230810192330.198326-6-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230810192330.198326-1-andrealmeid@igalia.com>
-References: <20230810192330.198326-1-andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD5A010E5D8;
+	Thu, 10 Aug 2023 19:36:05 +0000 (UTC)
+Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
+ [IPv6:2607:f8b0:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66A5110E5D8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Aug 2023 19:36:04 +0000 (UTC)
+Received: by mail-ot1-x332.google.com with SMTP id
+ 46e09a7af769-6bcb5df95c5so1176129a34.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Aug 2023 12:36:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1691696163; x=1692300963;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ykWm2eRmQk7s6zbZPdLdkyvf+pdb6tW5Uxthzg0I2Oo=;
+ b=dr4FO9JjUKHqZwxM+aYACEnNNgfaSgRrxJMbXhfnoFj7MAjRbvsvhGrVDyGU7wTqJa
+ 34RX4vgIiCGjK8jfUltqRo5stPItSGfOWh59n5HVzol0HCzVPIKRUWY3++VbaIZofJ3F
+ HFyxbmVMjbZhBXm1yrjKAJrVsYKG8JuZHuYINV0FoDblA866xhoUjwYgZ9XKMJfRVKTq
+ ZH+rjn4c+pTSPlY89QUSm5hs9NrJuhTSoh/Y/eAXxmn+GiWKrUjfG1ZgRhwrvkd2itl5
+ nr3VpfZXJrlzBgXk8D761Eh+fQkKOoac2Tl5Cv/siFUyus3Y9rFJ13f9RSXSnmbyzEg9
+ us8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691696163; x=1692300963;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ykWm2eRmQk7s6zbZPdLdkyvf+pdb6tW5Uxthzg0I2Oo=;
+ b=ECmD3O1l0Y1w9s6JH6RbjTTFnept6JyyEAgTidhlXzrfS8UupuPgBx2TpQY5kr1zre
+ VGkxKUWA2JNlqIAv+W3yCouvrsGLhiw7QwAcMbzGKcj+rEyxsYu+GAVuToe2xGeGUKbS
+ bUfg7i/8yaNsXZokNFcV1WBxeWRcBVo6CJ11bfX8C3NllFKHo10rvlCambNwj38Ug57b
+ VePl41NMlQ7/09hdNQEORY/iDlnJj12hAOu713qI51ACgXCvuNUuotXZmVKZruTj51Fi
+ iQdrStkaHFs18ZW7j9LWdfIv8PHxDho9VlyaLpSqRtKfL0GCZbLg4unnBFMLPjDK7TWD
+ sPGg==
+X-Gm-Message-State: AOJu0YyA7JYVHsX3HVL3sc+i/y96C/wCyW/HL/YRb+MtvgT8UFsBzNAc
+ nOcIKa8mZZEf9qL9kRetQEb2hRYyev50jJGQJkE=
+X-Google-Smtp-Source: AGHT+IHLFK6rl5g54TNw1PmCBOr5GBUmQHsuZXYtP8SkfuCzcoZQ3Lp6kDvD13o2lcStZskamhLPq0ftjW3L8vTHj0o=
+X-Received: by 2002:a05:6870:184e:b0:1be:ceca:c666 with SMTP id
+ u14-20020a056870184e00b001bececac666mr4013677oaf.14.1691696163282; Thu, 10
+ Aug 2023 12:36:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20230727181048.1222388-1-alexander.deucher@amd.com>
+In-Reply-To: <20230727181048.1222388-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 10 Aug 2023 15:35:51 -0400
+Message-ID: <CADnq5_PqB9Tehv_+c+cV9_8h3fm-b6+f39HLzQrXB54MTYGkkA@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] Add GPU page fault query interface
+To: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,55 +67,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>, kernel-dev@igalia.com,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, alexander.deucher@amd.com,
- christian.koenig@amd.com
+Cc: samuel.pitoiset@gmail.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Even if there's nothing currently parsing amdgpu's coredump files, if
-we eventually have such tools they will be glad to find a version field
-to properly read the file.
+Ping?
 
-Create a version number to be displayed on top of coredump file, to be
-incremented when the file format or content get changed.
-
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h | 3 +++
- 2 files changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-index b02b56193447..202c101772a8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-@@ -192,6 +192,7 @@ static ssize_t amdgpu_devcoredump_read(char *buffer, loff_t offset,
- 	p = drm_coredump_printer(&iter);
- 
- 	drm_printf(&p, "**** AMDGPU Device Coredump ****\n");
-+	drm_printf(&p, "version: " AMDGPU_COREDUMP_VERSION "\n");
- 	drm_printf(&p, "kernel: " UTS_RELEASE "\n");
- 	drm_printf(&p, "module: " KBUILD_MODNAME "\n");
- 	drm_printf(&p, "time: %lld.%09ld\n", coredump->reset_time.tv_sec, coredump->reset_time.tv_nsec);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-index 362954521721..7b6767ca8127 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-@@ -88,6 +88,9 @@ struct amdgpu_reset_domain {
- };
- 
- #ifdef CONFIG_DEV_COREDUMP
-+
-+#define AMDGPU_COREDUMP_VERSION "1"
-+
- struct amdgpu_coredump_info {
- 	struct amdgpu_device		*adev;
- 	struct amdgpu_task_info         reset_task_info;
--- 
-2.41.0
-
+On Thu, Jul 27, 2023 at 2:11=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
+>
+> This patch set adds support for an application to query GPU
+> page faults.  It's useful for debugging and there are
+> vulkan extensions that could make use of this.  Preliminary
+> user space code which uses this can be found here:
+> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/23238
+> https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/298
+>
+> Note, that I made a small change to the vmhub definition to
+> decouple it from how the kernel tracks vmhubs so that we have
+> a consistent user view even if we decide to add more vmhubs
+> like we recently did for gfx 9.4.3.
+>
+> I've also pushed the changed to:
+> https://gitlab.freedesktop.org/agd5f/linux/-/commits/gpu_fault_info_ioctl
+>
+> Open question, currently we just expose the raw GPU fault status
+> register value for each GPU so UMDs need GPU specific knowlege to decode
+> it, although it's largely the same across generations.  One option would =
+be to
+> translate to a generic GPU independent fault status.  Opinions?
+>
+> v2:
+> - Fix spelling typos noted by Guchun
+> v3:
+> - Add locking in IOCTL query
+> - Only update cache if fault status is valid
+>
+> Alex Deucher (4):
+>   drm/amdgpu: add cached GPU fault structure to vm struct
+>   drm/amdgpu: cache gpuvm fault information for gmc7+
+>   drm/amdgpu: add new INFO ioctl query for the last GPU page fault
+>   drm/amdgpu: refine fault cache updates
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  3 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 20 ++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 50 +++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  | 31 +++++++++++++--
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  3 ++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  |  3 ++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   |  3 ++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   |  3 ++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 11 ++++--
+>  include/uapi/drm/amdgpu_drm.h           | 16 ++++++++
+>  10 files changed, 135 insertions(+), 8 deletions(-)
+>
+> --
+> 2.41.0
+>
