@@ -4,52 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10181C04A6A
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 15:43:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89621C001B0
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 16:03:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A7AD10E565;
-	Thu, 10 Aug 2023 15:43:54 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF9210E55B;
- Thu, 10 Aug 2023 15:41:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=LZZwhU2q9tKRTuT4LMGtkLl/YytlWdJV5ADQ7yyf884=; b=nzCVWxdZKZwPPVrpb79vDihKKN
- YQMNeNih7Df6L+pZOvTjw50y9FCJs6aH8rL8h5X2REST5vdC3Wq9YdRoE5xnf6hw68vx0zt8985/4
- +9cDPaBlKuKeAHsCvu3wOh/4f+NA8FgH2SNngUajJxMQhE16KsGIQEWgQG79GUlXunzjgzLhpAOr+
- SYDCVy0iFP1vRNzRSbC+T0oIVVz6F2RvcjiMZYX3czR+nm5oLvCNzwtupO+DnMacrLMCIbCpZMS31
- kUka0xfiEZR78ZR0A8ZecYiCVpTdwXhUWyz2kMWRbBUeMIq9zHuWNHz7b8W60+R7DbtqAwg0Ryp6u
- XrPT05iA==;
-Received: from [2601:1c2:980:9ec0::2764]
- by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1qU7mf-0084NA-10; Thu, 10 Aug 2023 15:41:09 +0000
-Message-ID: <efb2d30c-3945-a63d-9a3f-7cf39124f76a@infradead.org>
-Date: Thu, 10 Aug 2023 08:41:07 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D92F10E563;
+	Thu, 10 Aug 2023 16:03:24 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44F5C10E563;
+ Thu, 10 Aug 2023 16:03:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=1ZkrkzsbuDn6Ki1sNBsgFBc2KIlDw7V9vazQKEOOkr0=; b=FnlpVud881qz1Zord/JNfyqLXP
+ eIJbNxUa9nn/7PG+cUpzSwN8JYtrEOGMGB60j2xMo1pd+sJzjq8fyTrZGwvfldeDhY3eWBQlnataR
+ KsyPZHFlHortwXUhOl27DnXi6zp2cNmIelJVI+zoE2vkhDQ+8ji6ZqWg9gqcfYEjjn6WG3WnwGAZg
+ Rb2cLDvWgeJij4870aGVvM6C2Ju/EbERQ/xDbOaQcqUv4YAL8XsUpieqQTqNXY6ZHmD1Px7jMcUG7
+ Om65q+ngtpQU1rYf1/Pa7pklBjerSF+bsGY/fO0j1gNWmyWfBfuu7G5vN1k3Epxex9TA++ZyCBnep
+ q4Mi5fEw==;
+Received: from [38.44.68.151] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1qU887-00GjYD-Qs; Thu, 10 Aug 2023 18:03:20 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch
+Subject: [PATCH v2 01/34] drm/amd/display: fix segment distribution for linear
+ LUTs
+Date: Thu, 10 Aug 2023 15:02:41 -0100
+Message-Id: <20230810160314.48225-2-mwen@igalia.com>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230810160314.48225-1-mwen@igalia.com>
+References: <20230810160314.48225-1-mwen@igalia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH V8 1/9] drivers core: Add support for Wifi band RF
- mitigations
-Content-Language: en-US
-To: Evan Quan <evan.quan@amd.com>, rafael@kernel.org, lenb@kernel.org,
- Alexander.Deucher@amd.com, Christian.Koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, johannes@sipsolutions.net,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, Mario.Limonciello@amd.com, mdaenzer@redhat.com,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, hdegoede@redhat.com,
- jingyuwang_vip@163.com, Lijo.Lazar@amd.com, jim.cromie@gmail.com,
- bellosilicio@gmail.com, andrealmeid@igalia.com, trix@redhat.com,
- jsg@jsg.id.au, arnd@arndb.de, andrew@lunn.ch
-References: <20230810073803.1643451-1-evan.quan@amd.com>
- <20230810073803.1643451-2-evan.quan@amd.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20230810073803.1643451-2-evan.quan@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 10 Aug 2023 15:43:51 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,37 +55,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: Sebastian Wick <sebastian.wick@redhat.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
+ linux-kernel@vger.kernel.org, kernel-dev@igalia.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Harry Wentland <harry.wentland@amd.com>
 
+The region and segment calculation was incapable of dealing
+with regions of more than 16 segments. We first fix this.
 
-On 8/10/23 00:37, Evan Quan wrote:
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index a1457995fd41..21f73a0bbd0b 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -7152,3 +7152,12 @@
->  				xmon commands.
->  			off	xmon is disabled.
->  
-> +	wbrf=		[KNL]
-> +			Format: { on | auto | off }
-> +			Controls if WBRF features should be enabled or disabled
-> +			forcely. Default is auto.
+Now that we can support regions up to 256 elements we can
+define a better segment distribution for near-linear LUTs
+for our maximum of 256 HW-supported points.
 
-"forcely" is not a word. "forcedly" is a word, but it's not used very much
-AFAIK.
-I would probably write "Controls if WBRF features should be forced on or off."
+With these changes an "identity" LUT looks visually
+indistinguishable from bypass and allows us to use
+our 3DLUT.
 
-> +			on	Force enable the WBRF features.
-> +			auto	Up to the system to do proper checks to
-> +				determine the WBRF features should be enabled
-> +				or not.
-> +			off	Force disable the WBRF features.
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ .../amd/display/dc/dcn10/dcn10_cm_common.c    | 93 +++++++++++++++----
+ 1 file changed, 75 insertions(+), 18 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
+index 3538973bd0c6..04b2e04b68f3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_cm_common.c
+@@ -349,20 +349,37 @@ bool cm_helper_translate_curve_to_hw_format(struct dc_context *ctx,
+ 		 * segment is from 2^-10 to 2^1
+ 		 * There are less than 256 points, for optimization
+ 		 */
+-		seg_distr[0] = 3;
+-		seg_distr[1] = 4;
+-		seg_distr[2] = 4;
+-		seg_distr[3] = 4;
+-		seg_distr[4] = 4;
+-		seg_distr[5] = 4;
+-		seg_distr[6] = 4;
+-		seg_distr[7] = 4;
+-		seg_distr[8] = 4;
+-		seg_distr[9] = 4;
+-		seg_distr[10] = 1;
++		if (output_tf->tf == TRANSFER_FUNCTION_LINEAR) {
++			seg_distr[0] = 0; /* 2 */
++			seg_distr[1] = 1; /* 4 */
++			seg_distr[2] = 2; /* 4 */
++			seg_distr[3] = 3; /* 8 */
++			seg_distr[4] = 4; /* 16 */
++			seg_distr[5] = 5; /* 32 */
++			seg_distr[6] = 6; /* 64 */
++			seg_distr[7] = 7; /* 128 */
++
++			region_start = -8;
++			region_end = 1;
++		} else {
++			seg_distr[0] = 3; /* 8 */
++			seg_distr[1] = 4; /* 16 */
++			seg_distr[2] = 4;
++			seg_distr[3] = 4;
++			seg_distr[4] = 4;
++			seg_distr[5] = 4;
++			seg_distr[6] = 4;
++			seg_distr[7] = 4;
++			seg_distr[8] = 4;
++			seg_distr[9] = 4;
++			seg_distr[10] = 1; /* 2 */
++			/* total = 8*16 + 8 + 64 + 2 = */
++
++			region_start = -10;
++			region_end = 1;
++		}
++
+ 
+-		region_start = -10;
+-		region_end = 1;
+ 	}
+ 
+ 	for (i = region_end - region_start; i < MAX_REGIONS_NUMBER ; i++)
+@@ -375,16 +392,56 @@ bool cm_helper_translate_curve_to_hw_format(struct dc_context *ctx,
+ 
+ 	j = 0;
+ 	for (k = 0; k < (region_end - region_start); k++) {
+-		increment = NUMBER_SW_SEGMENTS / (1 << seg_distr[k]);
++		/*
++		 * We're using an ugly-ish hack here. Our HW allows for
++		 * 256 segments per region but SW_SEGMENTS is 16.
++		 * SW_SEGMENTS has some undocumented relationship to
++		 * the number of points in the tf_pts struct, which
++		 * is 512, unlike what's suggested TRANSFER_FUNC_POINTS.
++		 *
++		 * In order to work past this dilemma we'll scale our
++		 * increment by (1 << 4) and then do the inverse (1 >> 4)
++		 * when accessing the elements in tf_pts.
++		 *
++		 * TODO: find a better way using SW_SEGMENTS and
++		 *       TRANSFER_FUNC_POINTS definitions
++		 */
++		increment = (NUMBER_SW_SEGMENTS << 4) / (1 << seg_distr[k]);
+ 		start_index = (region_start + k + MAX_LOW_POINT) *
+ 				NUMBER_SW_SEGMENTS;
+-		for (i = start_index; i < start_index + NUMBER_SW_SEGMENTS;
++		for (i = (start_index << 4); i < (start_index << 4) + (NUMBER_SW_SEGMENTS << 4);
+ 				i += increment) {
++			struct fixed31_32 in_plus_one, in;
++			struct fixed31_32 value, red_value, green_value, blue_value;
++			uint32_t t = i & 0xf;
++
+ 			if (j == hw_points - 1)
+ 				break;
+-			rgb_resulted[j].red = output_tf->tf_pts.red[i];
+-			rgb_resulted[j].green = output_tf->tf_pts.green[i];
+-			rgb_resulted[j].blue = output_tf->tf_pts.blue[i];
++
++			in_plus_one = output_tf->tf_pts.red[(i >> 4) + 1];
++			in = output_tf->tf_pts.red[i >> 4];
++			value = dc_fixpt_sub(in_plus_one, in);
++			value = dc_fixpt_shr(dc_fixpt_mul_int(value, t),  4);
++			value = dc_fixpt_add(in, value);
++			red_value = value;
++
++			in_plus_one = output_tf->tf_pts.green[(i >> 4) + 1];
++			in = output_tf->tf_pts.green[i >> 4];
++			value = dc_fixpt_sub(in_plus_one, in);
++			value = dc_fixpt_shr(dc_fixpt_mul_int(value, t),  4);
++			value = dc_fixpt_add(in, value);
++			green_value = value;
++
++			in_plus_one = output_tf->tf_pts.blue[(i >> 4) + 1];
++			in = output_tf->tf_pts.blue[i >> 4];
++			value = dc_fixpt_sub(in_plus_one, in);
++			value = dc_fixpt_shr(dc_fixpt_mul_int(value, t),  4);
++			value = dc_fixpt_add(in, value);
++			blue_value = value;
++
++			rgb_resulted[j].red = red_value;
++			rgb_resulted[j].green = green_value;
++			rgb_resulted[j].blue = blue_value;
+ 			j++;
+ 		}
+ 	}
 -- 
-~Randy
+2.40.1
+
