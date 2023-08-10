@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 607C3C04FE1
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 16:04:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2B50C04E69
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 16:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75BCC10E598;
-	Thu, 10 Aug 2023 16:04:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D89110E596;
+	Thu, 10 Aug 2023 16:04:16 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CB2710E596;
- Thu, 10 Aug 2023 16:04:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A589710E599;
+ Thu, 10 Aug 2023 16:04:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,25 +19,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=iSvY5eK5ZdZKmH4pP/lmxSlVsRs8T9hbslg1Fi3LMRU=; b=rJwMoA6+tB4RLXyBpSSetkamz1
- WyDZoxRgxsgLQgbnuDWCM8QpqbY4YNCm0ZfpuqVMctMAPiNd7lWvGFmOOimzyR8wuje7W8ZNRgVUL
- sCgwHgZ/8apJGsvd/xW0mkiqfYunRAeXh1EWfDyEG3m+iS+eNBsk3/X08Gttwlnvr3INCXFf4QXNB
- 10EeKZbhQqucanGI30BIw2BjNuD+jREW+/gtEJJAkzPcWNG5XnpckHD4x5o9bjgTMmg4uF1HRfuXt
- TGtxKxtpWUk3uIFEwmVZvTyQtS+24REXdQ459Bz6MAxvnQq2u+VSl49RroIDbLQhcVAqWmmM58hFu
- iT4ffeEw==;
+ bh=Zx7yJ4Ad0TZAyaZMbxtN+7OCsengXDNbg3eEroH3FTQ=; b=qAkItGssn6WOj5lPPFJir2BzZt
+ 4ke4xp//wNsuDA4eR6to0REDaK3PED7MQgYsqNrPUImxfpPZ0H9PURuPcbDjQGYMVPkSeySBJgrI+
+ zThSpunYRPKykU1Mjx5NLK6KaHfXNxRYZ3MMgmv6UR37vwU/ey70Vi7J+i8fjb9J0lVRgTMFFT/KN
+ oZu4kxlFKE6N20Hij+2D9Z4nyUenlkFuKIRj43/fBqbKj7Eo5KdqIE7MQlUaEN6sT7ry4wEuKxo3U
+ Bf40Ys8IASTZ0rvejOONZTxeCqZNKqtWTEiYdqeCyEM/A+c9siSp7bygFeR35Et/FamSHg2Wl7sx4
+ R5SHYE3A==;
 Received: from [38.44.68.151] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qU88t-00GjYD-UP; Thu, 10 Aug 2023 18:04:08 +0200
+ id 1qU88y-00GjYD-7a; Thu, 10 Aug 2023 18:04:12 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch
-Subject: [PATCH v2 23/34] drm/amd/display: add HDR multiplier support
-Date: Thu, 10 Aug 2023 15:03:03 -0100
-Message-Id: <20230810160314.48225-24-mwen@igalia.com>
+Subject: [PATCH v2 25/34] drm/amd/display: add plane shaper TF support
+Date: Thu, 10 Aug 2023 15:03:05 -0100
+Message-Id: <20230810160314.48225-26-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230810160314.48225-1-mwen@igalia.com>
 References: <20230810160314.48225-1-mwen@igalia.com>
@@ -64,52 +64,68 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joshua Ashton <joshua@froggi.es>
-
-With `dc_fixpt_from_s3132()` translation, we can just use it to set
-hdr_mult.
+Enable usage of predefined transfer func in addition to shaper 1D LUT.
+That means we can save some complexity by just setting a predefined
+curve, instead of programming a custom curve when preparing color space
+for applying 3D LUT.
 
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Joshua Ashton <joshua@froggi.es>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c       | 1 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 3 +++
- 2 files changed, 4 insertions(+)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c   | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 3e5aa1e46662..9fcc169fb87b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8060,6 +8060,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			bundle->surface_updates[planes_count].gamma = dc_plane->gamma_correction;
- 			bundle->surface_updates[planes_count].in_transfer_func = dc_plane->in_transfer_func;
- 			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
-+			bundle->surface_updates[planes_count].hdr_mult = dc_plane->hdr_mult;
- 		}
- 
- 		amdgpu_dm_plane_fill_dc_scaling_info(dm->adev, new_plane_state,
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index db771c895720..15f7304d8f33 100644
+index 958bb5a5644d..90ec09ca4118 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -902,6 +902,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 				      struct drm_plane_state *plane_state,
- 				      struct dc_plane_state *dc_plane_state)
+@@ -599,19 +599,22 @@ amdgpu_tf_to_dc_tf(enum amdgpu_transfer_function tf)
+ }
+ 
+ static int amdgpu_dm_atomic_shaper_lut(const struct drm_color_lut *shaper_lut,
++				       bool has_rom,
++				       enum dc_transfer_func_predefined tf,
+ 				       uint32_t shaper_size,
+ 				       struct dc_transfer_func *func_shaper)
  {
-+	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
- 	bool has_crtc_cm_degamma;
+ 	int ret = 0;
+ 
+-	if (shaper_size) {
++	if (shaper_size || tf != TRANSFER_FUNCTION_LINEAR) {
+ 		/* If DRM shaper LUT is set, we assume a linear color space
+ 		 * (linearized by DRM degamma 1D LUT or not)
+ 		 */
+ 		func_shaper->type = TF_TYPE_DISTRIBUTED_POINTS;
+-		func_shaper->tf = TRANSFER_FUNCTION_LINEAR;
++		func_shaper->tf = tf;
++		func_shaper->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
+ 
+-		ret = __set_output_tf(func_shaper, shaper_lut, shaper_size, false);
++		ret = __set_output_tf(func_shaper, shaper_lut, shaper_size, has_rom);
+ 	} else {
+ 		func_shaper->type = TF_TYPE_BYPASS;
+ 		func_shaper->tf = TRANSFER_FUNCTION_LINEAR;
+@@ -958,6 +961,7 @@ amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
+ 				     struct dc_plane_state *dc_plane_state)
+ {
+ 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
++	enum amdgpu_transfer_function shaper_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	const struct drm_color_lut *shaper_lut;
+ 	uint32_t shaper_size;
  	int ret;
+@@ -970,8 +974,11 @@ amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
  
-@@ -912,6 +913,8 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 	/* After, we start to update values according to color props */
- 	has_crtc_cm_degamma = (crtc->cm_has_degamma || crtc->cm_is_degamma_srgb);
+ 	shaper_lut = __extract_blob_lut(dm_plane_state->shaper_lut, &shaper_size);
+ 	shaper_size = shaper_lut != NULL ? shaper_size : 0;
++	shaper_tf = dm_plane_state->shaper_tf;
  
-+	dc_plane_state->hdr_mult = dc_fixpt_from_s3132(dm_plane_state->hdr_mult);
-+
- 	ret = __set_dm_plane_degamma(plane_state, dc_plane_state);
- 	if (ret == -ENOMEM)
- 		return ret;
+-	ret = amdgpu_dm_atomic_shaper_lut(shaper_lut, shaper_size,
++	ret = amdgpu_dm_atomic_shaper_lut(shaper_lut, false,
++					  amdgpu_tf_to_dc_tf(shaper_tf),
++					  shaper_size,
+ 					  dc_plane_state->in_shaper_func);
+ 	if (ret)
+ 		drm_dbg_kms(plane_state->plane->dev,
 -- 
 2.40.1
 
