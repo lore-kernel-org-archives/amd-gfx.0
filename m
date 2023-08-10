@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80D2AC04A94
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 03:40:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 724FDC001DE
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 03:40:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F57A10E638;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5E7810E637;
 	Fri, 11 Aug 2023 03:40:52 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2063.outbound.protection.outlook.com [40.107.220.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D05A10E631
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Aug 2023 03:40:49 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2062.outbound.protection.outlook.com [40.107.93.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 981B910E630
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Aug 2023 03:40:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kS0/LYx7P5yURT8MtG4AVIl07dElgAcR5M1hUicZe6dEgL1bVtnLYjkRStw30aynmNAZfdhjCCZGxHkav7rbVVJuFaUwqLxYIeij0hC4+rCguTBlUNioHzaTap1AGOVHWBuWbn5V7T+2QB9PfHcNJZqyg7XwHTnSCh44mM3qkij0yl9+AG+eKOyZ3Zoaq7qROumEShNGb89GgxzrtMDxMfR66f3kjemqpi/ZFSaAXSTOddSDTar+T1jBvh4pvl+Rl1XJ/FLKMkqfHvp4tUGsenrWDC6N2R/t8RtaUfy2tDGd5fQa9c+zcxc7y3uF/5EPivbDuVdjub+qx4/xOzpiUw==
+ b=KcUyrlu1R0IeSMKX2+OJ6SZ9hNSkqeYJmGpqlpm+ESHQlkQzCM5kLKEdXZ0cWGTE8Qfp/1Lq7Ukv+CjGRda0SrDmYiJQdgNkYpUnicbYj01y2JnJNm3PFm9UpIAvb9ycBjzpcniQl/CruOJJKD6VDEapOA1S4yyIO4fIhiD9flkD+cWeIBLHac+Kq+0FV3SrMzqPJF5iyyrLIq246Eoc3UpFVBqUjjbj0UaLaqy20Cby6FrVxmpFbl14pTLDLPrQgrIrrWIE20df4rW1lBCuLpFayhzyJKyaaaI7222cCV500tvCLEG7E2dRcmbh28PKMrd+4QPD8ILeMqwz7NH8FA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wxjZohQu8GjLEB8YE2vR5NQVayL+AzdK+sUleMkNw3k=;
- b=lwlpg4uyPnHlocmktMlpGXrFqur69uJRHeCw0mfs/n9ZMsauwCzqxf3L5wqX2EXorPrM3l49BS75IuajvZ9pncP71QSfdTiv0BPVMhjzXQS9Xz0Jw44TI/aN+3A3Sv7MgKDQ62smcaK0FexMupsVFPIBsH0o9gR5APsWCDitIXZtxrGCfzuCC1IpS00fofPg79I5vflU/xC5Gy2QD8l1f4Asu1V0251a44OHX6xkKZIKT8o6Uckaxc6MzyNq1XCEz7naYo6niEr6JXWXhgQrv233ETlInTo7nuyyvotIt3p7HiYSKqju9tiWzcBSAu+0c8/h6o8wxf8vCVuGoaEhoQ==
+ bh=+Llx0GNFhACNYbeXguxuaeXBTkvDit8z5TDx7eYrlpo=;
+ b=TeAdd0/ZCg+qYw+m2oxGmu2hAttq+OHdIBokm2Xwz12pMlHKbkOAClJPIuUU5z/lLsRbwX+Q4t6D9u8f+Iu5oQelqHHxxr5e1LsOmwZLDtxTFEOsg/hQk3eLxSUBtmIivsZ4hkaj6P9BVW8Or1S8VM7oTT5FDlL5vRk5S8VMZspiGdJSLtich9Yk+AtNCrqzggcnr2MuFQvqSNsk5cOqTs747LrjQ9Y4/sCQvtKCg/4InLmM1c1xVVCbv+pJS5P4sAqUHVJSgqoE0JYKlTXjUXxj+PZ2dmqwscga1I9fp8Bi+iCPQO6wisd35bnAzkWtQUQ4wySMe6r95gTL0oXr3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wxjZohQu8GjLEB8YE2vR5NQVayL+AzdK+sUleMkNw3k=;
- b=XJuVQ1iX8ay9YZqLGISDvPTbgPvMnpACvejfxcf3o7yrszinfSrtGg5NLGy21j4KXZL3v6ZEFqSBmeVaPXnMPTCekNtpg5gVnjNG1Hr2FPwRQ4zl6NZbRFej6LfqYdyh9GNOt2/F4pIgMp0NVckk/xrD8h6eyGPVrj9wDBXuFKo=
-Received: from SA1PR02CA0017.namprd02.prod.outlook.com (2603:10b6:806:2cf::23)
- by DM4PR12MB7527.namprd12.prod.outlook.com (2603:10b6:8:111::13) with
+ bh=+Llx0GNFhACNYbeXguxuaeXBTkvDit8z5TDx7eYrlpo=;
+ b=RLDu4xZeTpYJmRWEhnz4xzin+MVSe9jis7PRX1w5lLUaezM8FWLMCcQkA1cqs9WH+g4OwiuoVuSk3Q2z/NO9wFcUgmohiQk8WDoBVCrSMrhoS+nRfjDN5VPWVqMIOLkPA65lkaeigTTwcIfH+WKaR6Zi1x4j9wgUudKiqufYryk=
+Received: from SA1PR02CA0006.namprd02.prod.outlook.com (2603:10b6:806:2cf::15)
+ by DM6PR12MB4284.namprd12.prod.outlook.com (2603:10b6:5:21a::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30; Fri, 11 Aug
- 2023 03:40:47 +0000
+ 2023 03:40:48 +0000
 Received: from SN1PEPF0002636B.namprd02.prod.outlook.com
- (2603:10b6:806:2cf:cafe::13) by SA1PR02CA0017.outlook.office365.com
- (2603:10b6:806:2cf::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.31 via Frontend
- Transport; Fri, 11 Aug 2023 03:40:47 +0000
+ (2603:10b6:806:2cf:cafe::47) by SA1PR02CA0006.outlook.office365.com
+ (2603:10b6:806:2cf::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30 via Frontend
+ Transport; Fri, 11 Aug 2023 03:40:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SN1PEPF0002636B.mail.protection.outlook.com (10.167.241.136) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6652.19 via Frontend Transport; Fri, 11 Aug 2023 03:40:47 +0000
+ 15.20.6652.19 via Frontend Transport; Fri, 11 Aug 2023 03:40:48 +0000
 Received: from SITE-L-T34-2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 10 Aug
  2023 22:40:12 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 7/9] drm/amd: Show both power attributes for vega20
-Date: Thu, 10 Aug 2023 05:32:00 -0500
-Message-ID: <20230810103202.141225-7-mario.limonciello@amd.com>
+Subject: [PATCH 8/9] drm/amd: Rename AMDGPU_PP_SENSOR_GPU_POWER
+Date: Thu, 10 Aug 2023 05:32:01 -0500
+Message-ID: <20230810103202.141225-8-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230810103202.141225-1-mario.limonciello@amd.com>
 References: <20230810103202.141225-1-mario.limonciello@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002636B:EE_|DM4PR12MB7527:EE_
-X-MS-Office365-Filtering-Correlation-Id: 92043e11-0bc9-42d7-72c4-08db9a1cbfd5
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636B:EE_|DM6PR12MB4284:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f94498a-d2c8-49d0-1b1a-08db9a1cc0a0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BqTco3whaY5Sfxk6yb8mKlpgCdZVt0SZcFd73gc4IMKIHD2QQJL4hiOvc1VzzIYko5RhjtD+Kdm2cq6hOtc5Cbiwb0Prn35PZyVoIVjgZnHmdCbPnvbE3O6PcbPHKsnVxyuE0vKPPpZMEVbp3NqqDa8Im4e+aURkgHFgHtbGEwEy5o+SWHfLeDbnuUmzopAlUxATw6OdCaLCfhx2hLXiRfHQa7gUygYcB02dLYjfNnpMjI7WqPyF28laFkZ3ANCnfB2HhujS+1HwbJe7/uu0fMehp1+FrlY6nEW05pv9mGZIkAFDa/F9TSfM/g2Uj67lwZOY650iI40Uz/0Cl4Ngn0Nwm8x+LWMAeeYY6/r0JqvftO+C8+xzrekCOXSPqlbjE4MB7njLLmMWFc3JvKrGXmpj9UAIArRXsQTa9GBEBSPpnevUjw//dzCAjsDN/SG/D+vswvhjm+t0XRl+WRYjmeJoOHYLCcfpFsZjiIGIKcrAJ9KVvGwjvuRVlL7ietPxTsyAjUPnfuT6ssok8lq90ScPFzp5x/e8AlsZ7bLihO8OEKQWSbb1Str/4ZPyyn2fsOMSkQ3mIFsXJZW1Bvwt6cyQFhMV6kw1m1rMDybSeqWSS5a74Ik/kI7ZTOu78LnAf0FZrO4Jxp6knvrgqxJGQXDRmlLjsiVDSydx6AuIk2dH9EMBZAaEmaPoQAFTNLw+08U6n3v7oR+n3GYUYnNlLLaBT9fs6CQh/PC5wXdkj45VcJ9B2xEXnvDNf3yDTjEAoe16badDGa/NQrFOnoG09Q==
+X-Microsoft-Antispam-Message-Info: ZeU0OXCPa2Jp3N15FuuA58U+89GuqkgeHxObcA7dKsnd8zdMljmNwItqB6LUGbG0dL8GjJfjLmID2iwWMGEQHlueLjZZQDLL7HNo8qWJzS/LhnnQTwNfgZkNO+ODLPM5ebrG6j5eEzkKvN+bIvA0pt4ZUnmBiZ1Qa6WVjLZjAvPrmMrXG2S0Z6XUzkBeo0C0XjVTrQ3orpo5I7YrMVox0MrpilGQwI38YS/ov2K48i+Hdkd+ZNbA/PCozXZ72M4Pjxm70mYFDao4SBefEAUuK0hScYreZMxZJ+miRWQnQ8HuiaNsqH3zK1WOvINKB/hYfTQWXrVM5CdZB4idLR3YfGX4j+dd8vVVKaO8GPw1HpwfibTYZz2ZgIbocAqes5vO1l9mQkH4TEFjz9soZ9UjnY4hwCYBW72f3PoQMRPt36wBLuwclj0SmyXemrMf/I0ii7pRS4IYRED+59ApyvI0HjjTJzRdcreLndGAF7/953WyymUhR/Za3jLQJ8ujMiGb0oYLb1aUBH2d5OV9P5y+TyBkTA+APAGlqiZ2eMt2Vd8WYvgnPaswm3iLuR1OXlJDof0oc9o1Nmzqqee6CvWAqEIo+63Lgnk4F8J8RY4zhNwMrg2BFMffi6xfzRqRyukr9SsQMXwpDjgdF+qsQNYodilN8Oq9xQfUbrvETdTT5cHe9CQbC4XLKzBD+p9wr4eKXehftibN+A4HabEsIPQdGNwEq6AYQgkYjYX8ukIJqd2CkJBMQsrlWo/AvL+rzkwfUTvKiqHLoOMqJMJBmVfavg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(39860400002)(396003)(136003)(376002)(1800799006)(186006)(82310400008)(451199021)(40470700004)(46966006)(36840700001)(426003)(2616005)(6666004)(478600001)(356005)(26005)(1076003)(7696005)(82740400003)(81166007)(70206006)(70586007)(83380400001)(36860700001)(336012)(16526019)(6916009)(4326008)(47076005)(44832011)(316002)(40460700003)(8936002)(8676002)(5660300002)(66899021)(41300700001)(2906002)(36756003)(40480700001)(86362001)(36900700001);
+ SFS:(13230028)(4636009)(136003)(376002)(396003)(346002)(39860400002)(82310400008)(186006)(1800799006)(451199021)(46966006)(36840700001)(40470700004)(36860700001)(47076005)(26005)(44832011)(1076003)(16526019)(336012)(7696005)(6666004)(356005)(82740400003)(83380400001)(478600001)(2616005)(36756003)(426003)(81166007)(316002)(41300700001)(40460700003)(8676002)(8936002)(86362001)(5660300002)(2906002)(30864003)(6916009)(70586007)(4326008)(70206006)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2023 03:40:47.0786 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92043e11-0bc9-42d7-72c4-08db9a1cbfd5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2023 03:40:48.3912 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f94498a-d2c8-49d0-1b1a-08db9a1cc0a0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636B.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7527
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4284
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,60 +103,263 @@ Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Vega20 can offer average power in some versions of the PMFW and current
-power in others.
+Use the clearer name `AMDGPU_PP_SENSOR_GPU_AVG_POWER` instead.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c  | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c                 | 2 +-
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h          | 2 +-
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                      | 4 ++--
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c   | 4 ++--
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c       | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c         | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c        | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c         | 1 +
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c      | 1 +
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c    | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c    | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c    | 1 +
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c    | 1 +
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c    | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c    | 1 +
+ 17 files changed, 19 insertions(+), 14 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 631c5ab3f7dc5..99f4df133ed3e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1019,7 +1019,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		case AMDGPU_INFO_SENSOR_GPU_AVG_POWER:
+ 			/* get average GPU power */
+ 			if (amdgpu_dpm_read_sensor(adev,
+-						   AMDGPU_PP_SENSOR_GPU_POWER,
++						   AMDGPU_PP_SENSOR_GPU_AVG_POWER,
+ 						   (void *)&ui32, &ui32_size)) {
+ 				return -EINVAL;
+ 			}
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index 6582cdf2736f3..84c5224d994c4 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -132,7 +132,7 @@ enum amd_pp_sensors {
+ 	AMDGPU_PP_SENSOR_MEM_TEMP,
+ 	AMDGPU_PP_SENSOR_VCE_POWER,
+ 	AMDGPU_PP_SENSOR_UVD_POWER,
+-	AMDGPU_PP_SENSOR_GPU_POWER,
++	AMDGPU_PP_SENSOR_GPU_AVG_POWER,
+ 	AMDGPU_PP_SENSOR_GPU_INPUT_POWER,
+ 	AMDGPU_PP_SENSOR_SS_APU_SHARE,
+ 	AMDGPU_PP_SENSOR_SS_DGPU_SHARE,
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index bb42851592291..8133d968f75b9 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -2796,7 +2796,7 @@ static ssize_t amdgpu_hwmon_show_power_avg(struct device *dev,
+ {
+ 	unsigned int val;
+ 
+-	val = amdgpu_hwmon_get_power(dev, AMDGPU_PP_SENSOR_GPU_POWER);
++	val = amdgpu_hwmon_get_power(dev, AMDGPU_PP_SENSOR_GPU_AVG_POWER);
+ 	if (val < 0)
+ 		return val;
+ 
+@@ -3460,7 +3460,7 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_file *m, struct amdgpu_device *a
+ 	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_VDDNB, (void *)&value, &size))
+ 		seq_printf(m, "\t%u mV (VDDNB)\n", value);
+ 	size = sizeof(uint32_t);
+-	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_POWER, (void *)&query, &size))
++	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_AVG_POWER, (void *)&query, &size))
+ 		seq_printf(m, "\t%u.%u W (average GPU)\n", query >> 8, query & 0xff);
+ 	size = sizeof(value);
+ 	seq_printf(m, "\n");
 diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-index b6dd7f8daf725..ad40395be6028 100644
+index ad40395be6028..3b33af30eb0fb 100644
 --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
 +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
-@@ -2129,7 +2129,7 @@ static int vega20_get_metrics_table(struct pp_hwmgr *hwmgr,
- 	return ret;
- }
- 
--static int vega20_get_gpu_power(struct pp_hwmgr *hwmgr,
-+static int vega20_get_gpu_power(struct pp_hwmgr *hwmgr, int idx,
- 		uint32_t *query)
- {
- 	int ret = 0;
-@@ -2140,10 +2140,17 @@ static int vega20_get_gpu_power(struct pp_hwmgr *hwmgr,
- 		return ret;
+@@ -2141,7 +2141,7 @@ static int vega20_get_gpu_power(struct pp_hwmgr *hwmgr, int idx,
  
  	/* For the 40.46 release, they changed the value name */
--	if (hwmgr->smu_version == 0x282e00)
--		*query = metrics_table.AverageSocketPower << 8;
--	else
-+	switch (idx) {
-+	case AMDGPU_PP_SENSOR_GPU_POWER:
-+		if (hwmgr->smu_version == 0x282e00)
-+			*query = metrics_table.AverageSocketPower << 8;
-+		else
-+			ret = -EOPNOTSUPP;
-+		break;
-+	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
- 		*query = metrics_table.CurrSocketPower << 8;
-+		break;
-+	}
- 
- 	return ret;
- }
-@@ -2253,9 +2260,10 @@ static int vega20_read_sensor(struct pp_hwmgr *hwmgr, int idx,
+ 	switch (idx) {
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 		if (hwmgr->smu_version == 0x282e00)
+ 			*query = metrics_table.AverageSocketPower << 8;
+ 		else
+@@ -2260,7 +2260,7 @@ static int vega20_read_sensor(struct pp_hwmgr *hwmgr, int idx,
  		*((uint32_t *)value) = data->vce_power_gated ? 0 : 1;
  		*size = 4;
  		break;
-+	case AMDGPU_PP_SENSOR_GPU_POWER:
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
  	case AMDGPU_PP_SENSOR_GPU_INPUT_POWER:
  		*size = 16;
--		ret = vega20_get_gpu_power(hwmgr, (uint32_t *)value);
-+		ret = vega20_get_gpu_power(hwmgr, idx, (uint32_t *)value);
+ 		ret = vega20_get_gpu_power(hwmgr, idx, (uint32_t *)value);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+index e5f629a23db6b..704a2b577a0e2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
+@@ -1130,7 +1130,7 @@ static int arcturus_read_sensor(struct smu_context *smu,
+ 						    (uint32_t *)data);
+ 		*size = 4;
  		break;
- 	case AMDGPU_PP_SENSOR_VDDGFX:
- 		val_vid = (RREG32_SOC15(SMUIO, 0, mmSMUSVI0_TEL_PLANE0) &
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 		ret = arcturus_get_smu_metrics_data(smu,
+ 						    METRICS_AVERAGE_SOCKETPOWER,
+ 						    (uint32_t *)data);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+index 4840e4d69b106..9548bd3c624bd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c
+@@ -212,7 +212,7 @@ static int cyan_skillfish_read_sensor(struct smu_context *smu,
+ 		*(uint32_t *)data *= 100;
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 		ret = cyan_skillfish_get_smu_metrics_data(smu,
+ 						   METRICS_AVERAGE_SOCKETPOWER,
+ 						   (uint32_t *)data);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index 06474bbb73829..18487ae10bcff 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -2202,7 +2202,7 @@ static int navi10_read_sensor(struct smu_context *smu,
+ 						  (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 		ret = navi1x_get_smu_metrics_data(smu,
+ 						  METRICS_AVERAGE_SOCKETPOWER,
+ 						  (uint32_t *)data);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 6dead62095bb1..4bb289f9b4b8b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -1902,7 +1902,7 @@ static int sienna_cichlid_read_sensor(struct smu_context *smu,
+ 							  (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 		ret = sienna_cichlid_get_smu_metrics_data(smu,
+ 							  METRICS_AVERAGE_SOCKETPOWER,
+ 							  (uint32_t *)data);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index 8a2c9c7abea6d..201cec5998428 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -1540,7 +1540,7 @@ static int vangogh_read_sensor(struct smu_context *smu,
+ 						   (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 		ret = vangogh_common_get_smu_metrics_data(smu,
+ 						   METRICS_AVERAGE_SOCKETPOWER,
+ 						   (uint32_t *)data);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+index 7b5ccb935fc01..c8119491c5161 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
+@@ -1315,6 +1315,7 @@ static int renoir_read_sensor(struct smu_context *smu,
+ 						  (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+index 1341363ab01a8..cc3169400c9b0 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+@@ -1148,6 +1148,7 @@ static int aldebaran_read_sensor(struct smu_context *smu,
+ 							     (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 		ret = aldebaran_get_smu_metrics_data(smu,
+ 						     METRICS_AVERAGE_SOCKETPOWER,
+ 						     (uint32_t *)data);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 3af4f3aa1eb2a..93d21cdd613ba 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -947,7 +947,7 @@ static int smu_v13_0_0_read_sensor(struct smu_context *smu,
+ 						       (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 		ret = smu_v13_0_0_get_smu_metrics_data(smu,
+ 						       METRICS_AVERAGE_SOCKETPOWER,
+ 						       (uint32_t *)data);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
+index 0951659299c15..626591f54bc49 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c
+@@ -572,7 +572,7 @@ static int smu_v13_0_4_read_sensor(struct smu_context *smu,
+ 						       (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 		ret = smu_v13_0_4_get_smu_metrics_data(smu,
+ 						       METRICS_AVERAGE_SOCKETPOWER,
+ 						       (uint32_t *)data);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
+index 5f8e70d4c467e..c6e7c2115a262 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c
+@@ -388,6 +388,7 @@ static int smu_v13_0_5_read_sensor(struct smu_context *smu,
+ 						       (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index af4375f50c72c..f697059feed3c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -1210,6 +1210,7 @@ static int smu_v13_0_6_read_sensor(struct smu_context *smu,
+ 		ret = smu_v13_0_get_gfx_vdd(smu, (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index 0b899b9a718f3..ae4b911d9057e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -928,7 +928,7 @@ static int smu_v13_0_7_read_sensor(struct smu_context *smu,
+ 						       (uint32_t *)data);
+ 		*size = 4;
+ 		break;
+-	case AMDGPU_PP_SENSOR_GPU_POWER:
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 		ret = smu_v13_0_7_get_smu_metrics_data(smu,
+ 						       METRICS_AVERAGE_SOCKETPOWER,
+ 						       (uint32_t *)data);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+index 14fe45d3b7b7d..2e74d749efdd2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c
+@@ -479,6 +479,7 @@ static int yellow_carp_read_sensor(struct smu_context *smu,
+ 						       (uint32_t *)data);
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_GPU_AVG_POWER:
+ 	default:
+ 		ret = -EOPNOTSUPP;
+ 		break;
 -- 
 2.34.1
 
