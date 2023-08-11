@@ -4,118 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B3C1C0015E
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 21:13:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D64EBC0015E
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 21:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDFA410E11E;
-	Fri, 11 Aug 2023 21:13:57 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4E6310E11E
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Aug 2023 21:13:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A77D10E6FE;
+	Fri, 11 Aug 2023 21:16:20 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::60e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40E6610E10E;
+ Fri, 11 Aug 2023 21:16:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XCP3fjGTIFtHG1ZIOybGKooIrtGLc41Q6+oQVS0ieL2YZOYCEOUCBLyLq4YalVjYVusL9KG0CNppQHTSrbr/H9ZGFTbVdXZ3iEI8wtVwEpFL49hun5kEDnhfhlgWOF1t2Woe+4xhbxq0BEPnG63ycm1MjYmN3+jYL8csQuDNra4lIdEiiY+sRqUx9qbWBW0dUgmvlwWKC5P9bj+7IRGFP1i+vRDJwYU9DS3tx8CoFK59TBb3RRMEjdLt7b7Z6hfDBHKw3MMJ66cuzZYmdDnc9xgcQ9aa5d5uoDrFEH6kAwL3jRER1wsTsnAT/RtwP37iEsysHi4B7iEYjwS50ryTyw==
+ b=oX8IQu3btj/qmAcoFt99D9/G9RQOBCwDwk2JL/rapMGhvklu3zYpm4mmG0Hx/gyrXY1zNMzgwgUV44t8XlJU/JyuRUnrhGJb+OWoPS6W99HhUczNCjqNzyI0HyXIpHF0H3r8MKyMAD8tL5nkuWhl5EEX+aRARPpU9TDDLNNC+2TGY8RqYUza2YUu53Xl0XGvgmoesEDo5YwTnLmZaUyJcYzdP/nd8zA2s1cKGnAGeGSyy/Mqi8BEwzYFPCE8heuuON0j6Rq0IuvDvCTdtk1eYeSa1x0j/2PHb/I5PRLmm8D08DOfnvjEcHZl4+NIPgIGqVO2KGSJEms2KsTNr2CftA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TVfUYIQo9S7Tact3DtvzQVktZurXPiGOHMfzfZNoSHU=;
- b=VAkQFB2FdRK4Kk9drAjzoWAtuhfBPZ8fZXrtspyb6tiQXsyWAx7z5RvrrmhyUOKWS4v27FijipBgnQxGYgStpjJsh0ZdCntH1uEAmHHdolQnRj0TmRnjnOEUUf27mdDCClmXIiCs4i+pyELqvM2ChKf/o0DqHi5KYz7CV4m5LxyHQliBLQY8hzqXRXQ0itxdkFMIvwjqZpCvtTRKbcSV3q1Vmro9YBA4I/a9g45O5mbD+sskH4WBEFg/vlwhhRvU6iP//3ZUXr+6p5SqiZFOevACLC0+mK8k2hlItizgxT4237kETLEKhruvsPAq5DB7JqdUmodgibIf8mz2S6+4bQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=PYerrvK0cc33YTqQQ7ILt5u2kCiI+dWpv6yAC7o+Yh0=;
+ b=K+l9R66gA+S5ExpUhxN8l7gAOEl66Og3XZoJM6twyM28oOeCpNcTbecX/jnEeUHEd0UypBN66+RrHMSVgkeT1LRT8T19xtjOp17U22+uMDuhSmEdyB82QdGj8aooWy7VH8aQ0CcUfBLp/+FrAwVFbBKC18R1/MGmdU7UZE8wGsvZhLRIPUYiA5csSYYxcFfAuZaO52jn3ccLx/A1qx3y7BsxuHD/ZfPdsfKUiXP4yy62xjrkPJpnN17H+CvUQxxULvEj4qULRdeFUnFLx9OYNp7uzmh4ytJ3oPu0hPLJh2/B9IXwndjBK9H8ppX+Z+nqVu0UuDbp0IDGmw1dGKSjhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TVfUYIQo9S7Tact3DtvzQVktZurXPiGOHMfzfZNoSHU=;
- b=wuB0zc7Mk3SOpXcKlG7hr+/cC2RdGq9UIRUYuLIq9j6WBc1R0lwubSShupBsfjFtCKLXQ8qexuxckXPiem/49bR2cz47ZBfiFRi+a9mVLptqdD/99M+t7GgcssBgw2+814YcDgI6Sq7L5YVVd9CQNgBNVLl9AfLueIuChIc3dmE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by SA0PR12MB7004.namprd12.prod.outlook.com (2603:10b6:806:2c0::6)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=PYerrvK0cc33YTqQQ7ILt5u2kCiI+dWpv6yAC7o+Yh0=;
+ b=nFuP0gW+O6FMciQ6hMMRASEk+OshIlHYSdJxUvsre+uv2U5UR00vUFQ5/cq0RZUICINUN0YfkzF481oS4fmV+QoBEVTsfODI5cwLNrEiXvAi2VnPapjQOwf7eSvdbCXkp1Sn02C24+0Wwl1LTajsHCP/UQowibean9wL0kMekYM=
+Received: from DM6PR14CA0044.namprd14.prod.outlook.com (2603:10b6:5:18f::21)
+ by DM6PR12MB5519.namprd12.prod.outlook.com (2603:10b6:5:1b5::18) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30; Fri, 11 Aug
- 2023 21:13:53 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb%4]) with mapi id 15.20.6678.020; Fri, 11 Aug 2023
- 21:13:53 +0000
-Message-ID: <c240cec7-d391-60fb-1530-2f81089214d3@amd.com>
-Date: Fri, 11 Aug 2023 17:13:50 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] drm/amdkfd: add schedule to remove RCU stall on CPU
-Content-Language: en-US
-To: James Zhu <jamesz@amd.com>, James Zhu <James.Zhu@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230811191108.1808648-1-James.Zhu@amd.com>
- <41b68fb8-378d-6f6d-c653-d6c2b106d8d3@amd.com>
- <b93161c3-3f90-d6b0-6c89-2cbd8e2e75f8@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <b93161c3-3f90-d6b0-6c89-2cbd8e2e75f8@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0186.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:f::29) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ 2023 21:16:13 +0000
+Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
+ (2603:10b6:5:18f:cafe::6e) by DM6PR14CA0044.outlook.office365.com
+ (2603:10b6:5:18f::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.31 via Frontend
+ Transport; Fri, 11 Aug 2023 21:16:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6652.19 via Frontend Transport; Fri, 11 Aug 2023 21:16:12 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 11 Aug
+ 2023 16:16:11 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu, amdkfd, radeon, drm_buddy drm-next-6.6
+Date: Fri, 11 Aug 2023 17:15:54 -0400
+Message-ID: <20230811211554.7804-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SA0PR12MB7004:EE_
-X-MS-Office365-Filtering-Correlation-Id: c44e17e5-29c4-45cf-0b95-08db9aafdd9c
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|DM6PR12MB5519:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2391587f-b64a-4547-fa04-08db9ab030ef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KV3PbWlgM40o8WFoA3ak2T525ezexSP1lrQ/xQThumLk0qwY7ZtevbId2yd6smRx4koTLlrjYwFSRB09o3jEwFVsnuqM+O+on7/KwtPIq2M9YjUb2x/nNHOYLkVPaU1ocr3oBWNZg8CVZ6diJEsX1LF/d1/X8bkUdHauk1RIPEb/3DyCKqYAqMzTXu3j6KQcpg2HLJSmMVQbG96BJqzOuV+FbmkTG92fn2LjwyqBp1a9u/RyisHU7Vx+0fjlsdv+zu++DiPq0Ho72QAEvd5kfdpEicv/JVtowb9rNWaS1FmE/qnEFsecnukpooKgw+pGphGhuR3uQuH8gD+qBhXafQ/qO93GPlWiqqf2Wop2r8mgEtd3doLb8dgLAQHRnOD55e32JUJE40qN6KY399Ye7FBVuaag22kSvOt7NdhQ/FEcGiTYDHqeaLmLguZ91zINIrxbrRmay8etQ8VsM7ZYIugUq8UGZmlptkIQENy+2K4t8Obe9QI3I7LPvWf2/mbnuTJkoz8yQx/04JvS7k2fXYOvh7HIHpnECENLr5XHFcvi9dOPCVzh3Sy6HeOptdzYd4jtpx/Ab7Ln9x0xfB1JFk8T0mMmbCJQn/vPF1qaAjax3dUH3V+GpMkliGPIZDJ/J6wAyELwQuXerwuho+WsYCkeLHJlqDqpOkDhmB9kfAJrvAOlw6nR3kqQ7fkiQzhd
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(366004)(136003)(39860400002)(396003)(376002)(451199021)(1800799006)(186006)(38100700002)(66556008)(66946007)(66476007)(83380400001)(36756003)(5660300002)(8676002)(110136005)(8936002)(316002)(4326008)(2906002)(6486002)(31696002)(41300700001)(44832011)(86362001)(36916002)(6506007)(53546011)(31686004)(6512007)(478600001)(26005)(2616005)(43740500002)(45980500001)(460985005);
+X-Microsoft-Antispam-Message-Info: cCzKbetIpk19nbs84mTogrndyFdMXkEE1V6QujHRtVyHoUKQ5eMS4sjio/VjeQKk935HjAZ/HIsOlTtrIADIIxX0VT66wIV40ZNQIBbrYN/RYCK7vljJJxGhWavo1fmRXm3Kj8UO/6bmDW49RUW8aaQqjf1ELth1qa+QehFGUZpEW8omGEJTfGEbbdcw+tvgfI6iVNOkBDikL73xF+9vO0U+TsYhDLF3njFpgeIgPYhjax5tOl/3UksOmJU/byTmNkvQqABbRuoS+zutIJBt0RkgeIJS/S1RrBzDqvIKhMFQ6HIDT4ekfFgfNrImJx4NZy+O5jQo/e8nq0mqCNu1QrdfiHhd0oAPY1DxRpkLiphsXnEZPPvzNiEkRsIcNPhUaXGCjwVSWfEIjEwtkAxA2A5A0mIgw/mopEylPMj3ZxhlOm0LXID8eWzovSqjD7NmkCjlgY4Vk8qQBH2m0y1V7VgA3FcLp80tIX1yCGklGT8XATHPPW6YMdp9sIJXIf92ypleFc8v5pnFOmkOIobQsUCjjEaJ8xVuYGLqOpjdbuAILk/R4mtXMYTDZ9e8X5rztHAGnwkwEC18RE0UBQydPq8j0bB/Eus6eWGDPei+t4WyYO4C+/tahQIyoj0npeIGxytLY9H1RD+0v+uWPp7jvp0ZirCIsbhV0U+nup2b5jyZW+FxTJy1MoNIBve8CsTZCDpfHWGXkqMTfBbqyLRN0P+7yOx6podRwxivX3dgWtwFu0T0m3Ho3ZC6yEFIkzIW
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(39860400002)(396003)(346002)(376002)(1800799006)(186006)(451199021)(82310400008)(36840700001)(46966006)(40470700004)(36756003)(478600001)(110136005)(81166007)(16526019)(356005)(2616005)(336012)(4326008)(70206006)(70586007)(82740400003)(316002)(41300700001)(8936002)(8676002)(36860700001)(6666004)(5660300002)(26005)(7696005)(40480700001)(47076005)(83380400001)(30864003)(966005)(2906002)(1076003)(40460700003)(86362001)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MmlsY2dxbUYwMzBacXhzbzlUVnhwS0U0MjBYQjFnNytXdGFPWnFwR3VlRmow?=
- =?utf-8?B?UXJwVjNVMEliOTZmZ0sxMlI1alNqVVZSR3JLR3RKa2dDNWRIZmlpWEp4RWE1?=
- =?utf-8?B?cW9MVHZGcWFtOVZOS01SZGpjWjhCTll4VDdjaW5kM0JFZDRFWWFaUEVwdHcv?=
- =?utf-8?B?VmZGOE9hVFZLTEJ3Q1F4RWQzWE8yZ2llVFpuZ3VIajNEVCtPdFkrSGpBK1Rx?=
- =?utf-8?B?T1FuNUZUaHZ4Z3IvZWVPT3RjdGd0YzFPd3VIUElva2w5cXA5bnF6MlNCTkhH?=
- =?utf-8?B?cnd1ZzAxd1k1eWpaM0F3amMwZEEyZlgzcndVaHpEOWFDMWhIa3N1ZVNsMmJj?=
- =?utf-8?B?WHFiODcwd3oyL1dVTEswMVpjUWt0bWtROGpIb3V0WWRXb0NzYldrMVNQL0o4?=
- =?utf-8?B?T0EwN2Ztek92ck1SMTBSTVVPTGdwZVFqNm5vWkVjWVRTMUltOTNCZHJJMzhN?=
- =?utf-8?B?STNBbE5BOHI5SUtyV3ZLRnNKbSt3ejNJZ2k1SzBQb3hJaHlFTjM2ZVZYblhr?=
- =?utf-8?B?TmpNSFJLTDB4MytKZ3BYU0JIS2tGd3hZOUxibnV4bnJFZ1dOZThHakZTbDUv?=
- =?utf-8?B?Q3NlYStKNHR6ME5MaFdzazVSVnQwZHh6UTR1LzA5QWVJbVBWdFMrTUY4K2xQ?=
- =?utf-8?B?NDR3MjBlUlM0MllTbnhzNUdoTlQzVkorK0pabmdHaSsvdjdlUTRMT0NjTVg1?=
- =?utf-8?B?SHJmUkdmR1dEbWdodFdCcEJMbXNjdzB1cW1jcFMxVEpWUEhiWFFPc3d4YTZr?=
- =?utf-8?B?SGFtZVdHODJjOThQVUg4RDh5MitscFluRk9xYTBQQzFuWUJxWWpHem1HeDVY?=
- =?utf-8?B?UE1rNG9GN3J5UUErbys4Y25LMmpXMUdOMndmK2hPZnQ1YlJtNUtnZWhEN3RL?=
- =?utf-8?B?Q09kb1ZVVnA0VVFWZXB5MWo1algzdVg4YVF2eExwU1lvczloZkliSG1GTm9q?=
- =?utf-8?B?MU5ia21WK3dyY0FZdEY3R0Z2SHhHUUpnMEk3aUQ1ZXljeS9JSkRsMGFWdzN0?=
- =?utf-8?B?dVpZaDA4dzRJM29ubWVPaitGM2t0cmV4VVVSZjdNU2IwMjhIZVdhdldPVU5r?=
- =?utf-8?B?UUw2WE9RM2xuWXJvVXNVaHNwanRDSjhpMjFFVE9YT1BuVElzVXNpMDMySjAy?=
- =?utf-8?B?bVBXTzF4YWc5S0VZeHhVNFVCWFNPKzFqNUdZanROdjl5NlNWVWdiZ3V0Z2lr?=
- =?utf-8?B?UjgzNnpydjlRbXZtQ1B2RGZmYUxza3NGeEZnRnJxOXpIb1VuL3F6bHFpOTNH?=
- =?utf-8?B?N0ZsT2w5N2lVWVltamZRRzZhQTZ4VTVtQ0ZHcEpMZktBMHZSZDFmUnErOFk1?=
- =?utf-8?B?WEZ1TE1hT0Z6N1FGazkwVWliNk1maTBxOCt1YXlXeVFNMmx6MWVxcXI0NGtD?=
- =?utf-8?B?MDdGdVNSVWhZdE1uNGo0aDBHSldDdTFwOXpEbFVBdklMLzlKZnlNb0pxMXIx?=
- =?utf-8?B?anJkQUhGK1ErTi9jMmlwbXN4U1AvMnNFNjV0Qmg4aUxrK1hFSlIxUEh5ZG9G?=
- =?utf-8?B?Z0Q2M2VXZG55Qlk2c2RSNGNhT25QZndvUkZkQUZiN202WXZiR3FtZmlkb2tZ?=
- =?utf-8?B?WnFQbjZnQjdYYVBGTVIxTXcwejEwMU1NVlRsWmFOeDlxWGRvWEtDbUZWc1hv?=
- =?utf-8?B?N3JFUTJrOURVT3dWcHU1S3BhSU10ZURQK0JQaFZQOG1TTUw0MkZ0NXU2TmRu?=
- =?utf-8?B?MS9XaXJVc3RTWWIzUEdpTVJHTHA3VlVTNFlpc1lHY1NzMDFPMlByV3o1T01h?=
- =?utf-8?B?c0RFaDA3SmNBT0RRVVRRNWdGNGRSUTVpY2x1UGJySnBMTVJiZGZJaTVxKzY3?=
- =?utf-8?B?ZHVZZldqY0hGczcramtaYWhvNUNlYjYyZEp0Nkc0Vi9MNGtFQlRuUFRUOGtH?=
- =?utf-8?B?b0lNRldhQkdMNEM4TWl0aWJ0OXBrbnJudFcvYXZtVUdEVmtWeG0rSmxRbFFr?=
- =?utf-8?B?Y1NCMkxrUzZBRkZDbmIybnU0QUd5MWJtMzhWRmtEWkxvV05QamRRaWhPS2NE?=
- =?utf-8?B?VEZRd2V1dlhSVG9FK20zaFQzK2pSaXNleFRLL2RMUFJneUFudmtiK3I2aDFO?=
- =?utf-8?B?NjdlNm1LZmsrZnBzVnpVSWlaVTZZZnJJVkpYLzNNS0xzMmllSWR0akFVSEt4?=
- =?utf-8?Q?xRPIwW1uF4KGQddZZt9YCexnV?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c44e17e5-29c4-45cf-0b95-08db9aafdd9c
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2023 21:13:53.2497 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2023 21:16:12.7918 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2391587f-b64a-4547-fa04-08db9ab030ef
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dD/54gtMhop7nt58S+Y4oa08koEsdp9uy04hg+zIRGgvPkKvo1E29uTyQ8Nd5xlAw5H9tZqsL8rUl8GrsNYaBg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7004
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB5519
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,197 +99,607 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Roger.Madrid@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I don't understand why this loop is causing a stall. These stall 
-warnings indicate that there is an RCU grace period that's not making 
-progress. That means there must be an RCU read critical section that's 
-being blocked. But there is no RCU-read critical section in 
-svm_range_set_attr function. You mentioned the mmap-read-lock. But why 
-is that causing an issue? Does it trigger any of the conditions listed 
-in kernel/Documentation/RCU/stallwarn.rst?
+Hi Dave, Daniel,
 
--       A CPU looping in an RCU read-side critical section.
--       A CPU looping with interrupts disabled.
--       A CPU looping with preemption disabled.
--       A CPU looping with bottom halves disabled.
+New stuff for 6.6.
 
-Or is there another thread that has an mmap_write_lock inside an RCU 
-read critical section that's getting stalled by the mmap_read_lock?
+The following changes since commit d9aa1da9a8cfb0387eb5703c15bd1f54421460ac:
 
-Regards,
-   Felix
+  Merge tag 'drm-intel-gt-next-2023-08-04' of git://anongit.freedesktop.org/drm/drm-intel into drm-next (2023-08-07 13:49:25 +1000)
 
+are available in the Git repository at:
 
-On 2023-08-11 16:50, James Zhu wrote:
->
-> On 2023-08-11 16:06, Felix Kuehling wrote:
->>
->> On 2023-08-11 15:11, James Zhu wrote:
->>> update_list could be big in list_for_each_entry(prange, 
->>> &update_list, update_list),
->>> mmap_read_lock(mm) is kept hold all the time, adding schedule() can 
->>> remove
->>> RCU stall on CPU for this case.
->>>
->>> RIP: 0010:svm_range_cpu_invalidate_pagetables+0x317/0x610 [amdgpu]
->>
->> You're just showing the backtrace here, but not what the problem is. 
->> Can you include more context, e.g. the message that says something 
->> about a stall?
->
-> [JZ] I attached more log here, and update in patch later.
->
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: rcu: INFO: rcu_sched 
-> self-detected stall on CPU
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: rcu: #01134-....: 
-> (59947 ticks this GP) idle=7f6/1/0x4000000000000000 softirq=1735/1735 
-> fqs=29977
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: #011(t=60006 jiffies 
-> g=3265905 q=15150)
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: rcu: CPU 34: RCU dump 
-> cpu stacks:
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: NMI backtrace for cpu 34
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: CPU: 34 PID: 72044 
-> Comm: ncsd-it-hip.exe Kdump: loaded Tainted: G           OE 
-> 5.14.21-150400.24.46_12.0.83-cray_shasta_c #1 SLE15-SP4 (unreleased)
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: Hardware name: HPE 
-> HPE_CRAY_EX235A/HPE CRAY EX235A, BIOS 1.6.2 03-22-2023
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: Call Trace:
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: <IRQ>
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: dump_stack_lvl+0x44/0x5b
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> nmi_cpu_backtrace+0xdd/0xe0
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: ? 
-> lapic_can_unplug_cpu+0xa0/0xa0
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> nmi_trigger_cpumask_backtrace+0xfd/0x130
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> rcu_dump_cpu_stacks+0x13b/0x180
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> rcu_sched_clock_irq+0x6cb/0x930
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: ? 
-> trigger_load_balance+0x158/0x390
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: ? 
-> scheduler_tick+0xe1/0x290
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> update_process_times+0x8c/0xb0
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> tick_sched_handle.isra.21+0x1d/0x60
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: ? 
-> tick_sched_handle.isra.21+0x60/0x60
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> tick_sched_timer+0x67/0x80
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: ? 
-> tick_sched_handle.isra.21+0x60/0x60
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> __hrtimer_run_queues+0xa0/0x2b0
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> hrtimer_interrupt+0xe5/0x250
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> __sysvec_apic_timer_interrupt+0x62/0x100
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> sysvec_apic_timer_interrupt+0x4b/0x90
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: </IRQ>
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: <TASK>
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> asm_sysvec_apic_timer_interrupt+0x12/0x20
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: RIP: 
-> 0010:svm_range_cpu_invalidate_pagetables+0x317/0x610 [amdgpu]
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: Code: 00 00 00 bf 00 
-> 02 00 00 48 81 c2 90 00 00 00 e8 1f 6a b9 e0 65 48 8b 14 25 00 bd 01 
-> 00 8b 42 2c 48 8b 3c 24 80 e4 f7 0b 43 d8 <89> 42 2c e8 51 dd 2d e1 48 
-> 8b 7b 38 e8 98 29 b7 e0 48 83 c4 30 b8
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: RSP: 
-> 0018:ffffc9000ffd7b10 EFLAGS: 00000206
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: RAX: 0000000000000100 
-> RBX: ffff88c493968d80 RCX: ffff88d1a6469b18
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: RDX: ffff88e18ef1ec80 
-> RSI: ffffc9000ffd7be0 RDI: ffff88c493968d38
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: RBP: 000000000003062e 
-> R08: 000000003042f000 R09: 000000003062efff
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: R10: 0000000000001000 
-> R11: ffff88c1ad255000 R12: 000000000003042f
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: R13: ffff88c493968c00 
-> R14: ffffc9000ffd7be0 R15: ffff88c493968c00
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> __mmu_notifier_invalidate_range_start+0x132/0x1d0
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: ? 
-> amdgpu_vm_bo_update+0x3fd/0x520 [amdgpu]
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> migrate_vma_setup+0x6c7/0x8f0
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: ? 
-> kfd_smi_event_migration_start+0x5f/0x80 [amdgpu]
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> svm_migrate_ram_to_vram+0x14e/0x580 [amdgpu]
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> svm_range_set_attr+0xe34/0x11a0 [amdgpu]
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: kfd_ioctl+0x271/0x4e0 
-> [amdgpu]
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: ? 
-> kfd_ioctl_set_xnack_mode+0xd0/0xd0 [amdgpu]
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: __x64_sys_ioctl+0x92/0xd0
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: ? 
-> trace_hardirqs_on+0x2a/0xc0
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: do_syscall_64+0x42/0xc0
-> 2023-07-20T14:15:39-04:00 frontier06693 kernel: 
-> entry_SYSCALL_64_after_hwframe+0x61/0xcb
->
->>
->>
->>> Code: 00 00 00 bf 00 02 00 00 48 81 c2 90 00 00 00 e8 1f 6a b9 e0 65 
->>> 48 8b 14 25 00 bd 01 00 8b 42 2c 48 8b 3c 24 80 e4 f7 0b 43 d8 <89> 
->>> 42 2c e8 51 dd 2d e1 48 8b 7b 38 e8 98 29 b7 e0 48 83 c4 30 b8
->>> RSP: 0018:ffffc9000ffd7b10 EFLAGS: 00000206
->>> RAX: 0000000000000100 RBX: ffff88c493968d80 RCX: ffff88d1a6469b18
->>> RDX: ffff88e18ef1ec80 RSI: ffffc9000ffd7be0 RDI: ffff88c493968d38
->>> RBP: 000000000003062e R08: 000000003042f000 R09: 000000003062efff
->>> R10: 0000000000001000 R11: ffff88c1ad255000 R12: 000000000003042f
->>> R13: ffff88c493968c00 R14: ffffc9000ffd7be0 R15: ffff88c493968c00
->>> __mmu_notifier_invalidate_range_start+0x132/0x1d0
->>> ? amdgpu_vm_bo_update+0x3fd/0x520 [amdgpu]
->>> migrate_vma_setup+0x6c7/0x8f0
->>> ? kfd_smi_event_migration_start+0x5f/0x80 [amdgpu]
->>> svm_migrate_ram_to_vram+0x14e/0x580 [amdgpu]
->>> svm_range_set_attr+0xe34/0x11a0 [amdgpu]
->>> kfd_ioctl+0x271/0x4e0 [amdgpu]
->>> ? kfd_ioctl_set_xnack_mode+0xd0/0xd0 [amdgpu]
->>> __x64_sys_ioctl+0x92/0xd0
->>>
->>> Signed-off-by: James Zhu <James.Zhu@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 1 +
->>>   1 file changed, 1 insertion(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> index 113fd11aa96e..9f2d48ade7fa 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> @@ -3573,6 +3573,7 @@ svm_range_set_attr(struct kfd_process *p, 
->>> struct mm_struct *mm,
->>>           r = svm_range_trigger_migration(mm, prange, &migrated);
->>>           if (r)
->>>               goto out_unlock_range;
->>> +        schedule();
->>
->> I'm not sure that unconditionally scheduling here in every loop 
->> iteration is a good solution. This could lead to performance 
->> degradation when there are many small ranges. I think a better option 
->> is to call cond_resched. That would only reschedule only "if 
->> necessary", though I haven't quite figured out the criteria for 
->> rescheduling being necessary.
-> [JZ] you are right, small range will sacrifice performance.  but 
-> cond_resched has no guarantee to remove RCU stall CPU completely. 
-> Maybe we add own condition check here based on accumulated prange 
-> which ls processed.
->>
->> Regards,
->>   Felix
->>
->>
->>>             if (migrated && (!p->xnack_enabled ||
->>>               (prange->flags & 
->>> KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)) &&
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.6-2023-08-11
+
+for you to fetch changes up to 6be2ad4f0073c541146caa66c5ae936c955a8224:
+
+  drm/amdgpu: don't allow userspace to create a doorbell BO (2023-08-11 14:48:07 -0400)
+
+----------------------------------------------------------------
+amdgpu:
+- SDMA 6.1.0 support
+- SMU 13.x fixes
+- PSP 13.x fixes
+- HDP 6.1 support
+- SMUIO 14.0 support
+- IH 6.1 support
+- Coding style cleanups
+- Misc display fixes
+- Initial Freesync panel replay support
+- RAS fixes
+- SDMA 5.2 MGCG updates
+- SR-IOV fixes
+- DCN3+ gamma fix
+- Revert zpos properly until IGT regression is fixed
+- NBIO 7.9 fixes
+- Use TTM to manage the doorbell BAR
+- Async flip fix
+- DPIA tracing support
+- DCN 3.x TMDS HDMI fixes
+- FRU fixes
+
+amdkfd:
+- Coding style cleanups
+- SVM fixes
+- Trap handler fixes
+- Convert older APUs to use dGPU path like newer APUs
+- Drop IOMMUv2 path as it is no longer used
+
+radeon:
+- Coding style cleanups
+
+drm buddy:
+- Fix debugging output
+
+UAPI:
+- A new memory pool was added to amdgpu_drm.h since we converted doorbell BAR management to use TTM,
+  but userspace is blocked from allocating from it at this point, so kind of not really anything new
+  here per se
+
+----------------------------------------------------------------
+Alex Deucher (10):
+      drm/amdgpu: add UAPI for allocating doorbell memory
+      drm/amdgpu: accommodate DOMAIN/PL_DOORBELL
+      drm/amdgpu: fix possible UAF in amdgpu_cs_pass1()
+      drm/amdgpu/gfx11: only enable CP GFX shadowing on SR-IOV
+      drm/amdkfd: ignore crat by default
+      drm/amdkfd: disable IOMMUv2 support for KV/CZ
+      drm/amdkfd: disable IOMMUv2 support for Raven
+      drm/amdkfd: drop IOMMUv2 support
+      drm/amdkfd: rename device_queue_manager_init_v10_navi10()
+      drm/amdgpu: don't allow userspace to create a doorbell BO
+
+Alex Sierra (1):
+      drm/amdkfd: avoid unmap dma address when svm_ranges are split
+
+Alvin Lee (2):
+      drm/amd/display: Implement interface for notify cursor support change
+      drm/amd/display: Use max memclk variable when setting max memclk
+
+Aric Cyr (1):
+      drm/amd/display: Promote DC to 2.3.245
+
+Asad Kamal (2):
+      drm/amdgpu: Add pcie usage callback to nbio
+      drm/amdgpu: Add pci usage to nbio v7.9
+
+Austin Zheng (2):
+      drm/amd/display: Set Stream Update Flags in commit_state_no_check
+      drm/amd/display: Use DTBCLK as refclk instead of DPREFCLK
+
+Ben Li (2):
+      drm/amdgpu: add ih 6.1 registers
+      drm/amdgpu: add ih 6.1 support
+
+Bhawanpreet Lakha (6):
+      drm/amd/display: Add structs for Freesync Panel Replay
+      drm/amd/display: Add Functions to enable Freesync Panel Replay
+      drm/amd/display: Add Freesync Panel DM code
+      drm/amd/display: Read replay data from sink
+      drm/amd/display: Change HDCP update sequence for DM
+      drm/amd/display: Get replay info from VSDB
+
+Candice Li (1):
+      drm/amdgpu: Extend poison mode check to SDMA/VCN/JPEG
+
+Denis Arefev (1):
+      drm/amd/display: Return value of function
+
+Emily Deng (1):
+      drm/amdgpu/irq: Move irq resume to the beginning
+
+Evan Quan (1):
+      drm/amd/pm: disable the SMU13 OD feature support temporarily
+
+Fangzhi Zuo (1):
+      drm/amd/display: Temporary Disable MST DP Colorspace Property
+
+Hamza Mahfooz (1):
+      drm/amd/display: ensure async flips are only accepted for fast updates
+
+Hawking Zhang (4):
+      drm/amdgpu: Only create err_count sysfs when hw_op is supported
+      drm/amdgpu: Apply poison mode check to GFX IP only
+      drm/amdgpu: Remove gfx v11_0_3 ras_late_init call
+      drm/amdgpu: Issue ras enable_feature for gfx ip only
+
+Jay Cornwall (3):
+      drm/amdkfd: Sync trap handler binaries with source
+      drm/amdkfd: Relocate TBA/TMA to opposite side of VM hole
+      drm/amdkfd: Sign-extend TMA address in trap handler
+
+Joshua Aberback (1):
+      drm/amd/display: Clean up flip pending timeout handling
+
+Kenneth Feng (1):
+      drm/amd/pm: correct the pcie width for smu 13.0.0
+
+Leo Chen (3):
+      drm/amd/display: Revert "drm/amd/display: Read down-spread percentage from lut to adjust dprefclk."
+      drm/amd/display: Blocking invalid 420 modes on HDMI TMDS for DCN31
+      drm/amd/display: Blocking invalid 420 modes on HDMI TMDS for DCN314
+
+Lijo Lazar (7):
+      drm/amdgpu: Match against exact bootloader status
+      drm/amdgpu: Add pcie replay count callback to nbio
+      drm/amdgpu: Add pci replay count to nbio v7.9
+      drm/amdgpu: Use nbio callback for nv and soc21
+      drm/amd/pm: Fix SMU v13.0.6 energy reporting
+      drm/amdgpu: Report vbios version instead of PN
+      drm/amdgpu: Add FRU sysfs nodes only if needed
+
+Ma Jun (1):
+      drm/buddy: Fix drm buddy info output format
+
+Mario Limonciello (3):
+      drm/amd: Disable S/G for APUs when 64GB or more host memory
+      drm/amd/display: Don't show stack trace for missing eDP
+      drm/amd/display: Fix a regression on Polaris cards
+
+Martin Leung (1):
+      drm/amd/display: Promote DAL to 3.2.246
+
+Melissa Wen (1):
+      drm/amd/display: check attr flag before set cursor degamma on DCN3+
+
+Mike Hsieh (1):
+      drm/amd/display: Add vendor Id for reference
+
+Nicholas Choi (1):
+      Revert "drm/amd/display: Implement zpos property"
+
+Ori Messinger (1):
+      drm/amdgpu: Report Missing MES Firmware Versions with Sysfs
+
+Praful Swarnakar (2):
+      drm/amdgpu: Fix style issues in amdgpu_debugfs.c
+      drm/amdgpu: Fix style issues in amdgpu_psp.c
+
+Prike Liang (6):
+      drm/amdgpu/sdma6: initialize sdma 6.1.0
+      drm/amdgpu/discovery: enable sdma6 for SDMA 6.1.0
+      drm/amdgpu/discovery: add hdp 6.1.0 support
+      drm/amdgpu/discovery: add smuio 14.0.0 support
+      drm/amdgpu/discovery: add ih 6.1.0 support
+      drm/amdgpu: enable SDMA MGCG for SDMA 5.2.x
+
+Ran Sun (90):
+      drm/amd/pm: Clean up errors in smu_v11_0.h
+      drm/amd/pm: Clean up errors in smu_v13_0_7_ppt.c
+      drm/amd/pm: Clean up errors in smu_v13_0.c
+      drm/amd/pm: Clean up errors in aldebaran_ppt.c
+      drm/amd/pm: Clean up errors in smu_v13_0_6_ppt.c
+      drm/amd/pm: Clean up errors in smu_v13_0_5_ppt.c
+      drm/amd: Clean up errors in smu_v13_0_5_ppt.c
+      drm/amd/pm: Clean up errors in amdgpu_smu.c
+      drm/amd/pm: Clean up errors in amd_powerplay.c
+      drm/amd/pm: Clean up errors in vega10_baco.c
+      drm/amd/pm: Clean up errors in vega12_hwmgr.c
+      drm/amd/pm/powerplay/hwmgr/ppevvmath: Clean up errors in ppevvmath.h
+      drm/amd/pm: Clean up errors in smu10_hwmgr.c
+      drm/amd/pm: Clean up errors in fiji_baco.c
+      drm/amd/pm: Clean up errors in vega10_powertune.c
+      drm/amd/pm: Clean up errors in vega12_pptable.h
+      drm/amd/pm: Clean up errors in vega12_baco.c
+      drm/amdgpu: Clean up errors in smu7_powertune.c
+      drm/amdgpu: Clean up errors in common_baco.c
+      drm/amdgpu: Clean up errors in smu_helper.c
+      drm/amdgpu: Clean up errors in ci_baco.c
+      drm/amdgpu: Clean up errors in ppatomctrl.h
+      drm/amd/pm: Clean up errors in vega10_pptable.h
+      drm/amd: Clean up errors in smu7_hwmgr.c
+      drm/amd: Clean up errors in pptable_v1_0.h
+      drm/amd: Clean up errors in vega10_processpptables.c
+      drm/amdgpu/powerplay: Clean up errors in smu_helper.h
+      drm/amd/pm: Clean up errors in vega20_hwmgr.h
+      drm/amdgpu: Clean up errors in vega20_baco.c
+      drm/amdgpu/powerplay: Clean up errors in vega20_hwmgr.c
+      gpu: amd: Clean up errors in ppatomfwctrl.h
+      drm/amd/pm: Clean up errors in tonga_baco.c
+      drm/amd/pm/powerplay/hwmgr/hwmgr: Clean up errors in hwmgr.c
+      drm/amd/pm: Clean up errors in vega12_hwmgr.h
+      drm/amd/pm: Clean up errors in vega20_pptable.h
+      drm/amd/pm: Clean up errors in polaris_baco.c
+      drm/amd/pm: Clean up errors in smu9_driver_if.h
+      drm/amd/pm: Clean up errors in smu71.h
+      drm/amd/pm: Clean up errors in smu7_fusion.h
+      drm/amd/pm: Clean up errors in smu7.h
+      drm/amd/pm: Clean up errors in pp_thermal.h
+      drm/amd/pm: Clean up errors in hardwaremanager.h
+      drm/amd/pm: Clean up errors in hwmgr.h
+      drm/amd/pm: Clean up errors in smu73.h
+      drm/amd/pm: Clean up errors in smu75.h
+      drivers/amd/pm: Clean up errors in smu8_smumgr.h
+      drm/amd/pm: Clean up errors in r600_dpm.h
+      drm/amd/pm: Clean up errors in sislands_smc.h
+      drm/amd/pm: Clean up errors in amdgpu_pm.c
+      drm/amd/display: Clean up errors in color_gamma.c
+      drm/amd/display: Clean up errors in ddc_regs.h
+      drm/amd/dc: Clean up errors in hpd_regs.h
+      drm/amd/display: Clean up errors in dce110_timing_generator.c
+      drm/amd/display: Clean up errors in dce110_hw_sequencer.c
+      drm/amd/display: Clean up errors in dce112_hw_sequencer.c
+      drm/amd/display: Clean up errors in dcn315_smu.c
+      drm/amd/display: Clean up errors in dcn316_clk_mgr.c
+      drm/amd/display: Clean up errors in dcn316_smu.c
+      drm/amd/display: Clean up errors in bios_parser2.c
+      drm/amd/display: Clean up errors in dc_stream.c
+      drm/amd/display: Clean up errors in dcn10_dpp_dscl.c
+      drm/amd/display: Clean up errors in display_mode_vba_30.c
+      drm/amd/display: Clean up errors in dce_clk_mgr.c
+      drm/amdgpu: Clean up errors in cik_ih.c
+      drm/amdgpu: Clean up errors in vce_v3_0.c
+      drm/amdgpu: Clean up errors in amdgpu_psp.h
+      drm/amdgpu: Clean up errors in ih_v6_0.c
+      drm/amdgpu: Clean up errors in vega20_ih.c
+      drm/amdgpu: Clean up errors in mmhub_v9_4.c
+      drm/amdgpu/atomfirmware: Clean up errors in amdgpu_atomfirmware.c
+      drm/amdgpu: Clean up errors in uvd_v7_0.c
+      drm/jpeg: Clean up errors in jpeg_v2_0.c
+      drm/amdgpu: Clean up errors in dce_v10_0.c
+      drm/amdgpu: Clean up errors in mxgpu_nv.c
+      drm/amdgpu/jpeg: Clean up errors in vcn_v1_0.c
+      drm/amdgpu: Clean up errors in dce_v8_0.c
+      drm/amdgpu: Clean up errors in soc21.c
+      drm/amdgpu: Clean up errors in amdgpu_atombios.h
+      drm/amdgpu: Clean up errors in mes_v11_0.c
+      drm/amdgpu: Clean up errors in amdgpu_trace.h
+      drm/amdgpu: Clean up errors in amdgpu_ring.h
+      drm/amdgpu: Clean up errors in amdgpu_virt.c
+      drm/amdgpu: Clean up errors in nv.c
+      drm/amdgpu: Clean up errors in mxgpu_vi.c
+      drm/amdgpu: Clean up errors in uvd_v3_1.c
+      drm/amdgpu: Clean up errors in vcn_v4_0.c
+      drm/amdgpu: Clean up errors in gfx_v7_0.c
+      drm/amdgpu: Clean up errors in tonga_ih.c
+      drm/amdgpu: Clean up errors in vcn_v3_0.c
+      drm/amd/pm: Clean up errors in smu73_discrete.h
+
+Ruan Jinjie (2):
+      drm/amdgpu: Remove a lot of unnecessary ternary operators
+      drm/amd/pm: Remove many unnecessary NULL values
+
+Shashank Sharma (9):
+      drm/amdgpu: don't modify num_doorbells for mes
+      drm/amdgpu: initialize ttm for doorbells
+      drm/amdgpu: create kernel doorbell pages
+      drm/amdgpu: get absolute offset from doorbell index
+      drm/amdgpu: use doorbell mgr for kfd kernel doorbells
+      drm/amdgpu: use doorbell mgr for kfd process doorbells
+      drm/amdgpu: remove unused functions and variables
+      drm/amdgpu: use doorbell mgr for MES kernel doorbells
+      drm/amdgpu: cleanup MES process level doorbells
+
+Srinivasan Shanmugam (8):
+      drm/amdgpu: Cleanup amdgpu/amdgpu_cgs.c
+      drm/amdgpu: Sort the includes in amdgpu/amdgpu_drv.c
+      Revert "drm/radeon: Prefer dev_* variant over printk"
+      drm/amdgpu: Move vram, gtt & flash defines to amdgpu_ ttm & _psp.h
+      drm/amdgpu: Clean up style problems in mmhub_v2_3.c
+      Revert "drm/amdgpu: Prefer dev_* variant over printk in amdgpu_atpx_handler.c"
+      drm/amdgpu: Prefer pr_err/_warn/_notice over printk in amdgpu_atpx_handler.c
+      drm/amdgpu: Fix identation issues in 'kgd_gfx_v9_program_trap_handler_settings'
+
+Stylon Wang (2):
+      drm/amd/display: Add interface to enable DPIA trace
+      drm/amd/display: Enable DPIA trace with DC debug mask
+
+Taimur Hassan (2):
+      drm/amd/display: Add symclk enable/disable during stream enable/disable
+      drm/amd/display: Fix typo in enable and disable symclk_se
+
+Tao Zhou (1):
+      drm/amdgpu: add RAS fatal error handler for NBIO v7.9
+
+Tim Huang (1):
+      drm/amd/pm: skip the RLC stop when S0i3 suspend for SMU v13.0.4/11
+
+Uros Bizjak (1):
+      drm/amdgpu: Use local64_try_cmpxchg in amdgpu_perf_read
+
+Wenjing Liu (8):
+      drm/amd/display: fix a regression in blank pixel data caused by coding mistake
+      drm/amd/display: support plane clip with zero recout size
+      drm/amd/display: always acquire MPO pipe for every blending tree
+      drm/amd/display: update add plane to context logic with a new algorithm
+      drm/amd/display: adjust visual confirm dpp height offset to be 1/240 of v addressable
+      drm/amd/display: do not treat clip_rect size change as a scaling change
+      drm/amd/display: move idle pipe allocation logic into dcn specific layer
+      drm/amd/display: rename acquire_idle_pipe_for_layer to acquire_free_pipe_as_sec_dpp_pipe
+
+Wesley Chalmers (2):
+      drm/amd/display: Fix a bug when searching for insert_above_mpcc
+      drm/amd/display: Make mpc32 functions available to future DCNs
+
+Yang Wang (3):
+      drm/amd/pm: fix pp_dpm_sclk node not displaying correctly
+      drm/amd/pm: fix variable dereferenced issue in amdgpu_device_attr_create()
+      drm/amd/pm: update smu_v13_0_6 message vf flag
+
+Zhigang Luo (2):
+      drm/amdgpu: remove SRIOV VF FB location programming
+      drm/amdgpu: init TA microcode for SRIOV VF when MP0 IP is 13.0.6
+
+ drivers/gpu/drm/amd/amdgpu/Makefile                |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |   10 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h         |    7 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c  |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c       |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h       |    9 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c   |    8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c   |   22 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c           |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c            |   76 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  108 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |    7 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h       |   11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c   |  109 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   40 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c     |   89 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h     |    2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |    4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c            |  148 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h            |   16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c           |   16 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h           |    6 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |   11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h         |    2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c            |    5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |   29 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h            |   14 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |   70 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h     |    2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h           |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h          |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |   30 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h            |    4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c          |    3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |    2 +-
+ drivers/gpu/drm/amd/amdgpu/cik_ih.c                |    3 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c             |   30 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c              |   37 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |   34 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c              |   28 +-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c           |   16 -
+ drivers/gpu/drm/amd/amdgpu/ih_v6_0.c               |    6 +-
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c               |  769 +++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.h               |   28 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c             |    3 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c             |    2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c             |    2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c           |    2 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |    3 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c            |   12 -
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c            |   25 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c            |    4 +-
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c              |    6 +-
+ drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c              |    2 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c             |  270 ++++++
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.h             |    1 +
+ drivers/gpu/drm/amd/amdgpu/nv.c                    |   66 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c             |   15 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c             |   27 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c             |    1 +
+ drivers/gpu/drm/amd/amdgpu/soc15.c                 |    4 +-
+ drivers/gpu/drm/amd/amdgpu/soc21.c                 |   42 +-
+ drivers/gpu/drm/amd/amdgpu/tonga_ih.c              |    3 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c              |    3 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c              |    7 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c              |    9 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c              |    9 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c              |   13 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c              |   13 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c            |    2 +-
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c             |    6 +-
+ drivers/gpu/drm/amd/amdkfd/Kconfig                 |    1 -
+ drivers/gpu/drm/amd/amdkfd/Makefile                |    4 -
+ drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h     |  793 +++++++--------
+ .../gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm |    5 +
+ .../gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm  |    5 +
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |   22 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |   77 --
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.h              |    1 -
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c            |   52 -
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   22 +-
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.h  |    6 +-
+ .../drm/amd/amdkfd/kfd_device_queue_manager_cik.c  |   81 +-
+ .../drm/amd/amdkfd/kfd_device_queue_manager_v10.c  |    2 +-
+ .../drm/amd/amdkfd/kfd_device_queue_manager_v9.c   |    2 +-
+ .../drm/amd/amdkfd/kfd_device_queue_manager_vi.c   |  133 +--
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c          |  233 ++---
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c            |   82 --
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c       |   51 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_iommu.c             |  356 -------
+ drivers/gpu/drm/amd/amdkfd/kfd_iommu.h             |   84 --
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c           |    7 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c   |   27 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c    |   27 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |   45 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           |   56 +-
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |   23 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |   61 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h               |    2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c          |  111 +--
+ drivers/gpu/drm/amd/display/amdgpu_dm/Makefile     |    2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   81 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   14 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |   12 -
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c |   80 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |    2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |    9 -
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |  183 ++++
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h   |   46 +
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c |   32 +-
+ .../amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c |   32 +-
+ .../amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.h |    7 -
+ .../drm/amd/display/dc/clk_mgr/dcn315/dcn315_smu.c |   26 +-
+ .../amd/display/dc/clk_mgr/dcn316/dcn316_clk_mgr.c |    6 +-
+ .../drm/amd/display/dc/clk_mgr/dcn316/dcn316_smu.c |   18 +-
+ .../amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c   |    2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  125 +--
+ .../gpu/drm/amd/display/dc/core/dc_link_exports.c  |    5 +
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  589 +++++------
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |    3 +-
+ drivers/gpu/drm/amd/display/dc/dc.h                |   18 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c       |   29 +
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h       |    3 +
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h       |   29 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h          |   41 +
+ drivers/gpu/drm/amd/display/dc/dce/Makefile        |    2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c   |    2 +-
+ .../gpu/drm/amd/display/dc/dce/dce_link_encoder.c  |    6 +-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c   |  303 ++++++
+ drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h   |   58 ++
+ .../amd/display/dc/dce110/dce110_hw_sequencer.c    |   11 +-
+ .../drm/amd/display/dc/dce110/dce110_resource.c    |   12 +-
+ .../display/dc/dce110/dce110_timing_generator.c    |    4 +-
+ .../amd/display/dc/dce112/dce112_hw_sequencer.c    |    2 +-
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c  |    3 +-
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_mpc.c   |    5 +-
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_resource.c  |   15 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c |   25 +-
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |   15 +-
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.h  |    7 +-
+ .../drm/amd/display/dc/dcn201/dcn201_resource.c    |   15 +-
+ .../gpu/drm/amd/display/dc/dcn21/dcn21_resource.c  |    3 +-
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c   |    7 +-
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_resource.c  |    3 +-
+ .../drm/amd/display/dc/dcn301/dcn301_resource.c    |    2 +-
+ .../drm/amd/display/dc/dcn302/dcn302_resource.c    |    3 +-
+ .../drm/amd/display/dc/dcn303/dcn303_resource.c    |    3 +-
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_resource.c  |   15 +-
+ .../drm/amd/display/dc/dcn314/dcn314_resource.c    |   16 +-
+ .../drm/amd/display/dc/dcn315/dcn315_resource.c    |    3 +-
+ .../drm/amd/display/dc/dcn316/dcn316_resource.c    |    3 +-
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c  |    3 +-
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c   |   28 +-
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.h   |   61 ++
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.c  |  188 ++--
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.h  |    8 +-
+ .../drm/amd/display/dc/dcn321/dcn321_resource.c    |    2 +-
+ .../gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c   |    2 +-
+ .../amd/display/dc/dml/dcn30/display_mode_vba_30.c |    6 +-
+ .../amd/display/dc/dml/dcn31/display_mode_vba_31.c |    4 +-
+ .../display/dc/dml/dcn314/display_mode_vba_314.c   |    4 +-
+ drivers/gpu/drm/amd/display/dc/gpio/ddc_regs.h     |   40 +-
+ drivers/gpu/drm/amd/display/dc/gpio/hpd_regs.h     |   10 +-
+ drivers/gpu/drm/amd/display/dc/inc/core_types.h    |   57 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h       |   10 +
+ .../gpu/drm/amd/display/dc/inc/hw/stream_encoder.h |    1 +
+ drivers/gpu/drm/amd/display/dc/inc/link.h          |   14 +
+ drivers/gpu/drm/amd/display/dc/inc/resource.h      |   21 +-
+ .../amd/display/dc/link/accessories/link_dp_cts.c  |    2 +-
+ .../drm/amd/display/dc/link/hwss/link_hwss_dio.c   |    3 +
+ drivers/gpu/drm/amd/display/dc/link/link_factory.c |    7 +
+ .../display/dc/link/protocols/link_dp_capability.c |   10 +
+ .../dc/link/protocols/link_edp_panel_control.c     |  165 ++++
+ .../dc/link/protocols/link_edp_panel_control.h     |    8 +
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  430 +++++++++
+ .../drm/amd/display/include/ddc_service_types.h    |    1 +
+ drivers/gpu/drm/amd/display/include/dpcd_defs.h    |    5 +-
+ .../drm/amd/display/modules/color/color_gamma.c    |    5 +-
+ .../drm/amd/display/modules/power/power_helpers.c  |    5 +
+ .../drm/amd/display/modules/power/power_helpers.h  |    2 +
+ .../amd/include/asic_reg/nbio/nbio_7_9_0_sh_mask.h |    8 +
+ .../amd/include/asic_reg/oss/osssys_6_1_0_offset.h |  279 ++++++
+ .../include/asic_reg/oss/osssys_6_1_0_sh_mask.h    | 1019 ++++++++++++++++++++
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |   15 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c         |   48 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/r600_dpm.h       |    3 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/sislands_smc.h   |   63 +-
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c   |   16 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/ci_baco.c   |   21 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/common_baco.c   |    2 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/fiji_baco.c |   24 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/hwmgr.c     |    6 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/polaris_baco.c  |   30 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.h    |    6 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/ppatomfwctrl.h  |    3 +-
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppevvmath.h |   14 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/pptable_v1_0.h  |    3 +-
+ .../drm/amd/pm/powerplay/hwmgr/processpptables.c   |    2 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c   |   16 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |   30 +-
+ .../drm/amd/pm/powerplay/hwmgr/smu7_powertune.c    |   15 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.c    |    2 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu_helper.h    |    2 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/tonga_baco.c    |   30 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_baco.c   |   26 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |    9 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega10_powertune.c  |   89 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega10_pptable.h    |   18 +-
+ .../pm/powerplay/hwmgr/vega10_processpptables.c    |    6 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega12_baco.c   |   12 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c  |   10 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.h  |    3 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega12_pptable.h    |   11 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_baco.c   |    7 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c  |   12 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.h  |    6 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega20_pptable.h    |   19 +-
+ .../gpu/drm/amd/pm/powerplay/inc/hardwaremanager.h |    3 +-
+ drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h       |    8 +-
+ drivers/gpu/drm/amd/pm/powerplay/inc/pp_thermal.h  |    6 +-
+ drivers/gpu/drm/amd/pm/powerplay/inc/smu7.h        |    6 +-
+ drivers/gpu/drm/amd/pm/powerplay/inc/smu71.h       |   22 +-
+ drivers/gpu/drm/amd/pm/powerplay/inc/smu73.h       |   45 +-
+ .../gpu/drm/amd/pm/powerplay/inc/smu73_discrete.h  |   73 +-
+ drivers/gpu/drm/amd/pm/powerplay/inc/smu75.h       |   12 +-
+ drivers/gpu/drm/amd/pm/powerplay/inc/smu7_fusion.h |   42 +-
+ .../gpu/drm/amd/pm/powerplay/inc/smu9_driver_if.h  |   20 +-
+ .../gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c    |    2 +-
+ .../gpu/drm/amd/pm/powerplay/smumgr/fiji_smumgr.c  |    2 +-
+ .../drm/amd/pm/powerplay/smumgr/iceland_smumgr.c   |    2 +-
+ .../drm/amd/pm/powerplay/smumgr/polaris10_smumgr.c |    2 +-
+ .../gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c |    2 +-
+ .../gpu/drm/amd/pm/powerplay/smumgr/vegam_smumgr.c |    7 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |   27 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h       |    7 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c |   12 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     |    7 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |   20 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c   |    2 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |   85 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |   22 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu_internal.h        |    4 +-
+ drivers/gpu/drm/drm_buddy.c                        |    8 +-
+ drivers/gpu/drm/radeon/radeon_atpx_handler.c       |   12 +-
+ include/uapi/drm/amdgpu_drm.h                      |    7 +-
+ 248 files changed, 6320 insertions(+), 3828 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/ih_v6_1.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/ih_v6_1.h
+ delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
+ delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_iommu.h
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c
+ create mode 100644 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_replay.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dce/dmub_replay.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/osssys_6_1_0_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/oss/osssys_6_1_0_sh_mask.h
