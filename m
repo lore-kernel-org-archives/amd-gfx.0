@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA3E6C001DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 13:46:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3772DC001B0
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 13:46:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1FF110E0FA;
-	Fri, 11 Aug 2023 13:46:15 +0000 (UTC)
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [IPv6:2001:4860:4864:20::34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42ECF10E0FA
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Aug 2023 13:46:12 +0000 (UTC)
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-1bbf7f7b000so1518179fac.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Aug 2023 06:46:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF57D10E69A;
+	Fri, 11 Aug 2023 13:46:38 +0000 (UTC)
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A297010E69A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Aug 2023 13:46:35 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id
+ 5614622812f47-3a43cbb432aso1673804b6e.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Aug 2023 06:46:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691761571; x=1692366371;
+ d=gmail.com; s=20221208; t=1691761595; x=1692366395;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+0HlPy0cDnHyBBdwwy68I9gaziLuZrx9om5hUBEE8a0=;
- b=jt3t8Y+euDPTXvVoLjMtvnrE9zqgrV7vKIoLNRQa27RPgxaeHt2cLsmlm7megxp6SY
- EKekQD68zjA6rVNEBknKFbCQTwKwkxDJiEF9o2DZD8mKGbnqKBRK6QK8xMECiYBnbVsU
- NA2BCL2Gy+Qpypgd+rAOG+JveaNOd/7hc2398hTv+ZzxF6n0CeebBh35QukKhc1w3h1C
- hZPWFzumMPg8FfaVyYc+/WbfX4+jNvYcB7TLiomemnEHusAMhUyUg3R69BUwRbVjLu2B
- ke4kPEl5LIvkU6jZmBb3JyeOL6pIaJRJRtN0OIaJVFWaPyG63J8mNFuYspaSgzN/uA3v
- X/Yg==
+ bh=vl/OpKDg8FsnPpo0t8dds9G+MykiwY13cYOXQron0lQ=;
+ b=D+i2Ib2l2JQuTU2FG3HzxTENEd4pscIIE/+PkaCMJY01azsNwsRe9GiSN8FGkLLEN5
+ e7Dec+BLFGC4XkOUU90e0sQwU7aoAHNNmg5nSnr23N+a0h3yd3ReGIn4nDLbMQvtK3Ec
+ RoTm1X7kmiG0YrjH3PYRCErwGFER50++xVed06ns+pzRWfrx9nx+Vjfqzv8LBfygoDos
+ QeoUIcaIgy5WPE56XtCT0l2EG7/GiJ2ZNCKflNh4ARtL0vrlYg6AraWoBX/X11Q2L2Go
+ Bh79urHCSPx8nbiaVozcopWCaeC2fMb9dvbDAlGltHraUZeynKeF328zCg57Zzu/9QsK
+ Qc0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691761571; x=1692366371;
+ d=1e100.net; s=20221208; t=1691761595; x=1692366395;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+0HlPy0cDnHyBBdwwy68I9gaziLuZrx9om5hUBEE8a0=;
- b=ddphQC9o7un/2ukgOaPwH6oA8AQdqDJAbk6269ETwIIXdUl8eU/Fzo+r06ZfEmbEtd
- QAq/xrOrsuqk0yh9QBzSJh+QlFVUJnfxfNjYz1bbmJOnpnPIZvajPlqiA9SeKui2/7pc
- Dq4ZB2GplVrrFKo2YCZJ3tTScX6qh9IPtouJrmhJgunEr8yx/5F+FN4cFmCb7KpjzxCv
- LWGkDj5hgT3fchd/Ob3sCzIipvCzsUHf3By6OXbXppRdDaMP2VkrG0YpbZxy1Bbtf3D+
- ZclGAjr44QODOrJxsyIQmydtL9jbyV7ozpoR2IkRhXw3/vOkWsrYeB8c/KZV7wWIgFPc
- wSGQ==
-X-Gm-Message-State: AOJu0YzLZBLM9pH8A1ug2PFMKpuWDkLlxiCyphVcZzt/bU2MXWAQm0Pc
- pyS2hFMlJM7x67LSsYT8VwLG4efvchm/jQSg+HJLQDDK
-X-Google-Smtp-Source: AGHT+IHZ1UWLcR1+z65ASbC/x8dXnz69ObZjTpHs4bwSTgEGijACgwH6ELtSXb1pONtKsMPYBdq5ifK4V4L1umpCe8o=
-X-Received: by 2002:a05:6870:4344:b0:1ba:466d:5f9e with SMTP id
- x4-20020a056870434400b001ba466d5f9emr1491801oah.49.1691761571286; Fri, 11 Aug
- 2023 06:46:11 -0700 (PDT)
+ bh=vl/OpKDg8FsnPpo0t8dds9G+MykiwY13cYOXQron0lQ=;
+ b=Eqkqw7+hop7JWyRvGpScTGk099tLK1DCSq6jlpxqXelCexLPUrFz85ekp6Vd9hTB8X
+ LI8p+OfAWj7gn0HhvlEleISGbxGJ1+wrtDwo3z6IByuz52Ez/xE0FDRJyfWjLcQK82Pp
+ W/MnaMebUrE79nOKOqrs0qPdWE6Zj+GZR0q0k6EpmUCwUA5GO+b8zEdEhGR/hEnPEmnF
+ ICaKJooWxy87K4LtXk7k+oOTg84ac1cKTjoOdNuF4eFrUNzhjY9IVvc3MO/nCnwaPdZ2
+ pQ7qivUlAhdE74VLNf+OcV56RMM9rUH1wsdzaW/n9UNTVgWnZ5AF6fVO3u3hFoVG4P0A
+ m2Iw==
+X-Gm-Message-State: AOJu0YxzFw8d8y0YaLvLYZdtzY1+YAizE8S3J6Sx8L5uJ/uIQKAMfVcl
+ p0rqI8s5tDIGgO75Zal70pTdC090eCDg/t8X3ro=
+X-Google-Smtp-Source: AGHT+IGO+LBUHtOWLTb5zijQx40o+Hgr7D5dd7t6uE96+b9pMNBbMAvRedONzz82VZWXpEyLnWovkNv0N7+B7FmrXdI=
+X-Received: by 2002:a05:6808:1b0e:b0:3a7:6a5d:9aeb with SMTP id
+ bx14-20020a0568081b0e00b003a76a5d9aebmr2630000oib.21.1691761594909; Fri, 11
+ Aug 2023 06:46:34 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230809190956.435068-1-alexander.deucher@amd.com>
- <CADnq5_P3FJN9h_utnm-yHFDKD_bUR5bUhwyyiuLgaGkzFXsQbA@mail.gmail.com>
-In-Reply-To: <CADnq5_P3FJN9h_utnm-yHFDKD_bUR5bUhwyyiuLgaGkzFXsQbA@mail.gmail.com>
+References: <20230807220545.1320198-1-alexander.deucher@amd.com>
+ <ZNY6f7gUuxw7jXSK@nvidia.com>
+In-Reply-To: <ZNY6f7gUuxw7jXSK@nvidia.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 11 Aug 2023 09:46:00 -0400
-Message-ID: <CADnq5_P2GPH7EwxEozJznAcC8cEHbDQorm6PK6vAy1t4U02uew@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: don't allow userspace to create a doorbell BO
-To: Alex Deucher <alexander.deucher@amd.com>
+Date: Fri, 11 Aug 2023 09:46:24 -0400
+Message-ID: <CADnq5_MhTZTOB_VtVt4xKFr7ob6rjzPLdo91F1ww=-Cz2TLygQ@mail.gmail.com>
+Subject: Re: [PATCH V2 1/5] drm/amdkfd: ignore crat by default
+To: Jason Gunthorpe <jgg@nvidia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,47 +68,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
-
-On Thu, Aug 10, 2023 at 11:20=E2=80=AFAM Alex Deucher <alexdeucher@gmail.co=
-m> wrote:
+On Fri, Aug 11, 2023 at 9:45=E2=80=AFAM Jason Gunthorpe <jgg@nvidia.com> wr=
+ote:
 >
-> Ping?
->
-> On Wed, Aug 9, 2023 at 3:10=E2=80=AFPM Alex Deucher <alexander.deucher@am=
-d.com> wrote:
-> >
-> > We need the domains in amdgpu_drm.h for the kernel driver to manage
-> > the pool, but we don't want userspace using it until the code
-> > is ready.  So reject for now.
+> On Mon, Aug 07, 2023 at 06:05:41PM -0400, Alex Deucher wrote:
+> > We are dropping the IOMMUv2 path, so no need to enable this.
+> > It's often buggy on consumer platforms anyway.
 > >
 > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gem.c
-> > index 693b1fd1191a..ca4d2d430e28 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> > @@ -289,6 +289,10 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev=
-, void *data,
-> >         uint32_t handle, initial_domain;
-> >         int r;
-> >
-> > +       /* reject DOORBELLs until userspace code to use it is available=
- */
-> > +       if (args->in.domains & AMDGPU_GEM_DOMAIN_DOORBELL)
-> > +               return -EINVAL;
-> > +
-> >         /* reject invalid gem flags */
-> >         if (flags & ~(AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED |
-> >                       AMDGPU_GEM_CREATE_NO_CPU_ACCESS |
-> > --
-> > 2.41.0
-> >
+> >  drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 4 ----
+> >  1 file changed, 4 deletions(-)
+>
+> For the series, please can we go ahead with this ASAP?
+>
+> The iommu side desperately needs the removal of the iommu_v2 private
+> interface to the GPU.
+>
+> I'm really glad to see we can just delete the whole thing!
+
+Yes, that is the plan.
+
+Alex
