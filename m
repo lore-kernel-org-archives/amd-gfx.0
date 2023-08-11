@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88A83EB64DD
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 05:18:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 413F9EB64DD
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 05:18:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0341F10E64C;
-	Fri, 11 Aug 2023 05:18:53 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20611.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::611])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D998510E64C
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Aug 2023 05:18:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6BAD10E64D;
+	Fri, 11 Aug 2023 05:18:55 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::61e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32D6710E64C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Aug 2023 05:18:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ga+pWoiCAcQAmE9HSnlq0CkiEaDtcfQt5Y80YnPV7jh11NLAiBJsa3S6+hiEqZB1zXT/wa2M1ThPyxngCyCt0nh0mcGT6DeHNokZSR7eMtghOj1QBTz/TYbI8wrFzGphImIlXkNYQVHDBr8VCV4ZZ+i4xQ6M14/Qe+U6UyLW2Q+Tk9pUrahc5x1qCYKZ2WH3Dbx3EQvXijdz0gcMBH9J06LHqUyQrtAWkrvvAkliETRJX0fiqaj2zpqjn10L/wU/hKesNpmeqGaR4GDmxIQCTit5YppxKqpJRPc039WMTqnTAx3jF26nadE3C7RsFEPbni4GyafhzfmSpS9MZm+Vpg==
+ b=QOcr43tQNhJ3II6lyFtRMHz9rCtXylv4cS/NxnJnSxJWDbuYH6RTSbcoUgRnp4rI1mpyKzQDilWHw6BLl9tqbDhZub4TjN2IWBf1RbMjj4UJh3JdXNV+l5sn8F98AJOmZfuae9n47cHPPNQI3TnytnugJVFdLPzADm9rrap5V3uqSB+6g/E24EZNaSE1a5G3HjR4ZvThvoZgKJRpbzWTWuvrbjzy3KgBUF4f8wZ8bIJETSqnDqeMzd60hqIqmmfkwjuP4gis2Q/Wkt2u+taggGVkJafAqX8CTCt0n2B3o9b/UEqYn4CP61NuWuQwOKO6NbhAwiuCFWKwXPin8cigJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BNEkS9yfK0kTmXsNx7T3c0/VONbG4vVIeeG5nTo9/8I=;
- b=gaszkKvHKhlrAy/NzbATN6B1s4mMMPdox5E+BZqT0r6k3fHxplN3fECth9cVpdLwp3z6QttUr9VFIOlCBxZQvHNRMCQvUFcxkjstfSzvFtyNjgTm9vd1dgqRPAshlzI3SGzT32FHlRNqMsUDbkfnB75IjFIFqv5Ai3Ozn7Wn21OoiRZsgkjrD9qz7/8PxghtsEuv32pXqEifXFXg4SwBJ10a6R9axK7but6vxvsyMgBW04doGfq3SokJImzclvN8d54oMSSg+/ZA/ZnZqVrBcwlYfwxXdL1qDpa72b+7ABI5cq9N7NshOhBVHRgkuZ5trIEqMP+3M85L6CluAWSspQ==
+ bh=csICt14PtnaX4BUihmE1hA8tv4WIrzNimaTFWh4qS48=;
+ b=PfyX5QPKmt54DMpAcm4j0eqfkBjaxIq3ti8WugpKBwR4OyF+3a+Spi3lS+Tn7a/wysCJMLuCPKgHkiyyZff5Y/SzwCwfaGCLeEvMsOa0N0sOYAP4g+xlV3sdy9+ooyisoSn1Xdji5CGXZx9c7B65G7G6EtcQBu/vhoRN46f3itw4Vp5UhNy4Xp9syfGgFjw2foOm1YzFKqGImyOtDNyFKNvi86huigfWsx4RFlhvWMtMfYnVcH/mwf7x2zc2XAbXGj7D0U9Edr7zq8T1VUdB1Lc864vt4wBJRUcLkveX1UNhRTJ4EZDLdS+aDC1FjQblVf9q1EyOl0+iCjY4UM2X1A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BNEkS9yfK0kTmXsNx7T3c0/VONbG4vVIeeG5nTo9/8I=;
- b=JuKz357uwA+XIFIjpsYqFQdLDfS3asgbK+GqBAZyifB+cdmj8h9fm4mSWGQMnDGeKi5ygPfOLBL7VETbSQsA86Uz/ulje7BmJ/BbsNRWrRjkrP4yAzYfLCsc8z7f4x0mLUXuYzTgtxICc2ngbTlJKeJbnFAofCpYPkBxUY8bfyk=
-Received: from MW4P223CA0001.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::6) by
- DS7PR12MB6264.namprd12.prod.outlook.com (2603:10b6:8:94::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6652.30; Fri, 11 Aug 2023 05:18:48 +0000
+ bh=csICt14PtnaX4BUihmE1hA8tv4WIrzNimaTFWh4qS48=;
+ b=HsbP9rcY+N9KWAcyP+IzXjTBBP3ykInMZXeq194sku72q84uAWLbA7EUrak/MSp4ePOXN4o7LFAxrbpCaiCfhWqVSo48VOpJwhV0ZnyhnQWaUGMdklFm/MpyqQEzedsl1x4tZTBsxL77pTL8nhTjinXw3zZqjPc3Z9z4q+YQCyg=
+Received: from MW4P223CA0019.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::24)
+ by DM6PR12MB4465.namprd12.prod.outlook.com (2603:10b6:5:28f::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.19; Fri, 11 Aug
+ 2023 05:18:49 +0000
 Received: from CO1PEPF000042AA.namprd03.prod.outlook.com
- (2603:10b6:303:80:cafe::4) by MW4P223CA0001.outlook.office365.com
- (2603:10b6:303:80::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.31 via Frontend
- Transport; Fri, 11 Aug 2023 05:18:48 +0000
+ (2603:10b6:303:80:cafe::c6) by MW4P223CA0019.outlook.office365.com
+ (2603:10b6:303:80::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30 via Frontend
+ Transport; Fri, 11 Aug 2023 05:18:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000042AA.mail.protection.outlook.com (10.167.243.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6652.20 via Frontend Transport; Fri, 11 Aug 2023 05:18:47 +0000
+ 15.20.6652.20 via Frontend Transport; Fri, 11 Aug 2023 05:18:49 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 11 Aug
- 2023 00:18:13 -0500
+ 2023 00:18:46 -0500
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/4] drm/amdgpu: Unset baco dummy mode on nbio v7.9
-Date: Fri, 11 Aug 2023 10:47:53 +0530
-Message-ID: <20230811051756.653422-2-lijo.lazar@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu: Add bootloader wait for PSP v13
+Date: Fri, 11 Aug 2023 10:47:55 +0530
+Message-ID: <20230811051756.653422-4-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230811051756.653422-1-lijo.lazar@amd.com>
 References: <20230811051756.653422-1-lijo.lazar@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|DS7PR12MB6264:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ed1a163-726f-467d-8c9b-08db9a2a70fd
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|DM6PR12MB4465:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c42c50a-bacd-4a4a-cd06-08db9a2a7222
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xLakoe14jvFRePGF5XLa5Fr/8rm5Kq6FO2n0IjVI+0QSvCs2kzfhEjp8+IdT8gOUiWuygaQUWiDnb3w9EhZHgeBJOKh2jbIUsCWOQ3QtBcsZMXZlRp+N75mKmtH0LjyUkQBTSmgIIZ9ubMnoKpDo31l2x2UwDKMfxN903MYDZhO+fQ15lWiPwyZ10VUBWwCDeql3n3CHWV/WlbLiz37Tx85akiAYUCNnYExj/aMO/h+LIFJ/9r/Yf96R8sHnikB2wRvfrDppoIUnRFivE6c/gFDPutT/oUFqY6xmH5Klpoeaf5v3V7LGb7bJgEVsjhF3EvCsG9pX4eDq0tvbfGzoU+UyCJnaRHv1ETvf0a2SEdhpv5ZI5lSpkRTcYd2CjGnvRFsL0YWbcUGk5/BdVPQNWrFIhQjEsXqk4YMhqynjcz4BHcsRSC6rEfZUtCpptaWq6NtvmFc581veznLA5jezG36GKlq3KO/KZOtpVOw9DJ2j0ITjPrm20oW/BUu4zStE6PlphLQ3+Cma5GTZN8njZWn163/AgczipazavTfxhOP6U2j1uEYYMjbiUbgO7fGn7wPa8MiDP87GfCColR4DJs1O4DYuNMPVYRX8FeWtLd59btwvNHlWQf9QqF3E/QphC7xIisl9mzBnNTP6hvFlVRtAAYwaSFbNRbBeBNasXGmB/OQnLDph5/4E/TuQXgXGJGoeqSwRl/TnIRj2HvXJcr/0pzaE1gKw7gFe/BW7/OkUJ8FjKtB2pkjn/uORYtjphcBvp02rnpvX01arRMfqYQ==
+X-Microsoft-Antispam-Message-Info: 8djbTXWqDRGnG0znrkmsQto+A/7CUhjd1R3kAffa86bCS4W8ynvGxqgvRBgV46fgzVG6gnjo+CYFN6XJC6HVu5/4e1xmHJGrZq+JOxPm383aKIpUxoIV9EghAn5mYkh+nItvU5HGPTgitpLu96bfaDatUfTnfa2yVb00mEqoIvJ4Q/3n04mTZEBorovb+b10gMnA+H08exjwWQtnhGF+GJQOQD1jZPqOjSRssz4KbxllXdX0K1WuTsDeSnttAWxZky3R3ZZDefhbBGZmlSsLE5Ehm257kyukPtofjzVLWhEVe8Wi4r985KScT0mSQZzBWnjTlxThtSNmdG+DlIIaErqCjh93WYKVfqd64x+gUgHNnWcaWsnH1xsIW01kLYNLARYRbThJmECZ+r9mHNTh9jsDOUbA7KmMFExqwQc6DimpFyM1Ca9P7k+R8WyVh5bpfMJFaOdwoLt34GqxAMtCVE6DFIILosYHN6gmD0Ra1pfnMlriOlfXbm9KvsbvPJKFSWKXuBXhhTBvwk1btAhdwpkAvRFHugTIVUCApjqjDH/T+76ECzRxPTDTdFqQTuqaQgBAnqLNzBHj9fY5YWt1XI6M3q4Oyi+V6iR+ei3+Q8CxhAzQLY4T8mgQXAXeC7Dn5WG5TB0HKdMtrDnUdGCE/40Gv5qxkjrp3SB9Oyvep+Jf2LXC6/UmXnZ23LZbIdNtkRiP7MnfoDcWYdDmHBGRvl+VmQDGZKQwP9KsWkIAU7MNlXSbbDuwtHBvC+fLkBtB5Tz1ggd72b6GRskAuj7viw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(136003)(346002)(396003)(39860400002)(1800799006)(186006)(451199021)(82310400008)(40470700004)(36840700001)(46966006)(40460700003)(40480700001)(6916009)(70206006)(16526019)(26005)(336012)(1076003)(6666004)(70586007)(478600001)(36756003)(54906003)(83380400001)(47076005)(36860700001)(2616005)(41300700001)(426003)(316002)(44832011)(7696005)(2906002)(4326008)(86362001)(8936002)(356005)(81166007)(8676002)(5660300002)(82740400003)(36900700001);
+ SFS:(13230028)(4636009)(376002)(39860400002)(396003)(346002)(136003)(1800799006)(82310400008)(186006)(451199021)(40470700004)(46966006)(36840700001)(6916009)(4326008)(70586007)(70206006)(41300700001)(316002)(36860700001)(54906003)(336012)(26005)(83380400001)(47076005)(2616005)(426003)(1076003)(16526019)(40480700001)(86362001)(81166007)(356005)(82740400003)(40460700003)(7696005)(6666004)(36756003)(478600001)(2906002)(8676002)(8936002)(5660300002)(44832011)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2023 05:18:47.6619 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ed1a163-726f-467d-8c9b-08db9a2a70fd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2023 05:18:49.5838 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c42c50a-bacd-4a4a-cd06-08db9a2a7222
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AA.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6264
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4465
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,52 +100,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Le Ma <le.ma@amd.com>,
- Asad Kamal <asad.kamal@amd.com>, Hawking.Zhang@amd.com
+Cc: Alexander.Deucher@amd.com, Le.Ma@amd.com, Asad Kamal <asad.kamal@amd.com>,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-BACO dummy mode could be set under reset conditions and that affects
-framebuffer access. Check If baco dummy mode is set, unset it if so.
+Implement the wait for bootloader call back for PSP v13.0 ASICs. Only
+for ASICs with PSP v13.0.6, it needs an additional check for VBIOS
+mailbox status.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Le Ma <le.ma@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Asad Kamal <asad.kamal@amd.com>
 Tested-by: Asad Kamal <asad.kamal@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c | 28 ++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-index 9ea072374cb7..f85eec05d218 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-@@ -437,6 +437,24 @@ static void nbio_v7_9_init_registers(struct amdgpu_device *adev)
- 			XCC_DOORBELL_FENCE__SHUB_SLV_MODE_MASK);
- 
- 	}
-+
-+	if (!amdgpu_sriov_vf(adev)) {
-+		u32 baco_cntl;
-+		for_each_inst(i, adev->aid_mask) {
-+			baco_cntl = RREG32_SOC15(NBIO, i, regBIF_BX0_BACO_CNTL);
-+			if (baco_cntl & (BIF_BX0_BACO_CNTL__BACO_DUMMY_EN_MASK |
-+					 BIF_BX0_BACO_CNTL__BACO_EN_MASK)) {
-+				baco_cntl &= ~(
-+					BIF_BX0_BACO_CNTL__BACO_DUMMY_EN_MASK |
-+					BIF_BX0_BACO_CNTL__BACO_EN_MASK);
-+				dev_dbg(adev->dev,
-+					"Unsetting baco dummy mode %x",
-+					baco_cntl);
-+				WREG32_SOC15(NBIO, i, regBIF_BX0_BACO_CNTL,
-+					     baco_cntl);
-+			}
-+		}
-+	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+index 10b17bd5aebe..d2a88bc630d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
+@@ -133,12 +133,35 @@ static bool psp_v13_0_is_sos_alive(struct psp_context *psp)
+ 	return sol_reg != 0x0;
  }
  
- static u64 nbio_v7_9_get_pcie_replay_count(struct amdgpu_device *adev)
++static int psp_v13_0_wait_for_vmbx_ready(struct psp_context *psp)
++{
++	struct amdgpu_device *adev = psp->adev;
++	int retry_loop, ret;
++
++	for (retry_loop = 0; retry_loop < 70; retry_loop++) {
++		/* Wait for bootloader to signify that is
++		   ready having bit 31 of C2PMSG_33 set to 1 */
++		ret = psp_wait_for(
++			psp, SOC15_REG_OFFSET(MP0, 0, regMP0_SMN_C2PMSG_33),
++			0x80000000, 0xffffffff, false);
++
++		if (ret == 0)
++			break;
++	}
++
++	if (ret)
++		dev_warn(adev->dev, "Bootloader wait timed out");
++
++	return ret;
++}
++
+ static int psp_v13_0_wait_for_bootloader(struct psp_context *psp)
+ {
+ 	struct amdgpu_device *adev = psp->adev;
++	int retry_loop, ret;
+ 
+-	int ret;
+-	int retry_loop;
++	if (adev->ip_versions[MP0_HWIP][0] == IP_VERSION(13, 0, 6))
++		psp_v13_0_wait_for_vmbx_ready(psp);
+ 
+ 	/* Wait for bootloader to signify that it is ready having bit 31 of
+ 	 * C2PMSG_35 set to 1. All other bits are expected to be cleared.
+@@ -714,6 +737,7 @@ static int psp_v13_0_fatal_error_recovery_quirk(struct psp_context *psp)
+ 
+ static const struct psp_funcs psp_v13_0_funcs = {
+ 	.init_microcode = psp_v13_0_init_microcode,
++	.wait_for_bootloader = psp_v13_0_wait_for_bootloader,
+ 	.bootloader_load_kdb = psp_v13_0_bootloader_load_kdb,
+ 	.bootloader_load_spl = psp_v13_0_bootloader_load_spl,
+ 	.bootloader_load_sysdrv = psp_v13_0_bootloader_load_sysdrv,
 -- 
 2.25.1
 
