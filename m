@@ -4,44 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E57EDC001DE
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 19:34:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14E2CC001DE
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 20:07:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 870D910E6EE;
-	Fri, 11 Aug 2023 19:34:08 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A53010E6EE;
- Fri, 11 Aug 2023 19:26:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=CxpHLJD8b1kKa3mdU90bugJvyGF/qHOKnV/UVvBTACw=; b=tHFeX7LO+929icxoPpImxsSJBl
- +pMpkiHBRg0aG7n/MQl4yQigEdQqbf/SEvTcw0FO1tlpusRYzjoXG/Q1nFuYKhfp026ZYHZdGOhDJ
- whYdNxYFkX6zwd8eEk+wPqkzmaUT3TJol6nH61NklZrqDShENzlV7I6/WNh/vt9C1Lb3bbL/DLeP6
- kS4oS0n9F78Tdub6czAl5wyEcjcz+XzLXwSS2dr5njOrMKeaJqpzaP+FcKbvueDsSr0nhljs+ofgu
- UIDKgmxnznLQPP5MPSH4TJLHph0VhpeEsd9R8mcxrFkIXUD0P8CKQtwvSY4BX6DORNKN5AYK02C3W
- 8jasU5qw==;
-Received: from [2601:1c2:980:9ec0::2764]
- by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1qUXmd-00BSYh-1H; Fri, 11 Aug 2023 19:26:51 +0000
-Message-ID: <6cf56323-2b2b-e4ed-6fa5-2efc4711ca41@infradead.org>
-Date: Fri, 11 Aug 2023 12:26:50 -0700
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8733710E6F9;
+	Fri, 11 Aug 2023 20:07:06 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2058.outbound.protection.outlook.com [40.107.93.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31F4410E6F5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Aug 2023 20:07:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oJn4G6FXfU8bj706SGNggbTuy8YpCGsCxPyXSVqB4nETt9wepp9OdJyLM35S7zK3Z+Y4uqyQ2/e8gBRGD2VchluU7Zu/Yequnp4CoLcOm3PfF8VaJqOaIctIU8v5RecSWMNAUmjGSEvcL6Hd7qJSAYSPtJWSL+/UK2A1La0zQg1zNcjD84eUpfYfDXsks/oIiorNVdVSyunq+h0P0cBUtDHD0hXHvWGzjlXqtOaQbrANja97UMy6GP39Qm3Gtt249yUasw5D/HvLnnis2iRDHljWFLj7ouverTI8cb9dlYGZ1fTdShU+zMVyQ2z+Lbj3fy+bmtPakZofQ7+uP8cAYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8jkYBT7VXb+e+nT8z9CMs4KKyBlyNSxrraLh3hF0SQI=;
+ b=VlLxANyBD+zwSDPz2YSjXlnxj5pwUosx9rj3N5goN644yR6P0TB3cGHb9JZ3AowhwmZ9vP+JqkGwYWbYqPWfcotcl9mBNjBq79TKTgJl1inTJdlPwxIazkCthoXkXIowQXlMfvRogYu7Shl7Aajys1idsa7XmF81afw2WINfpsjkmQQLd7zYWroJpsbtCtJLLAIe7oE8Dcbc8tLUuPdmG0HA5XAgA0rHODlykWcOQ2ghsRbUJ+PFIQYr4t+I5D//nEMLswDX5PykXSU5ESVWeZperN5jvKH8zoaaP6otH4xiQwQRAIkP+UKOCjrdIm0UZ9eBOxhA1hUAt2LN6s5BlA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8jkYBT7VXb+e+nT8z9CMs4KKyBlyNSxrraLh3hF0SQI=;
+ b=m0bhRXvpyhLf8/h0jm4g47DgQ22ntv8gfm9RzV59OEnAmyW9eh3XKXn0v/XHrakOcRvvTyWUCT8hV9dBa80Y5NSNFnB+aevfOYVu5+faZr9VmJ0p4fJoTYWSlTz3TQXEqe6gUhuAPpIjBazMxpeaARQpZTIVrlwM9te8VeqqPkI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by CH3PR12MB7570.namprd12.prod.outlook.com (2603:10b6:610:149::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.19; Fri, 11 Aug
+ 2023 20:07:00 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::ca28:efb4:a838:58fb]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::ca28:efb4:a838:58fb%4]) with mapi id 15.20.6678.020; Fri, 11 Aug 2023
+ 20:07:00 +0000
+Message-ID: <41b68fb8-378d-6f6d-c653-d6c2b106d8d3@amd.com>
+Date: Fri, 11 Aug 2023 16:06:58 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH v6] drm/doc: Document DRM device reset expectations
+ Thunderbird/102.13.0
+Subject: Re: [PATCH] drm/amdkfd: add schedule to remove RCU stall on CPU
 Content-Language: en-US
-To: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20230811185508.252194-1-andrealmeid@igalia.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20230811185508.252194-1-andrealmeid@igalia.com>
-Content-Type: text/plain; charset=UTF-8
+To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230811191108.1808648-1-James.Zhu@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20230811191108.1808648-1-James.Zhu@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 11 Aug 2023 19:34:06 +0000
+X-ClientProxiedBy: YT1P288CA0021.CANP288.PROD.OUTLOOK.COM (2603:10b6:b01::34)
+ To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH3PR12MB7570:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a0bbe69-0e27-4e79-c346-08db9aa685df
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: O8UTE/oY6kAxizswME6uKTDGGn38djPj0bUBLiRaq4hPC1QQSdx+zjudU8zyWwubjHQVDYVljBBo+YlMqS0Km3dvCozC+OGjuPVCR/GPEuG++uPzk0ZatLGIRYLYQRnIDgE1FgdnX3Ay1T2guiQeCxIJiSJXfPmw3mH8PtJ3QadrdELAt0d0SGfdRi5wFobNNxKSWdd9jDkDFyji0mRaZGaf4r/N7AXh09e05U/H19ACm08AAIzZy12auWwlHYhYyR+sxSGyLNSa87b3jlIvZ8jW+Gxj1x5ziKMUKVG4nmgRVaf+PxiuC4TctCFeZaopfZY4guQwwGyt9amkwNZbPdb0caIAUGNK0X11fgQqbCdWuGgPfGQFxjrRSmpqoAe04rpc+JHURy3YGyaYaPbl0edZfTf/2eIAfrvuFakTgjXD6H8yphJr0Ylzzw7y5uBUseokdRM1/sQHJqKaj+A0obde52h6vJkeQoyd67hWZrldlXh6WKGt+2sz1L11lNifkj2+5KYu6It/6bFIFeZTPTGGeZaC0+CSwGomRrYeU+SY80xbyWrzBYhGe/5GAMxd6wtpOTn+67QblvV0sKCaQ0c6j+Rx1OHYjDH9dYaoVKf+t6W8GCTCjh8KKRZtWsu01L6hSKa+0yTFsZHbbXWR0A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(366004)(376002)(136003)(396003)(39860400002)(451199021)(1800799006)(186006)(4326008)(66556008)(66476007)(66946007)(41300700001)(31696002)(86362001)(316002)(6506007)(36756003)(26005)(53546011)(6486002)(6512007)(36916002)(2616005)(83380400001)(478600001)(38100700002)(2906002)(5660300002)(31686004)(8676002)(8936002)(44832011)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OGlVcTBDUVRhZnQrYjhlUlJ2eC9WTXV4QU4xTWFZczNUbTNORnVTeDJKeXR1?=
+ =?utf-8?B?SUNZQUwvL0JDK2YyZnhabnpTREhFKytOR3pHSUNwa0Q4bkY4dXBOc1RYREhm?=
+ =?utf-8?B?YWFvTGgwWTRMTUx0alhyL3k5czZvcHpiYVIwQXY1QnkxNGVjZ0s0WHpyN1Rl?=
+ =?utf-8?B?cWgyUjhDTzhCSGE0ZnBtMmJsRnlGTnByZGVxbGlpclVadkpRNkhpSDVJZGVl?=
+ =?utf-8?B?WEtPU1pzUWlhUWZxL3BNSU16SDJJUFBnalR0UU55eWJlVXE0b3RSajBCZTBh?=
+ =?utf-8?B?bWllM0Z5dGJxS1pFRGFneEZ5WlNMWHFUZTFuRTcySHIwOEN1VzJNZWhCYnRY?=
+ =?utf-8?B?dFVrMDJHZjdzN2tGYjE2RHB3bGNUQjM2bU5EcWhnSzBhY2dnMW1BWEFiK0xP?=
+ =?utf-8?B?S0kxVEJTaEFRWTdjSmFBRGd4RHNrVTJ4YWVmMVVFd1pwRkZEMEt3bWVOR2pJ?=
+ =?utf-8?B?Zk1VK21KNWhrYlZ6RGc0OTNPeGxNL1RmMzFmRUZpZnNXdk9NbFRwSm4zWEhm?=
+ =?utf-8?B?NHhPdHovMGVVUTB6bXRtSStmYjR3ZE04ZlZXOGNvOEdIcUJ3K0Z1VVpyanBJ?=
+ =?utf-8?B?bnkrWVlsclJyR0lqTnlHVzVlUTAwclRic2NJMG9wbXJ4V2ZmUlJXeVhjbG40?=
+ =?utf-8?B?SWJNVUtOS25vS3NSQStiR1IzRmlYWVZTV0hKNEE4OVo1c3FUcWQwRU5WVFdp?=
+ =?utf-8?B?OUtQWFI1SVRCMUFhKzJ4YjdQTjZyZE9UYWY3a0RjUjNUelY0U0dXSXpIcmRH?=
+ =?utf-8?B?VlJXRExMcGVHamtGMjM5RXVSZ1FrU3dIemVxazdqai91Wnd1WERQWXp1RjYv?=
+ =?utf-8?B?dTFhSUMvQ3E4eWRabnROdG5rSVo2a1JjNTUrVWIwSGY1dnBCbFM5NWVBTndH?=
+ =?utf-8?B?RVhpUkpUR3N2NDFUNTVUT0hPdy9YTS9yTXdvUkovM2dzMThMS2FpZTNXVlFp?=
+ =?utf-8?B?R01rM0VnOC81ZHdKMG5XblZkNVJjZkQ3djh5Z3VqbFU1RHNmalAvSmMrV1Vk?=
+ =?utf-8?B?Ky82emhtcEZTU1AwYk9IS1ViNnZHK2tKc0trVVBKZWZwQlI1STBSbHRjbUpC?=
+ =?utf-8?B?bi9tL0VWVWR3LzFiV09aR3ROZ05CN3I0eVgwdkdIcDdhVDY5cWhYMlFGL2pH?=
+ =?utf-8?B?RkdPOFgvVUpUT3dPSTF5VlJkNkhLTWt2Q093RzRURlM5SE1QRzVveGxaMDFt?=
+ =?utf-8?B?SitITXRqQi9mRm9KNXZGMHRsOXRyMnRKUE1IS3g3SmdDMFpwYnZwbndCeTc5?=
+ =?utf-8?B?bk1PSklPaTRpekNldVRtNDl6TUFUcFRoU3N0Q0EzMmFsalJUdEpETjYwYXBL?=
+ =?utf-8?B?MnMvMnN5VC9leTRVVnI4Rk1ZdU9RQm1iVDBhYnNVQ2FWOHBpTjFYRkZ1cHg5?=
+ =?utf-8?B?eHdFNGFYODhnZGltcERLQlpxSHJzWGpxRFU3NlVDdEZ3L3E1K3paN2drRURV?=
+ =?utf-8?B?by9oV2ZoRUFmcHhHcE5ZaERBZlVRclhMcmNOOUdZSlF2eE1LWWUvc3VXMjJG?=
+ =?utf-8?B?YUc1bVZqZHBYNjA4N2crck9qd3VsZUQ5aThDVDh2aGNvamhzQkk3N2xaK1ZJ?=
+ =?utf-8?B?RGJSeFlHTWxsdmJpZG1oS214Wm5FK2ZGT01SdkRaNCtkQS9oeldzdU9lNVMy?=
+ =?utf-8?B?OGxiY282dnh0Tk5Xd2drdzloeFAzWVdNeHlINE0rYXpOYzJzSmlFMFg2dk1V?=
+ =?utf-8?B?ZVRYL0tyR05RMWdtYTYzVmMyalFHWU9WWmdBQ0x3OHBhMktlNmRlS2JJdldv?=
+ =?utf-8?B?RmVla1Nod0QvRy84cytoUVRMWFV1NHgrcEFNRlkrWGNZSXBWRW5uVUtjZE9X?=
+ =?utf-8?B?WW81QVFZT2ZDZVZpMlAwT3dLazlZUWJJd0haV2ZaRk1mbXRvQmhwQVNndHla?=
+ =?utf-8?B?cjVuQXRmeldMbG9tZkIvYTJYRWRURFg5ODVMc01wcVFjd2owbXpNeDdPSUxq?=
+ =?utf-8?B?eU5vTkYrU0Nsb0J0ZHd5TlBtMEY3cSsySE5XVTQ1cC9acEYxWG4xM1FiVWdR?=
+ =?utf-8?B?cms4RGJHZXMvUGJsb2hRYUR5b2xrd2FnQXZWZFBIVVNhekdaRlIrUHFtZHNK?=
+ =?utf-8?B?YXRMQWZzSmJHRnhxdEMvZFYzeWhreHl1dDlheThoMzgrVUptK0lSYVJSdzY5?=
+ =?utf-8?Q?HSPbN/5kdWRP4eK0PkJwe3fcm?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a0bbe69-0e27-4e79-c346-08db9aa685df
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2023 20:07:00.6043 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ic+01Kyfa3wB4tvE0yZYRful+/srGT4r77oyaIz4jFm7ozOdd9OWvCeZ+lfQOLVl++QfME//ELVUScrK98PkmA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7570
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,138 +124,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com, Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>,
- Simon Ser <contact@emersion.fr>,
- =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
- Rob Clark <robdclark@gmail.com>, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- alexander.deucher@amd.com, Dave Airlie <airlied@gmail.com>,
- christian.koenig@amd.com
+Cc: jamesz@amd.com, Roger.Madrid@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
 
-On 8/11/23 11:55, André Almeida wrote:
-> Create a section that specifies how to deal with DRM device resets for
-> kernel and userspace drivers.
-> 
-> Signed-off-by: André Almeida <andrealmeid@igalia.com>
-> 
+On 2023-08-11 15:11, James Zhu wrote:
+> update_list could be big in list_for_each_entry(prange, &update_list, update_list),
+> mmap_read_lock(mm) is kept hold all the time, adding schedule() can remove
+> RCU stall on CPU for this case.
+>
+> RIP: 0010:svm_range_cpu_invalidate_pagetables+0x317/0x610 [amdgpu]
+
+You're just showing the backtrace here, but not what the problem is. Can 
+you include more context, e.g. the message that says something about a 
+stall?
+
+
+> Code: 00 00 00 bf 00 02 00 00 48 81 c2 90 00 00 00 e8 1f 6a b9 e0 65 48 8b 14 25 00 bd 01 00 8b 42 2c 48 8b 3c 24 80 e4 f7 0b 43 d8 <89> 42 2c e8 51 dd 2d e1 48 8b 7b 38 e8 98 29 b7 e0 48 83 c4 30 b8
+> RSP: 0018:ffffc9000ffd7b10 EFLAGS: 00000206
+> RAX: 0000000000000100 RBX: ffff88c493968d80 RCX: ffff88d1a6469b18
+> RDX: ffff88e18ef1ec80 RSI: ffffc9000ffd7be0 RDI: ffff88c493968d38
+> RBP: 000000000003062e R08: 000000003042f000 R09: 000000003062efff
+> R10: 0000000000001000 R11: ffff88c1ad255000 R12: 000000000003042f
+> R13: ffff88c493968c00 R14: ffffc9000ffd7be0 R15: ffff88c493968c00
+> __mmu_notifier_invalidate_range_start+0x132/0x1d0
+> ? amdgpu_vm_bo_update+0x3fd/0x520 [amdgpu]
+> migrate_vma_setup+0x6c7/0x8f0
+> ? kfd_smi_event_migration_start+0x5f/0x80 [amdgpu]
+> svm_migrate_ram_to_vram+0x14e/0x580 [amdgpu]
+> svm_range_set_attr+0xe34/0x11a0 [amdgpu]
+> kfd_ioctl+0x271/0x4e0 [amdgpu]
+> ? kfd_ioctl_set_xnack_mode+0xd0/0xd0 [amdgpu]
+> __x64_sys_ioctl+0x92/0xd0
+>
+> Signed-off-by: James Zhu <James.Zhu@amd.com>
 > ---
-> 
-> Changes:
->  - Due to substantial changes in the content, dropped Pekka's Acked-by
->  - Grammar fixes (Randy)
->  - Add paragraph about disabling device resets
->  - Add note about integrating reset tracking in drm/sched
->  - Add note that KMD should return failure for contexts affected by
->    resets and UMD should check for this
->  - Add note about lack of consensus around what to do about non-robust
->    apps
-> 
-> v5: https://lore.kernel.org/dri-devel/20230627132323.115440-1-andrealmeid@igalia.com/
-> ---
->  Documentation/gpu/drm-uapi.rst | 77 ++++++++++++++++++++++++++++++++++
->  1 file changed, 77 insertions(+)
-> 
-> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-> index 65fb3036a580..6bfaf7d4c074 100644
-> --- a/Documentation/gpu/drm-uapi.rst
-> +++ b/Documentation/gpu/drm-uapi.rst
-> @@ -285,6 +285,83 @@ for GPU1 and GPU2 from different vendors, and a third handler for
->  mmapped regular files. Threads cause additional pain with signal
->  handling as well.
->  
-> +Device reset
-> +============
-> +
-> +The GPU stack is really complex and is prone to errors, from hardware bugs,
-> +faulty applications and everything in between the many layers. Some errors
-> +require resetting the device in order to make the device usable again. This
-> +section describes the expectations for DRM and usermode drivers when a
-> +device resets and how to propagate the reset status.
-> +
-> +Device resets can not be disabled without tainting the kernel, which can lead to
-> +hanging the entire kernel through shrinkers/mmu_notifiers. Userspace role in
-> +device resets is to propagate the message to the application and apply any
-> +special policy for blocking guilty applications, if any. Corollary is that
-> +debugging a hung GPU context require hardware support to be able to preempt such
-> +a GPU context while it's stopped.
-> +
-> +Kernel Mode Driver
-> +------------------
-> +
-> +The KMD is responsible for checking if the device needs a reset, and to perform
-> +it as needed. Usually a hang is detected when a job gets stuck executing. KMD
-> +should keep track of resets, because userspace can query any time about the
-> +reset status for a specific context. This is needed to propagate to the rest of
-> +the stack that a reset has happened. Currently, this is implemented by each
-> +driver separately, with no common DRM interface. Ideally this should be properly
-> +integrated at DRM scheduler to provide a common ground for all drivers. After a
-> +reset, KMD should reject new command submissions for affected contexts.
-> +
-> +User Mode Driver
-> +----------------
-> +
-> +After command submission, UMD should check if the submission was accepted or
-> +rejected. After a reset, KMD should reject submissions, and UMD can issue an
-> +ioclt to the KMD to check the reset status, and this can be checked more often
+>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> index 113fd11aa96e..9f2d48ade7fa 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> @@ -3573,6 +3573,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+>   		r = svm_range_trigger_migration(mm, prange, &migrated);
+>   		if (r)
+>   			goto out_unlock_range;
+> +		schedule();
 
-   ioctl
+I'm not sure that unconditionally scheduling here in every loop 
+iteration is a good solution. This could lead to performance degradation 
+when there are many small ranges. I think a better option is to call 
+cond_resched. That would only reschedule only "if necessary", though I 
+haven't quite figured out the criteria for rescheduling being necessary.
 
-> +if the UMD requires it. After detecting a reset, UMD will then proceed to report
-> +it to the application using the appropriate API error code, as explained in the
-> +section below about robustness.
-> +
-> +Robustness
-> +----------
-> +
-> +The only way to try to keep an application working after a reset is if it
-> +complies with the robustness aspects of the graphical API that it is using.
-> +
-> +Graphical APIs provide ways to applications to deal with device resets. However,
-> +there is no guarantee that the app will use such features correctly, and a
-> +userspace that doesn't support robust interfaces (like an non-robust
+Regards,
+   Felix
 
-                                                     like a
 
-> +OpenGL context or API without any robustness support like libva) leave the
-> +robustness handling entirely to the userspace driver. There is no strong
-> +community consensus on what the userspace driver should do in that case,
-> +since all reasonable approaches have some clear downsides.
-> +
-> +OpenGL
-> +~~~~~~
-> +
-> +Apps using OpenGL should use the available robust interfaces, like the
-> +extension ``GL_ARB_robustness`` (or ``GL_EXT_robustness`` for OpenGL ES). This
-> +interface tells if a reset has happened, and if so, all the context state is
-> +considered lost and the app proceeds by creating new ones. There's no consensus
-> +on what to do to if robustness is not in use.
-> +
-> +Vulkan
-> +~~~~~~
-> +
-> +Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for submissions.
-> +This error code means, among other things, that a device reset has happened and
-> +it needs to recreate the contexts to keep going.
-> +
-> +Reporting causes of resets
-> +--------------------------
-> +
-> +Apart from propagating the reset through the stack so apps can recover, it's
-> +really useful for driver developers to learn more about what caused the reset in
-> +the first place. DRM devices should make use of devcoredump to store relevant
-> +information about the reset, so this information can be added to user bug
-> +reports.
-> +
->  .. _drm_driver_ioctl:
->  
->  IOCTL Support on Device Nodes
-
--- 
-~Randy
+>   
+>   		if (migrated && (!p->xnack_enabled ||
+>   		    (prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)) &&
