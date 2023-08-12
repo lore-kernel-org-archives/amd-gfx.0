@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FC4CC001B0
-	for <amd-gfx@archiver.kernel.org>; Sat, 12 Aug 2023 10:34:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 789BAC001B0
+	for <amd-gfx@archiver.kernel.org>; Sat, 12 Aug 2023 10:34:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15A8410E012;
-	Sat, 12 Aug 2023 10:34:05 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2078.outbound.protection.outlook.com [40.107.243.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0679510E012
- for <amd-gfx@lists.freedesktop.org>; Sat, 12 Aug 2023 10:34:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C709410E051;
+	Sat, 12 Aug 2023 10:34:08 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2058.outbound.protection.outlook.com [40.107.212.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D642310E051
+ for <amd-gfx@lists.freedesktop.org>; Sat, 12 Aug 2023 10:34:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SfFFnQUTbi9Ix2Ue3ssjtWX0wod+KU2Qg0VbAyaIS9hEqvM6EXDGCZgCioiw3ZJHGafyeisIE9GQO4dcBZuQkZXtNt9AhCaEMwwBZqPwPvNbyp9jqTLYucs7deM6AiXkz2VqO+2bvpodKJXfJFT9AVmsHJa8oixTfmzIxi22eC6xagK/6nC/NSqI3g/XkXuzGyB0+Q8MBFQ0k4pzmDzencCcLsnljiyFxH1uH9BPG+YCPww+UbMwe/4o2rZaRYl0KZII4eCv2MfweE48OZnIwekaZsKQXAC4/Twl3gmxOaqqAcW/KBLWJW3UqEd5oEL6AuQRK/0GGUrZXcP0Hk9t0g==
+ b=TgRL6SScefGVKbGQ0mehdgEkAT2ZfAFf1lL5X4ns7GqXp5E4Sw55ouaew6zfhtzfQWhvyyr4LbwOJhL85SYzi/T/WUEpqLoRxpSeKEv5kS/I/FwZRYbIIhiiF1x9Su/uA8YmX0B2TCDsNPp7Bul+GV1BWuAEYUkhW2f6KQpldutO3ROdTN0YoXBRavoq6wQwQ+PZTV2W6whJIgxSPd5FOBVfEyznJr5yd1WG/tmf4aPfzo+O3erCR6QILwUtoZp7hcUQyeODTFe9l3zyorcqeBqGMMbKhT4i0JzSl6eI32Yme+tfB1m84WBaiKAvNCSlBozhK+UEdr746TwTIGGM4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nmqCijQfvF5/g5tSTnZlIeKKYkG0Qv7L8FyZdX6XsOU=;
- b=V5Yo0ff9b3LdMVtnLSWo9XBNzANiMqN4jAecOB8Myn8tQekPqC+mDNew9mghTtIS6sqSoQKHN0LGeRUmGjdfpOUqMgT6X6um0HpAjf8CPI8IsI89lNp4iFCymT6uX4qNsXZpyRhL4JSvp/tfqyXnSyLWe+/y41+3IsHkckfsqbkIF/YpFtdwRIj/yKOxYmI86YADqUVCDONNkkr5Awmvbx51THJ5/830QWPFGorl6+p2yD0vpLwi9YjmO6iJ1SHvGdyOliccjHJPw1nClqy8T4GwFSsJtn24TCbh8hIBaw8UiupJRB8Ft0WJ5k/e4SdJ3kdtx9VmbAbg1NeTpcyFgg==
+ bh=EWqbAnwByZjdif3Oy4yQVUPf9YXhbiHb2kt0X7MXVjM=;
+ b=MRXKc6V4Huasku95pnzarlblZFaa9iLQCrSGYiGIGNLHs722QS3ZMSMisg3cDXEc+l1HGyM7v5V1RuEO/ashG54gEW28CNSJ6+tK9qs08vq/zI55bJttkk+7bnMpzao8kmboFQUs4bOlIze++tyHvZBs3MuS1+Of+XX7xyTH8+jxUrAG9u6ZSSP3cumCm6fUp0mn+DbjdyebKunEOeTrCoFcm8MkIpktmr2C1WbVLLGP5RFe87p+Pc35bpUV964IceTZKmoYonGbzdZEOjrt0GayFkAqQKDGmre1ZG1HhmVTpvaeehFNin3USp4LxUdI/3yRGXqA4n3f34V2sOxbvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nmqCijQfvF5/g5tSTnZlIeKKYkG0Qv7L8FyZdX6XsOU=;
- b=cBjJajJHMwbQUUEgXHV/C+fg4NOj0lPl+ewKV7smoxcQXHt+rsOCys6+vwZ+4Qh6SmD1kqsUhjLYMZ2wzPXahExbQRWlWRrFPNfZ/T7DflKxIspJJ6qnPq9/eFNPyJbjNmGJn7cXcPHNAIANdll/zgFhobIChhttwKQ1SKFvgTU=
-Received: from MW4P223CA0022.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::27)
- by DM6PR12MB4057.namprd12.prod.outlook.com (2603:10b6:5:213::9) with
+ bh=EWqbAnwByZjdif3Oy4yQVUPf9YXhbiHb2kt0X7MXVjM=;
+ b=Ew3208tOsfxaqitXZ+b0ZX+CFOPwnz1gx4/9q7vHNSDTpOJs6HDm+6wH2HvGFyV7c1iUe9SaVtV7nIX+BkaRDEZ8N0JDjtUeLjit3upMhVT2LLQWIZf647hn/0dVBNe00X5yG3g108o1BOhf/qJ8/sux0ftye99nSARJDUKarvE=
+Received: from MW2PR16CA0068.namprd16.prod.outlook.com (2603:10b6:907:1::45)
+ by IA0PR12MB7775.namprd12.prod.outlook.com (2603:10b6:208:431::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.22; Sat, 12 Aug
- 2023 10:33:59 +0000
-Received: from CO1PEPF000042AA.namprd03.prod.outlook.com
- (2603:10b6:303:80:cafe::c1) by MW4P223CA0022.outlook.office365.com
- (2603:10b6:303:80::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.31 via Frontend
- Transport; Sat, 12 Aug 2023 10:33:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30; Sat, 12 Aug
+ 2023 10:34:02 +0000
+Received: from CO1PEPF000042A9.namprd03.prod.outlook.com
+ (2603:10b6:907:1:cafe::69) by MW2PR16CA0068.outlook.office365.com
+ (2603:10b6:907:1::45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.33 via Frontend
+ Transport; Sat, 12 Aug 2023 10:34:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,20 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042AA.mail.protection.outlook.com (10.167.243.39) with Microsoft
+ CO1PEPF000042A9.mail.protection.outlook.com (10.167.243.38) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6652.20 via Frontend Transport; Sat, 12 Aug 2023 10:33:59 +0000
+ 15.20.6652.20 via Frontend Transport; Sat, 12 Aug 2023 10:34:02 +0000
 Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Sat, 12 Aug
- 2023 05:33:56 -0500
+ 2023 05:33:59 -0500
 From: Asad Kamal <asad.kamal@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 1/2] drm/amd/pm: Update pci link width format & correct
- address for pcie registers
-Date: Sat, 12 Aug 2023 18:33:41 +0800
-Message-ID: <20230812103342.1091608-1-asad.kamal@amd.com>
+Subject: [PATCH v2 2/2] drm/amd/pm: Update pci link speed and speed format
+Date: Sat, 12 Aug 2023 18:33:42 +0800
+Message-ID: <20230812103342.1091608-2-asad.kamal@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230812103342.1091608-1-asad.kamal@amd.com>
+References: <20230812103342.1091608-1-asad.kamal@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|DM6PR12MB4057:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35a732dc-0f37-4f4a-76cb-08db9b1fa3d5
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042A9:EE_|IA0PR12MB7775:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4bcdfe6d-423b-4c41-8d85-08db9b1fa564
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NzFs9s4vvABPAUpXctUYOj8jqoSGRPfO5ZPH4Sd2zeA1avt7W0LhYmj3CuPsgkaseQVWUA4OUphZ5wWzCLneT5dLIp10+Bsl9xWqQtH7sPMDfjy6xS/+Q5Inl3t6QQLaQnw75ELz+Dyx9DgRthfr1sqftPr0oE0PMBDPab3OM6r/YPq1J/zz4dqJ36R4fOnmXpHxRvOGuVx/eKnWHqLb0ONnEi0wxVaFId1+5mCnOBr0wMNO5t7c+KWQbDVNHwp+Qa9n2p17LDTqssYdoa7CPNJ3hSRaR5LB9DcXiTVyUILD53iRRYnOAe7sY+8h0ZYEw2+KdFgq5ROlf1XPquriX+9ItxvU37YxEBd84svWBCqMSlvBUKXlzoUd2+niymTmyy0aS/r8lfTSMK16oH9aGlFizjA8MrA2jT7IQZbKx/jsDaCHKmt3OI8DtcbWCYRxdZvVunj/QrXRBBmaJHA6dpq1WRaRCfpIxvUByj2LgRUJYCmcOgIck4cpFlMT2488ORX5XYm0i9nKkeTpDPdCeursnme8zBZdnJdJTMSslhqvV4qZxYVwZ4CaiicUJtseTYtHASwU2SpPYpojkm7rymErpdAT+fe70Ly3umps7DM0qpfsJko3T+m75JJ66puobfw5psG07IJUDlWECIRLsju9H9UE4a2tWDFACMWLoI6g3kb13n3wvpoSONrHpQkprjA+Qn1m9KC3mH7c3ivrIkzHFWcmsnx1ifjJjeOScTIBjsIdo5TBjLZZgzU1Pzivbfi8KYoz3V2ae4WsoPV3Vw==
+X-Microsoft-Antispam-Message-Info: 4d/7phRfGSXFwTaFAcEeOVQklVIVbFGxLMvMXz99/ZPWokWsyESI5ZcN1o6qjNXp+vamUx4U2Rz+sEVGJlD/pfzvmOLweya+ob0IqShGi4WM6oBcZYJCNUmsk1EY/ai7anS0dnr3ClGkU1lbfkCmXMs+HmXz5Br8syTPsJ1mNoWVebSTzQyajzE7SMngXNmLwzM1DnQf1sbrDFrBqXrZH6d2kh0j6EmWW2N+qtAQjzKRVoYVFs7cvvsidjHSNG04ujdlwcwuyI1an7KaZsycmIBS314zbAq7uDK1982RYk0B0+J/+3ll3IVDEdEpoC+17UTKeTMWt150hUZdYvOqe6FkKez776zOnz5Z6is75naJ9eIJnKkPsanq5jJ57vbD4JKDcvTPjPIWi4VCCDc5LzfmXir/GE9hLx3gmT3nB5ryur1sYdnYHHporhAiy6d4yW7TeMEGyRVy/AzKkQSeIlfcZpVlmQu/w8IQxrqRTE5cLAzXesKXu8b3lcKVs43uUOLJkNDfIsVrwieBVoXE408qqTe0c/brvg7a6I63ZVlfa54yViFZBdF0t81MkBTQ992WWDHx/1E/ZOf6R2pNFc//qe26zILb7FuzrPP57EKY9YIC+MZUaLgcL8OCXVOyDTfMmUJifFs8fCSq0POd9TwXsnOJeHnPxjn16Hl4FSqW7L2fHJd+CpAB8LMnkvmI5bD6DPb+x/ki2RPJp3B98aXn+zjOmbCBt4Q7RDrINuVtYiwBsE0NAlpNDDwZKgBlxFrSCVSi2AUVfsUs0bBNDw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(376002)(136003)(346002)(451199021)(186006)(82310400008)(1800799006)(36840700001)(46966006)(40470700004)(40460700003)(6666004)(478600001)(70206006)(70586007)(7696005)(83380400001)(47076005)(36860700001)(36756003)(86362001)(16526019)(2906002)(15650500001)(40480700001)(426003)(336012)(1076003)(26005)(2616005)(82740400003)(81166007)(356005)(4326008)(6916009)(8936002)(8676002)(54906003)(316002)(5660300002)(41300700001)(44832011)(36900700001);
+ SFS:(13230028)(4636009)(136003)(376002)(396003)(346002)(39860400002)(82310400008)(451199021)(1800799006)(186006)(40470700004)(46966006)(36840700001)(26005)(5660300002)(356005)(1076003)(8936002)(8676002)(41300700001)(40460700003)(36756003)(47076005)(426003)(15650500001)(2616005)(83380400001)(2906002)(36860700001)(81166007)(16526019)(86362001)(336012)(44832011)(82740400003)(70206006)(40480700001)(54906003)(70586007)(4326008)(6916009)(6666004)(478600001)(7696005)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2023 10:33:59.5993 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35a732dc-0f37-4f4a-76cb-08db9b1fa3d5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2023 10:34:02.2772 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4bcdfe6d-423b-4c41-8d85-08db9b1fa564
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042AA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042A9.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4057
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7775
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,58 +104,160 @@ Cc: Lijo.Lazar@amd.com, asad.kamal@amd.com, le.ma@amd.com, shiwu.zhang@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-1)Update addresses of PCIE link width registers
-for smu v13.0.6
+1) Update pcie link speed for smu v13_0_6 from correct register
 
-2)Update PCIE link width format used to populate gpu metrics table
-for smu v13.0.6
+2) Populate gpu metric table with pcie link speed rather than
+   gen for smu v13_0_0, smu v13_0_6 & smu v13_0_7
 
 v2:
-Removed ESM register update
+Update ESM register address
+Used macro to convert pcie gen to speed
 
 Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h     |  2 ++
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c   |  1 -
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c |  7 ++++++-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 16 ++++++++++++++--
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c |  7 ++++++-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c           |  2 ++
+ 6 files changed, 30 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+index 355c156d871a..3a03f84d3288 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+@@ -52,7 +52,9 @@
+ #define CTF_OFFSET_MEM			5
+ 
+ #define SMU_13_VCLK_SHIFT		16
++#define pci_gen_to_speed(gen)		((gen <= 0) ? link_speed[0] : link_speed[gen - 1])
+ 
++extern const int link_speed[];
+ extern const int pmfw_decoded_link_speed[5];
+ extern const int pmfw_decoded_link_width[7];
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index 895cda8e6934..6863186937f7 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -83,7 +83,6 @@ MODULE_FIRMWARE("amdgpu/smu_13_0_10.bin");
+ #define PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT 0xE
+ 
+ static const int link_width[] = {0, 1, 2, 4, 8, 12, 16};
+-static const int link_speed[] = {25, 50, 80, 160};
+ 
+ const int pmfw_decoded_link_speed[5] = {1, 2, 3, 4, 5};
+ const int pmfw_decoded_link_width[7] = {0, 1, 2, 4, 8, 12, 16};
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index fddcd834bcec..164fbfbc70fb 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -96,6 +96,8 @@
+  */
+ #define SUPPORT_ECCTABLE_SMU_13_0_10_VERSION 0x00502200
+ 
++#define LINK_SPEED_MAX                          3
++
+ static struct cmn2asic_msg_mapping smu_v13_0_0_message_map[SMU_MSG_MAX_COUNT] = {
+ 	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
+ 	MSG_MAP(GetSmuVersion,			PPSMC_MSG_GetSmuVersion,               1),
+@@ -1761,7 +1763,10 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(struct smu_context *smu,
+ 	gpu_metrics->current_fan_speed = metrics->AvgFanRpm;
+ 
+ 	gpu_metrics->pcie_link_width = metrics->PcieWidth;
+-	gpu_metrics->pcie_link_speed = metrics->PcieRate;
++	if ((metrics->PcieRate - 1) > LINK_SPEED_MAX)
++		gpu_metrics->pcie_link_speed = pci_gen_to_speed(1);
++	else
++		gpu_metrics->pcie_link_speed = pci_gen_to_speed(metrics->PcieRate);
+ 
+ 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
+ 
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 244e6d31560d..2572dc210739 100644
+index 2572dc210739..a8e90a1e6ed9 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -81,9 +81,10 @@
+@@ -80,12 +80,17 @@
+ /* possible frequency drift (1Mhz) */
  #define EPSILON 1
  
- #define smnPCIE_ESM_CTRL 0x193D0
--#define smnPCIE_LC_LINK_WIDTH_CNTL 0x1ab40288
-+#define smnPCIE_LC_LINK_WIDTH_CNTL 0x1a340288
+-#define smnPCIE_ESM_CTRL 0x193D0
++#define smnPCIE_ESM_CTRL 0x93D0
+ #define smnPCIE_LC_LINK_WIDTH_CNTL 0x1a340288
  #define PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD_MASK 0x00000070L
  #define PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT 0x4
-+#define MAX_LINK_WIDTH 6
+ #define MAX_LINK_WIDTH 6
  
++#define smnPCIE_LC_SPEED_CNTL                   0x1a340290
++#define PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK 0xE0
++#define PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT 0x5
++#define LINK_SPEED_MAX				4
++
  static const struct cmn2asic_msg_mapping smu_v13_0_6_message_map[SMU_MSG_MAX_COUNT] = {
  	MSG_MAP(TestMessage,			     PPSMC_MSG_TestMessage,			0),
-@@ -1940,6 +1941,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
+ 	MSG_MAP(GetSmuVersion,			     PPSMC_MSG_GetSmuVersion,			1),
+@@ -1923,6 +1928,7 @@ smu_v13_0_6_get_current_pcie_link_width_level(struct smu_context *smu)
+ static int smu_v13_0_6_get_current_pcie_link_speed(struct smu_context *smu)
+ {
  	struct amdgpu_device *adev = smu->adev;
- 	int ret = 0, inst0, xcc0;
- 	MetricsTable_t *metrics;
-+	u16 link_width_level;
++	uint32_t speed_level;
+ 	uint32_t esm_ctrl;
  
- 	inst0 = adev->sdma.instance[0].aid_id;
- 	xcc0 = GET_INST(GC, 0);
-@@ -1990,8 +1992,12 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
- 	gpu_metrics->throttle_status = 0;
+ 	/* TODO: confirm this on real target */
+@@ -1930,7 +1936,13 @@ static int smu_v13_0_6_get_current_pcie_link_speed(struct smu_context *smu)
+ 	if ((esm_ctrl >> 15) & 0x1FFFF)
+ 		return (((esm_ctrl >> 8) & 0x3F) + 128);
  
- 	if (!(adev->flags & AMD_IS_APU)) {
-+		link_width_level = smu_v13_0_6_get_current_pcie_link_width_level(smu);
-+		if (link_width_level > MAX_LINK_WIDTH)
-+			link_width_level = 0;
+-	return smu_v13_0_get_current_pcie_link_speed(smu);
++	speed_level = (RREG32_PCIE(smnPCIE_LC_SPEED_CNTL) &
++		PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK)
++		>> PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
++	if (speed_level > LINK_SPEED_MAX)
++		speed_level = 0;
 +
- 		gpu_metrics->pcie_link_width =
--			smu_v13_0_6_get_current_pcie_link_width_level(smu);
-+			DECODE_LANE_WIDTH(link_width_level);
- 		gpu_metrics->pcie_link_speed =
- 			smu_v13_0_6_get_current_pcie_link_speed(smu);
- 	}
++	return pci_gen_to_speed(speed_level + 1);
+ }
+ 
+ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index b43c5d13f8d9..915e57d3afa3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -72,6 +72,8 @@
+ 
+ #define MP0_MP1_DATA_REGION_SIZE_COMBOPPTABLE	0x4000
+ 
++#define LINK_SPEED_MAX                          3
++
+ static struct cmn2asic_msg_mapping smu_v13_0_7_message_map[SMU_MSG_MAX_COUNT] = {
+ 	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
+ 	MSG_MAP(GetSmuVersion,			PPSMC_MSG_GetSmuVersion,               1),
+@@ -1741,7 +1743,10 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(struct smu_context *smu,
+ 	gpu_metrics->current_fan_speed = metrics->AvgFanRpm;
+ 
+ 	gpu_metrics->pcie_link_width = metrics->PcieWidth;
+-	gpu_metrics->pcie_link_speed = metrics->PcieRate;
++	if ((metrics->PcieRate - 1) > LINK_SPEED_MAX)
++		gpu_metrics->pcie_link_speed = pci_gen_to_speed(1);
++	else
++		gpu_metrics->pcie_link_speed = pci_gen_to_speed(metrics->PcieRate);
+ 
+ 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+index 442d267088bc..c1d377e58b3e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -39,6 +39,8 @@
+ 
+ #define MP1_C2PMSG_90__CONTENT_MASK                                                                    0xFFFFFFFFL
+ 
++const int link_speed[] = {25, 50, 80, 160, 320};
++
+ #undef __SMU_DUMMY_MAP
+ #define __SMU_DUMMY_MAP(type)	#type
+ static const char * const __smu_message_names[] = {
 -- 
 2.34.1
 
