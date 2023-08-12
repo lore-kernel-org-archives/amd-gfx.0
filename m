@@ -4,90 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 789BAC001B0
-	for <amd-gfx@archiver.kernel.org>; Sat, 12 Aug 2023 10:34:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BC0EC001B0
+	for <amd-gfx@archiver.kernel.org>; Sat, 12 Aug 2023 12:44:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C709410E051;
-	Sat, 12 Aug 2023 10:34:08 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2058.outbound.protection.outlook.com [40.107.212.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D642310E051
- for <amd-gfx@lists.freedesktop.org>; Sat, 12 Aug 2023 10:34:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5518510E055;
+	Sat, 12 Aug 2023 12:44:52 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2081.outbound.protection.outlook.com [40.107.220.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6D2810E055
+ for <amd-gfx@lists.freedesktop.org>; Sat, 12 Aug 2023 12:44:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TgRL6SScefGVKbGQ0mehdgEkAT2ZfAFf1lL5X4ns7GqXp5E4Sw55ouaew6zfhtzfQWhvyyr4LbwOJhL85SYzi/T/WUEpqLoRxpSeKEv5kS/I/FwZRYbIIhiiF1x9Su/uA8YmX0B2TCDsNPp7Bul+GV1BWuAEYUkhW2f6KQpldutO3ROdTN0YoXBRavoq6wQwQ+PZTV2W6whJIgxSPd5FOBVfEyznJr5yd1WG/tmf4aPfzo+O3erCR6QILwUtoZp7hcUQyeODTFe9l3zyorcqeBqGMMbKhT4i0JzSl6eI32Yme+tfB1m84WBaiKAvNCSlBozhK+UEdr746TwTIGGM4Q==
+ b=Hgl74KYqrQpx8L//EWyRYwbsaUyuFnfaozWtQQiKZb/9Oarmqo8XKua9gTZxajJBv1pLdjfn9aIaxq5W+vaPD6PqzXgvMZptKvOv4Y/NWTJJoj5yYpsCz/AQB5V00Az0NeNVzbxYcQbL1C8zKSlYWtaT842W0E21OD8Z6kpLJQRfrKbR+ZqIIXcu+k/s4FOftcgElQBKir5auuLiiqh9Bn8b31tLyy2wCwwECTO/t/0Wg/8NfhwPmjDH/S3T7I7/zi2M20FZck0Mwd0PS69rQ3aTcstchJDA7dygOXdadukGx39I7TOffqUzUF59R9Pz6bAsyk0i4oYNo+yLummWeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EWqbAnwByZjdif3Oy4yQVUPf9YXhbiHb2kt0X7MXVjM=;
- b=MRXKc6V4Huasku95pnzarlblZFaa9iLQCrSGYiGIGNLHs722QS3ZMSMisg3cDXEc+l1HGyM7v5V1RuEO/ashG54gEW28CNSJ6+tK9qs08vq/zI55bJttkk+7bnMpzao8kmboFQUs4bOlIze++tyHvZBs3MuS1+Of+XX7xyTH8+jxUrAG9u6ZSSP3cumCm6fUp0mn+DbjdyebKunEOeTrCoFcm8MkIpktmr2C1WbVLLGP5RFe87p+Pc35bpUV964IceTZKmoYonGbzdZEOjrt0GayFkAqQKDGmre1ZG1HhmVTpvaeehFNin3USp4LxUdI/3yRGXqA4n3f34V2sOxbvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=4dtJechnQ7ysK4dudtRUkvXLY+eVZzHKgi4FWYVkUBE=;
+ b=lD+9Gts5eezuC4IF9H8tLKMjBPSykFlcYVpi27HRLH6uAGe8J9TOPeL5gf0flskMeoD3yRFOIwMXGKxVjPwgC/eHyjCP3nxv2ydKu7RYwTvRIC1d3e5w+VUiZyRgPz02PPRBdXtj+wiCMEG5v/y8VFHFOoCSa5nmYia7j46ON82XP13DALBnklBY5Ij0H+/QXWeVemKP0hVwQalp+NqNzjq5OGcYHUHYqQHILPml5zssH3bUf56DOL3c2kEmy9AX/AGN7+yI80kwMZZjFWNw26O7sFgPr4J7Hk5g5R99J3aRjCvrHIS0U2QPZ8DrCFs4N05Aw0VS2UqxrWqTzqwYqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EWqbAnwByZjdif3Oy4yQVUPf9YXhbiHb2kt0X7MXVjM=;
- b=Ew3208tOsfxaqitXZ+b0ZX+CFOPwnz1gx4/9q7vHNSDTpOJs6HDm+6wH2HvGFyV7c1iUe9SaVtV7nIX+BkaRDEZ8N0JDjtUeLjit3upMhVT2LLQWIZf647hn/0dVBNe00X5yG3g108o1BOhf/qJ8/sux0ftye99nSARJDUKarvE=
-Received: from MW2PR16CA0068.namprd16.prod.outlook.com (2603:10b6:907:1::45)
- by IA0PR12MB7775.namprd12.prod.outlook.com (2603:10b6:208:431::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30; Sat, 12 Aug
- 2023 10:34:02 +0000
-Received: from CO1PEPF000042A9.namprd03.prod.outlook.com
- (2603:10b6:907:1:cafe::69) by MW2PR16CA0068.outlook.office365.com
- (2603:10b6:907:1::45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.33 via Frontend
- Transport; Sat, 12 Aug 2023 10:34:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042A9.mail.protection.outlook.com (10.167.243.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6652.20 via Frontend Transport; Sat, 12 Aug 2023 10:34:02 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Sat, 12 Aug
- 2023 05:33:59 -0500
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 2/2] drm/amd/pm: Update pci link speed and speed format
-Date: Sat, 12 Aug 2023 18:33:42 +0800
-Message-ID: <20230812103342.1091608-2-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230812103342.1091608-1-asad.kamal@amd.com>
-References: <20230812103342.1091608-1-asad.kamal@amd.com>
+ bh=4dtJechnQ7ysK4dudtRUkvXLY+eVZzHKgi4FWYVkUBE=;
+ b=ZiwSIGi56XNzI2gbxH2Bk/LEiwnPFSKSXuAX/e6Ow/aPax5BDyRnhcegsXR548w08V4wJWprzc9kuIYnqVjDF5niorb259lsFvM/obCWR0l1n/fti3LIrVL0WJwCMgd1qR/Gj7Ic3YPz7uACl7fxSfqRgbq/zbGIxZzUTQs4Cj4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18)
+ by PH7PR12MB7985.namprd12.prod.outlook.com (2603:10b6:510:27b::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.22; Sat, 12 Aug
+ 2023 12:44:45 +0000
+Received: from SJ0PR12MB6760.namprd12.prod.outlook.com
+ ([fe80::6b2:a798:b3f7:66f5]) by SJ0PR12MB6760.namprd12.prod.outlook.com
+ ([fe80::6b2:a798:b3f7:66f5%5]) with mapi id 15.20.6678.019; Sat, 12 Aug 2023
+ 12:44:45 +0000
+Content-Type: multipart/alternative;
+ boundary="------------ORwMjuLRQ3acvkH1sjBMoXUE"
+Message-ID: <1f81e70b-2469-6042-8d97-d150e67dc9c7@amd.com>
+Date: Sat, 12 Aug 2023 08:44:41 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v3] drm/amdgpu: skip xcp drm device allocation when out of
+ drm resource
+Content-Language: en-US
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20230811202337.1867891-1-James.Zhu@amd.com>
+ <20230811210627.1888328-1-James.Zhu@amd.com>
+ <BYAPR12MB4614B9FB9A931ACD336212929711A@BYAPR12MB4614.namprd12.prod.outlook.com>
+From: James Zhu <jamesz@amd.com>
+Organization: AMD RTG
+In-Reply-To: <BYAPR12MB4614B9FB9A931ACD336212929711A@BYAPR12MB4614.namprd12.prod.outlook.com>
+X-ClientProxiedBy: YQBPR0101CA0342.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6b::12) To SJ0PR12MB6760.namprd12.prod.outlook.com
+ (2603:10b6:a03:44c::18)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A9:EE_|IA0PR12MB7775:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4bcdfe6d-423b-4c41-8d85-08db9b1fa564
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB6760:EE_|PH7PR12MB7985:EE_
+X-MS-Office365-Filtering-Correlation-Id: c878bda4-f6db-433f-9487-08db9b31e7c2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4d/7phRfGSXFwTaFAcEeOVQklVIVbFGxLMvMXz99/ZPWokWsyESI5ZcN1o6qjNXp+vamUx4U2Rz+sEVGJlD/pfzvmOLweya+ob0IqShGi4WM6oBcZYJCNUmsk1EY/ai7anS0dnr3ClGkU1lbfkCmXMs+HmXz5Br8syTPsJ1mNoWVebSTzQyajzE7SMngXNmLwzM1DnQf1sbrDFrBqXrZH6d2kh0j6EmWW2N+qtAQjzKRVoYVFs7cvvsidjHSNG04ujdlwcwuyI1an7KaZsycmIBS314zbAq7uDK1982RYk0B0+J/+3ll3IVDEdEpoC+17UTKeTMWt150hUZdYvOqe6FkKez776zOnz5Z6is75naJ9eIJnKkPsanq5jJ57vbD4JKDcvTPjPIWi4VCCDc5LzfmXir/GE9hLx3gmT3nB5ryur1sYdnYHHporhAiy6d4yW7TeMEGyRVy/AzKkQSeIlfcZpVlmQu/w8IQxrqRTE5cLAzXesKXu8b3lcKVs43uUOLJkNDfIsVrwieBVoXE408qqTe0c/brvg7a6I63ZVlfa54yViFZBdF0t81MkBTQ992WWDHx/1E/ZOf6R2pNFc//qe26zILb7FuzrPP57EKY9YIC+MZUaLgcL8OCXVOyDTfMmUJifFs8fCSq0POd9TwXsnOJeHnPxjn16Hl4FSqW7L2fHJd+CpAB8LMnkvmI5bD6DPb+x/ki2RPJp3B98aXn+zjOmbCBt4Q7RDrINuVtYiwBsE0NAlpNDDwZKgBlxFrSCVSi2AUVfsUs0bBNDw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(376002)(396003)(346002)(39860400002)(82310400008)(451199021)(1800799006)(186006)(40470700004)(46966006)(36840700001)(26005)(5660300002)(356005)(1076003)(8936002)(8676002)(41300700001)(40460700003)(36756003)(47076005)(426003)(15650500001)(2616005)(83380400001)(2906002)(36860700001)(81166007)(16526019)(86362001)(336012)(44832011)(82740400003)(70206006)(40480700001)(54906003)(70586007)(4326008)(6916009)(6666004)(478600001)(7696005)(316002)(36900700001);
+X-Microsoft-Antispam-Message-Info: XOVDQEW3cYwmKVKvlGU7U3X0WDqzfEWhF6l1VI07Ti2AMeOzzqZeLqVnLmSV3d7hBFDKtHDBDKHuouWycrYaXdF01FI6NHaJFsj/OJxdIFQymVc9l9FrLvgBulLOm4I8fatgp33A6aUeHHbgIpMnh3AkiNxTRwlymG7nCYIpVwICDZUT4HaAxup30wduFifP9sgHM3VFvkpGJFxRWWxhmsatWS9HXUF0qlci2fyxCvSVZ07TwYtAmVHNBtL4/+fFKMMRLrsE84Pb9TFn340GVwVqvMUSA3YFz48FLCiuSdiO+dIY/tHbRKQPG4tJ0ax4b4AKQ5Zd2sOre8thMZsjkAZCnAZ/ySIqbDNxAS/FrSs+2xvrr2pfsO6JDgi0aBVxq0Be++0k1GM9/W1tUvoEUf/uL2kzOVyXAGwO6zoX3qb9ptRGDycXG2dkCfCexHDQFZJFbISgPn7YVn8/9LDrA+o1bocaM3m0uICVLpihhaaF/toT9wZruCPuv2FAg2u11f3MHpUyMXc0v+epoKbPHVYG+Uhy0/wYzxaRNVjCiJ6qoSsafEow+wW0QAIGTLCl/vk59oBoFhnjOFFVsDd+Le6shvpZsXzKPfzgRdH4ijcRQsh8FI8J0Zf8L5nQNyGuIgz3G3CRaTjD5aqYqNNL2QNQIrCjYoBiA9nrdGIJm4Q=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB6760.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(39860400002)(346002)(366004)(376002)(136003)(396003)(451199021)(186006)(1800799006)(6486002)(6506007)(6666004)(33964004)(6512007)(53546011)(36916002)(966005)(478600001)(2616005)(83380400001)(26005)(2906002)(316002)(54906003)(41300700001)(66556008)(110136005)(66946007)(66476007)(5660300002)(8936002)(4326008)(8676002)(31696002)(38100700002)(36756003)(66574015)(166002)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2p3V1BOdFRYWGFMSWJuU2pXT1RVcmJGRDhBNDNLQ1lLaStyZWxJekZZbEpL?=
+ =?utf-8?B?cFcvOHh0Ly9Hb0hQT2NoWDJJcG1oUDQ4Qy9mRXpiSUhPSWY2MHNmV1VxQ0VB?=
+ =?utf-8?B?ajkvZnJJU3hXKzFDblBZcEJvM1pRQnVRR0E2T29mMzNWLysrNDRYbE5uWnlC?=
+ =?utf-8?B?RW91cXkrOXdVaGN4aWJ5SVVYZjgydDl0UEQwMEE4cjMvUnQ5ZWIzVXZIOW5u?=
+ =?utf-8?B?TXBkNUdoNXZpdWN5WDNjc0tKd1VhY2V4cDNUTGlCeURmeHpDTUNjcGY5OEdw?=
+ =?utf-8?B?czhjdnlCQ2xDNWJhUThIZkRBeG5rU0ZjZHNLeGFGWHM5T2htd3ZQRG50Mit6?=
+ =?utf-8?B?ODFTS056c0NmNXRMQldmcDJrS1I4N2xWTm1wUTJSQlI2YkJsT2xucktLT1p6?=
+ =?utf-8?B?amw0WmgwcnFYYTdEeFd3RHBQeGh0N1dmTWZYQ3p0V2RLRlRjLzNXeEhEdjdT?=
+ =?utf-8?B?bTZiQjM5OXVodW15QjBZVjMvMFFYS240aFh4NW1sUmtnVDl1UFVuUFkwbVVB?=
+ =?utf-8?B?RzhPL2JVUWVEaVNoaFlSK3RETytZWjJza2xFekozb0VRTEJNa0dsWll0K1R1?=
+ =?utf-8?B?eitadmNSZlc5M1NHOFcvYmNZdzdSc2xDZFhVdGRPRis5a2JqZzF1anh4eGo0?=
+ =?utf-8?B?aEFodHY2VnczM1FiclZjdjlFZjZrWjdBdDZPd3pSSjJRUW9CYmZ4amtXYkk1?=
+ =?utf-8?B?anRydzJKWFJZV2ttK2d0WG9ETG11dzl5Z2VZWVJrOEtCTGoySWtVWmk3dCt0?=
+ =?utf-8?B?WTk5Q2hZQ1F3MkFQT1NISEROR3VYbmRtZk5YNHpDVmc4U1RFTkhFTFV6cEky?=
+ =?utf-8?B?aE4vM1pUdVBRVlMwdHVTaHp3SGd0UDlmenRMdm16aVVUaDF3eU1zSTJhTjJK?=
+ =?utf-8?B?c3dCeS9BWFM5NStNRWliblZld2JWcGtSM29UeU0wU1hrSThhSzBDMlNRYmJS?=
+ =?utf-8?B?STFTYk1NVit6elRIUjZ5N0hsbVZ6bmc5NWZQT2RFdTFNdE9reXE2dDUveHlH?=
+ =?utf-8?B?UnQ4clR1TjRic00vanNkeG9LYjFsQWdyeTdrakQzMzlhZzlLdkkxOHR6OXhB?=
+ =?utf-8?B?ODVwRTNnOGU0bTgxU3NHNEp5dnlOc25adkRVcFdvUkhVWG1tWEkvMUxZcTJH?=
+ =?utf-8?B?MUZxVDVENzd2KzUyeFNQRWNxM2JwNVNoYVZRaFc3cWhuWWg3MnlTci9kTWFj?=
+ =?utf-8?B?QnZXYU1xbnFaNEdBQ0FkaXUreFZkaXg0WEVSNDJsOEt3b2syMHBlRUdlMDAz?=
+ =?utf-8?B?dWwvYXltRGRFSUhCUVlRQ1paS0ZjZC9jVy9zcnIvVkIvTUdIR1M5VVdoamQ1?=
+ =?utf-8?B?ekxHMEVrWngzOU1Uazd1cFRIbEhuQ09nQkE0eTEwZ0JTM2x6eGdVVnREVzNs?=
+ =?utf-8?B?NnB3aU04amxxWlNhMTNqUng0cll6MEhubzRURTd6MG1aZ29pTjkzZjlpWXZk?=
+ =?utf-8?B?Ny8zQjR0OFRCUnZZQ0YreTltVitjdjBoQ244RFhmc1I1M041OEtVMyt6TTdP?=
+ =?utf-8?B?aVpWT0hCTVJINVdoalp4WjREMFVITmhQbmtFcndZYjVkRHZUMUY2VEsxMEJK?=
+ =?utf-8?B?RGR3Q1dBMENWYjYyRFdPYll5Nnd6ejhhMFMrV1I2aU4reENPZnBoV0RNY05h?=
+ =?utf-8?B?eFBmSEVVemRHS3dGZXBadnJPNjhqZjRQaGtZNTJPbXFtN0RBZHNvSnphS1dj?=
+ =?utf-8?B?TkwweDlZL2g5dTVkbFIwNzZyUkZBYnQwM3E1SUw2azZpVVg5ZWx2Zk9sSENN?=
+ =?utf-8?B?Mlp2SUVSRGFtb3lYUTN2bGZtS0RFTVdib0lVbEZqejFNVXNYVS9PZCs2N3hF?=
+ =?utf-8?B?ZFdVeGxzS0FkSi9JZW5QYk40M1djenFEcmUzVTd2K05mZ29jekoxUG0zYUhS?=
+ =?utf-8?B?ZWVOVVdyTGdWSHlFc0I2ZGVhODd1cXZPdDdGajI0eHJyWWYxdmZvYmxTVGdv?=
+ =?utf-8?B?NlNlZVVETWNmK0FIdW8xamsxSVhvWXBRa1hKdXg0MnZIS3NDeDFhelNZem82?=
+ =?utf-8?B?UGpIMzRxZUhHcDlFTnBiYWxpaGVqa3NTdmpZbHAwRUUwSCtGZlVZOXNVVGpl?=
+ =?utf-8?B?OWhGSm5iZ09oSVZKYjZWUlNiSUt5ZnpNOE1TbTFhTHZVemJzdzQ4M055ZnVw?=
+ =?utf-8?Q?a1xqWUFotJkBQB8ZhYMnVQ3Bk?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2023 10:34:02.2772 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4bcdfe6d-423b-4c41-8d85-08db9b1fa564
+X-MS-Exchange-CrossTenant-Network-Message-Id: c878bda4-f6db-433f-9487-08db9b31e7c2
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6760.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2023 12:44:44.9377 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042A9.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7775
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XJngFdF0rUaKxvsOnzPKV47qWe0b2RMiu3Fmunfmzj19FfG9VpyXBmHaetTRzX9c
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7985
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,165 +128,341 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo.Lazar@amd.com, asad.kamal@amd.com, le.ma@amd.com, shiwu.zhang@amd.com,
- maisam.arif@amd.com, hawking.zhang@amd.com
+Cc: "Lin, Amber" <Amber.Lin@amd.com>, "Kasiviswanathan,
+ Harish" <Harish.Kasiviswanathan@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-1) Update pcie link speed for smu v13_0_6 from correct register
+--------------ORwMjuLRQ3acvkH1sjBMoXUE
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-2) Populate gpu metric table with pcie link speed rather than
-   gen for smu v13_0_0, smu v13_0_6 & smu v13_0_7
 
-v2:
-Update ESM register address
-Used macro to convert pcie gen to speed
+On 2023-08-11 21:39, Lazar, Lijo wrote:
+>
+> [AMD Official Use Only - General]
+>
+>
+> A dynamic partition switch could happen later.  The switch could still 
+> be successful in terms of hardware,
+[JZ] Only ignore render node assignment, and remove visibility in user 
+space, xcp continues to be generated as usual. so switch should work as 
+usual
+> and hence gives a false feeling of success even if there are no render 
+> nodes available for any app to make use of the partition.
+[JZ] from driver prospective, the switch is real success, treat the last 
+one harvested in user space.. there is warning in kernel log, and final 
+solution for more than 64 nodes is on-going
+>
+> Also, a kfd node is not expected to have a valid xcp pointer on 
+> devices without partition.
+[JZ] won't affect xcp pointer, only ddev.
+> This access could break then gpu->xcp->ddev.
+[JZ] added skip when ddev==NULL
+>
+> Thanks,
+> Lijo
+> ------------------------------------------------------------------------
+> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of 
+> James Zhu <James.Zhu@amd.com>
+> *Sent:* Saturday, August 12, 2023 2:36:27 AM
+> *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+> *Cc:* Lin, Amber <Amber.Lin@amd.com>; Zhu, James <James.Zhu@amd.com>; 
+> Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Koenig, 
+> Christian <Christian.Koenig@amd.com>
+> *Subject:* [PATCH v3] drm/amdgpu: skip xcp drm device allocation when 
+> out of drm resource
+> Return 0 when drm device alloc failed with -ENOSPC in
+> order to  allow amdgpu drive loading. But the xcp without
+> drm device node assigned won't be visiable in user space.
+> This helps amdgpu driver loading on system which has more
+> than 64 nodes, the current limitation.
+>
+> The proposal to add more drm nodes is discussed in public,
+> which will support up to 2^20 nodes totally.
+> kernel drm:
+> https://lore.kernel.org/lkml/20230724211428.3831636-1-michal.winiarski@intel.com/T/
+> libdrm:
+> https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/305
+>
+> Signed-off-by: James Zhu <James.Zhu@amd.com>
+> Acked-by: Christian König <christian.koenig@amd.com>
+>
+> -v2: added warning message
+> -v3: use dev_warn
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c   | 13 ++++++++++++-
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 10 +++++++++-
+>  2 files changed, 21 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> index 9c9cca129498..565a1fa436d4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> @@ -239,8 +239,13 @@ static int amdgpu_xcp_dev_alloc(struct 
+> amdgpu_device *adev)
+>
+>          for (i = 1; i < MAX_XCP; i++) {
+>                  ret = amdgpu_xcp_drm_dev_alloc(&p_ddev);
+> -               if (ret)
+> +               if (ret == -ENOSPC) {
+> +                       dev_warn(adev->dev,
+> +                       "Skip xcp node #%d when out of drm node 
+> resource.", i);
+> +                       return 0;
+> +               } else if (ret) {
+>                          return ret;
+> +               }
+>
+>                  /* Redirect all IOCTLs to the primary device */
+>                  adev->xcp_mgr->xcp[i].rdev = p_ddev->render->dev;
+> @@ -328,6 +333,9 @@ int amdgpu_xcp_dev_register(struct amdgpu_device 
+> *adev,
+>                  return 0;
+>
+>          for (i = 1; i < MAX_XCP; i++) {
+> +               if (!adev->xcp_mgr->xcp[i].ddev)
+> +                       break;
+> +
+>                  ret = drm_dev_register(adev->xcp_mgr->xcp[i].ddev, 
+> ent->driver_data);
+>                  if (ret)
+>                          return ret;
+> @@ -345,6 +353,9 @@ void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev)
+>                  return;
+>
+>          for (i = 1; i < MAX_XCP; i++) {
+> +               if (!adev->xcp_mgr->xcp[i].ddev)
+> +                       break;
+> +
+>                  p_ddev = adev->xcp_mgr->xcp[i].ddev;
+>                  drm_dev_unplug(p_ddev);
+>                  p_ddev->render->dev = adev->xcp_mgr->xcp[i].rdev;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c 
+> b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index 3b0749390388..310df98ba46a 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -1969,8 +1969,16 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+>          int i;
+>          const char *asic_name = amdgpu_asic_name[gpu->adev->asic_type];
+>
+> +
+>          gpu_id = kfd_generate_gpu_id(gpu);
+> -       pr_debug("Adding new GPU (ID: 0x%x) to topology\n", gpu_id);
+> +       if (!gpu->xcp->ddev) {
+> +               dev_warn(gpu->adev->dev,
+> +               "Won't add GPU (ID: 0x%x) to topology since it has no 
+> drm node assigned.",
+> +               gpu_id);
+> +               return 0;
+> +       } else {
+> +               pr_debug("Adding new GPU (ID: 0x%x) to topology\n", 
+> gpu_id);
+> +       }
+>
+>          /* Check to see if this gpu device exists in the 
+> topology_device_list.
+>           * If so, assign the gpu to that device,
+> -- 
+> 2.34.1
+>
+--------------ORwMjuLRQ3acvkH1sjBMoXUE
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h     |  2 ++
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c   |  1 -
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c |  7 ++++++-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 16 ++++++++++++++--
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c |  7 ++++++-
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c           |  2 ++
- 6 files changed, 30 insertions(+), 5 deletions(-)
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2023-08-11 21:39, Lazar, Lijo wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:BYAPR12MB4614B9FB9A931ACD336212929711A@BYAPR12MB4614.namprd12.prod.outlook.com">
+      
+      <p style="font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;" align="Left">
+        [AMD Official Use Only - General]<br>
+      </p>
+      <br>
+      <div>
+        <div style="" dir="auto">A dynamic partition switch could happen
+          later.&nbsp; The switch could still be successful in terms of
+          hardware,</div>
+      </div>
+    </blockquote>
+    [JZ] Only ignore render node assignment, and remove visibility in
+    user space, xcp continues to be generated as usual. so switch should
+    work as usual<br>
+    <blockquote type="cite" cite="mid:BYAPR12MB4614B9FB9A931ACD336212929711A@BYAPR12MB4614.namprd12.prod.outlook.com">
+      <div>
+        <div style="" dir="auto"> and hence gives a false feeling of
+          success even if there are no render nodes available for any
+          app to make use of the partition<span style="font-size: 12pt;">.</span></div>
+      </div>
+    </blockquote>
+    [JZ] from driver prospective, the switch is real success, treat the
+    last one harvested in user space.. there is warning in kernel log,
+    and final solution for more than 64 nodes is on-going<br>
+    <blockquote type="cite" cite="mid:BYAPR12MB4614B9FB9A931ACD336212929711A@BYAPR12MB4614.namprd12.prod.outlook.com">
+      <div>
+        <div style="" dir="auto"><br>
+        </div>
+        <div style="" dir="auto">Also, a kfd node is not expe<span>cted
+            to have a valid xcp pointer on devices without partition.</span></div>
+      </div>
+    </blockquote>
+    [JZ] won't affect <span>xcp pointer, only&nbsp; </span><span>ddev. </span><span></span>
+    <blockquote type="cite" cite="mid:BYAPR12MB4614B9FB9A931ACD336212929711A@BYAPR12MB4614.namprd12.prod.outlook.com">
+      <div>
+        <div style="" dir="auto"><span> This access could break then
+            gpu-&gt;xcp-&gt;ddev.</span></div>
+      </div>
+    </blockquote>
+    [JZ] <span>added skip when ddev==NULL</span>
+    <blockquote type="cite" cite="mid:BYAPR12MB4614B9FB9A931ACD336212929711A@BYAPR12MB4614.namprd12.prod.outlook.com">
+      <div>
+        <div style="" dir="auto"><br>
+        </div>
+        <div id="ms-outlook-mobile-signature" dir="auto">Thanks,<br>
+          Lijo</div>
+        <hr style="display:inline-block;width:98%" tabindex="-1">
+        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b>
+            amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> on
+            behalf of James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a><br>
+            <b>Sent:</b> Saturday, August 12, 2023 2:36:27 AM<br>
+            <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
+            <b>Cc:</b> Lin, Amber <a class="moz-txt-link-rfc2396E" href="mailto:Amber.Lin@amd.com">&lt;Amber.Lin@amd.com&gt;</a>; Zhu, James
+            <a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a>; Kasiviswanathan, Harish
+            <a class="moz-txt-link-rfc2396E" href="mailto:Harish.Kasiviswanathan@amd.com">&lt;Harish.Kasiviswanathan@amd.com&gt;</a>; Koenig, Christian
+            <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a><br>
+            <b>Subject:</b> [PATCH v3] drm/amdgpu: skip xcp drm device
+            allocation when out of drm resource</font>
+          <div>&nbsp;</div>
+        </div>
+        <div class="BodyFragment"><font size="2"><span style="font-size:11pt;">
+              <div class="PlainText">Return 0 when drm device alloc
+                failed with -ENOSPC in<br>
+                order to&nbsp; allow amdgpu drive loading. But the xcp
+                without<br>
+                drm device node assigned won't be visiable in user
+                space.<br>
+                This helps amdgpu driver loading on system which has
+                more<br>
+                than 64 nodes, the current limitation.<br>
+                <br>
+                The proposal to add more drm nodes is discussed in
+                public,<br>
+                which will support up to 2^20 nodes totally.<br>
+                kernel drm:<br>
+                <a href="https://lore.kernel.org/lkml/20230724211428.3831636-1-michal.winiarski@intel.com/T/" moz-do-not-send="true" class="moz-txt-link-freetext">https://lore.kernel.org/lkml/20230724211428.3831636-1-michal.winiarski@intel.com/T/</a><br>
+                libdrm:<br>
+                <a href="https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/305" moz-do-not-send="true" class="moz-txt-link-freetext">https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/305</a><br>
+                <br>
+                Signed-off-by: James Zhu <a class="moz-txt-link-rfc2396E" href="mailto:James.Zhu@amd.com">&lt;James.Zhu@amd.com&gt;</a><br>
+                Acked-by: Christian König
+                <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a><br>
+                <br>
+                -v2: added warning message<br>
+                -v3: use dev_warn<br>
+                ---<br>
+                &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c&nbsp;&nbsp; | 13
+                ++++++++++++-<br>
+                &nbsp;drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 10
+                +++++++++-<br>
+                &nbsp;2 files changed, 21 insertions(+), 2 deletions(-)<br>
+                <br>
+                diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+                b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c<br>
+                index 9c9cca129498..565a1fa436d4 100644<br>
+                --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c<br>
+                +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c<br>
+                @@ -239,8 +239,13 @@ static int
+                amdgpu_xcp_dev_alloc(struct amdgpu_device *adev)<br>
+                &nbsp;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 1; i &lt; MAX_XCP; i++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =
+                amdgpu_xcp_drm_dev_alloc(&amp;p_ddev);<br>
+                -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret == -ENOSPC) {<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(adev-&gt;dev,<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Skip xcp node #%d when out of
+                drm node resource.&quot;, i);<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (ret) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &nbsp;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Redirect all IOCTLs to the primary
+                device */<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;xcp_mgr-&gt;xcp[i].rdev =
+                p_ddev-&gt;render-&gt;dev;<br>
+                @@ -328,6 +333,9 @@ int amdgpu_xcp_dev_register(struct
+                amdgpu_device *adev,<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+                &nbsp;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 1; i &lt; MAX_XCP; i++) {<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;xcp_mgr-&gt;xcp[i].ddev)<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+                +<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =
+                drm_dev_register(adev-&gt;xcp_mgr-&gt;xcp[i].ddev,
+                ent-&gt;driver_data);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+                @@ -345,6 +353,9 @@ void amdgpu_xcp_dev_unplug(struct
+                amdgpu_device *adev)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
+                &nbsp;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 1; i &lt; MAX_XCP; i++) {<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;xcp_mgr-&gt;xcp[i].ddev)<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+                +<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_ddev =
+                adev-&gt;xcp_mgr-&gt;xcp[i].ddev;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_dev_unplug(p_ddev);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p_ddev-&gt;render-&gt;dev =
+                adev-&gt;xcp_mgr-&gt;xcp[i].rdev;<br>
+                diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+                b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
+                index 3b0749390388..310df98ba46a 100644<br>
+                --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
+                +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c<br>
+                @@ -1969,8 +1969,16 @@ int
+                kfd_topology_add_device(struct kfd_node *gpu)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *asic_name =
+                amdgpu_asic_name[gpu-&gt;adev-&gt;asic_type];<br>
+                &nbsp;<br>
+                +<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_id = kfd_generate_gpu_id(gpu);<br>
+                -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;Adding new GPU (ID: 0x%x) to
+                topology\n&quot;, gpu_id);<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!gpu-&gt;xcp-&gt;ddev) {<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(gpu-&gt;adev-&gt;dev,<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Won't add GPU (ID: 0x%x) to topology
+                since it has no drm node assigned.&quot;,<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_id);<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;Adding new GPU (ID: 0x%x) to
+                topology\n&quot;, gpu_id);<br>
+                +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+                &nbsp;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Check to see if this gpu device exists in
+                the topology_device_list.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * If so, assign the gpu to that device,<br>
+                -- <br>
+                2.34.1<br>
+                <br>
+              </div>
+            </span></font></div>
+      </div>
+    </blockquote>
+  </body>
+</html>
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-index 355c156d871a..3a03f84d3288 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-@@ -52,7 +52,9 @@
- #define CTF_OFFSET_MEM			5
- 
- #define SMU_13_VCLK_SHIFT		16
-+#define pci_gen_to_speed(gen)		((gen <= 0) ? link_speed[0] : link_speed[gen - 1])
- 
-+extern const int link_speed[];
- extern const int pmfw_decoded_link_speed[5];
- extern const int pmfw_decoded_link_width[7];
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index 895cda8e6934..6863186937f7 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -83,7 +83,6 @@ MODULE_FIRMWARE("amdgpu/smu_13_0_10.bin");
- #define PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT 0xE
- 
- static const int link_width[] = {0, 1, 2, 4, 8, 12, 16};
--static const int link_speed[] = {25, 50, 80, 160};
- 
- const int pmfw_decoded_link_speed[5] = {1, 2, 3, 4, 5};
- const int pmfw_decoded_link_width[7] = {0, 1, 2, 4, 8, 12, 16};
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index fddcd834bcec..164fbfbc70fb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -96,6 +96,8 @@
-  */
- #define SUPPORT_ECCTABLE_SMU_13_0_10_VERSION 0x00502200
- 
-+#define LINK_SPEED_MAX                          3
-+
- static struct cmn2asic_msg_mapping smu_v13_0_0_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
- 	MSG_MAP(GetSmuVersion,			PPSMC_MSG_GetSmuVersion,               1),
-@@ -1761,7 +1763,10 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(struct smu_context *smu,
- 	gpu_metrics->current_fan_speed = metrics->AvgFanRpm;
- 
- 	gpu_metrics->pcie_link_width = metrics->PcieWidth;
--	gpu_metrics->pcie_link_speed = metrics->PcieRate;
-+	if ((metrics->PcieRate - 1) > LINK_SPEED_MAX)
-+		gpu_metrics->pcie_link_speed = pci_gen_to_speed(1);
-+	else
-+		gpu_metrics->pcie_link_speed = pci_gen_to_speed(metrics->PcieRate);
- 
- 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 2572dc210739..a8e90a1e6ed9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -80,12 +80,17 @@
- /* possible frequency drift (1Mhz) */
- #define EPSILON 1
- 
--#define smnPCIE_ESM_CTRL 0x193D0
-+#define smnPCIE_ESM_CTRL 0x93D0
- #define smnPCIE_LC_LINK_WIDTH_CNTL 0x1a340288
- #define PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD_MASK 0x00000070L
- #define PCIE_LC_LINK_WIDTH_CNTL__LC_LINK_WIDTH_RD__SHIFT 0x4
- #define MAX_LINK_WIDTH 6
- 
-+#define smnPCIE_LC_SPEED_CNTL                   0x1a340290
-+#define PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK 0xE0
-+#define PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT 0x5
-+#define LINK_SPEED_MAX				4
-+
- static const struct cmn2asic_msg_mapping smu_v13_0_6_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(TestMessage,			     PPSMC_MSG_TestMessage,			0),
- 	MSG_MAP(GetSmuVersion,			     PPSMC_MSG_GetSmuVersion,			1),
-@@ -1923,6 +1928,7 @@ smu_v13_0_6_get_current_pcie_link_width_level(struct smu_context *smu)
- static int smu_v13_0_6_get_current_pcie_link_speed(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
-+	uint32_t speed_level;
- 	uint32_t esm_ctrl;
- 
- 	/* TODO: confirm this on real target */
-@@ -1930,7 +1936,13 @@ static int smu_v13_0_6_get_current_pcie_link_speed(struct smu_context *smu)
- 	if ((esm_ctrl >> 15) & 0x1FFFF)
- 		return (((esm_ctrl >> 8) & 0x3F) + 128);
- 
--	return smu_v13_0_get_current_pcie_link_speed(smu);
-+	speed_level = (RREG32_PCIE(smnPCIE_LC_SPEED_CNTL) &
-+		PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE_MASK)
-+		>> PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT;
-+	if (speed_level > LINK_SPEED_MAX)
-+		speed_level = 0;
-+
-+	return pci_gen_to_speed(speed_level + 1);
- }
- 
- static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index b43c5d13f8d9..915e57d3afa3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -72,6 +72,8 @@
- 
- #define MP0_MP1_DATA_REGION_SIZE_COMBOPPTABLE	0x4000
- 
-+#define LINK_SPEED_MAX                          3
-+
- static struct cmn2asic_msg_mapping smu_v13_0_7_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
- 	MSG_MAP(GetSmuVersion,			PPSMC_MSG_GetSmuVersion,               1),
-@@ -1741,7 +1743,10 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(struct smu_context *smu,
- 	gpu_metrics->current_fan_speed = metrics->AvgFanRpm;
- 
- 	gpu_metrics->pcie_link_width = metrics->PcieWidth;
--	gpu_metrics->pcie_link_speed = metrics->PcieRate;
-+	if ((metrics->PcieRate - 1) > LINK_SPEED_MAX)
-+		gpu_metrics->pcie_link_speed = pci_gen_to_speed(1);
-+	else
-+		gpu_metrics->pcie_link_speed = pci_gen_to_speed(metrics->PcieRate);
- 
- 	gpu_metrics->system_clock_counter = ktime_get_boottime_ns();
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-index 442d267088bc..c1d377e58b3e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -39,6 +39,8 @@
- 
- #define MP1_C2PMSG_90__CONTENT_MASK                                                                    0xFFFFFFFFL
- 
-+const int link_speed[] = {25, 50, 80, 160, 320};
-+
- #undef __SMU_DUMMY_MAP
- #define __SMU_DUMMY_MAP(type)	#type
- static const char * const __smu_message_names[] = {
--- 
-2.34.1
-
+--------------ORwMjuLRQ3acvkH1sjBMoXUE--
