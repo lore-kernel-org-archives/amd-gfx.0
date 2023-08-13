@@ -4,53 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 003A8C001DB
-	for <amd-gfx@archiver.kernel.org>; Sun, 13 Aug 2023 19:10:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38788C001B0
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 07:31:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56DFD10E0F5;
-	Sun, 13 Aug 2023 19:10:47 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3437210E0F5;
- Sun, 13 Aug 2023 19:10:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691953845; x=1723489845;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=xg4mFYd0bSzUJ6T2rDTewtz03S+l8kY6TLXsMswBTio=;
- b=iStDqsiF+rlOScZnyv2RgwtGpvHnrGhZZRYddK2eQm3coqrpFbCJXzz+
- JbxOgQimkJgcrNe2hbFAglRmZhhaeyTORCiBqMMVp43I07SLqKu9z3kxz
- 9YoCUAnOjsd95BsE1m3teOb9xZ+v69gKPh+R7Sx+TC8pFJc5ZdLCipWTO
- pvPE06gLK66kzMkU5mOb9dM73jGKMPjs/iXWIq0mEx9c/YGMmYEriJURn
- 498P91DrpnHSQYIrDNFqms7J/6x44eJ1F5IdLwZORJoLgOLfNzBFeu4x9
- BRWuzkF+ToQZ9EexvjPDK1j79o2aSDDkhM25XOs/eJUcPJmL9zDUoDV1R g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10801"; a="438249040"
-X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="438249040"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2023 12:10:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10801"; a="733216691"
-X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="733216691"
-Received: from lkp-server01.sh.intel.com (HELO d1ccc7e87e8f) ([10.239.97.150])
- by orsmga002.jf.intel.com with ESMTP; 13 Aug 2023 12:10:40 -0700
-Received: from kbuild by d1ccc7e87e8f with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qVGU4-0009C4-22;
- Sun, 13 Aug 2023 19:10:40 +0000
-Date: Mon, 14 Aug 2023 03:10:33 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [RESEND v3 4/5] drm/amdgpu: Move coredump code to amdgpu_reset
- file
-Message-ID: <202308140200.o4DoWaAQ-lkp@intel.com>
-References: <20230810192330.198326-5-andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7A3F10E112;
+	Mon, 14 Aug 2023 07:31:10 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4314810E044;
+ Sun, 13 Aug 2023 01:14:57 +0000 (UTC)
+Received: from [192.168.2.249] (109-252-150-127.dynamic.spd-mgts.ru
+ [109.252.150.127])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id F222866071B8;
+ Sun, 13 Aug 2023 02:14:51 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1691889295;
+ bh=bPp/hkEoDS0ZxAQiv7IPH0ePMv+YAdVNwR7xflkKTfA=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=Uz8KDonPc/gBgbinrFzsCdc6rgNcwCbXiIogKVRXysqJJtxOGqNEF2OUOR+rVnrXd
+ VwOSU59ZkqE9I2R9CNOpO28dhmbVc2RZcZcaxEONC0OAH+wxz6POH8Rza1irhAgWQX
+ 3jNxUqWp9qemwwuadE6DSax0voEzK6ad/MwWNwyqoUmdMClJ0GuN+GntG6o/Y2+G20
+ US0ec6J00OLr7/jjIhU8IlmjV5yvwReELAfpnaFBKL055tF1xHd83m+Q1gCsxqJfu1
+ GvuSjjhWUWtbQvALG3p1XUa66zNV9izcGryYx+W8Bq2+CW9UGz0xQnSZk7uepiAzPw
+ 5WLxzXW8kcnpw==
+Message-ID: <325014e7-cb8d-54e0-eead-7727c8ec2f07@collabora.com>
+Date: Sun, 13 Aug 2023 04:14:49 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230810192330.198326-5-andrealmeid@igalia.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH -next 5/7] drm/virtio: Remove an unnecessary NULL value
+Content-Language: en-US
+To: Ruan Jinjie <ruanjinjie@huawei.com>, Felix.Kuehling@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, harry.wentland@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ inki.dae@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
+ krzysztof.kozlowski@linaro.org, alim.akhtar@samsung.com,
+ robdclark@gmail.com, quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
+ sean@poorly.run, marijn.suijten@somainline.org, bskeggs@redhat.com,
+ kherbst@redhat.com, lyude@redhat.com, kraxel@redhat.com,
+ gurchetansingh@chromium.org, olvaffe@gmail.com,
+ paulo.miguel.almeida.rodenas@gmail.com, wenjing.liu@amd.com,
+ haoping.liu@amd.com, Charlene.Liu@amd.com, chiahsuan.chung@amd.com,
+ george.shen@amd.com, sancchen@amd.com, tony.tascioglu@amd.com,
+ jaehyun.chung@amd.com, tales.aparecida@gmail.com, drv@mailo.com,
+ aurabindo.pillai@amd.com, quic_vpolimer@quicinc.com, jiasheng@iscas.ac.cn,
+ noralf@tronnes.org, jose.exposito89@gmail.com, javierm@redhat.com,
+ mairacanal@riseup.net, davidgow@google.com, arthurgrillo@riseup.net,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux-foundation.org
+References: <20230809034445.434902-1-ruanjinjie@huawei.com>
+ <20230809034445.434902-6-ruanjinjie@huawei.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20230809034445.434902-6-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 14 Aug 2023 07:31:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,45 +77,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
- 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
- Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>, kernel-dev@igalia.com,
- oe-kbuild-all@lists.linux.dev, alexander.deucher@amd.com,
- christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi André,
+On 8/9/23 06:44, Ruan Jinjie wrote:
+> The NULL initialization of the pointer assigned by kzalloc() first is
+> not necessary, because if the kzalloc() failed, the pointer will be
+> assigned NULL, otherwise it works as usual. so remove it.
+> 
+> Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_submit.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
+> index 3c00135ead45..82563dbec2ab 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_submit.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
+> @@ -274,7 +274,7 @@ static int virtio_gpu_fence_event_create(struct drm_device *dev,
+>  					 struct virtio_gpu_fence *fence,
+>  					 u32 ring_idx)
+>  {
+> -	struct virtio_gpu_fence_event *e = NULL;
+> +	struct virtio_gpu_fence_event *e;
+>  	int ret;
+>  
+>  	e = kzalloc(sizeof(*e), GFP_KERNEL);
 
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.5-rc5 next-20230809]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/drm-amdgpu-Create-a-module-param-to-disable-soft-recovery/20230811-032440
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230810192330.198326-5-andrealmeid%40igalia.com
-patch subject: [RESEND v3 4/5] drm/amdgpu: Move coredump code to amdgpu_reset file
-config: alpha-randconfig-r062-20230814 (https://download.01.org/0day-ci/archive/20230814/202308140200.o4DoWaAQ-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 12.3.0
-reproduce: (https://download.01.org/0day-ci/archive/20230814/202308140200.o4DoWaAQ-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308140200.o4DoWaAQ-lkp@intel.com/
-
-cocci warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:228:12-19: WARNING: kzalloc should be used for 
-    
->> 	 coredump  , instead of kmalloc/memset
+Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Best regards,
+Dmitry
+
