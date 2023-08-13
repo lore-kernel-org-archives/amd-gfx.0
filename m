@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06617C001B0
-	for <amd-gfx@archiver.kernel.org>; Sun, 13 Aug 2023 15:52:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB5A9C04A6A
+	for <amd-gfx@archiver.kernel.org>; Sun, 13 Aug 2023 16:03:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA5A10E09F;
-	Sun, 13 Aug 2023 15:52:32 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DF5D10E09F;
- Sun, 13 Aug 2023 15:52:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FBE110E0A9;
+	Sun, 13 Aug 2023 16:03:31 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0428910E0A7;
+ Sun, 13 Aug 2023 16:03:28 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C3283632EC;
- Sun, 13 Aug 2023 15:52:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6AEC433C7;
- Sun, 13 Aug 2023 15:52:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 676456365E;
+ Sun, 13 Aug 2023 16:03:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5D20C433C8;
+ Sun, 13 Aug 2023 16:03:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1691941949;
- bh=OzwJS32dqO5ec+C5kPHE2OkJ6RU9ruhQVtp7umfEOPc=;
+ s=k20201202; t=1691942607;
+ bh=FYW91m020kBBNeUmgboDzHpwcLT4wR5HvrIdu5ZOBZA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cd72vG3kGYLSvTe93X9bIelWVriYj8gZykQ2+3TqeyibhrLtic1X/RRlf7ww9j4JA
- 3jABpv1r1qyA6KpNTdWA/qWhT22kp4oTuvn7+uSbWNnlovnMDbkzEs+Zf1HkgnSSLA
- tzhPkTCE/Mz/sZkkN5mo7s/JdIOuMHdBBFkurVKSQZkA03+VFvCqUb83cckU1WS9Zv
- y2ZJYvSuQP/62ybLASIlFHz0vu6FCcAB5puu6bNSfVlpqZfLw+AmTMXF86MvzUqCt3
- wP2xs7XYVcLz3/u9c3J9OKqJ83mG1AccR/cX4slchElb/aYkiLYicq3zmhz8gV6x2c
- C0wQsVnm3LMJw==
+ b=hAmCkPvmNayAEM30rNi8YWnjDImQI3EvGmMegAK9cQOIMlSwII76cT3w1uHoHq+qt
+ QeSehZ535PMWftOrR/j66krK9HBVcX/GNFRIxs0CZAg2f5y+KGxywdHAQ7jhlKaMiF
+ B5dz+ngNW6tp7Nxm/O5L1Ma6S/3Cv27m0yvsyVJTS1MxA8iAXLMHJWgReeXJAM8jhS
+ Y7Gnc5ogrBT10l6UZ0pj/1JURaCem7egpAlcjYBqo+5biAenRusMtWOh/83AWxrTyc
+ B4/uQEcQxB13n5ogWV3RVcoF005+u9O6zRkUDtqT4LEtgKvO/CUbwBoxIp102JQhn7
+ /RsUu6ZElpYkg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.4 44/54] drm/amd/display: Exit idle optimizations
- before attempt to access PHY
-Date: Sun, 13 Aug 2023 11:49:23 -0400
-Message-Id: <20230813154934.1067569-44-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 37/47] drm/amd/smu: use AverageGfxclkFrequency* to
+ replace previous GFX Curr Clock
+Date: Sun, 13 Aug 2023 11:59:32 -0400
+Message-Id: <20230813160006.1073695-37-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230813154934.1067569-1-sashal@kernel.org>
-References: <20230813154934.1067569-1-sashal@kernel.org>
+In-Reply-To: <20230813160006.1073695-1-sashal@kernel.org>
+References: <20230813160006.1073695-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.4.10
+X-stable-base: Linux 6.1.45
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,55 +57,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: aric.cyr@amd.com, Iswara.Nagulendran@amd.com, wenjing.liu@amd.com,
- dri-devel@lists.freedesktop.org, Jun.Lei@amd.com, airlied@gmail.com,
- Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com,
- Leo Chen <sancchen@amd.com>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, tony.tascioglu@amd.com, sunpeng.li@amd.com,
- harry.wentland@amd.com, Jingwen.Zhu@amd.com, Alex Hung <alex.hung@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, daniel@ffwll.ch, Xinhui.Pan@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, zhikai.zhai@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com,
+ Jane Jian <Jane.Jian@amd.com>, kenneth.feng@amd.com,
+ Lijo Lazar <lijo.lazar@amd.com>, candice.li@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Feifei.Xu@amd.com, Alex Deucher <alexander.deucher@amd.com>,
+ evan.quan@amd.com, airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Chen <sancchen@amd.com>
+From: Jane Jian <Jane.Jian@amd.com>
 
-[ Upstream commit de612738e9771bd66aeb20044486c457c512f684 ]
+[ Upstream commit 4a37c55b859a69f429bfa7fab4fc43ee470b60ed ]
 
-[Why & How]
-DMUB may hang when powering down pixel clocks due to no dprefclk.
+Report current GFX clock also from average clock value as the original
+CurrClock data is not valid/accurate any more as per FW team
 
-It is fixed by exiting idle optimization before the attempt to access PHY.
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Leo Chen <sancchen@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Jane Jian <Jane.Jian@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 8d2460d06bced..80d4996dbe960 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -1794,10 +1794,13 @@ void dce110_enable_accelerated_mode(struct dc *dc, struct dc_state *context)
- 			hws->funcs.edp_backlight_control(edp_link_with_sink, false);
- 		}
- 		/*resume from S3, no vbios posting, no need to power down again*/
-+		clk_mgr_exit_optimized_pwr_state(dc, dc->clk_mgr);
-+
- 		power_down_all_hw_blocks(dc);
- 		disable_vga_and_power_gate_all_controllers(dc);
- 		if (edp_link_with_sink && !keep_edp_vdd_on)
- 			dc->hwss.edp_power_control(edp_link_with_sink, false);
-+		clk_mgr_optimize_pwr_state(dc, dc->clk_mgr);
- 	}
- 	bios_set_scratch_acc_mode_change(dc->ctx->dc_bios, 1);
- }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index f7ac488a3da20..503e844baede2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -1305,7 +1305,7 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(struct smu_context *smu,
+ 	gpu_metrics->average_vclk1_frequency = metrics->AverageVclk1Frequency;
+ 	gpu_metrics->average_dclk1_frequency = metrics->AverageDclk1Frequency;
+ 
+-	gpu_metrics->current_gfxclk = metrics->CurrClock[PPCLK_GFXCLK];
++	gpu_metrics->current_gfxclk = gpu_metrics->average_gfxclk_frequency;
+ 	gpu_metrics->current_socclk = metrics->CurrClock[PPCLK_SOCCLK];
+ 	gpu_metrics->current_uclk = metrics->CurrClock[PPCLK_UCLK];
+ 	gpu_metrics->current_vclk0 = metrics->CurrClock[PPCLK_VCLK_0];
 -- 
 2.40.1
 
