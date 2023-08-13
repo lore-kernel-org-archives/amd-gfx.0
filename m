@@ -4,48 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAC77C001DB
-	for <amd-gfx@archiver.kernel.org>; Sun, 13 Aug 2023 16:11:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 003A8C001DB
+	for <amd-gfx@archiver.kernel.org>; Sun, 13 Aug 2023 19:10:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDC5F10E0DF;
-	Sun, 13 Aug 2023 16:11:10 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F20D10E0DF;
- Sun, 13 Aug 2023 16:11:08 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F2F0363AFB;
- Sun, 13 Aug 2023 16:11:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D14A6C433C8;
- Sun, 13 Aug 2023 16:11:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1691943067;
- bh=cy50LwjIM3cmlivfNAPOdLSRAFubxXvi0p0oosUSsLc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YN9Sp9g7EBgHC3EMAYVwNe6V0FOewSA1ZNzOz84AiBioolwqSoPMXRMdmX52wLIDB
- C8PpM2H+cWa+qkcQ6f3DfhuwzHt5qQTEErvWqfyGADKfitteNgtvZ3sVlzkNXe/Y0Q
- oskSIYwgzoaLMf2UqcPkUzGQA/wvMSLbk5fLtQnzpn6+mxv8x6QnhvXxDwgFO3fcJ+
- TkTP+CPl/oZXaTu/MlTGb+Ro+rsgY2RS0fqjS6Ki32kNOo1X/3p+3SSK+XSEWne4+n
- BPRbiPxYYOPBAfWQ3+5qmDqIJBc3AJVKWq/bN5H+678f6G4BUkVY1NVg9r1xrKyz1w
- JP2bDWryuT2PA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 19/25] drm/amd/display: Exit idle optimizations
- before attempt to access PHY
-Date: Sun, 13 Aug 2023 12:09:30 -0400
-Message-Id: <20230813160936.1082758-19-sashal@kernel.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230813160936.1082758-1-sashal@kernel.org>
-References: <20230813160936.1082758-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56DFD10E0F5;
+	Sun, 13 Aug 2023 19:10:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3437210E0F5;
+ Sun, 13 Aug 2023 19:10:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1691953845; x=1723489845;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=xg4mFYd0bSzUJ6T2rDTewtz03S+l8kY6TLXsMswBTio=;
+ b=iStDqsiF+rlOScZnyv2RgwtGpvHnrGhZZRYddK2eQm3coqrpFbCJXzz+
+ JbxOgQimkJgcrNe2hbFAglRmZhhaeyTORCiBqMMVp43I07SLqKu9z3kxz
+ 9YoCUAnOjsd95BsE1m3teOb9xZ+v69gKPh+R7Sx+TC8pFJc5ZdLCipWTO
+ pvPE06gLK66kzMkU5mOb9dM73jGKMPjs/iXWIq0mEx9c/YGMmYEriJURn
+ 498P91DrpnHSQYIrDNFqms7J/6x44eJ1F5IdLwZORJoLgOLfNzBFeu4x9
+ BRWuzkF+ToQZ9EexvjPDK1j79o2aSDDkhM25XOs/eJUcPJmL9zDUoDV1R g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10801"; a="438249040"
+X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="438249040"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2023 12:10:44 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10801"; a="733216691"
+X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="733216691"
+Received: from lkp-server01.sh.intel.com (HELO d1ccc7e87e8f) ([10.239.97.150])
+ by orsmga002.jf.intel.com with ESMTP; 13 Aug 2023 12:10:40 -0700
+Received: from kbuild by d1ccc7e87e8f with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qVGU4-0009C4-22;
+ Sun, 13 Aug 2023 19:10:40 +0000
+Date: Mon, 14 Aug 2023 03:10:33 +0800
+From: kernel test robot <lkp@intel.com>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RESEND v3 4/5] drm/amdgpu: Move coredump code to amdgpu_reset
+ file
+Message-ID: <202308140200.o4DoWaAQ-lkp@intel.com>
+References: <20230810192330.198326-5-andrealmeid@igalia.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.10.190
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230810192330.198326-5-andrealmeid@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,55 +62,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: aric.cyr@amd.com, Iswara.Nagulendran@amd.com, wenjing.liu@amd.com,
- dri-devel@lists.freedesktop.org, Jun.Lei@amd.com, airlied@gmail.com,
- Jingwen.Zhu@amd.com, Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com,
- Leo Chen <sancchen@amd.com>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com, Alvin.Lee2@amd.com,
- harry.wentland@amd.com, daniel@ffwll.ch, Alex Hung <alex.hung@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, Xinhui.Pan@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, zhikai.zhai@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+ 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
+ Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>, kernel-dev@igalia.com,
+ oe-kbuild-all@lists.linux.dev, alexander.deucher@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Chen <sancchen@amd.com>
+Hi André,
 
-[ Upstream commit de612738e9771bd66aeb20044486c457c512f684 ]
+kernel test robot noticed the following build warnings:
 
-[Why & How]
-DMUB may hang when powering down pixel clocks due to no dprefclk.
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.5-rc5 next-20230809]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-It is fixed by exiting idle optimization before the attempt to access PHY.
+url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/drm-amdgpu-Create-a-module-param-to-disable-soft-recovery/20230811-032440
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20230810192330.198326-5-andrealmeid%40igalia.com
+patch subject: [RESEND v3 4/5] drm/amdgpu: Move coredump code to amdgpu_reset file
+config: alpha-randconfig-r062-20230814 (https://download.01.org/0day-ci/archive/20230814/202308140200.o4DoWaAQ-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 12.3.0
+reproduce: (https://download.01.org/0day-ci/archive/20230814/202308140200.o4DoWaAQ-lkp@intel.com/reproduce)
 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Leo Chen <sancchen@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 3 +++
- 1 file changed, 3 insertions(+)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202308140200.o4DoWaAQ-lkp@intel.com/
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index e33fe0207b9e5..53e8defd34751 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -1682,10 +1682,13 @@ void dce110_enable_accelerated_mode(struct dc *dc, struct dc_state *context)
- 			hws->funcs.edp_backlight_control(edp_link_with_sink, false);
- 		}
- 		/*resume from S3, no vbios posting, no need to power down again*/
-+		clk_mgr_exit_optimized_pwr_state(dc, dc->clk_mgr);
-+
- 		power_down_all_hw_blocks(dc);
- 		disable_vga_and_power_gate_all_controllers(dc);
- 		if (edp_link_with_sink && !keep_edp_vdd_on)
- 			dc->hwss.edp_power_control(edp_link_with_sink, false);
-+		clk_mgr_optimize_pwr_state(dc, dc->clk_mgr);
- 	}
- 	bios_set_scratch_acc_mode_change(dc->ctx->dc_bios);
- }
+cocci warnings: (new ones prefixed by >>)
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:228:12-19: WARNING: kzalloc should be used for 
+    
+>> 	 coredump  , instead of kmalloc/memset
+
 -- 
-2.40.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
