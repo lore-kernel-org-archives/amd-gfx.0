@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CD6AEB64DD
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 17:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BE00C001B0
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 18:03:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F4AE10E221;
-	Mon, 14 Aug 2023 17:53:28 +0000 (UTC)
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8280410E221;
- Mon, 14 Aug 2023 17:53:26 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id
- 5614622812f47-3a812843f0fso32169b6e.2; 
- Mon, 14 Aug 2023 10:53:26 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC6BB10E226;
+	Mon, 14 Aug 2023 18:03:06 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D19110E226
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Aug 2023 18:03:05 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-1c4d7103ef5so1009481fac.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Aug 2023 11:03:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1692035606; x=1692640406;
+ d=gmail.com; s=20221208; t=1692036185; x=1692640985;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=DNj4Ehy/sfd0pFzOH9dNZTRBv9sp3KUM4KIPo2H4CmY=;
- b=rN42HWWDFze8qvsP/5ZO5xHNVC1uJACbX1HAtVkEbdgDXR1+Bfdrm1H+0/7J4sJImJ
- oW2Y8orP6PAthtO1xZ3wQaRWB8YwRMcAJiTXh6YScl+8WM7UW36db95j/Bih10gi3eyX
- 2ceDPLBzqQNeUnSckxy8FE2wOuuHIKM7XnXdrgYsWQd9OqT1PH5ffT8x7X9cELduQDDS
- I2+TovgvXXmA1otGD4LzagdMAN89bIGTRIE3pBzqLb4/Kq/RyPLV75k6meF6eeG5QKze
- 4F/6NrcAg+UAW5vAozvCRLjnyFnYakzvFDQsRBPymTtzaCbADc6K6iKoe+XMcpYOF+Ji
- UXhQ==
+ bh=N838FwxdKWBfmd6tjzMIYLDItPCxOEfwubTrqOPE6rM=;
+ b=IjkFAYijFVUqNabfpK6xuPQ/zWJWObT2zUhlenzpMNI6as7b0tJ+fZwNgt00e8p198
+ xQIcm7oShnps2W/qcchaF/Rx29riPlwZd+MvuXFiGEJ5nkH0GIyqMMvEfe+eiWRVu9k7
+ aPO2rCOQSmh1uNBA1HcBp74oghGqPwcIsWb94jaRUuH9bkw1EiTF4jFdEUkGz2tl6J9l
+ oTqofFbgVhTgRO+DWNwndrlk3YyUbuhMt/9O1jCoadl8P7d6VouQLX9RQI2WN8LCCIJA
+ IISigq92J/Yve8OKmKxcF+l2mJ7RLYiVvLeOFcCBJmSYfAF3ao9q7Kn2qUTGoszxK5xV
+ 7UTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692035606; x=1692640406;
+ d=1e100.net; s=20221208; t=1692036185; x=1692640985;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DNj4Ehy/sfd0pFzOH9dNZTRBv9sp3KUM4KIPo2H4CmY=;
- b=eC+Sv9gdE+eQF26fUAwmsN9WYfVAuCUXY28rzTkhBdsxEXlJpSBCqvRwy7hUGZr5RL
- bD9Tia0dSyNLMRMsOCyHA5UQq7TjprzGU+R6vxklQoR5BWtiiObfM7Ic73mIj4AwOTRe
- 2CXX63DmrGUbVbhV6gYn4gleUbE8BVrHczSTbIshD8mXhkJIQ1Ao34B1wWiPP+x511by
- QUpFu1xH+UbdjBeGuWQ6qnYjyQFbKaOj0D5ISzgFBy54B8O5Togtr0GZU0RbtNjdzi3X
- b6boDnZdP9Hcd82Ho/xf89Ld4GFKd6qrv9yOT+wkmNGBy9THuVPtXTxBfTSWVSL5Liyc
- xgdw==
-X-Gm-Message-State: AOJu0YxMYLwQgPurlb+w0K7QvSrH645biuLm6fAwfnJP+PsS3lzblMLX
- KKKsVYe8zDdxoinLFj4jmm7iHjZjco9yxhLOeAhRT5+O
-X-Google-Smtp-Source: AGHT+IGJXHhBOUTVGCeeiEOn2js4InfzSyxZIwh2hBBvYmWwgDTWI6octp0dURI2oWFYuqtzBpHx3gdNmZPVQNUPUmE=
-X-Received: by 2002:a05:6870:424c:b0:1be:c688:1cc with SMTP id
- v12-20020a056870424c00b001bec68801ccmr8400287oac.5.1692035605733; Mon, 14 Aug
- 2023 10:53:25 -0700 (PDT)
+ bh=N838FwxdKWBfmd6tjzMIYLDItPCxOEfwubTrqOPE6rM=;
+ b=ddwKi8adcXEFZmyWu3KE6QLU9+OjfGnRPocGvJfaxb22USh/v3aquAb2N2ai8rD23i
+ NHkr10A/zIZh1bnSsbZ2pDXhK523ZLKZL81ZAz7tqY+T/og6LmE+t1aPkjvqF59ozuUU
+ B5zJSadace4dTjZTE+ta2ipKqzrCW5bR7lGB+HN6byiasCag9HxUhcg5slP7uPcfBo0Q
+ GUVh6D5WQKjTerEc9J5EwTR3ZIZaoZ7OvvWe7G3z1fuGBBSJBQgNY2SGrDCoIED7qLYl
+ +aUdxgpK82W8DyxWZeHT7+42q23xQmkxLLdQ1DJJTIpvAXcaLv2z09S+aaTdgwqQDzrf
+ v8GQ==
+X-Gm-Message-State: AOJu0YzoVBRU4+OVmYltBFMuNASarpyZNXNaSw3tNWOcb7qUezgvKC9h
+ ivkrs22Q23Gp484xBQKft/HXpjR55INL+76q3hA=
+X-Google-Smtp-Source: AGHT+IH3JjI6nh5/4daNdzrBwnNJzO6CjkACAyiVKBmlGheHLvkjEOSRojfZZziswVDV8ze9P9oabQHTfsNzkPvYn1I=
+X-Received: by 2002:a05:6870:178c:b0:1b0:3821:f09b with SMTP id
+ r12-20020a056870178c00b001b03821f09bmr6340339oae.13.1692036184811; Mon, 14
+ Aug 2023 11:03:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230731093009.3243-1-sunran001@208suo.com>
-In-Reply-To: <20230731093009.3243-1-sunran001@208suo.com>
+References: <20230810115612.23428-1-guozihua@huawei.com>
+In-Reply-To: <20230810115612.23428-1-guozihua@huawei.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 14 Aug 2023 13:53:14 -0400
-Message-ID: <CADnq5_Mmzv0-UmRX5fowsg6AOBmBvsWPjm2FSHmxL4oLF_MVDg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: Clean up errors in amdgpu_smu.h
-To: Ran Sun <sunran001@208suo.com>
+Date: Mon, 14 Aug 2023 14:02:53 -0400
+Message-ID: <CADnq5_PtdevnCt-R__KsL7KD=1cExNqCPubjEzSs72wEmON1Yw@mail.gmail.com>
+Subject: Re: [PATCH -next] drm/amdgpu: Remove duplicated includes
+To: GUO Zihua <guozihua@huawei.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,140 +67,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: alexander.deucher@amd.com, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
+ christian.koenig@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Mon, Jul 31, 2023 at 5:30=E2=80=AFAM Ran Sun <sunran001@208suo.com> wrot=
-e:
+On Thu, Aug 10, 2023 at 8:33=E2=80=AFAM GUO Zihua <guozihua@huawei.com> wro=
+te:
 >
-> Fix the following errors reported by checkpatch:
+> Remove duplicated includes in amdgpu_amdkfd_gpuvm.c and amdgpu_ttm.c.
+> Resolves checkincludes message.
 >
-> ERROR: open brace '{' following enum go on the same line
-> ERROR: open brace '{' following struct go on the same line
->
-> Signed-off-by: Ran Sun <sunran001@208suo.com>
+> Signed-off-by: GUO Zihua <guozihua@huawei.com>
 > ---
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 36 +++++++------------
->  1 file changed, 12 insertions(+), 24 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c          | 1 -
+>  2 files changed, 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/=
-drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index 6e2069dcb6b9..190a90b24d74 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -200,29 +200,25 @@ struct smu_power_state {
->         struct smu_hw_power_state                     hardware;
->  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index a136fba9f29b..7d6daf8d2bfa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -39,7 +39,6 @@
+>  #include "amdgpu_xgmi.h"
+>  #include "kfd_priv.h"
+>  #include "kfd_smi_events.h"
+> -#include <drm/ttm/ttm_tt.h>
 >
-> -enum smu_power_src_type
-> -{
-> +enum smu_power_src_type {
->         SMU_POWER_SOURCE_AC,
->         SMU_POWER_SOURCE_DC,
->         SMU_POWER_SOURCE_COUNT,
->  };
+>  /* Userptr restore delay, just long enough to allow consecutive VM
+>   * changes to accumulate
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.c
+> index dea848bb55c1..f5aa1362c818 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -49,7 +49,6 @@
+>  #include <drm/ttm/ttm_tt.h>
 >
-> -enum smu_ppt_limit_type
-> -{
-> +enum smu_ppt_limit_type {
->         SMU_DEFAULT_PPT_LIMIT =3D 0,
->         SMU_FAST_PPT_LIMIT,
->  };
+>  #include <drm/amdgpu_drm.h>
+> -#include <drm/drm_drv.h>
 >
-> -enum smu_ppt_limit_level
-> -{
-> +enum smu_ppt_limit_level {
->         SMU_PPT_LIMIT_MIN =3D -1,
->         SMU_PPT_LIMIT_CURRENT,
->         SMU_PPT_LIMIT_DEFAULT,
->         SMU_PPT_LIMIT_MAX,
->  };
->
-> -enum smu_memory_pool_size
-> -{
-> +enum smu_memory_pool_size {
->      SMU_MEMORY_POOL_SIZE_ZERO   =3D 0,
->      SMU_MEMORY_POOL_SIZE_256_MB =3D 0x10000000,
->      SMU_MEMORY_POOL_SIZE_512_MB =3D 0x20000000,
-> @@ -282,8 +278,7 @@ struct smu_clock_info {
->         uint32_t max_bus_bandwidth;
->  };
->
-> -struct smu_bios_boot_up_values
-> -{
-> +struct smu_bios_boot_up_values {
->         uint32_t                        revision;
->         uint32_t                        gfxclk;
->         uint32_t                        uclk;
-> @@ -305,8 +300,7 @@ struct smu_bios_boot_up_values
->         uint32_t                        firmware_caps;
->  };
->
-> -enum smu_table_id
-> -{
-> +enum smu_table_id {
->         SMU_TABLE_PPTABLE =3D 0,
->         SMU_TABLE_WATERMARKS,
->         SMU_TABLE_CUSTOM_DPM,
-> @@ -326,8 +320,7 @@ enum smu_table_id
->         SMU_TABLE_COUNT,
->  };
->
-> -struct smu_table_context
-> -{
-> +struct smu_table_context {
->         void                            *power_play_table;
->         uint32_t                        power_play_table_size;
->         void                            *hardcode_pptable;
-> @@ -390,8 +383,7 @@ struct smu_power_context {
->  };
->
->  #define SMU_FEATURE_MAX        (64)
-> -struct smu_feature
-> -{
-> +struct smu_feature {
->         uint32_t feature_num;
->         DECLARE_BITMAP(supported, SMU_FEATURE_MAX);
->         DECLARE_BITMAP(allowed, SMU_FEATURE_MAX);
-> @@ -416,21 +408,18 @@ struct mclock_latency_table {
->         struct mclk_latency_entries  entries[MAX_REGULAR_DPM_NUM];
->  };
->
-> -enum smu_reset_mode
-> -{
-> +enum smu_reset_mode {
->      SMU_RESET_MODE_0,
->      SMU_RESET_MODE_1,
->      SMU_RESET_MODE_2,
->  };
->
-> -enum smu_baco_state
-> -{
-> +enum smu_baco_state {
->         SMU_BACO_STATE_ENTER =3D 0,
->         SMU_BACO_STATE_EXIT,
->  };
->
-> -struct smu_baco_context
-> -{
-> +struct smu_baco_context {
->         uint32_t state;
->         bool platform_support;
->         bool maco_support;
-> @@ -478,8 +467,7 @@ struct stb_context {
->
->  #define WORKLOAD_POLICY_MAX 7
->
-> -struct smu_context
-> -{
-> +struct smu_context {
->         struct amdgpu_device            *adev;
->         struct amdgpu_irq_src           irq_source;
->
+>  #include "amdgpu.h"
+>  #include "amdgpu_object.h"
 > --
 > 2.17.1
 >
