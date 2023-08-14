@@ -4,113 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50857C001DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 14:30:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF9A0C001DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 14:34:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C534510E204;
-	Mon, 14 Aug 2023 14:30:29 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2041.outbound.protection.outlook.com [40.107.100.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F20F10E204
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Aug 2023 14:30:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BTGYCQ5ritm5NbwGmu0i2jwcUjtLnzWo1h6moh5FQOLKrQ6VLtpZGdeG43FFvi+4izQtXx7sJd0E7ko7AsRULbeqok7Nhv/95HGfeYz6tqv4LX3uPwTYV3g47kDr4WfbfGl62EQIm7nRF3jF/TvygCWMDsOVlLhwpe2u8845q7NrHlyVwmKePGzYL+2PbZuaClzlOc2WCZlozxFtv0G/rf4PBL8+tVW9T3nlYyQmI1HFyyHynMvgZUr2y/7QGWHAAn5xVv76L4zfFoiy/3XrZBtUmzfY0WQEgmVdtUtR002MK9knJcbk2pu1SGMx3pn5GMAa5E9U0rEhi0bkJLlVhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DkYxHPGyZ/9G1nRND9FrO4WsJKf8Bm/myCi5/F5P09k=;
- b=chSsFNSQAidPESQuqHHqrE3TekNzDdVDFRIz7zffKUgynqAk6yR0jq5M30QE/MDaPayqG5qpguQ1GPXqTZ8vp37HDTmi6eeHY+/kt2M88ppY5XOj5wRhhu4oDp0MEU5eD1kRv5J6AwWTyuLceEqpJke8vUlL8vGWmCFgakRo7LSSkt8sBOS8m1k13Rt6nq95MbWTfZVG/YDbdzChf9scJDT0MSZ09S0ETQzoMYmlN29lFqwi4y7rQvjbfDdkG8MLUPDmzd9G3lQPavxtvsF1wd94KHnfP4Az0QCY0IzRcaG3H6BhrUojUGq5om85KIta/Tij6IaIhjJQuYauiQdAhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DkYxHPGyZ/9G1nRND9FrO4WsJKf8Bm/myCi5/F5P09k=;
- b=Xc76gTzmuph1x4aUDn6IrIOaomAIS10/gv3AWdE1EG5nCx7juOFwRqT99/9uSZDZL8Nli2oifozEONrVUYNk+aPvDdK5Jy6YsONrCipuSukhHf4v7lltO3JHetzox84fHgMbKDgIaYTJegrTDh+KaSkvnZu1Z+LKfRmscSGVWS4=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by PH7PR12MB7380.namprd12.prod.outlook.com (2603:10b6:510:20f::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Mon, 14 Aug
- 2023 14:30:22 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::4d17:c920:ea2e:3b2d]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::4d17:c920:ea2e:3b2d%4]) with mapi id 15.20.6678.025; Mon, 14 Aug 2023
- 14:30:22 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: Remove gfxoff check in GFX v9.4.3
-Thread-Topic: [PATCH] drm/amdgpu: Remove gfxoff check in GFX v9.4.3
-Thread-Index: AQHZzruHAwGQtFJk80KcfwGG0hsf+K/p2iXw
-Date: Mon, 14 Aug 2023 14:30:22 +0000
-Message-ID: <BN9PR12MB5257B32B3CE87AFEA4B04ACAFC17A@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20230814142735.677239-1-lijo.lazar@amd.com>
-In-Reply-To: <20230814142735.677239-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=90bffd0e-70dc-4429-8829-924401f14d17;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-08-14T14:29:59Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|PH7PR12MB7380:EE_
-x-ms-office365-filtering-correlation-id: 436ce296-a2d2-4316-ffc9-08db9cd2fe27
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: xoB0YAZ8MFkdDohyPY1QQ793GQPsTOSfZxBNkyuACihMLQ5aq9QCKYxyPzUA9KhA62YTq+tkFDebPoMaoaxsYuc9Mrv+ud8BcDQQ42d0fBf/n8Q8UDzlO+SUsECA3OkLtu8P9n440b/3tCsOB1s84RCa4zcT4fsqDlP4zaHD2y6qqAdnUpGFwqxFSWn5v73VQ6C9n8gqK8JiBX3nNtMihonEks0NMtHTR3je4uXjl0cYVqe3q7AImpDmGoEyhQLWN+rokC4zmv4+76GzeO6R1ksLDw6IMBqv2KEGZuyGGUD0LSIl8NsjsygBE8wKg1mM86mDAg6GxtZvQk/bBhDpV+MMqoZg0ju2+I9qb7O5KHe5tMowCAv4rqSPKmtu+02W+2a+vDJrKShTEbpM121WXzrDOf7F6/dWhwQp9bhAzKg2l3gAk8LtWT6efU2xbTwmWtgfY5nB98fDYnMTYcXzJ1qCI403qf2qZfTuyK6oxc5cxj0aJOnCdKawQz4KELhEMZfq6OjkyK2TMYjuUvnjVzhJ0og5gGaqOL3Ihj2sDhXv9EB5RkWeoYbQ/UoJuc9l+3tOPbECR7X/0snV1k2bass78e2f3TbnsDNr9Hu71r8=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(366004)(376002)(346002)(136003)(396003)(39860400002)(1800799006)(451199021)(186006)(55016003)(5660300002)(52536014)(26005)(83380400001)(2906002)(71200400001)(478600001)(41300700001)(7696005)(6506007)(53546011)(8676002)(8936002)(4326008)(9686003)(76116006)(110136005)(316002)(66476007)(66556008)(66946007)(66446008)(64756008)(33656002)(86362001)(38070700005)(38100700002)(122000001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZakJfhnJxZezzbSK/subUbIwHka4iE3g03LmBmjssHJ6LhLHVQ57WwCqkaX3?=
- =?us-ascii?Q?8IQxHkVwd4WHfU+tQGimlfwgy4NP1rJ5KHrLy34I7UHJFKHSjgG6X3JBm25Z?=
- =?us-ascii?Q?Sh6w2brEz/lqRpzStl6BurEmP8yjzXUlMXDBrFF0NvHST2hVN2C3g+zt4q56?=
- =?us-ascii?Q?wnmO9bmchw3ptGjKdB6/tqEfKNq5StOAsWyL6HSr9PcwlKuVyhsl9D0p6Fun?=
- =?us-ascii?Q?JJZmo0snuly7XxTQIonyhZYL4+jOBuONSjKE47As50odh+w5ypICDyLrt74Z?=
- =?us-ascii?Q?wx5SD0T2+dnVK4da9jwojT/lCWV4BNI87NwWwtE+9B+ETbpY6uPO1hLnLyDa?=
- =?us-ascii?Q?nDCS6VxvTAYo4b4TL5S70/d2lMPjmXOOoZ8z+eTjal0fG/jyH3Ltjrwj5pEF?=
- =?us-ascii?Q?xkQ1sd7BRJRMXkTkHEPHKm98cnx+efDSPd+u5EY6O6amAGQrrFl8kQX9AJns?=
- =?us-ascii?Q?kJlXF14oWBQhHW/TF7YlQXyHlQF91+2oJN3M5jsx98GO/10jXBbqjLDRhDt0?=
- =?us-ascii?Q?si0Lk/Z6jjH1BjMr38Uk1IWNJ3idCoaiSh1mwXdFSRLFr/Ttdsx9JJoo/rrL?=
- =?us-ascii?Q?mF97DrO0daZFvEvVuKLttsa6lzHrMp5xHXbS2yW8TQ3JBOcWmFal8eatlgNo?=
- =?us-ascii?Q?Yg3WjWc0mWbH+dG93ayxVwdkn2oNpekJrvlPX1kAy7vi5KL9SanGas0tpas6?=
- =?us-ascii?Q?gzKNA1KDx/pvGkU9xGXQePdLCadKY6/RuKsKVvlEkrORzwy7oTI11WJtN6k6?=
- =?us-ascii?Q?V7MyXnqpbrD2SD/W4Jf+UOQWgjysGikDLaSQb9qnFwPaCBqYlILKUM6kDE1r?=
- =?us-ascii?Q?IZFrDDmiqYeQt1EoFPbv49hkch3w8BAsBFblgczT6sF3iMS2pZ9uXIGgkatC?=
- =?us-ascii?Q?U5y9+oDUM42sBnasENwj7pJcKoMJQwjTRdChMbLGNemCocSeWzLP+fnLTFbX?=
- =?us-ascii?Q?cr+/2g9vdDH6o2Gxi44avYAAiG2nnNNb6MKQvBfKbA3TGgTQHLeJEXZyp2QQ?=
- =?us-ascii?Q?1Wc14ObL0PcYOgdFuZ/GcHGXkKoxzG7knwk9a20W6hgJF3Dwx9CIA0bqg5IM?=
- =?us-ascii?Q?N/135OpS0SJtUkEqWUEArv+GSQSBufeCN6FXpuqnf9ClaT40OIe0xj1Jv32Z?=
- =?us-ascii?Q?lrptW6DJnF5FuDD3HejMUTUOoG6L/kxgLXkcP5FzbqlPlMlCFOdV7jSvQSLS?=
- =?us-ascii?Q?56rq+CFF4JogctZA0KtgNe0Qme6wdsWvyE8nLEWjl0Ro0QfSsi3Ili95AOkJ?=
- =?us-ascii?Q?ACr7yRkyGOwAQFns7o8j3lSbkjIEMnKn6wGY0srcR92eKEWEeKfSDiYmCJjn?=
- =?us-ascii?Q?A6ZFp8d2r22JnfNM82fnCDEbXXKpoa8TGf7JSvCGtIosdFtFif/DcasKssu/?=
- =?us-ascii?Q?jIq2cgOCQ9Mu61jlGborn+SOUz+uGuVeeR2w1lbzQzp3C/tOgOK+pKtdwtTg?=
- =?us-ascii?Q?wPzDdnruUOgyrjJTiKSimYuEoNtOJDguOIzCxSQCKBuVsUfDHZJlCeEJ2phu?=
- =?us-ascii?Q?sw0kMU6Z/ujR4RFKPGL/cvBlo5WCxxsHu3JLzNIrRZnbsfj925LZX+ErKqnG?=
- =?us-ascii?Q?O//tKkJTwjSjrgRpFuk=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B1D510E213;
+	Mon, 14 Aug 2023 14:34:06 +0000 (UTC)
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06E0710E213;
+ Mon, 14 Aug 2023 14:34:03 +0000 (UTC)
+Received: by mail-ot1-x334.google.com with SMTP id
+ 46e09a7af769-6bcade59b24so3657278a34.0; 
+ Mon, 14 Aug 2023 07:34:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1692023643; x=1692628443;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VMCYSTnI0EaprvPrU8AJ07Nk7OqdkIqQaqivREr/cT8=;
+ b=QRd3C0YnJaysian8xt/KxSBaqAEuHPSaeFv3ixRchVmcK0PySTPYp5hTqK86LfyoCI
+ b259L7WTVX1D4ciGHvnNgXKrNHldN1ir7dcGWXptL6A6iMrwYq4fUaL6jbEf4tyzwsDy
+ QS+yUfW0E+6a35PN3oihVshMJcPGAZRrAJy5s6000+wdTlEZI02gpDFrUQdRhX0Nqqu8
+ zaIy4Y89WMiIeYpjozBYBa3ylUGEcSrVqzpwNRqxU5uasZa9JKwVPgTXlGiH3ncdgxUM
+ JgnSW9e+YFprma05b5tTQZqQDT4+n3PcTdkKnMHCtDjXQ+J9KgiFSJT1RyoS4vfmPPI8
+ vzsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692023643; x=1692628443;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=VMCYSTnI0EaprvPrU8AJ07Nk7OqdkIqQaqivREr/cT8=;
+ b=FUfdlAazndI25cU2wRa6vw4LcuhudEh1H75/ntFZ29onbrOo6He7GkScvjp4DmFKw+
+ A29PfhAV48uSUHpDjllyFJIAxUByISAnoRqEcwdAs2RCN7Xg/uSrOgI3AHM63rOEwRzb
+ /Uztzbq1cktsrJa3bj+rXQtfyUWB4xotob2zp3NoTTcnPTFG5Ipwv5IxWpgKEzbCvqZg
+ rViSkOZpk/PbGKLMiW2HLnZ+Zaon6/9BkFqyJUf82OPTa5I/dLYVKYLC1LAXCeLT1BtC
+ M1T0y8uVrI883d8MTqDLCfCLMMq20D4jyeoxUn3uINesmd9DiRudwqYm1LXgR9O13A4k
+ Trlg==
+X-Gm-Message-State: AOJu0Yw/F3LmQ3OLCXs9h9hbNMagR5p/bXNakjFtmkkop8DPn91K3+Ju
+ Q9bHp9WNVbfzmzIRxJ3gSrkTfqv6lTvvBMB8GsE=
+X-Google-Smtp-Source: AGHT+IGBnw15mEd8LCUpANzlvT1pKn1oKCqBOba0YRURUjQhSKCMPqrZVG3jdyFGkT+kCkNQv89nkEcisSZIw6yZoVQ=
+X-Received: by 2002:a05:6870:b01a:b0:17f:7388:4c69 with SMTP id
+ y26-20020a056870b01a00b0017f73884c69mr10778590oae.30.1692023642423; Mon, 14
+ Aug 2023 07:34:02 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 436ce296-a2d2-4316-ffc9-08db9cd2fe27
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Aug 2023 14:30:22.3745 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /9rq4OKsCFdkXIl5Z5eNFE7RI81mgvIhCZcE27sPbTrBAs4mwhb/Wr8sTSY90UvnZhcpM51hWW8rxEhRhyiWeA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7380
+References: <20230814073438.10682-1-Arvind.Yadav@amd.com>
+ <20230814073438.10682-2-Arvind.Yadav@amd.com>
+In-Reply-To: <20230814073438.10682-2-Arvind.Yadav@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 14 Aug 2023 10:33:51 -0400
+Message-ID: <CADnq5_N2YzOv4naA_etwQ_C5NkNYwV-PtBAJ3UKEXp6RbdQojQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu: Add new api to switch on/off power
+ profile mode
+To: Arvind Yadav <Arvind.Yadav@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,53 +69,357 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: shashank.sharma@amd.com, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
+ Christian.Koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+On Mon, Aug 14, 2023 at 3:35=E2=80=AFAM Arvind Yadav <Arvind.Yadav@amd.com>=
+ wrote:
+>
+> This patch adds a function which will allow to
+> change the GPU power profile based on a submitted job.
+> This can optimize the power performance when the
+> workload is on.
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+A few minor comments inline below.  One thing to double check is that
+we properly cancel this work before a suspend or driver unload.  We
+need to make sure this is taken care of before we take down the SMU.
 
-Regards,
-Hawking
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Monday, August 14, 2023 22:28
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Remove gfxoff check in GFX v9.4.3
+Alex
 
-GFXOFF feature is not there for GFX 9.4.3 ASICs.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c
-index 564770c3875e..4bbe9c5ed87f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -337,13 +337,11 @@ static uint64_t gfx_v9_4_3_get_gpu_clock_counter(stru=
-ct amdgpu_device *adev)  {
-        uint64_t clock;
-
--       amdgpu_gfx_off_ctrl(adev, false);
-        mutex_lock(&adev->gfx.gpu_clock_mutex);
-        WREG32_SOC15(GC, GET_INST(GC, 0), regRLC_CAPTURE_GPU_CLOCK_COUNT, 1=
+>
+> Cc: Shashank Sharma <shashank.sharma@amd.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Arvind Yadav <Arvind.Yadav@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   3 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   2 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c  | 156 ++++++++++++++++++
+>  drivers/gpu/drm/amd/include/amdgpu_workload.h |  44 +++++
+>  5 files changed, 206 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c
+>  create mode 100644 drivers/gpu/drm/amd/include/amdgpu_workload.h
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/am=
+dgpu/Makefile
+> index 415a7fa395c4..6a9e187d61e1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -60,7 +60,7 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_kms.o \
+>         amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+>         amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+>         amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
+> -       amdgpu_ring_mux.o
+> +       amdgpu_ring_mux.o amdgpu_workload.o
+>
+>  amdgpu-$(CONFIG_PROC_FS) +=3D amdgpu_fdinfo.o
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index 02b827785e39..1939fa1af8a6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -107,6 +107,7 @@
+>  #include "amdgpu_fdinfo.h"
+>  #include "amdgpu_mca.h"
+>  #include "amdgpu_ras.h"
+> +#include "amdgpu_workload.h"
+>
+>  #define MAX_GPU_INSTANCE               16
+>
+> @@ -1050,6 +1051,8 @@ struct amdgpu_device {
+>
+>         bool                            job_hang;
+>         bool                            dc_enabled;
+> +
+> +       struct amdgpu_smu_workload      smu_workload;
+>  };
+>
+>  static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 5c7d40873ee2..0ec18b8fe29f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3672,6 +3672,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>
+>         INIT_WORK(&adev->xgmi_reset_work, amdgpu_device_xgmi_reset_func);
+>
+> +       amdgpu_smu_workload_init(adev);
+> +
+>         adev->gfx.gfx_off_req_count =3D 1;
+>         adev->gfx.gfx_off_residency =3D 0;
+>         adev->gfx.gfx_off_entrycount =3D 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_workload.c
+> new file mode 100644
+> index 000000000000..ce0339d75c12
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c
+> @@ -0,0 +1,156 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright 2023 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> + * copy of this software and associated documentation files (the "Softwa=
+re"),
+> + * to deal in the Software without restriction, including without limita=
+tion
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be includ=
+ed in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
+SS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
+TY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
+ALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
+ OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#include "amdgpu.h"
+> +
+> +/* 100 millsecond timeout */
+> +#define SMU_IDLE_TIMEOUT       msecs_to_jiffies(100)
+> +
+> +static enum PP_SMC_POWER_PROFILE
+> +ring_to_power_profile(uint32_t ring_type)
+> +{
+> +       switch (ring_type) {
+> +       case AMDGPU_RING_TYPE_GFX:
+> +               return PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+> +       case AMDGPU_RING_TYPE_COMPUTE:
+> +               return PP_SMC_POWER_PROFILE_COMPUTE;
+> +       case AMDGPU_RING_TYPE_UVD:
+> +       case AMDGPU_RING_TYPE_VCE:
+> +       case AMDGPU_RING_TYPE_UVD_ENC:
+> +       case AMDGPU_RING_TYPE_VCN_DEC:
+> +       case AMDGPU_RING_TYPE_VCN_ENC:
+> +       case AMDGPU_RING_TYPE_VCN_JPEG:
+> +               return PP_SMC_POWER_PROFILE_VIDEO;
+> +       default:
+> +               return PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
+> +       }
+> +}
+> +
+> +static void
+> +amdgpu_power_profile_set(struct amdgpu_device *adev,
+> +                        enum PP_SMC_POWER_PROFILE profile)
+> +{
+> +       int ret =3D amdgpu_dpm_switch_power_profile(adev, profile, true);
+> +
+> +       if (ret =3D=3D 0) {
+> +               /* Set the bit for the submitted workload profile */
+> +               adev->smu_workload.submit_workload_status |=3D (1 << prof=
+ile);
+> +               atomic_inc(&adev->smu_workload.power_profile_ref[profile]=
 );
-        clock =3D (uint64_t)RREG32_SOC15(GC, GET_INST(GC, 0), regRLC_GPU_CL=
-OCK_COUNT_LSB) |
-                ((uint64_t)RREG32_SOC15(GC, GET_INST(GC, 0), regRLC_GPU_CLO=
-CK_COUNT_MSB) << 32ULL);
-        mutex_unlock(&adev->gfx.gpu_clock_mutex);
--       amdgpu_gfx_off_ctrl(adev, true);
+> +       } else {
+> +               DRM_ERROR("Failed to set power profile, error %d\n", ret)=
+;
+> +       }
+> +
+> +}
+> +
+> +static void
+> +amdgpu_power_profile_clear(struct amdgpu_device *adev,
+> +                          enum PP_SMC_POWER_PROFILE profile)
+> +{
+> +       int ret =3D amdgpu_dpm_switch_power_profile(adev, profile, false)=
+;
+> +
+> +       if (ret =3D=3D 0) {
+> +                /* Clear the bit for the submitted workload profile */
+> +               adev->smu_workload.submit_workload_status &=3D ~(1 << pro=
+file);
+> +       } else
+> +               DRM_ERROR("Failed to clear power profile, error %d\n", re=
+t);
+> +
+> +}
+> +
+> +static void amdgpu_smu_idle_work_handler(struct work_struct *work)
 
-        return clock;
- }
---
-2.25.1
+How about amdgpu_power_profile_idle_work_handler() for consistency?
 
+> +{
+> +
+> +       struct amdgpu_smu_workload *wl =3D container_of(work,
+> +                                                     struct amdgpu_smu_w=
+orkload,
+> +                                                     smu_delayed_work.wo=
+rk);
+> +       struct amdgpu_device *adev =3D wl->adev;
+> +       bool reschedule =3D false;
+> +
+> +       mutex_lock(&adev->smu_workload.workload_lock);
+> +       for (int index  =3D fls(adev->smu_workload.submit_workload_status=
+);
+> +            index >=3D 0; index--) {
+> +               if (!atomic_read(&adev->smu_workload.power_profile_ref[in=
+dex]) &&
+> +                   adev->smu_workload.submit_workload_status & (1 << ind=
+ex)) {
+> +                       amdgpu_power_profile_clear(adev, index);
+> +               } else if (atomic_read(&adev->smu_workload.power_profile_=
+ref[index]))
+> +                       reschedule =3D true;
+> +       }
+> +
+> +       if (reschedule)
+> +               schedule_delayed_work(&adev->smu_workload.smu_delayed_wor=
+k,
+> +                                     SMU_IDLE_TIMEOUT);
+> +
+> +       mutex_unlock(&adev->smu_workload.workload_lock);
+> +}
+> +
+> +void amdgpu_put_workload_profile(struct amdgpu_device *adev,
+
+amdgpu_workload_profile_put() for consistency.
+
+> +                                uint32_t ring_type)
+> +{
+> +
+> +       enum PP_SMC_POWER_PROFILE profile =3D ring_to_power_profile(ring_=
+type);
+> +
+> +       if (profile =3D=3D PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT)
+> +               return;
+> +
+> +       mutex_lock(&adev->smu_workload.workload_lock);
+> +       atomic_dec(&adev->smu_workload.power_profile_ref[profile]);
+> +       schedule_delayed_work(&adev->smu_workload.smu_delayed_work, SMU_I=
+DLE_TIMEOUT);
+> +       mutex_unlock(&adev->smu_workload.workload_lock);
+> +}
+> +
+> +void amdgpu_set_workload_profile(struct amdgpu_device *adev,
+> +                                uint32_t ring_type)
+
+amdgpu_workload_profile_set() for consistency.
+
+> +{
+> +       enum PP_SMC_POWER_PROFILE profile =3D ring_to_power_profile(ring_=
+type);
+> +
+> +       if (profile =3D=3D PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT)
+> +               return;
+> +
+> +       mutex_lock(&adev->smu_workload.workload_lock);
+> +       cancel_delayed_work_sync(&adev->smu_workload.smu_delayed_work);
+> +
+> +       amdgpu_power_profile_set(adev, profile);
+> +
+> +       /* Clear the already finished jobs of higher power profile*/
+> +       for (int index =3D fls(adev->smu_workload.submit_workload_status)=
+;
+> +            index > profile; index--) {
+> +               if (!atomic_read(&adev->smu_workload.power_profile_ref[in=
+dex]) &&
+> +                   adev->smu_workload.submit_workload_status & (1 << ind=
+ex)) {
+> +                       amdgpu_power_profile_clear(adev, index);
+> +               }
+> +       }
+> +
+> +       mutex_unlock(&adev->smu_workload.workload_lock);
+> +}
+> +
+> +void amdgpu_smu_workload_init(struct amdgpu_device *adev)
+
+amdgpu_workload_profile_init() for consistency.
+
+> +{
+> +       struct amdgpu_smu_workload wl;
+> +
+> +       wl.adev =3D adev;
+> +       wl.submit_workload_status =3D 0;
+> +       adev->smu_workload =3D wl;
+> +
+> +       mutex_init(&adev->smu_workload.workload_lock);
+> +       INIT_DELAYED_WORK(&adev->smu_workload.smu_delayed_work, amdgpu_sm=
+u_idle_work_handler);
+> +}
+> diff --git a/drivers/gpu/drm/amd/include/amdgpu_workload.h b/drivers/gpu/=
+drm/amd/include/amdgpu_workload.h
+> new file mode 100644
+> index 000000000000..09804c3d2869
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/include/amdgpu_workload.h
+> @@ -0,0 +1,44 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/*
+> + * Copyright 2023 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> + * copy of this software and associated documentation files (the "Softwa=
+re"),
+> + * to deal in the Software without restriction, including without limita=
+tion
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be includ=
+ed in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
+SS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
+TY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
+ALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
+ OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#ifndef _AMDGPU_WORKLOAD_H_
+> +#define _AMDGPU_WORKLOAD_H_
+> +
+> +struct amdgpu_smu_workload {
+> +       struct amdgpu_device    *adev;
+> +       struct mutex            workload_lock;
+> +       struct delayed_work     smu_delayed_work;
+> +       uint32_t                submit_workload_status;
+> +       atomic_t                power_profile_ref[PP_SMC_POWER_PROFILE_CO=
+UNT];
+> +};
+> +
+> +void amdgpu_set_workload_profile(struct amdgpu_device *adev,
+> +                                uint32_t ring_type);
+> +
+> +void amdgpu_put_workload_profile(struct amdgpu_device *adev,
+> +                                uint32_t ring_type);
+> +
+> +void amdgpu_smu_workload_init(struct amdgpu_device *adev);
+> +
+> +#endif
+> --
+> 2.34.1
+>
