@@ -4,68 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38788C001B0
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 07:31:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0541C001B0
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 07:35:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7A3F10E112;
-	Mon, 14 Aug 2023 07:31:10 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4314810E044;
- Sun, 13 Aug 2023 01:14:57 +0000 (UTC)
-Received: from [192.168.2.249] (109-252-150-127.dynamic.spd-mgts.ru
- [109.252.150.127])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id F222866071B8;
- Sun, 13 Aug 2023 02:14:51 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1691889295;
- bh=bPp/hkEoDS0ZxAQiv7IPH0ePMv+YAdVNwR7xflkKTfA=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=Uz8KDonPc/gBgbinrFzsCdc6rgNcwCbXiIogKVRXysqJJtxOGqNEF2OUOR+rVnrXd
- VwOSU59ZkqE9I2R9CNOpO28dhmbVc2RZcZcaxEONC0OAH+wxz6POH8Rza1irhAgWQX
- 3jNxUqWp9qemwwuadE6DSax0voEzK6ad/MwWNwyqoUmdMClJ0GuN+GntG6o/Y2+G20
- US0ec6J00OLr7/jjIhU8IlmjV5yvwReELAfpnaFBKL055tF1xHd83m+Q1gCsxqJfu1
- GvuSjjhWUWtbQvALG3p1XUa66zNV9izcGryYx+W8Bq2+CW9UGz0xQnSZk7uepiAzPw
- 5WLxzXW8kcnpw==
-Message-ID: <325014e7-cb8d-54e0-eead-7727c8ec2f07@collabora.com>
-Date: Sun, 13 Aug 2023 04:14:49 +0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1761310E13A;
+	Mon, 14 Aug 2023 07:35:30 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2060a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::60a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91A7810E13B;
+ Mon, 14 Aug 2023 07:35:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YCAFryYPREj5WPtxjUJOyGIEmkgh1HH0rEpYb3hcB+1FTSEEAl9TzDgUkU0j3Qbx/pKcPoXJcSlNxJ3sztFDqlE8zyIXHkRLxlqtRR1JQv/Ndk+CflZQw0E0qE8MidBfGxzuBqhRf3MGQ9R5S+zPepzR9tdMoPIkUmP+jKmw4oOsRKuTrUDr7QRZvs/3hjK5LXZaIh1UTHi/JbtjxqB/QbQXHue7W2/k8u1ga/QAGxJ9RUjsTWg31VDh/FiOQiqlpikKNod55q5yrOk7ifz4SIaAmKLrMEXkNobkgJSGdGbcFDuXblUeErREsL9xUByeg9HtkyZjx4sLEp4kXFQ7qA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wlnwonRkXXvXp1W3si0ZM4L+5Mm9Lw8e8KVP8MmwkNo=;
+ b=S6aDSXPgOM/rUlJO7Se9PDHzZDMUz9QUF7hnv+PPF/4Dijp18kWTOvqSRs460kxxNElxgJ/KVk2xYqFx4BAlmEXOcMooohU48K/nvIFDtuxJrnD6w5kfb1c6MGfOg5Nqqg4tYa/VO5s5WK62GivG4zjW6Pv9DJqqY2V7Sw4JmsjQbVMmQ5xfQEw7G9EZg3OTr8eyMD0BagmldhPAGVfc/dnSsb3P4OIvhVxVVLmX7X/eb3rLqKa/YHOXpP5oPzeW5OzQelvZlISbpiSKKEOsQ/mzFom2z8uqN6KTj3QfS3vXBnby7cmNfAfxEFzaNSJRK/iZfHgLwDUtWSAfPwLJ3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wlnwonRkXXvXp1W3si0ZM4L+5Mm9Lw8e8KVP8MmwkNo=;
+ b=FYy3kUIouMZHsi90/2eQbYNfccFGpVZeVOj7vOr8VSi3Lxrb8yTq+b3IdOKkXvrwgEQRmWkCA/zbyKYiSja0lA8j4NH685PfqtkETT2kr8RGUX6I02SgadMi26+QTOJa/Lvh1DZt8/UnrzG2UizBFTY5py2zr465iFzVjdFg3Xo=
+Received: from CY5PR10CA0017.namprd10.prod.outlook.com (2603:10b6:930:1c::20)
+ by BL1PR12MB5756.namprd12.prod.outlook.com (2603:10b6:208:393::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Mon, 14 Aug
+ 2023 07:35:24 +0000
+Received: from CY4PEPF0000EE33.namprd05.prod.outlook.com
+ (2603:10b6:930:1c:cafe::72) by CY5PR10CA0017.outlook.office365.com
+ (2603:10b6:930:1c::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.33 via Frontend
+ Transport; Mon, 14 Aug 2023 07:35:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE33.mail.protection.outlook.com (10.167.242.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6699.12 via Frontend Transport; Mon, 14 Aug 2023 07:35:23 +0000
+Received: from rtg-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Mon, 14 Aug 2023 02:35:20 -0500
+From: Arvind Yadav <Arvind.Yadav@amd.com>
+To: <Christian.Koenig@amd.com>, <alexander.deucher@amd.com>,
+ <shashank.sharma@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
+ <daniel@ffwll.ch>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 0/3] GPU workload hints for better performance
+Date: Mon, 14 Aug 2023 13:04:35 +0530
+Message-ID: <20230814073438.10682-1-Arvind.Yadav@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH -next 5/7] drm/virtio: Remove an unnecessary NULL value
-Content-Language: en-US
-To: Ruan Jinjie <ruanjinjie@huawei.com>, Felix.Kuehling@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, harry.wentland@amd.com,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- inki.dae@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
- krzysztof.kozlowski@linaro.org, alim.akhtar@samsung.com,
- robdclark@gmail.com, quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
- sean@poorly.run, marijn.suijten@somainline.org, bskeggs@redhat.com,
- kherbst@redhat.com, lyude@redhat.com, kraxel@redhat.com,
- gurchetansingh@chromium.org, olvaffe@gmail.com,
- paulo.miguel.almeida.rodenas@gmail.com, wenjing.liu@amd.com,
- haoping.liu@amd.com, Charlene.Liu@amd.com, chiahsuan.chung@amd.com,
- george.shen@amd.com, sancchen@amd.com, tony.tascioglu@amd.com,
- jaehyun.chung@amd.com, tales.aparecida@gmail.com, drv@mailo.com,
- aurabindo.pillai@amd.com, quic_vpolimer@quicinc.com, jiasheng@iscas.ac.cn,
- noralf@tronnes.org, jose.exposito89@gmail.com, javierm@redhat.com,
- mairacanal@riseup.net, davidgow@google.com, arthurgrillo@riseup.net,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux-foundation.org
-References: <20230809034445.434902-1-ruanjinjie@huawei.com>
- <20230809034445.434902-6-ruanjinjie@huawei.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20230809034445.434902-6-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 14 Aug 2023 07:31:09 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE33:EE_|BL1PR12MB5756:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96925a9b-c7cf-46c0-662c-08db9c99055d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qFgehFXpGNX/pBzBW60N4q02mvYybeLz3EYoYfW7xwIynpST9Ah06/LKH8mJ7m6o7IXMv/66ga7C6E3GKaphyCf1VIfD52NQKRr4lSqpkmaV4N9L9ER2l1WvBA+/uDHDAtYmCXQR7OvEY5jDoo5DToEu+Ceq9QX5IquSz7OUPyOQF/itcMAH0oryTv+Onbwhj1qGhzUf9HEVFNdYp1e7lUaZIHvOvjsTY6SbESfpB5QjqeIKGftxMEKiVjdTaJMYwch9aCZ6cMzrHZqdmbs6VCD8jHWNAcfKOrEu+pHHOsx/2nC1CWOlujICCmKn+I14+qnuwQF3oMReYZpkB0xBZY+WjZ2FkaaRTGMM97snASWsPo1IiPaem0Alt6fc7wRTEOeVDt7P3ZkGdt7vaphOVeafWsJFOD1jEiKRYqFP+ypvMwncH57lSQTW4LjuwyDKo+II+rItcdLC4Fc+dNkZ78PSjh49rlzInTLbuioaiVQoBUClmzgOU7Y64DJhq1Qzf1ncqJZqt8ghr70MMVsAEMW7C8FTyInwDzn+9+fkpFFdDneTSo7iCoK+KJ8srxUauWrCfZxZoo5/TJqh3hUbjhigBknQdI3DznNLYKIGWzCzbp2jGkt0EXO1GD0dl9S/eca+Lrqf7IZIWC9rwtCgGJenhkHmlx0FJPXNBrWgjG6+ZNpa7OTqZ6ErlkttkXuIBlHrC/falkOPOCbzRMym6HbBeoXKujwcPLBLPu7LQk11lHUgEKqVCFd3f6W2I12OVY9UZtyQ7tu6Zik7qHQ2lw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(346002)(376002)(136003)(39860400002)(1800799006)(186006)(451199021)(82310400008)(46966006)(36840700001)(40470700004)(6666004)(7696005)(478600001)(83380400001)(2616005)(1076003)(336012)(426003)(26005)(16526019)(2906002)(316002)(41300700001)(110136005)(70206006)(70586007)(5660300002)(4326008)(8676002)(8936002)(86362001)(40460700003)(36756003)(47076005)(36860700001)(40480700001)(82740400003)(356005)(81166007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2023 07:35:23.5900 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96925a9b-c7cf-46c0-662c-08db9c99055d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE33.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5756
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,36 +101,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Arvind Yadav <Arvind.Yadav@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/9/23 06:44, Ruan Jinjie wrote:
-> The NULL initialization of the pointer assigned by kzalloc() first is
-> not necessary, because if the kzalloc() failed, the pointer will be
-> assigned NULL, otherwise it works as usual. so remove it.
-> 
-> Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
-> ---
->  drivers/gpu/drm/virtio/virtgpu_submit.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
-> index 3c00135ead45..82563dbec2ab 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_submit.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
-> @@ -274,7 +274,7 @@ static int virtio_gpu_fence_event_create(struct drm_device *dev,
->  					 struct virtio_gpu_fence *fence,
->  					 u32 ring_idx)
->  {
-> -	struct virtio_gpu_fence_event *e = NULL;
-> +	struct virtio_gpu_fence_event *e;
->  	int ret;
->  
->  	e = kzalloc(sizeof(*e), GFP_KERNEL);
+AMDGPU SOCs supports dynamic workload based power profiles, which can
+provide fine-tuned performance for a particular type of workload.
+This patch series adds an interface to set/reset these power profiles
+based on the submitted job. The driver can dynamically switch
+the power profiles based on submitted job. This can optimize the power
+performance when the particular workload is on.
 
-Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Arvind Yadav (3):
+  drm/amdgpu: Add new api to switch on/off power profile mode
+  drm/amdgpu: Switch on/off GPU workload profile
+  Revert "drm/amd/amdgpu: switch on/off vcn power profile mode"
+
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |   5 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  14 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c  | 156 ++++++++++++++++++
+ drivers/gpu/drm/amd/include/amdgpu_workload.h |  44 +++++
+ 7 files changed, 213 insertions(+), 13 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c
+ create mode 100644 drivers/gpu/drm/amd/include/amdgpu_workload.h
 
 -- 
-Best regards,
-Dmitry
+2.34.1
 
