@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BE00C001B0
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 18:03:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4763BEB64DD
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 18:07:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC6BB10E226;
-	Mon, 14 Aug 2023 18:03:06 +0000 (UTC)
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
- [IPv6:2001:4860:4864:20::2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D19110E226
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Aug 2023 18:03:05 +0000 (UTC)
-Received: by mail-oa1-x2e.google.com with SMTP id
- 586e51a60fabf-1c4d7103ef5so1009481fac.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Aug 2023 11:03:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F7F110E22A;
+	Mon, 14 Aug 2023 18:07:28 +0000 (UTC)
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
+ [IPv6:2001:4860:4864:20::29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76F2C10E229;
+ Mon, 14 Aug 2023 18:07:25 +0000 (UTC)
+Received: by mail-oa1-x29.google.com with SMTP id
+ 586e51a60fabf-1c4dd644cf8so1088297fac.0; 
+ Mon, 14 Aug 2023 11:07:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1692036185; x=1692640985;
+ d=gmail.com; s=20221208; t=1692036444; x=1692641244;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=N838FwxdKWBfmd6tjzMIYLDItPCxOEfwubTrqOPE6rM=;
- b=IjkFAYijFVUqNabfpK6xuPQ/zWJWObT2zUhlenzpMNI6as7b0tJ+fZwNgt00e8p198
- xQIcm7oShnps2W/qcchaF/Rx29riPlwZd+MvuXFiGEJ5nkH0GIyqMMvEfe+eiWRVu9k7
- aPO2rCOQSmh1uNBA1HcBp74oghGqPwcIsWb94jaRUuH9bkw1EiTF4jFdEUkGz2tl6J9l
- oTqofFbgVhTgRO+DWNwndrlk3YyUbuhMt/9O1jCoadl8P7d6VouQLX9RQI2WN8LCCIJA
- IISigq92J/Yve8OKmKxcF+l2mJ7RLYiVvLeOFcCBJmSYfAF3ao9q7Kn2qUTGoszxK5xV
- 7UTw==
+ bh=4WslgAa7j4kIJuwFKnVUBEY95Upxt26FSni2PjqaEns=;
+ b=YAhE5dyMly+M2Cyvo13TgOhecBARql1bU4ETz09fa4f1d6iaIxBNXw9ZDFPgEgAg8z
+ TGKAOCSLWfc8AAAkDlhQswv5mm+6qHKYchvOrb7e3cNYx23SrgXcuMDfgbRbIihjVSfv
+ f1hWP79VCrue3vqCQ63igNHPYKGXA1wRFQtsvY4gZnxfTpvq3dYojCkN+JoIjQk9eqzZ
+ yKXyyVPH0m2GKLmNbjAIHdmEP8EOX1pbtCA9gVVcldcao6scbGuCMCspriwoSgqS1Dj7
+ FKOB8ob/onoEuJ6Xi3zSj0d8Nh0dXDHeoD1YBuD0K5oXnn9WhPN4eqt9G09FdZB9CeCe
+ q0yA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692036185; x=1692640985;
+ d=1e100.net; s=20221208; t=1692036444; x=1692641244;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=N838FwxdKWBfmd6tjzMIYLDItPCxOEfwubTrqOPE6rM=;
- b=ddwKi8adcXEFZmyWu3KE6QLU9+OjfGnRPocGvJfaxb22USh/v3aquAb2N2ai8rD23i
- NHkr10A/zIZh1bnSsbZ2pDXhK523ZLKZL81ZAz7tqY+T/og6LmE+t1aPkjvqF59ozuUU
- B5zJSadace4dTjZTE+ta2ipKqzrCW5bR7lGB+HN6byiasCag9HxUhcg5slP7uPcfBo0Q
- GUVh6D5WQKjTerEc9J5EwTR3ZIZaoZ7OvvWe7G3z1fuGBBSJBQgNY2SGrDCoIED7qLYl
- +aUdxgpK82W8DyxWZeHT7+42q23xQmkxLLdQ1DJJTIpvAXcaLv2z09S+aaTdgwqQDzrf
- v8GQ==
-X-Gm-Message-State: AOJu0YzoVBRU4+OVmYltBFMuNASarpyZNXNaSw3tNWOcb7qUezgvKC9h
- ivkrs22Q23Gp484xBQKft/HXpjR55INL+76q3hA=
-X-Google-Smtp-Source: AGHT+IH3JjI6nh5/4daNdzrBwnNJzO6CjkACAyiVKBmlGheHLvkjEOSRojfZZziswVDV8ze9P9oabQHTfsNzkPvYn1I=
-X-Received: by 2002:a05:6870:178c:b0:1b0:3821:f09b with SMTP id
- r12-20020a056870178c00b001b03821f09bmr6340339oae.13.1692036184811; Mon, 14
- Aug 2023 11:03:04 -0700 (PDT)
+ bh=4WslgAa7j4kIJuwFKnVUBEY95Upxt26FSni2PjqaEns=;
+ b=GuHDSw+djmyJ7vp1OfpHfu+16mYlO4ta80iz5VnX4EEJgxsDh4afYJIGXNXfZcZM7L
+ 2hqz6eT99qyngJpnbA9Jyk/Hz5UGK/NKPxhLvmqwpezhk61yqTntFFlgScsYdpNSRfot
+ FIXWYcYz4i5UFjAb5fKnNfnyccH0JeoQaP4zJGXc1YSEf/JXNYjJ6/pqS8rMeSqFnigY
+ Ycq1LIdEygUPba0XRzGxhQh00MRsagNY5+WVriCVstNXgzB1LAYBmZveG2Xm2Cny/+06
+ O7xsf3NYbUn4hb5ydUDnJG6rFXl30AId220sxcZ6ochWKs0iJCuMXlOq9bV5IAMGmgYs
+ 2MQg==
+X-Gm-Message-State: AOJu0YzwlyhFHqvFFPqvRYANWYw2+/aE8WZfVGfcnFn8TBuX1blW8syM
+ mbEZnZTz1u6DwTv1eWI76hqTpVzcQ0w3U1RW7I8=
+X-Google-Smtp-Source: AGHT+IH5HgGJWtIo9vC++wLekhh87GWkUDz6io167f7XrD0LnWQ/8ywGMUAFlO+183ZFSbYynyfMczIkh15lIhdQfz8=
+X-Received: by 2002:a05:6870:1717:b0:1b0:653a:af92 with SMTP id
+ h23-20020a056870171700b001b0653aaf92mr11705205oae.8.1692036444745; Mon, 14
+ Aug 2023 11:07:24 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230810115612.23428-1-guozihua@huawei.com>
-In-Reply-To: <20230810115612.23428-1-guozihua@huawei.com>
+References: <20230811102549.18492-1-zhengzengkai@huawei.com>
+In-Reply-To: <20230811102549.18492-1-zhengzengkai@huawei.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 14 Aug 2023 14:02:53 -0400
-Message-ID: <CADnq5_PtdevnCt-R__KsL7KD=1cExNqCPubjEzSs72wEmON1Yw@mail.gmail.com>
-Subject: Re: [PATCH -next] drm/amdgpu: Remove duplicated includes
-To: GUO Zihua <guozihua@huawei.com>
+Date: Mon, 14 Aug 2023 14:07:13 -0400
+Message-ID: <CADnq5_OEzijOrT3nX_DX5g4qVB2nn-ipJg_iUgwS9Q0OKha=7Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: Use pci_dev_id() to simplify the code
+To: Zheng Zengkai <zhengzengkai@huawei.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,51 +67,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Felix.Kuehling@amd.com, Xinhui.Pan@amd.com,
- christian.koenig@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Xinhui.Pan@amd.com, dri-devel@lists.freedesktop.org,
+ wangxiongfeng2@huawei.com, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+ alexander.deucher@amd.com, airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Thu, Aug 10, 2023 at 8:33=E2=80=AFAM GUO Zihua <guozihua@huawei.com> wro=
-te:
+On Fri, Aug 11, 2023 at 9:45=E2=80=AFAM Zheng Zengkai <zhengzengkai@huawei.=
+com> wrote:
 >
-> Remove duplicated includes in amdgpu_amdkfd_gpuvm.c and amdgpu_ttm.c.
-> Resolves checkincludes message.
+> PCI core API pci_dev_id() can be used to get the BDF number for a pci
+> device. We don't need to compose it mannually. Use pci_dev_id() to
+> simplify the code a little bit.
 >
-> Signed-off-by: GUO Zihua <guozihua@huawei.com>
+> Signed-off-by: Zheng Zengkai <zhengzengkai@huawei.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c          | 1 -
->  2 files changed, 2 deletions(-)
+>  drivers/gpu/drm/radeon/radeon_acpi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index a136fba9f29b..7d6daf8d2bfa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -39,7 +39,6 @@
->  #include "amdgpu_xgmi.h"
->  #include "kfd_priv.h"
->  #include "kfd_smi_events.h"
-> -#include <drm/ttm/ttm_tt.h>
+> diff --git a/drivers/gpu/drm/radeon/radeon_acpi.c b/drivers/gpu/drm/radeo=
+n/radeon_acpi.c
+> index 5771d1fcb073..603a78e41ba5 100644
+> --- a/drivers/gpu/drm/radeon/radeon_acpi.c
+> +++ b/drivers/gpu/drm/radeon/radeon_acpi.c
+> @@ -618,7 +618,7 @@ int radeon_acpi_pcie_performance_request(struct radeo=
+n_device *rdev,
 >
->  /* Userptr restore delay, just long enough to allow consecutive VM
->   * changes to accumulate
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index dea848bb55c1..f5aa1362c818 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -49,7 +49,6 @@
->  #include <drm/ttm/ttm_tt.h>
->
->  #include <drm/amdgpu_drm.h>
-> -#include <drm/drm_drv.h>
->
->  #include "amdgpu.h"
->  #include "amdgpu_object.h"
+>         atcs_input.size =3D sizeof(struct atcs_pref_req_input);
+>         /* client id (bit 2-0: func num, 7-3: dev num, 15-8: bus num) */
+> -       atcs_input.client_id =3D rdev->pdev->devfn | (rdev->pdev->bus->nu=
+mber << 8);
+> +       atcs_input.client_id =3D pci_dev_id(rdev->pdev);
+>         atcs_input.valid_flags_mask =3D ATCS_VALID_FLAGS_MASK;
+>         atcs_input.flags =3D ATCS_WAIT_FOR_COMPLETION;
+>         if (advertise)
 > --
-> 2.17.1
+> 2.20.1
 >
