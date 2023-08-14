@@ -4,117 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64D91C001B0
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 16:06:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BDB7EB64DD
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 17:52:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9C1310E0AE;
-	Mon, 14 Aug 2023 16:06:05 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2052.outbound.protection.outlook.com [40.107.101.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7573310E09C;
- Mon, 14 Aug 2023 16:06:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hahIWiGvbzZbPlU37tDly7PJTDNPPHluPNpjGidi62B7WjOz+t9fukNYdfSWMDDl36ud6jbVaw/Gbt73nD+R/Egt9Wur/eEwUZ/yvfDLFsSALpepJrhBfsLdknqcG2PJ0CmgCwu36mmKPjgPEHooVqbJONHckZFkzjWjliYnLvAHMJqMmfINcHP3cpiw4ZgkBtrF1UdAfpFg5JixzjVcqwBDcwLn/Vh4Gni2TeoJFirnJmf19yKxgggnDBYx37q02ofFLaBDU6UzaM1dyDg5MG0+qCja1H2y+bCXMdNfmB5SxIDKdCG6qEZB8Dmt3xZi3r7gisls4gLSpAToeOsBXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YhGhiM5oU88GED7UQgrkEVK3d6qFhzeYszPeJfCqj6c=;
- b=mdTt+u1E1/PfzkMTZQ7oAQ4PWW+dCXGrg6jDTliIg+Hhan4d02RWDR3oqt2Q9w+CwiMu4TnE9Ju35426+vI6fo+YaSqMkH5mO3GQZ1Y+Sd+on9qKxX3JacM73XY5+yreG9tdO0Rqkux2bOlqg/GM11EqRkR8f9I5PYbtMmwwKz1tJnBOhhO9ENyWWvG42e7c1mOCqGsc4ehoHaHgxYzjaIOJvjAERfLSPLq4EfCAPXzgZ6FwyYvsIck4rT6VOr94iCIsr2ARQ9pmmuvB9SfZiS4chhR3iS9bFAifc6VZcVIXXzDR4Gk8wE08cCLhcIgZiih553q3+ps+EaNdRxkVdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YhGhiM5oU88GED7UQgrkEVK3d6qFhzeYszPeJfCqj6c=;
- b=DI90QTH3QKqswCBjsUpZIIIeQaDfUMsjE8fOuhYU6o1D0UllCxv+qD/bpkFwNCrxEpDcAD1puiEGpMMI1yth2pWEMuse9Xn7VvmEMmvf7foZUJCvo+sDGadhgW44fLhonBrz42aB0JpKqkfvhnqQMTWpFMTC4pC+rkvBanAiAFY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by CY5PR12MB6057.namprd12.prod.outlook.com (2603:10b6:930:2e::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Mon, 14 Aug
- 2023 16:05:58 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::dc06:ffb3:46ec:6b86]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::dc06:ffb3:46ec:6b86%3]) with mapi id 15.20.6678.025; Mon, 14 Aug 2023
- 16:05:58 +0000
-Message-ID: <4013bb32-0ab9-4dbe-7043-011051fee969@amd.com>
-Date: Mon, 14 Aug 2023 18:05:49 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 3/3] Revert "drm/amd/amdgpu: switch on/off vcn power
- profile mode"
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>, Arvind Yadav <Arvind.Yadav@amd.com>
-References: <20230814073438.10682-1-Arvind.Yadav@amd.com>
- <20230814073438.10682-4-Arvind.Yadav@amd.com>
- <CADnq5_M3_N-rXTcvsQ76QGo1bjBc92SPPHfwFayNbroq-Ph_iw@mail.gmail.com>
-From: Shashank Sharma <shashank.sharma@amd.com>
-In-Reply-To: <CADnq5_M3_N-rXTcvsQ76QGo1bjBc92SPPHfwFayNbroq-Ph_iw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BE1P281CA0047.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:23::8) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AD2A10E21B;
+	Mon, 14 Aug 2023 17:52:01 +0000 (UTC)
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6565310E21A;
+ Mon, 14 Aug 2023 17:51:58 +0000 (UTC)
+Received: by mail-oi1-x233.google.com with SMTP id
+ 5614622812f47-3a1ebb85f99so4363494b6e.2; 
+ Mon, 14 Aug 2023 10:51:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1692035517; x=1692640317;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HIBMc1Pc73jtTeqexlKEiDPeJffujSakc49ekoQBfEw=;
+ b=X0GzjxNkFGdsC2FAJ0D0BeFPlg+0QkEZzweKtNqg/6IpcR6A5qVnbDZ7ykD+TV3iNd
+ DxOGLsXpcrRQqI4uqKBxBkK9mSnlO6Jem1upRzZgaHX3y1iV+bxfijkDp3c3Ls0OAwLa
+ eNPNIzbaoXxiOBRP1V7ZHkBkR4GRqhiHoH6T4QOG65szHCi4+0FSal6iGsbR2yUJhaW7
+ V3R+9sQu5AiPrdrnx9LhOA4jVUHS1cGOpH0IsVHGw/JZnr1eUsjyMJdu3o0atm2j1fEE
+ z7SYvdSF3cpcUxyJ0jYj/DIbea7BtKhumoYnhgsi9uWasa9UmcNzRSvRpdCu0J1gWvuq
+ PwiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692035517; x=1692640317;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=HIBMc1Pc73jtTeqexlKEiDPeJffujSakc49ekoQBfEw=;
+ b=giJ8eGCicKmr2YLapMsd+ljHxmSxbuSOe3RtgQtwMr0wPhk92udskqQR4wDGaRRFEO
+ L3DzShr6SfT+KbeCxnCU2UuTWxccpjorpt2mzG639s5+BVLTKInUXMk6vUAJ4a73hnR7
+ 85yHj+ac+6zFgEFxIhCTNo5FYasS+W/q8mEX1WqHPs1T/g7cblKZiiqTxwF4Ua6LYYO8
+ HvLymNd7RTYliLwIvVOBq0pFrEKKuifvnw8hccepEUo9Qi3ZqQF29sLTyuhXl1AF7Cul
+ JdX+qgCLSbzRkEDLjMqfU/47DDDOtKhOBg9RRqF/YZhr92+UY/vwV0TsVVwFN2cPuI0p
+ cSUg==
+X-Gm-Message-State: AOJu0YywaCTR/nxadyMFHBJW5452fhFXAcZrse0BLv+US1gUNTEBOj+5
+ Z5HGgYc2V0S1X4ztWc7XHwXWnQ5pCT81u6Szry+GmFgL
+X-Google-Smtp-Source: AGHT+IESEwrsFUbztJaxvtJi++NMkNad4w1FKUijFhYl0d8tpjrbfjvVvQgcHh1aXZsKt+AHt+JbeThdt46h0wcJr2o=
+X-Received: by 2002:a05:6808:1316:b0:39a:bd0e:43d with SMTP id
+ y22-20020a056808131600b0039abd0e043dmr14466780oiv.36.1692035517491; Mon, 14
+ Aug 2023 10:51:57 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|CY5PR12MB6057:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75235a52-9ea7-491e-1b77-08db9ce058c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qmbJ/I6mLA8qaaxhxPBznYe0KHJcs3EEXsL87BKn1nJokqP4TfrVaULmtzkpxVz0Aj4/Onsh5IcJ9rIf1QBQ1A0BSsgZQysddWXm29pd5HitSD8rUTH6/lb/3KWivjOfw0SM3sBPwgWAp1l0/A6kVExA1hWMh+mJibvwcWSEYeo+N4/f2D2FoH8bN+lEYruJOamT53ds22jKYQjzJEYbs4T23O2vx22AFqhJR0IsvR1Iqo09gcsf/Je+wPBCB8EfHTxv1fUAbL8wGFZaNuQZHCA7kC7kGWsjpEvQag4c+thJnpX6Cv5y5xGbk0bT3WzW4H3ZgzRh3TKus/eueF7a1L/4M1Bfv5WhjJtuZ0hUUUIuplE87xxEL4C/BzQf+DiIBZlaAEf1j4go4IxnwLgidxxkIWkLeAsVE6vXQBrJyM7utAMmNTf1BqHOp0mLdlAUB/Jdlk1X0JZBUGHdBRvOZrRgXBKHLckjZwwycHUOJgSQFylycA+J1XYlPINUhqD9+rbTIV+tYIMCPMAKhq/GirlAATXpCGJG8I1P2WViYkFAljXhJzR6hf30HZ+jt7hvBfbEiMiYxoSlJ+r/MMFLy2FHGPCgw/XrkldAO6Nv/F6hNEDDT98QM8Nxk1/ZhXwDbILjsnbIVLXA9ZkkmhSPuH1nOswB334/eFzyeEGFBdY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(136003)(396003)(366004)(346002)(376002)(39860400002)(451199021)(186006)(1800799006)(38100700002)(110136005)(6486002)(6666004)(478600001)(5660300002)(2906002)(36756003)(86362001)(31696002)(44832011)(6636002)(4326008)(66476007)(66556008)(66946007)(41300700001)(8936002)(8676002)(316002)(83380400001)(2616005)(53546011)(26005)(6506007)(966005)(6512007)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c0xiTGs4blNTY3NCakN0Nlk1OThOTzl6ck05YlVmNWNqTFZ3eVR0SDBNZFJI?=
- =?utf-8?B?ek1FWW1FWk43ZFVlM25GbEZvejMvbWhma0dIYk1HcWhuanlHWHdaYUgwZlpN?=
- =?utf-8?B?Q0IzNThEdythVXhZWVhUSkE0bVErSUZpS2gvUzRpYktTTy9aWDFHTjRyNWtt?=
- =?utf-8?B?bVdQTlplTGc4T21VbHVlNVZkTzV1elNEdTRGZkRONzlYbnBJVFkzMGV5NzRn?=
- =?utf-8?B?MzJlYVM5TEtYVU51ckVUczR5eC85eXNIU29zTWhvSURYK1J4bmdrMk4yOEh4?=
- =?utf-8?B?U2RsSHRDZE0zYVZIdXhjelh2eXhieE5xWnpQNzEvVnJKNDR4cEtLcERZQmtN?=
- =?utf-8?B?TDhjZjRwVHpYUnJ5OEkrYzRLTXNMQk5jeG41SnJ3VWFCRjJUcXhvTGFwanJv?=
- =?utf-8?B?ekorY1ppdGcvZkhzbjBLak93dVE0ZFFwMVE0b0hLTVZxSk5ERjlXNjFldGxU?=
- =?utf-8?B?SE5vYmpGQXhQOUhnVzQ2aFJxNWV2dFc0a1FUbmJLb0tnUmR4dGlUUDdRQW9N?=
- =?utf-8?B?bEQxSmo4bzFZZjl0Q1liOXZUNlVkdkcxRXliN2tLSE5Ca2ErL2gzQ0x5Ym0z?=
- =?utf-8?B?eE44QXVsRmNXK0Q5a25nRXQzV0JHTjZBZkhQcC9EWlVLbml3Y1BGV0RTcEww?=
- =?utf-8?B?ekhHaStYRlJXMGJncXNZampwSURtazFGb3o1OGEzT1hDcUxNRnNZR2RMYUJt?=
- =?utf-8?B?ZjI0dmpSTy9FM3p0a0JwOC9qa0g5bC9waVk5NTZ6UUhkckhna2IxZCs1aTgy?=
- =?utf-8?B?dWszWWRtSDhCMmdHYm5CRDNhQnlDMllqaW5IelYzdWZoRy9XVCtTdWVnNlZM?=
- =?utf-8?B?ZUw0Y3JCam9CTWVUNldhUVltc2t2MUpOTm9GQkh0VzFvR1QrdjRwTlM1M0VI?=
- =?utf-8?B?Wm1JNUh4dFBlb1FiQzFNVjZ5dlp4Y2gxaS9XOHBxQVJBYjJuVjhtcUU5SDRP?=
- =?utf-8?B?L2Q3c0dNZmthM0kyMzhEVWdvUnhJL3ZQanEwTXlvckJFemM2ZW5wdVluanJ5?=
- =?utf-8?B?d1ZKdkVzc2NwdTY1WHgwcnB3bEtkbGUvRzdyYlBrb2JkT2NmWmtzR2dIMWNq?=
- =?utf-8?B?RTBaRDdVU1Z1VjlEUnM0anJJcDVtdnZVQVJoSy96bGRiMXhzcy8rR0JRZVpQ?=
- =?utf-8?B?UzY2aGhsWjdFYjJ2VWpoWDRvdVRBeW9QQmhXMG1WeFcvZVA2QWxQYjlkYWJ0?=
- =?utf-8?B?QlNjd3BFZXo1UzlycXRFY2xHRjhob2d4Q0EvSEk1Vi9kYzdSZm1tVS92YnVD?=
- =?utf-8?B?QVJpOTM2ZHdwaEEyM2FvZFNTYkl0VFhvczFBN0dvZlc1RnFCOUFJak15cjBY?=
- =?utf-8?B?NUxKOU9TZG1YeXViN1BOUnhCZUJWd1YzZkhCTUI2NHR3cHErWnNJN1VEOE85?=
- =?utf-8?B?STAwaFBEOUVlTG9uYzFNck1BakEzallOYnpRaUhNY3lhRmZxQkZLS3ZBeHpi?=
- =?utf-8?B?RjdDUGpjTTlpVnhad2tXQjYvVmxyNnVQL0laZUZLRjJCTzNoMHZ4Vy9LWW5K?=
- =?utf-8?B?TVRPNm4yamtHR0ZkYktuRTMyTkpxeWlsYnpmcCtyd3BBY1MwbFZ1STZSaGNq?=
- =?utf-8?B?MjdvZ3dqOGpRVFVUN09ITnhFVm00ZCt0UGJibWdDR1grdmZ5cmdUdWNZR2Q0?=
- =?utf-8?B?WExtUEVWWWRibkRIcEwwaUc5OVhYd2tQYkxvTTBzR0xvTHFrV0x1azVJTVRC?=
- =?utf-8?B?R25FUkdzdHhYcDVFc0R4TGZxTG1hNldVeDdsaDd5czdQNTJPNFYzSVgrbkhm?=
- =?utf-8?B?V2d0WEFjOVp2MFFiU1ZDRGpDVkJubG1jait1enQyRWRUcGZ1YU5Cd2FNZ1RQ?=
- =?utf-8?B?eWZvbHBJMWF6d2haRmZpY01ac2VqeTlHTVR0NUdpemxuMlF5Y2M3OXFhVHFL?=
- =?utf-8?B?aXpQZ2VXdngrQlQrL1JIdnMrOExCWE9jUWMvdUxaNzhoM2o0NGI4NFpMY1Nv?=
- =?utf-8?B?UUp6RGtEd0JyVHdhNWJNb0h0MUZMNlJDRmNaRmh6NVMyREVFT1JtbWp0NmxH?=
- =?utf-8?B?djBaa1RuYk9UaFY1L3dYbDBtb2tjdit6ZGpHRjJiSlRQeHNWeWxhZlRzZ1dK?=
- =?utf-8?B?SVViTktNcjd6Mm5rQmgvN1VtNGV2VlArQXNMcjZ5NUFqL01WOFJsbGs2QVdJ?=
- =?utf-8?Q?FL1g6mjCOV8tG8yI6AZWlMzq2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75235a52-9ea7-491e-1b77-08db9ce058c6
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2023 16:05:58.2024 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hzkr7G6YlptIcKO/w+SfgbaFGNmZf9KhVnFcf36wU6xSsYV8T2XcYrHI5qQxali1gLhWhYz0/ngl9Dw0sz5Etw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6057
+References: <20230731092108.3162-1-sunran001@208suo.com>
+In-Reply-To: <20230731092108.3162-1-sunran001@208suo.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 14 Aug 2023 13:51:46 -0400
+Message-ID: <CADnq5_P0L5Np9U5N11EKXKW1K7K8S7GGiBRJDU1Hh3a0Bmts4w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Clean up errors in smu_v11_0_pptable.h
+To: Ran Sun <sunran001@208suo.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,87 +67,97 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
- Christian.Koenig@amd.com
+Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ah, Thanks for pointing that out Alex.
+Applied.  Thanks!
 
-@Arvind, please refer to the patch 
-(https://patchwork.freedesktop.org/patch/504854/?series=109060&rev=4) in 
-previous series of SMU workload hints with UAPI (here: 
-https://patchwork.freedesktop.org/series/109060/)
-
-Regards
-
-Shashank
-
-On 14/08/2023 17:20, Alex Deucher wrote:
-> KFD also changes the profile when queues are active.  Please make sure
-> that is properly taken into account as well.
+On Mon, Jul 31, 2023 at 5:22=E2=80=AFAM Ran Sun <sunran001@208suo.com> wrot=
+e:
 >
-> Alex
+> Fix the following errors reported by checkpatch:
 >
-> On Mon, Aug 14, 2023 at 3:36 AM Arvind Yadav <Arvind.Yadav@amd.com> wrote:
->> This reverts commit 5ce71f59bb9bd3d8a09b96afdbc92975cb6dc303.
->>
->> Reason for revert: New amdgpu_smu* api is added to switch
->> on/off profile mode. These new api will allow to change the
->> GPU power profile based on a submitted job.
->>
->> Cc: Shashank Sharma <shashank.sharma@amd.com>
->> Cc: Christian Koenig <christian.koenig@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Signed-off-by: Arvind Yadav <Arvind.Yadav@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 14 ++------------
->>   1 file changed, 2 insertions(+), 12 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
->> index 2d94f1b63bd6..70777fcfa626 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
->> @@ -363,7 +363,6 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
->>                  container_of(work, struct amdgpu_device, vcn.idle_work.work);
->>          unsigned int fences = 0, fence[AMDGPU_MAX_VCN_INSTANCES] = {0};
->>          unsigned int i, j;
->> -       int r = 0;
->>
->>          for (j = 0; j < adev->vcn.num_vcn_inst; ++j) {
->>                  if (adev->vcn.harvest_config & (1 << j))
->> @@ -392,10 +391,6 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
->>          if (!fences && !atomic_read(&adev->vcn.total_submission_cnt)) {
->>                  amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VCN,
->>                         AMD_PG_STATE_GATE);
->> -               r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_VIDEO,
->> -                               false);
->> -               if (r)
->> -                       dev_warn(adev->dev, "(%d) failed to disable video power profile mode\n", r);
->>          } else {
->>                  schedule_delayed_work(&adev->vcn.idle_work, VCN_IDLE_TIMEOUT);
->>          }
->> @@ -404,16 +399,11 @@ static void amdgpu_vcn_idle_work_handler(struct work_struct *work)
->>   void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
->>   {
->>          struct amdgpu_device *adev = ring->adev;
->> -       int r = 0;
->>
->>          atomic_inc(&adev->vcn.total_submission_cnt);
->>
->> -       if (!cancel_delayed_work_sync(&adev->vcn.idle_work)) {
->> -               r = amdgpu_dpm_switch_power_profile(adev, PP_SMC_POWER_PROFILE_VIDEO,
->> -                               true);
->> -               if (r)
->> -                       dev_warn(adev->dev, "(%d) failed to switch to video power profile mode\n", r);
->> -       }
->> +       if (!cancel_delayed_work_sync(&adev->vcn.idle_work))
->> +               amdgpu_gfx_off_ctrl(adev, false);
->>
->>          mutex_lock(&adev->vcn.vcn_pg_lock);
->>          amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_TYPE_VCN,
->> --
->> 2.34.1
->>
+> ERROR: trailing whitespace
+> ERROR: open brace '{' following struct go on the same line
+> ERROR: code indent should use tabs where possible
+>
+> Signed-off-by: Ran Sun <sunran001@208suo.com>
+> ---
+>  .../gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h  | 15 ++++++---------
+>  1 file changed, 6 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h b/drive=
+rs/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h
+> index 0116e3d04fad..df7430876e0c 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0_pptable.h
+> @@ -101,8 +101,7 @@ enum SMU_11_0_ODSETTING_ID {
+>  };
+>  #define SMU_11_0_MAX_ODSETTING    32          //Maximum Number of ODSett=
+ings
+>
+> -struct smu_11_0_overdrive_table
+> -{
+> +struct smu_11_0_overdrive_table {
+>      uint8_t  revision;                                        //Revision=
+ =3D SMU_11_0_PP_OVERDRIVE_VERSION
+>      uint8_t  reserve[3];                                      //Zero fil=
+led field reserved for future use
+>      uint32_t feature_count;                                   //Total nu=
+mber of supported features
+> @@ -127,8 +126,7 @@ enum SMU_11_0_PPCLOCK_ID {
+>  };
+>  #define SMU_11_0_MAX_PPCLOCK      16          //Maximum Number of PP Clo=
+cks
+>
+> -struct smu_11_0_power_saving_clock_table
+> -{
+> +struct smu_11_0_power_saving_clock_table {
+>      uint8_t  revision;                                        //Revision=
+ =3D SMU_11_0_PP_POWERSAVINGCLOCK_VERSION
+>      uint8_t  reserve[3];                                      //Zero fil=
+led field reserved for future use
+>      uint32_t count;                                           //power_sa=
+ving_clock_count =3D SMU_11_0_PPCLOCK_COUNT
+> @@ -136,8 +134,7 @@ struct smu_11_0_power_saving_clock_table
+>      uint32_t min[SMU_11_0_MAX_PPCLOCK];                       //PowerSav=
+ingClock Mode Clock Minimum array In MHz
+>  };
+>
+> -struct smu_11_0_powerplay_table
+> -{
+> +struct smu_11_0_powerplay_table {
+>        struct atom_common_table_header header;
+>        uint8_t  table_revision;
+>        uint16_t table_size;                          //Driver portion tab=
+le size. The offset to smc_pptable including header size
+> @@ -145,14 +142,14 @@ struct smu_11_0_powerplay_table
+>        uint32_t golden_revision;
+>        uint16_t format_id;
+>        uint32_t platform_caps;                       //POWERPLAYABLE::ulP=
+latformCaps
+> -
+> +
+>        uint8_t  thermal_controller_type;             //one of SMU_11_0_PP=
+_THERMALCONTROLLER
+>
+>        uint16_t small_power_limit1;
+>        uint16_t small_power_limit2;
+>        uint16_t boost_power_limit;
+> -      uint16_t od_turbo_power_limit;                //Power limit settin=
+g for Turbo mode in Performance UI Tuning.
+> -      uint16_t od_power_save_power_limit;           //Power limit settin=
+g for PowerSave/Optimal mode in Performance UI Tuning.
+> +      uint16_t od_turbo_power_limit;                //Power limit settin=
+g for Turbo mode in Performance UI Tuning.
+> +      uint16_t od_power_save_power_limit;           //Power limit settin=
+g for PowerSave/Optimal mode in Performance UI Tuning.
+>        uint16_t software_shutdown_temp;
+>
+>        uint16_t reserve[6];                          //Zero filled field =
+reserved for future use
+> --
+> 2.17.1
+>
