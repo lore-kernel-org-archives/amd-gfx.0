@@ -4,43 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8621C001E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Aug 2023 19:51:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F8F6C001B0
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Aug 2023 21:30:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4C7E10E288;
-	Tue, 15 Aug 2023 19:51:39 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3635710E287;
- Tue, 15 Aug 2023 19:51:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=HjXY/VI272vm3UFbdLkzpFUaOQVcjdJ2BDDwBgalhkg=; b=mkzruAgr6zPyMZQl9P6QA1+/Y0
- t79t696J9i8ZI4VTRAyqJEfOB2LuFazfgnV1mfQmxHiSYYqVitqTfMZCpzcBwdRhnOgHpBtDcqv+w
- q74JFECyg2zvLefcaqY5eTTnP+phkYhQk1M31S4fwtQJQnmqNag991jXfTnXyNM2pHuB8ahPiL0Rb
- DTJ7/eePcQpVNh2qRVYuKG3wGWjv0CEqKVx8CxG8+2LpXd/cGuyWl/DUkPk5Swi8rRYyCA4m8eMaH
- k2NP8W3aa1ACFiPXn81IfE1A65c4iM11d+jHCXeZZXZauZzA7T45eYOmCJrojKETYg4MzsJsbAUlw
- ntws1IRQ==;
-Received: from [191.193.179.209] (helo=steammachine.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qW04j-001DUX-RU; Tue, 15 Aug 2023 21:51:34 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4 4/4] drm/amdgpu: Create version number for coredumps
-Date: Tue, 15 Aug 2023 16:51:00 -0300
-Message-ID: <20230815195100.294458-5-andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 196E710E298;
+	Tue, 15 Aug 2023 21:30:08 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2061c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::61c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 098DB10E298
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Aug 2023 21:30:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=W866XkewXSZ7vQIaW+z9Qqm3f7PaMoPbRTWmoHhHHcCaGUR9VlpKhhcHZ/2NYpZRrq1R35ibgCgiWSJExld0QnJuKXujF0w0o5jkcsaPyvqSnYBld33vsCH5WkWHly5lGr09AHHT3VJ3OGdgsel4nD1JnOIhOUJP/1gxafCrpo2NYdU67vNKpxK4Uh3djzKmdAof5DNo64lKGoDTTQn8BYaJyFIucRfR8iGXYl016su6+a7YZy0NpChlxmPo7Gs6wAhLmCjSxQ2PzGgt9IkM2KLC4Z7ry2xQYMPYo/nGL+G78KzzKFyALsdlfIES4q2k8RNDS5L6CpowYKuIEKPMYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y8n17hjar16j9B2Fd/awDyhpzZ4r9fW7bb/SxXsP92E=;
+ b=gZeT5qEU2DOaKjP4PX54T3xGnxRZKGPa/9M3/9ULlcdTMQx4n7n9USKCw0RopCovLkYG/fqvCntfdCsyU0IXHUFviJVAPHP7SPwa+dE72d9uL4FgFogr6T4S38pUl48N2PeRVUZf0XSkq3DStdxNqg6O9YMyJq9b+Dl/kH55Tfgi6BYEKNjYApsTksd0zfQnqwxgRDk1f7BD/LHnuvjmaVDeN+wVx3dKYirNgxpXvm5LJGYb6oZfXMNQX0mlCGJDnp+DycrczZTMRV4OdQVVhEGVv51EsWq5voQ7YXKTNuVLv7NtXUexRv6A/aHXf57fnZC+LSJPJIvlahS/WzuB1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y8n17hjar16j9B2Fd/awDyhpzZ4r9fW7bb/SxXsP92E=;
+ b=i4Oq24dUqIO5f6Jx4+h0rDMcHh/G0Coi1DyVkWKJGXFxY+k8oLokaZSwkC8hGg0pO3O1tPHHbq8cFoNQ+t4iOECfTWVo0k5m5gXQa1lB+xfh/AW2eo61+NZceWAOxt/XiFmKIyNY4qk1jitTTolRU32Pd4/Mvp+qS2yMzNdHaXY=
+Received: from CY5PR15CA0043.namprd15.prod.outlook.com (2603:10b6:930:1b::12)
+ by IA1PR12MB8288.namprd12.prod.outlook.com (2603:10b6:208:3fe::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Tue, 15 Aug
+ 2023 21:30:02 +0000
+Received: from CY4PEPF0000E9D9.namprd05.prod.outlook.com
+ (2603:10b6:930:1b:cafe::7e) by CY5PR15CA0043.outlook.office365.com
+ (2603:10b6:930:1b::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.14 via Frontend
+ Transport; Tue, 15 Aug 2023 21:30:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D9.mail.protection.outlook.com (10.167.241.77) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6699.14 via Frontend Transport; Tue, 15 Aug 2023 21:30:01 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 15 Aug
+ 2023 16:30:00 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] Revert "Revert "drm/amdgpu/display: change pipe policy for
+ DCN 2.0""
+Date: Tue, 15 Aug 2023 17:29:48 -0400
+Message-ID: <20230815212948.1841247-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230815195100.294458-1-andrealmeid@igalia.com>
-References: <20230815195100.294458-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D9:EE_|IA1PR12MB8288:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1fa14709-4be2-4d13-bdf5-08db9dd6c8be
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jXlvSerkJSn+r+sVUBySGixEzgrmAOaBrb6wtZRu9lG7e+UqVnVmK/4Ds/YtXpiRhzGSZCzh3odZRCgVdMTdv81aAxLQ7smUwXBoqAhHif6KTOcvbM4NIet2JeMw97uD5F37AMkAxLHz7F7p1coJ2ircr65u2+h7LwTw5P5int9QNw6Eomt1JYBZN3g5gToScOqgGJ3neOTj9gyzkroeXzHvlIcMH9d7NWLHTQiPKdyrKHohIEFfWEMqtwCyTPKjZ9kX+aS/ZQ0ngzFCNFSfoT9ighFVYQdmPIqEi0USFoDaEiO7igOtTXmiYsFKuOcQQO2xNf8z22pR0UTttrOEXqLKf7sA8AcZD+wUiengC3sBq0bOikn7lItomUX4/yzA3rzn1k5efnmDunzCxAIpDBu9sKsEEQkPhti/JTml7MAusC6KAinY3fE0wAEYdnSScRzPW7iIzainJRcQeRp6K+3pwIwPLLzUtRbKBwh5ju9SwHqTcL+PuTh4YR7j52B1ZGl6l4f6Fbj6PE2xfSgp8vTs98MkgldohXhnUNAoAUU/xh7cDnK02Xwn5sw+fStYAsH7fvVBk0hu0hqde0Vtz7i9nH1kcdcvVeYoQm24xrFI0tsNGfPv04gjC3WZ8N+o+6abXygz2yuNZFkiSg1/G2hbAKtQrlsUagS57RNas894pl9u4DZLoLpxdSapY0/0h+10auevvbnGTzQihHt31nKACB5xH+4xwaBKfmz6tHSbdGabP69/WJHYU1WpQne0
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(396003)(136003)(376002)(346002)(451199024)(1800799009)(186009)(82310400011)(46966006)(36840700001)(40470700004)(36756003)(86362001)(40460700003)(40480700001)(5660300002)(426003)(4326008)(8936002)(8676002)(2906002)(36860700001)(41300700001)(26005)(1076003)(7696005)(16526019)(336012)(47076005)(6666004)(83380400001)(2616005)(478600001)(81166007)(82740400003)(316002)(356005)(70206006)(70586007)(6916009)(966005)(54906003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2023 21:30:01.8469 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1fa14709-4be2-4d13-bdf5-08db9dd6c8be
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8288
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,55 +99,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>, kernel-dev@igalia.com,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, alexander.deucher@amd.com,
- christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Even if there's nothing currently parsing amdgpu's coredump files, if
-we eventually have such tools they will be glad to find a version field
-to properly read the file.
+This reverts commit 27dd79c00aeab36cd7542c7a4481a32549038659.
 
-Create a version number to be displayed on top of coredump file, to be
-incremented when the file format or content get changed.
+It appears MPC_SPLIT_DYNAMIC still causes problems with multiple
+displays on DCN2.0 hardware.  Switch back to MPC_SPLIT_AVOID_MULT_DISP.
+This increases power usage with multiple displays, but avoids hangs.
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2475
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h | 3 +++
- 2 files changed, 4 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-index 46c8d6ce349c..6696ff0a94af 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-@@ -192,6 +192,7 @@ static ssize_t amdgpu_devcoredump_read(char *buffer, loff_t offset,
- 	p = drm_coredump_printer(&iter);
- 
- 	drm_printf(&p, "**** AMDGPU Device Coredump ****\n");
-+	drm_printf(&p, "version: " AMDGPU_COREDUMP_VERSION "\n");
- 	drm_printf(&p, "kernel: " UTS_RELEASE "\n");
- 	drm_printf(&p, "module: " KBUILD_MODNAME "\n");
- 	drm_printf(&p, "time: %lld.%09ld\n", coredump->reset_time.tv_sec, coredump->reset_time.tv_nsec);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-index 362954521721..7b6767ca8127 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-@@ -88,6 +88,9 @@ struct amdgpu_reset_domain {
- };
- 
- #ifdef CONFIG_DEV_COREDUMP
-+
-+#define AMDGPU_COREDUMP_VERSION "1"
-+
- struct amdgpu_coredump_info {
- 	struct amdgpu_device		*adev;
- 	struct amdgpu_task_info         reset_task_info;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index dfecb9602f49..000fe96203c4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -712,7 +712,7 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 		.timing_trace = false,
+ 		.clock_trace = true,
+ 		.disable_pplib_clock_request = true,
+-		.pipe_split_policy = MPC_SPLIT_DYNAMIC,
++		.pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
+ 		.force_single_disp_pipe_split = false,
+ 		.disable_dcc = DCC_ENABLE,
+ 		.vsr_support = true,
 -- 
 2.41.0
 
