@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BB3BC001B0
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Aug 2023 08:43:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ED44C001DE
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Aug 2023 08:43:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFB4D10E16E;
-	Tue, 15 Aug 2023 08:43:44 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20619.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e83::619])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3341610E16A
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Aug 2023 08:43:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9444510E23B;
+	Tue, 15 Aug 2023 08:43:46 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0564C10E16A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Aug 2023 08:43:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eGX02Gb6bYn5E0eGEwfQoYuPJosTXHuPkTrdryQS7SXzEM8VaBt3d/ySc0aeT0z73kXagS9OKBinbVIlqlIRpez59qZfFqco5OXe+JuVegw/c7g1czyKIMocboa41sHcDVw2BRrglilMm39Phwp+OSp8fyPtyJE5Sjt4rfxulo31AIrWN/kayfTn7gCQ1Rr0YjCoW2q3RAAs4C+5M0exYV9qqVgV8fO6TaV9WMcDaNW1OcQsO2faGhFQpHxMxJmKZZJBEj7NRoDuAkhv3xvGBto1u0fTs4p3NL3BatHseKtSsizNHuBX7LiAZLmjG/0KrlKoL4jtTqsBtt+5eCu8dQ==
+ b=GbE30pVFmvs7p8Zuo95ZrbEtDav4+D7D28PW7tfL05UGvdHfcC3ZyLv3iMI5OfGQFTK3g6Xuf0SuwbiYtqCNK4xbNYXznzcoVHF3FiXGTnFhIuS3NldFer7usW5VR6rDmBRMHej6jO+9h65G8gP5kQ7Fz3Fx60BOOVtSBwOZrSbl8eo7tlLnmAeqUgyW1I/pajeADsf/w2yVp4qJ0G1/BiNepiPju63z1dlBStNpVinu4qR179LLZv3pAoWG90zMTxkEh+QkzTV8lg/K+ziZzQNX03Sv9a+H22TNvPM3UPOmnpN4whp4DdBpZ3nP1s2FtSLu14ECad8/Ze9eXdXCnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z55dvs48JJQeMDqYyMPA8zU78sexfbajewh9q7WUmbs=;
- b=P1V4u+Up++Rh2SAxF21lAIzpGtxRZioHOfxFCT7LEdm0fmM3DP5p6eYzrGS1Dv67OPiQeHDYpkIzoah0/IlAY/2Y97ohTLcf+d/DLRcfYOSt4CodMefKmsmY6idwb2uHn3CF5oVlByP43nXy4g5g1T5YipOMzypvmWrSTVQXeFaVGGUoLHfYImh9C0qdfZ/LpmWBV3cPqFpOyACkdmaN1Yi9PXOr5CqtbC6bp0oaWGd/+VD+6RVfjGIsxBWVnO0jCzr0FBiSI5H3IReGC0JSMxCTTnc6N/KQC06c5b3UZIeiktgBjcj13Xzik9+rdil+J0IZKnOO+eKJpc5VsCI3uQ==
+ bh=YzM2KWURPFDrQZV84+Y7eoEmmvOIv8ql1oKFNmDZaw8=;
+ b=SS0g749AO0RH90aTU6TP1JSR3d1KhRHql3piodXPhAwOc2e39paKug9HayTyZjXOuJ1inNSw9vVb0gP5ucUaN4ZNA9BQ9SWFaElhm//jSe0aOwaCqWYSYkWlWSzmiCluQTdVkoMs/6w/TxbBhfNx16D2Mt4BGi1x5k4XDI6h9oeNGgnsXS0g7Qmzn5BbnbFUNDkpJI8GzeDq7MImhHwnN+1SrAOR8zINTEENYCIuEdV6bmaxEFNf4t9rEYc8PqibZ8ygEvjBbwn68r7+nJoDTCI/PPdHegYhcMqxKrLfxqcz5cZP0t+7daUpablsd8oRkJOq1arF8dueyd+A1ZD8Ug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z55dvs48JJQeMDqYyMPA8zU78sexfbajewh9q7WUmbs=;
- b=PacBMc/FKhgNR2otbsdpeoUl/isB94xN69UcPF7fcFV457GkTKdT3nBcEiFmVCoE4m1Hnkm/61C2vrdjwUDdqFpkoko0HSnhJBZ4vqViHEnOXmnIfwvMf5ubM/+5dGI3KuRccraA0WjzuX5FRTZDRdgQ/lUC0etyexvtGWC7WGU=
-Received: from MW4P221CA0027.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::32)
- by BN9PR12MB5049.namprd12.prod.outlook.com (2603:10b6:408:132::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Tue, 15 Aug
+ bh=YzM2KWURPFDrQZV84+Y7eoEmmvOIv8ql1oKFNmDZaw8=;
+ b=Fi3M9ueHLB2jWgeMP+YNJXXztbSonRRA5AZ1dJRDHIDoH0tIbe6hiXLA9ZNX01RDNjrG7Kn1BSwn2nv2f3Fhfvi/BfE2fBn3pZV9XinCHDJHR1J6W00fY21O5YfvAf+zfVyy1OdaGvooYlK5N1WLwcj3t/QSVF4XgRQch2RHc0A=
+Received: from SJ0PR03CA0167.namprd03.prod.outlook.com (2603:10b6:a03:338::22)
+ by MW4PR12MB7013.namprd12.prod.outlook.com (2603:10b6:303:218::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30; Tue, 15 Aug
  2023 08:43:39 +0000
-Received: from CO1PEPF000044F0.namprd05.prod.outlook.com
- (2603:10b6:303:8b:cafe::23) by MW4P221CA0027.outlook.office365.com
- (2603:10b6:303:8b::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.14 via Frontend
+Received: from CO1PEPF000044F5.namprd05.prod.outlook.com
+ (2603:10b6:a03:338:cafe::82) by SJ0PR03CA0167.outlook.office365.com
+ (2603:10b6:a03:338::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.33 via Frontend
  Transport; Tue, 15 Aug 2023 08:43:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -46,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F0.mail.protection.outlook.com (10.167.241.70) with Microsoft
+ CO1PEPF000044F5.mail.protection.outlook.com (10.167.241.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.14 via Frontend Transport; Tue, 15 Aug 2023 08:43:39 +0000
+ 15.20.6699.14 via Frontend Transport; Tue, 15 Aug 2023 08:43:38 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 15 Aug
- 2023 03:43:35 -0500
+ 2023 03:43:33 -0500
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 6/8] drm/amd/pm: add fan acoustic target OD setting support
- for SMU13
-Date: Tue, 15 Aug 2023 16:42:29 +0800
-Message-ID: <20230815084231.3229009-7-evan.quan@amd.com>
+Subject: [PATCH 5/8] drm/amd/pm: add fan acoustic limit OD setting support for
+ SMU13
+Date: Tue, 15 Aug 2023 16:42:28 +0800
+Message-ID: <20230815084231.3229009-6-evan.quan@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230815084231.3229009-1-evan.quan@amd.com>
 References: <20230815084231.3229009-1-evan.quan@amd.com>
@@ -70,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F0:EE_|BN9PR12MB5049:EE_
-X-MS-Office365-Filtering-Correlation-Id: 903425de-e3aa-4ae3-9a56-08db9d6bb8e7
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F5:EE_|MW4PR12MB7013:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77ab8e2a-6a12-496e-fe45-08db9d6bb8cf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5UBY/Fb8vo0g7waTxMZU5DjJ7UZCjtOAA3Sh0P3iGzyVKvLCHa0VsS7V7dYQg6CyRtqj4iWwhdAQ4aFxIurlP44BQf8DYyR/Ajxnd6qG0kTiA5+1A+svP6m0qi5ArwAOH66Wx0PVO7ui5zvBTm8aPrvfTvfusp/qarXIkmcyjTa4lkz2gkpEnaeBt3+AzuGG31dR1U/PJc+oO8F631GB2zIcotTGv77HiPpqi4Phx84P7mF05vt0OygaAXg/DT0ux5XS6jACxH+D0Jb9rDlYE8DqJIbDy9uLYF8ycTVpmhwvJK0BH7oUveua1wABopgJykRCsOSbhNKHCFpxIJ4S4qzdZRCJ1RdPl9fxrdsN9DuAqskvkcriMRAjvAy3mDKtm45wnluPTnDqt5gLKOj2FdgyUKTlqFzkr8VCvxFE0oXXxxmsGosRLoTGpSgAsO0OLQ1dbjQQ4zmU80M6GAUk6XnY9msYheole6C2ffuPdFwk6YHCPAgQxDoqFZEuRXVTC608Fu/zkD6suCC/W1Hqy+KYjJd57mRUtGQ5XBfAqqzB7l1qckpm3Ntieo9gnkDHxmXC9ju+Vc+VoOpcAhlVfm7HxmCTGT2o9p6kybjlMXAaY/kEISvG5VGbcRe9cWtGW8sKka+qvIHCPGgR69aMu4IB3y0yaH6h8WfZ8lfyCd6xGhmIpApqCzxBZsg0kQVGZlFLqqcxmA/Wlp+40iT4PtDtqqfLpoSqQXpYyvJaALzB6OK6wqHx+cLxnfD/Fks2gCEfiBCHv934lzoF31eepA==
+X-Microsoft-Antispam-Message-Info: NAL0apqllERYLjYT6lrp7ybH+w5JvYyOHbBOy4ER0Uh3eqdSa80WKUr50cE4uG4nuvTl4bJqG7Tt5gKckseEacndl4J4/ydlb1LlWMv9jW/wLLrrqtms8Kwup52drgJY+o99e+kmhctAkvznyvCKBlSyUVrEAZxNrf96mw1QiLMumLt83QFxrmOjxoruq5/hQFm4yKs55RmR/WdlthE+1xx7X7nkBtG6IvwZoeale731TB1CFubr97pbkR7GxtZqjCTh3quGNimmWrrOGYGJyJdqDjbaaPomS7HDR30p3nklI8eIZAFovxLdCBLIbozmfNxjfPUJNk5+iDdeXD9Cx/Xao5Bz9BcdNDjr4CLlZAq6E/B8tzhD/iUvkbwr0gzaAHNM+kr6NtpAmHCMNv3lOGOgd8qXpNQc33/NO04MCcIC0NTMqhOKIWRAJ1NRIBw0YDJR1MBLvJoaacBIuyuafe9svLXm/KH95wFkA7XyscIa2vp0omJkMod2nV1NRaS0xykH/tVrOEOsw7qtZGpgby82mc2XnzGIujn5+vlKjh5+0hahLpRAcovbgIjTLVx8qRKah1DgG6+FUmgYsYvolu5Rag7JQiHalotz119S83iO7r1ZAbZDK8dK307BGIzbq5c5DLhfy74jc7Rfs3H6rsnDRkt7MLYCAy1R/0gk1lCUtTWls9aBz4z7hEjfedgrs+VOxlYbHPrG8Y6VyZ7u5vRtIxoA/sjCueh1Jv9mCiRYzromD77nsDKKELp9gZ6JItnSgRcOUcYygWWuqxQlRw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(396003)(376002)(39860400002)(82310400008)(451199021)(1800799006)(186006)(36840700001)(40470700004)(46966006)(40480700001)(54906003)(7696005)(6666004)(478600001)(40460700003)(81166007)(356005)(82740400003)(44832011)(2906002)(5660300002)(30864003)(36756003)(86362001)(4326008)(6916009)(70586007)(70206006)(41300700001)(336012)(8936002)(8676002)(316002)(16526019)(1076003)(26005)(36860700001)(83380400001)(47076005)(426003)(2616005)(36900700001);
+ SFS:(13230028)(4636009)(376002)(396003)(346002)(136003)(39860400002)(186006)(82310400008)(451199021)(1800799006)(46966006)(40470700004)(36840700001)(81166007)(8936002)(1076003)(26005)(40460700003)(82740400003)(8676002)(36860700001)(47076005)(36756003)(2906002)(83380400001)(426003)(30864003)(41300700001)(2616005)(356005)(44832011)(86362001)(16526019)(336012)(4326008)(70586007)(70206006)(6916009)(40480700001)(54906003)(478600001)(7696005)(6666004)(316002)(5660300002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2023 08:43:39.0585 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 903425de-e3aa-4ae3-9a56-08db9d6bb8e7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2023 08:43:38.9194 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77ab8e2a-6a12-496e-fe45-08db9d6bb8cf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F5.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5049
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7013
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,7 +104,7 @@ Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add SMU13 fan acoustic target OD setting support.
+Add SMU13 fan acoustic limit OD setting support.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
@@ -119,65 +118,65 @@ Signed-off-by: Evan Quan <evan.quan@amd.com>
  7 files changed, 152 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-index aa07c5d0d3c9..06ed73a6b5f3 100644
+index 3743777b45cb..aa07c5d0d3c9 100644
 --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
 +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -116,6 +116,7 @@ enum pp_clock_type {
+@@ -115,6 +115,7 @@ enum pp_clock_type {
+ 	OD_CCLK,
  	OD_FAN_MODE,
  	OD_FAN_CURVE,
- 	OD_ACOUSTIC_LIMIT,
-+	OD_ACOUSTIC_TARGET,
++	OD_ACOUSTIC_LIMIT,
  };
  
  enum amd_pp_sensors {
-@@ -192,6 +193,7 @@ enum PP_OD_DPM_TABLE_COMMAND {
+@@ -190,6 +191,7 @@ enum PP_OD_DPM_TABLE_COMMAND {
+ 	PP_OD_EDIT_VDDGFX_OFFSET,
  	PP_OD_EDIT_FAN_MODE,
  	PP_OD_EDIT_FAN_CURVE,
- 	PP_OD_EDIT_ACOUSTIC_LIMIT,
-+	PP_OD_EDIT_ACOUSTIC_TARGET,
++	PP_OD_EDIT_ACOUSTIC_LIMIT,
  };
  
  struct pp_states_info {
 diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index e09da037d605..6a75b53189b7 100644
+index 7baebe45b912..e09da037d605 100644
 --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
 +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -3758,6 +3758,43 @@ static umode_t acoustic_limit_threshold_visible(struct amdgpu_device *adev)
+@@ -3721,6 +3721,43 @@ static umode_t fan_curve_visible(struct amdgpu_device *adev)
  	return umode;
  }
  
-+static ssize_t acoustic_target_threshold_show(struct kobject *kobj,
-+					      struct kobj_attribute *attr,
-+					      char *buf)
++static ssize_t acoustic_limit_threshold_show(struct kobject *kobj,
++					     struct kobj_attribute *attr,
++					     char *buf)
 +{
 +	struct od_kobj *container = container_of(kobj, struct od_kobj, kobj);
 +	struct amdgpu_device *adev = (struct amdgpu_device *)container->priv;
 +
-+	return (ssize_t)amdgpu_retrieve_od_settings(adev, OD_ACOUSTIC_TARGET, buf);
++	return (ssize_t)amdgpu_retrieve_od_settings(adev, OD_ACOUSTIC_LIMIT, buf);
 +}
 +
-+static ssize_t acoustic_target_threshold_store(struct kobject *kobj,
-+					       struct kobj_attribute *attr,
-+					       const char *buf,
-+					       size_t count)
++static ssize_t acoustic_limit_threshold_store(struct kobject *kobj,
++					      struct kobj_attribute *attr,
++					      const char *buf,
++					      size_t count)
 +{
 +	struct od_kobj *container = container_of(kobj, struct od_kobj, kobj);
 +	struct amdgpu_device *adev = (struct amdgpu_device *)container->priv;
 +
 +	return (ssize_t)amdgpu_distribute_custom_od_settings(adev,
-+							     PP_OD_EDIT_ACOUSTIC_TARGET,
++							     PP_OD_EDIT_ACOUSTIC_LIMIT,
 +							     buf,
 +							     count);
 +}
 +
-+static umode_t acoustic_target_threshold_visible(struct amdgpu_device *adev)
++static umode_t acoustic_limit_threshold_visible(struct amdgpu_device *adev)
 +{
 +	umode_t umode = 0000;
 +
-+	if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_ACOUSTIC_TARGET_THRESHOLD_RETRIEVE)
++	if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_RETRIEVE)
 +		umode |= S_IRUSR | S_IRGRP | S_IROTH;
 +
-+	if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_ACOUSTIC_TARGET_THRESHOLD_SET)
++	if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_SET)
 +		umode |= S_IWUSR;
 +
 +	return umode;
@@ -186,129 +185,129 @@ index e09da037d605..6a75b53189b7 100644
  static struct od_feature_set amdgpu_od_set = {
  	.containers = {
  		[0] = {
-@@ -3787,6 +3824,14 @@ static struct od_feature_set amdgpu_od_set = {
- 						.store = acoustic_limit_threshold_store,
+@@ -3742,6 +3779,14 @@ static struct od_feature_set amdgpu_od_set = {
+ 						.store = fan_curve_store,
  					},
  				},
-+				[3] = {
-+					.name = "acoustic_target_rpm_threshold",
++				[2] = {
++					.name = "acoustic_limit_rpm_threshold",
 +					.ops = {
-+						.is_visible = acoustic_target_threshold_visible,
-+						.show = acoustic_target_threshold_show,
-+						.store = acoustic_target_threshold_store,
++						.is_visible = acoustic_limit_threshold_visible,
++						.show = acoustic_limit_threshold_show,
++						.store = acoustic_limit_threshold_store,
 +					},
 +				},
  			},
  		},
  	},
 diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index 17ffcef34e61..6b2bbd13db09 100644
+index 4463c60b710a..17ffcef34e61 100644
 --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
 +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -320,6 +320,8 @@ struct config_table_setting
+@@ -318,6 +318,8 @@ struct config_table_setting
+ #define OD_OPS_SUPPORT_FAN_MODE_SET			BIT(1)
+ #define OD_OPS_SUPPORT_FAN_CURVE_RETRIEVE		BIT(2)
  #define OD_OPS_SUPPORT_FAN_CURVE_SET			BIT(3)
- #define OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_RETRIEVE	BIT(4)
- #define OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_SET		BIT(5)
-+#define OD_OPS_SUPPORT_ACOUSTIC_TARGET_THRESHOLD_RETRIEVE	BIT(6)
-+#define OD_OPS_SUPPORT_ACOUSTIC_TARGET_THRESHOLD_SET		BIT(7)
++#define OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_RETRIEVE	BIT(4)
++#define OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_SET		BIT(5)
  
  struct amdgpu_pm {
  	struct mutex		mutex;
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 3db6bd49b73c..3bfa9b9bb247 100644
+index fe998df9dca2..3db6bd49b73c 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2487,6 +2487,8 @@ static enum smu_clk_type smu_convert_to_smuclk(enum pp_clock_type type)
+@@ -2485,6 +2485,8 @@ static enum smu_clk_type smu_convert_to_smuclk(enum pp_clock_type type)
+ 		clk_type = SMU_OD_FAN_MODE; break;
+ 	case OD_FAN_CURVE:
  		clk_type = SMU_OD_FAN_CURVE; break;
- 	case OD_ACOUSTIC_LIMIT:
- 		clk_type = SMU_OD_ACOUSTIC_LIMIT; break;
-+	case OD_ACOUSTIC_TARGET:
-+		clk_type = SMU_OD_ACOUSTIC_TARGET; break;
++	case OD_ACOUSTIC_LIMIT:
++		clk_type = SMU_OD_ACOUSTIC_LIMIT; break;
  	default:
  		clk_type = SMU_CLK_COUNT; break;
  	}
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-index 63fe6f2882cf..1463a5d41647 100644
+index dc5f6e166907..63fe6f2882cf 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
 +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-@@ -281,6 +281,7 @@ enum smu_clk_type {
+@@ -280,6 +280,7 @@ enum smu_clk_type {
+ 	SMU_OD_VDDGFX_OFFSET,
  	SMU_OD_FAN_MODE,
  	SMU_OD_FAN_CURVE,
- 	SMU_OD_ACOUSTIC_LIMIT,
-+	SMU_OD_ACOUSTIC_TARGET,
++	SMU_OD_ACOUSTIC_LIMIT,
  	SMU_CLK_COUNT,
  };
  
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index 25c1a11e2d8a..78337380a6b3 100644
+index 426652af4fc5..25c1a11e2d8a 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -105,6 +105,7 @@
+@@ -104,6 +104,7 @@
+ #define PP_OD_FEATURE_FAN_MODE				5
  #define PP_OD_FEATURE_FAN_CURVE_TEMP			6
  #define PP_OD_FEATURE_FAN_CURVE_PWM			7
- #define PP_OD_FEATURE_FAN_ACOUSTIC_LIMIT		8
-+#define PP_OD_FEATURE_FAN_ACOUSTIC_TARGET		9
++#define PP_OD_FEATURE_FAN_ACOUSTIC_LIMIT		8
  
  static struct cmn2asic_msg_mapping smu_v13_0_0_message_map[SMU_MSG_MAX_COUNT] = {
  	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
-@@ -1103,6 +1104,10 @@ static void smu_v13_0_0_get_od_setting_limits(struct smu_context *smu,
- 		od_min_setting = overdrive_lowerlimits->AcousticLimitRpmThreshold;
- 		od_max_setting = overdrive_upperlimits->AcousticLimitRpmThreshold;
+@@ -1098,6 +1099,10 @@ static void smu_v13_0_0_get_od_setting_limits(struct smu_context *smu,
+ 		od_min_setting = overdrive_lowerlimits->FanLinearPwmPoints;
+ 		od_max_setting = overdrive_upperlimits->FanLinearPwmPoints;
  		break;
-+	case PP_OD_FEATURE_FAN_ACOUSTIC_TARGET:
-+		od_min_setting = overdrive_lowerlimits->AcousticTargetRpmThreshold;
-+		od_max_setting = overdrive_upperlimits->AcousticTargetRpmThreshold;
++	case PP_OD_FEATURE_FAN_ACOUSTIC_LIMIT:
++		od_min_setting = overdrive_lowerlimits->AcousticLimitRpmThreshold;
++		od_max_setting = overdrive_upperlimits->AcousticLimitRpmThreshold;
 +		break;
  	default:
  		od_min_setting = od_max_setting = INT_MAX;
  		break;
-@@ -1377,6 +1382,24 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
- 				      min_value, max_value);
+@@ -1354,6 +1359,24 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
+ 
  		break;
  
-+	case SMU_OD_ACOUSTIC_TARGET:
++	case SMU_OD_ACOUSTIC_LIMIT:
 +		if (!smu_v13_0_0_is_od_feature_supported(smu,
 +							 PP_OD_FEATURE_FAN_CURVE_BIT))
 +			break;
 +
-+		size += sysfs_emit_at(buf, size, "OD_ACOUSTIC_TARGET:\n");
++		size += sysfs_emit_at(buf, size, "OD_ACOUSTIC_LIMIT:\n");
 +		size += sysfs_emit_at(buf, size, "%d\n",
-+					(int)od_table->OverDriveTable.AcousticTargetRpmThreshold);
++					(int)od_table->OverDriveTable.AcousticLimitRpmThreshold);
 +
 +		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
 +		smu_v13_0_0_get_od_setting_limits(smu,
-+						  PP_OD_FEATURE_FAN_ACOUSTIC_TARGET,
++						  PP_OD_FEATURE_FAN_ACOUSTIC_LIMIT,
 +						  &min_value,
 +						  &max_value);
-+		size += sysfs_emit_at(buf, size, "ACOUSTIC_TARGET: %u %u\n",
++		size += sysfs_emit_at(buf, size, "ACOUSTIC_LIMIT: %u %u\n",
 +				      min_value, max_value);
 +		break;
 +
  	case SMU_OD_RANGE:
  		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_GFXCLK_BIT) &&
  		    !smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_UCLK_BIT) &&
-@@ -1650,6 +1673,28 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+@@ -1605,6 +1628,28 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
  		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
  		break;
  
-+	case PP_OD_EDIT_ACOUSTIC_TARGET:
++	case PP_OD_EDIT_ACOUSTIC_LIMIT:
 +		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
 +			dev_warn(adev->dev, "Fan curve setting not supported!\n");
 +			return -ENOTSUPP;
 +		}
 +
 +		smu_v13_0_0_get_od_setting_limits(smu,
-+						  PP_OD_FEATURE_FAN_ACOUSTIC_TARGET,
++						  PP_OD_FEATURE_FAN_ACOUSTIC_LIMIT,
 +						  &minimum,
 +						  &maximum);
 +		if (input[0] < minimum ||
 +		    input[0] > maximum) {
-+			dev_info(adev->dev, "acoustic target threshold setting(%ld) must be within [%d, %d]!\n",
++			dev_info(adev->dev, "acoustic limit threshold setting(%ld) must be within [%d, %d]!\n",
 +				 input[0], minimum, maximum);
 +			return -EINVAL;
 +		}
 +
-+		od_table->OverDriveTable.AcousticTargetRpmThreshold = input[0];
++		od_table->OverDriveTable.AcousticLimitRpmThreshold = input[0];
 +		od_table->OverDriveTable.FanMode = FAN_MODE_AUTO;
 +		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
 +		break;
@@ -316,96 +315,96 @@ index 25c1a11e2d8a..78337380a6b3 100644
  	case PP_OD_RESTORE_DEFAULT_TABLE:
  		feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
  		memcpy(od_table,
-@@ -1907,7 +1952,9 @@ static void smu_v13_0_0_set_supported_od_feature_mask(struct smu_context *smu)
+@@ -1860,7 +1905,9 @@ static void smu_v13_0_0_set_supported_od_feature_mask(struct smu_context *smu)
+ 						PP_OD_FEATURE_FAN_CURVE_BIT))
+ 		adev->pm.od_feature_mask |= OD_OPS_SUPPORT_FAN_MODE_RETRIEVE |
  					    OD_OPS_SUPPORT_FAN_CURVE_RETRIEVE |
- 					    OD_OPS_SUPPORT_FAN_CURVE_SET |
- 					    OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_RETRIEVE |
--					    OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_SET;
-+					    OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_SET |
-+					    OD_OPS_SUPPORT_ACOUSTIC_TARGET_THRESHOLD_RETRIEVE |
-+					    OD_OPS_SUPPORT_ACOUSTIC_TARGET_THRESHOLD_SET;
+-					    OD_OPS_SUPPORT_FAN_CURVE_SET;
++					    OD_OPS_SUPPORT_FAN_CURVE_SET |
++					    OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_RETRIEVE |
++					    OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_SET;
  }
  
  static int smu_v13_0_0_set_default_od_settings(struct smu_context *smu)
-@@ -1969,6 +2016,8 @@ static int smu_v13_0_0_set_default_od_settings(struct smu_context *smu)
+@@ -1920,6 +1967,8 @@ static int smu_v13_0_0_set_default_od_settings(struct smu_context *smu)
+ 			user_od_table->OverDriveTable.FanLinearPwmPoints[i] =
+ 				user_od_table_bak.OverDriveTable.FanLinearPwmPoints[i];
  		}
- 		user_od_table->OverDriveTable.AcousticLimitRpmThreshold =
- 			user_od_table_bak.OverDriveTable.AcousticLimitRpmThreshold;
-+		user_od_table->OverDriveTable.AcousticTargetRpmThreshold =
-+			user_od_table_bak.OverDriveTable.AcousticTargetRpmThreshold;
++		user_od_table->OverDriveTable.AcousticLimitRpmThreshold =
++			user_od_table_bak.OverDriveTable.AcousticLimitRpmThreshold;
  	}
  
  	smu_v13_0_0_set_supported_od_feature_mask(smu);
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 55f0f8b32fab..8d4d0864aa73 100644
+index 72bbbd2569e9..55f0f8b32fab 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -81,6 +81,7 @@
+@@ -80,6 +80,7 @@
+ #define PP_OD_FEATURE_FAN_MODE				5
  #define PP_OD_FEATURE_FAN_CURVE_TEMP			6
  #define PP_OD_FEATURE_FAN_CURVE_PWM			7
- #define PP_OD_FEATURE_FAN_ACOUSTIC_LIMIT		8
-+#define PP_OD_FEATURE_FAN_ACOUSTIC_TARGET		9
++#define PP_OD_FEATURE_FAN_ACOUSTIC_LIMIT		8
  
  static struct cmn2asic_msg_mapping smu_v13_0_7_message_map[SMU_MSG_MAX_COUNT] = {
  	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
-@@ -1090,6 +1091,10 @@ static void smu_v13_0_7_get_od_setting_limits(struct smu_context *smu,
- 		od_min_setting = overdrive_lowerlimits->AcousticLimitRpmThreshold;
- 		od_max_setting = overdrive_upperlimits->AcousticLimitRpmThreshold;
+@@ -1085,6 +1086,10 @@ static void smu_v13_0_7_get_od_setting_limits(struct smu_context *smu,
+ 		od_min_setting = overdrive_lowerlimits->FanLinearPwmPoints;
+ 		od_max_setting = overdrive_upperlimits->FanLinearPwmPoints;
  		break;
-+	case PP_OD_FEATURE_FAN_ACOUSTIC_TARGET:
-+		od_min_setting = overdrive_lowerlimits->AcousticTargetRpmThreshold;
-+		od_max_setting = overdrive_upperlimits->AcousticTargetRpmThreshold;
++	case PP_OD_FEATURE_FAN_ACOUSTIC_LIMIT:
++		od_min_setting = overdrive_lowerlimits->AcousticLimitRpmThreshold;
++		od_max_setting = overdrive_upperlimits->AcousticLimitRpmThreshold;
 +		break;
  	default:
  		od_min_setting = od_max_setting = INT_MAX;
  		break;
-@@ -1364,6 +1369,24 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
- 				      min_value, max_value);
+@@ -1341,6 +1346,24 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
+ 
  		break;
  
-+	case SMU_OD_ACOUSTIC_TARGET:
++	case SMU_OD_ACOUSTIC_LIMIT:
 +		if (!smu_v13_0_7_is_od_feature_supported(smu,
 +							 PP_OD_FEATURE_FAN_CURVE_BIT))
 +			break;
 +
-+		size += sysfs_emit_at(buf, size, "OD_ACOUSTIC_TARGET:\n");
++		size += sysfs_emit_at(buf, size, "OD_ACOUSTIC_LIMIT:\n");
 +		size += sysfs_emit_at(buf, size, "%d\n",
-+					(int)od_table->OverDriveTable.AcousticTargetRpmThreshold);
++					(int)od_table->OverDriveTable.AcousticLimitRpmThreshold);
 +
 +		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
 +		smu_v13_0_7_get_od_setting_limits(smu,
-+						  PP_OD_FEATURE_FAN_ACOUSTIC_TARGET,
++						  PP_OD_FEATURE_FAN_ACOUSTIC_LIMIT,
 +						  &min_value,
 +						  &max_value);
-+		size += sysfs_emit_at(buf, size, "ACOUSTIC_TARGET: %u %u\n",
++		size += sysfs_emit_at(buf, size, "ACOUSTIC_LIMIT: %u %u\n",
 +				      min_value, max_value);
 +		break;
 +
  	case SMU_OD_RANGE:
  		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_GFXCLK_BIT) &&
  		    !smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_UCLK_BIT) &&
-@@ -1637,6 +1660,28 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+@@ -1592,6 +1615,28 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
  		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
  		break;
  
-+	case PP_OD_EDIT_ACOUSTIC_TARGET:
++	case PP_OD_EDIT_ACOUSTIC_LIMIT:
 +		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
 +			dev_warn(adev->dev, "Fan curve setting not supported!\n");
 +			return -ENOTSUPP;
 +		}
 +
 +		smu_v13_0_7_get_od_setting_limits(smu,
-+						  PP_OD_FEATURE_FAN_ACOUSTIC_TARGET,
++						  PP_OD_FEATURE_FAN_ACOUSTIC_LIMIT,
 +						  &minimum,
 +						  &maximum);
 +		if (input[0] < minimum ||
 +		    input[0] > maximum) {
-+			dev_info(adev->dev, "acoustic target threshold setting(%ld) must be within [%d, %d]!\n",
++			dev_info(adev->dev, "acoustic limit threshold setting(%ld) must be within [%d, %d]!\n",
 +				 input[0], minimum, maximum);
 +			return -EINVAL;
 +		}
 +
-+		od_table->OverDriveTable.AcousticTargetRpmThreshold = input[0];
++		od_table->OverDriveTable.AcousticLimitRpmThreshold = input[0];
 +		od_table->OverDriveTable.FanMode = FAN_MODE_AUTO;
 +		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
 +		break;
@@ -413,23 +412,23 @@ index 55f0f8b32fab..8d4d0864aa73 100644
  	case PP_OD_RESTORE_DEFAULT_TABLE:
  		feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
  		memcpy(od_table,
-@@ -1889,7 +1934,9 @@ static void smu_v13_0_7_set_supported_od_feature_mask(struct smu_context *smu)
+@@ -1842,7 +1887,9 @@ static void smu_v13_0_7_set_supported_od_feature_mask(struct smu_context *smu)
+ 						PP_OD_FEATURE_FAN_CURVE_BIT))
+ 		adev->pm.od_feature_mask |= OD_OPS_SUPPORT_FAN_MODE_RETRIEVE |
  					    OD_OPS_SUPPORT_FAN_CURVE_RETRIEVE |
- 					    OD_OPS_SUPPORT_FAN_CURVE_SET |
- 					    OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_RETRIEVE |
--					    OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_SET;
-+					    OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_SET |
-+					    OD_OPS_SUPPORT_ACOUSTIC_TARGET_THRESHOLD_RETRIEVE |
-+					    OD_OPS_SUPPORT_ACOUSTIC_TARGET_THRESHOLD_SET;
+-					    OD_OPS_SUPPORT_FAN_CURVE_SET;
++					    OD_OPS_SUPPORT_FAN_CURVE_SET |
++					    OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_RETRIEVE |
++					    OD_OPS_SUPPORT_ACOUSTIC_LIMIT_THRESHOLD_SET;
  }
  
  static int smu_v13_0_7_set_default_od_settings(struct smu_context *smu)
-@@ -1951,6 +1998,8 @@ static int smu_v13_0_7_set_default_od_settings(struct smu_context *smu)
+@@ -1902,6 +1949,8 @@ static int smu_v13_0_7_set_default_od_settings(struct smu_context *smu)
+ 			user_od_table->OverDriveTable.FanLinearPwmPoints[i] =
+ 				user_od_table_bak.OverDriveTable.FanLinearPwmPoints[i];
  		}
- 		user_od_table->OverDriveTable.AcousticLimitRpmThreshold =
- 			user_od_table_bak.OverDriveTable.AcousticLimitRpmThreshold;
-+		user_od_table->OverDriveTable.AcousticTargetRpmThreshold =
-+			user_od_table_bak.OverDriveTable.AcousticTargetRpmThreshold;
++		user_od_table->OverDriveTable.AcousticLimitRpmThreshold =
++			user_od_table_bak.OverDriveTable.AcousticLimitRpmThreshold;
  	}
  
  	smu_v13_0_7_set_supported_od_feature_mask(smu);
