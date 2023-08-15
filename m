@@ -4,58 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45149C001DE
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Aug 2023 16:56:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFB1BC0015E
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Aug 2023 17:10:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEC9210E261;
-	Tue, 15 Aug 2023 16:56:31 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B92DC10E26F
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Aug 2023 16:56:29 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-1c4c7a83bcdso2192599fac.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Aug 2023 09:56:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1692118589; x=1692723389;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YZM26tvCvtlobwWLcKWHNJmUua7GFsGB8JpozwDWy+g=;
- b=JPkHrDXWLIrorccD7o/p511Qk2NDw00oGls9BgPLdc/Yfgzk6HdOn3T6o8CpPxDGuy
- gZkFJUoZ2IMtFSYlW1sC35bbDnUnsTPq2DOLcu9jtqA+IBifC5jkEMOnupFNS2L/9vYG
- tsUX3uo91GLA68e1V2iR49pG1DSeg49ss8rTbHZWVdhgVYBv6bQkUpDsutBwR+lAp//2
- ezOty5AfBgfZtSfHhdynnW5qO6Nw+SdGZVOyuJD8LtJfsTa6LTj59lK2vFOFGczAgFoE
- D6qHM26yLEuJ+/sJw6NvbPGAprjOd2MoYPjW3PXw8REM39XgJddKcSbO0k3RigcvP5de
- QhJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692118589; x=1692723389;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YZM26tvCvtlobwWLcKWHNJmUua7GFsGB8JpozwDWy+g=;
- b=JiZAwR/bzjXZM15lqodNqxDBZRrjcM5iWwpWn8e8Eta0ofPzbxW/1yObWPUIQwe9vf
- qQeC1ZJ2BTv/e5rePLEjUj17Qmqu+ZKguiN+UmoTazvrzKt1CS8RrBoDvmmYceAVqg85
- 67yQ0lqln6qx+DDCvSo5nKJvJsKDm/TgTO+XO0uAsF6I3PvR0XF2ioBt+rUvptBs2Elf
- rel8UydDE3GJseJKqbDCjEfbhRNEUNG1v1IxDhrR2IWY5Bw/7FYWW+J4QU8FvLqTd51F
- ZZC4SvV85ojeAT+BsXhiSngz0FDKN7xGxy73osdjF8VIAmX46W0Ym8C7HSo/BZn5BRMh
- HU1A==
-X-Gm-Message-State: AOJu0YyQdBcViWCISzUEpVAdg+2PZnA7a+kjzkHNKRQPVNWYQ+mj+io5
- EaMvF09DzhI69FVHKXPRH/uOxeE+Fd0wREgUaQw=
-X-Google-Smtp-Source: AGHT+IF2FwXKxI80mmPEBWn8PFf5MOJfQbPUJuXBqMTeKNBqbi2rVDePdCcIHkrM/FvoWfcxP0NoPnrDSgFkXNsw8Wc=
-X-Received: by 2002:a05:6870:7027:b0:1be:ec3b:3ae1 with SMTP id
- u39-20020a056870702700b001beec3b3ae1mr13388463oae.50.1692118588951; Tue, 15
- Aug 2023 09:56:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7148810E19E;
+	Tue, 15 Aug 2023 17:10:48 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20614.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8d::614])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E100C10E19E;
+ Tue, 15 Aug 2023 17:10:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cxnvTb7fPC/zf1MV+EF4wXz2bh/n9UYuWZSiwHRYmvjYBGPBxt+dyi09MduNHnwVnptAdrMxw/xQqyRZ6f672k8yfVdusSkJQi4+IvHictagXKzn7ClRSFI3nbNi9p4+zTEDI1KfpZOaWQ6uFaxffGScU07cyZdNe/74JePbqAVb+n8OKB6MeaZIar2iXHDl8fZVRGuk8TEPYIrAa+outkDGO1rDNiIfjZ7ZcriWupOxIaPV6vmnbYZFG9BnbL+/IV1QBzj5nZNBQv87nGkwr6MVOBvbc+CZpsmOe5EdWL6wopdh79rgcTB7Ceh3kBHB7ch7O51xfGAT9VOMIDuLtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OSkdZEp+Jww856/UYZzBtI7Zq5ifa5yTr7tOL2zAf4c=;
+ b=mAFcxQNiqDeocXoVS8DwD5oi4gl/l4HQsR1j1XwKbKscXBblfyYTEiKmbS7jsShRvSyULyOfFTqLywPwQvwmJ5oRzHrqkZCRTrcB6JhTM9sK7msXjpbi+t3Hlc9pxlp+uZbMRjzknIlyFT1XGXaxG9/eLRMAVeFtUofKDsXlKOkYmG4DyreSJ4pPLbX3X29aMGYYuB1u/711YOwLHwW6dLY1u7FIl6T1yOH0yghcNXEucso321q8i+Qftd9VasSppx8mjtKkCzVgUMqQ3WANtd/dg5oCBjfcxfFzrOtswGgE3Zqg0GAmkBxRrJKdQ0hhFYmiMDlGRKoBZwf//YjhrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OSkdZEp+Jww856/UYZzBtI7Zq5ifa5yTr7tOL2zAf4c=;
+ b=qA6I4RIaFDhPfHlEJEvskddnkn5kwbQZap5srlqtIu+8lt0E2gmUMRqf7Vd6zgogqCBq2EjEjQAhxGLh0uevGPuZND+cij/AUQ8Zsr5Bitmw+P+2UhVLG051jtWBzXU+97u+sB4pEqL2ijDB6f73c545olkpfn+z8kTwlihicbk=
+Received: from SA1P222CA0042.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:2d0::16)
+ by PH7PR12MB7819.namprd12.prod.outlook.com (2603:10b6:510:27f::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Tue, 15 Aug
+ 2023 17:10:42 +0000
+Received: from SN1PEPF000252A4.namprd05.prod.outlook.com
+ (2603:10b6:806:2d0:cafe::47) by SA1P222CA0042.outlook.office365.com
+ (2603:10b6:806:2d0::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.33 via Frontend
+ Transport; Tue, 15 Aug 2023 17:10:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF000252A4.mail.protection.outlook.com (10.167.242.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6699.14 via Frontend Transport; Tue, 15 Aug 2023 17:10:41 +0000
+Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 15 Aug
+ 2023 12:10:40 -0500
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: register a dirty framebuffer callback for fbcon
+Date: Tue, 15 Aug 2023 13:10:10 -0400
+Message-ID: <20230815171011.232410-1-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-References: <20230815085710.842188-1-kenneth.feng@amd.com>
-In-Reply-To: <20230815085710.842188-1-kenneth.feng@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Aug 2023 12:56:17 -0400
-Message-ID: <CADnq5_N6436Mdqz+V4er+=VFm=6O_C=i5T3R2+Nkc_eqh8uZLw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: allow the user to force BACO on smu v13.0.0/7
-To: Kenneth Feng <kenneth.feng@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A4:EE_|PH7PR12MB7819:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7b7da1e-1d9c-48dd-9f14-08db9db28e42
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: TzaaO03OpECgnnnUOU29s2O/QB7oL5x/ETdqfJYKji3aNYk/MDaYwDB9RG6nB3knQwWXKAOeroICpnC70SdQsYJor1jzXTCy/AqRTUR5MjW0UYJvUgdJnatueWt9IM7yEE/VHC2MPR/9mM80G8/Wyy0Aj0CdGjpEgjJ9Y2DPcLjNJZFicJSE/mFq60As0gCr133GPod5PVOX16lN82PuW3amrp3EAP9U7UOb+lJY0Pfj5C9KV78TaUpD8JBGaY7wLNFLb6KWq6pIi8q2UaoLtfz6/OlfUkQJo/R/IDqmREZK3f1MZytGbLDqgKHmhhQIJ1sTmXWuo6O3xsQgvm/tk9ioaZ+jNDdXO/UxldAUBpCgsRkVBTX6c9OCYosBbNHGZG7GyFFp64afMLw+tdqcTpoh3BIunT0/2Euat4ieHUin2mwvusKM8CC/oXKP+r2v3xQ8PGddaSP/Ev6fEm7JVjRZnSsccEf5IXNLOnXE/9cdGAGHM7IO2zASZYEsZwNvPlfh9wyhJBmZKgMfY/rz+jZg95sBFctt1e2XNAFMaApsYALXApYxdUj3atAQ3ddeuH4ANygYhJj6EmBHasCd/MxCc/OU4EtwCC1TC/zm7/cct40ckXycuFKd3Fno0EljOdDgAxueMQFgyvmU150yudq8dte8BGob4Sy3QmZzWXrtJ4Iq2R6G1Ez62ytGGq/VYYD36aaXqfFsHf9OE7K7T6Dydn6A2E71D9fN1l/Cmq4Ejm8IenVGTGzOn/ayc5gL4SA4Fej4ENgfqIWlOAaj2/kZYITm/S2asVKdR87hcHIxgwqfJ15n8Bc70m3FLLd/
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(39860400002)(376002)(396003)(136003)(1800799009)(186009)(82310400011)(451199024)(40470700004)(46966006)(36840700001)(70206006)(8936002)(6916009)(478600001)(6666004)(54906003)(70586007)(86362001)(316002)(426003)(41300700001)(2906002)(336012)(40480700001)(36860700001)(36756003)(26005)(1076003)(16526019)(40460700003)(47076005)(83380400001)(966005)(356005)(81166007)(82740400003)(4326008)(8676002)(5660300002)(44832011)(2616005)(14143004)(16060500005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2023 17:10:41.8902 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7b7da1e-1d9c-48dd-9f14-08db9db28e42
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7819
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,84 +98,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Guchun Chen <guchun.chen@amd.com>,
+ dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 15, 2023 at 5:05=E2=80=AFAM Kenneth Feng <kenneth.feng@amd.com>=
- wrote:
->
-> allow the user to force BACO on smu v13.0.0/7
->
-> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+fbcon requires that we implement &drm_framebuffer_funcs.dirty.
+Otherwise, the framebuffer might take awhile to flush (which would
+manifest as noticeable lag). However, we can't enable this callback for
+non-fbcon cases since it might cause too many atomic commits to be made
+at once. So, implement amdgpu_dirtyfb() and only enable it for fbcon
+framebuffers on devices that support atomic KMS.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Would it be better to default to BACO?  It would save more power at
-the expense of resume latency.
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: stable@vger.kernel.org # 6.1+
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2519
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 26 ++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index d20dd3f852fc..743db9aee68c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -38,6 +38,8 @@
+ #include <linux/pci.h>
+ #include <linux/pm_runtime.h>
+ #include <drm/drm_crtc_helper.h>
++#include <drm/drm_damage_helper.h>
++#include <drm/drm_drv.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_fb_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+@@ -532,11 +534,29 @@ bool amdgpu_display_ddc_probe(struct amdgpu_connector *amdgpu_connector,
+ 	return true;
+ }
+ 
++static int amdgpu_dirtyfb(struct drm_framebuffer *fb, struct drm_file *file,
++			  unsigned int flags, unsigned int color,
++			  struct drm_clip_rect *clips, unsigned int num_clips)
++{
++
++	if (strcmp(framebuffer->comm, "[fbcon]"))
++		return -ENOSYS;
++
++	return drm_atomic_helper_dirtyfb(framebuffer, file_priv, flags, color,
++					 clips, num_clips);
++}
++
+ static const struct drm_framebuffer_funcs amdgpu_fb_funcs = {
+ 	.destroy = drm_gem_fb_destroy,
+ 	.create_handle = drm_gem_fb_create_handle,
+ };
+ 
++static const struct drm_framebuffer_funcs amdgpu_fb_funcs_atomic = {
++	.destroy = drm_gem_fb_destroy,
++	.create_handle = drm_gem_fb_create_handle,
++	.dirty = amdgpu_dirtyfb
++};
++
+ uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
+ 					  uint64_t bo_flags)
+ {
+@@ -1139,7 +1159,11 @@ static int amdgpu_display_gem_fb_verify_and_init(struct drm_device *dev,
+ 	if (ret)
+ 		goto err;
+ 
+-	ret = drm_framebuffer_init(dev, &rfb->base, &amdgpu_fb_funcs);
++	if (drm_drv_uses_atomic_modeset(dev))
++		ret = drm_framebuffer_init(dev, &rfb->base,
++					   &amdgpu_fb_funcs_atomic);
++	else
++		ret = drm_framebuffer_init(dev, &rfb->base, &amdgpu_fb_funcs);
+ 
+ 	if (ret)
+ 		goto err;
+-- 
+2.41.0
 
-
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c       | 2 +-
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 3 ++-
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 3 ++-
->  3 files changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu=
-/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> index 895cda8e6934..52e9c7611013 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> @@ -2263,7 +2263,7 @@ int smu_v13_0_baco_set_state(struct smu_context *sm=
-u,
->         if (state =3D=3D SMU_BACO_STATE_ENTER) {
->                 ret =3D smu_cmn_send_smc_msg_with_param(smu,
->                                                       SMU_MSG_EnterBaco,
-> -                                                     smu_baco->maco_supp=
-ort ?
-> +                                                     (smu_baco->maco_sup=
-port && amdgpu_runtime_pm !=3D 1) ?
->                                                       BACO_SEQ_BAMACO : B=
-ACO_SEQ_BACO,
->                                                       NULL);
->         } else {
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index a5857acee641..12ccc12657d7 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -2211,7 +2211,8 @@ static int smu_v13_0_0_baco_enter(struct smu_contex=
-t *smu)
->
->         if (adev->in_runpm && smu_cmn_is_audio_func_enabled(adev))
->                 return smu_v13_0_baco_set_armd3_sequence(smu,
-> -                               smu_baco->maco_support ? BACO_SEQ_BAMACO =
-: BACO_SEQ_BACO);
-> +                               (smu_baco->maco_support && amdgpu_runtime=
-_pm !=3D 1) ?
-> +                                       BACO_SEQ_BAMACO : BACO_SEQ_BACO);
->         else
->                 return smu_v13_0_baco_enter(smu);
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> index 93b3e8fa8238..f0bcc7995983 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> @@ -2139,7 +2139,8 @@ static int smu_v13_0_7_baco_enter(struct smu_contex=
-t *smu)
->
->         if (adev->in_runpm && smu_cmn_is_audio_func_enabled(adev))
->                 return smu_v13_0_baco_set_armd3_sequence(smu,
-> -                               smu_baco->maco_support ? BACO_SEQ_BAMACO =
-: BACO_SEQ_BACO);
-> +                               (smu_baco->maco_support && amdgpu_runtime=
-_pm !=3D 1) ?
-> +                                       BACO_SEQ_BAMACO : BACO_SEQ_BACO);
->         else
->                 return smu_v13_0_baco_enter(smu);
->  }
-> --
-> 2.34.1
->
