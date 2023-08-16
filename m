@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA4EBC27C42
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 21:29:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 732FEC25B7F
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 21:29:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D87C10E3C3;
-	Wed, 16 Aug 2023 21:29:29 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2073.outbound.protection.outlook.com [40.107.237.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A11F110E3C3
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 21:29:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F40A710E3C4;
+	Wed, 16 Aug 2023 21:29:41 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2085.outbound.protection.outlook.com [40.107.92.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC4DC10E3C4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 21:29:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y3sur0FJHZyfJCK+/WS+BftLIURVxKT6gvAZLOSZv1bpcD3RxYuefCvpMwLuIjqCO226dd8a3hE2VvRswcEVXLLUxIatV0uGGQo1yARsKZcOe++yn113Iwd3R4lQpNzDYm0WMALJ6qlWnBHInSjURomJ4B6wQlJvQ6w7H8Wa7qKP+5GU9l7hv2H9ETAKCrjNscSgnXBFbX/hBnQs8Q/A3BCX/GPgWhNqKOaX2Jy9/LbPrQQ8hqOKZtwKiAbJDwSiNLQuDdRA0jEHeihVoCDw4STwsMoYZ6b3vVUMv3CAiSRbNEseklv5U03UXsxHOGpLSCH0ygeY+KvpzIvqGk/pxQ==
+ b=nqXs80tbx0lJ0kKafvfd74NsJO9TxOao64DKvY/wQZm6vUuLWmYMvDzzXT6qtgXbh2mgJzZRauxR35lY0frW23GRBHsOYUBqt447BJRwEnC9fHIAR5DaTq/eEVT0G7zmw/Qb4IDvJPgJ671o758SoEMchie4vmwt5SWucg27Y08Rl6olt5u3leoC7EzOMnROpnBxwKsyD3bZJ9FXYd81/Ib4nBjvERpCO5X7Tus4GyTT0xB8AnKBnED1RQX+/jygcLE7alhgtCqNrXdQQGH4/2lDfdKoG8f80/VGscQ6vEqYE41Fjw5f+q5HcOwgqthuxabHrXb1EPJu/DbyuRcCYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ughWP/YvqabsHAbunE5904uYGjAFdzFmsCFBNOmRU/Q=;
- b=Qv28SVEWYCXXXKSn3Zg/38vJNvevOV4xYNBYv7k8alD67LXQpseFC6FCPjR6RRrZF4GGmT8NPfkR2SFH5cisvgnLNakDS1Ak0/WC79mT4e762vehvUIC7ZoZAtM4ydtfHqa/PJ3YNDMcsC8sQ8UcacpsSbftWMr1kwwIQ5ArbwU96t+aEjcTtUbvut02LsPIZTM8pdoY+RKT62BS0ebgdJYsKEZa9t1Sv6MJjZfNZ4miQfh4kA9IChZrbAabRXRPB6xVJXuh9Bvr/WN/bIJt4TAivFmU3HBpTaGeFy7qByDoMyLLni/RG3A6kB28Z8stzEdDEHmgCHUWNHi24AXCNQ==
+ bh=Z466M8ut7jSO496kIgLqZEOu1FVwAg7oCRSkfnKGhAU=;
+ b=aVjoH8wlPAKnwgrPFB1IbfgLQEbWvkvcSv1bqthloX1eep2Qxg4R77qjbVauEMLRP8fnEvOSRRrfTTIT4rrnOD64cac9/g/tYQBgxcFpnGsle7oL7/Yqmlp3Hkv6N8yhMUtoQ7QgkNtOCzMXi5+otb85FAsD7N3nsvIG//S/89s5ciaqCR6m0WZ8N7ZRQTuhw1UwSKhsCzdPVl3CW0vMbrgZ+hUPKCLa6EZWvZgVE5DM98jYmEL/p36aPWxPTW8949/AeOO87OD2Zzl82UiAIcZKev33GS2jrLl+SO79Nw0LQ1ai0u6VszNRQt9HZfRw8Z+plyhHDGxOkUFMo8fabg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ughWP/YvqabsHAbunE5904uYGjAFdzFmsCFBNOmRU/Q=;
- b=tCugUmxB+AHZsHGqKaX9w5AaUmG70lJ78F/6ZX0H9iD6musB13TSKf/diRbQSmf1C3lDJUJtLcKQTV1Pfc828qVEw8ULFXFxyyGOSqxebUS6/Hbann12aBpNozhULEa0w+5nayBiqKi1bEI+d0HqcFAGTbvk2jbdorCE3SQugOY=
-Received: from DS7PR07CA0023.namprd07.prod.outlook.com (2603:10b6:5:3af::28)
- by BL1PR12MB5852.namprd12.prod.outlook.com (2603:10b6:208:397::21) with
+ bh=Z466M8ut7jSO496kIgLqZEOu1FVwAg7oCRSkfnKGhAU=;
+ b=EYpw0ZYFsmxmkO86K9w6iB9xZuR/PHyA8NKDe6pE3S2BTkdLPfYjmRRvuj3AWI9zmU57vRf3KEf1aaGTE2PzC/AES174hbeeG5R/eTZS7XwgkclodvwfxLSH9ruRq6IT1biGBgzK00pGZCDum/lY5ZUs6J0Fl5b9HhAGwnDgwK4=
+Received: from CY5P221CA0029.NAMP221.PROD.OUTLOOK.COM (2603:10b6:930:b::41) by
+ PH7PR12MB6978.namprd12.prod.outlook.com (2603:10b6:510:1b8::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.29; Wed, 16 Aug
- 2023 21:29:24 +0000
-Received: from CY4PEPF0000E9D6.namprd05.prod.outlook.com
- (2603:10b6:5:3af:cafe::5d) by DS7PR07CA0023.outlook.office365.com
- (2603:10b6:5:3af::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.30; Wed, 16 Aug
+ 2023 21:29:37 +0000
+Received: from CY4PEPF0000E9D8.namprd05.prod.outlook.com
+ (2603:10b6:930:b:cafe::5a) by CY5P221CA0029.outlook.office365.com
+ (2603:10b6:930:b::41) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.33 via Frontend
- Transport; Wed, 16 Aug 2023 21:29:24 +0000
+ Transport; Wed, 16 Aug 2023 21:29:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D6.mail.protection.outlook.com (10.167.241.80) with Microsoft
+ CY4PEPF0000E9D8.mail.protection.outlook.com (10.167.241.83) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.14 via Frontend Transport; Wed, 16 Aug 2023 21:29:24 +0000
+ 15.20.6699.15 via Frontend Transport; Wed, 16 Aug 2023 21:29:37 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 16 Aug
- 2023 16:29:23 -0500
+ 2023 16:29:35 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 04/18] drm/amd/display: Skip writeback connector when we get
- amdgpu_dm_connector
-Date: Wed, 16 Aug 2023 15:26:12 -0600
-Message-ID: <20230816212626.987519-5-alex.hung@amd.com>
+Subject: [PATCH 05/18] drm/amd/display: Return drm_connector from
+ find_first_crtc_matching_connector
+Date: Wed, 16 Aug 2023 15:26:13 -0600
+Message-ID: <20230816212626.987519-6-alex.hung@amd.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230816212626.987519-1-alex.hung@amd.com>
 References: <20230816212626.987519-1-alex.hung@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D6:EE_|BL1PR12MB5852:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6dab47e5-6938-444d-4413-08db9e9fdcf3
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|PH7PR12MB6978:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb24a697-7326-4eef-1900-08db9e9fe45b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Blc9ic4h+n7ApOfOczS58RKm9RLMyLhjfGXnGOjQj0JNBUmlCAxyfsKwmO6Qa4TZXLzFkhNh1m7cH/qWersLJS64Vsz1vkYvt2Wl4wmNZ5sK08hMSZLD8Om79kEkKOVnZS+jX7MLEaSwkJZe3LIgIYWdmccUWXggJ2W1T92pkGUWtT9wnJKHoRxYL02RoYX5ozOiREi5+e4LKg+eCmxnO79RAAOWs1jSr48caR5+V1CTxXHTiDv5B9NGiv1SXkKHhl5TOjKFC5R+0yGpwjKJDdYqP9TUB1OaMd54jG8h649Or/zCAeJ8TdVCX5+pJwpRJPYFndvPNgJUgHgV0P3RFO6MSC7gXn337+0QHm8gmIUW4AGYeVbGdZ1ULS6Fa6Pd8Y23V4Pan6TYfoG05t9tPynObXEx88ownvHediqksRKI/BgvxdSiciwwX3/ZwR2BYk2g/FUuGd1ExSMFYW2ZVYuF8bKWDUT0my+ij2iEFFy8hviMHQdBg4fvkLROryeA0QCIduOQCPpqAFRstTKhlwtacklKz1k/MBwhV3CpLpGCSXxKTjKtVEemXUeY09XPODs0i6tTLfvTtc9+gkOicWIjkIAzHkj+ORzE18E4ClLHGzCfx+XFOgdMHX0lA9guBt7MEJE6x569WfQk1UtA9LSNWn5ktAbMNGzgHnBL+86cwcJgqoqWNRwh7E0+ja2KR/i5i2n982ebRKMoPqKxbyDxNU1uix8Y/pp9g/UInoDAgUNuo30knJb3GKkLEO5LIUF00p3LPoVSWSUI0lSttg==
+X-Microsoft-Antispam-Message-Info: W27Myf3MGVtT44QHfu75zIZnIIBnwr+gZgy8A1jKdbEy9JkfG+z6etttVEJEPHA86XrOpjxaW4shAoDdAq2CyBW/AeHrcL99ZGGgzlktPj3T91rCL2/CzOstdVLPwk6aVQjZfJJbKy4yPLo9lN3sNV/LGBB73LyLj6TPFBWuk+h/NEQ3riVWVeUkBBw5M9Y5vnlWe7CfCFdW99OeaHlHY8iR6UCZY+WxgwW3G1pFApnb3vZO9JWXOyWTigYD2TZE3pTgPdrxdykP8rOx2w54tW1CdQRTDeRVzNZNxvdNKCsvDOSYQt1iGKcIjkHyhjYp3Qc5tifbastfCAc1TVfDNOu4VsT4ydYO8u3zjvavGdG56Y2679puXaxXKoUpuGjzTmAAcUOdJStE48wsy1CLuWQXlwwJ2zglBr6tbbCzitG2i7yqqCk54ProsRscpMw2m2Sfu2a7V30H4oCqAGofXWcTmNZBEn4YSXVywxIU0SlXQJp6PWTl6N+ETqV/enz3445TAm9L/5eHCLPh1k9ZTv2ZwNTi8Zne2pFrzQ8TnlPOT9VnrwBpIJHB35rnfp7ydG3NHEa6GjuQIVvRn/YRB21NJCPvda6q0RQzLZ+wISUNmUYAQASiUqnu7UWVrYWoPaN8ZzKPVpg/N7jeEshWa2vGvshV1u+zWGrQONzwP8g58F7F2D8WWHp6/wJifbVlrXUhRdd1vB24xFSFqBFI2RVlSMaHLuo3Uy3/mRC+3DF5NcL6CN6V8GPMJvfyLN/VdEfHgQl8CtJPSfY/8adCbQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(136003)(396003)(376002)(39860400002)(1800799009)(451199024)(82310400011)(186009)(40470700004)(36840700001)(46966006)(2906002)(40460700003)(83380400001)(86362001)(40480700001)(478600001)(426003)(336012)(36756003)(7696005)(2616005)(6666004)(1076003)(26005)(16526019)(44832011)(5660300002)(36860700001)(41300700001)(54906003)(82740400003)(356005)(316002)(81166007)(70206006)(70586007)(6916009)(8676002)(8936002)(4326008)(47076005)(36900700001);
+ SFS:(13230031)(4636009)(346002)(136003)(396003)(376002)(39860400002)(1800799009)(451199024)(82310400011)(186009)(40470700004)(36840700001)(46966006)(2906002)(40460700003)(83380400001)(66899024)(86362001)(40480700001)(478600001)(426003)(336012)(36756003)(7696005)(2616005)(6666004)(1076003)(26005)(16526019)(44832011)(5660300002)(36860700001)(41300700001)(54906003)(82740400003)(356005)(316002)(81166007)(70206006)(70586007)(6916009)(8676002)(8936002)(4326008)(47076005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 21:29:24.5882 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6dab47e5-6938-444d-4413-08db9e9fdcf3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 21:29:37.0283 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb24a697-7326-4eef-1900-08db9e9fe45b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D8.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5852
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6978
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,252 +108,95 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Harry Wentland <harry.wentland@amd.com>
 
 [WHY]
-Writeback connectors are based on a different object:
-drm_writeback_connector, and are therefore different from
-amdgpu_dm_connector. We need to be careful to ensure code
-designed for amdgpu_dm_connector doesn't inadvertently try
-to operate on a drm_writeback_connector.
+We will be dealing with two types of connector: amdgpu_dm_connector
+and drm_writeback_connector.
 
 [HOW]
-Skip them when connector type is DRM_MODE_CONNECTOR_WRITEBACK.
+We want to find both and then cast to the appriopriate type afterwards.
 
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 62 +++++++++++++++++--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  3 +
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 22 +++++--
- 3 files changed, 76 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c         | 8 +++++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h         | 2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c   | 4 +++-
+ 3 files changed, 9 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 445369afcead..363d91d49a3a 100644
+index 363d91d49a3a..7bd3ec84ff2e 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -721,6 +721,10 @@ static void dmub_hpd_callback(struct amdgpu_device *adev,
+@@ -2630,7 +2630,7 @@ static int dm_suspend(void *handle)
+ 	return 0;
+ }
  
- 	drm_connector_list_iter_begin(dev, &iter);
- 	drm_for_each_connector_iter(connector, &iter) {
-+
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
- 		aconnector = to_amdgpu_dm_connector(connector);
- 		if (link && aconnector->dc_link == link) {
- 			if (notify->type == DMUB_NOTIFICATION_HPD)
-@@ -945,6 +949,10 @@ static int amdgpu_dm_audio_component_get_eld(struct device *kdev, int port,
- 
- 	drm_connector_list_iter_begin(dev, &conn_iter);
- 	drm_for_each_connector_iter(connector, &conn_iter) {
-+
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
- 		aconnector = to_amdgpu_dm_connector(connector);
- 		if (aconnector->audio_inst != port)
- 			continue;
-@@ -2270,6 +2278,10 @@ static int detect_mst_link_for_all_connectors(struct drm_device *dev)
- 
- 	drm_connector_list_iter_begin(dev, &iter);
- 	drm_for_each_connector_iter(connector, &iter) {
-+
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
- 		aconnector = to_amdgpu_dm_connector(connector);
- 		if (aconnector->dc_link->type == dc_connection_mst_branch &&
- 		    aconnector->mst_mgr.aux) {
-@@ -2350,6 +2362,10 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
- 
- 	drm_connector_list_iter_begin(dev, &iter);
- 	drm_for_each_connector_iter(connector, &iter) {
-+
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
- 		aconnector = to_amdgpu_dm_connector(connector);
- 		if (aconnector->dc_link->type != dc_connection_mst_branch ||
- 		    aconnector->mst_root)
-@@ -2865,6 +2881,10 @@ static int dm_resume(void *handle)
- 	/* Do detection*/
- 	drm_connector_list_iter_begin(ddev, &iter);
- 	drm_for_each_connector_iter(connector, &iter) {
-+
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
- 		aconnector = to_amdgpu_dm_connector(connector);
- 
- 		if (!aconnector->dc_link)
-@@ -3416,6 +3436,9 @@ static void register_hpd_handlers(struct amdgpu_device *adev)
- 	list_for_each_entry(connector,
- 			&dev->mode_config.connector_list, head)	{
- 
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
- 		aconnector = to_amdgpu_dm_connector(connector);
- 		dc_link = aconnector->dc_link;
- 
-@@ -5413,10 +5436,13 @@ static void fill_stream_properties_from_drm_display_mode(
+-struct amdgpu_dm_connector *
++struct drm_connector *
+ amdgpu_dm_find_first_crtc_matching_connector(struct drm_atomic_state *state,
+ 					     struct drm_crtc *crtc)
  {
- 	struct dc_crtc_timing *timing_out = &stream->timing;
- 	const struct drm_display_info *info = &connector->display_info;
--	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
-+	struct amdgpu_dm_connector *aconnector = NULL;
- 	struct hdmi_vendor_infoframe hv_frame;
- 	struct hdmi_avi_infoframe avi_frame;
+@@ -2643,7 +2643,7 @@ amdgpu_dm_find_first_crtc_matching_connector(struct drm_atomic_state *state,
+ 		crtc_from_state = new_con_state->crtc;
  
-+	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
-+		aconnector = to_amdgpu_dm_connector(connector);
-+
- 	memset(&hv_frame, 0, sizeof(hv_frame));
- 	memset(&avi_frame, 0, sizeof(avi_frame));
+ 		if (crtc_from_state == crtc)
+-			return to_amdgpu_dm_connector(connector);
++			return connector;
+ 	}
  
-@@ -6843,6 +6869,9 @@ static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
- 
- 	for_each_new_connector_in_state(state, connector, new_con_state, i) {
- 
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
- 		aconnector = to_amdgpu_dm_connector(connector);
- 
- 		if (!aconnector->mst_output_port)
-@@ -8392,6 +8421,9 @@ static void amdgpu_dm_commit_audio(struct drm_device *dev,
- 		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
- 			continue;
- 
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
- notify:
- 		aconnector = to_amdgpu_dm_connector(connector);
- 
-@@ -8425,6 +8457,9 @@ static void amdgpu_dm_commit_audio(struct drm_device *dev,
- 		if (!status)
- 			continue;
- 
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
- 		aconnector = to_amdgpu_dm_connector(connector);
- 
- 		mutex_lock(&adev->dm.audio_lock);
-@@ -8686,7 +8721,12 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
- 	for_each_oldnew_connector_in_state(state, connector, old_con_state, new_con_state, i) {
- 		struct dm_connector_state *dm_new_con_state = to_dm_connector_state(new_con_state);
- 		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(dm_new_con_state->base.crtc);
--		struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
-+		struct amdgpu_dm_connector *aconnector;
-+
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
-+		aconnector = to_amdgpu_dm_connector(connector);
- 
- 		if (!adev->dm.hdcp_workqueue)
- 			continue;
-@@ -9029,10 +9069,15 @@ static int dm_force_atomic_commit(struct drm_connector *connector)
- void dm_restore_drm_connector_state(struct drm_device *dev,
- 				    struct drm_connector *connector)
- {
--	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
-+	struct amdgpu_dm_connector *aconnector;
- 	struct amdgpu_crtc *disconnected_acrtc;
- 	struct dm_crtc_state *acrtc_state;
- 
-+	if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+		return;
-+
+ 	return NULL;
+@@ -9263,6 +9263,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	 * update changed items
+ 	 */
+ 	struct amdgpu_crtc *acrtc = NULL;
++	struct drm_connector *connector = NULL;
+ 	struct amdgpu_dm_connector *aconnector = NULL;
+ 	struct drm_connector_state *drm_new_conn_state = NULL, *drm_old_conn_state = NULL;
+ 	struct dm_connector_state *dm_new_conn_state = NULL, *dm_old_conn_state = NULL;
+@@ -9272,7 +9273,8 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
+ 	dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 	acrtc = to_amdgpu_crtc(crtc);
+-	aconnector = amdgpu_dm_find_first_crtc_matching_connector(state, crtc);
++	connector = amdgpu_dm_find_first_crtc_matching_connector(state, crtc);
 +	aconnector = to_amdgpu_dm_connector(connector);
-+
- 	if (!aconnector->dc_sink || !connector->state || !connector->encoder)
- 		return;
  
-@@ -9109,12 +9154,16 @@ static void get_freesync_config_for_crtc(
- 	struct dm_connector_state *new_con_state)
- {
- 	struct mod_freesync_config config = {0};
--	struct amdgpu_dm_connector *aconnector =
--			to_amdgpu_dm_connector(new_con_state->base.connector);
-+	struct amdgpu_dm_connector *aconnector;
- 	struct drm_display_mode *mode = &new_crtc_state->base.mode;
- 	int vrefresh = drm_mode_vrefresh(mode);
- 	bool fs_vid_mode = false;
+ 	/* TODO This hack should go away */
+ 	if (aconnector && enable) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index a2d34be82613..5a8d07a27e9b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -836,7 +836,7 @@ struct dc_stream_state *
+ int dm_atomic_get_state(struct drm_atomic_state *state,
+ 			struct dm_atomic_state **dm_state);
  
-+	if (new_con_state->base.connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+		return;
-+
-+	aconnector = to_amdgpu_dm_connector(new_con_state->base.connector);
-+
- 	new_crtc_state->vrr_supported = new_con_state->freesync_capable &&
- 					vrefresh >= aconnector->min_vfreq &&
- 					vrefresh <= aconnector->max_vfreq;
-@@ -9898,6 +9947,9 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm
- 		if (conn_state->crtc != crtc)
- 			continue;
+-struct amdgpu_dm_connector *
++struct drm_connector *
+ amdgpu_dm_find_first_crtc_matching_connector(struct drm_atomic_state *state,
+ 					     struct drm_crtc *crtc);
  
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
- 		aconnector = to_amdgpu_dm_connector(connector);
- 		if (!aconnector->mst_output_port || !aconnector->mst_root)
- 			aconnector = NULL;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-index 52ecfa746b54..f936a35fa9eb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-@@ -326,6 +326,9 @@ int amdgpu_dm_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- 			if (!connector->state || connector->state->crtc != crtc)
- 				continue;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 57230661132b..1975b9d96cb8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -1494,14 +1494,16 @@ int pre_validate_dsc(struct drm_atomic_state *state,
+ 		int ind = find_crtc_index_in_state_by_stream(state, stream);
  
-+			if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+				continue;
-+
- 			aconn = to_amdgpu_dm_connector(connector);
- 			break;
- 		}
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index 51467f132c26..58b880acb087 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -894,10 +894,15 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
+ 		if (ind >= 0) {
++			struct drm_connector *connector;
+ 			struct amdgpu_dm_connector *aconnector;
+ 			struct drm_connector_state *drm_new_conn_state;
+ 			struct dm_connector_state *dm_new_conn_state;
+ 			struct dm_crtc_state *dm_old_crtc_state;
  
- 	drm_connector_list_iter_begin(dev, &iter);
- 	drm_for_each_connector_iter(connector, &iter) {
--		struct amdgpu_dm_connector *amdgpu_dm_connector =
--				to_amdgpu_dm_connector(connector);
-+		struct amdgpu_dm_connector *amdgpu_dm_connector;
-+		const struct dc_link *dc_link;
- 
--		const struct dc_link *dc_link = amdgpu_dm_connector->dc_link;
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
-+		amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
-+
-+		dc_link = amdgpu_dm_connector->dc_link;
- 
- 		if (dc_link->irq_source_hpd != DC_IRQ_SOURCE_INVALID) {
- 			dc_interrupt_set(adev->dm.dc,
-@@ -930,9 +935,14 @@ void amdgpu_dm_hpd_fini(struct amdgpu_device *adev)
- 
- 	drm_connector_list_iter_begin(dev, &iter);
- 	drm_for_each_connector_iter(connector, &iter) {
--		struct amdgpu_dm_connector *amdgpu_dm_connector =
--				to_amdgpu_dm_connector(connector);
--		const struct dc_link *dc_link = amdgpu_dm_connector->dc_link;
-+		struct amdgpu_dm_connector *amdgpu_dm_connector;
-+		const struct dc_link *dc_link;
-+
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
-+		amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
-+		dc_link = amdgpu_dm_connector->dc_link;
- 
- 		if (dc_link->irq_source_hpd != DC_IRQ_SOURCE_INVALID) {
- 			dc_interrupt_set(adev->dm.dc,
+-			aconnector =
++			connector =
+ 				amdgpu_dm_find_first_crtc_matching_connector(state,
+ 									     state->crtcs[ind].ptr);
++			aconnector = to_amdgpu_dm_connector(connector);
+ 			drm_new_conn_state =
+ 				drm_atomic_get_new_connector_state(state,
+ 								   &aconnector->base);
 -- 
 2.41.0
 
