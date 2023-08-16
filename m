@@ -4,122 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 128B1C001DE
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 01:02:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71DF5C001DE
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 01:16:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D05A310E2AB;
-	Wed, 16 Aug 2023 01:02:13 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2058.outbound.protection.outlook.com [40.107.101.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C36DF10E2AB
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 01:02:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XTajRBOuxj+FQ3NB/xoM4qQQDIqYtmKZuCO5zPQcEcB9ucoka/mhtNt/QRdOoPKpC2MOY9CgpooN8lBCWm3UX2hUshSZr6522+IYfuVh6+jl2OXx4IEbqYaJQcmu0up04VcqHH7BNi+ZTDFWwD7wZVC8A3EEoTrPgExW8Nrhsu+TuOmnYv0bItQJzXiZKPO1+nOBzaVzQqn72pd4z9TcKlFjc4J7sIzcwQRmiJicj5s4vDC5UmyaG9xjXmj27OdLim2+3xDCxb2lxv+xiYfdlRCARDz2F6ghZwiHULTop4Yu0Pt/WurVxCyoDRhZRwg8qi4UhFmEezrvqkGzCD0+Yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MjXFLycp39M24DlGJ7/ltQAZNoBBpT3LucXtqaTE1D8=;
- b=VrrJQTGd5ppsOKYl/2/gVfUMONfFN8AsLJHBWm0rsPxPkvgTPfh1hL45QeSldB0pTcM6nemHigYhbWN5/qSAoJx+Z+NHHgTcE7nu7i98+/qm4vqeH2A0r5/3p6bNRnsGBe2KGYHSx6DB7lnTngnnk4iQ6fpj7TXLzB4GB4i9zGDDJgPA+TVunevryOg6fhmy8I10B9PWhoZI7UdLcR7PGN4kDF44lr8NRw9zCUikmrdSjx0shSuJfA1U4A+Z+/cJOgJbu81VUE6GXySo8cEXxN7evncw8TXErkGH80X/XG9qXWoId8rkrprI4yUwPTmEHYoxJ/6IkGRP+/pN9yBf/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MjXFLycp39M24DlGJ7/ltQAZNoBBpT3LucXtqaTE1D8=;
- b=JOk9C1z6cDwsTG03crmPFlg5t8+j8gqdc67YgbIkt0GXQvPONh/ViaQX6a6rHtZe7p16qznhS2BtTEWxo2JQg8aWf7cdD6aOLBzDUK1jkgNb8Kjd4/H9I8+cjDe/HuUhq2B+f/JE2m+84f3aXFyo1/fQcEFvXb+IdergQXje07Y=
-Received: from DM4PR12MB5165.namprd12.prod.outlook.com (2603:10b6:5:394::9) by
- MW4PR12MB7192.namprd12.prod.outlook.com (2603:10b6:303:22a::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Wed, 16 Aug
- 2023 01:02:10 +0000
-Received: from DM4PR12MB5165.namprd12.prod.outlook.com
- ([fe80::c377:a09d:c286:5835]) by DM4PR12MB5165.namprd12.prod.outlook.com
- ([fe80::c377:a09d:c286:5835%7]) with mapi id 15.20.6678.025; Wed, 16 Aug 2023
- 01:02:10 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: RE: [PATCH] drm/amd/pm: allow the user to force BACO on smu v13.0.0/7
-Thread-Topic: [PATCH] drm/amd/pm: allow the user to force BACO on smu v13.0.0/7
-Thread-Index: AQHZz1Z+fYF17H7SdUWcMfAC4xA9Nq/rlCOAgACGPtA=
-Date: Wed, 16 Aug 2023 01:02:10 +0000
-Message-ID: <DM4PR12MB5165F86B0A31F1084FF5FC068E15A@DM4PR12MB5165.namprd12.prod.outlook.com>
-References: <20230815085710.842188-1-kenneth.feng@amd.com>
- <CADnq5_N6436Mdqz+V4er+=VFm=6O_C=i5T3R2+Nkc_eqh8uZLw@mail.gmail.com>
-In-Reply-To: <CADnq5_N6436Mdqz+V4er+=VFm=6O_C=i5T3R2+Nkc_eqh8uZLw@mail.gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=3b68387f-3c0e-4ee6-9ba8-367c66769a51;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-08-16T00:56:45Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5165:EE_|MW4PR12MB7192:EE_
-x-ms-office365-filtering-correlation-id: d99bf5bb-319a-46fb-44da-08db9df46b50
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: JSkximSlUaV9vkfaKdz2D0nEzPeQoiuGdvl5SiZucnexTM9ypAAzPkMXfBYqyHE/W7F0Hum3x2YWi1/RQekhwHS4DESwLvQyrSOLZ64CMcQjggBtF//cNFTG7wwHooMqbGBrCueDGLBjBWEDRqJFOxC3LflukHHaBbmLkAy1Nc8FW66o/koIjtIOWaUQQQ72DjlteEHU4b0fJTnVxHEBy5TggQ0eB9Q9qUlwVCuja77Os1kLHbFHwknxmEaPR7UBQGSGZpWCPLMo5lOqTGDDaUC5Y/xg9VgYry0hUwImAknbJdfCYet8HqFwNp2RuTKwEHAz1ua5xgElPNThfbO6WMb1/uwbzijoJl5wc9rIARMIY+DKw65G5dhh48099tfuIoSbMXVYPIxBb6nRFPMYn+RVwkR+PigCWxNnYbZf+jCzqvAtUqcBa/sco8h710ScqrPbG4ZVg7Oc0zUhMZSyiahSHxszNWFbERzS3jOur4du0z+YhbBFct0/A0Ck5tKetziyr5XJ8h3mVSYhSXYcfbEanhRYQQlLkbeadKqABK/9p721p5ATGyp7eK5Xmy3UAm1unXp3fx0N94gqWjqYIv6t68gGesO5YhsG5KZqg5i7HOs33yahCuqO4pFi9dKK
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5165.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(366004)(346002)(376002)(396003)(136003)(451199024)(186009)(1800799009)(6916009)(4326008)(122000001)(52536014)(76116006)(38070700005)(38100700002)(26005)(316002)(5660300002)(2906002)(83380400001)(66946007)(66556008)(66446008)(8676002)(66476007)(64756008)(53546011)(86362001)(478600001)(8936002)(33656002)(41300700001)(6506007)(9686003)(7696005)(71200400001)(55016003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dUZzMDJuYzE5L3JmMTBKZkpsWmhOV1B2Sm9HNTU3eTlJK3ZpNUFRZEhOUTBG?=
- =?utf-8?B?MmllbFFqeG82N2JaaGFLMFV1OWFWeWMrcndVZ1FNR0hRSDgrYWJGdDdrbEhw?=
- =?utf-8?B?bEpvLytyVFd6VFBZQ2pZY0N6bjl3Zy9CUlZBZEV4QzNobDdmWnp6WVczeEJL?=
- =?utf-8?B?c3NRVWF5VTBhYUdVMkFod1pva0pQNFZTaEltdU1mQ1JGQ3ozZ0Zzb1hiK2VI?=
- =?utf-8?B?TEh4UlNNUklBcERUaTVZR2gxQnl1MmppQlU4RUhiTHk1RU9LV3BrcVdJU2tS?=
- =?utf-8?B?K2hKUm5iV0dSdWl0TWNZaTl6YSs0ckhGWnFwdUVhUFdaeTY1c0JMV2M5Smo3?=
- =?utf-8?B?aHpBZmRpWXQ3NVhUTmY1eXBvUE1YWHNqRUVEdmNIV214WGhObUpjcEg4NXNT?=
- =?utf-8?B?Rnk2NWdNOHV3NmsvZlhiWmNKcDE4cys1RkZRTzhuM3VCWEpiNXU4bDlBMzgw?=
- =?utf-8?B?d2xBMTFiczRyRWZoV3VCenh5eCtUYzUxSFlFK1cxK1Nrb3QrU1ppUFhkMUhV?=
- =?utf-8?B?bGxnVVVQbkNTaW9FWXlFL0lHOUZPN1dVTGNCbUI1emtxZVJiMHBveS9xYWY2?=
- =?utf-8?B?VHp5cm82Qy9tUXpqRmMvZ3NybTdJMHhBNjBVeVhveVVKMmlzYm0vTXBhb3NG?=
- =?utf-8?B?SzM3RWhRZ3hOV3Q4YStvYlJ1a0hYVWl0ZmdDSDl2OHZQajRBbzF1bUxiMDBK?=
- =?utf-8?B?V1RXc2NFZE91cDBaSWNNQUtGc0JsRDdMV3pNdERCdXYrYWFwci9aQWswZ21y?=
- =?utf-8?B?cFcrT1JUWUE4eGJsRXhadTJGcHhqbC9jdjE5VmdpTlUzNiswZHUxS0kxdVhh?=
- =?utf-8?B?bDFpdCs2a2VQSDg3OUF1R3JLRG02SHFUVmI1YlRXTS91dndpdTRaem1VUkhP?=
- =?utf-8?B?dWNLczV6NDYrcVdCa1hXMkdoYXhOSlIwZDgxN3JJelJyaFpRaVJFOEVOZ01l?=
- =?utf-8?B?cFA5cDV4N2RTOSsxTWdMKzZidldXdHhpY2VEbWRnb0NuNHVzdXJITDFLTU9x?=
- =?utf-8?B?VlFNd0ZqQ2plTGhwVlozMk91YjRNV21ib3VKeWw3eXJ0WitCdU8zZ0l1Q3BO?=
- =?utf-8?B?M2hVVnd4cDQ3WXhBQlFCMUluRS9wWVdha01UaSsxaU53YTRGdmY1dkhxbjVN?=
- =?utf-8?B?WVBLbDhoTFVNclJCbWlrai9XazBIbWNKWTJ5eHFTT2xSR1g3NmxnWW9kYjR0?=
- =?utf-8?B?TEoyc3NIWHR3TU4vQTJTQ0pCbkZiT0dHRDRpSXhaNW83ZFMvTEdtTitzL1Ey?=
- =?utf-8?B?WTZpd1VzTHRBZ1JuYVZON0RWeHpRZllKTkI1K056T0txeW9VeWcxNjVjNlJp?=
- =?utf-8?B?cXVkVGxPY09ZWGpxL1Nkc0VBdXA1WitoWUs4Nm5iZ1FyZ0F4WUVrSEVRQUhX?=
- =?utf-8?B?YTV3ZGdCYW9PSUNiOFV6Y1JKdit4ZFFwaGIreDBWYXNLaDcyOGVhYzY0d2xZ?=
- =?utf-8?B?K2NGTUF4Q28xQUxLcnBKdnd5SHlRb01jblJqcnNTdDZiQklyU1RsNlU4TDMr?=
- =?utf-8?B?cWxyOWJpQkUyMk5Vdk9KcS9ITFhRenVsNlJud1RJcVFUUXdvU215MnNUaENK?=
- =?utf-8?B?dmVqNm5hSTMzQ0RkU3F2blVmcThZUk81WGtXU2pCaUErN0gyVXhMU3JFZ3NJ?=
- =?utf-8?B?bi9FdFJMenROTENuQW1RakpUeUhyeERQSU5UK2FidlUySnloaFYyYUhBV0hM?=
- =?utf-8?B?bGI2aFJ3RGlnMnZQWnBhaVRMc2pJQTJrdStBZnJPM1BhbTlEU3phbXhvOWxm?=
- =?utf-8?B?YW5EcWphZjVWMWxpaXFOV2kxb0ZjK0JHOWNnbnIzaGMvaUJlaWJaV0RaTmxD?=
- =?utf-8?B?UG1jOW1LMkU1MDh0d0ZqRzdtbUNRVGkrOXF5c0Q2SDI1MEpqaW5laVR0TkYx?=
- =?utf-8?B?SmxxNFFSWEJKYlEvWlEzOExyS2NCSVlKS210SFlwQUZ3NkRBZkhCd0hxOTBN?=
- =?utf-8?B?VVdhbmtDcE02bFJiRFh2YXMray9IV1dPL0dDdzdzZFVxcjAyZ0FSNVdCT1JH?=
- =?utf-8?B?MzZKUlNyTVI3TzZwYTZta3gzUzA0S1V2KzhjWGdncWxOSm83YmRzVmh4RkVX?=
- =?utf-8?B?SnBDdnR5Mm1tOWxYNVVxWTU0UTZDdU9qa0NUVW5CY0dsbDRIMGFSZ01GRWRj?=
- =?utf-8?Q?5+Ys=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5165.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d99bf5bb-319a-46fb-44da-08db9df46b50
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Aug 2023 01:02:10.0955 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WP6Y37msaz5SiRAzSGkbtgRNprOdWxYRojYKvighOx0q0t4sYMhk13Xdrv3Or1Jk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7192
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2187210E2AD;
+	Wed, 16 Aug 2023 01:16:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89EBD10E2AC;
+ Wed, 16 Aug 2023 01:16:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1692148582; x=1723684582;
+ h=date:from:to:cc:subject:message-id;
+ bh=hX8g9/SbYGIqQso/VYxKc3ib964biiZXGoA4p6jFmLI=;
+ b=hF0VbwiRm+vLBmT/cNPp+9g2truHYBj50rwlhA7RyEQ7lZT6D5AyM4NW
+ ztz58zm7rSv63Ghvgp8/EFlEzIKuo3TCFspSpLi9cjERPkXn8H47tqPAk
+ PCvHX4NJFemz1eNTqoAni7r7EwsFDlhAYIuJMkssEAYZMUCjxZuxj7B/i
+ 4amVmlRFUBzrbFYfBfF1hHibWXCCAkkknQv7y7uoBwOYTCWIjpgURDAnO
+ USShgalmQT8kuMslSFiybybkZcAo/5wYDz4nY/CT9X0ndsYyjQUKPtY9f
+ 1b2A4yhaRk4gFU5bnMgEN02t5xmXP2EjMW7mNTJoUHAzE0TisaxgLIq6D w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="375184475"
+X-IronPort-AV: E=Sophos;i="6.01,175,1684825200"; d="scan'208";a="375184475"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2023 18:16:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="769016988"
+X-IronPort-AV: E=Sophos;i="6.01,175,1684825200"; d="scan'208";a="769016988"
+Received: from lkp-server02.sh.intel.com (HELO b5fb8d9e1ffc) ([10.239.97.151])
+ by orsmga001.jf.intel.com with ESMTP; 15 Aug 2023 18:16:19 -0700
+Received: from kbuild by b5fb8d9e1ffc with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qW58z-0001NH-30;
+ Wed, 16 Aug 2023 01:16:17 +0000
+Date: Wed, 16 Aug 2023 09:15:25 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 98297fc6ecafc0c7eabc5d869279fb27609fcdc1
+Message-ID: <202308160948.Bs2IPJB9-lkp@intel.com>
+User-Agent: s-nail v14.9.24
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,77 +54,456 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: linux-watchdog@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ rcu@vger.kernel.org, Linux Memory Management List <linux-mm@kvack.org>,
+ amd-gfx@lists.freedesktop.org, loongarch@lists.linux.dev,
+ linux-crypto@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCkhpIEFsZXgsDQpSaWdodCwganVz
-dCBCQU1BQ08gaGFzIGl0cyBhZHZhbnRhZ2UgZm9yIHRoZSBmYXN0IHJlc3VtZS4NCk1heWJlIGxh
-dGVyIHdlIGNhbiBmdXJ0aGVyIGlkZW50aWZ5IHdoaWNoIHNrdSBuZWVkcyB0byBzYXZlIG1vcmUg
-cG93ZXIgdnMgZmFzdGVyIHJlc3VtZSB0aW1lLg0KRm9yIGV4YW1wbGUsIG1vYmlsZSBkZXZpY2Ug
-Y2FuIGJ5IGRlZmF1bHQgdXNlIEJBQ08gYW5kIGRlc2t0b3Avd29ya3N0YXRpb24gZGV2aWNlIGNh
-biBieSBkZWZhdWx0IHVzZSBCQU1BQ08uDQpUaGFua3MuDQoNCg0KLS0tLS1PcmlnaW5hbCBNZXNz
-YWdlLS0tLS0NCkZyb206IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPg0KU2Vu
-dDogV2VkbmVzZGF5LCBBdWd1c3QgMTYsIDIwMjMgMTI6NTYgQU0NClRvOiBGZW5nLCBLZW5uZXRo
-IDxLZW5uZXRoLkZlbmdAYW1kLmNvbT4NCkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zw0KU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZC9wbTogYWxsb3cgdGhlIHVzZXIgdG8gZm9y
-Y2UgQkFDTyBvbiBzbXUgdjEzLjAuMC83DQoNCkNhdXRpb246IFRoaXMgbWVzc2FnZSBvcmlnaW5h
-dGVkIGZyb20gYW4gRXh0ZXJuYWwgU291cmNlLiBVc2UgcHJvcGVyIGNhdXRpb24gd2hlbiBvcGVu
-aW5nIGF0dGFjaG1lbnRzLCBjbGlja2luZyBsaW5rcywgb3IgcmVzcG9uZGluZy4NCg0KDQpPbiBU
-dWUsIEF1ZyAxNSwgMjAyMyBhdCA1OjA14oCvQU0gS2VubmV0aCBGZW5nIDxrZW5uZXRoLmZlbmdA
-YW1kLmNvbT4gd3JvdGU6DQo+DQo+IGFsbG93IHRoZSB1c2VyIHRvIGZvcmNlIEJBQ08gb24gc211
-IHYxMy4wLjAvNw0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBLZW5uZXRoIEZlbmcgPGtlbm5ldGguZmVu
-Z0BhbWQuY29tPg0KDQpBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBh
-bWQuY29tPiBXb3VsZCBpdCBiZSBiZXR0ZXIgdG8gZGVmYXVsdCB0byBCQUNPPyAgSXQgd291bGQg
-c2F2ZSBtb3JlIHBvd2VyIGF0IHRoZSBleHBlbnNlIG9mIHJlc3VtZSBsYXRlbmN5Lg0KDQpBbGV4
-DQoNCg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvc211MTMvc211X3Yx
-M18wLmMgICAgICAgfCAyICstDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3N3c211L3NtdTEz
-L3NtdV92MTNfMF8wX3BwdC5jIHwgMyArKy0NCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3Nt
-dS9zbXUxMy9zbXVfdjEzXzBfN19wcHQuYyB8IDMgKystDQo+ICAzIGZpbGVzIGNoYW5nZWQsIDUg
-aW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG0vc3dzbXUvc211MTMvc211X3YxM18wLmMNCj4gYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3BtL3N3c211L3NtdTEzL3NtdV92MTNfMC5jDQo+IGluZGV4IDg5NWNkYThlNjkzNC4u
-NTJlOWM3NjExMDEzIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3N3c211
-L3NtdTEzL3NtdV92MTNfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUv
-c211MTMvc211X3YxM18wLmMNCj4gQEAgLTIyNjMsNyArMjI2Myw3IEBAIGludCBzbXVfdjEzXzBf
-YmFjb19zZXRfc3RhdGUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsDQo+ICAgICAgICAgaWYgKHN0
-YXRlID09IFNNVV9CQUNPX1NUQVRFX0VOVEVSKSB7DQo+ICAgICAgICAgICAgICAgICByZXQgPSBz
-bXVfY21uX3NlbmRfc21jX21zZ193aXRoX3BhcmFtKHNtdSwNCj4gICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU01VX01TR19FbnRlckJhY28sDQo+
-IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNt
-dV9iYWNvLT5tYWNvX3N1cHBvcnQgPw0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAoc211X2JhY28tPm1hY29fc3VwcG9ydCAmJiBhbWRncHVf
-cnVudGltZV9wbSAhPSAxKSA/DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIEJBQ09fU0VRX0JBTUFDTyA6IEJBQ09fU0VRX0JBQ08sDQo+ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE5VTEwp
-Ow0KPiAgICAgICAgIH0gZWxzZSB7DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3BtL3N3c211L3NtdTEzL3NtdV92MTNfMF8wX3BwdC5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wbS9zd3NtdS9zbXUxMy9zbXVfdjEzXzBfMF9wcHQuYw0KPiBpbmRleCBhNTg1N2FjZWU2NDEu
-LjEyY2NjMTI2NTdkNyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3Nt
-dS9zbXUxMy9zbXVfdjEzXzBfMF9wcHQuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bt
-L3N3c211L3NtdTEzL3NtdV92MTNfMF8wX3BwdC5jDQo+IEBAIC0yMjExLDcgKzIyMTEsOCBAQCBz
-dGF0aWMgaW50IHNtdV92MTNfMF8wX2JhY29fZW50ZXIoc3RydWN0DQo+IHNtdV9jb250ZXh0ICpz
-bXUpDQo+DQo+ICAgICAgICAgaWYgKGFkZXYtPmluX3J1bnBtICYmIHNtdV9jbW5faXNfYXVkaW9f
-ZnVuY19lbmFibGVkKGFkZXYpKQ0KPiAgICAgICAgICAgICAgICAgcmV0dXJuIHNtdV92MTNfMF9i
-YWNvX3NldF9hcm1kM19zZXF1ZW5jZShzbXUsDQo+IC0gICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgc211X2JhY28tPm1hY29fc3VwcG9ydCA/IEJBQ09fU0VRX0JBTUFDTyA6IEJBQ09fU0VR
-X0JBQ08pOw0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIChzbXVfYmFjby0+bWFj
-b19zdXBwb3J0ICYmIGFtZGdwdV9ydW50aW1lX3BtICE9IDEpID8NCj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIEJBQ09fU0VRX0JBTUFDTyA6DQo+ICsgQkFDT19TRVFf
-QkFDTyk7DQo+ICAgICAgICAgZWxzZQ0KPiAgICAgICAgICAgICAgICAgcmV0dXJuIHNtdV92MTNf
-MF9iYWNvX2VudGVyKHNtdSk7ICB9IGRpZmYgLS1naXQNCj4gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3BtL3N3c211L3NtdTEzL3NtdV92MTNfMF83X3BwdC5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wbS9zd3NtdS9zbXUxMy9zbXVfdjEzXzBfN19wcHQuYw0KPiBpbmRleCA5M2IzZThmYTgyMzgu
-LmYwYmNjNzk5NTk4MyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3Nt
-dS9zbXUxMy9zbXVfdjEzXzBfN19wcHQuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bt
-L3N3c211L3NtdTEzL3NtdV92MTNfMF83X3BwdC5jDQo+IEBAIC0yMTM5LDcgKzIxMzksOCBAQCBz
-dGF0aWMgaW50IHNtdV92MTNfMF83X2JhY29fZW50ZXIoc3RydWN0DQo+IHNtdV9jb250ZXh0ICpz
-bXUpDQo+DQo+ICAgICAgICAgaWYgKGFkZXYtPmluX3J1bnBtICYmIHNtdV9jbW5faXNfYXVkaW9f
-ZnVuY19lbmFibGVkKGFkZXYpKQ0KPiAgICAgICAgICAgICAgICAgcmV0dXJuIHNtdV92MTNfMF9i
-YWNvX3NldF9hcm1kM19zZXF1ZW5jZShzbXUsDQo+IC0gICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgc211X2JhY28tPm1hY29fc3VwcG9ydCA/IEJBQ09fU0VRX0JBTUFDTyA6IEJBQ09fU0VR
-X0JBQ08pOw0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIChzbXVfYmFjby0+bWFj
-b19zdXBwb3J0ICYmIGFtZGdwdV9ydW50aW1lX3BtICE9IDEpID8NCj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIEJBQ09fU0VRX0JBTUFDTyA6DQo+ICsgQkFDT19TRVFf
-QkFDTyk7DQo+ICAgICAgICAgZWxzZQ0KPiAgICAgICAgICAgICAgICAgcmV0dXJuIHNtdV92MTNf
-MF9iYWNvX2VudGVyKHNtdSk7ICB9DQo+IC0tDQo+IDIuMzQuMQ0KPg0K
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 98297fc6ecafc0c7eabc5d869279fb27609fcdc1  Add linux-next specific files for 20230815
+
+Error/Warning reports:
+
+https://lore.kernel.org/oe-kbuild-all/202308081459.US5rLYAY-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202308111853.ISf5a6VC-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202308111926.gYjAUtn4-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202308112307.TPmYbd3L-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202308112326.AJAVWCOC-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202308160339.zgEoGVDN-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+../lib/gcc/loongarch64-linux/12.3.0/plugin/include/config/loongarch/loongarch-opts.h:31:10: fatal error: loongarch-def.h: No such file or directory
+arch/loongarch/kernel/asm-offsets.c:172:6: warning: no previous prototype for 'output_thread_lbt_defines' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dmub_replay.c:37: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/gpu/drm/drm_gpuva_mgr.c:1079:39: warning: variable 'prev' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/tests/drm_kunit_helpers.c:172: warning: expecting prototype for drm_kunit_helper_context_alloc(). Prototype was for drm_kunit_helper_acquire_ctx_alloc() instead
+drivers/video/backlight/lp855x_bl.c:252:11: warning: variable 'ret' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
+drivers/video/backlight/lp855x_bl.c:252:7: warning: variable 'ret' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
+drivers/watchdog/xilinx_wwdt.c:74: undefined reference to `__udivdi3'
+include/linux/build_bug.h:16:51: error: bit-field '<anonymous>' width not an integer constant
+kernel/rcu/update.c:529:6: warning: no previous prototype for 'torture_sched_setaffinity' [-Wmissing-prototypes]
+kernel/rcu/update.c:529:6: warning: no previous prototype for function 'torture_sched_setaffinity' [-Wmissing-prototypes]
+make[3]: *** No rule to make target 'rustdoc'.
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+lib/crypto/mpi/mpi-inv.c:34:15: warning: variable 'k' set but not used [-Wunused-but-set-variable]
+sh4-linux-gcc: internal compiler error: Segmentation fault signal terminated program cc1
+{standard input}: Warning: end of file not at end of a line; newline inserted
+{standard input}:927: Error: pcrel too far
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- alpha-randconfig-r006-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- alpha-randconfig-r021-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- arc-randconfig-r043-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- arm-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- arm-defconfig
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- arm64-defconfig
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- i386-debian-10.3
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|-- i386-defconfig
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|-- i386-randconfig-i011-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- i386-randconfig-i012-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- i386-randconfig-i013-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- i386-randconfig-i014-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- i386-randconfig-i015-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- i386-randconfig-i016-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- i386-randconfig-r024-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- loongarch-allmodconfig
+|   `-- lib-gcc-loongarch64-linux-..-plugin-include-config-loongarch-loongarch-opts.h:fatal-error:loongarch-def.h:No-such-file-or-directory
+|-- loongarch-allnoconfig
+|   `-- arch-loongarch-kernel-asm-offsets.c:warning:no-previous-prototype-for-output_thread_lbt_defines
+|-- loongarch-defconfig
+|   |-- arch-loongarch-kernel-asm-offsets.c:warning:no-previous-prototype-for-output_thread_lbt_defines
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- include-linux-build_bug.h:error:bit-field-anonymous-width-not-an-integer-constant
+|-- loongarch-randconfig-r033-20230815
+|   |-- arch-loongarch-kernel-asm-offsets.c:warning:no-previous-prototype-for-output_thread_lbt_defines
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- m68k-allmodconfig
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- m68k-allyesconfig
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- m68k-randconfig-r032-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|-- microblaze-randconfig-r021-20230816
+|   `-- drivers-watchdog-xilinx_wwdt.c:undefined-reference-to-__udivdi3
+|-- mips-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- mips-randconfig-r005-20230815
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|-- nios2-randconfig-r011-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- openrisc-randconfig-r012-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|-- openrisc-randconfig-r015-20230815
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|-- parisc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- parisc-defconfig
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|-- parisc-randconfig-m031-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|-- parisc-randconfig-r022-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- parisc-randconfig-r026-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- parisc64-defconfig
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|-- powerpc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- powerpc-randconfig-r013-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- riscv-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- riscv-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- riscv-defconfig
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|-- riscv-randconfig-r025-20230815
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|-- riscv-randconfig-r042-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- riscv-rv32_defconfig
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|-- s390-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- s390-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- s390-defconfig
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- s390-randconfig-r044-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- sh-allmodconfig
+|   |-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|   |-- sh4-linux-gcc:internal-compiler-error:Segmentation-fault-signal-terminated-program-cc1
+|   |-- standard-input:Error:pcrel-too-far
+|   `-- standard-input:Warning:end-of-file-not-at-end-of-a-line-newline-inserted
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- sparc-randconfig-r036-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- sparc64-randconfig-r001-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- sparc64-randconfig-r003-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- sparc64-randconfig-r016-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- x86_64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- x86_64-defconfig
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|-- x86_64-randconfig-x001-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- x86_64-randconfig-x002-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- x86_64-randconfig-x003-20230815
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dce-dmub_replay.c:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- x86_64-randconfig-x004-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- x86_64-randconfig-x005-20230815
+|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- x86_64-randconfig-x006-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+|-- x86_64-rhel-8.3
+|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+`-- xtensa-randconfig-r031-20230815
+    |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
+    `-- kernel-rcu-update.c:warning:no-previous-prototype-for-torture_sched_setaffinity
+clang_recent_errors
+|-- arm64-randconfig-r004-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- arm64-randconfig-r013-20230816
+|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
+|-- hexagon-randconfig-r035-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- hexagon-randconfig-r041-20230815
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- i386-buildonly-randconfig-r004-20230815
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- i386-buildonly-randconfig-r005-20230815
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- i386-buildonly-randconfig-r006-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- i386-randconfig-i001-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- i386-randconfig-i002-20230815
+|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- i386-randconfig-i003-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- i386-randconfig-i004-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- i386-randconfig-i005-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- x86_64-buildonly-randconfig-r001-20230815
+|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- x86_64-buildonly-randconfig-r002-20230815
+|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- x86_64-randconfig-r034-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- x86_64-randconfig-x011-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- x86_64-randconfig-x012-20230815
+|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- x86_64-randconfig-x013-20230815
+|   `-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
+|-- x86_64-randconfig-x014-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- x86_64-randconfig-x015-20230815
+|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- x86_64-randconfig-x016-20230815
+|   `-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
+|-- x86_64-randconfig-x071-20230815
+|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- x86_64-randconfig-x073-20230815
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- x86_64-randconfig-x074-20230815
+|   `-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
+|-- x86_64-randconfig-x075-20230815
+|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
+|   `-- kernel-rcu-update.c:warning:no-previous-prototype-for-function-torture_sched_setaffinity
+|-- x86_64-randconfig-x076-20230815
+|   `-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
+`-- x86_64-rhel-8.3-rust
+    |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
+    `-- make:No-rule-to-make-target-rustdoc-.
+
+elapsed time: 724m
+
+configs tested: 112
+configs skipped: 5
+
+tested configs:
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+alpha                randconfig-r006-20230815   gcc  
+alpha                randconfig-r021-20230815   gcc  
+arc                              allyesconfig   gcc  
+arc                          axs103_defconfig   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r043-20230815   gcc  
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                                 defconfig   gcc  
+arm                          pxa168_defconfig   clang
+arm                  randconfig-r046-20230815   clang
+arm64                            allyesconfig   gcc  
+arm64                               defconfig   gcc  
+arm64                randconfig-r004-20230815   clang
+csky                                defconfig   gcc  
+csky                 randconfig-r002-20230815   gcc  
+hexagon              randconfig-r035-20230815   clang
+hexagon              randconfig-r041-20230815   clang
+hexagon              randconfig-r045-20230815   clang
+i386                             allyesconfig   gcc  
+i386         buildonly-randconfig-r004-20230815   clang
+i386         buildonly-randconfig-r005-20230815   clang
+i386         buildonly-randconfig-r006-20230815   clang
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                 randconfig-i001-20230815   clang
+i386                 randconfig-i002-20230815   clang
+i386                 randconfig-i003-20230815   clang
+i386                 randconfig-i004-20230815   clang
+i386                 randconfig-i005-20230815   clang
+i386                 randconfig-i006-20230815   clang
+i386                 randconfig-i011-20230815   gcc  
+i386                 randconfig-i012-20230815   gcc  
+i386                 randconfig-i013-20230815   gcc  
+i386                 randconfig-i014-20230815   gcc  
+i386                 randconfig-i015-20230815   gcc  
+i386                 randconfig-i016-20230815   gcc  
+i386                 randconfig-r024-20230815   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch            randconfig-r033-20230815   gcc  
+m68k                             alldefconfig   gcc  
+m68k                             allmodconfig   gcc  
+m68k                             allyesconfig   gcc  
+m68k                                defconfig   gcc  
+m68k                            q40_defconfig   gcc  
+m68k                 randconfig-r032-20230815   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                 randconfig-r005-20230815   gcc  
+nios2                               defconfig   gcc  
+nios2                randconfig-r011-20230815   gcc  
+openrisc             randconfig-r012-20230815   gcc  
+openrisc             randconfig-r015-20230815   gcc  
+parisc                           allyesconfig   gcc  
+parisc                              defconfig   gcc  
+parisc               randconfig-r022-20230815   gcc  
+parisc               randconfig-r026-20230815   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc              randconfig-r013-20230815   gcc  
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                            allyesconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                randconfig-r025-20230815   gcc  
+riscv                randconfig-r042-20230815   gcc  
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r044-20230815   gcc  
+sh                               allmodconfig   gcc  
+sh                   sh7770_generic_defconfig   gcc  
+sparc                            allyesconfig   gcc  
+sparc                               defconfig   gcc  
+sparc                randconfig-r036-20230815   gcc  
+sparc64              randconfig-r001-20230815   gcc  
+sparc64              randconfig-r003-20230815   gcc  
+sparc64              randconfig-r016-20230815   gcc  
+um                               allmodconfig   clang
+um                                allnoconfig   clang
+um                               allyesconfig   clang
+um                                  defconfig   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64       buildonly-randconfig-r001-20230815   clang
+x86_64       buildonly-randconfig-r002-20230815   clang
+x86_64       buildonly-randconfig-r003-20230815   clang
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64               randconfig-r034-20230815   clang
+x86_64               randconfig-x001-20230815   gcc  
+x86_64               randconfig-x002-20230815   gcc  
+x86_64               randconfig-x003-20230815   gcc  
+x86_64               randconfig-x004-20230815   gcc  
+x86_64               randconfig-x005-20230815   gcc  
+x86_64               randconfig-x006-20230815   gcc  
+x86_64               randconfig-x011-20230815   clang
+x86_64               randconfig-x012-20230815   clang
+x86_64               randconfig-x013-20230815   clang
+x86_64               randconfig-x014-20230815   clang
+x86_64               randconfig-x015-20230815   clang
+x86_64               randconfig-x016-20230815   clang
+x86_64                          rhel-8.3-rust   clang
+x86_64                               rhel-8.3   gcc  
+xtensa               randconfig-r031-20230815   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
