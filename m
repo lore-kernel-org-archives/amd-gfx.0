@@ -4,90 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 329DDC19F4F
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 20:03:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC55CC25B7F
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 20:41:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2EB410E3A5;
-	Wed, 16 Aug 2023 20:03:07 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20616.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::616])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6757210E3A5;
- Wed, 16 Aug 2023 20:03:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WPNwUCqxBbjDb+9xsDBAzT8bpYIgUQQxvhaZYzB8lOfG4V+tahu5cg9Q3G9YwK8lKsw3Dn+tiBxkYbVweFcrSQviDSqkrqjoej+0BxyJq8OvMTetcyNpnLlPD4dgOi3USz4W1AFN1KbmxUF9VnST0GPkb/wPftGQ5mSF+Ox2hiIUVOpwLoInxG2LXyzjF5dpeqbvt7ttr8KvYwwLLK0gqNL/3WnsHLCSvWT3SNlyW4eQ3VBQnXz/1rZ1RtOjAK+x8eYHWTMPC9f70I8gLj2hrKG+OZtlbzM7FXxvJG9LpQiUAqCG4AB7fILXJxTNsKfu4ZkRXniSISjT6hirNW+A3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aHR3QAqQ26DXtUNLi0uQOuGOlWULvHVC1+heA02NSoQ=;
- b=LoiKtY1L7JpFoVbTO1BzTu4ldIxMHGLg7Bc3MWaBlFw3C+i/H7h3vZjevGkiF972pGS+hNx9UFPZMWDdCimuOXEyO6deVqxQnpfSztdIpILj2uELyMLQVV5ZTKYHBrzH0e1Ny97I9M7t/1syrEbp527btM8hNEzg2a3MEFEmEt7LMPHwW1x9plvfncpUN9HzMyizdBQcH2ZCecrfG/QKxkXhq/ufbHlRqZeCBQU/WtX1GB6EMRSARFRBjtzvHLbFbSlPb5shWYQsAm9yEZYcg+GE88/Vubly5qPPXdmefcXVbLnqM1R8c51VCN20W58pGaAPSMJt91djbsI479eT/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aHR3QAqQ26DXtUNLi0uQOuGOlWULvHVC1+heA02NSoQ=;
- b=yub9KbL09aBPumnUeokgIgN96x2tJy1FgcrnJgdSaEX7kzo3r1U1JrmljKxBrmswXyYRW7Frtqo8icXJBVf4bwefxNucBYKaZLhkRGGp1Y0pmuEaZcIzCIodUpIgr2TI2WkPWjt/ndB5Pe5bK9wnbjDpE6TK4fWDfl7ZfiCpRvA=
-Received: from CY5PR19CA0112.namprd19.prod.outlook.com (2603:10b6:930:64::12)
- by SA1PR12MB8743.namprd12.prod.outlook.com (2603:10b6:806:37c::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.29; Wed, 16 Aug
- 2023 20:03:04 +0000
-Received: from CY4PEPF0000E9CD.namprd03.prod.outlook.com
- (2603:10b6:930:64:cafe::17) by CY5PR19CA0112.outlook.office365.com
- (2603:10b6:930:64::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.15 via Frontend
- Transport; Wed, 16 Aug 2023 20:03:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9CD.mail.protection.outlook.com (10.167.241.140) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.15 via Frontend Transport; Wed, 16 Aug 2023 20:03:03 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 16 Aug
- 2023 15:03:01 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu drm-fixes-6.5
-Date: Wed, 16 Aug 2023 16:02:26 -0400
-Message-ID: <20230816200226.10771-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.41.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5367E10E00B;
+	Wed, 16 Aug 2023 20:41:41 +0000 (UTC)
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
+ [IPv6:2607:f8b0:4864:20::c2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3268210E3BB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 20:41:39 +0000 (UTC)
+Received: by mail-oo1-xc2e.google.com with SMTP id
+ 006d021491bc7-56c884e1d74so5089693eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 13:41:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1692218498; x=1692823298;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uDyj/gHei25LbKKRQlQ3FrMzpMMf6uvFGzU+lZKqsG0=;
+ b=eKQfLklwUQrvXOFNHJHd0njKxGRoLaXzr7RLlp5Q5TbLjBj060fv9iMivAF1mc6IZU
+ JElX/VZxGBU/RWGow9dPlg113+RBzKH0ME0ZDDToOEHWz/OugaMIjPE3whNSEAv31si7
+ dZuUoXPQ20zeA0pLsKSgdSrXo7McKEWLNgU8CuM8xL9vXgO04+BfMkyMfzGW3QkDV53h
+ TV/kRVsvjnMvCp0BWjl+YnPn4tQePLwWcdncz86NdNFurbC+XbtkvSAkedwFRMVC9+sM
+ aokA9s0f2RxKeEkWK/wEzsPxW+l9eQfzF1VSOs8O5Lv4fwL5W20LyeAN23AZ8Hk9whEa
+ EzRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692218498; x=1692823298;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=uDyj/gHei25LbKKRQlQ3FrMzpMMf6uvFGzU+lZKqsG0=;
+ b=iai74oHMVcvXOFm0kLU5a7g5/P9P1Cxqv3i42PKrsnwVOhmSzfIJ75aDcFg8PDoq6R
+ n50PbZng6GaAXBmaUHyVtYlaRrFgZ696Ovy9vjIpOWRO9mluIVtQAjOmS/IVU4OU23fO
+ dTTE/hbHz4HoglIYwnwITOgaRPAQymUUYeGss5Vp+cp0zkZFlh1Q4JcwEOuZsBwP24bf
+ 0fuDRgm3N6JOlwtp0K5cZskM9gyuUbhGspjPfvL88684Xn1Rqxx9ohFkUlsCzyTD/8jf
+ YEHQtd5M36edIvP1mpM4V1NtsYZ3q94uc7/UxyyruX2JcXyI4jPOo6GC68Yuih6RQblc
+ cqVg==
+X-Gm-Message-State: AOJu0Yy3uGTWvh8uvMJGyiJbaoj30w/nLvmsALjSd/CW9WgNSQ05jgNc
+ 0YOav6FSqzBkNsOVqTgqj9Lz2sse+VNkoioR90cAeNXDybg=
+X-Google-Smtp-Source: AGHT+IGx1L9ZDhjG9Zs0q2B/knNO2x7ULWoxE5fRTtM8VQ+j3DLv3jeZIOPvN24ZPF8le/lryoll5Lcnn8Gn4dXsAtY=
+X-Received: by 2002:a05:6870:d249:b0:1bb:4795:d6e4 with SMTP id
+ h9-20020a056870d24900b001bb4795d6e4mr3659785oac.29.1692218498386; Wed, 16 Aug
+ 2023 13:41:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9CD:EE_|SA1PR12MB8743:EE_
-X-MS-Office365-Filtering-Correlation-Id: ccadbe2a-b656-429d-9eb3-08db9e93ccde
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rK6jRI6kkOKiOzhvRzw0//IzgK/RQTP94NFPLknqmk4iPS8FGUNDOM25WeqWRjoJbGDhRLciquvWj2ZODLV9L5ELQrbLbIff936FDtKDYNONNSLae8BkhhHH7Bck/5O/O08rN2CCPoLhwVnfvFzOwlMcc7YUN29QVaVrkK0EEYMNQJUhZj7ap3+/L+M27ozxi5n9btHQAFQvvw35lIX3w2mOuojfSr4Pb8/pbktbAbPPs+LstNLtdcjZ5Ra3z8xUtnvQAKrMOE7KVqWzsHKokOcgfDSgfLyoCMZkafpDIt+YWeKQiX12XURBbkM5Ogx5qyL3dQGeWZIkFKVvB8WXAoYlL4uAg4a0+1Cr5MlUMe70OYSOoMBXpVBuIlzreg0jPCsyGMVz3aaKDpQlW1EFZqvcXvCkBL1Kbwpr8ur9uxtaif0BnSIQT/i/92EasZVtdfV+piNCYegApKlJaPREBrCDNCGNZIPToR/yGJJPEewDu26oxEltaA4ZH56mgx+7jt3sbTBWTIfNzmD8obcU2B5AZ22EaH2IWX5Y4dzalzbBvM9c4jKABqO5NoU0xRFVqrL52HYJG3glUOF94FLd6u14SYwvBpGRb4Ed2k8IyKgjcTPv4oIOblrnfuxE5ciYMiKUVaCSoXdN8tAyyC7exkWLaDcOsCEDRHcpQ+PzqZ/yl8uzpYPZbOtaHe4P3Si0sGs2FHFWZOAx+e/1Z7KpTwN/Rvyk9KwqS8zGqL7n9XzUUSOEOLwNSbGCUhLSRA8H
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(39860400002)(346002)(136003)(396003)(451199024)(1800799009)(186009)(82310400011)(40470700004)(36840700001)(46966006)(316002)(82740400003)(356005)(81166007)(110136005)(70586007)(70206006)(966005)(5660300002)(41300700001)(36860700001)(47076005)(8676002)(4326008)(8936002)(2906002)(40460700003)(83380400001)(26005)(16526019)(40480700001)(478600001)(426003)(336012)(86362001)(7696005)(36756003)(6666004)(1076003)(2616005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 20:03:03.6642 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccadbe2a-b656-429d-9eb3-08db9e93ccde
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9CD.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8743
+References: <20230815085710.842188-1-kenneth.feng@amd.com>
+ <CADnq5_N6436Mdqz+V4er+=VFm=6O_C=i5T3R2+Nkc_eqh8uZLw@mail.gmail.com>
+ <DM4PR12MB5165F86B0A31F1084FF5FC068E15A@DM4PR12MB5165.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB5165F86B0A31F1084FF5FC068E15A@DM4PR12MB5165.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 16 Aug 2023 16:41:27 -0400
+Message-ID: <CADnq5_POku=d8X83iTOs-=ZthNYaShT3mg6VF1F8Es31_qa_mQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: allow the user to force BACO on smu v13.0.0/7
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,73 +69,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+On Tue, Aug 15, 2023 at 9:02=E2=80=AFPM Feng, Kenneth <Kenneth.Feng@amd.com=
+> wrote:
+>
+> [AMD Official Use Only - General]
+>
+> Hi Alex,
+> Right, just BAMACO has its advantage for the fast resume.
+> Maybe later we can further identify which sku needs to save more power vs=
+ faster resume time.
+> For example, mobile device can by default use BACO and desktop/workstatio=
+n device can by default use BAMACO.
 
-Fixes for 6.5.
+Well, we don't really take advantage of it at the moment.  We need to
+add a check in amdgpu_device_evict_resources() and if BAMACO is
+selected, we can skip evicting resources from vram.  Otherwise we
+evict everything which pretty much nullifies the latency advantage of
+BAMACO.  So unless we fix that, we should default to BACO to save the
+extra power.
 
-The following changes since commit 2ccdd1b13c591d306f0401d98dedc4bdcd02b421:
+Alex
 
-  Linux 6.5-rc6 (2023-08-13 11:29:55 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.5-2023-08-16
-
-for you to fetch changes up to 6ecc10295abb2fdd9c21dd17b34e4cacfd829cd4:
-
-  Revert "Revert "drm/amdgpu/display: change pipe policy for DCN 2.0"" (2023-08-16 15:46:40 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.5-2023-08-16:
-
-amdgpu:
-- SMU 13.x fixes
-- Fix mcbp parameter for gfx9
-- SMU 11.x fixes
-- Temporary fix for large numbers of XCP partitions
-- S0ix fixes
-- DCN 2.0 fix
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      Revert "Revert "drm/amdgpu/display: change pipe policy for DCN 2.0""
-
-Asad Kamal (1):
-      drm/amd/pm: Update pci link width for smu v13.0.6
-
-James Zhu (1):
-      drm/amdgpu: skip xcp drm device allocation when out of drm resource
-
-Jiadong Zhu (1):
-      drm/amdgpu: disable mcbp if parameter zero is set
-
-Kenneth Feng (1):
-      drm/amd/pm: disallow the fan setting if there is no fan on smu 13.0.0
-
-Lijo Lazar (1):
-      drm/amd/pm: Fix temperature unit of SMU v13.0.6
-
-Mario Limonciello (1):
-      drm/amd: flush any delayed gfxoff on suspend entry
-
-Tim Huang (1):
-      drm/amdgpu: skip fence GFX interrupts disable/enable for S0ix
-
-Umio Yasuno (1):
-      drm/amdgpu/pm: fix throttle_status for other than MP1 11.0.7
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 10 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c          | 41 ++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |  9 +----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring_mux.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c            | 13 ++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c          |  9 ++++-
- .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |  2 +-
- .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 14 ++++----
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  4 +++
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 19 +++++++---
- 10 files changed, 93 insertions(+), 30 deletions(-)
+> Thanks.
+>
+>
+> -----Original Message-----
+> From: Alex Deucher <alexdeucher@gmail.com>
+> Sent: Wednesday, August 16, 2023 12:56 AM
+> To: Feng, Kenneth <Kenneth.Feng@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH] drm/amd/pm: allow the user to force BACO on smu v13.=
+0.0/7
+>
+> Caution: This message originated from an External Source. Use proper caut=
+ion when opening attachments, clicking links, or responding.
+>
+>
+> On Tue, Aug 15, 2023 at 5:05=E2=80=AFAM Kenneth Feng <kenneth.feng@amd.co=
+m> wrote:
+> >
+> > allow the user to force BACO on smu v13.0.0/7
+> >
+> > Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com> Would it be better to =
+default to BACO?  It would save more power at the expense of resume latency=
+.
+>
+> Alex
+>
+>
+> > ---
+> >  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c       | 2 +-
+> >  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 3 ++-
+> > drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 3 ++-
+> >  3 files changed, 5 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> > b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> > index 895cda8e6934..52e9c7611013 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> > @@ -2263,7 +2263,7 @@ int smu_v13_0_baco_set_state(struct smu_context *=
+smu,
+> >         if (state =3D=3D SMU_BACO_STATE_ENTER) {
+> >                 ret =3D smu_cmn_send_smc_msg_with_param(smu,
+> >                                                       SMU_MSG_EnterBaco=
+,
+> > -                                                     smu_baco->maco_su=
+pport ?
+> > +                                                     (smu_baco->maco_s=
+upport && amdgpu_runtime_pm !=3D 1) ?
+> >                                                       BACO_SEQ_BAMACO :=
+ BACO_SEQ_BACO,
+> >                                                       NULL);
+> >         } else {
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > index a5857acee641..12ccc12657d7 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> > @@ -2211,7 +2211,8 @@ static int smu_v13_0_0_baco_enter(struct
+> > smu_context *smu)
+> >
+> >         if (adev->in_runpm && smu_cmn_is_audio_func_enabled(adev))
+> >                 return smu_v13_0_baco_set_armd3_sequence(smu,
+> > -                               smu_baco->maco_support ? BACO_SEQ_BAMAC=
+O : BACO_SEQ_BACO);
+> > +                               (smu_baco->maco_support && amdgpu_runti=
+me_pm !=3D 1) ?
+> > +                                       BACO_SEQ_BAMACO :
+> > + BACO_SEQ_BACO);
+> >         else
+> >                 return smu_v13_0_baco_enter(smu);  } diff --git
+> > a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > index 93b3e8fa8238..f0bcc7995983 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> > @@ -2139,7 +2139,8 @@ static int smu_v13_0_7_baco_enter(struct
+> > smu_context *smu)
+> >
+> >         if (adev->in_runpm && smu_cmn_is_audio_func_enabled(adev))
+> >                 return smu_v13_0_baco_set_armd3_sequence(smu,
+> > -                               smu_baco->maco_support ? BACO_SEQ_BAMAC=
+O : BACO_SEQ_BACO);
+> > +                               (smu_baco->maco_support && amdgpu_runti=
+me_pm !=3D 1) ?
+> > +                                       BACO_SEQ_BAMACO :
+> > + BACO_SEQ_BACO);
+> >         else
+> >                 return smu_v13_0_baco_enter(smu);  }
+> > --
+> > 2.34.1
+> >
