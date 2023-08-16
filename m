@@ -4,68 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFBF2C001B0
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 05:55:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17A30C001E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 06:07:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C45A10E2C6;
-	Wed, 16 Aug 2023 05:55:54 +0000 (UTC)
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 884F510E2C6;
- Wed, 16 Aug 2023 05:55:53 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5230a22cfd1so8256779a12.1; 
- Tue, 15 Aug 2023 22:55:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1692165352; x=1692770152;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6aZkOL7SjZGnUHAIvEt/YDknB7+2gxb44+woju4e+uE=;
- b=VfCom1umUhKMEoU/+uHAV8huhuxTS3rkeuRK8CgGS4Pf/0CTvzwkECTCCDk0Nz8fYJ
- ZZwtkJuX4W3UOGSquDKAByWKGnq6kkeoW+l8JP3MOKY/nu3d8hsm5OQx3/P2yfLrBbnu
- 3z5awkUHCDiAGeng8HrzdRBzgarA0HmQEtvoEAT7+4oKmYqPuqnXmlMk+jjFTlPlMNs8
- lBy632wiFdEarOdwxdnWDGbxjB/UJdfJFF9XdgK9RgQVln/1VrKM3lVuVg7/eZua2Fyt
- YzWi4KzHUqWcbOY+IxfQ9wQAUz1Ic6Mn7vmooNKeN0HCI7gcNF0jBcHSDGRtrxTYkR3R
- GrJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692165352; x=1692770152;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6aZkOL7SjZGnUHAIvEt/YDknB7+2gxb44+woju4e+uE=;
- b=ED9DD/0fc/xC8GPlpNuYFxVJ+FYV3J6tJ9LmVJgZt0kt6DQbOcZopPf67n1E9EoLyi
- ztIePRJuM78+m58VTDJXdzWlOVx7f8UeX5BLWW0S6o9dM8b2BxOIiN5Q5BuPlKtW9eZL
- T4zh8hi+ZATHhylBsOkYaENJ3pyPlpQTQC8qmcB6pri4rofpSQ4CDRS+IMAgtHnLURcT
- 9lHbMqPpz8Mdzj/6noDzWdlyxnopbms0isLMnKmF/QNGXWeMupEMlYFIR1x6O8stSk5L
- D0iaJd9T4J4WA7MYYGiampVwfyCSjUfFEEczlGRXAtJdP1FkYoWAbukMrrgA7tooz+SB
- bB5g==
-X-Gm-Message-State: AOJu0YzvuwJk+QEAvwMUAs5Lcr46BvZW1sE9JaJNq7merEFLdiqRVcw5
- W82smbBwLrtoHfvjZ/aAOkA=
-X-Google-Smtp-Source: AGHT+IF4cQjPHPsGP77huoi8BSKDn99dS/edqLrfBHnOmj+6zJvC5sm7DmueoS1E10YGpHFIdUgYtQ==
-X-Received: by 2002:a17:906:259:b0:991:ed4e:1c84 with SMTP id
- 25-20020a170906025900b00991ed4e1c84mr667070ejl.25.1692165351663; 
- Tue, 15 Aug 2023 22:55:51 -0700 (PDT)
-Received: from ?IPV6:2a00:e180:15f4:7600:d198:bace:ace6:651f?
- ([2a00:e180:15f4:7600:d198:bace:ace6:651f])
- by smtp.gmail.com with ESMTPSA id
- a9-20020a170906190900b00992c92af6easm8031662eje.161.2023.08.15.22.55.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Aug 2023 22:55:51 -0700 (PDT)
-Message-ID: <d1831afd-9e02-fbc9-69f7-e8f044f35ee0@gmail.com>
-Date: Wed, 16 Aug 2023 07:55:49 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDFB410E2CF;
+	Wed, 16 Aug 2023 06:07:17 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2066.outbound.protection.outlook.com [40.107.212.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD73310E2CC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 06:07:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kxtSe4ipI1C0Q4h5yqF9zMf3bnX9GOUZKG5D35Nv9cCY1gXqEqvpmTZ34SsPto1fXbk519707nYxlbzsDn9N0tp1o+gDj231FWpmRoYt/ZQtyUahLNjnlVeDLqUaB5ENWzFR7Q1CzUrgu6u1HCU3kqnAa0wndeCer4csMEa+38gEkAxLBtp8A5NYV7fkqGPK8AbFij55OHYjzLh1IjwboOHQST9fplnbOUZgIwCgx5mZVs7FP/NRQwq9lVxsg+4tRvyhbeCZ1HX3WX7XGM0q7wICfjdzt7BNvAGEU2ytnkOX2O3gnkb82dKH98AW8FGqBsPNj3EfUxyKZ831cXwkNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LGKvH2VzvTvloW2dv3AIS4qeG1RlhsNuSMrNHVbVUmw=;
+ b=mHKTmVtPrhFHBqXJdElxo84clDvSxjM6zc4iXpMQS5pzGSOwolq6DfAy94eeusgBAl6zb1rzY0hTdi+4uQ2wOCoB2I4ENsaHyYgYT6jKAupptzkK2PfkRkCEG39/2SaD6pl5zrolAawkoGeIsP/9ZXMko0tPedNbM2JjTHaFbK8HSQtYjc/KPTlPUNjyym66St74YEc6PLuJT1DyKdn28zIRJtB/dzK/MxB46qdtSYXSdwdGKF2Qwkqet7EyheDOEqZ5VQyeqTrTYb/PDuJD2UINeqf7l7PBx2mcHFMFPVVs6KAhgAYs4conx3uHkQl0YaWQGeLcwH3rQmOpxVN3WQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LGKvH2VzvTvloW2dv3AIS4qeG1RlhsNuSMrNHVbVUmw=;
+ b=p1MLhnMbxgSSDJ/1sR4gL7nxnZM7MhiNkn/tPculsTLilH+IQmhL5mFQmqLBYqXO4/b05zK5/cV7PfQa8e83+D4vry3eLE4tMWh6KYd9enmrpCMNowm9UeZI3VE5wSLBZ5qwT2aWMmogiXpBy9YoydrH2f+gi6ifUU2spVAhUkQ=
+Received: from MW4PR04CA0210.namprd04.prod.outlook.com (2603:10b6:303:86::35)
+ by PH8PR12MB7349.namprd12.prod.outlook.com (2603:10b6:510:217::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Wed, 16 Aug
+ 2023 06:07:12 +0000
+Received: from MWH0EPF000971E6.namprd02.prod.outlook.com
+ (2603:10b6:303:86:cafe::6e) by MW4PR04CA0210.outlook.office365.com
+ (2603:10b6:303:86::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.14 via Frontend
+ Transport; Wed, 16 Aug 2023 06:07:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E6.mail.protection.outlook.com (10.167.243.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6699.14 via Frontend Transport; Wed, 16 Aug 2023 06:07:12 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 16 Aug
+ 2023 01:07:11 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 15 Aug
+ 2023 23:07:11 -0700
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
+ Transport; Wed, 16 Aug 2023 01:07:01 -0500
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 00/16] DC Patches August 18, 2023
+Date: Wed, 16 Aug 2023 14:06:42 +0800
+Message-ID: <20230816060658.2141009-1-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v2] drm/amdgpu: register a dirty framebuffer callback for
- fbcon
-Content-Language: en-US
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230815172700.255596-1-hamza.mahfooz@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230815172700.255596-1-hamza.mahfooz@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E6:EE_|PH8PR12MB7349:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81483a43-2f6d-4d57-4c25-08db9e1f084f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: GlhO4AfjZgK7fq+8MEtBiJUrJNRVqQLailQf8lV0kJ+EKxj3OXgggjCFOBc0E/hMJlgDVRRMA5nrtL8k92V5xRuQhrWAcl+LWJWZgIYGydazMkh+F7gVhTJ8rhWeduyqImy20Z/qalj7iCpCbg+iS6AL06nEhmV08g6eJDXzzDfTFwTrGerYZJLIOk8GGIROFAUZQdGRcwWQHl1Koc9sCrJTAzBL9dqg8ziEVqIH1eDZa3xAFBODhABaM+PVM7D9gUrOk0CZyL8zsIu1Z8HWrhXc8AG6NNdN4BuXB4KrAqb6YbGkrFoH5JfOU7vnAuAO+EgDxbkHZWYff4wdy5JId0eBhr8/pWwhsr6FgYRKj4KhBhSTj+sUGAL6wgaToHbw/zQEprcnD3SwqXWb5VHJJM5q6NZPFOa5NiPiVeJiNegzjOk/u00bGew7lsGBHWo/A0xDRjGKttsxzhPmgYfzxTSgEg1jcS1qs5+5xIfldnXhm/0PBo9IGI5aQti69+LxYOCnQmkevwUoYguEMqvYs+Vis/kcmJzGGbqup97zTwXsNfB2/ekq4oni+JFtCgpI+vgYq5CPPvtw1nJYWa2EPoH8+9HNodB+zM7ZaUQQRT6Pdz4BQWSnBQ3ciIQbBTxVqGXLFNAk5qmY668Wfr765ag/HQNdoGXbmW30/iuxGB+tjScGbmXuWcD3faZKvSMeIgRgiLzUyA2Q69suIY/AZq1xp3mnjL3UHlSn0kCPwEoM2i5xeww9uzTZ2+61LlVV4DJqUa6xz6ek2gu4Llc6Sg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(39860400002)(396003)(346002)(136003)(1800799009)(82310400011)(451199024)(186009)(46966006)(36840700001)(40470700004)(6666004)(54906003)(70586007)(70206006)(7696005)(2906002)(478600001)(1076003)(336012)(426003)(26005)(6916009)(5660300002)(2616005)(83380400001)(41300700001)(316002)(47076005)(36860700001)(8936002)(4326008)(82740400003)(8676002)(81166007)(356005)(40460700003)(36756003)(86362001)(40480700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 06:07:12.2084 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81483a43-2f6d-4d57-4c25-08db9e1f084f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7349
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,100 +101,115 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Guchun Chen <guchun.chen@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, stable@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Aurabindo.Pillai@amd.com, Wayne Lin <Wayne.Lin@amd.com>,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This DC patchset brings improvements in multiple areas. In summary, we have:
 
+- Ensure FS is enabled before sending request to DMUB for FS changes
+- Add check for PMFW hard min request complete
+- Save addr update in scratch before flip
+- Fix static screen detection setting
+- Write flip addr to scratch reg for subvp
+- set minimum of VBlank_nom
+- Correct unit conversion for vstartup
+- Roll back unit correction
+- Enable runtime register offset init for DCN32 DMUB
+- Refactor edp power control
+- PQ regamma end point
+- PQ tail accuracy
+- Blank phantom OTG before enabling
+- Expose mall capability
 
-Am 15.08.23 um 19:26 schrieb Hamza Mahfooz:
-> fbcon requires that we implement &drm_framebuffer_funcs.dirty.
-> Otherwise, the framebuffer might take a while to flush (which would
-> manifest as noticeable lag). However, we can't enable this callback for
-> non-fbcon cases since it might cause too many atomic commits to be made
-> at once. So, implement amdgpu_dirtyfb() and only enable it for fbcon
-> framebuffers on devices that support atomic KMS.
->
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Cc: stable@vger.kernel.org # 6.1+
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2519
-> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> ---
-> v2: update variable names
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 26 ++++++++++++++++++++-
->   1 file changed, 25 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index d20dd3f852fc..d3b59f99cb7c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -38,6 +38,8 @@
->   #include <linux/pci.h>
->   #include <linux/pm_runtime.h>
->   #include <drm/drm_crtc_helper.h>
-> +#include <drm/drm_damage_helper.h>
-> +#include <drm/drm_drv.h>
->   #include <drm/drm_edid.h>
->   #include <drm/drm_fb_helper.h>
->   #include <drm/drm_gem_framebuffer_helper.h>
-> @@ -532,11 +534,29 @@ bool amdgpu_display_ddc_probe(struct amdgpu_connector *amdgpu_connector,
->   	return true;
->   }
->   
-> +static int amdgpu_dirtyfb(struct drm_framebuffer *fb, struct drm_file *file,
-> +			  unsigned int flags, unsigned int color,
-> +			  struct drm_clip_rect *clips, unsigned int num_clips)
-> +{
-> +
-> +	if (strcmp(fb->comm, "[fbcon]"))
-> +		return -ENOSYS;
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
 
-Once more to the v2 of this patch: Tests like those are a pretty big 
-NO-GO for upstreaming.
+---
 
-Regards,
-Christian.
+Alvin Lee (3):
+  drm/amd/display: Blank phantom OTG before enabling
+  drm/amd/display: Write flip addr to scratch reg for subvp
+  drm/amd/display: Save addr update in scratch before flip
 
-> +
-> +	return drm_atomic_helper_dirtyfb(fb, file, flags, color, clips,
-> +					 num_clips);
-> +}
-> +
->   static const struct drm_framebuffer_funcs amdgpu_fb_funcs = {
->   	.destroy = drm_gem_fb_destroy,
->   	.create_handle = drm_gem_fb_create_handle,
->   };
->   
-> +static const struct drm_framebuffer_funcs amdgpu_fb_funcs_atomic = {
-> +	.destroy = drm_gem_fb_destroy,
-> +	.create_handle = drm_gem_fb_create_handle,
-> +	.dirty = amdgpu_dirtyfb
-> +};
-> +
->   uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
->   					  uint64_t bo_flags)
->   {
-> @@ -1139,7 +1159,11 @@ static int amdgpu_display_gem_fb_verify_and_init(struct drm_device *dev,
->   	if (ret)
->   		goto err;
->   
-> -	ret = drm_framebuffer_init(dev, &rfb->base, &amdgpu_fb_funcs);
-> +	if (drm_drv_uses_atomic_modeset(dev))
-> +		ret = drm_framebuffer_init(dev, &rfb->base,
-> +					   &amdgpu_fb_funcs_atomic);
-> +	else
-> +		ret = drm_framebuffer_init(dev, &rfb->base, &amdgpu_fb_funcs);
->   
->   	if (ret)
->   		goto err;
+Anthony Koo (1):
+  drm/amd/display: [FW Promotion] Release 0.0.180.0
+
+Aric Cyr (1):
+  drm/amd/display: 3.2.248
+
+Aurabindo Pillai (2):
+  drm/amd/display: Expose mall capability
+  drm/amd/display: Enable runtime register offset init for DCN32 DMUB
+
+ChunTao Tso (1):
+  drm/amd/display: set minimum of VBlank_nom
+
+Ian Chen (1):
+  drm/amd/display: Refactor edp power control
+
+Krunoslav Kovac (2):
+  drm/amd/display: PQ tail accuracy
+  drm/amd/display: PQ regamma end point
+
+Ovidiu Bunea (1):
+  drm/amd/display: Roll back unit correction
+
+Reza Amini (1):
+  drm/amd/display: Correct unit conversion for vstartup
+
+Samson Tam (2):
+  drm/amd/display: add check for PMFW hard min request complete
+  drm/amd/display: ensure FS is enabled before sending request to DMUB
+    for FS changes
+
+SungHuai Wang (1):
+  drm/amd/display: fix static screen detection setting
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   5 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  19 +++
+ .../drm/amd/display/dc/clk_mgr/dcn32/dalsmc.h |  11 +-
+ .../dc/clk_mgr/dcn32/dcn32_clk_mgr_smu_msg.c  | 154 +++++++++++++++++-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  71 +++-----
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c |  23 +++
+ drivers/gpu/drm/amd/display/dc/dc.h           |   6 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  11 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   1 +
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |   1 -
+ .../display/dc/dce110/dce110_hw_sequencer.c   |   2 +-
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  22 ++-
+ .../amd/display/dc/dcn30/dcn30_cm_common.c    | 104 ++++--------
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  17 ++
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.h    |   2 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c |   2 +-
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  |  17 --
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_init.c |   2 +-
+ .../drm/amd/display/dc/dcn314/dcn314_hwseq.c  |   3 +-
+ .../drm/amd/display/dc/dcn314/dcn314_init.c   |   2 +-
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  46 ++++++
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.h    |   5 +
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |   3 +-
+ .../amd/display/dc/dml/dcn314/dcn314_fpu.c    |  21 ++-
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  18 ++
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |   2 +
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  15 +-
+ drivers/gpu/drm/amd/display/dc/inc/link.h     |   1 +
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   |   9 +-
+ .../drm/amd/display/dc/link/link_factory.c    |   1 +
+ .../display/dc/link/protocols/link_dp_phy.c   |   3 +-
+ .../link/protocols/link_edp_panel_control.c   |  29 ++++
+ .../link/protocols/link_edp_panel_control.h   |   1 +
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  21 ++-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   5 -
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn32.c |  64 ++++++--
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn32.h |  17 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  13 ++
+ .../amd/display/modules/color/color_gamma.c   | 115 ++++++++++++-
+ 39 files changed, 674 insertions(+), 190 deletions(-)
+
+-- 
+2.37.3
 
