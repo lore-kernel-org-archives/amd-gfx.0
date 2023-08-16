@@ -4,62 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C991C04A94
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 06:07:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 442CEC04A6A
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 06:07:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9495110E2CC;
-	Wed, 16 Aug 2023 06:07:44 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B42610E2CC
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 06:07:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E040810E2CD;
+	Wed, 16 Aug 2023 06:07:51 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C61B910E2CD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 06:07:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KcwnLVCy458AG+8//wK2BDrET4nIGo1HO2hQ5OehHeqn7t44Q/qt35oycvrY2Dboooz7BYJwhtrmKWb1ULkSXso1HgDb8Mgl6ctfOsL0FsgA/tAK1hffOQ+ykCRzF2lfPBNPt3TlPL/IbeAesjeTQRx5fc57hI16kVOdymod5f03T/I4YSbLDJoiGYIvwfkfWuGHCWANlBsPpocenOObE1vLoz3Av5cJXyg0LkZJBqujjFk1QwNd8aIErYA5zSpfjJZTZTkMKbBS0fvFXqhpDfXqUXKr+4oIi+jU666QteSbTRd2QYLo4UpsQiFdPaywXFIxhg8Vzh46F6XtUvNfWw==
+ b=LBE1OyTDyOME8f9GQLUwHyuLit9ssyQ9obEyRFF9wnqqcdj4+S0fXorIKXaZ6069qxJ8Ndl4nZrmo89RrU8R0zWpHzoiA5EYi3Is4lHmjgHtGe3dUVsf258Epw87lg17aiIb1BiiP8/16eiK/n3GKGfnne8/HkmULGO8/5hTK/pJMnLlL7e2m/csG7Lj56RYtlsgSDDFkh+A/1jpgVHqeP2docHy9idT+7Zggigzp67JbErz/laoTA4aF9iugxR3PoZgpCk6zsRFuaUhN+oxV14ZGUauAal9gGISlyZaDHxB5LesKb0teOOi+40LRZmwtHTKFuSBhDyYXossR4BGNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=btGdADtnOd8lrvLf8uxSfdUOuCAKMEsQCSBPjQ7Q1eU=;
- b=IQ7FyPdy6G9ZfvSK882zImDXVc76ShfS3sMXo/+AFSqByHUz786hJR4nADT+uwZr1JwW+csfV435IM2VGsBxSTEDwSPhx9f3H0ix2mA9jdRxJOSBEAmcqs+FANS5YKDVklFDCQjb7ILuHR15FPeLBUrLhxMnIJI/zii7Shg8LtF1YATamd1jrYInWinT258L7BZVksFQ2FfmP3vzQHg9LcZvqUZ1SAAmHZSC5FH5LIQYFX+Mqp8TSIIKOnV9va7l5qUxbRsCQ9HFnXrImZ7AxDqr3194xFOivKYa6JvL+FG4vuK3nmizWta9DdMb1SyNRKvo4+lvpY4dMJTFx3n/lQ==
+ bh=dTbU9oUBDSeDYoB94s4pgadnW3B8ZPkjjxE4c2Y0THI=;
+ b=C61GbEP3aL+ZkeRVIZkwU0Oxf39elV9qZzmtwvP9lGChc9u0PEw48ZWbL2riQ0osqNUh32IKhI0tI5QhwmbeKl2ow2QLcovEMrmq3vroiVWuLoUgNVX9Fq4wkZ+IOcL7X4tDUfJvW0mgEmMdNfCCwBBBJuF/M6McLx0aMSeGEZFOIIVnnlmeAu664bkFFfjavJhtgTspGY53kgsHJ/3CdggSTft7t+hws3cOTJ+7S3Mbe6JalevanRU/Us+3yfeT3D9LyECYWIz7OU/feWliNQ74gHq3w69SyNxqAfgpAp1RJw7V5CIybg58kGvOoi9P0F9GmNousAdT5ABP6D9nrQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=btGdADtnOd8lrvLf8uxSfdUOuCAKMEsQCSBPjQ7Q1eU=;
- b=oaZCUtJn8umNJrLBu61u+sl4Jsj6h8Sq3Z+FpXRDgSf2sQb4QP3qiQSckT5Hw/XJ/sij4617MIdLA0+3MBh14MPjB6HA2COQtnKtmkInsnd+eRz+qQlkCoplV2ib21W6/+DqATGnesQ2ZMsUPFH0r9wcSYPzO/2AaBvesR9mdAg=
-Received: from SJ0PR05CA0100.namprd05.prod.outlook.com (2603:10b6:a03:334::15)
- by DM8PR12MB5400.namprd12.prod.outlook.com (2603:10b6:8:3b::12) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=dTbU9oUBDSeDYoB94s4pgadnW3B8ZPkjjxE4c2Y0THI=;
+ b=tJSOvaWpcRaSYBi4UsLfjxrtVKi12r1wXRBiZi4e4o4kGnlo9IPJGSV7vwYnI7GsAD4AHsLHQ0sjVB0nHkYbgWgn6qINOHVuwuKdjnEIF7/tvXfUCVlB+1rywISZHO+EXQe3njwuSN6N4DQgMo5g20sP4mgfzKZ7i4mPmcw5gCA=
+Received: from CY8PR10CA0003.namprd10.prod.outlook.com (2603:10b6:930:4f::24)
+ by BL1PR12MB5922.namprd12.prod.outlook.com (2603:10b6:208:399::5)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.29; Wed, 16 Aug
- 2023 06:07:38 +0000
-Received: from MWH0EPF000971E8.namprd02.prod.outlook.com
- (2603:10b6:a03:334:cafe::e2) by SJ0PR05CA0100.outlook.office365.com
- (2603:10b6:a03:334::15) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 06:07:44 +0000
+Received: from CY4PEPF0000EE36.namprd05.prod.outlook.com
+ (2603:10b6:930:4f:cafe::1d) by CY8PR10CA0003.outlook.office365.com
+ (2603:10b6:930:4f::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.14 via Frontend
- Transport; Wed, 16 Aug 2023 06:07:38 +0000
+ Transport; Wed, 16 Aug 2023 06:07:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E8.mail.protection.outlook.com (10.167.243.68) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000EE36.mail.protection.outlook.com (10.167.242.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.15 via Frontend Transport; Wed, 16 Aug 2023 06:07:37 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6699.15 via Frontend Transport; Wed, 16 Aug 2023 06:07:44 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 16 Aug
- 2023 01:07:36 -0500
+ 2023 01:07:43 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 16 Aug
+ 2023 01:07:43 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Wed, 16 Aug 2023 01:07:31 -0500
+ Transport; Wed, 16 Aug 2023 01:07:38 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 02/16] drm/amd/display: Blank phantom OTG before enabling
-Date: Wed, 16 Aug 2023 14:06:44 +0800
-Message-ID: <20230816060658.2141009-3-Wayne.Lin@amd.com>
+Subject: [PATCH 03/16] drm/amd/display: PQ tail accuracy
+Date: Wed, 16 Aug 2023 14:06:45 +0800
+Message-ID: <20230816060658.2141009-4-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20230816060658.2141009-1-Wayne.Lin@amd.com>
 References: <20230816060658.2141009-1-Wayne.Lin@amd.com>
@@ -68,26 +72,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E8:EE_|DM8PR12MB5400:EE_
-X-MS-Office365-Filtering-Correlation-Id: 196d15e3-778d-4b0f-a005-08db9e1f1770
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE36:EE_|BL1PR12MB5922:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72e195ed-5a19-402f-411f-08db9e1f1b7a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7IN6+LMIabDsXN9jvZJU8wEiddBArFNCZ4UQtIpV5h/f/RwFokijNO1NnBxS/owOeuqhfAg9GkGVBvy36tzQzNCPAXVGZBiNnTtZGtDnRgiXoiQ4XqqS7pbLdn1UWdc5dTKNXTKrocwlLeFQtF3RHYbjC0FMueO8ZFfCC0bLopMaZiXCqkYADiURfExKxtTruripefEm1VYuK8VXX/78rHyCPiBQMSlV+oveSX8AB/VB1kyiROGLa29np+cK70k2OLKiaLEo6pEzFWwuhkU35StAKajgKvV/M37AUQfB3SXv9IvQWuqXhMgg/RkMM7xrtv5qvBfYLcQIY/wdyhkSIc8z5xh757+xKinTLavvZY+TPyPdYS6gud4nQrWyyjpLLgmdS+t4Azn0BXLnwBuJMrdqP/mnNe72fsyzPaL0gErOZDz+y/1Dy8l1/ogLGFeAn6ZOEUIWse5sSZ7y+P+PycetjxQ+bFIkFiIS4c7tBOCLklnBwwF05wDsqTMyat1ZRTaSyqtPHhYaMAFJn5WHB3WwwCqInT9vugoreIXVQXiJgCXX5EJBgbIafCSNyuVoTGCmCbAkn2C+AecOh5QgqLtC65N6T6zVLGRd737tdgNvecwxu49qom6Gqi8O7JFZKWIa2HIGwnwMaKp2eZXk4NJnRknCGsVGKOLGf41ufvbhC/x+AmDoUvemAUbVwS1OmVQbBUbbjp/CArFQDQj6hXl6EbxJPAUwJ4oDeZ1HR0i/92JmC/Iu5AuDwig6WXvkvsaBxmGFCGiThIXD/QkH9g==
+X-Microsoft-Antispam-Message-Info: j4K5MyQeoHO2EKqG9t/XGHszy49BzFzPeH7ZNJtC/aFe+608U4YdJv1eMxj3aRtpBtURuiO4HxQUbNMru2n3ZGcbruwCx5XSKvqOPCWYS0BFvWqgY5/blGzXv4/PiKRXyFxkpqjyTJxFnGArLMYnnW+h7Hni9Q7epOlvD3nAGKlZbVHRE6ULOThM++YmGUvnaCqAhv/mghnR3miH/ws6uVs9fDAx39GG5GE59QpcGcgOC+NDVBZZ/Kk176VanPCWOmUIeNKAZ2pLBGMck9xCxLCOVJFnQvLZIV2Wj/482JYLfuf/s28v7WInAwZukaMsZvDTboUGZyrINQnnUDB+xeX2RdIGt62WT0ktLSj1qzE0WNMrJEbTt5LZH8wWmplMU+SK+VDwFrN8N4Gf4HYGrJuq45+blof9rEPUfexmfGPqD12ZyKmg7VgIIvq2veEt8sFwTVOjw4G89xGxNCOskTEahGWB6ir0j0fIiYw4a8Qzfd4Y/wNdytoAF5D587MNJnaZ9T0fuEiGNaGuQ9qrX6PyCs9EjZdQf4C8iuOMUsh8kvfc9sxpnNiMBRYv/TJ2/J44lhUC72Q92fWd1QtEnGtDZEe1PvtMw6EVWpe0md9ra3mFcHPslb8GCWz6TN3dU27WZmI0Rui4x0KGKQP6hIqNf1ova1aB9C6yiH+jPfn9/90baGKV3JTJf/e182p4ohBHS2oYa3e7j25xKiSPx9bKMIM4UrMkudUbIA40h39S78DAlVzxeFY3bEeQwnYwBVlKbFKiH7cbXANNcS6m7A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(39860400002)(396003)(346002)(136003)(1800799009)(82310400011)(451199024)(186009)(46966006)(36840700001)(40470700004)(6666004)(54906003)(70586007)(70206006)(7696005)(2906002)(478600001)(1076003)(336012)(426003)(26005)(6916009)(5660300002)(2616005)(83380400001)(41300700001)(316002)(47076005)(36860700001)(8936002)(4326008)(82740400003)(8676002)(81166007)(356005)(40460700003)(36756003)(86362001)(40480700001)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(136003)(376002)(39860400002)(396003)(82310400011)(451199024)(186009)(1800799009)(46966006)(40470700004)(36840700001)(7696005)(6666004)(478600001)(336012)(83380400001)(426003)(2616005)(26005)(1076003)(2906002)(316002)(41300700001)(70586007)(6916009)(70206006)(54906003)(5660300002)(8676002)(4326008)(8936002)(36756003)(40460700003)(40480700001)(36860700001)(47076005)(356005)(81166007)(86362001)(82740400003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 06:07:37.5926 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 196d15e3-778d-4b0f-a005-08db9e1f1770
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 06:07:44.4135 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72e195ed-5a19-402f-411f-08db9e1f1b7a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E8.namprd02.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE36.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5400
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5922
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,218 +103,255 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+Cc: stylon.wang@amd.com, Krunoslav Kovac <krunoslav.kovac@amd.com>,
+ Anthony Koo <anthony.koo@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Samson Tam <samson.tam@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
  Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
+From: Krunoslav Kovac <krunoslav.kovac@amd.com>
 
-[Why & How]
-Before enabling the phantom OTG for an update we
-must enable DPG to avoid underflow.
+[WHY & HOW]
+HW LUTs changed slightly in DCN3: 256 base+slope pairs were replaced by
+257 bases. Code was still calculating all 256 base+slope and then
+creating 257th pt as last base + last slope.
+This was done in wrong format, and then "fixed" it by making the last
+two points the same thus making the last slope=0.
+However, this also created some precision problems near the end that
+are not visible but they do show up with capture cards.
 
-Reviewed-by: Samson Tam <samson.tam@amd.com>
+Solution is to calculate 257 and remove deltas since we no longer have
+those HW registers.
+
+Reviewed-by: Anthony Koo <anthony.koo@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Krunoslav Kovac <krunoslav.kovac@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 50 +------------------
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 10 +++-
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    | 46 +++++++++++++++++
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.h    |  5 ++
- .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |  1 +
- .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  5 +-
- 6 files changed, 67 insertions(+), 50 deletions(-)
+ .../amd/display/dc/dcn30/dcn30_cm_common.c    | 104 ++++++------------
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  |  17 ---
+ 2 files changed, 33 insertions(+), 88 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 566d7045b2de..65e1b8537ca6 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1069,53 +1069,6 @@ static void apply_ctx_interdependent_lock(struct dc *dc,
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
+index e0df9b0065f9..ddb344056d40 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
+@@ -114,7 +114,6 @@ bool cm3_helper_translate_curve_to_hw_format(
+ 	struct pwl_result_data *rgb;
+ 	struct pwl_result_data *rgb_plus_1;
+ 	struct pwl_result_data *rgb_minus_1;
+-	struct fixed31_32 end_value;
  
--static void phantom_pipe_blank(
--		struct dc *dc,
--		struct timing_generator *tg,
--		int width,
--		int height)
--{
--	struct dce_hwseq *hws = dc->hwseq;
--	enum dc_color_space color_space;
--	struct tg_color black_color = {0};
--	struct output_pixel_processor *opp = NULL;
--	uint32_t num_opps, opp_id_src0, opp_id_src1;
--	uint32_t otg_active_width, otg_active_height;
--	uint32_t i;
+ 	int32_t region_start, region_end;
+ 	int32_t i;
+@@ -176,7 +175,7 @@ bool cm3_helper_translate_curve_to_hw_format(
+ 				NUMBER_SW_SEGMENTS;
+ 		for (i = start_index; i < start_index + NUMBER_SW_SEGMENTS;
+ 				i += increment) {
+-			if (j == hw_points - 1)
++			if (j == hw_points)
+ 				break;
+ 			rgb_resulted[j].red = output_tf->tf_pts.red[i];
+ 			rgb_resulted[j].green = output_tf->tf_pts.green[i];
+@@ -187,13 +186,13 @@ bool cm3_helper_translate_curve_to_hw_format(
+ 
+ 	/* last point */
+ 	start_index = (region_end + MAX_LOW_POINT) * NUMBER_SW_SEGMENTS;
+-	rgb_resulted[hw_points - 1].red = output_tf->tf_pts.red[start_index];
+-	rgb_resulted[hw_points - 1].green = output_tf->tf_pts.green[start_index];
+-	rgb_resulted[hw_points - 1].blue = output_tf->tf_pts.blue[start_index];
++	rgb_resulted[hw_points].red = output_tf->tf_pts.red[start_index];
++	rgb_resulted[hw_points].green = output_tf->tf_pts.green[start_index];
++	rgb_resulted[hw_points].blue = output_tf->tf_pts.blue[start_index];
+ 
+-	rgb_resulted[hw_points].red = rgb_resulted[hw_points - 1].red;
+-	rgb_resulted[hw_points].green = rgb_resulted[hw_points - 1].green;
+-	rgb_resulted[hw_points].blue = rgb_resulted[hw_points - 1].blue;
++	rgb_resulted[hw_points+1].red = rgb_resulted[hw_points].red;
++	rgb_resulted[hw_points+1].green = rgb_resulted[hw_points].green;
++	rgb_resulted[hw_points+1].blue = rgb_resulted[hw_points].blue;
+ 
+ 	// All 3 color channels have same x
+ 	corner_points[0].red.x = dc_fixpt_pow(dc_fixpt_from_int(2),
+@@ -220,34 +219,16 @@ bool cm3_helper_translate_curve_to_hw_format(
+ 	/* see comment above, m_arrPoints[1].y should be the Y value for the
+ 	 * region end (m_numOfHwPoints), not last HW point(m_numOfHwPoints - 1)
+ 	 */
+-	corner_points[1].red.y = rgb_resulted[hw_points - 1].red;
+-	corner_points[1].green.y = rgb_resulted[hw_points - 1].green;
+-	corner_points[1].blue.y = rgb_resulted[hw_points - 1].blue;
++	corner_points[1].red.y = rgb_resulted[hw_points].red;
++	corner_points[1].green.y = rgb_resulted[hw_points].green;
++	corner_points[1].blue.y = rgb_resulted[hw_points].blue;
+ 	corner_points[1].red.slope = dc_fixpt_zero;
+ 	corner_points[1].green.slope = dc_fixpt_zero;
+ 	corner_points[1].blue.slope = dc_fixpt_zero;
+ 
+-	if (output_tf->tf == TRANSFER_FUNCTION_PQ || output_tf->tf == TRANSFER_FUNCTION_HLG) {
+-		/* for PQ/HLG, we want to have a straight line from last HW X point,
+-		 * and the slope to be such that we hit 1.0 at 10000/1000 nits.
+-		 */
 -
--	/* program opp dpg blank color */
--	color_space = COLOR_SPACE_SRGB;
--	color_space_to_black_color(dc, color_space, &black_color);
+-		if (output_tf->tf == TRANSFER_FUNCTION_PQ)
+-			end_value = dc_fixpt_from_int(125);
+-		else
+-			end_value = dc_fixpt_from_fraction(125, 10);
 -
--	otg_active_width = width;
--	otg_active_height = height;
--
--	/* get the OPTC source */
--	tg->funcs->get_optc_source(tg, &num_opps, &opp_id_src0, &opp_id_src1);
--	ASSERT(opp_id_src0 < dc->res_pool->res_cap->num_opp);
--
--	for (i = 0; i < dc->res_pool->res_cap->num_opp; i++) {
--		if (dc->res_pool->opps[i] != NULL && dc->res_pool->opps[i]->inst == opp_id_src0) {
--			opp = dc->res_pool->opps[i];
--			break;
--		}
+-		corner_points[1].red.slope = dc_fixpt_div(
+-			dc_fixpt_sub(dc_fixpt_one, corner_points[1].red.y),
+-			dc_fixpt_sub(end_value, corner_points[1].red.x));
+-		corner_points[1].green.slope = dc_fixpt_div(
+-			dc_fixpt_sub(dc_fixpt_one, corner_points[1].green.y),
+-			dc_fixpt_sub(end_value, corner_points[1].green.x));
+-		corner_points[1].blue.slope = dc_fixpt_div(
+-			dc_fixpt_sub(dc_fixpt_one, corner_points[1].blue.y),
+-			dc_fixpt_sub(end_value, corner_points[1].blue.x));
 -	}
--
--	if (opp && opp->funcs->opp_set_disp_pattern_generator)
--		opp->funcs->opp_set_disp_pattern_generator(
--				opp,
--				CONTROLLER_DP_TEST_PATTERN_SOLID_COLOR,
--				CONTROLLER_DP_COLOR_SPACE_UDEFINED,
--				COLOR_DEPTH_UNDEFINED,
--				&black_color,
--				otg_active_width,
--				otg_active_height,
--				0);
--
--	if (tg->funcs->is_tg_enabled(tg))
--		hws->funcs.wait_for_blank_complete(opp);
--}
--
- static void dc_update_viusal_confirm_color(struct dc *dc, struct dc_state *context, struct pipe_ctx *pipe_ctx)
- {
- 	if (dc->ctx->dce_version >= DCN_VERSION_1_0) {
-@@ -1206,7 +1159,8 @@ static void disable_dangling_plane(struct dc *dc, struct dc_state *context)
+-	lut_params->hw_points_num = hw_points;
++	// DCN3+ have 257 pts in lieu of no separate slope registers
++	// Prior HW had 256 base+slope pairs
++	lut_params->hw_points_num = hw_points + 1;
  
- 					main_pipe_width = old_stream->mall_stream_config.paired_stream->dst.width;
- 					main_pipe_height = old_stream->mall_stream_config.paired_stream->dst.height;
--					phantom_pipe_blank(dc, tg, main_pipe_width, main_pipe_height);
-+					if (dc->hwss.blank_phantom)
-+						dc->hwss.blank_phantom(dc, tg, main_pipe_width, main_pipe_height);
- 					tg->funcs->enable_crtc(tg);
- 				}
- 			}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 65fa9e21ad9c..b1046357798c 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -1859,8 +1859,16 @@ void dcn20_program_front_end_for_ctx(
- 			dc->current_state->res_ctx.pipe_ctx[i].stream->mall_stream_config.type == SUBVP_PHANTOM) {
- 			struct timing_generator *tg = dc->current_state->res_ctx.pipe_ctx[i].stream_res.tg;
+ 	k = 0;
+ 	for (i = 1; i < MAX_REGIONS_NUMBER; i++) {
+@@ -267,38 +248,37 @@ bool cm3_helper_translate_curve_to_hw_format(
+ 	rgb_plus_1 = rgb_resulted + 1;
+ 	rgb_minus_1 = rgb;
  
--			if (tg->funcs->enable_crtc)
-+			if (tg->funcs->enable_crtc) {
-+				if (dc->hwss.blank_phantom) {
-+					int main_pipe_width, main_pipe_height;
-+
-+					main_pipe_width = dc->current_state->res_ctx.pipe_ctx[i].stream->mall_stream_config.paired_stream->dst.width;
-+					main_pipe_height = dc->current_state->res_ctx.pipe_ctx[i].stream->mall_stream_config.paired_stream->dst.height;
-+					dc->hwss.blank_phantom(dc, tg, main_pipe_width, main_pipe_height);
-+				}
- 				tg->funcs->enable_crtc(tg);
+-	i = 1;
+-	while (i != hw_points + 1) {
+-		if (i >= hw_points - 1) {
+-			if (dc_fixpt_lt(rgb_plus_1->red, rgb->red))
+-				rgb_plus_1->red = dc_fixpt_add(rgb->red, rgb_minus_1->delta_red);
+-			if (dc_fixpt_lt(rgb_plus_1->green, rgb->green))
+-				rgb_plus_1->green = dc_fixpt_add(rgb->green, rgb_minus_1->delta_green);
+-			if (dc_fixpt_lt(rgb_plus_1->blue, rgb->blue))
+-				rgb_plus_1->blue = dc_fixpt_add(rgb->blue, rgb_minus_1->delta_blue);
+-		}
+-
+-		rgb->delta_red   = dc_fixpt_sub(rgb_plus_1->red,   rgb->red);
+-		rgb->delta_green = dc_fixpt_sub(rgb_plus_1->green, rgb->green);
+-		rgb->delta_blue  = dc_fixpt_sub(rgb_plus_1->blue,  rgb->blue);
++	if (fixpoint == true) {
++		i = 1;
++		while (i != hw_points + 2) {
++			if (i >= hw_points) {
++				if (dc_fixpt_lt(rgb_plus_1->red, rgb->red))
++					rgb_plus_1->red = dc_fixpt_add(rgb->red,
++							rgb_minus_1->delta_red);
++				if (dc_fixpt_lt(rgb_plus_1->green, rgb->green))
++					rgb_plus_1->green = dc_fixpt_add(rgb->green,
++							rgb_minus_1->delta_green);
++				if (dc_fixpt_lt(rgb_plus_1->blue, rgb->blue))
++					rgb_plus_1->blue = dc_fixpt_add(rgb->blue,
++							rgb_minus_1->delta_blue);
 +			}
- 		}
- 	}
- 	/* OTG blank before disabling all front ends */
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-index 680e7fa8d18a..cae5e1e68c86 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-@@ -1573,3 +1573,49 @@ void dcn32_init_blank(
- 	if (opp)
- 		hws->funcs.wait_for_blank_complete(opp);
- }
-+
-+void dcn32_blank_phantom(struct dc *dc,
-+		struct timing_generator *tg,
-+		int width,
-+		int height)
-+{
-+	struct dce_hwseq *hws = dc->hwseq;
-+	enum dc_color_space color_space;
-+	struct tg_color black_color = {0};
-+	struct output_pixel_processor *opp = NULL;
-+	uint32_t num_opps, opp_id_src0, opp_id_src1;
-+	uint32_t otg_active_width, otg_active_height;
-+	uint32_t i;
-+
-+	/* program opp dpg blank color */
-+	color_space = COLOR_SPACE_SRGB;
-+	color_space_to_black_color(dc, color_space, &black_color);
-+
-+	otg_active_width = width;
-+	otg_active_height = height;
-+
-+	/* get the OPTC source */
-+	tg->funcs->get_optc_source(tg, &num_opps, &opp_id_src0, &opp_id_src1);
-+	ASSERT(opp_id_src0 < dc->res_pool->res_cap->num_opp);
-+
-+	for (i = 0; i < dc->res_pool->res_cap->num_opp; i++) {
-+		if (dc->res_pool->opps[i] != NULL && dc->res_pool->opps[i]->inst == opp_id_src0) {
-+			opp = dc->res_pool->opps[i];
-+			break;
+ 
+-		if (fixpoint == true) {
+ 			rgb->delta_red_reg   = dc_fixpt_clamp_u0d10(rgb->delta_red);
+ 			rgb->delta_green_reg = dc_fixpt_clamp_u0d10(rgb->delta_green);
+ 			rgb->delta_blue_reg  = dc_fixpt_clamp_u0d10(rgb->delta_blue);
+ 			rgb->red_reg         = dc_fixpt_clamp_u0d14(rgb->red);
+ 			rgb->green_reg       = dc_fixpt_clamp_u0d14(rgb->green);
+ 			rgb->blue_reg        = dc_fixpt_clamp_u0d14(rgb->blue);
+-		}
+ 
+-		++rgb_plus_1;
+-		rgb_minus_1 = rgb;
+-		++rgb;
+-		++i;
++			++rgb_plus_1;
++			rgb_minus_1 = rgb;
++			++rgb;
++			++i;
 +		}
-+	}
-+
-+	if (opp && opp->funcs->opp_set_disp_pattern_generator)
-+		opp->funcs->opp_set_disp_pattern_generator(
-+				opp,
-+				CONTROLLER_DP_TEST_PATTERN_SOLID_COLOR,
-+				CONTROLLER_DP_COLOR_SPACE_UDEFINED,
-+				COLOR_DEPTH_UNDEFINED,
-+				&black_color,
-+				otg_active_width,
-+				otg_active_height,
-+				0);
-+
-+	if (tg->funcs->is_tg_enabled(tg))
-+		hws->funcs.wait_for_blank_complete(opp);
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
-index 2d2628f31bed..616d5219119e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
-@@ -115,4 +115,9 @@ void dcn32_init_blank(
- 		struct dc *dc,
- 		struct timing_generator *tg);
+ 	}
+ 	cm3_helper_convert_to_custom_float(rgb_resulted,
+ 						lut_params->corner_points,
+-						hw_points, fixpoint);
++						hw_points+1, fixpoint);
  
-+void dcn32_blank_phantom(struct dc *dc,
-+		struct timing_generator *tg,
-+		int width,
-+		int height);
-+
- #endif /* __DC_HWSS_DCN32_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
-index 777b2fac20c4..279f312f7407 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
-@@ -115,6 +115,7 @@ static const struct hw_sequencer_funcs dcn32_funcs = {
- 	.update_phantom_vp_position = dcn32_update_phantom_vp_position,
- 	.update_dsc_pg = dcn32_update_dsc_pg,
- 	.apply_update_flags_for_phantom = dcn32_apply_update_flags_for_phantom,
-+	.blank_phantom = dcn32_blank_phantom,
- };
+ 	return true;
+ }
+@@ -603,24 +583,6 @@ bool cm3_helper_convert_to_custom_float(
+ 			return false;
+ 		}
  
- static const struct hwseq_private_funcs dcn32_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-index 02ff99f7bec2..7ef0436c51b3 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-@@ -387,7 +387,10 @@ struct hw_sequencer_funcs {
- 	void (*subvp_pipe_control_lock_fast)(union block_sequence_params *params);
- 	void (*z10_restore)(const struct dc *dc);
- 	void (*z10_save_init)(struct dc *dc);
+-		if (!convert_to_custom_float_format(rgb->delta_red, &fmt,
+-						    &rgb->delta_red_reg)) {
+-			BREAK_TO_DEBUGGER();
+-			return false;
+-		}
 -
-+	void (*blank_phantom)(struct dc *dc,
-+			struct timing_generator *tg,
-+			int width,
-+			int height);
- 	void (*update_visual_confirm_color)(struct dc *dc,
- 			struct pipe_ctx *pipe_ctx,
- 			int mpcc_id);
+-		if (!convert_to_custom_float_format(rgb->delta_green, &fmt,
+-						    &rgb->delta_green_reg)) {
+-			BREAK_TO_DEBUGGER();
+-			return false;
+-		}
+-
+-		if (!convert_to_custom_float_format(rgb->delta_blue, &fmt,
+-						    &rgb->delta_blue_reg)) {
+-			BREAK_TO_DEBUGGER();
+-			return false;
+-		}
+-
+ 		++rgb;
+ 		++i;
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
+index 6cf40c1332bc..d1500b223858 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
+@@ -278,22 +278,10 @@ static void mpc3_program_ogam_pwl(
+ {
+ 	uint32_t i;
+ 	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
+-	uint32_t last_base_value_red = rgb[num-1].red_reg + rgb[num-1].delta_red_reg;
+-	uint32_t last_base_value_green = rgb[num-1].green_reg + rgb[num-1].delta_green_reg;
+-	uint32_t last_base_value_blue = rgb[num-1].blue_reg + rgb[num-1].delta_blue_reg;
+-
+-	/*the entries of DCN3AG gamma LUTs take 18bit base values as opposed to
+-	 *38 base+delta values per entry in earlier DCN architectures
+-	 *last base value for our lut is compute by adding the last base value
+-	 *in our data + last delta
+-	 */
+ 
+ 	if (is_rgb_equal(rgb,  num)) {
+ 		for (i = 0 ; i < num; i++)
+ 			REG_SET(MPCC_OGAM_LUT_DATA[mpcc_id], 0, MPCC_OGAM_LUT_DATA, rgb[i].red_reg);
+-
+-		REG_SET(MPCC_OGAM_LUT_DATA[mpcc_id], 0, MPCC_OGAM_LUT_DATA, last_base_value_red);
+-
+ 	} else {
+ 
+ 		REG_UPDATE(MPCC_OGAM_LUT_CONTROL[mpcc_id],
+@@ -302,8 +290,6 @@ static void mpc3_program_ogam_pwl(
+ 		for (i = 0 ; i < num; i++)
+ 			REG_SET(MPCC_OGAM_LUT_DATA[mpcc_id], 0, MPCC_OGAM_LUT_DATA, rgb[i].red_reg);
+ 
+-		REG_SET(MPCC_OGAM_LUT_DATA[mpcc_id], 0, MPCC_OGAM_LUT_DATA, last_base_value_red);
+-
+ 		REG_SET(MPCC_OGAM_LUT_INDEX[mpcc_id], 0, MPCC_OGAM_LUT_INDEX, 0);
+ 
+ 		REG_UPDATE(MPCC_OGAM_LUT_CONTROL[mpcc_id],
+@@ -312,8 +298,6 @@ static void mpc3_program_ogam_pwl(
+ 		for (i = 0 ; i < num; i++)
+ 			REG_SET(MPCC_OGAM_LUT_DATA[mpcc_id], 0, MPCC_OGAM_LUT_DATA, rgb[i].green_reg);
+ 
+-		REG_SET(MPCC_OGAM_LUT_DATA[mpcc_id], 0, MPCC_OGAM_LUT_DATA, last_base_value_green);
+-
+ 		REG_SET(MPCC_OGAM_LUT_INDEX[mpcc_id], 0, MPCC_OGAM_LUT_INDEX, 0);
+ 
+ 		REG_UPDATE(MPCC_OGAM_LUT_CONTROL[mpcc_id],
+@@ -322,7 +306,6 @@ static void mpc3_program_ogam_pwl(
+ 		for (i = 0 ; i < num; i++)
+ 			REG_SET(MPCC_OGAM_LUT_DATA[mpcc_id], 0, MPCC_OGAM_LUT_DATA, rgb[i].blue_reg);
+ 
+-		REG_SET(MPCC_OGAM_LUT_DATA[mpcc_id], 0, MPCC_OGAM_LUT_DATA, last_base_value_blue);
+ 	}
+ 
+ }
 -- 
 2.37.3
 
