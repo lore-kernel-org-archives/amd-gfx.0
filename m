@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADEA5C001E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 06:08:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EA6BC001E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 06:08:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38F1710E2D0;
-	Wed, 16 Aug 2023 06:08:14 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A16D910E2D0
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 06:08:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C1B310E2D9;
+	Wed, 16 Aug 2023 06:08:21 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2053.outbound.protection.outlook.com [40.107.93.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EC0F10E2D4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 06:08:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KHiKjB1DBZazyORUHjjuBmpCIR0uNv2lFYlFidLJmeY79YTa+0u+im1MDIo1HfwnF88F+ZQET3A/aveVMxs83u0Zvt04T4Zd/vTCPA2fyKuPAUBUVbdpI4rp6Pshhiqxj9WuacSwQCf8avKcr216XOvW4eQLBMk/dj/6gQY/hCH9ALMWMqnymPrpLQ4jMQVLwYzKd5T+NJqs4EyGdvh7ZyZegvI8Ur0KOGg5IEhtrtMuoEsudSApSxPAg+h1FIMTYJ16wSSBYyoAdmCAL/IdYIAYy37AE8UkBasVVNvvy+WgBsKTOd4b8UiSuv9SrQQ6gk+cIZYQ5atNhf7gzwcemQ==
+ b=EfkLFAl8QrANTZ39cHD0TK7lOdTFvOf2UJDGhcqN2b7A6ghLjDnqfZ6Yv7GtDSpJRMcVRvqyhyYNpbW2iMGXiCGgB/ebyyOPK+mSnAQs+E9SoPJd8fHiodn6bKyv6JnQ53NNCOfvtcCb6nInEbyfQcV6bS1u079Gm3lH4lktwpVV4/SrXByBY9osTQ9aOIXpmrsVsO/BSivmi5F/mPhEFaRpr9i9/yoJT6DflxYsHxWYEbjfacvwnt4G7vJfXV6B4+BBUlR+KBU/SrOqyHlhO4m8BSFHKmnRZljXNzSdqGoMvWkLf71tPHD1c4lKGD/3zGKgNHCDIFpTlDQBQbB97w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yWhcydVFWeWXl6UsUTS0Effy+Cs077bJGuY45RQZ2XM=;
- b=NEX/kerEqdeAB04Rr3/tsEq4riOu85lQ3XHxuTSd5RQY87QqeWVjwTiMXOtgo+7efuL40l+IYKdkNWqe68JH1CYJ0Fch/XRERjIhw9hktRLePQUDsYZmaOKQvgD9kNZG4NL01eTokQzfsQNDJ/W6f4VoC8Td38ULK+jkenDrnJdx+WIylEsRIGOQoqVkAB5HVoLREmzgq9eLKudk8tWzRZVZbEE+aWRNlXaRftoR1/keALnRsjYGQaQVkri1Che7E/AqpzTUNXB+X27ul5atTXiJCW0OAmVZpgidU1R/h+aQvB7SUUhnUcMvWyJNqTVAt3kSD728SvRiGId5+I9FNA==
+ bh=d6+sl7ZNlVEUpZi/nbGrPy4T5/pTulvjwFhoozAXd44=;
+ b=QVaqD4rQ/HXoe9wTKFi+Qy9VDtRvIxZJgnSZAWjFkkDXoSW6/Cf3jaaRvtivX6Z1tnIMyJpKSJTZA7zODGrivEvoYCibXqdK8RPTDdj2QlLUVyy6s+4x+mMwCZwxRwoZV9w9eDajqk6UXQU8A0TO4tN3MawerESY2oqvKK0yaXhFLpAuSIaZzJXEEvD954hkTH7dvbklsYRRXdn1y6wH4j98xEo2VUfxku3wQQh2jy04f6MQRZ9CT2S+0gMZbxBzy5RdU5qPVKZK7qauCrSeyrX0UwQJWYO64SQoyXD8joXRoeRYM9crib8aws2gs9ypDaIxkZ8wrvevUq8y73+zwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yWhcydVFWeWXl6UsUTS0Effy+Cs077bJGuY45RQZ2XM=;
- b=E/rELt5rb4PMmzf1POKCW2sbQBD8FxASp6kr/iCsYgxDmvgD8ePt+RV2ehYQcBFH6SFc3gJCVVuCnVuyJTCOi6hjcw8yBH21M8SteDKxvdNUeBFNE32togK1qfWxhgv0dJMqzJsWltTX2s7u5xyT2J0ntgmhc0VmUon0WmPRN3Q=
-Received: from DM6PR11CA0015.namprd11.prod.outlook.com (2603:10b6:5:190::28)
- by SA1PR12MB6996.namprd12.prod.outlook.com (2603:10b6:806:24f::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Wed, 16 Aug
- 2023 06:08:10 +0000
-Received: from CY4PEPF0000EE32.namprd05.prod.outlook.com
- (2603:10b6:5:190:cafe::5a) by DM6PR11CA0015.outlook.office365.com
- (2603:10b6:5:190::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.33 via Frontend
- Transport; Wed, 16 Aug 2023 06:08:10 +0000
+ bh=d6+sl7ZNlVEUpZi/nbGrPy4T5/pTulvjwFhoozAXd44=;
+ b=gpgN+Jxz+IFF/3KW9e1jshPRyP3El57jY1/+7thsd8ek3IC72pT9mVzAhIycX32MvKa6sHRQ+32BXX4A3QjbgDPGwoRwoCbzAjh7tR54RFosr/mXlqlZUwSQ2x+CrHBBCYO5hgG9kmtv0FPwgMDfG9q9eG+/yLzOe3Z+PzCZYzo=
+Received: from SJ0PR05CA0111.namprd05.prod.outlook.com (2603:10b6:a03:334::26)
+ by SJ0PR12MB7474.namprd12.prod.outlook.com (2603:10b6:a03:48d::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.19; Wed, 16 Aug
+ 2023 06:08:16 +0000
+Received: from MWH0EPF000971E8.namprd02.prod.outlook.com
+ (2603:10b6:a03:334:cafe::ad) by SJ0PR05CA0111.outlook.office365.com
+ (2603:10b6:a03:334::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.15 via Frontend
+ Transport; Wed, 16 Aug 2023 06:08:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000EE32.mail.protection.outlook.com (10.167.242.38) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E8.mail.protection.outlook.com (10.167.243.68) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.14 via Frontend Transport; Wed, 16 Aug 2023 06:08:09 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6699.15 via Frontend Transport; Wed, 16 Aug 2023 06:08:16 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 16 Aug
- 2023 01:08:08 -0500
+ 2023 01:08:15 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 15 Aug
- 2023 23:08:08 -0700
+ 2023 23:08:15 -0700
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Wed, 16 Aug 2023 01:07:58 -0500
+ Transport; Wed, 16 Aug 2023 01:08:10 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/16] drm/amd/display: Enable runtime register offset init
- for DCN32 DMUB
-Date: Wed, 16 Aug 2023 14:06:48 +0800
-Message-ID: <20230816060658.2141009-7-Wayne.Lin@amd.com>
+Subject: [PATCH 07/16] drm/amd/display: Roll back unit correction
+Date: Wed, 16 Aug 2023 14:06:49 +0800
+Message-ID: <20230816060658.2141009-8-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20230816060658.2141009-1-Wayne.Lin@amd.com>
 References: <20230816060658.2141009-1-Wayne.Lin@amd.com>
@@ -73,26 +72,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE32:EE_|SA1PR12MB6996:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06f29197-9f94-4d7c-f783-08db9e1f2aa8
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E8:EE_|SJ0PR12MB7474:EE_
+X-MS-Office365-Filtering-Correlation-Id: addb130c-0a33-4a0d-42f8-08db9e1f2ea1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7zXxL/CWYIygZyOv3OlykPWkYYWRoOGrRmzmFWbtyqFC/s9hkT85bFK6CD6tNJ39ARMxrcTQkd+oDSynpp5Hd1BnjVyy7c/FKjbUUEjZkKzKH1dLZojONANMjnqoQcH7ZMQ8IHQ2ZfA/oOrcdDSFhclVLDXbXUi/dImUba3SDcaqfyWv2BWKRX4cPjLrur5zMbRc4UAEBYAxcPE4FIt2x7NzYvcYUZkFD97jc5Kxj3wj7jqmcvhrbVbG3S6fcPHpQM5WNDC7NVqS/8+JKJpDKq/s3maewmIfvU+aoEjuq5G1wmuxMmki4DSW/50HPAR5j93r+tBoLeAnpZv7Eq9huUDZ5UWwytcsgGRYAeI6xM0L1Rye7qAsX4Z1/b1xs6g1c+QWqANUbfsbteeTPuuhEfze2wlyJ+SPDhLYAg8ndvG6oaEop/bBM1OAOSJ7IhC09/7pFdtkS4pOlDPrTesyrXwCt97YddxtGsKWHZ94va8t73/zGYjxaFuu5ALOfCO+ooOSYikb1xPqX05MZUflndYXVvz+innLqx6upIYMoDtEC6pv2pBq8yEyi5Ot0er6afMmR3qLw19HeqAL9/TncmIFnhV6JuMgwxbzrGhhnnjsc19RIVHuehiEnzARLKcbGh+yfVlj5pi4VMfXVqZJpvxSqL5H5TAaf0fM3iMufQXHUMlFi7JF0DI3x5V1g9jeED+p7HF8IXTWu9HkYc4l9P3EC9vZViRHVl9HXaHAqhm9N7qvPA56vTdDU9eS5SoHFXtMlPvMQq598p58nNOkqw==
+X-Microsoft-Antispam-Message-Info: 9QGxiOyqIlkeO++B1qTB4vW3JkmmGpErPOQDjp9r39zuYlkzBlY9/4PqWRwMJ52wjmARIXpGOCGJeNejgiHOzwZVbgVauAalxzc9t+Y6BKKq/kf1aHv/on6bpMbsW78B1WtrEVJ1Bh8kDX2ApU68LSz4/Ln+Typxcmyruls1B3FQfwADNxB6AY1J7ZGopphpYPkGPkLm0G71pURCIMK7P5N2AOZwGRXJpHLpuq8f6GWBzmkJPJ1HDXn/7srlgBPCxHsnsID6XNTjopSvFwHF/h+bUTZO03szioe27au5QByLWPd803PEkLf8IDq2fcwi+XNi5m3fzAkYsWlszKcMH++xJv7tBYVFGISjC8otaWBV55v1Otrr7QtgoGlLQi85eiCj7wPGKGrbUWm1M1Q4aX/6RDAMDg7kD7w3EY1aKl9ugviVaOe7sVXuJqTFxabePgCOgfLr0p2LyW4zm/F2U5vH1BhXKQsAznMoNNGRbaN+a8MqaEovDNsYiFgWXQF7kVWx6zGfGlwWOcJJoY5xKOMyUL4K7iZi0QUMoG+Js1Dke8PyOVhtE3L4wpmeVpSDXjAU9FWEdwabBHnsWz8R6ubWv9e/tHQzASoSlANB2NNG2+8ftHPOLYsZxKnYQDFBOTjhrsym6awes9Dw7YL5rytZJ8OOkDOmnuXMmYPZDW9ffm5PtbxIRRJYjSOzc02X9BELYo7NKsmEzkvaOqwv+mI0lqGiB1zEkoFQuAd5alb6xq50SMWik/s2fJymtBI48p4qQh28TBvoYwnX5tUSkA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230031)(4636009)(376002)(39860400002)(396003)(346002)(136003)(1800799009)(82310400011)(451199024)(186009)(46966006)(36840700001)(40470700004)(6666004)(54906003)(70586007)(70206006)(7696005)(2906002)(478600001)(1076003)(336012)(426003)(26005)(6916009)(5660300002)(2616005)(83380400001)(41300700001)(316002)(47076005)(36860700001)(8936002)(4326008)(82740400003)(8676002)(81166007)(356005)(40460700003)(36756003)(86362001)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 06:08:09.8854 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06f29197-9f94-4d7c-f783-08db9e1f2aa8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 06:08:16.4833 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: addb130c-0a33-4a0d-42f8-08db9e1f2ea1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE32.namprd05.prod.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E8.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6996
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7474
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,195 +103,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Reza Amini <reza.amini@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Ovidiu Bunea <ovidiu.bunea@amd.com>, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+From: Ovidiu Bunea <ovidiu.bunea@amd.com>
 
-[Why&How]
-DMUB subsystem was continuing to use compile time offset calculation for
-register access. Switch this to runtime calculation to stay consistent
-with rest of DC code.
+[why]
+This Unit correction exposes a Replay corruption.
 
-To enable this, an additional interface init_reg_offsets() are added to
-DMUB's hw_funcs struct. Asics with runtime register offset calculation
-enabled shall populate this hook with a fn pointer that will invoke the
-necessary macros to calculate the offset.
+[how]
+This reverts commit:
+commit 7d3cedf18068 ("drm/amd/display: Correct unit conversion for vstartup")
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Roll back unit conversion until Replay can fix their corruption.
+
+Fixes: 7d3cedf18068 ("drm/amd/display: Correct unit conversion for vstartup")
+Reviewed-by: Reza Amini <reza.amini@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +++
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  4 ++-
- .../gpu/drm/amd/display/dmub/src/dmub_dcn32.c | 34 +++++++++++--------
- .../gpu/drm/amd/display/dmub/src/dmub_dcn32.h | 10 +++---
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  3 ++
- 5 files changed, 36 insertions(+), 20 deletions(-)
+ .../amd/display/dc/dml/dcn314/dcn314_fpu.c    | 25 +------------------
+ 1 file changed, 1 insertion(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 98aa7ee8acf8..e5a2ae53d80b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1068,6 +1068,7 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
- 	const struct firmware *dmub_fw = adev->dm.dmub_fw;
- 	struct dmcu *dmcu = adev->dm.dc->res_pool->dmcu;
- 	struct abm *abm = adev->dm.dc->res_pool->abm;
-+	struct dc_context *ctx = adev->dm.dc->ctx;
- 	struct dmub_srv_hw_params hw_params;
- 	enum dmub_status status;
- 	const unsigned char *fw_inst_const, *fw_bss_data;
-@@ -1089,6 +1090,10 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
- 		return -EINVAL;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
+index 07adb614366e..ed8ddb75b333 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
+@@ -31,7 +31,6 @@
+ #include "dml/dcn20/dcn20_fpu.h"
+ #include "dml/dcn31/dcn31_fpu.h"
+ #include "dml/display_mode_vba.h"
+-#include "dml/dml_inline_defs.h"
  
-+	/* initialize register offsets for ASICs with runtime initialization available */
-+	if (dmub_srv->hw_funcs.init_reg_offsets)
-+		dmub_srv->hw_funcs.init_reg_offsets(dmub_srv, ctx);
-+
- 	status = dmub_srv_has_hw_support(dmub_srv, &has_hw_support);
- 	if (status != DMUB_STATUS_OK) {
- 		DRM_ERROR("Error checking HW support for DMUB: %d\n", status);
-diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-index 2d995c87fbb9..43676c1c81d9 100644
---- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-@@ -65,6 +65,7 @@
-  */
+ struct _vcs_dpi_ip_params_st dcn3_14_ip = {
+ 	.VBlankNomDefaultUS = 668,
+@@ -274,25 +273,6 @@ static bool is_dual_plane(enum surface_pixel_format format)
+ 	return format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN || format == SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA;
+ }
  
- #include "inc/dmub_cmd.h"
-+#include "dc/dc_types.h"
- 
- #if defined(__cplusplus)
- extern "C" {
-@@ -399,6 +400,7 @@ struct dmub_srv_hw_funcs {
- 	void (*get_diagnostic_data)(struct dmub_srv *dmub, struct dmub_diagnostic_data *dmub_oca);
- 
- 	bool (*should_detect)(struct dmub_srv *dmub);
-+	void (*init_reg_offsets)(struct dmub_srv *dmub, struct dc_context *ctx);
- };
- 
- /**
-@@ -438,7 +440,7 @@ struct dmub_srv {
- 	/* private: internal use only */
- 	const struct dmub_srv_common_regs *regs;
- 	const struct dmub_srv_dcn31_regs *regs_dcn31;
--	const struct dmub_srv_dcn32_regs *regs_dcn32;
-+	struct dmub_srv_dcn32_regs *regs_dcn32;
- 
- 	struct dmub_srv_base_funcs funcs;
- 	struct dmub_srv_hw_funcs hw_funcs;
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-index bf5994e292d9..8f427047ac40 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-@@ -26,33 +26,39 @@
- #include "../dmub_srv.h"
- #include "dmub_reg.h"
- #include "dmub_dcn32.h"
-+#include "dc/dc_types.h"
- 
- #include "dcn/dcn_3_2_0_offset.h"
- #include "dcn/dcn_3_2_0_sh_mask.h"
- 
- #define DCN_BASE__INST0_SEG2                       0x000034C0
- 
--#define BASE_INNER(seg) DCN_BASE__INST0_SEG##seg
-+#define BASE_INNER(seg) ctx->dcn_reg_offsets[seg]
- #define CTX dmub
- #define REGS dmub->regs_dcn32
--#define REG_OFFSET_EXP(reg_name) (BASE(reg##reg_name##_BASE_IDX) + reg##reg_name)
+-/*
+- * micro_sec_to_vert_lines () - converts time to number of vertical lines for a given timing
+- *
+- * @param: num_us: number of microseconds
+- * @return: number of vertical lines. If exact number of vertical lines is not found then
+- *          it will round up to next number of lines to guarantee num_us
+- */
+-static unsigned int micro_sec_to_vert_lines(unsigned int num_us, struct dc_crtc_timing *timing)
+-{
+-	unsigned int num_lines = 0;
+-	unsigned int lines_time_in_ns = 1000.0 *
+-			(((float)timing->h_total * 1000.0) /
+-			 ((float)timing->pix_clk_100hz / 10.0));
 -
--const struct dmub_srv_dcn32_regs dmub_srv_dcn32_regs = {
--#define DMUB_SR(reg) REG_OFFSET_EXP(reg),
--	{
--		DMUB_DCN32_REGS()
--		DMCUB_INTERNAL_REGS()
--	},
-+#define REG_OFFSET_EXP(reg_name) BASE(reg##reg_name##_BASE_IDX) + reg##reg_name
-+
-+void dmub_srv_dcn32_regs_init(struct dmub_srv *dmub,  struct dc_context *ctx)
-+{
-+	struct dmub_srv_dcn32_regs *regs = dmub->regs_dcn32;
-+
-+#define REG_STRUCT regs
-+
-+#define DMUB_SR(reg) REG_STRUCT->offset.reg = REG_OFFSET_EXP(reg);
-+	DMUB_DCN32_REGS()
-+	DMCUB_INTERNAL_REGS()
- #undef DMUB_SR
- 
--#define DMUB_SF(reg, field) FD_MASK(reg, field),
--		{ DMUB_DCN32_FIELDS() },
-+#define DMUB_SF(reg, field) REG_STRUCT->mask.reg##__##field = FD_MASK(reg, field);
-+	DMUB_DCN32_FIELDS()
- #undef DMUB_SF
- 
--#define DMUB_SF(reg, field) FD_SHIFT(reg, field),
--		{ DMUB_DCN32_FIELDS() },
-+#define DMUB_SF(reg, field) REG_STRUCT->shift.reg##__##field = FD_SHIFT(reg, field);
-+	DMUB_DCN32_FIELDS()
- #undef DMUB_SF
--};
-+
-+#undef REG_STRUCT
-+}
- 
- static void dmub_dcn32_get_fb_base_offset(struct dmub_srv *dmub,
- 		uint64_t *fb_base,
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h
-index d58a1e4b9f1c..38e47065e00e 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h
-@@ -178,13 +178,11 @@ struct dmub_srv_dcn32_reg_mask {
- };
- 
- struct dmub_srv_dcn32_regs {
--	const struct dmub_srv_dcn32_reg_offset offset;
--	const struct dmub_srv_dcn32_reg_mask mask;
--	const struct dmub_srv_dcn32_reg_shift shift;
-+	struct dmub_srv_dcn32_reg_offset offset;
-+	struct dmub_srv_dcn32_reg_mask mask;
-+	struct dmub_srv_dcn32_reg_shift shift;
- };
- 
--extern const struct dmub_srv_dcn32_regs dmub_srv_dcn32_regs;
+-	num_lines = dml_ceil(1000.0 * num_us / lines_time_in_ns, 1.0);
 -
- void dmub_dcn32_reset(struct dmub_srv *dmub);
+-	return num_lines;
+-}
+-
+ int dcn314_populate_dml_pipes_from_context_fpu(struct dc *dc, struct dc_state *context,
+ 					       display_e2e_pipe_params_st *pipes,
+ 					       bool fast_validate)
+@@ -309,22 +289,19 @@ int dcn314_populate_dml_pipes_from_context_fpu(struct dc *dc, struct dc_state *c
  
- void dmub_dcn32_reset_release(struct dmub_srv *dmub);
-@@ -256,4 +254,6 @@ void dmub_dcn32_send_inbox0_cmd(struct dmub_srv *dmub, union dmub_inbox0_data_re
- void dmub_dcn32_clear_inbox0_ack_register(struct dmub_srv *dmub);
- uint32_t dmub_dcn32_read_inbox0_ack_register(struct dmub_srv *dmub);
+ 	for (i = 0, pipe_cnt = 0; i < dc->res_pool->pipe_count; i++) {
+ 		struct dc_crtc_timing *timing;
+-		unsigned int num_lines = 0;
  
-+void dmub_srv_dcn32_regs_init(struct dmub_srv *dmub, struct dc_context *ctx);
-+
- #endif /* _DMUB_DCN32_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 93624ffe4eb8..9780c157196c 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -78,6 +78,8 @@
+ 		if (!res_ctx->pipe_ctx[i].stream)
+ 			continue;
+ 		pipe = &res_ctx->pipe_ctx[i];
+ 		timing = &pipe->stream->timing;
  
- #define DMUB_REGION5_BASE (0xA0000000)
+-		num_lines = micro_sec_to_vert_lines(dcn3_14_ip.VBlankNomDefaultUS, timing);
+-
+ 		if (pipe->stream->adjust.v_total_min != 0)
+ 			pipes[pipe_cnt].pipe.dest.vtotal = pipe->stream->adjust.v_total_min;
+ 		else
+ 			pipes[pipe_cnt].pipe.dest.vtotal = timing->v_total;
  
-+static struct dmub_srv_dcn32_regs dmub_srv_dcn32_regs;
-+
- static inline uint32_t dmub_align(uint32_t val, uint32_t factor)
- {
- 	return (val + factor - 1) / factor * factor;
-@@ -304,6 +306,7 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
- 		funcs->set_outbox0_rptr = dmub_dcn32_set_outbox0_rptr;
- 		funcs->get_current_time = dmub_dcn32_get_current_time;
- 		funcs->get_diagnostic_data = dmub_dcn32_get_diagnostic_data;
-+		funcs->init_reg_offsets = dmub_srv_dcn32_regs_init;
- 
- 		break;
+ 		pipes[pipe_cnt].pipe.dest.vblank_nom = timing->v_total - pipes[pipe_cnt].pipe.dest.vactive;
+-		pipes[pipe_cnt].pipe.dest.vblank_nom = min(pipes[pipe_cnt].pipe.dest.vblank_nom, num_lines);
++		pipes[pipe_cnt].pipe.dest.vblank_nom = min(pipes[pipe_cnt].pipe.dest.vblank_nom, dcn3_14_ip.VBlankNomDefaultUS);
+ 		pipes[pipe_cnt].pipe.dest.vblank_nom = max(pipes[pipe_cnt].pipe.dest.vblank_nom, timing->v_sync_width);
+ 		pipes[pipe_cnt].pipe.dest.vblank_nom = min(pipes[pipe_cnt].pipe.dest.vblank_nom, max_allowed_vblank_nom);
  
 -- 
 2.37.3
