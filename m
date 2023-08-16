@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AB54C04A94
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 06:07:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C991C04A94
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 06:07:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1BA010E2D7;
-	Wed, 16 Aug 2023 06:07:26 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2073.outbound.protection.outlook.com [40.107.94.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DA6110E2D0
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 06:07:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9495110E2CC;
+	Wed, 16 Aug 2023 06:07:44 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B42610E2CC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 06:07:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mwVXYG1rj/UImFOLdg6b45pjngIDxr7qbn1vVid7OKi1xHkNGlkCYtsDBEMCTq+l2ydzdfgSQi5FOl29e8N6ZPVE36WKn0IbtOW6bHr5ATNaPkyDT+UOUv7w2xqqsOI5X6qKDOwxE7YBPcASySrqR028KoXOl4D/s+sNExhSaKqBJY+QIbzdB9fxU31q/OSYt0bLAIsXn4JePPG8cOJPsB/5p+XlNJsCWqkv4O2t1qIIrDJLuB/1FlzAsWFGbMwklM3WQKk//XE2DUGgaiD/w/AiTfBRKEYyculg4kgrP/uNOkrh66SqjoVx6GKhXEUc92XZ63OFPrYAqDDgyV3pLA==
+ b=KcwnLVCy458AG+8//wK2BDrET4nIGo1HO2hQ5OehHeqn7t44Q/qt35oycvrY2Dboooz7BYJwhtrmKWb1ULkSXso1HgDb8Mgl6ctfOsL0FsgA/tAK1hffOQ+ykCRzF2lfPBNPt3TlPL/IbeAesjeTQRx5fc57hI16kVOdymod5f03T/I4YSbLDJoiGYIvwfkfWuGHCWANlBsPpocenOObE1vLoz3Av5cJXyg0LkZJBqujjFk1QwNd8aIErYA5zSpfjJZTZTkMKbBS0fvFXqhpDfXqUXKr+4oIi+jU666QteSbTRd2QYLo4UpsQiFdPaywXFIxhg8Vzh46F6XtUvNfWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dJg0r4/is7hb8k9KIEHbmwee6eQLx6gDT9SGpQPLntM=;
- b=iOx5AutZFPAEeTVLTHq5GsCHg6pO6QRoDqAv7ULhjsP6qp2+Ac4xglNxuLJ+92OFpzsdsZa0nhSyQo2CcIky29UcwGSgTCAVZLXrTHIbyA09h6R9lxxuQ/tj7+AdnizO2xHb2orIk14j6HVt1u5XJ4Bz8oXRWFFlxBotYatfjTb5G6ic/ZL9u4ohHs/t4/34j8lryAq70LZJFFmPx6OxvAqbmUsO1u32fC5rURL91bdmxjjXJC0Ue6THZo42sAuZgHpvF5d28cFPlbSMSY6Q+grqPmzggICfyWiYPe68WvpGm3o95tDr8Q0Z9lNbq4rL17mI1wAfexexiFjwYgn8WQ==
+ bh=btGdADtnOd8lrvLf8uxSfdUOuCAKMEsQCSBPjQ7Q1eU=;
+ b=IQ7FyPdy6G9ZfvSK882zImDXVc76ShfS3sMXo/+AFSqByHUz786hJR4nADT+uwZr1JwW+csfV435IM2VGsBxSTEDwSPhx9f3H0ix2mA9jdRxJOSBEAmcqs+FANS5YKDVklFDCQjb7ILuHR15FPeLBUrLhxMnIJI/zii7Shg8LtF1YATamd1jrYInWinT258L7BZVksFQ2FfmP3vzQHg9LcZvqUZ1SAAmHZSC5FH5LIQYFX+Mqp8TSIIKOnV9va7l5qUxbRsCQ9HFnXrImZ7AxDqr3194xFOivKYa6JvL+FG4vuK3nmizWta9DdMb1SyNRKvo4+lvpY4dMJTFx3n/lQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dJg0r4/is7hb8k9KIEHbmwee6eQLx6gDT9SGpQPLntM=;
- b=0R/DqtVkDfHq4XVAPcRC26+lMt0GH8NC5JGt9FjuHtgUWWy2GBxouHiw5YsnGJDKMqsRqLMg1qLFi2DEYeQh8pJNysqoHi7ooL/582Ylv+6gbtfaao+aVZ09QQRBG+beHp9YrDwyRFws4jeOKuKUjhDT9jvUqPJxqV+/PKwUsBo=
-Received: from MW4PR04CA0323.namprd04.prod.outlook.com (2603:10b6:303:82::28)
- by DM4PR12MB7672.namprd12.prod.outlook.com (2603:10b6:8:103::18) with
+ bh=btGdADtnOd8lrvLf8uxSfdUOuCAKMEsQCSBPjQ7Q1eU=;
+ b=oaZCUtJn8umNJrLBu61u+sl4Jsj6h8Sq3Z+FpXRDgSf2sQb4QP3qiQSckT5Hw/XJ/sij4617MIdLA0+3MBh14MPjB6HA2COQtnKtmkInsnd+eRz+qQlkCoplV2ib21W6/+DqATGnesQ2ZMsUPFH0r9wcSYPzO/2AaBvesR9mdAg=
+Received: from SJ0PR05CA0100.namprd05.prod.outlook.com (2603:10b6:a03:334::15)
+ by DM8PR12MB5400.namprd12.prod.outlook.com (2603:10b6:8:3b::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Wed, 16 Aug
- 2023 06:07:24 +0000
-Received: from MWH0EPF000971E3.namprd02.prod.outlook.com
- (2603:10b6:303:82:cafe::40) by MW4PR04CA0323.outlook.office365.com
- (2603:10b6:303:82::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.29; Wed, 16 Aug
+ 2023 06:07:38 +0000
+Received: from MWH0EPF000971E8.namprd02.prod.outlook.com
+ (2603:10b6:a03:334:cafe::e2) by SJ0PR05CA0100.outlook.office365.com
+ (2603:10b6:a03:334::15) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.14 via Frontend
- Transport; Wed, 16 Aug 2023 06:07:24 +0000
+ Transport; Wed, 16 Aug 2023 06:07:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,21 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E3.mail.protection.outlook.com (10.167.243.70) with Microsoft
+ MWH0EPF000971E8.mail.protection.outlook.com (10.167.243.68) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.15 via Frontend Transport; Wed, 16 Aug 2023 06:07:24 +0000
+ 15.20.6699.15 via Frontend Transport; Wed, 16 Aug 2023 06:07:37 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 16 Aug
- 2023 01:07:22 -0500
+ 2023 01:07:36 -0500
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Wed, 16 Aug 2023 01:07:12 -0500
+ Transport; Wed, 16 Aug 2023 01:07:31 -0500
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 01/16] drm/amd/display: Expose mall capability
-Date: Wed, 16 Aug 2023 14:06:43 +0800
-Message-ID: <20230816060658.2141009-2-Wayne.Lin@amd.com>
+Subject: [PATCH 02/16] drm/amd/display: Blank phantom OTG before enabling
+Date: Wed, 16 Aug 2023 14:06:44 +0800
+Message-ID: <20230816060658.2141009-3-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20230816060658.2141009-1-Wayne.Lin@amd.com>
 References: <20230816060658.2141009-1-Wayne.Lin@amd.com>
@@ -68,26 +68,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E3:EE_|DM4PR12MB7672:EE_
-X-MS-Office365-Filtering-Correlation-Id: f09c949c-811f-4ac6-b1f9-08db9e1f0f67
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E8:EE_|DM8PR12MB5400:EE_
+X-MS-Office365-Filtering-Correlation-Id: 196d15e3-778d-4b0f-a005-08db9e1f1770
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: waG6NuWyyOglTlin3Cz+U4mbub8CL7PyEhs5lnAwme65DmoQQfgm8ZrhpUzidkD4Mq4by+Bk3tT8wHQhNmDVNwzgsw2ENCdsMt4z2f4JbamohVxEAQkUd/T+yINP34+B6t2JahtbNak61WYS8H+fIlI5j6kzd7I4TdLCFggePSb3AISoEPtPOT1+OKk7RihSNyg2jhBmk89Z2nkWuKR3D+hFAXCoeLzVzz0kgfJPdzf97zxy1T/BXbbo3rGdERfnKhW0xJis1vvWhpaC4XY9+FhOMUEXB7F2zNKhvtHw3mDd58LTHe+EG3e0mkH7Q+48WshRYk5pfzpPrZQ8xCh6buTXPJBHcHDXqcovF/iQMg2cp8m192jggb91HArUllLntAX9HdSDibBUHMTgyrlz9ol0fU3Z3eM/QvirXX00sH/D6Z9zzVGH6PRuxFOyg5gnXinZDA3+di79Cx9qFYPbCz0X9kKtmwfdm8CbdQqtFF7xfSteTd996f1ZZDPFaEGDOPmSaTXEduLqlSeGDwZbbaRfR6+E2c9WA7i+Zm+KZTptIOTKEM+Xxq/Q4kGXPyW/KcN0Y4fEqpslOHx1Q4AjjTW7BASarl8rdELeXVjN8ZjgS7DXcgi7+CnRz70fTgq4+MOvmKA9Alj4bokYcPPG2oz/7pgyNZHlH8cMZeqSsnEd67LMilfVYj/3uiBcpBq/+qbdhxQnPrIkySbn6XoGaE2gFAbMQwcn50Gj4oy7rwLdd+vTXclsf17tM0WwyhA8yrjYcrSDMWNegupqcmm9Fg==
+X-Microsoft-Antispam-Message-Info: 7IN6+LMIabDsXN9jvZJU8wEiddBArFNCZ4UQtIpV5h/f/RwFokijNO1NnBxS/owOeuqhfAg9GkGVBvy36tzQzNCPAXVGZBiNnTtZGtDnRgiXoiQ4XqqS7pbLdn1UWdc5dTKNXTKrocwlLeFQtF3RHYbjC0FMueO8ZFfCC0bLopMaZiXCqkYADiURfExKxtTruripefEm1VYuK8VXX/78rHyCPiBQMSlV+oveSX8AB/VB1kyiROGLa29np+cK70k2OLKiaLEo6pEzFWwuhkU35StAKajgKvV/M37AUQfB3SXv9IvQWuqXhMgg/RkMM7xrtv5qvBfYLcQIY/wdyhkSIc8z5xh757+xKinTLavvZY+TPyPdYS6gud4nQrWyyjpLLgmdS+t4Azn0BXLnwBuJMrdqP/mnNe72fsyzPaL0gErOZDz+y/1Dy8l1/ogLGFeAn6ZOEUIWse5sSZ7y+P+PycetjxQ+bFIkFiIS4c7tBOCLklnBwwF05wDsqTMyat1ZRTaSyqtPHhYaMAFJn5WHB3WwwCqInT9vugoreIXVQXiJgCXX5EJBgbIafCSNyuVoTGCmCbAkn2C+AecOh5QgqLtC65N6T6zVLGRd737tdgNvecwxu49qom6Gqi8O7JFZKWIa2HIGwnwMaKp2eZXk4NJnRknCGsVGKOLGf41ufvbhC/x+AmDoUvemAUbVwS1OmVQbBUbbjp/CArFQDQj6hXl6EbxJPAUwJ4oDeZ1HR0i/92JmC/Iu5AuDwig6WXvkvsaBxmGFCGiThIXD/QkH9g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(39860400002)(396003)(346002)(136003)(1800799009)(82310400011)(451199024)(186009)(46966006)(36840700001)(40470700004)(6666004)(54906003)(70586007)(70206006)(7696005)(2906002)(478600001)(1076003)(336012)(426003)(26005)(6916009)(5660300002)(2616005)(41300700001)(316002)(47076005)(36860700001)(8936002)(4326008)(82740400003)(8676002)(81166007)(356005)(40460700003)(36756003)(86362001)(40480700001)(36900700001);
+ SFS:(13230031)(4636009)(376002)(39860400002)(396003)(346002)(136003)(1800799009)(82310400011)(451199024)(186009)(46966006)(36840700001)(40470700004)(6666004)(54906003)(70586007)(70206006)(7696005)(2906002)(478600001)(1076003)(336012)(426003)(26005)(6916009)(5660300002)(2616005)(83380400001)(41300700001)(316002)(47076005)(36860700001)(8936002)(4326008)(82740400003)(8676002)(81166007)(356005)(40460700003)(36756003)(86362001)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 06:07:24.1279 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f09c949c-811f-4ac6-b1f9-08db9e1f0f67
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2023 06:07:37.5926 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 196d15e3-778d-4b0f-a005-08db9e1f1770
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E3.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E8.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7672
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5400
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,62 +101,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ Samson Tam <samson.tam@amd.com>, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+From: Alvin Lee <alvin.lee2@amd.com>
 
-[Why&How]
-Export a debugfs file to report whether MALL cache is supported by the
-asic or not.
+[Why & How]
+Before enabling the phantom OTG for an update we
+must enable DPG to avoid underflow.
 
-Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
+Reviewed-by: Samson Tam <samson.tam@amd.com>
 Acked-by: Wayne Lin <wayne.lin@amd.com>
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 50 +------------------
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 10 +++-
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    | 46 +++++++++++++++++
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.h    |  5 ++
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |  1 +
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  5 +-
+ 6 files changed, 67 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 7c21e21bcc51..b5f3b33b625d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -3605,6 +3605,23 @@ static int disable_hpd_get(void *data, u64 *val)
- DEFINE_DEBUGFS_ATTRIBUTE(disable_hpd_ops, disable_hpd_get,
- 			 disable_hpd_set, "%llu\n");
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 566d7045b2de..65e1b8537ca6 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -1069,53 +1069,6 @@ static void apply_ctx_interdependent_lock(struct dc *dc,
+ 	}
+ }
  
-+/*
-+ * Returns 1 if hardware supports MALL cache
-+ * 0 otherwise.
-+ */
-+static int capabilities_show(struct seq_file *m, void *unused)
+-static void phantom_pipe_blank(
+-		struct dc *dc,
+-		struct timing_generator *tg,
+-		int width,
+-		int height)
+-{
+-	struct dce_hwseq *hws = dc->hwseq;
+-	enum dc_color_space color_space;
+-	struct tg_color black_color = {0};
+-	struct output_pixel_processor *opp = NULL;
+-	uint32_t num_opps, opp_id_src0, opp_id_src1;
+-	uint32_t otg_active_width, otg_active_height;
+-	uint32_t i;
+-
+-	/* program opp dpg blank color */
+-	color_space = COLOR_SPACE_SRGB;
+-	color_space_to_black_color(dc, color_space, &black_color);
+-
+-	otg_active_width = width;
+-	otg_active_height = height;
+-
+-	/* get the OPTC source */
+-	tg->funcs->get_optc_source(tg, &num_opps, &opp_id_src0, &opp_id_src1);
+-	ASSERT(opp_id_src0 < dc->res_pool->res_cap->num_opp);
+-
+-	for (i = 0; i < dc->res_pool->res_cap->num_opp; i++) {
+-		if (dc->res_pool->opps[i] != NULL && dc->res_pool->opps[i]->inst == opp_id_src0) {
+-			opp = dc->res_pool->opps[i];
+-			break;
+-		}
+-	}
+-
+-	if (opp && opp->funcs->opp_set_disp_pattern_generator)
+-		opp->funcs->opp_set_disp_pattern_generator(
+-				opp,
+-				CONTROLLER_DP_TEST_PATTERN_SOLID_COLOR,
+-				CONTROLLER_DP_COLOR_SPACE_UDEFINED,
+-				COLOR_DEPTH_UNDEFINED,
+-				&black_color,
+-				otg_active_width,
+-				otg_active_height,
+-				0);
+-
+-	if (tg->funcs->is_tg_enabled(tg))
+-		hws->funcs.wait_for_blank_complete(opp);
+-}
+-
+ static void dc_update_viusal_confirm_color(struct dc *dc, struct dc_state *context, struct pipe_ctx *pipe_ctx)
+ {
+ 	if (dc->ctx->dce_version >= DCN_VERSION_1_0) {
+@@ -1206,7 +1159,8 @@ static void disable_dangling_plane(struct dc *dc, struct dc_state *context)
+ 
+ 					main_pipe_width = old_stream->mall_stream_config.paired_stream->dst.width;
+ 					main_pipe_height = old_stream->mall_stream_config.paired_stream->dst.height;
+-					phantom_pipe_blank(dc, tg, main_pipe_width, main_pipe_height);
++					if (dc->hwss.blank_phantom)
++						dc->hwss.blank_phantom(dc, tg, main_pipe_width, main_pipe_height);
+ 					tg->funcs->enable_crtc(tg);
+ 				}
+ 			}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 65fa9e21ad9c..b1046357798c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1859,8 +1859,16 @@ void dcn20_program_front_end_for_ctx(
+ 			dc->current_state->res_ctx.pipe_ctx[i].stream->mall_stream_config.type == SUBVP_PHANTOM) {
+ 			struct timing_generator *tg = dc->current_state->res_ctx.pipe_ctx[i].stream_res.tg;
+ 
+-			if (tg->funcs->enable_crtc)
++			if (tg->funcs->enable_crtc) {
++				if (dc->hwss.blank_phantom) {
++					int main_pipe_width, main_pipe_height;
++
++					main_pipe_width = dc->current_state->res_ctx.pipe_ctx[i].stream->mall_stream_config.paired_stream->dst.width;
++					main_pipe_height = dc->current_state->res_ctx.pipe_ctx[i].stream->mall_stream_config.paired_stream->dst.height;
++					dc->hwss.blank_phantom(dc, tg, main_pipe_width, main_pipe_height);
++				}
+ 				tg->funcs->enable_crtc(tg);
++			}
+ 		}
+ 	}
+ 	/* OTG blank before disabling all front ends */
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index 680e7fa8d18a..cae5e1e68c86 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -1573,3 +1573,49 @@ void dcn32_init_blank(
+ 	if (opp)
+ 		hws->funcs.wait_for_blank_complete(opp);
+ }
++
++void dcn32_blank_phantom(struct dc *dc,
++		struct timing_generator *tg,
++		int width,
++		int height)
 +{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)m->private;
-+	struct dc_caps caps = adev->dm.dc->caps;
-+	bool mall_supported = caps.mall_size_total;
++	struct dce_hwseq *hws = dc->hwseq;
++	enum dc_color_space color_space;
++	struct tg_color black_color = {0};
++	struct output_pixel_processor *opp = NULL;
++	uint32_t num_opps, opp_id_src0, opp_id_src1;
++	uint32_t otg_active_width, otg_active_height;
++	uint32_t i;
 +
-+	seq_printf(m, "mall: %s\n", mall_supported ? "yes" : "no");
++	/* program opp dpg blank color */
++	color_space = COLOR_SPACE_SRGB;
++	color_space_to_black_color(dc, color_space, &black_color);
 +
-+	return 0;
++	otg_active_width = width;
++	otg_active_height = height;
++
++	/* get the OPTC source */
++	tg->funcs->get_optc_source(tg, &num_opps, &opp_id_src0, &opp_id_src1);
++	ASSERT(opp_id_src0 < dc->res_pool->res_cap->num_opp);
++
++	for (i = 0; i < dc->res_pool->res_cap->num_opp; i++) {
++		if (dc->res_pool->opps[i] != NULL && dc->res_pool->opps[i]->inst == opp_id_src0) {
++			opp = dc->res_pool->opps[i];
++			break;
++		}
++	}
++
++	if (opp && opp->funcs->opp_set_disp_pattern_generator)
++		opp->funcs->opp_set_disp_pattern_generator(
++				opp,
++				CONTROLLER_DP_TEST_PATTERN_SOLID_COLOR,
++				CONTROLLER_DP_COLOR_SPACE_UDEFINED,
++				COLOR_DEPTH_UNDEFINED,
++				&black_color,
++				otg_active_width,
++				otg_active_height,
++				0);
++
++	if (tg->funcs->is_tg_enabled(tg))
++		hws->funcs.wait_for_blank_complete(opp);
 +}
-+
-+DEFINE_SHOW_ATTRIBUTE(capabilities);
-+
- /*
-  * Temporary w/a to force sst sequence in M42D DP2 mst receiver
-  * Example usage: echo 1 > /sys/kernel/debug/dri/0/amdgpu_dm_dp_set_mst_en_for_sst
-@@ -3798,6 +3815,8 @@ void dtn_debugfs_init(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
+index 2d2628f31bed..616d5219119e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
+@@ -115,4 +115,9 @@ void dcn32_init_blank(
+ 		struct dc *dc,
+ 		struct timing_generator *tg);
  
- 	debugfs_create_file("amdgpu_mst_topology", 0444, root,
- 			    adev, &mst_topo_fops);
-+	debugfs_create_file("amdgpu_dm_capabilities", 0444, root,
-+			    adev, &capabilities_fops);
- 	debugfs_create_file("amdgpu_dm_dtn_log", 0644, root, adev,
- 			    &dtn_log_fops);
- 	debugfs_create_file("amdgpu_dm_dp_set_mst_en_for_sst", 0644, root, adev,
++void dcn32_blank_phantom(struct dc *dc,
++		struct timing_generator *tg,
++		int width,
++		int height);
++
+ #endif /* __DC_HWSS_DCN32_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
+index 777b2fac20c4..279f312f7407 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
+@@ -115,6 +115,7 @@ static const struct hw_sequencer_funcs dcn32_funcs = {
+ 	.update_phantom_vp_position = dcn32_update_phantom_vp_position,
+ 	.update_dsc_pg = dcn32_update_dsc_pg,
+ 	.apply_update_flags_for_phantom = dcn32_apply_update_flags_for_phantom,
++	.blank_phantom = dcn32_blank_phantom,
+ };
+ 
+ static const struct hwseq_private_funcs dcn32_private_funcs = {
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
+index 02ff99f7bec2..7ef0436c51b3 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
+@@ -387,7 +387,10 @@ struct hw_sequencer_funcs {
+ 	void (*subvp_pipe_control_lock_fast)(union block_sequence_params *params);
+ 	void (*z10_restore)(const struct dc *dc);
+ 	void (*z10_save_init)(struct dc *dc);
+-
++	void (*blank_phantom)(struct dc *dc,
++			struct timing_generator *tg,
++			int width,
++			int height);
+ 	void (*update_visual_confirm_color)(struct dc *dc,
+ 			struct pipe_ctx *pipe_ctx,
+ 			int mpcc_id);
 -- 
 2.37.3
 
