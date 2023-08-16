@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED935C25B7F
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 20:46:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0067DC27C41
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 20:53:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ACA110E3B4;
-	Wed, 16 Aug 2023 20:46:25 +0000 (UTC)
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD1C910E3B4;
- Wed, 16 Aug 2023 20:46:23 +0000 (UTC)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-1bfc2b68090so5131374fac.3; 
- Wed, 16 Aug 2023 13:46:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78AE910E3BD;
+	Wed, 16 Aug 2023 20:53:39 +0000 (UTC)
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B709310E3BD;
+ Wed, 16 Aug 2023 20:53:37 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-1a1fa977667so5302171fac.1; 
+ Wed, 16 Aug 2023 13:53:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1692218783; x=1692823583;
+ d=gmail.com; s=20221208; t=1692219217; x=1692824017;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SETSG1C+Cu9UyG+a+AwjbHIVQl99cMTjMKSLpy0hw8c=;
- b=KNLYWsGhOBPF/4dSZgPXQFQLBMQKr1pA0I1SYdp/eikxyFXUYlUR+2iQkZsYtcDajf
- maX/6+vcDBR1ctlqCNC9qXV25aXvQ9Bwx4b3LH4k9czb53SWsg5DJpMMHh2ktCSyJErC
- vg8PynpqzNU1y38K7pTebKL1USSGJtjvAvmQpRox0mHxjE1+i70jGUW3BczVW3ao3pGW
- tXuLPDEmDUGoUak1w7lplPiwM+oxUoK62i7dm46+NpASpYFjo3JANeGfz22VsnjksmlR
- THKroUMHAdWkoE4kmwZG52ISv7Xj6Sv+pYgOThqRIqu0iv2kiibZlV3k36nitn+onauT
- v/zw==
+ bh=EIGT6OAj0mzc2nkSC81/vi+6gJHIm4hDaa2CtM6vDTc=;
+ b=jAt76ss7cehgq1Dn5iOREr+cxVG88QaqkvEhHuTilA5zdE8+5EztxLpVfrxuKabZpL
+ 5EDhUl00fL16E+qJysUnVI4gSQpsXTNU2i12+O//pK4ZiaRlgdHgKwVRpPHkYKQzhOW7
+ 0WyozT8FtOJU/lXgUDgzKB38HWhzwCI/WnYsUKH1AnM7D5pY5/talOzf1tRh1JscDnBJ
+ HixAi78lHnYFj+cg6pXxodQOrJY8UV6nqUMB4bwyiAi8On3oF0uRRL3rDeUJpZCU9Uiu
+ XJJQbN24wn2Q3i16H85yTZfOztbdbVjai6ZasP8wvReeT1Gac+yshCp3eFhK2rHKjrGg
+ SGCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692218783; x=1692823583;
+ d=1e100.net; s=20221208; t=1692219217; x=1692824017;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=SETSG1C+Cu9UyG+a+AwjbHIVQl99cMTjMKSLpy0hw8c=;
- b=av24JMGfYMM+NO+KZuQAJjL+plbEd/weZqwMKh9lhcHDqZwVjCzcT1W82arerpcCki
- /s/cbSxMqLM/7XZLH06qMZ3zw/SBHkzpSzvGe511VtHBY1dh21dngeikPBHS2IbZ6LZf
- V0W+90WjM8NbHkWJ+1+PZPzwIeLXj/BKyhVEWjjvo6QrUoo7T67eqXZp5m55Grfy1NgG
- VIq24r6X2UHBgjj6i1xXrJErgz6HZ/hPTzq9C6FidMGZFu/pY5X7DyE35V75CNsjO+ex
- hHa1rLYtrkmDai+b5iUNEM+gnOCEsrlJ2pEzWtde5Y7cZr19bcTF6sMfnikUiLLF/xJF
- WvbA==
-X-Gm-Message-State: AOJu0YwO93aGgN6yTWJpUAgMr2X5/pTt7MvUkzojohdPmNopLug+vDpO
- E4SDJdLmoqDPGa5RthXX4vzV9mV6da4Av2EDkTz7GGe+4v8=
-X-Google-Smtp-Source: AGHT+IGNMzjuoTgpi0Qb1c6zsvcpH9Gh4ezJYdj0Wfk5fzSl1OkL4HqXNAC0eKc+5fXeEm4HySVX8diyJT7aZ6rfiwQ=
-X-Received: by 2002:a05:6871:288:b0:1b3:eec8:fa90 with SMTP id
- i8-20020a056871028800b001b3eec8fa90mr3621542oae.6.1692218783171; Wed, 16 Aug
- 2023 13:46:23 -0700 (PDT)
+ bh=EIGT6OAj0mzc2nkSC81/vi+6gJHIm4hDaa2CtM6vDTc=;
+ b=I1he64accmzQYBdaDLsDlV0AlUptuu6NayJgwqNHAUW3Lf2N79CQZJx1ge/bVD1+4B
+ /6YObOjzigV8m9I9i0py+wdVgnKklBIiNu39OJIYUD4a29TJT6wUaG3NUREn50g7en84
+ +1IYsEZAvPi9fQrkMLLRN/8+jho7+Jwh5BXJNLmdRTFm431Di5Yr6RgdvPmfcqe1jhdn
+ MX5OJPvQ8QC1i47XHXuv1kqcf8L28aO5qArpcXI7TFOyQQEJmRLq7MsAzkivdrdI6X3+
+ WWrATYgXX8ZEIix0GQlA9YIaKHTxVYWEWVYXEnf0pCPzUzKdkiO0X0CSbbfAEtN+5dUK
+ mL9A==
+X-Gm-Message-State: AOJu0YzOSEge70ccAX2WSLjA70B0/qCHuVuKnTvvHvZdqbIXTt/t7CUZ
+ yhpdgGktoPSXbkzfZdrQosgA47dzLMedLJCC3hQ=
+X-Google-Smtp-Source: AGHT+IEHByZDoeR4EN4tKZmePnJQvlusqIFsy11WBSSJOGEA8538DdR6m/+/HXE/O6AAXqy9FNy4znBTsYvuvRZZo3o=
+X-Received: by 2002:a05:6870:b295:b0:1bb:583a:db4a with SMTP id
+ c21-20020a056870b29500b001bb583adb4amr3879233oao.44.1692219216975; Wed, 16
+ Aug 2023 13:53:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230816035603.690383-1-lijo.lazar@amd.com>
-In-Reply-To: <20230816035603.690383-1-lijo.lazar@amd.com>
+References: <20230816021958.1921084-1-chenjiahao16@huawei.com>
+In-Reply-To: <20230816021958.1921084-1-chenjiahao16@huawei.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 16 Aug 2023 16:46:12 -0400
-Message-ID: <CADnq5_NwgrvS4tdwX9Tg=1nLU8iJck2tjKfRLVU_vR3Xi=NrLg@mail.gmail.com>
-Subject: Re: [PATCH] Documentation/gpu: Update amdgpu documentation
-To: Lijo Lazar <lijo.lazar@amd.com>
+Date: Wed, 16 Aug 2023 16:53:26 -0400
+Message-ID: <CADnq5_M51bEAhofMsFPeMi9abcg7OVggUDdR2BUbxX9OUc9bzg@mail.gmail.com>
+Subject: Re: [PATCH -next v3] drm/amd/amdgpu: Use kmemdup to simplify kmalloc
+ and memcpy logic
+To: Chen Jiahao <chenjiahao16@huawei.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,57 +68,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sfr@canb.auug.org.au, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, airlied@redhat.com,
- Hawking.Zhang@amd.com
+Cc: srinivasan.shanmugam@amd.com, tzimmermann@suse.de,
+ dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, javierm@redhat.com,
+ hongao@uniontech.com, luben.tuikov@amd.com, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, xurui@kylinos.cn,
+ airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 16, 2023 at 12:15=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wr=
-ote:
->
-> 7957ec80ef97 ("drm/amdgpu: Add FRU sysfs nodes only if needed") moved
-> the documentation for some of the sysfs nodes to amdgpu_fru_eeprom.c.
-> Update the documentation accordingly.
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->  Documentation/gpu/amdgpu/driver-misc.rst | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/Documentation/gpu/amdgpu/driver-misc.rst b/Documentation/gpu=
-/amdgpu/driver-misc.rst
-> index be131e963d87..26334e54447b 100644
-> --- a/Documentation/gpu/amdgpu/driver-misc.rst
-> +++ b/Documentation/gpu/amdgpu/driver-misc.rst
-> @@ -11,19 +11,19 @@ via sysfs
->  product_name
->  ------------
->
-> -.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
->     :doc: product_name
->
->  product_number
->  --------------
->
-> -.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
->     :doc: product_name
-
-I think this should be product_number
+Applied.  Thanks!
 
 Alex
 
+On Tue, Aug 15, 2023 at 10:20=E2=80=AFPM Chen Jiahao <chenjiahao16@huawei.c=
+om> wrote:
 >
->  serial_number
->  -------------
+> Using kmemdup() helper function rather than implementing it again
+> with kmalloc() + memcpy(), which improves the code readability.
 >
-> -.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
->     :doc: serial_number
+> Signed-off-by: Chen Jiahao <chenjiahao16@huawei.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c | 11 ++---------
+>  1 file changed, 2 insertions(+), 9 deletions(-)
 >
->  unique_id
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_connectors.c
+> index d34037b85cf8..7473a42f7d45 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> @@ -264,16 +264,9 @@ struct edid *amdgpu_connector_edid(struct drm_connec=
+tor *connector)
+>  static struct edid *
+>  amdgpu_connector_get_hardcoded_edid(struct amdgpu_device *adev)
+>  {
+> -       struct edid *edid;
+> -
+>         if (adev->mode_info.bios_hardcoded_edid) {
+> -               edid =3D kmalloc(adev->mode_info.bios_hardcoded_edid_size=
+, GFP_KERNEL);
+> -               if (edid) {
+> -                       memcpy((unsigned char *)edid,
+> -                              (unsigned char *)adev->mode_info.bios_hard=
+coded_edid,
+> -                              adev->mode_info.bios_hardcoded_edid_size);
+> -                       return edid;
+> -               }
+> +               return kmemdup((unsigned char *)adev->mode_info.bios_hard=
+coded_edid,
+> +                              adev->mode_info.bios_hardcoded_edid_size, =
+GFP_KERNEL);
+>         }
+>         return NULL;
+>  }
 > --
-> 2.25.1
+> 2.34.1
 >
