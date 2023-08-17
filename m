@@ -4,89 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 676A7C2FC15
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 05:05:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82158C2FC04
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 05:09:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 489AA10E3ED;
-	Thu, 17 Aug 2023 05:05:06 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2066.outbound.protection.outlook.com [40.107.100.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A92F10E3E5;
- Thu, 17 Aug 2023 05:05:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0939C10E3EE;
+	Thu, 17 Aug 2023 05:09:32 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20606.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::606])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07DD910E3EE;
+ Thu, 17 Aug 2023 05:09:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NVrT4RehNqWGDDduVtGIcm3yebiwRcVeed1R9qv/nYcKHxB47NUfrY9uHngvkIE3shxotwmCPN84MUo7+A1aAOlzbihc5+52TnjzI8e1pk1u4kAC9GtxRuH34+xDsKK6polvUw+/l7M+eWW9Pwf74x5LamzC8g0TdQHuKf4AGdd5+yly0mDB6GMg9eujU0zRd+IlO603JWw/lH0S2YhwaZQRXx4xc9Zxwr+j6dF6CnEEwi/cIsIJmCaHF6PGo5++Lszn+pAtMJtkgJvFnPxMBpb62IUCf+lthvhFM2jnB3oycwFc00xgDYQoq4VLVkKPFkhaya4Rr/i9NadSDYHweA==
+ b=mSAdXCURTU38AYMnsMxF7/0+3tG3g19SWD8o9Lw2+dFUiu7atBjftJcyge9V02foK3ykzM4BJH2vBNUPyhVAL0xnzz18JQoscNlGiOkisIwjxfw1T+nxdvqVzc+5h1R6+/fkA1cgApov8y16mNS0oGbL4Q7Xf41FKolwcniJIgn3KBY0v7UECBiZQO0AlosigryFvclRTF9PXg91amuWoISRuC3XSUwWKqkSNlvGcwyrvSFdEnWuC1Qv/zOProy8sH8crKn3/D0KlHZsKNPuzeVHW40suBMpvrLHtPT6cerXyanx6HotK+sDmUYX4fHNPz4vgnIZC3yOjLA3451k3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=38q0qXKgmYQot+LOTDLNxKr7r8yA606un8lZlYmu82k=;
- b=HXYDSzFgdvn9oPuHQxK4tUoiPfwmK02w/YwChXO/HhrMZ/gOeqiI5HSG5Z+TOnCXxf0p5zIodsIUDfR6Xot5soPaw2Pzrwsk01koe1RE98tft5E5ClZsevqjUdEBb2ERYbKiHdtDi1eWvmJ0G2VKTZAweNqs5x4FuyXuPXrc5rIq6afho/C4Pq9Rot+qDQE0B4Rf2pdFb3+/Ys8BYQTYe+bgYYLk/wHywuSbraZMk4NbH/FMxB8BA8brsK7geudtpyPROhEMDecdfF0o8iGpeP0H2tOshyZvqLeMVouz9kmAzCQxoIEnO+EwxIxWBtXkoIK6qVgHQ6SNAZmZFOFasg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=+2ZhYSAGtoDFWoPvhT4bMieRfUAmNRGxKD66P7wNkfg=;
+ b=ESo4ISAq6UkmXToqlGBTT243QklD1Mi4x8mG/Zr4DMUbbAo4GxxFmfgoRGbW1jlxy6plqO0+5WBhLgzV1ijgccAY/csMKsCetssxmMI3D0LxVW8/reP4tXeA7JqgKDdtBdxV+uX2UjDAWXaaCl9EOMFQWiqHL6nZ0a4Pa5Dib3jAApGDbXvUuwsPnM9Dat9Jh0lgWRRj5hv4QARdOGaY74a9zmPHIjrUHUUQgVH4i+RGy3IoyCIVsnPQfQ0VHsKUXybQxS7kFClAB7YnPuxcMrmOeOAhAJwYWa2uEqXGb1NXzUWq26w+FNgU1eioTGkHubI/FP5DAi91o7GChsCSaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=38q0qXKgmYQot+LOTDLNxKr7r8yA606un8lZlYmu82k=;
- b=Q+bfGzylRZIHp/m5HUy+OJKYdvmEeReJlZLnAhSUIDn27M4M7bn6JoTYY74+SgOyIL3m8LAuQNSTKeKGxMGTuWaeOGhV26HJpFi3Vq06E/ZLRr/4XTCj6bCkBwJwfixyq9RvJd115wlnBC1p3mIO+SAjzp++nl6Pbm5XsFho608=
-Received: from SA0PR11CA0193.namprd11.prod.outlook.com (2603:10b6:806:1bc::18)
- by MW6PR12MB8664.namprd12.prod.outlook.com (2603:10b6:303:23c::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.30; Thu, 17 Aug
- 2023 05:05:01 +0000
-Received: from SN1PEPF000252A1.namprd05.prod.outlook.com
- (2603:10b6:806:1bc:cafe::b3) by SA0PR11CA0193.outlook.office365.com
- (2603:10b6:806:1bc::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.14 via Frontend
- Transport; Thu, 17 Aug 2023 05:05:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000252A1.mail.protection.outlook.com (10.167.242.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.14 via Frontend Transport; Thu, 17 Aug 2023 05:05:00 +0000
-Received: from pp-server-two.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 17 Aug
- 2023 00:04:58 -0500
-From: xinhui pan <xinhui.pan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/scheduler: Partially revert "drm/scheduler: track GPU
+ bh=+2ZhYSAGtoDFWoPvhT4bMieRfUAmNRGxKD66P7wNkfg=;
+ b=MuhUXj21tGKjrOAXntcivjucwXbfolb0ee/bNtzTik2KMBy3Orm9A63y0ES1aIUSgWKunCI4HnUbLQTTeV+/Mf/9DVcbstVeu5rHdf1bJw1jgF3xSFl+qS4Er37Srxd0oJqZjXiTflcvLSSYfTMR3loqWo8C/jS/SsIIN2FQjVE=
+Received: from DM4PR12MB5165.namprd12.prod.outlook.com (2603:10b6:5:394::9) by
+ LV3PR12MB9411.namprd12.prod.outlook.com (2603:10b6:408:215::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.29; Thu, 17 Aug
+ 2023 05:09:27 +0000
+Received: from DM4PR12MB5165.namprd12.prod.outlook.com
+ ([fe80::c377:a09d:c286:5835]) by DM4PR12MB5165.namprd12.prod.outlook.com
+ ([fe80::c377:a09d:c286:5835%7]) with mapi id 15.20.6678.031; Thu, 17 Aug 2023
+ 05:09:27 +0000
+From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/scheduler: Partially revert "drm/scheduler: track GPU
  active time per entity"
-Date: Thu, 17 Aug 2023 13:04:35 +0800
-Message-ID: <20230817050435.3109-1-xinhui.pan@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A1:EE_|MW6PR12MB8664:EE_
-X-MS-Office365-Filtering-Correlation-Id: 539e8594-9103-408e-c8bd-08db9edf82ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ah7x3AstYPm3PWyx1wxFoJOlZEjBRKDp0E3oWmtM3DemantLvdMWizbOEYb7BU8qp407KKd/Ly0kYfPuPUAtPuOqDS5USllD5EmJ0yrC3TUrUfnL//MdT+vXIRGwKIN3uTUICvF3dogF2mOSCuQJhCGit0E/hDPzmxOxhD04EqzygG181lddQ90mqaoOyi2KZq4rwJutW6l7yABdzkBZ/sWiwi5ZCMoO4kJbNJLyIpU26DpEp3oSxS3SaO4U6O8TIlqmh3fNd2Pw0r8C1/Wzf4ehvzXQ6n/V48h4+iGi+dcxnLm3trySGISHCd8XCJ3HbLYcmUOAzZ8XZWw21ke9ulsRXlIHzhTeGIg6f4byklJOC5cUeAe3KQ5AmxLet8kz2PcqfSvHVM6VuPJe0hEVtT2ldX/qNzZasEXDdDGgdFxR2Rgu9elv7+rKbWpm7aEdDpdl2yPmbwgNCo4t2GwpnqH9Avt5vRaJuazCvoE9eCIZ8iHTGpqCQ7S7OL4zuuaXnItvSODNmIX3NsmH6qA9S3q7gDg4WdeXylxO3WZSN9/5K81nd77lPvMfQdSJ4skFq+t7urNd4Y+7laQcGImR55jh+TK9d4oJVwdfkqV0o/RVCKw8nFFUScqW9eULTLngJvldFK8ZdLvOlhLiJb/xIOXZrHGr2LxgdJ25cdRITTBgtXigE1ZufSRvCyMmqkZouTCii7TTYYvBCbOPYW8eUJhnE6ZYO7scserL0QRXJKitjEqaI0lK0s1IrTWE/iPFTStABlPD1sCgPmbBpy2hQQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(396003)(39860400002)(376002)(136003)(1800799009)(451199024)(82310400011)(186009)(40470700004)(36840700001)(46966006)(316002)(54906003)(82740400003)(356005)(6916009)(81166007)(70206006)(70586007)(5660300002)(41300700001)(36860700001)(47076005)(4326008)(8936002)(8676002)(26005)(2906002)(40460700003)(83380400001)(16526019)(40480700001)(336012)(478600001)(426003)(86362001)(7696005)(36756003)(6666004)(1076003)(2616005)(36900700001);
+Thread-Topic: [PATCH] drm/scheduler: Partially revert "drm/scheduler: track
+ GPU active time per entity"
+Thread-Index: AQHZ0MhhdLWT/QT4vUWnmc1JH4hWA6/t73sg
+Date: Thu, 17 Aug 2023 05:09:27 +0000
+Message-ID: <DM4PR12MB5165F0255324A07BE76F781A871AA@DM4PR12MB5165.namprd12.prod.outlook.com>
+References: <20230817050435.3109-1-xinhui.pan@amd.com>
+In-Reply-To: <20230817050435.3109-1-xinhui.pan@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=c073f040-a617-407a-9095-f6909db72819;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-08-17T05:06:04Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5165:EE_|LV3PR12MB9411:EE_
+x-ms-office365-filtering-correlation-id: 57dcd798-d1ff-4456-f5bd-08db9ee0217a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 0E4WadA8dXVcu7RfXEF39QrenNVz7ztNzvd7JsXomFTFs6JKTwMXr3Dh/HlxCsRHZ3P2U6CMn7qAnloVEBrc9KdRG+4gaDNLqse5UHCLfi5IwsKe7MvW/lXZK1fUp8Mp3Xm2/A6Pk15e5zQXnKtSLR0zpIsxeoIW8vMwZqMXradqEGg1LzTT66Xpm8MtHfRQ2JcpoAqkg/KjIGjYJ+pGmy8b5T4uaQcBimkBvfsLws0dK9QOTUz721aKJ7UEomVkEoioE+ReNbElCsMrYiswxQuVEWviv/HsxHKBlPfr+mFffz0jQkIxmYoPrV7r2Agu4qkmSwcvLcJeXkh4ux6ozeaInMVIgByzc0/Tf4YD3UnkVbIODFuY/2GeF38G/FILXOyXdp/E1impt/pBLaaZSgpnx7wpDkyMf8N7PgNS9g+rZ2ka1g1lZ1ROYxY8Vz2OY7iASaQSus5V9kr5yc1Wg313xDrIIzA/8bUSiOe3hu/U+fDtKt6sxjhKZK7WwRFiEGncOquw6TVgy6zKTjaGf+MGDtuHvfKW1jEaPtYvr95AqP+oXzcAzB5d3cvYQt5gY5vPG0k0WTEuLUvBPcx8gjvSg+LufX0Wk4UmtgYTvSLMYAZpuL9afwnEHIxca2xR
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5165.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(396003)(39860400002)(376002)(366004)(136003)(1800799009)(451199024)(186009)(316002)(54906003)(6916009)(66946007)(66556008)(64756008)(76116006)(66476007)(66446008)(122000001)(5660300002)(41300700001)(52536014)(38100700002)(38070700005)(4326008)(8936002)(8676002)(2906002)(83380400001)(55016003)(478600001)(86362001)(53546011)(9686003)(33656002)(7696005)(6506007)(71200400001);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?usKooHHb2zhqapDqcrreHjROSvRY2gKx94bktyL4ztaQri+XikknqnTH9k+4?=
+ =?us-ascii?Q?//k3blUB1XQVQ9pFYL4qs24EDktEZlenJ3uXLus7eijbXK0hgljDMbBtYD4Y?=
+ =?us-ascii?Q?2Q9cNZR3zWQEhFzPi9bNRBRJ0+70AAb47/Ax84Rkp7Fqe3ga3R80w2fV1R2w?=
+ =?us-ascii?Q?OsfBX8K41iXbfYx0/WbhXjSikVYyxQ9MMVmE1uJvT9tltu3GDC5GIPi8Yb7c?=
+ =?us-ascii?Q?h9yD8SRDOxfqXMStvp3WkrUuHfaxolYz8z9RAkei8x2rFiNbP/oyqowO2w+6?=
+ =?us-ascii?Q?G0zYTJmROZUpAQdugFDfBz1akWkMRY1BjlZvU66knBf+fG6/tSVWLtImNKhT?=
+ =?us-ascii?Q?w8Zl8zuytknWiEuXT51jiIA4kFZs0W4GcuRqCN2sXek5ybh6qDsfi//oG7Fw?=
+ =?us-ascii?Q?/vooP71mC86tr8T8x/8xYr5qjZcpLNrG3cf2vruBC/jDwcNCVq9ks4s4/vY3?=
+ =?us-ascii?Q?E695I/Rxj4HiThcnv4YPDSIYNDu0dqbV5UNI/Sclx5NIIEbVgcrJzuWvLd0J?=
+ =?us-ascii?Q?qwmo74+3z8jo3qCUVEqyJjOMxxGSPl68gs0tiXKnIzkARPbBDkTvAHiTWu9I?=
+ =?us-ascii?Q?apaTUeXXvfp3SuPRhO0uq6p9lsCe9i/MJziknFk4rqhUVeaNJjdVrugNphQ8?=
+ =?us-ascii?Q?PS+wQzWulLvVjOr2a5+Uu3XmkghF5tqonfvazHvVIhbvTFKUPePrKLRg9U15?=
+ =?us-ascii?Q?6FUs00Z/YoXffIWAjtCTwoSZBcA9UWPXgF8fEVHjbsbGDhb+9w+fXPrpt3R2?=
+ =?us-ascii?Q?OfVG0C7mLqRqOwtsBy8nDT2yVCMtNTFSDcSx1aBDvpo8KTZ4Ym9dc0irjlHK?=
+ =?us-ascii?Q?SOUKd5LVH3uhc5kbHiI91xhTSVHXEJON2D6IR2wUReckVMhwi2XnomBRTgRb?=
+ =?us-ascii?Q?TRXQsl60hEG++pmtKA8f3Gdo9Gxdt6nCqdyR4W0v1CNaxx3Ay2c0DSZNPyXH?=
+ =?us-ascii?Q?kzGIdA3HjR3ZuaLCkPDaaxMax0s8Jgu0iaACZbKWbVCa8xZTpXMcJDp6UdB0?=
+ =?us-ascii?Q?9d5svnv3ii0JkrWmR4k5JMV3pNEHG2HcV9WFLhpPs39+glTa2VphXhkErn5J?=
+ =?us-ascii?Q?MIvkbBU5og4yp/d2B4VmzonRKk1zjjmmHSFPIUTrxdEsd2HJhtx2xv+TMu8E?=
+ =?us-ascii?Q?haVYXj2Rs4KItouzQMHpl+aq3Aw7flY0/JGklWfKew3DQEFFMHKOcRDqvYOI?=
+ =?us-ascii?Q?boFp5LShW2MUHzEfPmU4fcg7d0qn+YBddKAf0SqQIXOWBVzNJFj4Mz7Zb2cK?=
+ =?us-ascii?Q?RXvDGyfb455CtGWfH/QCp4INsPrXaGTyEvR1th5lqr/x1jJC+9AaEFPr1+LU?=
+ =?us-ascii?Q?VRS3qJpHYga2IRQxz/tsWYrYnHCO5M18zUlfruEUuo38iL6jAGdg7bxtXeK1?=
+ =?us-ascii?Q?dur+OTTj+wa1u7jS8WIMjqRacWnzhomLgy3bmdzkV9TMEcGNnvkmBv7NYgX6?=
+ =?us-ascii?Q?Ne5qzj76sJcQ/rMpCaIWqw4FgWstYc24b8rQAGEN947v/itwSl3Bf2s3uITt?=
+ =?us-ascii?Q?lEm5VcCpCEiLw8IRjnf5JSksSVmVbc6l3mfk?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2023 05:05:00.9623 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 539e8594-9103-408e-c8bd-08db9edf82ab
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8664
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5165.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57dcd798-d1ff-4456-f5bd-08db9ee0217a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Aug 2023 05:09:27.4611 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: X3+oIZX7d9kUqqa3TZmFOE76VWoO8k0HaNaUPb2gliyfRvkFmHS9VXV1MSkh1/HB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9411
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,51 +123,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: xinhui pan <xinhui.pan@amd.com>, dri-devel@lists.freedesktop.org,
- luben.tuikov@amd.com, airlied@gmail.com, christian.koenig@amd.com,
- l.stach@pengutronix.de
+Cc: "Tuikov, Luben" <Luben.Tuikov@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "l.stach@pengutronix.de" <l.stach@pengutronix.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch partially revert commit df622729ddbf ("drm/scheduler: track
-GPU active time per entity") which touchs entity without any reference.
+[AMD Official Use Only - General]
+
+Can we just add kref for entity?
+Or just collect such job time usage somewhere else?
+
+-----Original Message-----
+From: Pan, Xinhui <Xinhui.Pan@amd.com>
+Sent: Thursday, August 17, 2023 1:05 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Tuikov, Luben <Luben.Tuikov@amd.com>; airlied@gmail.com; dri-devel@list=
+s.freedesktop.org; l.stach@pengutronix.de; Koenig, Christian <Christian.Koe=
+nig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>
+Subject: [PATCH] drm/scheduler: Partially revert "drm/scheduler: track GPU =
+active time per entity"
+
+This patch partially revert commit df622729ddbf ("drm/scheduler: track GPU =
+active time per entity") which touchs entity without any reference.
 
 I notice there is one memory overwritten from gpu scheduler side.
 The case is like below.
-A(drm_sched_main)			B(vm fini)
-drm_sched_job_begin			drm_sched_entity_kill
-	//job in pending_list			wait_for_completion
-complete_all				...
-...					kfree entity
+A(drm_sched_main)                       B(vm fini)
+drm_sched_job_begin                     drm_sched_entity_kill
+        //job in pending_list                   wait_for_completion
+complete_all                            ...
+...                                     kfree entity
 drm_sched_get_cleanup_job
-	//fetch job from pending_list
-	access job->entity //memory overwitten
+        //fetch job from pending_list
+        access job->entity //memory overwitten
 
-As long as we can NOT guarantee entity is alive in this case, lets
-revert it for now.
+As long as we can NOT guarantee entity is alive in this case, lets revert i=
+t for now.
 
 Signed-off-by: xinhui pan <xinhui.pan@amd.com>
 ---
  drivers/gpu/drm/scheduler/sched_main.c | 6 ------
  1 file changed, 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sched=
+uler/sched_main.c
 index 602361c690c9..1b3f1a6a8514 100644
 --- a/drivers/gpu/drm/scheduler/sched_main.c
 +++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -907,12 +907,6 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
- 
- 	spin_unlock(&sched->job_list_lock);
- 
--	if (job) {
--		job->entity->elapsed_ns += ktime_to_ns(
--			ktime_sub(job->s_fence->finished.timestamp,
--				  job->s_fence->scheduled.timestamp));
--	}
+@@ -907,12 +907,6 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sc=
+hed)
+
+        spin_unlock(&sched->job_list_lock);
+
+-       if (job) {
+-               job->entity->elapsed_ns +=3D ktime_to_ns(
+-                       ktime_sub(job->s_fence->finished.timestamp,
+-                                 job->s_fence->scheduled.timestamp));
+-       }
 -
- 	return job;
+        return job;
  }
- 
--- 
+
+--
 2.34.1
 
