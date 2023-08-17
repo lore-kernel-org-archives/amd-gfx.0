@@ -4,45 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C097C3DA65
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 17:51:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEAB6C2FC0F
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 18:11:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C6A610E53D;
-	Thu, 17 Aug 2023 17:51:44 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B725A10E511;
- Thu, 17 Aug 2023 17:51:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692294701; x=1723830701;
- h=date:from:to:cc:subject:message-id;
- bh=Qq6Pp/ieMedj/qD4CWVQWeanO2Fn6fVRWp5sEpfAHiU=;
- b=ecOM5MQx0TMnPv+NBBZr3FlEpbmowx9UKACWWgzxmNezRPnqwOEMBFHV
- YrH5Sou9RS30iBs25zjMOXx8Ui0XHcB1I/ZmD9GpVC11m7fz8FZ/J7hGr
- TLBE0JmZRcPGNOzPe4IfTSMRkRSZShuwV5CRCkWQyy3aN5mBdAbVRLKtA
- NM/HjERq8yvKvr6OZcTxH3saIEz7Rem8iTfVtGAppnHIA1Ys1C3piekaR
- LlnMoIQN5vL3lgrZ2pf4TYpb39vwIye/nluoFj6XvZXMFWKqX+ExN20iA
- js130+NoWixM+UIn9++SCtrlcyCZuft6JoIxa2Uo5bYw5ycsOlcbQCt50 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="403867196"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="403867196"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 10:51:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="1065371695"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="1065371695"
-Received: from lkp-server02.sh.intel.com (HELO a9caf1a0cf30) ([10.239.97.151])
- by fmsmga005.fm.intel.com with ESMTP; 17 Aug 2023 10:51:36 -0700
-Received: from kbuild by a9caf1a0cf30 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qWh9j-0001MT-1X;
- Thu, 17 Aug 2023 17:51:35 +0000
-Date: Fri, 18 Aug 2023 01:51:21 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 47762f08697484cf0c2f2904b8c52375ed26c8cb
-Message-ID: <202308180122.V8WHsGaW-lkp@intel.com>
-User-Agent: s-nail v14.9.24
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69DB210E09D;
+	Thu, 17 Aug 2023 18:11:46 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20622.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e83::622])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C8F510E09D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 18:11:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VX+0VL5ZJ//7/FJ3deSb+rQCKB0sQUnCq9Xo1N25JNFtIH73c6lrJFvNuScfHCqV/wKl63+2IXuQ6/XUtHVyJa2G2S/masULrHyfapi/qLdYLRYaIrpWiOCBoJ8HkQmBpGbfXJltXPrydxC/IncVoEdxQvg3Go28rg9mnyRJZ0dg+WmbdR+5c+NSN4sC/sqvVMuyt7pwLp4Z0UsDKrOEuSjcSUgFzgDMb5avNKPmYMtZ0AHEn5E84kg92UzZiPa/x1bynJeN+CHQybins2E4xOSLHUbJ5dLqWG2bMnxdr4/T4BEKl5s0k9j421vf/202l+2j5kRU8OktV7Z5ikeXMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oAcmELAAeYml+JWCGlIC9puAtjHXwnbk3g6+f8SKgQM=;
+ b=ZfS28RptsVWVDofBiX4ix54hRcXcyuYeH+HvXRsBi8DIrLpuVIYH7LB5DzLHzyQNRCvvpTG24D1yJDHuNoF6HQpEOld+a4SpsQ8MYtn6gYoYOjSJwy0F1jYBbLeFXIzbZduNvPBLvtQhGtD1kdzh4ygq0UlquCIi3RZlAZAqb/wvf+pT/vMrQHEju2AtRSp3Pgump9U8dqNbqNf6lBd0tDxxE4MJVIFyif2gep+SqAiJutuZIMeGGrjqexqV4gUv0NtGxzUbRrYg2UQ38f+DmQYwh0wUOklV0UZVCPqNuSa9Kdga7kgduLTy/yR3cSfhBi6prJzyVvcuxfzvesaQrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oAcmELAAeYml+JWCGlIC9puAtjHXwnbk3g6+f8SKgQM=;
+ b=EiMeQQb7BCeXyv+XYitNwhdCW5EQnlr1aCi0ESm0bYYpechZ4sPhYenqAlu1efdnnYoODeQhcsP6nPUsafW5mF31pjF3nKgjISAiE2AaHWaDHQ+YMn9RpeqfxnqWKhALG+zPk3ZmleVzN/J1GverhjhDFSyEx9mQIwDwlz01EyE=
+Received: from SN1PR12CA0080.namprd12.prod.outlook.com (2603:10b6:802:21::15)
+ by SJ1PR12MB6146.namprd12.prod.outlook.com (2603:10b6:a03:45b::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.31; Thu, 17 Aug
+ 2023 18:11:42 +0000
+Received: from SN1PEPF0002529D.namprd05.prod.outlook.com
+ (2603:10b6:802:21:cafe::60) by SN1PR12CA0080.outlook.office365.com
+ (2603:10b6:802:21::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.17 via Frontend
+ Transport; Thu, 17 Aug 2023 18:11:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002529D.mail.protection.outlook.com (10.167.242.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6699.14 via Frontend Transport; Thu, 17 Aug 2023 18:11:41 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 17 Aug
+ 2023 13:11:36 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 2/9] drm/amdgpu/gmc11: initialize GMC for GC 11.5.0 memory
+ support
+Date: Thu, 17 Aug 2023 14:11:14 -0400
+Message-ID: <20230817181122.1543473-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230817181122.1543473-1-alexander.deucher@amd.com>
+References: <20230817181122.1543473-1-alexander.deucher@amd.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002529D:EE_|SJ1PR12MB6146:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b983168-a0af-4564-3a3e-08db9f4d6884
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: itnT2LEbgpFam03S4W98Ffwk5DP1mDbCNSndtao4mPFzgdJfOE3V3SQI9EaqE80gBr4UN0BcyY7+ypNM9ORWLGN2vC5YepyodWZ4w3366PfyQ7ubg7Wos4bfhvCE4cC9ly1GFPjpqx7F3dYyoN7aeEcIWFO67CjtUv6nCbqXcT44gexjXBQTU1QLUdRqL0R08qMLURE65qOKcDXe/Wl9UXdUq9j1PVNrwxN30nGntmz2HfArE77dvAq8rSqpBlr2akhPDOBBFnsg3Ja3u594o4qTRrmmLIvbj/v/CE8EjATOJKHY7pwjpzs7hqkKNx0NysTlCZmi09m+Yug7LARtBHFjksSi/gNgxm46hawtjRy+5NmnBaQDrupSQNM94WzYX1AjvDb6aX4rVtgqYdZ1xebcWZqiK8mSsRfSYsWzjHr66aPfBKM8dfkSoHwjEC0zN0Qzmumui3MMs6TJCtSt1nJEv5N97Uk8FHby/OQsr/Mdz1zxuu/10TUzaIWj60Ff5C/Vx+7T8F9ufcRfqVfwMA0FqAzO5ISBChE8medpS5dIcNrVCP8sL/LKA5oaVbO87TrsVWF8mPyaPZAuZk9tXy+0jy9vErE91/TY3Q6P6TI+U4o9BdDcp9EcJI2Mc1p2rQ6CmcGq0lpmCfprApZGeVBT6nQVqyE5/G2W5M8Zl2Fi+Pp9YQw71yPOu2H6Nj3vRoe3xmI8uU45zhDmNrYMlt+5SSUoEwcpVHZ7Ykixc0bBM2YP0F5OtSpohAbnkwfpUpggve74ukDGIp6HpL8Ndw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(39860400002)(396003)(376002)(346002)(136003)(1800799009)(82310400011)(186009)(451199024)(46966006)(36840700001)(40470700004)(40480700001)(40460700003)(47076005)(4744005)(2906002)(426003)(336012)(36860700001)(70586007)(70206006)(6916009)(54906003)(316002)(6666004)(478600001)(7696005)(5660300002)(16526019)(2616005)(1076003)(26005)(41300700001)(8676002)(8936002)(4326008)(36756003)(86362001)(82740400003)(81166007)(356005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2023 18:11:41.7382 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b983168-a0af-4564-3a3e-08db9f4d6884
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002529D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6146
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,643 +101,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, loongarch@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-spi@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>, linux-csky@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
- linux-media@vger.kernel.org, kunit-dev@googlegroups.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, Prike Liang <Prike.Liang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 47762f08697484cf0c2f2904b8c52375ed26c8cb  Add linux-next specific files for 20230817
+From: Prike Liang <Prike.Liang@amd.com>
 
-Error/Warning reports:
+Initialize vram attribute and VMHUB for GC 11.5.0.
 
-https://lore.kernel.org/oe-kbuild-all/202307281049.40t8s0uv-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202307301850.i9xFNWT6-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308111853.ISf5a6VC-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308112307.TPmYbd3L-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308112326.AJAVWCOC-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308162234.Y7j8JEIF-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308170007.OzhdwITj-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308170206.fZG3V1Gy-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308170227.ymiFlMbT-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308170544.f6zj62AL-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308171406.uWe0yyv9-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308171521.DFEZZNuE-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308171555.5mSXBst8-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308171620.m4MNACWz-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308171742.AncabIG1-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308171801.P2Rd8yeL-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308172148.PPKMOAI8-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308172348.1BthulLk-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202308180127.VD7YRPGa-lkp@intel.com
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Error/Warning: (recently discovered and may have been fixed)
-
-../lib/gcc/loongarch64-linux/12.3.0/plugin/include/config/loongarch/loongarch-opts.h:31:10: fatal error: loongarch-def.h: No such file or directory
-./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1: warning: 'product_name' not found
-./drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1: warning: 'serial_number' not found
-Documentation/gpu/rfc/i915_scheduler.rst:138: WARNING: Unknown directive type "c:namespace-push".
-Documentation/gpu/rfc/i915_scheduler.rst:143: WARNING: Unknown directive type "c:namespace-pop".
-ERROR: modpost: "bdev_mark_dead" [drivers/s390/block/dasd_mod.ko] undefined!
-Warning: kernel/Kconfig.kexec references a file that doesn't exist: file:Documentation/s390/zfcpdump.rst
-arch/csky/include/asm/ptrace.h:100:11: error: expected ';' before 'void'
-arch/csky/include/asm/ptrace.h:99:11: error: expected ';' before 'int'
-arch/csky/include/asm/traps.h:43:11: error: expected ';' before 'void'
-arch/loongarch/kernel/asm-offsets.c:172:6: warning: no previous prototype for 'output_thread_lbt_defines' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:516: warning: Function parameter or member 'xcc_id' not described in 'amdgpu_mm_wreg_mmio_rlc'
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:576: warning: Function parameter or member 'xcc_id' not described in 'amdgpu_mm_wreg_mmio_rlc'
-drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c:123: warning: Excess function parameter 'db_index' description in 'amdgpu_doorbell_index_on_bar'
-drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c:123: warning: Function parameter or member 'doorbell_index' not described in 'amdgpu_doorbell_index_on_bar'
-drivers/gpu/drm/drm_gpuva_mgr.c:1079:32: warning: variable 'prev' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/drm_gpuva_mgr.c:1079:39: warning: variable 'prev' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/tests/drm_kunit_helpers.c:172: warning: expecting prototype for drm_kunit_helper_context_alloc(). Prototype was for drm_kunit_helper_acquire_ctx_alloc() instead
-drivers/infiniband/hw/irdma/verbs.c:584: warning: Function parameter or member 'udata' not described in 'irdma_setup_umode_qp'
-drivers/infiniband/hw/irdma/verbs.c:586: warning: Function parameter or member 'udata' not described in 'irdma_setup_umode_qp'
-drivers/media/pci/intel/ivsc/mei_csi.c:342:10: error: call to undeclared function 'v4l2_subdev_get_try_format'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-drivers/media/pci/intel/ivsc/mei_csi.c:342:10: error: incompatible integer to pointer conversion returning 'int' from a function with result type 'struct v4l2_mbus_framefmt *' [-Wint-conversion]
-drivers/media/pci/intel/ivsc/mei_csi.c:360:14: error: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-drivers/pinctrl/pinctrl-cy8c95x0.c:168: warning: Function parameter or member 'gpio_reset' not described in 'cy8c95x0_pinctrl'
-drivers/rpmsg/rpmsg_char.c:75: warning: Function parameter or member 'remote_flow_restricted' not described in 'rpmsg_eptdev'
-drivers/rpmsg/rpmsg_char.c:75: warning: Function parameter or member 'remote_flow_updated' not described in 'rpmsg_eptdev'
-drivers/video/backlight/lp855x_bl.c:252:11: warning: variable 'ret' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
-drivers/video/backlight/lp855x_bl.c:252:7: warning: variable 'ret' is used uninitialized whenever 'if' condition is false [-Wsometimes-uninitialized]
-fs/fuse/dir.c:353:6: warning: no previous declaration for 'fuse_valid_size' [-Wmissing-declarations]
-include/linux/build_bug.h:16:51: error: bit-field '<anonymous>' width not an integer constant
-kernel/bpf/map_iter.c:200:17: warning: no previous declaration for 'bpf_map_sum_elem_count' [-Wmissing-declarations]
-kernel/seccomp.c:151: warning: Function parameter or member 'requests' not described in 'notification'
-kernel/seccomp.c:154: warning: Function parameter or member 'requests' not described in 'notification'
-lib/kunit/attributes.c:41: warning: Function parameter or member 'attr_default' not described in 'kunit_attr'
-lib/kunit/attributes.c:41: warning: Function parameter or member 'print' not described in 'kunit_attr'
-net/bpf/test_run.c:559:15: warning: no previous declaration for 'bpf_fentry_test_sinfo' [-Wmissing-declarations]
-net/bpf/test_run.c:569:17: warning: no previous declaration for 'bpf_modify_return_test2' [-Wmissing-declarations]
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-kernel/workqueue.c:325:40: sparse: sparse: duplicate [noderef]
-kernel/workqueue.c:325:40: sparse: sparse: multiple address spaces given: __percpu & __rcu
-lib/crypto/mpi/mpi-inv.c:34:15: warning: variable 'k' set but not used [-Wunused-but-set-variable]
-sh4-linux-gcc: internal compiler error: Segmentation fault signal terminated program cc1
-{standard input}: Warning: end of file not at end of a line; newline inserted
-{standard input}:927: Error: pcrel too far
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- alpha-randconfig-r001-20230817
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- alpha-randconfig-r002-20230817
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-infiniband-hw-irdma-verbs.c:warning:Function-parameter-or-member-udata-not-described-in-irdma_setup_umode_qp
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- arc-randconfig-r013-20230817
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|-- arc-randconfig-r043-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- arm-defconfig
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- arm-randconfig-r005-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-infiniband-hw-irdma-verbs.c:warning:Function-parameter-or-member-udata-not-described-in-irdma_setup_umode_qp
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- arm64-defconfig
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- arm64-randconfig-r023-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|-- arm64-randconfig-r092-20230817
-|   |-- kernel-workqueue.c:sparse:sparse:duplicate-noderef
-|   `-- kernel-workqueue.c:sparse:sparse:multiple-address-spaces-given:__percpu-__rcu
-|-- csky-defconfig
-|   |-- arch-csky-include-asm-ptrace.h:error:expected-before-int
-|   |-- arch-csky-include-asm-ptrace.h:error:expected-before-void
-|   `-- arch-csky-include-asm-traps.h:error:expected-before-void
-|-- csky-randconfig-r034-20230817
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- csky-randconfig-r061-20230817
-|   |-- arch-csky-include-asm-ptrace.h:error:expected-before-int
-|   |-- arch-csky-include-asm-ptrace.h:error:expected-before-void
-|   |-- arch-csky-include-asm-traps.h:error:expected-before-void
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-infiniband-hw-irdma-verbs.c:warning:Function-parameter-or-member-udata-not-described-in-irdma_setup_umode_qp
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- i386-debian-10.3
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- i386-defconfig
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- i386-randconfig-i011-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- i386-randconfig-i013-20230817
-|   |-- kernel-bpf-map_iter.c:warning:no-previous-declaration-for-bpf_map_sum_elem_count
-|   |-- net-bpf-test_run.c:warning:no-previous-declaration-for-bpf_fentry_test_sinfo
-|   `-- net-bpf-test_run.c:warning:no-previous-declaration-for-bpf_modify_return_test2
-|-- i386-randconfig-i015-20230817
-|   |-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|   `-- fs-fuse-dir.c:warning:no-previous-declaration-for-fuse_valid_size
-|-- i386-randconfig-i016-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- i386-randconfig-i051-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- i386-randconfig-i052-20230817
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- i386-randconfig-i053-20230817
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- i386-randconfig-i054-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- i386-randconfig-i061-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|   |-- kernel-workqueue.c:sparse:sparse:duplicate-noderef
-|   `-- kernel-workqueue.c:sparse:sparse:multiple-address-spaces-given:__percpu-__rcu
-|-- i386-randconfig-i062-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-rpmsg-rpmsg_char.c:warning:Function-parameter-or-member-remote_flow_restricted-not-described-in-rpmsg_eptdev
-|   |-- drivers-rpmsg-rpmsg_char.c:warning:Function-parameter-or-member-remote_flow_updated-not-described-in-rpmsg_eptdev
-|   |-- kernel-workqueue.c:sparse:sparse:duplicate-noderef
-|   `-- kernel-workqueue.c:sparse:sparse:multiple-address-spaces-given:__percpu-__rcu
-|-- i386-randconfig-i063-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|   |-- kernel-seccomp.c:warning:Function-parameter-or-member-requests-not-described-in-notification
-|   |-- kernel-workqueue.c:sparse:sparse:duplicate-noderef
-|   `-- kernel-workqueue.c:sparse:sparse:multiple-address-spaces-given:__percpu-__rcu
-|-- i386-randconfig-m021-20230817
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- loongarch-allmodconfig
-|   `-- lib-gcc-loongarch64-linux-..-plugin-include-config-loongarch-loongarch-opts.h:fatal-error:loongarch-def.h:No-such-file-or-directory
-|-- loongarch-allnoconfig
-|   `-- arch-loongarch-kernel-asm-offsets.c:warning:no-previous-prototype-for-output_thread_lbt_defines
-|-- loongarch-defconfig
-|   |-- arch-loongarch-kernel-asm-offsets.c:warning:no-previous-prototype-for-output_thread_lbt_defines
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- include-linux-build_bug.h:error:bit-field-anonymous-width-not-an-integer-constant
-|-- m68k-allmodconfig
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- m68k-allyesconfig
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- m68k-amiga_defconfig
-|   `-- kernel-seccomp.c:warning:Function-parameter-or-member-requests-not-described-in-notification
-|-- m68k-randconfig-r031-20230817
-|   |-- drivers-rpmsg-rpmsg_char.c:warning:Function-parameter-or-member-remote_flow_restricted-not-described-in-rpmsg_eptdev
-|   `-- drivers-rpmsg-rpmsg_char.c:warning:Function-parameter-or-member-remote_flow_updated-not-described-in-rpmsg_eptdev
-|-- microblaze-randconfig-r006-20230817
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- microblaze-randconfig-r032-20230817
-|   |-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|   |-- lib-kunit-attributes.c:warning:Function-parameter-or-member-attr_default-not-described-in-kunit_attr
-|   `-- lib-kunit-attributes.c:warning:Function-parameter-or-member-print-not-described-in-kunit_attr
-|-- mips-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-infiniband-hw-irdma-verbs.c:warning:Function-parameter-or-member-udata-not-described-in-irdma_setup_umode_qp
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- mips-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-infiniband-hw-irdma-verbs.c:warning:Function-parameter-or-member-udata-not-described-in-irdma_setup_umode_qp
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- mips-randconfig-r053-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- nios2-randconfig-r003-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|-- openrisc-randconfig-m041-20230817
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- openrisc-randconfig-r021-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- parisc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-infiniband-hw-irdma-verbs.c:warning:Function-parameter-or-member-udata-not-described-in-irdma_setup_umode_qp
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- parisc-defconfig
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- parisc-randconfig-r016-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- parisc-randconfig-r031-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- parisc-randconfig-r033-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- parisc64-defconfig
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- powerpc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-infiniband-hw-irdma-verbs.c:warning:Function-parameter-or-member-udata-not-described-in-irdma_setup_umode_qp
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- powerpc-randconfig-r015-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- powerpc-randconfig-r064-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- riscv-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-infiniband-hw-irdma-verbs.c:warning:Function-parameter-or-member-udata-not-described-in-irdma_setup_umode_qp
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- riscv-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-infiniband-hw-irdma-verbs.c:warning:Function-parameter-or-member-udata-not-described-in-irdma_setup_umode_qp
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- riscv-defconfig
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- riscv-randconfig-r012-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- riscv-randconfig-r013-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- riscv-randconfig-r042-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- riscv-randconfig-r072-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|   |-- kernel-workqueue.c:sparse:sparse:duplicate-noderef
-|   `-- kernel-workqueue.c:sparse:sparse:multiple-address-spaces-given:__percpu-__rcu
-|-- riscv-randconfig-r093-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- kernel-seccomp.c:warning:Function-parameter-or-member-requests-not-described-in-notification
-|   |-- kernel-workqueue.c:sparse:sparse:duplicate-noderef
-|   `-- kernel-workqueue.c:sparse:sparse:multiple-address-spaces-given:__percpu-__rcu
-|-- riscv-rv32_defconfig
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- s390-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- s390-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-infiniband-hw-irdma-verbs.c:warning:Function-parameter-or-member-udata-not-described-in-irdma_setup_umode_qp
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- s390-randconfig-r044-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- sh-allmodconfig
-|   |-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|   |-- sh4-linux-gcc:internal-compiler-error:Segmentation-fault-signal-terminated-program-cc1
-|   |-- standard-input:Error:pcrel-too-far
-|   `-- standard-input:Warning:end-of-file-not-at-end-of-a-line-newline-inserted
-|-- sparc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- sparc-randconfig-r032-20230817
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- um-i386_defconfig
-|   `-- kernel-seccomp.c:warning:Function-parameter-or-member-requests-not-described-in-notification
-|-- x86_64-allnoconfig
-|   |-- Documentation-gpu-rfc-i915_scheduler.rst:WARNING:Unknown-directive-type-c:namespace-pop-.
-|   |-- Documentation-gpu-rfc-i915_scheduler.rst:WARNING:Unknown-directive-type-c:namespace-push-.
-|   |-- Warning:kernel-Kconfig.kexec-references-a-file-that-doesn-t-exist:file:Documentation-s390-zfcpdump.rst
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:product_name-not-found
-|   `-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:serial_number-not-found
-|-- x86_64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-infiniband-hw-irdma-verbs.c:warning:Function-parameter-or-member-udata-not-described-in-irdma_setup_umode_qp
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- x86_64-defconfig
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- x86_64-randconfig-m001-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- fs-fuse-dir.c:warning:no-previous-declaration-for-fuse_valid_size
-|   |-- kernel-bpf-map_iter.c:warning:no-previous-declaration-for-bpf_map_sum_elem_count
-|   |-- net-bpf-test_run.c:warning:no-previous-declaration-for-bpf_fentry_test_sinfo
-|   `-- net-bpf-test_run.c:warning:no-previous-declaration-for-bpf_modify_return_test2
-|-- x86_64-randconfig-r014-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- x86_64-randconfig-r022-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- x86_64-randconfig-x001-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- x86_64-randconfig-x002-20230817
-|   `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|-- x86_64-randconfig-x003-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- fs-fuse-dir.c:warning:no-previous-declaration-for-fuse_valid_size
-|   |-- kernel-bpf-map_iter.c:warning:no-previous-declaration-for-bpf_map_sum_elem_count
-|   |-- net-bpf-test_run.c:warning:no-previous-declaration-for-bpf_fentry_test_sinfo
-|   `-- net-bpf-test_run.c:warning:no-previous-declaration-for-bpf_modify_return_test2
-|-- x86_64-randconfig-x004-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_device.c:warning:Function-parameter-or-member-xcc_id-not-described-in-amdgpu_mm_wreg_mmio_rlc
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- x86_64-randconfig-x006-20230817
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- x86_64-randconfig-x051-20230817
-|   |-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|   `-- kernel-seccomp.c:warning:Function-parameter-or-member-requests-not-described-in-notification
-|-- x86_64-randconfig-x052-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   `-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|-- x86_64-randconfig-x053-20230817
-|   |-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|   `-- kernel-seccomp.c:warning:Function-parameter-or-member-requests-not-described-in-notification
-|-- x86_64-randconfig-x054-20230817
-|   |-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-|   |-- drivers-pinctrl-pinctrl-cy8c95x0.c:warning:Function-parameter-or-member-gpio_reset-not-described-in-cy8c95x0_pinctrl
-|   `-- kernel-seccomp.c:warning:Function-parameter-or-member-requests-not-described-in-notification
-`-- x86_64-rhel-8.3
-    `-- drivers-gpu-drm-drm_gpuva_mgr.c:warning:variable-prev-set-but-not-used
-clang_recent_errors
-|-- arm-randconfig-r046-20230817
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- hexagon-randconfig-r041-20230817
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- hexagon-randconfig-r045-20230817
-|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- i386-buildonly-randconfig-r004-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- i386-buildonly-randconfig-r005-20230817
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- i386-buildonly-randconfig-r006-20230817
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- i386-randconfig-i001-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- i386-randconfig-i002-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- i386-randconfig-i003-20230817
-|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- i386-randconfig-i004-20230817
-|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- i386-randconfig-i005-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- i386-randconfig-i006-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- riscv-randconfig-r036-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_doorbell_mgr.c:warning:Excess-function-parameter-db_index-description-in-amdgpu_doorbell_index_on_bar
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_doorbell_mgr.c:warning:Function-parameter-or-member-doorbell_index-not-described-in-amdgpu_doorbell_index_on_bar
-|   |-- drivers-rpmsg-rpmsg_char.c:warning:Function-parameter-or-member-remote_flow_restricted-not-described-in-rpmsg_eptdev
-|   `-- drivers-rpmsg-rpmsg_char.c:warning:Function-parameter-or-member-remote_flow_updated-not-described-in-rpmsg_eptdev
-|-- s390-randconfig-r004-20230817
-|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- s390-randconfig-r006-20230817
-|   `-- ERROR:bdev_mark_dead-drivers-s390-block-dasd_mod.ko-undefined
-|-- um-randconfig-r011-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- um-randconfig-r024-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-buildonly-randconfig-r001-20230817
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-buildonly-randconfig-r002-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_doorbell_mgr.c:warning:Excess-function-parameter-db_index-description-in-amdgpu_doorbell_index_on_bar
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_doorbell_mgr.c:warning:Function-parameter-or-member-doorbell_index-not-described-in-amdgpu_doorbell_index_on_bar
-|   |-- drivers-gpu-drm-tests-drm_kunit_helpers.c:warning:expecting-prototype-for-drm_kunit_helper_context_alloc().-Prototype-was-for-drm_kunit_helper_acquire_ctx_alloc()-instead
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-buildonly-randconfig-r003-20230817
-|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-randconfig-r025-20230816
-|   `-- drivers-spi-spi-amd.o:warning:objtool:.text.amd_spi_host_transfer:unexpected-end-of-section
-|-- x86_64-randconfig-x011-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-randconfig-x012-20230817
-|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-randconfig-x013-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-randconfig-x014-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-randconfig-x015-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_doorbell_mgr.c:warning:Excess-function-parameter-db_index-description-in-amdgpu_doorbell_index_on_bar
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_doorbell_mgr.c:warning:Function-parameter-or-member-doorbell_index-not-described-in-amdgpu_doorbell_index_on_bar
-|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-randconfig-x016-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-randconfig-x071-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-randconfig-x072-20230817
-|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-randconfig-x073-20230817
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_doorbell_mgr.c:warning:Excess-function-parameter-db_index-description-in-amdgpu_doorbell_index_on_bar
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_doorbell_mgr.c:warning:Function-parameter-or-member-doorbell_index-not-described-in-amdgpu_doorbell_index_on_bar
-|   |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-randconfig-x074-20230817
-|   |-- drivers-media-pci-intel-ivsc-mei_csi.c:error:call-to-undeclared-function-v4l2_subdev_get_try_format-ISO-C99-and-later-do-not-support-implicit-function-declarations
-|   |-- drivers-media-pci-intel-ivsc-mei_csi.c:error:incompatible-integer-to-pointer-conversion-assigning-to-struct-v4l2_mbus_framefmt-from-int
-|   |-- drivers-media-pci-intel-ivsc-mei_csi.c:error:incompatible-integer-to-pointer-conversion-returning-int-from-a-function-with-result-type-struct-v4l2_mbus_framefmt
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-randconfig-x075-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-|-- x86_64-randconfig-x076-20230817
-|   `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-`-- x86_64-rhel-8.3-rust
-    |-- drivers-video-backlight-lp855x_bl.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-false
-    `-- lib-crypto-mpi-mpi-inv.c:warning:variable-k-set-but-not-used
-
-elapsed time: 730m
-
-configs tested: 113
-configs skipped: 7
-
-tested configs:
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-alpha                randconfig-r001-20230817   gcc  
-alpha                randconfig-r002-20230817   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                  randconfig-r043-20230817   gcc  
-arm                              allmodconfig   gcc  
-arm                              allyesconfig   gcc  
-arm                                 defconfig   gcc  
-arm                         lpc32xx_defconfig   clang
-arm                  randconfig-r005-20230817   gcc  
-arm                  randconfig-r046-20230817   clang
-arm64                            allyesconfig   gcc  
-arm64                               defconfig   gcc  
-arm64                randconfig-r023-20230817   gcc  
-csky                                defconfig   gcc  
-hexagon              randconfig-r041-20230817   clang
-hexagon              randconfig-r045-20230817   clang
-i386                             allyesconfig   gcc  
-i386         buildonly-randconfig-r004-20230817   clang
-i386         buildonly-randconfig-r005-20230817   clang
-i386         buildonly-randconfig-r006-20230817   clang
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                 randconfig-i001-20230817   clang
-i386                 randconfig-i002-20230817   clang
-i386                 randconfig-i003-20230817   clang
-i386                 randconfig-i004-20230817   clang
-i386                 randconfig-i005-20230817   clang
-i386                 randconfig-i006-20230817   clang
-i386                 randconfig-i011-20230817   gcc  
-i386                 randconfig-i012-20230817   gcc  
-i386                 randconfig-i013-20230817   gcc  
-i386                 randconfig-i014-20230817   gcc  
-i386                 randconfig-i015-20230817   gcc  
-i386                 randconfig-i016-20230817   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-m68k                             allmodconfig   gcc  
-m68k                             allyesconfig   gcc  
-m68k                          amiga_defconfig   gcc  
-m68k                          atari_defconfig   gcc  
-m68k                                defconfig   gcc  
-microblaze           randconfig-r006-20230817   gcc  
-mips                             allmodconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                     cu1000-neo_defconfig   gcc  
-mips                 randconfig-r034-20230817   gcc  
-nios2                               defconfig   gcc  
-nios2                randconfig-r003-20230817   gcc  
-openrisc             randconfig-r021-20230817   gcc  
-parisc                           allyesconfig   gcc  
-parisc                              defconfig   gcc  
-parisc               randconfig-r016-20230817   gcc  
-parisc               randconfig-r031-20230817   gcc  
-parisc               randconfig-r033-20230817   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc                 mpc8315_rdb_defconfig   gcc  
-powerpc                      obs600_defconfig   clang
-powerpc              randconfig-r015-20230817   gcc  
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   gcc  
-riscv                            allyesconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                randconfig-r012-20230817   gcc  
-riscv                randconfig-r013-20230817   gcc  
-riscv                randconfig-r042-20230817   gcc  
-riscv                          rv32_defconfig   gcc  
-s390                             allmodconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                 randconfig-r004-20230817   clang
-s390                 randconfig-r044-20230817   gcc  
-sh                               allmodconfig   gcc  
-sh                        edosk7760_defconfig   gcc  
-sh                        sh7757lcr_defconfig   gcc  
-sparc                            allyesconfig   gcc  
-sparc                               defconfig   gcc  
-sparc                randconfig-r032-20230817   gcc  
-um                               allmodconfig   clang
-um                                allnoconfig   clang
-um                               allyesconfig   clang
-um                                  defconfig   gcc  
-um                             i386_defconfig   gcc  
-um                   randconfig-r011-20230817   clang
-um                   randconfig-r024-20230817   clang
-um                           x86_64_defconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64       buildonly-randconfig-r001-20230817   clang
-x86_64       buildonly-randconfig-r002-20230817   clang
-x86_64       buildonly-randconfig-r003-20230817   clang
-x86_64                              defconfig   gcc  
-x86_64                                  kexec   gcc  
-x86_64               randconfig-r014-20230817   gcc  
-x86_64               randconfig-r022-20230817   gcc  
-x86_64               randconfig-x001-20230817   gcc  
-x86_64               randconfig-x002-20230817   gcc  
-x86_64               randconfig-x003-20230817   gcc  
-x86_64               randconfig-x004-20230817   gcc  
-x86_64               randconfig-x005-20230817   gcc  
-x86_64               randconfig-x006-20230817   gcc  
-x86_64               randconfig-x011-20230817   clang
-x86_64               randconfig-x012-20230817   clang
-x86_64               randconfig-x013-20230817   clang
-x86_64               randconfig-x014-20230817   clang
-x86_64               randconfig-x015-20230817   clang
-x86_64               randconfig-x016-20230817   clang
-x86_64                          rhel-8.3-rust   clang
-x86_64                               rhel-8.3   gcc  
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index e3b76fd28d15..596571c94529 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -781,6 +781,7 @@ static int gmc_v11_0_sw_init(void *handle)
+ 	case IP_VERSION(11, 0, 2):
+ 	case IP_VERSION(11, 0, 3):
+ 	case IP_VERSION(11, 0, 4):
++	case IP_VERSION(11, 5, 0):
+ 		set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
+ 		set_bit(AMDGPU_MMHUB0(0), adev->vmhubs_mask);
+ 		/*
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.41.0
+
