@@ -4,37 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D27ABC27C7A
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 13:02:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57E07C2FC20
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 13:02:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE75410E062;
-	Thu, 17 Aug 2023 13:02:24 +0000 (UTC)
-X-Greylist: delayed 973 seconds by postgrey-1.36 at gabe;
- Thu, 17 Aug 2023 11:50:10 UTC
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
- [185.176.79.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C03B288C4C
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 11:50:10 +0000 (UTC)
-Received: from lhrpeml500004.china.huawei.com (unknown [172.18.147.206])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4RRN8L2cjxz67bgN;
- Thu, 17 Aug 2023 19:29:54 +0800 (CST)
-Received: from mscphis00759.huawei.com (10.123.66.134) by
- lhrpeml500004.china.huawei.com (7.191.163.9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.31; Thu, 17 Aug 2023 12:33:53 +0100
-From: Konstantin Meskhidze <konstantin.meskhidze@huawei.com>
-To: <alexander.deucher@amd.com>
-Subject: [PATCH] drivers: gpu: drm: radeon: possible buffer overflow
-Date: Thu, 17 Aug 2023 19:33:49 +0800
-Message-ID: <20230817113349.749797-1-konstantin.meskhidze@huawei.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CBB710E1B8;
+	Thu, 17 Aug 2023 13:02:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D8A310E1D5;
+ Thu, 17 Aug 2023 12:17:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1692274668; x=1723810668;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=MxNTizQ6tenlbYCsauJlpeagfz1q3botHZCecKqmjcM=;
+ b=g1fqBTBWR55gcrsdkEaRBZhNvETfGRIJRwU42PYs+cFaydzSVa49uT6R
+ dJxEeWawQFGzHA8wbLkp/Uq3Zwy0kSrYVQ5zp27qVgpyjFi/7eviHWaUL
+ l55s0jJpFeavuxFgralO5n/8V4sprb3lgqUfpJM/xXj273GemoOWhMcmQ
+ 6gJsPvipwecqpD71qCTB/2HNdFU85mtvBTCI9xm+3TFD8xJxv2eI3gEcD
+ DPdWJ9gpSwGIeyof1dm9qOM6tZh7E8mBNksUQDr75TEFSJJTkTZqUpH5L
+ xwGBuyml4CHopadVZKIW+nudqrj7xghnFXuQzJjTYfVblo33VYxo9wjN8 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="436696661"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="436696661"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2023 05:17:30 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="848872921"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="848872921"
+Received: from lababeix-mobl1.ger.corp.intel.com (HELO
+ ijarvine-mobl2.ger.corp.intel.com) ([10.251.212.52])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2023 05:17:25 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: linux-pci@vger.kernel.org, Bjorn Helgaas <helgaas@kernel.org>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Rob Herring <robh@kernel.org>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+ Lukas Wunner <lukas@wunner.de>, Alexandru Gagniuc <mr.nuke.me@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 02/10] drm/radeon: Use RMW accessors for changing LNKCTL2
+Date: Thu, 17 Aug 2023 15:17:00 +0300
+Message-Id: <20230817121708.53213-3-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20230817121708.53213-1-ilpo.jarvinen@linux.intel.com>
+References: <20230817121708.53213-1-ilpo.jarvinen@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.123.66.134]
-X-ClientProxiedBy: mscpeml500002.china.huawei.com (7.188.26.138) To
- lhrpeml500004.china.huawei.com (7.191.163.9)
-X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Thu, 17 Aug 2023 13:02:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,46 +68,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: artem.kuzin@huawei.com, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, yusongping@huawei.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Krishna chaitanya chundru <quic_krichai@quicinc.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Buffer 'afmt_status' of size 6 could overflow, since index 'afmt_idx' is
-checked after access.
+Don't assume that only the driver would be accessing LNKCTL2. In the
+case of upstream (parent), the driver does not even own the device it's
+changing the registers for.
 
-Fixes: 5cc4e5fc293b ("drm/radeon: Cleanup HDMI audio interrupt handling for evergreen")
-Co-developed-by: Ivanov Mikhail <ivanov.mikhail1@huawei-partners.com>
-Signed-off-by: Konstantin Meskhidze <konstantin.meskhidze@huawei.com>
+Use RMW capability accessors which do proper locking to avoid losing
+concurrent updates to the register value. This change is also useful as
+a cleanup.
+
+Suggested-by: Lukas Wunner <lukas@wunner.de>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- drivers/gpu/drm/radeon/evergreen.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/radeon/cik.c | 40 ++++++++++++++----------------------
+ drivers/gpu/drm/radeon/si.c  | 40 ++++++++++++++----------------------
+ 2 files changed, 30 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/evergreen.c
-index 4f06356d9..f0ae087be 100644
---- a/drivers/gpu/drm/radeon/evergreen.c
-+++ b/drivers/gpu/drm/radeon/evergreen.c
-@@ -4821,14 +4821,15 @@ int evergreen_irq_process(struct radeon_device *rdev)
- 			break;
- 		case 44: /* hdmi */
- 			afmt_idx = src_data;
--			if (!(afmt_status[afmt_idx] & AFMT_AZ_FORMAT_WTRIG))
--				DRM_DEBUG("IH: IH event w/o asserted irq bit?\n");
+diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
+index a6f3c811ceb8..b1558b822f9c 100644
+--- a/drivers/gpu/drm/radeon/cik.c
++++ b/drivers/gpu/drm/radeon/cik.c
+@@ -9592,28 +9592,18 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 								   PCI_EXP_LNKCTL_HAWD);
+ 
+ 				/* linkctl2 */
+-				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
+-							  &tmp16);
+-				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN);
+-				tmp16 |= (bridge_cfg2 &
+-					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pcie_capability_write_word(root,
+-							   PCI_EXP_LNKCTL2,
+-							   tmp16);
 -
- 			if (afmt_idx > 5) {
- 				DRM_ERROR("Unhandled interrupt: %d %d\n",
- 					  src_id, src_data);
- 				break;
- 			}
-+
-+			if (!(afmt_status[afmt_idx] & AFMT_AZ_FORMAT_WTRIG))
-+				DRM_DEBUG("IH: IH event w/o asserted irq bit?\n");
-+
- 			afmt_status[afmt_idx] &= ~AFMT_AZ_FORMAT_WTRIG;
- 			queue_hdmi = true;
- 			DRM_DEBUG("IH: HDMI%d\n", afmt_idx + 1);
+-				pcie_capability_read_word(rdev->pdev,
+-							  PCI_EXP_LNKCTL2,
+-							  &tmp16);
+-				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN);
+-				tmp16 |= (gpu_cfg2 &
+-					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pcie_capability_write_word(rdev->pdev,
+-							   PCI_EXP_LNKCTL2,
+-							   tmp16);
++				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL2,
++								   PCI_EXP_LNKCTL2_ENTER_COMP |
++								   PCI_EXP_LNKCTL2_TX_MARGIN,
++								   bridge_cfg2 |
++								   (PCI_EXP_LNKCTL2_ENTER_COMP |
++								    PCI_EXP_LNKCTL2_TX_MARGIN));
++				pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL2,
++								   PCI_EXP_LNKCTL2_ENTER_COMP |
++								   PCI_EXP_LNKCTL2_TX_MARGIN,
++								   gpu_cfg2 |
++								   (PCI_EXP_LNKCTL2_ENTER_COMP |
++								    PCI_EXP_LNKCTL2_TX_MARGIN));
+ 
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+ 				tmp &= ~LC_SET_QUIESCE;
+@@ -9627,15 +9617,15 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
+ 	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+-	pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL2, &tmp16);
+-	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
++	tmp16 = 0;
+ 	if (speed_cap == PCIE_SPEED_8_0GT)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (speed_cap == PCIE_SPEED_5_0GT)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+-	pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL2, tmp16);
++	pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL2,
++					   PCI_EXP_LNKCTL2_TLS, tmp16);
+ 
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+ 	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
+diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
+index a91012447b56..32871ca09a0f 100644
+--- a/drivers/gpu/drm/radeon/si.c
++++ b/drivers/gpu/drm/radeon/si.c
+@@ -7189,28 +7189,18 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 								   PCI_EXP_LNKCTL_HAWD);
+ 
+ 				/* linkctl2 */
+-				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
+-							  &tmp16);
+-				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN);
+-				tmp16 |= (bridge_cfg2 &
+-					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pcie_capability_write_word(root,
+-							   PCI_EXP_LNKCTL2,
+-							   tmp16);
+-
+-				pcie_capability_read_word(rdev->pdev,
+-							  PCI_EXP_LNKCTL2,
+-							  &tmp16);
+-				tmp16 &= ~(PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN);
+-				tmp16 |= (gpu_cfg2 &
+-					  (PCI_EXP_LNKCTL2_ENTER_COMP |
+-					   PCI_EXP_LNKCTL2_TX_MARGIN));
+-				pcie_capability_write_word(rdev->pdev,
+-							   PCI_EXP_LNKCTL2,
+-							   tmp16);
++				pcie_capability_clear_and_set_word(root, PCI_EXP_LNKCTL2,
++								   PCI_EXP_LNKCTL2_ENTER_COMP |
++								   PCI_EXP_LNKCTL2_TX_MARGIN,
++								   bridge_cfg2 &
++								   (PCI_EXP_LNKCTL2_ENTER_COMP |
++								    PCI_EXP_LNKCTL2_TX_MARGIN));
++				pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL2,
++								   PCI_EXP_LNKCTL2_ENTER_COMP |
++								   PCI_EXP_LNKCTL2_TX_MARGIN,
++								   gpu_cfg2 &
++								   (PCI_EXP_LNKCTL2_ENTER_COMP |
++								    PCI_EXP_LNKCTL2_TX_MARGIN));
+ 
+ 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
+ 				tmp &= ~LC_SET_QUIESCE;
+@@ -7224,15 +7214,15 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
+ 	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
+ 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
+ 
+-	pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL2, &tmp16);
+-	tmp16 &= ~PCI_EXP_LNKCTL2_TLS;
++	tmp16 = 0;
+ 	if (speed_cap == PCIE_SPEED_8_0GT)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_8_0GT; /* gen3 */
+ 	else if (speed_cap == PCIE_SPEED_5_0GT)
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_5_0GT; /* gen2 */
+ 	else
+ 		tmp16 |= PCI_EXP_LNKCTL2_TLS_2_5GT; /* gen1 */
+-	pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL2, tmp16);
++	pcie_capability_clear_and_set_word(rdev->pdev, PCI_EXP_LNKCTL2,
++					   PCI_EXP_LNKCTL2_TLS, tmp16);
+ 
+ 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
+ 	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
 -- 
-2.34.1
+2.30.2
 
