@@ -4,89 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2802DEB64DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 09:02:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82C48C2FC0E
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 09:24:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B56E310E057;
-	Thu, 17 Aug 2023 09:02:25 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2081.outbound.protection.outlook.com [40.107.220.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA79210E057
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 09:02:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oTj4Pemco1bCtue7h6MrWV3GuVUdBXb9BJWGE35shMW5o0pI+6ARCP2a6x/hnXm6HxZmOZtu6EoeFPL8PeFD0zU4Wjrm9WLU5OMqTDCxExSLc9LNvykWmPy+CLNPkhnVnOdIAUIA13Zg1fxhVONfL79RiA/1JyJRyNpQv5Nc6JfRKwFrrbifRV3Lo6sjEvlUu8Qd4PlGl7bbQlQ25yv5EulJdZkT6Mz4cqYN2ystoRuslNfU8/G1b+7od6g3SF4rcwCvKrnzlKO0LEpB8u3CnZPeAzduYCyW1y28f/LBxxePYgopZcAJdDWUKPEmLkJbzrPTFQXSHNIqGNG9zFDbZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uz9AFuV0K7ezZiP+jvN6pdEV3dBZEUYOjpAyxxibvds=;
- b=dHQ6GyAFbXOW1PgofFXeN1R6oLjIkF/luKwA/ikW11vxvXuOM4eXAbdZPfuu2FT04XJS4pxkxCGjIl4YRL9hKL2nqFpWiC8aYQpzFnQosvF9YqPBerzWYaBdGe16ZIOkAbmqXQHydGKFnVwZ0W2/Mlmj+nYDTgUpTvVufnsyBzuYXL0Tj8Zh//JAabnzRYvqTH/YBoHF3esmxcUCndDQDjC/KFJ2q4sv8g9+apyUBjYnTTsUcHiydLVSq7TugTFBs7FMDPjej9ClUR9QscCSGImt6T/3ac/tURmK656HRMODhG0OXFsVV9gL7PK/zRQqkRCl7kZZItL6iQbFGc5opQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uz9AFuV0K7ezZiP+jvN6pdEV3dBZEUYOjpAyxxibvds=;
- b=yFkHM0wZqOKJGMc3w8L1TKVNHN2KFoULR4LbvqLJKdCwpDKpZjqDwgN5QKMR3d8COBQaVh6LjYS1SYpm52FRb2zjAkP0MyxT+k0ITHGGQUVNpnwe2aiqcl+pi17nC9z1eAjasogkFyykxr74URGF6eOYA9COpgvAAhBws0WoegQ=
-Received: from MW4P221CA0024.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::29)
- by DS7PR12MB8419.namprd12.prod.outlook.com (2603:10b6:8:e9::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Thu, 17 Aug
- 2023 09:02:15 +0000
-Received: from CO1PEPF000044F6.namprd21.prod.outlook.com
- (2603:10b6:303:8b:cafe::f1) by MW4P221CA0024.outlook.office365.com
- (2603:10b6:303:8b::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.17 via Frontend
- Transport; Thu, 17 Aug 2023 09:02:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F6.mail.protection.outlook.com (10.167.241.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6723.5 via Frontend Transport; Thu, 17 Aug 2023 09:02:14 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 17 Aug
- 2023 04:02:13 -0500
-Received: from qdhost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.27 via Frontend
- Transport; Thu, 17 Aug 2023 04:02:11 -0500
-From: Kun Liu <Kun.Liu2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: Vangogh: Get average_* from average field of
- gpu_metrics_table
-Date: Thu, 17 Aug 2023 17:02:10 +0800
-Message-ID: <20230817090210.3215438-1-Kun.Liu2@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0505A10E417;
+	Thu, 17 Aug 2023 09:24:31 +0000 (UTC)
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7965010E417
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 09:24:28 +0000 (UTC)
+Received: from [192.168.1.137] ([213.144.156.170])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202308171124249702; Thu, 17 Aug 2023 11:24:24 +0200
+Message-ID: <6bf57265-0572-4923-8a24-e1035c1bf228@daenzer.net>
+Date: Thu, 17 Aug 2023 11:24:22 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Content-Language: en-CA
+To: Simon Ser <contact@emersion.fr>
+References: <20210310145019.2877-6-contact@emersion.fr>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH v2,5/5] amd/display: re-introduce cursor plane rotation
+ prop
+In-Reply-To: <20210310145019.2877-6-contact@emersion.fr>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F6:EE_|DS7PR12MB8419:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a87d542-3615-49ae-15b4-08db9f00a6b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OahlzzS6k2ihNf3VGkKdXoKk52LTpWj2Sc0uL8LwCY6K7+m2Miy8s16ir8gx4dDWWWFRGUMTMijc+m7OKBn0UKmW9bvCF6s9FTjCvKMaj/XVq/kxWNFLy9x+1uasLqD4JlwkewrRpQHKvxQiqRol99FcW8cHUJHkVXa8U/mulzrMcQHUfeaEXF0Kb+aeA2QUfAgCL0+Xv0aDppu/9IZYhbpqxEvHVcE7EaAXV/pr+67MAUqtJNHJMtougse+yBKNAzxCCRnGfS4+EBGPVgTHwoeaOyyz/wsuMjxvXGMY0Ct/lCRzNi41FgI26NN8QhGG9n9882tjk0a2uVmgc7ZWqcAFf+Mcrp660lF2vvdtg/S7WzK1b/OCA9eJFzAkaMLrJat2xpteNeWD1OATLZbyK1FbhRqk8Iz/3Yo8VF/HIorE2XyyVNAlBlTA/U0WslIXcAcTw39Qzhb5yxcGP63vbsz//dveyLSQ/kG+dvrx3f40p1Yg+KUHR1LWixXF5l1/uLs4dY4P0wetQX2LKh2sWcm9N7buUHOaKux8VX/eO4gW+L5LefhRunKgjo6ZFQjJTyAT0BpHuhyWAOX55TeSWXNcK2jEfOEnE586OLJ5R9KOws37PrV/XlkKmBG5F3Xhz4TjynY9gxJBcfzEKBJJd41dtnGDuxDeYWNJqAB8n3RBWNqw7vzJgjPUdkJSgIcrKnSuebmXo+TXGPOTlhcrWLhYt4gahTNq8mSHPmg03mNDwg5JnSayVCfFCI1i9KjNXrWTj3Ll+MampMN+KzavMw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(136003)(346002)(376002)(39860400002)(1800799009)(451199024)(186009)(82310400011)(46966006)(40470700004)(36840700001)(40460700003)(2906002)(83380400001)(26005)(86362001)(40480700001)(336012)(478600001)(426003)(36756003)(7696005)(2616005)(1076003)(5660300002)(36860700001)(41300700001)(54906003)(82740400003)(356005)(316002)(70206006)(70586007)(81166007)(6916009)(4326008)(8676002)(8936002)(47076005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2023 09:02:14.7393 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a87d542-3615-49ae-15b4-08db9f00a6b8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F6.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8419
+X-CTCH: RefID="str=0001.0A782F24.64DDE749.0040,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,58 +42,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo.Lazar@amd.com, WenYou.Yang@amd.com, Li.Ma@amd.com,
- Alexander.Deucher@amd.com, Evan.Quan@amd.com, Richardqi.Liang@amd.com,
- Kun Liu <Kun.Liu2@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-for older BIOS, smu won't fill average field of gpu_metrics_table, so we acquire
-average_* from current field. but now average value is available in gpu_metrics_v2_4
 
-Signed-off-by: Kun Liu <Kun.Liu2@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 24 +++++++++----------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+Why is this patch marked as rejected in patchwork? Something like this seems required for a Wayland compositor to use the HW cursor with rotated primary/overlay planes.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 185d0b50e..28b738adc 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -1883,21 +1883,21 @@ static ssize_t vangogh_get_gpu_metrics_v2_4(struct smu_context *smu,
- 	       sizeof(uint16_t) * 4);
- 	gpu_metrics->average_temperature_l3[0] = metrics.Average.L3Temperature[0];
- 
--	gpu_metrics->average_gfx_activity = metrics.Current.GfxActivity;
--	gpu_metrics->average_mm_activity = metrics.Current.UvdActivity;
-+	gpu_metrics->average_gfx_activity = metrics.Average.GfxActivity;
-+	gpu_metrics->average_mm_activity = metrics.Average.UvdActivity;
- 
--	gpu_metrics->average_socket_power = metrics.Current.CurrentSocketPower;
--	gpu_metrics->average_cpu_power = metrics.Current.Power[0];
--	gpu_metrics->average_soc_power = metrics.Current.Power[1];
--	gpu_metrics->average_gfx_power = metrics.Current.Power[2];
-+	gpu_metrics->average_socket_power = metrics.Average.CurrentSocketPower;
-+	gpu_metrics->average_cpu_power = metrics.Average.Power[0];
-+	gpu_metrics->average_soc_power = metrics.Average.Power[1];
-+	gpu_metrics->average_gfx_power = metrics.Average.Power[2];
- 
--	gpu_metrics->average_cpu_voltage = metrics.Current.Voltage[0];
--	gpu_metrics->average_soc_voltage = metrics.Current.Voltage[1];
--	gpu_metrics->average_gfx_voltage = metrics.Current.Voltage[2];
-+	gpu_metrics->average_cpu_voltage = metrics.Average.Voltage[0];
-+	gpu_metrics->average_soc_voltage = metrics.Average.Voltage[1];
-+	gpu_metrics->average_gfx_voltage = metrics.Average.Voltage[2];
- 
--	gpu_metrics->average_cpu_current = metrics.Current.Current[0];
--	gpu_metrics->average_soc_current = metrics.Current.Current[1];
--	gpu_metrics->average_gfx_current = metrics.Current.Current[2];
-+	gpu_metrics->average_cpu_current = metrics.Average.Current[0];
-+	gpu_metrics->average_soc_current = metrics.Average.Current[1];
-+	gpu_metrics->average_gfx_current = metrics.Average.Current[2];
- 
- 	memcpy(&gpu_metrics->average_core_power[0],
- 	       &metrics.Average.CorePower[0],
+
+On 3/10/21 15:50, Simon Ser wrote:
+> The commit 1347385fe187 ("drm/amd/display: don't expose rotation
+> prop for cursor plane") removed the rotation property for the
+> cursor plane, assuming the cursor would always be displayed without
+> any rotation. However the rotation is inherited from the underlying
+> plane.
+> 
+> As a result, if the primary plane is rotated, then the cursor plane
+> will incorrectly be rotated as well even though it doesn't have a
+> rotation property.
+> 
+> To fix this, re-introduce the cursor rotation property, and check
+> that its value matches the underlying plane's.
+> 
+> Signed-off-by: Simon Ser <contact@emersion.fr>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Harry Wentland <hwentlan@amd.com>
+> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index b4f6e2985b8a..36ee52104007 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6897,8 +6897,7 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>  		DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
+>  		DRM_MODE_ROTATE_180 | DRM_MODE_ROTATE_270;
+>  
+> -	if (dm->adev->asic_type >= CHIP_BONAIRE &&
+> -	    plane->type != DRM_PLANE_TYPE_CURSOR)
+> +	if (dm->adev->asic_type >= CHIP_BONAIRE)
+>  		drm_plane_create_rotation_property(plane, DRM_MODE_ROTATE_0,
+>  						   supported_rotations);
+>  
+> @@ -9494,6 +9493,11 @@ static int dm_check_crtc_cursor(struct drm_atomic_state *state,
+>  		return -EINVAL;
+>  	}
+>  
+> +	if (new_underlying_state->rotation != new_cursor_state->rotation) {
+> +		drm_dbg_atomic(crtc->dev, "Cursor plane rotation doesn't match underlying plane\n");
+> +		return -EINVAL;
+> +	}
+> +
+>  	/* In theory we could probably support YUV cursors when the underlying
+>  	 * plane uses a YUV format, but there's no use-case for it yet. */
+>  	if (new_underlying_state->fb->format->is_yuv) {
+
+
 -- 
-2.34.1
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
