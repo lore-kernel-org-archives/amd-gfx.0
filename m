@@ -4,114 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3558C27C7A
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 05:50:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48871C27C7A
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 06:41:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 219BE10E3F6;
-	Thu, 17 Aug 2023 05:50:13 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA7B610E3F6
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 05:50:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C577410E19C;
+	Thu, 17 Aug 2023 06:41:18 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2057.outbound.protection.outlook.com [40.107.220.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87CFD10E183;
+ Thu, 17 Aug 2023 06:41:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NyAArNMYHozHEEN4CCA5YgHO3mjnV2zxzhIum8/Ik+ZrqwTQBgQgzpf07TbN2LpziM4PcuCnse019SwlCX5UYMEfPDJMYDhWRBK9A+no2TCQ82BrrLhGfhU+e1LkN5s333eUtX3fd5A4bHgkjBd0YxBGN38zcMzaMgMtdklkJis1UsCzfGfh07Si/nieMBbYhTUIktJi8PXyUi11xx186qe8cJ2EmJtBhvbb2FB+0j69q9chTMCq8KuGpSCxaJUYjUUi+ovnr9olTW3nj6F1Bg+OS14QaIsGSg5tbfBTfgBVZ4vLkg+3LN/CL9t47+IQAXZ9mkt9lYjscAzES5S3mw==
+ b=LFTwuon5ouWEQcaN77X/40j3JE2keO5NBIdkJylMN/nmzGzjnAfSozIFWPpU5ROT00KGwL48zPzQggVe6udIza4+usfSZ3iUQsXpk5sZqB3iHSrJ1WKc+P2FKL0pYj4lodzc2wcB3zadFBBYFZ8z4/1ClxOdGkYT/rdDLC+alkrlFWUvosUKyrT/ZjBEoRP36NtB9rW05EmnWt35xupnqcUPXk2dNic28ybZw/uwLc7nbWxenuHYRSua8ZXZ3am7+RP5/fvnZix1DZFGw1LIGLLr0g5tgM3Q8BqWguwct+qGUlebW+B+FPcVG2553TCWkXvinhSatH14OTvd6xXCVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ds+fyAR1egjT+GwSZlJa9EzFnphulu9K6BQtNctU+VQ=;
- b=EH2wO/mF+6wCf4HCgKj5UMeF7bkfO8XLJ5/4yfJTsTJYge4z2oZXSXhH9f+4yh6O0EY6/50x5YWKpst7xeDZKtH3LGOvKXtcQfgtTqTy9UljIE+0b5iOm297NcdiloaTVXUhj5FIeF4TSta2997a9gEEYH1UCL4v03JjNkbBbFkmm6JHyZcNuNstOyfm02XMaGy3ufaaJKMTmvM+xn+A8zNMMWSub2SJMVUkzpjwrsuLwYO6EnaMpJIOIUIZC5gb9RqWYldFTXagpnEqBf8X8eFXa8mhengCfKLZw6nvWP13dVFGG5RY2c81JKO47LkmMHw51NBHH2TF5xIHJxvEnQ==
+ bh=87i8VhHwe929pduBgZl3a+9K0ZIunDO0ZwUz/il3RVE=;
+ b=i97FSqPTOi479ETI9X3nUpa05kIgEGLdH+y4PyUz5iWC7bmim0wYCzt1Qj6usPzYpdlenV3vrqiASSfjegVKjo+NZ9K2LehuTJKcjJY3H07U3mAq5K40hcy15Y5PHUuQ/TELdcJK2iwpFsEiuXwe8hFUQUtbt185uv+sFToCfgT819QSj7/iiwt6pd4O5nI/vcb3+dJTURSWv+zhBQsgZbwMi3A+4CAMCdkbzzFbjSoc4pATKtAEUIhbN2mSgCikwH0LOSeEfVlDwCk600L+lOGFZzZFvalWQu9YOj9F/Vq6MRbJILutt5ZpFpQ9azFUEH/+FYkqQVnXWnogBV6uZA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ds+fyAR1egjT+GwSZlJa9EzFnphulu9K6BQtNctU+VQ=;
- b=a1M/ecTO/1QELH+aOoz3PVggaj5XrKWd84xZbLF66fcmVbOeS2t7QTVZnCTkUnjrt/C2A5qEcIRAS95h9i6zsoFNQfIgbOluDh8+2BRgtU99A7YotnK+tcvXub74zBXWxmoF1HhLdxptDsUkvZeXOJSy04wPBHzV/Ui3McxctiI=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by DM4PR12MB6615.namprd12.prod.outlook.com (2603:10b6:8:8d::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6678.31; Thu, 17 Aug 2023 05:50:06 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::4d17:c920:ea2e:3b2d]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::4d17:c920:ea2e:3b2d%4]) with mapi id 15.20.6678.029; Thu, 17 Aug 2023
- 05:50:06 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Ma, Le" <Le.Ma@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: update gc_info v2_1 from discovery
-Thread-Topic: [PATCH 2/2] drm/amdgpu: update gc_info v2_1 from discovery
-Thread-Index: AQHZ0LuYHrmQHYVxSUyyvqNPZp8Kya/t+7pw
-Date: Thu, 17 Aug 2023 05:50:06 +0000
-Message-ID: <BN9PR12MB52570F76E121AA34F355BA01FC1AA@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20230817033254.26780-1-le.ma@amd.com>
- <20230817033254.26780-2-le.ma@amd.com>
-In-Reply-To: <20230817033254.26780-2-le.ma@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=d25109ee-c69b-4831-b943-88214b9c57df;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-08-17T05:49:33Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=87i8VhHwe929pduBgZl3a+9K0ZIunDO0ZwUz/il3RVE=;
+ b=4ttyTAlvPy2hEUXxfro7byPNmCfSxshfbMseW2fO5oQtMShqJMGHpcrctLauTI3iygyKomNNdNu41hYbnMK3o6aSzf53zcHfJw6TTDq2XeaOvZF88MhmCkqyEDrQILKk6lNAynqi63EnIiY4P/Ge6BxnT2LzDKKSV5o2p+a1jCQ=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|DM4PR12MB6615:EE_
-x-ms-office365-filtering-correlation-id: f4f50134-89a4-42f6-4068-08db9ee5cf6a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 5bziFcTF4FSObIhJfs48+XkD0gFNOur94uYjEPDq96MWejfZmjwfdGUEk/Zc8r/j1Y74AnbwQUOv8M8xmmx8FnaW6xFcdlt3DBwqtTFZATn/InaPa3ggK6qL30z58wwD7I16KjTfur3WxaydrMhFw8dPRU83i18yjmq2UkCQ8V1gCq7GgbZ48bX0ncXCz2e2OFA0VhAEaXTTxS2pp7YuOMgnjD97D6ZNI/7lqHHNQ5ZjFdRN2YCP7gYjd0VZECe2v/KiJXoygkC0PI9v73ETnR23AiWfW03xeb1swfZhpq/sAey0SLjdhbJ/ohlbYKkpxq4zqevU/cjQe7HyNAREp1DEZ1I//TP2v8VZ0QtleXbgY+rDNtC2QTp86SWpagusSHwjF0n8r+CmukfaNFORp6fO8EpLu2q62B2G6wO/UUEI25s4VSRT9bKhN5Ba34vcCG3h89EIB/x6O7k5Tbp4myPW/SZXxYRSupSAKJiNadfMXAJcKM145zKk0bdan7VpE37PNUzzp9vMzHhCnwHJFh4Zpyj3u3uvwdDEpflEuCA5JxVfuWxxu8rSCn5BJjA7GoCcgC5aFGPfL3hBRUsHq3LP22GdTpPm4BrmKcYrs2gupUWsLhJHyQmrAnCakls2
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(136003)(366004)(346002)(396003)(376002)(186009)(451199024)(1800799009)(110136005)(66556008)(66446008)(66476007)(64756008)(66946007)(76116006)(5660300002)(55016003)(41300700001)(15650500001)(2906002)(316002)(478600001)(8936002)(8676002)(52536014)(4326008)(71200400001)(7696005)(6506007)(9686003)(53546011)(83380400001)(122000001)(38100700002)(38070700005)(86362001)(33656002)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NX5IroKxnin5JgKhlByY7UQcC6Q0Ol5+cOlXHb8EHdJ/yLWzHK5QmCqUDBwM?=
- =?us-ascii?Q?9HifHr/FbyYYG46ofaBHEmJA4VpMa/9D0mXPzcvHiFSZkPFHFEltz/JptkFa?=
- =?us-ascii?Q?NCNHIoaCG9v7vtXUtN/N1tuD8GguhL+ZLxXanz6+VoCJXcdqE+cUiH//SizL?=
- =?us-ascii?Q?CbImJ/Kjwy/MzcAhDEediOTi1rL9pCYYO44PiCe3wlrL4kRJWkPfpGKIONWB?=
- =?us-ascii?Q?9gUBI63SKUoGRqaqMqoBU88lmn1jjOj4RP1oTjdXqG2GqicAa/282kozBuSB?=
- =?us-ascii?Q?4gmzwcF71AQjJSZKmXZaO8C5wBeUkQTUPrYbfNpwnhzWdqldSIzWrXgwAXtk?=
- =?us-ascii?Q?3DPOesla1g6+UNnqmMjE249AWm9NsCEVbd9Fw+yO52sF8ZFk+WbU0xsnoObt?=
- =?us-ascii?Q?qtxRg+wJ3aptBHzndbZnAkqaf7xDrH0rDXBMwoKbralonxOtzrfKwJvUZ4qh?=
- =?us-ascii?Q?oDzmsUES1KDC24mPMjbBWk3Gcek8DNAmwH8mrkrwKTZjDsSUOpzp33IJVbac?=
- =?us-ascii?Q?1RfvNP3KB6VkCAgsGsYs1cazma/h8/J9foh9kdD0nQTYZV/o0o6mfLlfIHCg?=
- =?us-ascii?Q?5PmPudwEjneh7Hp4DEUv/SSNBYt9cSp6Lb8p+eoVjzT2RiqRNOoYSGOmuihw?=
- =?us-ascii?Q?6Y+7HvgCjFRftoDhinOVQo6FWKiUBiHgoLixVIphBlNGj4HhapTen0yzauij?=
- =?us-ascii?Q?QaQq/40ij3QLNqclC1EbdyLCG0MRF/+DtUd8QQbakNWfmg/hJZxSe4HbrdBo?=
- =?us-ascii?Q?sKWPznezRUr5E7rVnG1PQ8HCDhpXJMO/sgOsUdhkJPZ0dsFrAAMm5z3BgFnt?=
- =?us-ascii?Q?UhB6w6+/PDmagRFjPDwuu/fmDJI0l40bVWlnJVxL5kog7Z7EVG3pZStMg+7V?=
- =?us-ascii?Q?cU1/9JwuW7KpOBAA3itWJvV9Coc2fnSesWvJYCHuKMvo62qUKC5BmbUnp6RD?=
- =?us-ascii?Q?7HxC+q+AGV3mVnJmMdOzplL50ZXMb8HCPuSWy/9qYmZsQhWOZr0kuXb61AfF?=
- =?us-ascii?Q?Bj0PMN2ifTOAtrM85pz9FoKeBvup2dLQxOv80VgnkARZiWIe62IXiIA1UvrQ?=
- =?us-ascii?Q?YSfEqoWlDcMkDIL5PPbQ81GKRrNW8Gw41cos9vc/Gj7D+EB+RjdFADR5r9DM?=
- =?us-ascii?Q?z0Be08Hs/CP9s+Wipc6VPbwjM2gdMWz0TilwMM/EDDlG0uI4WG1ZI6vVmPSh?=
- =?us-ascii?Q?uRJ5aegpfzZ9NIajX3fiyuLYni+Kn2kFWsXx/suj2t8e5iXgIq0JUGAm7pPb?=
- =?us-ascii?Q?7v5HpGwBSBrRg0bAD82hJfRDzECdEcj9sBLLe4j2iR3BhkVJAjgC0yZT239s?=
- =?us-ascii?Q?Mq+rUqXe6kiy/nalSIjlU3k5gamZd1fYk8Jj+Wyj1BgS9DTzf/6mKPCmniPr?=
- =?us-ascii?Q?otcj/NY680FIaN0J73roeKg+8DaVnxt2f3Q0jalOOnPG2CjsvCD20YN48wN5?=
- =?us-ascii?Q?bj1FNClbgutXP2vr1qjufhhAs35e8Ao3xKiGfIfGiRnAC7yTAWIou3hnrTMz?=
- =?us-ascii?Q?XVjcn/DtihWxQAW7uYpmUyHNcENkr3IuKkmYT2ZgrQMf1to4mO2ALGTzx/1S?=
- =?us-ascii?Q?6WGj4gx02b7704gnLSn5sL1eFEmkWUDzikHykCKs?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
+ by DM6PR12MB4925.namprd12.prod.outlook.com (2603:10b6:5:1b7::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.26; Thu, 17 Aug
+ 2023 06:41:12 +0000
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::dc06:ffb3:46ec:6b86]) by MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::dc06:ffb3:46ec:6b86%3]) with mapi id 15.20.6678.029; Thu, 17 Aug 2023
+ 06:41:12 +0000
+Message-ID: <07ef59db-da17-15cf-789a-7f5d01b2c9c9@amd.com>
+Date: Thu, 17 Aug 2023 08:41:04 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v4 2/4] drm/amdgpu: Rework coredump to use memory
+ dynamically
+Content-Language: en-US
+To: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20230815195100.294458-1-andrealmeid@igalia.com>
+ <20230815195100.294458-3-andrealmeid@igalia.com>
+From: Shashank Sharma <shashank.sharma@amd.com>
+In-Reply-To: <20230815195100.294458-3-andrealmeid@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BEXP281CA0010.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10::20)
+ To MW4PR12MB5667.namprd12.prod.outlook.com
+ (2603:10b6:303:18a::10)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|DM6PR12MB4925:EE_
+X-MS-Office365-Filtering-Correlation-Id: 388e33bc-e5e5-4295-487d-08db9eecf25a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OhFFWrxP1m/DmPtPebdroYLK9xwu8FLxHiwiY3Vb7wCUfep9/F7ivYHTaPJ84nqqxjI1kyfF0qopYZCrjWmOtc5CNerFty35g0qiFlS9i2pcKQP3GdoY3cowX268mOJOsvSTvBOf1JEA4b/l4/XbIplEoPFz/eROk/zi1yoWAkFeLwyL93SvAZl18qa8e/WBZsMRyI2I8jTR2RE3OxQht1sJk0YDAGsWekmMnHhe0kPziHi1fjpgRluZIVW3KiGLj6fVsAQYf9ImUPuwF2IzCySO5+ipxVFvqSrCxPBGPvUM2RmsnoJE4e+er+sJSPuDo0lT2x38LpT0el68bJGg+Poy3py2cj5ICe0k7XY+FP7ClWfyx7WPBLKhP1HSNz23eQgoNXM1jl33U0vJ937D5/Yt0lwA50LjG1turOno/4i3cGt3Fz+YMAhAwSc7VXcKxJc2iyQmRxHi+Te+AJjGpDoz8h+1xrdalM+aN3PpWdxpLn2aUpG4bVKj0vkJIEkXrCpRYXrqTCgczty5QPs8yaFLEDb1cIeiCUZSa0Xlb1c4EEvVdGR4uSruxf65onBeMMvEp4EcZeErIB7149HHDcNneUtDJKEtIwPv3eB9wRa+eUayXb2/IsG+OUbCDz1SIGjU0nDPmrLlPkEy2cU9ug==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(376002)(346002)(396003)(136003)(366004)(451199024)(1800799009)(186009)(316002)(54906003)(66556008)(66946007)(66476007)(31686004)(5660300002)(41300700001)(44832011)(38100700002)(4326008)(8936002)(8676002)(26005)(2906002)(83380400001)(478600001)(86362001)(53546011)(6512007)(31696002)(36756003)(6506007)(6666004)(6486002)(2616005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NE9yTnl4UWJsazJIOFBhWmdLVXBITHdvdU1zQzZUMjluaVdDVFVkcEs5L0lM?=
+ =?utf-8?B?dFZ5UWFuVHJ1Z0xlTExMOVBzcUN3TDNDUFdqT1Vab0szcXgxVjVhWXVhNm1r?=
+ =?utf-8?B?M3ROT0g2K21RdlcwOEovR3ZLSjVOSkRyUmRyOFpGMnNSd0FvZlY4dGFnOHkv?=
+ =?utf-8?B?YUoxT0hHRXEraW1lMGpOTHJidjNhQnJ4UmVGN0pDS1JzNHNmb1V3clZCL1FL?=
+ =?utf-8?B?L1VXY003M3ZGdXRhMHVOYmVmeVhkbEV4QXlDUE9MajkzUnRvNWhEWUNBZnB0?=
+ =?utf-8?B?ZThoL0xELzVzeitvM1pHdjVwMENQeW42ZVh6NlN4SE9VMEM4MEpoQWx6RFNK?=
+ =?utf-8?B?eWFxbE93VFdOOHJBWU1kbWIrNlkwSytpTi9YNi9CTXhDcFJjWFZyc0JGcGJQ?=
+ =?utf-8?B?ZThLU3FVdHNrdGJtVFBYVlFqYUFMd0hpekh2U28yZFRJSnhRWkF5UStiMDlB?=
+ =?utf-8?B?RitVanhpTkNrcWltQjY2VnNGZDA3SjBCSDBiSm5vSjZhVE1kcUE4aHBnbFla?=
+ =?utf-8?B?M2x6YVBNNDRiSmxBN1pOTG9vQlp1NTQ2TGp1UVVNUFpPak9rOFhtZXozNVVV?=
+ =?utf-8?B?ZGdzeXcrR01WYUFtckx4WGJBeHEwNVlmbGo3QW5sQTk1bFRpYlhBYWh4cFl3?=
+ =?utf-8?B?aWQrN0crbUFuT3pQbWU5VHhReG9pRlBzRE85WXg2NWJ2WGhtT3ZwZXdPYTha?=
+ =?utf-8?B?R3dkSUgvcEQwQm1Lb2VwOWpDbnByMEFHWUNzSWM0MFFPUkhheWZNcVRZRFV1?=
+ =?utf-8?B?VmJkZTV4ODdaQ09lcmdtaHdMTnpoQ3FRNHBXWVEzVFd6dHZsM2YxQUtueWN0?=
+ =?utf-8?B?WkFYNGc2WVVIWjVPbFNzcDFCQ1czVDBTRlRXZUtsR3pibTE4UktHVUVOZzIv?=
+ =?utf-8?B?bTRmSXg4aGg4Y3dKWFREQ3VtMVgxbGd2NTlTdUV4SUZKdkN0N2l3bXpBTk9k?=
+ =?utf-8?B?OFlHNk5xN3BCRHJWd2lqMXZhU1Y5K0dxRWZyUjJpRkpSdi9RRWk5UTB2RkRX?=
+ =?utf-8?B?WThuemJHMDJPZmtFMDA0UkxwUTNkZ0FYSTJsanU4R0h0NWVpc2VKR1BCR0Y4?=
+ =?utf-8?B?VThLTEcvU3FpeWNBdENia1JMSU50RmQrU1EwVnVVNVJKM2hsendmMWRxZDVS?=
+ =?utf-8?B?VlltbzZvTURvTkVPRjZyM21hbDk3eXp1LzVDTldiaG9ZSGZrSllhdjIyR252?=
+ =?utf-8?B?SHVzQ0IzNERFOHVIekhiVEhqWEFnSVpNYWsrQ2M1dVhHV3BCQmVvVjNxcitI?=
+ =?utf-8?B?d1hIR2UvYlFLQlp5bnU1Zkd2SmZMbGZXNzRUdHJjSUJyY29QS1JnUTQwRjZU?=
+ =?utf-8?B?Z0dyWDJENnZIaFRuWmtxMENzb3BBdjN0LzdRKzF6WExhcUgwZWxIejdQNDI5?=
+ =?utf-8?B?dVNhWHVKR3JjQ25JeGxpRXdZNlZoUHVkVmNZWlVqVkRURTd5aTdScm1sK3oy?=
+ =?utf-8?B?ZnRHMlV2ZHdxWlZmYTJtZkwrdkh4VTk0dDdUQXZ5NTNqQ3o2V3JWaWUwNndF?=
+ =?utf-8?B?SG1QdVdiNG9pejZNQ2FSOTRoQUZieHl5QTRwbzBTemt1WUI0TEFyRE45QXBa?=
+ =?utf-8?B?UXRjV0R1VDNMeVJXbUYxbU8zdzFjc3F6M2dhNVRDeWRzbTluQ0JwbXhNSjk4?=
+ =?utf-8?B?LzNRc2o5cVJWSGcxWTJKZ3dMRzc3SU9VSzNQdmsvb3o0RXlqelVzZEJaaE90?=
+ =?utf-8?B?REZ2NFhFZ2w2a3ZuYWc1c21JaFVaSlJOSlNzQXNrSVV4K1hLeHMrbnlyY2RC?=
+ =?utf-8?B?KzFPUUpKcDdPcUdzang1cjlRRjh1K3ZVaVhQeUJQQ1dWdlFlU2Z6MHNUZEp1?=
+ =?utf-8?B?TVE1cWExMldISm85eVdIcjdQaG5iSXluMWp5OURlWEk4WVJmMWdrNzM4NnhP?=
+ =?utf-8?B?bVZXait5eENhVFRhaEdwTzJGdjNJcmlQTG9zRkhEdVpCWUI3ZVNWTC9vcmJv?=
+ =?utf-8?B?R1Jhek51NXdGaU15NDQ4a1FHelk5dEd0YjRXVEZIdTVFQTRqZ0dHMlMwbVBz?=
+ =?utf-8?B?bnpxMEY1dVRGaTZrcEJ4TzF2ZU1tY25hS0N5VWpIbjk4ZUxGNFhiU0t0bGpZ?=
+ =?utf-8?B?QThPRVZxL2JORW1yamRML2h0QjJTMFhrblV4OWRNUm5YUzhpUkJ3RmtMblla?=
+ =?utf-8?Q?0yixYYme2EEP09ZNpY1l9lf32?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 388e33bc-e5e5-4295-487d-08db9eecf25a
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4f50134-89a4-42f6-4068-08db9ee5cf6a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Aug 2023 05:50:06.7521 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hYgkaFXL4Wf1RM1i4qTgDw0LStld71eumoE9Q5Dkm8jwsOhjnWnVdtHUVm3h2zgunF5i3dJOnDx29z/zqLyh4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6615
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2023 06:41:12.1432 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZMUM9udjd9MODaigE25bYRRtNqxuggIJ0LBeJz+Vj57pZ5mrcA6xHTfBEhwK983idIuoMoueJ9P6aAOSA+WHlw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4925
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,130 +127,198 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhang, Morris" <Shiwu.Zhang@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Hello Andre,
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+On 15/08/2023 21:50, André Almeida wrote:
+> Instead of storing coredump information inside amdgpu_device struct,
+> move if to a proper separated struct and allocate it dynamically. This
+> will make it easier to further expand the logged information.
+>
+> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+> ---
+> v4: change kmalloc to kzalloc
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 14 +++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 63 ++++++++++++++--------
+>   2 files changed, 49 insertions(+), 28 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 9c6a332261ab..0d560b713948 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1088,11 +1088,6 @@ struct amdgpu_device {
+>   	uint32_t                        *reset_dump_reg_list;
+>   	uint32_t			*reset_dump_reg_value;
+>   	int                             num_regs;
+> -#ifdef CONFIG_DEV_COREDUMP
+> -	struct amdgpu_task_info         reset_task_info;
+> -	bool                            reset_vram_lost;
+> -	struct timespec64               reset_time;
+> -#endif
+>   
+>   	bool                            scpm_enabled;
+>   	uint32_t                        scpm_status;
+> @@ -1105,6 +1100,15 @@ struct amdgpu_device {
+>   	uint32_t			aid_mask;
+>   };
+>   
+> +#ifdef CONFIG_DEV_COREDUMP
+> +struct amdgpu_coredump_info {
+> +	struct amdgpu_device		*adev;
+> +	struct amdgpu_task_info         reset_task_info;
+> +	struct timespec64               reset_time;
+> +	bool                            reset_vram_lost;
+> +};
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Le Ma
-Sent: Thursday, August 17, 2023 11:33
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Morris <Shiwu.Zhang@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: update gc_info v2_1 from discovery
+The patch looks good to me in general, but I would recommend slightly 
+different arrangement and segregation of GPU reset information.
 
-Several new fields are exposed in gc_info v2_1
+Please consider a higher level structure adev->gpu_reset_info, and move 
+everything related to reset dump info into that, including this new 
+coredump_info structure, something like this:
 
-Change-Id: Ib320e8ca70de8960634e1a22aaf2611ba7ebbaeb
-Signed-off-by: Le Ma <le.ma@amd.com>
-Reviewed-by: Shiwu Zhang <shiwu.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 10 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |  3 ++
- drivers/gpu/drm/amd/include/discovery.h       | 30 +++++++++++++++++++
- 3 files changed, 43 insertions(+)
+struct amdgpu_reset_info {
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_discovery.c
-index f4cd43ce251b..6ffdfc5a7c0b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -1390,6 +1390,7 @@ union gc_info {
-        struct gc_info_v1_1 v1_1;
-        struct gc_info_v1_2 v1_2;
-        struct gc_info_v2_0 v2;
-+       struct gc_info_v2_1 v2_1;
- };
+     uint32_t *reset_dump_reg_list;
 
- static int amdgpu_discovery_get_gfx_info(struct amdgpu_device *adev) @@ -1=
-465,6 +1466,15 @@ static int amdgpu_discovery_get_gfx_info(struct amdgpu_de=
-vice *adev)
-                adev->gfx.config.num_sc_per_sh =3D le32_to_cpu(gc_info->v2.=
-gc_num_sc_per_se) /
-                        le32_to_cpu(gc_info->v2.gc_num_sh_per_se);
-                adev->gfx.config.num_packer_per_sc =3D le32_to_cpu(gc_info-=
->v2.gc_num_packer_per_sc);
-+               if (gc_info->v2.header.version_minor =3D=3D 1) {
-+                       adev->gfx.config.gc_num_tcp_per_sa =3D le32_to_cpu(=
-gc_info->v2_1.gc_num_tcp_per_sh);
-+                       adev->gfx.config.gc_tcp_size_per_cu =3D le32_to_cpu=
-(gc_info->v2_1.gc_tcp_size_per_cu);
-+                       adev->gfx.config.gc_num_sdp_interface =3D le32_to_c=
-pu(gc_info->v2_1.gc_num_sdp_interface); /* per XCD */
-+                       adev->gfx.config.gc_num_cu_per_sqc =3D le32_to_cpu(=
-gc_info->v2_1.gc_num_cu_per_sqc);
-+                       adev->gfx.config.gc_l1_instruction_cache_size_per_s=
-qc =3D le32_to_cpu(gc_info->v2_1.gc_instruction_cache_size_per_sqc);
-+                       adev->gfx.config.gc_l1_data_cache_size_per_sqc =3D =
-le32_to_cpu(gc_info->v2_1.gc_scalar_data_cache_size_per_sqc);
-+                       adev->gfx.config.gc_tcc_size =3D le32_to_cpu(gc_inf=
-o->v2_1.gc_tcc_size); /* per XCD */
-+               }
-                break;
-        default:
-                dev_err(adev->dev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.h
-index a4ff515ce896..395c1768b9fc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -241,6 +241,9 @@ struct amdgpu_gfx_config {
-        uint32_t gc_gl1c_per_sa;
-        uint32_t gc_gl1c_size_per_instance;
-        uint32_t gc_gl2c_per_gpu;
-+       uint32_t gc_tcp_size_per_cu;
-+       uint32_t gc_num_cu_per_sqc;
-+       uint32_t gc_tcc_size;
- };
+     uint32_t *reset_dump_reg_value;
 
- struct amdgpu_cu_info {
-diff --git a/drivers/gpu/drm/amd/include/discovery.h b/drivers/gpu/drm/amd/=
-include/discovery.h
-index b9884e576f98..7a9d473d0917 100644
---- a/drivers/gpu/drm/amd/include/discovery.h
-+++ b/drivers/gpu/drm/amd/include/discovery.h
-@@ -280,6 +280,36 @@ struct gc_info_v2_0 {
-        uint32_t gc_num_packer_per_sc;
- };
+     int num_regs;
 
-+struct gc_info_v2_1 {
-+       struct gpu_info_header header;
-+
-+       uint32_t gc_num_se;
-+       uint32_t gc_num_cu_per_sh;
-+       uint32_t gc_num_sh_per_se;
-+       uint32_t gc_num_rb_per_se;
-+       uint32_t gc_num_tccs;
-+       uint32_t gc_num_gprs;
-+       uint32_t gc_num_max_gs_thds;
-+       uint32_t gc_gs_table_depth;
-+       uint32_t gc_gsprim_buff_depth;
-+       uint32_t gc_parameter_cache_depth;
-+       uint32_t gc_double_offchip_lds_buffer;
-+       uint32_t gc_wave_size;
-+       uint32_t gc_max_waves_per_simd;
-+       uint32_t gc_max_scratch_slots_per_cu;
-+       uint32_t gc_lds_size;
-+       uint32_t gc_num_sc_per_se;
-+       uint32_t gc_num_packer_per_sc;
-+       /* new for v2_1 */
-+       uint32_t gc_num_tcp_per_sh;
-+       uint32_t gc_tcp_size_per_cu;
-+       uint32_t gc_num_sdp_interface;
-+       uint32_t gc_num_cu_per_sqc;
-+       uint32_t gc_instruction_cache_size_per_sqc;
-+       uint32_t gc_scalar_data_cache_size_per_sqc;
-+       uint32_t gc_tcc_size;
-+};
-+
- typedef struct harvest_info_header {
-        uint32_t signature; /* Table Signature */
-        uint32_t version;   /* Table Version */
---
-2.38.1
+#ifdef CONFIG_DEV_COREDUMP
 
+    struct amdgpu_coredump_info *coredump_info;/* keep this dynamic 
+allocation */
+
+#endif
+
+}
+
+
+This will make sure that all the relevant information is at the same place.
+
+- Shashank
+
+> +#endif
+> +
+>   static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
+>   {
+>   	return container_of(ddev, struct amdgpu_device, ddev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index bf4781551f88..b5b879bcc5c9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4799,12 +4799,17 @@ static int amdgpu_reset_reg_dumps(struct amdgpu_device *adev)
+>   	return 0;
+>   }
+>   
+> -#ifdef CONFIG_DEV_COREDUMP
+> +#ifndef CONFIG_DEV_COREDUMP
+> +static void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
+> +			    struct amdgpu_reset_context *reset_context)
+> +{
+> +}
+> +#else
+>   static ssize_t amdgpu_devcoredump_read(char *buffer, loff_t offset,
+>   		size_t count, void *data, size_t datalen)
+>   {
+>   	struct drm_printer p;
+> -	struct amdgpu_device *adev = data;
+> +	struct amdgpu_coredump_info *coredump = data;
+>   	struct drm_print_iterator iter;
+>   	int i;
+>   
+> @@ -4818,21 +4823,21 @@ static ssize_t amdgpu_devcoredump_read(char *buffer, loff_t offset,
+>   	drm_printf(&p, "**** AMDGPU Device Coredump ****\n");
+>   	drm_printf(&p, "kernel: " UTS_RELEASE "\n");
+>   	drm_printf(&p, "module: " KBUILD_MODNAME "\n");
+> -	drm_printf(&p, "time: %lld.%09ld\n", adev->reset_time.tv_sec, adev->reset_time.tv_nsec);
+> -	if (adev->reset_task_info.pid)
+> +	drm_printf(&p, "time: %lld.%09ld\n", coredump->reset_time.tv_sec, coredump->reset_time.tv_nsec);
+> +	if (coredump->reset_task_info.pid)
+>   		drm_printf(&p, "process_name: %s PID: %d\n",
+> -			   adev->reset_task_info.process_name,
+> -			   adev->reset_task_info.pid);
+> +			   coredump->reset_task_info.process_name,
+> +			   coredump->reset_task_info.pid);
+>   
+> -	if (adev->reset_vram_lost)
+> +	if (coredump->reset_vram_lost)
+>   		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
+> -	if (adev->num_regs) {
+> +	if (coredump->adev->num_regs) {
+>   		drm_printf(&p, "AMDGPU register dumps:\nOffset:     Value:\n");
+>   
+> -		for (i = 0; i < adev->num_regs; i++)
+> +		for (i = 0; i < coredump->adev->num_regs; i++)
+>   			drm_printf(&p, "0x%08x: 0x%08x\n",
+> -				   adev->reset_dump_reg_list[i],
+> -				   adev->reset_dump_reg_value[i]);
+> +				   coredump->adev->reset_dump_reg_list[i],
+> +				   coredump->adev->reset_dump_reg_value[i]);
+>   	}
+>   
+>   	return count - iter.remain;
+> @@ -4840,14 +4845,32 @@ static ssize_t amdgpu_devcoredump_read(char *buffer, loff_t offset,
+>   
+>   static void amdgpu_devcoredump_free(void *data)
+>   {
+> +	kfree(data);
+>   }
+>   
+> -static void amdgpu_reset_capture_coredumpm(struct amdgpu_device *adev)
+> +static void amdgpu_coredump(struct amdgpu_device *adev, bool vram_lost,
+> +			    struct amdgpu_reset_context *reset_context)
+>   {
+> +	struct amdgpu_coredump_info *coredump;
+>   	struct drm_device *dev = adev_to_drm(adev);
+>   
+> -	ktime_get_ts64(&adev->reset_time);
+> -	dev_coredumpm(dev->dev, THIS_MODULE, adev, 0, GFP_NOWAIT,
+> +	coredump = kzalloc(sizeof(*coredump), GFP_NOWAIT);
+> +
+> +	if (!coredump) {
+> +		DRM_ERROR("%s: failed to allocate memory for coredump\n", __func__);
+> +		return;
+> +	}
+> +
+> +	coredump->reset_vram_lost = vram_lost;
+> +
+> +	if (reset_context->job && reset_context->job->vm)
+> +		coredump->reset_task_info = reset_context->job->vm->task_info;
+> +
+> +	coredump->adev = adev;
+> +
+> +	ktime_get_ts64(&coredump->reset_time);
+> +
+> +	dev_coredumpm(dev->dev, THIS_MODULE, coredump, 0, GFP_NOWAIT,
+>   		      amdgpu_devcoredump_read, amdgpu_devcoredump_free);
+>   }
+>   #endif
+> @@ -4955,15 +4978,9 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+>   					goto out;
+>   
+>   				vram_lost = amdgpu_device_check_vram_lost(tmp_adev);
+> -#ifdef CONFIG_DEV_COREDUMP
+> -				tmp_adev->reset_vram_lost = vram_lost;
+> -				memset(&tmp_adev->reset_task_info, 0,
+> -						sizeof(tmp_adev->reset_task_info));
+> -				if (reset_context->job && reset_context->job->vm)
+> -					tmp_adev->reset_task_info =
+> -						reset_context->job->vm->task_info;
+> -				amdgpu_reset_capture_coredumpm(tmp_adev);
+> -#endif
+> +
+> +				amdgpu_coredump(tmp_adev, vram_lost, reset_context);
+> +
+>   				if (vram_lost) {
+>   					DRM_INFO("VRAM is lost due to GPU reset!\n");
+>   					amdgpu_inc_vram_lost(tmp_adev);
