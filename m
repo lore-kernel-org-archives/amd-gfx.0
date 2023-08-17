@@ -4,115 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44C8EC5479A
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 20:05:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60611C64EAE
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 21:38:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB37310E08E;
-	Thu, 17 Aug 2023 20:05:42 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2066.outbound.protection.outlook.com [40.107.101.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 147AF10E08E
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 20:05:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KztidVaS5+lgK273UgZdfTs4EPr2qccJhvSORfpmthSX4ABdrkrmlM1PISHLkr9gGgB9w1U//4rk+ACK6U+JsEkMlV2gG8e0KyGY4uQ86ZQ3hE8NfvmZdGtOzaCSTpBpyuCJUYMNW3QIVGoDRpkFX/Ri8aC1bQP3688xwZkQZPMT+KcMEMAH5TSyXOkQmANpd5L58EAsWAE+zvCDM2WlCu0xJIHbJxCwC38bvsslADE9JYXv6PrDGGRtSpY0Kn5e56rhoD6tP5J4ruQiUoMp4z0qzj3zZeumlANiH/zbpOw83JU2lzCBtC/LqfLrKMWOs1QbMgrwr2e+fd8R8/4ZKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8rm91NByxCH2XKBxJJle/jPAFPRsaKjXmBZWLUDKkjw=;
- b=lyTixt0bNjfnuoUpQY51VOVikf88JpWRBT+lx9uskZvs2l3vxaK89HQeb2/H4rgvNI17Xmd3kpxgVCMIWrpNalG1oFj4cPY40ji6s71CgayKqSUSTp5PJ6XJPGqGtmvH7VVVUIMYW02G/C9UJdR6YeAOcf2lsOManI+A6bH4WbGXoFUgTZCiuWOFNwQWJSGsTBTPqHNoEdtrPDNeFbIQAlf5jnCkZ2s69DKV69oTEB41tb7NOR9t690SPIwHeMTJ5Q8BJOGJ8VYJPVerPvqxx1Nji4O3j69HaRoeN1oCasV34ngFImnhk2XLrSJmmtD9e4xrxKC5eZD2qVjYJb0QXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8rm91NByxCH2XKBxJJle/jPAFPRsaKjXmBZWLUDKkjw=;
- b=wu4Or20JSAYo/4f0nVWoGf3HFs9PRQWt4BOsnA8HRMgVaXEh+tB0cYDoUWqyY3qdV5L1htL/mnxyCoDZujBWPA0WQqoz1x+XULNXzqrTxdfh4D9WybNPfOsEpOfwQXSThGDFsKAvyYH6eYePt0mehA02PGCXClPWskJHBA8ycus=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM4PR12MB8475.namprd12.prod.outlook.com (2603:10b6:8:190::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.30; Thu, 17 Aug
- 2023 20:05:38 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb%4]) with mapi id 15.20.6678.031; Thu, 17 Aug 2023
- 20:05:38 +0000
-Message-ID: <34b053df-a13c-4f6d-961d-48d67e8f1c86@amd.com>
-Date: Thu, 17 Aug 2023 16:05:35 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] drm/amdkfd: use correct method to get clock under SRIOV
-Content-Language: en-US
-To: Horace Chen <horace.chen@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230817110816.2837-1-horace.chen@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20230817110816.2837-1-horace.chen@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0077.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:84::14) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D71D10E0A6;
+	Thu, 17 Aug 2023 21:38:14 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D02210E0A6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 21:38:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1692308292;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=eDluI5ZjwOJ+T5J3wcvpVcYjUnp1Wja3JwRsK7BWrBk=;
+ b=IT1eSWCB3wvM82M+XQ5giIqKKO4ycs/dkx1tce+M7Jli0fDEinYNXK3qaHkzc3ucyVDM/b
+ tAYhjtf8CpuKj5Fn9gB07PkVSXzmzvfaL4TYy3vMIIC8JkmR+5+ZZhot61VSRJkCgjC0GD
+ /OH31XI3JDpO9kqPuSl5tthU3CTUosY=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-618-dl4Sr_WLO8-u5E7BBhGx5g-1; Thu, 17 Aug 2023 17:38:09 -0400
+X-MC-Unique: dl4Sr_WLO8-u5E7BBhGx5g-1
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-40c10c73650so3898231cf.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 14:38:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692308289; x=1692913089;
+ h=mime-version:user-agent:content-transfer-encoding:organization
+ :references:in-reply-to:date:cc:to:from:subject:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=eDluI5ZjwOJ+T5J3wcvpVcYjUnp1Wja3JwRsK7BWrBk=;
+ b=ap9fUHary7rRhDfJ0EfkUl/qAKIRPmkp+fXZvLFy1Eh6o4uKZjcZvf9KH6cH9Le3Jw
+ 4Wf187C47/crNmbZqAtGRHxGsvu/1ti5us97f1FtqlMkL7/+86PCMslUVWJ70ZNXHZJE
+ RSuSykHFoSmdzMSinac1ncQzdVyQoZe+T/7nvNdmSSbpcLmrjmLCLrGJNVj27EIKjdUA
+ pk5c7kxuqmXjOAaumNWPfYwEhCauCnuJ8ze19kiihuvDYDSYkTEWLz6bmV9/C4gkHNCF
+ AsLuevV6wUvJZydZYHgmbNZQPBdu7YFalKrxnA8iR86OiCbeOPPBLXTUDdW8HDni4r7M
+ w6rA==
+X-Gm-Message-State: AOJu0YzY4q2Efv/wXZ429fBqV2tN109hPfSzCU58dYdzZx/uJRr5eQN+
+ IqhoMZwaXNiJQLpBhYqGgnDTB5rKPwLHg3lYGhDVWooDnkXnpR5bD2rjeWyfWMXu5lmVoIC6h/5
+ uYd9vn9S5ZrETTvieu5OoBYYIfQ==
+X-Received: by 2002:a05:622a:22a4:b0:410:443:221a with SMTP id
+ ay36-20020a05622a22a400b004100443221amr883565qtb.1.1692308289298; 
+ Thu, 17 Aug 2023 14:38:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEEmPQx10wj/WvcpKWC42zSsRb+eziDpifGfLRmEib1iOpWZRLrU9IULFAW46VtsDvI+moSAA==
+X-Received: by 2002:a05:622a:22a4:b0:410:443:221a with SMTP id
+ ay36-20020a05622a22a400b004100443221amr883549qtb.1.1692308288969; 
+ Thu, 17 Aug 2023 14:38:08 -0700 (PDT)
+Received: from ?IPv6:2600:4040:5c7d:5f00::feb? ([2600:4040:5c7d:5f00::feb])
+ by smtp.gmail.com with ESMTPSA id
+ o26-20020a05620a111a00b00767e2668536sm97797qkk.17.2023.08.17.14.38.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Aug 2023 14:38:08 -0700 (PDT)
+Message-ID: <e70cc5678d605512e66afab09277bfa4811c2985.camel@redhat.com>
+Subject: Re: [PATCH 3/3] drm/mst: adjust the function
+ drm_dp_remove_payload_part2()
+From: Lyude Paul <lyude@redhat.com>
+To: imre.deak@intel.com, "Lin, Wayne" <Wayne.Lin@amd.com>
+Date: Thu, 17 Aug 2023 17:38:07 -0400
+In-Reply-To: <ZNEU8j6OR3KirIcS@ideak-desk.fi.intel.com>
+References: <20230804062029.5686-1-Wayne.Lin@amd.com>
+ <20230804062029.5686-4-Wayne.Lin@amd.com>
+ <ZM0Z3sZEYMcMTnuP@ideak-desk.fi.intel.com>
+ <CO6PR12MB5489306FA44F5F107180E57DFC0CA@CO6PR12MB5489.namprd12.prod.outlook.com>
+ <ZNEU8j6OR3KirIcS@ideak-desk.fi.intel.com>
+Organization: Red Hat Inc.
+User-Agent: Evolution 3.48.3 (3.48.3-1.fc38)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB8475:EE_
-X-MS-Office365-Filtering-Correlation-Id: b635d097-6df3-4f27-8806-08db9f5d5370
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mTvEEf9KmwGZ6ycs3pKUQ6WV/ZHGp11Gl36g/H4XzmXkRDvkaCSfzZj8xCE3f6sKwMu3LW6/1oOOdkUu0coDL1ck/8t6AG3kAyjngviOdQ+Wd1HY1E07lWXqbyrcGRQ76ee//KGznOZBz+SgWa4yRX2xq22IWBleJEWzGFXtocYj6elfUnbZ/mmMhScRKvY+CtWl79XH6qCF/JW3MUJfFgpKYamPITF314TCjsrimks5JupxBIY7/QHsALMHiEk1g4uB+17LmPR6l0pFpQMewJ6GZz7MzifsDndner1+THVFMMpVh6eFhajAe70QEDnaESE/L5QDctPf9QGZzLFdcQWttu0TGVXsqru7nssoetKky4a2ut2OfC4VJGc/kgSb0BDSnplQa6+sY0+Klv3WZFywLJ+m6XdFDY5Zq0B3vHkiso1eNv0VF9IiGNIk5K4eS/TnIcNvg6qcPOPZvqnccHZ1hxylCpBnmM1iw2V1Jfh0ITcDoi4W00YEyCGzLcVsOsDkYCTrss081GOQGxBYYxBMzD5yzfGpSgMkZtXlxtsnLBsOD7NcpyOehqjcv7zp3P/fiqBbpUoBBPsOLpHxOgnb2HBUHucVGaLLbxR5SoHmITjlAbgUEgwD92chguFmzyDhjo68zAXpffrqApQBLg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(396003)(346002)(136003)(376002)(366004)(186009)(451199024)(1800799009)(36756003)(86362001)(31696002)(31686004)(8936002)(5660300002)(4326008)(8676002)(83380400001)(36916002)(2906002)(41300700001)(6666004)(6506007)(6486002)(53546011)(26005)(2616005)(44832011)(6512007)(66946007)(316002)(478600001)(54906003)(38100700002)(66476007)(66556008)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z0lWcTBsT3JQdk5XYU1kU01XaEFZT2V4SzhuSDRFZ01XdWJ0Y3UzUlZDMDB4?=
- =?utf-8?B?WDdiVmhVeXNuQW5uZGhBMXlTUDZlOHQvWUtKM3M2OXJnOUtWSm9UN3pNVFRN?=
- =?utf-8?B?RFMwdWRIRDJHUG5vR0VDRjNhd3hYUURkcy8zcWhHSmFTbzlsOVJzUDZ1RjZn?=
- =?utf-8?B?OFpsOHFaNkNKMEtzZ0JSL0xzSXpuOE9VT3NZS2JPaEUzV3FLekR1YlRuMGZS?=
- =?utf-8?B?RjRZdkVaaWkvb2Z4WFV2VE5rOVJ0UEl4SlcrVEExbFJldGtOMzdmditTM2k0?=
- =?utf-8?B?ZWdLZWZ1MnBvYVpsWXJXTExtbFBQanljRHJXS2dmYmw2NDJhVm4xSkJMTkl1?=
- =?utf-8?B?S2hBY1BzOWRhRU11RFBLcWQxUU5SUVV5VEEvUStJRjJENExjNW94SU5KTTIw?=
- =?utf-8?B?V0VYVUpOWFlqaWl0bktvTzhrNG13UCtTSWhmYmZmeGRqUmJ6MnRiS3hRbmpQ?=
- =?utf-8?B?WVYzdUgxeTZkZ1lrNVo4UTNDcWhOYlh0c3NaRTdTM1haZTV2R1BHNklmSEZV?=
- =?utf-8?B?NHpTNk90bUhnL2hGMjhBY2lMeFhjZXFmRjlpdzBLOG1maGNjb0V3M0MyUTN0?=
- =?utf-8?B?RUtweW1kVmV0UW5HbklvTnZMcStaMjVRYURveDg5MjI2Qy9OZkpSVW5DRVQv?=
- =?utf-8?B?bnV6K1habHFzNWVJK3BFbEpmcEdVTjZ2cWdvc2U4NTkvSEtpTHBVSWJLa0pL?=
- =?utf-8?B?eWMrMHJRam03QmhSWVpFQTVJVFovSlZJWUpZVHQ2Zm4rb1ZpblRqOXloQUxT?=
- =?utf-8?B?ZmZmbVFheVhjaENaUEhtUDdhaUl0TDYvdFZ5ZmtwNVZ6WWR4MlViSnFLQ1Br?=
- =?utf-8?B?NGszMlZvTWlzSEwvczZlTG8wdG9hNmc1M0p3R2JBN2NrYTVRd1B1eUVUM1lk?=
- =?utf-8?B?TEpnK0huU0ZjWUl1NkZ0RExrWWVTOXVtdzJBeW9XNmhpZkppRmhlUU9tVXB5?=
- =?utf-8?B?ZXpFczl6b2xLYWM3TE92ZEp5d1V6UkhxQTRsODE4YThES1JOQmFjYlZtL2cy?=
- =?utf-8?B?KzQ1UkRTeTBvVmFFSTRPN2dJWTd0NU8xeEZxRzRucEFBV3hFR2hSdFNCNTZB?=
- =?utf-8?B?WVRKRUU3U0JkOGxYOEs2YVpRRERRNktnNVRqSXJoU3pYdW5pakZkek9OY2Vu?=
- =?utf-8?B?WC9DL0V5WldYdUxtL04vRWZtaWNWSkdWRWJUTE1ad3YrYkdKc05jZXhzd09z?=
- =?utf-8?B?TE1IRXN1dzdvTXVjaFV6UEpJZnRHQUY5S21UcVUveUhLSGxnVDF5KzFKY3gy?=
- =?utf-8?B?b0xITUV6VW95azF1UmRBVWFEQXduVHZwOHNLeVdYNW0yUEpReGUyc1VOOGl1?=
- =?utf-8?B?bXNmQXNUYjlVTVkxTGQ1OTFjYVB3K1dTbTZEdFpvUE85YWgwaFZUZklYUS9T?=
- =?utf-8?B?MmUzVHUzQS9BeTlHRnViMGZPYnRvOEtYUnJodkxrYmVLK2daTHUxTmdraFRu?=
- =?utf-8?B?S1FwdVNmcC9TcTF5NzMvMWtuZXRLRlR5bU52a2VNbXdiTXAxOFY1UEpSbEl6?=
- =?utf-8?B?cHZjQXZhZUxBTVRyQzM4QmI3WGRBK3FPN1VEUFhQWnRKMDl2dHkyQUsraXRP?=
- =?utf-8?B?RVNPa2hvTVp5K295QUtsT0hnVTY4dlRBeXRZSm54NFg4djU3aWxRQ3VXV1Iz?=
- =?utf-8?B?WjB2OGFlcUZhN2cxMnBYVC9yNWZmMUkrbkl0T2xQd29WNC93M2p4SGw2OGFq?=
- =?utf-8?B?NVlDWWM2Vyt5cVdWTFJ3RjVpMFNiSVMxdWZiNkd0TFFNYm05MkdQNEo3a3RP?=
- =?utf-8?B?TExJS3JFZXllR0toZm1WNzdISVpCNkp1a1c5cXBjd0hHOTRtbHg3NUY3T1V4?=
- =?utf-8?B?cDRPTnphejM5WUZNTk5SaSs2UXcwc2VDTVAxUFd3UzJ3QjN1bW5pcG1vcTd3?=
- =?utf-8?B?b3NTblBqNzR3RXptMnJkU09lRXl1aFQ3RC9ZeW1kd0Q4NmpOSTJ3YmpDY0Ev?=
- =?utf-8?B?TVdYcTlIVE9IZ0M3MEtBZW5HUWZPQ3NUY3M3ZUpFVnl1SWdIeXZzdC81VDQ0?=
- =?utf-8?B?Zm5iZmR4dTd6OVo4cUNNb3EzNjZZajNOQXZiUkZqQjBnemVnNVhNbG54ejBr?=
- =?utf-8?B?cjF1VlFQcC85SHp2SnFWUjJldldOajM2RTdWUE5VY1dHV0pwRzdzOW5pMFJa?=
- =?utf-8?Q?qUEHSm1yl1TpvAObTgV8H2KYY?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b635d097-6df3-4f27-8806-08db9f5d5370
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2023 20:05:38.5357 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eZoYjXcH29Oa37630OiTUaAteZklzQFs4Fq1y2eFJRbFzo/LiMJ91sHB6P86480nO+Z7h/Jp8GSRg3ZzIf/Zkg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8475
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,61 +88,172 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
- Leo Liu <leo.liiu@amd.com>, Haijun Chang <HaiJun.Chang@amd.com>,
- Deucher Alexander <Alexander.Deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Monk Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "jani.nikula@intel.com" <jani.nikula@intel.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zuo,
+ Jerry" <Jerry.Zuo@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>,
+ "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-08-17 07:08, Horace Chen wrote:
-> [What]
-> Current SRIOV still using adev->clock.default_XX which gets from
-> atomfirmware. But these fields are abandoned in atomfirmware long ago.
-> Which may cause function to return a 0 value.
->
-> [How]
-> We don't need to check whether SR-IOV. For SR-IOV one-vf-mode,
-> pm is enabled and VF is able to read dpm clock
-> from pmfw, so we can use dpm clock interface directly. For
-> multi-VF mode, VF pm is disabled, so driver can just react as pm
-> disabled. One-vf-mode is introduced from GFX9 so it shall not have
-> any backward compatibility issue.
->
-> Signed-off-by: Horace Chen <horace.chen@amd.com>
+On Mon, 2023-08-07 at 18:59 +0300, Imre Deak wrote:
+> On Mon, Aug 07, 2023 at 02:43:02AM +0000, Lin, Wayne wrote:
+> > [AMD Official Use Only - General]
+> >=20
+> > > -----Original Message-----
+> > > From: Imre Deak <imre.deak@intel.com>
+> > > Sent: Friday, August 4, 2023 11:32 PM
+> > > To: Lin, Wayne <Wayne.Lin@amd.com>
+> > > Cc: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org;
+> > > lyude@redhat.com; jani.nikula@intel.com; ville.syrjala@linux.intel.co=
+m;
+> > > Wentland, Harry <Harry.Wentland@amd.com>; Zuo, Jerry
+> > > <Jerry.Zuo@amd.com>
+> > > Subject: Re: [PATCH 3/3] drm/mst: adjust the function
+> > > drm_dp_remove_payload_part2()
+> > >=20
+> > > On Fri, Aug 04, 2023 at 02:20:29PM +0800, Wayne Lin wrote:
+> > > > [...]
+> > > > diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > > > b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > > > index e04f87ff755a..4270178f95f6 100644
+> > > > --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > > > +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > > > @@ -3382,8 +3382,7 @@
+> > > EXPORT_SYMBOL(drm_dp_remove_payload_part1);
+> > > >   * drm_dp_remove_payload_part2() - Remove an MST payload locally
+> > > >   * @mgr: Manager to use.
+> > > >   * @mst_state: The MST atomic state
+> > > > - * @old_payload: The payload with its old state
+> > > > - * @new_payload: The payload with its latest state
+> > > > + * @payload: The payload with its latest state
+> > > >   *
+> > > >   * Updates the starting time slots of all other payloads which wou=
+ld have
+> > > been shifted towards
+> > > >   * the start of the payload ID table as a result of removing a
+> > > > payload. Driver should call this @@ -3392,25 +3391,36 @@
+> > > EXPORT_SYMBOL(drm_dp_remove_payload_part1);
+> > > >   */
+> > > >  void drm_dp_remove_payload_part2(struct drm_dp_mst_topology_mgr
+> > > *mgr,
+> > > >                              struct drm_dp_mst_topology_state
+> > > *mst_state,
+> > > > -                            const struct drm_dp_mst_atomic_payload
+> > > *old_payload,
+> > > > -                            struct drm_dp_mst_atomic_payload
+> > > *new_payload)
+> > > > +                            struct drm_dp_mst_atomic_payload
+> > > *payload)
+> > > >  {
+> > > >     struct drm_dp_mst_atomic_payload *pos;
+> > > > +   u8 time_slots_to_remove;
+> > > > +   u8 next_payload_vc_start =3D mgr->next_start_slot;
+> > > > +
+> > > > +   /* Find the current allocated time slot number of the payload *=
+/
+> > > > +   list_for_each_entry(pos, &mst_state->payloads, next) {
+> > > > +           if (pos !=3D payload &&
+> > > > +               pos->vc_start_slot > payload->vc_start_slot &&
+> > > > +               pos->vc_start_slot < next_payload_vc_start)
+> > > > +                   next_payload_vc_start =3D pos->vc_start_slot;
+> > > > +   }
+> > > > +
+> > > > +   time_slots_to_remove =3D next_payload_vc_start -
+> > > > +payload->vc_start_slot;
+> > >=20
+> > > Imo, the intuitive way would be to pass the old payload state to this=
+ function -
+> > > which already contains the required time_slots param - and refactor t=
+hings
+> > > instead moving vc_start_slot from the payload state to mgr suggested =
+by Ville
+> > > earlier.
+> > >=20
+> > > --Imre
+> >=20
+> > Hi Imre,
+> > Thanks for your feedback!
+> >=20
+> > I understand it's functionally correct. But IMHO, it's still a bit
+> > conceptually different between the time slot in old state and the time
+> > slot in current payload table. My thought is the time slot at the
+> > moment when we are removing the payload would be a better choice.
+>=20
+> Yes, they are different. The old state contains the time slot the
+> payload was added with in a preceding commit and so the time slot value
+> which should be used when removing the same payload in the current
+> commit.
+>=20
+> The new state contains a time slot value with which the payload will be
+> added in the current commit and can be different than the one in the old
+> state if the current commit has changed the payload size (meaning that
+> the same atomic commit will first remove the payload using the time slot
+> value in the old state and afterwards will add back the same payload
+> using the time slot value in the new state).
+>=20
+> > And with this, we can also simplify some codes. Especially remove
+> > workaround in amd driver. In fact, DRM mst code maintains the payload
+> > table and all the time slot info is in it already. We don't really
+> > have to pass a new parameter.
+>=20
+> I agree that drm_dp_remove_payload() could be simplified, but this
+> should be done so that the drivers can pass the old payload state to it
+> (without having to pass the new state). This would be possible if
+> vc_start_slot was not tracked in the payload state (which is really not
+> an atomic state that can be precomputed as all other atomic state),
+> rather it would be tracked in struct drm_dp_mst_topology_mgr.
 
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+JFYI too  - I think I'm fine with us moving vc_start_slot elsewhere at this
+point ;)
 
+>=20
+> It looks like AMD has to reconstruct the old state in
+> dm_helpers_construct_old_payload(). Could you explain why it couldn't
+> instead just pass old_payload acquired by
+>=20
+> old_mst_state =3D drm_atomic_get_old_mst_topology_state();
+> old_payload =3D drm_atomic_get_mst_payload_state(old_mst_state);
+>=20
+> ?
+>=20
+> > > >     /* Remove local payload allocation */
+> > > >     list_for_each_entry(pos, &mst_state->payloads, next) {
+> > > > -           if (pos !=3D new_payload && pos->vc_start_slot > new_pa=
+yload-
+> > > > vc_start_slot)
+> > > > -                   pos->vc_start_slot -=3D old_payload->time_slots=
+;
+> > > > +           if (pos !=3D payload && pos->vc_start_slot > payload-
+> > > > vc_start_slot)
+> > > > +                   pos->vc_start_slot -=3D time_slots_to_remove;
+> > > >     }
+> > > > -   new_payload->vc_start_slot =3D -1;
+> > > > +   payload->vc_start_slot =3D -1;
+> > > >=20
+> > > >     mgr->payload_count--;
+> > > > -   mgr->next_start_slot -=3D old_payload->time_slots;
+> > > > +   mgr->next_start_slot -=3D time_slots_to_remove;
+> > > >=20
+> > > > -   if (new_payload->delete)
+> > > > -           drm_dp_mst_put_port_malloc(new_payload->port);
+> > > > +   if (payload->delete)
+> > > > +           drm_dp_mst_put_port_malloc(payload->port);
+> > > >=20
+> > > > -   new_payload->payload_allocation_status =3D
+> > > DRM_DP_MST_PAYLOAD_ALLOCATION_NONE;
+> > > > +   payload->payload_allocation_status =3D
+> > > > +DRM_DP_MST_PAYLOAD_ALLOCATION_NONE;
+> > > >  }
+> >=20
+> > --
+> > Regards,
+> > Wayne
+>=20
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 8 ++------
->   1 file changed, 2 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index df633e9ce920..cdf6087706aa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -442,9 +442,7 @@ void amdgpu_amdkfd_get_local_mem_info(struct amdgpu_device *adev,
->   			mem_info->local_mem_size_public,
->   			mem_info->local_mem_size_private);
->   
-> -	if (amdgpu_sriov_vf(adev))
-> -		mem_info->mem_clk_max = adev->clock.default_mclk / 100;
-> -	else if (adev->pm.dpm_enabled) {
-> +	if (adev->pm.dpm_enabled) {
->   		if (amdgpu_emu_mode == 1)
->   			mem_info->mem_clk_max = 0;
->   		else
-> @@ -463,9 +461,7 @@ uint64_t amdgpu_amdkfd_get_gpu_clock_counter(struct amdgpu_device *adev)
->   uint32_t amdgpu_amdkfd_get_max_engine_clock_in_mhz(struct amdgpu_device *adev)
->   {
->   	/* the sclk is in quantas of 10kHz */
-> -	if (amdgpu_sriov_vf(adev))
-> -		return adev->clock.default_sclk / 100;
-> -	else if (adev->pm.dpm_enabled)
-> +	if (adev->pm.dpm_enabled)
->   		return amdgpu_dpm_get_sclk(adev, false) / 100;
->   	else
->   		return 100;
+--=20
+Cheers,
+ Lyude Paul (she/her)
+ Software Engineer at Red Hat
+
