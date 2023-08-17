@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ACFEEB64DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 10:53:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2BB1C2FC0E
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 10:53:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B41810E051;
-	Thu, 17 Aug 2023 10:53:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 363E210E442;
+	Thu, 17 Aug 2023 10:53:23 +0000 (UTC)
 Received: from mail-4317.proton.ch (mail-4317.proton.ch [185.70.43.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E82310E442
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 10:53:08 +0000 (UTC)
-Date: Thu, 17 Aug 2023 10:53:01 +0000
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1890D10E442
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 10:53:20 +0000 (UTC)
+Date: Thu, 17 Aug 2023 10:53:12 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1692269586; x=1692528786;
- bh=NiDVN4jcg6mPbWta1MYd2uLSseaTYGfgk3v6KuyVmMc=;
+ s=protonmail2; t=1692269597; x=1692528797;
+ bh=pLpZkjMsAF/xzWoxIw6c8JsgU8UpAXqqMohyUmW2kqQ=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=dNY5MsuogKiYdOP3gA2Bs6nZipnaJseRVwhh3JVYKkbmt47KOdOlwpEl5MV1zgSZ2
- 2nKBhS1E2+tdhtQwn23UTSWsLaRTAo6mDY8ZYCtZ4KBS86oQF7BJJlamirier4X8xg
- 0x37b2MOHlzAv5WZkQYhheCk29awNBjinqzIEr0+oXiAXf30o+s7SROIfSYycjKEQu
- hz8lFOgKPP61FXcy2m5C84qCZHoK0WfGqVQ8AU0b42qQbg8H2dC3FUjBuiRUOZZORK
- LUqUkfHwWC6Gytkb4BKMOl/brCAIMGEd0VySLgxct2t8DPSFOnykCQq0JRi+rUA5IP
- WW0OOW/zC6U0g==
+ b=fm9g3+1DH1CBxkkUsnL+cEayu4CytC15LBweqtDu9z72g7C51CgV+6dTihizKS8Px
+ TD+jpCz3ukZkMi9eMlEyRIYPvBxh1GwCaP+qHP6PEbikZrvCEDCyV/X8SsS4Ey837W
+ +nHQSVUuuPemLMeDGyKc3HcvZYQ5GcKIo9IyPQJZTlf6XwVM/otrTMRXJkpUnnjkz5
+ vnIGAZFA+BBI86aW0HqrFL2mLAaHvRQIXv2aTYMYDe+3tHojjv1z13yFZJEP+tKSp/
+ HGppA+5tA2iy7KWM8JfTR9SN6utQbBIjrsXZLztIxVo1uFvhwAUlaHBsmVZ2xHwRG3
+ yS3oS5dKoSHaQ==
 To: amd-gfx@lists.freedesktop.org
 From: Simon Ser <contact@emersion.fr>
-Subject: [PATCH v3 1/4] amd/display: add cursor check for YUV underlying pipe
-Message-ID: <20230817105251.103228-2-contact@emersion.fr>
+Subject: [PATCH v3 3/4] amd/display: add cursor rotation check
+Message-ID: <20230817105251.103228-4-contact@emersion.fr>
 In-Reply-To: <20230817105251.103228-1-contact@emersion.fr>
 References: <20230817105251.103228-1-contact@emersion.fr>
 Feedback-ID: 1358184:user:proton
@@ -53,12 +53,17 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The cursor plane can't be displayed if the underlying pipe isn't
-using an RGB format. Reject such atomic commits so that user-space
-can have a fallback instead of an invisible cursor.
+The commit 1347385fe187 ("drm/amd/display: don't expose rotation
+prop for cursor plane") removed the rotation property for the
+cursor plane, assuming the cursor would always be displayed without
+any rotation. However the rotation is inherited from the underlying
+plane.
 
-In theory we could support YUV if the cursor is also YUV, but at the
-moment only ARGB8888 cursors are supported.
+As a result, if the primary plane is rotated, then the cursor plane
+will incorrectly be rotated as well even though it doesn't have a
+rotation property.
+
+To fix this, check that the underlying plane isn't rotated.
 
 Signed-off-by: Simon Ser <contact@emersion.fr>
 Cc: Alex Deucher <alexander.deucher@amd.com>
@@ -66,26 +71,23 @@ Cc: Harry Wentland <hwentlan@amd.com>
 Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Cc: Michel D=C3=A4nzer <michel@daenzer.net>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
 u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 268cb99a4c4b..f60858112d3d 100644
+index df40f74f5a15..aba01255ba12 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9844,6 +9844,15 @@ static int dm_check_crtc_cursor(struct drm_atomic_st=
+@@ -9867,6 +9867,13 @@ static int dm_check_crtc_cursor(struct drm_atomic_st=
 ate *state,
  =09=09=09return -EINVAL;
  =09=09}
 =20
-+=09=09/* In theory we could probably support YUV cursors when the underlyi=
-ng
-+=09=09 * plane uses a YUV format, but there's no use-case for it yet. */
-+=09=09if (new_underlying_state->fb->format->is_yuv) {
++=09=09if (new_underlying_state->rotation !=3D DRM_MODE_ROTATE_0) {
 +=09=09=09drm_dbg_atomic(crtc->dev,
-+=09=09=09=09       "Cursor [PLANE:%d:%s] can't be used with YUV underlying=
- [PLANE:%d:%s]\n",
++=09=09=09=09       "Cursor [PLANE:%d:%s] can't be used with rotated underl=
+ying [PLANE:%d:%s]\n",
 +=09=09=09=09       cursor->base.id, cursor->name, underlying->base.id, und=
 erlying->name);
 +=09=09=09return -EINVAL;
