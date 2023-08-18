@@ -4,120 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BFEDC001DE
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Aug 2023 09:12:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49C31C001DE
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Aug 2023 09:48:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95C9A10E4A6;
-	Fri, 18 Aug 2023 09:12:31 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2085.outbound.protection.outlook.com [40.107.220.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E21E10E4A6
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Aug 2023 09:12:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEAC010E4AA;
+	Fri, 18 Aug 2023 09:48:58 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 828C010E4AA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Aug 2023 09:48:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jb+hdcU7M1/xRj+dM3srLmvfTJ//741vEe/w8PW89wylWFfreRUcMSFfy5jWCDyv7kfW4DkJyOxEmQAkhJcCXqIP9T9akmbgLWb6UUA/AQvrt3d+9Rzq+5LxSS9yOpEayP8cCb2IED6RQYd4Ej2F6HFaj7D+lxIVfyP4mA4fdmWmBTyYC/kJXLgGgjYNMfCBQ7LBbgger3krQxFNiLM4MHKyrpOtmCRp2xrjv92fvAX3uB7vWFVHTsJ9QQis92f6R09KuecC71r+0LDPOx6QJSPvieFlEu649nYIMku5u9eEjzK8a6kaxSRshfhqekq8Gr3TMhqAOObJbwJ6Uc+L6w==
+ b=msGSRyF4PbAFgpP++c/nUwtOqaC8sST+Ygyd3+JQBsIbbzc9sLeuXukL8v8RpRk6WZUvS9BoehGILit6gZFrMnBlQyetj9g3rPz4PWpYkxVwgFuy0XaqOdmFwjUzkRv5XwFX0VYcvmnZc8tz0VEhGnE3vY7lnFiJvSnZkHyncbQr8RqxBBIirL3ytZnAR6wr2e6+HknYzy7CMMyD2qVfvVaJiDFEy8nYGQlytRWIF7WXViis4XJxubocuqP030L3uInPKweuyjNj0w4fUiWJpi+DHPMZ6pXs7DqPk86B8ktPcqB8VZx4+qKBtuWV3tvjyLH2gufpgrRScaJlwV0TXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EncIkvIf48QaL7ayqer7q9Uyi+Q8LRhqLFoGIg7DluQ=;
- b=a0Wz4g+BTsK4UWa/6TFA8xXDu+Kk38xsTBGj96ZlyUzAbLhBQgJFpeRehZLUsYPscU85tc96U+4/iBffMnE9PBm1tnYF432Vf6pvXFJ910cnMpI3n7viXeGN0TuHFno/cn2ivVJjbaIDE2g4lTamuaml2qQmuKKf6MMVMK7I/LBkB9kBQ3FGs6w8PmLm4e7wZhq9MZsBgM/z0NqcQcsfSZDzdo4uYN+LmHHYT1TxUB0q9PNyWv0BbQk5LEab2z8wKYyDzb9V7PaP6rUS+9VXhb6mqxig1KuwBeoU0zHl/fFlYkVpTksT/7aku6mdxAXXp4COYVGkGXHx+mSSeTqm/A==
+ bh=QZ1EcwbbD2gL9ytbhq1x58d9cO4b0XtbhAFIfHctT+w=;
+ b=RTUEeyMYTyzqSGSL+mq5U+NfswTSU55TfPNx5NZac1HWqjEUr9Q6MhdnWiZryyg0/D37XM9LQ17jEY/X9Ek7LLeSZkKvMuA7kZp3kNzigGEXJ26hO3GZ0wWtUxGvqS4XcpqhFABsEuvwUjUQ1pYbDQ2viC37jhcvUENHuZV7LukO+dBSRVZnkiNScmUxrVNdbOPZvc/Kc3KiDLqjhxSUV4D33mYV58Uv2TyrFG84jS0/AfQHKzsKw06/0wMzrc1f3iiwap53EUFgNBGuYUQVrGbp8xgZ4V0hwpUoiqgfQB8UjIVuOwyVGoytGnbJWw1XEjhF8OFv5rA+VJpirffBTA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EncIkvIf48QaL7ayqer7q9Uyi+Q8LRhqLFoGIg7DluQ=;
- b=Vxtyap56HXk24cXUuNGiwHdNof85SOA0DK19z2P5RSlrpqq+bmZZAKDem0rrMLCNqxhv9yGkFXpLEeNC9Tjm5ClyFcoZhHmyyp1wjZcOrNwkUZb9WWcAjRt5Rykde3RT4Q5/nhgJ2z3U8CxQ+iXJP9xmt09b8MTSOQkMuCUcCq0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by PH7PR12MB5950.namprd12.prod.outlook.com (2603:10b6:510:1d9::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.31; Fri, 18 Aug
- 2023 09:12:26 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::af11:a0ea:b4e4:d1e0]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::af11:a0ea:b4e4:d1e0%5]) with mapi id 15.20.6699.020; Fri, 18 Aug 2023
- 09:12:25 +0000
-Message-ID: <60164c68-4a44-c2fd-67b5-787ed08d0692@amd.com>
-Date: Fri, 18 Aug 2023 14:42:07 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [V9 6/9] drm/amd/pm: setup the framework to support Wifi RFI
- mitigation feature
+ bh=QZ1EcwbbD2gL9ytbhq1x58d9cO4b0XtbhAFIfHctT+w=;
+ b=TwXY5dYQ7ZH925Oc2SGfxzNSb2tadoEOZjg+H4V9vcpCqOjMtU+5obpz3T0pedUDGoz5CE5COVNDBqjM61OTAO720eek5HEUfKgnMNY9/iq2C4S83G7++5B/YGjIAN6nH5XCm9Hu9GOR4ucdzAaP3RO01WI9xvZWq/2wxksYWiY=
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
+ DM6PR12MB4499.namprd12.prod.outlook.com (2603:10b6:5:2ab::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6699.20; Fri, 18 Aug 2023 09:48:54 +0000
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::72dd:353e:4775:1225]) by DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::72dd:353e:4775:1225%3]) with mapi id 15.20.6678.031; Fri, 18 Aug 2023
+ 09:48:54 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Fix kcalloc over kzalloc in
+ 'gmc_v9_0_init_mem_ranges'
+Thread-Topic: [PATCH] drm/amdgpu: Fix kcalloc over kzalloc in
+ 'gmc_v9_0_init_mem_ranges'
+Thread-Index: AQHZ0Z+ypupyejYPAEy2GCqMsavne6/vzuBw
+Date: Fri, 18 Aug 2023 09:48:54 +0000
+Message-ID: <DM5PR12MB24691A4E3825FFD8B08E19B9F11BA@DM5PR12MB2469.namprd12.prod.outlook.com>
+References: <20230818064558.819989-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230818064558.819989-1-srinivasan.shanmugam@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Evan Quan <evan.quan@amd.com>, gregkh@linuxfoundation.org,
- rafael@kernel.org, lenb@kernel.org, johannes@sipsolutions.net,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, alexander.deucher@amd.com, andrew@lunn.ch,
- rdunlap@infradead.org, quic_jjohnson@quicinc.com, horms@kernel.org
-References: <20230818032619.3341234-1-evan.quan@amd.com>
- <20230818032619.3341234-7-evan.quan@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20230818032619.3341234-7-evan.quan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0084.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9a::10) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|PH7PR12MB5950:EE_
-X-MS-Office365-Filtering-Correlation-Id: ade05a37-428c-4fa3-a26e-08db9fcb3cfa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BdSKf2iGSRafGbn8ZE8RhhLsEiZnYCESPu4CzV/ld5S6q0wcaX6jJM7fwNVoWF8PgWARLkXrzEt0tHEw0Yiz8ArUkIzwMUaNNqZzrU5oY6cam4wq5QVFdn0vAsNwmn50rEmjzHDE9RMDr0M4Q1fHmNFYMic8EhylWBRgRz5P6gb04XgQuDlZfFoBtJmUrYQOsHxjuM2YfkRkelel9ORnmNXr+DpJMu15caRo+odD5ENLxLXLUsdLGfPXjGMUNRb4SN6L+7rdgpVtgGNcqxEqVLpverxZBEIbaAXw+4rCMKByuCYNh1+1bMguoezS4HFLArUs1QijHtLxnNW9wgX77XZDCYG3tlXsh8SwX7fdDTmayD3Dt4s65WgWmlHKL5kVzODHsdG232iXC/x9cbI8MkTxNbSzK1K2RfWGDtuTNLkoM/Y5SHr+sUNU/hSf7Z93UOqtfnROl2lOOkbWm2J76t+2KEoKZWsJAmodnCtB+2JCQ7hHSXcsyieTulzskpjSzMHcgtxreq9aklx4X0Yiun3WFXTW9iIDZl9CG+oe48Q0ggagOt9QWG4wXEtN03RzRhHkMOqHdIlwQLVLuAjNwLAdPsEMyl7eSLjQxzdyWYD7CXnc3ouqlgBYCq26L1C/IL+wzKTLK0Ul9m7bjrZZC4xwOLdvNrR+Sedf2gs2O3b1xaJn73cdcvdVPb06DEHv
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(376002)(136003)(366004)(396003)(39860400002)(451199024)(1800799009)(186009)(31686004)(86362001)(31696002)(36756003)(38100700002)(921005)(2616005)(5660300002)(66556008)(478600001)(6506007)(66946007)(66476007)(53546011)(6666004)(6486002)(316002)(26005)(6512007)(4326008)(8676002)(8936002)(41300700001)(83380400001)(7416002)(30864003)(2906002)(43740500002)(45980500001)(309714004);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=486a78f8-bde0-4534-9c6a-edfc0a168c84;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-08-18T09:48:19Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM5PR12MB2469:EE_|DM6PR12MB4499:EE_
+x-ms-office365-filtering-correlation-id: 84a21182-4316-44b1-2cfb-08db9fd0559f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: clrvNz5srhHEqE0i4QmELG/j9CFeS/RHZKcWAQbqDhyyitUmG1WEZ4wFNiz4PA5TLtphAuetTZj4ar1TrnXEq+ptz+Xuu284VOKWRSiHU6GCKJFKybJHdD/7IBcT0NTsIWHCcMS0MO6MYQTdk0PIiZUaIQQtZH9U8aZRwvnKdXGX8nhbePh6EfBcx5CUT07pbzeTO4D4Bt1Ivd8Je8/fCzD3/T4Spn2+onx8lmhZWaABcrX6Kfbgzq/dyg/d9aRqQ3EvAl3d9Mqc/BNey8N8hVPXNm8KcTsw2JKlasSjeQ7vp0gw1RKHqSkGLFLF20LSI1QyKEbHgli3e/CIoaFhf2xnuEKBfyFSIYXxdPCLkbqbyxO/R7Dx6QLJaKdbxQZ5ZTxdVvtOd+isU6WSL5i8nJ5ZXKQpbv97WEK2IuoeXfZrAA18XH0/X3jxfywUyO3Wx0dTYUvbl9bjND0qseA7ihXKmLrSt6q3r8W2Rkj4KHvdxXyRRtplFwhGrVtsYrfEPDoXgVaahGNofWgkJLjoH7XroiH4QKD4LCq9Rp/CIxGcDYEgM1KHZWHzj6g00dHM8diNjk6gu+KN8NwFQG7BPGjplGr5bo9dUBebgcpTvDohA8WmIIAKrBbTfHvnbj7K
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(136003)(376002)(366004)(396003)(39860400002)(451199024)(186009)(1800799009)(26005)(71200400001)(6506007)(7696005)(53546011)(9686003)(66574015)(83380400001)(5660300002)(8936002)(8676002)(52536014)(4326008)(2906002)(478600001)(41300700001)(76116006)(110136005)(66946007)(6636002)(54906003)(64756008)(66446008)(66476007)(66556008)(316002)(38100700002)(38070700005)(122000001)(55016003)(33656002)(86362001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SnRKVjZ0R1padmpaVnBnNWU1ZkVrU3ZyeXcvY0Jwdk9PVjk0NGE2V0p5WVFW?=
- =?utf-8?B?eE9QS0Nsb2Q5TU9jUWZva2loNko4TnVSZzl1S0t2ZllWNjFiOHdNdzFiTDhh?=
- =?utf-8?B?SXMxQ01tWFYza3oyM3RtMXgxSmlxR210TEtxYVpBUEVXbmN0Mld5NG51TGI5?=
- =?utf-8?B?WHFEK1ViU1VtakpOZytBZ3FKUWl1TVZ2cnZOU0lxdmlsRnA0WU1SOEQ3ZHlI?=
- =?utf-8?B?bVliakFTdFJZWEhEUDZpa042NU9KN1Q3QUF2a0JDa0V6RjRGN1MyNXF3M3Vn?=
- =?utf-8?B?MUpmdU0zUkU4Wk0rL283WlE5eXpXNmdPc29oeTdyaEQrZ0lXaVdpSHoyREQ4?=
- =?utf-8?B?bkdYMVAxcmc3NzNTU3RURVZTNTN4NHo5endtV0JHcGl0YTlHMTNhd2QvdGdj?=
- =?utf-8?B?bzhrblp5c3M4ME10U25WbTRBUFpiN3ZZYUpDRWt6YnVCTlIvc3c2aHBNUG1I?=
- =?utf-8?B?TzYzUE10RjJsYnh3RnBhY1VLNjBnYlBpM09USnFNWTNnWWxQa0RrNFluUGVn?=
- =?utf-8?B?WGxLOVc2QVVLUmV3ZnVjUHlYZU1Jd3c5Q1VPZWVvTGhId012ZHErbElIcWRk?=
- =?utf-8?B?Qi9xT3oxZStCSXdGbEhjNWR5VTJkd0RJT1NwVDl6YklMUExHQ0c2OVc3TEZC?=
- =?utf-8?B?N1BlclRPbkl1ZCtocU8xKzRpbnBiMC81dlNXOWVvR290SU42VmtPbFB5T2hV?=
- =?utf-8?B?TVJWQVFpWFBYMVI0VnFaQ2F6TWRtcmV5OUhXZ09DaTNnVXh5QzA3d0gxcVJv?=
- =?utf-8?B?ZXJFaFZycVBpYmtYd0xySTBMWld2S2lKSmdsZE1JRzArVmRQRVk0WThKNGwv?=
- =?utf-8?B?eUt4UUlCSk5meUhVVVBQY3Fub1c3RU1MY2xjSS9XaitlQlk1ei9KRTJrVmVD?=
- =?utf-8?B?T1V0dzFRM3pIc0s0TnVuU09NejRQUVFnaGJiNGE0Q3c0SExlTzhVcVd4NXNx?=
- =?utf-8?B?cFZXeDZHamwwYllCZDhQSjdWWEsvM1lFMUM4Yk01UmdJRDc0OFZ3NnNCOWRN?=
- =?utf-8?B?Q1A5eU1wdWcvL1kybHNFUS9hK0NKTUR0ekJQc1R2ZGx2Zno1VmtxUVRSVU1h?=
- =?utf-8?B?WVpjWnI1QlFtYStxS294cUE3SWVnOGxwdnZqdzA1eTM0elFtazkrczNPN1do?=
- =?utf-8?B?dndDTHRjSTZDMVlOOTkxL1Fzc2o2TTJvVTcyNUY3OUc1N29Daldjd25hNFRk?=
- =?utf-8?B?b3lreVNDWFV4SGl6U29PVnZWYzJDTmlNMkRlZDV5NGg4UjFQSUd6V2tGQjFP?=
- =?utf-8?B?bkY5VlQ4bk5rcloraFNzRUU4NDE2cHR6aklHYmFyZi9rOHMxK2RhRkM4dWJF?=
- =?utf-8?B?VFY0NHNoeGtMd3VFQ0Q4Zjg5SnRNU0p4YS90TGlGa1dDS2hlZXM2RHVhS09U?=
- =?utf-8?B?RlpEVFY5UlljVFJVYVNBc004RUJhTVdoUkozeHRjRVJHYzcwR2pTYyttU2hm?=
- =?utf-8?B?N1plS0VWdXZ2dVFzbnc4UkFWdzJmajhmeCtOL0tCemFMRXU3b0xSMHowbC9G?=
- =?utf-8?B?ZG1hWmFXODNYUDU1TC8vL01CU1czQzJ2ZnlpS2ozTGdWYUFhL0VEK3laWHZV?=
- =?utf-8?B?Q2dHME9WMUZaV3A2TTk5T0R4OG4zemxQT3FPUUVibnBzSjcvRGl3WmdwVVV4?=
- =?utf-8?B?NXFKN3ZvRkdqaCtMb1BNRU9PNnUvQ0F0UDZOQy9iVnJabk1GN3lGT2pJRit1?=
- =?utf-8?B?NmNjSHJrNmJ3RXo1UFlQcU9SN0dVTmVVWW53eFc5Y3lsajFNV3FEdVplbnVE?=
- =?utf-8?B?Y1l5aEdXUFFkVDNMMnByMXNOQ2xHWFQvc0lRV2xMdWQxaG1UcHdSOFJNc1Ra?=
- =?utf-8?B?cmM4U080Tjh0cVN1VXF6bk1JczBYVXJqYklpUVBmVjlta0ZrbWZiT0JtL3k2?=
- =?utf-8?B?Mkd4VlFSVkczQUNpTDhmazZVZUFWZWlReUd0US9CdFE3UDUwckpKbXNjUmQ1?=
- =?utf-8?B?VFlnREp6UU1CSHlscmpTR0JTd25KVnYzWjBEazFZT244b2dGb053LzRrY2t3?=
- =?utf-8?B?bG93MkJUVjhIb0VsaEN6dWRHeWxHYnBxWnh5RzZLblZrakJ3VElkSWpqb2Q4?=
- =?utf-8?B?aUxFZlRvMEdFQldxYmtHQldZNnJHWXRqeG9UQnMxNVViWXRxRnJoVnRQaFVJ?=
- =?utf-8?Q?bAG6ogY2clChxSpJLu5RkW6pw?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Q2l2Y2JIYU9rVDBtTDlEZldrVGtUVWR6a2htbUN6dE5VWXE3N2xxaTZTV01q?=
+ =?utf-8?B?VlhsYU1oNkMxZTF3Q0p6QzV1Q1M2K2tFbkFueVR3bWRtUzRlTUdCWDlDdjJR?=
+ =?utf-8?B?MGZNQTgyaWtTbS81T3N3WGMyT1hGNjVlclF5RzNsNTM2STdLbGFaWUtjSWJI?=
+ =?utf-8?B?Y3hLRm9ZVUF5K2ZmSGZjNTdadTRjQ0dnbnV2SXdGRmVwWVByQnB3bmxCekRt?=
+ =?utf-8?B?aVo2UXpOa0FuWDVkUXQra0UvblREY0tMYjJjN3V0TTVRWGprZVh4Wk1HeFBx?=
+ =?utf-8?B?dWM1TnFLbWh1TUxjQjZWWHdqUHdJKzRjYXRZRDArelVZVkFZQy9DNzRpMTNX?=
+ =?utf-8?B?UWljbVRsSXNqd3lLV2U3SjdMZ0p4aXJIWWdvV294NHlqMUttNXZxNzNEWWhl?=
+ =?utf-8?B?bXJHNFMwejVJY3RDL2g5dGlIQ3VmM1R6cHdXYTYrdlI1Y01pT05LR1lUN0FD?=
+ =?utf-8?B?Mno3QWdNTTdpOXN1d2IySmROQXp4eHkrQ0E1WXRZRUQ5UTNES0ZSM1VUeVVJ?=
+ =?utf-8?B?NW1CNjJNQjcxZDFiQTFhb1NlNmdJRlkxcGRqTkY2ZjliMHpvMzBTWlJCTzZP?=
+ =?utf-8?B?QWhEWXFCKzNYNjVnN2Y3K2xLZU8zcG02NDAycWNRY1Rzekljd3ByRUoyVlVW?=
+ =?utf-8?B?VnFsZWpNWklhWDVZc1kwVVNSOXZOQUFDRHZmT1d0ekd6RWx6QmNyRmJxZ1Fv?=
+ =?utf-8?B?OWVRWGtCNFNKOW5CTTEvL3ZqZzgwbVpYMlI0eGFlWEZUL1hYZEs1dUtqU2t5?=
+ =?utf-8?B?QU53NmFhdjRUMWJvZVRSZ25tMXNOdUdLNmF1R093TzMvRDNjQ3IydkFvUkVu?=
+ =?utf-8?B?VVprQlpKTi95a2d6UVhKRlYrSVpvVHAwVjRlT2VpejhBb0t5bkljdTErUUMy?=
+ =?utf-8?B?WGJ6bkNJUnFta0N3L0xtRS9ORmpwMk5nYm9LbVdDMkMxa0RXRHlPUTN3d1Zl?=
+ =?utf-8?B?cmk3Q2xJUWNVbXpzR3JiM1RRWmNGQ3ZsVlNvc1JSeGNxMkhqZWk3VldtVDdy?=
+ =?utf-8?B?RmRTdzNuZ0J2dzJUcWpFelg1cXVtbmo4UVU5bzB1OWZqYjJGNUxzTXBYZTQv?=
+ =?utf-8?B?STVGZFhJQzBpYk5ET3hiSEdrYnFQOUQvVXBtZm42clExcWJqemtTci96cC8z?=
+ =?utf-8?B?VEpNY0dWd2VaVGtHbTJQVDRvQWZ0QmNmVDh1alpiVWNYY1ZPc0NIZ0pHcEdV?=
+ =?utf-8?B?cGVqN2xrRFNRYXlLbnNDYjJzYmlvNDlvK1lSTGd5U01tMldpSXhEKzF3bmF1?=
+ =?utf-8?B?bS9ldWFkMEZKZWhiUitUVmtzWVFKcDZ2T0FnWEpyNW5VR3VTWnpqNURmMWxJ?=
+ =?utf-8?B?azhrcytmUnEvR2tnQUFZb2pPSTNyN2ZEWGFoZVlpYUkyV3dJZXJSYVQ1NmMz?=
+ =?utf-8?B?aTZQanFpZkYvdkcyOFpkWVJXUFUvMHhKaHZDTDJadWlwbmRHRDhDdmJQamZG?=
+ =?utf-8?B?QW1WZG4weEk1NlFwVWRsQ2FtcXVGMTNwcFlkSWw3WEFlQXhQQzdJbFZKWUhF?=
+ =?utf-8?B?d2ozZFlzRkFDUnlEbHZCaSszWDRyOVRCM094K0YwOXlheDlpekMzbkhadFRh?=
+ =?utf-8?B?aStqc3l2Wkc2bytUOUJkOE1ZR2NkZHNWMFNUbHorM1ZJaTFOMXAwTnppRldX?=
+ =?utf-8?B?ODR1Q2cxMlR6THdXZk5ZSkJyeitnM0YxNU5IUnNPZGV0QUtTYkZKNXZ6TzY3?=
+ =?utf-8?B?ajVFaTZyMEh4ZG1pQU43U1NIeTRsZWVsWjRYUnY5elRlVEQ1eWR3RFBUd1c5?=
+ =?utf-8?B?WEdLNXJpZFdtbU9KMGR3S3pqK0U3VUt6ckd2Vnp1ck5Rcms1Zys1Ykw0K2tv?=
+ =?utf-8?B?NlZ1bnNSSldrUi85UnNCWmdiYy8xTytyVGhucVc2MHk0RU92OUljM2haU3Fw?=
+ =?utf-8?B?Qms1TjNuZGlFV3pwckJOdTd5cGdDZzEyMnJ3c2pJeldia3FCKzNzMXFQbTll?=
+ =?utf-8?B?UDk4M3kweEdWcVJibjUyY0R4UzFxaEx4ejBsckRZdUFEVzJ1S3ZUcGpSUVpO?=
+ =?utf-8?B?YVpPZG02a0RWQU04SUFRYktjVE5abVJ3SitZNEpDRExERTBVUm9KNEhnMngx?=
+ =?utf-8?B?a2ZoL20zMEpxR3Avdm9pOFRBQnpadFlvNGd1K0k5QXNubmJoNVVoNVdkcFMw?=
+ =?utf-8?Q?01mQ=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ade05a37-428c-4fa3-a26e-08db9fcb3cfa
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2023 09:12:25.4891 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qr+YpVB3sT3EUp74UszMp164YQrnz4WCLc03Eln02DK+vC+lNgTMopAZ19cQQwdl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5950
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84a21182-4316-44b1-2cfb-08db9fd0559f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Aug 2023 09:48:54.1495 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: w2WCKJm3/grppkn41Pk+L8zj9108aPboYr+g+wQUl95Igb6/uWvbE4yv3de/Dku2a0B71yBtziRFjc2wziiEcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4499
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,401 +135,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 8/18/2023 8:56 AM, Evan Quan wrote:
-> With WBRF feature supported, as a driver responding to the frequencies,
-> amdgpu driver is able to do shadow pstate switching to mitigate possible
-> interference(between its (G-)DDR memory clocks and local radio module
-> frequency bands used by Wifi 6/6e/7).
-> 
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-> --
-> v1->v2:
->    - update the prompt for feature support(Lijo)
-> v8->v9:
->    - update parameter document for smu_wbrf_event_handler(Simon)
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  17 ++
->   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 194 ++++++++++++++++++
->   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  23 +++
->   drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |   3 +
->   5 files changed, 239 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index a3b86b86dc47..2bfc9111ab00 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -247,6 +247,8 @@ extern int amdgpu_sg_display;
->   
->   extern int amdgpu_user_partt_mode;
->   
-> +extern int amdgpu_wbrf;
-> +
->   #define AMDGPU_VM_MAX_NUM_CTX			4096
->   #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
->   #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS	        3000
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 0593ef8fe0a6..1c574bd3b60d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -195,6 +195,7 @@ int amdgpu_use_xgmi_p2p = 1;
->   int amdgpu_vcnfw_log;
->   int amdgpu_sg_display = -1; /* auto */
->   int amdgpu_user_partt_mode = AMDGPU_AUTO_COMPUTE_PARTITION_MODE;
-> +int amdgpu_wbrf = -1;
->   
->   static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
->   
-> @@ -981,6 +982,22 @@ module_param_named(user_partt_mode, amdgpu_user_partt_mode, uint, 0444);
->   module_param(enforce_isolation, bool, 0444);
->   MODULE_PARM_DESC(enforce_isolation, "enforce process isolation between graphics and compute . enforce_isolation = on");
->   
-> +/**
-> + * DOC: wbrf (int)
-> + * Enable Wifi RFI interference mitigation feature.
-> + * Due to electrical and mechanical constraints there may be likely interference of
-> + * relatively high-powered harmonics of the (G-)DDR memory clocks with local radio
-> + * module frequency bands used by Wifi 6/6e/7. To mitigate the possible RFI interference,
-> + * with this feature enabled, PMFW will use either “shadowed P-State” or “P-State” based
-> + * on active list of frequencies in-use (to be avoided) as part of initial setting or
-> + * P-state transition. However, there may be potential performance impact with this
-> + * feature enabled.
-> + * (0 = disabled, 1 = enabled, -1 = auto (default setting, will be enabled if supported))
-> + */
-> +MODULE_PARM_DESC(wbrf,
-> +	"Enable Wifi RFI interference mitigation (0 = disabled, 1 = enabled, -1 = auto(default)");
-> +module_param_named(wbrf, amdgpu_wbrf, int, 0444);
-> +
->   /* These devices are not supported by amdgpu.
->    * They are supported by the mach64, r128, radeon drivers
->    */
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index ce41a8309582..704442ce1da3 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -1228,6 +1228,173 @@ static int smu_get_thermal_temperature_range(struct smu_context *smu)
->   	return ret;
->   }
->   
-> +/**
-> + * smu_wbrf_handle_exclusion_ranges - consume the wbrf exclusion ranges
-> + *
-> + * @smu: smu_context pointer
-> + *
-> + * Retrieve the wbrf exclusion ranges and send them to PMFW for proper handling.
-> + * Returns 0 on success, error on failure.
-> + */
-> +static int smu_wbrf_handle_exclusion_ranges(struct smu_context *smu)
-> +{
-> +	struct wbrf_ranges_out wbrf_exclusion = {0};
-> +	struct exclusion_range *wifi_bands = wbrf_exclusion.band_list;
-> +	struct amdgpu_device *adev = smu->adev;
-> +	uint64_t start, end;
-> +	int ret, i, j;
-> +
-> +	ret = wbrf_retrieve_exclusions(adev->dev, &wbrf_exclusion);
-> +	if (ret) {
-> +		dev_err(adev->dev, "Failed to retrieve exclusion ranges!\n");
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * The exclusion ranges array we got might be filled with holes and duplicate
-> +	 * entries. For example:
-> +	 * {(2400, 2500), (0, 0), (6882, 6962), (2400, 2500), (0, 0), (6117, 6189), (0, 0)...}
-> +	 * We need to do some sortups to eliminate those holes and duplicate entries.
-> +	 * Expected output: {(2400, 2500), (6117, 6189), (6882, 6962), (0, 0)...}
-> +	 */
-> +	for (i = 0; i < MAX_NUM_OF_WBRF_RANGES; i++) {
-> +		start = wifi_bands[i].start;
-> +		end = wifi_bands[i].end;
-> +
-> +		/* get the last valid entry to fill the intermediate hole */
-> +		if (!start && !end) {
-> +			for (j = MAX_NUM_OF_WBRF_RANGES - 1; j > i; j--)
-> +				if (wifi_bands[j].start &&
-> +				    wifi_bands[j].end)
-> +					break;
-> +
-> +			if (j > i) {
-> +				wifi_bands[i].start = wifi_bands[j].start;
-> +				wifi_bands[i].end = wifi_bands[j].end;
-
-Since the last value is now 0, one way to optimize is to keep max as j 
--1 for the next iteration.
-
-> +				wifi_bands[j].start = 0;
-> +				wifi_bands[j].end = 0;
-> +			}
-> +
-> +			continue;
-
-If continued at this point, it won't eliminate all duplicates.
-
-Example:
-(2000,2100)(0,0)(1100,1200)(0, 0)(2500,2600)(3000,3200)(1100,1200)
-
-Once it places (1100,1200) at index 1, it will continue the loop and 
-then it skips duplicate entry at index 2.
-
-Once replaced, you may assign the new start/end
-	start = wifi_bands[i].start = wifi_bands[j].start;
-	end= wifi_bands[i].end = wifi_bands[j].end;
-
-and then proceed to the duplicate entries scan loop below.
-
-> +		}
-> +
-> +		/* eliminate duplicate entries */
-> +		for (j = i + 1; j < MAX_NUM_OF_WBRF_RANGES; j++) {
-> +			if ((wifi_bands[j].start == start) &&
-> +			     (wifi_bands[j].end == end)) {
-> +				wifi_bands[j].start = 0;
-> +				wifi_bands[j].end = 0;
-> +				continue;
-
-I think this'continue' is not required.
-
-Thanks,
-Lijo
-
-> +			}
-> +		}
-> +	}
-> +
-> +	/* Send the sorted wifi_bands to PMFW */
-> +	ret = smu_set_wbrf_exclusion_ranges(smu, wifi_bands);
-> +	/* Give it another chance */
-> +	if (unlikely(ret == -EBUSY)) {
-> +		mdelay(5);
-> +		ret = smu_set_wbrf_exclusion_ranges(smu, wifi_bands);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +/**
-> + * smu_wbrf_event_handler - handle notify events
-> + *
-> + * @nb: notifier block
-> + * @action: event type
-> + * @_arg: event data
-> + *
-> + * Calls relevant amdgpu function in response to wbrf event
-> + * notification from kernel.
-> + */
-> +static int smu_wbrf_event_handler(struct notifier_block *nb,
-> +				  unsigned long action, void *_arg)
-> +{
-> +	struct smu_context *smu = container_of(nb, struct smu_context,
-> +					       wbrf_notifier);
-> +
-> +	switch (action) {
-> +	case WBRF_CHANGED:
-> +		smu_wbrf_handle_exclusion_ranges(smu);
-> +		break;
-> +	default:
-> +		return NOTIFY_DONE;
-> +	};
-> +
-> +	return NOTIFY_OK;
-> +}
-> +
-> +/**
-> + * smu_wbrf_support_check - check wbrf support
-> + *
-> + * @smu: smu_context pointer
-> + *
-> + * Verifies the ACPI interface whether wbrf is supported.
-> + */
-> +static void smu_wbrf_support_check(struct smu_context *smu)
-> +{
-> +	struct amdgpu_device *adev = smu->adev;
-> +
-> +	smu->wbrf_supported = smu_is_asic_wbrf_supported(smu) &&
-> +			      !!amdgpu_wbrf &&
-> +			      wbrf_supported_consumer(adev->dev);
-> +
-> +	if (smu->wbrf_supported)
-> +		dev_info(adev->dev, "RF interference mitigation is supported\n");
-> +}
-> +
-> +/**
-> + * smu_wbrf_init - init driver wbrf support
-> + *
-> + * @smu: smu_context pointer
-> + *
-> + * Verifies the AMD ACPI interfaces and registers with the wbrf
-> + * notifier chain if wbrf feature is supported.
-> + * Returns 0 on success, error on failure.
-> + */
-> +static int smu_wbrf_init(struct smu_context *smu)
-> +{
-> +	struct amdgpu_device *adev = smu->adev;
-> +	int ret;
-> +
-> +	if (!smu->wbrf_supported)
-> +		return 0;
-> +
-> +	smu->wbrf_notifier.notifier_call = smu_wbrf_event_handler;
-> +	ret = wbrf_register_notifier(&smu->wbrf_notifier);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Some wifiband exclusion ranges may be already there
-> +	 * before our driver loaded. To make sure our driver
-> +	 * is awared of those exclusion ranges.
-> +	 */
-> +	ret = smu_wbrf_handle_exclusion_ranges(smu);
-> +	if (ret)
-> +		dev_err(adev->dev, "Failed to handle wbrf exclusion ranges\n");
-> +
-> +	return ret;
-> +}
-> +
-> +/**
-> + * smu_wbrf_fini - tear down driver wbrf support
-> + *
-> + * @smu: smu_context pointer
-> + *
-> + * Unregisters with the wbrf notifier chain.
-> + */
-> +static void smu_wbrf_fini(struct smu_context *smu)
-> +{
-> +	if (!smu->wbrf_supported)
-> +		return;
-> +
-> +	wbrf_unregister_notifier(&smu->wbrf_notifier);
-> +}
-> +
->   static int smu_smc_hw_setup(struct smu_context *smu)
->   {
->   	struct smu_feature *feature = &smu->smu_feature;
-> @@ -1320,6 +1487,15 @@ static int smu_smc_hw_setup(struct smu_context *smu)
->   	if (ret)
->   		return ret;
->   
-> +	/* Enable UclkShadow on wbrf supported */
-> +	if (smu->wbrf_supported) {
-> +		ret = smu_enable_uclk_shadow(smu, true);
-> +		if (ret) {
-> +			dev_err(adev->dev, "Failed to enable UclkShadow feature to support wbrf!\n");
-> +			return ret;
-> +		}
-> +	}
-> +
->   	/*
->   	 * With SCPM enabled, these actions(and relevant messages) are
->   	 * not needed and permitted.
-> @@ -1416,6 +1592,15 @@ static int smu_smc_hw_setup(struct smu_context *smu)
->   	 */
->   	ret = smu_set_min_dcef_deep_sleep(smu,
->   					  smu->smu_table.boot_values.dcefclk / 100);
-> +	if (ret) {
-> +		dev_err(adev->dev, "Error setting min deepsleep dcefclk\n");
-> +		return ret;
-> +	}
-> +
-> +	/* Init wbrf support. Properly setup the notifier */
-> +	ret = smu_wbrf_init(smu);
-> +	if (ret)
-> +		dev_err(adev->dev, "Error during wbrf init call\n");
->   
->   	return ret;
->   }
-> @@ -1471,6 +1656,13 @@ static int smu_hw_init(void *handle)
->   		return ret;
->   	}
->   
-> +	/*
-> +	 * Check whether wbrf is supported. This needs to be done
-> +	 * before SMU setup starts since part of SMU configuration
-> +	 * relies on this.
-> +	 */
-> +	smu_wbrf_support_check(smu);
-> +
->   	if (smu->is_apu) {
->   		ret = smu_set_gfx_imu_enable(smu);
->   		if (ret)
-> @@ -1623,6 +1815,8 @@ static int smu_smc_hw_cleanup(struct smu_context *smu)
->   	struct amdgpu_device *adev = smu->adev;
->   	int ret = 0;
->   
-> +	smu_wbrf_fini(smu);
-> +
->   	cancel_work_sync(&smu->throttling_logging_work);
->   	cancel_work_sync(&smu->interrupt_work);
->   
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index 6e2069dcb6b9..244297979f92 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -22,6 +22,8 @@
->   #ifndef __AMDGPU_SMU_H__
->   #define __AMDGPU_SMU_H__
->   
-> +#include <linux/wbrf.h>
-> +
->   #include "amdgpu.h"
->   #include "kgd_pp_interface.h"
->   #include "dm_pp_interface.h"
-> @@ -575,6 +577,10 @@ struct smu_context
->   	u32 debug_resp_reg;
->   
->   	struct delayed_work		swctf_delayed_work;
-> +
-> +	/* data structures for wbrf feature support */
-> +	bool				wbrf_supported;
-> +	struct notifier_block		wbrf_notifier;
->   };
->   
->   struct i2c_adapter;
-> @@ -1356,6 +1362,23 @@ struct pptable_funcs {
->   	 * @init_pptable_microcode: Prepare the pptable microcode to upload via PSP
->   	 */
->   	int (*init_pptable_microcode)(struct smu_context *smu);
-> +
-> +	/**
-> +	 * @is_asic_wbrf_supported: check whether PMFW supports the wbrf feature
-> +	 */
-> +	bool (*is_asic_wbrf_supported)(struct smu_context *smu);
-> +
-> +	/**
-> +	 * @enable_uclk_shadow: Enable the uclk shadow feature on wbrf supported
-> +	 */
-> +	int (*enable_uclk_shadow)(struct smu_context *smu,
-> +				  bool enablement);
-> +
-> +	/**
-> +	 * @set_wbrf_exclusion_ranges: notify SMU the wifi bands occupied
-> +	 */
-> +	int (*set_wbrf_exclusion_ranges)(struct smu_context *smu,
-> +					 struct exclusion_range *exclusion_ranges);
->   };
->   
->   typedef enum {
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-> index ceb13c838067..67d7495ab49e 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
-> @@ -97,6 +97,9 @@
->   #define smu_get_default_config_table_settings(smu, config_table)	smu_ppt_funcs(get_default_config_table_settings, -EOPNOTSUPP, smu, config_table)
->   #define smu_set_config_table(smu, config_table)				smu_ppt_funcs(set_config_table, -EOPNOTSUPP, smu, config_table)
->   #define smu_init_pptable_microcode(smu)					smu_ppt_funcs(init_pptable_microcode, 0, smu)
-> +#define smu_is_asic_wbrf_supported(smu)					smu_ppt_funcs(is_asic_wbrf_supported, false, smu)
-> +#define smu_enable_uclk_shadow(smu, enablement)				smu_ppt_funcs(enable_uclk_shadow, 0, smu, enablement)
-> +#define smu_set_wbrf_exclusion_ranges(smu, exclusion_ranges)		smu_ppt_funcs(set_wbrf_exclusion_ranges, -EOPNOTSUPP, smu, exclusion_ranges)
->   
->   #endif
->   #endif
+W1B1YmxpY10NCg0KUmV2aWV3ZWQtYnk6IEd1Y2h1biBDaGVuIDxndWNodW4uY2hlbkBhbWQuY29t
+Pg0KDQpSZWdhcmRzLA0KR3VjaHVuDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4g
+RnJvbTogU0hBTk1VR0FNLCBTUklOSVZBU0FOIDxTUklOSVZBU0FOLlNIQU5NVUdBTUBhbWQuY29t
+Pg0KPiBTZW50OiBGcmlkYXksIEF1Z3VzdCAxOCwgMjAyMyAyOjQ2IFBNDQo+IFRvOiBLb2VuaWcs
+IENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgRGV1Y2hlciwgQWxleGFuZGVy
+DQo+IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgQ2hlbiwgR3VjaHVuIDxHdWNodW4uQ2hl
+bkBhbWQuY29tPg0KPiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFNIQU5NVUdB
+TSwgU1JJTklWQVNBTg0KPiA8U1JJTklWQVNBTi5TSEFOTVVHQU1AYW1kLmNvbT47IFBhbiwgWGlu
+aHVpDQo+IDxYaW5odWkuUGFuQGFtZC5jb20+DQo+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdw
+dTogRml4IGtjYWxsb2Mgb3ZlciBremFsbG9jIGluDQo+ICdnbWNfdjlfMF9pbml0X21lbV9yYW5n
+ZXMnDQo+DQo+IFJlcGxhY2Uga3phbGxvYyhuICogc2l6ZW9mKC4uLiksIC4uLikgd2l0aCBrY2Fs
+bG9jKG4sIHNpemVvZiguLi4pLCAuLi4pIHNpbmNlIGtjYWxsb2MgaXMNCj4gdGhlIHByZWZlcnJl
+ZCBBUEkgaW4gY2FzZSBvZiBhbGxvY2F0aW5nIHdpdGggbXVsdGlwbHkuDQo+DQo+IEZpeGVzIHRo
+ZSBiZWxvdzoNCj4NCj4gV0FSTklORzogUHJlZmVyIGtjYWxsb2Mgb3ZlciBremFsbG9jIHdpdGgg
+bXVsdGlwbHkNCj4NCj4gQ2M6IEd1Y2h1biBDaGVuIDxndWNodW4uY2hlbkBhbWQuY29tPg0KPiBD
+YzogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KPiBDYzogQWxl
+eCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPiBDYzogIlBhbiwgWGluaHVp
+IiA8WGluaHVpLlBhbkBhbWQuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBTcmluaXZhc2FuIFNoYW5t
+dWdhbSA8c3Jpbml2YXNhbi5zaGFubXVnYW1AYW1kLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIHwgNyArKystLS0tDQo+ICAxIGZpbGUgY2hhbmdl
+ZCwgMyBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dtY192OV8wLmMNCj4gaW5kZXggZjlhNWEyYzA1NzNlLi4wNjczY2RhNTQ3YmIg
+MTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMNCj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPiBAQCAtMTk3Miwx
+MCArMTk3Miw5IEBAIHN0YXRpYyBpbnQgZ21jX3Y5XzBfaW5pdF9tZW1fcmFuZ2VzKHN0cnVjdA0K
+PiBhbWRncHVfZGV2aWNlICphZGV2KSAgew0KPiAgICAgICBib29sIHZhbGlkOw0KPg0KPiAtICAg
+ICBhZGV2LT5nbWMubWVtX3BhcnRpdGlvbnMgPSBremFsbG9jKA0KPiAtICAgICAgICAgICAgIE1B
+WF9NRU1fUkFOR0VTICogc2l6ZW9mKHN0cnVjdA0KPiBhbWRncHVfbWVtX3BhcnRpdGlvbl9pbmZv
+KSwNCj4gLSAgICAgICAgICAgICBHRlBfS0VSTkVMKTsNCj4gLQ0KPiArICAgICBhZGV2LT5nbWMu
+bWVtX3BhcnRpdGlvbnMgPSBrY2FsbG9jKE1BWF9NRU1fUkFOR0VTLA0KPiArICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNpemVvZihzdHJ1Y3QNCj4gYW1kZ3B1X21lbV9w
+YXJ0aXRpb25faW5mbyksDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgR0ZQX0tFUk5FTCk7DQo+ICAgICAgIGlmICghYWRldi0+Z21jLm1lbV9wYXJ0aXRpb25zKQ0K
+PiAgICAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOw0KPg0KPiAtLQ0KPiAyLjI1LjENCg0K
