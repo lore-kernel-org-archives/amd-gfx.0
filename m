@@ -4,47 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BBEBC7EE2A
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Aug 2023 16:41:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 184EBC77B7F
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Aug 2023 17:01:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1828810E0A9;
-	Fri, 18 Aug 2023 16:41:47 +0000 (UTC)
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com
- [209.85.161.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D536910E0A9
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Aug 2023 16:41:45 +0000 (UTC)
-Received: by mail-oo1-f48.google.com with SMTP id
- 006d021491bc7-56d67c5e87cso193358eaf.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Aug 2023 09:41:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692376905; x=1692981705;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=79qiflmIcqsS7DT/xXbMIdUQb1Omg1LDyvKgyYWC4Wg=;
- b=KOS5sQdVrEZDDMon3oWNP9qByo1vsM0II/6RP0X7offle7Iht2QgErh5QfHPJFqptp
- JDRnGXizoM8YxLal3L3hhpDJOGUZmdIYu1smK/wyfkh3pGSp1P0ncfZpvR5leI/dMz2+
- sheImgnp6sAvq4AcxR9uOhPlQ+8o36DR560Rn+2RpGhGz2+UEU86Q9rDyu6ewIm0kBRs
- edfRki0ETWyYShx2c1jc4WbPGPD2wdlNVuropKR3/z8qfCtYbhqBfPlHcFq9BBMQU+HY
- 1tx/kqFvWLLwFPo1JE9wjhD4F7oQ05PldLrjgYijbOgSeA7KngFpFtMSHpVFCjTXju4l
- 0e+Q==
-X-Gm-Message-State: AOJu0Yw5GVjMlWs27EdY0niyoe0mAU45tZUuq2olZ7ZChN3oC57pZkZq
- sx/6JfqMg15/XdQ+1AhM7ku/GWWH3OMpTYAFSbg=
-X-Google-Smtp-Source: AGHT+IGq0ClH5XmhZ/aBsrau9IjCmR3xeCyFXHcIlTxxN8ouMy4KkGLcQ9AFr5SPbdrOhdMhQpOEL3Y4Jv7zn6gdt1E=
-X-Received: by 2002:a05:6820:44a:b0:563:3b56:5dc1 with SMTP id
- p10-20020a056820044a00b005633b565dc1mr3290968oou.0.1692376904867; Fri, 18 Aug
- 2023 09:41:44 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A929C10E0AA;
+	Fri, 18 Aug 2023 17:01:31 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0351110E0AC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Aug 2023 17:01:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Fe4QkdsWs/A2rV0QcmJXVcC1E8GfN5UhRhK+4VroOVU0nyfVIUR6F6hTpgaw1mqLPtTbxvDSyq79ARQk+q1lSgkPA3FWlpfqH0hjvM5nt83M4/IudbVDRRp+mIVQSSTfrIL7U9MwGzrmINqJ5RsihFqx2Yb1x0qCe40ZofXGLms4sSDXHz0MMte4rh2U2Od0S1yB7HUSwbj4XS531eSEc5FWQ8++9v1n2RX3aKwgBb6y9i+4BsJA3dtpRB4X0tk8kYRtPEVNTixnT9nBKCiPxtYsgMRlWP++FwvnoQzMyqNW3Mx87qwrD3ZteYszf0FShesCybQoqGxJFXM76ywFOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4cAYFkHOJN5suJD9gRmZEAR4d/6k8HPnhixkzmKZvXg=;
+ b=Z2zVVqeNsM1wBqFhUa9pyK+atbLmVnCZzBsQsAAAm4GNwpLOQoIz/aHSBgJB3Fm9487NptKC0ungk5BsNGG082EZgBUTgBjvuLLv216YUuQTyU4z69TbhEgTt8o5BeKREybg0X9JnkdJ1KpykIfrtBvzBh5wW8mTveW6fn4xnT+sEe/6RY4Hhx/65xOyVGcb462zItfLrqB7Vgf0MkZ/e7MuHkIZvMCLoKc5tCqQVql39Sr+V1vSj+iPcz0Xq0RiLeNUi/eOC4Z9Jx3QrwTDOorH2aUOiHcU02eW20uVPvDrseFG3s7t+yrn6u8Fef8xi068RfqktBYxEGKA/CkAEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4cAYFkHOJN5suJD9gRmZEAR4d/6k8HPnhixkzmKZvXg=;
+ b=QfXvzclOLtO1hxdoZGoqHP2LsXZzXP2eDVycHayL6NGh9Syu03Ll+DzWOcxpDcB3QCL8lPvaJduwY3S134vtW2SVRMbwObpY3p2qXhSsxbpaJ8qsIL8W6K+ubVfmEk0OtyDLKcPqnAQcvQokdv1QJ7R3Kg3DP/boo42y9Wuk3RI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5311.namprd12.prod.outlook.com (2603:10b6:5:39f::7) by
+ DM6PR12MB4580.namprd12.prod.outlook.com (2603:10b6:5:2a8::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6699.20; Fri, 18 Aug 2023 17:01:26 +0000
+Received: from DM4PR12MB5311.namprd12.prod.outlook.com
+ ([fe80::d2ca:d59e:71fc:309c]) by DM4PR12MB5311.namprd12.prod.outlook.com
+ ([fe80::d2ca:d59e:71fc:309c%4]) with mapi id 15.20.6699.020; Fri, 18 Aug 2023
+ 17:01:26 +0000
+Message-ID: <d173a412-d43e-4a5d-a0f8-e2a0c3eb719b@amd.com>
+Date: Fri, 18 Aug 2023 13:01:21 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/7] Revert "drm/amd/display: Implement zpos property"
+Content-Language: en-US
+To: Melissa Wen <mwen@igalia.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
+References: <20230726193155.2525270-1-aurabindo.pillai@amd.com>
+ <20230726193155.2525270-7-aurabindo.pillai@amd.com>
+ <20230818082558.y6no2dvvmzszelc7@mail.igalia.com>
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <20230818082558.y6no2dvvmzszelc7@mail.igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN9PR03CA0846.namprd03.prod.outlook.com
+ (2603:10b6:408:13d::11) To DM4PR12MB5311.namprd12.prod.outlook.com
+ (2603:10b6:5:39f::7)
 MIME-Version: 1.0
-References: <20230818032619.3341234-1-evan.quan@amd.com>
- <20230818032619.3341234-2-evan.quan@amd.com>
-In-Reply-To: <20230818032619.3341234-2-evan.quan@amd.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Fri, 18 Aug 2023 18:41:33 +0200
-Message-ID: <CAJZ5v0hEBpHfYnQ4aKRE4viTt4CCH=XeY=uFJFwzMGq6k4Kvgg@mail.gmail.com>
-Subject: Re: [V9 1/9] drivers core: Add support for Wifi band RF mitigations
-To: Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5311:EE_|DM6PR12MB4580:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f28262b-e351-4a79-58b1-08dba00cc264
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: w6s5F0fNDzUrptJW/66FaI5vh9+lAOO+9UeNuMEzOcQWsD+8YXqUo69ahjAteHge9Mv6maB7ZFLGMpy1Y1uv8RB2te2BcR67KgW+h5Ai/73G/1wTheTmz0UjR0XIsmR24Xwl2bpjWyHbk3qvBvnpUyLLOpL/UGntt+V4g1SEf9xu8DhOCiKsVC2f72pg5LYAqiQwjmHGWRtTrbQZUqDiSItZNvI9hX1cHhNTSw5DYAnjLjqSUdiZHUfTlQdbVMiWRsmgWffj/+A+8E1oZG6uE1vBWDLdRZTi9osFnhCN7VWPdYBVcMJcZ3iYDhzRBYoRAzIeHnkraai/ECc8iV3ah8pYg/6dbYlZgDaL6Tmf+7ZjiM+Nnh8glXPidC3o7hPAIGMs/g1BPBg8vpddFto/MaWymR4nV7Zq39PGRvXRIpkfphBi4+gMmuw9gDUu6LQEVFGoBu+MwUn9WRNTPcOFazE90ZA1eqRzvmGpIUbHQGBydJ23kxizYjb4g98bDZGhNYzdNylz1mLbCAtq8pgUR+Yd22O5FWvy0WSR9EUaWJgCDFGKHVqX8vC5L7bM1C2ckGoPAjQKdA2VZFjhDJQNipJCDmlmC80g4HP3V/r3QHHOLJpUTZ4yZgMPSnyoQjX/nCSQzdOPNbraYUKpZjf78Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5311.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(136003)(376002)(366004)(346002)(39860400002)(1800799009)(186009)(451199024)(36756003)(86362001)(31696002)(31686004)(316002)(66476007)(66946007)(6636002)(66556008)(54906003)(478600001)(110136005)(41300700001)(38100700002)(6486002)(6666004)(26005)(6506007)(6512007)(53546011)(2616005)(8676002)(4326008)(5660300002)(8936002)(2906002)(83380400001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0h1ekY3WnNLbHZZTlZQS1JlbUsxaHlHdmYrNlRqWHNGclU4WkNsU0htQitQ?=
+ =?utf-8?B?ZnlFdWpRc0U1d21LYzYvMkFscnN4T1k1OUZJQ29QemJzemlscXFQbWU5eGxM?=
+ =?utf-8?B?ODBNYWlFK21odysrQXlwTjg2YjdoVWZKdUZqRlI1WUJvWnlRL0tQdWwyQUxP?=
+ =?utf-8?B?SUdyRVhVM0cxTkFQUEFJZnhlUWhjdmJjWkRVRGVqbThjYmFkSmsxb0syK2FR?=
+ =?utf-8?B?S2dWemxWdUphUkVaTXNiZXFSajU4RWFFZTZqb0t0VGNnb01CUk1LeDVkeEdt?=
+ =?utf-8?B?RWRCbUdlVFJxWlBEWDNjT203YmhBUkNsR3V2bVlsL0VMZzdRZkRtRllJbG85?=
+ =?utf-8?B?TUdYOGh0OTNzbkdaakRhYXNVM2MxZXcvellSY2tyQ0VEeEw1SVVpbXlTVHIv?=
+ =?utf-8?B?eVV6VUJSc2ZQdGpUd0tsOVI0ZTg1TFg0YlJ0MGlOcmxxVnl3L0NQQ21xTjVL?=
+ =?utf-8?B?NDR5MmNKK25IN3h1Y2I4YSthTWt5TTlEbHZtUURyc0Z1VGlBbG1hdzFZY3Jk?=
+ =?utf-8?B?K0h0R0ZYUHVuSzcrby9MU0dDenM1eWdSdCt6ZEtDaUZyRkJZY0ZiVHk5UCt1?=
+ =?utf-8?B?U05rYXVOYWM5b3hKMTFGdEprK00ySEtYNzRTVWVtcFJIdWw1MUVZYlJZZEUr?=
+ =?utf-8?B?OHRFTnBZVzFxVHhpWVVrQ1RjaUd6U0dKaXdpSkYvcVpCMGhrV21lSE42ZEh4?=
+ =?utf-8?B?SzlBSHRod0VWQ0RGakpLa3R6TytVZDlKR25GTUp0VnFEcy9DQUdYNEJ3Rzcv?=
+ =?utf-8?B?cjFsZXFWSEFiMHdORGtHbisvSnBiSjRkTFpicWJaaG1PLzQ4NWxndTN5ck1z?=
+ =?utf-8?B?UWNmWHEyWDlBaUx6b0ZLaXhrc2t3aEhuM2w0M0JYNDVIUTkzcUhHVnVxVFN1?=
+ =?utf-8?B?clFCeDZOOHBsM1ZHYnFvMEZ6Z3UyRktDRExRVnd1NVhpMXVzdS9JVExlaGVL?=
+ =?utf-8?B?REI4ZUFjenl2WFFnS3ZEMytpd2xTTm1QNnVJZTYreEtZYlNZeHRsNmp4aFJv?=
+ =?utf-8?B?TW5XNVhWaVRueEYzYzl3UGxGMk9lQjNMSERSSG1ZYXJTRXFobGJYbnpIcGx2?=
+ =?utf-8?B?QWtNQ2ZiKzg3VHN3MUpnMERldWhaRVV0TGJPSVRWV1M0L0RRY3FFVDAxTG1M?=
+ =?utf-8?B?bXZXcC8vTkl3bDlxcFN0RWE1MFhaaUxVemZDSElyRzlaNG9KTGZXc3hOcnFM?=
+ =?utf-8?B?UDFaZVBNaTkrcjJWN1lScXRwOE4rQ2ovOVdaUFdXK0psNlJqNHVaSHlsOVhF?=
+ =?utf-8?B?OC9HRDRMN3ZBUE1CM016VVQ4a3hCV056NmFra1RCQmUzcG9GeGhpcFpFTEhF?=
+ =?utf-8?B?S0UrSU5SVjVrMk9CTHVYeEpXbGQrUUY2ZE01UC9talcrVWh1NjlVNzN5cnZy?=
+ =?utf-8?B?cUNNZy9POUNjQVpYWHB0ckJydzZPdjE0Z1JDZTJNK3p0ZGdBUjJtNkdVM2U2?=
+ =?utf-8?B?NHJEbmQyN05QdGh1WFZxVTFFVFdIWEg0b0REQkllTDFqL2ZQQTRrbXBWU3Nn?=
+ =?utf-8?B?MVVGem1oSnQzZkc3WDcxMHUyaExNZ2dVaHp3d3Z5U3BaNkpTZlk2N0FmVjJh?=
+ =?utf-8?B?VUV4dVVjTkd3NUJDT0t1VE0rajRXS3RsaFRiRk4vVjBpVXJTellGZTN5Y0tT?=
+ =?utf-8?B?czNNSmRiUDZIQXhaOEtSZ1Y5dHEyZjhTcVp1Nnk2T2QxMlBCb2lqcmtXeFJS?=
+ =?utf-8?B?b1l5WXEyYjFzSHhQQmZGM0xJVndHN0hZQi8zN0hEWldaR3p3UXJCWlRIcVA0?=
+ =?utf-8?B?MEVkUHA5WVdObmJKODM2bXdxR2xldEtRQ05uN3BDSGJVd0xRV21pNXV1d3p2?=
+ =?utf-8?B?eExHcEJJUWxtcldBT3dPSUhkYnNsVTZKd2tMNUNVc1hhdEQ5anBMeVozc01U?=
+ =?utf-8?B?UlV4eG1DYWhNdjJZN25NOEpqZ2RTN2NJQ2M3TDVkMmUzUHBqWTRSdThJckF1?=
+ =?utf-8?B?K3hYT3FzMWh4aXdzaEM1UWZQZnVHYUZ5ZktJYlFDWUJDS1huMGdDQ05EL2Ey?=
+ =?utf-8?B?R0c2Q1VLVkl4MGxGMFNnVGNGTWtudysrMjBkUUsvL3dFalNEQ3pSMmpvTDlj?=
+ =?utf-8?B?UzF2NTdFOUE2aVNHak4rTUsrZWpOdytaZnkzN0grSGp0NXBibGswYnJZZFQz?=
+ =?utf-8?Q?5fYHOf5/154OvKjkMDXrIB2dT?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f28262b-e351-4a79-58b1-08dba00cc264
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5311.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2023 17:01:26.6179 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: l4szoACZNaxl/swjtFPWsFoRuoj9eUIzScHbcUaTPenUHSkQoehxnLU09cItYpKA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4580
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,548 +124,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: andrew@lunn.ch, linux-wireless@vger.kernel.org, rafael@kernel.org,
- gregkh@linuxfoundation.org, rdunlap@infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-acpi@vger.kernel.org, edumazet@google.com,
- Mario Limonciello <mario.limonciello@amd.com>, horms@kernel.org,
- netdev@vger.kernel.org, alexander.deucher@amd.com, kuba@kernel.org,
- johannes@sipsolutions.net, pabeni@redhat.com, quic_jjohnson@quicinc.com,
- davem@davemloft.net, lenb@kernel.org
+Cc: stylon.wang@amd.com, Bhawanpreet.Lakha@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, amd-gfx@lists.freedesktop.org,
+ solomon.chiu@amd.com, Nicholas Choi <Nicholas.Choi@amd.com>,
+ agustin.gutierrez@amd.com, wayne.lin@amd.com, Harry.Wentland@amd.com,
+ Joshua Ashton <joshua@froggi.es>, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 18, 2023 at 5:27=E2=80=AFAM Evan Quan <evan.quan@amd.com> wrote=
-:
->
-> Due to electrical and mechanical constraints in certain platform designs
-> there may be likely interference of relatively high-powered harmonics of
-> the (G-)DDR memory clocks with local radio module frequency bands used
-> by Wifi 6/6e/7.
->
-> To mitigate this, AMD has introduced a mechanism that devices can use to
-> notify active use of particular frequencies so that other devices can mak=
-e
-> relative internal adjustments as necessary to avoid this resonance.
->
-> In order for a device to support this, the expected flow for device
-> driver or subsystems:
->
-> Drivers/subsystems contributing frequencies:
->
-> 1) During probe, check `wbrf_supported_producer` to see if WBRF supported
->    for the device.
-> 2) If adding frequencies, then call `wbrf_add_exclusion` with the
->    start and end ranges of the frequencies.
-> 3) If removing frequencies, then call `wbrf_remove_exclusion` with
->    start and end ranges of the frequencies.
->
-> Drivers/subsystems responding to frequencies:
->
-> 1) During probe, check `wbrf_supported_consumer` to see if WBRF is suppor=
-ted
->    for the device.
-> 2) Call the `wbrf_register_notifier` to register for notifications of
->    frequency changes from other devices.
-> 3) Call the `wbrf_retrieve_exclusions` to retrieve the current exclusions
->    range on receiving a notification and response correspondingly.
->
-> Meanwhile a kernel parameter `wbrf` with default setting as "auto" is
-> introduced to specify what the policy is.
->   - With `wbrf=3Don`, the WBRF features will be enabled forcely.
->   - With `wbrf=3Doff`, the WBRF features will be disabled forcely.
->   - With `wbrf=3Dauto`, it will be up to the system to do proper checks
->     to determine the WBRF features should be enabled or not.
->
-> Co-developed-by: Mario Limonciello <mario.limonciello@amd.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> Co-developed-by: Evan Quan <evan.quan@amd.com>
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
 
-In the first place, this requires quite a bit of driver API
-documentation that is missing.
 
-To a minimum, it should explain what the interface is for and how it
-is supposed to be used by drivers (both "producers" and "consumers").
+On 2023-08-18 04:25, Melissa Wen wrote:
+> On 07/26, Aurabindo Pillai wrote:
+>> This reverts commit 6c8ff1683d30024c8cff137d30b740a405cc084e.
+>>
+>> This patch causes IGT test case 'kms_atomic@plane-immutable-zpos' to
+>> fail on AMDGPU hardware.
+>>
+>> Cc: Joshua Ashton <joshua@froggi.es>
+>> Signed-off-by: Nicholas Choi <Nicholas.Choi@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 9 ---------
+>>   1 file changed, 9 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>> index 2198df96ed6f..8eeca160d434 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>> @@ -1468,15 +1468,6 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>>   		drm_plane_create_blend_mode_property(plane, blend_caps);
+>>   	}
+>>   
+>> -	if (plane->type == DRM_PLANE_TYPE_PRIMARY) {
+>> -		drm_plane_create_zpos_immutable_property(plane, 0);
+>> -	} else if (plane->type == DRM_PLANE_TYPE_OVERLAY) {
+>> -		unsigned int zpos = 1 + drm_plane_index(plane);
+>> -		drm_plane_create_zpos_property(plane, zpos, 1, 254);
+>> -	} else if (plane->type == DRM_PLANE_TYPE_CURSOR) {
+>> -		drm_plane_create_zpos_immutable_property(plane, 255);
+>> -	}
+> 
+> Hi Jay and Nicholas,
+> 
+> I'm examining this regression and, looking at the test code, I consider
+> this failure is caused by an incorrect assumption in the IGT test in
+> which any zpos values must be in the normalized range of 0 and N planes
+> per CRTC.
+> 
+> 	for (int k = 0; k < n_planes; k++) {
+> 		int zpos;
+> 		igt_plane_t *temp;
+> 
+> 		temp = &display->pipes[pipe->pipe].planes[k];
+> 
+> 		if (!igt_plane_has_prop(temp, IGT_PLANE_ZPOS))
+> 			continue;
+> 
+> 		zpos = igt_plane_get_prop(temp, IGT_PLANE_ZPOS);
+> 
+> 		igt_assert_lt(zpos, n_planes);  // test case fails here
+> 
+> 		plane_ptr[zpos] = temp;
+> 	}
+> 
+> 
+> I didn't find anything in the DRM documentation that imposes this
+> behavior. Also, the plane composition in the test is working correctly
+> with this patch and without this likely-misleading assert. In addition,
+> enabling zpos property increases the coverage of
+> `kms_atomic@plane-immutable-zpos` test (previously this part of the test
+> was just bypassed), so it's not a regression per se. Therefore, I'm
+> inclined to send a fix to IGT, instead of implementing a behavior that
+> fit the test but may not fit well AMD display machinery.
+> 
+> But first I wonder if you guys find any other test or visual check that
+> fail with this feature?
+> 
+> I checked other IGT KMS plane tests and AMD MPO tests (in `amd_plane`)
+> and results are preserved. If there are no other issues besides IGT
+> plane-immutable-zpos, I'll proceed with sending the change to IGT.
+> 
+> Thanks,
+> 
+> Melissa
 
-And how to determine whether or not a given device is a "producer" or
-"consumer" from the WBRF perspective.
+Hi Melissa,
 
-> --
-> v4->v5:
->   - promote this to be a more generic solution with input argument taking
->     `struct device` and provide better scalability to support non-ACPI
->     scenarios(Andrew)
->   - update the APIs naming and some other minor fixes(Rafael)
-> v6->v7:
->   - revised the `struct wbrf_ranges_out` to be naturally aligned(Andrew)
->   - revised some code comments(Andrew)
-> v8->v9:
->   - update the document to be more readable(Randy)
-> ---
->  .../admin-guide/kernel-parameters.txt         |   8 +
->  drivers/base/Makefile                         |   1 +
->  drivers/base/wbrf.c                           | 280 ++++++++++++++++++
->  include/linux/wbrf.h                          |  47 +++
->  4 files changed, 336 insertions(+)
->  create mode 100644 drivers/base/wbrf.c
->  create mode 100644 include/linux/wbrf.h
->
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentat=
-ion/admin-guide/kernel-parameters.txt
-> index a1457995fd41..5566fefeffdf 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -7152,3 +7152,11 @@
->                                 xmon commands.
->                         off     xmon is disabled.
->
-> +       wbrf=3D           [KNL]
-> +                       Format: { on | auto (default) | off }
-> +                       Controls if WBRF features should be forced on or =
-off.
-> +                       on      Force enable the WBRF features.
-> +                       auto    Up to the system to do proper checks to
-> +                               determine the WBRF features should be ena=
-bled
-> +                               or not.
-> +                       off     Force disable the WBRF features.
+Thanks for taking a look at the IGT test. Looks like the IGT failures
+are the only concerns, and I agree that it doesn't make sense to require
+zpos to be normalized between 0 and number of planes.
 
-Well, how's a casual reader of this file supposed to find out what
-WBRF is and whether or not they should care?
+Thanks,
+Leo
 
-> diff --git a/drivers/base/Makefile b/drivers/base/Makefile
-> index 3079bfe53d04..7b3cef898c19 100644
-> --- a/drivers/base/Makefile
-> +++ b/drivers/base/Makefile
-> @@ -26,6 +26,7 @@ obj-$(CONFIG_GENERIC_MSI_IRQ) +=3D platform-msi.o
->  obj-$(CONFIG_GENERIC_ARCH_TOPOLOGY) +=3D arch_topology.o
->  obj-$(CONFIG_GENERIC_ARCH_NUMA) +=3D arch_numa.o
->  obj-$(CONFIG_ACPI) +=3D physical_location.o
-> +obj-y                  +=3D wbrf.o
->
->  obj-y                  +=3D test/
->
-> diff --git a/drivers/base/wbrf.c b/drivers/base/wbrf.c
-> new file mode 100644
-> index 000000000000..678f245c12c6
-> --- /dev/null
-> +++ b/drivers/base/wbrf.c
-> @@ -0,0 +1,280 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Wifi Band Exclusion Interface
-> + * Copyright (C) 2023 Advanced Micro Devices
-> + *
-
-I would expect some explanation of the interface design and purpose here.
-
-So I don't have to wonder what WBRF_POLICY_MODE is or what the
-"exclusion ranges" are below.
-
-> + */
-> +
-> +#include <linux/wbrf.h>
-> +
-> +static BLOCKING_NOTIFIER_HEAD(wbrf_chain_head);
-> +static DEFINE_MUTEX(wbrf_mutex);
-> +static enum WBRF_POLICY_MODE {
-> +       WBRF_POLICY_FORCE_DISABLE,
-> +       WBRF_POLICY_AUTO,
-> +       WBRF_POLICY_FORCE_ENABLE,
-> +} wbrf_policy =3D WBRF_POLICY_AUTO;
-> +
-> +static int __init parse_wbrf_policy_mode(char *p)
-> +{
-> +       if (!strncmp(p, "auto", 4))
-> +               wbrf_policy =3D WBRF_POLICY_AUTO;
-> +       else if (!strncmp(p, "on", 2))
-> +               wbrf_policy =3D WBRF_POLICY_FORCE_ENABLE;
-> +       else if (!strncmp(p, "off", 3))
-> +               wbrf_policy =3D WBRF_POLICY_FORCE_DISABLE;
-> +       else
-> +               return -EINVAL;
-> +
-> +       return 0;
-> +}
-> +early_param("wbrf", parse_wbrf_policy_mode);
-> +
-> +static struct exclusion_range_pool {
-> +       struct exclusion_range  band_list[MAX_NUM_OF_WBRF_RANGES];
-> +       u64                     ref_counter[MAX_NUM_OF_WBRF_RANGES];
-> +} wbrf_pool;
-> +
-> +static int _wbrf_add_exclusion_ranges(struct wbrf_ranges_in *in)
-> +{
-> +       int i, j;
-> +
-> +       for (i =3D 0; i < ARRAY_SIZE(in->band_list); i++) {
-> +               if (!in->band_list[i].start &&
-> +                   !in->band_list[i].end)
-> +                       continue;
-> +
-> +               for (j =3D 0; j < ARRAY_SIZE(wbrf_pool.band_list); j++) {
-> +                       if (wbrf_pool.band_list[j].start =3D=3D in->band_=
-list[i].start &&
-> +                           wbrf_pool.band_list[j].end =3D=3D in->band_li=
-st[i].end) {
-> +                               wbrf_pool.ref_counter[j]++;
-> +                               break;
-> +                       }
-> +               }
-> +               if (j < ARRAY_SIZE(wbrf_pool.band_list))
-> +                       continue;
-> +
-> +               for (j =3D 0; j < ARRAY_SIZE(wbrf_pool.band_list); j++) {
-> +                       if (!wbrf_pool.band_list[j].start &&
-> +                           !wbrf_pool.band_list[j].end) {
-> +                               wbrf_pool.band_list[j].start =3D in->band=
-_list[i].start;
-> +                               wbrf_pool.band_list[j].end =3D in->band_l=
-ist[i].end;
-> +                               wbrf_pool.ref_counter[j] =3D 1;
-> +                               break;
-> +                       }
-> +               }
-> +               if (j >=3D ARRAY_SIZE(wbrf_pool.band_list))
-> +                       return -ENOSPC;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +static int _wbrf_remove_exclusion_ranges(struct wbrf_ranges_in *in)
-> +{
-> +       int i, j;
-> +
-> +       for (i =3D 0; i < ARRAY_SIZE(in->band_list); i++) {
-> +               if (!in->band_list[i].start &&
-> +                   !in->band_list[i].end)
-> +                       continue;
-> +
-> +               for (j =3D 0; j < ARRAY_SIZE(wbrf_pool.band_list); j++) {
-> +                       if (wbrf_pool.band_list[j].start =3D=3D in->band_=
-list[i].start &&
-> +                           wbrf_pool.band_list[j].end =3D=3D in->band_li=
-st[i].end) {
-> +                               wbrf_pool.ref_counter[j]--;
-> +                               if (!wbrf_pool.ref_counter[j]) {
-> +                                       wbrf_pool.band_list[j].start =3D =
-0;
-> +                                       wbrf_pool.band_list[j].end =3D 0;
-> +                               }
-> +                               break;
-> +                       }
-> +               }
-> +       }
-> +
-> +       return 0;
-
-It never returns anything else.  Should it be void?
-
-> +}
-> +
-> +static int _wbrf_retrieve_exclusion_ranges(struct wbrf_ranges_out *out)
-> +{
-> +       int out_idx =3D 0;
-> +       int i;
-> +
-> +       memset(out, 0, sizeof(*out));
-> +
-> +       for (i =3D 0; i < ARRAY_SIZE(wbrf_pool.band_list); i++) {
-> +               if (!wbrf_pool.band_list[i].start &&
-> +                   !wbrf_pool.band_list[i].end)
-> +                       continue;
-> +
-> +               out->band_list[out_idx].start =3D wbrf_pool.band_list[i].=
-start;
-> +               out->band_list[out_idx++].end =3D wbrf_pool.band_list[i].=
-end;
-> +       }
-> +
-> +       out->num_of_ranges =3D out_idx;
-> +
-> +       return 0;
-
-Same here.
-
-> +}
-> +
-> +/**
-> + * wbrf_supported_system - Determine if the system supports WBRF feature=
-s
-> + *
-> + * WBRF is used to mitigate devices that cause harmonic interference.
-> + * This function will determine if the platform is able to support the
-> + * WBRF features.
-
-The code doesn't quite match the description above.  I guess the code
-is temporary?
-
-> + */
-> +static bool wbrf_supported_system(void)
-> +{
-> +       switch (wbrf_policy) {
-> +       case WBRF_POLICY_FORCE_ENABLE:
-> +               return true;
-> +       case WBRF_POLICY_FORCE_DISABLE:
-> +               return false;
-> +       case WBRF_POLICY_AUTO:
-> +               return false;
-> +       }
-> +
-> +       return false;
-> +}
-> +
-> +/**
-> + * wbrf_supported_producer - Determine if the device should report frequ=
-encies
-> + *
-> + * @dev: device pointer
-> + *
-> + * WBRF is used to mitigate devices that cause harmonic interference.
-> + * This function will determine if this device should report such freque=
-ncies.
-
-It is not clear how "harmonic interference" is related to "such
-frequencies" from the above.
-
-> + */
-> +bool wbrf_supported_producer(struct device *dev)
-> +{
-> +       if (!wbrf_supported_system())
-> +               return false;
-> +
-> +       return true;
-> +}
-> +EXPORT_SYMBOL_GPL(wbrf_supported_producer);
-> +
-> +/**
-> + * wbrf_add_exclusion - Add frequency ranges to the exclusion list
-> + *
-> + * @dev: device pointer
-> + * @in: input structure containing the frequency ranges to be added
-> + *
-> + * Add frequencies into the exclusion list for supported consumers
-> + * to react to.
-
-Well, the above isn't particularly helpful IMV.
-
-What's "the exclusion list"?  What are "supported consumers" and how
-are they going to "react" and to what exactly (the exclusion list or
-the frequencies)?
-
-Why is the notifier chain not mentioned in the kerneldoc description
-of the function?
-
-> + */
-> +int wbrf_add_exclusion(struct device *dev,
-> +                      struct wbrf_ranges_in *in)
-> +{
-> +       int r;
-> +
-> +       mutex_lock(&wbrf_mutex);
-> +
-> +       r =3D _wbrf_add_exclusion_ranges(in);
-> +
-> +       mutex_unlock(&wbrf_mutex);
-> +       if (r)
-> +               return r;
-> +
-> +       blocking_notifier_call_chain(&wbrf_chain_head, WBRF_CHANGED, NULL=
-);
-> +
-> +       return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(wbrf_add_exclusion);
-> +
-> +/**
-> + * wbrf_remove_exclusion - Remove frequency ranges from the exclusion li=
-st
-> + *
-> + * @dev: device pointer
-> + * @in: input structure containing the frequency ranges to be removed
-> + *
-> + * Remove frequencies from the exclusion list for supported consumers
-> + * to react to.
-
-This has the same problems as the above.
-
-> + */
-> +int wbrf_remove_exclusion(struct device *dev,
-> +                         struct wbrf_ranges_in *in)
-> +{
-> +       int r;
-> +
-> +       mutex_lock(&wbrf_mutex);
-> +
-> +       r =3D _wbrf_remove_exclusion_ranges(in);
-> +
-> +       mutex_unlock(&wbrf_mutex);
-> +       if (r)
-> +               return r;
-> +
-> +       blocking_notifier_call_chain(&wbrf_chain_head, WBRF_CHANGED, NULL=
-);
-> +
-> +       return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(wbrf_remove_exclusion);
-> +
-> +/**
-> + * wbrf_supported_consumer - Determine if the device should react to fre=
-quencies
-> + *
-> + * @dev: device pointer
-> + *
-> + * WBRF is used to mitigate devices that cause harmonic interference.
-
-What does this mean?  How can a device be "mitigated" and what
-"harmonic interference" is this about?
-
-> + * This function will determine if this device should react to reports f=
-rom
-> + * other devices for such frequencies.
-
-What are "such frequencies"?
-
-> + */
-> +bool wbrf_supported_consumer(struct device *dev)
-> +{
-> +       if (!wbrf_supported_system())
-> +               return false;
-> +
-> +       return true;
-> +}
-> +EXPORT_SYMBOL_GPL(wbrf_supported_consumer);
-> +
-> +/**
-> + * wbrf_register_notifier - Register for notifications of frequency chan=
-ges
-> + *
-> + * @nb: driver notifier block
-> + *
-> + * WBRF is used to mitigate devices that cause harmonic interference.
-> + * This function will allow consumers to register for frequency notifica=
-tions.
-
-What's a "frequency notification"?
-
-> + */
-> +int wbrf_register_notifier(struct notifier_block *nb)
-> +{
-> +       return blocking_notifier_chain_register(&wbrf_chain_head, nb);
-> +}
-> +EXPORT_SYMBOL_GPL(wbrf_register_notifier);
-> +
-> +/**
-> + * wbrf_unregister_notifier - Unregister for notifications of frequency =
-changes
-> + *
-> + * @nb: driver notifier block
-> + *
-> + * WBRF is used to mitigate devices that cause harmonic interference.
-> + * This function will allow consumers to unregister for frequency notifi=
-cations.
-> + */
-> +int wbrf_unregister_notifier(struct notifier_block *nb)
-> +{
-> +       return blocking_notifier_chain_unregister(&wbrf_chain_head, nb);
-> +}
-> +EXPORT_SYMBOL_GPL(wbrf_unregister_notifier);
-> +
-> +/**
-> + * wbrf_retrieve_exclusions - Retrieve the exclusion list
-> + *
-> + * @dev: device pointer
-> + * @out: output structure containing the frequency ranges to be excluded
-
-Excluded from what?
-
-> + *
-> + * Retrieve the current exclusion list
-
-What's "the current exclusion list"?
-
-> + */
-> +int wbrf_retrieve_exclusions(struct device *dev,
-> +                            struct wbrf_ranges_out *out)
-> +{
-> +       int r;
-> +
-> +       mutex_lock(&wbrf_mutex);
-> +
-> +       r =3D _wbrf_retrieve_exclusion_ranges(out);
-> +
-> +       mutex_unlock(&wbrf_mutex);
-> +
-> +       return r;
-> +}
-> +EXPORT_SYMBOL_GPL(wbrf_retrieve_exclusions);
-> diff --git a/include/linux/wbrf.h b/include/linux/wbrf.h
-> new file mode 100644
-> index 000000000000..476a28fec27a
-> --- /dev/null
-> +++ b/include/linux/wbrf.h
-> @@ -0,0 +1,47 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Wifi Band Exclusion Interface
-> + * Copyright (C) 2023 Advanced Micro Devices
-> + */
-> +
-> +#ifndef _LINUX_WBRF_H
-> +#define _LINUX_WBRF_H
-> +
-> +#include <linux/device.h>
-> +
-> +/* Maximum number of wbrf ranges */
-> +#define MAX_NUM_OF_WBRF_RANGES         11
-> +
-> +struct exclusion_range {
-> +       /* start and end point of the frequency range in Hz */
-
-I would put the comment above the whole struct definition and use the
-kerneldoc format for it.
-
-> +       u64             start;
-> +       u64             end;
-> +};
-> +
-> +struct wbrf_ranges_in {
-> +       /* valid entry: `start` and `end` filled with non-zero values */
-
-Same here.
-
-> +       struct exclusion_range  band_list[MAX_NUM_OF_WBRF_RANGES];
-> +};
-> +
-> +struct wbrf_ranges_out {
-> +       u64                     num_of_ranges;
-> +       struct exclusion_range  band_list[MAX_NUM_OF_WBRF_RANGES];
-> +};
-> +
-> +enum wbrf_notifier_actions {
-> +       WBRF_CHANGED,
-> +};
-
-No description.
-
-> +
-> +bool wbrf_supported_producer(struct device *dev);
-> +int wbrf_add_exclusion(struct device *adev,
-> +                      struct wbrf_ranges_in *in);
-> +int wbrf_remove_exclusion(struct device *dev,
-> +                         struct wbrf_ranges_in *in);
-> +int wbrf_retrieve_exclusions(struct device *dev,
-> +                            struct wbrf_ranges_out *out);
-> +bool wbrf_supported_consumer(struct device *dev);
-> +
-> +int wbrf_register_notifier(struct notifier_block *nb);
-> +int wbrf_unregister_notifier(struct notifier_block *nb);
-> +
-> +#endif /* _LINUX_WBRF_H */
-> --
-
-Overall, readers should be able to understand stuff they read.  The
-above doesn't follow this rule IMO.
+> 
+>> -
+>>   	if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
+>>   	    plane_cap &&
+>>   	    (plane_cap->pixel_format_support.nv12 ||
+>> -- 
+>> 2.41.0
+>>
