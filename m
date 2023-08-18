@@ -4,53 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B57B3EE4983
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Aug 2023 17:45:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89700EE498E
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Aug 2023 19:20:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E95910E0B8;
-	Fri, 18 Aug 2023 17:45:53 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0476510E0B8;
- Fri, 18 Aug 2023 17:45:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692380751; x=1723916751;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=WghOXtzdwIhDmkdC6LRTnHtn+2CdCi7A4J5OtK3bd80=;
- b=TJ2uspdylP4G2gX5E/N3Mt3YZzFzaSCXUAhoK3dxRL1Xy/TFQp1pRSeP
- jxnsDyJ9htWCHKjdJDv7TfBJAkoyVXKuYAoGQKsPQosVG1sfjJbhVqzHt
- JAB41xoaPfIqLeWB6phuY8AfnE3y3uvl/1G2uz8bVivAcdhMWCEJvdcuK
- 4+ZClGqfXbyYJs3xkOdQkq4+YvH7wQnHR/gFI1Wts2AsmfeuYQ4FUbThU
- NCQOCX1zFruN0Av3AV9qzw1k9IS0VlRotpOsaSD8gYeKBJ7WqkEOjaXQU
- rDSZfjh2U4ECplOjfiSXQEGXmePnDjS+zLj6oe887qeACvymtRsYCVenJ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10806"; a="372060672"
-X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="372060672"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2023 10:45:49 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10806"; a="684962593"
-X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="684962593"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2023 10:45:46 -0700
-Date: Fri, 18 Aug 2023 20:46:00 +0300
-From: Imre Deak <imre.deak@intel.com>
-To: "Lin, Wayne" <Wayne.Lin@amd.com>
-Subject: Re: [PATCH 3/3] drm/mst: adjust the function
- drm_dp_remove_payload_part2()
-Message-ID: <ZN+uWC1fDKZUmDdL@ideak-desk.fi.intel.com>
-References: <20230804062029.5686-1-Wayne.Lin@amd.com>
- <20230804062029.5686-4-Wayne.Lin@amd.com>
- <ZM0Z3sZEYMcMTnuP@ideak-desk.fi.intel.com>
- <CO6PR12MB5489306FA44F5F107180E57DFC0CA@CO6PR12MB5489.namprd12.prod.outlook.com>
- <ZNEU8j6OR3KirIcS@ideak-desk.fi.intel.com>
- <CO6PR12MB548978FEE8BE8300F43D4486FC0DA@CO6PR12MB5489.namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 063E010E0F0;
+	Fri, 18 Aug 2023 19:20:55 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2054.outbound.protection.outlook.com [40.107.212.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A15110E0F0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Aug 2023 19:20:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kjShRXHNtjS1WGzCWyJ6mXutgbscecmeQYHtzPSOipIVYyuOJbHG9kd8XfKRfozDrpHC57OKkI3I0vusraHstVOr5/6EhFcvGdcpw3cinCV+0MbymX8IqeXS3WHgKXmX3fE7zglmLpE93eg+vJiasJSck/CYBb12dWgZM2PyqBDgfAIqtrwgr/nhITjwbJ9FEdQKh1LrtDZlpj0k3wqBUJJxzRC2dXul/mk6DBWJ0mmSAaYjN4Bqv9ybZXP6Lt7nCNHbP2GYAH45iVU8JEHN5lFti4awWRBsk6RfuQMnow1hJzVav2UPZCl54Jhq/obt5hhjcCXF8r0U/B2duu4aGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=96HZPWKxBieddfmL65zojwQjRJWrXdtgv1fR3aGPcZA=;
+ b=KpV26lVOjrbSHcgoputtza2PDfFeNHvns2/9FqU5ri/38D6vMIjbmr5R+zIX9uEbArP6l7FPK3dmkVs0v5+2gyzsYHep4Rtr/psjf2Gtr9FU13mjIWLaoCWdVL4kJF3uc4MGXJ4F1jZUuWLtiUMQpY+/eQILhzLdUcUD87R153DbDxWddAslERC2bAq4dbOUiXQ7IgrN/yKk/UVjIN32wYuN7/zg2Eqkt7DW9welaO0BR4Iah/lmNuqGrUDkODaJ2LM3XUw+C/m/VkEKAPa9E8w9PUslxop36NhOlX5cpwS6MCvLbPAiuyUfj9Qe/tQm9H+Mp01H0g7oCJM5cP1jHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=96HZPWKxBieddfmL65zojwQjRJWrXdtgv1fR3aGPcZA=;
+ b=ZeNDNIJRQB/UD+nSGBb++Xm0n39Tec1lw9s1I0aZ7Tyc4e02mf6jESkfNl9/vw2Dhf2lhEYOj6pmK4cyW0tUZ2FukHjFDqvI7J9hSeemrSph9+lFWPy51/F9c+XUTbycUjdeRcYlmnFURrFq7ebqkMrpujCVvuWjDb+GJ1EIHtE=
+Received: from SJ0PR13CA0085.namprd13.prod.outlook.com (2603:10b6:a03:2c4::30)
+ by CY8PR12MB7196.namprd12.prod.outlook.com (2603:10b6:930:58::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20; Fri, 18 Aug
+ 2023 19:20:48 +0000
+Received: from MWH0EPF000989EA.namprd02.prod.outlook.com
+ (2603:10b6:a03:2c4:cafe::7a) by SJ0PR13CA0085.outlook.office365.com
+ (2603:10b6:a03:2c4::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.14 via Frontend
+ Transport; Fri, 18 Aug 2023 19:20:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000989EA.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6699.14 via Frontend Transport; Fri, 18 Aug 2023 19:20:47 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 18 Aug
+ 2023 14:20:46 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/pm: fix debugfs pm_info output
+Date: Fri, 18 Aug 2023 15:20:35 -0400
+Message-ID: <20230818192035.10756-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CO6PR12MB548978FEE8BE8300F43D4486FC0DA@CO6PR12MB5489.namprd12.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989EA:EE_|CY8PR12MB7196:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7d92e77-8566-4c2d-9e59-08dba0203a54
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 0K5enpZen7gPITz5kRNi5N40Ma4s+7YSt5KBZQCVo8NPgIMJFRVsmUDssso8C6C7lFdPpdTP+YEVUyvE6FQojGm0CNc6ZrjgB0XEuk0+JAl4iBkkLnTZUiIav97x3hfke5il3FCE2Svbq0F5685GasgtZFCTviSHzfrLtbevNwOf7TVxpfb9QlzmEn93WfL6qJ2wG7Z7iVPxNXSjdxodkvIurgifCaDZM+2SwyOhi7eOi/kDa/5k++nKjJabUVVM3dOEyNitVA4Ca11Amh70qj+gDeldEunaaJrBeKYaDoR4IhbWrLvvkJUwYjhMd6aRlT6hiiVJSBjPdcrVUhppuA2wNtKGukZUHHUNjKE7iBl2EV/PESN42jhLsdu2T+bWcWImnLmBY3r5JEGGGzlGGq23nZbNdjRYkNAYt09UHUnEMvoyYSiLI6mY14oskhtRzavgrdjcFpqwsz66itq7mukVs7EZJSO+5mBLAXDez2/Syj3NMi2BgbhW7i06ODXlZEg/5n1y7GwWIMoqeFayAJVH1r1KpSH4Q59PWZeuHTEzsdvs+7DP+sd7FZogW02o/BnxVUj9IQvcMbHsIuI1So/J3SE3KsQT/drYrFOr/o4dw6hZjuojgBS9iOmgaJJeVmpr/Bz6VsYMYtDZH6BQrGzrLXDBqiAFj4sfxXhFQ/e0fluAKqTC6cfAsp2bAqtdXbfEomBvQrTC6zICe9u06pEgrn0L3RTI693LuD7tVyVUzXaxa8C0930N4CFKT7dtit09/0VijOkV9WjTCnlHWQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(39860400002)(346002)(136003)(396003)(451199024)(186009)(1800799009)(82310400011)(40470700004)(46966006)(36840700001)(86362001)(70206006)(70586007)(5660300002)(2616005)(41300700001)(4744005)(2906002)(316002)(6916009)(8676002)(8936002)(4326008)(478600001)(40460700003)(6666004)(7696005)(36756003)(82740400003)(356005)(81166007)(47076005)(16526019)(336012)(426003)(36860700001)(1076003)(26005)(40480700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2023 19:20:47.9360 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7d92e77-8566-4c2d-9e59-08dba0203a54
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989EA.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7196
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,224 +97,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
-Cc: "jani.nikula@intel.com" <jani.nikula@intel.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zuo,
- Jerry" <Jerry.Zuo@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Wentland,
- Harry" <Harry.Wentland@amd.com>,
- "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 08, 2023 at 03:47:47AM +0000, Lin, Wayne wrote:
-> [AMD Official Use Only - General]
-> 
-> > -----Original Message-----
-> > From: Imre Deak <imre.deak@intel.com>
-> > Sent: Tuesday, August 8, 2023 12:00 AM
-> > To: Lin, Wayne <Wayne.Lin@amd.com>
-> > Cc: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org;
-> > lyude@redhat.com; jani.nikula@intel.com; ville.syrjala@linux.intel.com;
-> > Wentland, Harry <Harry.Wentland@amd.com>; Zuo, Jerry
-> > <Jerry.Zuo@amd.com>
-> > Subject: Re: [PATCH 3/3] drm/mst: adjust the function
-> > drm_dp_remove_payload_part2()
-> >
-> > On Mon, Aug 07, 2023 at 02:43:02AM +0000, Lin, Wayne wrote:
-> > > [AMD Official Use Only - General]
-> > >
-> > > > -----Original Message-----
-> > > > From: Imre Deak <imre.deak@intel.com>
-> > > > Sent: Friday, August 4, 2023 11:32 PM
-> > > > To: Lin, Wayne <Wayne.Lin@amd.com>
-> > > > Cc: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org;
-> > > > lyude@redhat.com; jani.nikula@intel.com;
-> > > > ville.syrjala@linux.intel.com; Wentland, Harry
-> > > > <Harry.Wentland@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>
-> > > > Subject: Re: [PATCH 3/3] drm/mst: adjust the function
-> > > > drm_dp_remove_payload_part2()
-> > > >
-> > > > On Fri, Aug 04, 2023 at 02:20:29PM +0800, Wayne Lin wrote:
-> > > > > [...]
-> > > > > diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> > > > > b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> > > > > index e04f87ff755a..4270178f95f6 100644
-> > > > > --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> > > > > +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> > > > > @@ -3382,8 +3382,7 @@
-> > > > EXPORT_SYMBOL(drm_dp_remove_payload_part1);
-> > > > >   * drm_dp_remove_payload_part2() - Remove an MST payload locally
-> > > > >   * @mgr: Manager to use.
-> > > > >   * @mst_state: The MST atomic state
-> > > > > - * @old_payload: The payload with its old state
-> > > > > - * @new_payload: The payload with its latest state
-> > > > > + * @payload: The payload with its latest state
-> > > > >   *
-> > > > >   * Updates the starting time slots of all other payloads which
-> > > > > would have
-> > > > been shifted towards
-> > > > >   * the start of the payload ID table as a result of removing a
-> > > > > payload. Driver should call this @@ -3392,25 +3391,36 @@
-> > > > EXPORT_SYMBOL(drm_dp_remove_payload_part1);
-> > > > >   */
-> > > > >  void drm_dp_remove_payload_part2(struct
-> > drm_dp_mst_topology_mgr
-> > > > *mgr,
-> > > > >                              struct drm_dp_mst_topology_state
-> > > > *mst_state,
-> > > > > -                            const struct drm_dp_mst_atomic_payload
-> > > > *old_payload,
-> > > > > -                            struct drm_dp_mst_atomic_payload
-> > > > *new_payload)
-> > > > > +                            struct drm_dp_mst_atomic_payload
-> > > > *payload)
-> > > > >  {
-> > > > >     struct drm_dp_mst_atomic_payload *pos;
-> > > > > +   u8 time_slots_to_remove;
-> > > > > +   u8 next_payload_vc_start = mgr->next_start_slot;
-> > > > > +
-> > > > > +   /* Find the current allocated time slot number of the payload */
-> > > > > +   list_for_each_entry(pos, &mst_state->payloads, next) {
-> > > > > +           if (pos != payload &&
-> > > > > +               pos->vc_start_slot > payload->vc_start_slot &&
-> > > > > +               pos->vc_start_slot < next_payload_vc_start)
-> > > > > +                   next_payload_vc_start = pos->vc_start_slot;
-> > > > > +   }
-> > > > > +
-> > > > > +   time_slots_to_remove = next_payload_vc_start -
-> > > > > +payload->vc_start_slot;
-> > > >
-> > > > Imo, the intuitive way would be to pass the old payload state to
-> > > > this function - which already contains the required time_slots param
-> > > > - and refactor things instead moving vc_start_slot from the payload
-> > > > state to mgr suggested by Ville earlier.
-> > > >
-> > > > --Imre
-> > >
-> > > Hi Imre,
-> > > Thanks for your feedback!
-> > >
-> > > I understand it's functionally correct. But IMHO, it's still a bit
-> > > conceptually different between the time slot in old state and the time
-> > > slot in current payload table. My thought is the time slot at the
-> > > moment when we are removing the payload would be a better choice.
-> >
-> > Yes, they are different. The old state contains the time slot the payload was
-> > added with in a preceding commit and so the time slot value which should be
-> > used when removing the same payload in the current commit.
-> >
-> > The new state contains a time slot value with which the payload will be added
-> > in the current commit and can be different than the one in the old state if the
-> > current commit has changed the payload size (meaning that the same atomic
-> > commit will first remove the payload using the time slot value in the old state
-> > and afterwards will add back the same payload using the time slot value in the
-> > new state).
-> >
-> Appreciate your time, Imre!
-> 
-> Yes I understand, so I'm not using the number of the time slot in the new state.
-> I'm referring to the start slot instead which is updated during every allocation
-> and removement at current commit.
-> 
-> Like what you said, current commit manipulation could be a mix of allocations
-> and removements for the payload. My thought is, conceptually, looking up the
-> latest number of time slot is a better choice rather than the one in old state.
-> It's relatively intuitive to me since we are removing payload from current
-> payload table and which changes since last preceding commit till the moment
-> we're deleting the payload. Although it's unreasonable that these values are
-> different.
-> 
-> > > And with this, we can also simplify some codes. Especially remove
-> > > workaround in amd driver. In fact, DRM mst code maintains the payload
-> > > table and all the time slot info is in it already. We don't really
-> > > have to pass a new parameter.
-> >
-> > I agree that drm_dp_remove_payload() could be simplified, but this should be
-> > done so that the drivers can pass the old payload state to it (without having to
-> > pass the new state). This would be possible if vc_start_slot was not tracked in
-> > the payload state (which is really not an atomic state that can be precomputed
-> > as all other atomic state), rather it would be tracked in struct
-> > drm_dp_mst_topology_mgr.
-> >
-> 
-> So the reason I chose to pass the new state is like what I mentioned above. I
-> would prefer to carry the latest updated payload table instead which is in the new
-> state. And I agree with the explanation for the vc_start_slot and that's also my
-> thought at the beginning. It could be a refactor later, but no matter the start slot
-> is put into payload state or the topology manager I would prefer to refer to the
-> latest payload table rather than the number of time slot in the old state.
-> 
-> > It looks like AMD has to reconstruct the old state in
-> > dm_helpers_construct_old_payload(). Could you explain why it couldn't
-> > instead just pass old_payload acquired by
-> >
-> > old_mst_state = drm_atomic_get_old_mst_topology_state();
-> > old_payload = drm_atomic_get_mst_payload_state(old_mst_state);
-> >
-> > ?
-> 
-> AMD doesn't pass the drm old state to the stage while HW is deleting
-> the payload.  The reason is that HW payload table is known during HW
-> programming procedure, so the payload removement is based on the table
-> at the moment.
->
-> AMD expected the current number of time slot is also
-> already maintained in drm layer.
+Print both input and avg power.
 
-Yes, both of the above are maintained by the drm layer, but it also
-means it doesn't really need to recalculate time_slots_to_remove as done
-in this patch, since that info is already available in the old payload
-state.
+Fixes: 47f1724db4fe ("drm/amd: Introduce `AMDGPU_PP_SENSOR_GPU_INPUT_POWER`")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Afaics the AMD driver calls properly 
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 5b1d73b00ef7..1c3745b3ca85 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -3471,6 +3471,9 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_file *m, struct amdgpu_device *a
+ 	size = sizeof(uint32_t);
+ 	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_AVG_POWER, (void *)&query, &size))
+ 		seq_printf(m, "\t%u.%u W (average GPU)\n", query >> 8, query & 0xff);
++	size = sizeof(uint32_t);
++	if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_INPUT_POWER, (void *)&query, &size))
++		seq_printf(m, "\t%u.%u W (current GPU)\n", query >> 8, query & 0xff);
+ 	size = sizeof(value);
+ 	seq_printf(m, "\n");
+ 
+-- 
+2.41.0
 
-drm_atomic_helper_commit() -> drm_atomic_helper_swap_state()
-
-after a commit, so that all the payloads it added should be tracked
-now as the old payload state.
-
-So could you confirm what is the old_payload->time_slots value (which
-you get with the above functions) at the point of removing this payload
-and if it's not the time_slots value this same payload was actually
-added with previously, why this is so (via some example sequence)?
-
-Thanks.
-
-> Again, thanks for your feedback Imre!
-> 
-> >
-> > > > >     /* Remove local payload allocation */
-> > > > >     list_for_each_entry(pos, &mst_state->payloads, next) {
-> > > > > -           if (pos != new_payload && pos->vc_start_slot > new_payload-
-> > > > >vc_start_slot)
-> > > > > -                   pos->vc_start_slot -= old_payload->time_slots;
-> > > > > +           if (pos != payload && pos->vc_start_slot > payload-
-> > > > >vc_start_slot)
-> > > > > +                   pos->vc_start_slot -= time_slots_to_remove;
-> > > > >     }
-> > > > > -   new_payload->vc_start_slot = -1;
-> > > > > +   payload->vc_start_slot = -1;
-> > > > >
-> > > > >     mgr->payload_count--;
-> > > > > -   mgr->next_start_slot -= old_payload->time_slots;
-> > > > > +   mgr->next_start_slot -= time_slots_to_remove;
-> > > > >
-> > > > > -   if (new_payload->delete)
-> > > > > -           drm_dp_mst_put_port_malloc(new_payload->port);
-> > > > > +   if (payload->delete)
-> > > > > +           drm_dp_mst_put_port_malloc(payload->port);
-> > > > >
-> > > > > -   new_payload->payload_allocation_status =
-> > > > DRM_DP_MST_PAYLOAD_ALLOCATION_NONE;
-> > > > > +   payload->payload_allocation_status =
-> > > > > +DRM_DP_MST_PAYLOAD_ALLOCATION_NONE;
-> > > > >  }
-> > >
-> > > --
-> > > Regards,
-> > > Wayne
-> 
-> --
-> Regards,
-> Wayne
