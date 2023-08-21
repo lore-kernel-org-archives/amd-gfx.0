@@ -4,118 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB0B7EE49AA
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 11:07:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C35EE4993
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 11:17:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A85410E232;
-	Mon, 21 Aug 2023 11:07:38 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA92010E22B;
- Mon, 21 Aug 2023 11:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CF3D10E22D;
+	Mon, 21 Aug 2023 11:17:05 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BFEF10E22D;
+ Mon, 21 Aug 2023 11:17:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dYaXdhq0G+uRA/KDzYpJqAdtdIK7H61vBr+rTWx7dsr8SZJIn4BAjH+kAgRkmmeWUfiFRUd4+rF72xrqVNVZhygApS/alNREehKPao8l9zb5HO0hpSLP037/Ll8gnPUNUjy5VGNuswvGf9fMoWT94Sy804XbDPuksSQ7xZc3uTzJR6lN1kna3VAWohPiPmQxB7GzCB5EiwAwrln493cN/9LRZq4iVSd1VKxCPQnAb3c7nrJWYuPIAunP70XMdvD3XH/6vtzlYlvH9N4V2LmiREdfkvljFegGxdWnj5Tmrr1r0K7/1Vj1djzTawsAGzEi97yKO93t4PUYuChkHyrJ7g==
+ b=an2dndKzHFEZxvoFS3lGt0ll3KFfBeR4xgqfhh2mQvpKtZsnwrjiiSvoj1Wbmr0t7G52ydcD+4Sgxy/R+5Eq0e+J1OjbGQ1xgbKQISA65hlC2krlcZIXSF08NekpwUorTjdY1lPDJhl+vGtHqZvDjb7drzAKVwe3ppx8xQ2Dh6dnDkS9XLteGrRWOmdF1mafGktvUxtPqH3jxN3SxRpimEsa1H6DJNHssvBMcJ8sZIFCUymp9d6mzSKGeNvP1IuiIg+7MPnyniqW9qJ+3kXm/XX/i/j5OIv90juQIEp65Cl+1vuUktJftDDXwMIcQKv6ECbbTUlIx6Hvz4EkvrbZ8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DxmZYq4jmnFTJSoqxKIecdgnxAa1ZcIixd5x4Gr4DG0=;
- b=VtTiLi2G91ldYMRKLYE62qqRJPELgxvEdsTt0xdG/3wnVLH28GSv7n/TlLtsUq69648/RNGOgausJLwyjdyrt9DGAq1sWzOqiA2V/VuFDR5CM4yXCYYPwAFIVfChrB0RNJnnwbv4G06ILFV72plJD3CQvYSPbvAvCFPFrGJ6bE1ILp3VYjd/TISTk6D9od7i8EW+t4ezdeStKDiWVxqiHWOmuGp6uT2pkEhxpj400ZCIpB0UpMChavFgxp5HwTUFJgp/t75OtWom8rXfmk1KtZIkIOe129CVWvJk+aIm3D+1Mcic0fiVKc6HVyOS3EhexSNL88xOlhekJi536sER+Q==
+ bh=8+3528EquRY0xMyASVdrudbQ9NyRqrtJ/iPoxsv8V9c=;
+ b=gdBuiU1a/Kfq/lJGyqhfvRYTBNia1g8ihtJlFhB2N5giYs69LCGtaFPIIlXgNhj5uq5bK6tbcx9b2ahC6eSw9S/3HD9lqZtuuzl7mLq4qxDkH/LkXsZVGSJH2ngMXQkGX9szW6tf1VkhZoWgafe9DKBbzTnNhTfC8qzEQGlPDFZm7HNczxgLLRPu5W2hX/SLseV9awl0amWTi5c8Lfo5WwCFz38Q3B7iFKRNf3hvfiCjARpB0K8hfQkU1vTCXaQYImKmo1XN/VMfPgiKJAHUv/De6nnz2uaqarEwBLMdbp/KJCRJhvN+W05HG9CnAaOMri6aPfwaZh3C4AHnGsWwdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DxmZYq4jmnFTJSoqxKIecdgnxAa1ZcIixd5x4Gr4DG0=;
- b=SLPfJKwBpXzML+6ERpqYgUo9Mxyf0WbBwCrwlGBM2kiZLzqBIvD1bQoLbtxbli0v4jKCoFkzXXmgNBJkezpA7qdsXPJf+iDeNTHUcTSSZsmctGK2VFoQdq69JO3rWqyxi9ez4aSbC71x24/Lrt3NV5NOpWlAaeauKnAuEiKbgPU=
+ bh=8+3528EquRY0xMyASVdrudbQ9NyRqrtJ/iPoxsv8V9c=;
+ b=LvKlLu8FiGiaqqVbenv9XBi9VShQd5/tTsLou9xpqFSRbp/Q42d4zSCAYDSwyHGcnVQV8yiqCFUxBjNMzwW5OIj2iXhbAXl4kmQxgys83rHLoDiUsXpmNYicSDgHqAS8jLytEBq9C0z+OvMME5PrYMgv8uwPZ9qno8M1ENn9YWI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
  by PH7PR12MB8013.namprd12.prod.outlook.com (2603:10b6:510:27c::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.24; Mon, 21 Aug
- 2023 11:07:33 +0000
+ 2023 11:17:00 +0000
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::3d:c14:667a:1c81]) by BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::3d:c14:667a:1c81%4]) with mapi id 15.20.6699.022; Mon, 21 Aug 2023
- 11:07:33 +0000
-Message-ID: <218290b4-b5c0-afb4-dad5-15010546e0b7@amd.com>
-Date: Mon, 21 Aug 2023 13:07:28 +0200
+ 11:17:00 +0000
+Message-ID: <a1f422c6-728d-afae-29e1-6f091e16df7f@amd.com>
+Date: Mon, 21 Aug 2023 13:16:51 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH libdrm v2] amdgpu: Use PRI?64 to format uint64_t
+Subject: Re: [PATCH 1/3] drm/buddy: Fix contiguous memory allocation issues
 Content-Language: en-US
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-References: <8ffa3be3dc7b27345dde3bb32498c4cd3af050fa.1688632590.git.geert+renesas@glider.be>
- <c13c9974-8903-904a-55a8-4065b43a437b@gmail.com>
- <CAMuHMdW226aZY_Nx9nfbS-ivsW2oarbNAjZB10O60W0SUQzmYg@mail.gmail.com>
- <CAMuHMdUzqTF9hfe91QN2woV=ycUjLJ-WsODYG8_jH5ABkNk8mQ@mail.gmail.com>
- <d16bf538-f4f8-50ec-e0e9-5a194b113db4@amd.com>
- <CAMuHMdV0ckw=Bm5-HAy54UPaAEW_zyZLeC8r3K=iBMUZerCjYw@mail.gmail.com>
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+References: <20230821101444.119601-1-Arunpravin.PaneerSelvam@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAMuHMdV0ckw=Bm5-HAy54UPaAEW_zyZLeC8r3K=iBMUZerCjYw@mail.gmail.com>
+In-Reply-To: <20230821101444.119601-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0131.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9e::14) To BN8PR12MB3587.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0209.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ad::6) To BN8PR12MB3587.namprd12.prod.outlook.com
  (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH7PR12MB8013:EE_
-X-MS-Office365-Filtering-Correlation-Id: adc12659-e49f-46bc-3371-08dba236d170
+X-MS-Office365-Filtering-Correlation-Id: 9380f806-2191-4017-d144-08dba2382372
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iIQLTjHkx+xO6fkOSxAjMQ2XP7rWbzwwRiULwGt2AVqgQIsFF80u/wUHy50CGWSV1Rm7yGWf9gjsCLzHJ0/RpWgtHnmBZC9CenRENQj8LTy4rSPATVrkd3CjM/DlNOWDO74t57b59mQUA0QHr0sWpMJNE0KFGwNM6FvCDl9i/g+gfPBLGor704pX6NnV7sfDjWYuddP3gC0SIETxuSt38Xgv14C4TQKZ2nHI0605QeJbX+KH5IqR8jydHqCRAF1BjHjCBfQqnTpcswmnGY3HhWT+SfnE+Og6WA7E5q3Gn6cJdYEzafKmBz53uXaGx2x8R0zEc6pb/gr/4e0c1YvmzshlNKc+u+NZXyjy2Wd1kxHE5ztEK7souaYOaA5XuU9RTUFafah6CPtJcm48RNWoSzXllP6tIVc2eyT7oJJPZRIoSAparWdlhSO8JmB3TESNM1G8+HSjoVkIFKifd1aMBnrkgl3PnNtv5S3gOI7GxyEuxOiMDVTqd5rmM7YT79+33kjNnZKHNBk/0Pkm6Ef3D/vzwQzFjmANYfSz959JJruvAg4zSAh68MZUqQH1ewN55mjpjLdpzpZODgD9ZCpopk+4YASmUmy8aeTCPkXNcIrj3cxP1T0AvNzIoIlXWsvuWmxUUqYQRyzcwjdDx1WOkg==
+X-Microsoft-Antispam-Message-Info: HUsfO3T+xFG4VaNDSrDJWTXgM/6ohUD40mNfQgvXCAZ+Xfzjl3++5/iqECGuvQKwBd78U/80H+rU/yEdrkR7qiHNeTgeU6vFc0d2Acy/ngtvP2e9dOAKSEE1J8o1DM89cMG4a+cljbPvU1JozpZdyvH/QYvbva1vF6KBsD0ZOhLa+xMV7G/Z6gcJJy+RbKAlYQ5RjDFsON8vEEzrwfO0z1P8quzRvrfBKRke1P+NFcGL/v2a/10Th+4c2UbVE1jkAYKO6cU8zLTDfAnBo3e8/z4y7JWQo6+Ygsa4YXaKQXKagMUc1QJArwBhO4WRVRmVNgNZ+SsOyUiiUpey4N5IhdJjIRQW2zn8XS5AoQ65jKfd21OMBybvrfclYYblOY3aLnFkulSClzVrdGUHgbwRS3zZbtSHaxYRnU28gLAYuJ9Ns3r3vKA3GdNvyS/Dv5ASmRsavz3X0dN1yxkggOB2oEabMdM4Fw86sDFSXVjBpsw4DmqgngJXAgXwuF3IGR5Z+DF/bAzFfywTmIbNzHCjWqlyDuoQXQL3vSpW4jN9L1f5uLypnqNQy9Rv53n+V/BGsFnNf+SslbpQnjGa4qUnV6V/lBAnowByNQMN6N69GMQFzlUCIFlXGJOnPku97OzHGlAtAHtXGM60rR2eYlzybw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(396003)(39860400002)(376002)(366004)(346002)(186009)(1800799009)(451199024)(6916009)(66476007)(66556008)(66946007)(6512007)(316002)(8676002)(2616005)(8936002)(4326008)(36756003)(41300700001)(966005)(478600001)(6666004)(38100700002)(53546011)(6506007)(6486002)(66574015)(2906002)(83380400001)(86362001)(31686004)(31696002)(5660300002)(26005)(45980500001)(43740500002);
+ SFS:(13230031)(366004)(346002)(376002)(396003)(136003)(39860400002)(451199024)(1800799009)(186009)(83380400001)(2906002)(30864003)(38100700002)(6506007)(6486002)(5660300002)(26005)(86362001)(31686004)(31696002)(8676002)(8936002)(2616005)(4326008)(316002)(6512007)(66946007)(66556008)(66476007)(478600001)(6666004)(41300700001)(36756003)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UmFDR0krckQzbExrQi81SXdpelhlb0hKVWlDdmVlTWdFVDloYlFiaWl2ZndT?=
- =?utf-8?B?aEFxV1ZxbEhjT3N0Tk13STByZGZDTC9iMCtOMWtYckZyeGJ3UzIxK2NNeFNt?=
- =?utf-8?B?b05aaFYvNGRna2U1bm1oc3pHWGlmd1VnY3VINUo2b3U0RnNNOTBpRUowalBV?=
- =?utf-8?B?NEpwZTJoVWp1T2tUQWxWaUxRRE1zcmRrSkhkd0I3QkUzdlMxRzVVMXR0Y3dq?=
- =?utf-8?B?L0NETG9TS0dwZjNSaWFwOXMxMGUwVHFNTkgyRUEvT0tCOFltMXZ1Y2FpaUFF?=
- =?utf-8?B?T3FyeGMrekZ4ZUQrWXVTVU1rZFlnbTc3cS9kRnN1SzI3MzIyRFhqMXVKRWZ4?=
- =?utf-8?B?dE9ReFVxS3AzR0F0TXVXZE55V0J4VHZiSCs0VVVHUFZVaXo4TnlIK0hZcGZW?=
- =?utf-8?B?SDFjWm5CR2tja2M1TDkxQS9VYzE2NDlyZ3RrTUllblpPTituTzFnM0tVeS9Z?=
- =?utf-8?B?bHdJOEVMUDg3YWVOZE1ldGhmRytSNFlTbHNtaXRsMHVxd0RCbEhFR2N4eFB5?=
- =?utf-8?B?QWo1bDNlTm9mZXhVem9zNFU5YzlVS21rRDV0Yk43OFcvdEZTa2d1U2c3bnl5?=
- =?utf-8?B?djBHYXgyOXp1THNMNHNtR2E1UXR0eEdTQW8vUFV6K2Q3N2Z6dWlCQ1A4NTNV?=
- =?utf-8?B?eDRCSUdRSHlPZlA4RXFmVXd0NlF3cFdsc1BueWV2L0JFblRveGQvQk1mRjZL?=
- =?utf-8?B?RFQwdGZ2Z3NuRS80VXFrNGlMdjJwN0poQVM0REprOHRHaGEwNTB4NlNSVEJu?=
- =?utf-8?B?V01KUXkrb2FkeUJLeGgxTFd4RklHVkJPRnM4MzFpYUphcitlSThsSVhZc01S?=
- =?utf-8?B?NzUxSVpwVzVrT2NZWWowWGRFeTduRGM4dU1PV1pRZzRhQi9Kemp5QTdUcGZ6?=
- =?utf-8?B?SzhPd0szNXR6ZWg5NHJjSFpTOGJkemFxa1pzRy8xaS9ZWnpiY0k0bkxKZE1k?=
- =?utf-8?B?R2U1ZkJmK1ErUW1Ua2RDTVZKaEhnYXNnWGUxM2VscFpWWjRZUnVCL0E5ZlZY?=
- =?utf-8?B?MFNlRytycUVXY3Q3NzlWT2xTMndaV0JXMTdwRmdCeDhBekRrN1VBRWZSdHdC?=
- =?utf-8?B?RFZuK1pQNVhhZW5FekdjOEF5M3Bibkx2aERBNVA1a0VodDFoY1FLZk1wazli?=
- =?utf-8?B?WCtHcUhPc2MwQlZSNTRKOTZWTk16TGJmbVg0MW1WL090ZnEwYTdBd29Lakgw?=
- =?utf-8?B?U2xWSjR3dk1DUWdlSEpFVERNclRBdzFXc0FVcXhJZy9kQmR2YnNXelkvQ2o0?=
- =?utf-8?B?NFI4VkFyaHU5U0VvRDBVVE42L2ZMNjJyZ2RrczV0THV3b0tJcjQzT2tpZkFN?=
- =?utf-8?B?WkRleUkyWVkvR3VHeTNiQWxQa0Evb1hVS1NMV01XczNRdCtUM0lOVlZPZllp?=
- =?utf-8?B?ZEdScTREYU44R3Z4QkN1bGJYYVJGOUFDbEpGV25HdThyazAvWkk1bHBHVUor?=
- =?utf-8?B?ZzRaeFp1QXoxMVQ4MXVHUmlEbnIvNTc5SGtlR2VOSG4rSEcwakxmbW0zYjRP?=
- =?utf-8?B?bS9CWHdIbXFvMUtKUlR0SUpFQVpZampzazNaellITVdIeHBrZUdRTFBFME5F?=
- =?utf-8?B?ZTgwa0RuQUoxOWovZlRmdXZETmE4NDdKcmZsN2xrNVN0ZVM5a0Fhdjd5Ym1W?=
- =?utf-8?B?QUJwVGJKNEhoSXc5a2RncGVlbnR6YWl2NmFIK0EvZVV6eVhOYy9uZHYvVTE5?=
- =?utf-8?B?eC93RXB4YmlsbUFMQkNRdGFZTTBGZ0RIZWxKVk5iVVJ1bTNweDRDRnpTSkNK?=
- =?utf-8?B?V0plS2FITUNISG9pK2Y2RHV4T0JlK0ZCRXFvNHN2cTFTUFozVUhMRnhDbE5h?=
- =?utf-8?B?MjB0WWNSbGJZMFlPNTcyMnphWmcrbEM2c0tTS0tXWU1tNStFNnlYUWN5dVRl?=
- =?utf-8?B?QU91bHczcklaWnNXa3FqQlZKS3hvUE83RjB0aTZWeEZ2czN2QUVmNWZ6Mmth?=
- =?utf-8?B?MXZsQ3d4YVZRdVh0aUhaZUJiaWg0Rk0wTklMUXdHV2hQOTN1dzRaWm1JT1dj?=
- =?utf-8?B?MFNyZFp6WG9LSXpTRDhja20vZVlTdDNOR3NxQUtmUEVvTkQ1ZWJBNkg1QVZF?=
- =?utf-8?B?NW9salNUZUFwd3kwQWYyVGhtdjVjTTlRUXY1TURZWjRGRmNNNE9vYVVBT1Nj?=
- =?utf-8?Q?edfNR5qNBy2ofDGHXTy1g1oV0?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?akxrelFTcGgra0VHYy9mYUs4NUJGMmdYNGVscktyWUxRWHlGNHZOSGRFK0VK?=
+ =?utf-8?B?bGVMUDNtUkZYSVZZL3FpdzJMNGRSY0tIVDVWelBMUTM4WGdZM1F3eDBzdkNU?=
+ =?utf-8?B?V0tJRTJiblM0N3NDcjRQWFpYVUxaVUdWMm9CR1phaTRqQnlFR1ZZU0pMY0ht?=
+ =?utf-8?B?WGZJZ01WZ21qMi82a2xZMzhHUXJ2d3RKZVhLNEZiVWhtZlBIYzArbmkyRFJP?=
+ =?utf-8?B?TDdFanZFZ29vUTRXd1BXUGRhZS9OaytKZy9MTzZJT09MYnp2dzVCd3N4MGF1?=
+ =?utf-8?B?Z2VXMWRoMzZNNjNKZmJEQ3RMMjB6VjFIdUwrR05YYnVyZlVRWTdpdUlTV3Mz?=
+ =?utf-8?B?a1QwVWk5ZFQ0OFg5U280V0g2bVhQLzZvTmxOWHV1RmdhVUs5ek5TQ21zbHdj?=
+ =?utf-8?B?WkdpWW9Wd1pxanNyRVV2R3JGYWV3NDNGUnFUYW1xMjdUOFhheWNScmtpTjls?=
+ =?utf-8?B?eThkblhVWXdoVFRSWkxGY2tGbzR3MGlvK1BhWnJ6VFpJeVBpTk45cEhldWoz?=
+ =?utf-8?B?SlNaWEN2WGY4Y0YrZGd1YUtPaWc0N0tzQkROeVNRNXBydmhzV1NwRGlsejdI?=
+ =?utf-8?B?MkhxMWgvN0hNRUQvQ0l1YUJYUS9nSjg0dFIvSWRFbG15TW9GQ3lXbzlXdVQ0?=
+ =?utf-8?B?cFoyaExseDkxY3RxQm5VdGVJcUxOOHVTa1J2aFZPWjJ3MVI5NVkwaStYTHRJ?=
+ =?utf-8?B?eVN4TXd4dG9GdzM2bklqMmExQmRxNEtsR1pvc2Rhd1RVL2M4TzZxVFh5d245?=
+ =?utf-8?B?eGNFU0ZkN204bHN1ckVQTmlzY1ZQSW9FUVBxZXRwTG90ZlFWdUFnZkI1TVpn?=
+ =?utf-8?B?YnltWWtSVnVhbFpGczVWMkcxL0hvclA3S2JuNElVbmJpOFdqazh6a3pmL0F3?=
+ =?utf-8?B?UjljZXY4Rkx0NEZYSk02ekt1Ri96RTFaUkJOTzVsTTFEWkNaV1dMQk0rajlu?=
+ =?utf-8?B?YVZJUHZqMmFHK21JdVhLRUx2d20vVkVuRmVabjhaamFPZzdSTU90WnU5QUgr?=
+ =?utf-8?B?cXFnMmhZTXB0NE9lcjN0dU8wazB3R1pqM0R4NTc1cmYwOVNrUlNrZjNFNkFu?=
+ =?utf-8?B?dHpRMWpka0lrTk1ZRUp1NmQ0cWlxUGMrQ3dSWnVhb2ZZZjBaL2t3MVV6VGti?=
+ =?utf-8?B?YWFHZVFBaVZMOGoxcTM3ZHo0Uk8rejlSdmlpRWUrWkVUY1JVeVorK3hhTmZq?=
+ =?utf-8?B?eVJJa2F5UXY1ajZraHkyVHRhRFM5ZHlHZStybExqa0RLcU51dzQ2eHFXTXhv?=
+ =?utf-8?B?ZGdQSHE2cUxrZHZ4b3k5QndCV1gyaGNQUDRJTGk4ZmNGaDdudXN6SDVFNXFa?=
+ =?utf-8?B?QnJ4MElmeGl4N2VLOFlqSW1Lczl2RStBZEgrUHhucWpQYUg5eEozbkpzWUp2?=
+ =?utf-8?B?YjlIT3h2d3hmdkwvOFo2TGNmaG5lYzNuSU5WdnlUVEpsdnZ6RFhGQ09xY0Z6?=
+ =?utf-8?B?R0pNQXRUc2ljd05iYzRVbzdRd3RJeHN0NnZjSitYREZENHdpUjJIc1V1a0V4?=
+ =?utf-8?B?NGUxUXRQRzJTVSs5R3JydGp4YUZHZktjSEFBY25TOTJvRFRkSGkzRFI0VlB6?=
+ =?utf-8?B?MDUrcWlDTzdleWY2ZVhCTllQRHZlVldtYndvcnNLaUxYVHRaWFoxZEczbi9B?=
+ =?utf-8?B?bGFnSUp2TUdnL29KRGxEYjczRUlVblZ0eFByL2p4T2dkTDV6czNiQncrd0tR?=
+ =?utf-8?B?ZVd3bkxYajErazJlQkNoQUZtc3E1M2NUalkwcDRtRUFKRzJVWm9ZT2dpQzhU?=
+ =?utf-8?B?d0dIZ0xybm4zQzM5cUh5bjFybElmQzJiTTNHSUJZa1JhaXBxbWdkempEc05T?=
+ =?utf-8?B?dTEwYS9YVFR5SDYzYnd2anJ0c2kzdUdkVnh2NUJ1ZWpKZndSMmZleHM1WVMw?=
+ =?utf-8?B?V0hxTm9RQ3RyM3U5STNWQ2lUOFRBU0dOalo1MmFVOFg3WW1PTmYzTkhvakNI?=
+ =?utf-8?B?K3NVZ2RQekZsZlgxR1pNMEZXUEx1bEFUZitUZTFhYm5SWTc1Zkd4VmthSHNu?=
+ =?utf-8?B?eWlrY2RnR0N0bGc4OG9Ld2NEZlo2QTkxUEJ1OUVUV1FPcGR0YnE1aWtFdEJx?=
+ =?utf-8?B?VXFVQzJiR3l1dzdMSFlBYXg4dUt1c2F6UmV2cVc0R2xqdUY3TEtKNGRhV2dL?=
+ =?utf-8?Q?UhOrxOoaaT4sJmSAydvHGa0AX?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: adc12659-e49f-46bc-3371-08dba236d170
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9380f806-2191-4017-d144-08dba2382372
 X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2023 11:07:33.0571 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2023 11:17:00.0899 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /xsP5FIVkrWOIZhZBnsZUDacjFODPo2vmZVgeXO72cZK/d8McBYJgcx0w+6+p8Ek
+X-MS-Exchange-CrossTenant-UserPrincipalName: A+XNgE55XT9qOqTNV8dTzQkPZZxAxWvwrJeVsuYkfs+WbXm3WJo9LMj90J0Od4/Z
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8013
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -128,77 +125,380 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ matthew.auld@intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.08.23 um 11:48 schrieb Geert Uytterhoeven:
-> Hi Christian,
+Am 21.08.23 um 12:14 schrieb Arunpravin Paneer Selvam:
+> The way now contiguous requests are implemented such that
+> the size rounded up to power of 2 and the corresponding order
+> block picked from the freelist.
 >
-> On Mon, Aug 21, 2023 at 11:34 AM Christian König
-> <christian.koenig@amd.com> wrote:
->> Am 21.08.23 um 11:14 schrieb Geert Uytterhoeven:
->>> On Fri, Jul 7, 2023 at 9:36 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
->>>> On Fri, Jul 7, 2023 at 2:06 PM Christian König
->>>> <ckoenig.leichtzumerken@gmail.com> wrote:
->>>>> Am 06.07.23 um 10:36 schrieb Geert Uytterhoeven:
->>>>>> On 32-bit:
->>>>>>
->>>>>>        ../tests/amdgpu/amdgpu_stress.c: In function ‘alloc_bo’:
->>>>>>        ../tests/amdgpu/amdgpu_stress.c:178:49: warning: format ‘%lx’ expects argument of type ‘long unsigned int’, but argument 4 has type ‘uint64_t’ {aka ‘long long unsigned int’} [-Wformat=]
->>>>>>          fprintf(stdout, "Allocated BO number %u at 0x%lx, domain 0x%x, size %lu\n",
->>>>>>                                                       ~~^
->>>>>>                                                       %llx
->>>>>>           num_buffers++, addr, domain, size);
->>>>>>                          ~~~~
->>>> [...]
->>>>
->>>>>> Fix this by using the proper "PRI?64" format specifiers.
->>>>>>
->>>>>> Fixes: d77ccdf3ba6f5a39 ("amdgpu: add amdgpu_stress utility v2")
->>>>>> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
->>>>> Well generally good patch, but libdrm changes are now reviewed by merge
->>>>> request and not on the mailing list any more.
->>>> I heard such a rumor, too ;-)
->>>>
->>>> Unfortunately one year later, that process is still not documented in
->>>> https://gitlab.freedesktop.org/mesa/drm/-/blob/main/CONTRIBUTING.rst
->>>> which still instructs me (a casual drive-by developer) to just submit
->>>> my patches to the mailing list...
->>> So a few weeks ago I created gitlab PRs for all my pending libdrm
->>> patch series, and I rebased them regularly when needed.
->>> What needs to be done to get them merged?
->> You need to ping the userspace maintainers for this. Like Marek,
->> Pierre-Eric etc..
-> Thanks, I assume (from "git shortlog") you mean Marek Olšák and
-> Pierre-Eric Pelloux-Prayer?
+> In addition to the older method, the new method will rounddown
+> the size to power of 2 and the corresponding order block picked
+> from the freelist. And for the remaining size we traverse the
+> tree and try to allocate either from the freelist block's buddy
+> or from the peer block. If the remaining size from peer/buddy
+> block is not free, we pick the next freelist block and repeat
+> the same method.
 
-Yes, of course.
+I think it's worth mentioning that Xinhui tried something similar a few 
+month ago, but that didn't looked like it would work. For this here I'm 
+more confident.
 
-> How do I find out the maintainers for non-amd parts?
+Of hand the implementation looks clean to me, but Matthew or others 
+which have more background in how the implementation works need to take 
+a look as well.
 
-That's a really good question, I don't have the slightest idea either. 
-My approach getting libdrm patches upstream used to be asking somebody 
-for review and then pushing them.
-
-But that was way before switching to merge requests. Since then I have 
-at maximum merged a handful of patches.
-
->
-> Looks like this thread is becoming a "what is missing in
-> CONTRIBUTING.rst?" list ;-)
-
-Indeed!
-
-Cheers,
+Thanks,
 Christian.
 
 >
-> Thanks again!
+> Moved contiguous/alignment size computation part and trim
+> function to the drm buddy manager.
 >
-> Gr{oetje,eeting}s,
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   drivers/gpu/drm/drm_buddy.c | 253 ++++++++++++++++++++++++++++++++++--
+>   include/drm/drm_buddy.h     |   6 +-
+>   2 files changed, 248 insertions(+), 11 deletions(-)
 >
->                          Geert
->
+> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+> index 7098f125b54a..220f60c08a03 100644
+> --- a/drivers/gpu/drm/drm_buddy.c
+> +++ b/drivers/gpu/drm/drm_buddy.c
+> @@ -569,6 +569,197 @@ static int __drm_buddy_alloc_range(struct drm_buddy *mm,
+>   	return __alloc_range(mm, &dfs, start, size, blocks);
+>   }
+>   
+> +static int __alloc_contiguous_block_from_buddy(struct drm_buddy *mm,
+> +					       u64 size,
+> +					       u64 min_block_size,
+> +					       struct drm_buddy_block *block,
+> +					       struct list_head *blocks)
+> +{
+> +	struct drm_buddy_block *buddy, *parent = NULL;
+> +	u64 start, offset = 0;
+> +	LIST_HEAD(dfs);
+> +	int err;
+> +
+> +	if (!block)
+> +		return -EINVAL;
+> +
+> +	buddy = __get_buddy(block);
+> +	if (!buddy)
+> +		return -ENOSPC;
+> +
+> +	if (drm_buddy_block_is_allocated(buddy))
+> +		return -ENOSPC;
+> +
+> +	parent = block->parent;
+> +	if (!parent)
+> +		return -ENOSPC;
+> +
+> +	if (block->parent->right == block) {
+> +		u64 remaining;
+> +
+> +		/* Compute the leftover size for allocation */
+> +		remaining = max((size - drm_buddy_block_size(mm, buddy)),
+> +				min_block_size);
+> +		if (!IS_ALIGNED(remaining, min_block_size))
+> +			remaining = round_up(remaining, min_block_size);
+> +
+> +		/* Check if remaining size is greater than buddy block size */
+> +		if (drm_buddy_block_size(mm, buddy) < remaining)
+> +			return -ENOSPC;
+> +
+> +		offset = drm_buddy_block_size(mm, buddy) - remaining;
+> +	}
+> +
+> +	list_add(&parent->tmp_link, &dfs);
+> +	start = drm_buddy_block_offset(parent) + offset;
+> +
+> +	err = __alloc_range(mm, &dfs, start, size, blocks);
+> +	if (err)
+> +		return -ENOSPC;
+> +
+> +	return 0;
+> +}
+> +
+> +static int __alloc_contiguous_block_from_peer(struct drm_buddy *mm,
+> +					      u64 size,
+> +					      u64 min_block_size,
+> +					      struct drm_buddy_block *block,
+> +					      struct list_head *blocks)
+> +{
+> +	struct drm_buddy_block *first, *peer, *tmp;
+> +	struct drm_buddy_block *parent = NULL;
+> +	u64 start, offset = 0;
+> +	unsigned int order;
+> +	LIST_HEAD(dfs);
+> +	int err;
+> +
+> +	if (!block)
+> +		return -EINVAL;
+> +
+> +	order = drm_buddy_block_order(block);
+> +	/* Add freelist block to dfs list */
+> +	list_add(&block->tmp_link, &dfs);
+> +
+> +	tmp = block;
+> +	parent = block->parent;
+> +	while (parent) {
+> +		if (block->parent->left == block) {
+> +			if (parent->left != tmp) {
+> +				peer = parent->left;
+> +				break;
+> +			}
+> +		} else {
+> +			if (parent->right != tmp) {
+> +				peer = parent->right;
+> +				break;
+> +			}
+> +		}
+> +
+> +		tmp = parent;
+> +		parent = tmp->parent;
+> +	}
+> +
+> +	if (!parent)
+> +		return -ENOSPC;
+> +
+> +	do {
+> +		if (drm_buddy_block_is_allocated(peer))
+> +			return -ENOSPC;
+> +		/* Exit loop if peer block order is equal to block order */
+> +		if (drm_buddy_block_order(peer) == order)
+> +			break;
+> +
+> +		if (drm_buddy_block_is_split(peer)) {
+> +			/* Traverse down to the block order level */
+> +			if (block->parent->left == block)
+> +				peer = peer->right;
+> +			else
+> +				peer = peer->left;
+> +		} else {
+> +			break;
+> +		}
+> +	} while (1);
+> +
+> +	if (block->parent->left == block) {
+> +		u64 remaining;
+> +
+> +		/* Compute the leftover size for allocation */
+> +		remaining = max((size - drm_buddy_block_size(mm, block)),
+> +				min_block_size);
+> +		if (!IS_ALIGNED(remaining, min_block_size))
+> +			remaining = round_up(remaining, min_block_size);
+> +
+> +		/* Check if remaining size is greater than peer block size */
+> +		if (drm_buddy_block_size(mm, peer) < remaining)
+> +			return -ENOSPC;
+> +
+> +		offset = drm_buddy_block_size(mm, peer) - remaining;
+> +		/* Add left peer block to dfs list */
+> +		list_add(&peer->tmp_link, &dfs);
+> +	} else {
+> +		/* Add right peer block to dfs list */
+> +		list_add_tail(&peer->tmp_link, &dfs);
+> +	}
+> +
+> +	first = list_first_entry_or_null(&dfs,
+> +					 struct drm_buddy_block,
+> +					 tmp_link);
+> +	if (!first)
+> +		return -EINVAL;
+> +
+> +	start = drm_buddy_block_offset(first) + offset;
+> +	err = __alloc_range(mm, &dfs, start, size, blocks);
+> +	if (err)
+> +		return -ENOSPC;
+> +
+> +	return 0;
+> +}
+> +
+> +static int __drm_buddy_alloc_contiguous_blocks(struct drm_buddy *mm,
+> +					       u64 size,
+> +					       u64 min_block_size,
+> +					       struct list_head *blocks)
+> +{
+> +	struct drm_buddy_block *block;
+> +	struct list_head *list;
+> +	unsigned long pages;
+> +	unsigned int order;
+> +	u64 modify_size;
+> +	int err;
+> +
+> +	modify_size = rounddown_pow_of_two(size);
+> +	pages = modify_size >> ilog2(mm->chunk_size);
+> +	order = fls(pages) - 1;
+> +	if (order == 0)
+> +		return -ENOSPC;
+> +
+> +	list = &mm->free_list[order];
+> +	if (list_empty(list))
+> +		return -ENOSPC;
+> +
+> +	list_for_each_entry_reverse(block, list, link) {
+> +		/* Allocate contiguous blocks from the buddy */
+> +		err = __alloc_contiguous_block_from_buddy(mm,
+> +							  size,
+> +							  min_block_size,
+> +							  block,
+> +							  blocks);
+> +		if (!err)
+> +			return 0;
+> +
+> +		/* Allocate contiguous blocks from tree traversal method */
+> +		err = __alloc_contiguous_block_from_peer(mm,
+> +							 size,
+> +							 min_block_size,
+> +							 block,
+> +							 blocks);
+> +		if (!err)
+> +			return 0;
+> +	}
+> +
+> +	return -ENOSPC;
+> +}
+> +
+>   /**
+>    * drm_buddy_block_trim - free unused pages
+>    *
+> @@ -645,7 +836,7 @@ EXPORT_SYMBOL(drm_buddy_block_trim);
+>    * @start: start of the allowed range for this block
+>    * @end: end of the allowed range for this block
+>    * @size: size of the allocation
+> - * @min_page_size: alignment of the allocation
+> + * @min_block_size: alignment of the allocation
+>    * @blocks: output list head to add allocated blocks
+>    * @flags: DRM_BUDDY_*_ALLOCATION flags
+>    *
+> @@ -660,23 +851,24 @@ EXPORT_SYMBOL(drm_buddy_block_trim);
+>    */
+>   int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   			   u64 start, u64 end, u64 size,
+> -			   u64 min_page_size,
+> +			   u64 min_block_size,
+>   			   struct list_head *blocks,
+>   			   unsigned long flags)
+>   {
+>   	struct drm_buddy_block *block = NULL;
+> +	u64 original_size, original_min_size;
+>   	unsigned int min_order, order;
+> -	unsigned long pages;
+>   	LIST_HEAD(allocated);
+> +	unsigned long pages;
+>   	int err;
+>   
+>   	if (size < mm->chunk_size)
+>   		return -EINVAL;
+>   
+> -	if (min_page_size < mm->chunk_size)
+> +	if (min_block_size < mm->chunk_size)
+>   		return -EINVAL;
+>   
+> -	if (!is_power_of_2(min_page_size))
+> +	if (!is_power_of_2(min_block_size))
+>   		return -EINVAL;
+>   
+>   	if (!IS_ALIGNED(start | end | size, mm->chunk_size))
+> @@ -692,12 +884,21 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   	if (start + size == end)
+>   		return __drm_buddy_alloc_range(mm, start, size, blocks);
+>   
+> -	if (!IS_ALIGNED(size, min_page_size))
+> -		return -EINVAL;
+> +	original_size = size;
+> +	original_min_size = min_block_size;
+> +
+> +	/* Roundup the size to power of 2 */
+> +	if (flags & DRM_BUDDY_CONTIGUOUS_ALLOCATION) {
+> +		size = roundup_pow_of_two(size);
+> +		min_block_size = size;
+> +	/* Align size value to min_block_size */
+> +	} else if (!IS_ALIGNED(size, min_block_size)) {
+> +		size = round_up(size, min_block_size);
+> +	}
+>   
+>   	pages = size >> ilog2(mm->chunk_size);
+>   	order = fls(pages) - 1;
+> -	min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
+> +	min_order = ilog2(min_block_size) - ilog2(mm->chunk_size);
+>   
+>   	do {
+>   		order = min(order, (unsigned int)fls(pages) - 1);
+> @@ -716,6 +917,17 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   				break;
+>   
+>   			if (order-- == min_order) {
+> +				if (flags & DRM_BUDDY_CONTIGUOUS_ALLOCATION &&
+> +				    !(flags & DRM_BUDDY_RANGE_ALLOCATION))
+> +					/*
+> +					 * Try contiguous block allocation through
+> +					 * tree traversal method
+> +					 */
+> +					return __drm_buddy_alloc_contiguous_blocks(mm,
+> +										   original_size,
+> +										   original_min_size,
+> +										   blocks);
+> +
+>   				err = -ENOSPC;
+>   				goto err_free;
+>   			}
+> @@ -732,6 +944,31 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   			break;
+>   	} while (1);
+>   
+> +	/* Trim the allocated block to the required size */
+> +	if (original_size != size) {
+> +		struct list_head *trim_list;
+> +		LIST_HEAD(temp);
+> +		u64 trim_size;
+> +
+> +		trim_list = &allocated;
+> +		trim_size = original_size;
+> +
+> +		if (!list_is_singular(&allocated)) {
+> +			block = list_last_entry(&allocated, typeof(*block), link);
+> +			list_move(&block->link, &temp);
+> +			trim_list = &temp;
+> +			trim_size = drm_buddy_block_size(mm, block) -
+> +				(size - original_size);
+> +		}
+> +
+> +		drm_buddy_block_trim(mm,
+> +				     trim_size,
+> +				     trim_list);
+> +
+> +		if (!list_empty(&temp))
+> +			list_splice_tail(trim_list, &allocated);
+> +	}
+> +
+>   	list_splice_tail(&allocated, blocks);
+>   	return 0;
+>   
+> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+> index 572077ff8ae7..a5b39fc01003 100644
+> --- a/include/drm/drm_buddy.h
+> +++ b/include/drm/drm_buddy.h
+> @@ -22,8 +22,9 @@
+>   	start__ >= max__ || size__ > max__ - start__; \
+>   })
+>   
+> -#define DRM_BUDDY_RANGE_ALLOCATION (1 << 0)
+> -#define DRM_BUDDY_TOPDOWN_ALLOCATION (1 << 1)
+> +#define DRM_BUDDY_RANGE_ALLOCATION		BIT(0)
+> +#define DRM_BUDDY_TOPDOWN_ALLOCATION		BIT(1)
+> +#define DRM_BUDDY_CONTIGUOUS_ALLOCATION		BIT(2)
+>   
+>   struct drm_buddy_block {
+>   #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
+> @@ -155,5 +156,4 @@ void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p);
+>   void drm_buddy_block_print(struct drm_buddy *mm,
+>   			   struct drm_buddy_block *block,
+>   			   struct drm_printer *p);
+> -
+>   #endif
 
