@@ -4,41 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5647BEE49A5
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 07:46:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43CDFEE4996
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 07:46:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D12A510E209;
-	Mon, 21 Aug 2023 07:46:16 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp-20.smtpout.orange.fr
- [80.12.242.20])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8640D10E132
- for <amd-gfx@lists.freedesktop.org>; Sun, 20 Aug 2023 09:59:14 +0000 (UTC)
-Received: from pop-os.home ([86.243.2.178]) by smtp.orange.fr with ESMTPA
- id Xf5hqwKJwP8tnXf5yq04iR; Sun, 20 Aug 2023 11:51:43 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1692525103;
- bh=xUAxdVub/AJ+VRGlEQnfzOuYX4A4nb9Zccn+S71HYZc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=NfzR/IjDZ40zGycbfjDDzkgeDFTXqcbyXeHzNfyH6CTMb3WZEVKRZRuzjC/Ir5Dkh
- gerYCTAE7onbbJENf54GoFGBPotX5ic2qaNE7a9yiUzgKEx8vdeMTD3YcCnhhY9SwW
- q//Tvb0bhxnq8XXbaJze3okmXz+02MTTT0BAXMWXmYbwU6tyUhxid/xNSWa5uMnAp3
- ASMVJcnwB+MEuksol/U9hUZVmOGJ6vbngxL8B1eI21/GDO8/9LmVyIccSQy8GiqAog
- 716A6jC3nw9p/czfdaC1TAewtB6cIwAkaP7NCOt8HOt8RrL2n3DKERU1CSNmXl7V/s
- YVjG5VwH7zS9Q==
-X-ME-Helo: pop-os.home
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Sun, 20 Aug 2023 11:51:43 +0200
-X-ME-IP: 86.243.2.178
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B599710E1FE;
+	Mon, 21 Aug 2023 07:46:21 +0000 (UTC)
+Received: from mail.nfschina.com (unknown [42.101.60.195])
+ by gabe.freedesktop.org (Postfix) with SMTP id DCEA010E1FD;
+ Mon, 21 Aug 2023 07:39:42 +0000 (UTC)
+Received: from localhost.localdomain (unknown [180.167.10.98])
+ by mail.nfschina.com (Maildata Gateway V2.8.8) with ESMTPA id AED8C6062130A;
+ Mon, 21 Aug 2023 15:39:37 +0800 (CST)
+X-MD-Sfrom: suhui@nfschina.com
+X-MD-SrcIP: 180.167.10.98
+From: Su Hui <suhui@nfschina.com>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, Felix.Kuehling@amd.com,
- Arunpravin.PaneerSelvam@amd.com
-Subject: [PATCH 3/4] drm/amdgpu: Remove amdgpu_bo_list_array_entry()
-Date: Sun, 20 Aug 2023 11:51:15 +0200
-Message-Id: <978444d1ff97c07c71473152728cc146d9cac419.1692524665.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1692524665.git.christophe.jaillet@wanadoo.fr>
-References: <cover.1692524665.git.christophe.jaillet@wanadoo.fr>
+ airlied@gmail.com, daniel@ffwll.ch
+Subject: [PATCH v2] drm/amdgpu: Avoid possible buffer overflow
+Date: Mon, 21 Aug 2023 15:37:28 +0800
+Message-Id: <20230821073727.225341-1-suhui@nfschina.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 21 Aug 2023 07:46:03 +0000
@@ -53,66 +38,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- kernel-janitors@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: yifan1.zhang@amd.com, Su Hui <suhui@nfschina.com>, guchun.chen@amd.com,
+ lijo.lazar@amd.com, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, le.ma@amd.com,
+ christophe.jaillet@wanadoo.fr, dri-devel@lists.freedesktop.org,
+ Yuliang.Shi@amd.com, candice.li@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that there is an explicit flexible array at the end of 'struct
-amdgpu_bo_list', it can be used to remove amdgpu_bo_list_array_entry() and
-simplify some macro.
+smatch error:
+drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1257 amdgpu_discovery_reg_base_init() error:
+testing array offset 'adev->vcn.num_vcn_inst' after use.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+change the assignment order to avoid buffer overflow.
+
+Fixes: c40bdfb2ffa4 ("drm/amdgpu: fix incorrect VCN revision in SRIOV")
+Signed-off-by: Su Hui <suhui@nfschina.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h | 16 ++++------------
- 2 files changed, 5 insertions(+), 13 deletions(-)
+changes in v2:
+ - fix the error about ip->revision (thanks to Christophe JAILLET).
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index c8f59a044286..6ea9ff22c281 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -87,7 +87,7 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
- 	list->gws_obj = NULL;
- 	list->oa_obj = NULL;
- 
--	array = amdgpu_bo_list_array_entry(list, 0);
-+	array = list->entries;
- 	memset(array, 0, num_entries * sizeof(struct amdgpu_bo_list_entry));
- 
- 	for (i = 0; i < num_entries; ++i) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-index 368e50b30160..6a703be45d04 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-@@ -71,22 +71,14 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev,
- 				 size_t num_entries,
- 				 struct amdgpu_bo_list **list);
- 
--static inline struct amdgpu_bo_list_entry *
--amdgpu_bo_list_array_entry(struct amdgpu_bo_list *list, unsigned index)
--{
--	struct amdgpu_bo_list_entry *array = (void *)&list[1];
--
--	return &array[index];
--}
--
- #define amdgpu_bo_list_for_each_entry(e, list) \
--	for (e = amdgpu_bo_list_array_entry(list, 0); \
--	     e != amdgpu_bo_list_array_entry(list, (list)->num_entries); \
-+	for (e = list->entries; \
-+	     e != &list->entries[list->num_entries]; \
- 	     ++e)
- 
- #define amdgpu_bo_list_for_each_userptr_entry(e, list) \
--	for (e = amdgpu_bo_list_array_entry(list, (list)->first_userptr); \
--	     e != amdgpu_bo_list_array_entry(list, (list)->num_entries); \
-+	for (e = &list->entries[list->first_userptr]; \
-+	     e != &list->entries[list->num_entries]; \
- 	     ++e)
- 
- #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 8e1cfc87122d..b07bfd106a9b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -1250,11 +1250,10 @@ static int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+ 				 *     0b10 : encode is disabled
+ 				 *     0b01 : decode is disabled
+ 				 */
+-				adev->vcn.vcn_config[adev->vcn.num_vcn_inst] =
+-					ip->revision & 0xc0;
+-				ip->revision &= ~0xc0;
+ 				if (adev->vcn.num_vcn_inst <
+ 				    AMDGPU_MAX_VCN_INSTANCES) {
++					adev->vcn.vcn_config[adev->vcn.num_vcn_inst] =
++						ip->revision & 0xc0;
+ 					adev->vcn.num_vcn_inst++;
+ 					adev->vcn.inst_mask |=
+ 						(1U << ip->instance_number);
+@@ -1265,6 +1264,7 @@ static int amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+ 						adev->vcn.num_vcn_inst + 1,
+ 						AMDGPU_MAX_VCN_INSTANCES);
+ 				}
++				ip->revision &= ~0xc0;
+ 			}
+ 			if (le16_to_cpu(ip->hw_id) == SDMA0_HWID ||
+ 			    le16_to_cpu(ip->hw_id) == SDMA1_HWID ||
 -- 
-2.34.1
+2.30.2
 
