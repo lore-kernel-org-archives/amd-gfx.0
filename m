@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A26C1EE4996
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 06:31:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72FD4EE4996
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 06:33:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 320FB10E1DD;
-	Mon, 21 Aug 2023 06:31:41 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::601])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B595410E1DD
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Aug 2023 06:31:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEBF510E1DF;
+	Mon, 21 Aug 2023 06:33:17 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2069.outbound.protection.outlook.com [40.107.223.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C83110E1E1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Aug 2023 06:33:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BGUSwfzvPINPcyLMDwRcWKajvUuVco/GpNyN6fUe6ykYuc57X+DyMsNG5Ks/4HruKIZCUoBIdzDSVHBjLju/w5HA33WunkHHtTOCmnwY5i5gwMuKFnO2sviwP4x42QcbVaYxqdpW/kLHWEebmidu9scluD3sQvNANjNhIbAncfJMZZrcy602NlF5hsIHUkK4FJ8Qa7XzBsXmQsq2Ic0KiEg8TmXr3ja5RBaRWH/vfI9hCM5rNtdYALQEWvYi4Vk6Bpix7wXT58T2kgdKS7qQoyhVoaporuNB5KQGjjPSQg4Vr+1ug5LNsWvhzxtIIfkZxEf+2UlzLfqF+XScw2aS9g==
+ b=CqZGjD1FObXFjx2RbEpcjVGaCSmAKA4RvNw2Fje2YImZhsuH8IfwGe9epb8AoneMMSiry5krt/7dXIfvGENp1Fu24m31V7SSMRnCKEiVTWVPcoYYevVVJG8b95MVI9G3mGoQpN3NYl7z02wIqicX/js6ziTGh9a8NLt8eFIOd0ajZy4TMoPvvG0nzdM5/Q5IbsFkySqG9cXwwp5wnFW3ecDpL9QNlYw9TDgwZfb9JPwHK5qylEW8RDlKer1ezaGe7/ucWpepzQQX9UNNHTdawLpzcH2n0sP9gfGEyOx+xlwfEjtKuly6mn/1+G7qMEqSfYy6pLDUn4/yUPBWoW/Mzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NNtTh9npGktWdF5p8a3Fu6ZeyEU0Gc818GPRLDswwmA=;
- b=HBjDwRZc/lFWX3zomU33iNHcuj/o+yrEA5a1QL3MyBb7ZHfD0VbFNmKny8YaCk11aTuTA2gngchtdN6NiCyINYrP6dh06GjbDrDvQstEXBf3GC3rF47ok6goywq9Zz9fvuo4DBO170k+T9etLJaOWTMx1R0sw9Pl+HOe39wK95t4TSgoR21r5E+4fx9M0I5VQhRDFzRvKJhwrdAD1kEv8iZc4DLpRQWvTnpCIaQ5uwZBLtrufLm5+KujOvxeR+3JFueOe6M/v5cqcivmj7jBfFognuE/du3tLDP9c//cOi0b96KRmKM2aiQy0LD95YYYaECOSw9tuTknem5oTzMJeA==
+ bh=HCVimQn38u2cCI0XfJau5+THGB8bDbwDiHvJtkajREo=;
+ b=HsmwNOsjbkgIvtWO6EXHrtqLH1a02HINyRQm5J0inGH2SNroQErJ8ZlGAfAtnm0/A5jbS1ElismBjpbPViQvZHI3QiFbox5CLjpAJRptRZ9uOxBHGk90PXAC6NzCW5cIweh85Fvcj7ifCmsr8IZl/1yGPvEqgTfyNZf/uMFT4SRHa2r0UOUkSgie6MeQBymm48QZzx35Y31NfKx2489RRo9sI54q57CrkkjDUBoLjdpy7WmRv1ojVDUgBHsCp2zHkUMu7xEn4TWcsc+sQW7wZH6po0Tgd6NaXNFL/vhADWDvcWX04zmDsWTWiJGdvcR2ngW2C4KADOWFWATVbtZxyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NNtTh9npGktWdF5p8a3Fu6ZeyEU0Gc818GPRLDswwmA=;
- b=Jj8+PFhhyAMsFQZlJeUwwbZO7KThaJTDG0QQ89FTpfGRZ1K8vEYHIC+lRBTa76xVou4mXVD/mZq5JdtG8f8m/I2pSOW0Z+6AVk0j2/yp0szLTdmQUpmDzoT2X04n6EwJ9SqloLGfj8J5/4troHfYfDKoOFWL4leAXJCqHE3y//Q=
-Received: from CY8PR10CA0002.namprd10.prod.outlook.com (2603:10b6:930:4f::7)
- by CYXPR12MB9279.namprd12.prod.outlook.com (2603:10b6:930:d5::7) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=HCVimQn38u2cCI0XfJau5+THGB8bDbwDiHvJtkajREo=;
+ b=zkiBfQ96sEyNv8YmA9IGwQleJ0xnLH4e+jR+5fWXxQ4PCVg+KPALcEeKRq06uoBNMRl9e5gxLtB9rkYdrQHnPeS7g4C6rSSTITbAnAVTtOhiXVRtdwgXUmY7bxsHVcXIXnlgFAFZyn2dI60a5S3eIIXQv19GYhSuzj/1zkRpFnY=
+Received: from CYZPR05CA0002.namprd05.prod.outlook.com (2603:10b6:930:89::20)
+ by BL1PR12MB5319.namprd12.prod.outlook.com (2603:10b6:208:317::24)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.24; Mon, 21 Aug
- 2023 06:31:35 +0000
-Received: from CY4PEPF0000EE35.namprd05.prod.outlook.com
- (2603:10b6:930:4f:cafe::82) by CY8PR10CA0002.outlook.office365.com
- (2603:10b6:930:4f::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20 via Frontend
- Transport; Mon, 21 Aug 2023 06:31:35 +0000
+ 2023 06:33:12 +0000
+Received: from CY4PEPF0000E9D1.namprd03.prod.outlook.com
+ (2603:10b6:930:89:cafe::d8) by CYZPR05CA0002.outlook.office365.com
+ (2603:10b6:930:89::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.15 via Frontend
+ Transport; Mon, 21 Aug 2023 06:33:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE35.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ CY4PEPF0000E9D1.mail.protection.outlook.com (10.167.241.144) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.15 via Frontend Transport; Mon, 21 Aug 2023 06:31:35 +0000
+ 15.20.6699.14 via Frontend Transport; Mon, 21 Aug 2023 06:33:12 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 21 Aug
- 2023 01:31:30 -0500
+ 2023 01:33:10 -0500
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: correct SMU13 gfx voltage related OD settings
-Date: Mon, 21 Aug 2023 14:31:11 +0800
-Message-ID: <20230821063111.628622-1-evan.quan@amd.com>
+Subject: [PATCH] drm/amd/pm: fulfill the support for SMU13 `pp_dpm_dcefclk`
+ interface
+Date: Mon, 21 Aug 2023 14:32:55 +0800
+Message-ID: <20230821063255.628681-1-evan.quan@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -67,26 +67,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE35:EE_|CYXPR12MB9279:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85eed908-15b8-45e5-5405-08dba2104468
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D1:EE_|BL1PR12MB5319:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42256742-bed3-484d-4442-08dba2107e10
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: G5+FSsHEsXRtEILa0PXgxVKz4y6DCm/HZ6J4yO8uj06XHybEh6G2x6WoTdGYJsXp6uHufJe0aDyphMDy0NKtut3wWDALMInB56yZ4jjRRq4hI3w6MzXyCQzKpMVmyYOsrdxe8Lpm3cHikeblZTE1O7mdScj31Cr5Ec6DUlOxiJfH6u32gZ+uqVt39m2yvktdDf54tdbYl/nuUurGo+5/wFCAb3uzMjvMaMJQlCyxE8au2nVY0/KJr0Wd6QXFBo65zxV2zqRTO6b1XgR9flKeBC1IYQ6eFl/qTctMVJHqusODSK8H0evr+DIIiGFVWerVnQ1pVVyRvZusLsFxXldUOM2l/J2cAydo/jUgsPuvfuhPi9Hyf9V7CxhpufOCym71N4ldAVP7FMWxubyJQ6xGsH709gwYZeqPY8ML4/v8DNugYaBVXEpxCzvzbWD+3rsCdKWdaLOEyGYnAMNNwFCjqshjwqgGeZfr1Gv52en7Svgqh7tXdTCYxduT78cjtfQdtxkYqtDG1I2T/gRMSuGn3kSfuV1dDqouFDMBFCJ2NrgoVhRswZEE/WrzAaNQnTvpIAsYm63XPYJ2cflq44Py+DeO5OHthwyeCjQLHZ27ad7jVoISy/3en5Jw37LkPQn6aP5GUjkDnq6WbgYBAT+3Ihacm1HvGxx+rA4ZSpiqmrC1aLOzgGzuABMKkScN9N/tQL1QFNBnb920ShqVaqfnmCfSygEgEnB2so/KctP0Y19MvXdJN5CsWsFUmSOH6NE90zxpaqIV7rdCzmrkilVyvg==
+X-Microsoft-Antispam-Message-Info: KpMZTWhUbSqtiiOOKHCSyw/chh8BuV2a2aSgTsR/QHm47kCEmgADQE9K8HIGLZu4/d4aUx/qV+fswVH2Bv4SBVdtqTs/ZF2L3hOFyeultW8gK/mJGQZAHrHgqCLSrD66A75Z6HOsZ0gWPH3hygveGYZypRIZ4+rVqMTvsJYCkpyWvUuAicHCAiOhmvrtTLlc2rQZINmJAo5irwYkD/VGvGqWfyl3o9RjDoptMBlerU0x3PcH0kq+hJkZtOYpTbAyhXgzZv8LXEcG6v2YR0TpKzxAhIGWZl/U5IrZgD3nMWB8Om9Hf1VdUM0H4jmlxNFHsmWSc5WhOAiUv9tEaTWpQQUgxnTDMfQNnI/aIcaUV0GAoS+IfYjG1k9fqvuRnaYHXWPBLUkrrdLStP5JYfKrX3C9nv6KyTU9A7m5wewsTiv+dP3LVrYQjBsDbXTvdNtCOVIljj8wFvP3f59rimpcffDyAt6Iu9ylP7ggN9WhIq6Yk2hdWoYMXsVGXAWgSMcRbxJM/ixEE3nr/psDo8E3qdstZCjLJCGTrZMKLY7L2vMcNjQ5Sl43D5UM6PJZeow7pyHcRFafrvXFaCx+b6thqegI9Nf0rn24WhHsPQ0SJQ0DI/AUuc0a37+CY4S3kIxRmr8MS0DCAnStRY1WaOppDTtDNb2aRt2CDgL+T5bHOyXDKb2NLBoObjUpeOAhLwaVzGC97XKdon3m/ssTRlNk1v+bAPJV6a74wkjEkcnYB/2EahhipbtfWrPDLT2meny6o1+b+oxiXOoheY40XwXFfsAdmCif/wIJyOC5fgC0FIM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(396003)(136003)(346002)(39860400002)(186009)(1800799009)(82310400011)(451199024)(46966006)(36840700001)(40470700004)(6916009)(54906003)(70586007)(70206006)(316002)(8676002)(2616005)(8936002)(4326008)(1076003)(36756003)(40460700003)(41300700001)(82740400003)(356005)(81166007)(478600001)(6666004)(7696005)(40480700001)(2906002)(83380400001)(86362001)(36860700001)(47076005)(336012)(44832011)(426003)(5660300002)(26005)(16526019)(36900700001);
+ SFS:(13230031)(4636009)(136003)(346002)(396003)(376002)(39860400002)(186009)(1800799009)(82310400011)(451199024)(46966006)(40470700004)(36840700001)(36860700001)(40460700003)(47076005)(2906002)(83380400001)(82740400003)(356005)(81166007)(36756003)(86362001)(40480700001)(2616005)(44832011)(1076003)(5660300002)(316002)(6916009)(70206006)(70586007)(54906003)(41300700001)(7696005)(8936002)(8676002)(4326008)(6666004)(478600001)(336012)(426003)(26005)(16526019)(81973001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2023 06:31:35.2827 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85eed908-15b8-45e5-5405-08dba2104468
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2023 06:33:12.0135 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42256742-bed3-484d-4442-08dba2107e10
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE35.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D1.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9279
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5319
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,229 +98,166 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
+Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>,
+ Guan Yu <guan.yu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The voltage offset setting will be applied to the whole v/f curve line
-instead of per anchor point base.
+Fulfill the incomplete SMU13 `pp_dpm_dcefclk` implementation.
 
+Reported-by: Guan Yu <guan.yu@amd.com>
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 45 +++++++------------
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 31 ++++++-------
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 31 ++++++-------
- 3 files changed, 43 insertions(+), 64 deletions(-)
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 27 +++++++++++++++++++
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 27 +++++++++++++++++++
+ 2 files changed, 54 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index f03647fa3df6..97d550ac6942 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -643,18 +643,14 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
-  *   They can be used to calibrate the sclk voltage curve. This is
-  *   available for Vega20 and NV1X.
-  *
-- * - voltage offset for the six anchor points of the v/f curve labeled
-- *   OD_VDDC_CURVE. They can be used to calibrate the v/f curve. This
-- *   is only availabe for some SMU13 ASICs.
-- *
-  * - voltage offset(in mV) applied on target voltage calculation.
-- *   This is available for Sienna Cichlid, Navy Flounder and Dimgrey
-- *   Cavefish. For these ASICs, the target voltage calculation can be
-- *   illustrated by "voltage = voltage calculated from v/f curve +
-- *   overdrive vddgfx offset"
-+ *   This is available for Sienna Cichlid, Navy Flounder, Dimgrey
-+ *   Cavefish and some later SMU13 ASICs. For these ASICs, the target
-+ *   voltage calculation can be illustrated by "voltage = voltage
-+ *   calculated from v/f curve + overdrive vddgfx offset"
-  *
-- * - a list of valid ranges for sclk, mclk, and voltage curve points
-- *   labeled OD_RANGE
-+ * - a list of valid ranges for sclk, mclk, voltage curve points
-+ *   or voltage offset labeled OD_RANGE
-  *
-  * < For APUs >
-  *
-@@ -686,24 +682,17 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
-  *   E.g., "p 2 0 800" would set the minimum core clock on core
-  *   2 to 800Mhz.
-  *
-- *   For sclk voltage curve,
-- *     - For NV1X, enter the new values by writing a string that
-- *       contains "vc point clock voltage" to the file. The points
-- *       are indexed by 0, 1 and 2. E.g., "vc 0 300 600" will update
-- *       point1 with clock set as 300Mhz and voltage as 600mV. "vc 2
-- *       1000 1000" will update point3 with clock set as 1000Mhz and
-- *       voltage 1000mV.
-- *     - For SMU13 ASICs, enter the new values by writing a string that
-- *       contains "vc anchor_point_index voltage_offset" to the file.
-- *       There are total six anchor points defined on the v/f curve with
-- *       index as 0 - 5.
-- *       - "vc 0 10" will update the voltage offset for point1 as 10mv.
-- *       - "vc 5 -10" will update the voltage offset for point6 as -10mv.
-- *
-- *   To update the voltage offset applied for gfxclk/voltage calculation,
-- *   enter the new value by writing a string that contains "vo offset".
-- *   This is supported by Sienna Cichlid, Navy Flounder and Dimgrey Cavefish.
-- *   And the offset can be a positive or negative value.
-+ *   For sclk voltage curve supported by Vega20 and NV1X, enter the new
-+ *   values by writing a string that contains "vc point clock voltage"
-+ *   to the file. The points are indexed by 0, 1 and 2. E.g., "vc 0 300
-+ *   600" will update point1 with clock set as 300Mhz and voltage as 600mV.
-+ *   "vc 2 1000 1000" will update point3 with clock set as 1000Mhz and
-+ *   voltage 1000mV.
-+ *
-+ *   For voltage offset supported by Sienna Cichlid, Navy Flounder, Dimgrey
-+ *   Cavefish and some later SMU13 ASICs, enter the new value by writing a
-+ *   string that contains "vo offset". E.g., "vo -10" will update the extra
-+ *   voltage offset applied to the whole v/f curve line as -10mv.
-  *
-  * - When you have edited all of the states as needed, write "c" (commit)
-  *   to the file to commit your changes
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index 3903a47669e4..bd0d5f027cac 100644
+index bd0d5f027cac..5fdb2b3c042a 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -1304,16 +1304,14 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
- 					od_table->OverDriveTable.UclkFmax);
+@@ -176,6 +176,7 @@ static struct cmn2asic_mapping smu_v13_0_0_clk_map[SMU_CLK_COUNT] = {
+ 	CLK_MAP(VCLK1,		PPCLK_VCLK_1),
+ 	CLK_MAP(DCLK,		PPCLK_DCLK_0),
+ 	CLK_MAP(DCLK1,		PPCLK_DCLK_1),
++	CLK_MAP(DCEFCLK,	PPCLK_DCFCLK),
+ };
+ 
+ static struct cmn2asic_mapping smu_v13_0_0_feature_mask_map[SMU_FEATURE_COUNT] = {
+@@ -707,6 +708,22 @@ static int smu_v13_0_0_set_default_dpm_table(struct smu_context *smu)
+ 		pcie_table->num_of_link_levels++;
+ 	}
+ 
++	/* dcefclk dpm table setup */
++	dpm_table = &dpm_context->dpm_tables.dcef_table;
++	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCN_BIT)) {
++		ret = smu_v13_0_set_single_dpm_table(smu,
++						     SMU_DCEFCLK,
++						     dpm_table);
++		if (ret)
++			return ret;
++	} else {
++		dpm_table->count = 1;
++		dpm_table->dpm_levels[0].value = smu->smu_table.boot_values.dcefclk / 100;
++		dpm_table->dpm_levels[0].enabled = true;
++		dpm_table->min = dpm_table->dpm_levels[0].value;
++		dpm_table->max = dpm_table->dpm_levels[0].value;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -794,6 +811,9 @@ static int smu_v13_0_0_get_smu_metrics_data(struct smu_context *smu,
+ 	case METRICS_CURR_FCLK:
+ 		*value = metrics->CurrClock[PPCLK_FCLK];
  		break;
- 
--	case SMU_OD_VDDC_CURVE:
-+	case SMU_OD_VDDGFX_OFFSET:
- 		if (!smu_v13_0_0_is_od_feature_supported(smu,
- 							 PP_OD_FEATURE_GFX_VF_CURVE_BIT))
- 			break;
- 
--		size += sysfs_emit_at(buf, size, "OD_VDDC_CURVE:\n");
--		for (i = 0; i < PP_NUM_OD_VF_CURVE_POINTS; i++)
--			size += sysfs_emit_at(buf, size, "%d: %dmv\n",
--						i,
--						od_table->OverDriveTable.VoltageOffsetPerZoneBoundary[i]);
-+		size += sysfs_emit_at(buf, size, "OD_VDDGFX_OFFSET:\n");
-+		size += sysfs_emit_at(buf, size, "%dmV\n",
-+				      od_table->OverDriveTable.VoltageOffsetPerZoneBoundary[0]);
++	case METRICS_CURR_DCEFCLK:
++		*value = metrics->CurrClock[PPCLK_DCFCLK];
++		break;
+ 	case METRICS_AVERAGE_GFXCLK:
+ 		if (metrics->AverageGfxActivity <= SMU_13_0_0_BUSY_THRESHOLD)
+ 			*value = metrics->AverageGfxclkFrequencyPostDs;
+@@ -1047,6 +1067,9 @@ static int smu_v13_0_0_get_current_clk_freq_by_table(struct smu_context *smu,
+ 	case PPCLK_DCLK_1:
+ 		member_type = METRICS_AVERAGE_DCLK1;
  		break;
- 
- 	case SMU_OD_RANGE:
-@@ -1355,7 +1353,7 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
- 							  PP_OD_FEATURE_GFX_VF_CURVE,
- 							  &min_value,
- 							  &max_value);
--			size += sysfs_emit_at(buf, size, "VDDC_CURVE: %7dmv %10dmv\n",
-+			size += sysfs_emit_at(buf, size, "VDDGFX_OFFSET: %7dmv %10dmv\n",
- 					      min_value, max_value);
- 		}
++	case PPCLK_DCFCLK:
++		member_type = METRICS_CURR_DCEFCLK;
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1196,6 +1219,9 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
+ 	case SMU_DCLK1:
+ 		single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
  		break;
-@@ -1504,29 +1502,26 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
- 		}
++	case SMU_DCEFCLK:
++		single_dpm_table = &(dpm_context->dpm_tables.dcef_table);
++		break;
+ 	default:
  		break;
- 
--	case PP_OD_EDIT_VDDC_CURVE:
-+	case PP_OD_EDIT_VDDGFX_OFFSET:
- 		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_GFX_VF_CURVE_BIT)) {
--			dev_warn(adev->dev, "VF curve setting not supported!\n");
-+			dev_warn(adev->dev, "Gfx offset setting not supported!\n");
- 			return -ENOTSUPP;
- 		}
- 
--		if (input[0] >= PP_NUM_OD_VF_CURVE_POINTS ||
--		    input[0] < 0)
--			return -EINVAL;
--
- 		smu_v13_0_0_get_od_setting_limits(smu,
- 						  PP_OD_FEATURE_GFX_VF_CURVE,
- 						  &minimum,
- 						  &maximum);
--		if (input[1] < minimum ||
--		    input[1] > maximum) {
-+		if (input[0] < minimum ||
-+		    input[0] > maximum) {
- 			dev_info(adev->dev, "Voltage offset (%ld) must be within [%d, %d]!\n",
--				 input[1], minimum, maximum);
-+				 input[0], minimum, maximum);
- 			return -EINVAL;
- 		}
- 
--		od_table->OverDriveTable.VoltageOffsetPerZoneBoundary[input[0]] = input[1];
--		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_GFX_VF_CURVE_BIT;
-+		for (i = 0; i < PP_NUM_OD_VF_CURVE_POINTS; i++)
-+			od_table->OverDriveTable.VoltageOffsetPerZoneBoundary[i] = input[0];
-+		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT);
- 		break;
- 
- 	case PP_OD_RESTORE_DEFAULT_TABLE:
+ 	}
+@@ -1209,6 +1235,7 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
+ 	case SMU_VCLK1:
+ 	case SMU_DCLK:
+ 	case SMU_DCLK1:
++	case SMU_DCEFCLK:
+ 		ret = smu_v13_0_0_get_current_clk_freq_by_table(smu, clk_type, &curr_freq);
+ 		if (ret) {
+ 			dev_err(smu->adev->dev, "Failed to get current clock freq!");
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 94ef5b4d116d..e54a6efc4fb5 100644
+index e54a6efc4fb5..d289662f4223 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -1284,16 +1284,14 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
- 					od_table->OverDriveTable.UclkFmax);
+@@ -147,6 +147,7 @@ static struct cmn2asic_mapping smu_v13_0_7_clk_map[SMU_CLK_COUNT] = {
+ 	CLK_MAP(VCLK1,		PPCLK_VCLK_1),
+ 	CLK_MAP(DCLK,		PPCLK_DCLK_0),
+ 	CLK_MAP(DCLK1,		PPCLK_DCLK_1),
++	CLK_MAP(DCEFCLK,	PPCLK_DCFCLK),
+ };
+ 
+ static struct cmn2asic_mapping smu_v13_0_7_feature_mask_map[SMU_FEATURE_COUNT] = {
+@@ -696,6 +697,22 @@ static int smu_v13_0_7_set_default_dpm_table(struct smu_context *smu)
+ 		pcie_table->num_of_link_levels++;
+ 	}
+ 
++	/* dcefclk dpm table setup */
++	dpm_table = &dpm_context->dpm_tables.dcef_table;
++	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCN_BIT)) {
++		ret = smu_v13_0_set_single_dpm_table(smu,
++						     SMU_DCEFCLK,
++						     dpm_table);
++		if (ret)
++			return ret;
++	} else {
++		dpm_table->count = 1;
++		dpm_table->dpm_levels[0].value = smu->smu_table.boot_values.dcefclk / 100;
++		dpm_table->dpm_levels[0].enabled = true;
++		dpm_table->min = dpm_table->dpm_levels[0].value;
++		dpm_table->max = dpm_table->dpm_levels[0].value;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -777,6 +794,9 @@ static int smu_v13_0_7_get_smu_metrics_data(struct smu_context *smu,
+ 	case METRICS_CURR_FCLK:
+ 		*value = metrics->CurrClock[PPCLK_FCLK];
  		break;
- 
--	case SMU_OD_VDDC_CURVE:
-+	case SMU_OD_VDDGFX_OFFSET:
- 		if (!smu_v13_0_7_is_od_feature_supported(smu,
- 							 PP_OD_FEATURE_GFX_VF_CURVE_BIT))
- 			break;
- 
--		size += sysfs_emit_at(buf, size, "OD_VDDC_CURVE:\n");
--		for (i = 0; i < PP_NUM_OD_VF_CURVE_POINTS; i++)
--			size += sysfs_emit_at(buf, size, "%d: %dmv\n",
--						i,
--						od_table->OverDriveTable.VoltageOffsetPerZoneBoundary[i]);
-+		size += sysfs_emit_at(buf, size, "OD_VDDGFX_OFFSET:\n");
-+		size += sysfs_emit_at(buf, size, "%dmV\n",
-+				      od_table->OverDriveTable.VoltageOffsetPerZoneBoundary[0]);
++	case METRICS_CURR_DCEFCLK:
++		*value = metrics->CurrClock[PPCLK_DCFCLK];
++		break;
+ 	case METRICS_AVERAGE_GFXCLK:
+ 		*value = metrics->AverageGfxclkFrequencyPreDs;
  		break;
- 
- 	case SMU_OD_RANGE:
-@@ -1335,7 +1333,7 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
- 							  PP_OD_FEATURE_GFX_VF_CURVE,
- 							  &min_value,
- 							  &max_value);
--			size += sysfs_emit_at(buf, size, "VDDC_CURVE: %7dmv %10dmv\n",
-+			size += sysfs_emit_at(buf, size, "VDDGFX_OFFSET: %7dmv %10dmv\n",
- 					      min_value, max_value);
- 		}
+@@ -1027,6 +1047,9 @@ static int smu_v13_0_7_get_current_clk_freq_by_table(struct smu_context *smu,
+ 	case PPCLK_DCLK_1:
+ 		member_type = METRICS_CURR_DCLK1;
  		break;
-@@ -1484,29 +1482,26 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
- 		}
++	case PPCLK_DCFCLK:
++		member_type = METRICS_CURR_DCEFCLK;
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1176,6 +1199,9 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
+ 	case SMU_DCLK1:
+ 		single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
  		break;
- 
--	case PP_OD_EDIT_VDDC_CURVE:
-+	case PP_OD_EDIT_VDDGFX_OFFSET:
- 		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_GFX_VF_CURVE_BIT)) {
--			dev_warn(adev->dev, "VF curve setting not supported!\n");
-+			dev_warn(adev->dev, "Gfx offset setting not supported!\n");
- 			return -ENOTSUPP;
- 		}
- 
--		if (input[0] >= PP_NUM_OD_VF_CURVE_POINTS ||
--		    input[0] < 0)
--			return -EINVAL;
--
- 		smu_v13_0_7_get_od_setting_limits(smu,
- 						  PP_OD_FEATURE_GFX_VF_CURVE,
- 						  &minimum,
- 						  &maximum);
--		if (input[1] < minimum ||
--		    input[1] > maximum) {
-+		if (input[0] < minimum ||
-+		    input[0] > maximum) {
- 			dev_info(adev->dev, "Voltage offset (%ld) must be within [%d, %d]!\n",
--				 input[1], minimum, maximum);
-+				 input[0],minimum, maximum);
- 			return -EINVAL;
- 		}
- 
--		od_table->OverDriveTable.VoltageOffsetPerZoneBoundary[input[0]] = input[1];
--		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_GFX_VF_CURVE_BIT;
-+		for (i = 0; i < PP_NUM_OD_VF_CURVE_POINTS; i++)
-+			od_table->OverDriveTable.VoltageOffsetPerZoneBoundary[i] = input[0];
-+		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT);
++	case SMU_DCEFCLK:
++		single_dpm_table = &(dpm_context->dpm_tables.dcef_table);
++		break;
+ 	default:
  		break;
- 
- 	case PP_OD_RESTORE_DEFAULT_TABLE:
+ 	}
+@@ -1189,6 +1215,7 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
+ 	case SMU_VCLK1:
+ 	case SMU_DCLK:
+ 	case SMU_DCLK1:
++	case SMU_DCEFCLK:
+ 		ret = smu_v13_0_7_get_current_clk_freq_by_table(smu, clk_type, &curr_freq);
+ 		if (ret) {
+ 			dev_err(smu->adev->dev, "Failed to get current clock freq!");
 -- 
 2.34.1
 
