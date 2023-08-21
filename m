@@ -4,116 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E749EE4996
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 09:47:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B224EE4993
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 10:15:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7814210E219;
-	Mon, 21 Aug 2023 09:47:49 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2085.outbound.protection.outlook.com [40.107.92.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7C5710E073;
- Mon, 21 Aug 2023 09:47:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 345B110E0D3;
+	Mon, 21 Aug 2023 10:15:13 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2062f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FA3210E0D3;
+ Mon, 21 Aug 2023 10:15:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fjj97j5LygrbIbEWjxRme9EALilVYftH31Pi0oqMYDSK9PylsSSACnTwt1Jec7R98R7JQW48r1Ks1mrDPwbIFNO0Ys3EsNlTfh8LBzgnly45FxdeV+4YKoL9TC2+Xo+kSD2ipfvyNGKkpQKJM3doLlnY4Y/69s3txhTa0XrXj5o090n0Pjp+IZZC3efvBm1mAHcHkXB21IQQ+jtAo+Qj4U2eXip6UAuUVCDGhn9YXaIBk12DL50jPKRuX0Iq9TBDNQdRbB9p7mJgTP1B447DYB4naAmawPfF93GqkjBENAA3JusH0UG6+gFLLPExCp5oTWgC3Uyjse0VVnbCiWuPjg==
+ b=JywUsqvbBuAarh9TGsDqXR3goolHhUC1NIlDyCPcSe3zrZdA/XkAbu7Tgua4W1ecRv+yCX9z/IF8wjoHM2JdY8Y5J/8YKdC+3cZ21Sq0hmn/jizRf/TTIHfegDcvi558SKzKwCt80KZ1uyAvAr/H3OMQHIPhwZMcl59IJ85fznLT2frwrq2BIM01MlnoRvfkwfB45LtsBf3/YHwEKFI/Cln7wBVztFtRwZkhbA9YwkOp2UEIwRG6Bc1xVlR6ohhHCuCYufB6vOKPCHpD1QxtOaxt3bo5rMijc9sm6xyGMwymu5z2btnRZjy2veNiehobejemtYWPwDTi/Mcc8W6jYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vN66zaP3lwfoqV2UOvrXFZpdCKp+a33OVKOOhVgUkXo=;
- b=cEuszYQ7uZXrhLPhjFv6SUp3URqwrw7ld2eQ2beJ1HJ3aDrDvg8slvxwdRTFWx4tpLJB+vR/cEVpjq6FUeZYRSuORmv5+M9LZ7L/xppuBptZGZmm+qL4OrfU3Xv39WaUHIWinNk4ObUgEPx6LuZJ4kyEkUDiAgTtmOgBhIELTJmOY8cN4RZsc4YpHjNVHX4LZyQfLfXMV/XfrKB2j46Q5t0hFXEqVfMbuPcOFfx1+yDYuFFPcKwySM2442FK1D3ZsBajlA1RzI7+EE0KUS3peJieUwS+x4gTraU7jOZPKi6nOGlnOBNKzRzfz17s7C8f4p2o/O+0i7p3flaldofF1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Nhv+QcCt7Md3mpm0qLnQqnrZazmPaTdWQQZ2ePttbPg=;
+ b=mTA9KFKRksU4Y5TprfV/w86V0O5lnEgzBJicQuM950QAYAqWEc7uhQXpfcnF2DiC3Sw5VKxGaoqfMZ9Pn6D/al2++DWz8yGjTzvVB0vGrQSjgxgIPGHZdQ33VcvjUCJavLegb2pLP9D7TzftN/YdZfZleYgJ01lsuznaBHMBpptKxwLBX9OHlurUzSCsZBlr9KSMYC+zVWKE/GSuqIp+OoM8EVJsH7z1SEqU6BgZ1HpJOhXie3++QG8SiojaD6ARNGnv7rUneEL4tcNAPkrlivGMwIgtMxqvYWiQPcXodK9L4OvRgZ1jkeTHnKtHOQFo2Kuw+dBm32ELwk7Ek68k8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vN66zaP3lwfoqV2UOvrXFZpdCKp+a33OVKOOhVgUkXo=;
- b=dWsbUZ5sR1oyCrN+8ZVYUBhAJMV5DORRTzrbunWWSJivxI8eFYM7rGZcqvHP/MAZNUQzEFVMYJn3J7DEZFGc8F/LDgxhZZ9fPq2iKeFtz7bFuwvJ3R2toYau8lXMpgzjG5FGrjsWYZmdFn7pM5hBaX4usQhGxqBFv74Z0muejL8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM4PR12MB6638.namprd12.prod.outlook.com (2603:10b6:8:b5::5) with
+ bh=Nhv+QcCt7Md3mpm0qLnQqnrZazmPaTdWQQZ2ePttbPg=;
+ b=1kkvrDVPa2eVH1o8J4uAvjoWomOTyX1dch6jpEEfrX2QobnknFouSzlekMxv0HbU95F5vx2p2hZVPs0O5dUnKTgwc4KL1xuzSeWlwFWD52qf1GsKqvSKt0hntrQLjDiERvkpcHq6CYqJY7CAeui/kAdDtGjgu+61/cziJfKw3iM=
+Received: from DS7PR05CA0082.namprd05.prod.outlook.com (2603:10b6:8:57::23) by
+ DM4PR12MB6207.namprd12.prod.outlook.com (2603:10b6:8:a6::10) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6699.24; Mon, 21 Aug 2023 09:47:44 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::3d:c14:667a:1c81]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::3d:c14:667a:1c81%4]) with mapi id 15.20.6699.022; Mon, 21 Aug 2023
- 09:47:44 +0000
-Message-ID: <50271db0-ea6e-132d-adab-23689bbd4028@amd.com>
-Date: Mon, 21 Aug 2023 11:47:39 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v2 2/4] drm/amdgpu: Allow explicit sync for VM ops.
-Content-Language: en-US
-To: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-References: <20230821062005.109771-1-ishitatsuyuki@gmail.com>
- <20230821062005.109771-3-ishitatsuyuki@gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230821062005.109771-3-ishitatsuyuki@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0185.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9f::18) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ 15.20.6699.24; Mon, 21 Aug 2023 10:15:07 +0000
+Received: from CY4PEPF0000E9D8.namprd05.prod.outlook.com
+ (2603:10b6:8:57:cafe::5e) by DS7PR05CA0082.outlook.office365.com
+ (2603:10b6:8:57::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6723.11 via Frontend
+ Transport; Mon, 21 Aug 2023 10:15:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D8.mail.protection.outlook.com (10.167.241.83) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6699.15 via Frontend Transport; Mon, 21 Aug 2023 10:15:06 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Mon, 21 Aug 2023 05:15:03 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/3] drm/buddy: Fix contiguous memory allocation issues
+Date: Mon, 21 Aug 2023 03:14:42 -0700
+Message-ID: <20230821101444.119601-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM4PR12MB6638:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39c6a5d0-395a-4c58-a361-08dba22bab3c
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|DM4PR12MB6207:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83e79976-b89a-4692-72fe-08dba22f7e49
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dZijOlXvE/GHaeQPEwFOC7xr+FZEgCGofrlLduJmrRZAd65Z3Ryxh/0BWsZuxpWRIlhzehSZuxtW9DMqyxPlEG8SHQgaIw88Rw7Xm692Lv5c1nP4ez3jjgYluRJHgSoWs7VQ6Y8beIQ8Khha1YE3mghr1Sy/K8OpZOLDuitCyNJKkOaVUh6hzVv96BFT5Q6UY9vRcdS2sD3eWF2JZqxO8SkjRtL2EqeRjMyJSFLtradYoFIawIlrnMcvYFeFcHHLzJTiA8rIRZl8NXNJ9GrxOAKJPwtbt4HpEQn1Yt71WTpIzvbwgox73URFcKXV9+2+n5LtQjK5POkIv/V0pRTMVeXJH9qSsR+wfJbntasZ7aSz9EY5hrni46V+hQG6jgkodAN+mwzeczrvBzSpYL6Vd/jdkTLColbrBnJsNKTAHMg+Xhj8/+RxCZwIazEQMWrSWSZo8mXyw0KXG0f/aq9FJKGZHU+SdNO7uwc3bfGATL5kFlNS/4KWs+EaiNzGJ3+1dhmEdOh/L9d8saoxQDV+oHLLc8u+w5GIArRrYhVEQ17sz2/jr+/3gFCR73C+sy1JM5GETnUr4Y+QLaEbaREJYtClN9AP9blS8uokZqzdyPSwUR5e8gZQnD6T83sSM0sp7Jhap50/V0EQPx72q+aTfg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(39860400002)(136003)(346002)(366004)(376002)(186009)(1800799009)(451199024)(66476007)(66556008)(6512007)(316002)(66946007)(8676002)(2616005)(8936002)(4326008)(36756003)(41300700001)(478600001)(6666004)(38100700002)(6506007)(6486002)(83380400001)(2906002)(86362001)(31686004)(31696002)(5660300002)(26005)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: 00Iv5cCDMXJYRedOfHz6NOoG/6LBZkDhbjXcQVcjUjVPW9318wjvf8marhdMgTBMijenviI318EDwkSURBsvsJAHM9QOtWrmOqOqjMzb7DVjFo8pwmJtjFL8+LBOwVvjsIZpqgEApYsrvxTwgguwMNtdv4WL0yiNE1u1S9SUh0qMIpey9YfQmUK9fcTmE35PRwRLRbblUN7wyxcuo+0GcZLPKpPxRwKXfmEuRUy+fFwMDObTifMHz+9KF1kvIjmyOAqy/+Tibc/0avXE7uz+JoMhoc4/K7RSOaER6W+JM34xhfEuohMkqciSII8W5zesmqljV0Nh6HMwDvaGu4EZy18IQseeUgbfOKboytmwMnffIHILNtbPgV6vYQJ9AudkDs1pvBZgp9LPFOvJ2ILHP4FRd0YI44tFTrapLQqQfWxIDd0aa+zunO1hnkQY2E2FYh2N2rnxBB24Jm+4498dsi4Qj2QnWXuZSLxJ91dGZkf8YW2xyjeS9EZTc0Ew12Zsz816PdyLF8DT1GwJ5vftL2IVpyh92HEPT8wF19amm2Pu+lx5wsfBibRGJvuyxJkMnSQzYLK67zoTADdl0ARVX5GXpD8VB8jfKY5o8p7NERVMf329WzouwaWfk75f7wpYiiZ3GuW1GMm7b+UT/p56OdBvfWGf7l9Fcw1JYAc6QJFdI5CqgkjP839c/7JONAJ5w+Z+/JxnI1KR5E29AmyCCcxjBY36NiLmlSVox3g/GydQh5Kk/nA/fjvkvQovxLv1ZWUDNg+lL8wuwqJduG3UUw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(346002)(136003)(39860400002)(396003)(82310400011)(451199024)(186009)(1800799009)(36840700001)(40470700004)(46966006)(2906002)(83380400001)(7696005)(40480700001)(5660300002)(336012)(426003)(16526019)(26005)(86362001)(36860700001)(47076005)(8676002)(2616005)(8936002)(4326008)(70206006)(316002)(54906003)(70586007)(110136005)(478600001)(82740400003)(356005)(81166007)(6666004)(40460700003)(41300700001)(36756003)(1076003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2ordDV0eWlZa1dLWmgvN21JVTNtTzB3TEhRUXdSMTlPMURJa3YveFNwOS9W?=
- =?utf-8?B?Qkc4ZUF3THlkUDg1UWIrUHBwOHFGTHZ5c0UvZk0zSldSMTM2bE5qdDVxaDAx?=
- =?utf-8?B?YjFrM1cxTTk2TmdrcWZ0OXp5VkcxUDVia2xsU2R1TzhzU1ZZdVVCdncvcGk4?=
- =?utf-8?B?eWZQd3pmY04zcHd0UW9teVFySStWTlQxS3Z2ZkxMNElvc3QwcFRzTm83dzhs?=
- =?utf-8?B?eFZzWWdGbXdDb0p2bHY2QUwvb3ovYmwwdWYrNjB3NzI2UG9zODhOeUFGSWhq?=
- =?utf-8?B?Sld2eDlONTliZFlCVkkzSEt6K05lcExMODE5ZnNLdjVzWlFvNDF5ZmwvZEpX?=
- =?utf-8?B?ak1BMG5WdlBiWW5nbTM2QTRyUFdXaDRFc2NpTDJOSVRndmhxNytHam9mL2Vx?=
- =?utf-8?B?aHBGemx4eXRmNjVvalpGcFVxNEJnUXRaaGcrTUI5VTFoZTQ0V3ZkRmZ5YjFx?=
- =?utf-8?B?YVR4cklwb3k0UHR4OHYxclUzZlZmcEV1T0JnYktjUVl3VDJnQmI0RWQ3eFF1?=
- =?utf-8?B?ZDk4VWVWNS9LdmN5c0U0K2FKVlZGM3JLRXZUR0xJTTdHaE5jKzV3WTY5T3Fl?=
- =?utf-8?B?dUhZSTJBN0djeDdGMm0vTENxZ2VQSXJPaDBqRVlreUlZMlRWa3pEZVF5K0tX?=
- =?utf-8?B?VSt1YmdnQ2M4RXAxeUdpQ3hwYnpGUHpDbC82aDlaaTRmeFJJdkpjVWFWUzUr?=
- =?utf-8?B?SlhSY2R1d2ZTbEN0cXpNUG50bkRUK0NUUDRiOEE0d1JCNUYyZzNheU9od2lt?=
- =?utf-8?B?YW1kcHM2Rnp3VVNSVlVYcU9VMW1ReUVZK0wvM0FQeHZ6S0dpeEordFdhcUU1?=
- =?utf-8?B?Vm90bHovc0NoTnZWM0tVRU02MW16VlkxNEkxYWVNaXNjSXVwMm83MUsxTzlN?=
- =?utf-8?B?dE9FaU1SZXVMUjkvUXNEZDI1MFVtWU5MNHNFdjJIb0FNQnlVQ0ZESVhZSkNY?=
- =?utf-8?B?NFp6UkxLaFhTYmFxSEMvWGxHdFh0Z04zR0duNkdyWC9lUjNJVFh4VkhUN2dn?=
- =?utf-8?B?c28vWTNhcHFXM3JJWXhJaEhGNEdwazV6eldKME1lQTdTZUtsZ1JSOXMwekt1?=
- =?utf-8?B?UjJxSzhyT1N5Mm0ybnJXZVp0Nk9RajBqVVhFS01pdlk4YkFXVHk2OVFVRVlr?=
- =?utf-8?B?Z2hPNGpzdDJMczh4aUJ2Y1NrK3AvMk55ZWcwSFpBTjEwNjdocDcwZmlwdkp5?=
- =?utf-8?B?ekloVG03cEllTEthTzBzQUxPOGw1MkMzZ2xkZ0t2N1ErQkpiL3V0Zk8vRzFi?=
- =?utf-8?B?WWcrWXRVN0pWVzlJaUhIWXl4RkYzb2Z2dlUxb1k3YzRGb3J6clVhYjRJM09P?=
- =?utf-8?B?SnNzUUtqRzZoWEF2NnlRL3dpRFlmU2o3VG9NSFpFQ3NEdTBaZnk2cWNua0Vo?=
- =?utf-8?B?cld3NytsNi8zZGwzVVJpd0wvejN4R055ajhhc2xhYlZVQTJYa3FmSXp1dGxR?=
- =?utf-8?B?MmdnTmlGNVUzVU5MeTFRSmtsQ1AzSUpYbWJjZGVLcmFzc2NBcGxyZjNYd3Ja?=
- =?utf-8?B?NEZyRUo5clp4dkVlTDQ0TTVaU212NmxqbllaWjlKQlNKVkpwT3BlRUdvbTJy?=
- =?utf-8?B?OVBXMUttZXFNOTJTamFodzNYcEFjQVpZUFVkSTJtaG1xb04yUzI3RldVdDZ6?=
- =?utf-8?B?ZVBaNkM3ektkWWlIQmwwdzYwQlFlM2NkRW83a1VwQTlGaXVQY0h5VFRHNTYr?=
- =?utf-8?B?aVdkWHE1OU55U282MlhOMFFkSHFLVS9PeWRrT1Z5cmY2YjhNdEJiSzlzSzhp?=
- =?utf-8?B?UFNwZkVjdU91dExBQmRuVWQvYU9nTTlTSXBaMmNlaHJNSlZFSkpDS1k4U0pa?=
- =?utf-8?B?bnFXOFFkcDFvSmI1Y0dnTUlkL0tBYW45bzdoWEptNG93WDNLODZrQkp1TVBo?=
- =?utf-8?B?N3B2a1FMRkZ6dDV4cEdWYk9rWCtaSWNXaW1lUkdyWGRRK2hlakJpQkNEMGxI?=
- =?utf-8?B?K2pSaWI4cHVzZldhd2Z2bk9iL0ZQVXhvT2ZpWHNCL2RHelhaQjI4VjhDZ0p0?=
- =?utf-8?B?SUgreVliMENvclBnRXFBY3dqSVdob3FqOGZQVXpnYUVpYnpXeUtQTDhrbFVY?=
- =?utf-8?B?OVF6dFh3SzFTeUdnZEl6ZWgxS2ViMEJSdmh4YXBTdDIyMW9NVU5sYmgzT1Vs?=
- =?utf-8?Q?twpBOmHcObGoIYs0ixYV5xmhP?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39c6a5d0-395a-4c58-a361-08dba22bab3c
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2023 09:47:44.4172 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2023 10:15:06.7868 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83e79976-b89a-4692-72fe-08dba22f7e49
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kQB5Qr4h3pP6tqeZatxJjHNSGAGHbgF/wr4+A7Tme6GVMrwx5MP0lY4n+WTWiMBF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6638
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6207
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,68 +99,370 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel@ffwll.ch, bas@basnieuwenhuizen.nl
+Cc: alexander.deucher@amd.com,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ christian.koenig@amd.com, matthew.auld@intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.08.23 um 08:20 schrieb Tatsuyuki Ishi:
-> From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
->
-> This should be okay because moves themselves use KERNEL usage and
-> hence still sync with BOOKKEEP usage. Then any later submits still
-> wait on any pending VM operations.
->
-> (i.e. we only made VM ops not wait on BOOKKEEP submits, not the other
->   way around)
+The way now contiguous requests are implemented such that
+the size rounded up to power of 2 and the corresponding order
+block picked from the freelist.
 
-Well that approach won't work like this.
+In addition to the older method, the new method will rounddown
+the size to power of 2 and the corresponding order block picked
+from the freelist. And for the remaining size we traverse the
+tree and try to allocate either from the freelist block's buddy
+or from the peer block. If the remaining size from peer/buddy
+block is not free, we pick the next freelist block and repeat
+the same method.
 
-Basically the whole approach with the implicit vs. explicit handling 
-sounds like a really bad idea to me.
+Moved contiguous/alignment size computation part and trim
+function to the drm buddy manager.
 
-What you need to do instead is to give amdgpu_vm_sdma_prepare() and 
-amdgpu_vm_cpu_prepare() the information if this is an update triggered 
-by the kernel (because the BO was evicted) or triggered by userspace.
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/drm/drm_buddy.c | 253 ++++++++++++++++++++++++++++++++++--
+ include/drm/drm_buddy.h     |   6 +-
+ 2 files changed, 248 insertions(+), 11 deletions(-)
 
-Take a look where the sync_mode parameter is determined instead.
-
-Regards,
-Christian.
-
->
-> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> Signed-off-by: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c  | 3 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 3 ++-
->   2 files changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-> index f10332e1c6c0..e898a549f86d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c
-> @@ -51,7 +51,8 @@ static int amdgpu_vm_cpu_prepare(struct amdgpu_vm_update_params *p,
->   	if (!resv)
->   		return 0;
->   
-> -	return amdgpu_bo_sync_wait_resv(p->adev, resv, sync_mode, sync_mode, p->vm, true);
-> +	return amdgpu_bo_sync_wait_resv(p->adev, resv, sync_mode,
-> +					AMDGPU_SYNC_EXPLICIT, p->vm, true);
->   }
->   
->   /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> index e259a51e7c56..8cb427710d66 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-> @@ -98,7 +98,8 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
->   		return 0;
->   
->   	amdgpu_sync_create(&sync);
-> -	r = amdgpu_sync_resv(p->adev, &sync, resv, sync_mode, sync_mode, p->vm);
-> +	r = amdgpu_sync_resv(p->adev, &sync, resv, sync_mode,
-> +				AMDGPU_SYNC_EXPLICIT, p->vm);
->   	if (!r)
->   		r = amdgpu_sync_push_to_job(&sync, p->job);
->   	amdgpu_sync_free(&sync);
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index 7098f125b54a..220f60c08a03 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -569,6 +569,197 @@ static int __drm_buddy_alloc_range(struct drm_buddy *mm,
+ 	return __alloc_range(mm, &dfs, start, size, blocks);
+ }
+ 
++static int __alloc_contiguous_block_from_buddy(struct drm_buddy *mm,
++					       u64 size,
++					       u64 min_block_size,
++					       struct drm_buddy_block *block,
++					       struct list_head *blocks)
++{
++	struct drm_buddy_block *buddy, *parent = NULL;
++	u64 start, offset = 0;
++	LIST_HEAD(dfs);
++	int err;
++
++	if (!block)
++		return -EINVAL;
++
++	buddy = __get_buddy(block);
++	if (!buddy)
++		return -ENOSPC;
++
++	if (drm_buddy_block_is_allocated(buddy))
++		return -ENOSPC;
++
++	parent = block->parent;
++	if (!parent)
++		return -ENOSPC;
++
++	if (block->parent->right == block) {
++		u64 remaining;
++
++		/* Compute the leftover size for allocation */
++		remaining = max((size - drm_buddy_block_size(mm, buddy)),
++				min_block_size);
++		if (!IS_ALIGNED(remaining, min_block_size))
++			remaining = round_up(remaining, min_block_size);
++
++		/* Check if remaining size is greater than buddy block size */
++		if (drm_buddy_block_size(mm, buddy) < remaining)
++			return -ENOSPC;
++
++		offset = drm_buddy_block_size(mm, buddy) - remaining;
++	}
++
++	list_add(&parent->tmp_link, &dfs);
++	start = drm_buddy_block_offset(parent) + offset;
++
++	err = __alloc_range(mm, &dfs, start, size, blocks);
++	if (err)
++		return -ENOSPC;
++
++	return 0;
++}
++
++static int __alloc_contiguous_block_from_peer(struct drm_buddy *mm,
++					      u64 size,
++					      u64 min_block_size,
++					      struct drm_buddy_block *block,
++					      struct list_head *blocks)
++{
++	struct drm_buddy_block *first, *peer, *tmp;
++	struct drm_buddy_block *parent = NULL;
++	u64 start, offset = 0;
++	unsigned int order;
++	LIST_HEAD(dfs);
++	int err;
++
++	if (!block)
++		return -EINVAL;
++
++	order = drm_buddy_block_order(block);
++	/* Add freelist block to dfs list */
++	list_add(&block->tmp_link, &dfs);
++
++	tmp = block;
++	parent = block->parent;
++	while (parent) {
++		if (block->parent->left == block) {
++			if (parent->left != tmp) {
++				peer = parent->left;
++				break;
++			}
++		} else {
++			if (parent->right != tmp) {
++				peer = parent->right;
++				break;
++			}
++		}
++
++		tmp = parent;
++		parent = tmp->parent;
++	}
++
++	if (!parent)
++		return -ENOSPC;
++
++	do {
++		if (drm_buddy_block_is_allocated(peer))
++			return -ENOSPC;
++		/* Exit loop if peer block order is equal to block order */
++		if (drm_buddy_block_order(peer) == order)
++			break;
++
++		if (drm_buddy_block_is_split(peer)) {
++			/* Traverse down to the block order level */
++			if (block->parent->left == block)
++				peer = peer->right;
++			else
++				peer = peer->left;
++		} else {
++			break;
++		}
++	} while (1);
++
++	if (block->parent->left == block) {
++		u64 remaining;
++
++		/* Compute the leftover size for allocation */
++		remaining = max((size - drm_buddy_block_size(mm, block)),
++				min_block_size);
++		if (!IS_ALIGNED(remaining, min_block_size))
++			remaining = round_up(remaining, min_block_size);
++
++		/* Check if remaining size is greater than peer block size */
++		if (drm_buddy_block_size(mm, peer) < remaining)
++			return -ENOSPC;
++
++		offset = drm_buddy_block_size(mm, peer) - remaining;
++		/* Add left peer block to dfs list */
++		list_add(&peer->tmp_link, &dfs);
++	} else {
++		/* Add right peer block to dfs list */
++		list_add_tail(&peer->tmp_link, &dfs);
++	}
++
++	first = list_first_entry_or_null(&dfs,
++					 struct drm_buddy_block,
++					 tmp_link);
++	if (!first)
++		return -EINVAL;
++
++	start = drm_buddy_block_offset(first) + offset;
++	err = __alloc_range(mm, &dfs, start, size, blocks);
++	if (err)
++		return -ENOSPC;
++
++	return 0;
++}
++
++static int __drm_buddy_alloc_contiguous_blocks(struct drm_buddy *mm,
++					       u64 size,
++					       u64 min_block_size,
++					       struct list_head *blocks)
++{
++	struct drm_buddy_block *block;
++	struct list_head *list;
++	unsigned long pages;
++	unsigned int order;
++	u64 modify_size;
++	int err;
++
++	modify_size = rounddown_pow_of_two(size);
++	pages = modify_size >> ilog2(mm->chunk_size);
++	order = fls(pages) - 1;
++	if (order == 0)
++		return -ENOSPC;
++
++	list = &mm->free_list[order];
++	if (list_empty(list))
++		return -ENOSPC;
++
++	list_for_each_entry_reverse(block, list, link) {
++		/* Allocate contiguous blocks from the buddy */
++		err = __alloc_contiguous_block_from_buddy(mm,
++							  size,
++							  min_block_size,
++							  block,
++							  blocks);
++		if (!err)
++			return 0;
++
++		/* Allocate contiguous blocks from tree traversal method */
++		err = __alloc_contiguous_block_from_peer(mm,
++							 size,
++							 min_block_size,
++							 block,
++							 blocks);
++		if (!err)
++			return 0;
++	}
++
++	return -ENOSPC;
++}
++
+ /**
+  * drm_buddy_block_trim - free unused pages
+  *
+@@ -645,7 +836,7 @@ EXPORT_SYMBOL(drm_buddy_block_trim);
+  * @start: start of the allowed range for this block
+  * @end: end of the allowed range for this block
+  * @size: size of the allocation
+- * @min_page_size: alignment of the allocation
++ * @min_block_size: alignment of the allocation
+  * @blocks: output list head to add allocated blocks
+  * @flags: DRM_BUDDY_*_ALLOCATION flags
+  *
+@@ -660,23 +851,24 @@ EXPORT_SYMBOL(drm_buddy_block_trim);
+  */
+ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+ 			   u64 start, u64 end, u64 size,
+-			   u64 min_page_size,
++			   u64 min_block_size,
+ 			   struct list_head *blocks,
+ 			   unsigned long flags)
+ {
+ 	struct drm_buddy_block *block = NULL;
++	u64 original_size, original_min_size;
+ 	unsigned int min_order, order;
+-	unsigned long pages;
+ 	LIST_HEAD(allocated);
++	unsigned long pages;
+ 	int err;
+ 
+ 	if (size < mm->chunk_size)
+ 		return -EINVAL;
+ 
+-	if (min_page_size < mm->chunk_size)
++	if (min_block_size < mm->chunk_size)
+ 		return -EINVAL;
+ 
+-	if (!is_power_of_2(min_page_size))
++	if (!is_power_of_2(min_block_size))
+ 		return -EINVAL;
+ 
+ 	if (!IS_ALIGNED(start | end | size, mm->chunk_size))
+@@ -692,12 +884,21 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+ 	if (start + size == end)
+ 		return __drm_buddy_alloc_range(mm, start, size, blocks);
+ 
+-	if (!IS_ALIGNED(size, min_page_size))
+-		return -EINVAL;
++	original_size = size;
++	original_min_size = min_block_size;
++
++	/* Roundup the size to power of 2 */
++	if (flags & DRM_BUDDY_CONTIGUOUS_ALLOCATION) {
++		size = roundup_pow_of_two(size);
++		min_block_size = size;
++	/* Align size value to min_block_size */
++	} else if (!IS_ALIGNED(size, min_block_size)) {
++		size = round_up(size, min_block_size);
++	}
+ 
+ 	pages = size >> ilog2(mm->chunk_size);
+ 	order = fls(pages) - 1;
+-	min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
++	min_order = ilog2(min_block_size) - ilog2(mm->chunk_size);
+ 
+ 	do {
+ 		order = min(order, (unsigned int)fls(pages) - 1);
+@@ -716,6 +917,17 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+ 				break;
+ 
+ 			if (order-- == min_order) {
++				if (flags & DRM_BUDDY_CONTIGUOUS_ALLOCATION &&
++				    !(flags & DRM_BUDDY_RANGE_ALLOCATION))
++					/*
++					 * Try contiguous block allocation through
++					 * tree traversal method
++					 */
++					return __drm_buddy_alloc_contiguous_blocks(mm,
++										   original_size,
++										   original_min_size,
++										   blocks);
++
+ 				err = -ENOSPC;
+ 				goto err_free;
+ 			}
+@@ -732,6 +944,31 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+ 			break;
+ 	} while (1);
+ 
++	/* Trim the allocated block to the required size */
++	if (original_size != size) {
++		struct list_head *trim_list;
++		LIST_HEAD(temp);
++		u64 trim_size;
++
++		trim_list = &allocated;
++		trim_size = original_size;
++
++		if (!list_is_singular(&allocated)) {
++			block = list_last_entry(&allocated, typeof(*block), link);
++			list_move(&block->link, &temp);
++			trim_list = &temp;
++			trim_size = drm_buddy_block_size(mm, block) -
++				(size - original_size);
++		}
++
++		drm_buddy_block_trim(mm,
++				     trim_size,
++				     trim_list);
++
++		if (!list_empty(&temp))
++			list_splice_tail(trim_list, &allocated);
++	}
++
+ 	list_splice_tail(&allocated, blocks);
+ 	return 0;
+ 
+diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+index 572077ff8ae7..a5b39fc01003 100644
+--- a/include/drm/drm_buddy.h
++++ b/include/drm/drm_buddy.h
+@@ -22,8 +22,9 @@
+ 	start__ >= max__ || size__ > max__ - start__; \
+ })
+ 
+-#define DRM_BUDDY_RANGE_ALLOCATION (1 << 0)
+-#define DRM_BUDDY_TOPDOWN_ALLOCATION (1 << 1)
++#define DRM_BUDDY_RANGE_ALLOCATION		BIT(0)
++#define DRM_BUDDY_TOPDOWN_ALLOCATION		BIT(1)
++#define DRM_BUDDY_CONTIGUOUS_ALLOCATION		BIT(2)
+ 
+ struct drm_buddy_block {
+ #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
+@@ -155,5 +156,4 @@ void drm_buddy_print(struct drm_buddy *mm, struct drm_printer *p);
+ void drm_buddy_block_print(struct drm_buddy *mm,
+ 			   struct drm_buddy_block *block,
+ 			   struct drm_printer *p);
+-
+ #endif
+-- 
+2.25.1
 
