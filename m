@@ -4,114 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36EF1EE4996
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 13:28:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C455AEE4996
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 13:35:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D532710E252;
-	Mon, 21 Aug 2023 13:28:43 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A72BE10E252
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Aug 2023 13:28:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64DB410E0A2;
+	Mon, 21 Aug 2023 13:35:27 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30EDF10E0A2;
+ Mon, 21 Aug 2023 13:35:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lJQ+0Mw8tm/ARwQSZnORlYz3taNcKzJ+ZsaYQjgtd3LA5F8ZcX4kumZmbRzbDGNf6E3KItwJR2LPV1ZSdLHXZqFuwbDGW4M3VnOFNmauRvp9h76/WTje/Ao7sb6/KptuRmkgS1vEIFqgXgT+OLI8qCFdkS9iWQ8kWgXkRYXib+fTecOOffn8lSntXI0xrDx7LJVye8OdRh7TfMjSSCEmfaXh8Rm8oWyf80vg+bKMwuLga7i6xOzQCi3f3KLqhtDo/2k18aAXn5o7smvxZZimqZ57aMOnQmOZeEgkabgnRkuV5tfVSuPISmgd2mqf0Vn0JL8SPVFSBkK3tMe/bJsGyw==
+ b=QtaqdpmBP/fpErwGkg3CkummK89ztJkvt9wXVrQ6VF1+jQHEvFyyQc05qn0+vzV5MWjBqda7iwdl3A1L8QkhU7OG/BNjaDfCnb1OaRL5bqArO0dS/oTg/63DpOGCDJ1FhU++Nuy7oRN188CcMg6PgZgLB2lAN1F1/jV7etYsIRuVtD1jAVE2ulYSD+sNOJ42Vs9OHjO4ctbwgtWT4N2zrIUES750nS2UsfnBNoFlA1slwidOeRujFAnei4DxzyArtcUHNUDpcbIjoEyUwnf4F32T/Tnm01qt6lugwwV4GR6EP53bgtmrm91OB4IhuWeKBaGRMs4IKByJ2DHKoEMVuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KpZMCwdldJIDuS4DzwsgR5vydnpjw7imk7naalgAj1M=;
- b=YMHQQq8I4WuuzdXbqdQz0u6RLP2vPhAdYIb+h81/3Z5y5wXdaFFIMEPEwPCAMEjwBa21BXR58swznMfibbjZb9/6PbQUkm/x0KbQunSJgpp/QRwbNolMq77/th3EcyOMoBw+VXBtvpxEFDo4B61TEJ1/Jb27INrXh0WFy3JY48VB8dimhONEbFGNuBLXzLnTW00LeTvHoScmxC2cjYnvPQX1FSQqyFgeywwM4v30NiSvh2wzY7oeAcYbv1E8fmKA8SEc/nFL1hvOcd9Mf6PAjyK2TBFDpJ4QBWX3CRxE3qHyuW2QC+Sq6O2mXjWsVYl+IQzHvrSfdEr+KImr4Mexzw==
+ bh=LcdvDONO3jlFN+5fNeuhLZ0qPto8nPcarVhD0e7QbLU=;
+ b=Ahq3FNQM/dXWT8FpWK4lNF2vPT4Cgex/APvykTjDw5OclxNoTzCS5q5rk8n0vbakf6FEEWs0rfxMdLBeYT9GFf96MkqdDskZmY3GlkRRQ9ipYnT2A/4sFlAgORLL9iBiNXh/2TaReSWqB8atkOKsFQ75G2yXJ1V07MNkiKY8wWc3Rm26yyerUaw4VC5uPwGFwTShilI/xcRTj2FKCVwPGBiNzQV6azwvAzax5cL/twlNX94sODius/CQEqHtV80j89JNeJZd830hnJcGDr+qu3ICpytFRDQjQvQWP9kcSresyHOoIG7mdffqixnqBtCLxHXjeJpL1vsqIP4XKCnjGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KpZMCwdldJIDuS4DzwsgR5vydnpjw7imk7naalgAj1M=;
- b=opRRL1WAKtQL4BY9jDe/4joQ3/lv+K0yNujnDvDQ0MMFOOfIneABA7ZWJ91Xz/Bo1EEt1B3DB40HyV0oPTsUD7oACX9AwifcAiJ8ht1vbFwquKb7+B9+/WkeTAvHl0wd8JjvA6JDMIzq34NzMRcA5YA/QRzsXCYqLhO94dVJnmg=
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
- CY5PR12MB6274.namprd12.prod.outlook.com (2603:10b6:930:21::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6699.24; Mon, 21 Aug 2023 13:28:39 +0000
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::fc6e:93c6:2283:ecdb]) by DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::fc6e:93c6:2283:ecdb%4]) with mapi id 15.20.6678.031; Mon, 21 Aug 2023
- 13:28:39 +0000
-From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-To: "Lin, Wayne" <Wayne.Lin@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 00/16] DC Patches August 18, 2023
-Thread-Topic: [PATCH 00/16] DC Patches August 18, 2023
-Thread-Index: AQHZ0AfmuRiLghIhzEecUVdRWraD/q/0xWbw
-Date: Mon, 21 Aug 2023 13:28:39 +0000
-Message-ID: <DS0PR12MB6534D35A81229F25A07804479C1EA@DS0PR12MB6534.namprd12.prod.outlook.com>
-References: <20230816060658.2141009-1-Wayne.Lin@amd.com>
-In-Reply-To: <20230816060658.2141009-1-Wayne.Lin@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=bbc1c7c2-8eee-4c63-a615-1a622a06cf01;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-08-21T13:28:29Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=LcdvDONO3jlFN+5fNeuhLZ0qPto8nPcarVhD0e7QbLU=;
+ b=hZG9mq3dbBkt7ZdA99inutojkYALvidYwwZElP2IZ8WrheQeHz8XpygQ4/cGFZSIX7WJCZrfa3k9Gmj45JZtldu9VdKoP6AQrl3+hpuUolOrA+s3/sD5ByXy8LFkdxeI2ahJvbfav8L9j0ujwN9UvqAzxlFSjRCQCNh1n73PHi0=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|CY5PR12MB6274:EE_
-x-ms-office365-filtering-correlation-id: fa99d22d-39ce-42f2-e939-08dba24a87cd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 0KWa8xw9qWZz51wBUuA6Z8aNhJqnQh2ymIkHuFg4QlOBFWYSXEwBZVyFN2SbMpxJaBYGRj6tNOBXrpTSgohoHZ9k9QYnjYr2Wi4Kl3mjzDwNmldJxcdnnGmLUoGmH8c+jSuO4ZaE8wS3HmTZXGBLVPPQKmTygJZ4NHc2gkEmMYhz+6vgDeMHqy7C5MgcWaSrbe0Qrs4Zd4EcA7g3FaG3rbMjkuPhBD92V6b1EVgBePAuOlcTr9/iXyORn0SaNtsTqEOx3GGbXoIfG6bImrSIJpCqchuXcyLQSv5lBGQfx2GCFo0ra3Q+U/KMK3iipIKWjpXYNYJdTdl3/fZL04/pgA6x23UOIQ9JVJj2dRkinhmkzaEo4P+pjATSSbq9QCtTfSSFnD41S/YjnMJlWobd/1SIHJ/0OD4CCiRwN1Udle4pEjQudbyl8O7Je/0KtzRD9CmAIzY5bYp89jAIkaVyQSF8CALILK4BKpbSIQw8y5OgcM/aeVDQw5du53FkDP0abvNk7PuLlmjPFuwbaPsMVXVXtA0RYviCEvv2rJ0F1am0px23b0rjUBMXMQ7bX3DPKFmdl7nKpWHdli1VwGzQp9+2jk6ZIBO86B/aKdlHamw=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(366004)(39860400002)(376002)(136003)(396003)(451199024)(186009)(1800799009)(2906002)(53546011)(38100700002)(38070700005)(6506007)(83380400001)(5660300002)(52536014)(33656002)(26005)(7696005)(86362001)(8676002)(8936002)(4326008)(316002)(9686003)(66946007)(64756008)(54906003)(66446008)(66556008)(76116006)(66476007)(110136005)(478600001)(122000001)(55016003)(71200400001)(41300700001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?p1AEU2gaSWGgLANbtf4rxdSSyZcH3R56L8XY0N1xfV5zfxG9QhOnM+YvMYlT?=
- =?us-ascii?Q?pSrbjsBkadA1jSDXky+QaPJ6s3m6qCEtxnFDHOR5OCdCEY+abC1IaWO2ryK4?=
- =?us-ascii?Q?xhaQcldUYkpgrr10i9Ush8ARZqCDytWxJMIS220MtCMZj3/v14PSc7zpfETp?=
- =?us-ascii?Q?ICLtDXzZLbIUYPEztxnaGbi0kV/teV7JodZuaoWwAAZwk6H6V4Jaw9r/7G0/?=
- =?us-ascii?Q?YJd0nj2sy2iAoQZLYSTdJ1j1koSfNbCeIJAgVIcxgcnX5XwKbmCQZ92GTgAJ?=
- =?us-ascii?Q?4Fho4r7+tCGjpIWPeZf4xdu7mUEgBFLdUNOU8iHmybUAX+qDJx5cQnLvsg4w?=
- =?us-ascii?Q?j/PA5OuMYuFnGgY3OocBZniaMSM+IL6AiUoUKaOUxpq7/AMrXUPFM2QQ05wi?=
- =?us-ascii?Q?L+HKHcJ1Jh1hlfAlu01IwIf1AEWV+paTYyGOxVUdTB4ZI6BzH/T8Bku8lJpG?=
- =?us-ascii?Q?9Oh6JOeuMbpjHF4ua8JB3XaSAh/IE0W611yjBtxuGnAb9okvu4G4vCu9xFll?=
- =?us-ascii?Q?0cbheUiYc0NhvOUQIQ3Bt9gq1FkrMS0Js079KMAtZejKz8Vq3BjRG+z8zb5F?=
- =?us-ascii?Q?90ZkZBS2LgE9pHCkVjTgY7bgCzNidqNfY5jqHQAtf3TNKaRkrYLZb7Gi70Rn?=
- =?us-ascii?Q?0AXB7cJZe2q8WcGng/gArw15j5pIwj49OoOZsaukU+L9g3fUIVMTjsQhA4z9?=
- =?us-ascii?Q?2d+05rmi4hYFFa5YIf+Acpm1E4sG8+HgXSGV22CK3j1I7LV0txSVleh802Dt?=
- =?us-ascii?Q?ohwV209DhkBpxkX9KGvu6y1oIMPJS7q8QX86ql0vY3jICiXJqm0FoDjmTffo?=
- =?us-ascii?Q?AC4BdWHk16iLptrtkcAXqm4ZzoZ3NYh1uRTN4FdPuY7c7qznlzjuyGn4AXP1?=
- =?us-ascii?Q?/6wGdEr8CSRZ46ryQDJbm3RGf8OxVyO79Mmx2SxAVCj+LP54YXmycYmM+skR?=
- =?us-ascii?Q?wb27uWoVCas9BKRDuh/wIOlLQqW+/PaVVobiRTLxFIdXHzMEUm6KVluIaG4Z?=
- =?us-ascii?Q?chfDcrFrd6pCa8rJdhm8p3Bg2OUWTrAt7DqMIkabQ2T8jXRb8JGh6NB0FXap?=
- =?us-ascii?Q?+sHwS3CI533b9Wq3R50VoWB9AnvkvpkL6t63j+heVeLREqxEelB/AX9NVhyI?=
- =?us-ascii?Q?RA63NaozcJKIhxNcrW8F34hKSQQZdaUmXZltD6k8GBlZDculTmnr1+uU5x05?=
- =?us-ascii?Q?R+zee1li4Zr6KCNuve+VtSGUews+SWIyvKk2KlzerEgXJmhMpKQk8teC+cXl?=
- =?us-ascii?Q?TmXh0Y4F3QMus1/WRRNUx0IbRyHkyFXTNStH2Znf8qTPv3A0RUGOii9FuLgA?=
- =?us-ascii?Q?GUh9JvLLBLvBmKSO21uWMiUnxT1UkoouveaH61i/2q1c27xu6oqEFh4GFCW3?=
- =?us-ascii?Q?wRWTWRCsREA9AamnLmikB2ZSajE7G8LhXlYDWwtQcK5phZxUENflBCw7bl+9?=
- =?us-ascii?Q?Xm+oZXzXXiAOLrDJ7Drq7dw86ErZ2gYOSDiTx6FSb7biKNKJpe288zIo6Lin?=
- =?us-ascii?Q?FzoMbWVOvcqYopma9+tDEKrHfdM1ekaa0d7NcqPhyE2CA5Bd4aqp0JMeanAw?=
- =?us-ascii?Q?tNx1tao8ubAJGV8oja8=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from PH7PR12MB6000.namprd12.prod.outlook.com (2603:10b6:510:1dc::15)
+ by SJ0PR12MB5664.namprd12.prod.outlook.com (2603:10b6:a03:42b::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20; Mon, 21 Aug
+ 2023 13:35:22 +0000
+Received: from PH7PR12MB6000.namprd12.prod.outlook.com
+ ([fe80::f78e:33f4:56d2:1ef4]) by PH7PR12MB6000.namprd12.prod.outlook.com
+ ([fe80::f78e:33f4:56d2:1ef4%7]) with mapi id 15.20.6699.020; Mon, 21 Aug 2023
+ 13:35:22 +0000
+Message-ID: <90f7c142-3372-536f-accc-a04baaf9f666@amd.com>
+Date: Mon, 21 Aug 2023 19:05:11 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v2 1/7] drm/amdgpu: Added init/fini functions for workload
+Content-Language: en-US
+To: Shashank Sharma <shashank.sharma@amd.com>,
+ Arvind Yadav <Arvind.Yadav@amd.com>, Christian.Koenig@amd.com,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
+References: <20230821064759.94223-1-Arvind.Yadav@amd.com>
+ <20230821064759.94223-2-Arvind.Yadav@amd.com>
+ <3e20b067-c02a-1911-cac9-3e547a14b565@amd.com>
+From: "Yadav, Arvind" <arvyadav@amd.com>
+In-Reply-To: <3e20b067-c02a-1911-cac9-3e547a14b565@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0097.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9b::16) To PH7PR12MB6000.namprd12.prod.outlook.com
+ (2603:10b6:510:1dc::15)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6000:EE_|SJ0PR12MB5664:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2931116-a673-4332-170c-08dba24b77ca
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: slSQhB1MMT2bG5QwGXSLHU6zqNycJsfU1WMPFvxm6VE+/SG0Cb+1nlPOSKLwYxabFRktJUUiSUngEPn0HItCA50FLK2EeFL0EUcaN4fQP044vMNKplxDA7SNfD7woktdX+wBBYbscp/gk2hRgABwBdnzYmMWVP8tbpZLYr0rdvTvaodMeQBuuAJ61u4EoOe2i8jpOvJEREqt3X0Um5g1+RN5WKpc+tvUKrtKP4siJh708jEur7v805zNe8A5G0iodn7WEJvon5TiGgxw2/hMiAfVvUW7W9M+hk2n3lXf4Mp6BL0gNBgmANhWvxPR5n8i+qRSXAvSBnzZe20kF8mqskFh7ZX0v5d8JBBt9eOfIea1xveMJY7Ugk0RrXIX8t62wLhq0js4KCSoqbhnstJU1XzvPEhXyczHmCuvRnUCaX45Qk97XPOTAhXMQeEKihYjxRBl7upqYkYJ/15UODEZ1zfSIqltd2QlngNKGS4bgEcjuDxentqbUY7ulMwJcleU16pRHQHHQ+IZCL7HePR0USslLLCVOho1Wxk4vaWXMksgdJRRYRQ4wVS043hwkj7vIxNu5c/dorJI2zNReJgumm7HTom+vVoOdlIYzeGctIkjPr2Q6bxL161bwsVLpiIELr/yBk1n2GcL5Cvo/OAKkw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB6000.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(366004)(39860400002)(376002)(136003)(396003)(451199024)(186009)(1800799009)(2906002)(30864003)(45080400002)(53546011)(38100700002)(6506007)(6486002)(83380400001)(5660300002)(26005)(31686004)(31696002)(8676002)(2616005)(8936002)(4326008)(316002)(66946007)(6512007)(66556008)(66476007)(110136005)(66899024)(478600001)(6666004)(36756003)(41300700001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TkoydFptWklZcy80Z2xWQlN3aVRjUEVFeFFiZHZvbW1LUlRvSlRtL3NXVUJp?=
+ =?utf-8?B?amo2cERLbE5vOURZS1RLbUpvS1hGSEJqVkR1ZXNnWjJ3L0Z3d2hhNGhNV1hK?=
+ =?utf-8?B?dWR4Vm9lRzNUOWR5dXJ4ZkFHcnovUjJwS2JpSnBYTHUrUm1RQlQyZ2JVYlhM?=
+ =?utf-8?B?bEl6REsvcE4zaHFHZWxsdUl6d3g1Z0FyOWhMcWU2ckJBenZqejFzQTEwSVc0?=
+ =?utf-8?B?amUwVFlGNGRZYnFjWW9iWDhjaFJXd2NJemtpa3dJa0NVd0FreEJxMmVmdzQz?=
+ =?utf-8?B?OStzWEkrWHJzYitwYWQ0V0I1VTBMUXhxRTNiSjI1YzMvOStpdUZ6MCtSS3Bl?=
+ =?utf-8?B?WDlsdTVQVDBKQ3FmUzhjZkVqMnRtUWk4Qm0vZFpGRnFsMnlZVWJHSWdqY2lF?=
+ =?utf-8?B?QWVXZnlaQVNXUjIyZlY0UXVRaFlIbGQ1VnBKYzd4L3IweklHL3RJS0pzQ1V3?=
+ =?utf-8?B?ak01RENEdVc0WTNhSDVjOG43MzNlVnU4UWVsVjN2STcrYzJoSkFBZU1LbVJy?=
+ =?utf-8?B?bFpDbTRCSEhEWGVkbkVlSE9xaXhSRUQ1QmF6TXVwZHFDUW9mUXFub21yTXpq?=
+ =?utf-8?B?ZklieHhyVUhXOUFDTmhoTFdWSG15bnNhMnNkUnhtc3hHZE1IdmJ4SFpzdlU3?=
+ =?utf-8?B?ck1ZWVBIQXViQlBVVXdWVHZINnV5c0VXaEhwZHUwQ3A5ZFpWbnppbCs1ZWw4?=
+ =?utf-8?B?dW0vczBhcnBHQnFvVWFIT2U1eWgrdnZUQURMUHBtMGhnZU9UZlQvS2RVQ2lT?=
+ =?utf-8?B?b01kWXVSaFFJR2E2UzR6TWpGL2lib2VCMmUvVzcwYllERWZJc0FBMzBPcDBE?=
+ =?utf-8?B?SWJBU2FBdTJoNWFrMjVLMFFiWFdmUDF3YmhoMDhnb3A3a0ZBaDFOM0VBa0pV?=
+ =?utf-8?B?NVVuZWYwK0J1cUVEajYxWVorTUZUWkRnUFVhcHZEenZiVnMrdlRuem1wQ3BU?=
+ =?utf-8?B?cDNuNzNpY1h1VHNLTU5jT3o3QnFkcnZmaG1rdzdqNlJvZ254UHBFU2NTcUh3?=
+ =?utf-8?B?ejN6QXI1bmsra0JEcWhlVnFMM3I4S0NNMUhQQ21CWmJDYnZVVFJBNVFMdkFB?=
+ =?utf-8?B?cjJlSkpxemJHNVhrWlRZZG1DRU1SbjBPem5qbXZ1Tit2Ly9DUHVNdVkzMlZT?=
+ =?utf-8?B?R1JhQVJIRTR4SVpBaVJDVENSZnZ2ZEh4RW1Td3ZLcFM5cHBhWUsybkR1bzRJ?=
+ =?utf-8?B?cHhCcWQ1a0tFS1hueTd2S2QvWGJ6anZHS09GZkIxaDgzRVlNb2tFQmRDZXl3?=
+ =?utf-8?B?NzZWSnd0Qk8xMEVFeVhqbXZMM2syWWIxMTlaWWlLeXFvL1FGTGZwVCtQNlJ3?=
+ =?utf-8?B?ZkFHQ3pKaGw2RmIzWkJsaFpKejU2eHE5clVnSUFrTjVIb0VXZDJnM0JrdmY5?=
+ =?utf-8?B?MGo4RkVEV29KaTVIczBweU10ZWJoVmdRK3IwblhOS2s3dXdjbGljYkR3UE1i?=
+ =?utf-8?B?ZWkxdFM1eGJ1WWdWckp6clQxZWwwVlpoRUJMeEt5VDc4alBJRjMyYjhQQ3B6?=
+ =?utf-8?B?eUt4OTM2UGlDV1BBQTE4QkpIdDd0S1cwNG9yMXNGUFVhS3RnSjA3MkV5U3N1?=
+ =?utf-8?B?RWtXOUtiSTRFT2JFSi8zMTdrV2FFUWVyeXl2anhZN0tvZ2M1eXNNemI3RTVE?=
+ =?utf-8?B?Z0VMQUhCRVAwWDhHaW1IV0ZCaGVPRHI3c3dndzJuRVZFdzVwamlaM24xZkVL?=
+ =?utf-8?B?enJlcWVrSFVubjVIQnk2UmEzTnRSZkQ1Tm5iQTJJY1FMaXBBSi9SUkFxeXhh?=
+ =?utf-8?B?cC85YWdEWmV5MmhtQVUzc3Z0M0RXU01ha1lIeUhtc2RBY2R1K3NXOVFmM1pU?=
+ =?utf-8?B?dlhUb24rVnJOTXREZXEzanFDbTRwSTFJM3ZjUkMrYTFFMTY5Z2xmVGtZTDFR?=
+ =?utf-8?B?cWR0N2RSdU9xQVp2d29maWZzcm9obS8xcE5RNmx1Rk8xeFd1di8raFc4MkR1?=
+ =?utf-8?B?dG9NSGJBS1M5SkMzZm9lRWI2MDI4YzVERm5GNzBadllsT09wcjZsVUNqNy9s?=
+ =?utf-8?B?MzRBaGpsbGVsNXp4LzV6V0E5VWgrY0dPUUNWQTA3bkhkelcybTMzTVhmeXZ6?=
+ =?utf-8?B?VzMxbTA5RHVOeTJ1Nlg3VFJMdmFGQlhSbThKMXNjL1NzNEZ1WHd0VkhIcDZv?=
+ =?utf-8?Q?Awpp8dfJ1od12S/Fg3G4W8yaU?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2931116-a673-4332-170c-08dba24b77ca
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6000.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa99d22d-39ce-42f2-e939-08dba24a87cd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2023 13:28:39.2319 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fMTvHpYAo6uXqaONfPltkGTa/tQPOvKzWJLJQEKbb1gEYJq5C5phn07q4ryzUXa+zTnVU+be905TuA4KkWWNlw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6274
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2023 13:35:22.3290 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3LDn7EOzhFHsrtV9Apt5vUgU0EN2Xjm2BQhP5NNNqCazxwQU7Zi5qh0/Pdoq7U6FEkJPH4qB5OL/doMXCfodPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5664
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,186 +128,339 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Li,
- Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Zhuo,
- Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>, "Li, Roman" <Roman.Li@amd.com>, "Chiu, 
- Solomon" <Solomon.Chiu@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
- "Lin, Wayne" <Wayne.Lin@amd.com>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Gutierrez,
- Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
 
-Hi all,
+On 8/21/2023 6:36 PM, Shashank Sharma wrote:
+> Hey Arvind,
+>
+> On 21/08/2023 08:47, Arvind Yadav wrote:
+>> The'struct amdgpu_smu_workload' initialization/cleanup
+>> functions is added by this patch.
+>>
+>> v2:
+>> - Splitting big patch into separate patches.
+>> - Added new fini function.
+>>
+>> Cc: Shashank Sharma <shashank.sharma@amd.com>
+>> Cc: Christian Koenig <christian.koenig@amd.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Signed-off-by: Arvind Yadav <Arvind.Yadav@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/Makefile           |  2 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  3 ++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  4 ++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c  | 44 +++++++++++++++
+>>   drivers/gpu/drm/amd/include/amdgpu_workload.h | 53 +++++++++++++++++++
+>>   5 files changed, 105 insertions(+), 1 deletion(-)
+>>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c
+>>   create mode 100644 drivers/gpu/drm/amd/include/amdgpu_workload.h
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile 
+>> b/drivers/gpu/drm/amd/amdgpu/Makefile
+>> index 415a7fa395c4..6a9e187d61e1 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+>> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+>> @@ -60,7 +60,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+>>       amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+>>       amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+>>       amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
+>> -    amdgpu_ring_mux.o
+>> +    amdgpu_ring_mux.o amdgpu_workload.o
+>>     amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+>>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> index 02b827785e39..1939fa1af8a6 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> @@ -107,6 +107,7 @@
+>>   #include "amdgpu_fdinfo.h"
+>>   #include "amdgpu_mca.h"
+>>   #include "amdgpu_ras.h"
+>> +#include "amdgpu_workload.h"
+>>     #define MAX_GPU_INSTANCE        16
+>>   @@ -1050,6 +1051,8 @@ struct amdgpu_device {
+>>         bool                            job_hang;
+>>       bool                            dc_enabled;
+>> +
+>> +    struct amdgpu_smu_workload    smu_workload;
+>>   };
+>>     static inline struct amdgpu_device *drm_to_adev(struct drm_device 
+>> *ddev)
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> index 5c7d40873ee2..cd3bf641b630 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -2243,6 +2243,8 @@ static int amdgpu_device_ip_early_init(struct 
+>> amdgpu_device *adev)
+>>       adev->cg_flags &= amdgpu_cg_mask;
+>>       adev->pg_flags &= amdgpu_pg_mask;
+>>   +    amdgpu_workload_profile_init(adev);
+>> +
+>>       return 0;
+>>   }
+>>   @@ -2890,6 +2892,8 @@ static int amdgpu_device_ip_fini(struct 
+>> amdgpu_device *adev)
+>>   {
+>>       int i, r;
+>>   +    amdgpu_workload_profile_fini(adev);
+>> +
+>>       if (amdgpu_sriov_vf(adev) && adev->virt.ras_init_done)
+>>           amdgpu_virt_release_ras_err_handler_data(adev);
+>>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c
+>> new file mode 100644
+>> index 000000000000..32166f482f77
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c
+>> @@ -0,0 +1,44 @@
+>> +// SPDX-License-Identifier: MIT
+>> +/*
+>> + * Copyright 2023 Advanced Micro Devices, Inc.
+>> + *
+>> + * Permission is hereby granted, free of charge, to any person 
+>> obtaining a
+>> + * copy of this software and associated documentation files (the 
+>> "Software"),
+>> + * to deal in the Software without restriction, including without 
+>> limitation
+>> + * the rights to use, copy, modify, merge, publish, distribute, 
+>> sublicense,
+>> + * and/or sell copies of the Software, and to permit persons to whom 
+>> the
+>> + * Software is furnished to do so, subject to the following conditions:
+>> + *
+>> + * The above copyright notice and this permission notice shall be 
+>> included in
+>> + * all copies or substantial portions of the Software.
+>> + *
+>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+>> EXPRESS OR
+>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+>> MERCHANTABILITY,
+>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO 
+>> EVENT SHALL
+>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
+>> DAMAGES OR
+>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+>> OTHERWISE,
+>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE 
+>> USE OR
+>> + * OTHER DEALINGS IN THE SOFTWARE.
+>> + *
+>> + */
+>> +
+>> +#include "amdgpu.h"
+>> +
+>> +void amdgpu_workload_profile_init(struct amdgpu_device *adev)
+>> +{
+>> +    adev->smu_workload.adev = adev;
+>> +    adev->smu_workload.submit_workload_status = 0;
+>> +    adev->smu_workload.initialized = true;
+> why do we need this variable ?
 
-This week this patchset was tested on the following systems:
-        * Lenovo ThinkBook T13s Gen4 with AMD Ryzen 5 6600U
-        * MSI Gaming X Trio RX 6800
-        * Gigabyte Gaming OC RX 7900 XTX
+Hi Shashank,
 
-These systems were tested on the following display/connection types:
-        * eDP, (1080p 60hz [5650U]) (1920x1200 60hz [6600U]) (2560x1600 120=
-hz[6600U])
-        * VGA and DVI (1680x1050 60hz [DP to VGA/DVI, USB-C to VGA/DVI])
-        * DP/HDMI/USB-C (1440p 170hz, 4k 60hz, 4k 144hz, 4k 240hz [Includes=
- USB-C to DP/HDMI adapters])
-        * Thunderbolt (LG Ultrafine 5k)
-        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60Hz displays)
-        * DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60 display=
-s, and HP Hook G2 with 1 4k60 display)
-        * USB 4 (Kensington SD5700T and 1x 4k 60Hz display)
-        * PCON (Club3D CAC-1085 and 1x 4k 144Hz display [at 4k 120HZ, as th=
-at is the max the adapter supports])
+If any error comes while the device is booting then amdgpu will start 
+unloading everything.
+So I am using 'initialized' for unloading a driver successfully. This 
+variable is to identify that the driver is loaded or not.
 
-The testing is a mix of automated and manual tests. Manual testing includes=
- (but is not limited to):
-        * Changing display configurations and settings
-        * Benchmark testing
-        * Feature testing (Freesync, etc.)
+This is the below error for which the amdgpu driver is unloading when it 
+is not getting firmware.
 
-Automated testing includes (but is not limited to):
-        * Script testing (scripts to automate some of the manual checks)
-        * IGT testing
+[   12.421609] amdgpu 0000:08:00.0: Direct firmware load for 
+amdgpu/renoir_ta.bin failed with error -2
+[   12.421618] [drm:amdgpu_device_init [amdgpu]] *ERROR* early_init of 
+IP block <psp> failed -19
+[   12.428207] [drm] VCN decode is enabled in VM mode
+[   12.428212] [drm] VCN encode is enabled in VM mode
+[   12.430925] [drm] JPEG decode is enabled in VM mode
+[   12.430931] amdgpu 0000:08:00.0: amdgpu: Fatal error during GPU init
+[   12.431184] amdgpu 0000:08:00.0: amdgpu: amdgpu: finishing device.
+[   12.431296] ------------[ cut here ]------------
+[   12.431297] WARNING: CPU: 3 PID: 438 at kernel/workqueue.c:3379 
+__flush_work+0x22f/0x240
+[   12.431305] Modules linked in: ledtrig_audio snd_hda_codec_hdmi 
+snd_hda_intel snd_intel_dspcfg snd_intel_sdw_acpi snd_hda_codec 
+snd_hda_core amdgpu(OE+) snd_hwdep snd_pcm kvm snd_seq_midi 
+snd_seq_midi_event drm_exec amdxcp snd_rawmidi iommu_v2 crct10dif_pclmul 
+drm_buddy gpu_sched ghash_clmulni_intel sha512_ssse3 snd_seq 
+drm_suballoc_helper aesni_intel drm_ttm_helper binfmt_misc crypto_simd 
+snd_seq_device ttm cryptd snd_timer drm_display_helper input_leds rapl 
+joydev cec wmi_bmof rc_core snd drm_kms_helper k10temp ccp soundcore 
+mac_hid sch_fq_codel msr parport_pc ppdev lp parport ramoops 
+reed_solomon drm pstore_blk pstore_zone efi_pstore ip_tables x_tables 
+autofs4 hid_generic usbhid hid crc32_pclmul nvme igb ahci i2c_piix4 
+xhci_pci i2c_algo_bit nvme_core libahci xhci_pci_renesas dca video wmi
+[   12.431360] CPU: 3 PID: 438 Comm: systemd-udevd Tainted: G        W  
+OE      6.5.0-rc2-custom #1
+[   12.431362] Hardware name: Gigabyte Technology Co., Ltd. X570 AORUS 
+ELITE/X570 AORUS ELITE, BIOS F34 06/10/2021
+[   12.431364] RIP: 0010:__flush_work+0x22f/0x240
+[   12.431367] Code: 8b 43 30 48 8b 53 40 89 c1 e9 f9 fe ff ff 4c 89 f7 
+e8 45 0b db 00 e8 90 f5 08 00 45 31 ff e9 11 ff ff ff 0f 0b e9 0a ff ff 
+ff <0f> 0b 45 31 ff e9 00 ff ff ff e8 02 a0 d9 00 66 90 90 90 90 90 90
+[   12.431368] RSP: 0018:ffffb0668156f818 EFLAGS: 00010246
+[   12.431370] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 
+0000000000000000
+[   12.431371] RDX: 0000000000000001 RSI: 0000000000000001 RDI: 
+ffff9cea492c7840
+[   12.431372] RBP: ffffb0668156f890 R08: 0000000000000000 R09: 
+ffffb0668156f7a0
+[   12.431372] R10: 0000000000000001 R11: 0000000000000001 R12: 
+ffff9cea492c7840
+[   12.431373] R13: 0000000000000001 R14: ffff9cea43839940 R15: 
+0000000000000001
+[   12.431374] FS:  00007fde83c18880(0000) GS:ffff9cf15e2c0000(0000) 
+knlGS:0000000000000000
+[   12.431375] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   12.431376] CR2: 00007f2648000010 CR3: 00000001059e2000 CR4: 
+0000000000350ee0
+[   12.431377] Call Trace:
+[   12.431379]  <TASK>
+[   12.431384]  ? show_regs+0x68/0x70
+[   12.431388]  ? __flush_work+0x22f/0x240
+[   12.431389]  ? __warn+0x8f/0x150
+[   12.431392]  ? __flush_work+0x22f/0x240
+[   12.431394]  ? report_bug+0x1f5/0x200
+[   12.431399]  ? handle_bug+0x46/0x80
+[   12.431402]  ? exc_invalid_op+0x19/0x70
+[   12.431404]  ? asm_exc_invalid_op+0x1b/0x20
+[   12.431408]  ? __flush_work+0x22f/0x240
+[   12.431410]  ? irq_work_queue+0x10/0x60
+[   12.431414]  ? __wake_up_klogd.part.0+0x5a/0x80
+[   12.431419]  __cancel_work_timer+0x124/0x1b0
+[   12.431421]  ? _printk+0x58/0x80
+[   12.431423]  cancel_delayed_work_sync+0x13/0x20
+[   12.431427]  amdgpu_workload_profile_fini+0x25/0x40 [amdgpu]
+[   12.431854]  amdgpu_device_fini_sw+0x33/0x550 [amdgpu]
+[   12.432035]  amdgpu_driver_release_kms+0x16/0x30 [amdgpu]
+[   12.432213]  drm_dev_release+0x28/0x50 [drm]
+[   12.432256]  devm_drm_dev_init_release+0x38/0x60 [drm]
+[   12.432278]  devm_action_release+0x15/0x20
+[   12.432283]  release_nodes+0x40/0xc0
+[   12.432285]  devres_release_all+0x9e/0xe0
+[   12.432286]  device_unbind_cleanup+0x12/0x80
+[   12.432289]  really_probe+0x116/0x3e0
+[   12.432291]  __driver_probe_device+0x7e/0x170
+[   12.432293]  driver_probe_device+0x23/0xa0
+[   12.432295]  __driver_attach+0xc5/0x190
+[   12.432297]  ? __pfx___driver_attach+0x10/0x10
+[   12.432299]  bus_for_each_dev+0x7c/0xd0
+[   12.432302]  driver_attach+0x1e/0x30
+[   12.432304]  bus_add_driver+0x11c/0x220
+[   12.432306]  driver_register+0x64/0x130
+[   12.432309]  ? __pfx_amdgpu_init+0x10/0x10 [amdgpu]
+[   12.432491]  __pci_register_driver+0x68/0x70
+[   12.432494]  amdgpu_init+0x63/0xff0 [amdgpu]
+[   12.432667]  do_one_initcall+0x48/0x310
+[   12.432671]  ? kmalloc_trace+0x2a/0xa0
+[   12.432675]  do_init_module+0x6a/0x260
+[   12.432677]  load_module+0x1db3/0x2050
+[   12.432681]  init_module_from_file+0x9c/0xe0
+[   12.432682]  ? init_module_from_file+0x9c/0xe0
+[   12.432685]  idempotent_init_module+0x179/0x230
+[   12.432687]  __x64_sys_finit_module+0x5d/0xb0
+[   12.432689]  do_syscall_64+0x3b/0x90
+[   12.432691]  entry_SYSCALL_64_after_hwframe+0x6e/0xd8
 
-The patchset consists of the amd-staging-drm-next branch (Head commit - 06e=
-1ec5a9a88 drm/amd/display: Promote DAL to 3.2.247) with new patches added o=
-n top of it.
+>> +
+>> +    mutex_init(&adev->smu_workload.workload_lock);
+>> +}
+>> +
+>> +void amdgpu_workload_profile_fini(struct amdgpu_device *adev)
+>> +{
+>> +    if (!adev->smu_workload.initialized)
+>> +        return;
+>> +
+>> +    adev->smu_workload.submit_workload_status = 0;
+>> +    adev->smu_workload.initialized = false;
+>> +    mutex_destroy(&adev->smu_workload.workload_lock);
+>> +}
+>> diff --git a/drivers/gpu/drm/amd/include/amdgpu_workload.h 
+>> b/drivers/gpu/drm/amd/include/amdgpu_workload.h
+>> new file mode 100644
+>> index 000000000000..5d0f068422d4
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/amd/include/amdgpu_workload.h
+>> @@ -0,0 +1,53 @@
+>> +/* SPDX-License-Identifier: MIT */
+>> +/*
+>> + * Copyright 2023 Advanced Micro Devices, Inc.
+>> + *
+>> + * Permission is hereby granted, free of charge, to any person 
+>> obtaining a
+>> + * copy of this software and associated documentation files (the 
+>> "Software"),
+>> + * to deal in the Software without restriction, including without 
+>> limitation
+>> + * the rights to use, copy, modify, merge, publish, distribute, 
+>> sublicense,
+>> + * and/or sell copies of the Software, and to permit persons to whom 
+>> the
+>> + * Software is furnished to do so, subject to the following conditions:
+>> + *
+>> + * The above copyright notice and this permission notice shall be 
+>> included in
+>> + * all copies or substantial portions of the Software.
+>> + *
+>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+>> EXPRESS OR
+>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+>> MERCHANTABILITY,
+>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO 
+>> EVENT SHALL
+>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
+>> DAMAGES OR
+>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+>> OTHERWISE,
+>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE 
+>> USE OR
+>> + * OTHER DEALINGS IN THE SOFTWARE.
+>> + *
+>> + */
+>> +
+>> +#ifndef _AMDGPU_WORKLOAD_H_
+>> +#define _AMDGPU_WORKLOAD_H_
+>> +
+>> +struct amdgpu_smu_workload {
+>> +    struct amdgpu_device    *adev;
+>> +    struct mutex        workload_lock;
+>> +    struct delayed_work    smu_delayed_work;
+>
+> call it power_profile_work instead ? Looks good otherwise.
+>
+Noted.
 
-Tested on Ubuntu 22.04.3, on Wayland and X11, using Gnome for both.
+Thank you
 
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+~Arvind
 
-
-Thank you,
-
-Dan Wheeler
-Sr. Technologist | AMD
-SW Display
----------------------------------------------------------------------------=
----------------------------------------
-1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
-amd.com
-
------Original Message-----
-From: Wayne Lin <Wayne.Lin@amd.com>
-Sent: Wednesday, August 16, 2023 2:07 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Siqueira, Rodri=
-go <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>=
-; Zhuo, Qingqing (Lillian) <Qingqing.Zhuo@amd.com>; Li, Roman <Roman.Li@amd=
-.com>; Lin, Wayne <Wayne.Lin@amd.com>; Wang, Chao-kai (Stylon) <Stylon.Wang=
-@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>; Kotarac, Pavle <Pavle.Kota=
-rac@amd.com>; Gutierrez, Agustin <Agustin.Gutierrez@amd.com>; Lin, Wayne <W=
-ayne.Lin@amd.com>; Wheeler, Daniel <Daniel.Wheeler@amd.com>
-Subject: [PATCH 00/16] DC Patches August 18, 2023
-
-This DC patchset brings improvements in multiple areas. In summary, we have=
-:
-
-- Ensure FS is enabled before sending request to DMUB for FS changes
-- Add check for PMFW hard min request complete
-- Save addr update in scratch before flip
-- Fix static screen detection setting
-- Write flip addr to scratch reg for subvp
-- set minimum of VBlank_nom
-- Correct unit conversion for vstartup
-- Roll back unit correction
-- Enable runtime register offset init for DCN32 DMUB
-- Refactor edp power control
-- PQ regamma end point
-- PQ tail accuracy
-- Blank phantom OTG before enabling
-- Expose mall capability
-
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
-
----
-
-Alvin Lee (3):
-  drm/amd/display: Blank phantom OTG before enabling
-  drm/amd/display: Write flip addr to scratch reg for subvp
-  drm/amd/display: Save addr update in scratch before flip
-
-Anthony Koo (1):
-  drm/amd/display: [FW Promotion] Release 0.0.180.0
-
-Aric Cyr (1):
-  drm/amd/display: 3.2.248
-
-Aurabindo Pillai (2):
-  drm/amd/display: Expose mall capability
-  drm/amd/display: Enable runtime register offset init for DCN32 DMUB
-
-ChunTao Tso (1):
-  drm/amd/display: set minimum of VBlank_nom
-
-Ian Chen (1):
-  drm/amd/display: Refactor edp power control
-
-Krunoslav Kovac (2):
-  drm/amd/display: PQ tail accuracy
-  drm/amd/display: PQ regamma end point
-
-Ovidiu Bunea (1):
-  drm/amd/display: Roll back unit correction
-
-Reza Amini (1):
-  drm/amd/display: Correct unit conversion for vstartup
-
-Samson Tam (2):
-  drm/amd/display: add check for PMFW hard min request complete
-  drm/amd/display: ensure FS is enabled before sending request to DMUB
-    for FS changes
-
-SungHuai Wang (1):
-  drm/amd/display: fix static screen detection setting
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   5 +
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  19 +++  .../drm/amd/displ=
-ay/dc/clk_mgr/dcn32/dalsmc.h |  11 +-  .../dc/clk_mgr/dcn32/dcn32_clk_mgr_s=
-mu_msg.c  | 154 +++++++++++++++++-
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  71 +++-----
- .../drm/amd/display/dc/core/dc_hw_sequencer.c |  23 +++
- drivers/gpu/drm/amd/display/dc/dc.h           |   6 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  11 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |   1 +
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |   1 -
- .../display/dc/dce110/dce110_hw_sequencer.c   |   2 +-
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  22 ++-
- .../amd/display/dc/dcn30/dcn30_cm_common.c    | 104 ++++--------
- .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  17 ++
- .../drm/amd/display/dc/dcn30/dcn30_hwseq.h    |   2 +
- .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c |   2 +-
- .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  |  17 --
- .../gpu/drm/amd/display/dc/dcn31/dcn31_init.c |   2 +-
- .../drm/amd/display/dc/dcn314/dcn314_hwseq.c  |   3 +-
- .../drm/amd/display/dc/dcn314/dcn314_init.c   |   2 +-
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  46 ++++++
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.h    |   5 +
- .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |   3 +-
- .../amd/display/dc/dml/dcn314/dcn314_fpu.c    |  21 ++-
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  18 ++
- .../gpu/drm/amd/display/dc/inc/core_types.h   |   2 +
- .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  15 +-
- drivers/gpu/drm/amd/display/dc/inc/link.h     |   1 +
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |   9 +-
- .../drm/amd/display/dc/link/link_factory.c    |   1 +
- .../display/dc/link/protocols/link_dp_phy.c   |   3 +-
- .../link/protocols/link_edp_panel_control.c   |  29 ++++
- .../link/protocols/link_edp_panel_control.h   |   1 +
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |  21 ++-
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   5 -
- .../gpu/drm/amd/display/dmub/src/dmub_dcn32.c |  64 ++++++--  .../gpu/drm/=
-amd/display/dmub/src/dmub_dcn32.h |  17 +-
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  13 ++
- .../amd/display/modules/color/color_gamma.c   | 115 ++++++++++++-
- 39 files changed, 674 insertions(+), 190 deletions(-)
-
---
-2.37.3
-
+> - Shashank
+>
+>> +    uint32_t submit_workload_status;
+>> +    bool            initialized;
+>> +    atomic_t power_profile_ref[PP_SMC_POWER_PROFILE_COUNT];
+>> +};
+>> +
+>> +/* Workload mode names */
+>> +static const char * const amdgpu_workload_mode_name[] = {
+>> +    "Default",
+>> +    "3D",
+>> +    "Powersaving",
+>> +    "Video",
+>> +    "VR",
+>> +    "Compute",
+>> +    "Custom",
+>> +    "Window3D"
+>> +};
+>> +
+>> +void amdgpu_workload_profile_init(struct amdgpu_device *adev);
+>> +
+>> +void amdgpu_workload_profile_fini(struct amdgpu_device *adev);
+>> +
+>> +#endif
