@@ -4,120 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BDE3EE49AA
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 12:22:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F05BEE49A3
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 12:40:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4BCC10E330;
-	Tue, 22 Aug 2023 12:22:46 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F37F10E330;
- Tue, 22 Aug 2023 12:22:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DC7A10E344;
+	Tue, 22 Aug 2023 12:40:42 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2054.outbound.protection.outlook.com [40.107.92.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B578410E344;
+ Tue, 22 Aug 2023 12:40:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dNW+Z3jzxScxR8dr7duCErZftMRKhe3nGGB+b3z1h/j1+MoCoe1YrCk65XJqd1+80yU0edEIVTkOk0/VX1nhno/YlRKhgE1fOTHnbbEAXQl0o5EhMGUbB/4NhgHYJDuYlVjU4LbVvN9raFdSpBrGZUT7Bci0i+YuK8hasZyzYjMwqY+1IK/H/89gZfpc3VsON1l877dT9SYj5CwjosOQu92wpifkQiDj6Ii4Ok3S9jxjuE4mqQIurd+Iz6hCGGIQ9nLPKikT4D5VNv9mF851M8LI4nnVVsfc5VtSMqWZydECgSH6Hc+XbDVrZUn+AxNvGWXnlScVN+nKV9yMmw1vtQ==
+ b=QLSjtaB2/w8HPNO7udTEVUd1ONGp+q/yEdMLPcxN67Stgc4xtUKG5o+ADxdif/Nz9M5M9pwRzCZs2i4yNpyi1357oyD0WeUWlF8zPrFTEEjvBrkBn+VpN+8OSny5ZECo4hk626FFr0nzF6owWaCbK+Nlu7hUWZeb2bMEftLDB1N9BLZSoMCpfnmMP7Gda09isLQE80OVMDcPVQTXXqjMkzU0JplHZc+Hp90baMEKYqyzkD9UOd27m+7LAjW9v6tCCQpNkLkelIP0DuwRLp8nO9KsmSSTEWYJbs/pmiec6o+cS3rnIGEWM3FyS4WZJeruCNPkSOKyFFeaDpLymyK03A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+rQBHD4vuWUOlSYTazuiMi9fRz7x8rOVq7KC2i64QFk=;
- b=bfLPZOWEysRVSQ6hPjB0D8zjglxPoENlOZExqsD6P4yEtXxuXKYBHwCdqp+WiEHVzgh3G2fsr72oELq+mRwQFinJvL5tT9r/i/srvA1rVn/smpOfkbUo5Be0I6EKeRZU2IMyete9Pt16N4pp6+q8H3Rs3mEfo477ROll3m9VnZxaO/n/i3ImnwKeJ+lCGgFgPlMg3BaP2pGM8it1ZG6imEx78YHHR5EXcSus/T0qTDDROZ2SabQxMykq0Uj/EOY/CUjaJjhVGBl5UoBdVnhUXCB8n3ufXq8Vf0ZdQMkLrEJfV5XOZsC4xu3JtT/ui8zO4BeSbg2dlV03ldAmdbAyrQ==
+ bh=Aq9ZzAAU3F4mt88wEm/Qt2brdCUJpLs5pz+wAADsW+4=;
+ b=KObvLjfCNsxH9lEGBjIIrPFiAFtjw8n6NXd/JuJZQiKrGpcEmdhG8j70mEiaPx6td/yRa/s2bLweblyQkLPvQEFtYTpi2vhFtcGJjy1xFFuZ2J1KELO1i0BxWwgKlHhQMvqWZogikzJhkxiIe+Y1sKcj6F9Eeswfyk2HwSPgNHdlc3e7zIstu5CaL/oZt/P3EQfngZVuuJ42GYdCgEzojhq2DamDDntfYaMptwkpotQr7KpEpW3elDeu7r8j7bv5HybjGFUtpAzKhGXN5IJy608AwW7ziWKv1valjajGuQRCmvmIV9al9Z4g+D5IxjTMQkUHnwSykFb0jz6T8h30Vw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+rQBHD4vuWUOlSYTazuiMi9fRz7x8rOVq7KC2i64QFk=;
- b=lkbrtoCfuPLm/BecBFJ2tha6xUvcxalH9SN5pnQQIkOX4HD5srnJRWX6GAcDtY8J+oVKkX/pi5hIERoIJOTcjO+4IF4/wDkPBMF/ttBrC9OYZnbJ4G/4oqXoyJQdtnCfAHhP1Ann2ofIVrakZi4ex1+iKKW0V501D3kVGsm6SVg=
+ bh=Aq9ZzAAU3F4mt88wEm/Qt2brdCUJpLs5pz+wAADsW+4=;
+ b=IcYDk55bLj2fKo9eg1rtDclaIZd0yX9ER5ygLlE4Iyw31WrujiQw7gjrOZ3E+TAneAMOLxaBTnd1C00Uy8MLBPHNHDfADtE7BwIf64XKpDaNr+HxdLPvjus6/AfVmeSksxHc9rTuR7NfWvd5Cyy3FcuTI2hbyHN/r+6Dw9zHEAg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB6000.namprd12.prod.outlook.com (2603:10b6:510:1dc::15)
- by PH8PR12MB6676.namprd12.prod.outlook.com (2603:10b6:510:1c3::9)
+ by SN7PR12MB6888.namprd12.prod.outlook.com (2603:10b6:806:260::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.24; Tue, 22 Aug
- 2023 12:22:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20; Tue, 22 Aug
+ 2023 12:40:36 +0000
 Received: from PH7PR12MB6000.namprd12.prod.outlook.com
  ([fe80::f78e:33f4:56d2:1ef4]) by PH7PR12MB6000.namprd12.prod.outlook.com
  ([fe80::f78e:33f4:56d2:1ef4%7]) with mapi id 15.20.6699.020; Tue, 22 Aug 2023
- 12:22:42 +0000
-Message-ID: <d178212d-65ee-a1a0-323b-b9b91931db33@amd.com>
-Date: Tue, 22 Aug 2023 17:52:27 +0530
+ 12:40:36 +0000
+Message-ID: <48aa2c2b-922f-0946-2e08-a85a64693246@amd.com>
+Date: Tue, 22 Aug 2023 18:10:23 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH v2 4/7] drm/amdgpu: Add suspend function to clear the GPU
- power profile.
+Subject: Re: [PATCH v2 2/7] drm/amdgpu: Add new function to set GPU power
+ profile
 Content-Language: en-US
 To: "Lazar, Lijo" <lijo.lazar@amd.com>, Arvind Yadav <Arvind.Yadav@amd.com>,
  Christian.Koenig@amd.com, alexander.deucher@amd.com,
  shashank.sharma@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch, Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
 References: <20230821064759.94223-1-Arvind.Yadav@amd.com>
- <20230821064759.94223-5-Arvind.Yadav@amd.com>
- <fdcfe7f2-05b9-c144-1b4a-74889bcb0555@amd.com>
+ <20230821064759.94223-3-Arvind.Yadav@amd.com>
+ <d57e6480-fd33-b05c-f3a8-cd6e6b87b3ac@amd.com>
 From: "Yadav, Arvind" <arvyadav@amd.com>
-In-Reply-To: <fdcfe7f2-05b9-c144-1b4a-74889bcb0555@amd.com>
+In-Reply-To: <d57e6480-fd33-b05c-f3a8-cd6e6b87b3ac@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0106.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:27::21) To PH7PR12MB6000.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN2PR01CA0188.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:e8::11) To PH7PR12MB6000.namprd12.prod.outlook.com
  (2603:10b6:510:1dc::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB6000:EE_|PH8PR12MB6676:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71323ef6-66f4-4915-99c9-08dba30a7b01
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6000:EE_|SN7PR12MB6888:EE_
+X-MS-Office365-Filtering-Correlation-Id: 26143606-d4a4-4e68-0772-08dba30cfba0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DIAhqkuW+it8zVFIvjrfvJ7Fbo9hnD8TlLRkvHC45+pZzZ2aSkIND4Jz30GjW2kT8mqYIpa/u711g8PZdsXDyHlgTLANpYmQVlVRtDqxCqPVoXAMTrHHVxb7W9kQfrVb49O1Ij4yxajQV0945sGFx9hGgIATa6PVGoIkgSUYXv/z/+9ru6e6Netsp5UHXOHoAyDOfyEPoR6DBJeSo4XB3sDcj1pLyOOSvQXXKu6Q6+P5Bf57Sfaq0I7Ud01yLno/LJ1xOZAWHDXRm+BjpVY6SBt6IxQSRw9LwY916ks9lQ5KP/86OG2zB1+w7qNDt5F14OEMBA9pwdELmmas1wzHdkfGFVrolownfUd+6rWmrupYZNvfrOfjtc3eu6H+FkbjE+eLS0PYCWWENBAmEqrhj71ZKDOewQqzP0xNR3kGDefe4FgVfDb3u5XdJP3zVkNjZXQwDvY/34kwDD14JYAmGrQk43ZssLvBfKpLGcwhpX6KixoMKbJkEc6IYfOru5zi1ce1Ow6xFkXPxSHoPmLdD6s74nm1ckJavF/yVzLLz/yKJh+D/BgGFX8fJWp0E7ewiiWDYvd0lAnizPeXku9KYvvi6xP1guyZ+cVbnWehlNV6eze3I7kspf9iR5gCSArnrJw3P9vU5rfPRlBe6GRCQkLoNi9ZhrLpOm+qxug9Gdg=
+X-Microsoft-Antispam-Message-Info: UjoSUVq397U+1FCRhdILDYVjK/APmUe7y0uIvHuyX82YUxlHpS0h/FdZePJliJxu02Obfv63Tfm+pFBB6545TDLuy0NUfa/q9B+kd2QjQVfG/rKH31JFTrh5ZhGJmd/anMfP5MNCNJdR1q/8agXoIxVf64FXgwWB3W3zJtEHz+SDEdnII80wJArErR9ml6en81VqI4s9Jn11JrNds3MmNc6ulgeRhFA/hLNqT3QPvXKgVFagfj5bxtbFBxdvcelTNwrxyPBGY1ub9t2xJfdcKIg0h1iXzo0th86uOCPuCYkcFEoOKVozC6BgEilB7ndkjzwfwrF9+WKqphd2AXVE/prH6HlFN0b53z6vp47/5naJSb66q8PJRu7hjvrDoAI2hEEPqB/ZzuuPfV1gqDAsr2rznA4Em9ydTk+62JzxQY1Z+hXbvNGZr3xrKG2peMzaOVSTUIazyjdRy6yNs3a+534IldVJFRkd2Z2VWFV2cO/CC+pRp/ifyw228M6PHzl4c2gClg72qQaQmFdeVI2k+0QYj0+LPYAn3RI5uBt0qExoL9gIXYknZXFxwfUE9klOW0V3N+K/h7CzI0FWgh/fJyL4r0/63sb4YSH3Kxwp1p3rUDYpPb5MIbZNhJCVFFJNCc8ezPrxEq7fdrVXDUfL2Sx61uG8ah1lijTn2Wkyv50=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB6000.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(376002)(396003)(366004)(39860400002)(346002)(1800799009)(186009)(451199024)(66476007)(66556008)(316002)(66946007)(6512007)(110136005)(8676002)(8936002)(2616005)(4326008)(36756003)(41300700001)(921005)(478600001)(6666004)(38100700002)(15650500001)(6486002)(53546011)(6506007)(83380400001)(2906002)(31686004)(31696002)(5660300002)(26005)(45980500001)(43740500002);
+ SFS:(13230031)(346002)(136003)(396003)(39860400002)(366004)(376002)(186009)(1800799009)(451199024)(6666004)(6486002)(53546011)(6506007)(6512007)(38100700002)(31696002)(83380400001)(26005)(36756003)(921005)(2616005)(316002)(66476007)(2906002)(66556008)(66946007)(41300700001)(110136005)(5660300002)(4326008)(8676002)(478600001)(8936002)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QmR4Q3gzQ3QySmZBTVJWaTZUYnBTQTNEQS9acjU2WGZweHRWdEc0aE5kUXhh?=
- =?utf-8?B?TmZoZVI1SGw3cjNCL3ZCOU5XWWVRd3NNc3pQM3V0MkwxWkpJYjE2VkVYYnNk?=
- =?utf-8?B?R21EZG81b05nNkxZR21ZSlozNklZRUNiZTNyWjFxanZQWEpRNHg3NjZyR01v?=
- =?utf-8?B?d2ZGV3NDeUpYYWdMR1RoZUkzNVhYZFdqUVpmVitxTm5STHMxSEZBWCttOS9I?=
- =?utf-8?B?aEFXZXhJZ1B2QlVkT2RzN09QRW5jaGxMU3hGRmpWalEvMjhIRHdJTFNkb2dq?=
- =?utf-8?B?RjZMelV6cjNRc0dudFNKMmRhcDR0QTVtSzNkdjMxYW4xZDFlMEljRHk3T2ow?=
- =?utf-8?B?NFZBVGxJaWIrc1VGK1lMbUFLbjZLU3Q5dkJXY0NvbjZUNVpaMzIyS09oVGhP?=
- =?utf-8?B?emdoU25EMFhqdzZPaHFzU0lEOFBhRzM3QzRnUEFMcmlHeXFsOExzU0l6d2Fu?=
- =?utf-8?B?SGhvS0QwSXdIVXBDdnRUdXlxRUdMeGFZZGpPOFpwZ0Y2Q2xwZVBHdm9Zb043?=
- =?utf-8?B?OXE4SnNRa0lvdHNwaU9ISjdvYmsvc1hvZG9QZEpqa2MvcXFtS3VkeXJUNnFF?=
- =?utf-8?B?dkRVTXpycTNOeURteDlGOEhjcGdWQk8xYTNqRTQvejM5ZDJyZWM3dnVRY3Fo?=
- =?utf-8?B?cmdKY1NxODVIMXZ2Uks2SXVYQ0dkaytjcENTMXRNMUtudnZVR05kbDFoUzRk?=
- =?utf-8?B?d1VHVlJib2lvTlpLTy9RVWRsZVNhV2FEbUpERjgyQUI2S2pXdEpNVnV3elZu?=
- =?utf-8?B?dkNTZTJvOWtlUUhZTitYSTI4Z25HdzVvaHRhK2g2bjlBRXFuU1ZqcU9mNk1J?=
- =?utf-8?B?QkF0THYzRnkvTm16cFBjNStjNmFmQ0NTc2lnN0txWUF0ZFBKcUgyZkJiSE1Y?=
- =?utf-8?B?T09VVUNXaXZ3YjlqUTJzNU1UVG5POVNoYkFPZXJvTHlhUmFFa3ppMWE4b2Za?=
- =?utf-8?B?RFVHVUZTMVJveWcxZ0ttQ0lVUU82OGo3ck44MndyQ2lxSjNRUU04K2hrRDNY?=
- =?utf-8?B?RDJwNjlERTN4QWd0VXRpamp0Wk9McWJRU1JRY3RGZyt1alB4eDFGNGJ2N3Ax?=
- =?utf-8?B?NE1JM3pCR3JsMmhIb1hJdEhMeGNwa2wxYW9tbk5RQndCUDU5QkNndWxQSWRH?=
- =?utf-8?B?SnZtejJsZSs5bXp2ZGFZSExBR3FUbTVvckR3TnJuVHRSM1d4aVhBVXhQOTRv?=
- =?utf-8?B?YWp0dzFpYVdIS2o3VDFVMDFqazVWRDdwSUZFdCtETHhYL25RM3VRQnVLNitD?=
- =?utf-8?B?VFBNR3duNXNiU3lmS1VKZGdVQjJqRUErZWJNNTFTZVhkeDE5TTZVeFpHRjVV?=
- =?utf-8?B?YmF0a3FiTXp3Mzk0UThhWkk2Sm5DTWdRenU3K2FITlpQNWdVK1pXS0Y3TndU?=
- =?utf-8?B?bmRKQWpzeVNMY1NBVUZJTjhPUzlkT0hLWkQ1b1dSdWJwaDJjejh0a3RPWTdD?=
- =?utf-8?B?N3B4QS9UYzJ3TVZwQUdyTGVPbkxVbjNTUlpQbzE4V1d1ZEVkTGUvaGVkVVg1?=
- =?utf-8?B?Wmt2amI1WHJrK3IzamY5NG9BMTJQZ0k4WnA0MEcwZEpjSFV6VEtHdXlsS3NS?=
- =?utf-8?B?SGNnejVId3M2N1QwZ2RxdTlFcEZIZ2Q2QmoyNGhzbFhxdndtSFNYbExwOXo1?=
- =?utf-8?B?aTd2alZ0WVFmOFMxUExTVDdRejlSa3U5WGlSN21GNHFaeG1XMWtsOENPL1FM?=
- =?utf-8?B?T1MrOHFuNEFXWXNGeGRMcUNQMEhFOUV3dXBmclBYNkt3YjlqM1lJS3IvaGJR?=
- =?utf-8?B?dHpXYWY4TUhhMXZZUDYrUHl5SDJxSDI2cE1tYVlIcU1UNUZWd2MrRVZwaEZX?=
- =?utf-8?B?MWNYNUhteGhERFVYK2xHalk3dnZUTFBYQVQ2R0p6Q2RTYzFPaTZZTG1JczZK?=
- =?utf-8?B?ZXB6MVZyQ1dGanNKNTJYcXR3SnIwaFBiMXVWckpMb2R1OEJLajBocngzTlE3?=
- =?utf-8?B?VWowdWgwTzhFOGU4dnZVSDJyMkN1am1QdkFNRXpMOVh2aTJUUE1EVXp4UFBx?=
- =?utf-8?B?Tm9KQ3lvcW1ERk5oL2JMNzZ1UzZmT05sYUFKOTJuWGFOWjhuNXp1L2dRcEhs?=
- =?utf-8?B?aUszNkxaZ0tUdjdxdnNJaFBVT25OemxRYnlQOHZCaWxCVklxRDIyZ1BsTFQ2?=
- =?utf-8?Q?R+UQ1YyZarsqpqhmo8umr09wv?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cHlzbEJCVS9QSC9NMk03Q2tiVTJkTGxESGdiQ0JDbDJ2bzhDcFNLemwyZXJ6?=
+ =?utf-8?B?NExNZ2lBcDMyM2QxQWZSNkFxZG5ybXVqT1B0NVExWXA5ZTVNb0plU29qVFBp?=
+ =?utf-8?B?cTdWazBaUUI4bVdFeW9uaWlBTnpGcW1jODFkZmF4Z05KU2tPVUdYMnBGMHJq?=
+ =?utf-8?B?cFloV2dMa0RjUEhLMndkU25rc0d3WjVXcWJXUG9QMGtEU3FWY21rblVKUGoy?=
+ =?utf-8?B?Sld6N3NtV1IzZ1VvdDhWWFdXbGlIT0NOanZoOVd4QkF4ZG53a0xTdk1COCtX?=
+ =?utf-8?B?QlVLYnJ1anphdzJObzcyVVU5ZWU0dE04SnJyamszYVkxcGpMQUpjaDV6VjQw?=
+ =?utf-8?B?ZzlGMnozanpEZFEySjc3VXhCeDJEem1xZnVLYzF5VlFJL1FHNUVLNW1oTjlE?=
+ =?utf-8?B?M0EralFoY2NzdHhyUmtjYnAzbm9CS2piYUJwNWNsblc0bWs5WVZCQnVIWnNh?=
+ =?utf-8?B?QWxaanVVL3E5M2FmR2NjTzYrWCs2ampEbzdaTWp4Wm9JdjZXNFdMQy9NZXEz?=
+ =?utf-8?B?K0FjajdxeXU5c3ZXZXJIaktxWGp3YUtzZTNtWk1HUU1Iak5scmxVQXhJN3pE?=
+ =?utf-8?B?R3U5NFNLVTRtWDNZZ2s1NSthOHhKK2tDYWU3SEc1Ynd1RUtjbkFiakJPWUp4?=
+ =?utf-8?B?UHlFZ3dqUUkvNkpvUFdYSWxoU0xlTWxLVGQ4ZjN1UTFvMEpmRTMwanRiQ2ky?=
+ =?utf-8?B?SGNHV3JEYTQ4OXRiblFDTW4yVmZUVEtOMTRZMkEvRTR3TGVDOVQ3NHkxWFdo?=
+ =?utf-8?B?a3ZGSE1SZGNTbDI1N2xHTWxBa2pFSUh5T2pCVmIzU1RkVHVvS2d5Q3gyUytJ?=
+ =?utf-8?B?K01kbXRiR21hck12TC9UZFREMndrNnNiKzNsTkZIK1ZhS0M2WEh3Z1JhTXJP?=
+ =?utf-8?B?N2dsRlpWOFJXeEtvcm5QVWE3QkxSeXAzSFpXOVdueWRFS1oxUlloa1pMTWtL?=
+ =?utf-8?B?MXZCS2lnRWxsRGpkVUJvWnJCVmZjRG1Yc2I2cW9QQlozOG5FNFhhS1lyWkxT?=
+ =?utf-8?B?bGp6cUdkNFBidzVWKyswdmVxdHNhYTY3VEpaU1FPNWwvQ21XQ1ZPQm1vOGFk?=
+ =?utf-8?B?UWl1cUJadWxzRUtsaldQbXBCR2hNQ0F3cFFUbWlmOUxqSVBDWm9Rcll2Tm5J?=
+ =?utf-8?B?azZPVnAxcnp5YVFVSmxLZVE3UG10aXl3VUdQb2hTbXY0R0V1N0pnT2tIRW9K?=
+ =?utf-8?B?RUh2Z1p1N1krODI5M1ZyWmZhRVVOdFlYREk2SVNOTVlxd093Yi9JUmQ2cTVR?=
+ =?utf-8?B?Zks1UjVWam9DcWZYZ2wvVGQ1QzlLK3ZZSncwSzFTdnYzb055OTFiRmltajMy?=
+ =?utf-8?B?TmtXZkNYWCtJc1NIREtLQnZRZW5zS3E1Um5wUHpYZGtGYUVKN0lmOUlmQzZH?=
+ =?utf-8?B?SUJycVNVaGJ1bUhES1g0enRMNGNSNjQ2UUZ1dnhiMm9ydExIWnBmdW1nNXJ1?=
+ =?utf-8?B?VG92dUpJVDVXYlNBZGJLNlNWVGh5TTByOHBHVmV6L3JjZDRDUzhMVFE0V2J4?=
+ =?utf-8?B?N05wWmdsTVh3QWh0M2wyS2hwaldOem9ZRCs0VFBmelY2eFRxN0pkOUd1OGYv?=
+ =?utf-8?B?bXVORlhpRUtkU2ZWckFlR2hxVExIUFJ4dXFUbVVHQW1ZVkRsam5hV3dURTR2?=
+ =?utf-8?B?WEs5TFRCRU9OeTZjTjRET1c1MStuVWI5N3ArZTNyeENxMHR3U0ZWck1Ganht?=
+ =?utf-8?B?UWhQaFpnN2trS0FldHNOODhlamtGQXRmQWlFR3krc3V4dXBCT2tGSkl0WElp?=
+ =?utf-8?B?VTNBOUFkcWlmeEdheFRoMll5Vk5LbFBoRUpOQlFDR0V3dXlGcFl3SmpGa3F0?=
+ =?utf-8?B?enNpV0syY2tDVUVHNyt0ZVVEdnVoUTM2YjlqOWtnNnRvYTcrVWJ0QTlLY21w?=
+ =?utf-8?B?MzBhZkYvUkN5RnBYZEdZcTJJV0RaTXF2N0lFcXhmTGJjSjZGaTNwaVpINThC?=
+ =?utf-8?B?NytvWnpvaHdzVlR5RnRhdzZqaHR5YWMrYUFhTEVRNGliajRqU1NxZVZ6SVNV?=
+ =?utf-8?B?cEZHUWp4aFdBWStoQVZCQ09SY0pQbDhPL21Eek5FbG13U01UK2k1TStzSitV?=
+ =?utf-8?B?U25MM2p6Z2ZZeldGS0M3Vk4zblhnbVlTY3AveHBTbGI4bjRNLyt2QllUMndG?=
+ =?utf-8?Q?rMeAZh/d2IZ/9b5Ir+3aM1LNn?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71323ef6-66f4-4915-99c9-08dba30a7b01
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26143606-d4a4-4e68-0772-08dba30cfba0
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6000.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2023 12:22:42.0344 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2023 12:40:36.3103 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7Yt+JBDNQ5Hr5Taua3T+C5eJXi9C8w1thjWQU7DfPNtZ7FFbcTkLI82Xii+zkYjYjfFFxFt7/2SeX4y7kQ8Dyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6676
+X-MS-Exchange-CrossTenant-UserPrincipalName: IAebwq+Y/KDkyQ64vSz87cV1w8hOVZ6hCoIC8uM7rzOdEKWUypT3o7Fcuk35XykYFR1fV3e5u4ZXnMTO9B7zPQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6888
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,82 +134,100 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 8/22/2023 12:01 PM, Lazar, Lijo wrote:
+On 8/22/2023 11:55 AM, Lazar, Lijo wrote:
 >
 >
 > On 8/21/2023 12:17 PM, Arvind Yadav wrote:
->> This patch adds a suspend function that will clear the GPU
->> power profile before going into suspend state.
+>> This patch adds a function which will change the GPU
+>> power profile based on a submitted job. This can optimize
+>> the power performance when the workload is on.
 >>
 >> v2:
->> - Add the new suspend function based on review comment.
+>> - Splitting workload_profile_set and workload_profile_put
+>>    into two separate patches.
+>> - Addressed review comment.
 >>
 >> Cc: Shashank Sharma <shashank.sharma@amd.com>
 >> Cc: Christian Koenig <christian.koenig@amd.com>
 >> Cc: Alex Deucher <alexander.deucher@amd.com>
 >> Signed-off-by: Arvind Yadav <Arvind.Yadav@amd.com>
 >> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  2 ++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c  | 23 +++++++++++++++++++
->>   drivers/gpu/drm/amd/include/amdgpu_workload.h |  2 ++
->>   3 files changed, 27 insertions(+)
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c  | 56 +++++++++++++++++++
+>>   drivers/gpu/drm/amd/include/amdgpu_workload.h |  3 +
+>>   2 files changed, 59 insertions(+)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index cd3bf641b630..3b70e657b439 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -4212,6 +4212,8 @@ int amdgpu_device_suspend(struct drm_device 
->> *dev, bool fbcon)
->>         amdgpu_ras_suspend(adev);
->>   +    amdgpu_workload_profile_suspend(adev);
->> +
->>       amdgpu_device_ip_suspend_phase1(adev);
->>         if (!adev->in_s0ix)
 >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c 
 >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c
->> index 6367eb88a44d..44ca8e986984 100644
+>> index 32166f482f77..e661cc5b3d92 100644
 >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c
 >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c
->> @@ -174,6 +174,29 @@ void amdgpu_workload_profile_set(struct 
->> amdgpu_device *adev,
->>       mutex_unlock(&workload->workload_lock);
->>   }
->>   +void amdgpu_workload_profile_suspend(struct amdgpu_device *adev)
+>> @@ -24,6 +24,62 @@
+>>     #include "amdgpu.h"
+>>   +static enum PP_SMC_POWER_PROFILE
+>> +ring_to_power_profile(uint32_t ring_type)
 >> +{
->> +    struct amdgpu_smu_workload *workload = &adev->smu_workload;
->> +    int ret;
+>> +    switch (ring_type) {
+>> +    case AMDGPU_RING_TYPE_GFX:
+>> +        return PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+>> +    case AMDGPU_RING_TYPE_COMPUTE:
+>> +        return PP_SMC_POWER_PROFILE_COMPUTE;
+>> +    case AMDGPU_RING_TYPE_UVD:
+>> +    case AMDGPU_RING_TYPE_VCE:
+>> +    case AMDGPU_RING_TYPE_UVD_ENC:
+>> +    case AMDGPU_RING_TYPE_VCN_DEC:
+>> +    case AMDGPU_RING_TYPE_VCN_ENC:
+>> +    case AMDGPU_RING_TYPE_VCN_JPEG:
+>> +        return PP_SMC_POWER_PROFILE_VIDEO;
+>> +    default:
+>> +        return PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
+>> +    }
+>> +}
 >> +
->> +    mutex_lock(&workload->workload_lock);
->> + cancel_delayed_work_sync(&workload->smu_delayed_work);
+>> +static int
+>> +amdgpu_power_profile_set(struct amdgpu_device *adev,
+>> +             enum PP_SMC_POWER_PROFILE profile)
+>> +{
+>> +    int ret = amdgpu_dpm_switch_power_profile(adev, profile, true);
+>> +
 >
-> Another deadlock candidate. Between fini() and suspend(), the only 
-> difference probably could be initialization status. If so, just use a 
-> helper that is used during fini() and suspend().
->
-Before going to suspend(), we need to cancel the work and clear all the 
-profiles but in fini() we are destroying the mutex. also it will be 
-called when we are unloading everything.
-
+> You don't need to interact with FW for every set() call. Only send the 
+> message if workload_status doesn't have the profile set or refcount is 
+> zero. Otherwise, only need to increment the refcount.
+Noted.
+Thank You,
 ~Arvind
-
+>
 > Thanks,
 > Lijo
 >
->> +
->> +    /* Clear all the set GPU power profile*/
->> +    for (int index = fls(workload->submit_workload_status);
->> +         index > 0; index--) {
->> +        if (workload->submit_workload_status & (1 << index)) {
->> + atomic_set(&workload->power_profile_ref[index], 0);
->> +            ret = amdgpu_power_profile_clear(adev, index);
->> +            if (ret)
->> +                DRM_WARN("Failed to clear power profile %s, err = 
->> %d\n",
->> +                     amdgpu_workload_mode_name[index], ret);
->> +        }
+>> +    if (!ret) {
+>> +        /* Set the bit for the submitted workload profile */
+>> +        adev->smu_workload.submit_workload_status |= (1 << profile);
+>> + atomic_inc(&adev->smu_workload.power_profile_ref[profile]);
 >> +    }
->> +    workload->submit_workload_status = 0;
+>> +
+>> +    return ret;
+>> +}
+>> +
+>> +void amdgpu_workload_profile_set(struct amdgpu_device *adev,
+>> +                 uint32_t ring_type)
+>> +{
+>> +    struct amdgpu_smu_workload *workload = &adev->smu_workload;
+>> +    enum PP_SMC_POWER_PROFILE profile = 
+>> ring_to_power_profile(ring_type);
+>> +    int ret;
+>> +
+>> +    if (profile == PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT)
+>> +        return;
+>> +
+>> +    mutex_lock(&workload->workload_lock);
+>> +
+>> +    ret = amdgpu_power_profile_set(adev, profile);
+>> +    if (ret) {
+>> +        DRM_WARN("Failed to set workload profile to %s, error = %d\n",
+>> +             amdgpu_workload_mode_name[profile], ret);
+>> +    }
+>> +
 >> +    mutex_unlock(&workload->workload_lock);
 >> +}
 >> +
@@ -218,14 +236,15 @@ called when we are unloading everything.
 >>       adev->smu_workload.adev = adev;
 >> diff --git a/drivers/gpu/drm/amd/include/amdgpu_workload.h 
 >> b/drivers/gpu/drm/amd/include/amdgpu_workload.h
->> index ee1f87257f2d..0acd8769ec52 100644
+>> index 5d0f068422d4..5022f28fc2f9 100644
 >> --- a/drivers/gpu/drm/amd/include/amdgpu_workload.h
 >> +++ b/drivers/gpu/drm/amd/include/amdgpu_workload.h
->> @@ -52,6 +52,8 @@ void amdgpu_workload_profile_put(struct 
->> amdgpu_device *adev,
->>   void amdgpu_workload_profile_set(struct amdgpu_device *adev,
->>                    uint32_t ring_type);
->>   +void amdgpu_workload_profile_suspend(struct amdgpu_device *adev);
+>> @@ -46,6 +46,9 @@ static const char * const 
+>> amdgpu_workload_mode_name[] = {
+>>       "Window3D"
+>>   };
+>>   +void amdgpu_workload_profile_set(struct amdgpu_device *adev,
+>> +                 uint32_t ring_type);
 >> +
 >>   void amdgpu_workload_profile_init(struct amdgpu_device *adev);
 >>     void amdgpu_workload_profile_fini(struct amdgpu_device *adev);
