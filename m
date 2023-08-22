@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8A94EE49AA
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 11:36:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2B9FEE4996
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 11:36:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 406F810E30A;
-	Tue, 22 Aug 2023 11:36:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E2F110E313;
+	Tue, 22 Aug 2023 11:36:52 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82A7010E309;
- Tue, 22 Aug 2023 11:36:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E66610E30F;
+ Tue, 22 Aug 2023 11:36:49 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F0BAA64098;
- Tue, 22 Aug 2023 11:36:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A0D3C433C8;
- Tue, 22 Aug 2023 11:36:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CB17965389;
+ Tue, 22 Aug 2023 11:36:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DB4CC433C9;
+ Tue, 22 Aug 2023 11:36:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1692704185;
- bh=DCeECGhWLEtm/BiLEcivg61yk2aU+lnN6mu5wPz5W6o=;
+ s=k20201202; t=1692704208;
+ bh=FPb85KBsLtIuV93aWYRoqyPZudRHIE7GTm0niEodijU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LGQu6UpEG7bvCx7iJFxOeOMBiZIh7V8XoTcvFfo9dv/5OV9sOYe+jrrEwu/mHr6uh
- vNzgkSjPcZ8s4TVmaU4x55sL9Nn37WowdALQ4Z9KUY+He9X7q0/TqEfAkdA5ZRH+fJ
- biQ0W0Ho+7CTx8kffZwYidsMYv/UJqLHy1m6KvzOMQKIlCaT2fdVukPyvDkXDRNRCz
- Ks/F8sCz9YUuSdEA1qI6sUa60c6TpgYqrePkRWpgS/mSaxApIxZ3LSFLs0vMnaTubl
- yEDqwQ3fOwQz5Jh4Mnf1JQzOxWJIzC/8lZ9cWt20b9ymtrylrZVOpZ5r/uDMbRluFW
- 97MNfuVpEXkgg==
+ b=mgY9XXlPwfB1oHLxsEcOHSjkNNYtz2KTMAv6efMfawx4HcZvuUZIVvLcYGjIzbOkw
+ H7uJCZnZ8HUHRQuQDBKQFb9uptplp19JYPtwAapKAxmytBOtoxLbOxvUOxM3sNmAJT
+ vN2cE/pHw/RcRuXOlD2RrxHF6NzZx/kU6Q0HPser+YjoUnI1izkGBdzQHP9AyftNbp
+ ntVuPMZI41J2sjb5YTFjpKuRg89awP55Zu/kwOAoeGcNOVpwst+hVrcsZdDFbHzbuU
+ bo/GM/L1uHJsl1OmO9LO/9A3el8/MNOb988P54fpWMXaL1pmmMR7wBLBuUbhkTvWZ5
+ /YUik8WVjWRyg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.4 10/11] drm/amdkfd: disable IOMMUv2 support for
- KV/CZ
-Date: Tue, 22 Aug 2023 07:35:52 -0400
-Message-Id: <20230822113553.3551206-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 06/10] drm/amd/pm: skip the RLC stop when S0i3
+ suspend for SMU v13.0.4/11
+Date: Tue, 22 Aug 2023 07:36:24 -0400
+Message-Id: <20230822113628.3551393-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230822113553.3551206-1-sashal@kernel.org>
-References: <20230822113553.3551206-1-sashal@kernel.org>
+In-Reply-To: <20230822113628.3551393-1-sashal@kernel.org>
+References: <20230822113628.3551393-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.4.11
+X-stable-base: Linux 6.1.46
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,91 +57,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Mike Lothian <mike@fireburn.co.uk>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Tim Huang <Tim.Huang@amd.com>,
+ lijo.lazar@amd.com, kenneth.feng@amd.com, dri-devel@lists.freedesktop.org,
+ Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
+ Mario Limonciello <mario.limonciello@amd.com>, daniel@ffwll.ch,
+ trix@redhat.com, Alex Deucher <alexander.deucher@amd.com>, Kun.Liu2@amd.com,
+ evan.quan@amd.com, airlied@gmail.com, christian.koenig@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+From: Tim Huang <Tim.Huang@amd.com>
 
-[ Upstream commit 616f92d188ee7142a95a52068efdbea82645f859 ]
+[ Upstream commit 730d44e1fa306a20746ad4a85da550662aed9daa ]
 
-Use the dGPU path instead.  There were a lot of platform
-issues with IOMMU in general on these chips due to windows
-not enabling IOMMU at the time.  The dGPU path has been
-used for a long time with newer APUs and works fine.  This
-also paves the way to simplify the driver significantly.
+For SMU v13.0.4/11, driver does not need to stop RLC for S0i3,
+the firmwares will handle that properly.
 
-v2: use the dGPU queue manager functions
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
-Tested-by: Mike Lothian <mike@fireburn.co.uk>
+Signed-off-by: Tim Huang <Tim.Huang@amd.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c               | 6 ------
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 8 +-------
- 2 files changed, 1 insertion(+), 13 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 00f528eb98126..9c8197573dee7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -224,10 +224,6 @@ static void kfd_device_info_init(struct kfd_dev *kfd,
- 		    asic_type != CHIP_TONGA)
- 			kfd->device_info.supports_cwsr = true;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index d191ff52d4f06..a664a0a284784 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1562,9 +1562,9 @@ static int smu_disable_dpms(struct smu_context *smu)
  
--		if (asic_type == CHIP_KAVERI ||
--		    asic_type == CHIP_CARRIZO)
--			kfd->device_info.needs_iommu_device = true;
--
- 		if (asic_type != CHIP_HAWAII && !vf)
- 			kfd->device_info.needs_pci_atomics = true;
- 	}
-@@ -240,7 +236,6 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
- 	uint32_t gfx_target_version = 0;
- 
- 	switch (adev->asic_type) {
--#ifdef KFD_SUPPORT_IOMMU_V2
- #ifdef CONFIG_DRM_AMDGPU_CIK
- 	case CHIP_KAVERI:
- 		gfx_target_version = 70000;
-@@ -253,7 +248,6 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
- 		if (!vf)
- 			f2g = &gfx_v8_kfd2kgd;
- 		break;
--#endif
- #ifdef CONFIG_DRM_AMDGPU_CIK
- 	case CHIP_HAWAII:
- 		gfx_target_version = 70001;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 7a95698d83f73..c73417e79745e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -2335,18 +2335,12 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_dev *dev)
- 	}
- 
- 	switch (dev->adev->asic_type) {
--	case CHIP_CARRIZO:
--		device_queue_manager_init_vi(&dqm->asic_ops);
--		break;
--
- 	case CHIP_KAVERI:
--		device_queue_manager_init_cik(&dqm->asic_ops);
--		break;
--
- 	case CHIP_HAWAII:
- 		device_queue_manager_init_cik_hawaii(&dqm->asic_ops);
- 		break;
- 
-+	case CHIP_CARRIZO:
- 	case CHIP_TONGA:
- 	case CHIP_FIJI:
- 	case CHIP_POLARIS10:
+ 	/*
+ 	 * For SMU 13.0.4/11, PMFW will handle the features disablement properly
+-	 * for gpu reset case. Driver involvement is unnecessary.
++	 * for gpu reset and S0i3 cases. Driver involvement is unnecessary.
+ 	 */
+-	if (amdgpu_in_reset(adev)) {
++	if (amdgpu_in_reset(adev) || adev->in_s0ix) {
+ 		switch (adev->ip_versions[MP1_HWIP][0]) {
+ 		case IP_VERSION(13, 0, 4):
+ 		case IP_VERSION(13, 0, 11):
 -- 
 2.40.1
 
