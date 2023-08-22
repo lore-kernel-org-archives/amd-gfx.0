@@ -4,50 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7770BEE49A3
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 13:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1536AEE49AA
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 13:09:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7151810E35B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7160610E35C;
 	Tue, 22 Aug 2023 13:09:56 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CACA810E32D;
- Tue, 22 Aug 2023 12:02:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692705738; x=1724241738;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=hp+NZXqHkpxwllrzrSaGmzU2Ind1Fopscc+Rym/pSdE=;
- b=cxlvcfOw2qXq28Ig96Uhl2I596mIekryjmXylUQjik3wCJDrW1zzUG1f
- EJrDdQyl9l8LWdxq4P983Ldey0agce+xIzN13XiPFm1qV46UVTdVKKtO4
- w1I2Sgid9IFn5uzczXhyI0yctdy9BWguc2rFBCbdPVqMXAyt9oIZhSxvE
- eZySDwa6/m5AY/aIx/FF33jMVmkyMCAw1ilr4W6ykW0zZFQHyLQE7LTnA
- i0x8blE2hKrjh3C6vq+3f51Nwv+TbRheTlnP3eFAe/uu8hnJIlb5qAbrD
- +EJ6zD/MNxWTIyi3oT8xIs13BZjozAS9u0DDK80YYUcTHBoUPmHYs7QhF w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="354198250"
-X-IronPort-AV: E=Sophos;i="6.01,193,1684825200"; d="scan'208";a="354198250"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2023 05:02:18 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="910070686"
-X-IronPort-AV: E=Sophos;i="6.01,193,1684825200"; d="scan'208";a="910070686"
-Received: from kainaats-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.42.230])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2023 05:02:14 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/4] Revert "drm/amd/display: implement force function in
- amdgpu_dm_connector_funcs"
-Date: Tue, 22 Aug 2023 15:01:40 +0300
-Message-Id: <e65f30aa1bd581308f916fd005999ebe66618fad.1692705543.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1692705543.git.jani.nikula@intel.com>
-References: <cover.1692705543.git.jani.nikula@intel.com>
+Received: from mail.nfschina.com (unknown [42.101.60.195])
+ by gabe.freedesktop.org (Postfix) with SMTP id 80C8C10E122;
+ Tue, 22 Aug 2023 01:39:27 +0000 (UTC)
+Received: from [172.30.11.106] (unknown [180.167.10.98])
+ by mail.nfschina.com (Maildata Gateway V2.8.8) with ESMTPSA id 863BD607583BC; 
+ Tue, 22 Aug 2023 09:39:23 +0800 (CST)
+Message-ID: <c589a9b0-fc6b-d699-f08f-2e18c3e034a4@nfschina.com>
+Date: Tue, 22 Aug 2023 09:39:22 +0800
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH v2] drm/amdgpu: Avoid possible buffer overflow
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch
+X-MD-Sfrom: suhui@nfschina.com
+X-MD-SrcIP: 180.167.10.98
+From: Su Hui <suhui@nfschina.com>
+In-Reply-To: <2a4448cb-ac01-71fc-9335-68acdded0a78@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 22 Aug 2023 13:09:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -61,93 +43,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chao-kai Wang <Stylon.Wang@amd.com>, jani.nikula@intel.com,
- David Airlie <airlied@gmail.com>, intel-gfx@lists.freedesktop.org,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Hung <alex.hung@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Wenchieh Chien <wenchieh.chien@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
+Cc: yifan1.zhang@amd.com, guchun.chen@amd.com, lijo.lazar@amd.com,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, le.ma@amd.com, christophe.jaillet@wanadoo.fr,
+ dri-devel@lists.freedesktop.org, Yuliang.Shi@amd.com, candice.li@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 0ba4a784a14592abed41873e339eab78ceb6e230.
+On 2023/8/21 17:31, Christian König wrote:
+> Am 21.08.23 um 09:37 schrieb Su Hui:
+>> smatch error:
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:1257 
+>> amdgpu_discovery_reg_base_init() error:
+>> testing array offset 'adev->vcn.num_vcn_inst' after use.
+>>
+>> change the assignment order to avoid buffer overflow.
+>>
+>> Fixes: c40bdfb2ffa4 ("drm/amdgpu: fix incorrect VCN revision in SRIOV")
+>> Signed-off-by: Su Hui <suhui@nfschina.com>
+>> ---
+>> changes in v2:
+>>   - fix the error about ip->revision (thanks to Christophe JAILLET).
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 6 +++---
+>>   1 file changed, 3 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> index 8e1cfc87122d..b07bfd106a9b 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> @@ -1250,11 +1250,10 @@ static int 
+>> amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>>                    *     0b10 : encode is disabled
+>>                    *     0b01 : decode is disabled
+>>                    */
+>> - adev->vcn.vcn_config[adev->vcn.num_vcn_inst] =
+>> -                    ip->revision & 0xc0;
+>> -                ip->revision &= ~0xc0;
+>>                   if (adev->vcn.num_vcn_inst <
+>>                       AMDGPU_MAX_VCN_INSTANCES) {
+>> + adev->vcn.vcn_config[adev->vcn.num_vcn_inst] =
+>> +                        ip->revision & 0xc0;
+>>                       adev->vcn.num_vcn_inst++;
+>>                       adev->vcn.inst_mask |=
+>>                           (1U << ip->instance_number);
+>> @@ -1265,6 +1264,7 @@ static int 
+>> amdgpu_discovery_reg_base_init(struct amdgpu_device *adev)
+>>                           adev->vcn.num_vcn_inst + 1,
+>>                           AMDGPU_MAX_VCN_INSTANCES);
+>>                   }
+>> +                ip->revision &= ~0xc0;
+>
+> That doesn't looks correct either. The assignment is intentionally 
+> outside of the "if".
+>
+> See "adev->vcn.vcn_config[adev->vcn.num_vcn_inst] = ip->revision & 
+> 0xc0;" is always valid.
 
-drm_edid_override_connector_update() is *not* supposed to be used by
-drivers directly.
+Hi,
 
-From the documentation:
+if "adev->vcn.vcn_config[adev->vcn.num_vcn_inst] = ip->revision & 0xc0;" 
+is always valid, then
 
-  Only to be used from drm_helper_probe_single_connector_modes() as a
-  fallback for when DDC probe failed during drm_get_edid() and caused
-  the override/firmware EDID to be skipped.
+"adev->vcn.num_vcn_inst< AMDGPU_MAX_VCN_INSTANCES " is always true. So 
+the below judgement has
 
-It's impossible to unify firmare and override EDID handling and property
-updates if drivers mess with this directly.
+no sense.
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Chao-kai Wang <Stylon.Wang@amd.com>
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Hersen Wu <hersenxs.wu@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Wenchieh Chien <wenchieh.chien@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 +------------------
- 1 file changed, 1 insertion(+), 27 deletions(-)
+                   if (adev->vcn.num_vcn_inst <
+                       AMDGPU_MAX_VCN_INSTANCES) {
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index adfe2fcb915c..25151085508f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6317,31 +6317,6 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
- 	return 0;
- }
- 
--void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
--{
--	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
--	struct dc_link *dc_link = aconnector->dc_link;
--	struct dc_sink *dc_em_sink = aconnector->dc_em_sink;
--	struct edid *edid;
--
--	if (!connector->edid_override)
--		return;
--
--	drm_edid_override_connector_update(&aconnector->base);
--	edid = aconnector->base.edid_blob_ptr->data;
--	aconnector->edid = edid;
--
--	/* Update emulated (virtual) sink's EDID */
--	if (dc_em_sink && dc_link) {
--		memset(&dc_em_sink->edid_caps, 0, sizeof(struct dc_edid_caps));
--		memmove(dc_em_sink->dc_edid.raw_edid, edid, (edid->extensions + 1) * EDID_LENGTH);
--		dm_helpers_parse_edid_caps(
--			dc_link,
--			&dc_em_sink->dc_edid,
--			&dc_em_sink->edid_caps);
--	}
--}
--
- static const struct drm_connector_funcs amdgpu_dm_connector_funcs = {
- 	.reset = amdgpu_dm_connector_funcs_reset,
- 	.detect = amdgpu_dm_connector_detect,
-@@ -6352,8 +6327,7 @@ static const struct drm_connector_funcs amdgpu_dm_connector_funcs = {
- 	.atomic_set_property = amdgpu_dm_connector_atomic_set_property,
- 	.atomic_get_property = amdgpu_dm_connector_atomic_get_property,
- 	.late_register = amdgpu_dm_connector_late_register,
--	.early_unregister = amdgpu_dm_connector_unregister,
--	.force = amdgpu_dm_connector_funcs_force
-+	.early_unregister = amdgpu_dm_connector_unregister
- };
- 
- static int get_modes(struct drm_connector *connector)
--- 
-2.39.2
+On the contrary, if we need this judgement, then 
+"adev->vcn.vcn_config[adev->vcn.num_vcn_inst] = ip->revision & 0xc0;"is not
 
+always valid, because "adev->vcn.num_vcn_inst >= 
+AMDGPU_MAX_VCN_INSTANCES" can be true, which cause buffer overflow.
+
+So I think this patch has some sense if I don't make some mistakes.
+
+Su Hui
+
+>
+> We just avoid incrementing num_vcn_inst when we already have to many.
+>
+> Regards,
+> Christian.
+>
+>
+>>               }
+>>               if (le16_to_cpu(ip->hw_id) == SDMA0_HWID ||
+>>                   le16_to_cpu(ip->hw_id) == SDMA1_HWID ||
+>
