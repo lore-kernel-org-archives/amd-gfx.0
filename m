@@ -4,50 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 034B9EE4996
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 11:44:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CCFAEE4996
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 11:49:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D3BC10E322;
-	Tue, 22 Aug 2023 11:44:03 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 269EB10E322;
- Tue, 22 Aug 2023 11:44:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692704642; x=1724240642;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=NhLbpMBB+lX2f+xyEl+B8376ASkcAco+ugMB0R+Q15o=;
- b=aFdNEgF+YKEt2EHZjXVEjKAsqALEMoSThCiSPrnUiQz5hLl9Plue4HeK
- zEBI54q/4n4xs1KlM7Va6pE1SqTJMV6iuAY8fjsz2fihRcQjrRwVXmfMu
- 0v4WL2Ap+FfX+rct5Xusryp2t8j+rFv7iW+fJEZBBW03wT0PW9xh4bsSF
- ck8jccOScaLpWOBdlnjrdLbZfHDJF5TmqT/Veet6kbxQ1BoKTC/cDxBBH
- q0nGJVQJoOQDpXv/RH5bYFdbM8Aw2t+fkd5OxQbDlrBWCewtjUATlJWEo
- 4qzP2sv6vtAx+u4pkktgBjbbepaIJT7BEyOVOi9hHYjIJuLQ3risYRvCq g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="372751660"
-X-IronPort-AV: E=Sophos;i="6.01,192,1684825200"; d="scan'208";a="372751660"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2023 04:44:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="850580730"
-X-IronPort-AV: E=Sophos;i="6.01,192,1684825200"; d="scan'208";a="850580730"
-Received: from kainaats-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.42.230])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2023 04:43:55 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 3/3] drm/amd/display: drop unused count variable in
- create_eml_sink()
-In-Reply-To: <20230517183350.314082-3-hamza.mahfooz@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230517183350.314082-1-hamza.mahfooz@amd.com>
- <20230517183350.314082-3-hamza.mahfooz@amd.com>
-Date: Tue, 22 Aug 2023 14:43:53 +0300
-Message-ID: <87a5uj7152.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7F3010E326;
+	Tue, 22 Aug 2023 11:49:22 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2066.outbound.protection.outlook.com [40.107.100.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6151D10E326
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Aug 2023 11:49:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dKwwlDHqRSKtwsNTzv/Yiqf0gq6HBVf/uQfxlAj3B3haXJSiRqnzhmy1UBl9r1vmFLOGnwu7t32EbDHNcB2gTP7Vv5SYjXwIDVBdo1R/rJa+nsNIgxpSDhNG+7yn8aOsJolh1GvwsZeUY0N2PS+fcKccgrvTUpkfRTwqJsfuc/c0p8pYrYsi/R8EL/qnqAdQkk17Rc3D8NTGkASsWRhiMGZ4uJYK4+2r5wmPVqYb2o2cIjB3u9cZKPT8yXqxdVeCfPmN3X8QxfTUZxqmbCqMjvBTQmoEmxjLlSxc7SjkoZaZOyNKWUe+/CxkMM6TS4LaEXeLwrDv+frf+VZMpJInYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E8RFVm/jErSMIyf6Yj2fXmSNciMQdc8mUroxucN/ZsU=;
+ b=EQLSwpgvP436UlGxlsc+yuHWW7QcaNZDN69EwEw8I5Oz5JZSg/lKhcHxA7oInJzSUFgjtgemRBgCv9C7Jqb26FeklzQS4JShw9+5zJfrs6VPP1aR0X97mqqQxSMDgAezs94/unGQdHbCUOapc6trsihCzIkX3KsOlPHVXt4mlkzGTAFS6LPRKYUxMxIx1srce1N7WZw2Yq3B3NLo3g0Pzq7eB0XCmO7ID2DuqsDkzYM7VKn11oORWqIQwoOJSBtzsZOnUhDjyUEYJOKbqWQJI+k/4WBxfy0ZOpFL5L7NPrW3zBzxFbGs7LEVwFPCV9Kdh9EaAvmUZz4/NzZcOH1BiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E8RFVm/jErSMIyf6Yj2fXmSNciMQdc8mUroxucN/ZsU=;
+ b=QlRxGOmBvaQ/Zlm0W0ylnoGmwJ+q50JOou5Vtet5Rfdy1YAcL5KVCLhCId/bsgxxKhm6no1ldsV0Gh5ZRXoydAvRY+n7f17Pvs79EVIZyG2bqRYLxsSRf87se9BgTrXsFizRSYtxNTe6BpfKfB6SR2XZgG/gAal9jNdm5us8msQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DM6PR12MB4329.namprd12.prod.outlook.com (2603:10b6:5:211::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.24; Tue, 22 Aug
+ 2023 11:49:18 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::3d:c14:667a:1c81]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::3d:c14:667a:1c81%4]) with mapi id 15.20.6699.022; Tue, 22 Aug 2023
+ 11:49:18 +0000
+Message-ID: <ec741915-a0da-e3f2-ee98-bfe516fa4dc3@amd.com>
+Date: Tue, 22 Aug 2023 13:49:11 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 1/2] drm/amdgpu: change page_table_base_addr caculation in
+ mes queue property
+Content-Language: en-US
+To: Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org,
+ "Sharma, Shashank" <Shashank.Sharma@amd.com>
+References: <20230822061724.3917603-1-yifan1.zhang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230822061724.3917603-1-yifan1.zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0162.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::12) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM6PR12MB4329:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8fe8d0e-9894-4cd6-a707-08dba305d10f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bBmZOj+4ZAyGVTnfrEULC/VFKDqFQnKNNTa1u7MKtG7oXr0/rqdStOuewA2sU6QR7yZru9hDm0odAGPw9ZNw6wnWf/AOCNQe8n1GSIqJWnjp8p4ShvIRpfpKteELTTtybTXyaLK9j9/c7zIkWceS17QY+YGT/AlUNgYkSH2OQrj42qZ8sEXrLd3cI4tP7xOOF2KHZtt4H1ombJEd8Dgl9y9vC4xuobBbAri+YmWEhAQ1NQ1vMMH6SX+ZDfd7VGzV74I7pb0CPGYAMfkmfbmY4NEokC7LdMUR2ykubZJv/LpwJU9VlcsF1+K4k4V/dyUhorOrYYean95YjmErf96eAzgPu4fFUNKF2spTPM5Y4ExfrFMwE4h7hVgbuk7GoiqIs/56eguGTW8MBlMjmMvaO47GajYEyEDj4XKCF+7dXWKRmTJ/FAbOH1NiKGIRx9klM9yLC4HVmRGiMW4niOudYMRlbNUUDZ0q89seZLHP56AKV0SPI/QFwQ4fWa3adoGjlY1Vlb2rmAPLEwvHcgHdbJAdIhrw+GEw0wuNbPdQrOUR+AMQqxDTlMimHDHkEf+JjAdUqh6aWbu6H65qFTY7ngQy5F2a78uk+6b6TGB33k8E7qInrqQxsyT7aJ/64Z4P2JF7qt9sMCFphIIS8e430Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(136003)(376002)(396003)(366004)(39860400002)(1800799009)(451199024)(186009)(6666004)(8936002)(8676002)(4326008)(316002)(6636002)(478600001)(31686004)(66556008)(110136005)(66946007)(66476007)(6486002)(6506007)(41300700001)(6512007)(38100700002)(36756003)(26005)(5660300002)(2616005)(31696002)(86362001)(2906002)(83380400001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bHlqSVJYU3ppVXN6U2YxMjlZbjNZWE5MUHFzOHgrYTN2Wmd5VktMVUVzc1R4?=
+ =?utf-8?B?Q1JjNXRYakRkQ1hTVGxKWnNOejI0cEZnZzAvbEs2Z3F6RmlUNGhyMUsxSUVE?=
+ =?utf-8?B?UWN2Yld5VEt0YmZBM3VqUGtvZTZnQ3V1NmR6TUJqSzdwWElBWVpaK0F5UVp0?=
+ =?utf-8?B?dExSLzFIdS9ZRXhwdERpajRNVFYyZlhkdTNQOGhJMkJRT0hyZENJZm9OUzAz?=
+ =?utf-8?B?TVhOWDhMUnRDY2ZjZ3poQzVoQ2lSenpvQ1dNTkxiQzROczg1Zk80dXNZdmRo?=
+ =?utf-8?B?Z20zaGt5cWlyNUE1bjh4M0UrNkN4N0U3ZW9iTTNDRjNiNmN3ZjZKNU01Q2tO?=
+ =?utf-8?B?eGNiQXJpS1JmNDQyb0RpSUc3QVQ3cWk3a2FDcXZZbGpWWklRSzc4SXY1WStO?=
+ =?utf-8?B?QktReXAyWko4eVRNTGhzQ3lQMmdMU2dmZ0owbloxeng2RVpRQ2xKbFdIT2R2?=
+ =?utf-8?B?aHZnUER4TFRpN3U4VHJUOVZLQkpPRjYzUWdXSnF5b1FMdVJxNjFlejVjVEhJ?=
+ =?utf-8?B?VVQ2OFZsVEMrcW9qczV1YzhXSlJrYVpVeUxnUGN3SEZFY05JeHFsSHBPRXRi?=
+ =?utf-8?B?ellKQkFVWHZ2UHRsREpVd3NqU3dKVlJ2b3lqU3lRaTdOdFNGcFptejIzTXN1?=
+ =?utf-8?B?dlk4OXlSczAvTEJzZVZwL25hZHJpQjNqVDZlTkdZRi9ISWRLSWZuTDNsYVd5?=
+ =?utf-8?B?ZWROZkJsYmc1VGlUZmh4b3FFQi9XRUxFTWQ5OTcvMU1FT3B2TWVXM3VPRklW?=
+ =?utf-8?B?ZUZYQjhBc1pKY0R1dkhFUFMycEsvKzlNdlVtMUZrSll0U1dERkRYWEhYT3dU?=
+ =?utf-8?B?NDU1a0tCU3NZaFFYckx4VFhWam9nN28vcTdhNVRxWkJ4ZVNuTyt2L0gxWEpQ?=
+ =?utf-8?B?ZEx3OWRVektaNDFleGtyK1puUGw3U2wzalArRnJCb0JkZDVPSEM0YzRldm9k?=
+ =?utf-8?B?OVBYUVNlNG1HRUU4eEk0eHVrMzZjT0lpckROVTVjL3pxdWgwd0FlRHhLSkVq?=
+ =?utf-8?B?ZnBRS0trbXYrdTdnd2t6SDJSNk5IdDh6bkNJYmNqbnJtZGNnT2FVKzJYWkNN?=
+ =?utf-8?B?UWtmTjNsRmVsOXYxeDI5MElSZFQrMXR0OWlDSS9PWXUrek5IZDFPa29uQ2Vj?=
+ =?utf-8?B?ZnJzbTJWQUxFVGZ5Z3VJeTVGNTlYSGcvK2k4MGVFajl4cTNsV0QxeGlBNmN3?=
+ =?utf-8?B?VEhoTHpVTzNSOWw0YXVxYVlVbDR5MysrQ201b1V3WkE0cmp2bE95RmpROHRH?=
+ =?utf-8?B?VHg3RUI3OEk3SWxLbmVqUHJLUVZjZFN3M3FPdzFhYmhJY0JIazlSN1dXTzlo?=
+ =?utf-8?B?dXRVbUxyK3loalZEY2ZzNlErcjZaK1JHY2d0UlJtNEMwYzNTSWlKbi9EaWFD?=
+ =?utf-8?B?cFF5SlR1SEVWSEcxUlpJNXhjb0d0dlh6Z1Z3cGN3OVlhTzdQbWtKek9lYUNS?=
+ =?utf-8?B?Ymw0M3VaS0t4eHJyS0xYNkg0clFidG56ZDFoUGNtR1pzcC8xVmR3amZUWEVB?=
+ =?utf-8?B?VC9wcCsvZEUxUUNSZjl6cjF5SFFhYjVCZzN6TWFNRWZNTktyd3VzdmNKL0lx?=
+ =?utf-8?B?MW1Ham94cnUxZXhDcWwrUzJaZVFQUmF1bXlZK3VPWkNPN0gya21yc1JQb2NX?=
+ =?utf-8?B?NmhxVVJ1OHFGczV6aS9UUFZXQjhDaWtQa0NpbzdlN3JxVnJOQW0xc1hzeU9V?=
+ =?utf-8?B?eEpZclhaVTFCYnlDdFdBbVY0OG42UWV0V1dRODVBYlFhZmR6MGhkczU5SWZJ?=
+ =?utf-8?B?aytSYWFnQ2FwSjlHNzB4VDNYUEpQTnFzVENEai9zdTMvOEdKbklscWVuU1Jt?=
+ =?utf-8?B?UUxPQmltaW5MaWdib1JidC9vQlVtU3ZtQmViWEFWT0RNRHFHZzlibjZTSWlZ?=
+ =?utf-8?B?Rjk4K1Z0QWsrV1FEMFk1dmxaS0xxZ3FvbkxCRHhEZ2tLOHRCQXFEcFVIYzB2?=
+ =?utf-8?B?cGYvNUJudGtYUWZDSDdNWDNRZFVEd3pCQjhkazRNUWx3dmNGKys4NTNyK3Ns?=
+ =?utf-8?B?Y2QwUWl0RlpkZGlZcmFMMndOdW9HNUw2MGE3NnBGTllJdFBJS2d5Q1M4WWt0?=
+ =?utf-8?B?ZndHdEQzd1BpZnp2UGVGS2ZEYnBVSFh6WUYrYXFhU3BwSFhBd3dvOWhuZVhN?=
+ =?utf-8?Q?MXCwhpnWGYq/dxCrhC2Obc0bj?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8fe8d0e-9894-4cd6-a707-08dba305d10f
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2023 11:49:18.2626 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HVtFQngFB4Bxsd2Dfyq0Rzg/evZznYkgpS0x7f5E4zpJlAY0oWdXob+SDTEPtDHt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4329
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,68 +125,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Mike Hsieh <Mike.Hsieh@amd.com>,
- kernel test robot <lkp@intel.com>, Hans de Goede <hdegoede@redhat.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, 
- Xinhui" <Xinhui.Pan@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Leon Huang <Leon.Huang1@amd.com>, pengfuyuan <pengfuyuan@kylinos.cn>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
- Nasir Osman <nasir.osman@amd.com>
+Cc: Alexander.Deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 17 May 2023, Hamza Mahfooz <hamza.mahfooz@amd.com> wrote:
-> Since, we are only interested in having
-> drm_edid_override_connector_update(), update the value of
-> connector->edid_blob_ptr. We don't care about the return value of
-> drm_edid_override_connector_update() here. So, drop count.
+Am 22.08.23 um 08:17 schrieb Yifan Zhang:
+> current method doesn't work for GTT domain page table, change
+> it to support both VRAM and GTT domain.
 >
-> Fixes: 068553e14f86 ("drm/amd/display: assign edid_blob_ptr with edid from debugfs")
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 
-The *real* problems with that commit are:
+Of hand that looks like the right thing to do, one comment below.
 
-1) It uses drm_edid_override_connector_update() *at all*. Its
-   documentation says:
+With that fixed feel free to add my Acked-by, but Shashank should 
+probably take a look as well.
 
-	Only to be used from drm_helper_probe_single_connector_modes()
-	as a fallback for when DDC probe failed during drm_get_edid()
-	and caused the override/firmware EDID to be skipped.
+Thanks,
+Christian.
 
-2) It messes with edid_blob_ptr directly. All drivers should stop doing
-   that. It just complicates all the logic in the overrides and the
-   property updates.
-
-
-BR,
-Jani.
-
-
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 6 ++----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 2 +-
+>   2 files changed, 3 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 14b296e1d0f6..5a2d04f47276 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6396,9 +6396,8 @@ static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
->  		/* if connector->edid_override valid, pass
->  		 * it to edid_override to edid_blob_ptr
->  		 */
-> -		int count;
->  
-> -		count = drm_edid_override_connector_update(&aconnector->base);
-> +		drm_edid_override_connector_update(&aconnector->base);
->  
->  		if (!aconnector->base.edid_blob_ptr) {
->  			DRM_ERROR("No EDID firmware found on connector: %s ,forcing to OFF!\n",
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> index 10ce5557bb11..ee957f059786 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -259,7 +259,7 @@ int amdgpu_mes_create_process(struct amdgpu_device *adev, int pasid,
+>   	process->vm = vm;
+>   	process->pasid = pasid;
+>   	process->process_quantum = adev->mes.default_process_quantum;
+> -	process->pd_gpu_addr = amdgpu_bo_gpu_offset(vm->root.bo);
+> +	process->pd_phys_addr = amdgpu_gmc_pd_addr(vm->root.bo);
+>   
+>   	amdgpu_mes_unlock(&adev->mes);
+>   	return 0;
+> @@ -621,9 +621,7 @@ int amdgpu_mes_add_hw_queue(struct amdgpu_device *adev, int gang_id,
+>   	/* add hw queue to mes */
+>   	queue_input.process_id = gang->process->pasid;
+>   
+> -	queue_input.page_table_base_addr =
+> -		adev->vm_manager.vram_base_offset + gang->process->pd_gpu_addr -
+> -		adev->gmc.vram_start;
+> +	queue_input.page_table_base_addr =gang->process->pd_phys_addr;
+>   
+>   	queue_input.process_va_start = 0;
+>   	queue_input.process_va_end =
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> index a27b424ffe00..e1c20e2453c7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+> @@ -140,7 +140,7 @@ struct amdgpu_mes {
+>   struct amdgpu_mes_process {
+>   	int			pasid;
+>   	struct			amdgpu_vm *vm;
+> -	uint64_t		pd_gpu_addr;
+> +	uint64_t		pd_phys_addr;
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+phys_addr for physical address is quite a bit misleading since this 
+isn't a physical address at all. It's actually using the PDE format.
+
+The entry in the job structure is equally bad named because of 
+historical reasons.
+
+Maybe a name like root_pde or something similar would be better.
+
+Regards,
+Christian.
+
+
+>   	struct amdgpu_bo 	*proc_ctx_bo;
+>   	uint64_t 		proc_ctx_gpu_addr;
+>   	void 			*proc_ctx_cpu_ptr;
+
