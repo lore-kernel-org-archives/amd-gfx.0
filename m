@@ -4,115 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADE03EE49A3
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 05:24:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE2BDEE49A3
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 06:13:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C9CA10E2D7;
-	Tue, 22 Aug 2023 05:24:54 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2068.outbound.protection.outlook.com [40.107.244.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C1A110E138
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Aug 2023 05:24:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A23B10E2DE;
+	Tue, 22 Aug 2023 06:13:38 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2062f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4FE310E2D6;
+ Tue, 22 Aug 2023 06:13:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NpwmRWa3Fyzvwl0F8p6HyI+sWPW4crLXCI1nx2U/HiFeacNm5oGwBzlWh0BoefhpfGNbPhmA7n5/Z8hWuQp4V41hqbNPh/C0803DemBUP9qy4mSUJaJd7l+3Pwpdrytsy3QaaMVH86y8nTAnR6mWYdeGO+4BflRhmhcl4LHiJBh8Oay/E9hTB8cvOZIdg/zPeTSOsskjsGxbiqig1kDclBNNvzl7SshZ85N387je/2pNgPySwLyuhJ2kld1hf2SFV/tpfAm6IXZ2TkuLeUTXeT6z4oZPBhkdQcDu0aUB9orwRoTGC3tAkdKuSgXENKHoc3PmfufyGyqaMRZpqh6nlA==
+ b=hQUIfzYO/d4cE6BIuyQ6qI+L2zu/KUCoLoV95AuTRCTiHOGlwnMyNfEMgjBc0cYBIn1wD1U9NsXlK2XtjaHFcGbVGj7+PsF1NKDnYActZoB52G51il7iV+CVrsgx61gBAThxl46LEtqBl0PovvnxHNfq0v8Ygs+3QYy2Zf2uHowmyf7GMg5mAGNPzZ6hyP2Z7dm8UXFU9u671MuQoA4ADUwNuI/cyXK6JmJu552lJZPqdJAQxhf85iqqSjx6YP0Bqbq5t8UZuGsOuhqI1+kHZd6964CNC6XX1Rghxm2Hupxr0tPMK+H/3SV1UyAa6NDiLPpJsHETALeJueNw1eR4ng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pwV8koG4O9gjn78+3154cNaFfGIqev8r+OtrYinBCss=;
- b=DNYwyEctcYm6QXrvX3ZgXtq3Gh8QsrwbDsK4pfsMO6lM2bAFXHMSLbZFOBNTmBzuqgVo5nJNB1i3xBgw9LEnHF0hidHwpNWj9+07tuw+VvJOFrXqpDRQMk2otJjrcKw7tI3L7fT7G+pa+x/jwTgej3n0XQZEutv7pGOcBMypMXUoKM45UpgvNT5WQIqoBrDWrilAKh472jyWDAnkGPOgp2YIm85ni3TriVaOy9+a+vnP3CFGWSeVL2g9OTfn9nbwpuDCwYRMx38XosfYX0dSzzzYVSR0Rotgx/ALBlBLw7rykStGNGinICUZIpPwQKbYXc4X7gy8AfBs1sIR8pFsjw==
+ bh=rqQvajFHBnj+YXKq7O1T6nGj43S6SPxplK0nrlK1svk=;
+ b=PyfrYTS5BRIcCM6fqOmLeq6nRwdAmVh+hYDwt1/lFoTd/3sVCLgdZccRJ6f2al0yzfvtRvXIwbXAqtmiApdYFSnleUMKchHSAC0GCwiyvigTxExn1eAYEvjO8xAztIsixHYTa6rqaQ6G3wRUrd/IIFTL6BHzLMxdhwnziIVt2BUjCozjax7l9Th9y/n+nvBAy7hkBXLhw2iAgWkJLsQqA6HZAka+BOC4FQsK8pxGGDA13aswFl3bs22l7A0Ibevc7NiTBhRdaLmAMjrr4dXFldX/gh6+txrciz1Y1IUHhQxf55Ii8s2mSIMEveyCUyetCbU6VS0T6hhBWpJ2DWqdBA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pwV8koG4O9gjn78+3154cNaFfGIqev8r+OtrYinBCss=;
- b=kxQ9gb05ihF9UaCv5Xvzpt9C1dI+Ljvqjpi40J02q/Kvl1EXskKZgA5L0u+eMvCoEWARwF9G/PfJmmXC4BjfyZXZ6f7MTnByBzxLuZP8/OiE50wM3p7KvfhvsVOe/Ypk7A66CPl3Jr+ffBQKvgA70oEbJJMltPHYn9UVGw0lMKs=
+ bh=rqQvajFHBnj+YXKq7O1T6nGj43S6SPxplK0nrlK1svk=;
+ b=1MY/s7W/KEkaNoIMUjV4u3rmSMb14K9Fuv4t/trwW9ZLeuIyitWX8CYAQdtIhbtI7PAWN/BeeiNZMs4mjZaiIqEow3zMPjnTR8XNECYWbfcjLQLHpqfV/T2VgWDMK5dwIXjU7/LBtAjVlYAr8sBDjUtxVO9fg77RSa2fNqxYBXs=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
- by IA1PR12MB8537.namprd12.prod.outlook.com (2603:10b6:208:453::16)
+Received: from PH7PR12MB6000.namprd12.prod.outlook.com (2603:10b6:510:1dc::15)
+ by PH7PR12MB6394.namprd12.prod.outlook.com (2603:10b6:510:1fe::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20; Tue, 22 Aug
- 2023 05:24:46 +0000
-Received: from BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::af11:a0ea:b4e4:d1e0]) by BYAPR12MB4614.namprd12.prod.outlook.com
- ([fe80::af11:a0ea:b4e4:d1e0%5]) with mapi id 15.20.6699.022; Tue, 22 Aug 2023
- 05:24:46 +0000
-Message-ID: <066e77b0-7740-f8ce-5586-e3338b8e58b0@amd.com>
-Date: Tue, 22 Aug 2023 10:54:34 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH v2] drm/amdgpu : Updated TCP/UTCL1 programming
+ 2023 06:13:32 +0000
+Received: from PH7PR12MB6000.namprd12.prod.outlook.com
+ ([fe80::f78e:33f4:56d2:1ef4]) by PH7PR12MB6000.namprd12.prod.outlook.com
+ ([fe80::f78e:33f4:56d2:1ef4%7]) with mapi id 15.20.6699.020; Tue, 22 Aug 2023
+ 06:13:31 +0000
+Message-ID: <cccd1cd1-28ec-5fb0-e3a3-07caa4bf1b07@amd.com>
+Date: Tue, 22 Aug 2023 11:43:18 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v2 2/7] drm/amdgpu: Add new function to set GPU power
+ profile
 Content-Language: en-US
-To: Mangesh Gadre <Mangesh.Gadre@amd.com>, amd-gfx@lists.freedesktop.org,
- Hawking.Zhang@amd.com
-References: <20230821124704.3746697-1-Mangesh.Gadre@amd.com>
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20230821124704.3746697-1-Mangesh.Gadre@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <20230821064759.94223-1-Arvind.Yadav@amd.com>
+ <20230821064759.94223-3-Arvind.Yadav@amd.com>
+ <CADnq5_OBLh=fzsifOEhV3F2F1XGOcCujtVAba3KZ75MkY+tKHg@mail.gmail.com>
+ <fff2391b-fc18-af9f-6fe0-7b4c6650dcdd@amd.com>
+ <CADnq5_PYYy6D__49h6jud9vpbzhnyHh8wossNmzDqryxkcRnqQ@mail.gmail.com>
+From: "Yadav, Arvind" <arvyadav@amd.com>
+In-Reply-To: <CADnq5_PYYy6D__49h6jud9vpbzhnyHh8wossNmzDqryxkcRnqQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0050.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:98::11) To BYAPR12MB4614.namprd12.prod.outlook.com
- (2603:10b6:a03:a6::22)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0163.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26::18) To PH7PR12MB6000.namprd12.prod.outlook.com
+ (2603:10b6:510:1dc::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|IA1PR12MB8537:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8dba2e4-706e-4be0-aa2c-08dba2d018c3
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6000:EE_|PH7PR12MB6394:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e6978e8-5f0f-4952-7470-08dba2d6e884
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sHheKcKUgcpeRKa0H+0zYaKJiMxEdh+iyEblslj9bvVcTDNFQ0tJ1Xp6SzQDTZ6FM8kWKiJ6ysKDRk6P85ibAVl4mtptio8JNG5XsezYJ/lWeFzTgTdcrvxoXUURzsAAewU36U8heEgIzbfjFilmRgMoyigoh61y/soq9n7SrPEJ+Bk+xY0KtQ0xjixfx2IHSJEIiCRPLDACGJN5jO3dnavbtKrns4FpEzmje2QPxYVOMQ/7i896z7UU92RJieKRRVGeRb91xaeV8ZXPmdPwMRQZhxhE/y2IHXEHxE7nGfoLbIHa/iSLY56doI8n0iDWlHu0SXoVCV2OQw9pXUA084DCz4WY8Sp3GE1X3po2KRGj1ap0UIjL28kJ2xmk4parmOFbVHMr9qF71BlgXcmekGx62pGUzdgRjXz7dtykcfBYlWVPwX7Y1GJratrSjdicrhUYq2WFHc31E+XaqFGSh+G0oWoOiOQlxlRZp9Tk0Wg/3pagHTAGBbF6eTCp0r/vdDflMuUowfAxwcHKeKnqzk2qCgr/Y5xk05jxVcmoyibFYjBHOjrLxIkbHsCH5fX2dZm4lm0mDn22qVQ/XLIDV05sdnBgxrujBuaxP0pemEiX2XRWsqek/qPGuZ6y4eg33yc+Vwr+pNFqmzaHE7wX6g==
+X-Microsoft-Antispam-Message-Info: brSFkvT6l3fix1b2Wh9+ASDeQCcbnpxACZFfudTCM+40PcpF1QHktJOA/ZKh1kM/hzbs+jf2BGh3QAoVIfGSolqGZeor1XlqaJqhnj5dMN7iJPDAqEuWDX48S0/vU/MxMYhrGaFk6uRVKqE6Jb1xl4tzaaKxU8gv7LfXFrjWeFN6EguvRbwJAMgKQxNsUb4QHk1ka2GAXzvYcTGZ6kfjIKByV7YJXww5XG50v7gx0WIbV4gXlXjcTTEJRGJU9SNdXRMqlXdX21DK+u+b7UMNZo8QPEdLuyLZHKPGUnkw1bCcMmkA9CphBX2CQQEfsQGhqsqnO1ukWICiOKfKQUA2c/4pzmBBT0uSQxJrMZQuN+3J+fzVo7IWxn2Yi/R131cnBNOh0OxkLQL2UmXCqjWzOF86EgRSYwmwK08gZ9mzRdPGLQqkBsfQW3ehh6R1iK6UDR0OrubVdrc4PbbWDrFwQRo7bgtdm3aRXXuQq3fd7A3Sv0vWa6VQaIaOn66bdLxA2MD3vmT5Q4RNHli7IcAE44PlrEA5qT+vpD3UZswRU4eO6YDzpAgduvXu+Se6TINafaSt7j9JiflNNZ6HqFQRsEzBNt5uXTN4Cc4sxYuWuMy9lNl9cTH+RHs0r12I/8drVtlZFtN2wNHNydFkAtR8rw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(39860400002)(396003)(366004)(346002)(376002)(186009)(1800799009)(451199024)(6636002)(66476007)(66556008)(316002)(6512007)(66946007)(8676002)(8936002)(2616005)(36756003)(41300700001)(478600001)(6666004)(38100700002)(53546011)(6506007)(6486002)(83380400001)(15650500001)(2906002)(86362001)(31686004)(31696002)(5660300002)(26005)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB6000.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(39860400002)(396003)(366004)(346002)(376002)(186009)(1800799009)(451199024)(6916009)(66476007)(66556008)(316002)(6512007)(66946007)(8676002)(8936002)(2616005)(4326008)(36756003)(41300700001)(478600001)(6666004)(38100700002)(53546011)(6506007)(6486002)(83380400001)(2906002)(31686004)(31696002)(5660300002)(26005)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UEhCZ1hBbEN6ck1QZlZQbzhvL0FxTXJ4dzBuYXhEZVljR01yYkxkRjF1SkNM?=
- =?utf-8?B?Q2s3ZVpjWWJJMzBOUDFld094VTdjaVJvQUhiQ3NEcHJobUhKVzFoaXcyaFhC?=
- =?utf-8?B?Zk5LN3Jnbk5Bb04zOHFFcFpGQU5RSUs3ajhkVHlEZjFBZy8xemtZckttTkY5?=
- =?utf-8?B?YkxGKzA1TmNoZisraDhjejFHSy9IbDBUV2RUUlNFWnRyaTNaQ1lIVGlaM3NY?=
- =?utf-8?B?WU5OUzZ3T2dNakZrNHE1aDhGZ2JvaEx4S3QrOFd2ZnpJL1pua3lqMHhBTjU5?=
- =?utf-8?B?ZXo4ZHhjNjRjMUxxbk52UTE4UVAxL1l1V0x0N1JmTXgwclZEQlAyTGl1STdw?=
- =?utf-8?B?MS9wRWF4QnVYanpaNVR2OEg2bTJLZG1lcTdWMGtOTys1YnB5bzNSMlJDMnVr?=
- =?utf-8?B?d0xiWkxpNU94am03c2NCR25MOU5MQnVWelZRTk12NG12NFI2c05zc052andQ?=
- =?utf-8?B?U2pJQzQ2YjB4UjNRMmp5M1k5MGtjeWFZSGgvZzhBcEE2RHJtL2szZTdCb1Nw?=
- =?utf-8?B?WFQzMmR0Q0U5STBxUlJRNHJ2VzRNaGhZK0VwaFpJV0IwSjk0RzVIbHNxdXln?=
- =?utf-8?B?SlM3QWdrYUFoNHdNbm1YRHRsQkp1YW1DY0l2WkQ1c0NoWStsVW5FMEhiOVVM?=
- =?utf-8?B?S3FhOTBWaHV2QTB4TWF4TGx0NENIL3VwU3lJOXQ4cjdYUklvTWpqdzM4TU5u?=
- =?utf-8?B?RUZyWnZQMDcvaWJOdUZ5dk8yZXp6bk5FWUVPeWl4d2Y3RE5aTEhMeWtIMmlS?=
- =?utf-8?B?aWVkd00xSkI5TjBaZjZwVTZaVU1WZjlkU1IybmJVbEVnT3ZuU3dZNkFCOVZT?=
- =?utf-8?B?MlMxc2VjR1VmVTZTYTdpN0pCNnBYRXdWK1NvNHhrUTNMbmdPalB3a3ZTc3RC?=
- =?utf-8?B?L245TXJhUm1qSk9ucmNYYURZMjJGTlB6T3BLdHJEN0IxZ1Q0L3gzbldpTnlK?=
- =?utf-8?B?QldtK1h2VUg4SXVSQlcvSG84WVFOU3NLYWszck4xMXgxRU9OMmdGWis4cDBU?=
- =?utf-8?B?cEhGY3prT1RVSXB3NHJCelA1bEdnZEZ4NitpMW1iNjBoSUg4eVlIK2RJbkhD?=
- =?utf-8?B?a2thRnRkdlJYN0NvREJReWFxOXVKRE9wVGxJMEIzQ3JYSnVORXBBQzI4M1Fr?=
- =?utf-8?B?ajZ1c280RjhhZGw3WnhLS0Z0ejltdmlFMUl6Q2ZOWlJEREFEMXcrUlh0L0Iv?=
- =?utf-8?B?N1BXZS9xWG9FNW9Yc2tIMHBLWmkrbEl1Y1d2eHYyUnFJM2V2T1Y5RUhFWGZa?=
- =?utf-8?B?STlJWjFUQUhjTWU5aDJCazJ5NUtya09sZFVmRWtaQ2dDZDFXdTBLSHlGVmxU?=
- =?utf-8?B?bDdwK2duSVkxTzdmcEVSWU1idjdpMDlMbnhTN1gzVGs0eUpkVnNuaXhMZFdR?=
- =?utf-8?B?ckhoQkUwZHJUTVNFQWhHM1prOEJOWDduTkNQM0tjUXZSNlNWUi9XYWlaOGtF?=
- =?utf-8?B?UHdCci9KYWszU3JVVnZnSzBjb3FxQSsvYldEL3ZkVFh2VEpHaHVOaWRJaEdO?=
- =?utf-8?B?TnEwUEZWQkUycHloZDltMnFxeFdlOGRxMm5LUnYyczd3Z25tMU9OaElqWDVV?=
- =?utf-8?B?dnZpNGZKMUdGNnFJY012SEc0VnU3d2ZRcGtnVVFBSnZnaVZ6dWxEZTNxd0hP?=
- =?utf-8?B?cW1Qb3NYSTNZM0loZEVGREsvQzdNNUkrSWdyRHpDS0taYTRhdDVINGFPb1Vw?=
- =?utf-8?B?SlN5dm5FZFUwNjQwMjdCY0x2QXorbXFDYlhQTGd2a1Q2a2hXd0ZlSTY0Qlph?=
- =?utf-8?B?UDZqM2thdEswSGV5WVBtNG4zVmhsSnlwem9YRm9jajNtNUZsVDVJc0NGbExQ?=
- =?utf-8?B?R3FBMjIwTitWZzBpTVI1NmVTMmxhcHJxbk5FWlRvaUJQbTJQckxBTkllaEg5?=
- =?utf-8?B?N1hGWDZCbXpQQUh5dTRyd3ZkZ3MrL3R1MUdieEZtQkxCaEs0aGI2dDZraWlv?=
- =?utf-8?B?NXlLZElmNnNIOE1uRUgxRGY2aktWaWI5YUdrUWlnM0tHK0JDUW14MnpqV0s3?=
- =?utf-8?B?NDlEYkxqeTJ3WDdteGxLRkoxamVMRlh2M0o0N1U3UlNyd251KytBcU9jWXJF?=
- =?utf-8?B?QWdqaVFzT2RzVUoyTVlLRUdEWUFGT3N6ak1WakVQaWltbFdkeWtBWkw5cVZj?=
- =?utf-8?Q?NYdjkSyNuHCtQgRqQaVJhVjye?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3FIVkdLM1dYVjBmWUVSRnlhYk81MnRTZGtwcXBFTUFtNENaQkdpZEhQdUwy?=
+ =?utf-8?B?WktVbjBpVldSZG40Nk95a2Z1UGc5NVA5SkdJMjV6MWJvNU0zN0JjNjVsUG9i?=
+ =?utf-8?B?eWdJc3poMTNnYitWMWxEUUZGbTFkb01mZHZNWngrNVdmZzRLcW16T0pHM1BP?=
+ =?utf-8?B?QkswY2lSTHEvMm5la2g3SmJrYmRySDhWd0lRWWlPQm5sMEJkdGlidmIwendF?=
+ =?utf-8?B?eHZEUkdIeGdoUW5nQWpUeWdxT25JR2R2TUFPMEFRVGRLNVBqN0wyUWtOVW4v?=
+ =?utf-8?B?OG8yM09seUV2dnB0M1U2WWV4em9ZeGsrdytKbEZ4Sy9BaloyRzg3KzNMdXB2?=
+ =?utf-8?B?SVdHL29sT0RzbUZIdytZSWd6Q3VpNy9jQTdHVGd0V2JRdFBlOVIrUHU3WnlB?=
+ =?utf-8?B?NHhiZ1oza0tBRmNjak5kL3ZZWVJrTlZhckFYRld6ODUySDhMeTgxckt5bmh0?=
+ =?utf-8?B?dUljaDYwdnNNU1BmZEc1MVZjMU14am16ZEdDQ0ZFTDR0L1VzeE1ONHA3U3pX?=
+ =?utf-8?B?SkFKS0hvSnErVi9Ob2FkeVkyMS8rUmtHMGpkMTdFNG9DSi9hSFc0NTEvZHlM?=
+ =?utf-8?B?Q0Q1QW5rOGg5akdqeTRkcVJ6RmVlYmVMdEx2ZUNSV2E4YlRCTmJnaythMkIy?=
+ =?utf-8?B?THFvTUNqdXplSVplUnU1alkvWmRlUW5rOG9ZRXU0K204UWxQTzBDdE1XcHVk?=
+ =?utf-8?B?YVlCZnJLR09aM29SRkFIb1ZZeXNEOWhtVWErcEJoSWVwZHQrRi9DV1NIYjZV?=
+ =?utf-8?B?V1ducjI2RlJ2RXZaOXhDRUZxNVR5UEZtL1U4d1lOOGZsVUphKzJEVkNIb3pB?=
+ =?utf-8?B?QWdqdmtGeEdoQjNBN2lveEFZNnRzdXpmUkFKeEd6aEQvOGhkRXA4bzB2eXBF?=
+ =?utf-8?B?bTFGVTRzWGdZNldkN3hCa1FQWDFzeHhxRkxNTmorOTNZR0lXR3VGWnJnNzZV?=
+ =?utf-8?B?NkRSTmEyMEtmMmJUK3E5anYyVjFPTGc0dDRFQU1FTDExR0dxT0o2SnluRlp6?=
+ =?utf-8?B?bk54VHFSTE9KdGV6RW5DNnRVb1lvNy9qZ3JwT09sL3RHR2Q5UE13d0Y3VnRW?=
+ =?utf-8?B?bGVvRmtURWNpSmNSYW1BS0hZRmZ1cXlOVlYxeDNzUHhRVU5tVHAvSEN3TThS?=
+ =?utf-8?B?VXR0TWRCL3lpRFlQWG5sR3NMZkM3aHZnNVJyZWtYYmxOYnhLMG1Mb1JDRzQ2?=
+ =?utf-8?B?WUlxbmd1VVFjK09VY05FQlVvUTYvbENnd1ROSVpBbHZoc1F3Q09SZWJWUFla?=
+ =?utf-8?B?K1FwVXFyV0huOWd1aHdUQlJHaHdNY2lpd2xkdzFZZnpLT3JNSGFXZS90azhy?=
+ =?utf-8?B?ZWpzM254RFdiZXRPenIrcGpOWUQ3bUlVR2kzc04zbUJ1ZHlIRlY4d2lVaGJk?=
+ =?utf-8?B?VCtJTTRUejhwQkE1dStXOHk4MUIyU2JvOXQxQlB0Sjd3Q3RzcjhaMms3eWZR?=
+ =?utf-8?B?Wm9GVG1kNUJTL2FOMUdJR0svVlRtWWxDTHNLejlSM2R0Q2x3a044Nmo3Sysx?=
+ =?utf-8?B?OVNGTnlHNGxzbFhjck40SUN1S0ZldWd3RDNxSzRUdlROMzNEYmhmNG01dG5J?=
+ =?utf-8?B?VGNva2ZhNUpWOXRmaEZ4MDZGYnF4MGgzOC9Ebk0zSDVkU2xEeXhybFBGK2gv?=
+ =?utf-8?B?ODl1elJ0ZVJvTnRTK3YvQUVQZnU2QlJpWWp4RURVTjJKNFNDREY2c3V5UEF6?=
+ =?utf-8?B?bjl5bzdzejY3cXhSWlpwdWdlTnZnN2w1MWJXbEdRNk8yYzQ4TzJFTVJKYUJ6?=
+ =?utf-8?B?SjdDTVlYcnkwMDIxS1NFY05Gd3ZlSHhPcG9EREUycjZRaWF2SGVPMDE4emx0?=
+ =?utf-8?B?SmZYNG9zWmdlTTdtL3lFNXpyZUg2Y2FoZGNXWXE1U1J3bmxNaHA0cXpJclZw?=
+ =?utf-8?B?ejBKbnducTdXZXJ1QWhqUDBTckFJL1JkcUZmLzhMalVKblBUVXJjaFpqbHhP?=
+ =?utf-8?B?aWREWE96RGZNLzNHS0Y2a3RLdnczd29tcnc2UjV5MFJVQk5VRlo3WHcrT0Qw?=
+ =?utf-8?B?elYwemZmbzdoendBQ2RmeEtEeWhHQnNNM2luanlYaDRHSStKclh2NmtlRkY0?=
+ =?utf-8?B?czlNTWFuVS9mVVpjRFBveTdCaXhBYkZXK0NyMXZKTldYUnpXY3RCOXdaZjRx?=
+ =?utf-8?Q?PFMasUCvBfxC2jKd/WkXo9j3h?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8dba2e4-706e-4be0-aa2c-08dba2d018c3
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e6978e8-5f0f-4952-7470-08dba2d6e884
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6000.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2023 05:24:45.9312 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2023 06:13:31.4921 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MqVhbnTLPoIJVfp4y0nFMcDcvFBD6Q6owXBZFeIgcq4EjuVpgny3XIwmMTJdfS7v
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8537
+X-MS-Exchange-CrossTenant-UserPrincipalName: iIBzxErC2n64+aybySYVCuwbxEaPd4hKAYAiqjiuUk/3AXty9u+GQLt03XD2yuV4ThmonzRJZxr06UmKoPMCCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6394
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,42 +129,197 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org, shashank.sharma@amd.com,
+ Felix.Kuehling@amd.com, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ Arvind Yadav <Arvind.Yadav@amd.com>, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
+ Christian.Koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+On 8/21/2023 11:40 PM, Alex Deucher wrote:
+> On Mon, Aug 21, 2023 at 1:54 PM Yadav, Arvind <arvyadav@amd.com> wrote:
+>>
+>> On 8/21/2023 9:52 PM, Alex Deucher wrote:
+>>> On Mon, Aug 21, 2023 at 2:55 AM Arvind Yadav <Arvind.Yadav@amd.com> wrote:
+>>>> This patch adds a function which will change the GPU
+>>>> power profile based on a submitted job. This can optimize
+>>>> the power performance when the workload is on.
+>>>>
+>>>> v2:
+>>>> - Splitting workload_profile_set and workload_profile_put
+>>>>     into two separate patches.
+>>>> - Addressed review comment.
+>>>>
+>>>> Cc: Shashank Sharma <shashank.sharma@amd.com>
+>>>> Cc: Christian Koenig <christian.koenig@amd.com>
+>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>> Signed-off-by: Arvind Yadav <Arvind.Yadav@amd.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c  | 56 +++++++++++++++++++
+>>>>    drivers/gpu/drm/amd/include/amdgpu_workload.h |  3 +
+>>>>    2 files changed, 59 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c
+>>>> index 32166f482f77..e661cc5b3d92 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_workload.c
+>>>> @@ -24,6 +24,62 @@
+>>>>
+>>>>    #include "amdgpu.h"
+>>>>
+>>>> +static enum PP_SMC_POWER_PROFILE
+>>>> +ring_to_power_profile(uint32_t ring_type)
+>>>> +{
+>>>> +       switch (ring_type) {
+>>>> +       case AMDGPU_RING_TYPE_GFX:
+>>>> +               return PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+>>>> +       case AMDGPU_RING_TYPE_COMPUTE:
+>>>> +               return PP_SMC_POWER_PROFILE_COMPUTE;
+>>>> +       case AMDGPU_RING_TYPE_UVD:
+>>>> +       case AMDGPU_RING_TYPE_VCE:
+>>>> +       case AMDGPU_RING_TYPE_UVD_ENC:
+>>>> +       case AMDGPU_RING_TYPE_VCN_DEC:
+>>>> +       case AMDGPU_RING_TYPE_VCN_ENC:
+>>>> +       case AMDGPU_RING_TYPE_VCN_JPEG:
+>>>> +               return PP_SMC_POWER_PROFILE_VIDEO;
+>>>> +       default:
+>>>> +               return PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
+>>>> +       }
+>>>> +}
+>>>> +
+>>>> +static int
+>>>> +amdgpu_power_profile_set(struct amdgpu_device *adev,
+>>>> +                        enum PP_SMC_POWER_PROFILE profile)
+>>>> +{
+>>>> +       int ret = amdgpu_dpm_switch_power_profile(adev, profile, true);
+>>>> +
+>>>> +       if (!ret) {
+>>>> +               /* Set the bit for the submitted workload profile */
+>>>> +               adev->smu_workload.submit_workload_status |= (1 << profile);
+>>>> +               atomic_inc(&adev->smu_workload.power_profile_ref[profile]);
+>>>> +       }
+>>>> +
+>>>> +       return ret;
+>>>> +}
+>>>> +
+>>>> +void amdgpu_workload_profile_set(struct amdgpu_device *adev,
+>>>> +                                uint32_t ring_type)
+>>>> +{
+>>>> +       struct amdgpu_smu_workload *workload = &adev->smu_workload;
+>>>> +       enum PP_SMC_POWER_PROFILE profile = ring_to_power_profile(ring_type);
+>>>> +       int ret;
+>>>> +
+>>>> +       if (profile == PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT)
+>>>> +               return;
+>>> Why is this one skipped?  How do we get back to the boot up profile?
+>> Hi Alex,
+>>
+>> enum PP_SMC_POWER_PROFILE {
+>>       PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT = 0x0,
+>>       PP_SMC_POWER_PROFILE_FULLSCREEN3D = 0x1,
+>>       PP_SMC_POWER_PROFILE_POWERSAVING  = 0x2,
+>>       PP_SMC_POWER_PROFILE_VIDEO        = 0x3,
+>>       PP_SMC_POWER_PROFILE_VR           = 0x4,
+>>       PP_SMC_POWER_PROFILE_COMPUTE      = 0x5,
+>>       PP_SMC_POWER_PROFILE_CUSTOM       = 0x6,
+>>       PP_SMC_POWER_PROFILE_WINDOW3D     = 0x7,
+>>       PP_SMC_POWER_PROFILE_COUNT,
+>> };
+>>
+>> These are all the profiles. We are using which is >
+>> PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT.
+>> Now suppose the profile was DEFAULT and we set it to VIDEO, SMU will
+>> move the profile to a higher level.
+>> When we reset the VIDEO profile then SMU will move back to the DEFAULT one.
+>>
+>> Our job is to set the profile and reset it after the job is done.
+>> SMU will take care to move to a higher profile and after reset, it will
+>> move back to DEFAULT.
+> I guess that is the part I'm missing.  How does the call to the SMU to
+> set the profile back to DEFAULT actually happen?  It seems that both
+> the put and get functions return early in this case.
+SMU is calculating a workload for given the profile and setting it when 
+we call the *get and *put function.
+When we call *set function for VIDEO then SMU will calculate a workload 
+for VIDEO and set it. Now We call
+*put function for the same profile then SMU calculates a workload which 
+will be lower or DEFAULT (0)
+and then it will set it.
 
-On 8/21/2023 6:17 PM, Mangesh Gadre wrote:
-> It is required for TCP/UTCL1 thrashing
-> 
+Suppose we have called *set function for VIDEO profile then SMU will 
+calculate the workload = 4 and set it.
+Now we have called *put function for the same profile then SMU will 
+calculate the workload = 0 and set it.
 
-Description looks a bit odd. You may rephrase as 'Update TCP/UTCL1 
-thrashing control settings'.
+please see the below smu code where index will be DEFAULT (0) or lower 
+for *put function.
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+if (!en) { // put function
+         smu->workload_mask &= ~(1 << smu->workload_prority[type]);
+         index = fls(smu->workload_mask);
+         index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
+         workload = smu->workload_setting[index];
+} else { // set function.
+         smu->workload_mask |= (1 << smu->workload_prority[type]);
+         index = fls(smu->workload_mask);
+         index = index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
+         workload = smu->workload_setting[index];
+}
 
-Thanks,
-Lijo
+In our case the *set function will set the GPU  power profile and the 
+*put function will schedule
+the smu_delayed_work task after 100ms delay. This smu_delayed_work task 
+will clear a GPU power profile if any
+new jobs are not scheduled within 100 ms. But if any new job comes 
+within 100ms then the *set function
+will cancel this work and set the GPU power profile based on preferences.
 
-> v2: updated rev_id check
-> 
-> Signed-off-by: Mangesh Gadre <Mangesh.Gadre@amd.com>
-> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> index 93590adf2b04..8b84ca80d80b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -203,6 +203,9 @@ static void gfx_v9_4_3_init_golden_registers(struct amdgpu_device *adev)
->   		if (adev->rev_id == 0) {
->   			WREG32_FIELD15_PREREG(GC, dev_inst, TCP_UTCL1_CNTL1,
->   					      REDUCE_FIFO_DEPTH_BY_2, 2);
-> +		} else {
-> +			WREG32_FIELD15_PREREG(GC, dev_inst, TCP_UTCL1_CNTL2,
-> +						SPARE, 0x1);
->   		}
->   	}
->   }
+Thank You
+~Arvind
+
+>
+> Alex
+>
+>
+> Alex
+>
+>
+>> ThankYou,
+>> ~Arvind
+>>
+>>> Alex
+>>>
+>>>> +
+>>>> +       mutex_lock(&workload->workload_lock);
+>>>> +
+>>>> +       ret = amdgpu_power_profile_set(adev, profile);
+>>>> +       if (ret) {
+>>>> +               DRM_WARN("Failed to set workload profile to %s, error = %d\n",
+>>>> +                        amdgpu_workload_mode_name[profile], ret);
+>>>> +       }
+>>>> +
+>>>> +       mutex_unlock(&workload->workload_lock);
+>>>> +}
+>>>> +
+>>>>    void amdgpu_workload_profile_init(struct amdgpu_device *adev)
+>>>>    {
+>>>>           adev->smu_workload.adev = adev;
+>>>> diff --git a/drivers/gpu/drm/amd/include/amdgpu_workload.h b/drivers/gpu/drm/amd/include/amdgpu_workload.h
+>>>> index 5d0f068422d4..5022f28fc2f9 100644
+>>>> --- a/drivers/gpu/drm/amd/include/amdgpu_workload.h
+>>>> +++ b/drivers/gpu/drm/amd/include/amdgpu_workload.h
+>>>> @@ -46,6 +46,9 @@ static const char * const amdgpu_workload_mode_name[] = {
+>>>>           "Window3D"
+>>>>    };
+>>>>
+>>>> +void amdgpu_workload_profile_set(struct amdgpu_device *adev,
+>>>> +                                uint32_t ring_type);
+>>>> +
+>>>>    void amdgpu_workload_profile_init(struct amdgpu_device *adev);
+>>>>
+>>>>    void amdgpu_workload_profile_fini(struct amdgpu_device *adev);
+>>>> --
+>>>> 2.34.1
+>>>>
