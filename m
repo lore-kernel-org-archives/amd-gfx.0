@@ -4,58 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08B62EE4996
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 13:48:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C94DEE4996
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 13:50:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6140210E062;
-	Tue, 22 Aug 2023 13:48:48 +0000 (UTC)
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBC5B10E389
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Aug 2023 13:48:45 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id
- 5614622812f47-3a8036d805eso3335215b6e.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Aug 2023 06:48:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1692712125; x=1693316925;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cc6oqwRas5SviGb16SDrO7vd2NRB6RrrJ2cAXK5Cckc=;
- b=R77Jh4TF8gFQ9XMHLEw/jnmVbKj/k1VkHbYU0IauMZmc7rwejHGrKINg2CdPhbcIg+
- rgRW3qkRGAK+1s9gYyblFEgfNyD1y3yZCRv8b8DryVsZHyKbxxZx/OVNL6Gh5akT+5GF
- MntaywushUTunXtOQ0xTZzaxApQtaJJl7PrwkRgdcmF7nxTHUV3UVh8QiiajK+WkUWYO
- t7e0c8b62HjWcqmsEhnqPXd+uI5hpwFIgO8KHeMMgajpVvIdiN9OzDeewfJVBYoCCULx
- uzjMbSjDKaUR//gvQBLdJvEfEQqfUVVEVXPYSro/lJw1Jk8lJ8s1bFH0G7BgavQTqhxM
- Wb3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692712125; x=1693316925;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cc6oqwRas5SviGb16SDrO7vd2NRB6RrrJ2cAXK5Cckc=;
- b=af8UARgWCpHP1KQP638LNoo1PvxrOpPT9y1mZBRQ6RjAjRqB7FSwWVROcP83ZJlKbJ
- Hna+e2o9paer/AyTJIrpcktu+KhLVJcX4UANgqpEP0KA9uFj1beH4ZXsEsgV+6EVjJhQ
- ZkxCe8v8g6PzoHetGoMOdyzT1CVuZTR04IFjtZbjo8MN8UwxYAdwvjksfV8gQ/CK3ZjJ
- 7HgmQzosGR1gHMK+EOZCeahqVtr1cJhGon706kpBZEFfuj2BG0GT2yg1VsOC0A0oXi6M
- iGUCKQfPUMf+SHH5L50KWPbivDbqNJueaENZNt8iGTSmpJC1HHQXF/OSQnwv9D6rsuvH
- eznQ==
-X-Gm-Message-State: AOJu0YxEM8L1Jd12FtScnjWEwF8Y1EizEpmortz4z+tNELf0KEP2pNT8
- W6pEtB6dyXgIyGy6vU64DU03jhDR+PX6sX3sN8c=
-X-Google-Smtp-Source: AGHT+IFt2X6SemTcRC/KWBkOcqCf7HbfRtQDCstt8sNEpWx0ZhGerBoJKSxDaHllYg5koGYSoATsf/y1CZrrEhRCNII=
-X-Received: by 2002:a05:6808:f8d:b0:3a7:f153:b5e5 with SMTP id
- o13-20020a0568080f8d00b003a7f153b5e5mr13815949oiw.29.1692712124780; Tue, 22
- Aug 2023 06:48:44 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1A410E36D;
+	Tue, 22 Aug 2023 13:50:07 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::60c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFDDA10E36C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Aug 2023 13:50:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=g4gMtDnNsHWrp6ad1o+6HIYvByLdFwepWnKD/H3KcHcH1UEPt1i3rDE9JyOPaBCg8OnInUTTtW60mhlU9fN4wH7v/yhcLPq2LQ3/zzTlTIaHnOPqidyGRbtJFLfbqvlI8L0/bKCtSZPTuZC/jagBQ7YI6nFgDqat4ScgdutQ/ieGwOdc1qwnFuyZLBketJiUu+lf1fcKXqIeHiUSWLe6KQse1fyim6t/zzo9tJllpiaK5PVtY6j3AMctp/CcdghpFGj6sOlq9SrMf5aMmg3SpTc9u1snkHkDR4iZ/58A89IwkvW+m/y4vvjlIw8TPrfPSKOO8Vh1Ti/5Ptt8vbo/Ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gsyFe7RxIfS3ZtZychC/cl/knQxtz8AuPneqAP2iM7A=;
+ b=HssQARred1hkWEgPXkWl4InpLTBy0Vr4pwOM1dQtzKZqI1VQlJW73bqBWCW+qwZBA/GPzbsJPE9sX07cDTKiXTRkQMWZ5Wjw13KoyrErfAhM7PdPiiL6CFV7NzJD6/DLA+UEh+WA4dQEQ8RidLy08rwIypsJ7BcbkJbX2m+R1gOxhcVO0Ao/pT6/qsJ+jNf4mkO7CHQVDbiWo1d7idunNe1iVGExjy4utZxIIiHbMgreFeNqCinu0qOOuEVGk5Dct8KvZOzRLCmtDPDaOg/EoHWyVxahz1zjvMZ+4ehoU6w7gFqTxUZP1wmvukJIvSW+lbwGzgEzimkeijNRPhhqPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gsyFe7RxIfS3ZtZychC/cl/knQxtz8AuPneqAP2iM7A=;
+ b=yNi8TAOIu0YFjbvYdr0+4ioJl3i8FXqKBSyQd2EayySJwzLOSaDAOU7jvwUEb5m4n+YzH9yFV1EaiX4VO3eAg2v6SRzrStbTJ5s5HXc89twmlGCaj+Imn8dtZyd9UvTUT3YhfP11AQGGR+DW74COQFUL/wYbc7M8lhQHveGmWMo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS7PR12MB5933.namprd12.prod.outlook.com (2603:10b6:8:7c::14) by
+ SA1PR12MB7318.namprd12.prod.outlook.com (2603:10b6:806:2b3::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.25; Tue, 22 Aug
+ 2023 13:50:01 +0000
+Received: from DS7PR12MB5933.namprd12.prod.outlook.com
+ ([fe80::c103:6f7d:4125:970a]) by DS7PR12MB5933.namprd12.prod.outlook.com
+ ([fe80::c103:6f7d:4125:970a%5]) with mapi id 15.20.6699.022; Tue, 22 Aug 2023
+ 13:49:56 +0000
+Message-ID: <d3321aac-0f92-de01-a576-6fe71d709666@amd.com>
+Date: Tue, 22 Aug 2023 09:49:52 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: [PATCH] drm/amdgpu: Rework memory limits to allow big allocations
+Content-Language: en-US
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230821192001.12370-1-rajneesh.bhardwaj@amd.com>
+ <60f44d5f-bb03-379d-992d-1b7715e6e685@amd.com>
+From: "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>
+In-Reply-To: <60f44d5f-bb03-379d-992d-1b7715e6e685@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0284.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6d::23) To DS7PR12MB5933.namprd12.prod.outlook.com
+ (2603:10b6:8:7c::14)
 MIME-Version: 1.0
-References: <20230815033547.65220-1-mario.limonciello@amd.com>
-In-Reply-To: <20230815033547.65220-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 22 Aug 2023 09:48:33 -0400
-Message-ID: <CADnq5_OMqCC_Lpc33OaWDPiJnaA3r3jktbfsQYx_ioDz_gm8_A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Drop USB-C PD F/W flashing support
-To: Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR12MB5933:EE_|SA1PR12MB7318:EE_
+X-MS-Office365-Filtering-Correlation-Id: 907404e4-b26a-4959-b290-08dba316ab2f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 3qAOhPFy5LlbeVvxaMk5pabKDtw+t8xkPE2MCaBDEEkJgelCmoTQv/L6YJsdHNcHtPlkKVb5C7MTXCNBPok8Wf/J4hVC8Toy/iARxH1C5dvDo30vSfWIinxgMW5Y0MQe7fo6AzfIiXPppFmmr7QkePUKx58lCpV6MEpddWQdlNKDAZnX19VuaER6H8bD9DbOji8B267RXcrY1cnmKhd3ZjkW46tiUH4ZvXeO5fgWkQsKSt1rMTHwGSYBFH5f9jK51sUAc2EzrG4YlENeA1queHqDkyCIgMiNxM87LEaxtIVZviuxhYi75K5AgLsyNNjNc9YrY+EnMTJg55e2LYKPBqrqEyG9LXUDQ8MQKfKnwceb5vuGlv9bI1GDPwM0lH5VxtOUAx0quRTHnAZ7sbHgLkh1mp9EcZxdJ53WwEq/37WOZPdf2x5Uovf7CC/7X9qWK3FcGeDklwCLTeOVuf6MrMtBXST7rHDMBY9NNBanw+JY1BOM0YnWsLZFyBWHx2cSsuV9e2aAMDGtWo6WT1/wlbmEU5lh1awmrgudIMQBiqww7wAmADCKhIgtFoMqx1AXERPwjI1C3jto7UvmROpT7M1sDwxrAGqzHahEFWreghRzB+o25NYa3ysL9ZSsdf1Eg9go34V1m3tYvA9n41U+NQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB5933.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(136003)(346002)(376002)(39860400002)(366004)(451199024)(186009)(1800799009)(31686004)(478600001)(6486002)(6666004)(83380400001)(38100700002)(2906002)(26005)(6506007)(2616005)(6512007)(53546011)(36756003)(31696002)(86362001)(66556008)(66476007)(316002)(8676002)(66946007)(41300700001)(8936002)(4326008)(5660300002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RmdmMGd3UHdISDNVQURxYjZWVVB5L0thREhYMTNhaThuak9yS09sWEhaUnJT?=
+ =?utf-8?B?WERFUEM4eFFsWlpzZTNIczk2YUtsT0VTRlJ3MmxOMy9RMXExUVRiaExFR2hZ?=
+ =?utf-8?B?dUZPeXRjbW03VnZGRXY3ZGxxTEJyRkc1RzY4RFJPWWM3aTBBTm41NUtRYzhR?=
+ =?utf-8?B?UjNKeDNkVVg5M2lSbVRUU2YwYmtxSUJSMzl2ZWdtK3JPczNoY1lqMk5uRS9u?=
+ =?utf-8?B?MHJpY1F0alIxWlRYRlpWZ3hCTVJJYkNjaTNlR1dJdnFqcENnaTE0VFptbDR5?=
+ =?utf-8?B?S3NQbzVYdnRJSnc3QjAybEhMT3g5NVdaaTQybENNNFpxOFZhUWEzTTdyZ1Zh?=
+ =?utf-8?B?N0wwWmhTckhlY3YzdFJiV3RscVBuTGtWd2pCWGVvVklrRVJXakpDRGJhM0F2?=
+ =?utf-8?B?NE9xNUhHQ2dTUVVPK1ZsNU9TSmd1Q3FkSWtZUkF1c0VNK2wwQVMramIyaXND?=
+ =?utf-8?B?bnlUTEcvZnhGUnpzL3MrSUJpNWZPUXNDRzFTbjBoOGpNazBERFNBRUNaK1Zj?=
+ =?utf-8?B?RTFrRkRUczRNM2FvUlFYNVNTNFZCQTh1R2VqbjhMNDBmYjQ0QTBWLzhGYk5a?=
+ =?utf-8?B?MTFUWWNsdWErZjkyT1B6RERhOUF5TVNDSWllMUhMOGV1cUp0ejJWYTBhRitR?=
+ =?utf-8?B?MTNSejRlSzVqZFBiOXJvTkp3bVRyaFRQazVWYWtzNVZqZXkwbHlGWVlwKzNO?=
+ =?utf-8?B?QzN1akkydkNqZzRoVVpLbWVaVWlNVjhmTmdsWmVIWmdKeXI5aEVQOGJ3cE5W?=
+ =?utf-8?B?TG5oTUN2Y3lHNjhrWmtlQkZ3WmVxMTJQekYzaFRBNEZiSnhqcUM3YWwwYmtW?=
+ =?utf-8?B?QVhicHpYSmN1eFg5OEtTOXZwZTRHZDlrZHdPN3ZoWVhHb2lZN1k0K0YvRXZy?=
+ =?utf-8?B?NkJhSHdxVnJ4Y1d2K2lkYkxReCswTkpLbGhXQU5WL2o1NGNyZG9nV3dyZ0Nk?=
+ =?utf-8?B?eUlKdmQyYmxrSHBzZWQ0eDVlZ1BramdaN2ZIUHNhOC9NUGZhUkdSUWpCVHBZ?=
+ =?utf-8?B?TFFlYUh1WDVZbUk2NlVGWHVjUUdaemRhZUd4S1ByZ0haRmk3bGg1SzF5OG11?=
+ =?utf-8?B?TmFEMnFyOCtmN0JNanVVWWFnZ056V0EwK09hbkhSTGMxdUZZSEdDM21wN0lY?=
+ =?utf-8?B?SExTclo1eWxhckI1T0dPVGh6ZGtLbVUwZW5oZHQxbk9WSGJKRTZGUWYrL2pI?=
+ =?utf-8?B?RHlIV2N1d21sSHM2NEJDQjhkTXF0ZnpGMW0wcWkvZU5BV3h2cm1mV09KcHVj?=
+ =?utf-8?B?OVBGeFV2QXFvbk42d2FmZkZiUGRBY0dOS2RBeFErbHNjN1RuZlBLbUxlNDly?=
+ =?utf-8?B?cThQTmNJeURMODltQkdiZGEzUmw4a2NES3B6U2xFWS9EeVBrY3NlY0NhOFJM?=
+ =?utf-8?B?QW8xeGs1cjhFUGhXcCtscnh2KzI5R2hPOTQybkM0TzNxTy94ckxWL1RYZ1BK?=
+ =?utf-8?B?UldIWFVMT0huTmxpUS8yZE4xMUNBK09sOHNabnhjMnk1cjluNW45NCttYjY4?=
+ =?utf-8?B?Nzd6VEJLSHlTS1IrTkpRYjVCUHVkaHdOUVN2ekcwcGJCcVkyTVk5Nk9SbG9B?=
+ =?utf-8?B?NFRlUVIyRnhiRnpJL2lZTFpYbUdoWEZpTkxVRGp6eCsvRTRuOExhYWFEVHZX?=
+ =?utf-8?B?OXByWk9qOHdmT252ZE1KT2Rpa1l0ZGF6ZGVVMjRsdkU5QzJyM0MzUzR1eVJv?=
+ =?utf-8?B?SEcwVndIWXlmNGd2NGlTbzNaY1hSK1V4a3Fmc01SNXFBc3pYSThSRmVMZlQ3?=
+ =?utf-8?B?SVd2Q0Uybld2NWsxY2RqODVlY2VqdkVMbFMxaHpBc213eVRZNkNLaXhpTTZn?=
+ =?utf-8?B?d2thSE1adXhiRTFDVjlXNVVZU1o5cXgrY0dXU0Z2eDFNTE94ZDNKcENGUTJL?=
+ =?utf-8?B?ZWJYSjJ2YzUxR0M3ckdKVjF4WW1EeThQMGFGYlBQeWtyd21KZUhnOHR2VGt0?=
+ =?utf-8?B?RnIyblc3RC9YaDZObnpGMHFmZklmcnF5eTB2aG1Kcndwa2E5OXFtaVBIMEZC?=
+ =?utf-8?B?cGRodTVHMm9SUlMxS0VyMXpoMnNWNXdJVExQc1YwNUJoSk5ISWJmNjd5QWR1?=
+ =?utf-8?B?dmVQSXBhbUozdzNDVG1WSW9rUTg4RWlYNGE0cVU0UzR5NEpUQTJCMFJlT3dY?=
+ =?utf-8?Q?5k7iAWwcX9LoP0n+aAn0/4rcx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 907404e4-b26a-4959-b290-08dba316ab2f
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB5933.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2023 13:49:56.1494 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ShHMKUKjXXU5Ofc1McMtH5rc2/DqI763thM+nNd7MKfI40GsU74iGlar5qP35bQZeu+qWKoAbHH27Do7AGQzRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7318
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,399 +125,165 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 15, 2023 at 4:40=E2=80=AFAM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> This support was introduced for pre-navi3x dGPUS.  The interface that
-> this was wired up to isn't usable by fwupd, and no devices had a need
-> to release firmware into the wild.
->
-> Navi3x dGPUs introduce an interface that can flash the entire IFWI
-> image that is acceptable by userspace software like fwupd.
 
-Technically the USB PD is separate from the IFWI and should still be
-applicable to any dGPU with USB.  While the interface is not ideal for
-fwupd, I feel like we should leave it around until we have something
-better to replace it on the off chance there is a USB PD image update
-that needs to be flashed.
+On 8/21/2023 4:32 PM, Felix Kuehling wrote:
+>
+> On 2023-08-21 15:20, Rajneesh Bhardwaj wrote:
+>> Rework the KFD max system memory and ttm limit to allow bigger
+>> system memory allocations upto 63/64 of the available memory which is
+>> controlled by ttm module params pages_limit and page_pool_size. Also for
+>> NPS1 mode, report the max ttm limit as the available VRAM size. For max
+>> system memory limit, leave 1GB exclusively outside ROCm allocations i.e.
+>> on 16GB system, >14 GB can be used by ROCm still leaving some memory for
+>> other system applications and on 128GB systems (e.g. GFXIP 9.4.3 APU in
+>> NPS1 mode) nearly >120GB can be used by ROCm.
+>>
+>> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+>> ---
+>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  5 ++--
+>>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         | 25 +++++++++++++------
+>>   2 files changed, 21 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> index 9e18fe5eb190..3387dcdf1bc9 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> @@ -44,6 +44,7 @@
+>>    * changes to accumulate
+>>    */
+>>   #define AMDGPU_USERPTR_RESTORE_DELAY_MS 1
+>> +#define ONE_GB            (1UL << 30)
+>>     /*
+>>    * Align VRAM availability to 2MB to avoid fragmentation caused by 
+>> 4K allocations in the tail 2MB
+>> @@ -117,11 +118,11 @@ void amdgpu_amdkfd_gpuvm_init_mem_limits(void)
+>>           return;
+>>         si_meminfo(&si);
+>> -    mem = si.freeram - si.freehigh;
+>> +    mem = si.totalram - si.totalhigh;
+>>       mem *= si.mem_unit;
+>>         spin_lock_init(&kfd_mem_limit.mem_limit_lock);
+>> -    kfd_mem_limit.max_system_mem_limit = mem - (mem >> 4);
+>> +    kfd_mem_limit.max_system_mem_limit = mem - (mem >> 6) - (ONE_GB);
+>
+> I believe this is an OK heuristic for large systems and medium-sized 
+> systems. But it produces a negative number or an underflow for systems 
+> with very small system memory (about 1.1GB).  It's not practical to 
+> run ROCm on such a small system, but the code at least needs to be 
+> robust here and produce something meaningful. E.g.
 
-Alex
+
+Sure, I agree.
+
+>
+>     kfd_mem_limit.max_system_mem_limit = mem - (mem >> 6);
+>     if (kfd_mem_limit.max_system_mem_limit < 2 * ONE_GB)
+>         kfd_mem_limit.max_system_mem_limit <<= 1;
+>     else
+>         kfd_mem_limit.max_system_mem_limit -= ONE_GB;
+>
+> Since this change affects all GPUs and the change below is specific to 
+> GFXv9.4.3 APUs, I'd separate this into two patches.
 
 
+Ok, will split into two changes.
+
 >
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  Documentation/gpu/amdgpu/flashing.rst   | 12 ----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 91 -------------------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 10 ---
->  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 60 ----------------
->  drivers/gpu/drm/amd/amdgpu/psp_v13_0.c  | 60 ----------------
->  5 files changed, 233 deletions(-)
 >
-> diff --git a/Documentation/gpu/amdgpu/flashing.rst b/Documentation/gpu/am=
-dgpu/flashing.rst
-> index bd745c42a538f..4556d58866e8e 100644
-> --- a/Documentation/gpu/amdgpu/flashing.rst
-> +++ b/Documentation/gpu/amdgpu/flashing.rst
-> @@ -16,18 +16,6 @@ The IFWI flash process is:
->  3. "Read" from the `psp_vbflash` sysfs file to initiate the flash proces=
-s.
->  4. Poll the `psp_vbflash_status` sysfs file to determine when the flash =
-process completes.
+>>       kfd_mem_limit.max_ttm_mem_limit = ttm_tt_pages_limit() << 
+>> PAGE_SHIFT;
+>>       pr_debug("Kernel memory limit %lluM, TTM limit %lluM\n",
+>>           (kfd_mem_limit.max_system_mem_limit >> 20),
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c 
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> index 8447fcada8bb..4962e35df617 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>> @@ -25,6 +25,7 @@
+>>   #include <linux/pci.h>
+>>     #include <drm/drm_cache.h>
+>> +#include <drm/ttm/ttm_tt.h>
+>>     #include "amdgpu.h"
+>>   #include "gmc_v9_0.h"
+>> @@ -1877,6 +1878,7 @@ static void
+>>   gmc_v9_0_init_acpi_mem_ranges(struct amdgpu_device *adev,
+>>                     struct amdgpu_mem_partition_info *mem_ranges)
+>>   {
+>> +    uint64_t max_ttm_size = ttm_tt_pages_limit() << PAGE_SHIFT;
+>>       int num_ranges = 0, ret, mem_groups;
+>>       struct amdgpu_numa_info numa_info;
+>>       int node_ids[MAX_MEM_RANGES];
+>> @@ -1913,8 +1915,17 @@ gmc_v9_0_init_acpi_mem_ranges(struct 
+>> amdgpu_device *adev,
+>>         /* If there is only partition, don't use entire size */
+>>       if (adev->gmc.num_mem_partitions == 1) {
+>> -        mem_ranges[0].size = mem_ranges[0].size * (mem_groups - 1);
+>> -        do_div(mem_ranges[0].size, mem_groups);
+>> +        if (max_ttm_size > mem_ranges[0].size || max_ttm_size <= 0) {
 >
-> -USB-C PD F/W
-> -------------
-> -On GPUs that support flashing an updated USB-C PD firmware image, the pr=
-ocess
-> -is done using the `usbc_pd_fw` sysfs file.
-> -
-> -* Reading the file will provide the current firmware version.
-> -* Writing the name of a firmware payload stored in `/lib/firmware/amdgpu=
-` to the sysfs file will initiate the flash process.
-> -
-> -The firmware payload stored in `/lib/firmware/amdgpu` can be named any n=
-ame
-> -as long as it doesn't conflict with other existing binaries that are use=
-d by
-> -`amdgpu`.
-> -
->  sysfs files
->  -----------
->  .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index 8fdca54bb8a11..15450b9aabdae 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -3471,88 +3471,6 @@ static int psp_set_powergating_state(void *handle,
->         return 0;
->  }
+> This gives some weird dis-continuous behaviour. For max_ttm_size > 
+> mem_ranges[0].size it gives you 3/4. For max_ttm_size == 
+> mem_ranges[0].size it gives you all the memory.
 >
-> -static ssize_t psp_usbc_pd_fw_sysfs_read(struct device *dev,
-> -                                        struct device_attribute *attr,
-> -                                        char *buf)
-> -{
-> -       struct drm_device *ddev =3D dev_get_drvdata(dev);
-> -       struct amdgpu_device *adev =3D drm_to_adev(ddev);
-> -       uint32_t fw_ver;
-> -       int ret;
-> -
-> -       if (!adev->ip_blocks[AMD_IP_BLOCK_TYPE_PSP].status.late_initializ=
-ed) {
-> -               DRM_INFO("PSP block is not ready yet.");
-> -               return -EBUSY;
-> -       }
-> -
-> -       mutex_lock(&adev->psp.mutex);
-> -       ret =3D psp_read_usbc_pd_fw(&adev->psp, &fw_ver);
-> -       mutex_unlock(&adev->psp.mutex);
-> -
-> -       if (ret) {
-> -               DRM_ERROR("Failed to read USBC PD FW, err =3D %d", ret);
-> -               return ret;
-> -       }
-> -
-> -       return sysfs_emit(buf, "%x\n", fw_ver);
-> -}
-> -
-> -static ssize_t psp_usbc_pd_fw_sysfs_write(struct device *dev,
-> -                                                      struct device_attr=
-ibute *attr,
-> -                                                      const char *buf,
-> -                                                      size_t count)
-> -{
-> -       struct drm_device *ddev =3D dev_get_drvdata(dev);
-> -       struct amdgpu_device *adev =3D drm_to_adev(ddev);
-> -       int ret, idx;
-> -       char fw_name[100];
-> -       const struct firmware *usbc_pd_fw;
-> -       struct amdgpu_bo *fw_buf_bo =3D NULL;
-> -       uint64_t fw_pri_mc_addr;
-> -       void *fw_pri_cpu_addr;
-> -
-> -       if (!adev->ip_blocks[AMD_IP_BLOCK_TYPE_PSP].status.late_initializ=
-ed) {
-> -               DRM_INFO("PSP block is not ready yet.");
-> -               return -EBUSY;
-> -       }
-> -
-> -       if (!drm_dev_enter(ddev, &idx))
-> -               return -ENODEV;
-> -
-> -       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s", buf);
-> -       ret =3D request_firmware(&usbc_pd_fw, fw_name, adev->dev);
-> -       if (ret)
-> -               goto fail;
-> -
-> -       /* LFB address which is aligned to 1MB boundary per PSP request *=
-/
-> -       ret =3D amdgpu_bo_create_kernel(adev, usbc_pd_fw->size, 0x100000,
-> -                                     AMDGPU_GEM_DOMAIN_VRAM |
-> -                                     AMDGPU_GEM_DOMAIN_GTT,
-> -                                     &fw_buf_bo, &fw_pri_mc_addr,
-> -                                     &fw_pri_cpu_addr);
-> -       if (ret)
-> -               goto rel_buf;
-> -
-> -       memcpy_toio(fw_pri_cpu_addr, usbc_pd_fw->data, usbc_pd_fw->size);
-> -
-> -       mutex_lock(&adev->psp.mutex);
-> -       ret =3D psp_load_usbc_pd_fw(&adev->psp, fw_pri_mc_addr);
-> -       mutex_unlock(&adev->psp.mutex);
-> -
-> -       amdgpu_bo_free_kernel(&fw_buf_bo, &fw_pri_mc_addr, &fw_pri_cpu_ad=
-dr);
-> -
-> -rel_buf:
-> -       release_firmware(usbc_pd_fw);
-> -fail:
-> -       if (ret) {
-> -               DRM_ERROR("Failed to load USBC PD FW, err =3D %d", ret);
-> -               count =3D ret;
-> -       }
-> -
-> -       drm_dev_exit(idx);
-> -       return count;
-> -}
-> -
->  void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t =
-bin_size)
->  {
->         int idx;
-> @@ -3566,15 +3484,6 @@ void psp_copy_fw(struct psp_context *psp, uint8_t =
-*start_addr, uint32_t bin_size
->         drm_dev_exit(idx);
->  }
+> Also, why is this only applied for num_mem_partitions == 1? The TTM 
+> limit also applies when there are more memory partitions. Would it 
+> make more sense to always evenly divide the ttm_tt_pages_limit between 
+> all the memory partitions? And cap the size at the NUMA node size. I 
+> think that would eliminate special cases for different 
+> memory-partition configs and give you sensible behaviour in all cases.
+
+
+I think TTM doesn't check what values are being passed to pages_limt or 
+page_pool_size so when the user passes an arbitrary number here, I 
+wanted to retain the default behavior for NPS1 mode i.e. 3/4th of the 
+available NUMA memory should be reported as VRAM. Also for >NPS1 mode, 
+the partition size is already proportionately divided i.e in TPX/NPS4 
+mode, we have 1/4th NUMA memory visible as VRAM but KFD limits will be 
+already bigger than that and we will be capped by VRAM size so this 
+change was only for NPS1 mode where the memory ranges are limited by 
+NUMA_NO_NODE special condition.
+
 >
-> -/**
-> - * DOC: usbc_pd_fw
-> - * Reading from this file will retrieve the USB-C PD firmware version. W=
-riting to
-> - * this file will trigger the update process.
-> - */
-> -static DEVICE_ATTR(usbc_pd_fw, 0644,
-> -                  psp_usbc_pd_fw_sysfs_read,
-> -                  psp_usbc_pd_fw_sysfs_write);
-> -
->  int is_psp_fw_valid(struct psp_bin_desc bin)
->  {
->         return bin.size_bytes;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.h
-> index 3c7d9051b8c6b..4f62013ffed3a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> @@ -128,8 +128,6 @@ struct psp_funcs {
->         int (*mem_training)(struct psp_context *psp, uint32_t ops);
->         uint32_t (*ring_get_wptr)(struct psp_context *psp);
->         void (*ring_set_wptr)(struct psp_context *psp, uint32_t value);
-> -       int (*load_usbc_pd_fw)(struct psp_context *psp, uint64_t fw_pri_m=
-c_addr);
-> -       int (*read_usbc_pd_fw)(struct psp_context *psp, uint32_t *fw_ver)=
-;
->         int (*update_spirom)(struct psp_context *psp, uint64_t fw_pri_mc_=
-addr);
->         int (*vbflash_stat)(struct psp_context *psp);
->  };
-> @@ -429,14 +427,6 @@ struct amdgpu_psp_funcs {
->  #define psp_ring_get_wptr(psp) (psp)->funcs->ring_get_wptr((psp))
->  #define psp_ring_set_wptr(psp, value) (psp)->funcs->ring_set_wptr((psp),=
- (value))
+> Regards,
+>   Felix
 >
-> -#define psp_load_usbc_pd_fw(psp, fw_pri_mc_addr) \
-> -       ((psp)->funcs->load_usbc_pd_fw ? \
-> -       (psp)->funcs->load_usbc_pd_fw((psp), (fw_pri_mc_addr)) : -EINVAL)
-> -
-> -#define psp_read_usbc_pd_fw(psp, fw_ver) \
-> -       ((psp)->funcs->read_usbc_pd_fw ? \
-> -       (psp)->funcs->read_usbc_pd_fw((psp), fw_ver) : -EINVAL)
-> -
->  #define psp_update_spirom(psp, fw_pri_mc_addr) \
->         ((psp)->funcs->update_spirom ? \
->         (psp)->funcs->update_spirom((psp), fw_pri_mc_addr) : -EINVAL)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/psp_v11_0.c
-> index 8f84fe40abbbb..8aaecc725ec19 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> @@ -586,64 +586,6 @@ static void psp_v11_0_ring_set_wptr(struct psp_conte=
-xt *psp, uint32_t value)
->                 WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_67, value);
->  }
 >
-> -static int psp_v11_0_load_usbc_pd_fw(struct psp_context *psp, uint64_t f=
-w_pri_mc_addr)
-> -{
-> -       struct amdgpu_device *adev =3D psp->adev;
-> -       uint32_t reg_status;
-> -       int ret, i =3D 0;
-> -
-> -       /*
-> -        * LFB address which is aligned to 1MB address and has to be
-> -        * right-shifted by 20 so that LFB address can be passed on a 32-=
-bit C2P
-> -        * register
-> -        */
-> -       WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36, (fw_pri_mc_addr >> 20))=
-;
-> -
-> -       ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PM=
-SG_35),
-> -                            0x80000000, 0x80000000, false);
-> -       if (ret)
-> -               return ret;
-> -
-> -       /* Fireup interrupt so PSP can pick up the address */
-> -       WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_35, (GFX_CMD_USB_PD_USE_LFB=
- << 16));
-> -
-> -       /* FW load takes very long time */
-> -       do {
-> -               msleep(1000);
-> -               reg_status =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_35);
-> -
-> -               if (reg_status & 0x80000000)
-> -                       goto done;
-> -
-> -       } while (++i < USBC_PD_POLLING_LIMIT_S);
-> -
-> -       return -ETIME;
-> -done:
-> -
-> -       if ((reg_status & 0xFFFF) !=3D 0) {
-> -               DRM_ERROR("Address load failed - MP0_SMN_C2PMSG_35.Bits [=
-15:0] =3D 0x%04x\n",
-> -                               reg_status & 0xFFFF);
-> -               return -EIO;
-> -       }
-> -
-> -       return 0;
-> -}
-> -
-> -static int psp_v11_0_read_usbc_pd_fw(struct psp_context *psp, uint32_t *=
-fw_ver)
-> -{
-> -       struct amdgpu_device *adev =3D psp->adev;
-> -       int ret;
-> -
-> -       WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_35, C2PMSG_CMD_GFX_USB_PD_F=
-W_VER);
-> -
-> -       ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PM=
-SG_35),
-> -                                    0x80000000, 0x80000000, false);
-> -       if (!ret)
-> -               *fw_ver =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36);
-> -
-> -       return ret;
-> -}
-> -
->  static const struct psp_funcs psp_v11_0_funcs =3D {
->         .init_microcode =3D psp_v11_0_init_microcode,
->         .bootloader_load_kdb =3D psp_v11_0_bootloader_load_kdb,
-> @@ -657,8 +599,6 @@ static const struct psp_funcs psp_v11_0_funcs =3D {
->         .mem_training =3D psp_v11_0_memory_training,
->         .ring_get_wptr =3D psp_v11_0_ring_get_wptr,
->         .ring_set_wptr =3D psp_v11_0_ring_set_wptr,
-> -       .load_usbc_pd_fw =3D psp_v11_0_load_usbc_pd_fw,
-> -       .read_usbc_pd_fw =3D psp_v11_0_read_usbc_pd_fw
->  };
->
->  void psp_v11_0_set_psp_funcs(struct psp_context *psp)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd=
-/amdgpu/psp_v13_0.c
-> index 58db1ee631b39..46af460e60ed8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-> @@ -557,64 +557,6 @@ static int psp_v13_0_memory_training(struct psp_cont=
-ext *psp, uint32_t ops)
->         return 0;
->  }
->
-> -static int psp_v13_0_load_usbc_pd_fw(struct psp_context *psp, uint64_t f=
-w_pri_mc_addr)
-> -{
-> -       struct amdgpu_device *adev =3D psp->adev;
-> -       uint32_t reg_status;
-> -       int ret, i =3D 0;
-> -
-> -       /*
-> -        * LFB address which is aligned to 1MB address and has to be
-> -        * right-shifted by 20 so that LFB address can be passed on a 32-=
-bit C2P
-> -        * register
-> -        */
-> -       WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36, (fw_pri_mc_addr >> 20)=
-);
-> -
-> -       ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMP0_SMN_C2P=
-MSG_35),
-> -                            0x80000000, 0x80000000, false);
-> -       if (ret)
-> -               return ret;
-> -
-> -       /* Fireup interrupt so PSP can pick up the address */
-> -       WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_35, (GFX_CMD_USB_PD_USE_LF=
-B << 16));
-> -
-> -       /* FW load takes very long time */
-> -       do {
-> -               msleep(1000);
-> -               reg_status =3D RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_35)=
-;
-> -
-> -               if (reg_status & 0x80000000)
-> -                       goto done;
-> -
-> -       } while (++i < USBC_PD_POLLING_LIMIT_S);
-> -
-> -       return -ETIME;
-> -done:
-> -
-> -       if ((reg_status & 0xFFFF) !=3D 0) {
-> -               DRM_ERROR("Address load failed - MP0_SMN_C2PMSG_35.Bits [=
-15:0] =3D %04x\n",
-> -                               reg_status & 0xFFFF);
-> -               return -EIO;
-> -       }
-> -
-> -       return 0;
-> -}
-> -
-> -static int psp_v13_0_read_usbc_pd_fw(struct psp_context *psp, uint32_t *=
-fw_ver)
-> -{
-> -       struct amdgpu_device *adev =3D psp->adev;
-> -       int ret;
-> -
-> -       WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_35, C2PMSG_CMD_GFX_USB_PD_=
-FW_VER);
-> -
-> -       ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMP0_SMN_C2P=
-MSG_35),
-> -                                    0x80000000, 0x80000000, false);
-> -       if (!ret)
-> -               *fw_ver =3D RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36);
-> -
-> -       return ret;
-> -}
-> -
->  static int psp_v13_0_exec_spi_cmd(struct psp_context *psp, int cmd)
->  {
->         uint32_t reg_status =3D 0, reg_val =3D 0;
-> @@ -707,8 +649,6 @@ static const struct psp_funcs psp_v13_0_funcs =3D {
->         .ring_get_wptr =3D psp_v13_0_ring_get_wptr,
->         .ring_set_wptr =3D psp_v13_0_ring_set_wptr,
->         .mem_training =3D psp_v13_0_memory_training,
-> -       .load_usbc_pd_fw =3D psp_v13_0_load_usbc_pd_fw,
-> -       .read_usbc_pd_fw =3D psp_v13_0_read_usbc_pd_fw,
->         .update_spirom =3D psp_v13_0_update_spirom,
->         .vbflash_stat =3D psp_v13_0_vbflash_status
->  };
-> --
-> 2.34.1
->
+>> +            /* Report VRAM as 3/4th of available numa memory */
+>> +            mem_ranges[0].size = mem_ranges[0].size * (mem_groups - 1);
+>> +            do_div(mem_ranges[0].size, mem_groups);
+>> +        } else {
+>> +            /* Report VRAM as set by ttm.pages_limit or default ttm
+>> +             * limit which is 1/2 of system memory
+>> +             */
+>> +            mem_ranges[0].size = max_ttm_size;
+>> +        }
+>> +        pr_debug("NPS1 mode, setting VRAM size = %llu\n", 
+>> mem_ranges[0].size);
+>>       }
+>>   }
+>>   @@ -2159,6 +2170,11 @@ static int gmc_v9_0_sw_init(void *handle)
+>>         amdgpu_gmc_get_vbios_allocations(adev);
+>>   +    /* Memory manager */
+>> +    r = amdgpu_bo_init(adev);
+>> +    if (r)
+>> +        return r;
+>> +
+>>   #ifdef HAVE_ACPI_DEV_GET_FIRST_MATCH_DEV
+>>       if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3)) {
+>>           r = gmc_v9_0_init_mem_ranges(adev);
+>> @@ -2167,11 +2183,6 @@ static int gmc_v9_0_sw_init(void *handle)
+>>       }
+>>   #endif
+>>   -    /* Memory manager */
+>> -    r = amdgpu_bo_init(adev);
+>> -    if (r)
+>> -        return r;
+>> -
+>>       r = gmc_v9_0_gart_init(adev);
+>>       if (r)
+>>           return r;
