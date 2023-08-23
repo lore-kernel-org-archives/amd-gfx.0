@@ -4,120 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07BADC27C40
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 18:42:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CF5BC27C40
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 20:51:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5828810E0AC;
-	Wed, 23 Aug 2023 18:42:32 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2052.outbound.protection.outlook.com [40.107.93.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A868310E0AC;
- Wed, 23 Aug 2023 18:42:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eDfqGVy8nS3tPQvIhobMgm98BWxko4nMuq1vrOHSPa2Tod987/BclyGMw1Disjm20CRap68WXRH6ZNqWfZlDnxsVm6cQrZxceZwtSMemz0Xp+O3jXn7YfJ316irIVRGNo5XYNo0BPX527CttBoLGLSAtsqIDEsEYOxYgl8egt3krmOKNJSdW3ZWv4iB+RCNPp2mvGIN4LvX+uVYQLKG7IJx0kELpJdp1beVrw1SQvF1E9yN86E8mmzItQaas8zEpIq1WUO+ilT+RqjTkg8yeacjNS23XjHblSOQDlpz9xZ/k6JsrGCycHL0PwxzKgotL/lfKiPciNrFzESW6x5egLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nlovRfZcSc73bNd3dylrPUO0keD+KzFpiPUi6TbF8sY=;
- b=Cgy6kV4+lLzfXTjVd3k7klofbnJ6+L+cOM2oyhql2/PPHEYiqqFMG+Ef/mfakoSr5wMfW28R53sfPnWnO3DwaNUL5e6bEtbGEVohsLaMh+XX3/EX9AhrToaBuejtf8XgOI8lm308fj7kWxx9ZXX9Uq2KDvrg5wmv9gtjryjuRMDHLaNzikONqAlyAcORlIeN4T7cXbEpuEycMXxY/uGywzKm9hEI/yiSFk2V7bzMaZW3OUJPnFA42mSD4sFs4j34oFxzZbBXKbBgyJ6GHiGw5uz7PLYdyhadffjFDebaC0WZT0i4B+tpXkCCDy+Ck9Z8sz6XUE+fviFUIXaocNVI3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nlovRfZcSc73bNd3dylrPUO0keD+KzFpiPUi6TbF8sY=;
- b=vq6EsHnWUd9PFIQ2FAYghZNt1rvK9w3Bg/Ka6KMUfb9VffSfOJhgDnP9g1eUqXw5EBiPPbzUw3g+wx/mEqVl/MpDT7JexhzU2XdgeaytdOzdMBKn9AUcLJV4Fi15euAoLOvCRNsWn2yeba1FzNXtZisTcfEi8arW31jO05oL43M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by SN7PR12MB7420.namprd12.prod.outlook.com (2603:10b6:806:2a7::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20; Wed, 23 Aug
- 2023 18:42:28 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb%4]) with mapi id 15.20.6699.026; Wed, 23 Aug 2023
- 18:42:27 +0000
-Message-ID: <a2ac9bbf-b898-1c74-865f-5fea3c580559@amd.com>
-Date: Wed, 23 Aug 2023 14:42:21 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH AUTOSEL 5.15 6/6] drm/amdkfd: ignore crat by default
-Content-Language: en-US
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Sasha Levin <sashal@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20230822113658.3551550-1-sashal@kernel.org>
- <20230822113658.3551550-6-sashal@kernel.org>
- <BN9PR12MB5146C0787341AD0E46FBAF2CF71FA@BN9PR12MB5146.namprd12.prod.outlook.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <BN9PR12MB5146C0787341AD0E46FBAF2CF71FA@BN9PR12MB5146.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0031.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:fe::15) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39BA410E0E9;
+	Wed, 23 Aug 2023 20:51:45 +0000 (UTC)
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98ACB10E0E9;
+ Wed, 23 Aug 2023 20:51:43 +0000 (UTC)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ 006d021491bc7-570b6f82301so2800340eaf.0; 
+ Wed, 23 Aug 2023 13:51:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1692823903; x=1693428703;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eMgBXJyz4j+4W1iINiCAeqRriHTkzDpdbP8epuCcQ+c=;
+ b=eozVk7W5leBAIZAjir3gI8REAZD8JCcPkc/M3KQhYESTaDkMUhGQDiSxOEPEK8UM6S
+ QBVLEjB8cFtzrlG3JpOzs9WHPI0EvMf0WIahjkoZSTWCyL2GUEH/6Mezg90NtJhGIrvQ
+ eBPKe8aveZvFRN15TGEaVA1rgkLsnveNweUtsnML5Ia5IEm2bQX1GROzmYft1v91mIPG
+ D6tlS5DTv1Yn6jV/Hyt4NPH/leowXHZCgoGIqgoqFC6uvzqlN+i1Zhm78AVUDpt0B69X
+ zarKS/XGC8q15mK6yGP+XRMWe3L1Ah7X5yAQEbWraTrTvFLQdbuiTVRiWmOVovKWwAUU
+ QsKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692823903; x=1693428703;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=eMgBXJyz4j+4W1iINiCAeqRriHTkzDpdbP8epuCcQ+c=;
+ b=UIf+5EgIN4O3IpITYJruuvIlA4+2H5XWYXOoAqaSe2c/r3hRSibHVHE7+j+36qxqt9
+ Ay2UYBxua4OpO2V8usA9lXbWz06XpDkeIvBHPuuQMBKj5aQ/KSQvOz1Fktb9TTz0ZQ+8
+ FFaB7dSROiuBufUR0ePz55Yb5eS10U2Io8hFDEdNIM58qyvVUcJQia8jWs0SJnyRKPvl
+ 8JsVgHDuNba5DTPipJK6v3kHCEVBBO+HJQyfyyxB8bH9aa90JuGSKkni8QDuCDq2kR3j
+ YRITlmFWQXgy69uJUEhclFW7iuDespCTKvWuhg8OqVN6cusK9/HR5Il0livIAQA26mWf
+ QvXw==
+X-Gm-Message-State: AOJu0YxbZe7d0q9s+rBkuFlLhUdp+jdtcXiegzVwFm3gSSw78A0r52Ij
+ GHZIfhWcaaQZT7Lc7r83izs13srxvD0cXymz9gw=
+X-Google-Smtp-Source: AGHT+IHgdmrbaLNqEUvEuYL9VRV0cTrFvNWgv5pxAYyjKRmaS85alJv6VNGoQ4yzx1Q6YlEJslEijFtTWsqHFGbHGcI=
+X-Received: by 2002:a05:6870:700e:b0:1bf:dc25:a5aa with SMTP id
+ u14-20020a056870700e00b001bfdc25a5aamr16861010oae.39.1692823902696; Wed, 23
+ Aug 2023 13:51:42 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SN7PR12MB7420:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ae0206e-bbd5-43de-bd79-08dba408b13e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gaMJ+rBlqDu6bIKwkunzoHtFJPyz0JTV/gRLsl5Xb0IsQGIDpMWUFvaQTeTP8j7p2sFWM34sHD8QfLdU6dlnYPjKswRtc0qQ+bh0ONbbvFOTuPN5u2oYS9+aHy1HZOXvwWGWWBZpzKN9WnMj4sBQIxgqQzcJeQVu2MAM863MGzV4N4VS3tYl/+hAMuiT2y4Vvy/W2VW3nWX9pZwBJmAhhiP9fWYg3i1sZqjtbuT+Qjs1Yc2MXXiUEu0rgCgl0Afs+nUPiPs+fBpps/PsanV1GRc31koCkAxTcG2jUwnEQKKfUeBJzt/HoK/pHzUjQqJV2EOBM5czMEmM+YKB81VOJIhI2OI6iiReJV4NmDHSITwXKtAgLd1dHSGlBkaxx0bpfREAch6EaGk/LGWQLSNTwmkBsi1OgmYvNz/wMDY0wm9MqyrGDLPGLEGAqRlRPDwQ5P+qeIw+zNgAEfGWQnceOZPSDabLM5PH4t3GFrP1+SOneoz1xc0H12KrorX8mhhrC95zjz5u/dG8gNYrGMLFrglqTUZwTVFmwnm4Pc7OufSZcokF0kx+H4xHyDsUongn9BQG3xm3Y0SFQhZagaTHMEK/wHzUZwrPH+7HmMBrwrtbOVoHLh6BqZ6cQWkXEm1nHAypArtgdeqlLIoj/qlBkA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(346002)(376002)(396003)(136003)(39860400002)(1800799009)(451199024)(186009)(2906002)(66574015)(83380400001)(53546011)(6486002)(36916002)(6506007)(5660300002)(44832011)(26005)(31696002)(31686004)(86362001)(38100700002)(8676002)(8936002)(2616005)(4326008)(110136005)(54906003)(316002)(66946007)(66476007)(66556008)(6512007)(478600001)(6666004)(36756003)(41300700001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cjM3VXkyT1l2TkdDTk1HaCtJZ1B6bG90d0ViME1kSE0ydStXcE9WbGZKT2hi?=
- =?utf-8?B?ajVGU1l5OEs5dWUwNjFZclMvaEtZQWVURHRpSUYrd01pTkNiUzhjT0hPMHVu?=
- =?utf-8?B?RCtQSmZLNTc2czBKbzd5REZVVnZUZTlySEFuakJZNnhYRkZrZE13ZkhNckxM?=
- =?utf-8?B?VjdGRUhUanV1V3pjSi84OERhTndHUEZGNWhrZWdKQjhVWm10SnFBMm1QdlFJ?=
- =?utf-8?B?dTBJVUZERXg3YXhrR0lYeFpGZDlDUndlc3dOaXI3ZTF0aFliQTA2cjljc1Uy?=
- =?utf-8?B?ZmF6VndxeW1vbFhFcXljcnYvODlTQXBlRUNXYTdMN3phcnVaOG1mazlocE5r?=
- =?utf-8?B?ZDdlWlcwNDlBNTVUeXpUNGo5dlNqUHhTbk5MeUMwUnVsVktkN1BVZlRRWEJq?=
- =?utf-8?B?WXYvUDVGaW5GcmE3UE1IclQ0OUVMVDRXaDVUU2ZyZ1hobloxRFdCRGNxS2J4?=
- =?utf-8?B?Zzh6UHN4ZG5jVjdHV2p0Y0Q3V0RzNWxkcUZDSnZhbmtYV3RVUzNHVEljUjhx?=
- =?utf-8?B?NGhRTlNycGRkT096dXNPK3R2dFlkREpLekZCcWRDYWdKbjc3cmRwTjNVZG13?=
- =?utf-8?B?UnYySjF4b2pCNnBQM3ZnQ3BiRHorRGZmcHRMZitESG93T0ZxdmJwSS9WUTl4?=
- =?utf-8?B?WllVeXJCT2tkR01SbUNMQWQ5YXluamdScmJuZWZSYnBtUmRiclFsUUpnR3V0?=
- =?utf-8?B?L1Y3OFFMbTZZTFZPWW5QdlZ6WjFtMUs0azRQZW1jMjVrZU00cGJSRG1NWnR6?=
- =?utf-8?B?MFJEU1VudEJybTY0SnRjbHhlcGE1RlBoUVNubGRBbTZDWUZHc0c0UlZXVmtK?=
- =?utf-8?B?RWVzMnVmeEkwc3RTYXcxVmhEZGUxSUtnTWhOMWhmd1NndWV3eWVmWXI3UCs2?=
- =?utf-8?B?MUo4anZhMDlaL2NTU2Z3L0hmTVBqQVR1QXlBL2NZaFVNKzYvZnVDeERxdjdH?=
- =?utf-8?B?TlB1MnlPZUZRSkVncUUvaml3TTZrd0crZGg3WnlpclR1RDlMSWFiaXVyOFdN?=
- =?utf-8?B?bUY2bDM0T09FVkJJT2d5OTNYRENBays1SngwcDA5L0RFVWxjS0RhbmhEZEM2?=
- =?utf-8?B?SGVYVENoSS93WFBBRU1JaUJUM2owQ0ZqbE81SDJHSUVDTUs5Z1dOY0h3NHRL?=
- =?utf-8?B?SXB5T2FEYzBiQmtUTWxQcGRLNjA3WUlZZDRQeWxYbHErMm5KczBhek5RZmVk?=
- =?utf-8?B?L0Uwbm8zbmxuY1VTK2FFZVhYL1JlcWo0RlZHTGMrWUFQRVYySXhuYVpYVFkw?=
- =?utf-8?B?OEtTMnd1dS9KN3ArZ1gyU2ZqZ3N3WnJUc29jRWxhdFQ1SFQ2eDZiZmwwaktN?=
- =?utf-8?B?T20veDFXR0NOQUxMY2hNbmc0UzI1Ukp1dU42ZjNZaEwzaXpWbFZjcHVkUzZL?=
- =?utf-8?B?VEdZNHlxK1ZzZTRiK1Y5amtOUTJZeFI1eFlOejh3UklsVHRPMmJySldPSjZR?=
- =?utf-8?B?ek12L1gvNG93YkhsbTBacFBvM002RFhpYjI4cmRhbXJkZFlGNVBsYmxkK2xh?=
- =?utf-8?B?QUZoWGF4dGpuaktSUGo4NmlRRjZxNjhDdnZIV1M4c3djYUZmNkEvOGpKNlo0?=
- =?utf-8?B?dXRTNkRCN2g3RU1ubzcrc3VKZDZwaDZSR0NhSEsxc1VERkNmcHZHbEw5S0th?=
- =?utf-8?B?WStPZ1RtMEhnMk0vb2UvZnh1WG1iSXNOSHpJL1JwVnRSdkhLT1FPNzZiZ2ZU?=
- =?utf-8?B?ZVN1M2VIN0ZwSWtBWXFyeXZLcENQVHdxZ1l6anh2TmEvZ0NmUlVDVXRCOGhQ?=
- =?utf-8?B?bHdPWnpFM0RVblVsbXduQ2tnVkFjUUcvUFZ6cjN1M3NuY3poYlM2M0tIeUNH?=
- =?utf-8?B?TExXdGdibGsvaVEzMjhBWmkrV1ZkVzFid2tTSTRkUzQwZEp0cENiRUtVRTBG?=
- =?utf-8?B?VGtmU3gzWVNHV1lSY0hYU0tpWmhoSmxETGZLU3l0Mk00ZjUwR1k5TXEvQ1Fn?=
- =?utf-8?B?TnYxclZoLytDa1RMRk5qc2ZISXRCSzIxYXdtY0RGVVZuMDFxRlBNT0pXV3pl?=
- =?utf-8?B?ZFJOR0ZhUjBuOTBLeStRc0pyTUIraWM0UWZqRGNsSVJlQ1cvWHJtVEVGTHBt?=
- =?utf-8?B?c2FSYkg3MXhDeDZLanpaV05XdVFpeC9HcjlMQ0NsVkNaM2t3SXZjWDVXdTRh?=
- =?utf-8?Q?huacLzdwCUWX/H4wtL8t6Gzvx?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ae0206e-bbd5-43de-bd79-08dba408b13e
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2023 18:42:27.8078 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xVaAR88Zd4BXapZJJ/ossJbbHPTLZqazL6Lq/gtg/YK2ydLZtsfz9OGXO7onvuVjJpXNBhPq+lwI1yaQz2AXWQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7420
+References: <20230815172700.255596-1-hamza.mahfooz@amd.com>
+ <d1831afd-9e02-fbc9-69f7-e8f044f35ee0@gmail.com>
+ <855aeab8-13e1-4dc4-841e-24d298c9c072@amd.com>
+ <9855fa7a-dd9d-27b8-171e-b662d417b902@amd.com>
+In-Reply-To: <9855fa7a-dd9d-27b8-171e-b662d417b902@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 23 Aug 2023 16:51:31 -0400
+Message-ID: <CADnq5_OZiTtWLMS-hh56c8KZj1eEHQGVKh6pah-qct74e4Nabw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: register a dirty framebuffer callback for
+ fbcon
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,70 +72,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mike Lothian <mike@fireburn.co.uk>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, "airlied@gmail.com" <airlied@gmail.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Guchun Chen <guchun.chen@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-08-22 11:41, Deucher, Alexander wrote:
-> [Public]
+@Mahfooz, Hamza
+ can you respin with the NULL check?
+
+Alex
+
+On Wed, Aug 16, 2023 at 10:25=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
->> -----Original Message-----
->> From: Sasha Levin <sashal@kernel.org>
->> Sent: Tuesday, August 22, 2023 7:37 AM
->> To: linux-kernel@vger.kernel.org; stable@vger.kernel.org
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix
->> <Felix.Kuehling@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>;
->> Mike Lothian <mike@fireburn.co.uk>; Sasha Levin <sashal@kernel.org>; Pan,
->> Xinhui <Xinhui.Pan@amd.com>; airlied@gmail.com; daniel@ffwll.ch; amd-
->> gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
->> Subject: [PATCH AUTOSEL 5.15 6/6] drm/amdkfd: ignore crat by default
->>
->> From: Alex Deucher <alexander.deucher@amd.com>
->>
->> [ Upstream commit a6dea2d64ff92851e68cd4e20a35f6534286e016 ]
->>
->> We are dropping the IOMMUv2 path, so no need to enable this.
->> It's often buggy on consumer platforms anyway.
-> This is not needed for stable.
-
-I agree. I was about to comment in the 5.10 patch as well.
-
-Regards,
-   Felix
-
-
+> Am 16.08.23 um 15:41 schrieb Hamza Mahfooz:
+> >
+> > On 8/16/23 01:55, Christian K=C3=B6nig wrote:
+> >>
+> >>
+> >> Am 15.08.23 um 19:26 schrieb Hamza Mahfooz:
+> >>> fbcon requires that we implement &drm_framebuffer_funcs.dirty.
+> >>> Otherwise, the framebuffer might take a while to flush (which would
+> >>> manifest as noticeable lag). However, we can't enable this callback f=
+or
+> >>> non-fbcon cases since it might cause too many atomic commits to be ma=
+de
+> >>> at once. So, implement amdgpu_dirtyfb() and only enable it for fbcon
+> >>> framebuffers on devices that support atomic KMS.
+> >>>
+> >>> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> >>> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> >>> Cc: stable@vger.kernel.org # 6.1+
+> >>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2519
+> >>> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> >>> ---
+> >>> v2: update variable names
+> >>> ---
+> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 26
+> >>> ++++++++++++++++++++-
+> >>>   1 file changed, 25 insertions(+), 1 deletion(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> >>> index d20dd3f852fc..d3b59f99cb7c 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> >>> @@ -38,6 +38,8 @@
+> >>>   #include <linux/pci.h>
+> >>>   #include <linux/pm_runtime.h>
+> >>>   #include <drm/drm_crtc_helper.h>
+> >>> +#include <drm/drm_damage_helper.h>
+> >>> +#include <drm/drm_drv.h>
+> >>>   #include <drm/drm_edid.h>
+> >>>   #include <drm/drm_fb_helper.h>
+> >>>   #include <drm/drm_gem_framebuffer_helper.h>
+> >>> @@ -532,11 +534,29 @@ bool amdgpu_display_ddc_probe(struct
+> >>> amdgpu_connector *amdgpu_connector,
+> >>>       return true;
+> >>>   }
+> >>> +static int amdgpu_dirtyfb(struct drm_framebuffer *fb, struct
+> >>> drm_file *file,
+> >>> +              unsigned int flags, unsigned int color,
+> >>> +              struct drm_clip_rect *clips, unsigned int num_clips)
+> >>> +{
+> >>> +
+> >>> +    if (strcmp(fb->comm, "[fbcon]"))
+> >>> +        return -ENOSYS;
+> >>
+> >> Once more to the v2 of this patch: Tests like those are a pretty big
+> >> NO-GO for upstreaming.
+> >
+> > On closer inspection it is actually sufficient to check if `file` is
+> > NULL here (since it means that the request isn't from userspace). So, d=
+o
+> > you think that would be palatable for upstream?
 >
-> Alex
+> That's certainly better than doing a string compare, but I'm not sure if
+> that's sufficient.
 >
->> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
->> Acked-by: Christian König <christian.koenig@amd.com>
->> Tested-by: Mike Lothian <mike@fireburn.co.uk>
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> Signed-off-by: Sasha Levin <sashal@kernel.org>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 4 ----
->>   1 file changed, 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> index e574aa32a111d..46dfd9baeb013 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
->> @@ -1523,11 +1523,7 @@ static bool kfd_ignore_crat(void)
->>        if (ignore_crat)
->>                return true;
->>
->> -#ifndef KFD_SUPPORT_IOMMU_V2
->>        ret = true;
->> -#else
->> -     ret = false;
->> -#endif
->>
->>        return ret;
->>   }
->> --
->> 2.40.1
+> In general drivers shouldn't have any special handling for fdcon.
+>
+> You should probably have Thomas Zimmermann <tzimmermann@suse.de> take a
+> look at this.
+>
+> Regards,
+> Christian.
+>
+> >
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>> +
+> >>> +    return drm_atomic_helper_dirtyfb(fb, file, flags, color, clips,
+> >>> +                     num_clips);
+> >>> +}
+> >>> +
+> >>>   static const struct drm_framebuffer_funcs amdgpu_fb_funcs =3D {
+> >>>       .destroy =3D drm_gem_fb_destroy,
+> >>>       .create_handle =3D drm_gem_fb_create_handle,
+> >>>   };
+> >>> +static const struct drm_framebuffer_funcs amdgpu_fb_funcs_atomic =3D=
+ {
+> >>> +    .destroy =3D drm_gem_fb_destroy,
+> >>> +    .create_handle =3D drm_gem_fb_create_handle,
+> >>> +    .dirty =3D amdgpu_dirtyfb
+> >>> +};
+> >>> +
+> >>>   uint32_t amdgpu_display_supported_domains(struct amdgpu_device *ade=
+v,
+> >>>                         uint64_t bo_flags)
+> >>>   {
+> >>> @@ -1139,7 +1159,11 @@ static int
+> >>> amdgpu_display_gem_fb_verify_and_init(struct drm_device *dev,
+> >>>       if (ret)
+> >>>           goto err;
+> >>> -    ret =3D drm_framebuffer_init(dev, &rfb->base, &amdgpu_fb_funcs);
+> >>> +    if (drm_drv_uses_atomic_modeset(dev))
+> >>> +        ret =3D drm_framebuffer_init(dev, &rfb->base,
+> >>> +                       &amdgpu_fb_funcs_atomic);
+> >>> +    else
+> >>> +        ret =3D drm_framebuffer_init(dev, &rfb->base, &amdgpu_fb_fun=
+cs);
+> >>>       if (ret)
+> >>>           goto err;
+> >>
+>
