@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6893FEE49AB
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 06:35:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF1D1EE49AE
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 06:35:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06F2910E332;
-	Wed, 23 Aug 2023 06:35:42 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2058.outbound.protection.outlook.com [40.107.237.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB64310E2BF
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Aug 2023 06:35:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68CC510E2BF;
+	Wed, 23 Aug 2023 06:35:43 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CBFA10E34C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Aug 2023 06:35:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AaVEQgqlDdT/BbyYKrzlV7bFZykAkSgJ8r4bY3e++H1HLFXVRiGP334dLPACUtMbgNjCy6V+gm3DgQnq3ZKXbxaR9xMkbsTZKNB3mRlOQHo4q1GLz1QZt4d6O8l4t8WlrfXeepyrNaCEQU2Ui89bBBV6TNtQEzomarWmJ8Pvv1xumtVjLQbTLCf0itveYK0pt3VN7p+2jXCqzqhtXLfqgpUviQnog7gVRjsm+wpzTnCq0Mhxt4raQZpZTAnynY7ay9ppgzOmxw0Y9jVjNOs9Htpxwp3DY8xIVpzIEzWw1fMVcI475QjwoD4GMIHlYYDL1qxu+bAJZfNI/tAhZej8VQ==
+ b=eg9SIqU/KOaMATyMcmvJ+vSJajn8VjU61VqK1dBXPr6Jl/qkPlLakHZz8KpkOVn9EOVph09vgIL+nucdaiUWiOeV5Xou2AR0+AKtWOrHYzwOBk+qYzjx8hOP4i+PrGlmPGRIp8zEmK+kEzV2ztnkbWG+eylS2I9PClr8+6bENSbeOi0/nvi5Ol/e6T7ABXP7C7VJ2v01sJ12WEDRakpY6AXL8KDshvxIqeIQaUuGNwX5fvrjxXt81KpUS4F4gHTs6J7FKAMLngsmTs3c0juC850nhxmwlWvDQKvlWmAeTvc6uKM+ccAeASHwolcJSJ1yXB7e7EwWC3D0QlAbg+uZxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=phjoUp63wTKpjAa7i/Gpbbbt6ezSNjUjuG9fXn6HQGY=;
- b=a0U9CApudUT8/48XI+wiUNIGaPalNQdv1N0NbFEMz/RArCo0SGZsUDX6Im2umEH6DN6MRszCrRwyhDtgrWr1O7g8p6GSSJ9RPeZvOy5cE5FyAZYmIngaPudp/V07HxwjotW3DYTXYhoQQ4PiNqjve8xQxX8rFZzI5BmUyMrVrd6zdC85VD+cnXg8eV8scBCXSAySr0efbRbi/bYYAHwg63I00Bf/bzDUw19Cfoy9GoOnUBZfOtikZRn28CtjXAPqvh+5aBYhZTes+7qlLL+UQkpL8WLJN1kjoXFCINHcepz2F9oCe4/f1mQuj0si5TEjWsNmHAxA6yJrqlRYUZdc8g==
+ bh=SCqHrh6luN/0itN8EQi9Tm2CqnJzRVV2bIdSSnwYiNI=;
+ b=He5HTHyivar9qJOmyqXasgJkWsG4nVVhfXy75HuEhnQSs7rv3ZkRbJd/ShoPTrRZNx7/EllyzsRWKcVA4KBAQVKJV71hKeOw47yz7zcFPxAua9Ti+DNA1+618y+wVUUP+tddbJpVDnicpqKMpXqSrp7pa67n6v2RETmlVJdT/v7SGF9nI9jzL8gXKHJQY/S9FNEmRnq2on5sU3e2f+UERegVqaeOeyFx6BLM7BC6Xjwym+cLWlqDkX1boMuBtxp3ikKhvkcNox/e9qiEoNEFS4AF3EPGXnF4sTG2M+I9fNKLK+R8btOVA5fJl1tvwUz1UtHs6N1sFHFhe7dzGkDMbQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=phjoUp63wTKpjAa7i/Gpbbbt6ezSNjUjuG9fXn6HQGY=;
- b=3CSuHu61A4Dk1u5LKVMSMPYGiZVI0OzVQ/AACA4L+Md9GnZ2NjS1s8lA4DDDOD400MrkNKiW3y74O2ZhdejzuH9y0hhPJf5QvemimHzUgbhv91SiDQe2yeqAgP6xOJYHsIv2ZchKQEOUoanBaIeIjxdaklHsvJjShGpgk84Yk88=
-Received: from MW4PR03CA0077.namprd03.prod.outlook.com (2603:10b6:303:b6::22)
- by MW6PR12MB8897.namprd12.prod.outlook.com (2603:10b6:303:24a::19)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=SCqHrh6luN/0itN8EQi9Tm2CqnJzRVV2bIdSSnwYiNI=;
+ b=mZMmHv2zu53N1cxsjaTKrAqKp67zhJ1anlzIu29d7DWyZYghYtgCof9op5fbj8JmAUhW4cdpgL+kkFKvP06IcczUFkJ0AAhrn08Z1zYDNxVTBnuuxukyL/Q1fQYxdgci7zcacXlwiFgn1iVYYzN79+dp8Knq9wMzbqsDRog+Gy0=
+Received: from MW4PR04CA0235.namprd04.prod.outlook.com (2603:10b6:303:87::30)
+ by DM6PR12MB4385.namprd12.prod.outlook.com (2603:10b6:5:2a6::14) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.24; Wed, 23 Aug
- 2023 06:35:36 +0000
-Received: from MWH0EPF000971E8.namprd02.prod.outlook.com
- (2603:10b6:303:b6:cafe::33) by MW4PR03CA0077.outlook.office365.com
- (2603:10b6:303:b6::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20 via Frontend
- Transport; Wed, 23 Aug 2023 06:35:36 +0000
+ 2023 06:35:38 +0000
+Received: from MWH0EPF000971E3.namprd02.prod.outlook.com
+ (2603:10b6:303:87:cafe::44) by MW4PR04CA0235.outlook.office365.com
+ (2603:10b6:303:87::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.26 via Frontend
+ Transport; Wed, 23 Aug 2023 06:35:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E8.mail.protection.outlook.com (10.167.243.68) with Microsoft
+ MWH0EPF000971E3.mail.protection.outlook.com (10.167.243.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.15 via Frontend Transport; Wed, 23 Aug 2023 06:35:36 +0000
+ 15.20.6699.15 via Frontend Transport; Wed, 23 Aug 2023 06:35:37 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 23 Aug
- 2023 01:35:32 -0500
+ 2023 01:35:33 -0500
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [V2 3/8] drm/amd/pm: add fan mode OD setting support for SMU13
-Date: Wed, 23 Aug 2023 14:34:01 +0800
-Message-ID: <20230823063406.1195151-3-evan.quan@amd.com>
+Subject: [V2 4/8] drm/amd/pm: add fan temperature/pwm curve OD setting support
+ for SMU13
+Date: Wed, 23 Aug 2023 14:34:02 +0800
+Message-ID: <20230823063406.1195151-4-evan.quan@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230823063406.1195151-1-evan.quan@amd.com>
 References: <20230823063406.1195151-1-evan.quan@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E8:EE_|MW6PR12MB8897:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9c7bcf1-fb80-4484-7dde-08dba3a328e8
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E3:EE_|DM6PR12MB4385:EE_
+X-MS-Office365-Filtering-Correlation-Id: 261d2350-2e6d-4a0e-dbe1-08dba3a329bb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XPHi9qOoyD3Btne1+JUI3IDGULex8a9ZM0J7uBvT1DL0VVecBGgG0Gsddkj0jPBUsCrDotDI7aMpi9s9GDs/MIoFlN089FMkmyGRfp4MF9caxy9axfGnEedNxjuimen1I3u1xils0zbmZcouWPb//akd3/tUDXPoWp7KAv3PKCMAHmXnpPIMbYZqd5OlGxepPacVDVXsNNca3mtFLFb9+AUKnw7OUx1KDVEOkTj/50Kv1IGrq16rbxQKygzZAqYQCUMYEj4YmL1MBgqJVTLuSd5/nI6nvIqcXdGWNVyobO7t8suKUBj98EES9BLBLqU+wFbVXe6t7i/82ii9vQX9WnFggZOtphhRF9SKYfiJCK4tG3wbETEtGQyvOry/R7lDKT1md8DCIogX3WOOyOnv1wPxs17dHSAiBAdQ2k9ROkqb8czkftlICxRnaZR2LfE0ay96X6VLPB+g5Mhd8P5rEqthgW1vDgt5Xt3jF1gF6FyyZtBVXBW2YnyUUahjQlqLfEgLEISnZzcFk2bn/owvWLpya14ZfRu3Gx4kvdKp8RNeAs1xfE8K4uajqHP+BWfF4JGGE7OpbhNB/gu+xrcGQ8C9wfCb9FqOBL/i9kfftTKzEROLRWuzrU6x3J1o+SsKRpDAIij+Nb4bQcOFxkzxLt9BaGQH5GK7KRKR97l0QoMXjBrqKynZBcQjL2iMy8sFx0XiFMZbbI5iWb1MaE/XYvgGJ2NLCWu3jWVV0sSrtUZCg+I3qkSejdt6Q9ahU67uy5OWhY8RZSrO2Varv8x+oQ==
+X-Microsoft-Antispam-Message-Info: UYyol//sIGGEIxq+RR7hpoU3UDN1amIO4QgYb6rODo9UsSzQscOyNt0ns0GvZXUjoOz8TRFUhQsJmko/IcmDjS4iiDk1W9FPJ3eImpprRBMx8XxxhPE18vvhsnFT5EpaRyvrVktctGKimqJhCJgMj8UEOtLmC3MrZ2xCbGkCjonxeB+D5rwJb+NWp/qyOUTafXoqp5fMKNX35DdOYHJKD+hvG1Z1NxvDnkmDtG7ZkmlZTSIEIJle0bR38QxA4jHQ/YhqRRueaQRNdXYeXO3gTkuZ2vy1p9TrcA6QekcuKdT7wyz6C1Np0CJ/jSHwYRTmeO76CaBIUF8V9ViLa4Zj4dqqeABXBudME6B/xkcygVdFzprzvMmoT91W02NGps/vQSSRwIhbAZ2U72Hb73qKVQdR+vRQokifRjIYCnCXooRykN9hl5Ise8phEeFIQ4Gj69MRC/2paMn70+WM+lkJG2iL9i+u8lhhQjuZwXn8wthL13J6br3gv6/htNhUpOX8KSG7H16qbLReEaiI+I9yt+ux27vVKoAtSkTVPMxRDISjQzjyTVSg/NJiARGQ+FystBZklBUod9h82BcqXsQu388sNxzWpDxEa1RsuH6dQhKZtitFdYz7x9Wzv3NA98bHafMS4khO78+QDSAdRL2Jcqvu7bg/3XnDcO53ew9loUGOPLSBoV9K9aIfz3XjmYRjTpAzu3b+/iPz1+4gVpdkVOFgpLEryiKQye5C0/9QfASI+tJJiGOC8NiE1SqiuBS/7VR32GNunwyCRK+VQ0SHeQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(396003)(136003)(39860400002)(376002)(346002)(186009)(1800799009)(82310400011)(451199024)(36840700001)(40470700004)(46966006)(54906003)(70586007)(6916009)(70206006)(316002)(8936002)(8676002)(2616005)(4326008)(1076003)(40460700003)(41300700001)(82740400003)(81166007)(356005)(478600001)(36756003)(6666004)(7696005)(40480700001)(30864003)(2906002)(83380400001)(47076005)(86362001)(36860700001)(336012)(426003)(44832011)(5660300002)(16526019)(26005)(36900700001);
+ SFS:(13230031)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199024)(82310400011)(1800799009)(186009)(46966006)(36840700001)(40470700004)(2906002)(30864003)(40480700001)(83380400001)(5660300002)(44832011)(426003)(336012)(16526019)(26005)(36860700001)(86362001)(47076005)(7696005)(8676002)(2616005)(8936002)(4326008)(316002)(70586007)(6916009)(54906003)(70206006)(478600001)(81166007)(82740400003)(356005)(6666004)(40460700003)(36756003)(1076003)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2023 06:35:36.2972 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9c7bcf1-fb80-4484-7dde-08dba3a328e8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2023 06:35:37.6825 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 261d2350-2e6d-4a0e-dbe1-08dba3a329bb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E3.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8897
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4385
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,486 +104,444 @@ Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add SMU13 fan mode OD setting support.
+Add SMU13 fan temperature/pwm curve OD setting support.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 --
 v1->v2:
   - add missing kerneldoc for the new interface(Alex)
 ---
- Documentation/gpu/amdgpu/thermal.rst          |   6 +
- .../gpu/drm/amd/include/kgd_pp_interface.h    |   4 +-
- drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 200 +++++++++++++++++-
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |   4 +
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   2 +
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |   1 +
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  35 ++-
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  35 ++-
- 8 files changed, 279 insertions(+), 8 deletions(-)
+ Documentation/gpu/amdgpu/thermal.rst          |  6 ++
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 62 +++++++++++++
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  2 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  2 +
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  1 +
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 87 ++++++++++++++++++-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 87 ++++++++++++++++++-
+ 8 files changed, 247 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/gpu/amdgpu/thermal.rst b/Documentation/gpu/amdgpu/thermal.rst
-index 5e27e4eb3959..8757ec7f0136 100644
+index 8757ec7f0136..48b4b89f2ffb 100644
 --- a/Documentation/gpu/amdgpu/thermal.rst
 +++ b/Documentation/gpu/amdgpu/thermal.rst
-@@ -64,6 +64,12 @@ gpu_metrics
+@@ -70,6 +70,12 @@ fan_mode
  .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
-    :doc: gpu_metrics
+    :doc: fan_mode
  
-+fan_mode
++fan_cuve
 +--------
 +
 +.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
-+   :doc: fan_mode
++   :doc: fan_curve
 +
  GFXOFF
  ======
  
 diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-index 84c5224d994c..020c9ce1f735 100644
+index 020c9ce1f735..6d0d37dfb28b 100644
 --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
 +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -113,6 +113,7 @@ enum pp_clock_type {
- 	OD_RANGE,
+@@ -114,6 +114,7 @@ enum pp_clock_type {
  	OD_VDDGFX_OFFSET,
  	OD_CCLK,
-+	OD_FAN_MODE,
+ 	OD_FAN_MODE,
++	OD_FAN_CURVE,
  };
  
  enum amd_pp_sensors {
-@@ -186,7 +187,8 @@ enum PP_OD_DPM_TABLE_COMMAND {
- 	PP_OD_EDIT_VDDC_CURVE,
- 	PP_OD_RESTORE_DEFAULT_TABLE,
+@@ -189,6 +190,7 @@ enum PP_OD_DPM_TABLE_COMMAND {
  	PP_OD_COMMIT_DPM_TABLE,
--	PP_OD_EDIT_VDDGFX_OFFSET
-+	PP_OD_EDIT_VDDGFX_OFFSET,
-+	PP_OD_EDIT_FAN_MODE,
+ 	PP_OD_EDIT_VDDGFX_OFFSET,
+ 	PP_OD_EDIT_FAN_MODE,
++	PP_OD_EDIT_FAN_CURVE,
  };
  
  struct pp_states_info {
 diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index beb3303fc832..d53d60903fe9 100644
+index d53d60903fe9..7d477864f77f 100644
 --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
 +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -3383,7 +3383,205 @@ static const struct attribute_group *hwmon_groups[] = {
- 	NULL
- };
+@@ -3565,6 +3565,60 @@ static umode_t fan_mode_visible(struct amdgpu_device *adev)
+ 	return umode;
+ }
  
--static struct od_feature_set amdgpu_od_set;
-+static int amdgpu_retrieve_od_settings(struct amdgpu_device *adev,
-+				       enum pp_clock_type od_type,
-+				       char *buf)
-+{
-+	int size = 0;
-+	int ret;
-+
-+	if (amdgpu_in_reset(adev))
-+		return -EPERM;
-+	if (adev->in_suspend && !adev->in_runpm)
-+		return -EPERM;
-+
-+	ret = pm_runtime_get_sync(adev->dev);
-+	if (ret < 0) {
-+		pm_runtime_put_autosuspend(adev->dev);
-+		return ret;
-+	}
-+
-+	size = amdgpu_dpm_print_clock_levels(adev, od_type, buf);
-+	if (size == 0)
-+		size = sysfs_emit(buf, "\n");
-+
-+	pm_runtime_mark_last_busy(adev->dev);
-+	pm_runtime_put_autosuspend(adev->dev);
-+
-+	return size;
-+}
-+
-+static int parse_input_od_command_lines(const char *buf,
-+					size_t count,
-+					u32 *type,
-+					long *params,
-+					uint32_t *num_of_params)
-+{
-+	const char delimiter[3] = {' ', '\n', '\0'};
-+	uint32_t parameter_size = 0;
-+	char buf_cpy[128] = {0};
-+	char *tmp_str, *sub_str;
-+	int ret;
-+
-+	if (count > sizeof(buf_cpy) - 1)
-+		return -EINVAL;
-+
-+	memcpy(buf_cpy, buf, count);
-+	tmp_str = buf_cpy;
-+
-+	/* skip heading spaces */
-+	while (isspace(*tmp_str))
-+		tmp_str++;
-+
-+	switch (*tmp_str) {
-+	case 'c':
-+		*type = PP_OD_COMMIT_DPM_TABLE;
-+		return 0;
-+	default:
-+		break;
-+	}
-+
-+	while ((sub_str = strsep(&tmp_str, delimiter)) != NULL) {
-+		if (strlen(sub_str) == 0)
-+			continue;
-+
-+		ret = kstrtol(sub_str, 0, &params[parameter_size]);
-+		if (ret)
-+			return -EINVAL;
-+		parameter_size++;
-+
-+		while (isspace(*tmp_str))
-+			tmp_str++;
-+	}
-+
-+	*num_of_params = parameter_size;
-+
-+	return 0;
-+}
-+
-+static int
-+amdgpu_distribute_custom_od_settings(struct amdgpu_device *adev,
-+				     enum PP_OD_DPM_TABLE_COMMAND cmd_type,
-+				     const char *in_buf,
-+				     size_t count)
-+{
-+	uint32_t parameter_size = 0;
-+	long parameter[64];
-+	int ret;
-+
-+	if (amdgpu_in_reset(adev))
-+		return -EPERM;
-+	if (adev->in_suspend && !adev->in_runpm)
-+		return -EPERM;
-+
-+	ret = parse_input_od_command_lines(in_buf,
-+					   count,
-+					   &cmd_type,
-+					   parameter,
-+					   &parameter_size);
-+	if (ret)
-+		return ret;
-+
-+	ret = pm_runtime_get_sync(adev->dev);
-+	if (ret < 0)
-+		goto err_out0;
-+
-+	ret = amdgpu_dpm_odn_edit_dpm_table(adev,
-+					    cmd_type,
-+					    parameter,
-+					    parameter_size);
-+	if (ret)
-+		goto err_out1;
-+
-+	if (cmd_type == PP_OD_COMMIT_DPM_TABLE) {
-+		ret = amdgpu_dpm_dispatch_task(adev,
-+					       AMD_PP_TASK_READJUST_POWER_STATE,
-+					       NULL);
-+		if (ret)
-+			goto err_out1;
-+	}
-+
-+	pm_runtime_mark_last_busy(adev->dev);
-+	pm_runtime_put_autosuspend(adev->dev);
-+
-+	return count;
-+
-+err_out1:
-+	pm_runtime_mark_last_busy(adev->dev);
-+err_out0:
-+	pm_runtime_put_autosuspend(adev->dev);
-+
-+	return ret;
-+}
-+
 +/**
-+ * DOC: fan_mode
++ * DOC: fan_curve
 + *
 + * The amdgpu driver provides a sysfs API for checking and adjusting the fan
-+ * control mode.
++ * control curve line.
 + *
-+ * Reading back the file shows you current fan control mode (e.g. '0' for auto
-+ * mode and '1' for manual mode) and permitted settings if changable.
++ * Reading back the file shows you the current settings(temperature in Celsius
++ * degree and fan speed in pwm) applied to every anchor point of the curve line
++ * and their permitted ranges if changable.
 + *
-+ * Writing an integer to the file, sets the fan control mode correspondingly.
++ * Writing a desired string(with the format like "anchor_point_index temperature
++ * fan_speed_in_pwm") to the file, change the settings for the specific anchor
++ * point accordingly.
 + *
 + * When you have finished the editing, write "c" (commit) to the file to commit
-+ * your changes.
++ * your changes. NOTE: this will switch the fan control to manual mode.
 + */
-+static ssize_t fan_mode_show(struct kobject *kobj,
-+			     struct kobj_attribute *attr,
-+			     char *buf)
++static ssize_t fan_curve_show(struct kobject *kobj,
++			      struct kobj_attribute *attr,
++			      char *buf)
 +{
 +	struct od_kobj *container = container_of(kobj, struct od_kobj, kobj);
 +	struct amdgpu_device *adev = (struct amdgpu_device *)container->priv;
 +
-+	return (ssize_t)amdgpu_retrieve_od_settings(adev, OD_FAN_MODE, buf);
++	return (ssize_t)amdgpu_retrieve_od_settings(adev, OD_FAN_CURVE, buf);
 +}
 +
-+static ssize_t fan_mode_store(struct kobject *kobj,
-+			      struct kobj_attribute *attr,
-+			      const char *buf,
-+			      size_t count)
++static ssize_t fan_curve_store(struct kobject *kobj,
++			       struct kobj_attribute *attr,
++			       const char *buf,
++			       size_t count)
 +{
 +	struct od_kobj *container = container_of(kobj, struct od_kobj, kobj);
 +	struct amdgpu_device *adev = (struct amdgpu_device *)container->priv;
 +
 +	return (ssize_t)amdgpu_distribute_custom_od_settings(adev,
-+							     PP_OD_EDIT_FAN_MODE,
++							     PP_OD_EDIT_FAN_CURVE,
 +							     buf,
 +							     count);
 +}
 +
-+static umode_t fan_mode_visible(struct amdgpu_device *adev)
++static umode_t fan_curve_visible(struct amdgpu_device *adev)
 +{
 +	umode_t umode = 0000;
 +
-+	if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_FAN_MODE_RETRIEVE)
++	if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_FAN_CURVE_RETRIEVE)
 +		umode |= S_IRUSR | S_IRGRP | S_IROTH;
 +
-+	if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_FAN_MODE_SET)
++	if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_FAN_CURVE_SET)
 +		umode |= S_IWUSR;
 +
 +	return umode;
 +}
 +
-+static struct od_feature_set amdgpu_od_set = {
-+	.containers = {
-+		[0] = {
-+			.name = "fan_ctrl",
-+			.sub_feature = {
-+				[0] = {
-+					.name = "fan_mode",
+ static struct od_feature_set amdgpu_od_set = {
+ 	.containers = {
+ 		[0] = {
+@@ -3578,6 +3632,14 @@ static struct od_feature_set amdgpu_od_set = {
+ 						.store = fan_mode_store,
+ 					},
+ 				},
++				[1] = {
++					.name = "fan_curve",
 +					.ops = {
-+						.is_visible = fan_mode_visible,
-+						.show = fan_mode_show,
-+						.store = fan_mode_store,
++						.is_visible = fan_curve_visible,
++						.show = fan_curve_show,
++						.store = fan_curve_store,
 +					},
 +				},
-+			},
-+		},
-+	},
-+};
- 
- static void od_kobj_release(struct kobject *kobj)
- {
+ 			},
+ 		},
+ 	},
 diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index 4cab6a2efb63..b54f84e2408a 100644
+index b54f84e2408a..4463c60b710a 100644
 --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
 +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -314,6 +314,9 @@ struct config_table_setting
- 	uint16_t fclk_average_tau;
- };
+@@ -316,6 +316,8 @@ struct config_table_setting
  
-+#define OD_OPS_SUPPORT_FAN_MODE_RETRIEVE		BIT(0)
-+#define OD_OPS_SUPPORT_FAN_MODE_SET			BIT(1)
-+
+ #define OD_OPS_SUPPORT_FAN_MODE_RETRIEVE		BIT(0)
+ #define OD_OPS_SUPPORT_FAN_MODE_SET			BIT(1)
++#define OD_OPS_SUPPORT_FAN_CURVE_RETRIEVE		BIT(2)
++#define OD_OPS_SUPPORT_FAN_CURVE_SET			BIT(3)
+ 
  struct amdgpu_pm {
  	struct mutex		mutex;
- 	u32                     current_sclk;
-@@ -368,6 +371,7 @@ struct amdgpu_pm {
- 	enum amdgpu_runpm_mode rpm_mode;
- 
- 	struct list_head	od_kobj_list;
-+	uint32_t		od_feature_mask;
- };
- 
- int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors sensor,
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index f005a90c35af..01ccfd219d6b 100644
+index 01ccfd219d6b..fe998df9dca2 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2481,6 +2481,8 @@ static enum smu_clk_type smu_convert_to_smuclk(enum pp_clock_type type)
- 		clk_type = SMU_OD_VDDGFX_OFFSET; break;
- 	case OD_CCLK:
+@@ -2483,6 +2483,8 @@ static enum smu_clk_type smu_convert_to_smuclk(enum pp_clock_type type)
  		clk_type = SMU_OD_CCLK; break;
-+	case OD_FAN_MODE:
-+		clk_type = SMU_OD_FAN_MODE; break;
+ 	case OD_FAN_MODE:
+ 		clk_type = SMU_OD_FAN_MODE; break;
++	case OD_FAN_CURVE:
++		clk_type = SMU_OD_FAN_CURVE; break;
  	default:
  		clk_type = SMU_CLK_COUNT; break;
  	}
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-index e57265cf637c..498000850212 100644
+index 498000850212..f17127c50238 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
 +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-@@ -280,6 +280,7 @@ enum smu_clk_type {
- 	SMU_OD_VDDC_CURVE,
+@@ -281,6 +281,7 @@ enum smu_clk_type {
  	SMU_OD_RANGE,
  	SMU_OD_VDDGFX_OFFSET,
-+	SMU_OD_FAN_MODE,
+ 	SMU_OD_FAN_MODE,
++	SMU_OD_FAN_CURVE,
  	SMU_CLK_COUNT,
  };
  
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index 1041ba22f8f8..45b42e43f9a3 100644
+index 45b42e43f9a3..b52b862e887c 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -101,6 +101,7 @@
- #define PP_OD_FEATURE_UCLK_FMIN				2
+@@ -102,6 +102,8 @@
  #define PP_OD_FEATURE_UCLK_FMAX				3
  #define PP_OD_FEATURE_GFX_VF_CURVE			4
-+#define PP_OD_FEATURE_FAN_MODE				5
+ #define PP_OD_FEATURE_FAN_MODE				5
++#define PP_OD_FEATURE_FAN_CURVE_TEMP			6
++#define PP_OD_FEATURE_FAN_CURVE_PWM			7
  
  #define LINK_SPEED_MAX					3
  
-@@ -1110,6 +1111,10 @@ static void smu_v13_0_0_get_od_setting_limits(struct smu_context *smu,
- 		od_min_setting = overdrive_lowerlimits->VoltageOffsetPerZoneBoundary;
- 		od_max_setting = overdrive_upperlimits->VoltageOffsetPerZoneBoundary;
+@@ -1115,6 +1117,14 @@ static void smu_v13_0_0_get_od_setting_limits(struct smu_context *smu,
+ 		od_min_setting = overdrive_lowerlimits->FanMode;
+ 		od_max_setting = overdrive_upperlimits->FanMode;
  		break;
-+	case PP_OD_FEATURE_FAN_MODE:
-+		od_min_setting = overdrive_lowerlimits->FanMode;
-+		od_max_setting = overdrive_upperlimits->FanMode;
++	case PP_OD_FEATURE_FAN_CURVE_TEMP:
++		od_min_setting = overdrive_lowerlimits->FanLinearTempPoints;
++		od_max_setting = overdrive_upperlimits->FanLinearTempPoints;
++		break;
++	case PP_OD_FEATURE_FAN_CURVE_PWM:
++		od_min_setting = overdrive_lowerlimits->FanLinearPwmPoints;
++		od_max_setting = overdrive_upperlimits->FanLinearPwmPoints;
 +		break;
  	default:
  		od_min_setting = od_max_setting = INT_MAX;
  		break;
-@@ -1329,6 +1334,16 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
- 				      od_table->OverDriveTable.VoltageOffsetPerZoneBoundary[0]);
+@@ -1344,6 +1354,35 @@ static int smu_v13_0_0_print_clk_levels(struct smu_context *smu,
+ 					(int)od_table->OverDriveTable.FanMode);
  		break;
  
-+	case SMU_OD_FAN_MODE:
++	case SMU_OD_FAN_CURVE:
 +		if (!smu_v13_0_0_is_od_feature_supported(smu,
 +							 PP_OD_FEATURE_FAN_CURVE_BIT))
 +			break;
 +
-+		size += sysfs_emit_at(buf, size, "OD_FAN_MODE:\n");
-+		size += sysfs_emit_at(buf, size, "%d\n",
-+					(int)od_table->OverDriveTable.FanMode);
++		size += sysfs_emit_at(buf, size, "OD_FAN_CURVE:\n");
++		for (i = 0; i < NUM_OD_FAN_MAX_POINTS - 1; i++)
++			size += sysfs_emit_at(buf, size, "%d: %dC %d%%\n",
++						i,
++						(int)od_table->OverDriveTable.FanLinearTempPoints[i],
++						(int)od_table->OverDriveTable.FanLinearPwmPoints[i]);
++
++		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
++		smu_v13_0_0_get_od_setting_limits(smu,
++						  PP_OD_FEATURE_FAN_CURVE_TEMP,
++						  &min_value,
++						  &max_value);
++		size += sysfs_emit_at(buf, size, "FAN_CURVE(hotspot temp): %uC %uC\n",
++				      min_value, max_value);
++
++		smu_v13_0_0_get_od_setting_limits(smu,
++						  PP_OD_FEATURE_FAN_CURVE_PWM,
++						  &min_value,
++						  &max_value);
++		size += sysfs_emit_at(buf, size, "FAN_CURVE(fan speed): %u%% %u%%\n",
++				      min_value, max_value);
++
 +		break;
 +
  	case SMU_OD_RANGE:
  		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_GFXCLK_BIT) &&
  		    !smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_UCLK_BIT) &&
-@@ -1789,6 +1804,15 @@ static ssize_t smu_v13_0_0_get_gpu_metrics(struct smu_context *smu,
- 	return sizeof(struct gpu_metrics_v1_3);
+@@ -1554,6 +1593,44 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT);
+ 		break;
+ 
++	case PP_OD_EDIT_FAN_CURVE:
++		if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
++			dev_warn(adev->dev, "Fan curve setting not supported!\n");
++			return -ENOTSUPP;
++		}
++
++		if (input[0] >= NUM_OD_FAN_MAX_POINTS - 1 ||
++		    input[0] < 0)
++			return -EINVAL;
++
++		smu_v13_0_0_get_od_setting_limits(smu,
++						  PP_OD_FEATURE_FAN_CURVE_TEMP,
++						  &minimum,
++						  &maximum);
++		if (input[1] < minimum ||
++		    input[1] > maximum) {
++			dev_info(adev->dev, "Fan curve temp setting(%ld) must be within [%d, %d]!\n",
++				 input[1], minimum, maximum);
++			return -EINVAL;
++		}
++
++		smu_v13_0_0_get_od_setting_limits(smu,
++						  PP_OD_FEATURE_FAN_CURVE_PWM,
++						  &minimum,
++						  &maximum);
++		if (input[2] < minimum ||
++		    input[2] > maximum) {
++			dev_info(adev->dev, "Fan curve pwm setting(%ld) must be within [%d, %d]!\n",
++				 input[2], minimum, maximum);
++			return -EINVAL;
++		}
++
++		od_table->OverDriveTable.FanLinearTempPoints[input[0]] = input[1];
++		od_table->OverDriveTable.FanLinearPwmPoints[input[0]] = input[2];
++		od_table->OverDriveTable.FanMode = FAN_MODE_MANUAL_LINEAR;
++		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
++		break;
++
+ 	case PP_OD_RESTORE_DEFAULT_TABLE:
+ 		feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
+ 		memcpy(od_table,
+@@ -1810,7 +1887,9 @@ static void smu_v13_0_0_set_supported_od_feature_mask(struct smu_context *smu)
+ 
+ 	if (smu_v13_0_0_is_od_feature_supported(smu,
+ 						PP_OD_FEATURE_FAN_CURVE_BIT))
+-		adev->pm.od_feature_mask |= OD_OPS_SUPPORT_FAN_MODE_RETRIEVE;
++		adev->pm.od_feature_mask |= OD_OPS_SUPPORT_FAN_MODE_RETRIEVE |
++					    OD_OPS_SUPPORT_FAN_CURVE_RETRIEVE |
++					    OD_OPS_SUPPORT_FAN_CURVE_SET;
  }
  
-+static void smu_v13_0_0_set_supported_od_feature_mask(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+
-+	if (smu_v13_0_0_is_od_feature_supported(smu,
-+						PP_OD_FEATURE_FAN_CURVE_BIT))
-+		adev->pm.od_feature_mask |= OD_OPS_SUPPORT_FAN_MODE_RETRIEVE;
-+}
-+
  static int smu_v13_0_0_set_default_od_settings(struct smu_context *smu)
- {
- 	OverDriveTableExternal_t *od_table =
-@@ -1838,8 +1862,12 @@ static int smu_v13_0_0_set_default_od_settings(struct smu_context *smu)
- 		for (i = 0; i < PP_NUM_OD_VF_CURVE_POINTS; i++)
- 			user_od_table->OverDriveTable.VoltageOffsetPerZoneBoundary[i] =
+@@ -1864,6 +1943,12 @@ static int smu_v13_0_0_set_default_od_settings(struct smu_context *smu)
  				user_od_table_bak.OverDriveTable.VoltageOffsetPerZoneBoundary[i];
-+		user_od_table->OverDriveTable.FanMode =
-+			user_od_table_bak.OverDriveTable.FanMode;
+ 		user_od_table->OverDriveTable.FanMode =
+ 			user_od_table_bak.OverDriveTable.FanMode;
++		for (i = 0; i < NUM_OD_FAN_MAX_POINTS - 1; i++) {
++			user_od_table->OverDriveTable.FanLinearTempPoints[i] =
++				user_od_table_bak.OverDriveTable.FanLinearTempPoints[i];
++			user_od_table->OverDriveTable.FanLinearPwmPoints[i] =
++				user_od_table_bak.OverDriveTable.FanLinearPwmPoints[i];
++		}
  	}
  
-+	smu_v13_0_0_set_supported_od_feature_mask(smu);
-+
- 	return 0;
- }
- 
-@@ -1850,9 +1878,10 @@ static int smu_v13_0_0_restore_user_od_settings(struct smu_context *smu)
- 	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
- 	int res;
- 
--	user_od_table->OverDriveTable.FeatureCtrlMask = 1U << PP_OD_FEATURE_GFXCLK_BIT |
--							1U << PP_OD_FEATURE_UCLK_BIT |
--							1U << PP_OD_FEATURE_GFX_VF_CURVE_BIT;
-+	user_od_table->OverDriveTable.FeatureCtrlMask = BIT(PP_OD_FEATURE_GFXCLK_BIT) |
-+							BIT(PP_OD_FEATURE_UCLK_BIT) |
-+							BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
-+							BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
- 	res = smu_v13_0_0_upload_overdrive_table(smu, user_od_table);
- 	user_od_table->OverDriveTable.FeatureCtrlMask = 0;
- 	if (res == 0)
+ 	smu_v13_0_0_set_supported_od_feature_mask(smu);
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 328765f89c94..28c2e4b0e55d 100644
+index 28c2e4b0e55d..3ce2dc6bb4af 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -77,6 +77,7 @@
- #define PP_OD_FEATURE_UCLK_FMIN				2
+@@ -78,6 +78,8 @@
  #define PP_OD_FEATURE_UCLK_FMAX				3
  #define PP_OD_FEATURE_GFX_VF_CURVE			4
-+#define PP_OD_FEATURE_FAN_MODE				5
+ #define PP_OD_FEATURE_FAN_MODE				5
++#define PP_OD_FEATURE_FAN_CURVE_TEMP			6
++#define PP_OD_FEATURE_FAN_CURVE_PWM			7
  
  #define LINK_SPEED_MAX					3
  
-@@ -1096,6 +1097,10 @@ static void smu_v13_0_7_get_od_setting_limits(struct smu_context *smu,
- 		od_min_setting = overdrive_lowerlimits->VoltageOffsetPerZoneBoundary;
- 		od_max_setting = overdrive_upperlimits->VoltageOffsetPerZoneBoundary;
+@@ -1101,6 +1103,14 @@ static void smu_v13_0_7_get_od_setting_limits(struct smu_context *smu,
+ 		od_min_setting = overdrive_lowerlimits->FanMode;
+ 		od_max_setting = overdrive_upperlimits->FanMode;
  		break;
-+	case PP_OD_FEATURE_FAN_MODE:
-+		od_min_setting = overdrive_lowerlimits->FanMode;
-+		od_max_setting = overdrive_upperlimits->FanMode;
++	case PP_OD_FEATURE_FAN_CURVE_TEMP:
++		od_min_setting = overdrive_lowerlimits->FanLinearTempPoints;
++		od_max_setting = overdrive_upperlimits->FanLinearTempPoints;
++		break;
++	case PP_OD_FEATURE_FAN_CURVE_PWM:
++		od_min_setting = overdrive_lowerlimits->FanLinearPwmPoints;
++		od_max_setting = overdrive_upperlimits->FanLinearPwmPoints;
 +		break;
  	default:
  		od_min_setting = od_max_setting = INT_MAX;
  		break;
-@@ -1315,6 +1320,16 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
- 				      od_table->OverDriveTable.VoltageOffsetPerZoneBoundary[0]);
+@@ -1330,6 +1340,35 @@ static int smu_v13_0_7_print_clk_levels(struct smu_context *smu,
+ 					(int)od_table->OverDriveTable.FanMode);
  		break;
  
-+	case SMU_OD_FAN_MODE:
++	case SMU_OD_FAN_CURVE:
 +		if (!smu_v13_0_7_is_od_feature_supported(smu,
 +							 PP_OD_FEATURE_FAN_CURVE_BIT))
 +			break;
 +
-+		size += sysfs_emit_at(buf, size, "OD_FAN_MODE:\n");
-+		size += sysfs_emit_at(buf, size, "%d\n",
-+					(int)od_table->OverDriveTable.FanMode);
++		size += sysfs_emit_at(buf, size, "OD_FAN_CURVE:\n");
++		for (i = 0; i < NUM_OD_FAN_MAX_POINTS - 1; i++)
++			size += sysfs_emit_at(buf, size, "%d: %dC %d%%\n",
++						i,
++						(int)od_table->OverDriveTable.FanLinearTempPoints[i],
++						(int)od_table->OverDriveTable.FanLinearPwmPoints[i]);
++
++		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
++		smu_v13_0_7_get_od_setting_limits(smu,
++						  PP_OD_FEATURE_FAN_CURVE_TEMP,
++						  &min_value,
++						  &max_value);
++		size += sysfs_emit_at(buf, size, "FAN_CURVE(hotspot temp): %uC %uC\n",
++				      min_value, max_value);
++
++		smu_v13_0_7_get_od_setting_limits(smu,
++						  PP_OD_FEATURE_FAN_CURVE_PWM,
++						  &min_value,
++						  &max_value);
++		size += sysfs_emit_at(buf, size, "FAN_CURVE(fan speed): %u%% %u%%\n",
++				      min_value, max_value);
++
 +		break;
 +
  	case SMU_OD_RANGE:
  		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_GFXCLK_BIT) &&
  		    !smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_UCLK_BIT) &&
-@@ -1770,6 +1785,15 @@ static ssize_t smu_v13_0_7_get_gpu_metrics(struct smu_context *smu,
- 	return sizeof(struct gpu_metrics_v1_3);
+@@ -1540,6 +1579,44 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT);
+ 		break;
+ 
++	case PP_OD_EDIT_FAN_CURVE:
++		if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATURE_FAN_CURVE_BIT)) {
++			dev_warn(adev->dev, "Fan curve setting not supported!\n");
++			return -ENOTSUPP;
++		}
++
++		if (input[0] >= NUM_OD_FAN_MAX_POINTS - 1 ||
++		    input[0] < 0)
++			return -EINVAL;
++
++		smu_v13_0_7_get_od_setting_limits(smu,
++						  PP_OD_FEATURE_FAN_CURVE_TEMP,
++						  &minimum,
++						  &maximum);
++		if (input[1] < minimum ||
++		    input[1] > maximum) {
++			dev_info(adev->dev, "Fan curve temp setting(%ld) must be within [%d, %d]!\n",
++				 input[1], minimum, maximum);
++			return -EINVAL;
++		}
++
++		smu_v13_0_7_get_od_setting_limits(smu,
++						  PP_OD_FEATURE_FAN_CURVE_PWM,
++						  &minimum,
++						  &maximum);
++		if (input[2] < minimum ||
++		    input[2] > maximum) {
++			dev_info(adev->dev, "Fan curve pwm setting(%ld) must be within [%d, %d]!\n",
++				 input[2], minimum, maximum);
++			return -EINVAL;
++		}
++
++		od_table->OverDriveTable.FanLinearTempPoints[input[0]] = input[1];
++		od_table->OverDriveTable.FanLinearPwmPoints[input[0]] = input[2];
++		od_table->OverDriveTable.FanMode = FAN_MODE_MANUAL_LINEAR;
++		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
++		break;
++
+ 	case PP_OD_RESTORE_DEFAULT_TABLE:
+ 		feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
+ 		memcpy(od_table,
+@@ -1791,7 +1868,9 @@ static void smu_v13_0_7_set_supported_od_feature_mask(struct smu_context *smu)
+ 
+ 	if (smu_v13_0_7_is_od_feature_supported(smu,
+ 						PP_OD_FEATURE_FAN_CURVE_BIT))
+-		adev->pm.od_feature_mask |= OD_OPS_SUPPORT_FAN_MODE_RETRIEVE;
++		adev->pm.od_feature_mask |= OD_OPS_SUPPORT_FAN_MODE_RETRIEVE |
++					    OD_OPS_SUPPORT_FAN_CURVE_RETRIEVE |
++					    OD_OPS_SUPPORT_FAN_CURVE_SET;
  }
  
-+static void smu_v13_0_7_set_supported_od_feature_mask(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+
-+	if (smu_v13_0_7_is_od_feature_supported(smu,
-+						PP_OD_FEATURE_FAN_CURVE_BIT))
-+		adev->pm.od_feature_mask |= OD_OPS_SUPPORT_FAN_MODE_RETRIEVE;
-+}
-+
  static int smu_v13_0_7_set_default_od_settings(struct smu_context *smu)
- {
- 	OverDriveTableExternal_t *od_table =
-@@ -1819,8 +1843,12 @@ static int smu_v13_0_7_set_default_od_settings(struct smu_context *smu)
- 		for (i = 0; i < PP_NUM_OD_VF_CURVE_POINTS; i++)
- 			user_od_table->OverDriveTable.VoltageOffsetPerZoneBoundary[i] =
+@@ -1845,6 +1924,12 @@ static int smu_v13_0_7_set_default_od_settings(struct smu_context *smu)
  				user_od_table_bak.OverDriveTable.VoltageOffsetPerZoneBoundary[i];
-+		user_od_table->OverDriveTable.FanMode =
-+			user_od_table_bak.OverDriveTable.FanMode;
+ 		user_od_table->OverDriveTable.FanMode =
+ 			user_od_table_bak.OverDriveTable.FanMode;
++		for (i = 0; i < NUM_OD_FAN_MAX_POINTS - 1; i++) {
++			user_od_table->OverDriveTable.FanLinearTempPoints[i] =
++				user_od_table_bak.OverDriveTable.FanLinearTempPoints[i];
++			user_od_table->OverDriveTable.FanLinearPwmPoints[i] =
++				user_od_table_bak.OverDriveTable.FanLinearPwmPoints[i];
++		}
  	}
  
-+	smu_v13_0_7_set_supported_od_feature_mask(smu);
-+
- 	return 0;
- }
- 
-@@ -1831,9 +1859,10 @@ static int smu_v13_0_7_restore_user_od_settings(struct smu_context *smu)
- 	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
- 	int res;
- 
--	user_od_table->OverDriveTable.FeatureCtrlMask = 1U << PP_OD_FEATURE_GFXCLK_BIT |
--							1U << PP_OD_FEATURE_UCLK_BIT |
--							1U << PP_OD_FEATURE_GFX_VF_CURVE_BIT;
-+	user_od_table->OverDriveTable.FeatureCtrlMask = BIT(PP_OD_FEATURE_GFXCLK_BIT) |
-+							BIT(PP_OD_FEATURE_UCLK_BIT) |
-+							BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
-+							BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
- 	res = smu_v13_0_7_upload_overdrive_table(smu, user_od_table);
- 	user_od_table->OverDriveTable.FeatureCtrlMask = 0;
- 	if (res == 0)
+ 	smu_v13_0_7_set_supported_od_feature_mask(smu);
 -- 
 2.34.1
 
