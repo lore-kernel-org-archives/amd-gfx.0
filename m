@@ -4,60 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9697CEE49A3
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 13:34:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFCEBEE4993
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 13:56:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AF7E10E422;
-	Wed, 23 Aug 2023 13:34:27 +0000 (UTC)
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53FF910E423
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Aug 2023 13:34:25 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id
- 5614622812f47-3a412653335so4140467b6e.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Aug 2023 06:34:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1692797664; x=1693402464;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=97FOAy+5WKTvn52WOBRefvVtyVgOjvFBe4utz3hckMI=;
- b=iUkijiFMLBrK9f4DUsdI0eFNlXix1GFweVlLmFz4I978Bq2IglRWBtd0SlzBunqt+H
- RQxA0woIR1r0c/7lW3JnvrnntKtpim9arwtEPz5wA25Du74Vpj2qmBJ/4JTyBUqknAaU
- a467MYWo4NfwD4Up395NA3ALC5gE1sJobO81SPaLQJHiTwDkJ9wrRVUKhfuesd49/G/x
- JFfzzoLf0KTu2yfoYGQlAnQTyDjhXb74HGOjVjvZBmEFNkAehgS9SghmdFV1QTCWVaj5
- T0Ta+76l1HCpNtAJnWAb7n2lB5x51EMaiP4/jW2BVMkjaOmwnbST5Vcp83aOaRgVrriC
- bntg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692797664; x=1693402464;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=97FOAy+5WKTvn52WOBRefvVtyVgOjvFBe4utz3hckMI=;
- b=dwFBWezF8oNHqOihoNhnza647CqFzvIsdLZqNSjrvesR7OYDdMax6mWrJROlYXhL31
- 4kyqAL8GG/xB2XhgnWy0OrfvtAb6SR8vyGTO8+agtkXUPBYB4QoFRFSDCddSxDNuvzSF
- tmMPeRfaYlVLpsTCRgz9/hT+W9Le+RtNvtFih3/vzPLG0gW4P9StKHxVnZnO5HWucAUM
- 9mQLZX9yNA8qOQ8gMAGzCK1BYWKiI3BrfBoUZWoQVAdXYZPwRqL+mtRecE2Bh20x1taA
- dqQzLjICfnu7tc2QKLtxQHBsH6AZrG195CZ3qqAahDDQW/BqA2m1rPd8G1kOe1wy2ZQ/
- NYLQ==
-X-Gm-Message-State: AOJu0YxGEE23EU3QaigCpxKIrAHoWlbx1vzSgpBtJOuxfgNqRCk5avp4
- SvVtRfNP9At3HNqkjJ3Bykbn3RBcrRKHA2wuxRHQjHEp
-X-Google-Smtp-Source: AGHT+IG5Q4u5Sc0gEii2TREx4jeERpTlN1JYTu9YssCSW/xmojzQwWzhY2r1SNj3c5CEs2KEBlslWSNQG7/IDsFYlJ0=
-X-Received: by 2002:a05:6808:17a2:b0:3a7:3b6f:ed46 with SMTP id
- bg34-20020a05680817a200b003a73b6fed46mr17964674oib.27.1692797664304; Wed, 23
- Aug 2023 06:34:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8247810E05E;
+	Wed, 23 Aug 2023 13:56:12 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20608.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::608])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48EAB10E05E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Aug 2023 13:56:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Nhi/BLYyhwNqfeL0so67iI+vhklwOvjZh/4Zzup9kCcE1HZMKbWw65foUa5YwwOWcTlz7BaXdg0Z69zYnVsPkdk8spqRKRmm1sK7EHx0MQY97s6ZthtK/24G3EBoOCi7vWVOvKAhQoiwOUBayWE+djDu/NnQvCLtZp3LaFbz+s3TlIevFYMdnXECLYiHhRojEHXwJxJMtg2Ltl42BOL1FZKapKOQ3ITbbhMOUj3gYvVH3px7tcFlwrI67T3Oth/+qI5xV6v3goYrtXL/y2q4bS39LGXdtapKDTNlO2Y5CtFWJ6HQ36W5gLWyzK65hcLSrJ1qeEcRiTDqGsokGGcSJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vGc6O3tdCGQUJuWbYD2DQ2eGYLWq4PSDqL38PwBq/+E=;
+ b=hdlqwVE4pDGqheOQwkMTBp82iVGUKRilqdW6o+MolsWyv80287oZ8tj9zb4SLeD1t2RoBhpIPx4b8r453582+mHiAxnCs5k4X8xrFYDZpxxBCiKo57kD+HxlbmJm6pSxii4lASAtCHrAEvw92+IYKjbEd7VGA7RLZsePy7Yi7tZswlb5O/Kd1l0DqBPo/Y0RKubXjLrI05U+4C/kIAcxTAbvSZOltQpBdarTtvVUBptCpmz5iKzRiOoZK3L56dlB27Q3E6Q7YyHB7VsdrIPKc6gttQIsnWOvB+I1ZxsazrKgxFY011YAoUCNycS6a2EI1dN3kaO+sHJ93SC5uwYqAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vGc6O3tdCGQUJuWbYD2DQ2eGYLWq4PSDqL38PwBq/+E=;
+ b=XOKkLQ0lYzeEw47ctEmnp9vrGdEE07ykn5QN0y44D2lD/uIfeyr95MJOgp5c7253GwZCQvzLmFFqw4pSzVGpnJSCsmpORBmNAusknAj0w1uK+PvmJy3sisx+3JjttfRrpARm/SZHopadhHCn0BFohkQ+IHYapfsdUfk/Inkwy/8=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by DM6PR12MB4187.namprd12.prod.outlook.com (2603:10b6:5:212::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.26; Wed, 23 Aug
+ 2023 13:56:07 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::bcfa:7757:68bd:f905]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::bcfa:7757:68bd:f905%5]) with mapi id 15.20.6699.025; Wed, 23 Aug 2023
+ 13:56:07 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: Tj <linux@iam.tj>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: 6.5.0-rc7: RIP: 0010:radeon_gem_va_ioctl+0x3dc/0x4f0 [radeon]
+Thread-Topic: 6.5.0-rc7: RIP: 0010:radeon_gem_va_ioctl+0x3dc/0x4f0 [radeon]
+Thread-Index: AQHZ1braPyEUq/pj9kGLbvPA7iW+fq/352rw
+Date: Wed, 23 Aug 2023 13:56:07 +0000
+Message-ID: <BL1PR12MB51443B6E9400D1BE6A1791B8F71CA@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <590a06b6-9f59-2b4e-dd79-091091ccb3b6@iam.tj>
+In-Reply-To: <590a06b6-9f59-2b4e-dd79-091091ccb3b6@iam.tj>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=88cbe3bf-14b1-4b3f-9956-402b0460c6e5;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
+ 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-08-23T13:55:18Z;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|DM6PR12MB4187:EE_
+x-ms-office365-filtering-correlation-id: c492c57c-278c-46f9-b4f4-08dba3e0b2e1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: uKQ70AU9n7HyaRYSIuG4kCvozspjm8tCt9DJC7zsPnwKG60mTUgCrAktPyg9FAst5Zn7SZE/PvLLsl3Q2P1q0zmkQa9b4NOR6QKsg+Kb994TS1SbyASJIhLcroGp1d/wPbB5R8tAVMkg82+6ykbUyfnQmNk3ahVAGidFmBGI3QzNy0OAQc41feRbIQn4wtnNMEsWJN5I6JrjATO8GsKG7uGI4SusDyHlLZ/0bguP3X8g0sAgrDm5wcRhfJLwTKYOb8AGJPVRfA+X+4X6MjQynxTT+IetM+r+BtSwAhARcDUK1C4iV+YwiR5W4Bs/zUQhencALxeP0FV20ffZODIEC8yL0kYWxs6wq86yOXP6IFALar4XavMf4ONRAvuO8jqIiKX3hrWyuHrGNW9dIoBcMg9rQaPhmbG1m9DnINmIvNtE26qjcCdB0CSlT9djqI50zlfDUtQCUI2Nx5L/kQWBjd6X9iaXh7i0rOv0Q9lqYGEQ03X0H0QJ5JVUa7/zttWKg2UWsFIdkcN0A781bvA9nhADnNZx/Lmg0oYI6+FerSR9oYc36XZV2rlvooDSHVkw+/POeV55MLoJaiXy/88hVkXHnrRiAMfR4uonzh9Ozy4F/mtghJf3LpOWpek+uU5o
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(366004)(136003)(396003)(376002)(346002)(186009)(451199024)(1800799009)(6506007)(7696005)(52536014)(316002)(53546011)(45080400002)(8936002)(8676002)(66556008)(66476007)(76116006)(64756008)(66946007)(66446008)(110136005)(55016003)(9686003)(41300700001)(26005)(5660300002)(71200400001)(478600001)(83380400001)(86362001)(2906002)(33656002)(38070700005)(38100700002)(122000001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?T040OWJXWGpmZzliUyt2cWdVUWtYTGNndkFiVk83N2pEYnpaSlc0N0VNUkQr?=
+ =?utf-8?B?aStYbXFqUEZvSnR6bGQzOEdWdmQxWWdjaEZHNGcvTnQ2K3B5ZUpTNk9zU09D?=
+ =?utf-8?B?Q0lUdEs1Zmw3bW9UTUV5N1p3eUVhSHREczhOZmhWTmRHT2RENGwvcCtDT00z?=
+ =?utf-8?B?c0tQUWYwdGtOelMwTnhtbDREekZkMVJzcGlPS2MwYXJmQytHVGQ3QkpGeTI4?=
+ =?utf-8?B?YTh5WnhoUWlRQXlZckZxdUlWUHByN3ZxRjRIQ2JoRUY1R1JXVjVqNTk0Zmpp?=
+ =?utf-8?B?U2VZL2JkREtqeEl5eVRMUHVzeXZ0SkpiYjhnTHRJVitaNjkxNCthRFQ3OGY2?=
+ =?utf-8?B?N0Jzdk9DNnRQMWJudmZOTzJzY3FhL2FBUWhEYTlqalhFOWJLc1MrWDBOMTYy?=
+ =?utf-8?B?L1d3SnJ5bjZXZTkwUUwyV1hFNXJFZUJMZjM1T0w2dHJaRVZwYWtBTXBmWjJw?=
+ =?utf-8?B?MFBjK01kQmxvZ2I1cHExNHJKb2FnaEZ5K0VpMVdON3phTC9BdHlFU1NUS01r?=
+ =?utf-8?B?VHBjUnpxYys1Mi9sZFBQczk3MEltZHdqSm04NTY5SUdFN2g5NHRzaStrN1VD?=
+ =?utf-8?B?eG1uQ0MwbTVxbEVHTHJyR2tZbmswUEExOVV4MkQ2b0VjVHJoOWsxR0s2bFhD?=
+ =?utf-8?B?MWMvUEJXZXVnMlV4RE9NY1ZuRjdXaDRUN2NRRFBwa3pqTjBId0VCbm9KVFJF?=
+ =?utf-8?B?N0UyVlNSNWF1aVBHbHJUekVpa2ZLMGNWaGVrRkNEMFFlQ1hlZ1VTamlSVkdm?=
+ =?utf-8?B?WGhpRzZybHhOaC91R3l2elQxbFFjc0RlWDNFWmp4TUtZYlgrSjI2bittUGVz?=
+ =?utf-8?B?aDdON2s3Zng5Q0lOUFV2ZGdLZXRTdThVZThGdDl6MUU0U1J2SWtKYis0eCtN?=
+ =?utf-8?B?ZVFiTjE5NDM0K3cvR2JDZ1hqYVhRcjd2L2dTTWlEempEU3Yya0FEZ0g2ZGU5?=
+ =?utf-8?B?MU9maHZwL2Q2dmlNMlFxZkVnS0ZkdFBISTV4Qlp3SkdyMVhMakpvUFRUeUFG?=
+ =?utf-8?B?dE5pTk5iczREOElHNWlSM09QSzI3ZDRPbkdPbHZNTXQyR1ZUcW1jb1VBQXR6?=
+ =?utf-8?B?MFI3elk4cWdVMGNMQy96YjJNODFiNUlHRklVVHYzTFR4Z05xL09UQVlPQ1VX?=
+ =?utf-8?B?TzRMbXl6MlRYSU9nQmF5anEyVzQ2YnVhczgrVG1BUGFCYjhUTVUxeXduV25S?=
+ =?utf-8?B?ZHVSa1JYek5lTVNUVFhBU213ZUpqKzd5TStSczRTdW9FTDJFaEpNbEg5U3Fj?=
+ =?utf-8?B?by9YVmMrS3pGeEx5TUJaZUJWdVpQclJHT09JZWsyQ1dXQjNmbjZCMXhjOENC?=
+ =?utf-8?B?c3ZWSkU5MjlvTXFmMGxISk1lQ1ZmYk0wQS80UkRXMGp6eHcxdm5YWEtnS1JH?=
+ =?utf-8?B?ak1ZVUlOa283aUJ0aE5abWZsaW0vQjJmckthMGtMZ3ZQNzc3N0ZSaFhJa3Bk?=
+ =?utf-8?B?aUlla0ZuTTVTK0tCRzk5b1Rmd0VkRVdrS3I1VlMxTUxwR1BpNnNRSFJtdlkw?=
+ =?utf-8?B?VU9aZ2w0Q3N6bmZmZHJpOWZYY3FNSHdqSGhYVjhvSExZKzczNG1nL1ZhUHR1?=
+ =?utf-8?B?ajBlb0U2QVJsYk9CcjE0aGl4ZjBlaHVDOFBGU3IvWkJ2eGl4QXNaMEZObHFT?=
+ =?utf-8?B?SEkrVWlFYSt0dzVseE1aeXpZSVhYeWtFN3BkMFdMU3VXNlNrYlhJN0hyQnhq?=
+ =?utf-8?B?aVhyVkdXMW83L2gxMmloRHBSa2VrUTBqcnBxendiTkZkeWM4QXVWV1BBRDdG?=
+ =?utf-8?B?UWdacFBqb3dNS1B2cDJidGZQT3BIa3d6UlIxT2Z2SlRFd1pSVkNJRWM2OGdJ?=
+ =?utf-8?B?QzdENC9hL1gvdlhpaUJQeTZBcHlqejdzL1F1MWRxVTlLUHY2OG9NWDZ5QnVT?=
+ =?utf-8?B?dGlXRGZrM0RRR1hBRloybDNJY3RRT2lHTWprSFpmRTErbWhKaFJDYWxBMGV0?=
+ =?utf-8?B?Tjh3bEwwaEVKbjJoV1h6cmswekxlYSs1TUc1Ujg2Z2lTSXZkaHRaQllhaDZF?=
+ =?utf-8?B?c0FLc3BQR1N5a203NHAvWHk4Z3FVK29kcFQyMnZTUTA3MjZ2K281eEk2L1Vv?=
+ =?utf-8?B?K2Y2YXZIZFlkbzJ5b05VTnFSYmRSeVppTkNCVFpvbDIwenV0OHFIa2txTHVT?=
+ =?utf-8?Q?4hAc=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20230823063406.1195151-1-evan.quan@amd.com>
- <20230823063406.1195151-8-evan.quan@amd.com>
-In-Reply-To: <20230823063406.1195151-8-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 23 Aug 2023 09:34:13 -0400
-Message-ID: <CADnq5_PhD4ZuHHbyksi=bLx5YGhdYfCEBKqjp3rapLxDk8pg-g@mail.gmail.com>
-Subject: Re: [V2 8/8] drm/amd/pm: add fan minimum pwm OD setting support for
- SMU13
-To: Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c492c57c-278c-46f9-b4f4-08dba3e0b2e1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Aug 2023 13:56:07.1762 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LyWkt56GMyuWb8nvcQCx/OX5jPe1W1CBn/C+IRDmzuxycKvZfTjtr84sTj5Yo/G+FjWVeSJ7DfD89VgEJMa18w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4187
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,464 +133,141 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Are there any restrictions on which fan control options you can
-enable?  I.e., can you mess with all of these or are there several
-discrete fan modes (acoustic, curve, min fan, etc.) that you have to
-set up independently?  We should document the restrictions.
-
-Alex
-
-On Wed, Aug 23, 2023 at 2:45=E2=80=AFAM Evan Quan <evan.quan@amd.com> wrote=
-:
->
-> Add SMU13 fan minimum pwm OD setting support.
->
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> --
-> v1->v2:
->   - add missing kerneldoc for the new interface(Alex)
-> ---
->  Documentation/gpu/amdgpu/thermal.rst          |  6 ++
->  .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 59 +++++++++++++++++++
->  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  2 +
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  2 +
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  1 +
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 51 +++++++++++++++-
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 51 +++++++++++++++-
->  8 files changed, 172 insertions(+), 2 deletions(-)
->
-> diff --git a/Documentation/gpu/amdgpu/thermal.rst b/Documentation/gpu/amd=
-gpu/thermal.rst
-> index 073ab9e418b1..940f723472b8 100644
-> --- a/Documentation/gpu/amdgpu/thermal.rst
-> +++ b/Documentation/gpu/amdgpu/thermal.rst
-> @@ -94,6 +94,12 @@ fan_target_temperature
->  .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
->     :doc: fan_target_temperature
->
-> +fan_minimum_pwm
-> +---------------
-> +
-> +.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +   :doc: fan_minimum_pwm
-> +
->  GFXOFF
->  =3D=3D=3D=3D=3D=3D
->
-> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu=
-/drm/amd/include/kgd_pp_interface.h
-> index c1065136f527..528c892f7c4b 100644
-> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> @@ -118,6 +118,7 @@ enum pp_clock_type {
->         OD_ACOUSTIC_LIMIT,
->         OD_ACOUSTIC_TARGET,
->         OD_FAN_TARGET_TEMPERATURE,
-> +       OD_FAN_MINIMUM_PWM,
->  };
->
->  enum amd_pp_sensors {
-> @@ -197,6 +198,7 @@ enum PP_OD_DPM_TABLE_COMMAND {
->         PP_OD_EDIT_ACOUSTIC_LIMIT,
->         PP_OD_EDIT_ACOUSTIC_TARGET,
->         PP_OD_EDIT_FAN_TARGET_TEMPERATURE,
-> +       PP_OD_EDIT_FAN_MINIMUM_PWM,
->  };
->
->  struct pp_states_info {
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c
-> index 682eef0c0eeb..fa6c4ab16ccf 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -3772,6 +3772,57 @@ static umode_t fan_target_temperature_visible(stru=
-ct amdgpu_device *adev)
->         return umode;
->  }
->
-> +/**
-> + * DOC: fan_minimum_pwm
-> + *
-> + * The amdgpu driver provides a sysfs API for checking and adjusting the
-> + * minimum fan speed in PWM.
-> + *
-> + * Reading back the file shows you the current setting and the permitted
-> + * ranges if changable.
-> + *
-> + * Writing an integer to the file, change the setting accordingly.
-> + *
-> + * When you have finished the editing, write "c" (commit) to the file to=
- commit
-> + * your changes. NOTE: this will switch the fan control to auto mode.
-> + */
-> +static ssize_t fan_minimum_pwm_show(struct kobject *kobj,
-> +                                   struct kobj_attribute *attr,
-> +                                   char *buf)
-> +{
-> +       struct od_kobj *container =3D container_of(kobj, struct od_kobj, =
-kobj);
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)container-=
->priv;
-> +
-> +       return (ssize_t)amdgpu_retrieve_od_settings(adev, OD_FAN_MINIMUM_=
-PWM, buf);
-> +}
-> +
-> +static ssize_t fan_minimum_pwm_store(struct kobject *kobj,
-> +                                    struct kobj_attribute *attr,
-> +                                    const char *buf,
-> +                                    size_t count)
-> +{
-> +       struct od_kobj *container =3D container_of(kobj, struct od_kobj, =
-kobj);
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)container-=
->priv;
-> +
-> +       return (ssize_t)amdgpu_distribute_custom_od_settings(adev,
-> +                                                            PP_OD_EDIT_F=
-AN_MINIMUM_PWM,
-> +                                                            buf,
-> +                                                            count);
-> +}
-> +
-> +static umode_t fan_minimum_pwm_visible(struct amdgpu_device *adev)
-> +{
-> +       umode_t umode =3D 0000;
-> +
-> +       if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_FAN_MINIMUM_PWM_RET=
-RIEVE)
-> +               umode |=3D S_IRUSR | S_IRGRP | S_IROTH;
-> +
-> +       if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_FAN_MINIMUM_PWM_SET=
-)
-> +               umode |=3D S_IWUSR;
-> +
-> +       return umode;
-> +}
-> +
->  static struct od_feature_set amdgpu_od_set =3D {
->         .containers =3D {
->                 [0] =3D {
-> @@ -3817,6 +3868,14 @@ static struct od_feature_set amdgpu_od_set =3D {
->                                                 .store =3D fan_target_tem=
-perature_store,
->                                         },
->                                 },
-> +                               [5] =3D {
-> +                                       .name =3D "fan_minimum_pwm",
-> +                                       .ops =3D {
-> +                                               .is_visible =3D fan_minim=
-um_pwm_visible,
-> +                                               .show =3D fan_minimum_pwm=
-_show,
-> +                                               .store =3D fan_minimum_pw=
-m_store,
-> +                                       },
-> +                               },
->                         },
->                 },
->         },
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/am=
-d/pm/inc/amdgpu_dpm.h
-> index 80d2ac1ecb9f..342c4d8318dc 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> @@ -324,6 +324,8 @@ struct config_table_setting
->  #define OD_OPS_SUPPORT_ACOUSTIC_TARGET_THRESHOLD_SET           BIT(7)
->  #define OD_OPS_SUPPORT_FAN_TARGET_TEMPERATURE_RETRIEVE BIT(8)
->  #define OD_OPS_SUPPORT_FAN_TARGET_TEMPERATURE_SET      BIT(9)
-> +#define OD_OPS_SUPPORT_FAN_MINIMUM_PWM_RETRIEVE                BIT(10)
-> +#define OD_OPS_SUPPORT_FAN_MINIMUM_PWM_SET             BIT(11)
->
->  struct amdgpu_pm {
->         struct mutex            mutex;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
-amd/pm/swsmu/amdgpu_smu.c
-> index 22a6527139a6..d22ed5a272ce 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -2491,6 +2491,8 @@ static enum smu_clk_type smu_convert_to_smuclk(enum=
- pp_clock_type type)
->                 clk_type =3D SMU_OD_ACOUSTIC_TARGET; break;
->         case OD_FAN_TARGET_TEMPERATURE:
->                 clk_type =3D SMU_OD_FAN_TARGET_TEMPERATURE; break;
-> +       case OD_FAN_MINIMUM_PWM:
-> +               clk_type =3D SMU_OD_FAN_MINIMUM_PWM; break;
->         default:
->                 clk_type =3D SMU_CLK_COUNT; break;
->         }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/d=
-rm/amd/pm/swsmu/inc/smu_types.h
-> index 1a00f807fb09..5c8f30f600f8 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> @@ -285,6 +285,7 @@ enum smu_clk_type {
->         SMU_OD_ACOUSTIC_LIMIT,
->         SMU_OD_ACOUSTIC_TARGET,
->         SMU_OD_FAN_TARGET_TEMPERATURE,
-> +       SMU_OD_FAN_MINIMUM_PWM,
->         SMU_CLK_COUNT,
->  };
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index 953620f95abc..bedd9ca3605c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -107,6 +107,7 @@
->  #define PP_OD_FEATURE_FAN_ACOUSTIC_LIMIT               8
->  #define PP_OD_FEATURE_FAN_ACOUSTIC_TARGET              9
->  #define PP_OD_FEATURE_FAN_TARGET_TEMPERATURE           10
-> +#define PP_OD_FEATURE_FAN_MINIMUM_PWM                  11
->
->  #define LINK_SPEED_MAX                                 3
->
-> @@ -1140,6 +1141,10 @@ static void smu_v13_0_0_get_od_setting_limits(stru=
-ct smu_context *smu,
->                 od_min_setting =3D overdrive_lowerlimits->FanTargetTemper=
-ature;
->                 od_max_setting =3D overdrive_upperlimits->FanTargetTemper=
-ature;
->                 break;
-> +       case PP_OD_FEATURE_FAN_MINIMUM_PWM:
-> +               od_min_setting =3D overdrive_lowerlimits->FanMinimumPwm;
-> +               od_max_setting =3D overdrive_upperlimits->FanMinimumPwm;
-> +               break;
->         default:
->                 od_min_setting =3D od_max_setting =3D INT_MAX;
->                 break;
-> @@ -1452,6 +1457,24 @@ static int smu_v13_0_0_print_clk_levels(struct smu=
-_context *smu,
->                                       min_value, max_value);
->                 break;
->
-> +       case SMU_OD_FAN_MINIMUM_PWM:
-> +               if (!smu_v13_0_0_is_od_feature_supported(smu,
-> +                                                        PP_OD_FEATURE_FA=
-N_CURVE_BIT))
-> +                       break;
-> +
-> +               size +=3D sysfs_emit_at(buf, size, "FAN_MINIMUM_PWM:\n");
-> +               size +=3D sysfs_emit_at(buf, size, "%d\n",
-> +                                       (int)od_table->OverDriveTable.Fan=
-MinimumPwm);
-> +
-> +               size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
-> +               smu_v13_0_0_get_od_setting_limits(smu,
-> +                                                 PP_OD_FEATURE_FAN_MINIM=
-UM_PWM,
-> +                                                 &min_value,
-> +                                                 &max_value);
-> +               size +=3D sysfs_emit_at(buf, size, "MINIMUM_PWM: %u %u\n"=
-,
-> +                                     min_value, max_value);
-> +               break;
-> +
->         case SMU_OD_RANGE:
->                 if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_GFXCLK_BIT) &&
->                     !smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_UCLK_BIT) &&
-> @@ -1766,6 +1789,28 @@ static int smu_v13_0_0_od_edit_dpm_table(struct sm=
-u_context *smu,
->                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_FAN_CURVE_BIT);
->                 break;
->
-> +       case PP_OD_EDIT_FAN_MINIMUM_PWM:
-> +               if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_FAN_CURVE_BIT)) {
-> +                       dev_warn(adev->dev, "Fan curve setting not suppor=
-ted!\n");
-> +                       return -ENOTSUPP;
-> +               }
-> +
-> +               smu_v13_0_0_get_od_setting_limits(smu,
-> +                                                 PP_OD_FEATURE_FAN_MINIM=
-UM_PWM,
-> +                                                 &minimum,
-> +                                                 &maximum);
-> +               if (input[0] < minimum ||
-> +                   input[0] > maximum) {
-> +                       dev_info(adev->dev, "fan minimum pwm setting(%ld)=
- must be within [%d, %d]!\n",
-> +                                input[0], minimum, maximum);
-> +                       return -EINVAL;
-> +               }
-> +
-> +               od_table->OverDriveTable.FanMinimumPwm =3D input[0];
-> +               od_table->OverDriveTable.FanMode =3D FAN_MODE_AUTO;
-> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_FAN_CURVE_BIT);
-> +               break;
-> +
->         case PP_OD_RESTORE_DEFAULT_TABLE:
->                 feature_ctrlmask =3D od_table->OverDriveTable.FeatureCtrl=
-Mask;
->                 memcpy(od_table,
-> @@ -2030,7 +2075,9 @@ static void smu_v13_0_0_set_supported_od_feature_ma=
-sk(struct smu_context *smu)
->                                             OD_OPS_SUPPORT_ACOUSTIC_TARGE=
-T_THRESHOLD_RETRIEVE |
->                                             OD_OPS_SUPPORT_ACOUSTIC_TARGE=
-T_THRESHOLD_SET |
->                                             OD_OPS_SUPPORT_FAN_TARGET_TEM=
-PERATURE_RETRIEVE |
-> -                                           OD_OPS_SUPPORT_FAN_TARGET_TEM=
-PERATURE_SET;
-> +                                           OD_OPS_SUPPORT_FAN_TARGET_TEM=
-PERATURE_SET |
-> +                                           OD_OPS_SUPPORT_FAN_MINIMUM_PW=
-M_RETRIEVE |
-> +                                           OD_OPS_SUPPORT_FAN_MINIMUM_PW=
-M_SET;
->  }
->
->  static int smu_v13_0_0_set_default_od_settings(struct smu_context *smu)
-> @@ -2096,6 +2143,8 @@ static int smu_v13_0_0_set_default_od_settings(stru=
-ct smu_context *smu)
->                         user_od_table_bak.OverDriveTable.AcousticTargetRp=
-mThreshold;
->                 user_od_table->OverDriveTable.FanTargetTemperature =3D
->                         user_od_table_bak.OverDriveTable.FanTargetTempera=
-ture;
-> +               user_od_table->OverDriveTable.FanMinimumPwm =3D
-> +                       user_od_table_bak.OverDriveTable.FanMinimumPwm;
->         }
->
->         smu_v13_0_0_set_supported_od_feature_mask(smu);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> index a4d48ef5aaa7..c2ca5f228dd5 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> @@ -83,6 +83,7 @@
->  #define PP_OD_FEATURE_FAN_ACOUSTIC_LIMIT               8
->  #define PP_OD_FEATURE_FAN_ACOUSTIC_TARGET              9
->  #define PP_OD_FEATURE_FAN_TARGET_TEMPERATURE           10
-> +#define PP_OD_FEATURE_FAN_MINIMUM_PWM                  11
->
->  #define LINK_SPEED_MAX                                 3
->
-> @@ -1126,6 +1127,10 @@ static void smu_v13_0_7_get_od_setting_limits(stru=
-ct smu_context *smu,
->                 od_min_setting =3D overdrive_lowerlimits->FanTargetTemper=
-ature;
->                 od_max_setting =3D overdrive_upperlimits->FanTargetTemper=
-ature;
->                 break;
-> +       case PP_OD_FEATURE_FAN_MINIMUM_PWM:
-> +               od_min_setting =3D overdrive_lowerlimits->FanMinimumPwm;
-> +               od_max_setting =3D overdrive_upperlimits->FanMinimumPwm;
-> +               break;
->         default:
->                 od_min_setting =3D od_max_setting =3D INT_MAX;
->                 break;
-> @@ -1438,6 +1443,24 @@ static int smu_v13_0_7_print_clk_levels(struct smu=
-_context *smu,
->                                       min_value, max_value);
->                 break;
->
-> +       case SMU_OD_FAN_MINIMUM_PWM:
-> +               if (!smu_v13_0_7_is_od_feature_supported(smu,
-> +                                                        PP_OD_FEATURE_FA=
-N_CURVE_BIT))
-> +                       break;
-> +
-> +               size +=3D sysfs_emit_at(buf, size, "FAN_MINIMUM_PWM:\n");
-> +               size +=3D sysfs_emit_at(buf, size, "%d\n",
-> +                                       (int)od_table->OverDriveTable.Fan=
-MinimumPwm);
-> +
-> +               size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
-> +               smu_v13_0_7_get_od_setting_limits(smu,
-> +                                                 PP_OD_FEATURE_FAN_MINIM=
-UM_PWM,
-> +                                                 &min_value,
-> +                                                 &max_value);
-> +               size +=3D sysfs_emit_at(buf, size, "MINIMUM_PWM: %u %u\n"=
-,
-> +                                     min_value, max_value);
-> +               break;
-> +
->         case SMU_OD_RANGE:
->                 if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_GFXCLK_BIT) &&
->                     !smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_UCLK_BIT) &&
-> @@ -1752,6 +1775,28 @@ static int smu_v13_0_7_od_edit_dpm_table(struct sm=
-u_context *smu,
->                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_FAN_CURVE_BIT);
->                 break;
->
-> +       case PP_OD_EDIT_FAN_MINIMUM_PWM:
-> +               if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_FAN_CURVE_BIT)) {
-> +                       dev_warn(adev->dev, "Fan curve setting not suppor=
-ted!\n");
-> +                       return -ENOTSUPP;
-> +               }
-> +
-> +               smu_v13_0_7_get_od_setting_limits(smu,
-> +                                                 PP_OD_FEATURE_FAN_MINIM=
-UM_PWM,
-> +                                                 &minimum,
-> +                                                 &maximum);
-> +               if (input[0] < minimum ||
-> +                   input[0] > maximum) {
-> +                       dev_info(adev->dev, "fan minimum pwm setting(%ld)=
- must be within [%d, %d]!\n",
-> +                                input[0], minimum, maximum);
-> +                       return -EINVAL;
-> +               }
-> +
-> +               od_table->OverDriveTable.FanMinimumPwm =3D input[0];
-> +               od_table->OverDriveTable.FanMode =3D FAN_MODE_AUTO;
-> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_FAN_CURVE_BIT);
-> +               break;
-> +
->         case PP_OD_RESTORE_DEFAULT_TABLE:
->                 feature_ctrlmask =3D od_table->OverDriveTable.FeatureCtrl=
-Mask;
->                 memcpy(od_table,
-> @@ -2011,7 +2056,9 @@ static void smu_v13_0_7_set_supported_od_feature_ma=
-sk(struct smu_context *smu)
->                                             OD_OPS_SUPPORT_ACOUSTIC_TARGE=
-T_THRESHOLD_RETRIEVE |
->                                             OD_OPS_SUPPORT_ACOUSTIC_TARGE=
-T_THRESHOLD_SET |
->                                             OD_OPS_SUPPORT_FAN_TARGET_TEM=
-PERATURE_RETRIEVE |
-> -                                           OD_OPS_SUPPORT_FAN_TARGET_TEM=
-PERATURE_SET;
-> +                                           OD_OPS_SUPPORT_FAN_TARGET_TEM=
-PERATURE_SET |
-> +                                           OD_OPS_SUPPORT_FAN_MINIMUM_PW=
-M_RETRIEVE |
-> +                                           OD_OPS_SUPPORT_FAN_MINIMUM_PW=
-M_SET;
->  }
->
->  static int smu_v13_0_7_set_default_od_settings(struct smu_context *smu)
-> @@ -2077,6 +2124,8 @@ static int smu_v13_0_7_set_default_od_settings(stru=
-ct smu_context *smu)
->                         user_od_table_bak.OverDriveTable.AcousticTargetRp=
-mThreshold;
->                 user_od_table->OverDriveTable.FanTargetTemperature =3D
->                         user_od_table_bak.OverDriveTable.FanTargetTempera=
-ture;
-> +               user_od_table->OverDriveTable.FanMinimumPwm =3D
-> +                       user_od_table_bak.OverDriveTable.FanMinimumPwm;
->         }
->
->         smu_v13_0_7_set_supported_od_feature_mask(smu);
-> --
-> 2.34.1
->
+W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4
+IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgVGoN
+Cj4gU2VudDogV2VkbmVzZGF5LCBBdWd1c3QgMjMsIDIwMjMgNDo1NCBBTQ0KPiBUbzogYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDogNi41LjAtcmM3OiBSSVA6IDAwMTA6
+cmFkZW9uX2dlbV92YV9pb2N0bCsweDNkYy8weDRmMCBbcmFkZW9uXQ0KPg0KPiBSZWNlbnRseSwg
+YW5kIEkgdGhpbmsgZXNwZWNpYWxseSBzaW5jZSA2LjUuMC1yYzUgKGJ1dCBwb3NzaWJseSBlYXJs
+aWVyKSwgb24gcmVzdW1lDQo+IGZyb20gUzMgc3VzcGVuZCB0aGUgaG9zdCBzZWVzOg0KPg0KDQpJ
+ZiB0aGlzIGlzIGEgcmVncmVzc2lvbiBjYW4geW91IGJpc2VjdD8gIFRoZXJlIGFyZSB2ZXJ5IGZl
+dyBjaGFuZ2VzIGZvciB0aGUgcmFkZW9uIGRyaXZlciB0aGVzZSBkYXlzLg0KDQpBbGV4DQoNCj4g
+JCB1bmFtZSAtcjsgbHNwY2kgLW5uayAtZCA6OjAzMDANCj4gNi41LjAtcmM3K2RlYmlhbit0ag0K
+PiAwYTowMC4wIFZHQSBjb21wYXRpYmxlIGNvbnRyb2xsZXIgWzAzMDBdOiBBZHZhbmNlZCBNaWNy
+byBEZXZpY2VzLCBJbmMuDQo+IFtBTUQvQVRJXSBDYXBlIFZlcmRlIEdMIFtGaXJlUHJvIFc0MTAw
+XSBbMTAwMjo2ODJjXQ0KPiAgICAgICAgICBTdWJzeXN0ZW06IERlbGwgQ2FwZSBWZXJkZSBHTCBb
+RmlyZVBybyBXNDEwMF0gWzEwMjg6MmIxZV0NCj4gICAgICAgICAgS2VybmVsIGRyaXZlciBpbiB1
+c2U6IHJhZGVvbg0KPiAgICAgICAgICBLZXJuZWwgbW9kdWxlczogcmFkZW9uLCBhbWRncHUNCj4N
+Cj4NCj4gQXVnIDIzIDA5OjM0OjIyIHN1bm55IGtlcm5lbDogQlVHOiBrZXJuZWwgTlVMTCBwb2lu
+dGVyIGRlcmVmZXJlbmNlLA0KPiBhZGRyZXNzOiAwMDAwMDAwMDAwMDAwMWU4IEF1ZyAyMyAwOToz
+NDoyMiBzdW5ueSBrZXJuZWw6ICNQRjogc3VwZXJ2aXNvcg0KPiByZWFkIGFjY2VzcyBpbiBrZXJu
+ZWwgbW9kZSBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiAjUEY6DQo+IGVycm9yX2NvZGUo
+MHgwMDAwKSAtIG5vdC1wcmVzZW50IHBhZ2UgQXVnIDIzIDA5OjM0OjIyIHN1bm55IGtlcm5lbDog
+UEdEDQo+IDMxZmRlODA2NyBQNEQgMzFmZGU4MDY3IFBVRCAwIEF1ZyAyMyAwOTozNDoyMiBzdW5u
+eSBrZXJuZWw6IE9vcHM6IDAwMDANCj4gWyMyXSBQUkVFTVBUIFNNUCBOT1BUSQ0KPiBBdWcgMjMg
+MDk6MzQ6MjIgc3Vubnkga2VybmVsOiBDUFU6IDEzIFBJRDogNDA0NzQyIENvbW06IFJlbmRlcmVy
+DQo+IFRhaW50ZWQ6IEcgICAgICBEIFcgIE9FICAgICAgNi41LjAtcmM3K2RlYmlhbit0aiAjNzUN
+Cj4gQXVnIDIzIDA5OjM0OjIyIHN1bm55IGtlcm5lbDogSGFyZHdhcmUgbmFtZTogU3lzdGVtIG1h
+bnVmYWN0dXJlciBTeXN0ZW0NCj4gUHJvZHVjdCBOYW1lL1BSSU1FIFgzNzAtUFJPLCBCSU9TIDYw
+NDIgMDQvMjgvMjAyMiBBdWcgMjMgMDk6MzQ6MjINCj4gc3Vubnkga2VybmVsOiBSSVA6IDAwMTA6
+cmFkZW9uX2dlbV92YV9pb2N0bCsweDNkYy8weDRmMCBbcmFkZW9uXSBBdWcgMjMNCj4gMDk6MzQ6
+MjIgc3Vubnkga2VybmVsOiBDb2RlOiBkMiBlNiBhNyBjMCBlOCBjNSA5OCAyZiBlZSBjNyA0MyAw
+NCAwMSAwMCAwMCAwMA0KPiA0MSBiZCBlYSBmZiBmZiBmZiBlOSBiMyBmZSBmZiBmZiA0OSA4YiA0
+MSA3MCA0YyA4OSBjZSA0YyA4OSBlNyA0YyA4OSA0YyAyNCAwOCA8NDg+DQo+IDhiID4gQXVnIDIz
+IDA5OjM0OjIyIHN1bm55IGtlcm5lbDogUlNQOiAwMDE4OmZmZmZhNmU5YzUyMjdiZjAgRUZMQUdT
+Og0KPiAwMDAxMDI4MiBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiBSQVg6IDAwMDAwMDAw
+MDAwMDAwMDAgUkJYOg0KPiBmZmZmYTZlOWM1MjI3ZDI4IFJDWDogMDAwMDAwMDAwMDAwMDAwMCBB
+dWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOg0KPiBSRFg6IDAwMDAwMDAwMDAwMDAwMDEgUlNJ
+OiBmZmZmOTgyNWVhNWE5ODgwIFJESTogZmZmZjk4MjNjMjlkYzAwMCBBdWcNCj4gMjMgMDk6MzQ6
+MjIgc3Vubnkga2VybmVsOiBSQlA6IGZmZmZhNmU5YzUyMjdjOTAgUjA4OiAwMDAwMDAwMDAwMDAw
+MDAwDQo+IFIwOTogZmZmZjk4MjVlYTVhOTg4MCBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVs
+OiBSMTA6DQo+IDAwMDAwMDAwMDAwN2JlZTcgUjExOiBmZmZmYTZlOTAwODU4MDAwIFIxMjogZmZm
+Zjk4MjNjMjlkYzAwMCBBdWcgMjMNCj4gMDk6MzQ6MjIgc3Vubnkga2VybmVsOiBSMTM6IDAwMDAw
+MDAwMDAwMDAwMDAgUjE0OiBmZmZmYTZlOWM1MjI3YzA4DQo+IFIxNTogZmZmZjk4MjYyMGMwMGM3
+OCBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiBGUzoNCj4gMDAwMDdmZDRlMzJiZTZjMCgw
+MDAwKSBHUzpmZmZmOTgyYWNlZDQwMDAwKDAwMDApDQo+IGtubEdTOjAwMDAwMDAwMDAwMDAwMDAg
+QXVnIDIzIDA5OjM0OjIyIHN1bm55IGtlcm5lbDogQ1M6ICAwMDEwIERTOg0KPiAwMDAwIEVTOiAw
+MDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMyBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiBD
+UjI6DQo+IDAwMDAwMDAwMDAwMDAxZTggQ1IzOiAwMDAwMDAwNDYwOWI4MDAwIENSNDogMDAwMDAw
+MDAwMDM1MGVlMA0KPiBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiBDYWxsIFRyYWNlOg0K
+PiBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgPFRBU0s+DQo+IEF1ZyAyMyAwOTozNDoy
+MiBzdW5ueSBrZXJuZWw6ICA/IF9fZGllKzB4MWYvMHg3MCBBdWcgMjMgMDk6MzQ6MjIgc3VubnkN
+Cj4ga2VybmVsOiAgPyBwYWdlX2ZhdWx0X29vcHMrMHgxNTkvMHg0NzAgQXVnIDIzIDA5OjM0OjIy
+IHN1bm55IGtlcm5lbDogID8NCj4gc3Jzb19yZXR1cm5fdGh1bmsrMHg1LzB4MTAgQXVnIDIzIDA5
+OjM0OjIyIHN1bm55IGtlcm5lbDogID8NCj4gZG9fdXNlcl9hZGRyX2ZhdWx0KzB4NjUvMHg2NDAg
+QXVnIDIzIDA5OjM0OjIyIHN1bm55IGtlcm5lbDogID8NCj4gZXhjX3BhZ2VfZmF1bHQrMHg3My8w
+eDE3MCBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgPw0KPiBhc21fZXhjX3BhZ2VfZmF1
+bHQrMHgyMi8weDMwIEF1ZyAyMyAwOTozNDoyMiBzdW5ueSBrZXJuZWw6ICA/DQo+IHJhZGVvbl9n
+ZW1fdmFfaW9jdGwrMHgzZGMvMHg0ZjAgW3JhZGVvbl0gQXVnIDIzIDA5OjM0OjIyIHN1bm55IGtl
+cm5lbDogID8NCj4gdG9tb3lvX3BhdGhfbnVtYmVyX3Blcm0rMHg2OC8weDFkMA0KPiBBdWcgMjMg
+MDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgPyBfX3BmeF9yYWRlb25fZ2VtX3ZhX2lvY3RsKzB4MTAv
+MHgxMA0KPiBbcmFkZW9uXSBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgZHJtX2lvY3Rs
+X2tlcm5lbCsweGMxLzB4MTYwIFtkcm1dDQo+IEF1ZyAyMyAwOTozNDoyMiBzdW5ueSBrZXJuZWw6
+ICBkcm1faW9jdGwrMHgyNGMvMHg0OTAgW2RybV0gQXVnIDIzDQo+IDA5OjM0OjIyIHN1bm55IGtl
+cm5lbDogID8gX19wZnhfcmFkZW9uX2dlbV92YV9pb2N0bCsweDEwLzB4MTAgW3JhZGVvbl0NCj4g
+QXVnIDIzIDA5OjM0OjIyIHN1bm55IGtlcm5lbDogIHJhZGVvbl9kcm1faW9jdGwrMHg0OS8weDgw
+IFtyYWRlb25dIEF1Zw0KPiAyMyAwOTozNDoyMiBzdW5ueSBrZXJuZWw6ICBfX3g2NF9zeXNfaW9j
+dGwrMHg5My8weGQwIEF1ZyAyMyAwOTozNDoyMg0KPiBzdW5ueSBrZXJuZWw6ICBkb19zeXNjYWxs
+XzY0KzB4NWIvMHhjMCBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgPw0KPiBzcnNvX3Jl
+dHVybl90aHVuaysweDUvMHgxMCBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgPw0KPiBf
+X2ZnZXRfbGlnaHQrMHg5ZC8weDEwMCBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgPw0K
+PiBzcnNvX3JldHVybl90aHVuaysweDUvMHgxMCBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVs
+OiAgPw0KPiBmcHJlZ3NfYXNzZXJ0X3N0YXRlX2NvbnNpc3RlbnQrMHgyMi8weDUwDQo+IEF1ZyAy
+MyAwOTozNDoyMiBzdW5ueSBrZXJuZWw6ICA/IHNyc29fcmV0dXJuX3RodW5rKzB4NS8weDEwIEF1
+ZyAyMw0KPiAwOTozNDoyMiBzdW5ueSBrZXJuZWw6ICA/IGV4aXRfdG9fdXNlcl9tb2RlX3ByZXBh
+cmUrMHg0MC8weDFkMA0KPiBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgPyBzcnNvX3Jl
+dHVybl90aHVuaysweDUvMHgxMCBBdWcgMjMNCj4gMDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgPyBz
+eXNjYWxsX2V4aXRfdG9fdXNlcl9tb2RlKzB4MjcvMHg0MA0KPiBBdWcgMjMgMDk6MzQ6MjIgc3Vu
+bnkga2VybmVsOiAgPyBzcnNvX3JldHVybl90aHVuaysweDUvMHgxMCBBdWcgMjMNCj4gMDk6MzQ6
+MjIgc3Vubnkga2VybmVsOiAgPyBkb19zeXNjYWxsXzY0KzB4NjcvMHhjMCBBdWcgMjMgMDk6MzQ6
+MjIgc3VubnkNCj4ga2VybmVsOiAgPyBzcnNvX3JldHVybl90aHVuaysweDUvMHgxMCBBdWcgMjMg
+MDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgPw0KPiBzeXNjYWxsX2V4aXRfdG9fdXNlcl9tb2RlKzB4
+MjcvMHg0MA0KPiBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgPyBzcnNvX3JldHVybl90
+aHVuaysweDUvMHgxMCBBdWcgMjMNCj4gMDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgPyBkb19zeXNj
+YWxsXzY0KzB4NjcvMHhjMCBBdWcgMjMgMDk6MzQ6MjIgc3VubnkNCj4ga2VybmVsOiAgPyBmcHJl
+Z3NfYXNzZXJ0X3N0YXRlX2NvbnNpc3RlbnQrMHgyMi8weDUwDQo+IEF1ZyAyMyAwOTozNDoyMiBz
+dW5ueSBrZXJuZWw6ICA/IHNyc29fcmV0dXJuX3RodW5rKzB4NS8weDEwIEF1ZyAyMw0KPiAwOToz
+NDoyMiBzdW5ueSBrZXJuZWw6ICA/IGV4aXRfdG9fdXNlcl9tb2RlX3ByZXBhcmUrMHg0MC8weDFk
+MA0KPiBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOg0KPiBlbnRyeV9TWVNDQUxMXzY0X2Fm
+dGVyX2h3ZnJhbWUrMHg2ZS8weGQ4DQo+IEF1ZyAyMyAwOTozNDoyMiBzdW5ueSBrZXJuZWw6IFJJ
+UDogMDAzMzoweDdmZDRmZDgzZGIzYiBBdWcgMjMgMDk6MzQ6MjINCj4gc3Vubnkga2VybmVsOiBD
+b2RlOiAwMCA0OCA4OSA0NCAyNCAxOCAzMSBjMCA0OCA4ZCA0NCAyNCA2MCBjNyAwNCAyNCAxMCAw
+MA0KPiAwMCAwMCA0OCA4OSA0NCAyNCAwOCA0OCA4ZCA0NCAyNCAyMCA0OCA4OSA0NCAyNCAxMCBi
+OCAxMCAwMCAwMCAwMCAwZiAwNQ0KPiA8ODk+IGMyID4gQXVnIDIzIDA5OjM0OjIyIHN1bm55IGtl
+cm5lbDogUlNQOiAwMDJiOjAwMDA3ZmQ0ZTMyYmJlMTANCj4gRUZMQUdTOiAwMDAwMDI0NiBPUklH
+X1JBWDogMDAwMDAwMDAwMDAwMDAxMCBBdWcgMjMgMDk6MzQ6MjIgc3VubnkNCj4ga2VybmVsOiBS
+QVg6IGZmZmZmZmZmZmZmZmZmZGEgUkJYOiAwMDAwN2ZkNDljYjhhMDQwIFJDWDogMDAwMDdmZDRm
+ZDgzZGIzYg0KPiBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiBSRFg6IDAwMDA3ZmQ0ZTMy
+YmJlYzAgUlNJOg0KPiAwMDAwMDAwMGMwMTg2NDZiIFJESTogMDAwMDAwMDAwMDAwMDAyZCBBdWcg
+MjMgMDk6MzQ6MjIgc3VubnkNCj4ga2VybmVsOiBSQlA6IDAwMDA3ZmQ0ZTMyYmJlYzAgUjA4OiAw
+MDAwN2ZkNGZkNWNhM2YwIFIwOToNCj4gMDAwMDdmZDQ4YWRlZmY4MCBBdWcgMjMgMDk6MzQ6MjIg
+c3Vubnkga2VybmVsOiBSMTA6IDAwMDAwMDAwMDAwN2UwMDANCj4gUjExOiAwMDAwMDAwMDAwMDAw
+MjQ2IFIxMjogMDAwMDAwMDBjMDE4NjQ2YiBBdWcgMjMgMDk6MzQ6MjIgc3VubnkNCj4ga2VybmVs
+OiBSMTM6IDAwMDAwMDAwMDAwMDAwMmQgUjE0OiAwMDAwN2ZkNGZkNWNhMzU4IFIxNToNCj4gMDAw
+MDAwMDAwMDBjOTAwMCBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiAgPC9UQVNLPiBBdWcg
+MjMNCj4gMDk6MzQ6MjIgc3Vubnkga2VybmVsOiBNb2R1bGVzIGxpbmtlZCBpbjogdWlucHV0IHZl
+dGggcmZjb21tDQo+IHNuZF9zZXFfZHVtbXkgc25kX2hydGltZXIgc25kX3NlcSBzbmRfc2VxX2Rl
+dmljZSBuZnRfbWFzcQ0KPiBudm1lX2ZhYnJpY3MgcmRtYV91Y20gaWJfdXZlcmJzIHJkbWFfY20g
+aXdfYz4gQXVnIDIzIDA5OjM0OjIyIHN1bm55DQo+IGtlcm5lbDogIGJsdWV0b290aCBwY3Nwa3Ig
+c3A1MTAwX3RjbyBhY3BpX2NwdWZyZXEgc25kX2hkYV9jb3JlIHdhdGNoZG9nDQo+IHdtaV9ibW9m
+IHNuZF9od2RlcCBteG1fd21pIGNjcCBrMTB0ZW1wIGkyY19waWl4NCBzbmRfcGNtIHJuZ19jb3Jl
+DQo+IHNuZF90aW1lciA+IEF1ZyAyMyAwOTozNDoyMiBzdW5ueSBrZXJuZWw6ICBjcmN0MTBkaWZf
+Z2VuZXJpYw0KPiBjcmN0MTBkaWZfcGNsbXVsIHNjc2lfY29tbW9uIHVzYl9jb21tb24gY3JjdDEw
+ZGlmX2NvbW1vbiBncGlvX2FtZHB0DQo+IHdtaSBncGlvX2dlbmVyaWMgQXVnIDIzIDA5OjM0OjIy
+IHN1bm55IGtlcm5lbDogQ1IyOiAwMDAwMDAwMDAwMDAwMWU4DQo+IEF1ZyAyMyAwOTozNDoyMiBz
+dW5ueSBrZXJuZWw6IC0tLVsgZW5kIHRyYWNlIDAwMDAwMDAwMDAwMDAwMDAgXS0tLSBBdWcgMjMN
+Cj4gMDk6MzQ6MjIgc3Vubnkga2VybmVsOiBSSVA6IDAwMTA6cmFkZW9uX2dlbV92YV9pb2N0bCsw
+eDNkYy8weDRmMA0KPiBbcmFkZW9uXSBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiBDb2Rl
+OiBkMiBlNiBhNyBjMCBlOCBjNSA5OCAyZiBlZSBjNw0KPiA0MyAwNCAwMSAwMCAwMCAwMCA0MSBi
+ZCBlYSBmZiBmZiBmZiBlOSBiMyBmZSBmZiBmZiA0OSA4YiA0MSA3MCA0YyA4OSBjZSA0YyA4OSBl
+Nw0KPiA0YyA4OSA0YyAyNCAwOCA8NDg+IDhiID4gQXVnIDIzIDA5OjM0OjIyIHN1bm55IGtlcm5l
+bDogUlNQOg0KPiAwMDE4OmZmZmZhNmU5Y2NkNjdjMTAgRUZMQUdTOiAwMDAxMDIwMiBBdWcgMjMg
+MDk6MzQ6MjIgc3Vubnkga2VybmVsOg0KPiBSQVg6IDAwMDAwMDAwMDAwMDAwMDAgUkJYOiBmZmZm
+YTZlOWNjZDY3ZDQ4IFJDWDogMDAwMDAwMDAwMDAwMDAwMA0KPiBBdWcgMjMgMDk6MzQ6MjIgc3Vu
+bnkga2VybmVsOiBSRFg6IDAwMDAwMDAwMDAwMDAwMDEgUlNJOg0KPiBmZmZmOTgyM2M1ZmQzMjAw
+IFJESTogZmZmZjk4MjNjMjlkYzAwMCBBdWcgMjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiBSQlA6
+DQo+IGZmZmZhNmU5Y2NkNjdjYjAgUjA4OiAwMDAwMDAwMDAwMDAwMDAwIFIwOTogZmZmZjk4MjNj
+NWZkMzIwMCBBdWcgMjMNCj4gMDk6MzQ6MjIgc3Vubnkga2VybmVsOiBSMTA6IDAwMDAwMDAwMDAw
+NGJlMDAgUjExOiBmZmZmYTZlOTAwODU4MDAwDQo+IFIxMjogZmZmZjk4MjNjMjlkYzAwMCBBdWcg
+MjMgMDk6MzQ6MjIgc3Vubnkga2VybmVsOiBSMTM6DQo+IDAwMDAwMDAwMDAwMDAwMDAgUjE0OiBm
+ZmZmYTZlOWNjZDY3YzI4IFIxNTogZmZmZjk4MjU5MWIyMTQ3OCBBdWcgMjMNCj4gMDk6MzQ6MjIg
+c3Vubnkga2VybmVsOiBGUzogIDAwMDA3ZmQ0ZTMyYmU2YzAoMDAwMCkNCj4gR1M6ZmZmZjk4MmFj
+ZWQ0MDAwMCgwMDAwKSBrbmxHUzowMDAwMDAwMDAwMDAwMDAwIEF1ZyAyMyAwOTozNDoyMg0KPiBz
+dW5ueSBrZXJuZWw6IENTOiAgMDAxMCBEUzogMDAwMCBFUzogMDAwMCBDUjA6IDAwMDAwMDAwODAw
+NTAwMzMgQXVnIDIzDQo+IDA5OjM0OjIyIHN1bm55IGtlcm5lbDogQ1IyOiAwMDAwMDAwMDAwMDAw
+MWU4IENSMzogMDAwMDAwMDQ2MDliODAwMA0KPiBDUjQ6IDAwMDAwMDAwMDAzNTBlZTANCj4NCj4g
+Tm90ZTogdGFpbnRlZCBkdWUgdG8gYnVpbGRpbmcgb3V0LW9mLXRyZWUgaXQ4NyB0byBzdXBwb3J0
+IG1vYm8gc2Vuc29ycw0K
