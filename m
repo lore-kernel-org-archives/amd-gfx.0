@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC90BEE4993
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 16:05:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AF0CEE49A3
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 16:05:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52A2E10E473;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC46110E474;
 	Wed, 23 Aug 2023 16:05:01 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2084.outbound.protection.outlook.com [40.107.243.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7906E10E46F
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Aug 2023 16:04:54 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8A1010E472
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Aug 2023 16:04:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aezacg7hvdLMIiWmKRyw9/7VqY/W/Kq4lbgv2JnMB0KQJ83IcOv1PaatepSYptLrsY0V3QzfhTMPSTNfIT1TQ5UuOkT6aNCqlW1ou2eJzMlARuEn1FxUZ0ujHTGSyNY1jCG0CCJPiREDkKtLjbKk6myWQPEToG2exOGlwS2szbnOGCWktzbHqoMKB5qNkmPrOLJn5TXGchD5Rk3ZMIc7mIT0RWpvwSBoSziDGJnu/K9cqmH9OTFmUZ8xkNM4qHJNZU+DljvcK/TuLMBiZRpHTzopViUj/Tz0DA3m6hpAy8NWmOlbos0CDqJ/vOXGJcc81gp+D66QnviSaTirXkIF6w==
+ b=Drq28Go3CP+OrwOTjEXZqy6pus4woFYqWU1BcFSNAHef7xUNIcQ1T7T4I5OgHwB9Euuj3jnnl1W5118kXBiDhoB/GD4RIBLeE+kxOrJPlWsprzjVuWh/TSXPcyAIKaCq8mvXw/HHIqiLQVG4mTvpN5oc3FymQbDPABkIxKn2h644Jzbq07elJH4ovj9baG0FCKVo8V58UfFAhdsxO0sQt4yi8D+RuJ122udrhMatuMAB6Nz0u9gpHE8Y8LA+SKNtVUaVq1/DAXafkSHTzDGevWK3oO8ni82hhNdSGmV9Od1xadcUNF9Wp7MdnbCK1A9n3KNVw12fk1zHKsD0rtn1Yg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HXBssYPpJd3+5wF5pmWs3Dwmo2bJ96R7GFwK8CTzp0k=;
- b=XQK2TigmR2EI6eObl7+LUACzCBQF08Xxf4yTg+NGnRiwfAoHQYiXvAb2X3Mq+/5n4wEJVNcY1JoiGGkUnCnO8/qT1PuaNdqjsphetc1Q/YW4hqY9yRPhvv22HxSI09I4y+5tnfPKxjotikmkUmfvZTVNhhJ13OmNETM0MmZi9xC2LFD5CHzFPCHek1A58OH6lWIZeB+8vqJ0mjaRZ5vTj05cBn6+cTnvZIWnoBKIagk0YmaCETQR0494kA0pC0Ia1Se+xZUfq0ok1CZQJ7XB/oAyY8sGbNmrI4wus2H0QNyy8Nk2vYT9P3vVyD5sDp4r8lIJTqQOTIcT5bNZX05Igg==
+ bh=tWYCzaaEh+shcTGLRgffucl3aFSt+iEwgV0jCCjUaig=;
+ b=MmbAmyuMklQdF+b+n2boiXdaImOncaVIpTpx0+51S97+RVGT/iXpvquEp5AUMnFQrrrpA3mqvztM0ASiWLKd4pYAVThgLFhrk8zeEcUeuYrVwCMsdEwxwKYCJMcFHy9Y/rWseyaiy+3EQkIYQAn6PodoL3d+nYGNl0QsFIcxBZUg4ALsZ1xPRy00LuVyQYcLTFfBfFKqwxamYNi1IN94ER3xm8Kb5spOuPzZy1QwTDTwbjbPgZjG2EWCtipTSjDTAYUH82oiSN5iQnHW0E2OYnJIcYVfZVRc1w+XWtAQSKLJbUWqdVSCNTB2EqDsKrXXg7iukYow9znoTREUqKD6Kg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HXBssYPpJd3+5wF5pmWs3Dwmo2bJ96R7GFwK8CTzp0k=;
- b=JfmA7a4Vhf+RWy2gwqvSMf2jum77MeBvaZQ6zX/fYOGJvl1Qu8BGaFeFMKudhj7PHCx5jFD1BrQHXDWo71BReMHss2aX7PC1CBS03xEetcwxz3OL63tATis48BPZEsVMIC1V54TGotQGbstmk46CbHnhOkYQ+GwaAoSvkD91Sxc=
-Received: from PA7P264CA0119.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:34c::12)
- by DS0PR12MB8269.namprd12.prod.outlook.com (2603:10b6:8:fd::11) with
+ bh=tWYCzaaEh+shcTGLRgffucl3aFSt+iEwgV0jCCjUaig=;
+ b=Ue99bDTzes2lVYOsdG2ee8V5isJAqfP2fx5ddKzGWftYewdhIAF1pARM2tYYmltiB9gmYsFCQh1ANHLIDF2cZrf8sftql/Lb7xioS8uD18115hmwHYZXatirR8ZoHDuSKKMKz1IH1OOMU4wbVjIEJgVxNXTPdSp048NL8Fj86mk=
+Received: from PA7P264CA0116.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:34c::7)
+ by SA1PR12MB7174.namprd12.prod.outlook.com (2603:10b6:806:2b1::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.24; Wed, 23 Aug
- 2023 16:04:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.25; Wed, 23 Aug
+ 2023 16:04:55 +0000
 Received: from SN1PEPF0002529E.namprd05.prod.outlook.com
- (2603:10a6:102:34c:cafe::76) by PA7P264CA0119.outlook.office365.com
- (2603:10a6:102:34c::12) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10a6:102:34c:cafe::34) by PA7P264CA0116.outlook.office365.com
+ (2603:10a6:102:34c::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20 via Frontend
- Transport; Wed, 23 Aug 2023 16:04:51 +0000
+ Transport; Wed, 23 Aug 2023 16:04:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SN1PEPF0002529E.mail.protection.outlook.com (10.167.242.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.14 via Frontend Transport; Wed, 23 Aug 2023 16:04:50 +0000
+ 15.20.6699.14 via Frontend Transport; Wed, 23 Aug 2023 16:04:54 +0000
 Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 23 Aug
- 2023 11:04:40 -0500
+ 2023 11:04:42 -0500
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 18/21] drm/amd/display: correct z8_watermark 16bit to 20bit
- mask
-Date: Wed, 23 Aug 2023 11:58:20 -0400
-Message-ID: <20230823160347.176991-19-hamza.mahfooz@amd.com>
+Subject: [PATCH 19/21] drm/amd/display: Add debugfs interface for ODM combine
+ info
+Date: Wed, 23 Aug 2023 11:58:21 -0400
+Message-ID: <20230823160347.176991-20-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230823160347.176991-1-hamza.mahfooz@amd.com>
 References: <20230823160347.176991-1-hamza.mahfooz@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002529E:EE_|DS0PR12MB8269:EE_
-X-MS-Office365-Filtering-Correlation-Id: 43078ae8-5404-4b4d-e44f-08dba3f2ae8a
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002529E:EE_|SA1PR12MB7174:EE_
+X-MS-Office365-Filtering-Correlation-Id: 057595c5-40af-4c91-7cf5-08dba3f2b0aa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IfEDxozSojHN3jR0YgMyxA1N4i6LtCgMEFI9DF1Gr+qAqW9rjI/0Otjw0KrWaD3jAdNQapFKZNJCuFSeLMthWiJENg7wpB7LRGzLb2H+i/C76s6jRl02Ng6kC4VLFwsMRZaWCjfFsG1kt7ZAlcwFNWWSHDExMiWPIGeWn71J3d693OdGS9qDIBJ4DGaDlEl5bBiv2WemuQowsM+drFltPTlStltOM9bWs0dZG5gchmO2dbh7olb0BAIvq0lirxYZYRq6FBWTAeHEFoPxtQVVDcHQ+uFDBtDs/WkoJR61THX7n+jYoxUHAM8k6tvnuK054e96fRC8dR15+/zgb0lb9Vs6uKVKT6n39U2gzBDpZ39YiHWe8SaMtr35w2HFWj6KD6EfjYEEEJYm6ch5yw0jBTLlpbdn+kWsqMCzkQ2/e4PDMQ0SSgsXN+3Xp1Mzx7FHOn9IXbfeuSEnHZG5obd0AGuP0k+dyVpHaxSKXwBDceaVR7vR1MJIzaqZyhqRavCMn9MgUh6ppKIBMbx6LNUDuUvdZSAdhHwMdAIAFecQcaGFeeWFQBUDiJ4AuTGg/GT94qpp8IPE6qnsJOGSlwEw8Mo9+tyGVgwY0nojrjoPnqFlDG8tKv1ghjBqnysXVrCdo1X+a9YOiPtvL4wQYsZR3ae7oNNaYS3B00KsBxUAVgxKxdadR9d+a3ZRswbJ0Oybo4IX6m03+3m+oiafOzou94ROBVPve0A0cbErJ4V1Dwd2izLaxnD5qZIKe+4Ei0yDXiPDqgqOR7gxZGmQirDuQFgh5+WFsw+zvJYE1TYajd8m9tSG4bz8liPKmESjG+4N
+X-Microsoft-Antispam-Message-Info: mTxDMpHZlbIfRGSs+TFYc9JCKm3/jVjJiclpt+0sktEyjchhfl4VdHGdfS25ROmdoLUS8JE7HTBNA3gFu49jyQDjUlig8DwzwHeWVtEhqj1nn9k87Q5ke1germrwRy2UFoRDQoPgSjtzi0fZVgq0vOiyk3DPzLpnbQkedn8Tcs3nJfp2pXUgF81bWwejdxWvfk1CeQX3RLzeYkFPyGu/IcO1lcsYA3CwMF5M1nFTH/YszA9db5oFcjyiBAKUILmQsXEyqhdMb+8bHP9op60C4J5zfv+ee69EhIKcZezdixnlGte1Ql75Ll74dWLd977q2BzWDr8SVLb8WvBq6hY6qDbzTqgOtc6w3C0sUR2TTLm3KYzO1+PfWMdywfdSGs3V/XY/D2GNyIdpGFPMxXUBn4CRijQanOvA4PqpWWzS4HK5cZFUuf/FJySexvYcjTh1JSwTlj4ZBqEqyjOCaI2XEqU8z9DXxFretMDFN0pmubLQ/8PdbRbCCgAvi+ZpL+V+Brb51zItDhzYkNrI1z0OxVSlfW/0CEBsmXYCd8jajaajkSlX/xWvP7vy5i2el3Y4+3LGIOIrO8JWz+gHNOkQev9jIkPtF0jxHyj5pf5AgYi/g8KDR3zqC2T0lbPEIsY1kdCJQlnSrNtVLkxSMcaf5iHELqQPWBKS56fD08OHWUoZUumyBQ26hWKoUijvhqBy3xoSNob+ZKwn8Xl1FdqT9R3q6MfaXcWnMz5cVMcci+8mMzaZ95xQjsVrNZF1JrlNw+7turf4Cd25qrTtBdCqWIZWiQHRUoRtBQ+NLh0aY2RIQI4pz5tfccaSo0o7yQbS
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(396003)(136003)(346002)(39860400002)(186009)(1800799009)(451199024)(82310400011)(40470700004)(46966006)(36840700001)(54906003)(6916009)(316002)(70586007)(70206006)(8676002)(8936002)(2616005)(4326008)(36756003)(40460700003)(41300700001)(1076003)(356005)(82740400003)(81166007)(478600001)(6666004)(40480700001)(83380400001)(2906002)(47076005)(36860700001)(86362001)(426003)(336012)(44832011)(5660300002)(26005)(16526019)(16060500005)(36900700001);
+ SFS:(13230031)(4636009)(376002)(136003)(346002)(396003)(39860400002)(186009)(451199024)(1800799009)(82310400011)(46966006)(40470700004)(36840700001)(70206006)(70586007)(54906003)(6666004)(8676002)(4326008)(8936002)(36860700001)(26005)(16526019)(2616005)(478600001)(316002)(41300700001)(5660300002)(1076003)(6916009)(44832011)(426003)(336012)(83380400001)(40460700003)(2906002)(36756003)(40480700001)(47076005)(81166007)(356005)(82740400003)(86362001)(36900700001)(16060500005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2023 16:04:50.8183 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43078ae8-5404-4b4d-e44f-08dba3f2ae8a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2023 16:04:54.3965 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 057595c5-40af-4c91-7cf5-08dba3f2b0aa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002529E.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8269
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7174
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,177 +100,160 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Charlene
- Liu <charlene.liu@amd.com>, Muhammad Ahmed <ahmed.ahmed@amd.com>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, solomon.chiu@amd.com,
- jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hamza.mahfooz@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ Wenjing Liu <wenjing.liu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+ solomon.chiu@amd.com, jerry.zuo@amd.com, Aurabindo
+ Pillai <aurabindo.pillai@amd.com>, hamza.mahfooz@amd.com, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Charlene Liu <charlene.liu@amd.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-remove double adjustment for DPREFCLK SS. dprefclk adjusted with SS is
-used for dp audio only. if adjust DP_DTO, need to adjust VID_M/N
+[Why]
+For use with IGT tests in userspace, the number of ODM segments in use
+is required to be exposed to userspace to verify that ODM Combine is
+working as expected when special timings are committed.
 
-Reviewed-by: Muhammad Ahmed <ahmed.ahmed@amd.com>
+[How]
+Add a connector specific debugfs entry that prints the number of ODM
+segments in use.
+
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
 Acked-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Signed-off-by: Charlene Liu <charlene.liu@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- .../drm/amd/display/dc/dcn31/dcn31_hubbub.c   | 32 +++++++++----------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 33 ++++++++++++++++++-
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_optc.c | 25 ++++++++++++++
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_optc.h |  1 +
+ .../amd/display/dc/inc/hw/timing_generator.h  |  1 +
+ 4 files changed, 59 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-index 1f4e0b6261ad..f6b59c29cee2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hubbub.c
-@@ -355,7 +355,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_A, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_A calculated =%d\n"
-@@ -371,7 +371,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->a.cstate_pstate.cstate_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.cstate_exit_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_A, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_A calculated =%d\n"
-@@ -387,7 +387,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->a.cstate_pstate.cstate_enter_plus_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.cstate_enter_plus_exit_z8_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_A calculated =%d\n"
-@@ -403,7 +403,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->a.cstate_pstate.cstate_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->a.cstate_pstate.cstate_exit_z8_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_A, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_A calculated =%d\n"
-@@ -420,7 +420,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_B, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_B calculated =%d\n"
-@@ -436,7 +436,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->b.cstate_pstate.cstate_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.cstate_exit_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_B, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_B calculated =%d\n"
-@@ -452,7 +452,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->b.cstate_pstate.cstate_enter_plus_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.cstate_enter_plus_exit_z8_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_B calculated =%d\n"
-@@ -468,7 +468,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->b.cstate_pstate.cstate_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->b.cstate_pstate.cstate_exit_z8_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_B, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_B calculated =%d\n"
-@@ -485,7 +485,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_C, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_C calculated =%d\n"
-@@ -501,7 +501,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->c.cstate_pstate.cstate_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.cstate_exit_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_C, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_C calculated =%d\n"
-@@ -517,7 +517,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->c.cstate_pstate.cstate_enter_plus_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.cstate_enter_plus_exit_z8_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_C calculated =%d\n"
-@@ -533,7 +533,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->c.cstate_pstate.cstate_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->c.cstate_pstate.cstate_exit_z8_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_C, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_C calculated =%d\n"
-@@ -550,7 +550,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_D, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_D calculated =%d\n"
-@@ -566,7 +566,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->d.cstate_pstate.cstate_exit_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.cstate_exit_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_D, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_D calculated =%d\n"
-@@ -582,7 +582,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->d.cstate_pstate.cstate_enter_plus_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.cstate_enter_plus_exit_z8_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_Z8_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_WATERMARK_Z8_D calculated =%d\n"
-@@ -598,7 +598,7 @@ static bool hubbub31_program_stutter_watermarks(
- 				watermarks->d.cstate_pstate.cstate_exit_z8_ns;
- 		prog_wm_value = convert_and_clamp(
- 				watermarks->d.cstate_pstate.cstate_exit_z8_ns,
--				refclk_mhz, 0xffff);
-+				refclk_mhz, 0xfffff);
- 		REG_SET(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D, 0,
- 				DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_Z8_D, prog_wm_value);
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_Z8_D calculated =%d\n"
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 0c4dd922cfaf..17d1990ea832 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -1201,6 +1201,35 @@ static int internal_display_show(struct seq_file *m, void *data)
+ 	return 0;
+ }
+ 
++/*
++ * Returns the number of segments used if ODM Combine mode is enabled.
++ * Example usage: cat /sys/kernel/debug/dri/0/DP-1/odm_combine_segments
++ */
++static int odm_combine_segments_show(struct seq_file *m, void *unused)
++{
++	struct drm_connector *connector = m->private;
++	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
++	struct dc_link *link = aconnector->dc_link;
++	struct pipe_ctx *pipe_ctx = NULL;
++	int i, segments = 0;
++
++	for (i = 0; i < MAX_PIPES; i++) {
++		pipe_ctx = &link->dc->current_state->res_ctx.pipe_ctx[i];
++		if (pipe_ctx->stream &&
++		    pipe_ctx->stream->link == link)
++			break;
++	}
++
++	if (connector->status != connector_status_connected)
++		return -ENODEV;
++
++	if (pipe_ctx != NULL && pipe_ctx->stream_res.tg->funcs->get_odm_combine_segments)
++		pipe_ctx->stream_res.tg->funcs->get_odm_combine_segments(pipe_ctx->stream_res.tg, &segments);
++
++	seq_printf(m, "%d\n", segments);
++	return 0;
++}
++
+ /* function description
+  *
+  * generic SDP message access for testing
+@@ -2713,6 +2742,7 @@ DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
+ DEFINE_SHOW_ATTRIBUTE(dp_lttpr_status);
+ DEFINE_SHOW_ATTRIBUTE(hdcp_sink_capability);
+ DEFINE_SHOW_ATTRIBUTE(internal_display);
++DEFINE_SHOW_ATTRIBUTE(odm_combine_segments);
+ DEFINE_SHOW_ATTRIBUTE(psr_capability);
+ DEFINE_SHOW_ATTRIBUTE(dp_is_mst_connector);
+ DEFINE_SHOW_ATTRIBUTE(dp_mst_progress_status);
+@@ -2991,7 +3021,8 @@ static const struct {
+ } connector_debugfs_entries[] = {
+ 		{"force_yuv420_output", &force_yuv420_output_fops},
+ 		{"trigger_hotplug", &trigger_hotplug_debugfs_fops},
+-		{"internal_display", &internal_display_fops}
++		{"internal_display", &internal_display_fops},
++		{"odm_combine_segments", &odm_combine_segments_fops}
+ };
+ 
+ /*
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
+index 8abb94f60078..e7e25c58c692 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.c
+@@ -98,6 +98,30 @@ static void optc32_set_odm_combine(struct timing_generator *optc, int *opp_id, i
+ 	optc1->opp_count = opp_cnt;
+ }
+ 
++void optc32_get_odm_combine_segments(struct timing_generator *tg, int *odm_combine_segments)
++{
++	struct optc *optc1 = DCN10TG_FROM_TG(tg);
++	int segments;
++
++	REG_GET(OPTC_DATA_SOURCE_SELECT, OPTC_NUM_OF_INPUT_SEGMENT, &segments);
++
++	switch (segments) {
++	case 0:
++		*odm_combine_segments = 1;
++		break;
++	case 1:
++		*odm_combine_segments = 2;
++		break;
++	case 3:
++		*odm_combine_segments = 4;
++		break;
++	/* 2 is reserved */
++	case 2:
++	default:
++		*odm_combine_segments = -1;
++	}
++}
++
+ void optc32_set_h_timing_div_manual_mode(struct timing_generator *optc, bool manual_mode)
+ {
+ 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
+@@ -303,6 +327,7 @@ static struct timing_generator_funcs dcn32_tg_funcs = {
+ 		.set_dwb_source = NULL,
+ 		.set_odm_bypass = optc32_set_odm_bypass,
+ 		.set_odm_combine = optc32_set_odm_combine,
++		.get_odm_combine_segments = optc32_get_odm_combine_segments,
+ 		.set_h_timing_div_manual_mode = optc32_set_h_timing_div_manual_mode,
+ 		.get_optc_source = optc2_get_optc_source,
+ 		.set_out_mux = optc3_set_out_mux,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.h
+index abf0121a1006..93cc7fc8472c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_optc.h
+@@ -180,5 +180,6 @@
+ 
+ void dcn32_timing_generator_init(struct optc *optc1);
+ void optc32_set_h_timing_div_manual_mode(struct timing_generator *optc, bool manual_mode);
++void optc32_get_odm_combine_segments(struct timing_generator *tg, int *odm_combine_segments);
+ 
+ #endif /* __DC_OPTC_DCN32_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
+index c21e7ffd5bd0..9a00a99317b2 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
+@@ -309,6 +309,7 @@ struct timing_generator_funcs {
+ 	 */
+ 	void (*set_odm_combine)(struct timing_generator *optc, int *opp_id, int opp_cnt,
+ 			struct dc_crtc_timing *timing);
++	void (*get_odm_combine_segments)(struct timing_generator *tg, int *odm_segments);
+ 	void (*set_h_timing_div_manual_mode)(struct timing_generator *optc, bool manual_mode);
+ 	void (*set_gsl)(struct timing_generator *optc, const struct gsl_params *params);
+ 	void (*set_gsl_source_select)(struct timing_generator *optc,
 -- 
 2.41.0
 
