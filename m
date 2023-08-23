@@ -4,118 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7E19EE49AB
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 06:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 023C1EE49AE
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 06:35:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C86010E2C1;
-	Wed, 23 Aug 2023 06:35:23 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2053.outbound.protection.outlook.com [40.107.93.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C4EA10E060;
- Wed, 23 Aug 2023 06:35:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79E8610E060;
+	Wed, 23 Aug 2023 06:35:36 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2087.outbound.protection.outlook.com [40.107.94.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 257B610E060
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Aug 2023 06:35:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VOPxuJMBsS+VUlwvh5/vTJZ/D1m1IO+rV0D6GyF5hdYXA0MRYqFmUYi4DH5iWDvTnVzjKAU4OTtjbt3A9MuJCVQCwVQL3PBYfo5wOxhLSm4mK7UlpeUf8QRxACvoLPkLCVpEBWWru9v+seRYwqxeAsFW437lMiwAE2ayiyVIRLRiTs6VfFLYNdgc/iZWUqm0C1qqxeXxX+GqRdMmZVDRlNN0DEoWrcht2uGjVdYWG/zOkifjtY7bj2kgDcF8gM9+zGHNzYX9ktA48IYaVjt7EpcSlZgJNKmNeGaq/kRto68ekH18SSFWKIXrDhTFeqUrfKtpAjm20WpkzRwlyg/Dqg==
+ b=eYdeLQwzdRrBxs8shvu+9d48Owgg4TywHsUkvzzM3yjNz81nOYE0zB+z5uZtP/6SajeXC7lbbOXiz5CV24wJqTliVNBC2cBzDoqMCK+4Tzw1fB3ldZIvtVP3SR3vjlwQUNa1QFS4PzHchBngEnhPA6zMtacSiQIdLq506RJtwxiGvH8qZE8v8PjR4YZgz+J6kX7A4Enp0pVYJKh/HRpzo+sN2EWoHRtrkg8rpTPpn/YTmAtw33V8vJZdS6Y9XLBo0ikR9nvT+bNN+yTBgHQ+dKjj7e022lR9XemTr589dDttQGp49UrIoM7+CbguNVyHnCQbPblA0Ejxfq6ZtOXzuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uye1FaTdWvwFzIQ/I71HrkpqW3rW7rj65SYn2zS66Hs=;
- b=H138u+pqZ13kpG6wmEXQET5IjZjV0NjShHxmd9HydzCsW0p9lmGiq5YUV3QJEkdxUE++mv8GW+H8UfOhK66J5aQX5otbrrVLgi5yXSwusa/ICZmYnzpADs1a36pqooPly1FGEXhiQ3ePLI4+QbhU73AGD2jl0Vs9COdQXj5NrhDFivcxVvk01KGhxpKoIGJH6zLzxCvkXpbloTUS46dbIh7M1aVlWDCWoZCtSUVjWjzhENkhlh988sOLaRbPZKFzQzLwxecmDyQtOfpA/B5iRoO9otFa9/qIehFY6Kb1/vd+V6HPLmy1Ke2VIPiZ3vGWl7amv0qVRwjEd6w3MGiybw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=BI+PIYMfu/tZM9JNNqNmA/IPkKnP5nKJtfVsnsRRtE8=;
+ b=aLFmgrrBNzQUgpc5kA7LSMWA1bgvYh7+8HDTG2HvI2jDpcMcT9Jbjr7+P3e4YktY9kFBkxwIhQ0sxd6+3uq9aLPaTYMB6mWdxSf4naheDSuvSQHEWozBvfHwmHIu2mTzPSPBVbbiAdkhi3szc7kXB+YNrmUZYS+57YjjAsYsnLu2Sfe+OS+bsLCLdjWlJXuUz/DPTBs2sk7DFkPQQyamQVkkGNwme1KGER/jHesVfJv5vAclEus2F+BqCQN+pfm71qw9NQF3c+N7x0W6glA8xwjhpiY+39M9VhBpB+K5k2eXdWjTBndTmXp4MQqLqsMgMCKznSKzlB82G51ftUmWtw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uye1FaTdWvwFzIQ/I71HrkpqW3rW7rj65SYn2zS66Hs=;
- b=Fs3hCuilo9sdILcac5vAHAGc4Kx4yuytPO/rxpbMGanzU1PW4RYthCLiXC2d03v1W4EtlwuOgwT4SL7/+CYAEYSqFo/Sa5pqJUJOuiR8TJ03rfRclC3qXWZ8qJOZxergGA2T/xiwgEpoPFpcvZFl1nalAKa6WnGTvzuo8XfWylU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
- by SA1PR12MB8917.namprd12.prod.outlook.com (2603:10b6:806:386::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.26; Wed, 23 Aug
- 2023 06:35:18 +0000
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::6787:e196:b8dc:93a1]) by MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::6787:e196:b8dc:93a1%7]) with mapi id 15.20.6699.026; Wed, 23 Aug 2023
- 06:35:18 +0000
-Message-ID: <f5df3e69-0668-79bc-ae10-92aec58232cc@amd.com>
-Date: Tue, 22 Aug 2023 23:35:06 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 1/3] drm/buddy: Fix contiguous memory allocation issues
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-References: <20230821101444.119601-1-Arunpravin.PaneerSelvam@amd.com>
- <a1f422c6-728d-afae-29e1-6f091e16df7f@amd.com>
- <4fa2c0ea-d8f7-f884-0eb7-c42cad75cd02@amd.com>
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <4fa2c0ea-d8f7-f884-0eb7-c42cad75cd02@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0011.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25::16) To MN2PR12MB4342.namprd12.prod.outlook.com
- (2603:10b6:208:264::7)
+ bh=BI+PIYMfu/tZM9JNNqNmA/IPkKnP5nKJtfVsnsRRtE8=;
+ b=Ji/poBYp2YQXTepur9A4hcPnDzx82Ej3FCy8d6r/uzpi3p9huiAhlrxQQUuCd+EegIuASDPc3cLDweTD60NrI60wmOHw6nFqx91lT44y02o6mDpm8bhVmz/V27p1pKbfbD5jyeQHkcQeXEXw8TH8dr/tpXHYYHX6O7s7/FZeS+k=
+Received: from CY5P221CA0080.NAMP221.PROD.OUTLOOK.COM (2603:10b6:930:9::28) by
+ CH3PR12MB8075.namprd12.prod.outlook.com (2603:10b6:610:122::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6699.24; Wed, 23 Aug 2023 06:35:33 +0000
+Received: from CY4PEPF0000E9CF.namprd03.prod.outlook.com
+ (2603:10b6:930:9:cafe::a7) by CY5P221CA0080.outlook.office365.com
+ (2603:10b6:930:9::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.26 via Frontend
+ Transport; Wed, 23 Aug 2023 06:35:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9CF.mail.protection.outlook.com (10.167.241.142) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6699.15 via Frontend Transport; Wed, 23 Aug 2023 06:35:32 +0000
+Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 23 Aug
+ 2023 01:35:25 -0500
+From: Evan Quan <evan.quan@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [V2 1/8] drm/amd/pm: introduce a new set of OD interfaces
+Date: Wed, 23 Aug 2023 14:33:59 +0800
+Message-ID: <20230823063406.1195151-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|SA1PR12MB8917:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e393fc6-1c32-41be-4587-08dba3a31e0c
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9CF:EE_|CH3PR12MB8075:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f3fc731-5fd5-4411-b87b-08dba3a326e5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fzk/9Pb6TC8zukuHQl/LWjVLxjBDujIo9nxWgG+rweuxgGe3IMKTTQ/fFyZrSSUhzgzR30ZgImAVyC5m1wG6hDm1N/6sbmRosQBuYOmfn1B2gVmksmB7qpBqSdqoEc/9ryFt1+ISSzDcuo2/eOkF9WQOKa3fYKnZp7aX3n82Vp2xUwuvXVhqoNJb1vo6husLLfztky1i+jDKstEHRfi/vxigGUfeUEMnL9NIxdnrG8FztI0DidyIQNYiVoTD8daWTX7mfptYAyIKX2p9qiOkqTUjwT+YKxsxQtI9ggX4K/8CBFcDwJ1FznWBPdRMpfvMgK4HNYUHje4aSOmXJr9Yx5IJr8TJ6d/xxgK0pzqS+BUplF3V0l+YZ/4fMo6sKqsRRPtJ7Dd850wnpnxtPfW6F6tMZ6Lu7faDLQd8+gcnsfLqFL8/4/RhsWVPoiGRq/s07PDDc/Gkiz7gWp9VGKX+vMgCIvwCr9Xr8uFjQ4aSLDL/8VnszMLkBcpR28HeJZEfQSljvoMnZdNaFJvyNF1UFnir+6RKaDQeGPxAt/UvLlyfkiMdGrve1zLwgi9xOCdFxdX34RSEEzrTBqFkWGohS33Si49BuofMJqnxfxy5aWpvcowU8vx0IlkABY2p27D0RnOhGlXYmRNq87RI+2ksmA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(376002)(136003)(39860400002)(346002)(366004)(1800799009)(186009)(451199024)(31696002)(86362001)(36756003)(5660300002)(2616005)(26005)(4326008)(8936002)(8676002)(66574015)(2906002)(83380400001)(30864003)(478600001)(6506007)(6486002)(53546011)(66946007)(66556008)(316002)(66476007)(6512007)(41300700001)(6666004)(31686004)(38100700002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: HNvcIbhA1pBdrDlsHtJSzZQxO4r4d6uWVAbYLgCnbt8rRCl+NQs2KL66AD5Xbbq3som5anXYpSkxCr7/IriC4Wg+2Dry5PRkN3EpirENkCjt1QyAYt+phWVJfwCr5ZpXoaFUR+xsa8GSKazLjQEg4/SP9bfoytDJKRmEvVnTLc5ylKzJE8pNqYbNomYJPu/G+8VBGFkrWYT+EefZhV4pB1z6DbEypk8YxJ8yz5bPc0q8aIOcSA89KwG/1fRMP+ndFZgE50wPUknLLoKm4bR0RKNwqfqHFZKmhTq7zJai8WaO83ZEMWLwoOIp5CIfnO/JpLKbz745CiYqPfek1LE0M3xpZVNtkIxNQS6VzAQe9CZqhwtkEJ30Fqq9CUSvM6DVcFzO5esb3WB24EFsiplMNkXpT0Eu2Zm7d9gTaQKtRnY7GB6kX/fRDw1pw6KRJgjb2edSpe8qLOAWD949DNHrc7RFF/PfV6amxGuWw1PApstJhTonoKeeRHkP18SAR0sUHFMYn+pKkSmmZLoSIta/Czjj/rLVGD7rc9rbqg9dTX0RmGg35oe7xCg80OO4teJJF4D3ahMJqFtC127lHkV3QW95DsKr7XjBbsn+ZSLgdWRkvGraaicf76Pxh/IUNcCORpnz/b1EGUq1GT2kmnVGTfqosSqBsbOCCx7Vl/FknZnTts52XCSjCISaN308s5WO9L9Y94uAzcu6ZfZkxZHRMW9IYSWVBbNew9/3lcW+cWrGfC7wYM3oyVBS8BTRer2h9wAiHdU5taW7C5EpMqiMuw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199024)(82310400011)(1800799009)(186009)(46966006)(36840700001)(40470700004)(2906002)(40480700001)(83380400001)(5660300002)(44832011)(426003)(336012)(16526019)(26005)(36860700001)(86362001)(47076005)(7696005)(8676002)(2616005)(8936002)(4326008)(316002)(70586007)(6916009)(54906003)(70206006)(478600001)(81166007)(82740400003)(356005)(6666004)(40460700003)(36756003)(1076003)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c2plUnNVVXUzeEFsVTRvY2VZeVlaZTk0RFYrNEpsb2QrM0FubUtXRFZnN3d3?=
- =?utf-8?B?bEVtQ3dsdlpKMzR0V2FJNFkyUVB6azVMTm1aVDVYQmg2Wnd1QVpieWhmSXNC?=
- =?utf-8?B?RVpta2pwVnVMSHpJKzBWVDNaeCt0QzY0S1QweWpUNDlMUzhjczBveU1LL3NP?=
- =?utf-8?B?MnJyWFl4eXhVb0tpbFpWdm42UjFmYklmeStMbUNxL21jenI5U000RzVXZExI?=
- =?utf-8?B?dk9oaDcxNmhTQ0NYVjBJQWFWOUtPRnhUSnYwOUZrTlJ0YWg4dWFVaHRYWmp4?=
- =?utf-8?B?NFBVNVhYK013bXIwTFFHOFpHWitCVkdYK2NqQ3NaK1g3KzNWck1LR1BIc2Vy?=
- =?utf-8?B?SkE1NS9LeHZ6RjYwYkFmZ1pvelJnVlpmTkhaRVhsN2h5THdialJ2UlBZK3Z3?=
- =?utf-8?B?RTZqZjV0YWVJaXJiVUFxNHVjQXBqM3RLYW9FdUVhaTJUUFJ6KzlrQmpxK1Rj?=
- =?utf-8?B?TzJMUm5XZzZNWnlSNTh1ellqbDlpMXNqNHlXelNoTWh4Qm5YTXhzbHBPVmph?=
- =?utf-8?B?SXR1N0ZPdWRhVVJkTVQzZDV2RVVNMGVWakl0YXhJS2FsRCtUeTU2dmUwdlEy?=
- =?utf-8?B?dGVyU3J4dXJ4RWEyYUdHUjE5Z2NoQ1pZUTAvM2VwSUp5ZnZDeEVaVzl0aDFT?=
- =?utf-8?B?NHJZaGlKUHl3b04zekNUdW82L0k0cEQ1WmlsMUxwYzdzeXNCb3dRZElNajZX?=
- =?utf-8?B?SnBnd0pFb2JLQjExYmphLzFKVXZ3WHBDVnlnZnBOa2ZEUURPdit0UHZSWWdN?=
- =?utf-8?B?S1ZlWnYyRElvb1VxT3h3a1dRVWhGYVAvVnVETEI2dG5HY0NWU2c2RXN4aFJs?=
- =?utf-8?B?VmdxelQ5NEhKbCtPS1ZyTXBCMUNFaThRTC9JS3FFc2JKaW9oM3ZXMkt1UWZt?=
- =?utf-8?B?Q0xrREc0eGd5Zjc3L3JqOFV6eXZ0TkoyM2pTNWNLbWF0cXRZS2lEY0VUdnVU?=
- =?utf-8?B?cW9HTmhOTmNkYkI0ekl4b1VXc3M4di84VHFLeGFUTWh3SE00UGl3K0NtOGdS?=
- =?utf-8?B?bE5CdGtkSTVKM1gzUmpMTXVMeEJRNE9QcW5za3dnZ1ExOTR1TGtGbEs2bzZz?=
- =?utf-8?B?bkpGSGJOWEN6ZUo3c3kwUzdyNERPQWo5RnRJaHljZXJLOUE2REFieXN3OUR5?=
- =?utf-8?B?SDBha2ZkVDEzdjVjQjRKSS9ycXJSak4yTFJTRCtxbzRKeGlCMnNZNm9udVBk?=
- =?utf-8?B?ZHdTS24yQTZtRGlRakJnajZuSkd3TmhTOXpjZHI1Y1VGR0x6Z2dzRUNFVWhy?=
- =?utf-8?B?SFE2UkxINnpNUDJtZWFpVHRHd2J6ZGlpbVNtQlJqb1hSTG1XNTBsTURoNVJu?=
- =?utf-8?B?RmtuaEZIU1ZFeDJ2T3V0bjJvSTBkd2lrNm40bmN3K2NZaXFUc3N3V0xsT2Qx?=
- =?utf-8?B?VzcyMGxKZHhDcXlWTjBLQ0FnSVFPTjgwcUM1TUdvSm91MEF2RHQyMkRraDNQ?=
- =?utf-8?B?aDRzUjlEbXdyNExkd09rRFVObUF6dUpDc0h0ZUFrUHQ5c1U4eEJPcGdnVVl0?=
- =?utf-8?B?T3JKdFBDd01MbTVoUkFXaEZ6NzlwMCs2czNNUCtPdldaaFE0ZTFJeVB5ODVU?=
- =?utf-8?B?Zlo2ay9jcHNMRUtLOVZ2dXdDMmJGazhUTzl6RlFpSnlXMFBDaTlPVURBdVEr?=
- =?utf-8?B?Rjc5SFhjMFkrVnVuem5DaVdRTklWUnJLUmh5U0xMOWFRN3REZEdYUDVjSjdW?=
- =?utf-8?B?MUdJVlYxZlNrUVptVFh0cXRGNEpMS1l1aUFscGxlTHlGTEZBQ2NDS3lTc2RS?=
- =?utf-8?B?a0didUJqZ0hlTlJxN3FnN2Y1bHhXVklvZmdoSDY2VzJpcmtOV1pkNitOU2NS?=
- =?utf-8?B?c1FFTUJiOFpwOTFDUDBSU21uY0ZLU1Z5MlVDTGRjam1JYXhjNi9vUkphMWFW?=
- =?utf-8?B?WG05QW55STVubE13OWdIU0E0VTdBSHAwMEVqWkdjdFF5WktzSkpkZE83ajVM?=
- =?utf-8?B?cEV1b1E3WUZXQWM5TWV0Rng0STZQS2UzS0Z6cHhFK0orWHcwUjNkQmNyVzVI?=
- =?utf-8?B?L1VrdDY0dGJLZkdINnl5ZW9tdDhjYTltWmJsSzF6RFpGeXpkS2NmRFNzNnJr?=
- =?utf-8?B?MlFwNU9jREpodHFXSmVYdXU5M3o0R1R6QTBDc1NIRHZuTk9OeXp1UStKMnVr?=
- =?utf-8?Q?KOWnZasNAPxpF6Li9jWvvgjr9?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e393fc6-1c32-41be-4587-08dba3a31e0c
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2023 06:35:18.5577 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Aug 2023 06:35:32.9705 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f3fc731-5fd5-4411-b87b-08dba3a326e5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W4vTBUZCQPstoYQ/H1NbGvshsZobRFT79jf1izNtxkBrOXcdOJ/awmMzSx1AN+SP9E0PvRBzErKV4MUA/ml2Ug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8917
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9CF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8075
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,389 +97,348 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- matthew.auld@intel.com
+Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+There will be multiple interfaces(sysfs files) exposed with each representing
+a single OD functionality. And all those interface will be arranged in a tree
+liked hierarchy with the top dir as "gpu_od". Meanwhile all functionalities
+for the same component will be arranged under the same directory.
 
-On 22/08/23 22:52, Christian König wrote:
-> Am 21.08.23 um 13:16 schrieb Christian König:
->> Am 21.08.23 um 12:14 schrieb Arunpravin Paneer Selvam:
->>> The way now contiguous requests are implemented such that
->>> the size rounded up to power of 2 and the corresponding order
->>> block picked from the freelist.
->>>
->>> In addition to the older method, the new method will rounddown
->>> the size to power of 2 and the corresponding order block picked
->>> from the freelist. And for the remaining size we traverse the
->>> tree and try to allocate either from the freelist block's buddy
->>> or from the peer block. If the remaining size from peer/buddy
->>> block is not free, we pick the next freelist block and repeat
->>> the same method.
->>
->> I think it's worth mentioning that Xinhui tried something similar a 
->> few month ago, but that didn't looked like it would work. For this 
->> here I'm more confident.
->>
->> Of hand the implementation looks clean to me, but Matthew or others 
->> which have more background in how the implementation works need to 
->> take a look as well.
->
-> One more thing I've just noticed, not sure if Matthew already noted 
-> it: When you mention "fix" in the subject line people might try to 
-> backport it, better write "improve" and drop the "issues" at the end.
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   2 +
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c         | 264 ++++++++++++++++++++-
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |   2 +
+ 3 files changed, 266 insertions(+), 2 deletions(-)
 
-I will modify in the next version.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 533daba2accb..7aae2801b36e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3623,6 +3623,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 
+ 	INIT_LIST_HEAD(&adev->ras_list);
+ 
++	INIT_LIST_HEAD(&adev->pm.od_kobj_list);
++
+ 	INIT_DELAYED_WORK(&adev->delayed_init_work,
+ 			  amdgpu_device_delayed_init_work_handler);
+ 	INIT_DELAYED_WORK(&adev->gfx.gfx_off_delay_work,
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index b0ef3d8b0ecf..beb3303fc832 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -35,6 +35,44 @@
+ #include <linux/pm_runtime.h>
+ #include <asm/processor.h>
+ 
++#define MAX_NUM_OF_FEATURES_PER_SUBSET		8
++#define MAX_NUM_OF_SUBSETS			8
++
++struct od_attribute {
++	struct kobj_attribute	attribute;
++	struct list_head	entry;
++};
++
++struct od_kobj {
++	struct kobject		kobj;
++	struct list_head	entry;
++	struct list_head	attribute;
++	void			*priv;
++};
++
++struct od_feature_ops {
++	umode_t (*is_visible)(struct amdgpu_device *adev);
++	ssize_t (*show)(struct kobject *kobj, struct kobj_attribute *attr,
++			char *buf);
++	ssize_t (*store)(struct kobject *kobj, struct kobj_attribute *attr,
++			 const char *buf, size_t count);
++};
++
++struct od_feature_item {
++	const char		*name;
++	struct od_feature_ops	ops;
++};
++
++struct od_feature_container {
++	char				*name;
++	struct od_feature_ops		ops;
++	struct od_feature_item		sub_feature[MAX_NUM_OF_FEATURES_PER_SUBSET];
++};
++
++struct od_feature_set {
++	struct od_feature_container	containers[MAX_NUM_OF_SUBSETS];
++};
++
+ static const struct hwmon_temp_label {
+ 	enum PP_HWMON_TEMP channel;
+ 	const char *label;
+@@ -3345,10 +3383,216 @@ static const struct attribute_group *hwmon_groups[] = {
+ 	NULL
+ };
+ 
+-int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
++static struct od_feature_set amdgpu_od_set;
++
++static void od_kobj_release(struct kobject *kobj)
++{
++	struct od_kobj *od_kobj = container_of(kobj, struct od_kobj, kobj);
++
++	kfree(od_kobj);
++}
++
++static const struct kobj_type od_ktype = {
++	.release	= od_kobj_release,
++	.sysfs_ops	= &kobj_sysfs_ops,
++};
++
++static void amdgpu_od_set_fini(struct amdgpu_device *adev)
++{
++	struct od_kobj *container, *container_next;
++	struct od_attribute *attribute, *attribute_next;
++
++	if (list_empty(&adev->pm.od_kobj_list))
++		return;
++
++	list_for_each_entry_safe(container, container_next,
++				 &adev->pm.od_kobj_list, entry) {
++		list_del(&container->entry);
++
++		list_for_each_entry_safe(attribute, attribute_next,
++					 &container->attribute, entry) {
++			list_del(&attribute->entry);
++			sysfs_remove_file(&container->kobj,
++					  &attribute->attribute.attr);
++			kfree(attribute);
++		}
++
++		kobject_put(&container->kobj);
++	}
++}
++
++static bool amdgpu_is_od_feature_supported(struct amdgpu_device *adev,
++					   struct od_feature_ops *feature_ops)
++{
++	umode_t mode;
++
++	if (!feature_ops->is_visible)
++		return false;
++
++	/*
++	 * If the feature has no user read and write mode set,
++	 * we can assume the feature is actually not supported.(?)
++	 * And the revelant sysfs interface should not be exposed.
++	 */
++	mode = feature_ops->is_visible(adev);
++	if (mode & (S_IRUSR | S_IWUSR))
++		return true;
++
++	return false;
++}
++
++static bool amdgpu_od_is_self_contained(struct amdgpu_device *adev,
++					struct od_feature_container *container)
++{
++	int i;
++
++	/*
++	 * If there is no valid entry within the container, the container
++	 * is recognized as a self contained container. And the valid entry
++	 * here means it has a valid naming and it is visible/supported by
++	 * the ASIC.
++	 */
++	for (i = 0; i < ARRAY_SIZE(container->sub_feature); i++) {
++		if (container->sub_feature[i].name &&
++		    amdgpu_is_od_feature_supported(adev,
++			&container->sub_feature[i].ops))
++			return false;
++	}
++
++	return true;
++}
++
++static int amdgpu_od_set_init(struct amdgpu_device *adev)
+ {
++	struct od_kobj *top_set, *sub_set;
++	struct od_attribute *attribute;
++	struct od_feature_container *container;
++	struct od_feature_item *feature;
++	int i, j;
+ 	int ret;
++
++	/* Setup the top `gpu_od` directory which holds all other OD interfaces */
++	top_set = kzalloc(sizeof(*top_set), GFP_KERNEL);
++	if (!top_set)
++		return -ENOMEM;
++	list_add(&top_set->entry, &adev->pm.od_kobj_list);
++
++	ret = kobject_init_and_add(&top_set->kobj,
++				   &od_ktype,
++				   &adev->dev->kobj,
++				   "%s",
++				   "gpu_od");
++	if (ret)
++		goto err_out;
++	INIT_LIST_HEAD(&top_set->attribute);
++	top_set->priv = adev;
++
++	for (i = 0; i < ARRAY_SIZE(amdgpu_od_set.containers); i++) {
++		container = &amdgpu_od_set.containers[i];
++
++		if (!container->name)
++			continue;
++
++		/*
++		 * If there is valid entries within the container, the container
++		 * will be presented as a sub directory and all its holding entries
++		 * will be presented as plain files under it.
++		 * While if there is no valid entry within the container, the container
++		 * itself will be presented as a plain file under top `gpu_od` directory.
++		 */
++		if (amdgpu_od_is_self_contained(adev, container)) {
++			if (!amdgpu_is_od_feature_supported(adev,
++			     &container->ops))
++				continue;
++
++			/*
++			 * The container is presented as a plain file under top `gpu_od`
++			 * directory.
++			 */
++			attribute = kzalloc(sizeof(*attribute), GFP_KERNEL);
++			if (!attribute) {
++				ret = -ENOMEM;
++				goto err_out;
++			}
++			list_add(&attribute->entry, &top_set->attribute);
++
++			attribute->attribute.attr.mode =
++					container->ops.is_visible(adev);
++			attribute->attribute.attr.name = container->name;
++			attribute->attribute.show =
++					container->ops.show;
++			attribute->attribute.store =
++					container->ops.store;
++			ret = sysfs_create_file(&top_set->kobj,
++						&attribute->attribute.attr);
++			if (ret)
++				goto err_out;
++		} else {
++			/* The container is presented as a sub directory. */
++			sub_set = kzalloc(sizeof(*sub_set), GFP_KERNEL);
++			if (!sub_set) {
++				ret = -ENOMEM;
++				goto err_out;
++			}
++			list_add(&sub_set->entry, &adev->pm.od_kobj_list);
++
++			ret = kobject_init_and_add(&sub_set->kobj,
++						   &od_ktype,
++						   &top_set->kobj,
++						   "%s",
++						   container->name);
++			if (ret)
++				goto err_out;
++			INIT_LIST_HEAD(&sub_set->attribute);
++			sub_set->priv = adev;
++
++			for (j = 0; j < ARRAY_SIZE(container->sub_feature); j++) {
++				feature = &container->sub_feature[j];
++				if (!feature->name)
++					continue;
++
++				if (!amdgpu_is_od_feature_supported(adev,
++				     &feature->ops))
++					continue;
++
++				/*
++				 * With the container presented as a sub directory, the entry within
++				 * it is presented as a plain file under the sub directory.
++				 */
++				attribute = kzalloc(sizeof(*attribute), GFP_KERNEL);
++				if (!attribute) {
++					ret = -ENOMEM;
++					goto err_out;
++				}
++				list_add(&attribute->entry, &sub_set->attribute);
++
++				attribute->attribute.attr.mode =
++						feature->ops.is_visible(adev);
++				attribute->attribute.attr.name = feature->name;
++				attribute->attribute.show =
++						feature->ops.show;
++				attribute->attribute.store =
++						feature->ops.store;
++				ret = sysfs_create_file(&sub_set->kobj,
++							&attribute->attribute.attr);
++				if (ret)
++					goto err_out;
++			}
++		}
++	}
++
++	return 0;
++
++err_out:
++	amdgpu_od_set_fini(adev);
++
++	return ret;
++}
++
++int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
++{
+ 	uint32_t mask = 0;
++	int ret;
+ 
+ 	if (adev->pm.sysfs_initialized)
+ 		return 0;
+@@ -3387,15 +3631,31 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
+ 					       mask,
+ 					       &adev->pm.pm_attr_list);
+ 	if (ret)
+-		return ret;
++		goto err_out0;
++
++	if (amdgpu_dpm_is_overdrive_supported(adev)) {
++		ret = amdgpu_od_set_init(adev);
++		if (ret)
++			goto err_out1;
++	}
+ 
+ 	adev->pm.sysfs_initialized = true;
+ 
+ 	return 0;
++
++err_out1:
++	amdgpu_device_attr_remove_groups(adev, &adev->pm.pm_attr_list);
++err_out0:
++	if (adev->pm.int_hwmon_dev)
++		hwmon_device_unregister(adev->pm.int_hwmon_dev);
++
++	return ret;
+ }
+ 
+ void amdgpu_pm_sysfs_fini(struct amdgpu_device *adev)
+ {
++	amdgpu_od_set_fini(adev);
++
+ 	if (adev->pm.int_hwmon_dev)
+ 		hwmon_device_unregister(adev->pm.int_hwmon_dev);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index 42172b00be66..4cab6a2efb63 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -366,6 +366,8 @@ struct amdgpu_pm {
+ 	struct config_table_setting config_table;
+ 	/* runtime mode */
+ 	enum amdgpu_runpm_mode rpm_mode;
++
++	struct list_head	od_kobj_list;
+ };
+ 
+ int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors sensor,
+-- 
+2.34.1
 
-Thanks,
-Arun.
-
->
-> Regards,
-> Christian.
->
->>
->> Thanks,
->> Christian.
->>
->>>
->>> Moved contiguous/alignment size computation part and trim
->>> function to the drm buddy manager.
->>>
->>> Signed-off-by: Arunpravin Paneer Selvam 
->>> <Arunpravin.PaneerSelvam@amd.com>
->>> ---
->>>   drivers/gpu/drm/drm_buddy.c | 253 
->>> ++++++++++++++++++++++++++++++++++--
->>>   include/drm/drm_buddy.h     |   6 +-
->>>   2 files changed, 248 insertions(+), 11 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->>> index 7098f125b54a..220f60c08a03 100644
->>> --- a/drivers/gpu/drm/drm_buddy.c
->>> +++ b/drivers/gpu/drm/drm_buddy.c
->>> @@ -569,6 +569,197 @@ static int __drm_buddy_alloc_range(struct 
->>> drm_buddy *mm,
->>>       return __alloc_range(mm, &dfs, start, size, blocks);
->>>   }
->>>   +static int __alloc_contiguous_block_from_buddy(struct drm_buddy *mm,
->>> +                           u64 size,
->>> +                           u64 min_block_size,
->>> +                           struct drm_buddy_block *block,
->>> +                           struct list_head *blocks)
->>> +{
->>> +    struct drm_buddy_block *buddy, *parent = NULL;
->>> +    u64 start, offset = 0;
->>> +    LIST_HEAD(dfs);
->>> +    int err;
->>> +
->>> +    if (!block)
->>> +        return -EINVAL;
->>> +
->>> +    buddy = __get_buddy(block);
->>> +    if (!buddy)
->>> +        return -ENOSPC;
->>> +
->>> +    if (drm_buddy_block_is_allocated(buddy))
->>> +        return -ENOSPC;
->>> +
->>> +    parent = block->parent;
->>> +    if (!parent)
->>> +        return -ENOSPC;
->>> +
->>> +    if (block->parent->right == block) {
->>> +        u64 remaining;
->>> +
->>> +        /* Compute the leftover size for allocation */
->>> +        remaining = max((size - drm_buddy_block_size(mm, buddy)),
->>> +                min_block_size);
->>> +        if (!IS_ALIGNED(remaining, min_block_size))
->>> +            remaining = round_up(remaining, min_block_size);
->>> +
->>> +        /* Check if remaining size is greater than buddy block size */
->>> +        if (drm_buddy_block_size(mm, buddy) < remaining)
->>> +            return -ENOSPC;
->>> +
->>> +        offset = drm_buddy_block_size(mm, buddy) - remaining;
->>> +    }
->>> +
->>> +    list_add(&parent->tmp_link, &dfs);
->>> +    start = drm_buddy_block_offset(parent) + offset;
->>> +
->>> +    err = __alloc_range(mm, &dfs, start, size, blocks);
->>> +    if (err)
->>> +        return -ENOSPC;
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static int __alloc_contiguous_block_from_peer(struct drm_buddy *mm,
->>> +                          u64 size,
->>> +                          u64 min_block_size,
->>> +                          struct drm_buddy_block *block,
->>> +                          struct list_head *blocks)
->>> +{
->>> +    struct drm_buddy_block *first, *peer, *tmp;
->>> +    struct drm_buddy_block *parent = NULL;
->>> +    u64 start, offset = 0;
->>> +    unsigned int order;
->>> +    LIST_HEAD(dfs);
->>> +    int err;
->>> +
->>> +    if (!block)
->>> +        return -EINVAL;
->>> +
->>> +    order = drm_buddy_block_order(block);
->>> +    /* Add freelist block to dfs list */
->>> +    list_add(&block->tmp_link, &dfs);
->>> +
->>> +    tmp = block;
->>> +    parent = block->parent;
->>> +    while (parent) {
->>> +        if (block->parent->left == block) {
->>> +            if (parent->left != tmp) {
->>> +                peer = parent->left;
->>> +                break;
->>> +            }
->>> +        } else {
->>> +            if (parent->right != tmp) {
->>> +                peer = parent->right;
->>> +                break;
->>> +            }
->>> +        }
->>> +
->>> +        tmp = parent;
->>> +        parent = tmp->parent;
->>> +    }
->>> +
->>> +    if (!parent)
->>> +        return -ENOSPC;
->>> +
->>> +    do {
->>> +        if (drm_buddy_block_is_allocated(peer))
->>> +            return -ENOSPC;
->>> +        /* Exit loop if peer block order is equal to block order */
->>> +        if (drm_buddy_block_order(peer) == order)
->>> +            break;
->>> +
->>> +        if (drm_buddy_block_is_split(peer)) {
->>> +            /* Traverse down to the block order level */
->>> +            if (block->parent->left == block)
->>> +                peer = peer->right;
->>> +            else
->>> +                peer = peer->left;
->>> +        } else {
->>> +            break;
->>> +        }
->>> +    } while (1);
->>> +
->>> +    if (block->parent->left == block) {
->>> +        u64 remaining;
->>> +
->>> +        /* Compute the leftover size for allocation */
->>> +        remaining = max((size - drm_buddy_block_size(mm, block)),
->>> +                min_block_size);
->>> +        if (!IS_ALIGNED(remaining, min_block_size))
->>> +            remaining = round_up(remaining, min_block_size);
->>> +
->>> +        /* Check if remaining size is greater than peer block size */
->>> +        if (drm_buddy_block_size(mm, peer) < remaining)
->>> +            return -ENOSPC;
->>> +
->>> +        offset = drm_buddy_block_size(mm, peer) - remaining;
->>> +        /* Add left peer block to dfs list */
->>> +        list_add(&peer->tmp_link, &dfs);
->>> +    } else {
->>> +        /* Add right peer block to dfs list */
->>> +        list_add_tail(&peer->tmp_link, &dfs);
->>> +    }
->>> +
->>> +    first = list_first_entry_or_null(&dfs,
->>> +                     struct drm_buddy_block,
->>> +                     tmp_link);
->>> +    if (!first)
->>> +        return -EINVAL;
->>> +
->>> +    start = drm_buddy_block_offset(first) + offset;
->>> +    err = __alloc_range(mm, &dfs, start, size, blocks);
->>> +    if (err)
->>> +        return -ENOSPC;
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static int __drm_buddy_alloc_contiguous_blocks(struct drm_buddy *mm,
->>> +                           u64 size,
->>> +                           u64 min_block_size,
->>> +                           struct list_head *blocks)
->>> +{
->>> +    struct drm_buddy_block *block;
->>> +    struct list_head *list;
->>> +    unsigned long pages;
->>> +    unsigned int order;
->>> +    u64 modify_size;
->>> +    int err;
->>> +
->>> +    modify_size = rounddown_pow_of_two(size);
->>> +    pages = modify_size >> ilog2(mm->chunk_size);
->>> +    order = fls(pages) - 1;
->>> +    if (order == 0)
->>> +        return -ENOSPC;
->>> +
->>> +    list = &mm->free_list[order];
->>> +    if (list_empty(list))
->>> +        return -ENOSPC;
->>> +
->>> +    list_for_each_entry_reverse(block, list, link) {
->>> +        /* Allocate contiguous blocks from the buddy */
->>> +        err = __alloc_contiguous_block_from_buddy(mm,
->>> +                              size,
->>> +                              min_block_size,
->>> +                              block,
->>> +                              blocks);
->>> +        if (!err)
->>> +            return 0;
->>> +
->>> +        /* Allocate contiguous blocks from tree traversal method */
->>> +        err = __alloc_contiguous_block_from_peer(mm,
->>> +                             size,
->>> +                             min_block_size,
->>> +                             block,
->>> +                             blocks);
->>> +        if (!err)
->>> +            return 0;
->>> +    }
->>> +
->>> +    return -ENOSPC;
->>> +}
->>> +
->>>   /**
->>>    * drm_buddy_block_trim - free unused pages
->>>    *
->>> @@ -645,7 +836,7 @@ EXPORT_SYMBOL(drm_buddy_block_trim);
->>>    * @start: start of the allowed range for this block
->>>    * @end: end of the allowed range for this block
->>>    * @size: size of the allocation
->>> - * @min_page_size: alignment of the allocation
->>> + * @min_block_size: alignment of the allocation
->>>    * @blocks: output list head to add allocated blocks
->>>    * @flags: DRM_BUDDY_*_ALLOCATION flags
->>>    *
->>> @@ -660,23 +851,24 @@ EXPORT_SYMBOL(drm_buddy_block_trim);
->>>    */
->>>   int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>                  u64 start, u64 end, u64 size,
->>> -               u64 min_page_size,
->>> +               u64 min_block_size,
->>>                  struct list_head *blocks,
->>>                  unsigned long flags)
->>>   {
->>>       struct drm_buddy_block *block = NULL;
->>> +    u64 original_size, original_min_size;
->>>       unsigned int min_order, order;
->>> -    unsigned long pages;
->>>       LIST_HEAD(allocated);
->>> +    unsigned long pages;
->>>       int err;
->>>         if (size < mm->chunk_size)
->>>           return -EINVAL;
->>>   -    if (min_page_size < mm->chunk_size)
->>> +    if (min_block_size < mm->chunk_size)
->>>           return -EINVAL;
->>>   -    if (!is_power_of_2(min_page_size))
->>> +    if (!is_power_of_2(min_block_size))
->>>           return -EINVAL;
->>>         if (!IS_ALIGNED(start | end | size, mm->chunk_size))
->>> @@ -692,12 +884,21 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>       if (start + size == end)
->>>           return __drm_buddy_alloc_range(mm, start, size, blocks);
->>>   -    if (!IS_ALIGNED(size, min_page_size))
->>> -        return -EINVAL;
->>> +    original_size = size;
->>> +    original_min_size = min_block_size;
->>> +
->>> +    /* Roundup the size to power of 2 */
->>> +    if (flags & DRM_BUDDY_CONTIGUOUS_ALLOCATION) {
->>> +        size = roundup_pow_of_two(size);
->>> +        min_block_size = size;
->>> +    /* Align size value to min_block_size */
->>> +    } else if (!IS_ALIGNED(size, min_block_size)) {
->>> +        size = round_up(size, min_block_size);
->>> +    }
->>>         pages = size >> ilog2(mm->chunk_size);
->>>       order = fls(pages) - 1;
->>> -    min_order = ilog2(min_page_size) - ilog2(mm->chunk_size);
->>> +    min_order = ilog2(min_block_size) - ilog2(mm->chunk_size);
->>>         do {
->>>           order = min(order, (unsigned int)fls(pages) - 1);
->>> @@ -716,6 +917,17 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>                   break;
->>>                 if (order-- == min_order) {
->>> +                if (flags & DRM_BUDDY_CONTIGUOUS_ALLOCATION &&
->>> +                    !(flags & DRM_BUDDY_RANGE_ALLOCATION))
->>> +                    /*
->>> +                     * Try contiguous block allocation through
->>> +                     * tree traversal method
->>> +                     */
->>> +                    return __drm_buddy_alloc_contiguous_blocks(mm,
->>> +                                           original_size,
->>> +                                           original_min_size,
->>> +                                           blocks);
->>> +
->>>                   err = -ENOSPC;
->>>                   goto err_free;
->>>               }
->>> @@ -732,6 +944,31 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>               break;
->>>       } while (1);
->>>   +    /* Trim the allocated block to the required size */
->>> +    if (original_size != size) {
->>> +        struct list_head *trim_list;
->>> +        LIST_HEAD(temp);
->>> +        u64 trim_size;
->>> +
->>> +        trim_list = &allocated;
->>> +        trim_size = original_size;
->>> +
->>> +        if (!list_is_singular(&allocated)) {
->>> +            block = list_last_entry(&allocated, typeof(*block), link);
->>> +            list_move(&block->link, &temp);
->>> +            trim_list = &temp;
->>> +            trim_size = drm_buddy_block_size(mm, block) -
->>> +                (size - original_size);
->>> +        }
->>> +
->>> +        drm_buddy_block_trim(mm,
->>> +                     trim_size,
->>> +                     trim_list);
->>> +
->>> +        if (!list_empty(&temp))
->>> +            list_splice_tail(trim_list, &allocated);
->>> +    }
->>> +
->>>       list_splice_tail(&allocated, blocks);
->>>       return 0;
->>>   diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
->>> index 572077ff8ae7..a5b39fc01003 100644
->>> --- a/include/drm/drm_buddy.h
->>> +++ b/include/drm/drm_buddy.h
->>> @@ -22,8 +22,9 @@
->>>       start__ >= max__ || size__ > max__ - start__; \
->>>   })
->>>   -#define DRM_BUDDY_RANGE_ALLOCATION (1 << 0)
->>> -#define DRM_BUDDY_TOPDOWN_ALLOCATION (1 << 1)
->>> +#define DRM_BUDDY_RANGE_ALLOCATION        BIT(0)
->>> +#define DRM_BUDDY_TOPDOWN_ALLOCATION        BIT(1)
->>> +#define DRM_BUDDY_CONTIGUOUS_ALLOCATION        BIT(2)
->>>     struct drm_buddy_block {
->>>   #define DRM_BUDDY_HEADER_OFFSET GENMASK_ULL(63, 12)
->>> @@ -155,5 +156,4 @@ void drm_buddy_print(struct drm_buddy *mm, 
->>> struct drm_printer *p);
->>>   void drm_buddy_block_print(struct drm_buddy *mm,
->>>                  struct drm_buddy_block *block,
->>>                  struct drm_printer *p);
->>> -
->>>   #endif
->>
->
