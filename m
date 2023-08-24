@@ -4,91 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DC4EC6FA8F
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 13:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19C69C27C40
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 14:25:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95EC810E54F;
-	Thu, 24 Aug 2023 13:54:57 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2071.outbound.protection.outlook.com [40.107.243.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AACB010E54F
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Aug 2023 13:54:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JEfsCaVThYUQCPJXIOQ+hgs5OGUiWAj2tfUr74OO1UAfu35JxT1g0Q0N4o9nXipOAKIHX85xKgvWFCgZ48gZWP2fzqSiqYXU4PymLxIrnppGd1PiHw7T+Zdlx1M6UdTNUj3GxprZIDuHUR4Igfui/TlFgoKdmmPVuysdlK4rvEZW0yf7Lz9Zf9IasPDf69Aov4UG+qDn4f6iL1DmGLJCn1MufIXRbdIZ6TQ3HLXQCWRgdU9YzFPu8clOL/7iMQcg2+qr4bBqRDp1L6xcb4t7Bbrt4Ax+wjhFWTJSzwE//DQeEbqbxKyoy5TEbzJL0XSWdTQy5eZiuZ0YHMv1ZEKGlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UVQtP4Gf8EQHHDKiVWE9W8rNBDXK3a5pUulzacRJzTI=;
- b=Fo6dc9HH7ERgisMVnEREjGTvt0rx282wb07/sbcAYf6rI2fg+2jlQSbweOSqPTXjJrAY0M4gb+XoNzCGPy/5v7ryAzFXTeAkMEiMKA0TyENLXPtWgELEFwpPkHod7IeD1xETaKMzgX33lrKMWgccPV8s+ovhKt8B8sqoRtHs1fKu97vZ3pBrJFX8852Ky0C2VXZA9tsFhI6sIXGaQWLEi5kzgPzL6P51l2lNNkTkj1at6GiG1mJXwPqUmlO1UAdBirNgP5MQbcYmXCw+22zRE7l3lmsnTyG/1OvyTFDFNUe4GD2i4Jy95mvinYVvT0dmx0CV60vHiA6JA176iklKOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UVQtP4Gf8EQHHDKiVWE9W8rNBDXK3a5pUulzacRJzTI=;
- b=zZw3/FFtbzwWy12PADQ9Ycwii82F00bgVRoq/5OUI3t5lNpRIGS5IqGHTIVBRDvW1bDvzu55X6fLeVFDfWeXvGwcPkMIDIkCR8H1L32cYo/Se9r8RpSjN8rBEFwiObWWY/76gUoDIwK8dld7gG9uNsNbqVfdD8lt53MbUN9ZphQ=
-Received: from PH0PR07CA0107.namprd07.prod.outlook.com (2603:10b6:510:4::22)
- by MN2PR12MB4374.namprd12.prod.outlook.com (2603:10b6:208:266::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.27; Thu, 24 Aug
- 2023 13:54:53 +0000
-Received: from SA2PEPF000015CD.namprd03.prod.outlook.com
- (2603:10b6:510:4:cafe::e) by PH0PR07CA0107.outlook.office365.com
- (2603:10b6:510:4::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.27 via Frontend
- Transport; Thu, 24 Aug 2023 13:54:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF000015CD.mail.protection.outlook.com (10.167.241.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.15 via Frontend Transport; Thu, 24 Aug 2023 13:54:53 +0000
-Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 24 Aug
- 2023 08:54:51 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 2/2] drm/amdgpu: Put page tables to GTT memory for gfx10
- onwards APUs
-Date: Thu, 24 Aug 2023 21:53:37 +0800
-Message-ID: <20230824135337.3975006-2-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20230824135337.3975006-1-yifan1.zhang@amd.com>
-References: <20230824135337.3975006-1-yifan1.zhang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D65BE10E552;
+	Thu, 24 Aug 2023 14:25:11 +0000 (UTC)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1C8C10E126;
+ Thu, 24 Aug 2023 14:25:09 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-1c4de3b9072so4552922fac.3; 
+ Thu, 24 Aug 2023 07:25:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1692887109; x=1693491909;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0jj+VsxPNlYygxR0YWp1qEk+PHqvGIcv1NZFfF1gn04=;
+ b=LZA044mX8DLFktOaXrGFSp/RcXyh5URTciSLev7oFFAGezD2/hScyKGYxysgaXoXBH
+ XbBcKk1XjJVGFgsgg/kwM9OJLUmG+WvTKc/rqfJYOGfl4N46esY8ufvgOE60EbHsb0YH
+ hDpc7wMrAPE+iCIabCquj4gJa6v5k4FlcOV0fFkh3AR/U3dLoyLasp3hNqGerthBNI70
+ YN/fi9PT77+3FkTAGDthLSLMTCaD8kDdWkvoM0cYZt6NCYKBs7cb+3Y5vB5In2Y+/7KK
+ yjWBvpCYpLgBb8z4kRL7ujHG9ZAO3uT1ik6UQ4Kl68tg6iJ6eRCb15C/XXdHKJmt2BZi
+ sSrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692887109; x=1693491909;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=0jj+VsxPNlYygxR0YWp1qEk+PHqvGIcv1NZFfF1gn04=;
+ b=KBYaSaxFSjd5f5WO7yiMdlLJeOUJoW0T8vEjncqflTIn5FDqdZr0eg4anGTwajTvS/
+ nW7NOu5TmPCp1HFj81zjt9aQKOabHWn+WNshiwq3WC2XRv8LCc+zIQUDgN2YdZT70y7e
+ Pz7cOKyT7vrThDQe8NGHNwQGU9bOzArlA3LvR4L6ihuRvJN4yYFly+dMObr1gtI7GTzn
+ QhWgvHHL7Uwlr4tRLw5IpxObDbkqMuvE3POMjTlkyWzoOoiF8Y+YaXqqvDbmYVn6P9o4
+ iYLRAXYkAlior3s/irbV7uHfbuLtNrhnQ5L/nDOtY6eecEh+a8kQRqnbKrf6LmsrEngN
+ dbXw==
+X-Gm-Message-State: AOJu0YwkqGMTeubWr6qZB4ELVgEpI42lZD6zTLfTcjt4qczd0mQJ7PZx
+ g5hbFWbuM/EUQBmY/0L7p+qPGJzDJfCUUaKPnu4=
+X-Google-Smtp-Source: AGHT+IFDDRQe/ZcAWLpqIFG8ZkwVnJ2S73S5T2E6cIqdd0/6XZWYewu0LM3ybZy276+QGrFZQcOUPJlQOWThlrvPXV8=
+X-Received: by 2002:a05:6870:41d2:b0:1c8:b82b:cbdb with SMTP id
+ z18-20020a05687041d200b001c8b82bcbdbmr18609632oac.33.1692887108906; Thu, 24
+ Aug 2023 07:25:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015CD:EE_|MN2PR12MB4374:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6dc4bd90-396f-4a14-92d8-08dba4a9b121
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LqIe0mqrQQzYWpaDMy20Bv7CtU+PTDaJH7UtA58iuBGOcBebQiSbh+046RCHyxOaLsVR1iTmrSHhP9zGT+wO3ZXePgWyu1REunTJVsQ/baOvSzhY3fV6kX7Y/LpFodlKstMdc//wHxk+hcXTR/UfBcom+26NtasngtMwc10M7iQHD+bYDunay6/lMCljzsyIukuoMcfwo4rEoER5kTd5LVPEsxRQS47BwCmxozQx56k75wECcktrDIksD8gr/PIQtY2qUTMw/sYOwC8RSRWOnKMpGFgTAegqKv4Tos8O5/e54a8mgPlgsjrFuxML8u8s6Yvk8fouWbM8Q7ZIhN8xeCJgDrP7af0i4GEzzht8fZ3+YIKv/N8bofEEX9dGZeiBjDPaIoSKKHX58U7dIkjtMklovH+wuqbm4dOg42Po/z+nZL+VSpaQa1S5eyT1g84ALVYyj9PaO2ZYpoAMnAtWFG7epvUk4DrKvzxdSuzin0e6zL3QoSbS8b8OgV/FuVbkxvjMC4hKEdnJk/R5WYCb3/nui+hA+xjPSk2p86p7YhzXopleRujLF2BHuUAu39gbTJHqojxSyPMigw2HqovP+e6H+cDgqDppMsFGVxKd1574tmiBVsMUz3DSzD4eyifjoC7p7+mg+Wnvth9CT+XTSCMmb0H2RnaumSvckWsM3NwiZPt0NeHZkrDrvVCoDkM3+NdqmMFpETgrvnFDhz/c/3jqeSwkJZjm1do5csduMW3L5QmmBqTiFGJCOdJMG+aVDY3YrZ8QlJcMUjXt1QMt6g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(396003)(376002)(346002)(136003)(186009)(82310400011)(1800799009)(451199024)(46966006)(40470700004)(36840700001)(1076003)(40460700003)(2616005)(5660300002)(8936002)(8676002)(4326008)(336012)(426003)(47076005)(36756003)(83380400001)(36860700001)(26005)(16526019)(40480700001)(82740400003)(356005)(6666004)(70206006)(70586007)(54906003)(316002)(6916009)(478600001)(81166007)(41300700001)(2906002)(7696005)(86362001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2023 13:54:53.0627 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6dc4bd90-396f-4a14-92d8-08dba4a9b121
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CD.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4374
+References: <20230822113553.3551206-1-sashal@kernel.org>
+ <20230822113553.3551206-10-sashal@kernel.org>
+In-Reply-To: <20230822113553.3551206-10-sashal@kernel.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 24 Aug 2023 10:24:57 -0400
+Message-ID: <CADnq5_NGRLrgh=f1=4nyWAMv3_HhV5zCJxV9UYc1GLCygVjp1w@mail.gmail.com>
+Subject: Re: [PATCH AUTOSEL 6.4 10/11] drm/amdkfd: disable IOMMUv2 support for
+ KV/CZ
+To: Sasha Levin <sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,42 +69,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Yifan Zhang <yifan1.zhang@amd.com>,
- christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, Mike Lothian <mike@fireburn.co.uk>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ stable@vger.kernel.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To decrease VRAM pressure for APUs, put page tables to
-GTT domain for gfx10 and newer APUs.
+On Tue, Aug 22, 2023 at 7:36=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
+te:
+>
+> From: Alex Deucher <alexander.deucher@amd.com>
+>
+> [ Upstream commit 616f92d188ee7142a95a52068efdbea82645f859 ]
+>
+> Use the dGPU path instead.  There were a lot of platform
+> issues with IOMMU in general on these chips due to windows
+> not enabling IOMMU at the time.  The dGPU path has been
+> used for a long time with newer APUs and works fine.  This
+> also paves the way to simplify the driver significantly.
+>
+> v2: use the dGPU queue manager functions
+>
+> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Tested-by: Mike Lothian <mike@fireburn.co.uk>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-v2: only enable it for gfx10 and newer APUs (Alex, Christian)
+This is not necessary for stable.
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index 96d601e209b8..b108d92883d9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -515,10 +515,13 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	bp.size = amdgpu_vm_pt_size(adev, level);
- 	bp.byte_align = AMDGPU_GPU_PAGE_SIZE;
- 
--	if (!adev->gmc.is_app_apu)
--		bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
--	else
-+	if (adev->gmc.is_app_apu ||
-+			((adev->flags & AMD_IS_APU) &&
-+			 (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 3, 3))))
- 		bp.domain = AMDGPU_GEM_DOMAIN_GTT;
-+	else
-+		bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
-+
- 
- 	bp.domain = amdgpu_bo_get_preferred_domain(adev, bp.domain);
- 	bp.flags = AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
--- 
-2.37.3
-
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c               | 6 ------
+>  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 8 +-------
+>  2 files changed, 1 insertion(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_device.c
+> index 00f528eb98126..9c8197573dee7 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -224,10 +224,6 @@ static void kfd_device_info_init(struct kfd_dev *kfd=
+,
+>                     asic_type !=3D CHIP_TONGA)
+>                         kfd->device_info.supports_cwsr =3D true;
+>
+> -               if (asic_type =3D=3D CHIP_KAVERI ||
+> -                   asic_type =3D=3D CHIP_CARRIZO)
+> -                       kfd->device_info.needs_iommu_device =3D true;
+> -
+>                 if (asic_type !=3D CHIP_HAWAII && !vf)
+>                         kfd->device_info.needs_pci_atomics =3D true;
+>         }
+> @@ -240,7 +236,6 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *a=
+dev, bool vf)
+>         uint32_t gfx_target_version =3D 0;
+>
+>         switch (adev->asic_type) {
+> -#ifdef KFD_SUPPORT_IOMMU_V2
+>  #ifdef CONFIG_DRM_AMDGPU_CIK
+>         case CHIP_KAVERI:
+>                 gfx_target_version =3D 70000;
+> @@ -253,7 +248,6 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *a=
+dev, bool vf)
+>                 if (!vf)
+>                         f2g =3D &gfx_v8_kfd2kgd;
+>                 break;
+> -#endif
+>  #ifdef CONFIG_DRM_AMDGPU_CIK
+>         case CHIP_HAWAII:
+>                 gfx_target_version =3D 70001;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 7a95698d83f73..c73417e79745e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -2335,18 +2335,12 @@ struct device_queue_manager *device_queue_manager=
+_init(struct kfd_dev *dev)
+>         }
+>
+>         switch (dev->adev->asic_type) {
+> -       case CHIP_CARRIZO:
+> -               device_queue_manager_init_vi(&dqm->asic_ops);
+> -               break;
+> -
+>         case CHIP_KAVERI:
+> -               device_queue_manager_init_cik(&dqm->asic_ops);
+> -               break;
+> -
+>         case CHIP_HAWAII:
+>                 device_queue_manager_init_cik_hawaii(&dqm->asic_ops);
+>                 break;
+>
+> +       case CHIP_CARRIZO:
+>         case CHIP_TONGA:
+>         case CHIP_FIJI:
+>         case CHIP_POLARIS10:
+> --
+> 2.40.1
+>
