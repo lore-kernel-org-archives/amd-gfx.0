@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FE4FC3DA6F
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 07:38:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB3D8C3DA6F
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 07:38:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C95B310E49D;
-	Thu, 24 Aug 2023 07:38:18 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9846410E49D;
- Thu, 24 Aug 2023 07:38:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ADF310E4AD;
+	Thu, 24 Aug 2023 07:38:25 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A520210E4AD;
+ Thu, 24 Aug 2023 07:38:22 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0A6E965E75;
- Thu, 24 Aug 2023 07:38:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95478C433CC;
- Thu, 24 Aug 2023 07:38:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2CEF065DEF;
+ Thu, 24 Aug 2023 07:38:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06097C433CC;
+ Thu, 24 Aug 2023 07:38:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1692862694;
- bh=80DhO1S3sF1BIZV94LCoe8Y0glyR6Eq4m/W3GG03lhI=;
+ s=k20201202; t=1692862701;
+ bh=XMLhGP3gS/GA5ugfwBvBA9rFCKno1toIUnNgJ1XxmRE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MdYAOt3x5bIFGk28KKdnxKbh+kGPhHh60bkIKzpksJYyOLUKw2A1yO0oaPZfkF0Xj
- KN/dHWFrQppoB82d2dD2yAvPz/pxA5kNdcOzT/yn0KsPTwgf+F2MmFQNV5uUkbS1Gn
- TGKIkobVYCrHkXU6si5gmVjEOIehdCmv0ZlK7zsqF/ZhfC65mLef33db4K2NW0VLyw
- 9m9Gt4gTuv/WOzRHokUr3+A4kkH23VI3Aqp4D2kAQo5/HCa8KNWMAbfh2qAR6d/oNQ
- qFtu3IfYp2IFz51LxpmzlDj1+90Yb+5S2c3gWGOgK5W+2czqmbbbbwixuP60o2CH0f
- XhBi3QOs9EbCg==
+ b=LfHCZhGIEbSono5ZPGTva+4svqck8IBZDnL/u9eLKYfW1VIZSZxjrA7vkzj4DvJ1m
+ qJYJ4KNKn1Doi63djOyJ3wu3g4PRXvFX2o8vOw/+qRmmbMgLGnUFwG1nvAcgtRvJ5b
+ e9oSsvjdTUwAQejOWe9yRaCNWjn3pAW2dNYz+5EIcEaJGO3g/07RkI0Q3VSFqaiRrZ
+ qRz/wS4Z65fKN5ogo6pg0Vc4zsRvDrX8pYHWOwL4YzPHaAKEdNUqJ+ZUr3y7FKYdrd
+ 0+Vfq9nkp0ps8vzcVR3p2bbMJ/ituWnRr28BsSrxh7L0PtNt+2KxaxC1Jz7w3vihxa
+ raVHq0iG30JWQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org
-Subject: [PATCH 17/20] drm/amd/amdgpu/amdgpu_ras: Increase buffer size to
+Subject: [PATCH 19/20] drm/amd/amdgpu/amdgpu_sdma: Increase buffer size to
  account for all possible values
-Date: Thu, 24 Aug 2023 08:37:02 +0100
-Message-ID: <20230824073710.2677348-18-lee@kernel.org>
+Date: Thu, 24 Aug 2023 08:37:04 +0100
+Message-ID: <20230824073710.2677348-20-lee@kernel.org>
 X-Mailer: git-send-email 2.42.0.rc1.204.g551eb34607-goog
 In-Reply-To: <20230824073710.2677348-1-lee@kernel.org>
 References: <20230824073710.2677348-1-lee@kernel.org>
@@ -58,16 +57,17 @@ Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
  David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c: In function ‘amdgpu_ras_sysfs_create’:
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:1406:20: warning: ‘_err_count’ directive output may be truncated writing 10 bytes into a region of size between 1 and 32 [-Wformat-truncation=]
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:1405:9: note: ‘snprintf’ output between 11 and 42 bytes into a destination of size 32
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c: In function ‘amdgpu_sdma_init_microcode’:
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c:217:64: warning: ‘.bin’ directive output may be truncated writing 4 bytes into a region of size between 0 and 32 [-Wformat-truncation=]
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c:217:17: note: ‘snprintf’ output between 13 and 52 bytes into a destination of size 40
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c:215:66: warning: ‘snprintf’ output may be truncated before the last format character [-Wformat-truncation=]
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c:215:17: note: ‘snprintf’ output between 12 and 41 bytes into a destination of size 40
 
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
@@ -76,26 +76,25 @@ Cc: "Christian König" <christian.koenig@amd.com>
 Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index ffb49b2d533ad..7999d202c9bc5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -436,7 +436,7 @@ struct amdgpu_ras {
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+index e2b9392d7f0de..572f861e3f706 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -208,7 +208,7 @@ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
+ 	const struct sdma_firmware_header_v2_0 *sdma_hdr;
+ 	uint16_t version_major;
+ 	char ucode_prefix[30];
+-	char fw_name[40];
++	char fw_name[52];
  
- struct ras_fs_data {
--	char sysfs_name[32];
-+	char sysfs_name[48];
- 	char debugfs_name[32];
- };
- 
+ 	amdgpu_ucode_ip_version_decode(adev, SDMA0_HWIP, ucode_prefix, sizeof(ucode_prefix));
+ 	if (instance == 0)
 -- 
 2.42.0.rc1.204.g551eb34607-goog
 
