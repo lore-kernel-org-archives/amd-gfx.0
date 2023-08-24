@@ -4,46 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AABFC3DA6F
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 12:24:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 253A2C27C40
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 13:38:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0401610E544;
-	Thu, 24 Aug 2023 12:24:16 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06B7410E541;
- Thu, 24 Aug 2023 12:24:13 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5DFEA60C4F;
- Thu, 24 Aug 2023 12:24:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC2CBC433C7;
- Thu, 24 Aug 2023 12:24:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1692879851;
- bh=rXHeHAFXjN/zA3rYC/1HhA1l11PWkd2Qvj22VCRsCGs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CqOlaS/QfUs5XXJTiSG68eVAETcwld0Oyyw2XmGw3vbPcDbOEpspeApsyEBSY0lzY
- BJl4NEsEvECi0Fn66tjoluhCVVSbj/3Fe3eaBPUimBzycU6Ew02hPKbed/8je8CkRf
- 1+WsWnIyZzbwSlIn/6j5RP45+CkV50Bn18C+mlY07Wd9kkPeHC9Xv+VQYWAGMT8iqG
- LXQzMPYXHDBPiYetArnubErS0XhVoCULd5vNPc0T7OZ+5eZRVXxQpCJkyh5R3oVYEa
- qX2bk7/9/M9K5EutOOlmwBQ30zkp0qc/t1PRSgiuL+KJDx47ih8QPQIzlYGQ4Wflwi
- HyIl1AsJiWaIg==
-Date: Thu, 24 Aug 2023 13:24:01 +0100
-From: Lee Jones <lee@kernel.org>
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Subject: Re: [PATCH (set 1) 00/20] Rid W=1 warnings from GPU
-Message-ID: <20230824122401.GY1380343@google.com>
-References: <20230824073710.2677348-1-lee@kernel.org>
- <87wmxk4xt3.fsf@intel.com> <20230824120735.GS1380343@google.com>
- <a3c4c781-2f74-4b09-9db4-7b947897ef5a@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72B9F10E118;
+	Thu, 24 Aug 2023 13:38:16 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD81E10E118;
+ Thu, 24 Aug 2023 13:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=GtX3uWe6SyhGZS9UiD7VVl7pKZgtrwMNbJIDvFqXd/g=; b=UEDBpYlukLNga5oW7Gft8qIKDI
+ 8WK6r1vvSe6igJkeQhLvzqnknZXAZouqJ1akgA1XZv4iNNmD9PlB78fQttNMKfNSeuVbB2JunnHAB
+ HWsKWZjJ0YzmMZ0UmgWxO0urKOfiLPJXlkbY/RqzMl5RRNwU1wYCNItBRpF8z2R1YgT3HEANTJsr8
+ 0qX2Lt2Iy70wjRy8b9YcZozHF8YcZfHEcu3bDdmqPESo9qCblPAOkiiTYbhRikIrW96daoWIU7hzr
+ FbeQvIHKrh48sFQu6ftCwSwh0psomna2jNf1ipgz0EZKCb/7+2hRDTYN2VdYFUBJ3z0hRb+IwrDIq
+ zFJTHW0A==;
+Received: from [38.44.68.151] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1qZAXM-00Ex8o-3q; Thu, 24 Aug 2023 15:38:12 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch
+Subject: [PATCH] drm/amd/display: enable cursor degamma for DCN3+ DRM legacy
+ gamma
+Date: Thu, 24 Aug 2023 12:38:09 -0100
+Message-Id: <20230824133810.10627-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <a3c4c781-2f74-4b09-9db4-7b947897ef5a@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,70 +53,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Mikko Perttunen <mperttunen@nvidia.com>,
- =?iso-8859-1?Q?Ma=EDra?= Canal <mairacanal@riseup.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>,
- Michal Simek <michal.simek@xilinx.com>, amd-gfx@lists.freedesktop.org,
- Jonathan Hunter <jonathanh@nvidia.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Danilo Krummrich <dakr@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
- Stanley Yang <Stanley.Yang@amd.com>, linux-media@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, Maxime Ripard <mripard@kernel.org>,
- linaro-mm-sig@lists.linaro.org, Jani Nikula <jani.nikula@linux.intel.com>,
- linux-tegra@vger.kernel.org, NXP Linux Team <linux-imx@nxp.com>,
- linux-arm-kernel@lists.infradead.org, Hyun Kwon <hyun.kwon@xilinx.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Jerome Glisse <glisse@freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>, Gourav Samaiya <gsamaiya@nvidia.com>,
- Shawn Guo <shawnguo@kernel.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>, kernel-dev@igalia.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 24 Aug 2023, Hamza Mahfooz wrote:
+For DRM legacy gamma, AMD display manager applies implicit sRGB degamma
+using a pre-defined sRGB transfer function. It works fine for DCN2
+family where degamma ROM and custom curves go to the same color block.
+But, on DCN3+, degamma is split into two blocks: degamma ROM for
+pre-defined TFs and `gamma correction` for user/custom curves and
+degamma ROM settings doesn't apply to cursor plane. To get DRM legacy
+gamma working as expected, enable cursor degamma ROM for implict sRGB
+degamma on HW with this configuration.
 
-> 
-> On 8/24/23 08:07, Lee Jones wrote:
-> > On Thu, 24 Aug 2023, Jani Nikula wrote:
-> > 
-> > > On Thu, 24 Aug 2023, Lee Jones <lee@kernel.org> wrote:
-> > > > This set is part of a larger effort attempting to clean-up W=1
-> > > > kernel builds, which are currently overwhelmingly riddled with
-> > > > niggly little warnings.
-> > > 
-> > > The next question is, how do we keep it W=1 clean going forward?
-> > 
-> > My plan was to fix them all, then move each warning to W=0.
-> > 
-> > Arnd recently submitted a set doing just that for a bunch of them.
-> > 
-> > https://lore.kernel.org/all/20230811140327.3754597-1-arnd@kernel.org/
-> > 
-> > I like to think a bunch of this is built on top of my previous efforts.
-> > 
-> > GPU is a particularly tricky though - the warnings seem to come in faster
-> > than I can squash them.  Maybe the maintainers can find a way to test
-> > new patches on merge?
-> 
-> I guess on that note, do you know if there is a way to run
-> `scripts/kernel-doc` on patches instead of whole files? That would make
-> much easier to block new kernel-doc issues from appearing.
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2803
+Fixes: 96b020e2163f ("drm/amd/display: check attr flag before set cursor degamma on DCN3+")
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
 
-Not off hand.
+Hi,
 
-When I run builds on patches I author, I run them twice concurrently.
-Once on the commit I'm basing on and once on the HEAD of my patchset.  I
-then diff the two.  So as long as the number of errors and warnings stay
-the same or reduce, we're golden.
+It seems that the previous color fix for atomic API brought out a
+difference in behavior of degamma color blocks between DCN2 and DCN3, as
+reported in the link.
 
-Perhaps the same method could be used with `kernel-doc`?
+AFAIU, settings of the `degamma ROM` block for pre-defined TF doesn't
+apply to cursor plane. So, whenever we wants degamma ROM for cursor
+plane, we have to explicitly enable it using the attribute flag. This is
+the case when we do an implicit sRGB degamma to match DRM legacy gamma
+requirements.
 
+Another option would be changing the legacy gamma approach to use the
+`gamma correction` block where the pre-defined sRGB curve is calculated
+by AMD color module. I think that keeping degamma ROM usage on legacy
+gamma is better for performance, this is why I opted for this patch. But
+let me know if changing legacy gamma implementation in amdgpu_dm_color
+is better for consistence or any other thing to take into account.
+
+Thanks,
+
+Melissa
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 8eeca160d434..2aa7efd798e2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1269,6 +1269,13 @@ void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
+ 	attributes.rotation_angle    = 0;
+ 	attributes.attribute_flags.value = 0;
+ 
++	/* Enable cursor degamma ROM on DCN3+ for implicit sRGB degamma in DRM
++	 * legacy gamma setup.
++	 */
++	if (crtc_state->cm_is_degamma_srgb &&
++	    adev->dm.dc->caps.color.dpp.gamma_corr)
++		attributes.attribute_flags.bits.ENABLE_CURSOR_DEGAMMA = 1;
++
+ 	attributes.pitch = afb->base.pitches[0] / afb->base.format->cpp[0];
+ 
+ 	if (crtc_state->stream) {
 -- 
-Lee Jones [李琼斯]
+2.40.1
+
