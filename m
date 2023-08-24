@@ -4,44 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E045C6FA8F
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 09:17:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B94A3C6FA8F
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 11:30:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8E8F10E50C;
-	Thu, 24 Aug 2023 09:16:56 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B999810E117;
- Thu, 24 Aug 2023 09:16:54 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3552D66689;
- Thu, 24 Aug 2023 09:16:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23845C433C8;
- Thu, 24 Aug 2023 09:16:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1692868613;
- bh=CK8K59YUSjL1xNRSA2L3H9ryMd1YgDDJ0Z4R5P4hlKQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rMfiUcU+r8StcsuNXLiXVRVuNozQ3m7/INGX5Bn3oWmlVIAOoCZ29NDSJyvrv5J4C
- 3FhBhrWdEKlMFE2/ltWxQSb6iMzVFdLM+MIcxCT9/FSRXQEDunYAPgiA0oWOUVDh+1
- udCbunZY04xzrkYZk7hh4l2S9NMaghj3pHreMCWS/m0/lU9GWyWwrVZ1jY62VTWrIK
- h3e0/azQPDZBVAAnxcziTw9uFys3FVh7F2oQ4SrJ909pnXS7OWtR0LACIgLHU7kIZr
- JlxetDuvbPnvY0gtpZJl0Av0mvAuct8w3WCgOqoDgcBdRvIUkVY8I8cleiwCOJSJuo
- NSx4tFkmi+qpA==
-Date: Thu, 24 Aug 2023 11:16:51 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Subject: Re: [PATCH (set 1) 00/20] Rid W=1 warnings from GPU
-Message-ID: <vkoj32cjbaozwcgfrp2mowkm6koqtl6espou6vms2pvfhxr5z7@ofabj6kd2j4r>
-References: <20230824073710.2677348-1-lee@kernel.org>
- <87wmxk4xt3.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46BA010E527;
+	Thu, 24 Aug 2023 11:30:47 +0000 (UTC)
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D97410E527;
+ Thu, 24 Aug 2023 11:30:45 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id
+ 2adb3069b0e04-50078eba7afso7523339e87.0; 
+ Thu, 24 Aug 2023 04:30:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1692876643; x=1693481443;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ASyf3JC5XyPQVGDixUt3RWgAOAA8jJHFRroqWQwv3RY=;
+ b=qpWZxM2Qjloj1a+cMHGM3pQr4DDwiArvbnTdwZyhVNpDspv2WeRdlce6m4AaLzGtvY
+ 6CaLulniYcF0RtAdGImuUE7nj71aI1BQqSevZFdcR1X8sdoMwiLAoJF8JJJMjpCjPr/H
+ Q0g1F9+VJ9woK7K1P6luuzJmMO5e5CrMNkOgcf6mJdIDyi1VTVkzz72wP4e/3ezipNdR
+ qo2d1LWOEOB48ZKO8TIZ5xdNGuEKYqEIsCox+oyOh2YuI4J/4n3BIQUPpX7v30NV5kxJ
+ rmE97TYM7CNRd8bdwHdqgCk6pGpVsUw4XCM6jAQSH33vPy3kAUQMr/3dEkgoRRyPskFh
+ i0AA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692876643; x=1693481443;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ASyf3JC5XyPQVGDixUt3RWgAOAA8jJHFRroqWQwv3RY=;
+ b=Px855LuMu9/Z4BqefRNme4dEUWStuz3Ac/A8zoY2ailfc7gK2VBz/Z80DfbThk0Uqo
+ 8wBjv9ZDdOw7sfXH5nruoqRg++M0msVtuO+6wfbdm6D+qUnBaoZ1yjObu/oUFxR9j6Za
+ IsPWgHp9AGQqcT0FnvXyrbWRn8FIcR52NUzN7lAv3R5zm9DrZ8vD9zuCRR28H2rZ+u8S
+ Y1jstRF61LOotUM+K0Rdg+c079G67Ok7qrOvac7jXoj1/UsrMApKMDiySMyzTaXT62Jq
+ Qr7tdqeESNRdbG0W7hm2sA2anAliuYsVgIOp8woaALic+IhqnW1lS5b2+6lVeRC+HG8c
+ /Jvg==
+X-Gm-Message-State: AOJu0YwXlGEqBrTPjdTMlIVdycmeJd+AFwwU7LXnv8NfwTzf/jpXpIK3
+ AJwsyIexAXVOZ5COFlliWQc=
+X-Google-Smtp-Source: AGHT+IH4D6GfK5xg3N8hhq7h5mDdx+ATwxZUuYfEAtXL/l0B4+m8CCj/sEqnZt/7cbA9Fbt6O63yXw==
+X-Received: by 2002:a05:6512:b94:b0:4ff:8c0f:a745 with SMTP id
+ b20-20020a0565120b9400b004ff8c0fa745mr12988582lfv.54.1692876642771; 
+ Thu, 24 Aug 2023 04:30:42 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ v17-20020ac25611000000b004fe4ab686b4sm3110828lfd.167.2023.08.24.04.30.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Aug 2023 04:30:42 -0700 (PDT)
+Date: Thu, 24 Aug 2023 14:30:32 +0300
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
+Subject: Re: [PATCH v7] drm/doc: Document DRM device reset expectations
+Message-ID: <20230824143032.65d7e74a@eldfell>
+In-Reply-To: <20230818200642.276735-1-andrealmeid@igalia.com>
+References: <20230818200642.276735-1-andrealmeid@igalia.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="utl4vsmjm3ff53l2"
-Content-Disposition: inline
-In-Reply-To: <87wmxk4xt3.fsf@intel.com>
+Content-Type: multipart/signed; boundary="Sig_/I4PIBoGe6NF2KXplXhCJGSP";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,69 +70,214 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Mikko Perttunen <mperttunen@nvidia.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mairacanal@riseup.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Shashank Sharma <shashank.sharma@amd.com>, Lee Jones <lee@kernel.org>,
- Michal Simek <michal.simek@xilinx.com>, amd-gfx@lists.freedesktop.org,
- Jonathan Hunter <jonathanh@nvidia.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Danilo Krummrich <dakr@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
- Stanley Yang <Stanley.Yang@amd.com>, linux-media@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Sascha Hauer <s.hauer@pengutronix.de>,
- linaro-mm-sig@lists.linaro.org, linux-tegra@vger.kernel.org,
- NXP Linux Team <linux-imx@nxp.com>, linux-arm-kernel@lists.infradead.org,
- Hyun Kwon <hyun.kwon@xilinx.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- linux-kernel@vger.kernel.org, Hawking Zhang <Hawking.Zhang@amd.com>,
- Jerome Glisse <glisse@freedesktop.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Alex Deucher <alexander.deucher@amd.com>, Gourav Samaiya <gsamaiya@nvidia.com>,
- Shawn Guo <shawnguo@kernel.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Daniel Vetter <daniel@ffwll.ch>,
+ 'Marek =?UTF-8?B?T2zFocOhayc=?= <maraeo@gmail.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
+ Simon Ser <contact@emersion.fr>,
+ Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ alexander.deucher@amd.com, Daniel Stone <daniel@fooishbar.org>,
+ Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
---utl4vsmjm3ff53l2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--Sig_/I4PIBoGe6NF2KXplXhCJGSP
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 24, 2023 at 12:03:20PM +0300, Jani Nikula wrote:
-> On Thu, 24 Aug 2023, Lee Jones <lee@kernel.org> wrote:
-> > This set is part of a larger effort attempting to clean-up W=3D1
-> > kernel builds, which are currently overwhelmingly riddled with
-> > niggly little warnings.
->=20
-> The next question is, how do we keep it W=3D1 clean going forward?
->=20
-> Most people don't use W=3D1 because it's too noisy, so it's a bit of a
-> catch-22.
->=20
-> In i915, we enable a lot of W=3D1 warnings using subdir-ccflags-y in our
-> Makefile. For CI/developer use we also enable kernel-doc warnings by
-> default.
->=20
-> Should we start enabling some of those warning flags in drm/Makefile to
-> to keep the entire subsystem warning free?
+On Fri, 18 Aug 2023 17:06:42 -0300
+Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
 
-I think that's a good idea. At least the documentation fixes I just
-merged could have been easily caught before submission.
+> Create a section that specifies how to deal with DRM device resets for
+> kernel and userspace drivers.
+>=20
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+>=20
+> ---
+>=20
+> v7 changes:
+>  - s/application/graphical API contex/ in the robustness part (Michel)
+>  - Grammar fixes (Randy)
+>=20
+> v6: https://lore.kernel.org/lkml/20230815185710.159779-1-andrealmeid@igal=
+ia.com/
+>=20
+> v6 changes:
+>  - Due to substantial changes in the content, dropped Pekka's Acked-by
+>  - Grammar fixes (Randy)
+>  - Add paragraph about disabling device resets
+>  - Add note about integrating reset tracking in drm/sched
+>  - Add note that KMD should return failure for contexts affected by
+>    resets and UMD should check for this
+>  - Add note about lack of consensus around what to do about non-robust
+>    apps
+>=20
+> v5: https://lore.kernel.org/dri-devel/20230627132323.115440-1-andrealmeid=
+@igalia.com/
+> ---
+>  Documentation/gpu/drm-uapi.rst | 77 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 77 insertions(+)
 
-Maxime
+Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
 
---utl4vsmjm3ff53l2
-Content-Type: application/pgp-signature; name="signature.asc"
+It's a good introduction, even if answers to the most interesting
+questions were not found yet.
+
+Does it still answer the questions you had originally that you set out
+to document?
+
+
+Thanks,
+pq
+
+> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.=
+rst
+> index 65fb3036a580..3694bdb977f5 100644
+> --- a/Documentation/gpu/drm-uapi.rst
+> +++ b/Documentation/gpu/drm-uapi.rst
+> @@ -285,6 +285,83 @@ for GPU1 and GPU2 from different vendors, and a thir=
+d handler for
+>  mmapped regular files. Threads cause additional pain with signal
+>  handling as well.
+> =20
+> +Device reset
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +The GPU stack is really complex and is prone to errors, from hardware bu=
+gs,
+> +faulty applications and everything in between the many layers. Some erro=
+rs
+> +require resetting the device in order to make the device usable again. T=
+his
+> +section describes the expectations for DRM and usermode drivers when a
+> +device resets and how to propagate the reset status.
+> +
+> +Device resets can not be disabled without tainting the kernel, which can=
+ lead to
+> +hanging the entire kernel through shrinkers/mmu_notifiers. Userspace rol=
+e in
+> +device resets is to propagate the message to the application and apply a=
+ny
+> +special policy for blocking guilty applications, if any. Corollary is th=
+at
+> +debugging a hung GPU context require hardware support to be able to pree=
+mpt such
+> +a GPU context while it's stopped.
+> +
+> +Kernel Mode Driver
+> +------------------
+> +
+> +The KMD is responsible for checking if the device needs a reset, and to =
+perform
+> +it as needed. Usually a hang is detected when a job gets stuck executing=
+. KMD
+> +should keep track of resets, because userspace can query any time about =
+the
+> +reset status for a specific context. This is needed to propagate to the =
+rest of
+> +the stack that a reset has happened. Currently, this is implemented by e=
+ach
+> +driver separately, with no common DRM interface. Ideally this should be =
+properly
+> +integrated at DRM scheduler to provide a common ground for all drivers. =
+After a
+> +reset, KMD should reject new command submissions for affected contexts.
+> +
+> +User Mode Driver
+> +----------------
+> +
+> +After command submission, UMD should check if the submission was accepte=
+d or
+> +rejected. After a reset, KMD should reject submissions, and UMD can issu=
+e an
+> +ioctl to the KMD to check the reset status, and this can be checked more=
+ often
+> +if the UMD requires it. After detecting a reset, UMD will then proceed t=
+o report
+> +it to the application using the appropriate API error code, as explained=
+ in the
+> +section below about robustness.
+> +
+> +Robustness
+> +----------
+> +
+> +The only way to try to keep a graphical API context working after a rese=
+t is if
+> +it complies with the robustness aspects of the graphical API that it is =
+using.
+> +
+> +Graphical APIs provide ways to applications to deal with device resets. =
+However,
+> +there is no guarantee that the app will use such features correctly, and=
+ a
+> +userspace that doesn't support robust interfaces (like a non-robust
+> +OpenGL context or API without any robustness support like libva) leave t=
+he
+> +robustness handling entirely to the userspace driver. There is no strong
+> +community consensus on what the userspace driver should do in that case,
+> +since all reasonable approaches have some clear downsides.
+> +
+> +OpenGL
+> +~~~~~~
+> +
+> +Apps using OpenGL should use the available robust interfaces, like the
+> +extension ``GL_ARB_robustness`` (or ``GL_EXT_robustness`` for OpenGL ES)=
+. This
+> +interface tells if a reset has happened, and if so, all the context stat=
+e is
+> +considered lost and the app proceeds by creating new ones. There's no co=
+nsensus
+> +on what to do to if robustness is not in use.
+> +
+> +Vulkan
+> +~~~~~~
+> +
+> +Apps using Vulkan should check for ``VK_ERROR_DEVICE_LOST`` for submissi=
+ons.
+> +This error code means, among other things, that a device reset has happe=
+ned and
+> +it needs to recreate the contexts to keep going.
+> +
+> +Reporting causes of resets
+> +--------------------------
+> +
+> +Apart from propagating the reset through the stack so apps can recover, =
+it's
+> +really useful for driver developers to learn more about what caused the =
+reset in
+> +the first place. DRM devices should make use of devcoredump to store rel=
+evant
+> +information about the reset, so this information can be added to user bug
+> +reports.
+> +
+>  .. _drm_driver_ioctl:
+> =20
+>  IOCTL Support on Device Nodes
+
+
+--Sig_/I4PIBoGe6NF2KXplXhCJGSP
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZOcgAgAKCRDj7w1vZxhR
-xRGuAQDGwZPeKdcZoqTDIIBQZmkNfIvC9zdZcx372SnD7nYQuAEA+1cA8HP2QUBw
-CvoouWKq/gGveaBLwNG3zjffzRx2agE=
-=eJTh
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmTnP1gACgkQI1/ltBGq
+qqd+qQ/9Ef0rbYI8EH7+wyhquOWEi9zaZmc/CzTCRL+XDkjUjSiw3mxvV3VIoyny
+Uv17w/6y0yX9+Yd0XwgYgeIYRtNTYVGJzPyFKBeOeGLutCj1w5OZcOMrui47O91z
+BEksXg2ihmB7LWIaX2nR8XLICKXOIn7rPgh4RuB8rltmX23grJm+tLVvd6VFVwNd
+VddO79s7k/ouwgK6gqMJG5ERPc5FTM8mFvwSXnc0UrivcuBNSUdOW2Jk2bRDc8hg
+n7WDQSK7jZHVf8swQoKj7YlDY4No7YqPORCNxgsUCWtmHFhINk/mvX5Ws0KSCDa4
+rGUqJQSfzYpy4H3QRtbwBiCTwD8NeVZmaj8JLgbEPMWzYUy9zmsPcHJogbt0V+dc
+UcWrlkqpbNUGVT3PSd2K9640GNu4noo3SlrIO34AYwN1byStUOTYQSiGI0LSYgBt
+aatt00CkGFR2AAp2+nH2Wk8JB1/BiNuPmO9KnyVhx3/6kv5ZqEYz+8Yzr+uo6M+H
+yF5FNEnuUh8RN2srWLfbBF4D7MrsRnbXD2BFkqLImTPrfbrMii5kjIulOnpfgMXP
+bpMO4hyl7jRoQoLC+Ef0To6Nf4V5SyNniczBuU2rfrN+VJroyXbPZFMWTR6zOnx7
+OOgkO3ggWbpbGiile5nb2fy5G1nRoXrG/0o29Vz/Lcnf4OUCh/o=
+=jaoU
 -----END PGP SIGNATURE-----
 
---utl4vsmjm3ff53l2--
+--Sig_/I4PIBoGe6NF2KXplXhCJGSP--
