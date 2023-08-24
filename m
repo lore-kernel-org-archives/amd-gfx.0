@@ -4,94 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9365BC27C40
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 01:48:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F51CC3DA6F
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 01:53:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C891210E4BF;
-	Thu, 24 Aug 2023 01:48:46 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20607.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8a::607])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60E4110E4BF
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Aug 2023 01:48:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BD8210E4C1;
+	Thu, 24 Aug 2023 01:53:47 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2062b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3FEF10E4C1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Aug 2023 01:53:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NnD8IA5QvnsICAbaVBBqjc/7dmHfXgnpE5dGCQEy+NUxP0Jf9LJG+gk+9RtmTsEARTO8x7FBTgDuYCVy7Zi9jbbKUwQkyFsIH+zzrrtzCtMqc/vHS0C33ll8jAPTZSd+RWlg6DZSDe/SCeomxAZ9W7WM1z00epU6Cs8St89249ge7p5wdxXRilDTcNkAGD13BwC53AgvzpmojnLib0/sdEx7t6oU8Ge3rJ/mdtqbb1hrB4rQ+fNxQFT1mRzBmJq8bh59UUsGI6v7Dxqo1sD7soI6LWq9jqCqkqpaFG6BriE1s0wwcEiLgZJe+/TEm/ZR9v2MAiXOYtI+U3TiBLEApw==
+ b=T7Gunio5rHyfbQxuT/QVSIFG2mjTc1SVib0SfnizdvvmzhymGMgvqdUSawHF0SBmHLc4FxPu08MQniTFQyG/IJpzUNVmWtDiju/FulyRlR+ZNiydJ5/QVbKd2nO4p7IPlVyzjnz4qk5xbb7iZea+6orDHG3gGrMj28xd2AdJPRK7IauPEeOnulxW0iFEHTm2P81qgr6+TZk/galLGvS+b7eKHotQK5tR1BrJa7v9qro+7c80CY5XG4oh/bHUXfcYDz/bsKvuS5IoWgkQ3BCGVVelWebSyDeCNLSP2sU32qyb9epSpFk2zlyiKvqbrYw6wz8ArlWLxxglBEDyG4mETQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LOp984AYSNfrmlCCgMt5I09LARqvk2Y8WSdcviqvqQM=;
- b=V5F5zEbusEDF5XGBfMCSp2b2KSJ6RLGjpgigOqkdce5S/6dNLX5hYokN0vCiGDXCKLzC+qNArjmx0v2fWD3mqZxVnTyH6+zXTJSFjruVOmKwMBCbxkLrQIEInfNNfEDrLf4v6q+s7yo8A3WaEgDtAvaE9uiO9QE1BpnmiHpuFl8DYngVuhVs9XeeKHgJ5rtCqoaqkddmtWydqldryvq7BX6/lMajuUl3iWVDFqdkzhn3E6nv15Pcz/QaaNjy/zHWpsw9WmhgpP3FRR5ZatuHXB5NY8/Mvw2s2K/Su93EXi6gh+IgCtQZWFLwdA93jmazOTL3xTj1TlTv00Lki9kLCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=Dh/KIsqnHsdi+Zha+hWLVAtMK372GFMd+YgUa4OH1y4=;
+ b=AevVFMT/mhshffRcahd8+f+h3F8wTMuCZqXdnLKu5A7oZwkV82PpXVJz8N3hnvenCuXjc2cX8fsxrRyUoYTausF+Uqyd+N+T5yKzL2JjC84nz2gdyNMuPqRF56QcSpweGBLjqgl5MnvNigU2D2BSWXXBJk0iCcskKJeEQSdugpKxCCJQDHtuswi0rjr8ZwwZF36o2g+feGlsbci5W4eOYEWVk+guRJ0O6AqX3OSVUU9tYRJEs0yXAimm2KsQy1YJ0+dGFyZ2ttb7g7RR9Fjm7hOU2vubUVepbjdnx3jPMy20+28uP/3+RN7IVr3g2LNO9ML19gCNdUVqNULO1/Pm8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LOp984AYSNfrmlCCgMt5I09LARqvk2Y8WSdcviqvqQM=;
- b=I3+sHLaYP4ztd/H1kfhVSrwj6XC+3LoMHUUf/Ug9mB19kQ0teUIylx3eprcHknnYh7VBxXisXJjKtVWQRnIxYQPZxBz/3bz7HAlNYnmdhL/F7R5x5xhIOGr2yr5Uy3a+nEZPEcQVIpnI8mHXmcVENCvcHw7pHlAnhGZcKXX84rI=
-Received: from SJ0PR03CA0223.namprd03.prod.outlook.com (2603:10b6:a03:39f::18)
- by DM4PR12MB6592.namprd12.prod.outlook.com (2603:10b6:8:8a::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6699.26; Thu, 24 Aug 2023 01:48:43 +0000
-Received: from CO1PEPF000042A8.namprd03.prod.outlook.com
- (2603:10b6:a03:39f:cafe::bf) by SJ0PR03CA0223.outlook.office365.com
- (2603:10b6:a03:39f::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20 via Frontend
- Transport; Thu, 24 Aug 2023 01:48:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1PEPF000042A8.mail.protection.outlook.com (10.167.243.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.14 via Frontend Transport; Thu, 24 Aug 2023 01:48:42 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 23 Aug
- 2023 20:48:41 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 23 Aug
- 2023 18:48:41 -0700
-Received: from hawzhang-System-Product-Next-Generation.amd.com
- (10.180.168.240) by SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP
- Server id 15.1.2507.27 via Frontend Transport; Wed, 23 Aug 2023 20:48:39
- -0500
-From: Hawking Zhang <Hawking.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, Stanley Yang <Stanley.Yang@amd.com>, "Tao
- Zhou" <Tao.Zhou1@amd.com>
-Subject: [PATCH] drm/amdgpu: Allow issue disable gfx ras cmd to firmware
-Date: Thu, 24 Aug 2023 09:48:36 +0800
-Message-ID: <20230824014836.1404-1-Hawking.Zhang@amd.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A8:EE_|DM4PR12MB6592:EE_
-X-MS-Office365-Filtering-Correlation-Id: 890d9689-a5a4-400c-950d-08dba4443ef0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: cBhZVjIS4jP5P4ojnIeLVGVVAS0TERHtOiSdWJ5gIakQLDloWB1R1xSzosxwMWs8hlLq5+jYWkdiHO3h3S71YALCfihwG+MAqDcdJ87p3KrNZVHxoRmM2nUX/w3jkyGAb1ohosAzZCjTwLWiwHdy5zR5t8b2N0IOuSsjKiLSlC6P7VmyZ9Wn7FJ7XENc598mdI92TQC06pUw8jThtuInDnvdAzkqP/a+E7cWw7p1o5dQGUxAj9agKNElI6jJP6S7abb0XEu4WEzzqEeKw+A39N+rAvQANvCtm4c+uTMYrdL73qoBFZewC/KebWC22QfBtgNi7P+3RRfPw45/SHwjGY+xhzH+Ay7tgmUZYCYpfzUF4IM4OrRIJODVO+IRfxNjPrW1f1Ah44p9a/k1ZVbJQmC7j2ImjYYsgi2/Q0lvmTsy1n87roRU2GB9wcf4Rsi7w5M1qVioql/UT/0gmy0SLJ2ULKJ4LKpGlL7uBMMP6oleNnaxBCBSiT/x1jL2P4ck4RvafPrIHH6lStzi0I4JqNFKODNOi+IcVEzEhAXFOPQsKLZAg+C1pnXdlXkElzZS4fr4C/d+ENJqAk8fK2wPwntAlQ5EOM4fDcM8OnMM7PMnD5vugc+Lyc+kwJ287Y2PUaQsCujwZAKrT+N1yGfswN4XXcF9bHzhISmT0e6iaXFK5zXt7TV5pVtw91VrGVc8K2VM07h2lzVsHh8X+LG7P4e4KX1s4euZTr1jcfe136ZSdohU0muaqRll3b4PMZTT0WkBqGdN9rcA6+FRMxmW/A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(376002)(396003)(346002)(39860400002)(136003)(451199024)(82310400011)(1800799009)(186009)(40470700004)(46966006)(36840700001)(70586007)(70206006)(110136005)(5660300002)(2616005)(41300700001)(6636002)(316002)(4744005)(2906002)(478600001)(86362001)(8936002)(8676002)(4326008)(81166007)(6666004)(40460700003)(356005)(82740400003)(7696005)(426003)(336012)(1076003)(36756003)(83380400001)(36860700001)(40480700001)(26005)(47076005)(36900700001);
+ bh=Dh/KIsqnHsdi+Zha+hWLVAtMK372GFMd+YgUa4OH1y4=;
+ b=0LCFXa9jKxOej+ITUqava3Jg2NPQFvG0xf2aS3La1y63MNSnnJ2Xciv4k5Xct4xikFFf19BruPIHQzQRtzS94DEfTNlfSrwqWRrsnxJehBiVC5rQrBe+Xazqjzhr5ZUQqWxTz/N/iYuQyieMIURk5iZAtmqPXEDUs5v2CMjgXUc=
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
+ by CYXPR12MB9385.namprd12.prod.outlook.com (2603:10b6:930:e2::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.27; Thu, 24 Aug
+ 2023 01:53:43 +0000
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::7abf:f750:1e18:e157]) by PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::7abf:f750:1e18:e157%5]) with mapi id 15.20.6699.022; Thu, 24 Aug 2023
+ 01:53:42 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Yang, Stanley" <Stanley.Yang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Allow issue disable gfx ras cmd to firmware
+Thread-Topic: [PATCH] drm/amdgpu: Allow issue disable gfx ras cmd to firmware
+Thread-Index: AQHZ1i0jCk8x41M180aSJwERLIkgb6/4ry3w
+Date: Thu, 24 Aug 2023 01:53:42 +0000
+Message-ID: <PH7PR12MB8796C19EB8AB78E0E554EE79B01DA@PH7PR12MB8796.namprd12.prod.outlook.com>
+References: <20230824014836.1404-1-Hawking.Zhang@amd.com>
+In-Reply-To: <20230824014836.1404-1-Hawking.Zhang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=7ccd5c54-7c40-45fe-a56d-534678e70ad4;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-08-24T01:53:22Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|CYXPR12MB9385:EE_
+x-ms-office365-filtering-correlation-id: 9e2dc8e9-5611-442f-469d-08dba444f1f7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: cofeo8gB/XqPe5/Unyb9n+/HJ9UWq8yzspQBv2O3XjWwxs3g49Pv79OmqBiTvYg0gPJi/CBGQeLcXPLfPSx1W+ZStPrHpyApzY49h6+oiCdGOf9kvMiZk5xgzvWXRMKQbVihUYp5mA8J62ImpvvEYssgGFqm7fV3PMymhiiF+5f7675vK1ETieXN0IESh+NGEh+3vGXpvxOVT3avL3+HtY492wd4nK7Xyn2BeLQDxiNX/wDhyZjzvhVDXR7RXc3x+nM2QXWI0EOQtbp8CW5WjFM41K/jpmMIxy6Yeoq6hbsamGG09B1yqc3dBmKgxWqALBfvU3ZE4Bq7Bx4ZcwI3wxiuncIjXFe1pXfeXy5FYceLgAoyB0HrHJ585ZN+G5nEKhyE+GhD2wdFWRxMic5BRI/kIersi29YxTklrWhy3fEG6gdDrSxUq7N/2fgOgGBc5NMU3QqC0YrrbBUAMWaged3f8D7vIpn6//ixFsxzK8rQ4Nvh/g4xFGjCtrs8Hehnl9NBDLk+fAk3AqG4tiyxIqB/VghZbNJWPc2lF1wqbcAuYN1s9Ca6+1rWDNqc4a5dNWZiW/Nf3+wH8jke9iVod6/sVL89Z3epsBp7BdisQUvQ1E5f/q0Wy6XAlfQVOIcj
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(366004)(376002)(346002)(39860400002)(396003)(451199024)(186009)(1800799009)(66446008)(64756008)(66556008)(76116006)(66476007)(66946007)(6636002)(316002)(122000001)(478600001)(110136005)(38100700002)(55016003)(26005)(38070700005)(71200400001)(41300700001)(53546011)(86362001)(7696005)(2906002)(6506007)(9686003)(4326008)(8676002)(8936002)(52536014)(5660300002)(83380400001)(33656002);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/RzM+tmY2btc+fIV4FsS70lCCv5HgXh13e2vqjAeHJpep8RNCjFqcUYlfESE?=
+ =?us-ascii?Q?YAliY8trRrsVElCReHMJJtUaO+jHMk2OGVgz9hjWYguEwbdPeMgTTwaQ9xbi?=
+ =?us-ascii?Q?w+FJi+P1IU9tY47sSHOE+qqUp49Od2KZ6PHYmAosJZHdkpkfgnHA2sgGFfMd?=
+ =?us-ascii?Q?jAn/jzwfsEcu5S+3/vIwJXcRWrhEHNNcg7Q2sXFXd4OM16OUZVSeDsb+z3Fu?=
+ =?us-ascii?Q?Jq2j4k9RuWtwYiUt95o1oIdJSrw8kQrov2S+bdEn+HPvo9VLm+kknNU5bh0z?=
+ =?us-ascii?Q?qqC8tVvUWBzGsjrWJZOT41MZ+MQfv1F1FirkEFNjr2RglPa1OEDWCK4hAhcf?=
+ =?us-ascii?Q?EnylGReDczWupN6d+DqIQf8KTaNxCPeghHkdXNi6GCmir8BRfsxcLES6tpWk?=
+ =?us-ascii?Q?NNgxZ2cwkuYAk0/G56uTthdLB5TjP5maQNDePR8I2NLNcBNL1KVrR/HtjcOX?=
+ =?us-ascii?Q?ur0XGl/H4RPTHSMXdHEzPfdIjK1B/38lSpLgD/Sce+/4qI73pfpOJrQQlK3R?=
+ =?us-ascii?Q?JX9arJIG+7y0v4Gkbf9xQ2LykenBuC5PtsTwnBNglwBfDD/ofcityCP2/O9C?=
+ =?us-ascii?Q?EGygH+zedqJE9uYrugAgW4UUauMUxeXy94lKbjqxBLK1y5tnEw7Bt+HelbjQ?=
+ =?us-ascii?Q?qwpQHxcVIlkme+MeH2NpI06JM/JpGlgvhaBPaTvREjC3aYlAJPD+pjo2hljY?=
+ =?us-ascii?Q?GMgnIeS6vDK8ckhwgqxgdKcdnKKhjBJlqNIwQ/K0HH6xN0zVsem15cT6g8xn?=
+ =?us-ascii?Q?7Idx8LdmE0fb+UIKJqEkm5UE1dCJokbX3pQhXmORmM55Kp9gc3T4k+1DM+Mm?=
+ =?us-ascii?Q?KoxgxEKf7Sl/M2DeiSj7/maJ1MUvyaFT7RRwKqmI/63sPxlpRWX6X/Qg903M?=
+ =?us-ascii?Q?uWdtySu5rL7rddZWYmMeLnFnWtIVmRVs+O6HSJq2iNNUny28839mbrrTgDM0?=
+ =?us-ascii?Q?DSgAh9VJaO5SdcIUdc7dXGulG9R5GHXcgTj9LlHNbxTemWCRI4ZOyz30QA0t?=
+ =?us-ascii?Q?FgNTtr0K7Fc8TglaqboJ9H+OHGuRuy+G6Ey0TWjm0TidrKdTdJ3nHogm6Dgp?=
+ =?us-ascii?Q?XrD2Zgau2137huXfxF8/r+oHJ+XX20wZTSHQBBd5FLGqKj8C2D0Mo6P6mWKq?=
+ =?us-ascii?Q?ycZEHGk0SrgOxkDowgNtwgIBollvdrXyDvjLXVfr9CvDWLkU2R7jD7tA0yVk?=
+ =?us-ascii?Q?zX0xQTM7YfOJ/YRi06dHhGKL1HO0yMG6QH8gpjnKTY6zbwn9cxZfd+VcCEWB?=
+ =?us-ascii?Q?2G/BXeES2RAf7cJnVwld7NiTVREZxaVuds/S9J07CRLUN825pUCcbW2jqfB+?=
+ =?us-ascii?Q?7DrhalUwwUuBoxQlznaYyfeVXjwvFL/rZT6m2+k+9C/IeAwuZECdWIoF+GfA?=
+ =?us-ascii?Q?iqzP5O6P3k910AIkEesOZpbGdYmmRc/cifNPTds3g3IiqXjKcR1zHPVVFhNP?=
+ =?us-ascii?Q?9CHH0w+kvnHKdvrhHlf84NTo3djRDnbDd8rFUPFmoFNn1oBYkqu8Le3VARIG?=
+ =?us-ascii?Q?KxQNRIg2Ot2x5uppXJLs0lDorPUcOLksT1DjYWqokLw1Q7tMj1bNyRQ8Qixr?=
+ =?us-ascii?Q?iui0/z1griCbY8oyz9A=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2023 01:48:42.2180 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 890d9689-a5a4-400c-950d-08dba4443ef0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042A8.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6592
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e2dc8e9-5611-442f-469d-08dba444f1f7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Aug 2023 01:53:42.7062 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9gDpxAvfdrgfnY/ET0ml6QwEobmvIkY72u7ItTISQXkO612+rAXHmExQVM5Pw9GW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9385
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,36 +123,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Disable gfx ras command is needed in some use cases
-like live migration.
+[AMD Official Use Only - General]
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 378478cf9c21..7db6baa16236 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -769,9 +769,10 @@ int amdgpu_ras_feature_enable(struct amdgpu_device *adev,
- 	if (!con)
- 		return -EINVAL;
- 
--	/* Do not enable ras feature if it is not allowed */
--	if (enable &&
--	    head->block != AMDGPU_RAS_BLOCK__GFX &&
-+	/* For non-gfx ip, do not enable ras feature if it is not allowed.
-+	 * For gfx ip, regardless of feature support status,
-+	 * force issue enable or disable ras feature commands */
-+	if (head->block != AMDGPU_RAS_BLOCK__GFX &&
- 	    !amdgpu_ras_is_feature_allowed(adev, head))
- 		goto out;
- 
--- 
-2.17.1
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Hawkin=
+g
+> Zhang
+> Sent: Thursday, August 24, 2023 9:49 AM
+> To: amd-gfx@lists.freedesktop.org; Yang, Stanley <Stanley.Yang@amd.com>;
+> Zhou1, Tao <Tao.Zhou1@amd.com>
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
+> Subject: [PATCH] drm/amdgpu: Allow issue disable gfx ras cmd to firmware
+>
+> Disable gfx ras command is needed in some use cases like live migration.
+>
+> Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> index 378478cf9c21..7db6baa16236 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -769,9 +769,10 @@ int amdgpu_ras_feature_enable(struct amdgpu_device
+> *adev,
+>       if (!con)
+>               return -EINVAL;
+>
+> -     /* Do not enable ras feature if it is not allowed */
+> -     if (enable &&
+> -         head->block !=3D AMDGPU_RAS_BLOCK__GFX &&
+> +     /* For non-gfx ip, do not enable ras feature if it is not allowed.
+> +      * For gfx ip, regardless of feature support status,
+> +      * force issue enable or disable ras feature commands */
+> +     if (head->block !=3D AMDGPU_RAS_BLOCK__GFX &&
+>           !amdgpu_ras_is_feature_allowed(adev, head))
+>               goto out;
+>
+> --
+> 2.17.1
 
