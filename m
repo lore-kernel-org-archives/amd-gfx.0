@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F3C5C71133
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Aug 2023 14:30:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B44CC3DA66
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Aug 2023 14:37:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48A0210E6AB;
-	Fri, 25 Aug 2023 14:30:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1104F10E6B0;
+	Fri, 25 Aug 2023 14:37:27 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E89FF10E6AC;
- Fri, 25 Aug 2023 14:30:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF2F210E6B0;
+ Fri, 25 Aug 2023 14:37:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
@@ -19,30 +19,30 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=TGt/GTv13MQd5EJYb83vy8cL8hzAXGUAw7TT+taelVc=; b=WDXQXr626TM8d9yeLpgm61Ci6b
- Od5O/Vlnv7GaotaPMWOzAD84SLVv7QTfHzJdFCyAiwgLApcSZ44UWMlZ1hvMiK5j/vMt7IA2aOwNr
- Dbfl3V4QH6lCv5QHKzVmRzgpqXNRevCzOeuLaSPv7IdsX/zv5dhSPfiEcnI06yEho8niRdd4SY4ZC
- yJCLefuRoMqDZXwLyqT2dfMXx7yA8Jw8Zcx/0C+Qsj+5Zx8v8JVljvZW3iPeYuzDXVjnK2Yi4PiSM
- Jr7g+9/tDTbnsVVH4I/ZbyXQMcUOiBqMFxLvBN41OdwIyhiR8vjFnC75qpELWlXzs7gX6bAtHlKyH
- 1WkXXbFA==;
+ bh=o5p34PDcTghp4IcXJxW0IU2VOTknJHaApVKT199fn3s=; b=I2qDPBhnFldD3ja8tpXs/OJJyX
+ hrNyiCsMaO91/4v8Wb6ZSCcveOE/K2qM15LzqEslU81JJkOIfNk+RedGtQ4bzSDD9Lo9xakRSkXGQ
+ wpu/W/1Ci9Jq0+ErdjLvF89qbe+l/oY1dnWsu9dF8bahvxzFu/wXBUAVXRBbg3kamgZi9qWaY8nQE
+ izTrL4+xPpAqSW4LfyO0YivQwM9kp7ut8Nf6g8ewvul5zYv+eElu593hJiyJzlhlindbEW+IfQp1O
+ ar9g0eQp1RFJrNZ/hqTEaZDdqysyy4f9vvKkyku1hhA1r6IFwbvYJWoBEkROSbgvCaUxw7+vGmJYX
+ g1cUrORQ==;
 Received: from [38.44.68.151] (helo=mail.igalia.com)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qZXp0-00FJHc-Vi; Fri, 25 Aug 2023 16:29:59 +0200
-Date: Fri, 25 Aug 2023 13:29:44 -0100
+ id 1qZXw9-00FJV4-IC; Fri, 25 Aug 2023 16:37:21 +0200
+Date: Fri, 25 Aug 2023 13:37:08 -0100
 From: Melissa Wen <mwen@igalia.com>
 To: Pekka Paalanen <pekka.paalanen@collabora.com>
-Subject: Re: [PATCH v2 19/34] drm/amd/display: decouple steps for mapping
- CRTC degamma to DC plane
-Message-ID: <20230825142944.3jkibtz54f4utwuq@mail.igalia.com>
+Subject: Re: [PATCH v2 31/34] drm/amd/display: set stream gamut remap matrix
+ to MPC for DCN301
+Message-ID: <20230825143708.hpndb5gmrdj3sjpp@mail.igalia.com>
 References: <20230810160314.48225-1-mwen@igalia.com>
- <20230810160314.48225-20-mwen@igalia.com>
- <20230822151110.3107b745.pekka.paalanen@collabora.com>
+ <20230810160314.48225-32-mwen@igalia.com>
+ <20230822153030.4d410ff9.pekka.paalanen@collabora.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="crdzpq3rjuvmqkwv"
+ protocol="application/pgp-signature"; boundary="wl6emhv5tvlbwx44"
 Content-Disposition: inline
-In-Reply-To: <20230822151110.3107b745.pekka.paalanen@collabora.com>
+In-Reply-To: <20230822153030.4d410ff9.pekka.paalanen@collabora.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,179 +68,150 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
---crdzpq3rjuvmqkwv
+--wl6emhv5tvlbwx44
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 On 08/22, Pekka Paalanen wrote:
-> On Thu, 10 Aug 2023 15:02:59 -0100
+> On Thu, 10 Aug 2023 15:03:11 -0100
 > Melissa Wen <mwen@igalia.com> wrote:
 >=20
-> > The next patch adds pre-blending degamma to AMD color mgmt pipeline, but
-> > pre-blending degamma caps (DPP) is currently in use to provide DRM CRTC
-> > atomic degamma or implict degamma on legacy gamma. Detach degamma usage
-> > regarging CRTC color properties to manage plane and CRTC color
-> > correction combinations.
-> >=20
-> > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> > Signed-off-by: Melissa Wen <mwen@igalia.com>
-> > ---
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 59 +++++++++++++------
-> >  1 file changed, 41 insertions(+), 18 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > index 68e9f2c62f2e..74eb02655d96 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > @@ -764,20 +764,9 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crt=
-c_state *crtc)
-> >  	return 0;
-> >  }
-> > =20
-> > -/**
-> > - * amdgpu_dm_update_plane_color_mgmt: Maps DRM color management to DC =
-plane.
-> > - * @crtc: amdgpu_dm crtc state
-> > - * @dc_plane_state: target DC surface
-> > - *
-> > - * Update the underlying dc_stream_state's input transfer function (IT=
-F) in
-> > - * preparation for hardware commit. The transfer function used depends=
- on
-> > - * the preparation done on the stream for color management.
-> > - *
-> > - * Returns:
-> > - * 0 on success. -ENOMEM if mem allocation fails.
-> > - */
-> > -int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
-> > -				      struct dc_plane_state *dc_plane_state)
-> > +static int
-> > +map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
-> > +			     struct dc_plane_state *dc_plane_state)
-> >  {
-> >  	const struct drm_color_lut *degamma_lut;
-> >  	enum dc_transfer_func_predefined tf =3D TRANSFER_FUNCTION_SRGB;
-> > @@ -800,8 +789,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crt=
-c_state *crtc,
-> >  						 &degamma_size);
-> >  		ASSERT(degamma_size =3D=3D MAX_COLOR_LUT_ENTRIES);
-> > =20
-> > -		dc_plane_state->in_transfer_func->type =3D
-> > -			TF_TYPE_DISTRIBUTED_POINTS;
-> > +		dc_plane_state->in_transfer_func->type =3D TF_TYPE_DISTRIBUTED_POINT=
-S;
-> > =20
-> >  		/*
-> >  		 * This case isn't fully correct, but also fairly
-> > @@ -837,7 +825,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crt=
-c_state *crtc,
-> >  				   degamma_lut, degamma_size);
-> >  		if (r)
-> >  			return r;
-> > -	} else if (crtc->cm_is_degamma_srgb) {
-> > +	} else {
-> >  		/*
-> >  		 * For legacy gamma support we need the regamma input
-> >  		 * in linear space. Assume that the input is sRGB.
-> > @@ -847,8 +835,43 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_cr=
-tc_state *crtc,
-> > =20
-> >  		if (tf !=3D TRANSFER_FUNCTION_SRGB &&
-> >  		    !mod_color_calculate_degamma_params(NULL,
-> > -			    dc_plane_state->in_transfer_func, NULL, false))
-> > +							dc_plane_state->in_transfer_func,
-> > +							NULL, false))
-> >  			return -ENOMEM;
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +/**
-> > + * amdgpu_dm_update_plane_color_mgmt: Maps DRM color management to DC =
-plane.
-> > + * @crtc: amdgpu_dm crtc state
-> > + * @dc_plane_state: target DC surface
-> > + *
-> > + * Update the underlying dc_stream_state's input transfer function (IT=
-F) in
-> > + * preparation for hardware commit. The transfer function used depends=
- on
-> > + * the preparation done on the stream for color management.
-> > + *
-> > + * Returns:
-> > + * 0 on success. -ENOMEM if mem allocation fails.
-> > + */
-> > +int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
-> > +				      struct dc_plane_state *dc_plane_state)
-> > +{
-> > +	bool has_crtc_cm_degamma;
-> > +	int ret;
-> > +
-> > +	has_crtc_cm_degamma =3D (crtc->cm_has_degamma || crtc->cm_is_degamma_=
-srgb);
-> > +	if (has_crtc_cm_degamma){
-> > +		/* AMD HW doesn't have post-blending degamma caps. When DRM
-> > +		 * CRTC atomic degamma is set, we maps it to DPP degamma block
-> > +		 * (pre-blending) or, on legacy gamma, we use DPP degamma to
-> > +		 * linearize (implicit degamma) from sRGB/BT709 according to
-> > +		 * the input space.
+> > dc->caps.color.mpc.gamut_remap says there is a post-blending color block
+> > for gamut remap matrix for DCN3 HW family and newer versions. However,
+> > those drivers still follow DCN10 programming that remap stream
+> > gamut_remap_matrix to DPP (pre-blending).
 >=20
-> Uhh, you can't just move degamma before blending if KMS userspace
-> wants it after blending. That would be incorrect behaviour. If you
-> can't implement it correctly, reject it.
->=20
-> I hope that magical unexpected linearization is not done with atomic,
-> either.
->=20
-> Or maybe this is all a lost cause, and only the new color-op pipeline
-> UAPI will actually work across drivers.
+> That's ok only as long as CRTC degamma is pass-through. Blending itself
+> is a linear operation, so it doesn't matter if a matrix is applied to
+> the blending result or to all blending inputs. But you cannot move a
+> matrix operation to the other side of a non-linear operation, and you
+> cannot move a non-linear operation across blending.
 
-I agree that crtc degamma is an optional property and should be not
-exposed if not available.  I did something in this line for DCE that has
-no degamma block[1].  Then, AMD DDX driver stopped to advertise atomic
-API for DCE, that was not correct too[2].
+Oh, I'm not moving it, what I'm doing here is the opposite and fixing
+it. This patch puts each pre- and post-blending CTM in their right
+place, since we have the HW caps for it on DCN3+... Or are you just
+pointing out the implementation mistake on old driver versions?
 
-But I see it as a lost cause that will only be fixed in a new generic
-color API. I don't think we should change it using the current DRM CRTC
-API with driver-specific props.
-
-[1] https://lore.kernel.org/amd-gfx/20221103184500.14450-1-mwen@igalia.com/
-[2] https://gitlab.freedesktop.org/xorg/driver/xf86-video-amdgpu/-/issues/67
 >=20
 >=20
 > Thanks,
 > pq
 >=20
-> > +		 */
-> > +		ret =3D map_crtc_degamma_to_dc_plane(crtc, dc_plane_state);
-> > +		if (ret)
-> > +			return ret;
-> >  	} else {
-> >  		/* ...Otherwise we can just bypass the DGM block. */
-> >  		dc_plane_state->in_transfer_func->type =3D TF_TYPE_BYPASS;
+> > To enable pre-blending and post-blending gamut_remap matrix supports at
+> > the same time, set stream gamut_remap to MPC and plane gamut_remap to
+> > DPP for DCN301 that support both.
+> >=20
+> > It was tested using IGT KMS color tests for DRM CRTC CTM property and it
+> > preserves test results.
+> >=20
+> > Signed-off-by: Melissa Wen <mwen@igalia.com>
+> > ---
+> >  .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 37 +++++++++++++++++++
+> >  .../drm/amd/display/dc/dcn30/dcn30_hwseq.h    |  3 ++
+> >  .../drm/amd/display/dc/dcn301/dcn301_init.c   |  2 +-
+> >  3 files changed, 41 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drive=
+rs/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> > index 4cd4ae07d73d..4fb4e9ec03f1 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+> > @@ -186,6 +186,43 @@ bool dcn30_set_input_transfer_func(struct dc *dc,
+> >  	return result;
+> >  }
+> > =20
+> > +void dcn30_program_gamut_remap(struct pipe_ctx *pipe_ctx)
+> > +{
+> > +	int i =3D 0;
+> > +	struct dpp_grph_csc_adjustment dpp_adjust;
+> > +	struct mpc_grph_gamut_adjustment mpc_adjust;
+> > +	int mpcc_id =3D pipe_ctx->plane_res.hubp->inst;
+> > +	struct mpc *mpc =3D pipe_ctx->stream_res.opp->ctx->dc->res_pool->mpc;
+> > +
+> > +	memset(&dpp_adjust, 0, sizeof(dpp_adjust));
+> > +	dpp_adjust.gamut_adjust_type =3D GRAPHICS_GAMUT_ADJUST_TYPE_BYPASS;
+> > +
+> > +	if (pipe_ctx->plane_state &&
+> > +	    pipe_ctx->plane_state->gamut_remap_matrix.enable_remap =3D=3D tru=
+e) {
+> > +		dpp_adjust.gamut_adjust_type =3D GRAPHICS_GAMUT_ADJUST_TYPE_SW;
+> > +		for (i =3D 0; i < CSC_TEMPERATURE_MATRIX_SIZE; i++)
+> > +			dpp_adjust.temperature_matrix[i] =3D
+> > +				pipe_ctx->plane_state->gamut_remap_matrix.matrix[i];
+> > +	}
+> > +
+> > +	pipe_ctx->plane_res.dpp->funcs->dpp_set_gamut_remap(pipe_ctx->plane_r=
+es.dpp,
+> > +							    &dpp_adjust);
+> > +
+> > +	memset(&mpc_adjust, 0, sizeof(mpc_adjust));
+> > +	mpc_adjust.gamut_adjust_type =3D GRAPHICS_GAMUT_ADJUST_TYPE_BYPASS;
+> > +
+> > +	if (pipe_ctx->top_pipe =3D=3D NULL) {
+> > +		if (pipe_ctx->stream->gamut_remap_matrix.enable_remap =3D=3D true) {
+> > +			mpc_adjust.gamut_adjust_type =3D GRAPHICS_GAMUT_ADJUST_TYPE_SW;
+> > +			for (i =3D 0; i < CSC_TEMPERATURE_MATRIX_SIZE; i++)
+> > +				mpc_adjust.temperature_matrix[i] =3D
+> > +					pipe_ctx->stream->gamut_remap_matrix.matrix[i];
+> > +		}
+> > +	}
+> > +
+> > +	mpc->funcs->set_gamut_remap(mpc, mpcc_id, &mpc_adjust);
+> > +}
+> > +
+> >  bool dcn30_set_output_transfer_func(struct dc *dc,
+> >  				struct pipe_ctx *pipe_ctx,
+> >  				const struct dc_stream_state *stream)
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h b/drive=
+rs/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+> > index a24a8e33a3d2..cb34ca932a5f 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+> > @@ -58,6 +58,9 @@ bool dcn30_set_blend_lut(struct pipe_ctx *pipe_ctx,
+> >  bool dcn30_set_input_transfer_func(struct dc *dc,
+> >  				struct pipe_ctx *pipe_ctx,
+> >  				const struct dc_plane_state *plane_state);
+> > +
+> > +void dcn30_program_gamut_remap(struct pipe_ctx *pipe_ctx);
+> > +
+> >  bool dcn30_set_output_transfer_func(struct dc *dc,
+> >  				struct pipe_ctx *pipe_ctx,
+> >  				const struct dc_stream_state *stream);
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c b/driv=
+ers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+> > index 257df8660b4c..81fd50ee97c3 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+> > @@ -33,7 +33,7 @@
+> >  #include "dcn301_init.h"
+> > =20
+> >  static const struct hw_sequencer_funcs dcn301_funcs =3D {
+> > -	.program_gamut_remap =3D dcn10_program_gamut_remap,
+> > +	.program_gamut_remap =3D dcn30_program_gamut_remap,
+> >  	.init_hw =3D dcn10_init_hw,
+> >  	.power_down_on_boot =3D dcn10_power_down_on_boot,
+> >  	.apply_ctx_to_hw =3D dce110_apply_ctx_to_hw,
 >=20
 
---crdzpq3rjuvmqkwv
+--wl6emhv5tvlbwx44
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmToutIACgkQwqF3j0dL
-ehy5NA/9EdmnRFoWaC9teJxgxc6p+TJFocyVYDHQjj2O2+O0DYv9o58NWsjhqbzz
-ng67Zn4MWJqEYSe4iKXnoMknROT+FNV+hVjkTn8WJyjOsjP97aqKApouAHnIWQfZ
-n66xc6KCT4O/B3TjNRFfZltRdPikSM/ynpEbOGdAn0u/WqtZWcAmXeRwXIrdvO+N
-Z2SjIZL4ksowDrBHgYx63cxkknRkfhp00npkohPwqiPrb38hYSmj+SuP2nXo2gXS
-Xe23abhCD1L0xWB4WGlPZLE14VDU8M7Z4ILAF7J6SyA4syaPl9qtlM1USS7aq1TA
-eOkgGBxCOzvW0T0DfXseD+pg3b4l+Z5tWSC9aRXcW+GnJ/lbxmdTfyld4IW6FWND
-i+AcD2RNJZlI0Nc8JpmfijNvaq/wlRvFDBp9er7WUtKdjMA2yRLWHMgCjlsUXsgc
-TGfDM6KtTDMkh0ZQcAbU0a4VwDuGW4kiekrz5cHIR6yZsopvcyZUkY4pRPnzKJY2
-lv+uYALHOvr79n31ppW74xfMRVOU4GaNKnPCmW1aDcxJQzUqiv2KBZvVzJqfgKq9
-AYXGZELjnp5uG/jwh4vkeEXgpd7x1AyIMDdOtWrDSMu3m0pKfMB1Yo0ZcY5Zm3F9
-Ch/dQo33pIbRbcULhfeq7o1NSfhmvVyhlyQCa/clr0iVU3JgtAY=
-=lrJv
+iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmTovJQACgkQwqF3j0dL
+ehy00Q/+JNvzZkN+aRomiGvIj9Vt5di7Az/9zeSM0m3n6wRYVaHU9UNDOcaeLtqb
+XAzYssJYoJzzB2Ytkluuh9rRCKys/AiX3KIiR5ZTY4EGZoHnf772peHc0Y6EVoFp
+XhA6Gniyn0OEkem9Ad6COMdAxteMSf4BDOvX2ze+QPfD5mnRwOrXAtSdarNHzrff
+09GSVQztOB1Ciwzazj8nWv9mTAQ7oz5utcsCgbe2xwvmknQZfpqoqR3yQUjx20Al
+WJS8Ub+UDvkNLUbxaa77Zy6OQNrOFcVGeWE1k2RTPTl33flFgItEsoGx86xzGfZG
+XH9e9GyDCXCHLIXFeulSt5ieLifu8VEOORCyXlqcL7y+IZFMgRoMiFeG+MVJW0sc
+dAYF7VofqKGzSpIhUsM8k0viChz48HpSh9+E+zfX+8t6fCJTlGYuemcCeLqMj/NZ
+M1vw+NutWoZ/rUXt8nWDPqE+x69zp7EBPwhSpRPzHhSima/ulLrw7xmsqxFChFHO
+tkobw/s5nUp1ubCvwM/7mGLKKhy+3N9QXvT3h0nkVBaBYgJHylidvfJbFLrdRG+6
+v5o4ptUreSjdhqFkI4KBsa3TeEOEjoLZwPKqa7173r/zOymGqy02tnAFhjea0NSW
+qrItzwQZ/a0IJmvmh/OnJYXpHbToTFfugY7rgpBkb4zToHjpHpI=
+=2+6Z
 -----END PGP SIGNATURE-----
 
---crdzpq3rjuvmqkwv--
+--wl6emhv5tvlbwx44--
