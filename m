@@ -4,89 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF7CAC3DA66
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Aug 2023 15:36:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0503C3DA6F
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Aug 2023 18:55:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47CF810E5FC;
-	Fri, 25 Aug 2023 15:36:12 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::601])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9565610E5FC
- for <amd-gfx@lists.freedesktop.org>; Fri, 25 Aug 2023 15:36:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DF7910E15D;
+	Fri, 25 Aug 2023 18:55:29 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061.outbound.protection.outlook.com [40.107.223.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5957710E15D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Aug 2023 18:55:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=COdkNDJ/T4dn6sp7dTnF+YIX5xB2+eOAVjsxd7JXDBH3d2v7Ssfu/Gk9F2qTjJt+c8lGU979aMfoKu0M+p/KiBc+/LSN/58WWwP9axQkdI2EVKuRzm6EtVXP7y/PACCgXXI4Iu4wV0jRTiKfkcoZxpsRLNTTgnZQYcvNcN5bd9tAuGLtvAaW5s0VWs8XuKC9tkWf2w/CnMGrubolA+Zzv3EXYxlAcTQYRUtSrFKzsGFHgyfNcGWcSWkOBPrPvyS+j4AncVCxyHh6VJS7bN8j8ZWEzYm5RMrUBijk8m4qPjs8WB8q2+ji4KzyF6yLRT+YSPJ5M2QWWh3BSQlCZWAimA==
+ b=KR4Ttqu9NHOKQNAw960/A79d4XQ2ciugop7BU8OOXstustvbhG8CZSNG/ouKLYSCnpryELBv1yShAI+05bV2RXqk/zgAckJXL/zBadTZBeWQs/5zcfigio2iogpA4T9aEnV490UXoz48D1LtnXaib0WgH+pDa4gI0zPsM4Z+bVdA+M9g8aktsnY7W+Okvavas3DpRwWAjnytp0SyTIqRxYPgKKjY1BkCpz1cg36T6IpXLPzl/+CjrC1GLsulaIbAeYjcYSKTjsl6kw7ralCHjbHsPoI7MQMzfNnYGewewiwo/DcVcUwS0DZ/Fbcmp1QI7sD0vV+0EGW7DZIWTgM86A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IRZg/mLc7OATajx2T2JHxjh7RRufI2Yykl90Uw64N44=;
- b=amclWTEEWgJHiOqqTbAdI97dEdzVExFiP8+pPZsPcRqN+YQ9z043qRd+douhTzH+Q5FtfILNjEs3u8HBeRqecGXM1mvIWYj2IjRFiSxMS7NMEyBUKfy/mBkAIarLV+CyKhszY1r7UhgOsiTVuB/wxXJ2AQMJdnibwx4NMkgvuwVcbyCHu7JItRoqJ8UD1NRjNkq9+TvI9PSlFp+wft5GOCtYVR0HbvIlGBSUHz+vhAnL/o5Dg3YfOamGUza//U/rrqfBPCFQ4k3ceP7dlLVuEQOzRiW3kPwrP1+dwzyxNEJh2lkfBNsxIPr+K0jzR/aEJlX3GxPZzRdpU2ckU7OjDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=qG+Q0A4JERs/VaDsWdn6Y5crYxWf53PhKHepQp2fC5o=;
+ b=W07fJckGBBura5GBeoMKTpbWFaDErK/0JwXFeuPN6RXqmNCE8KX/PZlbYqu13MvvP8mQc98gIO8UAUh4rMq3Be+vvGshv1hrWBtuXH4y8ayNQUIh0IVq29GB5HenYa7Dk34Bn9wQMJDi6YSbIc5JQgepyeiMliMhkbEyS+yoZY55oz/NW6mVnJrBok6bxqE/jJuyqwMMXBKvXMgNPINU+kc/3xq4gCetZLEFhGN8bW0BXP6wXG1ISRP84uZCPHs5JY0nAor3saJpxES12xxFT6TC2ZRyPqHXcucp+m8fO8i3jkeoNmOod8s7+ElUXQ7kw2zxjyfuYd/+A8v2Jn0dRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IRZg/mLc7OATajx2T2JHxjh7RRufI2Yykl90Uw64N44=;
- b=0UwZN3enma1VO70XVxTMteTzWshLpeMOyI28Alp0UzFR6hlsSJhxfG02QkZJbJGFjCxfEhhjl+Dqi4ePMy7JTZk56Rq2iVPOtWy1nQ3RqvbFGQ1vli/TUQJq5k1qW++h0kcQK/pjmJvcmSdGcoCL6Ur+rC5938S3LefAqgC1C40=
-Received: from SJ0PR03CA0142.namprd03.prod.outlook.com (2603:10b6:a03:33c::27)
- by DM4PR12MB5136.namprd12.prod.outlook.com (2603:10b6:5:393::23) with
+ bh=qG+Q0A4JERs/VaDsWdn6Y5crYxWf53PhKHepQp2fC5o=;
+ b=eXJFbPP1mPmqBPSnRQGPnpU6j+lqMZ2cXE0lO2BsgPigYm4aB5+iog/nF3mZ5uxL6JJ90m8/yr+d2Mx9XFctGSyFOOeWcUetF5Jhkp1/i8VYYbO/2bt+7+BbDywMRr+sbiLoMOqirFwKq/2FgDdk7ZegUjmBTvVZIeZfDpH00L4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by BL1PR12MB5378.namprd12.prod.outlook.com (2603:10b6:208:31d::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.27; Fri, 25 Aug
- 2023 15:36:07 +0000
-Received: from MWH0EPF000989E9.namprd02.prod.outlook.com
- (2603:10b6:a03:33c:cafe::21) by SJ0PR03CA0142.outlook.office365.com
- (2603:10b6:a03:33c::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20 via Frontend
- Transport; Fri, 25 Aug 2023 15:36:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989E9.mail.protection.outlook.com (10.167.241.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6699.15 via Frontend Transport; Fri, 25 Aug 2023 15:36:06 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 25 Aug
- 2023 10:36:03 -0500
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Replace pr_err with dev_err
-Date: Fri, 25 Aug 2023 23:35:39 +0800
-Message-ID: <20230825153539.1731896-1-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.34.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.29; Fri, 25 Aug
+ 2023 18:55:23 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::236b:d4e2:6fbf:6c2b]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::236b:d4e2:6fbf:6c2b%5]) with mapi id 15.20.6699.028; Fri, 25 Aug 2023
+ 18:55:23 +0000
+Message-ID: <5dd3a2c6-b960-4821-81e3-24eca3c6506a@amd.com>
+Date: Fri, 25 Aug 2023 14:55:15 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Fix up kdoc format for 'dc_set_edp_power'
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Ian Chen <ian.chen@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20230825103834.1176177-1-srinivasan.shanmugam@amd.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20230825103834.1176177-1-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0021.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00::34) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E9:EE_|DM4PR12MB5136:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5a6e129-0519-4de4-d989-08dba580ffb8
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|BL1PR12MB5378:EE_
+X-MS-Office365-Filtering-Correlation-Id: 124c7c90-0591-4176-2e64-08dba59cd643
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jL2SYeSS7nJngSWMkL6fRCW3XODHBWXF3wa6wL2YeXhHCtCX2KILpojd8STiTPBiV1HT+OcXXx+KX171d3FotNunxivJxKZwE/ob2Ls8SrL05X7Z1/aEC8E63DFzTXcmDJRiC1rKxIZVhYfW42NdrIIiWEwOcoU+ISRuk4ujKDNFEIktgFKNXIIRdL642QEZ74Gz4ATzWmOmfQs1ceNskTmXlh0piM81y35F8zgh74l3NCCs4KyXrJkEh0Cuq8zHbcM9zD+769C47MAw5qTHEaT0jZ/iTPH0KUpJrRS0FLNsDFjIwuIWRMBPoScCbrGwqW0TqCAMCr3uuO8PpXT/j0cVD5CQE05WiTQLfBvJREPgkyqhNWYFd8O4Dx1pkFC3U6dt0NSwDsH2Dj9gLlDZLp+exVqIc3eM+pr+rvvmBfcppbInYq9T81Mg5ev+hrJ3qZnrVmbvDTSttMcqgF4lJR6+ZIDCR6Gmoo9kQLKmAmLDLP/gROJIW5gfawg3IFbiAK1q1BaoB2+9UUReLWUiYI1Xp2ptIH3HZ4c9NsyvQleiNNFUmN6XEgCgpqgbEipTSuEZBxHK+MpCNF1odnk75UIAnhOaDwC+/E8u4X+9PmHXNCD/V0pD0hp7fpG7WBDMhNEZ1tqXy+EO3YwSC3Ji0FY7pviNADiTkSIX/XJ14y4gXhk9ZIYk/17q/wZV55LqiLScgtyKGXuZORRj8To/u7Ewm2QZB/aZ7u3+hm81pURnlq2cU5ljBgaXhQ4JRu3XkqxkFc6mzdgdLiy2x/E/7Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(396003)(376002)(136003)(346002)(186009)(1800799009)(82310400011)(451199024)(36840700001)(40470700004)(46966006)(1076003)(40460700003)(2616005)(66899024)(5660300002)(8936002)(8676002)(4326008)(336012)(426003)(47076005)(36756003)(30864003)(83380400001)(44832011)(36860700001)(16526019)(26005)(6666004)(82740400003)(356005)(81166007)(40480700001)(70206006)(70586007)(54906003)(316002)(6916009)(478600001)(41300700001)(2906002)(7696005)(86362001)(36900700001);
+X-Microsoft-Antispam-Message-Info: wP/etNaArU5UyN6HhLclVvlea+1JQhfEy6XNvyAQAb7N4EDeHHZX4g1NU9gXxt8/49pgkiPxtlNEA2LZ3eclt+MybN3lTPeJRsbfovGCNf8wCknfu+BT96mQONEj+beCajw95qLeMrat7f+IXqpyvwVOP2j7PL7CklSwg2xGkWtkA9puJNdz5uLArv+wWKNZ3NjxYX5XleO6R3xUQlPDxqeP/iOaD1KS0U8kiwGltCHOXzHU0xXkzjkLUHwXPOAkKTK5GpIzIQ5SL2m5GrCjawd39xlEFMd812bCnkG63rnTjLfgNIN2FgmuRrQ8GKMSUPE/w8ux7cQ51ooAaD91UQU62v0j53rsBvnW3FSuLZhT6bU3ynB0zKvL3WbrfhCmRN9DjbCQUtAef7vCh0W3B+MudF8OcWOEbg420gcAzUoYuNzfM7QwZkiFwSobxghvc+I2amFCAoizlriC+FPxvxSG4YwYSkMxKYBWXqmZoHQUlXyuYVCUa2BO4V7rRPc+xtTay1a22E5ymfKnX5IB8dM8Pgy0c/meH/kG69wIgbPYa/TIrWezfFssZR4pFL/lnwFljlyiuv3Zex+F1+vl1RxPJK9kOa/KlT5u5d0qV3xWtlM0QTCT1dvy8YUqi5ZtN/RJ9gtRZhb+CaiweVKk+A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(136003)(39860400002)(366004)(346002)(396003)(451199024)(1800799009)(186009)(38100700002)(8676002)(4326008)(8936002)(31696002)(41300700001)(6506007)(6486002)(53546011)(316002)(6666004)(36756003)(66476007)(6636002)(66556008)(86362001)(66946007)(110136005)(6512007)(26005)(478600001)(44832011)(83380400001)(31686004)(2906002)(2616005)(5660300002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cS9samJmczJJNWVDbUpwS09EVWw1MzJVR09UeTNkTUZwaXJWaVFxNFJpZFcx?=
+ =?utf-8?B?cW45anJCYW1vVnJHWStMQ1ZBNFVVdHJCTW5IUzZyYkxteEUyYkVsQzZlNTky?=
+ =?utf-8?B?Y0luZTdWR3pvRXFVMUdoS01TZWhkQjVsQk9xSVEycldxdWNrVTJYZVFMclky?=
+ =?utf-8?B?NVZDVHpIVlhGcFRBeDAwc3gyMTNzWXM3cEhyOTRqREN4cmhQYUh1dk5IL3JK?=
+ =?utf-8?B?SUJaYkV0T001U3pKbDByNFZtWTErL2Fzc2QvSmw4Vzk1QktJNWQxY1NrTFRt?=
+ =?utf-8?B?aEkrOFZZU0gwbGdCREtVVXFkdGNmK1VLMnF1ZklqUVVoY1BJdUZveEp3RDJW?=
+ =?utf-8?B?a24rM0RMRlRheElFL1E4amp5NHpFR3R3dmpWTWtNNTYzRlArOFZBeTY2K0pM?=
+ =?utf-8?B?QW9Tb05nUmFrdlViM2tySVpIaGVhUWVlWUpNaDVBMHM1Q01iWGxjTnIxMU40?=
+ =?utf-8?B?c1pybGFWbEhEdkRpbEZBKzZZWTJVUWgvWlQweFJrK1haTG1MWTRuVFpqUmk4?=
+ =?utf-8?B?ZTFROWFabzBTdnIwMEIxV3luKy9DM2trTzA5TFFoV0FTSVRCa3hkTmZrbWJY?=
+ =?utf-8?B?TlpnajRIQVFwelpZNVRsTWFKNmp3L3BPU3QxYy8vemlZQW9wNCtqVGRGRDZI?=
+ =?utf-8?B?V2xjdHhYVkkwOXVyS3hFSjlZU2V5WE5qb2krR2k1dWdQQ2d4WFZqQ1pwSCsy?=
+ =?utf-8?B?L3VaWkt5U3VLbkRSamFmMDdnT3A4TnM4NExlT1MwblVjSXBrTDFOT3lWTFZ4?=
+ =?utf-8?B?T3V6OVhTOFU3Wm10N0dRMkdmaHNlTVBYeUpEV3liWEFFaDZiL1ZVdmIwanN0?=
+ =?utf-8?B?cDJJK0NQTzUveU9NNGxYOHc3bWNRZDJ3cXJheW81QjlOTndvTXdsMnRFR25J?=
+ =?utf-8?B?RWNyZmJpNDJidlZyL1MrQldMZUpaRzhoTzY4ZnAwZnZsb1FPQWtOL2RzWkxs?=
+ =?utf-8?B?aENtKzdXWTN2dUNnTk1UblRkek9IelpJRThvZVEzZGJ4OHhrQjhmb2N6a0hL?=
+ =?utf-8?B?YnIvbHlUT0hzdGFOaDdvQWt2a1dKK0l0YXVxbklXQmpuanFGaDY2bXBQc0E0?=
+ =?utf-8?B?WGY5U0hPMkZ0aHhGUC8rREZ1YmxqeEZFOEtzNlhVSk44ZSthcjV1WnphdkpO?=
+ =?utf-8?B?V1BQRUdhNzB5TkpPRVNzVXEyZC9YTTNwZjdpTTBvWGJyQ2lwUHFiRnREV1c1?=
+ =?utf-8?B?Nm8zNUZGZ1NReFhzbVZWQnhqUEF5TnFpdGIrenpSMzl0cElUQi9YZnhSS1FR?=
+ =?utf-8?B?RExYK0xFd1UxOVp4cHJBcjBaV1pmZlR4SldreHNqSWpzeUYzVmdsNUFtUGdx?=
+ =?utf-8?B?NWZ4WVoxZWZSMjNEbnJuT0tlajcvV1ZMKzVINStvMjdYUHAzeUJub3ZIN0cy?=
+ =?utf-8?B?Yjc5dFlJYlJDMmVtRTl2bVhaSzcvWFZscFFRZXJRNXgvQXRyWVpzUHBpVnpG?=
+ =?utf-8?B?UjRhWS8wS0s3MVBZRWFDQ1pDYmFvVXgzeGM4L2J0dGVhdCtlWnZEZUhiUzhH?=
+ =?utf-8?B?Wjd3czQvbXRzY3MzK1dDeTJZTkRkZFpqcEFuTnlQYnJlR1RVVmVVM21lY1d5?=
+ =?utf-8?B?UTJwZXZ4eW1peFIvRTBhbVJ6WnY5WjJCZ29qTUFsNk5kcVdab3pITi9mRE9W?=
+ =?utf-8?B?M04yN0RTZFUvTVZDSEt4ME94aEMwU2Y0aHhna0liUUN1WEhZblF6UXMrQklD?=
+ =?utf-8?B?NFdCaTUwZG50UjBnYWY3RFo2YlBQREZWY2V6SkQ4by92cVpydXNRMjhOTXpp?=
+ =?utf-8?B?bTNIRFR3emRwY2V5cDZ5THl3SmNRS3Mzd3hhR1RFTllSb0RkcEVyU1pFcStL?=
+ =?utf-8?B?UjY2c05WeFpVUUl5SHlFMjdJVjNWSnl6RFZWUHVBQUdlYjZRdTRmV1dNU1V4?=
+ =?utf-8?B?dTg3cHRTU0FISXJPNkFRTkR4YVZKa2UyL3JYejZYeHRmSmFsZ3Z6U3JPalFs?=
+ =?utf-8?B?WnpnQVNKanRhd04vMmRTTFdmVFh3WFFQVWYwK1Qxb2tHMWlXUG1OcGpkVjFq?=
+ =?utf-8?B?dFQydWJ3Wnprb0lENnY5QzY0SEtQdXFWbzZEaHZqZ3RVVTVTcGFFU0h0SGlX?=
+ =?utf-8?B?WEJyQWFwcU1NS3QrL2V6UXdFOVhxOGUrYndSYTNuOXh1RHllb2pYVXRFQSts?=
+ =?utf-8?Q?kEe0zgDXKc/pDFyQJG+vsMiNp?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2023 15:36:06.6195 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5a6e129-0519-4de4-d989-08dba580ffb8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 124c7c90-0591-4176-2e64-08dba59cd643
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2023 18:55:23.3821 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E9.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5136
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kcJ6SL+pJCS8hb4OsGEUZU2QzUPgjDuyp2SAsGMz9r7D4pxDmg8dqFtZ7tMvSi5DvmSbfFLLUcRFo21Gn/GtlQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5378
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,541 +125,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: le.ma@amd.com, Lijo Lazar <lijo.lazar@amd.com>, asad.kamal@amd.com,
- shiwu.zhang@amd.com, hawking.zhang@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace pr_err with dev_err to show the bus-id of
-failing device with kfd queue errors
+On 2023-08-25 06:38, Srinivasan Shanmugam wrote:
+> Fixes the following W=1 kernel build warning:
+> 
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:5261: warning: Cannot understand  *******************************************
+> 
+> Cc: Ian Chen <ian.chen@amd.com>
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
----
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 116 +++++++++++-------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   2 +-
- 2 files changed, 71 insertions(+), 47 deletions(-)
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index b166f30f083e..23acb959d841 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -232,8 +232,8 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 
- 	queue_type = convert_to_mes_queue_type(q->properties.type);
- 	if (queue_type < 0) {
--		pr_err("Queue type not supported with MES, queue:%d\n",
--				q->properties.type);
-+		dev_err(adev->dev, "Queue type not supported with MES, queue:%d\n",
-+			q->properties.type);
- 		return -EINVAL;
- 	}
- 	queue_input.queue_type = (uint32_t)queue_type;
-@@ -244,9 +244,9 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	r = adev->mes.funcs->add_hw_queue(&adev->mes, &queue_input);
- 	amdgpu_mes_unlock(&adev->mes);
- 	if (r) {
--		pr_err("failed to add hardware queue to MES, doorbell=0x%x\n",
-+		dev_err(adev->dev, "failed to add hardware queue to MES, doorbell=0x%x\n",
- 			q->properties.doorbell_off);
--		pr_err("MES might be in unrecoverable state, issue a GPU reset\n");
-+		dev_err(adev->dev, "MES might be in unrecoverable state, issue a GPU reset\n");
- 		kfd_hws_hang(dqm);
- 	}
- 
-@@ -272,9 +272,9 @@ static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	amdgpu_mes_unlock(&adev->mes);
- 
- 	if (r) {
--		pr_err("failed to remove hardware queue from MES, doorbell=0x%x\n",
-+		dev_err(adev->dev, "failed to remove hardware queue from MES, doorbell=0x%x\n",
- 			q->properties.doorbell_off);
--		pr_err("MES might be in unrecoverable state, issue a GPU reset\n");
-+		dev_err(adev->dev, "MES might be in unrecoverable state, issue a GPU reset\n");
- 		kfd_hws_hang(dqm);
- 	}
- 
-@@ -284,6 +284,7 @@ static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- static int remove_all_queues_mes(struct device_queue_manager *dqm)
- {
- 	struct device_process_node *cur;
-+	struct kfd_node *dev = dqm->dev;
- 	struct qcm_process_device *qpd;
- 	struct queue *q;
- 	int retval = 0;
-@@ -294,7 +295,7 @@ static int remove_all_queues_mes(struct device_queue_manager *dqm)
- 			if (q->properties.is_active) {
- 				retval = remove_queue_mes(dqm, q, qpd);
- 				if (retval) {
--					pr_err("%s: Failed to remove queue %d for dev %d",
-+					dev_err(dev->adev->dev, "%s: Failed to remove queue %d for dev %d",
- 						__func__,
- 						q->properties.queue_id,
- 						dqm->dev->id);
-@@ -443,6 +444,7 @@ static int allocate_vmid(struct device_queue_manager *dqm,
- 			struct qcm_process_device *qpd,
- 			struct queue *q)
- {
-+	struct kfd_node *dev = dqm->dev;
- 	int allocated_vmid = -1, i;
- 
- 	for (i = dqm->dev->vm_info.first_vmid_kfd;
-@@ -454,7 +456,7 @@ static int allocate_vmid(struct device_queue_manager *dqm,
- 	}
- 
- 	if (allocated_vmid < 0) {
--		pr_err("no more vmid to allocate\n");
-+		dev_err(dev->adev->dev, "no more vmid to allocate\n");
- 		return -ENOSPC;
- 	}
- 
-@@ -510,10 +512,12 @@ static void deallocate_vmid(struct device_queue_manager *dqm,
- 				struct qcm_process_device *qpd,
- 				struct queue *q)
- {
-+	struct kfd_node *dev = dqm->dev;
-+
- 	/* On GFX v7, CP doesn't flush TC at dequeue */
- 	if (q->device->adev->asic_type == CHIP_HAWAII)
- 		if (flush_texture_cache_nocpsch(q->device, qpd))
--			pr_err("Failed to flush TC\n");
-+			dev_err(dev->adev->dev, "Failed to flush TC\n");
- 
- 	kfd_flush_tlb(qpd_to_pdd(qpd), TLB_FLUSH_LEGACY);
- 
-@@ -708,7 +712,7 @@ static int dbgdev_wave_reset_wavefronts(struct kfd_node *dev, struct kfd_process
- 	pr_debug("Killing all process wavefronts\n");
- 
- 	if (!dev->kfd2kgd->get_atc_vmid_pasid_mapping_info) {
--		pr_err("no vmid pasid mapping supported \n");
-+		dev_err(dev->adev->dev, "no vmid pasid mapping supported\n");
- 		return -EOPNOTSUPP;
- 	}
- 
-@@ -729,7 +733,7 @@ static int dbgdev_wave_reset_wavefronts(struct kfd_node *dev, struct kfd_process
- 	}
- 
- 	if (vmid > last_vmid_to_scan) {
--		pr_err("Didn't find vmid for pasid 0x%x\n", p->pasid);
-+		dev_err(dev->adev->dev, "Didn't find vmid for pasid 0x%x\n", p->pasid);
- 		return -EFAULT;
- 	}
- 
-@@ -821,6 +825,7 @@ static int destroy_queue_nocpsch(struct device_queue_manager *dqm,
- {
- 	int retval;
- 	uint64_t sdma_val = 0;
-+	struct kfd_node *dev = dqm->dev;
- 	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
- 	struct mqd_manager *mqd_mgr =
- 		dqm->mqd_mgrs[get_mqd_type_from_queue_type(q->properties.type)];
-@@ -831,7 +836,7 @@ static int destroy_queue_nocpsch(struct device_queue_manager *dqm,
- 		retval = read_sdma_queue_counter((uint64_t __user *)q->properties.read_ptr,
- 							&sdma_val);
- 		if (retval)
--			pr_err("Failed to read SDMA queue counter for queue: %d\n",
-+			dev_err(dev->adev->dev, "Failed to read SDMA queue counter for queue: %d\n",
- 				q->properties.queue_id);
- 	}
- 
-@@ -850,6 +855,7 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
- 			struct mqd_update_info *minfo)
- {
- 	int retval = 0;
-+	struct kfd_node *dev = dqm->dev;
- 	struct mqd_manager *mqd_mgr;
- 	struct kfd_process_device *pdd;
- 	bool prev_active = false;
-@@ -875,7 +881,7 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
- 			retval = remove_queue_mes(dqm, q, &pdd->qpd);
- 
- 		if (retval) {
--			pr_err("unmap queue failed\n");
-+			dev_err(dev->adev->dev, "unmap queue failed\n");
- 			goto out_unlock;
- 		}
- 	} else if (prev_active &&
-@@ -894,7 +900,7 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
- 				 KFD_PREEMPT_TYPE_WAVEFRONT_DRAIN),
- 				KFD_UNMAP_LATENCY_MS, q->pipe, q->queue);
- 		if (retval) {
--			pr_err("destroy mqd failed\n");
-+			dev_err(dev->adev->dev, "destroy mqd failed\n");
- 			goto out_unlock;
- 		}
- 	}
-@@ -1088,6 +1094,7 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
- 				      struct qcm_process_device *qpd)
- {
- 	struct queue *q;
-+	struct kfd_node *dev = dqm->dev;
- 	struct kfd_process_device *pdd;
- 	int retval = 0;
- 
-@@ -1121,7 +1128,7 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
- 		if (dqm->dev->kfd->shared_resources.enable_mes) {
- 			retval = remove_queue_mes(dqm, q, qpd);
- 			if (retval) {
--				pr_err("Failed to evict queue %d\n",
-+				dev_err(dev->adev->dev, "Failed to evict queue %d\n",
- 					q->properties.queue_id);
- 				goto out;
- 			}
-@@ -1225,6 +1232,7 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
- 					struct qcm_process_device *qpd)
- {
- 	struct queue *q;
-+	struct kfd_node *dev = dqm->dev;
- 	struct kfd_process_device *pdd;
- 	uint64_t eviction_duration;
- 	int retval = 0;
-@@ -1265,7 +1273,7 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
- 		if (dqm->dev->kfd->shared_resources.enable_mes) {
- 			retval = add_queue_mes(dqm, q, qpd);
- 			if (retval) {
--				pr_err("Failed to restore queue %d\n",
-+				dev_err(dev->adev->dev, "Failed to restore queue %d\n",
- 					q->properties.queue_id);
- 				goto out;
- 			}
-@@ -1474,18 +1482,19 @@ static void pre_reset(struct device_queue_manager *dqm)
- static int allocate_sdma_queue(struct device_queue_manager *dqm,
- 				struct queue *q, const uint32_t *restore_sdma_id)
- {
-+	struct kfd_node *dev = dqm->dev;
- 	int bit;
- 
- 	if (q->properties.type == KFD_QUEUE_TYPE_SDMA) {
- 		if (bitmap_empty(dqm->sdma_bitmap, KFD_MAX_SDMA_QUEUES)) {
--			pr_err("No more SDMA queue to allocate\n");
-+			dev_err(dev->adev->dev, "No more SDMA queue to allocate\n");
- 			return -ENOMEM;
- 		}
- 
- 		if (restore_sdma_id) {
- 			/* Re-use existing sdma_id */
- 			if (!test_bit(*restore_sdma_id, dqm->sdma_bitmap)) {
--				pr_err("SDMA queue already in use\n");
-+				dev_err(dev->adev->dev, "SDMA queue already in use\n");
- 				return -EBUSY;
- 			}
- 			clear_bit(*restore_sdma_id, dqm->sdma_bitmap);
-@@ -1504,13 +1513,13 @@ static int allocate_sdma_queue(struct device_queue_manager *dqm,
- 				kfd_get_num_sdma_engines(dqm->dev);
- 	} else if (q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI) {
- 		if (bitmap_empty(dqm->xgmi_sdma_bitmap, KFD_MAX_SDMA_QUEUES)) {
--			pr_err("No more XGMI SDMA queue to allocate\n");
-+			dev_err(dev->adev->dev, "No more XGMI SDMA queue to allocate\n");
- 			return -ENOMEM;
- 		}
- 		if (restore_sdma_id) {
- 			/* Re-use existing sdma_id */
- 			if (!test_bit(*restore_sdma_id, dqm->xgmi_sdma_bitmap)) {
--				pr_err("SDMA queue already in use\n");
-+				dev_err(dev->adev->dev, "SDMA queue already in use\n");
- 				return -EBUSY;
- 			}
- 			clear_bit(*restore_sdma_id, dqm->xgmi_sdma_bitmap);
-@@ -1562,6 +1571,7 @@ static int set_sched_resources(struct device_queue_manager *dqm)
- {
- 	int i, mec;
- 	struct scheduling_resources res;
-+	struct kfd_node *dev = dqm->dev;
- 
- 	res.vmid_mask = dqm->dev->compute_vmid_bitmap;
- 
-@@ -1582,7 +1592,7 @@ static int set_sched_resources(struct device_queue_manager *dqm)
- 		 * definition of res.queue_mask needs updating
- 		 */
- 		if (WARN_ON(i >= (sizeof(res.queue_mask)*8))) {
--			pr_err("Invalid queue enabled by amdgpu: %d\n", i);
-+			dev_err(dev->adev->dev, "Invalid queue enabled by amdgpu: %d\n", i);
- 			break;
- 		}
- 
-@@ -1625,6 +1635,7 @@ static int initialize_cpsch(struct device_queue_manager *dqm)
- 
- static int start_cpsch(struct device_queue_manager *dqm)
- {
-+	struct kfd_node *dev = dqm->dev;
- 	int retval;
- 
- 	retval = 0;
-@@ -1671,7 +1682,7 @@ static int start_cpsch(struct device_queue_manager *dqm)
- 		retval = pm_update_grace_period(&dqm->packet_mgr,
- 						grace_period);
- 		if (retval)
--			pr_err("Setting grace timeout failed\n");
-+			dev_err(dev->adev->dev, "Setting grace timeout failed\n");
- 		else if (dqm->dev->kfd2kgd->build_grace_period_packet_info)
- 			/* Update dqm->wait_times maintained in software */
- 			dqm->dev->kfd2kgd->build_grace_period_packet_info(
-@@ -1881,15 +1892,17 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
- 	return retval;
- }
- 
--int amdkfd_fence_wait_timeout(uint64_t *fence_addr,
--				uint64_t fence_value,
--				unsigned int timeout_ms)
-+int amdkfd_fence_wait_timeout(struct device_queue_manager *dqm,
-+			      uint64_t fence_value,
-+			      unsigned int timeout_ms)
- {
- 	unsigned long end_jiffies = msecs_to_jiffies(timeout_ms) + jiffies;
-+	uint64_t *fence_addr =  dqm->fence_addr;
-+	struct kfd_node *dev = dqm->dev;
- 
- 	while (*fence_addr != fence_value) {
- 		if (time_after(jiffies, end_jiffies)) {
--			pr_err("qcm fence wait loop timeout expired\n");
-+			dev_err(dev->adev->dev, "qcm fence wait loop timeout expired\n");
- 			/* In HWS case, this is used to halt the driver thread
- 			 * in order not to mess up CP states before doing
- 			 * scandumps for FW debugging.
-@@ -1908,6 +1921,7 @@ int amdkfd_fence_wait_timeout(uint64_t *fence_addr,
- /* dqm->lock mutex has to be locked before calling this function */
- static int map_queues_cpsch(struct device_queue_manager *dqm)
- {
-+	struct kfd_node *dev = dqm->dev;
- 	int retval;
- 
- 	if (!dqm->sched_running)
-@@ -1920,7 +1934,7 @@ static int map_queues_cpsch(struct device_queue_manager *dqm)
- 	retval = pm_send_runlist(&dqm->packet_mgr, &dqm->queues);
- 	pr_debug("%s sent runlist\n", __func__);
- 	if (retval) {
--		pr_err("failed to execute runlist\n");
-+		dev_err(dev->adev->dev, "failed to execute runlist\n");
- 		return retval;
- 	}
- 	dqm->active_runlist = true;
-@@ -1935,8 +1949,9 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
- 				uint32_t grace_period,
- 				bool reset)
- {
--	int retval = 0;
-+	struct kfd_node *dev = dqm->dev;
- 	struct mqd_manager *mqd_mgr;
-+	int retval = 0;
- 
- 	if (!dqm->sched_running)
- 		return 0;
-@@ -1959,10 +1974,10 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
- 	pm_send_query_status(&dqm->packet_mgr, dqm->fence_gpu_addr,
- 				KFD_FENCE_COMPLETED);
- 	/* should be timed out */
--	retval = amdkfd_fence_wait_timeout(dqm->fence_addr, KFD_FENCE_COMPLETED,
--				queue_preemption_timeout_ms);
-+	retval = amdkfd_fence_wait_timeout(dqm, KFD_FENCE_COMPLETED,
-+					   queue_preemption_timeout_ms);
- 	if (retval) {
--		pr_err("The cp might be in an unrecoverable state due to an unsuccessful queues preemption\n");
-+		dev_err(dev->adev->dev, "The cp might be in an unrecoverable state due to an unsuccessful queues preemption\n");
- 		kfd_hws_hang(dqm);
- 		return retval;
- 	}
-@@ -1977,7 +1992,7 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
- 	 */
- 	mqd_mgr = dqm->mqd_mgrs[KFD_MQD_TYPE_HIQ];
- 	if (mqd_mgr->read_doorbell_id(dqm->packet_mgr.priv_queue->queue->mqd)) {
--		pr_err("HIQ MQD's queue_doorbell_id0 is not 0, Queue preemption time out\n");
-+		dev_err(dev->adev->dev, "HIQ MQD's queue_doorbell_id0 is not 0, Queue preemption time out\n");
- 		while (halt_if_hws_hang)
- 			schedule();
- 		return -ETIME;
-@@ -1987,7 +2002,7 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
- 	if (grace_period != USE_DEFAULT_GRACE_PERIOD) {
- 		if (pm_update_grace_period(&dqm->packet_mgr,
- 					USE_DEFAULT_GRACE_PERIOD))
--			pr_err("Failed to reset grace period\n");
-+			dev_err(dev->adev->dev, "Failed to reset grace period\n");
- 	}
- 
- 	pm_release_ib(&dqm->packet_mgr);
-@@ -2061,6 +2076,7 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
- 	struct mqd_manager *mqd_mgr;
- 	uint64_t sdma_val = 0;
- 	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
-+	struct kfd_node *dev = dqm->dev;
- 
- 	/* Get the SDMA queue stats */
- 	if ((q->properties.type == KFD_QUEUE_TYPE_SDMA) ||
-@@ -2068,7 +2084,7 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
- 		retval = read_sdma_queue_counter((uint64_t __user *)q->properties.read_ptr,
- 							&sdma_val);
- 		if (retval)
--			pr_err("Failed to read SDMA queue counter for queue: %d\n",
-+			dev_err(dev->adev->dev, "Failed to read SDMA queue counter for queue: %d\n",
- 				q->properties.queue_id);
- 	}
- 
-@@ -2350,6 +2366,7 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
- 	int retval;
- 	struct queue *q;
- 	struct kernel_queue *kq, *kq_next;
-+	struct kfd_node *dev = dqm->dev;
- 	struct mqd_manager *mqd_mgr;
- 	struct device_process_node *cur, *next_dpn;
- 	enum kfd_unmap_queues_filter filter =
-@@ -2382,7 +2399,7 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
- 			if (dqm->dev->kfd->shared_resources.enable_mes) {
- 				retval = remove_queue_mes(dqm, q, qpd);
- 				if (retval)
--					pr_err("Failed to remove queue %d\n",
-+					dev_err(dev->adev->dev, "Failed to remove queue %d\n",
- 						q->properties.queue_id);
- 			}
- 		}
-@@ -2437,12 +2454,13 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
- static int init_mqd_managers(struct device_queue_manager *dqm)
- {
- 	int i, j;
-+	struct kfd_node *dev = dqm->dev;
- 	struct mqd_manager *mqd_mgr;
- 
- 	for (i = 0; i < KFD_MQD_TYPE_MAX; i++) {
- 		mqd_mgr = dqm->asic_ops.mqd_manager_init(i, dqm->dev);
- 		if (!mqd_mgr) {
--			pr_err("mqd manager [%d] initialization failed\n", i);
-+			dev_err(dev->adev->dev, "mqd manager [%d] initialization failed\n", i);
- 			goto out_free;
- 		}
- 		dqm->mqd_mgrs[i] = mqd_mgr;
-@@ -2552,7 +2570,7 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_node *dev)
- 		dqm->ops.checkpoint_mqd = checkpoint_mqd;
- 		break;
- 	default:
--		pr_err("Invalid scheduling policy %d\n", dqm->sched_policy);
-+		dev_err(dev->adev->dev, "Invalid scheduling policy %d\n", dqm->sched_policy);
- 		goto out_free;
- 	}
- 
-@@ -2590,7 +2608,7 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_node *dev)
- 		goto out_free;
- 
- 	if (!dev->kfd->shared_resources.enable_mes && allocate_hiq_sdma_mqd(dqm)) {
--		pr_err("Failed to allocate hiq sdma mqd trunk buffer\n");
-+		dev_err(dev->adev->dev, "Failed to allocate hiq sdma mqd trunk buffer\n");
- 		goto out_free;
- 	}
- 
-@@ -2649,17 +2667,18 @@ int reserve_debug_trap_vmid(struct device_queue_manager *dqm,
- 				struct qcm_process_device *qpd)
- {
- 	int r;
-+	struct kfd_node *dev = dqm->dev;
- 	int updated_vmid_mask;
- 
- 	if (dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS) {
--		pr_err("Unsupported on sched_policy: %i\n", dqm->sched_policy);
-+		dev_err(dev->adev->dev, "Unsupported on sched_policy: %i\n", dqm->sched_policy);
- 		return -EINVAL;
- 	}
- 
- 	dqm_lock(dqm);
- 
- 	if (dqm->trap_debug_vmid != 0) {
--		pr_err("Trap debug id already reserved\n");
-+		dev_err(dev->adev->dev, "Trap debug id already reserved\n");
- 		r = -EBUSY;
- 		goto out_unlock;
- 	}
-@@ -2695,19 +2714,20 @@ int reserve_debug_trap_vmid(struct device_queue_manager *dqm,
- int release_debug_trap_vmid(struct device_queue_manager *dqm,
- 			struct qcm_process_device *qpd)
- {
-+	struct kfd_node *dev = dqm->dev;
- 	int r;
- 	int updated_vmid_mask;
- 	uint32_t trap_debug_vmid;
- 
- 	if (dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS) {
--		pr_err("Unsupported on sched_policy: %i\n", dqm->sched_policy);
-+		dev_err(dev->adev->dev, "Unsupported on sched_policy: %i\n", dqm->sched_policy);
- 		return -EINVAL;
- 	}
- 
- 	dqm_lock(dqm);
- 	trap_debug_vmid = dqm->trap_debug_vmid;
- 	if (dqm->trap_debug_vmid == 0) {
--		pr_err("Trap debug id is not reserved\n");
-+		dev_err(dev->adev->dev, "Trap debug id is not reserved\n");
- 		r = -EINVAL;
- 		goto out_unlock;
- 	}
-@@ -2844,6 +2864,7 @@ int resume_queues(struct kfd_process *p,
- 	for (i = 0; i < p->n_pdds; i++) {
- 		struct kfd_process_device *pdd = p->pdds[i];
- 		struct device_queue_manager *dqm = pdd->dev->dqm;
-+		struct kfd_node *dev = dqm->dev;
- 		struct qcm_process_device *qpd = &pdd->qpd;
- 		struct queue *q;
- 		int r, per_device_resumed = 0;
-@@ -2894,7 +2915,7 @@ int resume_queues(struct kfd_process *p,
- 					0,
- 					USE_DEFAULT_GRACE_PERIOD);
- 		if (r) {
--			pr_err("Failed to resume process queues\n");
-+			dev_err(dev->adev->dev, "Failed to resume process queues\n");
- 			if (queue_ids) {
- 				list_for_each_entry(q, &qpd->queues_list, list) {
- 					int q_idx = q_array_get_index(
-@@ -2946,6 +2967,7 @@ int suspend_queues(struct kfd_process *p,
- 	for (i = 0; i < p->n_pdds; i++) {
- 		struct kfd_process_device *pdd = p->pdds[i];
- 		struct device_queue_manager *dqm = pdd->dev->dqm;
-+		struct kfd_node *dev = dqm->dev;
- 		struct qcm_process_device *qpd = &pdd->qpd;
- 		struct queue *q;
- 		int r, per_device_suspended = 0;
-@@ -2994,7 +3016,7 @@ int suspend_queues(struct kfd_process *p,
- 			grace_period);
- 
- 		if (r)
--			pr_err("Failed to suspend process queues.\n");
-+			dev_err(dev->adev->dev, "Failed to suspend process queues.\n");
- 		else
- 			total_suspended += per_device_suspended;
- 
-@@ -3081,10 +3103,11 @@ void set_queue_snapshot_entry(struct queue *q,
- 
- int debug_lock_and_unmap(struct device_queue_manager *dqm)
- {
-+	struct kfd_node *dev = dqm->dev;
- 	int r;
- 
- 	if (dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS) {
--		pr_err("Unsupported on sched_policy: %i\n", dqm->sched_policy);
-+		dev_err(dev->adev->dev, "Unsupported on sched_policy: %i\n", dqm->sched_policy);
- 		return -EINVAL;
- 	}
- 
-@@ -3102,10 +3125,11 @@ int debug_lock_and_unmap(struct device_queue_manager *dqm)
- 
- int debug_map_and_unlock(struct device_queue_manager *dqm)
- {
-+	struct kfd_node *dev = dqm->dev;
- 	int r;
- 
- 	if (dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS) {
--		pr_err("Unsupported on sched_policy: %i\n", dqm->sched_policy);
-+		dev_err(dev->adev->dev, "Unsupported on sched_policy: %i\n", dqm->sched_policy);
- 		return -EINVAL;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 3d9ce44d88da..b315311dfe2a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1343,7 +1343,7 @@ int pqm_get_queue_snapshot(struct process_queue_manager *pqm,
- 			   int *num_qss_entries,
- 			   uint32_t *entry_size);
- 
--int amdkfd_fence_wait_timeout(uint64_t *fence_addr,
-+int amdkfd_fence_wait_timeout(struct device_queue_manager *dqm,
- 			      uint64_t fence_value,
- 			      unsigned int timeout_ms);
- 
--- 
-2.34.1
+Harry
 
+> ---
+>   drivers/gpu/drm/amd/display/dc/core/dc.c | 7 +++++--
+>   1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index 025e0fdf486d..ed225e1a1299 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -5258,13 +5258,16 @@ void dc_query_current_properties(struct dc *dc, struct dc_current_properties *pr
+>   }
+>   
+>   /**
+> - *****************************************************************************
+>    * dc_set_edp_power() - DM controls eDP power to be ON/OFF
+>    *
+>    * Called when DM wants to power on/off eDP.
+>    *     Only work on links with flag skip_implict_edp_power_control is set.
+>    *
+> - *****************************************************************************
+> + * @dc: Current DC state
+> + * @edp_link: a link with eDP connector signal type
+> + * @powerOn: power on/off eDP
+> + *
+> + * Return: void
+>    */
+>   void dc_set_edp_power(const struct dc *dc, struct dc_link *edp_link,
+>   				 bool powerOn)
