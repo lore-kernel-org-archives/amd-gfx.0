@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4F05C7EE2C
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Aug 2023 14:18:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F3C5C71133
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Aug 2023 14:30:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0B1510E6AA;
-	Fri, 25 Aug 2023 14:18:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48A0210E6AB;
+	Fri, 25 Aug 2023 14:30:04 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48D4E10E6A5;
- Fri, 25 Aug 2023 14:18:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E89FF10E6AC;
+ Fri, 25 Aug 2023 14:30:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
@@ -19,30 +19,30 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=LI+2DyWKDcxxWJ3+c1vC0avb/vM5e0DV1lblZ4Oiy3g=; b=sn6MfXaB6bJs6wwSHCcw+TtuBC
- OP6BVFjBdyG0KC/Wb2NTVikAPQyJa7IwXl0Ni3n3f+UkI/e1G9BK19FLWbCljHHTJ78CIFAOdLoqR
- 3o2OPVsJloeyMDR42wuBdq4BvIW/TIKfWmgASNuJWtI/tiLSuhCi00X+Cb/Cc71Kat83j2WiUpMdA
- iDD/0SM5J+sEvyB+J18Vb+olcrr3W2l8aet8M3pOQU3jnw/hvOm6ibs5F3e6q+7OJf8R2vxEebXh0
- 5AYig8hlITj4KMsemnCBlWaArrla5fGmNH99k5xleAufV/eG5XIhsd8kUE5YKMgw+++x9IDpCFShE
- TZ1COosg==;
+ bh=TGt/GTv13MQd5EJYb83vy8cL8hzAXGUAw7TT+taelVc=; b=WDXQXr626TM8d9yeLpgm61Ci6b
+ Od5O/Vlnv7GaotaPMWOzAD84SLVv7QTfHzJdFCyAiwgLApcSZ44UWMlZ1hvMiK5j/vMt7IA2aOwNr
+ Dbfl3V4QH6lCv5QHKzVmRzgpqXNRevCzOeuLaSPv7IdsX/zv5dhSPfiEcnI06yEho8niRdd4SY4ZC
+ yJCLefuRoMqDZXwLyqT2dfMXx7yA8Jw8Zcx/0C+Qsj+5Zx8v8JVljvZW3iPeYuzDXVjnK2Yi4PiSM
+ Jr7g+9/tDTbnsVVH4I/ZbyXQMcUOiBqMFxLvBN41OdwIyhiR8vjFnC75qpELWlXzs7gX6bAtHlKyH
+ 1WkXXbFA==;
 Received: from [38.44.68.151] (helo=mail.igalia.com)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qZXdW-00FJ7l-Gp; Fri, 25 Aug 2023 16:18:06 +0200
-Date: Fri, 25 Aug 2023 13:18:01 -0100
+ id 1qZXp0-00FJHc-Vi; Fri, 25 Aug 2023 16:29:59 +0200
+Date: Fri, 25 Aug 2023 13:29:44 -0100
 From: Melissa Wen <mwen@igalia.com>
 To: Pekka Paalanen <pekka.paalanen@collabora.com>
-Subject: Re: [PATCH v2 07/34] drm/amd/display: explicitly define EOTF and
- inverse EOTF
-Message-ID: <20230825141639.vurga52ysal37n2m@mail.igalia.com>
+Subject: Re: [PATCH v2 19/34] drm/amd/display: decouple steps for mapping
+ CRTC degamma to DC plane
+Message-ID: <20230825142944.3jkibtz54f4utwuq@mail.igalia.com>
 References: <20230810160314.48225-1-mwen@igalia.com>
- <20230810160314.48225-8-mwen@igalia.com>
- <20230822140242.162a843a.pekka.paalanen@collabora.com>
+ <20230810160314.48225-20-mwen@igalia.com>
+ <20230822151110.3107b745.pekka.paalanen@collabora.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="tjqmalwjcqtfbizu"
+ protocol="application/pgp-signature"; boundary="crdzpq3rjuvmqkwv"
 Content-Disposition: inline
-In-Reply-To: <20230822140242.162a843a.pekka.paalanen@collabora.com>
+In-Reply-To: <20230822151110.3107b745.pekka.paalanen@collabora.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,253 +68,179 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
---tjqmalwjcqtfbizu
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="duwjnf2i3barzrhk"
-Content-Disposition: inline
-
-
---duwjnf2i3barzrhk
+--crdzpq3rjuvmqkwv
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 On 08/22, Pekka Paalanen wrote:
-> On Thu, 10 Aug 2023 15:02:47 -0100
+> On Thu, 10 Aug 2023 15:02:59 -0100
 > Melissa Wen <mwen@igalia.com> wrote:
 >=20
-> > Instead of relying on color block names to get the transfer function
-> > intention regarding encoding pixel's luminance, define supported
-> > Electro-Optical Transfer Functions (EOTFs) and inverse EOTFs, that
-> > includes pure gamma or standardized transfer functions.
+> > The next patch adds pre-blending degamma to AMD color mgmt pipeline, but
+> > pre-blending degamma caps (DPP) is currently in use to provide DRM CRTC
+> > atomic degamma or implict degamma on legacy gamma. Detach degamma usage
+> > regarging CRTC color properties to manage plane and CRTC color
+> > correction combinations.
 > >=20
-> > Suggested-by: Harry Wentland <harry.wentland@amd.com>
+> > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 > > Signed-off-by: Melissa Wen <mwen@igalia.com>
 > > ---
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 19 +++--
-> >  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 69 +++++++++++++++----
-> >  2 files changed, 67 insertions(+), 21 deletions(-)
+> >  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 59 +++++++++++++------
+> >  1 file changed, 41 insertions(+), 18 deletions(-)
 > >=20
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/driver=
-s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> > index c749c9cb3d94..f6251ed89684 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> > @@ -718,14 +718,21 @@ extern const struct amdgpu_ip_block_version dm_ip=
-_block;
-> > =20
-> >  enum amdgpu_transfer_function {
-> >  	AMDGPU_TRANSFER_FUNCTION_DEFAULT,
-> > -	AMDGPU_TRANSFER_FUNCTION_SRGB,
-> > -	AMDGPU_TRANSFER_FUNCTION_BT709,
-> > -	AMDGPU_TRANSFER_FUNCTION_PQ,
-> > +	AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF,
-> > +	AMDGPU_TRANSFER_FUNCTION_BT709_EOTF,
-> > +	AMDGPU_TRANSFER_FUNCTION_PQ_EOTF,
-> >  	AMDGPU_TRANSFER_FUNCTION_LINEAR,
-> >  	AMDGPU_TRANSFER_FUNCTION_UNITY,
-> > -	AMDGPU_TRANSFER_FUNCTION_GAMMA22,
-> > -	AMDGPU_TRANSFER_FUNCTION_GAMMA24,
-> > -	AMDGPU_TRANSFER_FUNCTION_GAMMA26,
-> > +	AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF,
-> > +	AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF,
-> > +	AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF,
-> > +	AMDGPU_TRANSFER_FUNCTION_SRGB_INV_EOTF,
-> > +	AMDGPU_TRANSFER_FUNCTION_BT709_INV_EOTF,
-> > +	AMDGPU_TRANSFER_FUNCTION_PQ_INV_EOTF,
-> > +	AMDGPU_TRANSFER_FUNCTION_GAMMA22_INV_EOTF,
-> > +	AMDGPU_TRANSFER_FUNCTION_GAMMA24_INV_EOTF,
-> > +	AMDGPU_TRANSFER_FUNCTION_GAMMA26_INV_EOTF,
-> > +        AMDGPU_TRANSFER_FUNCTION_COUNT
-> >  };
-> > =20
-> >  struct dm_plane_state {
 > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/=
 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > index 56ce008b9095..cc2187c0879a 100644
+> > index 68e9f2c62f2e..74eb02655d96 100644
 > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > @@ -85,18 +85,59 @@ void amdgpu_dm_init_color_mod(void)
+> > @@ -764,20 +764,9 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crt=
+c_state *crtc)
+> >  	return 0;
 > >  }
 > > =20
-> >  #ifdef AMD_PRIVATE_COLOR
-> > -static const struct drm_prop_enum_list amdgpu_transfer_function_enum_l=
-ist[] =3D {
-> > -	{ AMDGPU_TRANSFER_FUNCTION_DEFAULT, "Default" },
-> > -	{ AMDGPU_TRANSFER_FUNCTION_SRGB, "sRGB" },
-> > -	{ AMDGPU_TRANSFER_FUNCTION_BT709, "BT.709" },
-> > -	{ AMDGPU_TRANSFER_FUNCTION_PQ, "PQ (Perceptual Quantizer)" },
-> > -	{ AMDGPU_TRANSFER_FUNCTION_LINEAR, "Linear" },
-> > -	{ AMDGPU_TRANSFER_FUNCTION_UNITY, "Unity" },
-> > -	{ AMDGPU_TRANSFER_FUNCTION_GAMMA22, "Gamma 2.2" },
-> > -	{ AMDGPU_TRANSFER_FUNCTION_GAMMA24, "Gamma 2.4" },
-> > -	{ AMDGPU_TRANSFER_FUNCTION_GAMMA26, "Gamma 2.6" },
-> > +static const char * const
-> > +amdgpu_transfer_function_names[] =3D {
-> > +	[AMDGPU_TRANSFER_FUNCTION_DEFAULT]		=3D "Default",
-> > +	[AMDGPU_TRANSFER_FUNCTION_LINEAR]		=3D "Linear",
+> > -/**
+> > - * amdgpu_dm_update_plane_color_mgmt: Maps DRM color management to DC =
+plane.
+> > - * @crtc: amdgpu_dm crtc state
+> > - * @dc_plane_state: target DC surface
+> > - *
+> > - * Update the underlying dc_stream_state's input transfer function (IT=
+F) in
+> > - * preparation for hardware commit. The transfer function used depends=
+ on
+> > - * the preparation done on the stream for color management.
+> > - *
+> > - * Returns:
+> > - * 0 on success. -ENOMEM if mem allocation fails.
+> > - */
+> > -int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+> > -				      struct dc_plane_state *dc_plane_state)
+> > +static int
+> > +map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
+> > +			     struct dc_plane_state *dc_plane_state)
+> >  {
+> >  	const struct drm_color_lut *degamma_lut;
+> >  	enum dc_transfer_func_predefined tf =3D TRANSFER_FUNCTION_SRGB;
+> > @@ -800,8 +789,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crt=
+c_state *crtc,
+> >  						 &degamma_size);
+> >  		ASSERT(degamma_size =3D=3D MAX_COLOR_LUT_ENTRIES);
+> > =20
+> > -		dc_plane_state->in_transfer_func->type =3D
+> > -			TF_TYPE_DISTRIBUTED_POINTS;
+> > +		dc_plane_state->in_transfer_func->type =3D TF_TYPE_DISTRIBUTED_POINT=
+S;
+> > =20
+> >  		/*
+> >  		 * This case isn't fully correct, but also fairly
+> > @@ -837,7 +825,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crt=
+c_state *crtc,
+> >  				   degamma_lut, degamma_size);
+> >  		if (r)
+> >  			return r;
+> > -	} else if (crtc->cm_is_degamma_srgb) {
+> > +	} else {
+> >  		/*
+> >  		 * For legacy gamma support we need the regamma input
+> >  		 * in linear space. Assume that the input is sRGB.
+> > @@ -847,8 +835,43 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_cr=
+tc_state *crtc,
+> > =20
+> >  		if (tf !=3D TRANSFER_FUNCTION_SRGB &&
+> >  		    !mod_color_calculate_degamma_params(NULL,
+> > -			    dc_plane_state->in_transfer_func, NULL, false))
+> > +							dc_plane_state->in_transfer_func,
+> > +							NULL, false))
+> >  			return -ENOMEM;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +/**
+> > + * amdgpu_dm_update_plane_color_mgmt: Maps DRM color management to DC =
+plane.
+> > + * @crtc: amdgpu_dm crtc state
+> > + * @dc_plane_state: target DC surface
+> > + *
+> > + * Update the underlying dc_stream_state's input transfer function (IT=
+F) in
+> > + * preparation for hardware commit. The transfer function used depends=
+ on
+> > + * the preparation done on the stream for color management.
+> > + *
+> > + * Returns:
+> > + * 0 on success. -ENOMEM if mem allocation fails.
+> > + */
+> > +int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+> > +				      struct dc_plane_state *dc_plane_state)
+> > +{
+> > +	bool has_crtc_cm_degamma;
+> > +	int ret;
+> > +
+> > +	has_crtc_cm_degamma =3D (crtc->cm_has_degamma || crtc->cm_is_degamma_=
+srgb);
+> > +	if (has_crtc_cm_degamma){
+> > +		/* AMD HW doesn't have post-blending degamma caps. When DRM
+> > +		 * CRTC atomic degamma is set, we maps it to DPP degamma block
+> > +		 * (pre-blending) or, on legacy gamma, we use DPP degamma to
+> > +		 * linearize (implicit degamma) from sRGB/BT709 according to
+> > +		 * the input space.
 >=20
-> Hi,
+> Uhh, you can't just move degamma before blending if KMS userspace
+> wants it after blending. That would be incorrect behaviour. If you
+> can't implement it correctly, reject it.
 >=20
-> if the below is identity, then what is linear? Is there a coefficient
-> (multiplier) somewhere? Offset?
+> I hope that magical unexpected linearization is not done with atomic,
+> either.
 >=20
-> > +	[AMDGPU_TRANSFER_FUNCTION_UNITY]		=3D "Unity",
->=20
-> Should "Unity" be called "Identity"?
+> Or maybe this is all a lost cause, and only the new color-op pipeline
+> UAPI will actually work across drivers.
 
-AFAIU, AMD treats Linear and Unity as the same: Identity. So, IIUC,
-indeed merging both as identity sounds the best approach.  =20
->=20
-> Doesn't unity mean that the output is always 1.0 regardless of input?
->=20
-> > +	[AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF]		=3D "sRGB EOTF",
-> > +	[AMDGPU_TRANSFER_FUNCTION_BT709_EOTF]		=3D "BT.709 EOTF",
->=20
-> BT.709 says about "Overall opto-electronic transfer characteristics at
-> source":
->=20
-> 	In typical production practice the encoding function of image
-> 	sources is adjusted so that the final picture has the desired
-> 	look, as viewed on a reference monitor having the reference
-> 	decoding function of Recommendation ITU-R BT.1886, in the
-> 	reference viewing environment defined in Recommendation ITU-R
-> 	BT.2035.
->=20
-> IOW, typically people tweak the encoding function instead of using
-> BT.709 OETF as is, which means that inverting the BT.709 OETF produces
-> something slightly unknown. The note about BT.1886 means that that
-> something is also not quite how it's supposed to be turned into light.
->=20
-> Should this enum item be "BT.709 inverse OETF" and respectively below a
-> "BT.709 OETF"?
->=20
-> What curve does the hardware actually implement?
+I agree that crtc degamma is an optional property and should be not
+exposed if not available.  I did something in this line for DCE that has
+no degamma block[1].  Then, AMD DDX driver stopped to advertise atomic
+API for DCE, that was not correct too[2].
 
-Hmmmm.. I think I got confused in using OETF here since it's done within
-a camera. Looking at the coefficients used by AMD color module when not
-using ROM but build encoding and decoding curves[1] on pre-defined TF
-setup, I understand it's using OETF parameters for building both sRGB
-and BT 709:
+But I see it as a lost cause that will only be fixed in a new generic
+color API. I don't think we should change it using the current DRM CRTC
+API with driver-specific props.
 
-```
-/*sRGB     709     2.2 2.4 P3*/
-static const int32_t numerator01[] =3D { 31308,   180000, 0,  0,  0};
-static const int32_t numerator02[] =3D { 12920,   4500,   0,  0,  0};
-static const int32_t numerator03[] =3D { 55,      99,     0,  0,  0};
-static const int32_t numerator04[] =3D { 55,      99,     0,  0,  0};
-static const int32_t numerator05[] =3D { 2400,    2222,   2200, 2400, 2600};
-```
-
-Then EOTF and inverse EOTF for PQ [2], and OETF and it seems an inverse
-OETF but called EOTF for HLG[3]. But I'm an external dev, better if
-Harry can confirm.
-
-Thank you for pointing it out.
-
-[1] https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/amd/disp=
-lay/modules/color/color_gamma.c#n55
-[2] https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/amd/disp=
-lay/modules/color/color_gamma.c#n106
-[3] https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/amd/disp=
-lay/modules/color/color_gamma.c#n174
-
->=20
-> The others seem fine to me.
+[1] https://lore.kernel.org/amd-gfx/20221103184500.14450-1-mwen@igalia.com/
+[2] https://gitlab.freedesktop.org/xorg/driver/xf86-video-amdgpu/-/issues/67
 >=20
 >=20
 > Thanks,
 > pq
 >=20
-> > +	[AMDGPU_TRANSFER_FUNCTION_PQ_EOTF]		=3D "PQ EOTF",
-> > +	[AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF]		=3D "Gamma 2.2 EOTF",
-> > +	[AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF]		=3D "Gamma 2.4 EOTF",
-> > +	[AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF]		=3D "Gamma 2.6 EOTF",
-> > +	[AMDGPU_TRANSFER_FUNCTION_SRGB_INV_EOTF]	=3D "sRGB inv_EOTF",
-> > +	[AMDGPU_TRANSFER_FUNCTION_BT709_INV_EOTF]	=3D "BT.709 inv_EOTF",
-> > +	[AMDGPU_TRANSFER_FUNCTION_PQ_INV_EOTF]		=3D "PQ inv_EOTF",
-> > +	[AMDGPU_TRANSFER_FUNCTION_GAMMA22_INV_EOTF]	=3D "Gamma 2.2 inv_EOTF",
-> > +	[AMDGPU_TRANSFER_FUNCTION_GAMMA24_INV_EOTF]	=3D "Gamma 2.4 inv_EOTF",
-> > +	[AMDGPU_TRANSFER_FUNCTION_GAMMA26_INV_EOTF]	=3D "Gamma 2.6 inv_EOTF",
-> >  };
-> > =20
-> > +static const u32 amdgpu_eotf =3D
-> > +	BIT(AMDGPU_TRANSFER_FUNCTION_SRGB_EOTF) |
-> > +	BIT(AMDGPU_TRANSFER_FUNCTION_BT709_EOTF) |
-> > +	BIT(AMDGPU_TRANSFER_FUNCTION_PQ_EOTF) |
-> > +	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA22_EOTF) |
-> > +	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA24_EOTF) |
-> > +	BIT(AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF);
-> > +
-> > +static struct drm_property *
-> > +amdgpu_create_tf_property(struct drm_device *dev,
-> > +			  const char *name,
-> > +			  u32 supported_tf)
-> > +{
-> > +	u32 transfer_functions =3D supported_tf |
-> > +				 BIT(AMDGPU_TRANSFER_FUNCTION_DEFAULT) |
-> > +				 BIT(AMDGPU_TRANSFER_FUNCTION_LINEAR) |
-> > +				 BIT(AMDGPU_TRANSFER_FUNCTION_UNITY);
-> > +	struct drm_prop_enum_list enum_list[AMDGPU_TRANSFER_FUNCTION_COUNT];
-> > +	int i, len;
-> > +
-> > +	len =3D 0;
-> > +	for (i =3D 0; i < AMDGPU_TRANSFER_FUNCTION_COUNT; i++) {
-> > +		if ((transfer_functions & BIT(i)) =3D=3D 0)
-> > +			continue;
-> > +
-> > +		enum_list[len].type =3D i;
-> > +		enum_list[len].name =3D amdgpu_transfer_function_names[i];
-> > +		len++;
-> > +	}
-> > +
-> > +	return drm_property_create_enum(dev, DRM_MODE_PROP_ENUM,
-> > +					name, enum_list, len);
-> > +}
-> > +
-> >  int
-> >  amdgpu_dm_create_color_properties(struct amdgpu_device *adev)
-> >  {
-> > @@ -116,11 +157,9 @@ amdgpu_dm_create_color_properties(struct amdgpu_de=
-vice *adev)
-> >  		return -ENOMEM;
-> >  	adev->mode_info.plane_degamma_lut_size_property =3D prop;
-> > =20
-> > -	prop =3D drm_property_create_enum(adev_to_drm(adev),
-> > -					DRM_MODE_PROP_ENUM,
-> > -					"AMD_PLANE_DEGAMMA_TF",
-> > -					amdgpu_transfer_function_enum_list,
-> > -					ARRAY_SIZE(amdgpu_transfer_function_enum_list));
-> > +	prop =3D amdgpu_create_tf_property(adev_to_drm(adev),
-> > +					 "AMD_PLANE_DEGAMMA_TF",
-> > +					 amdgpu_eotf);
-> >  	if (!prop)
-> >  		return -ENOMEM;
-> >  	adev->mode_info.plane_degamma_tf_property =3D prop;
+> > +		 */
+> > +		ret =3D map_crtc_degamma_to_dc_plane(crtc, dc_plane_state);
+> > +		if (ret)
+> > +			return ret;
+> >  	} else {
+> >  		/* ...Otherwise we can just bypass the DGM block. */
+> >  		dc_plane_state->in_transfer_func->type =3D TF_TYPE_BYPASS;
 >=20
 
-
-
---duwjnf2i3barzrhk--
-
---tjqmalwjcqtfbizu
+--crdzpq3rjuvmqkwv
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmTouBkACgkQwqF3j0dL
-ehwe+w//X5vJS0wuw7mVT7cmgRN923olGU4+ipV/7Fqf6PKgBaxV6/w7WsAWu4jQ
-wb1huOTgvSznOH86XQpxpgujBjTt0B6x1U5Lb/S250Ti5Q/Aeqw5WvIsHp3ZBlkF
-VviTqzV61+BzDxBcDllwL3U4kX14gu4aVDmPPO76r6upAjyc7nKPSLNUQNff2Ymo
-CmF6E0ef2c7L6swDBjfDMSn4YIxeYAbulQ0BhqgyMc0YF7dqUMxUAczwYBkWTNYt
-tnmdwv7IkqnwruaSM+Rv3/J+lQ0Ct7zbFrP8sJdNxReHqcIE7bYJZeWfx88AjiVf
-LqNVNmDe0vvl3GnG16dENr/sN2tTi5+j7tHsKRNnOAlO+i0mpJy7Eu4j/ES6u6BY
-U2W6RNTbeder8mJV5Led4zsIGlkf2JOIEsImjXYpgrI+Muq0LnJR4vFmQKJyjSOY
-NLXq65SB3d5raM/uvSaU0lefYX+nA4ZJGyFUnRYf9+YdPPsLNNsnNr9RXnTlZMAD
-xhlnGZQi8Kvq+IbfX7cM3FCFUQvKKboQa5AXSto+TGTtX6X+3JGMfnNKMcsZyxpG
-1uOIiDbnrDVVhW/AToM9GruG3Isp42C0ZW9XOQKBrd+rDEdxDSdSdkfGiFOHux1o
-LG4U8gNIC4sT7OfmpB4uzCtZjoaHqdQb1ld3s52dtwpIJWbLM0E=
-=ceJG
+iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmToutIACgkQwqF3j0dL
+ehy5NA/9EdmnRFoWaC9teJxgxc6p+TJFocyVYDHQjj2O2+O0DYv9o58NWsjhqbzz
+ng67Zn4MWJqEYSe4iKXnoMknROT+FNV+hVjkTn8WJyjOsjP97aqKApouAHnIWQfZ
+n66xc6KCT4O/B3TjNRFfZltRdPikSM/ynpEbOGdAn0u/WqtZWcAmXeRwXIrdvO+N
+Z2SjIZL4ksowDrBHgYx63cxkknRkfhp00npkohPwqiPrb38hYSmj+SuP2nXo2gXS
+Xe23abhCD1L0xWB4WGlPZLE14VDU8M7Z4ILAF7J6SyA4syaPl9qtlM1USS7aq1TA
+eOkgGBxCOzvW0T0DfXseD+pg3b4l+Z5tWSC9aRXcW+GnJ/lbxmdTfyld4IW6FWND
+i+AcD2RNJZlI0Nc8JpmfijNvaq/wlRvFDBp9er7WUtKdjMA2yRLWHMgCjlsUXsgc
+TGfDM6KtTDMkh0ZQcAbU0a4VwDuGW4kiekrz5cHIR6yZsopvcyZUkY4pRPnzKJY2
+lv+uYALHOvr79n31ppW74xfMRVOU4GaNKnPCmW1aDcxJQzUqiv2KBZvVzJqfgKq9
+AYXGZELjnp5uG/jwh4vkeEXgpd7x1AyIMDdOtWrDSMu3m0pKfMB1Yo0ZcY5Zm3F9
+Ch/dQo33pIbRbcULhfeq7o1NSfhmvVyhlyQCa/clr0iVU3JgtAY=
+=lrJv
 -----END PGP SIGNATURE-----
 
---tjqmalwjcqtfbizu--
+--crdzpq3rjuvmqkwv--
