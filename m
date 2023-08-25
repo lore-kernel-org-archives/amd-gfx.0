@@ -4,55 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C23A1C3DA66
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Aug 2023 13:55:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4F60C79F62
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Aug 2023 14:09:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D44A210E69D;
-	Fri, 25 Aug 2023 13:55:35 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF8F510E69A;
- Fri, 25 Aug 2023 13:55:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692971733; x=1724507733;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=B/MVCtUzVUVkQwUauEcEPMmRFg3PLeNwAyGmuLCQQdA=;
- b=Y6uGh1HCmU3SLxEcSBRxF2L7nyV/72a0bXXNKc5LYoBAqvAZmbntQ7rA
- baIhklZatEfteBazEPsD6++aR8U1WdK/Y0ouODFP/1Huo6V0fD56IQK13
- Twe5oyDqxoRD0zsm6Nmjght/fUTR8z316Zb5IslPW+hymB+YEMR9fv6dW
- +Gzagir+8dVLWrscjZK0P4glz3Q5pMND8HQrS784LXLBLqxEAOgptTtjS
- aj9CX1pYEWT1a62KWuhqvewN6WxD1OLrFLKXppfpriFQAEZ5jnrTmle6C
- KsDN+GYvjQiIDrJmlHzol+cWh1j/Ydkpmnog1Q4cCXZLqCNYahdscUn6T w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10813"; a="364911086"
-X-IronPort-AV: E=Sophos;i="6.02,195,1688454000"; d="scan'208";a="364911086"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2023 06:55:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10813"; a="737488353"
-X-IronPort-AV: E=Sophos;i="6.02,195,1688454000"; d="scan'208";a="737488353"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2023 06:55:30 -0700
-Date: Fri, 25 Aug 2023 16:55:46 +0300
-From: Imre Deak <imre.deak@intel.com>
-To: "Lin, Wayne" <Wayne.Lin@amd.com>
-Subject: Re: [PATCH 3/3] drm/mst: adjust the function
- drm_dp_remove_payload_part2()
-Message-ID: <ZOiywboCeFxJwCCP@ideak-desk.fi.intel.com>
-References: <20230804062029.5686-1-Wayne.Lin@amd.com>
- <20230804062029.5686-4-Wayne.Lin@amd.com>
- <ZM0Z3sZEYMcMTnuP@ideak-desk.fi.intel.com>
- <CO6PR12MB5489306FA44F5F107180E57DFC0CA@CO6PR12MB5489.namprd12.prod.outlook.com>
- <ZNEU8j6OR3KirIcS@ideak-desk.fi.intel.com>
- <CO6PR12MB548978FEE8BE8300F43D4486FC0DA@CO6PR12MB5489.namprd12.prod.outlook.com>
- <ZN+uWC1fDKZUmDdL@ideak-desk.fi.intel.com>
- <CO6PR12MB5489E92E7A29CA7285602B20FC1CA@CO6PR12MB5489.namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D97010E69E;
+	Fri, 25 Aug 2023 14:09:23 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2056.outbound.protection.outlook.com [40.107.94.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 257EE10E6A0;
+ Fri, 25 Aug 2023 14:09:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AKTgqMsKSUtF5FVXzhcmoYDoa8iCTOZWdVJJ+tPiUV8veE/oMFjUSzh5VuLnEFeqLOyPNjfisxBWMOqd438Dv7WpxYwvKAOC9/uWnUvsNYJp24hkgFK4TJFNhreC5BeAumI+tm69ps3ISBJ74SUmMy6QqhH2cR/r+flhkmXdSGIT8hBDgDaPh5R/cm6XMnR/FGHbSXIQRMbyDMMfm/f6k5xXLE4QObyztP0OvYXy5LAMAcLzGg2JeR08Tvs0Ic97LwO6zYtRIh+Sp1QIH0JXvG4LqpmOfNJaWLoGc44Z1DVUmCINRNCDunATvSCSkQaCkWKS6lrod3CdkQ4MStm1LA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Mh+8XZRaRgCFIeFaHu7Zltl46ANdrngSRB9lncFfTXI=;
+ b=WzN46zlLUv5P3vZYtg22xYqMhpU4LI17/ZpFUlON7Z8I108wODIL00CYGwsmVjm5bzAuEwBj6NDbyLh07OQnJG5O9AJiNg+ED+whXd+DAYv8I7gleLZ6yia0t3M6Hsq/xTHpaDk5vu7WFV+WOrmnucqjOY4A5rhaFExz2cftIzjridaLhRmnXI3gnNZQy/0bo0cyNC7wVkYNYa/adX2aivwLYUimmJslLd4kERSDfr1X4oa3QMWWSd9H6ENIzP6XgNDhw5vdUFH3vYtsYXBZ/Oa8qJ8CeSXWBuVFVUW+3uQb+fd3Q81ccvuw3lXQCGMbRpvpT2aiZzIv9vvipLZN7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Mh+8XZRaRgCFIeFaHu7Zltl46ANdrngSRB9lncFfTXI=;
+ b=q1ByyV4zgIFrdWtXJSesndxmLG0VyS+Olun1BtMgGrcZRjEBj6glDGaK3jznz7cmVNc/pVx5+LXjrLY2OKuyIdhcnyjNqplfRFhOjHhqeDK093vECNHCLPWTSfoO+9EVtvTZJy71Rc32pI3sp+TXcBp7QmNY7Ua67uGMhSWCGbE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by PH7PR12MB7428.namprd12.prod.outlook.com (2603:10b6:510:203::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.20; Fri, 25 Aug
+ 2023 14:09:17 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::af11:a0ea:b4e4:d1e0]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::af11:a0ea:b4e4:d1e0%5]) with mapi id 15.20.6699.028; Fri, 25 Aug 2023
+ 14:09:17 +0000
+Message-ID: <a45c6e51-0dbf-af27-1723-fb1477e6155d@amd.com>
+Date: Fri, 25 Aug 2023 19:39:03 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [V10 5/8] drm/amd/pm: setup the framework to support Wifi RFI
+ mitigation feature
+Content-Language: en-US
+To: Evan Quan <evan.quan@amd.com>, lenb@kernel.org,
+ johannes@sipsolutions.net, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, alexander.deucher@amd.com,
+ rafael@kernel.org, mario.limonciello@amd.com
+References: <20230825083846.4001973-1-evan.quan@amd.com>
+ <20230825083846.4001973-6-evan.quan@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20230825083846.4001973-6-evan.quan@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0120.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:96::15) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CO6PR12MB5489E92E7A29CA7285602B20FC1CA@CO6PR12MB5489.namprd12.prod.outlook.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|PH7PR12MB7428:EE_
+X-MS-Office365-Filtering-Correlation-Id: de7f382f-06f1-40e5-5d31-08dba574de8d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7+zbppUqbT2IR+hcexwBP/ENR5CJ5g7Xl97GYm3WE1IgV+vSFaYsqdLr5ZbbePLPEZjHmjo+RYho5VkgFwCWswsbPAhE8i39WL4oRDEO4H2mMra0gNLENAq6/lfEB92rpHtzXaZ3u5xXm5f9a3+Fo1pj9rxEFLsXc361BMhyC25pSnXlLEUWnCuJiDR9n/xWaHU5Bp8vCi39xkGY0CWFMWzWRwBMcYcZcKFvlS9+Mmax331whmSrc3PiHoAtcYKl72zrB23Tdzrc7/aH0a3PHDT+f4OB8ZpyNXTRXotsv+A6SI/k0Cyc48+nzFkYPsm6KskXhAGekZG1R0WNWIEI9jdbKzgH4N1/MekF0Ig1tLpAQ8/cDRh/JCZoNij2ggkFaSfxxJlkfcu9bcplyQAF9ZRYLB9f4EwBMa13JbPJ/rfYkkn6l9whNbRzeuCJ3UbiqVGLrbeJxRNoFY87ozqeE0w/QSTB680rvVHELlX3gpbzp3ObNXCD5w/UfZPaXUqpgyWxz1j3NcYybDX7woC6EPPmRDJ2fXrZS3otvAAlTgaM5DZL/U4R2uKi/mfVQWEtP93BECwrx528TY9RapJJWA18OcGPj/FDq1dUzkxDY45QeNoMUmGZBiE7xYnQrxdfYvSAEcrWjq717xR879z+O3SEmkU/i9wtp6qz9okH2AG999xuMryO5QJkCCUN+kAS
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(346002)(39860400002)(376002)(136003)(396003)(451199024)(186009)(1800799009)(38100700002)(2906002)(30864003)(7416002)(53546011)(6486002)(5660300002)(83380400001)(26005)(6506007)(31686004)(31696002)(86362001)(8676002)(8936002)(2616005)(4326008)(66946007)(316002)(6512007)(66556008)(66476007)(6636002)(478600001)(921005)(6666004)(36756003)(41300700001)(45980500001)(43740500002)(309714004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3RQcDhLNWxIMnZxVTB1aXJJUTRPUnIyWVg1bmZJSXZVd0VoUFU4R3c5Z3N2?=
+ =?utf-8?B?UG9WcCtMZkc2ZzlQK1FEdW9NWTFLekExQXkzKzBkSTdMREltcXAzUFN0L3V5?=
+ =?utf-8?B?MzkxelhsUkVUMUtEZjFJZElJb0xuQk9PSHR0b2EwQ0djcmY0bWlLbTBNckls?=
+ =?utf-8?B?YzZhV2YvTTNBbGN6VzZkalVjK245R1lnUGw0blNPL3lXME1kM0VqM24rYVh1?=
+ =?utf-8?B?cStzU0srcytNWGVNc1dBKzRhK28xQTNFTkR3RTZBbTRzYnJyalVjZUFHYVo2?=
+ =?utf-8?B?RUhXYnMzUlh6dGRJWnh6R0RESkdWVXZSbVF3V2NDUGtnY1RYT0hhc1hTVEYz?=
+ =?utf-8?B?T1hXaHBsRmNYVC85WjJ3Sm1US0VMd05xTmcvL1ZqTjZySTZnQ3B0N2NoVzRD?=
+ =?utf-8?B?QlJ0T0FtNFlzT1B6Q2Vmb0lGMnl0RUtMMkxYSG5pYk1XcXBDYzlZazJFTGZr?=
+ =?utf-8?B?MWc1dGZuUmRPWHVUOVRnUkhSeUdtN3JXL1VrUlhUT0JkMkhQZGxHOVJ1bFJw?=
+ =?utf-8?B?eHpxRUdIUC9uN1BoL1Q4K2pEVklpWTdnb2plT2c0dHJNb3FlSUdlZkloWG5n?=
+ =?utf-8?B?am9mdi9SdEUrWGlyeVdndVo2aG51Z0VJdlBZM0ZTUC80RnNwVGk3ejZ2eDRR?=
+ =?utf-8?B?ZGtDajh2ekdqQzA3SXZnRmYyeEVqdWlicGlzQ3l1cEVXaFdHNlhOcFZXTEU4?=
+ =?utf-8?B?VHpRQ1F1Q1FRdFlvTU9oZHNma2dLZUdoKzFiek4xbjlXMEpWN2s3UnNBM0RH?=
+ =?utf-8?B?YnpOTHVYMU1nYzhQekdHSlk2dzFoTXlqRHZ0Y0V1MEtEQVlpRExVcVY3akhG?=
+ =?utf-8?B?S1UyOERCR2Qyb3pPZ1BVZmExWWNueTJRY3Rnc05FZ1FWMEFhd0JpbU5hQmwr?=
+ =?utf-8?B?NGtOZFdyaHkwVUlBeis0dktNR1VjODR3Wmo0cDZ6SDlueE5pMUZROW5rTEtH?=
+ =?utf-8?B?Q3BId0RlRGhUcFYxTTFUd1BWdFZqb0NKeUFmanBRK2pBVGUrTUdPZ2pxVWdG?=
+ =?utf-8?B?bGluNDkwSUJvTVh5ZHIvVDJBWUZUaFdqcVVaTUJNMEtwT0FRMzVRbkNrMVp0?=
+ =?utf-8?B?S210OE1FN0t1eEZ3MFMvaTVsRzd3WHlyU2hiZ3ozY1NiMUpnL2tPeWZ6bjZy?=
+ =?utf-8?B?aVFZeTJPS2w1ZlM4YnFRZENuVmxqS1UyVFYzZVhoNW9hNlMzUmt1aWY1dWdY?=
+ =?utf-8?B?WnhJV2ZrU3ZpcThiK011VlJXbGEwMFAvYmdpYVNFWk5KcEkyM3JlUjE2blQ5?=
+ =?utf-8?B?cEZGdVQvWTc0endWVjNTczlrSUl1QjhrU0JvVXVOdW8vMERVdUw3bmErQWQ4?=
+ =?utf-8?B?T0QveFRYVTJxTXNnVVI0UnBFak9JZUlUY292NGNCR1NQMkJCbDg2bUdBNkI4?=
+ =?utf-8?B?MmszRGc1ZUc5bVJUM3lidTgzWkZXRmR1QlhXbDR0QnpvcmpHVVgvbW5YNVc0?=
+ =?utf-8?B?Uk4zQktHaS9UWjV0UXpRQUxaeGtaUDB4bUNWWDdrSk81Q01YSDF0SVNidGxk?=
+ =?utf-8?B?T0VTTzJkMFRPR2tWanMvL3AyUkJwc0FScTh2ZTlYWVhIZ0JhMFpjUVh2T1Zo?=
+ =?utf-8?B?WnEwZ2p1SG1tbzM0eGgvanNKZzNpeHJXNHcxOVVVcnFGQUluWVFmbG5RWi8y?=
+ =?utf-8?B?cWNPa3pXTmRxNkZQUVRiMG1JVjJwK3hlMVpPZU9mb1psc1NDMnB4RjFLWXpu?=
+ =?utf-8?B?T0tLR0x0UzhxZUQrKzdXd2s1ZUd4clpNUlVuMTJLb3RQeGFkNExlbVNpbFVR?=
+ =?utf-8?B?SUdoMkUxZGY3aWlJcnRFWDU1cDAyR3BKSmtRU3U3c25wekNrcmw5ZjdEc205?=
+ =?utf-8?B?VnRjRHFKQTdNdGUxTndDai9oT1huYjFwSHNnSmZKaStLMFVpOTBXMlJPcnM4?=
+ =?utf-8?B?V3pZYzVQQnpyODlBZS93S0JnaDRNVjh3V2lteWYyOUsySHRyRmNDQkRGSkYx?=
+ =?utf-8?B?REtWbkg1ODRhZDJ1L21zUDFab3dLaUdCTnpBU01Ha1dhdU0ycFp0ajMzZUh4?=
+ =?utf-8?B?a2hoR3ZndUlqS3c2VXNHeG10WThDTzNXNzBwS28zUW9VYWtZakhXQTl6RzZ3?=
+ =?utf-8?B?MVdrUm94MlJPL3JRbHVQaUE0N2E3eTFhK3NHdDB0RnlnakZCczJoOGwvUm9y?=
+ =?utf-8?Q?cq/tv65RykalUCeRURlu7dAfI?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: de7f382f-06f1-40e5-5d31-08dba574de8d
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2023 14:09:17.6397 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qXVMiSNySvbUR3yVOnojpOMOwyxBd/AJZzM/jGTOiMTSZqv7LAP5hPMjxlTVgIjQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7428
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,310 +128,389 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
-Cc: "jani.nikula@intel.com" <jani.nikula@intel.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zuo,
- Jerry" <Jerry.Zuo@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Wentland,
- Harry" <Harry.Wentland@amd.com>,
- "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>
+Cc: netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 23, 2023 at 03:16:44AM +0000, Lin, Wayne wrote:
-> [AMD Official Use Only - General]
+
+
+On 8/25/2023 2:08 PM, Evan Quan wrote:
+> With WBRF feature supported, as a driver responding to the frequencies,
+> amdgpu driver is able to do shadow pstate switching to mitigate possible
+> interference(between its (G-)DDR memory clocks and local radio module
+> frequency bands used by Wifi 6/6e/7).
 > 
-> > -----Original Message-----
-> > From: Imre Deak <imre.deak@intel.com>
-> > Sent: Saturday, August 19, 2023 1:46 AM
-> > To: Lin, Wayne <Wayne.Lin@amd.com>
-> > Cc: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org;
-> > lyude@redhat.com; jani.nikula@intel.com; ville.syrjala@linux.intel.com;
-> > Wentland, Harry <Harry.Wentland@amd.com>; Zuo, Jerry
-> > <Jerry.Zuo@amd.com>
-> > Subject: Re: [PATCH 3/3] drm/mst: adjust the function
-> > drm_dp_remove_payload_part2()
-> >
-> > On Tue, Aug 08, 2023 at 03:47:47AM +0000, Lin, Wayne wrote:
-> > > [AMD Official Use Only - General]
-> > >
-> > > > -----Original Message-----
-> > > > From: Imre Deak <imre.deak@intel.com>
-> > > > Sent: Tuesday, August 8, 2023 12:00 AM
-> > > > To: Lin, Wayne <Wayne.Lin@amd.com>
-> > > > Cc: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org;
-> > > > lyude@redhat.com; jani.nikula@intel.com;
-> > > > ville.syrjala@linux.intel.com; Wentland, Harry
-> > > > <Harry.Wentland@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>
-> > > > Subject: Re: [PATCH 3/3] drm/mst: adjust the function
-> > > > drm_dp_remove_payload_part2()
-> > > >
-> > > > On Mon, Aug 07, 2023 at 02:43:02AM +0000, Lin, Wayne wrote:
-> > > > > [AMD Official Use Only - General]
-> > > > >
-> > > > > > -----Original Message-----
-> > > > > > From: Imre Deak <imre.deak@intel.com>
-> > > > > > Sent: Friday, August 4, 2023 11:32 PM
-> > > > > > To: Lin, Wayne <Wayne.Lin@amd.com>
-> > > > > > Cc: dri-devel@lists.freedesktop.org;
-> > > > > > amd-gfx@lists.freedesktop.org; lyude@redhat.com;
-> > > > > > jani.nikula@intel.com; ville.syrjala@linux.intel.com; Wentland,
-> > > > > > Harry <Harry.Wentland@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>
-> > > > > > Subject: Re: [PATCH 3/3] drm/mst: adjust the function
-> > > > > > drm_dp_remove_payload_part2()
-> > > > > >
-> > > > > > On Fri, Aug 04, 2023 at 02:20:29PM +0800, Wayne Lin wrote:
-> > > > > > > [...]
-> > > > > > > diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> > > > > > > b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> > > > > > > index e04f87ff755a..4270178f95f6 100644
-> > > > > > > --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> > > > > > > +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> > > > > > > @@ -3382,8 +3382,7 @@
-> > > > > > EXPORT_SYMBOL(drm_dp_remove_payload_part1);
-> > > > > > >   * drm_dp_remove_payload_part2() - Remove an MST payload
-> > locally
-> > > > > > >   * @mgr: Manager to use.
-> > > > > > >   * @mst_state: The MST atomic state
-> > > > > > > - * @old_payload: The payload with its old state
-> > > > > > > - * @new_payload: The payload with its latest state
-> > > > > > > + * @payload: The payload with its latest state
-> > > > > > >   *
-> > > > > > >   * Updates the starting time slots of all other payloads
-> > > > > > > which would have
-> > > > > > been shifted towards
-> > > > > > >   * the start of the payload ID table as a result of removing
-> > > > > > > a payload. Driver should call this @@ -3392,25 +3391,36 @@
-> > > > > > EXPORT_SYMBOL(drm_dp_remove_payload_part1);
-> > > > > > >   */
-> > > > > > >  void drm_dp_remove_payload_part2(struct
-> > > > drm_dp_mst_topology_mgr
-> > > > > > *mgr,
-> > > > > > >                              struct drm_dp_mst_topology_state
-> > > > > > *mst_state,
-> > > > > > > -                            const struct drm_dp_mst_atomic_payload
-> > > > > > *old_payload,
-> > > > > > > -                            struct drm_dp_mst_atomic_payload
-> > > > > > *new_payload)
-> > > > > > > +                            struct drm_dp_mst_atomic_payload
-> > > > > > *payload)
-> > > > > > >  {
-> > > > > > >     struct drm_dp_mst_atomic_payload *pos;
-> > > > > > > +   u8 time_slots_to_remove;
-> > > > > > > +   u8 next_payload_vc_start = mgr->next_start_slot;
-> > > > > > > +
-> > > > > > > +   /* Find the current allocated time slot number of the payload */
-> > > > > > > +   list_for_each_entry(pos, &mst_state->payloads, next) {
-> > > > > > > +           if (pos != payload &&
-> > > > > > > +               pos->vc_start_slot > payload->vc_start_slot &&
-> > > > > > > +               pos->vc_start_slot < next_payload_vc_start)
-> > > > > > > +                   next_payload_vc_start = pos->vc_start_slot;
-> > > > > > > +   }
-> > > > > > > +
-> > > > > > > +   time_slots_to_remove = next_payload_vc_start -
-> > > > > > > +payload->vc_start_slot;
-> > > > > >
-> > > > > > Imo, the intuitive way would be to pass the old payload state to
-> > > > > > this function - which already contains the required time_slots
-> > > > > > param
-> > > > > > - and refactor things instead moving vc_start_slot from the
-> > > > > > payload state to mgr suggested by Ville earlier.
-> > > > > >
-> > > > > > --Imre
-> > > > >
-> > > > > Hi Imre,
-> > > > > Thanks for your feedback!
-> > > > >
-> > > > > I understand it's functionally correct. But IMHO, it's still a bit
-> > > > > conceptually different between the time slot in old state and the
-> > > > > time slot in current payload table. My thought is the time slot at
-> > > > > the moment when we are removing the payload would be a better
-> > choice.
-> > > >
-> > > > Yes, they are different. The old state contains the time slot the
-> > > > payload was added with in a preceding commit and so the time slot
-> > > > value which should be used when removing the same payload in the
-> > current commit.
-> > > >
-> > > > The new state contains a time slot value with which the payload will
-> > > > be added in the current commit and can be different than the one in
-> > > > the old state if the current commit has changed the payload size
-> > > > (meaning that the same atomic commit will first remove the payload
-> > > > using the time slot value in the old state and afterwards will add
-> > > > back the same payload using the time slot value in the new state).
-> > > >
-> > > Appreciate your time, Imre!
-> > >
-> > > Yes I understand, so I'm not using the number of the time slot in the new
-> > state.
-> > > I'm referring to the start slot instead which is updated during every
-> > > allocation and removement at current commit.
-> > >
-> > > Like what you said, current commit manipulation could be a mix of
-> > > allocations and removements for the payload. My thought is,
-> > > conceptually, looking up the latest number of time slot is a better choice
-> > rather than the one in old state.
-> > > It's relatively intuitive to me since we are removing payload from
-> > > current payload table and which changes since last preceding commit
-> > > till the moment we're deleting the payload. Although it's unreasonable
-> > > that these values are different.
-> > >
-> > > > > And with this, we can also simplify some codes. Especially remove
-> > > > > workaround in amd driver. In fact, DRM mst code maintains the
-> > > > > payload table and all the time slot info is in it already. We
-> > > > > don't really have to pass a new parameter.
-> > > >
-> > > > I agree that drm_dp_remove_payload() could be simplified, but this
-> > > > should be done so that the drivers can pass the old payload state to
-> > > > it (without having to pass the new state). This would be possible if
-> > > > vc_start_slot was not tracked in the payload state (which is really
-> > > > not an atomic state that can be precomputed as all other atomic
-> > > > state), rather it would be tracked in struct drm_dp_mst_topology_mgr.
-> > > >
-> > >
-> > > So the reason I chose to pass the new state is like what I mentioned
-> > > above. I would prefer to carry the latest updated payload table
-> > > instead which is in the new state. And I agree with the explanation
-> > > for the vc_start_slot and that's also my thought at the beginning. It
-> > > could be a refactor later, but no matter the start slot is put into
-> > > payload state or the topology manager I would prefer to refer to the latest
-> > payload table rather than the number of time slot in the old state.
-> > >
-> > > > It looks like AMD has to reconstruct the old state in
-> > > > dm_helpers_construct_old_payload(). Could you explain why it
-> > > > couldn't instead just pass old_payload acquired by
-> > > >
-> > > > old_mst_state = drm_atomic_get_old_mst_topology_state();
-> > > > old_payload = drm_atomic_get_mst_payload_state(old_mst_state);
-> > > >
-> > > > ?
-> > >
-> > > AMD doesn't pass the drm old state to the stage while HW is deleting
-> > > the payload.  The reason is that HW payload table is known during HW
-> > > programming procedure, so the payload removement is based on the table
-> > > at the moment.
-> > >
-> > > AMD expected the current number of time slot is also already
-> > > maintained in drm layer.
-> >
-> > Yes, both of the above are maintained by the drm layer, but it also means it
-> > doesn't really need to recalculate time_slots_to_remove as done in this patch,
-> > since that info is already available in the old payload state.
-> >
-> > Afaics the AMD driver calls properly
-> >
-> > drm_atomic_helper_commit() -> drm_atomic_helper_swap_state()
-> >
-> > after a commit, so that all the payloads it added should be tracked now as the
-> > old payload state.
-> >
-> > So could you confirm what is the old_payload->time_slots value (which you
-> > get with the above functions) at the point of removing this payload and if it's
-> > not the time_slots value this same payload was actually added with previously,
-> > why this is so (via some example sequence)?
-> >
-> > Thanks.
-> 
-> Hi Imre,
-> I'm not saying that the time_slots carried in the old state is wrong within amd driver.
-> But just amd driver doesn't carry the drm state to the step when it's removing the
-> payload, since the info is already in its hardware and drm used to maintain the info
-> in the drm layer.
-
-Hm, in 
-
-dm_helpers_dp_mst_write_payload_allocation_table()
-
-the
-
-mst_state = to_drm_dp_mst_topology_state(mst_mgr->base.state);
-
-used as the new state doesn't look ok to me. The above is the MST
-object's current SW state after an atomic commit/swap, but this isn't
-the new state a driver should program to the HW or pass to the drm
-helper functions. The object's current state could be ahead of what the
-driver should program to the HW, if the driver properly implements
-commit pipelining (so at the point you're programming a state you'd have
-already future commits computed and queued up, each queued-up commit
-with its own state).
-
-So instead of the above mst_state the driver should pass down the
-drm_atomic_state to dm_helpers_dp_mst_write_payload_allocation_table()
-which should use that instead to get the MST state it should program or
-pass to the drm layer.
-
-> So the patch is trying to get the behavior of this helper function
-> back to what it used to be.
-
-The behavior before was actually broken and one reason for that was a
-confusion about what's stored in the new payload state. It's a mixture of
-old/current state (vc_start_slot) and new state (time_slots). So I don't
-think it's a good idea to add even more dependency on this semantic.
-
-I think the right solution for what this patch is about - remove the
-need for dm_helpers_construct_old_payload(), would be to pass down
-drm_atomic_state to
-dm_helpers_dp_mst_write_payload_allocation_table()
-based on the above.
-
-> And the main reason that I want to change the pass in parameter is
-> like what I mentioned previously. The commit manipulation could be a
-> mix of allocations and removements for the payload. And in the spec,
-> it also introduces examples to reduce or increase the payload
-> allocation. Although we're not using reduction/increment today, it
-> implicitly imposes the limitation to use them before calling the
-> removement helper function with the old state as the passed in
-> parameter. So I also want to remove the dependency by this patch.
-> Would like to know your thoughts about this.
-
-It's not clear what would be the benefit of changing a payload without
-removing it first. In any case, I think the right direction for the
-driver would be to meet the requirement to use the proper atomic state
-with the drm helper functions (not the object's current SW state) as
-described above.
-
-> Thanks, Imre!
-> 
-> >
-> > > Again, thanks for your feedback Imre!
-> > >
-> > > >
-> > > > > > >     /* Remove local payload allocation */
-> > > > > > >     list_for_each_entry(pos, &mst_state->payloads, next) {
-> > > > > > > -           if (pos != new_payload && pos->vc_start_slot > new_payload-
-> > > > > > >vc_start_slot)
-> > > > > > > -                   pos->vc_start_slot -= old_payload->time_slots;
-> > > > > > > +           if (pos != payload && pos->vc_start_slot >
-> > > > > > > + payload-
-> > > > > > >vc_start_slot)
-> > > > > > > +                   pos->vc_start_slot -=
-> > > > > > > + time_slots_to_remove;
-> > > > > > >     }
-> > > > > > > -   new_payload->vc_start_slot = -1;
-> > > > > > > +   payload->vc_start_slot = -1;
-> > > > > > >
-> > > > > > >     mgr->payload_count--;
-> > > > > > > -   mgr->next_start_slot -= old_payload->time_slots;
-> > > > > > > +   mgr->next_start_slot -= time_slots_to_remove;
-> > > > > > >
-> > > > > > > -   if (new_payload->delete)
-> > > > > > > -           drm_dp_mst_put_port_malloc(new_payload->port);
-> > > > > > > +   if (payload->delete)
-> > > > > > > +           drm_dp_mst_put_port_malloc(payload->port);
-> > > > > > >
-> > > > > > > -   new_payload->payload_allocation_status =
-> > > > > > DRM_DP_MST_PAYLOAD_ALLOCATION_NONE;
-> > > > > > > +   payload->payload_allocation_status =
-> > > > > > > +DRM_DP_MST_PAYLOAD_ALLOCATION_NONE;
-> > > > > > >  }
-> > > > >
-> > > > > --
-> > > > > Regards,
-> > > > > Wayne
-> > >
-> > > --
-> > > Regards,
-> > > Wayne
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 > --
-> Regards,
-> Wayne
+> v1->v2:
+>    - update the prompt for feature support(Lijo)
+> v8->v9:
+>    - update parameter document for smu_wbrf_event_handler(Simon)
+> v9->v10:
+>   - correct the logics for wbrf range sorting(Lijo)
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   2 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  17 ++
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 195 ++++++++++++++++++
+>   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  23 +++
+>   drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |   3 +
+>   5 files changed, 240 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index a3b86b86dc47..2bfc9111ab00 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -247,6 +247,8 @@ extern int amdgpu_sg_display;
+>   
+>   extern int amdgpu_user_partt_mode;
+>   
+> +extern int amdgpu_wbrf;
+> +
+>   #define AMDGPU_VM_MAX_NUM_CTX			4096
+>   #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
+>   #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS	        3000
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 0593ef8fe0a6..1c574bd3b60d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -195,6 +195,7 @@ int amdgpu_use_xgmi_p2p = 1;
+>   int amdgpu_vcnfw_log;
+>   int amdgpu_sg_display = -1; /* auto */
+>   int amdgpu_user_partt_mode = AMDGPU_AUTO_COMPUTE_PARTITION_MODE;
+> +int amdgpu_wbrf = -1;
+>   
+>   static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
+>   
+> @@ -981,6 +982,22 @@ module_param_named(user_partt_mode, amdgpu_user_partt_mode, uint, 0444);
+>   module_param(enforce_isolation, bool, 0444);
+>   MODULE_PARM_DESC(enforce_isolation, "enforce process isolation between graphics and compute . enforce_isolation = on");
+>   
+> +/**
+> + * DOC: wbrf (int)
+> + * Enable Wifi RFI interference mitigation feature.
+> + * Due to electrical and mechanical constraints there may be likely interference of
+> + * relatively high-powered harmonics of the (G-)DDR memory clocks with local radio
+> + * module frequency bands used by Wifi 6/6e/7. To mitigate the possible RFI interference,
+> + * with this feature enabled, PMFW will use either “shadowed P-State” or “P-State” based
+> + * on active list of frequencies in-use (to be avoided) as part of initial setting or
+> + * P-state transition. However, there may be potential performance impact with this
+> + * feature enabled.
+> + * (0 = disabled, 1 = enabled, -1 = auto (default setting, will be enabled if supported))
+> + */
+> +MODULE_PARM_DESC(wbrf,
+> +	"Enable Wifi RFI interference mitigation (0 = disabled, 1 = enabled, -1 = auto(default)");
+> +module_param_named(wbrf, amdgpu_wbrf, int, 0444);
+> +
+>   /* These devices are not supported by amdgpu.
+>    * They are supported by the mach64, r128, radeon drivers
+>    */
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index ce41a8309582..bdfd234d1558 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -1228,6 +1228,174 @@ static int smu_get_thermal_temperature_range(struct smu_context *smu)
+>   	return ret;
+>   }
+>   
+> +/**
+> + * smu_wbrf_handle_exclusion_ranges - consume the wbrf exclusion ranges
+> + *
+> + * @smu: smu_context pointer
+> + *
+> + * Retrieve the wbrf exclusion ranges and send them to PMFW for proper handling.
+> + * Returns 0 on success, error on failure.
+> + */
+> +static int smu_wbrf_handle_exclusion_ranges(struct smu_context *smu)
+> +{
+> +	struct wbrf_ranges_in_out wbrf_exclusion = {0};
+> +	struct exclusion_range *wifi_bands = wbrf_exclusion.band_list;
+> +	struct amdgpu_device *adev = smu->adev;
+> +	uint32_t num_of_wbrf_ranges = MAX_NUM_OF_WBRF_RANGES;
+> +	uint64_t start, end;
+> +	int ret, i, j;
+> +
+> +	ret = acpi_amd_wbrf_retrieve_exclusions(adev->dev, &wbrf_exclusion);
+> +	if (ret) {
+> +		dev_err(adev->dev, "Failed to retrieve exclusion ranges!\n");
+> +		return ret;
+> +	}
+> +
+> +	/*
+> +	 * The exclusion ranges array we got might be filled with holes and duplicate
+> +	 * entries. For example:
+> +	 * {(2400, 2500), (0, 0), (6882, 6962), (2400, 2500), (0, 0), (6117, 6189), (0, 0)...}
+> +	 * We need to do some sortups to eliminate those holes and duplicate entries.
+> +	 * Expected output: {(2400, 2500), (6117, 6189), (6882, 6962), (0, 0)...}
+> +	 */
+> +	for (i = 0; i < num_of_wbrf_ranges; i++) {
+> +		start = wifi_bands[i].start;
+> +		end = wifi_bands[i].end;
+> +
+> +		/* get the last valid entry to fill the intermediate hole */
+> +		if (!start && !end) {
+> +			for (j = num_of_wbrf_ranges - 1; j > i; j--)
+> +				if (wifi_bands[j].start &&
+> +				    wifi_bands[j].end)
+> +					break;
+> +
+> +			/* no valid entry left */
+> +			if (j <= i)
+> +				break;
+> +
+> +			wifi_bands[i].start = wifi_bands[j].start;
+> +			wifi_bands[i].end = wifi_bands[j].end;
+
+start/end variables remain 0. Thus it won't have any effect on the loop 
+below which looks for duplicates. start/end need to be reassigned here.
+
+> +			wifi_bands[j].start = 0;
+> +			wifi_bands[j].end = 0;
+> +			num_of_wbrf_ranges--;
+
+Instead of decrementing by 1, this can be kept equal to j - 1 as jth 
+entry is 0 now.
+
+Thanks,
+Lijo
+
+> +		}
+> +
+> +		/* eliminate duplicate entries */
+> +		for (j = i + 1; j < num_of_wbrf_ranges; j++) {
+> +			if ((wifi_bands[j].start == start) &&
+> +			     (wifi_bands[j].end == end)) {
+> +				wifi_bands[j].start = 0;
+> +				wifi_bands[j].end = 0;
+> +			}
+> +		}
+> +	}
+> +
+> +	/* Send the sorted wifi_bands to PMFW */
+> +	ret = smu_set_wbrf_exclusion_ranges(smu, wifi_bands);
+> +	/* Give it another chance */
+> +	if (unlikely(ret == -EBUSY)) {
+> +		mdelay(5);
+> +		ret = smu_set_wbrf_exclusion_ranges(smu, wifi_bands);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +/**
+> + * smu_wbrf_event_handler - handle notify events
+> + *
+> + * @nb: notifier block
+> + * @action: event type
+> + * @_arg: event data
+> + *
+> + * Calls relevant amdgpu function in response to wbrf event
+> + * notification from kernel.
+> + */
+> +static int smu_wbrf_event_handler(struct notifier_block *nb,
+> +				  unsigned long action, void *_arg)
+> +{
+> +	struct smu_context *smu = container_of(nb, struct smu_context,
+> +					       wbrf_notifier);
+> +
+> +	switch (action) {
+> +	case WBRF_CHANGED:
+> +		smu_wbrf_handle_exclusion_ranges(smu);
+> +		break;
+> +	default:
+> +		return NOTIFY_DONE;
+> +	};
+> +
+> +	return NOTIFY_OK;
+> +}
+> +
+> +/**
+> + * smu_wbrf_support_check - check wbrf support
+> + *
+> + * @smu: smu_context pointer
+> + *
+> + * Verifies the ACPI interface whether wbrf is supported.
+> + */
+> +static void smu_wbrf_support_check(struct smu_context *smu)
+> +{
+> +	struct amdgpu_device *adev = smu->adev;
+> +
+> +	smu->wbrf_supported = smu_is_asic_wbrf_supported(smu) &&
+> +			      !!amdgpu_wbrf &&
+> +			      acpi_amd_wbrf_supported_consumer(adev->dev);
+> +
+> +	if (smu->wbrf_supported)
+> +		dev_info(adev->dev, "RF interference mitigation is supported\n");
+> +}
+> +
+> +/**
+> + * smu_wbrf_init - init driver wbrf support
+> + *
+> + * @smu: smu_context pointer
+> + *
+> + * Verifies the AMD ACPI interfaces and registers with the wbrf
+> + * notifier chain if wbrf feature is supported.
+> + * Returns 0 on success, error on failure.
+> + */
+> +static int smu_wbrf_init(struct smu_context *smu)
+> +{
+> +	struct amdgpu_device *adev = smu->adev;
+> +	int ret;
+> +
+> +	if (!smu->wbrf_supported)
+> +		return 0;
+> +
+> +	smu->wbrf_notifier.notifier_call = smu_wbrf_event_handler;
+> +	ret = acpi_amd_wbrf_register_notifier(&smu->wbrf_notifier);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Some wifiband exclusion ranges may be already there
+> +	 * before our driver loaded. To make sure our driver
+> +	 * is awared of those exclusion ranges.
+> +	 */
+> +	ret = smu_wbrf_handle_exclusion_ranges(smu);
+> +	if (ret)
+> +		dev_err(adev->dev, "Failed to handle wbrf exclusion ranges\n");
+> +
+> +	return ret;
+> +}
+> +
+> +/**
+> + * smu_wbrf_fini - tear down driver wbrf support
+> + *
+> + * @smu: smu_context pointer
+> + *
+> + * Unregisters with the wbrf notifier chain.
+> + */
+> +static void smu_wbrf_fini(struct smu_context *smu)
+> +{
+> +	if (!smu->wbrf_supported)
+> +		return;
+> +
+> +	acpi_amd_wbrf_unregister_notifier(&smu->wbrf_notifier);
+> +}
+> +
+>   static int smu_smc_hw_setup(struct smu_context *smu)
+>   {
+>   	struct smu_feature *feature = &smu->smu_feature;
+> @@ -1320,6 +1488,15 @@ static int smu_smc_hw_setup(struct smu_context *smu)
+>   	if (ret)
+>   		return ret;
+>   
+> +	/* Enable UclkShadow on wbrf supported */
+> +	if (smu->wbrf_supported) {
+> +		ret = smu_enable_uclk_shadow(smu, true);
+> +		if (ret) {
+> +			dev_err(adev->dev, "Failed to enable UclkShadow feature to support wbrf!\n");
+> +			return ret;
+> +		}
+> +	}
+> +
+>   	/*
+>   	 * With SCPM enabled, these actions(and relevant messages) are
+>   	 * not needed and permitted.
+> @@ -1416,6 +1593,15 @@ static int smu_smc_hw_setup(struct smu_context *smu)
+>   	 */
+>   	ret = smu_set_min_dcef_deep_sleep(smu,
+>   					  smu->smu_table.boot_values.dcefclk / 100);
+> +	if (ret) {
+> +		dev_err(adev->dev, "Error setting min deepsleep dcefclk\n");
+> +		return ret;
+> +	}
+> +
+> +	/* Init wbrf support. Properly setup the notifier */
+> +	ret = smu_wbrf_init(smu);
+> +	if (ret)
+> +		dev_err(adev->dev, "Error during wbrf init call\n");
+>   
+>   	return ret;
+>   }
+> @@ -1471,6 +1657,13 @@ static int smu_hw_init(void *handle)
+>   		return ret;
+>   	}
+>   
+> +	/*
+> +	 * Check whether wbrf is supported. This needs to be done
+> +	 * before SMU setup starts since part of SMU configuration
+> +	 * relies on this.
+> +	 */
+> +	smu_wbrf_support_check(smu);
+> +
+>   	if (smu->is_apu) {
+>   		ret = smu_set_gfx_imu_enable(smu);
+>   		if (ret)
+> @@ -1623,6 +1816,8 @@ static int smu_smc_hw_cleanup(struct smu_context *smu)
+>   	struct amdgpu_device *adev = smu->adev;
+>   	int ret = 0;
+>   
+> +	smu_wbrf_fini(smu);
+> +
+>   	cancel_work_sync(&smu->throttling_logging_work);
+>   	cancel_work_sync(&smu->interrupt_work);
+>   
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index 6e2069dcb6b9..3eb1c72a76f1 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -22,6 +22,8 @@
+>   #ifndef __AMDGPU_SMU_H__
+>   #define __AMDGPU_SMU_H__
+>   
+> +#include <linux/acpi_amd_wbrf.h>
+> +
+>   #include "amdgpu.h"
+>   #include "kgd_pp_interface.h"
+>   #include "dm_pp_interface.h"
+> @@ -575,6 +577,10 @@ struct smu_context
+>   	u32 debug_resp_reg;
+>   
+>   	struct delayed_work		swctf_delayed_work;
+> +
+> +	/* data structures for wbrf feature support */
+> +	bool				wbrf_supported;
+> +	struct notifier_block		wbrf_notifier;
+>   };
+>   
+>   struct i2c_adapter;
+> @@ -1356,6 +1362,23 @@ struct pptable_funcs {
+>   	 * @init_pptable_microcode: Prepare the pptable microcode to upload via PSP
+>   	 */
+>   	int (*init_pptable_microcode)(struct smu_context *smu);
+> +
+> +	/**
+> +	 * @is_asic_wbrf_supported: check whether PMFW supports the wbrf feature
+> +	 */
+> +	bool (*is_asic_wbrf_supported)(struct smu_context *smu);
+> +
+> +	/**
+> +	 * @enable_uclk_shadow: Enable the uclk shadow feature on wbrf supported
+> +	 */
+> +	int (*enable_uclk_shadow)(struct smu_context *smu,
+> +				  bool enablement);
+> +
+> +	/**
+> +	 * @set_wbrf_exclusion_ranges: notify SMU the wifi bands occupied
+> +	 */
+> +	int (*set_wbrf_exclusion_ranges)(struct smu_context *smu,
+> +					 struct exclusion_range *exclusion_ranges);
+>   };
+>   
+>   typedef enum {
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+> index ceb13c838067..67d7495ab49e 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_internal.h
+> @@ -97,6 +97,9 @@
+>   #define smu_get_default_config_table_settings(smu, config_table)	smu_ppt_funcs(get_default_config_table_settings, -EOPNOTSUPP, smu, config_table)
+>   #define smu_set_config_table(smu, config_table)				smu_ppt_funcs(set_config_table, -EOPNOTSUPP, smu, config_table)
+>   #define smu_init_pptable_microcode(smu)					smu_ppt_funcs(init_pptable_microcode, 0, smu)
+> +#define smu_is_asic_wbrf_supported(smu)					smu_ppt_funcs(is_asic_wbrf_supported, false, smu)
+> +#define smu_enable_uclk_shadow(smu, enablement)				smu_ppt_funcs(enable_uclk_shadow, 0, smu, enablement)
+> +#define smu_set_wbrf_exclusion_ranges(smu, exclusion_ranges)		smu_ppt_funcs(set_wbrf_exclusion_ranges, -EOPNOTSUPP, smu, exclusion_ranges)
+>   
+>   #endif
+>   #endif
