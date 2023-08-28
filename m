@@ -4,47 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB0EAC83F12
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Aug 2023 13:56:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E475C83F12
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Aug 2023 14:55:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45F9410E2E4;
-	Mon, 28 Aug 2023 13:56:28 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF99A10E2C6;
- Mon, 28 Aug 2023 13:56:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=b7lsiQN12Cp0n4O7wk1SApUfWpR18hrnKe0CbX2vM1Y=; b=fnLETdNuj9BVB+w3PEVWpjv59e
- fZTV5o4xadg5MyId79rH0z2TMkFRHQA3AazEbXz0SWRh2M4YIgNmbNG89mjd8zMuosUEulEj2Y9YE
- jWTQZPQ30AzGXfh+yH8jg64mkV3XtRMMwFMp7gvWaK+FizcZJjgnWLjhtKVp3oXvJbhrdBxg1pmTF
- faVfEdRbAatxpDoEBM+J43gyeohTBxB8XHPPVAfdEUkgaw8thYV4kD3zdkaBLZ/GgPUTCUJ3N8uj2
- +oCIxV7mKmgfTtfuRgor539j37uWeEWXiwYpOSFugvgD3E54UIZPzuOwVgqB1PBXi3CUmDiwn5NMt
- Mn3QPFbg==;
-Received: from [38.44.68.151] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qacj6-00GTZl-L2; Mon, 28 Aug 2023 15:56:20 +0200
-Date: Mon, 28 Aug 2023 12:56:04 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Pekka Paalanen <pekka.paalanen@collabora.com>
-Subject: Re: [PATCH v2 19/34] drm/amd/display: decouple steps for mapping
- CRTC degamma to DC plane
-Message-ID: <20230828135604.ixuwnyo6d3xqgtjp@mail.igalia.com>
-References: <20230810160314.48225-1-mwen@igalia.com>
- <20230810160314.48225-20-mwen@igalia.com>
- <20230822151110.3107b745.pekka.paalanen@collabora.com>
- <CAEZNXZCfvc909iFZQMdNEz=P_T=rYEYKq1Tdrt+8RNQpBSNt_g@mail.gmail.com>
- <20230828132355.21a8fd89.pekka.paalanen@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0444C10E2F4;
+	Mon, 28 Aug 2023 14:55:17 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 653D810E2F4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Aug 2023 14:55:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FeT3J71pUbttROj3YWsG+A8sazhVQUqODtQnQtDfQTqGVuGIKGhydni7rxUzNuPPf7pQtQWBlJNP4f9RFA6MY1QIOuLTPKa8ooy+l0ywJy2nhANB4Lke5qlDiWqxNHRNS5f0/4VBEozWzXDKmw3pXSFfWemqO5LDHg/nbZpnPAFPQZcnv33mtICMbmqOLSpRVVbqZti5F5vX/nG3VAc3K2EgFo9d7qR68IVDeRikR6z5A0z34DMxSmjVL+vABfJXmEciMkTPWrawKOz0Qt5JPH3M00XpPlJh4FV32Dzwic+clJZTTm9zIS4iMF39ghvgMI9o2GxBp/i9Y19MGKi5NA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pAb5uB6xf+mb68cwP+6xC7mXpwL68JWvXPosjXyG3lY=;
+ b=aNDxXwld6tWWNftJB2W1WVldAfTa4Y7wo89S/hYteeighdhMdOlyoc4cp7viu92/3KFfE3AyVP1fgKeqnF+npc0FWLYSwBus15sd1hMIIFfMm2LHTiRdtZV5hjcN7x16nPrgA6CJ4Fy4UVnmwjMSKl/mUf/AO8KYj7ETyQlGouHJt3i0PIUMEE0XAGtX4sHT4WWb7v36yIQuirWi/qZhj7tTJhS9LS5Nq6eQhlu7Aunq/K6TcOX3MfFUEb54y7+/Szl4nBUEgyQFSW9VDf5uRWDQNWLbqAwAL7afdH1UFBMRiJR62wkR+julPb46yhc1ejaw9Elm13YS+/meNoolQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pAb5uB6xf+mb68cwP+6xC7mXpwL68JWvXPosjXyG3lY=;
+ b=Xp1dNdUqAZrQ8wHuFaFXuke1zSppbFNqwlPLhlmPZ8XDI2jMZ5WFzqZ0/oSyT+Z5DLKJzRvhaOUXODjF3/xyunZM8ZHnawV9Y9904a0TWEi/JC1NKh8ezNpHZ/ziMmRxQVu50Xtk1zhuLWy0yzLeSBH+Zy4QtVSgwZ3FA0oerro=
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
+ by MW4PR12MB7288.namprd12.prod.outlook.com (2603:10b6:303:223::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.34; Mon, 28 Aug
+ 2023 14:55:13 +0000
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::a5f3:e7b0:83dd:c832]) by CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::a5f3:e7b0:83dd:c832%6]) with mapi id 15.20.6699.028; Mon, 28 Aug 2023
+ 14:55:12 +0000
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+To: "Francis, David" <David.Francis@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdkfd: Checkpoint and restore queues on GFX11
+Thread-Topic: [PATCH] drm/amdkfd: Checkpoint and restore queues on GFX11
+Thread-Index: AQHZ14hoCDMjaG8gokefN/hHmAbUJq//0Bgw
+Date: Mon, 28 Aug 2023 14:55:12 +0000
+Message-ID: <CY8PR12MB7099D45BC02B813A7FD09F0B8CE0A@CY8PR12MB7099.namprd12.prod.outlook.com>
+References: <20230825191411.3276216-1-David.Francis@amd.com>
+In-Reply-To: <20230825191411.3276216-1-David.Francis@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=7d1091fb-8b9f-4479-8bc1-2042b82c1dff;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-08-28T14:54:44Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB7099:EE_|MW4PR12MB7288:EE_
+x-ms-office365-filtering-correlation-id: 54f2c33f-711c-462d-72dd-08dba7d6c82b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: mRishTvdjayru2GZpftmAI4RM7zhR0s9ZHbeYPNRfDoTnjypIVXr8CL64T942k3XIFCBuVdmXqZ4/DWcnJgHTvDAng1L1LmQvGq8vicxPoFtCHHlFz90RnWTt8FVREnirzBrlZtIWu5PNakNe04g2O7/9YhCW8ejHn441kDflp/TaQcA8TjTQJX3yyKmLqoSclefbQ6fGC8yVMlH9MoQmqlUtewcdqC0GJpm9HIEShRLQRkUu8FILlSov4fwMwZNKZbYIxEcJ7YT9EyfPsrCSrW+DDfvpmcqRAFvPczzIduwsxq6guP1YXD0YfgzfwBtsev5sRTMXLeyqCc4GX4hV0FG2cEjjIUmVnPVIlahI9s+DE9CIYesi5m9iuUTwbtolC+6xUxLTofIqBcmQhrdS5NYQk+b44WLoQreyE4xZAyxPv5IdP2UbueE7QVLpCUh07pCtvE+wRnu3UkD4wL21k4huGM3yeZHjbVA1SGq8Whgr0dMYlvkU8r97pIGB7kHh+Ar1Bi91p1B+McwjfUrwonWvV0rT+vhFJQXALn9RlwKokiSGFK2CB6zD+ZqtQwL3FI+o+OrqSHJaRqv/SYDq18PZfTO7/By4Us7p2TdA66/YkG995mr7ghF10w+ecuN
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(396003)(136003)(39860400002)(376002)(346002)(451199024)(1800799009)(186009)(6506007)(7696005)(71200400001)(9686003)(33656002)(86362001)(38100700002)(38070700005)(122000001)(55016003)(2906002)(26005)(83380400001)(53546011)(478600001)(76116006)(110136005)(52536014)(66946007)(66556008)(66476007)(4326008)(8676002)(8936002)(5660300002)(41300700001)(66446008)(54906003)(316002)(64756008);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?BA46poZlqEvL2H3J6A57Lm+p+n3Av290Z+gswH9+P+WqDySty2ePBnX5HmSh?=
+ =?us-ascii?Q?WC0ptQIAp9STHDtGCEsVWna1y5qpKwApgXwTlN8GW09IvjlfBAyUDhJJXqfj?=
+ =?us-ascii?Q?ZRZIS/orSyQnH+QkGScRQ+Lqc+qlfmnpvQMPAV6jVEuqfXEzJ/od2P1kejUf?=
+ =?us-ascii?Q?4euB8k9QyX492pY9MMna7+neGI8uev0YvNE2uv/V1dOUH0JOdg/3iXvpWFuo?=
+ =?us-ascii?Q?AzcU8XPmExiOlEQWjsiBtgX/BSpFXCQGLduyvK0arscclN9ke7FqKYUaxtSY?=
+ =?us-ascii?Q?h4AmD77UfPQ+AgJuEN8Cg4e4dvnuEt1lys695/rKrjIREvkRMWwVIY5+TY3Z?=
+ =?us-ascii?Q?oVeecFu14Q2E+v//zNKiIZBgZilmLEPFxd+g4VKdfa3/dygm3cJp6lpRX8hz?=
+ =?us-ascii?Q?z7dnihud0Tyt8QeJ4L6BII7cV+nyaajj6Nq8xzOQCliEFGNvZqhnttB8mkRc?=
+ =?us-ascii?Q?aCBp2u36W36ficDKKiBqf4xJnbo2yBr5NT29DAhkPifATxZtQDr/dH4WnNqr?=
+ =?us-ascii?Q?JtUcF9b7jcSPqFdHo/lMA1x9wrjARBZphkReRHn8xMb1v7TKS7gI60YYpA3j?=
+ =?us-ascii?Q?cepwnDFin0UK6DAe4Saocg+dRZL5+cyDp+Iz9/Y8y1CN4U4xwIoGtoROUqK4?=
+ =?us-ascii?Q?uBSCBw/Hi98Ww/CiA+S6VbECqD9lbaptto7CFYCztq+jLRak1dAJcLd0tPk9?=
+ =?us-ascii?Q?traq7Bfz5moYgR8dpi6Vk2tRxTOOk3KF2MACyu7Q7QRXQCtgtQw5sUwQm0eb?=
+ =?us-ascii?Q?mk+SO22sBjq3zTQ6aERQ2QkXr7K3DtjbJOE8dswNQPoCrADWUZfiBeXveBdk?=
+ =?us-ascii?Q?fnQ8BwvgYc1hET1qlH8wm0hkDAsCqm56MfOHiRvxlECSIvpA/E7XZMCOlOuU?=
+ =?us-ascii?Q?cS347yvui78lEmpAIiEXaAjy7zv+orG7TAKC9gRd8e82AYZz4c7ds5yfpMiK?=
+ =?us-ascii?Q?l1yARAHWzlJQkVdFDAJIrdTHYlxtnr+AYO0E+AK8yxAnZywCdXLjzv6fDo+4?=
+ =?us-ascii?Q?N5fH1Hnu90iITr179gAynioqLUTtaIxQ6by2WVXeat9oOUo9HtRBMWJeyvTu?=
+ =?us-ascii?Q?W0tjVV0l3BCWGOPT8xDnYEMkKtuRp1PcR3HSZcXK8Uz5hbRBM+Enf8lKqWt+?=
+ =?us-ascii?Q?rIio0ZsKAKS3A/W4nMMHtqiPrmEqiwIKU6+DYLRAQ307YLjHzHMZ6GkXa3FE?=
+ =?us-ascii?Q?FMjSfG19sqYXU71q2pXFqHmXXxe3a6EbCrnyWoiDHBWBJOlkPbyY7+atOGZf?=
+ =?us-ascii?Q?pstDEeb6J3I18GL1Xn8Vw2o7wOMlFPUjkfRr5Pb6Qk5U9IAiuQK0ZFx6GsCZ?=
+ =?us-ascii?Q?EGyRabiADJtIzmAprPhT61glJ6r7GujkdkwKZoIHw346MNpMfIhlL/GfJgGJ?=
+ =?us-ascii?Q?OVEP2yvQOMnwui/C9dbMRYYrsRKYZ+2tYuAHih4plq0T4hcpQkSrytMrf7L8?=
+ =?us-ascii?Q?Ca6HbxOAcwGcNYvaZKkRgqUnsHVWMRfGbuuyl460mHIYyHth1B+t2ow9bE0q?=
+ =?us-ascii?Q?tOQSKZOi3HnrMOjnsG7/CxOl0IWUdQclQq41wc+21d3juMExipbWfYIeAjgY?=
+ =?us-ascii?Q?g+tQuSKLbs/2uViw9VI=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="coeswm67tuzzpu2n"
-Content-Disposition: inline
-In-Reply-To: <20230828132355.21a8fd89.pekka.paalanen@collabora.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54f2c33f-711c-462d-72dd-08dba7d6c82b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2023 14:55:12.6086 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0V0UWB4mKKyTuUkYgrSCYoA97DoVcJd98+HZ/0I9wkcgnXkRdE+KMWgtn9ywJO3dkkM/C/okcMWy53aWnHPEOA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7288
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,299 +122,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
- Shashank Sharma <Shashank.Sharma@amd.com>,
- "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>,
- "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Xaver Hugl <xaver.hugl@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Alex Hung <alex.hung@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "daniel@ffwll.ch" <daniel@ffwll.ch>, Simon Ser <contact@emersion.fr>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- Joshua Ashton <joshua@froggi.es>,
- "sungjoon.kim@amd.com" <sungjoon.kim@amd.com>
+Cc: "Francis, David" <David.Francis@amd.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - General]
 
---coeswm67tuzzpu2n
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 
-On 08/28, Pekka Paalanen wrote:
-> On Mon, 28 Aug 2023 09:45:44 +0100
-> Joshua Ashton <joshua@froggi.es> wrote:
->=20
-> > Degamma has always been on the plane on AMD. CRTC DEGAMMA_LUT has actua=
-lly
-> > just been applying it to every plane pre-blend.
->=20
-> I've never seen that documented anywhere.
->=20
-> It has seemed obvious, that since we have KMS objects for planes and
-> CRTCs, stuff on the CRTC does not do plane stuff before blending. That
-> also has not been documented in the past, but it seemed the most
-> logical choice.
->=20
-> Even today
-> https://dri.freedesktop.org/docs/drm/gpu/drm-kms.html#color-management-pr=
-operties
-> make no mention of whether they apply before or after blending.
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of David Fr=
+ancis
+Sent: Friday, August 25, 2023 3:14 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Francis, David <David.Francis@amd.com>; Kuehling, Felix <Felix.Kuehling=
+@amd.com>
+Subject: [PATCH] drm/amdkfd: Checkpoint and restore queues on GFX11
 
-It's mentioned in the next section:
-https://dri.freedesktop.org/docs/drm/gpu/amdgpu/display/display-manager.htm=
-l#dc-color-capabilities-between-dcn-generations
-In hindsight, maybe it isn't the best place...
+The code in kfd_mqd_manager_v11.c to support criu dump and
+restore of queue state was missing.
 
->=20
-> > Degamma makes no sense after blending anyway.
->=20
-> If the goal is to allow blending in optical or other space, you are
-> correct. However, APIs do not need to make sense to exist, like most of
-> the options of "Colorspace" connector property.
->=20
-> I have always thought the CRTC DEGAMMA only exists to allow the CRTC
-> CTM to work in linear or other space.
->=20
-> I have at times been puzzled by what the DEGAMMA and CTM are actually
-> good for.
->=20
-> > The entire point is for it to happen before blending to blend in linear
-> > space. Otherwise DEGAMMA_LUT and REGAMMA_LUT are the exact same thing...
->=20
-> The CRTC CTM is between CRTC DEGAMMA and CRTC GAMMA, meaning they are
-> not interchangeable.
->=20
-> I have literally believed that DRM KMS UAPI simply does not support
-> blending in optical space, unless your framebuffers are in optical
-> which no-one does, until the color management properties are added to
-> KMS planes. This never even seemed weird, because non-linear blending
-> is so common.
->=20
-> So I have been misunderstanding the CRTC DEGAMMA property forever. Am I
-> the only one? Do all drivers agree today at what point does CRTC
-> DEGAMMA apply, before blending on all planes or after blending?
->=20
+Added it; should be equivalent to kfd_mqd_manager_v10.c.
 
-I'd like to know current userspace cases on Linux of this CRTC DEGAMMA
-LUT.
-
-> Does anyone know of any doc about that?
-
-=46rom what I retrieved about the introduction of CRTC color props[1], it
-seems the main concern at that point was getting a linear space for
-CTM[2] and CRTC degamma property seems to have followed intel
-requirements, but didn't find anything about the blending space.
-
-AFAIU, we have just interpreted that all CRTC color properties for DRM
-interface are after blending[3]. Can this be seen in another way?
-
-[1] https://patchwork.freedesktop.org/series/2720/
-[2] https://codereview.chromium.org/1182063002
-[3] https://dri.freedesktop.org/docs/drm/_images/dcn3_cm_drm_current.svg
-
->=20
-> If drivers do not agree on the behaviour of a KMS property, then that
-> property is useless for generic userspace.
->=20
->=20
-> Thanks,
-> pq
->=20
->=20
-> > On Tuesday, 22 August 2023, Pekka Paalanen <pekka.paalanen@collabora.co=
-m>
-> > wrote:
-> > > On Thu, 10 Aug 2023 15:02:59 -0100
-> > > Melissa Wen <mwen@igalia.com> wrote:
-> > > =20
-> > >> The next patch adds pre-blending degamma to AMD color mgmt pipeline,=
- but
-> > >> pre-blending degamma caps (DPP) is currently in use to provide DRM C=
-RTC
-> > >> atomic degamma or implict degamma on legacy gamma. Detach degamma us=
-age
-> > >> regarging CRTC color properties to manage plane and CRTC color
-> > >> correction combinations.
-> > >>
-> > >> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> > >> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> > >> ---
-> > >>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 59 +++++++++++++---=
+CC: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: David Francis <David.Francis@amd.com>
 ---
-> > >>  1 file changed, 41 insertions(+), 18 deletions(-)
-> > >>
-> > >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c=
- =20
-> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > >> index 68e9f2c62f2e..74eb02655d96 100644
-> > >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> > >> @@ -764,20 +764,9 @@ int amdgpu_dm_update_crtc_color_mgmt(struct =20
-> > dm_crtc_state *crtc)
-> > >>       return 0;
-> > >>  }
-> > >>
-> > >> -/**
-> > >> - * amdgpu_dm_update_plane_color_mgmt: Maps DRM color management to =
-DC =20
-> > plane.
-> > >> - * @crtc: amdgpu_dm crtc state
-> > >> - * @dc_plane_state: target DC surface
-> > >> - *
-> > >> - * Update the underlying dc_stream_state's input transfer function =
-=20
-> > (ITF) in
-> > >> - * preparation for hardware commit. The transfer function used depe=
-nds =20
-> > on
-> > >> - * the preparation done on the stream for color management.
-> > >> - *
-> > >> - * Returns:
-> > >> - * 0 on success. -ENOMEM if mem allocation fails.
-> > >> - */
-> > >> -int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
-> > >> -                                   struct dc_plane_state =20
-> > *dc_plane_state)
-> > >> +static int
-> > >> +map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
-> > >> +                          struct dc_plane_state *dc_plane_state)
-> > >>  {
-> > >>       const struct drm_color_lut *degamma_lut;
-> > >>       enum dc_transfer_func_predefined tf =3D TRANSFER_FUNCTION_SRGB;
-> > >> @@ -800,8 +789,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct =20
-> > dm_crtc_state *crtc,
-> > >>                                                &degamma_size);
-> > >>               ASSERT(degamma_size =3D=3D MAX_COLOR_LUT_ENTRIES);
-> > >>
-> > >> -             dc_plane_state->in_transfer_func->type =3D
-> > >> -                     TF_TYPE_DISTRIBUTED_POINTS;
-> > >> +             dc_plane_state->in_transfer_func->type =3D =20
-> > TF_TYPE_DISTRIBUTED_POINTS;
-> > >>
-> > >>               /*
-> > >>                * This case isn't fully correct, but also fairly
-> > >> @@ -837,7 +825,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct =20
-> > dm_crtc_state *crtc,
-> > >>                                  degamma_lut, degamma_size);
-> > >>               if (r)
-> > >>                       return r;
-> > >> -     } else if (crtc->cm_is_degamma_srgb) {
-> > >> +     } else {
-> > >>               /*
-> > >>                * For legacy gamma support we need the regamma input
-> > >>                * in linear space. Assume that the input is sRGB.
-> > >> @@ -847,8 +835,43 @@ int amdgpu_dm_update_plane_color_mgmt(struct =
-=20
-> > dm_crtc_state *crtc,
-> > >>
-> > >>               if (tf !=3D TRANSFER_FUNCTION_SRGB &&
-> > >>                   !mod_color_calculate_degamma_params(NULL,
-> > >> -                         dc_plane_state->in_transfer_func, NULL, fa=
-lse))
-> > >> + =20
-> >  dc_plane_state->in_transfer_func,
-> > >> +                                                     NULL, false))
-> > >>                       return -ENOMEM;
-> > >> +     }
-> > >> +
-> > >> +     return 0;
-> > >> +}
-> > >> +
-> > >> +/**
-> > >> + * amdgpu_dm_update_plane_color_mgmt: Maps DRM color management to =
-DC =20
-> > plane.
-> > >> + * @crtc: amdgpu_dm crtc state
-> > >> + * @dc_plane_state: target DC surface
-> > >> + *
-> > >> + * Update the underlying dc_stream_state's input transfer function =
-=20
-> > (ITF) in
-> > >> + * preparation for hardware commit. The transfer function used depe=
-nds =20
-> > on
-> > >> + * the preparation done on the stream for color management.
-> > >> + *
-> > >> + * Returns:
-> > >> + * 0 on success. -ENOMEM if mem allocation fails.
-> > >> + */
-> > >> +int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
-> > >> +                                   struct dc_plane_state =20
-> > *dc_plane_state)
-> > >> +{
-> > >> +     bool has_crtc_cm_degamma;
-> > >> +     int ret;
-> > >> +
-> > >> +     has_crtc_cm_degamma =3D (crtc->cm_has_degamma || =20
-> > crtc->cm_is_degamma_srgb);
-> > >> +     if (has_crtc_cm_degamma){
-> > >> +             /* AMD HW doesn't have post-blending degamma caps. Whe=
-n DRM
-> > >> +              * CRTC atomic degamma is set, we maps it to DPP degam=
-ma =20
-> > block
-> > >> +              * (pre-blending) or, on legacy gamma, we use DPP dega=
-mma =20
-> > to
-> > >> +              * linearize (implicit degamma) from sRGB/BT709 accord=
-ing =20
-> > to
-> > >> +              * the input space. =20
-> > >
-> > > Uhh, you can't just move degamma before blending if KMS userspace
-> > > wants it after blending. That would be incorrect behaviour. If you
-> > > can't implement it correctly, reject it.
-> > >
-> > > I hope that magical unexpected linearization is not done with atomic,
-> > > either.
-> > >
-> > > Or maybe this is all a lost cause, and only the new color-op pipeline
-> > > UAPI will actually work across drivers.
-> > >
-> > >
-> > > Thanks,
-> > > pq
-> > > =20
-> > >> +              */
-> > >> +             ret =3D map_crtc_degamma_to_dc_plane(crtc, dc_plane_st=
-ate);
-> > >> +             if (ret)
-> > >> +                     return ret;
-> > >>       } else {
-> > >>               /* ...Otherwise we can just bypass the DGM block. */
-> > >>               dc_plane_state->in_transfer_func->type =3D TF_TYPE_BYP=
-ASS; =20
-> > >
-> > > =20
->=20
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c  | 41 +++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
---coeswm67tuzzpu2n
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu=
+/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+index 2319467d2d95..2a79d37da95d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+@@ -321,6 +321,43 @@ static int get_wave_state(struct mqd_manager *mm, void=
+ *mqd,
+        return 0;
+ }
 
------BEGIN PGP SIGNATURE-----
++static void checkpoint_mqd(struct mqd_manager *mm, void *mqd, void *mqd_ds=
+t, void *ctl_stack_dst)
++{
++       struct v11_compute_mqd *m;
++
++       m =3D get_mqd(mqd);
++
++       memcpy(mqd_dst, m, sizeof(struct v11_compute_mqd));
++}
++
++static void restore_mqd(struct mqd_manager *mm, void **mqd,
++                       struct kfd_mem_obj *mqd_mem_obj, uint64_t *gart_add=
+r,
++                       struct queue_properties *qp,
++                       const void *mqd_src,
++                       const void *ctl_stack_src, const u32 ctl_stack_size=
+)
++{
++       uint64_t addr;
++       struct v11_compute_mqd *m;
++
++       m =3D (struct v11_compute_mqd *) mqd_mem_obj->cpu_ptr;
++       addr =3D mqd_mem_obj->gpu_addr;
++
++       memcpy(m, mqd_src, sizeof(*m));
++
++       *mqd =3D m;
++       if (gart_addr)
++               *gart_addr =3D addr;
++
++       m->cp_hqd_pq_doorbell_control =3D
++               qp->doorbell_off <<
++                       CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OFFSET__SHIFT;
++       pr_debug("cp_hqd_pq_doorbell_control 0x%x\n",
++                       m->cp_hqd_pq_doorbell_control);
++
++       qp->is_active =3D 0;
++}
++
++
+ static void init_mqd_hiq(struct mqd_manager *mm, void **mqd,
+                        struct kfd_mem_obj *mqd_mem_obj, uint64_t *gart_add=
+r,
+                        struct queue_properties *q)
+@@ -457,6 +494,8 @@ struct mqd_manager *mqd_manager_init_v11(enum KFD_MQD_T=
+YPE type,
+                mqd->is_occupied =3D kfd_is_occupied_cp;
+                mqd->mqd_size =3D sizeof(struct v11_compute_mqd);
+                mqd->get_wave_state =3D get_wave_state;
++               mqd->checkpoint_mqd =3D checkpoint_mqd;
++               mqd->restore_mqd =3D restore_mqd;
+ #if defined(CONFIG_DEBUG_FS)
+                mqd->debugfs_show_mqd =3D debugfs_show_mqd;
+ #endif
+@@ -500,6 +539,8 @@ struct mqd_manager *mqd_manager_init_v11(enum KFD_MQD_T=
+YPE type,
+                mqd->update_mqd =3D update_mqd_sdma;
+                mqd->destroy_mqd =3D kfd_destroy_mqd_sdma;
+                mqd->is_occupied =3D kfd_is_occupied_sdma;
++               mqd->checkpoint_mqd =3D checkpoint_mqd;
++               mqd->restore_mqd =3D restore_mqd;
+                mqd->mqd_size =3D sizeof(struct v11_sdma_mqd);
+ #if defined(CONFIG_DEBUG_FS)
+                mqd->debugfs_show_mqd =3D debugfs_show_mqd_sdma;
+--
+2.34.1
 
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmTsp2sACgkQwqF3j0dL
-ehzWFw/+JNqxc3s0q5jUPlKRZJfp00+RSXx0t+XdOFsTl2Dc/EMdCs/HpIuAuLNJ
-oTL4O1XhyFUVvWWm4VUcogljk7EU0F9C7Mab2MuxMWiJxxx2y2jmk85sdAoApsGF
-RyoQVaGhVXguHu+Ey5dLCOvkPGoKo0FK8BbDPRjXjtZW14yCvNQGgvur1eAknuZb
-iC5rSF/CepA/PI+laS3WvI3e+ij+ojOreIIwj+fKdiqw6OiwskpmoeQYt5zLLKkU
-7XO+DlHKMOeURxyyFSanQRmm4U6AGyWGzwxo4/eUtezVHcyehSVyfLOH1zQLbHGY
-zvm9m+/NSwVZ4RzkQXhUN+ZjMJ9PopRbc08RrHCKFTQzge8gfZUI5VqR48mdBy6f
-KFfyb0h7I/mynIaoDns8719DTLg0RFgEFPHz6P7p6KMLRcOLYBtPAwhgWoNxZu/A
-O2OkY0E8uourBv2hPFUfCVJzV+4jBVweVsfLAz6diKR+zwbzxlYu+nOAgi61QD1q
-fB3El7fYjFHLF2Nxn9HBRKk7dAavANZNh6Jb38StHw58+fqJhqqA/KYRSfQerI/N
-lnQ83aB0PetDhWGxUOOZuxvNdeYwUIyJGU6T2Gkokx5Yt9wbO2wozmhEzm2eR8Oi
-JeT3NTSVrhX5fWp3CSn41Ju+tX+/IgPvxIdNH9ZKQ7xRA6BdANM=
-=fAcR
------END PGP SIGNATURE-----
-
---coeswm67tuzzpu2n--
