@@ -4,58 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C11FC71153
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 14:09:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7159FC71153
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 14:16:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A237A10E294;
-	Tue, 29 Aug 2023 14:09:40 +0000 (UTC)
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B539D10E284;
- Tue, 29 Aug 2023 14:09:38 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id
- 5614622812f47-3a751d2e6ecso3315273b6e.0; 
- Tue, 29 Aug 2023 07:09:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693318178; x=1693922978;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9NXVMwpSZjzi1EW/drhoYIcfeMOkgEiQn8oAztJMHeQ=;
- b=V0OGk5Vadr83Qa7RVuH/qYseQvGodk8qHCsO+ZMngUYwP89xFUMkMU4tvJIDIwkya6
- YDNYgptbxamCvqBlgiYALIRrUMWU7MtR50Dsj0h1g09SXkcQQd/1TiHoewUwyj8DuPTD
- s7GgROLycZawpcoWxbaogsaEhfHXjqojCQDOAU9BUF6andZUs/ickWBagz5kPtWUvPjo
- 0k6p/2CIWdcXohaQ1U6lpfKjh3LOMBOsP75RSSG6s2l7v1MPMPo5gvhiKEYbckh/4Xs4
- 3d9ulwZ9ZimqccxHpE1mcFkL0sFg1vp4o5nVW1tZPXvrQ2yeAnf5D+Nar/aWUZxb9TP5
- BdNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693318178; x=1693922978;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9NXVMwpSZjzi1EW/drhoYIcfeMOkgEiQn8oAztJMHeQ=;
- b=TkDagSUO1I8svXiZCdug+fr4qpxd/sxYmMNaK7aUgwd9rKQyUN2BVa9y7+ZLSZ+EGW
- 1o7/r8QsdgNNexq2fvBFrVIL/QDKlZJ/dnw+c7SWCQZeWbNhzQ2PwKeSGNNPNSbKXXCD
- lCerXXX02zTwEynXpmsV3GQyPkK7NU6hXZg74mlsoKa1mDF+SeJrKeVRSe+vtpaZxuUg
- EGAx5vZ+O+waM0D8tWKSFxH7pNNOlXgQK1RcVrzKJuj5WTV3x04eVx2JSnaW7HjzTccB
- x+ukVXeu5cIJfyf/3Iv6Kw+WdDOlJOaC6ettLaZUVNHa1cXXxKP7wRZgkoNRjty/YsMX
- Ijxg==
-X-Gm-Message-State: AOJu0YwJ42XrLPoPtgxZYfWngXKpA+1DZrQQcxsi0aTiWkqHXHqBXTcA
- uXqC+q9/aovgrjobGlQTnQSAlza1nUOgpTrR+mw=
-X-Google-Smtp-Source: AGHT+IHW07rLwA6rZ5tH8YoyiIaIaYTgVDGlb89CQpVWFwR0auPKiPgl5x5XnismG3SxABECMPqSHYzqoGqL6wDlBfE=
-X-Received: by 2002:a05:6808:1a84:b0:3a4:38fa:2e08 with SMTP id
- bm4-20020a0568081a8400b003a438fa2e08mr13873870oib.7.1693318177948; Tue, 29
- Aug 2023 07:09:37 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230829113931.54391-1-hamza.mahfooz@amd.com>
-In-Reply-To: <20230829113931.54391-1-hamza.mahfooz@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 29 Aug 2023 10:09:26 -0400
-Message-ID: <CADnq5_MV+hVLRcMLrN4TE1xX1Q5dfMzi7+aWwZFcenF1uk+9iQ@mail.gmail.com>
-Subject: Re: [PATCH] Revert "Revert "drm/amd/display: Implement zpos property""
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBD6210E29B;
+	Tue, 29 Aug 2023 14:16:35 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 137E210E29B;
+ Tue, 29 Aug 2023 14:16:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=fYoYQWql3dN6ng+TGsbsiiMf9BBnWIaalGw9xQefjYk=; b=Ci19qVZTBOqwCXTlzrnATN24YB
+ pi9hyEZrP/TObcteDM7Z06XnMlNwYrmN7LeGtB05N2QHeT4Ev442E/22Ec9QJ0KnfC/324NFDCdq6
+ TGU7faHhdBdG41wg8SpKrzNyjv5bpBkqwObNs7eNrYBO5b3tgkxNVTaBHUK2KvjsSmGnjG1WmCDbV
+ 4yFm4SmYjS3Fm+a2XVOLP0A7W4HdETBVIRzCHG/AucmyzFkLAhM7KLcceHAvtwEOSQ0kZsh0ogr/B
+ 2M4i1tFZK7w2VsjyQVcEmkTVbEo7Bi2MRcHjxKOWe9Wi6m+jrIDTL2ycxt6w/URjx7DJmxs5JveEc
+ /FbLG1Sg==;
+Received: from [38.44.68.151] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1qazWA-00GrW9-Iq; Tue, 29 Aug 2023 16:16:30 +0200
+Date: Tue, 29 Aug 2023 13:16:17 -0100
+From: Melissa Wen <mwen@igalia.com>
 To: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] Revert "Revert "drm/amd/display: Implement zpos property""
+Message-ID: <20230829141617.3ijuabdlxsxchsgp@mail.igalia.com>
+References: <20230829113931.54391-1-hamza.mahfooz@amd.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ph4kusoypisuj3hq"
+Content-Disposition: inline
+In-Reply-To: <20230829113931.54391-1-hamza.mahfooz@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,32 +56,38 @@ Cc: Leo Li <sunpeng.li@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Nicholas Choi <Nicholas.Choi@amd.com>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
+ =?utf-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
  David Tadokoro <davidbtadokoro@usp.br>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 29, 2023 at 7:40=E2=80=AFAM Hamza Mahfooz <hamza.mahfooz@amd.co=
-m> wrote:
->
+
+--ph4kusoypisuj3hq
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 08/29, Hamza Mahfooz wrote:
 > This reverts commit 984612bd4649c91f12e9c7c7f9e914fdc8ba7d3f.
->
+>=20
 > The problematic IGT test case (i.e. kms_atomic@plane-immutable-zpos) has
 > been fixed as of commit cb77add45011 ("tests/kms_atomic: remove zpos <
 > N-planes assert") to the IGT repo. So, reintroduce the reverted code.
->
+>=20
 > Link: https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/commit/cb77add45=
 011b129e21f3cb2a4089a73dde56179
 > Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Melissa Wen <mwen@igalia.com>
+
+Thanks!
 
 > ---
 >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 9 +++++++++
 >  1 file changed, 9 insertions(+)
->
+>=20
 > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
 ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
 > index 894bc7e4fdaa..df568a7cd005 100644
@@ -105,21 +95,43 @@ ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
 > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
 > @@ -1469,6 +1469,15 @@ int amdgpu_dm_plane_init(struct amdgpu_display_man=
 ager *dm,
->                 drm_plane_create_blend_mode_property(plane, blend_caps);
->         }
->
-> +       if (plane->type =3D=3D DRM_PLANE_TYPE_PRIMARY) {
-> +               drm_plane_create_zpos_immutable_property(plane, 0);
-> +       } else if (plane->type =3D=3D DRM_PLANE_TYPE_OVERLAY) {
-> +               unsigned int zpos =3D 1 + drm_plane_index(plane);
-> +               drm_plane_create_zpos_property(plane, zpos, 1, 254);
-> +       } else if (plane->type =3D=3D DRM_PLANE_TYPE_CURSOR) {
-> +               drm_plane_create_zpos_immutable_property(plane, 255);
-> +       }
+>  		drm_plane_create_blend_mode_property(plane, blend_caps);
+>  	}
+> =20
+> +	if (plane->type =3D=3D DRM_PLANE_TYPE_PRIMARY) {
+> +		drm_plane_create_zpos_immutable_property(plane, 0);
+> +	} else if (plane->type =3D=3D DRM_PLANE_TYPE_OVERLAY) {
+> +		unsigned int zpos =3D 1 + drm_plane_index(plane);
+> +		drm_plane_create_zpos_property(plane, zpos, 1, 254);
+> +	} else if (plane->type =3D=3D DRM_PLANE_TYPE_CURSOR) {
+> +		drm_plane_create_zpos_immutable_property(plane, 255);
+> +	}
 > +
->         if (plane->type =3D=3D DRM_PLANE_TYPE_PRIMARY &&
->             plane_cap &&
->             (plane_cap->pixel_format_support.nv12 ||
-> --
+>  	if (plane->type =3D=3D DRM_PLANE_TYPE_PRIMARY &&
+>  	    plane_cap &&
+>  	    (plane_cap->pixel_format_support.nv12 ||
+> --=20
 > 2.41.0
->
+>=20
+
+--ph4kusoypisuj3hq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmTt/asACgkQwqF3j0dL
+ehz5iw//QTl4lSEpR0vCfckR4A9elJXQoof+pg4TqvoMD4opBuiR+1qzD0KMp2bQ
+QD1KFcidiX8En5NXn/hOH076RdL8JwmFrfYQgknbiI2zqoSAKpdhClOusvMwaFvB
+lVTro1WPASWUnXq2lQK7B7svFRVLccXE+QBwBHDc97xam/mpMlZmHm7NmVoX5AUd
+ComKePR48jrfWvnA1ERgkMT9LGBf8KB6clK1gds0KJPPC5eHUBJ+p3R8U4ODSVxh
+r5bwHF610VsDsIgmTBUKPuOpTFL3c0pM9zI7E4qoCxmv/4RroW5/nMQow8EpQvdp
+/w60vj1LQILnkQRJZ1rOx0WuCjAReek+Wve9RQvkWzuwH1WNRHvW7mylP8K0//l5
+zs4t2R0OuMv2Tq+rdZ1t4C2KAZpYsUI//v3v8MQ3cj7qFZ3246n65gwwKEGN3Fi+
+0zUlrH60DKwtNie7aB/j70Vuc5ppqCFES3vSQ3iSs9RS4Aem8s0IfzY/N9q0pHy1
+n+BF/bghLLqGJc9kAE7voBzPplkQsAVyVXNa9jX9TZm9FUg1Akxwe+R0fDJoSYYo
+TV8+Wv55UOH0iHm6tBTEn3neCyamrSsJ6fHQdFsgTQD5K+v+DblHYCgdbF9SK6ru
+EVh9fR1P5ohnS9WPHQ90PDn9Nl0MU4LoPpDOTk8jWVgw0F/5dNc=
+=C0wn
+-----END PGP SIGNATURE-----
+
+--ph4kusoypisuj3hq--
