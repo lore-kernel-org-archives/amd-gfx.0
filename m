@@ -4,88 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66E46C83F14
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 11:40:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73EE0C83F12
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 12:56:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5507710E2E2;
-	Tue, 29 Aug 2023 11:40:07 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2053.outbound.protection.outlook.com [40.107.94.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 834C610E2AE;
- Tue, 29 Aug 2023 11:40:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VXmbo5hJR/sYMB7IpKkDKTeqmknUfjAOqLvgLYswjuFkpn3J2kgi5SO3JXZErOdJZ8G8cYkYU9YCfyQcLANLVwEuN3ifLh5egdA37O8eKVOgRk7FG1Uu0TXjab2iJIN7mzgaO2ax9kBuyUCEcEpBMRzHotRLQARYUeRzOrB+HQc2khm5U7udWulzVeBUhY5cOPicLL6L78DA5/ON1tgDj0P7W1RJSMAc9RaGuYWG/XAr2ItfYivYBpY6HV2ON1+9H5yeFgvHa5pT4C1FYxMlgjBdJmqet5hvcqKsqQstAbZobfYH2MyjFS5/vQ7piIHwYQmktv5AVDdyMB4Wt0RPaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VtvAH2qRxU+GUWmAlfX6gcgsbFJZVUhwDj07oUoXyXQ=;
- b=moNuv/ODBfPbKLwzmhYewB1+0Obl5sv28eOg6DfltFkuk9LCWuJdY+ZiRxJS7cAwRgSIofhCCLH2w6YM/Y0TK8nH/kF8Hghan23foV2Zm+N7/LRlOWDDpPzn4yExsChxmOjLl3upcnRaqKt+vW01rym7b8NK3CjTwxabNTu8DMVVoWkceriyJh9M5B9H1h7Ef8hPDbP8Z5O/DLCj8XGb1GhhAPGbS8CP/QJmH2/ruJpe41D3nRcl5bOMa7XXkACJm4Z/oe3BvJtmRIQw2biO4s6uMmcTshIG4nyPFAf235Qo84ZyyLxuSwoM/E+wZ0FX9RViKEmMjYikPtC0AGOxhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VtvAH2qRxU+GUWmAlfX6gcgsbFJZVUhwDj07oUoXyXQ=;
- b=eZSrb+v+V/mT0nd2X6MJmUE8Vu0sH43PMqGcbDnv8QfL/uCc7iAj8PRX/EC4F4Z5pM8Wu7qB/m/C+IxIk39cxfJLMyTVFZ794m8lfY3b6BP98t1JVlwzeUQsGIm0BahTGDiMxC8VgYW8b5XZ5ST6dFs2nXagOxiH70PjxqVTXdU=
-Received: from SJ0PR13CA0105.namprd13.prod.outlook.com (2603:10b6:a03:2c5::20)
- by MW4PR12MB7117.namprd12.prod.outlook.com (2603:10b6:303:221::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.29; Tue, 29 Aug
- 2023 11:40:01 +0000
-Received: from MWH0EPF000971E6.namprd02.prod.outlook.com
- (2603:10b6:a03:2c5:cafe::7e) by SJ0PR13CA0105.outlook.office365.com
- (2603:10b6:a03:2c5::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.18 via Frontend
- Transport; Tue, 29 Aug 2023 11:40:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E6.mail.protection.outlook.com (10.167.243.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6745.17 via Frontend Transport; Tue, 29 Aug 2023 11:40:00 +0000
-Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 29 Aug
- 2023 06:39:58 -0500
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] Revert "Revert "drm/amd/display: Implement zpos property""
-Date: Tue, 29 Aug 2023 07:39:30 -0400
-Message-ID: <20230829113931.54391-1-hamza.mahfooz@amd.com>
-X-Mailer: git-send-email 2.41.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D54E010E013;
+	Tue, 29 Aug 2023 12:56:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C759710E1FC;
+ Tue, 29 Aug 2023 10:48:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1693306116; x=1724842116;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=bDEGGQkkaPNNQt4YaWAstSx3Ze++jxSiM+4PPflfPZw=;
+ b=k7r5u6I8P7Lbfj6uE3kyHqAkwgG7EK4xB8Kn3EFozPwuTA4vTwd+Ml2M
+ TiRSnKE9MeUsKguHYs5oI6L6E5HvSavzxaEBgG9G7PRTfTeaMmOgfwt4s
+ S9G1+AR8n5CZpmsVVyeFfpO0UtcfrwlWzNX8IwwEf6AgpvPNZSuSAvFQk
+ gvNws5qZRmS6kxAtk//GSgRMrGdWQSVtL22YkS1UG1BY0/pAC1WOoS9c7
+ ggICE3Y4nh6wb2FOEB5gGqci4DN5v2jQ2kCJJ7xsSO5mUutyzGW0IAwvv
+ u9Ci6sAr8Qc1QLfzb0x8wtrIF2l+vsk7fQwxqlHn2tNT2SjL/wM3wfuFL g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10816"; a="375299018"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="375299018"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2023 03:48:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10816"; a="985303912"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="985303912"
+Received: from mnefedov-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.32.206])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2023 03:48:32 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [Intel-gfx] [PATCH 0/4] drm/amd/display: stop using
+ drm_edid_override_connector_update()
+In-Reply-To: <87il965gob.fsf@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1692705543.git.jani.nikula@intel.com>
+ <788721f6-afff-e0b2-db7c-32ab2dd075a9@amd.com> <87il965gob.fsf@intel.com>
+Date: Tue, 29 Aug 2023 13:48:30 +0300
+Message-ID: <871qfm2kg1.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E6:EE_|MW4PR12MB7117:EE_
-X-MS-Office365-Filtering-Correlation-Id: 091a0b88-c81c-45cd-4f0a-08dba884ada1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DbcWd8HKnu8ZdcMNx4+iOezJJbfbF/XN7qIo2dZklGCSCFYuK/UM2R+BNaCGUlxI6L97t1eDs3ef3P7G0LKvpw4XKMoJKlUId3rHVrAglPJf4EwiK5AWewly+UUhTnrsxvWT3JcZehPzT8b86vfjHRbtmVcd2lnHqN1FsRmdO40kMtSwvadzORD74JgGzPyhDzH6+JPaCCS21tcBqni+6ehWZkjUZ3H2GyYxTC+rja0o5Cgksrod+r9MyHyp1FMoDKvV+nHjUwUkin7Db10ms7oIZ22t+CM7vWChepoWUM6PyJHRHgoDdROtFviCNCXWTwYb/GWAR+2kUYldzlOmSqtQ5OdBjtP2wY2h+cLq78sAGi5pscyEpI2ghSdCiJ5k75wjU2/eVUv2/UWPPGo3Nr2B/6bxRQLu+eEWBnWHRj6aIyIfU1UjuguHJBRH1r+Marx28eVmQnMwGaZ/USBrlbFmAkj6041Um2AiucNi7fpZ8YdwVZW7lpPCfcL2ydjj/4ZDHEW8Gb/k0sMTTzUyPAsBQ46zUlXIYXAifUBJzhvgrUbqotaqG7mDWbLP8I+wNWtLr+b+xd54LCDzM7xNBuHxgqCalSG2GSZ0cMUGmzsUO4rIYDlfJ4UWA0CbR1FCMUyoS96EhEXb96n3nmyrB3prPz7Rqt5r3xB61SnnzVqHZYaZBEqoP1Tcwg0e0zMoCJD8tZyYbYaRIcLYmFHubeJCjZUkhbwQWWd6n4TmOjb7o3pYuIRlOx1AIE+au2sd1nWuwI0mpvLthHCGkXO4SNL6KgLWKkMG3cDu0aRC1yg=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(376002)(136003)(396003)(39860400002)(82310400011)(186009)(1800799009)(451199024)(40470700004)(46966006)(36840700001)(6666004)(966005)(2616005)(478600001)(1076003)(26005)(336012)(426003)(16526019)(2906002)(316002)(6916009)(54906003)(8936002)(70206006)(70586007)(44832011)(5660300002)(41300700001)(4326008)(8676002)(40460700003)(36756003)(86362001)(40480700001)(47076005)(36860700001)(81166007)(82740400003)(356005)(16060500005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2023 11:40:00.3517 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 091a0b88-c81c-45cd-4f0a-08dba884ada1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7117
+X-Mailman-Approved-At: Tue, 29 Aug 2023 12:56:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,54 +61,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org,
- =?UTF-8?q?Joaqu=C3=ADn=20Ignacio=20Aramend=C3=ADa?= <samsagax@gmail.com>,
- David Tadokoro <davidbtadokoro@usp.br>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Nicholas Choi <Nicholas.Choi@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Joshua Ashton <joshua@froggi.es>
+Cc: Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ intel-gfx@lists.freedesktop.org, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Wenchieh Chien <wenchieh.chien@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 984612bd4649c91f12e9c7c7f9e914fdc8ba7d3f.
+On Wed, 23 Aug 2023, Jani Nikula <jani.nikula@intel.com> wrote:
+> On Tue, 22 Aug 2023, Alex Hung <alex.hung@amd.com> wrote:
+>> On 2023-08-22 06:01, Jani Nikula wrote:
+>>> Over the past years I've been trying to unify the override and firmware
+>>> EDID handling as well as EDID property updates. It won't work if drivers
+>>> do their own random things.
+>> Let's check how to replace these references by appropriate ones or fork 
+>> the function as reverting these patches causes regressions.
+>
+> I think the fundamental problem you have is conflating connector forcing
+> with EDID override. They're orthogonal. The .force callback has no
+> business basing the decisions on connector->edid_override. Force is
+> force, override is override.
+>
+> The driver isn't even supposed to know or care if the EDID originates
+> from the firmware loader or override EDID debugfs. drm_get_edid() will
+> handle that for you transparently. It'll return the EDID, and you
+> shouldn't look at connector->edid_blob_ptr either. Using that will make
+> future work in drm_edid.c harder.
+>
+> You can't fix that with minor tweaks. I think you'll be better off
+> starting from scratch.
+>
+> Also, connector->edid_override is debugfs. You actually can change the
+> behaviour. If your userspace, whatever it is, has been written to assume
+> connector forcing if EDID override is set, you *do* have to fix that,
+> and set both.
 
-The problematic IGT test case (i.e. kms_atomic@plane-immutable-zpos) has
-been fixed as of commit cb77add45011 ("tests/kms_atomic: remove zpos <
-N-planes assert") to the IGT repo. So, reintroduce the reverted code.
+Any updates on fixing this, or shall we proceed with the reverts?
 
-Link: https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/commit/cb77add45011b129e21f3cb2a4089a73dde56179
-Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+BR,
+Jani.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 894bc7e4fdaa..df568a7cd005 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1469,6 +1469,15 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
- 		drm_plane_create_blend_mode_property(plane, blend_caps);
- 	}
- 
-+	if (plane->type == DRM_PLANE_TYPE_PRIMARY) {
-+		drm_plane_create_zpos_immutable_property(plane, 0);
-+	} else if (plane->type == DRM_PLANE_TYPE_OVERLAY) {
-+		unsigned int zpos = 1 + drm_plane_index(plane);
-+		drm_plane_create_zpos_property(plane, zpos, 1, 254);
-+	} else if (plane->type == DRM_PLANE_TYPE_CURSOR) {
-+		drm_plane_create_zpos_immutable_property(plane, 255);
-+	}
-+
- 	if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
- 	    plane_cap &&
- 	    (plane_cap->pixel_format_support.nv12 ||
+
+
+>
+> BR,
+> Jani.
+>
+>
+>>
+>> Cheers,
+>> Alex
+>>
+>>> 
+>>> BR,
+>>> Jani.
+>>> 
+>>> 
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: Alex Hung <alex.hung@amd.com>
+>>> Cc: Chao-kai Wang <Stylon.Wang@amd.com>
+>>> Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+>>> Cc: Harry Wentland <harry.wentland@amd.com>
+>>> Cc: Hersen Wu <hersenxs.wu@amd.com>
+>>> Cc: Leo Li <sunpeng.li@amd.com>
+>>> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+>>> Cc: Wenchieh Chien <wenchieh.chien@amd.com>
+>>> Cc: David Airlie <airlied@gmail.com>
+>>> Cc: Daniel Vetter <daniel@ffwll.ch>
+>>> 
+>>> Jani Nikula (4):
+>>>    Revert "drm/amd/display: drop unused count variable in
+>>>      create_eml_sink()"
+>>>    Revert "drm/amd/display: assign edid_blob_ptr with edid from debugfs"
+>>>    Revert "drm/amd/display: mark amdgpu_dm_connector_funcs_force static"
+>>>    Revert "drm/amd/display: implement force function in
+>>>      amdgpu_dm_connector_funcs"
+>>> 
+>>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 44 +++----------------
+>>>   1 file changed, 5 insertions(+), 39 deletions(-)
+>>> 
+
 -- 
-2.41.0
-
+Jani Nikula, Intel Open Source Graphics Center
