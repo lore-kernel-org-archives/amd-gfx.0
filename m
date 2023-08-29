@@ -4,45 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89420C83F14
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 11:23:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66E46C83F14
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 11:40:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C83D10E21B;
-	Tue, 29 Aug 2023 11:23:11 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 995D810E21B
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Aug 2023 11:23:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=SARmsvrjrvXQXfi20kD1+4flj57CoBX123XOR9FQtec=; b=P1IIcJxE05tdC/gSIgVNquGS2h
- FwVt2FFaybAt/6c8XFtdVI8cy9GnGvK3OsJqXkuRR7f+ykkEc3o8qvBSAh2pwGf4EBBN9QXW2sBqf
- k0WRsZSNAJdwPgL/Bpax241YXzjw/KLPQdCaaEIYi5hkNyIFM+/GH/zuwRsSLgoFfl4xAPUaW1PFg
- gyseK+wxruL3KLwvJivsP+MjpPsyMAxk8Z2djpqlfs14LN0aAl+mrvvq4Zil27RHnBFIsCtC61lfQ
- cqUDamoNy+JhkjxujSd2PhW0/eajA/bn375a0RVG+8mBLS0GPHqtYlLhDELySJcVTGHeWqJim2kAf
- lnojGO8w==;
-Received: from [38.44.68.151] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qawoM-00GoeA-Vj; Tue, 29 Aug 2023 13:23:07 +0200
-Date: Tue, 29 Aug 2023 10:22:57 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Leo Li <sunpeng.li@amd.com>
-Subject: Re: [PATCH 6/7] Revert "drm/amd/display: Implement zpos property"
-Message-ID: <20230829112257.g3aqvtztfncviy6y@mail.igalia.com>
-References: <20230726193155.2525270-1-aurabindo.pillai@amd.com>
- <20230726193155.2525270-7-aurabindo.pillai@amd.com>
- <20230818082558.y6no2dvvmzszelc7@mail.igalia.com>
- <d173a412-d43e-4a5d-a0f8-e2a0c3eb719b@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5507710E2E2;
+	Tue, 29 Aug 2023 11:40:07 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2053.outbound.protection.outlook.com [40.107.94.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 834C610E2AE;
+ Tue, 29 Aug 2023 11:40:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VXmbo5hJR/sYMB7IpKkDKTeqmknUfjAOqLvgLYswjuFkpn3J2kgi5SO3JXZErOdJZ8G8cYkYU9YCfyQcLANLVwEuN3ifLh5egdA37O8eKVOgRk7FG1Uu0TXjab2iJIN7mzgaO2ax9kBuyUCEcEpBMRzHotRLQARYUeRzOrB+HQc2khm5U7udWulzVeBUhY5cOPicLL6L78DA5/ON1tgDj0P7W1RJSMAc9RaGuYWG/XAr2ItfYivYBpY6HV2ON1+9H5yeFgvHa5pT4C1FYxMlgjBdJmqet5hvcqKsqQstAbZobfYH2MyjFS5/vQ7piIHwYQmktv5AVDdyMB4Wt0RPaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VtvAH2qRxU+GUWmAlfX6gcgsbFJZVUhwDj07oUoXyXQ=;
+ b=moNuv/ODBfPbKLwzmhYewB1+0Obl5sv28eOg6DfltFkuk9LCWuJdY+ZiRxJS7cAwRgSIofhCCLH2w6YM/Y0TK8nH/kF8Hghan23foV2Zm+N7/LRlOWDDpPzn4yExsChxmOjLl3upcnRaqKt+vW01rym7b8NK3CjTwxabNTu8DMVVoWkceriyJh9M5B9H1h7Ef8hPDbP8Z5O/DLCj8XGb1GhhAPGbS8CP/QJmH2/ruJpe41D3nRcl5bOMa7XXkACJm4Z/oe3BvJtmRIQw2biO4s6uMmcTshIG4nyPFAf235Qo84ZyyLxuSwoM/E+wZ0FX9RViKEmMjYikPtC0AGOxhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VtvAH2qRxU+GUWmAlfX6gcgsbFJZVUhwDj07oUoXyXQ=;
+ b=eZSrb+v+V/mT0nd2X6MJmUE8Vu0sH43PMqGcbDnv8QfL/uCc7iAj8PRX/EC4F4Z5pM8Wu7qB/m/C+IxIk39cxfJLMyTVFZ794m8lfY3b6BP98t1JVlwzeUQsGIm0BahTGDiMxC8VgYW8b5XZ5ST6dFs2nXagOxiH70PjxqVTXdU=
+Received: from SJ0PR13CA0105.namprd13.prod.outlook.com (2603:10b6:a03:2c5::20)
+ by MW4PR12MB7117.namprd12.prod.outlook.com (2603:10b6:303:221::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.29; Tue, 29 Aug
+ 2023 11:40:01 +0000
+Received: from MWH0EPF000971E6.namprd02.prod.outlook.com
+ (2603:10b6:a03:2c5:cafe::7e) by SJ0PR13CA0105.outlook.office365.com
+ (2603:10b6:a03:2c5::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.18 via Frontend
+ Transport; Tue, 29 Aug 2023 11:40:00 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E6.mail.protection.outlook.com (10.167.243.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6745.17 via Frontend Transport; Tue, 29 Aug 2023 11:40:00 +0000
+Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 29 Aug
+ 2023 06:39:58 -0500
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] Revert "Revert "drm/amd/display: Implement zpos property""
+Date: Tue, 29 Aug 2023 07:39:30 -0400
+Message-ID: <20230829113931.54391-1-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="2vdvwhijjlijnrnn"
-Content-Disposition: inline
-In-Reply-To: <d173a412-d43e-4a5d-a0f8-e2a0c3eb719b@amd.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E6:EE_|MW4PR12MB7117:EE_
+X-MS-Office365-Filtering-Correlation-Id: 091a0b88-c81c-45cd-4f0a-08dba884ada1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DbcWd8HKnu8ZdcMNx4+iOezJJbfbF/XN7qIo2dZklGCSCFYuK/UM2R+BNaCGUlxI6L97t1eDs3ef3P7G0LKvpw4XKMoJKlUId3rHVrAglPJf4EwiK5AWewly+UUhTnrsxvWT3JcZehPzT8b86vfjHRbtmVcd2lnHqN1FsRmdO40kMtSwvadzORD74JgGzPyhDzH6+JPaCCS21tcBqni+6ehWZkjUZ3H2GyYxTC+rja0o5Cgksrod+r9MyHyp1FMoDKvV+nHjUwUkin7Db10ms7oIZ22t+CM7vWChepoWUM6PyJHRHgoDdROtFviCNCXWTwYb/GWAR+2kUYldzlOmSqtQ5OdBjtP2wY2h+cLq78sAGi5pscyEpI2ghSdCiJ5k75wjU2/eVUv2/UWPPGo3Nr2B/6bxRQLu+eEWBnWHRj6aIyIfU1UjuguHJBRH1r+Marx28eVmQnMwGaZ/USBrlbFmAkj6041Um2AiucNi7fpZ8YdwVZW7lpPCfcL2ydjj/4ZDHEW8Gb/k0sMTTzUyPAsBQ46zUlXIYXAifUBJzhvgrUbqotaqG7mDWbLP8I+wNWtLr+b+xd54LCDzM7xNBuHxgqCalSG2GSZ0cMUGmzsUO4rIYDlfJ4UWA0CbR1FCMUyoS96EhEXb96n3nmyrB3prPz7Rqt5r3xB61SnnzVqHZYaZBEqoP1Tcwg0e0zMoCJD8tZyYbYaRIcLYmFHubeJCjZUkhbwQWWd6n4TmOjb7o3pYuIRlOx1AIE+au2sd1nWuwI0mpvLthHCGkXO4SNL6KgLWKkMG3cDu0aRC1yg=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(376002)(136003)(396003)(39860400002)(82310400011)(186009)(1800799009)(451199024)(40470700004)(46966006)(36840700001)(6666004)(966005)(2616005)(478600001)(1076003)(26005)(336012)(426003)(16526019)(2906002)(316002)(6916009)(54906003)(8936002)(70206006)(70586007)(44832011)(5660300002)(41300700001)(4326008)(8676002)(40460700003)(36756003)(86362001)(40480700001)(47076005)(36860700001)(81166007)(82740400003)(356005)(16060500005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2023 11:40:00.3517 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 091a0b88-c81c-45cd-4f0a-08dba884ada1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7117
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,152 +97,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Bhawanpreet.Lakha@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, amd-gfx@lists.freedesktop.org,
- solomon.chiu@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Nicholas Choi <Nicholas.Choi@amd.com>, agustin.gutierrez@amd.com,
- kernel-dev@igalia.com, wayne.lin@amd.com, Harry.Wentland@amd.com,
- Joshua Ashton <joshua@froggi.es>, pavle.kotarac@amd.com
+Cc: dri-devel@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>,
+ David Airlie <airlied@gmail.com>, Qingqing Zhuo <Qingqing.Zhuo@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Joaqu=C3=ADn=20Ignacio=20Aramend=C3=ADa?= <samsagax@gmail.com>,
+ David Tadokoro <davidbtadokoro@usp.br>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Nicholas Choi <Nicholas.Choi@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This reverts commit 984612bd4649c91f12e9c7c7f9e914fdc8ba7d3f.
 
---2vdvwhijjlijnrnn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The problematic IGT test case (i.e. kms_atomic@plane-immutable-zpos) has
+been fixed as of commit cb77add45011 ("tests/kms_atomic: remove zpos <
+N-planes assert") to the IGT repo. So, reintroduce the reverted code.
 
-On 08/18, Leo Li wrote:
->=20
->=20
-> On 2023-08-18 04:25, Melissa Wen wrote:
-> > On 07/26, Aurabindo Pillai wrote:
-> > > This reverts commit 6c8ff1683d30024c8cff137d30b740a405cc084e.
-> > >=20
-> > > This patch causes IGT test case 'kms_atomic@plane-immutable-zpos' to
-> > > fail on AMDGPU hardware.
-> > >=20
-> > > Cc: Joshua Ashton <joshua@froggi.es>
-> > > Signed-off-by: Nicholas Choi <Nicholas.Choi@amd.com>
-> > > ---
-> > >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 9 -------=
---
-> > >   1 file changed, 9 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > > index 2198df96ed6f..8eeca160d434 100644
-> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > > @@ -1468,15 +1468,6 @@ int amdgpu_dm_plane_init(struct amdgpu_display=
-_manager *dm,
-> > >   		drm_plane_create_blend_mode_property(plane, blend_caps);
-> > >   	}
-> > > -	if (plane->type =3D=3D DRM_PLANE_TYPE_PRIMARY) {
-> > > -		drm_plane_create_zpos_immutable_property(plane, 0);
-> > > -	} else if (plane->type =3D=3D DRM_PLANE_TYPE_OVERLAY) {
-> > > -		unsigned int zpos =3D 1 + drm_plane_index(plane);
-> > > -		drm_plane_create_zpos_property(plane, zpos, 1, 254);
-> > > -	} else if (plane->type =3D=3D DRM_PLANE_TYPE_CURSOR) {
-> > > -		drm_plane_create_zpos_immutable_property(plane, 255);
-> > > -	}
-> >=20
-> > Hi Jay and Nicholas,
-> >=20
-> > I'm examining this regression and, looking at the test code, I consider
-> > this failure is caused by an incorrect assumption in the IGT test in
-> > which any zpos values must be in the normalized range of 0 and N planes
-> > per CRTC.
-> >=20
-> > 	for (int k =3D 0; k < n_planes; k++) {
-> > 		int zpos;
-> > 		igt_plane_t *temp;
-> >=20
-> > 		temp =3D &display->pipes[pipe->pipe].planes[k];
-> >=20
-> > 		if (!igt_plane_has_prop(temp, IGT_PLANE_ZPOS))
-> > 			continue;
-> >=20
-> > 		zpos =3D igt_plane_get_prop(temp, IGT_PLANE_ZPOS);
-> >=20
-> > 		igt_assert_lt(zpos, n_planes);  // test case fails here
-> >=20
-> > 		plane_ptr[zpos] =3D temp;
-> > 	}
-> >=20
-> >=20
-> > I didn't find anything in the DRM documentation that imposes this
-> > behavior. Also, the plane composition in the test is working correctly
-> > with this patch and without this likely-misleading assert. In addition,
-> > enabling zpos property increases the coverage of
-> > `kms_atomic@plane-immutable-zpos` test (previously this part of the test
-> > was just bypassed), so it's not a regression per se. Therefore, I'm
-> > inclined to send a fix to IGT, instead of implementing a behavior that
-> > fit the test but may not fit well AMD display machinery.
-> >=20
-> > But first I wonder if you guys find any other test or visual check that
-> > fail with this feature?
-> >=20
-> > I checked other IGT KMS plane tests and AMD MPO tests (in `amd_plane`)
-> > and results are preserved. If there are no other issues besides IGT
-> > plane-immutable-zpos, I'll proceed with sending the change to IGT.
-> >=20
-> > Thanks,
-> >=20
-> > Melissa
->=20
-> Hi Melissa,
->=20
-> Thanks for taking a look at the IGT test. Looks like the IGT failures
-> are the only concerns, and I agree that it doesn't make sense to require
-> zpos to be normalized between 0 and number of planes.
+Link: https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/commit/cb77add45011b129e21f3cb2a4089a73dde56179
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Hi Leo,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 894bc7e4fdaa..df568a7cd005 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1469,6 +1469,15 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+ 		drm_plane_create_blend_mode_property(plane, blend_caps);
+ 	}
+ 
++	if (plane->type == DRM_PLANE_TYPE_PRIMARY) {
++		drm_plane_create_zpos_immutable_property(plane, 0);
++	} else if (plane->type == DRM_PLANE_TYPE_OVERLAY) {
++		unsigned int zpos = 1 + drm_plane_index(plane);
++		drm_plane_create_zpos_property(plane, zpos, 1, 254);
++	} else if (plane->type == DRM_PLANE_TYPE_CURSOR) {
++		drm_plane_create_zpos_immutable_property(plane, 255);
++	}
++
+ 	if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
+ 	    plane_cap &&
+ 	    (plane_cap->pixel_format_support.nv12 ||
+-- 
+2.41.0
 
-Thanks for the feedback.
-
-I've also checked that msm driver creates zpos properties in a similar
-way of this commit here, so I sent and applied the IGT test change:
-https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/commit/cb77add45011b129e=
-21f3cb2a4089a73dde56179
-
-With that, could you guys revert this commit reversion?
-
-Thanks,
-
-Melissa
-
->=20
-> Thanks,
-> Leo
->=20
-> >=20
-> > > -
-> > >   	if (plane->type =3D=3D DRM_PLANE_TYPE_PRIMARY &&
-> > >   	    plane_cap &&
-> > >   	    (plane_cap->pixel_format_support.nv12 ||
-> > > --=20
-> > > 2.41.0
-> > >=20
-
---2vdvwhijjlijnrnn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmTt1QkACgkQwqF3j0dL
-ehwRThAArzZH50tvl3RCCN3LPeVNBY8gAYnVDldKPL5suvcJ7pA/SB34opR8p7Ls
-8ay5gMmtL1YqoKpwJRoqcdm57JPc5xAzfDZCKLmhk9sqZbgOoz1nli38UlTnkpzX
-va/uqWZGSDUaw3tm+YnI6KlveExGFNL/V1vG95mMOwr2w14hOTwlGmvKSDXzcDrk
-rcFx+pNFcti9kfqTrL12sE4z/7B7OfioWvP6orFnMENNoZpo8S1QxycsOszWQypi
-uheavrb05qL5mphUSBemffUZnyG7fIH1MnlRLQAgx+P2EQxWyoh0G5yhCgWlWz9P
-McCny8kUdFC7PmMTozRtoSGHZaH8BnzkRgiLQJDwFHNnN4LzQyveQseli/AYFIr2
-TacJnTsJ7VSYq9+zuucn5yTAke7t2AV1iANrK6qCooq/TzpyBleYXrgCBSesjLVc
-HSgNnu8a/a/0g7VCY0Qgf6+NTRmLA5DWGe7NN+URFuxtx67t/QM+A2ysm0ws7n6h
-b+UreKmJLb1fPmARUQdwWTPQOJryfIKdfRoK0J692jzS9335FF0L6r3LlEDyryrI
-b7E/ISDPB4Lpp+3smVgQAYKIz5hyIHihHVccfYcS93a6hKysUUSND7d2Mh9GKA/Y
-JqP0MrUjB6STrT8w21ApJ8/j5UFZ5nDTE/0Xs2mB8XjKMQdYBKo=
-=nZGF
------END PGP SIGNATURE-----
-
---2vdvwhijjlijnrnn--
