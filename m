@@ -4,41 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E57AAC83F15
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Aug 2023 07:37:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE030C83F17
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Aug 2023 07:37:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EE7910E4B7;
-	Wed, 30 Aug 2023 07:37:58 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:3::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F33A710E0A0;
- Wed, 30 Aug 2023 05:06:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=zW7btOlt2K11qPsWxiHaKJSAiy+S4wAiIVnsHPn6fd0=; b=cUmOXIY0aE/IlImLNPprIrDQE1
- GOiZtwCWlf5W9BZ3hDZT9ISC5B5ikbRE1+1XpE2G0JuIrZYUoqEJxX9F5PC+AuFcooXMqdgoq9k6Q
- ABliNVk7NWBFvInDGIFAxmxIr/Sfpts6BZxACrqcbadL2oLYs1tV7cYrlDDn3MrBLgLdsfI5bYh3D
- 5Tl5sVvGJoFqHaxdPZ8LdQnBMO424tTkG5eQABt9q9S2yH1scb5OhvJolRiG1DeazcXRdTaiQ7CEB
- d3G44W0nPla9H+SNm0zZmwQY+n6BcUESMJVic0D7zl4kjOFPDXZ81O2ZXbs+LrnCMeY5GDVtWTO6F
- 6fpZhDJQ==;
-Received: from [2601:1c2:980:9ec0::2764]
- by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1qbDPH-00Cq5a-1f; Wed, 30 Aug 2023 05:06:19 +0000
-Message-ID: <2b26d9e6-262c-0cd5-d390-e3b52f55e760@infradead.org>
-Date: Tue, 29 Aug 2023 22:06:16 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5409F10E4C6;
+	Wed, 30 Aug 2023 07:37:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1782310E109;
+ Wed, 30 Aug 2023 07:29:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1693380595; x=1724916595;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=xrwROHZASAr2PwJ1YgIJlLvQMRhDiDKMqicU04oRlKY=;
+ b=KCckaSFURZyOK51EZVeqOWMdkZd5kXAJZsohr3LBa7+jpsnshCThbdb3
+ wvrv3rf5+7oX3AAyJNFJq1OcjVmYoZf76FoDNzVDqhqw/mjLdQ3saFUhi
+ Li2NwwtDEPYpjjtV6LXgUviS1LgfXdTU4as9aAN6DyKR5vEEEdIsii1qx
+ r5w9hRLv7mHmlQHIByMaFXRJhkhEhxIDPpoF04bp8NGtNJ9NmgoEkiT4C
+ V8SgFKt35qeYWJIgH529Nnd+5KAohIOyB0eeJdnRpl7kezTgbnbKTvu2c
+ 32tfNkjcxTBt8hxWXGjMJoAWLv/h6S4qbk3pliKxDJMcvrqB2N0s3xlhS g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="360570109"
+X-IronPort-AV: E=Sophos;i="6.02,212,1688454000"; d="scan'208";a="360570109"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2023 00:29:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="882622351"
+Received: from ziemtocx-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.57.251])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2023 00:29:53 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Alex Hung <alex.hung@amd.com>, Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [Intel-gfx] [PATCH 0/4] drm/amd/display: stop using
+ drm_edid_override_connector_update()
+In-Reply-To: <1e6aa1ff-9aa9-6b2f-84f4-e0304205085c@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1692705543.git.jani.nikula@intel.com>
+ <788721f6-afff-e0b2-db7c-32ab2dd075a9@amd.com> <87il965gob.fsf@intel.com>
+ <871qfm2kg1.fsf@intel.com>
+ <CADnq5_P49U3dcqiZhB-CjS8UbOtB7K2jNObS0ZQqMhOr3UhLQg@mail.gmail.com>
+ <87o7ip252r.fsf@intel.com> <87jztd2332.fsf@intel.com>
+ <1e6aa1ff-9aa9-6b2f-84f4-e0304205085c@amd.com>
+Date: Wed, 30 Aug 2023 10:29:46 +0300
+Message-ID: <87h6oh0yz9.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Subject: Re: [PATCH] drm/connector: mark enum counter value as private
-Content-Language: en-US
-To: linux-kernel@vger.kernel.org
-References: <20230716004616.21838-1-rdunlap@infradead.org>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20230716004616.21838-1-rdunlap@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 30 Aug 2023 07:37:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,54 +64,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Harry Wentland <harry.wentland@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>
+Cc: Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ "Wang, Yu
+ \(Charlie\)" <Yu.Wang4@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
+ Wenchieh Chien <wenchieh.chien@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Tue, 29 Aug 2023, Alex Hung <alex.hung@amd.com> wrote:
+> On 2023-08-29 11:03, Jani Nikula wrote:
+>> On Tue, 29 Aug 2023, Jani Nikula <jani.nikula@intel.com> wrote:
+>>> On Tue, 29 Aug 2023, Alex Deucher <alexdeucher@gmail.com> wrote:
+>>>> On Tue, Aug 29, 2023 at 6:48=E2=80=AFAM Jani Nikula <jani.nikula@intel=
+.com> wrote:
+>>>>>
+>>>>> On Wed, 23 Aug 2023, Jani Nikula <jani.nikula@intel.com> wrote:
+>>>>>> On Tue, 22 Aug 2023, Alex Hung <alex.hung@amd.com> wrote:
+>>>>>>> On 2023-08-22 06:01, Jani Nikula wrote:
+>>>>>>>> Over the past years I've been trying to unify the override and fir=
+mware
+>>>>>>>> EDID handling as well as EDID property updates. It won't work if d=
+rivers
+>>>>>>>> do their own random things.
+>>>>>>> Let's check how to replace these references by appropriate ones or =
+fork
+>>>>>>> the function as reverting these patches causes regressions.
+>>>>>>
+>>>>>> I think the fundamental problem you have is conflating connector for=
+cing
+>>>>>> with EDID override. They're orthogonal. The .force callback has no
+>>>>>> business basing the decisions on connector->edid_override. Force is
+>>>>>> force, override is override.
+>>>>>>
+>>>>>> The driver isn't even supposed to know or care if the EDID originates
+>>>>>> from the firmware loader or override EDID debugfs. drm_get_edid() wi=
+ll
+>>>>>> handle that for you transparently. It'll return the EDID, and you
+>>>>>> shouldn't look at connector->edid_blob_ptr either. Using that will m=
+ake
+>>>>>> future work in drm_edid.c harder.
+>>>>>>
+>>>>>> You can't fix that with minor tweaks. I think you'll be better off
+>>>>>> starting from scratch.
+>>>>>>
+>>>>>> Also, connector->edid_override is debugfs. You actually can change t=
+he
+>>>>>> behaviour. If your userspace, whatever it is, has been written to as=
+sume
+>>>>>> connector forcing if EDID override is set, you *do* have to fix that,
+>>>>>> and set both.
+>>>>>
+>>>>> Any updates on fixing this, or shall we proceed with the reverts?
+>
+> There is a patch under internal reviews. It removes calls edid_override=20
+> and drm_edid_override_connector_update as intended in this patchset but=20
+> does not remove the functionality.
 
-On 7/15/23 17:46, Randy Dunlap wrote:
-> Mark the DRM_MODE_COLORIMETRY_COUNT enum value as private in
-> kernel-doc to prevent a build warning:
-> 
-> include/drm/drm_connector.h:527: warning: Enum value 'DRM_MODE_COLORIMETRY_COUNT' not described in enum 'drm_colorspace'
-> 
-> Fixes: c627087cb164 ("drm/connector: Use common colorspace_names array")
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> ---
->  include/drm/drm_connector.h |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> --- linux-next-20230714.orig/include/drm/drm_connector.h
-> +++ linux-next-20230714/include/drm/drm_connector.h
-> @@ -522,7 +522,7 @@ enum drm_colorspace {
->  	DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED	= 13,
->  	DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT	= 14,
->  	DRM_MODE_COLORIMETRY_BT601_YCC		= 15,
-> -	/* not a valid value; merely used for counting */
-> +	/* private: not a valid value; merely used for counting */
->  	DRM_MODE_COLORIMETRY_COUNT
->  };
->  
+While I am happy to hear there's progress, I'm somewhat baffled the
+review is internal. The commits that I suggested to revert were also
+only reviewed internally, as far as I can see... And that's kind of the
+problem.
 
-Any comments on this patch?
-The warning is still present in mainline.
-The "private:" marker tells kernel-doc not to expect documentation for it.
+Upstream code should be reviewed in public.
 
-thanks.
--- 
-~Randy
+
+BR,
+Jani.
+
+
+>
+> With the patch. both following git grep commands return nothing in=20
+> amd-staging-drm-next.
+>
+> $ git grep drm_edid_override_connector_update -- drivers/gpu/drm/amd
+> $ git grep edid_override -- drivers/gpu/drm/amd
+>
+> Best regards,
+> Alex Hung
+>
+>>>>
+>>>> What is the goal of the reverts?  I don't disagree that we may be
+>>>> using the interfaces wrong, but reverting them will regess
+>>>> functionality in the driver.
+>>>
+>>> The commits are in v6.5-rc1, but not yet in a release. No user depends
+>>> on them yet. I'd strongly prefer them not reaching v6.5 final and users.
+>>=20
+>> Sorry for confusion here, that's obviously come and gone already. :(
+>>=20
+>>> The firmware EDID, override EDID, connector forcing, the EDID property,
+>>> etc. have been and somewhat still are a hairy mess that we must keep
+>>> untangling, and this isn't helping.
+>>>
+>>> I've put in crazy amounts of work on this, and I've added kernel-doc
+>>> comments about stuff that should and should not be done, but they go
+>>> unread and ignored.
+>>>
+>>> I really don't want to end up having to clean this up myself before I
+>>> can embark on further cleanups and refactoring.
+>>>
+>>> And again, if the functionality in the driver depends on conflating two
+>>> things that should be separate, it's probably not such a hot idea to let
+>>> it reach users either. Even if it's just debugfs.
+>>>
+>>>
+>>> BR,
+>>> Jani.
+>>=20
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
