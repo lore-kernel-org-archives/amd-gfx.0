@@ -4,126 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91676C83F01
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Aug 2023 19:11:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC23EC83F01
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Aug 2023 19:40:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B640110E561;
-	Wed, 30 Aug 2023 19:11:51 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33EB710E15E;
- Wed, 30 Aug 2023 19:11:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6F5910E15D;
+	Wed, 30 Aug 2023 19:40:06 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2077.outbound.protection.outlook.com [40.107.101.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43C0A10E15D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Aug 2023 19:40:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j1oBQMX9D4P4OQLNWArkxkABzUGU9lGWH9BT6OP2blrklGF2mzibGSt3eGlSdwOYgfVcpqyD4iZvH7mh+Wkq/jGwBLP8Evyqr5Mc/55IM3VgIFAdcSHoIWKPG87zFRXt+wyQQRUt2XUZftdAR/hy+v11ifDWashS0gwJLQR7C3QTmG61lZ7tDZ+PGsAdc7ne5yAQHv8SCMIcp6+YIS6+W7HtCUKyeuNTtUYz3QZ5jDpOB7v0irAGKZz+0KIn1za7+1kJbxKE7xuWn1nQaIBn6/EeILudobSCmYb42fbussk28NtF9pJDl5L2+9/1fPH2t4KQy+aF+Ul8XaOXSlmaAw==
+ b=gRy1DUJC3za339QLeUkYKFgbuUZYlu9Thn+GnV9M9+G6QbnHbEDEfpVDyO0xXnAvrxjsdbyG1ww5YmI0W3GD6T0ed4FhnxBse41ECpO0eOvj3hNh1d1REKzBMvtdBvk/XH78m2xcor/muxfNkrrH37xw29Ea3bnBHZvR3pcmr/ROFpEcrJM5zjaMTKIr0wQS1WzlIiMrAzUVSJP08fj5XI4wNl7vc/EEkXoKORvT6cvhbGwJtvVjeQhR1UVXUl7mN648It1ZKyYq1f9lG/BSB6Sue1bY6OY6+Wy1X941Kep1BCYf2ESUxFLh1I6iaytya68ZSQVqZw8lezVWf5GpMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tAeB5+TF3uJUcM3AXkmu1kv8BPCTaoyvf0U1I9zLKjI=;
- b=nnglZP6C7e0ze7ixIPaXAE8RuXKJagTXryKf9NhO02cED5kXbudqr+B6BgyzYjFdJMdkp3QvcFBCNY34PudfbaWBzwGv7kgzp/MWhFbUl0A6k/e6K7NwjkdOZa13qyVDnJJrsuy3LdiUlWg+p9nfyjHC77FFXDWfrTezOW+BLvbYHGVHfKQkK4MgE8n2dcNkb3l5d6Uf8nxRSi05pAEwAQ4L2agAZxzZDlx9S8RRVRUa1FMAKonL+SggzKtFwQFOcU7f9TJsc7lpoxClELqbbTeLWDQ0MX7KiTrasw0iGdLxVMDFDxW+WtjoRs8s1DcBEPhg7vy8vwtmWG00UJ6oRQ==
+ bh=J8mmScoZYgfS3MHtNpaAnsm0Wk03bu427ocqZXJqcZw=;
+ b=EIxVE4TDchRODHuvbPuF+E3zXD3qiMJtrP458Vf3bOAMLWfzFfeCKbpe0cT76vFd1ND4SrzTVbnuk7/ZkAIzEn1CxB4IxtO2+5i4ls4ZeH8Yism4HVvfj9gaHZvbZ0Q7OqQiEjy8yCktekHsYG0JoeKd9XxrXs7a0IJXNXDMvzvdlDJeA2zitwUOHBXiOt7n5f+I97FcWavZMJoQQxZ6DHuVCSZx7QHlHH/mf/shzwtKRKWl86IhRZVrsIkq6gnkkM/P2otzSEV2i7JNl8fLHxqBULSBJHbmRbRkuO/ARKJavcYdxIVATAwN1TOj3eMaA9exOz39GTQkivTqCtE2sA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tAeB5+TF3uJUcM3AXkmu1kv8BPCTaoyvf0U1I9zLKjI=;
- b=HAru3TSXfu09aoYWl5RVlFfff3F1y+dFXyEtsOutM8A7hPmy+QDhWNlg4ELOKFV9v2MA35TCAzXd2YQZ+4D3Tzu0E45BDm+10uHHmUB6t2Xax3+faE1oNlvTyLMICaMG4TPU3jK9d0UMz88jzS5Z58605nfg23/6Pl48Vj2JwOE=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by SA1PR12MB8096.namprd12.prod.outlook.com (2603:10b6:806:326::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.35; Wed, 30 Aug
- 2023 19:11:42 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::6208:cab6:bc19:7aa3]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::6208:cab6:bc19:7aa3%2]) with mapi id 15.20.6745.020; Wed, 30 Aug 2023
- 19:11:42 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Samuel Holland <samuel.holland@sifive.com>, "Quan, Evan"
- <Evan.Quan@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "gustavo@embeddedor.com" <gustavo@embeddedor.com>
-Subject: RE: [PATCH] drm/amd/pm: Replace 1-element arrays with flexible array
- members
-Thread-Topic: [PATCH] drm/amd/pm: Replace 1-element arrays with flexible array
- members
-Thread-Index: AQHZ23PtUYtQmFWS5Umj6pvTNoeSTrADM9Cg
-Date: Wed, 30 Aug 2023 19:11:42 +0000
-Message-ID: <BL1PR12MB5144AB90E81B7AF182B77464F7E6A@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20230830185805.1126402-1-samuel.holland@sifive.com>
-In-Reply-To: <20230830185805.1126402-1-samuel.holland@sifive.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=5924ff8d-6062-498b-8dc7-b05434827231;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-08-30T19:08:35Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=J8mmScoZYgfS3MHtNpaAnsm0Wk03bu427ocqZXJqcZw=;
+ b=MwFMGxLJwTf5xXolqKQEBnuKxpm2KIfPSaj6mc43oeOLAVs0pCXb/8prqrBFSzCCfZeZ8ASR47EGvtu1969VRP0P0nZNziNtqTel+esEL4BJjLBWyiQQ6A70+W+EUZrIqEclB/0WZ7K3VngvRzP29W5EVBCGoEcnKbtTNcH4XNE=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SA1PR12MB8096:EE_
-x-ms-office365-filtering-correlation-id: 4cf96712-4ee3-43d4-ad59-08dba98cf244
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: fppaa/leLyoGhBE/8+7095eBlaK7/57r1nAQ8KtdJWL2e50uAw2anC0DBuFAOzDsA/S64gMEml3oUjgMLFDd3y31rNIH6zy7tXnJZkCfplWpgYDUXl7EwKhWAcKeYRzQJ6mTFY6a4oHHfuQJF7XBVQGC+xtiHasdxVCpVYcWsyB/RBhZNUCCdmAY/5+O1TrTvG4mqG4jMNoy1s5r3/q4BHflZHcLDiU9irYhPwOgpADWwVPhfVWH/OL97OvdvVKEUm35Z4jJxRC89LTQKMpriI+5OOE+OiNOFAu9xSjXeTZtuzvGB9JXLOuO4Qyom1l9vjD5lfJR8qEVSinpRjFZnkHSjij1nT7vI3d7av3LB5IdmHzLnAFILu7Td62Z69j20VHeHu278EgTw/9nq7B85zGb3bDkBPJGgBfguiiZRV60ZTiupM9bCNjTuoQOd3A2nDzkV4Sgs1gz2c8dvy92q35dK5p+G0ySfxX1wmxZhXFbt7yQFCCfBwRu1Bn+FDN3mPZuOG+4EspDRlAbw/TV2mGFcm89rQzClkVdEOlbwJKvnLPm7zZBzVAWp1kqS2WbS7wJ6UdD6sNJciU0DKKnpKkWO4VdDUMhJ4VilyZhZQcA4FP4LBa43oUNk0TEe5wD
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(376002)(136003)(346002)(396003)(366004)(451199024)(1800799009)(186009)(9686003)(316002)(38070700005)(38100700002)(66899024)(41300700001)(5660300002)(4326008)(33656002)(2906002)(83380400001)(52536014)(26005)(8676002)(86362001)(55016003)(8936002)(66556008)(6506007)(71200400001)(7696005)(64756008)(66446008)(66476007)(54906003)(76116006)(122000001)(478600001)(53546011)(110136005)(66946007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SG1lVm9GaTdVUUt6bVp5dDNLSklPOWhETWJmSGRJKzNrM29tUXVFRGp0eCtX?=
- =?utf-8?B?aURJR3dueDRVRUVxMWtqR0JRVTJWRXVEOVQzb1U3SVJGT092SzNUVThaYnpU?=
- =?utf-8?B?UFdlaXZLdzJJNFNPaWFJRnYxL2NOS1lYaDdJQWxEektHVjRwMm5ndDZEY1hj?=
- =?utf-8?B?V3BkRVNZSjJLZGw1a0dscDhxdHZRTUg1N25SYUhsVkorWlMyR20wYTJ3ell3?=
- =?utf-8?B?QkdhYkFEZ1dYNHdOTmhUUnB4SXN0cS9qN3BLUzFFZHdkM1pPVFU0TTM0UmFT?=
- =?utf-8?B?SmpzbFRKOFNlZ3ZlN0VjTUQ2RGtGTU9hNlJFbW5mN092RUN3ZDdidEdYVVBU?=
- =?utf-8?B?cnN1VUJJZktqOGY5VlhDRENBN1JZTTcrVzQwZXZIMUlFN25pL3VlTHM4cDZ1?=
- =?utf-8?B?d25yb3c2cXZkM21TOEh3SDNCaExKQTY5U1dGM2VXVXd2eVRSeGJMNWNvWG1E?=
- =?utf-8?B?clpRbjlVOXlhcW1tYm9YaSs4aE1sOHl4aUl2WnVzVW01UWxHVXkzdUVXV0tv?=
- =?utf-8?B?eEJPVnNTdnhrcEdIWU84dXJrcGJPMFh0Vk12MmVnZUxVUXAvbjRWZDQvdi84?=
- =?utf-8?B?N1Z0YU5DTEh2TitoWC9Zb0hxTGtxTUFLczBvVzRLQzRZVWhHZTFHeFRLanFW?=
- =?utf-8?B?ampqUDdvSU5LV3pGWHFOVkU0VmpSUXF6MXRVSGY0QXZOU3V1YWM0Vk1BQkhJ?=
- =?utf-8?B?WW8xM3JnSVVVbTVnKzZXTzNwbkFTY1YwRXp1WWRFYXQ1aFhLY21JcStDbDlW?=
- =?utf-8?B?MHB2TGRqRU1SaGNSdXJoemNjQ0JtQlhuZU1sdjN5TWFsai9QVGFacTVveFVl?=
- =?utf-8?B?WUZKZ2cyZStXYk5zU0tOQmd5OXN0UDJkU3A5MDVTbnVnNENtd2JPYUUyVDVW?=
- =?utf-8?B?cXdJQ3huYUdBbjdpYW5EcUhveTJzRFlPdDZKN3RrZDcyc2hNNDdZeVRySlY4?=
- =?utf-8?B?V2tCUU5NNkRRSDUzRCtKYTV5aUdycVd3Zk1RMmYwd3JDaWdGZkE2ZDUxbVJY?=
- =?utf-8?B?T2pRV2hMdDBwWFpwK1hoVUF4MytvbTF6UmY2US9IeStJZU5qU00zZ0puejFR?=
- =?utf-8?B?eGVOd0J5c1NNaEIxWTlNc3o5NlVkSzcrRkJuYlRXRXYrUnlPS2xFMEVqUFZN?=
- =?utf-8?B?OVphc1c3Y1l4cnUyVjJHM3RpdGxlK3Z2cEViUVJmQWMxN0V3UFVPd2tQVkZF?=
- =?utf-8?B?ZmRYNmRrQzZCRTJnN3hGNzJaM1lHSCtNTkhDeFE0MjZlczBSRlNuT1ZLZ0hq?=
- =?utf-8?B?VWE5aEpqYjVYMTRKWCtyem1Mck41QW9pTjNmWFlXZDRWenhSaTdRY1A2NjNn?=
- =?utf-8?B?ODFCOUdVQmZXUnEveHhPM2V0QzkwQlB4eHJ5MWgyMCtvMUxSQVlHM3hUVXBq?=
- =?utf-8?B?KzZYZy9GOVZ5NG12aEZ0bW1SUjZQZHhuaG1PTnpXRDIrMkpOaWpnS0lwLzRM?=
- =?utf-8?B?dlVRNWhMVGRyS1R3ZkZMbW9wcXlqVlZaNUVuTWkzUHQvdFVtK0J2QlJlbFJJ?=
- =?utf-8?B?Sk9PNmVkNXRkbVczc2xyaVlndzBnc0h2Nm5zajZranljb1NFTks0dGlEWGN1?=
- =?utf-8?B?U1BaRmdHQzgwSGhBdlR5Tzg5bENnMEpET1huY3MvejFiSjB1VDVOQW5lV2sr?=
- =?utf-8?B?OS9qOXBMQXpTSWxFVk50UDl1NHJiMHJNcXJ5aFQyY2JpVHNpUEpMcjJ2WFJo?=
- =?utf-8?B?cHlWQnBBenFrbjMwVVEyMUMxZCtxVU1NWElyRzc4c0NMKzQzdXMyN1cvNDY3?=
- =?utf-8?B?aU1rdlliT0tlWXEyeUlqcmhxSzk5aEVCV2pJS2lrQllvTzNKMjlmTFBIQ1Zu?=
- =?utf-8?B?b3JORDRGWkNQMkNaMDdaV0xjQzFnM1RMMmNqRkFFbW1ONGk0cTdYb29kZWhN?=
- =?utf-8?B?andYQnBYYmx2N3pZZHRkNGJ0c2tJQVZoeklYUnhKMjRqb2xWTjJrVmlhUG9S?=
- =?utf-8?B?RVl4cFhPRUxwaEEyN1VRUHdCYmhneFRRbm1sa1VjZldlcVJVeUhlS245V0Nj?=
- =?utf-8?B?NjZTK212VHFSdW9YL09oVStnenBaWTBSNTAxZ1N4UUFwWHhnN0FtV2VwL2Nq?=
- =?utf-8?B?VU5GbFdYcUhhb0ZrQ29zZ0JvUzVtdGZSM3ZScy83clZjSUxKMmxKNGZDV1Z0?=
- =?utf-8?Q?3xLU=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) by
+ DM4PR12MB6012.namprd12.prod.outlook.com (2603:10b6:8:6c::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6699.34; Wed, 30 Aug 2023 19:40:01 +0000
+Received: from DM6PR12MB2602.namprd12.prod.outlook.com
+ ([fe80::8172:fab3:9de4:a004]) by DM6PR12MB2602.namprd12.prod.outlook.com
+ ([fe80::8172:fab3:9de4:a004%4]) with mapi id 15.20.6745.020; Wed, 30 Aug 2023
+ 19:40:00 +0000
+Message-ID: <8670e751-9a76-b9d9-47f6-05461c279f09@amd.com>
+Date: Wed, 30 Aug 2023 14:39:57 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH] drm/amdkfd: Use partial migrations in GPU page faults
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230824220834.362948-1-xiaogang.chen@amd.com>
+ <d31985b2-74d9-2536-2995-7b693928d443@amd.com>
+ <f744c06c-284f-de8b-8ed2-05d0512823a1@amd.com>
+ <ed0dd323-bd99-d2f7-8cbf-6a92e5201f8e@amd.com>
+Content-Language: en-US
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <ed0dd323-bd99-d2f7-8cbf-6a92e5201f8e@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DS7P222CA0024.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::13)
+ To DM6PR12MB2602.namprd12.prod.outlook.com
+ (2603:10b6:5:4a::11)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2602:EE_|DM4PR12MB6012:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a6195fe-d2f6-4560-cf50-08dba990e5d5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OnRhMKSGeHaMp1n6noZfLFqyy6ykew02+Tj3/CRGb3PAP61IOBIqyZ2sl8DWuBKZtqEQfAnZ1Xdt905y2mLuNCXtkRmWtqeKl/DhPZZbaaLCt5xR4BG99CHJbh7nBU87vlODKxzzZaVemTwpyqhNtCSSmYJPBl8hfmyhfbc/j4jFl9bxjr5i98TM9r8Y115APM18/i9ZZ9NRPVebyv4fjJmJEcimznxTBkMY+jLwwCjUiVhOXo5xULLV/Eef0imnAicLeV/5T/YMW9RWOAMGH9nghX4aa93ubwPbc1ETKkMpp+GkaB6qLMBZKdFp/307RVSrXcuZfyjNReFdn+WOJq5vc84AmG8n9Pa4bNflwzsCC3okteRTtdvCC0ZSF8YtEjDXjHpRSXbY3Qn1610sfMijzY2z4Il5qJlmk0f4BKj9ATqSPHnK4x3LjZiTM44Q1QF0Vh8gDImK0RCE3x/z2Wul7qe+AXJIquEh4y+MQ8uS2QOe2XgF0V2NXoqcC2OjeqLjzK/NOG4tlAi0za7Utt1RNj+mr/PwnG5JDCP2N6qbG/z20d3w5I8/SZgGeUrudiieW/IXfvS2WpLJdZq89k2TCiWyixn8jtUyuY0CjGDCBeWvqAoNccUjiau0JKkX2eF0/sfpMgn12mnXfDSahg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2602.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(366004)(136003)(376002)(396003)(39860400002)(186009)(451199024)(1800799009)(41300700001)(26005)(6666004)(31696002)(86362001)(38100700002)(83380400001)(478600001)(6512007)(6506007)(6486002)(53546011)(2616005)(30864003)(66476007)(66946007)(2906002)(36756003)(316002)(66556008)(5660300002)(8936002)(8676002)(4326008)(31686004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Sko2MnNHQXg0Uko2dXpjRXdzaG1WYXR5ZHByQlkzYnFrZEJVKzM5MU1zN3N6?=
+ =?utf-8?B?T29GWHp4cUc5MGRSWXdNWlROdGUxcUVBUVZXczFoam14Z2dUUU9jbUNiQ1pj?=
+ =?utf-8?B?ZE9xMlI0OFRveEFxNkpkbW84Wk1uSCtSNm9WYmRZbjlMTzExWHRKVjR1R3dD?=
+ =?utf-8?B?cjF5RWVneHBVUjlQaFkwYzZTT1o0ZDdodVlvbm8yWEd4UzNkVStFMElaYjVY?=
+ =?utf-8?B?ZGNzNXErN1Zhc1Z4eHJ6eEJEOWFDaXFHUGFLRml1ZVhGQXlRbkl3OXY5YlhJ?=
+ =?utf-8?B?bEY0dGlQTjRaTkRkbnZnd0grNCtPNEZYV0tBV2Y4Yk9rRHdXR2lnTUVxeS9L?=
+ =?utf-8?B?bHRzc0tuRnRsRWxvZ2V3c1kzenp4cUE4VHlJb09tTktRVkNuYm8rY1gvUE5u?=
+ =?utf-8?B?dlcvdkVTMXgveHE3ZHlVczFjNTQvQTdWQmpEQ2swOWZvUGZhblBjaXhmMENj?=
+ =?utf-8?B?M1JFQjdIbXI0c3N3SWhLTUs4bnNpZlBJSGdUUmpCL0lZT0U2REoxSENzVkNo?=
+ =?utf-8?B?UzVscTRwc0VhM2kwemd4a1lweS9acjBIMDlmWEZJTWhscVhVL0xDdCtQYlVT?=
+ =?utf-8?B?UzVHY3NhaWVGTitZSVNpVnVTYmVvTnlXZ1B3a3JRSHJQQU9pQjFrdXhlV2tq?=
+ =?utf-8?B?R2g4a3I1Z282NlQ2VEhnMkFJUXIxS2xZZFZzRURyYmpDRlFuRHdjWkF0R1hm?=
+ =?utf-8?B?Vy9Qd0lsMHBJb2Q4OTlXdkRNUG9lK0dxRjIxZFhmYkxMQW4vTWJZY1FPQ1RO?=
+ =?utf-8?B?ZUdGdEpBMEYrTEVFSEovZ3ZyZFZvaWlNVHJ4QUR5ZHBhbzVPcUpNdmE5MFM5?=
+ =?utf-8?B?SFdPL0xPNFVFU201YUNpSU9tSEJ1S0V6VFoxTXhhdFZPc2l0SVZDWXRqZDY0?=
+ =?utf-8?B?ZFp3MmlmZm5wa2R6eDE4WUN6SW03dzJaVnVaWGg0dTU3aUhwckRwTWdFcU9Y?=
+ =?utf-8?B?RkNXd04ySFYwNDlwOEY3MkF1WU0wUnBralE3QmFGaGJmL1Y1alF0M1ZQWXh1?=
+ =?utf-8?B?dkVmNWhqei9la2I4eUFmRVZUbmdaOXdQZXNvWlIwcHNFOVhnb0xnWGdEcGhY?=
+ =?utf-8?B?THY2ZXZRT2RpME9tOGFKcUNldDg4ZFZWNFEwVU5ZMnRHeE1Iak8wc3d3d3dr?=
+ =?utf-8?B?bXNYQW9Ib3ArRGttUzgrWFNIN3V2R1QxRlhrbkg5SWoxQnV1MWRQSFV2NlhJ?=
+ =?utf-8?B?NHJpdndJZGg4OUh1bVY5alQwWk8yWTIvOTh2S09abVpzZVBJQ3oydVRScjNC?=
+ =?utf-8?B?NlpiajhFRWJUMXJjbHMwSlJRYXJHcUZpUVdYUFhCK2ZXWmJCbXlPb0E0R1Rk?=
+ =?utf-8?B?NW1WbGRrMmxkaEx0WEY2c05CS05xWEl3VHYwMHdhZVNuTHRTTEhKYnNrYXdi?=
+ =?utf-8?B?cUo0eDBzL2p1TURYS2pCbi9mVUppYS9nb1JSa3lvL0tvMm90SkZBaFpnLzlu?=
+ =?utf-8?B?eExac2gzR3lVVDBRZDlxR1pBYmtmZTVUWUVNMzhlcGM2Snl4OS9CelEwaEU0?=
+ =?utf-8?B?U0srUkFMM2c1R1AydEtxSGlha0ZiS0daSll4aDFObGJ5dmg5ZzlXamE2Tjl0?=
+ =?utf-8?B?K1JSNVlKQkV3bGlUZUsxM2pBVGgxL1p4clpRMlFEUWhIM0I1QVJOdURvTzlZ?=
+ =?utf-8?B?OGxYaFptNFJDUXhnbUxCY2I3L3E3UGxTMjNlbFp2NkZOa253TkxwZFhROWpk?=
+ =?utf-8?B?SkRNK2JxekNVQ0lQZ25jUlBmZlBSYjBjdUFCNEhLUWYwaWE4UXFxSElZTStO?=
+ =?utf-8?B?NWJYTjB2empYNlp3Sjk4MndNN3paQlU4MFlSMjV2aTZMUEgrUUEzUTM4MTll?=
+ =?utf-8?B?dHB2QzZxdTE5ZnViWFpremJMM05qdFoyeHhoenYrNWZVcTlXZ1JFOG1wdWxC?=
+ =?utf-8?B?VjJLYS8wbE15UzlkaWlFN3dsaFVlK0E3VExmbDg4M25mTHUxSkwvbHhYaUpk?=
+ =?utf-8?B?QmExM0t3NGM4QmdFWllrNUJ5Z2lRV0dFTWFkWHVNTDZ0OGJIQS9MVU9SRG1N?=
+ =?utf-8?B?aDBoOWthb1ZTeUs2RDZpMzJGR05CdnBQTDlyNUVCcEcrMWgwZzhFSldGMDBQ?=
+ =?utf-8?B?WWV1ZXBja3kyYm4vdkhDZVhqMHlCSWw3NlZLbm4yN3RHc2swcENKTDFvcCtu?=
+ =?utf-8?Q?XcQk=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a6195fe-d2f6-4560-cf50-08dba990e5d5
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2602.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4cf96712-4ee3-43d4-ad59-08dba98cf244
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Aug 2023 19:11:42.8063 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EVSLQ7sb2hWscx+/mCDelYDtF6gzD0oUGZH52fqVFp14bulsV1EeEDcc4ggYF8dLhw81E90Zgmj7h2cxuN95xw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8096
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2023 19:40:00.4407 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GhoTU6IRCEiP76VH84I9bMUxn8Dy1NYNIhpQd1sxHmbTIGwJNfUBhEpnotQnR+i2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6012
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,125 +126,748 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
+Cc: Philip.Yang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBTYW11ZWwg
-SG9sbGFuZCA8c2FtdWVsLmhvbGxhbmRAc2lmaXZlLmNvbT4NCj4gU2VudDogV2VkbmVzZGF5LCBB
-dWd1c3QgMzAsIDIwMjMgMjo1OCBQTQ0KPiBUbzogUXVhbiwgRXZhbiA8RXZhbi5RdWFuQGFtZC5j
-b20+OyBEZXVjaGVyLCBBbGV4YW5kZXINCj4gPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBL
-b2VuaWcsIENocmlzdGlhbg0KPiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBDYzogU2Ft
-dWVsIEhvbGxhbmQgPHNhbXVlbC5ob2xsYW5kQHNpZml2ZS5jb20+OyBEYW5pZWwgVmV0dGVyDQo+
-IDxkYW5pZWxAZmZ3bGwuY2g+OyBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAZ21haWwuY29tPjsgUGFu
-LCBYaW5odWkNCj4gPFhpbmh1aS5QYW5AYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnOyBkcmktDQo+IGRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgta2VybmVs
-QHZnZXIua2VybmVsLm9yZw0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWQvcG06IFJlcGxhY2Ug
-MS1lbGVtZW50IGFycmF5cyB3aXRoIGZsZXhpYmxlIGFycmF5DQo+IG1lbWJlcnMNCj4NCj4gU2lu
-Y2UgY29tbWl0IGRmOGZjNGU5MzRjMSAoImtidWlsZDogRW5hYmxlIC1mc3RyaWN0LWZsZXgtYXJy
-YXlzPTMiKSwNCj4gVUJTQU5fQk9VTkRTIG5vIGxvbmdlciBwcmV0ZW5kcyAxLWVsZW1lbnQgYXJy
-YXlzIGFyZSB1bmJvdW5kZWQuIFRoZQ0KPiBib3VuZHMgY2hlY2sgaXMgdHJpcHBlZCBpbiBzbXU3
-X2dldF9wcF90YWJsZV9lbnRyeV9jYWxsYmFja19mdW5jX3YxKCksDQo+IHdoaWxlIHJlYWRpbmcg
-ZnJvbSBtY2xrX2RlcF90YWJsZS4NCj4NCj4gRm9yIGNvbnNpc3RlbmN5LCBmaXggYWxsIGFmZmVj
-dGVkIHN0cnVjdCBkZWZpbml0aW9ucyBpbiB0aGlzIGZpbGUuDQo+DQo+IFNpZ25lZC1vZmYtYnk6
-IFNhbXVlbCBIb2xsYW5kIDxzYW11ZWwuaG9sbGFuZEBzaWZpdmUuY29tPg0KDQorIEd1c3Rhdm8N
-Cg0KUGxlYXNlIG1ha2Ugc3VyZSBhbnkgY29kZSB0aGF0IHVzZXMgdGhlc2Ugc3RydWN0dXJlcyBw
-cm9wZXJseSBkZWFscyB3aXRoIHRoZSBjaGFuZ2UgaW4gc3RydWN0dXJlIHNpemUuDQoNCkFsZXgN
-Cg0KPiAtLS0NCj4NCj4gIC4uLi9kcm0vYW1kL3BtL3Bvd2VycGxheS9od21nci9wcHRhYmxlX3Yx
-XzAuaCB8IDIwICsrKysrKysrKy0tLS0tLS0tDQo+IC0tDQo+ICAxIGZpbGUgY2hhbmdlZCwgMTAg
-aW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3BtL3Bvd2VycGxheS9od21nci9wcHRhYmxlX3YxXzAuaA0KPiBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG0vcG93ZXJwbGF5L2h3bWdyL3BwdGFibGVfdjFfMC5oDQo+IGluZGV4
-IGIwYWM0ZDEyMWFkYy4uZmI1ZTkzNWVmNzg2IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3BtL3Bvd2VycGxheS9od21nci9wcHRhYmxlX3YxXzAuaA0KPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3BtL3Bvd2VycGxheS9od21nci9wcHRhYmxlX3YxXzAuaA0KPiBAQCAtMTY0
-LDcgKzE2NCw3IEBAIHR5cGVkZWYgc3RydWN0IF9BVE9NX1RvbmdhX1N0YXRlIHsgIHR5cGVkZWYg
-c3RydWN0DQo+IF9BVE9NX1RvbmdhX1N0YXRlX0FycmF5IHsNCj4gICAgICAgVUNIQVIgdWNSZXZJ
-ZDsNCj4gICAgICAgVUNIQVIgdWNOdW1FbnRyaWVzOyAgICAgICAgICAgICAvKiBOdW1iZXIgb2Yg
-ZW50cmllcy4gKi8NCj4gLSAgICAgQVRPTV9Ub25nYV9TdGF0ZSBlbnRyaWVzWzFdOyAgICAvKiBE
-eW5hbWljYWxseSBhbGxvY2F0ZSBlbnRyaWVzLiAqLw0KPiArICAgICBBVE9NX1RvbmdhX1N0YXRl
-IGVudHJpZXNbXTsgICAgIC8qIER5bmFtaWNhbGx5IGFsbG9jYXRlIGVudHJpZXMuICovDQo+ICB9
-IEFUT01fVG9uZ2FfU3RhdGVfQXJyYXk7DQo+DQo+ICB0eXBlZGVmIHN0cnVjdCBfQVRPTV9Ub25n
-YV9NQ0xLX0RlcGVuZGVuY3lfUmVjb3JkIHsgQEAgLTE3OSw3DQo+ICsxNzksNyBAQCB0eXBlZGVm
-IHN0cnVjdCBfQVRPTV9Ub25nYV9NQ0xLX0RlcGVuZGVuY3lfUmVjb3JkIHsNCj4gdHlwZWRlZiBz
-dHJ1Y3QgX0FUT01fVG9uZ2FfTUNMS19EZXBlbmRlbmN5X1RhYmxlIHsNCj4gICAgICAgVUNIQVIg
-dWNSZXZJZDsNCj4gICAgICAgVUNIQVIgdWNOdW1FbnRyaWVzOw0KPiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAvKiBOdW1iZXIgb2YgZW50cmllcy4gKi8NCj4gLSAgICAgQVRPTV9Ub25n
-YV9NQ0xLX0RlcGVuZGVuY3lfUmVjb3JkIGVudHJpZXNbMV07DQo+ICAgICAgICAgICAgICAgLyog
-RHluYW1pY2FsbHkgYWxsb2NhdGUgZW50cmllcy4gKi8NCj4gKyAgICAgQVRPTV9Ub25nYV9NQ0xL
-X0RlcGVuZGVuY3lfUmVjb3JkIGVudHJpZXNbXTsNCj4gICAgICAgICAgICAgICAvKiBEeW5hbWlj
-YWxseSBhbGxvY2F0ZSBlbnRyaWVzLiAqLw0KPiAgfSBBVE9NX1RvbmdhX01DTEtfRGVwZW5kZW5j
-eV9UYWJsZTsNCj4NCj4gIHR5cGVkZWYgc3RydWN0IF9BVE9NX1RvbmdhX1NDTEtfRGVwZW5kZW5j
-eV9SZWNvcmQgeyBAQCAtMTk0LDcNCj4gKzE5NCw3IEBAIHR5cGVkZWYgc3RydWN0IF9BVE9NX1Rv
-bmdhX1NDTEtfRGVwZW5kZW5jeV9SZWNvcmQgew0KPiB0eXBlZGVmIHN0cnVjdCBfQVRPTV9Ub25n
-YV9TQ0xLX0RlcGVuZGVuY3lfVGFibGUgew0KPiAgICAgICBVQ0hBUiB1Y1JldklkOw0KPiAgICAg
-ICBVQ0hBUiB1Y051bUVudHJpZXM7DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8q
-IE51bWJlciBvZiBlbnRyaWVzLiAqLw0KPiAtICAgICBBVE9NX1RvbmdhX1NDTEtfRGVwZW5kZW5j
-eV9SZWNvcmQgZW50cmllc1sxXTsNCj4gICAgICAgICAgICAgICAgLyogRHluYW1pY2FsbHkgYWxs
-b2NhdGUgZW50cmllcy4gKi8NCj4gKyAgICAgQVRPTV9Ub25nYV9TQ0xLX0RlcGVuZGVuY3lfUmVj
-b3JkIGVudHJpZXNbXTsNCj4gICAgICAgICAgICAgICAgLyogRHluYW1pY2FsbHkgYWxsb2NhdGUg
-ZW50cmllcy4gKi8NCj4gIH0gQVRPTV9Ub25nYV9TQ0xLX0RlcGVuZGVuY3lfVGFibGU7DQo+DQo+
-ICB0eXBlZGVmIHN0cnVjdCBfQVRPTV9Qb2xhcmlzX1NDTEtfRGVwZW5kZW5jeV9SZWNvcmQgeyBA
-QCAtMjEwLDcNCj4gKzIxMCw3IEBAIHR5cGVkZWYgc3RydWN0IF9BVE9NX1BvbGFyaXNfU0NMS19E
-ZXBlbmRlbmN5X1JlY29yZCB7DQo+IHR5cGVkZWYgc3RydWN0IF9BVE9NX1BvbGFyaXNfU0NMS19E
-ZXBlbmRlbmN5X1RhYmxlIHsNCj4gICAgICAgVUNIQVIgdWNSZXZJZDsNCj4gICAgICAgVUNIQVIg
-dWNOdW1FbnRyaWVzOw0KPiAgICAgICAvKiBOdW1iZXIgb2YgZW50cmllcy4gKi8NCj4gLSAgICAg
-QVRPTV9Qb2xhcmlzX1NDTEtfRGVwZW5kZW5jeV9SZWNvcmQgZW50cmllc1sxXTsNCj4gICAgICAg
-ICAgICAgICAgLyogRHluYW1pY2FsbHkgYWxsb2NhdGUgZW50cmllcy4gKi8NCj4gKyAgICAgQVRP
-TV9Qb2xhcmlzX1NDTEtfRGVwZW5kZW5jeV9SZWNvcmQgZW50cmllc1tdOw0KPiAgICAgICAgICAg
-ICAgICAvKiBEeW5hbWljYWxseSBhbGxvY2F0ZSBlbnRyaWVzLiAqLw0KPiAgfSBBVE9NX1BvbGFy
-aXNfU0NMS19EZXBlbmRlbmN5X1RhYmxlOw0KPg0KPiAgdHlwZWRlZiBzdHJ1Y3QgX0FUT01fVG9u
-Z2FfUENJRV9SZWNvcmQgeyBAQCAtMjIyLDcgKzIyMiw3IEBAIHR5cGVkZWYNCj4gc3RydWN0IF9B
-VE9NX1RvbmdhX1BDSUVfUmVjb3JkIHsgIHR5cGVkZWYgc3RydWN0DQo+IF9BVE9NX1RvbmdhX1BD
-SUVfVGFibGUgew0KPiAgICAgICBVQ0hBUiB1Y1JldklkOw0KPiAgICAgICBVQ0hBUiB1Y051bUVu
-dHJpZXM7DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8qIE51bWJlciBvZiBlbnRy
-aWVzLiAqLw0KPiAtICAgICBBVE9NX1RvbmdhX1BDSUVfUmVjb3JkIGVudHJpZXNbMV07DQo+ICAg
-ICAgICAgICAgICAgICAgICAgICAvKiBEeW5hbWljYWxseSBhbGxvY2F0ZSBlbnRyaWVzLiAqLw0K
-PiArICAgICBBVE9NX1RvbmdhX1BDSUVfUmVjb3JkIGVudHJpZXNbXTsNCj4gICAgICAgICAgICAg
-ICAgICAgICAgIC8qIER5bmFtaWNhbGx5IGFsbG9jYXRlIGVudHJpZXMuICovDQo+ICB9IEFUT01f
-VG9uZ2FfUENJRV9UYWJsZTsNCj4NCj4gIHR5cGVkZWYgc3RydWN0IF9BVE9NX1BvbGFyaXMxMF9Q
-Q0lFX1JlY29yZCB7IEBAIC0yMzUsNyArMjM1LDcgQEANCj4gdHlwZWRlZiBzdHJ1Y3QgX0FUT01f
-UG9sYXJpczEwX1BDSUVfUmVjb3JkIHsgIHR5cGVkZWYgc3RydWN0DQo+IF9BVE9NX1BvbGFyaXMx
-MF9QQ0lFX1RhYmxlIHsNCj4gICAgICAgVUNIQVIgdWNSZXZJZDsNCj4gICAgICAgVUNIQVIgdWNO
-dW1FbnRyaWVzOyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLyogTnVt
-YmVyIG9mIGVudHJpZXMuICovDQo+IC0gICAgIEFUT01fUG9sYXJpczEwX1BDSUVfUmVjb3JkIGVu
-dHJpZXNbMV07ICAgICAgICAgICAgICAgICAgICAgIC8qIER5bmFtaWNhbGx5DQo+IGFsbG9jYXRl
-IGVudHJpZXMuICovDQo+ICsgICAgIEFUT01fUG9sYXJpczEwX1BDSUVfUmVjb3JkIGVudHJpZXNb
-XTsgICAgICAgICAgICAgICAgICAgICAgIC8qIER5bmFtaWNhbGx5DQo+IGFsbG9jYXRlIGVudHJp
-ZXMuICovDQo+ICB9IEFUT01fUG9sYXJpczEwX1BDSUVfVGFibGU7DQo+DQo+DQo+IEBAIC0yNTIs
-NyArMjUyLDcgQEAgdHlwZWRlZiBzdHJ1Y3QNCj4gX0FUT01fVG9uZ2FfTU1fRGVwZW5kZW5jeV9S
-ZWNvcmQgeyAgdHlwZWRlZiBzdHJ1Y3QNCj4gX0FUT01fVG9uZ2FfTU1fRGVwZW5kZW5jeV9UYWJs
-ZSB7DQo+ICAgICAgIFVDSEFSIHVjUmV2SWQ7DQo+ICAgICAgIFVDSEFSIHVjTnVtRW50cmllczsN
-Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLyogTnVtYmVyIG9mIGVudHJpZXMuICov
-DQo+IC0gICAgIEFUT01fVG9uZ2FfTU1fRGVwZW5kZW5jeV9SZWNvcmQgZW50cmllc1sxXTsNCj4g
-ICAgICAgICAgLyogRHluYW1pY2FsbHkgYWxsb2NhdGUgZW50cmllcy4gKi8NCj4gKyAgICAgQVRP
-TV9Ub25nYV9NTV9EZXBlbmRlbmN5X1JlY29yZCBlbnRyaWVzW107DQo+ICAgICAgICAgIC8qIER5
-bmFtaWNhbGx5IGFsbG9jYXRlIGVudHJpZXMuICovDQo+ICB9IEFUT01fVG9uZ2FfTU1fRGVwZW5k
-ZW5jeV9UYWJsZTsNCj4NCj4gIHR5cGVkZWYgc3RydWN0IF9BVE9NX1RvbmdhX1ZvbHRhZ2VfTG9v
-a3VwX1JlY29yZCB7IEBAIC0yNjUsNyArMjY1LDcNCj4gQEAgdHlwZWRlZiBzdHJ1Y3QgX0FUT01f
-VG9uZ2FfVm9sdGFnZV9Mb29rdXBfUmVjb3JkIHsgIHR5cGVkZWYgc3RydWN0DQo+IF9BVE9NX1Rv
-bmdhX1ZvbHRhZ2VfTG9va3VwX1RhYmxlIHsNCj4gICAgICAgVUNIQVIgdWNSZXZJZDsNCj4gICAg
-ICAgVUNIQVIgdWNOdW1FbnRyaWVzOw0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAv
-KiBOdW1iZXIgb2YgZW50cmllcy4gKi8NCj4gLSAgICAgQVRPTV9Ub25nYV9Wb2x0YWdlX0xvb2t1
-cF9SZWNvcmQgZW50cmllc1sxXTsNCj4gICAgICAgICAgICAgICAvKiBEeW5hbWljYWxseSBhbGxv
-Y2F0ZSBlbnRyaWVzLiAqLw0KPiArICAgICBBVE9NX1RvbmdhX1ZvbHRhZ2VfTG9va3VwX1JlY29y
-ZCBlbnRyaWVzW107DQo+ICAgICAgICAgICAgICAgLyogRHluYW1pY2FsbHkgYWxsb2NhdGUgZW50
-cmllcy4gKi8NCj4gIH0gQVRPTV9Ub25nYV9Wb2x0YWdlX0xvb2t1cF9UYWJsZTsNCj4NCj4gIHR5
-cGVkZWYgc3RydWN0IF9BVE9NX1RvbmdhX0Zhbl9UYWJsZSB7DQo+IEBAIC0zNjcsNyArMzY3LDcg
-QEAgdHlwZWRlZiBzdHJ1Y3QgX0FUT01fVG9uZ2FfVkNFX1N0YXRlX1JlY29yZCB7DQo+IHR5cGVk
-ZWYgc3RydWN0IF9BVE9NX1RvbmdhX1ZDRV9TdGF0ZV9UYWJsZSB7DQo+ICAgICAgIFVDSEFSIHVj
-UmV2SWQ7DQo+ICAgICAgIFVDSEFSIHVjTnVtRW50cmllczsNCj4gLSAgICAgQVRPTV9Ub25nYV9W
-Q0VfU3RhdGVfUmVjb3JkIGVudHJpZXNbMV07DQo+ICsgICAgIEFUT01fVG9uZ2FfVkNFX1N0YXRl
-X1JlY29yZCBlbnRyaWVzW107DQo+ICB9IEFUT01fVG9uZ2FfVkNFX1N0YXRlX1RhYmxlOw0KPg0K
-PiAgdHlwZWRlZiBzdHJ1Y3QgX0FUT01fVG9uZ2FfUG93ZXJUdW5lX1RhYmxlIHsgQEAgLTQ4Miw3
-ICs0ODIsNyBAQA0KPiB0eXBlZGVmIHN0cnVjdCBfQVRPTV9Ub25nYV9IYXJkX0xpbWl0X1JlY29y
-ZCB7ICB0eXBlZGVmIHN0cnVjdA0KPiBfQVRPTV9Ub25nYV9IYXJkX0xpbWl0X1RhYmxlIHsNCj4g
-ICAgICAgVUNIQVIgdWNSZXZJZDsNCj4gICAgICAgVUNIQVIgdWNOdW1FbnRyaWVzOw0KPiAtICAg
-ICBBVE9NX1RvbmdhX0hhcmRfTGltaXRfUmVjb3JkIGVudHJpZXNbMV07DQo+ICsgICAgIEFUT01f
-VG9uZ2FfSGFyZF9MaW1pdF9SZWNvcmQgZW50cmllc1tdOw0KPiAgfSBBVE9NX1RvbmdhX0hhcmRf
-TGltaXRfVGFibGU7DQo+DQo+ICB0eXBlZGVmIHN0cnVjdCBfQVRPTV9Ub25nYV9HUElPX1RhYmxl
-IHsNCj4gLS0NCj4gMi40MS4wDQoNCg==
+
+On 8/28/2023 5:37 PM, Felix Kuehling wrote:
+>
+> On 2023-08-28 16:57, Chen, Xiaogang wrote:
+>>
+>> On 8/28/2023 2:06 PM, Felix Kuehling wrote:
+>>>
+>>> On 2023-08-24 18:08, Xiaogang.Chen wrote:
+>>>> From: Xiaogang Chen <xiaogang.chen@amd.com>
+>>>>
+>>>> This patch implements partial migration in gpu page fault according 
+>>>> to migration
+>>>> granularity(default 2MB) and not split svm range in cpu page fault 
+>>>> handling.
+>>>> Now a svm range may have pages from both system ram and vram of one 
+>>>> gpu.
+>>>> These chagnes are expected to improve migration performance and reduce
+>>>> mmu callback and TLB flush workloads.
+>>>>
+>>>> Signed-off-by: xiaogang chen <xiaogang.chen@amd.com>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 153 
+>>>> +++++++++++++++--------
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.h |   6 +-
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c     |  87 ++++++++-----
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.h     |   7 +-
+>>>>   4 files changed, 162 insertions(+), 91 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c 
+>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>>>> index 7d82c7da223a..5a3aa80a1834 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>>>> @@ -479,6 +479,8 @@ svm_migrate_vma_to_vram(struct kfd_node *node, 
+>>>> struct svm_range *prange,
+>>>>    * svm_migrate_ram_to_vram - migrate svm range from system to device
+>>>>    * @prange: range structure
+>>>>    * @best_loc: the device to migrate to
+>>>> + * @start_mgr: start page to migrate
+>>>> + * @last_mgr: last page to migrate
+>>>>    * @mm: the process mm structure
+>>>>    * @trigger: reason of migration
+>>>>    *
+>>>> @@ -489,6 +491,7 @@ svm_migrate_vma_to_vram(struct kfd_node *node, 
+>>>> struct svm_range *prange,
+>>>>    */
+>>>>   static int
+>>>>   svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
+>>>> +            unsigned long start_mgr, unsigned long last_mgr,
+>>>>               struct mm_struct *mm, uint32_t trigger)
+>>>>   {
+>>>>       unsigned long addr, start, end;
+>>>> @@ -498,9 +501,9 @@ svm_migrate_ram_to_vram(struct svm_range 
+>>>> *prange, uint32_t best_loc,
+>>>>       unsigned long cpages = 0;
+>>>>       long r = 0;
+>>>>   -    if (prange->actual_loc == best_loc) {
+>>>> -        pr_debug("svms 0x%p [0x%lx 0x%lx] already on best_loc 
+>>>> 0x%x\n",
+>>>> -             prange->svms, prange->start, prange->last, best_loc);
+>>>> +    if (!best_loc) {
+>>>> +        pr_debug("request svms 0x%p [0x%lx 0x%lx] migrate to sys 
+>>>> ram\n",
+>>>> +             prange->svms, start_mgr, last_mgr);
+>>>>           return 0;
+>>>>       }
+>>>>   @@ -513,8 +516,8 @@ svm_migrate_ram_to_vram(struct svm_range 
+>>>> *prange, uint32_t best_loc,
+>>>>       pr_debug("svms 0x%p [0x%lx 0x%lx] to gpu 0x%x\n", prange->svms,
+>>>>            prange->start, prange->last, best_loc);
+>>>>   -    start = prange->start << PAGE_SHIFT;
+>>>> -    end = (prange->last + 1) << PAGE_SHIFT;
+>>>> +    start = start_mgr << PAGE_SHIFT;
+>>>> +    end = (last_mgr + 1) << PAGE_SHIFT;
+>>>>         r = svm_range_vram_node_new(node, prange, true);
+>>>>       if (r) {
+>>>> @@ -544,10 +547,12 @@ svm_migrate_ram_to_vram(struct svm_range 
+>>>> *prange, uint32_t best_loc,
+>>>>         if (cpages) {
+>>>>           prange->actual_loc = best_loc;
+>>>> -        svm_range_free_dma_mappings(prange, true);
+>>>> -    } else {
+>>>> +        /* only free dma mapping in the migrated range */
+>>>> +        svm_range_free_dma_mappings(prange, true, start_mgr - 
+>>>> prange->start,
+>>>> +                         last_mgr - start_mgr + 1);
+>>>
+>>> This is wrong. If we only migrated some of the pages, we should not 
+>>> free the DMA mapping array at all. The array is needed as long as 
+>>> there are any valid DMA mappings in it.
+>>
+>> yes, I realized it after submit. I can not free DMA mapping array at 
+>> this stage.
+>>
+>> The concern(also related to comments below) is I do not know how many 
+>> pages in vram after partial migration. Originally I used bitmap to 
+>> record that.  I used bitmap to record which pages were migrated at 
+>> each migration functions. Here I do not need use hmm function to get 
+>> that info,  inside each migration function we can know which pages 
+>> got migrated, then update the bitmap accordingly inside each 
+>> migration function.
+>>
+>>>
+>>> I think the condition above with cpages should be updated. Instead 
+>>> of cpages, we need to keep track of a count of pages in VRAM in 
+>>> struct svm_range. See more below.
+>>>
+>> I think you want add a new integer in svm_range to remember how many 
+>> pages are in vram side for each svm_range, instead of bitmap. There 
+>> is a problem I saw: when we need split a prange(such as user uses 
+>> set_attr api) how do we know how many pages in vram for each splitted 
+>> prange?
+>
+> Right, that's a bit problematic. But it should be a relatively rare 
+> corner case. It may be good enough to make a "pessimistic" assumption 
+> when splitting ranges that have some pages in VRAM, that everything is 
+> in VRAM. And update that to 0 after migrate_to_ram for the entire 
+> range, to allow the BO reference to be released.
+>
+migrate_to_ram is partial migration too that only 2MB vram got migrated. 
+After split if we assume all pages are vram(pessimistic) we will give 
+the new vram pages number as all page number(in each spitted prange). 
+Then after 2MB vram migrated to ram, we still do not know if we can 
+release BO reference for this prange as we gave vram page number in each 
+spiltted prange(sub prange) more than it has.
+
+> So in the worst case, you keep your DMA addresses and BOs allocated 
+> slightly longer than necessary. If that doesn't work, I agree that we 
+> need a bitmap with one bit per 4KB page. But I hope that can be avoided.
+>
+> That said, I'm not actually sure why we're freeing the DMA address 
+> array after migration to RAM at all. I think we still need it even 
+> when we're using VRAM. We call svm_range_dma_map in 
+> svm_range_validate_and_map regardless of whether the range is in VRAM 
+> or system memory. So it will just allocate a new array the next time 
+> the range is validated anyway. VRAM pages use a special address 
+> encoding to indicate VRAM pages to the GPUVM code.
+
+I think we do not need free DMA address array as you said, it is another 
+thing though.
+
+We need unmap dma address(dma_unmap_page) after migrate from ram to vram 
+because we always do dma_map_page at svm_range_validate_and_map. If not 
+we would have multiple dma maps for same sys ram page. In partial 
+migration(ram->vram) we can only unmap dma address for the pages that 
+got migrated.
+
+Overall it not seems that using an item in svm_range to record how many 
+vram page can solve spit prange case. Thought? or we talk offline.
+
+Regards
+
+Xiaogang
+
+>
+> Regards,
+>   Felix
+>
+>
+>>
+>>>> +    } else if (!prange->actual_loc)
+>>>> +        /* if all pages from prange are at sys ram */
+>>>>           svm_range_vram_node_free(prange);
+>>>> -    }
+>>>>         return r < 0 ? r : 0;
+>>>>   }
+>>>> @@ -762,6 +767,8 @@ svm_migrate_vma_to_ram(struct kfd_node *node, 
+>>>> struct svm_range *prange,
+>>>>    * svm_migrate_vram_to_ram - migrate svm range from device to system
+>>>>    * @prange: range structure
+>>>>    * @mm: process mm, use current->mm if NULL
+>>>> + * @start_mgr: start page need be migrated to sys ram
+>>>> + * @last_mgr: last page need be migrated to sys ram
+>>>>    * @trigger: reason of migration
+>>>>    * @fault_page: is from vmf->page, svm_migrate_to_ram(), this is 
+>>>> CPU page fault callback
+>>>>    *
+>>>> @@ -771,7 +778,8 @@ svm_migrate_vma_to_ram(struct kfd_node *node, 
+>>>> struct svm_range *prange,
+>>>>    * 0 - OK, otherwise error code
+>>>>    */
+>>>>   int svm_migrate_vram_to_ram(struct svm_range *prange, struct 
+>>>> mm_struct *mm,
+>>>> -                uint32_t trigger, struct page *fault_page)
+>>>> +                    unsigned long start_mgr, unsigned long last_mgr,
+>>>> +                    uint32_t trigger, struct page *fault_page)
+>>>>   {
+>>>>       struct kfd_node *node;
+>>>>       struct vm_area_struct *vma;
+>>>> @@ -781,23 +789,30 @@ int svm_migrate_vram_to_ram(struct svm_range 
+>>>> *prange, struct mm_struct *mm,
+>>>>       unsigned long upages = 0;
+>>>>       long r = 0;
+>>>>   +    /* this pragne has no any vram page to migrate to sys ram */
+>>>>       if (!prange->actual_loc) {
+>>>>           pr_debug("[0x%lx 0x%lx] already migrated to ram\n",
+>>>>                prange->start, prange->last);
+>>>>           return 0;
+>>>>       }
+>>>>   +    if (start_mgr < prange->start || last_mgr > prange->last) {
+>>>> +        pr_debug("migration range [0x%lx 0x%lx] out prange [0x%lx 
+>>>> 0x%lx]\n",
+>>>> +             start_mgr, last_mgr, prange->start, prange->last);
+>>>> +        return -EFAULT;
+>>>> +    }
+>>>> +
+>>>>       node = svm_range_get_node_by_id(prange, prange->actual_loc);
+>>>>       if (!node) {
+>>>>           pr_debug("failed to get kfd node by id 0x%x\n", 
+>>>> prange->actual_loc);
+>>>>           return -ENODEV;
+>>>>       }
+>>>>       pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx] from gpu 0x%x 
+>>>> to ram\n",
+>>>> -         prange->svms, prange, prange->start, prange->last,
+>>>> +         prange->svms, prange, start_mgr, last_mgr,
+>>>>            prange->actual_loc);
+>>>>   -    start = prange->start << PAGE_SHIFT;
+>>>> -    end = (prange->last + 1) << PAGE_SHIFT;
+>>>> +    start = start_mgr << PAGE_SHIFT;
+>>>> +    end = (last_mgr + 1) << PAGE_SHIFT;
+>>>>         for (addr = start; addr < end;) {
+>>>>           unsigned long next;
+>>>> @@ -822,8 +837,47 @@ int svm_migrate_vram_to_ram(struct svm_range 
+>>>> *prange, struct mm_struct *mm,
+>>>>       }
+>>>>         if (r >= 0 && !upages) {
+>>>> -        svm_range_vram_node_free(prange);
+>>>> -        prange->actual_loc = 0;
+>>>> +        /* all vram pages from prange got migrated to sys ram */
+>>>> +        if (start_mgr == prange->start && last_mgr == prange->last) {
+>>>> +
+>>>> +            prange->actual_loc = 0;
+>>>> + spin_lock(&prange->svm_bo->list_lock);
+>>>> +            list_del_init(&prange->svm_bo_list);
+>>>> + spin_unlock(&prange->svm_bo->list_lock);
+>>>> +
+>>>> +            svm_range_vram_node_free(prange);
+>>>> +        } else {
+>>>> +
+>>>> +            /* cannot call svm_range_vram_node_free since only 
+>>>> part of its vram
+>>>> +             * pages got migrated. check if all vram pages from 
+>>>> all pranges
+>>>> +             * that shared this svm_bo have been released, then unref
+>>>> +             * all svm_bo ref count.
+>>>
+>>> This feels wrong and I don't understand why it's necessary. The 
+>>> point of ref counting is, that you don't need to know what the other 
+>>> ranges are doing. Each range manages its own reference to the BO. 
+>>> When it no longer needs the BO, it drops its reference. When the ref 
+>>> count drops to 0, the BO gets freed.
+>>>
+>> As above: I did not know how many pages got migrated to sys ram in a 
+>> prange if not remember that. So I counter ref count of svm_bo after 
+>> each migration, when the counter reach to the prange(shared the 
+>> svm_bo)  number I release the svm_bo. It is how this awkward checking 
+>> came. Before I used bitmap in each prange to record that, not need 
+>> this kind checking. If use an integer for that I do not know how to 
+>> handle prange split?
+>>
+>>>
+>>>> +             */
+>>>> +            struct svm_range *tmp;
+>>>> +            unsigned int count = 0;
+>>>> +
+>>>> +            /* how many prangs refer to this svm_bo */
+>>>> + spin_lock(&prange->svm_bo->list_lock);
+>>>> +            list_for_each_entry(tmp, &prange->svm_bo->range_list, 
+>>>> svm_bo_list)
+>>>> +                count++;
+>>>> + spin_unlock(&prange->svm_bo->list_lock);
+>>>> +
+>>>> +            /* if svm_bo ref number is same as count above all 
+>>>> vram pages from
+>>>> +             * all pranges have been released, unref svm_bo count 
+>>>> times
+>>>> +             * from all pranges to force svm_bo released
+>>>
+>>> There is probably a possible race condition here if a range gets 
+>>> split concurrently. Or a page gets migrated between the ref count 
+>>> check and taking the list_lock.
+>>>
+>>> A better way to handle this would not need to look at the other 
+>>> ranges at all. What we really need to know is, how many pages of 
+>>> this range are currently in VRAM. We should be able to track this 
+>>> with a new counter in struct svm_range that gets incremented or 
+>>> decremented by cpages at the end of every migration.
+>>>
+>>>> +             */
+>>>> +            if (refcount_read(&prange->svm_bo->kref.refcount) == 
+>>>> count) {
+>>>> +
+>>>> + spin_lock(&prange->svm_bo->list_lock);
+>>>> +                list_for_each_entry(tmp, 
+>>>> &prange->svm_bo->range_list, svm_bo_list) {
+>>>> + spin_unlock(&prange->svm_bo->list_lock);
+>>>> +
+>>>> +                    svm_range_vram_node_free(tmp);
+>>>> + spin_lock(&prange->svm_bo->list_lock);
+>>>> +                }
+>>>> + spin_unlock(&prange->svm_bo->list_lock);
+>>>> +            }
+>>>> +        }
+>>>>       }
+>>>>         return r < 0 ? r : 0;
+>>>> @@ -833,17 +887,23 @@ int svm_migrate_vram_to_ram(struct svm_range 
+>>>> *prange, struct mm_struct *mm,
+>>>>    * svm_migrate_vram_to_vram - migrate svm range from device to 
+>>>> device
+>>>>    * @prange: range structure
+>>>>    * @best_loc: the device to migrate to
+>>>> + * @start: start page need be migrated to sys ram
+>>>> + * @last: last page need be migrated to sys ram
+>>>>    * @mm: process mm, use current->mm if NULL
+>>>>    * @trigger: reason of migration
+>>>>    *
+>>>>    * Context: Process context, caller hold mmap read lock, svms 
+>>>> lock, prange lock
+>>>>    *
+>>>> + * migrate all vram pages in prange to sys ram, then migrate 
+>>>> [start, last] pages
+>>>> + * from sys ram to gpu node best_loc.
+>>>> + *
+>>>>    * Return:
+>>>>    * 0 - OK, otherwise error code
+>>>>    */
+>>>>   static int
+>>>>   svm_migrate_vram_to_vram(struct svm_range *prange, uint32_t 
+>>>> best_loc,
+>>>> -             struct mm_struct *mm, uint32_t trigger)
+>>>> +            unsigned long start, unsigned long last,
+>>>> +            struct mm_struct *mm, uint32_t trigger)
+>>>>   {
+>>>>       int r, retries = 3;
+>>>>   @@ -855,7 +915,8 @@ svm_migrate_vram_to_vram(struct svm_range 
+>>>> *prange, uint32_t best_loc,
+>>>>       pr_debug("from gpu 0x%x to gpu 0x%x\n", prange->actual_loc, 
+>>>> best_loc);
+>>>>         do {
+>>>> -        r = svm_migrate_vram_to_ram(prange, mm, trigger, NULL);
+>>>> +        r = svm_migrate_vram_to_ram(prange, mm, prange->start, 
+>>>> prange->last,
+>>>> +                    trigger, NULL);
+>>>>           if (r)
+>>>>               return r;
+>>>>       } while (prange->actual_loc && --retries);
+>>>> @@ -863,18 +924,20 @@ svm_migrate_vram_to_vram(struct svm_range 
+>>>> *prange, uint32_t best_loc,
+>>>>       if (prange->actual_loc)
+>>>>           return -EDEADLK;
+>>>>   -    return svm_migrate_ram_to_vram(prange, best_loc, mm, trigger);
+>>>> +    return svm_migrate_ram_to_vram(prange, best_loc, start, last, 
+>>>> mm, trigger);
+>>>>   }
+>>>>     int
+>>>>   svm_migrate_to_vram(struct svm_range *prange, uint32_t best_loc,
+>>>> -            struct mm_struct *mm, uint32_t trigger)
+>>>> +        unsigned long start, unsigned long last,
+>>>> +        struct mm_struct *mm, uint32_t trigger)
+>>>>   {
+>>>> -    if  (!prange->actual_loc)
+>>>> -        return svm_migrate_ram_to_vram(prange, best_loc, mm, 
+>>>> trigger);
+>>>> +    if  (!prange->actual_loc || prange->actual_loc == best_loc)
+>>>> +        return svm_migrate_ram_to_vram(prange, best_loc, start, last,
+>>>> +                    mm, trigger);
+>>>>       else
+>>>> -        return svm_migrate_vram_to_vram(prange, best_loc, mm, 
+>>>> trigger);
+>>>> -
+>>>> +        return svm_migrate_vram_to_vram(prange, best_loc, start, 
+>>>> last,
+>>>> +                    mm, trigger);
+>>>>   }
+>>>>     /**
+>>>> @@ -889,10 +952,9 @@ svm_migrate_to_vram(struct svm_range *prange, 
+>>>> uint32_t best_loc,
+>>>>    */
+>>>>   static vm_fault_t svm_migrate_to_ram(struct vm_fault *vmf)
+>>>>   {
+>>>> +    unsigned long start, last, size;
+>>>>       unsigned long addr = vmf->address;
+>>>>       struct svm_range_bo *svm_bo;
+>>>> -    enum svm_work_list_ops op;
+>>>> -    struct svm_range *parent;
+>>>>       struct svm_range *prange;
+>>>>       struct kfd_process *p;
+>>>>       struct mm_struct *mm;
+>>>> @@ -929,51 +991,34 @@ static vm_fault_t svm_migrate_to_ram(struct 
+>>>> vm_fault *vmf)
+>>>>         mutex_lock(&p->svms.lock);
+>>>>   -    prange = svm_range_from_addr(&p->svms, addr, &parent);
+>>>> +    prange = svm_range_from_addr(&p->svms, addr, NULL);
+>>>>       if (!prange) {
+>>>>           pr_debug("failed get range svms 0x%p addr 0x%lx\n", 
+>>>> &p->svms, addr);
+>>>>           r = -EFAULT;
+>>>>           goto out_unlock_svms;
+>>>>       }
+>>>>   -    mutex_lock(&parent->migrate_mutex);
+>>>> -    if (prange != parent)
+>>>> -        mutex_lock_nested(&prange->migrate_mutex, 1);
+>>>> +    mutex_lock(&prange->migrate_mutex);
+>>>>         if (!prange->actual_loc)
+>>>>           goto out_unlock_prange;
+>>>>   -    svm_range_lock(parent);
+>>>> -    if (prange != parent)
+>>>> -        mutex_lock_nested(&prange->lock, 1);
+>>>> -    r = svm_range_split_by_granularity(p, mm, addr, parent, prange);
+>>>> -    if (prange != parent)
+>>>> -        mutex_unlock(&prange->lock);
+>>>> -    svm_range_unlock(parent);
+>>>> -    if (r) {
+>>>> -        pr_debug("failed %d to split range by granularity\n", r);
+>>>> -        goto out_unlock_prange;
+>>>> -    }
+>>>> +    /* Align migration range start and size to granularity size */
+>>>> +    size = 1UL << prange->granularity;
+>>>> +    start = ALIGN_DOWN(addr, size);
+>>>> +    last = ALIGN(addr + 1, size) - 1;
+>>>> +
+>>>> +    start = (start >= prange->start) ? start : prange->start;
+>>>> +    last = (last <= prange->last) ? last : prange->last;
+>>>>   -    r = svm_migrate_vram_to_ram(prange, vmf->vma->vm_mm,
+>>>> -                    KFD_MIGRATE_TRIGGER_PAGEFAULT_CPU,
+>>>> -                    vmf->page);
+>>>> +    r = svm_migrate_vram_to_ram(prange, vmf->vma->vm_mm, start, last,
+>>>> +                KFD_MIGRATE_TRIGGER_PAGEFAULT_CPU, vmf->page);
+>>>>       if (r)
+>>>>           pr_debug("failed %d migrate svms 0x%p range 0x%p [0x%lx 
+>>>> 0x%lx]\n",
+>>>> -             r, prange->svms, prange, prange->start, prange->last);
+>>>> -
+>>>> -    /* xnack on, update mapping on GPUs with ACCESS_IN_PLACE */
+>>>> -    if (p->xnack_enabled && parent == prange)
+>>>> -        op = SVM_OP_UPDATE_RANGE_NOTIFIER_AND_MAP;
+>>>> -    else
+>>>> -        op = SVM_OP_UPDATE_RANGE_NOTIFIER;
+>>>> -    svm_range_add_list_work(&p->svms, parent, mm, op);
+>>>> -    schedule_deferred_list_work(&p->svms);
+>>>> +             r, prange->svms, prange, start, last);
+>>>>     out_unlock_prange:
+>>>> -    if (prange != parent)
+>>>> -        mutex_unlock(&prange->migrate_mutex);
+>>>> -    mutex_unlock(&parent->migrate_mutex);
+>>>> +    mutex_unlock(&prange->migrate_mutex);
+>>>>   out_unlock_svms:
+>>>>       mutex_unlock(&p->svms.lock);
+>>>>   out_unref_process:
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h 
+>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+>>>> index 487f26368164..9e48d10e848e 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.h
+>>>> @@ -41,9 +41,13 @@ enum MIGRATION_COPY_DIR {
+>>>>   };
+>>>>     int svm_migrate_to_vram(struct svm_range *prange, uint32_t 
+>>>> best_loc,
+>>>> +            unsigned long start, unsigned long last,
+>>>>               struct mm_struct *mm, uint32_t trigger);
+>>>> +
+>>>>   int svm_migrate_vram_to_ram(struct svm_range *prange, struct 
+>>>> mm_struct *mm,
+>>>> -                uint32_t trigger, struct page *fault_page);
+>>>> +            unsigned long start, unsigned long last,
+>>>> +            uint32_t trigger, struct page *fault_page);
+>>>> +
+>>>>   unsigned long
+>>>>   svm_migrate_addr_to_pfn(struct amdgpu_device *adev, unsigned long 
+>>>> addr);
+>>>>   diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c 
+>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>> index 841ba6102bbb..012dceb7c0ed 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>>>> @@ -247,7 +247,8 @@ void svm_range_dma_unmap(struct device *dev, 
+>>>> dma_addr_t *dma_addr,
+>>>>       }
+>>>>   }
+>>>>   -void svm_range_free_dma_mappings(struct svm_range *prange, bool 
+>>>> unmap_dma)
+>>>> +void svm_range_free_dma_mappings(struct svm_range *prange, bool 
+>>>> unmap_dma,
+>>>> +                unsigned long offset, unsigned long npages)
+>>>>   {
+>>>>       struct kfd_process_device *pdd;
+>>>>       dma_addr_t *dma_addr;
+>>>> @@ -269,7 +270,7 @@ void svm_range_free_dma_mappings(struct 
+>>>> svm_range *prange, bool unmap_dma)
+>>>>           }
+>>>>           dev = &pdd->dev->adev->pdev->dev;
+>>>>           if (unmap_dma)
+>>>> -            svm_range_dma_unmap(dev, dma_addr, 0, prange->npages);
+>>>> +            svm_range_dma_unmap(dev, dma_addr, offset, npages);
+>>>>           kvfree(dma_addr);
+>>>
+>>> This doesn't make sense. If we only unmapped some of the DMA 
+>>> mappings, we should not free the DMA mapping array at all, because 
+>>> that would mean leaking all the DMA mappings we did not unmap.
+>> right, I realized that after submit. It is also related to able 
+>> knowing if all pages are migrated to vram.
+>>>
+>>>>           prange->dma_addr[gpuidx] = NULL;
+>>>>       }
+>>>> @@ -284,7 +285,7 @@ static void svm_range_free(struct svm_range 
+>>>> *prange, bool do_unmap)
+>>>>            prange->start, prange->last);
+>>>>         svm_range_vram_node_free(prange);
+>>>> -    svm_range_free_dma_mappings(prange, do_unmap);
+>>>> +    svm_range_free_dma_mappings(prange, do_unmap, 0, prange->npages);
+>>>>         if (do_unmap && !p->xnack_enabled) {
+>>>>           pr_debug("unreserve prange 0x%p size: 0x%llx\n", prange, 
+>>>> size);
+>>>> @@ -384,6 +385,8 @@ static void svm_range_bo_release(struct kref 
+>>>> *kref)
+>>>>                prange->start, prange->last);
+>>>>           mutex_lock(&prange->lock);
+>>>>           prange->svm_bo = NULL;
+>>>> +        /* prange dose not hold vram page now */
+>>>> +        prange->actual_loc = 0;
+>>>
+>>> This is probably the wrong place to do this. The caller of 
+>>> svm_range_bo_release should probably update prange->actual_loc 
+>>> before calling this function.
+>>>
+>>>
+>>>> mutex_unlock(&prange->lock);
+>>>>             spin_lock(&svm_bo->list_lock);
+>>>> @@ -439,7 +442,8 @@ svm_range_validate_svm_bo(struct kfd_node 
+>>>> *node, struct svm_range *prange)
+>>>>           mutex_unlock(&prange->lock);
+>>>>           return false;
+>>>>       }
+>>>> -    if (prange->ttm_res) {
+>>>> +    /* requeset from same kfd_node and we still have reference to 
+>>>> it */
+>>>> +    if (prange->ttm_res && prange->svm_bo->node == node) {
+>>>>           /* We still have a reference, all is well */
+>>>>           mutex_unlock(&prange->lock);
+>>>>           return true;
+>>>> @@ -458,6 +462,8 @@ svm_range_validate_svm_bo(struct kfd_node 
+>>>> *node, struct svm_range *prange)
+>>>> spin_unlock(&prange->svm_bo->list_lock);
+>>>>                 svm_range_bo_unref(prange->svm_bo);
+>>>> +            prange->ttm_res = NULL;
+>>>> +            prange->svm_bo = NULL;
+>>>
+>>> If this is really necessary, it should probably be done inside the 
+>>> prange->lock.
+>>>
+>>>
+>>>>               return false;
+>>>>           }
+>>>>           if (READ_ONCE(prange->svm_bo->evicting)) {
+>>>> @@ -2888,6 +2894,7 @@ svm_range_restore_pages(struct amdgpu_device 
+>>>> *adev, unsigned int pasid,
+>>>>               uint32_t vmid, uint32_t node_id,
+>>>>               uint64_t addr, bool write_fault)
+>>>>   {
+>>>> +    unsigned long start, last, size;
+>>>>       struct mm_struct *mm = NULL;
+>>>>       struct svm_range_list *svms;
+>>>>       struct svm_range *prange;
+>>>> @@ -3023,34 +3030,38 @@ svm_range_restore_pages(struct 
+>>>> amdgpu_device *adev, unsigned int pasid,
+>>>>       kfd_smi_event_page_fault_start(node, p->lead_thread->pid, addr,
+>>>>                          write_fault, timestamp);
+>>>>   -    if (prange->actual_loc != best_loc) {
+>>>> -        migration = true;
+>>>> -        if (best_loc) {
+>>>> -            r = svm_migrate_to_vram(prange, best_loc, mm,
+>>>> -                    KFD_MIGRATE_TRIGGER_PAGEFAULT_GPU);
+>>>> -            if (r) {
+>>>> -                pr_debug("svm_migrate_to_vram failed (%d) at %llx, 
+>>>> falling back to system memory\n",
+>>>> -                     r, addr);
+>>>> -                /* Fallback to system memory if migration to
+>>>> -                 * VRAM failed
+>>>> -                 */
+>>>> -                if (prange->actual_loc)
+>>>> -                    r = svm_migrate_vram_to_ram(prange, mm,
+>>>> -                       KFD_MIGRATE_TRIGGER_PAGEFAULT_GPU,
+>>>> -                       NULL);
+>>>> -                else
+>>>> -                    r = 0;
+>>>> -            }
+>>>> -        } else {
+>>>> -            r = svm_migrate_vram_to_ram(prange, mm,
+>>>> -                    KFD_MIGRATE_TRIGGER_PAGEFAULT_GPU,
+>>>> -                    NULL);
+>>>> -        }
+>>>> +    /* Align migration range start and size to granularity size */
+>>>> +    size = 1UL << prange->granularity;
+>>>> +    start = ALIGN_DOWN(addr, size);
+>>>> +    last = ALIGN(addr + 1, size) - 1;
+>>>> +
+>>>> +    start = (start >= prange->start) ? start : prange->start;
+>>>> +    last = (last <= prange->last) ? last : prange->last;
+>>>
+>>> This could be written more compact:
+>>>
+>>>     start = max(prange->start, ALIGN_DOWN(addr, size));
+>>>     last = min(prange->last, ALIGN(addr + 1, size) - 1);
+>>>
+>>>
+>>>> +
+>>>> +    migration = true;
+>>>
+>>> If you make this always true, we don't need this variable any more. 
+>>> But see below ...
+>>>
+>>>
+>>>> +    if (best_loc) {
+>>>> +        r = svm_migrate_to_vram(prange, best_loc, start, last,
+>>>> +                        mm, KFD_MIGRATE_TRIGGER_PAGEFAULT_GPU);
+>>>
+>>> Maybe we can add an output parameter to svm_migrate_... to return 
+>>> whether an actual migration was performed (based on cpages). That 
+>>> could be used to update the migration variable more accurately.
+>>>
+>>>
+>>>>           if (r) {
+>>>> -            pr_debug("failed %d to migrate svms %p [0x%lx 0x%lx]\n",
+>>>> -                 r, svms, prange->start, prange->last);
+>>>> -            goto out_unlock_range;
+>>>> +            pr_debug("svm_migrate_to_vram failed (%d) at %llx, 
+>>>> falling back to system memory\n",
+>>>> +                     r, addr);
+>>>> +            /* Fallback to system memory if migration to
+>>>> +             * VRAM failed
+>>>> +             */
+>>>> +            if (prange->actual_loc)
+>>>> +                r = svm_migrate_vram_to_ram(prange, mm, start, last,
+>>>> + KFD_MIGRATE_TRIGGER_PAGEFAULT_GPU, NULL);
+>>>> +            else
+>>>> +                r = 0;
+>>>>           }
+>>>> +    } else {
+>>>> +        r = svm_migrate_vram_to_ram(prange, mm, start, last,
+>>>> +                    KFD_MIGRATE_TRIGGER_PAGEFAULT_GPU, NULL);
+>>>
+>>> This is only necessary if prange->actual_loc is non-0. And again, 
+>>> this could update migration with an output parameter based on cpages.
+>>>
+>>>
+>>>> +    }
+>>>> +    if (r) {
+>>>> +        pr_debug("failed %d to migrate svms %p [0x%lx 0x%lx]\n",
+>>>> +                 r, svms, start, last);
+>>>> +        goto out_unlock_range;
+>>>>       }
+>>>>         r = svm_range_validate_and_map(mm, prange, gpuidx, false, 
+>>>> false, false);
+>>>> @@ -3402,18 +3413,22 @@ svm_range_trigger_migration(struct 
+>>>> mm_struct *mm, struct svm_range *prange,
+>>>>       *migrated = false;
+>>>>       best_loc = svm_range_best_prefetch_location(prange);
+>>>>   -    if (best_loc == KFD_IOCTL_SVM_LOCATION_UNDEFINED ||
+>>>> -        best_loc == prange->actual_loc)
+>>>> +    /* when best_loc is a gpu node and same as prange->actual_loc
+>>>> +     * we still need migrate as prange->actual_loc does not mean all
+>>>> +     * pages in prange are vram. hmm migrate will pick up right 
+>>>> pages.
+>>>> +     */
+>>>> +    if (best_loc == KFD_IOCTL_SVM_LOCATION_UNDEFINED)
+>>>>           return 0;
+>>>>         if (!best_loc) {
+>>>> -        r = svm_migrate_vram_to_ram(prange, mm,
+>>>> +        r = svm_migrate_vram_to_ram(prange, mm, prange->start, 
+>>>> prange->last,
+>>>>                       KFD_MIGRATE_TRIGGER_PREFETCH, NULL);
+>>>>           *migrated = !r;
+>>>
+>>> This could also use an output parameter from svm_migrate_vram_to_ram 
+>>> to update migrated more accurately.
+>>>
+>>> Regards,
+>>>   Felix
+>>>
+>> I think the main issue here is to know how many pages are from vram 
+>> for a prange. If use an integer to record how we handle prange split 
+>> case?
+>>
+>> Regards
+>>
+>> Xiaogang
+>>
+>>>
+>>>>           return r;
+>>>>       }
+>>>>   -    r = svm_migrate_to_vram(prange, best_loc, mm, 
+>>>> KFD_MIGRATE_TRIGGER_PREFETCH);
+>>>> +    r = svm_migrate_to_vram(prange, best_loc, prange->start, 
+>>>> prange->last,
+>>>> +                    mm, KFD_MIGRATE_TRIGGER_PREFETCH);
+>>>>       *migrated = !r;
+>>>>         return r;
+>>>> @@ -3468,7 +3483,11 @@ static void 
+>>>> svm_range_evict_svm_bo_worker(struct work_struct *work)
+>>>>             mutex_lock(&prange->migrate_mutex);
+>>>>           do {
+>>>> +            /* migrate all vram pages in this prange to sys ram
+>>>> +             * after that prange->actual_loc should be zero
+>>>> +             */
+>>>>               r = svm_migrate_vram_to_ram(prange, mm,
+>>>> +                    prange->start, prange->last,
+>>>>                       KFD_MIGRATE_TRIGGER_TTM_EVICTION, NULL);
+>>>>           } while (!r && prange->actual_loc && --retries);
+>>>>   diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h 
+>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+>>>> index 9e668eeefb32..c565e018cfb3 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+>>>> @@ -88,7 +88,9 @@ struct svm_work_list_item {
+>>>>    * @flags:      flags defined as KFD_IOCTL_SVM_FLAG_*
+>>>>    * @perferred_loc: perferred location, 0 for CPU, or GPU id
+>>>>    * @perfetch_loc: last prefetch location, 0 for CPU, or GPU id
+>>>> - * @actual_loc: the actual location, 0 for CPU, or GPU id
+>>>> + * @actual_loc: this svm_range location. 0: all pages are from sys 
+>>>> ram;
+>>>> + *              GPU id: this svm_range may include vram pages from 
+>>>> GPU with
+>>>> + *              id actual_loc.
+>>>>    * @granularity:migration granularity, log2 num pages
+>>>>    * @invalid:    not 0 means cpu page table is invalidated
+>>>>    * @validate_timestamp: system timestamp when range is validated
+>>>> @@ -183,7 +185,8 @@ void svm_range_add_list_work(struct 
+>>>> svm_range_list *svms,
+>>>>   void schedule_deferred_list_work(struct svm_range_list *svms);
+>>>>   void svm_range_dma_unmap(struct device *dev, dma_addr_t *dma_addr,
+>>>>                unsigned long offset, unsigned long npages);
+>>>> -void svm_range_free_dma_mappings(struct svm_range *prange, bool 
+>>>> unmap_dma);
+>>>> +void svm_range_free_dma_mappings(struct svm_range *prange, bool 
+>>>> unmap_dma,
+>>>> +             unsigned long offset, unsigned long npages);
+>>>>   int svm_range_get_info(struct kfd_process *p, uint32_t 
+>>>> *num_svm_ranges,
+>>>>                  uint64_t *svm_priv_data_size);
+>>>>   int kfd_criu_checkpoint_svm(struct kfd_process *p,
