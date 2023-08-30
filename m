@@ -4,116 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2A57C83F15
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Aug 2023 15:40:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B48F7C83F1E
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Aug 2023 18:53:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3214A10E552;
-	Wed, 30 Aug 2023 15:40:32 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2065.outbound.protection.outlook.com [40.107.223.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FBE610E552
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Aug 2023 15:40:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Oy03Cf1usqQjVZAQPEKZ45xhIgOPIu7Y23ew2kYaymcc4rfIs26otzo+VTgoD4yUxF2na62mkIRbsciYvBHjPr3nElwSWmK9y9/iFSCMcMkzgKWC4sR4br7cedhRfUu7995Pj16SJqGefJ2JKX67w/R/f6a7UIS+5ouru+7BKocrN/eEt6ReY/GuqNhn1k6y4OK+jEoolxkPjz23ZhSgSWOIpoavRuRzuDC5INKEJRaKuoV1y9Qg8uIIptHlCDzvg4Hb7gnFOzhSxMWd3u9l4jN/5wb3TYdBwI0M/8nPztW2m5lRn89JkbvLzEgx9ve9bEfXnSuNQ3eXnDa/S8pwrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6K+1aNUq+wlhP0TmAqzJaS4mSr/Qg9a5tXm9LDsyexI=;
- b=PiydpUJ8c+JCMyjC5MXM061ughgK6hQj5Jk+cucw6ksimJ3rCZrhYgHY4AEQAlWA/MM6gXmnbVcCO026TLmzPsVrOHsE2ferPgbwdIHLOCTqj6meKDWXF8n2IQooTKWXUI4ObguDtq4PxUC35XbYhRR5jRc66/+WRWB9JX6NbN+xrz/fJo/dxKL6IfRv7txMEOXcggDb8SkIE3414IeF8DfARVXD4C+xxtwa8H0B3qoJeL4iHwnGl9oLp14em3GhCXZiNPbz/5sHy1+J3ZWUkfngvWjOVbHSPC/Tz4wR+kbQ57JsgBo8uehQy0g2UQ8s2pZPTL8H6Xbfi78IGkwP7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6K+1aNUq+wlhP0TmAqzJaS4mSr/Qg9a5tXm9LDsyexI=;
- b=ykl0tBUUMUOWEmwi11V1G42bTr7mQth3vW5eOoF8OkC1o2OIIlsMcS6NkQpgy/X92i+jUTIcPVs8gdjSiUvFcYXLtu55qRVEt1qcNtjlSAJuQfzjBL/75D/+trtqEDnotfaQClSypyiLOdXEydKQY7XhWm+rWIJ5rCQW9TMbNnQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM4PR12MB5892.namprd12.prod.outlook.com (2603:10b6:8:68::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6699.35; Wed, 30 Aug 2023 15:40:29 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::ca28:efb4:a838:58fb%4]) with mapi id 15.20.6745.020; Wed, 30 Aug 2023
- 15:40:28 +0000
-Message-ID: <fd0f5630-de59-cb8b-4c4d-fb077cabdfee@amd.com>
-Date: Wed, 30 Aug 2023 11:40:26 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] drm/amdkfd: Fix unaligned 64-bit doorbell warning
-To: Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org,
- "Sharma, Shashank" <shashank.sharma@amd.com>
-References: <20230829161614.93007-1-mukul.joshi@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20230829161614.93007-1-mukul.joshi@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0040.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:86::10) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B440D10E57A;
+	Wed, 30 Aug 2023 18:53:44 +0000 (UTC)
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [IPv6:2a00:1450:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCEAD10E179;
+ Wed, 30 Aug 2023 18:53:42 +0000 (UTC)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-52349d93c8aso1639693a12.1; 
+ Wed, 30 Aug 2023 11:53:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693421621; x=1694026421; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UiovL3shtkWUEkDqidG4l7jy83YUFtef6AXPkqmEUnM=;
+ b=OqSA7pByQjwHH4e2+fnvWA/mnf+2dZAT2UDevUp/k6/YIMxBF8LF+hHhY3g8o2opEa
+ +y2ZayewpcYVgMxWpTuTAIXClywe+5XB4+EDxVN5suFWLqnMNKswClHuooInavSAKAYz
+ 823goUo1Goxvd1OStIy0T8zOHPhs+xXW0qUF8SCMovZh6f61Bu9oGqMxpZ3SpBkiSDNE
+ bcgmzXhRZvPovIMVTK6XD94CpuqadXufQqABuG19LbN2IJrfU6u0JbqdAZo4HD9FGlMr
+ FWFzNuJC+d+4u67s3HOIwCzxFqoXhHbRp0HDjuN5kYN1JGJDiQOAg5SY7l2Hda4OCecM
+ lNVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693421621; x=1694026421;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UiovL3shtkWUEkDqidG4l7jy83YUFtef6AXPkqmEUnM=;
+ b=QgLUVdxlgxeNRjL4xg/KPUzckg+CycsosapdwwTYyXKg5YzcoE/oYrZtpOCRsDnZq8
+ YsJ/rg17/qZ3wqFzFGj3OneeN4onxugIgcKnaCVEy9xAHtWKN8oJin1maifNjpBUHHiE
+ Wyo1A7cicZWu2Ich6wOPZ1xsxLAgQ+pg3UwNoB8RhFQux+C8o/55zQbXjStq73eekyUH
+ L9GuLepeHq0pAkdHOFx4CUY6NZIcKfZpenv0FAfBra2AckwqxuXnlfw2D6eTI/b+RFoJ
+ QTw0EGMAnOaA1QGngDCcOIkxz3xfWrRLwiEAVGqYbOzjshljfxCdzbD8YAoNGzprAX0k
+ PuFQ==
+X-Gm-Message-State: AOJu0YyEt7OeEjueD21/cVE7DIw3eDmUmcrcR52+yg4pKFniekawlnhK
+ EI/5IgGCm0jAXMUza/f3ZHkgzJjctK29yIhVlWg=
+X-Google-Smtp-Source: AGHT+IGy/AV2rmGPQ0TmC4v5zG95IX0+cAwadZku+J53oMPTpAKpv/G2XuYFL8RiHFA5uTbjfwFeSUROn8JL+r9+TG0=
+X-Received: by 2002:a05:6402:3554:b0:523:f69:9a0d with SMTP id
+ f20-20020a056402355400b005230f699a0dmr2328724edd.4.1693421620864; Wed, 30 Aug
+ 2023 11:53:40 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB5892:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca51c5d4-9947-406b-b242-08dba96f6fe9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: p8ahMHtPs+FupegccaL85jEJhkz3pwxw6jyahZr0G1EP5oPVFA/czeQezu2VI+ayKRjuBo1iJDh80VjFgWcloXyjjKDyhKOL0uaaXAaE5rjR8vr3KBFYqg9+4JIXk5pNlJBSLmVLUY+WOIZ/oaFeUns4s8tZCyQPiAuLzBLvs3t5iFGQXl8pbrUqgYhHW5Y1bUvD69iyiWg6OymW8pm19r9cyJ4Qghh1La2sYU7eWZEG30prRKg6emYajHXyOIOL63GfJZ26tVaeW8pNa/PS0Bt4noc3RkjkeOD3jbJqPm8u40M9XX9aK6ao11mthJGFQHbHIi2zYB5IDU3pAUD5QE9R+/tFJ+N9hflX2BdJt7lCmujjIp4aVvTEJIU1+iJyIFB2/mxPPRWJ/w7Z6dyKjVcxu8p5iO5JogGc/6j/U1UkHmX+Tybx8NFPjMGBBgmwjStgxEOqRskR7imFmaV66aUl2nCgaX63gAa1mvZszBscJZN1sutCeROiSDXbSY4KqeS61TinCpzAH9LXglqd9LNMDjbgdWWBeEX7DQk0eZ/WW9Qv4LM9dvZ8GkaOXtYNOJdyhZorziIjIdtTSh+dRO/XbeD34UVds1MplcTZvHR/APAD8ZmyCDRwQ+khB7geyB9T/8GNjGjiabgr5WIoxw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(396003)(346002)(136003)(39860400002)(366004)(1800799009)(186009)(451199024)(8936002)(66946007)(31686004)(478600001)(110136005)(53546011)(6506007)(36916002)(66556008)(66476007)(6486002)(6636002)(316002)(38100700002)(41300700001)(6512007)(5660300002)(8676002)(44832011)(26005)(36756003)(31696002)(2906002)(83380400001)(2616005)(86362001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?djBPVzJVaUJTYTZLQ0EycHp5ck1FWG8yc3EyUXE4NmRiallKN2dJMjUwSm4v?=
- =?utf-8?B?OGg3VTRSVlh1WGJHYzU3TkNaTUJrZ2l5RkZ4bndsRFI1cjRnTThTWXFMbWZh?=
- =?utf-8?B?L3NaU3ViWHZ4RWl5VFNOOXFKRkw4S1g2eG1CeTVUcHJoazZHNEJCTFhUL3VB?=
- =?utf-8?B?MHFjNVk4emtIWGxYeWtReXNnSngvTGY3TGRCZ1BQMkIweTByblcwaElSZWl1?=
- =?utf-8?B?cnQvVndDSjdXc0FkZTBISVZ2bnorUVVzelFxSjI5NHliUkxhWkY2MjZMSmlB?=
- =?utf-8?B?WVBnUXVvOTVaQVRSYWE5U0VCb0EwR3cvOFRUWmNWSzdhQUdOckJVSFJTcVpj?=
- =?utf-8?B?ZHcvOStaSkltc3FHNUNENmwvZFFhRXJVck9xVUkraVh0SDUvWWc3cTFHeE91?=
- =?utf-8?B?YnNObmQrY2pBYWRmSjIzVFlzMFI0bnMxY0s0MVYvUkVUNmZGZ3V6L0lRaXRL?=
- =?utf-8?B?dVhYMC85aEhRcm5tb08yRzhKVTFGalF5RGIwK2xnY0tNUzAxVGV2RFhjYXZ3?=
- =?utf-8?B?TVhkekZDTkhPU2cvWDlzTGNxc1ZYZDRmVVlXaVE5UGZPL0hmMzRsNnErbCt3?=
- =?utf-8?B?NmZrZk0yS0Vkc3VPc0wxYXVuY0Ntc1hxSGltQThFem82SWFYbGNqZUlmbFJk?=
- =?utf-8?B?S3ZLUElHOVNyODJEVENLVmp6YkZ6a3FPeHdDQnhEeVF2QkpmZXlIclQ4KytO?=
- =?utf-8?B?cE80ZG9GQTJCWGFidlVoWlJpeFhvc0hHckE1ZHNLVlJVQTB3TW9UVTFyZnhu?=
- =?utf-8?B?eW5kVVZ2aUlDeE5pRlpaM2ROVzhDbFh2QjFDZnVlRjk3amVyaXdqU2RZdVcw?=
- =?utf-8?B?RncvU216cXp2YjBoeEkwOXdiZzFNSEtic09aT0U4K3RYbzFWWXgxbGM1VzJz?=
- =?utf-8?B?TzVHS3JNMDZreHVTRGhlQmd0YlR2SXdSUXFTc0loVnVkWFdKWVpBdjFEc2k1?=
- =?utf-8?B?b2x1dFhZenhvNkRnTWRjSTYzWFA5ejhnVGlmNkl2TDVFV29tNnNuRVd0V0NJ?=
- =?utf-8?B?SXQ1VjJLcEtrNGRkNmZNU2ljYkg3a29TcXVwU3gybFB5ODhFVkxWRDM4YU80?=
- =?utf-8?B?bjZDdEFKdUluMm9kbWNCKzlIcTMzZjBJR25RSXlpWGRnWjhJd2d6Sk81U3lL?=
- =?utf-8?B?MTU4ZExhd0lDcU0yNzF5a0Izem1oRk9jMnlzdnhNWUIxU3F4UHVDRjBzeUVW?=
- =?utf-8?B?OEVsQW55YnZKbTZ1eXdkSGF0VFZKaHkwK1lIVEZEZW5FQkhLZUxhYXVabnlE?=
- =?utf-8?B?OG5oYjNNUE5rQkI1aWtTbXB6blpQWFI2ZEZIcE55TnV3Tzg0REZUb2VxcWFS?=
- =?utf-8?B?SDE2M09MZjJ4TVVGdXBtQ1lJVitYRjFkUStwenZnWlhxSG44V3JJTVhPOSsw?=
- =?utf-8?B?RFd2YXVYbkVpeWNGeXFoNGFEcEVXUjN6MUdqSEhVTGcxNVowUVBiMHBQdm9y?=
- =?utf-8?B?Y0pNZkNYY21CTVloMytGMVp3MWxPeDdsTG9kN09mcTRSNkZwRno4VGUxMnB3?=
- =?utf-8?B?RVdJVy9vVmx1TWNkUlRTa01Sck5TcUxhMXozcjVTYzJ1QVdyNjN3anZSQ2tm?=
- =?utf-8?B?c2xBbkNkK2JrYy9YQjcvczdhRGJrTTdqbWxIQlgxOVZRZEJ4anhNdWEwRS9y?=
- =?utf-8?B?N2RxRWJUc3ROek94bVdqKzh3L1hjTGM5MlBlQ20xMThMMmhrd21tbnhMVkov?=
- =?utf-8?B?aEh3VDlpYkJDN1hURGJKbGQra21pdTdSTXg1TDZRVUp6NVBUckY2U20wbjl4?=
- =?utf-8?B?UStnRndYNHpPN1hSWnp1RHBraERFYzA4RXJ6cTNIRlkxQmpTWGQrRThiNHdN?=
- =?utf-8?B?ZVNPM3VTaVV3bnF4Nm1BaTR3dW90YnQrTGlJQ0VDWklsNlI1dm9LbUNXVVdU?=
- =?utf-8?B?enhZdzZGOTNkR0d0OHVHalZuZ1k5UzVlVEJGNmtJZktoT0Y5M2RnNElwcUJQ?=
- =?utf-8?B?VUJLT0JoVmtGSkM2NEtpTWw5amc5VjlKVHVnNVQzRTVSSW01aXBUWVk0SHJn?=
- =?utf-8?B?QlF3a0JsZDdvbEdxZ2dCUW5RY3h6VGQ2QXJmRnFTMEd5MXZQd3RoRjRKSXdK?=
- =?utf-8?B?R3lwWmNRZ3hPaHJNMTVQWnUzYkl5NUFUaDRDdGZpdlhsUHRkM2srYXE0Unlp?=
- =?utf-8?Q?4qcwJkwv7bQXsfBBEYR/A5OyA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca51c5d4-9947-406b-b242-08dba96f6fe9
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2023 15:40:28.8868 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x9NcblCiFbh+dh5x8WaK0ockMQ8Q5E78tFiY5/vaBNG6I5FYw0XATynup+e/lRztG0USj9D6xMRl97bUp/vZsg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5892
+References: <20230724012419.2317649-1-sashal@kernel.org>
+ <20230724012419.2317649-13-sashal@kernel.org>
+In-Reply-To: <20230724012419.2317649-13-sashal@kernel.org>
+From: Chia-I Wu <olvaffe@gmail.com>
+Date: Wed, 30 Aug 2023 11:53:29 -0700
+Message-ID: <CAPaKu7RTgAMBLHbwtp4zgiBSDrTFtAj07k5qMzkuLQy2Zr+sZA@mail.gmail.com>
+Subject: Re: [PATCH AUTOSEL 5.10 13/22] drm/amdgpu: install stub fence into
+ potential unused fence pointers
+To: Sasha Levin <sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,86 +69,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: airlied@linux.ie, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
+ Lang Yu <Lang.Yu@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+Shashank, FYI. I believe this is a regression from your patch 
-"drm/amdgpu: use doorbell mgr for kfd kernel doorbells".
-
-On 2023-08-29 12:16, Mukul Joshi wrote:
-
-> This patch fixes the following unaligned 64-bit doorbell
-> warning seen when submitting packets on HIQ on GFX v9.4.3
-> by making the HIQ doorbell 64-bit aligned.
-> The warning is seen when GPU is loaded in any mode other
-> than SPX mode.
+On Sun, Jul 23, 2023 at 6:24=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
+te:
 >
-> [  +0.000301] ------------[ cut here ]------------
-> [  +0.000003] Unaligned 64-bit doorbell
-> [  +0.000030] WARNING: /amdkfd/kfd_doorbell.c:339 write_kernel_doorbell64+0x72/0x80 [amdgpu]
-> [  +0.000003] RIP: 0010:write_kernel_doorbell64+0x72/0x80 [amdgpu]
-> [  +0.000004] RSP: 0018:ffffc90004287730 EFLAGS: 00010246
-> [  +0.000005] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
-> [  +0.000003] RDX: 0000000000000001 RSI: ffffffff82837c71 RDI: 00000000ffffffff
-> [  +0.000003] RBP: ffffc90004287748 R08: 0000000000000003 R09: 0000000000000001
-> [  +0.000002] R10: 000000000000001a R11: ffff88a034008198 R12: ffffc900013bd004
-> [  +0.000003] R13: 0000000000000008 R14: ffffc900042877b0 R15: 000000000000007f
-> [  +0.000003] FS:  00007fa8c7b62000(0000) GS:ffff889f88400000(0000) knlGS:0000000000000000
-> [  +0.000004] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  +0.000003] CR2: 000056111c45aaf0 CR3: 00000001414f2002 CR4: 0000000000770ee0
-> [  +0.000003] PKRU: 55555554
-> [  +0.000002] Call Trace:
-> [  +0.000004]  <TASK>
-> [  +0.000006]  kq_submit_packet+0x45/0x50 [amdgpu]
-> [  +0.000524]  pm_send_set_resources+0x7f/0xc0 [amdgpu]
-> [  +0.000500]  set_sched_resources+0xe4/0x160 [amdgpu]
-> [  +0.000503]  start_cpsch+0x1c5/0x2a0 [amdgpu]
-> [  +0.000497]  kgd2kfd_device_init.cold+0x816/0xb42 [amdgpu]
-> [  +0.000743]  amdgpu_amdkfd_device_init+0x15f/0x1f0 [amdgpu]
-> [  +0.000602]  amdgpu_device_init.cold+0x1813/0x2176 [amdgpu]
-> [  +0.000684]  ? pci_bus_read_config_word+0x4a/0x80
-> [  +0.000012]  ? do_pci_enable_device+0xdc/0x110
-> [  +0.000008]  amdgpu_driver_load_kms+0x1a/0x110 [amdgpu]
-> [  +0.000545]  amdgpu_pci_probe+0x197/0x400 [amdgpu]
+> From: Lang Yu <Lang.Yu@amd.com>
 >
-> Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-
-This should have a Fixes tag:
-
-Fixes: cfeaeb3c0ce7 ("drm/amdgpu: use doorbell mgr for kfd kernel 
-doorbells")
-
-The original code before that patch used "* sizeof(u32) / 
-kfd->device_info.doorbell_size" instead of "* 2". May be safer to 
-restore the original calculation to have the correct doorbell size on 
-old and new GPUs.
-
-Regards,
-   Felix
-
-
+> [ Upstream commit 187916e6ed9d0c3b3abc27429f7a5f8c936bd1f0 ]
+>
+> When using cpu to update page tables, vm update fences are unused.
+> Install stub fence into these fence pointers instead of NULL
+> to avoid NULL dereference when calling dma_fence_wait() on them.
+>
+> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> index c2e0b79dcc6d..b1c2772c3a8d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-> @@ -168,7 +168,7 @@ void __iomem *kfd_get_kernel_doorbell(struct kfd_dev *kfd,
->   			"     doorbell index    == 0x%x\n",
->   		*doorbell_off, inx);
->   
-> -	return kfd->doorbell_kernel_ptr + inx;
-> +	return kfd->doorbell_kernel_ptr + inx * 2;
->   }
->   
->   void kfd_release_kernel_doorbell(struct kfd_dev *kfd, u32 __iomem *db_addr)
-> @@ -176,6 +176,7 @@ void kfd_release_kernel_doorbell(struct kfd_dev *kfd, u32 __iomem *db_addr)
->   	unsigned int inx;
->   
->   	inx = (unsigned int)(db_addr - kfd->doorbell_kernel_ptr);
-> +	inx /= 2;
->   
->   	mutex_lock(&kfd->doorbell_mutex);
->   	__clear_bit(inx, kfd->doorbell_bitmap);
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+
+We start getting this warning spew on chromeos, likely from
+dma_fence_is_later because the stub fence is on a different timeline:
+
+[  273.334767] WARNING: CPU: 1 PID: 13383 at
+include/linux/dma-fence.h:478 amdgpu_sync_keep_later+0x95/0xbd
+[  273.334769] Modules linked in: snd_seq_dummy snd_seq snd_seq_device
+bridge stp llc tun vhost_vsock vhost vhost_iotlb
+vmw_vsock_virtio_transport_common vsock 8021q veth lzo_rle
+lzo_compress zram uinput snd_acp_sof_mach snd_acp_mach snd_soc_dmic
+xt_cgroup rfcomm xt_MASQUERADE cmac algif_hash algif_skcipher af_alg
+btusb btrtl btintel btbcm rtw89_8852ae rtw89_pci rtw89_8852a
+rtw89_core snd_sof_amd_renoir snd_sof_xtensa_dsp snd_sof_amd_acp
+snd_acp_pci snd_acp_config snd_soc_acpi snd_pci_acp3x snd_sof_pci
+snd_sof snd_hda_codec_hdmi snd_sof_utils snd_hda_intel mac80211
+snd_intel_dspcfg snd_hda_codec cros_ec_typec snd_hwdep roles
+snd_hda_core typec snd_soc_rt5682s snd_soc_rt1019 snd_soc_rl6231
+ip6table_nat i2c_piix4 fuse bluetooth ecdh_generic ecc cfg80211
+iio_trig_sysfs cros_ec_lid_angle cros_ec_sensors cros_ec_sensors_core
+industrialio_triggered_buffer kfifo_buf industrialio cros_ec_sensorhub
+r8153_ecm cdc_ether usbnet r8152 mii uvcvideo videobuf2_vmalloc
+videobuf2_memops videobuf2_v4l2
+[  273.334795]  videobuf2_common joydev
+[  273.334799] CPU: 1 PID: 13383 Comm: chrome:cs0 Tainted: G        W
+       5.10.192-23384-g3d3f0f0c5e4f #1
+fe1e7e3b7510aa7b8e01701478119255f825a36f
+[  273.334800] Hardware name: Google Dewatt/Dewatt, BIOS
+Google_Dewatt.14500.347.0 03/30/2023
+[  273.334802] RIP: 0010:amdgpu_sync_keep_later+0x95/0xbd
+[  273.334804] Code: 00 00 b8 01 00 00 00 f0 0f c1 43 38 85 c0 74 26
+8d 48 01 09 c1 78 24 49 89 1e 5b 41 5e 5d c3 cc cc cc cc e8 4a 94 ac
+ff eb ce <0f> 0b 49 8b 06 48 85 c0 75 af eb c2 be 02 00 00 00 48 8d 7b
+38 e8
+[  273.334805] RSP: 0018:ffffb222c1817b50 EFLAGS: 00010293
+[  273.334807] RAX: ffffffff89bfc838 RBX: ffff8aa425e9ed00 RCX: 00000000000=
+00000
+[  273.334808] RDX: ffff8aa426156a98 RSI: ffff8aa425e9ed00 RDI: ffff8aa4325=
+18918
+[  273.334810] RBP: ffffb222c1817b60 R08: ffff8aa43ca6c0a0 R09: ffff8aa33af=
+3c9a0
+[  273.334811] R10: fffffcf8c5986600 R11: ffffffff87a00fce R12: 00000000000=
+00098
+[  273.334812] R13: 00000000005e2a00 R14: ffff8aa432518918 R15: 00000000000=
+00000
+[  273.334814] FS:  00007e70f8694640(0000) GS:ffff8aa4e6080000(0000)
+knlGS:0000000000000000
+[  273.334816] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  273.334817] CR2: 00007e70ea049020 CR3: 0000000178e6e000 CR4: 00000000007=
+50ee0
+[  273.334818] PKRU: 55555554
+[  273.334819] Call Trace:
+[  273.334822]  ? __warn+0xa3/0x131
+[  273.334824]  ? amdgpu_sync_keep_later+0x95/0xbd
+[  273.334826]  ? report_bug+0x97/0xfa
+[  273.334829]  ? handle_bug+0x41/0x66
+[  273.334832]  ? exc_invalid_op+0x1b/0x72
+[  273.334835]  ? asm_exc_invalid_op+0x12/0x20
+[  273.334837]  ? native_sched_clock+0x9a/0x9a
+[  273.334840]  ? amdgpu_sync_keep_later+0x95/0xbd
+[  273.334843]  amdgpu_sync_vm_fence+0x23/0x39
+[  273.334846]  amdgpu_cs_ioctl+0x1782/0x1e56
+[  273.334851]  ? amdgpu_cs_report_moved_bytes+0x5f/0x5f
+[  273.334854]  drm_ioctl_kernel+0xdf/0x150
+[  273.334858]  drm_ioctl+0x1f5/0x3d2
+[  273.334928]  ? amdgpu_cs_report_moved_bytes+0x5f/0x5f
+[  273.334932]  amdgpu_drm_ioctl+0x49/0x81
+[  273.334935]  __x64_sys_ioctl+0x7d/0xc8
+[  273.334937]  do_syscall_64+0x42/0x54
+[  273.334939]  entry_SYSCALL_64_after_hwframe+0x4a/0xaf
+[  273.334941] RIP: 0033:0x7e70ff797649
+[  273.334943] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10
+c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00
+00 0f 05 <41> 89 c0 3d 00 f0 ff ff 77 1d 48 8b 45 c8 64 48 2b 04 25 28
+00 00
+[  273.334945] RSP: 002b:00007e70f8693170 EFLAGS: 00000246 ORIG_RAX:
+0000000000000010
+[  273.334947] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007e70ff7=
+97649
+[  273.334948] RDX: 00007e70f8693248 RSI: 00000000c0186444 RDI: 00000000000=
+00013
+[  273.334950] RBP: 00007e70f86931c0 R08: 00007e70f8693350 R09: 00007e70f86=
+93340
+[  273.334951] R10: 000000000000000a R11: 0000000000000246 R12: 00000000c01=
+86444
+[  273.334952] R13: 00007e70f8693380 R14: 00007e70f8693248 R15: 00000000000=
+00013
+[  273.334954] ---[ end trace fc066a0fcea39e8c ]---
