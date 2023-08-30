@@ -4,67 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92DABC83F15
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Aug 2023 09:43:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6181CC6FA8F
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Aug 2023 10:59:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1515110E4DE;
-	Wed, 30 Aug 2023 09:43:05 +0000 (UTC)
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74A2C10E124
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Aug 2023 09:43:03 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-401ef656465so861825e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Aug 2023 02:43:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1693388582; x=1693993382; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=viHZkgSW0z1TbhhriSlmivc4PJ+sy0cGul8lmxZzVUY=;
- b=g+KgPLG8bbtegTtgRrLa9pOtKKEc9diQ7fJJWY+JwcWva8oionMa3DgpEWPy8n0+SI
- AeU9AT2P+g4fXqIF78t8TUQypWGdHKNuuSZrJezS5MFb953WVkP3i32vrzmFMNANB5to
- Xxk8PugYg5lvThGLw9LUWZwbGih3+zsDmQaBM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693388582; x=1693993382;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=viHZkgSW0z1TbhhriSlmivc4PJ+sy0cGul8lmxZzVUY=;
- b=IxSEk9OodhGn9lO4Cn7v40AUXdimy6kmUHyEr/bmhe5M9WqBWPgPL+9hpAcoW5biuo
- azTG4TMTey7YmDsTIT4i3OnGrWkkEv3CWlrZNS9eUQMu2F/3gWmrGuYzavwZcGHluVhH
- /D68VbimGZ/AMbRlpHch8pq/hfjCLBCeV5PcDTiIWqMrMs6YdLCk/+sa0NwbTDDzy4TO
- jTsG3R6ctg5INZZxIpKB3WixnudjgGxxel8TptFNtyG7PmZtJBN9zfZGM42O6cAaKob8
- cKnghdOp5s9wXdvoATENasHR9qa72AUbCgvwCTX2kytRYOg7MhlYWT8c4+jGjmABFccH
- L15g==
-X-Gm-Message-State: AOJu0YwIQ6PIIlcmeEm8zB33+HJKQGBWEvvWy64sQ6IOUpTk7uUqRSP8
- x6hxZF3T5SCcUsUEEKQVcPB3+w==
-X-Google-Smtp-Source: AGHT+IGUucwXdtUXAYEetJnCsYJnlfqFZQvjwqtcvIW1PmgoCi2qMZX7yrpGdZp9lI5heUgjRDnHrg==
-X-Received: by 2002:a5d:4101:0:b0:31a:e54e:c790 with SMTP id
- l1-20020a5d4101000000b0031ae54ec790mr1238582wrp.6.1693388581246; 
- Wed, 30 Aug 2023 02:43:01 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- p14-20020a5d638e000000b003176eab8868sm16075188wru.82.2023.08.30.02.42.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Aug 2023 02:43:00 -0700 (PDT)
-Date: Wed, 30 Aug 2023 11:42:57 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 0/4] drm/amd/display: stop using
- drm_edid_override_connector_update()
-Message-ID: <ZO8PIQ5PluPGuz7t@phenom.ffwll.local>
-References: <cover.1692705543.git.jani.nikula@intel.com>
- <788721f6-afff-e0b2-db7c-32ab2dd075a9@amd.com>
- <87il965gob.fsf@intel.com> <871qfm2kg1.fsf@intel.com>
- <CADnq5_P49U3dcqiZhB-CjS8UbOtB7K2jNObS0ZQqMhOr3UhLQg@mail.gmail.com>
- <87o7ip252r.fsf@intel.com> <87jztd2332.fsf@intel.com>
- <1e6aa1ff-9aa9-6b2f-84f4-e0304205085c@amd.com>
- <87h6oh0yz9.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2AF510E4F3;
+	Wed, 30 Aug 2023 10:59:35 +0000 (UTC)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org
+ [IPv6:2001:67c:2050:0:465::102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A767410E4F3;
+ Wed, 30 Aug 2023 10:59:33 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4RbLsB2lqxz9scy;
+ Wed, 30 Aug 2023 12:59:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1693393166;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=bE/Bz/ONqO1u4Q/tC+3zmrw8kzMyB7RMj1Z30BMIazc=;
+ b=SiJBLXy/JJiEg7Fi8lUlR0Ix6TwcphMBGQEyVKuhgq8LsCJCIbgxRQmo1q5iVwf1CJ98WO
+ SJ+lTaogFh74qj0uGbI2odQsaV5Rrfgtr5PMnFrSG2WryCyFjNnp7ekc9S2cvty6vG5AH+
+ NyW/53iIEfMzcKjHW3IZSxi+kVoDlDYnADAUgiVijFFbaIFmpxBoSg4wSdv36bBBDl5CZj
+ p+ek09ugJIHmHqX1jESsCV3gVmLh09EpPfxZgv/ap6l8FgJgjmPXSxvleoxenTOrARFMSX
+ H6lmNrrSU4qQXQP1fTftYFDOFw8Tg/2p1uN5r/+G4IlNS1gUMNRPzVydQG4PDw==
+Message-ID: <1135faf0-a771-4651-ec40-4dff69b29218@mailbox.org>
+Date: Wed, 30 Aug 2023 12:59:22 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87h6oh0yz9.fsf@intel.com>
-X-Operating-System: Linux phenom 6.4.0-2-amd64 
+Subject: Re: [PATCH v2 19/34] drm/amd/display: decouple steps for mapping CRTC
+ degamma to DC plane
+Content-Language: en-CA
+To: Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Melissa Wen <mwen@igalia.com>
+References: <20230810160314.48225-1-mwen@igalia.com>
+ <20230810160314.48225-20-mwen@igalia.com>
+ <20230822151110.3107b745.pekka.paalanen@collabora.com>
+ <20230825142944.3jkibtz54f4utwuq@mail.igalia.com>
+ <20230828111726.0a39b73b.pekka.paalanen@collabora.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <20230828111726.0a39b73b.pekka.paalanen@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: k4idbbjjmi9i3rr3557j8suqtmd4smks
+X-MBO-RS-ID: eedbd625b3b49171d9c
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,22 +62,148 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Hung <alex.hung@amd.com>, intel-gfx@lists.freedesktop.org,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Leo Li <sunpeng.li@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
- Wenchieh Chien <wenchieh.chien@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, "Wang,
- Yu \(Charlie\)" <Yu.Wang4@amd.com>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, daniel@ffwll.ch,
+ Shashank Sharma <Shashank.Sharma@amd.com>, sunpeng.li@amd.com,
+ Simon Ser <contact@emersion.fr>, Xinhui.Pan@amd.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Xaver Hugl <xaver.hugl@gmail.com>,
+ Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com,
+ airlied@gmail.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 30, 2023 at 10:29:46AM +0300, Jani Nikula wrote:
-> Upstream code should be reviewed in public.
- 
-Yup
--Sima
+On 8/28/23 10:17, Pekka Paalanen wrote:
+> On Fri, 25 Aug 2023 13:29:44 -0100
+> Melissa Wen <mwen@igalia.com> wrote:
+> 
+>> On 08/22, Pekka Paalanen wrote:
+>>> On Thu, 10 Aug 2023 15:02:59 -0100
+>>> Melissa Wen <mwen@igalia.com> wrote:
+>>>   
+>>>> The next patch adds pre-blending degamma to AMD color mgmt pipeline, but
+>>>> pre-blending degamma caps (DPP) is currently in use to provide DRM CRTC
+>>>> atomic degamma or implict degamma on legacy gamma. Detach degamma usage
+>>>> regarging CRTC color properties to manage plane and CRTC color
+>>>> correction combinations.
+>>>>
+>>>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>>> ---
+>>>>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 59 +++++++++++++------
+>>>>  1 file changed, 41 insertions(+), 18 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>>>> index 68e9f2c62f2e..74eb02655d96 100644
+>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>>>> @@ -764,20 +764,9 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
+>>>>  	return 0;
+>>>>  }
+>>>>  
+>>>> -/**
+>>>> - * amdgpu_dm_update_plane_color_mgmt: Maps DRM color management to DC plane.
+>>>> - * @crtc: amdgpu_dm crtc state
+>>>> - * @dc_plane_state: target DC surface
+>>>> - *
+>>>> - * Update the underlying dc_stream_state's input transfer function (ITF) in
+>>>> - * preparation for hardware commit. The transfer function used depends on
+>>>> - * the preparation done on the stream for color management.
+>>>> - *
+>>>> - * Returns:
+>>>> - * 0 on success. -ENOMEM if mem allocation fails.
+>>>> - */
+>>>> -int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+>>>> -				      struct dc_plane_state *dc_plane_state)
+>>>> +static int
+>>>> +map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
+>>>> +			     struct dc_plane_state *dc_plane_state)
+>>>>  {
+>>>>  	const struct drm_color_lut *degamma_lut;
+>>>>  	enum dc_transfer_func_predefined tf = TRANSFER_FUNCTION_SRGB;
+>>>> @@ -800,8 +789,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+>>>>  						 &degamma_size);
+>>>>  		ASSERT(degamma_size == MAX_COLOR_LUT_ENTRIES);
+>>>>  
+>>>> -		dc_plane_state->in_transfer_func->type =
+>>>> -			TF_TYPE_DISTRIBUTED_POINTS;
+>>>> +		dc_plane_state->in_transfer_func->type = TF_TYPE_DISTRIBUTED_POINTS;
+>>>>  
+>>>>  		/*
+>>>>  		 * This case isn't fully correct, but also fairly
+>>>> @@ -837,7 +825,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+>>>>  				   degamma_lut, degamma_size);
+>>>>  		if (r)
+>>>>  			return r;
+>>>> -	} else if (crtc->cm_is_degamma_srgb) {
+>>>> +	} else {
+>>>>  		/*
+>>>>  		 * For legacy gamma support we need the regamma input
+>>>>  		 * in linear space. Assume that the input is sRGB.
+>>>> @@ -847,8 +835,43 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+>>>>  
+>>>>  		if (tf != TRANSFER_FUNCTION_SRGB &&
+>>>>  		    !mod_color_calculate_degamma_params(NULL,
+>>>> -			    dc_plane_state->in_transfer_func, NULL, false))
+>>>> +							dc_plane_state->in_transfer_func,
+>>>> +							NULL, false))
+>>>>  			return -ENOMEM;
+>>>> +	}
+>>>> +
+>>>> +	return 0;
+>>>> +}
+>>>> +
+>>>> +/**
+>>>> + * amdgpu_dm_update_plane_color_mgmt: Maps DRM color management to DC plane.
+>>>> + * @crtc: amdgpu_dm crtc state
+>>>> + * @dc_plane_state: target DC surface
+>>>> + *
+>>>> + * Update the underlying dc_stream_state's input transfer function (ITF) in
+>>>> + * preparation for hardware commit. The transfer function used depends on
+>>>> + * the preparation done on the stream for color management.
+>>>> + *
+>>>> + * Returns:
+>>>> + * 0 on success. -ENOMEM if mem allocation fails.
+>>>> + */
+>>>> +int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+>>>> +				      struct dc_plane_state *dc_plane_state)
+>>>> +{
+>>>> +	bool has_crtc_cm_degamma;
+>>>> +	int ret;
+>>>> +
+>>>> +	has_crtc_cm_degamma = (crtc->cm_has_degamma || crtc->cm_is_degamma_srgb);
+>>>> +	if (has_crtc_cm_degamma){
+>>>> +		/* AMD HW doesn't have post-blending degamma caps. When DRM
+>>>> +		 * CRTC atomic degamma is set, we maps it to DPP degamma block
+>>>> +		 * (pre-blending) or, on legacy gamma, we use DPP degamma to
+>>>> +		 * linearize (implicit degamma) from sRGB/BT709 according to
+>>>> +		 * the input space.  
+>>>
+>>> Uhh, you can't just move degamma before blending if KMS userspace
+>>> wants it after blending. That would be incorrect behaviour. If you
+>>> can't implement it correctly, reject it.
+>>>
+>>> I hope that magical unexpected linearization is not done with atomic,
+>>> either.
+>>>
+>>> Or maybe this is all a lost cause, and only the new color-op pipeline
+>>> UAPI will actually work across drivers.  
+>>
+>> I agree that crtc degamma is an optional property and should be not
+>> exposed if not available.  I did something in this line for DCE that has
+>> no degamma block[1].  Then, AMD DDX driver stopped to advertise atomic
+>> API for DCE, that was not correct too[2].
+> 
+> Did AMD go through all the trouble of making their Xorg DDX use KMS
+> atomic, even after the kernel took it away from X due to modesetting
+> DDX screwing it up?
+
+No, I think Melissa meant the KMS properties for advanced colour transforms, which xf86-video-amdgpu uses, not with atomic KMS though.
+
+
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
