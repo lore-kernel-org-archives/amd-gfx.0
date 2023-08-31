@@ -4,114 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EC3CC83F37
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 18:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DF98C83F37
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 18:56:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9209310E1A0;
-	Thu, 31 Aug 2023 18:48:21 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2088.outbound.protection.outlook.com [40.107.220.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10FC310E1A0;
- Thu, 31 Aug 2023 18:48:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n+POFmsJQtbAYpZmmu9cEGVOV3sXJQq0BmgdMkZS7x+icM7ZRR51WC9UDlJzHI2ITCcRr93NIUgybUHdjmRGDOQHLxSXqfP2/H0iV5V/OZAM0c66zWD1t39lpYHm6Fb4SdN3XMzt0D+gMrpCV02GET5JwsQYhPlsFU01DHpYj8VZux9ppwvX5YzU7zDe5ZvijV2Ti8l8C9V5CguZR3hqd6XHNXu/w5bYoMUNWo/hg2i4o5kX37kiaxAabJXv7GQ7uJ5RFaGNqvILDFjkDrNMqtyEnepcp0x3v4XcZHV/CT+IHjX2rwCM7AzdEeZlpu+hAmxGkIQN7krRoxq809jhQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=95CgSqvZGgYotU43d7p9g0FYqHk8QgKm3DKUbF0aQgc=;
- b=fFCnieKcG+o77ZheQ7duUWIm+1ZWdtA1oRp2woMJkenZ4bZ4BdENZkTOE+rJ45ZMPBb9e2HYv6khZ9iVBQJMtw7uLX+6o+AVM5nTOdLxNgzWh1US4D0E44EI23wCpAuHeMZYLXeffEQuJ14vIG2KwH0886NDBeTPRHSbsGqj5U/oLI4KE4oqjFgc5r68ORBZBXKwwrwzHUZC6xzFN5ypaQIANls6TYAt9OQAyKgD0uB4/pzqN7hBL6sMn4mhO9et5CbWAakxURerSuMXsVBLc2CSdoMu9IDCaA7ukCHn3DZp/L8rrmlgJtalLIWLSIA8ECwTT0Q3+P5t9aN2GpzvSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=95CgSqvZGgYotU43d7p9g0FYqHk8QgKm3DKUbF0aQgc=;
- b=O4YJ5u6MT1ua1XEjp1zC7Uev3HARwEFCfrF0ZJTMigeva3Y6V9Rr4PcQG2HwfX3Lhpl786BuYlNCsREWP2nJ1pENOWvU89c3gOHCDxPLc4gApGL2R2KxX7fucYDEPFdI6FdMaORRE7sKDzMtqiTRlumkdgba4NA3jaVQN7eSlr4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CH3PR12MB9344.namprd12.prod.outlook.com (2603:10b6:610:1c8::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6699.35; Thu, 31 Aug
- 2023 18:48:14 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::121e:5e68:c78a:1f2f]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::121e:5e68:c78a:1f2f%3]) with mapi id 15.20.6745.021; Thu, 31 Aug 2023
- 18:48:14 +0000
-Message-ID: <3ba3a7da-77d7-4a13-899c-e7a1f5b68a42@amd.com>
-Date: Thu, 31 Aug 2023 14:48:13 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: remove useless check in
- should_enable_fbc()
-Content-Language: en-US
-To: Dembskiy Igor <dii@itb.spb.ru>, Alex Deucher <alexander.deucher@amd.com>
-References: <20230830140103.311752-1-dii@itb.spb.ru>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20230830140103.311752-1-dii@itb.spb.ru>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQXPR0101CA0036.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:15::49) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 009E110E6B6;
+	Thu, 31 Aug 2023 18:56:08 +0000 (UTC)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD34210E6B6;
+ Thu, 31 Aug 2023 18:56:06 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-401ef656465so3848915e9.1; 
+ Thu, 31 Aug 2023 11:56:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693508165; x=1694112965; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=70+hbPdCGwbal0A00oV8Qd5IExBJqMtjUwdtyT1yesg=;
+ b=HOcmgmdtaqiuCcLGyMw60yqCv+qylCLGypIBuf9XBPXM9Uf2TnP6WrcLUqjt7NHqWA
+ sWZkb0dMftjYCukfQrKyFGrHoZu9EWjUmegeBKPpldy1q8qHtZztbgTRtJg42QuPN5Kk
+ y+f7n7hZwYxtc9q2a0eSQb/Vg1HfuF6yvnah8MwrIU65VsBOZHIISY9uA9TLtcObksDO
+ 5Lv8PUGwOmzRWO43ToUKlGgaXJbClK4xPsKD00pZDlONE5itakfx+NNyeyjxWTYy+9DD
+ KyfJAg/IJrX436gESQZP9IsnTgFkwbRTxbpjKKu98LPf7LqpLYlIUz4NOneDQe9aZbcX
+ UUfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693508165; x=1694112965;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=70+hbPdCGwbal0A00oV8Qd5IExBJqMtjUwdtyT1yesg=;
+ b=HP0ISHX7mfU88mlCdD4ZxT2DgtPPP9EgG7F3HfbFss4d2RY6CR6WswYEt7j9q1KV2h
+ C2PM9TRxUK7EnLXF41yaxioC+MULmypKLzhszQ5WeH2rmQmlnK1s/zUhXXCbkrSv1ffM
+ V1g4BZV2/0jdaCsvinlYbYRPIhJqI6nntsO3jYhGbPBFQzRU+eGeFEuthUqDJhII2/46
+ giYv/LD9zxdqWlgfmQycypcpaI+NJX3Lv3VCM1NOA39dSAcmLUjsF+zenUBysq5XUxHh
+ /X+EEzVOiSeY6o7LlDPF4DXz8AE1bhgsLw4+X6ZIo9UZ021CqrKlhyfukB0RyPIjXPnI
+ lmqQ==
+X-Gm-Message-State: AOJu0Yxq4xmq6WbqOZ/riTiflMoY44ixUajbzPbCaudohcWGi/w1LsK2
+ AtWsGc/9HeXX2HmFW7ER0n4eH8sQBdZK3sHzIKY=
+X-Google-Smtp-Source: AGHT+IF9ZKWCgd8d7R7zW6WSPi4FSXNFrrb++2Kkp9AV6hYPajY6HNBp7SI8K1T9gYypIbwS+iblGsap0riFAFU/lik=
+X-Received: by 2002:a05:600c:8505:b0:401:c717:ec68 with SMTP id
+ gw5-20020a05600c850500b00401c717ec68mr140636wmb.3.1693508164875; Thu, 31 Aug
+ 2023 11:56:04 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CH3PR12MB9344:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a2137b2-21f3-4483-2fe9-08dbaa52d551
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vUULqUDsZca2UCC90SZI0XqFEU8TZmKemp+APk5b+eWMdi69qiob3fLSWc/kpYPjYm6d2mfZZGbiF47zKM6TpqaLGf9DK64e+kAKalDKe8av9nvw3AWgLBkyVFomjC2xftb/6J1zYid8BicKUItHzkz6goDDJU+zvJx9uXT0Ejsj4CWA0DWvPpUGicgGr8Y3vOFpRo2Csm+svCqdU+fBbATSCs6qlhQRQrbWIl87Z+uOKZFOfdZVpztSBREjx4Diutyq2EyF8MSEK+7Lx4l+vyUVnp8TNKzhJOxb9VIuZ0vCorqzhrf6F9l4DuOEQYJu18fCkltDRTt65UxIvlMWQffD+QQ9V2V0ELKWWEy2kLD3WxeBQnKckYNfoq6JNmq/ZJprMiRWwnZaDiv+CMFpTnttwuVaDmq+46Nhg3t3yWjJbR3+o5FGHkQvxE8Np4lNc1JH8tv1qr/ivUz/zIjHrSVIQNrkxYxJFg+2la6hd8OoP9NzZb/IowlJyS4spIVhodlbPRFNzi3kM4DZslBjXxoSKpjcn8qkmY/uOWfaa9FfI4hXr5JDz9d2/FF8nQIxNxsCsrfHVbGTT8VQ6KG/xs0KrxVb8NTwlaDryyYLJKtqPGJRBqapkzx0E5ZbI0yorxXN75Xwepz98DZqovNqlQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(39860400002)(396003)(376002)(136003)(346002)(451199024)(186009)(1800799009)(6512007)(38100700002)(41300700001)(316002)(6636002)(4326008)(2616005)(2906002)(31696002)(86362001)(44832011)(5660300002)(83380400001)(36756003)(26005)(8676002)(8936002)(6486002)(66476007)(66946007)(66556008)(6506007)(54906003)(53546011)(110136005)(478600001)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WlpaOHRia2dUQWhYRm1LVzY3bmFPbThZcDMybGlLK1hBSXNvNE9JcTloMy9i?=
- =?utf-8?B?ODZURGM5K2pEdWJTUlZZa3RHaWVCeU5ERDYwdGFjY1JuTVlzUGFRZDlXWFhp?=
- =?utf-8?B?R0VMamhXTXplYVBkS0RVa01VeGYwU2lHZERDSXJBWFJwU3cwQm02TWlteDRk?=
- =?utf-8?B?cG41c1QxL0pVR040V3pRTXRwck0rT1FEUmZQZGQ4SXdNUXQzV3hJTC9rY3Bj?=
- =?utf-8?B?UnNGdnhyUlo3cnFiRmRaUDBncllRR3NOVTZVYnN6cXJUK1FmU0hFSWtWWnJL?=
- =?utf-8?B?d2VEWlMxVE9qS0VGaEJNSHhHOEluWmZyeEtGRVh4b2MwbmxXWTB2NGJ6SmtR?=
- =?utf-8?B?ajg0R1J6MnVSd2hqekc5U2pENjRmajlaM0xJT1Y1REZuYWdNRXpUMHF0WGRj?=
- =?utf-8?B?TEZlQkpWUUZIcW1YODZPbXg2WjRsSVVnMkdhbENBa1h0OWNwTVkwbmhSOFMz?=
- =?utf-8?B?WWNtNS8wdCtnT0U0eHh4dVNiTEUraXh3cy9UenNDSzExTVI5WXhwNXVGVHNB?=
- =?utf-8?B?SHJLT1pBcyt3dThsZmZDVENrOUE2MjE3NkxaUGJRaGszK3ZXWCtuNGlyTEZ5?=
- =?utf-8?B?cnJhMFpIYkRTNFpseFo3YnJDY0NKUEZ5K3BaaklzT3lGaDZSdlMwOE85MThI?=
- =?utf-8?B?WEpVMzdmbEEyNEkwZXdUTkQ3YUNpS3F5b0pqZXJ6SGcrZUlpL003T2U3RGhM?=
- =?utf-8?B?Z0dzb0dIQmRXYk5tS2FUa0lIOWkvcC9qTmVGSE9FajYwZmtEWVVobVBVYlFz?=
- =?utf-8?B?a3hLektPNy80aUZaQkpkcVMvc1crTmhqSWRjWlNJamNBNUhEaWNTdGhUTmsy?=
- =?utf-8?B?K0VBMGNSOUNFMS9aRFlKTDVwNGdETVd6TExXSnhxdjZhTmZ5cTNoOUNJOFpr?=
- =?utf-8?B?TzRZRlVuQXVuWVZoNCt0OWNVTjhQdmNpakRuUnJMM1I2R2h4S2VkK1M0VXJS?=
- =?utf-8?B?MkZOUjhac0JuZDBrVEN1M29KOEVFTjBjdllTa0xJUHVJVldVWmdROTV3MFpW?=
- =?utf-8?B?SzR1MlUzTVJ4TUVtdXVjUHhaWDZnb25iaE4rTEcvN09ROENyemtTR0ZMYU5J?=
- =?utf-8?B?U1dHTGNHUG1mUXM3Y3UvUmg2VUlXS3h3MWF2VTdvTDltT3NIUEVFUTNyaTV0?=
- =?utf-8?B?aWxib0Jyd3AvalVBdU85OVFZRHdIem9qaThwQi8rV1kxNU1ialJyQ2J5VEx4?=
- =?utf-8?B?WHRHY21CRUhzNTdJL2dTVmhTaEdBU2g5eGJWS3lTRjFNWGhYcWc2S1BBbllQ?=
- =?utf-8?B?Q0lhUDExVnJ1a0U5WE9uOWtDL3E1WnRZM0ppYktIOUUyNGdqUFhtTDF6Tnoy?=
- =?utf-8?B?aFVoSk9rMFh2YXVPYlM5SVVHdU5aWFpNaEFReThyV3g5T1AveSthaDRsRHF0?=
- =?utf-8?B?dHVybC9QWVdkV3RQWnFnWjdpKzZkNFBNaFRrZjZOM3pzZCtMS0I3ZTJOUzBn?=
- =?utf-8?B?VWtuWjdMT2t5TkpwK3ZkNUJhMW5lelRIYXFNU2xCanN5cm5vWTV4ZENuMGZj?=
- =?utf-8?B?RGxvTTcwU0hSN2lUOUN1NlBCTElJQ1YzSHAwYm5DZWxobkJXSVV0bVhwTUlC?=
- =?utf-8?B?QWpCZDVpVXJya1BPRUM1aUZEeFU1czVTd1NYejF2Sm5RU04veU5WbzZ3dU5m?=
- =?utf-8?B?bnJnMlozWG9GNDVpbGNYdXVJMEhsUTc4YlhQWDVBWlVRcjczSTlkK3dHTVdW?=
- =?utf-8?B?VCtRVTY2TDhueXhMYVpkaENtUG9ienhuY3hzLzZ1bEh0b00ra01tSlkvckZj?=
- =?utf-8?B?dXVJY3VTS1ZCeDdyT0hRN3RTY2JtZVc1c1hSd1JqSTlvbDVITTlzWkdHWDIz?=
- =?utf-8?B?OW1pVlRXZHp4WXc2VEtzdTFOdldLVmxNWGZMcXkwd3ZrNVo5VnVUcktxVkpG?=
- =?utf-8?B?bEpJYmJFQ2hIZm5QdFdhc1lZcFJRYTk4bndKMFI1K0V6My9uYWp1NWQzeGds?=
- =?utf-8?B?RUkvL2hodWc5UXFGUGdmdVdyc0hyQUZhbCtRaUh0UEZucXJMS3NlYWY1T1ZJ?=
- =?utf-8?B?a29Fb000NWh3MkorWDVabk44eFY3M1lOanVLM1dFbHJOTWU0cERzcEhMR0FO?=
- =?utf-8?B?OWk2NmVhZE9EMGs5dGpzbTFNbGV2Y0xYT0VYTE1ZdGRRZEE3bnBiaFI0ZEF2?=
- =?utf-8?Q?IkQZbHyFVstJb2+smMip0AIKA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a2137b2-21f3-4483-2fe9-08dbaa52d551
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2023 18:48:14.8004 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T+ODBn5i0dX3PWb3BW3uz1FrUK9v4wRpEQRkb0blLlo/FLrXyLj9/rQHz8MXcXhgl/8FUhL/jTu4toyWPxrIcw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9344
+References: <20230724012419.2317649-1-sashal@kernel.org>
+ <20230724012419.2317649-13-sashal@kernel.org>
+ <CAPaKu7RTgAMBLHbwtp4zgiBSDrTFtAj07k5qMzkuLQy2Zr+sZA@mail.gmail.com>
+ <55fc4a28-1e17-44df-2069-a688828080e6@gmail.com>
+ <2023083145-scoured-celery-2511@gregkh>
+ <c657653e-24d8-5790-a91c-4c13bb9eaeb0@gmail.com>
+ <2023083144-railroad-daybreak-7f41@gregkh>
+In-Reply-To: <2023083144-railroad-daybreak-7f41@gregkh>
+From: Chia-I Wu <olvaffe@gmail.com>
+Date: Thu, 31 Aug 2023 11:55:53 -0700
+Message-ID: <CAPaKu7Q2vq5m6Av6L2LthnFy5w2XtjKUYF8Z2__0hVp0vj2L1A@mail.gmail.com>
+Subject: Re: [PATCH AUTOSEL 5.10 13/22] drm/amdgpu: install stub fence into
+ potential unused fence pointers
+To: Greg KH <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,41 +74,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lvc-project@linuxtesting.org, Leo Li <sunpeng.li@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- hersen wu <hersenxs.wu@amd.com>, amd-gfx@lists.freedesktop.org,
- Alexey Khoroshilov <khoroshilov@ispras.ru>
+Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ stable@vger.kernel.org, Lang Yu <Lang.Yu@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-08-30 10:01, Dembskiy Igor wrote:
-> It does not make sense to compare a pointer to array element with NULL.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> 
-> Fixes: 65d38262b3e8 ("drm/amd/display: fbc state could not reach while enable fbc")
-> Signed-off-by: Dembskiy Igor <dii@itb.spb.ru>
+On Thu, Aug 31, 2023 at 7:01=E2=80=AFAM Greg KH <gregkh@linuxfoundation.org=
+> wrote:
+>
+> On Thu, Aug 31, 2023 at 03:26:28PM +0200, Christian K=C3=B6nig wrote:
+> > Am 31.08.23 um 12:56 schrieb Greg KH:
+> > > On Thu, Aug 31, 2023 at 12:27:27PM +0200, Christian K=C3=B6nig wrote:
+> > > > Am 30.08.23 um 20:53 schrieb Chia-I Wu:
+> > > > > On Sun, Jul 23, 2023 at 6:24=E2=80=AFPM Sasha Levin <sashal@kerne=
+l.org> wrote:
+> > > > > > From: Lang Yu <Lang.Yu@amd.com>
+> > > > > >
+> > > > > > [ Upstream commit 187916e6ed9d0c3b3abc27429f7a5f8c936bd1f0 ]
+> > > > > >
+> > > > > > When using cpu to update page tables, vm update fences are unus=
+ed.
+> > > > > > Install stub fence into these fence pointers instead of NULL
+> > > > > > to avoid NULL dereference when calling dma_fence_wait() on them=
+.
+> > > > > >
+> > > > > > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > > Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+> > > > > > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > > > > > Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > > > > > ---
+> > > > > >    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ++++--
+> > > > > >    1 file changed, 4 insertions(+), 2 deletions(-)
+> > > > > We start getting this warning spew on chromeos
+> > > > Yeah because the older kernels still kept track of the last VM fenc=
+e in the
+> > > > syncobj.
+> > > >
+> > > > This patch here should probably not have been back ported.
+> > > >
+> > > > Why was that done anyway? The upstream commit doesn't have a CC sta=
+ble and
+> > > > this is only a bug fix for a new feature not present on older kerne=
+ls.
+> > > It is part of the AUTOSEL process.
+> >
+> > Could we prevent patches from being backported by adding a Fixes: tag?
+>
+> Yes, that will show exactly where the patch should be backported to.
+This is also AUTOSEL'ed to 5.15.  That might need a revert as well,
+depending on when the amdgpu feature landed.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-Harry
-
-> ---
->  drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 3 ---
->  1 file changed, 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-> index 6966420dfbac..e87cf54ec658 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-> @@ -1992,9 +1992,6 @@ static bool should_enable_fbc(struct dc *dc,
->  
->  			pipe_ctx = &res_ctx->pipe_ctx[i];
->  
-> -			if (!pipe_ctx)
-> -				continue;
-> -
->  			/* fbc not applicable on underlay pipe */
->  			if (pipe_ctx->pipe_idx != underlay_idx) {
->  				*pipe_idx = i;
-
+>
+> thanks,
+>
+> greg k-h
