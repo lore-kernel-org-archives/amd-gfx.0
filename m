@@ -4,91 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1542FC83F32
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 12:37:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFFD3C83F12
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 13:26:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A34C10E66E;
-	Thu, 31 Aug 2023 12:37:41 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01B6810E5E3
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Aug 2023 09:53:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l2I/DMcZGyXYfWe0QAecWY89maFBNlumKfzFmLoa9lINGrPpbKqLsyhoqgeQj8GFV3Gp3Xj63MPgur0+RpQMNM960bdgJ8q+3w1EuuMwstqBqgA5cLcNPg+dooE/RunLxbYAK1Cwp3cVrCU8qRDvZDynHIqiESOONnSTTH343qyY5CY9jzqURXyiTia4MpMz0+i8r+Dt8U/H90gRb0SR7V4EmWW9PDOz0rB+4kIyfXNwIFT13VZRK69300eIEkKYBhYh9jSRdmj5wP31wuqhYye51/DRN/9GAl3P/8toMVXVmGcsdAqd+KEgCa1eXtb8uAdZIOpYBZsX1PsrGtEFWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OmaQr0m95s5ex0W15RRDVhhCsklsZ+oi/NShVUIK3IQ=;
- b=OLzMsEqbYkagHcOScHoGtJOR305lqJtfOcbGzsDgOd+qeiczB5spi8Go/YfvN1vR/GC/ksdHdgZf2QHK7W2a0wevHFB9E5/BuYD4/rJ3I/0UoYWIuO8cY5J/+6CiHP8FBLfVsq0A1GHtBqY7L290n9OiFLY04Svxi2bBmd1MG3TOPovTJnsf0z2ie8rMk/KyEHPC4gxZiOiBKBaAek+CvrGhBkR/jzc1UMY8ZiaVBkuo8X78WzET8hgBClK5M4Qc2bv7xiwej0ZtuFQnoW9uh7CzrifELiEv8T1ejkdU3unNV1E+cuf0njg7qwBE1gDHwdG3ErEyZghzJdondOl26w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OmaQr0m95s5ex0W15RRDVhhCsklsZ+oi/NShVUIK3IQ=;
- b=4W3Hf8xLwG0Lm8Xi/QIvebpokRlFxNDMw7Xx5yR94mVL5xNu/KNyOIwH7SACOMGYjY6PeASDpdfbTa+VSUnNYQt+sLQYhNzEq4ld7gySFAXkT25mC3hbSvBe5SfzMNzbmHKNpGeznmR+d4oqV2n8g0CyjOUz3eAkJNHsrlwn7NA=
-Received: from DS7PR05CA0064.namprd05.prod.outlook.com (2603:10b6:8:57::26) by
- SJ1PR12MB6027.namprd12.prod.outlook.com (2603:10b6:a03:48a::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6745.21; Thu, 31 Aug 2023 09:53:01 +0000
-Received: from CY4PEPF0000EDD7.namprd03.prod.outlook.com
- (2603:10b6:8:57:cafe::be) by DS7PR05CA0064.outlook.office365.com
- (2603:10b6:8:57::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.15 via Frontend
- Transport; Thu, 31 Aug 2023 09:53:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD7.mail.protection.outlook.com (10.167.241.211) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6745.16 via Frontend Transport; Thu, 31 Aug 2023 09:53:01 +0000
-Received: from x570-ryzen9-5900x.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Thu, 31 Aug 2023 04:52:54 -0500
-From: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
-To: <brahma_sw_dev@amd.com>, <saleemkhan.jamadar@amd.com>, <leo.liu@amd.com>, 
- <amd-gfx@lists.freedesktop.org>, <veerabadhran.gopalakrishnan@amd.com>,
- <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/jpeg: initialize number of jpeg ring
-Date: Thu, 31 Aug 2023 15:22:31 +0530
-Message-ID: <20230831095231.1416451-1-saleemkhan.jamadar@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D96110E674;
+	Thu, 31 Aug 2023 13:26:54 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8292310E674;
+ Thu, 31 Aug 2023 13:26:53 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-31ae6bf91a9so639813f8f.2; 
+ Thu, 31 Aug 2023 06:26:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693488412; x=1694093212; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=izN8y1TLkmCn8It+Lcd7BlxbIdHxMn/IMnM8Q8VhJ14=;
+ b=KWEoHK+Ov9lIFJ8ePyP97EM6Bh/3xJsL2Irg7hQ4oYOQiWt6qFVOzKOTvW5pxiHoqZ
+ /3A6QO2jNZZIBS7e5NbWNH3BBjscaU2K2lfJ83rKqwP+bHYi2XaaIMeT+hCkp4XhndQP
+ 77Y7aNJ+C5lntXGnOLnG8bPdBGcS0vVexuGwBjaVM2VT+YCr4LZ5Yu2kE29uK+LzGEIM
+ l2b8sbPCHfFWC/atVpJCCoBjteylB/Ws/qQjbjORNjAFtTNZ0t08fuYfrbBg8sT4bn6E
+ y8Rx/u7O1jgmzOFgBBZRJQSYOkmOrGgQhZJO4H/rzzrSgGKV68NLZTG8QFUmX/jqoVAZ
+ E/Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693488412; x=1694093212;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=izN8y1TLkmCn8It+Lcd7BlxbIdHxMn/IMnM8Q8VhJ14=;
+ b=XYuJ7i3prO84Ykp3/9VND5IrImiMT0xrZQFxuahYSchwjfafm8pM2pac1CxUpXbI1b
+ cRZW6E4Fl29uN6bQvqwULzgxsx6BEUYqPn7EOU4enCJzL37vvxuEZuXB256qnif83uDN
+ 6uIQAeT8tu8Q7pocQkDtIMdMugLXz8ZKRGV6aJjwumQTohB4ODub43njd/vACeh6ZBIs
+ J8H3jqWmSLNA940edTuk+Iu8YurOZ6RiqgbrJ1Z2Mm9qVk7u6KdkXvCVmssxj0FNrfSS
+ XzICg1d7kzzvZbnGwe9VMmt5pw6NJU33jNlA6N48oEl/GGIv8tx+vJ+o9DbDW0iuoTOl
+ 0Y7A==
+X-Gm-Message-State: AOJu0YwqqIhvzHxevMwioO8+mwBr2ycEfAKOKxJoXoUn5nO56F/mcAC/
+ wgA59eMlHyycF5RqV50AtX8=
+X-Google-Smtp-Source: AGHT+IHnagwLLeLlCCtU5v5GLAHjoVb8snl71EU2/1lG7lELEL/vPVePoL2VczUDyMaDlI1V9GLwXg==
+X-Received: by 2002:a5d:49c7:0:b0:317:70da:abdd with SMTP id
+ t7-20020a5d49c7000000b0031770daabddmr4047998wrs.59.1693488411526; 
+ Thu, 31 Aug 2023 06:26:51 -0700 (PDT)
+Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ d9-20020a5d5389000000b0031753073abcsm2240940wrv.36.2023.08.31.06.26.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 31 Aug 2023 06:26:50 -0700 (PDT)
+Message-ID: <c657653e-24d8-5790-a91c-4c13bb9eaeb0@gmail.com>
+Date: Thu, 31 Aug 2023 15:26:28 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH AUTOSEL 5.10 13/22] drm/amdgpu: install stub fence into
+ potential unused fence pointers
+Content-Language: en-US
+To: Greg KH <gregkh@linuxfoundation.org>
+References: <20230724012419.2317649-1-sashal@kernel.org>
+ <20230724012419.2317649-13-sashal@kernel.org>
+ <CAPaKu7RTgAMBLHbwtp4zgiBSDrTFtAj07k5qMzkuLQy2Zr+sZA@mail.gmail.com>
+ <55fc4a28-1e17-44df-2069-a688828080e6@gmail.com>
+ <2023083145-scoured-celery-2511@gregkh>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <2023083145-scoured-celery-2511@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD7:EE_|SJ1PR12MB6027:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b45fe68-4aab-493b-a495-08dbaa081043
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CjpQ9/AxTKv3F/KezCar/JHvVl6FNQGEOvVyuH6UhD6nqhkQV/c9UbfbflIwHv0o8K/UcIM0jhfEGG00sv6bi45XEeLYf2jL4UAnjwSwTNtLgg7YwHIm0Xbf6ua3rJf3iGL6ZnKyiHVbSjzF6bLNFvdeHGJlhYRYHPT2A0RvF0qRnPe77al5FjQA7HBnkI4NVLf5ENtFLc5lcCTMytxOkIT9kr2plR/UgRuS0k26IzCKQm+7xd+BA9cxL3d20YnI1pTM5KTp3yjihjQx5g2z9mAKtGWPDM5VpgTSuESBaJI8yIilcvedgDEJKZiASaIgpXB7dGPvVpqyHeMNQbaRDK9Iw+s0AJnqPX9ZhRAT7VGGh/QDlMpUtvtJTlyvjvCgNbvhjmmJWdmb7gat6tPAHSwLczaILHWgqyRzN8wRYn27LZCLK7G8Qxkt6vorLCullVOuXcHV66ToO3viWXjBTNSDvanQs/RFdJYYI7L/qUUerEQvtky6NspDYEeLh+reLO0f9msSXq8j4tTYD5ppYayU4J0lxndLCluk+66mL10xun1Prwv3mybhpsan0V4TuwAmDTlAFet2Z/wI2TbNG8pzVbTQNPMdXAiRBIDkjO/Brrgz3LprhUS0iqHQ7DUz05d+6h5KIu6fUzHvCBXxqqXY2Arpyir9IkZyYeb4vvKVTGZNMK37Ug37OiFJcUa66RGaDTxFCnHUDV+4Xsrg9kZfJgjFrgsSNZ35EP1ls8RLRLBv1MScm14zsEXwMry3za+yOkPZvMVqwSysbQLBGw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(136003)(396003)(39860400002)(376002)(1800799009)(82310400011)(186009)(451199024)(46966006)(40470700004)(36840700001)(40460700003)(41300700001)(356005)(81166007)(82740400003)(6666004)(86362001)(478600001)(2616005)(47076005)(336012)(426003)(26005)(16526019)(1076003)(7696005)(36860700001)(4744005)(40480700001)(70586007)(70206006)(2906002)(36756003)(110136005)(6636002)(316002)(4326008)(8676002)(8936002)(5660300002)(44832011)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2023 09:53:01.1448 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b45fe68-4aab-493b-a495-08dbaa081043
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD7.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6027
-X-Mailman-Approved-At: Thu, 31 Aug 2023 12:37:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,30 +80,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Veerabadhran Gopalakrishnan <Veerabadhran.Gopalakrishnan@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ stable@vger.kernel.org, Lang Yu <Lang.Yu@amd.com>,
+ Chia-I Wu <olvaffe@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Initialize number of jpeg ring for gc ip 11_5_0
+Am 31.08.23 um 12:56 schrieb Greg KH:
+> On Thu, Aug 31, 2023 at 12:27:27PM +0200, Christian König wrote:
+>> Am 30.08.23 um 20:53 schrieb Chia-I Wu:
+>>> On Sun, Jul 23, 2023 at 6:24 PM Sasha Levin <sashal@kernel.org> wrote:
+>>>> From: Lang Yu <Lang.Yu@amd.com>
+>>>>
+>>>> [ Upstream commit 187916e6ed9d0c3b3abc27429f7a5f8c936bd1f0 ]
+>>>>
+>>>> When using cpu to update page tables, vm update fences are unused.
+>>>> Install stub fence into these fence pointers instead of NULL
+>>>> to avoid NULL dereference when calling dma_fence_wait() on them.
+>>>>
+>>>> Suggested-by: Christian König <christian.koenig@amd.com>
+>>>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+>>>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>> Signed-off-by: Sasha Levin <sashal@kernel.org>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ++++--
+>>>>    1 file changed, 4 insertions(+), 2 deletions(-)
+>>> We start getting this warning spew on chromeos
+>> Yeah because the older kernels still kept track of the last VM fence in the
+>> syncobj.
+>>
+>> This patch here should probably not have been back ported.
+>>
+>> Why was that done anyway? The upstream commit doesn't have a CC stable and
+>> this is only a bug fix for a new feature not present on older kernels.
+> It is part of the AUTOSEL process.
 
-Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
-Reviewed-by: Veerabadhran Gopalakrishnan <Veerabadhran.Gopalakrishnan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c | 1 +
- 1 file changed, 1 insertion(+)
+Could we prevent patches from being backported by adding a Fixes: tag?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-index b99faf55d3c4..9df011323d4b 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
-@@ -56,6 +56,7 @@ static int jpeg_v4_0_5_early_init(void *handle)
- 
- 
- 	adev->jpeg.num_jpeg_inst = 1;
-+	adev->jpeg.num_jpeg_rings = 1;
- 
- 	jpeg_v4_0_5_set_dec_ring_funcs(adev);
- 	jpeg_v4_0_5_set_irq_funcs(adev);
--- 
-2.25.1
-
+Thanks,
+Christian.
