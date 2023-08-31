@@ -4,50 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36C8EC83F32
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 14:09:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8459C83F01
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 15:29:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D252010E688;
-	Thu, 31 Aug 2023 14:09:48 +0000 (UTC)
-X-Greylist: delayed 439 seconds by postgrey-1.36 at gabe;
- Thu, 31 Aug 2023 14:08:27 UTC
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65F6910E687;
- Thu, 31 Aug 2023 14:08:27 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 74B34B822A2;
- Thu, 31 Aug 2023 14:01:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93068C433C8;
- Thu, 31 Aug 2023 14:01:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1693490464;
- bh=bhdJzbcUDiU8F267YV9GPJNZorUfdGvRfv0Zanffxlc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dt4grCozA/NuOXr8/L7WRrWozLJyn4aujUgLwxM1zCLIzhVDGU86YnC9Z1+oQ4yD4
- eLcaMYJfwZ17CMnPDEYh7xhyCS6DgXJ3shvcan1nxj4IF9AkmJ9TOXwMnWLwFFZSAI
- /o84xxJ2DVEn56tt5q1w/mg3IWr9ZzKXEZ4WRrBI=
-Date: Thu, 31 Aug 2023 16:01:01 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH AUTOSEL 5.10 13/22] drm/amdgpu: install stub fence into
- potential unused fence pointers
-Message-ID: <2023083144-railroad-daybreak-7f41@gregkh>
-References: <20230724012419.2317649-1-sashal@kernel.org>
- <20230724012419.2317649-13-sashal@kernel.org>
- <CAPaKu7RTgAMBLHbwtp4zgiBSDrTFtAj07k5qMzkuLQy2Zr+sZA@mail.gmail.com>
- <55fc4a28-1e17-44df-2069-a688828080e6@gmail.com>
- <2023083145-scoured-celery-2511@gregkh>
- <c657653e-24d8-5790-a91c-4c13bb9eaeb0@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 952FC10E68D;
+	Thu, 31 Aug 2023 15:29:14 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31E5C10E68D;
+ Thu, 31 Aug 2023 15:29:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=e9nWEhKopxHLZLMm7KOqmsXmgPnL12b6rc9qP+CbPJE=; b=j39Ra7AnnhQJeTbi0Utj7IBM1P
+ tMkrUWKvF23YcFd/5nm+te4asEQOiSjzsjlMuQS86GIZGNPH6le0sfUdOuAUIcKTx+02umfmqr+uU
+ /B6ukx1r/xljQClCZlh2rhNHTEtACjKDKY/9NfL9C6Rgsyj7VjQP1aujrtrwffyMmPxrD2c+JN3aM
+ gJHoOORy2rbqls6HbySLj5Gxnh9oA73EEA+DGnC3gqUTBK8UM/EnXiy172TWfXCpPpNjRtakf/xFz
+ ft1Y2wcmxLPhwB/nwtUNqVC7aauzuFBSki51Wz7s+nazimOTUWUsA1KpCVxoHlr7Ta0ozOZxUeR46
+ RrpdueEg==;
+Received: from [191.193.15.45] (helo=steammachine.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1qbjba-000VNg-3F; Thu, 31 Aug 2023 17:29:10 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] Merge all debug module parameters
+Date: Thu, 31 Aug 2023 12:29:01 -0300
+Message-ID: <20230831152903.521404-1-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c657653e-24d8-5790-a91c-4c13bb9eaeb0@gmail.com>
-X-Mailman-Approved-At: Thu, 31 Aug 2023 14:09:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,50 +50,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- stable@vger.kernel.org, Lang Yu <Lang.Yu@amd.com>,
- Chia-I Wu <olvaffe@gmail.com>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
+ kernel-dev@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 31, 2023 at 03:26:28PM +0200, Christian König wrote:
-> Am 31.08.23 um 12:56 schrieb Greg KH:
-> > On Thu, Aug 31, 2023 at 12:27:27PM +0200, Christian König wrote:
-> > > Am 30.08.23 um 20:53 schrieb Chia-I Wu:
-> > > > On Sun, Jul 23, 2023 at 6:24 PM Sasha Levin <sashal@kernel.org> wrote:
-> > > > > From: Lang Yu <Lang.Yu@amd.com>
-> > > > > 
-> > > > > [ Upstream commit 187916e6ed9d0c3b3abc27429f7a5f8c936bd1f0 ]
-> > > > > 
-> > > > > When using cpu to update page tables, vm update fences are unused.
-> > > > > Install stub fence into these fence pointers instead of NULL
-> > > > > to avoid NULL dereference when calling dma_fence_wait() on them.
-> > > > > 
-> > > > > Suggested-by: Christian König <christian.koenig@amd.com>
-> > > > > Signed-off-by: Lang Yu <Lang.Yu@amd.com>
-> > > > > Reviewed-by: Christian König <christian.koenig@amd.com>
-> > > > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > > > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > > > > ---
-> > > > >    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ++++--
-> > > > >    1 file changed, 4 insertions(+), 2 deletions(-)
-> > > > We start getting this warning spew on chromeos
-> > > Yeah because the older kernels still kept track of the last VM fence in the
-> > > syncobj.
-> > > 
-> > > This patch here should probably not have been back ported.
-> > > 
-> > > Why was that done anyway? The upstream commit doesn't have a CC stable and
-> > > this is only a bug fix for a new feature not present on older kernels.
-> > It is part of the AUTOSEL process.
-> 
-> Could we prevent patches from being backported by adding a Fixes: tag?
+As suggested by Christian at [0], this patchset merges all debug modules
+parameters and creates a new one for disabling soft recovery:
 
-Yes, that will show exactly where the patch should be backported to.
+> Maybe we can overload the amdgpu_gpu_recovery module option with this. 
+> Or even better merge all the developer module parameter into a 
+> amdgpu_debug option. This way it should be pretty obvious that this 
+> isn't meant to be used by someone who doesn't know how to use it.
 
-thanks,
+[0] https://lore.kernel.org/dri-devel/55f69184-1aa2-55d6-4a10-1560d75c7324@amd.com/
 
-greg k-h
+Changelog:
+- move enum from include/amd_shared.h to amdgpu/amdgpu_drv.c
+v2: https://lore.kernel.org/lkml/20230830220808.421935-1-andrealmeid@igalia.com/
+
+- drop old module params
+- use BIT() macros
+- replace global var with adev-> vars
+v1: https://lore.kernel.org/lkml/20230824162505.173399-1-andrealmeid@igalia.com/
+
+André Almeida (2):
+  drm/amdgpu: Merge debug module parameters
+  drm/amdgpu: Create an option to disable soft recovery
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  5 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  | 63 ++++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c |  6 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c    |  2 +-
+ 8 files changed, 58 insertions(+), 26 deletions(-)
+
+-- 
+2.42.0
+
