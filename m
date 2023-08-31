@@ -4,69 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFFD3C83F12
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 13:26:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D1AAC83F10
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 14:02:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D96110E674;
-	Thu, 31 Aug 2023 13:26:54 +0000 (UTC)
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8292310E674;
- Thu, 31 Aug 2023 13:26:53 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-31ae6bf91a9so639813f8f.2; 
- Thu, 31 Aug 2023 06:26:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693488412; x=1694093212; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=izN8y1TLkmCn8It+Lcd7BlxbIdHxMn/IMnM8Q8VhJ14=;
- b=KWEoHK+Ov9lIFJ8ePyP97EM6Bh/3xJsL2Irg7hQ4oYOQiWt6qFVOzKOTvW5pxiHoqZ
- /3A6QO2jNZZIBS7e5NbWNH3BBjscaU2K2lfJ83rKqwP+bHYi2XaaIMeT+hCkp4XhndQP
- 77Y7aNJ+C5lntXGnOLnG8bPdBGcS0vVexuGwBjaVM2VT+YCr4LZ5Yu2kE29uK+LzGEIM
- l2b8sbPCHfFWC/atVpJCCoBjteylB/Ws/qQjbjORNjAFtTNZ0t08fuYfrbBg8sT4bn6E
- y8Rx/u7O1jgmzOFgBBZRJQSYOkmOrGgQhZJO4H/rzzrSgGKV68NLZTG8QFUmX/jqoVAZ
- E/Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693488412; x=1694093212;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=izN8y1TLkmCn8It+Lcd7BlxbIdHxMn/IMnM8Q8VhJ14=;
- b=XYuJ7i3prO84Ykp3/9VND5IrImiMT0xrZQFxuahYSchwjfafm8pM2pac1CxUpXbI1b
- cRZW6E4Fl29uN6bQvqwULzgxsx6BEUYqPn7EOU4enCJzL37vvxuEZuXB256qnif83uDN
- 6uIQAeT8tu8Q7pocQkDtIMdMugLXz8ZKRGV6aJjwumQTohB4ODub43njd/vACeh6ZBIs
- J8H3jqWmSLNA940edTuk+Iu8YurOZ6RiqgbrJ1Z2Mm9qVk7u6KdkXvCVmssxj0FNrfSS
- XzICg1d7kzzvZbnGwe9VMmt5pw6NJU33jNlA6N48oEl/GGIv8tx+vJ+o9DbDW0iuoTOl
- 0Y7A==
-X-Gm-Message-State: AOJu0YwqqIhvzHxevMwioO8+mwBr2ycEfAKOKxJoXoUn5nO56F/mcAC/
- wgA59eMlHyycF5RqV50AtX8=
-X-Google-Smtp-Source: AGHT+IHnagwLLeLlCCtU5v5GLAHjoVb8snl71EU2/1lG7lELEL/vPVePoL2VczUDyMaDlI1V9GLwXg==
-X-Received: by 2002:a5d:49c7:0:b0:317:70da:abdd with SMTP id
- t7-20020a5d49c7000000b0031770daabddmr4047998wrs.59.1693488411526; 
- Thu, 31 Aug 2023 06:26:51 -0700 (PDT)
-Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- d9-20020a5d5389000000b0031753073abcsm2240940wrv.36.2023.08.31.06.26.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Aug 2023 06:26:50 -0700 (PDT)
-Message-ID: <c657653e-24d8-5790-a91c-4c13bb9eaeb0@gmail.com>
-Date: Thu, 31 Aug 2023 15:26:28 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id D795410E096;
+	Thu, 31 Aug 2023 14:02:36 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E0D010E096;
+ Thu, 31 Aug 2023 14:02:35 +0000 (UTC)
+Received: from [192.168.68.123] (unknown [177.134.102.128])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested) (Authenticated sender: koike)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 242B066072A3;
+ Thu, 31 Aug 2023 15:02:30 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1693490553;
+ bh=fdO6arFEzTYnGlM+QX5TsE8ARcapWX+TioKV3VJD1xc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=EkGzYmC43KDEqfPYzVZxL8vlKX0CRGieqzzt+wX9fUjG96YXNhsIAww9Jj4zmKOUd
+ BO1pfZNeqBoErLAZaBaOKjtZypa2vYjZXhKqbsYPeCT6Co6QMD+fks6yqUt5BvjV2f
+ PGg1aQO25i1RuZwbBJrhQf5YtmA21wh6HRqi93doPcMHG44N9WQJEX9zPhU8s3EIk0
+ T/e43yBjiE8xuXOyooMtouFNcdeSxhVBb332UL6AJK1FEk9rw3gMTnWbj3W/93LOLI
+ Q2SCcMpxAqMi+V08GZzN6WAJPQMYuqEo0ONHx+1Gudhg1vsm+tQo8b9BGISubwXl92
+ 7xi35t8L/mldg==
+Message-ID: <37e21200-f294-2768-ed2e-cdadfc6d17fc@collabora.com>
+Date: Thu, 31 Aug 2023 11:02:26 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH AUTOSEL 5.10 13/22] drm/amdgpu: install stub fence into
- potential unused fence pointers
+Subject: Re: [PATCH v2 0/2] Merge all debug module parameters
 Content-Language: en-US
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20230724012419.2317649-1-sashal@kernel.org>
- <20230724012419.2317649-13-sashal@kernel.org>
- <CAPaKu7RTgAMBLHbwtp4zgiBSDrTFtAj07k5qMzkuLQy2Zr+sZA@mail.gmail.com>
- <55fc4a28-1e17-44df-2069-a688828080e6@gmail.com>
- <2023083145-scoured-celery-2511@gregkh>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <2023083145-scoured-celery-2511@gregkh>
+To: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20230830220808.421935-1-andrealmeid@igalia.com>
+From: Helen Koike <helen.koike@collabora.com>
+In-Reply-To: <20230830220808.421935-1-andrealmeid@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,46 +55,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- stable@vger.kernel.org, Lang Yu <Lang.Yu@amd.com>,
- Chia-I Wu <olvaffe@gmail.com>
+Cc: alexander.deucher@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ kernel-dev@igalia.com, =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 31.08.23 um 12:56 schrieb Greg KH:
-> On Thu, Aug 31, 2023 at 12:27:27PM +0200, Christian König wrote:
->> Am 30.08.23 um 20:53 schrieb Chia-I Wu:
->>> On Sun, Jul 23, 2023 at 6:24 PM Sasha Levin <sashal@kernel.org> wrote:
->>>> From: Lang Yu <Lang.Yu@amd.com>
->>>>
->>>> [ Upstream commit 187916e6ed9d0c3b3abc27429f7a5f8c936bd1f0 ]
->>>>
->>>> When using cpu to update page tables, vm update fences are unused.
->>>> Install stub fence into these fence pointers instead of NULL
->>>> to avoid NULL dereference when calling dma_fence_wait() on them.
->>>>
->>>> Suggested-by: Christian König <christian.koenig@amd.com>
->>>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
->>>> Reviewed-by: Christian König <christian.koenig@amd.com>
->>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>>> Signed-off-by: Sasha Levin <sashal@kernel.org>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ++++--
->>>>    1 file changed, 4 insertions(+), 2 deletions(-)
->>> We start getting this warning spew on chromeos
->> Yeah because the older kernels still kept track of the last VM fence in the
->> syncobj.
->>
->> This patch here should probably not have been back ported.
->>
->> Why was that done anyway? The upstream commit doesn't have a CC stable and
->> this is only a bug fix for a new feature not present on older kernels.
-> It is part of the AUTOSEL process.
+Hi André,
 
-Could we prevent patches from being backported by adding a Fixes: tag?
+Thanks for your patches.
 
-Thanks,
-Christian.
+On 30/08/2023 19:08, André Almeida wrote:
+> As suggested by Christian at [0], this patchset merges all debug modules
+> parameters and creates a new one for disabling soft recovery:
+> 
+>> Maybe we can overload the amdgpu_gpu_recovery module option with this.
+>> Or even better merge all the developer module parameter into a
+>> amdgpu_debug option. This way it should be pretty obvious that this
+>> isn't meant to be used by someone who doesn't know how to use it.
+> 
+> [0] https://lore.kernel.org/dri-devel/55f69184-1aa2-55d6-4a10-1560d75c7324@amd.com/
+
+
+Would you mind to test your patchset with drm-ci ? There is an amdgpu 
+test there and I would love to get your feedback of the ci.
+
+You basically just need to apply the ci patch which is available on
+https://cgit.freedesktop.org/drm/drm/commit/?h=topic/drm-ci&id=0119c894ab0dc468bcb03f28063239c0a4cf970f
+
+There are instruction on the docs, but in short: to configure it, you 
+push your branch to gitlab.freedesktop.org, go to the settings and 
+change the CI/CD configuration file from .gitlab-ci.yml to
+drivers/gpu/drm/ci/gitlab-ci.yml, and you can trigger a pipeline on your 
+branch to get tests running.
+
+
+Thank you!
+Helen
+
+
+> 
+> Changelog:
+> - drop old module params
+> - use BIT() macros
+> - replace global var with adev-> vars
+> v1: https://lore.kernel.org/lkml/20230824162505.173399-1-andrealmeid@igalia.com/
+> 
+> André Almeida (2):
+>    drm/amdgpu: Merge debug module parameters
+>    drm/amdgpu: Create an option to disable soft recovery
+> 
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  5 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  | 54 +++++++++++++++---------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c  |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c |  6 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |  2 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  2 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c    |  2 +-
+>   drivers/gpu/drm/amd/include/amd_shared.h |  9 ++++
+>   9 files changed, 58 insertions(+), 26 deletions(-)
+> 
