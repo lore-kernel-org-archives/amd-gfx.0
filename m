@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C62E3C83F2F
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 15:29:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66202C83F2E
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 16:12:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E667C10E69C;
-	Thu, 31 Aug 2023 15:29:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 762F510E6A0;
+	Thu, 31 Aug 2023 16:12:36 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84B8910E699;
- Thu, 31 Aug 2023 15:29:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 577FC10E0C3;
+ Thu, 31 Aug 2023 16:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=Ee2PYNMBdzOZ49Y+w9ncEHigb36Yfuv93A7KODPkfj8=; b=QSMQTFShCziydhCK8uH1kbkNb4
- TrO1XSS+Jh0ijb1WQYdQS8Veevmw0c+DsJ81UXUy30yYT8Up3Y4txT+ewJWx/qgITr2bRmSjZYygl
- dBWcvsIZVCMUt/yT13qsEO/sQC7hJuCnvEK7uUl+9xx7aLA025WYQYFj02zg4+yyPJdygJ62ECxOi
- otWU+lTYFZ/0Yq023wcaDUXThUiR8kjo6Mmb8XHUkGCzkFN8LM4rxkaD+M1v9/z/hj0poxoaYDbMP
- mCcgor64pnwJLqmS6YgsrxsMVC9PyMj84dcSliKYrZ0fc8JHCMale6j50YNvF8tOOzkq2A8X0k8ka
- VIxJkxtw==;
-Received: from [191.193.15.45] (helo=steammachine.lan)
+ bh=6u5hMjCmUgd0xjXq9PV5DeXBX6O3VlwK8t4h81c1Zeg=; b=FB5X2tg3OXPaHHhurzRgs+u1W8
+ idR+XXsvx9yapwJfYgjIze8fEthggfmb9xsQkX5HodFCXD5Q0M4dYKE3Awjq2NOaVhQpTSQqnmBxI
+ FKx7QvvvXqHtS+slYKd6c55+N423VTz7Umbg46jcLe5RZ2/KqKlcJDo2iYM1r1G0VUX0OJ51PG1Ak
+ N3PmP2s8GsxO8xz1CgoLAiFiMzK8ZLG/O7AsBruLslJw2MxGIUvD03c5OxgNtiOQQPcZcdNGLWb73
+ Sa9tvS3Qh9Fj/RV8we957mgQBUKjPNLPrINeURrrGH1lp/ojiOOYtH140JG/u6V9VvXkvbTWQ0VZ0
+ dEF+VDtQ==;
+Received: from [38.44.68.151] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qbjbf-000VNg-40; Thu, 31 Aug 2023 17:29:15 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] drm/amdgpu: Create an option to disable soft recovery
-Date: Thu, 31 Aug 2023 12:29:03 -0300
-Message-ID: <20230831152903.521404-3-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230831152903.521404-1-andrealmeid@igalia.com>
-References: <20230831152903.521404-1-andrealmeid@igalia.com>
+ id 1qbkHW-000WXH-Pk; Thu, 31 Aug 2023 18:12:30 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch
+Subject: [PATCH v2] drm/amd/display: enable cursor degamma for DCN3+ DRM
+ legacy gamma
+Date: Thu, 31 Aug 2023 15:12:28 -0100
+Message-Id: <20230831161228.206735-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,87 +53,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
- kernel-dev@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: stable@vger.kernel.org, Krunoslav Kovac <krunoslav.kovac@amd.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>, kernel-dev@igalia.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Create a module option to disable soft recoveries on amdgpu, making
-every recovery go through the device reset path. This option makes
-easier to force device resets for testing and debugging purposes.
+For DRM legacy gamma, AMD display manager applies implicit sRGB degamma
+using a pre-defined sRGB transfer function. It works fine for DCN2
+family where degamma ROM and custom curves go to the same color block.
+But, on DCN3+, degamma is split into two blocks: degamma ROM for
+pre-defined TFs and `gamma correction` for user/custom curves and
+degamma ROM settings doesn't apply to cursor plane. To get DRM legacy
+gamma working as expected, enable cursor degamma ROM for implict sRGB
+degamma on HW with this configuration.
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Cc: stable@vger.kernel.org
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2803
+Fixes: 96b020e2163f ("drm/amd/display: check attr flag before set cursor degamma on DCN3+")
+Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h      | 1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  | 7 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 6 +++++-
- 3 files changed, 13 insertions(+), 1 deletion(-)
+v2: cc'ing stable
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 82eaccfce347..5f49e2c0ae7a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1105,6 +1105,7 @@ struct amdgpu_device {
- 	/* Debug */
- 	bool                            debug_vm;
- 	bool                            debug_largebar;
-+	bool                            debug_disable_soft_recovery;
- };
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index df568a7cd005..b97cbc4e5477 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1270,6 +1270,13 @@ void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
+ 	attributes.rotation_angle    = 0;
+ 	attributes.attribute_flags.value = 0;
  
- static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 33fddf7b1c4f..861830e1afa8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -124,6 +124,7 @@
- enum AMDGPU_DEBUG_MASK {
- 	AMDGPU_DEBUG_VM = BIT(0),
- 	AMDGPU_DEBUG_LARGEBAR = BIT(1),
-+	AMDGPU_DEBUG_DISABLE_GPU_SOFT_RECOVERY = BIT(2),
- };
- 
- unsigned int amdgpu_vram_limit = UINT_MAX;
-@@ -935,6 +936,7 @@ MODULE_PARM_DESC(enforce_isolation, "enforce process isolation between graphics
-  * - 0x2: Enable simulating large-bar capability on non-large bar system. This
-  *   limits the VRAM size reported to ROCm applications to the visible
-  *   size, usually 256MB.
-+ * - 0x4: Disable GPU soft recovery, always do a full reset
-  */
- MODULE_PARM_DESC(debug_mask, "debug options for amdgpu, disabled by default");
- module_param_named(debug_mask, amdgpu_debug_mask, uint, 0444);
-@@ -2054,6 +2056,11 @@ static void amdgpu_init_debug_options(struct amdgpu_device *adev)
- 		pr_info("debug: enabled simulating large-bar capability on non-large bar system\n");
- 		adev->debug_largebar = true;
- 	}
++	/* Enable cursor degamma ROM on DCN3+ for implicit sRGB degamma in DRM
++	 * legacy gamma setup.
++	 */
++	if (crtc_state->cm_is_degamma_srgb &&
++	    adev->dm.dc->caps.color.dpp.gamma_corr)
++		attributes.attribute_flags.bits.ENABLE_CURSOR_DEGAMMA = 1;
 +
-+	if (amdgpu_debug_mask & AMDGPU_DEBUG_DISABLE_GPU_SOFT_RECOVERY) {
-+		pr_info("debug: soft reset for GPU recovery disabled\n");
-+		adev->debug_disable_soft_recovery = true;
-+	}
- }
+ 	attributes.pitch = afb->base.pitches[0] / afb->base.format->cpp[0];
  
- static int amdgpu_pci_probe(struct pci_dev *pdev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 80d6e132e409..6a80d3ec887e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -434,8 +434,12 @@ bool amdgpu_ring_soft_recovery(struct amdgpu_ring *ring, unsigned int vmid,
- 			       struct dma_fence *fence)
- {
- 	unsigned long flags;
-+	ktime_t deadline;
- 
--	ktime_t deadline = ktime_add_us(ktime_get(), 10000);
-+	if (unlikely(ring->adev->debug_disable_soft_recovery))
-+		return false;
-+
-+	deadline = ktime_add_us(ktime_get(), 10000);
- 
- 	if (amdgpu_sriov_vf(ring->adev) || !ring->funcs->soft_recovery || !fence)
- 		return false;
+ 	if (crtc_state->stream) {
 -- 
-2.42.0
+2.40.1
 
