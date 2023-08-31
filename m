@@ -4,115 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66C59C83F2B
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 07:15:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E40FC83F12
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 10:27:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0759010E166;
-	Thu, 31 Aug 2023 07:15:46 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2072.outbound.protection.outlook.com [40.107.243.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1484910E166
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Aug 2023 07:15:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c4oCAmwBJSPqcs30U4NgMuxdVHGw3Aq5gEBxR9XuMSHJC5CJf+vbHCxVPWpcy7JyAzDUuFZe7A7Yf2eXB3pRQtc052lDrc5mhSWxEEizllDM6rCEE/JXIXvNcB3wdwS6NhyMtk1PJnUnWMzHRQR0JsKmu7wCKrXdbCVo+wKe5Itaoina/8QcEns572Px90WiCkpPXpqfe3j1yCLrH2ZpRk5ohAVWnT9che+NLOz+F40+2+9PDbq54Cojde63zJu//hm7j+gUtMO0jSZGEltKVBKP0rNDK6TGzMOnWEULK0QMwnjeD2XOFC2GzASvtvUk5KRb0Jf0jupQ1smQAWoHYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fOwyz5ppEdN08P6MIwkX3VjwBEn1fvKRtIL6dQFrs6k=;
- b=AK2NtTIO9WSzi83k5Uz8GZKX2uLUFnXUYhr3WCOqDv9rOufBGGbXd1/C8Hv+8U8ueXa7DrujGzsw36exBCs+FNhWMykk/OhdnqV6Qab4DdoiaihVRSmgc/8w03wRQ/3bfZvbXLfQ+WpoOuN4prp5JzJ3VVJK+QeAgF9ttDdsDcl8ueR2jLpKu1vLnDMrIxPYaLDqeoOYITLLvlnE2E5hLgvge9Uh2QcZo0+SCS8EuU6IbM/IY7lCqqPbl51yk/OrB1r6VN3WnlUrL5+Eonx+GYrilsjDtZ1eQoX21SxzaHFDzaoT1b5E+NAysakUJBDJELRdIK1q16bbZMDPDhL//A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fOwyz5ppEdN08P6MIwkX3VjwBEn1fvKRtIL6dQFrs6k=;
- b=izWwCXHZsYD5EO7Pc4fD6CjSxfu/fRA+DDos8HG77ZgllGTJ/upn76xOF/scDt/ajXXK66rMdkni/LBW9HgIYOu0fHK4WR8lrDhpU6H+JOe4rbq/bfhY5A5Nin0twFeVWVaZd3bfkRGiqRQN2+o7WXSiBjVtpPoA6tTxWdXvr0I=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- PH8PR12MB7349.namprd12.prod.outlook.com (2603:10b6:510:217::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.20; Thu, 31 Aug
- 2023 07:15:41 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::56a5:d451:bf62:2b06]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::56a5:d451:bf62:2b06%7]) with mapi id 15.20.6745.021; Thu, 31 Aug 2023
- 07:15:39 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v3] drm/amd/pm: only poweron/off vcn/jpeg when they are
- valid.
-Thread-Topic: [PATCH v3] drm/amd/pm: only poweron/off vcn/jpeg when they are
- valid.
-Thread-Index: AQHZ29Q6Kqu+Fmko30ypaOXLcNdStLAD/c5A
-Date: Thu, 31 Aug 2023 07:15:39 +0000
-Message-ID: <DM6PR12MB2619DE3BAE7B9BB1CA4F8BF1E4E5A@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20230831062712.4122679-1-yifan1.zhang@amd.com>
-In-Reply-To: <20230831062712.4122679-1-yifan1.zhang@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=91264adf-c5b3-4c90-9b3d-060b3fa9b7d9;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-08-31T07:14:07Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|PH8PR12MB7349:EE_
-x-ms-office365-filtering-correlation-id: fa29080d-625b-49b9-b6be-08dba9f21497
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: qhSoxMjRvUWsSFFHQAbcCfBc7s4cr4WmfgCgaxmLMGKvA36vrJjJL9DOU5PxM0172ZYD3RhFFUZW7Gy6VfkK/LEL2xw2A8l7LuzipjDziwzcPPuGNP6IIUZR4fnidzgpah+EkDqHLAukXCvedqcRSZsBvkK1yvM+cQFmtWLrdMD+NLnvj81JG2b0DuGt14UNq15wP0w3Ema5N8DN5izIM6S0x4KiSJMPUG4vepUjiueNMvkJ+rvWkWCGCnCjYnUGxq3TxU+fZepwfjKWdeyLrz1WKJzFsuGEq+IRupgo+hoC3mDRW95DlSfMSCbjj4nuFvffroke4T8m2HbJgJ5wn2g70geShfngmhoo/nDxuQ9vi4ATH6zUpHVGyIS+3ktfUvZ4GZCJYLujZwDhrEeeqyWuY/Xs5zJ2rdbQEFytjROa75APT48BHIbjG+nhr+2AZnGJZDiLhDyA3bWy/Xu+niOqTb7Wi5J6KMlmkBX1GIavQsNh0J5HW9ikpKp1hQGNfO2lnx4Ang1A83scnvOrWV9fTfi4Vd74o7JKv3OKZX80oFGfJ0lC25cndwnurekh0yo9Ni9oUit2ZAxlc17FeTGwVbSWnynwab5qa0RImpuXQd3bRqjYzW3kMGY9i4+b
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366004)(346002)(136003)(376002)(396003)(39860400002)(1800799009)(451199024)(186009)(33656002)(55016003)(83380400001)(8676002)(52536014)(86362001)(41300700001)(8936002)(4326008)(5660300002)(7696005)(26005)(53546011)(71200400001)(6506007)(9686003)(478600001)(110136005)(76116006)(2906002)(38070700005)(122000001)(38100700002)(66556008)(66476007)(64756008)(66946007)(66446008)(316002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QXD5cajLoI7cMu9SbWVWcK2/xs23vXd2DbMQr8/gzK56atfNaHuRCgRpFcbs?=
- =?us-ascii?Q?m4yT2g/3QmXsywRmpmu1DvlCd8hFAKyTD18hK5ReNoOGG7P2NrkaB0Q6LnWr?=
- =?us-ascii?Q?FjgdxXAwY+vsnlWLX1lhVGIxfo7TaAUXhhmNmw9C+eBWI06wv03JE2boeR1p?=
- =?us-ascii?Q?FogTDgCoDcdKD7nZa5lyrZSmHZ81QzyObtgiSQ6msPsXZ/lVqnp6wqfd7069?=
- =?us-ascii?Q?AahU2Ia5i+fwBlYH5oa568ByDHlrtcLh0DgtTWwlUl3AJ18AHh4qUsF3dl96?=
- =?us-ascii?Q?YAlQSR8YgLwEHmWnwwNbhe5pu5dYt5ymoMv2uC9ntbKX+eq0JKE2RLD6qqou?=
- =?us-ascii?Q?3Rq4xpSciuZifRhH6W7ADw44kAaOZYGDKun7Yxm9sP6kUm5HLduhGQPHgB5B?=
- =?us-ascii?Q?xVAEn6Itk96RTgFyxd4+VZVrEao7sucVYRRpiHAufFSkKpZZDmuHGg0hxc5s?=
- =?us-ascii?Q?kxudUHWvDMtcvaE2aefq0TICg3ntA+XrwaH7xFpXKjqymjI15y2RpE6zyYRO?=
- =?us-ascii?Q?JfW2Kl1qcGHGBjucG8cuHutVfK/Hr5DV5Msovac2lOQdrxuFCy40QIeF9Peg?=
- =?us-ascii?Q?RnNyIEtUvFIN9l/qgIOfgygcVj8NDcRANOw791TbzV5nrOI4jwAIYsXyGxpG?=
- =?us-ascii?Q?GcVXj5FN2PxZLFZCkfl93mrHPjQipLaHOkQdtGoBiTwUOYEo11mPUzqVYEXI?=
- =?us-ascii?Q?cjfYO479BwDc8SgMl9c8I3768A1zmggWCtZwaB+X2JFK6XCoP8L9+u7JrJ+Q?=
- =?us-ascii?Q?rKuWl2GJuFDxeONCOwqpLWnnbMaFUsYo6jRVwUbj/v/TZCy03687LJp5EvDD?=
- =?us-ascii?Q?yqLEIngc5I+VrmePMxcE8rCI2RP1+inzyDGG0BWGg7FmUJSL+kdnXYGZyzmh?=
- =?us-ascii?Q?OWWIhFuy+vdE0AdzIgkVQxvgpAcv0ukKnZ+SHUpfqxUlJI9VzV+/LPMDuQ/+?=
- =?us-ascii?Q?+mx5qDsrabW/J27ms2Xal5QVSyIHXC+4d4Y8SXdpRdbIy2oJv7QdQv98s88c?=
- =?us-ascii?Q?Lw7JZ2CUXgUKIiycbkUD5tPpavAnNIBWkf/K6BswIuehDFIBywlxcP4vW+8g?=
- =?us-ascii?Q?QhKmpzXoAMPLFJ3jPFQbKVaCX6KQ+hT34BBjUeCh6TYChzzLckaFzMiMzzfS?=
- =?us-ascii?Q?9/GL4+w8bC+Eoo0WM01JOvS3TOFDty0kH8+3iq/aOsDCCcL2ySJuKALbC9gl?=
- =?us-ascii?Q?CNWGpNS7xHalZxYI5+bG13sHgbK0TxntRg/FaXZ4x7auGmk+CFe1o0pXjHi3?=
- =?us-ascii?Q?qObuK3w2P76hx+tTmksjLiI+YJokqhg8sEif8iJ3oa08+1ndeB56M9tlR1sp?=
- =?us-ascii?Q?X5PDCMUSCR8i0rR+ZPFMfCute0wBr+80GFujcKoy1kOyuoQmq+YVW0NTuRHV?=
- =?us-ascii?Q?YnReiiBR3B80FrqPNOXZiTmkzuBi3yWVqIdkfR989E7nJudKiEcjd7NeAmUy?=
- =?us-ascii?Q?sRpyec0fZyEYO/cnkhtm3WiG7E9fE6rC7p7IgQDMSTH8T4NxxKOO/2v8GYMo?=
- =?us-ascii?Q?7V9D2+ewqphMCpSzoDRl4OMKegLZUTNz27KWri8Ne5RKlSKlPHofAwOaifgp?=
- =?us-ascii?Q?XadAeIDcJtD5i8K0H6c=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id B851010E5E8;
+	Thu, 31 Aug 2023 10:27:33 +0000 (UTC)
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB89A10E188;
+ Thu, 31 Aug 2023 10:27:31 +0000 (UTC)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-98377c5d53eso71026566b.0; 
+ Thu, 31 Aug 2023 03:27:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693477650; x=1694082450; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9rMQT9yusBBUN/RCuYBZaJicPTDoesLvwEVu8RRpkfw=;
+ b=Xv5x/Ku0AzcIcogOMepPyUDkbt44UJBcyIfuGYq1JatyyPysmSDOi6lEPG0Ye7eKB8
+ lWv6g/ObOwvkFLZmUY4U67oQV2kZsdr6UiD+SgXOtm5n6BSVitD70aHFJqar7A+3sdWy
+ aGBQfxfSZx5YGFB2P05N9h83WqDYZrFy8u8tSE1Yt1RVsYnEWoVt3Lc5nblDp9hQFDhA
+ vZfZPrzW3FSPLofUueRsLKTLhCmOGek4lfcmqDG/ZA93OiAcv1UMzKIjWhKt+mMu82ER
+ GQNidjuYxDIjLDLbo2eqSoI0VQFO3iNaal7Eqmw8ZcNU0K8c/69DdC11GRQtBNSzjKww
+ 8hgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693477650; x=1694082450;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=9rMQT9yusBBUN/RCuYBZaJicPTDoesLvwEVu8RRpkfw=;
+ b=GnVSpJ7s/CY6uD3aLNEjHc1FGegUGgrTfOoet7czoK56Q6HOqNuSUuoPBHWc903enC
+ jdZczz3i24X9q1CZoJvVMFRbCaSHLNVEhp0UeVtSIGyK7S2CaeNjgClRmlFJuw+RoYUD
+ jqdjMahh7yBXtlkeaY5uXeQp2oyQ/1X1rK27utqrqdakkfkMpN/gfgPMRr+gTDnv3w/e
+ LIXRCtt9l6bx8w2m/MSoAnjvW22IHtHVG0lqvPmEFV9zAZtNp3C3Ss7NkO3wW77vs75l
+ TS1MJsanMxioq3MFexIA4tN0xPLJLMtY3jngB+0qgDn0NW2uLULA+lMyUSr1zYnHEhUU
+ 0w9A==
+X-Gm-Message-State: AOJu0Yx2YQNL7KmNXO+MKS2TFgFYoUQJItksi6GKgflHgzuiGVP32Aye
+ oMN6iPZuCdDtTUhnP89uIUU=
+X-Google-Smtp-Source: AGHT+IF2/sYK+ET0W+3LRvFd8r455J9HqaoHLtAHHWxRx/3UIXdlPKvy9UyLiaphpNwziAbmSFXVGQ==
+X-Received: by 2002:a17:907:ea7:b0:9a5:b8c1:2ce1 with SMTP id
+ ho39-20020a1709070ea700b009a5b8c12ce1mr4552358ejc.31.1693477650018; 
+ Thu, 31 Aug 2023 03:27:30 -0700 (PDT)
+Received: from [192.168.178.25] ([134.19.50.95])
+ by smtp.gmail.com with ESMTPSA id
+ x24-20020a170906805800b009894b476310sm596003ejw.163.2023.08.31.03.27.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 31 Aug 2023 03:27:29 -0700 (PDT)
+Message-ID: <55fc4a28-1e17-44df-2069-a688828080e6@gmail.com>
+Date: Thu, 31 Aug 2023 12:27:27 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa29080d-625b-49b9-b6be-08dba9f21497
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2023 07:15:39.5119 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jOpBACCh06ZTc/qll7HQKeHyf1MssnZm7B9hTQ1iyd3+eLc2ix4PAbZtbeksMXUV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7349
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH AUTOSEL 5.10 13/22] drm/amdgpu: install stub fence into
+ potential unused fence pointers
+Content-Language: en-US
+To: Chia-I Wu <olvaffe@gmail.com>, Sasha Levin <sashal@kernel.org>
+References: <20230724012419.2317649-1-sashal@kernel.org>
+ <20230724012419.2317649-13-sashal@kernel.org>
+ <CAPaKu7RTgAMBLHbwtp4zgiBSDrTFtAj07k5qMzkuLQy2Zr+sZA@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CAPaKu7RTgAMBLHbwtp4zgiBSDrTFtAj07k5qMzkuLQy2Zr+sZA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,92 +78,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Ma, Li" <Li.Ma@amd.com>
+Cc: airlied@linux.ie, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
+ Lang Yu <Lang.Yu@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Am 30.08.23 um 20:53 schrieb Chia-I Wu:
+> On Sun, Jul 23, 2023 at 6:24 PM Sasha Levin <sashal@kernel.org> wrote:
+>> From: Lang Yu <Lang.Yu@amd.com>
+>>
+>> [ Upstream commit 187916e6ed9d0c3b3abc27429f7a5f8c936bd1f0 ]
+>>
+>> When using cpu to update page tables, vm update fences are unused.
+>> Install stub fence into these fence pointers instead of NULL
+>> to avoid NULL dereference when calling dma_fence_wait() on them.
+>>
+>> Suggested-by: Christian König <christian.koenig@amd.com>
+>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>> Signed-off-by: Sasha Levin <sashal@kernel.org>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ++++--
+>>   1 file changed, 4 insertions(+), 2 deletions(-)
+> We start getting this warning spew on chromeos
 
-> -----Original Message-----
-> From: Zhang, Yifan <Yifan1.Zhang@amd.com>
-> Sent: Thursday, August 31, 2023 2:27 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Quan, Evan <Evan.Quan@amd.com>; Ma, Li <Li.Ma@amd.com>; Zhang,
-> Yifan <Yifan1.Zhang@amd.com>
-> Subject: [PATCH v3] drm/amd/pm: only poweron/off vcn/jpeg when they are
-> valid.
->
-> If vcn is disabled in kernel parameters, don't touch vcn,
-> otherwise it may cause vcn hang.
->
-> v2: delete unnecessary logs
-> v3: move "is_vcn_enabled" check to smu_dpm_setvcn/jpeg_enable (Evan)
->
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 24
-> +++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index f005a90c35af..e3e1f69643ce 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -215,6 +215,21 @@ static int smu_set_gfx_imu_enable(struct
-> smu_context *smu)
->       return smu_set_gfx_power_up_by_imu(smu);
->  }
->
-> +static bool is_vcn_enabled(struct amdgpu_device *adev)
-> +{
-> +     int i;
-> +
-> +     for (i =3D 0; i < adev->num_ip_blocks; i++) {
-> +             if ((adev->ip_blocks[i].version->type =3D=3D
-> AMD_IP_BLOCK_TYPE_VCN ||
-> +                     adev->ip_blocks[i].version->type =3D=3D
-> AMD_IP_BLOCK_TYPE_JPEG) &&
-> +                     !adev->ip_blocks[i].status.valid)
-> +
-There seems an extra empty line here. With this dropped, the patch is revie=
-wed-by: Evan Quan <evan.quan@amd.com>
+Yeah because the older kernels still kept track of the last VM fence in 
+the syncobj.
 
-Evan
-> +                     return false;
-> +     }
-> +
-> +     return true;
-> +}
-> +
->  static int smu_dpm_set_vcn_enable(struct smu_context *smu,
->                                 bool enable)
->  {
-> @@ -222,6 +237,12 @@ static int smu_dpm_set_vcn_enable(struct
-> smu_context *smu,
->       struct smu_power_gate *power_gate =3D &smu_power->power_gate;
->       int ret =3D 0;
+This patch here should probably not have been back ported.
+
+Why was that done anyway? The upstream commit doesn't have a CC stable 
+and this is only a bug fix for a new feature not present on older kernels.
+
+Regards,
+Christian.
+
+
+> , likely from
+> dma_fence_is_later because the stub fence is on a different timeline:
 >
-> +     /*
-> +      * don't poweron vcn/jpeg when they are skipped.
-> +      */
-> +     if (!is_vcn_enabled(smu->adev))
-> +             return 0;
-> +
->       if (!smu->ppt_funcs->dpm_set_vcn_enable)
->               return 0;
->
-> @@ -242,6 +263,9 @@ static int smu_dpm_set_jpeg_enable(struct
-> smu_context *smu,
->       struct smu_power_gate *power_gate =3D &smu_power->power_gate;
->       int ret =3D 0;
->
-> +     if (!is_vcn_enabled(smu->adev))
-> +             return 0;
-> +
->       if (!smu->ppt_funcs->dpm_set_jpeg_enable)
->               return 0;
->
-> --
-> 2.37.3
+> [  273.334767] WARNING: CPU: 1 PID: 13383 at
+> include/linux/dma-fence.h:478 amdgpu_sync_keep_later+0x95/0xbd
+> [  273.334769] Modules linked in: snd_seq_dummy snd_seq snd_seq_device
+> bridge stp llc tun vhost_vsock vhost vhost_iotlb
+> vmw_vsock_virtio_transport_common vsock 8021q veth lzo_rle
+> lzo_compress zram uinput snd_acp_sof_mach snd_acp_mach snd_soc_dmic
+> xt_cgroup rfcomm xt_MASQUERADE cmac algif_hash algif_skcipher af_alg
+> btusb btrtl btintel btbcm rtw89_8852ae rtw89_pci rtw89_8852a
+> rtw89_core snd_sof_amd_renoir snd_sof_xtensa_dsp snd_sof_amd_acp
+> snd_acp_pci snd_acp_config snd_soc_acpi snd_pci_acp3x snd_sof_pci
+> snd_sof snd_hda_codec_hdmi snd_sof_utils snd_hda_intel mac80211
+> snd_intel_dspcfg snd_hda_codec cros_ec_typec snd_hwdep roles
+> snd_hda_core typec snd_soc_rt5682s snd_soc_rt1019 snd_soc_rl6231
+> ip6table_nat i2c_piix4 fuse bluetooth ecdh_generic ecc cfg80211
+> iio_trig_sysfs cros_ec_lid_angle cros_ec_sensors cros_ec_sensors_core
+> industrialio_triggered_buffer kfifo_buf industrialio cros_ec_sensorhub
+> r8153_ecm cdc_ether usbnet r8152 mii uvcvideo videobuf2_vmalloc
+> videobuf2_memops videobuf2_v4l2
+> [  273.334795]  videobuf2_common joydev
+> [  273.334799] CPU: 1 PID: 13383 Comm: chrome:cs0 Tainted: G        W
+>         5.10.192-23384-g3d3f0f0c5e4f #1
+> fe1e7e3b7510aa7b8e01701478119255f825a36f
+> [  273.334800] Hardware name: Google Dewatt/Dewatt, BIOS
+> Google_Dewatt.14500.347.0 03/30/2023
+> [  273.334802] RIP: 0010:amdgpu_sync_keep_later+0x95/0xbd
+> [  273.334804] Code: 00 00 b8 01 00 00 00 f0 0f c1 43 38 85 c0 74 26
+> 8d 48 01 09 c1 78 24 49 89 1e 5b 41 5e 5d c3 cc cc cc cc e8 4a 94 ac
+> ff eb ce <0f> 0b 49 8b 06 48 85 c0 75 af eb c2 be 02 00 00 00 48 8d 7b
+> 38 e8
+> [  273.334805] RSP: 0018:ffffb222c1817b50 EFLAGS: 00010293
+> [  273.334807] RAX: ffffffff89bfc838 RBX: ffff8aa425e9ed00 RCX: 0000000000000000
+> [  273.334808] RDX: ffff8aa426156a98 RSI: ffff8aa425e9ed00 RDI: ffff8aa432518918
+> [  273.334810] RBP: ffffb222c1817b60 R08: ffff8aa43ca6c0a0 R09: ffff8aa33af3c9a0
+> [  273.334811] R10: fffffcf8c5986600 R11: ffffffff87a00fce R12: 0000000000000098
+> [  273.334812] R13: 00000000005e2a00 R14: ffff8aa432518918 R15: 0000000000000000
+> [  273.334814] FS:  00007e70f8694640(0000) GS:ffff8aa4e6080000(0000)
+> knlGS:0000000000000000
+> [  273.334816] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  273.334817] CR2: 00007e70ea049020 CR3: 0000000178e6e000 CR4: 0000000000750ee0
+> [  273.334818] PKRU: 55555554
+> [  273.334819] Call Trace:
+> [  273.334822]  ? __warn+0xa3/0x131
+> [  273.334824]  ? amdgpu_sync_keep_later+0x95/0xbd
+> [  273.334826]  ? report_bug+0x97/0xfa
+> [  273.334829]  ? handle_bug+0x41/0x66
+> [  273.334832]  ? exc_invalid_op+0x1b/0x72
+> [  273.334835]  ? asm_exc_invalid_op+0x12/0x20
+> [  273.334837]  ? native_sched_clock+0x9a/0x9a
+> [  273.334840]  ? amdgpu_sync_keep_later+0x95/0xbd
+> [  273.334843]  amdgpu_sync_vm_fence+0x23/0x39
+> [  273.334846]  amdgpu_cs_ioctl+0x1782/0x1e56
+> [  273.334851]  ? amdgpu_cs_report_moved_bytes+0x5f/0x5f
+> [  273.334854]  drm_ioctl_kernel+0xdf/0x150
+> [  273.334858]  drm_ioctl+0x1f5/0x3d2
+> [  273.334928]  ? amdgpu_cs_report_moved_bytes+0x5f/0x5f
+> [  273.334932]  amdgpu_drm_ioctl+0x49/0x81
+> [  273.334935]  __x64_sys_ioctl+0x7d/0xc8
+> [  273.334937]  do_syscall_64+0x42/0x54
+> [  273.334939]  entry_SYSCALL_64_after_hwframe+0x4a/0xaf
+> [  273.334941] RIP: 0033:0x7e70ff797649
+> [  273.334943] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10
+> c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00
+> 00 0f 05 <41> 89 c0 3d 00 f0 ff ff 77 1d 48 8b 45 c8 64 48 2b 04 25 28
+> 00 00
+> [  273.334945] RSP: 002b:00007e70f8693170 EFLAGS: 00000246 ORIG_RAX:
+> 0000000000000010
+> [  273.334947] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007e70ff797649
+> [  273.334948] RDX: 00007e70f8693248 RSI: 00000000c0186444 RDI: 0000000000000013
+> [  273.334950] RBP: 00007e70f86931c0 R08: 00007e70f8693350 R09: 00007e70f8693340
+> [  273.334951] R10: 000000000000000a R11: 0000000000000246 R12: 00000000c0186444
+> [  273.334952] R13: 00007e70f8693380 R14: 00007e70f8693248 R15: 0000000000000013
+> [  273.334954] ---[ end trace fc066a0fcea39e8c ]---
 
