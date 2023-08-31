@@ -4,44 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E7DCC83F01
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 12:37:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1542FC83F32
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 12:37:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70CBD10E66C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A34C10E66E;
 	Thu, 31 Aug 2023 12:37:41 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EC0F10E5EA;
- Thu, 31 Aug 2023 10:29:32 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A488161DAB;
- Thu, 31 Aug 2023 10:29:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6983C433C8;
- Thu, 31 Aug 2023 10:29:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1693477771;
- bh=n7XYpIoHtsPh4F6mWsyvz+3exvdD3VfOyzPPO2/fitM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WuA+2Iosw1DQs+PoFXGFko8jwHKSI3h1oeTi5cBhek9Oyxe+we8A/f9ECLXbdeGE9
- chnEyE8pNABYeqz93OH3H7qabj5soQnhGrsof04IE7umrdypNmFoFfUZi6u5x0LBa5
- OKdnJjXl2GAvo1m9PvgcYxENaSVuObPM5g4ax+Eo=
-Date: Thu, 31 Aug 2023 12:29:28 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Chia-I Wu <olvaffe@gmail.com>
-Subject: Re: [PATCH AUTOSEL 5.10 13/22] drm/amdgpu: install stub fence into
- potential unused fence pointers
-Message-ID: <2023083119-phoney-ascend-d4ec@gregkh>
-References: <20230724012419.2317649-1-sashal@kernel.org>
- <20230724012419.2317649-13-sashal@kernel.org>
- <CAPaKu7RTgAMBLHbwtp4zgiBSDrTFtAj07k5qMzkuLQy2Zr+sZA@mail.gmail.com>
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01B6810E5E3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Aug 2023 09:53:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=l2I/DMcZGyXYfWe0QAecWY89maFBNlumKfzFmLoa9lINGrPpbKqLsyhoqgeQj8GFV3Gp3Xj63MPgur0+RpQMNM960bdgJ8q+3w1EuuMwstqBqgA5cLcNPg+dooE/RunLxbYAK1Cwp3cVrCU8qRDvZDynHIqiESOONnSTTH343qyY5CY9jzqURXyiTia4MpMz0+i8r+Dt8U/H90gRb0SR7V4EmWW9PDOz0rB+4kIyfXNwIFT13VZRK69300eIEkKYBhYh9jSRdmj5wP31wuqhYye51/DRN/9GAl3P/8toMVXVmGcsdAqd+KEgCa1eXtb8uAdZIOpYBZsX1PsrGtEFWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OmaQr0m95s5ex0W15RRDVhhCsklsZ+oi/NShVUIK3IQ=;
+ b=OLzMsEqbYkagHcOScHoGtJOR305lqJtfOcbGzsDgOd+qeiczB5spi8Go/YfvN1vR/GC/ksdHdgZf2QHK7W2a0wevHFB9E5/BuYD4/rJ3I/0UoYWIuO8cY5J/+6CiHP8FBLfVsq0A1GHtBqY7L290n9OiFLY04Svxi2bBmd1MG3TOPovTJnsf0z2ie8rMk/KyEHPC4gxZiOiBKBaAek+CvrGhBkR/jzc1UMY8ZiaVBkuo8X78WzET8hgBClK5M4Qc2bv7xiwej0ZtuFQnoW9uh7CzrifELiEv8T1ejkdU3unNV1E+cuf0njg7qwBE1gDHwdG3ErEyZghzJdondOl26w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OmaQr0m95s5ex0W15RRDVhhCsklsZ+oi/NShVUIK3IQ=;
+ b=4W3Hf8xLwG0Lm8Xi/QIvebpokRlFxNDMw7Xx5yR94mVL5xNu/KNyOIwH7SACOMGYjY6PeASDpdfbTa+VSUnNYQt+sLQYhNzEq4ld7gySFAXkT25mC3hbSvBe5SfzMNzbmHKNpGeznmR+d4oqV2n8g0CyjOUz3eAkJNHsrlwn7NA=
+Received: from DS7PR05CA0064.namprd05.prod.outlook.com (2603:10b6:8:57::26) by
+ SJ1PR12MB6027.namprd12.prod.outlook.com (2603:10b6:a03:48a::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6745.21; Thu, 31 Aug 2023 09:53:01 +0000
+Received: from CY4PEPF0000EDD7.namprd03.prod.outlook.com
+ (2603:10b6:8:57:cafe::be) by DS7PR05CA0064.outlook.office365.com
+ (2603:10b6:8:57::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.15 via Frontend
+ Transport; Thu, 31 Aug 2023 09:53:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD7.mail.protection.outlook.com (10.167.241.211) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6745.16 via Frontend Transport; Thu, 31 Aug 2023 09:53:01 +0000
+Received: from x570-ryzen9-5900x.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Thu, 31 Aug 2023 04:52:54 -0500
+From: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
+To: <brahma_sw_dev@amd.com>, <saleemkhan.jamadar@amd.com>, <leo.liu@amd.com>, 
+ <amd-gfx@lists.freedesktop.org>, <veerabadhran.gopalakrishnan@amd.com>,
+ <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu/jpeg: initialize number of jpeg ring
+Date: Thu, 31 Aug 2023 15:22:31 +0530
+Message-ID: <20230831095231.1416451-1-saleemkhan.jamadar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPaKu7RTgAMBLHbwtp4zgiBSDrTFtAj07k5qMzkuLQy2Zr+sZA@mail.gmail.com>
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD7:EE_|SJ1PR12MB6027:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b45fe68-4aab-493b-a495-08dbaa081043
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CjpQ9/AxTKv3F/KezCar/JHvVl6FNQGEOvVyuH6UhD6nqhkQV/c9UbfbflIwHv0o8K/UcIM0jhfEGG00sv6bi45XEeLYf2jL4UAnjwSwTNtLgg7YwHIm0Xbf6ua3rJf3iGL6ZnKyiHVbSjzF6bLNFvdeHGJlhYRYHPT2A0RvF0qRnPe77al5FjQA7HBnkI4NVLf5ENtFLc5lcCTMytxOkIT9kr2plR/UgRuS0k26IzCKQm+7xd+BA9cxL3d20YnI1pTM5KTp3yjihjQx5g2z9mAKtGWPDM5VpgTSuESBaJI8yIilcvedgDEJKZiASaIgpXB7dGPvVpqyHeMNQbaRDK9Iw+s0AJnqPX9ZhRAT7VGGh/QDlMpUtvtJTlyvjvCgNbvhjmmJWdmb7gat6tPAHSwLczaILHWgqyRzN8wRYn27LZCLK7G8Qxkt6vorLCullVOuXcHV66ToO3viWXjBTNSDvanQs/RFdJYYI7L/qUUerEQvtky6NspDYEeLh+reLO0f9msSXq8j4tTYD5ppYayU4J0lxndLCluk+66mL10xun1Prwv3mybhpsan0V4TuwAmDTlAFet2Z/wI2TbNG8pzVbTQNPMdXAiRBIDkjO/Brrgz3LprhUS0iqHQ7DUz05d+6h5KIu6fUzHvCBXxqqXY2Arpyir9IkZyYeb4vvKVTGZNMK37Ug37OiFJcUa66RGaDTxFCnHUDV+4Xsrg9kZfJgjFrgsSNZ35EP1ls8RLRLBv1MScm14zsEXwMry3za+yOkPZvMVqwSysbQLBGw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(136003)(396003)(39860400002)(376002)(1800799009)(82310400011)(186009)(451199024)(46966006)(40470700004)(36840700001)(40460700003)(41300700001)(356005)(81166007)(82740400003)(6666004)(86362001)(478600001)(2616005)(47076005)(336012)(426003)(26005)(16526019)(1076003)(7696005)(36860700001)(4744005)(40480700001)(70586007)(70206006)(2906002)(36756003)(110136005)(6636002)(316002)(4326008)(8676002)(8936002)(5660300002)(44832011)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2023 09:53:01.1448 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b45fe68-4aab-493b-a495-08dbaa081043
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6027
 X-Mailman-Approved-At: Thu, 31 Aug 2023 12:37:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,110 +100,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- stable@vger.kernel.org, Lang Yu <Lang.Yu@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Veerabadhran Gopalakrishnan <Veerabadhran.Gopalakrishnan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 30, 2023 at 11:53:29AM -0700, Chia-I Wu wrote:
-> On Sun, Jul 23, 2023 at 6:24 PM Sasha Levin <sashal@kernel.org> wrote:
-> >
-> > From: Lang Yu <Lang.Yu@amd.com>
-> >
-> > [ Upstream commit 187916e6ed9d0c3b3abc27429f7a5f8c936bd1f0 ]
-> >
-> > When using cpu to update page tables, vm update fences are unused.
-> > Install stub fence into these fence pointers instead of NULL
-> > to avoid NULL dereference when calling dma_fence_wait() on them.
-> >
-> > Suggested-by: Christian König <christian.koenig@amd.com>
-> > Signed-off-by: Lang Yu <Lang.Yu@amd.com>
-> > Reviewed-by: Christian König <christian.koenig@amd.com>
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ++++--
-> >  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> We start getting this warning spew on chromeos, likely from
-> dma_fence_is_later because the stub fence is on a different timeline:
-> 
-> [  273.334767] WARNING: CPU: 1 PID: 13383 at
-> include/linux/dma-fence.h:478 amdgpu_sync_keep_later+0x95/0xbd
-> [  273.334769] Modules linked in: snd_seq_dummy snd_seq snd_seq_device
-> bridge stp llc tun vhost_vsock vhost vhost_iotlb
-> vmw_vsock_virtio_transport_common vsock 8021q veth lzo_rle
-> lzo_compress zram uinput snd_acp_sof_mach snd_acp_mach snd_soc_dmic
-> xt_cgroup rfcomm xt_MASQUERADE cmac algif_hash algif_skcipher af_alg
-> btusb btrtl btintel btbcm rtw89_8852ae rtw89_pci rtw89_8852a
-> rtw89_core snd_sof_amd_renoir snd_sof_xtensa_dsp snd_sof_amd_acp
-> snd_acp_pci snd_acp_config snd_soc_acpi snd_pci_acp3x snd_sof_pci
-> snd_sof snd_hda_codec_hdmi snd_sof_utils snd_hda_intel mac80211
-> snd_intel_dspcfg snd_hda_codec cros_ec_typec snd_hwdep roles
-> snd_hda_core typec snd_soc_rt5682s snd_soc_rt1019 snd_soc_rl6231
-> ip6table_nat i2c_piix4 fuse bluetooth ecdh_generic ecc cfg80211
-> iio_trig_sysfs cros_ec_lid_angle cros_ec_sensors cros_ec_sensors_core
-> industrialio_triggered_buffer kfifo_buf industrialio cros_ec_sensorhub
-> r8153_ecm cdc_ether usbnet r8152 mii uvcvideo videobuf2_vmalloc
-> videobuf2_memops videobuf2_v4l2
-> [  273.334795]  videobuf2_common joydev
-> [  273.334799] CPU: 1 PID: 13383 Comm: chrome:cs0 Tainted: G        W
->        5.10.192-23384-g3d3f0f0c5e4f #1
-> fe1e7e3b7510aa7b8e01701478119255f825a36f
-> [  273.334800] Hardware name: Google Dewatt/Dewatt, BIOS
-> Google_Dewatt.14500.347.0 03/30/2023
-> [  273.334802] RIP: 0010:amdgpu_sync_keep_later+0x95/0xbd
-> [  273.334804] Code: 00 00 b8 01 00 00 00 f0 0f c1 43 38 85 c0 74 26
-> 8d 48 01 09 c1 78 24 49 89 1e 5b 41 5e 5d c3 cc cc cc cc e8 4a 94 ac
-> ff eb ce <0f> 0b 49 8b 06 48 85 c0 75 af eb c2 be 02 00 00 00 48 8d 7b
-> 38 e8
-> [  273.334805] RSP: 0018:ffffb222c1817b50 EFLAGS: 00010293
-> [  273.334807] RAX: ffffffff89bfc838 RBX: ffff8aa425e9ed00 RCX: 0000000000000000
-> [  273.334808] RDX: ffff8aa426156a98 RSI: ffff8aa425e9ed00 RDI: ffff8aa432518918
-> [  273.334810] RBP: ffffb222c1817b60 R08: ffff8aa43ca6c0a0 R09: ffff8aa33af3c9a0
-> [  273.334811] R10: fffffcf8c5986600 R11: ffffffff87a00fce R12: 0000000000000098
-> [  273.334812] R13: 00000000005e2a00 R14: ffff8aa432518918 R15: 0000000000000000
-> [  273.334814] FS:  00007e70f8694640(0000) GS:ffff8aa4e6080000(0000)
-> knlGS:0000000000000000
-> [  273.334816] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  273.334817] CR2: 00007e70ea049020 CR3: 0000000178e6e000 CR4: 0000000000750ee0
-> [  273.334818] PKRU: 55555554
-> [  273.334819] Call Trace:
-> [  273.334822]  ? __warn+0xa3/0x131
-> [  273.334824]  ? amdgpu_sync_keep_later+0x95/0xbd
-> [  273.334826]  ? report_bug+0x97/0xfa
-> [  273.334829]  ? handle_bug+0x41/0x66
-> [  273.334832]  ? exc_invalid_op+0x1b/0x72
-> [  273.334835]  ? asm_exc_invalid_op+0x12/0x20
-> [  273.334837]  ? native_sched_clock+0x9a/0x9a
-> [  273.334840]  ? amdgpu_sync_keep_later+0x95/0xbd
-> [  273.334843]  amdgpu_sync_vm_fence+0x23/0x39
-> [  273.334846]  amdgpu_cs_ioctl+0x1782/0x1e56
-> [  273.334851]  ? amdgpu_cs_report_moved_bytes+0x5f/0x5f
-> [  273.334854]  drm_ioctl_kernel+0xdf/0x150
-> [  273.334858]  drm_ioctl+0x1f5/0x3d2
-> [  273.334928]  ? amdgpu_cs_report_moved_bytes+0x5f/0x5f
-> [  273.334932]  amdgpu_drm_ioctl+0x49/0x81
-> [  273.334935]  __x64_sys_ioctl+0x7d/0xc8
-> [  273.334937]  do_syscall_64+0x42/0x54
-> [  273.334939]  entry_SYSCALL_64_after_hwframe+0x4a/0xaf
-> [  273.334941] RIP: 0033:0x7e70ff797649
-> [  273.334943] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10
-> c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00
-> 00 0f 05 <41> 89 c0 3d 00 f0 ff ff 77 1d 48 8b 45 c8 64 48 2b 04 25 28
-> 00 00
-> [  273.334945] RSP: 002b:00007e70f8693170 EFLAGS: 00000246 ORIG_RAX:
-> 0000000000000010
-> [  273.334947] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007e70ff797649
-> [  273.334948] RDX: 00007e70f8693248 RSI: 00000000c0186444 RDI: 0000000000000013
-> [  273.334950] RBP: 00007e70f86931c0 R08: 00007e70f8693350 R09: 00007e70f8693340
-> [  273.334951] R10: 000000000000000a R11: 0000000000000246 R12: 00000000c0186444
-> [  273.334952] R13: 00007e70f8693380 R14: 00007e70f8693248 R15: 0000000000000013
-> [  273.334954] ---[ end trace fc066a0fcea39e8c ]---
+Initialize number of jpeg ring for gc ip 11_5_0
 
-Thanks, I'll go revert this now.
+Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
+Reviewed-by: Veerabadhran Gopalakrishnan <Veerabadhran.Gopalakrishnan@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-greg k-h
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+index b99faf55d3c4..9df011323d4b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+@@ -56,6 +56,7 @@ static int jpeg_v4_0_5_early_init(void *handle)
+ 
+ 
+ 	adev->jpeg.num_jpeg_inst = 1;
++	adev->jpeg.num_jpeg_rings = 1;
+ 
+ 	jpeg_v4_0_5_set_dec_ring_funcs(adev);
+ 	jpeg_v4_0_5_set_irq_funcs(adev);
+-- 
+2.25.1
+
