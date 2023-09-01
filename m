@@ -4,114 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82EE1CA0FE1
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 07:30:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 586C3CA0FF3
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 19:01:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FA1510E736;
-	Fri,  1 Sep 2023 07:30:53 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EEF210E731;
- Fri,  1 Sep 2023 07:30:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=exEmLposdMJ//5G10mQAex4ul3GtJY8RFzGqz+1w/fKckcS3f73fqfK/w1GmFca0lNR5t3/6Q1osv8VksbIyQMNxnB7h8+NQCeLoIAOPGNIIctLe3bGluIuxyTaF86gn6QVg0zr6JD4/oY1uDyf/w4yEijBLKda64/KltB+k8IU7miZ4kOpubFenpy22oeZP9Sfo4G5n+FQi5Pwn6SQu2S+xvNl36eBlCGM7Q3wNTCezki47r3762w9uxI4EDY20t+NS+lzbd7RDrUY8NVLqCHDCSV0nNF4glTBSP6BPZwAEKsZlnEwWY/7atXa5Oe5BQLEJvvlX3++wJ6MNS0WWoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RbOg+CIahOFgAaexmwhCs71vJUMfIU0180bF6FyI0IA=;
- b=H/3QU33QYSDZFQfFxtCqx49Le2J8eGRz0B8kwyWbu9kxx2zCeJgaGF0rmFsyA2r/6k2Bd8plGyC4wiuLjGhLsCpHR1tcYix8QryVG9n0aIsxvLjuUhGbPY8jMl73WinfYQxp12hvnS7gCVJ6Y8b6rs+yivTfAK2ohIpY5Ykzhc1ls85b+B3vWvTxXmEb8v4b1iwPcLuctQEu6hqVa9Uw4Ilf17EPSFiHEiMb4jRyR6nCAYbKr84K91CYqfOP2vKu0b/kAuqdgqbbjrDkgFiHR4tIWX1cM2ICxtpqLyfCdj2BbwenPrVpXHWVPAdm1cKv+7rpvCE+sP+b7Capr66bJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RbOg+CIahOFgAaexmwhCs71vJUMfIU0180bF6FyI0IA=;
- b=rPb/1SC9sHPh3SNrPm6qifZhrm/y91oA1fuy0UTku6ZVM/07Ck8urknoRK1+f56o48WAZ1wh/Tmu2eQYBJiaPMuwEJEbl/pzHdxUs6J8yGRzy3C1rkNtrx7MJ1lT/8HGgI7gW1x/yzEgK4HK+mF+loJWtyrrajoZTq6cH+J1Mz8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MN0PR12MB6198.namprd12.prod.outlook.com (2603:10b6:208:3c5::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.23; Fri, 1 Sep
- 2023 07:30:46 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::3d:c14:667a:1c81]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::3d:c14:667a:1c81%4]) with mapi id 15.20.6745.021; Fri, 1 Sep 2023
- 07:30:46 +0000
-Message-ID: <a975bbdb-8cd9-35b2-ce98-f711439db3a5@amd.com>
-Date: Fri, 1 Sep 2023 09:30:37 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] drm/amdgpu: clean up some inconsistent indenting
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-References: <20230901070240.31027-1-jiapeng.chong@linux.alibaba.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230901070240.31027-1-jiapeng.chong@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0022.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:14::9) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0963E10E1E4;
+	Fri,  1 Sep 2023 19:00:54 +0000 (UTC)
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8D3610E073;
+ Fri,  1 Sep 2023 19:00:51 +0000 (UTC)
+Received: by mail-oi1-x234.google.com with SMTP id
+ 5614622812f47-3a9ee3c7dbbso1504494b6e.1; 
+ Fri, 01 Sep 2023 12:00:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693594851; x=1694199651; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=E7KVmWHseUsA9PHKchK5ctEoALCnskj8nmo0lY5Xalw=;
+ b=eY3IBpGbSK9xip4+3tTsYOh+B9Rx/mibsJvzBsPqUCzXUAoiTsqWf+YhqKHvWha2gb
+ 6az1lJN1wtEuKQWMkX2CTOKuVoGCpaHlbfo8+Xoqak01t2firs118hhVqN3KJhW+huDW
+ P3ytTlAWoSOTrHXlRlregiZhNwra/mlgCfRAoIDznmCMMKLJIiAaer/7mxGMZRlEAQrI
+ zcRTpDANgNp9d48gXJimgXhifrOmVt7CZsAKYR6BhTeueT7S0soX5eYpw7bqyuszL+CZ
+ Vtpnp+E4mEea98nZ1FolcDtS6lSmX7pJuhuyXQkQQbTAjUF8oitPuvq35itOGhfeo9wp
+ LD0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693594851; x=1694199651;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=E7KVmWHseUsA9PHKchK5ctEoALCnskj8nmo0lY5Xalw=;
+ b=AJiVk2/QHKafwq198CxofitUOLdXGAMkVCMvcgf8GkCoTpxhhuV4FJjRJYoI7lncZf
+ 8ZOM7sFUwbpC1TVnc9q6mVIAYcqWTTxCMXaMplrJ6eePlesxsJtzeIT92BedsrVGv4qw
+ Dz3EsrrV+H5nmegF/tk9ECCG0Ww0aFiIPLndzyDCAJBYXxVhRTi+lvjGXB2r6uL/jQY1
+ /wr7/mVcoBpC2Lwf8oZdmHt8UzHlWnBenuKa41akCAfTu5X5BuU26BxIJCVlsEcqYMne
+ BdSAbRiTFFpQjdl9YM3tcOUvy8E18w65D2tdKjd5eCmR8Qm+0zV2QbRbllbJPHsgIfyW
+ qYHQ==
+X-Gm-Message-State: AOJu0Yyaw3Nfi5B0nqPf/k7jvw3TGCPT48WZCt5dgykKO8aGHKvERsUy
+ /SYxRa/myrRMqt1aZQbS4mMlBOUv3zWZ/h2wZFo=
+X-Google-Smtp-Source: AGHT+IHKNeKXnIzHuA21Fys8RSDG59anAjPfnV+oTu48reXHV+QCPG6QHRwBdJc9uFbA/6MgZAKi1Nhbd5Q7czwYHts=
+X-Received: by 2002:aca:bb06:0:b0:3a4:644:b482 with SMTP id
+ l6-20020acabb06000000b003a40644b482mr2981125oif.52.1693594850818; Fri, 01 Sep
+ 2023 12:00:50 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MN0PR12MB6198:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9885ec11-6362-4a82-6d4a-08dbaabd5b20
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tvwTgtuxuwOMah4Xa1WLR/LQrCEKVHzcg4twkZ+d+TRnV+NdMK3qSexVuoVHXmtcvZDn8R0vBTqG0rIphWnDcn8hr43ImGth2fmohdSxs3BnfRiZoOJX3AoCgYxtnhbGaKWACAF5V0DhVXP3drpsrFhhocowhlB+OfngRjPyIg6C1bKtoBPXZC1uIgt33FTx/D2/aJQgCbirBnEgdGrgyXhZWJCE2rwGMq45W7liuT6jdieBqN3+2z3sMnljI4ti6WacgMWYGLiYmEI73jhmsAA/JfEGvzLDivHaDCAqhy6aWA8HryZg1Pn6ztzfTEboOLR3aD12J2Yu1a/SotkYszUPXnzD7qd43cC0X5i6OwcJ8GSIKXuughhaPgwK84EZIojJB4my/h4nt5L/nFFQwx/sf3HZ8GVHp0HXYTHgsajdE6gCukacPkQbBCMKsCJ68B7ty8TPnWZW93jOw2b2iKwkcJny5O4BBQxkumJy3Gz9zIj/LW9k05YNGzGk4f3VsMUti51gbX0lyE0BHbQAzZNBcGvwn/RAnCFQEPtUQaugy01mhPsRKk1bQeoxivgUpbJRxTUrezUgTDbJvuV9b1GqZUGgU3geDDZUg4ubvSIVR34DIb8Qs3c4cal1mBVCwFAORvi0LW+aJzNvOCTRnA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(366004)(39860400002)(136003)(346002)(376002)(451199024)(186009)(1800799009)(6486002)(6506007)(6666004)(6512007)(966005)(478600001)(83380400001)(2616005)(26005)(2906002)(6916009)(66476007)(66556008)(316002)(41300700001)(66946007)(5660300002)(4326008)(8676002)(8936002)(36756003)(31696002)(86362001)(38100700002)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z3Q1NGVPenlTdDNwUFFGSS93Z25rRGxJd2RrWnNGMHNVSWU3QVljTmtYYkpx?=
- =?utf-8?B?VS9zb2xhbDR5STFRbjNEN0pNVlZvd2tzOFl1ek1YMmM2TXYwcWxlTmxiSjho?=
- =?utf-8?B?d3hCSUJuVnNBeWhjb0l5T0pObnVsWGxRclFiYWRScFhuUWFPVG1BSHZmTWla?=
- =?utf-8?B?YXFzNDJ1NXVNMHMrVXdDWTdXVWsxMjcvbldSUmpoQzhTMDlNZmdXZVFuZWFl?=
- =?utf-8?B?Ums5Vk0vWm5iRzdEVDljcHVSUnNjN3lNaGpySWhrRUZ4dExpcS9tdC9MdHM4?=
- =?utf-8?B?YWtJZkYwck50a3NHaTNmeFNKSnRuNTQ5V3NKWVhVVXF5YXBaalZCeVAxK0pK?=
- =?utf-8?B?WTc4WUhzN1FtQWdCSTdub0FqVVdqdDY3eWsvK0hIOE5HbkV6dWl1WGs0RHRT?=
- =?utf-8?B?L1llQXEyVDY5MGEzT3NucjZNUHdjYVNTTzlNUno5eXhmVDl1SSt6c3ZLMFFQ?=
- =?utf-8?B?eHFrRXRZSkg5WWRUOEhpR2FKY3VOa2pFYkVncTNyN1F5Wk5VcmpBUWg5cHZE?=
- =?utf-8?B?M1hjdTA3S1VueW5MblpLV1Npc3k0UlR3d0VLS1hoMXJ5NytoQ1VmR1Bia0cx?=
- =?utf-8?B?RXVMbWQwZ2hDTXMvZnVQYzVZVi9xZWhkY1NCSjNUUE51c0E3YnFZcjVjK0tS?=
- =?utf-8?B?d1F3NVY5VkowZ2NyQmh4ZW1JWEtrQzB5VEYzQnBNYkF2K0RWUkJBQnliM2Rt?=
- =?utf-8?B?bVBaR3dYa2lhVzk2bm12cFllMC9hS25SYXprRDZOYjhDNklLbWxFRWNvcW1i?=
- =?utf-8?B?b051Q3d0MGxRbk5OMktxRHFySUExeldsK2xWT2NHZkpwS1g3czBXdGQ5N1VN?=
- =?utf-8?B?YnB6RWtqd2lnRVp0TWd2dWVseVpkZ3Rpa2VMQm92SGZucXQvVTJNWklmaHRl?=
- =?utf-8?B?ZVAwY2xOcS9uTjBKMEh6NkJlbDVKUjFLYUg4YkljYnFmcGJuUDNNcDJJMnNi?=
- =?utf-8?B?T05TM3JtQU1GVWNva0w3TDUvckRRL3pmL21FWjhnemhpN3lSK1dFZHdCcVVO?=
- =?utf-8?B?TXQweXlDcnQ0SkNDV2pmSklneHlRRVk2T0ZMSzBWM3d3dEdyc281cjRaelBs?=
- =?utf-8?B?RzVFeGE5a0FCZlBZZFQzNEVZWVo5NWo5S0VVbW5HNGRuUFBVNVBVRDhQTkdC?=
- =?utf-8?B?L2N6OGQ0cEptRWpEWXdrRUtTZ0tDU1M4MHNDcS8zSFlNN0pqZ0lQbTlMem1E?=
- =?utf-8?B?L2JRNVJLaVBPWjB5UXRrN1c3U3F4TEpiVW9BWUFFVDNGdFB5aVhtZnY1N3Zk?=
- =?utf-8?B?SjNGcTREQ3p4TS95T2lsU0Z2TXM5OGR2NkVDKzVLdUdLcjl0cVNPWWhsa3BT?=
- =?utf-8?B?QzJOMGdEME1QOW9vRkJwcGlPOS9iTjVmS00yWWxjbnF6ZjFpem5rZGpNMHRa?=
- =?utf-8?B?ZndoODZlNlo1b2JGZjZhOGlSQlhMUDVSM21yY0xjQ2Zrck9HdU9xK2VQZnBj?=
- =?utf-8?B?Q0dzNFgzTnY5clJ3TkE2QXdZbitUbVdQNUlLTTV6anRqUGt2U2dkQVJVTXFO?=
- =?utf-8?B?Smthc3pOeEhTeDVxc2p3LzhqUUVMMGhDQkRBZi9iTi9tWUtWYVgvYjNYZk5L?=
- =?utf-8?B?eFBpZ3J1NENyazNwRWNBeElDYXFoOEpMQkNxY28wUWhQZy80TUJ2c3FGNkgz?=
- =?utf-8?B?NkxyK01aSkI3elJQMXNDd3ZXcDFTNEtKaTRmNzA1ZFVBUzlLZmtSZ2tGSzhj?=
- =?utf-8?B?R2MrUHBpZmFHc3VYVTVYeGx0NWpvVlJZTUFOVk8zSk5JSXdKQ0JoTTRHLzE1?=
- =?utf-8?B?YlpPMHphUVJrc09yc1ZENnJpUWNEWlZNVmRIampPbE85QVVNKy96Tm1uQy9J?=
- =?utf-8?B?R2RGK1VhTFE5RXBSWnUxeGIrVEs2eGdmdlVqODR6dER2TVIzdjYxZVlwM085?=
- =?utf-8?B?RldKNXFkVzFwYUhXSVNqWTU2MkNkdmVDK1lySXdXaUxzNHdwUGo2Q0Ztb3J5?=
- =?utf-8?B?U3hFU2pIbDh3NVRXSGdZN2VySkdLdzJBQlNyM0JpVWoxUmZQQkVzRHYvQVhM?=
- =?utf-8?B?aGRHK0pXTTdidzFIa1B6Rkh6YzI3a3JTN3FXb3QwRDhBckM1RWpXanZ5Sll3?=
- =?utf-8?B?UVlJRHZ2dDU1TEpnZTREOWtiS3U1cGwzVTFiNUxxSTNjZ2daUys5SXdaL3hR?=
- =?utf-8?Q?bgR9dJz77UbvvgLbzUwX3bgPU?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9885ec11-6362-4a82-6d4a-08dbaabd5b20
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2023 07:30:46.0079 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 32WC0RBkC4KevIlb1Ps7wwPRWzboZO1WDad5ATGRVAv/Pkub1et7hdlT36n9LrAI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6198
+References: <cover.1692705543.git.jani.nikula@intel.com>
+ <788721f6-afff-e0b2-db7c-32ab2dd075a9@amd.com>
+ <87il965gob.fsf@intel.com> <871qfm2kg1.fsf@intel.com>
+ <CADnq5_P49U3dcqiZhB-CjS8UbOtB7K2jNObS0ZQqMhOr3UhLQg@mail.gmail.com>
+ <87o7ip252r.fsf@intel.com> <87jztd2332.fsf@intel.com>
+ <1e6aa1ff-9aa9-6b2f-84f4-e0304205085c@amd.com>
+ <87h6oh0yz9.fsf@intel.com> <b32199ef-7179-3908-3bed-dd164cadc5de@amd.com>
+In-Reply-To: <b32199ef-7179-3908-3bed-dd164cadc5de@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 1 Sep 2023 15:00:39 -0400
+Message-ID: <CADnq5_MBpxT5mPXq0N_=EC7oCQLLxMKVboziSYp6rNOGwTEJow@mail.gmail.com>
+Subject: Re: [Intel-gfx] [PATCH 0/4] drm/amd/display: stop using
+ drm_edid_override_connector_update()
+To: Alex Hung <alex.hung@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,45 +74,161 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com
+Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Leo Li <sunpeng.li@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
+ Wenchieh Chien <wenchieh.chien@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, "Wang,
+ Yu \(Charlie\)" <Yu.Wang4@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 01.09.23 um 09:02 schrieb Jiapeng Chong:
-> No functional modification involved.
+On Thu, Aug 31, 2023 at 6:01=E2=80=AFPM Alex Hung <alex.hung@amd.com> wrote=
+:
 >
-> drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c:34 nbio_v7_11_get_rev_id() warn: inconsistent indenting.
-
-
-We should probably not have a printk here in the first place.
-
-Christian.
-
 >
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=6316
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-> index 7c08e5f95e97..76e21357dd4d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-> @@ -31,10 +31,9 @@
->   static u32 nbio_v7_11_get_rev_id(struct amdgpu_device *adev)
->   {
->   	u32 tmp;
-> -         printk("%s, getid\n",__func__);
-> -
-> -		tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP1_RCC_DEV0_EPF0_STRAP0);
->   
-> +	printk("%s, getid\n", __func__);
-> +	tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP1_RCC_DEV0_EPF0_STRAP0);
->   	tmp &= RCC_STRAP0_RCC_DEV0_EPF0_STRAP0__STRAP_ATI_REV_ID_DEV0_F0_MASK;
->   	tmp >>= RCC_STRAP0_RCC_DEV0_EPF0_STRAP0__STRAP_ATI_REV_ID_DEV0_F0__SHIFT;
->   
+> On 2023-08-30 01:29, Jani Nikula wrote:
+> > On Tue, 29 Aug 2023, Alex Hung <alex.hung@amd.com> wrote:
+> >> On 2023-08-29 11:03, Jani Nikula wrote:
+> >>> On Tue, 29 Aug 2023, Jani Nikula <jani.nikula@intel.com> wrote:
+> >>>> On Tue, 29 Aug 2023, Alex Deucher <alexdeucher@gmail.com> wrote:
+> >>>>> On Tue, Aug 29, 2023 at 6:48=E2=80=AFAM Jani Nikula <jani.nikula@in=
+tel.com> wrote:
+> >>>>>>
+> >>>>>> On Wed, 23 Aug 2023, Jani Nikula <jani.nikula@intel.com> wrote:
+> >>>>>>> On Tue, 22 Aug 2023, Alex Hung <alex.hung@amd.com> wrote:
+> >>>>>>>> On 2023-08-22 06:01, Jani Nikula wrote:
+> >>>>>>>>> Over the past years I've been trying to unify the override and =
+firmware
+> >>>>>>>>> EDID handling as well as EDID property updates. It won't work i=
+f drivers
+> >>>>>>>>> do their own random things.
+> >>>>>>>> Let's check how to replace these references by appropriate ones =
+or fork
+> >>>>>>>> the function as reverting these patches causes regressions.
+> >>>>>>>
+> >>>>>>> I think the fundamental problem you have is conflating connector =
+forcing
+> >>>>>>> with EDID override. They're orthogonal. The .force callback has n=
+o
+> >>>>>>> business basing the decisions on connector->edid_override. Force =
+is
+> >>>>>>> force, override is override.
+> >>>>>>>
+> >>>>>>> The driver isn't even supposed to know or care if the EDID origin=
+ates
+> >>>>>>> from the firmware loader or override EDID debugfs. drm_get_edid()=
+ will
+> >>>>>>> handle that for you transparently. It'll return the EDID, and you
+> >>>>>>> shouldn't look at connector->edid_blob_ptr either. Using that wil=
+l make
+> >>>>>>> future work in drm_edid.c harder.
+> >>>>>>>
+> >>>>>>> You can't fix that with minor tweaks. I think you'll be better of=
+f
+> >>>>>>> starting from scratch.
+> >>>>>>>
+> >>>>>>> Also, connector->edid_override is debugfs. You actually can chang=
+e the
+> >>>>>>> behaviour. If your userspace, whatever it is, has been written to=
+ assume
+> >>>>>>> connector forcing if EDID override is set, you *do* have to fix t=
+hat,
+> >>>>>>> and set both.
+> >>>>>>
+> >>>>>> Any updates on fixing this, or shall we proceed with the reverts?
+> >>
+> >> There is a patch under internal reviews. It removes calls edid_overrid=
+e
+> >> and drm_edid_override_connector_update as intended in this patchset bu=
+t
+> >> does not remove the functionality.
+> >
+> > While I am happy to hear there's progress, I'm somewhat baffled the
+> > review is internal. The commits that I suggested to revert were also
+> > only reviewed internally, as far as I can see... And that's kind of the
+> > problem.
+> >
+> > Upstream code should be reviewed in public.
+>
+> Hi Jani,
+>
+> All patches are sent for public reviews, the progress is summarized as
+> the followings:
+>
+> =3D=3D internal =3D=3D
+>
+> 1. a patch or patches are tested by CI.
+> 2. internal technical and IP reviews are performed to ensure no concerns
+> before patches are merged to internal branch.
+>
+> =3D=3D public =3D=3D
+>
+> 3. a regression test and IP reviews are performed by engineers before
+> sending to public mailing lists.
+> 4. the patchset is sent for public reviews ex.
+> https://patchwork.freedesktop.org/series/122498/
+> 5. patches are merged to public repo.
+>
 
+This sort of thing is fine for unreleased chips or new IP prior public
+exposure, but for released hardware, you really need to do the reviews
+on the mailing lists.
+
+Alex
+
+
+> >
+> >
+> > BR,
+> > Jani.
+> >
+> >
+> >>
+> >> With the patch. both following git grep commands return nothing in
+> >> amd-staging-drm-next.
+> >>
+> >> $ git grep drm_edid_override_connector_update -- drivers/gpu/drm/amd
+> >> $ git grep edid_override -- drivers/gpu/drm/amd
+> >>
+> >> Best regards,
+> >> Alex Hung
+> >>
+> >>>>>
+> >>>>> What is the goal of the reverts?  I don't disagree that we may be
+> >>>>> using the interfaces wrong, but reverting them will regess
+> >>>>> functionality in the driver.
+> >>>>
+> >>>> The commits are in v6.5-rc1, but not yet in a release. No user depen=
+ds
+> >>>> on them yet. I'd strongly prefer them not reaching v6.5 final and us=
+ers.
+> >>>
+> >>> Sorry for confusion here, that's obviously come and gone already. :(
+> >>>
+> >>>> The firmware EDID, override EDID, connector forcing, the EDID proper=
+ty,
+> >>>> etc. have been and somewhat still are a hairy mess that we must keep
+> >>>> untangling, and this isn't helping.
+> >>>>
+> >>>> I've put in crazy amounts of work on this, and I've added kernel-doc
+> >>>> comments about stuff that should and should not be done, but they go
+> >>>> unread and ignored.
+> >>>>
+> >>>> I really don't want to end up having to clean this up myself before =
+I
+> >>>> can embark on further cleanups and refactoring.
+> >>>>
+> >>>> And again, if the functionality in the driver depends on conflating =
+two
+> >>>> things that should be separate, it's probably not such a hot idea to=
+ let
+> >>>> it reach users either. Even if it's just debugfs.
+> >>>>
+> >>>>
+> >>>> BR,
+> >>>> Jani.
+> >>>
+> >
