@@ -4,28 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75CE4CA0FF7
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 19:04:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF8DBCA0FF3
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 19:04:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B81010E1F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C211B10E1F5;
 	Fri,  1 Sep 2023 19:03:59 +0000 (UTC)
-Received: from out30-131.freemail.mail.aliyun.com
- (out30-131.freemail.mail.aliyun.com [115.124.30.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2651510E723;
- Fri,  1 Sep 2023 07:02:56 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045176;
- MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
- TI=SMTPD_---0Vr2KGap_1693551761; 
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0Vr2KGap_1693551761) by smtp.aliyun-inc.com;
- Fri, 01 Sep 2023 15:02:51 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: christian.koenig@amd.com
-Subject: [PATCH] drm/amdgpu: clean up some inconsistent indenting
-Date: Fri,  1 Sep 2023 15:02:40 +0800
-Message-Id: <20230901070240.31027-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
+ [IPv6:2a00:1450:4864:20::641])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3931210E731
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Sep 2023 07:31:22 +0000 (UTC)
+Received: by mail-ej1-x641.google.com with SMTP id
+ a640c23a62f3a-99c1f6f3884so195824966b.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 01 Sep 2023 00:31:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693553480; x=1694158280; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=NRkr95h+/ONNstxBPFhhGqHm6f+phH7gUK5uTmvBHds=;
+ b=eYFZNH52smYko6LXdCWtHdO/KerGTW7XOPLZKLeFfvIsNVrRNJcZZBgLejHyI5cFIo
+ PWhbnn0N+swEiSy+7aInU5Rsvt5MRq1dR+xOkRzgmKE9X1bNEIRR3zjiDVHY+64J8HAV
+ doUTr3uYczJfzT4nWhq6sQLhm+IcfkAvo1T37dqdBEphdDWejONOKr+D7aeq/jtTdx4Z
+ BljOdYVneKayid2nuufv22Lt/Mk9Tov8/pEd1serKpqDMVM8YOzxIFd9adEd4cmtO5LA
+ QLeosKogzQgYpZK/HLcEs7fgBCMJ0c47thuV8a3XLz368w/9xzsIVR0JPkGBhIFlNThQ
+ msIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693553480; x=1694158280;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=NRkr95h+/ONNstxBPFhhGqHm6f+phH7gUK5uTmvBHds=;
+ b=hxqX3AyheEvjC6Ze8pEmCvnb9HVfJ2xXi5UuylXRDuYKYUVYY6qKyQkb74DV/6bKG6
+ dAMUfeev/mhYVQwsVyUPkDS2L9kW3CTm7H5T7TiQURDstJmjHDHhnAU/WQromqamJ1WJ
+ zdrpoBLsEmjs2/8ETOvmCGt+VME/k90AhHVnLIdLcR8NQ4ZN0acmYUPCcPefgWIhqU/x
+ Uf2qSsDimBaxxPV65/saLkkA2PopkX8gqX7fuHV5mJVDZqyx2esLNQl3Vuy3SyI5alAz
+ gSDDnlrt6hcccwYIprBPgFzuEpxU4symxja3aRkzBikmxmTVLDdpr327KzJi2HG0etNb
+ sIcg==
+X-Gm-Message-State: AOJu0Yyksd3AlOXoE/oP9dfnFKRBHjmwbiFA3UU67oy4fNYH4HvAnR6K
+ PCwk5kPwE7ZS1ptCldaOdZgLvUtzE5VsQpOX
+X-Google-Smtp-Source: AGHT+IEuRzeZ+INl0StZfrh73hDpFcylH3J1oy028bnPu1qK7sgr+o96V77qqjKvcXwkC53OeAABlg==
+X-Received: by 2002:a17:906:7494:b0:9a1:d077:b74f with SMTP id
+ e20-20020a170906749400b009a1d077b74fmr1136272ejl.49.1693553480388; 
+ Fri, 01 Sep 2023 00:31:20 -0700 (PDT)
+Received: from debian-buildmachine.bernkas.tel
+ (cpe-188-129-73-117.dynamic.amis.hr. [188.129.73.117])
+ by smtp.gmail.com with ESMTPSA id
+ ja8-20020a170907988800b0099bd5d28dc4sm1615947ejc.195.2023.09.01.00.31.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Sep 2023 00:31:20 -0700 (PDT)
+From: Simon Pilkington <simonp.git@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd: Make fence wait in suballocator uninterruptible
+Date: Fri,  1 Sep 2023 08:31:12 +0100
+Message-Id: <20230901073112.2012-1-simonp.git@gmail.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 01 Sep 2023 19:03:54 +0000
@@ -40,41 +71,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Xinhui.Pan@amd.com,
- Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, airlied@gmail.com
+Cc: Simon Pilkington <simonp.git@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No functional modification involved.
+Commit c103a23f2f29
+("drm/amd: Convert amdgpu to use suballocation helper.")
+made the fence wait in amdgpu_sa_bo_new() interruptible but there is no
+code to handle an interrupt. This caused the kernel to randomly explode
+in high-VRAM-pressure situations so make it uninterruptible again.
 
-drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c:34 nbio_v7_11_get_rev_id() warn: inconsistent indenting.
-
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=6316
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Fixes: c103a23f2f29 ("drm/amd: Convert amdgpu to use suballocation helper.")
+Signed-off-by: Simon Pilkington <simonp.git@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-index 7c08e5f95e97..76e21357dd4d 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-@@ -31,10 +31,9 @@
- static u32 nbio_v7_11_get_rev_id(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
+index c6b4337eb20c..10df731998b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
+@@ -81,7 +81,7 @@ int amdgpu_sa_bo_new(struct amdgpu_sa_manager *sa_manager,
+ 		     unsigned int size)
  {
- 	u32 tmp;
--         printk("%s, getid\n",__func__);
--
--		tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP1_RCC_DEV0_EPF0_STRAP0);
+ 	struct drm_suballoc *sa = drm_suballoc_new(&sa_manager->base, size,
+-						   GFP_KERNEL, true, 0);
++						   GFP_KERNEL, false, 0);
  
-+	printk("%s, getid\n", __func__);
-+	tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP1_RCC_DEV0_EPF0_STRAP0);
- 	tmp &= RCC_STRAP0_RCC_DEV0_EPF0_STRAP0__STRAP_ATI_REV_ID_DEV0_F0_MASK;
- 	tmp >>= RCC_STRAP0_RCC_DEV0_EPF0_STRAP0__STRAP_ATI_REV_ID_DEV0_F0__SHIFT;
- 
+ 	if (IS_ERR(sa)) {
+ 		*sa_bo = NULL;
 -- 
-2.20.1.7.g153144c
+2.40.1
 
