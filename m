@@ -4,55 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B0C4CA0FF3
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 19:03:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6207ECA0FF5
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 19:04:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EDC410E1E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D416C10E1E7;
 	Fri,  1 Sep 2023 19:03:55 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFD7D10E7B7;
- Fri,  1 Sep 2023 12:27:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693571264; x=1725107264;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=OTEL3GSK+6A4sQHuCHvEp5CHkNzWKNu+FDPztYX+hGI=;
- b=FshBngAnY5WJ3BlzDpMAEoxHz8qcADzo7OsqpaZGyUigPFByWLzZozl/
- oUkO0orWx/9u3MIPlt2CZ3YY4rGD1zth/7aXP9q9kdMcmj+9mXBVL/Cbl
- i/Fgp+gBN+oOmHGqZ5utoSxInSCJ2AewVF/5ltnnHvkR0o/gu8KBjA6sg
- Mu3fxhFWn3Qz9jfv67eZEx4QHRbdhLfmR05L8CBYk/YyqFETPsjb3Euze
- rSdj9m1fCUwXkaAFomPhRUc/HERezpuzUaloDupwbMPpbax/P0eW9YdDJ
- Dgxmx9utfucH4exCPeeLDfsQcq4vdX5+sjaWsUbiEizbE2tkYUEjy5Lhq g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10819"; a="462575733"
-X-IronPort-AV: E=Sophos;i="6.02,219,1688454000"; d="scan'208";a="462575733"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2023 05:27:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10819"; a="863524687"
-X-IronPort-AV: E=Sophos;i="6.02,219,1688454000"; d="scan'208";a="863524687"
-Received: from epronina-mobl.ccr.corp.intel.com (HELO localhost)
- ([10.252.34.21])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2023 05:27:33 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Alex Hung <alex.hung@amd.com>, Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [Intel-gfx] [PATCH 0/4] drm/amd/display: stop using
- drm_edid_override_connector_update()
-In-Reply-To: <b32199ef-7179-3908-3bed-dd164cadc5de@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1692705543.git.jani.nikula@intel.com>
- <788721f6-afff-e0b2-db7c-32ab2dd075a9@amd.com> <87il965gob.fsf@intel.com>
- <871qfm2kg1.fsf@intel.com>
- <CADnq5_P49U3dcqiZhB-CjS8UbOtB7K2jNObS0ZQqMhOr3UhLQg@mail.gmail.com>
- <87o7ip252r.fsf@intel.com> <87jztd2332.fsf@intel.com>
- <1e6aa1ff-9aa9-6b2f-84f4-e0304205085c@amd.com> <87h6oh0yz9.fsf@intel.com>
- <b32199ef-7179-3908-3bed-dd164cadc5de@amd.com>
-Date: Fri, 01 Sep 2023 15:27:27 +0300
-Message-ID: <87msy6hyds.fsf@intel.com>
+Received: from out30-111.freemail.mail.aliyun.com
+ (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65AB410E70D;
+ Fri,  1 Sep 2023 01:29:36 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R481e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045168;
+ MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
+ TI=SMTPD_---0VqzgJqc_1693531771; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0VqzgJqc_1693531771) by smtp.aliyun-inc.com;
+ Fri, 01 Sep 2023 09:29:31 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: alexander.deucher@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ harry.wentland@amd.com, Rodrigo.Siqueira@amd.com
+Subject: [PATCH -next 3/5] drm/amd/display: clean up some inconsistent
+ indentings
+Date: Fri,  1 Sep 2023 09:29:22 +0800
+Message-Id: <20230901012924.120196-3-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
+In-Reply-To: <20230901012924.120196-1-yang.lee@linux.alibaba.com>
+References: <20230901012924.120196-1-yang.lee@linux.alibaba.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 01 Sep 2023 19:03:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,68 +44,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx@lists.freedesktop.org, "Wang, 
- Yu \(Charlie\)" <Yu.Wang4@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
- Wenchieh Chien <wenchieh.chien@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>
+Cc: Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 31 Aug 2023, Alex Hung <alex.hung@amd.com> wrote:
-> On 2023-08-30 01:29, Jani Nikula wrote:
->> On Tue, 29 Aug 2023, Alex Hung <alex.hung@amd.com> wrote:
->>> There is a patch under internal reviews. It removes calls edid_override
->>> and drm_edid_override_connector_update as intended in this patchset but
->>> does not remove the functionality.
->> 
->> While I am happy to hear there's progress, I'm somewhat baffled the
->> review is internal. The commits that I suggested to revert were also
->> only reviewed internally, as far as I can see... And that's kind of the
->> problem.
->> 
->> Upstream code should be reviewed in public.
->
-> Hi Jani,
->
-> All patches are sent for public reviews, the progress is summarized as 
-> the followings:
->
-> == internal ==
->
-> 1. a patch or patches are tested by CI.
-> 2. internal technical and IP reviews are performed to ensure no concerns 
-> before patches are merged to internal branch.
->
-> == public ==
->
-> 3. a regression test and IP reviews are performed by engineers before 
-> sending to public mailing lists.
-> 4. the patchset is sent for public reviews ex. 
-> https://patchwork.freedesktop.org/series/122498/
-> 5. patches are merged to public repo.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_hwseq.c:159 dcn35_init_hw() warn: inconsistent indentig
 
-The point about public review is that there's no transparency to the
-steps before 4. The patches are posted for public review with
-Reviewed-by and Acked-by already added, based on internal review, and
-there is de facto no public review taking place on the code drops. There
-is zero visibility to the discussions taking place. We don't know if
-it's just rubber stamping, we don't know what concerns were raised, if
-any.
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+---
+ .../drm/amd/display/dc/dcn35/dcn35_hwseq.c    | 32 +++++++++----------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
 
-I'm mainly disappointed about the double standards here, given that we
-post most patches directly upstream (especially ones that have zero
-reason to be embargoed like the ones being discussed here), and the ones
-that have gone through internal review will be stripped of all prior
-internal Reviewed-by's and Acked-by's before posting. Because that's the
-upstream expectation.
-
-
-BR,
-Jani.
-
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_hwseq.c
+index 666e2809d9dc..025849143254 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn35/dcn35_hwseq.c
+@@ -155,22 +155,22 @@ void dcn35_init_hw(struct dc *dc)
+ 		res_pool->ref_clocks.xtalin_clock_inKhz =
+ 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
+ 
+-			if (res_pool->dccg && res_pool->hubbub) {
+-
+-				(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
+-						dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency,
+-						&res_pool->ref_clocks.dccg_ref_clock_inKhz);
+-
+-				(res_pool->hubbub->funcs->get_dchub_ref_freq)(res_pool->hubbub,
+-						res_pool->ref_clocks.dccg_ref_clock_inKhz,
+-						&res_pool->ref_clocks.dchub_ref_clock_inKhz);
+-			} else {
+-				// Not all ASICs have DCCG sw component
+-				res_pool->ref_clocks.dccg_ref_clock_inKhz =
+-						res_pool->ref_clocks.xtalin_clock_inKhz;
+-				res_pool->ref_clocks.dchub_ref_clock_inKhz =
+-						res_pool->ref_clocks.xtalin_clock_inKhz;
+-			}
++		if (res_pool->dccg && res_pool->hubbub) {
++
++			(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
++				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency,
++				&res_pool->ref_clocks.dccg_ref_clock_inKhz);
++
++			(res_pool->hubbub->funcs->get_dchub_ref_freq)(res_pool->hubbub,
++				res_pool->ref_clocks.dccg_ref_clock_inKhz,
++				&res_pool->ref_clocks.dchub_ref_clock_inKhz);
++		} else {
++			// Not all ASICs have DCCG sw component
++			res_pool->ref_clocks.dccg_ref_clock_inKhz =
++				res_pool->ref_clocks.xtalin_clock_inKhz;
++			res_pool->ref_clocks.dchub_ref_clock_inKhz =
++				res_pool->ref_clocks.xtalin_clock_inKhz;
++		}
+ 	} else
+ 		ASSERT_CRITICAL(false);
+ 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.20.1.7.g153144c
+
