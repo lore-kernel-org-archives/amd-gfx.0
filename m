@@ -4,74 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36F1CCA0FE6
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 06:02:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82EE1CA0FE1
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 07:30:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B512C10E120;
-	Fri,  1 Sep 2023 06:02:32 +0000 (UTC)
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E09010E120;
- Fri,  1 Sep 2023 06:02:31 +0000 (UTC)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-99bf8e5ab39so191909666b.2; 
- Thu, 31 Aug 2023 23:02:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693548150; x=1694152950; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=szgK28PtaN+FU2kNtru/isvknJO6EUq+kNUlT5T4kY4=;
- b=qruHm1iw2mWhBSx4f2bueYOZllgqz4DGXbBvg54e6C/xR8TIZ1aC9dfzTD21Kp1LQv
- PgF5QinHTm/LfzxJKaL9g0zr6m1WdAun2JOLqSF2K9QJk6zmdiNHvLwTZf09GbboCA8b
- 6inWDOvHFF1VtHVTDmnk/PmO0NskdfzTCLq5nzLIe+YWvbb6/2mcdlX3urbgtNfmtIMf
- VXlEe47n1L+vty3WQt7eHIC3FvAgWhlDf5WHrYZKKiER8uee6LqXcDRjhcMNxF2ej/qR
- 9n2KPnwNHp+9VqA9txVlQ+kXqpvY7UFH1jw3AriRnd7Y1RF0lfPv9AaJ8DdBhpdrUTJD
- uBxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693548150; x=1694152950;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=szgK28PtaN+FU2kNtru/isvknJO6EUq+kNUlT5T4kY4=;
- b=XG7+O65zuBQyX2+w0GPw01mw/ifvZdBF5udOL4Rfl7egfpniodKk1ZhbSNYI3m3fJZ
- DIovZ/SRPQQFJxSXs3DB0r2knuSkipFOIruFM1gt5rK79avV4S54LVdl2Z/8MsOkCQNf
- 9o/JZo2l+n85IRwJjiLeo1isgAx3oPrcgqssJw8Zcxya53+9z+KVakvw0tS+Dxzuhph+
- V0bNcVEaJu5CP38R3E9HDl1WwdU77IXQllvc6tFGuIZuX0ET2eXQpJjCQVTtvOp7190u
- O/hFYGxZfUd5EdAHp03vfnEqAVMlgq3yOFbMdVFdpKTU397YjSpO2Xl8DERactOYEWmB
- TORg==
-X-Gm-Message-State: AOJu0YyVLR/sef5bBBn6JBsBkwhoDyb+EOziAXKPy3utSlS2krLN9pqF
- dPVgqAdJ62c7nIjjywpUOKs=
-X-Google-Smtp-Source: AGHT+IHEUGe0z8VierR0iSKfteFbT/T7ZDzjLe13f9z2w3FINUU5xeaDGfrxriHiwmLpr9zPAqvGAA==
-X-Received: by 2002:a17:907:b609:b0:9a5:d2c6:c578 with SMTP id
- vl9-20020a170907b60900b009a5d2c6c578mr898754ejc.11.1693548149577; 
- Thu, 31 Aug 2023 23:02:29 -0700 (PDT)
-Received: from [192.168.178.25] ([185.254.126.42])
- by smtp.gmail.com with ESMTPSA id
- rk17-20020a170907215100b00985ed2f1584sm1560268ejb.187.2023.08.31.23.02.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Aug 2023 23:02:25 -0700 (PDT)
-Message-ID: <44fd45f9-8e2c-f9a2-fe89-97329734e13c@gmail.com>
-Date: Fri, 1 Sep 2023 08:02:18 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FA1510E736;
+	Fri,  1 Sep 2023 07:30:53 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2042.outbound.protection.outlook.com [40.107.223.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EEF210E731;
+ Fri,  1 Sep 2023 07:30:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=exEmLposdMJ//5G10mQAex4ul3GtJY8RFzGqz+1w/fKckcS3f73fqfK/w1GmFca0lNR5t3/6Q1osv8VksbIyQMNxnB7h8+NQCeLoIAOPGNIIctLe3bGluIuxyTaF86gn6QVg0zr6JD4/oY1uDyf/w4yEijBLKda64/KltB+k8IU7miZ4kOpubFenpy22oeZP9Sfo4G5n+FQi5Pwn6SQu2S+xvNl36eBlCGM7Q3wNTCezki47r3762w9uxI4EDY20t+NS+lzbd7RDrUY8NVLqCHDCSV0nNF4glTBSP6BPZwAEKsZlnEwWY/7atXa5Oe5BQLEJvvlX3++wJ6MNS0WWoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RbOg+CIahOFgAaexmwhCs71vJUMfIU0180bF6FyI0IA=;
+ b=H/3QU33QYSDZFQfFxtCqx49Le2J8eGRz0B8kwyWbu9kxx2zCeJgaGF0rmFsyA2r/6k2Bd8plGyC4wiuLjGhLsCpHR1tcYix8QryVG9n0aIsxvLjuUhGbPY8jMl73WinfYQxp12hvnS7gCVJ6Y8b6rs+yivTfAK2ohIpY5Ykzhc1ls85b+B3vWvTxXmEb8v4b1iwPcLuctQEu6hqVa9Uw4Ilf17EPSFiHEiMb4jRyR6nCAYbKr84K91CYqfOP2vKu0b/kAuqdgqbbjrDkgFiHR4tIWX1cM2ICxtpqLyfCdj2BbwenPrVpXHWVPAdm1cKv+7rpvCE+sP+b7Capr66bJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RbOg+CIahOFgAaexmwhCs71vJUMfIU0180bF6FyI0IA=;
+ b=rPb/1SC9sHPh3SNrPm6qifZhrm/y91oA1fuy0UTku6ZVM/07Ck8urknoRK1+f56o48WAZ1wh/Tmu2eQYBJiaPMuwEJEbl/pzHdxUs6J8yGRzy3C1rkNtrx7MJ1lT/8HGgI7gW1x/yzEgK4HK+mF+loJWtyrrajoZTq6cH+J1Mz8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MN0PR12MB6198.namprd12.prod.outlook.com (2603:10b6:208:3c5::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.23; Fri, 1 Sep
+ 2023 07:30:46 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::3d:c14:667a:1c81]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::3d:c14:667a:1c81%4]) with mapi id 15.20.6745.021; Fri, 1 Sep 2023
+ 07:30:46 +0000
+Message-ID: <a975bbdb-8cd9-35b2-ce98-f711439db3a5@amd.com>
+Date: Fri, 1 Sep 2023 09:30:37 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH AUTOSEL 5.10 13/22] drm/amdgpu: install stub fence into
- potential unused fence pointers
+Subject: Re: [PATCH] drm/amdgpu: clean up some inconsistent indenting
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+References: <20230901070240.31027-1-jiapeng.chong@linux.alibaba.com>
 Content-Language: en-US
-To: Chia-I Wu <olvaffe@gmail.com>, Greg KH <gregkh@linuxfoundation.org>
-References: <20230724012419.2317649-1-sashal@kernel.org>
- <20230724012419.2317649-13-sashal@kernel.org>
- <CAPaKu7RTgAMBLHbwtp4zgiBSDrTFtAj07k5qMzkuLQy2Zr+sZA@mail.gmail.com>
- <55fc4a28-1e17-44df-2069-a688828080e6@gmail.com>
- <2023083145-scoured-celery-2511@gregkh>
- <c657653e-24d8-5790-a91c-4c13bb9eaeb0@gmail.com>
- <2023083144-railroad-daybreak-7f41@gregkh>
- <CAPaKu7Q2vq5m6Av6L2LthnFy5w2XtjKUYF8Z2__0hVp0vj2L1A@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAPaKu7Q2vq5m6Av6L2LthnFy5w2XtjKUYF8Z2__0hVp0vj2L1A@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230901070240.31027-1-jiapeng.chong@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0022.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::9) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MN0PR12MB6198:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9885ec11-6362-4a82-6d4a-08dbaabd5b20
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tvwTgtuxuwOMah4Xa1WLR/LQrCEKVHzcg4twkZ+d+TRnV+NdMK3qSexVuoVHXmtcvZDn8R0vBTqG0rIphWnDcn8hr43ImGth2fmohdSxs3BnfRiZoOJX3AoCgYxtnhbGaKWACAF5V0DhVXP3drpsrFhhocowhlB+OfngRjPyIg6C1bKtoBPXZC1uIgt33FTx/D2/aJQgCbirBnEgdGrgyXhZWJCE2rwGMq45W7liuT6jdieBqN3+2z3sMnljI4ti6WacgMWYGLiYmEI73jhmsAA/JfEGvzLDivHaDCAqhy6aWA8HryZg1Pn6ztzfTEboOLR3aD12J2Yu1a/SotkYszUPXnzD7qd43cC0X5i6OwcJ8GSIKXuughhaPgwK84EZIojJB4my/h4nt5L/nFFQwx/sf3HZ8GVHp0HXYTHgsajdE6gCukacPkQbBCMKsCJ68B7ty8TPnWZW93jOw2b2iKwkcJny5O4BBQxkumJy3Gz9zIj/LW9k05YNGzGk4f3VsMUti51gbX0lyE0BHbQAzZNBcGvwn/RAnCFQEPtUQaugy01mhPsRKk1bQeoxivgUpbJRxTUrezUgTDbJvuV9b1GqZUGgU3geDDZUg4ubvSIVR34DIb8Qs3c4cal1mBVCwFAORvi0LW+aJzNvOCTRnA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(366004)(39860400002)(136003)(346002)(376002)(451199024)(186009)(1800799009)(6486002)(6506007)(6666004)(6512007)(966005)(478600001)(83380400001)(2616005)(26005)(2906002)(6916009)(66476007)(66556008)(316002)(41300700001)(66946007)(5660300002)(4326008)(8676002)(8936002)(36756003)(31696002)(86362001)(38100700002)(31686004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z3Q1NGVPenlTdDNwUFFGSS93Z25rRGxJd2RrWnNGMHNVSWU3QVljTmtYYkpx?=
+ =?utf-8?B?VS9zb2xhbDR5STFRbjNEN0pNVlZvd2tzOFl1ek1YMmM2TXYwcWxlTmxiSjho?=
+ =?utf-8?B?d3hCSUJuVnNBeWhjb0l5T0pObnVsWGxRclFiYWRScFhuUWFPVG1BSHZmTWla?=
+ =?utf-8?B?YXFzNDJ1NXVNMHMrVXdDWTdXVWsxMjcvbldSUmpoQzhTMDlNZmdXZVFuZWFl?=
+ =?utf-8?B?Ums5Vk0vWm5iRzdEVDljcHVSUnNjN3lNaGpySWhrRUZ4dExpcS9tdC9MdHM4?=
+ =?utf-8?B?YWtJZkYwck50a3NHaTNmeFNKSnRuNTQ5V3NKWVhVVXF5YXBaalZCeVAxK0pK?=
+ =?utf-8?B?WTc4WUhzN1FtQWdCSTdub0FqVVdqdDY3eWsvK0hIOE5HbkV6dWl1WGs0RHRT?=
+ =?utf-8?B?L1llQXEyVDY5MGEzT3NucjZNUHdjYVNTTzlNUno5eXhmVDl1SSt6c3ZLMFFQ?=
+ =?utf-8?B?eHFrRXRZSkg5WWRUOEhpR2FKY3VOa2pFYkVncTNyN1F5Wk5VcmpBUWg5cHZE?=
+ =?utf-8?B?M1hjdTA3S1VueW5MblpLV1Npc3k0UlR3d0VLS1hoMXJ5NytoQ1VmR1Bia0cx?=
+ =?utf-8?B?RXVMbWQwZ2hDTXMvZnVQYzVZVi9xZWhkY1NCSjNUUE51c0E3YnFZcjVjK0tS?=
+ =?utf-8?B?d1F3NVY5VkowZ2NyQmh4ZW1JWEtrQzB5VEYzQnBNYkF2K0RWUkJBQnliM2Rt?=
+ =?utf-8?B?bVBaR3dYa2lhVzk2bm12cFllMC9hS25SYXprRDZOYjhDNklLbWxFRWNvcW1i?=
+ =?utf-8?B?b051Q3d0MGxRbk5OMktxRHFySUExeldsK2xWT2NHZkpwS1g3czBXdGQ5N1VN?=
+ =?utf-8?B?YnB6RWtqd2lnRVp0TWd2dWVseVpkZ3Rpa2VMQm92SGZucXQvVTJNWklmaHRl?=
+ =?utf-8?B?ZVAwY2xOcS9uTjBKMEh6NkJlbDVKUjFLYUg4YkljYnFmcGJuUDNNcDJJMnNi?=
+ =?utf-8?B?T05TM3JtQU1GVWNva0w3TDUvckRRL3pmL21FWjhnemhpN3lSK1dFZHdCcVVO?=
+ =?utf-8?B?TXQweXlDcnQ0SkNDV2pmSklneHlRRVk2T0ZMSzBWM3d3dEdyc281cjRaelBs?=
+ =?utf-8?B?RzVFeGE5a0FCZlBZZFQzNEVZWVo5NWo5S0VVbW5HNGRuUFBVNVBVRDhQTkdC?=
+ =?utf-8?B?L2N6OGQ0cEptRWpEWXdrRUtTZ0tDU1M4MHNDcS8zSFlNN0pqZ0lQbTlMem1E?=
+ =?utf-8?B?L2JRNVJLaVBPWjB5UXRrN1c3U3F4TEpiVW9BWUFFVDNGdFB5aVhtZnY1N3Zk?=
+ =?utf-8?B?SjNGcTREQ3p4TS95T2lsU0Z2TXM5OGR2NkVDKzVLdUdLcjl0cVNPWWhsa3BT?=
+ =?utf-8?B?QzJOMGdEME1QOW9vRkJwcGlPOS9iTjVmS00yWWxjbnF6ZjFpem5rZGpNMHRa?=
+ =?utf-8?B?ZndoODZlNlo1b2JGZjZhOGlSQlhMUDVSM21yY0xjQ2Zrck9HdU9xK2VQZnBj?=
+ =?utf-8?B?Q0dzNFgzTnY5clJ3TkE2QXdZbitUbVdQNUlLTTV6anRqUGt2U2dkQVJVTXFO?=
+ =?utf-8?B?Smthc3pOeEhTeDVxc2p3LzhqUUVMMGhDQkRBZi9iTi9tWUtWYVgvYjNYZk5L?=
+ =?utf-8?B?eFBpZ3J1NENyazNwRWNBeElDYXFoOEpMQkNxY28wUWhQZy80TUJ2c3FGNkgz?=
+ =?utf-8?B?NkxyK01aSkI3elJQMXNDd3ZXcDFTNEtKaTRmNzA1ZFVBUzlLZmtSZ2tGSzhj?=
+ =?utf-8?B?R2MrUHBpZmFHc3VYVTVYeGx0NWpvVlJZTUFOVk8zSk5JSXdKQ0JoTTRHLzE1?=
+ =?utf-8?B?YlpPMHphUVJrc09yc1ZENnJpUWNEWlZNVmRIampPbE85QVVNKy96Tm1uQy9J?=
+ =?utf-8?B?R2RGK1VhTFE5RXBSWnUxeGIrVEs2eGdmdlVqODR6dER2TVIzdjYxZVlwM085?=
+ =?utf-8?B?RldKNXFkVzFwYUhXSVNqWTU2MkNkdmVDK1lySXdXaUxzNHdwUGo2Q0Ztb3J5?=
+ =?utf-8?B?U3hFU2pIbDh3NVRXSGdZN2VySkdLdzJBQlNyM0JpVWoxUmZQQkVzRHYvQVhM?=
+ =?utf-8?B?aGRHK0pXTTdidzFIa1B6Rkh6YzI3a3JTN3FXb3QwRDhBckM1RWpXanZ5Sll3?=
+ =?utf-8?B?UVlJRHZ2dDU1TEpnZTREOWtiS3U1cGwzVTFiNUxxSTNjZ2daUys5SXdaL3hR?=
+ =?utf-8?Q?bgR9dJz77UbvvgLbzUwX3bgPU?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9885ec11-6362-4a82-6d4a-08dbaabd5b20
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2023 07:30:46.0079 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 32WC0RBkC4KevIlb1Ps7wwPRWzboZO1WDad5ATGRVAv/Pkub1et7hdlT36n9LrAI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6198
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,62 +123,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, airlied@linux.ie,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- stable@vger.kernel.org, Lang Yu <Lang.Yu@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 31.08.23 um 20:55 schrieb Chia-I Wu:
-> On Thu, Aug 31, 2023 at 7:01 AM Greg KH <gregkh@linuxfoundation.org> wrote:
->> On Thu, Aug 31, 2023 at 03:26:28PM +0200, Christian König wrote:
->>> Am 31.08.23 um 12:56 schrieb Greg KH:
->>>> On Thu, Aug 31, 2023 at 12:27:27PM +0200, Christian König wrote:
->>>>> Am 30.08.23 um 20:53 schrieb Chia-I Wu:
->>>>>> On Sun, Jul 23, 2023 at 6:24 PM Sasha Levin <sashal@kernel.org> wrote:
->>>>>>> From: Lang Yu <Lang.Yu@amd.com>
->>>>>>>
->>>>>>> [ Upstream commit 187916e6ed9d0c3b3abc27429f7a5f8c936bd1f0 ]
->>>>>>>
->>>>>>> When using cpu to update page tables, vm update fences are unused.
->>>>>>> Install stub fence into these fence pointers instead of NULL
->>>>>>> to avoid NULL dereference when calling dma_fence_wait() on them.
->>>>>>>
->>>>>>> Suggested-by: Christian König <christian.koenig@amd.com>
->>>>>>> Signed-off-by: Lang Yu <Lang.Yu@amd.com>
->>>>>>> Reviewed-by: Christian König <christian.koenig@amd.com>
->>>>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>>>>>> Signed-off-by: Sasha Levin <sashal@kernel.org>
->>>>>>> ---
->>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 ++++--
->>>>>>>     1 file changed, 4 insertions(+), 2 deletions(-)
->>>>>> We start getting this warning spew on chromeos
->>>>> Yeah because the older kernels still kept track of the last VM fence in the
->>>>> syncobj.
->>>>>
->>>>> This patch here should probably not have been back ported.
->>>>>
->>>>> Why was that done anyway? The upstream commit doesn't have a CC stable and
->>>>> this is only a bug fix for a new feature not present on older kernels.
->>>> It is part of the AUTOSEL process.
->>> Could we prevent patches from being backported by adding a Fixes: tag?
->> Yes, that will show exactly where the patch should be backported to.
-> This is also AUTOSEL'ed to 5.15.  That might need a revert as well,
-> depending on when the amdgpu feature landed.
+Am 01.09.23 um 09:02 schrieb Jiapeng Chong:
+> No functional modification involved.
+>
+> drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c:34 nbio_v7_11_get_rev_id() warn: inconsistent indenting.
 
-Both the feature and the bug fix landed in 6.5.
 
-The bug fix should have never been backported to any older kernel at all 
-as far as I can see.
+We should probably not have a printk here in the first place.
 
-Regards,
 Christian.
 
 >
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=6316
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
 >
->> thanks,
->>
->> greg k-h
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
+> index 7c08e5f95e97..76e21357dd4d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
+> @@ -31,10 +31,9 @@
+>   static u32 nbio_v7_11_get_rev_id(struct amdgpu_device *adev)
+>   {
+>   	u32 tmp;
+> -         printk("%s, getid\n",__func__);
+> -
+> -		tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP1_RCC_DEV0_EPF0_STRAP0);
+>   
+> +	printk("%s, getid\n", __func__);
+> +	tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP1_RCC_DEV0_EPF0_STRAP0);
+>   	tmp &= RCC_STRAP0_RCC_DEV0_EPF0_STRAP0__STRAP_ATI_REV_ID_DEV0_F0_MASK;
+>   	tmp >>= RCC_STRAP0_RCC_DEV0_EPF0_STRAP0__STRAP_ATI_REV_ID_DEV0_F0__SHIFT;
+>   
 
