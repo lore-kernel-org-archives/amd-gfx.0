@@ -4,31 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F9FBCA0FF5
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 19:04:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88E34CA0FF3
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 19:04:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42EC710E1EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 545C010E1EC;
 	Fri,  1 Sep 2023 19:03:56 +0000 (UTC)
-Received: from out30-113.freemail.mail.aliyun.com
- (out30-113.freemail.mail.aliyun.com [115.124.30.113])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2179B10E712;
- Fri,  1 Sep 2023 01:29:40 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R601e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046049;
+Received: from out30-119.freemail.mail.aliyun.com
+ (out30-119.freemail.mail.aliyun.com [115.124.30.119])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6487510E11E;
+ Fri,  1 Sep 2023 01:29:29 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R791e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045170;
  MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
- TI=SMTPD_---0VqzgJsZ_1693531775; 
+ TI=SMTPD_---0VqzfE4S_1693531765; 
 Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VqzgJsZ_1693531775) by smtp.aliyun-inc.com;
- Fri, 01 Sep 2023 09:29:36 +0800
+ fp:SMTPD_---0VqzfE4S_1693531765) by smtp.aliyun-inc.com;
+ Fri, 01 Sep 2023 09:29:26 +0800
 From: Yang Li <yang.lee@linux.alibaba.com>
 To: alexander.deucher@amd.com, airlied@gmail.com, daniel@ffwll.ch,
  harry.wentland@amd.com, Rodrigo.Siqueira@amd.com
-Subject: [PATCH -next 5/5] drm/amd/display: clean up one inconsistent indenting
-Date: Fri,  1 Sep 2023 09:29:24 +0800
-Message-Id: <20230901012924.120196-5-yang.lee@linux.alibaba.com>
+Subject: [PATCH -next 1/5] drm/amd/display: clean up one inconsistent indenting
+Date: Fri,  1 Sep 2023 09:29:20 +0800
+Message-Id: <20230901012924.120196-1-yang.lee@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
-In-Reply-To: <20230901012924.120196-1-yang.lee@linux.alibaba.com>
-References: <20230901012924.120196-1-yang.lee@linux.alibaba.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 01 Sep 2023 19:03:54 +0000
@@ -48,28 +46,26 @@ Cc: Yang Li <yang.lee@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn35/dcn35_fpu.c:260 dcn35_update_bw_bounding_box_fpu() warn: inconsistent indenting
+drivers/gpu/drm/amd/amdgpu/../display/dmub/src/dmub_srv.c:355 dmub_srv_hw_setup() warn: inconsistent indenting
 
 Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-index 525ca0ed9ea9..46eb2d0592f3 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-@@ -348,8 +348,8 @@ void dcn35_update_bw_bounding_box_fpu(struct dc *dc,
- 			dc->debug.dram_clock_change_latency_ns / 1000.0;
- 	}
- 	/*temp till dml2 fully work without dml1*/
--		dml_init_instance(&dc->dml, &dcn3_5_soc, &dcn3_5_ip,
--				  DML_PROJECT_DCN31);
-+	dml_init_instance(&dc->dml, &dcn3_5_soc, &dcn3_5_ip,
-+				DML_PROJECT_DCN31);
- }
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+index 762549753721..b99db771e071 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+@@ -352,7 +352,7 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
+ 			funcs->init_reg_offsets = dmub_srv_dcn35_regs_init;
  
- static bool is_dual_plane(enum surface_pixel_format format)
+ 			funcs->is_hw_powered_up = dmub_dcn35_is_hw_powered_up;
+-		break;
++			break;
+ 
+ 	default:
+ 		return false;
 -- 
 2.20.1.7.g153144c
 
