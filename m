@@ -4,64 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 618A9CA0FFA
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 23:42:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A2D3C83F33
+	for <amd-gfx@archiver.kernel.org>; Sun,  3 Sep 2023 01:57:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7230410E83D;
-	Fri,  1 Sep 2023 23:42:56 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE14110E83C
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Sep 2023 23:42:55 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id
- 5614622812f47-3a751d2e6ecso1715922b6e.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 01 Sep 2023 16:42:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1693611775; x=1694216575;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KKiMaJ+cEDZwLLCxXqIHb+OBndFjgPpn6nuXSf4hrW0=;
- b=lNykkiFAhlsmA8jPi2qSxaIuI76WYWJznmYKJCi1VY6KjszVosPVYePP0GERA264SR
- jr8ZkRg5DtM8kqd+WFIInSKVmX5nFNNA0g0FpA7Cqtf5l69IWPbQR6xMF3Aq9gvZzABZ
- WXczy/FTRVi9FFhkrxrKAnpCzVsPxjK1ceRNc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693611775; x=1694216575;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KKiMaJ+cEDZwLLCxXqIHb+OBndFjgPpn6nuXSf4hrW0=;
- b=ge05i8NWsusdpdhjI3GCnoutEktkMunjN3b7aPNVrfH1a+JlEL28R/wuIhxnnkqjrd
- oKQBGQCI8Jb3MeIgC6jhdmvFygFhfmqXuuG27JIvq/g5GNnKEEKSl3UZIJAU5M4MjLZ5
- X1Tb0+9XcDog8ZgBVOKjJdEaxU1bKP8D/o2l1Rjc/LgBdhCFT9SdCVwxr9nIRZAQxHPX
- iNf3t3+nmfRz+voDR2laMu0RROwipfKv1ZeO0svNHDWPXYFiZk3gNtrtwHLw8lf9QGh2
- YNNzJcF31VoyhKbN3/xVWRmddxM2crndWc1mxkk8AWDCYesjj1IPu4f2yeTuOwn/rjUU
- 5vbQ==
-X-Gm-Message-State: AOJu0YwFyaj6Tp4xhGLJvGIAhMSSe6o62FxnqnLHZ/iFyHGxMaAOXvFt
- cj5Mbz8n6jEF4fm51mbZeGGEXg==
-X-Google-Smtp-Source: AGHT+IH3N6oAfydomdv+c+JnkApo3hK8ntxo9o07pRRK+2oRgBVZbVsjJxP7itMUHip6V7XJUK2i9g==
-X-Received: by 2002:a54:458e:0:b0:3a8:847e:c5b7 with SMTP id
- z14-20020a54458e000000b003a8847ec5b7mr4071404oib.31.1693611775021; 
- Fri, 01 Sep 2023 16:42:55 -0700 (PDT)
-Received: from tictac2.mtv.corp.google.com
- ([2620:15c:9d:2:8d94:1fc5:803c:41cc])
- by smtp.gmail.com with ESMTPSA id
- o9-20020a639a09000000b0056c3a4a3ca5sm3326390pge.36.2023.09.01.16.42.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Sep 2023 16:42:54 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: dri-devel@lists.freedesktop.org,
-	Maxime Ripard <mripard@kernel.org>
-Subject: [RFT PATCH 14/15] drm/radeon: Call drm_helper_force_disable_all() at
- shutdown/remove time
-Date: Fri,  1 Sep 2023 16:41:25 -0700
-Message-ID: <20230901164111.RFT.14.I022cfc2dcd30e77d4f7005a2d912dd7ab76c0338@changeid>
-X-Mailer: git-send-email 2.42.0.283.g2d96d420d3-goog
-In-Reply-To: <20230901234202.566951-1-dianders@chromium.org>
-References: <20230901234202.566951-1-dianders@chromium.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01D0910E0DA;
+	Sun,  3 Sep 2023 01:57:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F31ED10E086;
+ Sun,  3 Sep 2023 01:57:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1693706262; x=1725242262;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=w7kAA0dDhx3JMWGLOZ3PRy9gzEcEaBz2rEhs9OuIcYs=;
+ b=E6KGuRI88Icm6yZ+C9lx7Ty1AfzE29b/cLFkiqXchc7kZGw8hnloevLL
+ PUXy4SlekLOkSJTE7Wzo37mcnYOPWoXxbgVV3oug6gIKpapD8i35A7MsD
+ racWXbm1W/BJ7Ky8mGslmmkZ1A3otaIHV38sVmQhbY5R42yd8wOKq6wAJ
+ ZE2ixQu9/CJqawgUUg9NHmwlGjpynayfeZHwKFEvJKVo8H9tU6Oggfhm+
+ z62USxn2antdAgR/MGdZoYN/wVDwTfYGqRTyVkI7GgGlFGmNyVs4QhAU9
+ X2dugD9I9lLJ3fjEQnbIEmhQ3keAuSrTtuXDHR9z444umUQlQ6uHGUG5A Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10821"; a="380203286"
+X-IronPort-AV: E=Sophos;i="6.02,223,1688454000"; d="scan'208";a="380203286"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2023 18:57:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10821"; a="855164368"
+X-IronPort-AV: E=Sophos;i="6.02,223,1688454000"; d="scan'208";a="855164368"
+Received: from lkp-server01.sh.intel.com (HELO 5d8055a4f6aa) ([10.239.97.150])
+ by fmsmga002.fm.intel.com with ESMTP; 02 Sep 2023 18:57:38 -0700
+Received: from kbuild by 5d8055a4f6aa with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qccMq-0002nH-0t;
+ Sun, 03 Sep 2023 01:57:36 +0000
+Date: Sun, 3 Sep 2023 09:56:40 +0800
+From: kernel test robot <lkp@intel.com>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm/amdgpu: Merge debug module parameters
+Message-ID: <202309030946.q2LgJYO7-lkp@intel.com>
+References: <20230824162505.173399-2-andrealmeid@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230824162505.173399-2-andrealmeid@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,73 +61,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Douglas Anderson <dianders@chromium.org>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
- alexander.deucher@amd.com, airlied@gmail.com, christian.koenig@amd.com
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+ 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>, kernel-dev@igalia.com,
+ oe-kbuild-all@lists.linux.dev, alexander.deucher@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Based on grepping through the source code, this driver appears to be
-missing a call to drm_atomic_helper_shutdown(), or in this case the
-non-atomic equivalent drm_helper_force_disable_all(), at system
-shutdown time and at driver remove time. This is important because
-drm_helper_force_disable_all() will cause panels to get disabled
-cleanly which may be important for their power sequencing. Future
-changes will remove any custom powering off in individual panel
-drivers so the DRM drivers need to start getting this right.
+Hi André,
 
-The fact that we should call drm_atomic_helper_shutdown(), or in this
-case the non-atomic equivalent drm_helper_force_disable_all(), in the
-case of OS shutdown/restart comes straight out of the kernel doc
-"driver instance overview" in drm_drv.c.
+kernel test robot noticed the following build errors:
 
-NOTE: in order to get things inserted in the right place, I had to
-replace the old/deprecated drm_put_dev() function with the equivalent
-new calls.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.5 next-20230831]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Suggested-by: Maxime Ripard <mripard@kernel.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
----
-I honestly have no idea if I got this patch right. The shutdown()
-function already had some special case logic for PPC, Loongson, and
-VMs and I don't 100% for sure know how this interacts with
-those. Everything here is just compile tested.
+url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/drm-amdgpu-Merge-debug-module-parameters/20230825-002641
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20230824162505.173399-2-andrealmeid%40igalia.com
+patch subject: [PATCH 1/2] drm/amdgpu: Merge debug module parameters
+config: i386-allyesconfig (https://download.01.org/0day-ci/archive/20230903/202309030946.q2LgJYO7-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230903/202309030946.q2LgJYO7-lkp@intel.com/reproduce)
 
- drivers/gpu/drm/radeon/radeon_drv.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202309030946.q2LgJYO7-lkp@intel.com/
 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index 39cdede460b5..67995ea24852 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -38,6 +38,7 @@
- #include <linux/pci.h>
- 
- #include <drm/drm_aperture.h>
-+#include <drm/drm_crtc_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
- #include <drm/drm_gem.h>
-@@ -357,7 +358,9 @@ radeon_pci_remove(struct pci_dev *pdev)
- {
- 	struct drm_device *dev = pci_get_drvdata(pdev);
- 
--	drm_put_dev(dev);
-+	drm_dev_unregister(dev);
-+	drm_helper_force_disable_all(dev);
-+	drm_dev_put(dev);
- }
- 
- static void
-@@ -368,6 +371,8 @@ radeon_pci_shutdown(struct pci_dev *pdev)
- 	 */
- 	if (radeon_device_is_virtual())
- 		radeon_pci_remove(pdev);
-+	else
-+		drm_helper_force_disable_all(pci_get_drvdata(pdev));
- 
- #if defined(CONFIG_PPC64) || defined(CONFIG_MACH_LOONGSON64)
- 	/*
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c: In function 'amdgpu_init_debug_options':
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2923:33: error: assignment of read-only variable 'debug_evictions'
+    2923 |                 debug_evictions = true;
+         |                                 ^
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2933:17: error: 'debug_largebar' undeclared (first use in this function)
+    2933 |                 debug_largebar = true;
+         |                 ^~~~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:2933:17: note: each undeclared identifier is reported only once for each function it appears in
+
+
+vim +/debug_evictions +2923 drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+
+  2918	
+  2919	static void amdgpu_init_debug_options(void)
+  2920	{
+  2921		if (amdgpu_debug_mask & DEBUG_VERBOSE_EVICTIONS) {
+  2922			pr_info("debug: eviction debug messages enabled\n");
+> 2923			debug_evictions = true;
+  2924		}
+  2925	
+  2926		if (amdgpu_debug_mask & DEBUG_VM) {
+  2927			pr_info("debug: VM handling debug enabled\n");
+  2928			amdgpu_vm_debug = true;
+  2929		}
+  2930	
+  2931		if (amdgpu_debug_mask & DEBUG_LARGEBAR) {
+  2932			pr_info("debug: enabled simulating large-bar capability on non-large bar system\n");
+> 2933			debug_largebar = true;
+  2934		}
+  2935	}
+  2936	
+
 -- 
-2.42.0.283.g2d96d420d3-goog
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
