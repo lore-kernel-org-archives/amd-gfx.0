@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1003C88CB2
-	for <amd-gfx@archiver.kernel.org>; Sun,  3 Sep 2023 18:46:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 996EBC71153
+	for <amd-gfx@archiver.kernel.org>; Sun,  3 Sep 2023 18:46:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0CD710E1AA;
-	Sun,  3 Sep 2023 18:46:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F298410E1DB;
+	Sun,  3 Sep 2023 18:46:41 +0000 (UTC)
 Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
  [IPv6:2607:f8b0:4864:20::d36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CE2910E181;
- Sun,  3 Sep 2023 18:46:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19BB810E17B;
+ Sun,  3 Sep 2023 18:46:19 +0000 (UTC)
 Received: by mail-io1-xd36.google.com with SMTP id
- ca18e2360f4ac-77acb04309dso37719439f.2; 
- Sun, 03 Sep 2023 11:46:21 -0700 (PDT)
+ ca18e2360f4ac-792975085b2so37498439f.1; 
+ Sun, 03 Sep 2023 11:46:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693766780; x=1694371580; darn=lists.freedesktop.org;
+ d=gmail.com; s=20221208; t=1693766778; x=1694371578; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=A7euIhAUxsBgqAycWxnasjxETI8zYNC1RLZ3qD73WsM=;
- b=enwkai3t/rnjxv6OiAhe+NzNvbQ0abppn5KbHTT2Fb7VUMxvxR1qmf/d9NRntx4uyz
- s+hlxSuE/w3X4gEP+Y/zClA0io5G3iYL4CEdbAcVXjYISufpudQORggvqxAmSEFzP2hf
- 0AbmlPYXPWBrEuVTSfvY3wqCICxvp/AGwROddGTvEtvYOjekkZMvuGYnVR3QB48tjPqT
- bnvRxgTEMZvKweTkv575EhZahX1ltLdEXJICripIYD4i9hgocTmUmpijAp7oFeQk1DvL
- fIawQlyGG98ccNMppXRm6ya61Nl+YffwtdlfNph7j56p+12ZxH4rfxlsbyrow709L/wC
- WBxQ==
+ bh=NxH9YviFYJ/sVQ921jdxmjDcbIQzwn47fQGdVFEkDL8=;
+ b=WwncGzCLU+qQCq7Rkz27rjvhKVWsx/tKhakzC0jqkGgomgFaKYXkOJTYa5pRV8Q/wh
+ P0l6eK2gDndbGEU62Ti1dfkPfBaD2KCTV8a0Z3W9AA6yqpuNZDijmOajFHU7zfpC3WbP
+ IJOwRvYft+Pek2s9jzVZN9Q2Vksx4BW5gKPmfWZAzJwqAKQ0xw8EYF2qwWeV91B1B8m0
+ D1QQ/1JLtl9zuav6DcttWJIShEKA8QLIt+LqDcImVyhejHhlxPe2vp7WOoxiyz3cYQij
+ czIhOiIrtAIcJ7qhv1KmoIAhFBtwOy5uJcE12y/e3PV8Wykf3KUKsSdye7QZM7fkzPsR
+ 9jEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693766780; x=1694371580;
+ d=1e100.net; s=20221208; t=1693766778; x=1694371578;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=A7euIhAUxsBgqAycWxnasjxETI8zYNC1RLZ3qD73WsM=;
- b=Y4fDiSKZavQkdPcRrG9V8+gX1wyPhGphmckgFkAAfzDxsBbwzuSwVuymcPDmddJypw
- ULj4KjNcHXkkDUHbUDpTY7wtc9DAre1DnjmsOGb82wA6sb1NNeHidL7S/ZY2+rTQ0wVd
- g+BoGQUkmZ7uq7ppInGlTc5Z0/+69oruHHBkZUR+/wyiYjQRZaopygvLE2l6ojQ9WjBw
- kotLet7MHm5LatqOiLUvUU2ZlgVHvvuOJZrI+y5pZzUhehiWDuf431aBM4eeyx7Wdppt
- M5HzyifRoyyLLU8XFsmFQgDjHVoxxQzl3ywZ5TlMFMo+5dxfs6MLs0yXHM9oDqsijroO
- H04w==
-X-Gm-Message-State: AOJu0Yzq1p7YQ1BbCsbxcv6/4fhognwItkyqdZYkh5egfZjy+TSqvd7H
- 04ktxEX30yfmMtNC/+Kjmg3K42O+jx7eYA==
-X-Google-Smtp-Source: AGHT+IFezAhzBe8bHNafQV2ls3Rrm07SEuvb9e6ZJAhZmonaPCE5ktQ5RYLT+3Q1JAWulfB2inkf2w==
-X-Received: by 2002:a6b:5103:0:b0:792:9333:2cbf with SMTP id
- f3-20020a6b5103000000b0079293332cbfmr9837914iob.6.1693766780607; 
- Sun, 03 Sep 2023 11:46:20 -0700 (PDT)
+ bh=NxH9YviFYJ/sVQ921jdxmjDcbIQzwn47fQGdVFEkDL8=;
+ b=F5xuwiiHSlxVwAtePJvtR9AmtVjozT4fQ728pxqD4vi3SXvUOW/r0KW+Y34i4fqIiL
+ z9ztnRDPC17Zu1FTUw8PGkqP5Id9ze0DoIPx8Eu9wfAZtMV1zzuZxl+0HT2Lc1Di2P1F
+ 4Al3Pr0sKQpHjHTEO2Ff1GfGIWpSJrC3lKF85yBhr2SH1TNZU8CZ7SIj7zHezHXL7+0L
+ xNh7WI/BRX+vuZ+znFqT7BvVi1/LNJoH7YV7uq8KY2UsOD3vZT4CaSntKw5KME6nNfbG
+ RRtHXYsIRH8Otm1VeTvfbIcuyhbdpdfkHDzHEeAOLCI8jPMHQ5vq3dYGrfTazE9QAypg
+ 40mA==
+X-Gm-Message-State: AOJu0YwOQXb9cxWWQPc8vBwbvf4dSe3deIHctlsA4fNP7gqb3riYuQo1
+ MBtwPw4297agtY0K/+IZk8s=
+X-Google-Smtp-Source: AGHT+IFaoNhYGsbvB6jznT4bSDBnIoFY2jvJJdHmVHBwkTi3nPyjBv03yWffGFhGkV6csSuj+h269g==
+X-Received: by 2002:a92:dad2:0:b0:34d:e998:fb4f with SMTP id
+ o18-20020a92dad2000000b0034de998fb4fmr7949087ilq.10.1693766778270; 
+ Sun, 03 Sep 2023 11:46:18 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- u9-20020a02cb89000000b0042b37dda71asm2519968jap.136.2023.09.03.11.46.19
+ u9-20020a02cb89000000b0042b37dda71asm2519968jap.136.2023.09.03.11.46.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Sep 2023 11:46:20 -0700 (PDT)
+ Sun, 03 Sep 2023 11:46:17 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 5/6] drm_dbg: add trailing newlines to msgs
-Date: Sun,  3 Sep 2023 12:46:02 -0600
-Message-ID: <20230903184607.272198-6-jim.cromie@gmail.com>
+Subject: [PATCH v2 3/6] drm_dbg: add trailing newlines to msgs
+Date: Sun,  3 Sep 2023 12:46:00 -0600
+Message-ID: <20230903184607.272198-4-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230903184607.272198-1-jim.cromie@gmail.com>
 References: <20230903184607.272198-1-jim.cromie@gmail.com>
@@ -74,11 +74,21 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, jani.nikula@intel.com,
- daniel.vetter@ffwll.ch, Maxime Ripard <mripard@kernel.org>,
- Jim Cromie <jim.cromie@gmail.com>, robdclark@gmail.com, seanpaul@chromium.org,
- daniel@ffwll.ch, David Airlie <airlied@gmail.com>,
- ville.syrjala@linux.intel.com
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, Fei Yang <fei.yang@intel.com>,
+ daniel.vetter@ffwll.ch, Imre Deak <imre.deak@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>,
+ ville.syrjala@linux.intel.com, Rob Clark <robdclark@chromium.org>,
+ Matthew Auld <matthew.auld@intel.com>, Mika Kahola <mika.kahola@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, jani.nikula@intel.com,
+ Jani Nikula <jani.nikula@linux.intel.com>, seanpaul@chromium.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ Jim Cromie <jim.cromie@gmail.com>, robdclark@gmail.com, daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -93,31 +103,45 @@ No functional changes.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/vc4/vc4_crtc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c       | 2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_crtc.c b/drivers/gpu/drm/vc4/vc4_crtc.c
-index bef9d45ef1df..959123759711 100644
---- a/drivers/gpu/drm/vc4/vc4_crtc.c
-+++ b/drivers/gpu/drm/vc4/vc4_crtc.c
-@@ -592,7 +592,7 @@ static void vc4_crtc_atomic_disable(struct drm_crtc *crtc,
- 	struct drm_encoder *encoder = vc4_get_crtc_encoder(crtc, old_state);
- 	struct drm_device *dev = crtc->dev;
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 090f242e610c..0a196348e2d1 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -4171,7 +4171,7 @@ static int intel_ddi_compute_config_late(struct intel_encoder *encoder,
+ 	struct drm_connector *connector = conn_state->connector;
+ 	u8 port_sync_transcoders = 0;
  
--	drm_dbg(dev, "Disabling CRTC %s (%u) connected to Encoder %s (%u)",
-+	drm_dbg(dev, "Disabling CRTC %s (%u) connected to Encoder %s (%u)\n",
- 		crtc->name, crtc->base.id, encoder->name, encoder->base.id);
+-	drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s] [CRTC:%d:%s]",
++	drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s] [CRTC:%d:%s]\n",
+ 		    encoder->base.base.id, encoder->base.name,
+ 		    crtc_state->uapi.crtc->base.id, crtc_state->uapi.crtc->name);
  
- 	require_hvs_enabled(dev);
-@@ -620,7 +620,7 @@ static void vc4_crtc_atomic_enable(struct drm_crtc *crtc,
- 	struct vc4_encoder *vc4_encoder = to_vc4_encoder(encoder);
- 	int idx;
- 
--	drm_dbg(dev, "Enabling CRTC %s (%u) connected to Encoder %s (%u)",
-+	drm_dbg(dev, "Enabling CRTC %s (%u) connected to Encoder %s (%u)\n",
- 		crtc->name, crtc->base.id, encoder->name, encoder->base.id);
- 
- 	if (!drm_dev_enter(dev, &idx))
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index cfd7929587d8..29c40e8a7183 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -1436,7 +1436,7 @@ eb_relocate_entry(struct i915_execbuffer *eb,
+ 	if (unlikely(reloc->write_domain & (reloc->write_domain - 1))) {
+ 		drm_dbg(&i915->drm, "reloc with multiple write domains: "
+ 			  "target %d offset %d "
+-			  "read %08x write %08x",
++			  "read %08x write %08x\n",
+ 			  reloc->target_handle,
+ 			  (int) reloc->offset,
+ 			  reloc->read_domains,
+@@ -1447,7 +1447,7 @@ eb_relocate_entry(struct i915_execbuffer *eb,
+ 		     & ~I915_GEM_GPU_DOMAINS)) {
+ 		drm_dbg(&i915->drm, "reloc with read/write non-GPU domains: "
+ 			  "target %d offset %d "
+-			  "read %08x write %08x",
++			  "read %08x write %08x\n",
+ 			  reloc->target_handle,
+ 			  (int) reloc->offset,
+ 			  reloc->read_domains,
 -- 
 2.41.0
 
