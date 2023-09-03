@@ -4,89 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FFABC71153
-	for <amd-gfx@archiver.kernel.org>; Sun,  3 Sep 2023 06:52:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 162DACA0FF7
+	for <amd-gfx@archiver.kernel.org>; Sun,  3 Sep 2023 18:46:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A52F10E0F0;
-	Sun,  3 Sep 2023 06:52:51 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2047.outbound.protection.outlook.com [40.107.92.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9ECC10E0E8
- for <amd-gfx@lists.freedesktop.org>; Sun,  3 Sep 2023 06:52:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PdoHu6EpqP9wcpDtWSMkUP3OPtq2eu4gtWZFpDR+T5BpilN2cutTOnDpdrB/HtOCvPEme2rdHbUeVzpCHNvurJ0+emEQxkd5aywNyxjEmjSp/BHaUkechVlTRydjYXt6naGX8LQHRUfDc0ZEpJyyZmfBZvqIrOTfW54j2Ma+b/AjEtxAPY5tkAHQJfosSTMsJaLf1RnhyyeZkFxxLZz9ESz41cQxJAbe4ejy9s4MDV4ndcnXPT0Mwv22ECEtLWoB2R/iFWh1wm3v30m5b7u79++y+zLKNIpDlQicrReaUEVF0q/YQZg/xqq3hK+kLE7rtQjvIOVXrRsaitPSDxqayQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YruaLGAFLPkjHBxmV/AKa/jpcFBpYm5Fm+NIfX7ns3Q=;
- b=eJi5JQasP6ws/5LnjmhsVBoRteJ7GFnDQteEtSwmQb2SG1QUlpSmE3B+jurDUD72CFourMf1wWevaqJS70ZurZJUpAKOD02CCdq1nUWJ94u7lPXNFru89dDAgMgMoBbGhKrl7s0Z6F0xfo/RIWvzMRNd6q+F4m9qnzxLg6NpGzRwb1qrX31Tpb40IAhglHZwzksRVnmjAUglIqsJSyZVa+g4nLTukg5JKlxyxnbPuTevdAi9DVnoYoPDaSOzxNuu9f4bAwYl30gU3bpJS7O8n26HoHt4bA1nCyemkpvlKtb4zDczMhHgzN+DeOYPzfRxL93zgsKgwiFpxqmDvZHQuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YruaLGAFLPkjHBxmV/AKa/jpcFBpYm5Fm+NIfX7ns3Q=;
- b=lQ2OG2fxYxTzGiqXgb8rmW0G1QzcO3G27f6jPrtautXyfy8ih7JuJJz8Upo0rdD6VPsYF18TdKUeMAO0D9pfOS/93L95KV4DNEoSKakNhb/TG58rTTHsal2oHldThgwMV45rdWKBsLRA+7lWhzIBFPb94n/D7RaKEj3H8pfI1Dw=
-Received: from SA9P221CA0029.NAMP221.PROD.OUTLOOK.COM (2603:10b6:806:25::34)
- by IA1PR12MB8517.namprd12.prod.outlook.com (2603:10b6:208:449::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.28; Sun, 3 Sep
- 2023 06:52:44 +0000
-Received: from SN1PEPF00026368.namprd02.prod.outlook.com
- (2603:10b6:806:25:cafe::ab) by SA9P221CA0029.outlook.office365.com
- (2603:10b6:806:25::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.30 via Frontend
- Transport; Sun, 3 Sep 2023 06:52:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF00026368.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6745.16 via Frontend Transport; Sun, 3 Sep 2023 06:52:43 +0000
-Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Sun, 3 Sep
- 2023 01:52:41 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Use min_t to replace min
-Date: Sun, 3 Sep 2023 12:22:25 +0530
-Message-ID: <20230903065225.1976529-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 929C010E17B;
+	Sun,  3 Sep 2023 18:46:24 +0000 (UTC)
+Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
+ [IPv6:2607:f8b0:4864:20::d33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C45FD10E008;
+ Sun,  3 Sep 2023 18:46:12 +0000 (UTC)
+Received: by mail-io1-xd33.google.com with SMTP id
+ ca18e2360f4ac-79277cfc73bso35341839f.1; 
+ Sun, 03 Sep 2023 11:46:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693766772; x=1694371572; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pEXJ5N1twmgreqGXVpqoU0bzKcH7UckG6V7g/a9C+IE=;
+ b=UbCUg/UKrx/zZoN1HVuVz0h5ab40dBXHiFdnFvKO5LXKQyY0Vfn+RpYfYa9jxrIew2
+ dKSvegOzeHmYGQePaQxAWhQ0omH22a9+gjRxu2HKHrBbAkeJa4UnByRmkdSIjEw0QTpb
+ 8JQgc/s7ssm+xBODRV3j5EEgHbnpq6/279tSIPkCK8A/QlXqiX35lozPAOscTsKsQlj6
+ 0CsxrExN+09JyrlP6+IwEfPAlGZD+pJtkyG4cPb+s6qCrLTuGskmb5FU/t+mQS8lPI9C
+ DOpRviB2PQxOWMxx28YiNg8E5ovHlG4l4MPYYyFwcuQdVxtX4vZYMOfBxBIFTtjGg1v4
+ tpYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693766772; x=1694371572;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=pEXJ5N1twmgreqGXVpqoU0bzKcH7UckG6V7g/a9C+IE=;
+ b=fpqtDIbVhzf4GqhuF7UfumJi9OuZycIXWu6MerD6prmZdhzAPX5XI0leGDCVOQg+RV
+ agYr1Fzaj5TAqSXZ6BQkIrQouIn35Od+aAnGJAhB3tGpVY2IknEtE1zlCWcUKjttBDS2
+ aSnEsP+WqeBrnm1fOs/Nvjg9nf7WzgNucUyYYXxaUqRPHiPn/But7WrNUk61+Ttjy02h
+ qonwsDOgaiqWHpk8BNjfv2KnJC34fd8uDRqsUOB7WB5oJUB24zIDutf5cYeMe7+txJBm
+ d3elNfG03wk1cEvIcgpbQ5vmZsaKnYP4ShzQm6QWttdT6xj2tKT1AtPOi/l6G8w2KF3A
+ K2Mw==
+X-Gm-Message-State: AOJu0YzxVkrKl4V21xSlE7iX/8T05qyX4sDEvMWTbijbcxpIaBQWkf9+
+ d5EWtrB3cjCk2ejT11+p4Zg=
+X-Google-Smtp-Source: AGHT+IFiChi/4PzbAqpMAN3czSGm3lxzSyeCkbTKkttXeYEpPz3KZqOEBt/2qm3z8FebuiPCmvuINg==
+X-Received: by 2002:a05:6602:2252:b0:791:1e87:b47e with SMTP id
+ o18-20020a056602225200b007911e87b47emr8505184ioo.15.1693766771898; 
+ Sun, 03 Sep 2023 11:46:11 -0700 (PDT)
+Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
+ by smtp.googlemail.com with ESMTPSA id
+ u9-20020a02cb89000000b0042b37dda71asm2519968jap.136.2023.09.03.11.46.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 03 Sep 2023 11:46:11 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Subject: [PATCH v2 0/6] drm_dbg: add trailing newlines where missing
+Date: Sun,  3 Sep 2023 12:45:57 -0600
+Message-ID: <20230903184607.272198-1-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026368:EE_|IA1PR12MB8517:EE_
-X-MS-Office365-Filtering-Correlation-Id: bba8f1ab-54fc-4154-98ba-08dbac4a5fa3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Db5ZtJ2Q99QyZea83BRDkAimGAf5kxKj7WzrfuLXdlydVzg9C+75qc0QGFaSw8PHPkS1q66Zh1e3H7wUHkBdz8Yr4z+3d3dZvBLuaiGMWuwehlEYK9VIXwAvsjkYVWvErwIdN5aErPJ1P8w3RihIvCiqGyu5rTh3yzVi+cSxs3JDu0ySi/tfV3czuUAlTbXJ42j1BVgSWtzbLV+HTxnu+OOTu0ZBskANkGNp1s92r+rKrX7kZwwk03axSeU4apP2npPnTnCm/kt42RAv+D1BCtGo46RJRTrePbUHa0JM9EeEx9LlzRDLfCumwNzDlupgCA0TzvnIHQQG+8xO5ryjyVYS/tZM5E3cAJSLf4UjZT+WuPMnhPf47dwh3GyVorU3xWtuFa/8+tvoUrfKnv36xqPGj62Xtm4Tv/FCGba2Ptif2MZwWRJWmMT76KDFMjFngTArA8tBmotZryZ/4HRf+5C+o/kxYUWHcMXVvpZii2fxNehnoZuJgPhdtqIFqV3HTySY8bq+bYiq0FFY2JsAj1bXoiC0xCLK+fnCFPVqT2BLM6Pyynic5oHiAdFh9yvBu8MJf5ZjGrOSl94MFmPIZljiaGZSrkqNEdYt+Bwxrh2hxmmzQDTWKiJ6ZuTxyShB6gF/dWicZ4Dhh2wJSGresZi68bKTthJ/kg5cUR2A0EEzhIC+1O8iJMpyXYGgDF9tCfJTTR7E6NCwQQZ314iEWlX465mmo8zOIpMcXIh9x6e4Who1lPqldLB1gbOiwImhdQAQS7ftaweFF5LunZ9dZQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(396003)(346002)(376002)(136003)(451199024)(186009)(1800799009)(82310400011)(36840700001)(46966006)(40470700004)(2906002)(54906003)(110136005)(70586007)(70206006)(36756003)(86362001)(6636002)(316002)(40480700001)(5660300002)(44832011)(8936002)(8676002)(4326008)(41300700001)(40460700003)(1076003)(66574015)(47076005)(2616005)(83380400001)(336012)(426003)(26005)(16526019)(36860700001)(478600001)(81166007)(356005)(82740400003)(7696005)(6666004)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2023 06:52:43.4546 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bba8f1ab-54fc-4154-98ba-08dbac4a5fa3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026368.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8517
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,176 +71,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch,
+ Jim Cromie <jim.cromie@gmail.com>, robdclark@gmail.com, seanpaul@chromium.org,
+ daniel@ffwll.ch, ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use min_t to replace min, min_t is a bit fast because min use
-twice typeof.
+By at least strong convention, a print-buffer's trailing newline says
+"message complete, send it".  The exception (no TNL, followed by a call
+to pr_cont) proves the general rule.
 
-Fixes the below checkpatch warning:
+Most DRM.debug calls already comport with this rule/convention:
+207 DRM_DEV_DEBUG, 1288 drm_dbg.  Clean up the remainders, in
+maintainer sized chunks.
 
-WARNING: min() should probably be min_t()
+V1 got Fi.CI.IGT failure, on 2 Possible regressions:
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c  | 6 +++---
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c  | 6 +++---
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c   | 6 +++---
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c   | 6 +++---
- 6 files changed, 14 insertions(+), 14 deletions(-)
+ igt@api_intel_bb@render@render-y-1024:
+  shard-snb: NOTRUN -> ABORT +1 similar issue
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index f5793ec4b7c4..80bcbe744e58 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -1089,7 +1089,7 @@ static ssize_t amdgpu_debugfs_vcn_fwlog_read(struct file *f, char __user *buf,
- 
- 	if (write_pos > read_pos) {
- 		available = write_pos - read_pos;
--		read_num[0] = min(size, (size_t)available);
-+		read_num[0] = min_t(size_t, size, available);
- 	} else {
- 		read_num[0] = AMDGPU_VCNFW_LOG_SIZE - read_pos;
- 		available = read_num[0] + write_pos - plog->header_size;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index f731f0a99bd8..edaebabc8e60 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1976,7 +1976,7 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev, uint32_t min_vm_size,
- 	if (amdgpu_vm_block_size != -1)
- 		tmp >>= amdgpu_vm_block_size - 9;
- 	tmp = DIV_ROUND_UP(fls64(tmp) - 1, 9) - 1;
--	adev->vm_manager.num_level = min(max_level, (unsigned)tmp);
-+	adev->vm_manager.num_level = min_t(unsigned int, max_level, tmp);
- 	switch (adev->vm_manager.num_level) {
- 	case 3:
- 		adev->vm_manager.root_level = AMDGPU_VM_PDB2;
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index 584cd5277f92..bb666cb7522e 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -1036,7 +1036,7 @@ static void dce_v10_0_program_watermarks(struct amdgpu_device *adev,
- 					    (u32)mode->clock);
- 		line_time = (u32) div_u64((u64)mode->crtc_htotal * 1000000,
- 					  (u32)mode->clock);
--		line_time = min(line_time, (u32)65535);
-+		line_time = min_t(u32, line_time, 65535);
- 
- 		/* watermark for high clocks */
- 		if (adev->pm.dpm_enabled) {
-@@ -1066,7 +1066,7 @@ static void dce_v10_0_program_watermarks(struct amdgpu_device *adev,
- 		wm_high.num_heads = num_heads;
- 
- 		/* set for high clocks */
--		latency_watermark_a = min(dce_v10_0_latency_watermark(&wm_high), (u32)65535);
-+		latency_watermark_a = min_t(u32, dce_v10_0_latency_watermark(&wm_high), 65535);
- 
- 		/* possibly force display priority to high */
- 		/* should really do this at mode validation time... */
-@@ -1105,7 +1105,7 @@ static void dce_v10_0_program_watermarks(struct amdgpu_device *adev,
- 		wm_low.num_heads = num_heads;
- 
- 		/* set for low clocks */
--		latency_watermark_b = min(dce_v10_0_latency_watermark(&wm_low), (u32)65535);
-+		latency_watermark_b = min_t(u32, dce_v10_0_latency_watermark(&wm_low), 65535);
- 
- 		/* possibly force display priority to high */
- 		/* should really do this at mode validation time... */
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-index c14b70350a51..7af277f61cca 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-@@ -1068,7 +1068,7 @@ static void dce_v11_0_program_watermarks(struct amdgpu_device *adev,
- 					    (u32)mode->clock);
- 		line_time = (u32) div_u64((u64)mode->crtc_htotal * 1000000,
- 					  (u32)mode->clock);
--		line_time = min(line_time, (u32)65535);
-+		line_time = min_t(u32, line_time, 65535);
- 
- 		/* watermark for high clocks */
- 		if (adev->pm.dpm_enabled) {
-@@ -1098,7 +1098,7 @@ static void dce_v11_0_program_watermarks(struct amdgpu_device *adev,
- 		wm_high.num_heads = num_heads;
- 
- 		/* set for high clocks */
--		latency_watermark_a = min(dce_v11_0_latency_watermark(&wm_high), (u32)65535);
-+		latency_watermark_a = min_t(u32, dce_v11_0_latency_watermark(&wm_high), 65535);
- 
- 		/* possibly force display priority to high */
- 		/* should really do this at mode validation time... */
-@@ -1137,7 +1137,7 @@ static void dce_v11_0_program_watermarks(struct amdgpu_device *adev,
- 		wm_low.num_heads = num_heads;
- 
- 		/* set for low clocks */
--		latency_watermark_b = min(dce_v11_0_latency_watermark(&wm_low), (u32)65535);
-+		latency_watermark_b = min_t(u32, dce_v11_0_latency_watermark(&wm_low), 65535);
- 
- 		/* possibly force display priority to high */
- 		/* should really do this at mode validation time... */
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index 7f85ba5b726f..143efc37a17f 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -845,7 +845,7 @@ static void dce_v6_0_program_watermarks(struct amdgpu_device *adev,
- 					    (u32)mode->clock);
- 		line_time = (u32) div_u64((u64)mode->crtc_htotal * 1000000,
- 					  (u32)mode->clock);
--		line_time = min(line_time, (u32)65535);
-+		line_time = min_t(u32, line_time, 65535);
- 		priority_a_cnt = 0;
- 		priority_b_cnt = 0;
- 
-@@ -906,9 +906,9 @@ static void dce_v6_0_program_watermarks(struct amdgpu_device *adev,
- 		wm_low.num_heads = num_heads;
- 
- 		/* set for high clocks */
--		latency_watermark_a = min(dce_v6_0_latency_watermark(&wm_high), (u32)65535);
-+		latency_watermark_a = min_t(u32, dce_v6_0_latency_watermark(&wm_high), 65535);
- 		/* set for low clocks */
--		latency_watermark_b = min(dce_v6_0_latency_watermark(&wm_low), (u32)65535);
-+		latency_watermark_b = min_t(u32, dce_v6_0_latency_watermark(&wm_low), 65535);
- 
- 		/* possibly force display priority to high */
- 		/* should really do this at mode validation time... */
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index f2b3cb5ed6be..adeddfb7ff12 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -975,7 +975,7 @@ static void dce_v8_0_program_watermarks(struct amdgpu_device *adev,
- 					    (u32)mode->clock);
- 		line_time = (u32) div_u64((u64)mode->crtc_htotal * 1000000,
- 					  (u32)mode->clock);
--		line_time = min(line_time, (u32)65535);
-+		line_time = min_t(u32, line_time, 65535);
- 
- 		/* watermark for high clocks */
- 		if (adev->pm.dpm_enabled) {
-@@ -1005,7 +1005,7 @@ static void dce_v8_0_program_watermarks(struct amdgpu_device *adev,
- 		wm_high.num_heads = num_heads;
- 
- 		/* set for high clocks */
--		latency_watermark_a = min(dce_v8_0_latency_watermark(&wm_high), (u32)65535);
-+		latency_watermark_a = min_t(u32, dce_v8_0_latency_watermark(&wm_high), 65535);
- 
- 		/* possibly force display priority to high */
- 		/* should really do this at mode validation time... */
-@@ -1044,7 +1044,7 @@ static void dce_v8_0_program_watermarks(struct amdgpu_device *adev,
- 		wm_low.num_heads = num_heads;
- 
- 		/* set for low clocks */
--		latency_watermark_b = min(dce_v8_0_latency_watermark(&wm_low), (u32)65535);
-+		latency_watermark_b = min_t(u32, dce_v8_0_latency_watermark(&wm_low), 65535);
- 
- 		/* possibly force display priority to high */
- 		/* should really do this at mode validation time... */
+ igt@sysfs_timeslice_duration@timeout@ccs0:
+  shard-dg2: PASS -> TIMEOUT
+
+Neither have any logs bearing anything connected with drm.debug output.
+
+V2 tries again.
+
+  and fixes checkpatch warnings, by reusing 1st commit-msg.
+
+  also fix a ccflags-y spelling error in drm Makefile.
+
+  commits upon
+  e2884fe84a83 (drm-misc/for-linux-next-fixes, drm-misc/drm-misc-fixes) drm/amd: \
+  	       Make fence wait in suballocator uninterruptible
+
+Jim Cromie (6):
+  drm_dbg: add trailing newlines to msgs
+  drm_dbg: add trailing newlines to msgs
+  drm_dbg: add trailing newlines to msgs
+  drm_dbg: add trailing newlines to msgs
+  drm_dbg: add trailing newlines to msgs
+  drm: use correct ccflags-y syntax
+
+ drivers/gpu/drm/Makefile                       |  3 ++-
+ drivers/gpu/drm/drm_connector.c                |  4 +++-
+ drivers/gpu/drm/i915/display/intel_ddi.c       |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c |  4 ++--
+ drivers/gpu/drm/kmb/kmb_crtc.c                 | 10 +++++-----
+ drivers/gpu/drm/kmb/kmb_plane.c                |  6 +++---
+ drivers/gpu/drm/msm/msm_fb.c                   |  6 +++---
+ drivers/gpu/drm/vc4/vc4_crtc.c                 |  4 ++--
+ 8 files changed, 21 insertions(+), 18 deletions(-)
+
 -- 
-2.25.1
+2.41.0
 
