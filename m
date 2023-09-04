@@ -4,33 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9043DC83F2C
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 07:47:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E475CA0FF7
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 07:47:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3CBB10E457;
-	Tue,  5 Sep 2023 07:47:26 +0000 (UTC)
-Received: from out-216.mta1.migadu.com (out-216.mta1.migadu.com
- [IPv6:2001:41d0:203:375::d8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88A5A10E3DF
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 19:57:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B79710E448;
+	Tue,  5 Sep 2023 07:47:27 +0000 (UTC)
+Received: from out-226.mta1.migadu.com (out-226.mta1.migadu.com
+ [IPv6:2001:41d0:203:375::e2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B39D10E3FA
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 19:57:52 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1693857460;
+ t=1693857470;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=o7qBg3iDQqf8IwXL/E4Wgz6fxfLGjyBUHVlaSKqEqM0=;
- b=WMS/w8FgJ79aPQ8l4g/8/d9wVJNdmJ/Trts3yfgLGchh5WoxYx1+w0H8NIuaAyS0IT5BkC
- Kjx20glONovJ8q2nZ9dMoVofSgZDpd/8y0klyEVggRv/eqObUf7XYTSMmhsr0xBmxPkuBC
- v/o6je4JekFri0ZrPJpgLowPojwWyOs=
+ bh=eVLtpKZqnO0MsDqBoHAPYkiqg81D+bke81ZOJN69XK4=;
+ b=NC2ru9MCWsAYNJ2JJcP1noCtF2zQDgPBa0LpYE2S+4M6e4i+WN2Kd9qVsYWiRslhWMrg0+
+ xIyJHmFr09Ash0CyTQsTafa0QY9OGLSS0SQL36tPB5E78LI0mlzwjbZA+6UeW9wJkR7mO+
+ OeDMb50AfrAOUBCe6WMMLaNnrkQX67s=
 From: Sui Jingfeng <sui.jingfeng@linux.dev>
 To: Bjorn Helgaas <bhelgaas@google.com>
 Subject: [RFC,
- drm-misc-next v4 2/9] drm/nouveau: Implement .be_primary() callback
-Date: Tue,  5 Sep 2023 03:57:17 +0800
-Message-Id: <20230904195724.633404-3-sui.jingfeng@linux.dev>
+ drm-misc-next v4 7/9] drm/ast: Register as a VGA client by calling
+ vga_client_register()
+Date: Tue,  5 Sep 2023 03:57:22 +0800
+Message-Id: <20230904195724.633404-8-sui.jingfeng@linux.dev>
 In-Reply-To: <20230904195724.633404-1-sui.jingfeng@linux.dev>
 References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
@@ -48,58 +49,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sui Jingfeng <suijingfeng@loongson.cn>, nouveau@lists.freedesktop.org,
+Cc: Jocelyn Falempe <jfalempe@redhat.com>,
+ Sui Jingfeng <suijingfeng@loongson.cn>, nouveau@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-pci@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-On a machine with multiple GPUs, a Linux user has no control over which one
-is primary at boot time. This patch tries to solve the mentioned problem by
-implementing the .be_primary() callback. VGAARB will call back to Nouveau
-when the drm/nouveau gets loaded successfully.
+Becasuse the display controller in the ASpeed BMC chip is a VGA-compatible
+device, the software programming guide of AST2400 say that it is fully
+IBM VGA compliant. Thus, it should also participate in the arbitration.
 
-Pass nouveau.modeset=10 on the kernel cmd line if you really want the
-device bound by Nouveau to be the primary video adapter. This overrides
-whatever boot device selected by VGAARB.
-
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>
 Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 ---
- drivers/gpu/drm/nouveau/nouveau_vga.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/ast/ast_drv.c | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
-index 162b4f4676c7..4242188667e2 100644
---- a/drivers/gpu/drm/nouveau/nouveau_vga.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
-@@ -80,6 +80,15 @@ nouveau_switcheroo_ops = {
- 	.can_switch = nouveau_switcheroo_can_switch,
- };
+diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
+index e1224ef4ad83..1349f7bb5dfb 100644
+--- a/drivers/gpu/drm/ast/ast_drv.c
++++ b/drivers/gpu/drm/ast/ast_drv.c
+@@ -28,6 +28,7 @@
  
-+static bool
-+nouveau_want_to_be_primary(struct pci_dev *pdev)
+ #include <linux/module.h>
+ #include <linux/pci.h>
++#include <linux/vgaarb.h>
+ 
+ #include <drm/drm_aperture.h>
+ #include <drm/drm_atomic_helper.h>
+@@ -89,6 +90,34 @@ static const struct pci_device_id ast_pciidlist[] = {
+ 
+ MODULE_DEVICE_TABLE(pci, ast_pciidlist);
+ 
++static bool ast_want_to_be_primary(struct pci_dev *pdev)
 +{
-+	if (nouveau_modeset == 10)
++	if (ast_modeset == 10)
 +		return true;
 +
 +	return false;
 +}
 +
- void
- nouveau_vga_init(struct nouveau_drm *drm)
++static unsigned int ast_vga_set_decode(struct pci_dev *pdev, bool state)
++{
++	struct drm_device *drm = pci_get_drvdata(pdev);
++	struct ast_device *ast = to_ast_device(drm);
++	unsigned int decode;
++
++	if (state) {
++		/* Enable standard VGA decode and Enable normal VGA decode */
++		ast_set_index_reg(ast, AST_IO_CRTC_PORT, 0xa1, 0x04);
++
++		decode = VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM |
++			 VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
++	} else {
++		ast_set_index_reg(ast, AST_IO_CRTC_PORT, 0xa1, 0x07);
++		decode = VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
++	}
++
++	return decode;
++}
++
+ static int ast_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
  {
-@@ -92,7 +101,7 @@ nouveau_vga_init(struct nouveau_drm *drm)
- 		return;
- 	pdev = to_pci_dev(dev->dev);
+ 	struct ast_device *ast;
+@@ -112,6 +141,8 @@ static int ast_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	if (ret)
+ 		return ret;
  
--	vga_client_register(pdev, nouveau_vga_set_decode, NULL);
-+	vga_client_register(pdev, nouveau_vga_set_decode, nouveau_want_to_be_primary);
++	vga_client_register(pdev, ast_vga_set_decode, ast_want_to_be_primary);
++
+ 	drm_fbdev_generic_setup(dev, 32);
  
- 	/* don't register Thunderbolt eGPU with vga_switcheroo */
- 	if (pci_is_thunderbolt_attached(pdev))
+ 	return 0;
 -- 
 2.34.1
 
