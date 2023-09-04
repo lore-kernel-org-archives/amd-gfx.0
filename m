@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B30C5C83F2C
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Sep 2023 13:10:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6355C83F33
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Sep 2023 13:10:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46BFE10E1F6;
-	Mon,  4 Sep 2023 13:10:56 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2064.outbound.protection.outlook.com [40.107.243.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6FE10E1F6
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 13:10:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28F4E10E335;
+	Mon,  4 Sep 2023 13:10:57 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20630.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96E6110E1F6
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 13:10:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S/etAxinKYcJwUPm4lHjkP4oYL+5JzzhqLyok1IuIqZ7J/Tfen0+C948V0CAXjWnPxuy6eVp3p/CfVqO5c5rDxKOV0L7pfYFA/XTZtQq/tvtED+HJNimuSmnoL9dyLgj9AS8qAbLVwsACLlYoHSDKs5KIWTbQWnWI4yWWmnY2ZuSAcqCwWigBDiI+3hU8j3elzegxgzZw33SxUJkcSPxD5A2oYeTgzBcQDuZSJg3m+V7oA43Dx7PYHX6Mv6y/EJeu8QYkIfFBI1N9Kw7NU0BJJ3dsgI5eAbNbDVJBVcrK9MN1I30kOp7fvVsRyElS4mG4PKQOK8slICv+uFHItUL1Q==
+ b=WBxG6DOr3UTXxBTrY687QhlO8q+IB0ZALoUn4yC4pZxGc2ps5jTowCEQCIRyMHRuDMjp2KMG/gTveltXHBwc0sy+oEFe8TZW72aFIR8FhXdBx53oTPHqYCb8GHhvWPhXh0iMdfLv5LIE752+qrgdWhrv+5ZOqKhUs6/LDBUevGGm9YFlXscBUk0cKW+zNXz6uZLcmJ4U+OdpindN4YgXUE0DCEUUTAVPWI1vZJjr/sQoCwdVPQw0FLQ2dDwpo9qzxbHIyeFR52ujS28kedL7cCVo6upH9Ifn2vaHZzw0ik8GUlclzdhbwEZtsLECjpO36I5LNp1EcoDD5xxIn8/ZHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hj6NgT1tdHOsXNEtggqTny+FguFKqO/BTaowcBrvcsg=;
- b=OrKQ8SXZeBF9yfYaKGTuFQ+aY++0sf9roDl4AOmTS66qypWsMkwKAvhGuqU5X+Hjao1FLogv1V7X6SAh/jnwLHAglCNhijp2kwYBfcr8k8UaWAVhj25bod4fPfn4YpUV6hPfNy8W51OYwPM7LoZU3mFrAHsmnBYOz75d2eMqxzKdS23k1N0Wc2X6T8WMU8Frw9YrlY17RQ6mPyMasQn4K9KvyZGsKIdz20BpWt7VUuxuDAY+wEjZTuxeP/tILHyMpHPeegAXVhGO5uRRHANY60MuzinNUtlxQskPsIYbxG1Ha//6B7rmKYZG3Zhoi7bS/lRX2ketjuD51yoKsPVxrA==
+ bh=O5BnYth9IEkJSKifJgE/Ur5vlchWQTY+gGneiQm3egQ=;
+ b=jV9xVDk+D6xsSioqN32uwueTCI+YSHDACtwk8WMJ7wamL9QZ+zEHka0tdytEF+xm7q8wzV6mXRaUKkykwDqCr4gzO0stAmWSVjCUy+75fBMH8IBpMOPYevab28qBk15Rc7mklCHLKKC3Gj5Y47R3/7kWBMJCZHuXEe2xKM4im/VuzmMk9LLv8hLakcEQlSv+2FjAQ5bASIpS1RSMlmy5OgJMOISKxaqw9ICIawr+FDYxhOk/4m+0E0ny/th1B8NV6hhi3Y93KNYq4QT8jrn/wM6dn9h5au4d7I0xsMZk0DqGPgsBBYkmMMdhZFMXdGELxlnE1L7hhIlytx3I9+BPWA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hj6NgT1tdHOsXNEtggqTny+FguFKqO/BTaowcBrvcsg=;
- b=Y6IprtO2eIlw5uneC+TEsdCMKfdCHCvdpFK2dXFwSNDodCJ7PEn9cqv+2YMgE2AUyWz+BSXYcjHCo+pEU0+7Kzj7h6Uf9U2l6b09LE3RqD5so6Kvqjawp3UE8EKxv8sXwFTC7bssXbaJ40o60iXplNw0D9Ci3IEzFm1e+ge35AI=
-Received: from CH0P221CA0003.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::7)
- by CYXPR12MB9320.namprd12.prod.outlook.com (2603:10b6:930:e6::9) with
+ bh=O5BnYth9IEkJSKifJgE/Ur5vlchWQTY+gGneiQm3egQ=;
+ b=KhxvqvdrsVvZebv4PO5i5kvzo5ZOBVCtKG5iju05BP4+exoZaFqVLMSOpilGtdzNTyoVi2si3rw67t3zA11zEYUw9hK6cJzi/TQu4tKe2ZiXaA/ulsrIaMNFvPk57x+1bQ+dOAgllNKTPyZFpggzN+Y+88rAdYiYTGwsTvgIrrU=
+Received: from CH0P221CA0021.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::17)
+ by DS0PR12MB8503.namprd12.prod.outlook.com (2603:10b6:8:15a::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.32; Mon, 4 Sep
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.30; Mon, 4 Sep
  2023 13:10:52 +0000
 Received: from DS2PEPF00003443.namprd04.prod.outlook.com
- (2603:10b6:610:11c:cafe::19) by CH0P221CA0003.outlook.office365.com
- (2603:10b6:610:11c::7) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:610:11c:cafe::ef) by CH0P221CA0021.outlook.office365.com
+ (2603:10b6:610:11c::17) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33 via Frontend
  Transport; Mon, 4 Sep 2023 13:10:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -47,17 +48,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DS2PEPF00003443.mail.protection.outlook.com (10.167.17.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6768.25 via Frontend Transport; Mon, 4 Sep 2023 13:10:51 +0000
+ 15.20.6768.25 via Frontend Transport; Mon, 4 Sep 2023 13:10:52 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 4 Sep
- 2023 08:10:47 -0500
+ 2023 08:10:49 -0500
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/3] drm/amd/pm: Fix clock reporting for SMUv13.0.6
-Date: Mon, 4 Sep 2023 18:40:25 +0530
-Message-ID: <20230904131027.912234-1-lijo.lazar@amd.com>
+Subject: [PATCH 2/3] drm/amd/pm:Fix GFX deep sleep clock reporting
+Date: Mon, 4 Sep 2023 18:40:26 +0530
+Message-ID: <20230904131027.912234-2-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230904131027.912234-1-lijo.lazar@amd.com>
+References: <20230904131027.912234-1-lijo.lazar@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003443:EE_|CYXPR12MB9320:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9bffc42a-4d4d-4047-0825-08dbad485d3c
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003443:EE_|DS0PR12MB8503:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a4bdd3a-f36b-4436-7765-08dbad485dcd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0lUyol58yjZtF2RXWbmXQp+VP9rNIvA9PUVdCQxejrXMbPCc3XCzj/kQaxzSgCxndWZaeX8PxVK2CfvLahKljVz9BjjBnNTzbfYjdlKQZ8AJp3e02t2bj/g+LMWZPNCxQqz66wjlNLsmnBPB5XCy5SpU2pwm70vHyD7rVN8YU5Q9JJdF9EOK/TaqKoWamBVjY1ma9ty4/mghGSKnrER4DZi7bf4ywxBdqxWVM86qxV2lv75BZMHWbPNdhltA8QXxYcjwMgGwbBi8i67CfBMHV1jHGJbceg+hpR+oTQvQei4WPc33+6O2kX08FxbQZuhq4ZMs1Uj7UV960JeDo9KEoBlxktDvTTj16KHCSstTO5QGMAbB/EX9+zS4d1GYOmW42uHnoDjsUXKuagpY+DX6vwcjIQnfJ47Ak9otRLj+cSiB/2jj+TNKZV7WV1sSHIOzgcuQpkrzIajhiq0u0VyBvmADovui5TvIryh6/usxtEpAgfacvWiHSlSRTLI96zqzPk4s/ByMu/jbNo8O/gQpXkn+n59Sp+OR53GybQ3YDN/AtVWzEae6rs35oa4PIQuAVLwgGTyeAqvdyXqHGti3IRSKqHhN3sVvusk8CnvgfGu9LLaaGCOv+RCqG18d3poZinsMxoz7E/zUIszbWAo5JzjCHJG5h2JbH/QAfm6ayZs8CLwYvVcnr/lIemN4oGy+ttvm6OABRd2tMSwoH7nvAKWVblp7LsUmfBMYruwxVg0cwID0HTIqXVymhVFuj4IbTUT/CbS4KcPvccY85qa9ZQ==
+X-Microsoft-Antispam-Message-Info: MoIUss+E5DKmKCIfmlfBRGd4WyizcVStD/uaigq6JbDojpfVII9UqcDm9YnVC+QYI+UP4oR7ocCZFQ8c0YHLlMkk5PqsCTy/NeMso2cFJBdYusugSA6gs72Z976f3E0pnT2qfoiayBKG53n6DnfGeXexwTct6jkwkutU8fkCSSca5L1XSAZPQDeIvG80cGn2rPajpnU1cB1jorPRUn3WHgjvK/ZJQj3ODsnuJSmXoWHexERotnVdc59yB0MeXZMQjiwVeysAe8U6Mo1Nq0fz7EKXF2HW4tTzyugIK+tS8i9auV+ZkBAUJEE2o1q+4fYDsKej8BQsNetjcdBFSU/U3Xit/oA2x0sGW1fYWAoYLR0RT+kwYdoer3SwFQH2LV5PMJOrWTznODUhkYIVaDI6FS4jTWo06kAhFCTaY2U87KwYci03nE5AqZ8gnwxQtpdpZFTc3S4YV/ZVpHmSeG/PtKxUIZhonixslPhXDHnnpLUN/hGVLpVydUW2/eKruHp5XroMqTwG1EZwJgeVUYNpGtfNOjmD4PRIKW4PKEmz8QCn4F/zUnKz4rghbBIYEBfn5SsWoB3i6AzdmKR6lBThGNC+fiESsbORYkhCHNZJO7+kSHXPzLVwTRfwcVXc9pcbgNlrwYtu6fKhU6ylAPq8uNLYgH7xcj9jKyy+0tmkwxRnMXhkv51R0eTp/FN0Kj9mV9ucUZvzI5c62JBJ1BtVQLdIxYG9t2KAI6uSnyxwib8xYGW+elcHvyOqccUm6NwTxDthCLXNn8L95525Lqz5wA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(346002)(376002)(396003)(136003)(82310400011)(186009)(1800799009)(451199024)(36840700001)(40470700004)(46966006)(356005)(7696005)(6666004)(83380400001)(478600001)(2616005)(426003)(26005)(16526019)(336012)(2906002)(41300700001)(6916009)(54906003)(316002)(70206006)(4326008)(8936002)(5660300002)(44832011)(8676002)(1076003)(40460700003)(36756003)(40480700001)(47076005)(36860700001)(86362001)(82740400003)(81166007)(70586007)(36900700001);
+ SFS:(13230031)(4636009)(376002)(346002)(136003)(39860400002)(396003)(451199024)(186009)(1800799009)(82310400011)(46966006)(36840700001)(40470700004)(6916009)(36756003)(54906003)(2906002)(86362001)(70586007)(316002)(70206006)(40480700001)(44832011)(5660300002)(8936002)(8676002)(4326008)(41300700001)(40460700003)(1076003)(47076005)(336012)(2616005)(83380400001)(16526019)(426003)(26005)(36860700001)(478600001)(81166007)(356005)(82740400003)(7696005)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2023 13:10:51.5585 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9bffc42a-4d4d-4047-0825-08dbad485d3c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2023 13:10:52.5116 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a4bdd3a-f36b-4436-7765-08dbad485dcd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003443.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9320
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8503
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,247 +105,41 @@ Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On SMU v13.0.6, effective clocks are reported by FW which won't exactly
-match with DPM level. Report the current clock based on the values
-matching closest to the effective clock. Also, when deep sleep is
-applied to a clock, report it with a special level "S:" as in sample
-clock levels below
+For SMU v13.0.6, keep GFX deep sleep clock reporting style consistent
+with that of other clocks. Sample format below.
 
-S: 19Mhz *
-0: 615Mhz
+S: 78Mhz *
+0: 600Mhz
 1: 800Mhz
-2: 888Mhz
-3: 1000Mhz
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Evan Quan <evan.quan@amd.com>
 ---
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 159 +++++++-----------
- 1 file changed, 62 insertions(+), 97 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index ff58ee14a68f..8fa01c5570bf 100644
+index 8fa01c5570bf..06a1a6742561 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -91,6 +91,8 @@
- #define PCIE_LC_SPEED_CNTL__LC_CURRENT_DATA_RATE__SHIFT 0x5
- #define LINK_SPEED_MAX				4
+@@ -869,7 +869,15 @@ static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
+ 		min_clk = pstate_table->gfxclk_pstate.curr.min;
+ 		max_clk = pstate_table->gfxclk_pstate.curr.max;
  
-+#define SMU_13_0_6_DSCLK_THRESHOLD 100
+-		if (!smu_v13_0_6_freqs_in_same_level(now, min_clk) &&
++		if (now < SMU_13_0_6_DSCLK_THRESHOLD) {
++			size += sysfs_emit_at(buf, size, "S: %uMhz *\n",
++					      now);
++			size += sysfs_emit_at(buf, size, "0: %uMhz\n",
++					      min_clk);
++			size += sysfs_emit_at(buf, size, "1: %uMhz\n",
++					      max_clk);
 +
- static const struct cmn2asic_msg_mapping smu_v13_0_6_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(TestMessage,			     PPSMC_MSG_TestMessage,			0),
- 	MSG_MAP(GetSmuVersion,			     PPSMC_MSG_GetSmuVersion,			1),
-@@ -782,13 +784,61 @@ static int smu_v13_0_6_get_current_clk_freq_by_table(struct smu_context *smu,
- 	return smu_v13_0_6_get_smu_metrics_data(smu, member_type, value);
- }
- 
-+static int smu_v13_0_6_print_clks(struct smu_context *smu, char *buf,
-+				  struct smu_13_0_dpm_table *single_dpm_table,
-+				  uint32_t curr_clk, const char *clk_name)
-+{
-+	struct pp_clock_levels_with_latency clocks;
-+	int i, ret, size = 0, level = -1;
-+	uint32_t clk1, clk2;
-+
-+	ret = smu_v13_0_6_get_clk_table(smu, &clocks, single_dpm_table);
-+	if (ret) {
-+		dev_err(smu->adev->dev, "Attempt to get %s clk levels failed!",
-+			clk_name);
-+		return ret;
-+	}
-+
-+	if (!clocks.num_levels)
-+		return -EINVAL;
-+
-+	if (curr_clk < SMU_13_0_6_DSCLK_THRESHOLD) {
-+		size = sysfs_emit_at(buf, size, "S: %uMhz *\n", curr_clk);
-+		for (i = 0; i < clocks.num_levels; i++)
-+			size += sysfs_emit_at(buf, size, "%d: %uMhz\n", i,
-+					      clocks.data[i].clocks_in_khz /
-+						      1000);
-+
-+	} else {
-+		if ((clocks.num_levels == 1) ||
-+		    (curr_clk < (clocks.data[0].clocks_in_khz / 1000)))
-+			level = 0;
-+		for (i = 0; i < clocks.num_levels; i++) {
-+			clk1 = clocks.data[i].clocks_in_khz / 1000;
-+
-+			if (i < (clocks.num_levels - 1))
-+				clk2 = clocks.data[i + 1].clocks_in_khz / 1000;
-+
-+			if (curr_clk >= clk1 && curr_clk < clk2) {
-+				level = (curr_clk - clk1) <= (clk2 - curr_clk) ?
-+						i :
-+						i + 1;
-+			}
-+
-+			size += sysfs_emit_at(buf, size, "%d: %uMhz %s\n", i,
-+					      clk1, (level == i) ? "*" : "");
-+		}
-+	}
-+
-+	return size;
-+}
-+
- static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
- 					enum smu_clk_type type, char *buf)
- {
--	int i, now, size = 0;
-+	int now, size = 0;
- 	int ret = 0;
- 	struct smu_umd_pstate_table *pstate_table = &smu->pstate_table;
--	struct pp_clock_levels_with_latency clocks;
- 	struct smu_13_0_dpm_table *single_dpm_table;
- 	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
- 	struct smu_13_0_dpm_context *dpm_context = NULL;
-@@ -851,26 +901,9 @@ static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
- 		}
- 
- 		single_dpm_table = &(dpm_context->dpm_tables.uclk_table);
--		ret = smu_v13_0_6_get_clk_table(smu, &clocks, single_dpm_table);
--		if (ret) {
--			dev_err(smu->adev->dev,
--				"Attempt to get memory clk levels Failed!");
--			return ret;
--		}
- 
--		for (i = 0; i < clocks.num_levels; i++)
--			size += sysfs_emit_at(
--				buf, size, "%d: %uMhz %s\n", i,
--				clocks.data[i].clocks_in_khz / 1000,
--				(clocks.num_levels == 1) ?
--					"*" :
--					(smu_v13_0_6_freqs_in_same_level(
--						 clocks.data[i].clocks_in_khz /
--							 1000,
--						 now) ?
--						 "*" :
--						 ""));
--		break;
-+		return smu_v13_0_6_print_clks(smu, buf, single_dpm_table, now,
-+					      "mclk");
- 
- 	case SMU_SOCCLK:
- 		ret = smu_v13_0_6_get_current_clk_freq_by_table(smu, SMU_SOCCLK,
-@@ -882,26 +915,9 @@ static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
- 		}
- 
- 		single_dpm_table = &(dpm_context->dpm_tables.soc_table);
--		ret = smu_v13_0_6_get_clk_table(smu, &clocks, single_dpm_table);
--		if (ret) {
--			dev_err(smu->adev->dev,
--				"Attempt to get socclk levels Failed!");
--			return ret;
--		}
- 
--		for (i = 0; i < clocks.num_levels; i++)
--			size += sysfs_emit_at(
--				buf, size, "%d: %uMhz %s\n", i,
--				clocks.data[i].clocks_in_khz / 1000,
--				(clocks.num_levels == 1) ?
--					"*" :
--					(smu_v13_0_6_freqs_in_same_level(
--						 clocks.data[i].clocks_in_khz /
--							 1000,
--						 now) ?
--						 "*" :
--						 ""));
--		break;
-+		return smu_v13_0_6_print_clks(smu, buf, single_dpm_table, now,
-+					      "socclk");
- 
- 	case SMU_FCLK:
- 		ret = smu_v13_0_6_get_current_clk_freq_by_table(smu, SMU_FCLK,
-@@ -913,26 +929,9 @@ static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
- 		}
- 
- 		single_dpm_table = &(dpm_context->dpm_tables.fclk_table);
--		ret = smu_v13_0_6_get_clk_table(smu, &clocks, single_dpm_table);
--		if (ret) {
--			dev_err(smu->adev->dev,
--				"Attempt to get fclk levels Failed!");
--			return ret;
--		}
- 
--		for (i = 0; i < single_dpm_table->count; i++)
--			size += sysfs_emit_at(
--				buf, size, "%d: %uMhz %s\n", i,
--				single_dpm_table->dpm_levels[i].value,
--				(clocks.num_levels == 1) ?
--					"*" :
--					(smu_v13_0_6_freqs_in_same_level(
--						 clocks.data[i].clocks_in_khz /
--							 1000,
--						 now) ?
--						 "*" :
--						 ""));
--		break;
-+		return smu_v13_0_6_print_clks(smu, buf, single_dpm_table, now,
-+					      "fclk");
- 
- 	case SMU_VCLK:
- 		ret = smu_v13_0_6_get_current_clk_freq_by_table(smu, SMU_VCLK,
-@@ -944,26 +943,9 @@ static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
- 		}
- 
- 		single_dpm_table = &(dpm_context->dpm_tables.vclk_table);
--		ret = smu_v13_0_6_get_clk_table(smu, &clocks, single_dpm_table);
--		if (ret) {
--			dev_err(smu->adev->dev,
--				"Attempt to get vclk levels Failed!");
--			return ret;
--		}
- 
--		for (i = 0; i < single_dpm_table->count; i++)
--			size += sysfs_emit_at(
--				buf, size, "%d: %uMhz %s\n", i,
--				single_dpm_table->dpm_levels[i].value,
--				(clocks.num_levels == 1) ?
--					"*" :
--					(smu_v13_0_6_freqs_in_same_level(
--						 clocks.data[i].clocks_in_khz /
--							 1000,
--						 now) ?
--						 "*" :
--						 ""));
--		break;
-+		return smu_v13_0_6_print_clks(smu, buf, single_dpm_table, now,
-+					      "vclk");
- 
- 	case SMU_DCLK:
- 		ret = smu_v13_0_6_get_current_clk_freq_by_table(smu, SMU_DCLK,
-@@ -975,26 +957,9 @@ static int smu_v13_0_6_print_clk_levels(struct smu_context *smu,
- 		}
- 
- 		single_dpm_table = &(dpm_context->dpm_tables.dclk_table);
--		ret = smu_v13_0_6_get_clk_table(smu, &clocks, single_dpm_table);
--		if (ret) {
--			dev_err(smu->adev->dev,
--				"Attempt to get dclk levels Failed!");
--			return ret;
--		}
- 
--		for (i = 0; i < single_dpm_table->count; i++)
--			size += sysfs_emit_at(
--				buf, size, "%d: %uMhz %s\n", i,
--				single_dpm_table->dpm_levels[i].value,
--				(clocks.num_levels == 1) ?
--					"*" :
--					(smu_v13_0_6_freqs_in_same_level(
--						 clocks.data[i].clocks_in_khz /
--							 1000,
--						 now) ?
--						 "*" :
--						 ""));
--		break;
-+		return smu_v13_0_6_print_clks(smu, buf, single_dpm_table, now,
-+					      "dclk");
- 
- 	default:
- 		break;
++		} else if (!smu_v13_0_6_freqs_in_same_level(now, min_clk) &&
+ 		    !smu_v13_0_6_freqs_in_same_level(now, max_clk)) {
+ 			size += sysfs_emit_at(buf, size, "0: %uMhz\n",
+ 					      min_clk);
 -- 
 2.25.1
 
