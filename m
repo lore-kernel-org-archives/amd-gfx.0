@@ -4,33 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DC07CA0FE9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27801CA0FF8
 	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 07:47:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54A5D10E45B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FD4D10E45D;
 	Tue,  5 Sep 2023 07:47:28 +0000 (UTC)
-Received: from out-225.mta1.migadu.com (out-225.mta1.migadu.com
- [95.215.58.225])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 351B710E14B
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 19:57:50 +0000 (UTC)
+Received: from out-211.mta1.migadu.com (out-211.mta1.migadu.com
+ [95.215.58.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1499010E3F7
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 19:57:54 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1693857468;
+ t=1693857472;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=di2qHcFYE+Hq+NlRE1bj3bLblQwmCRGCImtdcZKCjUc=;
- b=rJNfpwab0aIQm5RePnYvbfQa2evsIovN8h4+vqXvX+exhBi1P8XMkvYUlqZh4bqcSCK8ec
- a6ItmnAfUtFXDK9qfWMe9SPjx/lb97SKdjyvvILTDduL6DPrrjMNVBrp5AOCHjnpFWhe/1
- eW68Ko1bmHXCj0RZTYHobpMp/Uqx1oA=
+ bh=F94OEAVhjRPNan81JT9jYKc/35rAAkFMKn0HnOUomvI=;
+ b=GnSWs3Th21KoWg3GlauP3qiIOfTQOIrowoSQabwTLw+lmR60Zkz6STabaEZAnjCGxkeJj7
+ 3JZwsA+Ed49UQWdSv8QN1222rpeBrwhEKmFkowFHEmI3Xv35ckwzuofdSFTolilLKKXFoF
+ 0kP5vMu/6Z3tploGLiaOXmyG8Od7rYc=
 From: Sui Jingfeng <sui.jingfeng@linux.dev>
 To: Bjorn Helgaas <bhelgaas@google.com>
 Subject: [RFC,
- drm-misc-next v4 6/9] drm/loongson: Implement .be_primary() callback
-Date: Tue,  5 Sep 2023 03:57:21 +0800
-Message-Id: <20230904195724.633404-7-sui.jingfeng@linux.dev>
+ drm-misc-next v4 8/9] drm/hibmc: Register as a VGA client by calling
+ vga_client_register()
+Date: Tue,  5 Sep 2023 03:57:23 +0800
+Message-Id: <20230904195724.633404-9-sui.jingfeng@linux.dev>
 In-Reply-To: <20230904195724.633404-1-sui.jingfeng@linux.dev>
 References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
@@ -57,72 +58,69 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-On a machine with multiple GPUs, a Linux user has no control over which one
-is primary at boot time. This patch tries to solve the mentioned problem by
-implementing the .be_primary() callback. Pass loongson.modeset=10 on the
-kernel cmd line if you really want the device bound by loongson drm driver
-to be the primary video adapter, no matter what VGAARB say.
+Because the display controller in the Hibmc chip is a VGA compatible
+display controller. Because ARM64 doesn't need the VGA console. It does not
+need to worry about the side effects that come with the VGA compatible.
+However, the real problem is that some ARM64 PCs and servers do not have
+good UEFI firmware support. At least, it is not as good as UEFI firmware
+for x86. The Huawei KunPeng 920 PC and Taishan 100 server are examples.
+When a discrete GPU is mounted on such machines, the UEFI firmware still
+selects the integrated display controller (in the BMC) as the primary GPU.
+It is hardcoded, no options are provided for selection. A Linux user has
+no control at all.
 
 Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 ---
- drivers/gpu/drm/loongson/loongson_module.c |  2 +-
- drivers/gpu/drm/loongson/loongson_module.h |  1 +
- drivers/gpu/drm/loongson/lsdc_drv.c        | 10 +++++++++-
- 3 files changed, 11 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/loongson/loongson_module.c b/drivers/gpu/drm/loongson/loongson_module.c
-index d2a51bd395f6..12f2a453adff 100644
---- a/drivers/gpu/drm/loongson/loongson_module.c
-+++ b/drivers/gpu/drm/loongson/loongson_module.c
-@@ -9,7 +9,7 @@
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+index 8a98fa276e8a..73a3f1cb109a 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+@@ -13,6 +13,7 @@
  
- #include "loongson_module.h"
+ #include <linux/module.h>
+ #include <linux/pci.h>
++#include <linux/vgaarb.h>
  
--static int loongson_modeset = -1;
-+int loongson_modeset = -1;
- MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
- module_param_named(modeset, loongson_modeset, int, 0400);
+ #include <drm/drm_aperture.h>
+ #include <drm/drm_atomic_helper.h>
+@@ -27,6 +28,10 @@
+ #include "hibmc_drm_drv.h"
+ #include "hibmc_drm_regs.h"
  
-diff --git a/drivers/gpu/drm/loongson/loongson_module.h b/drivers/gpu/drm/loongson/loongson_module.h
-index 931c17521bf0..afff51e7f34f 100644
---- a/drivers/gpu/drm/loongson/loongson_module.h
-+++ b/drivers/gpu/drm/loongson/loongson_module.h
-@@ -6,6 +6,7 @@
- #ifndef __LOONGSON_MODULE_H__
- #define __LOONGSON_MODULE_H__
++static int hibmc_modeset = -1;
++MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
++module_param_named(modeset, hibmc_modeset, int, 0400);
++
+ DEFINE_DRM_GEM_FOPS(hibmc_fops);
  
-+extern int loongson_modeset;
- extern int loongson_vblank;
- extern struct pci_driver lsdc_pci_driver;
- 
-diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongson/lsdc_drv.c
-index d10a28c2c494..7183b0666167 100644
---- a/drivers/gpu/drm/loongson/lsdc_drv.c
-+++ b/drivers/gpu/drm/loongson/lsdc_drv.c
-@@ -257,6 +257,14 @@ static unsigned int lsdc_vga_set_decode(struct pci_dev *pdev, bool state)
- 	return VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
+ static irqreturn_t hibmc_interrupt(int irq, void *arg)
+@@ -299,6 +304,14 @@ static int hibmc_load(struct drm_device *dev)
+ 	return ret;
  }
  
-+static bool lsdc_want_to_be_primary(struct pci_dev *pdev)
++static bool hibmc_want_to_be_primary(struct pci_dev *pdev)
 +{
-+	if (loongson_modeset == 10)
++	if (hibmc_modeset == 10)
 +		return true;
 +
 +	return false;
 +}
 +
- static int lsdc_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ static int hibmc_pci_probe(struct pci_dev *pdev,
+ 			   const struct pci_device_id *ent)
  {
- 	const struct lsdc_desc *descp;
-@@ -289,7 +297,7 @@ static int lsdc_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+@@ -339,6 +352,8 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
+ 		goto err_unload;
+ 	}
  
- 	pci_set_drvdata(pdev, ddev);
++	vga_client_register(pdev, NULL, hibmc_want_to_be_primary);
++
+ 	drm_fbdev_generic_setup(dev, 32);
  
--	vga_client_register(pdev, lsdc_vga_set_decode, NULL);
-+	vga_client_register(pdev, lsdc_vga_set_decode, lsdc_want_to_be_primary);
- 
- 	drm_kms_helper_poll_init(ddev);
- 
+ 	return 0;
 -- 
 2.34.1
 
