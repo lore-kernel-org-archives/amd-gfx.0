@@ -4,36 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27801CA0FF8
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 07:47:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6C79C83F2C
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 07:47:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FD4D10E45D;
-	Tue,  5 Sep 2023 07:47:28 +0000 (UTC)
-Received: from out-211.mta1.migadu.com (out-211.mta1.migadu.com
- [95.215.58.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1499010E3F7
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 19:57:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42CDA10E45C;
+	Tue,  5 Sep 2023 07:47:30 +0000 (UTC)
+Received: from out-217.mta1.migadu.com (out-217.mta1.migadu.com
+ [IPv6:2001:41d0:203:375::d9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EED610E15D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 19:57:38 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1693857472;
+ t=1693857456;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=F94OEAVhjRPNan81JT9jYKc/35rAAkFMKn0HnOUomvI=;
- b=GnSWs3Th21KoWg3GlauP3qiIOfTQOIrowoSQabwTLw+lmR60Zkz6STabaEZAnjCGxkeJj7
- 3JZwsA+Ed49UQWdSv8QN1222rpeBrwhEKmFkowFHEmI3Xv35ckwzuofdSFTolilLKKXFoF
- 0kP5vMu/6Z3tploGLiaOXmyG8Od7rYc=
+ content-transfer-encoding:content-transfer-encoding;
+ bh=FYKJvWL/qZgH1oNH2DJwbsBn+zY36FSv76Wxof0/Hpw=;
+ b=ahZRccD3k1MiGRI8O0BWNWRD3IedOUtr/0keRN1KW1Sx8oxxGBC/H8Fk52Fj8jEpSRkMCU
+ UHifg3825MK625kjMOhTvVz9nwlZISqtuuktamAc+GlDkFDhz8QxW5+KAoxBAwZGU1L9k4
+ DZC8AnO8nWX01emVpChRA3WXuoiRVQQ=
 From: Sui Jingfeng <sui.jingfeng@linux.dev>
 To: Bjorn Helgaas <bhelgaas@google.com>
-Subject: [RFC,
- drm-misc-next v4 8/9] drm/hibmc: Register as a VGA client by calling
- vga_client_register()
-Date: Tue,  5 Sep 2023 03:57:23 +0800
-Message-Id: <20230904195724.633404-9-sui.jingfeng@linux.dev>
-In-Reply-To: <20230904195724.633404-1-sui.jingfeng@linux.dev>
-References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
+Subject: [RFC, drm-misc-next v4 0/9] PCI/VGA: Allowing the user to select the
+ primary video adapter at boot time
+Date: Tue,  5 Sep 2023 03:57:15 +0800
+Message-Id: <20230904195724.633404-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -58,69 +54,96 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-Because the display controller in the Hibmc chip is a VGA compatible
-display controller. Because ARM64 doesn't need the VGA console. It does not
-need to worry about the side effects that come with the VGA compatible.
-However, the real problem is that some ARM64 PCs and servers do not have
-good UEFI firmware support. At least, it is not as good as UEFI firmware
-for x86. The Huawei KunPeng 920 PC and Taishan 100 server are examples.
-When a discrete GPU is mounted on such machines, the UEFI firmware still
-selects the integrated display controller (in the BMC) as the primary GPU.
-It is hardcoded, no options are provided for selection. A Linux user has
-no control at all.
+On a machine with multiple GPUs, a Linux user has no control over which
+one is primary at boot time. This series tries to solve above mentioned
+problem by introduced the ->be_primary() function stub. The specific
+device drivers can provide an implementation to hook up with this stub by
+calling the vga_client_register() function.
 
-Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
----
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Once the driver bound the device successfully, VGAARB will call back to
+the device driver. To query if the device drivers want to be primary or
+not. Device drivers can just pass NULL if have no such needs.
 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-index 8a98fa276e8a..73a3f1cb109a 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-@@ -13,6 +13,7 @@
- 
- #include <linux/module.h>
- #include <linux/pci.h>
-+#include <linux/vgaarb.h>
- 
- #include <drm/drm_aperture.h>
- #include <drm/drm_atomic_helper.h>
-@@ -27,6 +28,10 @@
- #include "hibmc_drm_drv.h"
- #include "hibmc_drm_regs.h"
- 
-+static int hibmc_modeset = -1;
-+MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
-+module_param_named(modeset, hibmc_modeset, int, 0400);
-+
- DEFINE_DRM_GEM_FOPS(hibmc_fops);
- 
- static irqreturn_t hibmc_interrupt(int irq, void *arg)
-@@ -299,6 +304,14 @@ static int hibmc_load(struct drm_device *dev)
- 	return ret;
- }
- 
-+static bool hibmc_want_to_be_primary(struct pci_dev *pdev)
-+{
-+	if (hibmc_modeset == 10)
-+		return true;
-+
-+	return false;
-+}
-+
- static int hibmc_pci_probe(struct pci_dev *pdev,
- 			   const struct pci_device_id *ent)
- {
-@@ -339,6 +352,8 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
- 		goto err_unload;
- 	}
- 
-+	vga_client_register(pdev, NULL, hibmc_want_to_be_primary);
-+
- 	drm_fbdev_generic_setup(dev, 32);
- 
- 	return 0;
+Please note that:
+
+1) The ARM64, Loongarch, Mips servers have a lot PCIe slot, and I would
+   like to mount at least three video cards.
+
+2) Typically, those non-86 machines don't have a good UEFI firmware
+   support, which doesn't support select primary GPU as firmware stage.
+   Even on x86, there are old UEFI firmwares which already made undesired
+   decision for you.
+
+3) This series is attempt to solve the remain problems at the driver level,
+   while another series[1] of me is target to solve the majority of the
+   problems at device level.
+
+Tested (limited) on x86 with four video card mounted, Intel UHD Graphics
+630 is the default boot VGA, successfully override by ast2400 with
+ast.modeset=10 append at the kernel cmd line.
+
+$ lspci | grep VGA
+
+ 00:02.0 VGA compatible controller: Intel Corporation CoffeeLake-S GT2 [UHD Graphics 630]
+ 01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Caicos XTX [Radeon HD 8490 / R5 235X OEM]
+ 04:00.0 VGA compatible controller: ASPEED Technology, Inc. ASPEED Graphics Family (rev 30)
+ 05:00.0 VGA compatible controller: NVIDIA Corporation GK208B [GeForce GT 720] (rev a1)
+
+$ sudo dmesg | grep vgaarb
+
+ pci 0000:00:02.0: vgaarb: setting as boot VGA device
+ pci 0000:00:02.0: vgaarb: VGA device added: decodes=io+mem,owns=io+mem,locks=none
+ pci 0000:01:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
+ pci 0000:04:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
+ pci 0000:05:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
+ vgaarb: loaded
+ ast 0000:04:00.0: vgaarb: Override as primary by driver
+ i915 0000:00:02.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=io+mem
+ radeon 0000:01:00.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=none
+ ast 0000:04:00.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=none
+
+v2:
+	* Add a simple implemment for drm/i915 and drm/ast
+	* Pick up all tags (Mario)
+v3:
+	* Fix a mistake for drm/i915 implement
+	* Fix patch can not be applied problem because of merge conflect.
+v4:
+	* Focus on solve the real problem.
+
+v1,v2 at https://patchwork.freedesktop.org/series/120059/
+   v3 at https://patchwork.freedesktop.org/series/120562/
+
+[1] https://patchwork.freedesktop.org/series/122845/
+
+Sui Jingfeng (9):
+  PCI/VGA: Allowing the user to select the primary video adapter at boot
+    time
+  drm/nouveau: Implement .be_primary() callback
+  drm/radeon: Implement .be_primary() callback
+  drm/amdgpu: Implement .be_primary() callback
+  drm/i915: Implement .be_primary() callback
+  drm/loongson: Implement .be_primary() callback
+  drm/ast: Register as a VGA client by calling vga_client_register()
+  drm/hibmc: Register as a VGA client by calling vga_client_register()
+  drm/gma500: Register as a VGA client by calling vga_client_register()
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 11 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 13 ++++-
+ drivers/gpu/drm/ast/ast_drv.c                 | 31 ++++++++++
+ drivers/gpu/drm/gma500/psb_drv.c              | 57 ++++++++++++++++++-
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 15 +++++
+ drivers/gpu/drm/i915/display/intel_vga.c      | 15 ++++-
+ drivers/gpu/drm/loongson/loongson_module.c    |  2 +-
+ drivers/gpu/drm/loongson/loongson_module.h    |  1 +
+ drivers/gpu/drm/loongson/lsdc_drv.c           | 10 +++-
+ drivers/gpu/drm/nouveau/nouveau_vga.c         | 11 +++-
+ drivers/gpu/drm/radeon/radeon_device.c        | 10 +++-
+ drivers/pci/vgaarb.c                          | 43 ++++++++++++--
+ drivers/vfio/pci/vfio_pci_core.c              |  2 +-
+ include/linux/vgaarb.h                        |  8 ++-
+ 14 files changed, 210 insertions(+), 19 deletions(-)
+
 -- 
 2.34.1
 
