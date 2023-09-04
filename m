@@ -4,32 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30395CA0FE9
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 07:47:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 224D1C83F2C
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 07:47:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A52EF10E45A;
-	Tue,  5 Sep 2023 07:47:32 +0000 (UTC)
-Received: from out-214.mta1.migadu.com (out-214.mta1.migadu.com
- [95.215.58.214])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A320110E3EE
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 19:57:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90A8D10E465;
+	Tue,  5 Sep 2023 07:47:33 +0000 (UTC)
+Received: from out-228.mta1.migadu.com (out-228.mta1.migadu.com
+ [95.215.58.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7DB010E3FB
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 19:57:55 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1693857466;
+ t=1693857474;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=LqpDfy7jFw2xJEvEvsvRPCTDdY9j+2hqZZDtflMLDhg=;
- b=WStnGQXeW5BqIuHoiyaRzA+TJzXqxO/w6kqSS4bJpIIHA8VKpuQJC55KX3cJTyU0ojlG48
- rQA4YgJna8esL75FwGA1ZCP6tfeU2Te6m7aNzn1JJt1o1j+Trw9b2ZZgImETGb439FHPM2
- KY/rIaV6Z10ITNKiYHL2D3EBhLDq5cI=
+ bh=fhoRcuVch+7Gf4upXx5ouxYbS2GV0Aor2KTGkzLAL+I=;
+ b=MsA02426tkJinkpz1/CD7KSiRYKyWnFWxA5gA3o4DzZdbtVyCxWD9yLCkse2QF1pq+rwCH
+ GgV2R6PtMuA8UlGOKYY/J4alpOdakscn17HMIelz71RXSqt63hYGHhWu34q9bHpuwiM08Z
+ xATVnBtvw/osh/XBPWbOGOPfG3A0KXc=
 From: Sui Jingfeng <sui.jingfeng@linux.dev>
 To: Bjorn Helgaas <bhelgaas@google.com>
-Subject: [RFC, drm-misc-next v4 5/9] drm/i915: Implement .be_primary() callback
-Date: Tue,  5 Sep 2023 03:57:20 +0800
-Message-Id: <20230904195724.633404-6-sui.jingfeng@linux.dev>
+Subject: [RFC,
+ drm-misc-next v4 9/9] drm/gma500: Register as a VGA client by calling
+ vga_client_register()
+Date: Tue,  5 Sep 2023 03:57:24 +0800
+Message-Id: <20230904195724.633404-10-sui.jingfeng@linux.dev>
 In-Reply-To: <20230904195724.633404-1-sui.jingfeng@linux.dev>
 References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
@@ -47,63 +49,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Sui Jingfeng <suijingfeng@loongson.cn>, nouveau@lists.freedesktop.org,
+Cc: Sui Jingfeng <suijingfeng@loongson.cn>, nouveau@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, linux-pci@vger.kernel.org,
- David Airlie <airlied@gmail.com>
+ linux-pci@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-On a machine with multiple GPUs, a Linux user has no control over which one
-is primary at boot time. This patch tries to solve the mentioned problem by
-implementing the .be_primary() callback. Pass i915.modeset=10 on the kernel
-cmd line if you really want the device bound by i915 drm driver to be the
-primary video adapter, no matter what VGAARB say.
+Because the display controller in N2000/D2000 series can be VGA-compatible,
+so let's register gma500 as a VGA client, despite the firmware may alter
+the PCI class code of IGD on a multiple GPU co-exist configuration. But
+this commit no crime, because VGAARB only cares about VGA devices.
 
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
+Noticed that the display controller in N2000/D2000 processor don't has a
+valid VRAM BAR, the firmware put the EFI firmware framebuffer into the
+stolen memory, so the commit <86fd887b7fe3> ("vgaarb: Don't default
+exclusively to first video device with mem+io") is not effictive on such
+a case. But the benefits of the stolen memory is that it will not suffer
+from PCI resource relocation. Becase the stolen memory is carved out by
+the firmware and reside in system RAM. Therefore, while at it, provided a
+naive version of firmware framebuffer identification function and use the
+new machanism just created.
+
 Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 ---
- drivers/gpu/drm/i915/display/intel_vga.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/gma500/psb_drv.c | 57 ++++++++++++++++++++++++++++++--
+ 1 file changed, 55 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
-index 98d7d4dffe9f..e3f78ba2668b 100644
---- a/drivers/gpu/drm/i915/display/intel_vga.c
-+++ b/drivers/gpu/drm/i915/display/intel_vga.c
-@@ -113,6 +113,17 @@ intel_vga_set_decode(struct pci_dev *pdev, bool enable_decode)
- 		return VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
+diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
+index 8b64f61ffaf9..eb95d030d981 100644
+--- a/drivers/gpu/drm/gma500/psb_drv.c
++++ b/drivers/gpu/drm/gma500/psb_drv.c
+@@ -14,7 +14,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/spinlock.h>
+ #include <linux/delay.h>
+-
++#include <linux/vgaarb.h>
+ #include <asm/set_memory.h>
+ 
+ #include <acpi/video.h>
+@@ -36,6 +36,11 @@
+ #include "psb_irq.h"
+ #include "psb_reg.h"
+ 
++static int gma500_modeset = -1;
++
++MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
++module_param_named(modeset, gma500_modeset, int, 0400);
++
+ static const struct drm_driver driver;
+ static int psb_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent);
+ 
+@@ -446,6 +451,49 @@ static int gma_remove_conflicting_framebuffers(struct pci_dev *pdev,
+ 	return __aperture_remove_legacy_vga_devices(pdev);
  }
  
-+static bool intel_want_to_be_primary(struct pci_dev *pdev)
++static bool gma_contain_firmware_fb(u64 ap_start, u64 ap_end)
 +{
-+	struct drm_i915_private *i915 = pdev_to_i915(pdev);
-+	struct i915_params *params = &i915->params;
++	u64 fb_start;
++	u64 fb_size;
++	u64 fb_end;
 +
-+	if (params->modeset == 10)
++	if (screen_info.capabilities & VIDEO_CAPABILITY_64BIT_BASE)
++		fb_start = (u64)screen_info.ext_lfb_base << 32 | screen_info.lfb_base;
++	else
++		fb_start = screen_info.lfb_base;
++
++	fb_size = screen_info.lfb_size;
++	fb_end = fb_start + fb_size - 1;
++
++	/* No firmware framebuffer support */
++	if (!fb_start || !fb_size)
++		return false;
++
++	if (fb_start >= ap_start && fb_end <= ap_end)
 +		return true;
 +
 +	return false;
 +}
 +
- int intel_vga_register(struct drm_i915_private *i915)
++static bool gma_want_to_be_primary(struct pci_dev *pdev)
++{
++	struct drm_device *drm = pci_get_drvdata(pdev);
++	struct drm_psb_private *priv = to_drm_psb_private(drm);
++	u64 vram_base = priv->stolen_base;
++	u64 vram_size = priv->vram_stolen_size;
++
++	if (gma500_modeset == 10)
++		return true;
++
++	/* Stolen memory are not going to be moved */
++	if (gma_contain_firmware_fb(vram_base, vram_base + vram_size)) {
++		drm_dbg(drm, "Contains firmware FB in the stolen memory\n");
++		return true;
++	}
++
++	return false;
++}
++
+ static int psb_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
  {
- 	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
-@@ -126,7 +137,8 @@ int intel_vga_register(struct drm_i915_private *i915)
- 	 * then we do not take part in VGA arbitration and the
- 	 * vga_client_register() fails with -ENODEV.
- 	 */
--	ret = vga_client_register(pdev, intel_vga_set_decode, NULL);
-+	ret = vga_client_register(pdev, intel_vga_set_decode,
-+				  intel_want_to_be_primary);
- 	if (ret && ret != -ENODEV)
+ 	struct drm_psb_private *dev_priv;
+@@ -475,6 +523,8 @@ static int psb_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	if (ret)
  		return ret;
  
++	vga_client_register(pdev, NULL, gma_want_to_be_primary);
++
+ 	psb_fbdev_setup(dev_priv);
+ 
+ 	return 0;
+@@ -526,7 +576,10 @@ static struct pci_driver psb_pci_driver = {
+ 
+ static int __init psb_init(void)
+ {
+-	if (drm_firmware_drivers_only())
++	if (drm_firmware_drivers_only() && (gma500_modeset == -1))
++		return -ENODEV;
++
++	if (!gma500_modeset)
+ 		return -ENODEV;
+ 
+ 	return pci_register_driver(&psb_pci_driver);
 -- 
 2.34.1
 
