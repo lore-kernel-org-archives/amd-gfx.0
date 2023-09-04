@@ -4,63 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1701CC71153
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Sep 2023 07:58:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A3D5C71153
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Sep 2023 08:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82BD310E2CC;
-	Mon,  4 Sep 2023 07:58:07 +0000 (UTC)
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
- [IPv6:2001:4860:4864:20::2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8781A10E2CC
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 07:58:06 +0000 (UTC)
-Received: by mail-oa1-x2e.google.com with SMTP id
- 586e51a60fabf-1bb3df62b34so149606fac.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Sep 2023 00:58:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1693814286; x=1694419086; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vWYPYRVmxFMR9u4NGuNYRI2QcWDZsUHtnYpHqK7BILw=;
- b=lGGOncACpMsqOVl/HKRFBPm77zZcpMfMIPuLWE9zZYgMP/TuTh5xHjB3GKte6c+KP0
- gvlo2Xn3af0JDwd+8L1K5holcPCyNe/mZxw71DzweLWMwmYHxJWKlSZrgtD/BmGziq5u
- Q7Gu6XdZ/YdIDm9iS6gGF/lzav9Wszt/A2pBQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693814286; x=1694419086;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=vWYPYRVmxFMR9u4NGuNYRI2QcWDZsUHtnYpHqK7BILw=;
- b=QssT6mUEWNjesN7WlUZLD/DgWrWhQUdaoyi8gqaPYwG+rxExCR9Mt9+xhN8tqZ4K5e
- ZR2QPv4uO4FDluuxU4PwGfhBS1DqeVQqyZIeb2HD6Ggtm+yMHCwcmh09AiGE7ouJgbmV
- i/3jwotWeCR5WGkAQ21opvg5jLdXrX8WXFxdPgEHPV2AeCBIb6N6JkE+3AYp5oGfeo4T
- U+rLCb2LYOTJmnZzf5qaU8eW0jknsr9agLOmzIxk93L8E7am5SQKP3xTBGOwKsBFs0Ro
- vCN2v1lHYM0C6j8btkoA1v/69Y9iDaez5fgGfP1dJDnTlpvNzoXjEUV/4EHEQET3HDWv
- SnZw==
-X-Gm-Message-State: AOJu0YxKWdxzFVqTXjzw1qipu3eg/bljJO1sPd83TAnBXClVocB3aPmF
- TFbYGZ8jwIpk/fqLGs6g8VwRPoBeYPIuTft8dbVyAbNJ9hHCfrdk
-X-Google-Smtp-Source: AGHT+IFbOx+AIeKpf2ld2ULwKLAoL5EviNsQuBZLrFy2bHHntq4kHgnfEog0NaKlZZ0dTn2Tjco5V3O5pPATlWglvuc=
-X-Received: by 2002:a05:6870:5886:b0:192:6fce:d3be with SMTP id
- be6-20020a056870588600b001926fced3bemr10348833oab.1.1693814285834; Mon, 04
- Sep 2023 00:58:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3973910E2F1;
+	Mon,  4 Sep 2023 08:18:32 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2071.outbound.protection.outlook.com [40.107.243.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF76110E2EE
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 08:18:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QFERdKeurw5fQAS0tEh328316dY4VrlftLgxFhnNr3EJFYFJ0imb2Ekm6E6g9kUOVq0cYjAtyZSEYPlxEN+04A/VXCMYkbohU0DC03+wREYf8kqraw/etULwK+bcOGuAPO/lHquEvnrE5rjXY5k4fsHLrKSZFS6Na6NbG/1U83DQvuHbIKrVIhZA/8kidodfQgEl+557SWVWOqgb0D7iPrtNHbzwUuGCcsnCJXsNXjmoFqaKjPO0NTTlz1Dz2ODdbHyYrLYCPYPtW6LsWYbYUP3GjfodIg6FCi5zHs0WlhfLYcaLAVVjdN4/1AAphJ5MPKzQJO6995Yvvv3lG1BI5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YwDtP6ckmhRgpTUldBB1LXRSq27aAnmiAF4tpKDjVZE=;
+ b=MVPLOwl9iAYseFNxuXr6gYadWLzduD8IAQfymucWV/3Lv+caIUgVNF6Pn5n6djHt0Sp5ZVsiL38m9a4kpDWh/epgwa4Yb4/xI1QnL5aR4NvS703No5RutR5vG9kmlx/zILwsXV5qE7cN7BEqqO1bDT+oRmjMkP14jN8ZINpmvSZFuqqxw5MMsTRhdBJgQXo6zBISRzdfZskl7N0k6PZ3g0u8YHrwerDfZOscWnCEoVdLcNpHwXXAsIsnbL0ywEcjE8YMS9hmL5E8src5xhmpjD3A6bCj20m6GGKlt4udnWYGBge3QlwvVOxVa7nDXTOkk5/RZDdiX6zhbpW/8bYoZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YwDtP6ckmhRgpTUldBB1LXRSq27aAnmiAF4tpKDjVZE=;
+ b=e6kI5yUAlBPZj4Jd9bb6J/a97n8LhC0irbeCidnYXqw0o7QoSi2JiYtA7Yev0ap6RBoHzFXT6r0E2qLGSsfJrW31FE8sXOX2XFTz1zuszHw2+G/FTXgGUCC0DJkNy7UnHMCPDGQGqvoYUYqFsP0kyy6j0vhF1wfrLXfEmOGep+4=
+Received: from MW3PR06CA0030.namprd06.prod.outlook.com (2603:10b6:303:2a::35)
+ by SA3PR12MB8440.namprd12.prod.outlook.com (2603:10b6:806:2f8::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Mon, 4 Sep
+ 2023 08:18:26 +0000
+Received: from MWH0EPF000989EA.namprd02.prod.outlook.com
+ (2603:10b6:303:2a:cafe::f) by MW3PR06CA0030.outlook.office365.com
+ (2603:10b6:303:2a::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.32 via Frontend
+ Transport; Mon, 4 Sep 2023 08:18:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000989EA.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6768.25 via Frontend Transport; Mon, 4 Sep 2023 08:18:26 +0000
+Received: from yifan.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 4 Sep
+ 2023 03:18:23 -0500
+From: Yifan Zhang <yifan1.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: calling address translation functions to simplify
+ codes
+Date: Mon, 4 Sep 2023 16:18:06 +0800
+Message-ID: <20230904081806.16624-1-yifan1.zhang@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-References: <cover.1692705543.git.jani.nikula@intel.com>
- <788721f6-afff-e0b2-db7c-32ab2dd075a9@amd.com>
- <87il965gob.fsf@intel.com> <871qfm2kg1.fsf@intel.com>
- <CADnq5_P49U3dcqiZhB-CjS8UbOtB7K2jNObS0ZQqMhOr3UhLQg@mail.gmail.com>
- <87o7ip252r.fsf@intel.com> <87jztd2332.fsf@intel.com>
- <1e6aa1ff-9aa9-6b2f-84f4-e0304205085c@amd.com>
- <87h6oh0yz9.fsf@intel.com> <b32199ef-7179-3908-3bed-dd164cadc5de@amd.com>
- <CADnq5_MBpxT5mPXq0N_=EC7oCQLLxMKVboziSYp6rNOGwTEJow@mail.gmail.com>
-In-Reply-To: <CADnq5_MBpxT5mPXq0N_=EC7oCQLLxMKVboziSYp6rNOGwTEJow@mail.gmail.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Mon, 4 Sep 2023 09:57:54 +0200
-Message-ID: <CAKMK7uHxnzH54L04=3PaAXom+S-mDsWx_C90i5W9=9a-OEpotA@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH 0/4] drm/amd/display: stop using
- drm_edid_override_connector_update()
-To: Alex Deucher <alexdeucher@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989EA:EE_|SA3PR12MB8440:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb5e6118-6ff8-4f69-ced8-08dbad1f835f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: QddmvT4K9fWVJ9G7vpZ0igACOMwnA0eRLMkgEbEHvHhkadQgzaueIPpn0NBxFIQQzlIdUeQVVebQtOaBik4wxW3+c4hsh7JURnng92phBMYcKA9E3eb1F68rQYwLKVcP1q264MBc2Y7sNlrb8dZaPaqmpwwV5pZUK66P0yzZ81dZEyhEBF1ysjFC3XED1TkG/vZgDO8EaeP7EvweNsNoNYnwCVB3b/3f3Km7p9z7zq4jzmrZbpd7LNA/maokszBSUU1+G3/INE5V1YZcKmXB0owq7WhuMQ3V/lvWjs5u34hItWiuzn3kRNMchjXOsCTA4adPKLbuFDIKGOS2jaQcgzSPfa3GonLNdgDy+3vytexT6epOeaNw/2QZNkA9bLL6Ffg3f4MA+VGA/skZEoIPnbXvbF+1sNYCc2DNDgXcOvXtE80LQH9Dj85YDmTJxQFELK3XoUD4VkoJepxkunQLXuGCJi69lOBonOdPmEihX+xq8NYwMA2JnAl+PsYl53z6sGHCHnjTZ1vwgi9VErOeyL7O2soBW7KjbPxWWSe0y3974jP88vZ+CtEVyhDgmlUdkCszqprk0u6ThLEEt2vl7Kk3C7ryMOgymK7dGppgku0O8q1qSBs7Ey+sSvlBn7LcL6bqhp43NROGCZAoHnqDQAK21qBsOhbgHmpiyX3ixQSvVCJSwVvpmohDedZBqgEz2CRHdw7hQor/ySsxGOWFguVru/Yhn4e/r4Z23hNkEz0WX8A5YTuhhdyeEiXe1u4vo7RCpWfvv+b/OBGUKTamnQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(136003)(376002)(39860400002)(396003)(346002)(1800799009)(82310400011)(451199024)(186009)(36840700001)(40470700004)(46966006)(8936002)(5660300002)(6916009)(316002)(2906002)(54906003)(36756003)(70206006)(70586007)(8676002)(4326008)(41300700001)(40460700003)(7696005)(36860700001)(26005)(336012)(16526019)(1076003)(40480700001)(47076005)(426003)(82740400003)(6666004)(81166007)(356005)(478600001)(2616005)(83380400001)(86362001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2023 08:18:26.1336 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb5e6118-6ff8-4f69-ced8-08dbad1f835f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989EA.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8440
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,191 +98,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Hung <alex.hung@amd.com>, intel-gfx@lists.freedesktop.org,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Jani Nikula <jani.nikula@intel.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
- Wenchieh Chien <wenchieh.chien@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, "Wang,
- Yu \(Charlie\)" <Yu.Wang4@amd.com>
+Cc: Alexander.Deucher@amd.com, Yifan Zhang <yifan1.zhang@amd.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 1 Sept 2023 at 21:00, Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Thu, Aug 31, 2023 at 6:01=E2=80=AFPM Alex Hung <alex.hung@amd.com> wro=
-te:
-> >
-> >
-> >
-> > On 2023-08-30 01:29, Jani Nikula wrote:
-> > > On Tue, 29 Aug 2023, Alex Hung <alex.hung@amd.com> wrote:
-> > >> On 2023-08-29 11:03, Jani Nikula wrote:
-> > >>> On Tue, 29 Aug 2023, Jani Nikula <jani.nikula@intel.com> wrote:
-> > >>>> On Tue, 29 Aug 2023, Alex Deucher <alexdeucher@gmail.com> wrote:
-> > >>>>> On Tue, Aug 29, 2023 at 6:48=E2=80=AFAM Jani Nikula <jani.nikula@=
-intel.com> wrote:
-> > >>>>>>
-> > >>>>>> On Wed, 23 Aug 2023, Jani Nikula <jani.nikula@intel.com> wrote:
-> > >>>>>>> On Tue, 22 Aug 2023, Alex Hung <alex.hung@amd.com> wrote:
-> > >>>>>>>> On 2023-08-22 06:01, Jani Nikula wrote:
-> > >>>>>>>>> Over the past years I've been trying to unify the override an=
-d firmware
-> > >>>>>>>>> EDID handling as well as EDID property updates. It won't work=
- if drivers
-> > >>>>>>>>> do their own random things.
-> > >>>>>>>> Let's check how to replace these references by appropriate one=
-s or fork
-> > >>>>>>>> the function as reverting these patches causes regressions.
-> > >>>>>>>
-> > >>>>>>> I think the fundamental problem you have is conflating connecto=
-r forcing
-> > >>>>>>> with EDID override. They're orthogonal. The .force callback has=
- no
-> > >>>>>>> business basing the decisions on connector->edid_override. Forc=
-e is
-> > >>>>>>> force, override is override.
-> > >>>>>>>
-> > >>>>>>> The driver isn't even supposed to know or care if the EDID orig=
-inates
-> > >>>>>>> from the firmware loader or override EDID debugfs. drm_get_edid=
-() will
-> > >>>>>>> handle that for you transparently. It'll return the EDID, and y=
-ou
-> > >>>>>>> shouldn't look at connector->edid_blob_ptr either. Using that w=
-ill make
-> > >>>>>>> future work in drm_edid.c harder.
-> > >>>>>>>
-> > >>>>>>> You can't fix that with minor tweaks. I think you'll be better =
-off
-> > >>>>>>> starting from scratch.
-> > >>>>>>>
-> > >>>>>>> Also, connector->edid_override is debugfs. You actually can cha=
-nge the
-> > >>>>>>> behaviour. If your userspace, whatever it is, has been written =
-to assume
-> > >>>>>>> connector forcing if EDID override is set, you *do* have to fix=
- that,
-> > >>>>>>> and set both.
-> > >>>>>>
-> > >>>>>> Any updates on fixing this, or shall we proceed with the reverts=
-?
-> > >>
-> > >> There is a patch under internal reviews. It removes calls edid_overr=
-ide
-> > >> and drm_edid_override_connector_update as intended in this patchset =
-but
-> > >> does not remove the functionality.
-> > >
-> > > While I am happy to hear there's progress, I'm somewhat baffled the
-> > > review is internal. The commits that I suggested to revert were also
-> > > only reviewed internally, as far as I can see... And that's kind of t=
-he
-> > > problem.
-> > >
-> > > Upstream code should be reviewed in public.
-> >
-> > Hi Jani,
-> >
-> > All patches are sent for public reviews, the progress is summarized as
-> > the followings:
-> >
-> > =3D=3D internal =3D=3D
-> >
-> > 1. a patch or patches are tested by CI.
-> > 2. internal technical and IP reviews are performed to ensure no concern=
-s
-> > before patches are merged to internal branch.
-> >
-> > =3D=3D public =3D=3D
-> >
-> > 3. a regression test and IP reviews are performed by engineers before
-> > sending to public mailing lists.
-> > 4. the patchset is sent for public reviews ex.
-> > https://patchwork.freedesktop.org/series/122498/
-> > 5. patches are merged to public repo.
-> >
->
-> This sort of thing is fine for unreleased chips or new IP prior public
-> exposure, but for released hardware, you really need to do the reviews
-> on the mailing lists.
+Use amdgpu_gmc_vram_pa to simplify codes.
 
-Aye. Maybe with the clarification that if the embargoed code touches
-areas that are common code (or really should be handled in common
-code), then the cross-driver parts also need to be reviewed in public
-as upfront prep patches. If that's not possible (try to fix your
-process to make that possible please), at least ping stakeholders in
-private to give them a heads up, so that when the IP enabling gets
-published it's not going to be held up in the review for the necessary
-common changes. What's not good is if code that should be reviewed on
-dri-devel bypasses all that just because it's part of a hardware
-enabling series.
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c | 3 +--
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c    | 3 +--
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c  | 3 +--
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c      | 3 +--
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c     | 3 +--
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c   | 3 +--
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c   | 3 +--
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c     | 3 +--
+ 8 files changed, 8 insertions(+), 16 deletions(-)
 
-Cheers, Sima
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
+index 2eb3386ae7ac..bcb6ba03cead 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
+@@ -168,8 +168,7 @@ static void gfxhub_v11_5_0_init_system_aperture_regs(struct amdgpu_device *adev)
+ 		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
+ 
+ 	/* Set default page address. */
+-	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start
+-		+ adev->vm_manager.vram_base_offset;
++	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
+ 	WREG32_SOC15(GC, 0, regGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
+ 		     (u32)(value >> 12));
+ 	WREG32_SOC15(GC, 0, regGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
+index e1c76c070ba9..89ff7910cb0f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
+@@ -164,8 +164,7 @@ static void gfxhub_v3_0_init_system_aperture_regs(struct amdgpu_device *adev)
+ 		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
+ 
+ 	/* Set default page address. */
+-	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start
+-		+ adev->vm_manager.vram_base_offset;
++	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
+ 	WREG32_SOC15(GC, 0, regGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
+ 		     (u32)(value >> 12));
+ 	WREG32_SOC15(GC, 0, regGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
+index 07f369c7a1ed..be1da5927910 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
+@@ -169,8 +169,7 @@ static void gfxhub_v3_0_3_init_system_aperture_regs(struct amdgpu_device *adev)
+ 		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
+ 
+ 	/* Set default page address. */
+-	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start
+-		+ adev->vm_manager.vram_base_offset;
++	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
+ 	WREG32_SOC15(GC, 0, regGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
+ 		     (u32)(value >> 12));
+ 	WREG32_SOC15(GC, 0, regGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index dcbba981462e..671e288c7575 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -500,8 +500,7 @@ static void gmc_v11_0_get_vm_pde(struct amdgpu_device *adev, int level,
+ 				 uint64_t *addr, uint64_t *flags)
+ {
+ 	if (!(*flags & AMDGPU_PDE_PTE) && !(*flags & AMDGPU_PTE_SYSTEM))
+-		*addr = adev->vm_manager.vram_base_offset + *addr -
+-			adev->gmc.vram_start;
++		*addr = amdgpu_gmc_vram_mc2pa(adev, *addr);
+ 	BUG_ON(*addr & 0xFFFF00000000003FULL);
+ 
+ 	if (!adev->gmc.translate_further)
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
+index 441379e91cfa..7c9ab5491067 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
+@@ -189,8 +189,7 @@ static void mmhub_v3_0_init_system_aperture_regs(struct amdgpu_device *adev)
+ 		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
+ 
+ 	/* Set default page address. */
+-	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start +
+-		adev->vm_manager.vram_base_offset;
++	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
+ 	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
+ 		     (u32)(value >> 12));
+ 	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c
+index 12c7f4b46ea9..db79e6f92441 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c
+@@ -188,8 +188,7 @@ static void mmhub_v3_0_1_init_system_aperture_regs(struct amdgpu_device *adev)
+ 		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
+ 
+ 	/* Set default page address. */
+-	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start +
+-		adev->vm_manager.vram_base_offset;
++	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
+ 	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
+ 		     (u32)(value >> 12));
+ 	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c
+index 5dadc85abf7e..d1fc9dce7151 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c
+@@ -181,8 +181,7 @@ static void mmhub_v3_0_2_init_system_aperture_regs(struct amdgpu_device *adev)
+ 	}
+ 
+ 	/* Set default page address. */
+-	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start +
+-		adev->vm_manager.vram_base_offset;
++	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
+ 	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
+ 		     (u32)(value >> 12));
+ 	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
+index ec1fb329524d..8194ee2b96c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
+@@ -180,8 +180,7 @@ static void mmhub_v3_3_init_system_aperture_regs(struct amdgpu_device *adev)
+ 		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
+ 
+ 	/* Set default page address. */
+-	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start +
+-		adev->vm_manager.vram_base_offset;
++	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
+ 	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
+ 		     (u32)(value >> 12));
+ 	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
+-- 
+2.37.3
 
-> Alex
->
->
-> > >
-> > >
-> > > BR,
-> > > Jani.
-> > >
-> > >
-> > >>
-> > >> With the patch. both following git grep commands return nothing in
-> > >> amd-staging-drm-next.
-> > >>
-> > >> $ git grep drm_edid_override_connector_update -- drivers/gpu/drm/amd
-> > >> $ git grep edid_override -- drivers/gpu/drm/amd
-> > >>
-> > >> Best regards,
-> > >> Alex Hung
-> > >>
-> > >>>>>
-> > >>>>> What is the goal of the reverts?  I don't disagree that we may be
-> > >>>>> using the interfaces wrong, but reverting them will regess
-> > >>>>> functionality in the driver.
-> > >>>>
-> > >>>> The commits are in v6.5-rc1, but not yet in a release. No user dep=
-ends
-> > >>>> on them yet. I'd strongly prefer them not reaching v6.5 final and =
-users.
-> > >>>
-> > >>> Sorry for confusion here, that's obviously come and gone already. :=
-(
-> > >>>
-> > >>>> The firmware EDID, override EDID, connector forcing, the EDID prop=
-erty,
-> > >>>> etc. have been and somewhat still are a hairy mess that we must ke=
-ep
-> > >>>> untangling, and this isn't helping.
-> > >>>>
-> > >>>> I've put in crazy amounts of work on this, and I've added kernel-d=
-oc
-> > >>>> comments about stuff that should and should not be done, but they =
-go
-> > >>>> unread and ignored.
-> > >>>>
-> > >>>> I really don't want to end up having to clean this up myself befor=
-e I
-> > >>>> can embark on further cleanups and refactoring.
-> > >>>>
-> > >>>> And again, if the functionality in the driver depends on conflatin=
-g two
-> > >>>> things that should be separate, it's probably not such a hot idea =
-to let
-> > >>>> it reach users either. Even if it's just debugfs.
-> > >>>>
-> > >>>>
-> > >>>> BR,
-> > >>>> Jani.
-> > >>>
-> > >
-
-
-
---=20
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
