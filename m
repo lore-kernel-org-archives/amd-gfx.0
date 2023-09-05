@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90CF0CA0FE9
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 14:26:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82FEAC83F3E
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 14:26:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC0910E537;
-	Tue,  5 Sep 2023 14:25:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A862010E53D;
+	Tue,  5 Sep 2023 14:26:01 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AFC910E532;
- Tue,  5 Sep 2023 14:25:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EACB10E53C;
+ Tue,  5 Sep 2023 14:25:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,24 +19,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=p9OfF2MVQ9DZR1h3haug88cOWQWikhxyyGGdZ2csv3U=; b=O9feE3RM638qCXzY0uj4c8DK2c
- WsejQEnp++vMZK07mN/VT9dX8gCxPbTZoAk26WV0I1/d2OWzvsgpJB7UL4QBGQ35Xq+Qw6Bxiz2ia
- C2xfYuHTrQ/WLYJ+6GmC2K8Du/3htJ68HCgQQmQ0EvaXwHMeg9ZY9DJTa3/1/HVa/tKvOxQ6V+ILJ
- OuMFWCnYlNmKi2nCKTb6cS1S0gNPodseH1ffAcKKz7RZ20ep49uvWleXOBx5kxpMsJmBoSGZRAi26
- JuXr3Wx5Y29nzJ1kHLJateSjNbqqG8tDbEaBKWYJj+7kgucqxvPnu0LdODWamt0TovxUooBhYN+UM
- eGC49oOA==;
+ bh=sirAQZAPdPnWsUyXFp5LN9RPpy05TnI3JvpcApoK+os=; b=hd/FtBMKGOqPVR2mFadb+nlCgM
+ beXi3typrZ8+V5hULa3NUscK+LFihLt7kykg7S8FiG9e1cvKs6VBsiscHHv3BCJwlRVCzRrQhb+zv
+ 1ecKJp0FLTzD1P3lmu4LYW2ZLZ8GPMtPf+OuplLJY8WqRgHdslHgzs/Wqt2z7W7Xrc/t5JlYqGIIa
+ 8Q6rmd/e5dJ4Zx8bC6jtssNepBHIfinbShTV8H+iRZMeUqDXpn38nXw8vqSCqKLa9DBfACCkz8xmB
+ GoPLoGd+e3D7kBrCu8yU9sPXe92fb91gfRH14KvY6Ye/teQr3UreYd7DlSHqANLebQn+QG8B7libr
+ 3R2jgZsQ==;
 Received: from [38.44.68.151] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qdX02-002cXU-Pf; Tue, 05 Sep 2023 16:25:50 +0200
+ id 1qdX06-002cXU-1e; Tue, 05 Sep 2023 16:25:54 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch
-Subject: [RFC PATCH 2/5] drm/amd/display: fill up DCN3 DPP color state
-Date: Tue,  5 Sep 2023 13:25:42 -0100
-Message-Id: <20230905142545.451153-3-mwen@igalia.com>
+Subject: [RFC PATCH 4/5] drm/amd/display: hook DCN30 color state logging to
+ DTN log
+Date: Tue,  5 Sep 2023 13:25:44 -0100
+Message-Id: <20230905142545.451153-5-mwen@igalia.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230905142545.451153-1-mwen@igalia.com>
 References: <20230905142545.451153-1-mwen@igalia.com>
@@ -60,74 +61,188 @@ Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DCN3 DPP color state was uncollected and some state elements from DCN1
-doesn't fit DCN3. Create new elements according to DCN3 color caps and
-fill them up for DTN log output.
+Color caps changed between HW versions which caused DCN10 color state
+sections on DTN log no longer fit DCN3.0 versions. Create a
+DCN3.0-specific color state logging and hook it to drivers of DCN3.0
+family.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c  | 28 +++++++++++++++++--
- drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |  8 ++++++
- 2 files changed, 33 insertions(+), 3 deletions(-)
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  5 +-
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 89 +++++++++++++++++++
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.h    |  3 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c |  1 +
+ .../drm/amd/display/dc/dcn301/dcn301_init.c   |  1 +
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  2 +
+ 6 files changed, 100 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
-index 50dc83404644..a91d72f44bbd 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
-@@ -46,9 +46,31 @@ void dpp30_read_state(struct dpp *dpp_base, struct dcn_dpp_state *s)
- 	struct dcn3_dpp *dpp = TO_DCN30_DPP(dpp_base);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index d82e49045fbc..b2f3f1f85f4f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -357,7 +357,10 @@ void dcn10_log_hw_state(struct dc *dc,
  
- 	REG_GET(DPP_CONTROL,
--			DPP_CLOCK_ENABLE, &s->is_enabled);
--
--	// TODO: Implement for DCN3
-+		DPP_CLOCK_ENABLE, &s->is_enabled);
-+	REG_GET_2(PRE_DEGAM,
-+		  PRE_DEGAM_MODE, &s->pre_dgam_mode,
-+		  PRE_DEGAM_SELECT, &s->pre_dgam_select);
-+	REG_GET(CM_SHAPER_CONTROL,
-+		CM_SHAPER_LUT_MODE, &s->shaper_lut_mode);
-+	REG_GET(CM_3DLUT_MODE,
-+		CM_3DLUT_MODE_CURRENT, &s->lut3d_mode);
-+	REG_GET(CM_3DLUT_READ_WRITE_CONTROL,
-+		CM_3DLUT_30BIT_EN, &s->lut3d_bit_depth);
-+	REG_GET(CM_3DLUT_MODE,
-+		CM_3DLUT_SIZE, &s->lut3d_size);
-+	// BGAM has no ROM, and definition is different, can't reuse same dump
-+        REG_GET(CM_BLNDGAM_CONTROL,
-+		CM_BLNDGAM_LUT_MODE, &s->rgam_lut_mode);
-+	REG_GET(CM_GAMUT_REMAP_CONTROL,
-+		CM_GAMUT_REMAP_MODE, &s->gamut_remap_mode);
-+	if (s->gamut_remap_mode) {
-+		s->gamut_remap_c11_c12 = REG_READ(CM_GAMUT_REMAP_C11_C12);
-+		s->gamut_remap_c13_c14 = REG_READ(CM_GAMUT_REMAP_C13_C14);
-+		s->gamut_remap_c21_c22 = REG_READ(CM_GAMUT_REMAP_C21_C22);
-+		s->gamut_remap_c23_c24 = REG_READ(CM_GAMUT_REMAP_C23_C24);
-+		s->gamut_remap_c31_c32 = REG_READ(CM_GAMUT_REMAP_C31_C32);
-+		s->gamut_remap_c33_c34 = REG_READ(CM_GAMUT_REMAP_C33_C34);
+ 	dcn10_log_hubp_states(dc, log_ctx);
+ 
+-	dcn10_log_color_state(dc, log_ctx);
++	if (dc->hwss.log_color_state)
++		dc->hwss.log_color_state(dc, log_ctx);
++	else
++		dcn10_log_color_state(dc, log_ctx);
+ 
+ 	DTN_INFO("OTG:  v_bs  v_be  v_ss  v_se  vpol  vmax  vmin  vmax_sel  vmin_sel  h_bs  h_be  h_ss  h_se  hpol  htot  vtot  underflow blank_en\n");
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index 255713ec29bb..e1a2a68c1d45 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -69,6 +69,95 @@
+ #define FN(reg_name, field_name) \
+ 	hws->shifts->field_name, hws->masks->field_name
+ 
++void
++dcn30_log_color_state(struct dc *dc,
++		      struct dc_log_buffer_ctx *log_ctx)
++{
++	struct dc_context *dc_ctx = dc->ctx;
++	struct resource_pool *pool = dc->res_pool;
++	int i;
++
++	DTN_INFO("DPP:  DGAM ROM  DGAM ROM type  DGAM LUT  SHAPER mode"
++		 "  3DLUT mode  3DLUT bit depth  3DLUT size  RGAM mode"
++		 "  GAMUT mode  "
++		 "C11 C12   C13 C14   C21 C22   C23 C24   C31 C32   C33 C34\n");
++
++	for (i = 0; i < pool->pipe_count; i++) {
++		struct dpp *dpp = pool->dpps[i];
++		struct dcn_dpp_state s = {-1};
++
++		dpp->funcs->dpp_read_state(dpp, &s);
++
++		if (!s.is_enabled)
++			continue;
++
++		DTN_INFO("[%2d]:  %7x  %13s  %8s  %11s  %10s  %15s  %10s  %9s"
++			 "  %10x  %08xh %08xh %08xh %08xh %08xh %08xh",
++			dpp->inst,
++			s.pre_dgam_mode,
++			(s.pre_dgam_select == 0) ? "sRGB" :
++			 ((s.pre_dgam_select == 1) ? "Gamma 2.2" :
++			 ((s.pre_dgam_select == 2) ? "Gamma 2.4" :
++			 ((s.pre_dgam_select == 3) ? "Gamma 2.6" :
++			 ((s.pre_dgam_select == 4) ? "BT.709" :
++			 ((s.pre_dgam_select == 5) ? "PQ" :
++			 ((s.pre_dgam_select == 6) ? "HLG" :
++						     "Unknown")))))),
++			(s.gamcor_lut_mode == 0) ? "Bypass" :
++			 ((s.gamcor_lut_mode == 2) ? "RAM" :
++						     "Unknown"),
++			(s.shaper_lut_mode == 1) ? "RAM A" :
++			 ((s.shaper_lut_mode == 2) ? "RAM B" :
++						     "Bypass"),
++			(s.lut3d_mode == 1) ? "RAM A" :
++			 ((s.lut3d_mode == 2) ? "RAM B" :
++						"Bypass"),
++			(s.lut3d_bit_depth <= 0) ? "12-bit" : "10-bit",
++			(s.lut3d_size == 0) ? "17x17x17" : "9x9x9",
++			(s.rgam_lut_mode == 0) ? "Bypass" :
++			 ((s.rgam_lut_mode == 1) ? "RAM A" :
++			 ((s.rgam_lut_mode == 2) ? "RAM B" :
++						   "Unknown")),
++			s.gamut_remap_mode,
++			s.gamut_remap_c11_c12, s.gamut_remap_c13_c14,
++			s.gamut_remap_c21_c22, s.gamut_remap_c23_c24,
++			s.gamut_remap_c31_c32, s.gamut_remap_c33_c34);
++		DTN_INFO("\n");
 +	}
- }
- /*program post scaler scs block in dpp CM*/
- void dpp3_program_post_csc(
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
-index f4aa76e02518..7e69d9e28f5b 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h
-@@ -148,6 +148,14 @@ struct dcn_dpp_state {
- 	uint32_t gamut_remap_c23_c24;
- 	uint32_t gamut_remap_c31_c32;
- 	uint32_t gamut_remap_c33_c34;
-+	uint32_t shaper_lut_mode;
-+	uint32_t lut3d_mode;
-+	uint32_t lut3d_bit_depth;
-+	uint32_t lut3d_size;
-+	uint32_t blnd_lut_mode;
-+	uint32_t pre_dgam_mode;
-+	uint32_t pre_dgam_select;
-+	uint32_t gamcor_lut_mode;
- };
++	DTN_INFO("\n");
++
++	DTN_INFO("MPCC:  OPP  DPP  MPCCBOT  MODE  ALPHA_MODE  PREMULT  OVERLAP_ONLY  IDLE"
++		 "  SHAPER mode  3DLUT_mode  3DLUT bit-depth  3DLUT size  OGAM mode  OGAM LUT"
++		 "  GAMUT mode  C11 C12   C33 C34\n");
++
++	for (i = 0; i < pool->pipe_count; i++) {
++		struct mpcc_state s = {0};
++
++		pool->mpc->funcs->read_mpcc_state(pool->mpc, i, &s);
++		if (s.opp_id != 0xf)
++			DTN_INFO("[%2d]:  %2xh  %2xh  %6xh  %4d  %10d  %7d  %12d  %4d  %11s %11s %16s %11s %10s %9s"
++				 "  %10x %08xh %08xh\n",
++				i, s.opp_id, s.dpp_id, s.bot_mpcc_id,
++				s.mode, s.alpha_mode, s.pre_multiplied_alpha, s.overlap_only,
++				s.idle,
++				(s.shaper_lut_mode == 1) ? "RAM A" :
++				 ((s.shaper_lut_mode == 2) ? "RAM B" :
++							     "Bypass"),
++				(s.lut3d_mode == 1) ? "RAM A" :
++				 ((s.lut3d_mode == 2) ? "RAM B" :
++							"Bypass"),
++				(s.lut3d_bit_depth <= 0) ? "12-bit" : "10-bit",
++				(s.lut3d_size == 0) ? "17x17x17" : "9x9x9",
++				(s.rgam_mode == 0) ? "Bypass" :
++				 ((s.rgam_mode == 2) ? "RAM" :
++						       "Unknown"),
++				(s.rgam_mode == 1) ? "B" : "A",
++				s.gamut_remap_mode,
++				s.gamut_remap_c11_c12, s.gamut_remap_c33_c34);
++	}
++	DTN_INFO("\n");
++}
++
+ bool dcn30_set_blend_lut(
+ 	struct pipe_ctx *pipe_ctx, const struct dc_plane_state *plane_state)
+ {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+index ce19c54097f8..cfb3646d6740 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+@@ -52,6 +52,9 @@ bool dcn30_mmhubbub_warmup(
+ 	unsigned int num_dwb,
+ 	struct dc_writeback_info *wb_info);
  
- struct CM_bias_params {
++void dcn30_log_color_state(struct dc *dc,
++			   struct dc_log_buffer_ctx *log_ctx);
++
+ bool dcn30_set_blend_lut(struct pipe_ctx *pipe_ctx,
+ 		const struct dc_plane_state *plane_state);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+index 0de8b2783cf6..58e4d7e1753b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+@@ -68,6 +68,7 @@ static const struct hw_sequencer_funcs dcn30_funcs = {
+ 	.setup_stereo = dcn10_setup_stereo,
+ 	.set_avmute = dcn30_set_avmute,
+ 	.log_hw_state = dcn10_log_hw_state,
++	.log_color_state = dcn30_log_color_state,
+ 	.get_hw_state = dcn10_get_hw_state,
+ 	.clear_status_bits = dcn10_clear_status_bits,
+ 	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+index 61205cdbe2d5..227e611f25b8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_init.c
+@@ -72,6 +72,7 @@ static const struct hw_sequencer_funcs dcn301_funcs = {
+ 	.setup_stereo = dcn10_setup_stereo,
+ 	.set_avmute = dcn30_set_avmute,
+ 	.log_hw_state = dcn10_log_hw_state,
++	.log_color_state = dcn30_log_color_state,
+ 	.get_hw_state = dcn10_get_hw_state,
+ 	.clear_status_bits = dcn10_clear_status_bits,
+ 	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
+index fbfcd29b1d73..10de550c693a 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
+@@ -343,6 +343,8 @@ struct hw_sequencer_funcs {
+ 
+ 	/* HW State Logging Related */
+ 	void (*log_hw_state)(struct dc *dc, struct dc_log_buffer_ctx *log_ctx);
++	void (*log_color_state)(struct dc *dc,
++				struct dc_log_buffer_ctx *log_ctx);
+ 	void (*get_hw_state)(struct dc *dc, char *pBuf,
+ 			unsigned int bufSize, unsigned int mask);
+ 	void (*clear_status_bits)(struct dc *dc, unsigned int mask);
 -- 
 2.40.1
 
