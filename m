@@ -4,44 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21D1CC83F2C
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 14:26:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 633F7C83F33
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 14:46:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A83B810E53B;
-	Tue,  5 Sep 2023 14:26:04 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CBEC10E53B;
- Tue,  5 Sep 2023 14:26:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=fA6ccKKW2j5fwrikVqJ0Bd7twwS3X2mWjtfxvTj0j4w=; b=Nx6lzPF/D+4ldGG9CLctbPzoYo
- dBlWu3vcEi+QcfZttYOIxSDGKaVverRWxU69H5O7nGUzy9QPWKQ5o4VlqS9+uAEbTEVj5aeEEnKBq
- sIEdMz8VcLQkKb/VB4VS/ldoU7xoFnOiT3OdzeWUdGjzLvv3R/SKEXPHyHNOYyTs2KzZVCiqCJpWE
- sRbew43rHHYnBRR2GS5MkzP63qMYkNDNXxYrfk1QbGeoKgSh1j++Cl2BHX4sAsXcCiRBPLNQAbJ2H
- LBhd9OYM+R70OPj6WrLmc9NecLGbM9stJaxIJkGD3DbokhvD0E8q+rezPXDgZJfqkCAXxvtP1s1ip
- MrIXDDcQ==;
-Received: from [38.44.68.151] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qdX07-002cXU-Lt; Tue, 05 Sep 2023 16:25:55 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-Subject: [RFC PATCH 5/5] drm/amd/display: add DPP and MPC color caps to DTN log
-Date: Tue,  5 Sep 2023 13:25:45 -0100
-Message-Id: <20230905142545.451153-6-mwen@igalia.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230905142545.451153-1-mwen@igalia.com>
-References: <20230905142545.451153-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1A8C10E547;
+	Tue,  5 Sep 2023 14:46:38 +0000 (UTC)
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [IPv6:2001:4860:4864:20::2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C02C310E546
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 14:46:36 +0000 (UTC)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-1c4f4d67f5bso1836456fac.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 05 Sep 2023 07:46:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693925196; x=1694529996; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JwFNYHYAW//eW1QjsRB/aUFQmJqj+hS7lw8ecCql320=;
+ b=IwJ7TrrQ1ROLW+Rxr1ssxV8iGJNUUBrB9l5YpJONUGg0BrsIOpn1D8HU/gZaYxjBQ+
+ 0vX9VLEuQuz3YmPOJlZsM94qJubuz9dTT93Z/meh0WAU2aJsKmlYQpXbPoYWNU4uHWz5
+ dRXa5QVkP1t9KureqIlXYj6sQlpuXXQbCUCzdyMEUDxxj/DQK4xM9tRz/IO9IsGGQ+9C
+ Fx+UFgV65gydKMhJAvQAYwMns5zenxe/TOw4zzFZnSjlqbZbD0oKknjN0NG5buhODysw
+ AfEAbc4ssQ5/VVA9GZydaKacU5/ZwjHp6XTz4gdlEDkwYQcfq7ETGABPx9VMFm6BdlQ6
+ ZPXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693925196; x=1694529996;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=JwFNYHYAW//eW1QjsRB/aUFQmJqj+hS7lw8ecCql320=;
+ b=YS9pDqQRI1CTb21TqTzoFmbx4csaOhMps+dbiOMEi0/YKUDzSHDTL6nd5VAV54w1e0
+ kDrHEMXlzxO8lKkU3LALqwQ8nQLZqZYVwm55/vsjnDrtZhsiYHPW997HWYAVtVEIdoHu
+ nIU0V4UByZKWRDEjPzOtxeFA6lDeJw4HAaeGf1snlWoHZLO4li4isOcS6BpIhEcdhxWH
+ zNqqbnfHGi/FCubgExEtAFTdorseVW7lfXWvLvJ97MuZjQtixk80tY5ybgtZ9RpT9h6N
+ JuvxsMM76lsInLld7x3slAgwGCVRnneFvrX8b4GYtU6P3lrepGWE3hjZAZ3fVxhpu6Ct
+ Ym4Q==
+X-Gm-Message-State: AOJu0YzALwYnLJfZmWK8dPJ+efID7u2RoU/U7i672bZNGS2Ce4R28Jv2
+ Z/19J9kXsf5mhIbYKbkTzI6qO1BTh9al6Kl9k9U=
+X-Google-Smtp-Source: AGHT+IE2bFT/tHy0K0uuoa9EuxABjGzmPBDWeHc1WGqx+MFPmhJTFlSk1M4bF8+ast/VK7CpCG7bf1YWUgdYDu6yDqk=
+X-Received: by 2002:a05:6870:40d2:b0:1bf:4f42:de91 with SMTP id
+ l18-20020a05687040d200b001bf4f42de91mr16646229oal.33.1693925195943; Tue, 05
+ Sep 2023 07:46:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20230904060501.2942018-1-Jun.Ma2@amd.com>
+In-Reply-To: <20230904060501.2942018-1-Jun.Ma2@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 5 Sep 2023 10:46:24 -0400
+Message-ID: <CADnq5_PbrtHJ436e2kuiu0MrHv_xxiy3DfHqNHqaygej2qaiBQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Fix the flag setting code for interrupt request
+To: Ma Jun <Jun.Ma2@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,103 +67,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>,
- Shashank Sharma <Shashank.Sharma@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, sungjoon.kim@amd.com
+Cc: Alexander.Deucher@amd.com, christian.koenig@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add color caps information for DPP and MPC block to show HW color caps.
+On Mon, Sep 4, 2023 at 2:30=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
+>
+> [1] Remove the irq flags setting code since pci_alloc_irq_vectors()
+> handles these flags.
+> [2] Free the msi vectors in case of error.
+>
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 43 ++++++++++++++-----------
+>  1 file changed, 25 insertions(+), 18 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_irq.c
+> index fa6d0adcec20..17043a1e37a5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> @@ -271,28 +271,28 @@ static void amdgpu_restore_msix(struct amdgpu_devic=
+e *adev)
+>  int amdgpu_irq_init(struct amdgpu_device *adev)
+>  {
+>         int r =3D 0;
+> -       unsigned int irq;
+> +       unsigned int irq, flags;
+>
+>         spin_lock_init(&adev->irq.lock);
+>
+>         /* Enable MSI if not disabled by module parameter */
+>         adev->irq.msi_enabled =3D false;
+>
+> +       if (amdgpu_msi_ok(adev))
+> +               flags =3D PCI_IRQ_MSI | PCI_IRQ_MSIX;
+> +       else
+> +               flags =3D PCI_IRQ_LEGACY;
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 23 +++++++++++++++++++
- .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 23 +++++++++++++++++++
- 2 files changed, 46 insertions(+)
+I think this logic could be something like:
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index b2f3f1f85f4f..6caac6cb8873 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -329,6 +329,24 @@ dcn10_log_color_state(struct dc *dc,
- 		DTN_INFO("\n");
- 	}
- 	DTN_INFO("\n");
-+	DTN_INFO("DPP Color Caps: input_lut_shared:%d  icsc:%d"
-+		 "  dgam_ram:%d  dgam_rom: srgb:%d,bt2020:%d,gamma2_2:%d,pq:%d,hlg:%d"
-+		 "  post_csc:%d  gamcor:%d  dgam_rom_for_yuv:%d  3d_lut:%d"
-+		 "  blnd_lut:%d  oscs:%d\n\n",
-+		 dc->caps.color.dpp.input_lut_shared,
-+		 dc->caps.color.dpp.icsc,
-+		 dc->caps.color.dpp.dgam_ram,
-+		 dc->caps.color.dpp.dgam_rom_caps.srgb,
-+		 dc->caps.color.dpp.dgam_rom_caps.bt2020,
-+		 dc->caps.color.dpp.dgam_rom_caps.gamma2_2,
-+		 dc->caps.color.dpp.dgam_rom_caps.pq,
-+		 dc->caps.color.dpp.dgam_rom_caps.hlg,
-+		 dc->caps.color.dpp.post_csc,
-+		 dc->caps.color.dpp.gamma_corr,
-+		 dc->caps.color.dpp.dgam_rom_for_yuv,
-+		 dc->caps.color.dpp.hw_3d_lut,
-+		 dc->caps.color.dpp.ogam_ram,
-+		 dc->caps.color.dpp.ocsc);
- 
- 	DTN_INFO("MPCC:  OPP  DPP  MPCCBOT  MODE  ALPHA_MODE  PREMULT  OVERLAP_ONLY  IDLE\n");
- 	for (i = 0; i < pool->pipe_count; i++) {
-@@ -342,6 +360,11 @@ dcn10_log_color_state(struct dc *dc,
- 				s.idle);
- 	}
- 	DTN_INFO("\n");
-+	DTN_INFO("MPC Color Caps: gamut_remap:%d, 3dlut:%d, ogam_ram:%d, ocsc:%d\n\n",
-+		 dc->caps.color.mpc.gamut_remap,
-+		 dc->caps.color.mpc.num_3dluts,
-+		 dc->caps.color.mpc.ogam_ram,
-+		 dc->caps.color.mpc.ocsc);
- }
- 
- void dcn10_log_hw_state(struct dc *dc,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-index e1a2a68c1d45..dfccf0d3f0d5 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-@@ -125,6 +125,24 @@ dcn30_log_color_state(struct dc *dc,
- 		DTN_INFO("\n");
- 	}
- 	DTN_INFO("\n");
-+	DTN_INFO("DPP Color Caps: input_lut_shared:%d  icsc:%d"
-+		 "  dgam_ram:%d  dgam_rom: srgb:%d,bt2020:%d,gamma2_2:%d,pq:%d,hlg:%d"
-+		 "  post_csc:%d  gamcor:%d  dgam_rom_for_yuv:%d  3d_lut:%d"
-+		 "  blnd_lut:%d  oscs:%d\n\n",
-+		 dc->caps.color.dpp.input_lut_shared,
-+		 dc->caps.color.dpp.icsc,
-+		 dc->caps.color.dpp.dgam_ram,
-+		 dc->caps.color.dpp.dgam_rom_caps.srgb,
-+		 dc->caps.color.dpp.dgam_rom_caps.bt2020,
-+		 dc->caps.color.dpp.dgam_rom_caps.gamma2_2,
-+		 dc->caps.color.dpp.dgam_rom_caps.pq,
-+		 dc->caps.color.dpp.dgam_rom_caps.hlg,
-+		 dc->caps.color.dpp.post_csc,
-+		 dc->caps.color.dpp.gamma_corr,
-+		 dc->caps.color.dpp.dgam_rom_for_yuv,
-+		 dc->caps.color.dpp.hw_3d_lut,
-+		 dc->caps.color.dpp.ogam_ram,
-+		 dc->caps.color.dpp.ocsc);
- 
- 	DTN_INFO("MPCC:  OPP  DPP  MPCCBOT  MODE  ALPHA_MODE  PREMULT  OVERLAP_ONLY  IDLE"
- 		 "  SHAPER mode  3DLUT_mode  3DLUT bit-depth  3DLUT size  OGAM mode  OGAM LUT"
-@@ -156,6 +174,11 @@ dcn30_log_color_state(struct dc *dc,
- 				s.gamut_remap_c11_c12, s.gamut_remap_c33_c34);
- 	}
- 	DTN_INFO("\n");
-+	DTN_INFO("MPC Color Caps: gamut_remap:%d, 3dlut:%d, ogam_ram:%d, ocsc:%d\n\n",
-+		 dc->caps.color.mpc.gamut_remap,
-+		 dc->caps.color.mpc.num_3dluts,
-+		 dc->caps.color.mpc.ogam_ram,
-+		 dc->caps.color.mpc.ocsc);
- }
- 
- bool dcn30_set_blend_lut(
--- 
-2.40.1
+if (!amdgpu_msi_ok(adev))
+              flags =3D PCI_IRQ_LEGACY;
+else
+              flags =3D PCI_IRQ_ALL_TYPES
 
+Other than that, looks fine to me.
+
+Alex
+
+
+> +
+> +       /* we only need one vector */
+> +       r =3D pci_alloc_irq_vectors(adev->pdev, 1, 1, flags);
+> +       if (r < 0) {
+> +               dev_err(adev->dev, "Failed to alloc msi vectors\n");
+> +               return r;
+> +       }
+> +
+>         if (amdgpu_msi_ok(adev)) {
+> -               int nvec =3D pci_msix_vec_count(adev->pdev);
+> -               unsigned int flags;
+> -
+> -               if (nvec <=3D 0)
+> -                       flags =3D PCI_IRQ_MSI;
+> -               else
+> -                       flags =3D PCI_IRQ_MSI | PCI_IRQ_MSIX;
+> -
+> -               /* we only need one vector */
+> -               nvec =3D pci_alloc_irq_vectors(adev->pdev, 1, 1, flags);
+> -               if (nvec > 0) {
+> -                       adev->irq.msi_enabled =3D true;
+> -                       dev_dbg(adev->dev, "using MSI/MSI-X.\n");
+> -               }
+> +               adev->irq.msi_enabled =3D true;
+> +               dev_dbg(adev->dev, "using MSI/MSI-X.\n");
+>         }
+>
+>         INIT_WORK(&adev->irq.ih1_work, amdgpu_irq_handle_ih1);
+> @@ -302,22 +302,29 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
+>         /* Use vector 0 for MSI-X. */
+>         r =3D pci_irq_vector(adev->pdev, 0);
+>         if (r < 0)
+> -               return r;
+> +               goto free_vectors;
+>         irq =3D r;
+>
+>         /* PCI devices require shared interrupts. */
+>         r =3D request_irq(irq, amdgpu_irq_handler, IRQF_SHARED, adev_to_d=
+rm(adev)->driver->name,
+>                         adev_to_drm(adev));
+>         if (r)
+> -               return r;
+> +               goto free_vectors;
+> +
+>         adev->irq.installed =3D true;
+>         adev->irq.irq =3D irq;
+>         adev_to_drm(adev)->max_vblank_count =3D 0x00ffffff;
+>
+>         DRM_DEBUG("amdgpu: irq initialized.\n");
+>         return 0;
+> -}
+>
+> +free_vectors:
+> +       if (adev->irq.msi_enabled)
+> +               pci_free_irq_vectors(adev->pdev);
+> +
+> +       adev->irq.msi_enabled =3D false;
+> +       return r;
+> +}
+>
+>  void amdgpu_irq_fini_hw(struct amdgpu_device *adev)
+>  {
+> --
+> 2.34.1
+>
