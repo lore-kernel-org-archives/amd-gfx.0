@@ -4,115 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8B88CA0FFA
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 18:47:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 168F9CA0FF7
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 18:47:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 517EF10E2FE;
-	Tue,  5 Sep 2023 18:47:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99B2A10E3FB;
+	Tue,  5 Sep 2023 18:47:43 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20609.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::609])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D1CF10E2FE
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 18:47:12 +0000 (UTC)
+ (mail-mw2nam12on2075.outbound.protection.outlook.com [40.107.244.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA0EC10E3F7
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 18:47:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fNQLdg9WTuYMt9GHU0XEkgG4WyNHnRkPjmOZ5GuFF5fETiWuvJqR+XivcdctdgJgZEw4ifHI7lMB/StFna3jvfrdJjqX+eKWJK40e2SxO7aTqZdppgCet20FltO8v6VnYCmKzn2l3raJ24CczJXqWElXS/fL5/EMgM1WD3OMP4u8qTXJ6h5sngjEE143f45WTE9/iosEhAf3gVJq2HGcKgVlAzLu9tOIl0mgWQnsVP6iwS0LjcGN0ugD3SzS9MyLY31Z7g5/nDthCr0QJQrgpJMXEuSoA/pMoW+kr4wiivgFfVJV4aednZBa4G5m6cZdgFH46/dS1h48U/KRwgW/EQ==
+ b=EB1qq2wwM7rou/ctjZRuDRkwp4OJ4khmLPR3D8zGUfPjxMqWZ5lXSfmDFymtvG7piSYgSSxte/PRdVtdbCqIVigk/r/Db2Vx/AIwZFYNCYgraBJ0Sus91dIin1S6vpuIw0vWPiIj+IBMKpxgRs5AYdvGSVpkBix0VtOiQM1VvFNS1qipLsGg3Nux9l/6f+z/uaPXhUxXHzXmK4aXqu2HduC816nZnSR1iHQfrvtYZ3RsGFr3VsRT52Z2bLBn0zVOU4Rzblpsw8nlRjMggIrEv2LhgE2PJz9FQ/EJoACj9FsXlZjM163G6uRdbBEgn6N5+UfErDzSWGtHhJfAUs3l0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KV9XEOogzuvgtkHoy3qwRA+H0qm7EYgBzLfFxMJ5sZg=;
- b=URLYJdPLixivqR0xnf9aXK0oa17qOfkDWHqsihb5/9+uR8MFaD1qsPF7/o3RRk33B+/kzDoa03cpnm9WMZTdoK32zplaeoFncTQ7pYUr/4IBuMyRDIa2Y4DaJbT85kLk011Z2QONb5xPw2rQMwOrfPJ6ToyECZTB0lg22TpautEl+xWllS9eHXgENmQvnY/xQF7oTVSlhLXVz62OkMRwr6EfamfJrK1iHgCKcBZz8aCClpnHHo3rEoHCDlP7pqEJCEziHKc+ufuRQ1GNgHON7J/EQNfzGX9h8rylmtEI1UzUec/Z3O7Jh8VZ5pjRjVht/bW0gQRzci6UBGVUllinZQ==
+ bh=eSCJ8Ylg39Qa2MK51KGu9G4+MWXp2OjRbQThrGtwOAg=;
+ b=Is6VSWayutXPeIHVHD09+6smbX8FB0YB4xAq5D33kj9RV4C/AoTAdXVt5hxuxX/e4O7YpaGxPCvVAS8991vSm5IyIxphumDt5D45OVrnGe1LGxNw2a/MjOPm+MM5Wcdsc3lAoI36/YE0tCrg61rX87WikEGP9zvonVXRWwHyiJnHV6+Dzjl/+tbI6GpLg112nhot8jHi4lYphhnvv8Cjf3HQtK1dfwMjgWtQfwWeOHinb66kfBjs6vs4k/Smvi6gZdlWY1ZNVtWOntSKQkCeASgNURz4bfVnX1knuh4hs38UoVs/4zuqGj4f2jjomZRTdgUwBw0v2YubWEEvx4PzdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KV9XEOogzuvgtkHoy3qwRA+H0qm7EYgBzLfFxMJ5sZg=;
- b=liPkOBf04RCvFkxpcinNb4ig26x9GYlgfYF1z1p289cpZwAieBcVJr4+H7vvDcNyqxW5BR2OwdO0zMgDcl2cY0y23ejOrJQgWKiAGc6nbkyZGxQRhQmkbLlpuH1miyX9fbOMQkqA42JY0ZgfDiWMr+OV7YUQ+dWeQVxnm8Tu/5s=
+ bh=eSCJ8Ylg39Qa2MK51KGu9G4+MWXp2OjRbQThrGtwOAg=;
+ b=XrqYc3QY20VYIrxvdjVb1hP2PWmy7IS5fUPrcyqFuBPnDKTPIuKt/6nTV+IvzkViohLwBmeRzcTWdBKglcs7n1dl5mB2e8Ajssy+v/Bs76EI+RlnjUdSLstPNmTIsRpNaTjjqdAgRQT6O/PMxmq48XCuFigxjo/H1+bApRiONS8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BYAPR12MB3048.namprd12.prod.outlook.com (2603:10b6:a03:ad::33)
  by CH0PR12MB5108.namprd12.prod.outlook.com (2603:10b6:610:bf::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Tue, 5 Sep
- 2023 18:47:09 +0000
+ 2023 18:47:39 +0000
 Received: from BYAPR12MB3048.namprd12.prod.outlook.com
  ([fe80::1dd2:153c:f0bc:b80d]) by BYAPR12MB3048.namprd12.prod.outlook.com
  ([fe80::1dd2:153c:f0bc:b80d%6]) with mapi id 15.20.6745.030; Tue, 5 Sep 2023
- 18:47:09 +0000
-Message-ID: <2e21ae08-5bad-8016-a406-f253c33755df@amd.com>
-Date: Tue, 5 Sep 2023 12:47:05 -0600
+ 18:47:39 +0000
+Message-ID: <c7ef1a20-46c2-d9ea-22d3-884fa5225258@amd.com>
+Date: Tue, 5 Sep 2023 12:47:36 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.15.0
-Subject: Re: [PATCH 02/18] drm/amd/display: Create one virtual connector in DC
+Subject: Re: [PATCH 04/18] drm/amd/display: Skip writeback connector when we
+ get amdgpu_dm_connector
 Content-Language: en-US
 To: amd-gfx@lists.freedesktop.org
 References: <20230816212626.987519-1-alex.hung@amd.com>
- <20230816212626.987519-3-alex.hung@amd.com>
+ <20230816212626.987519-5-alex.hung@amd.com>
 From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20230816212626.987519-3-alex.hung@amd.com>
+In-Reply-To: <20230816212626.987519-5-alex.hung@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ2PR07CA0004.namprd07.prod.outlook.com
- (2603:10b6:a03:505::10) To BYAPR12MB3048.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ2PR07CA0024.namprd07.prod.outlook.com
+ (2603:10b6:a03:505::14) To BYAPR12MB3048.namprd12.prod.outlook.com
  (2603:10b6:a03:ad::33)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BYAPR12MB3048:EE_|CH0PR12MB5108:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd02e2d2-2abb-4ca9-31db-08dbae408268
+X-MS-Office365-Filtering-Correlation-Id: 31d32d45-b9d1-4c2e-5f91-08dbae409461
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /AKkzO7cUT9DurL2fKPR2oQcyq0nJvMhMoaJIsqo7m6pbQ2rbmUi+bwd7uwhdBOBR7IIuigDJaYHso3pxgNoCoQJn3/O3zeW+sWvtlyOt+nieUodIvjUsPwj+Lsy6EDHMzxsoi4RGo2dPBmp054jtWNPP/0O6qsFO4ZJlHR56Z01Wt07bhqGo/TpBX0TgTlZMx8EXNW55AKuDyD9gXtLz3WfDxlBvdmjm4K6vkt/q7LCpz0XvWYquRrR5OoMoVn83JY4V5sZ1OUG39ksyT85NgWPFN2RSbh+c7Lr4WYqMo+NDCGNLuyIlai2BJbs23LEXPFf7/09JoG8OCa2mF2lAhF0Usb9N4+n7d/B7yujuhsq7yvmKNYZmQYWMwg4CzCjaCkgvozHu+dgQcVlLFH00a5glVe8w8lZNZ/muMTh/bqql66w2cGmxHE4p9DVhvr8jMsfHVdV7VUqkbpOJjT6iK2XviOfUjsLnCWqOGmhE3H4AI4qgYanxHsEvzN5mvDFjDD2qlpCCFCMx+kOzo0NIWspwcDiPxyOSYqmZspCbaRA6vd3VQJnTfUd3/LiJx/5LZT/l53Hi5idYRrZnYYTBGQk1wCaugJvQq1lXYDilrpkFkLQ3jMo8uCtRZT1WAoRymjGIwhh91+96xA0IZ1ZTg==
+X-Microsoft-Antispam-Message-Info: RqudLplJQxdj9LwIcP7RfMVpmpMk6c6oQuZXAD8+DLGcUpVP4sQyMO52UG8EeEurq4I63t0XLTWOhqJXvB2lS6MFrns+9OizRpyc1dr84hkOHfy+LKP+8J0zKEAxBtt4DsOWwR6mq8P1LdSNIHbELlvZ/ZtVfUHkZ+jCNRV9k3wx1WgMW3gbxfpOSwibvArGxfpFOzrzY95eYM68KEnFS95CkpZCKzTwAvVh7pxmVNt/MyfczEbSNl/fC1N2Jco3ylzUUN+SfduzVfybrRX032n4RycU0L74CtC72uIYGhZtNlVrZcsn/ztiStJGdGqt2CrrnvawRQUOcrnC9a1WIe2iusozYGh9BsGoThrW1sQTv0py1KMQtYcsSPSL9cgu1iLNRLHp+U/rVYeN3dVUiYUZZIMsISqTTDYp41mIpbRPp5+ejLVPlOS6TnCWhGHWGLPqyHi3u1mv/eTsMbLk6p6UWD/VvgNWaax54lczUHbWHG6NMoEzUYB8TAPTENytNGUF+uz7ITwsreIvk/GxCq/UiCkOuYE5ueHzdLJrgBCLUb8bpUZeEkyGeXYiQBAPrlGxP9TNfJ7c3YwYeK7w1iy3MJ+gR91txGvvQkHjPvrcWfr9BJnIuaj3hzHi2URMwpGPZgp6ViqNifoWy0oMYg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR12MB3048.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230031)(376002)(346002)(366004)(136003)(39860400002)(396003)(186009)(451199024)(1800799009)(31686004)(36756003)(53546011)(83380400001)(8936002)(31696002)(5660300002)(4326008)(44832011)(8676002)(6506007)(2616005)(6666004)(26005)(86362001)(41300700001)(6512007)(6486002)(478600001)(38100700002)(2906002)(316002)(66476007)(6916009)(66556008)(66946007)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RVJlWjhhZFpUdzc1aVZTeTk5aFNHNHJRVjhJZDZmZ3NWd1FmRE1SbWRyZ1BJ?=
- =?utf-8?B?ZmhISjNvdHJ0REVwbm1lWUkvOStlc0pydkhoMFR5TVdGZEwzdWRnMHRjRUVP?=
- =?utf-8?B?WEJYTVljYkVoczc0a0VzMEpEMnBMZWNUVFNLQU52cWNmRmxBMDFNb0ZJcEZ4?=
- =?utf-8?B?SWVqS3RPK3ZlU04yMnBoMEZkTXUxUkIvV1JpNzJ5Q1U4V1NyTE01OUFENUlz?=
- =?utf-8?B?V2dQRjBsZjFGSm9mQXJGRTlrQ2YvUE1lODN5dk5IQUk5TWpib1Fhdlh5Mzlu?=
- =?utf-8?B?UW04Ty9HSmhwMFFIZHRnWUxkQzhUQXNlM05Sb0V5M20vUjB2TWFZRVNQaHlW?=
- =?utf-8?B?Zm95STV1MXdWSjdVajVLQWYyM0RIYWtkRk5HKytiM0ZMNGNPZVptYzlSU3Bm?=
- =?utf-8?B?MkhXVEFsV3FsLzNOVEtnWGJlNzhtdndCclEwb3Q0VE9jMFpES1NzR3JGS1ZZ?=
- =?utf-8?B?RHZOdVJWeHZlVHdLNTJlNERuaUNOTlJZMUY5bUVRNjVHdHk0anlndWE3SFI5?=
- =?utf-8?B?eW90Rk1FS3M0b25mWkVLcmlsTnNGTCtRM1ZxWGFzeHJzU3libXJKMUM5dEdX?=
- =?utf-8?B?ejZ0M0JJSVA2YjNqUkc3UWFjbW40U1NYRDladVE1T3E5M2tBcnM5NUkyUzRh?=
- =?utf-8?B?VElwa3RtVEg0bjhYZVFoMFJacm1pSGY2TzlCaUVPL0g1QTJWV0N3T091YzVq?=
- =?utf-8?B?UU1uYklQZGd5OFhaSE52c3dOTGlOQmt6d2c2bmQzUGdlMCtoOXBVeUxOYk8x?=
- =?utf-8?B?SzNXOVlrcFNGQmxkVWhUcEttdCs4Y01KSHR0aldON3Rzd3VkUXl5TGxodkJk?=
- =?utf-8?B?em42WTRIQVF2b3JLbTd5MU5QNi9hWm5xZFJtVm5OVTdacGpRalBReUtvMlpj?=
- =?utf-8?B?azh6eSs0S2s2azZlalp3QlhNbjNPeTBtaldEM0tZWjk1SEdyK2ZPSTBDb1JC?=
- =?utf-8?B?MXdYanNQSHdoUjJTVmVtWnN4Um5LOXVYQXdWYTNTQlhkSHB4U0VqRm95NTVM?=
- =?utf-8?B?UlFpRGpYTzdVcWo5VEdVcmlvYnFyN3pGK0NoeWxUajlySUNMaFNNWmtRQnda?=
- =?utf-8?B?OGxoTVIzdk1RTHZqR1FmZkZIS09salkxdzVOTSt6RTYyUFBUOFRmYm1OdlV5?=
- =?utf-8?B?Vkkvc3FwZExKV2QvclVReEZrWFUvc1lMNE1ONDZMbkIvVUYxQUhsTCt3UVVn?=
- =?utf-8?B?UndFalkrYXkvazk5a2tzNmFzUk1aTzF2azhxRW8yUEN1UWlrWk5iOGZDUUdF?=
- =?utf-8?B?allySWVzaHNWSFNvT1VyUDFkS0dKKzFjM0ptanVTTDlHR1lmeXVhbHAvRkVh?=
- =?utf-8?B?RE9GM0VMMXlHdVVhQm1UcFl3QVE5SU0vRFNTdEg2alp0KzF3VDZQN0xlNkVw?=
- =?utf-8?B?ZjFyUG4xL25YZmQ2SndGSVdzeUhlYkZNYWJlREZjNWlNMjBXN2dXL2ZBS2dI?=
- =?utf-8?B?Q3d0S3M0RjMrZG9aanVDWUlBZnpScVQ0cTRvMG1sZkdRbVByWmErdWcxS1Fs?=
- =?utf-8?B?M0Y2TDJjY2IwQWhPNlBidDZXcWFDMlNXZDhETTdHN3h0OXFkTHF4bDhkT0x4?=
- =?utf-8?B?OGc0RlJLeW9OVjZqWXhhQzRCd0cvOUt4ZC9NbjJON0laeWVGWGNTSTAxNGJH?=
- =?utf-8?B?dWFIMFVXa1J0NFJJNkVqMmZkQU9BbURncHpkczQ1ZFRnaXRyc01KZHpoWEhh?=
- =?utf-8?B?RTdCUS85YitRanlNQm9ScVBEays4MFVaRmVGSjlxLzlEdjhobjNsWVN6U25L?=
- =?utf-8?B?ekloSWZaakhnRGJqeVYzcWU0TzhLK1RXQWhZUXZxZG5KRDNxVlNidUlydEdM?=
- =?utf-8?B?WktXZFZFZjZuVHRqa2QzRy9wekNIdHdjdGp4dzI1S1IwcnBNSlZnSmJueGtx?=
- =?utf-8?B?KzBBdmp2L2x3RHJ6TkVzcm5OdkU3Z2toODJBN2MxRzNrZnJQaXFTcnZNYXFa?=
- =?utf-8?B?QWlMd21ZOExkV2pxTUsyMndHSUlpbit4K0I5M3BFS2NNMndrbHVEVlRkODl2?=
- =?utf-8?B?em5mZ1A1US9GWk5RNmxoeU1Zb0xtaUY1aGJVcXdscFNEUkdBaU42NXhVSVM2?=
- =?utf-8?B?LytEN0tuTGk4ckt2d0hrR09KakNzaFV0QVh3Y0tPVis3SVl6cDhva0laSFFN?=
- =?utf-8?Q?9DsPnExvicxdghEcZV5qyxhrO?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a0FrMEREWmxsaFJ2ZzkwTWZBQ2I4MUdVNHArYUxqTXd1ZUM0MHpRYUxYbHcw?=
+ =?utf-8?B?Q3dRODF5Ykk3VHhMY215MDRxN3BqMHVybWlPL3FVL3pJei9PU3VZV2ZYbVMx?=
+ =?utf-8?B?Z0dRQ0RSYkVGb3NLdUl4YzQyYkdWVDMyQXgyZWtGZm4zQVFVK2Y0TUVKWEI1?=
+ =?utf-8?B?VmI3RFRXU2dWVTRPZm5UQWcxQk5WNVNUMnNtSDdvTm40U0pTalpVblFRazNQ?=
+ =?utf-8?B?ejFKNmtmUjEwRHBWcmsyb2w3czVGZEpVT0J2YlRRMGJDb1JZUEhMZlp0enZl?=
+ =?utf-8?B?MXZvbjh3enNyOUJHOWkwbUNmbVhVVjhOWGRUUlZzMXJjdFBMc0ZGaEJjREFn?=
+ =?utf-8?B?QUgzU3R5OXd0NVNoK1lLamZJK2VUdlRObUplYTU4WEVvYmkySmhlUnlxMGNB?=
+ =?utf-8?B?RnhRaXhFb00wWlUvQU5hWG5LZUZuZStRY3hpOWRPZ21Jc2x2aDJtMHl3QVhM?=
+ =?utf-8?B?VmNFWmNVTWpwWHJ2cWhCQncwcm8zUDJiZVZZRXgrT005ZUxoV2RGdUtoQnIr?=
+ =?utf-8?B?aFJvZVZndWhvek9NUTlGUkFacFlWV203ZUtQdkg5WEVzSzlIVWgzc0xmbHRp?=
+ =?utf-8?B?bVBXdkR6MXRkNUpwdWRFb3A2OHlZSndZNFRMR2lUQjV3MGJxT0Fyd0Rrd3VO?=
+ =?utf-8?B?Z0E2WWU1UUVKTWlsZ3V1Sk1JeW1aRTEycEtYYit5aWxuTVU2NGk5MXljK256?=
+ =?utf-8?B?bzcxWGFZZGRlNldCN3NERU40a0FKTDFiWGc2cHRGSmU3YnRiMUlLRnpUaHFz?=
+ =?utf-8?B?TW50V09xaC9JcTFoWHJHYUdjSFpxcUl6bTlha2NBMUpVeGc2VFBkb3VWemJh?=
+ =?utf-8?B?T21Ybk9jWFZyZmYzS213MW5Vc1ZpS3lCWEtCayt0THFadjBpYlVEdFl6TWZD?=
+ =?utf-8?B?eUw3ZHFPSUVOV2tSY091K3lhYTRVTzVVYUoraVFFYy92MDdFMFRqUzNLRitX?=
+ =?utf-8?B?ODNqQ251d2poM29uMGVTaTEzRmlsVDJldllpaFprM1d1dysyNXJXVEpEQ3oz?=
+ =?utf-8?B?NlFqUTFnSStvbGlnYlVMYnNBU3lyRktkbnduMzhpWmFzZ2hPUTNGMlVJOFpR?=
+ =?utf-8?B?dnpkSjZxeXpMRDB4YU9lMFM5c2JxNUpyKzZoYUg2STZQKzcvcjI5SjZwL1I5?=
+ =?utf-8?B?K2xpYXplZkwvZnRVdmFTSEtFTzg5TStnd0JMeVNaaFlVbXVuR1NUN2RRclQz?=
+ =?utf-8?B?N2RVUGx6RlFKQ3lwSVZnMU1TdkdiTVJFeWRhKzc1eWxVVHZwa3FqNTllemow?=
+ =?utf-8?B?RlBpdEhya1FuMjI4bkNUbUR2SjV6cWp3bS9LVFhUTW9aY3I0U1YxSG5Tc09X?=
+ =?utf-8?B?c2EyUWQ1Y0FFbjRuVXF4SmRyR1pMcVdpK29idi84bnM3WG11SVVJUWhFdXhW?=
+ =?utf-8?B?bUcwWVQrUHpaWUFnMEU0UjhmUTRtWWU4NStDNGlmc2RNeDVhZmowSkxJVnJh?=
+ =?utf-8?B?djMralhFczkycnJaQ0RmaVA4dFFPc2RHVGoxU096R1YvRVVETlF6ZFBuWnlS?=
+ =?utf-8?B?ajcwK1phbURDMkpVVWhWL09OMnVOQnh3THJWMVJvT2N4YVprblRqYUZRcjlu?=
+ =?utf-8?B?RG9NQUd6d3Y2TW96QlRoVWY0NXVaaitnNGQ1a3V2NGo5TDRvcVArbGttNEg1?=
+ =?utf-8?B?NWJlVjJBOVZRWFcvUlBmamd5M3ZYVWM4MTQ3elRyRml4N0tzYklPaDBEQmtl?=
+ =?utf-8?B?T3NkRW4xc3dxdEo1WDI5VTRSWm9zbE9SVWdvVldlTVN0T2ZDeHBzLzhPNWlQ?=
+ =?utf-8?B?UUlrMURDcFBmdThLWTdSWUdpN1lESmhTSzQ1SDhKMytWSDN3VkJrRDFYS0dB?=
+ =?utf-8?B?UUd1VytIdldOSjc4MzFCQUtxeEdmdU53V29aTStWODM1ZGI2YVR1a0hsWWx4?=
+ =?utf-8?B?V0pJdi8xendMSnhtVDM5L2JTbGJCWmhwOXVPWE5tcFZrbW1RNGphWk55Y1Y3?=
+ =?utf-8?B?aWtvUXBGTFpiVXlFandSNzhSUUZjUDVMWU1raUlKZG5MTmFxRUVaQ1c0d3Yx?=
+ =?utf-8?B?amhPNjhvRTJUNlVqZytRMXdPSElRdzAxYmRuRFVSZFhrTjBXQklTMUpwa001?=
+ =?utf-8?B?dE5iVWpCdFUyeWk3ZUNKenVrS3hNSGFBODhpWjFuY3RpT2RRemZ2UUJvU09G?=
+ =?utf-8?Q?dmWfeWECVeoD5m607tH0HdSkc?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd02e2d2-2abb-4ca9-31db-08dbae408268
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31d32d45-b9d1-4c2e-5f91-08dbae409461
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3048.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2023 18:47:09.3494 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2023 18:47:39.4708 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X4wde5BiyD7XYAbKaFtIhWlx/8wAYK285z+0WXJV67/mI7koWJZSdnwOIxGKWXfMqjsuzmwL6jbhchZBOLUXRQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: TyNgIb5sJ/ARQeWO4aWk9xlm78b67PK53bNsKSlJGdqUWSstR3MKL0jG0oR2sXnCHXnqa1AigD0HMjAfPGmXsw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5108
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,63 +134,250 @@ Reviewed-by: Alex Hung <alex.hung@amd.com>
 On 2023-08-16 15:26, Alex Hung wrote:
 > From: Harry Wentland <harry.wentland@amd.com>
 > 
-> [WHAT]
-> Prepare a virtual connector for writeback.
+> [WHY]
+> Writeback connectors are based on a different object:
+> drm_writeback_connector, and are therefore different from
+> amdgpu_dm_connector. We need to be careful to ensure code
+> designed for amdgpu_dm_connector doesn't inadvertently try
+> to operate on a drm_writeback_connector.
+> 
+> [HOW]
+> Skip them when connector type is DRM_MODE_CONNECTOR_WRITEBACK.
 > 
 > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 > Signed-off-by: Alex Hung <alex.hung@amd.com>
 > ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 11 +++++++++--
->   drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c |  3 ++-
->   2 files changed, 11 insertions(+), 3 deletions(-)
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 62 +++++++++++++++++--
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  3 +
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 22 +++++--
+>   3 files changed, 76 insertions(+), 11 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b1245b732cc9..00254fdfa1f7 100644
+> index 445369afcead..363d91d49a3a 100644
 > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1675,6 +1675,10 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
->   	init_data.dcn_reg_offsets = adev->reg_offset[DCE_HWIP][0];
->   	init_data.nbio_reg_offsets = adev->reg_offset[NBIO_HWIP][0];
+> @@ -721,6 +721,10 @@ static void dmub_hpd_callback(struct amdgpu_device *adev,
 >   
-> +	/* Enable DWB for tested platforms only */
-> +	if (adev->ip_versions[DCE_HWIP][0] >= IP_VERSION(3, 0, 0))
-> +		init_data.num_virtual_links = 1;
+>   	drm_connector_list_iter_begin(dev, &iter);
+>   	drm_for_each_connector_iter(connector, &iter) {
 > +
->   	INIT_LIST_HEAD(&adev->dm.da_list);
->   
->   	retrieve_dmi_info(&adev->dm);
-> @@ -4385,6 +4389,11 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
->   			continue;
->   		}
->   
-> +		link = dc_get_link_at_index(dm->dc, i);
-> +
-> +		if (link->connector_signal == SIGNAL_TYPE_VIRTUAL)
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
 > +			continue;
 > +
->   		aconnector = kzalloc(sizeof(*aconnector), GFP_KERNEL);
->   		if (!aconnector)
->   			goto fail;
-> @@ -4403,8 +4412,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
->   			goto fail;
+>   		aconnector = to_amdgpu_dm_connector(connector);
+>   		if (link && aconnector->dc_link == link) {
+>   			if (notify->type == DMUB_NOTIFICATION_HPD)
+> @@ -945,6 +949,10 @@ static int amdgpu_dm_audio_component_get_eld(struct device *kdev, int port,
+>   
+>   	drm_connector_list_iter_begin(dev, &conn_iter);
+>   	drm_for_each_connector_iter(connector, &conn_iter) {
+> +
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+>   		aconnector = to_amdgpu_dm_connector(connector);
+>   		if (aconnector->audio_inst != port)
+>   			continue;
+> @@ -2270,6 +2278,10 @@ static int detect_mst_link_for_all_connectors(struct drm_device *dev)
+>   
+>   	drm_connector_list_iter_begin(dev, &iter);
+>   	drm_for_each_connector_iter(connector, &iter) {
+> +
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+>   		aconnector = to_amdgpu_dm_connector(connector);
+>   		if (aconnector->dc_link->type == dc_connection_mst_branch &&
+>   		    aconnector->mst_mgr.aux) {
+> @@ -2350,6 +2362,10 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
+>   
+>   	drm_connector_list_iter_begin(dev, &iter);
+>   	drm_for_each_connector_iter(connector, &iter) {
+> +
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+>   		aconnector = to_amdgpu_dm_connector(connector);
+>   		if (aconnector->dc_link->type != dc_connection_mst_branch ||
+>   		    aconnector->mst_root)
+> @@ -2865,6 +2881,10 @@ static int dm_resume(void *handle)
+>   	/* Do detection*/
+>   	drm_connector_list_iter_begin(ddev, &iter);
+>   	drm_for_each_connector_iter(connector, &iter) {
+> +
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+>   		aconnector = to_amdgpu_dm_connector(connector);
+>   
+>   		if (!aconnector->dc_link)
+> @@ -3416,6 +3436,9 @@ static void register_hpd_handlers(struct amdgpu_device *adev)
+>   	list_for_each_entry(connector,
+>   			&dev->mode_config.connector_list, head)	{
+>   
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+>   		aconnector = to_amdgpu_dm_connector(connector);
+>   		dc_link = aconnector->dc_link;
+>   
+> @@ -5413,10 +5436,13 @@ static void fill_stream_properties_from_drm_display_mode(
+>   {
+>   	struct dc_crtc_timing *timing_out = &stream->timing;
+>   	const struct drm_display_info *info = &connector->display_info;
+> -	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+> +	struct amdgpu_dm_connector *aconnector = NULL;
+>   	struct hdmi_vendor_infoframe hv_frame;
+>   	struct hdmi_avi_infoframe avi_frame;
+>   
+> +	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
+> +		aconnector = to_amdgpu_dm_connector(connector);
+> +
+>   	memset(&hv_frame, 0, sizeof(hv_frame));
+>   	memset(&avi_frame, 0, sizeof(avi_frame));
+>   
+> @@ -6843,6 +6869,9 @@ static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_state *state,
+>   
+>   	for_each_new_connector_in_state(state, connector, new_con_state, i) {
+>   
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+>   		aconnector = to_amdgpu_dm_connector(connector);
+>   
+>   		if (!aconnector->mst_output_port)
+> @@ -8392,6 +8421,9 @@ static void amdgpu_dm_commit_audio(struct drm_device *dev,
+>   		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
+>   			continue;
+>   
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+>   notify:
+>   		aconnector = to_amdgpu_dm_connector(connector);
+>   
+> @@ -8425,6 +8457,9 @@ static void amdgpu_dm_commit_audio(struct drm_device *dev,
+>   		if (!status)
+>   			continue;
+>   
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+>   		aconnector = to_amdgpu_dm_connector(connector);
+>   
+>   		mutex_lock(&adev->dm.audio_lock);
+> @@ -8686,7 +8721,12 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_state *state)
+>   	for_each_oldnew_connector_in_state(state, connector, old_con_state, new_con_state, i) {
+>   		struct dm_connector_state *dm_new_con_state = to_dm_connector_state(new_con_state);
+>   		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(dm_new_con_state->base.crtc);
+> -		struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+> +		struct amdgpu_dm_connector *aconnector;
+> +
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+> +		aconnector = to_amdgpu_dm_connector(connector);
+>   
+>   		if (!adev->dm.hdcp_workqueue)
+>   			continue;
+> @@ -9029,10 +9069,15 @@ static int dm_force_atomic_commit(struct drm_connector *connector)
+>   void dm_restore_drm_connector_state(struct drm_device *dev,
+>   				    struct drm_connector *connector)
+>   {
+> -	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+> +	struct amdgpu_dm_connector *aconnector;
+>   	struct amdgpu_crtc *disconnected_acrtc;
+>   	struct dm_crtc_state *acrtc_state;
+>   
+> +	if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +		return;
+> +
+> +	aconnector = to_amdgpu_dm_connector(connector);
+> +
+>   	if (!aconnector->dc_sink || !connector->state || !connector->encoder)
+>   		return;
+>   
+> @@ -9109,12 +9154,16 @@ static void get_freesync_config_for_crtc(
+>   	struct dm_connector_state *new_con_state)
+>   {
+>   	struct mod_freesync_config config = {0};
+> -	struct amdgpu_dm_connector *aconnector =
+> -			to_amdgpu_dm_connector(new_con_state->base.connector);
+> +	struct amdgpu_dm_connector *aconnector;
+>   	struct drm_display_mode *mode = &new_crtc_state->base.mode;
+>   	int vrefresh = drm_mode_vrefresh(mode);
+>   	bool fs_vid_mode = false;
+>   
+> +	if (new_con_state->base.connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +		return;
+> +
+> +	aconnector = to_amdgpu_dm_connector(new_con_state->base.connector);
+> +
+>   	new_crtc_state->vrr_supported = new_con_state->freesync_capable &&
+>   					vrefresh >= aconnector->min_vfreq &&
+>   					vrefresh <= aconnector->max_vfreq;
+> @@ -9898,6 +9947,9 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm
+>   		if (conn_state->crtc != crtc)
+>   			continue;
+>   
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+>   		aconnector = to_amdgpu_dm_connector(connector);
+>   		if (!aconnector->mst_output_port || !aconnector->mst_root)
+>   			aconnector = NULL;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+> index 52ecfa746b54..f936a35fa9eb 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+> @@ -326,6 +326,9 @@ int amdgpu_dm_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+>   			if (!connector->state || connector->state->crtc != crtc)
+>   				continue;
+>   
+> +			if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +				continue;
+> +
+>   			aconn = to_amdgpu_dm_connector(connector);
+>   			break;
 >   		}
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> index 51467f132c26..58b880acb087 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> @@ -894,10 +894,15 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
 >   
-> -		link = dc_get_link_at_index(dm->dc, i);
-> -
->   		if (!dc_link_detect_connection_type(link, &new_connection_type))
->   			DRM_ERROR("KMS: Failed to detect connector\n");
+>   	drm_connector_list_iter_begin(dev, &iter);
+>   	drm_for_each_connector_iter(connector, &iter) {
+> -		struct amdgpu_dm_connector *amdgpu_dm_connector =
+> -				to_amdgpu_dm_connector(connector);
+> +		struct amdgpu_dm_connector *amdgpu_dm_connector;
+> +		const struct dc_link *dc_link;
 >   
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-> index 2a7f47642a44..65e8504e6063 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-> @@ -96,7 +96,8 @@ static void enable_memory_low_power(struct dc *dc)
->   	if (dc->debug.enable_mem_low_power.bits.vpg && dc->res_pool->stream_enc[0]->vpg->funcs->vpg_powerdown) {
->   		// Power down VPGs
->   		for (i = 0; i < dc->res_pool->stream_enc_count; i++)
-> -			dc->res_pool->stream_enc[i]->vpg->funcs->vpg_powerdown(dc->res_pool->stream_enc[i]->vpg);
-> +			if (dc->res_pool->stream_enc[i]->vpg)
-> +				dc->res_pool->stream_enc[i]->vpg->funcs->vpg_powerdown(dc->res_pool->stream_enc[i]->vpg);
->   #if defined(CONFIG_DRM_AMD_DC_FP)
->   		for (i = 0; i < dc->res_pool->hpo_dp_stream_enc_count; i++)
->   			dc->res_pool->hpo_dp_stream_enc[i]->vpg->funcs->vpg_powerdown(dc->res_pool->hpo_dp_stream_enc[i]->vpg);
+> -		const struct dc_link *dc_link = amdgpu_dm_connector->dc_link;
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+> +		amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
+> +
+> +		dc_link = amdgpu_dm_connector->dc_link;
+>   
+>   		if (dc_link->irq_source_hpd != DC_IRQ_SOURCE_INVALID) {
+>   			dc_interrupt_set(adev->dm.dc,
+> @@ -930,9 +935,14 @@ void amdgpu_dm_hpd_fini(struct amdgpu_device *adev)
+>   
+>   	drm_connector_list_iter_begin(dev, &iter);
+>   	drm_for_each_connector_iter(connector, &iter) {
+> -		struct amdgpu_dm_connector *amdgpu_dm_connector =
+> -				to_amdgpu_dm_connector(connector);
+> -		const struct dc_link *dc_link = amdgpu_dm_connector->dc_link;
+> +		struct amdgpu_dm_connector *amdgpu_dm_connector;
+> +		const struct dc_link *dc_link;
+> +
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+> +		amdgpu_dm_connector = to_amdgpu_dm_connector(connector);
+> +		dc_link = amdgpu_dm_connector->dc_link;
+>   
+>   		if (dc_link->irq_source_hpd != DC_IRQ_SOURCE_INVALID) {
+>   			dc_interrupt_set(adev->dm.dc,
