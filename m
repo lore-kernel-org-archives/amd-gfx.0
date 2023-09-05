@@ -4,63 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1496C83F33
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 14:52:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E5A8C83F2C
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 14:53:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48C9010E54D;
-	Tue,  5 Sep 2023 14:52:51 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E44F10E551
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 14:52:48 +0000 (UTC)
-Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
- [209.85.166.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-372-lnxbgMvDPc-QCuJ5zR2xxA-1; Tue, 05 Sep 2023 10:52:45 -0400
-X-MC-Unique: lnxbgMvDPc-QCuJ5zR2xxA-1
-Received: by mail-il1-f200.google.com with SMTP id
- e9e14a558f8ab-34df008b0b4so15754185ab.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 05 Sep 2023 07:52:45 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C24610E54E;
+	Tue,  5 Sep 2023 14:53:11 +0000 (UTC)
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B0B710E54E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 14:53:10 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id
+ 5614622812f47-3ab244ef065so1811922b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 05 Sep 2023 07:53:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693925589; x=1694530389; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uLJdzQcW0SFxcemcaVrhBQ47vIs3wGbidL61NRwqa1I=;
+ b=j59p7QZktoRftz2e4Vw8dUvn+u3NLN+PS/7TbDbxFO67C/I/VKIIMZMW7WC5xYmTRe
+ U3yicXfb2Rm+mge7S9jzHypyFehkQx0sWbQVEzvQNHXdYwIcq/8dq4nAITbq5m4T+s3A
+ PHsaozhhxP3Sn+BU9ND6SLOf2AyACdC6q8gCjd4LalH7HI6pU0Kz9FyFv0N1O7MocfQn
+ NCbf/5PilwF/DRKrUDlCg3ZGgGtAKzcjUgPNlznDExkzhNmNtoJTydWV6XGUZmtFeByx
+ OuIYJNQmDHeHMhw6aEj7KVxFXg7F2Awelxq5CsFik0VMwRIVl62uBQaAvZ3/pTbB0B7m
+ Pxzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693925565; x=1694530365;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20221208; t=1693925589; x=1694530389;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=klLyCH+/rZQLSXpVNPH8e0sfHO/gz4bHny9eZkg3wb8=;
- b=NJXI1yQbNHZ0N4i/pB1+uZmBaaolCNHoozwut/Ym6Pv88UI6q5hJ1T7WhA+0V8Baz0
- DCL66gbqPV4r4h3PXFf15bXIu264oVUrc044C9xuMLEvxM35PWkIps6oy9+rsQc+JBav
- fkscxJ1IaNIH/G1vPKUwEFnI6ah0TVIS7Eo4sH4DiQMbtnNIQVwBkiXiMs8aFQBuxxiX
- SbOfywiXoadBXrPfCjFw/wlpdK9SdXb89djCaqgwHnqJza6bVzi9UbVkkZcaTjfMCl7I
- Q9QdV6bQJhvVwZngIljI4W1KEXqST0lLI3AMOL/AUjvuHKKXXcgqi+DeCSmHRJ46KR9j
- TtaA==
-X-Gm-Message-State: AOJu0YyWqhB+j3lld3+Z8YfZGdd1JdLEOJ0yEgFVutgAd4ZbaiRsv0Jb
- lgN1goLCN+pq33isqqiqCjZUEidBnwgV46Jq32sJ4n7kaxIztpddYpQwPhY9O0vpwmgbvtCHapp
- pUCijus8fOKtzw7sTYz2F4DztlQ==
-X-Received: by 2002:a05:6e02:f94:b0:34f:1de2:150a with SMTP id
- v20-20020a056e020f9400b0034f1de2150amr3311630ilo.9.1693925565027; 
- Tue, 05 Sep 2023 07:52:45 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEqMN4rRQuc7MxjlhBxrXzdipuAgTC1ZIBNcH5MY3K6vAQBnfx3fyFu0UqPkhZtlNZh3SkN8w==
-X-Received: by 2002:a05:6e02:f94:b0:34f:1de2:150a with SMTP id
- v20-20020a056e020f9400b0034f1de2150amr3311613ilo.9.1693925564783; 
- Tue, 05 Sep 2023 07:52:44 -0700 (PDT)
-Received: from redhat.com ([38.15.60.12]) by smtp.gmail.com with ESMTPSA id
- p8-20020a92c608000000b00345b34fcf34sm4189494ilm.38.2023.09.05.07.52.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Sep 2023 07:52:44 -0700 (PDT)
-Date: Tue, 5 Sep 2023 08:52:43 -0600
-From: Alex Williamson <alex.williamson@redhat.com>
-To: Sui Jingfeng <sui.jingfeng@linux.dev>
-Subject: Re: [RFC, drm-misc-next v4 0/9] PCI/VGA: Allowing the user to
- select the primary video adapter at boot time
-Message-ID: <20230905085243.4b22725e.alex.williamson@redhat.com>
-In-Reply-To: <20230904195724.633404-1-sui.jingfeng@linux.dev>
-References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.35; x86_64-redhat-linux-gnu)
+ bh=uLJdzQcW0SFxcemcaVrhBQ47vIs3wGbidL61NRwqa1I=;
+ b=boXfGPdCJBAxu+iEatujq4G0oEuxfM78Kif2vWSWVE/sCzM1TR6V39JwUeL/xbOCE0
+ heH1KyAeTQ513EkpUKmTLd8RXjNev1krdRSsbVjBGCMtfJ4NT2SN9iEYlPD5eyeXH2Kt
+ ZSGpZ0w2f0Y9YB5ePn9Sjozo7d28SRk5O1GFNg515c+thTCtKqYxfPl1XQ9R8ImF4NbP
+ goAuyux1rHS4ZwHvKRzQs9CtxO9g8vX90L/buvD4N8nz4KFvqINvbhr5x8wqlSQnUYKC
+ h3NVu9vq+O+MpI2c8CISfzg5MasYXMDixS2XdbNR82rD1FVgrH11mYiKr+JX9ItxHxZJ
+ Q70A==
+X-Gm-Message-State: AOJu0Yyb8kKAyjtrGcqbB82OI7M8gtobWoCJ4xKddpAdiwBLdg4ArpqK
+ HzicCIYIEaKpQckWwxhqTpESvZH6K7ChRoAnMFGK3QDe
+X-Google-Smtp-Source: AGHT+IEzcyazkb1ESrHjPhbLcvtwSM3HItoe5JzAkBMFOIvvO0lbcdRd4lYZvlp1b5fYvhmrjoyPG8rXnTjn2u7BzJw=
+X-Received: by 2002:a05:6870:311f:b0:1bf:df47:7b5e with SMTP id
+ v31-20020a056870311f00b001bfdf477b5emr17610831oaa.16.1693925589617; Tue, 05
+ Sep 2023 07:53:09 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20230905142432.99760-1-David.Francis@amd.com>
+In-Reply-To: <20230905142432.99760-1-David.Francis@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 5 Sep 2023 10:52:58 -0400
+Message-ID: <CADnq5_PtnU9OR4-kYJ2MLqyZhhd0N+y=A7XwdqRfFzNSNv1AKg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Handle null atom context in VBIOS info ioctl
+To: David Francis <David.Francis@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,119 +67,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sui Jingfeng <suijingfeng@loongson.cn>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue,  5 Sep 2023 03:57:15 +0800
-Sui Jingfeng <sui.jingfeng@linux.dev> wrote:
+On Tue, Sep 5, 2023 at 10:50=E2=80=AFAM David Francis <David.Francis@amd.co=
+m> wrote:
+>
+> On some APU systems, there is no atom context and so the
+> atom_context struct is null.
+>
+> Add a check to the VBIOS_INFO branch of amdgpu_info_ioctl
+> to handle this case, returning all zeroes.
+>
+> Signed-off-by: David Francis <David.Francis@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 19 ++++++++++++-------
+>  1 file changed, 12 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_kms.c
+> index 3a48bec10aea..86748290ead7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -947,16 +947,21 @@ int amdgpu_info_ioctl(struct drm_device *dev, void =
+*data, struct drm_file *filp)
+>                                         ? -EFAULT : 0;
+>                 }
+>                 case AMDGPU_INFO_VBIOS_INFO: {
+> -                       struct drm_amdgpu_info_vbios vbios_info =3D {};
+> +                       struct drm_amdgpu_info_vbios vbios_info =3D {0};
 
-> From: Sui Jingfeng <suijingfeng@loongson.cn>
-> 
-> On a machine with multiple GPUs, a Linux user has no control over which
-> one is primary at boot time. This series tries to solve above mentioned
-> problem by introduced the ->be_primary() function stub. The specific
-> device drivers can provide an implementation to hook up with this stub by
-> calling the vga_client_register() function.
-> 
-> Once the driver bound the device successfully, VGAARB will call back to
-> the device driver. To query if the device drivers want to be primary or
-> not. Device drivers can just pass NULL if have no such needs.
-> 
-> Please note that:
-> 
-> 1) The ARM64, Loongarch, Mips servers have a lot PCIe slot, and I would
->    like to mount at least three video cards.
-> 
-> 2) Typically, those non-86 machines don't have a good UEFI firmware
->    support, which doesn't support select primary GPU as firmware stage.
->    Even on x86, there are old UEFI firmwares which already made undesired
->    decision for you.
-> 
-> 3) This series is attempt to solve the remain problems at the driver level,
->    while another series[1] of me is target to solve the majority of the
->    problems at device level.
-> 
-> Tested (limited) on x86 with four video card mounted, Intel UHD Graphics
-> 630 is the default boot VGA, successfully override by ast2400 with
-> ast.modeset=10 append at the kernel cmd line.
-> 
-> $ lspci | grep VGA
-> 
->  00:02.0 VGA compatible controller: Intel Corporation CoffeeLake-S GT2 [UHD Graphics 630]
-
-In all my previous experiments with VGA routing and IGD I found that
-IGD can't actually release VGA routing and Intel confirmed the hardware
-doesn't have the ability to do so.  It will always be primary from a
-VGA routing perspective.  Was this actually tested with non-UEFI?
-
-I suspect it might only work in UEFI mode where we probably don't
-actually have a dependency on VGA routing.  This is essentially why
-vfio requires UEFI ROMs when assigning GPUs to VMs, VGA routing is too
-broken to use on Intel systems with IGD.  Thanks,
+IIRC, these should be equivalent.  That said, I believe memset is
+generally preferred as not all compilers seem to handle these cases
+correctly.
 
 Alex
 
->  01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Caicos XTX [Radeon HD 8490 / R5 235X OEM]
->  04:00.0 VGA compatible controller: ASPEED Technology, Inc. ASPEED Graphics Family (rev 30)
->  05:00.0 VGA compatible controller: NVIDIA Corporation GK208B [GeForce GT 720] (rev a1)
-> 
-> $ sudo dmesg | grep vgaarb
-> 
->  pci 0000:00:02.0: vgaarb: setting as boot VGA device
->  pci 0000:00:02.0: vgaarb: VGA device added: decodes=io+mem,owns=io+mem,locks=none
->  pci 0000:01:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
->  pci 0000:04:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
->  pci 0000:05:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
->  vgaarb: loaded
->  ast 0000:04:00.0: vgaarb: Override as primary by driver
->  i915 0000:00:02.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=io+mem
->  radeon 0000:01:00.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=none
->  ast 0000:04:00.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=none
-> 
-> v2:
-> 	* Add a simple implemment for drm/i915 and drm/ast
-> 	* Pick up all tags (Mario)
-> v3:
-> 	* Fix a mistake for drm/i915 implement
-> 	* Fix patch can not be applied problem because of merge conflect.
-> v4:
-> 	* Focus on solve the real problem.
-> 
-> v1,v2 at https://patchwork.freedesktop.org/series/120059/
->    v3 at https://patchwork.freedesktop.org/series/120562/
-> 
-> [1] https://patchwork.freedesktop.org/series/122845/
-> 
-> Sui Jingfeng (9):
->   PCI/VGA: Allowing the user to select the primary video adapter at boot
->     time
->   drm/nouveau: Implement .be_primary() callback
->   drm/radeon: Implement .be_primary() callback
->   drm/amdgpu: Implement .be_primary() callback
->   drm/i915: Implement .be_primary() callback
->   drm/loongson: Implement .be_primary() callback
->   drm/ast: Register as a VGA client by calling vga_client_register()
->   drm/hibmc: Register as a VGA client by calling vga_client_register()
->   drm/gma500: Register as a VGA client by calling vga_client_register()
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 11 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 13 ++++-
->  drivers/gpu/drm/ast/ast_drv.c                 | 31 ++++++++++
->  drivers/gpu/drm/gma500/psb_drv.c              | 57 ++++++++++++++++++-
->  .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 15 +++++
->  drivers/gpu/drm/i915/display/intel_vga.c      | 15 ++++-
->  drivers/gpu/drm/loongson/loongson_module.c    |  2 +-
->  drivers/gpu/drm/loongson/loongson_module.h    |  1 +
->  drivers/gpu/drm/loongson/lsdc_drv.c           | 10 +++-
->  drivers/gpu/drm/nouveau/nouveau_vga.c         | 11 +++-
->  drivers/gpu/drm/radeon/radeon_device.c        | 10 +++-
->  drivers/pci/vgaarb.c                          | 43 ++++++++++++--
->  drivers/vfio/pci/vfio_pci_core.c              |  2 +-
->  include/linux/vgaarb.h                        |  8 ++-
->  14 files changed, 210 insertions(+), 19 deletions(-)
-> 
-
+>                         struct atom_context *atom_context;
+>
+>                         atom_context =3D adev->mode_info.atom_context;
+> -                       memcpy(vbios_info.name, atom_context->name, sizeo=
+f(atom_context->name));
+> -                       memcpy(vbios_info.vbios_pn, atom_context->vbios_p=
+n, sizeof(atom_context->vbios_pn));
+> -                       vbios_info.version =3D atom_context->version;
+> -                       memcpy(vbios_info.vbios_ver_str, atom_context->vb=
+ios_ver_str,
+> -                                               sizeof(atom_context->vbio=
+s_ver_str));
+> -                       memcpy(vbios_info.date, atom_context->date, sizeo=
+f(atom_context->date));
+> +                       if (atom_context) {
+> +                               memcpy(vbios_info.name, atom_context->nam=
+e,
+> +                                      sizeof(atom_context->name));
+> +                               memcpy(vbios_info.vbios_pn, atom_context-=
+>vbios_pn,
+> +                                      sizeof(atom_context->vbios_pn));
+> +                               vbios_info.version =3D atom_context->vers=
+ion;
+> +                               memcpy(vbios_info.vbios_ver_str, atom_con=
+text->vbios_ver_str,
+> +                                      sizeof(atom_context->vbios_ver_str=
+));
+> +                               memcpy(vbios_info.date, atom_context->dat=
+e,
+> +                                      sizeof(atom_context->date));
+> +                       }
+>
+>                         return copy_to_user(out, &vbios_info,
+>                                                 min((size_t)size, sizeof(=
+vbios_info))) ? -EFAULT : 0;
+> --
+> 2.34.1
+>
