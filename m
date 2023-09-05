@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBD61C83F3E
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 19:53:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9E40CA1006
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 19:54:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10D2210E4D3;
-	Tue,  5 Sep 2023 19:53:43 +0000 (UTC)
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C07A10E4D3
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 19:53:41 +0000 (UTC)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-1c0fa9dd74fso2383285fac.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 05 Sep 2023 12:53:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76A6810E4EC;
+	Tue,  5 Sep 2023 19:54:07 +0000 (UTC)
+Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
+ [IPv6:2001:4860:4864:20::35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2270B10E4EC
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 19:54:06 +0000 (UTC)
+Received: by mail-oa1-x35.google.com with SMTP id
+ 586e51a60fabf-1c4c6717e61so2457455fac.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 05 Sep 2023 12:54:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693943620; x=1694548420; darn=lists.freedesktop.org;
+ d=gmail.com; s=20221208; t=1693943645; x=1694548445; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=baBXgK4g6SDhnKLsbLf53kRJe1QC4e6O7SFw1quCrTk=;
- b=dplnK5b9oiv46yVJ5l/KSV/wWbfkKTLdZ2vuViHL6Tdq3x7508YUN94/fZC/gDDvrh
- HLvOUeRVsa1f4PO8H1RFO0mWTpZ6mSRT+tP4Mgy4uHyNijzAuIUlDItzKHrgRQBtO2UY
- UUrC0VDQTcNekmnPDwABbXqFcCYtqA0ubPRftaOl4FAcxqsGw88PYH752elsYHCqPPUg
- Rqwjg4vfNrHEt3RmHYV2iDn1jzXZ8sGmTy1rcjfr2K7LP0PrYpGHocjfNCPsMTytjPMN
- J/R1k9BHH8QMKpvyaHpEGm6hhIWrVgW29sUtQa+RcI6Z/Gz9ArfogT0inxhtbk3E/PR8
- PP6A==
+ bh=himoypY7mdHKaClJbOjUWIjrudKu/HoFop64s4HnL84=;
+ b=PcQy6fr5+AEWX73wGt96rzBhAtXmyDWAtA3lRgcec4j1yJ9xTVEcPnG4ZmcM5P35ch
+ Rrqfpol1M9pGg9JwRuucEX95NJoB1am6Lqif7H7xnUnduOYbC2pwiPCrrrU00izY7pI2
+ H9Bc6f1S9xA6SzW/dKM4wPYVGiFr5JmjE1uuDx0z00yRAjtSoknzTMCczVHT9EAgtv9R
+ fLJ7GeEjfjILYg8GEqKaZcOkKvJZe84ocgls4p+/4IBXgAw+Bi2Yojdttg8tBUxOnjm+
+ oyj3+JiIFRyFj+icfPHbYVYQCsYX5/xxqDJdo37gUKp2F3pzfC5QoC7AXagj6K7o/VTO
+ 3i2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693943620; x=1694548420;
+ d=1e100.net; s=20221208; t=1693943645; x=1694548445;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=baBXgK4g6SDhnKLsbLf53kRJe1QC4e6O7SFw1quCrTk=;
- b=JpZByfdy3p8oTzLUk+pHM1jaWyIvOUQQKgdqMVC3cdlnQ+L7pT9wpB7P5qHsm9zThd
- IldTDHNcO54eVQRvyBLhduXxlpETNzSwNFcSoEOSl6dRbEKFLPS4/TG1ToBuygEBO/GX
- bIndTUTn/BrG30O22ope42+QAwyGrn9gpfj7oAsS4HMQthfJMgkuzOXsGT8xT5m5C3Qo
- 48R7b46Q2w6z3QOPR1oyMmzzj0abrQqem5H+LkAqfjIZFL7H+mHtrFQvytHaFN7LM+/S
- AGdW4X/M5SvzM4HhfjbtSlnTNTomKSGtOQSf2RcWaEi2S5wlhX++dmDw6m6yXU+pG7Zf
- bLmQ==
-X-Gm-Message-State: AOJu0YzOHt36VebX+2KAVqdGOfD6urYDechq9kO3OuZdBUqBe6LZrZaZ
- mbUi1FPnH9bs/c2Ox85Zhk3hENn2A9L/P9kAZO0=
-X-Google-Smtp-Source: AGHT+IHZIRI1pSYZU8oBTPWlR7HOuJdP2d9oCi+XP61eC2kTRhOlGS3geKRy2lUvztXK1VD5NZz+g9y9t7pSRRGHT/Q=
-X-Received: by 2002:a05:6870:6093:b0:1d0:bd4f:d998 with SMTP id
- t19-20020a056870609300b001d0bd4fd998mr18603821oae.55.1693943620322; Tue, 05
- Sep 2023 12:53:40 -0700 (PDT)
+ bh=himoypY7mdHKaClJbOjUWIjrudKu/HoFop64s4HnL84=;
+ b=BXH4g9OlF78RpP0eE0U7zlDJyseQDY3UEm70lNTjkyDDqsLWZk/7KowVFJIDQWGtze
+ IiG84S3okBPeT8qtRz6obeOJ/k5XAmjk+VROmyM7/KAsuS9R7X3Fg6J4H5AwmqEIEKdv
+ aql+V1ff0HkV286JvPxj4jK3X+YfHN1IJeTwlbzbzHsKhMBDoy1qiXs9V/hacsYjOMH8
+ wZWyeNy0b69/nuZTpo5N87/bT4f5CXw3r8T6PesOpAJlSSsP1o36VxoQophIJ3RMDC7g
+ MBdSonuw3NrZHHRoEp/yzjPurdLO5nwO3+tRs0T3Zst0ikXbUpPZDPO0iK0ghNnLba6j
+ DCkw==
+X-Gm-Message-State: AOJu0YzDcrMHI90x2dGtSNHPbRXnhszBhp6BBNNrn/XGFwokhvjXSkUa
+ rfp1A3x/nM3tiRqrdmTFP9hC1+NF7mnfNsLPlfT1KIqQ
+X-Google-Smtp-Source: AGHT+IFBzLP8Y4XoX1g13oUAsvuzXJCpK2Mya43fQvwYw448cBpkSGkaSYpPE4XwD2kDQrXHmSU6d5eyTGawJQaa1kk=
+X-Received: by 2002:a05:6870:a70d:b0:1d0:c224:77eb with SMTP id
+ g13-20020a056870a70d00b001d0c22477ebmr16981236oam.39.1693943645358; Tue, 05
+ Sep 2023 12:54:05 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230905192600.32449-1-mario.limonciello@amd.com>
- <20230905192600.32449-3-mario.limonciello@amd.com>
-In-Reply-To: <20230905192600.32449-3-mario.limonciello@amd.com>
+ <20230905192600.32449-2-mario.limonciello@amd.com>
+In-Reply-To: <20230905192600.32449-2-mario.limonciello@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 5 Sep 2023 15:53:29 -0400
-Message-ID: <CADnq5_NbV=EJvEtWkOLKTUwjkfaTHtbdqvMRBQU=icNQZX59qQ@mail.gmail.com>
-Subject: Re: [PATCH 2/4] drm/amd: Move seamless boot check out of display
+Date: Tue, 5 Sep 2023 15:53:54 -0400
+Message-ID: <CADnq5_O=9jNjVT6KwSzOVqjOw65zb2sD4jstdXpF71PDny8QrA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/amd: Drop special case for yellow carp without
+ discovery
 To: Mario Limonciello <mario.limonciello@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -72,140 +73,44 @@ Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 5, 2023 at 3:50=E2=80=AFPM Mario Limonciello
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+On Tue, Sep 5, 2023 at 3:45=E2=80=AFPM Mario Limonciello
 <mario.limonciello@amd.com> wrote:
 >
-> This will allow base driver to dictate whether seamless should be
-> enabled.  No intended functional changes.
+> `amdgpu_gmc_get_vbios_allocations` has a special case for how to
+> bring up yellow carp when amdgpu discovery is turned off. As this ASIC
+> ships with discovery turned on, it's generally dead code and worse it
+> causes `adev->mman.keep_stolen_vga_memory` to not be initialized for
+> yellow carp.
+>
+> Remove it.
 >
 > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 21 +++++++++++++++++
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 +------------------
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 --
->  4 files changed, 23 insertions(+), 24 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 6 ------
+>  1 file changed, 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 1f846650cc8b..7fb282574fa3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1306,6 +1306,7 @@ void amdgpu_device_pci_config_reset(struct amdgpu_d=
-evice *adev);
->  int amdgpu_device_pci_reset(struct amdgpu_device *adev);
->  bool amdgpu_device_need_post(struct amdgpu_device *adev);
->  bool amdgpu_sg_display_supported(struct amdgpu_device *adev);
-> +bool amdgpu_seamless_boot_supported(struct amdgpu_device *adev);
->  bool amdgpu_device_pcie_dynamic_switching_supported(void);
->  bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev);
->  bool amdgpu_device_aspm_support_quirk(void);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index d45f5ea57583..72a5f77fc7b4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1271,6 +1271,27 @@ bool amdgpu_sg_display_supported(struct amdgpu_dev=
-ice *adev)
->         return true;
->  }
->
-> +/*
-> + * Check whether seamless boot is supported.
-> + *
-> + * So far we only support seamless boot on select ASICs.
-> + * If everything goes well, we may consider expanding
-> + * seamless boot to other ASICs.
-> + */
-> +bool amdgpu_seamless_boot_supported(struct amdgpu_device *adev)
-
-amdgpu_device_seamless_boot_supported() for consistency with the rest
-of the file.
-
-Alex
-
-> +{
-> +       switch (adev->ip_versions[DCE_HWIP][0]) {
-> +       case IP_VERSION(3, 0, 1):
-> +               if (!adev->mman.keep_stolen_vga_memory)
-> +                       return true;
-> +               break;
-> +       default:
-> +               break;
-> +       }
-> +
-> +       return false;
-> +}
-> +
->  /*
->   * Intel hosts such as Raptor Lake and Sapphire Rapids don't support dyn=
-amic
->   * speed switching. Until we have confirmation from Intel that a specifi=
-c host
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 1bb1a394f55f..8961e2ec3b51 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1675,7 +1675,7 @@ static int amdgpu_dm_init(struct amdgpu_device *ade=
-v)
->
->         init_data.flags.seamless_boot_edp_requested =3D false;
->
-> -       if (check_seamless_boot_capability(adev)) {
-> +       if (amdgpu_seamless_boot_supported(adev)) {
->                 init_data.flags.seamless_boot_edp_requested =3D true;
->                 init_data.flags.allow_seamless_boot_optimization =3D true=
-;
->                 DRM_INFO("Seamless boot condition check passed\n");
-> @@ -10924,27 +10924,6 @@ int amdgpu_dm_process_dmub_set_config_sync(
->         return ret;
->  }
->
-> -/*
-> - * Check whether seamless boot is supported.
-> - *
-> - * So far we only support seamless boot on CHIP_VANGOGH.
-> - * If everything goes well, we may consider expanding
-> - * seamless boot to other ASICs.
-> - */
-> -bool check_seamless_boot_capability(struct amdgpu_device *adev)
-> -{
-> -       switch (adev->ip_versions[DCE_HWIP][0]) {
-> -       case IP_VERSION(3, 0, 1):
-> -               if (!adev->mman.keep_stolen_vga_memory)
-> -                       return true;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gmc.c
+> index 5f7641d9f346..27e534b0b8e5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -725,12 +725,6 @@ void amdgpu_gmc_get_vbios_allocations(struct amdgpu_=
+device *adev)
+>         case CHIP_RENOIR:
+>                 adev->mman.keep_stolen_vga_memory =3D true;
+>                 break;
+> -       case CHIP_YELLOW_CARP:
+> -               if (amdgpu_discovery =3D=3D 0) {
+> -                       adev->mman.stolen_reserved_offset =3D 0x1ffb0000;
+> -                       adev->mman.stolen_reserved_size =3D 64 * PAGE_SIZ=
+E;
+> -               }
 > -               break;
-> -       default:
-> -               break;
-> -       }
-> -
-> -       return false;
-> -}
-> -
->  bool dm_execute_dmub_cmd(const struct dc_context *ctx, union dmub_rb_cmd=
- *cmd, enum dm_dmub_wait_type wait_type)
->  {
->         return dc_dmub_srv_cmd_run(ctx->dmub_srv, cmd, wait_type);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index a2d34be82613..4c74245add90 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -825,8 +825,6 @@ int amdgpu_dm_process_dmub_aux_transfer_sync(struct d=
-c_context *ctx, unsigned in
->  int amdgpu_dm_process_dmub_set_config_sync(struct dc_context *ctx, unsig=
-ned int link_index,
->                                         struct set_config_cmd_payload *pa=
-yload, enum set_config_status *operation_result);
->
-> -bool check_seamless_boot_capability(struct amdgpu_device *adev);
-> -
->  struct dc_stream_state *
->         create_validate_stream_for_sink(struct amdgpu_dm_connector *aconn=
-ector,
->                                         const struct drm_display_mode *dr=
-m_mode,
+>         default:
+>                 adev->mman.keep_stolen_vga_memory =3D false;
+>                 break;
 > --
 > 2.34.1
 >
