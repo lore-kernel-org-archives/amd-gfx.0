@@ -4,116 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A8FACA0FE9
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 05:51:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1829BC83F33
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 06:04:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C59AB10E420;
-	Tue,  5 Sep 2023 05:51:09 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2042.outbound.protection.outlook.com [40.107.96.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A708110E420;
- Tue,  5 Sep 2023 05:51:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F4IaaJn78Ey41OngQ8vEWtjd9ZNIikUjzO306QMuzJsi8NnqR5OPq33TW2P3LZziFEVtFYf1XhA0MDYex/yBMi+VEDL7z4qpjUpSTtmJ3bXfRzz14fEAm+jGdrGF11H+yJ7fU5e/2vqSqz8QHDYhWGO1udpFkFVd5GxRDGau6tVHCcJmNoXOGejohvCdXq2VSF1cN+2ylZIpWmwVtE0IYdgt46pBD8aH6LJM72H4UEvdC4JasiO80eiA4aK6EzT53J52VNATlMf8x19FnQOuNVpetWGe2s0QyjiJMK5BHpqMq89zlenBqsTmQpLnrqop6WP5+U9rfMsm3U6IRE+z/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p2E/r4GRYbjeDQn5r7HPULRbP1bylNdKcwYhFyykSno=;
- b=TKrY8kH7Uq+yNv80PA0vdF+zGpd15kyvb9gAEBvKTEQcPJb3KvkJ2J+sQE2RXC3BqVSkFxN6hDdDDdLb2JCt7EIYA8IEpBXGqYmd7gnWcwHX2UU6sYQvV3rv07BXxDsIWLHl3JXUOlOvZhjEjYhbpPAibyNfTIN/mNOadoXo36miZDh7ybnVZFDGghJynU9JchOUUZ9UJlIY39tuqiC+8SYDbw+q/tNf+jciqdrFvHPD6YKvO/MojMs2RWKfhogx7C+4BfpcBVNuqOHF5LA3buKmBlYUEwqSSYdf0jUy4mcOElBiVQnWBOnmU9ees/vX5BpF2EX7LtRNpGQ1bPqPXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p2E/r4GRYbjeDQn5r7HPULRbP1bylNdKcwYhFyykSno=;
- b=jtRRmF4XmMedg4LDzTy9iaavQee+AM6ctxv53noQ1uVyUJZVlitM/xODaOitjmoMcRkFgKyffdUBpe+uEDUEwHkZ/kdefA1dEEnM5l2r0QZa4qgoJhurfrAHdKo11qvFFmG8lK5590mzlPDogA3grlkHbt042Elz/aX8HP4wA/c=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SA0PR12MB4366.namprd12.prod.outlook.com (2603:10b6:806:72::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Tue, 5 Sep
- 2023 05:51:05 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::3d:c14:667a:1c81]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::3d:c14:667a:1c81%4]) with mapi id 15.20.6745.030; Tue, 5 Sep 2023
- 05:51:04 +0000
-Message-ID: <d3e6a9ce-1c7a-8e44-3127-413cd471a8e9@amd.com>
-Date: Tue, 5 Sep 2023 07:50:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [RFC,drm-misc-next v4 3/9] drm/radeon: Implement .be_primary()
- callback
-Content-Language: en-US
-To: Sui Jingfeng <sui.jingfeng@linux.dev>, Bjorn Helgaas <bhelgaas@google.com>
-References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
- <20230904195724.633404-4-sui.jingfeng@linux.dev>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230904195724.633404-4-sui.jingfeng@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0072.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9a::11) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AABC510E423;
+	Tue,  5 Sep 2023 06:04:20 +0000 (UTC)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7E9510E423
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 06:04:19 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-52c4d3ff424so3002254a12.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Sep 2023 23:04:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693893858; x=1694498658; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=mAqztmiFAD1g4DE4iT8A5dUqLGaJDLwE+Y2DLOZmK74=;
+ b=qGwgF3dNJa8z6ObiUEhOw4yA+B7RWQ741GitLYBks7iYS/QexfcOYBck2xr8BhP/ry
+ W1RnO4r/CKuMpoFODQOYHSPuyPSUahV2Pt54hnoX8fjylR1S3KArssGJugjPfznLIm0e
+ 32C6qRvH8e84jG0jOJ59k5qxlt22UBjYY858jc6e715NNxQ7ZVUdkJp16pW5AkSQUbY5
+ DNqHwKGbecKnaxo9/ESNNrdoz4FZ6hDuKTfp96/FtH+1vnfAzOFfaW2Q9qPCaR8u5x9f
+ uKMj3ufwTEtG3A5ovayKTXwcY0DonDvV0QY5z8/lGwHqC2UHTnwcujZXqLtJofEQcZzq
+ Hcyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693893858; x=1694498658;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mAqztmiFAD1g4DE4iT8A5dUqLGaJDLwE+Y2DLOZmK74=;
+ b=VtOZ+0iElXuKcpCTtuyAx7PO9Pdv/Si4MOS/HyqO4iwKpbjMmUwU2To28SKzUYbYti
+ kBqf4vw49Vd0GNbIDnAaKjpKiTsUuEEixZFRV/vnkdRg3iw9Nzohhqkz+whlW48jRcEU
+ Mu5ABzWhKZobu3f9YTSdd9cIY1C5avg4QSxCLkwPe5F8Qr9QvEHI6MFzXTLL+VUzY4hI
+ klgf2r7Pr6h9j26fpwE3jBDcloLmzN6EXUceb+DUuGva+6AtycVVBbJSWctDMsfWs7/z
+ oz9rylAXg3r9kpV21nF9RKhn+IisH0UkJki4UnQ2guZHRHks7PiKLCe6S/CAUI6aXvsl
+ 7wvA==
+X-Gm-Message-State: AOJu0YyB3rufQ+FNpTNXa9K0cFzFcUmgMsYTCPsSN5JCsoQ7f0AJTBTu
+ QFoBf4sn3/6ivdTiw7ks6mltnjI5ApFryQ==
+X-Google-Smtp-Source: AGHT+IEW5WT/AWvn074nMYL+3/PAO2tEnZgOJyVU+GdF3lJtR2XouMzXIGuhf1RTC2m1D9XROQuVag==
+X-Received: by 2002:a50:fc13:0:b0:523:48d7:70b1 with SMTP id
+ i19-20020a50fc13000000b0052348d770b1mr10031258edr.19.1693893857644; 
+ Mon, 04 Sep 2023 23:04:17 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:15d9:7000:2f9d:c07d:1ee2:6439])
+ by smtp.gmail.com with ESMTPSA id
+ f2-20020a056402150200b0052a3b212157sm6631582edw.63.2023.09.04.23.04.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Sep 2023 23:04:17 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: Rework flushing changes to the TLB
+Date: Tue,  5 Sep 2023 08:04:04 +0200
+Message-Id: <20230905060415.1400-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SA0PR12MB4366:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09a4ad45-09d8-44fc-8fa3-08dbadd417bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0soq8oHzqPbabgYld4nqX55qRTp8MnCXE/QmSsRe3d17vL1iVzmATl4FE5KHjd4svxYT29LUpFo9YZ72KHVdMO7/lwh5SSZxs8CyEGYTCfKIPYXayfLWOPt6pKrcyEiUPAyMeiU9xwPT/n4e7JnURbhRs45YuBWFsPkAKQKJJwAGnAQs4Kl0oLcjMetF59TkIYBzu2gbtqGUT9RjwhR06kycgB4pAaFCa5QU/r3dweSPaJ51TTu3Rp4GmzRD+Wpl9u9UImNItEogcEmxIjFCmaPSUo0XKu91pLR4M+WupO/03zw0FVqNqY6r6IjNnl9yyUuGCQvkVuDiX3hJLrFiUO7StgZgaQLgmpl5R4ayD3ik0UwwFdmIZU6bNQFVL7dG6Jy9LA6bJgkP5m9Bki9+lH9K1Nb0DD6nNoVHm7Rvb947xYOIP0zVKE2QVXwTIhVeeau7/fxWbIUOKQP/N/WsA56ocST7CZ8T8COl/hHuVhL6j8c1lRtnAaInAfncaweH2e4Co/62f/Lm7R/nWh6XD44aKRW9KEn6NCVZHBICPV7nTtBt6nOJvbH5o/AFbN5b9S4gNgY/y5UW8HwNJ2+0/7YpIY/JtKbMXEEZMmHBrexpwxoLET4LXEYKMIBC81Vnvsu1t779jSvBRjj9jJnrk0YNArVGBchdBVMkCtCsYQU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(396003)(39860400002)(346002)(366004)(376002)(186009)(451199024)(1800799009)(6666004)(110136005)(54906003)(66556008)(66946007)(66476007)(6486002)(6506007)(316002)(6512007)(41300700001)(478600001)(31686004)(8676002)(4326008)(2616005)(26005)(5660300002)(36756003)(38100700002)(2906002)(8936002)(86362001)(31696002)(83380400001)(142923001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGYxbDFyZEFPazZTaWt1Uysyc1pXaWxkSVJxMU43UEtVNWw5S2xJRFloTmxt?=
- =?utf-8?B?VGNQRnlwNGR1RXVhYzFCRzF2WWNCNks4TUt0SHhWRE5sNWNDUWFVOHk3cHZ1?=
- =?utf-8?B?WW1DOG9zTUhEaTFxVTMzd0IyeGQyNHk1L2xLL012dVVGdGozdWdqeEpRUGpC?=
- =?utf-8?B?WG94NXJsa3hNMnBmeUo4Z2FMSEpyODlKZHJJdVl6a2h5R0VBYXpsSGNzRGoy?=
- =?utf-8?B?cmlCSWk2TjFsNE13STdoZUNyRitGRWxMZHZaTGRkUXV5SkpxY1BqYk5jNlJJ?=
- =?utf-8?B?WnFoWkZTdks3VmJpcW5XcUR0K2xoZmhxbzVkQ1NaWDZWMFk3WnpSTUoxMHdG?=
- =?utf-8?B?ZGFTUy9aNFJseFA1SE5XK0lHNGdlUkhrNEVEQTdOMVhuQVUwc2cySng3MVB5?=
- =?utf-8?B?N3BUNkZtNThtK3hqS2VReFlaSlVxZys4M1UrU1lwYlJmWjUrMUc3b2t6Ylpr?=
- =?utf-8?B?Ni9LMWhhTldTd1cweCtzSnhtSmUvVXp0T1krL0hoc3FOQ0pPTkpnS0h6YW9I?=
- =?utf-8?B?M25Ndkk5M05NL082a2VDRUplYmdIWENyTFF3d3V0Wno3RWRDT0JYQkJxSlBK?=
- =?utf-8?B?TTVnQkNyNWg5V09zT09WakZZVTYyUVhVT25TOUhycVlWdzZIWTRnRFpiZFNz?=
- =?utf-8?B?bEdPYW90YmlBV1ZoQlNkajdaZC9Fb0ViamxCeG90dUdnVVdKZVdrVjIwcHl6?=
- =?utf-8?B?ZGVDYVg1bjMxck1LUWRRc2YzOENxZDlwRHNVL25VTjFoWEc0aDBDd0IwcnFN?=
- =?utf-8?B?ZEc3Z2x1dmJ1WTBKUnJ0RXhjbkVqbHhiSEljenZ5ZDQxZHE2MVdRMm9qeFVK?=
- =?utf-8?B?bUtLMmN6M1EyelNMbTZqR0x5Y3ZSc3IzWmR3c01sY3k1Zk11MzZBdHNQakZq?=
- =?utf-8?B?d1g1NDRCWjZtbmp5VXBEdzVrbGNGU0EvYVhONm1JZzJyQnpWZS8rR0lpTHNH?=
- =?utf-8?B?MGhCMlgxamtxSUhDc0VZc2tybVV2cWpSQk8vM0JxN0gxZkxyR05aRFBLSUdC?=
- =?utf-8?B?RjEzTWVGcnJ5TzRGeEVibFlmbVIzM01GS1FYdTdqV2pIQWtsclpOU21SSlE2?=
- =?utf-8?B?SVZnNTA0eTlIQlBFai9kMGFXZXpwLzBOU1g2ZUZBbzdUYkRoZG9wbk9vYzdZ?=
- =?utf-8?B?UmNoMlJkeGNIWG1JY2l3SU9sV3AzaGR6OUZoSTR6UkVjaHNCU3pnSzVKN3VO?=
- =?utf-8?B?Z1o3Q1JYclVrMVdMYTBiOEFzcHRWMXlNeng5akEwR1FjS0QrSWlYWGx6VlFP?=
- =?utf-8?B?VDhrbytDTXg0WUhnOTZCRVFWMFZoSGhXdUs1eUhGTWt2OS9NaExRYjE4RE9k?=
- =?utf-8?B?Q2pjejhmLy84TVJXQ2NuRXpoTlUzL0pkNW5zUDZ2a0RHczNVSGJ2anJZWDg0?=
- =?utf-8?B?bzh4Tnl6TnMvRnRFZW8yM3Q0ZFNJbWZVc1BkRkIrOEszWHhZMm5OQkI4WUQr?=
- =?utf-8?B?N0c1VFpEREh1VFVJODkxUUd2dWw2MXhoL1ZWd2U4TmtEeGZvVnhUUzlzSVY1?=
- =?utf-8?B?T0x1enc4UEM0SUlvSWVSalFkQ1BoTEtZZi84U1J4ZFNuWUJUeW1KL2JScTRV?=
- =?utf-8?B?cHIxcXoyeXloWFQyTitxUlowZEVYU3EyN2djbTdXRGtxZkd1eUtTekVTd3Aw?=
- =?utf-8?B?SXp6bUxmVzZNWlRyWVRiYitPeGJUU0gxVmN4YXY0UllFdUZFcXZKVnh3TGl6?=
- =?utf-8?B?QWIrMDBjYVNueVJPSWIwWERKVUNJMkhzV2IxNWUvZEdqcVhzVGw5TnJJVk5m?=
- =?utf-8?B?dE8ydnN0YVkwS3lhNDg4a1l1elRaRHJPaWN1dURxNkYvTzlnUERUSFBpNi90?=
- =?utf-8?B?VmVvdTZDRjRtUkVzY3JzbWhPcFFlaWhBN2hrNU1FckFuUCtyZDV4d2ZmM25r?=
- =?utf-8?B?OWY1R3VIS0VkaHBSek13RkxabERBUHFKczI4MXprTlY4ZzdOME5tOVo4ZTZv?=
- =?utf-8?B?QVZyZnA3cFk5cXErbjJWVXoyMTdPc0NzM3hBNU1YTGpZYjBNTmNqWi9Dd04x?=
- =?utf-8?B?RlltanJoa2JKalhXdTlxOXBtOXZCK2VCWVJ3Wmd1OGlISVRVMXp3aVFTNVRr?=
- =?utf-8?B?eHRUemxMazc4ZGlRNVBKOFQ0aEZQcDk1bFFTZXpDemJhdERja0dIcUFwNDBP?=
- =?utf-8?Q?5lU0k0p+X6uXQLMkRxHAufkys?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09a4ad45-09d8-44fc-8fa3-08dbadd417bf
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2023 05:51:04.8794 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5ha3nvYScTZ61pZVv0zNgnmZjQnm/HU6Gr017yrZjGg/nuHA2vz2hnZiRL0xBVO+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4366
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,65 +72,23 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sui Jingfeng <suijingfeng@loongson.cn>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: shashank.sharma@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 04.09.23 um 21:57 schrieb Sui Jingfeng:
-> From: Sui Jingfeng <suijingfeng@loongson.cn>
->
-> On a machine with multiple GPUs, a Linux user has no control over which one
-> is primary at boot time.
+Hi guys,
 
-Question is why is that useful? Should we give users the ability to 
-control that?
+as discussed internally the MES and KFD needs some form of TLB fence
+which signals when flushing VM updates out to the hardware is completed
+and resources can be freed.
 
-I don't see an use case for this.
+As prerequisite to this we need to rework all the different workarounds
+and approaches around TLB flushing to be at a higher level.
 
-Regards,
+While at it fix a bunch of bugs in that code which could trigger in
+certain situations.
+
+Please review,
 Christian.
 
->   This patch tries to solve the mentioned problem by
-> implementing the .be_primary() callback. Pass radeon.modeset=10 on the
-> kernel cmd line if you really want the device bound by radeon to be the
-> primary video adapter, no matter what VGAARB say.
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
-> ---
->   drivers/gpu/drm/radeon/radeon_device.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-> index 71f2ff39d6a1..b661cd3a8dc2 100644
-> --- a/drivers/gpu/drm/radeon/radeon_device.c
-> +++ b/drivers/gpu/drm/radeon/radeon_device.c
-> @@ -1263,6 +1263,14 @@ static const struct vga_switcheroo_client_ops radeon_switcheroo_ops = {
->   	.can_switch = radeon_switcheroo_can_switch,
->   };
->   
-> +static bool radeon_want_to_be_primary(struct pci_dev *pdev)
-> +{
-> +	if (radeon_modeset == 10)
-> +		return true;
-> +
-> +	return false;
-> +}
-> +
->   /**
->    * radeon_device_init - initialize the driver
->    *
-> @@ -1425,7 +1433,7 @@ int radeon_device_init(struct radeon_device *rdev,
->   	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
->   	/* this will fail for cards that aren't VGA class devices, just
->   	 * ignore it */
-> -	vga_client_register(rdev->pdev, radeon_vga_set_decode, NULL);
-> +	vga_client_register(rdev->pdev, radeon_vga_set_decode, radeon_want_to_be_primary);
->   
->   	if (rdev->flags & RADEON_IS_PX)
->   		runtime = true;
 
