@@ -4,49 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D185EC83F33
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 10:38:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78C8AC83F2C
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 10:40:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B830C10E49D;
-	Tue,  5 Sep 2023 10:38:48 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57D3A10E48D;
- Tue,  5 Sep 2023 10:38:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693910325; x=1725446325;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=FOrzDSmYIDB82+DRnZRNZGG7/K5RvZ9RHJth/JxCWCI=;
- b=V72mRxoSMB66O+P+dlm6J0qHfoDjQjzvfFgOFJQdQPjQOpNeFLcwxT7h
- vZM86uQqSriaHQMH02xcocxxCv2EmjbkqHXknTBjWeKPdD7NxNLUGSnI2
- ZNMyvP7xr5o/TzqZryILoEMzN4gevU9F8PNXgLz1VGXdIWT2AKBFEU+60
- HTrcaP8Ot7+TxakDCmrvqUvBTMOb5NZ/ZOvE2XLtHdwTuO/rssR1OL9yn
- tFIiZUSEqYgQln6441CWvXOErLunEW2rAbjatTdPIoocAl3+OWWbouTli
- W221IM4+pnVo0Iy39FWfeDSOTgN5al/nx6aSRjkzZGv4sBZtf09HFCnlV g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10823"; a="379484065"
-X-IronPort-AV: E=Sophos;i="6.02,229,1688454000"; d="scan'208";a="379484065"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2023 03:38:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10823"; a="987784595"
-X-IronPort-AV: E=Sophos;i="6.02,229,1688454000"; d="scan'208";a="987784595"
-Received: from amyachev-mobl3.ccr.corp.intel.com (HELO localhost)
- ([10.252.60.152])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2023 03:38:41 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Sui Jingfeng <sui.jingfeng@linux.dev>, Bjorn Helgaas <bhelgaas@google.com>
-Subject: Re: [RFC, drm-misc-next v4 0/9] PCI/VGA: Allowing the user to
- select the primary video adapter at boot time
-In-Reply-To: <20230904195724.633404-1-sui.jingfeng@linux.dev>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
-Date: Tue, 05 Sep 2023 13:38:39 +0300
-Message-ID: <874jk8j45s.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DE1F10E045;
+	Tue,  5 Sep 2023 10:40:18 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06FE010E045
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 10:40:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PhPSGlXjKTZrRZ1dyhGpY/54nhMwW1olMvHk1I9Z5Q8rP5EfhiuugBK2zaatSTxq4WqFpb7lfWt+I9JYY+6A+zuusO9XBKM+tjmU+bS+7wPWJNCbH/a244TOurv7CjPD3ZDnFSMZvUwN7OghnVpVvvj+gTnRKPOPgAGPwolJXCC+asPvgmxKBzWOGV4TYCbSeYbmMOjGbFTaCIeDN+0VcfslashzhziX8jidiOVYFDMkfIIZ5WTMWH2TNQx3iwHRvWoq9zEm7R6M1arSICRruGjzDYeGI7oL003IYpN0Bi0uq18bE0ThHp6pfmouZq6SEFGIC2e4TqueA/O3hYXcWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C/WHZGyCbwzbnKVW/m0ylChq3CPPiD/lNvT/n1ik0xI=;
+ b=Mula7fO9hhUjLVg6lnP90AlvwxvDcA0KbhITb9DdnJpHX+bggRvZOwq7P0rUCoWt7/7ve7x8bT0t3Rjz2LZB0wppCPLr+GTXUxQ2lAoDMh8QDE14yJg+jkrYEVEQ3Rw8PWEaSJI4qnQaVPtfKsVF+IH6f8MmJLu8zlAYHHSFg9/1enJOMmVmwGnMJklblfF9QMkLXYdhGILfD3lpWE5Agu1hSATrQ7ZMo93Gi25w6ggAutMsGl/b+f/vQr0gG9gfRlv4wv0mrB2UIdNltv6TPk3btZe1YL9tQ2lmkqYnCxgyVSIyY4rEMuF3GpTYVh10D2J+U77xuM8HYJ6j0FFRVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C/WHZGyCbwzbnKVW/m0ylChq3CPPiD/lNvT/n1ik0xI=;
+ b=iC3XYt+3otcWzViLMrKsmXZAvNolCEToKU+vdArynkM563dafInCUUuUnppnh3mD2n4GWupFySVPvzHOXxudF8329ckPGA99xcc+spTlKJ4paM5OGLLTl3KtWUGv0tJJQuvGXkTGXUSJfJtBb4IuRfnLqRe/DXYXibLkyj6CVe0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6351.namprd12.prod.outlook.com (2603:10b6:8:a2::6) by
+ IA1PR12MB6092.namprd12.prod.outlook.com (2603:10b6:208:3ec::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Tue, 5 Sep
+ 2023 10:40:13 +0000
+Received: from DM4PR12MB6351.namprd12.prod.outlook.com
+ ([fe80::d713:8aa1:8769:af10]) by DM4PR12MB6351.namprd12.prod.outlook.com
+ ([fe80::d713:8aa1:8769:af10%7]) with mapi id 15.20.6745.030; Tue, 5 Sep 2023
+ 10:40:13 +0000
+Message-ID: <eb33aa99-1f84-eb4a-6230-36cc32b161b0@amd.com>
+Date: Tue, 5 Sep 2023 18:40:04 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.0
+Subject: Re: [PATCH] drm/amd: Fix the flag setting code for interrupt request
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alexander.Deucher@amd.com
+References: <20230904060501.2942018-1-Jun.Ma2@amd.com>
+ <22adf274-ba4e-63d5-df8f-f7cafdb1075b@amd.com>
+From: "Ma, Jun" <majun@amd.com>
+In-Reply-To: <22adf274-ba4e-63d5-df8f-f7cafdb1075b@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR01CA0042.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:193::23) To DM4PR12MB6351.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::6)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6351:EE_|IA1PR12MB6092:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd1cbc33-ec9b-4eb8-98c0-08dbadfc7c22
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: sHUH6Es0OCmSWDEuktmJQT4U7sYelMLVtDfqqyt1NRKsLmIKlO1JQUkd06bx4Ubi8qQuB+wyudycvxv2ICbWEPK6sRbenE2UCcvRrkm4Wy7sFSETs3H5/1sDyEf/NLR2881+zH95a4M+SgULYw3SwVMpJtqz+OhcVaUlHtMMGc7HivaPKIZEvz7dIEiROsFLDfsgbq7KrgCoCPDI8Jmaqv2+M/A7b8UiFIZMyfbU3LBDYT6ivFrLY2jVogm3pATSNNXKqxCYdm1J6I7Q9MPYjlVoVqHgYsOvPU4mPOSsOwktQ4henmeuL6CAf5sp+ADJoPj3cyU1AcDw2v8a3TeNYrNvIWHOGLL2dfebWI9P6ZWB65RlhJL60/9I4+i2aT4icaZhGZi3Q/pqc6l08/DZ6dYCDmqVUE6Hy27GeKjkwwpcgv+uqPQbard1XgZl84Tc8oNbmdnVBhsDumFchDqC+lN3zhChAcEdjqU/JZSyo5xrqKJJmU1t4ZdwJ7WZNFwmymuFW25i9JYpFRPYS1YBk5qr2YrEx/57sTruzWpb6OFvAvcFJHE92VK9zDeg5P/+241zeax5w/TZxRxUmwE13G8SnA6gtpdVsKriujrY9U2dO2VjviwZopObrRvU9I0RO8KaE4z/ziTjztKSznTygA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6351.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(39860400002)(346002)(376002)(136003)(366004)(186009)(1800799009)(451199024)(5660300002)(38100700002)(478600001)(6666004)(316002)(6636002)(66946007)(66476007)(66556008)(110136005)(41300700001)(4326008)(8936002)(8676002)(83380400001)(31696002)(2906002)(26005)(66574015)(36756003)(31686004)(6512007)(53546011)(2616005)(6486002)(6506007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cWh4M0R1REIvNkJ0TW80QzhHVTdWQy9IQyt1TDUvVUNSU0JpdGFTR3ZTaE5U?=
+ =?utf-8?B?OFF1UHFVSmZJcS9mUHgrMUVHeDczcjVmM1NvZFE0S0FKVUZlTERIVi9IekV1?=
+ =?utf-8?B?ZHFtdUFlVC9YWmNEVGptOEhvaUpjbzY0WGt6VkRwWlZlR1Z0d0VmNWdmZzdr?=
+ =?utf-8?B?UE9yRTBQUnBtYW9tbU9ENWdHcjlFcVRTQU50TzRFNEpUTzdpRU9KNGJtc1Mx?=
+ =?utf-8?B?Q0JhUDlXRmwvalNYc1VGVGtxdCtnemtrWnhKanQrQytvSmg5RzFZNGtzNndl?=
+ =?utf-8?B?ZjFCMmZnbFV3cUo1NDJYSjVxTjV4ZzJmWi9Pd1VSYUUxUDYrTFVJb2JxS2t1?=
+ =?utf-8?B?YnphL21xREIwZ1J4bGw0c3JNd1VGczRFVnNPNkp2SGQwWFpSdy93eDJFV3RZ?=
+ =?utf-8?B?ZFlZVEdSa1YyUisxNitSTWJ5dXBsNjFUaXY0Q3BlWkhBN0Z2TnRzMkZnU1JQ?=
+ =?utf-8?B?ak5JQ0Nzc2VMVFE4SUdDNmcxV09oYlJ4R2ZLRzFHQlY5TTV6andvYi9ZUklL?=
+ =?utf-8?B?TTRKdCsvbkFPYkd5UFVXMlpWTlpCejhyQWE2bUNkall4OFBlVFI2MXhKdDdU?=
+ =?utf-8?B?eTJHV3lESS8vbGRKa2JDNTI2alA3NWtJSWg5aTV4cW4rOHgzSkREaGNJaEVX?=
+ =?utf-8?B?NG1lWUJiMFhqaEJwZ1JIRkVNbjR6THJBbW4rbUF5Q2k2eVp6eXovUlJVN3F3?=
+ =?utf-8?B?ZTRXN0tGNkxUTkYrVTBYeXpXR3I3NmptSklRU2RHN1ZoV2ZSQTB3U0tUZkE1?=
+ =?utf-8?B?MUtCVnN2NU5ubE1zZ1VGcDlYcVZFUUYvN2tpSXZKRTFwYVR4dFpORStqMW90?=
+ =?utf-8?B?dU94TmxCeTY2Ym5Mb3pqZXY0cW52SkJkYnNZS2JNS0lWeFNlSDg0RzRwQlFW?=
+ =?utf-8?B?NmxHcFRpVnZTQ2FRUll6YjZWdW9uVHBEVEdiYXBhWmxJS1piSmZRVTdJWnI0?=
+ =?utf-8?B?cDhvclBPbGNzTW41bXpJVE56aS85c1ZGbitLNktKNE1WdWxUaFl1OEZUZUcz?=
+ =?utf-8?B?MnJ3bXhzamJ2dXZxTWVodTdnYnIwQVN5U2w0cnRWaThCMmkxblNId0Nnb2dF?=
+ =?utf-8?B?YmdjYkVKaUNYUWVhNnpvSHJ4TEo0anIxKzRTdFpOV0U3MzVkU05zSnRXNGdE?=
+ =?utf-8?B?elBMRHZPR2FBdGhiWFBiNURsMm9zV0taTERyVGlGNlFPaUxPRVMvQU9Vdno1?=
+ =?utf-8?B?aXVoclZ3QjhWRWRyb21Fa3FKdDBWY0JvamhOVWJUWXJZSWRGelkvNmZJS0hw?=
+ =?utf-8?B?TmlvODRmTExONGsvZi9jUWp2cENnOUVZVE9jdHAyMzc0RVFSRE1QYUZpRXp0?=
+ =?utf-8?B?Q0RuUnB6dnlyUEE0TFpndDBiejJLY2NiSWtJb01jZVpWeXlLYzA3RUV1RWNM?=
+ =?utf-8?B?Y2dTakRSb0dsbkxuc0RmdE95bExpYlZDcXA4RDVEM1VOcUNycWRsTC92K0Nn?=
+ =?utf-8?B?dDk4UVIveXFkYkpqWHZMaEJGYmhzS3RoWm1lNllqbjBHTDBkY3V0eXJGblFZ?=
+ =?utf-8?B?M1VpbFZ2OWlzWlBKT2xlNFYxNm9wZ2pHVDB1R1V3KzdQamhRK2d5NmNSNFlG?=
+ =?utf-8?B?aEhMVXR6MjFSTVJ4Zkp4UzdVWTJ6d2VTSHMwWWQ3T2o2b3hoUjd2d3Y4QkE3?=
+ =?utf-8?B?eTZxUXVFSC94dWIva3Q5Q2JPd1c5U1EwSnJ5eEFRcGJIeGNxNXZuejhuWCtI?=
+ =?utf-8?B?Q20wZk83cWkyWUtjYzlGWTlFb3NYZ3pIMDlPeEJ5ZnphOXNjbFMyV0NwM2pi?=
+ =?utf-8?B?RU5Kb2N0YTg1VHM2bGJiaGQ5WWJMTk5xVHNGMWJTdXkrR04zVENKN3hVYkhO?=
+ =?utf-8?B?bnlkajc2QUFNZk10RENHU05WQnhWdHBKZ2lhMnd2TURTVUtuWkhOdmNGbEVa?=
+ =?utf-8?B?Y1Q0a3lWQVRDSzMzN3VJWWxxb0plQWZ3WWpDRzg1dTRPaUw4NEJBVlpib2Ra?=
+ =?utf-8?B?c1d3OWF1a0NyaHNFTHFwUGpKTExVUExqSDV3dUJrL2ZHVzZDWUxYYVlRNXRK?=
+ =?utf-8?B?RmFjZHUrakZ6V0YwcVQwUFExQXFsQTREVjlzbUhjM25JeHZTSC82dFVCM2l5?=
+ =?utf-8?B?RnJCNkZ0V3ZtSS94ZGZST2FWN2FuWGxVU3JGYnN4K041WTZoMEV0N0dBbThO?=
+ =?utf-8?Q?FWjU7c+SpCwYlL5IPcw5hyBs1?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd1cbc33-ec9b-4eb8-98c0-08dbadfc7c22
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6351.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2023 10:40:13.0400 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ll5cmrLcNeB2XyqiV0s5nXx4MJ4nTAYC0PRpLtwfL3qgVGAfr4dR8rQzypfue0T7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6092
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,116 +126,117 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sui Jingfeng <suijingfeng@loongson.cn>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-pci@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 05 Sep 2023, Sui Jingfeng <sui.jingfeng@linux.dev> wrote:
-> From: Sui Jingfeng <suijingfeng@loongson.cn>
->
-> On a machine with multiple GPUs, a Linux user has no control over which
-> one is primary at boot time. This series tries to solve above mentioned
-> problem by introduced the ->be_primary() function stub. The specific
-> device drivers can provide an implementation to hook up with this stub by
-> calling the vga_client_register() function.
->
-> Once the driver bound the device successfully, VGAARB will call back to
-> the device driver. To query if the device drivers want to be primary or
-> not. Device drivers can just pass NULL if have no such needs.
->
-> Please note that:
->
-> 1) The ARM64, Loongarch, Mips servers have a lot PCIe slot, and I would
->    like to mount at least three video cards.
->
-> 2) Typically, those non-86 machines don't have a good UEFI firmware
->    support, which doesn't support select primary GPU as firmware stage.
->    Even on x86, there are old UEFI firmwares which already made undesired
->    decision for you.
->
-> 3) This series is attempt to solve the remain problems at the driver level,
->    while another series[1] of me is target to solve the majority of the
->    problems at device level.
->
-> Tested (limited) on x86 with four video card mounted, Intel UHD Graphics
-> 630 is the default boot VGA, successfully override by ast2400 with
-> ast.modeset=10 append at the kernel cmd line.
 
-The value 10 is incredibly arbitrary, and multiplied as a magic number
-all over the place.
 
-> $ lspci | grep VGA
->
->  00:02.0 VGA compatible controller: Intel Corporation CoffeeLake-S GT2 [UHD Graphics 630]
->  01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Caicos XTX [Radeon HD 8490 / R5 235X OEM]
->  04:00.0 VGA compatible controller: ASPEED Technology, Inc. ASPEED Graphics Family (rev 30)
->  05:00.0 VGA compatible controller: NVIDIA Corporation GK208B [GeForce GT 720] (rev a1)
+On 9/5/2023 1:24 PM, Christian König wrote:
+> Am 04.09.23 um 08:05 schrieb Ma Jun:
+>> [1] Remove the irq flags setting code since pci_alloc_irq_vectors()
+>> handles these flags.
+>> [2] Free the msi vectors in case of error.
+>>
+>> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 43 ++++++++++++++-----------
+>>   1 file changed, 25 insertions(+), 18 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+>> index fa6d0adcec20..17043a1e37a5 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+>> @@ -271,28 +271,28 @@ static void amdgpu_restore_msix(struct amdgpu_device *adev)
+>>   int amdgpu_irq_init(struct amdgpu_device *adev)
+>>   {
+>>   	int r = 0;
+> 
+> While at it please remove the assignment here.
+> 
+> Unless really necessary initializing local variables is rather frowned upon.
+> 
 
-In this example, all of the GPUs are driven by different drivers. What
-good does a module parameter do if you have multiple GPUs of the same
-model, all driven by the same driver module?
+Thanks for review. Will fix it in the next version.
 
-BR,
-Jani.
+Regards,
+Ma Jun
 
->
-> $ sudo dmesg | grep vgaarb
->
->  pci 0000:00:02.0: vgaarb: setting as boot VGA device
->  pci 0000:00:02.0: vgaarb: VGA device added: decodes=io+mem,owns=io+mem,locks=none
->  pci 0000:01:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
->  pci 0000:04:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
->  pci 0000:05:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
->  vgaarb: loaded
->  ast 0000:04:00.0: vgaarb: Override as primary by driver
->  i915 0000:00:02.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=io+mem
->  radeon 0000:01:00.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=none
->  ast 0000:04:00.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=none
->
-> v2:
-> 	* Add a simple implemment for drm/i915 and drm/ast
-> 	* Pick up all tags (Mario)
-> v3:
-> 	* Fix a mistake for drm/i915 implement
-> 	* Fix patch can not be applied problem because of merge conflect.
-> v4:
-> 	* Focus on solve the real problem.
->
-> v1,v2 at https://patchwork.freedesktop.org/series/120059/
->    v3 at https://patchwork.freedesktop.org/series/120562/
->
-> [1] https://patchwork.freedesktop.org/series/122845/
->
-> Sui Jingfeng (9):
->   PCI/VGA: Allowing the user to select the primary video adapter at boot
->     time
->   drm/nouveau: Implement .be_primary() callback
->   drm/radeon: Implement .be_primary() callback
->   drm/amdgpu: Implement .be_primary() callback
->   drm/i915: Implement .be_primary() callback
->   drm/loongson: Implement .be_primary() callback
->   drm/ast: Register as a VGA client by calling vga_client_register()
->   drm/hibmc: Register as a VGA client by calling vga_client_register()
->   drm/gma500: Register as a VGA client by calling vga_client_register()
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 11 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 13 ++++-
->  drivers/gpu/drm/ast/ast_drv.c                 | 31 ++++++++++
->  drivers/gpu/drm/gma500/psb_drv.c              | 57 ++++++++++++++++++-
->  .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 15 +++++
->  drivers/gpu/drm/i915/display/intel_vga.c      | 15 ++++-
->  drivers/gpu/drm/loongson/loongson_module.c    |  2 +-
->  drivers/gpu/drm/loongson/loongson_module.h    |  1 +
->  drivers/gpu/drm/loongson/lsdc_drv.c           | 10 +++-
->  drivers/gpu/drm/nouveau/nouveau_vga.c         | 11 +++-
->  drivers/gpu/drm/radeon/radeon_device.c        | 10 +++-
->  drivers/pci/vgaarb.c                          | 43 ++++++++++++--
->  drivers/vfio/pci/vfio_pci_core.c              |  2 +-
->  include/linux/vgaarb.h                        |  8 ++-
->  14 files changed, 210 insertions(+), 19 deletions(-)
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+> Apart from that Alex needs to take a look at this, I'm not that familiar 
+> with this code.
+> 
+> Christian.
+> 
+>> -	unsigned int irq;
+>> +	unsigned int irq, flags;
+>>   
+>>   	spin_lock_init(&adev->irq.lock);
+>>   
+>>   	/* Enable MSI if not disabled by module parameter */
+>>   	adev->irq.msi_enabled = false;
+>>   
+>> +	if (amdgpu_msi_ok(adev))
+>> +		flags = PCI_IRQ_MSI | PCI_IRQ_MSIX;
+>> +	else
+>> +		flags = PCI_IRQ_LEGACY;
+>> +
+>> +	/* we only need one vector */
+>> +	r = pci_alloc_irq_vectors(adev->pdev, 1, 1, flags);
+>> +	if (r < 0) {
+>> +		dev_err(adev->dev, "Failed to alloc msi vectors\n");
+>> +		return r;
+>> +	}
+>> +
+>>   	if (amdgpu_msi_ok(adev)) {
+>> -		int nvec = pci_msix_vec_count(adev->pdev);
+>> -		unsigned int flags;
+>> -
+>> -		if (nvec <= 0)
+>> -			flags = PCI_IRQ_MSI;
+>> -		else
+>> -			flags = PCI_IRQ_MSI | PCI_IRQ_MSIX;
+>> -
+>> -		/* we only need one vector */
+>> -		nvec = pci_alloc_irq_vectors(adev->pdev, 1, 1, flags);
+>> -		if (nvec > 0) {
+>> -			adev->irq.msi_enabled = true;
+>> -			dev_dbg(adev->dev, "using MSI/MSI-X.\n");
+>> -		}
+>> +		adev->irq.msi_enabled = true;
+>> +		dev_dbg(adev->dev, "using MSI/MSI-X.\n");
+>>   	}
+>>   
+>>   	INIT_WORK(&adev->irq.ih1_work, amdgpu_irq_handle_ih1);
+>> @@ -302,22 +302,29 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
+>>   	/* Use vector 0 for MSI-X. */
+>>   	r = pci_irq_vector(adev->pdev, 0);
+>>   	if (r < 0)
+>> -		return r;
+>> +		goto free_vectors;
+>>   	irq = r;
+>>   
+>>   	/* PCI devices require shared interrupts. */
+>>   	r = request_irq(irq, amdgpu_irq_handler, IRQF_SHARED, adev_to_drm(adev)->driver->name,
+>>   			adev_to_drm(adev));
+>>   	if (r)
+>> -		return r;
+>> +		goto free_vectors;
+>> +
+>>   	adev->irq.installed = true;
+>>   	adev->irq.irq = irq;
+>>   	adev_to_drm(adev)->max_vblank_count = 0x00ffffff;
+>>   
+>>   	DRM_DEBUG("amdgpu: irq initialized.\n");
+>>   	return 0;
+>> -}
+>>   
+>> +free_vectors:
+>> +	if (adev->irq.msi_enabled)
+>> +		pci_free_irq_vectors(adev->pdev);
+>> +
+>> +	adev->irq.msi_enabled = false;
+>> +	return r;
+>> +}
+>>   
+>>   void amdgpu_irq_fini_hw(struct amdgpu_device *adev)
+>>   {
+> 
