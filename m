@@ -4,120 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 524FFCA1001
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 20:13:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A62FBCA100E
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 20:46:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3530310E506;
-	Tue,  5 Sep 2023 20:13:49 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20630.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eb2::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8087010E506
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 20:13:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YGWIWVQy3pHSpyz9UrPSLoO4yU0hcHAGpBZ0+EgU+7CeLxn6PJRYghhqkVXXJcnapZkJ1Fs80p1vcUPIp5vS5L0ac80aDfHC0x9C1XgRTGjaVMuuwUMYE37iv7dOcD8osMEUoCXWzK6uMBlAunG3NvDwB4czCFR7w4gxJekK1V8KCTG7GYaNiVpH1JlTZT0yHwMdmgtfu+MtsJaVDfM7SDVQVB4gnUehk3Knfo34/YX2ik4Tr2wO17B6hMvEL3AQgQlRDBdgvbNrHnW5Z+RWHYKSzmKdAo5Wfq4Mz+cEQFsDd9qW49HQs8OG/X1IzUW0sDlN8vsr3iqoG5HN9RdhmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rFLrsPc49s5rWmsXBbDTw4dMzLcLhsiOnOHtd7DPd28=;
- b=Qvv5+s8vlW3QpDQ9p3bZpw9sb+zE0eWEncg01c0TvG+9XGyJ2R2qqb+GH7+nQFujjZhmg/wUBFDP9Q04Sm1x6qDwR9OR73MkkYyVDrbKj//Nc+hZBrcHZ764WiB+bp2qB5pEEAa6RM03VwnTC6kZ57Loi/RHNqY9SbI8+k8C8Y860x5By1I96yJvdKKJg4Bq+48CCUSS2s9ekuQ90RdHbIX7uFf1DK5in+jIB72YTILXeADpC+ued9NfJ7Nxm9hOJn55yxNlency9G821LoqOoCcG7wJEsRC+mAjt7AYhsCZlJO3TAcFRBA+bMox6jkwYu/3Svpb/OvqVyq2K/zZOw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rFLrsPc49s5rWmsXBbDTw4dMzLcLhsiOnOHtd7DPd28=;
- b=Jn9IHcMr9U+lIxMbleZFX2ZoU/rMY/1vmCgGqYWlmMfz1LfUAUkmnsxJgfK6zW684MFFaMYRx/nfdtc23+tjvKKpAiMeqVbdYSb+21Tr9AuD+a5S+aFnpRDEDZqr/ZaOS8t+0f8MKQWKDbBPcx9TZYGEWgBdAzSlLd86ji33eSA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by CH3PR12MB9315.namprd12.prod.outlook.com (2603:10b6:610:1cf::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Tue, 5 Sep
- 2023 20:13:43 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::36f9:ffa7:c770:d146]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::36f9:ffa7:c770:d146%7]) with mapi id 15.20.6745.030; Tue, 5 Sep 2023
- 20:13:43 +0000
-Message-ID: <e6a7c26c-be62-43f0-9f37-0ae9b87d958c@amd.com>
-Date: Tue, 5 Sep 2023 15:13:41 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] drm/amd: Enable seamless boot by default on newer APUs
-Content-Language: en-US
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>
-References: <20230905192600.32449-1-mario.limonciello@amd.com>
- <20230905192600.32449-5-mario.limonciello@amd.com>
- <BL1PR12MB51442B9145F7143B49458E78F7E8A@BL1PR12MB5144.namprd12.prod.outlook.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <BL1PR12MB51442B9145F7143B49458E78F7E8A@BL1PR12MB5144.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DM6PR02CA0165.namprd02.prod.outlook.com
- (2603:10b6:5:332::32) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F0E110E511;
+	Tue,  5 Sep 2023 20:46:08 +0000 (UTC)
+Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
+ [IPv6:2607:f8b0:4864:20::c2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D693510E511
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 20:46:05 +0000 (UTC)
+Received: by mail-oo1-xc2b.google.com with SMTP id
+ 006d021491bc7-57325fcd970so1842861eaf.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 05 Sep 2023 13:46:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693946765; x=1694551565; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wqpjwkvc/VyR45JuNKy6svbgiknMW28iQgRQOh1ZTNo=;
+ b=b3/v5O77U8QGIi72S3YT1iNR+axo5PcSy7bkGSQ2PdhtwILBJYz9SOrqI+dC9iP4tQ
+ pSiUF9fByHHbhv5ladMccgCLSMudH5Jk2XNrPWh3vwHwSwbqpYPGXK5xfTTvO3fnp7xE
+ K1QkpbMGB22+ISiHQR1FXgsVOGOu1ogfH+CY1Bhgc2dVfOaVkTNKk0+WXs3idHdRJX/N
+ kR+5MrmB9BSwmof4LeIEY3Jk3KyE3eOphr1EwUB0MZT1jfZFm4bEHBwRhG1cx4vBMHW3
+ 4ACmFXypOTZ3tQia/WRTjVQ/r6OA+9l7NKBzZxKZVgpTMtmTSl/GQinHpzMlYE/JTT09
+ 058A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693946765; x=1694551565;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wqpjwkvc/VyR45JuNKy6svbgiknMW28iQgRQOh1ZTNo=;
+ b=AiBWMA/zOARly+9vBuyt3AKIlteYmaQgIcNbKNfb1kC+wfT2GzJ7UYjwzEmrGMCMaw
+ LrnzDMiH6BsNcPBXTojOdYpddmAGPBMlB0RJsIjs/AvpeAhrsxwH5ZiTJs1nGnEy+n15
+ KIE8JGK4yM5ktTCi87WBdJB6La4DnhpjFh6o4npzYzMtI04TCehT9uxcGCB1GDtnXuPx
+ ZzgF8VZPkcmhJ08Rp8tZWS+3JHubDhhh0aAucYTRR3Cf7/360vcr5epw0qx1EDcOak0C
+ PWD7DGE6I+E69ob1XdyG5YdBboWsBk3Zh0fx9RCT5ofIDq9VSXVi8YrY7fAcakv5mU29
+ jX3g==
+X-Gm-Message-State: AOJu0YyhJihuYYAnsHoxorZsxoyZN5oAI7Bpi/XUDNxiHTEFCabejYmh
+ CghvSbU9/lYDWRctz5Dr8RgF9MH9u7kkzTKWuJE=
+X-Google-Smtp-Source: AGHT+IGZMRT5uHUg8ZBQN+04W7yh87M4R2FLC5iItDioYo0/iSsauhHtzA4MGcCeyzQqRvKHBTP9cxxPrwCyB7Kj4PM=
+X-Received: by 2002:a05:6808:168d:b0:3a4:8a13:98a5 with SMTP id
+ bb13-20020a056808168d00b003a48a1398a5mr19180216oib.16.1693946764917; Tue, 05
+ Sep 2023 13:46:04 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|CH3PR12MB9315:EE_
-X-MS-Office365-Filtering-Correlation-Id: 92f2da94-bb33-4902-6f4e-08dbae4c9a8d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pIhdCUvk9L4vrCcT0oWRDEew6nl5Y8UK09bfMwLtPrxo+21aVS8kyQKiTZri0eJIaNTb4jXC1mTf8QfpJuQ+O/gJ3qLlGRBbk1JAtASO7NaUq74/t4lU8Fg+9Ib5ZuF9OKDJ4LG/9x6RehyEhNZi1ClZoTacBUqCv8YHIDowc+V8RXJYtHzpjSZ/rTWbA/qv0efVS2eiVM8EX10OXrp4Aa1+cwdIhkLzN6V8tjrWHtGd3Qr9XFCOethZld/RGWXUM24QSg5zAFTqisLcx2jdvxdDbqlAC3wWrhKfwzpRt/3BdkSQyPMCyRs3y9CO8RJjX5sBw3mEhEQvMj6viU1b7UClSGDaYdSYAlG3gIww6wCPc2btOXlFtU/DNeVIRNHarXjLQn3S5YvzvFPd7/XmH/d2I8pcwKY2Ac+kqh4SvHkH6eQ2XluNBhgUwYlJfHALFZ0vJ36Fvi715+VmjD5iL7EFX//hSCjnuMAmRXWChJMa43vjtDMO24yfUVaOiYhziBOg+Eeny7uTebCWFhNEyu8BLjqAckgCJjGYWrgFuqtOjdzBcr5n2bxF9hfy55u3f5MBo3RN9yC6sSLxqWaVXhnXzGUPESyEwxAfRTYwnrGffewJaj+3mR06oHZKlmTck452ouTCrFZ8JYOiwu6E8g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(39860400002)(346002)(396003)(366004)(136003)(451199024)(1800799009)(186009)(5660300002)(26005)(53546011)(2616005)(44832011)(66946007)(66476007)(316002)(6512007)(6636002)(6506007)(110136005)(41300700001)(66556008)(8936002)(8676002)(31686004)(478600001)(6486002)(83380400001)(2906002)(31696002)(86362001)(36756003)(38100700002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V3hxV25IYWtQZ0pKY2R0aldMWWlXRE5HanMwNVBjYyt0U1FrMVFsWUdSTm8z?=
- =?utf-8?B?YjltUHVJdFNTaXRrTDFWVnQ1dmdXaTlhenFscXZSTUxWeEJMZGhKSU43UUJC?=
- =?utf-8?B?Nk9mUWpSbC9vTVNuMlVaSjJWRW9QOEQxZUxiNEk1Snc4ZmlZOEpuQkE2YU5S?=
- =?utf-8?B?aldNc2ZEUXdIamlVUnVCMnExR2VXZXNjcEpzaXlyZjY5NVY5QitNVEJ5aVZI?=
- =?utf-8?B?Q0J3ckVXUlpsSUlqUitPU2NYVnZMbit2TFVWdHJydHlKMDZiZ0I5TkxzM3N0?=
- =?utf-8?B?TTBPaWRDN3BtR2Z2K2d6azRCQzJUemhGZWV6WUZWUTg3QmpLL05wMEpBYTRV?=
- =?utf-8?B?WU52RGtWWFZlbTUxNUZUYUpmc0VYamlTYUNqVTkrbDVMMUNqNVFZRG4wWlNB?=
- =?utf-8?B?UVlUSkhlVFZzdEN6d2NiL1NxZzBWVW91cmdhRGRlNXVHUWRPQVRRT0QvT1Nl?=
- =?utf-8?B?WWJwYUdOdUd6ZHZPT0pMeUFUcnR0NXVPWHdVK2ZzMTl3RVhXZHNzWDgzZDFz?=
- =?utf-8?B?THVXWGFRcHJWOTBGUFpEM1dsTm56K1RZRUFHNGI0QlZQYmx1Rmw3N04ySDdk?=
- =?utf-8?B?UU1nNjRFam81TWxZWmI0TDlCTWpuS1F2Nm5TejVhMHIwUWtyT3ErdkdxOFUv?=
- =?utf-8?B?Q3BXRWN0alJxaHR4TzZUTHk5NmJWbnp0LzZCazJZaUVpWlduU1ZkWVdBUi96?=
- =?utf-8?B?STR5MUxWTnJEQjBGSzNVK0k3dlZVMTNpY05nUFZzVVBqdzZ2L1cyK2FYc0Y1?=
- =?utf-8?B?WjBMOVZIdGxEWXYreVRsUjIzWXk2dlhSNjBFSjQ1bzlPZkFER05Mb0dkY04w?=
- =?utf-8?B?bHp0NFdZQzEwYkFBTEhmR0ordUF0dDR1YnoyQ0VMc1A1V2dTR1NVWFdoUDJl?=
- =?utf-8?B?MWRnRUFVdVRsVGtobkU2L0plb1RDK29YSWZ2ajc5QTlGRHhhZzhNbGRqUnZN?=
- =?utf-8?B?aFN2R004RkxjU2xwQjFsQ1YyVGxJRkczdENQeWJSUHh6MkFSSmkvRTZaTWFX?=
- =?utf-8?B?Q1E3R2hNSlR0WUxHeHVUOHBrdDNHUnZPcFVtdmRVQzFyZVRwd1BUQURqclhN?=
- =?utf-8?B?NlZPaHk0TUNseUZHVjlaQzJydWdiYUxCbmVXOFIxVGhFQjhjZmpQMThjbGxS?=
- =?utf-8?B?SW5VWVZnYU1ucEhvbFhHQ3N3U1ZRVkNNcVlWWkJPNllSMDJaNll4OUNId3FC?=
- =?utf-8?B?VVo4QWpZdUFJTEFVSEhETCtKSHRzaU9WOW1kMUp3UmJjdllGbUpMd1MrdWl6?=
- =?utf-8?B?emkzWThyaFp3SHJZQzFCTlRWRTlRRGJUbUx6Y0YrMkExQTdaSkJxLzRWWE9R?=
- =?utf-8?B?Y2J2VGIxaXlvbDBrdkp0RlZUQTQ5MUVVbDExKzdtMXpUVnBKV0xzTXQvRk1X?=
- =?utf-8?B?dnN5cnRVNEZSeFVpOUo4WDRoT3NTRVNMbDBsNmhBYk5wLzV6ZnNQRGdLbUF2?=
- =?utf-8?B?VWdZRWdWL21SOXl4RGJwczB0UnRreWdYTENGQ0N1S0pKZ0dUQXZ5VFowb21K?=
- =?utf-8?B?eWxzZGtRWkJObDlXOW56VWowSGp0NGpxL0dmbFdmbGNZamxVVWllUU9KU0JW?=
- =?utf-8?B?WGVud3Y1VFNwejRQSGNWaEhrQjM3ZWlsbjRaUU81SWVmcEkvT3dQQ2VnVHJi?=
- =?utf-8?B?RGE3VHIyaDFJNVRTdDN6aitNbWtJZkx3SVVDczFPSnY0WUh4MGkrRlVwSmRM?=
- =?utf-8?B?T2owL3dOUEZBWjBGcGJ5QWJtcy9tS1gwUndUY3F5UUpVSTNmWXozNG92Y2Vi?=
- =?utf-8?B?bGVWbG5KaEVCVkthdlp3Vmp1RUp2SnVNVG1MZ2hUZXRHbnVOdmNUYWhPbFVq?=
- =?utf-8?B?dGNzT3JMRHVhOVFyMnJySHVNbEVIYnlhRUNUTzZqeHBNeXJUZmMySXIyTDhE?=
- =?utf-8?B?NEZhZ2E4U2FJZnoxSmFtTjNjejl2SkFobitYL3dFUmV3NDcrUjZmcEFiazhx?=
- =?utf-8?B?ell4RmVnZXVSTy9WRkxPRmgzRFNmRjJ0RnF4WFd4UFRCWUtRK2JtVWZwTitN?=
- =?utf-8?B?MHV5c0lpYnFHQWZUeUNKamgxOXVrYU9zWEVKb2d3L3hNQ01mVkQ3QXV1YVJs?=
- =?utf-8?B?Y29wdjhNaW1QckhDeWxycjdQYkpEajQvaGRtNVZZdE9ML1lESHJ6aVJEakxi?=
- =?utf-8?Q?qK7q7Urx3FIK5QzDbaK/STpZz?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92f2da94-bb33-4902-6f4e-08dbae4c9a8d
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2023 20:13:43.8249 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XWZgSJ9wpxu2xPonFyYrvjEN0q3/hJHS1af+yQGW8MD9eRiynazw+SFkZZfwbQuLXQORI6JSQN4FG4h2IJk25A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9315
+References: <20230905060415.1400-1-christian.koenig@amd.com>
+ <20230905060415.1400-2-christian.koenig@amd.com>
+In-Reply-To: <20230905060415.1400-2-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 5 Sep 2023 16:45:53 -0400
+Message-ID: <CADnq5_Mu9mNohqHNA=k0pjn0vPY4aXd5T+sR4o0GCkGt_TSqvQ@mail.gmail.com>
+Subject: Re: [PATCH 01/11] drm/amdgpu: fix and cleanup gmc_v9_0_flush_gpu_tlb
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,77 +68,140 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx@lists.freedesktop.org, shashank.sharma@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/5/2023 15:07, Deucher, Alexander wrote:
-> [Public]
-> 
->> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mario
->> Limonciello
->> Sent: Tuesday, September 5, 2023 3:26 PM
->> To: amd-gfx@lists.freedesktop.org
->> Cc: Limonciello, Mario <Mario.Limonciello@amd.com>
->> Subject: [PATCH 4/4] drm/amd: Enable seamless boot by default on newer
->> APUs
->>
->> IP discovery is a good line in the sand to expand seamless boot to more ASICs.
->>
->> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 +++-------
->>   1 file changed, 3 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index 9159a7b993ab..19265dbe592e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -1296,14 +1296,10 @@ bool amdgpu_seamless_boot_supported(struct
->> amdgpu_device *adev)
->>        if (adev->mman.keep_stolen_vga_memory)
->>                return false;
-> 
-> This probably needs to be revisited too.  I don't know why this is an issue.  This flag just means the kernel driver keeps the stolen VGA region as reserved rather than releasing it back into the pool of available memory.  I don't think it should directly affect this feature.
-> 
->>
->> -     switch (adev->ip_versions[DCE_HWIP][0]) {
->> -     case IP_VERSION(3, 0, 1):
->> -             return true;
->> -     default:
->> -             break;
->> -     }
->> +     if (adev->asic_type != CHIP_IP_DISCOVERY)
->> +             return false;
-> 
-> Probably need input from the display team, but I think a number of the older chips we'd probably want this too.  Maybe base it on the DCE_HWIP version?  DCN 1.0.0 or newer?  Or maybe  DCN 3.0.0 or newer?
-> 
+On Tue, Sep 5, 2023 at 3:00=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> The KIQ code path was ignoring the second flush. Also avoid long lines an=
+d
+> re-calculating the register offsets over and over again.
 
-I think it will only work on the older chips if the 
-adev->mman.keep_stolen_vga_memory check can actually be dropped as some 
-of the older chips explicitly set it to TRUE.
+I'd split this into two patches, one for the code cleanup and one to
+fix the missing flush.
 
-There are other non-obvious dependencies too like:
-f0882d3afb9a ("drm/amd/display: prevent seamless boot on displays that 
-don't have the preferred dig")
-6349c73859cb ("drm/amd/display: For ODM seamless transition require AUTO 
-mode")
+Alex
 
-So I was trying to be cautious in just enabling a few more things right 
-now.  I think essentially this "only" enables for for Rembrandt, 
-Raphael, Mendocino and Phoenix.  I tested it on Phoenix and Rembrandt.
-
-But the module parameter is an escape hatch.  Let's see what display 
-team says.
-
->>
->> -     return false;
->> +     return adev->flags & AMD_IS_APU;
->>   }
->>
->>   /*
->> --
->> 2.34.1
-> 
-
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 29 +++++++++++++++++----------
+>  1 file changed, 18 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v9_0.c
+> index 0673cda547bb..4f6990ba71cb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -814,13 +814,17 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_de=
+vice *adev, uint32_t vmid,
+>                                         uint32_t vmhub, uint32_t flush_ty=
+pe)
+>  {
+>         bool use_semaphore =3D gmc_v9_0_use_invalidate_semaphore(adev, vm=
+hub);
+> +       u32 j, inv_req, inv_req2, tmp, sem, req, ack;
+>         const unsigned int eng =3D 17;
+> -       u32 j, inv_req, inv_req2, tmp;
+>         struct amdgpu_vmhub *hub;
+>
+>         BUG_ON(vmhub >=3D AMDGPU_MAX_VMHUBS);
+>
+>         hub =3D &adev->vmhub[vmhub];
+> +       sem =3D hub->vm_inv_eng0_sem + hub->eng_distance * eng;
+> +       req =3D hub->vm_inv_eng0_req + hub->eng_distance * eng;
+> +       ack =3D hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+> +
+>         if (adev->gmc.xgmi.num_physical_nodes &&
+>             adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(9, 4, 0)) {
+>                 /* Vega20+XGMI caches PTEs in TC and TLB. Add a
+> @@ -852,6 +856,10 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_dev=
+ice *adev, uint32_t vmid,
+>
+>                 amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack, inv_re=
+q,
+>                                                    1 << vmid);
+> +               if (inv_req2)
+> +                       amdgpu_virt_kiq_reg_write_reg_wait(adev, req, ack=
+,
+> +                                                          inv_req2, 1 <<=
+ vmid);
+> +
+>                 up_read(&adev->reset_domain->sem);
+>                 return;
+>         }
+> @@ -870,9 +878,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devi=
+ce *adev, uint32_t vmid,
+>                 for (j =3D 0; j < adev->usec_timeout; j++) {
+>                         /* a read return value of 1 means semaphore acqui=
+re */
+>                         if (vmhub >=3D AMDGPU_MMHUB0(0))
+> -                               tmp =3D RREG32_SOC15_IP_NO_KIQ(MMHUB, hub=
+->vm_inv_eng0_sem + hub->eng_distance * eng);
+> +                               tmp =3D RREG32_SOC15_IP_NO_KIQ(MMHUB, sem=
+);
+>                         else
+> -                               tmp =3D RREG32_SOC15_IP_NO_KIQ(GC, hub->v=
+m_inv_eng0_sem + hub->eng_distance * eng);
+> +                               tmp =3D RREG32_SOC15_IP_NO_KIQ(GC, sem);
+>                         if (tmp & 0x1)
+>                                 break;
+>                         udelay(1);
+> @@ -884,9 +892,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devi=
+ce *adev, uint32_t vmid,
+>
+>         do {
+>                 if (vmhub >=3D AMDGPU_MMHUB0(0))
+> -                       WREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_re=
+q + hub->eng_distance * eng, inv_req);
+> +                       WREG32_SOC15_IP_NO_KIQ(MMHUB, req, inv_req);
+>                 else
+> -                       WREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_req +=
+ hub->eng_distance * eng, inv_req);
+> +                       WREG32_SOC15_IP_NO_KIQ(GC, req, inv_req);
+>
+>                 /*
+>                  * Issue a dummy read to wait for the ACK register to
+> @@ -895,14 +903,13 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_de=
+vice *adev, uint32_t vmid,
+>                  */
+>                 if ((vmhub =3D=3D AMDGPU_GFXHUB(0)) &&
+>                     (adev->ip_versions[GC_HWIP][0] < IP_VERSION(9, 4, 2))=
+)
+> -                       RREG32_NO_KIQ(hub->vm_inv_eng0_req +
+> -                                     hub->eng_distance * eng);
+> +                       RREG32_NO_KIQ(req);
+>
+>                 for (j =3D 0; j < adev->usec_timeout; j++) {
+>                         if (vmhub >=3D AMDGPU_MMHUB0(0))
+> -                               tmp =3D RREG32_SOC15_IP_NO_KIQ(MMHUB, hub=
+->vm_inv_eng0_ack + hub->eng_distance * eng);
+> +                               tmp =3D RREG32_SOC15_IP_NO_KIQ(MMHUB, ack=
+);
+>                         else
+> -                               tmp =3D RREG32_SOC15_IP_NO_KIQ(GC, hub->v=
+m_inv_eng0_ack + hub->eng_distance * eng);
+> +                               tmp =3D RREG32_SOC15_IP_NO_KIQ(GC, ack);
+>                         if (tmp & (1 << vmid))
+>                                 break;
+>                         udelay(1);
+> @@ -919,9 +926,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_devi=
+ce *adev, uint32_t vmid,
+>                  * write with 0 means semaphore release
+>                  */
+>                 if (vmhub >=3D AMDGPU_MMHUB0(0))
+> -                       WREG32_SOC15_IP_NO_KIQ(MMHUB, hub->vm_inv_eng0_se=
+m + hub->eng_distance * eng, 0);
+> +                       WREG32_SOC15_IP_NO_KIQ(MMHUB, sem, 0);
+>                 else
+> -                       WREG32_SOC15_IP_NO_KIQ(GC, hub->vm_inv_eng0_sem +=
+ hub->eng_distance * eng, 0);
+> +                       WREG32_SOC15_IP_NO_KIQ(GC, sem, 0);
+>         }
+>
+>         spin_unlock(&adev->gmc.invalidate_lock);
+> --
+> 2.34.1
+>
