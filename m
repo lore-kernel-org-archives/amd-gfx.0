@@ -4,116 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1AF3CA1001
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 20:07:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 524FFCA1001
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 20:13:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 738EB10E111;
-	Tue,  5 Sep 2023 20:07:11 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2075.outbound.protection.outlook.com [40.107.94.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5671E10E111
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 20:07:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3530310E506;
+	Tue,  5 Sep 2023 20:13:49 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20630.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eb2::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8087010E506
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 20:13:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bBVErAHbDTwQMtBmNRd/x9vInSigNESeSI3+GIjlvIoW7KKMPbBqJqf785ECw6sINCLCN2o2PySVUb7Su23y5xTREqDTQcPeNWeTdvx5fu9TEtRPj0VSQZtdp/3l0op2aUNoORTVfIEQqGRRIfEmSWxZAvDe8Bh0XxKkMVOIGTrdNA1U22/aOl1McS/TA+CoFbIM84Bu+YGPLSOq77D6G04FencAvVbfHwFEIlp5nYi2AQ4TRlCCjHDO8GpbZmn9PsWi1IM5K98mXXN5v3lrQ5EHQVXplcgQ4Fq02Dwwb30fQJ9CFR8SjqJeSDhbHd8vEwNZiEqvvXnUsul0N9X8QQ==
+ b=YGWIWVQy3pHSpyz9UrPSLoO4yU0hcHAGpBZ0+EgU+7CeLxn6PJRYghhqkVXXJcnapZkJ1Fs80p1vcUPIp5vS5L0ac80aDfHC0x9C1XgRTGjaVMuuwUMYE37iv7dOcD8osMEUoCXWzK6uMBlAunG3NvDwB4czCFR7w4gxJekK1V8KCTG7GYaNiVpH1JlTZT0yHwMdmgtfu+MtsJaVDfM7SDVQVB4gnUehk3Knfo34/YX2ik4Tr2wO17B6hMvEL3AQgQlRDBdgvbNrHnW5Z+RWHYKSzmKdAo5Wfq4Mz+cEQFsDd9qW49HQs8OG/X1IzUW0sDlN8vsr3iqoG5HN9RdhmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qTU1NzlQqRfsf1aesDnw+7GuGYhYyneSY0cSNwfuISg=;
- b=MNdfR/lmgUGOvP8K8WmkZYwl6PiVBkmE4anaqR22jHhp88JRY4wXCibxbB9JkyBwnP12IYtb5m0TYM8HiJYJyp7mUbBsd6D/QEYHN+dS0nDhJ/EbG2vqSD6bU7wbKVodyRc3YKVUeRv8TD6t896uuW9STfw9Lh/jmCE+CFQv8k2J3G+ep7Ms4X6gtaBi6cCtulhXyyVDw1wLH178roOEHNe7xt7ebVakJxAvCRKEAnnEoFRlUf5Y20m26I/3Qo8/BxmJIOjhHqeBIzVf5pm1beJN3gQ0s7b9X8wVUAvenonZrwFxBihe8/0daMNQOCYDqZLBCQLOLcDYYuianR8tyA==
+ bh=rFLrsPc49s5rWmsXBbDTw4dMzLcLhsiOnOHtd7DPd28=;
+ b=Qvv5+s8vlW3QpDQ9p3bZpw9sb+zE0eWEncg01c0TvG+9XGyJ2R2qqb+GH7+nQFujjZhmg/wUBFDP9Q04Sm1x6qDwR9OR73MkkYyVDrbKj//Nc+hZBrcHZ764WiB+bp2qB5pEEAa6RM03VwnTC6kZ57Loi/RHNqY9SbI8+k8C8Y860x5By1I96yJvdKKJg4Bq+48CCUSS2s9ekuQ90RdHbIX7uFf1DK5in+jIB72YTILXeADpC+ued9NfJ7Nxm9hOJn55yxNlency9G821LoqOoCcG7wJEsRC+mAjt7AYhsCZlJO3TAcFRBA+bMox6jkwYu/3Svpb/OvqVyq2K/zZOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qTU1NzlQqRfsf1aesDnw+7GuGYhYyneSY0cSNwfuISg=;
- b=06FLE+V15ICqTpvQEN10v3NTCZKrtaztGX+2auybibVwNVXtSZKdmAaBlXye/AA8Jt3yczLRbJjr1Kkv6QSHoK7FWOlx1fGtS/5CXIpD7x/SIyq9iRtxC9/vc2Iq1twUih/34jEZqXskwFcTgWhWfNJUNDo1hfSVU2R6ylCMOZE=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by SN7PR12MB8436.namprd12.prod.outlook.com (2603:10b6:806:2e3::10)
+ bh=rFLrsPc49s5rWmsXBbDTw4dMzLcLhsiOnOHtd7DPd28=;
+ b=Jn9IHcMr9U+lIxMbleZFX2ZoU/rMY/1vmCgGqYWlmMfz1LfUAUkmnsxJgfK6zW684MFFaMYRx/nfdtc23+tjvKKpAiMeqVbdYSb+21Tr9AuD+a5S+aFnpRDEDZqr/ZaOS8t+0f8MKQWKDbBPcx9TZYGEWgBdAzSlLd86ji33eSA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by CH3PR12MB9315.namprd12.prod.outlook.com (2603:10b6:610:1cf::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Tue, 5 Sep
- 2023 20:07:08 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::6208:cab6:bc19:7aa3]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::6208:cab6:bc19:7aa3%2]) with mapi id 15.20.6745.030; Tue, 5 Sep 2023
- 20:07:08 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 4/4] drm/amd: Enable seamless boot by default on newer APUs
-Thread-Topic: [PATCH 4/4] drm/amd: Enable seamless boot by default on newer
- APUs
-Thread-Index: AQHZ4DBS3oM0NO/Knkeh/3RPs1MEPLAMp0wA
-Date: Tue, 5 Sep 2023 20:07:08 +0000
-Message-ID: <BL1PR12MB51442B9145F7143B49458E78F7E8A@BL1PR12MB5144.namprd12.prod.outlook.com>
+ 2023 20:13:43 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::36f9:ffa7:c770:d146]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::36f9:ffa7:c770:d146%7]) with mapi id 15.20.6745.030; Tue, 5 Sep 2023
+ 20:13:43 +0000
+Message-ID: <e6a7c26c-be62-43f0-9f37-0ae9b87d958c@amd.com>
+Date: Tue, 5 Sep 2023 15:13:41 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] drm/amd: Enable seamless boot by default on newer APUs
+Content-Language: en-US
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>,
+ "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>
 References: <20230905192600.32449-1-mario.limonciello@amd.com>
  <20230905192600.32449-5-mario.limonciello@amd.com>
-In-Reply-To: <20230905192600.32449-5-mario.limonciello@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=19983611-40f8-4daf-9e9e-f5deba441620;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP
- 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-09-05T20:02:10Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SN7PR12MB8436:EE_
-x-ms-office365-filtering-correlation-id: 893d544a-17e9-4211-fedf-08dbae4baec1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: VF2ctestnErZJh2DiBhKPBib6ZOD2vBSB6YPx9tNaDaoCP3gBIN3haj9vd9zhbQoEH2BC92hhDWW/Yf7ZyDOV1liIHGGE6aDnMCofH598E+7vsyEd+TPKAqcvb1/UP695zX3lzENFFkW5ieXIlIwFNJCmDesJr9JQQESoPD825l2ViepDBeJJUbRxDFbXj0XxGlJux2grEnmbTUVnDp68Dpzo6KxDmiFDWbJKtkukYWPTsRfTesKc4lGQ3PeeaxPz9nF82Z9GLRuxziZWUkP3SsjBEktdwkQFgXsSq19mkYuEchF2uEV3YvjVNH5FecNyaPmA9MTj/Cf36xpXPbsjR/u3SbENVjDSa3T3MCRKRONRTi9h57DSGloTI4kw0Q25EgWTT6d26RzTOVTv/TmoeIWn3pfoyYQfTRXa36QZ9xlSC0HdWRRGlD/qBn/VSlLySuc6O52KdrTrg4ADgF97obQUNC9CaWuRyzzEXPu6AoPsB2F+6xWzmAqcsBtZbbfHBIdF9REGt+vMOfZR8FQKn0u83eOW4mlau7dxE5pE7i715++oX4/siSpAIYV543mj0d0Dg2kBLDYoNe6zH/wOvB2UlrAjKLvv8oe/CcyjWw0Tq4Mpoh89g+ROdVv/+BN
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(346002)(376002)(396003)(366004)(136003)(1800799009)(451199024)(186009)(8936002)(5660300002)(316002)(110136005)(66476007)(66446008)(64756008)(2906002)(66556008)(66946007)(76116006)(4326008)(8676002)(52536014)(41300700001)(53546011)(55016003)(6506007)(7696005)(26005)(9686003)(71200400001)(122000001)(38070700005)(478600001)(83380400001)(33656002)(86362001)(38100700002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?lUsiF9zHzypbg6yfpd099lxVLAB4QDtfi4Fr20AxJQvXdjADz1MvapMHZe1D?=
- =?us-ascii?Q?GwVkCQTysVGAkeKcpVbr0HTq7KZBaWpxr34YDoWmenVeFGdr3BfadLEuNlLp?=
- =?us-ascii?Q?k72PuacPwBd5TY6IyBjGm28OtvMQGdy/su6MtICALICwIFB7zOAaCxPXeAUl?=
- =?us-ascii?Q?LQUC2GV/f0NrzgNYCrfiyaH6F19BtfSsOnCjq8+yCzuc197snoO+C3Cbo/8g?=
- =?us-ascii?Q?ul3imdGnENDv6A17EiqnAezm1kEY4FN6NcAiLTZbnXJwJVuzC0NftAp2fng7?=
- =?us-ascii?Q?3cGzETNY5dgKmZn9VHcKdLdsBNxZ2Nu2DpZt49SRET+VTZc9wikWjewU+nB6?=
- =?us-ascii?Q?Bmw/Jdlb5940kO9f3896NUbNPvAX1MYrsU2QVdyE14MsKZzgN4+cxo9GqvnH?=
- =?us-ascii?Q?OuQrlSZFN4VvBPahDWfnNMcB/4us3RyOZn2wkineSRFDKYrp2bRHJu2V9lmE?=
- =?us-ascii?Q?k3Rf184LPCIkND20TgrahrBLXMnCGv78rUyk9nWWJMwZMpHMMSyGC2TYRPgb?=
- =?us-ascii?Q?uJyx1X39276ojKInVLK18vOCj9e7je5BssSFbbsGZ5jq5ZSjN5Hp4YB68CQS?=
- =?us-ascii?Q?HReu/66gWAkFT0f+9DoPvHfD1rRzAGWyvbOV8mPYuJPVW5XW5IVJaY64B8ZU?=
- =?us-ascii?Q?6oC2PwOjI8mX/gQl9rp5evJ/0TgIXxLdmmljQRC9Ky5oebxEAhjSQASpLR8I?=
- =?us-ascii?Q?n9x+KkQ+qeYN4WUs1Mn1VYREPlh+UKBc5LoLXoFkfS1/TtXW0IFh/T/B8zrq?=
- =?us-ascii?Q?oWCn+OGdN+L6F+BhfgQFCqEdyIX7FylF15Lqq956mX0SyhZGyjkZ1y5ch2Sj?=
- =?us-ascii?Q?gSXK/UQmNeSUCIJdIWwy7hABMaNL8SDcpde1CZOMs6HvW1dTsmiF4gUIv7eG?=
- =?us-ascii?Q?bJTNnIB+koUR1+gLazeewRlwGdhcQFlowZPC+cbwzqCJE2PKf/hUsa40wl8q?=
- =?us-ascii?Q?X0SvCQkSRzlDDmB4mDew+yGt/EWJ8pupr+TIpNR4gdJMvQIbOvkLijLoUxkp?=
- =?us-ascii?Q?9VNKTdZwwJ7jdqAfNCi4g2tiAdLSYOt6lonFHiynuzKpjO31UPmdi+m1Iurw?=
- =?us-ascii?Q?zoRmB/ELDARwP8iosiRK1J0u6RhdVhMQS03tJsUCqNiOc84hB/P0Lu4uX7yM?=
- =?us-ascii?Q?HYbe9lEGX8GUBiwekdmJHHCffb+1tbaasDMwpFSo5ej/IowpcY6g7Ki4WnzG?=
- =?us-ascii?Q?3otRloflUTsQv0ls0+nc1jLXsW4U5olUx95AWh+80jtG2ucIPJ1EpSXfXDIy?=
- =?us-ascii?Q?bUftgqbDe7kB/I3hMYipvS44/Wd3h6IGIAhaIgrBE507y64urxEyovkLUy4K?=
- =?us-ascii?Q?5nCoafl5+gop9F023GGuxQTtR2zj4oZ2Fus0y9gFA+tq+bXvRKFwNQ90q+4F?=
- =?us-ascii?Q?FbEx+jA6jPWddKfExoeO+0Eif07+8m4BgDWrvTHzatJDnWOqR9f6aQMCl1wV?=
- =?us-ascii?Q?lODZRfr6kuTCQqsdMjUcJM5Wg52x6j6oyVjRQbBtFYKZjlTPWYCdFqTmThGS?=
- =?us-ascii?Q?U6Pc+lUuwgfVcjabvgJ6Z/0xJeytrQBnzRu9xw6STjIvPemUviEGrY6SKkBc?=
- =?us-ascii?Q?4S5M59G5nr79EImWuDA=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ <BL1PR12MB51442B9145F7143B49458E78F7E8A@BL1PR12MB5144.namprd12.prod.outlook.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <BL1PR12MB51442B9145F7143B49458E78F7E8A@BL1PR12MB5144.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DM6PR02CA0165.namprd02.prod.outlook.com
+ (2603:10b6:5:332::32) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|CH3PR12MB9315:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92f2da94-bb33-4902-6f4e-08dbae4c9a8d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: pIhdCUvk9L4vrCcT0oWRDEew6nl5Y8UK09bfMwLtPrxo+21aVS8kyQKiTZri0eJIaNTb4jXC1mTf8QfpJuQ+O/gJ3qLlGRBbk1JAtASO7NaUq74/t4lU8Fg+9Ib5ZuF9OKDJ4LG/9x6RehyEhNZi1ClZoTacBUqCv8YHIDowc+V8RXJYtHzpjSZ/rTWbA/qv0efVS2eiVM8EX10OXrp4Aa1+cwdIhkLzN6V8tjrWHtGd3Qr9XFCOethZld/RGWXUM24QSg5zAFTqisLcx2jdvxdDbqlAC3wWrhKfwzpRt/3BdkSQyPMCyRs3y9CO8RJjX5sBw3mEhEQvMj6viU1b7UClSGDaYdSYAlG3gIww6wCPc2btOXlFtU/DNeVIRNHarXjLQn3S5YvzvFPd7/XmH/d2I8pcwKY2Ac+kqh4SvHkH6eQ2XluNBhgUwYlJfHALFZ0vJ36Fvi715+VmjD5iL7EFX//hSCjnuMAmRXWChJMa43vjtDMO24yfUVaOiYhziBOg+Eeny7uTebCWFhNEyu8BLjqAckgCJjGYWrgFuqtOjdzBcr5n2bxF9hfy55u3f5MBo3RN9yC6sSLxqWaVXhnXzGUPESyEwxAfRTYwnrGffewJaj+3mR06oHZKlmTck452ouTCrFZ8JYOiwu6E8g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376002)(39860400002)(346002)(396003)(366004)(136003)(451199024)(1800799009)(186009)(5660300002)(26005)(53546011)(2616005)(44832011)(66946007)(66476007)(316002)(6512007)(6636002)(6506007)(110136005)(41300700001)(66556008)(8936002)(8676002)(31686004)(478600001)(6486002)(83380400001)(2906002)(31696002)(86362001)(36756003)(38100700002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V3hxV25IYWtQZ0pKY2R0aldMWWlXRE5HanMwNVBjYyt0U1FrMVFsWUdSTm8z?=
+ =?utf-8?B?YjltUHVJdFNTaXRrTDFWVnQ1dmdXaTlhenFscXZSTUxWeEJMZGhKSU43UUJC?=
+ =?utf-8?B?Nk9mUWpSbC9vTVNuMlVaSjJWRW9QOEQxZUxiNEk1Snc4ZmlZOEpuQkE2YU5S?=
+ =?utf-8?B?aldNc2ZEUXdIamlVUnVCMnExR2VXZXNjcEpzaXlyZjY5NVY5QitNVEJ5aVZI?=
+ =?utf-8?B?Q0J3ckVXUlpsSUlqUitPU2NYVnZMbit2TFVWdHJydHlKMDZiZ0I5TkxzM3N0?=
+ =?utf-8?B?TTBPaWRDN3BtR2Z2K2d6azRCQzJUemhGZWV6WUZWUTg3QmpLL05wMEpBYTRV?=
+ =?utf-8?B?WU52RGtWWFZlbTUxNUZUYUpmc0VYamlTYUNqVTkrbDVMMUNqNVFZRG4wWlNB?=
+ =?utf-8?B?UVlUSkhlVFZzdEN6d2NiL1NxZzBWVW91cmdhRGRlNXVHUWRPQVRRT0QvT1Nl?=
+ =?utf-8?B?WWJwYUdOdUd6ZHZPT0pMeUFUcnR0NXVPWHdVK2ZzMTl3RVhXZHNzWDgzZDFz?=
+ =?utf-8?B?THVXWGFRcHJWOTBGUFpEM1dsTm56K1RZRUFHNGI0QlZQYmx1Rmw3N04ySDdk?=
+ =?utf-8?B?UU1nNjRFam81TWxZWmI0TDlCTWpuS1F2Nm5TejVhMHIwUWtyT3ErdkdxOFUv?=
+ =?utf-8?B?Q3BXRWN0alJxaHR4TzZUTHk5NmJWbnp0LzZCazJZaUVpWlduU1ZkWVdBUi96?=
+ =?utf-8?B?STR5MUxWTnJEQjBGSzNVK0k3dlZVMTNpY05nUFZzVVBqdzZ2L1cyK2FYc0Y1?=
+ =?utf-8?B?WjBMOVZIdGxEWXYreVRsUjIzWXk2dlhSNjBFSjQ1bzlPZkFER05Mb0dkY04w?=
+ =?utf-8?B?bHp0NFdZQzEwYkFBTEhmR0ordUF0dDR1YnoyQ0VMc1A1V2dTR1NVWFdoUDJl?=
+ =?utf-8?B?MWRnRUFVdVRsVGtobkU2L0plb1RDK29YSWZ2ajc5QTlGRHhhZzhNbGRqUnZN?=
+ =?utf-8?B?aFN2R004RkxjU2xwQjFsQ1YyVGxJRkczdENQeWJSUHh6MkFSSmkvRTZaTWFX?=
+ =?utf-8?B?Q1E3R2hNSlR0WUxHeHVUOHBrdDNHUnZPcFVtdmRVQzFyZVRwd1BUQURqclhN?=
+ =?utf-8?B?NlZPaHk0TUNseUZHVjlaQzJydWdiYUxCbmVXOFIxVGhFQjhjZmpQMThjbGxS?=
+ =?utf-8?B?SW5VWVZnYU1ucEhvbFhHQ3N3U1ZRVkNNcVlWWkJPNllSMDJaNll4OUNId3FC?=
+ =?utf-8?B?VVo4QWpZdUFJTEFVSEhETCtKSHRzaU9WOW1kMUp3UmJjdllGbUpMd1MrdWl6?=
+ =?utf-8?B?emkzWThyaFp3SHJZQzFCTlRWRTlRRGJUbUx6Y0YrMkExQTdaSkJxLzRWWE9R?=
+ =?utf-8?B?Y2J2VGIxaXlvbDBrdkp0RlZUQTQ5MUVVbDExKzdtMXpUVnBKV0xzTXQvRk1X?=
+ =?utf-8?B?dnN5cnRVNEZSeFVpOUo4WDRoT3NTRVNMbDBsNmhBYk5wLzV6ZnNQRGdLbUF2?=
+ =?utf-8?B?VWdZRWdWL21SOXl4RGJwczB0UnRreWdYTENGQ0N1S0pKZ0dUQXZ5VFowb21K?=
+ =?utf-8?B?eWxzZGtRWkJObDlXOW56VWowSGp0NGpxL0dmbFdmbGNZamxVVWllUU9KU0JW?=
+ =?utf-8?B?WGVud3Y1VFNwejRQSGNWaEhrQjM3ZWlsbjRaUU81SWVmcEkvT3dQQ2VnVHJi?=
+ =?utf-8?B?RGE3VHIyaDFJNVRTdDN6aitNbWtJZkx3SVVDczFPSnY0WUh4MGkrRlVwSmRM?=
+ =?utf-8?B?T2owL3dOUEZBWjBGcGJ5QWJtcy9tS1gwUndUY3F5UUpVSTNmWXozNG92Y2Vi?=
+ =?utf-8?B?bGVWbG5KaEVCVkthdlp3Vmp1RUp2SnVNVG1MZ2hUZXRHbnVOdmNUYWhPbFVq?=
+ =?utf-8?B?dGNzT3JMRHVhOVFyMnJySHVNbEVIYnlhRUNUTzZqeHBNeXJUZmMySXIyTDhE?=
+ =?utf-8?B?NEZhZ2E4U2FJZnoxSmFtTjNjejl2SkFobitYL3dFUmV3NDcrUjZmcEFiazhx?=
+ =?utf-8?B?ell4RmVnZXVSTy9WRkxPRmgzRFNmRjJ0RnF4WFd4UFRCWUtRK2JtVWZwTitN?=
+ =?utf-8?B?MHV5c0lpYnFHQWZUeUNKamgxOXVrYU9zWEVKb2d3L3hNQ01mVkQ3QXV1YVJs?=
+ =?utf-8?B?Y29wdjhNaW1QckhDeWxycjdQYkpEajQvaGRtNVZZdE9ML1lESHJ6aVJEakxi?=
+ =?utf-8?Q?qK7q7Urx3FIK5QzDbaK/STpZz?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92f2da94-bb33-4902-6f4e-08dbae4c9a8d
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 893d544a-17e9-4211-fedf-08dbae4baec1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2023 20:07:08.0508 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Lg4fewfQivzGX7NkC/icRxCM/0/d2df/QzqT7+yWg+kqJTIgfdh1Mbd69xmklb1RFWorWxBJC3jqEZnSJY3WOw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8436
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2023 20:13:43.8249 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XWZgSJ9wpxu2xPonFyYrvjEN0q3/hJHS1af+yQGW8MD9eRiynazw+SFkZZfwbQuLXQORI6JSQN4FG4h2IJk25A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9315
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,64 +129,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Limonciello, Mario" <Mario.Limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On 9/5/2023 15:07, Deucher, Alexander wrote:
+> [Public]
+> 
+>> -----Original Message-----
+>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mario
+>> Limonciello
+>> Sent: Tuesday, September 5, 2023 3:26 PM
+>> To: amd-gfx@lists.freedesktop.org
+>> Cc: Limonciello, Mario <Mario.Limonciello@amd.com>
+>> Subject: [PATCH 4/4] drm/amd: Enable seamless boot by default on newer
+>> APUs
+>>
+>> IP discovery is a good line in the sand to expand seamless boot to more ASICs.
+>>
+>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 +++-------
+>>   1 file changed, 3 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> index 9159a7b993ab..19265dbe592e 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -1296,14 +1296,10 @@ bool amdgpu_seamless_boot_supported(struct
+>> amdgpu_device *adev)
+>>        if (adev->mman.keep_stolen_vga_memory)
+>>                return false;
+> 
+> This probably needs to be revisited too.  I don't know why this is an issue.  This flag just means the kernel driver keeps the stolen VGA region as reserved rather than releasing it back into the pool of available memory.  I don't think it should directly affect this feature.
+> 
+>>
+>> -     switch (adev->ip_versions[DCE_HWIP][0]) {
+>> -     case IP_VERSION(3, 0, 1):
+>> -             return true;
+>> -     default:
+>> -             break;
+>> -     }
+>> +     if (adev->asic_type != CHIP_IP_DISCOVERY)
+>> +             return false;
+> 
+> Probably need input from the display team, but I think a number of the older chips we'd probably want this too.  Maybe base it on the DCE_HWIP version?  DCN 1.0.0 or newer?  Or maybe  DCN 3.0.0 or newer?
+> 
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Mario
-> Limonciello
-> Sent: Tuesday, September 5, 2023 3:26 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Limonciello, Mario <Mario.Limonciello@amd.com>
-> Subject: [PATCH 4/4] drm/amd: Enable seamless boot by default on newer
-> APUs
->
-> IP discovery is a good line in the sand to expand seamless boot to more A=
-SICs.
->
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 +++-------
->  1 file changed, 3 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 9159a7b993ab..19265dbe592e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1296,14 +1296,10 @@ bool amdgpu_seamless_boot_supported(struct
-> amdgpu_device *adev)
->       if (adev->mman.keep_stolen_vga_memory)
->               return false;
+I think it will only work on the older chips if the 
+adev->mman.keep_stolen_vga_memory check can actually be dropped as some 
+of the older chips explicitly set it to TRUE.
 
-This probably needs to be revisited too.  I don't know why this is an issue=
-.  This flag just means the kernel driver keeps the stolen VGA region as re=
-served rather than releasing it back into the pool of available memory.  I =
-don't think it should directly affect this feature.
+There are other non-obvious dependencies too like:
+f0882d3afb9a ("drm/amd/display: prevent seamless boot on displays that 
+don't have the preferred dig")
+6349c73859cb ("drm/amd/display: For ODM seamless transition require AUTO 
+mode")
 
->
-> -     switch (adev->ip_versions[DCE_HWIP][0]) {
-> -     case IP_VERSION(3, 0, 1):
-> -             return true;
-> -     default:
-> -             break;
-> -     }
-> +     if (adev->asic_type !=3D CHIP_IP_DISCOVERY)
-> +             return false;
+So I was trying to be cautious in just enabling a few more things right 
+now.  I think essentially this "only" enables for for Rembrandt, 
+Raphael, Mendocino and Phoenix.  I tested it on Phoenix and Rembrandt.
 
-Probably need input from the display team, but I think a number of the olde=
-r chips we'd probably want this too.  Maybe base it on the DCE_HWIP version=
-?  DCN 1.0.0 or newer?  Or maybe  DCN 3.0.0 or newer?
+But the module parameter is an escape hatch.  Let's see what display 
+team says.
 
->
-> -     return false;
-> +     return adev->flags & AMD_IS_APU;
->  }
->
->  /*
-> --
-> 2.34.1
+>>
+>> -     return false;
+>> +     return adev->flags & AMD_IS_APU;
+>>   }
+>>
+>>   /*
+>> --
+>> 2.34.1
+> 
 
