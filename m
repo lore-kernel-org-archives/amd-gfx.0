@@ -4,127 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DDCBC83F2C
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 15:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBE04C83F33
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 15:37:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26CCC10E0A5;
-	Tue,  5 Sep 2023 15:16:42 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20613.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::613])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1918110E0A5
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 15:16:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26D6510E07B;
+	Tue,  5 Sep 2023 15:37:07 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20619.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::619])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D73410E191
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 15:37:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P2c+RCyaFkKBEJu5noBnwtxeN2s21qIkEZGUcd2wlrcYSh3XaiYtQygz7vgyxVBGCSM05+fXNnD6RfLS7Rl0qc3KpgJFS+P0gftTv2nhl7rCnbsTgMEGUhLVClWW1CP8oltvI/jpbdi9sRHqtiGmDZD7cKPMdcIapSvCvA/Wf1hhbmkwZMZwq8ye8WTYalertXfkRFXKyMhsCXrHZfh/pGxa6NZF1YMRtZbs49n2VcHAR5WMO3RXZtajRWFoj4iQVCjVCEqkvBHKKMhvkfnFV+jj9hCegUln5eWktT8AxtYwyzfYFS9hoY3dqGxW/xx7LDL5N65MAUkEvax1iW0k9A==
+ b=bwUo9MabrV22oHA9bcQhixhN/VUvAUYI7i41+vDDSfP9JpU+/rNLMAGpKP//4Q9qtOtfTRxQK1BbkQXXskuTep2L2OWxs9Y5W73nJ4kRrHJgfzRchb/M0pKjibm+U3xmuM2U6o07njN04B3PG6tKH8TmWjzJCy2q+34t7eOTBZOAMLfxS1Z8TrDurx10c8RjUp9TduL1zwaJj6MuHuMeZTqKs4b9OYEfdV+mlQJJhr+ynBSZ0CxBeIlWroCBxf0zr5y3i1kg/1K0o+djtzmEiCWIHU9ms/pLFWBYxeepLVbWXmE2eP/TE/hW/3W5Sai/qoKeDS5AFyaFjIVQEX6Fmw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U5CUli21rj9kPDl3Aqpc10AEkJLTmmIDmTwGnzpF15c=;
- b=cphjcoNP5XYDJCTeN8Ki7qbckBpl/YPlAyd3PgzCE1yzMt6rn1OTIeByqC4yZ4A+LCtz6BM252QNsOoj8nSRhYobzZRY51r6ABmq4n49aiMvXENAMt5Cbh8wkwvdSjOd4BIA0ceTN+0beFxBjIh2/zhCmYHhKlIGM+PRnpswfRFW/Gm5BXlM0KtBtNI0npREZvwm1sho7MeqsZgOwew0PbbUQDzyzfpSyazC0BwKngrbpOlOrVaGlbRcgv9NkbjdjWuW6wq+b+Qm1wY4w/VN/hJ3nVI1d0cXQ6gO4Q+rK84eWDlM6NEp4gGYxN6qHoGz7CfJ0CWBZMjj8tKWTGtRFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=JJ3blVH3rUhi9zSmEs/FhS4IWV0qZcnQOprXqYjVBkg=;
+ b=mPiy3QWSqc5mmeY7KIXXaXEUOeTU4psABUNkG5zaiQp7gNqx66tNupEhSwRCNSfvij/YCyWyosbuTz9JbNMP7LoHCaSpDE2H7aIqje/m1kUHQfyrJQoeyGVXzwTuoR8gI3DThd2+BTkwqpus5iSamG2pZk1syHIr8JtRM/GdtoNZx+G6xkKn7AqyG2ORICqlHiQ3xQsyJQjXzYldyR8p4dBJY4SO0zIe0QqH+5naxTsjBxcJvdTq6csnNYlfIehRtTQzWKWbXh2vXRwnxR1egOdrxLlYJVfhQi8aGrz1Bh4fhtQsDsYOf5nJMhvn++WYn0XdtD6X5MlH6ZSEeP1woQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U5CUli21rj9kPDl3Aqpc10AEkJLTmmIDmTwGnzpF15c=;
- b=R/7MaMhHTdHEHRifHYDqhtyj25P+or1ZWK55iopRjWDAj4XYps38svER99uO3N2KSbdgoXWB8IgQRCS5yDU1CW//xrUVjR1EauDt9OfMb3j8rWCQC2cSwByun9Yw36ZZwlOo7Y7bxhm9QnMrpFYzF4yCUJSk1b7o7XQUhR2BYGM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) by
- PH0PR12MB8126.namprd12.prod.outlook.com (2603:10b6:510:299::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.30; Tue, 5 Sep
- 2023 15:16:37 +0000
-Received: from DM6PR12MB2602.namprd12.prod.outlook.com
- ([fe80::757c:f867:1a53:3f2c]) by DM6PR12MB2602.namprd12.prod.outlook.com
- ([fe80::757c:f867:1a53:3f2c%4]) with mapi id 15.20.6745.030; Tue, 5 Sep 2023
- 15:16:37 +0000
-Message-ID: <019cf4e9-7ae2-9ca3-2a66-bda1b64dd575@amd.com>
-Date: Tue, 5 Sep 2023 10:16:34 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH] drm/amdkfd: Use partial migrations in GPU page faults
-Content-Language: en-US
-To: Philip Yang <yangp@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230824220834.362948-1-xiaogang.chen@amd.com>
- <d31985b2-74d9-2536-2995-7b693928d443@amd.com>
- <f744c06c-284f-de8b-8ed2-05d0512823a1@amd.com>
- <ed0dd323-bd99-d2f7-8cbf-6a92e5201f8e@amd.com>
- <8670e751-9a76-b9d9-47f6-05461c279f09@amd.com>
- <fef7aadd-fb8f-f5c2-10e6-b5ebdcf4be56@amd.com>
- <347c4bba-cd60-29a5-6fc0-8f445fd31300@amd.com>
- <85f4c2da-2d8d-4c73-a540-f714ebe6b2e6@amd.com>
- <f57a1e42-52af-0d67-0049-9ed6c58fe0ee@amd.com>
- <0da257e5-85a6-4843-4f49-5666d049110e@amd.com>
- <a83c2317-932b-3a7d-2a54-0ccda4dd77be@amd.com>
- <0b40fe2b-7c80-573c-ec1c-64594b840dc2@amd.com>
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <0b40fe2b-7c80-573c-ec1c-64594b840dc2@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA0PR11CA0148.namprd11.prod.outlook.com
- (2603:10b6:806:131::33) To DM6PR12MB2602.namprd12.prod.outlook.com
- (2603:10b6:5:4a::11)
+ bh=JJ3blVH3rUhi9zSmEs/FhS4IWV0qZcnQOprXqYjVBkg=;
+ b=Tz+G2HVp6ufgEbFs52GAMeOUAnTp947GDZbZ3kGwXLBD0F5SR05IXhkBd9CGtalUnnID94GFfhuev8cAYPr5fY3w38j/G6ygybRZBBCe/NG2+PoRqhYnAt8ZLMOgesUrW21L0rh1uSZcDApAjdy81THPfaC2F5jEor4vn2yub2M=
+Received: from CY5P221CA0049.NAMP221.PROD.OUTLOOK.COM (2603:10b6:930:4::28) by
+ CH0PR12MB5124.namprd12.prod.outlook.com (2603:10b6:610:bf::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6745.33; Tue, 5 Sep 2023 15:36:58 +0000
+Received: from CY4PEPF0000FCC0.namprd03.prod.outlook.com
+ (2603:10b6:930:4:cafe::84) by CY5P221CA0049.outlook.office365.com
+ (2603:10b6:930:4::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33 via Frontend
+ Transport; Tue, 5 Sep 2023 15:36:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000FCC0.mail.protection.outlook.com (10.167.242.102) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6768.25 via Frontend Transport; Tue, 5 Sep 2023 15:36:58 +0000
+Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 5 Sep
+ 2023 10:36:56 -0500
+From: Shashank Sharma <shashank.sharma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: move task_info out of amdgpu_vm
+Date: Tue, 5 Sep 2023 17:36:36 +0200
+Message-ID: <20230905153636.2107-1-shashank.sharma@amd.com>
+X-Mailer: git-send-email 2.38.0.windows.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2602:EE_|PH0PR12MB8126:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07020c79-0e8b-40d2-61b0-08dbae231926
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC0:EE_|CH0PR12MB5124:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57b2b38b-2d12-4e90-bd01-08dbae25f122
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zWUBTGNmMZEMLX+Q6GsL17SuGyHWKsD4QObhC1ZdoCTLBhpegoy4HVN5Of5vyaxq8Ts5C/4JMawP5Kl9oEcwVZnnZQP9t1aOgx+E9ZGUdAHo0Z2dTff+ON4/pSY/s4mjJYWcSJLAlwp641YKFc+vzgFpJFsMs5OabuJzr57dkGg3sWZRyNFDTl3SN5eZyrDcuGsW9Svpa3A01dnI2JK2yZSpbcXFd1E6VsuUUm4nJO0gyLbFlYOg/q9xVF8tMwe/bBFYGsMDI60689Uu0/oU2Kij6iYBzQxxCxW7mo7vGvuUX6sFm/stlGWNmMRZcvmYubvensYAvtRNc7/bE7zjiBErBvztffQ9I91VSIAwyXPvm1299THzpsYgUs6SMgvY26kxmDjZsHovfLChQDbUl5KG88ddlMhTgi7tV7WCOV/20nKKSYZ7uADV60rNghlXjOn4dcS1aaR0ZGR0TLiw3+wLrJR0dMEWc9yEibeXaDTR23BSD41MUp9642TpKigHGJSMvykPmD3thnTKrGWXIpaZblTDvmYvjKYMAlctZH7HgTKguFCBs8KlSWjXP5hR5Vnh0otKYQrvYKjorZ/iWIHoxweq3GH5nwk9F3Vz7+ZsT9ihCYih8DZfcltTa2hAUzNC2diFTkTpwnjZmcsqUQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2602.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(396003)(136003)(39860400002)(366004)(346002)(186009)(1800799009)(451199024)(26005)(6506007)(53546011)(2616005)(6486002)(6512007)(86362001)(38100700002)(36756003)(31696002)(83380400001)(41300700001)(8936002)(316002)(66476007)(66556008)(5660300002)(66946007)(110136005)(8676002)(4326008)(31686004)(2906002)(478600001)(6666004)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: 8gNcl3ZnNaFv7vVYfbdBWesp73FH7iwQY7sZt37VD/jh4CUk0KJBypxese0Ked4wodmeV+oDXM5L0NOkIp7/mLOIpWq6+udjmgZ5CQue/+UEPYY9LsksbxfxLWfC37JrqiZxSqAmMFgS3Ny9WYUsrQWTsWGBmy2D3XavJ+Efgvlzz+S/XgXpjohZVFiHestUnW27BONv6zL0dLDhragV6SiPPfsYpWFr/SvmtaWR7k674R76w3BWHg+3XoTxm2D4oDNQaJdfvkrAFqEcszjkI2j3e2ZHTF3ruEx8cTnrfXp4vcesr06C4sr5MFpmIdDdamFzsFBZslgQGyF0CpnuzWYR9SFK9I9c99bcyTHQ8zYkksZwgpUUcAOVb2nJB8MHkC6RWo3y4/2MCBxjMA7iaJL7VPW7/aM6Vl2FsH1lFEebi1MuEgB9S9rb10gKinems/Ca4d9PObJy3wYX+E2hJE0Z1v17jhgTv2ZBJap9j1Er4ZOf8lbPkJiNQxYtWwuVqSiz/4ceDNsOdMY4+RdJt1IBu2Zngsuu4ec7v2eQdpMlefyr8rslxoH/hBM2Q7+1sXoeNpnhHIunnCFHEp/DVpxmR0+FiO4Ud2ExUtKXErESoPER6734casNFii6nA+OVrNYaCjbT20vWTQPFg4L/5PloeOi87lEa2vURPUhu61LYEua0/s22rRhX9Yj/rsO7fpkN1Q0vEC6j1OaRuLSPqW+N+NwBYjnCwVzVVYgymHpaBcLY1QFd+f44+uElzZKOXfVVKh6oCLQFTqc/rbhnQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(376002)(39860400002)(346002)(396003)(136003)(186009)(451199024)(82310400011)(1800799009)(46966006)(40470700004)(36840700001)(6666004)(70586007)(54906003)(70206006)(6916009)(44832011)(40480700001)(7696005)(316002)(41300700001)(478600001)(4326008)(8676002)(1076003)(40460700003)(2616005)(26005)(16526019)(5660300002)(36756003)(36860700001)(82740400003)(356005)(81166007)(426003)(336012)(2906002)(8936002)(86362001)(47076005)(83380400001)(30864003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cld6dEE0cWJoK1hMcS9Vb2xuSk0zVUNxbGJIN2Z1S1AxcGEzM2MvNzg2YlJC?=
- =?utf-8?B?TzlHQ3dPemZwUGg3RXg4Y2RyRkQ1cmRqSE10d2NHYlkwRk1TS1djVUsrMGlH?=
- =?utf-8?B?aU9jQ1JFUllaVHV5S25sV2dOdmxEWE1GdGhEajAwQWNQRGdVRnRrYnVhU2Zn?=
- =?utf-8?B?S3d1TkVzYmtYMWs5Lzl6cmJnN2xtSUtJYzhnSWdzZzRBRUN5UUpZN0Z5Z21s?=
- =?utf-8?B?OFBtM3VTMGlrdVZpR3ZRblVNenFiZ3lQVDBLKzVrajhlallLRVQ3YnQ1V0F5?=
- =?utf-8?B?ZHRIUDJ6V3ZJdVVkU3NiSmp1WjRyQ2RXUXROVzVpTk0xSHlOZmJRa2NuZVhW?=
- =?utf-8?B?RzMzQmdXZ04wMG4yeXhtRG42SzN3OGZMeXl1TExpQ1BhRmRJYnhycGlaemNT?=
- =?utf-8?B?U0hsdHRYZ0J6QkJPeHlxVU5sZFQyNTYweEJ3M2d3TklPUXBWRSsxWWJTbE9K?=
- =?utf-8?B?N2psTEJCVVlBM08yZDliaTJQbkxxZGRGS1NjUUpyWGVuTlBNb0UvVWhCc2Na?=
- =?utf-8?B?RjMvREg1aTdaRlFQR2Zvb1ZTdW5aKzZSdHpxSWw1NzhtUit6Zm1QZ1N2c1VN?=
- =?utf-8?B?RUF5RllhRDBQUWhpbzE3U3FyRTBkNnFEWmplaXZPNnp1NGVDNGFSc1NFdFFK?=
- =?utf-8?B?KzY5eWptaXl0NlZkWjlpcnY2aWtocXdlZFd2OVVkVHlkRnBXdGlRaHdESjF0?=
- =?utf-8?B?dnRETnl3MmN0QjR1aVE5T0FiRXRNMVBWQjBleHZYMGw3ejdjT25melJzVkRU?=
- =?utf-8?B?eEtWZHNQL3A3dDNPS09OUlpHVmZ2bGgvYWxtS09nUmUxblVrZWRVaGJpdktS?=
- =?utf-8?B?V0VZWFJxTVlMSGxaR09udllmSTBTYm96OTVNS2dYU3UwU2VpNXRxY3dHSkRF?=
- =?utf-8?B?T1QrTSs4cHpIajNaNUlJL3YvU2FVWDBEQ053UlU3M25qUmFHc3JYWm5zM2ti?=
- =?utf-8?B?MDIyU2FxQmhCMHV5dGtMdXpjMFFKRUhGRWdRb0FVWERmZmFSR2JFZ3MvVGIz?=
- =?utf-8?B?NDN0OS8xOVROYzlWMG5zL3ZOMVFpR05VMmpaWklmdEVWWndrZlJsL1ZtVU1z?=
- =?utf-8?B?c1cxWkN1aGsxdjY4Z01kN3Rmb1VUVVJCczJ0Tm8rdUF6TmNqWG5FaVVzalM0?=
- =?utf-8?B?MTRGc2dZNTRsTDJ0SHV2ckRPc3RGQ2l2bVZDUjd6enNyRGFicGVWd0R0QW4r?=
- =?utf-8?B?Vzg3UTVWNXU5RE9VRXNzcU5ac2Mrb2JTVWtQOGpvSlFHVzNjQ3ExRWw0bUN0?=
- =?utf-8?B?TXpwYVFEVGVOWC9waElFZEkrZmR0anNSYmMvTXB5Uzk2ZGZ1WVh2bzZxVkQw?=
- =?utf-8?B?ejEweXp0VVN2d0ZONWdWd1lRQ2lFUWRZNGVpS0J1ZVE5ZjV1MmowUHZrTXo2?=
- =?utf-8?B?K1JmbFBET2pzcXR0TnRDeVlWVVNwU1R4SUZNcXlkdWhIRHNwUDJRcXNmUjZt?=
- =?utf-8?B?YUZnT3JPZ0lKaDFhb0piY1BrUzBmRk14aldtR1JOTnlUYXgrL1BZbUQwNWpt?=
- =?utf-8?B?MnhDM3VMaGNpUUt4dDkzMzgvNWowWENZSjZrOElIZ2tyaW9NUndLUkRRdEFL?=
- =?utf-8?B?UGNqM3FGSEdXSHA4UXJ5eCsvRW1wc0JJUjEzVlEwcmg2R2tXMGR1VWpRZTNE?=
- =?utf-8?B?Tm5TNjdhOGpoYUVSVGtwTEFydVBYeStaVFI3TU1pNWV6by9VUHRFTFV0TU1n?=
- =?utf-8?B?K2hwaERobk56S3pWcGtJRnBwOVROVmE1OHVwbUpxK1JrNWhSZ3pyUndxK2Zq?=
- =?utf-8?B?U1djZmcyKytxOGVVZ1FOelZDUVVoc09ialZOaHV0R29aSFd6MndCSEx6V0k2?=
- =?utf-8?B?dXRTTy90ZVJtVmE1NFg4bE5IaG9pdVV6eTZEaGhZY1ZGUFhXbjlNdlZWMjBp?=
- =?utf-8?B?a1VWYWJ4ODQ2RGhLa2pMUnZFWU8xaXdWZDIzeERHTkp6TVJyRE5DUEp6MXVi?=
- =?utf-8?B?V1E0aXoyK3NQeW5OOWF5V1J1b0F4ZTgzMzZsdWptWmlwVGJxK3NWZis0SDht?=
- =?utf-8?B?dElwYTNJOTRCemdtYWhsbzdMRUJYckhRZmlibzdiRzdPNEVhYjNRdSt1QXZt?=
- =?utf-8?B?OG9Fam54TzcxOFlLRXBYa0hjVk1wVUtTalFNcENFS0FHeitaMnRvd3M1RUZP?=
- =?utf-8?Q?Yyok=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07020c79-0e8b-40d2-61b0-08dbae231926
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2602.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2023 15:16:37.3759 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2023 15:36:58.4572 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57b2b38b-2d12-4e90-bd01-08dbae25f122
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FMy0dqr2eceku8pq4l1hRYAHW4CujR3xuHpZcV356igxZIoTbORBms6xUb7Huf5W
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8126
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC0.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5124
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,120 +98,318 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip.Yang@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+It has been observed that task_info struct makes it difficult to
+handle amdgpu_vm during a GPU reset, due to it's parameters like
+task_name and process name.
 
-On 9/5/2023 9:02 AM, Philip Yang wrote:
->
->
-> On 2023-08-31 17:29, Chen, Xiaogang wrote:
->>
->> On 8/31/2023 3:59 PM, Felix Kuehling wrote:
->>> On 2023-08-31 16:33, Chen, Xiaogang wrote:
->>>>>>>>> That said, I'm not actually sure why we're freeing the DMA 
->>>>>>>>> address array after migration to RAM at all. I think we still 
->>>>>>>>> need it even when we're using VRAM. We call svm_range_dma_map 
->>>>>>>>> in svm_range_validate_and_map regardless of whether the range 
->>>>>>>>> is in VRAM or system memory. So it will just allocate a new 
->>>>>>>>> array the next time the range is validated anyway. VRAM pages 
->>>>>>>>> use a special address encoding to indicate VRAM pages to the 
->>>>>>>>> GPUVM code.
->>>>>>>>
->>>>>>>> I think we do not need free DMA address array as you said, it 
->>>>>>>> is another thing though.
->>>>>>>>
->>>>>>>> We need unmap dma address(dma_unmap_page) after migrate from 
->>>>>>>> ram to vram because we always do dma_map_page at 
->>>>>>>> svm_range_validate_and_map. If not we would have multiple dma 
->>>>>>>> maps for same sys ram page.
->>>>>>>
->>>>>>> svm_range_dma_map_dev calls dma_unmap_page before overwriting an 
->>>>>>> existing valid entry in the dma_addr array. Anyway, dma 
->>>>>>> unmapping the old pages in bulk may still be cleaner. And it 
->>>>>>> avoids delays in cleaning up DMA mappings after migrations.
->>>>>>>
->>>>>>> Regards,
->>>>>>>   Felix
->>>>>>>
->>>>>>>
->>>>>> then we may not need do dma_unmap after migrate from ram to vram 
->>>>>> since svm_range_dma_map_dev always do dma_unmap_page if the 
->>>>>> address is valid dma address for sys ram, and after migrate from 
->>>>>> ram to vram we always do gpu mapping?
->>>>>
->>>>> I think with XNACK enabled, the DMA mapping may be delayed until a 
->>>>> page fault. For example on a multi-GPU system, GPU1 page faults 
->>>>> and migrates data from system memory to its VRAM. Immediately 
->>>>> afterwards, the page fault handler should use svm_validate_and_map 
->>>>> to update GPU1 page tables. But GPU2 page tables are not updated 
->>>>> immediately. So the now stale DMA mappings for GPU2 would continue 
->>>>> to exist until the next page fault on GPU2.
->>>>>
->>>>> Regards,
->>>>>   Felix
->>>>>
->>>> If I understand correctly: when user call svm_range_set_attr, if 
->>>> p->xnack_enabled is true, we can skip call 
->>>> svm_range_validate_and_map. We postpone the buffer validating and 
->>>> gpu mapping until page fault or the time the buffer really got used 
->>>> by a GPU, and only dma map and gpu map for this GPU.
->>>
->>> The current implementation of svm_range_set_attr skips the 
->>> validation after migration if XNACK is off, because it is handled by 
->>> svm_range_restore_work that gets scheduled by the MMU notifier 
->>> triggered by the migration.
->>>
->>> With XNACK on, svm_range_set_attr currently validates and maps after 
->>> migration assuming that the data will be used by the GPU(s) soon. 
->>> That is something we could change and let page faults take care of 
->>> the mappings as needed.
->>>
->> Yes, with xnack on, my understanding is we can skip 
->> svm_range_validate_and_map at svm_range_set_attr after migration, 
->> then page fault handler will do dma and gpu mapping. That would save 
->> the first time dma and gpu mapping which apply to all GPUs that user 
->> ask for access. Then current gpu page fault handler just does dma and 
->> gpu mapping for the GPU that triggered page fault. Is that ok?
->
-> With xnack on, after prefetch the range to GPU, need 
-> svm_range_validate_and_map to update the mapping of the GPU migrated 
-> to (also the mapping of GPUs with access_in_place), because app 
-> prefetch to GPU to avoid GPU page fault.
->
-With xnack on postpone gpu mapping to page fault handler may save some 
-operations since we update mapping only on gpu that need the mapping, 
-but that is not for this patch any way.
->
-> After migrating to VRAM, we only need dma_unmap_page from 
-> prange->dma_addr array, don't need to free the dma_addr array itself, 
-> as it can be reused to store VRAM address to map to GPU.
->
-yes, we do not need free dma array, only need dma_unmpa_page at 
-svm_range_free_dma_mappings. The array stores both system ram dma 
-address and vram physical address. We can free this dma array at 
-svm_range_free.
+This patch:
+- removes task_info struct from amdgpu_vm and moves it into vm_mgr
+  as an Xarray.
+- creates a PID vs task_info mapping to index task_info from this
+  Xarray (similar to how it is being done for PASID to vm indexing).
+- adds additional changes to support these changes.
 
-Regards
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |  5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 64 ++++++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        | 12 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c     |  4 +-
+ 9 files changed, 77 insertions(+), 23 deletions(-)
 
-Xiaogang
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index d34c3ef8f3ed..8568ced570c8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1539,7 +1539,7 @@ int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
+ 	if (ret)
+ 		return ret;
+ 
+-	amdgpu_vm_set_task_info(avm);
++	amdgpu_vm_set_task_info(adev, avm);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index fb78a8f47587..24b9a841db54 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -316,7 +316,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 	kvfree(chunk_array);
+ 
+ 	/* Use this opportunity to fill in task info for the vm */
+-	amdgpu_vm_set_task_info(vm);
++	amdgpu_vm_set_task_info(p->adev, vm);
+ 
+ 	return 0;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 56e89e76ff17..cd8aef1135e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1762,9 +1762,10 @@ static int amdgpu_debugfs_vm_info_show(struct seq_file *m, void *unused)
+ 	list_for_each_entry(file, &dev->filelist, lhead) {
+ 		struct amdgpu_fpriv *fpriv = file->driver_priv;
+ 		struct amdgpu_vm *vm = &fpriv->vm;
++		struct amdgpu_task_info ti = {0, };
+ 
+-		seq_printf(m, "pid:%d\tProcess:%s ----------\n",
+-				vm->task_info.pid, vm->task_info.process_name);
++		amdgpu_vm_get_task_info(adev, vm->pasid, &ti);
++		seq_printf(m, "pid:%d\tProcess:%s ----------\n", ti.pid, ti.process_name);
+ 		r = amdgpu_bo_reserve(vm->root.bo, true);
+ 		if (r)
+ 			break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 6238701cde23..44fb16eba749 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5192,8 +5192,9 @@ int amdgpu_do_asic_reset(struct list_head *device_list_handle,
+ 				memset(&tmp_adev->reset_task_info, 0,
+ 						sizeof(tmp_adev->reset_task_info));
+ 				if (reset_context->job && reset_context->job->vm)
+-					tmp_adev->reset_task_info =
+-						reset_context->job->vm->task_info;
++					amdgpu_vm_get_task_info(tmp_adev,
++							    reset_context->job->vm->pasid,
++								&tmp_adev->reset_task_info);
+ 				amdgpu_reset_capture_coredumpm(tmp_adev);
+ #endif
+ 				if (vram_lost) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 78476bc75b4e..3985b9b10b46 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -58,7 +58,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 		goto exit;
+ 	}
+ 
+-	amdgpu_vm_get_task_info(ring->adev, job->pasid, &ti);
++	amdgpu_vm_get_task_info(ring->adev, job->vm->pasid, &ti);
+ 	DRM_ERROR("ring %s timeout, signaled seq=%u, emitted seq=%u\n",
+ 		  job->base.sched->name, atomic_read(&ring->fence_drv.last_seq),
+ 		  ring->fence_drv.sync_seq);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 12414a713256..cb3bde5ce682 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1329,8 +1329,10 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+ 	amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
+ 	amdgpu_vm_fini(adev, &fpriv->vm);
+ 
+-	if (pasid)
++	if (pasid) {
++		amdgpu_vm_free_task_info(adev, fpriv->vm.pid);
+ 		amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
++	}
+ 	amdgpu_bo_unref(&pd);
+ 
+ 	idr_for_each_entry(&fpriv->bo_list_handles, list, handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index ec1ec08d4058..95bea7690bb5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -161,7 +161,6 @@ int amdgpu_vm_set_pasid(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		vm->pasid = pasid;
+ 	}
+ 
+-
+ 	return 0;
+ }
+ 
+@@ -2439,6 +2438,7 @@ void amdgpu_vm_manager_init(struct amdgpu_device *adev)
+ #endif
+ 
+ 	xa_init_flags(&adev->vm_manager.pasids, XA_FLAGS_LOCK_IRQ);
++	xa_init_flags(&adev->vm_manager.tasks, XA_FLAGS_LOCK_IRQ);
+ }
+ 
+ /**
+@@ -2453,6 +2453,9 @@ void amdgpu_vm_manager_fini(struct amdgpu_device *adev)
+ 	WARN_ON(!xa_empty(&adev->vm_manager.pasids));
+ 	xa_destroy(&adev->vm_manager.pasids);
+ 
++	WARN_ON(!xa_empty(&adev->vm_manager.tasks));
++	xa_destroy(&adev->vm_manager.tasks);
++
+ 	amdgpu_vmid_mgr_fini(adev);
+ }
+ 
+@@ -2498,6 +2501,20 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 	return 0;
+ }
+ 
++/**
++ * amdgpu_vm_free_task_info - Finds and frees task_info ptr
++ *
++ * @adev: drm device pointer
++ * @pid: pid of the process in vm
++ */
++void amdgpu_vm_free_task_info(struct amdgpu_device *adev, u32 pid)
++{
++	struct amdgpu_task_info *task_info;
++
++	task_info = xa_load(&adev->vm_manager.tasks, pid);
++	kfree(task_info);
++}
++
+ /**
+  * amdgpu_vm_get_task_info - Extracts task info for a PASID.
+  *
+@@ -2508,14 +2525,18 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ void amdgpu_vm_get_task_info(struct amdgpu_device *adev, u32 pasid,
+ 			 struct amdgpu_task_info *task_info)
+ {
++	struct amdgpu_task_info *ti;
+ 	struct amdgpu_vm *vm;
+ 	unsigned long flags;
+ 
+ 	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
+ 
+ 	vm = xa_load(&adev->vm_manager.pasids, pasid);
+-	if (vm)
+-		*task_info = vm->task_info;
++	if (vm) {
++		ti = xa_load(&adev->vm_manager.tasks, vm->pid);
++		if (ti)
++			*task_info = *ti;
++	}
+ 
+ 	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
+ }
+@@ -2523,21 +2544,44 @@ void amdgpu_vm_get_task_info(struct amdgpu_device *adev, u32 pasid,
+ /**
+  * amdgpu_vm_set_task_info - Sets VMs task info.
+  *
++ * @adev: drm device pointer
+  * @vm: vm for which to set the info
+  */
+-void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
++void amdgpu_vm_set_task_info(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ {
+-	if (vm->task_info.pid)
++	struct amdgpu_task_info *task_info, *old;
++
++	if (!vm->pasid)
+ 		return;
+ 
+-	vm->task_info.pid = current->pid;
+-	get_task_comm(vm->task_info.task_name, current);
++	if (vm->pid == current->pid)
++		return;
+ 
+-	if (current->group_leader->mm != current->mm)
++	task_info = kzalloc(sizeof(struct amdgpu_task_info), GFP_KERNEL);
++	if (!task_info) {
++		DRM_ERROR("OOM while setting task info\n");
+ 		return;
++	}
++
++	task_info->pid = current->pid;
++	get_task_comm(task_info->task_name, current);
++
++	if (current->group_leader->mm == current->mm) {
++		task_info->tgid = current->group_leader->pid;
++		get_task_comm(task_info->process_name, current->group_leader);
++	}
++
++	/* Replace and free if there is an existing task_info entry */
++	old = xa_store_irq(&adev->vm_manager.tasks, task_info->pid, task_info, GFP_KERNEL);
++	if (xa_err(old) < 0) {
++		DRM_WARN("Failed to update task info, pid=0x%x pasid=0x%x\n",
++			  task_info->pid, vm->pasid);
++		kfree(task_info);
++		return;
++	}
+ 
+-	vm->task_info.tgid = current->group_leader->pid;
+-	get_task_comm(vm->task_info.process_name, current->group_leader);
++	kfree(old);
++	vm->pid = task_info->pid;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+index ffac7413c657..33f333d864b1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+@@ -302,6 +302,7 @@ struct amdgpu_vm {
+ 	struct dma_fence	*last_unlocked;
+ 
+ 	unsigned int		pasid;
++	unsigned int		pid;
+ 	bool			reserved_vmid[AMDGPU_MAX_VMHUBS];
+ 
+ 	/* Flag to indicate if VM tables are updated by CPU or GPU (SDMA) */
+@@ -325,9 +326,6 @@ struct amdgpu_vm {
+ 	/* Valid while the PD is reserved or fenced */
+ 	uint64_t		pd_phys_addr;
+ 
+-	/* Some basic info about the task */
+-	struct amdgpu_task_info task_info;
+-
+ 	/* Store positions of group of BOs */
+ 	struct ttm_lru_bulk_move lru_bulk_move;
+ 	/* Flag to indicate if VM is used for compute */
+@@ -374,6 +372,11 @@ struct amdgpu_vm_manager {
+ 	 * look up VM of a page fault
+ 	 */
+ 	struct xarray				pasids;
++
++	/* PID to task_info mapping, will be used in reset context to
++	 * look up PID/TID of a reset
++	 */
++	struct xarray				tasks;
+ };
+ 
+ struct amdgpu_bo_va_mapping;
+@@ -465,7 +468,8 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 			    u32 vmid, u32 node_id, uint64_t addr,
+ 			    bool write_fault);
+ 
+-void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
++void amdgpu_vm_set_task_info(struct amdgpu_device *adev, struct amdgpu_vm *vm);
++void amdgpu_vm_free_task_info(struct amdgpu_device *adev, u32 pid);
+ 
+ void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
+ 				struct amdgpu_vm *vm);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index 5431332bbdb8..3704556210d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -992,16 +992,18 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+ 			uint64_t upd_end = min(entry_end, frag_end);
+ 			unsigned int nptes = (upd_end - frag_start) >> shift;
+ 			uint64_t upd_flags = flags | AMDGPU_PTE_FRAG(frag);
++			struct amdgpu_task_info ti = {0, };
+ 
+ 			/* This can happen when we set higher level PDs to
+ 			 * silent to stop fault floods.
+ 			 */
+ 			nptes = max(nptes, 1u);
++			amdgpu_vm_get_task_info(adev, vm->pasid, &ti);
+ 
+ 			trace_amdgpu_vm_update_ptes(params, frag_start, upd_end,
+ 						    min(nptes, 32u), dst, incr,
+ 						    upd_flags,
+-						    vm->task_info.tgid,
++						    ti.tgid,
+ 						    vm->immediate.fence_context);
+ 			amdgpu_vm_pte_update_flags(params, to_amdgpu_bo_vm(pt),
+ 						   cursor.level, pe_start, dst,
+-- 
+2.42.0
 
-> Regards,
->
-> Philip
->
->>
->> Regards
->>
->> Xiaogang
->>
->>> Regards,
->>>   Felix
->>>
->>>
->>
->>>>
->>>> Regards
->>>>
->>>> Xiaogang 
