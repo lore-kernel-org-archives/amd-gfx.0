@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3069CA0FE9
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 06:04:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E22E7C83F2C
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 06:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C804410E42D;
-	Tue,  5 Sep 2023 06:04:25 +0000 (UTC)
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 025CA10E427
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 06:04:21 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-52c74a2e8edso2986120a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Sep 2023 23:04:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0375B10E42E;
+	Tue,  5 Sep 2023 06:04:26 +0000 (UTC)
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [IPv6:2a00:1450:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6360C10E42B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 06:04:24 +0000 (UTC)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-523100882f2so2839024a12.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Sep 2023 23:04:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693893860; x=1694498660; darn=lists.freedesktop.org;
+ d=gmail.com; s=20221208; t=1693893863; x=1694498663; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=a9d5n3grJEyGrwKuAoASHma4QqT+cwst804XpWW7Fdg=;
- b=rmLKumPoqwjeiCbXqsWL67X/C9P6lbtXkS+KU4aOmqtBZnRe0F3BLQZxWWM9lixYNf
- LyCgN4oCH7m7XpkDLgmcJwEC2EKFXXdqmqO9UCDycormpxPneYG2Ym7tro37AVGnYd9O
- rxD1FdxNXtpDd9iKfJdetnyKOCYo/t30wbvdJ8eT+mwBsPvVqEq3is/7e1nHqkCqgVUr
- mGp5HcXmxGP8AvpQGsooLDS7CMNdh0BslROUATcesf+5UwnqQ0D9NEBxvDpajcqV3+as
- PObiAk2Lb/6uj9NfDj0wLv28IgGbHBvG3UuUngoa9aAdcFJgJFNK31iadnSvakk4Go9X
- qKcw==
+ bh=pzg20wHPv+q7Gk6Nq1Mqo2bgC7J10ecxifs4mul0aOs=;
+ b=qilYaDf+nLvCI3nD5GZhgy8MN2acTdhKr1XSatjScR4StJ63usy76MqrOZbdAtVa+F
+ gUA1kuSJ2kUVz82BjBe972syOB6XdJ2EWuja9Pp1TWlKuXPejqaAwyuAo9HNkWZaHaJW
+ 6XO9hcn4RjiuqVhi+wD846334D+Qxs0DFf3Pe5mQiKv/DccYMtUfbuCWbet43ZeQhryP
+ BRqsJCratVGK0nljtawPStFf7t/iAWl58gnjIQEC1/M8kJrmIMf42oDS1UKc3drVgzGp
+ MKy5Pm5lfYr6SHZ5eyYsj1O1UVhAz3wYI/MhAfQkJQIeGgFGMJNeQXNQsotpb4/fYyc+
+ nwAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693893860; x=1694498660;
+ d=1e100.net; s=20221208; t=1693893863; x=1694498663;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=a9d5n3grJEyGrwKuAoASHma4QqT+cwst804XpWW7Fdg=;
- b=CHraNfv3l64XiCgJ/t7qXXceA9QiogUQ2y3zEgAPvMQ84lD490n6nIabdsQxSztm5u
- RUyInaflqlMRTHupVhOu6VJnLRo/+Iz9ytoYMW6vCfLheiDPlNGlTB8WN9OI6CQhjg8R
- aFj4ARV1fGzG2odYgTvouK43LWP/tI0RuGdWqpfM+ponDPD41Twk9ruR5lHyJQK5ZFG/
- iWYIsfcgDSvbZZBrpSZFoTdq1ors0PGl4dLPvzaLzbrApnGJ7pdUwf8y1pPWQVDX7HWC
- Ef3gvb4NiDFcPYv6jytxNkR4RIKgQ7Pkh0fUmjx27JZ/mE6hlw7w8urjxlSnK9/bBNm+
- DUKA==
-X-Gm-Message-State: AOJu0YxEyU4ijV5fYK4B1h0wejgh3qnGgVhwkTtgrA0+DxFT7pEplqmH
- mxEyx8BSA+7LF6LL3PwPetUTlB+92FGl2eNs
-X-Google-Smtp-Source: AGHT+IGUd5HOtCN42bO2/jTNxYhLf87ypOAIap7bXH+S1+S94ItnX2mCwXpv7FQNBtVurDWBNjWzHw==
-X-Received: by 2002:a50:ee92:0:b0:52a:3ee9:a78a with SMTP id
- f18-20020a50ee92000000b0052a3ee9a78amr9175325edr.26.1693893860286; 
- Mon, 04 Sep 2023 23:04:20 -0700 (PDT)
+ bh=pzg20wHPv+q7Gk6Nq1Mqo2bgC7J10ecxifs4mul0aOs=;
+ b=GCUhKWStzJm3fufibbB52oB3VPW8RUmakdSrUu5kAIG81490kEM81I1NTDPsutt6i/
+ 6MYSplTug/q+D0MZpH3Ffnuc3u5Ata8uPKGYVGJSFrylmlLHcKo+dphNYtLf6iVB2Bc9
+ RVu19RC0Fr66t6ruLzKj3bM45t7srHwG8kurHoMkjUnlKwrKh5/R2uU4TEtqhCyuadFn
+ Zvt6sl7FiUDZdmIcE/JqTMMAXwT3pPWh7Nba88Da+fIHG6o4dzYFQUV83qznYqlPLHWx
+ iyZMkCQT9K5bTWG5cWqpe54inM0v5iQtT188sG6NAi+4WnGxweOPe6KM5USQg3TTcxcr
+ 89+A==
+X-Gm-Message-State: AOJu0Yy92n9MBp9r9TFRmAHu+Ol7iZ+3/TJF8glyUn73RD6P67gisL/Y
+ 0XRm5BQKqzFyrfxmHAyn3Pyibp3v6YB/kXHH
+X-Google-Smtp-Source: AGHT+IHIbD8KgpRlJ2JO9njPKCTyaGrR7QTa7Z0MK0fD2Tcwp2wC8xTcBqJpX4VEo5NJfHz5RBM5WQ==
+X-Received: by 2002:a50:ee17:0:b0:52b:d169:b372 with SMTP id
+ g23-20020a50ee17000000b0052bd169b372mr9307753eds.4.1693893862800; 
+ Mon, 04 Sep 2023 23:04:22 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:15d9:7000:2f9d:c07d:1ee2:6439])
  by smtp.gmail.com with ESMTPSA id
- f2-20020a056402150200b0052a3b212157sm6631582edw.63.2023.09.04.23.04.19
+ f2-20020a056402150200b0052a3b212157sm6631582edw.63.2023.09.04.23.04.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Sep 2023 23:04:19 -0700 (PDT)
+ Mon, 04 Sep 2023 23:04:22 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 04/11] drm/amdgpu: fix and cleanup gmc_v7_0_flush_gpu_tlb_pasid
-Date: Tue,  5 Sep 2023 08:04:08 +0200
-Message-Id: <20230905060415.1400-5-christian.koenig@amd.com>
+Subject: [PATCH 08/11] drm/amdgpu: fix and cleanup
+ gmc_v11_0_flush_gpu_tlb_pasid
+Date: Tue,  5 Sep 2023 08:04:12 +0200
+Message-Id: <20230905060415.1400-9-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230905060415.1400-1-christian.koenig@amd.com>
 References: <20230905060415.1400-1-christian.koenig@amd.com>
@@ -79,62 +80,102 @@ Cc: shashank.sharma@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Testing for reset is pointless since the reset can start right after the
-test. Grab the reset semaphore instead.
+The same PASID can be used by more than one VMID, reset each of them.
 
-The same PASID can be used by more than once VMID, build a mask of VMIDs
-to reset instead of just restting the first one.
+Use the common KIQ handling.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 63 ++++++++------------------
+ 1 file changed, 19 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index 6a6929ac2748..9e19a752f94b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -33,6 +33,7 @@
- #include "amdgpu_ucode.h"
- #include "amdgpu_amdkfd.h"
- #include "amdgpu_gem.h"
-+#include "amdgpu_reset.h"
- 
- #include "bif/bif_4_1_d.h"
- #include "bif/bif_4_1_sh_mask.h"
-@@ -426,23 +427,23 @@ static int gmc_v7_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 3c3ad3f17c6a..aa39c1087e44 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -303,54 +303,27 @@ static int gmc_v11_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
  					uint16_t pasid, uint32_t flush_type,
  					bool all_hub, uint32_t inst)
  {
-+	u32 mask = 0x0;
- 	int vmid;
--	unsigned int tmp;
- 
--	if (amdgpu_in_reset(adev))
--		return -EIO;
-+	if(!down_read_trylock(&adev->reset_domain->sem))
-+		return 0;
++	uint16_t queried;
+ 	int vmid, i;
+-	signed long r;
+-	uint32_t seq;
+-	uint16_t queried_pasid;
+-	bool ret;
+-	struct amdgpu_ring *ring = &adev->gfx.kiq[0].ring;
+-	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
+-
+-	if (amdgpu_emu_mode == 0 && ring->sched.ready) {
+-		spin_lock(&adev->gfx.kiq[0].ring_lock);
+-		/* 2 dwords flush + 8 dwords fence */
+-		amdgpu_ring_alloc(ring, kiq->pmf->invalidate_tlbs_size + 8);
+-		kiq->pmf->kiq_invalidate_tlbs(ring,
+-					pasid, flush_type, all_hub);
+-		r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
+-		if (r) {
+-			amdgpu_ring_undo(ring);
+-			spin_unlock(&adev->gfx.kiq[0].ring_lock);
+-			return -ETIME;
+-		}
+-
+-		amdgpu_ring_commit(ring);
+-		spin_unlock(&adev->gfx.kiq[0].ring_lock);
+-		r = amdgpu_fence_wait_polling(ring, seq, adev->usec_timeout);
+-		if (r < 1) {
+-			dev_err(adev->dev, "wait for kiq fence error: %ld.\n", r);
+-			return -ETIME;
+-		}
+-
+-		return 0;
+-	}
  
  	for (vmid = 1; vmid < 16; vmid++) {
-+		u32 tmp = RREG32(mmATC_VMID0_PASID_MAPPING + vmid);
- 
--		tmp = RREG32(mmATC_VMID0_PASID_MAPPING + vmid);
- 		if ((tmp & ATC_VMID0_PASID_MAPPING__VALID_MASK) &&
--			(tmp & ATC_VMID0_PASID_MAPPING__PASID_MASK) == pasid) {
--			WREG32(mmVM_INVALIDATE_REQUEST, 1 << vmid);
--			RREG32(mmVM_INVALIDATE_RESPONSE);
--			break;
--		}
-+		    (tmp & ATC_VMID0_PASID_MAPPING__PASID_MASK) == pasid)
-+			mask |= 1 << vmid;
+-
+-		ret = gmc_v11_0_get_vmid_pasid_mapping_info(adev, vmid,
+-				&queried_pasid);
+-		if (ret	&& queried_pasid == pasid) {
+-			if (all_hub) {
+-				for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS)
+-					gmc_v11_0_flush_gpu_tlb(adev, vmid,
+-							i, flush_type);
+-			} else {
+-				gmc_v11_0_flush_gpu_tlb(adev, vmid,
+-						AMDGPU_GFXHUB(0), flush_type);
+-			}
++		bool valid;
++
++		valid = gmc_v11_0_get_vmid_pasid_mapping_info(adev, vmid,
++							      &queried);
++		if (!valid || queried == pasid)
++			continue;
++
++		if (all_hub) {
++			for_each_set_bit(i, adev->vmhubs_mask,
++					 AMDGPU_MAX_VMHUBS)
++				gmc_v11_0_flush_gpu_tlb(adev, vmid, i,
++							flush_type);
++		} else {
++			gmc_v11_0_flush_gpu_tlb(adev, vmid, AMDGPU_GFXHUB(0),
++						flush_type);
+ 		}
  	}
- 
-+	WREG32(mmVM_INVALIDATE_REQUEST, mask);
-+	RREG32(mmVM_INVALIDATE_RESPONSE);
-+	up_read(&adev->reset_domain->sem);
+-
  	return 0;
  }
  
+@@ -918,8 +891,10 @@ static int gmc_v11_0_gart_enable(struct amdgpu_device *adev)
+ 
+ static int gmc_v11_0_hw_init(void *handle)
+ {
+-	int r;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
++	int r;
++
++	adev->gmc.flush_pasid_uses_kiq = !amdgpu_emu_mode;
+ 
+ 	/* The sequence of these two function calls matters.*/
+ 	gmc_v11_0_init_golden_registers(adev);
 -- 
 2.34.1
 
