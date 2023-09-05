@@ -4,67 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 360BDC83F33
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 05:22:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 949CDC83F2C
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 05:24:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9115C10E16E;
-	Tue,  5 Sep 2023 05:22:34 +0000 (UTC)
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BD7810E16E
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 05:22:32 +0000 (UTC)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2bbbda48904so34045521fa.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Sep 2023 22:22:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693891351; x=1694496151; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=npIVzyij/+KYCKpSqFFGASRV/s7Xo15DphJl3r3n7GA=;
- b=k38zJuiOIfRcMprNEyKsJGTFBhhWTwQza67gSSKADevYPcM0aX0/0MvTbaLVdnX4Ob
- oB3MAjGzDfXJcbkPzR5zeVXm3eiCIWlHW84+8OYm951NjPLbA3/1YGVAkcQLwa2ra9Vn
- 1BQUl6DXu655aJ6AVyFWlNe0tc6EvLAAce+/bFCgMhSDhZxpgeXoZGNlLwfjn5MTWuW8
- +26SG7OQTjpQKMEaZM9LH7JDwb+1/ABO7dEpdtKjBLZGNdN8/jXA27n0na/Wl51bFbSZ
- ieL0eJ16ZlSEAYwH2F16tC/otLv/4wsk4eqLaCUVxeo+FS2irPnZGszaFsmYu6Ps2Wlt
- J17g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693891351; x=1694496151;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=npIVzyij/+KYCKpSqFFGASRV/s7Xo15DphJl3r3n7GA=;
- b=HF4exCiKkX+n6/5q16UehbHOafV34ZfRv54F/1QJIvCu3qrnf+n+02/tc/bdCbxLvx
- 6ccUT/g+4AsuYsiz4EjT4kOcJnB+rV2okRWrpod5sRu7LRmIIoQSlZtyh2BOYrpNi628
- m7ZvLTw6nAt4wvEU52v44qk30q+8GgBeusQyLfrGpYwr5+j6VUHJDWtqC6Oj538xL2jo
- RmBQgiWg1qEPu+/mXCF+1Xqh58Bg1ioOITx6OPL3rdtLf6In51zPRLwdJ8GU/ZUZtK7I
- qv5Rkc4vdz8H745DzyiTvRkGrIbmj2qrfNih3KVFbX2/w3KNnAGQHxxAsgYP58msL41g
- NR5g==
-X-Gm-Message-State: AOJu0Yw0X7dY/zK0ppfhyfz7by2jQTLFF4jCeKzp4Hn7ecH/wnh7LCdt
- hmylrieYFsbmet9OUvucC7w=
-X-Google-Smtp-Source: AGHT+IG5YooH+NT5d9+16BmRgjtmGW2A0bzDFe8kFnrKUuwfbRzRPzb/C97wLXAKMZPNgcMmfxafDQ==
-X-Received: by 2002:a2e:87c9:0:b0:2bd:180d:67b7 with SMTP id
- v9-20020a2e87c9000000b002bd180d67b7mr7931056ljj.40.1693891350344; 
- Mon, 04 Sep 2023 22:22:30 -0700 (PDT)
-Received: from [10.254.108.106] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- t8-20020a1c7708000000b003fef60005b5sm15811157wmi.9.2023.09.04.22.22.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Sep 2023 22:22:29 -0700 (PDT)
-Message-ID: <fbe06799-9455-403a-8311-00b3fc96440a@gmail.com>
-Date: Tue, 5 Sep 2023 07:22:28 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 059A810E41F;
+	Tue,  5 Sep 2023 05:24:19 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2085.outbound.protection.outlook.com [40.107.102.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55DD310E41F
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 05:24:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=odOFo76HImi4lsGfnqr/aKZ6dzovxifzH4tJDu68lnAjFl9BUztppx2su4UxQKwGs54p9IXQgt75gQ+MyJXcZEfBG3JMKez3E1SdHe9MObFgdauwFJsSjcBZmVjvO0WN3N9o1Dsr+YhuynVAYQBBWqHYjHaZCrRz7gj9ePjgbzrJA05NrgTDRdGr3ggkofwvQJwPiXDO/XiJmUWPMAL6bBz8TeSH//3NuQAWmP6oygbpCNp0C6HnbVrQpvF/vw8LWRXLNWc1gI539HB3Ks5PRsEcU7jpKJUMtdsdkQeX9O/t1VPhm1iVdKD7QZtwW6AfqhzI1WCQEerzk8PevHrciw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=acZmHZLUGHwHaZWS+tpgUlU3UMjWSWz6Lh8T2lYQies=;
+ b=jnndmYnFcykRXYRAm6XtwkUNBuelEtD3+I20I2LqtxL/OsEZO4Oae3ePuFv0OOkLbUuhgE40ZEXUD9C2GIqGcQwK67LW9jtEww4yVEqsy1LAJI6iBoq8hmeiLTEbiczuMFgFTekkqB3W4Jc4J3pQGyUjMeVTcsDJhpsSHfjJyS9aaHAEH308cJprxpuYrO/+od2V17pqkxFwH85QX7VdOhF1ouuDUgeeLVD47G7ltDcTasW0E8Ce38kXyZEPFdAOThkfFkyLn4Rc5blpV7+Kw7uFR48Nq8e3GS+hab6i7uGjZt1fV8NPiOJswOvlBlocv4/o5kcVNg+q8JIKG0/UFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=acZmHZLUGHwHaZWS+tpgUlU3UMjWSWz6Lh8T2lYQies=;
+ b=Bcl68Fqt7p6TB0/DEsx/Y8uPG5/9R23FhMy7YeAsLpYLPFWpAvRPqEkpwZMNKOWYdrv4bl1GMXWjo52KnOy1nbQZwfKV9nhBARYx1Uh3pa2mmKN+237vpHjptMGcDsSVpmRmyKo2UmUCOjBYtGDLSOIQ9vk/EvTE8bvpROgvN9U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DM6PR12MB4041.namprd12.prod.outlook.com (2603:10b6:5:210::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Tue, 5 Sep
+ 2023 05:24:15 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::3d:c14:667a:1c81]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::3d:c14:667a:1c81%4]) with mapi id 15.20.6745.030; Tue, 5 Sep 2023
+ 05:24:15 +0000
+Message-ID: <22adf274-ba4e-63d5-df8f-f7cafdb1075b@amd.com>
+Date: Tue, 5 Sep 2023 07:24:07 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH] drm/amdgpu: calling address translation functions to
- simplify codes
+Subject: Re: [PATCH] drm/amd: Fix the flag setting code for interrupt request
 Content-Language: en-US
-To: Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230904081806.16624-1-yifan1.zhang@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230904081806.16624-1-yifan1.zhang@amd.com>
+To: Ma Jun <Jun.Ma2@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alexander.Deucher@amd.com
+References: <20230904060501.2942018-1-Jun.Ma2@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230904060501.2942018-1-Jun.Ma2@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0006.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:15::11) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM6PR12MB4041:EE_
+X-MS-Office365-Filtering-Correlation-Id: b5e9badd-1120-4253-cafc-08dbadd057f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: wGjuiaTThlozae/pvJBteE8S3aQ4BbCKDh5RNnTl34PTqste+txHWN4QCgPUBdcTT39jJKrh0B683+5K+YRLcoYIf5S6VbJKFvozjG8PsT2YlZ7J5zmUUMfhw4QagdQ2Iz3ImJOpbLSnXBkvjLKj3l2cx0aYCefXIQfdwILtxEJQFPDYE3wr5RUmvq2tX+Qg8HcXuTrjr6oTMvo7EzUHYaQOTB5bNVYmMnNYPBiZZ2ItY2Q5Y/IFsKaQNcSQBNE8uvPoOe6NqTB0WG7/y5fI/rXHnJ+UJPpkSTU5gITX9NCDsn3NqHl1xWu3c0otzMbPnD6SmMrX+6MVTmB49DELxwECkKti8ZMCoQ0MdwZc616OiMOVAXMNKuy9W5sMeDlmgy7lbRVSZ2CmPJJt05XNNgMRMczbJDiuszUOuL8tIK4b+CVxXqW/RMo/s2VJlPc3QlH2Q8lxfq687w1eAPWTsaYhXM68yzC6YrCYD7sMBMwnrKv2lCNilpciMRjQWw2ec2dpZzU1V0X/Z85jlaAjlJa7Ls8+fHAibzyvyUVh5FF94nMZpQCkxAvgg3FHYURF6DwzOC9fOVwKasot5ej7QWruseqFgShcrQUU9Biuh8Ko8ceSri+uzPbBTrcdPRNX17uIx9AOeuteJK3qc2miGg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(396003)(366004)(136003)(376002)(39860400002)(186009)(451199024)(1800799009)(31686004)(36756003)(83380400001)(86362001)(31696002)(41300700001)(5660300002)(4326008)(8676002)(8936002)(6506007)(6666004)(6486002)(2616005)(26005)(6512007)(478600001)(316002)(2906002)(38100700002)(66476007)(66556008)(66946007)(6636002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ckkrNmtZS1hVUERSSUFYRFNrcEY1TjZqREJRcjNrcUNKQUdaZmlLcDl6WVg2?=
+ =?utf-8?B?d3NoYjRtK3VFdEtQaDcwY2xuR2M4R1ozZzZuTXUxVWM3WnZRVHVoaXQydlAv?=
+ =?utf-8?B?blNsN1pJYzZSVEZhcDNUTzN5WDRNeFJOKzdWTk8rTHl0QlVkMHZTOUU2b3VZ?=
+ =?utf-8?B?SGEwa3VKWmNldVhIN25ENTNUdEQ3N0VhVWgyWFVPVlludDJxYXpGeVZIN0xU?=
+ =?utf-8?B?eVA4YzQranlyREFhV0ZSQWwzS1FvUkFka3A2UnFOQnpzbjMzb2grWjMxcDd3?=
+ =?utf-8?B?N0ZkbGVQeERONytBM0VidVJXdmU2a2twMVJjejJDdmk1NDB6VjJCWlhXT29q?=
+ =?utf-8?B?U0ZLQUpXNGJJcHJxUzR3cjF3R3lTVFcwTGpMU1owcStMN1ZTNzJkYkZrNW9p?=
+ =?utf-8?B?Y0ZmazBBaU9PWVVZakZGZ3YrdGVYeDVoZmhFVUdMTUovYllqUU4rRXphcXgw?=
+ =?utf-8?B?Vm00NUkxWCsvYllpdnJkeGg1VTdCTTQybGxWaEswL3l4VklOWXpLeXNnK052?=
+ =?utf-8?B?eUFHZXB5ZmRYNUxNajhKLy9Fa05TN2I3RDZ3ekRMV2dPbVpHck13ZTAxZnFB?=
+ =?utf-8?B?ZmRDaHNYbVY3UmV1NFlpS21YTEY4REtJS1V5VUZ0c3BFMDZjaFJ3QUovU2w1?=
+ =?utf-8?B?b0tNTnFOY0crbE9XWmFBa3FkMEVSYlVPVGkvdjZlbGV1VGtmRzBSRVE1K1Vr?=
+ =?utf-8?B?YnRKazJkZGRqT2NvbHcreXhTNzNNYWFQSEU2bk9TZHhNTC85N0RScmxuUFRi?=
+ =?utf-8?B?bGRMbitFZFkrZkZOajdJYmsxWStiZDZMKzQvaVdaRWwzc3BYVm4xYTlFQU9D?=
+ =?utf-8?B?QmtzRFlPbElkVVVwQk5JMFJoMEdjQUlwaGNWV1BkbzFqTXR0bWwrVGZjL2VJ?=
+ =?utf-8?B?aWdkZUFkK201UmtTWnpnTS9Zdy9sSFdFWlAvUVRON1ZDS01wTEQ5L2JyWkta?=
+ =?utf-8?B?cUZ6aHJ2bzJMNlZPU2E5RGQxSlN5WUZnUkpyU2dJQXlXdS9ZVEI1Q21NbGJN?=
+ =?utf-8?B?YkZVU3FSeFArVzhHUzNuMVhRZFk0Y1FUSDdzRk10c2pBUWR5WTl6TnhaZTlw?=
+ =?utf-8?B?N1hCVHhTSEwwWm9MSzV0R0VtRExHZkRBVTR5UW9hZHFXOUp4QnJHakE4ZjNG?=
+ =?utf-8?B?THNkeHAzRUl5U0RQTUFFeWsyN0tFYXN0ZmwwTlNJbXVHdjdkN1JEaHNiTVY4?=
+ =?utf-8?B?VlZsNS9wMktra1VpVXBLNXl5QUo0N3g5bTBNSXVvTnlGbGxLbDdWOFhGaU14?=
+ =?utf-8?B?RjhpWkNEdDdxaHZrRzVzc0ZzRlRsQzJPU0FjQ2JCbVpxd2ZoNk9VaUhDeWJm?=
+ =?utf-8?B?SkZFbjFtSkxxM2RxeThLbDJqOHJvK3Z1SnpsR2s2VXAycFB1alJ6L05zdHhE?=
+ =?utf-8?B?blRBM2xKTDRHYTI3YTNPeVVxdng1YS9PT0k1M1pzQnRTT1NORTB4WWd5WnR3?=
+ =?utf-8?B?NDdnNmJTUFlWSTJENnFyUHR6Wm1zaEpoSW94dFR5MkhSSnJTZGlsVmRPZHNZ?=
+ =?utf-8?B?OEtmbXcrUHQ3UjB1eE1ya2FMK0RtMkhpQ0dBcXBJcGptUzZWWGZiVjJVdDhJ?=
+ =?utf-8?B?RDUvQk41Z3k3QTlwKzZqaFFTQzZZaTdPakV5K2Y5azRGcHhjYXhFRmpUOTdj?=
+ =?utf-8?B?cEQ4Mk5KeS9CTG1zTEpITWZGWFJEbVJ5UExLdDRjeDJRK3MyTmlmcG1nM2VT?=
+ =?utf-8?B?bkNaRVFBRG9ldkhid1hjeThhQ0Y2MXZUZmluSWI3VDYxVno4WDRxckYyYVR2?=
+ =?utf-8?B?V1NoN2NiRDJaQnVxN1dlNzhZTmZNUC8xTmNRdHF5ZExyWGNPK3FqOTN6RnEr?=
+ =?utf-8?B?ZENkQ2Jrc2N5SXNMcklxOFdnVGRWejRQT1JoSWJqR2xjVGl1UDVDVUMwTGc4?=
+ =?utf-8?B?R0I2RDVEQU43N25zd1JyL1Nvamhhc3VESVErZ2JCR0RjNVBxQWl0cU9JUUto?=
+ =?utf-8?B?Zmx6cVZVTW51eklsVElqeFFCVUloNzR4WlBnWW1iY1lmek85UjByYm0yRGc0?=
+ =?utf-8?B?aC9rVEdxWU5QZTB6bUk0VGZBL1hSQk5OcWpxV1ZSNDROYWwzbjBlaGNFZkU0?=
+ =?utf-8?B?eTVxZHRnMnBkak1YaEl1Y0oyTUp5emxDMjNyMkZsWThyU1pOT25aNzVVamw0?=
+ =?utf-8?Q?DKwc=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5e9badd-1120-4253-cafc-08dbadd057f1
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2023 05:24:14.6609 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0dVRAYvbrpUE2J8/rNslEL+GM6L8zZ5zSL6cvkkvzXbgy2X3Zxe2lZ86j+HF2gMo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4041
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,138 +124,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 04.09.23 um 10:18 schrieb Yifan Zhang:
-> Use amdgpu_gmc_vram_pa to simplify codes.
+Am 04.09.23 um 08:05 schrieb Ma Jun:
+> [1] Remove the irq flags setting code since pci_alloc_irq_vectors()
+> handles these flags.
+> [2] Free the msi vectors in case of error.
 >
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
+> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c | 3 +--
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c    | 3 +--
->   drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c  | 3 +--
->   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c      | 3 +--
->   drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c     | 3 +--
->   drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c   | 3 +--
->   drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c   | 3 +--
->   drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c     | 3 +--
->   8 files changed, 8 insertions(+), 16 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 43 ++++++++++++++-----------
+>   1 file changed, 25 insertions(+), 18 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-> index 2eb3386ae7ac..bcb6ba03cead 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v11_5_0.c
-> @@ -168,8 +168,7 @@ static void gfxhub_v11_5_0_init_system_aperture_regs(struct amdgpu_device *adev)
->   		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
->   
->   	/* Set default page address. */
-> -	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start
-> -		+ adev->vm_manager.vram_base_offset;
-> +	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
->   	WREG32_SOC15(GC, 0, regGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
->   		     (u32)(value >> 12));
->   	WREG32_SOC15(GC, 0, regGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-> index e1c76c070ba9..89ff7910cb0f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-> @@ -164,8 +164,7 @@ static void gfxhub_v3_0_init_system_aperture_regs(struct amdgpu_device *adev)
->   		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
->   
->   	/* Set default page address. */
-> -	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start
-> -		+ adev->vm_manager.vram_base_offset;
-> +	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
->   	WREG32_SOC15(GC, 0, regGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
->   		     (u32)(value >> 12));
->   	WREG32_SOC15(GC, 0, regGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
-> index 07f369c7a1ed..be1da5927910 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0_3.c
-> @@ -169,8 +169,7 @@ static void gfxhub_v3_0_3_init_system_aperture_regs(struct amdgpu_device *adev)
->   		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
->   
->   	/* Set default page address. */
-> -	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start
-> -		+ adev->vm_manager.vram_base_offset;
-> +	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
->   	WREG32_SOC15(GC, 0, regGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
->   		     (u32)(value >> 12));
->   	WREG32_SOC15(GC, 0, regGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> index dcbba981462e..671e288c7575 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-> @@ -500,8 +500,7 @@ static void gmc_v11_0_get_vm_pde(struct amdgpu_device *adev, int level,
->   				 uint64_t *addr, uint64_t *flags)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> index fa6d0adcec20..17043a1e37a5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> @@ -271,28 +271,28 @@ static void amdgpu_restore_msix(struct amdgpu_device *adev)
+>   int amdgpu_irq_init(struct amdgpu_device *adev)
 >   {
->   	if (!(*flags & AMDGPU_PDE_PTE) && !(*flags & AMDGPU_PTE_SYSTEM))
-> -		*addr = adev->vm_manager.vram_base_offset + *addr -
-> -			adev->gmc.vram_start;
-> +		*addr = amdgpu_gmc_vram_mc2pa(adev, *addr);
->   	BUG_ON(*addr & 0xFFFF00000000003FULL);
+>   	int r = 0;
+
+While at it please remove the assignment here.
+
+Unless really necessary initializing local variables is rather frowned upon.
+
+Apart from that Alex needs to take a look at this, I'm not that familiar 
+with this code.
+
+Christian.
+
+> -	unsigned int irq;
+> +	unsigned int irq, flags;
 >   
->   	if (!adev->gmc.translate_further)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
-> index 441379e91cfa..7c9ab5491067 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
-> @@ -189,8 +189,7 @@ static void mmhub_v3_0_init_system_aperture_regs(struct amdgpu_device *adev)
->   		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
+>   	spin_lock_init(&adev->irq.lock);
 >   
->   	/* Set default page address. */
-> -	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start +
-> -		adev->vm_manager.vram_base_offset;
-> +	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
->   	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
->   		     (u32)(value >> 12));
->   	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c
-> index 12c7f4b46ea9..db79e6f92441 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c
-> @@ -188,8 +188,7 @@ static void mmhub_v3_0_1_init_system_aperture_regs(struct amdgpu_device *adev)
->   		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
+>   	/* Enable MSI if not disabled by module parameter */
+>   	adev->irq.msi_enabled = false;
 >   
->   	/* Set default page address. */
-> -	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start +
-> -		adev->vm_manager.vram_base_offset;
-> +	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
->   	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
->   		     (u32)(value >> 12));
->   	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c
-> index 5dadc85abf7e..d1fc9dce7151 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c
-> @@ -181,8 +181,7 @@ static void mmhub_v3_0_2_init_system_aperture_regs(struct amdgpu_device *adev)
+> +	if (amdgpu_msi_ok(adev))
+> +		flags = PCI_IRQ_MSI | PCI_IRQ_MSIX;
+> +	else
+> +		flags = PCI_IRQ_LEGACY;
+> +
+> +	/* we only need one vector */
+> +	r = pci_alloc_irq_vectors(adev->pdev, 1, 1, flags);
+> +	if (r < 0) {
+> +		dev_err(adev->dev, "Failed to alloc msi vectors\n");
+> +		return r;
+> +	}
+> +
+>   	if (amdgpu_msi_ok(adev)) {
+> -		int nvec = pci_msix_vec_count(adev->pdev);
+> -		unsigned int flags;
+> -
+> -		if (nvec <= 0)
+> -			flags = PCI_IRQ_MSI;
+> -		else
+> -			flags = PCI_IRQ_MSI | PCI_IRQ_MSIX;
+> -
+> -		/* we only need one vector */
+> -		nvec = pci_alloc_irq_vectors(adev->pdev, 1, 1, flags);
+> -		if (nvec > 0) {
+> -			adev->irq.msi_enabled = true;
+> -			dev_dbg(adev->dev, "using MSI/MSI-X.\n");
+> -		}
+> +		adev->irq.msi_enabled = true;
+> +		dev_dbg(adev->dev, "using MSI/MSI-X.\n");
 >   	}
 >   
->   	/* Set default page address. */
-> -	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start +
-> -		adev->vm_manager.vram_base_offset;
-> +	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
->   	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
->   		     (u32)(value >> 12));
->   	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
-> index ec1fb329524d..8194ee2b96c4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
-> @@ -180,8 +180,7 @@ static void mmhub_v3_3_init_system_aperture_regs(struct amdgpu_device *adev)
->   		     max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
+>   	INIT_WORK(&adev->irq.ih1_work, amdgpu_irq_handle_ih1);
+> @@ -302,22 +302,29 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
+>   	/* Use vector 0 for MSI-X. */
+>   	r = pci_irq_vector(adev->pdev, 0);
+>   	if (r < 0)
+> -		return r;
+> +		goto free_vectors;
+>   	irq = r;
 >   
->   	/* Set default page address. */
-> -	value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start +
-> -		adev->vm_manager.vram_base_offset;
-> +	value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
->   	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
->   		     (u32)(value >> 12));
->   	WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
+>   	/* PCI devices require shared interrupts. */
+>   	r = request_irq(irq, amdgpu_irq_handler, IRQF_SHARED, adev_to_drm(adev)->driver->name,
+>   			adev_to_drm(adev));
+>   	if (r)
+> -		return r;
+> +		goto free_vectors;
+> +
+>   	adev->irq.installed = true;
+>   	adev->irq.irq = irq;
+>   	adev_to_drm(adev)->max_vblank_count = 0x00ffffff;
+>   
+>   	DRM_DEBUG("amdgpu: irq initialized.\n");
+>   	return 0;
+> -}
+>   
+> +free_vectors:
+> +	if (adev->irq.msi_enabled)
+> +		pci_free_irq_vectors(adev->pdev);
+> +
+> +	adev->irq.msi_enabled = false;
+> +	return r;
+> +}
+>   
+>   void amdgpu_irq_fini_hw(struct amdgpu_device *adev)
+>   {
 
