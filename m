@@ -4,58 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 633F7C83F33
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 14:46:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C81CC83F33
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 14:46:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1A8C10E547;
-	Tue,  5 Sep 2023 14:46:38 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C02C310E546
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 14:46:36 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-1c4f4d67f5bso1836456fac.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 05 Sep 2023 07:46:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693925196; x=1694529996; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JwFNYHYAW//eW1QjsRB/aUFQmJqj+hS7lw8ecCql320=;
- b=IwJ7TrrQ1ROLW+Rxr1ssxV8iGJNUUBrB9l5YpJONUGg0BrsIOpn1D8HU/gZaYxjBQ+
- 0vX9VLEuQuz3YmPOJlZsM94qJubuz9dTT93Z/meh0WAU2aJsKmlYQpXbPoYWNU4uHWz5
- dRXa5QVkP1t9KureqIlXYj6sQlpuXXQbCUCzdyMEUDxxj/DQK4xM9tRz/IO9IsGGQ+9C
- Fx+UFgV65gydKMhJAvQAYwMns5zenxe/TOw4zzFZnSjlqbZbD0oKknjN0NG5buhODysw
- AfEAbc4ssQ5/VVA9GZydaKacU5/ZwjHp6XTz4gdlEDkwYQcfq7ETGABPx9VMFm6BdlQ6
- ZPXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693925196; x=1694529996;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JwFNYHYAW//eW1QjsRB/aUFQmJqj+hS7lw8ecCql320=;
- b=YS9pDqQRI1CTb21TqTzoFmbx4csaOhMps+dbiOMEi0/YKUDzSHDTL6nd5VAV54w1e0
- kDrHEMXlzxO8lKkU3LALqwQ8nQLZqZYVwm55/vsjnDrtZhsiYHPW997HWYAVtVEIdoHu
- nIU0V4UByZKWRDEjPzOtxeFA6lDeJw4HAaeGf1snlWoHZLO4li4isOcS6BpIhEcdhxWH
- zNqqbnfHGi/FCubgExEtAFTdorseVW7lfXWvLvJ97MuZjQtixk80tY5ybgtZ9RpT9h6N
- JuvxsMM76lsInLld7x3slAgwGCVRnneFvrX8b4GYtU6P3lrepGWE3hjZAZ3fVxhpu6Ct
- Ym4Q==
-X-Gm-Message-State: AOJu0YzALwYnLJfZmWK8dPJ+efID7u2RoU/U7i672bZNGS2Ce4R28Jv2
- Z/19J9kXsf5mhIbYKbkTzI6qO1BTh9al6Kl9k9U=
-X-Google-Smtp-Source: AGHT+IE2bFT/tHy0K0uuoa9EuxABjGzmPBDWeHc1WGqx+MFPmhJTFlSk1M4bF8+ast/VK7CpCG7bf1YWUgdYDu6yDqk=
-X-Received: by 2002:a05:6870:40d2:b0:1bf:4f42:de91 with SMTP id
- l18-20020a05687040d200b001bf4f42de91mr16646229oal.33.1693925195943; Tue, 05
- Sep 2023 07:46:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC6F510E049;
+	Tue,  5 Sep 2023 14:46:44 +0000 (UTC)
+X-Greylist: delayed 310 seconds by postgrey-1.36 at gabe;
+ Tue, 05 Sep 2023 14:33:32 UTC
+Received: from out-222.mta0.migadu.com (out-222.mta0.migadu.com
+ [IPv6:2001:41d0:1004:224b::de])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 176BC10E543
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 14:33:32 +0000 (UTC)
+Message-ID: <e3d2d996-a2c1-c4b8-7722-f67aefac8193@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1693924098;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=UR1E0EgY5MLLLn/rotdUHKRy5Nxe3OW4mUJd7Y8S7Ac=;
+ b=f82FFX3ED+RO8uacw2rhS2YPv3o9jaMPTNOmmpLcmCuk5FgapClX0a64QrddQ0431Won7u
+ 3xWw4hB8t8g3ByC+AcVTZNZBKfLw1/o2iWi8F0esh9FSw9iqyg6m/2vliRccsaX40+fZHo
+ +At90VECeg91hXCSsjHb/OR4Zc5Cglo=
+Date: Tue, 5 Sep 2023 22:28:02 +0800
 MIME-Version: 1.0
-References: <20230904060501.2942018-1-Jun.Ma2@amd.com>
-In-Reply-To: <20230904060501.2942018-1-Jun.Ma2@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 5 Sep 2023 10:46:24 -0400
-Message-ID: <CADnq5_PbrtHJ436e2kuiu0MrHv_xxiy3DfHqNHqaygej2qaiBQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Fix the flag setting code for interrupt request
-To: Ma Jun <Jun.Ma2@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC, drm-misc-next v4 0/9] PCI/VGA: Allowing the user to select
+ the primary video adapter at boot time
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Daniel Vetter <daniel@ffwll.ch>
+References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
+ <874jk8j45s.fsf@intel.com> <b11fedb4-d577-d007-0ef8-ac62775d9eee@gmail.com>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Sui Jingfeng <sui.jingfeng@linux.dev>
+In-Reply-To: <b11fedb4-d577-d007-0ef8-ac62775d9eee@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
+X-Mailman-Approved-At: Tue, 05 Sep 2023 14:46:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,119 +55,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: Sui Jingfeng <suijingfeng@loongson.cn>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-pci@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 4, 2023 at 2:30=E2=80=AFAM Ma Jun <Jun.Ma2@amd.com> wrote:
->
-> [1] Remove the irq flags setting code since pci_alloc_irq_vectors()
-> handles these flags.
-> [2] Free the msi vectors in case of error.
->
-> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 43 ++++++++++++++-----------
->  1 file changed, 25 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_irq.c
-> index fa6d0adcec20..17043a1e37a5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> @@ -271,28 +271,28 @@ static void amdgpu_restore_msix(struct amdgpu_devic=
-e *adev)
->  int amdgpu_irq_init(struct amdgpu_device *adev)
->  {
->         int r =3D 0;
-> -       unsigned int irq;
-> +       unsigned int irq, flags;
->
->         spin_lock_init(&adev->irq.lock);
->
->         /* Enable MSI if not disabled by module parameter */
->         adev->irq.msi_enabled =3D false;
->
-> +       if (amdgpu_msi_ok(adev))
-> +               flags =3D PCI_IRQ_MSI | PCI_IRQ_MSIX;
-> +       else
-> +               flags =3D PCI_IRQ_LEGACY;
+Hi,
 
-I think this logic could be something like:
-
-if (!amdgpu_msi_ok(adev))
-              flags =3D PCI_IRQ_LEGACY;
-else
-              flags =3D PCI_IRQ_ALL_TYPES
-
-Other than that, looks fine to me.
-
-Alex
+On 2023/9/5 21:28, Christian König wrote:
+>>>
+>>> 2) Typically, those non-86 machines don't have a good UEFI firmware
+>>>     support, which doesn't support select primary GPU as firmware 
+>>> stage.
+>>>     Even on x86, there are old UEFI firmwares which already made 
+>>> undesired
+>>>     decision for you.
+>>>
+>>> 3) This series is attempt to solve the remain problems at the driver 
+>>> level,
+>>>     while another series[1] of me is target to solve the majority of 
+>>> the
+>>>     problems at device level.
+>>>
+>>> Tested (limited) on x86 with four video card mounted, Intel UHD 
+>>> Graphics
+>>> 630 is the default boot VGA, successfully override by ast2400 with
+>>> ast.modeset=10 append at the kernel cmd line.
+>> The value 10 is incredibly arbitrary, and multiplied as a magic number
+>> all over the place.
+>
+> +1 
 
 
-> +
-> +       /* we only need one vector */
-> +       r =3D pci_alloc_irq_vectors(adev->pdev, 1, 1, flags);
-> +       if (r < 0) {
-> +               dev_err(adev->dev, "Failed to alloc msi vectors\n");
-> +               return r;
-> +       }
-> +
->         if (amdgpu_msi_ok(adev)) {
-> -               int nvec =3D pci_msix_vec_count(adev->pdev);
-> -               unsigned int flags;
-> -
-> -               if (nvec <=3D 0)
-> -                       flags =3D PCI_IRQ_MSI;
-> -               else
-> -                       flags =3D PCI_IRQ_MSI | PCI_IRQ_MSIX;
-> -
-> -               /* we only need one vector */
-> -               nvec =3D pci_alloc_irq_vectors(adev->pdev, 1, 1, flags);
-> -               if (nvec > 0) {
-> -                       adev->irq.msi_enabled =3D true;
-> -                       dev_dbg(adev->dev, "using MSI/MSI-X.\n");
-> -               }
-> +               adev->irq.msi_enabled =3D true;
-> +               dev_dbg(adev->dev, "using MSI/MSI-X.\n");
->         }
->
->         INIT_WORK(&adev->irq.ih1_work, amdgpu_irq_handle_ih1);
-> @@ -302,22 +302,29 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
->         /* Use vector 0 for MSI-X. */
->         r =3D pci_irq_vector(adev->pdev, 0);
->         if (r < 0)
-> -               return r;
-> +               goto free_vectors;
->         irq =3D r;
->
->         /* PCI devices require shared interrupts. */
->         r =3D request_irq(irq, amdgpu_irq_handler, IRQF_SHARED, adev_to_d=
-rm(adev)->driver->name,
->                         adev_to_drm(adev));
->         if (r)
-> -               return r;
-> +               goto free_vectors;
-> +
->         adev->irq.installed =3D true;
->         adev->irq.irq =3D irq;
->         adev_to_drm(adev)->max_vblank_count =3D 0x00ffffff;
->
->         DRM_DEBUG("amdgpu: irq initialized.\n");
->         return 0;
-> -}
->
-> +free_vectors:
-> +       if (adev->irq.msi_enabled)
-> +               pci_free_irq_vectors(adev->pdev);
-> +
-> +       adev->irq.msi_enabled =3D false;
-> +       return r;
-> +}
->
->  void amdgpu_irq_fini_hw(struct amdgpu_device *adev)
->  {
-> --
-> 2.34.1
->
+This is the exact reason why I made this series as RFC, because this is a open-ended problem.
+The choices of 3,4,5,6,7,8 and 9 are as arbitrary as the number of '10'. '1' and '2' is
+definitely not suitable, because the seat has already been taken.
+
+Take the drm/nouveau as an example:
+
+
+```
+
+MODULE_PARM_DESC(modeset, "enable driver (default: auto, "
+		          "0 = disabled, 1 = enabled, 2 = headless)");
+int nouveau_modeset = -1;
+module_param_named(modeset, nouveau_modeset, int, 0400);
+
+```
+
+
+'1' is for enable the drm driver, some driver even override the 'nomodeset' parameter.
+
+'2' is not suitable, because nouveau use it as headless GPU (render-only or compute class GPU?)
+
+'3' is also not likely the best, the concerns is that
+what if a specific drm driver want to expand the usage in the future?
+
+
+The reason I pick up the digit '10' is that
+
+
+1) The modeset parameter is unlikely to get expanded up to 10 usages.
+
+Other drm drivers only use the '-1', '0' and 1, choose '2' will conflict with drm/nouveau.
+By pick the digit '10', it leave some space(room) to various device driver authors.
+It also helps to keep the usage consistent across various drivers.
+
+
+2) An int taken up 4 byte, I don't want to waste even a single byte,
+
+While in the process of defencing my patch, I have to say
+draft another kernel command line would cause the wasting of precious RAM storage.
+
+An int can have 2^31 usage, why we can't improve the utilization rate?
+
+3) Please consider the fact that the modeset is the most common and attractive parameter
+
+No name is better than the 'modeset', as other name is not easy to remember.
+
+Again, this is for Linux user, thus it is not arbitrary.
+Despite simple and trivial, I think about it more than one week.
+
