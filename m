@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79A75EB8FD2
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 13:25:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EEDEEB8FD3
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 13:25:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F130610E658;
-	Wed,  6 Sep 2023 13:25:08 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F62210E604
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 10:57:18 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-31977ace1c8so3118409f8f.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 06 Sep 2023 03:57:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96B3910E65A;
+	Wed,  6 Sep 2023 13:25:09 +0000 (UTC)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7656810E5FB
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 10:50:28 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-31768ce2e81so2879077f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 06 Sep 2023 03:50:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693997837; x=1694602637; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1693997427; x=1694602227; darn=lists.freedesktop.org;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :from:to:cc:subject:date:message-id:reply-to;
- bh=/Y5Ej8sVuMgzRhuzQp0sd6X+S75bJvIgOVGK1WruK1g=;
- b=msko9axxeNpIk89gZp1We8A9MAOrE7SWCZSkO6fkCNp5Of0TmlNPdCo8RbpdeUG9yA
- xDFfCFS2klDRORmC3ZiBfNezb8zmrNad71r7A0YNDuRax8ss2Z7HCI9fe7BoIG7l8tWR
- P/rpS2NTV3Pdu1IH188b6ZogZiOJZcfS5P8CR0ZmfSukpKmq5l/V5Rf/kREiThXh7cmB
- rJXjx4PVTPfwc+xjJ3pS83XbHLe4UMkPmXbkwCXxTU0IusqGaMO2d0NcGX67Jogkzbvq
- JjWR01riU1a4ZluWeji90lsoaeUQ5gmnV8jDnNKTBUaytnJmTF+Y+ucXPX8YBHpaO6WD
- 7pUg==
+ bh=pmLzb3c8+z0miJKXkfyMStT5Ebobfn4mx44yjcaNrOM=;
+ b=AfapApe1rOa+zANUmZnV2bqEYUzLFcVTfTXjgN8jZm96UwQrw2JrRjCV1fBsj0K8bh
+ UnQ+10HaXLOBiDO+Q8w3XhxIWKS8lndEQzccf7Cmq4CMeWab5oc30YSmYYraHnHZ8hrx
+ wNd5ki5ebQ+EXZd9aUR1uYCFX4O0eHIsdii+Tahx9XEdmiwE5Qh07XNUcbEtRqMwMUll
+ IUaz0Txr/xs0EGmyZ+hj+pwK8hcjXnbb8tk5suTxU8+9cGoZ/S/VmiOwJyfDBq7OYFtr
+ 6Zym3nIV8BcQjT4tP+Oou5MkiFSprVQFTDhh98Rq57OcluTqqtyJp5wy9DxjkZ3Hsira
+ f/ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693997837; x=1694602637;
+ d=1e100.net; s=20221208; t=1693997427; x=1694602227;
  h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/Y5Ej8sVuMgzRhuzQp0sd6X+S75bJvIgOVGK1WruK1g=;
- b=cN+2+8WBflJLwYZs/Hng6InBK2Wk6pYFNL92sDVnKhTuEYy5dM6j1SKP+o018Onsc3
- X/6/9d5n1E40vab+fIgYL4vLmgzTXlHepMSfUQxavV+H1CTHrS4kcW6H4Jm1JnZT27Jv
- i1h0LH0eNBOgKOSVk/Hi2nf741442UaqTIrjh95/cbaVsEs06vOUItERsViu4ZHNvnaf
- CfblqL0FqbHgJ1Lc9MZ5ULzlJUU/vphX1DD9xuJ8DCViS5kF6o3P2hw78QRekEy+Sucy
- brYwu3KQenrdwoeV6dYHBSERBJrN6/en+cq0labp2BQSomfn83ePha2ExgiNvyjX7oml
- 3DAw==
-X-Gm-Message-State: AOJu0YwZjvtWCglLsjSI/X4YDJjUAm5r1dmtacixrp/fuA2g4a95Xb10
- fz/n4bAz38a2y1vaLbtJk044uQ==
-X-Google-Smtp-Source: AGHT+IHDhQup35uKxMbBvfmKm9+/hPi8QxVZTzQujAcUp9WCatyfRefdOi1A+fT+b7RyHoJjm/Aznw==
-X-Received: by 2002:a5d:66c1:0:b0:319:8ce0:4e52 with SMTP id
- k1-20020a5d66c1000000b003198ce04e52mr1814168wrw.67.1693997836795; 
- Wed, 06 Sep 2023 03:57:16 -0700 (PDT)
+ bh=pmLzb3c8+z0miJKXkfyMStT5Ebobfn4mx44yjcaNrOM=;
+ b=kyS1FuzZXtEb3/liFCR5gxPbhue9+0sreKyI3TwEY2oJGa2Qj7gemxuBecJZa+FinJ
+ 7pxskmynPr3GLQbwEt/8ePjSbOcUhaaZ8I6I4gImnFXBToJOnrX9Ftt8IYblURdri7eo
+ +AGj3E+9UPh7S1oTAy3fET0rQL4pT/9tYj/p1dd4EEntACmxJxGjNhFQlzssle+UV3TE
+ L6oUEVcV/lnv3DelaL1ywlgMGKWxEz5JQDXoOjOjEwDIbFuVDQqYv+6SORnKHEqYvtIq
+ 6HZ/h+7mc54qEWGduSDgV41IbfTjsREDITNmfUglfyZH3XpUdR39lkl7wb9L2y8/fcq5
+ ygQQ==
+X-Gm-Message-State: AOJu0YweXBxz5x7I18Ayq0gnm7YVFzUMCHqzGFA85krjKMim+s9qR1EA
+ jbFmTDiCqjE1ru1/s4fDhk9dmvQE+FVcOCmcWlI=
+X-Google-Smtp-Source: AGHT+IHsfjUKU2O9rgaS83IsXQqHqTue7DbwbtHK0lTz/riAqcujWBySJWavR65O3jnUFoam/Gx5Vg==
+X-Received: by 2002:a5d:6907:0:b0:317:5168:c21f with SMTP id
+ t7-20020a5d6907000000b003175168c21fmr2066741wru.31.1693997426766; 
+ Wed, 06 Sep 2023 03:50:26 -0700 (PDT)
 Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- fa20-20020a05600c519400b00402d7105035sm4142200wmb.26.2023.09.06.03.57.16
+ a28-20020a5d457c000000b00317f70240afsm20105195wrc.27.2023.09.06.03.50.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Sep 2023 03:57:16 -0700 (PDT)
-Date: Wed, 6 Sep 2023 13:57:08 +0300
+ Wed, 06 Sep 2023 03:50:26 -0700 (PDT)
+Date: Wed, 6 Sep 2023 13:50:23 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
 To: Qingqing.Zhuo@amd.com
-Subject: [bug report] Mass report of new Smatch warnings
-Message-ID: <e69124d0-4b11-4518-b36c-8aafa3c88bd7@moroto.mountain>
+Subject: [bug report] drm/amd/display: Add DCN35 CLK_MGR
+Message-ID: <e9176137-0aa4-4adc-9c16-dc1adbfff394@moroto.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -72,30 +72,96 @@ Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Here is the list of new warning which were introduced while I was out
-of office.  The line numbers are from linux-next next-20230905.
+Hello Qingqing Zhuo,
+
+This is a semi-automatic email about new static checker warnings.
+
+The patch 8774029f76b9: "drm/amd/display: Add DCN35 CLK_MGR" from Aug
+2, 2023, leads to the following Smatch complaint:
+
+    drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c:980 dcn35_clk_mgr_construct()
+    warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 913)
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+   912	
+   913			if (ctx->dc_bios->integrated_info->memory_type == LpDdr5MemType) {
+                            ^^^^^^^^^^^^
+Unchecked dereference.  Also why is does AMD code have weird indenting
+like this?  It's totally unique to AMD.  I guess there was an if
+statement which was deleted or maybe this is autogenerated somehow?
+
+   914				dcn35_bw_params.wm_table = lpddr5_wm_table;
+   915			} else {
+   916				dcn35_bw_params.wm_table = ddr5_wm_table;
+   917			}
+   918			/* Saved clocks configured at boot for debug purposes */
+   919			 dcn35_dump_clk_registers(&clk_mgr->base.base.boot_snapshot, &clk_mgr->base.base, &log_info);
+   920	
+   921		clk_mgr->base.base.dprefclk_khz = dcn35_smu_get_dprefclk(&clk_mgr->base);
+   922		clk_mgr->base.base.clks.ref_dtbclk_khz = dcn35_smu_get_dtbclk(&clk_mgr->base);
+   923	
+   924		if (!clk_mgr->base.base.clks.ref_dtbclk_khz)
+   925			dcn35_smu_set_dtbclk(&clk_mgr->base, true);
+   926	
+   927		clk_mgr->base.base.clks.dtbclk_en = true;
+   928		dce_clock_read_ss_info(&clk_mgr->base);
+   929		/*when clk src is from FCH, it could have ss, same clock src as DPREF clk*/
+   930	
+   931		dcn35_read_ss_info_from_lut(&clk_mgr->base);
+   932		clk_mgr->base.base.dprefclk_khz =
+   933			dce_adjust_dp_ref_freq_for_ss(&clk_mgr->base, clk_mgr->base.base.dprefclk_khz);
+   934	
+   935		clk_mgr->base.base.bw_params = &dcn35_bw_params;
+   936	
+   937		if (clk_mgr->base.base.ctx->dc->debug.pstate_enabled) {
+   938			int i;
+   939			dcn35_get_dpm_table_from_smu(&clk_mgr->base, &smu_dpm_clks);
+   940			DC_LOG_SMU("NumDcfClkLevelsEnabled: %d\n"
+   941					   "NumDispClkLevelsEnabled: %d\n"
+   942					   "NumSocClkLevelsEnabled: %d\n"
+   943					   "VcnClkLevelsEnabled: %d\n"
+   944					   "NumDfPst atesEnabled: %d\n"
+   945					   "MinGfxClk: %d\n"
+   946					   "MaxGfxClk: %d\n",
+   947					   smu_dpm_clks.dpm_clks->NumDcfClkLevelsEnabled,
+   948					   smu_dpm_clks.dpm_clks->NumDispClkLevelsEnabled,
+   949					   smu_dpm_clks.dpm_clks->NumSocClkLevelsEnabled,
+   950					   smu_dpm_clks.dpm_clks->VcnClkLevelsEnabled,
+   951					   smu_dpm_clks.dpm_clks->NumDfPstatesEnabled,
+   952					   smu_dpm_clks.dpm_clks->MinGfxClk,
+   953					   smu_dpm_clks.dpm_clks->MaxGfxClk);
+   954			for (i = 0; i < smu_dpm_clks.dpm_clks->NumDcfClkLevelsEnabled; i++) {
+   955				DC_LOG_SMU("smu_dpm_clks.dpm_clks->DcfClocks[%d] = %d\n",
+   956						   i,
+   957						   smu_dpm_clks.dpm_clks->DcfClocks[i]);
+   958			}
+   959			for (i = 0; i < smu_dpm_clks.dpm_clks->NumDispClkLevelsEnabled; i++) {
+   960				DC_LOG_SMU("smu_dpm_clks.dpm_clks->DispClocks[%d] = %d\n",
+   961						   i, smu_dpm_clks.dpm_clks->DispClocks[i]);
+   962			}
+   963			for (i = 0; i < smu_dpm_clks.dpm_clks->NumSocClkLevelsEnabled; i++) {
+   964				DC_LOG_SMU("smu_dpm_clks.dpm_clks->SocClocks[%d] = %d\n",
+   965						   i, smu_dpm_clks.dpm_clks->SocClocks[i]);
+   966			}
+   967			for (i = 0; i < NUM_SOC_VOLTAGE_LEVELS; i++)
+   968				DC_LOG_SMU("smu_dpm_clks.dpm_clks->SocVoltage[%d] = %d\n",
+   969						   i, smu_dpm_clks.dpm_clks->SocVoltage[i]);
+   970	
+   971			for (i = 0; i < NUM_DF_PSTATE_LEVELS; i++) {
+   972				DC_LOG_SMU("smu_dpm_clks.dpm_clks.DfPstateTable[%d].FClk = %d\n"
+   973						   "smu_dpm_clks.dpm_clks->DfPstateTable[%d].MemClk= %d\n"
+   974						   "smu_dpm_clks.dpm_clks->DfPstateTable[%d].Voltage = %d\n",
+   975						   i, smu_dpm_clks.dpm_clks->DfPstateTable[i].FClk,
+   976						   i, smu_dpm_clks.dpm_clks->DfPstateTable[i].MemClk,
+   977						   i, smu_dpm_clks.dpm_clks->DfPstateTable[i].Voltage);
+   978			}
+   979	
+   980			if (ctx->dc_bios && ctx->dc_bios->integrated_info && ctx->dc->config.use_default_clock_table == false) {
+                            ^^^^^^^^^^^^
+This NULL check is too late.  It will already have crashed.
+
+   981				dcn35_clk_mgr_helper_populate_bw_params(
+   982						&clk_mgr->base,
 
 regards,
 dan carpenter
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c:292 dcn35_update_clocks() warn: inconsistent indenting
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c:919 dcn35_clk_mgr_construct() warn: inconsistent indenting
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c:921 dcn35_clk_mgr_construct() warn: inconsistent indenting
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c:980 dcn35_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios->integrated_info' (see line 913)
-drivers/gpu/drm/amd/amdgpu/../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c:980 dcn35_clk_mgr_construct() warn: variable dereferenced before check 'ctx->dc_bios' (see line 913)
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_hwseq.c:1751 dcn20_program_pipe() error: we previously assumed 'pipe_ctx->plane_state' could be null (see line 1710)
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_hwseq.c:159 dcn35_init_hw() warn: inconsistent indenting
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_hwseq.c:159 dcn35_init_hw() warn: variable dereferenced before check 'res_pool->dccg' (see line 150)
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_hwseq.c:206 dcn35_init_hw() error: we previously assumed 'res_pool->hubbub' could be null (see line 159)
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_hwseq.c:285 dcn35_init_hw() error: we previously assumed 'dc->clk_mgr' could be null (see line 136)
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_hwseq.c:977 dcn35_calc_blocks_to_gate() error: we previously assumed 'pipe_ctx->plane_res.hubp' could be null (see line 973)
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_hwseq.c:980 dcn35_calc_blocks_to_gate() warn: always true condition '(pipe_ctx->plane_res.mpcc_inst >= 0) => (0-255 >= 0)'
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_pg_cntl.c:203 pg_cntl35_hubp_dpp_pg_control() warn: duplicate check 'power_on' (previous on line 193)
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_pg_cntl.c:318 pg_cntl35_io_clk_pg_control() warn: duplicate check 'power_on' (previous on line 312)
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_pg_cntl.c:404 pg_cntl35_plane_otg_pg_control() warn: duplicate check 'power_on' (previous on line 398)
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn35/dcn35_resource.c:1877 dcn35_resource_construct() warn: inconsistent indenting
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn35/dcn35_fpu.c:260 dcn35_update_bw_bounding_box_fpu() warn: inconsistent indenting
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn35/dcn35_fpu.c:351 dcn35_update_bw_bounding_box_fpu() warn: inconsistent indenting
-drivers/gpu/drm/amd/amdgpu/../display/dmub/src/dmub_srv.c:355 dmub_srv_hw_setup() warn: inconsistent indenting
-drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c:34 nbio_v7_11_get_rev_id() warn: inconsistent indenting
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:351 smu_v13_0_6_setup_driver_pptable() warn: should this be 'retry == -1'
