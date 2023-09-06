@@ -4,119 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AC17EE14B9
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 18:01:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54404EE14B9
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 18:06:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1DE110E6D8;
-	Wed,  6 Sep 2023 18:01:26 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2088.outbound.protection.outlook.com [40.107.243.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64E9E10E6D8;
- Wed,  6 Sep 2023 18:01:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EW2WME8B3hovsxlJtpD/IaTfUgVZzsx1yj1cBP7MhUsM9LWSbJlM9Yn1FV1onqIKtlT+FveCJnEOvdAbOrOYqA/TZ1/w5bGebv7k7e+hjnntZjihDd/yd9bYOGJ9kM2IA7NAs/d+5p6xKpO7DhXfv3ZM7zfn++boOVIa8EUhvp+v0hZJqhPObs9bQrYUeEhZRrbJbmqXWg94l/mC3RPsmAjKhquGDUbGvuS/AiQQhDWn6MJ8llwh3ItiDpOHd+snm5aaL0/cjzz42k/fMpL7n17oLXJywCl5PeT/1cnD7KnnwB31DEyiqIuDZgIfRI4sZFk0SBLNBzfGGWKuGA8vWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=01ZjELhBgAlBGabB30a4Kk9NpeXyWDXYUG3S5fUer7A=;
- b=jEKkEbTGbG8qMMQ3NXVLM8+z5oFEsrXQXCQmOvjJDyCvXyuqYedLxJqVzhpzsRdJlaL/nMX2jbFxx4/eGqp3D7XuqRR6besAmMrUodDeIgmkvlL+gV5cYFXx9Q1A2fudSGoazwS/m2lQ9iBtUodV+l+RmmPDte67P/tm2BhMgVtT/78pNWQJFssdZmmdZDjyCW39dxiqYm332uYJ/No1cGHAiXbTIErbzUYWDf0hBjqhwwSexrkGKugxeZ0rfG7VWs9Jeo3tP/rJRCG/SSCnPs7QN3uh5aziFE+jocWx+yiVZ9ozr/eSIFVjh097ReQKvT+sGNbIboKc03lfMIroHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=01ZjELhBgAlBGabB30a4Kk9NpeXyWDXYUG3S5fUer7A=;
- b=0YRlwr6Z+p8h3UTjAi67WlMhRGVRh8brF3Z7tZeKKJUtfXo1tOD9Z765jkrUWxNm4T77pJly9fb3mzw5afPpUw6mricElWgcpY8264PTF+mlHvZeBXJBpV0lDmO555liETgrwTKoVZq3VRyl+rjujoJaff7j5mBKe2w1me9rnh0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by SJ2PR12MB8718.namprd12.prod.outlook.com (2603:10b6:a03:540::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.30; Wed, 6 Sep
- 2023 18:01:22 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::121e:5e68:c78a:1f2f]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::121e:5e68:c78a:1f2f%3]) with mapi id 15.20.6745.030; Wed, 6 Sep 2023
- 18:01:22 +0000
-Message-ID: <75118b7b-5753-41b0-a9f1-8047d79fa4ad@amd.com>
-Date: Wed, 6 Sep 2023 14:01:15 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 29/34] drm/amd/display: allow newer DC hardware to use
- degamma ROM for PQ/HLG
-Content-Language: en-US
-To: Melissa Wen <mwen@igalia.com>, amd-gfx@lists.freedesktop.org,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-References: <20230810160314.48225-1-mwen@igalia.com>
- <20230810160314.48225-30-mwen@igalia.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20230810160314.48225-30-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0245.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:66::17) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A759010E6DD;
+	Wed,  6 Sep 2023 18:06:47 +0000 (UTC)
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
+ [IPv6:2001:4860:4864:20::29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29D6710E6D4;
+ Wed,  6 Sep 2023 18:06:46 +0000 (UTC)
+Received: by mail-oa1-x29.google.com with SMTP id
+ 586e51a60fabf-1c0fcbf7ae4so122087fac.0; 
+ Wed, 06 Sep 2023 11:06:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1694023605; x=1694628405; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xnjUXTs6pn0ju4mRyE2WoYS0dp5/lgNA0GigOa0IJOE=;
+ b=SoozSE5TCcEPSt9lbW30CGxWutZAjs2U1s99VYqUfWta9lHvdhnKojaTP1gRdxqmCm
+ hO4vjU2P/H4W7M7KJU3VIJnuZVomDdpgGy+QN7yFf75iJ9ng8BhZNs3HJ744fdk2gOOw
+ M48fk6qu5GgYX6ABm3T1C5Zyp5FYda8Q5csbk6iqcyWYPQ/TQ4WeSRTHgdTgUlQyry6O
+ CFKVXg2GmXn8bEkNuaaA1utP6nxa9drr+WFKyH8TwV+ZHnZj9WsVDgmMFp8Uqvqz0XZa
+ IcV/bXtTionLS+jn3P4yzlYRcNVi0RzjguU9mrzUk4SGpziUnl/XZfRJudru9G5lWZS3
+ C0yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1694023605; x=1694628405;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=xnjUXTs6pn0ju4mRyE2WoYS0dp5/lgNA0GigOa0IJOE=;
+ b=goVYgA8tfxYqfkEc5qxHaxefblAyDCPQtfEelkMljCcCSo9OOPDD5WcFzIsWTJJ/wo
+ QBHufU2j6pfeCc3laKnwKZgPlIZYgQLdo8LQntidNUkjln3ZmgRnKpBB2Iv+rTeBN3se
+ oXtAgGhlJcEBCHKDUKnUlSF1qYXEdguW00LldFUgagjOdpzjw4nmpuWSGxW4kYDz2xpi
+ ah+1jWkylGmchn2EiDfBUNZM9kftVqNKI7fSCkXUHQ3w4n/5CSXgcaaGnQU4iPbKIHew
+ HkwNciMUQ6hif5AVyUp304x2zsBV44RD0tnJoKgS6RcbySPpuiKNKSN03VUNcy5Aeg+z
+ uP3w==
+X-Gm-Message-State: AOJu0Yw5NBkKgVXolLNLphTUJnqsWWQoZLF84s0l/FU5btUjr5Lt0McM
+ OT//vu12LeVJC8ucq0iyN+kdC8It1NGm22xMEas=
+X-Google-Smtp-Source: AGHT+IHnL4YXufn9orOCAMqeVB24UhQCchcrVK0uam4MUJbJywzc+ivZOogndzFAOBRpb/+5dkxeUeS0OnRV6OQuMLI=
+X-Received: by 2002:a05:6808:3089:b0:39c:93ba:cb92 with SMTP id
+ bl9-20020a056808308900b0039c93bacb92mr21643536oib.8.1694023605202; Wed, 06
+ Sep 2023 11:06:45 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SJ2PR12MB8718:EE_
-X-MS-Office365-Filtering-Correlation-Id: b1d7a761-3754-4711-3a4d-08dbaf034732
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wt/w5i9w/emmyJ3BFOHyvMkv+LRCUiPNCTbODpHNqHzCNYKF3lxSJaiL8QSBJm0ZgDyxUrUwj/jNebgKPQDQfQlH7c1RPKiHV1t3UO0K/GyfIImspYUxmNJ4YFzMghhfUnsHo+V7M0CunETRxweNSM5jp+knMIoepOrb8MEuZydRiNPh3mfrpyBV7grbqi27lVAY/KneCG1RC3/pYt3kL6kaP3yH27fEfcaMIEnlHvqnRYjOcPA/UeT5w2pmwzqzwW49UUNxmqCD90CI88Tsrp4vgKzGpGNN/r9EAntewgeIzd/DtUvGY+NLi/CM6WKyqbJer4Y2AWBUMgsfEXn3LhCQ3QEeKO+mflwNs4G4yWvL9MNbXX0fBQ5M6jAp6YWPcWKakcARqlwVCdO/8NQYqZ5TM9teB9BADjvVhNNznNnWxlShR93Bw80HQQSppo9oKC/Y5aJ3VHbP6lBhcPBMglNL8zts79migruF2LGZzFguNLK7KNiLUwT9cd4ni3wozmKVYkMQnIsU1D2NauidCAjoHUtwfpYUk4t0I4MC6ZVB8h/9R9ykti8kkD4Py/0dMgjHKC0QMn9OkNQ2ZyH+oWu6UCYwA3msXPZdVOUczHptzSHVsshnD8tnpYyHMONG+rAfnUAHXXsR/mGK4E357g+L0anGk1WvKGIjWBDlgAA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(346002)(376002)(366004)(396003)(136003)(186009)(451199024)(1800799009)(31686004)(86362001)(921005)(83380400001)(7416002)(36756003)(44832011)(5660300002)(31696002)(6486002)(41300700001)(38100700002)(66946007)(66556008)(478600001)(26005)(66476007)(6666004)(2616005)(110136005)(53546011)(4326008)(8936002)(8676002)(6512007)(6506007)(2906002)(316002)(54906003)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmZnL2lRTzQ1dGo0TFFGd1lSLzZoSVd4UU5xaGFyTDBWSUtvRTEzWC9lR29Q?=
- =?utf-8?B?SlNrZHRiaUd0cVFZa3RVTHRpVS82SFFNdjAxVjNXSUpqblQ4YXN2R2lGV09I?=
- =?utf-8?B?dnEzL1Urb0FYRVpHYzY1NGsxRUhmdFZkSWtiY0lUZ2RuY2d5emRFaVdXQ3pF?=
- =?utf-8?B?RlJlMUp1SzY4ZllRTDlRSVc3Nkc0TVl5QUpvWmJTcUhFUnpEeGlTSkY1YzFt?=
- =?utf-8?B?c09RVHlYYUNoM2QwcWl0UUMzUGdHeTlmeURxUkUvMkJJdzR0UkVtOEI1Y2J0?=
- =?utf-8?B?K3BJWWZmZnVId1A2VEFXcHUrbEEzK09JMWNicTVzRW8rSXlGR1UyKzM4SmJ0?=
- =?utf-8?B?QTYvM01wZmJsMjVQdWh0b1dPcEVUQSs2UUVZTVRjdTF2NFdmQnJ3L01VOHVL?=
- =?utf-8?B?V0gxcU50TkxNWUxRWTl1bFpwb0tNUU82RzJCQytGUTVxbEIrY0NLam83N2dQ?=
- =?utf-8?B?bnZudHpTNEZjLzlNRnB0S2ZFNzNqQURwNGl4SDRZZHUxMWZTNTBpK0RIeEhT?=
- =?utf-8?B?Zm5LZWtueGd6dzVsTFlWUWhuZjRscTdvL3BuNnZqdlFnbS9LdFFkNk9ZMHJJ?=
- =?utf-8?B?Y2dZcEJkMFhDT0ZFcFFmTmY4V09oM3l5UFgycGsvb0EvNXZycTdtaTVHYnlL?=
- =?utf-8?B?d0xVVWJQc21NY2tWMzZYdHlEUm1jWVZITmhaaGdKZmJSVlJLai9UUm1EdldY?=
- =?utf-8?B?WmVnaXVCRXdVU005L0Y5QVdTWVl0ZG42WExxUDlJSmsweFVSdmJpaXNNSmRC?=
- =?utf-8?B?UHk3Qzd1N0tDVnZ1aGJjQXhlc0hQUjg3LzhsZmFXQVFTaEFyR3ZGYmRabi90?=
- =?utf-8?B?WGljamNYMXZJRFlGY2xSeklxcDVMaUlnSUtQSDJPTDBrdkhzWWhxWlpveWxV?=
- =?utf-8?B?U0w1UmR0UXA5RlBWVk9PWVFRRUlkblB2RGZrRFYzMjZML0VLRGdZQUNhMnl3?=
- =?utf-8?B?M2ZNczNUWDRTUzZUOUxVMjFrQ0NGUlcvRWI4anNMQW1sWHBkb09qMll5L1g5?=
- =?utf-8?B?NUNqWklockt5cHJNMkxpMlUwZkZHWktkTU84S01Fa2pWZGJUYUtqSUlTbEly?=
- =?utf-8?B?azVRYkpHdFk1RGpZbjNSSnV3Ui9tVWlMdlhvQjYxNlRVbUQ5SEVIWU1RT0pz?=
- =?utf-8?B?NnEyeGNzWWE5RDBUcGdYNzlxUk8zQWwvbEVrUEttMFZUN2dhUmNYOVJld3ZK?=
- =?utf-8?B?MVZYWDQ4OVRIbnB4S0VJeXpkUlVjL3Uvb1JLWi9KVmQ0UVMvMG8rVW9nZXlx?=
- =?utf-8?B?LzMvZTlvakR2VVUxTXExbER6MDg3UFBxcFdGTGJJVlIzTU9OZVI0ZmVwNytB?=
- =?utf-8?B?U1ZyS2YxcFpnSnZ3Z0R2QkhKWGZWUzV5amxyWEh0dDZZRGkyWk5IanVUQWV0?=
- =?utf-8?B?cS9tM0h1ZjVRSzg2QmlZRysyS0NqNnNqTkphSm1adXgzTXJCR0Y1dDRZazBx?=
- =?utf-8?B?UVZKU1RIZS9IYWQvbFcyaTBUOUIvOCtlQkFoNGk5VlRvUCtoQ253TUkvT1hj?=
- =?utf-8?B?L0o1NGlzNkZQMktWdXA2QkcvR0RvclcxWlhZQ0FRQUdKYXFtVmRrZDR1YzVx?=
- =?utf-8?B?MkZSbnNndXpFc2pIeHFtRW4rd1BkSUF0MlBPVzMrNStYNVB2TE1HVENsaXlY?=
- =?utf-8?B?QW9FZ3pEQWR2ZEsva3ZjZ01WMW5MSndSVmxjRmJra2dVRjBPOTgzdWxqZjgr?=
- =?utf-8?B?UTZhK05LVWcxcjZ6azNQVjhOYmxyMEJ6ZGMrQkFCeVZDU1RvbVhnT1ZSYjlK?=
- =?utf-8?B?WVZRRnVmdDdpQUF1SjF3LzhWM2NjZjF5TmV5aFZkV2V5UjVVdWhibzhvZUtq?=
- =?utf-8?B?aWRIOU1zTDBKNGRhM2NqMDRPK2pTeE9mbW5JMmVpS0orSDdMbVBjUmhqZDU1?=
- =?utf-8?B?aS9RbUNoTUtxeWtqcCsvZVNFaUZVUFFBdnpWU3BNdHlVYnVDNWtPV2tNR25m?=
- =?utf-8?B?UnR5MWM1dkF3aGV0Z2FPWDdLdlR4cFNSWjZrQ3V5YlRQK05mWmphSlpnTjcw?=
- =?utf-8?B?UzVDQXF4Z3dRU2piaHNnMlFhZ24yYmgwUnkyMVZnWGdhbFA3Rll1bDFydjhl?=
- =?utf-8?B?c2czMHpEQ0VhcGhWYmlzVmMwbjdocC9US0w3VEd2emhQTTc4RTVLZUI0VUlt?=
- =?utf-8?Q?b65CgcUYasKtLRvAkKPOJVCJ0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1d7a761-3754-4711-3a4d-08dbaf034732
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 18:01:21.9488 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oLaH8s1VWMgyshC3mSb4jbXO9rI6u+iIc6lhDXE4LB0WaCWhKUCkSWn8+dm8mz1GPAxBvx4EuPVRw4ka+ivbFg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8718
+References: <20230903184607.272198-1-jim.cromie@gmail.com>
+ <20230903184607.272198-4-jim.cromie@gmail.com>
+ <ZPV6CMBlDWriMyva@ashyti-mobl2.lan> <ZPir+7VYXcKv117q@intel.com>
+In-Reply-To: <ZPir+7VYXcKv117q@intel.com>
+From: jim.cromie@gmail.com
+Date: Wed, 6 Sep 2023 12:06:18 -0600
+Message-ID: <CAJfuBxyRn_FQtGmSiJjtOuJDs+40TPWcjW+JA5u8K-FSrDTHUA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/6] drm_dbg: add trailing newlines to msgs
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,183 +69,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
- Simon Ser <contact@emersion.fr>, Xaver Hugl <xaver.hugl@gmail.com>,
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, Fei Yang <fei.yang@intel.com>,
+ daniel.vetter@ffwll.ch, Imre Deak <imre.deak@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>,
+ ville.syrjala@linux.intel.com, Rob Clark <robdclark@chromium.org>,
+ amd-gfx@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>,
+ Mika Kahola <mika.kahola@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, jani.nikula@intel.com,
+ intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ seanpaul@chromium.org,
+ =?UTF-8?Q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>,
+ intel-gvt-dev@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ linux-kernel@vger.kernel.org, robdclark@gmail.com, daniel@ffwll.ch
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed, Sep 6, 2023 at 10:42=E2=80=AFAM Rodrigo Vivi <rodrigo.vivi@intel.co=
+m> wrote:
+>
+> On Mon, Sep 04, 2023 at 08:32:40AM +0200, Andi Shyti wrote:
+> > Hi Jim,
+> >
+> > On Sun, Sep 03, 2023 at 12:46:00PM -0600, Jim Cromie wrote:
+> > > By at least strong convention, a print-buffer's trailing newline says
+> > > "message complete, send it".  The exception (no TNL, followed by a ca=
+ll
+> > > to pr_cont) proves the general rule.
+> > >
+> > > Most DRM.debug calls already comport with this: 207 DRM_DEV_DEBUG,
+> > > 1288 drm_dbg.  Clean up the remainders, in maintainer sized chunks.
+> > >
+> > > No functional changes.
+> > >
+> > > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> >
+> > Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+>
+> I pushed this i915 one to our drm-intel-next.
+> While doing it I have changed the subject to make it clear
+> this is 'drm/i915:'.
+>
+> I believe you should do similar change to all the other patches
+> to make it clear in the subject about which domain that commit
+> is touching... instead of only 'drm_dbg'.
+>
+
+I will do that, and drop the one you've already pushed.
+Thank you both.
 
 
-On 2023-08-10 12:03, Melissa Wen wrote:
-> From: Joshua Ashton <joshua@froggi.es>
-> 
-> Need to funnel the color caps through to these functions so it can check
-> that the hardware is capable.
-> 
-> v2:
-> - remove redundant color caps assignment on plane degamma map (Harry)
-> - pass color caps to degamma params
-> 
-> Signed-off-by: Joshua Ashton <joshua@froggi.es>
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
->  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 35 ++++++++++++-------
->  1 file changed, 22 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> index f638e5b3a70b..4356846a2bce 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> @@ -538,6 +538,7 @@ static int amdgpu_dm_set_atomic_regamma(struct dc_stream_state *stream,
->  /**
->   * __set_input_tf - calculates the input transfer function based on expected
->   * input space.
-> + * @caps: dc color capabilities
->   * @func: transfer function
->   * @lut: lookup table that defines the color space
->   * @lut_size: size of respective lut.
-> @@ -545,7 +546,7 @@ static int amdgpu_dm_set_atomic_regamma(struct dc_stream_state *stream,
->   * Returns:
->   * 0 in case of success. -ENOMEM if fails.
->   */
-> -static int __set_input_tf(struct dc_transfer_func *func,
-> +static int __set_input_tf(struct dc_color_caps *caps, struct dc_transfer_func *func,
->  			  const struct drm_color_lut *lut, uint32_t lut_size)
->  {
->  	struct dc_gamma *gamma = NULL;
-> @@ -562,7 +563,7 @@ static int __set_input_tf(struct dc_transfer_func *func,
->  		__drm_lut_to_dc_gamma(lut, gamma, false);
->  	}
->  
-> -	res = mod_color_calculate_degamma_params(NULL, func, gamma, gamma != NULL);
-> +	res = mod_color_calculate_degamma_params(caps, func, gamma, gamma != NULL);
->  
->  	if (gamma)
->  		dc_gamma_release(&gamma);
-> @@ -725,7 +726,7 @@ static int amdgpu_dm_atomic_blend_lut(const struct drm_color_lut *blend_lut,
->  		func_blend->tf = tf;
->  		func_blend->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
->  
-> -		ret = __set_input_tf(func_blend, blend_lut, blend_size);
-> +		ret = __set_input_tf(NULL, func_blend, blend_lut, blend_size);
->  	} else {
->  		func_blend->type = TF_TYPE_BYPASS;
->  		func_blend->tf = TRANSFER_FUNCTION_LINEAR;
-> @@ -950,7 +951,8 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc)
->  
->  static int
->  map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
-> -			     struct dc_plane_state *dc_plane_state)
-> +			     struct dc_plane_state *dc_plane_state,
-> +			     struct dc_color_caps *caps)
->  {
->  	const struct drm_color_lut *degamma_lut;
->  	enum dc_transfer_func_predefined tf = TRANSFER_FUNCTION_SRGB;
-> @@ -1005,7 +1007,7 @@ map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
->  			dc_plane_state->in_transfer_func->tf =
->  				TRANSFER_FUNCTION_LINEAR;
->  
-> -		r = __set_input_tf(dc_plane_state->in_transfer_func,
-> +		r = __set_input_tf(caps, dc_plane_state->in_transfer_func,
->  				   degamma_lut, degamma_size);
->  		if (r)
->  			return r;
-> @@ -1018,7 +1020,7 @@ map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
->  		dc_plane_state->in_transfer_func->tf = tf;
->  
->  		if (tf != TRANSFER_FUNCTION_SRGB &&
-> -		    !mod_color_calculate_degamma_params(NULL,
-> +		    !mod_color_calculate_degamma_params(caps,
->  							dc_plane_state->in_transfer_func,
->  							NULL, false))
->  			return -ENOMEM;
-> @@ -1029,7 +1031,8 @@ map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
->  
->  static int
->  __set_dm_plane_degamma(struct drm_plane_state *plane_state,
-> -		       struct dc_plane_state *dc_plane_state)
-> +		       struct dc_plane_state *dc_plane_state,
-> +		       struct dc_color_caps *color_caps)
->  {
->  	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
->  	const struct drm_color_lut *degamma_lut;
-> @@ -1060,7 +1063,7 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
->  		dc_plane_state->in_transfer_func->type =
->  			TF_TYPE_DISTRIBUTED_POINTS;
->  
-> -		ret = __set_input_tf(dc_plane_state->in_transfer_func,
-> +		ret = __set_input_tf(color_caps, dc_plane_state->in_transfer_func,
->  				     degamma_lut, degamma_size);
->  		if (ret)
->  			return ret;
-> @@ -1068,7 +1071,7 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
->  		dc_plane_state->in_transfer_func->type =
->  			TF_TYPE_PREDEFINED;
->  
-> -		if (!mod_color_calculate_degamma_params(NULL,
-> +		if (!mod_color_calculate_degamma_params(color_caps,
->  		    dc_plane_state->in_transfer_func, NULL, false))
->  			return -ENOMEM;
->  	}
-> @@ -1077,7 +1080,8 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
->  
->  static int
->  amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
-> -				     struct dc_plane_state *dc_plane_state)
-> +				     struct dc_plane_state *dc_plane_state,
-> +				     struct dc_color_caps *color_caps)
-
-This seems unused.
-
-Harry
-
->  {
->  	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
->  	enum amdgpu_transfer_function shaper_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
-> @@ -1147,6 +1151,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
->  				      struct dc_plane_state *dc_plane_state)
->  {
->  	struct amdgpu_device *adev = drm_to_adev(crtc->base.state->dev);
-> +	struct dc_color_caps *color_caps = NULL;
->  	bool has_crtc_cm_degamma;
->  	int ret;
->  
-> @@ -1156,6 +1161,9 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
->  		return ret;
->  	}
->  
-> +	if (dc_plane_state->ctx && dc_plane_state->ctx->dc)
-> +		color_caps = &dc_plane_state->ctx->dc->caps.color;
-> +
->  	/* Initially, we can just bypass the DGM block. */
->  	dc_plane_state->in_transfer_func->type = TF_TYPE_BYPASS;
->  	dc_plane_state->in_transfer_func->tf = TRANSFER_FUNCTION_LINEAR;
-> @@ -1163,7 +1171,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
->  	/* After, we start to update values according to color props */
->  	has_crtc_cm_degamma = (crtc->cm_has_degamma || crtc->cm_is_degamma_srgb);
->  
-> -	ret = __set_dm_plane_degamma(plane_state, dc_plane_state);
-> +	ret = __set_dm_plane_degamma(plane_state, dc_plane_state, color_caps);
->  	if (ret == -ENOMEM)
->  		return ret;
->  
-> @@ -1189,10 +1197,11 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
->  		 * linearize (implicit degamma) from sRGB/BT709 according to
->  		 * the input space.
->  		 */
-> -		ret = map_crtc_degamma_to_dc_plane(crtc, dc_plane_state);
-> +		ret = map_crtc_degamma_to_dc_plane(crtc, dc_plane_state, color_caps);
->  		if (ret)
->  			return ret;
->  	}
->  
-> -	return amdgpu_dm_plane_set_color_properties(plane_state, dc_plane_state);
-> +	return amdgpu_dm_plane_set_color_properties(plane_state,
-> +						    dc_plane_state, color_caps);
->  }
-
+> i.e.: 183670347b06 ("drm/i915: add trailing newlines to msgs")
+> https://cgit.freedesktop.org/drm-intel/commit/?h=3Ddrm-intel-next&id=3D18=
+3670347b060521920a81f84ff7f10e227ebe05
+>
+> Thanks for the patch,
+> Rodrigo.
+>
+> >
+> > Andi
