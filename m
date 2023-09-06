@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B3E0EB8FC7
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 12:49:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8BA5EB8FC7
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 12:49:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8F4310E62A;
-	Wed,  6 Sep 2023 12:49:14 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2077.outbound.protection.outlook.com [40.107.93.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86B3010E62A
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 12:49:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BE5E10E62D;
+	Wed,  6 Sep 2023 12:49:17 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20617.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::617])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DA4810E62C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 12:49:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cqZtDsoR6A9T7ExpAEr+Y0WMjKsc2iyhDhG/bdbpPtON0R9X67fMqrLp0mk2otNuwseNv8hf6LEZUmuCgYJlvotkh9t/oM9+CFbtec2063noet7AMeW/Di1oH1WNl2r9rRscqnKWUMkQ2wabn/WbAi7vB841n1Sa8ZDO3MLAoWY/u8VHh9VvDnpqQJ912Kn0I2ckmsGdU1m1xqa5CVh6yUXalW8OrrUVXVw6ulHa+Pn9a/YnNgnPK6pwdlJgqfmn/f0cmqaz6M8A0Nk0zWyHIvVH6YlFIiMV4LUYljs6deNvNL4BRwnGpyu2Tx5Hk4riPydN9L7e/wnBzmhmnIHUIQ==
+ b=bBFL1njESSVN6fx7Y6ICeTR+Fa/AQgW0FnK3JmtsrWYaPQYLuw2U0yMPc4RPurD5X5Or8/lRdOCQPdfkz7VWBIJ05IUT53dqICx71Sg/HpKD+GOnuicfwXMNDrqHo5q7195G1uIY9/zJ/kos4Pr8rR8cMt97dXquPzadhPsM0AdQ0vWjEvob/XxGC63wSEFWBq+ojgXb14OiJz7zAfhMv55w34pMCBS4RX/Lek/HNruxn0YpnQvPLRg1uDlY2ZlG6Itj1TG66+8q0XIPz7WpE/UR4ltYJdyDrwxOl7tO/VMcYToFEVnA9V6wDu0EuEl9fnRzT7uriuMMyn1DzWonow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7a1qSiT44w5DFYzgcobE2Jc0C7rxZ9WsplwRfhEzE1A=;
- b=ZDjlxZJM4uLSEX6LhZqSna1FoBJBGCM76ceSL/tRjKQVpeYUaBxxqXXii7E3m2LiAyFUPThIt6eUpM4jHbkTiSEOzhsqDC5AMzOr5DJgLD//WVk63ZVh5PohYfgw+jCMyYZQFyM/TWKoWB7HnI44c3+WXbbBxE6chQLXTih5B6Voqm3W3R/8tYShooMepb3RfAouKoEB0x3TgskF2jTwztScBhEtqCkhZ2VXGPaCkPpPXKh7jkgFhhu4CYsfBfrW8+2J1t+tPs2mFst7BEaq4DwJ5KYfebPZko1LO7n+FoF9BNck03/Vjgi/9bF/0aqCV3YwcE2k2xpVvDa6BAI4ZQ==
+ bh=cpj6nj/Eks4btAGRB/w4r5/AJD28gt9iW2mfXWmyaEw=;
+ b=Xy93YOT+bEGBMDfCaB7tOv0zqI+oAIEfQDqzDsMZaJux5KL5kFC4ooZSPH5SJztPuorJ2qCz8WM4qNdlRUAJdajiXR9qBOb8w3WnkoUCfzbEphQNjz4CI0HYf2Jbi0gQw/rtxvQyjWuekYHUf8Y3pHUTOaJRgsCj+i5/wBV1qjXqko+p0tkZRdR1i+1Y8lufBUSL2m/GgxQer2mKnF3nXQkzHhAEKnkEuyKsczmC3LKvwBEbwG13eiIyizwJMaXo/l5UKDZiTSevcWYUFEi/OBh44hoL84cBlzA1RNSJbVGfy8iwZ1BNU0NbJELh1eVHhC6hDrQYGjgvmi1eT73mkQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7a1qSiT44w5DFYzgcobE2Jc0C7rxZ9WsplwRfhEzE1A=;
- b=lnqr7BUuUS73sSytcTxAyT8BxKXIXFYXr5awS8D0IP9P+9C9otZhrh1NGmvGyeEzBXL/TkVjYDDYC89Ak6P8vlt1i1GObldnyU9+/uLdGj8rt/avKsb4LESxCQYIE8ShRptv7X36MVqrLassnNw9Evx4GQXGIZdQha/jig9eb8w=
-Received: from CYZPR14CA0047.namprd14.prod.outlook.com (2603:10b6:930:a0::29)
- by CH3PR12MB8401.namprd12.prod.outlook.com (2603:10b6:610:130::14)
+ bh=cpj6nj/Eks4btAGRB/w4r5/AJD28gt9iW2mfXWmyaEw=;
+ b=z1eKyo2tvShjjt1S862HBEK5yUb/It7LfzraQ7se6R5BwGd92vOPGeI4/MuvcrzCWHyUmJpdd97jGEAB80ChNNT7ZVTCKrbAaLnn8trPEU3DBm05bpYoFl3qP8g6UPFQTQ2345tDQ2BDR0X6Q4tUqhHntR7WEpm58eKxEmcZrdA=
+Received: from CYZPR14CA0025.namprd14.prod.outlook.com (2603:10b6:930:a0::27)
+ by BY5PR12MB4178.namprd12.prod.outlook.com (2603:10b6:a03:20e::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.33; Wed, 6 Sep
- 2023 12:49:09 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.36; Wed, 6 Sep
+ 2023 12:49:12 +0000
 Received: from CY4PEPF0000EDD4.namprd03.prod.outlook.com
- (2603:10b6:930:a0:cafe::45) by CYZPR14CA0047.outlook.office365.com
- (2603:10b6:930:a0::29) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:930:a0:cafe::27) by CYZPR14CA0025.outlook.office365.com
+ (2603:10b6:930:a0::27) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.36 via Frontend
- Transport; Wed, 6 Sep 2023 12:49:09 +0000
+ Transport; Wed, 6 Sep 2023 12:49:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000EDD4.mail.protection.outlook.com (10.167.241.208) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 12:49:09 +0000
+ 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 12:49:12 +0000
 Received: from stylon-EliteDesk.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 6 Sep
- 2023 07:49:03 -0500
+ 2023 07:49:07 -0500
 From: Stylon Wang <stylon.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 01/28] drm/amd/display: Blank phantom OTG before enabling
-Date: Wed, 6 Sep 2023 20:28:06 +0800
-Message-ID: <20230906124915.586250-2-stylon.wang@amd.com>
+Subject: [PATCH 02/28] drm/amd/display: Don't lock phantom pipe on disabling
+Date: Wed, 6 Sep 2023 20:28:07 +0800
+Message-ID: <20230906124915.586250-3-stylon.wang@amd.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230906124915.586250-1-stylon.wang@amd.com>
 References: <20230906124915.586250-1-stylon.wang@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD4:EE_|CH3PR12MB8401:EE_
-X-MS-Office365-Filtering-Correlation-Id: 43194699-26d0-4638-ef84-08dbaed7aa14
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD4:EE_|BY5PR12MB4178:EE_
+X-MS-Office365-Filtering-Correlation-Id: acf80afd-76b4-4808-04c1-08dbaed7abaf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sib0k+ZyqvqxDbU4DRLDgds7qHm8v6S2ijoJCbdjD+AIAxp0kjLlPjcexy6z0YUXg/EaHc3+LfhOGfxw/O/XWXzzMuxtCGLuit5AtD37n1a1tJ8/iSb4aC1wcToNtnJZkdqpWjUPFigWjwVLK65jpqOY7HeGCnSWGKUomB2sxEG6RxGJeQTjEpVXwU5l6jtkjAZnxTGkdLgiTLtGcicEIfvkq5JxBNerGfRJ4t1/yYPJ2KESGFoPfb1GUoB3aiir+SMujG6eOEnwlNBdnN9PJyweXRcEyB/+PZ3OZPLDTaO4zgPDvgfG+f1gJcqoAPMIf0OoE2BUSrA+0OeVEBYD7uJL/q3b8r87hb1ez1GFtCsvPjCt/xtzfIU2aztJABrxXttAWbGFqybIJRsppKmdI1nR86eJSO4P0qcEkkUcKNdFB07MpgYZ+fTQbMrkL4geLgnJ9OnLSHfRap6YsNqTiPFjNNfue9EOmyLn78k0THLtySos2E6A0ZEWVXg1051fvRAWW74gvTUO3Ueu5Z9F+w4c7Mjp79ZX1EJB8txUqit7P01K1gYrtg9XOci3N4Tw8C8IzVTF1Y2Y13NeNzmk9IQLjLrHnEj8OgKD+6F5loxBsdH9j5P4UWj1naqYIE3qYJi1h2l1ptmpE9j/w6eA9gx9p8anQoZdRLN2KCqo7rI4oky4yBxq4G4MYM0P+4l7NGOkEtg+9uZ/oDyqtTZo/+dUXO08Qn8BtlqoBPbjiDvmgocpezRlMt+KkjNy1329BCQ7ksPfxc/sVLiUo7MMQQ==
+X-Microsoft-Antispam-Message-Info: nF2GVpKkRyh382jjDPMto6+KLlf3hv2mmxUsqOTZagDxtXn6BAWODWGlJ6+BMNHp+YXa4tuY5FgG3z3WZmphNYxqBGDWYsZaxSuAIcMwTa96NXc2vJ3iiaURm02nDhjZbR0lu6TPNyZHjibNWOdkU0dJplN3SgMa+mwbEYvTr7YpnSR6KQZ+pvw48thRy+cQCW8jxgug/iTPkf6SKDRKFBnXr+6bUUMuyRa/T780B6QYzWsxlpQVtnXQuAn9TImZjMZXqhibMNJS72DltVi9hjC439b3eR1pPdo7isjsYh0c4u6huT2QhhMOH1Y3vFT7Qnxe+IIFjnkAzOQG4+3x1shNWrufS3CBnlesQ33YagdJX2oQNd1jSqfRCytkkIPfg4jE3la6vEGLDvQM0aoXTVgUh+1JnL/b7CC+JPnmz+HeINPb2ZSN9WyUX04U3NjKH7QV+aiddbUC71mSAvBkpL7eN/e7TX1S7GPbKwI1QJweOmjEys7Ip9yn26asgnLeeDPZiCS5RDupE70INxyljzMexm5K86OZep0+zkrtxHScuj7j/iz9TVp1xnkgoLOUUxXeT6JdzBxNE5x9TThArrfBvxH+o6Qy6Z08AGYSNL7IYFPJJAIa42fd913T/6H8NYU7YhjRaAJnzwdEV8R85yDQ2KtK5bKSGsoxWclB3vM8DK8h+Vn2SDH8D/R+Dnb+JY158KNRscJLdm8AG9MK8Cf57SrlGxEZfzemdmF7Td1exWIBnJrsMAkD9kU/EGoZ/YWnDlEJfA5+1VYb1OFK0N67aVsjn4IvbR6b3fhlHjtXe/p4WUh53Kpu/Im3efsp
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(39860400002)(346002)(136003)(396003)(376002)(1800799009)(451199024)(186009)(82310400011)(36840700001)(40470700004)(46966006)(5660300002)(8936002)(6916009)(36756003)(2906002)(54906003)(70206006)(70586007)(316002)(4326008)(8676002)(44832011)(41300700001)(40460700003)(36860700001)(7696005)(336012)(26005)(16526019)(1076003)(47076005)(40480700001)(426003)(478600001)(82740400003)(81166007)(356005)(2616005)(83380400001)(86362001)(36900700001);
+ SFS:(13230031)(4636009)(136003)(376002)(346002)(396003)(39860400002)(1800799009)(451199024)(82310400011)(186009)(40470700004)(46966006)(36840700001)(36860700001)(44832011)(54906003)(6916009)(316002)(2616005)(81166007)(82740400003)(1076003)(86362001)(70586007)(70206006)(2906002)(41300700001)(8676002)(4326008)(8936002)(47076005)(5660300002)(426003)(336012)(40480700001)(478600001)(356005)(16526019)(26005)(7696005)(36756003)(40460700003)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 12:49:09.6663 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43194699-26d0-4638-ef84-08dbaed7aa14
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 12:49:12.3539 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: acf80afd-76b4-4808-04c1-08dbaed7abaf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD4.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8401
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4178
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,215 +103,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
  Samson Tam <samson.tam@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>, wayne.lin@amd.com,
+ Aurabindo.Pillai@amd.com, Alvin Lee <alvin.lee2@amd.com>, wayne.lin@amd.com,
  Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Alvin Lee <alvin.lee2@amd.com>
 
 [Description]
-Before enabling the phantom OTG for an update we
-must enable DPG to avoid underflow.
+- When disabling a phantom pipe, we first enable the phantom
+  OTG so the double buffer update can successfully take place
+- However, want to avoid locking the phantom otherwise setting
+  DPG_EN=1 for the phantom pipe is blocked (without this we could
+  hit underflow due to phantom HUBP being blanked by default)
 
 Reviewed-by: Samson Tam <samson.tam@amd.com>
 Acked-by: Stylon Wang <stylon.wang@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 50 +------------------
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 10 +++-
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    | 46 +++++++++++++++++
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.h    |  5 ++
- .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |  1 +
- .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  5 ++
- 6 files changed, 68 insertions(+), 49 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 20a3b4c81d4b..dcedda85dcdb 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1070,53 +1070,6 @@ static void apply_ctx_interdependent_lock(struct dc *dc,
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 9834b75f1837..79befa17bb03 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -111,7 +111,8 @@ void dcn10_lock_all_pipes(struct dc *dc,
+ 		if (pipe_ctx->top_pipe ||
+ 		    !pipe_ctx->stream ||
+ 		    (!pipe_ctx->plane_state && !old_pipe_ctx->plane_state) ||
+-		    !tg->funcs->is_tg_enabled(tg))
++		    !tg->funcs->is_tg_enabled(tg) ||
++			pipe_ctx->stream->mall_stream_config.type == SUBVP_PHANTOM)
+ 			continue;
  
--static void phantom_pipe_blank(
--		struct dc *dc,
--		struct timing_generator *tg,
--		int width,
--		int height)
--{
--	struct dce_hwseq *hws = dc->hwseq;
--	enum dc_color_space color_space;
--	struct tg_color black_color = {0};
--	struct output_pixel_processor *opp = NULL;
--	uint32_t num_opps, opp_id_src0, opp_id_src1;
--	uint32_t otg_active_width, otg_active_height;
--	uint32_t i;
--
--	/* program opp dpg blank color */
--	color_space = COLOR_SPACE_SRGB;
--	color_space_to_black_color(dc, color_space, &black_color);
--
--	otg_active_width = width;
--	otg_active_height = height;
--
--	/* get the OPTC source */
--	tg->funcs->get_optc_source(tg, &num_opps, &opp_id_src0, &opp_id_src1);
--	ASSERT(opp_id_src0 < dc->res_pool->res_cap->num_opp);
--
--	for (i = 0; i < dc->res_pool->res_cap->num_opp; i++) {
--		if (dc->res_pool->opps[i] != NULL && dc->res_pool->opps[i]->inst == opp_id_src0) {
--			opp = dc->res_pool->opps[i];
--			break;
--		}
--	}
--
--	if (opp && opp->funcs->opp_set_disp_pattern_generator)
--		opp->funcs->opp_set_disp_pattern_generator(
--				opp,
--				CONTROLLER_DP_TEST_PATTERN_SOLID_COLOR,
--				CONTROLLER_DP_COLOR_SPACE_UDEFINED,
--				COLOR_DEPTH_UNDEFINED,
--				&black_color,
--				otg_active_width,
--				otg_active_height,
--				0);
--
--	if (tg->funcs->is_tg_enabled(tg))
--		hws->funcs.wait_for_blank_complete(opp);
--}
--
- static void dc_update_viusal_confirm_color(struct dc *dc, struct dc_state *context, struct pipe_ctx *pipe_ctx)
- {
- 	if (dc->ctx->dce_version >= DCN_VERSION_1_0) {
-@@ -1207,7 +1160,8 @@ static void disable_dangling_plane(struct dc *dc, struct dc_state *context)
- 
- 					main_pipe_width = old_stream->mall_stream_config.paired_stream->dst.width;
- 					main_pipe_height = old_stream->mall_stream_config.paired_stream->dst.height;
--					phantom_pipe_blank(dc, tg, main_pipe_width, main_pipe_height);
-+					if (dc->hwss.blank_phantom)
-+						dc->hwss.blank_phantom(dc, tg, main_pipe_width, main_pipe_height);
- 					tg->funcs->enable_crtc(tg);
- 				}
- 			}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index ad82f19fe36a..5ac85df158b9 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -1840,8 +1840,16 @@ void dcn20_program_front_end_for_ctx(
- 			dc->current_state->res_ctx.pipe_ctx[i].stream->mall_stream_config.type == SUBVP_PHANTOM) {
- 			struct timing_generator *tg = dc->current_state->res_ctx.pipe_ctx[i].stream_res.tg;
- 
--			if (tg->funcs->enable_crtc)
-+			if (tg->funcs->enable_crtc) {
-+				if (dc->hwss.blank_phantom) {
-+					int main_pipe_width, main_pipe_height;
-+
-+					main_pipe_width = dc->current_state->res_ctx.pipe_ctx[i].stream->mall_stream_config.paired_stream->dst.width;
-+					main_pipe_height = dc->current_state->res_ctx.pipe_ctx[i].stream->mall_stream_config.paired_stream->dst.height;
-+					dc->hwss.blank_phantom(dc, tg, main_pipe_width, main_pipe_height);
-+				}
- 				tg->funcs->enable_crtc(tg);
-+			}
- 		}
- 	}
- 	/* OTG blank before disabling all front ends */
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-index 680e7fa8d18a..cae5e1e68c86 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-@@ -1573,3 +1573,49 @@ void dcn32_init_blank(
- 	if (opp)
- 		hws->funcs.wait_for_blank_complete(opp);
- }
-+
-+void dcn32_blank_phantom(struct dc *dc,
-+		struct timing_generator *tg,
-+		int width,
-+		int height)
-+{
-+	struct dce_hwseq *hws = dc->hwseq;
-+	enum dc_color_space color_space;
-+	struct tg_color black_color = {0};
-+	struct output_pixel_processor *opp = NULL;
-+	uint32_t num_opps, opp_id_src0, opp_id_src1;
-+	uint32_t otg_active_width, otg_active_height;
-+	uint32_t i;
-+
-+	/* program opp dpg blank color */
-+	color_space = COLOR_SPACE_SRGB;
-+	color_space_to_black_color(dc, color_space, &black_color);
-+
-+	otg_active_width = width;
-+	otg_active_height = height;
-+
-+	/* get the OPTC source */
-+	tg->funcs->get_optc_source(tg, &num_opps, &opp_id_src0, &opp_id_src1);
-+	ASSERT(opp_id_src0 < dc->res_pool->res_cap->num_opp);
-+
-+	for (i = 0; i < dc->res_pool->res_cap->num_opp; i++) {
-+		if (dc->res_pool->opps[i] != NULL && dc->res_pool->opps[i]->inst == opp_id_src0) {
-+			opp = dc->res_pool->opps[i];
-+			break;
-+		}
-+	}
-+
-+	if (opp && opp->funcs->opp_set_disp_pattern_generator)
-+		opp->funcs->opp_set_disp_pattern_generator(
-+				opp,
-+				CONTROLLER_DP_TEST_PATTERN_SOLID_COLOR,
-+				CONTROLLER_DP_COLOR_SPACE_UDEFINED,
-+				COLOR_DEPTH_UNDEFINED,
-+				&black_color,
-+				otg_active_width,
-+				otg_active_height,
-+				0);
-+
-+	if (tg->funcs->is_tg_enabled(tg))
-+		hws->funcs.wait_for_blank_complete(opp);
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
-index 2d2628f31bed..616d5219119e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.h
-@@ -115,4 +115,9 @@ void dcn32_init_blank(
- 		struct dc *dc,
- 		struct timing_generator *tg);
- 
-+void dcn32_blank_phantom(struct dc *dc,
-+		struct timing_generator *tg,
-+		int width,
-+		int height);
-+
- #endif /* __DC_HWSS_DCN32_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
-index c7417147dff1..eb4227926006 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c
-@@ -115,6 +115,7 @@ static const struct hw_sequencer_funcs dcn32_funcs = {
- 	.update_phantom_vp_position = dcn32_update_phantom_vp_position,
- 	.update_dsc_pg = dcn32_update_dsc_pg,
- 	.apply_update_flags_for_phantom = dcn32_apply_update_flags_for_phantom,
-+	.blank_phantom = dcn32_blank_phantom,
- };
- 
- static const struct hwseq_private_funcs dcn32_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-index fbfcd29b1d73..1ccdb7359894 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-@@ -397,6 +397,11 @@ struct hw_sequencer_funcs {
- 	void (*z10_restore)(const struct dc *dc);
- 	void (*z10_save_init)(struct dc *dc);
- 
-+	void (*blank_phantom)(struct dc *dc,
-+			struct timing_generator *tg,
-+			int width,
-+			int height);
-+
- 	void (*update_visual_confirm_color)(struct dc *dc,
- 			struct pipe_ctx *pipe_ctx,
- 			int mpcc_id);
+ 		if (lock)
 -- 
 2.42.0
 
