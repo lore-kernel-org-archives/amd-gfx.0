@@ -4,89 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F076EE14A5
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 15:47:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1CA9EE14A0
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Sep 2023 16:01:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8622B10E6A4;
-	Wed,  6 Sep 2023 15:47:57 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2056.outbound.protection.outlook.com [40.107.243.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 871E710E6A4
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Sep 2023 15:47:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z84no8WUl14y73NHRjxiWN/k33n8HIxIMcmxzA3goumh7iQxbv4bVmOXeUvl+RqbeX+pMltgwpBUQLowPKPj9Chn99Iui8ILV/XkInfMWfT1zxZd1KwiVp1XhpE+t82HULmu5Z6KKSm4nXNmUe21LkgR2k+CvBV7ztRs693uxk9ytaAsT1skt6JDJIOGNGxaCTSbr/DqIl1Ju2CBx1gD9xfQjM34ZddxH6rZC9ww4+MydEqaqlUOJQa6BoJPQcGGYh+lFATx561azXWZYMH2l0kfx8DQcsFypeWynZnSOrXERPKhzeWqpn5sWGnVqeQ2KdqAAJNBxq16cfiYhF0eMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kCEzyxfgfzVYsfV170ZCgzIdmw9zedNw6k7h93Mt0Ow=;
- b=O05msPcGsmZUdGxz+IAR7uh8/kLgHatGfubgqRYPAXZPShCJDlCKj6bVA0DwnY8gn+00PvGhJI/LS5EVHYINhm9tBD89ZvIUhzimGP0aE98XENiZS7Ob/LavpimPJEb5uZTpeJ9S+QzKwhowqRXIyrG2MO/aqd9+lBZ3bcfWUkEuUD0sF/Yv3nD76bcu0Ed1MS+MYH8JfFihw/K8uu8zYwyMx6sKEjZPPhy6zZ4fmPONoqPoQ8tk8lItuMb81HRjRlsG5gp2kJqENqOKWsGSz0xMYGV5oGAbdgrTbrEe0nXGduwZF2/NHoBtNEldsr6F7zlhkSoF4wF63z3tcUd4wQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kCEzyxfgfzVYsfV170ZCgzIdmw9zedNw6k7h93Mt0Ow=;
- b=KddpjZZX0KAzP9sj6g3PTI1+1QvKmRDUEb07SQp1e4i6UJXrNVeJLlRUpf8ISInFLHn0NEbeNHESDrngiIvtPU5EvSC0pFMh4gEVHuP1cY7MlHHLvRwvkTEKyJsvPWEE7B2MOJRN88EQkkCz8PwC/juFwTl7n6ueUEd/Vvbw42Y=
-Received: from DS7PR05CA0015.namprd05.prod.outlook.com (2603:10b6:5:3b9::20)
- by DS0PR12MB8272.namprd12.prod.outlook.com (2603:10b6:8:fc::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6745.34; Wed, 6 Sep 2023 15:47:40 +0000
-Received: from DS1PEPF0001709D.namprd05.prod.outlook.com
- (2603:10b6:5:3b9:cafe::f1) by DS7PR05CA0015.outlook.office365.com
- (2603:10b6:5:3b9::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6768.25 via Frontend
- Transport; Wed, 6 Sep 2023 15:47:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0001709D.mail.protection.outlook.com (10.167.18.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6768.25 via Frontend Transport; Wed, 6 Sep 2023 15:47:40 +0000
-Received: from mukjoshi-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 6 Sep
- 2023 10:47:38 -0500
-From: Mukul Joshi <mukul.joshi@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 4/4] drm/amdgpu: Rename KGD_MAX_QUEUES to AMDGPU_MAX_QUEUES
-Date: Wed, 6 Sep 2023 11:44:29 -0400
-Message-ID: <20230906154429.216489-4-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20230906154429.216489-1-mukul.joshi@amd.com>
-References: <20230906154429.216489-1-mukul.joshi@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 494F910E6AD;
+	Wed,  6 Sep 2023 16:01:09 +0000 (UTC)
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 002D410E6A7;
+ Wed,  6 Sep 2023 16:01:05 +0000 (UTC)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-1cc61f514baso2299909fac.1; 
+ Wed, 06 Sep 2023 09:01:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1694016065; x=1694620865; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=X6LWx34t6RPAjjhmdGIBM9ahXBcms5DV7AzJj+GPzQA=;
+ b=LCOALADZCexz0ZRSTQWB57xLnn3JQN68o6kvyvntivnepN2PUlhdJNgb0iXpoZ85k3
+ dNQTRCzabFIBP7MfSBNnobpxZ7gucIbytbmV0dNXCRP3dRt5VHXk/wVg+tbcQJlfXHWi
+ WqVh7o/ASncKIemBXXHO91vFhX+bFSkOfTrV0R1ko706AaKhiE033dtYiSRJp/cvbd05
+ 1lmeNjOZGsI54LqLtr/jn2+ZGsh9Kytd9Dm6HEzoiAfX6eslkU9xbY6OKJ/vtTaeLPq2
+ 0t/Db/LDnqWBgXggUYygj+D1REDNbfvkFnDDxVb0Z2JzGfcSQ94cxYFA1QA8GQP5bv6/
+ hXxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1694016065; x=1694620865;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=X6LWx34t6RPAjjhmdGIBM9ahXBcms5DV7AzJj+GPzQA=;
+ b=OmdoeP09cLpNwtG+KBBjfU8VNicMH9kD9HYr2B8czYZpmkZBs95RqMmfaxavMk5qw7
+ VU3UV8cJedNCYHLXABOkc5K4X9k7QeK07USWAH3vHi1pIovFn8IadzW7liILB0A0jFgc
+ vA4uIRgeAiSs8eCzh18reKs+g1G6wuJ19jfYRSc3gDWuywy9tT9jZz0EdAGnzhyrg0CM
+ B1GQY/At6KyOjEGrEQzfI+/ziKWh2cCQqK39UTyP5Xi0gVShder9VZowwtCkQwqHdBzA
+ /Oe4g/a5a7PpcWBBeh/FBbMkIO8rwP3YABN7uzZ2i3bE2CwXdHYp/CYgjKX1BlrGxy37
+ Z/VQ==
+X-Gm-Message-State: AOJu0YwAsTdtFVIUQkCT8SUY+oobUe+Gs14LdSeBnkeZP/IKCShqSbLR
+ aVOIvBYqPD/UuihfOgCFmPsd5yraqMNv/oMvHhykyTD+b4Y=
+X-Google-Smtp-Source: AGHT+IF+5jWUuhtjXrUwCDU2vqm+oD8PcmuCjMCceh985Ms+NPGpiBmtRG8mj/pojUh/Gya7OusMLGeBbVHAX3QI5GA=
+X-Received: by 2002:a05:6870:d79f:b0:1bc:26d:6664 with SMTP id
+ bd31-20020a056870d79f00b001bc026d6664mr17177800oab.16.1694016065112; Wed, 06
+ Sep 2023 09:01:05 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001709D:EE_|DS0PR12MB8272:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb7b969e-6f4e-4df9-f1fa-08dbaef09a35
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AqASKidcDVm4AnfKQye15Yn9YuOQp3xRlhdXRela4S+/m4x64mH2BsOXwa4UzjsFpWAWY7cOFPljtZNGBEkFQIMJkx+VhLdkUUDsEaNmmj7gr6znqymqJElZwu53Ve6nnZfbzIWQF6ljk5hjMtoijUOqoAKq40QdHKRqUzEEWZmZPmBUglAIinYuKfznbhvRxkZzJs2xq5/PncCI8RaRitn33PEaRAxRIsZ+RORDAT2lEemZWyhqTEmQ3GiDSYD+0gc9GCxfCFKV0up3DYCwFStMOUyPaHrgFCCiFbkr1EwvIDTD+ZefKrKpB7n2m19RKfHiq3jaSZ2eiiicUtaOmgLgm1sLvYn0Vp4jYB7a4moVTvx4cruw/448jV8Y85KmQLvwz5LVE8kcpOwF/GKA4tt/9wA+yFat4V/yWnKTS3bR5WGmv3Cjp7esMVskB1OnsDoU77CHotQT1uNMKQOkhoTTVgvoIlBb4o0puyQlW8IEUW+6xvI2/u1FPvwweJbwMbBXQQ2JiRA8gR6Wr4sN68nB5uXFvCevj/b8K2vMZAS0j5gsDiYbxNkAWXN/qxbLecp5eAVVU97r5eIjD3bZTa9hD4RApwOOFyh2HprGrsPLdFkKhZwBuNUuvARofW/9WQRqq4biMrROKbzt7t/o0BJi54zuVyfCYQJCzVIXXncWpRl/KN6IEiQeBV1C2QtEjODAc2enw7m6HTIFfVH6wJRcxl5Vu8uCSmdeidDd/YOTp/4izGzzKzuSUPGM2MY214H4p1k61e5XxvPM6RTmvw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(4636009)(346002)(376002)(136003)(396003)(39860400002)(1800799009)(82310400011)(186009)(451199024)(40470700004)(36840700001)(46966006)(36860700001)(40480700001)(86362001)(36756003)(82740400003)(40460700003)(81166007)(356005)(478600001)(2906002)(7696005)(6666004)(8676002)(8936002)(4326008)(44832011)(5660300002)(41300700001)(54906003)(6916009)(316002)(47076005)(70586007)(83380400001)(70206006)(1076003)(16526019)(26005)(426003)(2616005)(336012)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2023 15:47:40.4730 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb7b969e-6f4e-4df9-f1fa-08dbaef09a35
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709D.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8272
+References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
+ <20230904195724.633404-4-sui.jingfeng@linux.dev>
+ <d3e6a9ce-1c7a-8e44-3127-413cd471a8e9@amd.com>
+ <40f32814-ca87-6e29-0e10-4b4463a2920d@loongson.cn>
+In-Reply-To: <40f32814-ca87-6e29-0e10-4b4463a2920d@loongson.cn>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 6 Sep 2023 12:00:53 -0400
+Message-ID: <CADnq5_OYPha5cGF+tSj4fvSmf-6tObzNSe2__nG-SbjX6v_2vw@mail.gmail.com>
+Subject: Re: [RFC,
+ drm-misc-next v4 3/9] drm/radeon: Implement .be_primary() callback
+To: suijingfeng <suijingfeng@loongson.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,120 +71,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mukul Joshi <mukul.joshi@amd.com>, felix.kuehling@amd.com
+Cc: Sui Jingfeng <sui.jingfeng@linux.dev>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rename KGD_MAX_QUEUES to AMDGPU_MAX_QUEUES to conform with
-the naming convention followed in amdgpu_gfx.h. No functional
-change.
+On Tue, Sep 5, 2023 at 1:25=E2=80=AFPM suijingfeng <suijingfeng@loongson.cn=
+> wrote:
+>
+> Hi,
+>
+>
+> On 2023/9/5 13:50, Christian K=C3=B6nig wrote:
+> > Am 04.09.23 um 21:57 schrieb Sui Jingfeng:
+> >> From: Sui Jingfeng <suijingfeng@loongson.cn>
+> >>
+> >> On a machine with multiple GPUs, a Linux user has no control over
+> >> which one
+> >> is primary at boot time.
+> >
+> > Question is why is that useful? Should we give users the ability to
+> > control that?
+> >
+> > I don't see an use case for this.
+> >
+>
+> On a specific machine with multiple GPUs mounted, only the
+> primary graphics get POST-ed (initialized) by the firmware.
+> Therefore the DRM drivers for the rest video cards have to
+> work without the prerequisite setups done by firmware, This
+> is called as POST.
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c            | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c     | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h               | 6 +++---
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 4 ++--
- drivers/gpu/drm/amd/include/kgd_kfd_interface.h       | 2 +-
- 5 files changed, 10 insertions(+), 10 deletions(-)
+I think that should be regarded as a bug in the driver that should be
+fixed and this would not help with that case.  If a driver can't
+initialize a device without aid from the pre-OS environment, that
+should be fixed in the driver.  This solution also doesn't fix which
+device is selected as the primary by the pre-OS environment.  That can
+only be fixed in the pre-OS environment code.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 25d5fda5b243..26ff5f8d9795 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -164,7 +164,7 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
- 		 */
- 		bitmap_complement(gpu_resources.cp_queue_bitmap,
- 				  adev->gfx.mec_bitmap[0].queue_bitmap,
--				  KGD_MAX_QUEUES);
-+				  AMDGPU_MAX_QUEUES);
- 
- 		/* According to linux/bitmap.h we shouldn't use bitmap_clear if
- 		 * nbits is not compile time constant
-@@ -172,7 +172,7 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
- 		last_valid_bit = 1 /* only first MEC can have compute queues */
- 				* adev->gfx.mec.num_pipe_per_mec
- 				* adev->gfx.mec.num_queue_per_pipe;
--		for (i = last_valid_bit; i < KGD_MAX_QUEUES; ++i)
-+		for (i = last_valid_bit; i < AMDGPU_MAX_QUEUES; ++i)
- 			clear_bit(i, gpu_resources.cp_queue_bitmap);
- 
- 		amdgpu_doorbell_get_kfd_info(adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 3c45a188b701..04b8c7dacd30 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -1037,7 +1037,7 @@ void kgd_gfx_v9_get_cu_occupancy(struct amdgpu_device *adev, int pasid,
- 	int pasid_tmp;
- 	int max_queue_cnt;
- 	int vmid_wave_cnt = 0;
--	DECLARE_BITMAP(cp_queue_bitmap, KGD_MAX_QUEUES);
-+	DECLARE_BITMAP(cp_queue_bitmap, AMDGPU_MAX_QUEUES);
- 
- 	lock_spi_csq_mutexes(adev);
- 	soc15_grbm_select(adev, 1, 0, 0, 0, inst);
-@@ -1047,7 +1047,7 @@ void kgd_gfx_v9_get_cu_occupancy(struct amdgpu_device *adev, int pasid,
- 	 * to get number of waves in flight
- 	 */
- 	bitmap_complement(cp_queue_bitmap, adev->gfx.mec_bitmap[0].queue_bitmap,
--			  KGD_MAX_QUEUES);
-+			  AMDGPU_MAX_QUEUES);
- 	max_queue_cnt = adev->gfx.mec.num_pipe_per_mec *
- 			adev->gfx.mec.num_queue_per_pipe;
- 	sh_cnt = adev->gfx.config.max_sh_per_se;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 0ca95c4d4bfb..42ac6d1bf9ca 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -43,10 +43,10 @@
- #define AMDGPU_GFX_LBPW_DISABLED_MODE		0x00000008L
- 
- #define AMDGPU_MAX_GC_INSTANCES		8
--#define KGD_MAX_QUEUES			128
-+#define AMDGPU_MAX_QUEUES		128
- 
--#define AMDGPU_MAX_GFX_QUEUES KGD_MAX_QUEUES
--#define AMDGPU_MAX_COMPUTE_QUEUES KGD_MAX_QUEUES
-+#define AMDGPU_MAX_GFX_QUEUES AMDGPU_MAX_QUEUES
-+#define AMDGPU_MAX_COMPUTE_QUEUES AMDGPU_MAX_QUEUES
- 
- enum amdgpu_gfx_pipe_priority {
- 	AMDGPU_GFX_PIPE_PRIO_NORMAL = AMDGPU_RING_PRIO_1,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 4170e3d32630..6d07a5dd2648 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -92,7 +92,7 @@ static bool is_pipe_enabled(struct device_queue_manager *dqm, int mec, int pipe)
- unsigned int get_cp_queues_num(struct device_queue_manager *dqm)
- {
- 	return bitmap_weight(dqm->dev->kfd->shared_resources.cp_queue_bitmap,
--				KGD_MAX_QUEUES);
-+				AMDGPU_MAX_QUEUES);
- }
- 
- unsigned int get_queues_per_pipe(struct device_queue_manager *dqm)
-@@ -1576,7 +1576,7 @@ static int set_sched_resources(struct device_queue_manager *dqm)
- 	res.vmid_mask = dqm->dev->compute_vmid_bitmap;
- 
- 	res.queue_mask = 0;
--	for (i = 0; i < KGD_MAX_QUEUES; ++i) {
-+	for (i = 0; i < AMDGPU_MAX_QUEUES; ++i) {
- 		mec = (i / dqm->dev->kfd->shared_resources.num_queue_per_pipe)
- 			/ dqm->dev->kfd->shared_resources.num_pipe_per_mec;
- 
-diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-index 3b5a56585c4b..255adc30f802 100644
---- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-@@ -123,7 +123,7 @@ struct kgd2kfd_shared_resources {
- 	uint32_t num_queue_per_pipe;
- 
- 	/* Bit n == 1 means Queue n is available for KFD */
--	DECLARE_BITMAP(cp_queue_bitmap, KGD_MAX_QUEUES);
-+	DECLARE_BITMAP(cp_queue_bitmap, AMDGPU_MAX_QUEUES);
- 
- 	/* SDMA doorbell assignments (SOC15 and later chips only). Only
- 	 * specific doorbells are routed to each SDMA engine. Others
--- 
-2.35.1
+>
+> One of the use cases is to test if a specific DRM driver
+> would works properly, under the circumstance of not being
+> POST-ed, The ast drm driver is the first one which refused
+> to work if not being POST-ed by the firmware.
+>
+> Before apply this series, I was unable make drm/ast as the
+> primary video card easily. The problem is that on a multiple
+> video card configuration, the monitor connected with my
+> AST2400 card not light up. While confusing, a naive programmer
+> may suspect the PRIME is not working.
+>
+> After applied this series and passing ast.modeset=3D10 on the
+> kernel cmd line, I found that the monitor connected with my
+> ast2400 video card still black, It doesn't display and It
+> doesn't show image to me.
 
+The problem with adding modeset=3D10 is that it only helps when you have
+one GPU driven by that driver in the system.  If you have multiple
+GPUs driven by that driver, which one would that apply to?  E.g., what
+if you have 2 AMD GPUs in the system.
+
+>
+> While in the process of study drm/ast, I know that drm/ast
+> driver has the POST code shipped, See the ast_post_gpu() function.
+> Then, I was wondering why this function doesn't works.
+>
+> After a short-time (hasty) debugging, I found that the ast_post_gpu()
+> function didn't get run. Because it have something to do with the
+> ast->config_mode. Without thinking too much, I hardcoded the
+> ast->config_mode as ast_use_p2a, the key point is to force the
+> ast_post_gpu() function to run.
+>
+>
+> ```
+>
+> --- a/drivers/gpu/drm/ast/ast_main.c
+> +++ b/drivers/gpu/drm/ast/ast_main.c
+> @@ -132,6 +132,8 @@ static int ast_device_config_init(struct ast_device
+> *ast)
+>                  }
+>          }
+>
+> +       ast->config_mode =3D ast_use_p2a;
+> +
+>          switch (ast->config_mode) {
+>          case ast_use_defaults:
+>                  drm_info(dev, "Using default configuration\n");
+>
+> ```
+>
+> Then, the monitor light up, it display the Ubuntu greeter to me. Therefor=
+e
+> my patch is useful, at least for the Linux drm driver tester and develope=
+r.
+> It allow programmers to test the specific part of a specific driver witho=
+ut
+> changing a line of the source code and without the need of sudo authority=
+.
+>
+> It improves the efficiency of the testing and patch verification. I know
+> the PrimaryGPU option of Xorg conf, but this approach will remember the
+> setup have been made, you need modify it with root authority each time
+> you want to switch the primary. But on the process of rapid developing
+> and/or testing for multiple video drivers, with only one computer hardwar=
+e
+> resource available. What we really want is a one-shot command, as provide=
+d
+> by this series.  So, this is the first use case.
+>
+>
+> The second use case is that sometime the firmware is not reliable.
+> While there are thousands of ARM64, PowerPC and Mips servers machine,
+> Most of them don't have a good UEFI firmware support. I haven't test the
+> drm/amdgpu and drm/radeon at my ARM64 server yet. Because this ARM64
+> server always use the platform(BMC) integrated display controller as prim=
+ary.
+> The UEFI firmware of it does not provide options menu to tune.
+> So, for the first time, the discrete card because useless, despite more p=
+owerful.
+> I will take time to carry on the testing, so I will be able to tell more
+> in the future.
+>
+>
+> Even on X86, when select the PEG as primary on the UEFI BIOS menu.
+> There is no way to tell the bios which one of my three
+> discrete video be the primary. Not to mention some old UEFI
+> firmware, which doesn't provide a setting at all.
+> While the benefit of my approach is the flexibility.
+> Yes the i915, amdgpu and radeon are good quality,
+> but there may have programmers want to try nouveau.
+>
+>
+> The third use case is that VGAARB is also not reliable, It will
+> select a wrong device as primary. Especially on Arm64, Loongarch
+> and mips arch etc. And the X server will use this wrong device
+> as primary and completely crash there. Either because of lacking
+> a driver or the driver has a bug which can not bear the graphic
+> environment up. VGAARB is firmware dependent.
+> My patch provide a temporary method to rescue.
+>
+
+It sounds like we need a general purpose "primary" selector.  I think
+it's sort of orthogonal to VGA.  VGAARB is just for managing VGA
+routing on PCI.  It's not really directly related to which GPU you
+want to be the primary when the OS loads.  Maybe some new kernel
+parameter, E.g., primary_display=3D<string> where the string would be
+the specific device you wanted to be the primary,  E.g., you could use
+the PCI BDF on PCI devices, primary_display=3D0000:0a:00.0 or some other
+device string for non-PCI devices.
+
+Alex
